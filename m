@@ -2,50 +2,50 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA40FE32A
-	for <lists+dm-devel@lfdr.de>; Mon, 29 Apr 2019 14:58:14 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B0CEE331
+	for <lists+dm-devel@lfdr.de>; Mon, 29 Apr 2019 14:58:27 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 85E6636893;
-	Mon, 29 Apr 2019 12:58:12 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id C379B305B16F;
+	Mon, 29 Apr 2019 12:58:25 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 54B0C177AC;
-	Mon, 29 Apr 2019 12:58:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9C17A707BC;
+	Mon, 29 Apr 2019 12:58:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D62883FB13;
-	Mon, 29 Apr 2019 12:58:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 387C13FB14;
+	Mon, 29 Apr 2019 12:58:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x3TCw2aJ023680 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 29 Apr 2019 08:58:02 -0400
+	id x3TCw51u023695 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 29 Apr 2019 08:58:05 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1762B69705; Mon, 29 Apr 2019 12:58:02 +0000 (UTC)
+	id 9F15B1779A; Mon, 29 Apr 2019 12:58:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from leontynka.twibright.com (unknown [10.40.205.178])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CBFE817257;
-	Mon, 29 Apr 2019 12:58:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0BB531779E;
+	Mon, 29 Apr 2019 12:58:03 +0000 (UTC)
 Received: from debian-a64.vm ([192.168.208.2])
 	by leontynka.twibright.com with smtp (Exim 4.89)
 	(envelope-from <mpatocka@redhat.com>)
-	id 1hL5r5-00081S-8R; Mon, 29 Apr 2019 14:58:00 +0200
+	id 1hL5r6-00081V-Gi; Mon, 29 Apr 2019 14:58:01 +0200
 Received: by debian-a64.vm (sSMTP sendmail emulation);
-	Mon, 29 Apr 2019 14:57:47 +0200
-Message-Id: <20190429125747.302611800@debian-a64.vm>
+	Mon, 29 Apr 2019 14:57:48 +0200
+Message-Id: <20190429125748.619296680@debian-a64.vm>
 User-Agent: quilt/0.65
-Date: Mon, 29 Apr 2019 14:57:25 +0200
+Date: Mon, 29 Apr 2019 14:57:26 +0200
 From: Mikulas Patocka <mpatocka@redhat.com>
 To: Mike Snitzer <msnitzer@redhat.com>, Alasdair G Kergon <agk@redhat.com>,
 	Heinz Mauelshagen <heinzm@redhat.com>, Milan Broz <mbroz@redhat.com>,
 	Ondrej Kozina <okozina@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline; filename=dm-integrity-bitmap-reboot.patch
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Content-Disposition: inline; filename=dm-integrity-bitmap-sync-mode.patch
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Mikulas Patocka <mpatocka@redhat.com>
-Subject: [dm-devel] [PATCH 09/10] dm-integrity: handle machine reboot in
-	bitmap mode
+Subject: [dm-devel] [PATCH 10/10] dm-integrity: implement synchronous mode
+	for reboot handling
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -61,76 +61,121 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.30]); Mon, 29 Apr 2019 12:58:13 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]); Mon, 29 Apr 2019 12:58:26 +0000 (UTC)
 
-When we are in bitmap mode, we need to clear the bitmap when we are
-rebooting. This patch adds the reboot hook.
+Unfortunatelly, there may be bios coming even after the reboot notifier
+was called. We don't want these bios to make the bitmap dirty again.
+
+This patch implements a synchronous mode - when a bio is about to be
+terminated, we clean the bitmap and terminate the bio after the clean
+operation succeeds. This obviously slows down bio processing, but it makes
+sure that when all bios are finished, the bitmap will be clean.
 
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
 ---
- drivers/md/dm-integrity.c |   24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ drivers/md/dm-integrity.c |   43 ++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 38 insertions(+), 5 deletions(-)
 
 Index: linux-2.6/drivers/md/dm-integrity.c
 ===================================================================
---- linux-2.6.orig/drivers/md/dm-integrity.c	2019-04-27 10:28:35.000000000 +0200
-+++ linux-2.6/drivers/md/dm-integrity.c	2019-04-27 10:28:35.000000000 +0200
-@@ -15,6 +15,7 @@
- #include <linux/rbtree.h>
- #include <linux/delay.h>
- #include <linux/random.h>
-+#include <linux/reboot.h>
- #include <crypto/hash.h>
- #include <crypto/skcipher.h>
- #include <linux/async_tx.h>
-@@ -257,6 +258,8 @@ struct dm_integrity_c {
- 	struct alg_spec journal_mac_alg;
+--- linux-2.6.orig/drivers/md/dm-integrity.c	2019-04-27 10:28:37.000000000 +0200
++++ linux-2.6/drivers/md/dm-integrity.c	2019-04-27 10:28:37.000000000 +0200
+@@ -171,6 +171,8 @@ struct dm_integrity_c {
+ 	struct page_list *may_write_bitmap;
+ 	struct bitmap_block_status *bbs;
+ 	unsigned bitmap_flush_interval;
++	int synchronous_mode;
++	struct bio_list synchronous_bios;
+ 	struct delayed_work bitmap_flush_work;
  
- 	atomic64_t number_of_mismatches;
-+
-+	struct notifier_block reboot_notifier;
- };
+ 	struct crypto_skcipher *journal_crypt;
+@@ -1382,6 +1384,14 @@ static void do_endio(struct dm_integrity
+ 	int r = dm_integrity_failed(ic);
+ 	if (unlikely(r) && !bio->bi_status)
+ 		bio->bi_status = errno_to_blk_status(r);
++	if (unlikely(ic->synchronous_mode) && bio_op(bio) == REQ_OP_WRITE) {
++		unsigned long flags;
++		spin_lock_irqsave(&ic->endio_wait.lock, flags);
++		bio_list_add(&ic->synchronous_bios, bio);
++		queue_delayed_work(ic->commit_wq, &ic->bitmap_flush_work, 0);
++		spin_unlock_irqrestore(&ic->endio_wait.lock, flags);
++		return;
++	}
+ 	bio_endio(bio);
+ }
  
- struct dm_integrity_range {
-@@ -2717,11 +2720,27 @@ clear_journal:
+@@ -2494,6 +2504,7 @@ static void bitmap_flush_work(struct wor
+ 	struct dm_integrity_c *ic = container_of(work, struct dm_integrity_c, bitmap_flush_work.work);
+ 	struct dm_integrity_range range;
+ 	unsigned long limit;
++	struct bio *bio;
+ 
+ 	dm_integrity_flush_buffers(ic);
+ 
+@@ -2514,13 +2525,20 @@ static void bitmap_flush_work(struct wor
+ 			>> (ic->sb->log2_sectors_per_block + ic->log2_blocks_per_bitmap_bit)
+ 			<< (ic->sb->log2_sectors_per_block + ic->log2_blocks_per_bitmap_bit);
+ 	}
+-	DEBUG_print("zeroing journal\n");
++	/*DEBUG_print("zeroing journal\n");*/
+ 	block_bitmap_op(ic, ic->journal, 0, limit, BITMAP_OP_CLEAR);
+ 	block_bitmap_op(ic, ic->may_write_bitmap, 0, limit, BITMAP_OP_CLEAR);
+ 
+ 	rw_journal_sectors(ic, REQ_OP_WRITE, REQ_FUA | REQ_SYNC, 0, ic->n_bitmap_blocks * (BITMAP_BLOCK_SIZE >> SECTOR_SHIFT), NULL);
+ 
+-	remove_range(ic, &range);
++	spin_lock_irq(&ic->endio_wait.lock);
++	remove_range_unlocked(ic, &range);
++	while (unlikely((bio = bio_list_pop(&ic->synchronous_bios)) != NULL)) {
++		bio_endio(bio);
++		spin_unlock_irq(&ic->endio_wait.lock);
++		spin_lock_irq(&ic->endio_wait.lock);
++	}
++	spin_unlock_irq(&ic->endio_wait.lock);
+ }
+ 
+ 
+@@ -2720,16 +2738,27 @@ clear_journal:
  		init_journal_node(&ic->journal_tree[i]);
  }
  
+-static int dm_integrity_reboot(struct notifier_block *n, unsigned long code, void *x)
++static void dm_integrity_enter_synchronous_mode(struct dm_integrity_c *ic)
+ {
+-	struct dm_integrity_c *ic = container_of(n, struct dm_integrity_c, reboot_notifier);
++	DEBUG_print("dm_integrity_enter_synchronous_mode\n");
+ 
+ 	if (ic->mode == 'B') {
+-		DEBUG_print("dm_integrity_reboot\n");
++		ic->bitmap_flush_interval = msecs_to_jiffies(10) + 1;
++		ic->synchronous_mode = 1;
++
+ 		cancel_delayed_work_sync(&ic->bitmap_flush_work);
+ 		queue_delayed_work(ic->commit_wq, &ic->bitmap_flush_work, 0);
+ 		flush_workqueue(ic->commit_wq);
+ 	}
++}
++
 +static int dm_integrity_reboot(struct notifier_block *n, unsigned long code, void *x)
 +{
 +	struct dm_integrity_c *ic = container_of(n, struct dm_integrity_c, reboot_notifier);
 +
-+	if (ic->mode == 'B') {
-+		DEBUG_print("dm_integrity_reboot\n");
-+		cancel_delayed_work_sync(&ic->bitmap_flush_work);
-+		queue_delayed_work(ic->commit_wq, &ic->bitmap_flush_work, 0);
-+		flush_workqueue(ic->commit_wq);
-+	}
++	DEBUG_print("dm_integrity_reboot\n");
 +
-+	return NOTIFY_DONE;
-+}
-+
- static void dm_integrity_postsuspend(struct dm_target *ti)
- {
- 	struct dm_integrity_c *ic = (struct dm_integrity_c *)ti->private;
- 	int r;
++	dm_integrity_enter_synchronous_mode(ic);
  
-+	WARN_ON(unregister_reboot_notifier(&ic->reboot_notifier));
+ 	return NOTIFY_DONE;
+ }
+@@ -2853,6 +2882,10 @@ static void dm_integrity_resume(struct d
+ 	ic->reboot_notifier.next = NULL;
+ 	ic->reboot_notifier.priority = INT_MAX - 1;	/* be notified after md and before hardware drivers */
+ 	WARN_ON(register_reboot_notifier(&ic->reboot_notifier));
 +
- 	del_timer_sync(&ic->autocommit_timer);
- 
- 	WRITE_ONCE(ic->suspending, 1);
-@@ -2829,6 +2848,11 @@ static void dm_integrity_resume(struct d
- 			recalc_write_super(ic);
- 		}
- 	}
-+
-+	ic->reboot_notifier.notifier_call = dm_integrity_reboot;
-+	ic->reboot_notifier.next = NULL;
-+	ic->reboot_notifier.priority = INT_MAX - 1;	/* be notified after md and before hardware drivers */
-+	WARN_ON(register_reboot_notifier(&ic->reboot_notifier));
++#if 0
++	dm_integrity_enter_synchronous_mode(ic);
++#endif
  }
  
  static void dm_integrity_status(struct dm_target *ti, status_type_t type,
