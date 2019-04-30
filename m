@@ -2,62 +2,90 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FD3010291
-	for <lists+dm-devel@lfdr.de>; Wed,  1 May 2019 00:42:25 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+	by mail.lfdr.de (Postfix) with ESMTPS id B7D2010326
+	for <lists+dm-devel@lfdr.de>; Wed,  1 May 2019 01:11:40 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 23AE813A82;
-	Tue, 30 Apr 2019 22:42:23 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 8AC9BC058CA4;
+	Tue, 30 Apr 2019 23:11:37 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1426181741;
-	Tue, 30 Apr 2019 22:42:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BDCAE18979;
+	Tue, 30 Apr 2019 23:11:36 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B9D833FB11;
-	Tue, 30 Apr 2019 22:42:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 805373FA46;
+	Tue, 30 Apr 2019 23:11:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x3UMgBB3018070 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 30 Apr 2019 18:42:11 -0400
+	id x3UNBP00023946 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 30 Apr 2019 19:11:25 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 911056F543; Tue, 30 Apr 2019 22:42:11 +0000 (UTC)
+	id 18DF5629BF; Tue, 30 Apr 2019 23:11:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx06.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.30])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3025E6B8FA;
-	Tue, 30 Apr 2019 22:42:09 +0000 (UTC)
-Received: from smtp2.provo.novell.com (smtp2.provo.novell.com [137.65.250.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 9F5873680B;
-	Tue, 30 Apr 2019 22:42:07 +0000 (UTC)
-Received: from apollon.suse.de.de (prva10-snat226-2.provo.novell.com
-	[137.65.226.36])
-	by smtp2.provo.novell.com with ESMTP (TLS encrypted);
-	Tue, 30 Apr 2019 16:41:55 -0600
-From: Martin Wilck <mwilck@suse.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed,  1 May 2019 00:41:38 +0200
-Message-Id: <20190430224138.22391-1-mwilck@suse.com>
-MIME-Version: 1.0
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.30]); Tue, 30 Apr 2019 22:42:08 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.30]);
-	Tue, 30 Apr 2019 22:42:08 +0000 (UTC) for IP:'137.65.250.81'
-	DOMAIN:'smtp2.provo.novell.com' HELO:'smtp2.provo.novell.com'
-	FROM:'mwilck@suse.com' RCPT:''
-X-RedHat-Spam-Score: -2.301  (RCVD_IN_DNSWL_MED,
-	SPF_PASS) 137.65.250.81 smtp2.provo.novell.com
-	137.65.250.81 smtp2.provo.novell.com <mwilck@suse.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.30
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Received: from mx1.redhat.com (ext-mx11.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.40])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1399A62964
+	for <dm-devel@redhat.com>; Tue, 30 Apr 2019 23:11:22 +0000 (UTC)
+Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com
+	[209.85.214.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 53EAF3084242
+	for <dm-devel@redhat.com>; Tue, 30 Apr 2019 23:11:22 +0000 (UTC)
+Received: by mail-pl1-f195.google.com with SMTP id x15so7435157pln.9
+	for <dm-devel@redhat.com>; Tue, 30 Apr 2019 16:11:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:message-id:subject:from:to:cc:in-reply-to
+	:references:date:mime-version:content-transfer-encoding;
+	bh=FXARXwM4QgylrliYg9gnUX5NvhFipcGymsRDeHVQDJI=;
+	b=VH9gy8xp+gv2fw6xCXEyxWlkyVXQ8CtvxMYSTn7RxJgXG4d9UFcNqN8VDgCW7NGv+B
+	bcfZI0Eb1Yhr8+w+tY6SGxjgtqJD2WgY/xBUEdyBfV4nDnpmaWuqW4EA/y6Rpxu6JtKR
+	qMZw9SkPaDThmhoPtoW7eLawuxDqAK8SEUHZG3PGCCc1b4fTy8SiYZuTIqsBS6GI8xIv
+	Fnzab9bCppb8sPQJ2ykXGPw+tys0IjusMnL9lwKzS+vw1R818SaWBUgVC2j43kkKmeU0
+	TCfRc+3TmFxFWnAKugzwH6beuokeuHCS7/Sjsfz/2Xk1Msr5bldINoI81jBTTRLdRLaH
+	2CJw==
+X-Gm-Message-State: APjAAAVIrtAzXYxmYAhJ7UxzZeuAfIjLL5e8zTMIVCZwCczZr6RQt4fx
+	LITnR/gDdHk+QLYCXiWZZVk=
+X-Google-Smtp-Source: APXvYqys1BucDtRUXPE4Fmk0HX7m44pS+2KC6COLjJjMw17jqNuDtWeHvo+lbF0SCeqblFlEPlmj1g==
+X-Received: by 2002:a17:902:b715:: with SMTP id
+	d21mr73635351pls.103.1556665881547; 
+	Tue, 30 Apr 2019 16:11:21 -0700 (PDT)
+Received: from ?IPv6:2620:15c:2cd:203:5cdc:422c:7b28:ebb5?
+	([2620:15c:2cd:203:5cdc:422c:7b28:ebb5])
+	by smtp.gmail.com with ESMTPSA id
+	f63sm62903342pfc.180.2019.04.30.16.11.19
+	(version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+	Tue, 30 Apr 2019 16:11:20 -0700 (PDT)
+Message-ID: <1556664925.161891.183.camel@acm.org>
+From: Bart Van Assche <bvanassche@acm.org>
+To: "Guilherme G. Piccoli" <gpiccoli@canonical.com>,
+	linux-block@vger.kernel.org, linux-raid@vger.kernel.org
+In-Reply-To: <20190430223722.20845-1-gpiccoli@canonical.com>
+References: <20190430223722.20845-1-gpiccoli@canonical.com>
+Date: Tue, 30 Apr 2019 15:55:25 -0700
+Mime-Version: 1.0
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.40]);
+	Tue, 30 Apr 2019 23:11:22 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]);
+	Tue, 30 Apr 2019 23:11:22 +0000 (UTC) for IP:'209.85.214.195'
+	DOMAIN:'mail-pl1-f195.google.com'
+	HELO:'mail-pl1-f195.google.com' FROM:'bart.vanassche@gmail.com'
+	RCPT:''
+X-RedHat-Spam-Score: 0.118  (FREEMAIL_FORGED_FROMDOMAIN, FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL,
+	SPF_PASS) 209.85.214.195 mail-pl1-f195.google.com 209.85.214.195
+	mail-pl1-f195.google.com <bart.vanassche@gmail.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.40
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2] multipathd: fix client response for socket
-	activation
+Cc: axboe@kernel.dk, kernel@gpiccoli.net, stable@vger.kernel.org,
+	dm-devel@redhat.com, jay.vosburgh@canonical.com, gavin.guo@canonical.com
+Subject: Re: [dm-devel] [PATCH 1/2] block: Fix a NULL pointer dereference in
+ generic_make_request()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -69,119 +97,50 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============4376574408094216326=="
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]); Tue, 30 Apr 2019 22:42:23 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]); Tue, 30 Apr 2019 23:11:39 +0000 (UTC)
 
-When a client wakes up multipathd through the socket, it is likely that the
-ux listener responds to client requests before multipathd startup has
-completed. This means that client commands such as "show paths" or "show
-topology" return success with an empty result, which is quite confusing.
+--===============4376574408094216326==
+Content-Type: text/plain; charset="UTF-7"
+Content-Transfer-Encoding: 7bit
 
-Therefore, in the ux listener, don't start answering client requests while
-the daemon is configuring. Rather, wait for some other daemon state. We
-can't wait hard, because the ux listener must also handle signals. So just
-wait for some short time, and poll again.
+On Tue, 2019-04-30 at 19:37 -0300, Guilherme G. Piccoli wrote:
++AD4 Commit 37f9579f4c31 (+ACI-blk-mq: Avoid that submitting a bio concurrently
++AD4 with device removal triggers a crash+ACI) introduced a NULL pointer
++AD4 dereference in generic+AF8-make+AF8-request(). The patch sets q to NULL and
++AD4 enter+AF8-succeeded to false+ADs right after, there's an 'if (enter+AF8-succeeded)'
++AD4 which is not taken, and then the 'else' will dereference q in
++AD4 blk+AF8-queue+AF8-dying(q).
++AD4 
++AD4 This patch just moves the 'q +AD0 NULL' to a point in which it won't trigger
++AD4 the oops, although the semantics of this NULLification remains untouched.
++AD4 
++AD4 A simple test case/reproducer is as follows:
++AD4 a) Build kernel v5.1-rc7 with CONFIG+AF8-BLK+AF8-CGROUP+AD0-n.
++AD4 
++AD4 b) Create a raid0 md array with 2 NVMe devices as members, and mount it
++AD4 with an ext4 filesystem.
++AD4 
++AD4 c) Run the following oneliner (supposing the raid0 is mounted in /mnt):
++AD4 (dd of+AD0-/mnt/tmp if+AD0-/dev/zero bs+AD0-1M count+AD0-999 +ACY)+ADs sleep 0.3+ADs
++AD4 echo 1 +AD4 /sys/block/nvme0n1/device/device/remove
++AD4 (whereas nvme0n1 is the 2nd array member)
 
-This has the side effect that command responses for commands that don't
-require full initialization, such as "show wildcards", "show config" or
-"shutdown", are also delayed until the configuration stage has completed.
-But that seems to be a relatively cheap price to pay for getting the
-expected response for other commands. To avoid this side effect, the client
-handling would need to be rewritten such that the uxlsnr thread would have
-a means to "know" which commands require the configuration stage to
-complete and which do not.
+Reviewed-by: Bart Van Assche +ADw-bvanassche+AEA-acm.org+AD4
 
-v2: Removed an unrelated, unnecessary hunk in child().
 
-Signed-off-by: Martin Wilck <mwilck@suse.com>
----
- multipathd/main.c   | 27 +++++++++++++++++++++++++++
- multipathd/main.h   |  2 ++
- multipathd/uxlsnr.c | 12 ++++++++++++
- 3 files changed, 41 insertions(+)
 
-diff --git a/multipathd/main.c b/multipathd/main.c
-index f203d77f..ad818320 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -220,6 +220,33 @@ static void config_cleanup(void *arg)
- 	pthread_mutex_unlock(&config_lock);
- }
- 
-+/*
-+ * If the current status is @oldstate, wait for at most @ms milliseconds
-+ * for the state to change, and return the new state, which may still be
-+ * @oldstate.
-+ */
-+enum daemon_status wait_for_state_change_if(enum daemon_status oldstate,
-+					    unsigned long ms)
-+{
-+	enum daemon_status st;
-+	struct timespec tmo;
-+
-+	if (oldstate == DAEMON_SHUTDOWN)
-+		return DAEMON_SHUTDOWN;
-+
-+	pthread_mutex_lock(&config_lock);
-+	pthread_cleanup_push(config_cleanup, NULL);
-+	st = running_state;
-+	if (st == oldstate && clock_gettime(CLOCK_MONOTONIC, &tmo) == 0) {
-+		tmo.tv_nsec += ms * 1000 * 1000;
-+		normalize_timespec(&tmo);
-+		(void)pthread_cond_timedwait(&config_cond, &config_lock, &tmo);
-+		st = running_state;
-+	}
-+	pthread_cleanup_pop(1);
-+	return st;
-+}
-+
- /* must be called with config_lock held */
- static void __post_config_state(enum daemon_status state)
- {
-diff --git a/multipathd/main.h b/multipathd/main.h
-index e5c1398f..7bb8463f 100644
---- a/multipathd/main.h
-+++ b/multipathd/main.h
-@@ -20,6 +20,8 @@ extern int uxsock_timeout;
- 
- void exit_daemon(void);
- const char * daemon_status(void);
-+enum daemon_status wait_for_state_change_if(enum daemon_status oldstate,
-+					    unsigned long ms);
- int need_to_delay_reconfig (struct vectors *);
- int reconfigure (struct vectors *);
- int ev_add_path (struct path *, struct vectors *, int);
-diff --git a/multipathd/uxlsnr.c b/multipathd/uxlsnr.c
-index 773bc878..04cbb7c7 100644
---- a/multipathd/uxlsnr.c
-+++ b/multipathd/uxlsnr.c
-@@ -249,6 +249,18 @@ void * uxsock_listen(uxsock_trigger_fn uxsock_trigger, long ux_sock,
- 			continue;
- 		}
- 
-+		/*
-+		 * Client connection. We shouldn't answer while we're
-+		 * configuring - nothing may be configured yet.
-+		 * But we can't wait forever either, because this thread
-+		 * must handle signals. So wait a short while only.
-+		 */
-+		if (wait_for_state_change_if(DAEMON_CONFIGURE, 10)
-+		    == DAEMON_CONFIGURE) {
-+			handle_signals(false);
-+			continue;
-+		}
-+
- 		/* see if a client wants to speak to us */
- 		for (i = 1; i < num_clients + 1; i++) {
- 			if (polls[i].revents & POLLIN) {
--- 
-2.21.0
+--===============4376574408094216326==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
+--===============4376574408094216326==--
