@@ -2,72 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 014C211A27
-	for <lists+dm-devel@lfdr.de>; Thu,  2 May 2019 15:28:07 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+	by mail.lfdr.de (Postfix) with ESMTPS id DC8DB1228B
+	for <lists+dm-devel@lfdr.de>; Thu,  2 May 2019 21:24:42 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 838045F79C;
-	Thu,  2 May 2019 13:28:02 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5847D608A5;
-	Thu,  2 May 2019 13:28:00 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id EEDCD7F746;
+	Thu,  2 May 2019 19:24:38 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 006235C1B4;
+	Thu,  2 May 2019 19:24:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F347B18089CA;
-	Thu,  2 May 2019 13:27:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 26C6C41F3D;
+	Thu,  2 May 2019 19:24:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x42DRNYH006411 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 2 May 2019 09:27:23 -0400
+	id x42JOFhk017635 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 2 May 2019 15:24:15 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E5C15608C9; Thu,  2 May 2019 13:27:23 +0000 (UTC)
+	id A443C19C58; Thu,  2 May 2019 19:24:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx07.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.31])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DF748608E8
-	for <dm-devel@redhat.com>; Thu,  2 May 2019 13:27:18 +0000 (UTC)
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
-	[209.85.128.71])
+Received: from mx1.redhat.com (ext-mx02.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.26])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9ED7719C4F
+	for <dm-devel@redhat.com>; Thu,  2 May 2019 19:24:13 +0000 (UTC)
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+	[209.85.128.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id DA78CC06647C
-	for <dm-devel@redhat.com>; Thu,  2 May 2019 13:27:17 +0000 (UTC)
-Received: by mail-wm1-f71.google.com with SMTP id f187so1967932wme.5
-	for <dm-devel@redhat.com>; Thu, 02 May 2019 06:27:17 -0700 (PDT)
+	by mx1.redhat.com (Postfix) with ESMTPS id 81412859FF
+	for <dm-devel@redhat.com>; Thu,  2 May 2019 19:24:12 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id q15so4392016wmf.3
+	for <dm-devel@redhat.com>; Thu, 02 May 2019 12:24:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=M4A8XwpjEWfOAWIujAxyFlnP2hspj+YW8Pinn8arfT8=;
+	b=aoTJW6q/x/l5zHd8R8ZawSgUBXI5kYrLmiVV16Oid7DuScANZF79GW5GJcKIv4SADK
+	ygfn+WEhw7X6ByAuUJeveo72mOvDqUAjM6E3v03FLBIctmOi0xauCUqoCSOFrp5oHxCB
+	d4op4VkA8DNVV9tYuAKKECyTsd+jw8j4TPoR+M9MqnvFhAT3cxaTgkW/4Vj0SGkoRrSd
+	WG/ci0RMdRh5NoNXjxiY9sSMLgyV3UO7fxE+sQPGV2rNsBIvzgvIGBGNyEL8h4xgBDMT
+	AO7AzHR7dBPsDH24JZh/LkCvqDAwzYhasBk33ctB0I9I9SetqDA8j/Lr3bVk8tnfOpL7
+	Ra6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=klk9BfNLobZFzvvv3RWonkuC3y07XDsJxgsitF+PBMI=;
-	b=XfYqdzsTYmQntL2P3mnmfmRNU5lENLznwta37b2ex/ixRK/ksFQxF5+3SD7CfeBBcS
-	i1cwk21OsLlz9CVNQ6Rq9aJ5YXIb8vhpE5PcZAqWnwdjHO7eDFquY+7Ql74IWGjPLb6W
-	Co0QvkNm+/NERCw7ZBr5sgEy8Dra8VOQvkVGTmjqo/M12bhbzH3c85UaqM9w0yy/FgTz
-	z8R1MJMzuvOCvDNIEhMtsyJ0E2TZTkJ4gG+xv+84wqciXkY6KW5XY6mjKTA42PK7nqf5
-	dyOeUfuK/VdpbKyHKUSJLAlt1+1ejcgRyizOEdsmPgFGboUphc1exdc9tJXZYlgwLxyN
-	6JYA==
-X-Gm-Message-State: APjAAAW5W2pnJhn3vRItLn2m6TpQmlKXULL7FoR7zpxwRsVuAp/dnxek
-	f9zxkUzVNBv6C0rbuWVhebPwB/mtGcX4mqVR56/bkdnLOp22VvkohzpYNNJpH49SE3dVqKWTPMz
-	tdAIA8BT+Et2lfOSL/X+ONww2P8Hrrt8=
-X-Received: by 2002:a5d:548d:: with SMTP id h13mr2948856wrv.218.1556803636393; 
-	Thu, 02 May 2019 06:27:16 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqzwqgHiTGnc/CUv5ctBzIs+Lutqt2xj3BHihx/LSigv+LRUxs2dNE20e+3GgBpSacsfbpEzd2l4Oe6+XZAb8TE=
-X-Received: by 2002:a5d:548d:: with SMTP id h13mr2948846wrv.218.1556803636210; 
-	Thu, 02 May 2019 06:27:16 -0700 (PDT)
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=M4A8XwpjEWfOAWIujAxyFlnP2hspj+YW8Pinn8arfT8=;
+	b=lE58w750lpzbQN+ZXa18ccRPS8GEwv4+RZVb90dsZsE7oLal24BHh2ARqIEJdTZs3y
+	//egKGnHb9441Z6pI/HrI5HIRRLGFt9P2wkFFG79YDErpGII7bbqWye9sBwMguiqLOmr
+	PlOu8EfMbRfwbJWYnsPKYz8QWTtJFSW4Vn+eofDPOuB5Z911Dg36Eou1YxWHvCBnCFCa
+	9TgPr/B50LfFq6jS5MCRzPSQzLcLVvRQL99yD+h7+PYYW9E2WnLl3bKtstE9N0PVrvNR
+	tYiaT9rk7SXlbOByPjQEmJTZh8tB+ROcqI/+gs4G3GyZOE+zVa/3UV2IXKiSU0F+pbMH
+	2Q1Q==
+X-Gm-Message-State: APjAAAUr2Qv2aj7d6rY1MHvZQCVwvPGQoKR4xLzFj3IzRVqk21wYn8gW
+	H+UQkVsCitgvb9wbcD5MbEcw8Jw=
+X-Google-Smtp-Source: APXvYqxtxExSjHKfN5C08GaVIIftPDbLuC9qDBAA681sX3DiKPzEewjcnWA6FUNuG/WRf9JSvwxqBg==
+X-Received: by 2002:a7b:c309:: with SMTP id k9mr3785471wmj.45.1556825050069;
+	Thu, 02 May 2019 12:24:10 -0700 (PDT)
+Received: from localhost (101.red-83-33-153.dynamicip.rima-tde.net.
+	[83.33.153.101])
+	by smtp.gmail.com with ESMTPSA id z9sm52451wma.39.2019.05.02.12.24.09
+	(version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+	Thu, 02 May 2019 12:24:09 -0700 (PDT)
+From: Xose Vazquez Perez <xose.vazquez@gmail.com>
+To: 
+Date: Thu,  2 May 2019 21:24:08 +0200
+Message-Id: <20190502192408.31187-1-xose.vazquez@gmail.com>
 MIME-Version: 1.0
-References: <20190501125717.5695-1-colin.king@canonical.com>
-In-Reply-To: <20190501125717.5695-1-colin.king@canonical.com>
-From: Bryan Gurney <bgurney@redhat.com>
-Date: Thu, 2 May 2019 09:27:05 -0400
-Message-ID: <CAHhmqcTRVWBNnynaAJ7mbtke-MCiBma-6z_=bYrFzh0ubky-Fw@mail.gmail.com>
-To: Colin King <colin.king@canonical.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Patchwork-Bot: notify
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.26]);
+	Thu, 02 May 2019 19:24:12 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]);
+	Thu, 02 May 2019 19:24:12 +0000 (UTC) for IP:'209.85.128.68'
+	DOMAIN:'mail-wm1-f68.google.com' HELO:'mail-wm1-f68.google.com'
+	FROM:'xose.vazquez@gmail.com' RCPT:''
+X-RedHat-Spam-Score: -0.111  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2,
+	SPF_PASS) 209.85.128.68 mail-wm1-f68.google.com 209.85.128.68
+	mail-wm1-f68.google.com <xose.vazquez@gmail.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.26
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, kernel-janitors@vger.kernel.org,
-	Mike Snitzer <snitzer@redhat.com>,
-	Alasdair Kergon <agk@redhat.com>, linux-kernel@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH][next] dm: remove redundant unsigned
- comparison to less than zero
+Cc: DM-DEVEL ML <dm-devel@redhat.com>,
+	Xose Vazquez Perez <xose.vazquez@gmail.com>
+Subject: [dm-devel] [PATCH] multipath-tools: document missing multipath
+	flags in help output
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,50 +105,80 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]); Thu, 02 May 2019 13:28:05 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Thu, 02 May 2019 19:24:41 +0000 (UTC)
 
-On Wed, May 1, 2019 at 8:58 AM Colin King <colin.king@canonical.com> wrote:
->
-> From: Colin Ian King <colin.king@canonical.com>
->
-> Variable block is an unsigned long long hence the less than zero
-> comparison is always false, hence it is redundant and can be removed.
->
-> Addresses-Coverity: ("Unsigned compared against 0")
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
-> ---
->  drivers/md/dm-dust.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/md/dm-dust.c b/drivers/md/dm-dust.c
-> index 178587bdc626..e739092bfc65 100644
-> --- a/drivers/md/dm-dust.c
-> +++ b/drivers/md/dm-dust.c
-> @@ -411,7 +411,7 @@ static int dust_message(struct dm_target *ti, unsigned int argc, char **argv,
->
->                 block = tmp;
->                 sector_div(size, dd->sect_per_block);
-> -               if (block > size || block < 0) {
-> +               if (block > size) {
->                         DMERR("selected block value out of range");
->                         return result;
->                 }
-> --
-> 2.20.1
->
+Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
+Cc: DM-DEVEL ML <dm-devel@redhat.com>
+Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
+---
+ multipath/main.c | 35 ++++++++++++++++++++++-------------
+ 1 file changed, 22 insertions(+), 13 deletions(-)
 
-Thanks.
-
-There was already a check before that to ensure that the argument
-feeding this variable is an unsigned long long; if it isn't, it will
-fail with EINVAL:
-
-# dmsetup message -- dust1 0 queryblock -1
-device-mapper: message ioctl on dust1  failed: Invalid argument
-Command failed
-
-Reviewed-by: Bryan Gurney <bgurney@redhat.com>
+diff --git a/multipath/main.c b/multipath/main.c
+index 008e3d3..252ade7 100644
+--- a/multipath/main.c
++++ b/multipath/main.c
+@@ -133,11 +133,15 @@ usage (char * progname)
+ {
+ 	fprintf (stderr, VERSION_STRING);
+ 	fprintf (stderr, "Usage:\n");
+-	fprintf (stderr, "  %s [-a|-c|-w|-W] [-d] [-r] [-i] [-v lvl] [-p pol] [-b fil] [-q] [dev]\n", progname);
+-	fprintf (stderr, "  %s -l|-ll|-f [-v lvl] [-b fil] [-R num] [dev]\n", progname);
+-	fprintf (stderr, "  %s -F [-v lvl] [-R num]\n", progname);
+-	fprintf (stderr, "  %s [-t|-T]\n", progname);
+-	fprintf (stderr, "  %s -h\n", progname);
++	fprintf (stderr, "  %s [-v level] [-B|-d|-i|-q|-r] [-b file] [-p policy] [device]\n", progname);
++	fprintf (stderr, "  %s [-v level] [-R retries] -f device\n", progname);
++	fprintf (stderr, "  %s [-v level] [-R retries] -F\n", progname);
++	fprintf (stderr, "  %s [-v level] [-l|-ll] [device]\n", progname);
++	fprintf (stderr, "  %s [-v level] [-a|-w] device\n", progname);
++	fprintf (stderr, "  %s [-v level] -W\n", progname);
++	fprintf (stderr, "  %s [-v level] [-i] [-c|-C] device\n", progname);
++	fprintf (stderr, "  %s [-v level] [-i] [-u|-U]\n", progname);
++	fprintf (stderr, "  %s [-h|-t|-T]\n", progname);
+ 	fprintf (stderr,
+ 		"\n"
+ 		"Where:\n"
+@@ -159,23 +163,28 @@ usage (char * progname)
+ 		"  -b fil  bindings file location\n"
+ 		"  -w      remove a device from the wwids file\n"
+ 		"  -W      reset the wwids file include only the current devices\n"
+-		"  -p pol  force all maps to specified path grouping policy :\n"
++		"  -R num  number of times to retry removes of in-use devices\n"
++		"  -u      check if the device specified in the program environment should be a\n"
++		"          path in a multipath device\n"
++		"  -U      check if the device specified in the program environment is a\n"
++		"          multipath device with usable paths, see -C flag\n"
++		"  -p pol  force all maps to specified path grouping policy:\n"
+ 		"          . failover            one path per priority group\n"
+ 		"          . multibus            all paths in one priority group\n"
+ 		"          . group_by_serial     one priority group per serial\n"
+ 		"          . group_by_prio       one priority group per priority lvl\n"
+ 		"          . group_by_node_name  one priority group per target node\n"
+-		"  -v lvl  verbosity level\n"
++		"  -v lvl  verbosity level:\n"
+ 		"          . 0 no output\n"
+ 		"          . 1 print created devmap names only\n"
+ 		"          . 2 default verbosity\n"
+ 		"          . 3 print debug information\n"
+-		"  -R num  number of times to retry removes of in-use devices\n"
+-		"  dev     action limited to:\n"
+-		"          . multipath named 'dev' (ex: mpath0) or\n"
+-		"          . multipath whose wwid is 'dev' (ex: 60051..)\n"
+-		"          . multipath including the path named 'dev' (ex: /dev/sda)\n"
+-		"          . multipath including the path with maj:min 'dev' (ex: 8:0)\n"
++		"  device  action limited to:\n"
++		"          . multipath named 'device' (ex: mpath0)\n"
++		"          . multipath whose wwid is 'device' (ex: 60051...)\n"
++		"          . multipath including the path named 'device' (ex: /dev/sda or\n"
++		"            /dev/dm-0)\n"
++		"          . multipath including the path with maj:min 'device' (ex: 8:0)\n"
+ 		);
+ 
+ }
+-- 
+2.21.0
 
 --
 dm-devel mailing list
