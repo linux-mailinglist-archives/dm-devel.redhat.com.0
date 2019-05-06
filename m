@@ -2,87 +2,118 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E8E015F99
-	for <lists+dm-devel@lfdr.de>; Tue,  7 May 2019 10:42:39 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 39AA515F9B
+	for <lists+dm-devel@lfdr.de>; Tue,  7 May 2019 10:42:40 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 0CE5A30821FF;
-	Tue,  7 May 2019 08:42:36 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 09C58C057F32;
+	Tue,  7 May 2019 08:42:37 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A24E95D9E1;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8893661B71;
 	Tue,  7 May 2019 08:42:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0CAEA18089CA;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0CB9118089CB;
 	Tue,  7 May 2019 08:42:24 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x46GpCUq022074 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 6 May 2019 12:51:12 -0400
+	id x46ImDkx010787 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 6 May 2019 14:48:13 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8446A6085B; Mon,  6 May 2019 16:51:12 +0000 (UTC)
+	id 98E75194A5; Mon,  6 May 2019 18:48:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx13.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.42])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6268260857;
-	Mon,  6 May 2019 16:51:08 +0000 (UTC)
-Received: from mail-qt1-f193.google.com (mail-qt1-f193.google.com
-	[209.85.160.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.redhat.com (ext-mx20.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.49])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 910E618506
+	for <dm-devel@redhat.com>; Mon,  6 May 2019 18:48:11 +0000 (UTC)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+	[91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 1969F3086227;
-	Mon,  6 May 2019 16:51:07 +0000 (UTC)
-Received: by mail-qt1-f193.google.com with SMTP id f24so5082615qtk.11;
-	Mon, 06 May 2019 09:51:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=GIhzL1cw5MneYYR1EQW+ThAGljCkXhVHNDwUfQXFyo4=;
-	b=XZ7HXSIsNo69QtJ5jHpPZ75ljYTcPnDgKDPz21kmeaw/B1JTzvLN+1Qbsdnl3sD+4b
-	Yxs3e4OrpuJ0UShp8mQHhiHj3Q0dt2qwenr5zTaJHwu5qA1Y2lgjq4QNmbshYqjymvsw
-	r3KxsMK+QQAdj1e4UIuiWyhenendNOyvrGwMlQbJzOAZn9RimZFNGAprD3d+FbDAhp+2
-	kF9V/S25ORFhxQa9oEK68cJgfPT6wcGGB3qdM9grCSAwMs+CoG6tD+ScMSp0NtMzhPXG
-	GgXBbYG3zwiHFNIlq9GucbIBi8cvklL3abzbD/VSl9jtkQt+zIDuRUtrLKOCm+oGfd3E
-	MqfQ==
+	by mx1.redhat.com (Postfix) with ESMTPS id 1E583309B152
+	for <dm-devel@redhat.com>; Mon,  6 May 2019 18:48:10 +0000 (UTC)
+Received: from mail-qt1-f197.google.com ([209.85.160.197])
+	by youngberry.canonical.com with esmtps
+	(TLS1.0:RSA_AES_128_CBC_SHA1:16) (Exim 4.76)
+	(envelope-from <gpiccoli@canonical.com>) id 1hNiem-0007H6-Ig
+	for dm-devel@redhat.com; Mon, 06 May 2019 18:48:08 +0000
+Received: by mail-qt1-f197.google.com with SMTP id f4so10665826qtm.18
+	for <dm-devel@redhat.com>; Mon, 06 May 2019 11:48:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=GIhzL1cw5MneYYR1EQW+ThAGljCkXhVHNDwUfQXFyo4=;
-	b=bUNiSrOnW7jti4hISQEPWlF7fQeZBM9B4MUxf6an2ZRaVtJ1BH7k8BrvehZqXufzwe
-	iQxpF5V4TtqL5wt7BlZgMaJWz6EK+N+fkrWI0IB4PvaDbYLLE2jOGNqM6t1r/4Qd15JV
-	PKeUmWK9OmEy8InTqpDP3TH05llUV02BhBGMadmeylGFM4af+/n7D4fIlJoHwXqsB2ao
-	zLv2GC5zj4lHEelF/451Si8+5EZBzE7+0oC8Hktnyq8r5W/gMUN/9FeFbFUIXk6FVL3P
-	R6/Au8zagoxgDkFneBYhfysczSbgrCRlTgMneir28tk6CCx7itBtXCKbkNEpfaix8+6n
-	frTw==
-X-Gm-Message-State: APjAAAWfa1kWzw7F2/qcRD77gDg+75MOCOzZ1VoiZWNKUEP9iC2eO4rj
-	1RyGJzgJcRZATq9zqxfKrGfMErEBIo77YwR+iFYf1g==
-X-Google-Smtp-Source: APXvYqx/8sLYz9E3hw9/ZbdNldT9fuk82NXH6iaLHuikdyjkBZl+mwGqSoe187gvHcvsSa01UUHveUJ/BoKZjBmgjNo=
-X-Received: by 2002:a0c:ba99:: with SMTP id x25mr22156674qvf.212.1557161466306;
-	Mon, 06 May 2019 09:51:06 -0700 (PDT)
-MIME-Version: 1.0
+	h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
+	:message-id:date:user-agent:mime-version:in-reply-to
+	:content-language:content-transfer-encoding;
+	bh=bC2THTg10tW16ub7PNyNptaheYbyDqPTCbofTdADo6U=;
+	b=trc7Cg1pVee5L0xiIuPRC8jg3fTGq2T9qDQ/NovLMRy8lvjSexLXL/6U6lW5pBF360
+	FL1AKzaE74F7IzI3IJr0TNkuGV+DNF4xXch3d4tTpT/5IxX1cZDhK8q4ga/XAcsYRyqq
+	fHDW8rSalH5/Y7z2Hi5HjkUwPULzd8WgjCqTmXonJGx/+DeM1EAvSGKA7wHG0cx2eEeN
+	mpJ/QwUXq/hCVJikAhoMPTX+5fhdEGfqqMgqNv3QBEJvTEPkPta6GUUeB7//x3vbBMy8
+	QCSWAS08YlsmMcUPQG46sWv0bYYwxWrs1KKHoX/6RVYvmO8A12RJ6+nCwZQkNwDNNI3w
+	/7Eg==
+X-Gm-Message-State: APjAAAVB977qYH0UxNo5Pd4dNBvWeMPfsxe+iGqkMznLF/9AT8G1Ktca
+	ANqCmWVveliOHLT479HToU7T7JwYjIGyoovKyxCNs55jZnkWqier7L4RTYZ8QH5yRWhCTppZe6G
+	6pZongnWM2q5Q9R2yNW63tjaTqS5kvw==
+X-Received: by 2002:ac8:1c39:: with SMTP id a54mr20851831qtk.344.1557168487498;
+	Mon, 06 May 2019 11:48:07 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqwli31XV/EPuqTTwm6MSINbZHcbpJYoivTjqAbSmdTKZRc/DelL2WjDxPfeSm6BWH7j+Norfw==
+X-Received: by 2002:ac8:1c39:: with SMTP id a54mr20851815qtk.344.1557168487296;
+	Mon, 06 May 2019 11:48:07 -0700 (PDT)
+Received: from [192.168.0.239] ([177.183.163.179])
+	by smtp.gmail.com with ESMTPSA id
+	j123sm6316420qkf.23.2019.05.06.11.48.02
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Mon, 06 May 2019 11:48:06 -0700 (PDT)
+To: Song Liu <liu.song.a23@gmail.com>
 References: <20190430223722.20845-1-gpiccoli@canonical.com>
 	<20190430223722.20845-2-gpiccoli@canonical.com>
-In-Reply-To: <20190430223722.20845-2-gpiccoli@canonical.com>
-From: Song Liu <liu.song.a23@gmail.com>
-Date: Mon, 6 May 2019 12:50:55 -0400
-Message-ID: <CAPhsuW4SeUhNOJJkEf9wcLjbbc9qX0=C8zqbyCtC7Q8fdL91hw@mail.gmail.com>
-To: "Guilherme G. Piccoli" <gpiccoli@canonical.com>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.42]);
-	Mon, 06 May 2019 16:51:07 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]);
-	Mon, 06 May 2019 16:51:07 +0000 (UTC) for IP:'209.85.160.193'
-	DOMAIN:'mail-qt1-f193.google.com'
-	HELO:'mail-qt1-f193.google.com' FROM:'liu.song.a23@gmail.com'
+	<CAPhsuW4SeUhNOJJkEf9wcLjbbc9qX0=C8zqbyCtC7Q8fdL91hw@mail.gmail.com>
+From: "Guilherme G. Piccoli" <gpiccoli@canonical.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=gpiccoli@canonical.com; prefer-encrypt=mutual; keydata=
+	mQENBFpVBxcBCADPNKmu2iNKLepiv8+Ssx7+fVR8lrL7cvakMNFPXsXk+f0Bgq9NazNKWJIn
+	Qxpa1iEWTZcLS8ikjatHMECJJqWlt2YcjU5MGbH1mZh+bT3RxrJRhxONz5e5YILyNp7jX+Vh
+	30rhj3J0vdrlIhPS8/bAt5tvTb3ceWEic9mWZMsosPavsKVcLIO6iZFlzXVu2WJ9cov8eQM/
+	irIgzvmFEcRyiQ4K+XUhuA0ccGwgvoJv4/GWVPJFHfMX9+dat0Ev8HQEbN/mko/bUS4Wprdv
+	7HR5tP9efSLucnsVzay0O6niZ61e5c97oUa9bdqHyApkCnGgKCpg7OZqLMM9Y3EcdMIJABEB
+	AAG0LUd1aWxoZXJtZSBHLiBQaWNjb2xpIDxncGljY29saUBjYW5vbmljYWwuY29tPokBNwQT
+	AQgAIQUCWmClvQIbAwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRDOR5EF9K/7Gza3B/9d
+	5yczvEwvlh6ksYq+juyuElLvNwMFuyMPsvMfP38UslU8S3lf+ETukN1S8XVdeq9yscwtsRW/
+	4YoUwHinJGRovqy8gFlm3SAtjfdqysgJqUJwBmOtcsHkmvFXJmPPGVoH9rMCUr9s6VDPox8f
+	q2W5M7XE9YpsfchS/0fMn+DenhQpV3W6pbLtuDvH/81GKrhxO8whSEkByZbbc+mqRhUSTdN3
+	iMpRL0sULKPVYbVMbQEAnfJJ1LDkPqlTikAgt3peP7AaSpGs1e3pFzSEEW1VD2jIUmmDku0D
+	LmTHRl4t9KpbU/H2/OPZkrm7809QovJGRAxjLLPcYOAP7DUeltveuQENBFpVBxcBCADbxD6J
+	aNw/KgiSsbx5Sv8nNqO1ObTjhDR1wJw+02Bar9DGuFvx5/qs3ArSZkl8qX0X9Vhptk8rYnkn
+	pfcrtPBYLoux8zmrGPA5vRgK2ItvSc0WN31YR/6nqnMfeC4CumFa/yLl26uzHJa5RYYQ47jg
+	kZPehpc7IqEQ5IKy6cCKjgAkuvM1rDP1kWQ9noVhTUFr2SYVTT/WBHqUWorjhu57/OREo+Tl
+	nxI1KrnmW0DbF52tYoHLt85dK10HQrV35OEFXuz0QPSNrYJT0CZHpUprkUxrupDgkM+2F5LI
+	bIcaIQ4uDMWRyHpDbczQtmTke0x41AeIND3GUc+PQ4hWGp9XABEBAAGJAR8EGAEIAAkFAlpV
+	BxcCGwwACgkQzkeRBfSv+xv1wwgAj39/45O3eHN5pK0XMyiRF4ihH9p1+8JVfBoSQw7AJ6oU
+	1Hoa+sZnlag/l2GTjC8dfEGNoZd3aRxqfkTrpu2TcfT6jIAsxGjnu+fUCoRNZzmjvRziw3T8
+	egSPz+GbNXrTXB8g/nc9mqHPPprOiVHDSK8aGoBqkQAPZDjUtRwVx112wtaQwArT2+bDbb/Y
+	Yh6gTrYoRYHo6FuQl5YsHop/fmTahpTx11IMjuh6IJQ+lvdpdfYJ6hmAZ9kiVszDF6pGFVkY
+	kHWtnE2Aa5qkxnA2HoFpqFifNWn5TyvJFpyqwVhVI8XYtXyVHub/WbXLWQwSJA4OHmqU8gDl
+	X18zwLgdiQ==
+Message-ID: <c8721ba3-5d38-7906-5049-e2b16e967ecf@canonical.com>
+Date: Mon, 6 May 2019 15:48:01 -0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.6.1
+MIME-Version: 1.0
+In-Reply-To: <CAPhsuW4SeUhNOJJkEf9wcLjbbc9qX0=C8zqbyCtC7Q8fdL91hw@mail.gmail.com>
+Content-Language: en-US
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.49]); Mon, 06 May 2019 18:48:10 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]);
+	Mon, 06 May 2019 18:48:10 +0000 (UTC) for IP:'91.189.89.112'
+	DOMAIN:'youngberry.canonical.com'
+	HELO:'youngberry.canonical.com' FROM:'gpiccoli@canonical.com'
 	RCPT:''
-X-RedHat-Spam-Score: 0.142  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL,
-	SPF_PASS) 209.85.160.193 mail-qt1-f193.google.com 209.85.160.193
-	mail-qt1-f193.google.com <liu.song.a23@gmail.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.42
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-RedHat-Spam-Score: -5 (RCVD_IN_DNSWL_HI) 91.189.89.112
+	youngberry.canonical.com 91.189.89.112 youngberry.canonical.com
+	<gpiccoli@canonical.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.49
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 07 May 2019 04:42:14 -0400
 Cc: axboe@kernel.dk, linux-raid <linux-raid@vger.kernel.org>,
@@ -108,108 +139,46 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Tue, 07 May 2019 08:42:37 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]); Tue, 07 May 2019 08:42:38 +0000 (UTC)
 
-On Tue, Apr 30, 2019 at 6:38 PM Guilherme G. Piccoli
-<gpiccoli@canonical.com> wrote:
->
-> Commit cd4a4ae4683d ("block: don't use blocking queue entered for
-> recursive bio submits") introduced the flag BIO_QUEUE_ENTERED in order
-> split bios bypass the blocking queue entering routine and use the live
-> non-blocking version. It was a result of an extensive discussion in
-> a linux-block thread[0], and the purpose of this change was to prevent
-> a hung task waiting on a reference to drop.
->
-> Happens that md raid0 split bios all the time, and more important,
-> it changes their underlying device to the raid member. After the change
-> introduced by this flag's usage, we experience various crashes if a raid0
-> member is removed during a large write. This happens because the bio
-> reaches the live queue entering function when the queue of the raid0
-> member is dying.
->
-> A simple reproducer of this behavior is presented below:
-> a) Build kernel v5.1-rc7 with CONFIG_BLK_DEV_THROTTLING=y.
->
-> b) Create a raid0 md array with 2 NVMe devices as members, and mount it
-> with an ext4 filesystem.
->
-> c) Run the following oneliner (supposing the raid0 is mounted in /mnt):
-> (dd of=/mnt/tmp if=/dev/zero bs=1M count=999 &); sleep 0.3;
-> echo 1 > /sys/block/nvme0n1/device/device/remove
-> (whereas nvme0n1 is the 2nd array member)
->
-> This will trigger the following warning/oops:
->
-> ------------[ cut here ]------------
-> no blkg associated for bio on block-device: nvme0n1
-> WARNING: CPU: 9 PID: 184 at ./include/linux/blk-cgroup.h:785
-> generic_make_request_checks+0x4dd/0x690
-> [...]
-> BUG: unable to handle kernel NULL pointer dereference at 0000000000000155
-> PGD 0 P4D 0
-> Oops: 0000 [#1] SMP PTI
-> RIP: 0010:blk_throtl_bio+0x45/0x970
-> [...]
-> Call Trace:
->  generic_make_request_checks+0x1bf/0x690
->  generic_make_request+0x64/0x3f0
->  raid0_make_request+0x184/0x620 [raid0]
->  ? raid0_make_request+0x184/0x620 [raid0]
->  ? blk_queue_split+0x384/0x6d0
->  md_handle_request+0x126/0x1a0
->  md_make_request+0x7b/0x180
->  generic_make_request+0x19e/0x3f0
->  submit_bio+0x73/0x140
-> [...]
->
-> This patch changes raid0 driver to fallback to the "old" blocking queue
-> entering procedure, by clearing the BIO_QUEUE_ENTERED from raid0 bios.
-> This prevents the crashes and restores the regular behavior of raid0
-> arrays when a member is removed during a large write.
->
-> [0] https://marc.info/?l=linux-block&m=152638475806811
->
-> Cc: Jens Axboe <axboe@kernel.dk>
-> Cc: Ming Lei <ming.lei@redhat.com>
-> Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-> Cc: stable@vger.kernel.org # v4.18
-> Fixes: cd4a4ae4683d ("block: don't use blocking queue entered for recursive bio submits")
-> Signed-off-by: Guilherme G. Piccoli <gpiccoli@canonical.com>
+On 06/05/2019 13:50, Song Liu wrote:
+> [...] 
+> IIUC, we need this for all raid types. Is it possible to fix that in md.c so
+> all types get the fix?
+> 
+> Thanks,
+> Song
+> 
 
-IIUC, we need this for all raid types. Is it possible to fix that in md.c so
-all types get the fix?
+Hi Song, thanks again for reviewing my code and provide input, much
+appreciated!
 
-Thanks,
-Song
+I understand this could in theory affects all the RAID levels, but in
+practice I don't think it'll happen. RAID0 is the only "blind" mode of
+RAID, in the sense it's the only one that doesn't care at all with
+failures. In fact, this was the origin of my other thread [0], regarding
+the change of raid0's behavior in error cases..because it currently does
+not care with members being removed and rely only in filesystem failures
+(after submitting many BIOs to the removed device).
 
-> ---
->  drivers/md/raid0.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
-> index f3fb5bb8c82a..d5bdc79e0835 100644
-> --- a/drivers/md/raid0.c
-> +++ b/drivers/md/raid0.c
-> @@ -547,6 +547,7 @@ static void raid0_handle_discard(struct mddev *mddev, struct bio *bio)
->                         trace_block_bio_remap(bdev_get_queue(rdev->bdev),
->                                 discard_bio, disk_devt(mddev->gendisk),
->                                 bio->bi_iter.bi_sector);
-> +               bio_clear_flag(bio, BIO_QUEUE_ENTERED);
->                 generic_make_request(discard_bio);
->         }
->         bio_endio(bio);
-> @@ -602,6 +603,7 @@ static bool raid0_make_request(struct mddev *mddev, struct bio *bio)
->                                 disk_devt(mddev->gendisk), bio_sector);
->         mddev_check_writesame(mddev, bio);
->         mddev_check_write_zeroes(mddev, bio);
-> +       bio_clear_flag(bio, BIO_QUEUE_ENTERED);
->         generic_make_request(bio);
->         return true;
->  }
-> --
-> 2.21.0
->
+That said, in this change I've only took care of raid0, since in my
+understanding the other levels won't submit BIOs to dead devices; we can
+experiment that to see if it's true.
+
+But I'd be happy to change all other levels also if you think it's
+appropriate (or a simple generic change to md.c if it is enough). Do you
+think we could go ahead with this change, and further improve that (to
+cover all raid cases if necessary)?
+
+Cheers,
+
+
+Guilherme
+
+
+
+[0] https://marc.info/?l=linux-raid&m=155562509905735
 
 --
 dm-devel mailing list
