@@ -2,55 +2,78 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id B479917E70
-	for <lists+dm-devel@lfdr.de>; Wed,  8 May 2019 18:47:29 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AA3217E96
+	for <lists+dm-devel@lfdr.de>; Wed,  8 May 2019 18:54:44 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 8440D89C38;
-	Wed,  8 May 2019 16:47:10 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C4CFA5DE6A;
-	Wed,  8 May 2019 16:47:05 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id A1A95300412D;
+	Wed,  8 May 2019 16:54:41 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DF341600C6;
+	Wed,  8 May 2019 16:54:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1790E18089CA;
-	Wed,  8 May 2019 16:46:54 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3587541F58;
+	Wed,  8 May 2019 16:54:38 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x48GkYtI023983 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 8 May 2019 12:46:34 -0400
+	id x48Gr9pM025332 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 8 May 2019 12:53:09 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 90A2C608A6; Wed,  8 May 2019 16:46:34 +0000 (UTC)
+	id 8E6C91718E; Wed,  8 May 2019 16:53:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 44114608E4;
-	Wed,  8 May 2019 16:46:30 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id x48GkTHH001260; Wed, 8 May 2019 12:46:29 -0400
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id x48GkT3I001250; Wed, 8 May 2019 12:46:29 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Wed, 8 May 2019 12:46:29 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Mike Snitzer <snitzer@redhat.com>
-In-Reply-To: <20190507185154.GB24320@redhat.com>
-Message-ID: <alpine.LRH.2.02.1905081228270.29650@file01.intranet.prod.int.rdu2.redhat.com>
-References: <20190429125746.036036640@debian-a64.vm>
-	<20190507185154.GB24320@redhat.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mx1.redhat.com (ext-mx15.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.44])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 58DBE5C226;
+	Wed,  8 May 2019 16:53:05 +0000 (UTC)
+Received: from smtp.hosts.co.uk (smtp.hosts.co.uk [85.233.160.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id DDB2830832E1;
+	Wed,  8 May 2019 16:53:02 +0000 (UTC)
+Received: from [81.155.195.4] (helo=[192.168.1.118])
+	by smtp.hosts.co.uk with esmtpa (Exim)
+	(envelope-from <antlists@youngman.org.uk>)
+	id 1hOPoT-0001Zo-3p; Wed, 08 May 2019 17:53:01 +0100
+To: "Guilherme G. Piccoli" <guilherme@gpiccoli.net>,
+	Song Liu <liu.song.a23@gmail.com>
+References: <20190430223722.20845-1-gpiccoli@canonical.com>
+	<20190430223722.20845-2-gpiccoli@canonical.com>
+	<CAPhsuW4SeUhNOJJkEf9wcLjbbc9qX0=C8zqbyCtC7Q8fdL91hw@mail.gmail.com>
+	<c8721ba3-5d38-7906-5049-e2b16e967ecf@canonical.com>
+	<CAPhsuW6ahmkUhCgns=9WHPXSvYefB0Gmr1oB7gdZiD86sKyHFg@mail.gmail.com>
+	<5CD2A172.4010302@youngman.org.uk>
+	<0ad36b2f-ec36-6930-b587-da0526613567@gpiccoli.net>
+From: Wols Lists <antlists@youngman.org.uk>
+Message-ID: <5CD3096B.4030302@youngman.org.uk>
+Date: Wed, 8 May 2019 17:52:59 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
+	Thunderbird/38.7.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+In-Reply-To: <0ad36b2f-ec36-6930-b587-da0526613567@gpiccoli.net>
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.44]); Wed, 08 May 2019 16:53:04 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]);
+	Wed, 08 May 2019 16:53:04 +0000 (UTC) for IP:'85.233.160.19'
+	DOMAIN:'smtp.hosts.co.uk' HELO:'smtp.hosts.co.uk'
+	FROM:'antlists@youngman.org.uk' RCPT:''
+X-RedHat-Spam-Score: -0.702  (RCVD_IN_DNSWL_LOW, SPF_HELO_PASS,
+	SPF_PASS) 85.233.160.19 smtp.hosts.co.uk 85.233.160.19
+	smtp.hosts.co.uk <antlists@youngman.org.uk>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.44
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-Cc: Ondrej Kozina <okozina@redhat.com>, Heinz Mauelshagen <heinzm@redhat.com>,
-	dm-devel@redhat.com, Alasdair G Kergon <agk@redhat.com>,
-	Milan Broz <mbroz@redhat.com>
-Subject: Re: [dm-devel] [PATCH 08/10] dm-integrity: add a bitmap mode
+Cc: axboe@kernel.dk, linux-raid <linux-raid@vger.kernel.org>,
+	kernel@gpiccoli.net, Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
+	"Guilherme G. Piccoli" <gpiccoli@canonical.com>,
+	stable@vger.kernel.org, Ming Lei <ming.lei@redhat.com>,
+	linux-block@vger.kernel.org, dm-devel@redhat.com,
+	Jay Vosburgh <jay.vosburgh@canonical.com>,
+	Gavin Guo <gavin.guo@canonical.com>
+Subject: Re: [dm-devel] [PATCH 2/2] md/raid0: Do not bypass blocking queue
+ entered for raid0 bios
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,56 +89,41 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Wed, 08 May 2019 16:47:28 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]); Wed, 08 May 2019 16:54:42 +0000 (UTC)
 
-
-
-On Tue, 7 May 2019, Mike Snitzer wrote:
-
-> On Mon, Apr 29 2019 at  8:57am -0400,
-> Mikulas Patocka <mpatocka@redhat.com> wrote:
+On 08/05/19 15:52, Guilherme G. Piccoli wrote:
+> Hi, I understand your concern. But all other raid levels contains
+> failure-event mechanisms. For example, in all my tests with raid5 or
+> raid1, it first complained the device was removed, then it failed in
+> super_written() when no other available device was present.
+> On the other hand, raid0 does "blind-writes": it just selects the device
+> in which that bio should be written (given the stripe math) and change
+> the bio's device, sending it back via generic_make_request(). It's
+> dummy, but not in a bad way, but rather for performance reasons. It has
+> no "intelligence" for failures, as all other raid levels.
 > 
-> > Add a new bitmap mode for dm-integrity.
-> > 
-> > Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+> That said, we could fix md.c for all raid levels, but I personally think
+> it's a bazooka shot, only raid0 shows consistently this issue.
 > 
-> This patch header needs much more detail.
+The academic in me says we should push that error handling into
+generic_make_request() or some raid function in md.c that deals with
+those problems. Sounds like there's a fair bit of duplicate
+functionality that could be re-factored out.
+>>
+>> Academic purity versus engineering practicality :-)
 > 
-> Can you please be as informative and detailed as possible about what
-> this new bitmap mode is (what constraints it has, where it is expected
-> to be useful, etc)?  Also, if you have them, provide some benchmarks
-> that showcase its benefits.
+> Heheh you have good points here! Thanks for the input =)
+> Cheers,
 > 
-> Thanks,
-> Mike
+Doesn't help when there's not an architect to design an overall "grand
+scheme", but my usual way of working is to design top down academically,
+and then ask myself "what do I need" before implementing bottom-up.
+Hopefully with a load of documentation saying "I haven't done this
+because I don't need it, but this is where it goes".
 
-The patch adds the documentation to the file 
-"Documentation/device-mapper/dm-integrity.txt", so it can be also used as 
-a patch header. For example:
-
-"This patch introduces an alternative mode of operation whete dm-integrity 
-uses bitmap instead of a journal. If a bit in the bitmap is 1, the 
-corresponding region's data and integrity tags are not synchronized - if 
-the machine crashes, the unsynchronized regions will be recalculated. The 
-bitmap mode is faster than the journal mode, because we don't have to 
-write the data twice, but it is also less reliable, because if data 
-corruption happens when the machine crashes, it may not be detected."
-
-Benchmark - on an SSD connected to a SATA300 port, when doing large linear 
-writes with dd.
-
-buffered I/O:
-	raw device throughput - 245MB/s
-	dm-integrity with journaling - 120MB/s
-	dm-integrity with bitmap - 238MB/s
-
-direct I/O with 1MB block size:
-	raw device throughput - 248MB/s
-	dm-integrity with journaling - 123MB/s
-	dm-integrity with bitmap - 223MB/s
-
-Mikulas
+Cheers,
+Wol
 
 --
 dm-devel mailing list
