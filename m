@@ -2,91 +2,100 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id C54731C668
-	for <lists+dm-devel@lfdr.de>; Tue, 14 May 2019 11:49:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 519071CD3A
+	for <lists+dm-devel@lfdr.de>; Tue, 14 May 2019 18:48:41 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id E861A307D960;
-	Tue, 14 May 2019 09:49:20 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA9281001DC2;
-	Tue, 14 May 2019 09:49:17 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id E5481104C1;
+	Tue, 14 May 2019 16:48:37 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 23831100203C;
+	Tue, 14 May 2019 16:48:32 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 43C3A41F58;
-	Tue, 14 May 2019 09:49:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 20FFE18089CC;
+	Tue, 14 May 2019 16:48:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4E9mwXC017231 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 14 May 2019 05:48:59 -0400
+	id x4EGlXEO015812 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 14 May 2019 12:47:34 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DD5BC5D729; Tue, 14 May 2019 09:48:58 +0000 (UTC)
+	id 9E61B608B9; Tue, 14 May 2019 16:47:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx08.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.32])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D8CFE5D964
-	for <dm-devel@redhat.com>; Tue, 14 May 2019 09:48:56 +0000 (UTC)
-Received: from szilassi.eckner.net (szilassi.eckner.net [193.30.121.109])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx1.redhat.com (ext-mx11.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.40])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 98867608AC
+	for <dm-devel@redhat.com>; Tue, 14 May 2019 16:47:31 +0000 (UTC)
+Received: from mail-vs1-f68.google.com (mail-vs1-f68.google.com
+	[209.85.217.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 1A1E7C056807
-	for <dm-devel@redhat.com>; Tue, 14 May 2019 09:48:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=eckner.net;
-	s=szilassi; t=1557827332;
-	bh=IJxFIOhwLjnw3ZO6IJg69tb+x9uT6fe9/xFDyegOAps=; l=2693;
-	h=Date:From:To:Subject;
-	b=NoNELXVuxk7aQrXVphGWGh09OhT3H12SsMcVz7B/Y22Bx5WmykxIcOWUF4lAELb9N
-	BRHPMo2GqvmVkjcCoerjhBh/cEvChsNCzmAlb+Xvr15LkVD7tWvCu/znEFDgyFMq9p
-	Vpn+gaSAu+yv1+49YQPzB0s2jzX8gZJIJH1orMrpik3AP8D/Zetuz+YeRQgH1ZY7qp
-	atg1FcLYQRza3GsSqk9z9vUme+5QbnXTp+kBKiJnmBiT837WujMaTZ1iiaf2rLHDVA
-	9mZZ/WLUxSLadUu9yev+0Ncxpvnai2N9I5bXynF8A1Gnou8C/T/LkklkW5GmqFhvPC
-	8aB0txLavN0eg==
-Received-SPF: none (Address does not pass the Sender Policy Framework)
-	SPF=HELO; sender=nlopc43.ioq.uni-jena.de;
-	remoteip=::ffff:141.35.50.156;
-	remotehost=nlopc43.ioq.uni-jena.de; helo=nlopc43.ioq.uni-jena.de;
-	receiver=szilassi.eckner.net;
-Received-SPF: fail (Address does not pass the Sender Policy Framework)
-	SPF=MAILFROM; sender=device-mapper@eckner.net;
-	remoteip=::ffff:141.35.50.156;
-	remotehost=nlopc43.ioq.uni-jena.de; helo=nlopc43.ioq.uni-jena.de;
-	receiver=szilassi.eckner.net;
-Received: from nlopc43.ioq.uni-jena.de (nlopc43.ioq.uni-jena.de
-	[::ffff:141.35.50.156]) (AUTH: CRAM-MD5 erich@eckner.net, )
-	by szilassi.eckner.net with ESMTPSA
-	id 0000000000860002.000000005CDA8F04.00001D46;
-	Tue, 14 May 2019 11:48:52 +0200
-Date: Tue, 14 May 2019 11:48:46 +0200 (CEST)
-From: Erich Eckner <device-mapper@eckner.net>
-X-X-Sender: erich@nlopc43.ioq.uni-jena.de
-To: dm-devel@redhat.com
-Message-ID: <alpine.LNX.2.21.9999.1905141138180.19368@nlopc43.ioq.uni-jena.de>
-User-Agent: Alpine 2.21.9999 (LNX 339 2019-05-08)
+	by mx1.redhat.com (Postfix) with ESMTPS id 2D6AE300180E
+	for <dm-devel@redhat.com>; Tue, 14 May 2019 16:47:24 +0000 (UTC)
+Received: by mail-vs1-f68.google.com with SMTP id j184so1209049vsd.11
+	for <dm-devel@redhat.com>; Tue, 14 May 2019 09:47:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc; bh=Y7PwSEWga2/yPtBQUis8gBpGWAMpLLGBJz02yhRxW58=;
+	b=VSY8dXQoBspa4RXRjnFzsXCE0X8Uk+FIr6PE+cYivABoT0y+YLVAE8RbSuXG99Z7Rf
+	N25/9PQ9Ufr7OYaHSH7Oh1iMkAYcaMSPowqMKeVyfw80o2CRO7ieTWCoCIez+CTxr4Tl
+	rSbsPE7YdyNeVFoFWWU48wHDTgvkSL8q1w8to=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=Y7PwSEWga2/yPtBQUis8gBpGWAMpLLGBJz02yhRxW58=;
+	b=f6920iBqldgXEQHrmajT1baI3pcxFmvXEUiWASl6o8O4U9Ak8LZHerr8d7OQjE1qXP
+	YIebmZm+2ybQasMbK3brRrx6zsd6JiygeWu8BmYv4cBpjIeZsar993aGPPxOt2lqJZvc
+	WLz7yOu+BxT+USrhYW2c8wIwccs4eZAQU6BpzLK8Dr8gpHGX2XUrHxfeby+OJ4B6TqU7
+	o8kPCrmGVLRzWaTHNhT7aXlyUk2De2DxpgYwBzxQ0pQe5nqMgoGSW8nQ/Iw0kSsprBoC
+	dGexoMM0OW32HmmeZSPmvdGsNBAHyikxsOoXex7TkJZ17p6Zgn8lQLb/0eJDHB7uDgVu
+	m6hw==
+X-Gm-Message-State: APjAAAV8kygmotmAxY2DKK/ZYKfQwHFJ4XACXDuuhHRPVmWgeoxBZ2Uu
+	zOQwNmi9NntvaZ3ycTkrNo1Mwnognqc=
+X-Google-Smtp-Source: APXvYqyLDaq/FXw2vXF8/2TE/E7Uk0TmKnPsbpwOTzfyGky7RC+hIug7f1L6vCzXyyFR3zexeWTuuA==
+X-Received: by 2002:a67:f105:: with SMTP id n5mr14983662vsk.23.1557852442070; 
+	Tue, 14 May 2019 09:47:22 -0700 (PDT)
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com.
+	[209.85.222.47]) by smtp.gmail.com with ESMTPSA id
+	e62sm14489489vsc.24.2019.05.14.09.47.20 for <dm-devel@redhat.com>
+	(version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
+	Tue, 14 May 2019 09:47:21 -0700 (PDT)
+Received: by mail-ua1-f47.google.com with SMTP id p13so6448702uaa.11
+	for <dm-devel@redhat.com>; Tue, 14 May 2019 09:47:20 -0700 (PDT)
+X-Received: by 2002:ab0:2692:: with SMTP id t18mr1528737uao.106.1557852440345; 
+	Tue, 14 May 2019 09:47:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed;
-	boundary="596483122-1015369343-1557827332=:19368"
-Received-SPF: fail (Address does not pass the Sender Policy Framework)
-	SPF=FROM; sender=device-mapper@eckner.net;
-	remoteip=::ffff:141.35.50.156;
-	remotehost=nlopc43.ioq.uni-jena.de; helo=nlopc43.ioq.uni-jena.de;
-	receiver=szilassi.eckner.net;
-X-Greylist: Sender passed SPF test, ACL 242 matched, not delayed by
-	milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]);
-	Tue, 14 May 2019 09:48:55 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]);
-	Tue, 14 May 2019 09:48:55 +0000 (UTC) for IP:'193.30.121.109'
-	DOMAIN:'szilassi.eckner.net' HELO:'szilassi.eckner.net'
-	FROM:'device-mapper@eckner.net' RCPT:''
-X-RedHat-Spam-Score: -0.102  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	SPF_HELO_PASS,
-	SPF_PASS) 193.30.121.109 szilassi.eckner.net 193.30.121.109
-	szilassi.eckner.net <device-mapper@eckner.net>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.32
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+References: <CAD=FV=VOAjgdrvkK8YKPP-8zqwPpo39rA43JH2BCeYLB0UkgAQ@mail.gmail.com>
+	<20190513171519.GA26166@redhat.com>
+In-Reply-To: <20190513171519.GA26166@redhat.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Tue, 14 May 2019 09:47:10 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=X7GDNoJVvRgBTDoVkf9UYA69B-rTY2G3888w=9iS=RtQ@mail.gmail.com>
+Message-ID: <CAD=FV=X7GDNoJVvRgBTDoVkf9UYA69B-rTY2G3888w=9iS=RtQ@mail.gmail.com>
+To: Mike Snitzer <snitzer@redhat.com>
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.40]);
+	Tue, 14 May 2019 16:47:24 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]);
+	Tue, 14 May 2019 16:47:24 +0000 (UTC) for IP:'209.85.217.68'
+	DOMAIN:'mail-vs1-f68.google.com' HELO:'mail-vs1-f68.google.com'
+	FROM:'dianders@chromium.org' RCPT:''
+X-RedHat-Spam-Score: -0.112  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
+	DKIM_VALID_AU, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H2) 209.85.217.68 mail-vs1-f68.google.com 209.85.217.68
+	mail-vs1-f68.google.com <dianders@chromium.org>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.40
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-Subject: [dm-devel] add identifying information in INTEGRITY AEAD ERROR
-	message
+Cc: Vito Caputo <vcaputo@pengaru.com>, LKML <linux-kernel@vger.kernel.org>,
+	Tim Murray <timmurray@google.com>,
+	Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+	dm-devel@redhat.com, Guenter Roeck <groeck@chromium.org>,
+	Tejun Heo <tj@kernel.org>
+Subject: Re: [dm-devel] Problems caused by dm crypt: use WQ_HIGHPRI for the
+	IO and crypt workqueues
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -98,88 +107,141 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]); Tue, 14 May 2019 09:49:22 +0000 (UTC)
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---596483122-1015369343-1557827332=:19368
-Content-Type: text/plain; format=flowed; charset=ISO-8859-15
-Content-Transfer-Encoding: 8BIT
-
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Tue, 14 May 2019 16:48:39 +0000 (UTC)
 
 Hi,
 
-I have a bunch of dm integrity devices tied together to an md raid. Now I 
-see the following error message in dmesg:
+On Mon, May 13, 2019 at 10:15 AM Mike Snitzer <snitzer@redhat.com> wrote:
 
-device-mapper: crypt: INTEGRITY AEAD ERROR, sector 1109341168
+> On Mon, May 13 2019 at 12:18pm -0400,
+> Doug Anderson <dianders@chromium.org> wrote:
+>
+> > Hi,
+> >
+> > I wanted to jump on the bandwagon of people reporting problems with
+> > commit a1b89132dc4f ("dm crypt: use WQ_HIGHPRI for the IO and crypt
+> > workqueues").
+> >
+> > Specifically I've been tracking down communication errors when talking
+> > to our Embedded Controller (EC) over SPI.  I found that communication
+> > errors happened _much_ more frequently on newer kernels than older
+> > ones.  Using ftrace I managed to track the problem down to the dm
+> > crypt patch.  ...and, indeed, reverting that patch gets rid of the
+> > vast majority of my errors.
+> >
+> > If you want to see the ftrace of my high priority worker getting
+> > blocked for 7.5 ms, you can see:
+> >
+> > https://bugs.chromium.org/p/chromium/issues/attachmentText?aid=392715
+> >
+> >
+> > In my case I'm looking at solving my problems by bumping the CrOS EC
+> > transfers fully up to real time priority.  ...but given that there are
+> > other reports of problems with the dm-crypt priority (notably I found
+> > https://bugzilla.kernel.org/show_bug.cgi?id=199857) maybe we should
+> > also come up with a different solution for dm-crypt?
+> >
+>
+> And chance you can test how behaviour changes if you remove
+> WQ_CPU_INTENSIVE? e.g.:
+>
+> diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
+> index 692cddf3fe2a..c97d5d807311 100644
+> --- a/drivers/md/dm-crypt.c
+> +++ b/drivers/md/dm-crypt.c
+> @@ -2827,8 +2827,7 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+>
+>         ret = -ENOMEM;
+>         cc->io_queue = alloc_workqueue("kcryptd_io/%s",
+> -                                      WQ_HIGHPRI | WQ_CPU_INTENSIVE | WQ_MEM_RECLAIM,
+> -                                      1, devname);
+> +                                      WQ_HIGHPRI | WQ_MEM_RECLAIM, 1, devname);
+>         if (!cc->io_queue) {
+>                 ti->error = "Couldn't create kcryptd io queue";
+>                 goto bad;
+> @@ -2836,11 +2835,10 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+>
+>         if (test_bit(DM_CRYPT_SAME_CPU, &cc->flags))
+>                 cc->crypt_queue = alloc_workqueue("kcryptd/%s",
+> -                                                 WQ_HIGHPRI | WQ_CPU_INTENSIVE | WQ_MEM_RECLAIM,
+> -                                                 1, devname);
+> +                                                 WQ_HIGHPRI | WQ_MEM_RECLAIM, 1, devname);
+>         else
+>                 cc->crypt_queue = alloc_workqueue("kcryptd/%s",
+> -                                                 WQ_HIGHPRI | WQ_CPU_INTENSIVE | WQ_MEM_RECLAIM | WQ_UNBOUND,
+> +                                                 WQ_HIGHPRI | WQ_MEM_RECLAIM | WQ_UNBOUND,
+>                                                   num_online_cpus(), devname);
+>         if (!cc->crypt_queue) {
+>                 ti->error = "Couldn't create kcryptd queue";
 
-repeated a couple of times every few seconds in a row with differing 
-sector numbers. There are no other errors in dmesg next to these. As I 
-understand, this means, one of the drives deliveres garbage to the 
-integrity device which hence issues a read error. (There is an e2fsck 
-running on the raid which generates a lot of disk i/o.) That's good - it's 
-exactly what I intended this integrity thing for.
+It's not totally trivially easy for me to test.  My previous failure
+cases were leaving a few devices "idle" over a long period of time.  I
+did that on 3 machines last night and didn't see any failures.  Thus
+removing "WQ_CPU_INTENSIVE" may have made things better.  Before I say
+for sure I'd want to test for longer / redo the test a few times,
+since I've seen the problem go away on its own before (just by
+timing/luck) and then re-appear.
 
-My problem now is, that I would like to find out which of my 10 drives is 
-the bad one. Is there any way to get some identifying information (a uuid, 
-the name of the device in /dev/mapper/, ...)?
+Do you have a theory about why removing WQ_CPU_INTENSIVE would help?
 
-ah, the usual statistics:
-> uname -a
-Linux fileserver 5.1.0 #56 SMP Tue May 7 06:24:43 CEST 2019 x86_64 
-Intel(R) Pentium(R) CPU G2020 @ 2.90GHz GenuineIntel GNU/Linux
-> zgrep INTEGRITY /proc/config.gz
-CONFIG_BLK_DEV_INTEGRITY=y
-CONFIG_DM_INTEGRITY=y
-# CONFIG_BTRFS_FS_CHECK_INTEGRITY is not set
-CONFIG_INTEGRITY=y
-# CONFIG_INTEGRITY_SIGNATURE is not set
-CONFIG_INTEGRITY_AUDIT=y
+---
 
-The kernel is manually compiled - I'm happy to activate any options you 
-deem necessary.
+NOTE: in trying to reproduce problems more quickly I actually came up
+with a better test case for the problem I was seeing.  I found that I
+can reproduce my own problems much better with this test:
 
-regards,
-Erich Eckner
-Friedrich-Schiller-Universität Jena
-Institut für Optik und Quantenelektronik
-Helmholtzweg 4
-07743 Jena
+  dd if=/dev/zero of=/var/log/foo.txt bs=4M count=512&
+  while true; do
+    ectool version > /dev/null;
+  done
 
-Tel. +49 3641 9-47238
+It should be noted that "/var" is on encrypted stateful on my system
+so throwing data at it stresses dm-crypt.  It should also be noted
+that somehow "/var" also ends up traversing through a loopback device
+(this becomes relevant below):
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEE3p92iMrPBP64GmxZCu7JB1Xae1oFAlzajwAACgkQCu7JB1Xa
-e1rQ2g/9HVoQcSwhKxLW6w7wy8rgUlHBt/DbWxeHM6KTkss5yxrVNUkv1TGXop9l
-krDMKvhpNxI29IrhvSgqSbtJw0sk9iJU0urFsrs09TK6ATvcUtO5X8CLnPULqBqC
-YnnygcBgVt16FgoaAMVSyx2qEGrO5DXzquqLlJAa2z0+ZZGWa/5Nrhm3nfbHBbQQ
-pjiNpk+iNVbGIhe8+tR+vOZfJaghrA3B9W7FyYARlfB1Gy4S/DM5im2HTw/2ESJp
-nkSprpxiq5WyN56tFKnCrZSwe2Ga4NCNP6h8Gz7ynKlpbziXMey8BP3Puvfh7UNa
-Blcz648/3RwqfKkGqrY2mypo6DyiWribHr0A8Uza/RWVERbg0U9o1DdZ6DKbbnSm
-MKfAuSKBE2WErHrfwNN7WGOK/xlonkR8oADcaLI8db1Xu4Stj1HqA5lB9aT+K9KP
-kJFnc1254qJ+LvQHJfPTsW8sKgqwIfccNONltta/BCJCgcDl79y0VL9WX/dJS6Pu
-xqSSejPJ7Fp+gpR+FZbllWn+rCGF+JY6dku5oObp5uZOlfwQg8+zAhf4TQLYJmn0
-dzgaqonpzzmEGHUw31/R2Km0aHtuEsTCW986Gx9taWY84JyQDRSXjAXHsxJCMtN3
-rpMbDemoSRz6/WnI48VauN2obeUS3dmQraV+MNPpGiJmt86XM0o=
-=YfBa
------END PGP SIGNATURE-----
---596483122-1015369343-1557827332=:19368
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+With the above test:
+
+1. With a mainline kernel that has commit 37a186225a0c
+("platform/chrome: cros_ec_spi: Transfer messages at high priority"):
+I see failures.
+
+2. With a mainline kernel that has commit 37a186225a0c plus removing
+WQ_CPU_INTENSIVE in dm-crypt: I still see failures.
+
+3. With a mainline kernel that has commit 37a186225a0c plus removing
+high priority (but keeping CPU intensive) in dm-crypt: I still see
+failures.
+
+4. With a mainline kernel that has commit 37a186225a0c plus removing
+high priority (but keeping CPU intensive) in dm-crypt plus removing
+set_user_nice() in loop_prepare_queue(): I get a pass!
+
+5. With a mainline kernel that has commit 37a186225a0c plus removing
+set_user_nice() in loop_prepare_queue() plus leaving dm-crypt alone: I
+see failures.
+
+6. With a mainline kernel that has commit 37a186225a0c plus removing
+set_user_nice() in loop_prepare_queue() plus removing WQ_CPU_INTENSIVE
+in dm-crypt: I still see failures
+
+7. With my new "cros_ec at realtime" series and no other patches, I get a pass!
+
+
+tl;dr: High priority (even without CPU_INTENSIVE) definitely causes
+interference with my high priority work starving it for > 8 ms, but
+dm-crypt isn't unique here--loopback devices also have problems.
+
+
+-Doug
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
---596483122-1015369343-1557827332=:19368--
-
