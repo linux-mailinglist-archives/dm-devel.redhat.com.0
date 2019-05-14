@@ -2,100 +2,91 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF7BD1C062
-	for <lists+dm-devel@lfdr.de>; Tue, 14 May 2019 03:38:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C54731C668
+	for <lists+dm-devel@lfdr.de>; Tue, 14 May 2019 11:49:23 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 65B1E3087926;
-	Tue, 14 May 2019 01:38:45 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id E861A307D960;
+	Tue, 14 May 2019 09:49:20 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C13CD1001F54;
-	Tue, 14 May 2019 01:38:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA9281001DC2;
+	Tue, 14 May 2019 09:49:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 11FFF41F58;
-	Tue, 14 May 2019 01:38:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 43C3A41F58;
+	Tue, 14 May 2019 09:49:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4E1bMM6023549 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 13 May 2019 21:37:22 -0400
+	id x4E9mwXC017231 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 14 May 2019 05:48:59 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7FF8C5C21F; Tue, 14 May 2019 01:37:22 +0000 (UTC)
+	id DD5BC5D729; Tue, 14 May 2019 09:48:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx03.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.27])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 64C735C1B4;
-	Tue, 14 May 2019 01:37:20 +0000 (UTC)
-Received: from mail-qt1-f196.google.com (mail-qt1-f196.google.com
-	[209.85.160.196])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.redhat.com (ext-mx08.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.32])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D8CFE5D964
+	for <dm-devel@redhat.com>; Tue, 14 May 2019 09:48:56 +0000 (UTC)
+Received: from szilassi.eckner.net (szilassi.eckner.net [193.30.121.109])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 9CBD083F51;
-	Tue, 14 May 2019 01:37:19 +0000 (UTC)
-Received: by mail-qt1-f196.google.com with SMTP id k24so12196882qtq.7;
-	Mon, 13 May 2019 18:37:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=sender:date:from:to:cc:subject:message-id:references:mime-version
-	:content-disposition:in-reply-to:user-agent;
-	bh=SOOeaKMfw8I0MoiLwEapADtrXGn7pkhV0kap6ZwQVDI=;
-	b=HibJBWcd5fNtFy3dxGVSTMny3QlEzBW7sojDuTKzkZICspt0QMxzQlk2MahyCp0lVt
-	nkGFODLkNk7BMSA/Xbo27hzTtDWKf0LlyQps9VVAIUK0hh0LbLk3P4vDVpSSMyZxqRQ1
-	ZyShH8xVWk5x3UEAvW+2f1rdSdPwDl+Tyl4jZo6YdNPy7E7JQJ4nDSzZvRhesJpvRbS1
-	Ygz9/z1lUkAiroY8RbYOn5T+Nmo0/0EUQeVqSjrtWFW+dnB+gTHinouDGz8xfqrgHrHG
-	vFhLVujQechPkBFoNmO3m1CVAWmUJFZ26hUNhAboAabZfJPED7N/a2TbSfcmUml9Fg7X
-	1G2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
-	:references:mime-version:content-disposition:in-reply-to:user-agent;
-	bh=SOOeaKMfw8I0MoiLwEapADtrXGn7pkhV0kap6ZwQVDI=;
-	b=Nv4ORArpHuxfzQ8es6XrHkMpuu+/AfC+4nYVwpNk3s7lIVWM9WgPFQulHJmeVmnJ9m
-	HtwPGqzpMr9GqX8CMHVbW75/kT/A1EUqSjjDEip0Yb9SD598MaV5S5foKuMcfi6t5UzI
-	HYP+uhGhyTJvg+IMqMUaw/y5Fj6BCzkqHTNdiJnZgUlEKPlK8AjhmQLCs6/S8GYey9E9
-	CZWLKQzt8dsNnDw+pTWlWTov8bv03z3aOgHYFt0fddG5pwpARTKBEYNz/HOxpejkmYwj
-	7AG1wx38HVZkQMFCNpRlEoYBLYYFXkkFLWZuPy2nMEez8ZRC/Ylc2310QV7V7OcUAJsn
-	3epQ==
-X-Gm-Message-State: APjAAAUHeEQ8GkTPc7+4yuoeLFlsWBLrsfKDn4l/CGCrZgbh3Lsll8DJ
-	I+gGcPLrCkiWmqNiWZyNCLg=
-X-Google-Smtp-Source: APXvYqx59YutmMKXaNr3D4cWZm83/Tz4GquDTc15cehb6DgVneMJGcUPloa/Q4XA8id6LKgMl4bYdA==
-X-Received: by 2002:ac8:2687:: with SMTP id 7mr4387486qto.325.1557797838761;
-	Mon, 13 May 2019 18:37:18 -0700 (PDT)
-Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
-	[68.160.176.52])
-	by smtp.gmail.com with ESMTPSA id z8sm8208376qth.62.2019.05.13.18.37.17
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Mon, 13 May 2019 18:37:17 -0700 (PDT)
-Date: Mon, 13 May 2019 21:37:16 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: Helen Koike <helen.koike@collabora.com>
-Message-ID: <20190514013716.GA10260@lobo>
-References: <20190513192530.1167-1-helen.koike@collabora.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id 1A1E7C056807
+	for <dm-devel@redhat.com>; Tue, 14 May 2019 09:48:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=eckner.net;
+	s=szilassi; t=1557827332;
+	bh=IJxFIOhwLjnw3ZO6IJg69tb+x9uT6fe9/xFDyegOAps=; l=2693;
+	h=Date:From:To:Subject;
+	b=NoNELXVuxk7aQrXVphGWGh09OhT3H12SsMcVz7B/Y22Bx5WmykxIcOWUF4lAELb9N
+	BRHPMo2GqvmVkjcCoerjhBh/cEvChsNCzmAlb+Xvr15LkVD7tWvCu/znEFDgyFMq9p
+	Vpn+gaSAu+yv1+49YQPzB0s2jzX8gZJIJH1orMrpik3AP8D/Zetuz+YeRQgH1ZY7qp
+	atg1FcLYQRza3GsSqk9z9vUme+5QbnXTp+kBKiJnmBiT837WujMaTZ1iiaf2rLHDVA
+	9mZZ/WLUxSLadUu9yev+0Ncxpvnai2N9I5bXynF8A1Gnou8C/T/LkklkW5GmqFhvPC
+	8aB0txLavN0eg==
+Received-SPF: none (Address does not pass the Sender Policy Framework)
+	SPF=HELO; sender=nlopc43.ioq.uni-jena.de;
+	remoteip=::ffff:141.35.50.156;
+	remotehost=nlopc43.ioq.uni-jena.de; helo=nlopc43.ioq.uni-jena.de;
+	receiver=szilassi.eckner.net;
+Received-SPF: fail (Address does not pass the Sender Policy Framework)
+	SPF=MAILFROM; sender=device-mapper@eckner.net;
+	remoteip=::ffff:141.35.50.156;
+	remotehost=nlopc43.ioq.uni-jena.de; helo=nlopc43.ioq.uni-jena.de;
+	receiver=szilassi.eckner.net;
+Received: from nlopc43.ioq.uni-jena.de (nlopc43.ioq.uni-jena.de
+	[::ffff:141.35.50.156]) (AUTH: CRAM-MD5 erich@eckner.net, )
+	by szilassi.eckner.net with ESMTPSA
+	id 0000000000860002.000000005CDA8F04.00001D46;
+	Tue, 14 May 2019 11:48:52 +0200
+Date: Tue, 14 May 2019 11:48:46 +0200 (CEST)
+From: Erich Eckner <device-mapper@eckner.net>
+X-X-Sender: erich@nlopc43.ioq.uni-jena.de
+To: dm-devel@redhat.com
+Message-ID: <alpine.LNX.2.21.9999.1905141138180.19368@nlopc43.ioq.uni-jena.de>
+User-Agent: Alpine 2.21.9999 (LNX 339 2019-05-08)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190513192530.1167-1-helen.koike@collabora.com>
-User-Agent: Mutt/1.11.4 (2019-03-13)
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.27]);
-	Tue, 14 May 2019 01:37:19 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]);
-	Tue, 14 May 2019 01:37:19 +0000 (UTC) for IP:'209.85.160.196'
-	DOMAIN:'mail-qt1-f196.google.com'
-	HELO:'mail-qt1-f196.google.com' FROM:'snitzer@gmail.com' RCPT:''
-X-RedHat-Spam-Score: -0.006  (DKIM_SIGNED, DKIM_VALID,
-	FREEMAIL_FORGED_FROMDOMAIN, FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL,
-	SPF_PASS) 209.85.160.196 mail-qt1-f196.google.com 209.85.160.196
-	mail-qt1-f196.google.com <snitzer@gmail.com>
-X-RedHat-Possible-Forgery: <snitzer@gmail.com> Mike Snitzer
-	<snitzer@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.27
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Content-Type: multipart/mixed;
+	boundary="596483122-1015369343-1557827332=:19368"
+Received-SPF: fail (Address does not pass the Sender Policy Framework)
+	SPF=FROM; sender=device-mapper@eckner.net;
+	remoteip=::ffff:141.35.50.156;
+	remotehost=nlopc43.ioq.uni-jena.de; helo=nlopc43.ioq.uni-jena.de;
+	receiver=szilassi.eckner.net;
+X-Greylist: Sender passed SPF test, ACL 242 matched, not delayed by
+	milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]);
+	Tue, 14 May 2019 09:48:55 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]);
+	Tue, 14 May 2019 09:48:55 +0000 (UTC) for IP:'193.30.121.109'
+	DOMAIN:'szilassi.eckner.net' HELO:'szilassi.eckner.net'
+	FROM:'device-mapper@eckner.net' RCPT:''
+X-RedHat-Spam-Score: -0.102  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	SPF_HELO_PASS,
+	SPF_PASS) 193.30.121.109 szilassi.eckner.net 193.30.121.109
+	szilassi.eckner.net <device-mapper@eckner.net>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.32
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, kernel@collabora.com, linux-kernel@vger.kernel.org,
-	Alasdair Kergon <agk@redhat.com>
-Subject: Re: [dm-devel] dm ioctl: fix hang in early create error condition
+Subject: [dm-devel] add identifying information in INTEGRITY AEAD ERROR
+	message
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -107,63 +98,88 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]); Tue, 14 May 2019 01:38:47 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]); Tue, 14 May 2019 09:49:22 +0000 (UTC)
 
-On Mon, May 13 2019 at  3:25P -0400,
-Helen Koike <helen.koike@collabora.com> wrote:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-> The dm_early_create() function (which deals with "dm-mod.create=" kernel
-> command line option) calls dm_hash_insert() who gets an extra reference
-> to the md object.
-> 
-> In case of failure, this reference wasn't being released, causing
-> dm_destroy() to hang, thus hanging the whole boot process.
-> 
-> Fix this by calling __hash_remove() in the error path.
-> 
-> Fixes: 6bbc923dfcf57d ("dm: add support to directly boot to a mapped device")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Helen Koike <helen.koike@collabora.com>
-> 
-> ---
-> Hi,
-> 
-> I tested this patch by adding a new test case in the following test
-> script:
-> 
-> https://gitlab.collabora.com/koike/dm-cmdline-test/commit/d2d7a0ee4a49931cdb59f08a837b516c2d5d743d
-> 
-> This test was failing, but with this patch it works correctly.
-> 
-> Thanks
-> Helen
+--596483122-1015369343-1557827332=:19368
+Content-Type: text/plain; format=flowed; charset=ISO-8859-15
+Content-Transfer-Encoding: 8BIT
 
-Thanks for the patch but I'd prefer the following simpler fix.  What do
-you think?
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
 
-That said, I can provide a follow-on patch (inspired by the patch you
-provided) that encourages more code sharing between dm_early_create()
-and dev_create() by factoring out __dev_create().
+Hi,
 
-diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index c740153b4e52..0eb0b462c736 100644
---- a/drivers/md/dm-ioctl.c
-+++ b/drivers/md/dm-ioctl.c
-@@ -2117,6 +2117,7 @@ int __init dm_early_create(struct dm_ioctl *dmi,
- err_destroy_table:
- 	dm_table_destroy(t);
- err_destroy_dm:
-+	(void) __hash_remove(__find_device_hash_cell(dmi));
- 	dm_put(md);
- 	dm_destroy(md);
- 	return r;
+I have a bunch of dm integrity devices tied together to an md raid. Now I 
+see the following error message in dmesg:
+
+device-mapper: crypt: INTEGRITY AEAD ERROR, sector 1109341168
+
+repeated a couple of times every few seconds in a row with differing 
+sector numbers. There are no other errors in dmesg next to these. As I 
+understand, this means, one of the drives deliveres garbage to the 
+integrity device which hence issues a read error. (There is an e2fsck 
+running on the raid which generates a lot of disk i/o.) That's good - it's 
+exactly what I intended this integrity thing for.
+
+My problem now is, that I would like to find out which of my 10 drives is 
+the bad one. Is there any way to get some identifying information (a uuid, 
+the name of the device in /dev/mapper/, ...)?
+
+ah, the usual statistics:
+> uname -a
+Linux fileserver 5.1.0 #56 SMP Tue May 7 06:24:43 CEST 2019 x86_64 
+Intel(R) Pentium(R) CPU G2020 @ 2.90GHz GenuineIntel GNU/Linux
+> zgrep INTEGRITY /proc/config.gz
+CONFIG_BLK_DEV_INTEGRITY=y
+CONFIG_DM_INTEGRITY=y
+# CONFIG_BTRFS_FS_CHECK_INTEGRITY is not set
+CONFIG_INTEGRITY=y
+# CONFIG_INTEGRITY_SIGNATURE is not set
+CONFIG_INTEGRITY_AUDIT=y
+
+The kernel is manually compiled - I'm happy to activate any options you 
+deem necessary.
+
+regards,
+Erich Eckner
+Friedrich-Schiller-Universität Jena
+Institut für Optik und Quantenelektronik
+Helmholtzweg 4
+07743 Jena
+
+Tel. +49 3641 9-47238
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE3p92iMrPBP64GmxZCu7JB1Xae1oFAlzajwAACgkQCu7JB1Xa
+e1rQ2g/9HVoQcSwhKxLW6w7wy8rgUlHBt/DbWxeHM6KTkss5yxrVNUkv1TGXop9l
+krDMKvhpNxI29IrhvSgqSbtJw0sk9iJU0urFsrs09TK6ATvcUtO5X8CLnPULqBqC
+YnnygcBgVt16FgoaAMVSyx2qEGrO5DXzquqLlJAa2z0+ZZGWa/5Nrhm3nfbHBbQQ
+pjiNpk+iNVbGIhe8+tR+vOZfJaghrA3B9W7FyYARlfB1Gy4S/DM5im2HTw/2ESJp
+nkSprpxiq5WyN56tFKnCrZSwe2Ga4NCNP6h8Gz7ynKlpbziXMey8BP3Puvfh7UNa
+Blcz648/3RwqfKkGqrY2mypo6DyiWribHr0A8Uza/RWVERbg0U9o1DdZ6DKbbnSm
+MKfAuSKBE2WErHrfwNN7WGOK/xlonkR8oADcaLI8db1Xu4Stj1HqA5lB9aT+K9KP
+kJFnc1254qJ+LvQHJfPTsW8sKgqwIfccNONltta/BCJCgcDl79y0VL9WX/dJS6Pu
+xqSSejPJ7Fp+gpR+FZbllWn+rCGF+JY6dku5oObp5uZOlfwQg8+zAhf4TQLYJmn0
+dzgaqonpzzmEGHUw31/R2Km0aHtuEsTCW986Gx9taWY84JyQDRSXjAXHsxJCMtN3
+rpMbDemoSRz6/WnI48VauN2obeUS3dmQraV+MNPpGiJmt86XM0o=
+=YfBa
+-----END PGP SIGNATURE-----
+--596483122-1015369343-1557827332=:19368
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
+--596483122-1015369343-1557827332=:19368--
+
