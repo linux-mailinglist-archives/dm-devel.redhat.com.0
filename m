@@ -2,94 +2,92 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id D65F01F680
-	for <lists+dm-devel@lfdr.de>; Wed, 15 May 2019 16:26:23 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by mail.lfdr.de (Postfix) with ESMTPS id BCF321F67F
+	for <lists+dm-devel@lfdr.de>; Wed, 15 May 2019 16:26:20 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id DB44C81F2F;
-	Wed, 15 May 2019 14:26:20 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AEF5C60CC0;
-	Wed, 15 May 2019 14:26:20 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id A2FB4149A2;
+	Wed, 15 May 2019 14:26:16 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 19CCB1001E98;
+	Wed, 15 May 2019 14:26:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0F90618089CB;
-	Wed, 15 May 2019 14:26:15 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C4C714BB41;
+	Wed, 15 May 2019 14:25:39 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4FENlpY031678 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 15 May 2019 10:23:47 -0400
+	id x4FENwxm031689 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 15 May 2019 10:23:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6F8191001E98; Wed, 15 May 2019 14:23:47 +0000 (UTC)
+	id D92525D9D0; Wed, 15 May 2019 14:23:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx03.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.27])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6AD351001E85
-	for <dm-devel@redhat.com>; Wed, 15 May 2019 14:23:45 +0000 (UTC)
-Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
-	[209.85.128.65])
+Received: from mx1.redhat.com (ext-mx09.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.38])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D422A5D9C3
+	for <dm-devel@redhat.com>; Wed, 15 May 2019 14:23:56 +0000 (UTC)
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+	[209.85.128.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 58FD081F0F
-	for <dm-devel@redhat.com>; Wed, 15 May 2019 14:23:29 +0000 (UTC)
-Received: by mail-wm1-f65.google.com with SMTP id y3so244639wmm.2
-	for <dm-devel@redhat.com>; Wed, 15 May 2019 07:23:29 -0700 (PDT)
+	by mx1.redhat.com (Postfix) with ESMTPS id EA08F149A2
+	for <dm-devel@redhat.com>; Wed, 15 May 2019 14:23:52 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id x64so225359wmb.5
+	for <dm-devel@redhat.com>; Wed, 15 May 2019 07:23:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=from:to:cc:subject:date:message-id:in-reply-to:references
-	:mime-version:content-transfer-encoding;
-	bh=2lBBa4mFrf4BDSerLLwmpoWld8SlPCYkgjPWqmg5mOc=;
-	b=UiVR3IVBbV+4Nax7B39QUpAwWFybvr6mYmvlrkDaMuDgRRga6m6yznLo6mkfnVfEk9
-	2DggL5Cefte84qm5Swikm+MamHqLASEbjXh6cGi3jdK2k1RMnDO8QxjcCk9oGFn+2z83
-	3Zcy7fczV1sdy9gSbSgy8dNfD9N0A/zWR8eVIY5EbX41DNcAwCqnIb0/Wp5XGKMANhp0
-	HmLhLiaIuczUHP+/uXDpgIOss1ovDy+SQ9Dpplb+86bV6CF9uIxs5wems+EkL4LmpDN3
-	6UNYabpW7M97evD+i584PuP1/AcJBuG+/E+PRecjW3FjIuQjZOMj+Fh7JwC3+/6wyzuW
-	hySw==
+	h=from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=PPSv5QXz/0gm0VMjwMbO1+FpQXQ/lI/x4fCz9S2kv+U=;
+	b=i1dXCJ/hdl+lCzlQfG7q13Qv2OyTJgWYyJhqx0rY98eJKtdPX42OilBY17Hu06dbVk
+	XBSyUAI5Y+KiIFMz8XVcNQnkGBGjjMSEQOowAuLqy3S1Y9iGvukGuGj1FB2ppT+5REwl
+	M7Zcb2Ss75mmmjRKt4J+2hWCN6B76K+lRFavt2KK5+6As7xGdErFyixIuJPHAi/9CIMP
+	RdMdh+sImSrZIaXlxTw+lYGk/WxZthmS+MGKbcWN3c0F+OEOAPveMyw/Aefwfv5dlTz5
+	RYZUUJ6V5Xg6sCFpUaSYHUeLqnMuJ6OA4R6/Uapg9ixt4WWGpc+B3fn65iCbYaLM3MPP
+	39kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-	:references:mime-version:content-transfer-encoding;
-	bh=2lBBa4mFrf4BDSerLLwmpoWld8SlPCYkgjPWqmg5mOc=;
-	b=eEsVPXxoi+tCcOS7u8aL5l0omwkYG5UTULvESKTZfB9Oj3bQuaHMPCp2cB0rmbNb+x
-	RwreYPSMgGvn07aDIgbydkimziqk/uDtMy7TPBywp/h1aGdQbJEbOUsvg7XNK8lzEfso
-	ZrUoX5rPDqpelyywbEuXQmmqpReNPXdkjlsuGxBS9ZXo3TB64vjmGJYc1tSltr3/jSmc
-	eQgya6SG9PNGytk8BQbXkLiMnNmZWM6B1+2FdrwGdn9TAPzqiySIXMBunql7WNdVHhvz
-	av2HP2O/Yd2Bg5GXjfd0w9Q63AM5r3EYPk/90p+5rPbsljQhLi/mQfcQcIhRq6X7JA+9
-	VSBQ==
-X-Gm-Message-State: APjAAAU27C0foOe4MoouseOaPnI51RdWrZx1AOCdihiDuRqSFk+k1sgy
-	Z1HRz9TngQyNgYEaJPCFkr4FVTiq
-X-Google-Smtp-Source: APXvYqz11kw4GPNbhOOX44hNIbrEI0IhUe6f1TJiqnfaUTKfealZzRze/ikRU3+lPplFAlNwtHSzGg==
-X-Received: by 2002:a1c:f50a:: with SMTP id t10mr22577489wmh.86.1557930207709; 
-	Wed, 15 May 2019 07:23:27 -0700 (PDT)
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=PPSv5QXz/0gm0VMjwMbO1+FpQXQ/lI/x4fCz9S2kv+U=;
+	b=rXVg/9N52iL9GwvI8Kvug2Jy7Zj6hQLygddkav/UM1Wz0PN2gwanSkXEPPK6TyQnmQ
+	JTf6+5ZDjxl2Z/OKuNC8UYONbrh3blf6hD+/9wIYU4iZgteqbce1BfrdvMstoI/Qn0bz
+	pZBWMplr5pVOc8/8FKOBi6g7uiu02CXgiEmEdZNpL4y09qciqGH5WIqFCbIV9gPDzhVO
+	qn5v/lNunIZagZcV1voIHHEZZrccqQ6S4qUihY/7NAHx91eLqBhZuNG3QLyR6Kx6k3I8
+	D3uV4Kt/iZc3J52luB5RUsgcnUk3CNAY3oZYTaZAEcoKvIKUGKzNw/FBBTuoYquzzrqA
+	za7g==
+X-Gm-Message-State: APjAAAVqBEllgoLbmQGvBcHGXJdHdxpnNl3gWYCegR70KXf1Hkq0y/HR
+	nQDX3xG1nyFPCe0xi4U5MztfxJXe
+X-Google-Smtp-Source: APXvYqwqxWKVU90FezQSCNkpzHGwPDvhMhMVL9es8c8W6uAQY294BoxHsPFNLWeiAX73vffPTb2zaQ==
+X-Received: by 2002:a1c:720b:: with SMTP id n11mr22652774wmc.81.1557930231353; 
+	Wed, 15 May 2019 07:23:51 -0700 (PDT)
 Received: from merlot.mazyland.net (nat-pool-brq-t.redhat.com. [213.175.37.10])
 	by smtp.googlemail.com with ESMTPSA id
-	x18sm2430257wrw.14.2019.05.15.07.23.26
+	v184sm3015093wma.6.2019.05.15.07.23.50
 	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Wed, 15 May 2019 07:23:26 -0700 (PDT)
+	Wed, 15 May 2019 07:23:50 -0700 (PDT)
 From: Milan Broz <gmazyland@gmail.com>
 To: dm-devel@redhat.com
-Date: Wed, 15 May 2019 16:22:30 +0200
-Message-Id: <20190515142231.30590-1-gmazyland@gmail.com>
-In-Reply-To: <alpine.LNX.2.21.9999.1905141138180.19368@nlopc43.ioq.uni-jena.de>
-References: <alpine.LNX.2.21.9999.1905141138180.19368@nlopc43.ioq.uni-jena.de>
+Date: Wed, 15 May 2019 16:23:43 +0200
+Message-Id: <20190515142343.30641-1-gmazyland@gmail.com>
 MIME-Version: 1.0
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.27]);
-	Wed, 15 May 2019 14:23:29 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]);
-	Wed, 15 May 2019 14:23:29 +0000 (UTC) for IP:'209.85.128.65'
-	DOMAIN:'mail-wm1-f65.google.com' HELO:'mail-wm1-f65.google.com'
+	(mx1.redhat.com [10.5.110.38]);
+	Wed, 15 May 2019 14:23:53 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]);
+	Wed, 15 May 2019 14:23:53 +0000 (UTC) for IP:'209.85.128.68'
+	DOMAIN:'mail-wm1-f68.google.com' HELO:'mail-wm1-f68.google.com'
 	FROM:'gmazyland@gmail.com' RCPT:''
-X-RedHat-Spam-Score: -0.1  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_FROM,
-	SPF_PASS) 209.85.128.65 mail-wm1-f65.google.com 209.85.128.65
-	mail-wm1-f65.google.com <gmazyland@gmail.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.27
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-RedHat-Spam-Score: -0.111  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2,
+	SPF_PASS) 209.85.128.68 mail-wm1-f68.google.com 209.85.128.68
+	mail-wm1-f68.google.com <gmazyland@gmail.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.38
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
 Cc: Milan Broz <gmazyland@gmail.com>
-Subject: [dm-devel] [PATCH 1/2] dm-crypt: print device name in integrity
-	error message.
+Subject: [dm-devel] [PATCH 2/2] dm-crypt: move detailed message into debug
+	level.
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -105,44 +103,71 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Wed, 15 May 2019 14:26:22 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Wed, 15 May 2019 14:26:19 +0000 (UTC)
 
-This message should better identify the device with the integrity failure.
+The information about tag size should not be printed
+without debug info set. Also pront device major:minor in
+the error message to identify the device instance.
+
+Also use rate limiting and debug level for info about
+used crypto API implementaton.
+(During online reencryption this message saturates syslog,
+because we are moving hotzone across the whole device.)
 
 Signed-off-by: Milan Broz <gmazyland@gmail.com>
 ---
- drivers/md/dm-crypt.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/md/dm-crypt.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 7f6462f74ac8..36dfa36505ed 100644
+index 36dfa36505ed..af017d044dc0 100644
 --- a/drivers/md/dm-crypt.c
 +++ b/drivers/md/dm-crypt.c
-@@ -1143,9 +1143,11 @@ static int crypt_convert_block_aead(struct crypt_config *cc,
- 		r = crypto_aead_decrypt(req);
+@@ -946,6 +946,7 @@ static int crypt_integrity_ctr(struct crypt_config *cc, struct dm_target *ti)
+ {
+ #ifdef CONFIG_BLK_DEV_INTEGRITY
+ 	struct blk_integrity *bi = blk_get_integrity(cc->dev->bdev->bd_disk);
++	struct mapped_device *md = dm_table_get_md(ti->table);
+ 
+ 	/* From now we require underlying device with our integrity profile */
+ 	if (!bi || strcasecmp(bi->profile->name, "DM-DIF-EXT-TAG")) {
+@@ -965,7 +966,7 @@ static int crypt_integrity_ctr(struct crypt_config *cc, struct dm_target *ti)
+ 
+ 	if (crypt_integrity_aead(cc)) {
+ 		cc->integrity_tag_size = cc->on_disk_tag_size - cc->integrity_iv_size;
+-		DMINFO("Integrity AEAD, tag size %u, IV size %u.",
++		DMDEBUG("%s: Integrity AEAD, tag size %u, IV size %u.", dm_device_name(md),
+ 		       cc->integrity_tag_size, cc->integrity_iv_size);
+ 
+ 		if (crypto_aead_setauthsize(any_tfm_aead(cc), cc->integrity_tag_size)) {
+@@ -973,7 +974,7 @@ static int crypt_integrity_ctr(struct crypt_config *cc, struct dm_target *ti)
+ 			return -EINVAL;
+ 		}
+ 	} else if (cc->integrity_iv_size)
+-		DMINFO("Additional per-sector space %u bytes for IV.",
++		DMDEBUG("%s: Additional per-sector space %u bytes for IV.", dm_device_name(md),
+ 		       cc->integrity_iv_size);
+ 
+ 	if ((cc->integrity_tag_size + cc->integrity_iv_size) != bi->tag_size) {
+@@ -1890,7 +1891,7 @@ static int crypt_alloc_tfms_skcipher(struct crypt_config *cc, char *ciphermode)
+ 	 * algorithm implementation is used.  Help people debug performance
+ 	 * problems by logging the ->cra_driver_name.
+ 	 */
+-	DMINFO("%s using implementation \"%s\"", ciphermode,
++	DMDEBUG_LIMIT("%s using implementation \"%s\"", ciphermode,
+ 	       crypto_skcipher_alg(any_tfm(cc))->base.cra_driver_name);
+ 	return 0;
+ }
+@@ -1910,7 +1911,7 @@ static int crypt_alloc_tfms_aead(struct crypt_config *cc, char *ciphermode)
+ 		return err;
  	}
  
--	if (r == -EBADMSG)
--		DMERR_LIMIT("INTEGRITY AEAD ERROR, sector %llu",
-+	if (r == -EBADMSG) {
-+		char b[BDEVNAME_SIZE];
-+		DMERR_LIMIT("%s: INTEGRITY AEAD ERROR, sector %llu", bio_devname(ctx->bio_in, b),
- 			    (unsigned long long)le64_to_cpu(*sector));
-+	}
- 
- 	if (!r && cc->iv_gen_ops && cc->iv_gen_ops->post)
- 		r = cc->iv_gen_ops->post(cc, org_iv, dmreq);
-@@ -1788,7 +1790,8 @@ static void kcryptd_async_done(struct crypto_async_request *async_req,
- 		error = cc->iv_gen_ops->post(cc, org_iv_of_dmreq(cc, dmreq), dmreq);
- 
- 	if (error == -EBADMSG) {
--		DMERR_LIMIT("INTEGRITY AEAD ERROR, sector %llu",
-+		char b[BDEVNAME_SIZE];
-+		DMERR_LIMIT("%s: INTEGRITY AEAD ERROR, sector %llu", bio_devname(ctx->bio_in, b),
- 			    (unsigned long long)le64_to_cpu(*org_sector_of_dmreq(cc, dmreq)));
- 		io->error = BLK_STS_PROTECTION;
- 	} else if (error < 0)
+-	DMINFO("%s using implementation \"%s\"", ciphermode,
++	DMDEBUG_LIMIT("%s using implementation \"%s\"", ciphermode,
+ 	       crypto_aead_alg(any_tfm_aead(cc))->base.cra_driver_name);
+ 	return 0;
+ }
 -- 
 2.20.1
 
