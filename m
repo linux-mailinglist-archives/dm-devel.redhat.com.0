@@ -2,46 +2,66 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88BEF1F861
-	for <lists+dm-devel@lfdr.de>; Wed, 15 May 2019 18:21:04 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id ECA491F8FA
+	for <lists+dm-devel@lfdr.de>; Wed, 15 May 2019 18:51:47 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id CF55E89C46;
-	Wed, 15 May 2019 16:21:02 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A728C5D9C2;
-	Wed, 15 May 2019 16:21:02 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 512C381DE9;
+	Wed, 15 May 2019 16:51:44 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A851A608BB;
+	Wed, 15 May 2019 16:51:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 965DF4BB43;
-	Wed, 15 May 2019 16:21:01 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1A66318089CB;
+	Wed, 15 May 2019 16:51:34 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4FGKv12024399 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 15 May 2019 12:20:57 -0400
+	id x4FGpQEn030761 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 15 May 2019 12:51:26 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DCFBE608AC; Wed, 15 May 2019 16:20:57 +0000 (UTC)
+	id CF1EC6135A; Wed, 15 May 2019 16:51:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 54516608B9;
-	Wed, 15 May 2019 16:20:55 +0000 (UTC)
-Date: Wed, 15 May 2019 12:20:54 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: Helen Koike <helen.koike@collabora.com>
-Message-ID: <20190515162054.GA14934@redhat.com>
-References: <20190513192530.1167-1-helen.koike@collabora.com>
-	<20190514013716.GA10260@lobo>
-	<78dda04b-925f-49eb-f88a-6d940bcc4754@collabora.com>
+Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.41])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B27DD1D4;
+	Wed, 15 May 2019 16:51:22 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 2373930917AD;
+	Wed, 15 May 2019 16:51:21 +0000 (UTC)
+Received: from localhost.localdomain (unknown
+	[IPv6:2804:431:9719:d573:a076:d1fd:3417:b195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested) (Authenticated sender: koike)
+	by bhuna.collabora.co.uk (Postfix) with ESMTPSA id EDED326D7C1;
+	Wed, 15 May 2019 17:51:16 +0100 (BST)
+From: Helen Koike <helen.koike@collabora.com>
+To: dm-devel@redhat.com
+Date: Wed, 15 May 2019 13:50:54 -0300
+Message-Id: <20190515165054.12680-1-helen.koike@collabora.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <78dda04b-925f-49eb-f88a-6d940bcc4754@collabora.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.41]); Wed, 15 May 2019 16:51:21 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]);
+	Wed, 15 May 2019 16:51:21 +0000 (UTC) for IP:'46.235.227.227'
+	DOMAIN:'bhuna.collabora.co.uk' HELO:'bhuna.collabora.co.uk'
+	FROM:'helen.koike@collabora.com' RCPT:''
+X-RedHat-Spam-Score: -0.012  (RCVD_IN_DNSWL_NONE, SPF_HELO_PASS,
+	SPF_PASS) 46.235.227.227 bhuna.collabora.co.uk
+	46.235.227.227 bhuna.collabora.co.uk
+	<helen.koike@collabora.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.41
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, kernel@collabora.com, linux-kernel@vger.kernel.org,
-	Alasdair Kergon <agk@redhat.com>
-Subject: Re: [dm-devel] dm ioctl: fix hang in early create error condition
+Cc: Mike Snitzer <snitzer@redhat.com>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Helen Koike <helen.koike@collabora.com>,
+	kernel@collabora.com, Alasdair Kergon <agk@redhat.com>
+Subject: [dm-devel] [PATCH v2] dm ioctl: fix hang in early create error
+	condition
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -57,97 +77,66 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Wed, 15 May 2019 16:21:03 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]); Wed, 15 May 2019 16:51:46 +0000 (UTC)
 
-On Wed, May 15 2019 at 12:12pm -0400,
-Helen Koike <helen.koike@collabora.com> wrote:
+The dm_early_create() function (which deals with "dm-mod.create=" kernel
+command line option) calls dm_hash_insert() who gets an extra reference
+to the md object.
 
-> Hi,
-> 
-> On 5/13/19 10:37 PM, Mike Snitzer wrote:
-> > On Mon, May 13 2019 at  3:25P -0400,
-> > Helen Koike <helen.koike@collabora.com> wrote:
-> > 
-> >> The dm_early_create() function (which deals with "dm-mod.create=" kernel
-> >> command line option) calls dm_hash_insert() who gets an extra reference
-> >> to the md object.
-> >>
-> >> In case of failure, this reference wasn't being released, causing
-> >> dm_destroy() to hang, thus hanging the whole boot process.
-> >>
-> >> Fix this by calling __hash_remove() in the error path.
-> >>
-> >> Fixes: 6bbc923dfcf57d ("dm: add support to directly boot to a mapped device")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: Helen Koike <helen.koike@collabora.com>
-> >>
-> >> ---
-> >> Hi,
-> >>
-> >> I tested this patch by adding a new test case in the following test
-> >> script:
-> >>
-> >> https://gitlab.collabora.com/koike/dm-cmdline-test/commit/d2d7a0ee4a49931cdb59f08a837b516c2d5d743d
-> >>
-> >> This test was failing, but with this patch it works correctly.
-> >>
-> >> Thanks
-> >> Helen
-> > 
-> > Thanks for the patch but I'd prefer the following simpler fix.  What do
-> > you think?
-> > 
-> > That said, I can provide a follow-on patch (inspired by the patch you
-> > provided) that encourages more code sharing between dm_early_create()
-> > and dev_create() by factoring out __dev_create().
-> 
-> Sounds great.
-> 
-> > 
-> > diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-> > index c740153b4e52..0eb0b462c736 100644
-> > --- a/drivers/md/dm-ioctl.c
-> > +++ b/drivers/md/dm-ioctl.c
-> > @@ -2117,6 +2117,7 @@ int __init dm_early_create(struct dm_ioctl *dmi,
-> >  err_destroy_table:
-> >  	dm_table_destroy(t);
-> >  err_destroy_dm:
-> > +	(void) __hash_remove(__find_device_hash_cell(dmi));
-> >  	dm_put(md);
-> >  	dm_destroy(md);
-> >  	return r;
-> > 
-> 
-> This doesn't really work for two reasons:
-> 
-> 1) __find_device_hash_cell() requires a mutual exclusivity between name,
-> uuid and dev. In dm_early_create(), dmi can have more then one of these.
+In case of failure, this reference wasn't being released, causing
+dm_destroy() to hang, thus hanging the whole boot process.
 
-__find_device_hash_cell's exclusivity requirements are strange; I'll try
-to understand what requires this.
+Fix this by calling __hash_remove() in the error path.
 
-> 2) I can fix (1) by calling __get_name_cell(), as the name is mandatory
-> anyway, but this function also grabs another reference to the md object,
-> so I need to add an extra dm_put(md) there:
-> 
->  err_destroy_table:
->         dm_table_destroy(t);
-> +err_hash_remove:
-> +       (void) __hash_remove(__get_name_cell(dmi->name));
-> +       dm_put(md);
->  err_destroy_dm:
->         dm_put(md);
->         dm_destroy(md);
-> 
-> 
-> What do you think? Is this ok?
+Fixes: 6bbc923dfcf57d ("dm: add support to directly boot to a mapped device")
+Cc: stable@vger.kernel.org
+Signed-off-by: Helen Koike <helen.koike@collabora.com>
 
-I think so.  Please submit a v2 and I'll rebase my followon patch
-accordingly and will get it posted.
+---
+Hi,
 
-Thanks,
-Mike
+I also tested this patch version with the new test case in the following test
+script:
+
+https://gitlab.collabora.com/koike/dm-cmdline-test/commit/d2d7a0ee4a49931cdb59f08a837b516c2d5d743d
+
+Thanks
+Helen
+
+Changes in v2:
+- instead of modifying dm_hash_insert() to return the hash cell, use
+__get_name_cell(dmi->name) instead.
+
+ drivers/md/dm-ioctl.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+index c740153b4e52..1e03bc89e20f 100644
+--- a/drivers/md/dm-ioctl.c
++++ b/drivers/md/dm-ioctl.c
+@@ -2069,7 +2069,7 @@ int __init dm_early_create(struct dm_ioctl *dmi,
+ 	/* alloc table */
+ 	r = dm_table_create(&t, get_mode(dmi), dmi->target_count, md);
+ 	if (r)
+-		goto err_destroy_dm;
++		goto err_hash_remove;
+ 
+ 	/* add targets */
+ 	for (i = 0; i < dmi->target_count; i++) {
+@@ -2116,6 +2116,10 @@ int __init dm_early_create(struct dm_ioctl *dmi,
+ 
+ err_destroy_table:
+ 	dm_table_destroy(t);
++err_hash_remove:
++	(void) __hash_remove(__get_name_cell(dmi->name));
++	/* release reference from __get_name_cell */
++	dm_put(md);
+ err_destroy_dm:
+ 	dm_put(md);
+ 	dm_destroy(md);
+-- 
+2.20.1
 
 --
 dm-devel mailing list
