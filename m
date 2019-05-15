@@ -2,92 +2,145 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCF321F67F
-	for <lists+dm-devel@lfdr.de>; Wed, 15 May 2019 16:26:20 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B6561F844
+	for <lists+dm-devel@lfdr.de>; Wed, 15 May 2019 18:13:02 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id A2FB4149A2;
-	Wed, 15 May 2019 14:26:16 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 19CCB1001E98;
-	Wed, 15 May 2019 14:26:06 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id F27DED77F2;
+	Wed, 15 May 2019 16:12:58 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D2E0A19C7E;
+	Wed, 15 May 2019 16:12:56 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C4C714BB41;
-	Wed, 15 May 2019 14:25:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7088818089CB;
+	Wed, 15 May 2019 16:12:50 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4FENwxm031689 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 15 May 2019 10:23:58 -0400
+	id x4FGCbiH023372 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 15 May 2019 12:12:37 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D92525D9D0; Wed, 15 May 2019 14:23:58 +0000 (UTC)
+	id D4BB11001DE1; Wed, 15 May 2019 16:12:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mx1.redhat.com (ext-mx09.extmail.prod.ext.phx2.redhat.com
 	[10.5.110.38])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D422A5D9C3
-	for <dm-devel@redhat.com>; Wed, 15 May 2019 14:23:56 +0000 (UTC)
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
-	[209.85.128.68])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 820811001DC5;
+	Wed, 15 May 2019 16:12:33 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id E96B6E1F1B;
+	Wed, 15 May 2019 16:12:31 +0000 (UTC)
+Received: from [IPv6:2804:431:9719:d573:a076:d1fd:3417:b195] (unknown
+	[IPv6:2804:431:9719:d573:a076:d1fd:3417:b195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id EA08F149A2
-	for <dm-devel@redhat.com>; Wed, 15 May 2019 14:23:52 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id x64so225359wmb.5
-	for <dm-devel@redhat.com>; Wed, 15 May 2019 07:23:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=PPSv5QXz/0gm0VMjwMbO1+FpQXQ/lI/x4fCz9S2kv+U=;
-	b=i1dXCJ/hdl+lCzlQfG7q13Qv2OyTJgWYyJhqx0rY98eJKtdPX42OilBY17Hu06dbVk
-	XBSyUAI5Y+KiIFMz8XVcNQnkGBGjjMSEQOowAuLqy3S1Y9iGvukGuGj1FB2ppT+5REwl
-	M7Zcb2Ss75mmmjRKt4J+2hWCN6B76K+lRFavt2KK5+6As7xGdErFyixIuJPHAi/9CIMP
-	RdMdh+sImSrZIaXlxTw+lYGk/WxZthmS+MGKbcWN3c0F+OEOAPveMyw/Aefwfv5dlTz5
-	RYZUUJ6V5Xg6sCFpUaSYHUeLqnMuJ6OA4R6/Uapg9ixt4WWGpc+B3fn65iCbYaLM3MPP
-	39kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=PPSv5QXz/0gm0VMjwMbO1+FpQXQ/lI/x4fCz9S2kv+U=;
-	b=rXVg/9N52iL9GwvI8Kvug2Jy7Zj6hQLygddkav/UM1Wz0PN2gwanSkXEPPK6TyQnmQ
-	JTf6+5ZDjxl2Z/OKuNC8UYONbrh3blf6hD+/9wIYU4iZgteqbce1BfrdvMstoI/Qn0bz
-	pZBWMplr5pVOc8/8FKOBi6g7uiu02CXgiEmEdZNpL4y09qciqGH5WIqFCbIV9gPDzhVO
-	qn5v/lNunIZagZcV1voIHHEZZrccqQ6S4qUihY/7NAHx91eLqBhZuNG3QLyR6Kx6k3I8
-	D3uV4Kt/iZc3J52luB5RUsgcnUk3CNAY3oZYTaZAEcoKvIKUGKzNw/FBBTuoYquzzrqA
-	za7g==
-X-Gm-Message-State: APjAAAVqBEllgoLbmQGvBcHGXJdHdxpnNl3gWYCegR70KXf1Hkq0y/HR
-	nQDX3xG1nyFPCe0xi4U5MztfxJXe
-X-Google-Smtp-Source: APXvYqwqxWKVU90FezQSCNkpzHGwPDvhMhMVL9es8c8W6uAQY294BoxHsPFNLWeiAX73vffPTb2zaQ==
-X-Received: by 2002:a1c:720b:: with SMTP id n11mr22652774wmc.81.1557930231353; 
-	Wed, 15 May 2019 07:23:51 -0700 (PDT)
-Received: from merlot.mazyland.net (nat-pool-brq-t.redhat.com. [213.175.37.10])
-	by smtp.googlemail.com with ESMTPSA id
-	v184sm3015093wma.6.2019.05.15.07.23.50
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Wed, 15 May 2019 07:23:50 -0700 (PDT)
-From: Milan Broz <gmazyland@gmail.com>
-To: dm-devel@redhat.com
-Date: Wed, 15 May 2019 16:23:43 +0200
-Message-Id: <20190515142343.30641-1-gmazyland@gmail.com>
+	(No client certificate requested) (Authenticated sender: koike)
+	by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 3FCAB28355B;
+	Wed, 15 May 2019 17:12:28 +0100 (BST)
+To: Mike Snitzer <snitzer@redhat.com>
+References: <20190513192530.1167-1-helen.koike@collabora.com>
+	<20190514013716.GA10260@lobo>
+From: Helen Koike <helen.koike@collabora.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=helen.koike@collabora.com; keydata=
+	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
+Message-ID: <78dda04b-925f-49eb-f88a-6d940bcc4754@collabora.com>
+Date: Wed, 15 May 2019 13:12:03 -0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.6.1
 MIME-Version: 1.0
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.38]);
-	Wed, 15 May 2019 14:23:53 +0000 (UTC)
+In-Reply-To: <20190514013716.GA10260@lobo>
+Content-Language: en-US
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.38]); Wed, 15 May 2019 16:12:32 +0000 (UTC)
 X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]);
-	Wed, 15 May 2019 14:23:53 +0000 (UTC) for IP:'209.85.128.68'
-	DOMAIN:'mail-wm1-f68.google.com' HELO:'mail-wm1-f68.google.com'
-	FROM:'gmazyland@gmail.com' RCPT:''
-X-RedHat-Spam-Score: -0.111  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2,
-	SPF_PASS) 209.85.128.68 mail-wm1-f68.google.com 209.85.128.68
-	mail-wm1-f68.google.com <gmazyland@gmail.com>
+	Wed, 15 May 2019 16:12:32 +0000 (UTC) for IP:'46.235.227.227'
+	DOMAIN:'bhuna.collabora.co.uk' HELO:'bhuna.collabora.co.uk'
+	FROM:'helen.koike@collabora.com' RCPT:''
+X-RedHat-Spam-Score: -0.012  (RCVD_IN_DNSWL_NONE, SPF_HELO_PASS,
+	SPF_PASS) 46.235.227.227 bhuna.collabora.co.uk
+	46.235.227.227 bhuna.collabora.co.uk
+	<helen.koike@collabora.com>
 X-Scanned-By: MIMEDefang 2.78 on 10.5.110.38
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-Cc: Milan Broz <gmazyland@gmail.com>
-Subject: [dm-devel] [PATCH 2/2] dm-crypt: move detailed message into debug
-	level.
+Cc: dm-devel@redhat.com, kernel@collabora.com, linux-kernel@vger.kernel.org,
+	Alasdair Kergon <agk@redhat.com>
+Subject: Re: [dm-devel] dm ioctl: fix hang in early create error condition
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -103,73 +156,88 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Wed, 15 May 2019 14:26:19 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Wed, 15 May 2019 16:13:01 +0000 (UTC)
 
-The information about tag size should not be printed
-without debug info set. Also pront device major:minor in
-the error message to identify the device instance.
+Hi,
 
-Also use rate limiting and debug level for info about
-used crypto API implementaton.
-(During online reencryption this message saturates syslog,
-because we are moving hotzone across the whole device.)
+On 5/13/19 10:37 PM, Mike Snitzer wrote:
+> On Mon, May 13 2019 at  3:25P -0400,
+> Helen Koike <helen.koike@collabora.com> wrote:
+> 
+>> The dm_early_create() function (which deals with "dm-mod.create=" kernel
+>> command line option) calls dm_hash_insert() who gets an extra reference
+>> to the md object.
+>>
+>> In case of failure, this reference wasn't being released, causing
+>> dm_destroy() to hang, thus hanging the whole boot process.
+>>
+>> Fix this by calling __hash_remove() in the error path.
+>>
+>> Fixes: 6bbc923dfcf57d ("dm: add support to directly boot to a mapped device")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Helen Koike <helen.koike@collabora.com>
+>>
+>> ---
+>> Hi,
+>>
+>> I tested this patch by adding a new test case in the following test
+>> script:
+>>
+>> https://gitlab.collabora.com/koike/dm-cmdline-test/commit/d2d7a0ee4a49931cdb59f08a837b516c2d5d743d
+>>
+>> This test was failing, but with this patch it works correctly.
+>>
+>> Thanks
+>> Helen
+> 
+> Thanks for the patch but I'd prefer the following simpler fix.  What do
+> you think?
+> 
+> That said, I can provide a follow-on patch (inspired by the patch you
+> provided) that encourages more code sharing between dm_early_create()
+> and dev_create() by factoring out __dev_create().
 
-Signed-off-by: Milan Broz <gmazyland@gmail.com>
----
- drivers/md/dm-crypt.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+Sounds great.
 
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 36dfa36505ed..af017d044dc0 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -946,6 +946,7 @@ static int crypt_integrity_ctr(struct crypt_config *cc, struct dm_target *ti)
- {
- #ifdef CONFIG_BLK_DEV_INTEGRITY
- 	struct blk_integrity *bi = blk_get_integrity(cc->dev->bdev->bd_disk);
-+	struct mapped_device *md = dm_table_get_md(ti->table);
- 
- 	/* From now we require underlying device with our integrity profile */
- 	if (!bi || strcasecmp(bi->profile->name, "DM-DIF-EXT-TAG")) {
-@@ -965,7 +966,7 @@ static int crypt_integrity_ctr(struct crypt_config *cc, struct dm_target *ti)
- 
- 	if (crypt_integrity_aead(cc)) {
- 		cc->integrity_tag_size = cc->on_disk_tag_size - cc->integrity_iv_size;
--		DMINFO("Integrity AEAD, tag size %u, IV size %u.",
-+		DMDEBUG("%s: Integrity AEAD, tag size %u, IV size %u.", dm_device_name(md),
- 		       cc->integrity_tag_size, cc->integrity_iv_size);
- 
- 		if (crypto_aead_setauthsize(any_tfm_aead(cc), cc->integrity_tag_size)) {
-@@ -973,7 +974,7 @@ static int crypt_integrity_ctr(struct crypt_config *cc, struct dm_target *ti)
- 			return -EINVAL;
- 		}
- 	} else if (cc->integrity_iv_size)
--		DMINFO("Additional per-sector space %u bytes for IV.",
-+		DMDEBUG("%s: Additional per-sector space %u bytes for IV.", dm_device_name(md),
- 		       cc->integrity_iv_size);
- 
- 	if ((cc->integrity_tag_size + cc->integrity_iv_size) != bi->tag_size) {
-@@ -1890,7 +1891,7 @@ static int crypt_alloc_tfms_skcipher(struct crypt_config *cc, char *ciphermode)
- 	 * algorithm implementation is used.  Help people debug performance
- 	 * problems by logging the ->cra_driver_name.
- 	 */
--	DMINFO("%s using implementation \"%s\"", ciphermode,
-+	DMDEBUG_LIMIT("%s using implementation \"%s\"", ciphermode,
- 	       crypto_skcipher_alg(any_tfm(cc))->base.cra_driver_name);
- 	return 0;
- }
-@@ -1910,7 +1911,7 @@ static int crypt_alloc_tfms_aead(struct crypt_config *cc, char *ciphermode)
- 		return err;
- 	}
- 
--	DMINFO("%s using implementation \"%s\"", ciphermode,
-+	DMDEBUG_LIMIT("%s using implementation \"%s\"", ciphermode,
- 	       crypto_aead_alg(any_tfm_aead(cc))->base.cra_driver_name);
- 	return 0;
- }
--- 
-2.20.1
+> 
+> diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+> index c740153b4e52..0eb0b462c736 100644
+> --- a/drivers/md/dm-ioctl.c
+> +++ b/drivers/md/dm-ioctl.c
+> @@ -2117,6 +2117,7 @@ int __init dm_early_create(struct dm_ioctl *dmi,
+>  err_destroy_table:
+>  	dm_table_destroy(t);
+>  err_destroy_dm:
+> +	(void) __hash_remove(__find_device_hash_cell(dmi));
+>  	dm_put(md);
+>  	dm_destroy(md);
+>  	return r;
+> 
+
+This doesn't really work for two reasons:
+
+1) __find_device_hash_cell() requires a mutual exclusivity between name,
+uuid and dev. In dm_early_create(), dmi can have more then one of these.
+
+2) I can fix (1) by calling __get_name_cell(), as the name is mandatory
+anyway, but this function also grabs another reference to the md object,
+so I need to add an extra dm_put(md) there:
+
+ err_destroy_table:
+        dm_table_destroy(t);
++err_hash_remove:
++       (void) __hash_remove(__get_name_cell(dmi->name));
++       dm_put(md);
+ err_destroy_dm:
+        dm_put(md);
+        dm_destroy(md);
+
+
+What do you think? Is this ok?
+
+Thanks
+Helen
 
 --
 dm-devel mailing list
