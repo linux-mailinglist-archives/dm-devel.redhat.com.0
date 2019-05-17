@@ -2,104 +2,66 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54C5021B7B
-	for <lists+dm-devel@lfdr.de>; Fri, 17 May 2019 18:20:41 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id ACE4721FF9
+	for <lists+dm-devel@lfdr.de>; Fri, 17 May 2019 23:57:46 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 133689FDCA;
-	Fri, 17 May 2019 16:20:34 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 94C1C30ADC83;
+	Fri, 17 May 2019 21:57:02 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 071E15DD73;
-	Fri, 17 May 2019 16:20:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5EC015C3FA;
+	Fri, 17 May 2019 21:56:41 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AC69E1806B12;
-	Fri, 17 May 2019 16:20:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 69DFB1806B12;
+	Fri, 17 May 2019 21:56:13 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4HGKAcx031069 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 17 May 2019 12:20:11 -0400
+	id x4HLtuJR022366 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 17 May 2019 17:55:56 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3F47260C4C; Fri, 17 May 2019 16:20:10 +0000 (UTC)
+	id 3676F5DD91; Fri, 17 May 2019 21:55:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx04.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.28])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 37F4660BE0
-	for <dm-devel@redhat.com>; Fri, 17 May 2019 16:20:07 +0000 (UTC)
-Received: from mail-qt1-f193.google.com (mail-qt1-f193.google.com
-	[209.85.160.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.redhat.com (ext-mx05.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.29])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B0C605DD64;
+	Fri, 17 May 2019 21:55:51 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id BD3DE882F2
-	for <dm-devel@redhat.com>; Fri, 17 May 2019 16:19:55 +0000 (UTC)
-Received: by mail-qt1-f193.google.com with SMTP id j53so8612536qta.9
-	for <dm-devel@redhat.com>; Fri, 17 May 2019 09:19:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gpiccoli-net.20150623.gappssmtp.com; s=20150623;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=JQo9aBA95rp8OAvg+gFs24bz5ulMaCtimiFeAwP39GY=;
-	b=EHpxwm3dHMfgR9agTnYXj6RWczAL0Tpdb+aDv35ZkbwI+JsZU8qVdWqK/TyHPVIbXA
-	HYx5hUSSE3lhycSfKYN4fykntbOk+gCRvDtmboYN9bGghhCWMKW+BkPYJ4bv2FV8HrMU
-	htxE4WfbdSwsT9WZQsjGcGSVr61CyxTRzQmTULtg8QkerJpzR8DsNe3Rm4DnvnZR5heC
-	pvPsPiB6mwMOhbvQleHPXpbtLoe7jfr/9+FYFQewlY+bIuJqRbWq7/wPmhkEeHxurppM
-	Q5n1gMcXf4WRsN3pyuPCgoWYJZ6o+EfDyh1jKfzFf4N3H1ntfv1S7WIKhYkl0eiwsVzY
-	ENIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=JQo9aBA95rp8OAvg+gFs24bz5ulMaCtimiFeAwP39GY=;
-	b=MgKEew270VhmycftzXZsB48N2+rss/yFlj+47QPGSHtRh3XM6M9rSdH3p4OANxIEsy
-	zUtLpgCnEoEKivQFh72+ZFlXLUMBDoD0WiH6rpFhVcL1Z6XJN25euQdrLPL8YZ+43RBV
-	zz1G9oQk9EOJ9XCAd5SIkKySryFoayM1xOatqyDlCIV/wQh5QXYaySVqoQLpybYuPktc
-	GP4EbYVzUieQHqCnmu9kckvPF/J/bEUvB+Tm2TFceYyfNMYSZZfycqmnbfOauHbdhTru
-	xS0IXRfhEhdz7HXRchmMtbo3/pLSjoHiMo1YAx2grwFSLjOioc7jUudFBqyRJ2F5kFiz
-	ps6A==
-X-Gm-Message-State: APjAAAVegcMjHOwwjDC+k85KwVmmaoHekAc4CgkAr5CvVl3ijcu8zDqw
-	wVW7q1q+W1yFm8SADre1XEriUYuhxFedDgdxiOiINw==
-X-Google-Smtp-Source: APXvYqzuMhcd/NW5WXkxDeszD4UNp2tVLZCrFZ1IXTfTd9VNsVKaISjWgeA88f5yiB7P8wqxG6PKWsPDuCucTzpWuzg=
-X-Received: by 2002:ac8:1b0a:: with SMTP id y10mr46256762qtj.91.1558109995068; 
-	Fri, 17 May 2019 09:19:55 -0700 (PDT)
+	by mx1.redhat.com (Postfix) with ESMTPS id AA8623DE0E;
+	Fri, 17 May 2019 21:55:50 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+	by mx1.suse.de (Postfix) with ESMTP id 55B1AAD93;
+	Fri, 17 May 2019 21:55:49 +0000 (UTC)
+Message-ID: <a7b173c7139bd43fa950a85e39104b68f04ee101.camel@suse.de>
+From: Martin Wilck <mwilck@suse.de>
+To: Benjamin Marzinski <bmarzins@redhat.com>, Christophe Varoqui
+	<christophe.varoqui@opensvc.com>
+Date: Fri, 17 May 2019 23:55:48 +0200
+In-Reply-To: <1558109650-21179-2-git-send-email-bmarzins@redhat.com>
+References: <1558109650-21179-1-git-send-email-bmarzins@redhat.com>
+	<1558109650-21179-2-git-send-email-bmarzins@redhat.com>
+User-Agent: Evolution 3.32.2 
 MIME-Version: 1.0
-References: <20190430223722.20845-1-gpiccoli@canonical.com>
-	<20190430223722.20845-2-gpiccoli@canonical.com>
-	<CAPhsuW4SeUhNOJJkEf9wcLjbbc9qX0=C8zqbyCtC7Q8fdL91hw@mail.gmail.com>
-	<c8721ba3-5d38-7906-5049-e2b16e967ecf@canonical.com>
-	<CAPhsuW6ahmkUhCgns=9WHPXSvYefB0Gmr1oB7gdZiD86sKyHFg@mail.gmail.com>
-	<5CD2A172.4010302@youngman.org.uk>
-	<0ad36b2f-ec36-6930-b587-da0526613567@gpiccoli.net>
-	<5CD3096B.4030302@youngman.org.uk>
-In-Reply-To: <5CD3096B.4030302@youngman.org.uk>
-From: "Guilherme G. Piccoli" <kernel@gpiccoli.net>
-Date: Fri, 17 May 2019 13:19:18 -0300
-Message-ID: <CALJn8nOTCcOtFJ1SzZAuJxNuxzf2Tq7Yw34h1E5XE-mbn5CUbg@mail.gmail.com>
-To: Wols Lists <antlists@youngman.org.uk>, Song Liu <liu.song.a23@gmail.com>, 
-	axboe@kernel.dk
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.28]);
-	Fri, 17 May 2019 16:19:55 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]);
-	Fri, 17 May 2019 16:19:55 +0000 (UTC) for IP:'209.85.160.193'
-	DOMAIN:'mail-qt1-f193.google.com'
-	HELO:'mail-qt1-f193.google.com' FROM:'guilherme@gpiccoli.net'
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.29]); Fri, 17 May 2019 21:55:50 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]);
+	Fri, 17 May 2019 21:55:50 +0000 (UTC) for IP:'195.135.220.15'
+	DOMAIN:'mx2.suse.de' HELO:'mx1.suse.de' FROM:'mwilck@suse.de'
 	RCPT:''
-X-RedHat-Spam-Score: 0.003  (DKIM_SIGNED, DKIM_VALID, RCVD_IN_MSPIKE_H3,
-	RCVD_IN_MSPIKE_WL,
-	SPF_HELO_NONE) 209.85.160.193 mail-qt1-f193.google.com 209.85.160.193
-	mail-qt1-f193.google.com <guilherme@gpiccoli.net>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.28
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-RedHat-Spam-Score: -2.3  (RCVD_IN_DNSWL_MED, SPF_HELO_NONE,
+	SPF_PASS) 195.135.220.15 mx2.suse.de 195.135.220.15
+	mx2.suse.de <mwilck@suse.de>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.29
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
-Cc: linux-raid <linux-raid@vger.kernel.org>,
-	Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
-	"Guilherme G. Piccoli" <gpiccoli@canonical.com>,
-	stable@vger.kernel.org, Ming Lei <ming.lei@redhat.com>,
-	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	Jay Vosburgh <jay.vosburgh@canonical.com>,
-	Gavin Guo <gavin.guo@canonical.com>
-Subject: Re: [dm-devel] [PATCH 2/2] md/raid0: Do not bypass blocking queue
- entered for raid0 bios
+Cc: device-mapper development <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH 1/4] libmultipath: handle clock_gettime
+ failures in tur checker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -115,19 +77,94 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]); Fri, 17 May 2019 16:20:40 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Fri, 17 May 2019 21:57:45 +0000 (UTC)
 
-Jens / Song, any news in this one?
+On Fri, 2019-05-17 at 11:14 -0500, Benjamin Marzinski wrote:
+> If clock_gettime() fails, and multipathd can't figure out when it
+> should
+> time out, it should just default to assuming that it has already
+> timed
+> out. Found by coverity.
+> 
+> Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+> ---
+>  libmultipath/checkers/tur.c | 19 +++++++++++++++----
+>  1 file changed, 15 insertions(+), 4 deletions(-)
 
-I think would be good to have this raid0 fix rather sooner than later
-if possible - it's easy
-to reproduce the crash.
+I know coverity picks on this, but I don't like the result. It's
+superfluous IMO, and uglifies the code. 
 
-Thanks,
+Other than passing an invalid address (unlikely because basically every
+caller uses memory from the stack), the only possible reason for
+failure in clock_gettime is "EINVAL - The clk_id specified is not
+supported on this system".
+
+We have this code in pthread_cond_init_mono():
+
+	res = pthread_condattr_setclock(&attr, CLOCK_MONOTONIC);
+	assert(res == 0);
+
+this is called when initializing config_cond. So multipathd at least
+won't even start if CLOCK_MONOTONIC is unsupported.
+
+If that's not enough, I don't mind putting such a check in
+mpath_lib_init() and refuse to start on systems without
+CLOCK_MONOTONIC, then stop bothering with the return value of
+clock_gettime() in the rest of the code.
+
+Regards,
+Martin
 
 
-Guilherme
+> diff --git a/libmultipath/checkers/tur.c
+> b/libmultipath/checkers/tur.c
+> index 6b08dbbb..717353ef 100644
+> --- a/libmultipath/checkers/tur.c
+> +++ b/libmultipath/checkers/tur.c
+> @@ -290,7 +290,12 @@ static void *tur_thread(void *ctx)
+>  
+>  static void tur_timeout(struct timespec *tsp)
+>  {
+> -	clock_gettime(CLOCK_MONOTONIC, tsp);
+> +	if (clock_gettime(CLOCK_MONOTONIC, tsp) != 0) {
+> +		/* can't get time. clear tsp to not wait */
+> +		tsp->tv_sec = 0;
+> +		tsp->tv_nsec = 0;
+> +		return;
+> +	}
+>  	tsp->tv_nsec += 1000 * 1000; /* 1 millisecond */
+>  	normalize_timespec(tsp);
+>  }
+> @@ -300,8 +305,12 @@ static void tur_set_async_timeout(struct checker
+> *c)
+>  	struct tur_checker_context *ct = c->context;
+>  	struct timespec now;
+>  
+> -	clock_gettime(CLOCK_MONOTONIC, &now);
+> -	ct->time = now.tv_sec + c->timeout;
+> +	if (clock_gettime(CLOCK_MONOTONIC, &now) != 0)
+> +		/* can't get time. clear time to always timeout on
+> +		 * next path check */
+> +		ct->time = 0;
+> +	else
+> +		ct->time = now.tv_sec + c->timeout;
+>  }
+>  
+>  static int tur_check_async_timeout(struct checker *c)
+> @@ -309,7 +318,9 @@ static int tur_check_async_timeout(struct checker
+> *c)
+>  	struct tur_checker_context *ct = c->context;
+>  	struct timespec now;
+>  
+> -	clock_gettime(CLOCK_MONOTONIC, &now);
+> +	if (clock_gettime(CLOCK_MONOTONIC, &now) != 0)
+> +		/* can't get time. assume we've timed out */
+> +		return 1;
+>  	return (now.tv_sec > ct->time);
+>  }
+>  
+
 
 --
 dm-devel mailing list
