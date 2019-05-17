@@ -2,63 +2,63 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id C671B22092
-	for <lists+dm-devel@lfdr.de>; Sat, 18 May 2019 00:59:12 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+	by mail.lfdr.de (Postfix) with ESMTPS id C5B2C22096
+	for <lists+dm-devel@lfdr.de>; Sat, 18 May 2019 00:59:50 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 766452026F;
-	Fri, 17 May 2019 22:59:10 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id D9E9F81129;
+	Fri, 17 May 2019 22:59:48 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 29C4F611CA;
-	Fri, 17 May 2019 22:59:10 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 058D72D1C1;
+	Fri, 17 May 2019 22:59:48 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B5DF01806B12;
-	Fri, 17 May 2019 22:59:09 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 92A171806B16;
+	Fri, 17 May 2019 22:59:47 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4HMvcAi004856 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 17 May 2019 18:57:38 -0400
+	id x4HMvb8e004846 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 17 May 2019 18:57:37 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C001E61358; Fri, 17 May 2019 22:57:38 +0000 (UTC)
+	id A0BCC1972A; Fri, 17 May 2019 22:57:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx04.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.28])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B58EF53E1B;
-	Fri, 17 May 2019 22:57:38 +0000 (UTC)
+Received: from mx1.redhat.com (ext-mx06.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.30])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 96B2818500;
+	Fri, 17 May 2019 22:57:37 +0000 (UTC)
 Received: from smtp2.provo.novell.com (smtp2.provo.novell.com [137.65.250.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id C7DBD8553F;
+	by mx1.redhat.com (Postfix) with ESMTPS id E77CF368E6;
 	Fri, 17 May 2019 22:57:35 +0000 (UTC)
 Received: from apollon.suse.de.de (prva10-snat226-1.provo.novell.com
 	[137.65.226.35])
 	by smtp2.provo.novell.com with ESMTP (TLS encrypted);
-	Fri, 17 May 2019 16:57:24 -0600
+	Fri, 17 May 2019 16:57:26 -0600
 From: Martin Wilck <mwilck@suse.com>
 To: Benjamin Marzinski <bmarzins@redhat.com>
-Date: Sat, 18 May 2019 00:57:01 +0200
-Message-Id: <20190517225703.16295-6-mwilck@suse.com>
+Date: Sat, 18 May 2019 00:57:02 +0200
+Message-Id: <20190517225703.16295-7-mwilck@suse.com>
 In-Reply-To: <20190517225703.16295-1-mwilck@suse.com>
 References: <20190517225703.16295-1-mwilck@suse.com>
 MIME-Version: 1.0
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
 	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.28]); Fri, 17 May 2019 22:57:36 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]);
+	[10.5.110.30]); Fri, 17 May 2019 22:57:36 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.30]);
 	Fri, 17 May 2019 22:57:36 +0000 (UTC) for IP:'137.65.250.81'
 	DOMAIN:'smtp2.provo.novell.com' HELO:'smtp2.provo.novell.com'
 	FROM:'mwilck@suse.com' RCPT:''
 X-RedHat-Spam-Score: -2.3  (RCVD_IN_DNSWL_MED, SPF_HELO_NONE,
 	SPF_PASS) 137.65.250.81 smtp2.provo.novell.com
 	137.65.250.81 smtp2.provo.novell.com <mwilck@suse.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.28
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.30
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
 Cc: dbond@redhat.com, dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [RFC PATCH 5/7] libmpathpersist: factor out
-	initialization and teardown
+Subject: [dm-devel] [RFC PATCH 6/7] mpathpersist: initialize data structures
+	only once
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -74,409 +74,59 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]); Fri, 17 May 2019 22:59:11 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Fri, 17 May 2019 22:59:49 +0000 (UTC)
 
-mpath_presistent_reserve_{in,out} share a lot of common code
-for initial data structure initialization (discovery) and teardown.
-Factor this code out into mpath_persistent_reserve_init_vecs()
-(global data structure initialization),
-mpath_persistent_reserve_free_vecs (global teardown) and mpath_get_map()
-(struct multipath setup for given map device).
-
-Provide __mpath_presistent_reserve_{in,out}, which are the same
-as their counterparts without leading underscores, but do not
-call the global setup and teardown routines. This allows running
-several PR commands in a row without having to re-initialize in
-between. Because libmpathpersist is a public API, the previously
-known functions don't change behavior.
-
-Don't call path_discovery() any more during global initialization.
-We rather do this lazily in the get_mpvec() call chain. dm_get_maps(),
-OTOH, is part of the global initialization procedure. In get_mpvec(),
-we don't delete non-matching maps any more, because we way want to
-act on them later on.
+We now have the possibility to run several PR commands in a single
+mpathpersist invocation. Run initialization / discovery and teardown
+only once at program invocation / exit.
 ---
- libmpathpersist/mpath_persist.c | 231 ++++++++++++++------------------
- libmpathpersist/mpath_persist.h |  40 ++++++
- 2 files changed, 142 insertions(+), 129 deletions(-)
+ mpathpersist/main.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/libmpathpersist/mpath_persist.c b/libmpathpersist/mpath_persist.c
-index fee1db72..ce72da67 100644
---- a/libmpathpersist/mpath_persist.c
-+++ b/libmpathpersist/mpath_persist.c
-@@ -164,48 +164,47 @@ mpath_prin_activepath (struct multipath *mpp, int rq_servact,
- int mpath_persistent_reserve_in (int fd, int rq_servact,
- 	struct prin_resp *resp, int noisy, int verbose)
- {
--	struct stat info;
--	vector curmp = NULL;
--	vector pathvec = NULL;
--	char * alias;
--	struct multipath * mpp;
--	int map_present;
--	int major, minor;
--	int ret;
--	struct config *conf;
-+	int ret = mpath_persistent_reserve_init_vecs(verbose);
- 
--	conf = get_multipath_config();
--	conf->verbosity = verbose;
--	put_multipath_config(conf);
-+	if (ret != MPATH_PR_SUCCESS)
-+		return ret;
-+	ret = __mpath_persistent_reserve_in(fd, rq_servact, resp, noisy);
-+	mpath_persistent_reserve_free_vecs();
-+	return ret;
-+}
- 
--	if (fstat( fd, &info) != 0){
--		condlog(0, "stat error %d", fd);
--		return MPATH_PR_FILE_ERROR;
--	}
--	if(!S_ISBLK(info.st_mode)){
--		condlog(0, "Failed to get major:minor. fd = %d", fd);
--		return MPATH_PR_FILE_ERROR;
--	}
-+int mpath_persistent_reserve_out ( int fd, int rq_servact, int rq_scope,
-+	unsigned int rq_type, struct prout_param_descriptor *paramp, int noisy, int verbose)
-+{
-+	int ret = mpath_persistent_reserve_init_vecs(verbose);
- 
--	major = major(info.st_rdev);
--	minor = minor(info.st_rdev);
--	condlog(4, "Device %d:%d:  ", major, minor);
-+	if (ret != MPATH_PR_SUCCESS)
-+		return ret;
-+	ret = __mpath_persistent_reserve_out(fd, rq_servact, rq_scope, rq_type,
-+					     paramp, noisy);
-+	mpath_persistent_reserve_free_vecs();
-+	return ret;
-+}
- 
--	/* get alias from major:minor*/
--	alias = dm_mapname(major, minor);
--	if (!alias){
--		condlog(0, "%d:%d failed to get device alias.", major, minor);
--		return MPATH_PR_DMMP_ERROR;
--	}
-+static vector curmp;
-+static vector pathvec;
- 
--	condlog(3, "alias = %s", alias);
--	map_present = dm_map_present(alias);
--	if (map_present && dm_is_mpath(alias) != 1){
--		condlog( 0, "%s: not a multipath device.", alias);
--		ret = MPATH_PR_DMMP_ERROR;
--		goto out;
--	}
-+void mpath_persistent_reserve_free_vecs(void)
-+{
-+	free_multipathvec(curmp, KEEP_PATHS);
-+	free_pathvec(pathvec, FREE_PATHS);
-+	curmp = pathvec = NULL;
-+}
-+
-+int mpath_persistent_reserve_init_vecs(int verbose)
-+{
-+	struct config *conf = get_multipath_config();
- 
-+	conf->verbosity = verbose;
-+	put_multipath_config(conf);
-+
-+	if (curmp)
-+		return MPATH_PR_SUCCESS;
- 	/*
- 	 * allocate core vectors to store paths and multipaths
- 	 */
-@@ -213,70 +212,32 @@ int mpath_persistent_reserve_in (int fd, int rq_servact,
- 	pathvec = vector_alloc ();
- 
- 	if (!curmp || !pathvec){
--		condlog (0, "%s: vector allocation failed.", alias);
--		ret = MPATH_PR_DMMP_ERROR;
--		if (curmp)
--			vector_free(curmp);
--		if (pathvec)
--			vector_free(pathvec);
--		goto out;
--	}
--
--	if (path_discovery(pathvec, DI_SYSFS | DI_CHECKER) < 0) {
--		ret = MPATH_PR_DMMP_ERROR;
--		goto out1;
-+		condlog (0, "vector allocation failed.");
-+		goto err;
+diff --git a/mpathpersist/main.c b/mpathpersist/main.c
+index b204647f..5f871019 100644
+--- a/mpathpersist/main.c
++++ b/mpathpersist/main.c
+@@ -367,6 +367,9 @@ static int handle_args(int argc, char * argv[], int nline)
+ 		/* set verbosity */
+ 		noisy = (loglevel >= 3) ? 1 : hex;
+ 		verbose	= (loglevel >= 3)? 3: loglevel;
++		ret = mpath_persistent_reserve_init_vecs(verbose);
++		if (ret != MPATH_PR_SUCCESS)
++			goto out;
  	}
  
--	/* get info of all paths from the dm device	*/
--	if (get_mpvec (curmp, pathvec, alias)){
--		condlog(0, "%s: failed to get device info.", alias);
--		ret = MPATH_PR_DMMP_ERROR;
--		goto out1;
--	}
-+	if (dm_get_maps(curmp))
-+		goto err;
- 
--	mpp = find_mp_by_alias(curmp, alias);
--	if (!mpp){
--		condlog(0, "%s: devmap not registered.", alias);
--		ret = MPATH_PR_DMMP_ERROR;
--		goto out1;
--	}
--
--	ret = mpath_prin_activepath(mpp, rq_servact, resp, noisy);
-+	return MPATH_PR_SUCCESS;
- 
--out1:
--	free_multipathvec(curmp, KEEP_PATHS);
--	free_pathvec(pathvec, FREE_PATHS);
--out:
--	FREE(alias);
--	return ret;
-+err:
-+	mpath_persistent_reserve_free_vecs();
-+	return MPATH_PR_DMMP_ERROR;
- }
- 
--int mpath_persistent_reserve_out ( int fd, int rq_servact, int rq_scope,
--	unsigned int rq_type, struct prout_param_descriptor *paramp, int noisy, int verbose)
-+static int mpath_get_map(int fd, char **palias, struct multipath **pmpp)
- {
--
-+	int ret = MPATH_PR_DMMP_ERROR;
- 	struct stat info;
--
--	vector curmp = NULL;
--	vector pathvec = NULL;
--
--	char * alias;
--	struct multipath * mpp;
--	int map_present;
- 	int major, minor;
--	int ret;
--	uint64_t prkey;
--	struct config *conf;
--
--	conf = get_multipath_config();
--	conf->verbosity = verbose;
--	put_multipath_config(conf);
-+	char *alias;
-+	struct multipath *mpp;
- 
--	if (fstat( fd, &info) != 0){
-+	if (fstat(fd, &info) != 0){
- 		condlog(0, "stat error fd=%d", fd);
- 		return MPATH_PR_FILE_ERROR;
- 	}
--
- 	if(!S_ISBLK(info.st_mode)){
- 		condlog(3, "Failed to get major:minor. fd=%d", fd);
- 		return MPATH_PR_FILE_ERROR;
-@@ -286,57 +247,73 @@ int mpath_persistent_reserve_out ( int fd, int rq_servact, int rq_scope,
- 	minor = minor(info.st_rdev);
- 	condlog(4, "Device  %d:%d", major, minor);
- 
--	/* get WWN of the device from major:minor*/
-+	/* get alias from major:minor*/
- 	alias = dm_mapname(major, minor);
- 	if (!alias){
-+		condlog(0, "%d:%d failed to get device alias.", major, minor);
- 		return MPATH_PR_DMMP_ERROR;
- 	}
- 
- 	condlog(3, "alias = %s", alias);
--	map_present = dm_map_present(alias);
- 
--	if (map_present && dm_is_mpath(alias) != 1){
-+	if (dm_map_present(alias) && dm_is_mpath(alias) != 1){
- 		condlog(3, "%s: not a multipath device.", alias);
--		ret = MPATH_PR_DMMP_ERROR;
--		goto out;
--	}
--
--	/*
--	 * allocate core vectors to store paths and multipaths
--	 */
--	curmp = vector_alloc ();
--	pathvec = vector_alloc ();
--
--	if (!curmp || !pathvec){
--		condlog (0, "%s: vector allocation failed.", alias);
--		ret = MPATH_PR_DMMP_ERROR;
--		if (curmp)
--			vector_free(curmp);
--		if (pathvec)
--			vector_free(pathvec);
- 		goto out;
- 	}
- 
--	if (path_discovery(pathvec, DI_SYSFS | DI_CHECKER) < 0) {
--		ret = MPATH_PR_DMMP_ERROR;
--		goto out1;
--	}
--
- 	/* get info of all paths from the dm device     */
- 	if (get_mpvec(curmp, pathvec, alias)){
- 		condlog(0, "%s: failed to get device info.", alias);
--		ret = MPATH_PR_DMMP_ERROR;
--		goto out1;
-+		goto out;
- 	}
- 
- 	mpp = find_mp_by_alias(curmp, alias);
- 
- 	if (!mpp) {
- 		condlog(0, "%s: devmap not registered.", alias);
--		ret = MPATH_PR_DMMP_ERROR;
--		goto out1;
-+		goto out;
- 	}
- 
-+	ret = MPATH_PR_SUCCESS;
-+	if (pmpp)
-+		*pmpp = mpp;
-+	if (palias) {
-+		*palias = alias;
-+		alias = NULL;
-+	}
-+out:
-+	FREE(alias);
-+	return ret;
-+}
-+
-+int __mpath_persistent_reserve_in (int fd, int rq_servact,
-+	struct prin_resp *resp, int noisy)
-+{
-+	struct multipath *mpp;
-+	int ret;
-+
-+	ret = mpath_get_map(fd, NULL, &mpp);
-+	if (ret != MPATH_PR_SUCCESS)
-+		return ret;
-+
-+	ret = mpath_prin_activepath(mpp, rq_servact, resp, noisy);
-+
-+	return ret;
-+}
-+
-+int __mpath_persistent_reserve_out ( int fd, int rq_servact, int rq_scope,
-+	unsigned int rq_type, struct prout_param_descriptor *paramp, int noisy)
-+{
-+	struct multipath *mpp;
-+	char *alias;
-+	int ret;
-+	uint64_t prkey;
-+	struct config *conf;
-+
-+	ret = mpath_get_map(fd, &alias, &mpp);
-+	if (ret != MPATH_PR_SUCCESS)
-+		return ret;
-+
- 	conf = get_multipath_config();
- 	select_reservation_key(conf, mpp);
- 	select_all_tg_pt(conf, mpp);
-@@ -397,10 +374,6 @@ int mpath_persistent_reserve_out ( int fd, int rq_servact, int rq_scope,
- 		update_prkey(alias, 0);
- 	}
- out1:
--	free_multipathvec(curmp, KEEP_PATHS);
--	free_pathvec(pathvec, FREE_PATHS);
--
--out:
- 	FREE(alias);
- 	return ret;
- }
-@@ -412,22 +385,22 @@ get_mpvec (vector curmp, vector pathvec, char * refwwid)
- 	struct multipath *mpp;
- 	char params[PARAMS_SIZE], status[PARAMS_SIZE];
- 
--	if (dm_get_maps (curmp)){
--		return 1;
--	}
--
- 	vector_foreach_slot (curmp, mpp, i){
- 		/*
- 		 * discard out of scope maps
- 		 */
--		if (mpp->alias && refwwid &&
--		    strncmp (mpp->alias, refwwid, WWID_SIZE - 1)){
--			free_multipath (mpp, KEEP_PATHS);
--			vector_del_slot (curmp, i);
--			i--;
-+		if (!mpp->alias) {
-+			condlog(0, "%s: map with empty alias!", __func__);
- 			continue;
+ 	if ((prout_flag + prin_flag) == 0 && batch_fn == NULL)
+@@ -473,7 +476,7 @@ static int handle_args(int argc, char * argv[], int nline)
+ 			goto out;
  		}
  
-+		if (mpp->pg != NULL)
-+			/* Already seen this one */
-+			continue;
-+
-+		if (refwwid && strncmp (mpp->alias, refwwid, WWID_SIZE - 1))
-+			continue;
-+
- 		dm_get_map(mpp->alias, &mpp->size, params);
- 		condlog(3, "params = %s", params);
- 		dm_get_status(mpp->alias, status);
-diff --git a/libmpathpersist/mpath_persist.h b/libmpathpersist/mpath_persist.h
-index 9a84bc9c..7cf4faf9 100644
---- a/libmpathpersist/mpath_persist.h
-+++ b/libmpathpersist/mpath_persist.h
-@@ -213,6 +213,15 @@ extern int mpath_lib_exit (struct config *conf);
- extern int mpath_persistent_reserve_in (int fd, int rq_servact, struct prin_resp *resp,
- 		int noisy, int verbose);
+-		ret = mpath_persistent_reserve_in (fd, prin_sa, resp, noisy, verbose);
++		ret = __mpath_persistent_reserve_in (fd, prin_sa, resp, noisy);
+ 		if (ret != MPATH_PR_SUCCESS )
+ 		{
+ 			fprintf (stderr, "Persistent Reserve IN command failed\n");
+@@ -533,8 +536,8 @@ static int handle_args(int argc, char * argv[], int nline)
+ 		}
  
-+/*
-+ * DESCRIPTION :
-+ * This function is like mpath_persistent_reserve_in(), except that it doesn't call
-+ * mpath_persistent_reserve_init_vecs() and mpath_persistent_reserve_free_vecs()
-+ * before and after the actual PR call.
-+ */
-+extern int __mpath_persistent_reserve_in(int fd, int rq_servact,
-+		struct prin_resp *resp, int noisy);
-+
- /*
-  * DESCRIPTION :
-  * This function sends PROUT command to the DM device and get the response.
-@@ -238,6 +247,37 @@ extern int mpath_persistent_reserve_in (int fd, int rq_servact, struct prin_resp
- extern int mpath_persistent_reserve_out ( int fd, int rq_servact, int rq_scope,
- 		unsigned int rq_type, struct prout_param_descriptor *paramp, int noisy,
- 		int verbose);
-+/*
-+ * DESCRIPTION :
-+ * This function is like mpath_persistent_reserve_out(), except that it doesn't call
-+ * mpath_persistent_reserve_init_vecs() and mpath_persistent_reserve_free_vecs()
-+ * before and after the actual PR call.
-+ */
-+extern int __mpath_persistent_reserve_out( int fd, int rq_servact, int rq_scope,
-+		unsigned int rq_type, struct prout_param_descriptor *paramp,
-+		int noisy);
-+
-+/*
-+ * DESCRIPTION :
-+ * This function allocates data structures and performs basic initialization and
-+ * device discovery for later calls of __mpath_persistent_reserve_in() or
-+ * __mpath_persistent_reserve_out().
-+ * @verbose: Set verbosity level. Input argument. value:0 to 3. 0->disabled, 3->Max verbose
-+ *
-+ * RESTRICTIONS:
-+ *
-+ * RETURNS: MPATH_PR_SUCCESS if successful else returns any of the status specified
-+ *       above in RETURN_STATUS.
-+ */
-+int mpath_persistent_reserve_init_vecs(int verbose);
-+
-+/*
-+ * DESCRIPTION :
-+ * This function frees data structures allocated by
-+ * mpath_persistent_reserve_init_vecs().
-+ */
-+void mpath_persistent_reserve_free_vecs(void);
-+
- 
- #ifdef __cplusplus
+ 		/* PROUT commands other than 'register and move' */
+-		ret = mpath_persistent_reserve_out (fd, prout_sa, 0, prout_type,
+-				paramp, noisy, verbose);
++		ret = __mpath_persistent_reserve_out (fd, prout_sa, 0, prout_type,
++				paramp, noisy);
+ 		for (j = 0 ; j < num_transport; j++)
+ 		{
+ 			tmp = paramp->trnptid_list[j];
+@@ -572,6 +575,8 @@ out :
+ 		free(batch_fn);
+ 		ret = ret == 0 ? rv : ret;
+ 	}
++	if (nline == 0)
++		mpath_persistent_reserve_free_vecs();
+ 	return (ret >= 0) ? ret : MPATH_PR_OTHER;
  }
+ 
 -- 
 2.21.0
 
