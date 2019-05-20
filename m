@@ -2,93 +2,62 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D9B023B54
-	for <lists+dm-devel@lfdr.de>; Mon, 20 May 2019 16:56:59 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id C46E523D8D
+	for <lists+dm-devel@lfdr.de>; Mon, 20 May 2019 18:33:51 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 7D01C3082B44;
-	Mon, 20 May 2019 14:56:23 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A22235DD97;
-	Mon, 20 May 2019 14:56:07 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id C3048307D90F;
+	Mon, 20 May 2019 16:32:59 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 37DA65C221;
+	Mon, 20 May 2019 16:32:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A47AD1806B13;
-	Mon, 20 May 2019 14:55:24 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4DBCB5B424;
+	Mon, 20 May 2019 16:32:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4KEs6rG029376 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 20 May 2019 10:54:06 -0400
+	id x4KGVJdo016987 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 20 May 2019 12:31:19 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E659D5DEC8; Mon, 20 May 2019 14:54:06 +0000 (UTC)
+	id 12581383F; Mon, 20 May 2019 16:31:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.41])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E10C15D9CA
-	for <dm-devel@redhat.com>; Mon, 20 May 2019 14:54:03 +0000 (UTC)
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
-	[209.85.222.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 62FE5317914F
-	for <dm-devel@redhat.com>; Mon, 20 May 2019 14:53:54 +0000 (UTC)
-Received: by mail-qk1-f177.google.com with SMTP id c15so9006062qkl.2
-	for <dm-devel@redhat.com>; Mon, 20 May 2019 07:53:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc:content-transfer-encoding;
-	bh=Bq4OPRoHR/GdFYsXHFmXQHeqWsJVDzg1YcPCT6uMfzg=;
-	b=TW12cMlJFjx6iCXn6hDGoo98OW0wgU/7hfN+DtGS7LrKsdcGA4lSHPh8PHO9+8kxsZ
-	vCVlAtKaTi0a9LDl528abj5WleNlgmWBfnXEFOLSN1TJmaOKFtrpqHvN7TOMWEb1eh38
-	ThYQ/agNaY027KNn5ecCtZSX0DivZeL0Gpb+mpwc1VBYq8vI5Vt3oMmOW3sbmlbJ0ggm
-	ivzVxDSGtU6jtDgdESLOfFxSRxkCNYkS4OB6y28gNipxrQzfD7YUbEFFB5743JyTwNrJ
-	tix7M5PFIEj6hPKrU1kNAtQxX6mniImGHFJCu4CmCE8uZ17Bpwb+ShOxf7vUxti7preW
-	I7/Q==
-X-Gm-Message-State: APjAAAXOBtwq+3LONaKnIq2hNdpnALCWmGcrN1g2slBMXvQVEQyewpQq
-	K1jTmpx8NWbcrmP5ARROwGKuzciDa6JkPOrhIjw=
-X-Google-Smtp-Source: APXvYqynd+yxRaUTA7GoFj1jsz2MKZhynhBX/B1O2uzQ87uwQ87bcClPZ/fJeJKcdzKXjODCH9PvH46aSXRlGrM9xRk=
-X-Received: by 2002:a37:e301:: with SMTP id y1mr58177011qki.176.1558364033181; 
-	Mon, 20 May 2019 07:53:53 -0700 (PDT)
+Received: from mx1.redhat.com (ext-mx17.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.46])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DD45236FB;
+	Mon, 20 May 2019 16:31:16 +0000 (UTC)
+Received: from smtp2.provo.novell.com (smtp2.provo.novell.com [137.65.250.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 6FA383082E56;
+	Mon, 20 May 2019 16:30:30 +0000 (UTC)
+Received: from apollon.suse.de.de (prva10-snat226-1.provo.novell.com
+	[137.65.226.35])
+	by smtp2.provo.novell.com with ESMTP (TLS encrypted);
+	Mon, 20 May 2019 10:30:24 -0600
+From: Martin Wilck <mwilck@suse.com>
+To: Benjamin Marzinski <bmarzins@redhat.com>,
+	Christophe Varoqui <christophe.varoqui@opensvc.com>
+Date: Mon, 20 May 2019 18:30:08 +0200
+Message-Id: <20190520163008.20642-1-mwilck@suse.com>
 MIME-Version: 1.0
-References: <297da4cbe20235080205719805b08810@bi-co.net>
-	<CAJCQCtR-uo9fgs66pBMEoYX_xAye=O-L8kiMwyAdFjPS5T4+CA@mail.gmail.com>
-	<8C31D41C-9608-4A65-B543-8ABCC0B907A0@bi-co.net>
-	<CAJCQCtTZWXUgUDh8vn0BFeEbAdKToDSVYYw4Q0bt0rECQr9nxQ@mail.gmail.com>
-	<AD966642-1043-468D-BABF-8FC9AF514D36@bi-co.net>
-	<158a3491-e4d2-d905-7f58-11a15bddcd70@gmx.com>
-	<C1CD4646-E75D-4AAF-9CD6-B3AC32495FD3@bi-co.net>
-	<CAK-xaQYPs62v971zm1McXw_FGzDmh_vpz3KLEbxzkmrsSgTfXw@mail.gmail.com>
-	<9D4ECE0B-C9DD-4BAD-A764-9DE2FF2A10C7@bi-co.net>
-In-Reply-To: <9D4ECE0B-C9DD-4BAD-A764-9DE2FF2A10C7@bi-co.net>
-From: Andrea Gelmini <andrea.gelmini@gelma.net>
-Date: Mon, 20 May 2019 16:53:41 +0200
-Message-ID: <CAK-xaQYakXcAbhfiH_VbqWkh+HBJD5N69ktnnA7OnWdhL6fDLA@mail.gmail.com>
-To: =?UTF-8?B?TWljaGFlbCBMYcOf?= <bevan@bi-co.net>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.41]);
-	Mon, 20 May 2019 14:53:54 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]);
-	Mon, 20 May 2019 14:53:54 +0000 (UTC) for IP:'209.85.222.177'
-	DOMAIN:'mail-qk1-f177.google.com'
-	HELO:'mail-qk1-f177.google.com' FROM:'andrea.gelmini@gmail.com'
-	RCPT:''
-X-RedHat-Spam-Score: -0.315  (FREEMAIL_FORGED_FROMDOMAIN, FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
-	SPF_PASS) 209.85.222.177 mail-qk1-f177.google.com 209.85.222.177
-	mail-qk1-f177.google.com <andrea.gelmini@gmail.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.41
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id x4KEs6rG029376
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.46]); Mon, 20 May 2019 16:30:51 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]);
+	Mon, 20 May 2019 16:30:51 +0000 (UTC) for IP:'137.65.250.81'
+	DOMAIN:'smtp2.provo.novell.com' HELO:'smtp2.provo.novell.com'
+	FROM:'mwilck@suse.com' RCPT:''
+X-RedHat-Spam-Score: -2.301  (RCVD_IN_DNSWL_MED,
+	SPF_PASS) 137.65.250.81 smtp2.provo.novell.com
+	137.65.250.81 smtp2.provo.novell.com <mwilck@suse.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.46
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Chris Murphy <lists@colorremedies.com>,
-	Btrfs BTRFS <linux-btrfs@vger.kernel.org>,
-	Qu Wenruo <quwenruo.btrfs@gmx.com>
-Subject: Re: [dm-devel] fstrim discarding too many or wrong blocks on Linux
- 5.1, leading to data loss
+Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Subject: [dm-devel] [PATCH] multipath-tools (coverity): assert availability
+	of CLOCK_MONOTONIC
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,209 +69,210 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]); Mon, 20 May 2019 14:56:57 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]); Mon, 20 May 2019 16:33:50 +0000 (UTC)
 
-SWwgZ2lvcm5vIGx1biAyMCBtYWcgMjAxOSBhbGxlIG9yZSAxNTo1OCBNaWNoYWVsIExhw58gPGJl
-dmFuQGJpLWNvLm5ldD4KaGEgc2NyaXR0bzoKPgo+Cj4gPiBBbSAyMC4wNS4yMDE5IHVtIDE1OjUz
-IHNjaHJpZWIgQW5kcmVhIEdlbG1pbmkgPGFuZHJlYS5nZWxtaW5pQGdtYWlsLmNvbT46Cj4gPgo+
-ID4gSGFkIHNhbWUgaXNzdWUgb24gYSBzaW1pbGFyICh3ZWxsLCAgcXVpdGUgZXhhY3RseSBzYW1l
-IHNldHVwKSwgb24gYSBtYWNoaW5lIGluIHByb2R1Y3Rpb24uCj4gPiBCdXQgSXQgSXMgbW9yZSB0
-aGFuIDQgdGVyYSBvZiBkYXRhLCBzbyBpbiB0aGUgZW5kIEkgcmUtZGQgdGhlIGltYWdlIGFuZCBy
-ZXN0YXJ0ZWQsIHN0aWNraW5nIHRvIDUuMC55IGJyYW5jaCBuZXZlciBoYWQgcHJvYmxlbS4KPiA+
-IEkgd2FzIGFibGUgdG8gcmVwbGljYXRlIGl0LiBTU0QgU2Ftc3VuZywgbW9yZSByZWNlbnQgdmVy
-c2lvbi4KPiA+IE5vdCB3aXRoIGJ0cmZzIGJ1dCBleHQ0LCBieSB0aGUgd2F5Lgo+Cj4gVGhhbmtz
-IGZvciB0aGUgaW5mbywgdGhhdCBlbGltaW5hdGVzIG9uZSB2YXJpYWJsZS4gU28geW91IGFsc28g
-dXNlZCBkbS1jcnlwdCBvbiB0b3Agb2YgTFZNPwoKcm9vdEBnbGV0On4jIGxzYmxrIHxncmVwIC12
-IGxvb3AKTkFNRSAgICAgICAgICAgTUFKOk1JTiBSTSAgIFNJWkUgUk8gVFlQRSAgTU9VTlRQT0lO
-VApzZGEgICAgICAgICAgICAgIDg6MCAgICAwICAgMyw3VCAgMCBkaXNrCuKUnOKUgHNkYTEgICAg
-ICAgICAgIDg6MSAgICAwICAgMjYwTSAgMCBwYXJ0ICAvYm9vdC9lZmkK4pSc4pSAc2RhMiAgICAg
-ICAgICAgODoyICAgIDAgICAgMTZNICAwIHBhcnQK4pSc4pSAc2RhMyAgICAgICAgICAgODozICAg
-IDAgIDY3LDZHICAwIHBhcnQK4pSc4pSAc2RhNCAgICAgICAgICAgODo0ICAgIDAgICA4ODNNICAw
-IHBhcnQK4pSc4pSAc2RhNSAgICAgICAgICAgODo1ICAgIDAgICAxLDlHICAwIHBhcnQgIC9ib290
-CuKUlOKUgHNkYTYgICAgICAgICAgIDg6NiAgICAwICAgMyw1VCAgMCBwYXJ0CiDilJTilIBzZGE2
-X2NyeXB0IDI1NDowICAgIDAgICAzLDVUICAwIGNyeXB0CiAgIOKUnOKUgGNyeS1yb290IDI1NDox
-ICAgIDAgICAgMjhHICAwIGx2bSAgIC8KICAg4pSc4pSAY3J5LXN3YXAgMjU0OjIgICAgMCAgICA3
-MEcgIDAgbHZtICAgW1NXQVBdCiAgIOKUlOKUgGNyeS1ob21lIDI1NDozICAgIDAgICAyLDdUICAw
-IGx2bSAgIC9ob21lCm52bWUwbjEgICAgICAgIDI1OTowICAgIDAgMTE5LDJHICAwIGRpc2sK4pSc
-4pSAbnZtZTBuMXAxICAgIDI1OToxICAgIDAgIDk3LDhHICAwIHBhcnQgIC9tbnQvbnZtZQrilJTi
-lIBudm1lMG4xcDIgICAgMjU5OjIgICAgMCAgMjEsNUcgIDAgcGFydCAgW1NXQVBdCnJvb3RAZ2xl
-dDp+IwoKQm9vdGluZyB3aXRoIGtlcm5lbCA+IDUuMCwgaXQgZGlzY2FyZCBjcnktaG9tZSwgZm9y
-IHRoZSBmaXJzdCBiaWcgcGFydC4KCnJvb3RAZ2xldDp+IyBsdmRpc3BsYXkgIC12dgogICAgIGRl
-dmljZXMvZ2xvYmFsX2ZpbHRlciBub3QgZm91bmQgaW4gY29uZmlnOiBkZWZhdWx0aW5nIHRvCmds
-b2JhbF9maWx0ZXIgPSBbICJhfC4qL3wiIF0KICAgICBTZXR0aW5nIGdsb2JhbC9sb2NraW5nX3R5
-cGUgdG8gMQogICAgIFNldHRpbmcgZ2xvYmFsL3VzZV9sdm1ldGFkIHRvIDEKICAgICBnbG9iYWwv
-bHZtZXRhZF91cGRhdGVfd2FpdF90aW1lIG5vdCBmb3VuZCBpbiBjb25maWc6IGRlZmF1bHRpbmcg
-dG8gMTAKICAgICBTZXR0aW5nIHJlc3BvbnNlIHRvIE9LCiAgICAgU2V0dGluZyBwcm90b2NvbCB0
-byBsdm1ldGFkCiAgICAgU2V0dGluZyB2ZXJzaW9uIHRvIDEKICAgICBTZXR0aW5nIGdsb2JhbC91
-c2VfbHZtcG9sbGQgdG8gMQogICAgIFNldHRpbmcgZGV2aWNlcy9zeXNmc19zY2FuIHRvIDEKICAg
-ICBTZXR0aW5nIGRldmljZXMvbXVsdGlwYXRoX2NvbXBvbmVudF9kZXRlY3Rpb24gdG8gMQogICAg
-IFNldHRpbmcgZGV2aWNlcy9tZF9jb21wb25lbnRfZGV0ZWN0aW9uIHRvIDEKICAgICBTZXR0aW5n
-IGRldmljZXMvZndfcmFpZF9jb21wb25lbnRfZGV0ZWN0aW9uIHRvIDAKICAgICBTZXR0aW5nIGRl
-dmljZXMvaWdub3JlX3N1c3BlbmRlZF9kZXZpY2VzIHRvIDAKICAgICBTZXR0aW5nIGRldmljZXMv
-aWdub3JlX2x2bV9taXJyb3JzIHRvIDEKICAgICBkZXZpY2VzL2ZpbHRlciBub3QgZm91bmQgaW4g
-Y29uZmlnOiBkZWZhdWx0aW5nIHRvIGZpbHRlciA9IFsgImF8LiovfCIgXQogICAgIFNldHRpbmcg
-ZGV2aWNlcy9jYWNoZV9kaXIgdG8gL3J1bi9sdm0KICAgICBTZXR0aW5nIGRldmljZXMvY2FjaGVf
-ZmlsZV9wcmVmaXggdG8KICAgICBkZXZpY2VzL2NhY2hlIG5vdCBmb3VuZCBpbiBjb25maWc6IGRl
-ZmF1bHRpbmcgdG8gL3J1bi9sdm0vLmNhY2hlCiAgICAgU2V0dGluZyBkZXZpY2VzL3dyaXRlX2Nh
-Y2hlX3N0YXRlIHRvIDEKICAgICBTZXR0aW5nIGdsb2JhbC91c2VfbHZtZXRhZCB0byAxCiAgICAg
-U2V0dGluZyBhY3RpdmF0aW9uL2FjdGl2YXRpb25fbW9kZSB0byBkZWdyYWRlZAogICAgIG1ldGFk
-YXRhL3JlY29yZF9sdnNfaGlzdG9yeSBub3QgZm91bmQgaW4gY29uZmlnOiBkZWZhdWx0aW5nIHRv
-IDAKICAgICBTZXR0aW5nIGFjdGl2YXRpb24vbW9uaXRvcmluZyB0byAxCiAgICAgU2V0dGluZyBn
-bG9iYWwvbG9ja2luZ190eXBlIHRvIDEKICAgICBTZXR0aW5nIGdsb2JhbC93YWl0X2Zvcl9sb2Nr
-cyB0byAxCiAgICAgRmlsZS1iYXNlZCBsb2NraW5nIHNlbGVjdGVkLgogICAgIFNldHRpbmcgZ2xv
-YmFsL3ByaW9yaXRpc2Vfd3JpdGVfbG9ja3MgdG8gMQogICAgIFNldHRpbmcgZ2xvYmFsL2xvY2tp
-bmdfZGlyIHRvIC9ydW4vbG9jay9sdm0KICAgICBTZXR0aW5nIGdsb2JhbC91c2VfbHZtbG9ja2Qg
-dG8gMAogICAgIFNldHRpbmcgcmVzcG9uc2UgdG8gT0sKICAgICBTZXR0aW5nIHRva2VuIHRvIGZp
-bHRlcjozMjM5MjM1NDQwCiAgICAgU2V0dGluZyBkYWVtb25fcGlkIHRvIDY1MAogICAgIFNldHRp
-bmcgcmVzcG9uc2UgdG8gT0sKICAgICBTZXR0aW5nIGdsb2JhbF9kaXNhYmxlIHRvIDAKICAgICBy
-ZXBvcnQvb3V0cHV0X2Zvcm1hdCBub3QgZm91bmQgaW4gY29uZmlnOiBkZWZhdWx0aW5nIHRvIGJh
-c2ljCiAgICAgbG9nL3JlcG9ydF9jb21tYW5kX2xvZyBub3QgZm91bmQgaW4gY29uZmlnOiBkZWZh
-dWx0aW5nIHRvIDAKICAgICBTZXR0aW5nIHJlc3BvbnNlIHRvIE9LCiAgICAgU2V0dGluZyByZXNw
-b25zZSB0byBPSwogICAgIFNldHRpbmcgcmVzcG9uc2UgdG8gT0sKICAgICBTZXR0aW5nIG5hbWUg
-dG8gY3J5CiAgICAgUHJvY2Vzc2luZyBWRyBjcnkgT3Jrd29mLXpxMTYtZTFxTS1yVU10LXZLVjEt
-TGMxMy1DZ2lLWXAKICAgICBMb2NraW5nIC9ydW4vbG9jay9sdm0vVl9jcnkgUkIKICAgICBSZWFk
-aW5nIFZHIGNyeSBPcmt3b2Z6cTE2ZTFxTXJVTXR2S1YxTGMxM0NnaUtZcAogICAgIFNldHRpbmcg
-cmVzcG9uc2UgdG8gT0sKICAgICBTZXR0aW5nIHJlc3BvbnNlIHRvIE9LCiAgICAgU2V0dGluZyBy
-ZXNwb25zZSB0byBPSwogICAgIFNldHRpbmcgbmFtZSB0byBjcnkKICAgICBTZXR0aW5nIG1ldGFk
-YXRhL2Zvcm1hdCB0byBsdm0yCiAgICAgU2V0dGluZyBpZCB0byBPdG9FZlgtYnBXTi1sOWdkLWtM
-SlctMXhjYS1QYUhSLUFSclNLcgogICAgIFNldHRpbmcgZm9ybWF0IHRvIGx2bTIKICAgICBTZXR0
-aW5nIGRldmljZSB0byA2NTAyNAogICAgIFNldHRpbmcgZGV2X3NpemUgdG8gNzQ2NTg0MDY0MAog
-ICAgIFNldHRpbmcgbGFiZWxfc2VjdG9yIHRvIDEKICAgICBTZXR0aW5nIGV4dF9mbGFncyB0byAx
-CiAgICAgU2V0dGluZyBleHRfdmVyc2lvbiB0byAyCiAgICAgU2V0dGluZyBzaXplIHRvIDEwNDQ0
-ODAKICAgICBTZXR0aW5nIHN0YXJ0IHRvIDQwOTYKICAgICBTZXR0aW5nIGlnbm9yZSB0byAwCiAg
-ICAgU2V0dGluZyByZXNwb25zZSB0byBPSwogICAgIFNldHRpbmcgcmVzcG9uc2UgdG8gT0sKICAg
-ICBTZXR0aW5nIHJlc3BvbnNlIHRvIE9LCiAgICAgL2Rldi9tYXBwZXIvc2RhNl9jcnlwdDogc2l6
-ZSBpcyA3NDY1ODQyNjg4IHNlY3RvcnMKICAgICBBZGRpbmcgY3J5L3Jvb3QgdG8gdGhlIGxpc3Qg
-b2YgTFZzIHRvIGJlIHByb2Nlc3NlZC4KICAgICBBZGRpbmcgY3J5L3N3YXAgdG8gdGhlIGxpc3Qg
-b2YgTFZzIHRvIGJlIHByb2Nlc3NlZC4KICAgICBBZGRpbmcgY3J5L2hvbWUgdG8gdGhlIGxpc3Qg
-b2YgTFZzIHRvIGJlIHByb2Nlc3NlZC4KICAgICBQcm9jZXNzaW5nIExWIHJvb3QgaW4gVkcgY3J5
-LgogLS0tIExvZ2ljYWwgdm9sdW1lIC0tLQogICAgIGdsb2JhbC9sdmRpc3BsYXlfc2hvd3NfZnVs
-bF9kZXZpY2VfcGF0aCBub3QgZm91bmQgaW4gY29uZmlnOgpkZWZhdWx0aW5nIHRvIDAKIExWIFBh
-dGggICAgICAgICAgICAgICAgL2Rldi9jcnkvcm9vdAogTFYgTmFtZSAgICAgICAgICAgICAgICBy
-b290CiBWRyBOYW1lICAgICAgICAgICAgICAgIGNyeQogTFYgVVVJRCAgICAgICAgICAgICAgICBK
-MHZKNUQtUnp5dC05Zk9tLWNKVlUtYndqYy02cGMxLWpHcUloYwogTFYgV3JpdGUgQWNjZXNzICAg
-ICAgICByZWFkL3dyaXRlCiBMViBDcmVhdGlvbiBob3N0LCB0aW1lIGdsZXQsIDIwMTgtMTEtMDIg
-MTc6NTE6MzUgKzAxMDAKIExWIFN0YXR1cyAgICAgICAgICAgICAgYXZhaWxhYmxlCiAjIG9wZW4g
-ICAgICAgICAgICAgICAgIDEKIExWIFNpemUgICAgICAgICAgICAgICAgPDI3LDk0IEdpQgogQ3Vy
-cmVudCBMRSAgICAgICAgICAgICA3MTUyCiBTZWdtZW50cyAgICAgICAgICAgICAgIDEKIEFsbG9j
-YXRpb24gICAgICAgICAgICAgaW5oZXJpdAogUmVhZCBhaGVhZCBzZWN0b3JzICAgICBhdXRvCiAt
-IGN1cnJlbnRseSBzZXQgdG8gICAgIDI1NgogQmxvY2sgZGV2aWNlICAgICAgICAgICAyNTQ6MQoK
-ICAgICBQcm9jZXNzaW5nIExWIHN3YXAgaW4gVkcgY3J5LgogLS0tIExvZ2ljYWwgdm9sdW1lIC0t
-LQogICAgIGdsb2JhbC9sdmRpc3BsYXlfc2hvd3NfZnVsbF9kZXZpY2VfcGF0aCBub3QgZm91bmQg
-aW4gY29uZmlnOgpkZWZhdWx0aW5nIHRvIDAKIExWIFBhdGggICAgICAgICAgICAgICAgL2Rldi9j
-cnkvc3dhcAogTFYgTmFtZSAgICAgICAgICAgICAgICBzd2FwCiBWRyBOYW1lICAgICAgICAgICAg
-ICAgIGNyeQogTFYgVVVJRCAgICAgICAgICAgICAgICBjNGlMZXgteHhNdS1RdXlyLTRxa3QtaEZr
-Mi11T2I1LUJERjVscwogTFYgV3JpdGUgQWNjZXNzICAgICAgICByZWFkL3dyaXRlCiBMViBDcmVh
-dGlvbiBob3N0LCB0aW1lIGdsZXQsIDIwMTgtMTEtMDIgMTc6NTE6NDMgKzAxMDAKIExWIFN0YXR1
-cyAgICAgICAgICAgICAgYXZhaWxhYmxlCiAjIG9wZW4gICAgICAgICAgICAgICAgIDIKIExWIFNp
-emUgICAgICAgICAgICAgICAgNzAsMDAgR2lCCiBDdXJyZW50IExFICAgICAgICAgICAgIDE3OTIw
-CiBTZWdtZW50cyAgICAgICAgICAgICAgIDIKIEFsbG9jYXRpb24gICAgICAgICAgICAgaW5oZXJp
-dAogUmVhZCBhaGVhZCBzZWN0b3JzICAgICBhdXRvCiAtIGN1cnJlbnRseSBzZXQgdG8gICAgIDI1
-NgogQmxvY2sgZGV2aWNlICAgICAgICAgICAyNTQ6MgoKICAgICBQcm9jZXNzaW5nIExWIGhvbWUg
-aW4gVkcgY3J5LgogLS0tIExvZ2ljYWwgdm9sdW1lIC0tLQogICAgIGdsb2JhbC9sdmRpc3BsYXlf
-c2hvd3NfZnVsbF9kZXZpY2VfcGF0aCBub3QgZm91bmQgaW4gY29uZmlnOgpkZWZhdWx0aW5nIHRv
-IDAKIExWIFBhdGggICAgICAgICAgICAgICAgL2Rldi9jcnkvaG9tZQogTFYgTmFtZSAgICAgICAg
-ICAgICAgICBob21lCiBWRyBOYW1lICAgICAgICAgICAgICAgIGNyeQogTFYgVVVJRCAgICAgICAg
-ICAgICAgICBqeWNsN3ctNTlsTi1GM05lLURCRGEtRzIxZy1DQW1iLVJPdklhWAogTFYgV3JpdGUg
-QWNjZXNzICAgICAgICByZWFkL3dyaXRlCiBMViBDcmVhdGlvbiBob3N0LCB0aW1lIGdsZXQsIDIw
-MTgtMTEtMDIgMTc6NTE6NTAgKzAxMDAKIExWIFN0YXR1cyAgICAgICAgICAgICAgYXZhaWxhYmxl
-CiAjIG9wZW4gICAgICAgICAgICAgICAgIDEKIExWIFNpemUgICAgICAgICAgICAgICAgPDIsNzEg
-VGlCCiBDdXJyZW50IExFICAgICAgICAgICAgIDcwOTU5MQogU2VnbWVudHMgICAgICAgICAgICAg
-ICAyCiBBbGxvY2F0aW9uICAgICAgICAgICAgIGluaGVyaXQKIFJlYWQgYWhlYWQgc2VjdG9ycyAg
-ICAgYXV0bwogLSBjdXJyZW50bHkgc2V0IHRvICAgICAyNTYKIEJsb2NrIGRldmljZSAgICAgICAg
-ICAgMjU0OjMKCiAgICAgVW5sb2NraW5nIC9ydW4vbG9jay9sdm0vVl9jcnkKICAgICBTZXR0aW5n
-IGdsb2JhbC9ub3RpZnlfZGJ1cyB0byAxCgpBbHNvLCBjaGFuZ2luZyBjcnlwdHRhYjoKcm9vdEBn
-bGV0On4jIGNhdCAvZXRjL2NyeXB0dGFiCnNkYTZfY3J5cHQgVVVJRD1mZTAzZTJlNi1iOGIxLTQ2
-NzItOGEzZS1iNTM2YWM0ZTE1Mzkgbm9uZSBsdWtzLGRpc2NhcmQKCnJlbW92aW5nIGRpc2NhcmQg
-ZGlkbid0IHNvbHZlIHRoZSBpc3N1ZS4KCkluIG15IHNldHVwIGl0IHdhcyBlbm91Z2ggdG8gYm9v
-dCB0aGUgc3lzdGVtLCBzbyBoYXZpbmcgY29tcGxhaW4gYWJvdXQKL2hvbWUgbW91bnRpbmcKaW1w
-b3NzaWJsZSAobm8gZmlsZXN5c3RlbSBmb3VuZCkuCgpXZWxsLCBrZWVwIGluIG1pbmQgdGhhdCBh
-dCBib290IEkgaGF2ZSBhIGZldyB0aGluZ3MsIGxpa2U6CnJvb3RAZ2xldDp+IyBncmVwIC1pIHN3
-YXAgL2V0Yy9mc3RhYgovZGV2L21hcHBlci9jcnktc3dhcCBub25lICAgICAgIHN3YXAgICAgc3cs
-ZGlzY2FyZD1vbmNlLHByaT0wCiAgICAwICAgICAgIDAKL2Rldi9udm1lMG4xcDIgICAgICAgbm9u
-ZSAgICAgICBzd2FwICAgIHN3LGRpc2NhcmQ9b25jZSxwcmk9MQoKQW5kIG90aGVyIHN0dWZmIGlu
-IGNyb24gYW5kIHNvIG9uLgoKU28gSSBjYW4gdHJpZ2dlciB0aGUgcHJvYmxlbSBhdCBib290ICh1
-YnVudHUgMTkuMDQpLCBieSBteSBjaGFuZ2VzLgoKSG9wZSBpdCBoZWxwcy4KClVobSwgYnkgdGhl
-IHdheSwgbXkgU1NEIChsYXRlc3QgZmlybXdhcmUpOgoKcm9vdEBnbGV0On4jIGhkcGFybSAtSSAv
-ZGV2L3NkYQoKL2Rldi9zZGE6CgpBVEEgZGV2aWNlLCB3aXRoIG5vbi1yZW1vdmFibGUgbWVkaWEK
-ICAgICAgIE1vZGVsIE51bWJlcjogICAgICAgU2Ftc3VuZyBTU0QgODYwIEVWTyA0VEIKICAgICAg
-IFNlcmlhbCBOdW1iZXI6ICAgICAgUzNZUE5XQUsxMDExNjNUCiAgICAgICBGaXJtd2FyZSBSZXZp
-c2lvbjogIFJWVDAyQjZRCiAgICAgICBUcmFuc3BvcnQ6ICAgICAgICAgIFNlcmlhbCwgQVRBOC1B
-U1QsIFNBVEEgMS4wYSwgU0FUQSBJSQpFeHRlbnNpb25zLCBTQVRBIFJldiAyLjUsIFNBVEEgUmV2
-IDIuNiwgU0FUQSBSZXYgMy4wClN0YW5kYXJkczoKICAgICAgIFVzZWQ6IHVua25vd24gKG1pbm9y
-IHJldmlzaW9uIGNvZGUgMHgwMDVlKQogICAgICAgU3VwcG9ydGVkOiAxMSA4IDcgNiA1CiAgICAg
-ICBMaWtlbHkgdXNlZDogMTEKQ29uZmlndXJhdGlvbjoKICAgICAgIExvZ2ljYWwgICAgICAgICBt
-YXggICAgIGN1cnJlbnQKICAgICAgIGN5bGluZGVycyAgICAgICAxNjM4MyAgIDE2MzgzCiAgICAg
-ICBoZWFkcyAgICAgICAgICAgMTYgICAgICAxNgogICAgICAgc2VjdG9ycy90cmFjayAgIDYzICAg
-ICAgNjMKICAgICAgIC0tCiAgICAgICBDSFMgY3VycmVudCBhZGRyZXNzYWJsZSBzZWN0b3JzOiAg
-ICAxNjUxNDA2NAogICAgICAgTEJBICAgIHVzZXIgYWRkcmVzc2FibGUgc2VjdG9yczogICAyNjg0
-MzU0NTUKICAgICAgIExCQTQ4ICB1c2VyIGFkZHJlc3NhYmxlIHNlY3RvcnM6ICA3ODE0MDM3MTY4
-CiAgICAgICBMb2dpY2FsICBTZWN0b3Igc2l6ZTogICAgICAgICAgICAgICAgICAgNTEyIGJ5dGVz
-CiAgICAgICBQaHlzaWNhbCBTZWN0b3Igc2l6ZTogICAgICAgICAgICAgICAgICAgNTEyIGJ5dGVz
-CiAgICAgICBMb2dpY2FsIFNlY3Rvci0wIG9mZnNldDogICAgICAgICAgICAgICAgICAwIGJ5dGVz
-CiAgICAgICBkZXZpY2Ugc2l6ZSB3aXRoIE0gPSAxMDI0KjEwMjQ6ICAgICAzODE1NDQ3IE1CeXRl
-cwogICAgICAgZGV2aWNlIHNpemUgd2l0aCBNID0gMTAwMCoxMDAwOiAgICAgNDAwMDc4NyBNQnl0
-ZXMgKDQwMDAgR0IpCiAgICAgICBjYWNoZS9idWZmZXIgc2l6ZSAgPSB1bmtub3duCiAgICAgICBG
-b3JtIEZhY3RvcjogMi41IGluY2gKICAgICAgIE5vbWluYWwgTWVkaWEgUm90YXRpb24gUmF0ZTog
-U29saWQgU3RhdGUgRGV2aWNlCkNhcGFiaWxpdGllczoKICAgICAgIExCQSwgSU9SRFkoY2FuIGJl
-IGRpc2FibGVkKQogICAgICAgUXVldWUgZGVwdGg6IDMyCiAgICAgICBTdGFuZGJ5IHRpbWVyIHZh
-bHVlczogc3BlYydkIGJ5IFN0YW5kYXJkLCBubyBkZXZpY2Ugc3BlY2lmaWMgbWluaW11bQogICAg
-ICAgUi9XIG11bHRpcGxlIHNlY3RvciB0cmFuc2ZlcjogTWF4ID0gMSAgIEN1cnJlbnQgPSAxCiAg
-ICAgICBETUE6IG1kbWEwIG1kbWExIG1kbWEyIHVkbWEwIHVkbWExIHVkbWEyIHVkbWEzIHVkbWE0
-IHVkbWE1ICp1ZG1hNgogICAgICAgICAgICBDeWNsZSB0aW1lOiBtaW49MTIwbnMgcmVjb21tZW5k
-ZWQ9MTIwbnMKICAgICAgIFBJTzogcGlvMCBwaW8xIHBpbzIgcGlvMyBwaW80CiAgICAgICAgICAg
-IEN5Y2xlIHRpbWU6IG5vIGZsb3cgY29udHJvbD0xMjBucyAgSU9SRFkgZmxvdyBjb250cm9sPTEy
-MG5zCkNvbW1hbmRzL2ZlYXR1cmVzOgogICAgICAgRW5hYmxlZCBTdXBwb3J0ZWQ6CiAgICAgICAg
-ICAqICAgIFNNQVJUIGZlYXR1cmUgc2V0CiAgICAgICAgICAgICAgIFNlY3VyaXR5IE1vZGUgZmVh
-dHVyZSBzZXQKICAgICAgICAgICogICAgUG93ZXIgTWFuYWdlbWVudCBmZWF0dXJlIHNldAogICAg
-ICAgICAgKiAgICBXcml0ZSBjYWNoZQogICAgICAgICAgKiAgICBMb29rLWFoZWFkCiAgICAgICAg
-ICAqICAgIEhvc3QgUHJvdGVjdGVkIEFyZWEgZmVhdHVyZSBzZXQKICAgICAgICAgICogICAgV1JJ
-VEVfQlVGRkVSIGNvbW1hbmQKICAgICAgICAgICogICAgUkVBRF9CVUZGRVIgY29tbWFuZAogICAg
-ICAgICAgKiAgICBOT1AgY21kCiAgICAgICAgICAqICAgIERPV05MT0FEX01JQ1JPQ09ERQogICAg
-ICAgICAgICAgICBTRVRfTUFYIHNlY3VyaXR5IGV4dGVuc2lvbgogICAgICAgICAgKiAgICA0OC1i
-aXQgQWRkcmVzcyBmZWF0dXJlIHNldAogICAgICAgICAgKiAgICBEZXZpY2UgQ29uZmlndXJhdGlv
-biBPdmVybGF5IGZlYXR1cmUgc2V0CiAgICAgICAgICAqICAgIE1hbmRhdG9yeSBGTFVTSF9DQUNI
-RQogICAgICAgICAgKiAgICBGTFVTSF9DQUNIRV9FWFQKICAgICAgICAgICogICAgU01BUlQgZXJy
-b3IgbG9nZ2luZwogICAgICAgICAgKiAgICBTTUFSVCBzZWxmLXRlc3QKICAgICAgICAgICogICAg
-R2VuZXJhbCBQdXJwb3NlIExvZ2dpbmcgZmVhdHVyZSBzZXQKICAgICAgICAgICogICAgV1JJVEVf
-e0RNQXxNVUxUSVBMRX1fRlVBX0VYVAogICAgICAgICAgKiAgICA2NC1iaXQgV29ybGQgd2lkZSBu
-YW1lCiAgICAgICAgICAgICAgIFdyaXRlLVJlYWQtVmVyaWZ5IGZlYXR1cmUgc2V0CiAgICAgICAg
-ICAqICAgIFdSSVRFX1VOQ09SUkVDVEFCTEVfRVhUIGNvbW1hbmQKICAgICAgICAgICogICAge1JF
-QUQsV1JJVEV9X0RNQV9FWFRfR1BMIGNvbW1hbmRzCiAgICAgICAgICAqICAgIFNlZ21lbnRlZCBE
-T1dOTE9BRF9NSUNST0NPREUKICAgICAgICAgICogICAgR2VuMSBzaWduYWxpbmcgc3BlZWQgKDEu
-NUdiL3MpCiAgICAgICAgICAqICAgIEdlbjIgc2lnbmFsaW5nIHNwZWVkICgzLjBHYi9zKQogICAg
-ICAgICAgKiAgICBHZW4zIHNpZ25hbGluZyBzcGVlZCAoNi4wR2IvcykKICAgICAgICAgICogICAg
-TmF0aXZlIENvbW1hbmQgUXVldWVpbmcgKE5DUSkKICAgICAgICAgICogICAgUGh5IGV2ZW50IGNv
-dW50ZXJzCiAgICAgICAgICAqICAgIFJFQURfTE9HX0RNQV9FWFQgZXF1aXZhbGVudCB0byBSRUFE
-X0xPR19FWFQKICAgICAgICAgICogICAgRE1BIFNldHVwIEF1dG8tQWN0aXZhdGUgb3B0aW1pemF0
-aW9uCiAgICAgICAgICAqICAgIERldmljZS1pbml0aWF0ZWQgaW50ZXJmYWNlIHBvd2VyIG1hbmFn
-ZW1lbnQKICAgICAgICAgICogICAgQXN5bmNocm9ub3VzIG5vdGlmaWNhdGlvbiAoZWcuIG1lZGlh
-IGNoYW5nZSkKICAgICAgICAgICogICAgU29mdHdhcmUgc2V0dGluZ3MgcHJlc2VydmF0aW9uCiAg
-ICAgICAgICAqICAgIERldmljZSBTbGVlcCAoREVWU0xQKQogICAgICAgICAgKiAgICBTTUFSVCBD
-b21tYW5kIFRyYW5zcG9ydCAoU0NUKSBmZWF0dXJlIHNldAogICAgICAgICAgKiAgICBTQ1QgV3Jp
-dGUgU2FtZSAoQUMyKQogICAgICAgICAgKiAgICBTQ1QgRXJyb3IgUmVjb3ZlcnkgQ29udHJvbCAo
-QUMzKQogICAgICAgICAgKiAgICBTQ1QgRmVhdHVyZXMgQ29udHJvbCAoQUM0KQogICAgICAgICAg
-KiAgICBTQ1QgRGF0YSBUYWJsZXMgKEFDNSkKICAgICAgICAgICogICAgcmVzZXJ2ZWQgNjlbNF0K
-ICAgICAgICAgICogICAgRE9XTkxPQUQgTUlDUk9DT0RFIERNQSBjb21tYW5kCiAgICAgICAgICAq
-ICAgIFNFVCBNQVggU0VUUEFTU1dPUkQvVU5MT0NLIERNQSBjb21tYW5kcwogICAgICAgICAgKiAg
-ICBXUklURSBCVUZGRVIgRE1BIGNvbW1hbmQKICAgICAgICAgICogICAgUkVBRCBCVUZGRVIgRE1B
-IGNvbW1hbmQKICAgICAgICAgICogICAgRGF0YSBTZXQgTWFuYWdlbWVudCBUUklNIHN1cHBvcnRl
-ZCAobGltaXQgOCBibG9ja3MpCiAgICAgICAgICAqICAgIERldGVybWluaXN0aWMgcmVhZCBaRVJP
-cyBhZnRlciBUUklNClNlY3VyaXR5OgogICAgICAgTWFzdGVyIHBhc3N3b3JkIHJldmlzaW9uIGNv
-ZGUgPSA2NTUzNAogICAgICAgICAgICAgICBzdXBwb3J0ZWQKICAgICAgIG5vdCAgICAgZW5hYmxl
-ZAogICAgICAgbm90ICAgICBsb2NrZWQKICAgICAgIG5vdCAgICAgZnJvemVuCiAgICAgICBub3Qg
-ICAgIGV4cGlyZWQ6IHNlY3VyaXR5IGNvdW50CiAgICAgICAgICAgICAgIHN1cHBvcnRlZDogZW5o
-YW5jZWQgZXJhc2UKICAgICAgIDRtaW4gZm9yIFNFQ1VSSVRZIEVSQVNFIFVOSVQuIDhtaW4gZm9y
-IEVOSEFOQ0VEIFNFQ1VSSVRZIEVSQVNFIFVOSVQuCkxvZ2ljYWwgVW5pdCBXV04gRGV2aWNlIElk
-ZW50aWZpZXI6IDUwMDI1MzhlNzAwMWU4YTcKICAgICAgIE5BQSAgICAgICAgICAgICA6IDUKICAg
-ICAgIElFRUUgT1VJICAgICAgICA6IDAwMjUzOAogICAgICAgVW5pcXVlIElEICAgICAgIDogZTcw
-MDFlOGE3CkRldmljZSBTbGVlcDoKICAgICAgIERFVlNMUCBFeGl0IFRpbWVvdXQgKERFVE8pOiA1
-MCBtcyAoZHJpdmUpCiAgICAgICBNaW5pbXVtIERFVlNMUCBBc3NlcnRpb24gVGltZSAoTURBVCk6
-IDMwIG1zIChkcml2ZSkKQ2hlY2tzdW06IGNvcnJlY3QKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlz
-dApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0
-aW5mby9kbS1kZXZlbA==
+clock_gettime() fails only if either an invalid pointer is passed,
+or if the requested clock ID is not available. While availability of
+CLOCK_REALTIME is guaranteed, CLOCK_MONOTONIC is not, at least not
+by POSIX (Linux seems to have it, always). Provide a wrapper that
+can be called without error checking, and which aborts in the highly
+unlikely case that the monotonic clock can't be obtained. That saves
+us from checking the error code of clock_gettime() at every invocation
+(handling this sort of error "correctly" is almost impossible anyway),
+and should still satisfy coverity.
+
+Not doing this for libdmmp here, as it has it's own error checking
+and doesn't use headers from libmultipath.
+
+Signed-off-by: Martin Wilck <mwilck@suse.com>
+---
+ libmultipath/checkers/tur.c |  6 +++---
+ libmultipath/time-util.c    |  8 ++++++++
+ libmultipath/time-util.h    |  1 +
+ multipathd/main.c           | 34 +++++++++++++---------------------
+ multipathd/uxlsnr.c         |  8 +++-----
+ 5 files changed, 28 insertions(+), 29 deletions(-)
+
+diff --git a/libmultipath/checkers/tur.c b/libmultipath/checkers/tur.c
+index 6b08dbbb..e886fcf8 100644
+--- a/libmultipath/checkers/tur.c
++++ b/libmultipath/checkers/tur.c
+@@ -290,7 +290,7 @@ static void *tur_thread(void *ctx)
+ 
+ static void tur_timeout(struct timespec *tsp)
+ {
+-	clock_gettime(CLOCK_MONOTONIC, tsp);
++	get_monotonic_time(tsp);
+ 	tsp->tv_nsec += 1000 * 1000; /* 1 millisecond */
+ 	normalize_timespec(tsp);
+ }
+@@ -300,7 +300,7 @@ static void tur_set_async_timeout(struct checker *c)
+ 	struct tur_checker_context *ct = c->context;
+ 	struct timespec now;
+ 
+-	clock_gettime(CLOCK_MONOTONIC, &now);
++	get_monotonic_time(&now);
+ 	ct->time = now.tv_sec + c->timeout;
+ }
+ 
+@@ -309,7 +309,7 @@ static int tur_check_async_timeout(struct checker *c)
+ 	struct tur_checker_context *ct = c->context;
+ 	struct timespec now;
+ 
+-	clock_gettime(CLOCK_MONOTONIC, &now);
++	get_monotonic_time(&now);
+ 	return (now.tv_sec > ct->time);
+ }
+ 
+diff --git a/libmultipath/time-util.c b/libmultipath/time-util.c
+index 6d79c0e5..f0a80096 100644
+--- a/libmultipath/time-util.c
++++ b/libmultipath/time-util.c
+@@ -3,6 +3,14 @@
+ #include <time.h>
+ #include "time-util.h"
+ 
++void get_monotonic_time(struct timespec *res)
++{
++	struct timespec ts;
++
++	assert(clock_gettime(CLOCK_MONOTONIC, &ts) == 0);
++	*res = ts;
++}
++
+ /* Initialize @cond as a condition variable that uses the monotonic clock */
+ void pthread_cond_init_mono(pthread_cond_t *cond)
+ {
+diff --git a/libmultipath/time-util.h b/libmultipath/time-util.h
+index b76d2aa4..b23d328a 100644
+--- a/libmultipath/time-util.h
++++ b/libmultipath/time-util.h
+@@ -5,6 +5,7 @@
+ 
+ struct timespec;
+ 
++void get_monotonic_time(struct timespec *res);
+ void pthread_cond_init_mono(pthread_cond_t *cond);
+ void normalize_timespec(struct timespec *ts);
+ void timespecsub(const struct timespec *a, const struct timespec *b,
+diff --git a/multipathd/main.c b/multipathd/main.c
+index f203d77f..4574dce1 100644
+--- a/multipathd/main.c
++++ b/multipathd/main.c
+@@ -256,11 +256,10 @@ int set_config_state(enum daemon_status state)
+ 		else if (running_state != DAEMON_IDLE) {
+ 			struct timespec ts;
+ 
+-			if (clock_gettime(CLOCK_MONOTONIC, &ts) == 0) {
+-				ts.tv_sec += 1;
+-				rc = pthread_cond_timedwait(&config_cond,
+-							    &config_lock, &ts);
+-			}
++			get_monotonic_time(&ts);
++			ts.tv_sec += 1;
++			rc = pthread_cond_timedwait(&config_cond,
++						    &config_lock, &ts);
+ 		}
+ 		if (!rc && (running_state != DAEMON_SHUTDOWN)) {
+ 			running_state = state;
+@@ -1861,15 +1860,12 @@ static int check_path_reinstate_state(struct path * pp) {
+ 	}
+ 
+ 	if (pp->disable_reinstate) {
+-		/* If we don't know how much time has passed, automatically
+-		 * reinstate the path, just to be safe. Also, if there are
+-		 * no other usable paths, reinstate the path
+-		 */
+-		if (clock_gettime(CLOCK_MONOTONIC, &curr_time) != 0 ||
+-				pp->mpp->nr_active == 0) {
++		/* If there are no other usable paths, reinstate the path */
++		if (pp->mpp->nr_active == 0) {
+ 			condlog(2, "%s : reinstating path early", pp->dev);
+ 			goto reinstate_path;
+ 		}
++		get_monotonic_time(&curr_time);
+ 		if ((curr_time.tv_sec - pp->dis_reinstate_time ) > pp->mpp->san_path_err_recovery_time) {
+ 			condlog(2,"%s : reinstate the path after err recovery time", pp->dev);
+ 			goto reinstate_path;
+@@ -1905,8 +1901,7 @@ static int check_path_reinstate_state(struct path * pp) {
+ 	 * delay the path, so there's no point in checking if we should
+ 	 */
+ 
+-	if (clock_gettime(CLOCK_MONOTONIC, &curr_time) != 0)
+-		return 0;
++	get_monotonic_time(&curr_time);
+ 	/* when path failures has exceeded the san_path_err_threshold
+ 	 * place the path in delayed state till san_path_err_recovery_time
+ 	 * so that the cutomer can rectify the issue within this time. After
+@@ -2288,17 +2283,14 @@ checkerloop (void *ap)
+ 	condlog(2, "path checkers start up");
+ 
+ 	/* Tweak start time for initial path check */
+-	if (clock_gettime(CLOCK_MONOTONIC, &last_time) != 0)
+-		last_time.tv_sec = 0;
+-	else
+-		last_time.tv_sec -= 1;
++	get_monotonic_time(&last_time);
++	last_time.tv_sec -= 1;
+ 
+ 	while (1) {
+ 		struct timespec diff_time, start_time, end_time;
+ 		int num_paths = 0, ticks = 0, strict_timing, rc = 0;
+ 
+-		if (clock_gettime(CLOCK_MONOTONIC, &start_time) != 0)
+-			start_time.tv_sec = 0;
++		get_monotonic_time(&start_time);
+ 		if (start_time.tv_sec && last_time.tv_sec) {
+ 			timespecsub(&start_time, &last_time, &diff_time);
+ 			condlog(4, "tick (%lu.%06lu secs)",
+@@ -2357,8 +2349,8 @@ checkerloop (void *ap)
+ 		}
+ 
+ 		diff_time.tv_nsec = 0;
+-		if (start_time.tv_sec &&
+-		    clock_gettime(CLOCK_MONOTONIC, &end_time) == 0) {
++		if (start_time.tv_sec) {
++			get_monotonic_time(&end_time);
+ 			timespecsub(&end_time, &start_time, &diff_time);
+ 			if (num_paths) {
+ 				unsigned int max_checkint;
+diff --git a/multipathd/uxlsnr.c b/multipathd/uxlsnr.c
+index 773bc878..13a37be0 100644
+--- a/multipathd/uxlsnr.c
++++ b/multipathd/uxlsnr.c
+@@ -130,10 +130,10 @@ void check_timeout(struct timespec start_time, char *inbuf,
+ {
+ 	struct timespec diff_time, end_time;
+ 
+-	if (start_time.tv_sec &&
+-	    clock_gettime(CLOCK_MONOTONIC, &end_time) == 0) {
++	if (start_time.tv_sec) {
+ 		unsigned long msecs;
+ 
++		get_monotonic_time(&end_time);
+ 		timespecsub(&end_time, &start_time, &diff_time);
+ 		msecs = diff_time.tv_sec * 1000 +
+ 			diff_time.tv_nsec / (1000 * 1000);
+@@ -268,9 +268,7 @@ void * uxsock_listen(uxsock_trigger_fn uxsock_trigger, long ux_sock,
+ 						i, polls[i].fd);
+ 					continue;
+ 				}
+-				if (clock_gettime(CLOCK_MONOTONIC, &start_time)
+-				    != 0)
+-					start_time.tv_sec = 0;
++				get_monotonic_time(&start_time);
+ 				if (recv_packet_from_client(c->fd, &inbuf,
+ 							    uxsock_timeout)
+ 				    != 0) {
+-- 
+2.21.0
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
