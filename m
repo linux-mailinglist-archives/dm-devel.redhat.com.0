@@ -2,78 +2,62 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60B3C241A2
-	for <lists+dm-devel@lfdr.de>; Mon, 20 May 2019 22:02:24 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by mail.lfdr.de (Postfix) with ESMTPS id DDEDF241D8
+	for <lists+dm-devel@lfdr.de>; Mon, 20 May 2019 22:11:59 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 950FA7FDFA;
-	Mon, 20 May 2019 20:01:10 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 48A81100200A;
-	Mon, 20 May 2019 20:00:45 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id C21AC307D90D;
+	Mon, 20 May 2019 20:11:17 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 95A7F3DE2;
+	Mon, 20 May 2019 20:11:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 282D41806B19;
-	Mon, 20 May 2019 20:00:01 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EF1BA5B425;
+	Mon, 20 May 2019 20:10:56 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4KJx9C1022747 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 20 May 2019 15:59:10 -0400
+	id x4KKAAhW024457 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 20 May 2019 16:10:11 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6C94710027C2; Mon, 20 May 2019 19:59:09 +0000 (UTC)
+	id A22A27A420; Mon, 20 May 2019 20:10:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx15.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.44])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 67C5310027BF
-	for <dm-devel@redhat.com>; Mon, 20 May 2019 19:59:07 +0000 (UTC)
-Received: from voltaic.bi-co.net (voltaic.bi-co.net [134.119.3.22])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 123C030833AF
-	for <dm-devel@redhat.com>; Mon, 20 May 2019 19:58:29 +0000 (UTC)
-Received: from lass-mb.fritz.box (aftr-95-222-30-100.unity-media.net
-	[95.222.30.100])
-	by voltaic.bi-co.net (Postfix) with ESMTPSA id AC485209BD;
-	Mon, 20 May 2019 21:58:21 +0200 (CEST)
-Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
-From: =?utf-8?Q?Michael_La=C3=9F?= <bevan@bi-co.net>
-In-Reply-To: <ea5552b8-7b6a-2516-d968-c3f3c731e159@gmail.com>
-Date: Mon, 20 May 2019 21:58:20 +0200
-Message-Id: <A140375B-7C55-4D1D-8892-3C93E5F0E49F@bi-co.net>
-References: <297da4cbe20235080205719805b08810@bi-co.net>
-	<CAJCQCtR-uo9fgs66pBMEoYX_xAye=O-L8kiMwyAdFjPS5T4+CA@mail.gmail.com>
-	<8C31D41C-9608-4A65-B543-8ABCC0B907A0@bi-co.net>
-	<CAJCQCtTZWXUgUDh8vn0BFeEbAdKToDSVYYw4Q0bt0rECQr9nxQ@mail.gmail.com>
-	<AD966642-1043-468D-BABF-8FC9AF514D36@bi-co.net>
-	<158a3491-e4d2-d905-7f58-11a15bddcd70@gmx.com>
-	<C1CD4646-E75D-4AAF-9CD6-B3AC32495FD3@bi-co.net>
-	<CAK-xaQYPs62v971zm1McXw_FGzDmh_vpz3KLEbxzkmrsSgTfXw@mail.gmail.com>
-	<9D4ECE0B-C9DD-4BAD-A764-9DE2FF2A10C7@bi-co.net>
-	<CAK-xaQYakXcAbhfiH_VbqWkh+HBJD5N69ktnnA7OnWdhL6fDLA@mail.gmail.com>
-	<ea5552b8-7b6a-2516-d968-c3f3c731e159@gmail.com>
-To: Milan Broz <gmazyland@gmail.com>
-X-Greylist: Sender passed SPF test, ACL 242 matched, not delayed by
-	milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]);
-	Mon, 20 May 2019 19:58:50 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]);
-	Mon, 20 May 2019 19:58:50 +0000 (UTC) for IP:'134.119.3.22'
-	DOMAIN:'voltaic.bi-co.net' HELO:'voltaic.bi-co.net'
-	FROM:'bevan@bi-co.net' RCPT:''
+Received: from mx1.redhat.com (ext-mx02.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.26])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 86CD92FC60;
+	Mon, 20 May 2019 20:10:08 +0000 (UTC)
+Received: from smtp2.provo.novell.com (smtp2.provo.novell.com [137.65.250.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 2D86C772EE;
+	Mon, 20 May 2019 20:09:44 +0000 (UTC)
+Received: from apollon.suse.de.de (prva10-snat226-2.provo.novell.com
+	[137.65.226.36])
+	by smtp2.provo.novell.com with ESMTP (TLS encrypted);
+	Mon, 20 May 2019 14:09:41 -0600
+From: Martin Wilck <mwilck@suse.com>
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+	Xose Vazquez Perez <xose.vazquez@gmail.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>
+Date: Mon, 20 May 2019 22:09:22 +0200
+Message-Id: <20190520200922.27760-1-mwilck@suse.com>
+MIME-Version: 1.0
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.26]); Mon, 20 May 2019 20:09:52 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]);
+	Mon, 20 May 2019 20:09:52 +0000 (UTC) for IP:'137.65.250.81'
+	DOMAIN:'smtp2.provo.novell.com' HELO:'smtp2.provo.novell.com'
+	FROM:'mwilck@suse.com' RCPT:''
 X-RedHat-Spam-Score: 0  (SPF_HELO_NONE,
-	SPF_PASS) 134.119.3.22 voltaic.bi-co.net 134.119.3.22
-	voltaic.bi-co.net <bevan@bi-co.net>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.44
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id x4KJx9C1022747
+	SPF_PASS) 137.65.250.81 smtp2.provo.novell.com
+	137.65.250.81 smtp2.provo.novell.com <mwilck@suse.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.26
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Andrea Gelmini <andrea.gelmini@gelma.net>,
-	Chris Murphy <lists@colorremedies.com>,
-	Btrfs BTRFS <linux-btrfs@vger.kernel.org>,
-	Qu Wenruo <quwenruo.btrfs@gmx.com>
-Subject: Re: [dm-devel] fstrim discarding too many or wrong blocks on Linux
- 5.1, leading to data loss
+Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Subject: [dm-devel] [PATCH] mpathpersist.8: fix examples in man page
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,33 +69,87 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Mon, 20 May 2019 20:02:17 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]); Mon, 20 May 2019 20:11:58 +0000 (UTC)
 
-Cj4gQW0gMjAuMDUuMjAxOSB1bSAxODo0NSBzY2hyaWViIE1pbGFuIEJyb3ogPGdtYXp5bGFuZEBn
-bWFpbC5jb20+Ogo+IAo+IE9uIDIwLzA1LzIwMTkgMTY6NTMsIEFuZHJlYSBHZWxtaW5pIHdyb3Rl
-Ogo+IC4uLgo+PiBBbHNvLCBjaGFuZ2luZyBjcnlwdHRhYjoKPj4gcm9vdEBnbGV0On4jIGNhdCAv
-ZXRjL2NyeXB0dGFiCj4+IHNkYTZfY3J5cHQgVVVJRD1mZTAzZTJlNi1iOGIxLTQ2NzItOGEzZS1i
-NTM2YWM0ZTE1Mzkgbm9uZSBsdWtzLGRpc2NhcmQKPj4gCj4+IHJlbW92aW5nIGRpc2NhcmQgZGlk
-bid0IHNvbHZlIHRoZSBpc3N1ZS4KPiAKPiBUaGlzIGlzIHZlcnkgc3RyYW5nZSwgZGlzYWJsaW5n
-IGRpc2NhcmQgc2hvdWxkIHJlamVjdCBldmVyeSBkaXNjYXJkIElPCj4gb24gdGhlIGRtY3J5cHQg
-bGF5ZXIuIEFyZSB5b3Ugc3VyZSBpdCB3YXMgcmVhbGx5IGRpc2FibGVkPwo+IAo+IE5vdGUsIGl0
-IGlzIHRoZSByb290IGZpbGVzeXN0ZW0sIHNvIHlvdSBoYXZlIHRvIHJlZ2VuZXJhdGUgaW5pdHJh
-bWZzCj4gdG8gdXBkYXRlIGNyeXB0dGFiIGluc2lkZSBpdC4KCkZvciBtZSwgSSBjYW5ub3QgcmVw
-cm9kdWNlIHRoZSBpc3N1ZSB3aGVuIEkgcmVtb3ZlIHRoZSBkaXNjYXJkIG9wdGlvbiBmcm9tIHRo
-ZSBjcnlwdHRhYiAoYW5kIHJlZ2VuZXJhdGUgdGhlIGluaXRyYW1mcykuIFdoZW4gdHJ5aW5nIGZz
-dHJpbSBJIGp1c3QgZ2V0IOKAnHRoZSBkaXNjYXJkIG9wZXJhdGlvbiBpcyBub3Qgc3VwcG9ydGVk
-4oCdLCBhcyBJIHdvdWxkIGV4cGVjdC4gTm8gZGFtYWdlIGlzIGRvbmUgdG8gb3RoZXIgbG9naWNh
-bCB2b2x1bWVzLgoKSG93ZXZlciwgbXkgc3RhY2sgZGlmZmVycyBmcm9tIEFuZHJlYeKAmXMgaW4g
-dGhhdCBJIGhhdmUgZG0tY3J5cHQgb24gYW4gTFZNIGxvZ2ljYWwgdm9sdW1lIGFuZCBub3QgZG0t
-Y3J5cHQgYXMgYSBwaHlzaWNhbCB2b2x1bWUgZm9yIExWTS4gTm90IHN1cmUgaWYgdGhhdCBtYWtl
-cyBhIGRpZmZlcmVuY2UgaGVyZS4KCkNoZWVycywKTWljaGFlbAoKPiBDb3VsZCB5b3UgcGFzdGUg
-ImRtc2V0dXAgdGFibGUiIGFuZCAibHNibGsgLUQiIHRvIHZlcmlmeSB0aGF0IGRpc2NhcmQgZmxh
-Zwo+IGlzIG5vdCB0aGVyZT8KPiAoSSBtZWFuIGRtc2V0dXAgdGFibGUgd2l0aCB0aGUgemVyb2Vk
-IGtleSwgYXMgYSBkZWZhdWx0IGFuZCBzYWZlIG91dHB1dC4pCj4gCj4gTWlsYW4KCgotLQpkbS1k
-ZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL3d3dy5yZWRoYXQu
-Y29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWw=
+--prout-type is ignored in the REGISTER service action. The RESERVE service
+action takes a Reservation Key, not a Service action Reservation Key, as
+argument. The text mentions "Service Action Reservation Key" in several places
+where it means the Reservation Key. Add examples for unregistering the current
+key, and the CLEAR service action. Fix formatting with longer text in the
+description lines (the .TP formatting would produce bad results if the
+first line needs to be broken).
+
+Signed-off-by: Martin Wilck <mwilck@suse.com>
+---
+ mpathpersist/mpathpersist.8 | 43 +++++++++++++++++++++++++++++--------
+ 1 file changed, 34 insertions(+), 9 deletions(-)
+
+diff --git a/mpathpersist/mpathpersist.8 b/mpathpersist/mpathpersist.8
+index 885491dd..cd602e40 100644
+--- a/mpathpersist/mpathpersist.8
++++ b/mpathpersist/mpathpersist.8
+@@ -167,18 +167,43 @@ PR In: maximum allocation length. LEN is a decimal number between 0 and 8192.
+ .SH EXAMPLE
+ .\" ----------------------------------------------------------------------------
+ .
+-.TP
+-Register the Service Action Reservation Key for the /dev/mapper/mpath9 device:
+-\fBmpathpersist --out --register --param-sark=\fI123abc \fB--prout-type=\fI5 /dev/mapper/mpath9\fR
+-.TP
+-Read the Service Action Reservation Key for the /dev/mapper/mpath9 device:
++.PP
++Register the key \(dq123abc\(dq for the /dev/mapper/mpath9 device:
++.RS
++\fBmpathpersist --out --register --param-sark=\fI123abc /dev/mapper/mpath9\fR
++.RE
++.PP
++Read registered reservation keys for the /dev/mapper/mpath9 device:
++.RS
+ \fBmpathpersist -i -k \fI/dev/mapper/mpath9\fR
+-.TP
+-Reserve the Service Action Reservation Key for the /dev/mapper/mpath9 device:
+-\fBmpathpersist --out --reserve --param-sark=\fI123abc \fB--prout-type=\fI8 \fB-d \fI/dev/mapper/mpath9\fR
+-.TP
++.RE
++.PP
++Create a reservation for the /dev/mapper/mpath9 device with the given
++reservation key:
++.RS
++\fBmpathpersist --out --reserve --param-rk=\fI123abc \fB--prout-type=\fI8 \fB-d \fI/dev/mapper/mpath9\fR
++.RE
++.PP
+ Read the reservation status of the /dev/mapper/mpath9 device:
++.RS
+ \fBmpathpersist -i -s -d \fI/dev/mapper/mpath9\fR
++.RE
++.PP
++Release the previously created reservation (note that the prout-type needs to
++be the same as above):
++.RS
++\fBmpathpersist --out --release --param-rk=\fI123abc \fB--prout-type=\fI8 \fB-d \fI/dev/mapper/mpath9\fR
++.RE
++.PP
++Remove the current key registered for this host (i.e. reset it to 0):
++.RS
++\fBmpathpersist --out --register-ignore -K \fI123abc\fB -S \fI0\fB \fI/dev/mapper/mpath9\fR
++.RE
++.PP
++Remove current reservation, and unregister all registered keys from all I_T nexuses:
++.RS
++\fBmpathpersist -oCK \fI123abc \fI/dev/mapper/mpath9\fR
++.RE
+ .
+ .
+ .\" ----------------------------------------------------------------------------
+-- 
+2.21.0
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
