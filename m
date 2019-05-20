@@ -2,62 +2,111 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id C46E523D8D
-	for <lists+dm-devel@lfdr.de>; Mon, 20 May 2019 18:33:51 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B4BB23DC8
+	for <lists+dm-devel@lfdr.de>; Mon, 20 May 2019 18:47:27 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id C3048307D90F;
-	Mon, 20 May 2019 16:32:59 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id C9113C057E65;
+	Mon, 20 May 2019 16:46:53 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 37DA65C221;
-	Mon, 20 May 2019 16:32:43 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 64339600C6;
+	Mon, 20 May 2019 16:46:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4DBCB5B424;
-	Mon, 20 May 2019 16:32:15 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 004835B424;
+	Mon, 20 May 2019 16:46:17 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
 	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4KGVJdo016987 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 20 May 2019 12:31:19 -0400
+	id x4KGjNX2020677 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 20 May 2019 12:45:23 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 12581383F; Mon, 20 May 2019 16:31:19 +0000 (UTC)
+	id ACB4817257; Mon, 20 May 2019 16:45:23 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx17.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.46])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DD45236FB;
-	Mon, 20 May 2019 16:31:16 +0000 (UTC)
-Received: from smtp2.provo.novell.com (smtp2.provo.novell.com [137.65.250.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 6FA383082E56;
-	Mon, 20 May 2019 16:30:30 +0000 (UTC)
-Received: from apollon.suse.de.de (prva10-snat226-1.provo.novell.com
-	[137.65.226.35])
-	by smtp2.provo.novell.com with ESMTP (TLS encrypted);
-	Mon, 20 May 2019 10:30:24 -0600
-From: Martin Wilck <mwilck@suse.com>
-To: Benjamin Marzinski <bmarzins@redhat.com>,
-	Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Mon, 20 May 2019 18:30:08 +0200
-Message-Id: <20190520163008.20642-1-mwilck@suse.com>
+Received: from mx1.redhat.com (ext-mx02.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.26])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A5C665C297
+	for <dm-devel@redhat.com>; Mon, 20 May 2019 16:45:19 +0000 (UTC)
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
+	[209.85.128.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 40026772EE
+	for <dm-devel@redhat.com>; Mon, 20 May 2019 16:45:08 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id t5so42839wmh.3
+	for <dm-devel@redhat.com>; Mon, 20 May 2019 09:45:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=subject:to:cc:references:from:openpgp:message-id:date:user-agent
+	:mime-version:in-reply-to:content-language:content-transfer-encoding;
+	bh=QVcCri+AEIktljEBPjh6Zhi+3fgQ3tYmp0k1KRXCkt0=;
+	b=fWSYSkMlrqQsrhQqLVTDu9S1Xz93dHsQPkQZsEWJr7rhuMJRiee83Z6OGXNKNiw5nB
+	B7ZuBtT5RdCrncnLO2jstZCUJX0ncmXms5CWUpVS/N8nzX7CCFug5l5glONCDwv6iGUk
+	giF85XLs4lSvwqABItd3EJg2ram4qr3CFER6xDVrpVT0Fwc9ItLHcauRC+RjuT6F+B/3
+	j5NZwnHAS7ax0jVFaiXy7m4TebC/TNumWQriDj2ITvsbs9v1+vCZaxIl4UoCa4WRUwUz
+	D1wGQIutNok1LH8HvC5IktnWMaW8Ah4TQV80oGS9Mlr/yLSIy/+KP9Xm3uDB+nxr0b6T
+	tGjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:cc:references:from:openpgp:message-id
+	:date:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=QVcCri+AEIktljEBPjh6Zhi+3fgQ3tYmp0k1KRXCkt0=;
+	b=X2bW+VSCluzflYqa4yu+PMfbVnhhVjMzPpQGMtvIJlb9v3AaS8oFqhGhD7eVoWkQDf
+	kt7VURVGgZ313tRs+ErANQvmVkDAqBZ18PLzOH1iXFzyTVRpsL8lV2+pEELA1t6E3i0z
+	+ePpvxL2BvjSsFXG97oZxHCHDONn47oadyUf0n4530QtZNQxJ5CxNbvcJYS1ksPP6yrB
+	FgZtNada3Ek0Cfa033Ybh1NNO4T/FSAMApN59hreqfLHxuE3fWaWzLMRANs1MYmGjFQU
+	NLn1oghzGcX/+q3oFzeNAfTNCyVt2DVpKODZFh0sVLQq1PMbDqaKrr37+Bskn6gC/4LT
+	Zu7A==
+X-Gm-Message-State: APjAAAUzZbY9YKD6fx9FcX9WcYDaxwsBv5hlOXBF31kzbWqSJH7tunZQ
+	sF0/Cn3K1GSQIUFXS3EZUtnapvda
+X-Google-Smtp-Source: APXvYqwZYII4urrY03OVQRdBJaVH9H80p+yhyfh8IKA4G7HJovsn0UDqiciOFcitenXwWK8lXgbXOA==
+X-Received: by 2002:a7b:ce8c:: with SMTP id q12mr40749wmj.33.1558370706594;
+	Mon, 20 May 2019 09:45:06 -0700 (PDT)
+Received: from [192.168.2.28] (39.35.broadband4.iol.cz. [85.71.35.39])
+	by smtp.gmail.com with ESMTPSA id
+	a10sm21043230wrm.94.2019.05.20.09.45.05
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Mon, 20 May 2019 09:45:06 -0700 (PDT)
+To: Andrea Gelmini <andrea.gelmini@gelma.net>, =?UTF-8?Q?Michael_La=c3=9f?=
+	<bevan@bi-co.net>
+References: <297da4cbe20235080205719805b08810@bi-co.net>
+	<CAJCQCtR-uo9fgs66pBMEoYX_xAye=O-L8kiMwyAdFjPS5T4+CA@mail.gmail.com>
+	<8C31D41C-9608-4A65-B543-8ABCC0B907A0@bi-co.net>
+	<CAJCQCtTZWXUgUDh8vn0BFeEbAdKToDSVYYw4Q0bt0rECQr9nxQ@mail.gmail.com>
+	<AD966642-1043-468D-BABF-8FC9AF514D36@bi-co.net>
+	<158a3491-e4d2-d905-7f58-11a15bddcd70@gmx.com>
+	<C1CD4646-E75D-4AAF-9CD6-B3AC32495FD3@bi-co.net>
+	<CAK-xaQYPs62v971zm1McXw_FGzDmh_vpz3KLEbxzkmrsSgTfXw@mail.gmail.com>
+	<9D4ECE0B-C9DD-4BAD-A764-9DE2FF2A10C7@bi-co.net>
+	<CAK-xaQYakXcAbhfiH_VbqWkh+HBJD5N69ktnnA7OnWdhL6fDLA@mail.gmail.com>
+From: Milan Broz <gmazyland@gmail.com>
+Openpgp: preference=signencrypt
+Message-ID: <ea5552b8-7b6a-2516-d968-c3f3c731e159@gmail.com>
+Date: Mon, 20 May 2019 18:45:04 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.6.1
 MIME-Version: 1.0
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.46]); Mon, 20 May 2019 16:30:51 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]);
-	Mon, 20 May 2019 16:30:51 +0000 (UTC) for IP:'137.65.250.81'
-	DOMAIN:'smtp2.provo.novell.com' HELO:'smtp2.provo.novell.com'
-	FROM:'mwilck@suse.com' RCPT:''
-X-RedHat-Spam-Score: -2.301  (RCVD_IN_DNSWL_MED,
-	SPF_PASS) 137.65.250.81 smtp2.provo.novell.com
-	137.65.250.81 smtp2.provo.novell.com <mwilck@suse.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.46
+In-Reply-To: <CAK-xaQYakXcAbhfiH_VbqWkh+HBJD5N69ktnnA7OnWdhL6fDLA@mail.gmail.com>
+Content-Language: en-US
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.26]);
+	Mon, 20 May 2019 16:45:08 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]);
+	Mon, 20 May 2019 16:45:08 +0000 (UTC) for IP:'209.85.128.65'
+	DOMAIN:'mail-wm1-f65.google.com' HELO:'mail-wm1-f65.google.com'
+	FROM:'gmazyland@gmail.com' RCPT:''
+X-RedHat-Spam-Score: -0.109  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
+	SPF_PASS) 209.85.128.65 mail-wm1-f65.google.com 209.85.128.65
+	mail-wm1-f65.google.com <gmazyland@gmail.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.26
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH] multipath-tools (coverity): assert availability
-	of CLOCK_MONOTONIC
+Cc: dm-devel@redhat.com, Chris Murphy <lists@colorremedies.com>,
+	Btrfs BTRFS <linux-btrfs@vger.kernel.org>,
+	Qu Wenruo <quwenruo.btrfs@gmx.com>
+Subject: Re: [dm-devel] fstrim discarding too many or wrong blocks on Linux
+ 5.1, leading to data loss
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -73,204 +122,28 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]); Mon, 20 May 2019 16:33:50 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]); Mon, 20 May 2019 16:47:25 +0000 (UTC)
 
-clock_gettime() fails only if either an invalid pointer is passed,
-or if the requested clock ID is not available. While availability of
-CLOCK_REALTIME is guaranteed, CLOCK_MONOTONIC is not, at least not
-by POSIX (Linux seems to have it, always). Provide a wrapper that
-can be called without error checking, and which aborts in the highly
-unlikely case that the monotonic clock can't be obtained. That saves
-us from checking the error code of clock_gettime() at every invocation
-(handling this sort of error "correctly" is almost impossible anyway),
-and should still satisfy coverity.
+On 20/05/2019 16:53, Andrea Gelmini wrote:
+...
+> Also, changing crypttab:
+> root@glet:~# cat /etc/crypttab
+> sda6_crypt UUID=fe03e2e6-b8b1-4672-8a3e-b536ac4e1539 none luks,discard
+> 
+> removing discard didn't solve the issue.
 
-Not doing this for libdmmp here, as it has it's own error checking
-and doesn't use headers from libmultipath.
+This is very strange, disabling discard should reject every discard IO
+on the dmcrypt layer. Are you sure it was really disabled?
 
-Signed-off-by: Martin Wilck <mwilck@suse.com>
----
- libmultipath/checkers/tur.c |  6 +++---
- libmultipath/time-util.c    |  8 ++++++++
- libmultipath/time-util.h    |  1 +
- multipathd/main.c           | 34 +++++++++++++---------------------
- multipathd/uxlsnr.c         |  8 +++-----
- 5 files changed, 28 insertions(+), 29 deletions(-)
+Note, it is the root filesystem, so you have to regenerate initramfs
+to update crypttab inside it.
 
-diff --git a/libmultipath/checkers/tur.c b/libmultipath/checkers/tur.c
-index 6b08dbbb..e886fcf8 100644
---- a/libmultipath/checkers/tur.c
-+++ b/libmultipath/checkers/tur.c
-@@ -290,7 +290,7 @@ static void *tur_thread(void *ctx)
- 
- static void tur_timeout(struct timespec *tsp)
- {
--	clock_gettime(CLOCK_MONOTONIC, tsp);
-+	get_monotonic_time(tsp);
- 	tsp->tv_nsec += 1000 * 1000; /* 1 millisecond */
- 	normalize_timespec(tsp);
- }
-@@ -300,7 +300,7 @@ static void tur_set_async_timeout(struct checker *c)
- 	struct tur_checker_context *ct = c->context;
- 	struct timespec now;
- 
--	clock_gettime(CLOCK_MONOTONIC, &now);
-+	get_monotonic_time(&now);
- 	ct->time = now.tv_sec + c->timeout;
- }
- 
-@@ -309,7 +309,7 @@ static int tur_check_async_timeout(struct checker *c)
- 	struct tur_checker_context *ct = c->context;
- 	struct timespec now;
- 
--	clock_gettime(CLOCK_MONOTONIC, &now);
-+	get_monotonic_time(&now);
- 	return (now.tv_sec > ct->time);
- }
- 
-diff --git a/libmultipath/time-util.c b/libmultipath/time-util.c
-index 6d79c0e5..f0a80096 100644
---- a/libmultipath/time-util.c
-+++ b/libmultipath/time-util.c
-@@ -3,6 +3,14 @@
- #include <time.h>
- #include "time-util.h"
- 
-+void get_monotonic_time(struct timespec *res)
-+{
-+	struct timespec ts;
-+
-+	assert(clock_gettime(CLOCK_MONOTONIC, &ts) == 0);
-+	*res = ts;
-+}
-+
- /* Initialize @cond as a condition variable that uses the monotonic clock */
- void pthread_cond_init_mono(pthread_cond_t *cond)
- {
-diff --git a/libmultipath/time-util.h b/libmultipath/time-util.h
-index b76d2aa4..b23d328a 100644
---- a/libmultipath/time-util.h
-+++ b/libmultipath/time-util.h
-@@ -5,6 +5,7 @@
- 
- struct timespec;
- 
-+void get_monotonic_time(struct timespec *res);
- void pthread_cond_init_mono(pthread_cond_t *cond);
- void normalize_timespec(struct timespec *ts);
- void timespecsub(const struct timespec *a, const struct timespec *b,
-diff --git a/multipathd/main.c b/multipathd/main.c
-index f203d77f..4574dce1 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -256,11 +256,10 @@ int set_config_state(enum daemon_status state)
- 		else if (running_state != DAEMON_IDLE) {
- 			struct timespec ts;
- 
--			if (clock_gettime(CLOCK_MONOTONIC, &ts) == 0) {
--				ts.tv_sec += 1;
--				rc = pthread_cond_timedwait(&config_cond,
--							    &config_lock, &ts);
--			}
-+			get_monotonic_time(&ts);
-+			ts.tv_sec += 1;
-+			rc = pthread_cond_timedwait(&config_cond,
-+						    &config_lock, &ts);
- 		}
- 		if (!rc && (running_state != DAEMON_SHUTDOWN)) {
- 			running_state = state;
-@@ -1861,15 +1860,12 @@ static int check_path_reinstate_state(struct path * pp) {
- 	}
- 
- 	if (pp->disable_reinstate) {
--		/* If we don't know how much time has passed, automatically
--		 * reinstate the path, just to be safe. Also, if there are
--		 * no other usable paths, reinstate the path
--		 */
--		if (clock_gettime(CLOCK_MONOTONIC, &curr_time) != 0 ||
--				pp->mpp->nr_active == 0) {
-+		/* If there are no other usable paths, reinstate the path */
-+		if (pp->mpp->nr_active == 0) {
- 			condlog(2, "%s : reinstating path early", pp->dev);
- 			goto reinstate_path;
- 		}
-+		get_monotonic_time(&curr_time);
- 		if ((curr_time.tv_sec - pp->dis_reinstate_time ) > pp->mpp->san_path_err_recovery_time) {
- 			condlog(2,"%s : reinstate the path after err recovery time", pp->dev);
- 			goto reinstate_path;
-@@ -1905,8 +1901,7 @@ static int check_path_reinstate_state(struct path * pp) {
- 	 * delay the path, so there's no point in checking if we should
- 	 */
- 
--	if (clock_gettime(CLOCK_MONOTONIC, &curr_time) != 0)
--		return 0;
-+	get_monotonic_time(&curr_time);
- 	/* when path failures has exceeded the san_path_err_threshold
- 	 * place the path in delayed state till san_path_err_recovery_time
- 	 * so that the cutomer can rectify the issue within this time. After
-@@ -2288,17 +2283,14 @@ checkerloop (void *ap)
- 	condlog(2, "path checkers start up");
- 
- 	/* Tweak start time for initial path check */
--	if (clock_gettime(CLOCK_MONOTONIC, &last_time) != 0)
--		last_time.tv_sec = 0;
--	else
--		last_time.tv_sec -= 1;
-+	get_monotonic_time(&last_time);
-+	last_time.tv_sec -= 1;
- 
- 	while (1) {
- 		struct timespec diff_time, start_time, end_time;
- 		int num_paths = 0, ticks = 0, strict_timing, rc = 0;
- 
--		if (clock_gettime(CLOCK_MONOTONIC, &start_time) != 0)
--			start_time.tv_sec = 0;
-+		get_monotonic_time(&start_time);
- 		if (start_time.tv_sec && last_time.tv_sec) {
- 			timespecsub(&start_time, &last_time, &diff_time);
- 			condlog(4, "tick (%lu.%06lu secs)",
-@@ -2357,8 +2349,8 @@ checkerloop (void *ap)
- 		}
- 
- 		diff_time.tv_nsec = 0;
--		if (start_time.tv_sec &&
--		    clock_gettime(CLOCK_MONOTONIC, &end_time) == 0) {
-+		if (start_time.tv_sec) {
-+			get_monotonic_time(&end_time);
- 			timespecsub(&end_time, &start_time, &diff_time);
- 			if (num_paths) {
- 				unsigned int max_checkint;
-diff --git a/multipathd/uxlsnr.c b/multipathd/uxlsnr.c
-index 773bc878..13a37be0 100644
---- a/multipathd/uxlsnr.c
-+++ b/multipathd/uxlsnr.c
-@@ -130,10 +130,10 @@ void check_timeout(struct timespec start_time, char *inbuf,
- {
- 	struct timespec diff_time, end_time;
- 
--	if (start_time.tv_sec &&
--	    clock_gettime(CLOCK_MONOTONIC, &end_time) == 0) {
-+	if (start_time.tv_sec) {
- 		unsigned long msecs;
- 
-+		get_monotonic_time(&end_time);
- 		timespecsub(&end_time, &start_time, &diff_time);
- 		msecs = diff_time.tv_sec * 1000 +
- 			diff_time.tv_nsec / (1000 * 1000);
-@@ -268,9 +268,7 @@ void * uxsock_listen(uxsock_trigger_fn uxsock_trigger, long ux_sock,
- 						i, polls[i].fd);
- 					continue;
- 				}
--				if (clock_gettime(CLOCK_MONOTONIC, &start_time)
--				    != 0)
--					start_time.tv_sec = 0;
-+				get_monotonic_time(&start_time);
- 				if (recv_packet_from_client(c->fd, &inbuf,
- 							    uxsock_timeout)
- 				    != 0) {
--- 
-2.21.0
+Could you paste "dmsetup table" and "lsblk -D" to verify that discard flag
+is not there?
+(I mean dmsetup table with the zeroed key, as a default and safe output.)
+
+Milan
 
 --
 dm-devel mailing list
