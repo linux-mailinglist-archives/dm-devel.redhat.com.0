@@ -2,44 +2,66 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BE26232CA
-	for <lists+dm-devel@lfdr.de>; Mon, 20 May 2019 13:40:42 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by mail.lfdr.de (Postfix) with ESMTPS id 11CDF25917
+	for <lists+dm-devel@lfdr.de>; Tue, 21 May 2019 22:39:56 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 7CEF0308621C;
-	Mon, 20 May 2019 11:40:27 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 668B7F6E7;
-	Mon, 20 May 2019 11:40:13 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id C28B13082E23;
+	Tue, 21 May 2019 20:39:48 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 91303600CC;
+	Tue, 21 May 2019 20:39:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3A3C95EC6B;
-	Mon, 20 May 2019 11:39:43 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 41D341833002;
+	Tue, 21 May 2019 20:39:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4KBd2vb019915 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 20 May 2019 07:39:02 -0400
+	id x4KDrtEM017783 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 20 May 2019 09:53:55 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A998B2FC4B; Mon, 20 May 2019 11:39:02 +0000 (UTC)
+	id 695AF1001E73; Mon, 20 May 2019 13:53:55 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx04.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.28])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9ED9B7A41D
-	for <dm-devel@redhat.com>; Mon, 20 May 2019 11:39:00 +0000 (UTC)
-Received: from voltaic.bi-co.net (voltaic.bi-co.net [134.119.3.22])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.41])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 62FA01017E2C
+	for <dm-devel@redhat.com>; Mon, 20 May 2019 13:53:53 +0000 (UTC)
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
+	[209.85.222.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 0694285545
-	for <dm-devel@redhat.com>; Mon, 20 May 2019 11:38:57 +0000 (UTC)
-Received: from [131.234.247.237] (unknown [131.234.247.237])
-	by voltaic.bi-co.net (Postfix) with ESMTPSA id 5D938209BD;
-	Mon, 20 May 2019 13:38:54 +0200 (CEST)
-Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
-From: =?utf-8?Q?Michael_La=C3=9F?= <bevan@bi-co.net>
-In-Reply-To: <C1CD4646-E75D-4AAF-9CD6-B3AC32495FD3@bi-co.net>
-Date: Mon, 20 May 2019 13:38:53 +0200
-Message-Id: <3142764D-5944-4004-BC57-C89C89AC9ED9@bi-co.net>
+	by mx1.redhat.com (Postfix) with ESMTPS id 6B9493091761
+	for <dm-devel@redhat.com>; Mon, 20 May 2019 13:53:44 +0000 (UTC)
+Received: by mail-qk1-f174.google.com with SMTP id g190so8823966qkf.8
+	for <dm-devel@redhat.com>; Mon, 20 May 2019 06:53:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc; bh=LSP6esAGRAyOeZmKe6/oNoKuvjRm4p0PzUXrsbOASTA=;
+	b=HPHkbtyZ0qfs5+mNvBYOG+yhWWllLnmVAAuhH/Wn+dGU8WOs+dlorJSCY9oytyh5L+
+	7XAPsQA2ek+p0zowQVOp+4NJ1wJnyZcIulVKOS9GXy2ncOYaxDnK7XtEwRIWU1nphGHD
+	0TY8WHJnLdy5k0tze4VPf+LZByDLGiXVu1PcI8btQ825kBk9XGXI7vjSjJ7hrTuhIsWO
+	EpIEcscHjfQjFOhTDGbzZ3Vceers0/wMgh3v1/e/8Dax7coqU4UF4+OVxurllklfarkK
+	VGct/MarJsutsbSSyCWy/cBtOvSD14lFSjULlBcOjAkfdXl09M8tSVPj6BUxpo2un9i9
+	sx8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=LSP6esAGRAyOeZmKe6/oNoKuvjRm4p0PzUXrsbOASTA=;
+	b=k04NInZUw/xO2Z9cy4UU4sPhe028DnEmo+jCJe1VoCeDM7ltr46LezAFn8TUH1MExQ
+	B7/37dS+NERCyn4eU41ZMlIuvOPFO1bL2rX0cGDn0W6pfDuxctUhK/FBx6nuQPx6LXpt
+	DdFp/snzOhnAq7mynFndVDcAa8Nh3mUV/A3w8JCcyzI56Cy5/KH3edL9cTmowYrx2lh7
+	mz7wNvr6U89qWSfRot76//EiNiRsPCZX9aNwCETLZTaZR/3DvYppGRgozUdm9q/XvVfY
+	RmFKLdKT1cWx6wTeclnbS7bOQIig9gh0pyFic9KEWUM3HctN8X5Bs4pJ5Mm1BowZacr2
+	8ffw==
+X-Gm-Message-State: APjAAAXVnsbuJ9sOfbgzBgAAvrAYXZWxGvloEkOzpHB/rYXF9qq7ScVH
+	padWMvf5CY3sO+VYCeC5pRMcNX+Ey+je00fYQeg=
+X-Google-Smtp-Source: APXvYqzrBbLPO+Crcwf2cwJzbow7KCJvINcKhKVtRxrxK3nNrs0cupG5cZh0lAzrr7nYbR4mROiuHTKguT77YAss/2o=
+X-Received: by 2002:a05:620a:5ed:: with SMTP id
+	z13mr21788456qkg.84.1558360423483; 
+	Mon, 20 May 2019 06:53:43 -0700 (PDT)
+MIME-Version: 1.0
 References: <297da4cbe20235080205719805b08810@bi-co.net>
 	<CAJCQCtR-uo9fgs66pBMEoYX_xAye=O-L8kiMwyAdFjPS5T4+CA@mail.gmail.com>
 	<8C31D41C-9608-4A65-B543-8ABCC0B907A0@bi-co.net>
@@ -47,24 +69,30 @@ References: <297da4cbe20235080205719805b08810@bi-co.net>
 	<AD966642-1043-468D-BABF-8FC9AF514D36@bi-co.net>
 	<158a3491-e4d2-d905-7f58-11a15bddcd70@gmx.com>
 	<C1CD4646-E75D-4AAF-9CD6-B3AC32495FD3@bi-co.net>
-To: dm-devel@redhat.com
-X-Greylist: Sender passed SPF test, ACL 242 matched, not delayed by
-	milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]);
-	Mon, 20 May 2019 11:38:57 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]);
-	Mon, 20 May 2019 11:38:57 +0000 (UTC) for IP:'134.119.3.22'
-	DOMAIN:'voltaic.bi-co.net' HELO:'voltaic.bi-co.net'
-	FROM:'bevan@bi-co.net' RCPT:''
-X-RedHat-Spam-Score: 0  (SPF_HELO_NONE,
-	SPF_PASS) 134.119.3.22 voltaic.bi-co.net 134.119.3.22
-	voltaic.bi-co.net <bevan@bi-co.net>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.28
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id x4KBd2vb019915
+In-Reply-To: <C1CD4646-E75D-4AAF-9CD6-B3AC32495FD3@bi-co.net>
+From: Andrea Gelmini <andrea.gelmini@gmail.com>
+Date: Mon, 20 May 2019 15:53:30 +0200
+Message-ID: <CAK-xaQYPs62v971zm1McXw_FGzDmh_vpz3KLEbxzkmrsSgTfXw@mail.gmail.com>
+To: =?UTF-8?B?TWljaGFlbCBMYcOf?= <bevan@bi-co.net>
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.41]);
+	Mon, 20 May 2019 13:53:44 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]);
+	Mon, 20 May 2019 13:53:44 +0000 (UTC) for IP:'209.85.222.174'
+	DOMAIN:'mail-qk1-f174.google.com'
+	HELO:'mail-qk1-f174.google.com' FROM:'andrea.gelmini@gmail.com'
+	RCPT:''
+X-RedHat-Spam-Score: -0.109  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	FREEMAIL_FROM, HTML_MESSAGE, RCVD_IN_DNSWL_NONE,
+	SPF_PASS) 209.85.222.174 mail-qk1-f174.google.com 209.85.222.174
+	mail-qk1-f174.google.com <andrea.gelmini@gmail.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.41
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-Cc: Chris Murphy <lists@colorremedies.com>, Qu Wenruo <quwenruo.btrfs@gmx.com>,
-	Btrfs BTRFS <linux-btrfs@vger.kernel.org>
+X-Mailman-Approved-At: Tue, 21 May 2019 16:38:42 -0400
+Cc: dm-devel@redhat.com, Chris Murphy <lists@colorremedies.com>,
+	Btrfs BTRFS <linux-btrfs@vger.kernel.org>,
+	Qu Wenruo <quwenruo.btrfs@gmx.com>
 Subject: Re: [dm-devel] fstrim discarding too many or wrong blocks on Linux
  5.1, leading to data loss
 X-BeenThere: dm-devel@redhat.com
@@ -78,130 +106,438 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============3843945107317580719=="
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]); Mon, 20 May 2019 11:40:41 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]); Tue, 21 May 2019 20:39:54 +0000 (UTC)
 
-Cj4gQW0gMTkuMDUuMjAxOSB1bSAyMTo1NSBzY2hyaWViIE1pY2hhZWwgTGHDnyA8YmV2YW5AYmkt
-Y28ubmV0PjoKPiAKPiBDQydpbmcgZG0tZGV2ZWwsIGFzIHRoaXMgc2VlbXMgdG8gYmUgYSBkbS1y
-ZWxhdGVkIGlzc3VlLiBTaG9ydCBzdW1tYXJ5IGZvciBuZXcgcmVhZGVyczoKPiAKPiBPbiBMaW51
-eCA1LjEgKHRlc3RlZCB1cCB0byA1LjEuMyksIGZzdHJpbSBtYXkgZGlzY2FyZCB0b28gbWFueSBi
-bG9ja3MsIGxlYWRpbmcgdG8gZGF0YSBsb3NzLiBJIGhhdmUgdGhlIGZvbGxvd2luZyBzdG9yYWdl
-IHN0YWNrOgo+IAo+IGJ0cmZzCj4gZG0tY3J5cHQgKExVS1MpCj4gTFZNIGxvZ2ljYWwgdm9sdW1l
-Cj4gTFZNIHNpbmdsZSBwaHlzaWNhbCB2b2x1bWUKPiBNQlIgcGFydGl0aW9uCj4gU2Ftc3VuZyA4
-MzAgU1NECj4gCj4gVGhlIG1hcHBpbmcgYmV0d2VlbiBsb2dpY2FsIHZvbHVtZXMgYW5kIHBoeXNp
-Y2FsIHNlZ21lbnRzIGlzIGEgYml0IG1peGVkIHVwLiBTZWUgYmVsb3cgZm9yIHRoZSBvdXRwdXQg
-Zm9yIOKAnHB2ZGlzcGxheSAtbeKAnS4gV2hlbiBJIGlzc3VlIGZzdHJpbSBvbiB0aGUgbW91bnRl
-ZCBidHJmcyB2b2x1bWUsIEkgZ2V0IHRoZSBmb2xsb3dpbmcga2VybmVsIG1lc3NhZ2VzOgo+IAo+
-IGF0dGVtcHQgdG8gYWNjZXNzIGJleW9uZCBlbmQgb2YgZGV2aWNlCj4gc2RhMTogcnc9MTYzODcs
-IHdhbnQ9MjUyNzU1ODkzLCBsaW1pdD0yNTAwNjc2MzIKPiBCVFJGUyB3YXJuaW5nIChkZXZpY2Ug
-ZG0tNSk6IGZhaWxlZCB0byB0cmltIDEgZGV2aWNlKHMpLCBsYXN0IGVycm9yIC01Cj4gCj4gQXQg
-dGhlIHNhbWUgdGltZSwgb3RoZXIgbG9naWNhbCB2b2x1bWVzIG9uIHRoZSBzYW1lIHBoeXNpY2Fs
-IHZvbHVtZSBhcmUgZGVzdHJveWVkLiBBbHNvIHRoZSBidHJmcyB2b2x1bWUgaXRzZWxmIG1heSBi
-ZSBkYW1hZ2VkICh0aGlzIHNlZW1zIHRvIGRlcGVuZCBvbiB0aGUgYWN0dWFsIHVzYWdlKS4KPiAK
-PiBJIGNhbiBlYXNpbHkgcmVwcm9kdWNlIHRoaXMgaXNzdWUgbG9jYWxseSBhbmQgSeKAmW0gY3Vy
-cmVudGx5IGJpc2VjdGluZy4gU28gZmFyIEkgY291bGQgbmFycm93IGRvd24gdGhlIHJhbmdlIG9m
-IGNvbW1pdHMgdG86Cj4gR29vZDogOTJmZmY1M2I3MTkxY2FlNTY2YmU5Y2E2NzUyMDY5NDI2Yzdm
-ODI0MQo+IEJhZDogMjI1NTU3NDQ2ODU2NDQ4MDM5YTllNDk1ZGEzN2I3MmMyMDA3MWVmMgoKSSBm
-aW5pc2hlZCBiaXNlY3RpbmcuIEhlcmXigJlzIHRoZSByZXNwb25zaWJsZSBjb21taXQ6Cgpjb21t
-aXQgNjE2OTdhNmFiZDI0YWNiYTk0MTM1OWM2MjY4YTk0ZjRhZmU0YTUzZApBdXRob3I6IE1pa2Ug
-U25pdHplciA8c25pdHplckByZWRoYXQuY29tPgpEYXRlOiAgIEZyaSBKYW4gMTggMTQ6MTk6MjYg
-MjAxOSAtMDUwMAoKICAgIGRtOiBlbGltaW5hdGUgJ3NwbGl0X2Rpc2NhcmRfYmlvcycgZmxhZyBm
-cm9tIERNIHRhcmdldCBpbnRlcmZhY2UKICAgIAogICAgVGhlcmUgaXMgbm8gbmVlZCB0byBoYXZl
-IERNIGNvcmUgc3BsaXQgZGlzY2FyZHMgb24gYmVoYWxmIG9mIGEgRE0gdGFyZ2V0CiAgICBub3cg
-dGhhdCBibGtfcXVldWVfc3BsaXQoKSBoYW5kbGVzIHNwbGl0dGluZyBkaXNjYXJkcyBiYXNlZCBv
-biB0aGUKICAgIHF1ZXVlX2xpbWl0cy4gIEEgRE0gdGFyZ2V0IGp1c3QgbmVlZHMgdG8gc2V0IG1h
-eF9kaXNjYXJkX3NlY3RvcnMsCiAgICBkaXNjYXJkX2dyYW51bGFyaXR5LCBldGMsIGluIHF1ZXVl
-X2xpbWl0cy4KICAgIAogICAgU2lnbmVkLW9mZi1ieTogTWlrZSBTbml0emVyIDxzbml0emVyQHJl
-ZGhhdC5jb20+CgpNYXliZSB0aGUgYXNzdW1wdGlvbnMgdGFrZW4gaGVyZSAoIkEgRE0gdGFyZ2V0
-IGp1c3QgbmVlZHMgdG8gc2V0IG1heF9kaXNjYXJkX3NlY3RvcnMsIGRpc2NhcmRfZ3JhbnVsYXJp
-dHksIGV0YywgaW4gcXVldWVfbGltaXRzLuKAnSkgaXNu4oCZdCB2YWxpZCBpbiBteSBjYXNlPyBE
-b2VzIGFueW9uZSBoYXZlIGFuIGlkZWE/CgoKPiAKPiBJbiB0aGlzIHJhbmdlIG9mIGNvbW1pdHMs
-IHRoZXJlIGFyZSBvbmx5IGRtLXJlbGF0ZWQgY2hhbmdlcy4KPiAKPiBTbyBmYXIsIEkgaGF2ZSBu
-b3QgcmVwcm9kdWNlZCB0aGUgaXNzdWUgd2l0aCBvdGhlciBmaWxlIHN5c3RlbXMgb3IgYSBzaW1w
-bGlmaWVkIHN0YWNrLiBJIGZpcnN0IHdhbnQgdG8gY29udGludWUgYmlzZWN0aW5nIGJ1dCB0aGlz
-IG1heSB0YWtlIGFub3RoZXIgZGF5Lgo+IAo+IAo+PiBBbSAxOC4wNS4yMDE5IHVtIDEyOjI2IHNj
-aHJpZWIgUXUgV2VucnVvIDxxdXdlbnJ1by5idHJmc0BnbXguY29tPjoKPj4gT24gMjAxOS81LzE4
-IOS4i+WNiDU6MTgsIE1pY2hhZWwgTGHDnyB3cm90ZToKPj4+IAo+Pj4+IEFtIDE4LjA1LjIwMTkg
-dW0gMDY6MDkgc2NocmllYiBDaHJpcyBNdXJwaHkgPGxpc3RzQGNvbG9ycmVtZWRpZXMuY29tPjoK
-Pj4+PiAKPj4+PiBPbiBGcmksIE1heSAxNywgMjAxOSBhdCAxMTozNyBBTSBNaWNoYWVsIExhw58g
-PGJldmFuQGJpLWNvLm5ldD4gd3JvdGU6Cj4+Pj4+IAo+Pj4+PiAKPj4+Pj4gSSB0cmllZCB0byBy
-ZXByb2R1Y2UgdGhpcyBpc3N1ZTogSSByZWNyZWF0ZWQgdGhlIGJ0cmZzIGZpbGUgc3lzdGVtLCBz
-ZXQgdXAgYSBtaW5pbWFsIHN5c3RlbSBhbmQgaXNzdWVkIGZzdHJpbSBhZ2Fpbi4gSXQgcHJpbnRl
-ZCB0aGUgZm9sbG93aW5nIGVycm9yIG1lc3NhZ2U6Cj4+Pj4+IAo+Pj4+PiBmc3RyaW06IC86IEZJ
-VFJJTSBpb2N0bCBmYWlsZWQ6IElucHV0L291dHB1dCBlcnJvcgo+Pj4+IAo+Pj4+IEh1aC4gQW55
-IGtlcm5lbCBtZXNzYWdlIGF0IHRoZSBzYW1lIHRpbWU/IEkgd291bGQgZXhwZWN0IGFueSBmc3Ry
-aW0KPj4+PiB1c2VyIHNwYWNlIGVycm9yIG1lc3NhZ2UgdG8gYWxzbyBoYXZlIGEga2VybmVsIG1l
-c3NhZ2UuIEFueSBpL28gZXJyb3IKPj4+PiBzdWdnZXN0cyBzb21lIGtpbmQgb2Ygc3RvcmFnZSBz
-dGFjayBmYWlsdXJlIC0gd2hpY2ggY291bGQgYmUgaGFyZHdhcmUKPj4+PiBvciBzb2Z0d2FyZSwg
-eW91IGNhbid0IGtub3cgd2l0aG91dCBzZWVpbmcgdGhlIGtlcm5lbCBtZXNzYWdlcy4KPj4+IAo+
-Pj4gSSBtaXNzZWQgdGhhdC4gVGhlIGtlcm5lbCBtZXNzYWdlcyBhcmU6Cj4+PiAKPj4+IGF0dGVt
-cHQgdG8gYWNjZXNzIGJleW9uZCBlbmQgb2YgZGV2aWNlCj4+PiBzZGExOiBydz0xNjM4Nywgd2Fu
-dD0yNTI3NTU4OTMsIGxpbWl0PTI1MDA2NzYzMgo+Pj4gQlRSRlMgd2FybmluZyAoZGV2aWNlIGRt
-LTUpOiBmYWlsZWQgdG8gdHJpbSAxIGRldmljZShzKSwgbGFzdCBlcnJvciAtNQo+Pj4gCj4+PiBI
-ZXJlIGFyZSBzb21lIG1vcmUgaW5mb3JtYXRpb24gb24gdGhlIHBhcnRpdGlvbnMgYW5kIExWTSBw
-aHlzaWNhbCBzZWdtZW50czoKPj4+IAo+Pj4gZmRpc2sgLWwgL2Rldi9zZGE6Cj4+PiAKPj4+IERl
-dmljZSAgICAgQm9vdCBTdGFydCAgICAgICBFbmQgICBTZWN0b3JzICAgU2l6ZSBJZCBUeXBlCj4+
-PiAvZGV2L3NkYTEgICogICAgIDIwNDggMjUwMDY5Njc5IDI1MDA2NzYzMiAxMTkuMkcgOGUgTGlu
-dXggTFZNCj4+PiAKPj4+IHB2ZGlzcGxheSAtbToKPj4+IAo+Pj4gLS0tIFBoeXNpY2FsIHZvbHVt
-ZSAtLS0KPj4+IFBWIE5hbWUgICAgICAgICAgICAgICAvZGV2L3NkYTEKPj4+IFZHIE5hbWUgICAg
-ICAgICAgICAgICB2Z19zeXN0ZW0KPj4+IFBWIFNpemUgICAgICAgICAgICAgICAxMTkuMjQgR2lC
-IC8gbm90IHVzYWJsZSA8MjIuMzQgTWlCCj4+PiBBbGxvY2F0YWJsZSAgICAgICAgICAgeWVzIChi
-dXQgZnVsbCkKPj4+IFBFIFNpemUgICAgICAgICAgICAgICAzMi4wMCBNaUIKPj4+IFRvdGFsIFBF
-ICAgICAgICAgICAgICAzODE1Cj4+PiBGcmVlIFBFICAgICAgICAgICAgICAgMAo+Pj4gQWxsb2Nh
-dGVkIFBFICAgICAgICAgIDM4MTUKPj4+IFBWIFVVSUQgICAgICAgICAgICAgICBtcUNMRnktaURu
-dC1OZmRDLWxmU3YtTWFvci1WMUloLVJsRzhsUAo+Pj4gCj4+PiAtLS0gUGh5c2ljYWwgU2VnbWVu
-dHMgLS0tCj4+PiBQaHlzaWNhbCBleHRlbnQgMCB0byAxMjQ4Ogo+Pj4gICBMb2dpY2FsIHZvbHVt
-ZQkvZGV2L3ZnX3N5c3RlbS9idHJmcwo+Pj4gICBMb2dpY2FsIGV4dGVudHMJMjIzMSB0byAzNDc5
-Cj4+PiBQaHlzaWNhbCBleHRlbnQgMTI0OSB0byAxNzI4Ogo+Pj4gICBMb2dpY2FsIHZvbHVtZQkv
-ZGV2L3ZnX3N5c3RlbS9idHJmcwo+Pj4gICBMb2dpY2FsIGV4dGVudHMJNjQwIHRvIDExMTkKPj4+
-IFBoeXNpY2FsIGV4dGVudCAxNzI5IHRvIDE3NjA6Cj4+PiAgIExvZ2ljYWwgdm9sdW1lCS9kZXYv
-dmdfc3lzdGVtL2dybWwtaW1hZ2VzCj4+PiAgIExvZ2ljYWwgZXh0ZW50cwkwIHRvIDMxCj4+PiBQ
-aHlzaWNhbCBleHRlbnQgMTc2MSB0byAyMDE2Ogo+Pj4gICBMb2dpY2FsIHZvbHVtZQkvZGV2L3Zn
-X3N5c3RlbS9zd2FwCj4+PiAgIExvZ2ljYWwgZXh0ZW50cwkwIHRvIDI1NQo+Pj4gUGh5c2ljYWwg
-ZXh0ZW50IDIwMTcgdG8gMjA0NzoKPj4+ICAgTG9naWNhbCB2b2x1bWUJL2Rldi92Z19zeXN0ZW0v
-YnRyZnMKPj4+ICAgTG9naWNhbCBleHRlbnRzCTM0ODAgdG8gMzUxMAo+Pj4gUGh5c2ljYWwgZXh0
-ZW50IDIwNDggdG8gMjY4NzoKPj4+ICAgTG9naWNhbCB2b2x1bWUJL2Rldi92Z19zeXN0ZW0vYnRy
-ZnMKPj4+ICAgTG9naWNhbCBleHRlbnRzCTAgdG8gNjM5Cj4+PiBQaHlzaWNhbCBleHRlbnQgMjY4
-OCB0byAzMDA3Ogo+Pj4gICBMb2dpY2FsIHZvbHVtZQkvZGV2L3ZnX3N5c3RlbS9idHJmcwo+Pj4g
-ICBMb2dpY2FsIGV4dGVudHMJMTkxMSB0byAyMjMwCj4+PiBQaHlzaWNhbCBleHRlbnQgMzAwOCB0
-byAzMzIwOgo+Pj4gICBMb2dpY2FsIHZvbHVtZQkvZGV2L3ZnX3N5c3RlbS9idHJmcwo+Pj4gICBM
-b2dpY2FsIGV4dGVudHMJMTEyMCB0byAxNDMyCj4+PiBQaHlzaWNhbCBleHRlbnQgMzMyMSB0byAz
-MzM2Ogo+Pj4gICBMb2dpY2FsIHZvbHVtZQkvZGV2L3ZnX3N5c3RlbS9ib290Cj4+PiAgIExvZ2lj
-YWwgZXh0ZW50cwkwIHRvIDE1Cj4+PiBQaHlzaWNhbCBleHRlbnQgMzMzNyB0byAzODE0Ogo+Pj4g
-ICBMb2dpY2FsIHZvbHVtZQkvZGV2L3ZnX3N5c3RlbS9idHJmcwo+Pj4gICBMb2dpY2FsIGV4dGVu
-dHMJMTQzMyB0byAxOTEwCj4+PiAKPj4+IAo+Pj4gV291bGQgYnRyZnMgZXZlbiBiZSBhYmxlIHRv
-IGFjY2lkZW50YWxseSB0cmltIHBhcnRzIG9mIG90aGVyIExWcyBvciBkb2VzIHRoaXMgY2xlYXJs
-eSBoaW50IHRvd2FyZHMgYSBMVk0vZG0gaXNzdWU/Cj4+IAo+PiBJIGNhbid0IHNwZWFrIHN1cmUs
-IGJ1dCAoYXQgbGVhc3QgZm9yIGxhdGVzdCBrZXJuZWwpIGJ0cmZzIGhhcyBhIGxvdCBvZgo+PiBl
-eHRyYSBtb3VudCB0aW1lIHNlbGYgY2hlY2ssIGluY2x1ZGluZyBjaHVuayBzdHJpcGUgY2hlY2sg
-YWdhaW5zdAo+PiB1bmRlcmx5aW5nIGRldmljZSwgdGh1cyB0aGUgcG9zc2liaWxpdHkgc2hvdWxk
-bid0IGJlIHRoYXQgaGlnaCBmb3IgYnRyZnMuCj4gCj4gSW5kZWVkLCBiaXNlY3RpbmcgdGhlIGlz
-c3VlIGxlZCBtZSB0byBhIHJhbmdlIG9mIGNvbW1pdHMgdGhhdCBvbmx5IGNvbnRhaW5zIGRtLXJl
-bGF0ZWQgYW5kIG5vIGJ0cmZzLXJlbGF0ZWQgY2hhbmdlcy4gU28gSSBhc3N1bWUgdGhpcyBpcyBh
-IGJ1ZyBpbiBkbS4KPiAKPj4+IElzIHRoZXJlIGFuIGVhc3kgd2F5IHRvIHNvbWVob3cgdHJhY2Ug
-dGhlIHRyaW0gdGhyb3VnaCB0aGUgZGlmZmVyZW50IGxheWVycyBzbyBvbmUgY2FuIHNlZSB3aGVy
-ZSBpdCBnb2VzIHdyb25nPwo+PiAKPj4gU3VyZSwgeW91IGNvdWxkIHVzZSBkbS1sb2ctd3JpdGVz
-Lgo+PiBJdCB3aWxsIHJlY29yZCBhbGwgcmVhZC93cml0ZSAoaW5jbHVkaW5nIHRyaW0pIGZvciBs
-YXRlciByZXBsYXkuCj4+IAo+PiBTbyBpbiB5b3VyIGNhc2UsIHlvdSBjYW4gYnVpbGQgdGhlIHN0
-b3JhZ2Ugc3RhY2sgbGlrZToKPj4gCj4+IEJ0cmZzCj4+IDxkbS1sb2ctd3JpdGVzPgo+PiBMVUtT
-L2RtY3J5cHQKPj4gTFZNCj4+IE1CUiBwYXJ0aXRpb24KPj4gU2Ftc3VuZyBTU0QKPj4gCj4+IFRo
-ZW4gcmVwbGF5IHRoZSBsb2cgKHVzaW5nIHNyYy9sb2ctd3JpdGUvcmVwbGF5LWxvZyBpbiBmc3Rl
-c3RzKSB3aXRoCj4+IHZlcmJvc2Ugb3V0cHV0LCB5b3UgY2FuIHZlcmlmeSBldmVyeSB0cmltIG9w
-ZXJhdGlvbiBhZ2FpbnN0IHRoZSBkbWNyeXB0Cj4+IGRldmljZSBzaXplLgo+PiAKPj4gSWYgYWxs
-IHRyaW0gYXJlIGZpbmUsIHRoZW4gbW92ZSB0aGUgZG0tbG9nLXdyaXRlcyBhIGxheWVyIGxvd2Vy
-LCB1bnRpbAo+PiB5b3UgZmluZCB3aGljaCBsYXllciBpcyBjYXVzaW5nIHRoZSBwcm9ibGVtLgo+
-IAo+IFRoYXQgc291bmRzIGxpa2UgYSBwbGFuISBIb3dldmVyLCBJIGZpcnN0IHdhbnQgdG8gY29u
-dGludWUgYmlzZWN0aW5nIGFzIEkgYW0gYWZyYWlkIHRvIGxvc2UgbXkgcmVwcm9kdWNlciBieSBj
-aGFuZ2luZyBwYXJ0cyBvZiBteSBzdG9yYWdlIHN0YWNrLgo+IAo+IENoZWVycywKPiBNaWNoYWVs
-Cj4gCj4+IAo+PiBUaGFua3MsCj4+IFF1Cj4+PiAKPj4+IENoZWVycywKPj4+IE1pY2hhZWwKPj4+
-IAo+Pj4gUFM6IEN1cnJlbnQgc3RhdGUgb2YgYmlzZWN0aW9uOiBJdCBsb29rcyBsaWtlIHRoZSBl
-cnJvciB3YXMgaW50cm9kdWNlZCBzb21ld2hlcmUgYmV0d2VlbiBiNWRkMGM2NThjMzFiNDY5Y2Nm
-ZjFiNjM3ZTUxMjQ4NTFlN2E0YTFjIGFuZCB2NS4xLgo+IAo+IAo+IC0tCj4gZG0tZGV2ZWwgbWFp
-bGluZyBsaXN0Cj4gZG0tZGV2ZWxAcmVkaGF0LmNvbQo+IGh0dHBzOi8vd3d3LnJlZGhhdC5jb20v
-bWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbAoKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1k
-ZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9k
-bS1kZXZlbA==
+--===============3843945107317580719==
+Content-Type: multipart/alternative; boundary="000000000000794ed60589520fbd"
+
+--000000000000794ed60589520fbd
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Had same issue on a similar (well,  quite exactly same setup), on a machine
+in production.
+But It Is more than 4 tera of data, so in the end I re-dd the image and
+restarted, sticking to 5.0.y branch never had problem.
+I was able to replicate it. SSD Samsung, more recent version.
+Not with btrfs but ext4, by the way.
+I saw the discard of big initial part of lvm partition. I can't find
+superblocks Copy in the First half, but torwards the end of logical volume.
+
+Sorry, i can't play with It again, but i have the whole (4 tera) dd image
+with the bug.
+
+
+Ciao,
+Gelma
+
+Il lun 20 mag 2019, 02:38 Michael La=C3=9F <bevan@bi-co.net> ha scritto:
+
+> CC'ing dm-devel, as this seems to be a dm-related issue. Short summary fo=
+r
+> new readers:
+>
+> On Linux 5.1 (tested up to 5.1.3), fstrim may discard too many blocks,
+> leading to data loss. I have the following storage stack:
+>
+> btrfs
+> dm-crypt (LUKS)
+> LVM logical volume
+> LVM single physical volume
+> MBR partition
+> Samsung 830 SSD
+>
+> The mapping between logical volumes and physical segments is a bit mixed
+> up. See below for the output for =E2=80=9Cpvdisplay -m=E2=80=9D. When I i=
+ssue fstrim on the
+> mounted btrfs volume, I get the following kernel messages:
+>
+> attempt to access beyond end of device
+> sda1: rw=3D16387, want=3D252755893, limit=3D250067632
+> BTRFS warning (device dm-5): failed to trim 1 device(s), last error -5
+>
+> At the same time, other logical volumes on the same physical volume are
+> destroyed. Also the btrfs volume itself may be damaged (this seems to
+> depend on the actual usage).
+>
+> I can easily reproduce this issue locally and I=E2=80=99m currently bisec=
+ting. So
+> far I could narrow down the range of commits to:
+> Good: 92fff53b7191cae566be9ca6752069426c7f8241
+> Bad: 225557446856448039a9e495da37b72c20071ef2
+>
+> In this range of commits, there are only dm-related changes.
+>
+> So far, I have not reproduced the issue with other file systems or a
+> simplified stack. I first want to continue bisecting but this may take
+> another day.
+>
+>
+> > Am 18.05.2019 um 12:26 schrieb Qu Wenruo <quwenruo.btrfs@gmx.com>:
+> > On 2019/5/18 =E4=B8=8B=E5=8D=885:18, Michael La=C3=9F wrote:
+> >>
+> >>> Am 18.05.2019 um 06:09 schrieb Chris Murphy <lists@colorremedies.com>=
+:
+> >>>
+> >>> On Fri, May 17, 2019 at 11:37 AM Michael La=C3=9F <bevan@bi-co.net> w=
+rote:
+> >>>>
+> >>>>
+> >>>> I tried to reproduce this issue: I recreated the btrfs file system,
+> set up a minimal system and issued fstrim again. It printed the following
+> error message:
+> >>>>
+> >>>> fstrim: /: FITRIM ioctl failed: Input/output error
+> >>>
+> >>> Huh. Any kernel message at the same time? I would expect any fstrim
+> >>> user space error message to also have a kernel message. Any i/o error
+> >>> suggests some kind of storage stack failure - which could be hardware
+> >>> or software, you can't know without seeing the kernel messages.
+> >>
+> >> I missed that. The kernel messages are:
+> >>
+> >> attempt to access beyond end of device
+> >> sda1: rw=3D16387, want=3D252755893, limit=3D250067632
+> >> BTRFS warning (device dm-5): failed to trim 1 device(s), last error -5
+> >>
+> >> Here are some more information on the partitions and LVM physical
+> segments:
+> >>
+> >> fdisk -l /dev/sda:
+> >>
+> >> Device     Boot Start       End   Sectors   Size Id Type
+> >> /dev/sda1  *     2048 250069679 250067632 119.2G 8e Linux LVM
+> >>
+> >> pvdisplay -m:
+> >>
+> >>  --- Physical volume ---
+> >>  PV Name               /dev/sda1
+> >>  VG Name               vg_system
+> >>  PV Size               119.24 GiB / not usable <22.34 MiB
+> >>  Allocatable           yes (but full)
+> >>  PE Size               32.00 MiB
+> >>  Total PE              3815
+> >>  Free PE               0
+> >>  Allocated PE          3815
+> >>  PV UUID               mqCLFy-iDnt-NfdC-lfSv-Maor-V1Ih-RlG8lP
+> >>
+> >>  --- Physical Segments ---
+> >>  Physical extent 0 to 1248:
+> >>    Logical volume    /dev/vg_system/btrfs
+> >>    Logical extents   2231 to 3479
+> >>  Physical extent 1249 to 1728:
+> >>    Logical volume    /dev/vg_system/btrfs
+> >>    Logical extents   640 to 1119
+> >>  Physical extent 1729 to 1760:
+> >>    Logical volume    /dev/vg_system/grml-images
+> >>    Logical extents   0 to 31
+> >>  Physical extent 1761 to 2016:
+> >>    Logical volume    /dev/vg_system/swap
+> >>    Logical extents   0 to 255
+> >>  Physical extent 2017 to 2047:
+> >>    Logical volume    /dev/vg_system/btrfs
+> >>    Logical extents   3480 to 3510
+> >>  Physical extent 2048 to 2687:
+> >>    Logical volume    /dev/vg_system/btrfs
+> >>    Logical extents   0 to 639
+> >>  Physical extent 2688 to 3007:
+> >>    Logical volume    /dev/vg_system/btrfs
+> >>    Logical extents   1911 to 2230
+> >>  Physical extent 3008 to 3320:
+> >>    Logical volume    /dev/vg_system/btrfs
+> >>    Logical extents   1120 to 1432
+> >>  Physical extent 3321 to 3336:
+> >>    Logical volume    /dev/vg_system/boot
+> >>    Logical extents   0 to 15
+> >>  Physical extent 3337 to 3814:
+> >>    Logical volume    /dev/vg_system/btrfs
+> >>    Logical extents   1433 to 1910
+> >>
+> >>
+> >> Would btrfs even be able to accidentally trim parts of other LVs or
+> does this clearly hint towards a LVM/dm issue?
+> >
+> > I can't speak sure, but (at least for latest kernel) btrfs has a lot of
+> > extra mount time self check, including chunk stripe check against
+> > underlying device, thus the possibility shouldn't be that high for btrf=
+s.
+>
+> Indeed, bisecting the issue led me to a range of commits that only
+> contains dm-related and no btrfs-related changes. So I assume this is a b=
+ug
+> in dm.
+>
+> >> Is there an easy way to somehow trace the trim through the different
+> layers so one can see where it goes wrong?
+> >
+> > Sure, you could use dm-log-writes.
+> > It will record all read/write (including trim) for later replay.
+> >
+> > So in your case, you can build the storage stack like:
+> >
+> > Btrfs
+> > <dm-log-writes>
+> > LUKS/dmcrypt
+> > LVM
+> > MBR partition
+> > Samsung SSD
+> >
+> > Then replay the log (using src/log-write/replay-log in fstests) with
+> > verbose output, you can verify every trim operation against the dmcrypt
+> > device size.
+> >
+> > If all trim are fine, then move the dm-log-writes a layer lower, until
+> > you find which layer is causing the problem.
+>
+> That sounds like a plan! However, I first want to continue bisecting as I
+> am afraid to lose my reproducer by changing parts of my storage stack.
+>
+> Cheers,
+> Michael
+>
+> >
+> > Thanks,
+> > Qu
+> >>
+> >> Cheers,
+> >> Michael
+> >>
+> >> PS: Current state of bisection: It looks like the error was introduced
+> somewhere between b5dd0c658c31b469ccff1b637e5124851e7a4a1c and v5.1.
+>
+>
+
+--000000000000794ed60589520fbd
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Had same issue on a similar (well,=C2=A0 quite exactly sa=
+me setup), on a machine in production.<div dir=3D"auto">But It Is more than=
+ 4 tera of data, so in the end I re-dd the image and restarted, sticking to=
+ 5.0.y branch never had problem.</div><div dir=3D"auto">I was able to repli=
+cate it. SSD Samsung, more recent version.</div><div dir=3D"auto">Not with =
+btrfs but ext4, by the way.</div><div dir=3D"auto">I saw the discard of big=
+ initial part of lvm partition. I can&#39;t find superblocks Copy in the Fi=
+rst half, but torwards the end of logical volume.</div><div dir=3D"auto"><b=
+r></div><div dir=3D"auto">Sorry, i can&#39;t play with It again, but i have=
+ the whole (4 tera) dd image with the bug.</div><div dir=3D"auto"><br></div=
+><div dir=3D"auto"><br></div><div dir=3D"auto">Ciao,</div><div dir=3D"auto"=
+>Gelma</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"=
+gmail_attr">Il lun 20 mag 2019, 02:38 Michael La=C3=9F &lt;<a href=3D"mailt=
+o:bevan@bi-co.net">bevan@bi-co.net</a>&gt; ha scritto:<br></div><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc soli=
+d;padding-left:1ex">CC&#39;ing dm-devel, as this seems to be a dm-related i=
+ssue. Short summary for new readers:<br>
+<br>
+On Linux 5.1 (tested up to 5.1.3), fstrim may discard too many blocks, lead=
+ing to data loss. I have the following storage stack:<br>
+<br>
+btrfs<br>
+dm-crypt (LUKS)<br>
+LVM logical volume<br>
+LVM single physical volume<br>
+MBR partition<br>
+Samsung 830 SSD<br>
+<br>
+The mapping between logical volumes and physical segments is a bit mixed up=
+. See below for the output for =E2=80=9Cpvdisplay -m=E2=80=9D. When I issue=
+ fstrim on the mounted btrfs volume, I get the following kernel messages:<b=
+r>
+<br>
+attempt to access beyond end of device<br>
+sda1: rw=3D16387, want=3D252755893, limit=3D250067632<br>
+BTRFS warning (device dm-5): failed to trim 1 device(s), last error -5<br>
+<br>
+At the same time, other logical volumes on the same physical volume are des=
+troyed. Also the btrfs volume itself may be damaged (this seems to depend o=
+n the actual usage).<br>
+<br>
+I can easily reproduce this issue locally and I=E2=80=99m currently bisecti=
+ng. So far I could narrow down the range of commits to:<br>
+Good: 92fff53b7191cae566be9ca6752069426c7f8241<br>
+Bad: 225557446856448039a9e495da37b72c20071ef2<br>
+<br>
+In this range of commits, there are only dm-related changes.<br>
+<br>
+So far, I have not reproduced the issue with other file systems or a simpli=
+fied stack. I first want to continue bisecting but this may take another da=
+y.<br>
+<br>
+<br>
+&gt; Am 18.05.2019 um 12:26 schrieb Qu Wenruo &lt;<a href=3D"mailto:quwenru=
+o.btrfs@gmx.com" target=3D"_blank" rel=3D"noreferrer">quwenruo.btrfs@gmx.co=
+m</a>&gt;:<br>
+&gt; On 2019/5/18 =E4=B8=8B=E5=8D=885:18, Michael La=C3=9F wrote:<br>
+&gt;&gt; <br>
+&gt;&gt;&gt; Am 18.05.2019 um 06:09 schrieb Chris Murphy &lt;<a href=3D"mai=
+lto:lists@colorremedies.com" target=3D"_blank" rel=3D"noreferrer">lists@col=
+orremedies.com</a>&gt;:<br>
+&gt;&gt;&gt; <br>
+&gt;&gt;&gt; On Fri, May 17, 2019 at 11:37 AM Michael La=C3=9F &lt;<a href=
+=3D"mailto:bevan@bi-co.net" target=3D"_blank" rel=3D"noreferrer">bevan@bi-c=
+o.net</a>&gt; wrote:<br>
+&gt;&gt;&gt;&gt; <br>
+&gt;&gt;&gt;&gt; <br>
+&gt;&gt;&gt;&gt; I tried to reproduce this issue: I recreated the btrfs fil=
+e system, set up a minimal system and issued fstrim again. It printed the f=
+ollowing error message:<br>
+&gt;&gt;&gt;&gt; <br>
+&gt;&gt;&gt;&gt; fstrim: /: FITRIM ioctl failed: Input/output error<br>
+&gt;&gt;&gt; <br>
+&gt;&gt;&gt; Huh. Any kernel message at the same time? I would expect any f=
+strim<br>
+&gt;&gt;&gt; user space error message to also have a kernel message. Any i/=
+o error<br>
+&gt;&gt;&gt; suggests some kind of storage stack failure - which could be h=
+ardware<br>
+&gt;&gt;&gt; or software, you can&#39;t know without seeing the kernel mess=
+ages.<br>
+&gt;&gt; <br>
+&gt;&gt; I missed that. The kernel messages are:<br>
+&gt;&gt; <br>
+&gt;&gt; attempt to access beyond end of device<br>
+&gt;&gt; sda1: rw=3D16387, want=3D252755893, limit=3D250067632<br>
+&gt;&gt; BTRFS warning (device dm-5): failed to trim 1 device(s), last erro=
+r -5<br>
+&gt;&gt; <br>
+&gt;&gt; Here are some more information on the partitions and LVM physical =
+segments:<br>
+&gt;&gt; <br>
+&gt;&gt; fdisk -l /dev/sda:<br>
+&gt;&gt; <br>
+&gt;&gt; Device=C2=A0 =C2=A0 =C2=A0Boot Start=C2=A0 =C2=A0 =C2=A0 =C2=A0End=
+=C2=A0 =C2=A0Sectors=C2=A0 =C2=A0Size Id Type<br>
+&gt;&gt; /dev/sda1=C2=A0 *=C2=A0 =C2=A0 =C2=A02048 250069679 250067632 119.=
+2G 8e Linux LVM<br>
+&gt;&gt; <br>
+&gt;&gt; pvdisplay -m:<br>
+&gt;&gt; <br>
+&gt;&gt;=C2=A0 --- Physical volume ---<br>
+&gt;&gt;=C2=A0 PV Name=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0/dev/sda1<br>
+&gt;&gt;=C2=A0 VG Name=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0vg_system<br>
+&gt;&gt;=C2=A0 PV Size=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0119.24 GiB / not usable &lt;22.34 MiB<br>
+&gt;&gt;=C2=A0 Allocatable=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0yes (but=
+ full)<br>
+&gt;&gt;=C2=A0 PE Size=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A032.00 MiB<br>
+&gt;&gt;=C2=A0 Total PE=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 381=
+5<br>
+&gt;&gt;=C2=A0 Free PE=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A00<br>
+&gt;&gt;=C2=A0 Allocated PE=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 3815<br>
+&gt;&gt;=C2=A0 PV UUID=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0mqCLFy-iDnt-NfdC-lfSv-Maor-V1Ih-RlG8lP<br>
+&gt;&gt; <br>
+&gt;&gt;=C2=A0 --- Physical Segments ---<br>
+&gt;&gt;=C2=A0 Physical extent 0 to 1248:<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical volume=C2=A0 =C2=A0 /dev/vg_system/btrfs<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical extents=C2=A0 =C2=A02231 to 3479<br>
+&gt;&gt;=C2=A0 Physical extent 1249 to 1728:<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical volume=C2=A0 =C2=A0 /dev/vg_system/btrfs<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical extents=C2=A0 =C2=A0640 to 1119<br>
+&gt;&gt;=C2=A0 Physical extent 1729 to 1760:<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical volume=C2=A0 =C2=A0 /dev/vg_system/grml-image=
+s<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical extents=C2=A0 =C2=A00 to 31<br>
+&gt;&gt;=C2=A0 Physical extent 1761 to 2016:<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical volume=C2=A0 =C2=A0 /dev/vg_system/swap<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical extents=C2=A0 =C2=A00 to 255<br>
+&gt;&gt;=C2=A0 Physical extent 2017 to 2047:<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical volume=C2=A0 =C2=A0 /dev/vg_system/btrfs<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical extents=C2=A0 =C2=A03480 to 3510<br>
+&gt;&gt;=C2=A0 Physical extent 2048 to 2687:<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical volume=C2=A0 =C2=A0 /dev/vg_system/btrfs<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical extents=C2=A0 =C2=A00 to 639<br>
+&gt;&gt;=C2=A0 Physical extent 2688 to 3007:<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical volume=C2=A0 =C2=A0 /dev/vg_system/btrfs<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical extents=C2=A0 =C2=A01911 to 2230<br>
+&gt;&gt;=C2=A0 Physical extent 3008 to 3320:<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical volume=C2=A0 =C2=A0 /dev/vg_system/btrfs<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical extents=C2=A0 =C2=A01120 to 1432<br>
+&gt;&gt;=C2=A0 Physical extent 3321 to 3336:<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical volume=C2=A0 =C2=A0 /dev/vg_system/boot<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical extents=C2=A0 =C2=A00 to 15<br>
+&gt;&gt;=C2=A0 Physical extent 3337 to 3814:<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical volume=C2=A0 =C2=A0 /dev/vg_system/btrfs<br>
+&gt;&gt;=C2=A0 =C2=A0 Logical extents=C2=A0 =C2=A01433 to 1910<br>
+&gt;&gt; <br>
+&gt;&gt; <br>
+&gt;&gt; Would btrfs even be able to accidentally trim parts of other LVs o=
+r does this clearly hint towards a LVM/dm issue?<br>
+&gt; <br>
+&gt; I can&#39;t speak sure, but (at least for latest kernel) btrfs has a l=
+ot of<br>
+&gt; extra mount time self check, including chunk stripe check against<br>
+&gt; underlying device, thus the possibility shouldn&#39;t be that high for=
+ btrfs.<br>
+<br>
+Indeed, bisecting the issue led me to a range of commits that only contains=
+ dm-related and no btrfs-related changes. So I assume this is a bug in dm.<=
+br>
+<br>
+&gt;&gt; Is there an easy way to somehow trace the trim through the differe=
+nt layers so one can see where it goes wrong?<br>
+&gt; <br>
+&gt; Sure, you could use dm-log-writes.<br>
+&gt; It will record all read/write (including trim) for later replay.<br>
+&gt; <br>
+&gt; So in your case, you can build the storage stack like:<br>
+&gt; <br>
+&gt; Btrfs<br>
+&gt; &lt;dm-log-writes&gt;<br>
+&gt; LUKS/dmcrypt<br>
+&gt; LVM<br>
+&gt; MBR partition<br>
+&gt; Samsung SSD<br>
+&gt; <br>
+&gt; Then replay the log (using src/log-write/replay-log in fstests) with<b=
+r>
+&gt; verbose output, you can verify every trim operation against the dmcryp=
+t<br>
+&gt; device size.<br>
+&gt; <br>
+&gt; If all trim are fine, then move the dm-log-writes a layer lower, until=
+<br>
+&gt; you find which layer is causing the problem.<br>
+<br>
+That sounds like a plan! However, I first want to continue bisecting as I a=
+m afraid to lose my reproducer by changing parts of my storage stack.<br>
+<br>
+Cheers,<br>
+Michael<br>
+<br>
+&gt; <br>
+&gt; Thanks,<br>
+&gt; Qu<br>
+&gt;&gt; <br>
+&gt;&gt; Cheers,<br>
+&gt;&gt; Michael<br>
+&gt;&gt; <br>
+&gt;&gt; PS: Current state of bisection: It looks like the error was introd=
+uced somewhere between b5dd0c658c31b469ccff1b637e5124851e7a4a1c and v5.1.<b=
+r>
+<br>
+</blockquote></div>
+
+--000000000000794ed60589520fbd--
+
+
+--===============3843945107317580719==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
+--===============3843945107317580719==--
+
