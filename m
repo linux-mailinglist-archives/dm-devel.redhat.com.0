@@ -2,94 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id E787B256A3
-	for <lists+dm-devel@lfdr.de>; Tue, 21 May 2019 19:26:27 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+	by mail.lfdr.de (Postfix) with ESMTPS id 324AD257DD
+	for <lists+dm-devel@lfdr.de>; Tue, 21 May 2019 20:57:04 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 3D2FE3082B4D;
-	Tue, 21 May 2019 17:25:30 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id EBC1A3082E58;
+	Tue, 21 May 2019 18:57:00 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2D2C26085B;
-	Tue, 21 May 2019 17:25:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3F2575E7D9;
+	Tue, 21 May 2019 18:56:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E91A85B424;
-	Tue, 21 May 2019 17:24:53 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0F0CF5ED61;
+	Tue, 21 May 2019 18:56:23 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
 	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4LHNPu4014375 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 21 May 2019 13:23:25 -0400
+	id x4LItTKV030674 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 21 May 2019 14:55:31 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D1CB66085B; Tue, 21 May 2019 17:23:25 +0000 (UTC)
+	id 3187418C41; Tue, 21 May 2019 18:55:29 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx20.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.49])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AF6BF608C2;
-	Tue, 21 May 2019 17:23:21 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.redhat.com (ext-mx14.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.43])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2CCF518786
+	for <dm-devel@redhat.com>; Tue, 21 May 2019 18:55:27 +0000 (UTC)
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+	[209.85.222.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 8F176307CDEA;
-	Tue, 21 May 2019 17:22:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20170209;
-	h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=F6hzvh3Jla0WhoTxfizl6fXxrFIMr5UOMU03ImxH5Ac=;
-	b=b+/W6d2WiUF/OIvuwtkfb/SkH
-	/3+H3kA7ADfToOu3edm4BJ3fw83zXGvUfTGn1nWi+7xh+UsRyQzwtjc5D7TE5KH0Yxdt2+Ntb1JuT
-	k+UkYrfqVygj7Ya7vRRjZeMSv7/0B8vELoNfEcC5S6znYc0nJZ45UQ6g/RrdMF3atTmuXQGLIkUeL
-	FSIJnnHuCkxK5wpUfYxJ4YtgoLzHO7WvKGn80nF/J8dK81cS52b2JeWuhIINVflNpYjn/gopPVt7r
-	8wdidUGKN9XC0VtidvYMf7NIFF+tcNRHEnIFVJhWN8Eu0WFbjrUqmsi1Oyaz1Ie9gtNMgjKTgf+JY
-	xAmvcaRsw==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.90_1 #2 (Red
-	Hat Linux)) id 1hT8Ta-0002Ug-G4; Tue, 21 May 2019 17:22:58 +0000
-Date: Tue, 21 May 2019 10:22:58 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Guilherme Piccoli <gpiccoli@canonical.com>
-Message-ID: <20190521172258.GA32702@infradead.org>
-References: <20190520220911.25192-1-gpiccoli@canonical.com>
-	<20190520220911.25192-2-gpiccoli@canonical.com>
-	<20190521125634.GB16799@infradead.org>
-	<CAHD1Q_z23AO+NRid1xYTeke_5GAe6hPianEZKBf5P30FrfZGFg@mail.gmail.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id 22E94308FC5F
+	for <dm-devel@redhat.com>; Tue, 21 May 2019 18:55:09 +0000 (UTC)
+Received: by mail-qk1-f182.google.com with SMTP id f126so146487qkc.9
+	for <dm-devel@redhat.com>; Tue, 21 May 2019 11:55:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=k5xaw96/dfaoDX1daZgouVzHGykgESQleSuEqXdRJoM=;
+	b=EdmSsxVHG6+2oWISv3KySKH7QZS5z6lwEOhAE6NpCTODLE9uTVonuixMpyPQ8kJ8GR
+	tQDdQUJgqlhrOpX/2IpLQhJh5DMwI3vs71DX9WLgPOWawuLPfKbmeVsp6fYCwtx+EycE
+	DOzJK1gIZkx/Oxpzm/TqIAdLXO7oZFZ1F/ZYyWmzCFVens6T2egLIjDsaVSrIWaUS2om
+	8epZriarVzIKYQZgxRCrr2MWfFmxIr6C7BNAxFJKQ/QmKvCdIqcU0ZldaVlEL3OvoAfR
+	8ontV2P6qt43f5ppQGBA9aaS6sSfQDGjKCGEthZsQGglq/Xt2Ix9bHWg9Ppz6RqDrzQu
+	m6Lw==
+X-Gm-Message-State: APjAAAUWw4qAoAIukLqN4zUK5vpKVAgSeVw+vJJviGsFXIeWKFPJXeLB
+	Qcs6e6iBVfzr+aMlTebHxu1VHWDl7jjd0qHbrVQ=
+X-Google-Smtp-Source: APXvYqwFYb7MTqr7itDgsrm+BZMTT1UgiFT6j1UXP8KS/aowOxOSd103xJhIwM9rROS8dGrWSX9YxZsUevJ5ATTuce8=
+X-Received: by 2002:a05:620a:12da:: with SMTP id
+	e26mr22850981qkl.132.1558464908183; 
+	Tue, 21 May 2019 11:55:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAHD1Q_z23AO+NRid1xYTeke_5GAe6hPianEZKBf5P30FrfZGFg@mail.gmail.com>
-User-Agent: Mutt/1.9.2 (2017-12-15)
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	bombadil.infradead.org. See http://www.infradead.org/rpr.html
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.49]); Tue, 21 May 2019 17:23:09 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]);
-	Tue, 21 May 2019 17:23:09 +0000 (UTC) for IP:'198.137.202.133'
-	DOMAIN:'bombadil.infradead.org' HELO:'bombadil.infradead.org'
-	FROM:'BATV+dd3a5481af7880b59d64+5749+infradead.org+hch@bombadil.srs.infradead.org'
+References: <297da4cbe20235080205719805b08810@bi-co.net>
+	<CAJCQCtR-uo9fgs66pBMEoYX_xAye=O-L8kiMwyAdFjPS5T4+CA@mail.gmail.com>
+	<8C31D41C-9608-4A65-B543-8ABCC0B907A0@bi-co.net>
+	<CAJCQCtTZWXUgUDh8vn0BFeEbAdKToDSVYYw4Q0bt0rECQr9nxQ@mail.gmail.com>
+	<AD966642-1043-468D-BABF-8FC9AF514D36@bi-co.net>
+	<158a3491-e4d2-d905-7f58-11a15bddcd70@gmx.com>
+	<C1CD4646-E75D-4AAF-9CD6-B3AC32495FD3@bi-co.net>
+	<CAK-xaQYPs62v971zm1McXw_FGzDmh_vpz3KLEbxzkmrsSgTfXw@mail.gmail.com>
+	<9D4ECE0B-C9DD-4BAD-A764-9DE2FF2A10C7@bi-co.net>
+	<CAK-xaQYakXcAbhfiH_VbqWkh+HBJD5N69ktnnA7OnWdhL6fDLA@mail.gmail.com>
+	<ea5552b8-7b6a-2516-d968-c3f3c731e159@gmail.com>
+In-Reply-To: <ea5552b8-7b6a-2516-d968-c3f3c731e159@gmail.com>
+From: Andrea Gelmini <andrea.gelmini@gelma.net>
+Date: Tue, 21 May 2019 20:54:56 +0200
+Message-ID: <CAK-xaQYT_m2UV0w_MLbpGAb-ckyVc1YLnGdpX42eQRj1JZf4WA@mail.gmail.com>
+To: Milan Broz <gmazyland@gmail.com>
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.43]);
+	Tue, 21 May 2019 18:55:09 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]);
+	Tue, 21 May 2019 18:55:09 +0000 (UTC) for IP:'209.85.222.182'
+	DOMAIN:'mail-qk1-f182.google.com'
+	HELO:'mail-qk1-f182.google.com' FROM:'andrea.gelmini@gmail.com'
 	RCPT:''
-X-RedHat-Spam-Score: -2.398  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_MED, SPF_HELO_NONE,
-	SPF_NONE) 198.137.202.133 bombadil.infradead.org 198.137.202.133
-	bombadil.infradead.org
-	<BATV+dd3a5481af7880b59d64+5749+infradead.org+hch@bombadil.srs.infradead.org>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.49
+X-RedHat-Spam-Score: 0.005  (FREEMAIL_FORGED_FROMDOMAIN, FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS, SPF_HELO_NONE,
+	SPF_NONE) 209.85.222.182 mail-qk1-f182.google.com 209.85.222.182
+	mail-qk1-f182.google.com <andrea.gelmini@gmail.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.43
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org,
-	linux-raid <linux-raid@vger.kernel.org>,
-	Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
-	"Guilherme G. Piccoli" <kernel@gpiccoli.net>,
-	Song Liu <liu.song.a23@gmail.com>, stable@vger.kernel.org,
-	Ming Lei <ming.lei@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>, dm-devel@redhat.com,
-	Jay Vosburgh <jay.vosburgh@canonical.com>,
-	Gavin Guo <gavin.guo@canonical.com>
-Subject: Re: [dm-devel] [PATCH V2 2/2] md/raid0: Do not bypass blocking
- queue entered for raid0 bios
+Cc: Chris Murphy <lists@colorremedies.com>, dm-devel@redhat.com,
+	=?UTF-8?B?TWljaGFlbCBMYcOf?= <bevan@bi-co.net>,
+	Btrfs BTRFS <linux-btrfs@vger.kernel.org>,
+	Qu Wenruo <quwenruo.btrfs@gmx.com>
+Subject: Re: [dm-devel] fstrim discarding too many or wrong blocks on Linux
+ 5.1, leading to data loss
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -105,23 +105,25 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]); Tue, 21 May 2019 17:26:26 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]); Tue, 21 May 2019 18:57:02 +0000 (UTC)
 
-On Tue, May 21, 2019 at 11:10:05AM -0300, Guilherme Piccoli wrote:
-> Hi Christoph, thanks for looking into this.
-> You're right, this series fixes both issues. The problem I see though
-> is that it relies
-> on legacy IO path removal - for v5.0 and beyond, all fine. But
-> backporting that to
-> v4.17-v4.20 stable series will be quite painful.
-> 
-> My fixes are mostly "oneliners". If we could get both approaches upstream,
-> that'd be perfect!
+Il giorno lun 20 mag 2019 alle ore 18:45 Milan Broz
+<gmazyland@gmail.com> ha scritto:
+> Note, it is the root filesystem, so you have to regenerate initramfs
+> to update crypttab inside it.
 
-But they basically just fix code that otherwise gets removed.  And the way
-this patches uses the ENTERED flag from the md code looks slightly
-sketchy to me.  Maybe we want them as stable only patches.
+Good catch. I didn't re-mkinitramfs.
+
+> Could you paste "dmsetup table" and "lsblk -D" to verify that discard flag
+> is not there?
+> (I mean dmsetup table with the zeroed key, as a default and safe output.)
+
+This weekend if I have time I'm going to re-test it. It takes a lot to
+restore 4TB.
+
+Thanks a lot,
+Andrea
 
 --
 dm-devel mailing list
