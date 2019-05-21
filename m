@@ -2,101 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 760ED24926
-	for <lists+dm-devel@lfdr.de>; Tue, 21 May 2019 09:41:22 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 75F2624AA6
+	for <lists+dm-devel@lfdr.de>; Tue, 21 May 2019 10:45:29 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id C5BDA307CDFC;
-	Tue, 21 May 2019 07:41:19 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id E5A8880F81;
+	Tue, 21 May 2019 08:45:19 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3219F5D9D5;
-	Tue, 21 May 2019 07:41:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A9DF0176C9;
+	Tue, 21 May 2019 08:45:16 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1FCFA1806B0F;
-	Tue, 21 May 2019 07:41:03 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 09BD01806B0E;
+	Tue, 21 May 2019 08:45:00 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4L7cpj4027616 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 21 May 2019 03:38:51 -0400
+	id x4L8iFit010319 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 21 May 2019 04:44:15 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3D5F960C81; Tue, 21 May 2019 07:38:51 +0000 (UTC)
+	id 7D80D6660B; Tue, 21 May 2019 08:44:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx07.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.31])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 19EF1646B8;
-	Tue, 21 May 2019 07:38:47 +0000 (UTC)
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
-	[209.85.221.65])
+Received: from mx1.redhat.com (ext-mx16.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.45])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 75F9161D34;
+	Tue, 21 May 2019 08:44:13 +0000 (UTC)
+Received: from syrinx.knorrie.org (syrinx.knorrie.org [82.94.188.77])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 3E52E3082A28;
+	Tue, 21 May 2019 08:43:46 +0000 (UTC)
+Received: from [IPv6:2001:980:4a41:fb::12] (unknown
+	[IPv6:2001:980:4a41:fb::12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 0D6D1C04BE32;
-	Tue, 21 May 2019 07:38:38 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id g12so17033318wro.8;
-	Tue, 21 May 2019 00:38:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=subject:to:cc:references:from:openpgp:message-id:date:user-agent
-	:mime-version:in-reply-to:content-language:content-transfer-encoding;
-	bh=5ryJbbZodXACWTO9xzLjJVVDfVukY2SjZqE/RR5ZRyY=;
-	b=nqw8oc680iMAXhEvqTRlU54E1joqR2AvVBhvZfLCL7BBx/cJuYXEsr2tIKWi9s/noe
-	OyAh63/DLuZBsMo4BQnTIiH7d2J3BTTStDZ11VOlWi6H4zlhecsZStdaOK9Y/gUzRgcj
-	7SLMARSMr3T9KqOGhrDNMx8/4OdVO6LE2S1HO/maHyEHUbEHu9/H6GWOkYa6upqiwApD
-	Ys5KRsRW9HudhzP/+KX9j1ouXQsqo0IdByIvhVy2ZWMEtNnWtMiPZA/xxFeFKc56E5zH
-	4RbOk04KtUI/edTwJzfndt6RAb47JGe5IUqvSXD3ZKeEIlLc0NeynN1bNwcoj9tjOb4x
-	xXbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:openpgp:message-id
-	:date:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=5ryJbbZodXACWTO9xzLjJVVDfVukY2SjZqE/RR5ZRyY=;
-	b=LJ9v9Mw8KyVCzS1EXAtzU4SthheWYsLP+qVbvhloIIKfcOgyFzveM6AipFD/p+iyJk
-	IQ01qMRZNtHuMSo6HpLjxL3iwE7VYZusbP+X0ZFr5QdjPRrT8v+TauBOUAOZKe3HyEfT
-	SmL0ZW0qcD/cl7SAefOqIq++dKSxFj9SUUWheK6DKccPA2f+LmlJL5f3nlSP+SN35P36
-	cHMT9ZQ4nzbgdyzPDyFlhn+Apdok5twQkTzNTyn4q+7Hrb1xizT7ILAgZHSrRrdM5uId
-	THSSNKAFIOWCkPw8aYbNLIi/xK9Y49TSQZDgu98l7fqryrUpMM5Ll3GyMTh8yTWU8XRJ
-	wIVg==
-X-Gm-Message-State: APjAAAW1l30dLAzbJwfUbFxER0Dh9g0rrHPWG3T2blrEqLecTcZijjON
-	h5tpTIlsXh8KHBx4lZXYFZ0=
-X-Google-Smtp-Source: APXvYqwfLIm49NnDDXdp9jn68Vl7JSM+PaLLfYbbHu9fobHWezVc5/071lrqi5iSH9Bh8drGE7n0mA==
-X-Received: by 2002:a5d:4002:: with SMTP id n2mr13890891wrp.187.1558424316584; 
-	Tue, 21 May 2019 00:38:36 -0700 (PDT)
-Received: from [10.43.17.31] (nat-pool-brq-t.redhat.com. [213.175.37.10])
-	by smtp.gmail.com with ESMTPSA id
-	a10sm23974617wrm.94.2019.05.21.00.38.35
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Tue, 21 May 2019 00:38:36 -0700 (PDT)
-To: Jaskaran Khurana <jaskarankhurana@linux.microsoft.com>,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20190520215422.23939-1-jaskarankhurana@linux.microsoft.com>
-	<20190520215422.23939-2-jaskarankhurana@linux.microsoft.com>
-From: Milan Broz <gmazyland@gmail.com>
-Openpgp: preference=signencrypt
-Message-ID: <7e922983-7716-e215-a29b-3154f7afb493@gmail.com>
-Date: Tue, 21 May 2019 09:38:35 +0200
+	by syrinx.knorrie.org (Postfix) with ESMTPSA id 04C2B4658A6ED;
+	Tue, 21 May 2019 10:43:43 +0200 (CEST)
+To: Milan Broz <gmazyland@gmail.com>,
+	Victor Helmholtz <victor.helmholtz@gmail.com>, dm-crypt@saout.de
+References: <5D8A23C5-B6AD-48EA-B0AD-AD1BD1A2B97B@gmail.com>
+	<9d19e5b1-b76f-27da-fa4a-f3a83e6e2791@gmail.com>
+From: Hans van Kranenburg <hans@knorrie.org>
+Message-ID: <2a12ef24-ab21-a9bb-af40-3743d0b8e2c7@knorrie.org>
+Date: Tue, 21 May 2019 10:43:43 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
 	Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <20190520215422.23939-2-jaskarankhurana@linux.microsoft.com>
+In-Reply-To: <9d19e5b1-b76f-27da-fa4a-f3a83e6e2791@gmail.com>
 Content-Language: en-US
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.31]);
-	Tue, 21 May 2019 07:38:38 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.31]);
-	Tue, 21 May 2019 07:38:38 +0000 (UTC) for IP:'209.85.221.65'
-	DOMAIN:'mail-wr1-f65.google.com' HELO:'mail-wr1-f65.google.com'
-	FROM:'gmazyland@gmail.com' RCPT:''
-X-RedHat-Spam-Score: -0.109  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
-	SPF_PASS) 209.85.221.65 mail-wr1-f65.google.com 209.85.221.65
-	mail-wr1-f65.google.com <gmazyland@gmail.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.31
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.45]); Tue, 21 May 2019 08:43:54 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]);
+	Tue, 21 May 2019 08:43:54 +0000 (UTC) for IP:'82.94.188.77'
+	DOMAIN:'syrinx.knorrie.org' HELO:'syrinx.knorrie.org'
+	FROM:'hans@knorrie.org' RCPT:''
+X-RedHat-Spam-Score: -0.008  (RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
+	SPF_NONE) 82.94.188.77 syrinx.knorrie.org 82.94.188.77
+	syrinx.knorrie.org <hans@knorrie.org>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.45
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, snitzer@redhat.com, agk@redhat.com, jmorris@namei.org
-Subject: Re: [dm-devel] [RFC 1/1] Add dm verity root hash pkcs7 sig
-	validation.
+Cc: device-mapper development <dm-devel@redhat.com>,
+	Mikulas Patocka <mpatocka@redhat.com>
+Subject: Re: [dm-devel] [dm-crypt] Dm-integrity freeze
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -108,68 +77,390 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="windows-1252"
+Content-Transfer-Encoding: quoted-printable
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]); Tue, 21 May 2019 07:41:21 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Tue, 21 May 2019 08:45:28 +0000 (UTC)
 
-On 20/05/2019 23:54, Jaskaran Khurana wrote:
-> Adds in-kernel pkcs7 signature checking for the roothash of
-> the dm-verity hash tree.
-> 
-> The verification is to support cases where the roothash is not secured by
-> Trusted Boot, UEFI Secureboot or similar technologies.
-> One of the use cases for this is for dm-verity volumes mounted after boot,
-> the root hash provided during the creation of the dm-verity volume has to
-> be secure and thus in-kernel validation implemented here will be used
-> before we trust the root hash and allow the block device to be created.
-> 
-> The signature being provided for verification must verify the root hash and 
-> must be trusted by the builtin keyring for verification to succeed.
-> 
-> Adds DM_VERITY_VERIFY_ROOTHASH_SIG: roothash verification
-> against the roothash signature file *if* specified, if signature file is
-> specified verification must succeed prior to creation of device mapper 
-> block device.
-> 
-> Adds DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE: roothash signature *must* be
-> specified for all dm verity volumes and verification must succeed prior
-> to creation of device mapper block device.
+Hi,
 
-I am not sure this is a good idea. If I understand it correctly, this will
-block creating another dm-verity mappings without PKCS7 signature, and these
-are used in many other environments and applications that could possibly
-run on that system later.
+I'm seeing the same lockup, also 4.19. This is mdadm RAID10 on top of 4x
+a partition with only dm-integrity.
 
-(But I have no idea how to solve it better though :-)
+It just happened out of the blue, no heavy load or anything. All IO to
+it is frozen now.
 
-...
+[777184.932426] INFO: task md127_raid10:507 blocked for more than 120
+seconds.
+[777184.932544]       Tainted: G        W         4.19.0-mx4-amd64 #1
+Debian 4.19.28-2+mendix1
+[777184.932666] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
+disables this message.
+[777184.932788] md127_raid10    D    0   507      2 0x80000000
+[777184.932791] Call Trace:
+[777184.932801]  ? __schedule+0x2a2/0x870
+[777184.932804]  ? _raw_spin_unlock_irqrestore+0x14/0x20
+[777184.932805]  schedule+0x28/0x80
+[777184.932814]  md_super_wait+0x6e/0xa0 [md_mod]
+[777184.932820]  ? finish_wait+0x80/0x80
+[777184.932824]  write_page+0x172/0x320 [md_mod]
+[777184.932826]  ? __schedule+0x2aa/0x870
+[777184.932828]  ? _raw_spin_unlock_irqrestore+0x14/0x20
+[777184.932832]  md_update_sb.part.64+0x382/0x8f0 [md_mod]
+[777184.932837]  md_check_recovery+0x148/0x540 [md_mod]
+[777184.932841]  raid10d+0x62/0x1440 [raid10]
+[777184.932843]  ? __switch_to_asm+0x34/0x70
+[777184.932845]  ? finish_task_switch+0x78/0x260
+[777184.932847]  ? _raw_spin_lock_irqsave+0x15/0x40
+[777184.932850]  ? lock_timer_base+0x67/0x80
+[777184.932852]  ? _raw_spin_unlock_irqrestore+0x14/0x20
+[777184.932854]  ? try_to_del_timer_sync+0x4d/0x80
+[777184.932855]  ? del_timer_sync+0x35/0x40
+[777184.932857]  ? schedule_timeout+0x173/0x390
+[777184.932861]  ? md_rdev_init+0xb0/0xb0 [md_mod]
+[777184.932864]  ? md_thread+0x94/0x150 [md_mod]
+[777184.932866]  ? raid10_end_write_request+0x290/0x290 [raid10]
+[777184.932869]  md_thread+0x94/0x150 [md_mod]
+[777184.932872]  ? finish_wait+0x80/0x80
+[777184.932873]  kthread+0x112/0x130
+[777184.932875]  ? kthread_bind+0x30/0x30
+[777184.932877]  ret_from_fork+0x35/0x40
+[777184.932884] INFO: task 1.xvda-1:1657 blocked for more than 120 seconds.
+[777184.932979]       Tainted: G        W         4.19.0-mx4-amd64 #1
+Debian 4.19.28-2+mendix1
+[777184.933101] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
+disables this message.
+[777184.933222] 1.xvda-1        D    0  1657      2 0x80000000
+[777184.933223] Call Trace:
+[777184.933225]  ? __schedule+0x2a2/0x870
+[777184.933227]  ? _raw_spin_unlock_irqrestore+0x14/0x20
+[777184.933228]  schedule+0x28/0x80
+[777184.933232]  md_write_start+0x14b/0x220 [md_mod]
+[777184.933234]  ? finish_wait+0x80/0x80
+[777184.933236]  raid10_make_request+0x3d/0x130 [raid10]
+[777184.933239]  ? finish_wait+0x80/0x80
+[777184.933242]  md_handle_request+0x119/0x190 [md_mod]
+[777184.933247]  md_make_request+0x78/0x160 [md_mod]
+[777184.933251]  generic_make_request+0x1a4/0x410
+[777184.933254]  ? bvec_alloc+0x51/0xe0
+[777184.933256]  submit_bio+0x45/0x140
+[777184.933258]  ? bio_add_page+0x48/0x60
+[777184.933263]  dispatch_rw_block_io+0x68f/0x990 [xen_blkback]
+[777184.933266]  ? branch_type+0x2e4/0x350
+[777184.933269]  __do_block_io_op+0x2fc/0x5f0 [xen_blkback]
+[777184.933271]  ? _raw_spin_unlock_irqrestore+0x14/0x20
+[777184.933272]  ? try_to_del_timer_sync+0x4d/0x80
+[777184.933275]  xen_blkif_schedule+0xce/0x620 [xen_blkback]
+[777184.933277]  ? finish_wait+0x80/0x80
+[777184.933279]  ? xen_blkif_be_int+0x30/0x30 [xen_blkback]
+[777184.933281]  kthread+0x112/0x130
+[777184.933282]  ? kthread_bind+0x30/0x30
+[777184.933283]  ret_from_fork+0x35/0x40
+[777184.933293] INFO: task 11.xvda-0:14864 blocked for more than 120
+seconds.
+[777184.933387]       Tainted: G        W         4.19.0-mx4-amd64 #1
+Debian 4.19.28-2+mendix1
+[777184.933509] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
+disables this message.
+[777184.933638] 11.xvda-0       D    0 14864      2 0x80000000
+[777184.933640] Call Trace:
+[777184.933642]  ? __schedule+0x2a2/0x870
+[777184.933643]  ? _raw_spin_unlock_irqrestore+0x14/0x20
+[777184.933644]  schedule+0x28/0x80
+[777184.933648]  md_write_start+0x14b/0x220 [md_mod]
+[777184.933650]  ? finish_wait+0x80/0x80
+[777184.933652]  raid10_make_request+0x3d/0x130 [raid10]
+[777184.933654]  ? finish_wait+0x80/0x80
+[777184.933658]  md_handle_request+0x119/0x190 [md_mod]
+[777184.933662]  md_make_request+0x78/0x160 [md_mod]
+[777184.933664]  generic_make_request+0x1a4/0x410
+[777184.933666]  submit_bio+0x45/0x140
+[777184.933668]  ? bio_add_page+0x48/0x60
+[777184.933670]  dispatch_rw_block_io+0x68f/0x990 [xen_blkback]
+[777184.933672]  ? branch_type+0x2e7/0x350
+[777184.933674]  __do_block_io_op+0x2fc/0x5f0 [xen_blkback]
+[777184.933676]  ? _raw_spin_unlock_irqrestore+0x14/0x20
+[777184.933678]  ? try_to_del_timer_sync+0x4d/0x80
+[777184.933680]  xen_blkif_schedule+0xce/0x620 [xen_blkback]
+[777184.933682]  ? __schedule+0x2aa/0x870
+[777184.933684]  ? finish_wait+0x80/0x80
+[777184.933686]  ? xen_blkif_be_int+0x30/0x30 [xen_blkback]
+[777184.933687]  kthread+0x112/0x130
+[777184.933688]  ? kthread_bind+0x30/0x30
+[777184.933689]  ret_from_fork+0x35/0x40
+[777184.933694] INFO: task btrfs-transacti:15468 blocked for more than
+120 seconds.
+[777184.933815]       Tainted: G        W         4.19.0-mx4-amd64 #1
+Debian 4.19.28-2+mendix1
+[777184.933937] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
+disables this message.
+[777184.934058] btrfs-transacti D    0 15468      2 0x80000000
+[777184.934059] Call Trace:
+[777184.934061]  ? __schedule+0x2a2/0x870
+[777184.934062]  ? _raw_spin_unlock_irqrestore+0x14/0x20
+[777184.934063]  schedule+0x28/0x80
+[777184.934067]  md_write_start+0x14b/0x220 [md_mod]
+[777184.934069]  ? finish_wait+0x80/0x80
+[777184.934072]  raid10_make_request+0x3d/0x130 [raid10]
+[777184.934074]  ? finish_wait+0x80/0x80
+[777184.934077]  md_handle_request+0x119/0x190 [md_mod]
+[777184.934081]  md_make_request+0x78/0x160 [md_mod]
+[777184.934083]  generic_make_request+0x1a4/0x410
+[777184.934085]  submit_bio+0x45/0x140
+[777184.934086]  ? bio_clone_fast+0x2c/0x60
+[777184.934119]  btrfs_map_bio+0x20a/0x350 [btrfs]
+[777184.934136]  btree_submit_bio_hook+0x8d/0xc0 [btrfs]
+[777184.934155]  submit_one_bio+0x5f/0x80 [btrfs]
+[777184.934173]  flush_write_bio.isra.40+0x1d/0x30 [btrfs]
+[777184.934191]  btree_write_cache_pages+0x243/0x360 [btrfs]
+[777184.934210]  ? alloc_extent_state+0x1e/0xc0 [btrfs]
+[777184.934226]  ? btrfs_buffer_uptodate+0x33/0x50 [btrfs]
+[777184.934238]  ? read_block_for_search.isra.36+0xf2/0x340 [btrfs]
+[777184.934241]  do_writepages+0x41/0xd0
+[777184.934244]  ? __slab_alloc+0x27/0x30
+[777184.934261]  ? merge_state.part.45+0x3f/0x130 [btrfs]
+[777184.934262]  ? kmem_cache_alloc+0x15c/0x1c0
+[777184.934279]  ? clear_state_bit+0xdb/0x180 [btrfs]
+[777184.934281]  __filemap_fdatawrite_range+0xbe/0xf0
+[777184.934298]  btrfs_write_marked_extents+0x68/0x150 [btrfs]
+[777184.934314]  btrfs_write_and_wait_transaction.isra.21+0x4d/0xa0 [btrfs]
+[777184.934331]  btrfs_commit_transaction+0x56c/0x870 [btrfs]
+[777184.934347]  ? start_transaction+0x9d/0x3f0 [btrfs]
+[777184.934362]  transaction_kthread+0x147/0x180 [btrfs]
+[777184.934379]  ? btrfs_cleanup_transaction+0x530/0x530 [btrfs]
+[777184.934380]  kthread+0x112/0x130
+[777184.934381]  ? kthread_bind+0x30/0x30
+[777184.934383]  ret_from_fork+0x35/0x40
+[777184.934391] INFO: task kworker/1:3:16943 blocked for more than 120
+seconds.
+[777184.934487]       Tainted: G        W         4.19.0-mx4-amd64 #1
+Debian 4.19.28-2+mendix1
+[777184.934617] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
+disables this message.
+[777184.934747] kworker/1:3     D    0 16943      2 0x80000000
+[777184.934753] Workqueue: dm-integrity-metadata integrity_bio_wait
+[dm_integrity]
+[777184.934754] Call Trace:
+[777184.934756]  ? __schedule+0x2a2/0x870
+[777184.934757]  schedule+0x28/0x80
+[777184.934760]  io_schedule+0x12/0x40
+[777184.934763]  wait_and_add_new_range+0x89/0xa0 [dm_integrity]
+[777184.934766]  dm_integrity_map_continue+0xe71/0x1020 [dm_integrity]
+[777184.934769]  ? xen_load_sp0+0x77/0x170
+[777184.934771]  ? __switch_to+0x1e1/0x440
+[777184.934773]  ? finish_task_switch+0x78/0x260
+[777184.934775]  process_one_work+0x1a7/0x3a0
+[777184.934777]  worker_thread+0x30/0x390
+[777184.934779]  ? create_worker+0x1a0/0x1a0
+[777184.934781]  kthread+0x112/0x130
+[777184.934782]  ? kthread_bind+0x30/0x30
+[777184.934783]  ret_from_fork+0x35/0x40
+[777184.934787] INFO: task kworker/0:8:17282 blocked for more than 120
+seconds.
+[777184.934882]       Tainted: G        W         4.19.0-mx4-amd64 #1
+Debian 4.19.28-2+mendix1
+[777184.935005] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
+disables this message.
+[777184.935125] kworker/0:8     D    0 17282      2 0x80000000
+[777184.935129] Workqueue: dm-integrity-metadata integrity_bio_wait
+[dm_integrity]
+[777184.935130] Call Trace:
+[777184.935132]  ? __schedule+0x2a2/0x870
+[777184.935133]  schedule+0x28/0x80
+[777184.935135]  io_schedule+0x12/0x40
+[777184.935137]  wait_and_add_new_range+0x89/0xa0 [dm_integrity]
+[777184.935139]  dm_integrity_map_continue+0xe71/0x1020 [dm_integrity]
+[777184.935141]  ? xen_load_sp0+0x77/0x170
+[777184.935143]  ? __switch_to+0x1e1/0x440
+[777184.935144]  ? finish_task_switch+0x78/0x260
+[777184.935146]  process_one_work+0x1a7/0x3a0
+[777184.935148]  worker_thread+0x30/0x390
+[777184.935149]  ? create_worker+0x1a0/0x1a0
+[777184.935150]  kthread+0x112/0x130
+[777184.935151]  ? kthread_bind+0x30/0x30
+[777184.935153]  ret_from_fork+0x35/0x40
+[777184.935156] INFO: task kworker/u8:9:17284 blocked for more than 120
+seconds.
+[777184.935251]       Tainted: G        W         4.19.0-mx4-amd64 #1
+Debian 4.19.28-2+mendix1
+[777184.935373] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
+disables this message.
+[777184.935494] kworker/u8:9    D    0 17284      2 0x80000000
+[777184.935515] Workqueue: btrfs-submit btrfs_submit_helper [btrfs]
+[777184.935515] Call Trace:
+[777184.935517]  ? __schedule+0x2a2/0x870
+[777184.935519]  ? _raw_spin_unlock_irqrestore+0x14/0x20
+[777184.935520]  schedule+0x28/0x80
+[777184.935525]  md_write_start+0x14b/0x220 [md_mod]
+[777184.935527]  ? finish_wait+0x80/0x80
+[777184.935529]  raid10_make_request+0x3d/0x130 [raid10]
+[777184.935531]  ? finish_wait+0x80/0x80
+[777184.935535]  md_handle_request+0x119/0x190 [md_mod]
+[777184.935539]  md_make_request+0x78/0x160 [md_mod]
+[777184.935541]  generic_make_request+0x1a4/0x410
+[777184.935544]  submit_bio+0x45/0x140
+[777184.935562]  run_scheduled_bios+0x18e/0x440 [btrfs]
+[777184.935581]  normal_work_helper+0xba/0x300 [btrfs]
+[777184.935584]  process_one_work+0x1a7/0x3a0
+[777184.935586]  worker_thread+0x30/0x390
+[777184.935587]  ? create_worker+0x1a0/0x1a0
+[777184.935588]  kthread+0x112/0x130
+[777184.935589]  ? kthread_bind+0x30/0x30
+[777184.935591]  ret_from_fork+0x35/0x40
+[777184.935593] INFO: task kworker/1:13:17315 blocked for more than 120
+seconds.
+[777184.935713]       Tainted: G        W         4.19.0-mx4-amd64 #1
+Debian 4.19.28-2+mendix1
+[777184.935836] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
+disables this message.
+[777184.935957] kworker/1:13    D    0 17315      2 0x80000000
+[777184.935960] Workqueue: dm-integrity-metadata integrity_bio_wait
+[dm_integrity]
+[777184.935961] Call Trace:
+[777184.935963]  ? __schedule+0x2a2/0x870
+[777184.935965]  schedule+0x28/0x80
+[777184.935967]  io_schedule+0x12/0x40
+[777184.935969]  wait_and_add_new_range+0x89/0xa0 [dm_integrity]
+[777184.935971]  dm_integrity_map_continue+0xe71/0x1020 [dm_integrity]
+[777184.935973]  ? xen_load_sp0+0x77/0x170
+[777184.935975]  ? __switch_to+0x1e1/0x440
+[777184.935976]  ? finish_task_switch+0x78/0x260
+[777184.935978]  process_one_work+0x1a7/0x3a0
+[777184.935980]  worker_thread+0x30/0x390
+[777184.935981]  ? create_worker+0x1a0/0x1a0
+[777184.935982]  kthread+0x112/0x130
+[777184.935983]  ? kthread_bind+0x30/0x30
+[777184.935985]  ret_from_fork+0x35/0x40
+[777184.935988] INFO: task kworker/0:20:17330 blocked for more than 120
+seconds.
+[777184.936083]       Tainted: G        W         4.19.0-mx4-amd64 #1
+Debian 4.19.28-2+mendix1
+[777184.936205] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
+disables this message.
+[777184.936355] kworker/0:20    D    0 17330      2 0x80000000
+[777184.936359] Workqueue: dm-integrity-metadata integrity_bio_wait
+[dm_integrity]
+[777184.936360] Call Trace:
+[777184.936363]  ? __schedule+0x2a2/0x870
+[777184.936364]  schedule+0x28/0x80
+[777184.936366]  io_schedule+0x12/0x40
+[777184.936368]  wait_and_add_new_range+0x89/0xa0 [dm_integrity]
+[777184.936370]  dm_integrity_map_continue+0xe71/0x1020 [dm_integrity]
+[777184.936373]  ? xen_load_sp0+0x77/0x170
+[777184.936374]  ? __switch_to+0x1e1/0x440
+[777184.936375]  ? finish_task_switch+0x78/0x260
+[777184.936377]  process_one_work+0x1a7/0x3a0
+[777184.936379]  worker_thread+0x30/0x390
+[777184.936381]  ? create_worker+0x1a0/0x1a0
+[777184.936382]  kthread+0x112/0x130
+[777184.936383]  ? kthread_bind+0x30/0x30
+[777184.936385]  ret_from_fork+0x35/0x40
+[777184.936390] INFO: task kworker/1:23:17371 blocked for more than 120
+seconds.
+[777184.936500]       Tainted: G        W         4.19.0-mx4-amd64 #1
+Debian 4.19.28-2+mendix1
+[777184.936625] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
+disables this message.
+[777184.936762] kworker/1:23    D    0 17371      2 0x80000000
+[777184.936775] Workqueue: dm-integrity-metadata integrity_bio_wait
+[dm_integrity]
+[777184.936786] Call Trace:
+[777184.936791]  ? __schedule+0x2a2/0x870
+[777184.936798]  schedule+0x28/0x80
+[777184.936805]  io_schedule+0x12/0x40
+[777184.936812]  wait_and_add_new_range+0x89/0xa0 [dm_integrity]
+[777184.936819]  dm_integrity_map_continue+0xe71/0x1020 [dm_integrity]
+[777184.936828]  ? xen_load_sp0+0x77/0x170
+[777184.936834]  ? __switch_to+0x1e1/0x440
+[777184.936842]  ? finish_task_switch+0x78/0x260
+[777184.936849]  process_one_work+0x1a7/0x3a0
+[777184.936856]  worker_thread+0x30/0x390
+[777184.936862]  ? create_worker+0x1a0/0x1a0
+[777184.936868]  kthread+0x112/0x130
+[777184.936875]  ? kthread_bind+0x30/0x30
+[777184.936880]  ret_from_fork+0x35/0x40
 
-> +	/* Root hash signature is  a optional parameter*/
-> +	r = verity_verify_root_hash(root_hash_digest_to_validate,
-> +				    strlen(root_hash_digest_to_validate),
-> +				    verify_args.sig,
-> +				    verify_args.sig_size);
-> +	if (r < 0) {
-> +		ti->error = "Root hash verification failed";
-> +		goto bad;
-> +	}
+Hans
 
-You are sending the PKCS7 signature as a (quite large) binary blob inside the mapping table.
+On 3/7/19 5:37 PM, Milan Broz wrote:
+> Hi,
+> =
 
-I am not sure if it is possible here (I guess so), but why not put this it kernel keyring
-and then just reference it from mapping table?
-(We use kernel keyring in libcryptsetup already for dm-crypt.)
+> from the full log it seems that it is stuck in tgtd (iSCSI).
+> =
 
-It will also solve an issue in userspace patch, when you are reading the signature
-file too late (devices can be suspended in that moment, so I would prefer to download
-sig file to keyring in advance, and then just reference it in mapping table).
+> Anyway, this is device-mapper, dm-devel is better list here.
+> (added to cc + Mikulas)
+> =
 
-(I guess you will send merge request for veritysetup userspace part later.)
+> m.
+> =
 
-Milan
+> On 3/7/19 4:26 PM, Victor Helmholtz wrote:
+>> Hi
+>>
+>> I have recently had a problem with my server: all writes to RAID drives =
+were frozen and I had to force-reboot it. I looked at kernel logs and I thi=
+nk dm-integrity might be source of the problem. Could anyone help me unders=
+tand meaning of following messages (this message was repeated 8 times, full=
+ kernel log is here: https://pastebin.com/DMgMtNJq ):
+>>
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.498048] INFO: task=
+ kworker/0:112:26760 blocked for more than 120 seconds.
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.499784] =A0 =A0 =
+=A0 Not tainted 4.19.0-2-amd64 #1 Debian 4.19.16-1
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.501222] "echo 0 > =
+/proc/sys/kernel/hung_task_timeout_secs" disables this message.
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.503095] kworker/0:=
+112 =A0 D =A0 =A00 26760 =A0 =A0 =A02 0x80000080
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.504424] Workqueue:=
+ dm-integrity-metadata integrity_bio_wait [dm_integrity]
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.506149] Call Trace:
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.506782] =A0? __sch=
+edule+0x2a2/0x870
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.507706] =A0schedul=
+e+0x28/0x80
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.508484] =A0io_sche=
+dule+0x12/0x40
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.509321] =A0wait_an=
+d_add_new_range+0x89/0xa0 [dm_integrity]
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.510709] =A0dm_inte=
+grity_map_continue+0xe71/0x1020 [dm_integrity]
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.512193] =A0? __swi=
+tch_to_asm+0x40/0x70
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.513149] =A0? __swi=
+tch_to_asm+0x34/0x70
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.514105] =A0? __swi=
+tch_to_asm+0x40/0x70
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.515088] =A0? __swi=
+tch_to_asm+0x40/0x70
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.516048] =A0? __swi=
+tch_to_asm+0x34/0x70
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.517000] =A0? __swi=
+tch_to_asm+0x40/0x70
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.517978] =A0? __swi=
+tch_to_asm+0x34/0x70
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.518968] =A0? __swi=
+tch_to_asm+0x34/0x70
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.519926] =A0? __swi=
+tch_to+0x8c/0x440
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.520822] =A0process=
+_one_work+0x1a7/0x3a0
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.521798] =A0worker_=
+thread+0x30/0x390
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.522725] =A0? pwq_u=
+nbound_release_workfn+0xd0/0xd0
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.523901] =A0kthread=
++0x112/0x130
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.524691] =A0? kthre=
+ad_bind+0x30/0x30
+>> Mar =A01 23:48:21 unassigned-hostname kernel: [369732.525584] =A0ret_fro=
+m_fork+0x35/0x40
+>>
+>> Is this a bug in kernel or do I have some problems with hardware?
+
 
 --
 dm-devel mailing list
