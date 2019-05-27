@@ -2,64 +2,96 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A5E32B137
-	for <lists+dm-devel@lfdr.de>; Mon, 27 May 2019 11:19:30 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by mail.lfdr.de (Postfix) with ESMTPS id 07C382B136
+	for <lists+dm-devel@lfdr.de>; Mon, 27 May 2019 11:19:26 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 147CC307D860;
-	Mon, 27 May 2019 09:19:17 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 588DD821C3;
+	Mon, 27 May 2019 09:19:21 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2054F6C325;
-	Mon, 27 May 2019 09:19:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9D1402E199;
+	Mon, 27 May 2019 09:19:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 369EB206D3;
-	Mon, 27 May 2019 09:18:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 733AE206D4;
+	Mon, 27 May 2019 09:19:13 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4ON4XRA014746 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 24 May 2019 19:04:33 -0400
+	id x4R0oppW003555 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 26 May 2019 20:50:51 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4A42F18AD0; Fri, 24 May 2019 23:04:33 +0000 (UTC)
+	id 61BAE5C238; Mon, 27 May 2019 00:50:51 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx03.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.27])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D9A97600CD;
-	Fri, 24 May 2019 23:04:28 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by mx1.redhat.com (Postfix) with ESMTP id A61E583F45;
-	Fri, 24 May 2019 23:04:27 +0000 (UTC)
-Received: from
-	jaskaran-Intel-Server-Board-S1200V3RPS-UEFI-Development-Kit.corp.microsoft.com
-	(unknown [131.107.160.238])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 2B08720B7194;
-	Fri, 24 May 2019 16:04:27 -0700 (PDT)
-From: Jaskaran Khurana <jaskarankhurana@linux.microsoft.com>
-To: linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Fri, 24 May 2019 16:04:11 -0700
-Message-Id: <20190524230411.9238-2-jaskarankhurana@linux.microsoft.com>
-In-Reply-To: <20190524230411.9238-1-jaskarankhurana@linux.microsoft.com>
-References: <20190524230411.9238-1-jaskarankhurana@linux.microsoft.com>
-X-Greylist: Sender passed SPF test, ACL 242 matched, not delayed by
-	milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]);
-	Fri, 24 May 2019 23:04:28 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]);
-	Fri, 24 May 2019 23:04:28 +0000 (UTC) for IP:'13.77.154.182'
-	DOMAIN:'linux.microsoft.com' HELO:'linux.microsoft.com'
-	FROM:'jaskarankhurana@linux.microsoft.com' RCPT:''
-X-RedHat-Spam-Score: -8.002  (ENV_AND_HDR_SPF_MATCH, SPF_HELO_PASS, SPF_PASS,
-	USER_IN_DEF_SPF_WL) 13.77.154.182 linux.microsoft.com
-	13.77.154.182 linux.microsoft.com
-	<jaskarankhurana@linux.microsoft.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.27
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+Received: from mx1.redhat.com (ext-mx13.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.42])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ADFE05C221;
+	Mon, 27 May 2019 00:50:46 +0000 (UTC)
+Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
+	[209.85.215.196])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id A4FA9308620A;
+	Mon, 27 May 2019 00:50:45 +0000 (UTC)
+Received: by mail-pg1-f196.google.com with SMTP id h17so8104693pgv.0;
+	Sun, 26 May 2019 17:50:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=date:from:to:cc:subject:message-id:mime-version:content-disposition
+	:user-agent; bh=uVUGPkKOm4c0zQwgwv2vysCn0/MC1yfp3I0q+dsnZwI=;
+	b=C15dORW1EPCALRsmlfoMQo0CT92qaJrPU+p74DaxQuW1CToHewJ8mh9CxUrA4SiLsM
+	JeK/6NQNNgWwAioV+nRlxRVyLJd9E0jPI56z5J6UqMhJwqqJQXoJZzuIgSVnp3LaV9BR
+	EQL8TFpOhBCHx1kEkZG47rV0CnBmpQEPqCNzNeD0sWEwqZP9inL8CQZ5Z7nVEuKr77RJ
+	kR4uNcEcs/i4+pkcECytsjUjgS8WKkEnlWYpV9KIHXvOoRmSNf6UgjxL3a91fM/TOF9Q
+	VCvjUuzO32b79Watq+saR6qexEzzfbA4Zcsa22fgf7kYIzQwc6o0XySjI4Uhrcrno4DH
+	DCPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+	:content-disposition:user-agent;
+	bh=uVUGPkKOm4c0zQwgwv2vysCn0/MC1yfp3I0q+dsnZwI=;
+	b=irTjwqWq/2YP8tY0MBqPVtmy2dddJj/IU9QLtXiNXIoP/kM4UZjF1TquCHEJSxyovD
+	A2fjZtz2sOF0f4io+nFcZoYjF6SsKlWT5I0/uxX37EDUr/+BszFlO59rvjciEUDN5qNx
+	iTOKKUAuR4Lg0h0V1lxb3Y9Bt2VsnMYq2VuFchpwjOJncu+fbPj6mejZCJQ/eqlRFMoY
+	vrw9VoFnC7Sx6TiDbMisy4Nxa+4LMs8Mf+2F4bOdFo3xxTTa265LZFjb3qtDD1VruBKG
+	D6Pj32WEpv5gOHObKyyt8X0aZTGxQWUz3OmFjfB0WVKl0gssuzoHTSUZIIPKhcserfYy
+	0wzA==
+X-Gm-Message-State: APjAAAV+gZ1Hs3JPYvu3yfGHZYPtyBQbzdorn0YFavMEOd9SC9gRErHL
+	WsYKQYbNhZ5LRsjEZji45ZIOBHJF
+X-Google-Smtp-Source: APXvYqxr93AB+wl4Igg+5Pdms/MkJKL6oa8z6q+FSRrbvkwXX55+UN4MyDZH2K91TMr+M/hJ8HL69A==
+X-Received: by 2002:a63:950d:: with SMTP id
+	p13mr123027116pgd.269.1558918244895; 
+	Sun, 26 May 2019 17:50:44 -0700 (PDT)
+Received: from zhanggen-UX430UQ ([66.42.35.75])
+	by smtp.gmail.com with ESMTPSA id g8sm7685137pgq.33.2019.05.26.17.50.42
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Sun, 26 May 2019 17:50:44 -0700 (PDT)
+Date: Mon, 27 May 2019 08:50:34 +0800
+From: Gen Zhang <blackgod016574@gmail.com>
+To: agk@redhat.com, snitzer@redhat.com
+Message-ID: <20190527005034.GA16907@zhanggen-UX430UQ>
+MIME-Version: 1.0
+Content-Disposition: inline
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.42]);
+	Mon, 27 May 2019 00:50:45 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]);
+	Mon, 27 May 2019 00:50:45 +0000 (UTC) for IP:'209.85.215.196'
+	DOMAIN:'mail-pg1-f196.google.com'
+	HELO:'mail-pg1-f196.google.com' FROM:'blackgod016574@gmail.com'
+	RCPT:''
+X-RedHat-Spam-Score: 0.143  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
+	SPF_PASS) 209.85.215.196 mail-pg1-f196.google.com 209.85.215.196
+	mail-pg1-f196.google.com <blackgod016574@gmail.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.42
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 27 May 2019 05:18:07 -0400
-Cc: scottsh@microsoft.com, dm-devel@redhat.com, snitzer@redhat.com,
-	agk@redhat.com, jmorris@namei.org
-Subject: [dm-devel] [PATCH 1/1 v2] Add dm verity root hash pkcs7 sig
-	validation.
+Cc: dm-devel@redhat.com, linux-kernel@vger.kernel.org
+Subject: [dm-devel] [PATCH] dm-region-hash: fix a missing-check bug in
+	__rh_alloc()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,384 +103,50 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]); Mon, 27 May 2019 09:19:28 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]); Mon, 27 May 2019 09:19:24 +0000 (UTC)
 
-The verification is to support cases where the roothash is not secured by
-Trusted Boot, UEFI Secureboot or similar technologies.
-One of the use cases for this is for dm-verity volumes mounted after boot,
-the root hash provided during the creation of the dm-verity volume has to
-be secure and thus in-kernel validation implemented here will be used
-before we trust the root hash and allow the block device to be created.
+In function __rh_alloc(), the pointer nreg is allocated a memory space
+via kmalloc(). And it is used in the following codes. However, when 
+there is a memory allocation error, kmalloc() fails. Thus null pointer
+dereference may happen. And it will cause the kernel to crash. Therefore,
+we should check the return value and handle the error.
+Further, in __rh_find(), we should also check the return value and
+handle the error.
 
-The signature being provided for verification must verify the root hash and
-must be trusted by the builtin keyring for verification to succeed.
-
-The hash is added as a key of type "user" and the description is passed to
-the kernel so it can look it up and use it for verification.
-
-Adds DM_VERITY_VERIFY_ROOTHASH_SIG: roothash verification
-against the roothash signature file *if* specified, if signature file is
-specified verification must succeed prior to creation of device mapper
-block device.
-
-Adds DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE: roothash signature *must* be
-specified for all dm verity volumes and verification must succeed prior
-to creation of device mapper block device.
-
-Signed-off-by: Jaskaran Khurana <jaskarankhurana@linux.microsoft.com>
+Signed-off-by: Gen Zhang <blackgod016574@gmail.com>
 ---
- drivers/md/Kconfig                |  23 +++++
- drivers/md/Makefile               |   2 +-
- drivers/md/dm-verity-target.c     |  34 +++++++-
- drivers/md/dm-verity-verify-sig.c | 137 ++++++++++++++++++++++++++++++
- drivers/md/dm-verity-verify-sig.h |  31 +++++++
- 5 files changed, 222 insertions(+), 5 deletions(-)
- create mode 100644 drivers/md/dm-verity-verify-sig.c
- create mode 100644 drivers/md/dm-verity-verify-sig.h
-
-diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-index db269a348b20..da4115753f25 100644
---- a/drivers/md/Kconfig
-+++ b/drivers/md/Kconfig
-@@ -489,6 +489,29 @@ config DM_VERITY
+diff --git a/drivers/md/dm-region-hash.c b/drivers/md/dm-region-hash.c
+index 1f76045..2fa1641 100644
+--- a/drivers/md/dm-region-hash.c
++++ b/drivers/md/dm-region-hash.c
+@@ -290,8 +290,11 @@ static struct dm_region *__rh_alloc(struct dm_region_hash *rh, region_t region)
+ 	struct dm_region *reg, *nreg;
  
- 	  If unsure, say N.
+ 	nreg = mempool_alloc(&rh->region_pool, GFP_ATOMIC);
+-	if (unlikely(!nreg))
++	if (unlikely(!nreg)) {
+ 		nreg = kmalloc(sizeof(*nreg), GFP_NOIO | __GFP_NOFAIL);
++		if (!nreg)
++			return NULL;
++	}
  
-+config DM_VERITY_VERIFY_ROOTHASH_SIG
-+	def_bool n
-+	bool "Verity data device root hash signature verification support"
-+	depends on DM_VERITY
-+	select SYSTEM_DATA_VERIFICATION
-+	  help
-+	  The device mapper target created by DM-VERITY can be validated if the
-+	  pre-generated tree of cryptographic checksums passed has a pkcs#7
-+	  signature file that can validate the roothash of the tree.
-+
-+	  If unsure, say N.
-+
-+config DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE
-+	def_bool n
-+	bool "Forces all dm verity data device root hash should be signed"
-+	depends on DM_VERITY_VERIFY_ROOTHASH_SIG
-+	  help
-+	  The device mapper target created by DM-VERITY will succeed only if the
-+	  pre-generated tree of cryptographic checksums passed also has a pkcs#7
-+	  signature file that can validate the roothash of the tree.
-+
-+	  If unsure, say N.
-+
- config DM_VERITY_FEC
- 	bool "Verity forward error correction support"
- 	depends on DM_VERITY
-diff --git a/drivers/md/Makefile b/drivers/md/Makefile
-index be7a6eb92abc..8a8c142bcfe1 100644
---- a/drivers/md/Makefile
-+++ b/drivers/md/Makefile
-@@ -61,7 +61,7 @@ obj-$(CONFIG_DM_LOG_USERSPACE)	+= dm-log-userspace.o
- obj-$(CONFIG_DM_ZERO)		+= dm-zero.o
- obj-$(CONFIG_DM_RAID)	+= dm-raid.o
- obj-$(CONFIG_DM_THIN_PROVISIONING)	+= dm-thin-pool.o
--obj-$(CONFIG_DM_VERITY)		+= dm-verity.o
-+obj-$(CONFIG_DM_VERITY)		+= dm-verity.o dm-verity-verify-sig.o
- obj-$(CONFIG_DM_CACHE)		+= dm-cache.o
- obj-$(CONFIG_DM_CACHE_SMQ)	+= dm-cache-smq.o
- obj-$(CONFIG_DM_ERA)		+= dm-era.o
-diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index f4c31ffaa88e..56276669ac20 100644
---- a/drivers/md/dm-verity-target.c
-+++ b/drivers/md/dm-verity-target.c
-@@ -16,7 +16,7 @@
- 
- #include "dm-verity.h"
- #include "dm-verity-fec.h"
--
-+#include "dm-verity-verify-sig.h"
- #include <linux/module.h>
- #include <linux/reboot.h>
- 
-@@ -34,7 +34,8 @@
- #define DM_VERITY_OPT_IGN_ZEROES	"ignore_zero_blocks"
- #define DM_VERITY_OPT_AT_MOST_ONCE	"check_at_most_once"
- 
--#define DM_VERITY_OPTS_MAX		(2 + DM_VERITY_OPTS_FEC)
-+#define DM_VERITY_OPTS_MAX		(2 + DM_VERITY_OPTS_FEC + \
-+					 DM_VERITY_ROOT_HASH_VERIFICATION_OPTS)
- 
- static unsigned dm_verity_prefetch_cluster = DM_VERITY_DEFAULT_PREFETCH_SIZE;
- 
-@@ -855,7 +856,8 @@ static int verity_alloc_zero_digest(struct dm_verity *v)
- 	return r;
- }
- 
--static int verity_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v)
-+static int verity_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v,
-+				 struct dm_verity_sig_opts *verify_args)
- {
- 	int r;
- 	unsigned argc;
-@@ -904,6 +906,14 @@ static int verity_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v)
- 			if (r)
- 				return r;
- 			continue;
-+		} else if (verity_verify_is_sig_opt_arg(arg_name)) {
-+			r = verity_verify_sig_parse_opt_args(as, v,
-+							     verify_args,
-+							     &argc, arg_name);
-+			if (r)
-+				return r;
-+			continue;
-+
- 		}
- 
- 		ti->error = "Unrecognized verity feature request";
-@@ -930,6 +940,7 @@ static int verity_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v)
- static int verity_ctr(struct dm_target *ti, unsigned argc, char **argv)
- {
- 	struct dm_verity *v;
-+	struct dm_verity_sig_opts verify_args = {0};
- 	struct dm_arg_set as;
- 	unsigned int num;
- 	unsigned long long num_ll;
-@@ -937,6 +948,7 @@ static int verity_ctr(struct dm_target *ti, unsigned argc, char **argv)
- 	int i;
- 	sector_t hash_position;
- 	char dummy;
-+	char *root_hash_digest_to_validate = NULL;
- 
- 	v = kzalloc(sizeof(struct dm_verity), GFP_KERNEL);
- 	if (!v) {
-@@ -1070,6 +1082,7 @@ static int verity_ctr(struct dm_target *ti, unsigned argc, char **argv)
- 		r = -EINVAL;
- 		goto bad;
- 	}
-+	root_hash_digest_to_validate = argv[8];
- 
- 	if (strcmp(argv[9], "-")) {
- 		v->salt_size = strlen(argv[9]) / 2;
-@@ -1095,11 +1108,20 @@ static int verity_ctr(struct dm_target *ti, unsigned argc, char **argv)
- 		as.argc = argc;
- 		as.argv = argv;
- 
--		r = verity_parse_opt_args(&as, v);
-+		r = verity_parse_opt_args(&as, v, &verify_args);
- 		if (r < 0)
- 			goto bad;
+ 	nreg->state = rh->log->type->in_sync(rh->log, region, 1) ?
+ 		      DM_RH_CLEAN : DM_RH_NOSYNC;
+@@ -329,6 +332,8 @@ static struct dm_region *__rh_find(struct dm_region_hash *rh, region_t region)
+ 	if (!reg) {
+ 		read_unlock(&rh->hash_lock);
+ 		reg = __rh_alloc(rh, region);
++		if (!reg)
++			return NULL;
+ 		read_lock(&rh->hash_lock);
  	}
  
-+	/* Root hash signature is  a optional parameter*/
-+	r = verity_verify_root_hash(root_hash_digest_to_validate,
-+				    strlen(root_hash_digest_to_validate),
-+				    verify_args.sig,
-+				    verify_args.sig_size);
-+	if (r < 0) {
-+		ti->error = "Root hash verification failed";
-+		goto bad;
-+	}
- 	v->hash_per_block_bits =
- 		__fls((1 << v->hash_dev_block_bits) / v->digest_size);
- 
-@@ -1165,9 +1187,13 @@ static int verity_ctr(struct dm_target *ti, unsigned argc, char **argv)
- 	ti->per_io_data_size = roundup(ti->per_io_data_size,
- 				       __alignof__(struct dm_verity_io));
- 
-+	verity_verify_sig_opts_cleanup(&verify_args);
-+
- 	return 0;
- 
- bad:
-+
-+	verity_verify_sig_opts_cleanup(&verify_args);
- 	verity_dtr(ti);
- 
- 	return r;
-diff --git a/drivers/md/dm-verity-verify-sig.c b/drivers/md/dm-verity-verify-sig.c
-new file mode 100644
-index 000000000000..ba87c9342d55
---- /dev/null
-+++ b/drivers/md/dm-verity-verify-sig.c
-@@ -0,0 +1,137 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2019 Microsoft Corporation.
-+ *
-+ * Author:  Jaskaran Singh Khurana <jaskarankhurana@linux.microsoft.com>
-+ *
-+ * This file is released under the GPLv2.
-+ */
-+#include <linux/device-mapper.h>
-+#include <linux/verification.h>
-+#include <keys/user-type.h>
-+#include "dm-verity.h"
-+#include "dm-verity-verify-sig.h"
-+
-+#define DM_VERITY_VERIFY_ERR(s) DM_VERITY_ROOT_HASH_VERIFICATION " " s
-+
-+
-+bool verity_verify_is_sig_opt_arg(const char *arg_name)
-+{
-+	return (!strcasecmp(arg_name,
-+			    DM_VERITY_ROOT_HASH_VERIFICATION_OPT_SIG_KEY));
-+}
-+EXPORT_SYMBOL_GPL(verity_verify_is_sig_opt_arg);
-+
-+static int verity_verify_get_sig_from_key(const char *key_desc,
-+					struct dm_verity_sig_opts *sig_opts)
-+{
-+	struct key *key;
-+	const struct user_key_payload *ukp;
-+	int ret = 0;
-+
-+	key = request_key(&key_type_user,
-+			key_desc, NULL);
-+	if (IS_ERR(key))
-+		return PTR_ERR(key);
-+
-+	down_read(&key->sem);
-+
-+	ukp = user_key_payload_locked(key);
-+	if (!ukp) {
-+		ret = -EKEYREVOKED;
-+		goto end;
-+	}
-+
-+	sig_opts->sig = kmalloc(ukp->datalen, GFP_KERNEL);
-+	if (!sig_opts->sig) {
-+		ret = -ENOMEM;
-+		goto end;
-+	}
-+	sig_opts->sig_size = ukp->datalen;
-+
-+	memcpy(sig_opts->sig, ukp->data, sig_opts->sig_size);
-+
-+end:
-+	up_read(&key->sem);
-+	key_put(key);
-+
-+	return ret;
-+}
-+
-+int verity_verify_sig_parse_opt_args(struct dm_arg_set *as,
-+				     struct dm_verity *v,
-+				     struct dm_verity_sig_opts *sig_opts,
-+				     unsigned int *argc,
-+				     const char *arg_name)
-+{
-+	struct dm_target *ti = v->ti;
-+	int ret = 0;
-+	const char *sig_key = NULL;
-+
-+	if (!*argc) {
-+		ti->error = DM_VERITY_VERIFY_ERR("Signature key not specified");
-+		return -EINVAL;
-+	}
-+
-+	sig_key = dm_shift_arg(as);
-+	(*argc)--;
-+
-+	if (!IS_ENABLED(CONFIG_DM_VERITY_VERIFY_ROOTHASH_SIG))
-+		return 0;
-+
-+	ret = verity_verify_get_sig_from_key(sig_key, sig_opts);
-+	if (ret < 0)
-+		ti->error = DM_VERITY_VERIFY_ERR("Invalid key specified");
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(verity_verify_sig_parse_opt_args);
-+
-+#ifdef CONFIG_DM_VERITY_VERIFY_ROOTHASH_SIG
-+/*
-+ * verify_verify_roothash - Verify the root hash of the verity hash device
-+ *			     using builtin trusted keys.
-+ *
-+ * @root_hash: For verity, the roothash/data to be verified.
-+ * @root_hash_len: Size of the roothash/data to be verified.
-+ * @sig_data: The trusted signature that verifies the roothash/data.
-+ * @sig_len: Size of the signature.
-+ *
-+ */
-+int verity_verify_root_hash(const void *root_hash, size_t root_hash_len,
-+			    const void *sig_data, size_t sig_len)
-+{
-+	int ret;
-+
-+	if (!root_hash || root_hash_len == 0)
-+		return -EINVAL;
-+
-+	if (!sig_data  || sig_len == 0) {
-+		if (IS_ENABLED(CONFIG_DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE))
-+			return -EINVAL;
-+		else
-+			return 0;
-+	}
-+
-+	ret = verify_pkcs7_signature(root_hash, root_hash_len, sig_data,
-+				sig_len, NULL, VERIFYING_UNSPECIFIED_SIGNATURE,
-+				NULL, NULL);
-+
-+	return ret;
-+}
-+#else
-+int verity_verify_root_hash(const void *root_hash, size_t root_hash_len,
-+			    const void *sig_data, size_t sig_len)
-+{
-+	return 0;
-+}
-+#endif
-+EXPORT_SYMBOL_GPL(verity_verify_root_hash);
-+
-+void verity_verify_sig_opts_cleanup(struct dm_verity_sig_opts *sig_opts)
-+{
-+	kfree(sig_opts->sig);
-+	sig_opts->sig = NULL;
-+	sig_opts->sig_size = 0;
-+}
-+EXPORT_SYMBOL_GPL(verity_verify_sig_opts_cleanup);
-diff --git a/drivers/md/dm-verity-verify-sig.h b/drivers/md/dm-verity-verify-sig.h
-new file mode 100644
-index 000000000000..4cdb5eeb90d4
---- /dev/null
-+++ b/drivers/md/dm-verity-verify-sig.h
-@@ -0,0 +1,31 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2019 Microsoft Corporation.
-+ *
-+ * Author:  Jaskaran Singh Khurana <jaskarankhurana@linux.microsoft.com>
-+ *
-+ * This file is released under the GPLv2.
-+ */
-+#ifndef DM_VERITY_SIG_VERIFICATION_H
-+#define DM_VERITY_SIG_VERIFICATION_H
-+
-+#define DM_VERITY_ROOT_HASH_VERIFICATION "DM Verity Sig Verification"
-+#define DM_VERITY_ROOT_HASH_VERIFICATION_OPT_SIG_KEY "root_hash_sig_key_desc"
-+#define DM_VERITY_ROOT_HASH_VERIFICATION_OPTS 2
-+
-+struct dm_verity_sig_opts {
-+	unsigned int sig_size;
-+	u8 *sig;
-+};
-+int verity_verify_root_hash(const void *data, size_t data_len,
-+			    const void *sig_data, size_t sig_len);
-+
-+bool verity_verify_is_sig_opt_arg(const char *arg_name);
-+
-+int verity_verify_sig_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v,
-+				    struct dm_verity_sig_opts *sig_opts,
-+				    unsigned int *argc, const char *arg_name);
-+
-+void verity_verify_sig_opts_cleanup(struct dm_verity_sig_opts *sig_opts);
-+
-+#endif /* DM_VERITY_SIG_VERIFICATION_H */
--- 
-2.17.1
+---
 
 --
 dm-devel mailing list
