@@ -2,100 +2,49 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id E85042F823
-	for <lists+dm-devel@lfdr.de>; Thu, 30 May 2019 09:56:44 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A7A82E561
+	for <lists+dm-devel@lfdr.de>; Wed, 29 May 2019 21:33:42 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 75C99307D988;
-	Thu, 30 May 2019 07:56:06 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 0B1E730BBE69;
+	Wed, 29 May 2019 19:32:54 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 27932277D3;
-	Thu, 30 May 2019 07:55:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9CDDE60C4E;
+	Wed, 29 May 2019 19:32:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 93B7F1806B0F;
-	Thu, 30 May 2019 07:55:17 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BBB041806B14;
+	Wed, 29 May 2019 19:31:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4TFPEMr028847 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 29 May 2019 11:25:14 -0400
+	id x4TJUqb3010719 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 29 May 2019 15:30:52 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id CBB3A2B5B3; Wed, 29 May 2019 15:25:14 +0000 (UTC)
+	id 7FA1A1001E80; Wed, 29 May 2019 19:30:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx16.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.45])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3FEBA2AAB9;
-	Wed, 29 May 2019 15:25:07 +0000 (UTC)
-Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
-	[209.85.210.194])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id EC4D53082B71;
-	Wed, 29 May 2019 15:25:01 +0000 (UTC)
-Received: by mail-pf1-f194.google.com with SMTP id c6so1841056pfa.10;
-	Wed, 29 May 2019 08:25:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=date:from:to:cc:subject:message-id:references:mime-version
-	:content-disposition:in-reply-to:user-agent;
-	bh=8fDLamalhq9zwp0W3zCZkIPwsllp49nCKwsLUyTJ3Hc=;
-	b=R66SrP4CmgFcNeUP8BET9lkK2bUkt81I/nJIZDpuDb6b54j4CNcYX91lBtMdtlSLEn
-	7hXaQkv8+wCEduPHFzF5QQsZBB4EvxYNDJ0Yu0slJVXcyIHDE8PdP99/skhi4t5TfZns
-	UnhObnEOY9cPJ+7qZsIDoNGlz9V0C2x0RjSb5EUK5LHgq/YI1u7Hms24qhK+5zG3NluC
-	qHNoUPQX33HkAf6F6bd5cTqNpxR6AFN/sFlcg7Id6tsPNSC8qXto8nW5yiqL70eYzrYi
-	2sVH5EKxfNO99oP8vxU9KSki1q2W9jKAMYSnRrmuZVTaUhNPYUwFTGTDr/BnWZhk47Li
-	9xjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-	:mime-version:content-disposition:in-reply-to:user-agent;
-	bh=8fDLamalhq9zwp0W3zCZkIPwsllp49nCKwsLUyTJ3Hc=;
-	b=IY/k1ywpBJLtIlkMAH4R4YL7oox2/lBGlxiV9QtL98UjhMb2NJwqaFvwgvzTy3fWnw
-	80sPfvSaWs5oOnIGb1QLwb7VO6easP9caLThGc4po6E+a6f1DXDD3XmsBII+luj1L/+V
-	ld/1S3XByHVaqR6qgJI3/rvquDRISZa4kfffpX/J3WICO/ScrhhDTTb/wrylvONqk/F2
-	l5QjRNHtmDhN9tBKP2S3fqbePKigQ+8QVKMw7LQ0GNRWQyhzMi+nde3CoHKGgX3ETkq/
-	MYFf7jGdZ2Wn4+E0QIUAcX7LnGkxl1FePMEOMvDx3pEZcy/mjzWZjx5LrlaZkcAXFekT
-	QOxQ==
-X-Gm-Message-State: APjAAAWb5zTicKVKWMUSvX+trz4gEGwFb0WzDTWmV3jPyyDnPWMTiS9g
-	TEM3mrpfE/yUKA6Eerl2oJk=
-X-Google-Smtp-Source: APXvYqyAA83krJlMy4Qvv+s+/SeDJPz5OhDu6JhT48rvqo/9btgZdD2u0/ydQebmJDOgdzcLJYI4Wg==
-X-Received: by 2002:a63:6445:: with SMTP id y66mr29504576pgb.23.1559143501459; 
-	Wed, 29 May 2019 08:25:01 -0700 (PDT)
-Received: from zhanggen-UX430UQ ([66.42.35.75])
-	by smtp.gmail.com with ESMTPSA id
-	f2sm14826080pgs.83.2019.05.29.08.24.56
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Wed, 29 May 2019 08:25:00 -0700 (PDT)
-Date: Wed, 29 May 2019 23:24:43 +0800
-From: Gen Zhang <blackgod016574@gmail.com>
-To: Bart Van Assche <bvanassche@acm.org>
-Message-ID: <20190529152443.GA4076@zhanggen-UX430UQ>
-References: <20190529013320.GA3307@zhanggen-UX430UQ>
-	<fcf2c3c0-e479-9e74-59d5-79cd2a0bade6@acm.org>
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 313FE1017E2E;
+	Wed, 29 May 2019 19:30:49 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id x4TJUl5K004359; 
+	Wed, 29 May 2019 14:30:47 -0500
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id x4TJUk6a004358;
+	Wed, 29 May 2019 14:30:46 -0500
+Date: Wed, 29 May 2019 14:30:45 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Martin Wilck <mwilck@suse.com>
+Message-ID: <20190529193045.GF7630@octiron.msp.redhat.com>
+References: <20190527125942.8366-1-mwilck@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <fcf2c3c0-e479-9e74-59d5-79cd2a0bade6@acm.org>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.45]);
-	Wed, 29 May 2019 15:25:02 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]);
-	Wed, 29 May 2019 15:25:02 +0000 (UTC) for IP:'209.85.210.194'
-	DOMAIN:'mail-pf1-f194.google.com'
-	HELO:'mail-pf1-f194.google.com' FROM:'blackgod016574@gmail.com'
-	RCPT:''
-X-RedHat-Spam-Score: 0.143  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
-	SPF_PASS) 209.85.210.194 mail-pf1-f194.google.com 209.85.210.194
-	mail-pf1-f194.google.com <blackgod016574@gmail.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.45
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+In-Reply-To: <20190527125942.8366-1-mwilck@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Thu, 30 May 2019 03:54:08 -0400
-Cc: dm-devel@redhat.com, snitzer@redhat.com, agk@redhat.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH] dm-init: fix 2 incorrect use of kstrndup()
+Cc: dm-devel@redhat.com, Xose Vazquez Perez <xose.vazquez@gmail.com>
+Subject: Re: [dm-devel] [PATCH v2 0/9] speeding up mpathpersist
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -111,29 +60,58 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]); Thu, 30 May 2019 07:56:43 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]); Wed, 29 May 2019 19:33:41 +0000 (UTC)
 
-On Wed, May 29, 2019 at 05:23:53AM -0700, Bart Van Assche wrote:
-> On 5/28/19 6:33 PM, Gen Zhang wrote:
-> > In drivers/md/dm-init.c, kstrndup() is incorrectly used twice.
-> > 
-> > It should be: char *kstrndup(const char *s, size_t max, gfp_t gfp);
+On Mon, May 27, 2019 at 02:59:33PM +0200, Martin Wilck wrote:
+> We've had reports that mpathpersist doesn't scale well in environments
+> with lots of IO devices. This patch set tries to address this problem
+> with a few optimizations:
 > 
-> Should the following be added to this patch?
+>  - instead of doing a full path discovery at startup, only look at
+>    paths that are part of the maps being worked on
+>  - allow multiple PR commands in a single run using "batch files",
+>    without re-discovering everything between PR commands
+>  - avoid looking at priorities
 > 
-> Fixes: 6bbc923dfcf5 ("dm: add support to directly boot to a mapped
-> device") # v5.1.
-> Cc: stable
+> I've done some basic testing and it seems to work. It remains to be
+> seen what the effect on performance really is, but the amount of system
+> calls to be performed for a given set of mpathpersist actions should
+> be substantially reduced in any case, especially when using batching.
 > 
-> Thanks,
+> ---
+> v2:
+>  - avoid memory leak with --batch-file (Ben Marzinski)
+>  - add documentation to usage() output and mpathpersist man page
+>  - integrate "mpathpersist.8: fix examples in man page" which I'd sent
+>    separately before
 > 
-> Bart.
-Personally, I am not quite sure about this question, because I am not 
-the maintainer of this part.
 
-Thanks
-Gen
+ACK for the set.
+
+-Ben
+
+> 
+> Martin Wilck (9):
+>   mpathpersist: call usage() just once on return
+>   mpathpersist: add option --batch-file (-f)
+>   mpathpersist: no need to treat error close() as fatal
+>   libmpathpersist: updatepaths: deal with missing pp->udev
+>   libmpathpersist: factor out initialization and teardown
+>   mpathpersist: initialize data structures only once
+>   libmpathpersist: don't bother with priorities
+>   mpathpersist.8: fix examples in man page
+>   mpathpersist.8: add documentation for --batch-file (-f)
+> 
+>  libmpathpersist/mpath_persist.c | 250 +++++++++++++++-----------------
+>  libmpathpersist/mpath_persist.h |  40 +++++
+>  mpathpersist/main.c             | 227 ++++++++++++++++++++++-------
+>  mpathpersist/main.h             |   1 +
+>  mpathpersist/mpathpersist.8     | 121 ++++++++++++++--
+>  5 files changed, 440 insertions(+), 199 deletions(-)
+> 
+> -- 
+> 2.21.0
 
 --
 dm-devel mailing list
