@@ -2,95 +2,114 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 880E62D706
-	for <lists+dm-devel@lfdr.de>; Wed, 29 May 2019 09:53:18 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by mail.lfdr.de (Postfix) with ESMTPS id 55B712DCFD
+	for <lists+dm-devel@lfdr.de>; Wed, 29 May 2019 14:27:58 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 9E2887FDFF;
-	Wed, 29 May 2019 07:53:12 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AA9851017E3F;
-	Wed, 29 May 2019 07:52:56 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 410123091DC4;
+	Wed, 29 May 2019 12:27:00 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D1BD45D784;
+	Wed, 29 May 2019 12:26:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2E54C1806B14;
-	Wed, 29 May 2019 07:52:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CFB74C840;
+	Wed, 29 May 2019 12:26:14 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4T1XgX2002298 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 28 May 2019 21:33:42 -0400
+	id x4TCOLLO025703 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 29 May 2019 08:24:21 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 73B3660BE0; Wed, 29 May 2019 01:33:42 +0000 (UTC)
+	id 6238B28991; Wed, 29 May 2019 12:24:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx19.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.48])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 93C1379012;
-	Wed, 29 May 2019 01:33:38 +0000 (UTC)
-Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com
-	[209.85.210.196])
+Received: from mx1.redhat.com (ext-mx10.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.39])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3BC051972C;
+	Wed, 29 May 2019 12:24:14 +0000 (UTC)
+Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
+	[209.85.210.194])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 0B0DD307D963;
-	Wed, 29 May 2019 01:33:38 +0000 (UTC)
-Received: by mail-pf1-f196.google.com with SMTP id d126so488972pfd.2;
-	Tue, 28 May 2019 18:33:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=date:from:to:cc:subject:message-id:mime-version:content-disposition
-	:user-agent; bh=zKrr4VP4HF8/3gxRsVG1U8oxmyUqmlQMzF2rdcl+ZUM=;
-	b=fCodE0k1SR/XgnrXwksZ/0NgsCpj7/T3qew3IBA9J/yxjzYxeyS9vTXtiaCyi17Pju
-	nMAJAz/T6F6KbEodURtPN+bvEVMPnyd3ofqkUwrqM7Mb+qj2HxUMosooMW93nCWtkF0F
-	USPZMB13X14sL75tYkeeqMsfZ6jZrG0YPVJElRNzfPI7d0gtAjcxLtydQn+zGAmUKKrk
-	mA3sQuIuK8iM5LdXbvbj8r7ohMC9CEvOW1M+RvIVkFPti5TnNnq5wksXC5gX0kuAl96W
-	zDMUn1be8VFlWVppg75/cEJ5VY/DDJO4Z0vd6onGf2N9R02DcgziwRutZcUsmT+H9ZUy
-	n8ag==
+	by mx1.redhat.com (Postfix) with ESMTPS id 0E4BF9FFCE;
+	Wed, 29 May 2019 12:23:58 +0000 (UTC)
+Received: by mail-pf1-f194.google.com with SMTP id g9so1510822pfo.11;
+	Wed, 29 May 2019 05:23:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
-	:content-disposition:user-agent;
-	bh=zKrr4VP4HF8/3gxRsVG1U8oxmyUqmlQMzF2rdcl+ZUM=;
-	b=ERjjrdqa/ym/xyxp+OVDAVXIxF3JoGMnHS2Zc9V5EDjEAkDtw+nszR0jKqschZZG3P
-	fzQuFmIEDU2CvXu0sIQgx3jIkrAto7CrXugcQd9nEl+P+/u4mt8FI0gKd+Kyse91Hoxr
-	Z9W2swvreAAypyMQTIYLEcVglJR+bv6ALWEjtLJR2q01816g27stzgNYOaPtJqcHujCF
-	KDaOLFk7VKxODSgKrRDlQ0nH9ugDHSNuZbWx+O7/rMD5bAnK9t9qYOR7yLEoC1yoxLdV
-	kIABZWnyOW0ywnCeJp+ZgjN5utU+WsOd7vjxm7T7kSRjmtXY2+mYtrICgD/oNehCx535
-	fMUg==
-X-Gm-Message-State: APjAAAVgmwjPa4La+oS5JUL+dJCbgJ2N3MkZFIlTyNs+TYw7yi3UkU9r
-	v2Bbajq0D7MoZwak5DCf42DYacIB
-X-Google-Smtp-Source: APXvYqzjPYA3TCWsvkoDa9t1uozb9hmBqywF2OndUSgMrFkdKfbQ5TGa8smbi6UBhouA2hDLcUae0g==
-X-Received: by 2002:a63:520a:: with SMTP id g10mr10490754pgb.136.1559093617233;
-	Tue, 28 May 2019 18:33:37 -0700 (PDT)
-Received: from zhanggen-UX430UQ ([66.42.35.75])
+	h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
+	:message-id:date:user-agent:mime-version:in-reply-to
+	:content-language:content-transfer-encoding;
+	bh=rxy6f9sl7ikW/ApsyD3MIdMjQRls/RXr9QjpSHSk8IA=;
+	b=elr4QUjPLJwgjRzDF9BPlt/vZkivc4ga4UEo4Zq86R8hcJtmPGwox7ezM3W6F104Du
+	CzrX7DY2q9O698Vr2XF+s0v8TTsrt/rMWXDZNHqSJXyKxsmmS3dY8miZukr4FymbQo+n
+	GlyPyvFM3VQZ84Sr/5h6pRYnlymy63SPze+sFh5mlmZ5PucglFPOkonCfW2xH+0Rmqiq
+	EBbAna95JOUV65pbNYaG/ZG7E+eih/E4FlBX4l8n36bOzIeco2JglNVpgHMoADj6LIx6
+	Olz5oKpmJQ1tcZS/O7kmeRAKeE3YrIRq3mYi3PS/nThUPgd5yy1BhQMIR12/OQbOwKkj
+	NfQA==
+X-Gm-Message-State: APjAAAUTlkWE5pNTBWXUbYSci7Vs1ayxGtKL85n3ZnUXrzCnnbxaxY5Q
+	+KzGZxHVjt7XmqgmV+okbuk=
+X-Google-Smtp-Source: APXvYqw3gtP9GYIe9PKp/7Bwfo/J4hxf31+bvFoTQDtU0F9p+8zHqc+Inc7h1cd1ACTxH/qzERMEvw==
+X-Received: by 2002:a17:90a:778b:: with SMTP id
+	v11mr12193208pjk.132.1559132635974; 
+	Wed, 29 May 2019 05:23:55 -0700 (PDT)
+Received: from asus.site (c-67-188-93-131.hsd1.ca.comcast.net. [67.188.93.131])
 	by smtp.gmail.com with ESMTPSA id
-	k6sm15981806pfi.86.2019.05.28.18.33.31
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Tue, 28 May 2019 18:33:36 -0700 (PDT)
-Date: Wed, 29 May 2019 09:33:20 +0800
-From: Gen Zhang <blackgod016574@gmail.com>
-To: agk@redhat.com, snitzer@redhat.com, dm-devel@redhat.com
-Message-ID: <20190529013320.GA3307@zhanggen-UX430UQ>
+	e16sm5619309pjp.16.2019.05.29.05.23.54
+	(version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
+	Wed, 29 May 2019 05:23:55 -0700 (PDT)
+To: Gen Zhang <blackgod016574@gmail.com>, agk@redhat.com, snitzer@redhat.com, 
+	dm-devel@redhat.com
+References: <20190529013320.GA3307@zhanggen-UX430UQ>
+From: Bart Van Assche <bvanassche@acm.org>
+Openpgp: preference=signencrypt
+Autocrypt: addr=bvanassche@acm.org; prefer-encrypt=mutual; keydata=
+	mQENBFSOu4oBCADcRWxVUvkkvRmmwTwIjIJvZOu6wNm+dz5AF4z0FHW2KNZL3oheO3P8UZWr
+	LQOrCfRcK8e/sIs2Y2D3Lg/SL7qqbMehGEYcJptu6mKkywBfoYbtBkVoJ/jQsi2H0vBiiCOy
+	fmxMHIPcYxaJdXxrOG2UO4B60Y/BzE6OrPDT44w4cZA9DH5xialliWU447Bts8TJNa3lZKS1
+	AvW1ZklbvJfAJJAwzDih35LxU2fcWbmhPa7EO2DCv/LM1B10GBB/oQB5kvlq4aA2PSIWkqz4
+	3SI5kCPSsygD6wKnbRsvNn2mIACva6VHdm62A7xel5dJRfpQjXj2snd1F/YNoNc66UUTABEB
+	AAG0JEJhcnQgVmFuIEFzc2NoZSA8YnZhbmFzc2NoZUBhY20ub3JnPokBOQQTAQIAIwUCVI67
+	igIbAwcLCQgHAwIBBhUIAgkKCwQWAgMBAh4BAheAAAoJEHFcPTXFzhAJ8QkH/1AdXblKL65M
+	Y1Zk1bYKnkAb4a98LxCPm/pJBilvci6boefwlBDZ2NZuuYWYgyrehMB5H+q+Kq4P0IBbTqTa
+	jTPAANn62A6jwJ0FnCn6YaM9TZQjM1F7LoDX3v+oAkaoXuq0dQ4hnxQNu792bi6QyVdZUvKc
+	macVFVgfK9n04mL7RzjO3f+X4midKt/s+G+IPr4DGlrq+WH27eDbpUR3aYRk8EgbgGKvQFdD
+	CEBFJi+5ZKOArmJVBSk21RHDpqyz6Vit3rjep7c1SN8s7NhVi9cjkKmMDM7KYhXkWc10lKx2
+	RTkFI30rkDm4U+JpdAd2+tP3tjGf9AyGGinpzE2XY1K5AQ0EVI67igEIAKiSyd0nECrgz+H5
+	PcFDGYQpGDMTl8MOPCKw/F3diXPuj2eql4xSbAdbUCJzk2ETif5s3twT2ER8cUTEVOaCEUY3
+	eOiaFgQ+nGLx4BXqqGewikPJCe+UBjFnH1m2/IFn4T9jPZkV8xlkKmDUqMK5EV9n3eQLkn5g
+	lco+FepTtmbkSCCjd91EfThVbNYpVQ5ZjdBCXN66CKyJDMJ85HVr5rmXG/nqriTh6cv1l1Js
+	T7AFvvPjUPknS6d+BETMhTkbGzoyS+sywEsQAgA+BMCxBH4LvUmHYhpS+W6CiZ3ZMxjO8Hgc
+	++w1mLeRUvda3i4/U8wDT3SWuHcB3DWlcppECLkAEQEAAYkBHwQYAQIACQUCVI67igIbDAAK
+	CRBxXD01xc4QCZ4dB/0QrnEasxjM0PGeXK5hcZMT9Eo998alUfn5XU0RQDYdwp6/kMEXMdmT
+	oH0F0xB3SQ8WVSXA9rrc4EBvZruWQ+5/zjVrhhfUAx12CzL4oQ9Ro2k45daYaonKTANYG22y
+	//x8dLe2Fv1By4SKGhmzwH87uXxbTJAUxiWIi1np0z3/RDnoVyfmfbbL1DY7zf2hYXLLzsJR
+	mSsED/1nlJ9Oq5fALdNEPgDyPUerqHxcmIub+pF0AzJoYHK5punqpqfGmqPbjxrJLPJfHVKy
+	goMj5DlBMoYqEgpbwdUYkH6QdizJJCur4icy8GUNbisFYABeoJ91pnD4IGei3MTdvINSZI5e
+Message-ID: <fcf2c3c0-e479-9e74-59d5-79cd2a0bade6@acm.org>
+Date: Wed, 29 May 2019 05:23:53 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.6.1
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.5.24 (2015-08-30)
+In-Reply-To: <20190529013320.GA3307@zhanggen-UX430UQ>
+Content-Language: en-US
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.48]);
-	Wed, 29 May 2019 01:33:38 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]);
-	Wed, 29 May 2019 01:33:38 +0000 (UTC) for IP:'209.85.210.196'
-	DOMAIN:'mail-pf1-f196.google.com'
-	HELO:'mail-pf1-f196.google.com' FROM:'blackgod016574@gmail.com'
+	(mx1.redhat.com [10.5.110.39]);
+	Wed, 29 May 2019 12:23:58 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]);
+	Wed, 29 May 2019 12:23:58 +0000 (UTC) for IP:'209.85.210.194'
+	DOMAIN:'mail-pf1-f194.google.com'
+	HELO:'mail-pf1-f194.google.com' FROM:'bart.vanassche@gmail.com'
 	RCPT:''
-X-RedHat-Spam-Score: 0.143  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
-	SPF_PASS) 209.85.210.196 mail-pf1-f196.google.com 209.85.210.196
-	mail-pf1-f196.google.com <blackgod016574@gmail.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.48
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-RedHat-Spam-Score: 0.191  (FREEMAIL_FORGED_FROMDOMAIN, FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS, RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
+	SPF_PASS) 209.85.210.194 mail-pf1-f194.google.com 209.85.210.194
+	mail-pf1-f194.google.com <bart.vanassche@gmail.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.39
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Wed, 29 May 2019 03:51:19 -0400
 Cc: linux-kernel@vger.kernel.org
-Subject: [dm-devel] [PATCH] dm-init: fix 2 incorrect use of kstrndup()
+Subject: Re: [dm-devel] [PATCH] dm-init: fix 2 incorrect use of kstrndup()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -106,40 +125,23 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Wed, 29 May 2019 07:53:17 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]); Wed, 29 May 2019 12:27:56 +0000 (UTC)
 
-In drivers/md/dm-init.c, kstrndup() is incorrectly used twice.
+On 5/28/19 6:33 PM, Gen Zhang wrote:
+> In drivers/md/dm-init.c, kstrndup() is incorrectly used twice.
+> 
+> It should be: char *kstrndup(const char *s, size_t max, gfp_t gfp);
 
-It should be: char *kstrndup(const char *s, size_t max, gfp_t gfp);
+Should the following be added to this patch?
 
-Signed-off-by: Gen Zhang <blackgod016574@gmail.com>
----
-diff --git a/drivers/md/dm-init.c b/drivers/md/dm-init.c
-index 352e803..526e261 100644
---- a/drivers/md/dm-init.c
-+++ b/drivers/md/dm-init.c
-@@ -140,8 +140,8 @@ static char __init *dm_parse_table_entry(struct dm_device *dev, char *str)
- 		return ERR_PTR(-EINVAL);
- 	}
- 	/* target_args */
--	dev->target_args_array[n] = kstrndup(field[3], GFP_KERNEL,
--					     DM_MAX_STR_SIZE);
-+	dev->target_args_array[n] = kstrndup(field[3], DM_MAX_STR_SIZE,
-+						GFP_KERNEL);
- 	if (!dev->target_args_array[n])
- 		return ERR_PTR(-ENOMEM);
- 
-@@ -275,7 +275,7 @@ static int __init dm_init_init(void)
- 		DMERR("Argument is too big. Limit is %d\n", DM_MAX_STR_SIZE);
- 		return -EINVAL;
- 	}
--	str = kstrndup(create, GFP_KERNEL, DM_MAX_STR_SIZE);
-+	str = kstrndup(create, DM_MAX_STR_SIZE, GFP_KERNEL);
- 	if (!str)
- 		return -ENOMEM;
- 
----
+Fixes: 6bbc923dfcf5 ("dm: add support to directly boot to a mapped
+device") # v5.1.
+Cc: stable
+
+Thanks,
+
+Bart.
 
 --
 dm-devel mailing list
