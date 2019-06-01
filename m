@@ -2,101 +2,118 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1574130A30
-	for <lists+dm-devel@lfdr.de>; Fri, 31 May 2019 10:24:04 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by mail.lfdr.de (Postfix) with ESMTPS id 000D3319EC
+	for <lists+dm-devel@lfdr.de>; Sat,  1 Jun 2019 08:29:59 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 226AF308A9BE;
-	Fri, 31 May 2019 08:23:59 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 1F05930C1FE5;
+	Sat,  1 Jun 2019 06:29:52 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0FCC019736;
-	Fri, 31 May 2019 08:23:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0EC2D541C1;
+	Sat,  1 Jun 2019 06:29:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0269419725;
-	Fri, 31 May 2019 08:23:41 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9DA59206D2;
+	Sat,  1 Jun 2019 06:29:31 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x4V0iNx2022295 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 30 May 2019 20:44:23 -0400
+	id x516TBOG024497 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 1 Jun 2019 02:29:11 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 69D562B7EA; Fri, 31 May 2019 00:44:23 +0000 (UTC)
+	id 2D57066605; Sat,  1 Jun 2019 06:29:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx17.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.46])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3787C87BC;
-	Fri, 31 May 2019 00:44:19 +0000 (UTC)
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
-	[209.85.214.174])
+Received: from mx1.redhat.com (ext-mx13.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.42])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 25AFD4D711
+	for <dm-devel@redhat.com>; Sat,  1 Jun 2019 06:29:09 +0000 (UTC)
+Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
+	[209.85.210.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id B8EFC3082E23;
-	Fri, 31 May 2019 00:44:18 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id w7so3242683plz.1;
-	Thu, 30 May 2019 17:44:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=date:from:to:cc:subject:message-id:references:mime-version
-	:content-disposition:in-reply-to:user-agent;
-	bh=pjwii2Brt6xBSvnEhlUw9zNfgBaud+bUpP81y7elYvE=;
-	b=gTxizZXBja6W+65pLwkqK5NdinqbCGNOQ2cqLq+phnhxipCCbStvCBzm8gTVxhMJl4
-	gb4hdeabjxPG35YWiwUM8KCuwL7WlXGBWiRVHCJ7K+/0fgiiUniJ50zU2aJwkwkN2WxZ
-	Yh2kRldOVf7uxz+T3PVPsw9rD+3QidYAQX6/xdgelQyq5i7vpLJXY78Pp0ND8zvwZLo+
-	QlrERKMK8lhlHnP638GJ3XiCA1vJ8EElrYSlalAu38L5p/IoNa8rdcexn7OfUT3ePz89
-	HUWCtH+aCYAY11LGYjnumt/4mvovZzrzqxMXSloKiMAteN0C/4I9WgxFaiPMSYhklrNJ
-	/Bgw==
+	by mx1.redhat.com (Postfix) with ESMTPS id 1CD353001D53
+	for <dm-devel@redhat.com>; Sat,  1 Jun 2019 06:29:08 +0000 (UTC)
+Received: by mail-ot1-f65.google.com with SMTP id 107so5600394otj.8
+	for <dm-devel@redhat.com>; Fri, 31 May 2019 23:29:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=intel-com.20150623.gappssmtp.com; s=20150623;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc; bh=pvQK6WJG0mGv3pVSu5OSYb8LqyE3fhcFrJhciECSYJY=;
+	b=zAq3dmDcYmDOFRGWPRho3n9VwHtS/ms4RxAtlrWfGP6kzMscluGhAO/pUa4TA+4EUS
+	O0/4V2wR9qZcVx3qMS3QoB+HAQeLd2d2CDwsDN1N3DBbRKcGdR7bB+bQJPhBtO5qBBD8
+	qYtkmlkUSEKMjZ50q7KpWOF2nJop+rQTGA+KOkHdzHd+G7A7NpsAwm9za6+lD17Xpadt
+	bBwCs0HFc6tNdDL6uOqSRQ+UbMp0iEmi4VLXhjbg/8iQ6ZYHFac4FNgAxARif9GzMuH6
+	t9gOCBA01URioVkiQ14oCPcK7W+RxbSIJNNYh1f11vuThMbN9aOLBPGBjStFZqhbk42U
+	MHXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-	:mime-version:content-disposition:in-reply-to:user-agent;
-	bh=pjwii2Brt6xBSvnEhlUw9zNfgBaud+bUpP81y7elYvE=;
-	b=DP4ygXoIw9JddMbSghIdRQaW8Tho/hRH9m0cfWIllCPqzoC6I59axCkeCbVqgJk11o
-	SiV4JTADoy75b1N9gXm0UETDRkDItM8FtgxAjZuzyzrtab2J1u5cqgDcfYrWl9MrEtlS
-	B/g98GUbaiGYSJXtUEw5E6nMIxGpeSjylf77k3vm/ZrsLcS4ca4lZ4Q2E0ZTTDU5YWQx
-	92TSOkQgE66iqfK8PeA9+pdcmrWkqMEqwGb9b2rw37DC7Q9dlKzfbI+GCIHVPeVU9XXx
-	QFr41AZ8BOXAtOV/7zPNkf1tXUlMXmAtcUhLmLu1Nan5Yc7wrwYsMrXMH13p+gZs7lQV
-	Z9rQ==
-X-Gm-Message-State: APjAAAUqEYU28DJdPa9FEA8nBCjxxInJKNataKe3I3eyZUNrFld2Z6ZF
-	AZSas6bhDXkKz0mStXpnyVxQsGJJ
-X-Google-Smtp-Source: APXvYqylgEoZaxBsuYfrywx4mBS5rVGmwnIH23UDrqpIkPpDOhikd9YwQuznSYdzCo5BNwB7tyz9FQ==
-X-Received: by 2002:a17:902:2d:: with SMTP id 42mr6330841pla.34.1559263458100; 
-	Thu, 30 May 2019 17:44:18 -0700 (PDT)
-Received: from zhanggen-UX430UQ ([66.42.35.75])
-	by smtp.gmail.com with ESMTPSA id d9sm3460684pgj.34.2019.05.30.17.44.12
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Thu, 30 May 2019 17:44:17 -0700 (PDT)
-Date: Fri, 31 May 2019 08:44:05 +0800
-From: Gen Zhang <blackgod016574@gmail.com>
-To: Mike Snitzer <snitzer@redhat.com>
-Message-ID: <20190531004405.GA3090@zhanggen-UX430UQ>
-References: <20190529013320.GA3307@zhanggen-UX430UQ>
-	<fcf2c3c0-e479-9e74-59d5-79cd2a0bade6@acm.org>
-	<20190529152443.GA4076@zhanggen-UX430UQ>
-	<20190530161103.GA30026@redhat.com>
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=pvQK6WJG0mGv3pVSu5OSYb8LqyE3fhcFrJhciECSYJY=;
+	b=NR1A+vv4itIYOc1r5lRc3R+djOLQlTx8EMOalN3hkOKLf+LMgMDg4PiS6uZms+/SaJ
+	xEQcEwKOywTzo7VqFAY/1GAUeaakMWhcxFcBTk5cyxxuiUDPopOUMS7E9Y8wA+cibY6q
+	67LR5PgCEqV6wmFNOkBED7s9vLPBwI+vKieIez633JqYn8rXTLojxPDB8YL/FtCmDAmI
+	belluby2FRThn7touCjvhsf4yjqDihoS8HRW2T2xVcMsXUyxZoKxQAblRZ2TR7OSvuK1
+	jLYw8/gs4asfRD171qvhFPlqr3GAS5TNAWrfQEe2LZ+xwHFcPvu00pmyevs2mkqcfi2k
+	zl/g==
+X-Gm-Message-State: APjAAAWZp8mE6gzD1n9J3GXbBh9RAmO1TgtqhkhUNPS2GtUPxb5bvh97
+	2rThSAejMmj8DdoqNPjHwvP73UsfuF2HdLqdkn7qbQ==
+X-Google-Smtp-Source: APXvYqxuwOV4rRKEmSZCq5qcwBRWuusFc8LtQ4tAccMQn0kPo+oROMhcV0mbfJCQAHkg4BYqbZdyRhVUU/uCtJ3RX78=
+X-Received: by 2002:a9d:7a8b:: with SMTP id l11mr4259219otn.247.1559370547538; 
+	Fri, 31 May 2019 23:29:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190530161103.GA30026@redhat.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+References: <20190521133713.31653-1-pagupta@redhat.com>
+	<20190521133713.31653-5-pagupta@redhat.com>
+In-Reply-To: <20190521133713.31653-5-pagupta@redhat.com>
+From: Dan Williams <dan.j.williams@intel.com>
+Date: Fri, 31 May 2019 23:28:56 -0700
+Message-ID: <CAPcyv4iW-UeHBs+qSii2Pk7Q2Nki6imGBTEORuxEAWgEMMp=nA@mail.gmail.com>
+To: Pankaj Gupta <pagupta@redhat.com>
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.46]);
-	Fri, 31 May 2019 00:44:18 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]);
-	Fri, 31 May 2019 00:44:18 +0000 (UTC) for IP:'209.85.214.174'
-	DOMAIN:'mail-pl1-f174.google.com'
-	HELO:'mail-pl1-f174.google.com' FROM:'blackgod016574@gmail.com'
-	RCPT:''
-X-RedHat-Spam-Score: 0.141  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
+	(mx1.redhat.com [10.5.110.42]);
+	Sat, 01 Jun 2019 06:29:08 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]);
+	Sat, 01 Jun 2019 06:29:08 +0000 (UTC) for IP:'209.85.210.65'
+	DOMAIN:'mail-ot1-f65.google.com' HELO:'mail-ot1-f65.google.com'
+	FROM:'dan.j.williams@intel.com' RCPT:''
+X-RedHat-Spam-Score: -0.01  (DKIM_SIGNED, DKIM_VALID, RCVD_IN_DNSWL_NONE,
 	SPF_HELO_NONE,
-	SPF_PASS) 209.85.214.174 mail-pl1-f174.google.com 209.85.214.174
-	mail-pl1-f174.google.com <blackgod016574@gmail.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.46
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+	SPF_PASS) 209.85.210.65 mail-ot1-f65.google.com 209.85.210.65
+	mail-ot1-f65.google.com <dan.j.williams@intel.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.42
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Fri, 31 May 2019 04:23:29 -0400
-Cc: dm-devel@redhat.com, Bart Van Assche <bvanassche@acm.org>, agk@redhat.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [dm-devel] dm-init: fix 2 incorrect use of kstrndup()
+Cc: cohuck@redhat.com, Jan Kara <jack@suse.cz>, KVM list <kvm@vger.kernel.org>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>, david <david@fromorbit.com>,
+	Qemu Developers <qemu-devel@nongnu.org>,
+	virtualization@lists.linux-foundation.org,
+	device-mapper development <dm-devel@redhat.com>,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	Ross Zwisler <zwisler@kernel.org>, Andrea Arcangeli <aarcange@redhat.com>,
+	Dave Jiang <dave.jiang@intel.com>, jstaron@google.com,
+	linux-nvdimm <linux-nvdimm@lists.01.org>,
+	Vishal L Verma <vishal.l.verma@intel.com>,
+	David Hildenbrand <david@redhat.com>, Matthew Wilcox <willy@infradead.org>,
+	Christoph Hellwig <hch@infradead.org>,
+	Linux ACPI <linux-acpi@vger.kernel.org>, jmoyer <jmoyer@redhat.com>,
+	linux-ext4 <linux-ext4@vger.kernel.org>,
+	Len Brown <lenb@kernel.org>, Adam Borowski <kilobyte@angband.pl>,
+	Randy Dunlap <rdunlap@infradead.org>, Rik van Riel <riel@surriel.com>,
+	yuval shaia <yuval.shaia@oracle.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>, lcapitulino@redhat.com,
+	Kevin Wolf <kwolf@redhat.com>, Nitesh Narayan Lal <nilal@redhat.com>,
+	Theodore Ts'o <tytso@mit.edu>,
+	Xiao Guangrong <xiaoguangrong.eric@gmail.com>,
+	Mike Snitzer <snitzer@redhat.com>,
+	"Darrick J. Wong" <darrick.wong@oracle.com>,
+	"Rafael J. Wysocki" <rjw@rjwysocki.net>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-xfs <linux-xfs@vger.kernel.org>,
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+	Igor Mammedov <imammedo@redhat.com>
+Subject: Re: [dm-devel] [PATCH v10 4/7] dm: enable synchronous dax
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -112,19 +129,55 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]); Fri, 31 May 2019 08:24:02 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]); Sat, 01 Jun 2019 06:29:58 +0000 (UTC)
 
-> Yes, it should have the tags Bart suggested.
-> 
-> I'll take care it.
-> 
-> Thanks,
-> Mike
-Thanks for your reply, and please keep me informed if it is applied.
+On Tue, May 21, 2019 at 6:43 AM Pankaj Gupta <pagupta@redhat.com> wrote:
+>
+>  This patch sets dax device 'DAXDEV_SYNC' flag if all the target
+>  devices of device mapper support synchrononous DAX. If device
+>  mapper consists of both synchronous and asynchronous dax devices,
+>  we don't set 'DAXDEV_SYNC' flag.
+>
+> Signed-off-by: Pankaj Gupta <pagupta@redhat.com>
+> ---
+>  drivers/md/dm-table.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+>
+> diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+> index cde3b49b2a91..1cce626ff576 100644
+> --- a/drivers/md/dm-table.c
+> +++ b/drivers/md/dm-table.c
+> @@ -886,10 +886,17 @@ static int device_supports_dax(struct dm_target *ti, struct dm_dev *dev,
+>         return bdev_dax_supported(dev->bdev, PAGE_SIZE);
+>  }
+>
+> +static int device_synchronous(struct dm_target *ti, struct dm_dev *dev,
+> +                              sector_t start, sector_t len, void *data)
+> +{
+> +       return dax_synchronous(dev->dax_dev);
+> +}
+> +
+>  static bool dm_table_supports_dax(struct dm_table *t)
+>  {
+>         struct dm_target *ti;
+>         unsigned i;
+> +       bool dax_sync = true;
+>
+>         /* Ensure that all targets support DAX. */
+>         for (i = 0; i < dm_table_get_num_targets(t); i++) {
+> @@ -901,7 +908,14 @@ static bool dm_table_supports_dax(struct dm_table *t)
+>                 if (!ti->type->iterate_devices ||
+>                     !ti->type->iterate_devices(ti, device_supports_dax, NULL))
+>                         return false;
+> +
+> +               /* Check devices support synchronous DAX */
+> +               if (dax_sync &&
+> +                   !ti->type->iterate_devices(ti, device_synchronous, NULL))
+> +                       dax_sync = false;
 
-Thanks
-Gen
+Looks like this needs to be rebased on the current state of v5.2-rc,
+and then we can nudge Mike for an ack.
 
 --
 dm-devel mailing list
