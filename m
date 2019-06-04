@@ -2,101 +2,73 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6254F35863
-	for <lists+dm-devel@lfdr.de>; Wed,  5 Jun 2019 10:18:03 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5433235860
+	for <lists+dm-devel@lfdr.de>; Wed,  5 Jun 2019 10:18:00 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id C919D5D672;
+	by mx1.redhat.com (Postfix) with ESMTPS id DAA63C18B2CD;
 	Wed,  5 Jun 2019 08:17:57 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9B97C5C22B;
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AB5695D9D6;
 	Wed,  5 Jun 2019 08:17:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 80E60206D3;
-	Wed,  5 Jun 2019 08:17:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 71AB01806B18;
+	Wed,  5 Jun 2019 08:17:48 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x53N3CDN001696 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 3 Jun 2019 19:03:15 -0400
+	id x544LkAR027018 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 4 Jun 2019 00:21:47 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E1896607B7; Mon,  3 Jun 2019 23:03:12 +0000 (UTC)
+	id EA30119480; Tue,  4 Jun 2019 04:21:46 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx02.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.26])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DBA9D5D9CC
-	for <dm-devel@redhat.com>; Mon,  3 Jun 2019 23:03:10 +0000 (UTC)
-Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com
-	[209.85.210.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.redhat.com (ext-mx14.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.43])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A2BA196AD;
+	Tue,  4 Jun 2019 04:21:42 +0000 (UTC)
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id DBE08820E2
-	for <dm-devel@redhat.com>; Mon,  3 Jun 2019 23:03:01 +0000 (UTC)
-Received: by mail-pf1-f193.google.com with SMTP id x15so1657602pfq.0
-	for <dm-devel@redhat.com>; Mon, 03 Jun 2019 16:03:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
-	h=message-id:mime-version:content-transfer-encoding:in-reply-to
-	:references:cc:to:from:subject:user-agent:date;
-	bh=M0Hol1AOy0PKp1c8t8OnpXkvg1N8/Tmp5x6wPCFFMsw=;
-	b=Xfn13xPJjjwbLXR9uug3Z3G6LQb+xBE4ONBMi76WHafAXU8u3CBRtuKcEB+IYyRXLD
-	df0YOzJAgsBizPo4j8K2kObvDFTIa00ANWFb0BsDU0KgNxuBCjcQy0Ye0Glb5SZ8I7Uy
-	d0e1kVim0sDFhNYzBkTSEazmw7ZzArabm1gNA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:message-id:mime-version
-	:content-transfer-encoding:in-reply-to:references:cc:to:from:subject
-	:user-agent:date;
-	bh=M0Hol1AOy0PKp1c8t8OnpXkvg1N8/Tmp5x6wPCFFMsw=;
-	b=pc5d1Fsq1QNOVOjH7Q6RX6UqGUBTk7IEOnW8xuVdoa+KFZcCbDJnS654mUZZt0q91k
-	opAg+N+2thjYvq4Q8AThrj2mRZ3SI/M6iLhlM7Lzckj3kZ/1wuPFr5XKombXxNJp8WZa
-	/MsMaIRiCwKmYFR1vgD6Nc8C3DTpzLCe2i4gOhelb6jTyh2tqnwlqhjoD54PTWkLbNx+
-	Mxz0lkYiUcT4nGQ/I94rgAGINOih5wHa3dbIXhXHu6EHGo3jzRZZKrHzuy50/WiFGM/m
-	v81g7cOs9Tr8DLKPy8MIwhuvgzyMHHM2Ene7Xt1Q/eXOry6ZebEpSLwJ8enm148OwcTq
-	eVPw==
-X-Gm-Message-State: APjAAAUTfSV4tsgfEwgOdZrSn4tY4E+XGw9cr/+njCm1W6GjEoNY2wYn
-	76FXGKLtFa6E1yFNP2Ic663kCw==
-X-Google-Smtp-Source: APXvYqxm7Ws5lscObY+oPn1h3+ONhLwXf8YRLVndDfYmndsXiVoHaByRfk1oBLv+cxwcrRXvWyohLg==
-X-Received: by 2002:a63:6c87:: with SMTP id
-	h129mr32302973pgc.427.1559602981281; 
-	Mon, 03 Jun 2019 16:03:01 -0700 (PDT)
-Received: from chromium.org ([2620:15c:202:1:fa53:7765:582b:82b9])
-	by smtp.gmail.com with ESMTPSA id
-	c142sm17390174pfb.171.2019.06.03.16.03.00
-	(version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
-	Mon, 03 Jun 2019 16:03:00 -0700 (PDT)
-Message-ID: <5cf5a724.1c69fb81.1e8f0.08fb@mx.google.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id 296433092674;
+	Tue,  4 Jun 2019 04:21:09 +0000 (UTC)
+Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.59])
+	by Forcepoint Email with ESMTP id 484EB9DA749370177C29;
+	Tue,  4 Jun 2019 12:21:01 +0800 (CST)
+Received: from [127.0.0.1] (10.177.244.145) by DGGEMS405-HUB.china.huawei.com
+	(10.3.19.205) with Microsoft SMTP Server id 14.3.439.0;
+	Tue, 4 Jun 2019 12:20:54 +0800
+To: Josef Bacik <josef@toxicpanda.com>, Mike Snitzer <snitzer@redhat.com>
+References: <1559571534-16467-1-git-send-email-yi.zhang@huawei.com>
+	<20190603144608.GA22116@redhat.com>
+	<20190603190243.zqbfsgz22k3wghby@MacBook-Pro-91.local>
+From: "zhangyi (F)" <yi.zhang@huawei.com>
+Message-ID: <fae337b4-146e-743e-fe7d-6c796bfd560d@huawei.com>
+Date: Tue, 4 Jun 2019 12:20:53 +0800
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
+	Thunderbird/45.4.0
 MIME-Version: 1.0
-In-Reply-To: <20190221203334.24504-1-helen.koike@collabora.com>
-References: <20190221203334.24504-1-helen.koike@collabora.com>
-To: Helen Koike <helen.koike@collabora.com>, dm-devel@redhat.com
-From: Stephen Boyd <swboyd@chromium.org>
-User-Agent: alot/0.8.1
-Date: Mon, 03 Jun 2019 16:02:59 -0700
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.26]);
-	Mon, 03 Jun 2019 23:03:02 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]);
-	Mon, 03 Jun 2019 23:03:02 +0000 (UTC) for IP:'209.85.210.193'
-	DOMAIN:'mail-pf1-f193.google.com'
-	HELO:'mail-pf1-f193.google.com' FROM:'swboyd@chromium.org' RCPT:''
-X-RedHat-Spam-Score: -0.118  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL,
-	SPF_HELO_NONE, SPF_PASS,
-	T_DKIMWL_WL_HIGH) 209.85.210.193 mail-pf1-f193.google.com
-	209.85.210.193 mail-pf1-f193.google.com <swboyd@chromium.org>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.26
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id x53N3CDN001696
+In-Reply-To: <20190603190243.zqbfsgz22k3wghby@MacBook-Pro-91.local>
+X-Originating-IP: [10.177.244.145]
+X-CFilter-Loop: Reflected
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.43]); Tue, 04 Jun 2019 04:21:27 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]);
+	Tue, 04 Jun 2019 04:21:27 +0000 (UTC) for IP:'45.249.212.190'
+	DOMAIN:'szxga04-in.huawei.com' HELO:'huawei.com'
+	FROM:'yi.zhang@huawei.com' RCPT:''
+X-RedHat-Spam-Score: -0.702  (RCVD_IN_DNSWL_LOW, SPF_HELO_PASS,
+	SPF_PASS) 45.249.212.190 szxga04-in.huawei.com
+	45.249.212.190 szxga04-in.huawei.com <yi.zhang@huawei.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.43
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 05 Jun 2019 04:13:38 -0400
-Cc: wad@chromium.org, keescook@chromium.org, snitzer@redhat.com,
-	linux-doc@vger.kernel.org, richard.weinberger@gmail.com,
-	linux-kernel@vger.kernel.org, linux-lvm@redhat.com,
-	enric.balletbo@collabora.com, kernel@collabora.com, agk@redhat.com
-Subject: Re: [dm-devel] [PATCH v12] dm: add support to directly boot to a
-	mapped device
+Cc: Josef Bacik <jbacik@fb.com>, dm-devel@redhat.com, agk@redhat.com,
+	houtao1@huawei.com
+Subject: Re: [dm-devel] dm log writes: make sure the log super sectors are
+ written in order
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -112,98 +84,117 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]); Wed, 05 Jun 2019 08:18:02 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.31]); Wed, 05 Jun 2019 08:17:59 +0000 (UTC)
 
-Quoting Helen Koike (2019-02-21 12:33:34)
-> Add a "create" module parameter, which allows device-mapper targets to be
-> configured at boot time. This enables early use of dm targets in the boot
-> process (as the root device or otherwise) without the need of an initramfs.
+On 2019/6/4 3:02, Josef Bacik Wrote:
+> On Mon, Jun 03, 2019 at 10:46:08AM -0400, Mike Snitzer wrote:
+>> On Mon, Jun 03 2019 at 10:18am -0400,
+>> zhangyi (F) <yi.zhang@huawei.com> wrote:
+>>
+>>> Currently, although we submit super bios in log-write thread orderly
+>>> (the super.nr_entries is incremented by each logged entry), the
+>>> submit_bio() cannot make sure that each super sector is written to log
+>>> device in order. So the submitting bio of each super sector may be
+>>> out-of-order, and then the final nr_entries maybe small than the real
+>>> entries submitted.
+>>>
+>>> This problem can be reproduced by the xfstests generic/455 with ext4,
+>>> which may complained below after running the test:
+>>>
+>>>   QA output created by 455
+>>>  -Silence is golden
+>>>  +mark 'end' does not exist
+>>>
+>>> This patch serialize submitting super secotrs to make sure each super
+>>> sectors are written to log disk in order.
+>>>
+>>> Signed-off-by: zhangyi (F) <yi.zhang@huawei.com>
+>>
+>> This doesn't feel right.
+>>
+>> You raised 2 things you're trying to address:
+>> 1) IO is out of order
+>> 2) accounting (nr_entries) isn't correct
+>>
+>> I'll need to reviewer closer but serializing "super" bios doesn't seem
+>> like the best fix.
+>>
+>> Josef, any chance you can weigh in on this?  AFAIK you are still "the
+>> man" for dm-log-writes ;)
+>>
 > 
-> The syntax used in the boot param is based on the concise format from the
-> dmsetup tool to follow the rule of least surprise:
-> 
->         sudo dmsetup table --concise /dev/mapper/lroot
-> 
-> Which is:
->         dm-mod.create=<name>,<uuid>,<minor>,<flags>,<table>[,<table>+][;<name>,<uuid>,<minor>,<flags>,<table>[,<table>+]+]
-> 
-> Where,
->         <name>          ::= The device name.
->         <uuid>          ::= xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx | ""
->         <minor>         ::= The device minor number | ""
->         <flags>         ::= "ro" | "rw"
->         <table>         ::= <start_sector> <num_sectors> <target_type> <target_args>
->         <target_type>   ::= "verity" | "linear" | ...
-> 
-> For example, the following could be added in the boot parameters:
-> dm-mod.create="lroot,,,rw, 0 4096 linear 98:16 0, 4096 4096 linear 98:32 0" root=/dev/dm-0
-> 
-> Only the targets that were tested are allowed and the ones that doesn't
-> change any block device when the dm is create as read-only. For example,
-> mirror and cache targets are not allowed. The rationale behind this is
-> that if the user makes a mistake, choosing the wrong device to be the
-> mirror or the cache can corrupt data.
-> 
-> The only targets allowed are:
-> * crypt
-> * delay
-> * linear
-> * snapshot-origin
-> * striped
-> * verity
-> 
-> Co-developed-by: Will Drewry <wad@chromium.org>
-> Co-developed-by: Kees Cook <keescook@chromium.org>
-> Co-developed-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-> Signed-off-by: Helen Koike <helen.koike@collabora.com>
-> 
-> ---
+> Well the #2 is caused by #1, we submit the bio for a super two times in a row
+> and it's a crapshoot which one makes it to disk.  So he's right, and it's kind
+> of funny because this is the sort of problem that dm-log-writes was written to
+> catch, and I fucked it up here ;).  That being said this is a bit
+> over-engineered, can we just add a completion to the log buff and do a
+> wait_for_completion() when we're writing out the super?  It's not like this thing
+> needs to be super performant.  Thanks,
 > 
 
-I'm trying to boot a mainline linux kernel on a chromeos device with dm
-verity and a USB stick but it's not working for me even with this patch.
-I've had to hack around two problems:
+Hi, Josef
 
- 1) rootwait isn't considered
+Thanks for your suggestions. It's fine by me to switch to use completion
+instead. Some thing like this?
 
- 2) verity doesn't seem to accept UUID for <hash_dev> or <dev>
+...
+@@ -180,6 +182,15 @@ static void log_end_io(struct bio *bio)
+        bio_put(bio);
+ }
 
-For the first problem, it happens every boot for me because I'm trying
-to boot off of a USB stick and it's behind a hub that takes a few
-seconds to enumerate. If I hack up the code to call dm_init_init() after
-the 'rootdelay' cmdline parameter is used then I can make this work. It
-would be much nicer if the whole mechanism didn't use a late initcall
-though. If it used a hook from prepare_namespace() and then looped
-waiting for devices to create when rootwait was specified it would work.
++static void log_end_super(struct bio *bio)
++{
++       struct log_writes_c *lc = bio->bi_private;
++
++       /* Wake up log-write kthread that super has been written */
++       complete(&lc->super_comp);
++       log_end_io(bio);
++}
++
+ /*
+  * Meant to be called if there is an error, it will free all the pages
+  * associated with the block.
+@@ -215,7 +226,8 @@ static int write_metadata(struct log_writes_c *lc, void *entry,
+        bio->bi_iter.bi_size = 0;
+        bio->bi_iter.bi_sector = sector;
+        bio_set_dev(bio, lc->logdev->bdev);
+-       bio->bi_end_io = log_end_io;
++       bio->bi_end_io = (sector == WRITE_LOG_SUPER_SECTOR) ?
++                         log_end_super : log_end_io;
+        bio->bi_private = lc;
+        bio_set_op_attrs(bio, REQ_OP_WRITE, 0);
 
-The second problem is that in chromeos we have the bootloader fill out
-the UUID of the kernel partition (%U) and then we have another parameter
-that indicates the offset from that kernel partition to add to the
-kernel partition (typically 1, i.e. PARTNROFF=1) to find the root
-filesystem partition. The way verity seems to work here is that we need
-to specify a path like /dev/sda3 or the major:minor number of the device
-on the commandline to make this work. It would be better if we could add
-in support for the PARTNROFF style that name_to_dev_t() handles so we
-can specify the root partition like we're currently doing. I suspect we
-should be able to add support for this into the device mapper layer so
-that we can specify devices this way.
+@@ -418,11 +430,19 @@ static int log_super(struct log_writes_c *lc)
+        super.nr_entries = cpu_to_le64(lc->logged_entries);
+        super.sectorsize = cpu_to_le32(lc->sectorsize);
 
-If it helps, an example commandline I've been using to test out a usb
-stick is as follows:
+-       if (write_metadata(lc, &super, sizeof(super), NULL, 0, 0)) {
++       if (write_metadata(lc, &super, sizeof(super), NULL, 0,
++                          WRITE_LOG_SUPER_SECTOR)) {
+                DMERR("Couldn't write super");
+                return -1;
+        }
 
-dm-mod.create="vroot,,0,ro, 0 4710400 verity 0 8:19 8:19 4096 4096 588800 588800 sha1 9b0a223aedbf74b06442b0f05fbff33c55edd010 414b21fba60a1901e23aec373e994942e991d6762631e54a39bc42411f244bd2"
++       /*
++        * Super sector should be writen in-order, or else the
++        * nr_entries could be rewritten by the old bio and small
++        * than the real submitted entries.
++        */
++       wait_for_completion_io(&lc->super_comp);
++
+        return 0;
+ }
+...
 
-Also, the documentation (Documentation/device-mapper/dm-init.txt) says
-we can use a way that doesn't specify so many arguments, but dm verity
-complains about not enough arguments (10) when following the example:
+But one thing need to mention is that, IIUC, If we use completion, the
+log_writes_kthread have to wait on writing out every super bio, so it cannot
+keep on submitting subsequent log bios. It maybe more performance impact
+than my v1 (it only wait on previous super if it was not finished).
 
-  vroot,,,ro,
-  0 1740800 verity 254:0 254:0 1740800 sha1
-  76e9be054b15884a9fa85973e9cb274c93afadb6
-  5b3549d54d6c7a3837b9b81ed72e49463a64c03680c47835bef94d768e5646fe;    
+Thanks,
+Yi.
 
-So the documentation needs an update?
 
 
 --
