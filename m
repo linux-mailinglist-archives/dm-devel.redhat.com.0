@@ -2,62 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4173835864
-	for <lists+dm-devel@lfdr.de>; Wed,  5 Jun 2019 10:18:07 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	by mail.lfdr.de (Postfix) with ESMTPS id 48BDE35862
+	for <lists+dm-devel@lfdr.de>; Wed,  5 Jun 2019 10:18:02 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 53738307D96F;
+	by mx1.redhat.com (Postfix) with ESMTPS id 3217230860C6;
 	Wed,  5 Jun 2019 08:18:00 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 267475C207;
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 025FE60CD6;
 	Wed,  5 Jun 2019 08:18:00 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EF545206D3;
-	Wed,  5 Jun 2019 08:17:58 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6DF131806B11;
+	Wed,  5 Jun 2019 08:17:59 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
 	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x54JMCPS013809 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 4 Jun 2019 15:22:12 -0400
+	id x54JZEQf015579 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 4 Jun 2019 15:35:15 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2967918220; Tue,  4 Jun 2019 19:22:12 +0000 (UTC)
+	id 8541618220; Tue,  4 Jun 2019 19:35:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx15.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.44])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 01DBA608A7;
-	Tue,  4 Jun 2019 19:22:06 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id D2C5E307EA81;
-	Tue,  4 Jun 2019 19:21:26 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	(Authenticated sender: ezequiel) with ESMTPSA id 7052C281D9F
-Message-ID: <9460817290d5846a34b81470b15ac36d88a08aad.camel@collabora.com>
-From: Ezequiel Garcia <ezequiel@collabora.com>
-To: Helen Koike <helen.koike@collabora.com>, Stephen Boyd
-	<swboyd@chromium.org>, dm-devel@redhat.com
-Date: Tue, 04 Jun 2019 16:21:10 -0300
+Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.41])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F17B17F55
+	for <dm-devel@redhat.com>; Tue,  4 Jun 2019 19:35:12 +0000 (UTC)
+Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com
+	[209.85.210.196])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 7316B3162909
+	for <dm-devel@redhat.com>; Tue,  4 Jun 2019 19:35:03 +0000 (UTC)
+Received: by mail-pf1-f196.google.com with SMTP id t16so4471811pfe.11
+	for <dm-devel@redhat.com>; Tue, 04 Jun 2019 12:35:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+	h=message-id:mime-version:content-transfer-encoding:in-reply-to
+	:references:cc:to:from:subject:user-agent:date;
+	bh=xTD3XYO7Igxo0exyVWI6cc/41JrtEN9oQdvmNtmSfwE=;
+	b=e65zpbS38buPRA7hJtKymGX9tOAOvBPPnprOcQ6P31L4GDzt+jIz0g3GAnaNu6GwrK
+	hXlj+/nGYhqoWPwArQB6kpxB0vnmyu9pMLgzZCwXSQeWDJ4VaDBX6ebIrbJq4LqWNsil
+	nyb5IFzRCjhcgcgLI1jmjaOzRFqzAy3rG/zw8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:message-id:mime-version
+	:content-transfer-encoding:in-reply-to:references:cc:to:from:subject
+	:user-agent:date;
+	bh=xTD3XYO7Igxo0exyVWI6cc/41JrtEN9oQdvmNtmSfwE=;
+	b=T/2xBghjlrl+M6RaAtudpB4uR62SFW90ShG9YXMuZQba8rIErTgKPv4ghmtiMbU/yh
+	VIvZurccsGmC7Ta+3WxXtrFZIUJbBL1sAX9oiArjjm7h/ux32/cZseNs09ROFahe2pQ8
+	09jDfGn3j43UpMVBEuMkxhcYniX893mtC6bbKodnkGzhufQMJADwApaiXbEGUo/a38GN
+	6Typlyzv4C8j5f1hS3IyYRhBuX8/Q2KD2yzUns4dqvvvjGWTDsYK+Yit5PB23e5k9Csv
+	kiw1r8VkCIXLsqCvk3MLsn/BPBV6gRJ5dHnhwb565DBzReUggBmgRtpy1dXdVpQOsilA
+	HLZA==
+X-Gm-Message-State: APjAAAWLxHY3uakLf5u/3J5PN64SlT3fMA4w+DrdlRDwAJRwmlMEa+8e
+	JkVL3TrQT5lFqUuJBS9bVULVfg==
+X-Google-Smtp-Source: APXvYqwy/fZXLgeDSXS8MB6n4hh9Ump+ILns1RyYBF25QdlYHm22iNJCOMA32625Bb8ggKG9bpa1gA==
+X-Received: by 2002:a63:70f:: with SMTP id 15mr237119pgh.432.1559676902860;
+	Tue, 04 Jun 2019 12:35:02 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:1:fa53:7765:582b:82b9])
+	by smtp.gmail.com with ESMTPSA id
+	g17sm29008667pfb.56.2019.06.04.12.35.01
+	(version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+	Tue, 04 Jun 2019 12:35:02 -0700 (PDT)
+Message-ID: <5cf6c7e6.1c69fb81.e1551.8ac4@mx.google.com>
+MIME-Version: 1.0
 In-Reply-To: <d6b4fb26-9a1b-0acd-ce4a-e48322a17e7d@collabora.com>
 References: <20190221203334.24504-1-helen.koike@collabora.com>
 	<5cf5a724.1c69fb81.1e8f0.08fb@mx.google.com>
 	<d6b4fb26-9a1b-0acd-ce4a-e48322a17e7d@collabora.com>
-Organization: Collabora
-User-Agent: Evolution 3.30.5-1 
-MIME-Version: 1.0
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.44]); Tue, 04 Jun 2019 19:21:57 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]);
-	Tue, 04 Jun 2019 19:21:57 +0000 (UTC) for IP:'46.235.227.227'
-	DOMAIN:'bhuna.collabora.co.uk' HELO:'bhuna.collabora.co.uk'
-	FROM:'ezequiel@collabora.com' RCPT:''
-X-RedHat-Spam-Score: -0.011  (RCVD_IN_DNSWL_NONE, SPF_HELO_PASS, SPF_PASS,
-	UNPARSEABLE_RELAY) 46.235.227.227 bhuna.collabora.co.uk
-	46.235.227.227 bhuna.collabora.co.uk <ezequiel@collabora.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.44
+To: Helen Koike <helen.koike@collabora.com>, dm-devel@redhat.com
+From: Stephen Boyd <swboyd@chromium.org>
+User-Agent: alot/0.8.1
+Date: Tue, 04 Jun 2019 12:35:01 -0700
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.41]);
+	Tue, 04 Jun 2019 19:35:03 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]);
+	Tue, 04 Jun 2019 19:35:03 +0000 (UTC) for IP:'209.85.210.196'
+	DOMAIN:'mail-pf1-f196.google.com'
+	HELO:'mail-pf1-f196.google.com' FROM:'swboyd@chromium.org' RCPT:''
+X-RedHat-Spam-Score: -0.108  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL,
+	SPF_HELO_NONE,
+	SPF_PASS) 209.85.210.196 mail-pf1-f196.google.com 209.85.210.196
+	mail-pf1-f196.google.com <swboyd@chromium.org>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.41
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id x54JZEQf015579
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 05 Jun 2019 04:13:38 -0400
 Cc: wad@chromium.org, keescook@chromium.org, snitzer@redhat.com,
@@ -81,60 +113,11 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]); Wed, 05 Jun 2019 08:18:06 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]); Wed, 05 Jun 2019 08:18:00 +0000 (UTC)
 
-Hi Stephen,
-
-On Tue, 2019-06-04 at 14:38 -0300, Helen Koike wrote:
-> Hi Stephen,
-> 
+Quoting Helen Koike (2019-06-04 10:38:59)
 > On 6/3/19 8:02 PM, Stephen Boyd wrote:
-> > Quoting Helen Koike (2019-02-21 12:33:34)
-> > > Add a "create" module parameter, which allows device-mapper targets to be
-> > > configured at boot time. This enables early use of dm targets in the boot
-> > > process (as the root device or otherwise) without the need of an initramfs.
-> > > 
-> > > The syntax used in the boot param is based on the concise format from the
-> > > dmsetup tool to follow the rule of least surprise:
-> > > 
-> > >         sudo dmsetup table --concise /dev/mapper/lroot
-> > > 
-> > > Which is:
-> > >         dm-mod.create=<name>,<uuid>,<minor>,<flags>,<table>[,<table>+][;<name>,<uuid>,<minor>,<flags>,<table>[,<table>+]+]
-> > > 
-> > > Where,
-> > >         <name>          ::= The device name.
-> > >         <uuid>          ::= xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx | ""
-> > >         <minor>         ::= The device minor number | ""
-> > >         <flags>         ::= "ro" | "rw"
-> > >         <table>         ::= <start_sector> <num_sectors> <target_type> <target_args>
-> > >         <target_type>   ::= "verity" | "linear" | ...
-> > > 
-> > > For example, the following could be added in the boot parameters:
-> > > dm-mod.create="lroot,,,rw, 0 4096 linear 98:16 0, 4096 4096 linear 98:32 0" root=/dev/dm-0
-> > > 
-> > > Only the targets that were tested are allowed and the ones that doesn't
-> > > change any block device when the dm is create as read-only. For example,
-> > > mirror and cache targets are not allowed. The rationale behind this is
-> > > that if the user makes a mistake, choosing the wrong device to be the
-> > > mirror or the cache can corrupt data.
-> > > 
-> > > The only targets allowed are:
-> > > * crypt
-> > > * delay
-> > > * linear
-> > > * snapshot-origin
-> > > * striped
-> > > * verity
-> > > 
-> > > Co-developed-by: Will Drewry <wad@chromium.org>
-> > > Co-developed-by: Kees Cook <keescook@chromium.org>
-> > > Co-developed-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-> > > Signed-off-by: Helen Koike <helen.koike@collabora.com>
-> > > 
-> > > ---
-> > > 
 > > 
 > > I'm trying to boot a mainline linux kernel on a chromeos device with dm
 > > verity and a USB stick but it's not working for me even with this patch.
@@ -155,19 +138,33 @@ On Tue, 2019-06-04 at 14:38 -0300, Helen Koike wrote:
 > The patch was implemented with late initcall partially to be contained
 > in drivers/md/*, but to support rootwait, adding a hook from
 > prepare_namespace seems the way to go indeed.
+
+Alright, great.
+
+> 
+> > 
+> > The second problem is that in chromeos we have the bootloader fill out
+> > the UUID of the kernel partition (%U) and then we have another parameter
+> > that indicates the offset from that kernel partition to add to the
+> > kernel partition (typically 1, i.e. PARTNROFF=1) to find the root
+> > filesystem partition. The way verity seems to work here is that we need
+> > to specify a path like /dev/sda3 or the major:minor number of the device
+> > on the commandline to make this work. It would be better if we could add
+> > in support for the PARTNROFF style that name_to_dev_t() handles so we
+> > can specify the root partition like we're currently doing. I suspect we
+> > should be able to add support for this into the device mapper layer so
+> > that we can specify devices this way.
+> 
+> hmm, I didn't test this yet but at least from what I can see in the
+> code, verity_ctr() calls dm_get_device() that ends up calling
+> name_to_dev_t() which should take care of PARTNROFF, this requires a bit
+> more investigation.
 > 
 
-Thanks for bringing this up.
+Ok, thanks for pointing that out. Sorry I totally missed this codepath
+and I should have investigated more. It works for me with the PARTNROFF
+syntax that we've been using, so the problem is the rootwait stuff.
 
-Helen and I have been looking at this code, and we think it's possible
-to move things around and add some helpers, so we can implement rootwait
-behavior, without actually cluttering init/do_mounts.c.
-
-And along the way, we might get the chance to clean-up this code even
-further.
-
-Regards,
-Eze
 
 --
 dm-devel mailing list
