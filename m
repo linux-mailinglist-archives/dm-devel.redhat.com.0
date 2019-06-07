@@ -2,62 +2,64 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B97538AE1
-	for <lists+dm-devel@lfdr.de>; Fri,  7 Jun 2019 15:09:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74B0A38AF8
+	for <lists+dm-devel@lfdr.de>; Fri,  7 Jun 2019 15:10:03 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 8017C30F1BCD;
-	Fri,  7 Jun 2019 13:08:46 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 128EF82F6A;
-	Fri,  7 Jun 2019 13:08:39 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 48C9030872E9;
+	Fri,  7 Jun 2019 13:09:56 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F18082268;
+	Fri,  7 Jun 2019 13:09:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E3528206D1;
-	Fri,  7 Jun 2019 13:08:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AAF3318433A0;
+	Fri,  7 Jun 2019 13:09:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x57D6Zp3032480 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 7 Jun 2019 09:06:37 -0400
+	id x57D6rJn000404 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 7 Jun 2019 09:06:54 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3768910AFF15; Fri,  7 Jun 2019 13:06:35 +0000 (UTC)
+	id E27E58189F; Fri,  7 Jun 2019 13:06:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx06.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.30])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E448A10AFF19;
-	Fri,  7 Jun 2019 13:06:30 +0000 (UTC)
+Received: from mx1.redhat.com (ext-mx13.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.42])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CBAB282703;
+	Fri,  7 Jun 2019 13:06:49 +0000 (UTC)
 Received: from smtp2.provo.novell.com (smtp2.provo.novell.com [137.65.250.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id AAA8944BC6;
-	Fri,  7 Jun 2019 13:06:13 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 226EF3082145;
+	Fri,  7 Jun 2019 13:06:14 +0000 (UTC)
 Received: from apollon.suse.de.de (prva10-snat226-2.provo.novell.com
 	[137.65.226.36])
 	by smtp2.provo.novell.com with ESMTP (TLS encrypted);
-	Fri, 07 Jun 2019 07:06:05 -0600
+	Fri, 07 Jun 2019 07:06:06 -0600
 From: Martin Wilck <mwilck@suse.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri,  7 Jun 2019 15:05:22 +0200
-Message-Id: <20190607130552.13203-1-mwilck@suse.com>
+Date: Fri,  7 Jun 2019 15:05:23 +0200
+Message-Id: <20190607130552.13203-2-mwilck@suse.com>
+In-Reply-To: <20190607130552.13203-1-mwilck@suse.com>
+References: <20190607130552.13203-1-mwilck@suse.com>
 MIME-Version: 1.0
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
 	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.30]); Fri, 07 Jun 2019 13:06:28 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.30]);
-	Fri, 07 Jun 2019 13:06:28 +0000 (UTC) for IP:'137.65.250.81'
+	[10.5.110.42]); Fri, 07 Jun 2019 13:06:40 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]);
+	Fri, 07 Jun 2019 13:06:40 +0000 (UTC) for IP:'137.65.250.81'
 	DOMAIN:'smtp2.provo.novell.com' HELO:'smtp2.provo.novell.com'
 	FROM:'mwilck@suse.com' RCPT:''
 X-RedHat-Spam-Score: -2.3  (RCVD_IN_DNSWL_MED, SPF_HELO_NONE,
 	SPF_PASS) 137.65.250.81 smtp2.provo.novell.com
 	137.65.250.81 smtp2.provo.novell.com <mwilck@suse.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.30
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.42
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 00/30] multipath-tools: gcc9, VPD parsing,
-	and get_uid fixes
+Subject: [dm-devel] [PATCH 01/30] kpartx: dasd: fix
+	-Waddress-of-packed-member warning from gcc9
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -69,133 +71,33 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]); Fri, 07 Jun 2019 13:09:16 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Fri, 07 Jun 2019 13:10:02 +0000 (UTC)
 
-Hi Christophe, hi Ben,
-
-This series started out with me trying to fix a couple  of warnings
-emitted by gcc 9, and grew substantially while I encountered other
-issues. Most of this series, except patch 25ff, are cleanups, corner
-case fixes, and unit tests.
-
-The parts of the series with user visible impact are 25, 26, and 29.
-Patch 25/30 implements an earlier idea of mine
-(https://www.redhat.com/archives/dm-devel/2019-April/msg00005.html).
-The idea for patch 29/30 has been discussed before, too
-(https://www.redhat.com/archives/dm-devel/2019-March/msg00201.html)
-The fix for uid_attrs (26/30) occured to me while I was working on the get_uid()
-code path.
-
-Patch 1/30 up to 8/30 are more or less straightforward fixes for gcc
-warnings related to string operations. See
-https://developers.redhat.com/blog/2018/05/24/detecting-string-truncation-with-gcc-8/
-(not sure why it says gcc 8 there, I'm seeing these warnings with gcc9
-only). Most of the gcc warnings have been "solved" by replacing strncpy()
-calls with strlcpy(). That has the disadvantage that the compiler's static
-checking, which caused the warnings in the first place, is now simply
-disabled. Yet in those places where I did the replacement, I reckon that
-strlcpy() semantics is what we actually want. Most of the time, we try to
-ensure that "wwid" fields are properly 0-terminated. The previous code
-attempted to do this using constructs like
-
-  strncpy(x->wwid, y->wwid, WWID_SIZE - 1)
-
-relying on x[WWID_SIZE-1] being 0 already. gcc 9 doesn't appreciate this
-style, and I tend to agree.
-
-This lead me to check the code paths where wwid fields are originally set,
-resulting in patch 9/30 and the series from 14/30 to 24/30. In particular the
-VPD parsing code was full of small mistakes if the possibility of buffer
-overflow is taken into account (unlikely to hurt in practice, as our default
-WWID_SIZE is large enough to hold almost every WWID). In order not to break
-stuff, I added unit test code (10-13). The tests, in turn, made me find some
-more minor problems in the VPD parsing code (patches 14, 18, 21, 22, 24).
-
-Reviews and comments welcome.
-
-Regards,
-Martin
-
-Martin Wilck (30):
-  kpartx: dasd: fix -Waddress-of-packed-member warning from gcc9
-  libmultipath: fix gcc -Wstringop-truncation warning in set_value()
-  libmultipath: remove 'space' argument to merge_words()
-  libmultipath: fix -Wstringop-overflow warning in merge_words()
-  multipath-tools: fix more gcc 9 -Wstringop-truncation warnings
-  multipath-tools: Fix more strncpy(X, Y, size - 1) calls
-  libmpathcmd: use target length in strncpy() call
-  libmultipath: inline set_default()
-  libmultipath: add size argument to dm_get_uuid()
-  multipath-tools tests: omit timestamp in log messages
-  tests/hwtable: decrease log verbosity
-  multipath-tools tests: add strlcpy() tests
-  multipath-tools tests: add test for VPD parsing
-  libmultipath: fix parsing of VPD 83 type 1 (T10 vendor ID)
-  libmultipath: Fix buffer overflow in parse_vpd_pg80()
-  libmultipath: fix possible WWID overflow in parse_vpd_pg83()
-  libmultipath: fix another WWID overflow in parse_vpd_pg83()
-  libmultipath: fix parsing of SCSI name string, iqn format
-  libmultipath: add consistent WWID overflow logging in parse_vpd_pg83
-  libmultipath: parse_vpd_pg83: common code for SCSI string parsing
-  libmultipath: allow zero-padded SCSI names in parse_vpd_pg83()
-  libmultipath: fix parsing of non-space-terminated T10 ID
-  libmultipath: parse_vpd_pg80: fix overflow output
-  libmultipath: parse_vpd_pg80: fix whitespace handling
-  libmultipath: get_uid: straighten the fallback logic
-  libmultipath: fix has_uid_fallback() logic
-  libmultipath: fix memory leak with "uid_attrs" config option
-  multipath-tools tests: add test for uid_attrs parsing
-  libmultipath: more cautious blacklisting by missing property
-  multipath.conf.5: Improve documentation of WWID determination
-
- kpartx/dasd.h                   |   2 +-
- libmpathcmd/mpath_cmd.c         |   2 +-
- libmpathpersist/mpath_persist.c |  10 +-
- libmultipath/blacklist.c        |  26 +-
- libmultipath/blacklist.h        |   2 +-
- libmultipath/config.c           |  51 ++-
- libmultipath/config.h           |   6 +-
- libmultipath/configure.c        |  17 +-
- libmultipath/debug.c            |   1 +
- libmultipath/defaults.c         |  17 -
- libmultipath/defaults.h         |  10 +-
- libmultipath/devmapper.c        |  28 +-
- libmultipath/devmapper.h        |   2 +-
- libmultipath/dict.c             |  36 +-
- libmultipath/discovery.c        | 162 ++++---
- libmultipath/dmparser.c         |  51 +--
- libmultipath/hwtable.c          |   2 +-
- libmultipath/parser.c           |  20 +-
- libmultipath/prio.c             |   3 +-
- libmultipath/propsel.c          |   4 +-
- libmultipath/structs_vec.c      |   3 +-
- libmultipath/uevent.c           |   5 +-
- libmultipath/util.c             |  44 +-
- libmultipath/util.h             |   1 -
- libmultipath/uxsock.c           |   2 +-
- libmultipath/wwids.c            |   3 +-
- multipath/multipath.conf.5      |  56 ++-
- multipathd/main.c               |   2 +-
- multipathd/waiter.c             |   3 +-
- tests/Makefile                  |   4 +-
- tests/blacklist.c               |  39 +-
- tests/globals.c                 |   3 +-
- tests/hwtable.c                 |   6 +-
- tests/uevent.c                  |  27 ++
- tests/util.c                    | 142 ++++++
- tests/vpd.c                     | 790 ++++++++++++++++++++++++++++++++
- 36 files changed, 1332 insertions(+), 250 deletions(-)
- create mode 100644 tests/vpd.c
-
--- 
-2.21.0
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+Rml4ZXMgdGhlIGZvbGxvd2luZyB3YXJuaW5nOgoKZGFzZC5jOiBJbiBmdW5jdGlvbiDigJhyZWFk
+X2Rhc2RfcHTigJk6CmRhc2QuYzoyMDY6Mzogd2FybmluZzogY29udmVydGluZyBhIHBhY2tlZCDi
+gJh2b2x1bWVfbGFiZWxfdOKAmSB7YWthIOKAmHN0cnVjdAp2b2x1bWVfbGFiZWzigJl9IHBvaW50
+ZXIgKGFsaWdubWVudCAxKSB0byBhIOKAmGxhYmVsX2ludHNfdOKAmSB7YWthIOKAmHVuc2lnbmVk
+IGludOKAmX0KcG9pbnRlciAoYWxpZ25tZW50IDQpIG1heSByZXN1bHQgaW4gYW4gdW5hbGlnbmVk
+IHBvaW50ZXIgdmFsdWUKWy1XYWRkcmVzcy1vZi1wYWNrZWQtbWVtYmVyXQogIDIwNiB8ICAgbGFi
+ZWxfaW50c190ICpsYWJlbCA9IChsYWJlbF9pbnRzX3QgKikgJnZsYWJlbDsKICAgICAgfCAgIF5+
+fn5+fn5+fn5+fgoKQXMgdm9sdW1lX2xhYmVsX3QgaXMgb25seSB1c2VkIGluIHJlYWRfZGFzZF9w
+dCgpLCBhbmQgZmlsbGVkIHdpdGggbWVtY3B5KCksCmluY3JlYXNpbmcgaXRzIGFsaWdubWVudCBz
+aG91bGQgYmUgc2FmZS4KClNpZ25lZC1vZmYtYnk6IE1hcnRpbiBXaWxjayA8bXdpbGNrQHN1c2Uu
+Y29tPgotLS0KIGtwYXJ0eC9kYXNkLmggfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRp
+b24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9rcGFydHgvZGFzZC5oIGIva3BhcnR4
+L2Rhc2QuaAppbmRleCA3NDlhZjQ5YS4uOGFkNWQ2MjAgMTAwNjQ0Ci0tLSBhL2twYXJ0eC9kYXNk
+LmgKKysrIGIva3BhcnR4L2Rhc2QuaApAQCAtNjgsNyArNjgsNyBAQCB0eXBlZGVmIHN0cnVjdCB2
+b2x1bWVfbGFiZWwKIAljaGFyIHJlczNbMjhdOwkgICAgICAgIC8qIHJlc2VydmVkICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICovCiAJdWludDhfdCBsZGxfdmVyc2lvbjsgICAgLyog
+dmVyc2lvbiBudW1iZXIsIHZhbGlkIGZvciBsZGwgZm9ybWF0ICAgICAgKi8KIAl1aW50NjRfdCBm
+b3JtYXR0ZWRfYmxvY2tzOyAvKiB2YWxpZCB3aGVuIGxkbF92ZXJzaW9uID49IGYyICAgICAgICAg
+ICAqLwotfSBfX2F0dHJpYnV0ZV9fICgocGFja2VkKSkgdm9sdW1lX2xhYmVsX3Q7Cit9IF9fYXR0
+cmlidXRlX18gKChwYWNrZWQsIGFsaWduZWQoX19hbGlnbm9mX18oaW50KSkpKSB2b2x1bWVfbGFi
+ZWxfdDsKIAogCiB0eXBlZGVmIHN0cnVjdCBleHRlbnQKLS0gCjIuMjEuMAoKLS0KZG0tZGV2ZWwg
+bWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly93d3cucmVkaGF0LmNvbS9t
+YWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
