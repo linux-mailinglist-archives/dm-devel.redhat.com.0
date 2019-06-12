@@ -2,64 +2,96 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6304341DD5
-	for <lists+dm-devel@lfdr.de>; Wed, 12 Jun 2019 09:33:04 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F5A541D29
+	for <lists+dm-devel@lfdr.de>; Wed, 12 Jun 2019 09:04:35 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 4F78A30BC578;
-	Wed, 12 Jun 2019 07:33:01 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 27B475D9CA;
-	Wed, 12 Jun 2019 07:33:00 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 853D689AD0;
+	Wed, 12 Jun 2019 07:03:55 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 305BA5C231;
+	Wed, 12 Jun 2019 07:03:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 76288206D1;
-	Wed, 12 Jun 2019 07:32:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 27AF81806B16;
+	Wed, 12 Jun 2019 07:03:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x5C6bhZc004014 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 12 Jun 2019 02:37:43 -0400
+	id x5C71pVw007480 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 12 Jun 2019 03:01:53 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 924341758A; Wed, 12 Jun 2019 06:37:43 +0000 (UTC)
+	id BD4E86B8E6; Wed, 12 Jun 2019 07:01:51 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from gondolin (ovpn-116-169.ams2.redhat.com [10.36.116.169])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E4994173C3;
-	Wed, 12 Jun 2019 06:37:14 +0000 (UTC)
-Date: Wed, 12 Jun 2019 08:37:11 +0200
-From: Cornelia Huck <cohuck@redhat.com>
-To: Pankaj Gupta <pagupta@redhat.com>
-Message-ID: <20190612083711.2c0cfd7e.cohuck@redhat.com>
-In-Reply-To: <1003601865.34513553.1560310490030.JavaMail.zimbra@redhat.com>
-References: <20190611163802.25352-1-pagupta@redhat.com>
-	<20190611163802.25352-3-pagupta@redhat.com>
-	<20190611190209.0b25033e.cohuck@redhat.com>
-	<1003601865.34513553.1560310490030.JavaMail.zimbra@redhat.com>
-Organization: Red Hat GmbH
+Received: from mx1.redhat.com (ext-mx13.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.42])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 87E6964046;
+	Wed, 12 Jun 2019 07:01:45 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 95C173086229;
+	Wed, 12 Jun 2019 07:01:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20170209;
+	h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=U7CBgI/BlOH8mCpak6QJYkxnxyBdoEy/BPSE3vs157A=;
+	b=Bzb3btvII+xO775JFm+/k4qqn
+	eHS/t3brEGYdMoJtVpIGT5EN2xaM3k7I71ALJsbbc+0vNmy8E6uGvgXyQb2ZqWuEQyPxy2lL/TD3s
+	uMzXPuNdC+uyOv3QLqxtZjr8Jjdtu3o3eUUIx3Odo483jPATMKUouu0blV4M0xTAkF80OunW1Z7jF
+	LBBOFvv+p2bswnZmudxhQwgVJUYeAJZYogoM/0PEtY6Al28wR3Z4Vx7kZQiirCPrJws0g+8seZO/f
+	e7jBGxpuGd5dCTGNxlOOHGOrTTq6GAsoeq9Y0FUPBC8IR1BqktaTs9S5schf5x3nbgz3iU4CAiqDE
+	YCgQ3nYWA==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.92 #3 (Red Hat
+	Linux)) id 1haxFu-0005GR-Tc; Wed, 12 Jun 2019 07:01:10 +0000
+Date: Wed, 12 Jun 2019 00:01:10 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: John Dorminy <jdorminy@redhat.com>
+Message-ID: <20190612070110.GA11707@infradead.org>
+References: <70cda2a3-f246-d45b-f600-1f9d15ba22ff@gmail.com>
+	<87eflmpqkb.fsf@notabene.neil.brown.name>
+	<20190222211006.GA10987@redhat.com>
+	<7f0aeb7b-fdaa-0625-f785-05c342047550@kernel.dk>
+	<20190222235459.GA11726@redhat.com>
+	<CAMeeMh-2ANOr_Sb66EyA_HULkVRudD7fyOZsDbpRpDrshwnR2w@mail.gmail.com>
+	<20190223024402.GA12407@redhat.com>
+	<CAMeeMh9qLkTByWJewPR4o844wPkA-g5Hnm7aGjszuPopPAe8vA@mail.gmail.com>
+	<CAMeeMh-6KMLgriX_7KT52ynjBMyT9yDWSMKv6YXW+yDpvv0=wA@mail.gmail.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+Content-Disposition: inline
+In-Reply-To: <CAMeeMh-6KMLgriX_7KT52ynjBMyT9yDWSMKv6YXW+yDpvv0=wA@mail.gmail.com>
+User-Agent: Mutt/1.11.4 (2019-03-13)
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.42]); Wed, 12 Jun 2019 07:01:28 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]);
+	Wed, 12 Jun 2019 07:01:28 +0000 (UTC) for IP:'198.137.202.133'
+	DOMAIN:'bombadil.infradead.org' HELO:'bombadil.infradead.org'
+	FROM:'BATV+eeb336ffa9092f1fc134+5771+infradead.org+hch@bombadil.srs.infradead.org'
+	RCPT:''
+X-RedHat-Spam-Score: -2.398  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	RCVD_IN_DNSWL_MED, SPF_HELO_NONE,
+	SPF_NONE) 198.137.202.133 bombadil.infradead.org 198.137.202.133
+	bombadil.infradead.org
+	<BATV+eeb336ffa9092f1fc134+5771+infradead.org+hch@bombadil.srs.infradead.org>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.42
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Wed, 12 Jun 2019 03:28:18 -0400
-Cc: rdunlap@infradead.org, jack@suse.cz, kvm@vger.kernel.org, mst@redhat.com,
-	jasowang@redhat.com, david@fromorbit.com, qemu-devel@nongnu.org,
-	virtualization@lists.linux-foundation.org, dm-devel@redhat.com,
-	adilger kernel <adilger.kernel@dilger.ca>, zwisler@kernel.org,
-	aarcange@redhat.com, dave jiang <dave.jiang@intel.com>,
-	jstaron@google.com, linux-nvdimm@lists.01.org,
-	vishal l verma <vishal.l.verma@intel.com>, david@redhat.com,
-	willy@infradead.org, hch@infradead.org,
-	linux-acpi@vger.kernel.org, jmoyer@redhat.com,
-	linux-ext4@vger.kernel.org, lenb@kernel.org, kilobyte@angband.pl,
-	riel@surriel.com, yuval shaia <yuval.shaia@oracle.com>,
-	stefanha@redhat.com, pbonzini@redhat.com,
-	dan j williams <dan.j.williams@intel.com>,
-	lcapitulino@redhat.com, kwolf@redhat.com, nilal@redhat.com,
-	tytso@mit.edu, xiaoguangrong eric <xiaoguangrong.eric@gmail.com>,
-	snitzer@redhat.com, darrick wong <darrick.wong@oracle.com>,
-	rjw@rjwysocki.net, linux-kernel@vger.kernel.org,
-	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	imammedo@redhat.com
-Subject: Re: [dm-devel] [PATCH v12 2/7] virtio-pmem: Add virtio pmem driver
+Cc: Jens Axboe <axboe@kernel.dk>, Mike Snitzer <snitzer@redhat.com>,
+	NeilBrown <neilb@suse.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-block@vger.kernel.org,
+	device-mapper development <dm-devel@redhat.com>,
+	Milan Broz <gmazyland@gmail.com>
+Subject: Re: [dm-devel] block: be more careful about status in
+	__bio_chain_endio
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,134 +107,18 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]); Wed, 12 Jun 2019 07:33:03 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]); Wed, 12 Jun 2019 07:04:23 +0000 (UTC)
 
-Hi Pankaj,
+On Tue, Jun 11, 2019 at 10:56:42PM -0400, John Dorminy wrote:
+> I believe the second of these might, but is not guaranteed to,
+> preserve the first error observed in a child; I believe if you want to
+> definitely save the first error you need an atomic.
 
-On Tue, 11 Jun 2019 23:34:50 -0400 (EDT)
-Pankaj Gupta <pagupta@redhat.com> wrote:
-
-> Hi Cornelia,
-> 
-> > On Tue, 11 Jun 2019 22:07:57 +0530
-> > Pankaj Gupta <pagupta@redhat.com> wrote:
-
-
-> > > +	err1 = virtqueue_kick(vpmem->req_vq);
-> > > +	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
-> > > +	/*
-> > > +	 * virtqueue_add_sgs failed with error different than -ENOSPC, we can't
-> > > +	 * do anything about that.
-> > > +	 */  
-> > 
-> > Does it make sense to kick if you couldn't add at all?  
-> 
-> When we could not add because of -ENOSPC we are waiting and when buffer is added
-> then only we do a kick. For any other error which might be a rare occurrence, I think
-> kick is harmless here and keeps the code clean?
-
-Yes, I agree it does not hurt. Let's keep it as-is.
-
-
-> Sure, Thank you. Attaching below on top changes on current patch2 based on
-> your suggestions. Let me know if these are okay and then will send official
-> v13 to for upstream merging.
-
-Looks good to me, except for one change.
-
-[Again sorry for the late review, did not want to get the version
-numbers up :)]
-
-> 
-> Thanks,
-> Pankaj
-> 
-> ===============
-> 
-> diff --git a/drivers/nvdimm/nd_virtio.c b/drivers/nvdimm/nd_virtio.c
-> index efc535723517..5b8d2367da0b 100644
-> --- a/drivers/nvdimm/nd_virtio.c
-> +++ b/drivers/nvdimm/nd_virtio.c
-> @@ -10,7 +10,7 @@
->  #include "nd.h"
->  
->   /* The interrupt handler */
-> -void host_ack(struct virtqueue *vq)
-> +void virtio_pmem_host_ack(struct virtqueue *vq)
->  {
->         struct virtio_pmem *vpmem = vq->vdev->priv;
->         struct virtio_pmem_request *req_data, *req_buf;
-> @@ -32,10 +32,10 @@ void host_ack(struct virtqueue *vq)
->         }
->         spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
->  }
-> -EXPORT_SYMBOL_GPL(host_ack);
-> +EXPORT_SYMBOL_GPL(virtio_pmem_host_ack);
->  
->   /* The request submission function */
-> -int virtio_pmem_flush(struct nd_region *nd_region)
-> +static int virtio_pmem_flush(struct nd_region *nd_region)
->  {
->         struct virtio_device *vdev = nd_region->provider_data;
->         struct virtio_pmem *vpmem  = vdev->priv;
-> @@ -69,7 +69,7 @@ int virtio_pmem_flush(struct nd_region *nd_region)
->         while ((err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
->                                         GFP_ATOMIC)) == -ENOSPC) {
->  
-> -               dev_err(&vdev->dev, "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
-> +               dev_info(&vdev->dev, "failed to send command to virtio pmem device, no free slots in the virtqueue\n");
->                 req_data->wq_buf_avail = false;
->                 list_add_tail(&req_data->list, &vpmem->req_list);
->                 spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
-> @@ -90,7 +90,8 @@ int virtio_pmem_flush(struct nd_region *nd_region)
->         } else {
->                 /* A host repsonse results in "host_ack" getting called */
->                 wait_event(req_data->host_acked, req_data->done);
-> -               err = virtio32_to_cpu(vdev, req_data->resp.ret);
-> +               if ((err = virtio32_to_cpu(vdev, req_data->resp.ret)))
-> +                       err = -EIO;
-
-Hm, why are you making this change? I think the previous code was fine.
-
->         }
->  
->         kfree(req_data);
-> @@ -100,7 +101,8 @@ int virtio_pmem_flush(struct nd_region *nd_region)
->  /* The asynchronous flush callback function */
->  int async_pmem_flush(struct nd_region *nd_region, struct bio *bio)
->  {
-> -       /* Create child bio for asynchronous flush and chain with
-> +       /*
-> +        * Create child bio for asynchronous flush and chain with
->          * parent bio. Otherwise directly call nd_region flush.
->          */
->         if (bio && bio->bi_iter.bi_sector != -1) {
-> diff --git a/drivers/nvdimm/virtio_pmem.c b/drivers/nvdimm/virtio_pmem.c
-> index b60ebd8cd2fd..5e3d07b47e0c 100644
-> --- a/drivers/nvdimm/virtio_pmem.c
-> +++ b/drivers/nvdimm/virtio_pmem.c
-> @@ -19,7 +19,7 @@ static int init_vq(struct virtio_pmem *vpmem)
->  {
->         /* single vq */
->         vpmem->req_vq = virtio_find_single_vq(vpmem->vdev,
-> -                                               host_ack, "flush_queue");
-> +                                       virtio_pmem_host_ack, "flush_queue");
->         if (IS_ERR(vpmem->req_vq))
->                 return PTR_ERR(vpmem->req_vq);
->  
-> diff --git a/drivers/nvdimm/virtio_pmem.h b/drivers/nvdimm/virtio_pmem.h
-> index 6e47521be158..998efbc7660c 100644
-> --- a/drivers/nvdimm/virtio_pmem.h
-> +++ b/drivers/nvdimm/virtio_pmem.h
-> @@ -50,6 +50,6 @@ struct virtio_pmem {
->         uint64_t size;
->  };
->  
-> -void host_ack(struct virtqueue *vq);
-> +void virtio_pmem_host_ack(struct virtqueue *vq);
->  int async_pmem_flush(struct nd_region *nd_region, struct bio *bio);
->  #endif
+Is there any reason not to simply use a cmpxchg?  Yes, it is a
+relatively expensive operation, but once we are chaining bios we are out
+of the super hot path anyway.  We do something similar in xfs and iomap
+already.
 
 --
 dm-devel mailing list
