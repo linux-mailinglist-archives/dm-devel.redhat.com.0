@@ -2,73 +2,57 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6D5542781
-	for <lists+dm-devel@lfdr.de>; Wed, 12 Jun 2019 15:29:14 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+	by mail.lfdr.de (Postfix) with ESMTPS id A162542780
+	for <lists+dm-devel@lfdr.de>; Wed, 12 Jun 2019 15:29:13 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 0A0C030B46F1;
-	Wed, 12 Jun 2019 13:28:39 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7668F46E63;
-	Wed, 12 Jun 2019 13:28:28 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id D8744307D861;
+	Wed, 12 Jun 2019 13:28:35 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F8E6795BC;
+	Wed, 12 Jun 2019 13:28:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9FD881843501;
-	Wed, 12 Jun 2019 13:27:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 93C98206D3;
+	Wed, 12 Jun 2019 13:27:52 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x5CAorg9018862 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 12 Jun 2019 06:50:53 -0400
+	id x5CCk9ks008643 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 12 Jun 2019 08:46:09 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D1F8078382; Wed, 12 Jun 2019 10:50:53 +0000 (UTC)
+	id 4BFCC709F1; Wed, 12 Jun 2019 12:46:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from colo-mx.corp.redhat.com
-	(colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3E4877837A;
-	Wed, 12 Jun 2019 10:50:37 +0000 (UTC)
-Received: from zmail21.collab.prod.int.phx2.redhat.com
-	(zmail21.collab.prod.int.phx2.redhat.com [10.5.83.24])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BDF7E1806B16;
-	Wed, 12 Jun 2019 10:50:34 +0000 (UTC)
-Date: Wed, 12 Jun 2019 06:50:34 -0400 (EDT)
+Received: from dhcp201-121.englab.pnq.redhat.com (ovpn-116-228.sin2.redhat.com
+	[10.67.116.228])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A251D60BF1;
+	Wed, 12 Jun 2019 12:45:32 +0000 (UTC)
 From: Pankaj Gupta <pagupta@redhat.com>
-To: Cornelia Huck <cohuck@redhat.com>
-Message-ID: <977172256.34591602.1560336634257.JavaMail.zimbra@redhat.com>
-In-Reply-To: <20190612083711.2c0cfd7e.cohuck@redhat.com>
-References: <20190611163802.25352-1-pagupta@redhat.com>
-	<20190611163802.25352-3-pagupta@redhat.com>
-	<20190611190209.0b25033e.cohuck@redhat.com>
-	<1003601865.34513553.1560310490030.JavaMail.zimbra@redhat.com>
-	<20190612083711.2c0cfd7e.cohuck@redhat.com>
+To: dm-devel@redhat.com, linux-nvdimm@lists.01.org,
+	linux-kernel@vger.kernel.org,
+	virtualization@lists.linux-foundation.org, kvm@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-acpi@vger.kernel.org,
+	qemu-devel@nongnu.org, linux-ext4@vger.kernel.org,
+	linux-xfs@vger.kernel.org
+Date: Wed, 12 Jun 2019 18:15:20 +0530
+Message-Id: <20190612124527.3763-1-pagupta@redhat.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.67.116.228, 10.4.195.25]
-Thread-Topic: virtio-pmem: Add virtio pmem driver
-Thread-Index: JA2T0z0G1tIHKmlJmlUYn7dmJ8rB0Q==
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 12 Jun 2019 09:24:17 -0400
-Cc: jack@suse.cz, kvm@vger.kernel.org, mst@redhat.com, jasowang@redhat.com,
-	david@fromorbit.com, qemu-devel@nongnu.org,
-	virtualization@lists.linux-foundation.org, dm-devel@redhat.com,
-	adilger kernel <adilger.kernel@dilger.ca>, zwisler@kernel.org,
-	aarcange@redhat.com, dave jiang <dave.jiang@intel.com>,
-	jstaron@google.com, linux-nvdimm@lists.01.org,
-	vishal l verma <vishal.l.verma@intel.com>, david@redhat.com,
-	willy@infradead.org, hch@infradead.org,
-	linux-acpi@vger.kernel.org, jmoyer@redhat.com,
-	linux-ext4@vger.kernel.org, lenb@kernel.org, kilobyte@angband.pl,
-	riel@surriel.com, yuval shaia <yuval.shaia@oracle.com>,
-	stefanha@redhat.com, imammedo@redhat.com,
-	dan j williams <dan.j.williams@intel.com>,
-	lcapitulino@redhat.com, kwolf@redhat.com, nilal@redhat.com,
-	tytso@mit.edu, xiaoguangrong eric <xiaoguangrong.eric@gmail.com>,
-	snitzer@redhat.com, rdunlap@infradead.org, rjw@rjwysocki.net,
-	linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, pbonzini@redhat.com,
-	darrick wong <darrick.wong@oracle.com>
-Subject: Re: [dm-devel] [Qemu-devel] [PATCH v12 2/7] virtio-pmem: Add virtio
- pmem driver
+Cc: pagupta@redhat.com, rdunlap@infradead.org, jack@suse.cz, snitzer@redhat.com,
+	mst@redhat.com, jasowang@redhat.com, david@fromorbit.com,
+	lcapitulino@redhat.com, adilger.kernel@dilger.ca,
+	zwisler@kernel.org, aarcange@redhat.com, dave.jiang@intel.com,
+	jstaron@google.com, darrick.wong@oracle.com,
+	vishal.l.verma@intel.com, david@redhat.com, willy@infradead.org,
+	hch@infradead.org, jmoyer@redhat.com, nilal@redhat.com,
+	lenb@kernel.org, kilobyte@angband.pl, riel@surriel.com,
+	yuval.shaia@oracle.com, stefanha@redhat.com, pbonzini@redhat.com,
+	dan.j.williams@intel.com, kwolf@redhat.com, tytso@mit.edu,
+	xiaoguangrong.eric@gmail.com, cohuck@redhat.com,
+	rjw@rjwysocki.net, imammedo@redhat.com
+Subject: [dm-devel] [PATCH v13 0/7] virtio pmem driver
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,164 +64,174 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]); Wed, 12 Jun 2019 13:29:13 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]); Wed, 12 Jun 2019 13:29:12 +0000 (UTC)
 
-
-> 
-> Hi Pankaj,
-> 
-> On Tue, 11 Jun 2019 23:34:50 -0400 (EDT)
-> Pankaj Gupta <pagupta@redhat.com> wrote:
-> 
-> > Hi Cornelia,
-> > 
-> > > On Tue, 11 Jun 2019 22:07:57 +0530
-> > > Pankaj Gupta <pagupta@redhat.com> wrote:
-> 
-> 
-> > > > +	err1 = virtqueue_kick(vpmem->req_vq);
-> > > > +	spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
-> > > > +	/*
-> > > > +	 * virtqueue_add_sgs failed with error different than -ENOSPC, we
-> > > > can't
-> > > > +	 * do anything about that.
-> > > > +	 */
-> > > 
-> > > Does it make sense to kick if you couldn't add at all?
-> > 
-> > When we could not add because of -ENOSPC we are waiting and when buffer is
-> > added
-> > then only we do a kick. For any other error which might be a rare
-> > occurrence, I think
-> > kick is harmless here and keeps the code clean?
-> 
-> Yes, I agree it does not hurt. Let's keep it as-is.
-
-Sure.
-
-> 
-> 
-> > Sure, Thank you. Attaching below on top changes on current patch2 based on
-> > your suggestions. Let me know if these are okay and then will send official
-> > v13 to for upstream merging.
-> 
-> Looks good to me, except for one change.
-
-Sure. Will send v13 shortly.
-
-> 
-> [Again sorry for the late review, did not want to get the version
-> numbers up :)]
-
-Thank you :)
-
-> 
-> > 
-> > Thanks,
-> > Pankaj
-> > 
-> > ===============
-> > 
-> > diff --git a/drivers/nvdimm/nd_virtio.c b/drivers/nvdimm/nd_virtio.c
-> > index efc535723517..5b8d2367da0b 100644
-> > --- a/drivers/nvdimm/nd_virtio.c
-> > +++ b/drivers/nvdimm/nd_virtio.c
-> > @@ -10,7 +10,7 @@
-> >  #include "nd.h"
-> >  
-> >   /* The interrupt handler */
-> > -void host_ack(struct virtqueue *vq)
-> > +void virtio_pmem_host_ack(struct virtqueue *vq)
-> >  {
-> >         struct virtio_pmem *vpmem = vq->vdev->priv;
-> >         struct virtio_pmem_request *req_data, *req_buf;
-> > @@ -32,10 +32,10 @@ void host_ack(struct virtqueue *vq)
-> >         }
-> >         spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
-> >  }
-> > -EXPORT_SYMBOL_GPL(host_ack);
-> > +EXPORT_SYMBOL_GPL(virtio_pmem_host_ack);
-> >  
-> >   /* The request submission function */
-> > -int virtio_pmem_flush(struct nd_region *nd_region)
-> > +static int virtio_pmem_flush(struct nd_region *nd_region)
-> >  {
-> >         struct virtio_device *vdev = nd_region->provider_data;
-> >         struct virtio_pmem *vpmem  = vdev->priv;
-> > @@ -69,7 +69,7 @@ int virtio_pmem_flush(struct nd_region *nd_region)
-> >         while ((err = virtqueue_add_sgs(vpmem->req_vq, sgs, 1, 1, req_data,
-> >                                         GFP_ATOMIC)) == -ENOSPC) {
-> >  
-> > -               dev_err(&vdev->dev, "failed to send command to virtio pmem
-> > device, no free slots in the virtqueue\n");
-> > +               dev_info(&vdev->dev, "failed to send command to virtio pmem
-> > device, no free slots in the virtqueue\n");
-> >                 req_data->wq_buf_avail = false;
-> >                 list_add_tail(&req_data->list, &vpmem->req_list);
-> >                 spin_unlock_irqrestore(&vpmem->pmem_lock, flags);
-> > @@ -90,7 +90,8 @@ int virtio_pmem_flush(struct nd_region *nd_region)
-> >         } else {
-> >                 /* A host repsonse results in "host_ack" getting called */
-> >                 wait_event(req_data->host_acked, req_data->done);
-> > -               err = virtio32_to_cpu(vdev, req_data->resp.ret);
-> > +               if ((err = virtio32_to_cpu(vdev, req_data->resp.ret)))
-> > +                       err = -EIO;
-> 
-> Hm, why are you making this change? I think the previous code was fine.
-
-Yes, Something came to my mind while making the change but I agree will keep
-this as it was before.
-
-> 
-> >         }
-> >  
-> >         kfree(req_data);
-> > @@ -100,7 +101,8 @@ int virtio_pmem_flush(struct nd_region *nd_region)
-> >  /* The asynchronous flush callback function */
-> >  int async_pmem_flush(struct nd_region *nd_region, struct bio *bio)
-> >  {
-> > -       /* Create child bio for asynchronous flush and chain with
-> > +       /*
-> > +        * Create child bio for asynchronous flush and chain with
-> >          * parent bio. Otherwise directly call nd_region flush.
-> >          */
-> >         if (bio && bio->bi_iter.bi_sector != -1) {
-> > diff --git a/drivers/nvdimm/virtio_pmem.c b/drivers/nvdimm/virtio_pmem.c
-> > index b60ebd8cd2fd..5e3d07b47e0c 100644
-> > --- a/drivers/nvdimm/virtio_pmem.c
-> > +++ b/drivers/nvdimm/virtio_pmem.c
-> > @@ -19,7 +19,7 @@ static int init_vq(struct virtio_pmem *vpmem)
-> >  {
-> >         /* single vq */
-> >         vpmem->req_vq = virtio_find_single_vq(vpmem->vdev,
-> > -                                               host_ack, "flush_queue");
-> > +                                       virtio_pmem_host_ack,
-> > "flush_queue");
-> >         if (IS_ERR(vpmem->req_vq))
-> >                 return PTR_ERR(vpmem->req_vq);
-> >  
-> > diff --git a/drivers/nvdimm/virtio_pmem.h b/drivers/nvdimm/virtio_pmem.h
-> > index 6e47521be158..998efbc7660c 100644
-> > --- a/drivers/nvdimm/virtio_pmem.h
-> > +++ b/drivers/nvdimm/virtio_pmem.h
-> > @@ -50,6 +50,6 @@ struct virtio_pmem {
-> >         uint64_t size;
-> >  };
-> >  
-> > -void host_ack(struct virtqueue *vq);
-> > +void virtio_pmem_host_ack(struct virtqueue *vq);
-> >  int async_pmem_flush(struct nd_region *nd_region, struct bio *bio);
-> >  #endif
-> 
-> 
-> 
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+IFRoaXMgcGF0Y2ggc2VyaWVzIGlzIHJlYWR5IHRvIGJlIG1lcmdlZCB2aWEgbnZkaW1tIHRyZWUK
+IGFzIGRpc2N1c3NlZCB3aXRoIERhbi4gV2UgaGF2ZSBhY2svcmV2aWV3IG9uIFhGUywgRVhUNAog
+ZGV2aWNlIG1hcHBlciAmIFZJUlRJTyBwYXRjaGVzLgoKIFRoaXMgdmVyc2lvbiBoYXMgbWlub3Ig
+Y2hhbmdlcyBpbiBwYXRjaCAyLiBLZWVwaW5nIGFsbAogdGhlIGV4aXN0aW5nIHItby1icy4gSmFr
+b2IgQ0NlZCBhbHNvIHRlc3RlZCB0aGUgcGF0Y2gKIHNlcmllcyBhbmQgY29uZmlybWVkIHRoZSB3
+b3JraW5nIG9mIHY5LgogLS0tCgogVGhpcyBwYXRjaCBzZXJpZXMgaGFzIGltcGxlbWVudGF0aW9u
+IGZvciAidmlydGlvIHBtZW0iLiAKICJ2aXJ0aW8gcG1lbSIgaXMgZmFrZSBwZXJzaXN0ZW50IG1l
+bW9yeShudmRpbW0pIGluIGd1ZXN0IAogd2hpY2ggYWxsb3dzIHRvIGJ5cGFzcyB0aGUgZ3Vlc3Qg
+cGFnZSBjYWNoZS4gVGhpcyBhbHNvCiBpbXBsZW1lbnRzIGEgVklSVElPIGJhc2VkIGFzeW5jaHJv
+bm91cyBmbHVzaCBtZWNoYW5pc20uICAKIAogU2hhcmluZyBndWVzdCBrZXJuZWwgZHJpdmVyIGlu
+IHRoaXMgcGF0Y2hzZXQgd2l0aCB0aGUgCiBjaGFuZ2VzIHN1Z2dlc3RlZCBpbiB2NC4gVGVzdGVk
+IHdpdGggUWVtdSBzaWRlIGRldmljZSAKIGVtdWxhdGlvbiBbNV0gZm9yIHZpcnRpby1wbWVtLiBE
+b2N1bWVudGVkIHRoZSBpbXBhY3Qgb2YKIHBvc3NpYmxlIHBhZ2UgY2FjaGUgc2lkZSBjaGFubmVs
+IGF0dGFja3Mgd2l0aCBzdWdnZXN0ZWQKIGNvdW50ZXJtZWFzdXJlcy4KCiBEZXRhaWxzIG9mIHBy
+b2plY3QgaWRlYSBmb3IgJ3ZpcnRpbyBwbWVtJyBmbHVzaGluZyBpbnRlcmZhY2UgCiBpcyBzaGFy
+ZWQgWzNdICYgWzRdLgoKIEltcGxlbWVudGF0aW9uIGlzIGRpdmlkZWQgaW50byB0d28gcGFydHM6
+CiBOZXcgdmlydGlvIHBtZW0gZ3Vlc3QgZHJpdmVyIGFuZCBxZW11IGNvZGUgY2hhbmdlcyBmb3Ig
+bmV3IAogdmlydGlvIHBtZW0gcGFyYXZpcnR1YWxpemVkIGRldmljZS4KCjEuIEd1ZXN0IHZpcnRp
+by1wbWVtIGtlcm5lbCBkcml2ZXIKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCiAg
+IC0gUmVhZHMgcGVyc2lzdGVudCBtZW1vcnkgcmFuZ2UgZnJvbSBwYXJhdmlydCBkZXZpY2UgYW5k
+IAogICAgIHJlZ2lzdGVycyB3aXRoICdudmRpbW1fYnVzJy4gIAogICAtICdudmRpbW0vcG1lbScg
+ZHJpdmVyIHVzZXMgdGhpcyBpbmZvcm1hdGlvbiB0byBhbGxvY2F0ZSAKICAgICBwZXJzaXN0ZW50
+IG1lbW9yeSByZWdpb24gYW5kIHNldHVwIGZpbGVzeXN0ZW0gb3BlcmF0aW9ucyAKICAgICB0byB0
+aGUgYWxsb2NhdGVkIG1lbW9yeS4gCiAgIC0gdmlydGlvIHBtZW0gZHJpdmVyIGltcGxlbWVudHMg
+YXN5bmNocm9ub3VzIGZsdXNoaW5nIAogICAgIGludGVyZmFjZSB0byBmbHVzaCBmcm9tIGd1ZXN0
+IHRvIGhvc3QuCgoyLiBRZW11IHZpcnRpby1wbWVtIGRldmljZQotLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0KICAgLSBDcmVhdGVzIHZpcnRpbyBwbWVtIGRldmljZSBhbmQgZXhwb3Nl
+cyBhIG1lbW9yeSByYW5nZSB0byAKICAgICBLVk0gZ3Vlc3QuIAogICAtIEF0IGhvc3Qgc2lkZSB0
+aGlzIGlzIGZpbGUgYmFja2VkIG1lbW9yeSB3aGljaCBhY3RzIGFzIAogICAgIHBlcnNpc3RlbnQg
+bWVtb3J5LiAKICAgLSBRZW11IHNpZGUgZmx1c2ggdXNlcyBhaW8gdGhyZWFkIHBvb2wgQVBJJ3Mg
+YW5kIHZpcnRpbyAKICAgICBmb3IgYXN5bmNocm9ub3VzIGd1ZXN0IG11bHRpIHJlcXVlc3QgaGFu
+ZGxpbmcuIAoKIFZpcnRpby1wbWVtIHNlY3VyaXR5IGltcGxpY2F0aW9ucyBhbmQgY291bnRlcm1l
+YXN1cmVzOgogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0KCiBJbiBwcmV2aW91cyBwb3N0aW5nIG9mIGtlcm5lbCBkcml2ZXIsIHRoZXJlIHdhcyBk
+aXNjdXNzaW9uIFs3XQogb24gcG9zc2libGUgaW1wbGljYXRpb25zIG9mIHBhZ2UgY2FjaGUgc2lk
+ZSBjaGFubmVsIGF0dGFja3Mgd2l0aCAKIHZpcnRpbyBwbWVtLiBBZnRlciB0aG9yb3VnaCBhbmFs
+eXNpcyBvZiBkZXRhaWxzIG9mIGtub3duIHNpZGUgCiBjaGFubmVsIGF0dGFja3MsIGJlbG93IGFy
+ZSB0aGUgc3VnZ2VzdGlvbnM6CgogLSBEZXBlbmRzIGVudGlyZWx5IG9uIGhvdyBob3N0IGJhY2tp
+bmcgaW1hZ2UgZmlsZSBpcyBtYXBwZWQgCiAgIGludG8gZ3Vlc3QgYWRkcmVzcyBzcGFjZS4gCgog
+LSB2aXJ0aW8tcG1lbSBkZXZpY2UgZW11bGF0aW9uLCBieSBkZWZhdWx0IHNoYXJlZCBtYXBwaW5n
+IGlzIHVzZWQKICAgdG8gbWFwIGhvc3QgYmFja2luZyBmaWxlLiBJdCBpcyByZWNvbW1lbmRlZCB0
+byB1c2Ugc2VwYXJhdGUKICAgYmFja2luZyBmaWxlIGF0IGhvc3Qgc2lkZSBmb3IgZXZlcnkgZ3Vl
+c3QuIFRoaXMgd2lsbCBwcmV2ZW50CiAgIGFueSBwb3NzaWJpbGl0eSBvZiBleGVjdXRpbmcgY29t
+bW9uIGNvZGUgZnJvbSBtdWx0aXBsZSBndWVzdHMKICAgYW5kIGFueSBjaGFuY2Ugb2YgaW5mZXJy
+aW5nIGd1ZXN0IGxvY2FsIGRhdGEgYmFzZWQgYmFzZWQgb24gCiAgIGV4ZWN1dGlvbiB0aW1lLgoK
+IC0gSWYgYmFja2luZyBmaWxlIGlzIHJlcXVpcmVkIHRvIGJlIHNoYXJlZCBhbW9uZyBtdWx0aXBs
+ZSBndWVzdHMgCiAgIGl0IGlzIHJlY29tbWVuZGVkIHRvIGRvbid0IHN1cHBvcnQgaG9zdCBwYWdl
+IGNhY2hlIGV2aWN0aW9uIAogICBjb21tYW5kcyBmcm9tIHRoZSBndWVzdCBkcml2ZXIuIFRoaXMg
+d2lsbCBhdm9pZCBhbnkgcG9zc2liaWxpdHkKICAgb2YgaW5mZXJyaW5nIGd1ZXN0IGxvY2FsIGRh
+dGEgb3IgaG9zdCBkYXRhIGZyb20gYW5vdGhlciBndWVzdC4gCgogLSBQcm9wb3NlZCBkZXZpY2Ug
+c3BlY2lmaWNhdGlvbiBbNl0gZm9yIHZpcnRpby1wbWVtIGRldmljZSB3aXRoIAogICBkZXRhaWxz
+IG9mIHBvc3NpYmxlIHNlY3VyaXR5IGltcGxpY2F0aW9ucyBhbmQgc3VnZ2VzdGVkIAogICBjb3Vu
+dGVybWVhc3VyZXMgZm9yIGRldmljZSBlbXVsYXRpb24uCgogVmlydGlvLXBtZW0gZXJyb3JzIGhh
+bmRsaW5nOgogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQogIENoZWNr
+ZWQgYmVoYXZpb3VyIG9mIHZpcnRpby1wbWVtIGZvciBiZWxvdyB0eXBlcyBvZiBlcnJvcnMKICBO
+ZWVkIHN1Z2dlc3Rpb25zIG9uIGV4cGVjdGVkIGJlaGF2aW91ciBmb3IgaGFuZGxpbmcgdGhlc2Ug
+ZXJyb3JzPwoKICAtIEhhcmR3YXJlIEVycm9yczogVW5jb3JyZWN0YWJsZSByZWNvdmVyYWJsZSBF
+cnJvcnM6IAogIGFdIHZpcnRpby1wbWVtOiAKICAgIC0gQXMgcGVyIGN1cnJlbnQgbG9naWMgaWYg
+ZXJyb3IgcGFnZSBiZWxvbmdzIHRvIFFlbXUgcHJvY2VzcywgCiAgICAgIGhvc3QgTUNFIGhhbmRs
+ZXIgaXNvbGF0ZXMoaHdwb2lzb24pIHRoYXQgcGFnZSBhbmQgc2VuZCBTSUdCVVMuIAogICAgICBR
+ZW11IFNJR0JVUyBoYW5kbGVyIGluamVjdHMgZXhjZXB0aW9uIHRvIEtWTSBndWVzdC4gCiAgICAt
+IEtWTSBndWVzdCB0aGVuIGlzb2xhdGVzIHRoZSBwYWdlIGFuZCBzZW5kIFNJR0JVUyB0byBndWVz
+dCAKICAgICAgdXNlcnNwYWNlIHByb2Nlc3Mgd2hpY2ggaGFzIG1hcHBlZCB0aGUgcGFnZS4gCiAg
+CiAgYl0gRXhpc3RpbmcgaW1wbGVtZW50YXRpb24gZm9yIEFDUEkgcG1lbSBkcml2ZXI6IAogICAg
+LSBIYW5kbGVzIHN1Y2ggZXJyb3JzIHdpdGggTUNFIG5vdGlmaWVyIGFuZCBjcmVhdGVzIGEgbGlz
+dCAKICAgICAgb2YgYmFkIGJsb2Nrcy4gUmVhZC9kaXJlY3QgYWNjZXNzIERBWCBvcGVyYXRpb24g
+cmV0dXJuIEVJTyAKICAgICAgaWYgYWNjZXNzZWQgbWVtb3J5IHBhZ2UgZmFsbCBpbiBiYWQgYmxv
+Y2sgbGlzdC4KICAgIC0gSXQgYWxzbyBzdGFydHMgYmFja2dvdW5kIHNjcnViYmluZy4gIAogICAg
+LSBTaW1pbGFyIGZ1bmN0aW9uYWxpdHkgY2FuIGJlIHJldXNlZCBpbiB2aXJ0aW8tcG1lbSB3aXRo
+IE1DRSAKICAgICAgbm90aWZpZXIgYnV0IHdpdGhvdXQgc2NydWJiaW5nKG5vIEFDUEkvQVJTKT8g
+TmVlZCBpbnB1dHMgdG8gCiAgICAgIGNvbmZpcm0gaWYgdGhpcyBiZWhhdmlvdXIgaXMgb2sgb3Ig
+bmVlZHMgYW55IGNoYW5nZT8KCkNoYW5nZXMgZnJvbSBQQVRDSCB2MTI6IFsxXSAKIC0gTWlub3Ig
+Y2hhbmdlcyhmdW5jdGlvbiBuYW1lLCBkZXZfZXJyIC0+IGRldl9pbmZvICYgCiAgIG1ha2UgZnVu
+Y3Rpb24gc3RhdGljIGluIHZpcnRpbyBwYXRjaCAtIFtDb3JuZWxpYV0KIC0gQWRkZWQgci1vLWIg
+b2YgTWlrZSBpbiBwYXRjaCA0CgpDaGFuZ2VzIGZyb20gUEFUQ0ggdjExOiBbMl0gCiAtIENoYW5n
+ZSBpbXBsbWVudGF0aW9uIGZvciBzZXR0aW5nIG9mIHN5bmNocm9ub3VzIERBWCB0eXBlCiAgIGZv
+ciBkZXZpY2UgbWFwcGVyIC0gW01pa2VdIAoKQ2hhbmdlcyBmcm9tIFBBVENIIHYxMDoKIC0gUmVi
+YXNlZCBvbiBMaW51eC01LjItcmM0CgpDaGFuZ2VzIGZyb20gUEFUQ0ggdjk6CiAtIEtjb25maWcg
+aGVscCB0ZXh0IGFkZCB0d28gc3BhY2VzIC0gUmFuZHkKIC0gRml4ZWQgbGlibnZkaW1tICdiaW8n
+IGluY2x1ZGUgd2FybmluZyAtIERhbgogLSB2aXJ0aW8tcG1lbSwgc2VwYXJhdGUgcmVxdWVzdC9y
+ZXNwIHN0cnVjdCBhbmQgCiAgIG1vdmUgdG8gdWFwaSBmaWxlIHdpdGggdXBkYXRlZCBsaWNlbnNl
+IC0gRGF2aWRICiAtIFVzZSB2aXJ0aW8zMiogdHlwZSBmb3IgcmVxL3Jlc3AgZW5kaWFuZXNzIC0g
+RGF2aWRICiAtIEFkZGVkIHRlc3RlZC1ieSAmIGFjay1ieSBvZiBKYWtvYgogLSBSZWJhc2VkIHRv
+IDUuMi1yYzEKCkNoYW5nZXMgZnJvbSBQQVRDSCB2ODoKIC0gU2V0IGRldmljZSBtYXBwZXIgc3lu
+Y2hyb25vdXMgaWYgYWxsIHRhcmdldCBkZXZpY2VzIHN1cHBvcnQgLSBEYW4KIC0gTW92ZSB2aXJ0
+aW9fcG1lbS5oIHRvIG52ZGltbSBkaXJlY3RvcnkgIC0gRGFuCiAtIFN0eWxlLCBpbmRlbnRhdGlv
+biAmIGJldHRlciBlcnJvciBtZXNzYWdlcyBpbiBwYXRjaCAyIC0gRGF2aWRICiAtIEFkZGVkIE1T
+VCdzIGFjayBpbiBwYXRjaCAyLgoKQ2hhbmdlcyBmcm9tIFBBVENIIHY3OgogLSBDb3JyZWN0ZWQg
+cGVuZGluZyByZXF1ZXN0IHF1ZXVlIGxvZ2ljIChwYXRjaCAyKSAtIEpha3ViIFN0YXJvxYQKIC0g
+VXNlZCB1bnNpZ25lZCBsb25nIGZsYWdzIGZvciBwYXNzaW5nIERBWERFVl9GX1NZTkMgKHBhdGNo
+IDMpIC0gRGFuCiAtIEZpeGVkIHR5cG8gPT4gIHZtYSAnZmxhZycgdG8gJ3ZtX2ZsYWcnIChwYXRj
+aCA0KQogLSBBZGRlZCByb2IgaW4gcGF0Y2ggNiAmIHBhdGNoIDIKCkNoYW5nZXMgZnJvbSBQQVRD
+SCB2NjogCiAtIENvcnJlY3RlZCBjb21tZW50IGZvcm1hdCBpbiBwYXRjaCA1ICYgcGF0Y2ggNi4g
+W0RhdmVdCiAtIENoYW5nZWQgdmFyaWFibGUgZGVjbGFyYXRpb24gaW5kZW50YXRpb24gaW4gcGF0
+Y2ggNiBbRGFycmlja10KIC0gQWRkIFJldmlld2VkLWJ5IHRhZyBieSAnSmFuIEthcmEnIGluIHBh
+dGNoIDQgJiBwYXRjaCA1CgpDaGFuZ2VzIGZyb20gUEFUQ0ggdjU6IAogIENoYW5nZXMgc3VnZ2Vz
+dGVkIGluIGJ5IC0gW0Nvcm5lbGlhLCBZdXZhbF0KLSBSZW1vdmUgYXNzaWdubWVudCBjaGFpbmlu
+ZyBpbiB2aXJ0aW8gZHJpdmVyCi0gQmV0dGVyIGVycm9yIG1lc3NhZ2UgYW5kIHJlbW92ZSBub3Qg
+cmVxdWlyZWQgZnJlZQotIENoZWNrIG5kX3JlZ2lvbiBiZWZvcmUgdXNlCgogIENoYW5nZXMgc3Vn
+Z2VzdGVkIGJ5IC0gW0phbiBLYXJhXQotIGRheF9zeW5jaHJvbm91cygpIGZvciAhQ09ORklHX0RB
+WAotIENvcnJlY3QgJ2RheGRldl9tYXBwaW5nX3N1cHBvcnRlZCcgY29tbWVudCBhbmQgbm9uLWRh
+eCBpbXBsZW1lbnRhdGlvbgoKICBDaGFuZ2VzIHN1Z2dlc3RlZCBieSAtIFtEYW4gV2lsbGlhbXNd
+Ci0gUGFzcyBtZWFuaW5nZnVsIGZsYWcgJ0RBWERFVl9GX1NZTkMnIHRvIGFsbG9jX2RheAotIEdh
+dGUgbnZkaW1tX2ZsdXNoIGluc3RlYWQgb2YgYWRkaXRpb25hbCBhc3luYyBwYXJhbWV0ZXIKLSBN
+b3ZlIGJsb2NrIGNoYWluaW5nIGxvZ2ljIHRvIGZsdXNoIGNhbGxiYWNrIHRoYW4gY29tbW9uIG52
+ZGltbV9mbHVzaAotIFVzZSBOVUxMIGZsdXNoIGNhbGxiYWNrIGZvciBnZW5lcmljIGZsdXNoIGZv
+ciBiZXR0ZXIgcmVhZGFiaWxpdHkgW0RhbiwgSmFuXQoKLSBVc2UgdmlydGlvIGRldmljZSBpZCAy
+NyBmcm9tIDI1KGFscmVhZHkgdXNlZCkgLSBbTVNUXQoKQ2hhbmdlcyBmcm9tIFBBVENIIHY0Ogot
+IEZhY3RvciBvdXQgTUFQX1NZTkMgc3VwcG9ydGVkIGZ1bmN0aW9uYWxpdHkgdG8gYSBjb21tb24g
+aGVscGVyCgkJCQlbRGF2ZSwgRGFycmljaywgSmFuXQotIENvbW1lbnQsIGluZGVudGF0aW9uIGFu
+ZCB2aXJ0cXVldWVfa2ljayBmYWlsdXJlIGhhbmRsZSAtIFl1dmFsIFNoYWlhCgpDaGFuZ2VzIGZy
+b20gUEFUQ0ggdjM6IAotIFVzZSBnZW5lcmljIGRheF9zeW5jaHJvbm91cygpIGhlbHBlciB0byBj
+aGVjayBmb3IgREFYREVWX1NZTkMgCiAgZmxhZyAtIFtEYW4sIERhcnJpY2ssIEphbl0KLSBBZGQg
+J2lzX252ZGltbV9hc3luYycgZnVuY3Rpb24KLSBEb2N1bWVudCBwYWdlIGNhY2hlIHNpZGUgY2hh
+bm5lbCBhdHRhY2tzIGltcGxpY2F0aW9ucyAmIAogIGNvdW50ZXJtZWFzdXJlcyAtIFtEYXZlIENo
+aW5uZXIsIE1pY2hhZWxdCgpDaGFuZ2VzIGZyb20gUEFUQ0ggdjI6IAotIERpc2FibGUgTUFQX1NZ
+TkMgZm9yIGV4dDQgJiBYRlMgZmlsZXN5c3RlbXMgLSBbRGFuXSAKLSBVc2UgbmFtZSAndmlydGlv
+IHBtZW0nIGluIHBsYWNlIG9mICdmYWtlIGRheCcgCgpDaGFuZ2VzIGZyb20gUEFUQ0ggdjE6IAot
+IDAtZGF5IGJ1aWxkIHRlc3QgZm9yIGJ1aWxkIGRlcGVuZGVuY3kgb24gbGlibnZkaW1tIAoKIENo
+YW5nZXMgc3VnZ2VzdGVkIGJ5IC0gW0RhbiBXaWxsaWFtc10KLSBTcGxpdCB0aGUgZHJpdmVyIGlu
+dG8gdHdvIHBhcnRzIHZpcnRpbyAmIHBtZW0gIAotIE1vdmUgcXVldWluZyBvZiBhc3luYyBibG9j
+ayByZXF1ZXN0IHRvIGJsb2NrIGxheWVyCi0gQWRkICJzeW5jIiBwYXJhbWV0ZXIgaW4gbnZkaW1t
+X2ZsdXNoIGZ1bmN0aW9uCi0gVXNlIGluZGlyZWN0IGNhbGwgZm9yIG52ZGltbV9mbHVzaAotIERv
+buKAmXQgbW92ZSBkZWNsYXJhdGlvbnMgdG8gY29tbW9uIGdsb2JhbCBoZWFkZXIgZS5nIG5kLmgK
+LSBudmRpbW1fZmx1c2goKSByZXR1cm4gMCBvciAtRUlPIGlmIGl0IGZhaWxzCi0gVGVhY2ggbnNp
+b19yd19ieXRlcygpIHRoYXQgdGhlIGZsdXNoIGNhbiBmYWlsCi0gUmVuYW1lIG52ZGltbV9mbHVz
+aCgpIHRvIGdlbmVyaWNfbnZkaW1tX2ZsdXNoKCkKLSBVc2UgJ25kX3JlZ2lvbi0+cHJvdmlkZXJf
+ZGF0YScgZm9yIGxvbmcgZGVyZWZlcmVuY2luZwotIFJlbW92ZSB2aXJ0aW9fcG1lbV9mcmVlemUv
+cmVzdG9yZSBmdW5jdGlvbnMKLSBSZW1vdmUgQlNEIGxpY2Vuc2UgdGV4dCB3aXRoIFNQRFggbGlj
+ZW5zZSB0ZXh0CgotIEFkZCBtaWdodF9zbGVlcCgpIGluIHZpcnRpb19wbWVtX2ZsdXNoIC0gW0x1
+aXpdCi0gTWFrZSBzcGluX2xvY2tfaXJxc2F2ZSgpIG5hcnJvdwoKUGFua2FqIEd1cHRhICg3KToK
+ICAgbGlibnZkaW1tOiBuZF9yZWdpb24gZmx1c2ggY2FsbGJhY2sgc3VwcG9ydAogICB2aXJ0aW8t
+cG1lbTogQWRkIHZpcnRpby1wbWVtIGd1ZXN0IGRyaXZlcgogICBsaWJudmRpbW06IGFkZCBuZF9y
+ZWdpb24gYnVmZmVyZWQgZGF4X2RldiBmbGFnCiAgIGRheDogY2hlY2sgc3luY2hyb25vdXMgbWFw
+cGluZyBpcyBzdXBwb3J0ZWQKICAgZG06IGRtOiBFbmFibGUgc3luY2hyb25vdXMgZGF4CiAgIGV4
+dDQ6IGRpc2FibGUgbWFwX3N5bmMgZm9yIHZpcnRpbyBwbWVtCiAgIHhmczogZGlzYWJsZSBtYXBf
+c3luYyBmb3IgdmlydGlvIHBtZW0KClsxXSBodHRwczovL2xrbWwub3JnL2xrbWwvMjAxOS82LzEx
+LzgzMQpbMl0gaHR0cHM6Ly9sa21sLm9yZy9sa21sLzIwMTkvNi8xMC8yMDkKWzNdIGh0dHBzOi8v
+d3d3LnNwaW5pY3MubmV0L2xpc3RzL2t2bS9tc2cxNDk3NjEuaHRtbApbNF0gaHR0cHM6Ly93d3cu
+c3Bpbmljcy5uZXQvbGlzdHMva3ZtL21zZzE1MzA5NS5odG1sICAKWzVdIGh0dHBzOi8vbWFyYy5p
+bmZvLz9sPXFlbXUtZGV2ZWwmbT0xNTU4NjA3NTEyMDIyMDImdz0yCls2XSBodHRwczovL2xpc3Rz
+Lm9hc2lzLW9wZW4ub3JnL2FyY2hpdmVzL3ZpcnRpby1kZXYvMjAxOTAzL21zZzAwMDgzLmh0bWwK
+WzddIGh0dHBzOi8vbGttbC5vcmcvbGttbC8yMDE5LzEvOS8xMTkxCgogZHJpdmVycy9hY3BpL25m
+aXQvY29yZS5jICAgICAgICAgfCAgICA0IC0KIGRyaXZlcnMvZGF4L2J1cy5jICAgICAgICAgICAg
+ICAgIHwgICAgMiAKIGRyaXZlcnMvZGF4L3N1cGVyLmMgICAgICAgICAgICAgIHwgICAxOSArKysr
+KwogZHJpdmVycy9tZC9kbS10YWJsZS5jICAgICAgICAgICAgfCAgIDI0ICsrKysrLS0KIGRyaXZl
+cnMvbWQvZG0uYyAgICAgICAgICAgICAgICAgIHwgICAgNSAtCiBkcml2ZXJzL21kL2RtLmggICAg
+ICAgICAgICAgICAgICB8ICAgIDUgKwogZHJpdmVycy9udmRpbW0vTWFrZWZpbGUgICAgICAgICAg
+fCAgICAxIAogZHJpdmVycy9udmRpbW0vY2xhaW0uYyAgICAgICAgICAgfCAgICA2ICsKIGRyaXZl
+cnMvbnZkaW1tL25kLmggICAgICAgICAgICAgIHwgICAgMSAKIGRyaXZlcnMvbnZkaW1tL25kX3Zp
+cnRpby5jICAgICAgIHwgIDEyNSArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysKIGRyaXZlcnMvbnZkaW1tL3BtZW0uYyAgICAgICAgICAgIHwgICAxOCArKystLQogZHJpdmVy
+cy9udmRpbW0vcmVnaW9uX2RldnMuYyAgICAgfCAgIDMzICsrKysrKysrKy0KIGRyaXZlcnMvbnZk
+aW1tL3ZpcnRpb19wbWVtLmMgICAgIHwgIDEyMiArKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKwogZHJpdmVycy9udmRpbW0vdmlydGlvX3BtZW0uaCAgICAgfCAgIDU1ICsrKysr
+KysrKysrKysrKysrCiBkcml2ZXJzL3ZpcnRpby9LY29uZmlnICAgICAgICAgICB8ICAgMTEgKysr
+CiBmcy9leHQ0L2ZpbGUuYyAgICAgICAgICAgICAgICAgICB8ICAgMTAgKy0tCiBmcy94ZnMveGZz
+X2ZpbGUuYyAgICAgICAgICAgICAgICB8ICAgIDkgKy0KIGluY2x1ZGUvbGludXgvZGF4LmggICAg
+ICAgICAgICAgIHwgICAyNiArKysrKysrLQogaW5jbHVkZS9saW51eC9saWJudmRpbW0uaCAgICAg
+ICAgfCAgIDEwICsrLQogaW5jbHVkZS91YXBpL2xpbnV4L3ZpcnRpb19pZHMuaCAgfCAgICAxIAog
+aW5jbHVkZS91YXBpL2xpbnV4L3ZpcnRpb19wbWVtLmggfCAgIDM1ICsrKysrKysrKysKIDIxIGZp
+bGVzIGNoYW5nZWQsIDQ4OSBpbnNlcnRpb25zKCspLCAzMyBkZWxldGlvbnMoLSkKCi0tCmRtLWRl
+dmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vd3d3LnJlZGhhdC5j
+b20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
