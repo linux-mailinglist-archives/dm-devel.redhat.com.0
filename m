@@ -2,64 +2,63 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94EDC45746
-	for <lists+dm-devel@lfdr.de>; Fri, 14 Jun 2019 10:18:19 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by mail.lfdr.de (Postfix) with ESMTPS id 93B5C4574F
+	for <lists+dm-devel@lfdr.de>; Fri, 14 Jun 2019 10:18:34 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id B9EE930821BE;
-	Fri, 14 Jun 2019 08:18:15 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 9057059465;
+	Fri, 14 Jun 2019 08:18:27 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E316605CD;
-	Fri, 14 Jun 2019 08:18:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 617EB2A19D;
+	Fri, 14 Jun 2019 08:18:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 28C021833004;
-	Fri, 14 Jun 2019 08:18:01 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ED13E1833001;
+	Fri, 14 Jun 2019 08:18:20 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x5CKUDnd006995 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 12 Jun 2019 16:30:13 -0400
+	id x5D0iEDp018011 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 12 Jun 2019 20:44:16 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C084F2FC44; Wed, 12 Jun 2019 20:30:13 +0000 (UTC)
+	id C29381001B18; Thu, 13 Jun 2019 00:44:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx03.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.27])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B8FDE53787
-	for <dm-devel@redhat.com>; Wed, 12 Jun 2019 20:30:11 +0000 (UTC)
-Received: from mail.mschade.de (mail.mschade.de [178.63.171.18])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id C4DD47E423
-	for <dm-devel@redhat.com>; Wed, 12 Jun 2019 20:29:55 +0000 (UTC)
-Received: from pegasus.fritz.box
-	(p200300DF4F2D3B00B62E99FFFE42D2A7.dip0.t-ipconnect.de
-	[IPv6:2003:df:4f2d:3b00:b62e:99ff:fe42:d2a7])
-	by mail.mschade.de (Postfix) with ESMTPSA id DB63A205907
-	for <dm-devel@redhat.com>; Wed, 12 Jun 2019 20:02:07 +0200 (CEST)
-To: dm-devel@redhat.com
-From: Markus Schade <markus.schade@gmail.com>
-Message-ID: <3a15015b-95cf-fb0c-4582-a096f7832ea2@mschade.de>
-Date: Wed, 12 Jun 2019 20:02:06 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.7.0
-MIME-Version: 1.0
-Content-Language: en-US
-X-Greylist: Delayed for 02:27:51 by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.27]); Wed, 12 Jun 2019 20:30:01 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]);
-	Wed, 12 Jun 2019 20:30:01 +0000 (UTC) for IP:'178.63.171.18'
-	DOMAIN:'mail.mschade.de' HELO:'mail.mschade.de'
-	FROM:'markus.schade@gmail.com' RCPT:''
-X-RedHat-Spam-Score: 1.204 * (DKIM_ADSP_CUSTOM_MED, FREEMAIL_FROM,
-	NML_ADSP_CUSTOM_MED, SPF_HELO_NONE,
-	SPF_NONE) 178.63.171.18 mail.mschade.de 178.63.171.18 mail.mschade.de
-	<markus.schade@gmail.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.27
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.41])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CBE561001B14;
+	Thu, 13 Jun 2019 00:44:05 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by mx1.redhat.com (Postfix) with ESMTP id 141C53079B9D;
+	Thu, 13 Jun 2019 00:43:45 +0000 (UTC)
+Received: from
+	jaskaran-Intel-Server-Board-S1200V3RPS-UEFI-Development-Kit.corp.microsoft.com
+	(unknown [131.107.160.238])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 380F620B7186;
+	Wed, 12 Jun 2019 17:43:37 -0700 (PDT)
+From: Jaskaran Khurana <jaskarankhurana@linux.microsoft.com>
+To: linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-integrity@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Date: Wed, 12 Jun 2019 17:43:27 -0700
+Message-Id: <20190613004328.4274-1-jaskarankhurana@linux.microsoft.com>
+X-Greylist: Sender passed SPF test, ACL 242 matched, not delayed by
+	milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]);
+	Thu, 13 Jun 2019 00:43:56 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]);
+	Thu, 13 Jun 2019 00:43:56 +0000 (UTC) for IP:'13.77.154.182'
+	DOMAIN:'linux.microsoft.com' HELO:'linux.microsoft.com'
+	FROM:'jaskarankhurana@linux.microsoft.com' RCPT:''
+X-RedHat-Spam-Score: -8.002  (ENV_AND_HDR_SPF_MATCH, SPF_HELO_PASS, SPF_PASS,
+	USER_IN_DEF_SPF_WL) 13.77.154.182 linux.microsoft.com
+	13.77.154.182 linux.microsoft.com
+	<jaskarankhurana@linux.microsoft.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.41
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 14 Jun 2019 04:15:49 -0400
-Subject: [dm-devel] dm thin block allocation failure
+Cc: scottsh@microsoft.com, snitzer@redhat.com, ebiggers@google.com,
+	jmorris@namei.org, dm-devel@redhat.com, mpatocka@redhat.com, agk@redhat.com
+Subject: [dm-devel] [RFC PATCH v4 0/1] Add dm verity root hash pkcs7 sig
+	validation.
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,121 +70,119 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Fri, 14 Jun 2019 08:18:18 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]); Fri, 14 Jun 2019 08:18:33 +0000 (UTC)
 
-Hi
+This patch set adds in-kernel pkcs7 signature checking for the roothash of
+the dm-verity hash tree.
+The verification is to support cases where the roothash is not secured by
+Trusted Boot, UEFI Secureboot or similar technologies.
+One of the use cases for this is for dm-verity volumes mounted after boot,
+the root hash provided during the creation of the dm-verity volume has to
+be secure and thus in-kernel validation implemented here will be used
+before we trust the root hash and allow the block device to be created.
 
-On Linux 5.1 (confirmed up to 5.1.2) I am seeing more or less regular
-lockups of the dm layer.
+Why we are doing validation in the Kernel?
 
-I first discovered this issue after upgrading to Ubuntu's 18.04 kernel
-(based on 4.15).  The original bug report is at
-https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1777398
+The reason is to still be secure in cases where the attacker is able to
+compromise the user mode application in which case the user mode validation
+could not have been trusted.
+The root hash signature validation in the kernel along with existing
+dm-verity implementation gives a higher level of confidence in the
+executable code or the protected data. Before allowing the creation of
+the device mapper block device the kernel code will check that the detached
+pkcs7 signature passed to it validates the roothash and the signature is
+trusted by builtin keys set at kernel creation. The kernel should be
+secured using Verified boot, UEFI Secure Boot or similar technologies so we
+can trust it.
 
-As can be seen, I have tested a number of their kernels and mainline
-kernels since then.
+What about attacker mounting non dm-verity volumes to run executable
+code?
 
-I have the following storage stack:
+This verification can be used to have a security architecture where a LSM
+can enforce this verification for all the volumes and by doing this it can
+ensure that all executable code runs from signed and trusted dm-verity
+volumes.
 
-VM (mostly single partition and ext4, but could be anything)
-LVM thin volume
-MD RAID 10
-GPT partition
-Intel P4510 NVMe
+Further patches will be posted that build on this and enforce this
+verification based on policy for all the volumes on the system.
 
-Discard passdown is enable throughout the whole stack.
+How are these changes tested?
 
-VM thin volumes get created by taking a snapshot of a snapshot from a
-source thin volume (containing an OS image) and then deleting the
-intermediate snapshot, making the new volumes independent.
+To generate and sign the roothash just dump the roothash returned by veritysetup
+format in a text file and then sign using the tool in the topic branch here:
+(fsverity uses the tool for signing, I just added a parameter there for testing)
 
-Judging from the call trace, my guess is that there is somewhere a race
-condition, when a new block needs to be allocated which has still to be
-discarded.
+https://github.com/jaskarankhurana/fsverity-sign/tree/fs_verity_detached_pkcs7_for_dm_verity
 
-Unfortunately I have not yet been able to find an (easy) reproducer.
+fsverity sign-dm-verity <ROOTHASH_IN_A_FILE>  <OUTSIG> --key=<KEYFILE>
+--cert=<CERTFILE>
 
-Best regards,
-Markus
+veritysetup part of cryptsetup library was modified to take a optional
+root-hash-sig parameter.
 
+Commandline used to test the changes:
 
-------------[ cut here ]------------
-kernel BUG at drivers/md/persistent-data/dm-space-map-disk.c:178!
-invalid opcode: 0000 [#1] SMP PTI
-CPU: 24 PID: 4180452 Comm: kworker/u128:1 Not tainted
-5.1.2-050102-generic #201905141830
-Hardware name: Quanta Cloud Technology Inc. QuantaGrid D52B-1U/S5B-MB
-(LBG-4), BIOS 3A13.Q402 11/16/2018
-Workqueue: dm-thin do_worker [dm_thin_pool]
-RIP: 0010:sm_disk_new_block+0x92/0xa0 [dm_persistent_data]
-Code: 55 e4 48 83 c0 01 48 89 83 20 22 00 00 49 8b 34 24 e8 82 f7 ff ff
-85 c0 75 c4 83 7d e4 01 75 0a 48 83 83 28 22 00 00 01 eb b4 <0f> 0b e8
-a7 31 f8 d6 0f 1f 80 00 00 00 00 0f 1f 44 00 00 55 48 89
-RSP: 0018:ffffb42036cefca8 EFLAGS: 00010297
-RAX: 0000000000000000 RBX: ffff98e6e7fa0000 RCX: 0000000000000000
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff98e6ff3bfe00
-RBP: ffffb42036cefcc8 R08: 0000000000000000 R09: ffffb42036cefa38
-R10: 000000003dc9bc00 R11: 0000000000000000 R12: ffffb42036cefd70
-R13: ffffb42036cefd70 R14: ffff98e70934e000 R15: ffff9925a7c30fb0
-FS:  0000000000000000(0000) GS:ffff9927bf600000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000000a095d80008 CR3: 0000009cf49be004 CR4: 00000000007626e0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-PKRU: 55555554
-Call Trace:
- dm_pool_alloc_data_block+0x3c/0x60 [dm_thin_pool]
- alloc_data_block.isra.61+0x6c/0x1a0 [dm_thin_pool]
- process_cell+0x2cd/0x4f0 [dm_thin_pool]
- ? u32_swap+0x10/0x10
- ? sort+0x13b/0x220
- ? u32_swap+0x10/0x10
- do_worker+0x27c/0x900 [dm_thin_pool]
- ? __schedule+0x2db/0x840
- process_one_work+0x20f/0x410
- worker_thread+0x34/0x400
- kthread+0x120/0x140
- ? process_one_work+0x410/0x410
- ? __kthread_parkme+0x70/0x70
- ret_from_fork+0x35/0x40
-Modules linked in: xt_CHECKSUM xt_nat iptable_nat dm_snapshot veth dummy
-bridge ip6table_filter ip6_tables iptable_mangle xt_tcpudp xt_conntrack
-iptable_filter xt_CT iptable_raw ip_tables x_tables bpfilter vhost_net
-vhost tap intel_rapl dm_thin_pool skx_edac dm_persistent_data nfit
-dm_bio_prison dm_bufio x86_pkg_temp_thermal intel_powerclamp coretemp
-kvm_intel kvm irqbypass crct10dif_pclmul crc32_pclmul
-ghash_clmulni_intel aesni_intel aes_x86_64 crypto_simd cryptd
-glue_helper intel_cstate intel_rapl_perf lpc_ich ioatdma dca ipmi_ssif
-acpi_power_meter acpi_pad mac_hid ipmi_si ipmi_devintf ipmi_msghandler
-nf_nat_ftp nf_conntrack_ftp nf_nat_sip nf_conntrack_sip nf_nat_pptp
-nf_conntrack_pptp nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4
-tcp_htcp 8021q garp mrp stp llc bonding autofs4 btrfs zstd_compress
-raid456 async_raid6_recov async_memcpy async_pq async_xor async_tx xor
-raid6_pq libcrc32c raid0 multipath linear raid1 raid10 i2c_algo_bit ttm
-drm_kms_helper syscopyarea
- sysfillrect sysimgblt fb_sys_fops i40e drm nvme ahci nvme_core libahci wmi
----[ end trace 82bb0f2c4f63c2ca ]---
-RIP: 0010:sm_disk_new_block+0x92/0xa0 [dm_persistent_data]
-Code: 55 e4 48 83 c0 01 48 89 83 20 22 00 00 49 8b 34 24 e8 82 f7 ff ff
-85 c0 75 c4 83 7d e4 01 75 0a 48 83 83 28 22 00 00 01 eb b4 <0f> 0b e8
-a7 31 f8 d6 0f 1f 80 00 00 00 00 0f 1f 44 00 00 55 48 89
-RSP: 0018:ffffb42036cefca8 EFLAGS: 00010297
-RAX: 0000000000000000 RBX: ffff98e6e7fa0000 RCX: 0000000000000000
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff98e6ff3bfe00
-RBP: ffffb42036cefcc8 R08: 0000000000000000 R09: ffffb42036cefa38
-R10: 000000003dc9bc00 R11: 0000000000000000 R12: ffffb42036cefd70
-R13: ffffb42036cefd70 R14: ffff98e70934e000 R15: ffff9925a7c30fb0
-FS:  0000000000000000(0000) GS:ffff9927bf600000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000000a095d80008 CR3: 0000009cf49be004 CR4: 00000000007626e0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-PKRU: 55555554
+veritysetup open  <data_device> <name> <hash_device> <root_hash>
+ --root-hash-sig=<root_hash_pkcs7_detached_sig>
+
+The changes for veritysetup are in a topic branch for now at:
+https://github.com/jaskarankhurana/veritysetup/tree/veritysetup_add_sig
+
+Changelog:
+
+v4:
+  - Code review feedback given by Milan Broz.
+  - Add documentation about the root hash signature parameter.
+  - Bump up the dm-verity target version.
+  - Provided way to sign and test with veritysetup in cover letter.
+
+v3:
+  - Code review feedback given by Sasha Levin.
+  - Removed EXPORT_SYMBOL_GPL since this was not required.
+  - Removed "This file is released under the GPLv2" since we have SPDX
+    identifier.
+  - Inside verity_verify_root_hash changed EINVAL to ENOKEY when the key
+    descriptor is not specified but due to force option being set it is
+    expected.
+  - Moved CONFIG check to inside verity_verify_get_sig_from_key.
+     (Did not move the sig_opts_cleanup to inside verity_dtr as the
+     sig_opts do not need to be allocated for the entire duration the block
+     device is active unlike the verity structure, note verity_dtr is called
+     only if verity_ctr fails or after the lifetime of the block device.)
+
+v2:
+  - Code review feedback to pass the signature binary blob as a key that can be
+    looked up in the kernel and be used to verify the roothash.
+    [Suggested by Milan Broz]
+  - Made the code related change suggested in review of v1.
+    [Suggested by Balbir Singh]
+
+v1:
+  - Add kconfigs to control dm-verity root has signature verification and
+    use the signature if specified to verify the root hash.
+
+Jaskaran Khurana (1):
+  Adds in-kernel pkcs7 sig checking the roothash of the dm-verity hash
+    tree
+
+ Documentation/device-mapper/verity.txt |   7 ++
+ drivers/md/Kconfig                     |  23 +++++
+ drivers/md/Makefile                    |   2 +-
+ drivers/md/dm-verity-target.c          |  36 ++++++-
+ drivers/md/dm-verity-verify-sig.c      | 132 +++++++++++++++++++++++++
+ drivers/md/dm-verity-verify-sig.h      |  30 ++++++
+ 6 files changed, 224 insertions(+), 6 deletions(-)
+ create mode 100644 drivers/md/dm-verity-verify-sig.c
+ create mode 100644 drivers/md/dm-verity-verify-sig.h
+
+-- 
+2.17.1
 
 --
 dm-devel mailing list
