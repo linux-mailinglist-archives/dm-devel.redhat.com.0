@@ -2,76 +2,82 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3D3B476C7
-	for <lists+dm-devel@lfdr.de>; Sun, 16 Jun 2019 22:44:58 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	by mail.lfdr.de (Postfix) with ESMTPS id 279E0476EC
+	for <lists+dm-devel@lfdr.de>; Sun, 16 Jun 2019 23:09:26 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 742ED81F1B;
-	Sun, 16 Jun 2019 20:44:54 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 2C1213DE10;
+	Sun, 16 Jun 2019 21:09:23 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 18D4A5F9D6;
-	Sun, 16 Jun 2019 20:44:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 27EEB648B0;
+	Sun, 16 Jun 2019 21:09:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9DA3AC57E;
-	Sun, 16 Jun 2019 20:44:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 79977C57E;
+	Sun, 16 Jun 2019 21:09:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x5GKiOnZ028086 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 16 Jun 2019 16:44:25 -0400
+	id x5GL99cV030734 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 16 Jun 2019 17:09:09 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E77B99F2E6; Sun, 16 Jun 2019 20:44:24 +0000 (UTC)
+	id C01816136A; Sun, 16 Jun 2019 21:09:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx20.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.49])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E2C561948D
-	for <dm-devel@redhat.com>; Sun, 16 Jun 2019 20:44:22 +0000 (UTC)
+Received: from mx1.redhat.com (ext-mx15.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.44])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B868E179BA;
+	Sun, 16 Jun 2019 21:09:07 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 1E077308FF30
-	for <dm-devel@redhat.com>; Sun, 16 Jun 2019 20:44:21 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 6943E30833A1;
+	Sun, 16 Jun 2019 21:09:06 +0000 (UTC)
 Received: from sol.localdomain (c-24-5-143-220.hsd1.ca.comcast.net
 	[24.5.143.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 6B5DA20657;
-	Sun, 16 Jun 2019 20:44:20 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id 731C32084D;
+	Sun, 16 Jun 2019 21:09:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1560717860;
-	bh=ERPegYNkzD1FcPth0R9F9JaoxJphp4IIppVtDXCAaNw=;
+	s=default; t=1560719345;
+	bh=GTQ0Rb1obiOnV/loBYnTUldGJZLtLtyNtKdBjRCT2WY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZD6nfl7QbXsr+bn8m9kTTtdpdUoXBi0n15kPmSdKZAlCEOIRivM4FfR69m3zh2m18
-	LPiET6joxh6wkELK/OQae09JQnGUC/78BNQoB2y1xsBTeG6YEMesv3ZOUxPiKWpNli
-	0KVytrVhuGIvPn94jla5XNNePdj7jk3cHVog67/8=
-Date: Sun, 16 Jun 2019 13:44:19 -0700
+	b=xltwFOLyMNBwP569RW8nfVX87xkROwc6ffnB9dNtW6AFnDAh80Y+EQBzV8dsCi+dN
+	BWL8tW67Wvqq2wBSh0tyfQiVhUmCjZdGOm/UTpDPk+s1w5FARQOBC1b0yayfi2Rxsg
+	4PoqnST+b0yaxcSjh37V+939+TrtkzXSfV80lntg=
+Date: Sun, 16 Jun 2019 14:09:03 -0700
 From: Eric Biggers <ebiggers@kernel.org>
 To: Ard Biesheuvel <ard.biesheuvel@linaro.org>
-Message-ID: <20190616204419.GE923@sol.localdomain>
+Message-ID: <20190616210903.GF923@sol.localdomain>
 References: <20190614083404.20514-1-ard.biesheuvel@linaro.org>
+	<9cd635ec-970b-bd1b-59f4-1a07395e69a0@gmail.com>
+	<CAKv+Gu88tYOmO=8mi7yP2oj=x_SOB_o7D9jo6v_3xfbUxY2R1A@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190614083404.20514-1-ard.biesheuvel@linaro.org>
+In-Reply-To: <CAKv+Gu88tYOmO=8mi7yP2oj=x_SOB_o7D9jo6v_3xfbUxY2R1A@mail.gmail.com>
 User-Agent: Mutt/1.12.1 (2019-06-15)
 X-Greylist: Sender DNS name whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.49]);
-	Sun, 16 Jun 2019 20:44:21 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]);
-	Sun, 16 Jun 2019 20:44:21 +0000 (UTC) for IP:'198.145.29.99'
+	(mx1.redhat.com [10.5.110.44]);
+	Sun, 16 Jun 2019 21:09:06 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]);
+	Sun, 16 Jun 2019 21:09:06 +0000 (UTC) for IP:'198.145.29.99'
 	DOMAIN:'mail.kernel.org' HELO:'mail.kernel.org'
 	FROM:'ebiggers@kernel.org' RCPT:''
 X-RedHat-Spam-Score: -5.099  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
 	DKIM_VALID_AU, RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
 	SPF_PASS) 198.145.29.99 mail.kernel.org 198.145.29.99 mail.kernel.org
 	<ebiggers@kernel.org>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.49
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.44
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, linux-fscrypt@vger.kernel.org,
-	linux-crypto@vger.kernel.org, Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Mike Snitzer <msnitzer@redhat.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	device-mapper development <dm-devel@redhat.com>,
+	linux-fscrypt@vger.kernel.org,
+	"open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
+	<linux-crypto@vger.kernel.org>, Milan Broz <gmazyland@gmail.com>
 Subject: Re: [dm-devel] [RFC PATCH 0/3] crypto: switch to shash for ESSIV
-	generation
+ generation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,81 +93,37 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Sun, 16 Jun 2019 20:44:56 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]); Sun, 16 Jun 2019 21:09:24 +0000 (UTC)
 
-[+Cc dm-devel and linux-fscrypt]
+[+Cc linux-fscrypt]
 
-On Fri, Jun 14, 2019 at 10:34:01AM +0200, Ard Biesheuvel wrote:
-> This series is presented as an RFC for a couple of reasons:
-> - it is only build tested
-> - it is unclear whether this is the right way to move away from the use of
->   bare ciphers in non-crypto code
-> - we haven't really discussed whether moving away from the use of bare ciphers
->   in non-crypto code is a goal we agree on
+On Sun, Jun 16, 2019 at 09:13:01PM +0200, Ard Biesheuvel wrote:
+> >
+> >  - ESSIV is useful only for CBC mode. I wish we move to some better mode
+> > in the future instead of cementing CBC use... But if it helps people
+> > to actually use unpredictable IV for CBC, it is the right approach.
+> > (yes, I know XTS has own problems as well... but IMO that should be the default
+> > for sector/fs-block encryption these days :)
+> >
 > 
-> This series creates an ESSIV shash template that takes a (cipher,hash) tuple,
-> where the digest size of the hash must be a valid key length for the cipher.
-> The setkey() operation takes the hash of the input key, and sets into the
-> cipher as the encryption key. Digest operations accept input up to the
-> block size of the cipher, and perform a single block encryption operation to
-> produce the ESSIV output.
+> I agree that XTS should be preferred. But for some reason, the
+> kernel's XTS implementation does not support ciphertext stealing (as
+> opposed to, e.g., OpenSSL), and so CBC ended up being used for
+> encrypting the filenames in fscrypt.
 > 
-> This matches what both users of ESSIV in the kernel do, and so it is proposed
-> as a replacement for those, in patches #2 and #3.
-> 
-> As for the discussion: the code is untested, so it is presented for discussion
-> only. I'd like to understand whether we agree that phasing out the bare cipher
-> interface from non-crypto code is a good idea, and whether this approach is
-> suitable for fscrypt and dm-crypt.
-> 
-> Remaining work:
-> - wiring up some essiv(x,y) combinations into the testing framework. I wonder
->   if anything other than essiv(aes,sha256) makes sense.
-> - testing - suggestions welcome on existing testing frameworks for dm-crypt
->   and/or fscrypt
-> 
-> Cc: Herbert Xu <herbert@gondor.apana.org.au>
-> Cc: Eric Biggers <ebiggers@google.com>
-> 
-> Ard Biesheuvel (3):
->   crypto: essiv - create a new shash template for IV generation
->   dm crypt: switch to essiv shash
->   fscrypt: switch to ESSIV shash
-> 
->  crypto/Kconfig              |   3 +
->  crypto/Makefile             |   1 +
->  crypto/essiv.c              | 275 ++++++++++++++++++++
->  drivers/md/Kconfig          |   1 +
->  drivers/md/dm-crypt.c       | 137 ++--------
->  fs/crypto/Kconfig           |   1 +
->  fs/crypto/crypto.c          |  11 +-
->  fs/crypto/fscrypt_private.h |   4 +-
->  fs/crypto/keyinfo.c         |  64 +----
->  9 files changed, 321 insertions(+), 176 deletions(-)
->  create mode 100644 crypto/essiv.c
 
-I agree that moving away from bare block ciphers is generally a good idea.  For
-fscrypt I'm fine with moving ESSIV into the crypto API, though I'm not sure a
-shash template is the best approach.  Did you also consider making it a skcipher
-template so that users can do e.g. "essiv(cbc(aes),sha256,aes)"?  That would
-simplify things much more on the fscrypt side, since then all the ESSIV-related
-code would go away entirely except for changing the string "cbc(aes)" to
-"essiv(cbc(aes),sha256,aes)".
+Actually, for fscrypt CTS-CBC was also chosen because all filenames in each
+directory use the same IV, in order to efficiently support all the possible
+filesystem operations and to support filenames up to NAME_MAX.  So there was a
+desire for there to be some propagation across ciphertext blocks rather than use
+XTS which would effectively be ECB in this case.
 
-Either way, for testing the fscrypt change, I recently added tests to xfstests
-that verify the on-disk ciphertext in userspace, including for non-default modes
-such as the AES-128-CBC-ESSIV in question.  So I'm not too worried about the
-fscrypt encryption getting accidentally broken anymore.  If you want to run the
-AES-128-CBC-ESSIV test yourself, you should be able to do it by following the
-directions at
-https://github.com/tytso/xfstests-bld/blob/master/Documentation/kvm-quickstart.md
-and running 'kvm-xfstests -c ext4 generic/549'.
-
-As for adding essiv to testmgr, sha256 and aes would be enough for fscrypt.
-There aren't any plans to add more ESSIV settings to fscrypt, and
-AES-128-CBC-ESSIV was only added in the first place because some people wanted
-to use fscrypt on platforms with CBC hardware acceleration but not XTS.
+Neither solution is great though, since CBC-CTS still has the common prefix
+problem.  Long-term we're planning to switch to an AES-based wide block mode
+such as AES-HEH or AES-HCTR for filenames encryption.  This is already solved
+for Adiantum users since Adiantum is a wide-block mode, but there should be a
+pure AES solution too to go along with AES contents encryption.
 
 - Eric
 
