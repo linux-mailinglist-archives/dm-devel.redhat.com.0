@@ -2,50 +2,139 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FE244EF65
-	for <lists+dm-devel@lfdr.de>; Fri, 21 Jun 2019 21:27:34 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by mail.lfdr.de (Postfix) with ESMTPS id CCB004F2EE
+	for <lists+dm-devel@lfdr.de>; Sat, 22 Jun 2019 02:56:23 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id C130E37E88;
-	Fri, 21 Jun 2019 19:27:22 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id C56AF3083394;
+	Sat, 22 Jun 2019 00:56:18 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D048E101930C;
-	Fri, 21 Jun 2019 19:27:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5949460142;
+	Sat, 22 Jun 2019 00:56:16 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8BE4E24AFA;
-	Fri, 21 Jun 2019 19:27:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 128D8C57E;
+	Sat, 22 Jun 2019 00:56:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x5LJQuXB032426 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 21 Jun 2019 15:26:56 -0400
+	id x5M0qSR1017590 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 21 Jun 2019 20:52:28 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 98ACE60CA3; Fri, 21 Jun 2019 19:26:56 +0000 (UTC)
+	id A28491001B32; Sat, 22 Jun 2019 00:52:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0CC3E60BFB;
-	Fri, 21 Jun 2019 19:26:48 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id x5LJQkAT006713; 
-	Fri, 21 Jun 2019 14:26:46 -0500
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id x5LJQj5v006711;
-	Fri, 21 Jun 2019 14:26:45 -0500
-Date: Fri, 21 Jun 2019 14:26:45 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <mwilck@suse.com>
-Message-ID: <20190621192645.GM3251@octiron.msp.redhat.com>
-References: <20190607130552.13203-1-mwilck@suse.com>
+Received: from mx1.redhat.com (ext-mx18.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.47])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EE29C1001B2A;
+	Sat, 22 Jun 2019 00:52:23 +0000 (UTC)
+Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id DFB86308218D;
+	Sat, 22 Jun 2019 00:51:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+	d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
+	t=1561164725; x=1592700725;
+	h=from:to:cc:subject:date:message-id:references:
+	content-transfer-encoding:mime-version;
+	bh=UHjDQe+9gYA+Nd1wc0Isz2gOWgXr01ETXW0eAbKiqbY=;
+	b=GlNGwCwOd6tR/5D7w6x3ls1UL6AbagD/oVPat57e/yHoXUazzBob9tAs
+	Abkoey94Q7CbFLdOwlEsQNhWV6+SUL+tSUXlQ68KHs4z97Sg08mUS/5OP
+	p3jAuRsCCsRU042EMkak0lO3SqGRW3HLNtWyp91dcv+hg/wMQU14CczhH
+	BIZ5SKTtGoHgPLK7c9kqBZ2w4sCTzqz6POs3BJCWcrQvytiksed41nort
+	Wk7FIe4DRF5kZetFO3Q4XyGaSAdN3AN168jzB0Nvyi3okw/JGW/spZVyL
+	ovv0kh3tNyrqw5uaduqKtoANHA0hf7bnV+cieXpIBZIknkQKAPLdCGvfC Q==;
+X-IronPort-AV: E=Sophos;i="5.63,402,1557158400"; d="scan'208";a="217567450"
+Received: from mail-co1nam05lp2059.outbound.protection.outlook.com (HELO
+	NAM05-CO1-obe.outbound.protection.outlook.com) ([104.47.48.59])
+	by ob1.hgst.iphmx.com with ESMTP; 22 Jun 2019 08:51:38 +0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=sharedspace.onmicrosoft.com; s=selector2-sharedspace-onmicrosoft-com; 
+	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+	bh=/kAh/kDxhhKNEzJhxqpmkx9MyjnqYFWcLhPGNukOAZY=;
+	b=W7oI69VVrngKfb9Hck8avaAzO9QQlCv8sE4yXr/9gyggfEtKW3W2PNnFURweSX8TUlAo3X6sCteUdyqbsakqLJBGbY08vhk90wa5DV/yFKeAUwopsOYX2mYPTj2yBbnr23J/0XZh8OB17HdEv29iklTO5rwJituRuCICIfGVAn4=
+Received: from BYAPR04MB5816.namprd04.prod.outlook.com (20.179.58.207) by
+	BYAPR04MB4680.namprd04.prod.outlook.com (52.135.240.19) with Microsoft
+	SMTP
+	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	15.20.1987.15; Sat, 22 Jun 2019 00:51:36 +0000
+Received: from BYAPR04MB5816.namprd04.prod.outlook.com
+	([fe80::e94e:8ead:40b1:fae6]) by
+	BYAPR04MB5816.namprd04.prod.outlook.com
+	([fe80::e94e:8ead:40b1:fae6%7]) with mapi id 15.20.1987.014;
+	Sat, 22 Jun 2019 00:51:36 +0000
+From: Damien Le Moal <Damien.LeMoal@wdc.com>
+To: =?iso-8859-1?Q?Matias_Bj=F8rling?= <mb@lightnvm.io>, "axboe@fb.com"
+	<axboe@fb.com>, "hch@lst.de" <hch@lst.de>, Chaitanya Kulkarni
+	<Chaitanya.Kulkarni@wdc.com>, Dmitry Fomichev <Dmitry.Fomichev@wdc.com>,
+	Ajay Joshi <Ajay.Joshi@wdc.com>, Aravind Ramesh <Aravind.Ramesh@wdc.com>,
+	"martin.petersen@oracle.com" <martin.petersen@oracle.com>,
+	"James.Bottomley@HansenPartnership.com"
+	<James.Bottomley@HansenPartnership.com>, "agk@redhat.com" <agk@redhat.com>,
+	"snitzer@redhat.com" <snitzer@redhat.com>
+Thread-Topic: [PATCH 1/4] block: add zone open, close and finish support
+Thread-Index: AQHVKDJPztuCEJ+OF0q7RsgYaqLWMQ==
+Date: Sat, 22 Jun 2019 00:51:36 +0000
+Message-ID: <BYAPR04MB5816F7C8CA5B915DEEAF22D2E7E60@BYAPR04MB5816.namprd04.prod.outlook.com>
+References: <20190621130711.21986-1-mb@lightnvm.io>
+	<20190621130711.21986-2-mb@lightnvm.io>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+	smtp.mailfrom=Damien.LeMoal@wdc.com; 
+x-originating-ip: [60.117.181.124]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: d3f8ecb7-dc39-492b-eaaf-08d6f6abc7b3
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: BCL:0; PCL:0;
+	RULEID:(2390118)(7020095)(4652040)(8989299)(5600148)(711020)(4605104)(1401327)(4618075)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7193020);
+	SRVR:BYAPR04MB4680; 
+x-ms-traffictypediagnostic: BYAPR04MB4680:
+wdcipoutbound: EOP-TRUE
+x-microsoft-antispam-prvs: <BYAPR04MB46801FC20DCC462BAC49314FE7E60@BYAPR04MB4680.namprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:590;
+x-forefront-prvs: 0076F48C8A
+x-forefront-antispam-report: SFV:NSPM;
+	SFS:(10019020)(376002)(346002)(39860400002)(136003)(396003)(366004)(199004)(189003)(53546011)(446003)(66476007)(66574012)(91956017)(86362001)(305945005)(74316002)(229853002)(7736002)(71190400001)(66556008)(4326008)(66446008)(486006)(64756008)(66946007)(53936002)(81156014)(55016002)(9686003)(8676002)(66066001)(30864003)(72206003)(2201001)(81166006)(25786009)(71200400001)(6246003)(76116006)(476003)(26005)(99286004)(7696005)(6506007)(68736007)(73956011)(102836004)(110136005)(8936002)(14454004)(6116002)(186003)(5660300002)(52536014)(316002)(2906002)(7416002)(256004)(6436002)(76176011)(478600001)(33656002)(3846002)(2501003)(14444005)(54906003)(921003)(1121003);
+	DIR:OUT; SFP:1102; SCL:1; SRVR:BYAPR04MB4680;
+	H:BYAPR04MB5816.namprd04.prod.outlook.com; FPR:; SPF:None;
+	LANG:en; PTR:InfoNoRecords; A:1; MX:1; 
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: XVJhP6uwYtHgyrgCGJg1hph1CsTSLk/kHM9YQ6IOWCzZ1rjXtlditVF/9tU1ExrxfBNhI6LqbU5QcFG6bGa/GULkyL7Zjb8ZJhaoiezBO6JFspiJn7BkSLrzn4oEnLNr5Ey/iKtpQkiq7ylmzFuJvqwMnPW4Pv+ib7giWmV7vEnekiBKk/lKa6Ht1IQNq2kL8AWXT27i5C7ikzKHppKot4TBEJrWxKyOQJP6S1c+eDPZ5uGBpChh297CAfbl68oXIWvvGFFAGUZFQJu+TsfoxpI0UQcwuHs6fkbbMrzbZzE3JwLtnvwaW+19TimUeuZ69hShS2E5omcZkmIilRSRzUFZ36c/HuC/SQteVg5yKTBx68eZnzD5t0vqkk67s6chjHORNe/rBEGGgdDPC8A3RPJEtOlN7fdCMnlUr4Ph/p4=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190607130552.13203-1-mwilck@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-OriginatorOrg: wdc.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3f8ecb7-dc39-492b-eaaf-08d6f6abc7b3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jun 2019 00:51:36.8552 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Damien.LeMoal@wdc.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR04MB4680
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.47]); Sat, 22 Jun 2019 00:52:06 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]);
+	Sat, 22 Jun 2019 00:52:06 +0000 (UTC) for IP:'68.232.141.245'
+	DOMAIN:'esa1.hgst.iphmx.com' HELO:'esa1.hgst.iphmx.com'
+	FROM:'Damien.LeMoal@wdc.com' RCPT:''
+X-RedHat-Spam-Score: -2.299  (DKIM_SIGNED, DKIM_VALID, RCVD_IN_DNSWL_MED,
+	SPF_HELO_NONE) 68.232.141.245 esa1.hgst.iphmx.com
+	68.232.141.245 esa1.hgst.iphmx.com
+	<prvs=069675b12=Damien.LeMoal@wdc.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.47
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id x5M0qSR1017590
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 00/30] multipath-tools: gcc9, VPD parsing,
- and get_uid fixes
+Cc: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	Matias Bjorling <Matias.Bjorling@wdc.com>
+Subject: Re: [dm-devel] [PATCH 1/4] block: add zone open,
+	close and finish support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -57,139 +146,430 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]); Fri, 21 Jun 2019 19:27:32 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]); Sat, 22 Jun 2019 00:56:22 +0000 (UTC)
 
-On Fri, Jun 07, 2019 at 03:05:22PM +0200, Martin Wilck wrote:
-> Hi Christophe, hi Ben,
+Matias,
 
-ACK for everything, except my nitpicks for patches 5 and 7. I don't know
-how much we care about patch 5 temporarily breaking compilation, but it
-no one else is bothered by it, I would be fine with simply tacking on a
-patch at the end to fix my issues with patch 7.
+Some comments inline below.
 
--Ben
- 
-> This series started out with me trying to fix a couple  of warnings
-> emitted by gcc 9, and grew substantially while I encountered other
-> issues. Most of this series, except patch 25ff, are cleanups, corner
-> case fixes, and unit tests.
-> 
-> The parts of the series with user visible impact are 25, 26, and 29.
-> Patch 25/30 implements an earlier idea of mine
-> (https://www.redhat.com/archives/dm-devel/2019-April/msg00005.html).
-> The idea for patch 29/30 has been discussed before, too
-> (https://www.redhat.com/archives/dm-devel/2019-March/msg00201.html)
-> The fix for uid_attrs (26/30) occured to me while I was working on the get_uid()
-> code path.
-> 
-> Patch 1/30 up to 8/30 are more or less straightforward fixes for gcc
-> warnings related to string operations. See
-> https://developers.redhat.com/blog/2018/05/24/detecting-string-truncation-with-gcc-8/
-> (not sure why it says gcc 8 there, I'm seeing these warnings with gcc9
-> only). Most of the gcc warnings have been "solved" by replacing strncpy()
-> calls with strlcpy(). That has the disadvantage that the compiler's static
-> checking, which caused the warnings in the first place, is now simply
-> disabled. Yet in those places where I did the replacement, I reckon that
-> strlcpy() semantics is what we actually want. Most of the time, we try to
-> ensure that "wwid" fields are properly 0-terminated. The previous code
-> attempted to do this using constructs like
-> 
->   strncpy(x->wwid, y->wwid, WWID_SIZE - 1)
-> 
-> relying on x[WWID_SIZE-1] being 0 already. gcc 9 doesn't appreciate this
-> style, and I tend to agree.
-> 
-> This lead me to check the code paths where wwid fields are originally set,
-> resulting in patch 9/30 and the series from 14/30 to 24/30. In particular the
-> VPD parsing code was full of small mistakes if the possibility of buffer
-> overflow is taken into account (unlikely to hurt in practice, as our default
-> WWID_SIZE is large enough to hold almost every WWID). In order not to break
-> stuff, I added unit test code (10-13). The tests, in turn, made me find some
-> more minor problems in the VPD parsing code (patches 14, 18, 21, 22, 24).
-> 
-> Reviews and comments welcome.
-> 
-> Regards,
-> Martin
-> 
-> Martin Wilck (30):
->   kpartx: dasd: fix -Waddress-of-packed-member warning from gcc9
->   libmultipath: fix gcc -Wstringop-truncation warning in set_value()
->   libmultipath: remove 'space' argument to merge_words()
->   libmultipath: fix -Wstringop-overflow warning in merge_words()
->   multipath-tools: fix more gcc 9 -Wstringop-truncation warnings
->   multipath-tools: Fix more strncpy(X, Y, size - 1) calls
->   libmpathcmd: use target length in strncpy() call
->   libmultipath: inline set_default()
->   libmultipath: add size argument to dm_get_uuid()
->   multipath-tools tests: omit timestamp in log messages
->   tests/hwtable: decrease log verbosity
->   multipath-tools tests: add strlcpy() tests
->   multipath-tools tests: add test for VPD parsing
->   libmultipath: fix parsing of VPD 83 type 1 (T10 vendor ID)
->   libmultipath: Fix buffer overflow in parse_vpd_pg80()
->   libmultipath: fix possible WWID overflow in parse_vpd_pg83()
->   libmultipath: fix another WWID overflow in parse_vpd_pg83()
->   libmultipath: fix parsing of SCSI name string, iqn format
->   libmultipath: add consistent WWID overflow logging in parse_vpd_pg83
->   libmultipath: parse_vpd_pg83: common code for SCSI string parsing
->   libmultipath: allow zero-padded SCSI names in parse_vpd_pg83()
->   libmultipath: fix parsing of non-space-terminated T10 ID
->   libmultipath: parse_vpd_pg80: fix overflow output
->   libmultipath: parse_vpd_pg80: fix whitespace handling
->   libmultipath: get_uid: straighten the fallback logic
->   libmultipath: fix has_uid_fallback() logic
->   libmultipath: fix memory leak with "uid_attrs" config option
->   multipath-tools tests: add test for uid_attrs parsing
->   libmultipath: more cautious blacklisting by missing property
->   multipath.conf.5: Improve documentation of WWID determination
-> 
->  kpartx/dasd.h                   |   2 +-
->  libmpathcmd/mpath_cmd.c         |   2 +-
->  libmpathpersist/mpath_persist.c |  10 +-
->  libmultipath/blacklist.c        |  26 +-
->  libmultipath/blacklist.h        |   2 +-
->  libmultipath/config.c           |  51 ++-
->  libmultipath/config.h           |   6 +-
->  libmultipath/configure.c        |  17 +-
->  libmultipath/debug.c            |   1 +
->  libmultipath/defaults.c         |  17 -
->  libmultipath/defaults.h         |  10 +-
->  libmultipath/devmapper.c        |  28 +-
->  libmultipath/devmapper.h        |   2 +-
->  libmultipath/dict.c             |  36 +-
->  libmultipath/discovery.c        | 162 ++++---
->  libmultipath/dmparser.c         |  51 +--
->  libmultipath/hwtable.c          |   2 +-
->  libmultipath/parser.c           |  20 +-
->  libmultipath/prio.c             |   3 +-
->  libmultipath/propsel.c          |   4 +-
->  libmultipath/structs_vec.c      |   3 +-
->  libmultipath/uevent.c           |   5 +-
->  libmultipath/util.c             |  44 +-
->  libmultipath/util.h             |   1 -
->  libmultipath/uxsock.c           |   2 +-
->  libmultipath/wwids.c            |   3 +-
->  multipath/multipath.conf.5      |  56 ++-
->  multipathd/main.c               |   2 +-
->  multipathd/waiter.c             |   3 +-
->  tests/Makefile                  |   4 +-
->  tests/blacklist.c               |  39 +-
->  tests/globals.c                 |   3 +-
->  tests/hwtable.c                 |   6 +-
->  tests/uevent.c                  |  27 ++
->  tests/util.c                    | 142 ++++++
->  tests/vpd.c                     | 790 ++++++++++++++++++++++++++++++++
->  36 files changed, 1332 insertions(+), 250 deletions(-)
->  create mode 100644 tests/vpd.c
-> 
-> -- 
-> 2.21.0
+On 2019/06/21 22:07, Matias Bj=F8rling wrote:
+> From: Ajay Joshi <ajay.joshi@wdc.com>
+> =
+
+> Zoned block devices allows one to control zone transitions by using
+> explicit commands. The available transitions are:
+> =
+
+>   * Open zone: Transition a zone to open state.
+>   * Close zone: Transition a zone to closed state.
+>   * Finish zone: Transition a zone to full state.
+> =
+
+> Allow kernel to issue these transitions by introducing
+> blkdev_zones_mgmt_op() and add three new request opcodes:
+> =
+
+>   * REQ_IO_ZONE_OPEN, REQ_IO_ZONE_CLOSE, and REQ_OP_ZONE_FINISH
+> =
+
+> Allow user-space to issue the transitions through the following ioctls:
+> =
+
+>   * BLKOPENZONE, BLKCLOSEZONE, and BLKFINISHZONE.
+> =
+
+> Signed-off-by: Ajay Joshi <ajay.joshi@wdc.com>
+> Signed-off-by: Aravind Ramesh <aravind.ramesh@wdc.com>
+> Signed-off-by: Matias Bj=F8rling <matias.bjorling@wdc.com>
+> ---
+>  block/blk-core.c              |  3 ++
+>  block/blk-zoned.c             | 51 ++++++++++++++++++++++---------
+>  block/ioctl.c                 |  5 ++-
+>  include/linux/blk_types.h     | 27 +++++++++++++++--
+>  include/linux/blkdev.h        | 57 ++++++++++++++++++++++++++++++-----
+>  include/uapi/linux/blkzoned.h | 17 +++++++++--
+>  6 files changed, 133 insertions(+), 27 deletions(-)
+> =
+
+> diff --git a/block/blk-core.c b/block/blk-core.c
+> index 8340f69670d8..c0f0dbad548d 100644
+> --- a/block/blk-core.c
+> +++ b/block/blk-core.c
+> @@ -897,6 +897,9 @@ generic_make_request_checks(struct bio *bio)
+>  			goto not_supported;
+>  		break;
+>  	case REQ_OP_ZONE_RESET:
+> +	case REQ_OP_ZONE_OPEN:
+> +	case REQ_OP_ZONE_CLOSE:
+> +	case REQ_OP_ZONE_FINISH:
+>  		if (!blk_queue_is_zoned(q))
+>  			goto not_supported;
+>  		break;
+> diff --git a/block/blk-zoned.c b/block/blk-zoned.c
+> index ae7e91bd0618..d0c933593b93 100644
+> --- a/block/blk-zoned.c
+> +++ b/block/blk-zoned.c
+> @@ -201,20 +201,22 @@ int blkdev_report_zones(struct block_device *bdev, =
+sector_t sector,
+>  EXPORT_SYMBOL_GPL(blkdev_report_zones);
+>  =
+
+>  /**
+> - * blkdev_reset_zones - Reset zones write pointer
+> + * blkdev_zones_mgmt_op - Perform the specified operation on the zone(s)
+>   * @bdev:	Target block device
+> - * @sector:	Start sector of the first zone to reset
+> - * @nr_sectors:	Number of sectors, at least the length of one zone
+> + * @op:		Operation to be performed on the zone(s)
+> + * @sector:	Start sector of the first zone to operate on
+> + * @nr_sectors:	Number of sectors, at least the length of one zone and
+> + *              must be zone size aligned.
+>   * @gfp_mask:	Memory allocation flags (for bio_alloc)
+>   *
+>   * Description:
+> - *    Reset the write pointer of the zones contained in the range
+> + *    Perform the specified operation contained in the range
+	Perform the specified operation over the sector range
+>   *    @sector..@sector+@nr_sectors. Specifying the entire disk sector ra=
+nge
+>   *    is valid, but the specified range should not contain conventional =
+zones.
+>   */
+> -int blkdev_reset_zones(struct block_device *bdev,
+> -		       sector_t sector, sector_t nr_sectors,
+> -		       gfp_t gfp_mask)
+> +int blkdev_zones_mgmt_op(struct block_device *bdev, enum req_opf op,
+> +			 sector_t sector, sector_t nr_sectors,
+> +			 gfp_t gfp_mask)
+>  {
+>  	struct request_queue *q =3D bdev_get_queue(bdev);
+>  	sector_t zone_sectors;
+> @@ -226,6 +228,9 @@ int blkdev_reset_zones(struct block_device *bdev,
+>  	if (!blk_queue_is_zoned(q))
+>  		return -EOPNOTSUPP;
+>  =
+
+> +	if (!op_is_zone_mgmt_op(op))
+> +		return -EOPNOTSUPP;
+
+EINVAL may be better here.
+
+> +
+>  	if (bdev_read_only(bdev))
+>  		return -EPERM;
+>  =
+
+> @@ -248,7 +253,7 @@ int blkdev_reset_zones(struct block_device *bdev,
+>  		bio =3D blk_next_bio(bio, 0, gfp_mask);
+>  		bio->bi_iter.bi_sector =3D sector;
+>  		bio_set_dev(bio, bdev);
+> -		bio_set_op_attrs(bio, REQ_OP_ZONE_RESET, 0);
+> +		bio_set_op_attrs(bio, op, 0);
+>  =
+
+>  		sector +=3D zone_sectors;
+>  =
+
+> @@ -264,7 +269,7 @@ int blkdev_reset_zones(struct block_device *bdev,
+>  =
+
+>  	return ret;
+>  }
+> -EXPORT_SYMBOL_GPL(blkdev_reset_zones);
+> +EXPORT_SYMBOL_GPL(blkdev_zones_mgmt_op);
+>  =
+
+>  /*
+>   * BLKREPORTZONE ioctl processing.
+> @@ -329,15 +334,16 @@ int blkdev_report_zones_ioctl(struct block_device *=
+bdev, fmode_t mode,
+>  }
+>  =
+
+>  /*
+> - * BLKRESETZONE ioctl processing.
+> + * Zone operation (open, close, finish or reset) ioctl processing.
+>   * Called from blkdev_ioctl.
+>   */
+> -int blkdev_reset_zones_ioctl(struct block_device *bdev, fmode_t mode,
+> -			     unsigned int cmd, unsigned long arg)
+> +int blkdev_zones_mgmt_op_ioctl(struct block_device *bdev, fmode_t mode,
+> +				unsigned int cmd, unsigned long arg)
+>  {
+>  	void __user *argp =3D (void __user *)arg;
+>  	struct request_queue *q;
+>  	struct blk_zone_range zrange;
+> +	enum req_opf op;
+>  =
+
+>  	if (!argp)
+>  		return -EINVAL;
+> @@ -358,8 +364,25 @@ int blkdev_reset_zones_ioctl(struct block_device *bd=
+ev, fmode_t mode,
+>  	if (copy_from_user(&zrange, argp, sizeof(struct blk_zone_range)))
+>  		return -EFAULT;
+>  =
+
+> -	return blkdev_reset_zones(bdev, zrange.sector, zrange.nr_sectors,
+> -				  GFP_KERNEL);
+> +	switch (cmd) {
+> +	case BLKRESETZONE:
+> +		op =3D REQ_OP_ZONE_RESET;
+> +		break;
+> +	case BLKOPENZONE:
+> +		op =3D REQ_OP_ZONE_OPEN;
+> +		break;
+> +	case BLKCLOSEZONE:
+> +		op =3D REQ_OP_ZONE_CLOSE;
+> +		break;
+> +	case BLKFINISHZONE:
+> +		op =3D REQ_OP_ZONE_FINISH;
+> +		break;
+> +	default:
+> +		return -ENOTTY;
+> +	}
+> +
+> +	return blkdev_zones_mgmt_op(bdev, op, zrange.sector, zrange.nr_sectors,
+> +				    GFP_KERNEL);
+>  }
+>  =
+
+>  static inline unsigned long *blk_alloc_zone_bitmap(int node,
+> diff --git a/block/ioctl.c b/block/ioctl.c
+> index 15a0eb80ada9..df7fe54db158 100644
+> --- a/block/ioctl.c
+> +++ b/block/ioctl.c
+> @@ -532,7 +532,10 @@ int blkdev_ioctl(struct block_device *bdev, fmode_t =
+mode, unsigned cmd,
+>  	case BLKREPORTZONE:
+>  		return blkdev_report_zones_ioctl(bdev, mode, cmd, arg);
+>  	case BLKRESETZONE:
+> -		return blkdev_reset_zones_ioctl(bdev, mode, cmd, arg);
+> +	case BLKOPENZONE:
+> +	case BLKCLOSEZONE:
+> +	case BLKFINISHZONE:
+> +		return blkdev_zones_mgmt_op_ioctl(bdev, mode, cmd, arg);
+>  	case BLKGETZONESZ:
+>  		return put_uint(arg, bdev_zone_sectors(bdev));
+>  	case BLKGETNRZONES:
+> diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+> index 95202f80676c..067ef9242275 100644
+> --- a/include/linux/blk_types.h
+> +++ b/include/linux/blk_types.h
+> @@ -284,13 +284,20 @@ enum req_opf {
+>  	REQ_OP_DISCARD		=3D 3,
+>  	/* securely erase sectors */
+>  	REQ_OP_SECURE_ERASE	=3D 5,
+> -	/* reset a zone write pointer */
+> -	REQ_OP_ZONE_RESET	=3D 6,
+>  	/* write the same sector many times */
+>  	REQ_OP_WRITE_SAME	=3D 7,
+>  	/* write the zero filled sector many times */
+>  	REQ_OP_WRITE_ZEROES	=3D 9,
+>  =
+
+> +	/* reset a zone write pointer */
+> +	REQ_OP_ZONE_RESET	=3D 16,
+> +	/* Open zone(s) */
+> +	REQ_OP_ZONE_OPEN	=3D 17,
+> +	/* Close zone(s) */
+> +	REQ_OP_ZONE_CLOSE	=3D 18,
+> +	/* Finish zone(s) */
+> +	REQ_OP_ZONE_FINISH	=3D 19,
+> +
+>  	/* SCSI passthrough using struct scsi_request */
+>  	REQ_OP_SCSI_IN		=3D 32,
+>  	REQ_OP_SCSI_OUT		=3D 33,
+> @@ -375,6 +382,22 @@ static inline void bio_set_op_attrs(struct bio *bio,=
+ unsigned op,
+>  	bio->bi_opf =3D op | op_flags;
+>  }
+>  =
+
+> +/*
+> + * Check if the op is zoned operation.
+      Check if op is a zone management operation.
+> + */
+> +static inline bool op_is_zone_mgmt_op(enum req_opf op)
+
+Similarly to "op_is_write" pattern, "op_is_zone_mgmt" may be a better name.
+
+> +{
+> +	switch (op) {
+> +	case REQ_OP_ZONE_RESET:
+> +	case REQ_OP_ZONE_OPEN:
+> +	case REQ_OP_ZONE_CLOSE:
+> +	case REQ_OP_ZONE_FINISH:
+> +		return true;
+> +	default:
+> +		return false;
+> +	}
+> +}
+> +
+>  static inline bool op_is_write(unsigned int op)
+>  {
+>  	return (op & 1);
+> diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+> index 592669bcc536..943084f9dc9c 100644
+> --- a/include/linux/blkdev.h
+> +++ b/include/linux/blkdev.h
+> @@ -348,14 +348,15 @@ extern unsigned int blkdev_nr_zones(struct block_de=
+vice *bdev);
+>  extern int blkdev_report_zones(struct block_device *bdev,
+>  			       sector_t sector, struct blk_zone *zones,
+>  			       unsigned int *nr_zones, gfp_t gfp_mask);
+> -extern int blkdev_reset_zones(struct block_device *bdev, sector_t sector=
+s,
+> -			      sector_t nr_sectors, gfp_t gfp_mask);
+>  extern int blk_revalidate_disk_zones(struct gendisk *disk);
+>  =
+
+>  extern int blkdev_report_zones_ioctl(struct block_device *bdev, fmode_t =
+mode,
+>  				     unsigned int cmd, unsigned long arg);
+> -extern int blkdev_reset_zones_ioctl(struct block_device *bdev, fmode_t m=
+ode,
+> -				    unsigned int cmd, unsigned long arg);
+> +extern int blkdev_zones_mgmt_op_ioctl(struct block_device *bdev, fmode_t=
+ mode,
+> +					unsigned int cmd, unsigned long arg);
+> +extern int blkdev_zones_mgmt_op(struct block_device *bdev, enum req_opf =
+op,
+> +				sector_t sector, sector_t nr_sectors,
+> +				gfp_t gfp_mask);
+
+To keep the grouping of declarations, may be declare this one where
+blkdev_reset_zones() was ?
+
+>  =
+
+>  #else /* CONFIG_BLK_DEV_ZONED */
+>  =
+
+> @@ -376,15 +377,57 @@ static inline int blkdev_report_zones_ioctl(struct =
+block_device *bdev,
+>  	return -ENOTTY;
+>  }
+>  =
+
+> -static inline int blkdev_reset_zones_ioctl(struct block_device *bdev,
+> -					   fmode_t mode, unsigned int cmd,
+> -					   unsigned long arg)
+> +static inline int blkdev_zones_mgmt_op_ioctl(struct block_device *bdev,
+> +					     fmode_t mode, unsigned int cmd,
+> +					     unsigned long arg)
+> +{
+> +	return -ENOTTY;
+> +}
+> +
+> +static inline int blkdev_zones_mgmt_op(struct block_device *bdev,
+> +				       enum req_opf op,
+> +				       sector_t sector, sector_t nr_sectors,
+> +				       gfp_t gfp_mask)
+>  {
+>  	return -ENOTTY;
+
+That should be -ENOTSUPP. This is not an ioctl. The ioctl call is above thi=
+s one.
+
+>  }
+>  =
+
+>  #endif /* CONFIG_BLK_DEV_ZONED */
+>  =
+
+> +static inline int blkdev_reset_zones(struct block_device *bdev,
+> +				     sector_t sector, sector_t nr_sectors,
+> +				     gfp_t gfp_mask)
+> +{
+> +	return blkdev_zones_mgmt_op(bdev, REQ_OP_ZONE_RESET,
+> +				    sector, nr_sectors, gfp_mask);
+> +}
+> +
+> +static inline int blkdev_open_zones(struct block_device *bdev,
+> +				    sector_t sector, sector_t nr_sectors,
+> +				    gfp_t gfp_mask)
+> +{
+> +	return blkdev_zones_mgmt_op(bdev, REQ_OP_ZONE_OPEN,
+> +				    sector, nr_sectors, gfp_mask);
+> +}
+> +
+> +static inline int blkdev_close_zones(struct block_device *bdev,
+> +				     sector_t sector, sector_t nr_sectors,
+> +				     gfp_t gfp_mask)
+> +{
+> +	return blkdev_zones_mgmt_op(bdev, REQ_OP_ZONE_CLOSE,
+> +				    sector, nr_sectors,
+> +				    gfp_mask);
+> +}
+> +
+> +static inline int blkdev_finish_zones(struct block_device *bdev,
+> +				      sector_t sector, sector_t nr_sectors,
+> +				      gfp_t gfp_mask)
+> +{
+> +	return blkdev_zones_mgmt_op(bdev, REQ_OP_ZONE_FINISH,
+> +				    sector, nr_sectors,
+> +				    gfp_mask);
+> +}
+> +
+>  struct request_queue {
+>  	/*
+>  	 * Together with queue_head for cacheline sharing
+> diff --git a/include/uapi/linux/blkzoned.h b/include/uapi/linux/blkzoned.h
+> index 498eec813494..701e0692b8d3 100644
+> --- a/include/uapi/linux/blkzoned.h
+> +++ b/include/uapi/linux/blkzoned.h
+> @@ -120,9 +120,11 @@ struct blk_zone_report {
+>  };
+>  =
+
+>  /**
+> - * struct blk_zone_range - BLKRESETZONE ioctl request
+> - * @sector: starting sector of the first zone to issue reset write point=
+er
+> - * @nr_sectors: Total number of sectors of 1 or more zones to reset
+> + * struct blk_zone_range - BLKRESETZONE/BLKOPENZONE/
+> + *			   BLKCLOSEZONE/BLKFINISHZONE ioctl
+> + *			   request
+> + * @sector: starting sector of the first zone to operate on
+> + * @nr_sectors: Total number of sectors of all zones to operate on
+>   */
+>  struct blk_zone_range {
+>  	__u64		sector;
+> @@ -139,10 +141,19 @@ struct blk_zone_range {
+>   *                sector range. The sector range must be zone aligned.
+>   * @BLKGETZONESZ: Get the device zone size in number of 512 B sectors.
+>   * @BLKGETNRZONES: Get the total number of zones of the device.
+> + * @BLKOPENZONE: Open the zones in the specified sector range. The
+> + *               sector range must be zone aligned.
+> + * @BLKCLOSEZONE: Close the zones in the specified sector range. The
+> + *                sector range must be zone aligned.
+> + * @BLKFINISHZONE: Finish the zones in the specified sector range. The
+> + *                 sector range must be zone aligned.
+>   */
+>  #define BLKREPORTZONE	_IOWR(0x12, 130, struct blk_zone_report)
+>  #define BLKRESETZONE	_IOW(0x12, 131, struct blk_zone_range)
+>  #define BLKGETZONESZ	_IOR(0x12, 132, __u32)
+>  #define BLKGETNRZONES	_IOR(0x12, 133, __u32)
+> +#define BLKOPENZONE	_IOW(0x12, 134, struct blk_zone_range)
+> +#define BLKCLOSEZONE	_IOW(0x12, 135, struct blk_zone_range)
+> +#define BLKFINISHZONE	_IOW(0x12, 136, struct blk_zone_range)
+>  =
+
+>  #endif /* _UAPI_BLKZONED_H */
+> =
+
+
+
+-- =
+
+Damien Le Moal
+Western Digital Research
 
 --
 dm-devel mailing list
