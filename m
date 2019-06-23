@@ -2,72 +2,93 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6ED34FA58
-	for <lists+dm-devel@lfdr.de>; Sun, 23 Jun 2019 07:39:54 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	by mail.lfdr.de (Postfix) with ESMTPS id 05C494FAF6
+	for <lists+dm-devel@lfdr.de>; Sun, 23 Jun 2019 11:31:37 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 592EB30862BE;
-	Sun, 23 Jun 2019 05:39:35 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 1AFC98667D;
+	Sun, 23 Jun 2019 09:31:31 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8BCD95C21F;
-	Sun, 23 Jun 2019 05:39:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D0E519C78;
+	Sun, 23 Jun 2019 09:31:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2276B1806B0F;
-	Sun, 23 Jun 2019 05:39:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B32E91806B0E;
+	Sun, 23 Jun 2019 09:31:13 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x5N5ceRv029665 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 23 Jun 2019 01:38:40 -0400
+	id x5N9Uw7F014538 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 23 Jun 2019 05:30:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 172E65DA2E; Sun, 23 Jun 2019 05:38:40 +0000 (UTC)
+	id 4C75A6090E; Sun, 23 Jun 2019 09:30:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx03.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.27])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 123915D96E
-	for <dm-devel@redhat.com>; Sun, 23 Jun 2019 05:38:37 +0000 (UTC)
-Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.redhat.com (ext-mx19.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.48])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4624B608D0
+	for <dm-devel@redhat.com>; Sun, 23 Jun 2019 09:30:56 +0000 (UTC)
+Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
+	[209.85.166.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 91ADE83F4C
-	for <dm-devel@redhat.com>; Sun, 23 Jun 2019 05:38:36 +0000 (UTC)
-Received: from remote.user (localhost [127.0.0.1])
-	by rere.qmqm.pl (Postfix) with ESMTPSA id 45Wh4c6WQxzBl
-	for <dm-devel@redhat.com>; Sun, 23 Jun 2019 07:36:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
-	t=1561268209; bh=k0b8TuD+nEoLtTpOMtff4P/AXVEYXio5wIpitPgG4O0=;
-	h=Date:From:To:Subject:From;
-	b=XDvqrlvtScH3aUky5Zn3Wgz7Aeo9ghMXwq97+RjRHAQVGg0YeipA+A4+DQUF2KRW6
-	z3bO4aA88CNZiqioKMjwNZIK8QPLMygQHJBreLc1RBzjxiEv3uqzEcP89YUKn9G3Vg
-	HLdulW2IdKRV3P0tmqLK5ksM+cm6TLLAZ3PlZ6JHxZwrJXJtJcutzJBAJUwRd1yBcC
-	RdWNt2QjxSZVeYlM7A3RJEjLX7b94mA16u7yU5l0D/lGB/exu12Dn865w4K3Q3bBqD
-	1/Ibz/zqONiBlRFWdKQMINi9L5AYm+oesQF7ukdDPkBIjGd7VhiXZr5lS77hbbrgxF
-	qqjoQkm8feUrw==
-X-Virus-Status: Clean
-X-Virus-Scanned: clamav-milter 0.100.3 at mail
-Date: Sun, 23 Jun 2019 07:38:33 +0200
-From: =?iso-8859-2?Q?Micha=B3_Miros=B3aw?= <mirq-linux@rere.qmqm.pl>
-To: dm-devel@redhat.com
-Message-ID: <20190623053832.GA29748@qmqm.qmqm.pl>
+	by mx1.redhat.com (Postfix) with ESMTPS id 59FAC307D84B
+	for <dm-devel@redhat.com>; Sun, 23 Jun 2019 09:30:55 +0000 (UTC)
+Received: by mail-io1-f67.google.com with SMTP id w25so170758ioc.8
+	for <dm-devel@redhat.com>; Sun, 23 Jun 2019 02:30:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc; bh=wvgYQJkZGqcc1lfJilFFMb7xsNi0HiPMMJpo064zefM=;
+	b=XIWvSciJXTWxUHdpOJ/Jiw7mhnXChMAz38UwfOCNYhyxtiP5995AZVApj5EI1r64qE
+	G5Wb50bCXsb63Sy0BT9k05wbOEaMxUv54DGQFr61UYycrgIvHMzur3LWuloXlUEBCCaw
+	dtFMdlCVVo3+ieBGYj2lThfkRy8GABw5srKabwQYjzqsUnZt0LRsesAbKNb+ATr9jcPw
+	iah80UTd4lExTLdH1RzhcUQ4it23dakXPQiMyqQpY4Yp0RS8wvEIV6o8w/mkaNN5d98P
+	yAk/MjnWrm0JKZw9hhyk9KJDeSjzHSgAZL2sMFJOkgPmwLTOa2yjnFos/mv5KvelBlLz
+	29rQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=wvgYQJkZGqcc1lfJilFFMb7xsNi0HiPMMJpo064zefM=;
+	b=I/g0T5SmD1Kl7f/bIAA0Kqt4SebDz0LzzQP36y3DK9O4X/tOM7Vvd+/UsvfnlMiTMf
+	e2Na5yjqN2/QFNGyiBVfYzXhJxqNW8tL5mMP7YxAx0eTbq30+e+fDGqbRpxFzufWQ81v
+	La90sYfaKfii/GEUf0VZxSPeC5ahRDMEp1jH8RFFvPkur7IoBRsKYUcFML/lOVYuoXqP
+	oV9W1xf0W2YdJ1Hks0s8ajp4jw3Tkg64NEAHFW1zxUiY9593AL7Hxuph3MjmttNf74oE
+	zWAZ2TIyU1FLxtSeTldxvAeN7wAdiqQ+pD243CeqRAyx0WykJx+zWEwagT6eev4CX6bO
+	lJ7Q==
+X-Gm-Message-State: APjAAAWPppCbCJUcL0pckgIEpS0FDCPSuULD4ZHYW+ZSbxqS1T2VX74L
+	cMKjfu2lwi0rQj3dJFmrz/d1fncGytlNsvB4SDdmPg==
+X-Google-Smtp-Source: APXvYqw231WPDSV0vp3+/kcuJTLLvj6P/KErcOQKt6Gw4rdKpxSKVjzoeHQpp0qSCZAo3xz5kn3MmfYU0+FjLta6sSY=
+X-Received: by 2002:a5e:d51a:: with SMTP id e26mr503654iom.71.1561282254656;
+	Sun, 23 Jun 2019 02:30:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Greylist: Sender passed SPF test, ACL 242 matched, not delayed by
-	milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]);
-	Sun, 23 Jun 2019 05:38:37 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]);
-	Sun, 23 Jun 2019 05:38:37 +0000 (UTC) for IP:'91.227.64.183'
-	DOMAIN:'rere.qmqm.pl' HELO:'rere.qmqm.pl'
-	FROM:'mirq-linux@rere.qmqm.pl' RCPT:''
-X-RedHat-Spam-Score: -0.102  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	SPF_HELO_PASS,
-	SPF_PASS) 91.227.64.183 rere.qmqm.pl 91.227.64.183 rere.qmqm.pl
-	<mirq-linux@rere.qmqm.pl>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.27
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+References: <20190621080918.22809-1-ard.biesheuvel@arm.com>
+In-Reply-To: <20190621080918.22809-1-ard.biesheuvel@arm.com>
+From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
+Date: Sun, 23 Jun 2019 11:30:41 +0200
+Message-ID: <CAKv+Gu-ZO9Fnfx06XYJ-tp+6nrk0D8TBGa2chmxFW-kjPMmLCw@mail.gmail.com>
+To: Ard Biesheuvel <ard.biesheuvel@linaro.org>
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.48]);
+	Sun, 23 Jun 2019 09:30:55 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]);
+	Sun, 23 Jun 2019 09:30:55 +0000 (UTC) for IP:'209.85.166.67'
+	DOMAIN:'mail-io1-f67.google.com' HELO:'mail-io1-f67.google.com'
+	FROM:'ard.biesheuvel@linaro.org' RCPT:''
+X-RedHat-Spam-Score: -0.11  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
+	SPF_PASS) 209.85.166.67 mail-io1-f67.google.com 209.85.166.67
+	mail-io1-f67.google.com <ard.biesheuvel@linaro.org>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.48
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-Subject: [dm-devel] dm-cache (lack-of) efficiency
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+	Eric Biggers <ebiggers@google.com>, linux-fscrypt@vger.kernel.org,
+	Gilad Ben-Yossef <gilad@benyossef.com>,
+	device-mapper development <dm-devel@redhat.com>,
+	"open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
+	<linux-crypto@vger.kernel.org>, Milan Broz <gmazyland@gmail.com>
+Subject: Re: [dm-devel] [PATCH v4 0/6] crypto: switch to crypto API for
+	ESSIV generation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,67 +100,38 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-2"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]); Sun, 23 Jun 2019 05:39:53 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]); Sun, 23 Jun 2019 09:31:35 +0000 (UTC)
 
-Dear DM Developers,
+On Fri, 21 Jun 2019 at 10:09, Ard Biesheuvel <ard.biesheuvel@arm.com> wrote:
+>
+> From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
+>
+...
+>
+> - given that hardware already exists that can perform en/decryption including
+>   ESSIV generation of a range of blocks, it would be useful to encapsulate
+>   this in the ESSIV template, and teach at least dm-crypt how to use it
+>   (given that it often processes 8 512-byte sectors at a time)
 
-I stumbled on a weird (and annoing) behaviour of dm-cache: after unclean
-reboot (sysrq + s,u,b) it marks all the cache as dirty and starts to
-write it back. This takes a few hours every time (cache data is on SSD,
-but backing storage is very slow for random access) and mostly kills
-interactivity for anything that touches the cached volume.
+I thought about this a bit more, and it occurred to me that the
+capability of issuing several sectors at a time and letting the lower
+layers increment the IV between sectors is orthogonal to whether ESSIV
+is being used or not, and so it probably belongs in another wrapper.
 
-This seems to ignore cache mode: write-through is also affected, even when
-it should not ever have a dirty state. Switching from write-through to
-write-back also resets cache to all-dirty and generates the same situation.
+I.e., if we define a skcipher template like dmplain64le(), which is
+defined as taking a sector size as part of the key, and which
+increments a 64 LE counter between sectors if multiple are passed, it
+can be used not only for ESSIV but also for XTS, which I assume can be
+h/w accelerated in the same way.
 
-Why is write-through cache considered dirty when switching to write-back?
-
-Is there a way to sort the requests, so the writes are monotonic wrt
-sector number?
-
-Can the dirty state be written to metadata storage on SysRq+S?
-
-Best Regards,
-Micha=B3=A0Miros=B3aw
-
----
-# uname -a
-Linux qmqm 5.1.13mq+ #321 SMP PREEMPT Sun Jun 23 03:14:18 CEST 2019 x86_64 =
-GNU/Linux
-
-# dmsetup table |grep sources
-fox-sources_corig: 0 335544320 linear 253:6 209717248
-fox-sources_corig: 335544320 83886080 linear 253:6 1048578048
-fox-sources_corig: 419430400 104857600 linear 253:6 1174407168
-fox-c_sources_cdata: 0 31350784 linear 253:4 116736
-fox-sources: 0 524288000 cache 253:12 253:11 253:13 64 2 metadata2 writethr=
-ough smq 0
-fox-c_sources_cmeta: 0 57344 linear 253:4 59392
-
-# lvmcache-stats fox/sources
-start              0
-end                524288000
-segment_type       cache
-md_block_size      8
-md_utilization     1480/7168
-cache_block_size   64
-cache_utilization  489856/489856
-read_hits          2027069
-read_misses        144887
-read_hit_ratio     93.33%
-write_hits         331428
-write_misses       112870
-write_hit_ratio    74.60%
-demotions          0
-promotions         0
-dirty              314362
-features           3
+So with that in mind, I think we should decouple the multi-sector
+discussion and leave it for a followup series, preferably proposed by
+someone who also has access to some hardware to prototype it on.
 
 --
 dm-devel mailing list
