@@ -2,96 +2,66 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E13D503D0
-	for <lists+dm-devel@lfdr.de>; Mon, 24 Jun 2019 09:42:07 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2473A503F9
+	for <lists+dm-devel@lfdr.de>; Mon, 24 Jun 2019 09:48:49 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 1DE7030C021A;
-	Mon, 24 Jun 2019 07:42:02 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 21BB75D9C5;
-	Mon, 24 Jun 2019 07:41:57 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 92E853082208;
+	Mon, 24 Jun 2019 07:48:34 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 87EF75B68A;
+	Mon, 24 Jun 2019 07:48:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A2EC419725;
-	Mon, 24 Jun 2019 07:41:36 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9192A1806B18;
+	Mon, 24 Jun 2019 07:48:21 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x5O7eqvG010698 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 24 Jun 2019 03:40:52 -0400
+	id x5O7lnPG021266 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 24 Jun 2019 03:47:51 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 54A175D9C9; Mon, 24 Jun 2019 07:40:52 +0000 (UTC)
+	id E65F060A97; Mon, 24 Jun 2019 07:47:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx15.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.44])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4F87D5D9C8
-	for <dm-devel@redhat.com>; Mon, 24 Jun 2019 07:40:50 +0000 (UTC)
-Received: from mail-io1-f68.google.com (mail-io1-f68.google.com
-	[209.85.166.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.redhat.com (ext-mx01.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.25])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9DDEF608E4;
+	Mon, 24 Jun 2019 07:47:47 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 47B9A30832D8
-	for <dm-devel@redhat.com>; Mon, 24 Jun 2019 07:40:42 +0000 (UTC)
-Received: by mail-io1-f68.google.com with SMTP id k8so858962iot.1
-	for <dm-devel@redhat.com>; Mon, 24 Jun 2019 00:40:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:in-reply-to:references:from:date:message-id:subject:to
-	:cc; bh=8dWeSIsidu/P7YsuUWucyysKYbzHuX6DsanqLCDVdyY=;
-	b=cawtwA/hvq1bKSlAN/Yro4UJfOs1Do+w1Tz8Q7Ydrv6hktmpz7VixOW3j3Q3E9keTl
-	PKzu4RemPIw4/Vwk8ahNyd6NleKRrU9S+Nf8icfFDTbnFXAwyPr4yRpCnc5V5v4SyR2C
-	VdBApvsmq0eCN09kBZCfaOx0kKBRFYA7qQ/wqvqSPZ/MMrzFBK5JfkXETUouXdL6RQ8c
-	w5yrm0YS84SUA0ZoE9sDyuF5+LkpyD/ChkdO0S7ega4LrB+bmLbjUxQ/9nFoAUN9o66x
-	NIKkyFrEBi9TnzeOYxqOoOx8Vf8A1mTdUPkHZO2AZ8FscnXpZBpkTpDsnbUaWyeibIL0
-	1IQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:in-reply-to:references:from:date
-	:message-id:subject:to:cc;
-	bh=8dWeSIsidu/P7YsuUWucyysKYbzHuX6DsanqLCDVdyY=;
-	b=GHaLGnTsgpevnGmFzcznlvXBJPrlbUYmOLupNsJxTBd8ii12CNSeqrzt975j1HaFLl
-	Kw2WcV7tbkFwwfcgkApPuhpmyQ6tERhEsV41OXq+UK+xrim1LJVQCrW4iPy7W8SgU6M7
-	5awAwhBBBjhXs9S850w/+NSGTReLjbEPffAsvR8UuP48NeqAvWRCS0XrQKZ7isru39X3
-	xTniYSDkDOOneDLRyqwnxuPiVrApBp3lVd7xx9w3JqKuwka+U9iUbruMYN1geCOp5K7a
-	OlVc/+4WEjfLdRU6Yg43p/ypluIDmQ6J2PIzls7FcSW4zQDW+FZjF7ZQVu341zRRRu3g
-	OiYA==
-X-Gm-Message-State: APjAAAVg1VXB/f32GSFXCophOTzOyPyklkCkh2yAusGPXdQN2odheGgn
-	Ync0947YZsgi7IlTi4roLA/cuaPtPvGdTDupF9DKT15p3RU=
-X-Google-Smtp-Source: APXvYqxAkDNHhm8nw4Daqg7MaBDWvII5tBWjXXxj+x9xAMGNRq8t5fajlOjTlm53fZwOtP4vdRUYaCwMWuXihPzxOQE=
-X-Received: by 2002:a6b:6611:: with SMTP id a17mr32114562ioc.179.1561362041175;
-	Mon, 24 Jun 2019 00:40:41 -0700 (PDT)
+	by mx1.redhat.com (Postfix) with ESMTPS id A3E8E81F31;
+	Mon, 24 Jun 2019 07:47:30 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+	by mx1.suse.de (Postfix) with ESMTP id 2D7D6AEEE;
+	Mon, 24 Jun 2019 07:47:29 +0000 (UTC)
+Message-ID: <246f3f47b66b928352cda90eea28b19650b37148.camel@suse.de>
+From: Martin Wilck <mwilck@suse.de>
+To: Benjamin Marzinski <bmarzins@redhat.com>, mwilck+gmail@suse.de
+Date: Mon, 24 Jun 2019 09:47:32 +0200
+In-Reply-To: <20190621191656.GK3251@octiron.msp.redhat.com>
+References: <20190607130552.13203-1-mwilck@suse.com>
+	<20190607130552.13203-6-mwilck@suse.com>
+	<20190621191656.GK3251@octiron.msp.redhat.com>
+User-Agent: Evolution 3.32.2 
 MIME-Version: 1.0
-Received: by 2002:a4f:9896:0:0:0:0:0 with HTTP; Mon, 24 Jun 2019 00:40:40
-	-0700 (PDT)
-In-Reply-To: <af75aefc-438b-9e31-b922-c847879d9dd9@gmail.com>
-References: <20190621080918.22809-1-ard.biesheuvel@arm.com>
-	<20190621080918.22809-5-ard.biesheuvel@arm.com>
-	<af75aefc-438b-9e31-b922-c847879d9dd9@gmail.com>
-From: Surachai Saiwong <buriram1601@gmail.com>
-Date: Mon, 24 Jun 2019 14:40:40 +0700
-Message-ID: <CAL1AwE-77TnQubVJDDhtCb0CW9QkMD+h+oZ72CKCrSc7gtkJfw@mail.gmail.com>
-To: Milan Broz <gmazyland@gmail.com>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.44]);
-	Mon, 24 Jun 2019 07:40:42 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]);
-	Mon, 24 Jun 2019 07:40:42 +0000 (UTC) for IP:'209.85.166.68'
-	DOMAIN:'mail-io1-f68.google.com' HELO:'mail-io1-f68.google.com'
-	FROM:'buriram1601@gmail.com' RCPT:''
-X-RedHat-Spam-Score: 0.14  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
-	SPF_PASS) 209.85.166.68 mail-io1-f68.google.com 209.85.166.68
-	mail-io1-f68.google.com <buriram1601@gmail.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.44
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.25]); Mon, 24 Jun 2019 07:47:38 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]);
+	Mon, 24 Jun 2019 07:47:38 +0000 (UTC) for IP:'195.135.220.15'
+	DOMAIN:'mx2.suse.de' HELO:'mx1.suse.de' FROM:'mwilck@suse.de'
+	RCPT:''
+X-RedHat-Spam-Score: -2.3  (RCVD_IN_DNSWL_MED, SPF_HELO_NONE,
+	SPF_PASS) 195.135.220.15 mx2.suse.de 195.135.220.15
+	mx2.suse.de <mwilck@suse.de>
+X-Scanned-By: MIMEDefang 2.83 on 10.5.110.25
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-Cc: Herbert Xu <herbert@gondor.apana.org.au>, ard.biesheuvel@linaro.org,
-	Eric Biggers <ebiggers@google.com>, linux-fscrypt@vger.kernel.org,
-	Gilad Ben-Yossef <gilad@benyossef.com>, dm-devel@redhat.com,
-	linux-crypto@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v4 4/6] md: dm-crypt: switch to ESSIV crypto
- API template
+Cc: dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH 05/30] multipath-tools: fix more gcc 9
+ -Wstringop-truncation warnings
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -107,88 +77,25 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]); Mon, 24 Jun 2019 07:42:05 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Mon, 24 Jun 2019 07:48:47 +0000 (UTC)
 
-2562-06-24 14:05 GMT+07:00, Milan Broz <gmazyland@gmail.com>:
-> On 21/06/2019 10:09, Ard Biesheuvel wrote:
->> From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
->>
->> Replace the explicit ESSIV handling in the dm-crypt driver with calls
->> into the crypto API, which now possesses the capability to perform
->> this processing within the crypto subsystem.
->
-> I tried a few crazy dm-crypt configurations and was not able to crash it
-> this time :-)
->
-> So, it definitely need some more testing, but for now, I think it works.
->
-> Few comments below for this part:
->
->> --- a/drivers/md/dm-crypt.c
->> +++ b/drivers/md/dm-crypt.c
->
->>  static const struct crypt_iv_operations crypt_iv_benbi_ops = {
->>  	.ctr	   = crypt_iv_benbi_ctr,
->>  	.dtr	   = crypt_iv_benbi_dtr,
->> @@ -2283,7 +2112,7 @@ static int crypt_ctr_ivmode(struct dm_target *ti,
->> const char *ivmode)
->>  	else if (strcmp(ivmode, "plain64be") == 0)
->>  		cc->iv_gen_ops = &crypt_iv_plain64be_ops;
->>  	else if (strcmp(ivmode, "essiv") == 0)
->> -		cc->iv_gen_ops = &crypt_iv_essiv_ops;
->> +		cc->iv_gen_ops = &crypt_iv_plain64_ops;
->
-> This is quite misleading - it looks like you are switching to plain64 here.
-> The reality is that it uses plain64 to feed the ESSIV wrapper.
->
-> So either it need some comment to explain it here, or just keep simple
-> essiv_iv_ops
-> and duplicate that plain64 generator (it is 2 lines of code).
->
-> For the clarity, I would prefer the second variant (duplicate ops) here.
->
->> @@ -2515,8 +2357,18 @@ static int crypt_ctr_cipher_old(struct dm_target
->> *ti, char *cipher_in, char *key
->>  	if (!cipher_api)
->>  		goto bad_mem;
->>
->> -	ret = snprintf(cipher_api, CRYPTO_MAX_ALG_NAME,
->> -		       "%s(%s)", chainmode, cipher);
->> +	if (*ivmode && !strcmp(*ivmode, "essiv")) {
->> +		if (!*ivopts) {
->> +			ti->error = "Digest algorithm missing for ESSIV mode";
->> +			return -EINVAL;
->> +		}
->> +		ret = snprintf(cipher_api, CRYPTO_MAX_ALG_NAME,
->> +			       "essiv(%s(%s),%s,%s)", chainmode, cipher,
->> +			       cipher, *ivopts);
->
-> This becomes quite long string already (limit is now 128 bytes), we should
-> probably
-> check also for too long string. It will perhaps fail later, but I would
-> better add
->
-> 	if (ret < 0 || ret >= CRYPTO_MAX_ALG_NAME) {
-> 	...
->
->> +	} else {
->> +		ret = snprintf(cipher_api, CRYPTO_MAX_ALG_NAME,
->> +			       "%s(%s)", chainmode, cipher);
->> +	}
->>  	if (ret < 0) {
->>  		kfree(cipher_api);
->>  		goto bad_mem;
->>
->
-> Thanks,
-> Milan
->
-> --
-> dm-devel mailing list
-> dm-devel@redhat.com
-> https://www.redhat.com/mailman/listinfo/dm-devel
->
+On Fri, 2019-06-21 at 14:16 -0500, Benjamin Marzinski wrote:
+> On Fri, Jun 07, 2019 at 03:05:27PM +0200, Martin Wilck wrote:
+> > More often than not, this means replacing strncpy() by strlcpy().
+> 
+> This depends on "libmultipath: add size argument to dm_get_uuid()"
+> for
+> the the extra argument in the call to dm_get_uuid() from
+> get_refwwid().
+> Otherwise, it looks fine.
+
+Sorry, this mistake slipped in during my attempt to reorder the patch
+series into similar-topic groups. I'll fix it and your other issue with
+patc 07/30, and resubmit.
+
+Martin
+
 
 --
 dm-devel mailing list
