@@ -2,124 +2,109 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2B20550D9
-	for <lists+dm-devel@lfdr.de>; Tue, 25 Jun 2019 15:54:02 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+	by mail.lfdr.de (Postfix) with ESMTPS id AFA81553CE
+	for <lists+dm-devel@lfdr.de>; Tue, 25 Jun 2019 17:57:46 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 3BE72223883;
-	Tue, 25 Jun 2019 13:53:18 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 2E6013082E8E;
+	Tue, 25 Jun 2019 15:57:33 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D2D1B608A5;
-	Tue, 25 Jun 2019 13:53:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8D7C55C22F;
+	Tue, 25 Jun 2019 15:57:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 06896206D5;
-	Tue, 25 Jun 2019 13:52:55 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CE654206D2;
+	Tue, 25 Jun 2019 15:56:54 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
 	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x5PDUZkR021550 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 25 Jun 2019 09:30:35 -0400
+	id x5PFuDfP028304 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 25 Jun 2019 11:56:13 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DCEF25D9D6; Tue, 25 Jun 2019 13:30:35 +0000 (UTC)
+	id 4FE245D9E1; Tue, 25 Jun 2019 15:56:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx05.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.29])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 80DC45D9DC;
-	Tue, 25 Jun 2019 13:30:25 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.redhat.com (ext-mx18.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.47])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CADF25D9C5;
+	Tue, 25 Jun 2019 15:56:08 +0000 (UTC)
+Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
+	[209.85.214.196])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 631E790901;
-	Tue, 25 Jun 2019 13:29:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20170209;
-	h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=vCL2IOPiHU9kJW2bBZYOqxawmR17SekCCFnRDcOOjFE=;
-	b=g0ITzi4aEbR6lSdnqiy2ElfSg
-	g779gyAaI7Ux0091eXAVoKggjsFo/t+M6NWIocT8AMgHmAAh0yh80ypR6Qbrn/+LZz95Bc5tDvCen
-	z4EMW1PvzMzmn7ebko6NG+ty+dz11z5vxAH09EtqjAX8ydZyEpvMqdktJcGUrgc2Dgx66WDRoalDB
-	qnMzX1ROanw2yW2oUXHPcEvjQ3b3DC0dOeSFFur1rAygN3R9e1t4x90/HNJodZAxXJkupMEfn77Fm
-	hpkVJrCMUlq/fbnIZCSHsL7NRYfw+QRUFFHQvO2QCLXRHQbEJ1FO9NQzzkv9ouNrzplrkLdnx7Roh
-	OV0fobmDw==;
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
-	helo=hirez.programming.kicks-ass.net)
-	by bombadil.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
-	id 1hflU2-0000AO-GD; Tue, 25 Jun 2019 13:27:38 +0000
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
-	id ED4AC209FCA10; Tue, 25 Jun 2019 15:27:36 +0200 (CEST)
-Date: Tue, 25 Jun 2019 15:27:36 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Message-ID: <20190625132736.GZ3419@hirez.programming.kicks-ass.net>
-References: <20190624165012.GH3436@hirez.programming.kicks-ass.net>
-	<CAHc6FU7j5iW7WQoxN_OSfvK4zxv_MxTWJpiNsqFW8TEDMX1rjw@mail.gmail.com>
-	<20190625103430.GW3402@hirez.programming.kicks-ass.net>
-	<CAHc6FU6zUCdQZ1AfN2KYcPYVKc5bwvc0bD7=-KZpFXws+F9QZQ@mail.gmail.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id D6C4430872C7;
+	Tue, 25 Jun 2019 15:55:59 +0000 (UTC)
+Received: by mail-pl1-f196.google.com with SMTP id e5so9054864pls.13;
+	Tue, 25 Jun 2019 08:55:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=X8PyZ6mm09HvpAjBsN2bzxK8nd8cfLA+VCOhqGU8yjE=;
+	b=THXT5qhWP3e3CTSEMUBbFukUIdZmmT/wTnVcXyNNmUE+AGMaAR0SOPxehvxBUEl2XV
+	cGMTbvU8B3EdER7QzNRhECJALDM5JxrUAapbXIv0sWpiM5hG/GdtvqiHjsVsldl5+VXG
+	XuMZ3hMA+b+5OJ7tYKT7YWpvgZZq1cU3O7qELfaaqCisGNYucSyEM5ohiCJc1MmMF7Ca
+	Vo9B1mTglB5zz//rSvBhj26wWHMRoj30gNrE9R1s9FIHuTAZb1eWJYC5hSGpJcr1rDCr
+	wIS2RR5BUAFDCEBra2euHtY/zNGoZNMDBy0vj2AhpT91pOgLU//23au15D+0E2mAB/PU
+	9smg==
+X-Gm-Message-State: APjAAAWPPh1r3iXqkVrx9SiRuBDIIr8I2k1cqbEY05l9TUL23wO2oByF
+	jOcrDag55V9qAf0j2HELAPI=
+X-Google-Smtp-Source: APXvYqzqnMz19/tkZ2lWR1LALGAy9toe5Xj906/48mLtj3J82ryMK3ntCRQMy81JplrGUfNQYwrwTg==
+X-Received: by 2002:a17:902:8203:: with SMTP id
+	x3mr72155467pln.304.1561478159207; 
+	Tue, 25 Jun 2019 08:55:59 -0700 (PDT)
+Received: from desktop-bart.svl.corp.google.com
+	([2620:15c:2cd:202:4308:52a3:24b6:2c60])
+	by smtp.gmail.com with ESMTPSA id
+	5sm14545676pfh.109.2019.06.25.08.55.57
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Tue, 25 Jun 2019 08:55:58 -0700 (PDT)
+To: =?UTF-8?Q?Matias_Bj=c3=b8rling?= <mb@lightnvm.io>,
+	Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>, "axboe@fb.com"
+	<axboe@fb.com>, "hch@lst.de" <hch@lst.de>,
+	Damien Le Moal <Damien.LeMoal@wdc.com>,
+	Dmitry Fomichev <Dmitry.Fomichev@wdc.com>, Ajay Joshi <Ajay.Joshi@wdc.com>,
+	Aravind Ramesh <Aravind.Ramesh@wdc.com>,
+	"martin.petersen@oracle.com" <martin.petersen@oracle.com>,
+	"James.Bottomley@HansenPartnership.com"
+	<James.Bottomley@HansenPartnership.com>, "agk@redhat.com" <agk@redhat.com>,
+	"snitzer@redhat.com" <snitzer@redhat.com>
+References: <20190621130711.21986-1-mb@lightnvm.io>
+	<20190621130711.21986-2-mb@lightnvm.io>
+	<ee5764fb-473a-f118-eaac-95478d885f6f@acm.org>
+	<BYAPR04MB5749CEFBB45EA34BD3345CD686E00@BYAPR04MB5749.namprd04.prod.outlook.com>
+	<cce08df0-0b4d-833d-64ce-f9b81f7ad7ca@lightnvm.io>
+From: Bart Van Assche <bvanassche@acm.org>
+Message-ID: <79ca395d-8019-9ec8-0c0b-194ca6d9eda0@acm.org>
+Date: Tue, 25 Jun 2019 08:55:56 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.7.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAHc6FU6zUCdQZ1AfN2KYcPYVKc5bwvc0bD7=-KZpFXws+F9QZQ@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.29]); Tue, 25 Jun 2019 13:30:16 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]);
-	Tue, 25 Jun 2019 13:30:16 +0000 (UTC) for IP:'198.137.202.133'
-	DOMAIN:'bombadil.infradead.org' HELO:'bombadil.infradead.org'
-	FROM:'peterz@infradead.org' RCPT:''
-X-RedHat-Spam-Score: -2.398  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_MED, SPF_HELO_NONE,
-	SPF_NONE) 198.137.202.133 bombadil.infradead.org 198.137.202.133
-	bombadil.infradead.org <peterz@infradead.org>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.29
+In-Reply-To: <cce08df0-0b4d-833d-64ce-f9b81f7ad7ca@lightnvm.io>
+Content-Language: en-US
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.47]);
+	Tue, 25 Jun 2019 15:55:59 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]);
+	Tue, 25 Jun 2019 15:55:59 +0000 (UTC) for IP:'209.85.214.196'
+	DOMAIN:'mail-pl1-f196.google.com'
+	HELO:'mail-pl1-f196.google.com' FROM:'bart.vanassche@gmail.com'
+	RCPT:''
+X-RedHat-Spam-Score: 0.492  (FREEMAIL_FORGED_FROMDOMAIN, FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
+	SPF_PASS) 209.85.214.196 mail-pl1-f196.google.com 209.85.214.196
+	mail-pl1-f196.google.com <bart.vanassche@gmail.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.47
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Tue, 25 Jun 2019 09:50:33 -0400
-Cc: Martin Brandenburg <martin@omnibond.com>, linux-cachefs@redhat.com,
-	Mike Snitzer <snitzer@redhat.com>, linux-aio@kvack.org,
-	David Airlie <airlied@linux.ie>,
-	samba-technical <samba-technical@lists.samba.org>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org,
-	David Howells <dhowells@redhat.com>, Chris Mason <clm@fb.com>,
-	dm-devel@redhat.com, keyrings@vger.kernel.org,
-	Ingo Molnar <mingo@redhat.com>, linux-afs@lists.infradead.org,
-	Alasdair Kergon <agk@redhat.com>,
-	Mike Marshall <hubcap@omnibond.com>, linux-cifs@vger.kernel.org,
-	rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org,
-	James Morris <jmorris@namei.org>, cluster-devel <cluster-devel@redhat.com>,
-	Antti Palosaari <crope@iki.fi>, Matthias Brugger <matthias.bgg@gmail.com>,
-	Paul McKenney <paulmck@linux.vnet.ibm.com>,
-	intel-gfx@lists.freedesktop.org, devel@lists.orangefs.org,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Santosh Shilimkar <santosh.shilimkar@oracle.com>,
-	Johan Hedberg <johan.hedberg@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>, Sean Wang <sean.wang@mediatek.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	linux-mediatek@lists.infradead.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>, David Sterba <dsterba@suse.com>,
-	MauroCarvalho Chehab <mchehab@kernel.org>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	linux-arm-kernel@lists.infradead.org,
-	"J. Bruce Fields" <bfields@fieldses.org>,
-	Linux NFS Mailing List <linux-nfs@vger.kernel.org>,
-	netdev@vger.kernel.org, Jeff Layton <jlayton@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	"David S. Miller" <davem@davemloft.net>, Steve French <sfrench@samba.org>,
-	linux-bluetooth@vger.kernel.org,
-	LSM <linux-security-module@vger.kernel.org>,
-	Benjamin LaHaise <bcrl@kvack.org>, Daniel Vetter <daniel@ffwll.ch>,
-	Bob Peterson <rpeterso@redhat.com>, linux-media@vger.kernel.org,
-	Anna Schumaker <anna.schumaker@netapp.com>, linux-btrfs@vger.kernel.org
-Subject: Re: [dm-devel] [RFC][PATCH] wake_up_var() memory ordering
+Cc: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	Matias Bjorling <Matias.Bjorling@wdc.com>
+Subject: Re: [dm-devel] [PATCH 1/4] block: add zone open,
+	close and finish support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -131,35 +116,32 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]); Tue, 25 Jun 2019 13:53:51 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]); Tue, 25 Jun 2019 15:57:45 +0000 (UTC)
 
-On Tue, Jun 25, 2019 at 02:12:22PM +0200, Andreas Gruenbacher wrote:
-
-> > Only if we do as David suggested and make clean_and_wake_up_bit()
-> > provide the RELEASE barrier.
-> 
-> (It's clear_and_wake_up_bit, not clean_and_wake_up_bit.)
-
-Yes, typing hard.
-
-> > That is, currently clear_and_wake_up_bit() is
-> >
-> >         clear_bit()
-> >         smp_mb__after_atomic();
-> >         wake_up_bit();
-> >
-
-> Now I'm confused because clear_and_wake_up_bit() in mainline does use
-> clear_bit_unlock(), so it's the exact opposite of what you just said.
-
-Argh; clearly I couldn't read. And then yes, you're right.
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+T24gNi8yNS8xOSAzOjM1IEFNLCBNYXRpYXMgQmrDuHJsaW5nIHdyb3RlOgo+IE9uIDYvMjUvMTkg
+MTI6MjcgQU0sIENoYWl0YW55YSBLdWxrYXJuaSB3cm90ZToKPj4gT24gNi8yNC8xOSAxMjo0MyBQ
+TSwgQmFydCBWYW4gQXNzY2hlIHdyb3RlOgo+Pj4gc3RhdGljIGlubGluZSBib29sIG9wX2lzX3dy
+aXRlKHVuc2lnbmVkIGludCBvcCkKPj4+IHsKPj4+IMKgwqDCoMKgcmV0dXJuIChvcCAmIDEpOwo+
+Pj4gfQo+Pj4KPj4KPiAKPiBUaGUgem9uZSBtZ210IGNvbW1hbmRzIGFyZSBuZWl0aGVyIHdyaXRl
+IG5vciByZWFkcyBjb21tYW5kcy4gSSBndWVzcywgCj4gb25lIGNvdWxkIGNoYXJhY3Rlcml6ZSB0
+aGVtIGFzIHdyaXRlIGNvbW1hbmRzLCBidXQgdGhleSBkb24ndCB3cml0ZSBhbnkgCj4gZGF0YSwg
+dGhleSB1cGRhdGUgYSBzdGF0ZSBvZiBhIHpvbmUgb24gYSBkcml2ZS4gT25lIHNob3VsZCBrZWVw
+IGl0IGFzIAo+IGlzPyBhbmQgbWFrZSBzdXJlIHRoZSB6b25lIG1nbXQgY29tbWFuZHMgZG9uJ3Qg
+Z2V0IGNhdGVnb3JpemVkIGFzIGVpdGhlciAKPiByZWFkL3dyaXRlLgoKU2luY2UgdGhlIG9wZW4s
+IGNsb3NlIGFuZCBmaW5pc2ggb3BlcmF0aW9ucyBzdXBwb3J0IG1vZGlmeWluZyB6b25lIGRhdGEg
+CkkgcHJvcG9zZSB0byBjaGFyYWN0ZXJpemUgdGhlc2UgYXMgd3JpdGUgY29tbWFuZHMuIEhvdyBh
+Ym91dCB0aGUgCmZvbGxvd2luZyBhZGRpdGlvbmFsIGNoYW5nZXM6Ci0gTWFrZSBiaW9fY2hlY2tf
+cm8oKSByZWZ1c2Ugb3Blbi9jbG9zZS9mbHVzaC9yZXNldCB6b25lIG9wZXJhdGlvbnMgZm9yIApy
+ZWFkLW9ubHkgcGFydGl0aW9ucyAoc2VlIGFsc28gY29tbWl0IGEzMmUyMzZlYjkzZSAoIlBhcnRp
+YWxseSByZXZlcnQgCiJibG9jazogZmFpbCBvcF9pc193cml0ZSgpIHJlcXVlc3RzIHRvIHJlYWQt
+b25seSBwYXJ0aXRpb25zIiIpICMgdjQuMTgpLgotIEluIHN1Ym1pdF9iaW8oKSwgY2hhbmdlIG9w
+X2lzX3dyaXRlKGJpb19vcChiaW8pKSA/ICJXUklURSIgOiAiUkVBRCIgCmludG8gc29tZXRoaW5n
+IHRoYXQgdXNlcyBibGtfb3Bfc3RyKCkuCi0gQWRkIG9wZW4vY2xvc2UvZmx1c2ggem9uZSBzdXBw
+b3J0IGJlIGFkZGVkIGluIGJsa19wYXJ0aXRpb25fcmVtYXAoKS4KClRoYW5rcywKCkJhcnQuCgot
+LQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL3d3dy5y
+ZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWw=
