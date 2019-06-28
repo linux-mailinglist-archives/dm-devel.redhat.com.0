@@ -2,37 +2,37 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDD4259B69
-	for <lists+dm-devel@lfdr.de>; Fri, 28 Jun 2019 14:33:09 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by mail.lfdr.de (Postfix) with ESMTPS id 090FD59B73
+	for <lists+dm-devel@lfdr.de>; Fri, 28 Jun 2019 14:33:14 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 4232B307D90E;
-	Fri, 28 Jun 2019 12:32:53 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 10CEA1001B21;
-	Fri, 28 Jun 2019 12:32:41 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 5AF1C3092647;
+	Fri, 28 Jun 2019 12:33:04 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 23C445D71D;
+	Fri, 28 Jun 2019 12:32:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 642A11806B16;
-	Fri, 28 Jun 2019 12:32:17 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F0434206D2;
+	Fri, 28 Jun 2019 12:32:27 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
 	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x5SCV1Fu024683 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 28 Jun 2019 08:31:01 -0400
+	id x5SCVR59025257 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 28 Jun 2019 08:31:27 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DDD746013C; Fri, 28 Jun 2019 12:31:01 +0000 (UTC)
+	id 980C160143; Fri, 28 Jun 2019 12:31:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx02.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.26])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D37926013A;
-	Fri, 28 Jun 2019 12:30:55 +0000 (UTC)
+Received: from mx1.redhat.com (ext-mx07.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.31])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A30DD6012D;
+	Fri, 28 Jun 2019 12:31:20 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 6EBB37CBA0;
-	Fri, 28 Jun 2019 12:30:44 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 9ECECC18B2E6;
+	Fri, 28 Jun 2019 12:30:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=bombadil.20170209;
 	h=Sender:Content-Transfer-Encoding:
@@ -40,48 +40,70 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
 	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
 	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=uuAO7Ip7/oFj8Y2WIj1GzBB+07T8ur4xQHwAjjIg0CY=;
-	b=jwbD5P//JCjlS3C8Nc9p3eAw1i
-	HvPNsBW++l53kPPeJPYoGyqXmfOc4kId6HxdotW69VHWR3FPnKcLUyQIF3GNXy49UtYZGUo6WKE00
-	4q3SLsGmXWpiIgi/gMMcV4XzYojSE2AlqqEicqFBkIMz00bhC3hQJU4c+JHK7Kzbuou2j3QxYwBKo
-	nta7n6yr8YtJ0dEkqLGxUBzivUK/KLNGvBNUrAfdlVg5owkWby52WVJOdKvU7UanYNuDl7/34RRPN
-	ih4pc9UpGZguGG8jzx/ANZ59bkJC4oJ9Pn5P06A5sBz2JVshX+dbk0eOG64dJsfR5DQoC+gztb6Dw
-	gC53uiVA==;
+	bh=t2SlvlYO6vN68ooBWcFQh21aLIzOtka8Klr/M76soBU=;
+	b=GPcFupf5dzfyT165XdM5l7atm7
+	NpunVR4RVyW430xRFKelq2/bs7dtPeXB4qL/NAe4wUu90z3hkDS/UIfIGdcLRgNR2UNHiStAIHDWk
+	b5ipZ/rh5zP1MANqlxnbENYD/fVy7fINuTz8hI/7Xxd5uRjSAc/v12+G6v77fOA6pvH51AXLu2qLr
+	m1H6iZl3askKHReK+jify63bqpxZ2aZmSjKnEi33cR7epWYwKUNyxM6iw0XhbwlMf1Q1R8eIlnGAY
+	g2vrko1I5YdrDNVcbwUdqvarlbeC++auL6Ldh/LGX2VSxCdN+UgvNr4MOiHvRW17Y0Xbs+VJlMxkY
+	FFszEwYQ==;
 Received: from [186.213.242.156] (helo=bombadil.infradead.org)
 	by bombadil.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
-	id 1hgq1U-00055B-7t; Fri, 28 Jun 2019 12:30:36 +0000
+	id 1hgq1U-00055h-OB; Fri, 28 Jun 2019 12:30:37 +0000
 Received: from mchehab by bombadil.infradead.org with local (Exim 4.92)
 	(envelope-from <mchehab@bombadil.infradead.org>)
-	id 1hgq1S-0005S2-9t; Fri, 28 Jun 2019 09:30:34 -0300
+	id 1hgq1S-0005TB-Lz; Fri, 28 Jun 2019 09:30:34 -0300
 From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
 To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Date: Fri, 28 Jun 2019 09:30:07 -0300
-Message-Id: <69039a9ae8c5327e14e9fc3dbc9e810f92091b52.1561724493.git.mchehab+samsung@kernel.org>
+Date: Fri, 28 Jun 2019 09:30:21 -0300
+Message-Id: <7ee0e33575633f689203f582259c2cbdce477176.1561724493.git.mchehab+samsung@kernel.org>
 In-Reply-To: <cover.1561724493.git.mchehab+samsung@kernel.org>
 References: <cover.1561724493.git.mchehab+samsung@kernel.org>
 MIME-Version: 1.0
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 216
 	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.26]); Fri, 28 Jun 2019 12:30:44 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]);
-	Fri, 28 Jun 2019 12:30:44 +0000 (UTC) for IP:'198.137.202.133'
+	[10.5.110.31]); Fri, 28 Jun 2019 12:30:48 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.31]);
+	Fri, 28 Jun 2019 12:30:48 +0000 (UTC) for IP:'198.137.202.133'
 	DOMAIN:'bombadil.infradead.org' HELO:'bombadil.infradead.org'
 	FROM:'mchehab@bombadil.infradead.org' RCPT:''
 X-RedHat-Spam-Score: -2.048  (DKIM_SIGNED, DKIM_VALID,
 	HEADER_FROM_DIFFERENT_DOMAINS, RCVD_IN_DNSWL_MED, SPF_HELO_NONE,
 	SPF_NONE) 198.137.202.133 bombadil.infradead.org 198.137.202.133
 	bombadil.infradead.org <mchehab@bombadil.infradead.org>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.26
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.31
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
-Cc: Mike Snitzer <snitzer@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
-	linux-kernel@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@infradead.org>,
-	linux-raid@vger.kernel.org, dm-devel@redhat.com,
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rich Felker <dalias@libc.org>, Mike Snitzer <snitzer@redhat.com>,
+	linux-sh@vger.kernel.org, "Richard Russon \(FlatCap\)" <ldm@flatcap.org>,
+	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	sparclinux@vger.kernel.org, dm-devel@redhat.com,
+	linux-efi@vger.kernel.org, Willy Tarreau <willy@haproxy.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
 	Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
-	Shaohua Li <shli@kernel.org>, Alasdair Kergon <agk@redhat.com>
-Subject: [dm-devel] [PATCH 14/39] docs: device-mapper: move it to the
-	admin-guide
+	Alasdair Kergon <agk@redhat.com>, linux-rtc@vger.kernel.org,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Ksenija Stanojevic <ksenija.stanojevic@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>, Helge Deller <deller@gmx.de>,
+	x86@kernel.org, Russell King <linux@armlinux.org.uk>,
+	Ingo Molnar <mingo@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
+	Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+	Mauro Carvalho Chehab <mchehab@infradead.org>,
+	linux-block@vger.kernel.org, Borislav Petkov <bp@alien8.de>,
+	Matt Mackall <mpm@selenic.com>, Thomas Gleixner <tglx@linutronix.de>,
+	linux-arm-kernel@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
+	Alessandro Zummo <a.zummo@towertech.it>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>, linux-parisc@vger.kernel.org,
+	Ard Biesheuvel <ard.biesheuvel@linaro.org>,
+	linux-ntfs-dev@lists.sourceforge.net,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org, Martin Mares <mj@ucw.cz>,
+	linux-crypto@vger.kernel.org, linux-video@atrey.karlin.mff.cuni.cz,
+	"David S. Miller" <davem@davemloft.net>
+Subject: [dm-devel] [PATCH 28/39] docs: admin-guide: add a series of
+	orphaned documents
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,274 +119,546 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]); Fri, 28 Jun 2019 12:33:08 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]); Fri, 28 Jun 2019 12:33:12 +0000 (UTC)
 
-The DM support describes lots of aspects related to mapped
-disk partitions from the userspace PoV.
+There are lots of documents that belong to the admin-guide but
+are on random places (most under Documentation root dir).
+
+Move them to the admin guide.
 
 Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
 ---
- .../{ => admin-guide}/device-mapper/cache-policies.rst          | 0
- Documentation/{ => admin-guide}/device-mapper/cache.rst         | 0
- Documentation/{ => admin-guide}/device-mapper/delay.rst         | 0
- Documentation/{ => admin-guide}/device-mapper/dm-crypt.rst      | 0
- Documentation/{ => admin-guide}/device-mapper/dm-dust.txt       | 0
- Documentation/{ => admin-guide}/device-mapper/dm-flakey.rst     | 0
- Documentation/{ => admin-guide}/device-mapper/dm-init.rst       | 0
- Documentation/{ => admin-guide}/device-mapper/dm-integrity.rst  | 0
- Documentation/{ => admin-guide}/device-mapper/dm-io.rst         | 0
- Documentation/{ => admin-guide}/device-mapper/dm-log.rst        | 0
- .../{ => admin-guide}/device-mapper/dm-queue-length.rst         | 0
- Documentation/{ => admin-guide}/device-mapper/dm-raid.rst       | 0
- .../{ => admin-guide}/device-mapper/dm-service-time.rst         | 0
- Documentation/{ => admin-guide}/device-mapper/dm-uevent.rst     | 0
- Documentation/{ => admin-guide}/device-mapper/dm-zoned.rst      | 0
- Documentation/{ => admin-guide}/device-mapper/era.rst           | 0
- Documentation/{ => admin-guide}/device-mapper/index.rst         | 2 --
- Documentation/{ => admin-guide}/device-mapper/kcopyd.rst        | 0
- Documentation/{ => admin-guide}/device-mapper/linear.rst        | 0
- Documentation/{ => admin-guide}/device-mapper/log-writes.rst    | 0
- .../{ => admin-guide}/device-mapper/persistent-data.rst         | 0
- Documentation/{ => admin-guide}/device-mapper/snapshot.rst      | 0
- Documentation/{ => admin-guide}/device-mapper/statistics.rst    | 0
- Documentation/{ => admin-guide}/device-mapper/striped.rst       | 0
- Documentation/{ => admin-guide}/device-mapper/switch.rst        | 0
- .../{ => admin-guide}/device-mapper/thin-provisioning.rst       | 0
- Documentation/{ => admin-guide}/device-mapper/unstriped.rst     | 0
- Documentation/{ => admin-guide}/device-mapper/verity.rst        | 0
- Documentation/{ => admin-guide}/device-mapper/writecache.rst    | 0
- Documentation/{ => admin-guide}/device-mapper/zero.rst          | 0
- Documentation/admin-guide/index.rst                             | 1 +
- MAINTAINERS                                                     | 2 +-
- drivers/md/Kconfig                                              | 2 +-
- drivers/md/dm-init.c                                            | 2 +-
- drivers/md/dm-raid.c                                            | 2 +-
- 35 files changed, 5 insertions(+), 6 deletions(-)
- rename Documentation/{ => admin-guide}/device-mapper/cache-policies.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/cache.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/delay.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/dm-crypt.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/dm-dust.txt (100%)
- rename Documentation/{ => admin-guide}/device-mapper/dm-flakey.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/dm-init.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/dm-integrity.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/dm-io.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/dm-log.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/dm-queue-length.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/dm-raid.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/dm-service-time.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/dm-uevent.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/dm-zoned.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/era.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/index.rst (98%)
- rename Documentation/{ => admin-guide}/device-mapper/kcopyd.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/linear.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/log-writes.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/persistent-data.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/snapshot.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/statistics.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/striped.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/switch.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/thin-provisioning.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/unstriped.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/verity.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/writecache.rst (100%)
- rename Documentation/{ => admin-guide}/device-mapper/zero.rst (100%)
+ Documentation/ABI/stable/sysfs-devices-node     |  2 +-
+ Documentation/ABI/testing/procfs-diskstats      |  2 +-
+ Documentation/ABI/testing/sysfs-block           |  2 +-
+ .../ABI/testing/sysfs-devices-system-cpu        |  4 ++--
+ .../{btmrvl.txt => admin-guide/btmrvl.rst}      |  0
+ .../clearing-warn-once.rst}                     |  0
+ .../{cpu-load.txt => admin-guide/cpu-load.rst}  |  0
+ .../cputopology.rst}                            |  0
+ .../admin-guide/device-mapper/statistics.rst    |  4 ++--
+ .../{efi-stub.txt => admin-guide/efi-stub.rst}  |  0
+ .../{highuid.txt => admin-guide/highuid.rst}    |  0
+ Documentation/admin-guide/hw-vuln/l1tf.rst      |  2 +-
+ .../hw_random.rst}                              |  0
+ Documentation/admin-guide/index.rst             | 17 +++++++++++++++++
+ .../{iostats.txt => admin-guide/iostats.rst}    |  0
+ Documentation/admin-guide/kernel-parameters.txt |  2 +-
+ .../kernel-per-CPU-kthreads.rst}                |  0
+ .../lcd-panel-cgram.rst                         |  2 --
+ Documentation/{ldm.txt => admin-guide/ldm.rst}  |  0
+ .../lockup-watchdogs.rst}                       |  0
+ .../mm/cma_debugfs.rst}                         |  2 --
+ Documentation/admin-guide/mm/index.rst          |  1 +
+ .../{numastat.txt => admin-guide/numastat.rst}  |  0
+ Documentation/{pnp.txt => admin-guide/pnp.rst}  |  0
+ Documentation/{rtc.txt => admin-guide/rtc.rst}  |  0
+ .../{svga.txt => admin-guide/svga.rst}          |  0
+ Documentation/admin-guide/sysctl/kernel.rst     |  2 +-
+ .../video-output.rst}                           |  0
+ Documentation/fb/vesafb.rst                     |  2 +-
+ Documentation/x86/topology.rst                  |  2 +-
+ MAINTAINERS                                     | 12 ++++++------
+ arch/arm/Kconfig                                |  2 +-
+ arch/parisc/Kconfig                             |  2 +-
+ arch/sh/Kconfig                                 |  2 +-
+ arch/sparc/Kconfig                              |  2 +-
+ arch/x86/Kconfig                                |  4 ++--
+ block/partitions/Kconfig                        |  2 +-
+ drivers/char/Kconfig                            |  4 ++--
+ drivers/char/hw_random/core.c                   |  2 +-
+ include/linux/hw_random.h                       |  2 +-
+ 40 files changed, 47 insertions(+), 33 deletions(-)
+ rename Documentation/{btmrvl.txt => admin-guide/btmrvl.rst} (100%)
+ rename Documentation/{clearing-warn-once.txt => admin-guide/clearing-warn-once.rst} (100%)
+ rename Documentation/{cpu-load.txt => admin-guide/cpu-load.rst} (100%)
+ rename Documentation/{cputopology.txt => admin-guide/cputopology.rst} (100%)
+ rename Documentation/{efi-stub.txt => admin-guide/efi-stub.rst} (100%)
+ rename Documentation/{highuid.txt => admin-guide/highuid.rst} (100%)
+ rename Documentation/{hw_random.txt => admin-guide/hw_random.rst} (100%)
+ rename Documentation/{iostats.txt => admin-guide/iostats.rst} (100%)
+ rename Documentation/{kernel-per-CPU-kthreads.txt => admin-guide/kernel-per-CPU-kthreads.rst} (100%)
+ rename Documentation/{auxdisplay => admin-guide}/lcd-panel-cgram.rst (99%)
+ rename Documentation/{ldm.txt => admin-guide/ldm.rst} (100%)
+ rename Documentation/{lockup-watchdogs.txt => admin-guide/lockup-watchdogs.rst} (100%)
+ rename Documentation/{cma/debugfs.rst => admin-guide/mm/cma_debugfs.rst} (98%)
+ rename Documentation/{numastat.txt => admin-guide/numastat.rst} (100%)
+ rename Documentation/{pnp.txt => admin-guide/pnp.rst} (100%)
+ rename Documentation/{rtc.txt => admin-guide/rtc.rst} (100%)
+ rename Documentation/{svga.txt => admin-guide/svga.rst} (100%)
+ rename Documentation/{video-output.txt => admin-guide/video-output.rst} (100%)
 
-diff --git a/Documentation/device-mapper/cache-policies.rst b/Documentation/admin-guide/device-mapper/cache-policies.rst
+diff --git a/Documentation/ABI/stable/sysfs-devices-node b/Documentation/ABI/stable/sysfs-devices-node
+index f7ce68fbd4b9..df8413cf1468 100644
+--- a/Documentation/ABI/stable/sysfs-devices-node
++++ b/Documentation/ABI/stable/sysfs-devices-node
+@@ -61,7 +61,7 @@ Date:		October 2002
+ Contact:	Linux Memory Management list <linux-mm@kvack.org>
+ Description:
+ 		The node's hit/miss statistics, in units of pages.
+-		See Documentation/numastat.txt
++		See Documentation/admin-guide/numastat.rst
+ 
+ What:		/sys/devices/system/node/nodeX/distance
+ Date:		October 2002
+diff --git a/Documentation/ABI/testing/procfs-diskstats b/Documentation/ABI/testing/procfs-diskstats
+index abac31d216de..2c44b4f1b060 100644
+--- a/Documentation/ABI/testing/procfs-diskstats
++++ b/Documentation/ABI/testing/procfs-diskstats
+@@ -29,4 +29,4 @@ Description:
+ 		17 - sectors discarded
+ 		18 - time spent discarding
+ 
+-		For more details refer to Documentation/iostats.txt
++		For more details refer to Documentation/admin-guide/iostats.rst
+diff --git a/Documentation/ABI/testing/sysfs-block b/Documentation/ABI/testing/sysfs-block
+index dfad7427817c..f8c7c7126bb1 100644
+--- a/Documentation/ABI/testing/sysfs-block
++++ b/Documentation/ABI/testing/sysfs-block
+@@ -15,7 +15,7 @@ Description:
+ 		 9 - I/Os currently in progress
+ 		10 - time spent doing I/Os (ms)
+ 		11 - weighted time spent doing I/Os (ms)
+-		For more details refer Documentation/iostats.txt
++		For more details refer Documentation/admin-guide/iostats.rst
+ 
+ 
+ What:		/sys/block/<disk>/<part>/stat
+diff --git a/Documentation/ABI/testing/sysfs-devices-system-cpu b/Documentation/ABI/testing/sysfs-devices-system-cpu
+index d404603c6b52..5f7d7b14fa44 100644
+--- a/Documentation/ABI/testing/sysfs-devices-system-cpu
++++ b/Documentation/ABI/testing/sysfs-devices-system-cpu
+@@ -34,7 +34,7 @@ Description:	CPU topology files that describe kernel limits related to
+ 		present: cpus that have been identified as being present in
+ 		the system.
+ 
+-		See Documentation/cputopology.txt for more information.
++		See Documentation/admin-guide/cputopology.rst for more information.
+ 
+ 
+ What:		/sys/devices/system/cpu/probe
+@@ -103,7 +103,7 @@ Description:	CPU topology files that describe a logical CPU's relationship
+ 		thread_siblings_list: human-readable list of cpu#'s hardware
+ 		threads within the same core as cpu#
+ 
+-		See Documentation/cputopology.txt for more information.
++		See Documentation/admin-guide/cputopology.rst for more information.
+ 
+ 
+ What:		/sys/devices/system/cpu/cpuidle/current_driver
+diff --git a/Documentation/btmrvl.txt b/Documentation/admin-guide/btmrvl.rst
 similarity index 100%
-rename from Documentation/device-mapper/cache-policies.rst
-rename to Documentation/admin-guide/device-mapper/cache-policies.rst
-diff --git a/Documentation/device-mapper/cache.rst b/Documentation/admin-guide/device-mapper/cache.rst
+rename from Documentation/btmrvl.txt
+rename to Documentation/admin-guide/btmrvl.rst
+diff --git a/Documentation/clearing-warn-once.txt b/Documentation/admin-guide/clearing-warn-once.rst
 similarity index 100%
-rename from Documentation/device-mapper/cache.rst
-rename to Documentation/admin-guide/device-mapper/cache.rst
-diff --git a/Documentation/device-mapper/delay.rst b/Documentation/admin-guide/device-mapper/delay.rst
+rename from Documentation/clearing-warn-once.txt
+rename to Documentation/admin-guide/clearing-warn-once.rst
+diff --git a/Documentation/cpu-load.txt b/Documentation/admin-guide/cpu-load.rst
 similarity index 100%
-rename from Documentation/device-mapper/delay.rst
-rename to Documentation/admin-guide/device-mapper/delay.rst
-diff --git a/Documentation/device-mapper/dm-crypt.rst b/Documentation/admin-guide/device-mapper/dm-crypt.rst
+rename from Documentation/cpu-load.txt
+rename to Documentation/admin-guide/cpu-load.rst
+diff --git a/Documentation/cputopology.txt b/Documentation/admin-guide/cputopology.rst
 similarity index 100%
-rename from Documentation/device-mapper/dm-crypt.rst
-rename to Documentation/admin-guide/device-mapper/dm-crypt.rst
-diff --git a/Documentation/device-mapper/dm-dust.txt b/Documentation/admin-guide/device-mapper/dm-dust.txt
+rename from Documentation/cputopology.txt
+rename to Documentation/admin-guide/cputopology.rst
+diff --git a/Documentation/admin-guide/device-mapper/statistics.rst b/Documentation/admin-guide/device-mapper/statistics.rst
+index 3d80a9f850cc..41ded0bc5933 100644
+--- a/Documentation/admin-guide/device-mapper/statistics.rst
++++ b/Documentation/admin-guide/device-mapper/statistics.rst
+@@ -13,7 +13,7 @@ the range specified.
+ 
+ The I/O statistics counters for each step-sized area of a region are
+ in the same format as `/sys/block/*/stat` or `/proc/diskstats` (see:
+-Documentation/iostats.txt).  But two extra counters (12 and 13) are
++Documentation/admin-guide/iostats.rst).  But two extra counters (12 and 13) are
+ provided: total time spent reading and writing.  When the histogram
+ argument is used, the 14th parameter is reported that represents the
+ histogram of latencies.  All these counters may be accessed by sending
+@@ -151,7 +151,7 @@ Messages
+ 	  The first 11 counters have the same meaning as
+ 	  `/sys/block/*/stat or /proc/diskstats`.
+ 
+-	  Please refer to Documentation/iostats.txt for details.
++	  Please refer to Documentation/admin-guide/iostats.rst for details.
+ 
+ 	  1. the number of reads completed
+ 	  2. the number of reads merged
+diff --git a/Documentation/efi-stub.txt b/Documentation/admin-guide/efi-stub.rst
 similarity index 100%
-rename from Documentation/device-mapper/dm-dust.txt
-rename to Documentation/admin-guide/device-mapper/dm-dust.txt
-diff --git a/Documentation/device-mapper/dm-flakey.rst b/Documentation/admin-guide/device-mapper/dm-flakey.rst
+rename from Documentation/efi-stub.txt
+rename to Documentation/admin-guide/efi-stub.rst
+diff --git a/Documentation/highuid.txt b/Documentation/admin-guide/highuid.rst
 similarity index 100%
-rename from Documentation/device-mapper/dm-flakey.rst
-rename to Documentation/admin-guide/device-mapper/dm-flakey.rst
-diff --git a/Documentation/device-mapper/dm-init.rst b/Documentation/admin-guide/device-mapper/dm-init.rst
+rename from Documentation/highuid.txt
+rename to Documentation/admin-guide/highuid.rst
+diff --git a/Documentation/admin-guide/hw-vuln/l1tf.rst b/Documentation/admin-guide/hw-vuln/l1tf.rst
+index 656aee262e23..f83212fae4d5 100644
+--- a/Documentation/admin-guide/hw-vuln/l1tf.rst
++++ b/Documentation/admin-guide/hw-vuln/l1tf.rst
+@@ -241,7 +241,7 @@ Guest mitigation mechanisms
+    For further information about confining guests to a single or to a group
+    of cores consult the cpusets documentation:
+ 
+-   https://www.kernel.org/doc/Documentation/cgroup-v1/cpusets.rst
++   https://www.kernel.org/doc/Documentation/admin-guide/cgroup-v1/cpusets.rst
+ 
+ .. _interrupt_isolation:
+ 
+diff --git a/Documentation/hw_random.txt b/Documentation/admin-guide/hw_random.rst
 similarity index 100%
-rename from Documentation/device-mapper/dm-init.rst
-rename to Documentation/admin-guide/device-mapper/dm-init.rst
-diff --git a/Documentation/device-mapper/dm-integrity.rst b/Documentation/admin-guide/device-mapper/dm-integrity.rst
-similarity index 100%
-rename from Documentation/device-mapper/dm-integrity.rst
-rename to Documentation/admin-guide/device-mapper/dm-integrity.rst
-diff --git a/Documentation/device-mapper/dm-io.rst b/Documentation/admin-guide/device-mapper/dm-io.rst
-similarity index 100%
-rename from Documentation/device-mapper/dm-io.rst
-rename to Documentation/admin-guide/device-mapper/dm-io.rst
-diff --git a/Documentation/device-mapper/dm-log.rst b/Documentation/admin-guide/device-mapper/dm-log.rst
-similarity index 100%
-rename from Documentation/device-mapper/dm-log.rst
-rename to Documentation/admin-guide/device-mapper/dm-log.rst
-diff --git a/Documentation/device-mapper/dm-queue-length.rst b/Documentation/admin-guide/device-mapper/dm-queue-length.rst
-similarity index 100%
-rename from Documentation/device-mapper/dm-queue-length.rst
-rename to Documentation/admin-guide/device-mapper/dm-queue-length.rst
-diff --git a/Documentation/device-mapper/dm-raid.rst b/Documentation/admin-guide/device-mapper/dm-raid.rst
-similarity index 100%
-rename from Documentation/device-mapper/dm-raid.rst
-rename to Documentation/admin-guide/device-mapper/dm-raid.rst
-diff --git a/Documentation/device-mapper/dm-service-time.rst b/Documentation/admin-guide/device-mapper/dm-service-time.rst
-similarity index 100%
-rename from Documentation/device-mapper/dm-service-time.rst
-rename to Documentation/admin-guide/device-mapper/dm-service-time.rst
-diff --git a/Documentation/device-mapper/dm-uevent.rst b/Documentation/admin-guide/device-mapper/dm-uevent.rst
-similarity index 100%
-rename from Documentation/device-mapper/dm-uevent.rst
-rename to Documentation/admin-guide/device-mapper/dm-uevent.rst
-diff --git a/Documentation/device-mapper/dm-zoned.rst b/Documentation/admin-guide/device-mapper/dm-zoned.rst
-similarity index 100%
-rename from Documentation/device-mapper/dm-zoned.rst
-rename to Documentation/admin-guide/device-mapper/dm-zoned.rst
-diff --git a/Documentation/device-mapper/era.rst b/Documentation/admin-guide/device-mapper/era.rst
-similarity index 100%
-rename from Documentation/device-mapper/era.rst
-rename to Documentation/admin-guide/device-mapper/era.rst
-diff --git a/Documentation/device-mapper/index.rst b/Documentation/admin-guide/device-mapper/index.rst
-similarity index 98%
-rename from Documentation/device-mapper/index.rst
-rename to Documentation/admin-guide/device-mapper/index.rst
-index 105e253bc231..c77c58b8f67b 100644
---- a/Documentation/device-mapper/index.rst
-+++ b/Documentation/admin-guide/device-mapper/index.rst
-@@ -1,5 +1,3 @@
--:orphan:
--
- =============
- Device Mapper
- =============
-diff --git a/Documentation/device-mapper/kcopyd.rst b/Documentation/admin-guide/device-mapper/kcopyd.rst
-similarity index 100%
-rename from Documentation/device-mapper/kcopyd.rst
-rename to Documentation/admin-guide/device-mapper/kcopyd.rst
-diff --git a/Documentation/device-mapper/linear.rst b/Documentation/admin-guide/device-mapper/linear.rst
-similarity index 100%
-rename from Documentation/device-mapper/linear.rst
-rename to Documentation/admin-guide/device-mapper/linear.rst
-diff --git a/Documentation/device-mapper/log-writes.rst b/Documentation/admin-guide/device-mapper/log-writes.rst
-similarity index 100%
-rename from Documentation/device-mapper/log-writes.rst
-rename to Documentation/admin-guide/device-mapper/log-writes.rst
-diff --git a/Documentation/device-mapper/persistent-data.rst b/Documentation/admin-guide/device-mapper/persistent-data.rst
-similarity index 100%
-rename from Documentation/device-mapper/persistent-data.rst
-rename to Documentation/admin-guide/device-mapper/persistent-data.rst
-diff --git a/Documentation/device-mapper/snapshot.rst b/Documentation/admin-guide/device-mapper/snapshot.rst
-similarity index 100%
-rename from Documentation/device-mapper/snapshot.rst
-rename to Documentation/admin-guide/device-mapper/snapshot.rst
-diff --git a/Documentation/device-mapper/statistics.rst b/Documentation/admin-guide/device-mapper/statistics.rst
-similarity index 100%
-rename from Documentation/device-mapper/statistics.rst
-rename to Documentation/admin-guide/device-mapper/statistics.rst
-diff --git a/Documentation/device-mapper/striped.rst b/Documentation/admin-guide/device-mapper/striped.rst
-similarity index 100%
-rename from Documentation/device-mapper/striped.rst
-rename to Documentation/admin-guide/device-mapper/striped.rst
-diff --git a/Documentation/device-mapper/switch.rst b/Documentation/admin-guide/device-mapper/switch.rst
-similarity index 100%
-rename from Documentation/device-mapper/switch.rst
-rename to Documentation/admin-guide/device-mapper/switch.rst
-diff --git a/Documentation/device-mapper/thin-provisioning.rst b/Documentation/admin-guide/device-mapper/thin-provisioning.rst
-similarity index 100%
-rename from Documentation/device-mapper/thin-provisioning.rst
-rename to Documentation/admin-guide/device-mapper/thin-provisioning.rst
-diff --git a/Documentation/device-mapper/unstriped.rst b/Documentation/admin-guide/device-mapper/unstriped.rst
-similarity index 100%
-rename from Documentation/device-mapper/unstriped.rst
-rename to Documentation/admin-guide/device-mapper/unstriped.rst
-diff --git a/Documentation/device-mapper/verity.rst b/Documentation/admin-guide/device-mapper/verity.rst
-similarity index 100%
-rename from Documentation/device-mapper/verity.rst
-rename to Documentation/admin-guide/device-mapper/verity.rst
-diff --git a/Documentation/device-mapper/writecache.rst b/Documentation/admin-guide/device-mapper/writecache.rst
-similarity index 100%
-rename from Documentation/device-mapper/writecache.rst
-rename to Documentation/admin-guide/device-mapper/writecache.rst
-diff --git a/Documentation/device-mapper/zero.rst b/Documentation/admin-guide/device-mapper/zero.rst
-similarity index 100%
-rename from Documentation/device-mapper/zero.rst
-rename to Documentation/admin-guide/device-mapper/zero.rst
+rename from Documentation/hw_random.txt
+rename to Documentation/admin-guide/hw_random.rst
 diff --git a/Documentation/admin-guide/index.rst b/Documentation/admin-guide/index.rst
-index 42819addebc6..e0763c51b024 100644
+index d5064f1802c1..2c20607e90cd 100644
 --- a/Documentation/admin-guide/index.rst
 +++ b/Documentation/admin-guide/index.rst
-@@ -79,6 +79,7 @@ configure specific aspects of kernel behavior to your liking.
-    namespaces/index
+@@ -84,8 +84,25 @@ configure specific aspects of kernel behavior to your liking.
     perf-security
     acpi/index
-+   device-mapper/index
+    aoe/index
++   btmrvl
++   clearing-warn-once
++   cpu-load
++   cputopology
+    device-mapper/index
++   efi-stub
++   highuid
++   hw_random
++   iostats
++   kernel-per-CPU-kthreads
+    laptops/index
++   lcd-panel-cgram
++   ldm
++   lockup-watchdogs
++   numastat
++   pnp
++   rtc
++   svga
++   video-output
  
  .. only::  subproject and html
  
+diff --git a/Documentation/iostats.txt b/Documentation/admin-guide/iostats.rst
+similarity index 100%
+rename from Documentation/iostats.txt
+rename to Documentation/admin-guide/iostats.rst
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index e833133c8897..713d6f378fbe 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -5092,7 +5092,7 @@
+ 
+ 	vga=		[BOOT,X86-32] Select a particular video mode
+ 			See Documentation/x86/boot.rst and
+-			Documentation/svga.txt.
++			Documentation/admin-guide/svga.rst.
+ 			Use vga=ask for menu.
+ 			This is actually a boot loader parameter; the value is
+ 			passed to the kernel using a special protocol.
+diff --git a/Documentation/kernel-per-CPU-kthreads.txt b/Documentation/admin-guide/kernel-per-CPU-kthreads.rst
+similarity index 100%
+rename from Documentation/kernel-per-CPU-kthreads.txt
+rename to Documentation/admin-guide/kernel-per-CPU-kthreads.rst
+diff --git a/Documentation/auxdisplay/lcd-panel-cgram.rst b/Documentation/admin-guide/lcd-panel-cgram.rst
+similarity index 99%
+rename from Documentation/auxdisplay/lcd-panel-cgram.rst
+rename to Documentation/admin-guide/lcd-panel-cgram.rst
+index dfef50286018..a3eb00c62f53 100644
+--- a/Documentation/auxdisplay/lcd-panel-cgram.rst
++++ b/Documentation/admin-guide/lcd-panel-cgram.rst
+@@ -1,5 +1,3 @@
+-:orphan:
+-
+ ======================================
+ Parallel port LCD/Keypad Panel support
+ ======================================
+diff --git a/Documentation/ldm.txt b/Documentation/admin-guide/ldm.rst
+similarity index 100%
+rename from Documentation/ldm.txt
+rename to Documentation/admin-guide/ldm.rst
+diff --git a/Documentation/lockup-watchdogs.txt b/Documentation/admin-guide/lockup-watchdogs.rst
+similarity index 100%
+rename from Documentation/lockup-watchdogs.txt
+rename to Documentation/admin-guide/lockup-watchdogs.rst
+diff --git a/Documentation/cma/debugfs.rst b/Documentation/admin-guide/mm/cma_debugfs.rst
+similarity index 98%
+rename from Documentation/cma/debugfs.rst
+rename to Documentation/admin-guide/mm/cma_debugfs.rst
+index 518fe401b5ee..4e06ffabd78a 100644
+--- a/Documentation/cma/debugfs.rst
++++ b/Documentation/admin-guide/mm/cma_debugfs.rst
+@@ -1,5 +1,3 @@
+-:orphan:
+-
+ =====================
+ CMA Debugfs Interface
+ =====================
+diff --git a/Documentation/admin-guide/mm/index.rst b/Documentation/admin-guide/mm/index.rst
+index 5f61a6c429e0..11db46448354 100644
+--- a/Documentation/admin-guide/mm/index.rst
++++ b/Documentation/admin-guide/mm/index.rst
+@@ -26,6 +26,7 @@ the Linux memory management.
+    :maxdepth: 1
+ 
+    concepts
++   cma_debugfs
+    hugetlbpage
+    idle_page_tracking
+    ksm
+diff --git a/Documentation/numastat.txt b/Documentation/admin-guide/numastat.rst
+similarity index 100%
+rename from Documentation/numastat.txt
+rename to Documentation/admin-guide/numastat.rst
+diff --git a/Documentation/pnp.txt b/Documentation/admin-guide/pnp.rst
+similarity index 100%
+rename from Documentation/pnp.txt
+rename to Documentation/admin-guide/pnp.rst
+diff --git a/Documentation/rtc.txt b/Documentation/admin-guide/rtc.rst
+similarity index 100%
+rename from Documentation/rtc.txt
+rename to Documentation/admin-guide/rtc.rst
+diff --git a/Documentation/svga.txt b/Documentation/admin-guide/svga.rst
+similarity index 100%
+rename from Documentation/svga.txt
+rename to Documentation/admin-guide/svga.rst
+diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
+index a0c1d4ce403a..032c7cd3cede 100644
+--- a/Documentation/admin-guide/sysctl/kernel.rst
++++ b/Documentation/admin-guide/sysctl/kernel.rst
+@@ -327,7 +327,7 @@ when a hard lockup is detected.
+    0 - don't panic on hard lockup
+    1 - panic on hard lockup
+ 
+-See Documentation/lockup-watchdogs.txt for more information.  This can
++See Documentation/admin-guide/lockup-watchdogs.rst for more information.  This can
+ also be set using the nmi_watchdog kernel parameter.
+ 
+ 
+diff --git a/Documentation/video-output.txt b/Documentation/admin-guide/video-output.rst
+similarity index 100%
+rename from Documentation/video-output.txt
+rename to Documentation/admin-guide/video-output.rst
+diff --git a/Documentation/fb/vesafb.rst b/Documentation/fb/vesafb.rst
+index 2ed0dfb661cf..6821c87b7893 100644
+--- a/Documentation/fb/vesafb.rst
++++ b/Documentation/fb/vesafb.rst
+@@ -30,7 +30,7 @@ How to use it?
+ ==============
+ 
+ Switching modes is done using the vga=... boot parameter.  Read
+-Documentation/svga.txt for details.
++Documentation/admin-guide/svga.rst for details.
+ 
+ You should compile in both vgacon (for text mode) and vesafb (for
+ graphics mode). Which of them takes over the console depends on
+diff --git a/Documentation/x86/topology.rst b/Documentation/x86/topology.rst
+index 8e9704f61017..e29739904e37 100644
+--- a/Documentation/x86/topology.rst
++++ b/Documentation/x86/topology.rst
+@@ -9,7 +9,7 @@ representation in the kernel. Update/change when doing changes to the
+ respective code.
+ 
+ The architecture-agnostic topology definitions are in
+-Documentation/cputopology.txt. This file holds x86-specific
++Documentation/admin-guide/cputopology.rst. This file holds x86-specific
+ differences/specialities which must not necessarily apply to the generic
+ definitions. Thus, the way to read up on Linux topology on x86 is to start
+ with the generic one and look at this one in parallel for the x86 specifics.
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 524e2c4300dc..40d057631004 100644
+index 82222aa618c5..76b52a20663e 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -4703,7 +4703,7 @@ Q:	http://patchwork.kernel.org/project/dm-devel/list/
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git
- T:	quilt http://people.redhat.com/agk/patches/linux/editing/
+@@ -6054,7 +6054,7 @@ M:	Ard Biesheuvel <ard.biesheuvel@linaro.org>
+ L:	linux-efi@vger.kernel.org
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/efi/efi.git
  S:	Maintained
--F:	Documentation/device-mapper/
-+F:	Documentation/admin-guide/device-mapper/
- F:	drivers/md/Makefile
- F:	drivers/md/Kconfig
- F:	drivers/md/dm*
-diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-index 5ccac0b77f17..3834332f4963 100644
---- a/drivers/md/Kconfig
-+++ b/drivers/md/Kconfig
-@@ -453,7 +453,7 @@ config DM_INIT
- 	Enable "dm-mod.create=" parameter to create mapped devices at init time.
- 	This option is useful to allow mounting rootfs without requiring an
- 	initramfs.
--	See Documentation/device-mapper/dm-init.rst for dm-mod.create="..."
-+	See Documentation/admin-guide/device-mapper/dm-init.rst for dm-mod.create="..."
- 	format.
+-F:	Documentation/efi-stub.txt
++F:	Documentation/admin-guide/efi-stub.rst
+ F:	arch/*/kernel/efi.c
+ F:	arch/x86/boot/compressed/eboot.[ch]
+ F:	arch/*/include/asm/efi.h
+@@ -7033,7 +7033,7 @@ M:	Herbert Xu <herbert@gondor.apana.org.au>
+ L:	linux-crypto@vger.kernel.org
+ S:	Odd fixes
+ F:	Documentation/devicetree/bindings/rng/
+-F:	Documentation/hw_random.txt
++F:	Documentation/admin-guide/hw_random.rst
+ F:	drivers/char/hw_random/
+ F:	include/linux/hw_random.h
  
- 	If unsure, say N.
-diff --git a/drivers/md/dm-init.c b/drivers/md/dm-init.c
-index b65faef2c4b5..b869316d3722 100644
---- a/drivers/md/dm-init.c
-+++ b/drivers/md/dm-init.c
-@@ -25,7 +25,7 @@ static char *create;
-  * Format: dm-mod.create=<name>,<uuid>,<minor>,<flags>,<table>[,<table>+][;<name>,<uuid>,<minor>,<flags>,<table>[,<table>+]+]
-  * Table format: <start_sector> <num_sectors> <target_type> <target_args>
+@@ -9347,7 +9347,7 @@ M:	"Richard Russon (FlatCap)" <ldm@flatcap.org>
+ L:	linux-ntfs-dev@lists.sourceforge.net
+ W:	http://www.linux-ntfs.org/content/view/19/37/
+ S:	Maintained
+-F:	Documentation/ldm.txt
++F:	Documentation/admin-guide/ldm.rst
+ F:	block/partitions/ldm.*
+ 
+ LSILOGIC MPT FUSION DRIVERS (FC/SAS/SPI)
+@@ -12000,7 +12000,7 @@ PARALLEL LCD/KEYPAD PANEL DRIVER
+ M:	Willy Tarreau <willy@haproxy.com>
+ M:	Ksenija Stanojevic <ksenija.stanojevic@gmail.com>
+ S:	Odd Fixes
+-F:	Documentation/auxdisplay/lcd-panel-cgram.rst
++F:	Documentation/admin-guide/lcd-panel-cgram.rst
+ F:	drivers/auxdisplay/panel.c
+ 
+ PARALLEL PORT SUBSYSTEM
+@@ -13419,7 +13419,7 @@ Q:	http://patchwork.ozlabs.org/project/rtc-linux/list/
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/abelloni/linux.git
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/rtc/
+-F:	Documentation/rtc.txt
++F:	Documentation/admin-guide/rtc.rst
+ F:	drivers/rtc/
+ F:	include/linux/rtc.h
+ F:	include/uapi/linux/rtc.h
+@@ -15248,7 +15248,7 @@ SVGA HANDLING
+ M:	Martin Mares <mj@ucw.cz>
+ L:	linux-video@atrey.karlin.mff.cuni.cz
+ S:	Maintained
+-F:	Documentation/svga.txt
++F:	Documentation/admin-guide/svga.rst
+ F:	arch/x86/boot/video*
+ 
+ SWIOTLB SUBSYSTEM
+diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+index d5bd4350fcbd..b1ab350b9d60 100644
+--- a/arch/arm/Kconfig
++++ b/arch/arm/Kconfig
+@@ -1286,7 +1286,7 @@ config SMP
+ 	  will run faster if you say N here.
+ 
+ 	  See also <file:Documentation/x86/i386/IO-APIC.rst>,
+-	  <file:Documentation/lockup-watchdogs.txt> and the SMP-HOWTO available at
++	  <file:Documentation/admin-guide/lockup-watchdogs.rst> and the SMP-HOWTO available at
+ 	  <http://tldp.org/HOWTO/SMP-HOWTO.html>.
+ 
+ 	  If you don't know what to do here, say N.
+diff --git a/arch/parisc/Kconfig b/arch/parisc/Kconfig
+index 42875ff15671..6d732e451071 100644
+--- a/arch/parisc/Kconfig
++++ b/arch/parisc/Kconfig
+@@ -277,7 +277,7 @@ config SMP
+ 	  machines, but will use only one CPU of a multiprocessor machine.
+ 	  On a uniprocessor machine, the kernel will run faster if you say N.
+ 
+-	  See also <file:Documentation/lockup-watchdogs.txt> and the SMP-HOWTO
++	  See also <file:Documentation/admin-guide/lockup-watchdogs.rst> and the SMP-HOWTO
+ 	  available at <http://www.tldp.org/docs.html#howto>.
+ 
+ 	  If you don't know what to do here, say N.
+diff --git a/arch/sh/Kconfig b/arch/sh/Kconfig
+index c2858ac6a46a..6b1b5941b618 100644
+--- a/arch/sh/Kconfig
++++ b/arch/sh/Kconfig
+@@ -679,7 +679,7 @@ config SMP
+ 	  People using multiprocessor machines who say Y here should also say
+ 	  Y to "Enhanced Real Time Clock Support", below.
+ 
+-	  See also <file:Documentation/lockup-watchdogs.txt> and the SMP-HOWTO
++	  See also <file:Documentation/admin-guide/lockup-watchdogs.rst> and the SMP-HOWTO
+ 	  available at <http://www.tldp.org/docs.html#howto>.
+ 
+ 	  If you don't know what to do here, say N.
+diff --git a/arch/sparc/Kconfig b/arch/sparc/Kconfig
+index e9f5d62e9817..7926a2e11bdc 100644
+--- a/arch/sparc/Kconfig
++++ b/arch/sparc/Kconfig
+@@ -180,7 +180,7 @@ config SMP
+ 	  Y to "Enhanced Real Time Clock Support", below. The "Advanced Power
+ 	  Management" code will be disabled if you say Y here.
+ 
+-	  See also <file:Documentation/lockup-watchdogs.txt> and the SMP-HOWTO
++	  See also <file:Documentation/admin-guide/lockup-watchdogs.rst> and the SMP-HOWTO
+ 	  available at <http://www.tldp.org/docs.html#howto>.
+ 
+ 	  If you don't know what to do here, say N.
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 489fd833b980..2ca471ae6756 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -402,7 +402,7 @@ config SMP
+ 	  Management" code will be disabled if you say Y here.
+ 
+ 	  See also <file:Documentation/x86/i386/IO-APIC.rst>,
+-	  <file:Documentation/lockup-watchdogs.txt> and the SMP-HOWTO available at
++	  <file:Documentation/admin-guide/lockup-watchdogs.rst> and the SMP-HOWTO available at
+ 	  <http://www.tldp.org/docs.html#howto>.
+ 
+ 	  If you don't know what to do here, say N.
+@@ -1959,7 +1959,7 @@ config EFI_STUB
+           This kernel feature allows a bzImage to be loaded directly
+ 	  by EFI firmware without the use of a bootloader.
+ 
+-	  See Documentation/efi-stub.txt for more information.
++	  See Documentation/admin-guide/efi-stub.rst for more information.
+ 
+ config EFI_MIXED
+ 	bool "EFI mixed-mode support"
+diff --git a/block/partitions/Kconfig b/block/partitions/Kconfig
+index 37b9710cc80a..702689a628f0 100644
+--- a/block/partitions/Kconfig
++++ b/block/partitions/Kconfig
+@@ -194,7 +194,7 @@ config LDM_PARTITION
+ 	  Normal partitions are now called Basic Disks under Windows 2000, XP,
+ 	  and Vista.
+ 
+-	  For a fuller description read <file:Documentation/ldm.txt>.
++	  For a fuller description read <file:Documentation/admin-guide/ldm.rst>.
+ 
+ 	  If unsure, say N.
+ 
+diff --git a/drivers/char/Kconfig b/drivers/char/Kconfig
+index 442403abd73a..3e866885a405 100644
+--- a/drivers/char/Kconfig
++++ b/drivers/char/Kconfig
+@@ -291,7 +291,7 @@ config RTC
+ 	  and set the RTC in an SMP compatible fashion.
+ 
+ 	  If you think you have a use for such a device (such as periodic data
+-	  sampling), then say Y here, and read <file:Documentation/rtc.txt>
++	  sampling), then say Y here, and read <file:Documentation/admin-guide/rtc.rst>
+ 	  for details.
+ 
+ 	  To compile this driver as a module, choose M here: the
+@@ -313,7 +313,7 @@ config JS_RTC
+ 	  /dev/rtc.
+ 
+ 	  If you think you have a use for such a device (such as periodic data
+-	  sampling), then say Y here, and read <file:Documentation/rtc.txt>
++	  sampling), then say Y here, and read <file:Documentation/admin-guide/rtc.rst>
+ 	  for details.
+ 
+ 	  To compile this driver as a module, choose M here: the
+diff --git a/drivers/char/hw_random/core.c b/drivers/char/hw_random/core.c
+index 95be7228f327..9044d31ab1a1 100644
+--- a/drivers/char/hw_random/core.c
++++ b/drivers/char/hw_random/core.c
+@@ -4,7 +4,7 @@
+  * Copyright 2006 Michael Buesch <m@bues.ch>
+  * Copyright 2005 (c) MontaVista Software, Inc.
   *
-- * See Documentation/device-mapper/dm-init.rst for dm-mod.create="..." format
-+ * See Documentation/admin-guide/device-mapper/dm-init.rst for dm-mod.create="..." format
-  * details.
-  */
+- * Please read Documentation/hw_random.txt for details on use.
++ * Please read Documentation/admin-guide/hw_random.rst for details on use.
+  *
+  * This software may be used and distributed according to the terms
+  * of the GNU General Public License, incorporated herein by reference.
+diff --git a/include/linux/hw_random.h b/include/linux/hw_random.h
+index c0b93e0ff0c0..8e6dd908da21 100644
+--- a/include/linux/hw_random.h
++++ b/include/linux/hw_random.h
+@@ -1,7 +1,7 @@
+ /*
+ 	Hardware Random Number Generator
  
-diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
-index 7a87a640f8ba..8a60a4a070ac 100644
---- a/drivers/md/dm-raid.c
-+++ b/drivers/md/dm-raid.c
-@@ -3558,7 +3558,7 @@ static void raid_status(struct dm_target *ti, status_type_t type,
- 		 * v1.5.0+:
- 		 *
- 		 * Sync action:
--		 *   See Documentation/device-mapper/dm-raid.rst for
-+		 *   See Documentation/admin-guide/device-mapper/dm-raid.rst for
- 		 *   information on each of these states.
- 		 */
- 		DMEMIT(" %s", sync_action);
+-	Please read Documentation/hw_random.txt for details on use.
++	Please read Documentation/admin-guide/hw_random.rst for details on use.
+ 
+ 	----------------------------------------------------------
+ 	This software may be used and distributed according to the terms
 -- 
 2.21.0
 
