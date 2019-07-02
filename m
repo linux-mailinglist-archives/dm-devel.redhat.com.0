@@ -2,96 +2,77 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D0F75D4B3
-	for <lists+dm-devel@lfdr.de>; Tue,  2 Jul 2019 18:50:30 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by mail.lfdr.de (Postfix) with ESMTPS id ADE5E5D7F5
+	for <lists+dm-devel@lfdr.de>; Tue,  2 Jul 2019 23:57:37 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 342943E2BD;
-	Tue,  2 Jul 2019 16:50:28 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id E10CB33025F;
+	Tue,  2 Jul 2019 21:57:23 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0CB3E9CA5;
-	Tue,  2 Jul 2019 16:50:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E91F818500;
+	Tue,  2 Jul 2019 21:57:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8AAFF206D1;
-	Tue,  2 Jul 2019 16:50:22 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2A16D206D2;
+	Tue,  2 Jul 2019 21:56:47 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x62GmqBN011552 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 2 Jul 2019 12:48:52 -0400
+	id x62Ltggq001301 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 2 Jul 2019 17:55:43 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 27F8C87A3; Tue,  2 Jul 2019 16:48:52 +0000 (UTC)
+	id 9A360411A; Tue,  2 Jul 2019 21:55:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx14.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.43])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2224E422C
-	for <dm-devel@redhat.com>; Tue,  2 Jul 2019 16:48:52 +0000 (UTC)
-Received: from mail-lj1-f193.google.com (mail-lj1-f193.google.com
-	[209.85.208.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.redhat.com (ext-mx17.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.46])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 93FB519698
+	for <dm-devel@redhat.com>; Tue,  2 Jul 2019 21:55:40 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 899A33092664
-	for <dm-devel@redhat.com>; Tue,  2 Jul 2019 16:48:40 +0000 (UTC)
-Received: by mail-lj1-f193.google.com with SMTP id x25so17657003ljh.2
-	for <dm-devel@redhat.com>; Tue, 02 Jul 2019 09:48:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
-	h=from:to:cc:subject:date:message-id:in-reply-to:references;
-	bh=PaewssBrh9ZwuFTMe5pwBNB69EEBwT/0ojsMygR82GE=;
-	b=ZuSakWJ/bgPPUz2bvqfYv/H8E2Vs+nwroNU5EIkCegHWji4HmJXyH+OFKGZwFJ5yGJ
-	xPNvVfmYiErkUb4c/f1pBj8slkrW1mNFuk1oUXLawcpIdpEWMoMwuZn7GQegjQVYAZlF
-	2MUDRWxhjBplraljlxNTu1MxAXCwn0s7nqisNo6MnB2Pu/WTVqijXJeBAcqmQHz8Eytn
-	53miT0GxDerJm8+MGPr/mRzHDvWULn0aEjIZGhpu+iI1RkYeL2kGFQrlIAyIVQNnj8qB
-	Y4NaSvlTKLFizEr2AYCR3puhn+HjG4OYzp3XCqJdeRbjlTQe3LqOkYdJl3VBUzc9IL7L
-	ZPSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-	:references;
-	bh=PaewssBrh9ZwuFTMe5pwBNB69EEBwT/0ojsMygR82GE=;
-	b=oET7i2EogVaTWRabkS3gMiWLbzAkNtKCzmpZpARSAxkFor/wL/OqN5/l5o+76EOR0F
-	iqXtSY9djLq9EgXwwUx6HL1d6QgvIggMdKEfCTWXxg0wkugandgC6HdnWpICRw/O+RHB
-	S9D9k5QnzN1r1XfIp5pvjySW+HtXIStotTbJTLp4iGqVP7DSGVQvnjzsl/UlwZKWCOAi
-	k+jIS6D1Em1ast/4I1D6qU+OF7q8T9pSLJv2K3rKxIr2KVcVlX6qGt5dRp63ULgE/8+C
-	tuPUwRUbKKB91mdM8k8XYrdipeOq2Ft6n32VPdD3d74XVyfQ5BuRtnFejnHpB4Xzty15
-	LdsA==
-X-Gm-Message-State: APjAAAWku+L9sLfyUykyynA2PKu4MUwUnSM+T/7R5kcIHcwe5vdyY/gH
-	JDNKkXGMvqTp8bOINtQ1EgESKfzQ16E7MjTK
-X-Google-Smtp-Source: APXvYqz2ujB/W/fKh6VkbxhCOVcIiwLNh2QIwEPtZtMH6b6Tsh6WBfT1XrxAz4hBahb8Erz/OwPT+w==
-X-Received: by 2002:a2e:4a1a:: with SMTP id x26mr15577667lja.207.1562086118968;
-	Tue, 02 Jul 2019 09:48:38 -0700 (PDT)
-Received: from e111045-lin.arm.com (89-212-78-239.static.t-2.net.
-	[89.212.78.239]) by smtp.gmail.com with ESMTPSA id
-	r17sm3906055ljc.85.2019.07.02.09.48.37
-	(version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
-	Tue, 02 Jul 2019 09:48:38 -0700 (PDT)
-From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
-To: linux-crypto@vger.kernel.org
-Date: Tue,  2 Jul 2019 18:48:15 +0200
-Message-Id: <20190702164815.6341-8-ard.biesheuvel@linaro.org>
-In-Reply-To: <20190702164815.6341-1-ard.biesheuvel@linaro.org>
+	by mx1.redhat.com (Postfix) with ESMTPS id 6427830C084B
+	for <dm-devel@redhat.com>; Tue,  2 Jul 2019 21:55:28 +0000 (UTC)
+Received: from gmail.com (unknown [104.132.1.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 9F4F8218BE;
+	Tue,  2 Jul 2019 21:55:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1562104519;
+	bh=hOYB46lYLP30wkEWfOV6OIbMxQdFCth2OM8MWmv+OgA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LRvfL6OpM8Gh8nwRW5vFj6q6upNRHcWevxIMA3GvQ/nfj+fVXB/TyDBBn3wFIFl8b
+	zaDvhResmMi3czwuhRgtBLh2vXMm+7PDsGIW1oE2vA9lMqT3uirydvhpF6c+ThlaRm
+	/h/cme9IwahHJcTITFQYbDWCPiA9qQTNxAAo/lSo=
+Date: Tue, 2 Jul 2019 14:55:18 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Ard Biesheuvel <ard.biesheuvel@linaro.org>
+Message-ID: <20190702215517.GA69157@gmail.com>
 References: <20190702164815.6341-1-ard.biesheuvel@linaro.org>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.43]);
-	Tue, 02 Jul 2019 16:48:40 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]);
-	Tue, 02 Jul 2019 16:48:40 +0000 (UTC) for IP:'209.85.208.193'
-	DOMAIN:'mail-lj1-f193.google.com' HELO:'mail-lj1-f193.google.com'
-	FROM:'ard.biesheuvel@linaro.org' RCPT:''
-X-RedHat-Spam-Score: -0.229  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2,
-	SPF_PASS) 209.85.208.193 mail-lj1-f193.google.com 209.85.208.193
-	mail-lj1-f193.google.com <ard.biesheuvel@linaro.org>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.43
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+	<20190702164815.6341-3-ard.biesheuvel@linaro.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190702164815.6341-3-ard.biesheuvel@linaro.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Greylist: Sender DNS name whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.46]);
+	Tue, 02 Jul 2019 21:55:33 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]);
+	Tue, 02 Jul 2019 21:55:33 +0000 (UTC) for IP:'198.145.29.99'
+	DOMAIN:'mail.kernel.org' HELO:'mail.kernel.org'
+	FROM:'ebiggers@kernel.org' RCPT:''
+X-RedHat-Spam-Score: 3.898 *** (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
+	DKIM_VALID_AU, FSL_HELO_FAKE, SPF_HELO_NONE,
+	SPF_PASS) 198.145.29.99 mail.kernel.org 198.145.29.99 mail.kernel.org
+	<ebiggers@kernel.org>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.46
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-	Eric Biggers <ebiggers@google.com>,
-	Ard Biesheuvel <ard.biesheuvel@linaro.org>, linux-fscrypt@vger.kernel.org,
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, linux-fscrypt@vger.kernel.org,
 	Gilad Ben-Yossef <gilad@benyossef.com>, dm-devel@redhat.com,
-	Milan Broz <gmazyland@gmail.com>
-Subject: [dm-devel] [PATCH v7 7/7] crypto: arm64/aes - implement accelerated
-	ESSIV/CBC mode
+	linux-crypto@vger.kernel.org, Milan Broz <gmazyland@gmail.com>
+Subject: Re: [dm-devel] [PATCH v7 2/7] fs: crypto: invoke crypto API for
+	ESSIV handling
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -103,283 +84,132 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.30]); Tue, 02 Jul 2019 16:50:28 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]); Tue, 02 Jul 2019 21:57:30 +0000 (UTC)
 
-Add an accelerated version of the 'essiv(cbc(aes),aes,sha256'
-skcipher, which is used by fscrypt or dm-crypt on systems where
-CBC mode is signficantly more performant than XTS mode (e.g., when
-using a h/w accelerator which supports the former but not the latter)
-This avoids a separate call into the AES cipher for every invocation.
+Hi Ard,
 
-Signed-off-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
----
- arch/arm64/crypto/aes-glue.c  | 123 ++++++++++++++++++++
- arch/arm64/crypto/aes-modes.S |  29 ++++-
- 2 files changed, 151 insertions(+), 1 deletion(-)
+On Tue, Jul 02, 2019 at 06:48:10PM +0200, Ard Biesheuvel wrote:
+> Instead of open coding the calculations for ESSIV handling, use a
+> ESSIV skcipher which does all of this under the hood.
+> 
+> Signed-off-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
+> ---
+>  fs/crypto/Kconfig           |  1 +
+>  fs/crypto/crypto.c          |  5 --
+>  fs/crypto/fscrypt_private.h |  9 --
+>  fs/crypto/keyinfo.c         | 95 +-------------------
+>  4 files changed, 5 insertions(+), 105 deletions(-)
+> 
+> diff --git a/fs/crypto/Kconfig b/fs/crypto/Kconfig
+> index 24ed99e2eca0..b0292da8613c 100644
+> --- a/fs/crypto/Kconfig
+> +++ b/fs/crypto/Kconfig
+> @@ -5,6 +5,7 @@ config FS_ENCRYPTION
+>  	select CRYPTO_AES
+>  	select CRYPTO_CBC
+>  	select CRYPTO_ECB
+> +	select CRYPTO_ESSIV
+>  	select CRYPTO_XTS
+>  	select CRYPTO_CTS
+>  	select CRYPTO_SHA256
+> diff --git a/fs/crypto/crypto.c b/fs/crypto/crypto.c
+> index 335a362ee446..c53ce262a06c 100644
+> --- a/fs/crypto/crypto.c
+> +++ b/fs/crypto/crypto.c
+> @@ -136,9 +136,6 @@ void fscrypt_generate_iv(union fscrypt_iv *iv, u64 lblk_num,
+>  
+>  	if (ci->ci_flags & FS_POLICY_FLAG_DIRECT_KEY)
+>  		memcpy(iv->nonce, ci->ci_nonce, FS_KEY_DERIVATION_NONCE_SIZE);
+> -
+> -	if (ci->ci_essiv_tfm != NULL)
+> -		crypto_cipher_encrypt_one(ci->ci_essiv_tfm, iv->raw, iv->raw);
+>  }
+>  
+>  int fscrypt_do_page_crypto(const struct inode *inode, fscrypt_direction_t rw,
+> @@ -492,8 +489,6 @@ static void __exit fscrypt_exit(void)
+>  		destroy_workqueue(fscrypt_read_workqueue);
+>  	kmem_cache_destroy(fscrypt_ctx_cachep);
+>  	kmem_cache_destroy(fscrypt_info_cachep);
+> -
+> -	fscrypt_essiv_cleanup();
+>  }
+>  module_exit(fscrypt_exit);
+>  
+> diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
+> index 7da276159593..59d0cba9cfb9 100644
+> --- a/fs/crypto/fscrypt_private.h
+> +++ b/fs/crypto/fscrypt_private.h
+> @@ -61,12 +61,6 @@ struct fscrypt_info {
+>  	/* The actual crypto transform used for encryption and decryption */
+>  	struct crypto_skcipher *ci_ctfm;
+>  
+> -	/*
+> -	 * Cipher for ESSIV IV generation.  Only set for CBC contents
+> -	 * encryption, otherwise is NULL.
+> -	 */
+> -	struct crypto_cipher *ci_essiv_tfm;
+> -
+>  	/*
+>  	 * Encryption mode used for this inode.  It corresponds to either
+>  	 * ci_data_mode or ci_filename_mode, depending on the inode type.
+> @@ -166,9 +160,6 @@ struct fscrypt_mode {
+>  	int keysize;
+>  	int ivsize;
+>  	bool logged_impl_name;
+> -	bool needs_essiv;
+>  };
+>  
+> -extern void __exit fscrypt_essiv_cleanup(void);
+> -
+>  #endif /* _FSCRYPT_PRIVATE_H */
+> diff --git a/fs/crypto/keyinfo.c b/fs/crypto/keyinfo.c
+> index dcd91a3fbe49..f39667d4316a 100644
+> --- a/fs/crypto/keyinfo.c
+> +++ b/fs/crypto/keyinfo.c
+> @@ -13,14 +13,10 @@
+>  #include <linux/hashtable.h>
+>  #include <linux/scatterlist.h>
+>  #include <linux/ratelimit.h>
+> -#include <crypto/aes.h>
+>  #include <crypto/algapi.h>
+> -#include <crypto/sha.h>
+>  #include <crypto/skcipher.h>
+>  #include "fscrypt_private.h"
+>  
+> -static struct crypto_shash *essiv_hash_tfm;
+> -
+>  /* Table of keys referenced by FS_POLICY_FLAG_DIRECT_KEY policies */
+>  static DEFINE_HASHTABLE(fscrypt_master_keys, 6); /* 6 bits = 64 buckets */
+>  static DEFINE_SPINLOCK(fscrypt_master_keys_lock);
+> @@ -144,10 +140,9 @@ static struct fscrypt_mode available_modes[] = {
+>  	},
+>  	[FS_ENCRYPTION_MODE_AES_128_CBC] = {
+>  		.friendly_name = "AES-128-CBC",
+> -		.cipher_str = "cbc(aes)",
+> +		.cipher_str = "essiv(cbc(aes),aes,sha256)",
+>  		.keysize = 16,
+> -		.ivsize = 16,
+> -		.needs_essiv = true,
+> +		.ivsize = 8,
 
-diff --git a/arch/arm64/crypto/aes-glue.c b/arch/arm64/crypto/aes-glue.c
-index 11b85ce02d7a..7097739e7cd9 100644
---- a/arch/arm64/crypto/aes-glue.c
-+++ b/arch/arm64/crypto/aes-glue.c
-@@ -12,6 +12,7 @@
- #include <asm/hwcap.h>
- #include <asm/simd.h>
- #include <crypto/aes.h>
-+#include <crypto/sha.h>
- #include <crypto/internal/hash.h>
- #include <crypto/internal/simd.h>
- #include <crypto/internal/skcipher.h>
-@@ -34,6 +35,8 @@
- #define aes_cbc_decrypt		ce_aes_cbc_decrypt
- #define aes_cbc_cts_encrypt	ce_aes_cbc_cts_encrypt
- #define aes_cbc_cts_decrypt	ce_aes_cbc_cts_decrypt
-+#define aes_essiv_cbc_encrypt	ce_aes_essiv_cbc_encrypt
-+#define aes_essiv_cbc_decrypt	ce_aes_essiv_cbc_decrypt
- #define aes_ctr_encrypt		ce_aes_ctr_encrypt
- #define aes_xts_encrypt		ce_aes_xts_encrypt
- #define aes_xts_decrypt		ce_aes_xts_decrypt
-@@ -50,6 +53,8 @@ MODULE_DESCRIPTION("AES-ECB/CBC/CTR/XTS using ARMv8 Crypto Extensions");
- #define aes_cbc_decrypt		neon_aes_cbc_decrypt
- #define aes_cbc_cts_encrypt	neon_aes_cbc_cts_encrypt
- #define aes_cbc_cts_decrypt	neon_aes_cbc_cts_decrypt
-+#define aes_essiv_cbc_encrypt	neon_aes_essiv_cbc_encrypt
-+#define aes_essiv_cbc_decrypt	neon_aes_essiv_cbc_decrypt
- #define aes_ctr_encrypt		neon_aes_ctr_encrypt
- #define aes_xts_encrypt		neon_aes_xts_encrypt
- #define aes_xts_decrypt		neon_aes_xts_decrypt
-@@ -93,6 +98,13 @@ asmlinkage void aes_xts_decrypt(u8 out[], u8 const in[], u32 const rk1[],
- 				int rounds, int blocks, u32 const rk2[], u8 iv[],
- 				int first);
- 
-+asmlinkage void aes_essiv_cbc_encrypt(u8 out[], u8 const in[], u32 const rk1[],
-+				      int rounds, int blocks, u8 iv[],
-+				      u32 const rk2[]);
-+asmlinkage void aes_essiv_cbc_decrypt(u8 out[], u8 const in[], u32 const rk1[],
-+				      int rounds, int blocks, u8 iv[],
-+				      u32 const rk2[]);
-+
- asmlinkage void aes_mac_update(u8 const in[], u32 const rk[], int rounds,
- 			       int blocks, u8 dg[], int enc_before,
- 			       int enc_after);
-@@ -108,6 +120,12 @@ struct crypto_aes_xts_ctx {
- 	struct crypto_aes_ctx __aligned(8) key2;
- };
- 
-+struct crypto_aes_essiv_cbc_ctx {
-+	struct crypto_aes_ctx key1;
-+	struct crypto_aes_ctx __aligned(8) key2;
-+	struct crypto_shash *hash;
-+};
-+
- struct mac_tfm_ctx {
- 	struct crypto_aes_ctx key;
- 	u8 __aligned(8) consts[];
-@@ -145,6 +163,31 @@ static int xts_set_key(struct crypto_skcipher *tfm, const u8 *in_key,
- 	return -EINVAL;
- }
- 
-+static int essiv_cbc_set_key(struct crypto_skcipher *tfm, const u8 *in_key,
-+			     unsigned int key_len)
-+{
-+	struct crypto_aes_essiv_cbc_ctx *ctx = crypto_skcipher_ctx(tfm);
-+	SHASH_DESC_ON_STACK(desc, ctx->hash);
-+	u8 digest[SHA256_DIGEST_SIZE];
-+	int ret;
-+
-+	ret = aes_expandkey(&ctx->key1, in_key, key_len);
-+	if (ret)
-+		goto out;
-+
-+	desc->tfm = ctx->hash;
-+	crypto_shash_digest(desc, in_key, key_len, digest);
-+
-+	ret = aes_expandkey(&ctx->key2, digest, sizeof(digest));
-+	if (ret)
-+		goto out;
-+
-+	return 0;
-+out:
-+	crypto_skcipher_set_flags(tfm, CRYPTO_TFM_RES_BAD_KEY_LEN);
-+	return -EINVAL;
-+}
-+
- static int ecb_encrypt(struct skcipher_request *req)
- {
- 	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
-@@ -359,6 +402,68 @@ static int cts_cbc_decrypt(struct skcipher_request *req)
- 	return skcipher_walk_done(&walk, 0);
- }
- 
-+static int essiv_cbc_init_tfm(struct crypto_skcipher *tfm)
-+{
-+	struct crypto_aes_essiv_cbc_ctx *ctx = crypto_skcipher_ctx(tfm);
-+
-+	ctx->hash = crypto_alloc_shash("sha256", 0, 0);
-+	if (IS_ERR(ctx->hash))
-+		return PTR_ERR(ctx->hash);
-+
-+	return 0;
-+}
-+
-+static void essiv_cbc_exit_tfm(struct crypto_skcipher *tfm)
-+{
-+	struct crypto_aes_essiv_cbc_ctx *ctx = crypto_skcipher_ctx(tfm);
-+
-+	crypto_free_shash(ctx->hash);
-+}
-+
-+static int essiv_cbc_encrypt(struct skcipher_request *req)
-+{
-+	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
-+	struct crypto_aes_essiv_cbc_ctx *ctx = crypto_skcipher_ctx(tfm);
-+	int err, rounds = 6 + ctx->key1.key_length / 4;
-+	struct skcipher_walk walk;
-+	unsigned int blocks;
-+
-+	err = skcipher_walk_virt(&walk, req, false);
-+
-+	blocks = walk.nbytes / AES_BLOCK_SIZE;
-+	if (blocks) {
-+		kernel_neon_begin();
-+		aes_essiv_cbc_encrypt(walk.dst.virt.addr, walk.src.virt.addr,
-+				      ctx->key1.key_enc, rounds, blocks,
-+				      req->iv, ctx->key2.key_enc);
-+		kernel_neon_end();
-+		err = skcipher_walk_done(&walk, walk.nbytes % AES_BLOCK_SIZE);
-+	}
-+	return err ?: cbc_encrypt_walk(req, &walk);
-+}
-+
-+static int essiv_cbc_decrypt(struct skcipher_request *req)
-+{
-+	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
-+	struct crypto_aes_essiv_cbc_ctx *ctx = crypto_skcipher_ctx(tfm);
-+	int err, rounds = 6 + ctx->key1.key_length / 4;
-+	struct skcipher_walk walk;
-+	unsigned int blocks;
-+
-+	err = skcipher_walk_virt(&walk, req, false);
-+
-+	blocks = walk.nbytes / AES_BLOCK_SIZE;
-+	if (blocks) {
-+		kernel_neon_begin();
-+		aes_essiv_cbc_decrypt(walk.dst.virt.addr, walk.src.virt.addr,
-+				      ctx->key1.key_dec, rounds, blocks,
-+				      req->iv, ctx->key2.key_enc);
-+		kernel_neon_end();
-+		err = skcipher_walk_done(&walk, walk.nbytes % AES_BLOCK_SIZE);
-+	}
-+	return err ?: cbc_decrypt_walk(req, &walk);
-+}
-+
- static int ctr_encrypt(struct skcipher_request *req)
- {
- 	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
-@@ -502,6 +607,24 @@ static struct skcipher_alg aes_algs[] = { {
- 	.encrypt	= cts_cbc_encrypt,
- 	.decrypt	= cts_cbc_decrypt,
- 	.init		= cts_cbc_init_tfm,
-+}, {
-+	.base = {
-+		.cra_name		= "__essiv(cbc(aes),aes,sha256)",
-+		.cra_driver_name	= "__essiv-cbc-aes-sha256-" MODE,
-+		.cra_priority		= PRIO + 1,
-+		.cra_flags		= CRYPTO_ALG_INTERNAL,
-+		.cra_blocksize		= AES_BLOCK_SIZE,
-+		.cra_ctxsize		= sizeof(struct crypto_aes_essiv_cbc_ctx),
-+		.cra_module		= THIS_MODULE,
-+	},
-+	.min_keysize	= AES_MIN_KEY_SIZE,
-+	.max_keysize	= AES_MAX_KEY_SIZE,
-+	.ivsize		= AES_BLOCK_SIZE,
-+	.setkey		= essiv_cbc_set_key,
-+	.encrypt	= essiv_cbc_encrypt,
-+	.decrypt	= essiv_cbc_decrypt,
-+	.init		= essiv_cbc_init_tfm,
-+	.exit		= essiv_cbc_exit_tfm,
- }, {
- 	.base = {
- 		.cra_name		= "__ctr(aes)",
-diff --git a/arch/arm64/crypto/aes-modes.S b/arch/arm64/crypto/aes-modes.S
-index 4c7ce231963c..2ef3d7244ea8 100644
---- a/arch/arm64/crypto/aes-modes.S
-+++ b/arch/arm64/crypto/aes-modes.S
-@@ -91,10 +91,25 @@ AES_ENDPROC(aes_ecb_decrypt)
- 	 *		   int blocks, u8 iv[])
- 	 * aes_cbc_decrypt(u8 out[], u8 const in[], u8 const rk[], int rounds,
- 	 *		   int blocks, u8 iv[])
-+	 * aes_essiv_cbc_encrypt(u8 out[], u8 const in[], u32 const rk1[],
-+	 *			 int rounds, int blocks, u8 iv[],
-+	 *			 u32 const rk2[]);
-+	 * aes_essiv_cbc_decrypt(u8 out[], u8 const in[], u32 const rk1[],
-+	 *			 int rounds, int blocks, u8 iv[],
-+	 *			 u32 const rk2[]);
- 	 */
- 
-+AES_ENTRY(aes_essiv_cbc_encrypt)
-+	ld1		{v4.16b}, [x5]			/* get iv */
-+
-+	mov		w8, #14				/* AES-256: 14 rounds */
-+	enc_prepare	w8, x6, x7
-+	encrypt_block	v4, w8, x6, x7, w9
-+	b		.Lessivcbcencstart
-+
- AES_ENTRY(aes_cbc_encrypt)
- 	ld1		{v4.16b}, [x5]			/* get iv */
-+.Lessivcbcencstart:
- 	enc_prepare	w3, x2, x6
- 
- .Lcbcencloop4x:
-@@ -126,13 +141,25 @@ AES_ENTRY(aes_cbc_encrypt)
- 	st1		{v4.16b}, [x5]			/* return iv */
- 	ret
- AES_ENDPROC(aes_cbc_encrypt)
-+AES_ENDPROC(aes_essiv_cbc_encrypt)
- 
-+AES_ENTRY(aes_essiv_cbc_decrypt)
-+	stp		x29, x30, [sp, #-16]!
-+	mov		x29, sp
-+
-+	ld1		{v7.16b}, [x5]			/* get iv */
-+
-+	mov		w8, #14				/* AES-256: 14 rounds */
-+	enc_prepare	w8, x6, x7
-+	encrypt_block	v7, w8, x6, x7, w9
-+	b		.Lessivcbcdecstart
- 
- AES_ENTRY(aes_cbc_decrypt)
- 	stp		x29, x30, [sp, #-16]!
- 	mov		x29, sp
- 
- 	ld1		{v7.16b}, [x5]			/* get iv */
-+.Lessivcbcdecstart:
- 	dec_prepare	w3, x2, x6
- 
- .LcbcdecloopNx:
-@@ -168,6 +195,7 @@ AES_ENTRY(aes_cbc_decrypt)
- 	ldp		x29, x30, [sp], #16
- 	ret
- AES_ENDPROC(aes_cbc_decrypt)
-+AES_ENDPROC(aes_essiv_cbc_decrypt)
- 
- 
- 	/*
-@@ -247,7 +275,6 @@ AES_ENDPROC(aes_cbc_cts_decrypt)
- 	.byte		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
- 	.previous
- 
--
- 	/*
- 	 * aes_ctr_encrypt(u8 out[], u8 const in[], u8 const rk[], int rounds,
- 	 *		   int blocks, u8 ctr[])
--- 
-2.17.1
+As I said before, this needs to be kept as .ivsize = 16.
+
+This bug actually causes the generic/549 test to fail.
+
+Otherwise this patch looks good.  FYI: to avoid conflicts with planned fscrypt
+work I'd prefer to take this patch through the fscrypt.git tree after the ESSIV
+template is merged, rather than have Herbert take it through cryptodev.  (Unless
+he's going to apply this whole series for v5.3, in which case I'm fine with him
+taking the fscrypt patch too, though it seems too late for that.)
+
+Thanks!
+
+- Eric
 
 --
 dm-devel mailing list
