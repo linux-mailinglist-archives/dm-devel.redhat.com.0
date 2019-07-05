@@ -2,98 +2,57 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13CCC609FA
-	for <lists+dm-devel@lfdr.de>; Fri,  5 Jul 2019 18:07:15 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by mail.lfdr.de (Postfix) with ESMTPS id CA57061399
+	for <lists+dm-devel@lfdr.de>; Sun,  7 Jul 2019 05:39:59 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 2013A30C543D;
-	Fri,  5 Jul 2019 16:05:58 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 0B9C93086246;
+	Sun,  7 Jul 2019 03:39:52 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B680468C92;
-	Fri,  5 Jul 2019 16:05:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C2EC61001DCC;
+	Sun,  7 Jul 2019 03:39:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AE322206D2;
-	Fri,  5 Jul 2019 16:05:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E9DA641F66;
+	Sun,  7 Jul 2019 03:39:31 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x65G4TDQ029913 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 5 Jul 2019 12:04:30 -0400
+	id x65E4msD032433 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 5 Jul 2019 10:04:48 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 676531001B30; Fri,  5 Jul 2019 16:04:29 +0000 (UTC)
+	id 3E24486425; Fri,  5 Jul 2019 14:04:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx18.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.47])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6191F1001B2F
-	for <dm-devel@redhat.com>; Fri,  5 Jul 2019 16:04:27 +0000 (UTC)
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
-	[209.85.221.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id D538230056BF
-	for <dm-devel@redhat.com>; Fri,  5 Jul 2019 16:03:52 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id n9so10473894wru.0
-	for <dm-devel@redhat.com>; Fri, 05 Jul 2019 09:03:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=arrikto-com.20150623.gappssmtp.com; s=20150623;
-	h=subject:to:cc:references:from:message-id:date:user-agent
-	:mime-version:in-reply-to:content-language:content-transfer-encoding;
-	bh=1Z8AKWBI2ziCsk54sd8sCbK9rfD8NMCWaTTsSLxycZo=;
-	b=n/VPsIo1zVeyr8ugN2I5KxINDBT50ySFbJPo9kmuRQUGsobUVbb8vQnKtyBDjGNxcM
-	IoPkQNfrOCPpNW3OkbewH0h217dNGqargxg684Npzlayt2cS3zUph66uLpZ8C6uCXWQL
-	eW8EIbD55GQSjW/kopISvEyhYzUuFNTvc7mm1DsOI84TU3N50IA4iquMJzxqx0vAObHX
-	ZpCM9hk+DHTMTmY3JGB9ZGMt96Wd3FRu4p5c2ANOqWROcLPVxCBUUnB4zzcpQtzVAix9
-	Uv9Z0+Nf6kfRwQTbfaB+r0/DCmfOSTmDbTumAHtvHLsp53eYzESd53wrr2DRMqsuGSu0
-	Tg8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=1Z8AKWBI2ziCsk54sd8sCbK9rfD8NMCWaTTsSLxycZo=;
-	b=eVoJ3zZxu5aj8iXMp2OcwHRr89GnYDVDGetVZJrclJ1uwTbLqvIpuiwmlvym8ifyBJ
-	dL4A7dq9tnVZxa64ZZvmhwSFqKtcfyZ6AdaE1A/uTArnOReyz34PotzinanL+Sq/jyf0
-	25DnG6GsMMOAK/0FALRisN+1vXSKbTgIq2a6jJs4zm9wZXJBHikiYEI3L5snB6tzYPpI
-	sIu9JanAYpluhTbXk1AGB95UWaA/ihuHxOxc4+TTeRreiEyhlq/bJr0xOeL0KeVZgzsf
-	x+NJT6GGHkxFNd70iNs+MFOPtqzS4lMuciGWbegAXVul8Xf88NGh5w9AnyYQesCejlK2
-	mGuQ==
-X-Gm-Message-State: APjAAAXWkdS8HoGCn2PA0GOY2aotD30jHolWopgQVP/65r+FTdXFuKWf
-	XX1mINyL1jygbepNBOzJ+JLWfAl/eL8=
-X-Google-Smtp-Source: APXvYqyk5LsZCFYM9d90+DAVr2xbfLailDkHJfkdstUTmqAKdzfLoiurddG+U69p3wC+OKs/GefJTA==
-X-Received: by 2002:adf:ea8b:: with SMTP id s11mr4613036wrm.100.1562342631441; 
-	Fri, 05 Jul 2019 09:03:51 -0700 (PDT)
-Received: from [10.94.250.119] ([31.177.62.212])
-	by smtp.gmail.com with ESMTPSA id
-	l13sm3889969wrt.16.2019.07.05.09.03.50
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Fri, 05 Jul 2019 09:03:50 -0700 (PDT)
-To: Mike Snitzer <snitzer@redhat.com>, dm-devel@redhat.com
-References: <20190703162504.GA34397@lobo>
-From: Nikos Tsironis <ntsironis@arrikto.com>
-Message-ID: <fb809628-40e3-245a-dda4-034eee9a931b@arrikto.com>
-Date: Fri, 5 Jul 2019 19:03:48 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.7.2
+Received: from dhcp201-121.englab.pnq.redhat.com (ovpn-116-58.sin2.redhat.com
+	[10.67.116.58])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DA42C1B46C;
+	Fri,  5 Jul 2019 14:03:51 +0000 (UTC)
+From: Pankaj Gupta <pagupta@redhat.com>
+To: dm-devel@redhat.com, linux-nvdimm@lists.01.org,
+	linux-kernel@vger.kernel.org,
+	virtualization@lists.linux-foundation.org, kvm@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-acpi@vger.kernel.org,
+	qemu-devel@nongnu.org, linux-ext4@vger.kernel.org,
+	linux-xfs@vger.kernel.org
+Date: Fri,  5 Jul 2019 19:33:21 +0530
+Message-Id: <20190705140328.20190-1-pagupta@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20190703162504.GA34397@lobo>
-Content-Language: en-US
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.47]);
-	Fri, 05 Jul 2019 16:03:53 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]);
-	Fri, 05 Jul 2019 16:03:53 +0000 (UTC) for IP:'209.85.221.65'
-	DOMAIN:'mail-wr1-f65.google.com' HELO:'mail-wr1-f65.google.com'
-	FROM:'ntsironis@arrikto.com' RCPT:''
-X-RedHat-Spam-Score: 0.202  (DKIM_INVALID, DKIM_SIGNED, PDS_NO_HELO_DNS,
-	SPF_NONE) 209.85.221.65 mail-wr1-f65.google.com
-	209.85.221.65 mail-wr1-f65.google.com <ntsironis@arrikto.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.47
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-Cc: John Dorminy <jdorminy@redhat.com>
-Subject: Re: [dm-devel] [PATCH] dm snapshot: add optional discard support
- features
+X-Mailman-Approved-At: Sat, 06 Jul 2019 23:39:13 -0400
+Cc: pagupta@redhat.com, rdunlap@infradead.org, jack@suse.cz, snitzer@redhat.com,
+	mst@redhat.com, jasowang@redhat.com, david@fromorbit.com,
+	lcapitulino@redhat.com, adilger.kernel@dilger.ca,
+	zwisler@kernel.org, aarcange@redhat.com, dave.jiang@intel.com,
+	jstaron@google.com, darrick.wong@oracle.com,
+	vishal.l.verma@intel.com, david@redhat.com, willy@infradead.org,
+	hch@infradead.org, jmoyer@redhat.com, nilal@redhat.com,
+	lenb@kernel.org, kilobyte@angband.pl, riel@surriel.com,
+	yuval.shaia@oracle.com, stefanha@redhat.com, pbonzini@redhat.com,
+	dan.j.williams@intel.com, kwolf@redhat.com, tytso@mit.edu,
+	xiaoguangrong.eric@gmail.com, cohuck@redhat.com,
+	rjw@rjwysocki.net, imammedo@redhat.com
+Subject: [dm-devel] [PATCH v15 0/7] virtio pmem driver
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -105,413 +64,178 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]); Fri, 05 Jul 2019 16:07:13 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]); Sun, 07 Jul 2019 03:39:58 +0000 (UTC)
 
-Hi Mike,
-
-A question inline.
-
-On 7/3/19 7:25 PM, Mike Snitzer wrote:
-> Add 2 _optional_ features to the snapshot target:
-> 
-> discard_zeroes_cow - a discard issued to the snapshot device that maps
-> to entire chunks to will zero the corresponding exception(s) in the
-> snapshot's exception store.
-> 
-> discard_passdown_origin - a discard to the snapshot device is passed down
-> to the snapshot-origin's underlying device.  This doesn't cause copy-out
-> to the snapshot exception store because the snapshot-origin target is
-> bypassed.
-> 
-> The discard_passdown_origin feature depends on the discard_zeroes_cow
-> feature being enabled.
-> 
-> When these 2 features are enabled they allow a temporarily read-only
-> device that has completely exhausted its free space to recover space.
-> To do so dm-snapshot provides temporary buffer to accommodate writes
-> that the temporarily read-only device cannot handle yet.  Once the upper
-> layer frees space (e.g. fstrim to XFS) the discards issued to the
-> dm-snapshot target will be issued to underlying read-only device whose
-> free space was exhausted.  In addition those discards will also cause
-> zeroes to be written to the snapshot exception store if corresponding
-> exceptions exist.  If the underlying origin device provides
-> deduplication for zero blocks then if/when the snapshot is merged backed
-> to the origin those blocks will become unused.  Once the origin has
-> gained adequate space, merging the snapshot back to the thinly
-> provisioned device will permit continued use of that device without the
-> temporary space provided by the snapshot.
-> 
-> Requested-by: John Dorminy <jdorminy@redhat.com>
-> Signed-off-by: Mike Snitzer <snitzer@redhat.com>
-> ---
->  Documentation/device-mapper/snapshot.txt |  16 +++
->  drivers/md/dm-snap.c                     | 168 +++++++++++++++++++++++++++----
->  2 files changed, 167 insertions(+), 17 deletions(-)
-> 
-> diff --git a/Documentation/device-mapper/snapshot.txt b/Documentation/device-mapper/snapshot.txt
-> index b8bbb516f989..1810833f6dc6 100644
-> --- a/Documentation/device-mapper/snapshot.txt
-> +++ b/Documentation/device-mapper/snapshot.txt
-> @@ -31,6 +31,7 @@ its visible content unchanged, at least until the <COW device> fills up.
->  
->  
->  *) snapshot <origin> <COW device> <persistent?> <chunksize>
-> +   [<# feature args> [<arg>]*]
->  
->  A snapshot of the <origin> block device is created. Changed chunks of
->  <chunksize> sectors will be stored on the <COW device>.  Writes will
-> @@ -53,8 +54,23 @@ When loading or unloading the snapshot target, the corresponding
->  snapshot-origin or snapshot-merge target must be suspended. A failure to
->  suspend the origin target could result in data corruption.
->  
-> +Optional features:
-> +
-> +   discard_zeroes_cow - a discard issued to the snapshot device that
-> +   maps to entire chunks to will zero the corresponding exception(s) in
-> +   the snapshot's exception store.
-> +
-> +   discard_passdown_origin - a discard to the snapshot device is passed
-> +   down to the snapshot-origin's underlying device.  This doesn't cause
-> +   copy-out to the snapshot exception store because the snapshot-origin
-> +   target is bypassed.
-> +
-> +   The discard_passdown_origin feature depends on the discard_zeroes_cow
-> +   feature being enabled.
-> +
->  
->  * snapshot-merge <origin> <COW device> <persistent> <chunksize>
-> +  [<# feature args> [<arg>]*]
->  
->  takes the same table arguments as the snapshot target except it only
->  works with persistent snapshots.  This target assumes the role of the
-> diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
-> index 3107f2b1988b..e894302619dd 100644
-> --- a/drivers/md/dm-snap.c
-> +++ b/drivers/md/dm-snap.c
-> @@ -134,7 +134,10 @@ struct dm_snapshot {
->  	 * - I/O error while merging
->  	 *	=> stop merging; set merge_failed; process I/O normally.
->  	 */
-> -	int merge_failed;
-> +	bool merge_failed:1;
-> +
-> +	bool discard_zeroes_cow:1;
-> +	bool discard_passdown_origin:1;
->  
->  	/*
->  	 * Incoming bios that overlap with chunks being merged must wait
-> @@ -1173,12 +1176,64 @@ static void stop_merge(struct dm_snapshot *s)
->  	clear_bit(SHUTDOWN_MERGE, &s->state_bits);
->  }
->  
-> +static int parse_snapshot_features(struct dm_arg_set *as, struct dm_snapshot *s,
-> +				   struct dm_target *ti)
-> +{
-> +	int r;
-> +	unsigned argc;
-> +	const char *arg_name;
-> +
-> +	static const struct dm_arg _args[] = {
-> +		{0, 2, "Invalid number of feature arguments"},
-> +	};
-> +
-> +	/*
-> +	 * No feature arguments supplied.
-> +	 */
-> +	if (!as->argc)
-> +		return 0;
-> +
-> +	r = dm_read_arg_group(_args, as, &argc, &ti->error);
-> +	if (r)
-> +		return -EINVAL;
-> +
-> +	while (argc && !r) {
-> +		arg_name = dm_shift_arg(as);
-> +		argc--;
-> +
-> +		if (!strcasecmp(arg_name, "discard_zeroes_cow"))
-> +			s->discard_zeroes_cow = true;
-> +
-> +		else if (!strcasecmp(arg_name, "discard_passdown_origin"))
-> +			s->discard_passdown_origin = true;
-> +
-> +		else {
-> +			ti->error = "Unrecognised feature requested";
-> +			r = -EINVAL;
-> +			break;
-> +		}
-> +	}
-> +
-> +	if (!s->discard_zeroes_cow && s->discard_passdown_origin) {
-> +		/*
-> +		 * TODO: really these are disjoint.. but ti->num_discard_bios
-> +		 * and dm_bio_get_target_bio_nr() require rigid constraints.
-> +		 */
-> +		ti->error = "discard_passdown_origin feature depends on discard_zeroes_cow";
-> +		r = -EINVAL;
-> +	}
-> +
-> +	return r;
-> +}
-> +
->  /*
-> - * Construct a snapshot mapping: <origin_dev> <COW-dev> <p|po|n> <chunk-size>
-> + * Construct a snapshot mapping:
-> + * <origin_dev> <COW-dev> <p|po|n> <chunk-size> [<# feature args> [<arg>]*]
->   */
->  static int snapshot_ctr(struct dm_target *ti, unsigned int argc, char **argv)
->  {
->  	struct dm_snapshot *s;
-> +	struct dm_arg_set as;
->  	int i;
->  	int r = -EINVAL;
->  	char *origin_path, *cow_path;
-> @@ -1186,8 +1241,8 @@ static int snapshot_ctr(struct dm_target *ti, unsigned int argc, char **argv)
->  	unsigned args_used, num_flush_bios = 1;
->  	fmode_t origin_mode = FMODE_READ;
->  
-> -	if (argc != 4) {
-> -		ti->error = "requires exactly 4 arguments";
-> +	if (argc < 4) {
-> +		ti->error = "requires 4 or more arguments";
->  		r = -EINVAL;
->  		goto bad;
->  	}
-> @@ -1204,6 +1259,13 @@ static int snapshot_ctr(struct dm_target *ti, unsigned int argc, char **argv)
->  		goto bad;
->  	}
->  
-> +	as.argc = argc;
-> +	as.argv = argv;
-> +	dm_consume_args(&as, 4);
-> +	r = parse_snapshot_features(&as, s, ti);
-> +	if (r)
-> +		goto bad_features;
-> +
->  	origin_path = argv[0];
->  	argv++;
->  	argc--;
-> @@ -1289,6 +1351,8 @@ static int snapshot_ctr(struct dm_target *ti, unsigned int argc, char **argv)
->  
->  	ti->private = s;
->  	ti->num_flush_bios = num_flush_bios;
-> +	if (s->discard_zeroes_cow)
-> +		ti->num_discard_bios = (s->discard_passdown_origin ? 2 : 1);
->  	ti->per_io_data_size = sizeof(struct dm_snap_tracked_chunk);
->  
->  	/* Add snapshot to the list of snapshots for this origin */
-> @@ -1336,29 +1400,22 @@ static int snapshot_ctr(struct dm_target *ti, unsigned int argc, char **argv)
->  
->  bad_read_metadata:
->  	unregister_snapshot(s);
-> -
->  bad_load_and_register:
->  	mempool_exit(&s->pending_pool);
-> -
->  bad_pending_pool:
->  	dm_kcopyd_client_destroy(s->kcopyd_client);
-> -
->  bad_kcopyd:
->  	dm_exception_table_exit(&s->pending, pending_cache);
->  	dm_exception_table_exit(&s->complete, exception_cache);
-> -
->  bad_hash_tables:
->  	dm_exception_store_destroy(s->store);
-> -
->  bad_store:
->  	dm_put_device(ti, s->cow);
-> -
->  bad_cow:
->  	dm_put_device(ti, s->origin);
-> -
->  bad_origin:
-> +bad_features:
->  	kfree(s);
-> -
->  bad:
->  	return r;
->  }
-> @@ -1806,6 +1863,32 @@ static void remap_exception(struct dm_snapshot *s, struct dm_exception *e,
->  		(bio->bi_iter.bi_sector & s->store->chunk_mask);
->  }
->  
-> +static void zero_callback(int read_err, unsigned long write_err, void *context)
-> +{
-> +	struct dm_snapshot *s = context;
-> +
-> +	up(&s->cow_count);
-> +}
-> +
-> +static void zero_exception(struct dm_snapshot *s, struct dm_exception *e,
-> +			   struct bio *bio, chunk_t chunk)
-> +{
-> +	struct dm_io_region dest;
-> +
-> +	dest.bdev = s->cow->bdev;
-> +	dest.sector = bio->bi_iter.bi_sector;
-> +	dest.count = s->store->chunk_size;
-> +
-> +	down(&s->cow_count);
-> +	dm_kcopyd_zero(s->kcopyd_client, 1, &dest, 0, zero_callback, s);
-> +}
-> +
-> +static bool io_overlaps_chunk(struct dm_snapshot *s, struct bio *bio)
-> +{
-> +	return bio->bi_iter.bi_size ==
-> +		(s->store->chunk_size << SECTOR_SHIFT);
-> +}
-> +
->  static int snapshot_map(struct dm_target *ti, struct bio *bio)
->  {
->  	struct dm_exception *e;
-> @@ -1839,10 +1922,42 @@ static int snapshot_map(struct dm_target *ti, struct bio *bio)
->  		goto out_unlock;
->  	}
->  
-> +	if (unlikely(bio_op(bio) == REQ_OP_DISCARD)) {
-> +		if (s->discard_passdown_origin && dm_bio_get_target_bio_nr(bio)) {
-> +			/*
-> +			 * passdown discard to origin (without triggering
-> +			 * snapshot exceptions via do_origin; doing so would
-> +			 * defeat the goal of freeing space in origin that is
-> +			 * implied by the "discard_passdown_origin" feature)
-> +			 */
-> +			bio_set_dev(bio, s->origin->bdev);
-> +			track_chunk(s, bio, chunk);
-> +			goto out_unlock;
-> +		}
-> +		/* discard to snapshot (target_bio_nr == 0) zeroes exceptions */
-> +	}
-> +
->  	/* If the block is already remapped - use that, else remap it */
->  	e = dm_lookup_exception(&s->complete, chunk);
->  	if (e) {
->  		remap_exception(s, e, bio, chunk);
-> +		if (unlikely(bio_op(bio) == REQ_OP_DISCARD) &&
-> +		    io_overlaps_chunk(s, bio)) {
-> +			dm_exception_table_unlock(&lock);
-> +			up_read(&s->lock);
-> +			zero_exception(s, e, bio, chunk);
-> +			goto out;
-> +		}
-> +		goto out_unlock;
-> +	}
-
-In case an exception exists for a chunk and we get a discard for it, we
-want to zero the corresponding exception in the exception store.
-
-The code remaps the discard bio, issues the zeroing operation by calling
-zero_exception() and returns DM_MAPIO_REMAPPED. If I am not missing
-something, device mapper core will then submit the discard bio to the
-COW device, so we end up both zeroing and discarding the chunk in the
-COW device.
-
-Is this deliberate?
-
-Thanks,
-Nikos
-
-> +
-> +	if (unlikely(bio_op(bio) == REQ_OP_DISCARD)) {
-> +		/*
-> +		 * If no exception exists, complete discard immediately
-> +		 * otherwise it'll trigger copy-out.
-> +		 */
-> +		bio_endio(bio);
-> +		r = DM_MAPIO_SUBMITTED;
->  		goto out_unlock;
->  	}
->  
-> @@ -1890,9 +2005,7 @@ static int snapshot_map(struct dm_target *ti, struct bio *bio)
->  
->  		r = DM_MAPIO_SUBMITTED;
->  
-> -		if (!pe->started &&
-> -		    bio->bi_iter.bi_size ==
-> -		    (s->store->chunk_size << SECTOR_SHIFT)) {
-> +		if (!pe->started && io_overlaps_chunk(s, bio)) {
->  			pe->started = 1;
->  
->  			dm_exception_table_unlock(&lock);
-> @@ -2138,6 +2251,7 @@ static void snapshot_status(struct dm_target *ti, status_type_t type,
->  {
->  	unsigned sz = 0;
->  	struct dm_snapshot *snap = ti->private;
-> +	unsigned num_features;
->  
->  	switch (type) {
->  	case STATUSTYPE_INFO:
-> @@ -2180,6 +2294,14 @@ static void snapshot_status(struct dm_target *ti, status_type_t type,
->  		DMEMIT("%s %s", snap->origin->name, snap->cow->name);
->  		snap->store->type->status(snap->store, type, result + sz,
->  					  maxlen - sz);
-> +		num_features = snap->discard_zeroes_cow + snap->discard_passdown_origin;
-> +		if (num_features) {
-> +			DMEMIT(" %u", num_features);
-> +			if (snap->discard_zeroes_cow)
-> +				DMEMIT(" discard_zeroes_cow");
-> +			if (snap->discard_passdown_origin)
-> +				DMEMIT(" discard_passdown_origin");
-> +		}
->  		break;
->  	}
->  }
-> @@ -2198,6 +2320,16 @@ static int snapshot_iterate_devices(struct dm_target *ti,
->  	return r;
->  }
->  
-> +static void snapshot_io_hints(struct dm_target *ti, struct queue_limits *limits)
-> +{
-> +	struct dm_snapshot *snap = ti->private;
-> +
-> +	if (snap->discard_zeroes_cow) {
-> +		/* All discards are split on chunk_size boundary */
-> +		limits->discard_granularity = snap->store->chunk_size;
-> +		limits->max_discard_sectors = snap->store->chunk_size;
-> +	}
-> +}
->  
->  /*-----------------------------------------------------------------
->   * Origin methods
-> @@ -2522,7 +2654,7 @@ static struct target_type origin_target = {
->  
->  static struct target_type snapshot_target = {
->  	.name    = "snapshot",
-> -	.version = {1, 15, 0},
-> +	.version = {1, 16, 0},
->  	.module  = THIS_MODULE,
->  	.ctr     = snapshot_ctr,
->  	.dtr     = snapshot_dtr,
-> @@ -2532,11 +2664,12 @@ static struct target_type snapshot_target = {
->  	.resume  = snapshot_resume,
->  	.status  = snapshot_status,
->  	.iterate_devices = snapshot_iterate_devices,
-> +	.io_hints = snapshot_io_hints,
->  };
->  
->  static struct target_type merge_target = {
->  	.name    = dm_snapshot_merge_target_name,
-> -	.version = {1, 4, 0},
-> +	.version = {1, 5, 0},
->  	.module  = THIS_MODULE,
->  	.ctr     = snapshot_ctr,
->  	.dtr     = snapshot_dtr,
-> @@ -2547,6 +2680,7 @@ static struct target_type merge_target = {
->  	.resume  = snapshot_merge_resume,
->  	.status  = snapshot_status,
->  	.iterate_devices = snapshot_iterate_devices,
-> +	.io_hints = snapshot_io_hints,
->  };
->  
->  static int __init dm_snapshot_init(void)
-> 
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+IEhpIERhbiwKCiBUaGlzIHNlcmllcyBoYXMgb25seSBjaGFuZ2UgaW4gcGF0Y2ggMiBmb3IgbGlu
+dXgtbmV4dCBidWlsZAogZmFpbHVyZS4gVGhlcmUgaXMgbm8gZnVuY3Rpb25hbCBjaGFuZ2UuIEtl
+ZXBpbmcgYWxsIHRoZQogZXhpc3RpbmcgcmV2aWV3L2Fja3MgYW5kIHJlcG9zdGluZyB0aGUgcGF0
+Y2ggc2VyaWVzIGZvcgogbWVyZ2luZyB2aWEgbGlibnZkaW1tIHRyZWUuCiAtLS0KCiBUaGlzIHBh
+dGNoIHNlcmllcyBoYXMgaW1wbGVtZW50YXRpb24gZm9yICJ2aXJ0aW8gcG1lbSIuIAogInZpcnRp
+byBwbWVtIiBpcyBmYWtlIHBlcnNpc3RlbnQgbWVtb3J5KG52ZGltbSkgaW4gZ3Vlc3QgCiB3aGlj
+aCBhbGxvd3MgdG8gYnlwYXNzIHRoZSBndWVzdCBwYWdlIGNhY2hlLiBUaGlzIGFsc28KIGltcGxl
+bWVudHMgYSBWSVJUSU8gYmFzZWQgYXN5bmNocm9ub3VzIGZsdXNoIG1lY2hhbmlzbS4gIAogCiBT
+aGFyaW5nIGd1ZXN0IGtlcm5lbCBkcml2ZXIgaW4gdGhpcyBwYXRjaHNldCB3aXRoIHRoZSAKIGNo
+YW5nZXMgc3VnZ2VzdGVkIGluIHY0LiBUZXN0ZWQgd2l0aCBRZW11IHNpZGUgZGV2aWNlIAogZW11
+bGF0aW9uIFs1XSBmb3IgdmlydGlvLXBtZW0uIERvY3VtZW50ZWQgdGhlIGltcGFjdCBvZgogcG9z
+c2libGUgcGFnZSBjYWNoZSBzaWRlIGNoYW5uZWwgYXR0YWNrcyB3aXRoIHN1Z2dlc3RlZAogY291
+bnRlcm1lYXN1cmVzLgoKIERldGFpbHMgb2YgcHJvamVjdCBpZGVhIGZvciAndmlydGlvIHBtZW0n
+IGZsdXNoaW5nIGludGVyZmFjZSAKIGlzIHNoYXJlZCBbM10gJiBbNF0uCgogSW1wbGVtZW50YXRp
+b24gaXMgZGl2aWRlZCBpbnRvIHR3byBwYXJ0czoKIE5ldyB2aXJ0aW8gcG1lbSBndWVzdCBkcml2
+ZXIgYW5kIHFlbXUgY29kZSBjaGFuZ2VzIGZvciBuZXcgCiB2aXJ0aW8gcG1lbSBwYXJhdmlydHVh
+bGl6ZWQgZGV2aWNlLgoKMS4gR3Vlc3QgdmlydGlvLXBtZW0ga2VybmVsIGRyaXZlcgotLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KICAgLSBSZWFkcyBwZXJzaXN0ZW50IG1lbW9yeSBy
+YW5nZSBmcm9tIHBhcmF2aXJ0IGRldmljZSBhbmQgCiAgICAgcmVnaXN0ZXJzIHdpdGggJ252ZGlt
+bV9idXMnLiAgCiAgIC0gJ252ZGltbS9wbWVtJyBkcml2ZXIgdXNlcyB0aGlzIGluZm9ybWF0aW9u
+IHRvIGFsbG9jYXRlIAogICAgIHBlcnNpc3RlbnQgbWVtb3J5IHJlZ2lvbiBhbmQgc2V0dXAgZmls
+ZXN5c3RlbSBvcGVyYXRpb25zIAogICAgIHRvIHRoZSBhbGxvY2F0ZWQgbWVtb3J5LiAKICAgLSB2
+aXJ0aW8gcG1lbSBkcml2ZXIgaW1wbGVtZW50cyBhc3luY2hyb25vdXMgZmx1c2hpbmcgCiAgICAg
+aW50ZXJmYWNlIHRvIGZsdXNoIGZyb20gZ3Vlc3QgdG8gaG9zdC4KCjIuIFFlbXUgdmlydGlvLXBt
+ZW0gZGV2aWNlCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQogICAtIENyZWF0ZXMg
+dmlydGlvIHBtZW0gZGV2aWNlIGFuZCBleHBvc2VzIGEgbWVtb3J5IHJhbmdlIHRvIAogICAgIEtW
+TSBndWVzdC4gCiAgIC0gQXQgaG9zdCBzaWRlIHRoaXMgaXMgZmlsZSBiYWNrZWQgbWVtb3J5IHdo
+aWNoIGFjdHMgYXMgCiAgICAgcGVyc2lzdGVudCBtZW1vcnkuIAogICAtIFFlbXUgc2lkZSBmbHVz
+aCB1c2VzIGFpbyB0aHJlYWQgcG9vbCBBUEkncyBhbmQgdmlydGlvIAogICAgIGZvciBhc3luY2hy
+b25vdXMgZ3Vlc3QgbXVsdGkgcmVxdWVzdCBoYW5kbGluZy4gCgogVmlydGlvLXBtZW0gc2VjdXJp
+dHkgaW1wbGljYXRpb25zIGFuZCBjb3VudGVybWVhc3VyZXM6CiAtLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKIEluIHByZXZpb3VzIHBvc3Rpbmcg
+b2Yga2VybmVsIGRyaXZlciwgdGhlcmUgd2FzIGRpc2N1c3Npb24gWzddCiBvbiBwb3NzaWJsZSBp
+bXBsaWNhdGlvbnMgb2YgcGFnZSBjYWNoZSBzaWRlIGNoYW5uZWwgYXR0YWNrcyB3aXRoIAogdmly
+dGlvIHBtZW0uIEFmdGVyIHRob3JvdWdoIGFuYWx5c2lzIG9mIGRldGFpbHMgb2Yga25vd24gc2lk
+ZSAKIGNoYW5uZWwgYXR0YWNrcywgYmVsb3cgYXJlIHRoZSBzdWdnZXN0aW9uczoKCiAtIERlcGVu
+ZHMgZW50aXJlbHkgb24gaG93IGhvc3QgYmFja2luZyBpbWFnZSBmaWxlIGlzIG1hcHBlZCAKICAg
+aW50byBndWVzdCBhZGRyZXNzIHNwYWNlLiAKCiAtIHZpcnRpby1wbWVtIGRldmljZSBlbXVsYXRp
+b24sIGJ5IGRlZmF1bHQgc2hhcmVkIG1hcHBpbmcgaXMgdXNlZAogICB0byBtYXAgaG9zdCBiYWNr
+aW5nIGZpbGUuIEl0IGlzIHJlY29tbWVuZGVkIHRvIHVzZSBzZXBhcmF0ZQogICBiYWNraW5nIGZp
+bGUgYXQgaG9zdCBzaWRlIGZvciBldmVyeSBndWVzdC4gVGhpcyB3aWxsIHByZXZlbnQKICAgYW55
+IHBvc3NpYmlsaXR5IG9mIGV4ZWN1dGluZyBjb21tb24gY29kZSBmcm9tIG11bHRpcGxlIGd1ZXN0
+cwogICBhbmQgYW55IGNoYW5jZSBvZiBpbmZlcnJpbmcgZ3Vlc3QgbG9jYWwgZGF0YSBiYXNlZCBi
+YXNlZCBvbiAKICAgZXhlY3V0aW9uIHRpbWUuCgogLSBJZiBiYWNraW5nIGZpbGUgaXMgcmVxdWly
+ZWQgdG8gYmUgc2hhcmVkIGFtb25nIG11bHRpcGxlIGd1ZXN0cyAKICAgaXQgaXMgcmVjb21tZW5k
+ZWQgdG8gZG9uJ3Qgc3VwcG9ydCBob3N0IHBhZ2UgY2FjaGUgZXZpY3Rpb24gCiAgIGNvbW1hbmRz
+IGZyb20gdGhlIGd1ZXN0IGRyaXZlci4gVGhpcyB3aWxsIGF2b2lkIGFueSBwb3NzaWJpbGl0eQog
+ICBvZiBpbmZlcnJpbmcgZ3Vlc3QgbG9jYWwgZGF0YSBvciBob3N0IGRhdGEgZnJvbSBhbm90aGVy
+IGd1ZXN0LiAKCiAtIFByb3Bvc2VkIGRldmljZSBzcGVjaWZpY2F0aW9uIFs2XSBmb3IgdmlydGlv
+LXBtZW0gZGV2aWNlIHdpdGggCiAgIGRldGFpbHMgb2YgcG9zc2libGUgc2VjdXJpdHkgaW1wbGlj
+YXRpb25zIGFuZCBzdWdnZXN0ZWQgCiAgIGNvdW50ZXJtZWFzdXJlcyBmb3IgZGV2aWNlIGVtdWxh
+dGlvbi4KCiBWaXJ0aW8tcG1lbSBlcnJvcnMgaGFuZGxpbmc6CiAtLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tCiAgQ2hlY2tlZCBiZWhhdmlvdXIgb2YgdmlydGlvLXBtZW0g
+Zm9yIGJlbG93IHR5cGVzIG9mIGVycm9ycwogIE5lZWQgc3VnZ2VzdGlvbnMgb24gZXhwZWN0ZWQg
+YmVoYXZpb3VyIGZvciBoYW5kbGluZyB0aGVzZSBlcnJvcnM/CgogIC0gSGFyZHdhcmUgRXJyb3Jz
+OiBVbmNvcnJlY3RhYmxlIHJlY292ZXJhYmxlIEVycm9yczogCiAgYV0gdmlydGlvLXBtZW06IAog
+ICAgLSBBcyBwZXIgY3VycmVudCBsb2dpYyBpZiBlcnJvciBwYWdlIGJlbG9uZ3MgdG8gUWVtdSBw
+cm9jZXNzLCAKICAgICAgaG9zdCBNQ0UgaGFuZGxlciBpc29sYXRlcyhod3BvaXNvbikgdGhhdCBw
+YWdlIGFuZCBzZW5kIFNJR0JVUy4gCiAgICAgIFFlbXUgU0lHQlVTIGhhbmRsZXIgaW5qZWN0cyBl
+eGNlcHRpb24gdG8gS1ZNIGd1ZXN0LiAKICAgIC0gS1ZNIGd1ZXN0IHRoZW4gaXNvbGF0ZXMgdGhl
+IHBhZ2UgYW5kIHNlbmQgU0lHQlVTIHRvIGd1ZXN0IAogICAgICB1c2Vyc3BhY2UgcHJvY2VzcyB3
+aGljaCBoYXMgbWFwcGVkIHRoZSBwYWdlLiAKICAKICBiXSBFeGlzdGluZyBpbXBsZW1lbnRhdGlv
+biBmb3IgQUNQSSBwbWVtIGRyaXZlcjogCiAgICAtIEhhbmRsZXMgc3VjaCBlcnJvcnMgd2l0aCBN
+Q0Ugbm90aWZpZXIgYW5kIGNyZWF0ZXMgYSBsaXN0IAogICAgICBvZiBiYWQgYmxvY2tzLiBSZWFk
+L2RpcmVjdCBhY2Nlc3MgREFYIG9wZXJhdGlvbiByZXR1cm4gRUlPIAogICAgICBpZiBhY2Nlc3Nl
+ZCBtZW1vcnkgcGFnZSBmYWxsIGluIGJhZCBibG9jayBsaXN0LgogICAgLSBJdCBhbHNvIHN0YXJ0
+cyBiYWNrZ291bmQgc2NydWJiaW5nLiAgCiAgICAtIFNpbWlsYXIgZnVuY3Rpb25hbGl0eSBjYW4g
+YmUgcmV1c2VkIGluIHZpcnRpby1wbWVtIHdpdGggTUNFIAogICAgICBub3RpZmllciBidXQgd2l0
+aG91dCBzY3J1YmJpbmcobm8gQUNQSS9BUlMpPyBOZWVkIGlucHV0cyB0byAKICAgICAgY29uZmly
+bSBpZiB0aGlzIGJlaGF2aW91ciBpcyBvayBvciBuZWVkcyBhbnkgY2hhbmdlPwoKQ2hhbmdlcyBm
+cm9tIFBBVENIIHYxMzogWzFdIAogLSBSZWJhc2UgdG8gTGludXgtNS4yLXJjNwogLSBGaXggTGlu
+dXgtbmV4dCBidWlsZCBmYWlsdXJlIGZvciB1bmRlZmluZWQgdHlwZQoKQ2hhbmdlcyBmcm9tIFBB
+VENIIHYxMzogWzJdIAogLSBSZWJhc2VkIHRvIExpbnV4LTUuMi1yYzUKIC0gRml4IFMzOTB4IGJ1
+aWxkIGZhaWx1cmUgaW4gcGF0Y2ggMwogLSBGaXggZm9yICFDT05GSUdfREFYIHdpdGggZGF4X3N5
+bmNocm9ub3VzCiAtIEZpeCBzcGFyc2Ugd2FybmluZyBpbiB2aXJ0aW8gcGF0Y2ggMgoKQ2hhbmdl
+cyBmcm9tIFBBVENIIHYxMjoKIC0gTWlub3IgY2hhbmdlcyhmdW5jdGlvbiBuYW1lLCBkZXZfZXJy
+IC0+IGRldl9pbmZvICYgCiAgIG1ha2UgZnVuY3Rpb24gc3RhdGljIGluIHZpcnRpbyBwYXRjaCAt
+IFtDb3JuZWxpYV0KIC0gQWRkZWQgci1vLWIgb2YgTWlrZSBpbiBwYXRjaCA0CgpDaGFuZ2VzIGZy
+b20gUEFUQ0ggdjExOiAKIC0gQ2hhbmdlIGltcGxtZW50YXRpb24gZm9yIHNldHRpbmcgb2Ygc3lu
+Y2hyb25vdXMgREFYIHR5cGUKICAgZm9yIGRldmljZSBtYXBwZXIgLSBbTWlrZV0gCgpDaGFuZ2Vz
+IGZyb20gUEFUQ0ggdjEwOgogLSBSZWJhc2VkIG9uIExpbnV4LTUuMi1yYzQKCkNoYW5nZXMgZnJv
+bSBQQVRDSCB2OToKIC0gS2NvbmZpZyBoZWxwIHRleHQgYWRkIHR3byBzcGFjZXMgLSBSYW5keQog
+LSBGaXhlZCBsaWJudmRpbW0gJ2JpbycgaW5jbHVkZSB3YXJuaW5nIC0gRGFuCiAtIHZpcnRpby1w
+bWVtLCBzZXBhcmF0ZSByZXF1ZXN0L3Jlc3Agc3RydWN0IGFuZCAKICAgbW92ZSB0byB1YXBpIGZp
+bGUgd2l0aCB1cGRhdGVkIGxpY2Vuc2UgLSBEYXZpZEgKIC0gVXNlIHZpcnRpbzMyKiB0eXBlIGZv
+ciByZXEvcmVzcCBlbmRpYW5lc3MgLSBEYXZpZEgKIC0gQWRkZWQgdGVzdGVkLWJ5ICYgYWNrLWJ5
+IG9mIEpha29iCiAtIFJlYmFzZWQgdG8gNS4yLXJjMQoKQ2hhbmdlcyBmcm9tIFBBVENIIHY4Ogog
+LSBTZXQgZGV2aWNlIG1hcHBlciBzeW5jaHJvbm91cyBpZiBhbGwgdGFyZ2V0IGRldmljZXMgc3Vw
+cG9ydCAtIERhbgogLSBNb3ZlIHZpcnRpb19wbWVtLmggdG8gbnZkaW1tIGRpcmVjdG9yeSAgLSBE
+YW4KIC0gU3R5bGUsIGluZGVudGF0aW9uICYgYmV0dGVyIGVycm9yIG1lc3NhZ2VzIGluIHBhdGNo
+IDIgLSBEYXZpZEgKIC0gQWRkZWQgTVNUJ3MgYWNrIGluIHBhdGNoIDIuCgpDaGFuZ2VzIGZyb20g
+UEFUQ0ggdjc6CiAtIENvcnJlY3RlZCBwZW5kaW5nIHJlcXVlc3QgcXVldWUgbG9naWMgKHBhdGNo
+IDIpIC0gSmFrdWIgU3Rhcm/FhAogLSBVc2VkIHVuc2lnbmVkIGxvbmcgZmxhZ3MgZm9yIHBhc3Np
+bmcgREFYREVWX0ZfU1lOQyAocGF0Y2ggMykgLSBEYW4KIC0gRml4ZWQgdHlwbyA9PiAgdm1hICdm
+bGFnJyB0byAndm1fZmxhZycgKHBhdGNoIDQpCiAtIEFkZGVkIHJvYiBpbiBwYXRjaCA2ICYgcGF0
+Y2ggMgoKQ2hhbmdlcyBmcm9tIFBBVENIIHY2OiAKIC0gQ29ycmVjdGVkIGNvbW1lbnQgZm9ybWF0
+IGluIHBhdGNoIDUgJiBwYXRjaCA2LiBbRGF2ZV0KIC0gQ2hhbmdlZCB2YXJpYWJsZSBkZWNsYXJh
+dGlvbiBpbmRlbnRhdGlvbiBpbiBwYXRjaCA2IFtEYXJyaWNrXQogLSBBZGQgUmV2aWV3ZWQtYnkg
+dGFnIGJ5ICdKYW4gS2FyYScgaW4gcGF0Y2ggNCAmIHBhdGNoIDUKCkNoYW5nZXMgZnJvbSBQQVRD
+SCB2NTogCiAgQ2hhbmdlcyBzdWdnZXN0ZWQgaW4gYnkgLSBbQ29ybmVsaWEsIFl1dmFsXQotIFJl
+bW92ZSBhc3NpZ25tZW50IGNoYWluaW5nIGluIHZpcnRpbyBkcml2ZXIKLSBCZXR0ZXIgZXJyb3Ig
+bWVzc2FnZSBhbmQgcmVtb3ZlIG5vdCByZXF1aXJlZCBmcmVlCi0gQ2hlY2sgbmRfcmVnaW9uIGJl
+Zm9yZSB1c2UKCiAgQ2hhbmdlcyBzdWdnZXN0ZWQgYnkgLSBbSmFuIEthcmFdCi0gZGF4X3N5bmNo
+cm9ub3VzKCkgZm9yICFDT05GSUdfREFYCi0gQ29ycmVjdCAnZGF4ZGV2X21hcHBpbmdfc3VwcG9y
+dGVkJyBjb21tZW50IGFuZCBub24tZGF4IGltcGxlbWVudGF0aW9uCgogIENoYW5nZXMgc3VnZ2Vz
+dGVkIGJ5IC0gW0RhbiBXaWxsaWFtc10KLSBQYXNzIG1lYW5pbmdmdWwgZmxhZyAnREFYREVWX0Zf
+U1lOQycgdG8gYWxsb2NfZGF4Ci0gR2F0ZSBudmRpbW1fZmx1c2ggaW5zdGVhZCBvZiBhZGRpdGlv
+bmFsIGFzeW5jIHBhcmFtZXRlcgotIE1vdmUgYmxvY2sgY2hhaW5pbmcgbG9naWMgdG8gZmx1c2gg
+Y2FsbGJhY2sgdGhhbiBjb21tb24gbnZkaW1tX2ZsdXNoCi0gVXNlIE5VTEwgZmx1c2ggY2FsbGJh
+Y2sgZm9yIGdlbmVyaWMgZmx1c2ggZm9yIGJldHRlciByZWFkYWJpbGl0eSBbRGFuLCBKYW5dCgot
+IFVzZSB2aXJ0aW8gZGV2aWNlIGlkIDI3IGZyb20gMjUoYWxyZWFkeSB1c2VkKSAtIFtNU1RdCgpD
+aGFuZ2VzIGZyb20gUEFUQ0ggdjQ6Ci0gRmFjdG9yIG91dCBNQVBfU1lOQyBzdXBwb3J0ZWQgZnVu
+Y3Rpb25hbGl0eSB0byBhIGNvbW1vbiBoZWxwZXIKCQkJCVtEYXZlLCBEYXJyaWNrLCBKYW5dCi0g
+Q29tbWVudCwgaW5kZW50YXRpb24gYW5kIHZpcnRxdWV1ZV9raWNrIGZhaWx1cmUgaGFuZGxlIC0g
+WXV2YWwgU2hhaWEKCkNoYW5nZXMgZnJvbSBQQVRDSCB2MzogCi0gVXNlIGdlbmVyaWMgZGF4X3N5
+bmNocm9ub3VzKCkgaGVscGVyIHRvIGNoZWNrIGZvciBEQVhERVZfU1lOQyAKICBmbGFnIC0gW0Rh
+biwgRGFycmljaywgSmFuXQotIEFkZCAnaXNfbnZkaW1tX2FzeW5jJyBmdW5jdGlvbgotIERvY3Vt
+ZW50IHBhZ2UgY2FjaGUgc2lkZSBjaGFubmVsIGF0dGFja3MgaW1wbGljYXRpb25zICYgCiAgY291
+bnRlcm1lYXN1cmVzIC0gW0RhdmUgQ2hpbm5lciwgTWljaGFlbF0KCkNoYW5nZXMgZnJvbSBQQVRD
+SCB2MjogCi0gRGlzYWJsZSBNQVBfU1lOQyBmb3IgZXh0NCAmIFhGUyBmaWxlc3lzdGVtcyAtIFtE
+YW5dIAotIFVzZSBuYW1lICd2aXJ0aW8gcG1lbScgaW4gcGxhY2Ugb2YgJ2Zha2UgZGF4JyAKCkNo
+YW5nZXMgZnJvbSBQQVRDSCB2MTogCi0gMC1kYXkgYnVpbGQgdGVzdCBmb3IgYnVpbGQgZGVwZW5k
+ZW5jeSBvbiBsaWJudmRpbW0gCgogQ2hhbmdlcyBzdWdnZXN0ZWQgYnkgLSBbRGFuIFdpbGxpYW1z
+XQotIFNwbGl0IHRoZSBkcml2ZXIgaW50byB0d28gcGFydHMgdmlydGlvICYgcG1lbSAgCi0gTW92
+ZSBxdWV1aW5nIG9mIGFzeW5jIGJsb2NrIHJlcXVlc3QgdG8gYmxvY2sgbGF5ZXIKLSBBZGQgInN5
+bmMiIHBhcmFtZXRlciBpbiBudmRpbW1fZmx1c2ggZnVuY3Rpb24KLSBVc2UgaW5kaXJlY3QgY2Fs
+bCBmb3IgbnZkaW1tX2ZsdXNoCi0gRG9u4oCZdCBtb3ZlIGRlY2xhcmF0aW9ucyB0byBjb21tb24g
+Z2xvYmFsIGhlYWRlciBlLmcgbmQuaAotIG52ZGltbV9mbHVzaCgpIHJldHVybiAwIG9yIC1FSU8g
+aWYgaXQgZmFpbHMKLSBUZWFjaCBuc2lvX3J3X2J5dGVzKCkgdGhhdCB0aGUgZmx1c2ggY2FuIGZh
+aWwKLSBSZW5hbWUgbnZkaW1tX2ZsdXNoKCkgdG8gZ2VuZXJpY19udmRpbW1fZmx1c2goKQotIFVz
+ZSAnbmRfcmVnaW9uLT5wcm92aWRlcl9kYXRhJyBmb3IgbG9uZyBkZXJlZmVyZW5jaW5nCi0gUmVt
+b3ZlIHZpcnRpb19wbWVtX2ZyZWV6ZS9yZXN0b3JlIGZ1bmN0aW9ucwotIFJlbW92ZSBCU0QgbGlj
+ZW5zZSB0ZXh0IHdpdGggU1BEWCBsaWNlbnNlIHRleHQKCi0gQWRkIG1pZ2h0X3NsZWVwKCkgaW4g
+dmlydGlvX3BtZW1fZmx1c2ggLSBbTHVpel0KLSBNYWtlIHNwaW5fbG9ja19pcnFzYXZlKCkgbmFy
+cm93CgpQYW5rYWogR3VwdGEgKDcpOgogICBsaWJudmRpbW06IG5kX3JlZ2lvbiBmbHVzaCBjYWxs
+YmFjayBzdXBwb3J0CiAgIHZpcnRpby1wbWVtOiBBZGQgdmlydGlvLXBtZW0gZ3Vlc3QgZHJpdmVy
+CiAgIGxpYm52ZGltbTogYWRkIG5kX3JlZ2lvbiBidWZmZXJlZCBkYXhfZGV2IGZsYWcKICAgZGF4
+OiBjaGVjayBzeW5jaHJvbm91cyBtYXBwaW5nIGlzIHN1cHBvcnRlZAogICBkbTogZG06IEVuYWJs
+ZSBzeW5jaHJvbm91cyBkYXgKICAgZXh0NDogZGlzYWJsZSBtYXBfc3luYyBmb3IgdmlydGlvIHBt
+ZW0KICAgeGZzOiBkaXNhYmxlIG1hcF9zeW5jIGZvciB2aXJ0aW8gcG1lbQoKWzFdIGh0dHBzOi8v
+bGttbC5vcmcvbGttbC8yMDE5LzYvMjEvNDUyClsyXSBodHRwczovL2xrbWwub3JnL2xrbWwvMjAx
+OS82LzEyLzYyNApbM10gaHR0cHM6Ly93d3cuc3Bpbmljcy5uZXQvbGlzdHMva3ZtL21zZzE0OTc2
+MS5odG1sCls0XSBodHRwczovL3d3dy5zcGluaWNzLm5ldC9saXN0cy9rdm0vbXNnMTUzMDk1Lmh0
+bWwgIApbNV0gaHR0cHM6Ly9tYXJjLmluZm8vP2w9cWVtdS1kZXZlbCZtPTE1NTg2MDc1MTIwMjIw
+MiZ3PTIKWzZdIGh0dHBzOi8vbGlzdHMub2FzaXMtb3Blbi5vcmcvYXJjaGl2ZXMvdmlydGlvLWRl
+di8yMDE5MDMvbXNnMDAwODMuaHRtbApbN10gaHR0cHM6Ly9sa21sLm9yZy9sa21sLzIwMTkvMS85
+LzExOTEKCiBkcml2ZXJzL2FjcGkvbmZpdC9jb3JlLmMgICAgICAgICB8ICAgIDQgLQogZHJpdmVy
+cy9kYXgvYnVzLmMgICAgICAgICAgICAgICAgfCAgICAyIAogZHJpdmVycy9kYXgvc3VwZXIuYyAg
+ICAgICAgICAgICAgfCAgIDE5ICsrKysrCiBkcml2ZXJzL21kL2RtLXRhYmxlLmMgICAgICAgICAg
+ICB8ICAgMjQgKysrKystLQogZHJpdmVycy9tZC9kbS5jICAgICAgICAgICAgICAgICAgfCAgICA1
+IC0KIGRyaXZlcnMvbWQvZG0uaCAgICAgICAgICAgICAgICAgIHwgICAgNSArCiBkcml2ZXJzL252
+ZGltbS9NYWtlZmlsZSAgICAgICAgICB8ICAgIDEgCiBkcml2ZXJzL252ZGltbS9jbGFpbS5jICAg
+ICAgICAgICB8ICAgIDYgKwogZHJpdmVycy9udmRpbW0vbmQuaCAgICAgICAgICAgICAgfCAgICAx
+IAogZHJpdmVycy9udmRpbW0vbmRfdmlydGlvLmMgICAgICAgfCAgMTI1ICsrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKwogZHJpdmVycy9udmRpbW0vcG1lbS5jICAgICAgICAg
+ICAgfCAgIDE4ICsrKy0tCiBkcml2ZXJzL252ZGltbS9yZWdpb25fZGV2cy5jICAgICB8ICAgMzMg
+KysrKysrKysrLQogZHJpdmVycy9udmRpbW0vdmlydGlvX3BtZW0uYyAgICAgfCAgMTIyICsrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCiBkcml2ZXJzL252ZGltbS92aXJ0aW9f
+cG1lbS5oICAgICB8ICAgNTUgKysrKysrKysrKysrKysrKysKIGRyaXZlcnMvczM5MC9ibG9jay9k
+Y3NzYmxrLmMgICAgIHwgICAgMiAKIGRyaXZlcnMvdmlydGlvL0tjb25maWcgICAgICAgICAgIHwg
+ICAxMSArKysKIGZzL2V4dDQvZmlsZS5jICAgICAgICAgICAgICAgICAgIHwgICAxMCArLS0KIGZz
+L3hmcy94ZnNfZmlsZS5jICAgICAgICAgICAgICAgIHwgICAgOSArLQogaW5jbHVkZS9saW51eC9k
+YXguaCAgICAgICAgICAgICAgfCAgIDQxICsrKysrKysrKysrKwogaW5jbHVkZS9saW51eC9saWJu
+dmRpbW0uaCAgICAgICAgfCAgIDEwICsrLQogaW5jbHVkZS91YXBpL2xpbnV4L3ZpcnRpb19pZHMu
+aCAgfCAgICAxIAogaW5jbHVkZS91YXBpL2xpbnV4L3ZpcnRpb19wbWVtLmggfCAgIDM0ICsrKysr
+KysrKysKIDIyIGZpbGVzIGNoYW5nZWQsIDUwNCBpbnNlcnRpb25zKCspLCAzNCBkZWxldGlvbnMo
+LSkKCgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6
+Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
