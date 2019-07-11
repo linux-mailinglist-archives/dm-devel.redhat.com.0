@@ -2,112 +2,99 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAFE3652EA
-	for <lists+dm-devel@lfdr.de>; Thu, 11 Jul 2019 10:13:25 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by mail.lfdr.de (Postfix) with ESMTPS id DE8A6660BF
+	for <lists+dm-devel@lfdr.de>; Thu, 11 Jul 2019 22:36:51 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id A9BB53082B69;
-	Thu, 11 Jul 2019 08:13:22 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 1183D308AA11;
+	Thu, 11 Jul 2019 20:36:48 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A90C760BFB;
-	Thu, 11 Jul 2019 08:13:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F62A5C1B4;
+	Thu, 11 Jul 2019 20:36:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6BAE541F53;
-	Thu, 11 Jul 2019 08:13:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 35E7541F53;
+	Thu, 11 Jul 2019 20:36:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x6AL9x6I010854 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 10 Jul 2019 17:10:00 -0400
+	id x6BKaI8D007880 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 11 Jul 2019 16:36:18 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id F09E960A9A; Wed, 10 Jul 2019 21:09:59 +0000 (UTC)
+	id EBDB8600D1; Thu, 11 Jul 2019 20:36:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx10.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.39])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6186D60603;
-	Wed, 10 Jul 2019 21:09:55 +0000 (UTC)
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.redhat.com (ext-mx02.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.26])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A65A1600CD;
+	Thu, 11 Jul 2019 20:36:14 +0000 (UTC)
+Received: from mail-qk1-f194.google.com (mail-qk1-f194.google.com
+	[209.85.222.194])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id A46BF9D43B;
-	Wed, 10 Jul 2019 21:08:40 +0000 (UTC)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
-	by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
-	x6AL8edV011740; Wed, 10 Jul 2019 21:08:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
-	h=subject : to : cc :
-	references : from : message-id : date : mime-version : in-reply-to :
-	content-type : content-transfer-encoding; s=corp-2018-07-02;
-	bh=Jb+dlCArEGpeswzuzYeBLJplwmTu4H0O2r0jjy43A3k=;
-	b=Dn/oBCeQR6/4jFFlX6h+7dxgCPtG1CjxVXFKMHFs8qA6Wb4Aw4k8mcX5DpJ1Atnk9bEi
-	2cHJ2I5Y6Cva1oLw2wse0aD/HRnXmWOHrJPtUYTbF+ijuLUhkIMLqF4TPSDV0Sti9s2C
-	pT5U35RB7PulQPehWjEMY02PBdb3Y5kaTUgxkASQYK5Gwr44C0Os+UWSxareochZJdAN
-	eDUhVuxAH4mBqkRHVr43Hd0H1WRgHw6WKhty1DpV38QvCTCHDkFDJNxcjTrDoZ2PpDlb
-	8vnVEOE1Hr1N9CDNxdVZEG0ELCDmzECPqVxL7iU04dhPzUBLA/aT1v1WgbBvGN8pOPtT
-	/g== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
-	by userp2130.oracle.com with ESMTP id 2tjk2tvjrn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 10 Jul 2019 21:08:40 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
-	by userp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
-	x6AL7PHt167338; Wed, 10 Jul 2019 21:08:39 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
-	by userp3030.oracle.com with ESMTP id 2tn1j13rvs-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 10 Jul 2019 21:08:39 +0000
-Received: from abhmp0022.oracle.com (abhmp0022.oracle.com [141.146.116.28])
-	by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x6AL8cRx014240;
-	Wed, 10 Jul 2019 21:08:38 GMT
-Received: from Junxiaos-MacBook-Pro.local (/10.11.16.208)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Wed, 10 Jul 2019 14:08:38 -0700
-To: Mike Snitzer <snitzer@redhat.com>, mpatocka@redhat.com
-References: <20190710001719.2504-1-junxiao.bi@oracle.com>
-	<20190710174801.GA20281@redhat.com>
-From: Junxiao Bi <junxiao.bi@oracle.com>
-Message-ID: <b1b34b4f-bb25-a6a6-6878-3574b6dda68a@oracle.com>
-Date: Wed, 10 Jul 2019 14:08:36 -0700
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:60.0)
-	Gecko/20100101 Thunderbird/60.7.2
+	by mx1.redhat.com (Postfix) with ESMTPS id 651E787628;
+	Thu, 11 Jul 2019 20:36:13 +0000 (UTC)
+Received: by mail-qk1-f194.google.com with SMTP id t8so4766376qkt.1;
+	Thu, 11 Jul 2019 13:36:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=sender:date:from:to:cc:subject:message-id:references:mime-version
+	:content-disposition:in-reply-to:user-agent;
+	bh=uSnxLsSzOfQ6jhYWjArqH7RN7G7SNHxnXfQr0G/TkKw=;
+	b=cEMAVGX/781/krz5KwrDIWw/pbzA3CDHmwFSWMkQzVjCK2hiQbaPVNMCEWY+dDMgGg
+	L8GFaBoDTw6+TjUkR89zCOESxGbUQmohciRJwLQAwcJNUhydhe/dfh1Qd8PZaYAN9uo3
+	PXOD/QqDWO7nGwHSMwYq4Wk6WO1B9gAE8pjBtZc6QYuGVt+U+3Q9CW8UVmv7stC+ZgqN
+	yCCmTqisbUNRVqBkKh+IjppGxW34j5SaJCB6Fgd1Gn5hvKNTzNpckOh516U9fRRpmeVC
+	badErlmj6t2AN/M6TnhFsARtJrxPYzmAQ/VlkXkLkP8gUraZuPtoTELEm0/wslKLqdfd
+	g8dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+	:references:mime-version:content-disposition:in-reply-to:user-agent;
+	bh=uSnxLsSzOfQ6jhYWjArqH7RN7G7SNHxnXfQr0G/TkKw=;
+	b=JZXgPzLtvBZfsGaokH8sogejT/dR60TRWxHregfcFtgs+VtHcot1AYsz/mDbVlB3nl
+	d5uFv6KA8FQmw3SUqE8mURs84Bqgo4m0hB4n7XEa4O8Yx3HzZpWlrKX/3yM33U97cDaS
+	xXEW9VE4bp19FMw7So8rfh9QdpqqNwtIOst5SRuvBCxC3bGy9ga3IrQx5TTYbeCgM55o
+	bPkcud1IdoLsQnmmKdCNAGyEoBX9tl/irNUEeHcX0ch0d1ADXSslus/ccq8XkMXaZZhh
+	aZdnHoFPNJpkBQ/+Kd7c44MHNpUuWcic3J3VunH0qw2A6qwht1XxnCdnRAbPxFPiYr9x
+	qNBg==
+X-Gm-Message-State: APjAAAUIHhDcOOrfOQJndsdenblKk6ijpkDHJh8CcZlc3qwXH3HR/7Rv
+	2rE5oqn4b1wXZgz2ajFlryx5zXQR
+X-Google-Smtp-Source: APXvYqxdjD2bUVW2vlP5+7W7x7eQU++KSqOePco2Z9x+N9KB0KAUzIC0qeAiz7UWSsEobYGvbHF+YA==
+X-Received: by 2002:a37:a40f:: with SMTP id n15mr3143540qke.19.1562877372338; 
+	Thu, 11 Jul 2019 13:36:12 -0700 (PDT)
+Received: from localhost (nat-pool-bos-t.redhat.com. [66.187.233.206])
+	by smtp.gmail.com with ESMTPSA id 39sm810883qts.41.2019.07.11.13.36.11
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Thu, 11 Jul 2019 13:36:11 -0700 (PDT)
+Date: Thu, 11 Jul 2019 16:36:11 -0400
+From: Mike Snitzer <snitzer@redhat.com>
+To: Nikos Tsironis <ntsironis@arrikto.com>
+Message-ID: <20190711203611.GA51041@lobo>
+References: <20190703162504.GA34397@lobo>
+	<fb809628-40e3-245a-dda4-034eee9a931b@arrikto.com>
 MIME-Version: 1.0
-In-Reply-To: <20190710174801.GA20281@redhat.com>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9314
-	signatures=668688
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
-	malwarescore=0
-	phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
-	adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.0.1-1810050000 definitions=main-1907100243
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9314
-	signatures=668688
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
-	priorityscore=1501 malwarescore=0
-	suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
-	lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999
-	adultscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
-	definitions=main-1907100244
-X-Greylist: Sender passed SPF test, ACL 243 matched, not delayed by
-	milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]);
-	Wed, 10 Jul 2019 21:09:51 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]);
-	Wed, 10 Jul 2019 21:09:51 +0000 (UTC) for IP:'156.151.31.86'
-	DOMAIN:'userp2130.oracle.com' HELO:'userp2130.oracle.com'
-	FROM:'junxiao.bi@oracle.com' RCPT:''
-X-RedHat-Spam-Score: -102.4  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
-	DKIM_VALID_AU, RCVD_IN_DNSWL_MED, SPF_HELO_PASS, SPF_NONE,
-	UNPARSEABLE_RELAY,
-	USER_IN_WHITELIST) 156.151.31.86 userp2130.oracle.com 156.151.31.86
-	userp2130.oracle.com <junxiao.bi@oracle.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.39
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+Content-Disposition: inline
+In-Reply-To: <fb809628-40e3-245a-dda4-034eee9a931b@arrikto.com>
+User-Agent: Mutt/1.11.4 (2019-03-13)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.26]);
+	Thu, 11 Jul 2019 20:36:13 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]);
+	Thu, 11 Jul 2019 20:36:13 +0000 (UTC) for IP:'209.85.222.194'
+	DOMAIN:'mail-qk1-f194.google.com'
+	HELO:'mail-qk1-f194.google.com' FROM:'snitzer@gmail.com' RCPT:''
+X-RedHat-Spam-Score: 1.792 * (DKIM_SIGNED, DKIM_VALID,
+	FREEMAIL_FORGED_FROMDOMAIN, FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS, PDS_NO_HELO_DNS,
+	RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
+	SPF_PASS) 209.85.222.194 mail-qk1-f194.google.com 209.85.222.194
+	mail-qk1-f194.google.com <snitzer@gmail.com>
+X-RedHat-Possible-Forgery: <snitzer@gmail.com> Mike Snitzer
+	<snitzer@redhat.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.26
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Thu, 11 Jul 2019 04:12:55 -0400
-Cc: honglei.wang@oracle.com, dm-devel@redhat.com, agk@redhat.com
-Subject: Re: [dm-devel] [PATCH v2] dm-bufio: fix deadlock with loop device
+Cc: dm-devel@redhat.com, John Dorminy <jdorminy@redhat.com>
+Subject: Re: [dm-devel] dm snapshot: add optional discard support features
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -119,83 +106,143 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]); Thu, 11 Jul 2019 08:13:24 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]); Thu, 11 Jul 2019 20:36:50 +0000 (UTC)
 
-On 7/10/19 10:48 AM, Mike Snitzer wrote:
+On Fri, Jul 05 2019 at 12:03pm -0400,
+Nikos Tsironis <ntsironis@arrikto.com> wrote:
 
-> On Tue, Jul 09 2019 at  8:17pm -0400,
-> Junxiao Bi <junxiao.bi@oracle.com> wrote:
->
->> When thin-volume was built on loop device, if available memory is low,
->> the following deadlock can be triggered.
->>
->> One process P1 was allocating memory with GFP_FS flag, direct alloc fail,
->> memory reclaim invoked memory shrinker in dm_bufio, dm_bufio_shrink_scan()
->> run, mutex dm_bufio_client->lock was acquired, then P1 wait for dm_buffer
->> io done in __try_evict_buffer->()__try_evict_buffer().
->>
->> But this io may never done as it was issued to the underlying loop device
->> who forward it using fs direct-io, there some memory allocation were using
->> GFP_FS(like do_blockdev_direct_IO()), if direct alloc fail, memory reclaim
->> will invoke memory shrinker in dm_bufio, where dm_bufio_shrink_scan()
->> will be invoked, since the mutex was already hold by P1, the loop thread
->> will hung, io will never done. ABBA deadlock.
->>
->> Signed-off-by: Junxiao Bi <junxiao.bi@oracle.com>
->> ---
->> Changes in v2:
->>    - refine the commit log
->>
->>   drivers/md/dm-bufio.c | 4 +---
->>   1 file changed, 1 insertion(+), 3 deletions(-)
->>
->> diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
->> index 2a48ea3f1b30..b6b5acc92ca2 100644
->> --- a/drivers/md/dm-bufio.c
->> +++ b/drivers/md/dm-bufio.c
->> @@ -1599,9 +1599,7 @@ dm_bufio_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
->>   	unsigned long freed;
->>   
->>   	c = container_of(shrink, struct dm_bufio_client, shrinker);
->> -	if (sc->gfp_mask & __GFP_FS)
->> -		dm_bufio_lock(c);
->> -	else if (!dm_bufio_trylock(c))
->> +	if (!dm_bufio_trylock(c))
->>   		return SHRINK_STOP;
->>   
->>   	freed  = __scan(c, sc->nr_to_scan, sc->gfp_mask);
->> -- 
->> 2.17.1
->>
-> This needs more careful review and understanding.
-ok.
->
-> I'll commit to getting that done (hopefully with Mikulas' assistance)
-> during the 5.3-rcX cycle.  But I'm not ready to stage this change yet.
+> Hi Mike,
+> 
+> A question inline.
+...
+> > diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
+> > index 3107f2b1988b..e894302619dd 100644
+> > --- a/drivers/md/dm-snap.c
+> > +++ b/drivers/md/dm-snap.c
+> > @@ -1839,10 +1922,42 @@ static int snapshot_map(struct dm_target *ti, struct bio *bio)
+> >  		goto out_unlock;
+> >  	}
+> >  
+> > +	if (unlikely(bio_op(bio) == REQ_OP_DISCARD)) {
+> > +		if (s->discard_passdown_origin && dm_bio_get_target_bio_nr(bio)) {
+> > +			/*
+> > +			 * passdown discard to origin (without triggering
+> > +			 * snapshot exceptions via do_origin; doing so would
+> > +			 * defeat the goal of freeing space in origin that is
+> > +			 * implied by the "discard_passdown_origin" feature)
+> > +			 */
+> > +			bio_set_dev(bio, s->origin->bdev);
+> > +			track_chunk(s, bio, chunk);
+> > +			goto out_unlock;
+> > +		}
+> > +		/* discard to snapshot (target_bio_nr == 0) zeroes exceptions */
+> > +	}
+> > +
+> >  	/* If the block is already remapped - use that, else remap it */
+> >  	e = dm_lookup_exception(&s->complete, chunk);
+> >  	if (e) {
+> >  		remap_exception(s, e, bio, chunk);
+> > +		if (unlikely(bio_op(bio) == REQ_OP_DISCARD) &&
+> > +		    io_overlaps_chunk(s, bio)) {
+> > +			dm_exception_table_unlock(&lock);
+> > +			up_read(&s->lock);
+> > +			zero_exception(s, e, bio, chunk);
+> > +			goto out;
+> > +		}
+> > +		goto out_unlock;
+> > +	}
+> 
+> In case an exception exists for a chunk and we get a discard for it, we
+> want to zero the corresponding exception in the exception store.
+> 
+> The code remaps the discard bio, issues the zeroing operation by calling
+> zero_exception() and returns DM_MAPIO_REMAPPED. If I am not missing
+> something, device mapper core will then submit the discard bio to the
+> COW device, so we end up both zeroing and discarding the chunk in the
+> COW device.
+> 
+> Is this deliberate?
 
-Hi Mikulas,
+No, it was an oversight.
 
-Could you help take a look at this?
+The following incremental patch fixes it and a couple other bugs I found
+while fixing the issue you reported.  I'll post v2 in reply to v1.  Your
+timely review would be appreciated.  I'd still like to send this
+upstream for the 5.3 merge tomorrow (Friday) by my end of day.  Thanks!
 
-Thanks,
-
-Junxiao.
-
->
-> Revisiting dm-bufio on loop is needed.  Commit 9d28eb12447ee ("dm bufio:
-> change __GFP_IO to __GFP_FS in shrinker callbacks") was meant to address
-> deadlocks reported whern running on loop.  And __try_evict_buffer() has
-> a check for GFP_NOFS ("!(gfp & __GFP_FS"); but that is only relevant to
-> __scan() callers and dm_bufio_shrink_scan() is looking to take the lock
-> before __scan() is called.  So it does seem like we have issues in the
-> bufio code in general.  Needs a proper audit though.
->
-> Mike
+diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
+index e894302619dd..63916e1dc569 100644
+--- a/drivers/md/dm-snap.c
++++ b/drivers/md/dm-snap.c
+@@ -1,6 +1,4 @@
+ /*
+- * dm-snapshot.c
+- *
+  * Copyright (C) 2001-2002 Sistina Software (UK) Limited.
+  *
+  * This file is released under the GPL.
+@@ -1865,9 +1863,12 @@ static void remap_exception(struct dm_snapshot *s, struct dm_exception *e,
+ 
+ static void zero_callback(int read_err, unsigned long write_err, void *context)
+ {
+-	struct dm_snapshot *s = context;
++	struct bio *bio = context;
++	struct dm_snapshot *s = bio->bi_private;
+ 
+ 	up(&s->cow_count);
++	bio->bi_status = write_err ? BLK_STS_IOERR : 0;
++	bio_endio(bio);
+ }
+ 
+ static void zero_exception(struct dm_snapshot *s, struct dm_exception *e,
+@@ -1880,7 +1881,9 @@ static void zero_exception(struct dm_snapshot *s, struct dm_exception *e,
+ 	dest.count = s->store->chunk_size;
+ 
+ 	down(&s->cow_count);
+-	dm_kcopyd_zero(s->kcopyd_client, 1, &dest, 0, zero_callback, s);
++	WARN_ON_ONCE(bio->bi_private);
++	bio->bi_private = s;
++	dm_kcopyd_zero(s->kcopyd_client, 1, &dest, 0, zero_callback, bio);
+ }
+ 
+ static bool io_overlaps_chunk(struct dm_snapshot *s, struct bio *bio)
+@@ -1946,6 +1949,7 @@ static int snapshot_map(struct dm_target *ti, struct bio *bio)
+ 			dm_exception_table_unlock(&lock);
+ 			up_read(&s->lock);
+ 			zero_exception(s, e, bio, chunk);
++			r = DM_MAPIO_SUBMITTED; /* discard is not issued */
+ 			goto out;
+ 		}
+ 		goto out_unlock;
+@@ -2292,8 +2296,8 @@ static void snapshot_status(struct dm_target *ti, status_type_t type,
+ 		 * make sense.
+ 		 */
+ 		DMEMIT("%s %s", snap->origin->name, snap->cow->name);
+-		snap->store->type->status(snap->store, type, result + sz,
+-					  maxlen - sz);
++		sz += snap->store->type->status(snap->store, type, result + sz,
++						maxlen - sz);
+ 		num_features = snap->discard_zeroes_cow + snap->discard_passdown_origin;
+ 		if (num_features) {
+ 			DMEMIT(" %u", num_features);
+@@ -2325,6 +2329,12 @@ static void snapshot_io_hints(struct dm_target *ti, struct queue_limits *limits)
+ 	struct dm_snapshot *snap = ti->private;
+ 
+ 	if (snap->discard_zeroes_cow) {
++		struct dm_snapshot *snap_src = NULL, *snap_dest = NULL;
++
++		(void) __find_snapshots_sharing_cow(snap, &snap_src, &snap_dest, NULL);
++		if (snap_src && snap_dest)
++			snap = snap_src;
++
+ 		/* All discards are split on chunk_size boundary */
+ 		limits->discard_granularity = snap->store->chunk_size;
+ 		limits->max_discard_sectors = snap->store->chunk_size;
 
 --
 dm-devel mailing list
