@@ -2,98 +2,107 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC62C6706E
-	for <lists+dm-devel@lfdr.de>; Fri, 12 Jul 2019 15:45:55 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5247D6721E
+	for <lists+dm-devel@lfdr.de>; Fri, 12 Jul 2019 17:14:40 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 2B4D8308219E;
-	Fri, 12 Jul 2019 13:45:53 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A9D35DDA2;
-	Fri, 12 Jul 2019 13:45:52 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id EFD103003A5A;
+	Fri, 12 Jul 2019 15:14:36 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F9CB600CD;
+	Fri, 12 Jul 2019 15:14:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 60287206D2;
-	Fri, 12 Jul 2019 13:45:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2315E1833002;
+	Fri, 12 Jul 2019 15:14:27 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x6CDjPK7017886 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 12 Jul 2019 09:45:25 -0400
+	id x6CFDS79004979 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 12 Jul 2019 11:13:28 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2AD5D10002B9; Fri, 12 Jul 2019 13:45:25 +0000 (UTC)
+	id 38C395B695; Fri, 12 Jul 2019 15:13:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx19.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.48])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2495B1001281
-	for <dm-devel@redhat.com>; Fri, 12 Jul 2019 13:45:22 +0000 (UTC)
-Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
-	[209.85.221.68])
+Received: from mx1.redhat.com (ext-mx04.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.28])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 32E66546E0
+	for <dm-devel@redhat.com>; Fri, 12 Jul 2019 15:13:00 +0000 (UTC)
+Received: from mail-io1-f65.google.com (mail-io1-f65.google.com
+	[209.85.166.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id DEEDB307D935
-	for <dm-devel@redhat.com>; Fri, 12 Jul 2019 13:45:21 +0000 (UTC)
-Received: by mail-wr1-f68.google.com with SMTP id n4so10077857wrs.3
-	for <dm-devel@redhat.com>; Fri, 12 Jul 2019 06:45:21 -0700 (PDT)
+	by mx1.redhat.com (Postfix) with ESMTPS id 6CEF381111
+	for <dm-devel@redhat.com>; Fri, 12 Jul 2019 15:12:58 +0000 (UTC)
+Received: by mail-io1-f65.google.com with SMTP id u19so20993552ior.9
+	for <dm-devel@redhat.com>; Fri, 12 Jul 2019 08:12:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=arrikto-com.20150623.gappssmtp.com; s=20150623;
-	h=subject:from:to:references:message-id:date:user-agent:mime-version
-	:in-reply-to:content-language:content-transfer-encoding;
-	bh=ZJXMb7ROH3Icncc+yqpVX/ECkEZ9xyjuDfL+wcc8mnA=;
-	b=MVWsYirrMyeOTHikWoePTa7GAh5BMbPauxdvdAME51+OjnSc6rejroLxXatNQwc5zn
-	EtETk/GN15R8tpG+VmPLTwJwN1fYja1GYGgtf/cbYJNGzg6TaDAzu43tEStHNZGkEaOL
-	X5LTU+KkXuPtcgitQE9Yp8hzcOQSWFNa4rO+XIgbenpvWgo84S30UeTbUQJHEjg0tycQ
-	nN86wCHPxocx+Um93Bg0xnfTtEAU0cZE7GJTvUQAq6l1W7bd49DG+Wn7ZTeBPG2sHzxf
-	GAUPqrTeOuYIP9LU9ixZUNWgrJT0ObWjbx49S7L0uYmYx627kHMLsh8Qx9AwwQsXBAN9
-	WBuA==
+	d=kernel-dk.20150623.gappssmtp.com; s=20150623;
+	h=subject:from:to:cc:references:message-id:date:user-agent
+	:mime-version:in-reply-to:content-language:content-transfer-encoding;
+	bh=TgV+P5xUNL5epV/ZpLeslnEZ8CdbgVF9nNrx/k03o8g=;
+	b=CGNvk4/dqGZ6+i1O+wfwJKZoo7ZYVaVuFsXwbqWoKa2XITkHd3rk7eN+9PMEwi0ihT
+	l0BWkPExicPNlcfnNhprd86+MADEO/JMKNcrEfFYDcy4UtSlyJGgqGti1tMF6ZQp1Pw7
+	PgB5kmZlAOgYnnICnXaE4Ce6bjaK0DqQ1LgWCGLeCGYaGSWtlukgKp30GZNQ0H4JqKou
+	Bhzr1mlWRh38YS94B8YBVD967PLS6In5oR2rO4WHBu5RroQ4ZqfcdoRTxKZGAbtzyhwH
+	JSlZc1isR6qSYuSho0mHJeLajd0JRjwkmewOWFe26AkCy+6Kjq6/vqcAg+wTP3Y8clDE
+	OwDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:from:to:references:message-id:date
+	h=x-gm-message-state:subject:from:to:cc:references:message-id:date
 	:user-agent:mime-version:in-reply-to:content-language
 	:content-transfer-encoding;
-	bh=ZJXMb7ROH3Icncc+yqpVX/ECkEZ9xyjuDfL+wcc8mnA=;
-	b=hoApUHyXlCg19L+ACxmah2M3pdGE20rF0MTaY82Mm3C39SMe6qrWAIGPL9Nm/SRRGN
-	WEn3FZHmsIGOz+bUtFBkNmODaxuyhqrfgwYPHvaTvWbVsZCVpb5zWtE3yAvRr2QVWY93
-	ZWO7yipjYaB4Ubh6716jQfso+Qz7N9VpBAWHXDnZ4vPk1WhVi3T8tb/hqzVgjuGPX6eI
-	nWJh3SIXHGSibdp3VKWsmJppG+VRrefCvpqhU86RJ45yLWifGIFUZVxdhlN3U4oQNgZY
-	IFODVIAwNN8gtwwr+ZH8s2hrJKkBuD7DjjlLG3G0EwPavBiySuASY+M8yM+a03u10k9Y
-	BmLg==
-X-Gm-Message-State: APjAAAU+tVKXDRuSLBHMJ7kuJF5V9WGepC/pW0YiLDEzDslzkqENEW84
-	yjgq3A62UTpunw11H4ZLJ1mQowGqtLw=
-X-Google-Smtp-Source: APXvYqxpgIIVXRQQFEfbcKY52pCK5qmGJ1I4kuALk8PZtx1cSci10lsvc/oTOusVLRiZxJTKymR1vA==
-X-Received: by 2002:a05:6000:1186:: with SMTP id
-	g6mr12322188wrx.17.1562939120580; 
-	Fri, 12 Jul 2019 06:45:20 -0700 (PDT)
-Received: from [10.94.250.118] ([31.177.62.212])
+	bh=TgV+P5xUNL5epV/ZpLeslnEZ8CdbgVF9nNrx/k03o8g=;
+	b=sU9q3G3aL6k1j/FE/QWVxHppBlQOXcqVGWVyfDbksmKxaom5h5nA8xHfZevg0yJhzD
+	r1HtOKv/hDj/iZsbzVlU/IXOHS7lm1rLjMZ5fmyeHxw0EOP1/dNSPfDkKXF47WcCwMPl
+	X4yvKmEOUMGk6o0oxKSB9a4h7yjUs7cEW8CUPzlfv/VV2u7wJhml+I1VOi0J4AA21MUj
+	qF1kLNxVlK5qza4C7B+AVU6n4jGnR+Fs4y/jwdTHZfkuc8RflnjDvvfp97DLQU2SRTjk
+	90Lmp3RB04tesuubD7Xy8cdyN4xnIyvjEJQz3M6cEIuVEldCdruPp9g/xuS6YxkJdLD8
+	annw==
+X-Gm-Message-State: APjAAAXgZOZ/amBiQvl7LCY5PqO1hIYfGPU/FqAarpoOz8pVqJpSVPe4
+	3xfXjI37T4r9vSF8d/ocTMk=
+X-Google-Smtp-Source: APXvYqzNOs4ktys5P/q5Zi/E8ueb3gbQD/m0JLYFVa+rUUweNFsMDDkgPqUBftGoeg2lyKpUDsUArg==
+X-Received: by 2002:a5d:8c81:: with SMTP id g1mr11632533ion.239.1562944377622; 
+	Fri, 12 Jul 2019 08:12:57 -0700 (PDT)
+Received: from [192.168.1.158] ([65.144.74.34])
 	by smtp.gmail.com with ESMTPSA id
-	z1sm10000991wrv.90.2019.07.12.06.45.19
+	l5sm15960501ioq.83.2019.07.12.08.12.56
 	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Fri, 12 Jul 2019 06:45:20 -0700 (PDT)
-From: Nikos Tsironis <ntsironis@arrikto.com>
-To: snitzer@redhat.com, agk@redhat.com, dm-devel@redhat.com
-References: <20190603134017.9323-1-ntsironis@arrikto.com>
-Message-ID: <b6cdb071-f8d3-7c09-c938-71689ceb1c95@arrikto.com>
-Date: Fri, 12 Jul 2019 16:45:19 +0300
+	Fri, 12 Jul 2019 08:12:56 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: Damien Le Moal <Damien.LeMoal@wdc.com>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	Mike Snitzer <snitzer@redhat.com>, "linux-f2fs-devel@lists.sourceforge.net"
+	<linux-f2fs-devel@lists.sourceforge.net>, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20190701050918.27511-1-damien.lemoal@wdc.com>
+	<BYAPR04MB5816BC7EC358F5785AEE1EA9E7F60@BYAPR04MB5816.namprd04.prod.outlook.com>
+	<cb26f686-ce7e-9d1a-4735-2375d65c0ea5@kernel.dk>
+Message-ID: <27386e10-7494-7fcf-f203-484db5c3c69c@kernel.dk>
+Date: Fri, 12 Jul 2019 09:12:54 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
 	Thunderbird/60.7.2
 MIME-Version: 1.0
-In-Reply-To: <20190603134017.9323-1-ntsironis@arrikto.com>
+In-Reply-To: <cb26f686-ce7e-9d1a-4735-2375d65c0ea5@kernel.dk>
 Content-Language: en-US
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.48]);
-	Fri, 12 Jul 2019 13:45:22 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]);
-	Fri, 12 Jul 2019 13:45:22 +0000 (UTC) for IP:'209.85.221.68'
-	DOMAIN:'mail-wr1-f68.google.com' HELO:'mail-wr1-f68.google.com'
-	FROM:'ntsironis@arrikto.com' RCPT:''
-X-RedHat-Spam-Score: 1.293 * (DKIM_SIGNED, DKIM_VALID, PDS_NO_HELO_DNS,
-	RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
-	SPF_PASS) 209.85.221.68 mail-wr1-f68.google.com 209.85.221.68
-	mail-wr1-f68.google.com <ntsironis@arrikto.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.48
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+	(mx1.redhat.com [10.5.110.28]);
+	Fri, 12 Jul 2019 15:12:59 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]);
+	Fri, 12 Jul 2019 15:12:59 +0000 (UTC) for IP:'209.85.166.65'
+	DOMAIN:'mail-io1-f65.google.com' HELO:'mail-io1-f65.google.com'
+	FROM:'axboe@kernel.dk' RCPT:''
+X-RedHat-Spam-Score: 1.294 * (DKIM_SIGNED, DKIM_VALID, PDS_NO_HELO_DNS,
+	RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
+	SPF_PASS) 209.85.166.65 mail-io1-f65.google.com 209.85.166.65
+	mail-io1-f65.google.com <axboe@kernel.dk>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.28
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH] dm kcopyd: Increase sub-job size to 512KiB
+Cc: Christoph Hellwig <hch@lst.de>, Bart Van Assche <bvanassche@acm.org>
+Subject: Re: [dm-devel] [PATCH V6 0/4] Fix zone revalidation memory
+	allocation failures
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -109,92 +118,32 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Fri, 12 Jul 2019 13:45:54 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]); Fri, 12 Jul 2019 15:14:38 +0000 (UTC)
 
-Hi Mike,
+On 7/11/19 8:05 PM, Jens Axboe wrote:
+> On 7/7/19 8:02 PM, Damien Le Moal wrote:
+>> On 2019/07/01 14:09, Damien Le Moal wrote:
+>>> This series addresses a recuring problem with zone revalidation
+>>> failures observed during extensive testing with memory constrained
+>>> system and device hot-plugging.
+>>
+>> Jens, Martin,
+>>
+>> Any comment regarding this series ?
+> 
+> LGTM, I'll queue it up for this release.
 
-A kind reminder about this patch. Do you require any changes or will you
-merge it as is?
+This broke !CONFIG_BLK_DEV_ZONED builds for null_blk, btw. Please be
+sure to test with zoned enabled and disabled in your builds when
+changing things that affect both.
 
-Thanks,
-Nikos
+I fixed it up:
 
-On 6/3/19 4:40 PM, Nikos Tsironis wrote:
-> Currently, kcopyd has a sub-job size of 64KiB and a maximum number of 8
-> sub-jobs. As a result, for any kcopyd job, we have a maximum of 512KiB
-> of I/O in flight.
-> 
-> This upper limit to the amount of in-flight I/O under-utilizes fast
-> devices and results in decreased throughput, e.g., when writing to a
-> snapshotted thin LV with I/O size less than the pool's block size (so
-> COW is performed using kcopyd).
-> 
-> Increase kcopyd's sub-job size to 512KiB, so we have a maximum of 4MiB
-> of I/O in flight for each kcopyd job. This results in an up to 96%
-> improvement of bandwidth when writing to a snapshotted thin LV, with I/O
-> sizes less than the pool's block size.
-> 
-> We evaluate the performance impact of the change by running the
-> snap_breaking_throughput benchmark, from the device mapper test suite
-> [1].
-> 
-> The benchmark:
-> 
->   1. Creates a 1G thin LV
->   2. Provisions the thin LV
->   3. Takes a snapshot of the thin LV
->   4. Writes to the thin LV with:
-> 
->       dd if=/dev/zero of=/dev/vg/thin_lv oflag=direct bs=<I/O size>
-> 
-> Running this benchmark with various thin pool block sizes and dd I/O
-> sizes (all combinations triggering the use of kcopyd) we get the
-> following results:
-> 
-> +-----------------+-------------+------------------+-----------------+
-> | Pool block size | dd I/O size | BW before (MB/s) | BW after (MB/s) |
-> +-----------------+-------------+------------------+-----------------+
-> |       1 MB      |      256 KB |       242        |       280       |
-> |       1 MB      |      512 KB |       238        |       295       |
-> |                 |             |                  |                 |
-> |       2 MB      |      256 KB |       238        |       354       |
-> |       2 MB      |      512 KB |       241        |       380       |
-> |       2 MB      |        1 MB |       245        |       394       |
-> |                 |             |                  |                 |
-> |       4 MB      |      256 KB |       248        |       412       |
-> |       4 MB      |      512 KB |       234        |       432       |
-> |       4 MB      |        1 MB |       251        |       474       |
-> |       4 MB      |        2 MB |       257        |       504       |
-> |                 |             |                  |                 |
-> |       8 MB      |      256 KB |       239        |       420       |
-> |       8 MB      |      512 KB |       256        |       431       |
-> |       8 MB      |        1 MB |       264        |       467       |
-> |       8 MB      |        2 MB |       264        |       502       |
-> |       8 MB      |        4 MB |       281        |       537       |
-> +-----------------+-------------+------------------+-----------------+
-> 
-> [1] https://github.com/jthornber/device-mapper-test-suite
-> 
-> Signed-off-by: Nikos Tsironis <ntsironis@arrikto.com>
-> ---
->  drivers/md/dm-kcopyd.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/md/dm-kcopyd.c b/drivers/md/dm-kcopyd.c
-> index 671c24332802..db0a7d1e33b7 100644
-> --- a/drivers/md/dm-kcopyd.c
-> +++ b/drivers/md/dm-kcopyd.c
-> @@ -28,7 +28,7 @@
->  
->  #include "dm-core.h"
->  
-> -#define SUB_JOB_SIZE	128
-> +#define SUB_JOB_SIZE	1024
->  #define SPLIT_COUNT	8
->  #define MIN_JOBS	8
->  #define RESERVE_PAGES	(DIV_ROUND_UP(SUB_JOB_SIZE << SECTOR_SHIFT, PAGE_SIZE))
-> 
+http://git.kernel.dk/cgit/linux-block/commit/?h=for-linus&id=e347946439ed70e3af0d0c330b36d5648e71727b
+
+-- 
+Jens Axboe
 
 --
 dm-devel mailing list
