@@ -2,73 +2,47 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25D2B6845F
-	for <lists+dm-devel@lfdr.de>; Mon, 15 Jul 2019 09:29:36 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FB4669A87
+	for <lists+dm-devel@lfdr.de>; Mon, 15 Jul 2019 20:08:04 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id F0B23356DA;
-	Mon, 15 Jul 2019 07:29:33 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 0AD513098558;
+	Mon, 15 Jul 2019 18:08:00 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A13B860C05;
-	Mon, 15 Jul 2019 07:29:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EE24F61786;
+	Mon, 15 Jul 2019 18:07:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9E95A41F63;
-	Mon, 15 Jul 2019 07:29:32 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F33D654D3D;
+	Mon, 15 Jul 2019 18:07:45 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x6CHXBYx000766 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 12 Jul 2019 13:33:11 -0400
+	id x6FI728w021101 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 15 Jul 2019 14:07:02 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7523760C73; Fri, 12 Jul 2019 17:33:11 +0000 (UTC)
+	id 916C85C266; Mon, 15 Jul 2019 18:07:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx18.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.47])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C588E60C64;
-	Fri, 12 Jul 2019 17:33:04 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by mx1.redhat.com (Postfix) with ESMTP id 486223082231;
-	Fri, 12 Jul 2019 17:33:03 +0000 (UTC)
-Received: by linux.microsoft.com (Postfix, from userid 1029)
-	id B8E2F20B7185; Fri, 12 Jul 2019 10:33:02 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by linux.microsoft.com (Postfix) with ESMTP id B512A300790D;
-	Fri, 12 Jul 2019 10:33:02 -0700 (PDT)
-Date: Fri, 12 Jul 2019 10:33:02 -0700 (PDT)
-From: Jaskaran Singh Khurana <jaskarankhurana@linux.microsoft.com>
-X-X-Sender: jaskarankhurana@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net
-To: gmazyland@gmail.com
-In-Reply-To: <MN2PR21MB12008A962D4DD8662B3614508AF20@MN2PR21MB1200.namprd21.prod.outlook.com>
-Message-ID: <alpine.LRH.2.21.1907121025510.66082@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.inter>
-References: <20190701181958.6493-1-jaskarankhurana@linux.microsoft.com>
-	<MN2PR21MB12008A962D4DD8662B3614508AF20@MN2PR21MB1200.namprd21.prod.outlook.com>
-User-Agent: Alpine 2.21 (LRH 202 2017-01-01)
+Received: from localhost (unknown [10.18.25.174])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 44F7F5C224;
+	Mon, 15 Jul 2019 18:06:55 +0000 (UTC)
+Date: Mon, 15 Jul 2019 14:06:54 -0400
+From: Mike Snitzer <snitzer@redhat.com>
+To: Nikos Tsironis <ntsironis@arrikto.com>
+Message-ID: <20190715180654.GA15315@redhat.com>
+References: <20190703162504.GA34397@lobo>
+	<fb809628-40e3-245a-dda4-034eee9a931b@arrikto.com>
+	<20190711203611.GA51041@lobo> <20190711204633.GA51116@lobo>
+	<321dff9f-a55c-e6ac-4a18-2e9eda0d05fe@arrikto.com>
 MIME-Version: 1.0
-X-Greylist: Sender passed SPF test, ACL 264 matched, not delayed by
-	milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]);
-	Fri, 12 Jul 2019 17:33:03 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]);
-	Fri, 12 Jul 2019 17:33:03 +0000 (UTC) for IP:'13.77.154.182'
-	DOMAIN:'linux.microsoft.com' HELO:'linux.microsoft.com'
-	FROM:'jaskarankhurana@linux.microsoft.com' RCPT:''
-X-RedHat-Spam-Score: -6.708  (ENV_AND_HDR_SPF_MATCH, PDS_NO_HELO_DNS,
-	SPF_HELO_PASS, SPF_PASS,
-	USER_IN_DEF_SPF_WL) 13.77.154.182 linux.microsoft.com 13.77.154.182
-	linux.microsoft.com <jaskarankhurana@linux.microsoft.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.47
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Content-Disposition: inline
+In-Reply-To: <321dff9f-a55c-e6ac-4a18-2e9eda0d05fe@arrikto.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Mon, 15 Jul 2019 03:28:28 -0400
-Cc: Scott Shell <SCOTTSH@microsoft.com>, dm-devel@redhat.com,
-	snitzer@redhat.com, ebiggers@google.com,
-	Nazmus Sakib <mdsakib@microsoft.com>,
-	linux-kernel@vger.kernel.org, jmorris@namei.org,
-	linux-security-module@vger.kernel.org, mpatocka@redhat.com,
-	linux-fsdevel@vger.kernel.org, linux-integrity@vger.kernel.org,
-	agk@redhat.com
-Subject: Re: [dm-devel] [RFC PATCH v6 0/1] Add dm verity root hash pkcs7 sig
- validation.
+Cc: dm-devel@redhat.com, John Dorminy <jdorminy@redhat.com>
+Subject: Re: [dm-devel] [PATCH v2] dm snapshot: add optional discard support
+	features
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,35 +54,150 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.30]); Mon, 15 Jul 2019 07:29:34 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]); Mon, 15 Jul 2019 18:08:02 +0000 (UTC)
 
+On Fri, Jul 12 2019 at  9:40am -0400,
+Nikos Tsironis <ntsironis@arrikto.com> wrote:
 
-Hello Milan,
+> Hi Mike,
+> 
+> I have reviewed the patch. A few comments below.
 
-> Changes in v6:
->
-> Address comments from Milan Broz and Eric Biggers on v5.
->
-> -Keep the verification code under config DM_VERITY_VERIFY_ROOTHASH_SIG.
->
-> -Change the command line parameter to requires_signatures(bool) which will
-> force root hash to be signed and trusted if specified.
->
-> -Fix the signature not being present in verity_status. Merged the
-> https://nam06.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgit.kernel.org%2Fpub%2Fscm%2Flinux%2Fkernel%2Fgit%2Fmbroz%2Flinux.git%2Fcommit%2F%3Fh%3Ddm-cryptsetup%26id%3Da26c10806f5257e255b6a436713127e762935ad3&amp;data=02%7C01%7CJaskaran.Khurana%40microsoft.com%7C18f92445e46940aeebb008d6fe50c610%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636976020210890638&amp;sdata=aY0V9%2FBz2RHryIvoftGKUGnyPp9Fsc1JY4FZbHfW4hg%3D&amp;reserved=0
-> made by Milan Broz and tested it.
->
->
+Thanks, my email filtering caused this mail to miss my INBOX (still yet
+to reason through why).  So I'm just seeing this now.
 
-Could you please provide feedback on this v6 version.
+> On 7/11/19 11:46 PM, Mike Snitzer wrote:
+> > @@ -1839,10 +1925,43 @@ static int snapshot_map(struct dm_target *ti, struct bio *bio)
+> >  		goto out_unlock;
+> >  	}
+> >  
+> > +	if (unlikely(bio_op(bio) == REQ_OP_DISCARD)) {
+> > +		if (s->discard_passdown_origin && dm_bio_get_target_bio_nr(bio)) {
+> > +			/*
+> > +			 * passdown discard to origin (without triggering
+> > +			 * snapshot exceptions via do_origin; doing so would
+> > +			 * defeat the goal of freeing space in origin that is
+> > +			 * implied by the "discard_passdown_origin" feature)
+> > +			 */
+> > +			bio_set_dev(bio, s->origin->bdev);
+> > +			track_chunk(s, bio, chunk);
+> Why track_chunk() is needed here?
+> 
+> We track snapshot reads redirected to the origin to ensure that the
+> origin will not be written while the reads are in-flight, thus returning
+> corrupted data. Also, we track writes to a merging snapshot, which are
+> redirected to the COW device, to ensure we don't merge these COW chunks
+> before the writes finish.
+> 
+> I am probably missing something, but I can't understand why we need to
+> track the discard to the origin.
 
-Regards,
-Jaskaran
+I followed how reads are remapped to origin when remapping the discard
+destined for origin because a competing write to origin could trigger
+copyout that undermines the intent behind passing down the discard to
+the origin.  That said, even if the write is withheld until the discard
+completes that write triggered copyout could still undermine that intent.
+
+But for this usecase, the origin wouldn't even be mounted (and is
+incapable of being written due to it being full).  So I quickly stopped
+caring and was only interested in ensuring do crash would occur in the
+face of this hypotehtical concurrent access.
+
+> > @@ -2198,6 +2324,22 @@ static int snapshot_iterate_devices(struct dm_target *ti,
+> >  	return r;
+> >  }
+> >  > +static void snapshot_io_hints(struct dm_target *ti, struct queue_limits *limits)
+> > +{
+> > +	struct dm_snapshot *snap = ti->private;
+> > +
+> > +	if (snap->discard_zeroes_cow) {
+> > +		struct dm_snapshot *snap_src = NULL, *snap_dest = NULL;
+> > +
+> 
+> I think the following:
+> 
+> > +		(void) __find_snapshots_sharing_cow(snap, &snap_src, &snap_dest, NULL);
+> > +		if (snap_src && snap_dest)
+> > +			snap = snap_src;
+> > +
+> > +		/* All discards are split on chunk_size boundary */
+> > +		limits->discard_granularity = snap->store->chunk_size;
+> > +		limits->max_discard_sectors = snap->store->chunk_size;
+> 
+> should be:
+> 
+> 	down_read(&_origins_lock);
+> 
+> 	(void) __find_snapshots_sharing_cow(snap, &snap_src, &snap_dest, NULL);
+> 	if (snap_src && snap_dest)
+> 		snap = snap_src;
+> 
+> 	/* All discards are split on chunk_size boundary */
+> 	limits->discard_granularity = snap->store->chunk_size;
+> 	limits->max_discard_sectors = snap->store->chunk_size;
+> 
+> 	up_read(&_origins_lock);
+> 
+> Taking _origins_lock protects us against:
+> 
+> 	* Concurrent modification of the _origins hash table by
+> 	  register/unregister_snapshot().
+> 	* snapshot_dtr() unregistering snap_src and freeing the relevant
+> 	  resources, e.g., snap_src->store.
+
+I agree, will stage incremental fix.
+
+> One final note. The discard features can also be used by the
+> snapshot-merge target. But, snapshot_merge_map() is not doing anything
+> special about discards. They are treated like normal writes.
+
+Another oversight, but the usecase of async discards coming in after the
+merge has started (while very much possible) is not the intended
+workflow.
+ 
+> For chunks that reside in the origin this means that the discard will be
+> passed down to it using do_origin(). Although this could trigger
+> exceptions to other snapshots, I think that for the use case these features
+> are trying to solve there is going to be only one active snapshot. Otherwise,
+> if we have multiple snapshots, discard_passdown_origin would mean that
+> discarding one snapshot could affect/corrupt the rest of the snapshots.
+
+Yes, there should probably be a negative check to ensure there is only 1
+active snapshot.  The quirky nature of dm-snap.c's snapshot exception
+store handover is what teased out the need for me to even care about
+multiple "snapshot" or "snapshot-merge" devices sharing the same cow in
+the context of snapshot_io_hints() -- I triggered the need to account
+for this in followup testing that did:
+
+(snapshot active with table: "0 2097152 snapshot 253:0 253:2 P 8")
+echo "0 2097152 snapshot 253:0 253:2 P 8 2 discard_zeroes_cow discard_passdown_origin" | dmsetup load test-snap
+dmsetup suspend test-snap
+dmsetup resume test-snap
+
+This reload triggers handover.  That handover caused chunk_size to be 0
+thanks to snapshiot_ctr()'s: s->store->chunk_size = 0; which caused
+snapshot_io_hints() to incorrectly set the 2 discard limits to 0.
+
+> For the not-yet-merged, remapped chunks the discard will be redirected to
+> the COW device, so discard_zeroes_cow is not really zeroing COW in this
+> case, it is discarding it.
+> 
+> Also, if both discard_zeroes_cow and discard_passdown_origin are enabled,
+> the relevant chunk, either in origin or in COW, will be discarded twice.
+
+snapshot_merge_map() does need to account for discards, not doing so was
+an oversight due to the narrow usecase I was catering to (again, only 1
+snapshot and all IO meant to free space having been completed before
+merge is started).  I'll fix this up as well.
+
+Thanks again for your careful review Nikos, much appreciated!
+
+Mike
 
 --
 dm-devel mailing list
