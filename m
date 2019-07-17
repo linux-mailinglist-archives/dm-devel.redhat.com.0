@@ -2,110 +2,48 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id A380D6BCC2
-	for <lists+dm-devel@lfdr.de>; Wed, 17 Jul 2019 15:08:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39A536BE77
+	for <lists+dm-devel@lfdr.de>; Wed, 17 Jul 2019 16:43:20 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 5A2673083362;
-	Wed, 17 Jul 2019 13:08:48 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2FE346092D;
-	Wed, 17 Jul 2019 13:08:44 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 818D581DE3;
+	Wed, 17 Jul 2019 14:43:15 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A762E60A35;
+	Wed, 17 Jul 2019 14:43:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 91F911800202;
-	Wed, 17 Jul 2019 13:08:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ECC284EBC8;
+	Wed, 17 Jul 2019 14:43:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x6HD8MSh015948 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 17 Jul 2019 09:08:22 -0400
+	id x6HEfu5X003112 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 17 Jul 2019 10:41:56 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 49AAF60C67; Wed, 17 Jul 2019 13:08:22 +0000 (UTC)
+	id C108F19C70; Wed, 17 Jul 2019 14:41:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx13.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.42])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B560360BE2;
-	Wed, 17 Jul 2019 13:08:17 +0000 (UTC)
-Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
-	[209.85.128.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id D702A3082134;
-	Wed, 17 Jul 2019 13:08:16 +0000 (UTC)
-Received: by mail-wm1-f67.google.com with SMTP id l2so22117935wmg.0;
-	Wed, 17 Jul 2019 06:08:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=subject:to:cc:references:from:openpgp:message-id:date:user-agent
-	:mime-version:in-reply-to:content-language:content-transfer-encoding;
-	bh=h2yLsvzismF8aSznQ40gS7iVeJd2FnjlYb1X34YBrA8=;
-	b=hTIrJmKdb4eBexEx/Rfsp2Pg7LnciIrsWX1mLz99xre2zIlgoiZaRCMFERkDAw8DDI
-	5SSzeqshErtNi7bSc3tgUmHN3HPsgCWWlvGsy5P/jXXVo0NoNhymFSNuVUOA4bwJMwQq
-	MtK+PW3Kf6jxpRM6/m4vtBsrRPTyXrgx/CfumOVFW75rvSeMeoGDLotXbLZ4dZj9XvW8
-	zdFqWe7FC1i2CMy81xtbA8AfUzcU8z4KSd/Vr3Dpsm935/ni2Spayq5xnOomWsic77dq
-	G/PfZx5IhgH+2aj5ZUt9rXZNbq+d9eLIiBIHkaNMX3oLc2RTPfkQ84cO11KPR8XNTi+r
-	Hnlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:openpgp:message-id
-	:date:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=h2yLsvzismF8aSznQ40gS7iVeJd2FnjlYb1X34YBrA8=;
-	b=QUNOvkCarGlP9fvjZk+RE2glF2FLMUHAOBIJLwk0Ll2yVY46BvQnQRCu1WG76JSNgE
-	ukbE047zxxQgFc3bm+5sANGyVhbg//3bSs11LkBSa2mPRn/GUvbYoANpFzx5OnhlTar3
-	Oap5D2eJPSBjx8nXqmsSKQ8RPOZzr9R+EWdC8IHSVuUL6tnG5HQqH4UTUBEyfqeEzqxH
-	4IwgNclrXvPYvAGT2V7baafZSEDK/dvwJZd6Vzozo8PHieGe7hdF8324Mwg4qczhDWf7
-	kY/4B+yWf03LtkyI5+IYRQuYt1z4tQCymSvwxhXTqMGcIdEq9kE4m7c2OJAO76EfKTbY
-	Sa+A==
-X-Gm-Message-State: APjAAAUFqFtXrr6DW9LM4+tMyW/owmGkyrASdkKfcH8YfVhctwoxb4cP
-	XIRoo6/rtUsyO3Ryje5qYnQSqlvYzWM=
-X-Google-Smtp-Source: APXvYqwizHNDm7V2q4Zl8PfRLV8uyVMUdooEDkuQU8R8qdODhQ4UauaxynjAA3/s6qsYZwd+jj1eJQ==
-X-Received: by 2002:a1c:9a53:: with SMTP id c80mr34774771wme.173.1563368895160;
-	Wed, 17 Jul 2019 06:08:15 -0700 (PDT)
-Received: from [10.43.17.52] (nat-pool-brq-t.redhat.com. [213.175.37.10])
-	by smtp.gmail.com with ESMTPSA id
-	n12sm24739515wmc.24.2019.07.17.06.08.13
-	(version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
-	Wed, 17 Jul 2019 06:08:14 -0700 (PDT)
-To: Jaskaran Singh Khurana <jaskarankhurana@linux.microsoft.com>
-References: <20190701181958.6493-1-jaskarankhurana@linux.microsoft.com>
-	<MN2PR21MB12008A962D4DD8662B3614508AF20@MN2PR21MB1200.namprd21.prod.outlook.com>
-	<alpine.LRH.2.21.1907121025510.66082@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.inter>
-	<395efa90-65d8-d832-3e2b-2b8ee3794688@gmail.com>
-	<alpine.LRH.2.21.1907161035490.121213@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.inter>
-From: Milan Broz <gmazyland@gmail.com>
-Openpgp: preference=signencrypt
-Message-ID: <bdcd7d7c-92fc-11af-7924-9bd0e184b427@gmail.com>
-Date: Wed, 17 Jul 2019 15:08:13 +0200
+Received: from o.ww.redhat.com (ovpn-117-178.ams2.redhat.com [10.36.117.178])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8855319C4F;
+	Wed, 17 Jul 2019 14:41:50 +0000 (UTC)
+To: Nikos Tsironis <ntsironis@arrikto.com>, snitzer@redhat.com, agk@redhat.com,
+	dm-devel@redhat.com
+References: <20190709141522.29606-1-ntsironis@arrikto.com>
+	<20190709141522.29606-2-ntsironis@arrikto.com>
+	<a6d47841-fcbc-50b2-724c-082be9e764d1@redhat.com>
+	<e2b23d5c-0ef2-400b-9697-3fb7899ce3e2@arrikto.com>
+From: Heinz Mauelshagen <heinzm@redhat.com>
+Message-ID: <92afa0f6-90ac-7a3f-8d8a-78fa446fec73@redhat.com>
+Date: Wed, 17 Jul 2019 16:41:49 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.8.0
+	Thunderbird/60.7.2
 MIME-Version: 1.0
-In-Reply-To: <alpine.LRH.2.21.1907161035490.121213@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.inter>
-Content-Language: en-US
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.42]);
-	Wed, 17 Jul 2019 13:08:17 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]);
-	Wed, 17 Jul 2019 13:08:17 +0000 (UTC) for IP:'209.85.128.67'
-	DOMAIN:'mail-wm1-f67.google.com' HELO:'mail-wm1-f67.google.com'
-	FROM:'gmazyland@gmail.com' RCPT:''
-X-RedHat-Spam-Score: -0.1  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2,
-	SPF_HELO_NONE,
-	SPF_PASS) 209.85.128.67 mail-wm1-f67.google.com 209.85.128.67
-	mail-wm1-f67.google.com <gmazyland@gmail.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.42
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+In-Reply-To: <e2b23d5c-0ef2-400b-9697-3fb7899ce3e2@arrikto.com>
+Content-Language: en-MW
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: Scott Shell <SCOTTSH@microsoft.com>, dm-devel@redhat.com,
-	snitzer@redhat.com, ebiggers@google.com,
-	Nazmus Sakib <mdsakib@microsoft.com>,
-	linux-kernel@vger.kernel.org, jmorris@namei.org,
-	linux-security-module@vger.kernel.org, mpatocka@redhat.com,
-	linux-fsdevel@vger.kernel.org, linux-integrity@vger.kernel.org,
-	agk@redhat.com
-Subject: Re: [dm-devel] [RFC PATCH v6 0/1] Add dm verity root hash pkcs7 sig
-	validation.
+Cc: vkoukis@arrikto.com, iliastsi@arrikto.com
+Subject: Re: [dm-devel] [RFC PATCH 1/1] dm: add clone target
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -117,43 +55,139 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]); Wed, 17 Jul 2019 13:08:50 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]); Wed, 17 Jul 2019 14:43:18 +0000 (UTC)
 
-Hi,
+Hi Nikos,
 
-On 16/07/2019 20:08, Jaskaran Singh Khurana wrote:
->>> Could you please provide feedback on this v6 version.
+thanks for elaborating on those details.
+
+Hash table collisions, exception store entry commit overhead,
+SSD cache flush issues etc. are all valid points relative to performance
+and work set footprints in general.
+
+Do you have any performance numbers for your solution vs.
+a snapshot one showing the approach is actually superior in
+in real configurations?
+
+I'm asking this particularly in the context of your remark
+
+"A write to a not yet hydrated region will be delayed until the 
+corresponding
+region has been hydrated and the hydration of the region starts 
+immediately."
+
+which'll cause a potentially large working set of delayed writes unless 
+those
+cover the whole eventually larger than 4K region.
+How does your 'clone' target perform on such heavy write situations?
+
+In general, performance and storage footprint test results based on the 
+same set
+of read/write tests including heavy loads with region size variations 
+run on 'clone'
+and 'snapshot' would help your point.
+
+Heinz
+
+On 7/10/19 8:45 PM, Nikos Tsironis wrote:
+> On 7/10/19 12:28 AM, Heinz Mauelshagen wrote:
+>> Hi Nikos,
 >>
->> Hi,
+>> what is the crucial factor your target offers vs. resynchronizing such a
+>> latency distinct
+>> 2-legged mirror with a read-write snapshot (local, fast exception store)
+>> on top, tearing the
+>> mirror down keeping the local leg once fully in sync and merging the
+>> snapshot back into it?
 >>
->> I am ok with the v6 patch; I think Mike will return to it in 5.4 reviews.
+>> Heinz
 >>
-> 
-> Thanks for the help and also for reviewing this patch. Could you please 
-> add Reviewed-by/Tested-by tag to the patch.
-
-ok, you can add
-Tested-and-Reviewed-by: Milan Broz <gmazyland@gmail.com>
-
-or just use the version on my git, I already updated few lines because
-of recent kernel changes, mainly the revert of keyring changes, tested patch is here
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/mbroz/linux.git/commit/?h=dm-cryptsetup&id=266f7c9c74b23e4cb2e67ceb813dd707061c1641
-...
-
-> The steps and workflow is correct. I will send the cryptsetup changes for 
-> review.
-
-ok, I'll probably try to use our existing userspace libcryptsetup API to avoid introducing new calls,
-but that is not important for now - the kernel bits must be in the mainline kernel first.
-
-Thanks,
-Milan
+> Hi Heinz,
+>
+> The most significant benefits of dm-clone over the solution you propose
+> is significantly better performance, no need for extra COW space, no
+> need to merge back a snapshot, and the ability to skip syncing the
+> unused space of a file system.
+>
+> 1. In order to ensure snapshot consistency, dm-snapshot needs to
+>     commit a completed exception, before signaling the completion of the
+>     write that triggered it to upper layers.
+>
+>     The persistent exception store commits exceptions every time a
+>     metadata area is filled or when there are no more exceptions
+>     in-flight. For a 4K chunk size we have 256 exceptions per metadata
+>     area, so the best case scenario is one commit per 256 writes. Here I
+>     assume a write with size equal to the chunk size of dm-snapshot,
+>     e.g., 4K, so there is no COW overhead, and that we write to new
+>     chunks, so we need to allocate new exceptions.
+>
+>     Part of committing the metadata is flushing the cache of the
+>     underlying device, if there is one. We have seen SSDs which can
+>     sustain hundreds of thousands of random write IOPS, but they take up
+>     to 8ms to flush their cache. In such a case, flushing the SSD cache
+>     every few writes significantly degrades performance.
+>
+>     Moreover, dm-snapshot forces exceptions to complete in the order they
+>     were allocated, to avoid snapshot space leak on crash (commit
+>     230c83afdd9cd). This inserts further latency in exception completions
+>     and thus user write completions.
+>
+>     On the other hand, when cloning a device we don't need to be so
+>     strict and can rely on committing the metadata every time a FLUSH or
+>     FUA bio is written, or periodically, like dm-thin and dm-cache do.
+>
+>     dm-clone does exactly that. When a region/chunk is cloned or
+>     over-written by a write, we just set a bit in the relevant in-core
+>     bitmap. The metadata are committed once every second or when we
+>     receive a FLUSH or FUA bio.
+>
+>     This improves performance significantly and results in increased IOPS
+>     and reduced latency, especially in cases where flushing the disk
+>     cache is very expensive.
+>
+> 2. For large devices, e.g. multi terabyte disks, resynchronizing the
+>     local leg can take a lot of time. If the application running over the
+>     local device is write-heavy, dm-snapshot will end up allocating a
+>     large number of exceptions. This increases the number of hash table
+>     collisions and thus increases the time we need to do a hash table
+>     lookup.
+>
+>     dm-snapshot needs to look up the exception hash tables in order to
+>     service an I/O, so this increases latency and degrades performance.
+>
+>     On the other hand, dm-clone is just testing a bit to see if a region
+>     is cloned or not and decides what to do based on that test.
+>
+> 3. With dm-clone there is no need to reserve extra COW space for
+>     temporarily storing the written data, while the clone device is
+>     syncing. Nor would one need to worry about monitoring and expanding
+>     the COW device to prevent it from filling up.
+>
+> 4. With dm-clone there is no need to merge back potentially several
+>     gigabytes once cloning/syncing completes. We also avoid the relevant
+>     performance degradation incurred by the merging process. Writes just
+>     go directly to the clone device.
+>
+> 5. dm-clone implements support for discards, so it can skip
+>     cloning/syncing the relevant regions. In the case of a large block
+>     device which contains a filesystem with empty space, e.g. a 2TB
+>     device containing 500GB of useful data in a filesystem, this can
+>     significantly reduce the time needed to sync/clone.
+>
+> This was a rather long email, but I hope it makes the significant
+> benefits of dm-clone over using dm-snapshot, and our rationale behind
+> the decision to implement a new target clearer.
+>
+> I would be more than happy to continue the conversation and focus on any
+> other questions you may have.
+>
+> Thanks,
+> Nikos
 
 --
 dm-devel mailing list
