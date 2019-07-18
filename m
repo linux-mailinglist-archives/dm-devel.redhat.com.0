@@ -2,48 +2,56 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57A896C971
-	for <lists+dm-devel@lfdr.de>; Thu, 18 Jul 2019 08:52:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6633F6C977
+	for <lists+dm-devel@lfdr.de>; Thu, 18 Jul 2019 08:52:43 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 69E8A30C34CB;
-	Thu, 18 Jul 2019 06:52:20 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3E63B5C553;
-	Thu, 18 Jul 2019 06:52:20 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 4F746309264F;
+	Thu, 18 Jul 2019 06:52:41 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 275F85C266;
+	Thu, 18 Jul 2019 06:52:41 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CBD451800205;
-	Thu, 18 Jul 2019 06:52:19 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AC6EC41F63;
+	Thu, 18 Jul 2019 06:52:40 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x6I3PZB7029640 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 17 Jul 2019 23:25:35 -0400
+	id x6I6qaqm029125 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 18 Jul 2019 02:52:37 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C34B05C232; Thu, 18 Jul 2019 03:25:35 +0000 (UTC)
+	id DC53460A35; Thu, 18 Jul 2019 06:52:36 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (ovpn-8-20.pek2.redhat.com [10.72.8.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 523635C28D;
-	Thu, 18 Jul 2019 03:25:25 +0000 (UTC)
-From: Ming Lei <ming.lei@redhat.com>
-To: Jens Axboe <axboe@kernel.dk>
-Date: Thu, 18 Jul 2019 11:25:17 +0800
-Message-Id: <20190718032519.28306-1-ming.lei@redhat.com>
+Received: from deadmen.hmeau.com (ovpn-12-19.pek2.redhat.com [10.72.12.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 907C3608A6
+	for <dm-devel@redhat.com>; Thu, 18 Jul 2019 06:52:34 +0000 (UTC)
+Received: from gondobar.mordor.me.apana.org.au ([192.168.128.4] helo=gondobar)
+	by deadmen.hmeau.com with esmtps (Exim 4.89 #2 (Debian))
+	id 1ho0HD-00089G-Tk; Thu, 18 Jul 2019 14:52:27 +0800
+Received: from herbert by gondobar with local (Exim 4.89)
+	(envelope-from <herbert@gondor.apana.org.au>)
+	id 1ho0H9-0005lW-GX; Thu, 18 Jul 2019 14:52:23 +0800
+Date: Thu, 18 Jul 2019 14:52:23 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Ard Biesheuvel <ard.biesheuvel@linaro.org>
+Message-ID: <20190718065223.4xaefcwjoxvujntw@gondor.apana.org.au>
+References: <VI1PR0402MB34858E4EF0ACA7CDB446FF5798CE0@VI1PR0402MB3485.eurprd04.prod.outlook.com>
+	<20190716221639.GA44406@gmail.com>
+	<VI1PR0402MB34857BBB18C2BB8CBA2DEC7198C90@VI1PR0402MB3485.eurprd04.prod.outlook.com>
+	<20190717172823.GA205944@gmail.com>
+	<CAKv+Gu__offPaWvyURJr8v56ig58q-Deo16QhP26EJ32uf5m3w@mail.gmail.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Content-Disposition: inline
+In-Reply-To: <CAKv+Gu__offPaWvyURJr8v56ig58q-Deo16QhP26EJ32uf5m3w@mail.gmail.com>
+User-Agent: NeoMutt/20170113 (1.7.2)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Thu, 18 Jul 2019 02:51:59 -0400
-Cc: Hannes Reinecke <hare@suse.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	linux-scsi@vger.kernel.org, "James E . J . Bottomley" <jejb@linux.ibm.com>,
-	"Ewan D . Milne" <emilne@redhat.com>,
-	Ming Lei <ming.lei@redhat.com>, linux-block@vger.kernel.org,
-	dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>,
-	stable@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
-	Bart Van Assche <bvanassche@acm.org>
-Subject: [dm-devel] [PATCH 0/2] block/scsi/dm-rq: fix leak of request
-	private data in dm-mpath
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
+	Horia Geanta <horia.geanta@nxp.com>
+Subject: Re: [dm-devel] xts fuzz testing and lack of ciphertext stealing
+	support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -60,42 +68,27 @@ Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]); Thu, 18 Jul 2019 06:52:20 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]); Thu, 18 Jul 2019 06:52:41 +0000 (UTC)
 
-Hi,
+On Wed, Jul 17, 2019 at 08:08:27PM +0200, Ard Biesheuvel wrote:
+>
+> Since the kernel does not support CTS for XTS any way, and since no
+> AF_ALG users can portably rely on this, I agree with Eric that the
+> only sensible way to address this is to disable this functionality in
+> the driver.
 
-When one request is dispatched to LLD via dm-rq, if the result is
-BLK_STS_*RESOURCE, dm-rq will free the request. However, LLD may allocate
-private stuff for this request, so this way will cause memory leak.
+But the whole point of XTS is that it supports sizes that are
+not multiples of the block size.  So implementing it without
+supporting ciphertext stealing is just wrong.
 
-Add .cleanup_rq() callback and implement it in SCSI for fixing the issue.
-And SCSI is the only driver which allocates private stuff in .queue_rq()
-path.
+So let's fix the generic implementation rather than breaking
+the caam driver.
 
-Another use case of this callback is to free the request and re-submit
-bios during cpu hotplug when the hctx is dead, see the following link:
-
-https://lore.kernel.org/linux-block/f122e8f2-5ede-2d83-9ca0-bc713ce66d01@huawei.com/T/#t
-
-Ming Lei (2):
-  blk-mq: add callback of .cleanup_rq
-  scsi: implement .cleanup_rq callback
-
- drivers/md/dm-rq.c      |  1 +
- drivers/scsi/scsi_lib.c | 15 +++++++++++++++
- include/linux/blk-mq.h  | 13 +++++++++++++
- 3 files changed, 29 insertions(+)
-
-Cc: Ewan D. Milne <emilne@redhat.com>
-Cc: Bart Van Assche <bvanassche@acm.org>
-Cc: Hannes Reinecke <hare@suse.com>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Mike Snitzer <snitzer@redhat.com>
-Cc: dm-devel@redhat.com
-Cc: <stable@vger.kernel.org>
-Fixes: 396eaf21ee17 ("blk-mq: improve DM's blk-mq IO merging via blk_insert_cloned_request feedback")
+Thanks,
 -- 
-2.20.1
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
 
 --
 dm-devel mailing list
