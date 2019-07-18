@@ -2,87 +2,48 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA9356C3FF
-	for <lists+dm-devel@lfdr.de>; Thu, 18 Jul 2019 03:05:32 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B63C6C790
+	for <lists+dm-devel@lfdr.de>; Thu, 18 Jul 2019 05:26:09 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 57C623082B4B;
-	Thu, 18 Jul 2019 01:05:28 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7214B19C78;
-	Thu, 18 Jul 2019 01:05:25 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 38B423086213;
+	Thu, 18 Jul 2019 03:26:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CA62860A35;
+	Thu, 18 Jul 2019 03:26:04 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8251041F53;
-	Thu, 18 Jul 2019 01:05:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 27B371800202;
+	Thu, 18 Jul 2019 03:25:57 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x6I14sOS003567 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 17 Jul 2019 21:04:54 -0400
+	id x6I3PllT029651 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 17 Jul 2019 23:25:47 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 901545C554; Thu, 18 Jul 2019 01:04:54 +0000 (UTC)
+	id 804B319C68; Thu, 18 Jul 2019 03:25:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx10.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.39])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 125F05C220;
-	Thu, 18 Jul 2019 01:04:50 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id A54125945B;
-	Thu, 18 Jul 2019 01:04:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
-	Subject:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=yL1QRBLgiuTEBo6M7mFjYzXgwvS+vJNgmxYl0NAvUEs=;
-	b=mHmwAYFl8MnzVDFln77SJazjT
-	oG5816qIGlCpjSZhs/9XnQCOfSYlwVtXYOW5HMdXYm9LbZGcySnZMcwgB8bWSqJhJCXVwCtDUZsZb
-	iNl4jnQcWmBPS+dsT066VquHLTdR5nKRHs9iME5jtjDoWpnlMazXXDnEEQkEi/RHfLnPY+1HGDvY2
-	g1UNFh1LjyLbhELEYprPFOlU3PsIU+LLzZ9aBaavDDE3oQdrkmDXC/6QIDexd6G0U3ybh7xi3vDvF
-	RLXXYYXPnZKT9p1q9XVbL4vVv5yyBIBZBBrBDya9VpZqy4ZDKz0D7qTmyDdbJzpZ3IxfMdv7wCKBI
-	AG37BwH1w==;
-Received: from static-50-53-52-16.bvtn.or.frontiernet.net ([50.53.52.16]
-	helo=[192.168.1.17])
-	by bombadil.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
-	id 1hnuql-0002QV-HP; Thu, 18 Jul 2019 01:04:47 +0000
-To: Jaskaran Khurana <jaskarankhurana@linux.microsoft.com>, gmazyland@gmail.com
-References: <20190718004615.16818-1-jaskarankhurana@linux.microsoft.com>
-	<20190718004615.16818-2-jaskarankhurana@linux.microsoft.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <d057b88f-0a21-0843-1212-af46f67343a2@infradead.org>
-Date: Wed, 17 Jul 2019 18:04:46 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.7.2
+Received: from localhost (ovpn-8-20.pek2.redhat.com [10.72.8.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4C74019C65;
+	Thu, 18 Jul 2019 03:25:38 +0000 (UTC)
+From: Ming Lei <ming.lei@redhat.com>
+To: Jens Axboe <axboe@kernel.dk>
+Date: Thu, 18 Jul 2019 11:25:18 +0800
+Message-Id: <20190718032519.28306-2-ming.lei@redhat.com>
+In-Reply-To: <20190718032519.28306-1-ming.lei@redhat.com>
+References: <20190718032519.28306-1-ming.lei@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20190718004615.16818-2-jaskarankhurana@linux.microsoft.com>
-Content-Language: en-US
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.39]); Thu, 18 Jul 2019 01:04:49 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]);
-	Thu, 18 Jul 2019 01:04:49 +0000 (UTC) for IP:'198.137.202.133'
-	DOMAIN:'bombadil.infradead.org' HELO:'bombadil.infradead.org'
-	FROM:'rdunlap@infradead.org' RCPT:''
-X-RedHat-Spam-Score: -2.398  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_MED, SPF_HELO_NONE,
-	SPF_NONE) 198.137.202.133 bombadil.infradead.org 198.137.202.133
-	bombadil.infradead.org <rdunlap@infradead.org>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.39
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: scottsh@microsoft.com, dm-devel@redhat.com, snitzer@redhat.com,
-	mdsakib@microsoft.com, ebiggers@google.com,
-	linux-kernel@vger.kernel.org, jmorris@namei.org,
-	linux-security-module@vger.kernel.org, mpatocka@redhat.com,
-	linux-fsdevel@vger.kernel.org, linux-integrity@vger.kernel.org,
-	agk@redhat.com
-Subject: Re: [dm-devel] [RFC PATCH v7 1/1] Add dm verity root hash pkcs7 sig
-	validation.
+Cc: Hannes Reinecke <hare@suse.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	linux-scsi@vger.kernel.org, "James E . J . Bottomley" <jejb@linux.ibm.com>,
+	"Ewan D . Milne" <emilne@redhat.com>,
+	Ming Lei <ming.lei@redhat.com>, linux-block@vger.kernel.org,
+	dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>,
+	stable@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+	Bart Van Assche <bvanassche@acm.org>
+Subject: [dm-devel] [PATCH 1/2] blk-mq: add callback of .cleanup_rq
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -98,47 +59,83 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]); Thu, 18 Jul 2019 01:05:31 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]); Thu, 18 Jul 2019 03:26:07 +0000 (UTC)
 
-Hi,
-Just a couple of minor nits:
+dm-rq needs to free request which has been dispatched and not completed
+by underlying queue. However, the underlying queue may have allocated
+private stuff for this request in .queue_rq(), so dm-rq will leak the
+request private part.
 
-On 7/17/19 5:46 PM, Jaskaran Khurana wrote:
-> diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-> index 3834332f4963..c2b04d226c90 100644
-> --- a/drivers/md/Kconfig
-> +++ b/drivers/md/Kconfig
-> @@ -490,6 +490,18 @@ config DM_VERITY
->  
->  	  If unsure, say N.
->  
-> +config DM_VERITY_VERIFY_ROOTHASH_SIG
-> +	def_bool n
+Add one new callback of .cleanup_rq() to fix the memory leak issue.
 
-It already defaults to n, so we usually try to omit that (don't repeat it).
+Another use case is to free request when the hctx is dead during
+cpu hotplug context.
 
-> +	bool "Verity data device root hash signature verification support"
-> +	depends on DM_VERITY
-> +	select SYSTEM_DATA_VERIFICATION
-> +	  help
+Cc: Ewan D. Milne <emilne@redhat.com>
+Cc: Bart Van Assche <bvanassche@acm.org>
+Cc: Hannes Reinecke <hare@suse.com>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Mike Snitzer <snitzer@redhat.com>
+Cc: dm-devel@redhat.com
+Cc: <stable@vger.kernel.org>
+Fixes: 396eaf21ee17 ("blk-mq: improve DM's blk-mq IO merging via blk_insert_cloned_request feedback")
+Signed-off-by: Ming Lei <ming.lei@redhat.com>
+---
+ drivers/md/dm-rq.c     |  1 +
+ include/linux/blk-mq.h | 13 +++++++++++++
+ 2 files changed, 14 insertions(+)
 
-"help" should only be indented by one tab (and not the extra 2 spaces).
-
-> +	  The device mapper target created by DM-VERITY can be validated if the
-> +	  pre-generated tree of cryptographic checksums passed has a pkcs#7
-> +	  signature file that can validate the roothash of the tree.
-> +
-> +	  If unsure, say N.
-> +
->  config DM_VERITY_FEC
->  	bool "Verity forward error correction support"
->  	depends on DM_VERITY
-
-
-thanks.
+diff --git a/drivers/md/dm-rq.c b/drivers/md/dm-rq.c
+index c9e44ac1f9a6..21d5c1784d0c 100644
+--- a/drivers/md/dm-rq.c
++++ b/drivers/md/dm-rq.c
+@@ -408,6 +408,7 @@ static int map_request(struct dm_rq_target_io *tio)
+ 		ret = dm_dispatch_clone_request(clone, rq);
+ 		if (ret == BLK_STS_RESOURCE || ret == BLK_STS_DEV_RESOURCE) {
+ 			blk_rq_unprep_clone(clone);
++			blk_mq_cleanup_rq(clone);
+ 			tio->ti->type->release_clone_rq(clone, &tio->info);
+ 			tio->clone = NULL;
+ 			return DM_MAPIO_REQUEUE;
+diff --git a/include/linux/blk-mq.h b/include/linux/blk-mq.h
+index 3fa1fa59f9b2..8a7808be5d0b 100644
+--- a/include/linux/blk-mq.h
++++ b/include/linux/blk-mq.h
+@@ -140,6 +140,7 @@ typedef int (poll_fn)(struct blk_mq_hw_ctx *);
+ typedef int (map_queues_fn)(struct blk_mq_tag_set *set);
+ typedef bool (busy_fn)(struct request_queue *);
+ typedef void (complete_fn)(struct request *);
++typedef void (cleanup_rq_fn)(struct request *);
+ 
+ 
+ struct blk_mq_ops {
+@@ -200,6 +201,12 @@ struct blk_mq_ops {
+ 	/* Called from inside blk_get_request() */
+ 	void (*initialize_rq_fn)(struct request *rq);
+ 
++	/*
++	 * Called before freeing one request which isn't completed yet,
++	 * and usually for freeing the driver private part
++	 */
++	cleanup_rq_fn		*cleanup_rq;
++
+ 	/*
+ 	 * If set, returns whether or not this queue currently is busy
+ 	 */
+@@ -366,4 +373,10 @@ static inline blk_qc_t request_to_qc_t(struct blk_mq_hw_ctx *hctx,
+ 			BLK_QC_T_INTERNAL;
+ }
+ 
++static inline void blk_mq_cleanup_rq(struct request *rq)
++{
++	if (rq->q->mq_ops->cleanup_rq)
++		rq->q->mq_ops->cleanup_rq(rq);
++}
++
+ #endif
 -- 
-~Randy
+2.20.1
 
 --
 dm-devel mailing list
