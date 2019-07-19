@@ -2,77 +2,51 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id F07BC6D6B7
-	for <lists+dm-devel@lfdr.de>; Fri, 19 Jul 2019 00:05:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFB896D876
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Jul 2019 03:36:44 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 1784E2D1CE;
-	Thu, 18 Jul 2019 22:05:45 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 47DF03092676;
+	Fri, 19 Jul 2019 01:36:41 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0F531607C7;
-	Thu, 18 Jul 2019 22:05:43 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DFB2C67121;
+	Fri, 19 Jul 2019 01:36:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 148834E590;
-	Thu, 18 Jul 2019 22:05:36 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AC0A84E58E;
+	Fri, 19 Jul 2019 01:36:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x6IM5ON1030826 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 18 Jul 2019 18:05:24 -0400
+	id x6J1aBxl031766 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 18 Jul 2019 21:36:11 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6EB7460637; Thu, 18 Jul 2019 22:05:24 +0000 (UTC)
+	id 3F2BC6103C; Fri, 19 Jul 2019 01:36:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx16.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.45])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CA53B6031D;
-	Thu, 18 Jul 2019 22:05:19 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 07FAD30C1342;
-	Thu, 18 Jul 2019 22:05:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1563487518;
-	bh=P0ndy0p1hlIc8sSMEbEgCp8ktb6klmENdbkEEh5PRRE=;
-	h=From:In-Reply-To:References:Date:To:Cc:From;
-	b=MVddz57AxG6TcKpsTfnKWJoVuWe8MVTwrLg8VYaAD/t5wjOAjl79Q7zA4JNjMBz8F
-	NuDTSizUn21rHqtXY6QdqnZhz5BEPDfXXw/IbKfc5zmVBDExtcZp1jppT4KZ9QHdKX
-	so6mQWisU+ayC2rC6JcSTv0qpC8G6mYmM9NBjMfc=
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20190718205308.GA65274@lobo>
-References: <20190718205308.GA65274@lobo>
-X-PR-Tracked-List-Id: <linux-block.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20190718205308.GA65274@lobo>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git
-	tags/for-5.3/dm-changes-2
-X-PR-Tracked-Commit-Id: 733232f8c852bcc2ad6fc1db7f4c43eb01c7c217
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 3bfe1fc46794631366faa3ef075e1b0ff7ba120a
-Message-Id: <156348751828.19422.13802747332217273278.pr-tracker-bot@kernel.org>
-Date: Thu, 18 Jul 2019 22:05:18 +0000
+Received: from ming.t460p (ovpn-8-21.pek2.redhat.com [10.72.8.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EE9D360CD7;
+	Fri, 19 Jul 2019 01:35:53 +0000 (UTC)
+Date: Fri, 19 Jul 2019 09:35:47 +0800
+From: Ming Lei <ming.lei@redhat.com>
 To: Mike Snitzer <snitzer@redhat.com>
-X-Greylist: Sender DNS name whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.45]);
-	Thu, 18 Jul 2019 22:05:19 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]);
-	Thu, 18 Jul 2019 22:05:19 +0000 (UTC) for IP:'198.145.29.99'
-	DOMAIN:'mail.kernel.org' HELO:'mail.kernel.org'
-	FROM:'pr-tracker-bot@kernel.org' RCPT:''
-X-RedHat-Spam-Score: -5.101  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
-	DKIM_VALID_AU, RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
-	SPF_PASS) 198.145.29.99 mail.kernel.org 198.145.29.99 mail.kernel.org
-	<pr-tracker-bot@kernel.org>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.45
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+Message-ID: <20190719013546.GA12004@ming.t460p>
+References: <20190718032519.28306-1-ming.lei@redhat.com>
+	<20190718032519.28306-2-ming.lei@redhat.com>
+	<20190718145201.GA2305@redhat.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190718145201.GA2305@redhat.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
-Cc: Damien Le Moal <damien.lemoal@wdc.com>,
-	Nikos Tsironis <ntsironis@arrikto.com>,
+Cc: Jens Axboe <axboe@kernel.dk>, Hannes Reinecke <hare@suse.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	linux-scsi@vger.kernel.org, "James E . J . Bottomley" <jejb@linux.ibm.com>,
+	"Ewan D . Milne" <emilne@redhat.com>,
 	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Alasdair G Kergon <agk@redhat.com>
-Subject: Re: [dm-devel] [git pull] additional device mapper changes for 5.3
+	stable@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+	Bart Van Assche <bvanassche@acm.org>
+Subject: Re: [dm-devel] [PATCH 1/2] blk-mq: add callback of .cleanup_rq
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,26 +58,97 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Thu, 18 Jul 2019 22:05:47 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]); Fri, 19 Jul 2019 01:36:43 +0000 (UTC)
 
-The pull request you sent on Thu, 18 Jul 2019 16:53:08 -0400:
+On Thu, Jul 18, 2019 at 10:52:01AM -0400, Mike Snitzer wrote:
+> On Wed, Jul 17 2019 at 11:25pm -0400,
+> Ming Lei <ming.lei@redhat.com> wrote:
+> 
+> > dm-rq needs to free request which has been dispatched and not completed
+> > by underlying queue. However, the underlying queue may have allocated
+> > private stuff for this request in .queue_rq(), so dm-rq will leak the
+> > request private part.
+> 
+> No, SCSI (and blk-mq) will leak.  DM doesn't know anything about the
+> internal memory SCSI uses.  That memory is a SCSI implementation detail.
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git tags/for-5.3/dm-changes-2
+It isn't noting to do with dm-rq, which frees one request after BLK_STS_*RESOURCE
+is returned from blk_insert_cloned_request(), in this case it has to be
+the user for releasing the request private data.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/3bfe1fc46794631366faa3ef075e1b0ff7ba120a
+> 
+> Please fix header to properly reflect which layer is doing the leaking.
 
-Thank you!
+Fine.
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.wiki.kernel.org/userdoc/prtracker
+> 
+> > Add one new callback of .cleanup_rq() to fix the memory leak issue.
+> > 
+> > Another use case is to free request when the hctx is dead during
+> > cpu hotplug context.
+> > 
+> > Cc: Ewan D. Milne <emilne@redhat.com>
+> > Cc: Bart Van Assche <bvanassche@acm.org>
+> > Cc: Hannes Reinecke <hare@suse.com>
+> > Cc: Christoph Hellwig <hch@lst.de>
+> > Cc: Mike Snitzer <snitzer@redhat.com>
+> > Cc: dm-devel@redhat.com
+> > Cc: <stable@vger.kernel.org>
+> > Fixes: 396eaf21ee17 ("blk-mq: improve DM's blk-mq IO merging via blk_insert_cloned_request feedback")
+> > Signed-off-by: Ming Lei <ming.lei@redhat.com>
+> > ---
+> >  drivers/md/dm-rq.c     |  1 +
+> >  include/linux/blk-mq.h | 13 +++++++++++++
+> >  2 files changed, 14 insertions(+)
+> > 
+> > diff --git a/drivers/md/dm-rq.c b/drivers/md/dm-rq.c
+> > index c9e44ac1f9a6..21d5c1784d0c 100644
+> > --- a/drivers/md/dm-rq.c
+> > +++ b/drivers/md/dm-rq.c
+> > @@ -408,6 +408,7 @@ static int map_request(struct dm_rq_target_io *tio)
+> >  		ret = dm_dispatch_clone_request(clone, rq);
+> >  		if (ret == BLK_STS_RESOURCE || ret == BLK_STS_DEV_RESOURCE) {
+> >  			blk_rq_unprep_clone(clone);
+> > +			blk_mq_cleanup_rq(clone);
+> >  			tio->ti->type->release_clone_rq(clone, &tio->info);
+> >  			tio->clone = NULL;
+> >  			return DM_MAPIO_REQUEUE;
+> 
+> Requiring upper layer driver (dm-rq) to explicitly call blk_mq_cleanup_rq() 
+> seems wrong.  In this instance tio->ti->type->release_clone_rq()
+> (dm-mpath's multipath_release_clone) calls blk_put_request().  Why can't
+> blk_put_request(), or blk_mq_free_request(), call blk_mq_cleanup_rq()?
+
+I did think about doing it in blk_put_request(), and I just want to
+avoid the little cost in generic fast path, given freeing request after
+dispatch is very unusual, so far only nvme multipath and dm-rq did in
+that way.
+
+However, if no one objects to move blk_mq_cleanup_rq() to blk_put_request()
+or blk_mq_free_request(), I am fine to do that in V2.
+
+> 
+> Not looked at the cpu hotplug case you mention, but my naive thought is
+> it'd be pretty weird to also sprinkle a call to blk_mq_cleanup_rq() from
+> that specific "dead hctx" code path.
+
+It isn't weird, and it is exactly what NVMe multipath is doing, please see
+nvme_failover_req(). And it is just that nvme doesn't allocate request
+private data.
+
+Wrt. blk-mq cpu hotplug handling: after one hctx is dead, we can't dispatch
+request to this hctx any more, however one request has been bounded to its
+hctx since its allocation and the association can't(or quite hard to) be
+changed any more, do you have any better idea to deal with this issue?
+
+
+Thanks,
+Ming
 
 --
 dm-devel mailing list
