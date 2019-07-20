@@ -2,55 +2,72 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id C47F16EE1A
-	for <lists+dm-devel@lfdr.de>; Sat, 20 Jul 2019 08:58:46 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	by mail.lfdr.de (Postfix) with ESMTPS id 931186EE40
+	for <lists+dm-devel@lfdr.de>; Sat, 20 Jul 2019 09:35:50 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 1F21581F0C;
-	Sat, 20 Jul 2019 06:58:43 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 80BAD5C298;
-	Sat, 20 Jul 2019 06:58:40 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id D0074285AE;
+	Sat, 20 Jul 2019 07:35:47 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82DFB6402D;
+	Sat, 20 Jul 2019 07:35:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 032654E58E;
-	Sat, 20 Jul 2019 06:58:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 538F51800204;
+	Sat, 20 Jul 2019 07:35:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x6K6wDNt016732 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 20 Jul 2019 02:58:13 -0400
+	id x6K7ZXHb022233 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 20 Jul 2019 03:35:33 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 01EC85D70D; Sat, 20 Jul 2019 06:58:13 +0000 (UTC)
+	id 386591001DD7; Sat, 20 Jul 2019 07:35:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx15.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.44])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F0C3662660
-	for <dm-devel@redhat.com>; Sat, 20 Jul 2019 06:58:10 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mx1.redhat.com (ext-mx13.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.42])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3257D10190BA
+	for <dm-devel@redhat.com>; Sat, 20 Jul 2019 07:35:30 +0000 (UTC)
+Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com
+	[209.85.221.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id AA5E0309BB7D
-	for <dm-devel@redhat.com>; Sat, 20 Jul 2019 06:58:09 +0000 (UTC)
-Received: from sol.localdomain (c-24-5-143-220.hsd1.ca.comcast.net
-	[24.5.143.220])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id BC18E21873;
-	Sat, 20 Jul 2019 06:58:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1563605889;
-	bh=OFZAHQHXLV8GwXYrMSGu/SOmauNVVlNoeQquIaDV4sg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=2GwRSuZC0c9rkYEqR9wXTttGef4p2LVlv9kQc/mhRUi6jC9Kdbzw58EUyS9cKb8xH
-	aUEJWIQyPe8x70Kgu0U8Ql9DAn+hLv77YXg1Le91HwmYfDGa5iEBwechIsO2RsbHWr
-	2u/lUp7HMyk0KqUUG2/wVX+A9JoxKsG3BNu47G00=
-Date: Fri, 19 Jul 2019 23:58:07 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Milan Broz <gmazyland@gmail.com>
-Message-ID: <20190720065807.GA711@sol.localdomain>
-Mail-Followup-To: Milan Broz <gmazyland@gmail.com>,
-	Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>,
+	by mx1.redhat.com (Postfix) with ESMTPS id EDCD230BC5EF
+	for <dm-devel@redhat.com>; Sat, 20 Jul 2019 07:35:29 +0000 (UTC)
+Received: by mail-wr1-f67.google.com with SMTP id p13so34257775wru.10
+	for <dm-devel@redhat.com>; Sat, 20 Jul 2019 00:35:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=subject:to:references:from:openpgp:message-id:date:user-agent
+	:mime-version:in-reply-to:content-language:content-transfer-encoding;
+	bh=aTgqFuUx+iLi6PHQcMOEzebXL2+OwnsPRMPIdzzMI50=;
+	b=N98VZMUn7EWiC0MbiNP40BvMrQe6p/Gx2mE8wmrMIVNtjMd+JpagvU0arbPSWEYp81
+	z7mvzLbLjYXz8BkgtHt5Ul+GRXesG4W/QYbuM/TxkcbADf571wVtIlD90aAuJRkjxHhh
+	7s2l6XXzn57y0zimmCg1VTQxeVT7NRp/Fa/SmC6JbknLplEVj6oF/bvRKdm1AVa/Ydkh
+	QpcXz5yiyOF4NUDCfpzc1a17PAgr5+RuxaGj5v8UjqSFR8kTAFO4HkzA5MLHYBZFFQqZ
+	3QJTUEqSRDhXMuodbt0PgyPjfFiRZofYaHaeT/KM3iDpxcsPU3M6MY4vOZgLieHdV3bX
+	cpCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:references:from:openpgp:message-id
+	:date:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=aTgqFuUx+iLi6PHQcMOEzebXL2+OwnsPRMPIdzzMI50=;
+	b=KBe5f10bhFN9FX0MsdzJ3rqt4zc1LYEpNvWtGbaBA8Vuo7jHxIMEb4RvnrkerwUzEj
+	RPnCVYb3C3/p68qKQ1biyEUmCQnEMwtMTp2GyWnkkMX8RRzOl2YsR648X9Y/xlN3okjQ
+	yASOVYbWZrRpFsyCNZV1AWPBoeAC3AmVzfSIXO3igsyXrDD2kX+ZV1nV77zSmDjxc/rm
+	3SwX/M7CHHpw9Z0LLfXJsml+WnVc7svzMHLOIoSYO8Pl/gFRvtA8ONiZQe8Hu1qFgmTt
+	wShX8KwyeCU5WPiU/VWtjO1SAyOBRk5RGvpmhnUmkuV4Nopp9zlYc4pFgDq5t6e3ulcT
+	8psw==
+X-Gm-Message-State: APjAAAXAyj1dtS3E4E1I+VCj+uLrlZRMwr0ZYEKVfsGzvEpbE5xuFvPS
+	J+IZXDyUW/kMPXO1fwZ0TuXgZ9xd0Lo=
+X-Google-Smtp-Source: APXvYqzvUhh9TQTW84Wl2D2uGdpRQNZAqbHpd8XnY5c27KNJo7o336kxlMhwPJAFaXL7/TxXbySorQ==
+X-Received: by 2002:adf:dd8e:: with SMTP id x14mr59960579wrl.344.1563608128567;
+	Sat, 20 Jul 2019 00:35:28 -0700 (PDT)
+Received: from [192.168.8.100] (37-48-49-65.nat.epc.tmcz.cz. [37.48.49.65])
+	by smtp.gmail.com with ESMTPSA id
+	p14sm27232138wrx.17.2019.07.20.00.35.27
+	(version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
+	Sat, 20 Jul 2019 00:35:27 -0700 (PDT)
+To: Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
 	Ard Biesheuvel <ard.biesheuvel@linaro.org>,
 	"dm-devel@redhat.com" <dm-devel@redhat.com>,
@@ -66,30 +83,31 @@ References: <20190716221639.GA44406@gmail.com>
 	<36e78459-1594-6d19-0ab4-95b03a6de036@gmail.com>
 	<MN2PR20MB2973E61815F069E8C7D74177CAC80@MN2PR20MB2973.namprd20.prod.outlook.com>
 	<b042649c-db98-9710-b063-242bdf520252@gmail.com>
+	<20190720065807.GA711@sol.localdomain>
+From: Milan Broz <gmazyland@gmail.com>
+Openpgp: preference=signencrypt
+Message-ID: <0d4d6387-777c-bfd3-e54a-e7244fde0096@gmail.com>
+Date: Sat, 20 Jul 2019 09:35:26 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <b042649c-db98-9710-b063-242bdf520252@gmail.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-X-Greylist: Sender DNS name whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.44]);
-	Sat, 20 Jul 2019 06:58:09 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]);
-	Sat, 20 Jul 2019 06:58:09 +0000 (UTC) for IP:'198.145.29.99'
-	DOMAIN:'mail.kernel.org' HELO:'mail.kernel.org'
-	FROM:'ebiggers@kernel.org' RCPT:''
-X-RedHat-Spam-Score: -5.101  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
-	DKIM_VALID_AU, RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
-	SPF_PASS) 198.145.29.99 mail.kernel.org 198.145.29.99 mail.kernel.org
-	<ebiggers@kernel.org>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.44
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+In-Reply-To: <20190720065807.GA711@sol.localdomain>
+Content-Language: en-US
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.42]);
+	Sat, 20 Jul 2019 07:35:30 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]);
+	Sat, 20 Jul 2019 07:35:30 +0000 (UTC) for IP:'209.85.221.67'
+	DOMAIN:'mail-wr1-f67.google.com' HELO:'mail-wr1-f67.google.com'
+	FROM:'gmazyland@gmail.com' RCPT:''
+X-RedHat-Spam-Score: -0.1  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2,
+	SPF_HELO_NONE,
+	SPF_PASS) 209.85.221.67 mail-wr1-f67.google.com 209.85.221.67
+	mail-wr1-f67.google.com <gmazyland@gmail.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.42
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-	Horia Geanta <horia.geanta@nxp.com>,
-	Ard Biesheuvel <ard.biesheuvel@linaro.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>,
-	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>
 Subject: Re: [dm-devel] xts fuzz testing and lack of ciphertext stealing
  support
 X-BeenThere: dm-devel@redhat.com
@@ -107,38 +125,50 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Sat, 20 Jul 2019 06:58:45 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.30]); Sat, 20 Jul 2019 07:35:48 +0000 (UTC)
 
-On Thu, Jul 18, 2019 at 01:19:41PM +0200, Milan Broz wrote:
+On 20/07/2019 08:58, Eric Biggers wrote:
+> On Thu, Jul 18, 2019 at 01:19:41PM +0200, Milan Broz wrote:
+>> Also, I would like to avoid another "just because it is nicer" module dependence (XTS->XEX->ECB).
+>> Last time (when XTS was reimplemented using ECB) we have many reports with initramfs
+>> missing ECB module preventing boot from AES-XTS encrypted root after kernel upgrade...
+>> Just saying. (Despite the last time it was keyring what broke encrypted boot ;-)
+>>
 > 
-> > From that perspective - to prevent people from doing cryptographically stupid things -
-> > IMHO it would be better to just pull the CTS into the XTS implementation i.e. make
-> > xts natively support blocks that are not a multiple of (but >=) the cipher blocksize ...
+> Can't the "missing modules in initramfs" issue be solved by using a
+> MODULE_SOFTDEP()?  Actually, why isn't that being used for xts -> ecb already?
 > 
-> I would definitely prefer adding CTS directly to XTS (as it is in gcrypt or OpenSSL now)
-> instead of some new compositions.
-> 
-> Also, I would like to avoid another "just because it is nicer" module dependence (XTS->XEX->ECB).
-> Last time (when XTS was reimplemented using ECB) we have many reports with initramfs
-> missing ECB module preventing boot from AES-XTS encrypted root after kernel upgrade...
-> Just saying. (Despite the last time it was keyring what broke encrypted boot ;-)
-> 
+> (There was also a bug where CONFIG_CRYPTO_XTS didn't select CONFIG_CRYPTO_ECB,
+> but that was simply a bug, which was fixed.)
 
-Can't the "missing modules in initramfs" issue be solved by using a
-MODULE_SOFTDEP()?  Actually, why isn't that being used for xts -> ecb already?
+Sure, and it is solved now. (Some systems with a hardcoded list of modules
+have to be manually updated etc., but that is just bad design).
+It can be done properly from the beginning.
 
-(There was also a bug where CONFIG_CRYPTO_XTS didn't select CONFIG_CRYPTO_ECB,
-but that was simply a bug, which was fixed.)
+I just want to say that that switching to XEX looks like wasting time to me
+for no additional benefit.
 
-Or "xts" and "xex" could go in the same kernel module xts.ko, which would make
-this a non-issue.
+Fully implementing XTS does make much more sense for me, even though it is long-term
+the effort and the only user, for now, would be testmgr.
 
-Anyway, I agree that the partial block support, if added, should just be made
-available under the name "xts", as people would expect.  It doesn't need a new
-name.
+So, there are no users because it does not work. It makes no sense
+to implement it, because there are no users... (sorry, sounds like catch 22 :)
 
-- Eric
+(Maybe someone can use it for keyslot encryption for keys not aligned to
+block size, dunno. Actually, some filesystem encryption could have use for it.) 
+
+> Or "xts" and "xex" could go in the same kernel module xts.ko, which would make
+> this a non-issue.
+
+If it is not available for users, I really see no reason to introduce XEX when
+it is just XTS with full blocks.
+
+If it is visible to users, it needs some work in userspace - XEX (as XTS) need two keys,
+people are already confused enough that 256bit key in AES-XTS means AES-128...
+So the examples, hints, man pages need to be updated, at least.
+
+Milan
 
 --
 dm-devel mailing list
