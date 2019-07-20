@@ -2,77 +2,50 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 931186EE40
-	for <lists+dm-devel@lfdr.de>; Sat, 20 Jul 2019 09:35:50 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+	by mail.lfdr.de (Postfix) with ESMTPS id BE8806EF03
+	for <lists+dm-devel@lfdr.de>; Sat, 20 Jul 2019 12:20:39 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id D0074285AE;
-	Sat, 20 Jul 2019 07:35:47 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82DFB6402D;
-	Sat, 20 Jul 2019 07:35:46 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 77A5F83F40;
+	Sat, 20 Jul 2019 10:20:35 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1875317F88;
+	Sat, 20 Jul 2019 10:20:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 538F51800204;
-	Sat, 20 Jul 2019 07:35:41 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D0DA34EA31;
+	Sat, 20 Jul 2019 10:20:21 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
 	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x6K7ZXHb022233 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 20 Jul 2019 03:35:33 -0400
+	id x6KAK5Os016643 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 20 Jul 2019 06:20:05 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 386591001DD7; Sat, 20 Jul 2019 07:35:33 +0000 (UTC)
+	id 81E3F10246F0; Sat, 20 Jul 2019 10:20:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx13.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.42])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3257D10190BA
-	for <dm-devel@redhat.com>; Sat, 20 Jul 2019 07:35:30 +0000 (UTC)
-Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com
-	[209.85.221.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.redhat.com (ext-mx02.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.26])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7BF581019607
+	for <dm-devel@redhat.com>; Sat, 20 Jul 2019 10:20:03 +0000 (UTC)
+Received: from sophos.c3bo.org (sophos.c3bo.org [77.109.150.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id EDCD230BC5EF
-	for <dm-devel@redhat.com>; Sat, 20 Jul 2019 07:35:29 +0000 (UTC)
-Received: by mail-wr1-f67.google.com with SMTP id p13so34257775wru.10
-	for <dm-devel@redhat.com>; Sat, 20 Jul 2019 00:35:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=subject:to:references:from:openpgp:message-id:date:user-agent
-	:mime-version:in-reply-to:content-language:content-transfer-encoding;
-	bh=aTgqFuUx+iLi6PHQcMOEzebXL2+OwnsPRMPIdzzMI50=;
-	b=N98VZMUn7EWiC0MbiNP40BvMrQe6p/Gx2mE8wmrMIVNtjMd+JpagvU0arbPSWEYp81
-	z7mvzLbLjYXz8BkgtHt5Ul+GRXesG4W/QYbuM/TxkcbADf571wVtIlD90aAuJRkjxHhh
-	7s2l6XXzn57y0zimmCg1VTQxeVT7NRp/Fa/SmC6JbknLplEVj6oF/bvRKdm1AVa/Ydkh
-	QpcXz5yiyOF4NUDCfpzc1a17PAgr5+RuxaGj5v8UjqSFR8kTAFO4HkzA5MLHYBZFFQqZ
-	3QJTUEqSRDhXMuodbt0PgyPjfFiRZofYaHaeT/KM3iDpxcsPU3M6MY4vOZgLieHdV3bX
-	cpCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:references:from:openpgp:message-id
-	:date:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=aTgqFuUx+iLi6PHQcMOEzebXL2+OwnsPRMPIdzzMI50=;
-	b=KBe5f10bhFN9FX0MsdzJ3rqt4zc1LYEpNvWtGbaBA8Vuo7jHxIMEb4RvnrkerwUzEj
-	RPnCVYb3C3/p68qKQ1biyEUmCQnEMwtMTp2GyWnkkMX8RRzOl2YsR648X9Y/xlN3okjQ
-	yASOVYbWZrRpFsyCNZV1AWPBoeAC3AmVzfSIXO3igsyXrDD2kX+ZV1nV77zSmDjxc/rm
-	3SwX/M7CHHpw9Z0LLfXJsml+WnVc7svzMHLOIoSYO8Pl/gFRvtA8ONiZQe8Hu1qFgmTt
-	wShX8KwyeCU5WPiU/VWtjO1SAyOBRk5RGvpmhnUmkuV4Nopp9zlYc4pFgDq5t6e3ulcT
-	8psw==
-X-Gm-Message-State: APjAAAXAyj1dtS3E4E1I+VCj+uLrlZRMwr0ZYEKVfsGzvEpbE5xuFvPS
-	J+IZXDyUW/kMPXO1fwZ0TuXgZ9xd0Lo=
-X-Google-Smtp-Source: APXvYqzvUhh9TQTW84Wl2D2uGdpRQNZAqbHpd8XnY5c27KNJo7o336kxlMhwPJAFaXL7/TxXbySorQ==
-X-Received: by 2002:adf:dd8e:: with SMTP id x14mr59960579wrl.344.1563608128567;
-	Sat, 20 Jul 2019 00:35:28 -0700 (PDT)
-Received: from [192.168.8.100] (37-48-49-65.nat.epc.tmcz.cz. [37.48.49.65])
-	by smtp.gmail.com with ESMTPSA id
-	p14sm27232138wrx.17.2019.07.20.00.35.27
-	(version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
-	Sat, 20 Jul 2019 00:35:27 -0700 (PDT)
-To: Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Ard Biesheuvel <ard.biesheuvel@linaro.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-	Horia Geanta <horia.geanta@nxp.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id B0282A13E4
+	for <dm-devel@redhat.com>; Sat, 20 Jul 2019 10:20:01 +0000 (UTC)
+Received: from mx1.c3bo.org ([172.31.0.4]:40940)
+	by sophos.c3bo.org with esmtps (TLSv1.2:DHE-RSA-AES256-GCM-SHA384:256)
+	(Exim 4.82_1-5b7a7c0-XX)
+	(envelope-from <markus@eserver.homelinux.org>) id 1homN9-0002rd-2r
+	for dm-devel@redhat.com; Sat, 20 Jul 2019 12:13:54 +0200
+Received: from eserver.homelinux.org (eserver.homelinux.org [192.168.0.1])
+	by mx1.c3bo.org (Postfix) with ESMTPS id 10C6F153A80
+	for <dm-devel@redhat.com>; Sat, 20 Jul 2019 12:13:46 +0200 (CEST)
+Received: from [192.168.178.26] (i53875118.versanet.de [83.135.81.24])
+	by eserver.homelinux.org (Postfix) with ESMTPSA id 97ACD500099
+	for <dm-devel@redhat.com>; Sat, 20 Jul 2019 12:13:45 +0200 (CEST)
+X-CTCH-RefID: str=0001.0A0C0201.5D32E962.0044, ss=1, re=0.000, recu=0.000,
+	reip=0.000, cl=1, cld=1, fgs=0
+To: dm-devel@redhat.com
 References: <20190716221639.GA44406@gmail.com>
 	<VI1PR0402MB34857BBB18C2BB8CBA2DEC7198C90@VI1PR0402MB3485.eurprd04.prod.outlook.com>
 	<20190717172823.GA205944@gmail.com>
@@ -84,28 +57,69 @@ References: <20190716221639.GA44406@gmail.com>
 	<MN2PR20MB2973E61815F069E8C7D74177CAC80@MN2PR20MB2973.namprd20.prod.outlook.com>
 	<b042649c-db98-9710-b063-242bdf520252@gmail.com>
 	<20190720065807.GA711@sol.localdomain>
-From: Milan Broz <gmazyland@gmail.com>
+	<0d4d6387-777c-bfd3-e54a-e7244fde0096@gmail.com>
+From: Markus <markus@eserver.homelinux.org>
 Openpgp: preference=signencrypt
-Message-ID: <0d4d6387-777c-bfd3-e54a-e7244fde0096@gmail.com>
-Date: Sat, 20 Jul 2019 09:35:26 +0200
+Autocrypt: addr=markus@eserver.homelinux.org; prefer-encrypt=mutual; keydata=
+	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
+	wmw23DJtYT857g==
+Message-ID: <b73ecfd1-adaf-e4de-83ba-a6eeaae629df@eserver.homelinux.org>
+Date: Sat, 20 Jul 2019 12:13:43 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.8.0
+	Thunderbird/60.7.2
 MIME-Version: 1.0
-In-Reply-To: <20190720065807.GA711@sol.localdomain>
-Content-Language: en-US
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.42]);
-	Sat, 20 Jul 2019 07:35:30 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]);
-	Sat, 20 Jul 2019 07:35:30 +0000 (UTC) for IP:'209.85.221.67'
-	DOMAIN:'mail-wr1-f67.google.com' HELO:'mail-wr1-f67.google.com'
-	FROM:'gmazyland@gmail.com' RCPT:''
-X-RedHat-Spam-Score: -0.1  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2,
-	SPF_HELO_NONE,
-	SPF_PASS) 209.85.221.67 mail-wr1-f67.google.com 209.85.221.67
-	mail-wr1-f67.google.com <gmazyland@gmail.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.42
+In-Reply-To: <0d4d6387-777c-bfd3-e54a-e7244fde0096@gmail.com>
+Content-Language: de-DE
+X-Greylist: Delayed for 00:05:58 by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.26]); Sat, 20 Jul 2019 10:20:02 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]);
+	Sat, 20 Jul 2019 10:20:02 +0000 (UTC) for IP:'77.109.150.68'
+	DOMAIN:'sophos.c3bo.org' HELO:'sophos.c3bo.org'
+	FROM:'markus@eserver.homelinux.org' RCPT:''
+X-RedHat-Spam-Score: 0.002  (SPF_HELO_NONE,
+	SPF_NONE) 77.109.150.68 sophos.c3bo.org 77.109.150.68
+	sophos.c3bo.org <markus@eserver.homelinux.org>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.26
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
 Subject: Re: [dm-devel] xts fuzz testing and lack of ciphertext stealing
@@ -125,50 +139,25 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.30]); Sat, 20 Jul 2019 07:35:48 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Sat, 20 Jul 2019 10:20:38 +0000 (UTC)
 
-On 20/07/2019 08:58, Eric Biggers wrote:
-> On Thu, Jul 18, 2019 at 01:19:41PM +0200, Milan Broz wrote:
->> Also, I would like to avoid another "just because it is nicer" module dependence (XTS->XEX->ECB).
->> Last time (when XTS was reimplemented using ECB) we have many reports with initramfs
->> missing ECB module preventing boot from AES-XTS encrypted root after kernel upgrade...
->> Just saying. (Despite the last time it was keyring what broke encrypted boot ;-)
->>
+Thanks for tellimg me as a user :-)
+... learned something :-)
+
+Am 20.07.19 um 09:35 schrieb Milan Broz:
 > 
-> Can't the "missing modules in initramfs" issue be solved by using a
-> MODULE_SOFTDEP()?  Actually, why isn't that being used for xts -> ecb already?
+> If it is visible to users, it needs some work in userspace - XEX (as XTS) need two keys,
+> people are already confused enough that 256bit key in AES-XTS means AES-128...
+> So the examples, hints, man pages need to be updated, at least.
 > 
-> (There was also a bug where CONFIG_CRYPTO_XTS didn't select CONFIG_CRYPTO_ECB,
-> but that was simply a bug, which was fixed.)
-
-Sure, and it is solved now. (Some systems with a hardcoded list of modules
-have to be manually updated etc., but that is just bad design).
-It can be done properly from the beginning.
-
-I just want to say that that switching to XEX looks like wasting time to me
-for no additional benefit.
-
-Fully implementing XTS does make much more sense for me, even though it is long-term
-the effort and the only user, for now, would be testmgr.
-
-So, there are no users because it does not work. It makes no sense
-to implement it, because there are no users... (sorry, sounds like catch 22 :)
-
-(Maybe someone can use it for keyslot encryption for keys not aligned to
-block size, dunno. Actually, some filesystem encryption could have use for it.) 
-
-> Or "xts" and "xex" could go in the same kernel module xts.ko, which would make
-> this a non-issue.
-
-If it is not available for users, I really see no reason to introduce XEX when
-it is just XTS with full blocks.
-
-If it is visible to users, it needs some work in userspace - XEX (as XTS) need two keys,
-people are already confused enough that 256bit key in AES-XTS means AES-128...
-So the examples, hints, man pages need to be updated, at least.
-
-Milan
+> Milan
+> 
+> --
+> dm-devel mailing list
+> dm-devel@redhat.com
+> https://www.redhat.com/mailman/listinfo/dm-devel
+> 
 
 --
 dm-devel mailing list
