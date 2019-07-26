@@ -2,109 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ACA7748AC
-	for <lists+dm-devel@lfdr.de>; Thu, 25 Jul 2019 10:02:35 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6430475DDC
+	for <lists+dm-devel@lfdr.de>; Fri, 26 Jul 2019 06:32:17 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 6F53B4ACDF;
-	Thu, 25 Jul 2019 08:02:32 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 2248330A7C5C;
+	Fri, 26 Jul 2019 04:32:10 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 210C160619;
-	Thu, 25 Jul 2019 08:02:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 86DEE5C22F;
+	Fri, 26 Jul 2019 04:32:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6917441F53;
-	Thu, 25 Jul 2019 08:02:19 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6923541F40;
+	Fri, 26 Jul 2019 04:31:48 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x6P81v6O009751 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 25 Jul 2019 04:01:57 -0400
+	id x6Q4VUAG009069 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 26 Jul 2019 00:31:31 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2FFB45DA65; Thu, 25 Jul 2019 08:01:57 +0000 (UTC)
+	id CC70319D7C; Fri, 26 Jul 2019 04:31:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.41])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 290575D9DE
-	for <dm-devel@redhat.com>; Thu, 25 Jul 2019 08:01:54 +0000 (UTC)
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
-	[209.85.128.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 2C29E30B1AD2
-	for <dm-devel@redhat.com>; Thu, 25 Jul 2019 08:01:53 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id f17so43794298wme.2
-	for <dm-devel@redhat.com>; Thu, 25 Jul 2019 01:01:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=IPV+5nYuHvPip1in8zVbGa9yz5HxPYcILBTs+OS2gzU=;
-	b=sI5ZGVHQRajJ75UblxSdXtL2Tg9vKFcnI1Bbbc+Pdg0DcHOerTl82uWjHrxBBBaJYo
-	w41fLdG8OgOSXnCkAvmob6PhKwmAboLjZ8IiCguewmXdOwBT25vw92Z08WjNJTHpjOzC
-	d2s1CyruhfZMZ5iY0spEeL2pblTpii1S+hexeQdI5tNtI7yf48l66X4Tw1Z+74nlV4QW
-	1AKWmGHuWuLSxWBBXEe+Bh6GwIy/h33FimJ8by4V7QtTd0X7bOB6Zcd9k2/hX4Ry1t8U
-	Cku12EOS2zTbJG9hTa8wVgiIgGv5c2+PFptNK2fNW61gqhzr/LjksvBjPtBMoM3WbXq6
-	Fg7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=IPV+5nYuHvPip1in8zVbGa9yz5HxPYcILBTs+OS2gzU=;
-	b=C5zcmc3F+78pjM76jOJw5q8U/C1pv/LPxnsjr6h2/mMpcfWIYcOrDumi+zNfj0COvf
-	4s7H0ByydpYnrEh3bTTIoxNfSX/5MetxrxLR0XYkDIfyKb+RCnBWS10irvvRfPdJam98
-	DE2+8BDRvA9Bf1IS5s8di819vvCmIk7Vb4F28KtPtfo+QD9wY/iZsrhwvQdEYpxSaIR/
-	rV8GTFChJ+PRGj1SOgJGg4/uMp8l5PekPtHfwPZg3cniJuH0OjigjfItXXAa2as7t+gP
-	pE/ZnDTnQ0tSpX/yx3FEBy89pZwme/+56+ICmhtVaRdAogoX+bUztIq5AgG/uB3NSRzD
-	NXoQ==
-X-Gm-Message-State: APjAAAVbKvHOT1dy+DzbGFrn5OYN4MyVEe6MZobyFXmu4to2nWf9WV8v
-	yVwueXVOjsaTE7iyBC64vCWas8y3Zf6XYKXiLkhkxVuC34w=
-X-Google-Smtp-Source: APXvYqwMqa+2T5HCA0DRhMyVsHLssDvqMHodAKEXLQTRGl8hAGbjSUU0X9nw3G/LFfBx7/k4ksnQ0fXHiLMeTGZtwr8=
-X-Received: by 2002:a05:600c:21d4:: with SMTP id
-	x20mr71796865wmj.61.1564041711747; 
-	Thu, 25 Jul 2019 01:01:51 -0700 (PDT)
+Received: from fornost.hmeau.com (vpn2-54-105.bne.redhat.com [10.64.54.105])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9126A19D71
+	for <dm-devel@redhat.com>; Fri, 26 Jul 2019 04:31:28 +0000 (UTC)
+Received: from gondolin.me.apana.org.au ([192.168.0.6]
+	helo=gondolin.hengli.com.au)
+	by fornost.hmeau.com with esmtps (Exim 4.89 #2 (Debian))
+	id 1hqrt2-0004DT-7H; Fri, 26 Jul 2019 14:31:20 +1000
+Received: from herbert by gondolin.hengli.com.au with local (Exim 4.80)
+	(envelope-from <herbert@gondor.apana.org.au>)
+	id 1hqrsz-0000Ay-K3; Fri, 26 Jul 2019 14:31:17 +1000
+Date: Fri, 26 Jul 2019 14:31:17 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Ard Biesheuvel <ard.biesheuvel@linaro.org>
+Message-ID: <20190726043117.GA654@gondor.apana.org.au>
 MIME-Version: 1.0
-References: <20190716221639.GA44406@gmail.com>
-	<VI1PR0402MB34857BBB18C2BB8CBA2DEC7198C90@VI1PR0402MB3485.eurprd04.prod.outlook.com>
-	<20190717172823.GA205944@gmail.com>
-	<CAKv+Gu__offPaWvyURJr8v56ig58q-Deo16QhP26EJ32uf5m3w@mail.gmail.com>
-	<20190718065223.4xaefcwjoxvujntw@gondor.apana.org.au>
-	<CAKv+Gu9-EWNpJ9viSsjhYRdOZb=7a=Mpddmyt8SLEq9aFtawjg@mail.gmail.com>
-	<20190718072154.m2umem24x4grbf6w@gondor.apana.org.au>
-	<36e78459-1594-6d19-0ab4-95b03a6de036@gmail.com>
-	<MN2PR20MB2973E61815F069E8C7D74177CAC80@MN2PR20MB2973.namprd20.prod.outlook.com>
-	<b042649c-db98-9710-b063-242bdf520252@gmail.com>
-	<20190720065807.GA711@sol.localdomain>
-	<0d4d6387-777c-bfd3-e54a-e7244fde0096@gmail.com>
-	<CAKv+Gu9UF+a1UhVU19g1XcLaEqEaAwwkSm3-2wTHEAdD-q4mLQ@mail.gmail.com>
-	<MN2PR20MB2973B9C2DDC508A81AF4A207CAC40@MN2PR20MB2973.namprd20.prod.outlook.com>
-	<CAKv+Gu9C2AEbb++W=QTVWbeA_88Fo57NcOwgU5R8HBvzFwXkJw@mail.gmail.com>
-	<MN2PR20MB2973C378AE5674F9E3E29445CAC60@MN2PR20MB2973.namprd20.prod.outlook.com>
-	<CAKv+Gu-8n_DoauycDQS_9zzRew1rTuPaLxHyg6xhXMmqEvMaCA@mail.gmail.com>
-	<MN2PR20MB2973CAE4E9CFFE1F417B2509CAC10@MN2PR20MB2973.namprd20.prod.outlook.com>
-In-Reply-To: <MN2PR20MB2973CAE4E9CFFE1F417B2509CAC10@MN2PR20MB2973.namprd20.prod.outlook.com>
-From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
-Date: Thu, 25 Jul 2019 11:01:40 +0300
-Message-ID: <CAKv+Gu-j-8-bQS2A46-Kf1KHtkoPJ5Htk8WratqzyngnVu-wpw@mail.gmail.com>
-To: Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.41]);
-	Thu, 25 Jul 2019 08:01:53 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]);
-	Thu, 25 Jul 2019 08:01:53 +0000 (UTC) for IP:'209.85.128.68'
-	DOMAIN:'mail-wm1-f68.google.com' HELO:'mail-wm1-f68.google.com'
-	FROM:'ard.biesheuvel@linaro.org' RCPT:''
-X-RedHat-Spam-Score: -0.101  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
-	SPF_PASS) 209.85.128.68 mail-wm1-f68.google.com 209.85.128.68
-	mail-wm1-f68.google.com <ard.biesheuvel@linaro.org>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.41
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+Content-Disposition: inline
+In-Reply-To: <20190704183017.31570-2-ard.biesheuvel@linaro.org>
+Organization: Core
+X-Newsgroups: apana.lists.os.linux.cryptoapi
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: "linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	Milan Broz <gmazyland@gmail.com>, Horia Geanta <horia.geanta@nxp.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>
-Subject: Re: [dm-devel] xts fuzz testing and lack of ciphertext stealing
-	support
+Cc: ebiggers@google.com, ard.biesheuvel@linaro.org,
+	linux-fscrypt@vger.kernel.org, gilad@benyossef.com,
+	dm-devel@redhat.com, linux-crypto@vger.kernel.org, gmazyland@gmail.com
+Subject: Re: [dm-devel] [PATCH v8 1/7] crypto: essiv - create wrapper
+ template for ESSIV generation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -120,77 +65,46 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Thu, 25 Jul 2019 08:02:33 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]); Fri, 26 Jul 2019 04:32:15 +0000 (UTC)
 
-On Thu, 25 Jul 2019 at 10:49, Pascal Van Leeuwen
-<pvanleeuwen@verimatrix.com> wrote:
+Ard Biesheuvel <ard.biesheuvel@linaro.org> wrote:
 >
->
-> > -----Original Message-----
-> > From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
-> > Sent: Thursday, July 25, 2019 8:22 AM
-> > To: Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>
-> > Cc: Milan Broz <gmazyland@gmail.com>; Herbert Xu <herbert@gondor.apana.org.au>; dm-devel@redhat.com; linux-
-> > crypto@vger.kernel.org; Horia Geanta <horia.geanta@nxp.com>
-> > Subject: Re: [dm-devel] xts fuzz testing and lack of ciphertext stealing support
-> >
-> > > >
-> > > > Actually, that spec has a couple of test vectors. Unfortunately, they
-> > > > are all rather short (except the last one in the 'no multiple of 16
-> > > > bytes' paragraph, but unfortunately, that one is in fact a multiple of
-> > > > 16 bytes)
-> > > >
-> > > > I added them here [0] along with an arm64 implementation for the AES
-> > > > instruction based driver. Could you please double check that these
-> > > > work against your driver?
-> > > >
-> > > I got XTS working with the inside-secure driver and these (and all other) vectors pass :-)
-> > >
-> >
-> > Excellent, thanks for the report. May I add your Tested-by when I post
-> > the patch? (just the one that adds the test vectors)
-> >
-> Sure, feel free
->
+> + * The typical use of this template is to instantiate the skcipher
+> + * 'essiv(cbc(aes),aes,sha256)', which is the only instantiation used by
+> + * fscrypt, and the most relevant one for dm-crypt. However, dm-crypt
+> + * also permits ESSIV to be used in combination with the authenc template,
+> + * e.g., 'essiv(authenc(hmac(sha256),cbc(aes)),aes,sha256)', in which case
+> + * we need to instantiate an aead that accepts the same special key format
+> + * as the authenc template, and deals with the way the encrypted IV is
+> + * embedded into the AAD area of the aead request. This means the AEAD
+> + * flavor produced by this template is tightly coupled to the way dm-crypt
+> + * happens to use it.
 
-Thanks
+IIRC only authenc is allowed in dm-crypt currently in conjunction
+with ESSIV.  Does it ever allow a different hash algorithm in
+authenc compared to the one used for ESSIV? IOW given
 
-> > > > That would establish a ground truth against
-> > > > which we can implement the generic version as well.
-> > > >
-> > > > [0] https://git.kernel.org/pub/scm/linux/kernel/git/ardb/linux.git/log/?h=xts-cts
-> > > >
-> > > > > Besides that, I'd be happy to generate some testvectors from our defacto-standard
-> > > > > implementation ;-)
-> > > > >
-> > > >
-> > > > One or two larger ones would be useful, yes.
-> > > >
-> > > I'll see if I can extract some suitable vectors from our verification suite ...
-> > >
-> >
-> > Great. Once available, I'll run them against my implementations and report back.
-> >
-> Just wondering ... do you have any particular requirements on the sizes?
-> From my implementation's perspective, it doesn't make a whole lot of sense to test vectors
-> of more than 3 times the cipher block size, but then I realized that you probably need
-> larger vectors due to the loop unrolling you do for the vector implementations?
-> You also don't want them to be too big as they take up space in the kernel image ...
->
+	essiv(authenc(hmac(X),cbc(Y)),Z,U)
 
-We have code that operates on 1 block, 3 blocks (ARM), 4-5 blocks
-(arm64) or 8 blocks (ARM,arm64) at a time. However, the most important
-thing is to test the handover between the block based loop and the
-epilogue that operates on the final 17-31 bytes when ciphertext
-stealing is being done.
+is it currently possible for X != U or Y != Z? If not then let's
+just make the algorithm name be essiv(Y,X).
 
-So ideally, we'd have 1 full block + 1 full/1 partial, 3 full blocks +
-1 full/1 partial, and so on for 4, 5 and 8 blocks, to cover all the
-code flows, but since the unrolled routines all support arbitrary
-block counts (and so the handover between the multiblock and the
-single block handling is already covered), just having the first two
-would  be sufficient IMO.
+Because this is legacy stuff, I don't want it to support any more
+than what is currently being supported by dm-crypt.
+
+Similary for the skcipher case, given
+
+	essiv(cbc(X),Y,Z)
+
+is it ever possible for X != Y? If not then we should just make the
+algorithm name essiv(X,Z).
+
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
 
 --
 dm-devel mailing list
