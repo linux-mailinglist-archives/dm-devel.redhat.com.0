@@ -2,117 +2,118 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC71E77A80
-	for <lists+dm-devel@lfdr.de>; Sat, 27 Jul 2019 18:06:00 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+	by mail.lfdr.de (Postfix) with ESMTPS id CB3397870D
+	for <lists+dm-devel@lfdr.de>; Mon, 29 Jul 2019 10:13:10 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 4395430BD1BB;
-	Sat, 27 Jul 2019 16:05:57 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 8B6B930821C0;
+	Mon, 29 Jul 2019 08:13:08 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A94DA52FD4;
-	Sat, 27 Jul 2019 16:05:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 828315C21F;
+	Mon, 29 Jul 2019 08:13:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CB22B1800205;
-	Sat, 27 Jul 2019 16:05:12 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 98486180B536;
+	Mon, 29 Jul 2019 08:12:38 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x6RG4doN024070 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 27 Jul 2019 12:04:39 -0400
+	id x6QGKxUu018497 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 26 Jul 2019 12:20:59 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id EA96A1017E30; Sat, 27 Jul 2019 16:04:39 +0000 (UTC)
+	id C8E5419D7E; Fri, 26 Jul 2019 16:20:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mx1.redhat.com (ext-mx20.extmail.prod.ext.phx2.redhat.com
 	[10.5.110.49])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E47BD10114A1
-	for <dm-devel@redhat.com>; Sat, 27 Jul 2019 16:04:37 +0000 (UTC)
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
-	[209.85.221.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BF38A19C7F
+	for <dm-devel@redhat.com>; Fri, 26 Jul 2019 16:20:57 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+	[148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 8D31A30BC58E
-	for <dm-devel@redhat.com>; Sat, 27 Jul 2019 16:04:36 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id c2so54185695wrm.8
-	for <dm-devel@redhat.com>; Sat, 27 Jul 2019 09:04:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=subject:to:cc:references:from:openpgp:message-id:date:user-agent
-	:mime-version:in-reply-to:content-language:content-transfer-encoding;
-	bh=Xufq+sg1OgKMJHpTfBvbAhf96A/Qb3kdIla9BjnF7lo=;
-	b=MAUv3HvWDBa/gJgDMh1Cekd4E84H+0GJwlFWAoF4txJjzx26Izn02GszjBBVdqG1L5
-	vKafDSFZTC1LbEetrs7a/xOz6654mTyu9WRiuxOQWD99c4usL5mzN9XvTJc6pe9MlKQA
-	eBM1XoEDZv/bq4SNhqf6utFlLk/mSMudpzOeuz8I29A4OzyW96X0yg+JQAL9Cb4/m7ho
-	RvjdqdaS1rRhsSr68Qtd95X/OywR6ZqOEZG3f7N8ihxlnidp1d3kiqgEfR+54S6zUz3i
-	LdEWLRNYlpNZqPF3JxgTa9x4QUFHW2Akfl4WZEduBq7lXHJQbgKDt2zOPrdBrP8A1Cuh
-	Md/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:openpgp:message-id
-	:date:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=Xufq+sg1OgKMJHpTfBvbAhf96A/Qb3kdIla9BjnF7lo=;
-	b=gBfx7TnKLxlXGlMublVmTccQByyqfIlD/ZpwiOCiroxXIapIK46iEOsMwaQMa7F1/E
-	tW9DGvy7JNsUnIms3gAuQYFhYGz87A7cD50GkDeGF+0XUKLxmuieMCU7Ddb3ywfpl8Qg
-	jnjRfoLGAVsFygW75SMtCJYfQChbTVPFrq21MU+5qpSuhhF3EeFm5s5j5Hl3EtdVWFw/
-	zwTRszwwr7D+jMdSPcUUdAinDRco/+mCNQvPjLsaKLLFPn3hn5QIV9elZ8ceji9GkOOW
-	qbWxAvnbYS+cGJR49ZxQvZfQWZbNdr+cPZzabXXIrsx624ifIg2HHxofKRN3AuOFbD/3
-	oGwg==
-X-Gm-Message-State: APjAAAUhadvGQECdWQYYjc2+Wbawy+Oj6FIRRh/Eb+8kh1wRtP4m+KN3
-	KkcmpD9h7zFIMtNOgjlEnT0nnyau
-X-Google-Smtp-Source: APXvYqxtYOttgKh7W5PzJ4p93lj2koGRlynUU4ePppek/JtWBvLtnoKhqq0W0YacuQgDN0UtRBa8Kw==
-X-Received: by 2002:adf:f8cf:: with SMTP id
-	f15mr106841807wrq.333.1564243475231; 
-	Sat, 27 Jul 2019 09:04:35 -0700 (PDT)
-Received: from [192.168.8.100] (78-80-26-9.nat.epc.tmcz.cz. [78.80.26.9])
-	by smtp.gmail.com with ESMTPSA id
-	j33sm115307879wre.42.2019.07.27.09.04.33
-	(version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
-	Sat, 27 Jul 2019 09:04:34 -0700 (PDT)
-To: Ard Biesheuvel <ard.biesheuvel@linaro.org>,
-	Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>
-References: <20190716221639.GA44406@gmail.com>
-	<20190720065807.GA711@sol.localdomain>
-	<0d4d6387-777c-bfd3-e54a-e7244fde0096@gmail.com>
-	<CAKv+Gu9UF+a1UhVU19g1XcLaEqEaAwwkSm3-2wTHEAdD-q4mLQ@mail.gmail.com>
-	<MN2PR20MB2973B9C2DDC508A81AF4A207CAC40@MN2PR20MB2973.namprd20.prod.outlook.com>
-	<CAKv+Gu9C2AEbb++W=QTVWbeA_88Fo57NcOwgU5R8HBvzFwXkJw@mail.gmail.com>
-	<MN2PR20MB2973C378AE5674F9E3E29445CAC60@MN2PR20MB2973.namprd20.prod.outlook.com>
-	<CAKv+Gu-8n_DoauycDQS_9zzRew1rTuPaLxHyg6xhXMmqEvMaCA@mail.gmail.com>
-	<MN2PR20MB2973CAE4E9CFFE1F417B2509CAC10@MN2PR20MB2973.namprd20.prod.outlook.com>
-	<CAKv+Gu-j-8-bQS2A46-Kf1KHtkoPJ5Htk8WratqzyngnVu-wpw@mail.gmail.com>
-	<MN2PR20MB29739591E1A3E54E7A8A8E18CAC00@MN2PR20MB2973.namprd20.prod.outlook.com>
-	<VI1PR0402MB34850A016F3228124C0D360698C00@VI1PR0402MB3485.eurprd04.prod.outlook.com>
-	<MN2PR20MB29732C3B360EB809EDFBFAC5CAC00@MN2PR20MB2973.namprd20.prod.outlook.com>
-	<CAKv+Gu9krpqWYuD2mQFBTspo3y_TwrN6Arbvkcs=e4MpTeitHA@mail.gmail.com>
-From: Milan Broz <gmazyland@gmail.com>
-Openpgp: preference=signencrypt
-Message-ID: <97532fae-4c17-bb8f-d245-04bf97cef4d1@gmail.com>
-Date: Sat, 27 Jul 2019 18:04:32 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.8.0
+	by mx1.redhat.com (Postfix) with ESMTPS id AC4D33086258
+	for <dm-devel@redhat.com>; Fri, 26 Jul 2019 16:20:56 +0000 (UTC)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+	x6QG69jg100466
+	for <dm-devel@redhat.com>; Fri, 26 Jul 2019 12:20:56 -0400
+Received: from e06smtp04.uk.ibm.com (e06smtp04.uk.ibm.com [195.75.94.100])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 2u040hbbmu-1
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <dm-devel@redhat.com>; Fri, 26 Jul 2019 12:20:55 -0400
+Received: from localhost
+	by e06smtp04.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use
+	Only! Violators will be prosecuted
+	for <dm-devel@redhat.com> from <bblock@linux.ibm.com>;
+	Fri, 26 Jul 2019 17:20:53 +0100
+Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
+	by e06smtp04.uk.ibm.com (192.168.101.134) with IBM ESMTP SMTP Gateway:
+	Authorized Use Only! Violators will be prosecuted; 
+	(version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+	Fri, 26 Jul 2019 17:20:48 +0100
+Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com
+	[9.149.105.58])
+	by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+	ESMTP id x6QGKlGD34930820
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=OK); Fri, 26 Jul 2019 16:20:47 GMT
+Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0A7744C04A;
+	Fri, 26 Jul 2019 16:20:47 +0000 (GMT)
+Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EBE964C040;
+	Fri, 26 Jul 2019 16:20:46 +0000 (GMT)
+Received: from t480-pf1aa2c2 (unknown [9.152.212.110])
+	by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+	Fri, 26 Jul 2019 16:20:46 +0000 (GMT)
+Received: from bblock by t480-pf1aa2c2 with local (Exim 4.92)
+	(envelope-from <bblock@linux.ibm.com>)
+	id 1hr2xa-0001Ek-Lx; Fri, 26 Jul 2019 18:20:46 +0200
+Date: Fri, 26 Jul 2019 18:20:46 +0200
+From: Benjamin Block <bblock@linux.ibm.com>
+To: Ming Lei <ming.lei@redhat.com>
+References: <20190720030637.14447-1-ming.lei@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <CAKv+Gu9krpqWYuD2mQFBTspo3y_TwrN6Arbvkcs=e4MpTeitHA@mail.gmail.com>
-Content-Language: en-US
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.49]);
-	Sat, 27 Jul 2019 16:04:36 +0000 (UTC)
+Content-Disposition: inline
+In-Reply-To: <20190720030637.14447-1-ming.lei@redhat.com>
+User-Agent: Mutt/1.12.0 (2019-05-25)
+X-TM-AS-GCONF: 00
+x-cbid: 19072616-0016-0000-0000-00000296814D
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19072616-0017-0000-0000-000032F482E9
+Message-Id: <20190726162046.GA7523@t480-pf1aa2c2>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+	definitions=2019-07-26_12:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+	priorityscore=1501
+	malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+	clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+	mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+	scancount=1 engine=8.0.1-1906280000 definitions=main-1907260195
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.49]); Fri, 26 Jul 2019 16:20:56 +0000 (UTC)
 X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]);
-	Sat, 27 Jul 2019 16:04:36 +0000 (UTC) for IP:'209.85.221.65'
-	DOMAIN:'mail-wr1-f65.google.com' HELO:'mail-wr1-f65.google.com'
-	FROM:'gmazyland@gmail.com' RCPT:''
-X-RedHat-Spam-Score: -0.099  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
-	SPF_PASS) 209.85.221.65 mail-wr1-f65.google.com 209.85.221.65
-	mail-wr1-f65.google.com <gmazyland@gmail.com>
+	Fri, 26 Jul 2019 16:20:56 +0000 (UTC) for IP:'148.163.158.5'
+	DOMAIN:'mx0b-001b2d01.pphosted.com'
+	HELO:'mx0a-001b2d01.pphosted.com' FROM:'bblock@linux.ibm.com'
+	RCPT:''
+X-RedHat-Spam-Score: -0.7  (RCVD_IN_DNSWL_LOW, SPF_HELO_NONE,
+	SPF_PASS) 148.163.158.5 mx0b-001b2d01.pphosted.com
+	148.163.158.5 mx0b-001b2d01.pphosted.com <bblock@linux.ibm.com>
 X-Scanned-By: MIMEDefang 2.84 on 10.5.110.49
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: "linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	Milan Broz <gmazyland@gmail.com>, Horia Geanta <horia.geanta@nxp.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>
-Subject: Re: [dm-devel] xts fuzz testing and lack of ciphertext stealing
- support
+X-Mailman-Approved-At: Mon, 29 Jul 2019 04:12:23 -0400
+Cc: Jens Axboe <axboe@kernel.dk>, Hannes Reinecke <hare@suse.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	linux-scsi@vger.kernel.org, "James E . J . Bottomley" <jejb@linux.ibm.com>,
+	"Ewan D . Milne" <emilne@redhat.com>,
+	linux-block@vger.kernel.org, dm-devel@redhat.com,
+	Mike Snitzer <snitzer@redhat.com>, stable@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>, Bart Van Assche <bvanassche@acm.org>
+Subject: Re: [dm-devel] [PATCH V2 0/2] block/scsi/dm-rq: fix leak of request
+ private data in dm-mpath
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -124,33 +125,57 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]); Sat, 27 Jul 2019 16:05:59 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Mon, 29 Jul 2019 08:13:09 +0000 (UTC)
 
-On 27/07/2019 07:39, Ard Biesheuvel wrote:
-> Thanks for the additional test vectors. They work fine with my SIMD
-> implementations for ARM [0], so this looks like it might be a CAAM
-> problem, not a problem with the test vectors.
-> 
-> I will try to find some time today to run them through OpenSSL to double check.
+Hey Ming Lei,
 
-I shamelessly copied your test vectors to my vector test for cryptsetup backend.
+On Sat, Jul 20, 2019 at 11:06:35AM +0800, Ming Lei wrote:
+> Hi,
+> =
 
-Both OpenSSL and gcrypt XTS implementation passed all tests here!
+> When one request is dispatched to LLD via dm-rq, if the result is
+> BLK_STS_*RESOURCE, dm-rq will free the request. However, LLD may allocate
+> private data for this request, so this way will cause memory leak.
 
-If interested - this is copy of backend we have in cryptsetup, vectors added in crypto-vectors.c
-(there are some hard defines in Makefile, cryptsetup uses autoconf instead).
-  OpenSSL: https://github.com/mbroz/cryptsetup_backend_test
-  gcrypt branch: https://github.com/mbroz/cryptsetup_backend_test/tree/gcrypt
+I am confused about this. Probably because I am not up-to-date with
+all of blk-mq. But if you free the LLD private data before the request
+is finished, what is the LLD doing if the request finishes afterwards?
+Would that not be an automatic use-after-free?
 
-Once kernel AF_ALG supports it, I can easily test it the same way.
+> =
 
-Thanks,
-Milan
+> Add .cleanup_rq() callback and implement it in SCSI for fixing the issue,
+> since SCSI is the only driver which allocates private requst data in
+> .queue_rq() path.
+> =
+
+> Another use case of this callback is to free the request and re-submit
+> bios during cpu hotplug when the hctx is dead, see the following link:
+> =
+
+> https://lore.kernel.org/linux-block/f122e8f2-5ede-2d83-9ca0-bc713ce66d01@=
+huawei.com/T/#t
+> =
+
+> V2:
+> 	- run .cleanup_rq() in blk_mq_free_request(), as suggested by Mike =
+
+
+-- =
+
+With Best Regards, Benjamin Block      /      Linux on IBM Z Kernel Develop=
+ment
+IBM Systems & Technology Group   /  IBM Deutschland Research & Development =
+GmbH
+Vorsitz. AufsR.: Matthias Hartmann       /      Gesch=E4ftsf=FChrung: Dirk =
+Wittkopp
+Sitz der Gesellschaft: B=F6blingen / Registergericht: AmtsG Stuttgart, HRB =
+243294
 
 --
 dm-devel mailing list
