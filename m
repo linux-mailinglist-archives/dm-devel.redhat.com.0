@@ -2,74 +2,73 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 655607BD3F
-	for <lists+dm-devel@lfdr.de>; Wed, 31 Jul 2019 11:34:33 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B1787BD44
+	for <lists+dm-devel@lfdr.de>; Wed, 31 Jul 2019 11:34:35 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 902268552A;
-	Wed, 31 Jul 2019 09:34:31 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DA2285C207;
-	Wed, 31 Jul 2019 09:34:30 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 9195F3084051;
+	Wed, 31 Jul 2019 09:34:33 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5EA9110016E8;
+	Wed, 31 Jul 2019 09:34:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E8436264CA;
-	Wed, 31 Jul 2019 09:34:24 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F274C1800205;
+	Wed, 31 Jul 2019 09:34:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x6UCJF5Q025989 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 30 Jul 2019 08:19:15 -0400
+	id x6UCUme3027588 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 30 Jul 2019 08:30:48 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id AB73E60C79; Tue, 30 Jul 2019 12:19:15 +0000 (UTC)
+	id BFE2F5D978; Tue, 30 Jul 2019 12:30:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.41])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A657B60C6F
-	for <dm-devel@redhat.com>; Tue, 30 Jul 2019 12:19:09 +0000 (UTC)
+Received: from mx1.redhat.com (ext-mx17.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.46])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B9CC15D96F
+	for <dm-devel@redhat.com>; Tue, 30 Jul 2019 12:30:46 +0000 (UTC)
 Received: from youngberry.canonical.com (youngberry.canonical.com
 	[91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 07FFC3179173
-	for <dm-devel@redhat.com>; Tue, 30 Jul 2019 12:19:09 +0000 (UTC)
-Received: from mail-pg1-f197.google.com ([209.85.215.197])
+	by mx1.redhat.com (Postfix) with ESMTPS id 8E47F30A6986
+	for <dm-devel@redhat.com>; Tue, 30 Jul 2019 12:30:45 +0000 (UTC)
+Received: from mail-pl1-f198.google.com ([209.85.214.198])
 	by youngberry.canonical.com with esmtps
 	(TLS1.0:RSA_AES_128_CBC_SHA1:16) (Exim 4.76)
-	(envelope-from <gpiccoli@canonical.com>) id 1hsR5v-0004wH-GI
-	for dm-devel@redhat.com; Tue, 30 Jul 2019 12:19:07 +0000
-Received: by mail-pg1-f197.google.com with SMTP id m19so25994186pgv.7
-	for <dm-devel@redhat.com>; Tue, 30 Jul 2019 05:19:07 -0700 (PDT)
+	(envelope-from <gpiccoli@canonical.com>) id 1hsRHA-0005jc-0w
+	for dm-devel@redhat.com; Tue, 30 Jul 2019 12:30:44 +0000
+Received: by mail-pl1-f198.google.com with SMTP id u10so35220915plq.21
+	for <dm-devel@redhat.com>; Tue, 30 Jul 2019 05:30:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
 	:message-id:date:user-agent:mime-version:in-reply-to
 	:content-language:content-transfer-encoding;
-	bh=duNeCgPARK5/DNYmXliLtl2PHvOx7FRmtH6Afr/ogZ8=;
-	b=L55C154UiJSdey2H0EFuBNMmFEYk5dYyeBTHR68o9EKpWG3k4jcK+YkmgqP5B4PS1y
-	NDqC1IRqAJ/XaipehtfWS+IvobMuweCV6Rqgz/yKvkv9L39RCADUaYYKC5rN+bkZXuQL
-	avOP5Zs20s9VinZU94isGJzNwnkO2EHVBxuMQ0KmXxHzAjnzY/7Zjy/oh2fpkbFOlMY1
-	BOt7IftWjAxk4euzH4WqCbpx3AgArsI7aeC2jcjTMyRHfYhGGzGO9UZJS6DZ9o3OInW2
-	ENcKqBFeL1nxMrYVgYeb5nwU5BH0lywjOPOkzARVlClSoooRbXECMONxgrbZT6IY6FfL
-	59Bg==
-X-Gm-Message-State: APjAAAWB98aS+FfS+17wO1ZN9wa95QaKCeO5V9IGaBsC4VQ2WirHn5Hv
-	3fP5JQZjDEw0f1qflC3FJDaVAN++XZXdsF81mHDkuexN8Vs+JNlc5/1b3oAEWLq28kljinw3Ijm
-	f1fEMhb4jDQYkRlIqSneWm1s6riphSQ==
-X-Received: by 2002:a62:1d8f:: with SMTP id
-	d137mr42586382pfd.207.1564489145695; 
-	Tue, 30 Jul 2019 05:19:05 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqz3VqyZIP60VysathrWyL1Khg+ulJL5jfJ25tNxj1jx8o8wkADOY5OI0aR6Pr1uAwShW4fTiQ==
-X-Received: by 2002:a62:1d8f:: with SMTP id
-	d137mr42586372pfd.207.1564489145562; 
-	Tue, 30 Jul 2019 05:19:05 -0700 (PDT)
+	bh=epsg8o9SJ8QYu2h+n3GBIMR7ashpfZp82u6PNELR9R0=;
+	b=g/gWoKoS8t6/r8us2ZiyLax3ZReXTKjBtec40QBW0yyQbAp6HpJjghDc53/aTdt2z7
+	/Nxi4f1uk8ygvgjjfqHvEtUObslm+slVlOIU4L7I8YdVuuNw5iVCeXTL6taT5yZSNirC
+	pamgm81ya9UqlWFsw2qk/EHaLBbWmOjpGymmdujobJTZiIdeO1w446A+nEUcClDl6P+X
+	JHLb2MFd+g3EhZ8QiR2//v+bCy8Q8YcurRnfQxEQqm39YoTqzfQ+4YJFwcB9qizjXp4D
+	ntColeJ5lhUqQsQuhjLxEraiCMCFbGGLVcrqHtysX8TfRs3PSgtljmt6oF3cYfZmuYG2
+	XO1g==
+X-Gm-Message-State: APjAAAVMZkGISmZDVVVBC8ntGGpDuRoCn0QQ33k4fkV0Cqv2IZRPLtSu
+	aoG9Cj8+u2Or+TT0/rSb+4K05s7jjiW7ou0b2+UPfYMNCwLoUENNNeQKUPU1KFjy3mnEJ+nbf6r
+	86HwiwQuTE8mv3k8mSrE6ga644v2EZA==
+X-Received: by 2002:a17:902:8a94:: with SMTP id
+	p20mr114567051plo.312.1564489842819; 
+	Tue, 30 Jul 2019 05:30:42 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqy0VsDJiydDk2IU/zaDnE7MxD9OWWEeZZZ3QAEoamnUMMOh2M43oOlEha15TE8IWLdFKfsSxA==
+X-Received: by 2002:a17:902:8a94:: with SMTP id
+	p20mr114567041plo.312.1564489842701; 
+	Tue, 30 Jul 2019 05:30:42 -0700 (PDT)
 Received: from [192.168.1.202] ([152.254.214.186])
 	by smtp.gmail.com with ESMTPSA id
-	e189sm45931655pgc.15.2019.07.30.05.18.59
+	85sm69146580pfv.130.2019.07.30.05.30.36
 	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Tue, 30 Jul 2019 05:19:04 -0700 (PDT)
-To: Bob Liu <bob.liu@oracle.com>, linux-raid@vger.kernel.org
-References: <20190729203135.12934-1-gpiccoli@canonical.com>
-	<20190729203135.12934-2-gpiccoli@canonical.com>
-	<d730c417-a328-3df3-1e31-32b6df48b6ad@oracle.com>
+	Tue, 30 Jul 2019 05:30:41 -0700 (PDT)
+To: NeilBrown <neilb@suse.com>, linux-raid@vger.kernel.org
+References: <20190729193359.11040-1-gpiccoli@canonical.com>
+	<87zhkwl6ya.fsf@notabene.neil.brown.name>
 From: "Guilherme G. Piccoli" <gpiccoli@canonical.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=gpiccoli@canonical.com; prefer-encrypt=mutual; keydata=
@@ -96,32 +95,33 @@ Autocrypt: addr=gpiccoli@canonical.com; prefer-encrypt=mutual; keydata=
 	Yh6gTrYoRYHo6FuQl5YsHop/fmTahpTx11IMjuh6IJQ+lvdpdfYJ6hmAZ9kiVszDF6pGFVkY
 	kHWtnE2Aa5qkxnA2HoFpqFifNWn5TyvJFpyqwVhVI8XYtXyVHub/WbXLWQwSJA4OHmqU8gDl
 	X18zwLgdiQ==
-Message-ID: <000c20fe-3bcd-2dff-a5ab-9a294bdc7746@canonical.com>
-Date: Tue, 30 Jul 2019 09:18:54 -0300
+Message-ID: <6400083b-3cf3-cbc6-650a-c3ae6629b14c@canonical.com>
+Date: Tue, 30 Jul 2019 09:30:31 -0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
 	Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <d730c417-a328-3df3-1e31-32b6df48b6ad@oracle.com>
+In-Reply-To: <87zhkwl6ya.fsf@notabene.neil.brown.name>
 Content-Language: en-US
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
 	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.41]); Tue, 30 Jul 2019 12:19:09 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]);
-	Tue, 30 Jul 2019 12:19:09 +0000 (UTC) for IP:'91.189.89.112'
+	[10.5.110.46]); Tue, 30 Jul 2019 12:30:45 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]);
+	Tue, 30 Jul 2019 12:30:45 +0000 (UTC) for IP:'91.189.89.112'
 	DOMAIN:'youngberry.canonical.com'
 	HELO:'youngberry.canonical.com' FROM:'gpiccoli@canonical.com'
 	RCPT:''
 X-RedHat-Spam-Score: -4.998  (RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
 	SPF_NONE) 91.189.89.112 youngberry.canonical.com
 	91.189.89.112 youngberry.canonical.com <gpiccoli@canonical.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.41
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.46
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 31 Jul 2019 05:34:14 -0400
 Cc: linux-block@vger.kernel.org, jay.vosburgh@canonical.com,
-	dm-devel@redhat.com, songliubraving@fb.com, neilb@suse.com
-Subject: Re: [dm-devel] [PATCH 1/2] md/raid0: Introduce new array state
- 'broken' for raid0
+	Song Liu <songliubraving@fb.com>, dm-devel@redhat.com,
+	Neil F Brown <nfbrown@suse.com>
+Subject: Re: [dm-devel] [PATCH] md/raid0: Fail BIOs if their underlying
+ block device is gone
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -137,45 +137,26 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]); Wed, 31 Jul 2019 09:34:32 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]); Wed, 31 Jul 2019 09:34:34 +0000 (UTC)
 
-On 30/07/2019 03:20, Bob Liu wrote:
-> [...]
->> + * broken
->> + *     RAID0-only: same as clean, but array is missing a member.
->> + *     It's useful because RAID0 mounted-arrays aren't stopped
->> + *     when a member is gone, so this state will at least alert
->> + *     the user that something is wrong.
+On 29/07/2019 21:08, NeilBrown wrote:
+>[...]
+>> +	if (unlikely(test_bit(MD_BROKEN, &mddev->flags))) {
+>> +		bio_io_error(bio);
+>> +		return BLK_QC_T_NONE;
+>> +	}
 > 
+> I think this should only fail WRITE requests, not READ requests.
 > 
-> Curious why only raid0 has this issue? 
+> Otherwise the patch is probably reasonable.
 > 
-> Thanks, -Bob
+> NeilBrown
 
-Hi Bob, I understand that all other levels have fault-tolerance logic,
-while raid0 is just a "bypass" driver that selects the correct
-underlying device to send the BIO and blindly sends it. It's known to be
-a performance-only /lightweight solution whereas the other levels aim to
-be reliable.
-
-I've quickly tested raid5 and rai10, and see messages like this on
-kernel log when removing a device (in raid5):
-
-[35.764975] md/raid:md0: Disk failure on nvme1n1, disabling device.
-md/raid:md0: Operation continuing on 1 devices.
-
-The message seen in raid10 is basically the same. As a (cheap)
-comparison of the complexity among levels, look that:
-
-<...>/linux-mainline/drivers/md# cat raid5* | wc -l
-14191
-
-<...>/linux-mainline/drivers/md# cat raid10* | wc -l
-5135
-
-<...>/linux-mainline/drivers/md# cat raid0* | wc -l
-820
+Thanks for the feedback Neil! I thought about it; it seemed to me better
+to deny/fail the reads instead of returning "wrong" reads, since a file
+read in a raid0 will be incomplete if one member is missing.
+But it's fine for me to change that in the next iteration of this patch.
 
 Cheers,
 
