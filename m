@@ -2,74 +2,74 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7883F7BD43
-	for <lists+dm-devel@lfdr.de>; Wed, 31 Jul 2019 11:34:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 655607BD3F
+	for <lists+dm-devel@lfdr.de>; Wed, 31 Jul 2019 11:34:33 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 8B6674E4E6;
-	Wed, 31 Jul 2019 09:34:33 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5B73B5C21A;
-	Wed, 31 Jul 2019 09:34:33 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 902268552A;
+	Wed, 31 Jul 2019 09:34:31 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DA2285C207;
+	Wed, 31 Jul 2019 09:34:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E6E311800204;
-	Wed, 31 Jul 2019 09:34:32 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E8436264CA;
+	Wed, 31 Jul 2019 09:34:24 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x6UBhYLI019071 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 30 Jul 2019 07:43:34 -0400
+	id x6UCJF5Q025989 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 30 Jul 2019 08:19:15 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4F94C5C21A; Tue, 30 Jul 2019 11:43:34 +0000 (UTC)
+	id AB73E60C79; Tue, 30 Jul 2019 12:19:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx14.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.43])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4A2685C1B4
-	for <dm-devel@redhat.com>; Tue, 30 Jul 2019 11:43:30 +0000 (UTC)
+Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.41])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A657B60C6F
+	for <dm-devel@redhat.com>; Tue, 30 Jul 2019 12:19:09 +0000 (UTC)
 Received: from youngberry.canonical.com (youngberry.canonical.com
 	[91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 125A4308FBA6
-	for <dm-devel@redhat.com>; Tue, 30 Jul 2019 11:43:30 +0000 (UTC)
-Received: from mail-pf1-f197.google.com ([209.85.210.197])
+	by mx1.redhat.com (Postfix) with ESMTPS id 07FFC3179173
+	for <dm-devel@redhat.com>; Tue, 30 Jul 2019 12:19:09 +0000 (UTC)
+Received: from mail-pg1-f197.google.com ([209.85.215.197])
 	by youngberry.canonical.com with esmtps
 	(TLS1.0:RSA_AES_128_CBC_SHA1:16) (Exim 4.76)
-	(envelope-from <gpiccoli@canonical.com>) id 1hsQXQ-0001aA-4h
-	for dm-devel@redhat.com; Tue, 30 Jul 2019 11:43:28 +0000
-Received: by mail-pf1-f197.google.com with SMTP id i26so40582899pfo.22
-	for <dm-devel@redhat.com>; Tue, 30 Jul 2019 04:43:28 -0700 (PDT)
+	(envelope-from <gpiccoli@canonical.com>) id 1hsR5v-0004wH-GI
+	for dm-devel@redhat.com; Tue, 30 Jul 2019 12:19:07 +0000
+Received: by mail-pg1-f197.google.com with SMTP id m19so25994186pgv.7
+	for <dm-devel@redhat.com>; Tue, 30 Jul 2019 05:19:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
 	:message-id:date:user-agent:mime-version:in-reply-to
 	:content-language:content-transfer-encoding;
-	bh=4KlUTmLKGdfGcyISyvot6nwpcs6RPe9hQLv7GSaByVg=;
-	b=qTTHs5Le9k/PkkoBq54djAUybu5VejVuOh7/X/8hGWyLR7MFB19o8/eNndLJiFMKGl
-	ugZQhU3jWUBQyBLsBDYcNKsvDySc+wFOWdpERkgh+TkHWb2csbRyiVBVfKv8Tz/hBUwH
-	Xoj2Udv4+V4/yEdMRHAWipTD5Wnez4LF1U8YBD/X+1MbcefcxEpJNHc0w9gsxHO6Sfvp
-	PonFLGGi45bWTutekwLP0G1NfOPrzTjWNCnXt3iSo214LcdKet929xTITBqLtQHmbe/7
-	iKz5PI5zzwxI2kSVJc2ZnBk9tdzYuvtfbUaad5Rpyaoj/3c/Cl0J621uHLeLc8du/LB4
-	MjeA==
-X-Gm-Message-State: APjAAAUWd+SWgaCm9TsxcyRiHfgAv6VoTZF5gKld9gqafnXF/d/HB4+z
-	bahdaaNEVSP4HGFCWTWjfDQG1DxGjTEpOFwdnBgZVNg22Qgb2nabxxr1CZdCwsUcoH8LJcGmpRV
-	9x1cZB/h/SEbm81llOeru7t5edvYwHQ==
-X-Received: by 2002:a17:90b:d8b:: with SMTP id
-	bg11mr116845250pjb.30.1564487006913; 
-	Tue, 30 Jul 2019 04:43:26 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqyRl52zNy+T+lE1SC0yFNVABBNPatQQwwGO3yIZ8cF/begXpLwDZ8umDmsu9XwfWTGqFDNHDA==
-X-Received: by 2002:a17:90b:d8b:: with SMTP id
-	bg11mr116845234pjb.30.1564487006684; 
-	Tue, 30 Jul 2019 04:43:26 -0700 (PDT)
+	bh=duNeCgPARK5/DNYmXliLtl2PHvOx7FRmtH6Afr/ogZ8=;
+	b=L55C154UiJSdey2H0EFuBNMmFEYk5dYyeBTHR68o9EKpWG3k4jcK+YkmgqP5B4PS1y
+	NDqC1IRqAJ/XaipehtfWS+IvobMuweCV6Rqgz/yKvkv9L39RCADUaYYKC5rN+bkZXuQL
+	avOP5Zs20s9VinZU94isGJzNwnkO2EHVBxuMQ0KmXxHzAjnzY/7Zjy/oh2fpkbFOlMY1
+	BOt7IftWjAxk4euzH4WqCbpx3AgArsI7aeC2jcjTMyRHfYhGGzGO9UZJS6DZ9o3OInW2
+	ENcKqBFeL1nxMrYVgYeb5nwU5BH0lywjOPOkzARVlClSoooRbXECMONxgrbZT6IY6FfL
+	59Bg==
+X-Gm-Message-State: APjAAAWB98aS+FfS+17wO1ZN9wa95QaKCeO5V9IGaBsC4VQ2WirHn5Hv
+	3fP5JQZjDEw0f1qflC3FJDaVAN++XZXdsF81mHDkuexN8Vs+JNlc5/1b3oAEWLq28kljinw3Ijm
+	f1fEMhb4jDQYkRlIqSneWm1s6riphSQ==
+X-Received: by 2002:a62:1d8f:: with SMTP id
+	d137mr42586382pfd.207.1564489145695; 
+	Tue, 30 Jul 2019 05:19:05 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqz3VqyZIP60VysathrWyL1Khg+ulJL5jfJ25tNxj1jx8o8wkADOY5OI0aR6Pr1uAwShW4fTiQ==
+X-Received: by 2002:a62:1d8f:: with SMTP id
+	d137mr42586372pfd.207.1564489145562; 
+	Tue, 30 Jul 2019 05:19:05 -0700 (PDT)
 Received: from [192.168.1.202] ([152.254.214.186])
 	by smtp.gmail.com with ESMTPSA id
-	s67sm66340537pjb.8.2019.07.30.04.43.20
+	e189sm45931655pgc.15.2019.07.30.05.18.59
 	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Tue, 30 Jul 2019 04:43:25 -0700 (PDT)
-To: NeilBrown <neilb@suse.com>, linux-raid@vger.kernel.org
+	Tue, 30 Jul 2019 05:19:04 -0700 (PDT)
+To: Bob Liu <bob.liu@oracle.com>, linux-raid@vger.kernel.org
 References: <20190729203135.12934-1-gpiccoli@canonical.com>
 	<20190729203135.12934-2-gpiccoli@canonical.com>
-	<87wog0l6u2.fsf@notabene.neil.brown.name>
+	<d730c417-a328-3df3-1e31-32b6df48b6ad@oracle.com>
 From: "Guilherme G. Piccoli" <gpiccoli@canonical.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=gpiccoli@canonical.com; prefer-encrypt=mutual; keydata=
@@ -96,30 +96,30 @@ Autocrypt: addr=gpiccoli@canonical.com; prefer-encrypt=mutual; keydata=
 	Yh6gTrYoRYHo6FuQl5YsHop/fmTahpTx11IMjuh6IJQ+lvdpdfYJ6hmAZ9kiVszDF6pGFVkY
 	kHWtnE2Aa5qkxnA2HoFpqFifNWn5TyvJFpyqwVhVI8XYtXyVHub/WbXLWQwSJA4OHmqU8gDl
 	X18zwLgdiQ==
-Message-ID: <20348d5f-fa41-58f1-a7d8-2989233b97f1@canonical.com>
-Date: Tue, 30 Jul 2019 08:43:13 -0300
+Message-ID: <000c20fe-3bcd-2dff-a5ab-9a294bdc7746@canonical.com>
+Date: Tue, 30 Jul 2019 09:18:54 -0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
 	Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <87wog0l6u2.fsf@notabene.neil.brown.name>
+In-Reply-To: <d730c417-a328-3df3-1e31-32b6df48b6ad@oracle.com>
 Content-Language: en-US
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
 	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.43]); Tue, 30 Jul 2019 11:43:30 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]);
-	Tue, 30 Jul 2019 11:43:30 +0000 (UTC) for IP:'91.189.89.112'
+	[10.5.110.41]); Tue, 30 Jul 2019 12:19:09 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]);
+	Tue, 30 Jul 2019 12:19:09 +0000 (UTC) for IP:'91.189.89.112'
 	DOMAIN:'youngberry.canonical.com'
 	HELO:'youngberry.canonical.com' FROM:'gpiccoli@canonical.com'
 	RCPT:''
 X-RedHat-Spam-Score: -4.998  (RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
 	SPF_NONE) 91.189.89.112 youngberry.canonical.com
 	91.189.89.112 youngberry.canonical.com <gpiccoli@canonical.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.43
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.41
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 31 Jul 2019 05:34:14 -0400
 Cc: linux-block@vger.kernel.org, jay.vosburgh@canonical.com,
-	songliubraving@fb.com, dm-devel@redhat.com, Neil F Brown <nfbrown@suse.com>
+	dm-devel@redhat.com, songliubraving@fb.com, neilb@suse.com
 Subject: Re: [dm-devel] [PATCH 1/2] md/raid0: Introduce new array state
  'broken' for raid0
 X-BeenThere: dm-devel@redhat.com
@@ -138,106 +138,49 @@ Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Wed, 31 Jul 2019 09:34:34 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]); Wed, 31 Jul 2019 09:34:32 +0000 (UTC)
 
-On 29/07/2019 21:11, NeilBrown wrote:
+On 30/07/2019 03:20, Bob Liu wrote:
 > [...]
->> -	else {
->> +
->> +		if ((mddev->pers->level == 0) &&
+>> + * broken
+>> + *     RAID0-only: same as clean, but array is missing a member.
+>> + *     It's useful because RAID0 mounted-arrays aren't stopped
+>> + *     when a member is gone, so this state will at least alert
+>> + *     the user that something is wrong.
 > 
-> Don't test if ->level is 0.  Instead, test if ->is_missing_dev is not
-> NULL.
 > 
-> NeilBrown
+> Curious why only raid0 has this issue? 
+> 
+> Thanks, -Bob
 
-Hi Neil, thanks for the feedback. I'll change that in a potential V2,
-(if the patches are likely to be accepted), good idea.
+Hi Bob, I understand that all other levels have fault-tolerance logic,
+while raid0 is just a "bypass" driver that selects the correct
+underlying device to send the BIO and blindly sends it. It's known to be
+a performance-only /lightweight solution whereas the other levels aim to
+be reliable.
+
+I've quickly tested raid5 and rai10, and see messages like this on
+kernel log when removing a device (in raid5):
+
+[35.764975] md/raid:md0: Disk failure on nvme1n1, disabling device.
+md/raid:md0: Operation continuing on 1 devices.
+
+The message seen in raid10 is basically the same. As a (cheap)
+comparison of the complexity among levels, look that:
+
+<...>/linux-mainline/drivers/md# cat raid5* | wc -l
+14191
+
+<...>/linux-mainline/drivers/md# cat raid10* | wc -l
+5135
+
+<...>/linux-mainline/drivers/md# cat raid0* | wc -l
+820
+
 Cheers,
 
 
 Guilherme
-
-
-> 
-> 
->> +		   ((st == clean) || (st == broken))) {
->> +			if (mddev->pers->is_missing_dev(mddev))
->> +				st = broken;
->> +			else
->> +				st = clean;
->> +		}
->> +	} else {
->>  		if (list_empty(&mddev->disks) &&
->>  		    mddev->raid_disks == 0 &&
->>  		    mddev->dev_sectors == 0)
->> @@ -4315,6 +4329,7 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
->>  		break;
->>  	case write_pending:
->>  	case active_idle:
->> +	case broken:
->>  		/* these cannot be set */
->>  		break;
->>  	}
->> diff --git a/drivers/md/md.h b/drivers/md/md.h
->> index 41552e615c4c..e7b42b75701a 100644
->> --- a/drivers/md/md.h
->> +++ b/drivers/md/md.h
->> @@ -590,6 +590,8 @@ struct md_personality
->>  	int (*congested)(struct mddev *mddev, int bits);
->>  	/* Changes the consistency policy of an active array. */
->>  	int (*change_consistency_policy)(struct mddev *mddev, const char *buf);
->> +	/* Check if there is any missing/failed members - RAID0 only for now. */
->> +	bool (*is_missing_dev)(struct mddev *mddev);
->>  };
->>  
->>  struct md_sysfs_entry {
->> diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
->> index 58a9cc5193bf..79618a6ae31a 100644
->> --- a/drivers/md/raid0.c
->> +++ b/drivers/md/raid0.c
->> @@ -455,6 +455,31 @@ static inline int is_io_in_chunk_boundary(struct mddev *mddev,
->>  	}
->>  }
->>  
->> +bool raid0_is_missing_dev(struct mddev *mddev)
->> +{
->> +	struct md_rdev *rdev;
->> +	static int already_missing;
->> +	int def_disks, work_disks = 0;
->> +	struct r0conf *conf = mddev->private;
->> +
->> +	def_disks = conf->strip_zone[0].nb_dev;
->> +	rdev_for_each(rdev, mddev)
->> +		if (rdev->bdev->bd_disk->flags & GENHD_FL_UP)
->> +			work_disks++;
->> +
->> +	if (unlikely(def_disks - work_disks)) {
->> +		if (!already_missing) {
->> +			already_missing = 1;
->> +			pr_warn("md: %s: raid0 array has %d missing/failed members\n",
->> +				mdname(mddev), (def_disks - work_disks));
->> +		}
->> +		return true;
->> +	}
->> +
->> +	already_missing = 0;
->> +	return false;
->> +}
->> +
->>  static void raid0_handle_discard(struct mddev *mddev, struct bio *bio)
->>  {
->>  	struct r0conf *conf = mddev->private;
->> @@ -789,6 +814,7 @@ static struct md_personality raid0_personality=
->>  	.takeover	= raid0_takeover,
->>  	.quiesce	= raid0_quiesce,
->>  	.congested	= raid0_congested,
->> +	.is_missing_dev	= raid0_is_missing_dev,
->>  };
->>  
->>  static int __init raid0_init (void)
->> -- 
->> 2.22.0
 
 --
 dm-devel mailing list
