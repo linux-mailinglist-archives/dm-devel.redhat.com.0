@@ -2,72 +2,76 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B4EC7F61F
-	for <lists+dm-devel@lfdr.de>; Fri,  2 Aug 2019 13:41:26 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FD2E7F619
+	for <lists+dm-devel@lfdr.de>; Fri,  2 Aug 2019 13:40:43 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 7313C308A958;
-	Fri,  2 Aug 2019 11:41:24 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3F35760BE2;
-	Fri,  2 Aug 2019 11:41:24 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id D6643C027339;
+	Fri,  2 Aug 2019 11:40:41 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A2C4F19C6A;
+	Fri,  2 Aug 2019 11:40:41 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B599C18089C8;
-	Fri,  2 Aug 2019 11:41:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4C16D41F53;
+	Fri,  2 Aug 2019 11:40:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x71C7cMO029655 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 1 Aug 2019 08:07:38 -0400
+	id x71KT0U4022459 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 1 Aug 2019 16:29:00 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D7B2C60BF7; Thu,  1 Aug 2019 12:07:38 +0000 (UTC)
+	id 10B91100033A; Thu,  1 Aug 2019 20:29:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx08.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.32])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D02C860BEC
-	for <dm-devel@redhat.com>; Thu,  1 Aug 2019 12:07:36 +0000 (UTC)
+Received: from mx1.redhat.com (ext-mx17.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.46])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A5EA1000336
+	for <dm-devel@redhat.com>; Thu,  1 Aug 2019 20:28:55 +0000 (UTC)
 Received: from youngberry.canonical.com (youngberry.canonical.com
 	[91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 47CA9C057EC0
-	for <dm-devel@redhat.com>; Thu,  1 Aug 2019 12:07:35 +0000 (UTC)
-Received: from mail-qk1-f199.google.com ([209.85.222.199])
+	by mx1.redhat.com (Postfix) with ESMTPS id 1116230CE8E2
+	for <dm-devel@redhat.com>; Thu,  1 Aug 2019 20:28:54 +0000 (UTC)
+Received: from mail-pl1-f197.google.com ([209.85.214.197])
 	by youngberry.canonical.com with esmtps
 	(TLS1.0:RSA_AES_128_CBC_SHA1:16) (Exim 4.76)
-	(envelope-from <gpiccoli@canonical.com>) id 1ht9rp-0001wy-Nr
-	for dm-devel@redhat.com; Thu, 01 Aug 2019 12:07:33 +0000
-Received: by mail-qk1-f199.google.com with SMTP id 5so61066280qki.2
-	for <dm-devel@redhat.com>; Thu, 01 Aug 2019 05:07:33 -0700 (PDT)
+	(envelope-from <gpiccoli@canonical.com>) id 1htHgy-0005xX-Cw
+	for dm-devel@redhat.com; Thu, 01 Aug 2019 20:28:52 +0000
+Received: by mail-pl1-f197.google.com with SMTP id y22so40262191plr.20
+	for <dm-devel@redhat.com>; Thu, 01 Aug 2019 13:28:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
 	:message-id:date:user-agent:mime-version:in-reply-to
 	:content-language:content-transfer-encoding;
-	bh=T40t7s213Mp+18EcHtTWk6QKiI1nw6vK09jgcYOJXSo=;
-	b=P0Gw/89ToZMEl2vvF+P9ZPmloCNpGqQnqacvVT/p/4f7w3FQbIX/hObiXmcx62/DAz
-	xxk85cqmJC1CUYv/Z42IWocWinbZbQyzuMkYB4byn+yeeSOKhk0dDpqOjYB6ZOIMipPf
-	pHfOAi0ks1D4gSeiTg0sJcWSRARfUXatolr7gOhlF9ktPwVGKhMtXLbhwEgiBbKB/yRt
-	YYidkhqGCvTnaYpKoAIr2FT5404fde2Pd+3t66eMtj5645MNzMAexsIhHoM1KhIwhD1A
-	UjQxFCo1i/nbSN8Iuu+ssn4efve2BiDvoMuzLlOfnBmfBlG3MbWgiFP1uCrEyD5ysh91
-	rKDQ==
-X-Gm-Message-State: APjAAAUu+cqKRtRi1OcmvxDYaggqjqNtsDlUgv32zyo83fKEI3UgTJpd
-	zKBb+CDhoweSIllFMSmnl6CAMCTRRn00mpovQ2p5c5zi478lIQ1wLeT6FOnkS1CmJPTOZwO2fDd
-	Yc6RvNJx2Z55qFornppBwevjZcOqUJg==
-X-Received: by 2002:ac8:2baa:: with SMTP id m39mr90937729qtm.242.1564661252940;
-	Thu, 01 Aug 2019 05:07:32 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqygDHL715/PEznszVqRRyj/i2NkbmqlN2dd6blZ4AD2LB1WsZHIhTfE3C41A7h6B1l2Ab7RcQ==
-X-Received: by 2002:ac8:2baa:: with SMTP id m39mr90937702qtm.242.1564661252703;
-	Thu, 01 Aug 2019 05:07:32 -0700 (PDT)
-Received: from [192.168.1.202] ([152.254.214.186])
-	by smtp.gmail.com with ESMTPSA id
-	i27sm29457201qkk.58.2019.08.01.05.07.30
+	bh=QCJ4vg6Bq4PcT5glXzSZy5Mkbbyr2Ef4lNDEIG8R548=;
+	b=IzRdW+plPVq7hntD78r2HPy/u+Giu5a7RzIVRS/upuTWbFGowCrRxPL1UpcNjf4Ueh
+	KbETZYxM6MS65/zILW47zu5O0cM1l5Icjeu64ZL0JQEjxylBiRWUDIqd+zQ1g9D9r21Z
+	UtsAtyYTxom2NHQsGWPRa/AcHgOErRiM5fX9e9dWUSdyFnhnKpy0DSPSpRA2Vrmr9K9k
+	SQRJxtQ53CZPHerIayRwCYGDuOZ2kKZ6d5oQ/ziQtz7x52ErYpsGp/Ns8oHswggDcRM9
+	57188pcAOQ/M+hjMGALgLdxlycudlQw397Ockmgo4XBgSLh7nihxoq1EdDqubQbRkpQF
+	OEsg==
+X-Gm-Message-State: APjAAAWZ1CCmdY1eyAU1on6Opg4qKEmOvYdDak1e6Yk0ks2QwnurIMc+
+	59bfQIKj+JAn1hrS25loeLpQqGc7KvILgHYzPgV6UATTmTNUt4OGhEtAShXScK8tYMQw5Xabr9w
+	dKvugE3SzeX8DKXMMZigdx1Oo4poZ0w==
+X-Received: by 2002:a63:ee0c:: with SMTP id
+	e12mr122830310pgi.184.1564691331089; 
+	Thu, 01 Aug 2019 13:28:51 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqw1+AnMSrYjUU0Qm4tA1sS6bn3wBA6lqGpHC1DrfTXAN56OY92iiKg27Q4q1jM6d9J5vCJtDQ==
+X-Received: by 2002:a63:ee0c:: with SMTP id
+	e12mr122830290pgi.184.1564691330808; 
+	Thu, 01 Aug 2019 13:28:50 -0700 (PDT)
+Received: from [192.168.1.201] (201-43-220-172.dsl.telesp.net.br.
+	[201.43.220.172]) by smtp.gmail.com with ESMTPSA id
+	o14sm4976723pjp.19.2019.08.01.13.28.31
 	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Thu, 01 Aug 2019 05:07:31 -0700 (PDT)
+	Thu, 01 Aug 2019 13:28:43 -0700 (PDT)
 To: Song Liu <liu.song.a23@gmail.com>
-References: <20190729203135.12934-1-gpiccoli@canonical.com>
-	<20190729203135.12934-2-gpiccoli@canonical.com>
-	<CAPhsuW5n9TCZjVT3QnFhHkbfPTvh7ifFiNXypOHouL5ByZS7+w@mail.gmail.com>
+References: <20190729193359.11040-1-gpiccoli@canonical.com>
+	<87zhkwl6ya.fsf@notabene.neil.brown.name>
+	<6400083b-3cf3-cbc6-650a-c3ae6629b14c@canonical.com>
+	<CAPhsuW69YrpHqBCOob2b5wzzWS9FM087sfe3iC0odX8kZWRwmA@mail.gmail.com>
+	<CAPhsuW5zB=Kik4rq9YA-xBer7Z-h-23QV4WSCWe-jvhFgGc0Cw@mail.gmail.com>
 From: "Guilherme G. Piccoli" <gpiccoli@canonical.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=gpiccoli@canonical.com; prefer-encrypt=mutual; keydata=
@@ -94,34 +98,34 @@ Autocrypt: addr=gpiccoli@canonical.com; prefer-encrypt=mutual; keydata=
 	Yh6gTrYoRYHo6FuQl5YsHop/fmTahpTx11IMjuh6IJQ+lvdpdfYJ6hmAZ9kiVszDF6pGFVkY
 	kHWtnE2Aa5qkxnA2HoFpqFifNWn5TyvJFpyqwVhVI8XYtXyVHub/WbXLWQwSJA4OHmqU8gDl
 	X18zwLgdiQ==
-Message-ID: <037ef0ef-1a34-f522-6b31-e388906a87fa@canonical.com>
-Date: Thu, 1 Aug 2019 09:07:28 -0300
+Message-ID: <9674ca8f-4325-3023-8a1d-39782103f55d@canonical.com>
+Date: Thu, 1 Aug 2019 17:28:24 -0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
 	Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <CAPhsuW5n9TCZjVT3QnFhHkbfPTvh7ifFiNXypOHouL5ByZS7+w@mail.gmail.com>
+In-Reply-To: <CAPhsuW5zB=Kik4rq9YA-xBer7Z-h-23QV4WSCWe-jvhFgGc0Cw@mail.gmail.com>
 Content-Language: en-US
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
 	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.32]); Thu, 01 Aug 2019 12:07:35 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]);
-	Thu, 01 Aug 2019 12:07:35 +0000 (UTC) for IP:'91.189.89.112'
+	[10.5.110.46]); Thu, 01 Aug 2019 20:28:54 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]);
+	Thu, 01 Aug 2019 20:28:54 +0000 (UTC) for IP:'91.189.89.112'
 	DOMAIN:'youngberry.canonical.com'
 	HELO:'youngberry.canonical.com' FROM:'gpiccoli@canonical.com'
 	RCPT:''
 X-RedHat-Spam-Score: -4.998  (RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
 	SPF_NONE) 91.189.89.112 youngberry.canonical.com
 	91.189.89.112 youngberry.canonical.com <gpiccoli@canonical.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.32
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.46
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 02 Aug 2019 07:39:28 -0400
-Cc: linux-block@vger.kernel.org, Song Liu <songliubraving@fb.com>,
+Cc: Neil F Brown <nfbrown@suse.com>, Song Liu <songliubraving@fb.com>,
 	NeilBrown <neilb@suse.com>,
 	linux-raid <linux-raid@vger.kernel.org>, dm-devel@redhat.com,
-	Jay Vosburgh <jay.vosburgh@canonical.com>
-Subject: Re: [dm-devel] [PATCH 1/2] md/raid0: Introduce new array state
- 'broken' for raid0
+	linux-block@vger.kernel.org, Jay Vosburgh <jay.vosburgh@canonical.com>
+Subject: Re: [dm-devel] [PATCH] md/raid0: Fail BIOs if their underlying
+ block device is gone
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -137,33 +141,53 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]); Fri, 02 Aug 2019 11:41:25 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.31]); Fri, 02 Aug 2019 11:40:42 +0000 (UTC)
 
-On 31/07/2019 16:43, Song Liu wrote:
->[...]
->> @@ -4315,6 +4329,7 @@ array_state_store(struct mddev *mddev, const char *buf, size_t len)
->>                 break;
->>         case write_pending:
->>         case active_idle:
->> +       case broken:
->>                 /* these cannot be set */
->>                 break;
->>         }
+
+
+On 31/07/2019 16:56, Song Liu wrote:
+> On Wed, Jul 31, 2019 at 12:54 PM Song Liu <liu.song.a23@gmail.com> wrote:
+>>
+>> On Tue, Jul 30, 2019 at 5:31 AM Guilherme G. Piccoli
+>> <gpiccoli@canonical.com> wrote:
+>>>
+>>> On 29/07/2019 21:08, NeilBrown wrote:
+>>>> [...]
+>>>>> +    if (unlikely(test_bit(MD_BROKEN, &mddev->flags))) {
+>>>>> +            bio_io_error(bio);
+>>>>> +            return BLK_QC_T_NONE;
+>>>>> +    }
+>>>>
+>>>> I think this should only fail WRITE requests, not READ requests.
+>>>>
+>>>> Otherwise the patch is probably reasonable.
+>>>>
+>>>> NeilBrown
+>>>
+>>> Thanks for the feedback Neil! I thought about it; it seemed to me better
+>>> to deny/fail the reads instead of returning "wrong" reads, since a file
+>>> read in a raid0 will be incomplete if one member is missing.
+>>> But it's fine for me to change that in the next iteration of this patch.
+>>
+>> For reads at block/page level, we will either get EIO or valid data, right?
+>>
+>> If that's not the case, we should fail all writes.
 > 
-> Maybe it is useful to set "broken" state? When user space found some issues
-> with the drive?
-> 
-> Thanks,
-> Song
+> Oops, I meant all _reads_.
 
-Hi Song, thanks a lot for your feedback. I can easily add that in V2
-along with Neil's suggestion, I agree with you.
-There is a 2/2 patch regarding the mdadm counterpart; you should have
-received the email, but for completeness, the link is:
+Hi Song, thanks for the feedback! After changing the patch and testing a
+bit, it behaves exactly as you said, we got either valid data read from
+the healthy devices or -EIO for the data tentatively read from the
+failed/missing array members.
 
-lore.kernel.org/linux-block/20190729203135.12934-3-gpiccoli@canonical.com
+So, I'll resubmit with that change. Also, I've noticed clearing the
+BROKEN flag seem unnecessary, if user stops the array in order to fix
+the missing member, it'll require a re-assembly and the array is gonna
+work again.
 
+Do you / Neil considers this fix relevant to md/linear too? If so, I can
+also include that in the V2.
 Thanks,
 
 
