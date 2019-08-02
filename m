@@ -2,48 +2,47 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71B5D7FEBD
-	for <lists+dm-devel@lfdr.de>; Fri,  2 Aug 2019 18:39:52 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id C6E047FEB7
+	for <lists+dm-devel@lfdr.de>; Fri,  2 Aug 2019 18:39:11 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 8F3FEA836;
-	Fri,  2 Aug 2019 16:39:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 630D65DA38;
-	Fri,  2 Aug 2019 16:39:50 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 2A7CE74A5A;
+	Fri,  2 Aug 2019 16:39:09 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EB0916055B;
+	Fri,  2 Aug 2019 16:39:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ED127149E4;
-	Fri,  2 Aug 2019 16:39:49 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5AD1618089C8;
+	Fri,  2 Aug 2019 16:39:08 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
 	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x72GYDC8001434 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 2 Aug 2019 12:34:13 -0400
+	id x72GYAXG001419 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 2 Aug 2019 12:34:10 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2B77C10016EA; Fri,  2 Aug 2019 16:34:13 +0000 (UTC)
+	id D4FF910018F9; Fri,  2 Aug 2019 16:34:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 58DAE1001B02;
-	Fri,  2 Aug 2019 16:34:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E72841001B12;
+	Fri,  2 Aug 2019 16:34:09 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id x72GY7co031843; 
-	Fri, 2 Aug 2019 11:34:07 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id x72GY8H7031847; 
+	Fri, 2 Aug 2019 11:34:08 -0500
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id x72GY6HW031842;
-	Fri, 2 Aug 2019 11:34:06 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id x72GY8pI031846;
+	Fri, 2 Aug 2019 11:34:08 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Fri,  2 Aug 2019 11:33:39 -0500
-Message-Id: <1564763622-31752-14-git-send-email-bmarzins@redhat.com>
+Date: Fri,  2 Aug 2019 11:33:40 -0500
+Message-Id: <1564763622-31752-15-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1564763622-31752-1-git-send-email-bmarzins@redhat.com>
 References: <1564763622-31752-1-git-send-email-bmarzins@redhat.com>
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
 Cc: device-mapper development <dm-devel@redhat.com>,
 	Martin Wilck <mwilck@suse.com>, Muneendra Kumar <mkumar@redhat.com>
-Subject: [dm-devel] [PATCH 13/16] libmultipath: add marginal_pathgroups
-	config option
+Subject: [dm-devel] [PATCH 14/16] libmutipath: deprecate delay_*_checks
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -60,643 +59,367 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]); Fri, 02 Aug 2019 16:39:51 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Fri, 02 Aug 2019 16:39:10 +0000 (UTC)
 
-group_paths now gets passed this to determine whether to enable
-marginal pathgroups. The unit tests have also been updated.
+The delay_checks shaky paths detection method works the same way as the
+san_path_err method, but not as well, with less configurability, and
+with the code spread all over check_path(). The only real difference is
+that marks the path as marginal for a certain number of path checks
+instead of for a specific time. This patch deprecates the delay_checks
+method and maps it to the the san_path_err method.
 
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/config.h     |   1 +
- libmultipath/configure.c  |   5 +-
- libmultipath/dict.c       |   3 +
- libmultipath/pgpolicies.c |   5 +-
- libmultipath/pgpolicies.h |   2 +-
- tests/pgpolicy.c          | 140 +++++++++++++++++++++++---------------
- 6 files changed, 98 insertions(+), 58 deletions(-)
+ libmultipath/configure.c   | 17 +----------
+ libmultipath/propsel.c     | 62 +++++++++++++++++++++++++++++---------
+ libmultipath/propsel.h     |  2 --
+ libmultipath/structs.h     | 10 ------
+ multipath/multipath.conf.5 | 41 ++++++++++++++-----------
+ multipathd/main.c          | 34 +++------------------
+ 6 files changed, 76 insertions(+), 90 deletions(-)
 
-diff --git a/libmultipath/config.h b/libmultipath/config.h
-index ff2b4e86..0b978970 100644
---- a/libmultipath/config.h
-+++ b/libmultipath/config.h
-@@ -186,6 +186,7 @@ struct config {
- 	int max_sectors_kb;
- 	int ghost_delay;
- 	int find_multipaths_timeout;
-+	int marginal_pathgroups;
- 	unsigned int version[3];
- 
- 	char * multipath_dir;
 diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-index 3c309d64..3238d485 100644
+index 3238d485..9443389f 100644
 --- a/libmultipath/configure.c
 +++ b/libmultipath/configure.c
-@@ -297,7 +297,7 @@ int setup_map(struct multipath *mpp, char *params, int params_size,
- {
- 	struct pathgroup * pgp;
- 	struct config *conf;
--	int i, n_paths;
-+	int i, n_paths, marginal_pathgroups;
- 
- 	/*
- 	 * don't bother if devmap size is unknown
-@@ -357,6 +357,7 @@ int setup_map(struct multipath *mpp, char *params, int params_size,
- 	select_flush_on_last_del(conf, mpp);
- 
- 	sysfs_set_scsi_tmo(mpp, conf->checkint);
-+	marginal_pathgroups = conf->marginal_pathgroups;
+@@ -342,8 +342,6 @@ int setup_map(struct multipath *mpp, char *params, int params_size,
+ 	select_dev_loss(conf, mpp);
+ 	select_reservation_key(conf, mpp);
+ 	select_deferred_remove(conf, mpp);
+-	select_delay_watch_checks(conf, mpp);
+-	select_delay_wait_checks(conf, mpp);
+ 	select_marginal_path_err_sample_time(conf, mpp);
+ 	select_marginal_path_err_rate_threshold(conf, mpp);
+ 	select_marginal_path_err_recheck_gap_time(conf, mpp);
+@@ -360,21 +358,8 @@ int setup_map(struct multipath *mpp, char *params, int params_size,
+ 	marginal_pathgroups = conf->marginal_pathgroups;
  	pthread_cleanup_pop(1);
  
- 	if (marginal_path_check_enabled(mpp)) {
-@@ -387,7 +388,7 @@ int setup_map(struct multipath *mpp, char *params, int params_size,
- 		vector_free(mpp->pg);
- 		mpp->pg = NULL;
- 	}
--	if (group_paths(mpp))
-+	if (group_paths(mpp, marginal_pathgroups))
+-	if (marginal_path_check_enabled(mpp)) {
+-		if (delay_check_enabled(mpp)) {
+-			condlog(1, "%s: WARNING: both marginal_path and delay_checks error detection selected",
+-				mpp->alias);
+-			condlog(0, "%s: unexpected behavior may occur!",
+-				mpp->alias);
+-		}
++	if (marginal_path_check_enabled(mpp))
+ 		start_io_err_stat_thread(vecs);
+-	}
+-	if (san_path_check_enabled(mpp) && delay_check_enabled(mpp)) {
+-		condlog(1, "%s: WARNING: both san_path_err and delay_checks error detection selected",
+-			mpp->alias);
+-		condlog(0, "%s: unexpected behavior may occur!",
+-			mpp->alias);
+-	}
+ 
+ 	n_paths = VECTOR_SIZE(mpp->paths);
+         /*
+diff --git a/libmultipath/propsel.c b/libmultipath/propsel.c
+index 6af2513d..894a52e3 100644
+--- a/libmultipath/propsel.c
++++ b/libmultipath/propsel.c
+@@ -85,6 +85,10 @@ static const char autodetect_origin[] =
+ 	"(setting: storage device autodetected)";
+ static const char marginal_path_origin[] =
+ 	"(setting: implied by marginal_path check)";
++static const char delay_watch_origin[] =
++	"(setting: implied by delay_watch_checks)";
++static const char delay_wait_origin[] =
++	"(setting: implied by delay_wait_checks)";
+ 
+ #define do_default(dest, value)						\
+ do {									\
+@@ -877,37 +881,59 @@ out:
+ 	return 0;
+ }
+ 
+-int select_delay_watch_checks(struct config *conf, struct multipath *mp)
++static int
++use_delay_watch_checks(struct config *conf, struct multipath *mp)
+ {
++	int value = NU_UNDEF;
+ 	const char *origin;
+ 	char buff[12];
+ 
+-	mp_set_mpe(delay_watch_checks);
+-	mp_set_ovr(delay_watch_checks);
+-	mp_set_hwe(delay_watch_checks);
+-	mp_set_conf(delay_watch_checks);
+-	mp_set_default(delay_watch_checks, DEFAULT_DELAY_CHECKS);
++	do_set(delay_watch_checks, mp->mpe, value, multipaths_origin);
++	do_set(delay_watch_checks, conf->overrides, value, overrides_origin);
++	do_set_from_hwe(delay_watch_checks, mp, value, hwe_origin);
++	do_set(delay_watch_checks, conf, value, conf_origin);
+ out:
+-	if (print_off_int_undef(buff, 12, mp->delay_watch_checks) != 0)
++	if (value > 0) {
++		mp->san_path_err_forget_rate = value;
++		print_off_int_undef(buff, 12, value);
+ 		condlog(3, "%s: delay_watch_checks = %s %s",
+ 			mp->alias, buff, origin);
++		if (mp->san_path_err_threshold == NU_NO) {
++			mp->san_path_err_threshold = 1;
++			condlog(3, "%s: san_path_err_threshold = 1 %s",
++				mp->alias, delay_watch_origin);
++		}
++		return 1;
++	}
+ 	return 0;
+ }
+ 
+-int select_delay_wait_checks(struct config *conf, struct multipath *mp)
++static int
++use_delay_wait_checks(struct config *conf, struct multipath *mp)
+ {
++	int value = NU_UNDEF;
+ 	const char *origin;
+ 	char buff[12];
+ 
+-	mp_set_mpe(delay_wait_checks);
+-	mp_set_ovr(delay_wait_checks);
+-	mp_set_hwe(delay_wait_checks);
+-	mp_set_conf(delay_wait_checks);
+-	mp_set_default(delay_wait_checks, DEFAULT_DELAY_CHECKS);
++	do_set(delay_wait_checks, mp->mpe, value, multipaths_origin);
++	do_set(delay_wait_checks, conf->overrides, value, overrides_origin);
++	do_set_from_hwe(delay_wait_checks, mp, value, hwe_origin);
++	do_set(delay_wait_checks, conf, value, conf_origin);
+ out:
+-	if (print_off_int_undef(buff, 12, mp->delay_wait_checks) != 0)
++	if (value > 0) {
++		/* this isn't exactly the same length of time as
++		 * delay_wait_checks, but it's a close enough approximation */
++		mp->san_path_err_recovery_time = value * conf->max_checkint;
++		print_off_int_undef(buff, 12, value);
+ 		condlog(3, "%s: delay_wait_checks = %s %s",
+ 			mp->alias, buff, origin);
++		if (mp->san_path_err_threshold == NU_NO) {
++			mp->san_path_err_threshold = 1;
++			condlog(3, "%s: san_path_err_threshold = 1 %s",
++				mp->alias, delay_wait_origin);
++		}
++		return 1;
++	}
+ 	return 0;
+ 
+ }
+@@ -960,6 +986,10 @@ int select_san_path_err_forget_rate(struct config *conf, struct multipath *mp)
+ 	mp_set_ovr(san_path_err_forget_rate);
+ 	mp_set_hwe(san_path_err_forget_rate);
+ 	mp_set_conf(san_path_err_forget_rate);
++	if (use_delay_watch_checks(conf, mp)) {
++		origin = delay_watch_origin;
++		goto out;
++	}
+ 	mp_set_default(san_path_err_forget_rate, DEFAULT_ERR_CHECKS);
+ out:
+ 	if (print_off_int_undef(buff, 12, mp->san_path_err_forget_rate) != 0)
+@@ -984,6 +1014,10 @@ int select_san_path_err_recovery_time(struct config *conf, struct multipath *mp)
+ 	mp_set_ovr(san_path_err_recovery_time);
+ 	mp_set_hwe(san_path_err_recovery_time);
+ 	mp_set_conf(san_path_err_recovery_time);
++	if (use_delay_wait_checks(conf, mp)) {
++		origin = delay_wait_origin;
++		goto out;
++	}
+ 	mp_set_default(san_path_err_recovery_time, DEFAULT_ERR_CHECKS);
+ out:
+ 	if (print_off_int_undef(buff, 12, mp->san_path_err_recovery_time) != 0)
+diff --git a/libmultipath/propsel.h b/libmultipath/propsel.h
+index b352c16a..b99652f0 100644
+--- a/libmultipath/propsel.h
++++ b/libmultipath/propsel.h
+@@ -22,8 +22,6 @@ int select_retain_hwhandler (struct config *conf, struct multipath * mp);
+ int select_detect_prio(struct config *conf, struct path * pp);
+ int select_detect_checker(struct config *conf, struct path * pp);
+ int select_deferred_remove(struct config *conf, struct multipath *mp);
+-int select_delay_watch_checks (struct config *conf, struct multipath * mp);
+-int select_delay_wait_checks (struct config *conf, struct multipath * mp);
+ int select_skip_kpartx (struct config *conf, struct multipath * mp);
+ int select_max_sectors_kb (struct config *conf, struct multipath * mp);
+ int select_san_path_err_forget_rate(struct config *conf, struct multipath *mp);
+diff --git a/libmultipath/structs.h b/libmultipath/structs.h
+index a8b9d325..a3adf906 100644
+--- a/libmultipath/structs.h
++++ b/libmultipath/structs.h
+@@ -268,8 +268,6 @@ struct path {
+ 	int pgindex;
+ 	int detect_prio;
+ 	int detect_checker;
+-	int watch_checks;
+-	int wait_checks;
+ 	int tpgs;
+ 	char * uid_attribute;
+ 	char * getuid;
+@@ -321,8 +319,6 @@ struct multipath {
+ 	int fast_io_fail;
+ 	int retain_hwhandler;
+ 	int deferred_remove;
+-	int delay_watch_checks;
+-	int delay_wait_checks;
+ 	int san_path_err_threshold;
+ 	int san_path_err_forget_rate;
+ 	int san_path_err_recovery_time;
+@@ -393,12 +389,6 @@ static inline int san_path_check_enabled(const struct multipath *mpp)
+ 		mpp->san_path_err_recovery_time > 0;
+ }
+ 
+-static inline int delay_check_enabled(const struct multipath *mpp)
+-{
+-	return mpp->delay_watch_checks != NU_NO ||
+-		mpp->delay_wait_checks != NU_NO;
+-}
+-
+ struct pathgroup {
+ 	long id;
+ 	int status;
+diff --git a/multipath/multipath.conf.5 b/multipath/multipath.conf.5
+index f7d21b4c..7fccf8f3 100644
+--- a/multipath/multipath.conf.5
++++ b/multipath/multipath.conf.5
+@@ -1013,10 +1013,13 @@ The default is: \fBno\fR
+ .
+ .TP
+ .B delay_watch_checks
+-If set to a value greater than 0, multipathd will watch paths that have
+-recently become valid for this many checks. If they fail again while they are
+-being watched, when they next become valid, they will not be used until they
+-have stayed up for \fIdelay_wait_checks\fR checks. See "Shaky paths detection" below.
++This option is \fBdeprecated\fR, and mapped to \fIsan_path_err_forget_rate\fR.
++If this is set to a value greater than 0 and \fIsan_path_err_forget_rate\fR
++isn't set, \fIsan_path_err_forget_rate\fR will be set to the value of
++\fIdelay_watch_checks\fR. Also, if \fIsan_path_err_threshold\fR isn't set, it
++will be set to 1. See the \fIsan_path_err_forget_rate\fR and
++\fIsan_path_err_threshold\fR options, and "Shaky paths detection" below for
++more information.
+ .RS
+ .TP
+ The default is: \fBno\fR
+@@ -1025,10 +1028,14 @@ The default is: \fBno\fR
+ .
+ .TP
+ .B delay_wait_checks
+-If set to a value greater than 0, when a device that has recently come back
+-online fails again within \fIdelay_watch_checks\fR checks, the next time it
+-comes back online, it will marked and delayed, and not used until it has passed
+-\fIdelay_wait_checks\fR checks. See "Shaky paths detection" below.
++This option is \fBdeprecated\fR, and mapped to \fIsan_path_err_recovery_time\fR.
++If this is set to a value greater than 0 and \fIsan_path_err_recovery_time\fR
++isn't set, \fIsan_path_err_recovery_time\fR will be set to the value of
++\fIdelay_wait_checks\fR times \fImax_polling_interval\fR. This will give
++approximately the same wait time as delay_wait_checks previously did.
++Also, if \fIsan_path_err_threshold\fR isn't set, it will be set to 1.
++See the \fIsan_path_err_recovery_time\fR and \fIsan_path_err_threshold\fR
++options, and "Shaky paths detection" below for more information.
+ .RS
+ .TP
+ The default is: \fBno\fR
+@@ -1689,13 +1696,10 @@ if the healthy state appears to be stable. The logic of determining
+ differs between the three methods.
+ .TP 8
+ .B \(dqdelay_checks\(dq failure tracking
+-If a path fails again within a
+-\fIdelay_watch_checks\fR interval after a failure, don't
+-reinstate it until it passes a \fIdelay_wait_checks\fR interval
+-in always good status.
+-The intervals are measured in \(dqticks\(dq, i.e. the
+-time between path checks by multipathd, which is variable and controlled by the
+-\fIpolling_interval\fR and \fImax_polling_interval\fR parameters.
++This method is \fBdeprecated\fR and mapped to the \(dqsan_path_err\(dq method.
++See the \fIdelay_watch_checks\fR and \fIdelay_wait_checks\fR options above
++for more information.
++
+ .TP
+ .B \(dqmarginal_path\(dq failure tracking
+ If a second failure event (good->bad transition) occurs within
+@@ -1712,12 +1716,13 @@ in seconds.
+ .B \(dqsan_path_err\(dq failure tracking
+ multipathd counts path failures for each path. Once the number of failures
+ exceeds the value given by \fIsan_path_err_threshold\fR, the path is not
+-reinstated for \fIsan_path_err_recovery_time\fR ticks. While counting
++reinstated for \fIsan_path_err_recovery_time\fR seconds. While counting
+ failures, multipathd \(dqforgets\(dq one past failure every
+ \(dqsan_path_err_forget_rate\(dq ticks; thus if errors don't occur more
+ often then once in the forget rate interval, the failure count doesn't
+-increase and the threshold is never reached. As for the \fIdelay_xy\fR method,
+-intervals are measured in \(dqticks\(dq.
++increase and the threshold is never reached. Ticks are the time between
++path checks by multipathd, which is variable and controlled by the
++\fIpolling_interval\fR and \fImax_polling_interval\fR parameters.
+ .
+ .RS 8
+ .LP
+diff --git a/multipathd/main.c b/multipathd/main.c
+index 7db15736..dca2214c 100644
+--- a/multipathd/main.c
++++ b/multipathd/main.c
+@@ -2122,16 +2122,6 @@ check_path (struct vectors * vecs, struct path * pp, int ticks)
  		return 1;
+ 	}
  
+-	if ((newstate == PATH_UP || newstate == PATH_GHOST) &&
+-	     pp->wait_checks > 0) {
+-		if (pp->mpp->nr_active > 0) {
+-			pp->state = PATH_DELAYED;
+-			pp->wait_checks--;
+-			return 1;
+-		} else
+-			pp->wait_checks = 0;
+-	}
+-
  	/*
-diff --git a/libmultipath/dict.c b/libmultipath/dict.c
-index c6eba0f6..b5feb884 100644
---- a/libmultipath/dict.c
-+++ b/libmultipath/dict.c
-@@ -1339,6 +1339,8 @@ declare_ovr_snprint(all_tg_pt, print_yes_no_undef)
- declare_hw_handler(all_tg_pt, set_yes_no_undef)
- declare_hw_snprint(all_tg_pt, print_yes_no_undef)
- 
-+declare_def_handler(marginal_pathgroups, set_yes_no)
-+declare_def_snprint(marginal_pathgroups, print_yes_no)
- 
- static int
- def_uxsock_timeout_handler(struct config *conf, vector strvec)
-@@ -1710,6 +1712,7 @@ init_keywords(vector keywords)
- 	install_keyword("find_multipaths_timeout",
- 			&def_find_multipaths_timeout_handler,
- 			&snprint_def_find_multipaths_timeout);
-+	install_keyword("marginal_pathgroups", &def_marginal_pathgroups_handler, &snprint_def_marginal_pathgroups);
- 	__deprecated install_keyword("default_selector", &def_selector_handler, NULL);
- 	__deprecated install_keyword("default_path_grouping_policy", &def_pgpolicy_handler, NULL);
- 	__deprecated install_keyword("default_uid_attribute", &def_uid_attribute_handler, NULL);
-diff --git a/libmultipath/pgpolicies.c b/libmultipath/pgpolicies.c
-index 6fb2d28a..8f7c6b13 100644
---- a/libmultipath/pgpolicies.c
-+++ b/libmultipath/pgpolicies.c
-@@ -131,7 +131,7 @@ fail:
- 	return -1;
- }
- 
--int group_paths(struct multipath *mp)
-+int group_paths(struct multipath *mp, int marginal_pathgroups)
- {
- 	vector normal, marginal;
- 
-@@ -145,7 +145,8 @@ int group_paths(struct multipath *mp)
- 	if (!mp->pgpolicyfn)
- 		goto fail;
- 
--	if (split_marginal_paths(mp->paths, &normal, &marginal) != 0) {
-+	if (!marginal_pathgroups ||
-+	    split_marginal_paths(mp->paths, &normal, &marginal) != 0) {
- 		if (mp->pgpolicyfn(mp, mp->paths) != 0)
- 			goto fail;
- 	} else {
-diff --git a/libmultipath/pgpolicies.h b/libmultipath/pgpolicies.h
-index 7532d75f..15927610 100644
---- a/libmultipath/pgpolicies.h
-+++ b/libmultipath/pgpolicies.h
-@@ -21,7 +21,7 @@ enum iopolicies {
- 
- int get_pgpolicy_id(char *);
- int get_pgpolicy_name (char *, int, int);
--int group_paths(struct multipath *);
-+int group_paths(struct multipath *, int);
- /*
-  * policies
-  */
-diff --git a/tests/pgpolicy.c b/tests/pgpolicy.c
-index ab09f91c..3f61b123 100644
---- a/tests/pgpolicy.c
-+++ b/tests/pgpolicy.c
-@@ -204,7 +204,7 @@ static void test_one_group8(void **state)
- 	int group_size[] = {8};
- 
- 	mp8.pgpolicyfn = one_group;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 1);
- }
- 
-@@ -215,7 +215,7 @@ static void test_one_group4(void **state)
- 	int group_size[] = {4};
- 
- 	mp4.pgpolicyfn = one_group;
--	assert_int_equal(group_paths(&mp4), 0);
-+	assert_int_equal(group_paths(&mp4, 0), 0);
- 	verify_pathgroups(&mp4, p4, groups, group_size, NULL, 1);
- }
- 
-@@ -226,21 +226,21 @@ static void test_one_group1(void **state)
- 	int group_size[] = {1};
- 
- 	mp1.pgpolicyfn = one_group;
--	assert_int_equal(group_paths(&mp1), 0);
-+	assert_int_equal(group_paths(&mp1, 0), 0);
- 	verify_pathgroups(&mp1, p1, groups, group_size, NULL, 1);
- }
- 
- static void test_one_group0(void **state)
- {
- 	mp0.pgpolicyfn = one_group;
--	assert_int_equal(group_paths(&mp0), 0);
-+	assert_int_equal(group_paths(&mp0, 0), 0);
- 	verify_pathgroups(&mp0, NULL, NULL, NULL, NULL, 0);
- }
- 
- static void test_one_group_null(void **state)
- {
- 	mp_null.pgpolicyfn = one_group;
--	assert_int_equal(group_paths(&mp_null), 0);
-+	assert_int_equal(group_paths(&mp_null, 0), 0);
- 	verify_pathgroups(&mp_null, NULL, NULL, NULL, NULL, 0);
- }
- 
-@@ -254,7 +254,7 @@ static void test_one_group_all_marginal8(void **state)
- 
- 	set_marginal(p8, marginal, 8);
- 	mp8.pgpolicyfn = one_group;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 1), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, group_marginal, 1);
- }
- 
-@@ -269,10 +269,23 @@ static void test_one_group_half_marginal8(void **state)
- 
- 	set_marginal(p8, marginal, 8);
- 	mp8.pgpolicyfn = one_group;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 1), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, group_marginal, 2);
- }
- 
-+static void test_one_group_ignore_marginal8(void **state)
-+{
-+	int marginal[] = {1,0,1,0,1,1,0,0};
-+	int paths[] = {0,1,2,3,4,5,6,7};
-+	int *groups[] = {paths};
-+	int group_size[] = {8};
-+
-+	set_marginal(p8, marginal, 8);
-+	mp8.pgpolicyfn = one_group;
-+	assert_int_equal(group_paths(&mp8, 0), 0);
-+	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 1);
-+}
-+
- static void test_one_group_one_marginal8(void **state)
- {
- 	int marginal[] = {0,0,0,0,0,1,0,0};
-@@ -284,7 +297,7 @@ static void test_one_group_one_marginal8(void **state)
- 
- 	set_marginal(p8, marginal, 8);
- 	mp8.pgpolicyfn = one_group;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 1), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, group_marginal, 2);
- }
- 
-@@ -296,7 +309,7 @@ static void test_one_path_per_group_same8(void **state)
- 	int group_size[] = {1,1,1,1,1,1,1,1};
- 
- 	mp8.pgpolicyfn = one_path_per_group;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 8);
- }
- 
-@@ -310,7 +323,7 @@ static void test_one_path_per_group_increasing8(void **state)
- 
- 	set_priority(p8, prio, 8);
- 	mp8.pgpolicyfn = one_path_per_group;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 8);
- }
- 
-@@ -324,7 +337,7 @@ static void test_one_path_per_group_decreasing8(void **state)
- 
- 	set_priority(p8, prio, 8);
- 	mp8.pgpolicyfn = one_path_per_group;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 8);
- }
- 
-@@ -338,7 +351,7 @@ static void test_one_path_per_group_mixed8(void **state)
- 
- 	set_priority(p8, prio, 8);
- 	mp8.pgpolicyfn = one_path_per_group;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 8);
- }
- 
-@@ -349,7 +362,7 @@ static void test_one_path_per_group4(void **state)
- 	int group_size[] = {1,1,1,1};
- 
- 	mp4.pgpolicyfn = one_path_per_group;
--	assert_int_equal(group_paths(&mp4), 0);
-+	assert_int_equal(group_paths(&mp4, 0), 0);
- 	verify_pathgroups(&mp4, p4, groups, group_size, NULL, 4);
- }
- 
-@@ -360,21 +373,21 @@ static void test_one_path_per_group1(void **state)
- 	int group_size[] = {1};
- 
- 	mp1.pgpolicyfn = one_path_per_group;
--	assert_int_equal(group_paths(&mp1), 0);
-+	assert_int_equal(group_paths(&mp1, 0), 0);
- 	verify_pathgroups(&mp1, p1, groups, group_size, NULL, 1);
- }
- 
- static void test_one_path_per_group0(void **state)
- {
- 	mp0.pgpolicyfn = one_path_per_group;
--	assert_int_equal(group_paths(&mp0), 0);
-+	assert_int_equal(group_paths(&mp0, 0), 0);
- 	verify_pathgroups(&mp0, NULL, NULL, NULL, NULL, 0);
- }
- 
- static void test_one_path_per_group_null(void **state)
- {
- 	mp_null.pgpolicyfn = one_path_per_group;
--	assert_int_equal(group_paths(&mp_null), 0);
-+	assert_int_equal(group_paths(&mp_null, 0), 0);
- 	verify_pathgroups(&mp_null, NULL, NULL, NULL, NULL, 0);
- }
- 
-@@ -391,7 +404,7 @@ static void test_one_path_per_group_mixed_all_marginal8(void **state)
- 	set_priority(p8, prio, 8);
- 	set_marginal(p8, marginal, 8);
- 	mp8.pgpolicyfn = one_path_per_group;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 1), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, group_marginal, 8);
- }
- 
-@@ -408,7 +421,7 @@ static void test_one_path_per_group_mixed_half_marginal8(void **state)
- 	set_priority(p8, prio, 8);
- 	set_marginal(p8, marginal, 8);
- 	mp8.pgpolicyfn = one_path_per_group;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 1), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, group_marginal, 8);
- }
- 
-@@ -419,7 +432,7 @@ static void test_group_by_prio_same8(void **state)
- 	int group_size[] = {8};
- 
- 	mp8.pgpolicyfn = group_by_prio;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 1);
- }
- 
-@@ -433,7 +446,7 @@ static void test_group_by_prio_increasing8(void **state)
- 
- 	set_priority(p8, prio, 8);
- 	mp8.pgpolicyfn = group_by_prio;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 8);
- }
- 
-@@ -447,7 +460,7 @@ static void test_group_by_prio_decreasing8(void **state)
- 
- 	set_priority(p8, prio, 8);
- 	mp8.pgpolicyfn = group_by_prio;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 8);
- }
- 
-@@ -466,7 +479,26 @@ static void test_group_by_prio_mixed8(void **state)
- 
- 	set_priority(p8, prio, 8);
- 	mp8.pgpolicyfn = group_by_prio;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
-+	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 6);
-+}
-+
-+static void test_group_by_prio_mixed_no_marginal8(void **state)
-+{
-+	int prio[] = {7,1,3,3,5,2,8,2};
-+	int group0[] = {6};
-+	int group1[] = {0};
-+	int group2[] = {4};
-+	int group3[] = {2,3};
-+	int group4[] = {5,7};
-+	int group5[] = {1};
-+	int *groups[] = {group0, group1, group2, group3,
-+			  group4, group5};
-+	int group_size[] = {1,1,1,2,2,1};
-+
-+	set_priority(p8, prio, 8);
-+	mp8.pgpolicyfn = group_by_prio;
-+	assert_int_equal(group_paths(&mp8, 1), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 6);
- }
- 
-@@ -480,7 +512,7 @@ static void test_group_by_prio_2_groups8(void **state)
- 
- 	set_priority(p8, prio, 8);
- 	mp8.pgpolicyfn = group_by_prio;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 2);
- }
- 
-@@ -495,7 +527,7 @@ static void test_group_by_prio_mixed4(void **state)
- 
- 	set_priority(p4, prio, 4);
- 	mp4.pgpolicyfn = group_by_prio;
--	assert_int_equal(group_paths(&mp4), 0);
-+	assert_int_equal(group_paths(&mp4, 0), 0);
- 	verify_pathgroups(&mp4, p4, groups, group_size, NULL, 3);
- }
- 
-@@ -509,7 +541,7 @@ static void test_group_by_prio_2_groups4(void **state)
- 
- 	set_priority(p4, prio, 4);
- 	mp4.pgpolicyfn = group_by_prio;
--	assert_int_equal(group_paths(&mp4), 0);
-+	assert_int_equal(group_paths(&mp4, 0), 0);
- 	verify_pathgroups(&mp4, p4, groups, group_size, NULL, 2);
- }
- 
-@@ -520,21 +552,21 @@ static void test_group_by_prio1(void **state)
- 	int group_size[] = {1};
- 
- 	mp1.pgpolicyfn = group_by_prio;
--	assert_int_equal(group_paths(&mp1), 0);
-+	assert_int_equal(group_paths(&mp1, 0), 0);
- 	verify_pathgroups(&mp1, p1, groups, group_size, NULL, 1);
- }
- 
- static void test_group_by_prio0(void **state)
- {
- 	mp0.pgpolicyfn = group_by_prio;
--	assert_int_equal(group_paths(&mp0), 0);
-+	assert_int_equal(group_paths(&mp0, 0), 0);
- 	verify_pathgroups(&mp0, NULL, NULL, NULL, NULL, 0);
- }
- 
- static void test_group_by_prio_null(void **state)
- {
- 	mp_null.pgpolicyfn = group_by_prio;
--	assert_int_equal(group_paths(&mp_null), 0);
-+	assert_int_equal(group_paths(&mp_null, 0), 0);
- 	verify_pathgroups(&mp_null, NULL, NULL, NULL, NULL, 0);
- }
- 
-@@ -556,7 +588,7 @@ static void test_group_by_prio_mixed_all_marginal8(void **state)
- 	set_priority(p8, prio, 8);
- 	set_marginal(p8, marginal, 8);
- 	mp8.pgpolicyfn = group_by_prio;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 1), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, group_marginal, 6);
- }
- 
-@@ -579,7 +611,7 @@ static void test_group_by_prio_mixed_half_marginal8(void **state)
- 	set_priority(p8, prio, 8);
- 	set_marginal(p8, marginal, 8);
- 	mp8.pgpolicyfn = group_by_prio;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 1), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, group_marginal, 7);
- }
- 
-@@ -602,7 +634,7 @@ static void test_group_by_prio_mixed_one_marginal8(void **state)
- 	set_priority(p8, prio, 8);
- 	set_marginal(p8, marginal, 8);
- 	mp8.pgpolicyfn = group_by_prio;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 1), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, group_marginal, 7);
- }
- 
-@@ -615,7 +647,7 @@ static void test_group_by_node_name_same8(void **state)
- 
- 	set_tgt_node_name(p8, node_name, 8);
- 	mp8.pgpolicyfn = group_by_node_name;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 1);
- }
- 
-@@ -631,7 +663,7 @@ static void test_group_by_node_name_increasing8(void **state)
- 	set_priority(p8, prio, 8);
- 	set_tgt_node_name(p8, node_name, 8);
- 	mp8.pgpolicyfn = group_by_node_name;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 8);
- }
- 
-@@ -648,7 +680,7 @@ static void test_group_by_node_name_3_groups8(void **state)
- 	set_priority(p8, prio, 8);
- 	set_tgt_node_name(p8, node_name, 8);
- 	mp8.pgpolicyfn = group_by_node_name;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 3);
- }
- 
-@@ -664,7 +696,7 @@ static void test_group_by_node_name_2_groups8(void **state)
- 	set_priority(p8, prio, 8);
- 	set_tgt_node_name(p8, node_name, 8);
- 	mp8.pgpolicyfn = group_by_node_name;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 2);
- }
- 
-@@ -681,7 +713,7 @@ static void test_group_by_node_name_3_groups4(void **state)
- 	set_priority(p4, prio, 4);
- 	set_tgt_node_name(p4, node_name, 4);
- 	mp4.pgpolicyfn = group_by_node_name;
--	assert_int_equal(group_paths(&mp4), 0);
-+	assert_int_equal(group_paths(&mp4, 0), 0);
- 	verify_pathgroups(&mp4, p4, groups, group_size, NULL, 3);
- }
- 
-@@ -697,7 +729,7 @@ static void test_group_by_node_name_2_groups4(void **state)
- 	set_priority(p4, prio, 4);
- 	set_tgt_node_name(p4, node_name, 4);
- 	mp4.pgpolicyfn = group_by_node_name;
--	assert_int_equal(group_paths(&mp4), 0);
-+	assert_int_equal(group_paths(&mp4, 0), 0);
- 	verify_pathgroups(&mp4, p4, groups, group_size, NULL, 2);
- }
- 
-@@ -710,21 +742,21 @@ static void test_group_by_node_name1(void **state)
- 
- 	set_tgt_node_name(p1, node_name, 1);
- 	mp1.pgpolicyfn = group_by_node_name;
--        assert_int_equal(group_paths(&mp1), 0);
-+        assert_int_equal(group_paths(&mp1,0), 0);
-         verify_pathgroups(&mp1, p1, groups, group_size, NULL, 1);
- }
- 
- static void test_group_by_node_name0(void **state)
- {
- 	mp0.pgpolicyfn = group_by_node_name;
--	assert_int_equal(group_paths(&mp0), 0);
-+	assert_int_equal(group_paths(&mp0, 0), 0);
- 	verify_pathgroups(&mp0, NULL, NULL, NULL, NULL, 0);
- }
- 
- static void test_group_by_node_name_null(void **state)
- {
- 	mp_null.pgpolicyfn = group_by_node_name;
--	assert_int_equal(group_paths(&mp_null), 0);
-+	assert_int_equal(group_paths(&mp_null, 0), 0);
- 	verify_pathgroups(&mp_null, NULL, NULL, NULL, NULL, 0);
- }
- 
-@@ -743,7 +775,7 @@ static void test_group_by_node_name_2_groups_all_marginal8(void **state)
- 	set_marginal(p8, marginal, 8);
- 	set_tgt_node_name(p8, node_name, 8);
- 	mp8.pgpolicyfn = group_by_node_name;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 1), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, group_marginal, 2);
- }
- 
-@@ -764,7 +796,7 @@ static void test_group_by_node_name_2_groups_half_marginal8(void **state)
- 	set_marginal(p8, marginal, 8);
- 	set_tgt_node_name(p8, node_name, 8);
- 	mp8.pgpolicyfn = group_by_node_name;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 1), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, group_marginal, 4);
- }
- 
-@@ -777,7 +809,7 @@ static void test_group_by_serial_same8(void **state)
- 
- 	set_serial(p8, serial, 8);
- 	mp8.pgpolicyfn = group_by_serial;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 1);
- }
- 
-@@ -793,7 +825,7 @@ static void test_group_by_serial_increasing8(void **state)
- 	set_priority(p8, prio, 8);
- 	set_serial(p8, serial, 8);
- 	mp8.pgpolicyfn = group_by_serial;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 8);
- }
- 
-@@ -810,7 +842,7 @@ static void test_group_by_serial_3_groups8(void **state)
- 	set_priority(p8, prio, 8);
- 	set_serial(p8, serial, 8);
- 	mp8.pgpolicyfn = group_by_serial;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 3);
- }
- 
-@@ -826,7 +858,7 @@ static void test_group_by_serial_2_groups8(void **state)
- 	set_priority(p8, prio, 8);
- 	set_serial(p8, serial, 8);
- 	mp8.pgpolicyfn = group_by_serial;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 0), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, NULL, 2);
- }
- 
-@@ -843,7 +875,7 @@ static void test_group_by_serial_3_groups4(void **state)
- 	set_priority(p4, prio, 4);
- 	set_serial(p4, serial, 4);
- 	mp4.pgpolicyfn = group_by_serial;
--	assert_int_equal(group_paths(&mp4), 0);
-+	assert_int_equal(group_paths(&mp4, 0), 0);
- 	verify_pathgroups(&mp4, p4, groups, group_size, NULL, 3);
- }
- 
-@@ -859,7 +891,7 @@ static void test_group_by_serial_2_groups4(void **state)
- 	set_priority(p4, prio, 4);
- 	set_serial(p4, serial, 4);
- 	mp4.pgpolicyfn = group_by_serial;
--	assert_int_equal(group_paths(&mp4), 0);
-+	assert_int_equal(group_paths(&mp4, 0), 0);
- 	verify_pathgroups(&mp4, p4, groups, group_size, NULL, 2);
- }
- 
-@@ -872,21 +904,21 @@ static void test_group_by_serial1(void **state)
- 
- 	set_serial(p1, serial, 1);
- 	mp1.pgpolicyfn = group_by_serial;
--        assert_int_equal(group_paths(&mp1), 0);
-+        assert_int_equal(group_paths(&mp1, 0), 0);
-         verify_pathgroups(&mp1, p1, groups, group_size, NULL, 1);
- }
- 
- static void test_group_by_serial0(void **state)
- {
- 	mp0.pgpolicyfn = group_by_serial;
--	assert_int_equal(group_paths(&mp0), 0);
-+	assert_int_equal(group_paths(&mp0, 0), 0);
- 	verify_pathgroups(&mp0, NULL, NULL, NULL, NULL, 0);
- }
- 
- static void test_group_by_serial_null(void **state)
- {
- 	mp_null.pgpolicyfn = group_by_serial;
--	assert_int_equal(group_paths(&mp_null), 0);
-+	assert_int_equal(group_paths(&mp_null, 0), 0);
- 	verify_pathgroups(&mp_null, NULL, NULL, NULL, NULL, 0);
- }
- 
-@@ -905,7 +937,7 @@ static void test_group_by_serial_2_groups8_all_marginal8(void **state)
- 	set_serial(p8, serial, 8);
- 	set_marginal(p8, marginal, 8);
- 	mp8.pgpolicyfn = group_by_serial;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 1), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, group_marginal, 2);
- }
- 
-@@ -926,7 +958,7 @@ static void test_group_by_serial_2_groups8_half_marginal8(void **state)
- 	set_serial(p8, serial, 8);
- 	set_marginal(p8, marginal, 8);
- 	mp8.pgpolicyfn = group_by_serial;
--	assert_int_equal(group_paths(&mp8), 0);
-+	assert_int_equal(group_paths(&mp8, 1), 0);
- 	verify_pathgroups(&mp8, p8, groups, group_size, group_marginal, 4);
- }
- 
-@@ -943,6 +975,7 @@ int test_pgpolicies(void)
- 		setup_test(test_one_group, _null),
- 		setup_test(test_one_group_all_marginal, 8),
- 		setup_test(test_one_group_half_marginal, 8),
-+		setup_test(test_one_group_ignore_marginal, 8),
- 		setup_test(test_one_group_one_marginal, 8),
- 		setup_test(test_one_path_per_group_same, 8),
- 		setup_test(test_one_path_per_group_increasing, 8),
-@@ -958,6 +991,7 @@ int test_pgpolicies(void)
- 		setup_test(test_group_by_prio_increasing, 8),
- 		setup_test(test_group_by_prio_decreasing, 8),
- 		setup_test(test_group_by_prio_mixed, 8),
-+		setup_test(test_group_by_prio_mixed_no_marginal, 8),
- 		setup_test(test_group_by_prio_2_groups, 8),
- 		setup_test(test_group_by_prio_mixed, 4),
- 		setup_test(test_group_by_prio_2_groups, 4),
+ 	 * don't reinstate failed path, if its in stand-by
+ 	 * and if target supports only implicit tpgs mode.
+@@ -2162,19 +2152,10 @@ check_path (struct vectors * vecs, struct path * pp, int ticks)
+ 			 * proactively fail path in the DM
+ 			 */
+ 			if (oldstate == PATH_UP ||
+-			    oldstate == PATH_GHOST) {
++			    oldstate == PATH_GHOST)
+ 				fail_path(pp, 1);
+-				if (pp->mpp->delay_wait_checks > 0 &&
+-				    pp->watch_checks > 0) {
+-					pp->wait_checks = pp->mpp->delay_wait_checks;
+-					pp->watch_checks = 0;
+-				}
+-			} else {
++			else
+ 				fail_path(pp, 0);
+-				if (pp->wait_checks > 0)
+-					pp->wait_checks =
+-						pp->mpp->delay_wait_checks;
+-			}
+ 
+ 			/*
+ 			 * cancel scheduled failback
+@@ -2200,15 +2181,10 @@ check_path (struct vectors * vecs, struct path * pp, int ticks)
+ 		 * reinstate this path
+ 		 */
+ 		if (oldstate != PATH_UP &&
+-		    oldstate != PATH_GHOST) {
+-			if (pp->mpp->delay_watch_checks > 0)
+-				pp->watch_checks = pp->mpp->delay_watch_checks;
++		    oldstate != PATH_GHOST)
+ 			add_active = 1;
+-		} else {
+-			if (pp->watch_checks > 0)
+-				pp->watch_checks--;
++		else
+ 			add_active = 0;
+-		}
+ 		if (!disable_reinstate && reinstate_path(pp, add_active)) {
+ 			condlog(3, "%s: reload map", pp->dev);
+ 			ev_add_path(pp, vecs, 1);
+@@ -2253,8 +2229,6 @@ check_path (struct vectors * vecs, struct path * pp, int ticks)
+ 				condlog(4, "%s: delay next check %is",
+ 					pp->dev_t, pp->checkint);
+ 			}
+-			if (pp->watch_checks > 0)
+-				pp->watch_checks--;
+ 			pp->tick = pp->checkint;
+ 		}
+ 	}
 -- 
 2.17.2
 
