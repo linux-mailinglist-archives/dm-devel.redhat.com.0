@@ -2,94 +2,57 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DC467E0F8
-	for <lists+dm-devel@lfdr.de>; Thu,  1 Aug 2019 19:22:41 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by mail.lfdr.de (Postfix) with ESMTPS id A90887EAD5
+	for <lists+dm-devel@lfdr.de>; Fri,  2 Aug 2019 05:56:43 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 519B172650;
-	Thu,  1 Aug 2019 17:22:36 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 79355600C4;
-	Thu,  1 Aug 2019 17:22:32 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id E649A882FF;
+	Fri,  2 Aug 2019 03:56:37 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 92E9119C68;
+	Fri,  2 Aug 2019 03:56:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0AD3C1800204;
-	Thu,  1 Aug 2019 17:22:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BC881264C8;
+	Fri,  2 Aug 2019 03:56:09 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x71HLkUB026215 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 1 Aug 2019 13:21:46 -0400
+	id x723tSSI027803 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 1 Aug 2019 23:55:28 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B90DD60922; Thu,  1 Aug 2019 17:21:46 +0000 (UTC)
+	id 7AA321001B12; Fri,  2 Aug 2019 03:55:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx08.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.32])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B2E0A60A9F
-	for <dm-devel@redhat.com>; Thu,  1 Aug 2019 17:21:44 +0000 (UTC)
-Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
-	[209.85.128.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 34B26C0BA43D
-	for <dm-devel@redhat.com>; Thu,  1 Aug 2019 17:21:43 +0000 (UTC)
-Received: by mail-wm1-f65.google.com with SMTP id p74so65384081wme.4
-	for <dm-devel@redhat.com>; Thu, 01 Aug 2019 10:21:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=WxJwqTt8HydAg98vEQk003SQkFZaA3kup5MLkOTXyiw=;
-	b=qI18K7WG115vGb6UFMW2DPvdlg5Pd38yPD4cmWxGppXDZ0f9HvfTSG4F2mp2zxSSRx
-	ikOVn8GfdTOyj6kS+FgYVnc464N/rx/fIGNsFjb4O7g3bbsV2pOAOMit6gteaRf6tYrx
-	iedRCNiknjF/EzzUgIDISN1zoZmkbRnHhZ0MiRdxgywVF+iSe6oleXnTu1bBeEemc5rN
-	s/STcn0o175c9Bc4UBz11iWW3PRIX/P0RUNJqLLSE1Ab0lsQqlNccSlta5qogRtGNoiU
-	FG5PyaMRE+ZiSsU4VtxLWPqkwgaZY6xgCT7wlu+ClHhmcDN6B3/kiJuv8iaLnPMdMVUV
-	MhUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=WxJwqTt8HydAg98vEQk003SQkFZaA3kup5MLkOTXyiw=;
-	b=YSKZJQUMkYoqBypdzsJWSaE8YN0NFNfy2ZfS9Pk9MrThKVl+5ELjUHDHk1OZ+J5EMQ
-	mrFgG83aab7XHiAmtvunkEWdDGMYSpbclUhMFDQGPvVC2z6bUcZp0XSTSRugWFEXnbnV
-	TP8lP4dOWtlpR4CQQd53Ber0LxRur+t5xupytdulyAWXB6S/1ZlC0EloAyzM1xxSRaFE
-	vSXQVVqppIZDQAkFUp78Pc9bym418PEUexiOda0adpn/tiSoZ4YFrEBOobQtYj6zLJVW
-	uBYT53SdzFyJPqPi0fpBulyHeZAHOe7y7dd4k15Qap37rbqDzX320uVmThyJ5wSS/iPD
-	MJgg==
-X-Gm-Message-State: APjAAAVokooJReYiqtbTmELEWu4COrckDGpqZXjmL8tK2Wpbd/n1Z+yh
-	6tKgqmad+v2C4QDQjQAGj92PvdQ=
-X-Google-Smtp-Source: APXvYqz8J4Dh9FS44AQY5hiX77Il+zS15EQdk12mlCeGzZ7g3L/7kso3MbYjaKkIWsV99szsxw9oYA==
-X-Received: by 2002:a1c:99c6:: with SMTP id
-	b189mr108680770wme.57.1564680101499; 
-	Thu, 01 Aug 2019 10:21:41 -0700 (PDT)
-Received: from localhost (118.red-88-12-24.staticip.rima-tde.net.
-	[88.12.24.118]) by smtp.gmail.com with ESMTPSA id
-	e19sm101114062wra.71.2019.08.01.10.21.40
-	(version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
-	Thu, 01 Aug 2019 10:21:40 -0700 (PDT)
-From: Xose Vazquez Perez <xose.vazquez@gmail.com>
-To: 
-Date: Thu,  1 Aug 2019 19:21:38 +0200
-Message-Id: <20190801172138.15049-1-xose.vazquez@gmail.com>
+Received: from fornost.hmeau.com (vpn2-54-105.bne.redhat.com [10.64.54.105])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 852E41001B02
+	for <dm-devel@redhat.com>; Fri,  2 Aug 2019 03:55:25 +0000 (UTC)
+Received: from gondolin.me.apana.org.au ([192.168.0.6]
+	helo=gondolin.hengli.com.au)
+	by fornost.hmeau.com with esmtps (Exim 4.89 #2 (Debian))
+	id 1htOez-00054h-1w; Fri, 02 Aug 2019 13:55:17 +1000
+Received: from herbert by gondolin.hengli.com.au with local (Exim 4.80)
+	(envelope-from <herbert@gondor.apana.org.au>)
+	id 1htOex-00047c-GU; Fri, 02 Aug 2019 13:55:15 +1000
+Date: Fri, 2 Aug 2019 13:55:15 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Ard Biesheuvel <ard.biesheuvel@linaro.org>
+Message-ID: <20190802035515.GA15758@gondor.apana.org.au>
+References: <20190704183017.31570-2-ard.biesheuvel@linaro.org>
+	<20190726043117.GA654@gondor.apana.org.au>
+	<CAKv+Gu_Pir7uU4h6GQfh2my2Fu-j2AGPLWNZKzc9_iG6n4xJNA@mail.gmail.com>
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.32]);
-	Thu, 01 Aug 2019 17:21:43 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]);
-	Thu, 01 Aug 2019 17:21:43 +0000 (UTC) for IP:'209.85.128.65'
-	DOMAIN:'mail-wm1-f65.google.com' HELO:'mail-wm1-f65.google.com'
-	FROM:'xose.vazquez@gmail.com' RCPT:''
-X-RedHat-Spam-Score: -0.099  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
-	SPF_PASS) 209.85.128.65 mail-wm1-f65.google.com 209.85.128.65
-	mail-wm1-f65.google.com <xose.vazquez@gmail.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.32
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+Content-Disposition: inline
+In-Reply-To: <CAKv+Gu_Pir7uU4h6GQfh2my2Fu-j2AGPLWNZKzc9_iG6n4xJNA@mail.gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-Cc: Brian King <brking@linux.vnet.ibm.com>, DM-DEVEL ML <dm-devel@redhat.com>,
-	Xose Vazquez Perez <xose.vazquez@gmail.com>
-Subject: [dm-devel] [PATCH] multipath-tools: reorder NVDISK devices
+Cc: Eric Biggers <ebiggers@google.com>, linux-fscrypt@vger.kernel.org,
+	Gilad Ben-Yossef <gilad@benyossef.com>,
+	device-mapper development <dm-devel@redhat.com>,
+	"open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
+	<linux-crypto@vger.kernel.org>, Milan Broz <gmazyland@gmail.com>
+Subject: Re: [dm-devel] [PATCH v8 1/7] crypto: essiv - create wrapper
+ template for ESSIV generation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -105,52 +68,59 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Thu, 01 Aug 2019 17:22:39 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]); Fri, 02 Aug 2019 03:56:40 +0000 (UTC)
 
-Otherwise "3303[ ]+NVDISK" is never reached, because "NVDISK" regex takes
-priority over it.
+On Fri, Jul 26, 2019 at 12:00:20PM +0300, Ard Biesheuvel wrote:
+>
+> For Y and Z, it is not straightforward either: since the crypto API
+> permits the use of driver names in addition to the plain CRA names,
+> we'd have to infer from the first parameter which cipher is being
+> used.
 
-Cc: Brian King <brking@linux.vnet.ibm.com>
-Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Cc: DM-DEVEL ML <dm-devel@redhat.com>
-Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
----
- libmultipath/hwtable.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+We don't really permit that.  It might work but it is certainly not
+guaranteed to work.  The only thing we guarantee is that the
+algorithm name and the canonical driver name will work.  For example,
+with gcm you can either say gcm(aes) or gcm_base(drv_name1, drv_name2).
 
-diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c
-index a06872e..8209554 100644
---- a/libmultipath/hwtable.c
-+++ b/libmultipath/hwtable.c
-@@ -696,12 +696,6 @@ static struct hwentry default_hw[] = {
- 		.pgpolicy      = MULTIBUS,
- 		.no_path_retry = (300 / DEFAULT_CHECKINT),
- 	},
--	{
--		/* 3303 NVDISK */
--		.vendor        = "IBM",
--		.product       = "3303[ ]+NVDISK",
--		.no_path_retry = (300 / DEFAULT_CHECKINT),
--	},
- 	{
- 		/* AIX NVDISK */
- 		.vendor        = "AIX",
-@@ -712,6 +706,12 @@ static struct hwentry default_hw[] = {
- 		.no_path_retry = (300 / DEFAULT_CHECKINT),
- 		.prio_name     = PRIO_ALUA,
- 	},
-+	{
-+		/* 3303 NVDISK */
-+		.vendor        = "IBM",
-+		.product       = "3303[ ]+NVDISK",
-+		.no_path_retry = (300 / DEFAULT_CHECKINT),
-+	},
-         /*
-          * Lenovo
-          */
+Anything else is not supported.
+
+So I would envisage something similar for essiv where essiv just has
+U, X and Y (as you said that U and X are independent) while you can
+then have an essiv_base that spells everything out in detail.
+
+Also, do we allow anything other than HMAC for X? If not then that
+should be encoded either into the name by dropping the hmac in the
+algorithm name and adding it through the driver name, or by checking
+for it in the template creation function.
+
+What I'd like to achieve is a state where we support only what is
+currently supported and no more.
+
+> > Because this is legacy stuff, I don't want it to support any more
+> > than what is currently being supported by dm-crypt.
+> >
+> > Similary for the skcipher case, given
+> >
+> >         essiv(cbc(X),Y,Z)
+> >
+> > is it ever possible for X != Y? If not then we should just make the
+> > algorithm name essiv(X,Z).
+> >
+> 
+> Same problem. We'd need to instantiate the skcipher and parse the cra_name.
+> 
+> Perhaps we should introduce a crypto API call that infers the cra_name
+> from a cra_driver_name?
+
+You don't need to do that.  Just copy whatever gcm does in its
+creation function when you invoke it as gcm_base.
+
+Thanks,
 -- 
-2.21.0
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
 
 --
 dm-devel mailing list
