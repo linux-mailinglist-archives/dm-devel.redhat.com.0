@@ -2,47 +2,47 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6E047FEB7
-	for <lists+dm-devel@lfdr.de>; Fri,  2 Aug 2019 18:39:11 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by mail.lfdr.de (Postfix) with ESMTPS id 430777FEBB
+	for <lists+dm-devel@lfdr.de>; Fri,  2 Aug 2019 18:39:32 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 2A7CE74A5A;
-	Fri,  2 Aug 2019 16:39:09 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EB0916055B;
-	Fri,  2 Aug 2019 16:39:08 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id E27E1308FC22;
+	Fri,  2 Aug 2019 16:39:29 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B3EC560C4E;
+	Fri,  2 Aug 2019 16:39:29 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5AD1618089C8;
-	Fri,  2 Aug 2019 16:39:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4C0CA149E2;
+	Fri,  2 Aug 2019 16:39:29 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x72GYAXG001419 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 2 Aug 2019 12:34:10 -0400
+	id x72GYDuM001429 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 2 Aug 2019 12:34:13 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D4FF910018F9; Fri,  2 Aug 2019 16:34:10 +0000 (UTC)
+	id 12CDD60623; Fri,  2 Aug 2019 16:34:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E72841001B12;
-	Fri,  2 Aug 2019 16:34:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E3D72608C2;
+	Fri,  2 Aug 2019 16:34:12 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id x72GY8H7031847; 
-	Fri, 2 Aug 2019 11:34:08 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id x72GYBah031855; 
+	Fri, 2 Aug 2019 11:34:11 -0500
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id x72GY8pI031846;
-	Fri, 2 Aug 2019 11:34:08 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id x72GYBr5031854;
+	Fri, 2 Aug 2019 11:34:11 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Fri,  2 Aug 2019 11:33:40 -0500
-Message-Id: <1564763622-31752-15-git-send-email-bmarzins@redhat.com>
+Date: Fri,  2 Aug 2019 11:33:42 -0500
+Message-Id: <1564763622-31752-17-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1564763622-31752-1-git-send-email-bmarzins@redhat.com>
 References: <1564763622-31752-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
 Cc: device-mapper development <dm-devel@redhat.com>,
 	Martin Wilck <mwilck@suse.com>, Muneendra Kumar <mkumar@redhat.com>
-Subject: [dm-devel] [PATCH 14/16] libmutipath: deprecate delay_*_checks
+Subject: [dm-devel] [PATCH 16/16] multipath: update man pages
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -59,367 +59,100 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Fri, 02 Aug 2019 16:39:10 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]); Fri, 02 Aug 2019 16:39:31 +0000 (UTC)
 
-The delay_checks shaky paths detection method works the same way as the
-san_path_err method, but not as well, with less configurability, and
-with the code spread all over check_path(). The only real difference is
-that marks the path as marginal for a certain number of path checks
-instead of for a specific time. This patch deprecates the delay_checks
-method and maps it to the the san_path_err method.
+Add documentation for the marginal_pathgroups option and the
+(un)setmarginal commands.
 
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/configure.c   | 17 +----------
- libmultipath/propsel.c     | 62 +++++++++++++++++++++++++++++---------
- libmultipath/propsel.h     |  2 --
- libmultipath/structs.h     | 10 ------
- multipath/multipath.conf.5 | 41 ++++++++++++++-----------
- multipathd/main.c          | 34 +++------------------
- 6 files changed, 76 insertions(+), 90 deletions(-)
+ multipath/multipath.conf.5 | 34 ++++++++++++++++++++++++++++++----
+ multipathd/multipathd.8    | 19 +++++++++++++++++++
+ 2 files changed, 49 insertions(+), 4 deletions(-)
 
-diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-index 3238d485..9443389f 100644
---- a/libmultipath/configure.c
-+++ b/libmultipath/configure.c
-@@ -342,8 +342,6 @@ int setup_map(struct multipath *mpp, char *params, int params_size,
- 	select_dev_loss(conf, mpp);
- 	select_reservation_key(conf, mpp);
- 	select_deferred_remove(conf, mpp);
--	select_delay_watch_checks(conf, mpp);
--	select_delay_wait_checks(conf, mpp);
- 	select_marginal_path_err_sample_time(conf, mpp);
- 	select_marginal_path_err_rate_threshold(conf, mpp);
- 	select_marginal_path_err_recheck_gap_time(conf, mpp);
-@@ -360,21 +358,8 @@ int setup_map(struct multipath *mpp, char *params, int params_size,
- 	marginal_pathgroups = conf->marginal_pathgroups;
- 	pthread_cleanup_pop(1);
- 
--	if (marginal_path_check_enabled(mpp)) {
--		if (delay_check_enabled(mpp)) {
--			condlog(1, "%s: WARNING: both marginal_path and delay_checks error detection selected",
--				mpp->alias);
--			condlog(0, "%s: unexpected behavior may occur!",
--				mpp->alias);
--		}
-+	if (marginal_path_check_enabled(mpp))
- 		start_io_err_stat_thread(vecs);
--	}
--	if (san_path_check_enabled(mpp) && delay_check_enabled(mpp)) {
--		condlog(1, "%s: WARNING: both san_path_err and delay_checks error detection selected",
--			mpp->alias);
--		condlog(0, "%s: unexpected behavior may occur!",
--			mpp->alias);
--	}
- 
- 	n_paths = VECTOR_SIZE(mpp->paths);
-         /*
-diff --git a/libmultipath/propsel.c b/libmultipath/propsel.c
-index 6af2513d..894a52e3 100644
---- a/libmultipath/propsel.c
-+++ b/libmultipath/propsel.c
-@@ -85,6 +85,10 @@ static const char autodetect_origin[] =
- 	"(setting: storage device autodetected)";
- static const char marginal_path_origin[] =
- 	"(setting: implied by marginal_path check)";
-+static const char delay_watch_origin[] =
-+	"(setting: implied by delay_watch_checks)";
-+static const char delay_wait_origin[] =
-+	"(setting: implied by delay_wait_checks)";
- 
- #define do_default(dest, value)						\
- do {									\
-@@ -877,37 +881,59 @@ out:
- 	return 0;
- }
- 
--int select_delay_watch_checks(struct config *conf, struct multipath *mp)
-+static int
-+use_delay_watch_checks(struct config *conf, struct multipath *mp)
- {
-+	int value = NU_UNDEF;
- 	const char *origin;
- 	char buff[12];
- 
--	mp_set_mpe(delay_watch_checks);
--	mp_set_ovr(delay_watch_checks);
--	mp_set_hwe(delay_watch_checks);
--	mp_set_conf(delay_watch_checks);
--	mp_set_default(delay_watch_checks, DEFAULT_DELAY_CHECKS);
-+	do_set(delay_watch_checks, mp->mpe, value, multipaths_origin);
-+	do_set(delay_watch_checks, conf->overrides, value, overrides_origin);
-+	do_set_from_hwe(delay_watch_checks, mp, value, hwe_origin);
-+	do_set(delay_watch_checks, conf, value, conf_origin);
- out:
--	if (print_off_int_undef(buff, 12, mp->delay_watch_checks) != 0)
-+	if (value > 0) {
-+		mp->san_path_err_forget_rate = value;
-+		print_off_int_undef(buff, 12, value);
- 		condlog(3, "%s: delay_watch_checks = %s %s",
- 			mp->alias, buff, origin);
-+		if (mp->san_path_err_threshold == NU_NO) {
-+			mp->san_path_err_threshold = 1;
-+			condlog(3, "%s: san_path_err_threshold = 1 %s",
-+				mp->alias, delay_watch_origin);
-+		}
-+		return 1;
-+	}
- 	return 0;
- }
- 
--int select_delay_wait_checks(struct config *conf, struct multipath *mp)
-+static int
-+use_delay_wait_checks(struct config *conf, struct multipath *mp)
- {
-+	int value = NU_UNDEF;
- 	const char *origin;
- 	char buff[12];
- 
--	mp_set_mpe(delay_wait_checks);
--	mp_set_ovr(delay_wait_checks);
--	mp_set_hwe(delay_wait_checks);
--	mp_set_conf(delay_wait_checks);
--	mp_set_default(delay_wait_checks, DEFAULT_DELAY_CHECKS);
-+	do_set(delay_wait_checks, mp->mpe, value, multipaths_origin);
-+	do_set(delay_wait_checks, conf->overrides, value, overrides_origin);
-+	do_set_from_hwe(delay_wait_checks, mp, value, hwe_origin);
-+	do_set(delay_wait_checks, conf, value, conf_origin);
- out:
--	if (print_off_int_undef(buff, 12, mp->delay_wait_checks) != 0)
-+	if (value > 0) {
-+		/* this isn't exactly the same length of time as
-+		 * delay_wait_checks, but it's a close enough approximation */
-+		mp->san_path_err_recovery_time = value * conf->max_checkint;
-+		print_off_int_undef(buff, 12, value);
- 		condlog(3, "%s: delay_wait_checks = %s %s",
- 			mp->alias, buff, origin);
-+		if (mp->san_path_err_threshold == NU_NO) {
-+			mp->san_path_err_threshold = 1;
-+			condlog(3, "%s: san_path_err_threshold = 1 %s",
-+				mp->alias, delay_wait_origin);
-+		}
-+		return 1;
-+	}
- 	return 0;
- 
- }
-@@ -960,6 +986,10 @@ int select_san_path_err_forget_rate(struct config *conf, struct multipath *mp)
- 	mp_set_ovr(san_path_err_forget_rate);
- 	mp_set_hwe(san_path_err_forget_rate);
- 	mp_set_conf(san_path_err_forget_rate);
-+	if (use_delay_watch_checks(conf, mp)) {
-+		origin = delay_watch_origin;
-+		goto out;
-+	}
- 	mp_set_default(san_path_err_forget_rate, DEFAULT_ERR_CHECKS);
- out:
- 	if (print_off_int_undef(buff, 12, mp->san_path_err_forget_rate) != 0)
-@@ -984,6 +1014,10 @@ int select_san_path_err_recovery_time(struct config *conf, struct multipath *mp)
- 	mp_set_ovr(san_path_err_recovery_time);
- 	mp_set_hwe(san_path_err_recovery_time);
- 	mp_set_conf(san_path_err_recovery_time);
-+	if (use_delay_wait_checks(conf, mp)) {
-+		origin = delay_wait_origin;
-+		goto out;
-+	}
- 	mp_set_default(san_path_err_recovery_time, DEFAULT_ERR_CHECKS);
- out:
- 	if (print_off_int_undef(buff, 12, mp->san_path_err_recovery_time) != 0)
-diff --git a/libmultipath/propsel.h b/libmultipath/propsel.h
-index b352c16a..b99652f0 100644
---- a/libmultipath/propsel.h
-+++ b/libmultipath/propsel.h
-@@ -22,8 +22,6 @@ int select_retain_hwhandler (struct config *conf, struct multipath * mp);
- int select_detect_prio(struct config *conf, struct path * pp);
- int select_detect_checker(struct config *conf, struct path * pp);
- int select_deferred_remove(struct config *conf, struct multipath *mp);
--int select_delay_watch_checks (struct config *conf, struct multipath * mp);
--int select_delay_wait_checks (struct config *conf, struct multipath * mp);
- int select_skip_kpartx (struct config *conf, struct multipath * mp);
- int select_max_sectors_kb (struct config *conf, struct multipath * mp);
- int select_san_path_err_forget_rate(struct config *conf, struct multipath *mp);
-diff --git a/libmultipath/structs.h b/libmultipath/structs.h
-index a8b9d325..a3adf906 100644
---- a/libmultipath/structs.h
-+++ b/libmultipath/structs.h
-@@ -268,8 +268,6 @@ struct path {
- 	int pgindex;
- 	int detect_prio;
- 	int detect_checker;
--	int watch_checks;
--	int wait_checks;
- 	int tpgs;
- 	char * uid_attribute;
- 	char * getuid;
-@@ -321,8 +319,6 @@ struct multipath {
- 	int fast_io_fail;
- 	int retain_hwhandler;
- 	int deferred_remove;
--	int delay_watch_checks;
--	int delay_wait_checks;
- 	int san_path_err_threshold;
- 	int san_path_err_forget_rate;
- 	int san_path_err_recovery_time;
-@@ -393,12 +389,6 @@ static inline int san_path_check_enabled(const struct multipath *mpp)
- 		mpp->san_path_err_recovery_time > 0;
- }
- 
--static inline int delay_check_enabled(const struct multipath *mpp)
--{
--	return mpp->delay_watch_checks != NU_NO ||
--		mpp->delay_wait_checks != NU_NO;
--}
--
- struct pathgroup {
- 	long id;
- 	int status;
 diff --git a/multipath/multipath.conf.5 b/multipath/multipath.conf.5
-index f7d21b4c..7fccf8f3 100644
+index 7fccf8f3..a85a8a60 100644
 --- a/multipath/multipath.conf.5
 +++ b/multipath/multipath.conf.5
-@@ -1013,10 +1013,13 @@ The default is: \fBno\fR
+@@ -1043,6 +1043,28 @@ The default is: \fBno\fR
+ .
  .
  .TP
- .B delay_watch_checks
--If set to a value greater than 0, multipathd will watch paths that have
--recently become valid for this many checks. If they fail again while they are
--being watched, when they next become valid, they will not be used until they
--have stayed up for \fIdelay_wait_checks\fR checks. See "Shaky paths detection" below.
-+This option is \fBdeprecated\fR, and mapped to \fIsan_path_err_forget_rate\fR.
-+If this is set to a value greater than 0 and \fIsan_path_err_forget_rate\fR
-+isn't set, \fIsan_path_err_forget_rate\fR will be set to the value of
-+\fIdelay_watch_checks\fR. Also, if \fIsan_path_err_threshold\fR isn't set, it
-+will be set to 1. See the \fIsan_path_err_forget_rate\fR and
-+\fIsan_path_err_threshold\fR options, and "Shaky paths detection" below for
-+more information.
- .RS
- .TP
- The default is: \fBno\fR
-@@ -1025,10 +1028,14 @@ The default is: \fBno\fR
- .
- .TP
- .B delay_wait_checks
--If set to a value greater than 0, when a device that has recently come back
--online fails again within \fIdelay_watch_checks\fR checks, the next time it
--comes back online, it will marked and delayed, and not used until it has passed
--\fIdelay_wait_checks\fR checks. See "Shaky paths detection" below.
-+This option is \fBdeprecated\fR, and mapped to \fIsan_path_err_recovery_time\fR.
-+If this is set to a value greater than 0 and \fIsan_path_err_recovery_time\fR
-+isn't set, \fIsan_path_err_recovery_time\fR will be set to the value of
-+\fIdelay_wait_checks\fR times \fImax_polling_interval\fR. This will give
-+approximately the same wait time as delay_wait_checks previously did.
-+Also, if \fIsan_path_err_threshold\fR isn't set, it will be set to 1.
-+See the \fIsan_path_err_recovery_time\fR and \fIsan_path_err_threshold\fR
-+options, and "Shaky paths detection" below for more information.
- .RS
- .TP
- The default is: \fBno\fR
-@@ -1689,13 +1696,10 @@ if the healthy state appears to be stable. The logic of determining
- differs between the three methods.
++.B marginal_pathgroups
++If set to \fIno\fR, the \fIdelay_*_checks\fR, \fImarginal_path_*\fR, and
++\fIsan_path_err_*\fR options will keep marginal, or \(dqshaky\(dq, paths from
++being reinstated until they have been monitored for some time. This can cause
++situations where all non-marginal paths are down, and no paths are usable
++until multipathd detects this and reinstates a marginal path. If the multipath
++device is not configured to queue IO in this case, it can cause IO errors to
++occur, even though there are marginal paths available.  However, if this
++option is set to \fIyes\fR, when one of the marginal path detecting methods
++determines that a path is marginal, it will be reinstated and placed in a
++seperate pathgroup that will only be used after all the non-marginal pathgroups
++have been tried first. This prevents the possibility of IO errors occuring
++while marginal paths are still usable. After the path has been monitored
++for the configured time, and is declared healthy, it will be returned to its
++normal pathgroup. See "Shaky paths detection" below for more information.
++.RS
++.TP
++The default  is: \fBno\fR
++.RE
++.
++.
++.TP
+ .B find_multipaths
+ This option controls whether multipath and multipathd try to create multipath
+ maps over non-blacklisted devices they encounter. This matters a) when a device is
+@@ -1690,10 +1712,14 @@ events. \fImultipathd\fR supports three different methods for detecting this
+ situation and dealing with it. All methods share the same basic mode of
+ operation: If a path is found to be \(dqshaky\(dq or \(dqflipping\(dq,
+ and appears to be in healthy status, it is not reinstated (put back to use)
+-immediately. Instead, it is watched for some time, and only reinstated
+-if the healthy state appears to be stable. The logic of determining
+-\(dqshaky\(dq condition, as well as the logic when to reinstate,
+-differs between the three methods.
++immediately. Instead, it is placed in the \(dqdelayed\(dq state and watched
++for some time, and only reinstated if the healthy state appears to be stable.
++If the \fImarginal_pathgroups\fR option is set, the path will reinstated
++immediately, but placed in a special pathgroup for marginal paths. Marginal
++pathgroups will not be used until all other pathgroups have been tried. At the
++time when the path would normally be reinstated, it will be returned to its
++normal pathgroup. The logic of determining \(dqshaky\(dq condition, as well as
++the logic when to reinstate, differs between the three methods.
  .TP 8
  .B \(dqdelay_checks\(dq failure tracking
--If a path fails again within a
--\fIdelay_watch_checks\fR interval after a failure, don't
--reinstate it until it passes a \fIdelay_wait_checks\fR interval
--in always good status.
--The intervals are measured in \(dqticks\(dq, i.e. the
--time between path checks by multipathd, which is variable and controlled by the
--\fIpolling_interval\fR and \fImax_polling_interval\fR parameters.
-+This method is \fBdeprecated\fR and mapped to the \(dqsan_path_err\(dq method.
-+See the \fIdelay_watch_checks\fR and \fIdelay_wait_checks\fR options above
-+for more information.
-+
- .TP
- .B \(dqmarginal_path\(dq failure tracking
- If a second failure event (good->bad transition) occurs within
-@@ -1712,12 +1716,13 @@ in seconds.
- .B \(dqsan_path_err\(dq failure tracking
- multipathd counts path failures for each path. Once the number of failures
- exceeds the value given by \fIsan_path_err_threshold\fR, the path is not
--reinstated for \fIsan_path_err_recovery_time\fR ticks. While counting
-+reinstated for \fIsan_path_err_recovery_time\fR seconds. While counting
- failures, multipathd \(dqforgets\(dq one past failure every
- \(dqsan_path_err_forget_rate\(dq ticks; thus if errors don't occur more
- often then once in the forget rate interval, the failure count doesn't
--increase and the threshold is never reached. As for the \fIdelay_xy\fR method,
--intervals are measured in \(dqticks\(dq.
-+increase and the threshold is never reached. Ticks are the time between
-+path checks by multipathd, which is variable and controlled by the
-+\fIpolling_interval\fR and \fImax_polling_interval\fR parameters.
+ This method is \fBdeprecated\fR and mapped to the \(dqsan_path_err\(dq method.
+diff --git a/multipathd/multipathd.8 b/multipathd/multipathd.8
+index edac7a92..048a838d 100644
+--- a/multipathd/multipathd.8
++++ b/multipathd/multipathd.8
+@@ -277,6 +277,25 @@ Remove the persistent reservation key associated with $map from the
+ \fIreservation_key\fR is set to \fBfile\fR in \fI/etc/multipath.conf\fR.
  .
- .RS 8
- .LP
-diff --git a/multipathd/main.c b/multipathd/main.c
-index 7db15736..dca2214c 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -2122,16 +2122,6 @@ check_path (struct vectors * vecs, struct path * pp, int ticks)
- 		return 1;
- 	}
- 
--	if ((newstate == PATH_UP || newstate == PATH_GHOST) &&
--	     pp->wait_checks > 0) {
--		if (pp->mpp->nr_active > 0) {
--			pp->state = PATH_DELAYED;
--			pp->wait_checks--;
--			return 1;
--		} else
--			pp->wait_checks = 0;
--	}
--
- 	/*
- 	 * don't reinstate failed path, if its in stand-by
- 	 * and if target supports only implicit tpgs mode.
-@@ -2162,19 +2152,10 @@ check_path (struct vectors * vecs, struct path * pp, int ticks)
- 			 * proactively fail path in the DM
- 			 */
- 			if (oldstate == PATH_UP ||
--			    oldstate == PATH_GHOST) {
-+			    oldstate == PATH_GHOST)
- 				fail_path(pp, 1);
--				if (pp->mpp->delay_wait_checks > 0 &&
--				    pp->watch_checks > 0) {
--					pp->wait_checks = pp->mpp->delay_wait_checks;
--					pp->watch_checks = 0;
--				}
--			} else {
-+			else
- 				fail_path(pp, 0);
--				if (pp->wait_checks > 0)
--					pp->wait_checks =
--						pp->mpp->delay_wait_checks;
--			}
- 
- 			/*
- 			 * cancel scheduled failback
-@@ -2200,15 +2181,10 @@ check_path (struct vectors * vecs, struct path * pp, int ticks)
- 		 * reinstate this path
- 		 */
- 		if (oldstate != PATH_UP &&
--		    oldstate != PATH_GHOST) {
--			if (pp->mpp->delay_watch_checks > 0)
--				pp->watch_checks = pp->mpp->delay_watch_checks;
-+		    oldstate != PATH_GHOST)
- 			add_active = 1;
--		} else {
--			if (pp->watch_checks > 0)
--				pp->watch_checks--;
-+		else
- 			add_active = 0;
--		}
- 		if (!disable_reinstate && reinstate_path(pp, add_active)) {
- 			condlog(3, "%s: reload map", pp->dev);
- 			ev_add_path(pp, vecs, 1);
-@@ -2253,8 +2229,6 @@ check_path (struct vectors * vecs, struct path * pp, int ticks)
- 				condlog(4, "%s: delay next check %is",
- 					pp->dev_t, pp->checkint);
- 			}
--			if (pp->watch_checks > 0)
--				pp->watch_checks--;
- 			pp->tick = pp->checkint;
- 		}
- 	}
+ .TP
++.B path $path setmarginal
++move $path to a marginal pathgroup. The path will remain in the marginal
++path group until \fIunsetmarginal\fR is called. This command will only
++work if \fImarginal_pathgroups\fR is enabled and there is no Shaky paths
++detection method configured (see the multipath.conf man page for details).
++.
++.TP
++.B path $path unsetmarginal
++return marginal path $path to its normal pathgroup. This command will only
++work if \fImarginal_pathgroups\fR is enabled and there is no Shaky paths
++detection method configured (see the multipath.conf man page for details).
++.
++.TP
++.B map $map unsetmarginal
++return all marginal paths in $map to their normal pathgroups. This command
++will only work if \fImarginal_pathgroups\fR is enabled and there is no Shaky
++paths detection method configured (see the multipath.conf man page for details).
++.
++.TP
+ .B quit|exit
+ End interactive session.
+ .
 -- 
 2.17.2
 
