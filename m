@@ -2,170 +2,99 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id B38B87F620
-	for <lists+dm-devel@lfdr.de>; Fri,  2 Aug 2019 13:41:46 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by mail.lfdr.de (Postfix) with ESMTPS id E92EC7FD71
+	for <lists+dm-devel@lfdr.de>; Fri,  2 Aug 2019 17:24:01 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id E976230821DF;
-	Fri,  2 Aug 2019 11:41:44 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B9A28600F8;
-	Fri,  2 Aug 2019 11:41:44 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 479413091D55;
+	Fri,  2 Aug 2019 15:23:59 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 70EA05D9D3;
+	Fri,  2 Aug 2019 15:23:57 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3560F264C8;
-	Fri,  2 Aug 2019 11:41:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0CBCC18089C8;
+	Fri,  2 Aug 2019 15:23:50 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x71Mhvrb010275 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 1 Aug 2019 18:43:57 -0400
+	id x72FIUEh015717 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 2 Aug 2019 11:18:30 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D4B9D60C5F; Thu,  1 Aug 2019 22:43:57 +0000 (UTC)
+	id BAE5160605; Fri,  2 Aug 2019 15:18:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx14.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.43])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CCCCB60BF4
-	for <dm-devel@redhat.com>; Thu,  1 Aug 2019 22:43:55 +0000 (UTC)
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
-	[67.231.145.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.redhat.com (ext-mx04.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.28])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6AF76608C2;
+	Fri,  2 Aug 2019 15:18:28 +0000 (UTC)
+Received: from mail-qt1-f193.google.com (mail-qt1-f193.google.com
+	[209.85.160.193])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 81DDC31303AA
-	for <dm-devel@redhat.com>; Thu,  1 Aug 2019 22:43:54 +0000 (UTC)
-Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
-	x71MgIWW017072; Thu, 1 Aug 2019 15:43:52 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
-	h=from : to : cc : subject
-	: date : message-id : references : in-reply-to : content-type :
-	content-id
-	: content-transfer-encoding : mime-version; s=facebook;
-	bh=ariXzKAInQezmuKRSY7MjObHIwxaIMDHy28ouUSmDLU=;
-	b=ChPKrwqhoumWuQbgv9J4BUSlafzYdoFHFP8ArAZNTyuO4ItAsRF56444eDkazIftMndt
-	t8sYY2fUxs2rh72n1LBVmdiQIU+KOXz1jmxM1gljlrVdBQH9tNz3xdfS5lUM2/rShrP7
-	+2b8JXlMnCMTSuhAyYzdE7NVZyYBFMCn76g= 
-Received: from maileast.thefacebook.com ([163.114.130.16])
-	by mx0a-00082601.pphosted.com with ESMTP id 2u438rhfb8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128
-	verify=NOT); Thu, 01 Aug 2019 15:43:51 -0700
-Received: from ash-exhub103.TheFacebook.com (2620:10d:c0a8:82::c) by
-	ash-exhub203.TheFacebook.com (2620:10d:c0a8:83::5) with Microsoft SMTP
-	Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
-	15.1.1713.5; Thu, 1 Aug 2019 15:43:49 -0700
-Received: from NAM05-DM3-obe.outbound.protection.outlook.com (100.104.31.183)
-	by o365-in.thefacebook.com (100.104.35.174) with Microsoft SMTP
-	Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
-	via Frontend Transport; Thu, 1 Aug 2019 15:43:49 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
-	b=JWjFmCjWpO2lDglDiGYP0TmBKEqncFNqqZXFa2BljuMVUEQ0eTfA6HUzkh5DE0PeZDW1umsiQ3lz66TG8WAYHyHBlvPbrSqiT+j/DR+kvOPj0yQqM72qNe/z00iwxqnj+Ro/9p1Y1+e93ZWm9xkoznUPHvt451r/RD5WBfBaqttmLQJ02OsPeZqKDZ3qpGcqfKzs3u8BNgstiYy92PCoIvFkBqM71JDLOSJL/QG6WUxIsZjwzJMArGQFW4OTMruTkH2ze/sgMOf8C+OIwOEqAGfzr5zncMXC/X/r63suvBgKrW40kWbOzCJYVgbbuPuCLYkgQAM0DslJLPjPsUOm7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
-	s=arcselector9901;
-	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
-	bh=ariXzKAInQezmuKRSY7MjObHIwxaIMDHy28ouUSmDLU=;
-	b=TVW9LeICBWljGvaHabgX7FmdO6Jkf/EA1Pb2EQOPeH2NSPzZirQZt2lSeQOxLTyeOsCxzWk/XHBAWiARh1tUn+j2AMZAgQnFpmD7ZsEF1ByffAJ2zWwo9WvVpU80uVHe+N4JJdvjET2bUgnt8rtAqqeBhdWnZB8ZHvkcXQLhn6+KtwQNS7/d1EJb6flCjHqso2DctneXHcUmg3xqNFRAj+gOoPRMuwt1GAmwrsVXz55MtE/t7H3nllB5eWzNv5gkgfem7xleUKgplIQ8X1a9iOqJsIA1b9ForPiwA+uHHdeHzf9euTs4q+d+Z1jLpc9eM9EiNX4ysz/mto+Qk6JG+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
-	smtp.mailfrom=fb.com; dmarc=pass action=none header.from=fb.com;
-	dkim=pass header.d=fb.com;arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
-	s=selector2-fb-onmicrosoft-com;
-	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
-	bh=ariXzKAInQezmuKRSY7MjObHIwxaIMDHy28ouUSmDLU=;
-	b=OgZ0Nt7glzUtmu5hJtkfYio7B4rfKYjUxIMFig7IC1Y6Ipi96Mehlg/V/oJkPuNBsgREJs9UNa6GnKK2nOUJ1t5kk0JvStzs64R/pAhwOq3D+CUOxC55z89I7jkY3LYJXH8hcZ2Cu6JQel8qjqMABNfx+iWmRcI3ypAFhtclTTc=
-Received: from MWHPR15MB1165.namprd15.prod.outlook.com (10.175.3.22) by
-	MWHPR15MB1470.namprd15.prod.outlook.com (10.173.234.148) with Microsoft
-	SMTP
-	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.2115.15; Thu, 1 Aug 2019 22:43:48 +0000
-Received: from MWHPR15MB1165.namprd15.prod.outlook.com
-	([fe80::d4fc:70c0:79a5:f41b]) by
-	MWHPR15MB1165.namprd15.prod.outlook.com
-	([fe80::d4fc:70c0:79a5:f41b%2]) with mapi id 15.20.2115.005;
-	Thu, 1 Aug 2019 22:43:48 +0000
-From: Song Liu <songliubraving@fb.com>
-To: "Guilherme G. Piccoli" <gpiccoli@canonical.com>
-Thread-Topic: [PATCH] md/raid0: Fail BIOs if their underlying block device is
-	gone
-Thread-Index: AQHVRkSmX2LKohDHxE6edwD68oSJQqbiSV6AgADPP4CAAg5UgIAAALGAgAGbKgCAACXTgA==
-Date: Thu, 1 Aug 2019 22:43:48 +0000
-Message-ID: <72C166DF-3984-4330-8C60-BBDA07358771@fb.com>
-References: <20190729193359.11040-1-gpiccoli@canonical.com>
-	<87zhkwl6ya.fsf@notabene.neil.brown.name>
-	<6400083b-3cf3-cbc6-650a-c3ae6629b14c@canonical.com>
-	<CAPhsuW69YrpHqBCOob2b5wzzWS9FM087sfe3iC0odX8kZWRwmA@mail.gmail.com>
-	<CAPhsuW5zB=Kik4rq9YA-xBer7Z-h-23QV4WSCWe-jvhFgGc0Cw@mail.gmail.com>
-	<9674ca8f-4325-3023-8a1d-39782103f55d@canonical.com>
-In-Reply-To: <9674ca8f-4325-3023-8a1d-39782103f55d@canonical.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:200::2:33d7]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 8925af17-cb67-48da-ebf9-08d716d1b7d7
-x-microsoft-antispam: BCL:0; PCL:0;
-	RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
-	SRVR:MWHPR15MB1470; 
-x-ms-traffictypediagnostic: MWHPR15MB1470:
-x-microsoft-antispam-prvs: <MWHPR15MB1470586DC779D5DCC7B359C1B3DE0@MWHPR15MB1470.namprd15.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-forefront-prvs: 01165471DB
-x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10019020)(136003)(396003)(376002)(366004)(39860400002)(346002)(199004)(51914003)(189003)(8936002)(46003)(33656002)(316002)(81156014)(50226002)(229853002)(76176011)(8676002)(71200400001)(7736002)(54906003)(71190400001)(14454004)(25786009)(5660300002)(81166006)(99286004)(478600001)(2906002)(256004)(6116002)(86362001)(6512007)(14444005)(6436002)(36756003)(6916009)(68736007)(102836004)(446003)(305945005)(4326008)(53936002)(11346002)(66946007)(64756008)(57306001)(2616005)(66446008)(66476007)(66556008)(186003)(53546011)(476003)(6486002)(76116006)(6246003)(486006)(6506007);
-	DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1470;
-	H:MWHPR15MB1165.namprd15.prod.outlook.com; FPR:; SPF:None;
-	LANG:en; PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
-	permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: KEdxwBjDBL04+MJv/m/8huFynbj0Hc2huJtSZtGZUNj5Oj4AbpdxxuIlqOTEDgwLjIFzr7rtdLXgkhD3JuzDBqMf6TQnvkJev0o80tpHOEEnTfKkyhsSbMTmBffIgSjXf37YSQ3XYU8Sdt2CpjP+9F4Zak/H55QllvPMlzDNNQ4/ShlRaZpUM/mzv0ZNi5a5AaZU1C8GwuNU+xU1bghOvjBL1WYnzCyFs0BfEt6KBoNmn6dX6uamVWic56HvZK5iUyeZbPqalV4VM7Km23J0lvVjtjOqxi7Vz9y6cloNM3zB1tSnH82aDJEqrRXxc2O53+ujvglIWDbkv3wF5OC+SkeTewIwyPi8A/zXInWky7ChOKzqtV783PZxTA3Jl/YJmHB7njLCogAgIwk+d7K9QNGdRTE8epjadL1mIgOh9GI=
-Content-ID: <1DB28A5D09FE504C800002670C1FD648@namprd15.prod.outlook.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id BD8BA8830A;
+	Fri,  2 Aug 2019 15:18:27 +0000 (UTC)
+Received: by mail-qt1-f193.google.com with SMTP id k10so5092929qtq.1;
+	Fri, 02 Aug 2019 08:18:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=sender:date:from:to:cc:subject:message-id:mime-version
+	:content-disposition:user-agent;
+	bh=gdngyBtdu0hdLvbeSbTye0hHvs2AeGgWPnp7xtpz2pc=;
+	b=bmOflGozxI+mphcODY5j7b5BFsfrSWy3IStln5jlsCHG22r0XXLXiVYhg3h+Q/ybO/
+	EEZE/oPaI7sHjS1wktwJ7ClVppB8cnwh5yjkEgbM7nx4Tss6EGDyAUiETkxpD24cXwhO
+	++aTWhjhQ2cm+8LD+9pI4hHmL7z1WiWgKx2BwffkRRaxPCp1CJ9jKL/SLccBSMNpkrmJ
+	PV4lk3QGGl5ZgxYVCTNPHqwUWKWuDpVaECx+Q2O49rPl9BBJ4p1RstF0aS7KLYMOfqub
+	dueOfDsMkLu/3D2IUF3/EAG1V3hEEJaBNA0/bBbfnTeoBEeJUaB2cMV0aNdih6iqBLSh
+	1UVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+	:mime-version:content-disposition:user-agent;
+	bh=gdngyBtdu0hdLvbeSbTye0hHvs2AeGgWPnp7xtpz2pc=;
+	b=kZJf3fRrrGSWUtzXqVE6GOrfHNq/ZvZzVUpvOMQXLWA8FXoOSyDGKt0Qngts81EHdX
+	mOzTi+C4AEJ5J4SDlzU3Rk+6vPeCIvewR7sBCJD6eov9w+TtonFCElOnqqFTIJddVL9M
+	onLijSgUnzwEmoSIGkRmOYcNbMVC+oXSsSWFomPjKdbpnFJxdQWecbsxM+ZD1pvc34GG
+	bL8+a6mKLg0RhpeEwFL352TtBGF2mbSA8DQqOitey8CnguReQmBDcspm9YpuK7JD5HuY
+	X9WXxWsT0ELTWRYhaov/e933yOkmhWpR3gma8szFEhTHWm7icogwSX9qNUVYOXJ0+wh2
+	81iQ==
+X-Gm-Message-State: APjAAAUYlUllGssUZWLlhuKyJK/9vK8lHtWKGzlipE9d/VBCvwknljoI
+	vTmnQLCT0krjpbOIxiQ6PvQ=
+X-Google-Smtp-Source: APXvYqzwf8ISub3zZQgY3MRTVRb9eZqoBIKiw7mfLgYH6rV1oSYEitDAJeImj/PmBE8fAIg+AtfRmg==
+X-Received: by 2002:ac8:2d56:: with SMTP id o22mr93765389qta.171.1564759106857;
+	Fri, 02 Aug 2019 08:18:26 -0700 (PDT)
+Received: from localhost (nat-pool-bos-t.redhat.com. [66.187.233.206])
+	by smtp.gmail.com with ESMTPSA id
+	z33sm33924524qtc.56.2019.08.02.08.18.25
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Fri, 02 Aug 2019 08:18:26 -0700 (PDT)
+Date: Fri, 2 Aug 2019 11:18:25 -0400
+From: Mike Snitzer <snitzer@redhat.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20190802151824.GA86075@lobo>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8925af17-cb67-48da-ebf9-08d716d1b7d7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Aug 2019 22:43:48.2289 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: songliubraving@fb.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1470
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
-	definitions=2019-08-01_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
-	priorityscore=1501
-	malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
-	clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
-	mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
-	scancount=1 engine=8.0.1-1906280000 definitions=main-1908010239
-X-FB-Internal: deliver
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.43]); Thu, 01 Aug 2019 22:43:54 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]);
-	Thu, 01 Aug 2019 22:43:54 +0000 (UTC) for IP:'67.231.145.42'
-	DOMAIN:'mx0a-00082601.pphosted.com'
-	HELO:'mx0a-00082601.pphosted.com' FROM:'songliubraving@fb.com'
-	RCPT:''
-X-RedHat-Spam-Score: -0.8  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_LOW, SPF_HELO_NONE,
-	SPF_PASS) 67.231.145.42 mx0a-00082601.pphosted.com 67.231.145.42
-	mx0a-00082601.pphosted.com
-	<prvs=3116992784=songliubraving@fb.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.43
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id x71Mhvrb010275
+Content-Disposition: inline
+User-Agent: Mutt/1.11.4 (2019-03-13)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.28]);
+	Fri, 02 Aug 2019 15:18:27 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]);
+	Fri, 02 Aug 2019 15:18:27 +0000 (UTC) for IP:'209.85.160.193'
+	DOMAIN:'mail-qt1-f193.google.com'
+	HELO:'mail-qt1-f193.google.com' FROM:'snitzer@gmail.com' RCPT:''
+X-RedHat-Spam-Score: 0.236  (DKIM_SIGNED, DKIM_VALID,
+	FREEMAIL_FORGED_FROMDOMAIN, FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
+	SPF_PASS) 209.85.160.193 mail-qt1-f193.google.com 209.85.160.193
+	mail-qt1-f193.google.com <snitzer@gmail.com>
+X-RedHat-Possible-Forgery: <snitzer@gmail.com> Mike Snitzer
+	<snitzer@redhat.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.28
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Fri, 02 Aug 2019 07:39:28 -0400
-Cc: Neil F Brown <nfbrown@suse.com>, Song Liu <liu.song.a23@gmail.com>,
-	NeilBrown <neilb@suse.com>, linux-raid <linux-raid@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	Jay Vosburgh <jay.vosburgh@canonical.com>
-Subject: Re: [dm-devel] [PATCH] md/raid0: Fail BIOs if their underlying
- block device is gone
+Cc: linux-block@vger.kernel.org, Pankaj Gupta <pagupta@redhat.com>,
+	dm-devel@redhat.com, Dan Williams <dan.j.williams@intel.com>,
+	Alasdair G Kergon <agk@redhat.com>
+Subject: [dm-devel] [git pull] device mapper fixes for 5.3-rc3
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -181,64 +110,39 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Fri, 02 Aug 2019 11:41:45 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]); Fri, 02 Aug 2019 15:24:00 +0000 (UTC)
 
+Hi Linus,
 
+The following changes since commit 609488bc979f99f805f34e9a32c1e3b71179d10b:
 
-> On Aug 1, 2019, at 1:28 PM, Guilherme G. Piccoli <gpiccoli@canonical.com> wrote:
-> 
-> 
-> 
-> On 31/07/2019 16:56, Song Liu wrote:
->> On Wed, Jul 31, 2019 at 12:54 PM Song Liu <liu.song.a23@gmail.com> wrote:
->>> 
->>> On Tue, Jul 30, 2019 at 5:31 AM Guilherme G. Piccoli
->>> <gpiccoli@canonical.com> wrote:
->>>> 
->>>> On 29/07/2019 21:08, NeilBrown wrote:
->>>>> [...]
->>>>>> +    if (unlikely(test_bit(MD_BROKEN, &mddev->flags))) {
->>>>>> +            bio_io_error(bio);
->>>>>> +            return BLK_QC_T_NONE;
->>>>>> +    }
->>>>> 
->>>>> I think this should only fail WRITE requests, not READ requests.
->>>>> 
->>>>> Otherwise the patch is probably reasonable.
->>>>> 
->>>>> NeilBrown
->>>> 
->>>> Thanks for the feedback Neil! I thought about it; it seemed to me better
->>>> to deny/fail the reads instead of returning "wrong" reads, since a file
->>>> read in a raid0 will be incomplete if one member is missing.
->>>> But it's fine for me to change that in the next iteration of this patch.
->>> 
->>> For reads at block/page level, we will either get EIO or valid data, right?
->>> 
->>> If that's not the case, we should fail all writes.
->> 
->> Oops, I meant all _reads_.
-> 
-> Hi Song, thanks for the feedback! After changing the patch and testing a
-> bit, it behaves exactly as you said, we got either valid data read from
-> the healthy devices or -EIO for the data tentatively read from the
-> failed/missing array members.
+  Linux 5.3-rc2 (2019-07-28 12:47:02 -0700)
 
-Thanks for testing this out. 
+are available in the Git repository at:
 
-> 
-> So, I'll resubmit with that change. Also, I've noticed clearing the
-> BROKEN flag seem unnecessary, if user stops the array in order to fix
-> the missing member, it'll require a re-assembly and the array is gonna
-> work again.
-> 
-> Do you / Neil considers this fix relevant to md/linear too? If so, I can
-> also include that in the V2.
+  git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git tags/for-5.3/dm-fixes-1
 
-Yes, please also include fix for md/linear. 
+for you to fetch changes up to 9c50a98f55f4b123227eebb25009524d20bc4c2a:
 
-Song
+  dm table: fix various whitespace issues with recent DAX code (2019-07-30 18:59:24 -0400)
+
+Please pull, thanks!
+Mike
+
+----------------------------------------------------------------
+Fix NULL pointer and various whitespace issues with DM's recent DAX code
+changes from commit in 5.3 merge.
+
+----------------------------------------------------------------
+Mike Snitzer (1):
+      dm table: fix various whitespace issues with recent DAX code
+
+Pankaj Gupta (1):
+      dm table: fix dax_dev NULL dereference in device_synchronous()
+
+ drivers/md/dm-table.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 --
 dm-devel mailing list
