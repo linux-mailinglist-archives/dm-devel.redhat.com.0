@@ -2,90 +2,91 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B9EF8487D
-	for <lists+dm-devel@lfdr.de>; Wed,  7 Aug 2019 11:18:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6375E84880
+	for <lists+dm-devel@lfdr.de>; Wed,  7 Aug 2019 11:18:18 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 48EC86378;
-	Wed,  7 Aug 2019 09:18:03 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 71E255D9E1;
-	Wed,  7 Aug 2019 09:17:57 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 753EA30BCBBB;
+	Wed,  7 Aug 2019 09:18:16 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 240495D9E1;
+	Wed,  7 Aug 2019 09:18:15 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 81AC11800202;
-	Wed,  7 Aug 2019 09:17:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7E8C62551B;
+	Wed,  7 Aug 2019 09:18:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x779DMxP032155 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 7 Aug 2019 05:13:22 -0400
+	id x779GvGo000390 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 7 Aug 2019 05:16:57 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9900126160; Wed,  7 Aug 2019 09:13:22 +0000 (UTC)
+	id 70BB55D71A; Wed,  7 Aug 2019 09:16:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx07.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.31])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5AC761FD3C;
-	Wed,  7 Aug 2019 09:13:18 +0000 (UTC)
-Received: from esa2.hgst.iphmx.com (esa2.hgst.iphmx.com [68.232.143.124])
+Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.41])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EA4905D717;
+	Wed,  7 Aug 2019 09:16:48 +0000 (UTC)
+Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 71101C08EC28;
-	Wed,  7 Aug 2019 09:12:54 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 2777E316D8D3;
+	Wed,  7 Aug 2019 09:16:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
 	d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
-	t=1565169383; x=1596705383;
+	t=1565169398; x=1596705398;
 	h=from:to:subject:date:message-id:references:
 	content-transfer-encoding:mime-version;
-	bh=61Zs1wk2E5qegjuqcc51TKR7hwdPbdWU2IpyIIMJ9hk=;
-	b=plTlGzprVIPzrNZvtP6WrNGieefP+rHXSZf1xxbU1skK54aqYW95gMtl
-	1jOKYi5w/wQX3UEQNEss4BceeRj+LNvMFXC5Hqz32IUd9AEoQYgRVcmKg
-	uIWvdBtLa4c/n+/y3DtIodVomJQne3PQehjyd/6bhCNT9VwDs7yjB2rv3
-	2vMHkxxCRc4/vkB2b+8e3limP3wcoc/zdbfpdlz5pt4QCDP/tEppd5CWZ
-	vF/GHutPzsKUmbBJPwCSt0u80ciSQJ4tTE2NWL2eY/yz3cta39ghQkjUe
-	ueBMPb5z/TFlqlSt5/c1QQ3ApDLQ+wgul45YkFuP1Tu6TaKpMrvayPnm9 A==;
-IronPort-SDR: rXD7+3meVZ81xkfg8MZvs23xmolWj1STUh+RD7C8G2V6d9FlaM4VlnV+GngtUfCfAPVPmjjYiH
-	8GF1osuD3QlS7/tJmtb9yYE6eHhFokfhjJB32KhLLgaHte9Bc+OWdf3uce/88lGDmtpV2w/Vfa
-	MxBEltAHaiwoR/EOPQr0eXT/yCrWsWIjiCtua49z1DLAZ/vbZKLmAhNdiw5O8kAVIB9XRSEqCK
-	4I4rsSD/xMBehJOnxrS1Hbx5z2jvu3RKD8tRa4YawREQcssR7nna5aJ+ZMrDPnJeOhtJd09kod
-	tgo=
-X-IronPort-AV: E=Sophos;i="5.64,357,1559491200"; d="scan'208";a="215517194"
-Received: from mail-sn1nam01lp2053.outbound.protection.outlook.com (HELO
-	NAM01-SN1-obe.outbound.protection.outlook.com) ([104.47.32.53])
-	by ob1.hgst.iphmx.com with ESMTP; 07 Aug 2019 17:15:48 +0800
+	bh=mjax/9XYze/zTb20VAF0yWrJiI7DMVuwXvQ8eazWhNY=;
+	b=e//aX5lFcNucL3wedhbwMQ0axeqz9fGk0rmUubLsW88r70tgHBbEyl7e
+	PcyB1glnpyUA/3EAyDah8zbeLGt0+unGDnZqgmNBYUCmxyYf0qxDpDi7U
+	Pi9djON+Bm6EfYJdahDyAqcAAVr7AJPCbS7r0AiHf23UnRVuyq1Rg79Sp
+	bFE1nVfragU4v5C9fnRMLG6ZvogmJpjamiTei3HCHR/RLULegjLuLZ+b+
+	tapVnPYqHoicKOsULD25uvERpG+eoGBoW7TCUsXhaHg9z4CyPgrP69XAY
+	qRBT21LNWZnLyptjpaWbnj+QMywaNvQgMFxgfbD4CT5/Yfvf1HQMZ6lT2 g==;
+IronPort-SDR: e3qsr1kSG5+ijblYEbtk50BLFFpOitOdVLk55xip+pTuk1jYxisLToNf6Yix5Nld7ZqNvtWQEP
+	7vNaq+zJOB7QC3oNJ6DoNP+y1OLpf5PzWsoYIn8EFBix+kDZQO5Y5JB9ddnO9yi0lPbgdQG9HR
+	c8F0nlUl8JVe9B5hxHOn9j2pI7lO8pQ4XYSdmaFkIpMpiJ2iX2Fp7S7ub7hxcuOr/TQWr7uJk8
+	bW6BhHY6ZtqRYaf9Jzq172ggK3UznUsz/mQcmRwjn51DmCQcleyRmEM0gMRnMGCHWv9mzruIlb
+	vNo=
+X-IronPort-AV: E=Sophos;i="5.64,357,1559491200"; d="scan'208";a="115229778"
+Received: from mail-co1nam03lp2053.outbound.protection.outlook.com (HELO
+	NAM03-CO1-obe.outbound.protection.outlook.com) ([104.47.40.53])
+	by ob1.hgst.iphmx.com with ESMTP; 07 Aug 2019 17:16:16 +0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
-	b=f/GRZuqpmag1l69Y83vYriYMrBt+1+4WnKFEbGbFpaZKLLGiLhSTZ3lMwzVAgVaYOjdqFr6T3C7BAvd3IEPgUvZ2Qm8cWHEGGBc+p/SQ2farF9a/rsRUQXUD1A94u4jpzjeEsa5MYCOjx0ZR10izZSxUYZnlLi/jQMrx3ZcHNLbCMHfoYxDnm6sz0jI7Ov02D8pjzvfnpmutq0cLQFGI22+Gf8us9QlMn8Ou+iWeIbnNPbfCXDouV3YeswGGKdD1G6gLb7qKXPjKGvE5Tk6DOF1DM8YRTG01Ul3luj6rX9nkH5XN3rYdpMKWhxVX1ArHqRrksqSJGgAxHxk/yxqeAg==
+	b=ldh5Z3ezSBDKoWb8ySdpbexWtXMAHkcmju7zCPfeAaZsG7SrXCrUIP+C9fmbdJQLtyEmQhw4XwXbg6uyuYpVRy2akAbyl40jzyX/8v292bMZmdI7TQE9vRVeH+A2TIteIMoPDlfYG0REA1pTJqpjdocwpsNYTKxzZCmqtruSiDwjt6q6EYRa1dXCDPiwD+ah9SiiQknsALKtUW7sElO3tQxRsHDS3mUV80mo0LBlnSe99yRVlahRWp+ql37Jk7/VZlRLiNfLwQG1qxrMGHxnUTx/JfJo9twcfhSVTtQ0DJVVVgU1o+6vtuYm7m/e6V0n1Piw/c40mB6aFZqb/coXqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
 	s=arcselector9901;
 	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
-	bh=q9AGodYNWdG5Y0mM0XT5xduwA2AV2l06b2lhh0xxgO8=;
-	b=lsXXQX3wl18vWMQBjK8cQRR3rmnCe7Hd+TaBJ2oVMXVgI45aV3FODZAIEXjkgwopAsAAUY44ZuGhy9ewhj0IR9ndGeaDvLN7vaOtt3BVcW8N9DSvnZUGKLZjKw2VWK1zeEHBw+SLUhBucz5EABLFU7lWmIacfqzzpuARJaq7sFmBSNv8rO+h/RoX35+ZNxWUzBUUqmqaFriciUpxjj2r7c92pJeYkrgP3TTNSV+wveQmxLs/vNOFsm1y71FxnhT9rNNolh1RFpnW8cEeGALFQ+DYEq2DNYqVYnKoNRqGPDSbXlMONXOc+Vro3XCZBESI880asiwG/DgB4j5L5qFuxg==
+	bh=HrV69JM0u3qvHE9oinfLbh64HXZlK4pGHhveYxqy6Gk=;
+	b=D8FHXw6TDmgEBoeZdCqJ4TPi5uZI1sAymoXk3RZCuTMq0YSAdgH0CWwUkk7su/czwQVOCQZGmRmjla8MEdJACJJ+pLptI6/GLPcp2WfRRPMv/UV5PBkgMPDlfK+nXBP+WSK3Rx2ttU665QRauMpU2WXyCtBP8FQJJ5vDouL/9EvZy4mSlHhF9yyWJB1hFTz8uLkeN7QFW8RQgXdCOR/iSGjwNvL0gU6L9U2Bf26/rMIQA9E+QohUYQQtrIboC+VO2uMqHiosggzJswr2e7tq2iV8G8mGiMlKSJ25LC2ye0mPEq/DlZFFC6x7isdHXbxTe5jSvuUfzp78Q8O/XtWseQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
 	smtp.mailfrom=wdc.com; dmarc=pass action=none header.from=wdc.com;
 	dkim=pass header.d=wdc.com;arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=sharedspace.onmicrosoft.com; s=selector2-sharedspace-onmicrosoft-com; 
 	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
-	bh=q9AGodYNWdG5Y0mM0XT5xduwA2AV2l06b2lhh0xxgO8=;
-	b=q7IwGDbnBEm5EC+HwDrnxPZ33tbj+pVJF007ds9nVC5+VnWQ7qnEAD3mtU7bgtDwmbkF4/JM+pa5EWYao+e0fN5dQ/cHmgT61HFKLBlevMq2nvdgWcWb76uE3bDQAVe6g9RRBXhQyEPJfzW07xDlk9GBmn4GVMAg1EazC5+xTRs=
+	bh=HrV69JM0u3qvHE9oinfLbh64HXZlK4pGHhveYxqy6Gk=;
+	b=IH/0KXW7ylk2R8abBbTB/nywhzb4ZKnADJ47r763i8ZRZqFDSkgQJlfYYJ3wLHarzJJjLZFfPwa96Qa3dSiTuNMNIwM4YY2RXD2L6t79GddqeLX1aizfXg4/fo7IpPsCda+a/5kpkRitm0Dv5sLvccGpCi5xPD+S4DkXA0lZSnM=
 Received: from BYAPR04MB5816.namprd04.prod.outlook.com (20.179.58.207) by
-	BYAPR04MB5511.namprd04.prod.outlook.com (20.178.232.29) with Microsoft
+	BYAPR04MB5639.namprd04.prod.outlook.com (20.179.56.149) with Microsoft
 	SMTP
 	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.2136.13; Wed, 7 Aug 2019 09:12:44 +0000
+	15.20.2136.15; Wed, 7 Aug 2019 09:16:14 +0000
 Received: from BYAPR04MB5816.namprd04.prod.outlook.com
 	([fe80::65a9:db0a:646d:eb1e]) by
 	BYAPR04MB5816.namprd04.prod.outlook.com
 	([fe80::65a9:db0a:646d:eb1e%6]) with mapi id 15.20.2136.018;
-	Wed, 7 Aug 2019 09:12:44 +0000
+	Wed, 7 Aug 2019 09:16:14 +0000
 From: Damien Le Moal <Damien.LeMoal@wdc.com>
 To: Dmitry Fomichev <Dmitry.Fomichev@wdc.com>, "dm-devel@redhat.com"
 	<dm-devel@redhat.com>, Mike Snitzer <snitzer@redhat.com>
-Thread-Topic: [PATCH] dm kcopyd: always complete failed jobs
-Thread-Index: AQHVS+lZIeuIcjdyeEKQKSQWAd061Q==
-Date: Wed, 7 Aug 2019 09:12:43 +0000
-Message-ID: <BYAPR04MB5816ECBD651A16571529695AE7D40@BYAPR04MB5816.namprd04.prod.outlook.com>
-References: <20190805235603.18337-1-dmitry.fomichev@wdc.com>
+Thread-Topic: [PATCH 1/3] dm-zoned: improve error handling in reclaim
+Thread-Index: AQHVS/Mwf7NGhd/m8USnMRMD9phJEA==
+Date: Wed, 7 Aug 2019 09:16:14 +0000
+Message-ID: <BYAPR04MB5816DCF509654E00D3241EE0E7D40@BYAPR04MB5816.namprd04.prod.outlook.com>
+References: <20190806010625.27503-1-dmitry.fomichev@wdc.com>
+	<20190806010625.27503-2-dmitry.fomichev@wdc.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -94,49 +95,50 @@ authentication-results: spf=none (sender IP is )
 	smtp.mailfrom=Damien.LeMoal@wdc.com; 
 x-originating-ip: [60.117.181.124]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 2e760072-fa30-44e6-3d66-08d71b176810
+x-ms-office365-filtering-correlation-id: 5463df26-b3f0-42f0-f257-08d71b17e58b
 x-ms-office365-filtering-ht: Tenant
 x-microsoft-antispam: BCL:0; PCL:0;
 	RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(4618075)(2017052603328)(7193020);
-	SRVR:BYAPR04MB5511; 
-x-ms-traffictypediagnostic: BYAPR04MB5511:
-x-microsoft-antispam-prvs: <BYAPR04MB551173B5E7237431955A9359E7D40@BYAPR04MB5511.namprd04.prod.outlook.com>
+	SRVR:BYAPR04MB5639; 
+x-ms-traffictypediagnostic: BYAPR04MB5639:
+x-microsoft-antispam-prvs: <BYAPR04MB5639D65611117DDA36FC2F45E7D40@BYAPR04MB5639.namprd04.prod.outlook.com>
 wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-oob-tlc-oobclassifiers: OLM:2803;
 x-forefront-prvs: 01221E3973
 x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10019020)(4636009)(376002)(136003)(346002)(396003)(366004)(39860400002)(189003)(199004)(478600001)(6246003)(33656002)(6436002)(91956017)(52536014)(14454004)(76116006)(14444005)(55016002)(66946007)(256004)(64756008)(53936002)(2501003)(66446008)(476003)(66556008)(9686003)(6116002)(186003)(5660300002)(71190400001)(66066001)(71200400001)(7736002)(68736007)(66476007)(86362001)(26005)(305945005)(74316002)(81156014)(110136005)(2906002)(25786009)(446003)(316002)(99286004)(486006)(81166006)(7696005)(102836004)(3846002)(53546011)(450100002)(229853002)(8936002)(8676002)(6506007)(76176011);
-	DIR:OUT; SFP:1102; SCL:1; SRVR:BYAPR04MB5511;
+	SFS:(10019020)(4636009)(39860400002)(136003)(346002)(376002)(366004)(396003)(189003)(199004)(66556008)(66946007)(229853002)(2501003)(66476007)(76116006)(3846002)(86362001)(91956017)(8936002)(33656002)(74316002)(66446008)(76176011)(2906002)(8676002)(305945005)(6116002)(81166006)(81156014)(14454004)(64756008)(53546011)(6506007)(7736002)(9686003)(55016002)(316002)(25786009)(99286004)(186003)(486006)(110136005)(6436002)(476003)(53936002)(68736007)(446003)(6246003)(52536014)(26005)(478600001)(450100002)(7696005)(102836004)(71200400001)(5660300002)(14444005)(256004)(71190400001)(66066001);
+	DIR:OUT; SFP:1102; SCL:1; SRVR:BYAPR04MB5639;
 	H:BYAPR04MB5816.namprd04.prod.outlook.com; FPR:; SPF:None;
 	LANG:en; PTR:InfoNoRecords; MX:1; A:1; 
 x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: OqLn/T1a6bV/byXR1EDYjT1257YvzbKcRxOO3jpntvkI/bmsV+2xk4QgCJoVmvZhsfNQIvP8KaZjR63jYyaHGCyR2WunD/KFXCcLtN9dftTEz1oxJEyBY58SNGRslON+zqadjh2J4hWSCJByDSMa8bgWoVi/EkmcPnuTm6ZHj1+XYPKG1xEN7pHXUThcHppOjPEjayNsZKa+WuCGlQTIFyx1H+hu6RcBvTroPBqc/FPed8WRkpsxLXwoDF5xiW997tLG98Qe7ZW7u0Saj8DuGshcHaq0I0vkJ0BBpHcWeDDBUoAFUDy4ZhcrnKjdbY3nD7LaKOpj39XjnWr7rB1UtMA0Mrh0EXvzcXf8e/YoyD8vMwIy3+KpLGrExmD79YLVpMYOdR4yZ1TJfvHDsnnuBZDiIQotgutMC/iOFJmN8Ic=
+x-microsoft-antispam-message-info: XJHlTvHzMhs46YUqp9EkutCtGs6eCzrjRy6ktvUHcg60RGkrz8lpzc/FHNI3qkC5O/ViUYMgEjWlzMeRPc5GXYmjQFWcpBjQkFK6Sq7J9dN6wscbITdz1EdkFpIxEAnaDsobNjRqhcRqGkOZ2kYMLyPAAI7eb1z1Y7AxJnESrohxMi2qMMvayO4BuzRPNHQR0Mobd2kNgU5UWcT4C841MOzNt/SvYih2MMJwCQeJFN0T9m51o3SwnusV0R4HKGQ2CPeBJIGi1UbqiXtOCMVu6Je1XGIz2FS7BjR/kxzIhaVTwos1z7h/e/bb9dsIu4NYjZvIp0kW4nGqsMMGo5m/OQjgrJNE5gPJPtxFp/IiF/JnDr7EwUkUHmHurq5prBDImxi4mSqlHIXzUHFMmljiUrRErWJGMcXI03JnZyHqZsA=
 MIME-Version: 1.0
 X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e760072-fa30-44e6-3d66-08d71b176810
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Aug 2019 09:12:43.8737 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5463df26-b3f0-42f0-f257-08d71b17e58b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Aug 2019 09:16:14.3447 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
 X-MS-Exchange-CrossTenant-userprincipalname: Damien.LeMoal@wdc.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR04MB5511
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR04MB5639
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
 	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.31]); Wed, 07 Aug 2019 09:13:07 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.31]);
-	Wed, 07 Aug 2019 09:13:07 +0000 (UTC) for IP:'68.232.143.124'
-	DOMAIN:'esa2.hgst.iphmx.com' HELO:'esa2.hgst.iphmx.com'
+	[10.5.110.41]); Wed, 07 Aug 2019 09:16:37 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]);
+	Wed, 07 Aug 2019 09:16:37 +0000 (UTC) for IP:'216.71.154.42'
+	DOMAIN:'esa4.hgst.iphmx.com' HELO:'esa4.hgst.iphmx.com'
 	FROM:'Damien.LeMoal@wdc.com' RCPT:''
 X-RedHat-Spam-Score: -2.299  (DKIM_SIGNED, DKIM_VALID, RCVD_IN_DNSWL_MED,
-	SPF_HELO_NONE) 68.232.143.124 esa2.hgst.iphmx.com
-	68.232.143.124 esa2.hgst.iphmx.com
+	SPF_HELO_NONE) 216.71.154.42 esa4.hgst.iphmx.com
+	216.71.154.42 esa4.hgst.iphmx.com
 	<prvs=1151cfe65=Damien.LeMoal@wdc.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.31
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.41
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id x779DMxP032155
+	lists01.pubmisc.prod.ext.phx2.redhat.com id x779GvGo000390
 X-loop: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH] dm kcopyd: always complete failed jobs
+Subject: Re: [dm-devel] [PATCH 1/3] dm-zoned: improve error handling in
+	reclaim
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -153,62 +155,153 @@ Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Wed, 07 Aug 2019 09:18:04 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]); Wed, 07 Aug 2019 09:18:17 +0000 (UTC)
 
-On 2019/08/06 8:56, Dmitry Fomichev wrote:
-> This patch fixes a problem in dm-kcopyd that may leave jobs in
-> complete queue indefinitely in the event of backing storage failure.
+On 2019/08/06 10:06, Dmitry Fomichev wrote:
+> There are several places in reclaim code where errors are not
+> propagated to the main function, dmz_reclaim(). This function
+> is responsible for unlocking zones that might be still locked
+> at the end of any failed reclaim iterations. As the result,
+> some device zones may be left permanently locked for reclaim,
+> degrading target's capability to reclaim zones.
 > 
-> This behavior has been observed while running 100% write file fio
-> workload against an XFS volume created on top of a dm-zoned target
-> device. If the underlying storage of dm-zoned goes to offline state
-> under I/O, kcopyd sometimes never issues the end copy callback and
-> dm-zoned reclaim work hangs indefinitely waiting for that completion.
+> This patch fixes these issues as follows -
 > 
-> This behavior was traced down to the error handling code in
-> process_jobs() function that places the failed job to complete_jobs
-> queue, but doesn't wake up the job handler. In case of backing device
-> failure, all outstanding jobs may end up going to complete_jobs queue
-> via this code path and then stay there forever because there are no
-> more successful I/O jobs to wake up the job handler.
+> Make sure that dmz_reclaim_buf(), dmz_reclaim_seq_data() and
+> dmz_reclaim_rnd_data() return error codes to the caller.
 > 
-> This patch adds a wake() call to always wake up kcopyd job wait queue
-> for all I/O jobs that fail before dm_io() gets called for that job.
+> dmz_reclaim() function is renamed to dmz_do_reclaim() to avoid
+> clashing with "struct dmz_reclaim" and is modified to return the
+> error to the caller.
 > 
-> The patch also sets the write error status in all sub jobs that are
-> failed because their master job has failed.
+> dmz_get_zone_for_reclaim() now returns an error instead of NULL
+> pointer and reclaim code checks for that error.
 > 
-> Fixes: b73c67c2cbb00 ("dm kcopyd: add sequential write feature")
+> Error logging/debug messages are added where necessary.
+> 
+> Fixes: 3b1a94c88b79 ("dm zoned: drive-managed zoned block device target")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Dmitry Fomichev <dmitry.fomichev@wdc.com>
 > ---
->  drivers/md/dm-kcopyd.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+>  drivers/md/dm-zoned-metadata.c |  4 ++--
+>  drivers/md/dm-zoned-reclaim.c  | 28 +++++++++++++++++++---------
+>  2 files changed, 21 insertions(+), 11 deletions(-)
 > 
-> diff --git a/drivers/md/dm-kcopyd.c b/drivers/md/dm-kcopyd.c
-> index df2011de7be2..1bbe4a34ef4c 100644
-> --- a/drivers/md/dm-kcopyd.c
-> +++ b/drivers/md/dm-kcopyd.c
-> @@ -566,8 +566,10 @@ static int run_io_job(struct kcopyd_job *job)
->  	 * no point in continuing.
->  	 */
->  	if (test_bit(DM_KCOPYD_WRITE_SEQ, &job->flags) &&
-> -	    job->master_job->write_err)
-> +	    job->master_job->write_err) {
-> +		job->write_err = job->master_job->write_err;
->  		return -EIO;
+> diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
+> index ded4984d18c9..6b7fbbd735ef 100644
+> --- a/drivers/md/dm-zoned-metadata.c
+> +++ b/drivers/md/dm-zoned-metadata.c
+> @@ -1543,7 +1543,7 @@ static struct dm_zone *dmz_get_rnd_zone_for_reclaim(struct dmz_metadata *zmd)
+>  	struct dm_zone *zone;
+>  
+>  	if (list_empty(&zmd->map_rnd_list))
+> -		return NULL;
+> +		return ERR_PTR(-EBUSY);
+>  
+>  	list_for_each_entry(zone, &zmd->map_rnd_list, link) {
+>  		if (dmz_is_buf(zone))
+> @@ -1554,7 +1554,7 @@ static struct dm_zone *dmz_get_rnd_zone_for_reclaim(struct dmz_metadata *zmd)
+>  			return dzone;
+>  	}
+>  
+> -	return NULL;
+> +	return ERR_PTR(-EBUSY);
+>  }
+>  
+>  /*
+> diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
+> index 260e3598199e..26e34493a2db 100644
+> --- a/drivers/md/dm-zoned-reclaim.c
+> +++ b/drivers/md/dm-zoned-reclaim.c
+> @@ -216,7 +216,7 @@ static int dmz_reclaim_buf(struct dmz_reclaim *zrc, struct dm_zone *dzone)
+>  
+>  	dmz_unlock_flush(zmd);
+>  
+> -	return 0;
+> +	return ret;
+>  }
+>  
+>  /*
+> @@ -260,7 +260,7 @@ static int dmz_reclaim_seq_data(struct dmz_reclaim *zrc, struct dm_zone *dzone)
+>  
+>  	dmz_unlock_flush(zmd);
+>  
+> -	return 0;
+> +	return ret;
+>  }
+>  
+>  /*
+> @@ -313,7 +313,7 @@ static int dmz_reclaim_rnd_data(struct dmz_reclaim *zrc, struct dm_zone *dzone)
+>  
+>  	dmz_unlock_flush(zmd);
+>  
+> -	return 0;
+> +	return ret;
+>  }
+>  
+>  /*
+> @@ -335,7 +335,7 @@ static void dmz_reclaim_empty(struct dmz_reclaim *zrc, struct dm_zone *dzone)
+>  /*
+>   * Find a candidate zone for reclaim and process it.
+>   */
+> -static void dmz_reclaim(struct dmz_reclaim *zrc)
+> +static int dmz_do_reclaim(struct dmz_reclaim *zrc)
+>  {
+>  	struct dmz_metadata *zmd = zrc->metadata;
+>  	struct dm_zone *dzone;
+> @@ -345,8 +345,8 @@ static void dmz_reclaim(struct dmz_reclaim *zrc)
+>  
+>  	/* Get a data zone */
+>  	dzone = dmz_get_zone_for_reclaim(zmd);
+> -	if (!dzone)
+> -		return;
+> +	if (IS_ERR(dzone))
+> +		return PTR_ERR(dzone);
+>  
+>  	start = jiffies;
+>  
+> @@ -392,13 +392,20 @@ static void dmz_reclaim(struct dmz_reclaim *zrc)
+>  out:
+>  	if (ret) {
+>  		dmz_unlock_zone_reclaim(dzone);
+> -		return;
+> +		return ret;
+>  	}
+>  
+> -	(void) dmz_flush_metadata(zrc->metadata);
+> +	ret = dmz_flush_metadata(zrc->metadata);
+> +	if (ret) {
+> +		dmz_dev_debug(zrc->dev,
+> +			      "Metadata flush for zone %u failed, err %d\n",
+> +			      dmz_id(zmd, rzone), ret);
+> +		return ret;
 > +	}
 >  
->  	io_job_start(job->kc->throttle);
+>  	dmz_dev_debug(zrc->dev, "Reclaimed zone %u in %u ms",
+>  		      dmz_id(zmd, rzone), jiffies_to_msecs(jiffies - start));
+> +	return 0;
+>  }
 >  
-> @@ -619,6 +621,7 @@ static int process_jobs(struct list_head *jobs, struct dm_kcopyd_client *kc,
->  			else
->  				job->read_err = 1;
->  			push(&kc->complete_jobs, job);
-> +			wake(kc);
->  			break;
->  		}
+>  /*
+> @@ -443,6 +450,7 @@ static void dmz_reclaim_work(struct work_struct *work)
+>  	struct dmz_metadata *zmd = zrc->metadata;
+>  	unsigned int nr_rnd, nr_unmap_rnd;
+>  	unsigned int p_unmap_rnd;
+> +	int ret;
 >  
+>  	if (!dmz_should_reclaim(zrc)) {
+>  		mod_delayed_work(zrc->wq, &zrc->work, DMZ_IDLE_PERIOD);
+> @@ -472,7 +480,9 @@ static void dmz_reclaim_work(struct work_struct *work)
+>  		      (dmz_target_idle(zrc) ? "Idle" : "Busy"),
+>  		      p_unmap_rnd, nr_unmap_rnd, nr_rnd);
+>  
+> -	dmz_reclaim(zrc);
+> +	ret = dmz_do_reclaim(zrc);
+> +	if (ret)
+> +		dmz_dev_debug(zrc->dev, "Reclaim error %d\n", ret);
+>  
+>  	dmz_schedule_reclaim(zrc);
+>  }
 > 
 
 Reviewed-by: Damien Le Moal <damien.lemoal@wdc.com>
