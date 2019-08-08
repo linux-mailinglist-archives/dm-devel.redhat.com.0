@@ -2,64 +2,84 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77AB886FC6
-	for <lists+dm-devel@lfdr.de>; Fri,  9 Aug 2019 04:49:01 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	by mail.lfdr.de (Postfix) with ESMTPS id 41468871E5
+	for <lists+dm-devel@lfdr.de>; Fri,  9 Aug 2019 07:56:22 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id A913C8E22B;
-	Fri,  9 Aug 2019 02:48:58 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9E5185C219;
-	Fri,  9 Aug 2019 02:48:54 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id EFF2530832E1;
+	Fri,  9 Aug 2019 05:56:19 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 79A276012C;
+	Fri,  9 Aug 2019 05:56:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1A9AB2551C;
-	Fri,  9 Aug 2019 02:48:46 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 576A0180B536;
+	Fri,  9 Aug 2019 05:56:09 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x792mZDG031447 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 8 Aug 2019 22:48:35 -0400
+	id x78DrYRK012564 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 8 Aug 2019 09:53:34 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 10ED3608AB; Fri,  9 Aug 2019 02:48:35 +0000 (UTC)
+	id 838DDF6EE; Thu,  8 Aug 2019 13:53:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from fornost.hmeau.com (vpn2-54-105.bne.redhat.com [10.64.54.105])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C97D460605
-	for <dm-devel@redhat.com>; Fri,  9 Aug 2019 02:48:32 +0000 (UTC)
-Received: from gondolin.me.apana.org.au ([192.168.0.6]
-	helo=gondolin.hengli.com.au)
-	by fornost.hmeau.com with esmtps (Exim 4.89 #2 (Debian))
-	id 1hvux6-000493-H1; Fri, 09 Aug 2019 12:48:24 +1000
-Received: from herbert by gondolin.hengli.com.au with local (Exim 4.80)
-	(envelope-from <herbert@gondor.apana.org.au>)
-	id 1hvux4-0001sM-04; Fri, 09 Aug 2019 12:48:22 +1000
-Date: Fri, 9 Aug 2019 12:48:21 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Horia Geanta <horia.geanta@nxp.com>
-Message-ID: <20190809024821.GA7186@gondor.apana.org.au>
-References: <CAKv+Gu9C2AEbb++W=QTVWbeA_88Fo57NcOwgU5R8HBvzFwXkJw@mail.gmail.com>
-	<MN2PR20MB2973C378AE5674F9E3E29445CAC60@MN2PR20MB2973.namprd20.prod.outlook.com>
-	<CAKv+Gu-8n_DoauycDQS_9zzRew1rTuPaLxHyg6xhXMmqEvMaCA@mail.gmail.com>
-	<MN2PR20MB2973CAE4E9CFFE1F417B2509CAC10@MN2PR20MB2973.namprd20.prod.outlook.com>
-	<CAKv+Gu-j-8-bQS2A46-Kf1KHtkoPJ5Htk8WratqzyngnVu-wpw@mail.gmail.com>
-	<MN2PR20MB29739591E1A3E54E7A8A8E18CAC00@MN2PR20MB2973.namprd20.prod.outlook.com>
-	<20f4832e-e3af-e3c2-d946-13bf8c367a60@nxp.com>
-	<VI1PR0402MB34856F03FCE57AB62FC2257998D40@VI1PR0402MB3485.eurprd04.prod.outlook.com>
-	<MN2PR20MB2973127E4C159A8F5CFDD0C9CAD70@MN2PR20MB2973.namprd20.prod.outlook.com>
-	<VI1PR0402MB3485689B4B65C879BC1D137398D70@VI1PR0402MB3485.eurprd04.prod.outlook.com>
+Received: from mx1.redhat.com (ext-mx19.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.48])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 48EB4194BB;
+	Thu,  8 Aug 2019 13:53:31 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id A28523067285;
+	Thu,  8 Aug 2019 13:53:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20170209;
+	h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=9uoVWfQGn8VAfm+7rvKUTjXtdJhUP1hpvCdefWlpXow=;
+	b=siDDZt+Z5Ntm7ezjx80S8yED5
+	55JIeXIEhsOzOdPwc5s9i1QeB+hnvaQ7Cw7Cpm+WBegcPqA+JnxWh9Z6gGUfl9fDFsuRvq9ZgcBMc
+	rvZARni+rrp4v1WEKAA2EtZmGm78YbjxVfz1aeSpHMz50R0GUTeRGfcbWLWp/mUV2/YWEcohHl1rT
+	cM8rpfRd6AJX/h8e/iP6cLgslRDRMNQmvbHa+f+7kKchkTbNsMV83j1qVuj8Ea9A8CZq9gxeePUEW
+	J1ztgsoM0RCRFmt/dw5vJL+9LEDHe+cMRbpGQTheQQ4HLRJ8Vxvsku5jI1y9exN4BZ+pujOiHAIJr
+	hPf+xUkHg==;
+Received: from willy by bombadil.infradead.org with local (Exim 4.92 #3 (Red
+	Hat Linux)) id 1hvirC-0000OC-00; Thu, 08 Aug 2019 13:53:30 +0000
+Date: Thu, 8 Aug 2019 06:53:29 -0700
+From: Matthew Wilcox <willy@infradead.org>
+To: Mikulas Patocka <mpatocka@redhat.com>
+Message-ID: <20190808135329.GG5482@bombadil.infradead.org>
+References: <alpine.LRH.2.02.1908080540240.15519@file01.intranet.prod.int.rdu2.redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <VI1PR0402MB3485689B4B65C879BC1D137398D70@VI1PR0402MB3485.eurprd04.prod.outlook.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+In-Reply-To: <alpine.LRH.2.02.1908080540240.15519@file01.intranet.prod.int.rdu2.redhat.com>
+User-Agent: Mutt/1.11.4 (2019-03-13)
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.48]); Thu, 08 Aug 2019 13:53:30 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]);
+	Thu, 08 Aug 2019 13:53:30 +0000 (UTC) for IP:'198.137.202.133'
+	DOMAIN:'bombadil.infradead.org' HELO:'bombadil.infradead.org'
+	FROM:'willy@infradead.org' RCPT:''
+X-RedHat-Spam-Score: -2.398  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	RCVD_IN_DNSWL_MED, SPF_HELO_NONE,
+	SPF_NONE) 198.137.202.133 bombadil.infradead.org 198.137.202.133
+	bombadil.infradead.org <willy@infradead.org>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.48
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: "linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-	Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>,
-	Milan Broz <gmazyland@gmail.com>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	Ard Biesheuvel <ard.biesheuvel@linaro.org>
-Subject: Re: [dm-devel] xts fuzz testing and lack of ciphertext stealing
- support
+X-Mailman-Approved-At: Fri, 09 Aug 2019 01:55:59 -0400
+Cc: honglei.wang@oracle.com, Mike Snitzer <msnitzer@redhat.com>,
+	"Darrick J. Wong" <darrick.wong@oracle.com>,
+	linux-kernel@vger.kernel.org, junxiao.bi@oracle.com,
+	linux-xfs@vger.kernel.org, dm-devel@redhat.com,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	linux-fsdevel@vger.kernel.org, Alasdair Kergon <agk@redhat.com>
+Subject: Re: [dm-devel] [PATCH] direct-io: use GFP_NOIO to avoid deadlock
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,25 +95,33 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]); Fri, 09 Aug 2019 02:48:59 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]); Fri, 09 Aug 2019 05:56:20 +0000 (UTC)
 
-On Thu, Aug 08, 2019 at 06:01:49PM +0000, Horia Geanta wrote:
->
-> -- >8 --
+On Thu, Aug 08, 2019 at 05:50:10AM -0400, Mikulas Patocka wrote:
+> A deadlock with this stacktrace was observed.
 > 
-> Subject: [PATCH] crypto: testmgr - Add additional AES-XTS vectors for covering
->  CTS (part II)
+> The obvious problem here is that in the call chain 
+> xfs_vm_direct_IO->__blockdev_direct_IO->do_blockdev_direct_IO->kmem_cache_alloc 
+> we do a GFP_KERNEL allocation while we are in a filesystem driver and in a 
+> block device driver.
 
-Patchwork doesn't like it when you do this and it'll discard
-your patch.  To make it into patchwork you need to put the new
-Subject in the email headers.
+But that's not the problem.  The problem is the loop driver calls into the
+filesystem without calling memalloc_noio_save() / memalloc_noio_restore().
+There are dozens of places in XFS which use GFP_KERNEL allocations and
+all can trigger this same problem if called from the loop driver.
 
-Thanks,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+>   #14 [ffff88272f5af880] kmem_cache_alloc at ffffffff811f484b
+>   #15 [ffff88272f5af8d0] do_blockdev_direct_IO at ffffffff812535b3
+>   #16 [ffff88272f5afb00] __blockdev_direct_IO at ffffffff81255dc3
+>   #17 [ffff88272f5afb30] xfs_vm_direct_IO at ffffffffa01fe3fc [xfs]
+>   #18 [ffff88272f5afb90] generic_file_read_iter at ffffffff81198994
+>   #19 [ffff88272f5afc50] __dta_xfs_file_read_iter_2398 at ffffffffa020c970 [xfs]
+>   #20 [ffff88272f5afcc0] lo_rw_aio at ffffffffa0377042 [loop]
+>   #21 [ffff88272f5afd70] loop_queue_work at ffffffffa0377c3b [loop]
+>   #22 [ffff88272f5afe60] kthread_worker_fn at ffffffff810a8a0c
+>   #23 [ffff88272f5afec0] kthread at ffffffff810a8428
+>   #24 [ffff88272f5aff50] ret_from_fork at ffffffff81745242
 
 --
 dm-devel mailing list
