@@ -2,73 +2,73 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 912CF85A1A
-	for <lists+dm-devel@lfdr.de>; Thu,  8 Aug 2019 07:54:32 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by mail.lfdr.de (Postfix) with ESMTPS id 799D285A39
+	for <lists+dm-devel@lfdr.de>; Thu,  8 Aug 2019 08:04:20 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 437FB806D1;
-	Thu,  8 Aug 2019 05:54:28 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id AAD25B2747;
+	Thu,  8 Aug 2019 06:04:16 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CF47119C7F;
-	Thu,  8 Aug 2019 05:54:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5661760C57;
+	Thu,  8 Aug 2019 06:04:15 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 10DB32551C;
-	Thu,  8 Aug 2019 05:54:13 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6180A4E589;
+	Thu,  8 Aug 2019 06:04:12 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x785s0J0025628 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 8 Aug 2019 01:54:00 -0400
+	id x78645M8027201 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 8 Aug 2019 02:04:05 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8832C600CC; Thu,  8 Aug 2019 05:54:00 +0000 (UTC)
+	id 0D182F6E0; Thu,  8 Aug 2019 06:04:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx18.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.47])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1C68F600C8;
-	Thu,  8 Aug 2019 05:53:54 +0000 (UTC)
+Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.41])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 11FC719C7F;
+	Thu,  8 Aug 2019 06:03:57 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id B09FB3003715;
-	Thu,  8 Aug 2019 05:53:52 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id B4072308A98C;
+	Thu,  8 Aug 2019 06:03:55 +0000 (UTC)
 X-Amp-Result: UNKNOWN
 X-Amp-Original-Verdict: FILE UNKNOWN
 X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
 	by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
-	07 Aug 2019 22:53:21 -0700
+	07 Aug 2019 23:03:29 -0700
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="5.64,360,1559545200"; 
-	d="gz'50?scan'50,208,50";a="186244130"
+	d="gz'50?scan'50,208,50";a="193082697"
 Received: from lkp-server01.sh.intel.com (HELO lkp-server01) ([10.239.97.150])
-	by orsmga002.jf.intel.com with ESMTP; 07 Aug 2019 22:53:17 -0700
+	by fmsmga001.fm.intel.com with ESMTP; 07 Aug 2019 23:03:26 -0700
 Received: from kbuild by lkp-server01 with local (Exim 4.89)
 	(envelope-from <lkp@intel.com>)
-	id 1hvbMT-00095N-CG; Thu, 08 Aug 2019 13:53:17 +0800
-Date: Thu, 8 Aug 2019 13:52:17 +0800
+	id 1hvbWH-0005JK-Fl; Thu, 08 Aug 2019 14:03:25 +0800
+Date: Thu, 8 Aug 2019 14:02:59 +0800
 From: kbuild test robot <lkp@intel.com>
 To: Steffen Maier <maier@linux.ibm.com>
-Message-ID: <201908081311.9B4DcDbr%lkp@intel.com>
-References: <20190807144948.28265-2-maier@linux.ibm.com>
+Message-ID: <201908081445.oJLHRUt7%lkp@intel.com>
+References: <20190807144948.28265-3-maier@linux.ibm.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="b5jczeldiva3u2q7"
+Content-Type: multipart/mixed; boundary="2fo2aexgoo67bv6u"
 Content-Disposition: inline
-In-Reply-To: <20190807144948.28265-2-maier@linux.ibm.com>
+In-Reply-To: <20190807144948.28265-3-maier@linux.ibm.com>
 X-Patchwork-Hint: ignore
 User-Agent: NeoMutt/20170113 (1.7.2)
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
 	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.47]); Thu, 08 Aug 2019 05:53:53 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]);
-	Thu, 08 Aug 2019 05:53:53 +0000 (UTC) for IP:'134.134.136.65'
+	[10.5.110.41]); Thu, 08 Aug 2019 06:03:56 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]);
+	Thu, 08 Aug 2019 06:03:56 +0000 (UTC) for IP:'134.134.136.65'
 	DOMAIN:'mga03.intel.com' HELO:'mga03.intel.com'
 	FROM:'lkp@intel.com' RCPT:''
 X-RedHat-Spam-Score: -5  (RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
 	SPF_PASS) 134.134.136.65 mga03.intel.com 134.134.136.65
 	mga03.intel.com <lkp@intel.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.47
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.41
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
 Cc: Vasily Gorbik <gor@linux.ibm.com>, linux-s390@vger.kernel.org,
 	Benjamin Block <bblock@linux.ibm.com>, linux-scsi@vger.kernel.org,
@@ -82,7 +82,7 @@ Cc: Vasily Gorbik <gor@linux.ibm.com>, linux-s390@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>, Steffen Maier <maier@linux.ibm.com>,
 	Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
 	Bart Van Assche <bvanassche@acm.org>
-Subject: Re: [dm-devel] [PATCH 1/2] scsi: core: fix missing .cleanup_rq for
+Subject: Re: [dm-devel] [PATCH 2/2] scsi: core: fix dh and multipathing for
  SCSI hosts without request batching
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -97,11 +97,11 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]); Thu, 08 Aug 2019 05:54:31 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]); Thu, 08 Aug 2019 06:04:18 +0000 (UTC)
 
 
---b5jczeldiva3u2q7
+--2fo2aexgoo67bv6u
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
@@ -127,16 +127,22 @@ Reported-by: kbuild test robot <lkp@intel.com>
 
 All errors (new ones prefixed by >>):
 
->> drivers/scsi/scsi_lib.c:1824:3: error: 'const struct blk_mq_ops' has no member named 'cleanup_rq'; did you mean 'queue_rq'?
+   drivers/scsi/scsi_lib.c:1824:3: error: 'const struct blk_mq_ops' has no member named 'cleanup_rq'; did you mean 'queue_rq'?
      .cleanup_rq = scsi_cleanup_rq,
       ^~~~~~~~~~
       queue_rq
->> drivers/scsi/scsi_lib.c:1824:16: error: 'scsi_cleanup_rq' undeclared here (not in a function); did you mean 'scsi_queue_rq'?
+   drivers/scsi/scsi_lib.c:1824:16: error: 'scsi_cleanup_rq' undeclared here (not in a function); did you mean 'scsi_queue_rq'?
      .cleanup_rq = scsi_cleanup_rq,
                    ^~~~~~~~~~~~~~~
                    scsi_queue_rq
+   drivers/scsi/scsi_lib.c: In function 'scsi_device_from_queue':
+>> drivers/scsi/scsi_lib.c:1881:20: error: 'scsi_mq_ops_no_commit' undeclared (first use in this function); did you mean 'scsi_mq_ops'?
+     if (q->mq_ops == &scsi_mq_ops_no_commit ||
+                       ^~~~~~~~~~~~~~~~~~~~~
+                       scsi_mq_ops
+   drivers/scsi/scsi_lib.c:1881:20: note: each undeclared identifier is reported only once for each function it appears in
 
-vim +1824 drivers/scsi/scsi_lib.c
+vim +1881 drivers/scsi/scsi_lib.c
 
   1811	
   1812	static const struct blk_mq_ops scsi_mq_ops = {
@@ -156,17 +162,79 @@ vim +1824 drivers/scsi/scsi_lib.c
   1826		.map_queues	= scsi_map_queues,
   1827	};
   1828	
+  1829	struct request_queue *scsi_mq_alloc_queue(struct scsi_device *sdev)
+  1830	{
+  1831		sdev->request_queue = blk_mq_init_queue(&sdev->host->tag_set);
+  1832		if (IS_ERR(sdev->request_queue))
+  1833			return NULL;
+  1834	
+  1835		sdev->request_queue->queuedata = sdev;
+  1836		__scsi_init_queue(sdev->host, sdev->request_queue);
+  1837		blk_queue_flag_set(QUEUE_FLAG_SCSI_PASSTHROUGH, sdev->request_queue);
+  1838		return sdev->request_queue;
+  1839	}
+  1840	
+  1841	int scsi_mq_setup_tags(struct Scsi_Host *shost)
+  1842	{
+  1843		unsigned int cmd_size, sgl_size;
+  1844	
+  1845		sgl_size = scsi_mq_inline_sgl_size(shost);
+  1846		cmd_size = sizeof(struct scsi_cmnd) + shost->hostt->cmd_size + sgl_size;
+  1847		if (scsi_host_get_prot(shost))
+  1848			cmd_size += sizeof(struct scsi_data_buffer) +
+  1849				sizeof(struct scatterlist) * SCSI_INLINE_PROT_SG_CNT;
+  1850	
+  1851		memset(&shost->tag_set, 0, sizeof(shost->tag_set));
+  1852		shost->tag_set.ops = &scsi_mq_ops;
+  1853		shost->tag_set.nr_hw_queues = shost->nr_hw_queues ? : 1;
+  1854		shost->tag_set.queue_depth = shost->can_queue;
+  1855		shost->tag_set.cmd_size = cmd_size;
+  1856		shost->tag_set.numa_node = NUMA_NO_NODE;
+  1857		shost->tag_set.flags = BLK_MQ_F_SHOULD_MERGE;
+  1858		shost->tag_set.flags |=
+  1859			BLK_ALLOC_POLICY_TO_MQ_FLAG(shost->hostt->tag_alloc_policy);
+  1860		shost->tag_set.driver_data = shost;
+  1861	
+  1862		return blk_mq_alloc_tag_set(&shost->tag_set);
+  1863	}
+  1864	
+  1865	void scsi_mq_destroy_tags(struct Scsi_Host *shost)
+  1866	{
+  1867		blk_mq_free_tag_set(&shost->tag_set);
+  1868	}
+  1869	
+  1870	/**
+  1871	 * scsi_device_from_queue - return sdev associated with a request_queue
+  1872	 * @q: The request queue to return the sdev from
+  1873	 *
+  1874	 * Return the sdev associated with a request queue or NULL if the
+  1875	 * request_queue does not reference a SCSI device.
+  1876	 */
+  1877	struct scsi_device *scsi_device_from_queue(struct request_queue *q)
+  1878	{
+  1879		struct scsi_device *sdev = NULL;
+  1880	
+> 1881		if (q->mq_ops == &scsi_mq_ops_no_commit ||
+  1882		    q->mq_ops == &scsi_mq_ops)
+  1883			sdev = q->queuedata;
+  1884		if (!sdev || !get_device(&sdev->sdev_gendev))
+  1885			sdev = NULL;
+  1886	
+  1887		return sdev;
+  1888	}
+  1889	EXPORT_SYMBOL_GPL(scsi_device_from_queue);
+  1890	
 
 ---
 0-DAY kernel test infrastructure                Open Source Technology Center
 https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
 
---b5jczeldiva3u2q7
+--2fo2aexgoo67bv6u
 Content-Type: application/gzip
 Content-Disposition: attachment; filename=".config.gz"
 Content-Transfer-Encoding: base64
 
-H4sICGS2S10AAy5jb25maWcAnFxfc9u2sn/vp+CkM3faOSc9tmQ79r3jBxAEJVQkQQOgJPuF
+H4sICOu5S10AAy5jb25maWcAnFxfc9u2sn/vp+CkM3faOSc9tmQ79r3jBxAEJVQkQQOgJPuF
 o8hKqqkjeSS5bb79WYD/AAqgMzfTJiZ2CSwWi93fLkD//NPPAXo77b+tTtv16uXle/B1s9sc
 VqfNc/Bl+7L5vyBiQcZkQCIqfwPmZLt7++c/h+1x/Vdw/dv4t4uPh/U4mG0Ou81LgPe7L9uv
 b/D6dr/76eef4L+fofHbK/R0+N9Av3Vz9fFF9fHx63od/DLB+Nfg029Xv10AL2ZZTCclxiUV
@@ -507,7 +575,7 @@ mNprjmDbKVNPtRkfWLFp+mdXgxAcuEcngDQ5XVaJ48l+n0B4Zt/d4+YLJgpFV9Su0fFrbmTk
 OCKb5tMneU/LLfzo9t3XMZgSTkChJDLYjxHg+QIS5FCXGktQ5iVAhDiOnZj/UDuQxnEcy+cn
 7gKRuepJxxntiDVBsx1VJfRrnBut0HJq2tpiztTEd7H7aZgzA7Y1JZShwQtKna2fbTEBAA==
 
---b5jczeldiva3u2q7
+--2fo2aexgoo67bv6u
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -517,5 +585,5 @@ Content-Disposition: inline
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
---b5jczeldiva3u2q7--
+--2fo2aexgoo67bv6u--
 
