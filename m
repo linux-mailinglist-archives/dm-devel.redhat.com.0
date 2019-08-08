@@ -2,116 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9576E85B7D
-	for <lists+dm-devel@lfdr.de>; Thu,  8 Aug 2019 09:21:52 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by mail.lfdr.de (Postfix) with ESMTPS id 78E9785CEB
+	for <lists+dm-devel@lfdr.de>; Thu,  8 Aug 2019 10:31:44 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 9CBF6E8CC1;
-	Thu,  8 Aug 2019 07:21:50 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id C086C12AC9;
+	Thu,  8 Aug 2019 08:31:40 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F86B10016F3;
-	Thu,  8 Aug 2019 07:21:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 32EE25D9D3;
+	Thu,  8 Aug 2019 08:31:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D5BE71800B74;
-	Thu,  8 Aug 2019 07:21:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AC22318089C8;
+	Thu,  8 Aug 2019 08:31:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x77EoR1L031416 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 7 Aug 2019 10:50:27 -0400
+	id x788VCFl018997 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 8 Aug 2019 04:31:12 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5B3E060C63; Wed,  7 Aug 2019 14:50:27 +0000 (UTC)
+	id 732641D6; Thu,  8 Aug 2019 08:31:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx15.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.44])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 55C7D60C47
-	for <dm-devel@redhat.com>; Wed,  7 Aug 2019 14:50:25 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
-	[148.163.158.5])
+Received: from mx1.redhat.com (ext-mx05.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.29])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AC8135D9D3;
+	Thu,  8 Aug 2019 08:31:03 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id D018B2E95A5;
+	Thu,  8 Aug 2019 08:31:01 +0000 (UTC)
+Received: from sol.localdomain (c-24-5-143-220.hsd1.ca.comcast.net
+	[24.5.143.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 5AD0030623CE
-	for <dm-devel@redhat.com>; Wed,  7 Aug 2019 14:50:24 +0000 (UTC)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
-	by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
-	x77EmGY2134434
-	for <dm-devel@redhat.com>; Wed, 7 Aug 2019 10:50:23 -0400
-Received: from e06smtp01.uk.ibm.com (e06smtp01.uk.ibm.com [195.75.94.97])
-	by mx0b-001b2d01.pphosted.com with ESMTP id 2u7xyn5j06-1
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <dm-devel@redhat.com>; Wed, 07 Aug 2019 10:50:23 -0400
-Received: from localhost
-	by e06smtp01.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use
-	Only! Violators will be prosecuted
-	for <dm-devel@redhat.com> from <maier@linux.ibm.com>;
-	Wed, 7 Aug 2019 15:50:16 +0100
-Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
-	by e06smtp01.uk.ibm.com (192.168.101.131) with IBM ESMTP SMTP Gateway:
-	Authorized Use Only! Violators will be prosecuted; 
-	(version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
-	Wed, 7 Aug 2019 15:50:13 +0100
-Received: from d06av25.portsmouth.uk.ibm.com (d06av25.portsmouth.uk.ibm.com
-	[9.149.105.61])
-	by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
-	ESMTP id x77EoBLA27590880
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=OK); Wed, 7 Aug 2019 14:50:11 GMT
-Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8850E11C054;
-	Wed,  7 Aug 2019 14:50:10 +0000 (GMT)
-Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0D41011C066;
-	Wed,  7 Aug 2019 14:50:10 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.152.85.9])
-	by d06av25.portsmouth.uk.ibm.com (Postfix) with ESMTP;
-	Wed,  7 Aug 2019 14:50:09 +0000 (GMT)
-From: Steffen Maier <maier@linux.ibm.com>
-To: "James E . J . Bottomley" <jejb@linux.ibm.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Paolo Bonzini <pbonzini@redhat.com>, Ming Lei <ming.lei@redhat.com>
-Date: Wed,  7 Aug 2019 16:49:48 +0200
-In-Reply-To: <20190807144948.28265-1-maier@linux.ibm.com>
-References: <20190807144948.28265-1-maier@linux.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 19080714-4275-0000-0000-000003564A67
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19080714-4276-0000-0000-000038684CDB
-Message-Id: <20190807144948.28265-3-maier@linux.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
-	definitions=2019-08-07_03:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
-	priorityscore=1501
-	malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
-	clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
-	mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
-	scancount=1 engine=8.0.1-1906280000 definitions=main-1908070158
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.44]); Wed, 07 Aug 2019 14:50:24 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]);
-	Wed, 07 Aug 2019 14:50:24 +0000 (UTC) for IP:'148.163.158.5'
-	DOMAIN:'mx0b-001b2d01.pphosted.com'
-	HELO:'mx0a-001b2d01.pphosted.com' FROM:'maier@linux.ibm.com'
-	RCPT:''
-X-RedHat-Spam-Score: -0.7  (RCVD_IN_DNSWL_LOW, SPF_HELO_NONE,
-	SPF_PASS) 148.163.158.5 mx0b-001b2d01.pphosted.com
-	148.163.158.5 mx0b-001b2d01.pphosted.com <maier@linux.ibm.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.44
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+	by mail.kernel.org (Postfix) with ESMTPSA id EA236214C6;
+	Thu,  8 Aug 2019 08:31:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1565253061;
+	bh=5ESMyMBNu6p05v5ED3QRTCllbzhyiTHzmWVYmG71cxM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=N3ULtNqvBu60Tv9ro9tXW0UY6SDj9hj3GqVfecTVKX4UP8lRD66ng8u147qkARZDb
+	rJzuWmSYrzVvFv9VV4gBSGDhzwHkU++GMZgW1WvboalMp6d3cpHnMOxyLj7D8oBCvd
+	WJWei+akZWXQhxbXg7B1tjqKzYD31j/gRugPhv5M=
+Date: Thu, 8 Aug 2019 01:30:59 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>
+Message-ID: <20190808083059.GB5319@sol.localdomain>
+Mail-Followup-To: Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>,
+	Ard Biesheuvel <ard.biesheuvel@linaro.org>,
+	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
+	"herbert@gondor.apana.org.au" <herbert@gondor.apana.org.au>,
+	"agk@redhat.com" <agk@redhat.com>,
+	"snitzer@redhat.com" <snitzer@redhat.com>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"gmazyland@gmail.com" <gmazyland@gmail.com>
+References: <20190807055022.15551-1-ard.biesheuvel@linaro.org>
+	<MN2PR20MB297336108DF89337DDEEE2F6CAD40@MN2PR20MB2973.namprd20.prod.outlook.com>
+	<CAKv+Gu_jFW26boEhpnAZg9sjWWZf60FXSWuSqNvC5FJiL7EVSA@mail.gmail.com>
+	<MN2PR20MB2973A02FC4D6F1D11BA80792CAD40@MN2PR20MB2973.namprd20.prod.outlook.com>
+	<CAKv+Gu8fgg=gt4LSnCfShnf0-PZ=B1TNwM3zdQr+V6hkozgDOA@mail.gmail.com>
+	<MN2PR20MB29733EEF59CCD754256D5621CAD40@MN2PR20MB2973.namprd20.prod.outlook.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <MN2PR20MB29733EEF59CCD754256D5621CAD40@MN2PR20MB2973.namprd20.prod.outlook.com>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+X-Greylist: Sender DNS name whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.29]);
+	Thu, 08 Aug 2019 08:31:02 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]);
+	Thu, 08 Aug 2019 08:31:02 +0000 (UTC) for IP:'198.145.29.99'
+	DOMAIN:'mail.kernel.org' HELO:'mail.kernel.org'
+	FROM:'ebiggers@kernel.org' RCPT:''
+X-RedHat-Spam-Score: -5.101  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
+	DKIM_VALID_AU, RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
+	SPF_PASS) 198.145.29.99 mail.kernel.org 198.145.29.99 mail.kernel.org
+	<ebiggers@kernel.org>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.29
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Thu, 08 Aug 2019 03:21:19 -0400
-Cc: Jens Axboe <axboe@kernel.dk>, linux-s390@vger.kernel.org,
-	Benjamin Block <bblock@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>, linux-scsi@vger.kernel.org,
-	Mike Snitzer <snitzer@redhat.com>,
-	Heiko Carstens <heiko.carstens@de.ibm.com>,
-	Hannes Reinecke <hare@suse.com>, "Ewan D . Milne" <emilne@redhat.com>,
-	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	linux-next@vger.kernel.org, Steffen Maier <maier@linux.ibm.com>,
-	Christoph Hellwig <hch@lst.de>, Bart Van Assche <bvanassche@acm.org>
-Subject: [dm-devel] [PATCH 2/2] scsi: core: fix dh and multipathing for SCSI
-	hosts without request batching
+Cc: "herbert@gondor.apana.org.au" <herbert@gondor.apana.org.au>,
+	"snitzer@redhat.com" <snitzer@redhat.com>,
+	Ard Biesheuvel <ard.biesheuvel@linaro.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
+	"gmazyland@gmail.com" <gmazyland@gmail.com>,
+	"agk@redhat.com" <agk@redhat.com>
+Subject: Re: [dm-devel] [RFC PATCH v2] md/dm-crypt - reuse eboiv skcipher
+ for IV generation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -123,63 +101,48 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Thu, 08 Aug 2019 07:21:51 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.30]); Thu, 08 Aug 2019 08:31:42 +0000 (UTC)
 
-This was missing from scsi_device_from_queue() due to the introduction
-of another new scsi_mq_ops_no_commit of linux-next commit
-8930a6c20791 ("scsi: core: add support for request batching")
-from Martin's scsi/5.4/scsi-queue or James' scsi/misc.
+On Wed, Aug 07, 2019 at 04:14:22PM +0000, Pascal Van Leeuwen wrote:
+> > > > In your case, we are not dealing with known plaintext attacks,
+> > > >
+> > > Since this is XTS, which is used for disk encryption, I would argue
+> > > we do! For the tweak encryption, the sector number is known plaintext,
+> > > same as for EBOIV. Also, you may be able to control data being written
+> > > to the disk encrypted, either directly or indirectly.
+> > > OK, part of the data into the CTS encryption will be previous ciphertext,
+> > > but that may be just 1 byte with the rest being the known plaintext.
+> > >
+> > 
+> > The tweak encryption uses a dedicated key, so leaking it does not have
+> > the same impact as it does in the EBOIV case. 
+> >
+> Well ... yes and no. The spec defines them as seperately controllable -
+> deviating from the original XEX definition - but in most practicle use cases 
+> I've seen, the same key is used for both, as having 2 keys just increases 
+> key  storage requirements and does not actually improve effective security 
+> (of the algorithm itself, implementation peculiarities like this one aside 
+> :-), as  XEX has been proven secure using a single key. And the security 
+> proof for XTS actually builds on that while using 2 keys deviates from it.
+> 
 
-Only devicehandler code seems to call scsi_device_from_queue():
-*** drivers/scsi/scsi_dh.c:
-scsi_dh_activate[255]          sdev = scsi_device_from_queue(q);
-scsi_dh_set_params[302]        sdev = scsi_device_from_queue(q);
-scsi_dh_attach[325]            sdev = scsi_device_from_queue(q);
-scsi_dh_attached_handler_name[363] sdev = scsi_device_from_queue(q);
+This is a common misconception.  Actually, XTS needs 2 distinct keys to be a
+CCA-secure tweakable block cipher, due to another subtle difference from XEX:
+XEX (by which I really mean "XEX[E,2]") builds the sequence of masks starting
+with x^1, while XTS starts with x^0.  If only 1 key is used, the inclusion of
+the 0th power in XTS allows the attack described in Section 6 of the XEX paper
+(https://web.cs.ucdavis.edu/~rogaway/papers/offsets.pdf).
 
-Fixes multipath tools follow-on errors:
+Of course, it's debatable what this means *in practice* to the usual XTS use
+cases like disk encryption, for which CCA security may not be critical...  But
+technically, single-key XTS isn't secure under as strong an attack model as XEX.
 
-$ multipath -v6
-...
-libdevmapper: ioctl/libdm-iface.c(1887): device-mapper: reload ioctl on mpatha  failed: No such device
-...
-mpatha: failed to load map, error 19
-...
-
-showing also as kernel messages:
-
-device-mapper: table: 252:0: multipath: error attaching hardware handler
-device-mapper: ioctl: error adding target to table
-
-Signed-off-by: Steffen Maier <maier@linux.ibm.com>
-Fixes: 8930a6c20791 ("scsi: core: add support for request batching")
-Cc: Paolo Bonzini <pbonzini@redhat.com>
----
- drivers/scsi/scsi_lib.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/scsi/scsi_lib.c b/drivers/scsi/scsi_lib.c
-index 90c257622bb0..73e7d29fbd66 100644
---- a/drivers/scsi/scsi_lib.c
-+++ b/drivers/scsi/scsi_lib.c
-@@ -1922,7 +1922,8 @@ struct scsi_device *scsi_device_from_queue(struct request_queue *q)
- {
- 	struct scsi_device *sdev = NULL;
- 
--	if (q->mq_ops == &scsi_mq_ops)
-+	if (q->mq_ops == &scsi_mq_ops_no_commit ||
-+	    q->mq_ops == &scsi_mq_ops)
- 		sdev = q->queuedata;
- 	if (!sdev || !get_device(&sdev->sdev_gendev))
- 		sdev = NULL;
--- 
-2.17.1
+- Eric
 
 --
 dm-devel mailing list
