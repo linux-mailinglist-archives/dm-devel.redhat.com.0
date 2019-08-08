@@ -2,87 +2,95 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFA1286129
-	for <lists+dm-devel@lfdr.de>; Thu,  8 Aug 2019 13:54:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDA0F8624D
+	for <lists+dm-devel@lfdr.de>; Thu,  8 Aug 2019 14:53:17 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id C29A42D1EF1;
-	Thu,  8 Aug 2019 11:53:59 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 2B676300260E;
+	Thu,  8 Aug 2019 12:53:15 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0CCC65DC1E;
-	Thu,  8 Aug 2019 11:53:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A4DAA5D9CC;
+	Thu,  8 Aug 2019 12:53:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0DECF2551C;
-	Thu,  8 Aug 2019 11:53:46 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B54D424F30;
+	Thu,  8 Aug 2019 12:53:08 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x78BrGAo019751 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 8 Aug 2019 07:53:16 -0400
+	id x78CqgvU031907 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 8 Aug 2019 08:52:42 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 59D63608AB; Thu,  8 Aug 2019 11:53:16 +0000 (UTC)
+	id 2C5A75D9CC; Thu,  8 Aug 2019 12:52:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx18.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.47])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4C5B1608A5;
-	Thu,  8 Aug 2019 11:53:16 +0000 (UTC)
+Received: from mx1.redhat.com (ext-mx20.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.49])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AA9FA5D9D3;
+	Thu,  8 Aug 2019 12:52:37 +0000 (UTC)
 Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
 	[209.85.221.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id DEDD130B64E7;
-	Thu,  8 Aug 2019 11:53:14 +0000 (UTC)
-Received: by mail-wr1-f66.google.com with SMTP id p13so20043997wru.10;
-	Thu, 08 Aug 2019 04:53:14 -0700 (PDT)
+	by mx1.redhat.com (Postfix) with ESMTPS id 4E4D5302246D;
+	Thu,  8 Aug 2019 12:52:36 +0000 (UTC)
+Received: by mail-wr1-f66.google.com with SMTP id z1so94820793wru.13;
+	Thu, 08 Aug 2019 05:52:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
 	h=subject:to:cc:references:from:openpgp:message-id:date:user-agent
 	:mime-version:in-reply-to:content-language:content-transfer-encoding;
-	bh=vILGCjKtV3eGAFYGxVaZEjKfTjQI0RrbwrN7GVSVEp4=;
-	b=NjSJoJ6OshZWe6QGnwvrZhuR9NFMXymXAvOePeDJ7RBvXNgPuPHQ3mdEpkMW0Ks4LJ
-	FR72b0/q4C7nZNL5/Lpebz1xDzAVOIpyDl5kThlgJECt4h4ZjT8tzjeg1XyPOFuIG4k8
-	vYylheCi4ZquCIPZT4Gu9CUzAb5OLmz8Xvat5q5oh/3UbsGsr5/lNUCVbeaMVnI4dTLU
-	oxF0TBDGblXa1+3SFW2n/hSjB0ulDOv32fNG//kZTZkGGZkuJ6az2hP7BemIDngzdoFW
-	Zpossbf0oE7cFPX/2g2eBsdOr8hGU7FrtyXTLdwjY5a/RL3HtroI1mJyGw9yE+SvvfUP
-	olNQ==
+	bh=YWHYbWqY351NKxb89r4Xk4spZ3MRrynqi74kHBEauB4=;
+	b=i1KjPVL7wuLeDIrZtcsn++lCvUh8QZ1KjRwNMn1TdhsFIfY4/fMa1AINrFpJ/9xTbB
+	2M23mbb3hV81tjHLQ43l4vzcIKxkguqHM//x56/q7KHVa2s7wsuTHXoGYZD3QNa/pdML
+	UlpdHY2kPVLO8Chzw3Uu+lRLPbCviV0EK+DUdmXCn1PiZ71EYsTyfvyGx5+5GAuxKnzo
+	s0I/yGL+IlUaZfMbjfLmdSI5p4TR0DEs4fwnNfHik7S+G+IOHEFcfMvea3+awkwVHf3r
+	vTUn9ugtP7qxSww3O91a+0yntuGu/MLElK/QgskXcLrxruB8gaTAqKV5ZmAwTC4RTnzu
+	IQhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:subject:to:cc:references:from:openpgp:message-id
 	:date:user-agent:mime-version:in-reply-to:content-language
 	:content-transfer-encoding;
-	bh=vILGCjKtV3eGAFYGxVaZEjKfTjQI0RrbwrN7GVSVEp4=;
-	b=PehN9qaVOGnJbXoGxzV4J1hLQ79mxdgHgakFQtvJ1jhITSOSebKLtpT8lRvJXpRsPJ
-	Ek52jSXFg3FEYpKCOb/8MHlLuqyBBVtxU11gardqU5ZLCFoNc2q8AVQakoPQ7fnZlgpq
-	1L2LrSws/PIUSHdsqgkfjfbv5F/SMQXGoXG1yYeLFBHsS7+7NlOZzA1GuWkowf5ScMl/
-	e5HsJRmWaoksp7iJZZpAYmepLmTmtfz1UqbEiMWkzPGpAk49LiMdXgi9e12CCmzZL2ou
-	Wz+r2Ax99bIszansgAH2jgaWSQp/DEKjtc0I24WOMLF+w8qzXFAyIjXUzKzem8yeR3fu
-	YNng==
-X-Gm-Message-State: APjAAAWovrc5BRjqc0ooovhFrIAp7xiSlr9XX0LPRcujnoKDilBWwwZB
-	gtDNa9HA0gdAyDIRKlPI2qlTvQfto78=
-X-Google-Smtp-Source: APXvYqxm780O8ckDgYoEDh8DvDZ5LgviPaPxu/Ldk3Lgsd9780EhXxKJqwqCrOND8kBKjKxQ26FpoA==
-X-Received: by 2002:a5d:4950:: with SMTP id r16mr695153wrs.347.1565265193339; 
-	Thu, 08 Aug 2019 04:53:13 -0700 (PDT)
+	bh=YWHYbWqY351NKxb89r4Xk4spZ3MRrynqi74kHBEauB4=;
+	b=XqLt1Z0D6ztEsUevMy/OVU9Z0MIlMkPk+HajCy6Q98Jseig0yb98AhSF4GOQbTa7Tx
+	FLepXSiqC9BuyTuDPv8HgIuGCc+ZcEXEoHrcMV4GSvPn+d20j8HhP7ZehwpsSptVE0jb
+	6+Q5IhFvdSPGBTxKHzEwcJZLkuGQ15OtmWkBbHdAnsg6zVk1NGwwQivYuYEHJgKa0JfJ
+	JWCu24iJyRPWKm4eGB/ysBvrGuuTeKpyqG6Svjvg7jL5T3wzjqSqREQ6u/47FPV8Q+45
+	+0EwsT28jZaz2FG3qeQsGnBzCpvEBpiZGbDbN05Hhvpe9jAk07mvF+KYz29H6UrNP1/A
+	4JGw==
+X-Gm-Message-State: APjAAAWS5hX9+zRBE5E0kgd4SIdyA6Y5yk/StTCKmDa5AZazKqUKb7O0
+	d1lX/RPtUE+77BpUXBypo268j1eEL5w=
+X-Google-Smtp-Source: APXvYqwqFr4h3LasP+XLgrOCuHThAVepCGECBX6Wbxnwn5oAu/fVhwaE63/A28aEDyOvT3GAzQnuTQ==
+X-Received: by 2002:adf:cf02:: with SMTP id o2mr16943806wrj.352.1565268754588; 
+	Thu, 08 Aug 2019 05:52:34 -0700 (PDT)
 Received: from [10.43.17.10] (nat-pool-brq-t.redhat.com. [213.175.37.10])
 	by smtp.gmail.com with ESMTPSA id
-	u130sm3196942wmg.28.2019.08.08.04.53.12
+	g25sm2386442wmk.18.2019.08.08.05.52.33
 	(version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
-	Thu, 08 Aug 2019 04:53:12 -0700 (PDT)
-To: Ard Biesheuvel <ard.biesheuvel@linaro.org>, linux-crypto@vger.kernel.org
+	Thu, 08 Aug 2019 05:52:33 -0700 (PDT)
+To: Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>,
+	Eric Biggers <ebiggers@kernel.org>
 References: <20190807055022.15551-1-ard.biesheuvel@linaro.org>
+	<MN2PR20MB297336108DF89337DDEEE2F6CAD40@MN2PR20MB2973.namprd20.prod.outlook.com>
+	<CAKv+Gu_jFW26boEhpnAZg9sjWWZf60FXSWuSqNvC5FJiL7EVSA@mail.gmail.com>
+	<MN2PR20MB2973A02FC4D6F1D11BA80792CAD40@MN2PR20MB2973.namprd20.prod.outlook.com>
+	<CAKv+Gu8fgg=gt4LSnCfShnf0-PZ=B1TNwM3zdQr+V6hkozgDOA@mail.gmail.com>
+	<MN2PR20MB29733EEF59CCD754256D5621CAD40@MN2PR20MB2973.namprd20.prod.outlook.com>
+	<20190808083059.GB5319@sol.localdomain>
+	<MN2PR20MB297328E243D74E03C1EF54ACCAD70@MN2PR20MB2973.namprd20.prod.outlook.com>
 From: Milan Broz <gmazyland@gmail.com>
 Openpgp: preference=signencrypt
-Message-ID: <e13525a4-4885-e0f3-6711-efd83dd4a9fb@gmail.com>
-Date: Thu, 8 Aug 2019 13:53:11 +0200
+Message-ID: <67b4f0ee-b169-8af4-d7af-1c53a66ba587@gmail.com>
+Date: Thu, 8 Aug 2019 14:52:33 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
 	Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190807055022.15551-1-ard.biesheuvel@linaro.org>
+In-Reply-To: <MN2PR20MB297328E243D74E03C1EF54ACCAD70@MN2PR20MB2973.namprd20.prod.outlook.com>
 Content-Language: en-US
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.47]);
-	Thu, 08 Aug 2019 11:53:15 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]);
-	Thu, 08 Aug 2019 11:53:15 +0000 (UTC) for IP:'209.85.221.66'
+	(mx1.redhat.com [10.5.110.49]);
+	Thu, 08 Aug 2019 12:52:36 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]);
+	Thu, 08 Aug 2019 12:52:36 +0000 (UTC) for IP:'209.85.221.66'
 	DOMAIN:'mail-wr1-f66.google.com' HELO:'mail-wr1-f66.google.com'
 	FROM:'gmazyland@gmail.com' RCPT:''
 X-RedHat-Spam-Score: -0.1  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
@@ -90,11 +98,15 @@ X-RedHat-Spam-Score: -0.1  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
 	SPF_HELO_NONE,
 	SPF_PASS) 209.85.221.66 mail-wr1-f66.google.com 209.85.221.66
 	mail-wr1-f66.google.com <gmazyland@gmail.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.47
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.49
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
-Cc: ebiggers@kernel.org, snitzer@redhat.com, dm-devel@redhat.com,
-	herbert@gondor.apana.org.au, agk@redhat.com
+Cc: "herbert@gondor.apana.org.au" <herbert@gondor.apana.org.au>,
+	"snitzer@redhat.com" <snitzer@redhat.com>,
+	Ard Biesheuvel <ard.biesheuvel@linaro.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
+	"agk@redhat.com" <agk@redhat.com>
 Subject: Re: [dm-devel] [RFC PATCH v2] md/dm-crypt - reuse eboiv skcipher
  for IV generation
 X-BeenThere: dm-devel@redhat.com
@@ -113,165 +125,65 @@ Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]); Thu, 08 Aug 2019 11:54:02 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]); Thu, 08 Aug 2019 12:53:16 +0000 (UTC)
 
-Hi,
-
-On 07/08/2019 07:50, Ard Biesheuvel wrote:
-> Instead of instantiating a separate cipher to perform the encryption
-> needed to produce the IV, reuse the skcipher used for the block data
-> and invoke it one additional time for each block to encrypt a zero
-> vector and use the output as the IV.
+On 08/08/2019 11:31, Pascal Van Leeuwen wrote:
+>> -----Original Message-----
+>> From: Eric Biggers <ebiggers@kernel.org>
+>> Sent: Thursday, August 8, 2019 10:31 AM
+>> To: Pascal Van Leeuwen <pvanleeuwen@verimatrix.com>
+>> Cc: Ard Biesheuvel <ard.biesheuvel@linaro.org>; linux-crypto@vger.kernel.org;
+>> herbert@gondor.apana.org.au; agk@redhat.com; snitzer@redhat.com; dm-devel@redhat.com;
+>> gmazyland@gmail.com
+>> Subject: Re: [RFC PATCH v2] md/dm-crypt - reuse eboiv skcipher for IV generation
+>>
+>> On Wed, Aug 07, 2019 at 04:14:22PM +0000, Pascal Van Leeuwen wrote:
+>>>>>> In your case, we are not dealing with known plaintext attacks,
+>>>>>>
+>>>>> Since this is XTS, which is used for disk encryption, I would argue
+>>>>> we do! For the tweak encryption, the sector number is known plaintext,
+>>>>> same as for EBOIV. Also, you may be able to control data being written
+>>>>> to the disk encrypted, either directly or indirectly.
+>>>>> OK, part of the data into the CTS encryption will be previous ciphertext,
+>>>>> but that may be just 1 byte with the rest being the known plaintext.
+>>>>>
+>>>>
+>>>> The tweak encryption uses a dedicated key, so leaking it does not have
+>>>> the same impact as it does in the EBOIV case.
+>>>>
+>>> Well ... yes and no. The spec defines them as seperately controllable -
+>>> deviating from the original XEX definition - but in most practicle use cases
+>>> I've seen, the same key is used for both, as having 2 keys just increases
+>>> key  storage requirements and does not actually improve effective security
+>>> (of the algorithm itself, implementation peculiarities like this one aside
+>>> :-), as  XEX has been proven secure using a single key. And the security
+>>> proof for XTS actually builds on that while using 2 keys deviates from it.
+>>>
+>>
+>> This is a common misconception.  Actually, XTS needs 2 distinct keys to be a
+>> CCA-secure tweakable block cipher, due to another subtle difference from XEX:
+>> XEX (by which I really mean "XEX[E,2]") builds the sequence of masks starting
+>> with x^1, while XTS starts with x^0.  If only 1 key is used, the inclusion of
+>> the 0th power in XTS allows the attack described in Section 6 of the XEX paper
+>> (https://web.cs.ucdavis.edu/~rogaway/papers/offsets.pdf).
+>>
+> Interesting ... I'm not a cryptographer, just a humble HW engineer specialized
+> in implementing crypto. I'm basing my views mostly on the Liskov/Minematsu
+> "Comments on XTS", who assert that using 2 keys in XTS was misguided. 
+> (and I never saw any follow-on comments asserting that this view was wrong ...)
+> On not avoiding j=0 in the XTS spec they actually comment:
+> "This difference is significant in security, but has no impact on effectiveness 
+> for practical applications.", which I read as "not relevant for normal use".
 > 
-> For CBC mode, this is equivalent to using the bare block cipher, but
-> without the risk of ending up with a non-time invariant implementation
-> of AES when the skcipher itself is time variant (e.g., arm64 without
-> Crypto Extensions has a NEON based time invariant implementation of
-> cbc(aes) but no time invariant implementation of the core cipher other
-> than aes-ti, which is not enabled by default)
-> 
-> This approach is a compromise between dm-crypt API flexibility and
-> reducing dependence on parts of the crypto API that should not usually
-> be exposed to other subsystems, such as the bare cipher API.
-> 
-> Signed-off-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
+> In any case, it's frequently *used* with both keys being equal for performance
+> and key storage reasons.
 
-For now I have just pair of images here to test, but seems checksums are ok.
+There is already check in kernel for XTS "weak" keys (tweak and encryption keys must not be the same).
+  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/crypto/xts.h#n27
 
-Tested-by: Milan Broz <gmazyland@gmail.com>
+For now it applies only in FIPS mode... (and if I see correctly it is duplicated in all drivers).
 
-I talked with Mike already, so it should go through DM tree now.
-
-Thanks!
 Milan
-
-
-> ---
->  drivers/md/dm-crypt.c | 70 ++++++++++++++-----------------------------
->  1 file changed, 22 insertions(+), 48 deletions(-)
-> 
-> diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-> index d5216bcc4649..48cd76c88d77 100644
-> --- a/drivers/md/dm-crypt.c
-> +++ b/drivers/md/dm-crypt.c
-> @@ -120,10 +120,6 @@ struct iv_tcw_private {
->  	u8 *whitening;
->  };
->  
-> -struct iv_eboiv_private {
-> -	struct crypto_cipher *tfm;
-> -};
-> -
->  /*
->   * Crypt: maps a linear range of a block device
->   * and encrypts / decrypts at the same time.
-> @@ -163,7 +159,6 @@ struct crypt_config {
->  		struct iv_benbi_private benbi;
->  		struct iv_lmk_private lmk;
->  		struct iv_tcw_private tcw;
-> -		struct iv_eboiv_private eboiv;
->  	} iv_gen_private;
->  	u64 iv_offset;
->  	unsigned int iv_size;
-> @@ -847,65 +842,47 @@ static int crypt_iv_random_gen(struct crypt_config *cc, u8 *iv,
->  	return 0;
->  }
->  
-> -static void crypt_iv_eboiv_dtr(struct crypt_config *cc)
-> -{
-> -	struct iv_eboiv_private *eboiv = &cc->iv_gen_private.eboiv;
-> -
-> -	crypto_free_cipher(eboiv->tfm);
-> -	eboiv->tfm = NULL;
-> -}
-> -
->  static int crypt_iv_eboiv_ctr(struct crypt_config *cc, struct dm_target *ti,
->  			    const char *opts)
->  {
-> -	struct iv_eboiv_private *eboiv = &cc->iv_gen_private.eboiv;
-> -	struct crypto_cipher *tfm;
-> -
-> -	tfm = crypto_alloc_cipher(cc->cipher, 0, 0);
-> -	if (IS_ERR(tfm)) {
-> -		ti->error = "Error allocating crypto tfm for EBOIV";
-> -		return PTR_ERR(tfm);
-> +	if (test_bit(CRYPT_MODE_INTEGRITY_AEAD, &cc->cipher_flags)) {
-> +		ti->error = "AEAD transforms not supported for EBOIV";
-> +		return -EINVAL;
->  	}
->  
-> -	if (crypto_cipher_blocksize(tfm) != cc->iv_size) {
-> +	if (crypto_skcipher_blocksize(any_tfm(cc)) != cc->iv_size) {
->  		ti->error = "Block size of EBOIV cipher does "
->  			    "not match IV size of block cipher";
-> -		crypto_free_cipher(tfm);
->  		return -EINVAL;
->  	}
->  
-> -	eboiv->tfm = tfm;
->  	return 0;
->  }
->  
-> -static int crypt_iv_eboiv_init(struct crypt_config *cc)
-> +static int crypt_iv_eboiv_gen(struct crypt_config *cc, u8 *iv,
-> +			    struct dm_crypt_request *dmreq)
->  {
-> -	struct iv_eboiv_private *eboiv = &cc->iv_gen_private.eboiv;
-> +	u8 buf[MAX_CIPHER_BLOCKSIZE] __aligned(__alignof__(__le64));
-> +	struct skcipher_request *req;
-> +	struct scatterlist src, dst;
-> +	struct crypto_wait wait;
->  	int err;
->  
-> -	err = crypto_cipher_setkey(eboiv->tfm, cc->key, cc->key_size);
-> -	if (err)
-> -		return err;
-> -
-> -	return 0;
-> -}
-> -
-> -static int crypt_iv_eboiv_wipe(struct crypt_config *cc)
-> -{
-> -	/* Called after cc->key is set to random key in crypt_wipe() */
-> -	return crypt_iv_eboiv_init(cc);
-> -}
-> +	req = skcipher_request_alloc(any_tfm(cc), GFP_KERNEL | GFP_NOFS);
-> +	if (!req)
-> +		return -ENOMEM;
->  
-> -static int crypt_iv_eboiv_gen(struct crypt_config *cc, u8 *iv,
-> -			    struct dm_crypt_request *dmreq)
-> -{
-> -	struct iv_eboiv_private *eboiv = &cc->iv_gen_private.eboiv;
-> +	memset(buf, 0, cc->iv_size);
-> +	*(__le64 *)buf = cpu_to_le64(dmreq->iv_sector * cc->sector_size);
->  
-> -	memset(iv, 0, cc->iv_size);
-> -	*(__le64 *)iv = cpu_to_le64(dmreq->iv_sector * cc->sector_size);
-> -	crypto_cipher_encrypt_one(eboiv->tfm, iv, iv);
-> +	sg_init_one(&src, page_address(ZERO_PAGE(0)), cc->iv_size);
-> +	sg_init_one(&dst, iv, cc->iv_size);
-> +	skcipher_request_set_crypt(req, &src, &dst, cc->iv_size, buf);
-> +	skcipher_request_set_callback(req, 0, crypto_req_done, &wait);
-> +	err = crypto_wait_req(crypto_skcipher_encrypt(req), &wait);
-> +	skcipher_request_free(req);
->  
-> -	return 0;
-> +	return err;
->  }
->  
->  static const struct crypt_iv_operations crypt_iv_plain_ops = {
-> @@ -962,9 +939,6 @@ static struct crypt_iv_operations crypt_iv_random_ops = {
->  
->  static struct crypt_iv_operations crypt_iv_eboiv_ops = {
->  	.ctr	   = crypt_iv_eboiv_ctr,
-> -	.dtr	   = crypt_iv_eboiv_dtr,
-> -	.init	   = crypt_iv_eboiv_init,
-> -	.wipe	   = crypt_iv_eboiv_wipe,
->  	.generator = crypt_iv_eboiv_gen
->  };
->  
-> 
 
 --
 dm-devel mailing list
