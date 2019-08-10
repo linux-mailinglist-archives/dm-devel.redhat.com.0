@@ -2,83 +2,85 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6304988E90
-	for <lists+dm-devel@lfdr.de>; Sat, 10 Aug 2019 23:44:20 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EE1088E91
+	for <lists+dm-devel@lfdr.de>; Sat, 10 Aug 2019 23:44:22 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id E99258667D;
+	by mx1.redhat.com (Postfix) with ESMTPS id 27C5F36899;
+	Sat, 10 Aug 2019 21:44:19 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A32C60872;
 	Sat, 10 Aug 2019 21:44:17 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A27E194B9;
-	Sat, 10 Aug 2019 21:44:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CE4E61800202;
-	Sat, 10 Aug 2019 21:44:01 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E8B6E2551C;
+	Sat, 10 Aug 2019 21:44:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7ALhlbr025542 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 10 Aug 2019 17:43:47 -0400
+	id x7ALiCig025562 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 10 Aug 2019 17:44:12 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 68F3E60600; Sat, 10 Aug 2019 21:43:47 +0000 (UTC)
+	id 61FC85D6B0; Sat, 10 Aug 2019 21:44:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mx1.redhat.com (ext-mx04.extmail.prod.ext.phx2.redhat.com
 	[10.5.110.28])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4DBD360872;
-	Sat, 10 Aug 2019 21:43:43 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3170B6B57F;
+	Sat, 10 Aug 2019 21:44:08 +0000 (UTC)
 Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 047E08830C;
-	Sat, 10 Aug 2019 21:43:21 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 2A57A8E585;
+	Sat, 10 Aug 2019 21:43:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
 	d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
-	t=1565473414; x=1597009414;
-	h=from:to:cc:subject:date:message-id:mime-version:
-	content-transfer-encoding;
-	bh=oqC9vwnwD0v5yDdP5Ry5VqCn1bXZJBKh7qYxFUl79wI=;
-	b=mgUaThvo0Gl4K5FRVjoJtZx7QIvub90UitjA3ql65EMn/Tb/UrZWb0ey
-	DdDq7bXY6TUx1ViYSjvTbPoCliQ3+ua919lE6G3yFpRuthtobTC8mDzJW
-	ZoXeOEV4GceSu3bvbFBaoUR6aFJeEctPUqlxPlTxB3ut+/xSdtvboK8VK
-	A/fqkyZJR+jwNdK47/iRp8YiNVuU6gf0tf32RE+qKwzawQopNVTYHvaJa
-	sX+piZ+WLaevCEQ2guBrl5SrBj7+7gluEwI2AMMrWgy4LpIqyxaXi45UX
-	UnV0DOLlQJh/BzwbXdczAVleY14YMI/v/QL9ZnpU1VvMeFVqQ10z+/fcc A==;
-IronPort-SDR: fN9tHQBAQHu5GEXZcV7uiz/s2ydSTasW+OmXENKN8tv1EDTm1FtqdudRmPU1d4We3Lx6/3XR90
-	0DLpgW88qT9sep3e7a93PB8UEjYLhbsJrc4EeXqHykqUhncLP5W8dqsR9U1y3IuNPTZo7tREQp
-	UpOv9dxSrDnl2evu+w/WRWJKjkcA25FkSLcYQhTUSSgvga7LIy5kKVttz+kLv/dEmI00TVPeea
-	NB2A8ONAuEhLlJjpVtjohZmvImSSsttEkl8TfN2MRtJ/2MU3pCyTQXPmVGkI1iqAuPFeXhKZul
-	Dqw=
-X-IronPort-AV: E=Sophos;i="5.64,370,1559491200"; d="scan'208";a="115569223"
+	t=1565473439; x=1597009439;
+	h=from:to:cc:subject:date:message-id:in-reply-to:
+	references:mime-version:content-transfer-encoding;
+	bh=GYH0DPNgD42uDrCQida6Niw2vCvy+IxEUDm52VTUf88=;
+	b=VCRj69MZWOedpNFfnEvoI8wIety+WFy8SQHdOFETTHuINQ5pdNovx5Bz
+	FrMndAWhc6p3ZC6HNNGwowsDKk0JVQygKviUn2061vPy33VKWk5Q/Ida1
+	838pWwobQX467yxoOnlYrVATFb8YBdlrXT+gqDNlcB5+PipVvTvXXDbyf
+	jlD6xBFKxAwZS1SIujOx909ocyb4ynSakjdwFOwUV2NtAeQUsC94wpFWh
+	sdvRCdnoddxaXF+YdTuomaE/by9fe8D/Nw6a0WGKyYTc4wvVVGt8NnaMJ
+	89Hc7onB54IpgbAmAcswU6Eb8vkZybcaVslG0s5GvdIHqZZVHyJgLo1NX Q==;
+IronPort-SDR: 6ikMh7QpdjrWFn3jJIFZD+jX9S9JEEyu5y9ieMSSMeHLUNznOrmLC2eIKI1sRnfG+DJD+b+zwr
+	AqX7/8YZogsX1C0vI/2+25HS7gSkdfjZkdSJbIrFWQ5zra0Bu/arPD2oCuTiTWPmfwyDX7x9Fi
+	UyFHp79qmZ1BwHzRrmgvD00diewiwYlIbKTBHUCbfLqDAaX/hs2Un0o84OfB/cqqaoTslTKvMV
+	JDA6GAbTHX5JTBzWQAhTfWVECtSFSBB0ysqXwjNZ60u7tdG3Lzto6oeNXkKq2kv0pDYZhh3G8g
+	I3U=
+X-IronPort-AV: E=Sophos;i="5.64,370,1559491200"; d="scan'208";a="115569224"
 Received: from h199-255-45-15.hgst.com (HELO uls-op-cesaep02.wdc.com)
 	([199.255.45.15])
-	by ob1.hgst.iphmx.com with ESMTP; 11 Aug 2019 05:43:12 +0800
-IronPort-SDR: I6GyzhGGAY9uYnufoBfwAFEYxjXejBojg0CL95Xk1hvR6xF3LzATz6UYiMKGhP77fzldq0mMcW
-	gmD4zxTM51q64kRDhUx4jQ23WL5FQRll+ob+Xb6O2zy2I92i2aFQefIwaZUKCcRAIfjA3Pyf40
-	nEhYkgi9Yod3fSr2q41+FeEJ1Mp41JHAE7/oOyipEB3OXC0ymnG/x+YPRM2QrYp/t+DTp88bA6
-	ToY20tNBcn/vbNCWSVPHbck/f7ryPJHxvviRXn2jyMR1mcV62h1C5eGzevw5R07WHP8JNk+iPl
-	IliqLSSPFEqDttlxKzk8SYiB
+	by ob1.hgst.iphmx.com with ESMTP; 11 Aug 2019 05:43:13 +0800
+IronPort-SDR: P2VXyW9KOl5Lse706W+dUC5wX1/x+/BAi1gZduAJRCpSau6I0vCm3+M4R9rbPuiem3zzJMo3A7
+	fR6BzpwxhO1NiKKIpzBNJt32q+AffXxmtOD6bLTMGC+9fJArCzlYDf2s5W7d1nO3FHmWiegnbN
+	ezA1ksK5F3AoGDoMMk69q50HpxhBcU8vJbu3a4Y94AXLgUMafJoF39IzvPTtfadP/nSXZe3gOZ
+	YEKy6BcO6xzpAvI2hon/+N1maV0EvO1y6UK4sBwi2XwZB7z82wGFPPFwzZ9yByC4muDdGtnHhy
+	vjBHZxHYJqhd7Q+6QF+wuj/j
 Received: from uls-op-cesaip01.wdc.com ([10.248.3.36])
 	by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	10 Aug 2019 14:40:51 -0700
-IronPort-SDR: hXqdGPqvXdSFEjmdAP7I9XSn5e4YDq09ECpRH786ietU11q/Pulw+myHKvwbz3dks3OA8nsnY3
-	4/jz8svQAYwA+dpqtRHFA3/yxXta18YcWd0I0t4AtVXiNb0BFv/gqF/BeddjHoWOEegtbFGVRN
-	rMqBLBrfTs/47ttHgUs2U2Q9wO/9+vf00aqZ3fLUORQtOrhRGot23KyapXGFy/K0Rd12tDQp/t
-	bBnYfoW0FEH/2fmVeYuhzQU1Az0IQj8WTCfqETd45CYt9rklgPTie5c8uwsEefEF0qAGgLtbdj
-	ZRM=
+	10 Aug 2019 14:40:52 -0700
+IronPort-SDR: p8wj1lyp9fCeWBX8j0Kz7+iwUm/R6JD1OZoP7v8DF3HvIVIch9SZS8dMYBGYyPC9L1alUyARqW
+	/V54RFHktKmmT2pQYVveoXjnaK/+LZJfvVFBParMdI8jju2Z4oNjDS+JKAhRtQHQaGHHez1ggu
+	NLRblW9Phr9Ftyjmv8BTQLvbJxG/DPrdLoHWTA4ma5w3bdcM9RMz4XxllCrnBEag1Fz1HaVz6X
+	Db+n7gAQ6x979wpJ7lsObzP4mbLLufj0cqs/0B8lpfiWKAi2vb0Im2qz5+NN0zHfFdNSh3+0AI
+	4lM=
 Received: from dhcp-10-88-173-43.hgst.com (HELO localhost.localdomain)
 	([10.88.173.43])
 	by uls-op-cesaip01.wdc.com with ESMTP; 10 Aug 2019 14:43:12 -0700
 From: Dmitry Fomichev <dmitry.fomichev@wdc.com>
 To: dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>
-Date: Sat, 10 Aug 2019 14:43:08 -0700
-Message-Id: <20190810214311.9503-1-dmitry.fomichev@wdc.com>
+Date: Sat, 10 Aug 2019 14:43:09 -0700
+Message-Id: <20190810214311.9503-2-dmitry.fomichev@wdc.com>
+In-Reply-To: <20190810214311.9503-1-dmitry.fomichev@wdc.com>
+References: <20190810214311.9503-1-dmitry.fomichev@wdc.com>
 MIME-Version: 1.0
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
 	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.28]); Sat, 10 Aug 2019 21:43:34 +0000 (UTC)
+	[10.5.110.28]); Sat, 10 Aug 2019 21:43:59 +0000 (UTC)
 X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]);
-	Sat, 10 Aug 2019 21:43:34 +0000 (UTC) for IP:'216.71.154.42'
+	Sat, 10 Aug 2019 21:43:59 +0000 (UTC) for IP:'216.71.154.42'
 	DOMAIN:'esa4.hgst.iphmx.com' HELO:'esa4.hgst.iphmx.com'
 	FROM:'dmitry.fomichev@wdc.com' RCPT:''
 X-RedHat-Spam-Score: -2.399  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
@@ -86,10 +88,11 @@ X-RedHat-Spam-Score: -2.399  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
 	SPF_HELO_NONE) 216.71.154.42 esa4.hgst.iphmx.com 216.71.154.42
 	esa4.hgst.iphmx.com <prvs=1182bd66c=dmitry.fomichev@wdc.com>
 X-Scanned-By: MIMEDefang 2.78 on 10.5.110.28
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
 Cc: Damien Le Moal <damien.lemoal@wdc.com>
-Subject: [dm-devel] [PATCH v2 0/3] dm-zoned: harden error handling
+Subject: [dm-devel] [PATCH v2 1/3] dm-zoned: improve error handling in
+	reclaim
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -105,45 +108,153 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]); Sat, 10 Aug 2019 21:44:18 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.30]); Sat, 10 Aug 2019 21:44:20 +0000 (UTC)
 
-This series contains a few patches aimed to make dm-zoned properly
-handle backing zoned storage device failures.
+There are several places in reclaim code where errors are not
+propagated to the main function, dmz_reclaim(). This function
+is responsible for unlocking zones that might be still locked
+at the end of any failed reclaim iterations. As the result,
+some device zones may be left permanently locked for reclaim,
+degrading target's capability to reclaim zones.
 
-The following test environment was used to trigger device failures:
-A 100% write file I/O fio workload was run against an XFS volume
-created on top of a dm-zoned target device. The dm-zoned device,
-in turn, was created on top of a zoned device provisioned by
-tcmu-runner ZBC file handler. The backing storage file for the
-tcmu-runner handler has been created on a separate ext4 file system.
+This patch fixes these issues as follows -
 
-Two different failure modes were tested -
-1. Removal of the tcmu-runner device under I/O
-2. Complete failure of the backing storage of tcmu-runner under I/O
+Make sure that dmz_reclaim_buf(), dmz_reclaim_seq_data() and
+dmz_reclaim_rnd_data() return error codes to the caller.
 
-In both of these test cases, dm-zoned has been observed to hang and
-the only possible remedy to recover from that state was to reboot the
-test system. The fio test script would also hang forever.
+dmz_reclaim() function is renamed to dmz_do_reclaim() to avoid
+clashing with "struct dmz_reclaim" and is modified to return the
+error to the caller.
 
-With these patches in place, the test script properly reports the
-error and exits. After that, it is possible to remove the dm-zoned
-target device and then recreate it with some working backup storage
-without rebooting the system.
+dmz_get_zone_for_reclaim() now returns an error instead of NULL
+pointer and reclaim code checks for that error.
 
-v1 -> v2:	- don't set dm-zoned disk read-only after BD failure
+Error logging/debug messages are added where necessary.
 
-Dmitry Fomichev (3):
-  dm-zoned: improve error handling in reclaim
-  dm-zoned: improve error handling in i/o map code
-  dm-zoned: properly handle backing device failure
+Fixes: 3b1a94c88b79 ("dm zoned: drive-managed zoned block device target")
+Cc: stable@vger.kernel.org
+Signed-off-by: Dmitry Fomichev <dmitry.fomichev@wdc.com>
+---
+ drivers/md/dm-zoned-metadata.c |  4 ++--
+ drivers/md/dm-zoned-reclaim.c  | 28 +++++++++++++++++++---------
+ 2 files changed, 21 insertions(+), 11 deletions(-)
 
- drivers/md/dm-zoned-metadata.c | 55 ++++++++++++++++++++++------
- drivers/md/dm-zoned-reclaim.c  | 44 +++++++++++++++++-----
- drivers/md/dm-zoned-target.c   | 67 ++++++++++++++++++++++++++++++----
- drivers/md/dm-zoned.h          | 10 +++++
- 4 files changed, 146 insertions(+), 30 deletions(-)
-
+diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
+index ded4984d18c9..6b7fbbd735ef 100644
+--- a/drivers/md/dm-zoned-metadata.c
++++ b/drivers/md/dm-zoned-metadata.c
+@@ -1543,7 +1543,7 @@ static struct dm_zone *dmz_get_rnd_zone_for_reclaim(struct dmz_metadata *zmd)
+ 	struct dm_zone *zone;
+ 
+ 	if (list_empty(&zmd->map_rnd_list))
+-		return NULL;
++		return ERR_PTR(-EBUSY);
+ 
+ 	list_for_each_entry(zone, &zmd->map_rnd_list, link) {
+ 		if (dmz_is_buf(zone))
+@@ -1554,7 +1554,7 @@ static struct dm_zone *dmz_get_rnd_zone_for_reclaim(struct dmz_metadata *zmd)
+ 			return dzone;
+ 	}
+ 
+-	return NULL;
++	return ERR_PTR(-EBUSY);
+ }
+ 
+ /*
+diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
+index 260e3598199e..26e34493a2db 100644
+--- a/drivers/md/dm-zoned-reclaim.c
++++ b/drivers/md/dm-zoned-reclaim.c
+@@ -216,7 +216,7 @@ static int dmz_reclaim_buf(struct dmz_reclaim *zrc, struct dm_zone *dzone)
+ 
+ 	dmz_unlock_flush(zmd);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ /*
+@@ -260,7 +260,7 @@ static int dmz_reclaim_seq_data(struct dmz_reclaim *zrc, struct dm_zone *dzone)
+ 
+ 	dmz_unlock_flush(zmd);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ /*
+@@ -313,7 +313,7 @@ static int dmz_reclaim_rnd_data(struct dmz_reclaim *zrc, struct dm_zone *dzone)
+ 
+ 	dmz_unlock_flush(zmd);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ /*
+@@ -335,7 +335,7 @@ static void dmz_reclaim_empty(struct dmz_reclaim *zrc, struct dm_zone *dzone)
+ /*
+  * Find a candidate zone for reclaim and process it.
+  */
+-static void dmz_reclaim(struct dmz_reclaim *zrc)
++static int dmz_do_reclaim(struct dmz_reclaim *zrc)
+ {
+ 	struct dmz_metadata *zmd = zrc->metadata;
+ 	struct dm_zone *dzone;
+@@ -345,8 +345,8 @@ static void dmz_reclaim(struct dmz_reclaim *zrc)
+ 
+ 	/* Get a data zone */
+ 	dzone = dmz_get_zone_for_reclaim(zmd);
+-	if (!dzone)
+-		return;
++	if (IS_ERR(dzone))
++		return PTR_ERR(dzone);
+ 
+ 	start = jiffies;
+ 
+@@ -392,13 +392,20 @@ static void dmz_reclaim(struct dmz_reclaim *zrc)
+ out:
+ 	if (ret) {
+ 		dmz_unlock_zone_reclaim(dzone);
+-		return;
++		return ret;
+ 	}
+ 
+-	(void) dmz_flush_metadata(zrc->metadata);
++	ret = dmz_flush_metadata(zrc->metadata);
++	if (ret) {
++		dmz_dev_debug(zrc->dev,
++			      "Metadata flush for zone %u failed, err %d\n",
++			      dmz_id(zmd, rzone), ret);
++		return ret;
++	}
+ 
+ 	dmz_dev_debug(zrc->dev, "Reclaimed zone %u in %u ms",
+ 		      dmz_id(zmd, rzone), jiffies_to_msecs(jiffies - start));
++	return 0;
+ }
+ 
+ /*
+@@ -443,6 +450,7 @@ static void dmz_reclaim_work(struct work_struct *work)
+ 	struct dmz_metadata *zmd = zrc->metadata;
+ 	unsigned int nr_rnd, nr_unmap_rnd;
+ 	unsigned int p_unmap_rnd;
++	int ret;
+ 
+ 	if (!dmz_should_reclaim(zrc)) {
+ 		mod_delayed_work(zrc->wq, &zrc->work, DMZ_IDLE_PERIOD);
+@@ -472,7 +480,9 @@ static void dmz_reclaim_work(struct work_struct *work)
+ 		      (dmz_target_idle(zrc) ? "Idle" : "Busy"),
+ 		      p_unmap_rnd, nr_unmap_rnd, nr_rnd);
+ 
+-	dmz_reclaim(zrc);
++	ret = dmz_do_reclaim(zrc);
++	if (ret)
++		dmz_dev_debug(zrc->dev, "Reclaim error %d\n", ret);
+ 
+ 	dmz_schedule_reclaim(zrc);
+ }
 -- 
 2.21.0
 
