@@ -2,86 +2,86 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id B140988A60
-	for <lists+dm-devel@lfdr.de>; Sat, 10 Aug 2019 11:41:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ABB488A61
+	for <lists+dm-devel@lfdr.de>; Sat, 10 Aug 2019 11:41:46 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id A360A793C9;
-	Sat, 10 Aug 2019 09:41:41 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id DF5AF3086E21;
+	Sat, 10 Aug 2019 09:41:43 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7D75557B0;
-	Sat, 10 Aug 2019 09:41:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BDB1219C70;
+	Sat, 10 Aug 2019 09:41:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 23AB518005B9;
-	Sat, 10 Aug 2019 09:41:41 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6885E180B536;
+	Sat, 10 Aug 2019 09:41:43 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
 	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7A9fSB7009393 for <dm-devel@listman.util.phx.redhat.com>;
+	id x7A9fTj0009398 for <dm-devel@listman.util.phx.redhat.com>;
 	Sat, 10 Aug 2019 05:41:29 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id EE359600D1; Sat, 10 Aug 2019 09:41:28 +0000 (UTC)
+	id 1B248600D1; Sat, 10 Aug 2019 09:41:29 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx03.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.27])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E84E3600CE
-	for <dm-devel@redhat.com>; Sat, 10 Aug 2019 09:41:26 +0000 (UTC)
-Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
-	[209.85.221.68])
+Received: from mx1.redhat.com (ext-mx10.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.39])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 16606600CE
+	for <dm-devel@redhat.com>; Sat, 10 Aug 2019 09:41:29 +0000 (UTC)
+Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
+	[209.85.221.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id B5D847EBD3
-	for <dm-devel@redhat.com>; Sat, 10 Aug 2019 09:41:25 +0000 (UTC)
-Received: by mail-wr1-f68.google.com with SMTP id 31so100384911wrm.1
-	for <dm-devel@redhat.com>; Sat, 10 Aug 2019 02:41:25 -0700 (PDT)
+	by mx1.redhat.com (Postfix) with ESMTPS id CF6FA3CA10
+	for <dm-devel@redhat.com>; Sat, 10 Aug 2019 09:41:27 +0000 (UTC)
+Received: by mail-wr1-f65.google.com with SMTP id n9so100465781wru.0
+	for <dm-devel@redhat.com>; Sat, 10 Aug 2019 02:41:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
 	h=from:to:cc:subject:date:message-id:in-reply-to:references;
-	bh=huVoFUpMc5dzWwrmJm9Qwvn6MCUViGlDp2QJ3557fZk=;
-	b=BsZM7Ak8xHjx4PUOoit7mHk2E0QD6CIcnThUVFYMPVMKGvZ2HGvIzAW8J7qb3fJnFW
-	sIhma2m0sr6yz4J0RqnX5tCMvZMQFwCXSF450mVl5OAJzUylWiDbVSFRiqGBTPiHegXL
-	26ubDSDD7KBwz7BPX/iF4vurJyQG6FThb5NtPCKjqwUwgYDcYUqj5LC6YGQSd7Mdm/A4
-	5xsVWI0kAPKaPmdFsOmEPK9UNsHizpdd9mbsZiTE1MpOTq/lULpzZzRb7LmIWDkRuk0Y
-	wbjZ7nVPu7oTJwf9uVumpvW+BOmypSQC6WKSoiMeTBE2g7VA1cwPOS0q34w+AChh7zS4
-	Dd5w==
+	bh=WtUW4kMtV0FuBm9YSr9KHz4FtfpiQZk/mVyKFBxk8RY=;
+	b=AyrhBJu8fUqszw4iANyFyJs5HpQXjT6EuzCIzSVB2L1Gre2tx7stmuD7ikbk2qu7SW
+	ltmtG3vhfOLoy3uFXk/0mfy+6LVvDiLBjLfGpahjzR5GGLJ8/Qo40+1kvGt7AfTgxNOo
+	fqSQQZJWzxGHbR5DKwhUwwsixb+ZssNDn0rCt5wcfiYxknh3haQZSUJS9qY9rWJtTLr5
+	oA2ArOkoRhtjPOfCyGn/IyKEO2JCzGXEgbcaHVh8A7dgamjF+ciYBsKEUlgF8FlDqu0p
+	Z8AzQhf/syvUCrWz19ronAkuUVawVkw/32cmUf2oKmD+veQ8/DwocEAsNUHBbMCNYctz
+	eh5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
 	:references;
-	bh=huVoFUpMc5dzWwrmJm9Qwvn6MCUViGlDp2QJ3557fZk=;
-	b=kFcJuG5YWXG4ZnUl8QXKoeKr9swwx6a0YaoQRbW2hXgwkQf6heGQon7BvmF2C3SN0Y
-	Fm9jlUQEjamLvV4lXURM880keJB5vOSCWBrjrvTW770566Emn3GqY85ObCpo3yJLbUeu
-	1tchOumE3JC91258AsOm4S6kbNXAoZ/0FaRFuyqwiFdTMDdnDv4LAkyXfLblcEfW8yKE
-	w3Si9D7LTzjOeK+4I75iKEWGqTskz47Zy4a6pE6fBgRwkrlsSLU62xmXztbsNiwPqlYS
-	hKolXEG5w/1WPNNe7EFZfe6CksG3z8D3fZd3TkUMXOsqKeBught9S8hBZRAxxKnZTCam
-	1WyQ==
-X-Gm-Message-State: APjAAAX3Gj0PB89N5m652tmxbtb3kwCDOwriauB65Fhwzo6KYOPGfPLU
-	TDmk2CCyPLqc5/SovIn802C25Q==
-X-Google-Smtp-Source: APXvYqxDfy8xK3y/WNm8yW0YmC4XlD9QEtAhL6GsKklQ6Ks/tSR4IZXwHYJku47G+bmcpVqEs3gGKg==
-X-Received: by 2002:a5d:6406:: with SMTP id z6mr28796180wru.280.1565430084306; 
-	Sat, 10 Aug 2019 02:41:24 -0700 (PDT)
+	bh=WtUW4kMtV0FuBm9YSr9KHz4FtfpiQZk/mVyKFBxk8RY=;
+	b=phWJqORlKFzgwulHsWa3d3oUtNeIIBvcuCwq9dFEQZF4trCXw2Q8MCO69YgWleq84V
+	ak7gj00TTlyJjBTE8kg90ff8hsCCjUr4rDDokyYeYbuZizy5DDVs5Nyh/HLe47jjPi97
+	+AAJBH53LnvaNdl/y0G7ut5Xm4noSxlKKZQ4VlIIuwuNr/NItOAtjKL4AnrGQefvzggi
+	rAORmOg3pn+MePX/pMYtc5jCIHLs2OD3VHoZwfA4OCzp72leoKYgrbOmtF4gjGTBn1Qz
+	ktKyRAH/Q9fZkgsoX4EWtOYYFFUMERmiCZQA3NEpD+XxrBuXNPuUdRdmfa3Ko3dl+po8
+	BECQ==
+X-Gm-Message-State: APjAAAXW2w148FlxnrKbDmpA6qBAvhiQ3Blsz4pM6zmkPL/2kSnAqs2m
+	SmEqV41ibHjmifv/zY81cZ+Iaw==
+X-Google-Smtp-Source: APXvYqz2FGFf5/FCuIqUU0p5uJ5Knt7ua0BM3U6YgGbzhC0eXuid+KaPNiKJmpfLAqB5ktpsT9VbSA==
+X-Received: by 2002:a5d:670d:: with SMTP id o13mr19421829wru.289.1565430086316;
+	Sat, 10 Aug 2019 02:41:26 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:587:a407:da00:582f:8334:9cd9:7241])
-	by smtp.gmail.com with ESMTPSA id n16sm519883wmk.12.2019.08.10.02.41.22
+	by smtp.gmail.com with ESMTPSA id n16sm519883wmk.12.2019.08.10.02.41.24
 	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Sat, 10 Aug 2019 02:41:23 -0700 (PDT)
+	Sat, 10 Aug 2019 02:41:25 -0700 (PDT)
 From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
 To: linux-crypto@vger.kernel.org
-Date: Sat, 10 Aug 2019 12:40:51 +0300
-Message-Id: <20190810094053.7423-6-ard.biesheuvel@linaro.org>
+Date: Sat, 10 Aug 2019 12:40:52 +0300
+Message-Id: <20190810094053.7423-7-ard.biesheuvel@linaro.org>
 In-Reply-To: <20190810094053.7423-1-ard.biesheuvel@linaro.org>
 References: <20190810094053.7423-1-ard.biesheuvel@linaro.org>
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.27]);
-	Sat, 10 Aug 2019 09:41:26 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]);
-	Sat, 10 Aug 2019 09:41:26 +0000 (UTC) for IP:'209.85.221.68'
-	DOMAIN:'mail-wr1-f68.google.com' HELO:'mail-wr1-f68.google.com'
+	(mx1.redhat.com [10.5.110.39]);
+	Sat, 10 Aug 2019 09:41:28 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]);
+	Sat, 10 Aug 2019 09:41:28 +0000 (UTC) for IP:'209.85.221.65'
+	DOMAIN:'mail-wr1-f65.google.com' HELO:'mail-wr1-f65.google.com'
 	FROM:'ard.biesheuvel@linaro.org' RCPT:''
-X-RedHat-Spam-Score: -0.101  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
-	SPF_PASS) 209.85.221.68 mail-wr1-f68.google.com 209.85.221.68
-	mail-wr1-f68.google.com <ard.biesheuvel@linaro.org>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.27
+X-RedHat-Spam-Score: -0.1  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
+	SPF_PASS) 209.85.221.65 mail-wr1-f65.google.com 209.85.221.65
+	mail-wr1-f65.google.com <ard.biesheuvel@linaro.org>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.39
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
 Cc: Herbert Xu <herbert@gondor.apana.org.au>,
@@ -89,8 +89,8 @@ Cc: Herbert Xu <herbert@gondor.apana.org.au>,
 	Ard Biesheuvel <ard.biesheuvel@linaro.org>, linux-fscrypt@vger.kernel.org,
 	Gilad Ben-Yossef <gilad@benyossef.com>, dm-devel@redhat.com,
 	Milan Broz <gmazyland@gmail.com>
-Subject: [dm-devel] [PATCH v9 5/7] crypto: arm64/aes-cts-cbc - factor out
-	CBC en/decryption of a walk
+Subject: [dm-devel] [PATCH v9 6/7] crypto: arm64/aes - implement accelerated
+	ESSIV/CBC mode
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -108,155 +108,265 @@ Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]); Sat, 10 Aug 2019 09:41:42 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]); Sat, 10 Aug 2019 09:41:44 +0000 (UTC)
 
-The plain CBC driver and the CTS one share some code that iterates over
-a scatterwalk and invokes the CBC asm code to do the processing. The
-upcoming ESSIV/CBC mode will clone that pattern for the third time, so
-let's factor it out first.
+Add an accelerated version of the 'essiv(cbc(aes),aes,sha256'
+skcipher, which is used by fscrypt or dm-crypt on systems where
+CBC mode is signficantly more performant than XTS mode (e.g., when
+using a h/w accelerator which supports the former but not the latter)
+This avoids a separate call into the AES cipher for every invocation.
 
 Signed-off-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
 ---
- arch/arm64/crypto/aes-glue.c | 82 ++++++++++----------
- 1 file changed, 40 insertions(+), 42 deletions(-)
+ arch/arm64/crypto/aes-glue.c  | 123 ++++++++++++++++++++
+ arch/arm64/crypto/aes-modes.S |  28 +++++
+ 2 files changed, 151 insertions(+)
 
 diff --git a/arch/arm64/crypto/aes-glue.c b/arch/arm64/crypto/aes-glue.c
-index 55d6d4838708..23abf335f1ee 100644
+index 23abf335f1ee..45fca7f8cd75 100644
 --- a/arch/arm64/crypto/aes-glue.c
 +++ b/arch/arm64/crypto/aes-glue.c
-@@ -186,46 +186,64 @@ static int ecb_decrypt(struct skcipher_request *req)
- 	return err;
+@@ -10,6 +10,7 @@
+ #include <asm/simd.h>
+ #include <crypto/aes.h>
+ #include <crypto/ctr.h>
++#include <crypto/sha.h>
+ #include <crypto/internal/hash.h>
+ #include <crypto/internal/simd.h>
+ #include <crypto/internal/skcipher.h>
+@@ -30,6 +31,8 @@
+ #define aes_cbc_decrypt		ce_aes_cbc_decrypt
+ #define aes_cbc_cts_encrypt	ce_aes_cbc_cts_encrypt
+ #define aes_cbc_cts_decrypt	ce_aes_cbc_cts_decrypt
++#define aes_essiv_cbc_encrypt	ce_aes_essiv_cbc_encrypt
++#define aes_essiv_cbc_decrypt	ce_aes_essiv_cbc_decrypt
+ #define aes_ctr_encrypt		ce_aes_ctr_encrypt
+ #define aes_xts_encrypt		ce_aes_xts_encrypt
+ #define aes_xts_decrypt		ce_aes_xts_decrypt
+@@ -44,6 +47,8 @@ MODULE_DESCRIPTION("AES-ECB/CBC/CTR/XTS using ARMv8 Crypto Extensions");
+ #define aes_cbc_decrypt		neon_aes_cbc_decrypt
+ #define aes_cbc_cts_encrypt	neon_aes_cbc_cts_encrypt
+ #define aes_cbc_cts_decrypt	neon_aes_cbc_cts_decrypt
++#define aes_essiv_cbc_encrypt	neon_aes_essiv_cbc_encrypt
++#define aes_essiv_cbc_decrypt	neon_aes_essiv_cbc_decrypt
+ #define aes_ctr_encrypt		neon_aes_ctr_encrypt
+ #define aes_xts_encrypt		neon_aes_xts_encrypt
+ #define aes_xts_decrypt		neon_aes_xts_decrypt
+@@ -87,6 +92,13 @@ asmlinkage void aes_xts_decrypt(u8 out[], u8 const in[], u32 const rk1[],
+ 				int rounds, int blocks, u32 const rk2[], u8 iv[],
+ 				int first);
+ 
++asmlinkage void aes_essiv_cbc_encrypt(u8 out[], u8 const in[], u32 const rk1[],
++				      int rounds, int blocks, u8 iv[],
++				      u32 const rk2[]);
++asmlinkage void aes_essiv_cbc_decrypt(u8 out[], u8 const in[], u32 const rk1[],
++				      int rounds, int blocks, u8 iv[],
++				      u32 const rk2[]);
++
+ asmlinkage void aes_mac_update(u8 const in[], u32 const rk[], int rounds,
+ 			       int blocks, u8 dg[], int enc_before,
+ 			       int enc_after);
+@@ -102,6 +114,12 @@ struct crypto_aes_xts_ctx {
+ 	struct crypto_aes_ctx __aligned(8) key2;
+ };
+ 
++struct crypto_aes_essiv_cbc_ctx {
++	struct crypto_aes_ctx key1;
++	struct crypto_aes_ctx __aligned(8) key2;
++	struct crypto_shash *hash;
++};
++
+ struct mac_tfm_ctx {
+ 	struct crypto_aes_ctx key;
+ 	u8 __aligned(8) consts[];
+@@ -146,6 +164,31 @@ static int xts_set_key(struct crypto_skcipher *tfm, const u8 *in_key,
+ 	return -EINVAL;
  }
  
--static int cbc_encrypt(struct skcipher_request *req)
-+static int cbc_encrypt_walk(struct skcipher_request *req,
-+			    struct skcipher_walk *walk)
++static int essiv_cbc_set_key(struct crypto_skcipher *tfm, const u8 *in_key,
++			     unsigned int key_len)
++{
++	struct crypto_aes_essiv_cbc_ctx *ctx = crypto_skcipher_ctx(tfm);
++	SHASH_DESC_ON_STACK(desc, ctx->hash);
++	u8 digest[SHA256_DIGEST_SIZE];
++	int ret;
++
++	ret = aes_expandkey(&ctx->key1, in_key, key_len);
++	if (ret)
++		goto out;
++
++	desc->tfm = ctx->hash;
++	crypto_shash_digest(desc, in_key, key_len, digest);
++
++	ret = aes_expandkey(&ctx->key2, digest, sizeof(digest));
++	if (ret)
++		goto out;
++
++	return 0;
++out:
++	crypto_skcipher_set_flags(tfm, CRYPTO_TFM_RES_BAD_KEY_LEN);
++	return -EINVAL;
++}
++
+ static int ecb_encrypt(struct skcipher_request *req)
  {
  	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
- 	struct crypto_aes_ctx *ctx = crypto_skcipher_ctx(tfm);
--	int err, rounds = 6 + ctx->key_length / 4;
--	struct skcipher_walk walk;
-+	int err = 0, rounds = 6 + ctx->key_length / 4;
- 	unsigned int blocks;
- 
--	err = skcipher_walk_virt(&walk, req, false);
--
--	while ((blocks = (walk.nbytes / AES_BLOCK_SIZE))) {
-+	while ((blocks = (walk->nbytes / AES_BLOCK_SIZE))) {
- 		kernel_neon_begin();
--		aes_cbc_encrypt(walk.dst.virt.addr, walk.src.virt.addr,
--				ctx->key_enc, rounds, blocks, walk.iv);
-+		aes_cbc_encrypt(walk->dst.virt.addr, walk->src.virt.addr,
-+				ctx->key_enc, rounds, blocks, walk->iv);
- 		kernel_neon_end();
--		err = skcipher_walk_done(&walk, walk.nbytes % AES_BLOCK_SIZE);
-+		err = skcipher_walk_done(walk, walk->nbytes % AES_BLOCK_SIZE);
- 	}
- 	return err;
+@@ -360,6 +403,68 @@ static int cts_cbc_decrypt(struct skcipher_request *req)
+ 	return skcipher_walk_done(&walk, 0);
  }
  
--static int cbc_decrypt(struct skcipher_request *req)
-+static int cbc_encrypt(struct skcipher_request *req)
- {
--	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
--	struct crypto_aes_ctx *ctx = crypto_skcipher_ctx(tfm);
--	int err, rounds = 6 + ctx->key_length / 4;
- 	struct skcipher_walk walk;
--	unsigned int blocks;
-+	int err;
- 
- 	err = skcipher_walk_virt(&walk, req, false);
-+	if (err)
-+		return err;
-+	return cbc_encrypt_walk(req, &walk);
++static int essiv_cbc_init_tfm(struct crypto_skcipher *tfm)
++{
++	struct crypto_aes_essiv_cbc_ctx *ctx = crypto_skcipher_ctx(tfm);
++
++	ctx->hash = crypto_alloc_shash("sha256", 0, 0);
++	if (IS_ERR(ctx->hash))
++		return PTR_ERR(ctx->hash);
++
++	return 0;
 +}
- 
--	while ((blocks = (walk.nbytes / AES_BLOCK_SIZE))) {
-+static int cbc_decrypt_walk(struct skcipher_request *req,
-+			    struct skcipher_walk *walk)
++
++static void essiv_cbc_exit_tfm(struct crypto_skcipher *tfm)
++{
++	struct crypto_aes_essiv_cbc_ctx *ctx = crypto_skcipher_ctx(tfm);
++
++	crypto_free_shash(ctx->hash);
++}
++
++static int essiv_cbc_encrypt(struct skcipher_request *req)
 +{
 +	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
-+	struct crypto_aes_ctx *ctx = crypto_skcipher_ctx(tfm);
-+	int err = 0, rounds = 6 + ctx->key_length / 4;
++	struct crypto_aes_essiv_cbc_ctx *ctx = crypto_skcipher_ctx(tfm);
++	int err, rounds = 6 + ctx->key1.key_length / 4;
++	struct skcipher_walk walk;
 +	unsigned int blocks;
 +
-+	while ((blocks = (walk->nbytes / AES_BLOCK_SIZE))) {
- 		kernel_neon_begin();
--		aes_cbc_decrypt(walk.dst.virt.addr, walk.src.virt.addr,
--				ctx->key_dec, rounds, blocks, walk.iv);
-+		aes_cbc_decrypt(walk->dst.virt.addr, walk->src.virt.addr,
-+				ctx->key_dec, rounds, blocks, walk->iv);
- 		kernel_neon_end();
--		err = skcipher_walk_done(&walk, walk.nbytes % AES_BLOCK_SIZE);
-+		err = skcipher_walk_done(walk, walk->nbytes % AES_BLOCK_SIZE);
- 	}
- 	return err;
- }
- 
-+static int cbc_decrypt(struct skcipher_request *req)
-+{
-+	struct skcipher_walk walk;
-+	int err;
-+
 +	err = skcipher_walk_virt(&walk, req, false);
-+	if (err)
-+		return err;
-+	return cbc_decrypt_walk(req, &walk);
++
++	blocks = walk.nbytes / AES_BLOCK_SIZE;
++	if (blocks) {
++		kernel_neon_begin();
++		aes_essiv_cbc_encrypt(walk.dst.virt.addr, walk.src.virt.addr,
++				      ctx->key1.key_enc, rounds, blocks,
++				      req->iv, ctx->key2.key_enc);
++		kernel_neon_end();
++		err = skcipher_walk_done(&walk, walk.nbytes % AES_BLOCK_SIZE);
++	}
++	return err ?: cbc_encrypt_walk(req, &walk);
 +}
 +
- static int cts_cbc_init_tfm(struct crypto_skcipher *tfm)
++static int essiv_cbc_decrypt(struct skcipher_request *req)
++{
++	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
++	struct crypto_aes_essiv_cbc_ctx *ctx = crypto_skcipher_ctx(tfm);
++	int err, rounds = 6 + ctx->key1.key_length / 4;
++	struct skcipher_walk walk;
++	unsigned int blocks;
++
++	err = skcipher_walk_virt(&walk, req, false);
++
++	blocks = walk.nbytes / AES_BLOCK_SIZE;
++	if (blocks) {
++		kernel_neon_begin();
++		aes_essiv_cbc_decrypt(walk.dst.virt.addr, walk.src.virt.addr,
++				      ctx->key1.key_dec, rounds, blocks,
++				      req->iv, ctx->key2.key_enc);
++		kernel_neon_end();
++		err = skcipher_walk_done(&walk, walk.nbytes % AES_BLOCK_SIZE);
++	}
++	return err ?: cbc_decrypt_walk(req, &walk);
++}
++
+ static int ctr_encrypt(struct skcipher_request *req)
  {
- 	crypto_skcipher_set_reqsize(tfm, sizeof(struct cts_cbc_req_ctx));
-@@ -251,22 +269,12 @@ static int cts_cbc_encrypt(struct skcipher_request *req)
- 	}
+ 	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
+@@ -515,6 +620,24 @@ static struct skcipher_alg aes_algs[] = { {
+ 	.encrypt	= cts_cbc_encrypt,
+ 	.decrypt	= cts_cbc_decrypt,
+ 	.init		= cts_cbc_init_tfm,
++}, {
++	.base = {
++		.cra_name		= "__essiv(cbc(aes),sha256)",
++		.cra_driver_name	= "__essiv-cbc-aes-sha256-" MODE,
++		.cra_priority		= PRIO + 1,
++		.cra_flags		= CRYPTO_ALG_INTERNAL,
++		.cra_blocksize		= AES_BLOCK_SIZE,
++		.cra_ctxsize		= sizeof(struct crypto_aes_essiv_cbc_ctx),
++		.cra_module		= THIS_MODULE,
++	},
++	.min_keysize	= AES_MIN_KEY_SIZE,
++	.max_keysize	= AES_MAX_KEY_SIZE,
++	.ivsize		= AES_BLOCK_SIZE,
++	.setkey		= essiv_cbc_set_key,
++	.encrypt	= essiv_cbc_encrypt,
++	.decrypt	= essiv_cbc_decrypt,
++	.init		= essiv_cbc_init_tfm,
++	.exit		= essiv_cbc_exit_tfm,
+ }, {
+ 	.base = {
+ 		.cra_name		= "__ctr(aes)",
+diff --git a/arch/arm64/crypto/aes-modes.S b/arch/arm64/crypto/aes-modes.S
+index 324039b72094..2879f030a749 100644
+--- a/arch/arm64/crypto/aes-modes.S
++++ b/arch/arm64/crypto/aes-modes.S
+@@ -118,8 +118,23 @@ AES_ENDPROC(aes_ecb_decrypt)
+ 	 *		   int blocks, u8 iv[])
+ 	 * aes_cbc_decrypt(u8 out[], u8 const in[], u8 const rk[], int rounds,
+ 	 *		   int blocks, u8 iv[])
++	 * aes_essiv_cbc_encrypt(u8 out[], u8 const in[], u32 const rk1[],
++	 *			 int rounds, int blocks, u8 iv[],
++	 *			 u32 const rk2[]);
++	 * aes_essiv_cbc_decrypt(u8 out[], u8 const in[], u32 const rk1[],
++	 *			 int rounds, int blocks, u8 iv[],
++	 *			 u32 const rk2[]);
+ 	 */
  
- 	if (cbc_blocks > 0) {
--		unsigned int blocks;
--
- 		skcipher_request_set_crypt(&rctx->subreq, req->src, req->dst,
- 					   cbc_blocks * AES_BLOCK_SIZE,
- 					   req->iv);
++AES_ENTRY(aes_essiv_cbc_encrypt)
++	ld1		{v4.16b}, [x5]			/* get iv */
++
++	mov		w8, #14				/* AES-256: 14 rounds */
++	enc_prepare	w8, x6, x7
++	encrypt_block	v4, w8, x6, x7, w9
++	enc_switch_key	w3, x2, x6
++	b		.Lcbcencloop4x
++
+ AES_ENTRY(aes_cbc_encrypt)
+ 	ld1		{v4.16b}, [x5]			/* get iv */
+ 	enc_prepare	w3, x2, x6
+@@ -153,13 +168,25 @@ AES_ENTRY(aes_cbc_encrypt)
+ 	st1		{v4.16b}, [x5]			/* return iv */
+ 	ret
+ AES_ENDPROC(aes_cbc_encrypt)
++AES_ENDPROC(aes_essiv_cbc_encrypt)
++
++AES_ENTRY(aes_essiv_cbc_decrypt)
++	stp		x29, x30, [sp, #-16]!
++	mov		x29, sp
++
++	ld1		{cbciv.16b}, [x5]		/* get iv */
  
--		err = skcipher_walk_virt(&walk, &rctx->subreq, false);
--
--		while ((blocks = (walk.nbytes / AES_BLOCK_SIZE))) {
--			kernel_neon_begin();
--			aes_cbc_encrypt(walk.dst.virt.addr, walk.src.virt.addr,
--					ctx->key_enc, rounds, blocks, walk.iv);
--			kernel_neon_end();
--			err = skcipher_walk_done(&walk,
--						 walk.nbytes % AES_BLOCK_SIZE);
--		}
-+		err = skcipher_walk_virt(&walk, &rctx->subreq, false) ?:
-+		      cbc_encrypt_walk(&rctx->subreq, &walk);
- 		if (err)
- 			return err;
++	mov		w8, #14				/* AES-256: 14 rounds */
++	enc_prepare	w8, x6, x7
++	encrypt_block	cbciv, w8, x6, x7, w9
++	b		.Lessivcbcdecstart
  
-@@ -316,22 +324,12 @@ static int cts_cbc_decrypt(struct skcipher_request *req)
- 	}
+ AES_ENTRY(aes_cbc_decrypt)
+ 	stp		x29, x30, [sp, #-16]!
+ 	mov		x29, sp
  
- 	if (cbc_blocks > 0) {
--		unsigned int blocks;
--
- 		skcipher_request_set_crypt(&rctx->subreq, req->src, req->dst,
- 					   cbc_blocks * AES_BLOCK_SIZE,
- 					   req->iv);
+ 	ld1		{cbciv.16b}, [x5]		/* get iv */
++.Lessivcbcdecstart:
+ 	dec_prepare	w3, x2, x6
  
--		err = skcipher_walk_virt(&walk, &rctx->subreq, false);
--
--		while ((blocks = (walk.nbytes / AES_BLOCK_SIZE))) {
--			kernel_neon_begin();
--			aes_cbc_decrypt(walk.dst.virt.addr, walk.src.virt.addr,
--					ctx->key_dec, rounds, blocks, walk.iv);
--			kernel_neon_end();
--			err = skcipher_walk_done(&walk,
--						 walk.nbytes % AES_BLOCK_SIZE);
--		}
-+		err = skcipher_walk_virt(&walk, &rctx->subreq, false) ?:
-+		      cbc_decrypt_walk(&rctx->subreq, &walk);
- 		if (err)
- 			return err;
+ .LcbcdecloopNx:
+@@ -212,6 +239,7 @@ ST5(	st1		{v4.16b}, [x0], #16		)
+ 	ldp		x29, x30, [sp], #16
+ 	ret
+ AES_ENDPROC(aes_cbc_decrypt)
++AES_ENDPROC(aes_essiv_cbc_decrypt)
  
+ 
+ 	/*
 -- 
 2.17.1
 
