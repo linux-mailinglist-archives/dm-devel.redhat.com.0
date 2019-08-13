@@ -2,96 +2,73 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id C80258C04D
-	for <lists+dm-devel@lfdr.de>; Tue, 13 Aug 2019 20:16:46 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 248DB8D0B0
+	for <lists+dm-devel@lfdr.de>; Wed, 14 Aug 2019 12:24:59 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id C74D881F0D;
-	Tue, 13 Aug 2019 18:16:44 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D921A82AC0;
-	Tue, 13 Aug 2019 18:16:43 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id DD8805945D;
+	Wed, 14 Aug 2019 10:24:54 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B5256348C5;
+	Wed, 14 Aug 2019 10:24:51 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DD1814A486;
-	Tue, 13 Aug 2019 18:16:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BB07A18005A4;
+	Wed, 14 Aug 2019 10:24:38 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7DIGUhh016320 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 13 Aug 2019 14:16:30 -0400
+	id x7DMgWvd024735 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 13 Aug 2019 18:42:32 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D6CCE4B6; Tue, 13 Aug 2019 18:16:30 +0000 (UTC)
+	id B7B021001B09; Tue, 13 Aug 2019 22:42:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx11.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.40])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D1E794AD
-	for <dm-devel@redhat.com>; Tue, 13 Aug 2019 18:16:28 +0000 (UTC)
-Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
-	[209.85.128.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 2608A3001839
-	for <dm-devel@redhat.com>; Tue, 13 Aug 2019 18:16:27 +0000 (UTC)
-Received: by mail-wm1-f65.google.com with SMTP id p77so1614032wme.0
-	for <dm-devel@redhat.com>; Tue, 13 Aug 2019 11:16:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to; 
-	bh=Nrxu1gfhcbocfYIZUw0NkOzczURAyLQVnvTJn31YeTc=;
-	b=x2xJ9KtUYmejpdb+kbqiHkXaAfhfDNN7U5IiJWhmumpTtrK2rYVpy7DfvU5zbhsimZ
-	BFn+M9U7v5lyzCZ8INrOLufJ55/GJ6x2y97ZMvzps+dzZwn/ZnbZyp5Qmriva94OcoXF
-	UFQo5zsChF51q+meunPCt2HLWsmUCIWsAhFmvmIppYUwsLjq+fhqxN8xBzryTW2S5icI
-	qFsR9P/sxKCOP8dg2dA7Ukpb18hfmjtwUBGMmhgM07rBO0+og1B1PYI/6+EaIiGn97DZ
-	8DslTNM23x8u8/qGyruiVB51ZiixCmm0J0n9o2HMF/S9F02kEtZMxm/C7vAv8BRvUCMC
-	iKVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to;
-	bh=Nrxu1gfhcbocfYIZUw0NkOzczURAyLQVnvTJn31YeTc=;
-	b=cS/n1STnRJH3YED9OxabO/I2z2H670fh/l/46yzBN5d10x3R+HYuWudGpBeTMy4wA/
-	LGXhn2BqqKsUjLzQpjfIgjPUDjnpkZ5ybPYIYHvOEQI+9JB7I97n9y8KkogTcQct/vOa
-	z3WS5YveFuZIAE7bjTVn7gT2mJooeL6iVlhm1s7JeA6muiD5VWPxMwkFqjoEIv683dm0
-	7MwN9/JEJYU9pQ9n7F9nkL/bFKzljWimNDyYDpg5Yla9N4LZmGhejOJYeMXLdRMZOq/D
-	4qLHdhvPRWtlz8PlsQRd3DggBTQVRKsj5DiX9h/J+mGUXdJgfLdUuggyULihNJ+pIOZ6
-	ZmXA==
-X-Gm-Message-State: APjAAAUHVZ3Ic17WVWC1f3qEEY/5oeKxccGQvHRDZkXcx9kIg5XH0OUD
-	jFgW1CvgE97uFEgSfK6Nc87LMowRSyD0YjOR+caklQ==
-X-Google-Smtp-Source: APXvYqxtZ6RS190EVhcPAEXpCsTTHX9gHaKFcumPuHU1VSD712jSdxyEDlEcsx+6ns9L97XUK86wnf9qb5k9JtXw1r8=
-X-Received: by 2002:a7b:c21a:: with SMTP id x26mr4097412wmi.61.1565720185710; 
-	Tue, 13 Aug 2019 11:16:25 -0700 (PDT)
+Received: from mx1.redhat.com (ext-mx10.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.39])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3E52510016E9;
+	Tue, 13 Aug 2019 22:42:23 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by mx1.redhat.com (Postfix) with ESMTP id 71FF32BFDD;
+	Tue, 13 Aug 2019 22:42:22 +0000 (UTC)
+Received: by linux.microsoft.com (Postfix, from userid 1029)
+	id CD4FE20B7187; Tue, 13 Aug 2019 11:49:40 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com CD4FE20B7187
+Received: from localhost (localhost [127.0.0.1])
+	by linux.microsoft.com (Postfix) with ESMTP id 039FE3005457;
+	Tue, 13 Aug 2019 11:49:40 -0700 (PDT)
+Date: Tue, 13 Aug 2019 11:49:39 -0700 (PDT)
+From: Jaskaran Singh Khurana <jaskarankhurana@linux.microsoft.com>
+X-X-Sender: jaskarankhurana@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net
+To: Mike Snitzer <snitzer@redhat.com>
+In-Reply-To: <20190625182004.GA32075@redhat.com>
+Message-ID: <alpine.LRH.2.21.1908131147390.95186@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.inter>
+References: <20190619191048.20365-1-jaskarankhurana@linux.microsoft.com>
+	<20190619191048.20365-2-jaskarankhurana@linux.microsoft.com>
+	<20190625182004.GA32075@redhat.com>
+User-Agent: Alpine 2.21 (LRH 202 2017-01-01)
 MIME-Version: 1.0
-References: <20190812145324.27090-1-ard.biesheuvel@linaro.org>
-	<20190812145324.27090-3-ard.biesheuvel@linaro.org>
-	<20190812194747.GB131059@gmail.com>
-	<CAKv+Gu-9aHY0op6MEmN8PfQhNa0kv=xNYB6rqtaCoiUdH4OASA@mail.gmail.com>
-	<20190813180020.GA233786@gmail.com>
-In-Reply-To: <20190813180020.GA233786@gmail.com>
-From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
-Date: Tue, 13 Aug 2019 21:16:14 +0300
-Message-ID: <CAKv+Gu8BFxyre0XDpE2To6yEvBP4E16abMZbR=r17TpQQko54Q@mail.gmail.com>
-To: Ard Biesheuvel <ard.biesheuvel@linaro.org>,
-	"open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
-	<linux-crypto@vger.kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
-	device-mapper development <dm-devel@redhat.com>,
-	linux-fscrypt@vger.kernel.org, Gilad Ben-Yossef <gilad@benyossef.com>, 
-	Milan Broz <gmazyland@gmail.com>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.40]);
-	Tue, 13 Aug 2019 18:16:27 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]);
-	Tue, 13 Aug 2019 18:16:27 +0000 (UTC) for IP:'209.85.128.65'
-	DOMAIN:'mail-wm1-f65.google.com' HELO:'mail-wm1-f65.google.com'
-	FROM:'ard.biesheuvel@linaro.org' RCPT:''
-X-RedHat-Spam-Score: -0.1  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
-	SPF_PASS) 209.85.128.65 mail-wm1-f65.google.com 209.85.128.65
-	mail-wm1-f65.google.com <ard.biesheuvel@linaro.org>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.40
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender passed SPF test, ACL 264 matched, not delayed by
+	milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]);
+	Tue, 13 Aug 2019 22:42:22 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]);
+	Tue, 13 Aug 2019 22:42:22 +0000 (UTC) for IP:'13.77.154.182'
+	DOMAIN:'linux.microsoft.com' HELO:'linux.microsoft.com'
+	FROM:'jaskarankhurana@linux.microsoft.com' RCPT:''
+X-RedHat-Spam-Score: -8.002  (ENV_AND_HDR_SPF_MATCH, SPF_HELO_PASS, SPF_PASS,
+	USER_IN_DEF_SPF_WL) 13.77.154.182 linux.microsoft.com
+	13.77.154.182 linux.microsoft.com
+	<jaskarankhurana@linux.microsoft.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.39
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH v10 2/7] fs: crypto: invoke crypto API for
- ESSIV handling
+X-Mailman-Approved-At: Wed, 14 Aug 2019 06:24:26 -0400
+Cc: scottsh@microsoft.com, dm-devel@redhat.com, ebiggers@google.com,
+	linux-kernel@vger.kernel.org, jmorris@namei.org,
+	linux-security-module@vger.kernel.org, mpatocka@redhat.com,
+	linux-fsdevel@vger.kernel.org, linux-integrity@vger.kernel.org,
+	gmazyland@gmail.com, agk@redhat.com
+Subject: Re: [dm-devel] [RFC PATCH v5 1/1] Add dm verity root hash pkcs7 sig
+ validation.
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -103,53 +80,55 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Tue, 13 Aug 2019 18:16:45 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]); Wed, 14 Aug 2019 10:24:57 +0000 (UTC)
 
-On Tue, 13 Aug 2019 at 21:00, Eric Biggers <ebiggers@kernel.org> wrote:
+
+Hello Mike,
+On Tue, 25 Jun 2019, Mike Snitzer wrote:
+
+> On Wed, Jun 19 2019 at  3:10pm -0400,
+> Jaskaran Khurana <jaskarankhurana@linux.microsoft.com> wrote:
 >
-> On Tue, Aug 13, 2019 at 08:09:41AM +0300, Ard Biesheuvel wrote:
-> > On Mon, 12 Aug 2019 at 22:47, Eric Biggers <ebiggers@kernel.org> wrote:
-> > >
-> > > On Mon, Aug 12, 2019 at 05:53:19PM +0300, Ard Biesheuvel wrote:
-> > > > Instead of open coding the calculations for ESSIV handling, use a
-> > > > ESSIV skcipher which does all of this under the hood.
-> > > >
-> > > > Signed-off-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
-> > >
-> > > This looks fine (except for one comment below), but this heavily conflicts with
-> > > the fscrypt patches planned for v5.4.  So I suggest moving this to the end of
-> > > the series and having Herbert take only 1-6, and I'll apply this one to the
-> > > fscrypt tree later.
-> > >
-> >
-> > I think the same applies to dm-crypt: at least patch #7 cannot be
-> > applied until my eboiv patch is applied there as well, but [Milan
-> > should confirm] I'd expect them to prefer taking those patches via the
-> > dm tree anyway.
-> >
-> > Herbert, what would you prefer:
-> > - taking a pull request from a [signed] tag based on v4.3-rc1 that
-> > contains patches #1, #4, #5 and #6, allowing Eric and Milan/Mike to
-> > merge it as well, and apply the respective fscrypt and dm-crypt
-> > changes on top
-> > - just take patches #1, #4, #5 and #6 as usual, and let the fscrypt
-> > and dm-crypt changes be reposted to the respective lists during the
-> > next cycle
-> >
+>> The verification is to support cases where the roothash is not secured by
+>> Trusted Boot, UEFI Secureboot or similar technologies.
+>> One of the use cases for this is for dm-verity volumes mounted after boot,
+>> the root hash provided during the creation of the dm-verity volume has to
+>> be secure and thus in-kernel validation implemented here will be used
+>> before we trust the root hash and allow the block device to be created.
+>>
+>> The signature being provided for verification must verify the root hash and
+>> must be trusted by the builtin keyring for verification to succeed.
+>>
+>> The hash is added as a key of type "user" and the description is passed to
+>> the kernel so it can look it up and use it for verification.
+>>
+>> Kernel commandline parameter will indicate whether to check (only if
+>> specified) or force (for all dm verity volumes) roothash signature
+>> verification.
+>>
+>> Kernel commandline: dm_verity.verify_sig=1 or 2 for check/force root hash
+>> signature validation respectively.
+>>
+>> Signed-off-by: Jaskaran Khurana <jaskarankhurana@linux.microsoft.com>
 >
-> FWIW I'd much prefer the second option, to minimize the number of special things
-> that Linus will have to consider or deal with.  (There's also going to be a
-> conflict between the fscrypt and keyrings trees.)  I'd be glad to take the
-> fscrypt patch for 5.5, if the essiv template is added in 5.4.
+> Milan and/or others: could you please provide review and if you're OK
+> with this patch respond accordingly?
 >
 
-Works for me. I'll respin with the dm-crypt and fscrypt patches
-omitted (and the minor fixes you suggested applied).
+The v7 of this patch was Reviewed and Tested by Milan Broz. Could you tell 
+me when this will be merged/next steps, if required I can post the patches 
+again.
+
+> Thanks,
+> Mike
+>
+Regards,
+Jaskaran
 
 --
 dm-devel mailing list
