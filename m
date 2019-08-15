@@ -2,58 +2,53 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99B018E2BB
-	for <lists+dm-devel@lfdr.de>; Thu, 15 Aug 2019 04:31:38 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id CB7F78E2CC
+	for <lists+dm-devel@lfdr.de>; Thu, 15 Aug 2019 04:37:58 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 2A728EE560;
-	Thu, 15 Aug 2019 02:31:34 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AF8125D9DC;
-	Thu, 15 Aug 2019 02:31:31 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id A1034301D67F;
+	Thu, 15 Aug 2019 02:37:55 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4A8AF45D1;
+	Thu, 15 Aug 2019 02:37:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0082A18005A4;
-	Thu, 15 Aug 2019 02:31:21 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 684D624F30;
+	Thu, 15 Aug 2019 02:37:51 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
 	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7F2V9sR013566 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 14 Aug 2019 22:31:09 -0400
+	id x7F2bj8B013743 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 14 Aug 2019 22:37:45 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A318445D1; Thu, 15 Aug 2019 02:31:09 +0000 (UTC)
+	id A1CE945D1; Thu, 15 Aug 2019 02:37:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from fornost.hmeau.com (vpn2-54-105.bne.redhat.com [10.64.54.105])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6612F4299F
-	for <dm-devel@redhat.com>; Thu, 15 Aug 2019 02:31:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 64E564299F
+	for <dm-devel@redhat.com>; Thu, 15 Aug 2019 02:37:43 +0000 (UTC)
 Received: from gondolin.me.apana.org.au ([192.168.0.6]
 	helo=gondolin.hengli.com.au)
 	by fornost.hmeau.com with esmtps (Exim 4.89 #2 (Debian))
-	id 1hy5XW-0003By-W8; Thu, 15 Aug 2019 12:30:59 +1000
+	id 1hy5dv-0003Gw-Je; Thu, 15 Aug 2019 12:37:35 +1000
 Received: from herbert by gondolin.hengli.com.au with local (Exim 4.80)
 	(envelope-from <herbert@gondor.apana.org.au>)
-	id 1hy5XV-0006DV-2C; Thu, 15 Aug 2019 12:30:57 +1000
-Date: Thu, 15 Aug 2019 12:30:57 +1000
+	id 1hy5du-0006Fp-QT; Thu, 15 Aug 2019 12:37:34 +1000
+Date: Thu, 15 Aug 2019 12:37:34 +1000
 From: Herbert Xu <herbert@gondor.apana.org.au>
 To: Ard Biesheuvel <ard.biesheuvel@linaro.org>
-Message-ID: <20190815023056.GA23782@gondor.apana.org.au>
-References: <20190704183017.31570-2-ard.biesheuvel@linaro.org>
-	<20190726043117.GA654@gondor.apana.org.au>
-	<CAKv+Gu_Pir7uU4h6GQfh2my2Fu-j2AGPLWNZKzc9_iG6n4xJNA@mail.gmail.com>
-	<20190802035515.GA15758@gondor.apana.org.au>
-	<CAKv+Gu_a-tpc4+b4aopGZxHizkOgnqkFMCTzeF0uFo5iXXf24Q@mail.gmail.com>
+Message-ID: <20190815023734.GB23782@gondor.apana.org.au>
+References: <20190814163746.3525-1-ard.biesheuvel@linaro.org>
+	<20190814163746.3525-2-ard.biesheuvel@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAKv+Gu_a-tpc4+b4aopGZxHizkOgnqkFMCTzeF0uFo5iXXf24Q@mail.gmail.com>
+In-Reply-To: <20190814163746.3525-2-ard.biesheuvel@linaro.org>
 User-Agent: Mutt/1.5.21 (2010-09-15)
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
 Cc: Eric Biggers <ebiggers@google.com>, linux-fscrypt@vger.kernel.org,
-	Gilad Ben-Yossef <gilad@benyossef.com>,
-	device-mapper development <dm-devel@redhat.com>,
-	"open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
-	<linux-crypto@vger.kernel.org>, Milan Broz <gmazyland@gmail.com>
-Subject: Re: [dm-devel] [PATCH v8 1/7] crypto: essiv - create wrapper
+	Gilad Ben-Yossef <gilad@benyossef.com>, dm-devel@redhat.com,
+	linux-crypto@vger.kernel.org, Milan Broz <gmazyland@gmail.com>
+Subject: Re: [dm-devel] [PATCH v11 1/4] crypto: essiv - create wrapper
  template for ESSIV generation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -70,58 +65,43 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Thu, 15 Aug 2019 02:31:37 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Thu, 15 Aug 2019 02:37:57 +0000 (UTC)
 
-On Sat, Aug 03, 2019 at 10:36:44AM +0300, Ard Biesheuvel wrote:
-> 
-> To use your GCM analogy: gcm_base(ctr-ppc-spe, ghash-generic) is a
-> supported aead identifier, but  there is nothing in the name that
-> identifies the skcipher as one that encapsulates AES.
+On Wed, Aug 14, 2019 at 07:37:43PM +0300, Ard Biesheuvel wrote:
+>
+> +	/* Block cipher, e.g., "aes" */
+> +	crypto_set_spawn(&ictx->essiv_cipher_spawn, inst);
+> +	err = crypto_grab_spawn(&ictx->essiv_cipher_spawn, essiv_cipher_name,
+> +				CRYPTO_ALG_TYPE_CIPHER, CRYPTO_ALG_TYPE_MASK);
+> +	if (err)
+> +		goto out_drop_skcipher;
+> +	essiv_cipher_alg = ictx->essiv_cipher_spawn.alg;
+> +
+> +	/* Synchronous hash, e.g., "sha256" */
+> +	_hash_alg = crypto_alg_mod_lookup(shash_name,
+> +					  CRYPTO_ALG_TYPE_SHASH,
+> +					  CRYPTO_ALG_TYPE_MASK);
+> +	if (IS_ERR(_hash_alg)) {
+> +		err = PTR_ERR(_hash_alg);
+> +		goto out_drop_essiv_cipher;
+> +	}
+> +	hash_alg = __crypto_shash_alg(_hash_alg);
+> +	err = crypto_init_shash_spawn(&ictx->hash_spawn, hash_alg, inst);
+> +	if (err)
+> +		goto out_put_hash;
 
-I would've thought that you would first grab (literally :) ahold
-of ctr-ppc-spe, at which point you could query its cra_name and then
-derive AES from that.  Is that going to be a problem?
+I wouldn't use spawns for these two algorithms.  The point of
+spawns is mainly to serve as a notification channel so we can
+tear down the top-level instance when a better underlying spawn
+implementation is added to the system.
 
-> > So I would envisage something similar for essiv where essiv just has
-> > U, X and Y (as you said that U and X are independent) while you can
-> > then have an essiv_base that spells everything out in detail.
-> >
-> 
-> That might be a useful enhancement by itself, but it does not fix the
-> issue above. The only way to instantiate the same cipher as the one
-> encapsulated by "cbc-ppc-spe" is to instantiate the latter, parse the
-> cipher name and pass it to crypto_alloc_cipher()
+For these two algorithms, we don't really care about their performance
+to do such a tear-down since they only operate on small pieces of
+data.
 
-That's pretty much what I'm suggesting.  Except that I would point
-out that you don't need to instantiate it (i.e., allocate a tfm),
-you just need to grab ahold of the algorithm object.
-
-The actual allocation of the AES cipher can be done in the cra_init
-function.
-
-We only need to grab algorithms that form a core part of the
-resultant instance.  IOW, if the underlying algorithm is replaced,
-you would always recreate the instance on top of it.  This is not
-the case with AES here, since it's just used for a very small part
-in the instance and we don't really care about recreating the essiv
-intance when the block AES algorithm changes.
-
-> > Also, do we allow anything other than HMAC for X? If not then that
-> > should be encoded either into the name by dropping the hmac in the
-> > algorithm name and adding it through the driver name, or by checking
-> > for it in the template creation function.
-> >
-> > What I'd like to achieve is a state where we support only what is
-> > currently supported and no more.
-> >
-> 
-> Yeah, that makes sense. But we have h/w drivers that instantiate
-> authenc(X,Y) in its entirety, and passing those driver names is
-> something that is supported today, so we can't just remove that.
-
-Sure, we only need to impose a restriction on the cra_name, not
-on the driver name.
+Therefore just keep things simple and allocate them in the tfm
+init function.
 
 Thanks,
 -- 
