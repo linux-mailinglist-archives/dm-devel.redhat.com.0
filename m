@@ -2,65 +2,77 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D8C590D19
-	for <lists+dm-devel@lfdr.de>; Sat, 17 Aug 2019 07:27:08 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F75B918EA
+	for <lists+dm-devel@lfdr.de>; Sun, 18 Aug 2019 20:35:23 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id A8C481951D59;
-	Sat, 17 Aug 2019 05:27:04 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 8EC59308FBFC;
+	Sun, 18 Aug 2019 18:35:18 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A6286842A6;
-	Sat, 17 Aug 2019 05:27:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F7C15FCA3;
+	Sun, 18 Aug 2019 18:35:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0BEC04A486;
-	Sat, 17 Aug 2019 05:26:52 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E688246F4A;
+	Sun, 18 Aug 2019 18:34:54 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7H5QaKQ024186 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 17 Aug 2019 01:26:36 -0400
+	id x7IIXEdx003734 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 18 Aug 2019 14:33:14 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 798C2646B7; Sat, 17 Aug 2019 05:26:36 +0000 (UTC)
+	id 1282884F1; Sun, 18 Aug 2019 18:33:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx02.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.26])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C33B084625;
-	Sat, 17 Aug 2019 05:26:28 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+Received: from mx1.redhat.com (ext-mx11.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.40])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8ED905FCA3;
+	Sun, 18 Aug 2019 18:33:09 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id D144A30842A1;
+	Sun, 18 Aug 2019 18:33:08 +0000 (UTC)
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+	[83.86.89.107])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 86B3686663;
-	Sat, 17 Aug 2019 05:26:26 +0000 (UTC)
-Received: from DGGEMS408-HUB.china.huawei.com (unknown [172.30.72.60])
-	by Forcepoint Email with ESMTP id B753E7A753B45596DE92;
-	Sat, 17 Aug 2019 13:26:21 +0800 (CST)
-Received: from RH5885H-V3.huawei.com (10.90.53.225) by
-	DGGEMS408-HUB.china.huawei.com (10.3.19.208) with Microsoft SMTP Server
-	id 14.3.439.0; Sat, 17 Aug 2019 13:26:14 +0800
-From: ZhangXiaoxu <zhangxiaoxu5@huawei.com>
-To: <dm-devel@redhat.com>, <agk@redhat.com>, <snitzer@redhat.com>,
-	<zhangxiaoxu5@huawei.com>
-Date: Sat, 17 Aug 2019 13:32:40 +0800
-Message-ID: <1566019960-24788-1-git-send-email-zhangxiaoxu5@huawei.com>
+	by mail.kernel.org (Postfix) with ESMTPSA id DD0232086C;
+	Sun, 18 Aug 2019 18:33:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=default; t=1566153188;
+	bh=Gqov0ByldLScgcrqzd/H8gBTaJeTe4Uu8ql0g/Y44TY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YZMq9w3enldGraaysVpNPovwHqa1IbCnT9dvyjZ0YkNJczIWGixIqn9pmKArODJdd
+	QJoS1XQNYUhWfE6LNEK/CD1wKX+K+vGNp4x+cvGoI0U3O9IkQJUIPXb2+poTMtbweZ
+	Qj+/yw51IEzUH/m81azXCBIu+27oFaT23trsMnog=
+Date: Sun, 18 Aug 2019 20:33:05 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Salvatore Bonaccorso <carnil@debian.org>
+Message-ID: <20190818183305.GA1181@kroah.com>
+References: <20190818155941.GA26766@eldamar.local>
 MIME-Version: 1.0
-X-Originating-IP: [10.90.53.225]
-X-CFilter-Loop: Reflected
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.26]); Sat, 17 Aug 2019 05:26:27 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]);
-	Sat, 17 Aug 2019 05:26:27 +0000 (UTC) for IP:'45.249.212.32'
-	DOMAIN:'szxga06-in.huawei.com' HELO:'huawei.com'
-	FROM:'zhangxiaoxu5@huawei.com' RCPT:''
-X-RedHat-Spam-Score: -2.302  (RCVD_IN_DNSWL_MED, SPF_HELO_PASS,
-	SPF_PASS) 45.249.212.32 szxga06-in.huawei.com
-	45.249.212.32 szxga06-in.huawei.com <zhangxiaoxu5@huawei.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.26
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+Content-Disposition: inline
+In-Reply-To: <20190818155941.GA26766@eldamar.local>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+X-Greylist: Sender DNS name whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.40]);
+	Sun, 18 Aug 2019 18:33:08 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]);
+	Sun, 18 Aug 2019 18:33:08 +0000 (UTC) for IP:'198.145.29.99'
+	DOMAIN:'mail.kernel.org' HELO:'mail.kernel.org'
+	FROM:'gregkh@linuxfoundation.org' RCPT:''
+X-RedHat-Spam-Score: -5.001  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
+	RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
+	SPF_PASS) 198.145.29.99 mail.kernel.org 198.145.29.99 mail.kernel.org
+	<gregkh@linuxfoundation.org>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.40
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
-Subject: [dm-devel] [PATCH] dm-btree: Fix the order of the block initialized
-	on btree_split_beneath
+Cc: Sasha Levin <sashal@kernel.org>, Mike Snitzer <snitzer@redhat.com>,
+	Chris Hofstaedtler <zeha@debian.org>, dm-devel@redhat.com,
+	stable@vger.kernel.org, Alasdair Kergon <agk@redhat.com>
+Subject: Re: [dm-devel] Backport request for bcb44433bba5 ("dm: disable
+ DISCARD if the underlying storage no longer supports it")
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -76,85 +88,30 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.62]); Sat, 17 Aug 2019 05:27:06 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]); Sun, 18 Aug 2019 18:35:21 +0000 (UTC)
 
-When splits a node to two new children, it will new two blocks: left
-and right. If new right block failed, the left block will be unlocked
-and mark it dirty. If this happened, the left blocks content is zero,
-it won't be initialized with the btree struct. When flush the left
-block to disk, the validator will failed when check this block. Then
-BUG_ON will raised.
+On Sun, Aug 18, 2019 at 05:59:41PM +0200, Salvatore Bonaccorso wrote:
+> Hi
+> 
+> In Debian bug https://bugs.debian.org/934331 ran into issues which
+> match the upstream commit bcb44433bba5 ("dm: disable DISCARD if the
+> underlying storage no longer supports it").
+> 
+> This commit was CC'ed to stable, but only got applied in v5.0.8 (and
+> later on backported by Ben Hutchings to v3.16.72).
+> 
+> Mike, I have not checked how easily that would be for older stable
+> versions, but can the backport be considered for versions down to 4.9?
+> Apparently Ben did succeed with some changes needed. To 4.19 it should
+> apply with a small conflict in drivers/md/dm-core.h AFAICS.
 
-So, let's initialize the left block before new right block.
+If someone sends the backports to the list, I will be glad to queue them
+up.
 
-Signed-off-by: ZhangXiaoxu <zhangxiaoxu5@huawei.com>
----
- drivers/md/persistent-data/dm-btree.c | 31 ++++++++++++++++---------------
- 1 file changed, 16 insertions(+), 15 deletions(-)
+thanks,
 
-diff --git a/drivers/md/persistent-data/dm-btree.c b/drivers/md/persistent-data/dm-btree.c
-index 58b3197..8aae062 100644
---- a/drivers/md/persistent-data/dm-btree.c
-+++ b/drivers/md/persistent-data/dm-btree.c
-@@ -628,39 +628,40 @@ static int btree_split_beneath(struct shadow_spine *s, uint64_t key)
- 
- 	new_parent = shadow_current(s);
- 
-+	pn = dm_block_data(new_parent);
-+	size = le32_to_cpu(pn->header.flags) & INTERNAL_NODE ?
-+		sizeof(__le64) : s->info->value_type.size;
-+
-+	/* create & init the left block */
- 	r = new_block(s->info, &left);
- 	if (r < 0)
- 		return r;
- 
-+	ln = dm_block_data(left);
-+	nr_left = le32_to_cpu(pn->header.nr_entries) / 2;
-+
-+	ln->header.flags = pn->header.flags;
-+	ln->header.nr_entries = cpu_to_le32(nr_left);
-+	ln->header.max_entries = pn->header.max_entries;
-+	ln->header.value_size = pn->header.value_size;
-+	memcpy(ln->keys, pn->keys, nr_left * sizeof(pn->keys[0]));
-+	memcpy(value_ptr(ln, 0), value_ptr(pn, 0), nr_left * size);
-+
-+	/* create & init the right block */
- 	r = new_block(s->info, &right);
- 	if (r < 0) {
- 		unlock_block(s->info, left);
- 		return r;
- 	}
- 
--	pn = dm_block_data(new_parent);
--	ln = dm_block_data(left);
- 	rn = dm_block_data(right);
--
--	nr_left = le32_to_cpu(pn->header.nr_entries) / 2;
- 	nr_right = le32_to_cpu(pn->header.nr_entries) - nr_left;
- 
--	ln->header.flags = pn->header.flags;
--	ln->header.nr_entries = cpu_to_le32(nr_left);
--	ln->header.max_entries = pn->header.max_entries;
--	ln->header.value_size = pn->header.value_size;
--
- 	rn->header.flags = pn->header.flags;
- 	rn->header.nr_entries = cpu_to_le32(nr_right);
- 	rn->header.max_entries = pn->header.max_entries;
- 	rn->header.value_size = pn->header.value_size;
--
--	memcpy(ln->keys, pn->keys, nr_left * sizeof(pn->keys[0]));
- 	memcpy(rn->keys, pn->keys + nr_left, nr_right * sizeof(pn->keys[0]));
--
--	size = le32_to_cpu(pn->header.flags) & INTERNAL_NODE ?
--		sizeof(__le64) : s->info->value_type.size;
--	memcpy(value_ptr(ln, 0), value_ptr(pn, 0), nr_left * size);
- 	memcpy(value_ptr(rn, 0), value_ptr(pn, nr_left),
- 	       nr_right * size);
- 
--- 
-2.7.4
+greg k-h
 
 --
 dm-devel mailing list
