@@ -2,96 +2,97 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id D762392671
-	for <lists+dm-devel@lfdr.de>; Mon, 19 Aug 2019 16:18:25 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by mail.lfdr.de (Postfix) with ESMTPS id 495D1948C4
+	for <lists+dm-devel@lfdr.de>; Mon, 19 Aug 2019 17:46:17 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 227D53175296;
-	Mon, 19 Aug 2019 14:18:24 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EADBC1C930;
-	Mon, 19 Aug 2019 14:18:23 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id E7931190C10C;
+	Mon, 19 Aug 2019 15:46:13 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6EEDE5C1D6;
+	Mon, 19 Aug 2019 15:46:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 873B5180BA9A;
-	Mon, 19 Aug 2019 14:18:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0C7B924F30;
+	Mon, 19 Aug 2019 15:46:04 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7JEIJkI012826 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 19 Aug 2019 10:18:19 -0400
+	id x7JFjoQe016541 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 19 Aug 2019 11:45:50 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 06BA01DA; Mon, 19 Aug 2019 14:18:19 +0000 (UTC)
+	id 20A312618A; Mon, 19 Aug 2019 15:45:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx28.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.69])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EBE711DC
-	for <dm-devel@redhat.com>; Mon, 19 Aug 2019 14:18:18 +0000 (UTC)
-Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
-	[209.85.128.65])
+Received: from mx1.redhat.com (ext-mx19.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.48])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EDB5E1C95A;
+	Mon, 19 Aug 2019 15:45:46 +0000 (UTC)
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+	[209.85.128.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id EA5768D5BB2
-	for <dm-devel@redhat.com>; Mon, 19 Aug 2019 14:18:17 +0000 (UTC)
-Received: by mail-wm1-f65.google.com with SMTP id o4so1785799wmh.2
-	for <dm-devel@redhat.com>; Mon, 19 Aug 2019 07:18:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
-	h=from:to:cc:subject:date:message-id:in-reply-to:references;
-	bh=TmnznT0hptKHz4ZiqoCAURLmBmT8IKpbKUZOSS9EXts=;
-	b=k+j7hV4F10gOP4bMJkudPvXJal9wc7ostfNWhX69nckFbpPExiJV7p4QjTKfjoFZQq
-	pInlW7RUfZyQMvHKjQBFuxcEWIOBMoZjrddkAw5Z49QLLWyIyv4g9jWwqj+GsH8pVfDb
-	zJK8mvK7ncMm/PNWGQmVvM4Py1h/LjalRpAsU3UZVXU2SqAACHlHumAFDpBMbrd7/K0K
-	iXV99u5zT9fRxJuEl45V7tEB68zI+Ayb6xzlT/CXN6BxQvactcGb3N0AVQse7Lg0DWvG
-	wn5U0pfe7/gud+eK//rnDgb/9kg1H9TMCNrVDArXHAOXbGj20DOsFpZ+3ZcpCIYf0UD5
-	EN6g==
+	by mx1.redhat.com (Postfix) with ESMTPS id D2E43307D965;
+	Mon, 19 Aug 2019 15:45:45 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id e8so315025wme.1;
+	Mon, 19 Aug 2019 08:45:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=from:subject:to:references:message-id:date:mime-version:in-reply-to
+	:content-language:content-transfer-encoding;
+	bh=SorNwHjMyL1J/IbhLWJYch/yDq736+DujF1L1H8tkP4=;
+	b=i4r5ZGPFMu0oF+oHlsjdoAJRgOuyyIZfY2hEOpCqtZpqrBkGdLiw2au3LWJFzwxitp
+	f3QueA6HeTV+Bbpj5ydAXaV8LRI0Ez0Sh1b0/a2JBihoJvS/tL+qySwrZa3xH8KkR1NX
+	bJyFWQSusXsMlOGm0U6Vmxk2jQHzHxlRB9/eQj7GC8Nwup/CT1BO9rxZhdA6J9+e8cqf
+	o6mZmbOeu4DVyVM2ByIELdAAaAzhcguX0ylh/qTB8ScEbyWzDuxBlibfe7U6GXXD8AyR
+	V5NmgJSwl5yzFlhPRHBcpVDRgoyiBv8xk5qnpe8P2/GhbMwkP5NT5Qi1JJxD/Cxnx/Kk
+	fXKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-	:references;
-	bh=TmnznT0hptKHz4ZiqoCAURLmBmT8IKpbKUZOSS9EXts=;
-	b=GXYFsFp9KDw4ww5rGnWrrDPovY7C2Pbg1z6Ka4GEtK8zgyXlAVbQ457Wt8L+h2cnh7
-	mPJVCMcB2gqKzj9PUM320pV9OIJlRP5mVjqGSLfuALOLa/mcRTOa0eMOOLIL7jk3rdGO
-	C7XeuYPl2CVUzeQA7wRBQWS7+kaX8FxgRXc6WjNfzCUIBjcVVVV7GU/Z8pFTHeZxaZOv
-	Bzp1bX4kKkRrSm94lOfVK2eWI8hyKlqMYsek/y75d3HXVwODn1rkbWQk/ZLBaEIAsXjb
-	mxLZ0lboYoRThS1Ezs82lQ3dbIlzqZ8NtPe7S3a/r+9FODDa+MUePN9Pe4TmY9Eio+BP
-	llbA==
-X-Gm-Message-State: APjAAAXO8fe0WNfDtU/AmMsEGfE4lz9Pbf9fzfXRke7CN4MrtRohaJ9T
-	DxjwG/eVGo7ib3Thu1kqyYHnBQ==
-X-Google-Smtp-Source: APXvYqxm4dAYSZtWJ/9uKMswwvikaruxT5nCAUBOTEXRHzwDMj/5FaK+RysVKFbVb1sMmEMW55L3FA==
-X-Received: by 2002:a1c:f604:: with SMTP id w4mr4087230wmc.169.1566224296584; 
-	Mon, 19 Aug 2019 07:18:16 -0700 (PDT)
-Received: from localhost.localdomain (11.172.185.81.rev.sfr.net.
-	[81.185.172.11]) by smtp.gmail.com with ESMTPSA id
-	b26sm12693352wmj.14.2019.08.19.07.18.12
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Mon, 19 Aug 2019 07:18:15 -0700 (PDT)
-From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
-To: linux-crypto@vger.kernel.org
-Date: Mon, 19 Aug 2019 17:17:38 +0300
-Message-Id: <20190819141738.1231-7-ard.biesheuvel@linaro.org>
-In-Reply-To: <20190819141738.1231-1-ard.biesheuvel@linaro.org>
-References: <20190819141738.1231-1-ard.biesheuvel@linaro.org>
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2
-	(mx1.redhat.com [10.5.110.69]);
-	Mon, 19 Aug 2019 14:18:18 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.69]);
-	Mon, 19 Aug 2019 14:18:18 +0000 (UTC) for IP:'209.85.128.65'
-	DOMAIN:'mail-wm1-f65.google.com' HELO:'mail-wm1-f65.google.com'
-	FROM:'ard.biesheuvel@linaro.org' RCPT:''
+	h=x-gm-message-state:from:subject:to:references:message-id:date
+	:mime-version:in-reply-to:content-language:content-transfer-encoding;
+	bh=SorNwHjMyL1J/IbhLWJYch/yDq736+DujF1L1H8tkP4=;
+	b=N5vb33aA1RH6n6t2Oj8jXvepLas0m9qZeKUkBGaeLoks7fxZc9HJjj3Fg5OjOhtaRJ
+	xDPFioF5NdlhRl3u7XSd8anMrQapTJxkGDBIYDvZSUUrN4gIDO60Cr67jFxoSedruMu0
+	90tjLwphuKiHxNXGfukuqoG2euB18s5PTHqMwCWTEA5lkY/xSRqMiCVpnX3CNipi0Br7
+	RRR53l6Q0xnkWqqHe+4y90YRqqHVNXT/OhUoW09Xo3hndUzN+tEENfIffV2fzym81Z64
+	hWN+EXrI3EiBjvZvl0QVq2XHZAGQp7dw5I0xWRCu/ZmsiSB9jWIvSuk+N/9Kxp62gtDX
+	iCyA==
+X-Gm-Message-State: APjAAAV6jN106GZwBllDyE6IT27/EeHHw0RGqYKUCHi+DboxsP4yM8Qo
+	I4XuYA2wlG3F3L3Vj4ZzrTdGgd0=
+X-Google-Smtp-Source: APXvYqz/QUutXiyWnABCOmHbXah4+1Thc/TtMGmW4rEOnx94zWXKwqdl07JjAEkHHQNNWxUYnd9dgg==
+X-Received: by 2002:a1c:7606:: with SMTP id r6mr20671779wmc.118.1566229544374; 
+	Mon, 19 Aug 2019 08:45:44 -0700 (PDT)
+Received: from localhost (239.red-79-148-34.dynamicip.rima-tde.net.
+	[79.148.34.239]) by smtp.gmail.com with ESMTPSA id
+	v3sm15842742wrq.34.2019.08.19.08.45.43
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Mon, 19 Aug 2019 08:45:43 -0700 (PDT)
+From: Xose Vazquez Perez <xose.vazquez@gmail.com>
+To: Benjamin Marzinski <bmarzins@redhat.com>,
+	Brian King <brking@linux.vnet.ibm.com>, DM-DEVEL ML <dm-devel@redhat.com>,
+	Christophe Varoqui <christophe.varoqui@opensvc.com>
+References: <20190801172138.15049-1-xose.vazquez@gmail.com>
+	<20190814154111.GE25414@octiron.msp.redhat.com>
+Message-ID: <894a30db-0af2-6598-e37e-26617ff2b3ea@gmail.com>
+Date: Mon, 19 Aug 2019 17:45:42 +0200
+MIME-Version: 1.0
+In-Reply-To: <20190814154111.GE25414@octiron.msp.redhat.com>
+Content-Language: en-GB
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.48]);
+	Mon, 19 Aug 2019 15:45:46 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]);
+	Mon, 19 Aug 2019 15:45:46 +0000 (UTC) for IP:'209.85.128.68'
+	DOMAIN:'mail-wm1-f68.google.com' HELO:'mail-wm1-f68.google.com'
+	FROM:'xose.vazquez@gmail.com' RCPT:''
 X-RedHat-Spam-Score: -0.1  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
-	SPF_PASS) 209.85.128.65 mail-wm1-f65.google.com 209.85.128.65
-	mail-wm1-f65.google.com <ard.biesheuvel@linaro.org>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.69
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2,
+	SPF_HELO_NONE,
+	SPF_PASS) 209.85.128.68 mail-wm1-f68.google.com 209.85.128.68
+	mail-wm1-f68.google.com <xose.vazquez@gmail.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.48
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-	Eric Biggers <ebiggers@google.com>,
-	Ard Biesheuvel <ard.biesheuvel@linaro.org>, linux-fscrypt@vger.kernel.org,
-	Gilad Ben-Yossef <gilad@benyossef.com>, dm-devel@redhat.com,
-	Milan Broz <gmazyland@gmail.com>
-Subject: [dm-devel] [PATCH v13 6/6] md: dm-crypt: omit parsing of the
-	encapsulated cipher
+Subject: Re: [dm-devel] [PATCH] multipath-tools: reorder NVDISK devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -103,123 +104,80 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]); Mon, 19 Aug 2019 14:18:24 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.70]); Mon, 19 Aug 2019 15:46:15 +0000 (UTC)
 
-Only the ESSIV IV generation mode used to use cc->cipher so it could
-instantiate the bare cipher used to encrypt the IV. However, this is
-now taken care of by the ESSIV template, and so no users of cc->cipher
-remain. So remove it altogether.
+On 8/14/19 5:41 PM, Benjamin Marzinski wrote:
 
-Signed-off-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
----
- drivers/md/dm-crypt.c | 58 --------------------
- 1 file changed, 58 deletions(-)
+> On Thu, Aug 01, 2019 at 07:21:38PM +0200, Xose Vazquez Perez wrote:
+>> Otherwise "3303[ ]+NVDISK" is never reached, because "NVDISK" regex takes
+>> priority over it.
+> 
+> Huh? I don't understand why this is necessary. First off, with Martin's
+> hwentry code, all matching hardware entries are used, not just the
+> latest. But second, and more importantly, the AIX NVDISK entry won't
+> ever match the same disks as the IBM 3303[ ]+NVDISK, since they have
+> different vendors.  Right?
 
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index e3e6e111edfc..0dd1fb027ac0 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -147,7 +147,6 @@ struct crypt_config {
- 	struct task_struct *write_thread;
- 	struct rb_root write_tree;
- 
--	char *cipher;
- 	char *cipher_string;
- 	char *cipher_auth;
- 	char *key_string;
-@@ -2166,7 +2165,6 @@ static void crypt_dtr(struct dm_target *ti)
- 	if (cc->dev)
- 		dm_put_device(ti, cc->dev);
- 
--	kzfree(cc->cipher);
- 	kzfree(cc->cipher_string);
- 	kzfree(cc->key_string);
- 	kzfree(cc->cipher_auth);
-@@ -2247,52 +2245,6 @@ static int crypt_ctr_ivmode(struct dm_target *ti, const char *ivmode)
- 	return 0;
- }
- 
--/*
-- * Workaround to parse cipher algorithm from crypto API spec.
-- * The cc->cipher is currently used only in ESSIV.
-- * This should be probably done by crypto-api calls (once available...)
-- */
--static int crypt_ctr_blkdev_cipher(struct crypt_config *cc)
--{
--	const char *alg_name = NULL;
--	char *start, *end;
--
--	if (crypt_integrity_aead(cc)) {
--		alg_name = crypto_tfm_alg_name(crypto_aead_tfm(any_tfm_aead(cc)));
--		if (!alg_name)
--			return -EINVAL;
--		if (crypt_integrity_hmac(cc)) {
--			alg_name = strchr(alg_name, ',');
--			if (!alg_name)
--				return -EINVAL;
--		}
--		alg_name++;
--	} else {
--		alg_name = crypto_tfm_alg_name(crypto_skcipher_tfm(any_tfm(cc)));
--		if (!alg_name)
--			return -EINVAL;
--	}
--
--	start = strchr(alg_name, '(');
--	end = strchr(alg_name, ')');
--
--	if (!start && !end) {
--		cc->cipher = kstrdup(alg_name, GFP_KERNEL);
--		return cc->cipher ? 0 : -ENOMEM;
--	}
--
--	if (!start || !end || ++start >= end)
--		return -EINVAL;
--
--	cc->cipher = kzalloc(end - start + 1, GFP_KERNEL);
--	if (!cc->cipher)
--		return -ENOMEM;
--
--	strncpy(cc->cipher, start, end - start);
--
--	return 0;
--}
--
- /*
-  * Workaround to parse HMAC algorithm from AEAD crypto API spec.
-  * The HMAC is needed to calculate tag size (HMAC digest size).
-@@ -2402,12 +2354,6 @@ static int crypt_ctr_cipher_new(struct dm_target *ti, char *cipher_in, char *key
- 	else
- 		cc->iv_size = crypto_skcipher_ivsize(any_tfm(cc));
- 
--	ret = crypt_ctr_blkdev_cipher(cc);
--	if (ret < 0) {
--		ti->error = "Cannot allocate cipher string";
--		return -ENOMEM;
--	}
--
- 	return 0;
- }
- 
-@@ -2442,10 +2388,6 @@ static int crypt_ctr_cipher_old(struct dm_target *ti, char *cipher_in, char *key
- 	}
- 	cc->key_parts = cc->tfms_count;
- 
--	cc->cipher = kstrdup(cipher, GFP_KERNEL);
--	if (!cc->cipher)
--		goto bad_mem;
--
- 	chainmode = strsep(&tmp, "-");
- 	*ivmode = strsep(&tmp, ":");
- 	*ivopts = tmp;
--- 
-2.17.1
+Yes, you are right. I mixed badly IBM-AIX in my head.
+
+I'm sorry for the noise.
+
+Christophe, remove this patch from your queue.
+
+
+Thanks.
+
+>> Cc: Brian King <brking@linux.vnet.ibm.com>
+>> Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
+>> Cc: DM-DEVEL ML <dm-devel@redhat.com>
+>> Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
+>> ---
+>>  libmultipath/hwtable.c | 12 ++++++------
+>>  1 file changed, 6 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c
+>> index a06872e..8209554 100644
+>> --- a/libmultipath/hwtable.c
+>> +++ b/libmultipath/hwtable.c
+>> @@ -696,12 +696,6 @@ static struct hwentry default_hw[] = {
+>>  		.pgpolicy      = MULTIBUS,
+>>  		.no_path_retry = (300 / DEFAULT_CHECKINT),
+>>  	},
+>> -	{
+>> -		/* 3303 NVDISK */
+>> -		.vendor        = "IBM",
+>> -		.product       = "3303[ ]+NVDISK",
+>> -		.no_path_retry = (300 / DEFAULT_CHECKINT),
+>> -	},
+>>  	{
+>>  		/* AIX NVDISK */
+>>  		.vendor        = "AIX",
+>> @@ -712,6 +706,12 @@ static struct hwentry default_hw[] = {
+>>  		.no_path_retry = (300 / DEFAULT_CHECKINT),
+>>  		.prio_name     = PRIO_ALUA,
+>>  	},
+>> +	{
+>> +		/* 3303 NVDISK */
+>> +		.vendor        = "IBM",
+>> +		.product       = "3303[ ]+NVDISK",
+>> +		.no_path_retry = (300 / DEFAULT_CHECKINT),
+>> +	},
+>>          /*
+>>           * Lenovo
+>>           */
+>> -- 
+>> 2.21.0
+>>
+>> --
+>> dm-devel mailing list
+>> dm-devel@redhat.com
+>> https://www.redhat.com/mailman/listinfo/dm-devel
+> 
 
 --
 dm-devel mailing list
