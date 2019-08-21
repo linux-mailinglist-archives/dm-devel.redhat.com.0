@@ -2,85 +2,154 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4368C97946
+	by mail.lfdr.de (Postfix) with ESMTPS id 9591897948
 	for <lists+dm-devel@lfdr.de>; Wed, 21 Aug 2019 14:30:09 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 27AA97F765;
+	by mx1.redhat.com (Postfix) with ESMTPS id 60FD710C051E;
 	Wed, 21 Aug 2019 12:30:07 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E06F25D721;
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DBED158BA;
 	Wed, 21 Aug 2019 12:30:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 43CB624F31;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 45B64180085A;
 	Wed, 21 Aug 2019 12:30:04 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7L1dlh0017622 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 20 Aug 2019 21:39:47 -0400
+	id x7L6gKSf025545 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 21 Aug 2019 02:42:20 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5ECE260BF4; Wed, 21 Aug 2019 01:39:47 +0000 (UTC)
+	id 57DE8261AE; Wed, 21 Aug 2019 06:42:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx22.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.63])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2A29160BF3;
-	Wed, 21 Aug 2019 01:39:42 +0000 (UTC)
-Received: from sender4-pp-o95.zoho.com (sender4-pp-o95.zoho.com
-	[136.143.188.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from mx1.redhat.com (ext-mx09.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.38])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5170C2632F
+	for <dm-devel@redhat.com>; Wed, 21 Aug 2019 06:42:15 +0000 (UTC)
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id A670B1801580;
-	Wed, 21 Aug 2019 01:39:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1566351579; cv=none; d=zoho.com; s=zohoarc; 
-	b=fp8j31Xa/U150l7Y6Fbp1R1Sgruh3tmrn7l8PPam2TDipyKsUCznK+wYJYB0oLjpxnKqrj1iBni6Yyb6QccD2kgnL9VySTEr8RDZ0fY+EJRTQSB6TtIGb3K7aZY5v0IVgxmLaSA8m9C3snw9nszXo7vK9Gr6D5+VZ9DmDjzMufY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zoho.com;
-	s=zohoarc; t=1566351579;
-	h=Cc:Date:From:Message-ID:Subject:To:ARC-Authentication-Results;
-	bh=X1s7c/q2LhXifg1IRo4YM5sxau9UteN88ivBRni95ns=; 
-	b=akJ+PnPqyhzoo0FohsHlhOFPprxL8hWejLAIkEahbv7t/ZQBUJ5PrCSijBmgiBM6W9Dg5r1aE7I6+cr9fknT0DRXj3xeG8RWqe+sAKPrTXWMgsKLPWJ6lCsHLXeaZRWn3DUPPZiXGCDztsVLfUdnqFSfpCt8Oj7MqInou2fUsD4=
-ARC-Authentication-Results: i=1; mx.zoho.com; dkim=pass  header.i=zoho.com;
-	spf=pass  smtp.mailfrom=kontais@zoho.com;
-	dmarc=pass header.from=<kontais@zoho.com>
-	header.from=<kontais@zoho.com>
-DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=zapps768; d=zoho.com; 
-	h=from:to:cc:subject:date:message-id; 
-	b=knMUgmONZ2y/YuDnv7B7dUtCXn8BCbophzl4idit5x/E7rEhfi4A9PzcP1aSMu3bfcbBSQqgJxba
-	tJTQJl9+V2oW/czn9qtl1hoaSjPXsYEzn4SapA+3X+28AGv3LyVa  
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1566351579; 
-	s=zm2019; d=zoho.com; i=kontais@zoho.com;
-	h=From:To:Cc:Subject:Date:Message-Id; l=1322;
-	bh=X1s7c/q2LhXifg1IRo4YM5sxau9UteN88ivBRni95ns=;
-	b=Lq+ncVyE9B0GiDGyQwLxVAJe2SkVKTdmQ24y96S+aHwDOwAPnX9ExnIR7aEtAhe+
-	dW5Z7lXicQVW/7DdSaJUIQEe5HVyhwSBl1zBbuj6LMVoUB52IP7ouSkzRlPOP36ECmo
-	AirHUhjOybKTub605M8Tzlqh1vhHcJCQUXGpdyqc=
-Received: from dev31.localdomain (103.244.59.4 [103.244.59.4]) by
-	mx.zohomail.com with SMTPS id 1566351578120361.08327538001834;
-	Tue, 20 Aug 2019 18:39:38 -0700 (PDT)
-From: Zhang Tao <kontais@zoho.com>
-To: agk@redhat.com, snitzer@redhat.com
-Date: Wed, 21 Aug 2019 09:33:31 +0800
-Message-Id: <1566351211-13280-1-git-send-email-kontais@zoho.com>
-X-ZohoMailClient: External
+	by mx1.redhat.com (Postfix) with ESMTPS id 50E2EE8CD9
+	for <dm-devel@redhat.com>; Wed, 21 Aug 2019 06:42:13 +0000 (UTC)
+Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id
+	20190821064211epoutp014a1d6a6a7db2c4ee87261b324f4ad838~83Pi3kuBx0941209412epoutp01O
+	for <dm-devel@redhat.com>; Wed, 21 Aug 2019 06:42:11 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
+	20190821064211epoutp014a1d6a6a7db2c4ee87261b324f4ad838~83Pi3kuBx0941209412epoutp01O
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1566369731;
+	bh=6nvViRArjV4omK6peQr/VJEo362MQawOvuOjWNtcvUc=;
+	h=From:To:Subject:Date:References:From;
+	b=KgvXEC03C4r1U97r7bQ5DRRMTIXhvVfcvuv//kqB9AfekkM1a6r6AlK/dwkzmj1/j
+	6Da8kMqM2aSH3vsPYueOGpcP367QkCqp/Un1AsgIkKYcR0YdMlJuZ47ea/iHjqaU9V
+	dzZJioeQWALlclkJ5xlW0pzJ4Wntvqon2nNSykqw=
+Received: from epsnrtp3.localdomain (unknown [182.195.42.164]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTP id
+	20190821064210epcas2p2b0753f2c58b6ebb1f39566c7be44018c~83PiaFvVa1369213692epcas2p22;
+	Wed, 21 Aug 2019 06:42:10 +0000 (GMT)
+Received: from epsmges2p1.samsung.com (unknown [182.195.40.184]) by
+	epsnrtp3.localdomain (Postfix) with ESMTP id 46Cykl2yFmzMqYkV;
+	Wed, 21 Aug 2019 06:42:07 +0000 (GMT)
+Received: from epcas2p4.samsung.com ( [182.195.41.56]) by
+	epsmges2p1.samsung.com (Symantec Messaging Gateway) with SMTP id
+	3F.AD.04156.FB7EC5D5; Wed, 21 Aug 2019 15:42:07 +0900 (KST)
+Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
+	20190821064206epcas2p1d1bcaae142416506bcedb3201d9a6658~83PeydRUI2328923289epcas2p1F;
+	Wed, 21 Aug 2019 06:42:06 +0000 (GMT)
+Received: from epsmgms1p2new.samsung.com (unknown [182.195.42.42]) by
+	epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
+	20190821064206epsmtrp2200b095c38c04c7c0825b9bbdffaf76e~83PesuNc52242122421epsmtrp2E;
+	Wed, 21 Aug 2019 06:42:06 +0000 (GMT)
+X-AuditID: b6c32a45-df7ff7000000103c-24-5d5ce7bf38af
+Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
+	epsmgms1p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
+	EF.C2.03638.EB7EC5D5; Wed, 21 Aug 2019 15:42:06 +0900 (KST)
+Received: from KORDO035251 (unknown [12.36.165.204]) by epsmtip1.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20190821064206epsmtip198eaffa6242c7b1b17cfbe143230c99b~83PeSZEq23087530875epsmtip17;
+	Wed, 21 Aug 2019 06:42:06 +0000 (GMT)
+From: "boojin.kim" <boojin.kim@samsung.com>
+To: "'Herbert Xu'" <herbert@gondor.apana.org.au>, "'David S. Miller'"
+	<davem@davemloft.net>, "'Eric Biggers'" <ebiggers@kernel.org>,
+	"'Theodore Y. Ts'o'" <tytso@mit.edu>, "'Chao Yu'" <chao@kernel.org>,
+	"'Jaegeuk Kim'" <jaegeuk@kernel.org>,
+	"'Andreas Dilger'" <adilger.kernel@dilger.ca>,
+	"'Theodore Ts'o'" <tytso@mit.edu>, <dm-devel@redhat.com>, "'Mike Snitzer'"
+	<snitzer@redhat.com>, "'Alasdair Kergon'" <agk@redhat.com>, "'Jens Axboe'"
+	<axboe@kernel.dk>, "'Krzysztof Kozlowski'" <krzk@kernel.org>,
+	"'Kukjin Kim'" <kgene@kernel.org>,
+	"'Jaehoon Chung'" <jh80.chung@samsung.com>, "'Ulf
+	Hansson'" <ulf.hansson@linaro.org>,
+	<linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-fscrypt@vger.kernel.org>, <linux-mmc@vger.kernel.org>,
+	<linux-samsung-soc@vger.kernel.org>, <linux-block@vger.kernel.org>,
+	<linux-ext4@vger.kernel.org>, <linux-f2fs-devel@lists.sourceforge.net>, 
+	<linux-samsung-soc@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-fsdevel@vger.kernel.org>
+Date: Wed, 21 Aug 2019 15:42:06 +0900
+Message-ID: <003c01d557eb$8ca76790$a5f636b0$@samsung.com>
+MIME-Version: 1.0
+Thread-Index: AdVX55ZGLpDJ2oWzRvaIZpriXB0iug==
+Content-Language: ko
+X-Brightmail-Tracker: H4sIAAAAAAAAA01Tf2wTZRjOd9e765DK2VX9qEbq4Yh0rrRlnd+EGhIRzsgfM8Qgc828rJdu
+	sb/Sa2HTRFC37ofT6YgySjcGEpCNMrbVucA6cPwozNVFl+JAnIThkE4n7gdJB4i93Yz773nf
+	93nyPc/35pXjygZKLS9xenmPk7Mz5CJZ15mVKOvUzQKL/tjRdDQzXSVDbf3ncdT6Sx2Jvvs8
+	hqHgYLkMRSb2EijUcw9HHyWeRDfaAjganvUTqG50HEeDg8cp1DF6iUCRK5no15EkhvY0XSXR
+	jwc2okTTHRnqiVyUoaETQRKdfVAHUMNgL4b87TMAVdQmKRQNbVm3lA0fuYyx5Z3b2a7TGexQ
+	zMd2tFST7NVLPSTbeXAHe7J5CmM/GDiHs3/1xkn2k3ALYKc6nspbnG9fW8xzVt6j4Z1FLmuJ
+	02ZmXt1c+FKhKUdvyDLkoucZjZNz8GZm/aa8rA0l9lR2RrONs/tSrTxOEJhVL671uHxeXlPs
+	Erxmhndb7W6Dwa0TOIfgc9p0RS7HCwa93mhKMd+yFw8nGgj3cW3p7n0fEztBYlkNSJNDOhv2
+	V8aJGrBIrqS7ATwai+NSMQlgW3zffHEHwK7yC2QNkM9JIjGdqFbSEQCH2ldInFsAhn+YBuKA
+	pDNhZ7QFiAMV/Q8Fd19rwsVBOr0aVtTeJkQsozPgofq/MREr6Fx4IRgjJfwIvLjnhkzEOL0M
+	fvNnEJe8amB3bHzuARWtg/XfjhASRwX3VvvnOUkKvh+0SHg93NU3jkk4HSaiYUrCajg1ESEl
+	vAPGD31JiUYhXQvgwKx/nrQaBsYqgZgYp1fCthOrpPDL4dkr89YehlVn7lNSWwGr/EpJ+Axs
+	nBzCpLYa3q59T2qzsL4xiknfZoHRUzeJT4EmsCBvYEHewIJcgf8tNANZC3iMdwsOGy8Y3YaF
+	q+4Ac1ehfbkbNHy/qQ/QcsAsViQLCixKgtsmlDn6AJTjjEpRGsy3KBVWruwd3uMq9PjsvNAH
+	TKl1fIarHy1ypW7M6S00mIw5OfpcEzLlGBHzuKLzocsFStrGefm3ed7Ne/7TYfI09U5QTa3J
+	sD7R/AcfMs90TWjH/EvXNfKv478fO7B9VJs2AkvDoa8P02P5jtYt1w1jd835/Tbd/jW7nE3d
+	2ZWZ0x9u5OKHt664db56Sbbm2k+/Ddz7ufnkF61bqbLJ5P2vjhhVT9v50Onrr8lf2XxOeKB8
+	82DF9HPe4SW976bdfbbyjfYN0VlGJhRzBi3uEbh/ASwhXbYrBAAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrHIsWRmVeSWpSXmKPExsWy7bCSnO6+5zGxBrfnaFh8/dLBYrH+1DFm
+	i9V3+9ksTk89y2Qx53wLi8Xed7NZLdbu+cNs0f1KxuLJ+lnMFjd+tbFa9D9+zWxx/vwGdotN
+	j6+xWuy9pW1x/95PJouZ8+6wWVxa5G7xat43Fos9e0+yWFzeNYfN4sj/fkaLGef3MVm0bfzK
+	aNHa85Pd4vjacAdJjy0rbzJ5tGwu99h2QNXj8tlSj02rOtk87lzbw+axeUm9x+4Fn5k8ms4c
+	ZfZ4v+8qm0ffllWMHp83yQXwRHHZpKTmZJalFunbJXBl3Hg1g7Vgg1bF9Pm9rA2Mr+S7GDk4
+	JARMJPae1eti5OQQEtjNKHHriTyILSEgJbG1fQ8zhC0scb/lCGsXIxdQzXNGiW9LXrKAJNgE
+	tCU2H1/FCJIQEZjGIfGjdTZYQljAWKK15wMriM0ioCqxbNJHJhCbV8BS4sScs2wQtqDEyZlP
+	WECOYBbQk2jbyAgSZhaQl9j+dg7UYgWJHWdfg8VFgEomHbzHClEjIjG7s415AqPALCSTZiFM
+	moVk0iwkHQsYWVYxSqYWFOem5xYbFhjlpZbrFSfmFpfmpesl5+duYgTHupbWDsYTJ+IPMQpw
+	MCrx8O64GR0rxJpYVlyZe4hRgoNZSYS3Yk5UrBBvSmJlVWpRfnxRaU5q8SFGaQ4WJXFe+fxj
+	kUIC6YklqdmpqQWpRTBZJg5OqQZG1zfv+6S1qyQq73im+HoYzs6IOW60odkhWaVaybJ9is3n
+	1qNBR77Omempbhj+TMxljtS71x7zdyhdcPiw4NoxrVZvt9xrd+8e2yKtFd7Q2u3XKdN8tv29
+	0TmNfee6c5/bHPG8IVXi3jMjbM7z+FgDx1ddvDXbLl87fbDoqW2QFK/Vt1+L9SOUWIozEg21
+	mIuKEwHPOnoc8QIAAA==
+X-CMS-MailID: 20190821064206epcas2p1d1bcaae142416506bcedb3201d9a6658
+X-Msg-Generator: CA
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20190821064206epcas2p1d1bcaae142416506bcedb3201d9a6658
+References: <CGME20190821064206epcas2p1d1bcaae142416506bcedb3201d9a6658@epcas2p1.samsung.com>
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
-	[10.5.110.63]); Wed, 21 Aug 2019 01:39:41 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.63]);
-	Wed, 21 Aug 2019 01:39:41 +0000 (UTC) for IP:'136.143.188.95'
-	DOMAIN:'sender4-pp-o95.zoho.com' HELO:'sender4-pp-o95.zoho.com'
-	FROM:'kontais@zoho.com' RCPT:''
-X-RedHat-Spam-Score: -0.099  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
-	SPF_PASS) 136.143.188.95 sender4-pp-o95.zoho.com 136.143.188.95
-	sender4-pp-o95.zoho.com <kontais@zoho.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.63
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.38]); Wed, 21 Aug 2019 06:42:14 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]);
+	Wed, 21 Aug 2019 06:42:14 +0000 (UTC) for IP:'203.254.224.24'
+	DOMAIN:'mailout1.samsung.com' HELO:'mailout1.samsung.com'
+	FROM:'boojin.kim@samsung.com' RCPT:''
+X-RedHat-Spam-Score: -5.103  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
+	DKIM_VALID_AU, RCVD_IN_DNSWL_HI, SPF_HELO_PASS,
+	SPF_PASS) 203.254.224.24 mailout1.samsung.com 203.254.224.24
+	mailout1.samsung.com <boojin.kim@samsung.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.38
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 21 Aug 2019 08:29:57 -0400
-Cc: Zhang Tao <zhangtao27@lenovo.com>, dm-devel@redhat.com,
-	linux-kernel@vger.kernel.org
-Subject: [dm-devel] [PATCH] dm table: fix a potential array out of bounds
+Subject: [dm-devel] [PATCH 0/9] Flash Memory Protector Support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,58 +161,131 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.71]); Wed, 21 Aug 2019 12:30:08 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.65]); Wed, 21 Aug 2019 12:30:08 +0000 (UTC)
 
-From: Zhang Tao <zhangtao27@lenovo.com>
+Exynos has a H/W block called FMP (Flash Memory Protector) to protect data
+stored on storage device.
+FMP interworks with the storage controller to encrypt a data before writing
+to the storage device and decrypt the data after reading from storage
+device.
+FMP is a kind of ICE (inline crypto engines), which is generally known
+as being used for the above role.
 
-allocate num + 1 for target and offset array, n_highs need num + 1
-elements, the last element will be used for node lookup in function
-dm_table_find_target.
+To use FMP, the modification of various layers such as Fscrypt, ext4, f2fs,
+DM-crypt, storage controller driver and block is required.
+FMP solution introduces a new diskcipher similar to the existing skcipher
+in crypo API in order to minimize the modification of these layers and
+to improve the code readability.
 
-Signed-off-by: Zhang Tao <zhangtao27@lenovo.com>
----
- drivers/md/dm-table.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+This patchset includes the following for using FMP:
+- Diskcipher and FMP are added to crypto API.
+- The crypto users such as dm-crypt and fscrypt are modified to support
+  diskcipher.
+- The bio submitters such as f2fs, ext4, dm-crypt are modified to support
+  diskcipher.
+- Block layer is modified to pass diskcipher to storage controller driver.
+- Storage controller driver is modified to support crypto operation.
 
-diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-index 7b6c3ee..fd7f604 100644
---- a/drivers/md/dm-table.c
-+++ b/drivers/md/dm-table.c
-@@ -160,20 +160,22 @@ static int alloc_targets(struct dm_table *t, unsigned int num)
- {
- 	sector_t *n_highs;
- 	struct dm_target *n_targets;
-+	unsigned int alloc_num;
- 
- 	/*
- 	 * Allocate both the target array and offset array at once.
- 	 * Append an empty entry to catch sectors beyond the end of
- 	 * the device.
- 	 */
--	n_highs = (sector_t *) dm_vcalloc(num + 1, sizeof(struct dm_target) +
-+	alloc_num = num + 1;
-+	n_highs = (sector_t *) dm_vcalloc(alloc_num, sizeof(struct dm_target) +
- 					  sizeof(sector_t));
- 	if (!n_highs)
- 		return -ENOMEM;
- 
--	n_targets = (struct dm_target *) (n_highs + num);
-+	n_targets = (struct dm_target *) (n_highs + alloc_num);
- 
--	memset(n_highs, -1, sizeof(*n_highs) * num);
-+	memset(n_highs, -1, sizeof(*n_highs) * alloc_num);
- 	vfree(t->highs);
- 
- 	t->num_allocated = num;
+Exynos FMP solution consists of Diskcipher and FMP driver.
+Diskcipher is a symmetric key cipher of crypto API that supports inline
+crypto engine like FMP.
+FMP driver is a cipher algorithm running on diskcipher.
+FMP driver registers 'cbc(aes)-disk' and 'xts(aes)-disk' algorithms to
+crypto API.
+FMP can be tested with various test vectors in testmgr of crypto API.
+
+When encrypting using FMP, additional control is required to deliver and
+manage encryption information between encryption users (fscrypt, DM-crypt)
+and FMP drivers. Diskcipher provides this control.
+
+The encryption using FMP is made up of 4 steps.
+The first step is to assign a password and set a key.
+Encryption users such as Fscrypt or DM-crypt assign diskcipher, and set key
+to the diskcipher.
+The second step is to deliver diskcipher that has crypto information to
+storage drivers such as UFS and MMC. BIO is used to this delivery.
+The BIO submitters, such as ext4, f2fs and DM-crypt, checks if there is
+diskcipher in crypto configuration before issuing BIO. If there are
+diskcipher, the submitter sets it to BIO.
+In addition, the BIO submitter skips the task of encrypting data before BIO
+and decrypting data after BIO is completed.
+In the third step, the storage driver gets the diskcipher from the BIO and
+requests the FMP to encrypt.
+In the final step, the FMP extracts crypto information from the diskcipher
+and writes it in the descriptor area allocated for FMP H/W.
+The FMP H/W uses the descriptor of the storage controller to contain crypto
+information. So the descriptor of storage controller should be expanded
+for FMP.
+
+Boojin Kim (9):
+  crypt: Add diskcipher
+  crypto: fmp: add Flash Memory Protector driver
+  mmc: dw_mmc: support crypto operation
+  mmc: dw_mmc-exynos: support FMP
+  block: support diskcipher
+  dm crypt: support diskcipher
+  fscrypt: support diskcipher
+  fs: ext4: support diskcipher
+  fs: f2fs: support diskcipher
+
+ block/bio.c                      |   1 +
+ block/blk-merge.c                |  19 +-
+ block/bounce.c                   |   5 +-
+ crypto/Kconfig                   |   9 +
+ crypto/Makefile                  |   1 +
+ crypto/diskcipher.c              | 349 +++++++++++++++++++++++
+ crypto/testmgr.c                 | 157 +++++++++++
+ drivers/crypto/Kconfig           |   2 +
+ drivers/crypto/Makefile          |   1 +
+ drivers/crypto/fmp/Kconfig       |  13 +
+ drivers/crypto/fmp/Makefile      |   1 +
+ drivers/crypto/fmp/fmp.c         | 595
++++++++++++++++++++++++++++++++++++++++
+ drivers/crypto/fmp/fmp_crypt.c   | 243 ++++++++++++++++
+ drivers/crypto/fmp/fmp_test.c    | 310 ++++++++++++++++++++
+ drivers/crypto/fmp/fmp_test.h    |  30 ++
+ drivers/md/dm-crypt.c            | 112 +++++++-
+ drivers/mmc/host/Kconfig         |   8 +
+ drivers/mmc/host/dw_mmc-exynos.c |  62 ++++
+ drivers/mmc/host/dw_mmc.c        |  48 +++-
+ drivers/mmc/host/dw_mmc.h        |   6 +
+ fs/buffer.c                      |   2 +
+ fs/crypto/bio.c                  |  43 ++-
+ fs/crypto/fscrypt_private.h      |  28 +-
+ fs/crypto/keysetup.c             |  60 +++-
+ fs/crypto/keysetup_v1.c          |   2 +-
+ fs/ext4/inode.c                  |  39 ++-
+ fs/ext4/page-io.c                |   8 +-
+ fs/ext4/readpage.c               |   7 +
+ fs/f2fs/data.c                   |  98 ++++++-
+ fs/f2fs/f2fs.h                   |   2 +-
+ include/crypto/diskcipher.h      | 245 ++++++++++++++++
+ include/crypto/fmp.h             | 324 +++++++++++++++++++++
+ include/linux/bio.h              |  10 +
+ include/linux/blk_types.h        |   4 +
+ include/linux/bvec.h             |   3 +
+ include/linux/crypto.h           |   1 +
+ include/linux/fscrypt.h          |  19 ++
+ include/uapi/linux/fscrypt.h     |   2 +
+ tools/include/uapi/linux/fs.h    |   1 +
+ 39 files changed, 2837 insertions(+), 33 deletions(-)
+ create mode 100644 crypto/diskcipher.c
+ create mode 100644 drivers/crypto/fmp/Kconfig
+ create mode 100644 drivers/crypto/fmp/Makefile
+ create mode 100644 drivers/crypto/fmp/fmp.c
+ create mode 100644 drivers/crypto/fmp/fmp_crypt.c
+ create mode 100644 drivers/crypto/fmp/fmp_test.c
+ create mode 100644 drivers/crypto/fmp/fmp_test.h
+ create mode 100644 include/crypto/diskcipher.h
+ create mode 100644 include/crypto/fmp.h
+
 -- 
-1.8.3.1
-
+2.7.4
 
 --
 dm-devel mailing list
