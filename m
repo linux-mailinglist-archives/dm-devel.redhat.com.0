@@ -2,114 +2,85 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42C09978E0
-	for <lists+dm-devel@lfdr.de>; Wed, 21 Aug 2019 14:10:29 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4368C97946
+	for <lists+dm-devel@lfdr.de>; Wed, 21 Aug 2019 14:30:09 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 75403308213F;
-	Wed, 21 Aug 2019 12:10:22 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1CAEC2C8CE;
-	Wed, 21 Aug 2019 12:10:21 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 27AA97F765;
+	Wed, 21 Aug 2019 12:30:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E06F25D721;
+	Wed, 21 Aug 2019 12:30:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 78C73180085A;
-	Wed, 21 Aug 2019 12:10:13 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 43CB624F31;
+	Wed, 21 Aug 2019 12:30:04 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7LC9w5S005101 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 21 Aug 2019 08:09:58 -0400
+	id x7L1dlh0017622 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 20 Aug 2019 21:39:47 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 745FC5C231; Wed, 21 Aug 2019 12:09:58 +0000 (UTC)
+	id 5ECE260BF4; Wed, 21 Aug 2019 01:39:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx14.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.43])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F6595C21A
-	for <dm-devel@redhat.com>; Wed, 21 Aug 2019 12:09:55 +0000 (UTC)
-Received: from mail-pl1-f193.google.com (mail-pl1-f193.google.com
-	[209.85.214.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.redhat.com (ext-mx22.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.63])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2A29160BF3;
+	Wed, 21 Aug 2019 01:39:42 +0000 (UTC)
+Received: from sender4-pp-o95.zoho.com (sender4-pp-o95.zoho.com
+	[136.143.188.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id D8390308FC23
-	for <dm-devel@redhat.com>; Wed, 21 Aug 2019 12:09:54 +0000 (UTC)
-Received: by mail-pl1-f193.google.com with SMTP id gn20so1246039plb.2
-	for <dm-devel@redhat.com>; Wed, 21 Aug 2019 05:09:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=kernel-dk.20150623.gappssmtp.com; s=20150623;
-	h=subject:to:cc:references:from:message-id:date:user-agent
-	:mime-version:in-reply-to:content-language:content-transfer-encoding;
-	bh=UT6yE/roxwyyBSRfLOwrFlilraLjBXjoNWJQAsldDVo=;
-	b=1mTbly5hNN6suDS+BwBXn5tZNQRoJv3U+6eGIZWkxOpX8gp4MfK0srbyshCamPl8cE
-	oynbwAZaUVd3iYuDw/fFqllqnUyyMdhGmWDFTWD0+uRBHO1RABomqwNTPTloesNaBCP/
-	OF0wNlT1X2HUApuEYt9hqsB3ukfCOmKOxQ9VlFGyTVla9DArrhzV46cf0e1hqSL0Em1S
-	kMKT+OUOB39Lc9u+MllIcA6W2VixaWAmIOOCqIPym//+KF+bJLzrXd5uXWfD6RF+tn8O
-	fEItbmLNgpz+3xyfCw5xuoCb8BCqv/jPsevOVEPakCBbt5mOdjvlnK19JQHJXISJTFII
-	+AuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=UT6yE/roxwyyBSRfLOwrFlilraLjBXjoNWJQAsldDVo=;
-	b=eA7Iu0tikFS/ddbvUmuq40CkCk+cB30Ft/S6twyOGXqoKQM4I2ldQHTAIdqIoHDYKy
-	/3HfqPKxco8j9Y4Y0PX966u++BC9Zfku8FTJ610xxugDjfd1ihDJxXiPLBeiTWfDZQlO
-	NMrlrH4i78k85xBCO3dt5ERAShfn+D6MAfH85/fOyN+zME1a8gbLcP2327kpqTTFd7I8
-	66Z5jivnDGCXUAlusONmvh6WFGdeipUkIRmqpwFe7Pp2j7GV5V3k9BrKr8LHYJeoOCFJ
-	mBqdkYpO2BkeKEBJuNMyGo9yj8+DW6qnsz/3JBMdqr2gL4y485l99xmTry6O/AdkJYDq
-	7DRA==
-X-Gm-Message-State: APjAAAVx0AFVbEO7HFjrEtNoADMwb9AgLmxWYs8dRMR/mUumECLGW9QL
-	O+xSCjqrvQbgFa5kAdcWClJvrw==
-X-Google-Smtp-Source: APXvYqxsoe31YiWALXWqRLHXasZTZR3nM8GXNUHwTUUu4EkoxYDPJeCxhjU4HkYSZ/HpLNbIJ9AOOg==
-X-Received: by 2002:a17:902:a410:: with SMTP id
-	p16mr17723995plq.150.1566389394293; 
-	Wed, 21 Aug 2019 05:09:54 -0700 (PDT)
-Received: from [192.168.1.188] (66.29.164.166.static.utbb.net. [66.29.164.166])
-	by smtp.gmail.com with ESMTPSA id
-	z4sm22521476pfg.166.2019.08.21.05.09.51
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Wed, 21 Aug 2019 05:09:53 -0700 (PDT)
-To: "boojin.kim" <boojin.kim@samsung.com>, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-References: <CGME20190821064226epcas2p2835b8a9084988b79107e54abfc5e7dab@epcas2p2.samsung.com>
-	<004101d557eb$98b00060$ca100120$@samsung.com>
-From: Jens Axboe <axboe@kernel.dk>
-Message-ID: <6ea5e5db-4dd4-719f-3b3e-b89099636ea6@kernel.dk>
-Date: Wed, 21 Aug 2019 06:09:50 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <004101d557eb$98b00060$ca100120$@samsung.com>
-Content-Language: en-US
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.43]);
-	Wed, 21 Aug 2019 12:09:54 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]);
-	Wed, 21 Aug 2019 12:09:54 +0000 (UTC) for IP:'209.85.214.193'
-	DOMAIN:'mail-pl1-f193.google.com'
-	HELO:'mail-pl1-f193.google.com' FROM:'axboe@kernel.dk' RCPT:''
-X-RedHat-Spam-Score: 0.002  (DKIM_SIGNED, DKIM_VALID, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
-	SPF_PASS) 209.85.214.193 mail-pl1-f193.google.com 209.85.214.193
-	mail-pl1-f193.google.com <axboe@kernel.dk>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.43
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+	by mx1.redhat.com (Postfix) with ESMTPS id A670B1801580;
+	Wed, 21 Aug 2019 01:39:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1566351579; cv=none; d=zoho.com; s=zohoarc; 
+	b=fp8j31Xa/U150l7Y6Fbp1R1Sgruh3tmrn7l8PPam2TDipyKsUCznK+wYJYB0oLjpxnKqrj1iBni6Yyb6QccD2kgnL9VySTEr8RDZ0fY+EJRTQSB6TtIGb3K7aZY5v0IVgxmLaSA8m9C3snw9nszXo7vK9Gr6D5+VZ9DmDjzMufY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zoho.com;
+	s=zohoarc; t=1566351579;
+	h=Cc:Date:From:Message-ID:Subject:To:ARC-Authentication-Results;
+	bh=X1s7c/q2LhXifg1IRo4YM5sxau9UteN88ivBRni95ns=; 
+	b=akJ+PnPqyhzoo0FohsHlhOFPprxL8hWejLAIkEahbv7t/ZQBUJ5PrCSijBmgiBM6W9Dg5r1aE7I6+cr9fknT0DRXj3xeG8RWqe+sAKPrTXWMgsKLPWJ6lCsHLXeaZRWn3DUPPZiXGCDztsVLfUdnqFSfpCt8Oj7MqInou2fUsD4=
+ARC-Authentication-Results: i=1; mx.zoho.com; dkim=pass  header.i=zoho.com;
+	spf=pass  smtp.mailfrom=kontais@zoho.com;
+	dmarc=pass header.from=<kontais@zoho.com>
+	header.from=<kontais@zoho.com>
+DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=zapps768; d=zoho.com; 
+	h=from:to:cc:subject:date:message-id; 
+	b=knMUgmONZ2y/YuDnv7B7dUtCXn8BCbophzl4idit5x/E7rEhfi4A9PzcP1aSMu3bfcbBSQqgJxba
+	tJTQJl9+V2oW/czn9qtl1hoaSjPXsYEzn4SapA+3X+28AGv3LyVa  
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1566351579; 
+	s=zm2019; d=zoho.com; i=kontais@zoho.com;
+	h=From:To:Cc:Subject:Date:Message-Id; l=1322;
+	bh=X1s7c/q2LhXifg1IRo4YM5sxau9UteN88ivBRni95ns=;
+	b=Lq+ncVyE9B0GiDGyQwLxVAJe2SkVKTdmQ24y96S+aHwDOwAPnX9ExnIR7aEtAhe+
+	dW5Z7lXicQVW/7DdSaJUIQEe5HVyhwSBl1zBbuj6LMVoUB52IP7ouSkzRlPOP36ECmo
+	AirHUhjOybKTub605M8Tzlqh1vhHcJCQUXGpdyqc=
+Received: from dev31.localdomain (103.244.59.4 [103.244.59.4]) by
+	mx.zohomail.com with SMTPS id 1566351578120361.08327538001834;
+	Tue, 20 Aug 2019 18:39:38 -0700 (PDT)
+From: Zhang Tao <kontais@zoho.com>
+To: agk@redhat.com, snitzer@redhat.com
+Date: Wed, 21 Aug 2019 09:33:31 +0800
+Message-Id: <1566351211-13280-1-git-send-email-kontais@zoho.com>
+X-ZohoMailClient: External
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
+	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
+	[10.5.110.63]); Wed, 21 Aug 2019 01:39:41 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.63]);
+	Wed, 21 Aug 2019 01:39:41 +0000 (UTC) for IP:'136.143.188.95'
+	DOMAIN:'sender4-pp-o95.zoho.com' HELO:'sender4-pp-o95.zoho.com'
+	FROM:'kontais@zoho.com' RCPT:''
+X-RedHat-Spam-Score: -0.099  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
+	SPF_PASS) 136.143.188.95 sender4-pp-o95.zoho.com 136.143.188.95
+	sender4-pp-o95.zoho.com <kontais@zoho.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.63
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
-Cc: 'Ulf Hansson' <ulf.hansson@linaro.org>, 'Mike Snitzer' <snitzer@redhat.com>,
-	dm-devel@redhat.com, 'Andreas Dilger' <adilger.kernel@dilger.ca>,
-	'Alasdair Kergon' <agk@redhat.com>, 'Eric Biggers' <ebiggers@kernel.org>,
-	linux-samsung-soc@vger.kernel.org,
-	'Herbert Xu' <herbert@gondor.apana.org.au>,
-	'Krzysztof Kozlowski' <krzk@kernel.org>,
-	'Jaehoon Chung' <jh80.chung@samsung.com>,
-	'Kukjin Kim' <kgene@kernel.org>, linux-ext4@vger.kernel.org,
-	'Chao Yu' <chao@kernel.org>, linux-fscrypt@vger.kernel.org,
-	'Jaegeuk Kim' <jaegeuk@kernel.org>, linux-arm-kernel@lists.infradead.org,
-	"'Theodore Y. Ts'o'" <tytso@mit.edu>, linux-mmc@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-crypto@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	"'David S. Miller'" <davem@davemloft.net>
-Subject: Re: [dm-devel] [PATCH 5/9] block: support diskcipher
+X-Mailman-Approved-At: Wed, 21 Aug 2019 08:29:57 -0400
+Cc: Zhang Tao <zhangtao27@lenovo.com>, dm-devel@redhat.com,
+	linux-kernel@vger.kernel.org
+Subject: [dm-devel] [PATCH] dm table: fix a potential array out of bounds
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -121,40 +92,58 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]); Wed, 21 Aug 2019 12:10:27 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.71]); Wed, 21 Aug 2019 12:30:08 +0000 (UTC)
 
-On 8/21/19 12:42 AM, boojin.kim wrote:
-> This patch supports crypto information to be maintained via BIO
-> and passed to the storage driver.
-> 
-> To do this, 'bi_aux_private', 'REQ_CYPTE' and 'bi_dun' are added
-> to the block layer.
-> 
-> 'bi_aux_private' is added for loading additional private information into
-> BIO.
-> 'REQ_CRYPT' is added to distinguish that bi_aux_private is being used
-> for diskcipher.
-> F2FS among encryption users uses DUN(device unit number) as
-> the IV(initial vector) for cryptographic operations.
-> DUN is stored in 'bi_dun' of bi_iter as a specific value for each BIO.
-> 
-> Before attempting to merge the two BIOs, the operation is also added to
-> verify that the crypto information contained in two BIOs is consistent.
+From: Zhang Tao <zhangtao27@lenovo.com>
 
-This isn't going to happen. With this, and the inline encryption
-proposed by Google, we'll bloat the bio even more. At least the Google
-approach didn't include bio iter changes as well.
+allocate num + 1 for target and offset array, n_highs need num + 1
+elements, the last element will be used for node lookup in function
+dm_table_find_target.
 
-Please work it out between yourselves so we can have a single, clean
-abstraction that works for both.
+Signed-off-by: Zhang Tao <zhangtao27@lenovo.com>
+---
+ drivers/md/dm-table.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+index 7b6c3ee..fd7f604 100644
+--- a/drivers/md/dm-table.c
++++ b/drivers/md/dm-table.c
+@@ -160,20 +160,22 @@ static int alloc_targets(struct dm_table *t, unsigned int num)
+ {
+ 	sector_t *n_highs;
+ 	struct dm_target *n_targets;
++	unsigned int alloc_num;
+ 
+ 	/*
+ 	 * Allocate both the target array and offset array at once.
+ 	 * Append an empty entry to catch sectors beyond the end of
+ 	 * the device.
+ 	 */
+-	n_highs = (sector_t *) dm_vcalloc(num + 1, sizeof(struct dm_target) +
++	alloc_num = num + 1;
++	n_highs = (sector_t *) dm_vcalloc(alloc_num, sizeof(struct dm_target) +
+ 					  sizeof(sector_t));
+ 	if (!n_highs)
+ 		return -ENOMEM;
+ 
+-	n_targets = (struct dm_target *) (n_highs + num);
++	n_targets = (struct dm_target *) (n_highs + alloc_num);
+ 
+-	memset(n_highs, -1, sizeof(*n_highs) * num);
++	memset(n_highs, -1, sizeof(*n_highs) * alloc_num);
+ 	vfree(t->highs);
+ 
+ 	t->num_allocated = num;
 -- 
-Jens Axboe
+1.8.3.1
+
 
 --
 dm-devel mailing list
