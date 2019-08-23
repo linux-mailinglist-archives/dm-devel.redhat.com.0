@@ -2,155 +2,104 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30D419AF9F
-	for <lists+dm-devel@lfdr.de>; Fri, 23 Aug 2019 14:35:23 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	by mail.lfdr.de (Postfix) with ESMTPS id BDC629AF99
+	for <lists+dm-devel@lfdr.de>; Fri, 23 Aug 2019 14:35:14 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 3B12018C8910;
-	Fri, 23 Aug 2019 12:35:21 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 106B169736;
-	Fri, 23 Aug 2019 12:35:21 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 70AE07BDA7;
+	Fri, 23 Aug 2019 12:35:12 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 050F6100EBD4;
+	Fri, 23 Aug 2019 12:35:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8FDC2180BA9C;
-	Fri, 23 Aug 2019 12:35:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6912024F30;
+	Fri, 23 Aug 2019 12:35:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7N0orrA011783 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 22 Aug 2019 20:50:54 -0400
+	id x7N2ZXAC014206 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 22 Aug 2019 22:35:33 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D757F5C228; Fri, 23 Aug 2019 00:50:53 +0000 (UTC)
+	id DC4DA1001959; Fri, 23 Aug 2019 02:35:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx21.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.62])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D19F55C21A
-	for <dm-devel@redhat.com>; Fri, 23 Aug 2019 00:50:51 +0000 (UTC)
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mx1.redhat.com (ext-mx10.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.39])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D65721001947
+	for <dm-devel@redhat.com>; Fri, 23 Aug 2019 02:35:31 +0000 (UTC)
+Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
+	[209.85.166.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 3BE5B18C426B
-	for <dm-devel@redhat.com>; Fri, 23 Aug 2019 00:50:49 +0000 (UTC)
-Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id
-	20190823005045epoutp03ef182b896df69d8878bb904c79bcdd0e~9ZvReerfN2277022770epoutp031
-	for <dm-devel@redhat.com>; Fri, 23 Aug 2019 00:50:45 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
-	20190823005045epoutp03ef182b896df69d8878bb904c79bcdd0e~9ZvReerfN2277022770epoutp031
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1566521445;
-	bh=f2ThUHwqU6SxyDkaBykTiPQlcm0wcRMy3IpQiQiChcs=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=qjJP3CPDZUoPqC+TllhSHlEzayDCNEEA/ZeZhRffZlSa6IWzZNyyy/WghomGNCSH3
-	Ll12acSDQNebr7Gm85XsT73lLM+iAcMPvCd+fTuz8IXicflKfBccxTrV2stA77r50K
-	SbznIaYWExt+HtvjAggHXAnol3/leqScWyxLjaic=
-Received: from epsnrtp2.localdomain (unknown [182.195.42.163]) by
-	epcas2p4.samsung.com (KnoxPortal) with ESMTP id
-	20190823005044epcas2p4d26d2085b61ee54bd5954b1c574ebbe6~9ZvRA3S2Y1951719517epcas2p4w;
-	Fri, 23 Aug 2019 00:50:44 +0000 (GMT)
-Received: from epsmges2p2.samsung.com (unknown [182.195.40.184]) by
-	epsnrtp2.localdomain (Postfix) with ESMTP id 46F2rL3vD7zMqYkk;
-	Fri, 23 Aug 2019 00:50:42 +0000 (GMT)
-Received: from epcas2p4.samsung.com ( [182.195.41.56]) by
-	epsmges2p2.samsung.com (Symantec Messaging Gateway) with SMTP id
-	5E.38.04149.2683F5D5; Fri, 23 Aug 2019 09:50:42 +0900 (KST)
-Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
-	epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
-	20190823005041epcas2p3c8550c3fabbd6a6db6429cb06dbbf3a6~9ZvObUZVL1059310593epcas2p3U;
-	Fri, 23 Aug 2019 00:50:41 +0000 (GMT)
-Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
-	epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
-	20190823005041epsmtrp1e67b842e0eeb29d74f2dcb22b227f249~9ZvOaIzfb2194621946epsmtrp1o;
-	Fri, 23 Aug 2019 00:50:41 +0000 (GMT)
-X-AuditID: b6c32a46-fd5ff70000001035-b2-5d5f38625f08
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
-	epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
-	F7.1A.03706.1683F5D5; Fri, 23 Aug 2019 09:50:41 +0900 (KST)
-Received: from KORDO035251 (unknown [12.36.165.204]) by epsmtip2.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20190823005041epsmtip2748af0669304060f493849067826a76f~9ZvOI_Fjj0682606826epsmtip2h;
-	Fri, 23 Aug 2019 00:50:41 +0000 (GMT)
-From: "boojin.kim" <boojin.kim@samsung.com>
-To: "'Krzysztof Kozlowski'" <krzk@kernel.org>
-Date: Fri, 23 Aug 2019 09:50:41 +0900
-Message-ID: <00da01d5594c$c9d87390$5d895ab0$@samsung.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id A09652BFDD
+	for <dm-devel@redhat.com>; Fri, 23 Aug 2019 02:35:28 +0000 (UTC)
+Received: by mail-io1-f67.google.com with SMTP id l7so16632074ioj.6
+	for <dm-devel@redhat.com>; Thu, 22 Aug 2019 19:35:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+	:cc; bh=2Ob+A4xxX2bRSxLGz92/UzTEvC1yWM8JcjhiXKDPfB8=;
+	b=flcLM5FZxA1UdTl+5MfostzBYwQfyv1yb87DaSzrnDrUwd/ZNj4K4T/rHszC/sFQMH
+	ADUFV/N/N6vulg+PsFB9LiJOba7WYzMsXqe7TkwmxiwQw++HUI5Q9lwxgsadqj5kp36o
+	7ir9Ftxz3Frpzbh7dbD9IWl/fAPy+uyEwFD9Qu0xwImVT/66UuNo3m+3vDu9rqcZdHGP
+	dJuOAFAhp3e0iD0AWnqz3VAQtqcjnUDCLFkZZiPVDrJq83kU9d3bg+KlteAnZK+XFKE6
+	M2BK3WAwQy2tydaBr0xJ2dcLV8QJVxM3CxkgnlBsNXoibdFYaWIIutqUzeXdd2gExoTy
+	FEcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=2Ob+A4xxX2bRSxLGz92/UzTEvC1yWM8JcjhiXKDPfB8=;
+	b=rdKra9Iv9nRAVc2povfo9x27AaJIoIAt782FHJ4p7AxSpbGfVrHW1pGClCRkRn5CLj
+	Atty0Ot8cv9WwOdFg32Sj+Kl3q61dg1Yv+YJI9mcJ5fJFmM1oHJG6WfJjqubSYdpX026
+	urEDU7N7SPKoYas9ez13ABF6qhNdHUjT5AjKtVtHxTJeloJQ/Ptk1aoh5OpBGW+EM53a
+	eKUn/A7dm4jeCgSu4zKpPbV0uKA3LshUen3BGjSHPzR7uaNHjuvqU8Of6sOlqbpPhrcn
+	wbcPM29Ueav8+86aO8RD72Qs0G/CjOlodPqsgRNbajV5PJesGftVyuhfuzn5LTT240rn
+	iTzg==
+X-Gm-Message-State: APjAAAWkpBcEF++lsd4pW3C9kyF/zEGvK2qTepXZ944QZJcpKjYnngFH
+	Zmhz1uPM6T7UBAYxhRhrQcZ/wHeX6M6g749WKm0g7w==
+X-Google-Smtp-Source: APXvYqxk0KBtXTDXCH7sq1BDWGn2tzcj3BOrK9VJXXJYjin28Niwi8IhH6bIWJT+jY7Hn20R6XsnRrLk/vFE/AUzyqo=
+X-Received: by 2002:a6b:c581:: with SMTP id v123mr3719443iof.158.1566527727590;
+	Thu, 22 Aug 2019 19:35:27 -0700 (PDT)
 MIME-Version: 1.0
-Thread-Index: AdVZTE1TDvDE+uWuReO+5O58h7ifGg==
-Content-Language: ko
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprFLsWRmVeSWpSXmKPExsWy7bCmhW6SRXysweKVkhZfv3SwWKw/dYzZ
-	YvXdfjaL01PPMlnMOd/CYrH33WxWi7V7/jBbdL+SsXiyfhazxY1fbawW/Y9fM1ucP7+B3WLT
-	42usFntvaVvcv/eTyWLmvDtsFpcWuVu8mveNxWLP3pMsFpd3zWGzOPK/n9Fixvl9TBZtG78y
-	WrT2/GS3OL423EHSY8vKm0weLZvLPbYdUPW4fLbUY9OqTjaPO9f2sHlsXlLvsXvBZyaPpjNH
-	mT3e77vK5tG3ZRWjx+dNcgE8UTk2GamJKalFCql5yfkpmXnptkrewfHO8aZmBoa6hpYW5koK
-	eYm5qbZKLj4Bum6ZOUC/KymUJeaUAoUCEouLlfTtbIryS0tSFTLyi0tslVILUnIKDA0L9IoT
-	c4tL89L1kvNzrQwNDIxMgSoTcjI6Ly5kKvjFXLFyz1PWBsaJzF2MnBwSAiYSL6bdBLK5OIQE
-	djBKHLn/Csr5xCix9PRDFgjnG6PEowUX2GFafl3vYoNI7GWUuPn/HVTLS0aJna+nsoBUsQlo
-	S2w+vooRxBYR0JXYfGM5O0gRs8A/doknnw6BFQkL6EnMeLCYCcRmEVCV2PysF2gsBwevgKXE
-	q49qIGFeAUGJkzOfgJUzC8hLbH87B+pwBYkdZ19DzdeTeN4xnR2iRkRidmcb2EESAj/ZJSb9
-	ameBaHCR6JtwBcoWlnh1fAvUO1ISL/vboOx6iavLFrNDNPcwSpz5BZMwlpj1rJ0R5DhmAU2J
-	9bv0QUwJAWWJI7egbuOT6Dj8lx0izCvR0SYE0agiMffTZSaIsJTEh546iLCHRPPBDrYJjIqz
-	kDw5C8mTs5A8Mwth7QJGllWMYqkFxbnpqcVGBUbIkb2JEZwvtNx2MC4553OIUYCDUYmHt6Aj
-	LlaINbGsuDL3EKMEB7OSCG/ZRKAQb0piZVVqUX58UWlOavEhRlNgFExklhJNzgfmsrySeENT
-	IzMzA0tTC1MzIwslcd5N3DdjhATSE0tSs1NTC1KLYPqYODilGhhb2VZ9bj/4j9m9Iuf7vUUs
-	J3MWHf0j1lTS2eO4QTdzw8b5G6K8pjDqvjtzN9nhxX13G1vnkq0G1TZrtL/4bHvHupRDP5rx
-	VqSo+KHqV+sObK02DLrOElD9o+/Xi+W1bfOcdJRutyZXXz9cM4dTcjbnAX/x5gzHh1uvntDf
-	efu79KO5c470TF6hxFKckWioxVxUnAgA7+Q96S0EAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrFIsWRmVeSWpSXmKPExsWy7bCSvG6iRXyswZrzuhZfv3SwWKw/dYzZ
-	YvXdfjaL01PPMlnMOd/CYrH33WxWi7V7/jBbdL+SsXiyfhazxY1fbawW/Y9fM1ucP7+B3WLT
-	42usFntvaVvcv/eTyWLmvDtsFpcWuVu8mveNxWLP3pMsFpd3zWGzOPK/n9Fixvl9TBZtG78y
-	WrT2/GS3OL423EHSY8vKm0weLZvLPbYdUPW4fLbUY9OqTjaPO9f2sHlsXlLvsXvBZyaPpjNH
-	mT3e77vK5tG3ZRWjx+dNcgE8UVw2Kak5mWWpRfp2CVwZnRcXMhX8Yq5YuecpawPjROYuRk4O
-	CQETiV/Xu9i6GLk4hAR2M0qc+72aHSIhJbG1fQ9UkbDE/ZYjrBBFzxklDhw4BVbEJqAtsfn4
-	KkYQW0RAV2LzjeVgcWaBaRwSuz6Ig9jCAnoSMx4sZgKxWQRUJTY/6wXaxsHBK2Ap8eqjGkiY
-	V0BQ4uTMJywgYWag8raNjBBT5CW2v50DdYKCxI6zr6E26Uk875gOtUlEYnZnG/MERsFZSCbN
-	Qpg0C8mkWUg6FjCyrGKUTC0ozk3PLTYsMMxLLdcrTswtLs1L10vOz93ECE4BWpo7GC8viT/E
-	KMDBqMTDW9ARFyvEmlhWXJl7iFGCg1lJhLdsIlCINyWxsiq1KD++qDQntfgQozQHi5I479O8
-	Y5FCAumJJanZqakFqUUwWSYOTqkGxpkCz5+oMws9PX3b/Iwkf+SF3W8rQ53jHge67jXfcttX
-	XfWf/YkDt2PWHm6XO/JJRet0fPHMFRtncfxadl8yhy+f9dwq5ZWcKeFMbiHrX7L3Sj37OZvd
-	4obsuk/CfvZi882OzLqbKXEtsXAff8/CwM0+Hnof3BSz71z2LO/ouybA31ka2n+AWYmlOCPR
-	UIu5qDgRAIuCqND9AgAA
-X-CMS-MailID: 20190823005041epcas2p3c8550c3fabbd6a6db6429cb06dbbf3a6
-X-Msg-Generator: CA
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20190823005041epcas2p3c8550c3fabbd6a6db6429cb06dbbf3a6
-References: <CGME20190823005041epcas2p3c8550c3fabbd6a6db6429cb06dbbf3a6@epcas2p3.samsung.com>
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
-	[10.5.110.62]); Fri, 23 Aug 2019 00:50:50 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.62]);
-	Fri, 23 Aug 2019 00:50:50 +0000 (UTC) for IP:'203.254.224.33'
-	DOMAIN:'mailout3.samsung.com' HELO:'mailout3.samsung.com'
-	FROM:'boojin.kim@samsung.com' RCPT:''
-X-RedHat-Spam-Score: -5.103  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
-	DKIM_VALID_AU, RCVD_IN_DNSWL_HI, SPF_HELO_PASS,
-	SPF_PASS) 203.254.224.33 mailout3.samsung.com 203.254.224.33
-	mailout3.samsung.com <boojin.kim@samsung.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.62
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+References: <CGME20190821064226epcas2p2835b8a9084988b79107e54abfc5e7dab@epcas2p2.samsung.com>
+	<004101d557eb$98b00060$ca100120$@samsung.com>
+	<6ea5e5db-4dd4-719f-3b3e-b89099636ea6@kernel.dk>
+In-Reply-To: <6ea5e5db-4dd4-719f-3b3e-b89099636ea6@kernel.dk>
+From: Satya Tangirala <satyat@google.com>
+Date: Thu, 22 Aug 2019 19:35:16 -0700
+Message-ID: <CAA+FYZc6G0xk7Dhx0b9xNRoK+b+DpfuS+OK4wn4bpKpFPiiGUQ@mail.gmail.com>
+To: Jens Axboe <axboe@kernel.dk>, boojin.kim@samsung.com
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.39]);
+	Fri, 23 Aug 2019 02:35:28 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]);
+	Fri, 23 Aug 2019 02:35:28 +0000 (UTC) for IP:'209.85.166.67'
+	DOMAIN:'mail-io1-f67.google.com' HELO:'mail-io1-f67.google.com'
+	FROM:'satyat@google.com' RCPT:''
+X-RedHat-Spam-Score: -15.601  (DKIMWL_WL_MED, DKIM_SIGNED, DKIM_VALID,
+	DKIM_VALID_AU, ENV_AND_HDR_SPF_MATCH, RCVD_IN_DNSWL_NONE,
+	SPF_HELO_NONE, SPF_PASS, USER_IN_DEF_DKIM_WL,
+	USER_IN_DEF_SPF_WL) 209.85.166.67 mail-io1-f67.google.com 209.85.166.67
+	mail-io1-f67.google.com <satyat@google.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.39
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 23 Aug 2019 08:34:47 -0400
-Cc: 'Ulf
-	Hansson' <ulf.hansson@linaro.org>, 'Mike Snitzer' <snitzer@redhat.com>,
-	dm-devel@redhat.com, 'Andreas Dilger' <adilger.kernel@dilger.ca>,
-	'Alasdair Kergon' <agk@redhat.com>, 'Eric Biggers' <ebiggers@kernel.org>,
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Mike Snitzer <snitzer@redhat.com>,
+	dm-devel@redhat.com, Andreas Dilger <adilger.kernel@dilger.ca>,
+	Alasdair Kergon <agk@redhat.com>, Jaehoon Chung <jh80.chung@samsung.com>,
 	linux-samsung-soc@vger.kernel.org,
-	'Herbert Xu' <herbert@gondor.apana.org.au>,
-	'Krzysztof Kozlowski' <krzk@kernel.org>,
-	'Jaehoon Chung' <jh80.chung@samsung.com>,
-	'Kukjin Kim' <kgene@kernel.org>, linux-ext4@vger.kernel.org,
-	'Chao Yu' <chao@kernel.org>, linux-block@vger.kernel.org,
-	linux-fscrypt@vger.kernel.org, 'Jaegeuk Kim' <jaegeuk@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Krzysztof Kozlowski <krzk@kernel.org>, Eric Biggers <ebiggers@kernel.org>,
+	Kukjin Kim <kgene@kernel.org>, linux-ext4@vger.kernel.org,
+	Chao Yu <chao@kernel.org>, linux-block@vger.kernel.org,
+	linux-fscrypt@vger.kernel.org, Jaegeuk Kim <jaegeuk@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
-	'Jens Axboe' <axboe@kernel.dk>, 'Theodore Ts'o' <tytso@mit.edu>,
-	linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
+	"Theodore Y. Ts'o" <tytso@mit.edu>, linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
 	linux-crypto@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	"'David S. Miller'" <davem@davemloft.net>
-Subject: Re: [dm-devel] [PATCH 1/9] crypt: Add diskcipher
+	"David S. Miller" <davem@davemloft.net>
+Subject: Re: [dm-devel] [PATCH 5/9] block: support diskcipher
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -166,24 +115,67 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.70]); Fri, 23 Aug 2019 12:35:21 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]); Fri, 23 Aug 2019 12:35:13 +0000 (UTC)
 
-On Wed, 22 Aug 2019 at 17:37, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+On Wed, Aug 21, 2019 at 5:10 AM Jens Axboe <axboe@kernel.dk> wrote:
 >
-> Your patch looks corrupted - wrapped by mailer. The easiest way
-> usually is to use git format-patch and git send-email - then you do
-> not have to worry about formatting etc.
+> On 8/21/19 12:42 AM, boojin.kim wrote:
+> > This patch supports crypto information to be maintained via BIO
+> > and passed to the storage driver.
+> >
+> > To do this, 'bi_aux_private', 'REQ_CYPTE' and 'bi_dun' are added
+> > to the block layer.
+> >
+> > 'bi_aux_private' is added for loading additional private information into
+> > BIO.
+> > 'REQ_CRYPT' is added to distinguish that bi_aux_private is being used
+> > for diskcipher.
+> > F2FS among encryption users uses DUN(device unit number) as
+> > the IV(initial vector) for cryptographic operations.
+> > DUN is stored in 'bi_dun' of bi_iter as a specific value for each BIO.
+> >
+> > Before attempting to merge the two BIOs, the operation is also added to
+> > verify that the crypto information contained in two BIOs is consistent.
 >
-> Best regards,
-> Krzysztof
+> This isn't going to happen. With this, and the inline encryption
+> proposed by Google, we'll bloat the bio even more. At least the Google
+> approach didn't include bio iter changes as well.
+>
+> Please work it out between yourselves so we can have a single, clean
+> abstraction that works for both.
+>
+> --
+> Jens Axboe
+>
 
-I'm using outlook instead of 'git send-email' because of workplace policy.
-It's probably broken when I copied the code.
-Thanks for your notice. I will be more careful.
+Hi Boojin,
 
-Thanks for your reply
-Boojin Kim.
+We're very keen to make sure that our approach to inline encryption can
+work with diverse hardware, including Samsung's FMP hardware; if you
+can see any issues with using our approach with your hardware please
+let us know.
+
+We understand that a possible concern for getting FMP working with our
+patch series for Inline Encryption Support at
+
+https://lore.kernel.org/linux-block/20190821075714.65140-1-satyat@google.com/
+
+is that unlike some inline encryption hardware (and also unlike the JEDEC
+UFS v2.1 spec), FMP doesn't have the concept of a limited number of
+keyslots - to address that difference we have a "passthrough keyslot
+manager", which we put up on top of our patch series for inline encryption
+support at
+
+https://android-review.googlesource.com/c/kernel/common/+/980137/2
+
+Setting up a passthrough keyslot manager in the request queue of a
+device allows the device to receive a bio's encryption context as-is with
+the bio, which is what FMP would prefer. Are there any issues with
+using the passthrough keyslot manager for FMP?
+
+Thanks!
+Satya
 
 --
 dm-devel mailing list
