@@ -2,48 +2,48 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF2849B5C2
-	for <lists+dm-devel@lfdr.de>; Fri, 23 Aug 2019 19:49:27 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by mail.lfdr.de (Postfix) with ESMTPS id B06829B5C3
+	for <lists+dm-devel@lfdr.de>; Fri, 23 Aug 2019 19:49:29 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id B8CF63CA04;
-	Fri, 23 Aug 2019 17:49:25 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E688660C80;
-	Fri, 23 Aug 2019 17:49:24 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id E535410F23F0;
+	Fri, 23 Aug 2019 17:49:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BABA25D713;
+	Fri, 23 Aug 2019 17:49:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B43451802218;
-	Fri, 23 Aug 2019 17:49:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5A5A124F68;
+	Fri, 23 Aug 2019 17:49:27 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7NHn8NI010166 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 23 Aug 2019 13:49:08 -0400
+	id x7NHnBsH010201 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 23 Aug 2019 13:49:11 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9492526339; Fri, 23 Aug 2019 17:49:08 +0000 (UTC)
+	id B74565C3FA; Fri, 23 Aug 2019 17:49:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 704DF261A7;
-	Fri, 23 Aug 2019 17:49:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DFCF55C28C;
+	Fri, 23 Aug 2019 17:49:09 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id x7NHn7ma006037; 
-	Fri, 23 Aug 2019 12:49:07 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id x7NHn8Ni006041; 
+	Fri, 23 Aug 2019 12:49:08 -0500
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id x7NHn649006035;
-	Fri, 23 Aug 2019 12:49:06 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id x7NHn8uT006040;
+	Fri, 23 Aug 2019 12:49:08 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Fri, 23 Aug 2019 12:48:48 -0500
-Message-Id: <1566582538-5979-5-git-send-email-bmarzins@redhat.com>
+Date: Fri, 23 Aug 2019 12:48:49 -0500
+Message-Id: <1566582538-5979-6-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1566582538-5979-1-git-send-email-bmarzins@redhat.com>
 References: <1566582538-5979-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
 Cc: device-mapper development <dm-devel@redhat.com>,
 	Muneendra Kumar <mkumar@redhat.com>, Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH v2 04/14] libmultipath: add wrapper function
-	around pgpolicyfn
+Subject: [dm-devel] [PATCH v2 05/14] tests: update pgpolicy tests to work
+	with group_paths()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -60,262 +60,422 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]); Fri, 23 Aug 2019 17:49:26 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.66]); Fri, 23 Aug 2019 17:49:28 +0000 (UTC)
 
-group_paths() is a wrapper around the pgpolicy functions, that pulls out
-the common code from the beginning and the end. For this to work,
-one_group() needs to change how it sets up the pathgroups vector to work
-like the other pgpolicy functions. This does means that the pathgroups
-in group_by_prio are now needlessly sorted afterwards. That will be
-dealt with in a later patch.  Also, since store_pathgroup() is only
-called by add_pathgroup(), it doesn't need to exist as a seperate
-function.
+The pgpolicy unit tests now work again, using group_paths().
+test_one_group0(), which was skipped with the old path grouping code
+because it failed, is now working correctly.
 
 Reviewed-by: Martin Wilck <mwilck@suse.com>
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/configure.c  |  2 +-
- libmultipath/pgpolicies.c | 83 ++++++++++++++-------------------------
- libmultipath/pgpolicies.h |  2 +-
- libmultipath/structs.c    | 16 ++------
- libmultipath/structs.h    |  1 -
- 5 files changed, 35 insertions(+), 69 deletions(-)
+ tests/pgpolicy.c | 125 +++++++++++++++++++++++++++++++----------------
+ 1 file changed, 83 insertions(+), 42 deletions(-)
 
-diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-index b09ef529..3c309d64 100644
---- a/libmultipath/configure.c
-+++ b/libmultipath/configure.c
-@@ -387,7 +387,7 @@ int setup_map(struct multipath *mpp, char *params, int params_size,
- 		vector_free(mpp->pg);
- 		mpp->pg = NULL;
+diff --git a/tests/pgpolicy.c b/tests/pgpolicy.c
+index fbb8589e..04a77c4c 100644
+--- a/tests/pgpolicy.c
++++ b/tests/pgpolicy.c
+@@ -92,6 +92,7 @@ static int setupX(struct multipath *mp, struct path *pp, int size)
+ 		vector_set_slot(mp->paths, &pp[i]);
  	}
--	if (mpp->pgpolicyfn && mpp->pgpolicyfn(mpp))
-+	if (group_paths(mpp))
- 		return 1;
- 
- 	/*
-diff --git a/libmultipath/pgpolicies.c b/libmultipath/pgpolicies.c
-index 660768a4..1b59485c 100644
---- a/libmultipath/pgpolicies.c
-+++ b/libmultipath/pgpolicies.c
-@@ -84,6 +84,26 @@ sort_pathgroups (struct multipath *mp) {
+ 	set_priority(pp, prio, size);
++	mp->pgpolicyfn = NULL;
+ 	return 0;
  }
  
+@@ -187,7 +188,8 @@ static void test_one_group8(void **state)
+ 	int *groups[] = {paths};
+ 	int group_size[] = {8};
  
-+int group_paths(struct multipath *mp)
-+{
-+	if (!mp->pg)
-+		mp->pg = vector_alloc();
-+	if (!mp->pg)
-+		return 1;
-+
-+	if (VECTOR_SIZE(mp->paths) > 0 &&
-+	    (!mp->pgpolicyfn || mp->pgpolicyfn(mp))) {
-+		vector_free(mp->pg);
-+		mp->pg = NULL;
-+		return 1;
-+	}
-+
-+	sort_pathgroups(mp);
-+	vector_free(mp->paths);
-+	mp->paths = NULL;
-+	return 0;
-+}
-+
- /*
-  * One path group per unique tgt_node_name present in the path vector
-  */
-@@ -95,12 +115,6 @@ int group_by_node_name(struct multipath * mp)
- 	struct pathgroup * pgp;
- 	struct path * pp2;
+-	assert_int_equal(one_group(&mp8), 0);
++	mp8.pgpolicyfn = one_group;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 1);
+ }
  
--	if (!mp->pg)
--		mp->pg = vector_alloc();
--
--	if (!mp->pg)
--		return 1;
--
- 	/* init the bitmap */
- 	bitmap = (int *)MALLOC(VECTOR_SIZE(mp->paths) * sizeof (int));
+@@ -197,7 +199,8 @@ static void test_one_group4(void **state)
+ 	int *groups[] = {paths};
+ 	int group_size[] = {4};
  
-@@ -146,9 +160,6 @@ int group_by_node_name(struct multipath * mp)
- 		}
- 	}
- 	FREE(bitmap);
--	sort_pathgroups(mp);
--	free_pathvec(mp->paths, KEEP_PATHS);
--	mp->paths = NULL;
- 	return 0;
- out2:
- 	free_pathgroup(pgp, KEEP_PATHS);
-@@ -171,12 +182,6 @@ int group_by_serial(struct multipath * mp)
- 	struct pathgroup * pgp;
- 	struct path * pp2;
+-	assert_int_equal(one_group(&mp4), 0);
++	mp4.pgpolicyfn = one_group;
++	assert_int_equal(group_paths(&mp4), 0);
+ 	verify_pathgroups(&mp4, p4, groups, group_size, 1);
+ }
  
--	if (!mp->pg)
--		mp->pg = vector_alloc();
--
--	if (!mp->pg)
--		return 1;
--
- 	/* init the bitmap */
- 	bitmap = (int *)MALLOC(VECTOR_SIZE(mp->paths) * sizeof (int));
+@@ -207,20 +210,22 @@ static void test_one_group1(void **state)
+ 	int *groups[] = {paths};
+ 	int group_size[] = {1};
  
-@@ -221,9 +226,6 @@ int group_by_serial(struct multipath * mp)
- 		}
- 	}
- 	FREE(bitmap);
--	sort_pathgroups(mp);
--	free_pathvec(mp->paths, KEEP_PATHS);
--	mp->paths = NULL;
- 	return 0;
- out2:
- 	free_pathgroup(pgp, KEEP_PATHS);
-@@ -241,12 +243,6 @@ int one_path_per_group(struct multipath *mp)
- 	struct path * pp;
- 	struct pathgroup * pgp;
+-	assert_int_equal(one_group(&mp1), 0);
++	mp1.pgpolicyfn = one_group;
++	assert_int_equal(group_paths(&mp1), 0);
+ 	verify_pathgroups(&mp1, p1, groups, group_size, 1);
+ }
  
--	if (!mp->pg)
--		mp->pg = vector_alloc();
--
--	if (!mp->pg)
--		return 1;
--
- 	for (i = 0; i < VECTOR_SIZE(mp->paths); i++) {
- 		pp = VECTOR_SLOT(mp->paths, i);
- 		pgp = alloc_pathgroup();
-@@ -260,9 +256,6 @@ int one_path_per_group(struct multipath *mp)
- 		if (store_path(pgp->paths, pp))
- 			goto out1;
- 	}
--	sort_pathgroups(mp);
--	free_pathvec(mp->paths, KEEP_PATHS);
--	mp->paths = NULL;
- 	return 0;
- out1:
- 	free_pathgroup(pgp, KEEP_PATHS);
-@@ -274,32 +267,24 @@ out:
- 
- int one_group(struct multipath *mp)	/* aka multibus */
+ static void test_one_group0(void **state)
  {
-+	int i;
-+	struct path * pp;
- 	struct pathgroup * pgp;
- 
--	if (VECTOR_SIZE(mp->paths) < 0)
--		return 0;
-+	pgp = alloc_pathgroup();
- 
--	if (!mp->pg)
--		mp->pg = vector_alloc();
-+	if (!pgp)
-+		goto out;
- 
--	if (!mp->pg)
--		return 1;
-+	if (add_pathgroup(mp, pgp))
-+		goto out1;
- 
--	if (VECTOR_SIZE(mp->paths) > 0) {
--		pgp = alloc_pathgroup();
-+	for (i = 0; i < VECTOR_SIZE(mp->paths); i++) {
-+		pp = VECTOR_SLOT(mp->paths, i);
- 
--		if (!pgp)
-+		if (store_path(pgp->paths, pp))
- 			goto out;
--
--		vector_free(pgp->paths);
--
--		if (add_pathgroup(mp, pgp))
--			goto out1;
--
--		pgp->paths = mp->paths;
--		mp->paths = NULL;
- 	}
--
- 	return 0;
- out1:
- 	free_pathgroup(pgp, KEEP_PATHS);
-@@ -317,12 +302,6 @@ int group_by_prio(struct multipath *mp)
- 	struct pathgroup * pgp;
- 	vector pathvec = NULL;
- 
--	if (!mp->pg)
--		mp->pg = vector_alloc();
--
--	if (!mp->pg)
--		return 1;
--
- 	pathvec = vector_alloc();
- 	if (!pathvec)
- 		goto out;
-@@ -387,8 +366,6 @@ int group_by_prio(struct multipath *mp)
- 		}
- 	}
- 	free_pathvec(pathvec, KEEP_PATHS);
--	free_pathvec(mp->paths, KEEP_PATHS);
--	mp->paths = NULL;
- 	return 0;
- out2:
- 	free_pathgroup(pgp, KEEP_PATHS);
-diff --git a/libmultipath/pgpolicies.h b/libmultipath/pgpolicies.h
-index c0eaa7f4..11834011 100644
---- a/libmultipath/pgpolicies.h
-+++ b/libmultipath/pgpolicies.h
-@@ -21,7 +21,7 @@ enum iopolicies {
- 
- int get_pgpolicy_id(char *);
- int get_pgpolicy_name (char *, int, int);
--
-+int group_paths(struct multipath *);
- /*
-  * policies
-  */
-diff --git a/libmultipath/structs.c b/libmultipath/structs.c
-index fee899bd..bf7fdd73 100644
---- a/libmultipath/structs.c
-+++ b/libmultipath/structs.c
-@@ -318,23 +318,13 @@ store_path (vector pathvec, struct path * pp)
- 	return 0;
+-	assert_int_equal(one_group(&mp0), 0);
+-	skip(); /* BROKEN */
++	mp0.pgpolicyfn = one_group;
++	assert_int_equal(group_paths(&mp0), 0);
+ 	verify_pathgroups(&mp0, NULL, NULL, NULL, 0);
  }
  
--int
--store_pathgroup (vector pgvec, struct pathgroup * pgp)
-+int add_pathgroup(struct multipath *mpp, struct pathgroup *pgp)
+ static void test_one_group_null(void **state)
  {
--	if (!vector_alloc_slot(pgvec))
-+	if (!vector_alloc_slot(mpp->pg))
- 		return 1;
- 
--	vector_set_slot(pgvec, pgp);
--
--	return 0;
--}
--
--int add_pathgroup(struct multipath *mpp, struct pathgroup *pgp)
--{
--	int ret = store_pathgroup(mpp->pg, pgp);
-+	vector_set_slot(mpp->pg, pgp);
- 
--	if (ret)
--		return ret;
- 	pgp->mpp = mpp;
- 	return 0;
+-	assert_int_equal(one_group(&mp_null), 0);
++	mp_null.pgpolicyfn = one_group;
++	assert_int_equal(group_paths(&mp_null), 0);
+ 	verify_pathgroups(&mp_null, NULL, NULL, NULL, 0);
  }
-diff --git a/libmultipath/structs.h b/libmultipath/structs.h
-index 1a3d827b..893074eb 100644
---- a/libmultipath/structs.h
-+++ b/libmultipath/structs.h
-@@ -445,7 +445,6 @@ int store_adaptergroup(vector adapters, struct adapter_group *agp);
- int store_hostgroup(vector hostgroupvec, struct host_group *hgp);
  
- int store_path (vector pathvec, struct path * pp);
--int store_pathgroup (vector pgvec, struct pathgroup * pgp);
- int add_pathgroup(struct multipath*, struct pathgroup *);
+@@ -231,7 +236,8 @@ static void test_one_path_per_group_same8(void **state)
+ 			  &paths[4], &paths[5], &paths[6], &paths[7]};
+ 	int group_size[] = {1,1,1,1,1,1,1,1};
  
- struct multipath * find_mp_by_alias (const struct _vector *mp, const char *alias);
+-	assert_int_equal(one_path_per_group(&mp8), 0);
++	mp8.pgpolicyfn = one_path_per_group;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 8);
+ }
+ 
+@@ -244,7 +250,8 @@ static void test_one_path_per_group_increasing8(void **state)
+ 	int group_size[] = {1,1,1,1,1,1,1,1};
+ 
+ 	set_priority(p8, prio, 8);
+-	assert_int_equal(one_path_per_group(&mp8), 0);
++	mp8.pgpolicyfn = one_path_per_group;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 8);
+ }
+ 
+@@ -257,7 +264,8 @@ static void test_one_path_per_group_decreasing8(void **state)
+ 	int group_size[] = {1,1,1,1,1,1,1,1};
+ 
+ 	set_priority(p8, prio, 8);
+-	assert_int_equal(one_path_per_group(&mp8), 0);
++	mp8.pgpolicyfn = one_path_per_group;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 8);
+ }
+ 
+@@ -270,7 +278,8 @@ static void test_one_path_per_group_mixed8(void **state)
+ 	int group_size[] = {1,1,1,1,1,1,1,1};
+ 
+ 	set_priority(p8, prio, 8);
+-	assert_int_equal(one_path_per_group(&mp8), 0);
++	mp8.pgpolicyfn = one_path_per_group;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 8);
+ }
+ 
+@@ -280,7 +289,8 @@ static void test_one_path_per_group4(void **state)
+ 	int *groups[] = {&paths[0], &paths[1], &paths[2], &paths[3]};
+ 	int group_size[] = {1,1,1,1};
+ 
+-	assert_int_equal(one_path_per_group(&mp4), 0);
++	mp4.pgpolicyfn = one_path_per_group;
++	assert_int_equal(group_paths(&mp4), 0);
+ 	verify_pathgroups(&mp4, p4, groups, group_size, 4);
+ }
+ 
+@@ -290,19 +300,22 @@ static void test_one_path_per_group1(void **state)
+ 	int *groups[] = {paths};
+ 	int group_size[] = {1};
+ 
+-	assert_int_equal(one_path_per_group(&mp1), 0);
++	mp1.pgpolicyfn = one_path_per_group;
++	assert_int_equal(group_paths(&mp1), 0);
+ 	verify_pathgroups(&mp1, p1, groups, group_size, 1);
+ }
+ 
+ static void test_one_path_per_group0(void **state)
+ {
+-	assert_int_equal(one_path_per_group(&mp0), 0);
++	mp0.pgpolicyfn = one_path_per_group;
++	assert_int_equal(group_paths(&mp0), 0);
+ 	verify_pathgroups(&mp0, NULL, NULL, NULL, 0);
+ }
+ 
+ static void test_one_path_per_group_null(void **state)
+ {
+-	assert_int_equal(one_path_per_group(&mp_null), 0);
++	mp_null.pgpolicyfn = one_path_per_group;
++	assert_int_equal(group_paths(&mp_null), 0);
+ 	verify_pathgroups(&mp_null, NULL, NULL, NULL, 0);
+ }
+ 
+@@ -312,7 +325,8 @@ static void test_group_by_prio_same8(void **state)
+ 	int *groups[] = {paths};
+ 	int group_size[] = {8};
+ 
+-	assert_int_equal(group_by_prio(&mp8), 0);
++	mp8.pgpolicyfn = group_by_prio;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 1);
+ }
+ 
+@@ -325,7 +339,8 @@ static void test_group_by_prio_increasing8(void **state)
+ 	int group_size[] = {1,1,1,1,1,1,1,1};
+ 
+ 	set_priority(p8, prio, 8);
+-	assert_int_equal(group_by_prio(&mp8), 0);
++	mp8.pgpolicyfn = group_by_prio;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 8);
+ }
+ 
+@@ -338,7 +353,8 @@ static void test_group_by_prio_decreasing8(void **state)
+ 	int group_size[] = {1,1,1,1,1,1,1,1};
+ 
+ 	set_priority(p8, prio, 8);
+-	assert_int_equal(group_by_prio(&mp8), 0);
++	mp8.pgpolicyfn = group_by_prio;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 8);
+ }
+ 
+@@ -356,7 +372,8 @@ static void test_group_by_prio_mixed8(void **state)
+ 	int group_size[] = {1,1,1,2,2,1};
+ 
+ 	set_priority(p8, prio, 8);
+-	assert_int_equal(group_by_prio(&mp8), 0);
++	mp8.pgpolicyfn = group_by_prio;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 6);
+ }
+ 
+@@ -369,7 +386,8 @@ static void test_group_by_prio_2_groups8(void **state)
+ 	int group_size[] = {4,4};
+ 
+ 	set_priority(p8, prio, 8);
+-	assert_int_equal(group_by_prio(&mp8), 0);
++	mp8.pgpolicyfn = group_by_prio;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 2);
+ }
+ 
+@@ -383,7 +401,8 @@ static void test_group_by_prio_mixed4(void **state)
+ 	int group_size[] = {2,1,1};
+ 
+ 	set_priority(p4, prio, 4);
+-	assert_int_equal(group_by_prio(&mp4), 0);
++	mp4.pgpolicyfn = group_by_prio;
++	assert_int_equal(group_paths(&mp4), 0);
+ 	verify_pathgroups(&mp4, p4, groups, group_size, 3);
+ }
+ 
+@@ -396,7 +415,8 @@ static void test_group_by_prio_2_groups4(void **state)
+ 	int group_size[] = {2,2};
+ 
+ 	set_priority(p4, prio, 4);
+-	assert_int_equal(group_by_prio(&mp4), 0);
++	mp4.pgpolicyfn = group_by_prio;
++	assert_int_equal(group_paths(&mp4), 0);
+ 	verify_pathgroups(&mp4, p4, groups, group_size, 2);
+ }
+ 
+@@ -406,19 +426,22 @@ static void test_group_by_prio1(void **state)
+ 	int *groups[] = {paths};
+ 	int group_size[] = {1};
+ 
+-	assert_int_equal(group_by_prio(&mp1), 0);
++	mp1.pgpolicyfn = group_by_prio;
++	assert_int_equal(group_paths(&mp1), 0);
+ 	verify_pathgroups(&mp1, p1, groups, group_size, 1);
+ }
+ 
+ static void test_group_by_prio0(void **state)
+ {
+-	assert_int_equal(group_by_prio(&mp0), 0);
++	mp0.pgpolicyfn = group_by_prio;
++	assert_int_equal(group_paths(&mp0), 0);
+ 	verify_pathgroups(&mp0, NULL, NULL, NULL, 0);
+ }
+ 
+ static void test_group_by_prio_null(void **state)
+ {
+-	assert_int_equal(group_by_prio(&mp_null), 0);
++	mp_null.pgpolicyfn = group_by_prio;
++	assert_int_equal(group_paths(&mp_null), 0);
+ 	verify_pathgroups(&mp_null, NULL, NULL, NULL, 0);
+ }
+ 
+@@ -430,7 +453,8 @@ static void test_group_by_node_name_same8(void **state)
+ 	int group_size[] = {8};
+ 
+ 	set_tgt_node_name(p8, node_name, 8);
+-	assert_int_equal(group_by_node_name(&mp8), 0);
++	mp8.pgpolicyfn = group_by_node_name;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 1);
+ }
+ 
+@@ -445,7 +469,8 @@ static void test_group_by_node_name_increasing8(void **state)
+ 
+ 	set_priority(p8, prio, 8);
+ 	set_tgt_node_name(p8, node_name, 8);
+-	assert_int_equal(group_by_node_name(&mp8), 0);
++	mp8.pgpolicyfn = group_by_node_name;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 8);
+ }
+ 
+@@ -461,7 +486,8 @@ static void test_group_by_node_name_3_groups8(void **state)
+ 
+ 	set_priority(p8, prio, 8);
+ 	set_tgt_node_name(p8, node_name, 8);
+-	assert_int_equal(group_by_node_name(&mp8), 0);
++	mp8.pgpolicyfn = group_by_node_name;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 3);
+ }
+ 
+@@ -476,7 +502,8 @@ static void test_group_by_node_name_2_groups8(void **state)
+ 
+ 	set_priority(p8, prio, 8);
+ 	set_tgt_node_name(p8, node_name, 8);
+-	assert_int_equal(group_by_node_name(&mp8), 0);
++	mp8.pgpolicyfn = group_by_node_name;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 2);
+ }
+ 
+@@ -492,7 +519,8 @@ static void test_group_by_node_name_3_groups4(void **state)
+ 
+ 	set_priority(p4, prio, 4);
+ 	set_tgt_node_name(p4, node_name, 4);
+-	assert_int_equal(group_by_node_name(&mp4), 0);
++	mp4.pgpolicyfn = group_by_node_name;
++	assert_int_equal(group_paths(&mp4), 0);
+ 	verify_pathgroups(&mp4, p4, groups, group_size, 3);
+ }
+ 
+@@ -507,7 +535,8 @@ static void test_group_by_node_name_2_groups4(void **state)
+ 
+ 	set_priority(p4, prio, 4);
+ 	set_tgt_node_name(p4, node_name, 4);
+-	assert_int_equal(group_by_node_name(&mp4), 0);
++	mp4.pgpolicyfn = group_by_node_name;
++	assert_int_equal(group_paths(&mp4), 0);
+ 	verify_pathgroups(&mp4, p4, groups, group_size, 2);
+ }
+ 
+@@ -519,19 +548,22 @@ static void test_group_by_node_name1(void **state)
+         int group_size[] = {1};
+ 
+ 	set_tgt_node_name(p1, node_name, 1);
+-        assert_int_equal(group_by_node_name(&mp1), 0);
++	mp1.pgpolicyfn = group_by_node_name;
++        assert_int_equal(group_paths(&mp1), 0);
+         verify_pathgroups(&mp1, p1, groups, group_size, 1);
+ }
+ 
+ static void test_group_by_node_name0(void **state)
+ {
+-	assert_int_equal(group_by_node_name(&mp0), 0);
++	mp0.pgpolicyfn = group_by_node_name;
++	assert_int_equal(group_paths(&mp0), 0);
+ 	verify_pathgroups(&mp0, NULL, NULL, NULL, 0);
+ }
+ 
+ static void test_group_by_node_name_null(void **state)
+ {
+-	assert_int_equal(group_by_node_name(&mp_null), 0);
++	mp_null.pgpolicyfn = group_by_node_name;
++	assert_int_equal(group_paths(&mp_null), 0);
+ 	verify_pathgroups(&mp_null, NULL, NULL, NULL, 0);
+ }
+ 
+@@ -543,7 +575,8 @@ static void test_group_by_serial_same8(void **state)
+ 	int group_size[] = {8};
+ 
+ 	set_serial(p8, serial, 8);
+-	assert_int_equal(group_by_serial(&mp8), 0);
++	mp8.pgpolicyfn = group_by_serial;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 1);
+ }
+ 
+@@ -558,7 +591,8 @@ static void test_group_by_serial_increasing8(void **state)
+ 
+ 	set_priority(p8, prio, 8);
+ 	set_serial(p8, serial, 8);
+-	assert_int_equal(group_by_serial(&mp8), 0);
++	mp8.pgpolicyfn = group_by_serial;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 8);
+ }
+ 
+@@ -574,7 +608,8 @@ static void test_group_by_serial_3_groups8(void **state)
+ 
+ 	set_priority(p8, prio, 8);
+ 	set_serial(p8, serial, 8);
+-	assert_int_equal(group_by_serial(&mp8), 0);
++	mp8.pgpolicyfn = group_by_serial;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 3);
+ }
+ 
+@@ -589,7 +624,8 @@ static void test_group_by_serial_2_groups8(void **state)
+ 
+ 	set_priority(p8, prio, 8);
+ 	set_serial(p8, serial, 8);
+-	assert_int_equal(group_by_serial(&mp8), 0);
++	mp8.pgpolicyfn = group_by_serial;
++	assert_int_equal(group_paths(&mp8), 0);
+ 	verify_pathgroups(&mp8, p8, groups, group_size, 2);
+ }
+ 
+@@ -605,7 +641,8 @@ static void test_group_by_serial_3_groups4(void **state)
+ 
+ 	set_priority(p4, prio, 4);
+ 	set_serial(p4, serial, 4);
+-	assert_int_equal(group_by_serial(&mp4), 0);
++	mp4.pgpolicyfn = group_by_serial;
++	assert_int_equal(group_paths(&mp4), 0);
+ 	verify_pathgroups(&mp4, p4, groups, group_size, 3);
+ }
+ 
+@@ -620,7 +657,8 @@ static void test_group_by_serial_2_groups4(void **state)
+ 
+ 	set_priority(p4, prio, 4);
+ 	set_serial(p4, serial, 4);
+-	assert_int_equal(group_by_serial(&mp4), 0);
++	mp4.pgpolicyfn = group_by_serial;
++	assert_int_equal(group_paths(&mp4), 0);
+ 	verify_pathgroups(&mp4, p4, groups, group_size, 2);
+ }
+ 
+@@ -632,19 +670,22 @@ static void test_group_by_serial1(void **state)
+         int group_size[1] = {1};
+ 
+ 	set_serial(p1, serial, 1);
+-        assert_int_equal(group_by_serial(&mp1), 0);
++	mp1.pgpolicyfn = group_by_serial;
++        assert_int_equal(group_paths(&mp1), 0);
+         verify_pathgroups(&mp1, p1, groups, group_size, 1);
+ }
+ 
+ static void test_group_by_serial0(void **state)
+ {
+-	assert_int_equal(group_by_serial(&mp0), 0);
++	mp0.pgpolicyfn = group_by_serial;
++	assert_int_equal(group_paths(&mp0), 0);
+ 	verify_pathgroups(&mp0, NULL, NULL, NULL, 0);
+ }
+ 
+ static void test_group_by_serial_null(void **state)
+ {
+-	assert_int_equal(group_by_serial(&mp_null), 0);
++	mp_null.pgpolicyfn = group_by_serial;
++	assert_int_equal(group_paths(&mp_null), 0);
+ 	verify_pathgroups(&mp_null, NULL, NULL, NULL, 0);
+ }
+ 
 -- 
 2.17.2
 
