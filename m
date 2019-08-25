@@ -2,89 +2,71 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id E98739CA31
-	for <lists+dm-devel@lfdr.de>; Mon, 26 Aug 2019 09:24:55 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	by mail.lfdr.de (Postfix) with ESMTPS id F260E9CA32
+	for <lists+dm-devel@lfdr.de>; Mon, 26 Aug 2019 09:24:57 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id DDB16308FBFC;
-	Mon, 26 Aug 2019 07:24:53 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BB2085C72E;
-	Mon, 26 Aug 2019 07:24:53 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 115FC8D5BAD;
+	Mon, 26 Aug 2019 07:24:56 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D499F600C4;
+	Mon, 26 Aug 2019 07:24:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6388E180BA9B;
-	Mon, 26 Aug 2019 07:24:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 756D82551E;
+	Mon, 26 Aug 2019 07:24:55 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7P7PGUu025011 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 25 Aug 2019 03:25:16 -0400
+	id x7PBdrQq031584 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 25 Aug 2019 07:39:54 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0AB465D713; Sun, 25 Aug 2019 07:25:16 +0000 (UTC)
+	id D8A7219C70; Sun, 25 Aug 2019 11:39:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx07.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.31])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F12415D6A3;
-	Sun, 25 Aug 2019 07:25:15 +0000 (UTC)
-Received: from sender4-pp-o95.zoho.com (sender4-pp-o95.zoho.com
-	[136.143.188.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 81F4BC049E10;
-	Sun, 25 Aug 2019 07:25:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1566717910; cv=none; d=zoho.com; s=zohoarc; 
-	b=SJpPVL1y/fFECRiorlnRKTcsvUGgqfPM0WCrlkRXq8+ksnLCjUjhcIUt5HbILFyAwN83keYNb1iiCZPha5JSnCw777qcvl0QGgkKThpwDmVYpZhQvTljG69SAy5OVPLKDPN8eO9KTK7SrPtB4VBKdknWrMNvTuMlxav37Bb1KgA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zoho.com;
-	s=zohoarc; t=1566717910;
-	h=Cc:Date:From:In-Reply-To:Message-ID:References:Subject:To:ARC-Authentication-Results;
-	bh=JbPeKwL0y9K5o8QvWTYI+guOBqyfTVLeLMRqF8VDqWc=; 
-	b=bEMCgOUh1pBeKMb/u7u3grM3ujaZVzGTOPRRROtLXOs3C3/3x7mZdsFrbsIq2pGe74AtMToDOtvkZuomTBAhmPmKfyWGqBWVcWtiwcn2hXIRFUzPEa2aJA681FW6sXyAzmOXXM6jmWXvqeHo7Z3cGHAzMDlRGQEqXVYPn84DaNI=
-ARC-Authentication-Results: i=1; mx.zoho.com; dkim=pass  header.i=zoho.com;
-	spf=pass  smtp.mailfrom=yehs2007@zoho.com;
-	dmarc=pass header.from=<yehs2007@zoho.com>
-	header.from=<yehs2007@zoho.com>
-DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=zapps768; d=zoho.com; 
-	h=from:to:cc:subject:date:message-id:in-reply-to:references; 
-	b=i7y2aEyOHh/la9dU3CPx42PbzlTdsTP9AIatWSaev26MhvxazXL9kgiLtuYSGKE0vaAVtr7CacPu
-	UxeGSKrTnyEcL66hHrbYbIu4R8iV5qlMuOhCWOOUWmaib0WCiuuq  
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1566717910; 
-	s=zm2019; d=zoho.com; i=yehs2007@zoho.com;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References;
-	l=3969; bh=JbPeKwL0y9K5o8QvWTYI+guOBqyfTVLeLMRqF8VDqWc=;
-	b=pu/b7LyNmYvufL43cLjOm9uc6q7eI2PfNoaarhXUjd/qlCh2Hi2xduAPONT5OyO7
-	rofiHB/FJvRmrIOJRH42WcnkP/TxtGQNeZNa4V/HbXxJi0nrMlKVBvj+1YqyZRu/bej
-	1qq2aaLi8arB2HnAeusARLo0U0rhRbhoqewsZhnU=
-Received: from YEHS1XR3054QMS.lenovo.com (123.120.58.107 [123.120.58.107]) by
-	mx.zohomail.com with SMTPS id 15667179088951020.9475134769934;
-	Sun, 25 Aug 2019 00:25:08 -0700 (PDT)
-From: Huaisheng Ye <yehs2007@zoho.com>
-To: mpatocka@redhat.com, snitzer@redhat.com, agk@redhat.com
-Date: Sun, 25 Aug 2019 15:24:33 +0800
-Message-Id: <20190825072433.2628-4-yehs2007@zoho.com>
-In-Reply-To: <20190825072433.2628-1-yehs2007@zoho.com>
-References: <20190825072433.2628-1-yehs2007@zoho.com>
-X-ZohoMailClient: External
+Received: from mx1.redhat.com (ext-mx24.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.65])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D3D8119C6A
+	for <dm-devel@redhat.com>; Sun, 25 Aug 2019 11:39:51 +0000 (UTC)
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.45])
+	by mx1.redhat.com (Postfix) with ESMTP id 1C48A10C6967
+	for <dm-devel@redhat.com>; Sun, 25 Aug 2019 11:39:49 +0000 (UTC)
+Received: from [10.68.32.192] (broadband-188-32-48-208.ip.moscow.rt.ru
+	[188.32.48.208])
+	by mail.ispras.ru (Postfix) with ESMTPSA id 6026D54006B;
+	Sun, 25 Aug 2019 14:39:47 +0300 (MSK)
+To: Matthew Wilcox <willy@infradead.org>
+References: <20190821074200.2203-1-efremov@ispras.ru>
+	<20190824100102.1167-1-efremov@ispras.ru>
+	<20190825061158.GC28002@bombadil.infradead.org>
+From: Denis Efremov <efremov@ispras.ru>
+Message-ID: <ba051566-0343-ea75-0484-8852f65a15da@ispras.ru>
+Date: Sun, 25 Aug 2019 14:39:47 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <20190825061158.GC28002@bombadil.infradead.org>
+Content-Language: en-US
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.31]); Sun, 25 Aug 2019 07:25:15 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.31]);
-	Sun, 25 Aug 2019 07:25:15 +0000 (UTC) for IP:'136.143.188.95'
-	DOMAIN:'sender4-pp-o95.zoho.com' HELO:'sender4-pp-o95.zoho.com'
-	FROM:'yehs2007@zoho.com' RCPT:''
-X-RedHat-Spam-Score: 0.151  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,
-	SPF_PASS) 136.143.188.95 sender4-pp-o95.zoho.com 136.143.188.95
-	sender4-pp-o95.zoho.com <yehs2007@zoho.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.31
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
+	[10.5.110.65]); Sun, 25 Aug 2019 11:39:50 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.65]);
+	Sun, 25 Aug 2019 11:39:50 +0000 (UTC) for IP:'83.149.199.45'
+	DOMAIN:'mail.ispras.ru' HELO:'mail.ispras.ru'
+	FROM:'efremov@ispras.ru' RCPT:''
+X-RedHat-Spam-Score: 0  (RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
+	SPF_PASS) 83.149.199.45 mail.ispras.ru 83.149.199.45
+	mail.ispras.ru <efremov@ispras.ru>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.65
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 26 Aug 2019 03:24:39 -0400
-Cc: prarit@redhat.com, dm-devel@redhat.com, linux-kernel@vger.kernel.org,
-	tyu1@lenovo.com, Huaisheng Ye <yehs1@lenovo.com>
-Subject: [dm-devel] [PATCH 3/3] dm writecache: optimize performance by
-	sorting the blocks for writeback_all
+Cc: Vladimir Shelekhov <vshel@iis.nsk.su>, Jan Kara <jack@suse.cz>,
+	Matthew Wilcox <matthew@wil.cx>, Akinobu Mita <akinobu.mita@gmail.com>,
+	linux-kernel@vger.kernel.org, dm-devel@redhat.com,
+	Erdem Tumurov <erdemus@gmail.com>, linux-fsdevel@vger.kernel.org,
+	akpm@linux-foundation.org, linux-media@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH v2] lib/memweight.c: open codes
+	bitmap_weight()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,117 +78,114 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]); Mon, 26 Aug 2019 07:24:54 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.69]); Mon, 26 Aug 2019 07:24:56 +0000 (UTC)
 
-From: Huaisheng Ye <yehs1@lenovo.com>
 
-During the process of writeback, the blocks, which have been placed in wbl.list
-for writeback soon, are partially ordered for the contiguous ones.
 
-When writeback_all has been set, for most cases, also by default, there will be
-a lot of blocks in pmem need to writeback at the same time.
-For this case, we could optimize the performance by sorting all blocks in
-wbl.list. writecache_writeback doesn't need to get blocks from the tail of
-wc->lru, whereas from the first rb_node from the rb_tree.
+On 25.08.2019 09:11, Matthew Wilcox wrote:
+> On Sat, Aug 24, 2019 at 01:01:02PM +0300, Denis Efremov wrote:
+>> This patch open codes the bitmap_weight() call. The direct
+>> invocation of hweight_long() allows to remove the BUG_ON and
+>> excessive "longs to bits, bits to longs" conversion.
+> 
+> Honestly, that's not the problem with this function.  Take a look
+> at https://danluu.com/assembly-intrinsics/ for a _benchmarked_
+> set of problems with popcnt.
+> 
+>> BUG_ON was required to check that bitmap_weight() will return
+>> a correct value, i.e. the computed weight will fit the int type
+>> of the return value.
+> 
+> What?  No.  Look at the _arguments_ of bitmap_weight():
+> 
+> static __always_inline int bitmap_weight(const unsigned long *src, unsigned int nbits)
 
-The benefit is that, writecache_writeback doesn't need to have any cost to sort
-the blocks, because of all blocks are incremental originally in rb_tree.
-There will be a writecache_flush when writeback_all begins to work, that will
-eliminate duplicate blocks in cache by committed/uncommitted.
-
-Testing platform: Thinksystem SR630 with persistent memory.
-The cache comes from pmem, which has 1006MB size. The origin device is HDD, 2GB
-of which for using.
-
-Testing steps:
- 1) dmsetup create mycache --table '0 4194304 writecache p /dev/sdb1 /dev/pmem4  4096 0'
- 2) fio -filename=/dev/mapper/mycache -direct=1 -iodepth=20 -rw=randwrite
- -ioengine=libaio -bs=4k -loops=1  -size=2g -group_reporting -name=mytest1
- 3) time dmsetup message /dev/mapper/mycache 0 flush
-
-Here is the results below,
-With the patch:
- # fio -filename=/dev/mapper/mycache -direct=1 -iodepth=20 -rw=randwrite
- -ioengine=libaio -bs=4k -loops=1  -size=2g -group_reporting -name=mytest1
-   iops        : min= 1582, max=199470, avg=5305.94, stdev=21273.44, samples=197
- # time dmsetup message /dev/mapper/mycache 0 flush
-real	0m44.020s
-user	0m0.002s
-sys	0m0.003s
-
-Without the patch:
- # fio -filename=/dev/mapper/mycache -direct=1 -iodepth=20 -rw=randwrite
- -ioengine=libaio -bs=4k -loops=1  -size=2g -group_reporting -name=mytest1
-   iops        : min= 1202, max=197650, avg=4968.67, stdev=20480.17, samples=211
- # time dmsetup message /dev/mapper/mycache 0 flush
-real	1m39.221s
-user	0m0.001s
-sys	0m0.003s
-
-I also have checked the data accuracy with this patch by making EXT4 filesystem
-on mycache, then mount it for checking md5 of files on that.
-The test result is positive, with this patch it could save more than half of time
-when writeback_all.
-
-Signed-off-by: Huaisheng Ye <yehs1@lenovo.com>
----
- drivers/md/dm-writecache.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
-index 3643084..c481947 100644
---- a/drivers/md/dm-writecache.c
-+++ b/drivers/md/dm-writecache.c
-@@ -1560,7 +1560,7 @@ static void writecache_writeback(struct work_struct *work)
- {
- 	struct dm_writecache *wc = container_of(work, struct dm_writecache, writeback_work);
- 	struct blk_plug plug;
--	struct wc_entry *e, *f, *g;
-+	struct wc_entry *f, *g, *e = NULL;
- 	struct rb_node *node, *next_node;
- 	struct list_head skipped;
- 	struct writeback_list wbl;
-@@ -1597,7 +1597,14 @@ static void writecache_writeback(struct work_struct *work)
- 			break;
- 		}
+I'm not sure why it is INT_MAX then? I would expect in case we care only about arguments
+something like:
  
--		e = container_of(wc->lru.prev, struct wc_entry, lru);
-+		if (unlikely(wc->writeback_all)) {
-+			if (unlikely(!e)) {
-+				writecache_flush(wc);
-+				e = container_of(rb_first(&wc->tree), struct wc_entry, rb_node);
-+			} else
-+				e = g;
-+		} else
-+			e = container_of(wc->lru.prev, struct wc_entry, lru);
- 		BUG_ON(e->write_in_progress);
- 		if (unlikely(!writecache_entry_is_committed(wc, e))) {
- 			writecache_flush(wc);
-@@ -1658,8 +1665,14 @@ static void writecache_writeback(struct work_struct *work)
- 			g->wc_list_contiguous = BIO_MAX_PAGES;
- 			f = g;
- 			e->wc_list_contiguous++;
--			if (unlikely(e->wc_list_contiguous == BIO_MAX_PAGES))
-+			if (unlikely(e->wc_list_contiguous == BIO_MAX_PAGES)) {
-+				if (unlikely(wc->writeback_all)) {
-+					next_node = rb_next(&f->rb_node);
-+					if (likely(next_node))
-+						g = container_of(next_node, struct wc_entry, rb_node);
-+				}
- 				break;
-+			}
- 		}
- 		cond_resched();
- 	}
--- 
-1.8.3.1
+BUG_ON(longs >= UINT_MAX / BITS_PER_LONG);
 
+> 
+>> With this patch memweight() controls the
+>> computation directly with size_t type everywhere. Thus, the BUG_ON
+>> becomes unnecessary.
+> 
+> Why are you bothering?  How are you allocating half a gigabyte of memory?
+> Why are you calling memweight() on half a gigabyte of memory?
+> 
+
+No, we don't use such big arrays. However, it's possible to remove BUG_ON and make
+the code more "straight". Why do we need to "artificially" limit this function
+to arrays of a particular size if we can relatively simple omit this restriction?
+
+> 
+> If you really must change anything, I'd rather see this turned into a
+> loop:
+> 
+> 	while (longs) {
+> 		unsigned int nbits;
+> 
+> 		if (longs >= INT_MAX / BITS_PER_LONG)
+> 			nbits = INT_MAX + 1;
+> 		else
+> 			nbits = longs * BITS_PER_LONG;
+> 
+> 		ret += bitmap_weight((unsigned long *)bitmap, sz);
+> 		bytes -= nbits / 8;
+> 		bitmap += nbits / 8;
+> 		longs -= nbits / BITS_PER_LONG;
+> 	}
+> 
+> then we only have to use Dan Luu's optimisation in bitmap_weight()
+> and not in memweight() as well.
+
+I don't know how the implementation of this optimization will look like in it's
+final shape, because of different hardware/compiler issues. It looks there are
+a number of different ways to do it https://arxiv.org/pdf/1611.07612.pdf, 
+http://0x80.pl/articles/sse-popcount.html.
+
+However, if it will be based on popcnt instruction I would expect that
+hweight_long will also contain this intrinsics. Since version 4.9.2
+https://gcc.gnu.org/bugzilla/show_bug.cgi?id=62011#c13 GCC knows of the
+false-dependency in popcnt and generates code to handle it
+(e.g. xor https://godbolt.org/z/Q7AW_d) Thus, I would expect that it's
+possible to use popcnt intrinsics in hweight_long that would be natively
+optimized in all loops like "for (...) { res += hweight_long() }" without
+requiring manual unrolling like in builtin_popcnt_unrolled_errata_manual
+example of Dan Luu's optimization.
+
+> 
+> Also, why does the trailer do this:
+> 
+>         for (; bytes > 0; bytes--, bitmap++)
+>                 ret += hweight8(*bitmap);
+> 
+> instead of calling hweight_long on *bitmap & mask?
+> 
+
+Do you mean something like this?
+
+        longs = bytes;
+        bytes = do_div(longs, sizeof(long));
+        bitmap_long = (const unsigned long *)bitmap;
+        if (longs) {
+                for (; longs > 0; longs--, bitmap_long++)
+                        ret += hweight_long(*bitmap_long);
+        }
+        if (bytes) {
+                ret += hweight_long(*bitmap_long &
+                                   ((0x1 << bytes * BITS_PER_BYTE) - 1));
+        }
+
+The *bitmap_long will lead to buffer overflow here.
+
+Thanks,
+Denis
 
 --
 dm-devel mailing list
