@@ -2,87 +2,155 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEBF19FE7F
+	by mail.lfdr.de (Postfix) with ESMTPS id C4A769FE7E
 	for <lists+dm-devel@lfdr.de>; Wed, 28 Aug 2019 11:32:06 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 18F6E3082E40;
+	by mx1.redhat.com (Postfix) with ESMTPS id 1CC3C10F23EB;
 	Wed, 28 Aug 2019 09:32:04 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6A4154A5;
-	Wed, 28 Aug 2019 09:32:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D785F61F2D;
+	Wed, 28 Aug 2019 09:32:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9328C24F31;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9330024F33;
 	Wed, 28 Aug 2019 09:31:54 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7QIe7N3016604 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 26 Aug 2019 14:40:07 -0400
+	id x7R8Xk6H009960 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 27 Aug 2019 04:33:46 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B5A815D9E2; Mon, 26 Aug 2019 18:40:07 +0000 (UTC)
+	id 7B9DF6012A; Tue, 27 Aug 2019 08:33:46 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx24.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.65])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B0B4E5D9E1
-	for <dm-devel@redhat.com>; Mon, 26 Aug 2019 18:40:05 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.redhat.com (ext-mx04.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.28])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 75791600D1
+	for <dm-devel@redhat.com>; Tue, 27 Aug 2019 08:33:43 +0000 (UTC)
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 526261196E62
-	for <dm-devel@redhat.com>; Mon, 26 Aug 2019 18:40:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20170209;
-	h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=TlbGGRimIFoER4Eoe8SUJFAjtoU3fH+8C5wgGkgKTdw=;
-	b=Eu2OwW0gMcAlJpcyiOiLAVAtB
-	V0pHfL2R1/VkV0VqpkeNwzr7alqEzwLxaEgpcnK52dUj3Vebv/ZvrMVJ5ThNyPxqv7IF0oU8SakBh
-	R9em8SXLkW7bvHFtfqDjU5klSJaMLS5vaS7Q7xgHWMgmCKWsn0n4BeCKY9o+tpzPrAlRAB8OysNdO
-	P8BabzHViAuY3RJdHX38u27ilCT218FDi0niw/0/FsNoc2hPF2ZL/PKZnAMc6VKFVUq6SF0jkLHuI
-	+40feB4E7LQvl2vF7HtQQZwkQiT8Ns7+8cAMYBUgpWosmxkv8oOcCv/7ZgxOJbG6+45C0nqRPdHui
-	lCuuq2B/Q==;
-Received: from willy by bombadil.infradead.org with local (Exim 4.92 #3 (Red
-	Hat Linux)) id 1i2JuH-0007kj-0w; Mon, 26 Aug 2019 18:39:57 +0000
-Date: Mon, 26 Aug 2019 11:39:56 -0700
-From: Matthew Wilcox <willy@infradead.org>
-To: Denis Efremov <efremov@ispras.ru>
-Message-ID: <20190826183956.GF15933@bombadil.infradead.org>
-References: <20190821074200.2203-1-efremov@ispras.ru>
-	<20190824100102.1167-1-efremov@ispras.ru>
-	<20190825061158.GC28002@bombadil.infradead.org>
-	<ba051566-0343-ea75-0484-8852f65a15da@ispras.ru>
+	by mx1.redhat.com (Postfix) with ESMTPS id 404B4882EA
+	for <dm-devel@redhat.com>; Tue, 27 Aug 2019 08:33:41 +0000 (UTC)
+Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id
+	20190827083339epoutp01c847609083a960b469ff79a11da1bb3d~_uolLECOH0124101241epoutp01q
+	for <dm-devel@redhat.com>; Tue, 27 Aug 2019 08:33:39 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
+	20190827083339epoutp01c847609083a960b469ff79a11da1bb3d~_uolLECOH0124101241epoutp01q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1566894819;
+	bh=GR9SjpQC1GTjk5IEkgnMXdybEfO+M4pHWDvq1CPw910=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=XieTwwnC97cxvDUoQbpnT0JSA6n+Fk+S7VdNGOrPiXy28E/jsUBLsPbTLacpBVmq4
+	bf6CJ3I4sO0pBCk0d7teQmVffD1IwjV4K5W0fRZ5VVEidrxI4HknvQW4rKJFd+yMLG
+	kHKbAIJD4wTWpVa9zk1tfYfSw5p+LvA6qAUlqSxI=
+Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTP id
+	20190827083338epcas2p1bd702579931911d8ebfa6ae3218ca896~_uokazBY00556005560epcas2p1x;
+	Tue, 27 Aug 2019 08:33:38 +0000 (GMT)
+Received: from epsmges2p3.samsung.com (unknown [182.195.40.190]) by
+	epsnrtp4.localdomain (Postfix) with ESMTP id 46Hhwc2X60zMqYkg;
+	Tue, 27 Aug 2019 08:33:36 +0000 (GMT)
+Received: from epcas2p3.samsung.com ( [182.195.41.55]) by
+	epsmges2p3.samsung.com (Symantec Messaging Gateway) with SMTP id
+	F2.4A.04068.FDAE46D5; Tue, 27 Aug 2019 17:33:35 +0900 (KST)
+Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
+	20190827083334epcas2p115d479190b9a72c886f66569add78203~_uog_kpL90324603246epcas2p1z;
+	Tue, 27 Aug 2019 08:33:34 +0000 (GMT)
+Received: from epsmgms1p2new.samsung.com (unknown [182.195.42.42]) by
+	epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
+	20190827083334epsmtrp1f673cf2781a7bd9de3d4862d267c9cf9~_uog9Ynxl2654126541epsmtrp1O;
+	Tue, 27 Aug 2019 08:33:34 +0000 (GMT)
+X-AuditID: b6c32a47-5a1ff70000000fe4-07-5d64eadfc43f
+Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
+	epsmgms1p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
+	07.26.03638.EDAE46D5; Tue, 27 Aug 2019 17:33:34 +0900 (KST)
+Received: from KORDO035251 (unknown [12.36.165.204]) by epsmtip1.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20190827083334epsmtip186318bd933a57fdbaadd80afd23bc675~_uogrxHdu2027020270epsmtip14;
+	Tue, 27 Aug 2019 08:33:34 +0000 (GMT)
+From: "boojin.kim" <boojin.kim@samsung.com>
+To: "'Satya Tangirala'" <satyat@google.com>
+Date: Tue, 27 Aug 2019 17:33:33 +0900
+Message-ID: <03b201d55cb2$1d4d31b0$57e79510$@samsung.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ba051566-0343-ea75-0484-8852f65a15da@ispras.ru>
-User-Agent: Mutt/1.11.4 (2019-03-13)
+Thread-Index: AdVcd9wJ7O+zjwFDS522TgVlMugkdw==
+Content-Language: ko
+X-Brightmail-Tracker: H4sIAAAAAAAAA01TfUwTdxjOr3e9nrguR0H2S/dhd9Nk1VDaasuPTUyjZl4y48jIdDGScmkv
+	hawfl16LuizDIdRa2TqzGWZhDnSTWUNwhQFDSqQyGIyPRSIBo9PMzii6LxASiI71OMz473mf
+	93nyfuUlMVWDQk2Wun2c1806aSINb7uizc2+NWUv0ne3pKHZR0EcNQ/2YejCzTCBfj45LEN1
+	o5U4iv9ZK0dNXY8xdHzqBZRsjmBoYiEgR+E7DzA0OnpRgWJ3xuUofn0juvXrvAydOn2DQFfP
+	7ERTp+dw1BUfwNFYZx2BehfDAH0x2i1D4Qs3CRT4bhagqup5Bepv2mtRM63nJ2VMZcsBpu3y
+	eqY+5mfGhv1MLHqMYG6MdxFMy9flzKX6GRlTMfQjxvzVfY1gPmmNAmYm9lKBcp9zSwnH2jmv
+	hnPbPPZStyOffrPQut1qMusN2YY8lEtr3KyLy6d37CrIfqPUmVoCrSljnf4UVcAKAp2zdYvX
+	4/dxmhKP4MunOd7u5A0GXiewLsHvduhsHtdrBr3eaEopi50lE008P688ONb3EDsMaleHAElC
+	ajP8aOSDEEgjVVQHgPfOHsGlYBrAip/qZCGwKhXMARjvyxCxaKhcuKeQRHEAByd+B1JwH8C5
+	2k6FqCKojbClPwpEnJnCv109LxdFGPWvAianE7iYyKCMsCp0fKkETq2HwcV/CBErqTzYM9AA
+	JJwOB04ll/QYtRa2/1GHSW1oYMfwg+UCOjgTGpZLmkxYeyyAicUgVUXCiiO9QDLsgPUnLi+b
+	M+BUf6tCwmp4PxxYxuXw2rmzCslcDeDQwtPEJhi5exSIG8MoLWzuzJGW9wrsvb7c27MweOWJ
+	QqKVMBhQScZ18MvpMZlEq+Hf1R9KNAOrex+CT8HLkRVDRlYMGVkxTOT/svUAj4IsjhdcDk4w
+	8ptWnjoGlt5jw84O0DayKwEoEtDPKOGQrUglZ8uEQ64EgCRGZyqdOWyRSmlnD73PeT1Wr9/J
+	CQlgSt3gBKZeY/Okns3tsxpMRrNZn2dCJrMR0c8pY6sn96soB+vj3uM4nvM+9cnIVerDIN02
+	fu57SyxrbXLP0OdvJb552/bxtjaQ9Qt99N2yrdp9dw2O8FfrZm9nYo4n6WHLyeIcoX22/VEj
+	z4Efgo7bI9pOy+sN5c9/++rg9sLduYXbbKhmT7Jmc4PHduazdw7WWCcDOosR2ot79Iv7df12
+	VmjcbT4QfzzQ+OKilulJdERpXChhDRswr8D+B8P/EWw0BAAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrMIsWRmVeSWpSXmKPExsWy7bCSnO69VymxBrcXqlh8/dLBYrH+1DFm
+	i9V3+9ksTk89y2Qx53wLi8Xed7NZLdbu+cNs0f1KxuLJ+lnMFjd+tbFa9D9+zWxx/vwGdotN
+	j6+xWuy9pW1x/95PJouZ8+6wWVxa5G7xat43Fos9e0+yWFzeNYfN4sj/fkaLGef3MVn0r77L
+	ZtG28SujRWvPT3aL42vDHaQ8tqy8yeTRsrncY9sBVY8Fm0o9Lp8t9di0qpPN4861PWwem5fU
+	e+xe8JnJo+nMUWaP9/uusnn0bVnF6PF5k1wAbxSXTUpqTmZZapG+XQJXxo21BQU/eSsuH3vD
+	3MA4m7uLkZNDQsBEouXXC/YuRi4OIYHdjBKXOpcxQySkJLa274GyhSXutxxhhSh6ziix7Mtx
+	FpAEm4C2xObjqxhBbBEg+9GllawgNrPANA6JXR/EQWxhASOJ1q5uJhCbRUBVouP/RzYQm1fA
+	UuLgyYWMELagxMmZT4BmcgD16km0bWSEGCMvsf3tHKgbFCR2nH0NtUpP4nPXWahVIhKzO9uY
+	JzAKzkIyaRbCpFlIJs1C0rGAkWUVo2RqQXFuem6xYYFRXmq5XnFibnFpXrpecn7uJkZwUtDS
+	2sF44kT8IUYBDkYlHl6JM8mxQqyJZcWVuYcYJTiYlUR4c/QTY4V4UxIrq1KL8uOLSnNSiw8x
+	SnOwKInzyucfixQSSE8sSc1OTS1ILYLJMnFwSjUwzu+6tX/72stKzWKemrbqW3KZJgeK77oX
+	vnmD0Nlwy8yz3/uF2aTDk6Q9mT01RQOT/X7MEFBaXeui9Fboo4K3zMMdi7im3nry/vQ537ua
+	eclstddPhB5dfjO89nnTGwtpTb6aTJ2Dh/PtuYV0nv6MZ5ELzkkLcbJeUyojuOHt6spPUS78
+	wjxKLMUZiYZazEXFiQDWZLGyBgMAAA==
+X-CMS-MailID: 20190827083334epcas2p115d479190b9a72c886f66569add78203
+X-Msg-Generator: CA
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20190827083334epcas2p115d479190b9a72c886f66569add78203
+References: <CGME20190827083334epcas2p115d479190b9a72c886f66569add78203@epcas2p1.samsung.com>
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
-	[10.5.110.65]); Mon, 26 Aug 2019 18:40:04 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.65]);
-	Mon, 26 Aug 2019 18:40:04 +0000 (UTC) for IP:'198.137.202.133'
-	DOMAIN:'bombadil.infradead.org' HELO:'bombadil.infradead.org'
-	FROM:'willy@infradead.org' RCPT:''
-X-RedHat-Spam-Score: -2.398  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_MED, SPF_HELO_NONE,
-	SPF_NONE) 198.137.202.133 bombadil.infradead.org 198.137.202.133
-	bombadil.infradead.org <willy@infradead.org>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.65
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.28]); Tue, 27 Aug 2019 08:33:42 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]);
+	Tue, 27 Aug 2019 08:33:42 +0000 (UTC) for IP:'203.254.224.24'
+	DOMAIN:'mailout1.samsung.com' HELO:'mailout1.samsung.com'
+	FROM:'boojin.kim@samsung.com' RCPT:''
+X-RedHat-Spam-Score: -5.103  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
+	DKIM_VALID_AU, RCVD_IN_DNSWL_HI, SPF_HELO_PASS,
+	SPF_PASS) 203.254.224.24 mailout1.samsung.com 203.254.224.24
+	mailout1.samsung.com <boojin.kim@samsung.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.28
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 28 Aug 2019 05:31:41 -0400
-Cc: Vladimir Shelekhov <vshel@iis.nsk.su>, Jan Kara <jack@suse.cz>,
-	Matthew Wilcox <matthew@wil.cx>, Akinobu Mita <akinobu.mita@gmail.com>,
-	linux-kernel@vger.kernel.org, dm-devel@redhat.com,
-	Erdem Tumurov <erdemus@gmail.com>, linux-fsdevel@vger.kernel.org,
-	akpm@linux-foundation.org, linux-media@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v2] lib/memweight.c: open codes
-	bitmap_weight()
+Cc: 'Ulf
+	Hansson' <ulf.hansson@linaro.org>, 'Mike Snitzer' <snitzer@redhat.com>,
+	dm-devel@redhat.com, 'Andreas Dilger' <adilger.kernel@dilger.ca>,
+	'Alasdair Kergon' <agk@redhat.com>, 'Eric Biggers' <ebiggers@kernel.org>,
+	linux-samsung-soc@vger.kernel.org,
+	'Herbert Xu' <herbert@gondor.apana.org.au>,
+	'Krzysztof Kozlowski' <krzk@kernel.org>,
+	'Jaehoon Chung' <jh80.chung@samsung.com>,
+	'Kukjin Kim' <kgene@kernel.org>, linux-ext4@vger.kernel.org,
+	'Chao Yu' <chao@kernel.org>, linux-block@vger.kernel.org,
+	linux-fscrypt@vger.kernel.org, 'Jaegeuk Kim' <jaegeuk@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	'Jens Axboe' <axboe@kernel.dk>, 'Theodore Ts'o' <tytso@mit.edu>,
+	linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-crypto@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	"'David S. Miller'" <davem@davemloft.net>
+Subject: Re: [dm-devel] [PATCH 5/9] block: support diskcipher
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -98,119 +166,54 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]); Wed, 28 Aug 2019 09:32:05 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.66]); Wed, 28 Aug 2019 09:32:05 +0000 (UTC)
 
-On Sun, Aug 25, 2019 at 02:39:47PM +0300, Denis Efremov wrote:
-> On 25.08.2019 09:11, Matthew Wilcox wrote:
-> > On Sat, Aug 24, 2019 at 01:01:02PM +0300, Denis Efremov wrote:
-> >> This patch open codes the bitmap_weight() call. The direct
-> >> invocation of hweight_long() allows to remove the BUG_ON and
-> >> excessive "longs to bits, bits to longs" conversion.
-> > 
-> > Honestly, that's not the problem with this function.  Take a look
-> > at https://danluu.com/assembly-intrinsics/ for a _benchmarked_
-> > set of problems with popcnt.
-> > 
-> >> BUG_ON was required to check that bitmap_weight() will return
-> >> a correct value, i.e. the computed weight will fit the int type
-> >> of the return value.
-> > 
-> > What?  No.  Look at the _arguments_ of bitmap_weight():
-> > 
-> > static __always_inline int bitmap_weight(const unsigned long *src, unsigned int nbits)
+On Wed, Aug 21, 2019 at 5:10 AM Satya Tangirala <satyat@kernel.dk> wrote:
 > 
-> I'm not sure why it is INT_MAX then? I would expect in case we care only about arguments
-> something like:
->  
-> BUG_ON(longs >= UINT_MAX / BITS_PER_LONG);
+> Hi Boojin,
+>
+> We're very keen to make sure that our approach to inline encryption can
+> work with diverse hardware, including Samsung's FMP hardware; if you
+> can see any issues with using our approach with your hardware please
+> let us know.
+>
+> We understand that a possible concern for getting FMP working with our
+> patch series for Inline Encryption Support at
+>
+>
+https://lore.kernel.org/linux-block/20190821075714.65140-1-satyat@google.com
+/
+>
+> is that unlike some inline encryption hardware (and also unlike the JEDEC
+> UFS v2.1 spec), FMP doesn't have the concept of a limited number of
+> keyslots - to address that difference we have a "passthrough keyslot
+> manager", which we put up on top of our patch series for inline encryption
+> support at
+>
+> https://android-review.googlesource.com/c/kernel/common/+/980137/2
+>
+> Setting up a passthrough keyslot manager in the request queue of a
+> device allows the device to receive a bio's encryption context as-is with
+> the bio, which is what FMP would prefer. Are there any issues with
+> using the passthrough keyslot manager for FMP?
+>
+> Thanks!
+> Satya
 
-People aren't always terribly consistent with INT_MAX vs UINT_MAX.
-Also, bitmap_weight() should arguably return an unisnged int (it can't
-legitimately return a negative value).
+Dear Satya.
+Keyslot manager is a good solution for ICE. And probably no issue for FMP.
+But, I think it's complicated for FMP because FMP doesn't need
+any keyslot control.
+Crypto API that FMP's using is simply, stable, and supports test. 
+FMP has been mass producing and certificating using crypto APIs
+for several years. 
+So I wants to keep  our current crypto API solution.
+But, I'm looking at your patch.  And I will keep examining at your patch
+because our goal is to run the FMP on the mainline kernel.
 
-> >> With this patch memweight() controls the
-> >> computation directly with size_t type everywhere. Thus, the BUG_ON
-> >> becomes unnecessary.
-> > 
-> > Why are you bothering?  How are you allocating half a gigabyte of memory?
-> > Why are you calling memweight() on half a gigabyte of memory?
-> > 
-> 
-> No, we don't use such big arrays. However, it's possible to remove BUG_ON and make
-> the code more "straight". Why do we need to "artificially" limit this function
-> to arrays of a particular size if we can relatively simple omit this restriction?
-
-You're not making a great case for changing the implementation of
-memweight() here ...
-
-> I don't know how the implementation of this optimization will look like in it's
-> final shape, because of different hardware/compiler issues. It looks there are
-> a number of different ways to do it https://arxiv.org/pdf/1611.07612.pdf, 
-> http://0x80.pl/articles/sse-popcount.html.
-
-The problem with using XMM registers is that they have to be saved/restored.
-Not to mention the thermal issues caused by heavy usage of AVX instructions.
-
-> However, if it will be based on popcnt instruction I would expect that
-> hweight_long will also contain this intrinsics. Since version 4.9.2
-> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=62011#c13 GCC knows of the
-> false-dependency in popcnt and generates code to handle it
-
-Ah!  Glad to see GCC knows about this problem and has worked around it.
-
-> (e.g. xor https://godbolt.org/z/Q7AW_d) Thus, I would expect that it's
-> possible to use popcnt intrinsics in hweight_long that would be natively
-> optimized in all loops like "for (...) { res += hweight_long() }" without
-> requiring manual unrolling like in builtin_popcnt_unrolled_errata_manual
-> example of Dan Luu's optimization.
-
-That might be expecting rather more from our compiler than is reasonable ...
-
-> > 
-> > Also, why does the trailer do this:
-> > 
-> >         for (; bytes > 0; bytes--, bitmap++)
-> >                 ret += hweight8(*bitmap);
-> > 
-> > instead of calling hweight_long on *bitmap & mask?
-> > 
-> 
-> Do you mean something like this?
-> 
->         longs = bytes;
->         bytes = do_div(longs, sizeof(long));
->         bitmap_long = (const unsigned long *)bitmap;
->         if (longs) {
->                 for (; longs > 0; longs--, bitmap_long++)
->                         ret += hweight_long(*bitmap_long);
->         }
->         if (bytes) {
->                 ret += hweight_long(*bitmap_long &
->                                    ((0x1 << bytes * BITS_PER_BYTE) - 1));
->         }
-> 
-> The *bitmap_long will lead to buffer overflow here.
-
-No it won't.  The CPU will access more bytes than the `bytes' argument
-would seem to imply -- but it's going to have fetched that entire
-cacheline anyway.  It might confuse a very strict bounds checking library,
-but usually those just check you're not accessing outside your object,
-which is going to be a multiple of 'sizeof(long)' anyway.
-
-If we do something like this, we'll need to use an 'inverse' of that mask
-on big-endian machines.  ie something more like:
-
-	if (bytes) {
-		unsigned long mask;
-		if (_BIG_ENDIAN)
-			mask = ~0UL >> (bytes * 8);
-		else
-			mask = ~0UL << (bytes * 8);
-		ret += hweight_long(*bitmap_long & ~mask);
-	}
-
-Also we need a memweight() test to be sure we didn't get that wrong.
+Thanks for your reply.
+Boojin Kim.
 
 --
 dm-devel mailing list
