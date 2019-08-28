@@ -2,135 +2,135 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4A769FE7E
-	for <lists+dm-devel@lfdr.de>; Wed, 28 Aug 2019 11:32:06 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+	by mail.lfdr.de (Postfix) with ESMTPS id 67BCB9FE80
+	for <lists+dm-devel@lfdr.de>; Wed, 28 Aug 2019 11:32:08 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 1CC3C10F23EB;
-	Wed, 28 Aug 2019 09:32:04 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D785F61F2D;
-	Wed, 28 Aug 2019 09:32:02 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 8EAF681DFF;
+	Wed, 28 Aug 2019 09:32:06 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4A4DC4108;
+	Wed, 28 Aug 2019 09:32:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9330024F33;
-	Wed, 28 Aug 2019 09:31:54 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D71C61802216;
+	Wed, 28 Aug 2019 09:32:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7R8Xk6H009960 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 27 Aug 2019 04:33:46 -0400
+	id x7S2L3wr015668 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 27 Aug 2019 22:21:03 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7B9DF6012A; Tue, 27 Aug 2019 08:33:46 +0000 (UTC)
+	id 2D43760BF7; Wed, 28 Aug 2019 02:21:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx04.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.28])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 75791600D1
-	for <dm-devel@redhat.com>; Tue, 27 Aug 2019 08:33:43 +0000 (UTC)
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+Received: from mx1.redhat.com (ext-mx14.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.43])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 26A0860BEC
+	for <dm-devel@redhat.com>; Wed, 28 Aug 2019 02:21:00 +0000 (UTC)
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 404B4882EA
-	for <dm-devel@redhat.com>; Tue, 27 Aug 2019 08:33:41 +0000 (UTC)
-Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id
-	20190827083339epoutp01c847609083a960b469ff79a11da1bb3d~_uolLECOH0124101241epoutp01q
-	for <dm-devel@redhat.com>; Tue, 27 Aug 2019 08:33:39 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
-	20190827083339epoutp01c847609083a960b469ff79a11da1bb3d~_uolLECOH0124101241epoutp01q
+	by mx1.redhat.com (Postfix) with ESMTPS id 4F943308FC22
+	for <dm-devel@redhat.com>; Wed, 28 Aug 2019 02:20:59 +0000 (UTC)
+Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id
+	20190828022057epoutp0218e8cd851abea00e529cacf9cf623c52~_9MdSMSHP2281322813epoutp02u
+	for <dm-devel@redhat.com>; Wed, 28 Aug 2019 02:20:57 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com
+	20190828022057epoutp0218e8cd851abea00e529cacf9cf623c52~_9MdSMSHP2281322813epoutp02u
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1566894819;
-	bh=GR9SjpQC1GTjk5IEkgnMXdybEfO+M4pHWDvq1CPw910=;
+	s=mail20170921; t=1566958857;
+	bh=2Id8G/Xn6V06sAdZYXMptUi6MUxaX2z3h414AQSi5/I=;
 	h=From:To:Cc:Subject:Date:References:From;
-	b=XieTwwnC97cxvDUoQbpnT0JSA6n+Fk+S7VdNGOrPiXy28E/jsUBLsPbTLacpBVmq4
-	bf6CJ3I4sO0pBCk0d7teQmVffD1IwjV4K5W0fRZ5VVEidrxI4HknvQW4rKJFd+yMLG
-	kHKbAIJD4wTWpVa9zk1tfYfSw5p+LvA6qAUlqSxI=
-Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTP id
-	20190827083338epcas2p1bd702579931911d8ebfa6ae3218ca896~_uokazBY00556005560epcas2p1x;
-	Tue, 27 Aug 2019 08:33:38 +0000 (GMT)
-Received: from epsmges2p3.samsung.com (unknown [182.195.40.190]) by
-	epsnrtp4.localdomain (Postfix) with ESMTP id 46Hhwc2X60zMqYkg;
-	Tue, 27 Aug 2019 08:33:36 +0000 (GMT)
+	b=k98yVcHoY5eRWy55whZ8rcavcrMGw1LpHMDptIqy9vdMw+WVazwzt15mo01XkRRd9
+	7l4/CVj1LA+KD2X9zJQ7pDyqu9or8QDc9Y8Ar0ut0xku1LRrop+z5Ki0aMLe43HoyD
+	3N5pbfTIZQ6BYehWU3Hx+E4IXA0zFrHfzsrXO79E=
+Received: from epsnrtp5.localdomain (unknown [182.195.42.166]) by
+	epcas2p4.samsung.com (KnoxPortal) with ESMTP id
+	20190828022056epcas2p488315cc4e34969caaecc606d9bbd2c6e~_9Mc2Raic1168911689epcas2p4l;
+	Wed, 28 Aug 2019 02:20:56 +0000 (GMT)
+Received: from epsmges2p1.samsung.com (unknown [182.195.40.181]) by
+	epsnrtp5.localdomain (Postfix) with ESMTP id 46J8c74t4rzMqYkf;
+	Wed, 28 Aug 2019 02:20:55 +0000 (GMT)
 Received: from epcas2p3.samsung.com ( [182.195.41.55]) by
-	epsmges2p3.samsung.com (Symantec Messaging Gateway) with SMTP id
-	F2.4A.04068.FDAE46D5; Tue, 27 Aug 2019 17:33:35 +0900 (KST)
-Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
-	20190827083334epcas2p115d479190b9a72c886f66569add78203~_uog_kpL90324603246epcas2p1z;
-	Tue, 27 Aug 2019 08:33:34 +0000 (GMT)
-Received: from epsmgms1p2new.samsung.com (unknown [182.195.42.42]) by
-	epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
-	20190827083334epsmtrp1f673cf2781a7bd9de3d4862d267c9cf9~_uog9Ynxl2654126541epsmtrp1O;
-	Tue, 27 Aug 2019 08:33:34 +0000 (GMT)
-X-AuditID: b6c32a47-5a1ff70000000fe4-07-5d64eadfc43f
+	epsmges2p1.samsung.com (Symantec Messaging Gateway) with SMTP id
+	36.C7.04156.705E56D5; Wed, 28 Aug 2019 11:20:55 +0900 (KST)
+Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
+	20190828022055epcas2p25525077d0a5a3fa5a2027bac06a10bc1~_9MbUtf8v2048620486epcas2p2Q;
+	Wed, 28 Aug 2019 02:20:55 +0000 (GMT)
+Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
+	epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
+	20190828022055epsmtrp247236feb1b81a6eaa608658d164e62a4~_9MbTgesT1110211102epsmtrp2U;
+	Wed, 28 Aug 2019 02:20:55 +0000 (GMT)
+X-AuditID: b6c32a45-ddfff7000000103c-c4-5d65e5073e36
 Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
-	epsmgms1p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
-	07.26.03638.EDAE46D5; Tue, 27 Aug 2019 17:33:34 +0900 (KST)
+	epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+	F0.33.03706.605E56D5; Wed, 28 Aug 2019 11:20:55 +0900 (KST)
 Received: from KORDO035251 (unknown [12.36.165.204]) by epsmtip1.samsung.com
 	(KnoxPortal) with ESMTPA id
-	20190827083334epsmtip186318bd933a57fdbaadd80afd23bc675~_uogrxHdu2027020270epsmtip14;
-	Tue, 27 Aug 2019 08:33:34 +0000 (GMT)
+	20190828022054epsmtip1cb959d74740696d9b606a29b76e0110e~_9MbAmhuG2545625456epsmtip1A;
+	Wed, 28 Aug 2019 02:20:54 +0000 (GMT)
 From: "boojin.kim" <boojin.kim@samsung.com>
-To: "'Satya Tangirala'" <satyat@google.com>
-Date: Tue, 27 Aug 2019 17:33:33 +0900
-Message-ID: <03b201d55cb2$1d4d31b0$57e79510$@samsung.com>
+To: "'Theodore Y. Ts'o'" <tytso@mit.edu>
+Date: Wed, 28 Aug 2019 11:20:53 +0900
+Message-ID: <009301d55d47$38606400$a9212c00$@samsung.com>
 MIME-Version: 1.0
-Thread-Index: AdVcd9wJ7O+zjwFDS522TgVlMugkdw==
+Thread-Index: AdVdRkQ7u+BKrKHPSQuBNN28o4N3VA==
 Content-Language: ko
-X-Brightmail-Tracker: H4sIAAAAAAAAA01TfUwTdxjOr3e9nrguR0H2S/dhd9Nk1VDaasuPTUyjZl4y48jIdDGScmkv
-	hawfl16LuizDIdRa2TqzGWZhDnSTWUNwhQFDSqQyGIyPRSIBo9PMzii6LxASiI71OMz473mf
-	93nyfuUlMVWDQk2Wun2c1806aSINb7uizc2+NWUv0ne3pKHZR0EcNQ/2YejCzTCBfj45LEN1
-	o5U4iv9ZK0dNXY8xdHzqBZRsjmBoYiEgR+E7DzA0OnpRgWJ3xuUofn0juvXrvAydOn2DQFfP
-	7ERTp+dw1BUfwNFYZx2BehfDAH0x2i1D4Qs3CRT4bhagqup5Bepv2mtRM63nJ2VMZcsBpu3y
-	eqY+5mfGhv1MLHqMYG6MdxFMy9flzKX6GRlTMfQjxvzVfY1gPmmNAmYm9lKBcp9zSwnH2jmv
-	hnPbPPZStyOffrPQut1qMusN2YY8lEtr3KyLy6d37CrIfqPUmVoCrSljnf4UVcAKAp2zdYvX
-	4/dxmhKP4MunOd7u5A0GXiewLsHvduhsHtdrBr3eaEopi50lE008P688ONb3EDsMaleHAElC
-	ajP8aOSDEEgjVVQHgPfOHsGlYBrAip/qZCGwKhXMARjvyxCxaKhcuKeQRHEAByd+B1JwH8C5
-	2k6FqCKojbClPwpEnJnCv109LxdFGPWvAianE7iYyKCMsCp0fKkETq2HwcV/CBErqTzYM9AA
-	JJwOB04ll/QYtRa2/1GHSW1oYMfwg+UCOjgTGpZLmkxYeyyAicUgVUXCiiO9QDLsgPUnLi+b
-	M+BUf6tCwmp4PxxYxuXw2rmzCslcDeDQwtPEJhi5exSIG8MoLWzuzJGW9wrsvb7c27MweOWJ
-	QqKVMBhQScZ18MvpMZlEq+Hf1R9KNAOrex+CT8HLkRVDRlYMGVkxTOT/svUAj4IsjhdcDk4w
-	8ptWnjoGlt5jw84O0DayKwEoEtDPKOGQrUglZ8uEQ64EgCRGZyqdOWyRSmlnD73PeT1Wr9/J
-	CQlgSt3gBKZeY/Okns3tsxpMRrNZn2dCJrMR0c8pY6sn96soB+vj3uM4nvM+9cnIVerDIN02
-	fu57SyxrbXLP0OdvJb552/bxtjaQ9Qt99N2yrdp9dw2O8FfrZm9nYo4n6WHLyeIcoX22/VEj
-	z4Efgo7bI9pOy+sN5c9/++rg9sLduYXbbKhmT7Jmc4PHduazdw7WWCcDOosR2ot79Iv7df12
-	VmjcbT4QfzzQ+OKilulJdERpXChhDRswr8D+B8P/EWw0BAAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrMIsWRmVeSWpSXmKPExsWy7bCSnO69VymxBrcXqlh8/dLBYrH+1DFm
-	i9V3+9ksTk89y2Qx53wLi8Xed7NZLdbu+cNs0f1KxuLJ+lnMFjd+tbFa9D9+zWxx/vwGdotN
-	j6+xWuy9pW1x/95PJouZ8+6wWVxa5G7xat43Fos9e0+yWFzeNYfN4sj/fkaLGef3MVn0r77L
-	ZtG28SujRWvPT3aL42vDHaQ8tqy8yeTRsrncY9sBVY8Fm0o9Lp8t9di0qpPN4861PWwem5fU
-	e+xe8JnJo+nMUWaP9/uusnn0bVnF6PF5k1wAbxSXTUpqTmZZapG+XQJXxo21BQU/eSsuH3vD
-	3MA4m7uLkZNDQsBEouXXC/YuRi4OIYHdjBKXOpcxQySkJLa274GyhSXutxxhhSh6ziix7Mtx
-	FpAEm4C2xObjqxhBbBEg+9GllawgNrPANA6JXR/EQWxhASOJ1q5uJhCbRUBVouP/RzYQm1fA
-	UuLgyYWMELagxMmZT4BmcgD16km0bWSEGCMvsf3tHKgbFCR2nH0NtUpP4nPXWahVIhKzO9uY
-	JzAKzkIyaRbCpFlIJs1C0rGAkWUVo2RqQXFuem6xYYFRXmq5XnFibnFpXrpecn7uJkZwUtDS
-	2sF44kT8IUYBDkYlHl6JM8mxQqyJZcWVuYcYJTiYlUR4c/QTY4V4UxIrq1KL8uOLSnNSiw8x
-	SnOwKInzyucfixQSSE8sSc1OTS1ILYLJMnFwSjUwzu+6tX/72stKzWKemrbqW3KZJgeK77oX
-	vnmD0Nlwy8yz3/uF2aTDk6Q9mT01RQOT/X7MEFBaXeui9Fboo4K3zMMdi7im3nry/vQ537ua
-	eclstddPhB5dfjO89nnTGwtpTb6aTJ2Dh/PtuYV0nv6MZ5ELzkkLcbJeUyojuOHt6spPUS78
-	wjxKLMUZiYZazEXFiQDWZLGyBgMAAA==
-X-CMS-MailID: 20190827083334epcas2p115d479190b9a72c886f66569add78203
+X-Brightmail-Tracker: H4sIAAAAAAAAA01Tf0wbZRjOd3e9OybFs6vus6LrThYdE9arFj50qNG5XbL9gb+iMc56KZcW
+	7a/0WjbUbATXUhiRQXRuhbG5GeNgla3UjQzKXGGSOqBOZGEEt8QxDKBsApuBiNr2WOS/53m+
+	5/ne9/3efDSu+pzS0CV2t+iyC1aWXEGc7l6Xn0PdELfrWnqy0O05P4Faf/geRy2/1JLo4mf9
+	GGqM7yFQZLpBgYKdf+No72QmGmsN4Gh4wadAtdencBSPn6RQ6PplBYqMrEfXrs5j6GDTKIl+
+	OroFTTbdIVBnJEagwbONJOr5txagA/EuDPlO3QbIWzNPod7gG88/yIePX8H4PW07+NPfreUH
+	+z18qLmK5Ecvd5J825e7+Y4jsxhf0XcB5292DZH8J+FmwM+GHilKf8u60SIKxaJLK9pNjuIS
+	u7mQ3fqq8UWjIU/H5XAFKJ/V2gWbWMhu2laUs7nEmpid1ZYKVk9CKhIkid3w7EaXw+MWtRaH
+	5C5kRWex1clxzlxJsEkeuznX5LA9zel0ekPC+a7VUn/1EOWsTN/Zd7hWUQ4uplUDmobMUzBY
+	KVaDFbSKaQfw5/EmhUxmALw5vI+UyZ0E8VaAuwlveIusRwD8bfhPXCYTAJ7/ay4RT6NJZj1s
+	620GSaxmHodDi/Opa3HmHwqOzUSJ5MFKRg+91XuxJCaYtXCi6hKWrKBkCuCl/auTspK5D8YO
+	jqXsOLManvmjEU9iyGhhe/9UqiE1kwuPjr8iW9SwocqX6gcyixQcb/ATsn8T/NgbWcquhJO9
+	YUrGGjg7HSFlvBsOfXWMksM1APYt+JZMT8LAeGWqGM6sg61nN8gP8SjsGVlqLQP6uxcpWVZC
+	v08lB7PgoZlBTJY18FbNLlnmYThcD/aBNYFlMwaWzRhYNkzg/7JHANEMHhCdks0sSnont3zT
+	IZD6FNkvtYMDA9uigKEBm6703ytuVymEUqnMFgWQxlm18teshKQsFso+EF0Oo8tjFaUoMCQ2
+	UIdr7jc5El/M7jZyBn1enq7AgAx5esSuUrbdc+VtFWMW3OL7ougUXXdzGJ2mKQdm9e/PFMRj
+	773zBV9v6lKSE4+Fdg3MVVyYek5SKp6IvRms40syMn5sObHq/EM7TOdOZkd21tVrz2WWWSYa
+	Tk1jU4dBJy2xr58IfXvmNZtpf0UpZ87vuHGreyBmffiFeJeR+Kaj91prJhoJlleXfXpsob0n
+	mv91KTg++mHN1o/EzJdZQrIIXDbukoT/AJPWV5kqBAAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrGIsWRmVeSWpSXmKPExsWy7bCSnC7709RYg94Ki69fOlgs1p86xmyx
+	+m4/m8XpqWeZLOacb2Gx2PtuNqvF2j1/mC26X8lYPFk/i9nixq82Vov+x6+ZLc6f38Busenx
+	NVaLvbe0Le7f+8lkMXPeHTaLS4vcLV7N+8ZisWfvSRaLy7vmsFkc+d/PaDHj/D4mi7aNXxkt
+	Wnt+slscXxvuIOmxZeVNJo+WzeUe2w6oelw+W+qxaVUnm8eda3vYPDYvqffYveAzk0fTmaPM
+	Hu/3XWXz6NuyitHj8ya5AJ4oLpuU1JzMstQifbsEroxJ9+ayF7TzVJyZ38/awHias4uRg0NC
+	wESidYt7FyMXh5DAbkaJkzPfsHYxcgLFpSS2tu9hhrCFJe63HAGLCwk8Z5T43FQAYrMJaEts
+	Pr6KEcQWEdCQuPr3J1gNs8A0DoldH8RBbGEBI4nWrm4mEJtFQFXiZedFJpC9vAKWEhenyYOE
+	eQUEgdY+YQEJMwvoSbRtZISYIi+x/e0cqAsUJHacfc0IUiICVLLoWRBEiYjE7M425gmMgrOQ
+	DJqFMGgWkkGzkHQsYGRZxSiZWlCcm55bbFhgmJdarlecmFtcmpeul5yfu4kRHPtamjsYLy+J
+	P8QowMGoxMPbwZ8aK8SaWFZcmXuIUYKDWUmE95EKUIg3JbGyKrUoP76oNCe1+BCjNAeLkjjv
+	07xjkUIC6YklqdmpqQWpRTBZJg5OqQbGCe6KPu0piqufKnP1tu34wfCOpXqGoZpO67oI2VcH
+	eqz4CosPzjLUeH51hWb/iW3c2p8WGrj7dMxw+SJmk/ti5rSjDMePZCbVPPVd3qPhWBbPHjtv
+	ZbFB6qVNv9OePpv046uo851LB0VeyiS+PenWVX+k+d80Jp7Pto/8NjFKWcr4L715Z/M0JZbi
+	jERDLeai4kQAn059LPkCAAA=
+X-CMS-MailID: 20190828022055epcas2p25525077d0a5a3fa5a2027bac06a10bc1
 X-Msg-Generator: CA
 X-Sendblock-Type: AUTO_CONFIDENTIAL
 CMS-TYPE: 102P
 DLP-Filter: Pass
 X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20190827083334epcas2p115d479190b9a72c886f66569add78203
-References: <CGME20190827083334epcas2p115d479190b9a72c886f66569add78203@epcas2p1.samsung.com>
+X-CMS-RootMailID: 20190828022055epcas2p25525077d0a5a3fa5a2027bac06a10bc1
+References: <CGME20190828022055epcas2p25525077d0a5a3fa5a2027bac06a10bc1@epcas2p2.samsung.com>
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
 	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.28]); Tue, 27 Aug 2019 08:33:42 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]);
-	Tue, 27 Aug 2019 08:33:42 +0000 (UTC) for IP:'203.254.224.24'
-	DOMAIN:'mailout1.samsung.com' HELO:'mailout1.samsung.com'
+	[10.5.110.43]); Wed, 28 Aug 2019 02:20:59 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]);
+	Wed, 28 Aug 2019 02:20:59 +0000 (UTC) for IP:'203.254.224.25'
+	DOMAIN:'mailout2.samsung.com' HELO:'mailout2.samsung.com'
 	FROM:'boojin.kim@samsung.com' RCPT:''
 X-RedHat-Spam-Score: -5.103  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
 	DKIM_VALID_AU, RCVD_IN_DNSWL_HI, SPF_HELO_PASS,
-	SPF_PASS) 203.254.224.24 mailout1.samsung.com 203.254.224.24
-	mailout1.samsung.com <boojin.kim@samsung.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.28
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+	SPF_PASS) 203.254.224.25 mailout2.samsung.com 203.254.224.25
+	mailout2.samsung.com <boojin.kim@samsung.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.43
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 28 Aug 2019 05:31:41 -0400
 Cc: 'Ulf
@@ -166,51 +166,41 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.66]); Wed, 28 Aug 2019 09:32:05 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]); Wed, 28 Aug 2019 09:32:07 +0000 (UTC)
 
-On Wed, Aug 21, 2019 at 5:10 AM Satya Tangirala <satyat@kernel.dk> wrote:
-> 
+On Tue, Aug 27, 2019 at 05:33:33PM +0900, boojin.kim wrote:
+>
 > Hi Boojin,
 >
-> We're very keen to make sure that our approach to inline encryption can
-> work with diverse hardware, including Samsung's FMP hardware; if you
-> can see any issues with using our approach with your hardware please
-> let us know.
+> I think the important thing to realize here is that there are a large
+> number of hardware devices for which the keyslot manager *is* needed.
+> And from the upstream kernel's perspective, supporting two different
+> schemes for supporting the inline encryption feature is more
+> complexity than just supporting one which is general enough to support
+> a wider variety of hardware devices.
 >
-> We understand that a possible concern for getting FMP working with our
-> patch series for Inline Encryption Support at
+> If you want somethig which is only good for the hardware platform you
+> are charged to support, that's fine if it's only going to be in a
+> Samsung-specific kernel.  But if your goal is to get something that
+> works upstream, especially if it requires changes in core layers of
+> the kernel, it's important that it's general enough to support most,
+> if not all, if the hardware devices in the industry.
 >
->
-https://lore.kernel.org/linux-block/20190821075714.65140-1-satyat@google.com
-/
->
-> is that unlike some inline encryption hardware (and also unlike the JEDEC
-> UFS v2.1 spec), FMP doesn't have the concept of a limited number of
-> keyslots - to address that difference we have a "passthrough keyslot
-> manager", which we put up on top of our patch series for inline encryption
-> support at
->
-> https://android-review.googlesource.com/c/kernel/common/+/980137/2
->
-> Setting up a passthrough keyslot manager in the request queue of a
-> device allows the device to receive a bio's encryption context as-is with
-> the bio, which is what FMP would prefer. Are there any issues with
-> using the passthrough keyslot manager for FMP?
->
-> Thanks!
-> Satya
+> Regards,
 
-Dear Satya.
-Keyslot manager is a good solution for ICE. And probably no issue for FMP.
-But, I think it's complicated for FMP because FMP doesn't need
-any keyslot control.
-Crypto API that FMP's using is simply, stable, and supports test. 
-FMP has been mass producing and certificating using crypto APIs
-for several years. 
-So I wants to keep  our current crypto API solution.
-But, I'm looking at your patch.  And I will keep examining at your patch
-because our goal is to run the FMP on the mainline kernel.
+I understood your reply.
+But, Please consider the diskcipher isn't just for FMP. 
+The UFS in Samsung SoC also has UFS ICE. This UFS ICE can be registered 
+as an algorithm of diskcipher like FMP.
+
+Following is my opinion to introduce diskcipher.
+I think the common feature of ICE like FMP and UFS ICE, 
+is 'exposing cipher text to storage".
+And, Crypto test is also important for ICE.  Diskcipher supports
+the common feature of ICE. 
+I think specific functions for each ICE such as the key control of UFS ICE
+and the writing crypto table of FMP can be processed at algorithm level.
 
 Thanks for your reply.
 Boojin Kim.
