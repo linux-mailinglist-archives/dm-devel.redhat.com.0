@@ -2,65 +2,124 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00070A31DF
-	for <lists+dm-devel@lfdr.de>; Fri, 30 Aug 2019 10:08:45 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+	by mail.lfdr.de (Postfix) with ESMTPS id 911ECA31EB
+	for <lists+dm-devel@lfdr.de>; Fri, 30 Aug 2019 10:12:45 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id A222766852;
-	Fri, 30 Aug 2019 08:08:43 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id E76B53082B02;
+	Fri, 30 Aug 2019 08:12:42 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BFFC560605;
-	Fri, 30 Aug 2019 08:08:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AD6565D9D3;
+	Fri, 30 Aug 2019 08:12:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BE4911802218;
-	Fri, 30 Aug 2019 08:08:35 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 85D441802218;
+	Fri, 30 Aug 2019 08:12:41 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
 	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7U88RNi010369 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 30 Aug 2019 04:08:27 -0400
+	id x7TCpvSb009834 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 29 Aug 2019 08:51:57 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 909903784; Fri, 30 Aug 2019 08:08:27 +0000 (UTC)
+	id 6D82460C44; Thu, 29 Aug 2019 12:51:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx27.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.68])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A3B4413B
-	for <dm-devel@redhat.com>; Fri, 30 Aug 2019 08:08:23 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mx1.redhat.com (ext-mx16.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.45])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 67BA860CD0
+	for <dm-devel@redhat.com>; Thu, 29 Aug 2019 12:51:55 +0000 (UTC)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+	[91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 328CE878E47
-	for <dm-devel@redhat.com>; Fri, 30 Aug 2019 08:08:22 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
-	by mx1.suse.de (Postfix) with ESMTP id CF2FBB65A;
-	Fri, 30 Aug 2019 08:08:20 +0000 (UTC)
-From: NeilBrown <neilb@suse.de>
-To: "Guilherme G. Piccoli" <gpiccoli@canonical.com>, linux-raid@vger.kernel.org
-Date: Fri, 30 Aug 2019 18:08:10 +1000
-In-Reply-To: <20190822161318.26236-1-gpiccoli@canonical.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id C0AF23082B43
+	for <dm-devel@redhat.com>; Thu, 29 Aug 2019 12:51:53 +0000 (UTC)
+Received: from mail-pf1-f199.google.com ([209.85.210.199])
+	by youngberry.canonical.com with esmtps
+	(TLS1.0:RSA_AES_128_CBC_SHA1:16) (Exim 4.76)
+	(envelope-from <gpiccoli@canonical.com>) id 1i3Ju4-0003sI-6S
+	for dm-devel@redhat.com; Thu, 29 Aug 2019 12:51:52 +0000
+Received: by mail-pf1-f199.google.com with SMTP id q67so2412485pfc.10
+	for <dm-devel@redhat.com>; Thu, 29 Aug 2019 05:51:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:cc:references:to:from:openpgp:autocrypt
+	:message-id:date:user-agent:mime-version:in-reply-to
+	:content-language:content-transfer-encoding;
+	bh=KXReb5C5sWPqimLePcMad/fib0dL8OM+ZShWXJO5G38=;
+	b=WZFNTacPYO9Rw62lsb40c566q4E8WHhl9Oqq9crLIhUhglQEES6nYDusXVYiLLKpmE
+	d2PttXrocIhCHZ/8vWk7mJ+5Uhll2EU5E4KFlpRbt0auMEge6Cx1+eLCTsxjR/ZQxC8q
+	aBheKAkSv+JRPSqn1nTW+wwG1EoN5f0uFmryoCkDM34/zlHXAm/8FBTLlC89Evefudoz
+	yaDCGeR3uoIMNqIb6MXq6Qs0cXAdNSfiXffuinD2pTJNmW7MkWIH1kT8CcTjEAL0wFX8
+	DyA/5gQ6Qg/TVZqA+ghrIor9tNIXrHnKYCf6RZVK7eNXo0DPGQfpXfj6CaDpQ+7etWPK
+	IlZQ==
+X-Gm-Message-State: APjAAAVrka4NUwzRnr83MkeW20HBU8TdmLrb73yZ6BBEqJv7Wv3+v9P3
+	ZwBROl7jcVPjeOeFzgF4gHNiwD0Wj+O6YnIThkKyVg0NC7Ubtq9Ygw4U+J7MHIiW7lNxx4qJO99
+	NZ7BZ3FJfBYX5/ioaSrcbaEAaMCJTmA==
+X-Received: by 2002:a62:be04:: with SMTP id l4mr8474333pff.247.1567083110987; 
+	Thu, 29 Aug 2019 05:51:50 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqw7Y2jT58CB/26WQrcl+PZJqvLOlVtaqsnZLf+cdod1RHd8cPHHCKYYbS46eDmcnXhqa5PRKw==
+X-Received: by 2002:a62:be04:: with SMTP id l4mr8474308pff.247.1567083110752; 
+	Thu, 29 Aug 2019 05:51:50 -0700 (PDT)
+Received: from [192.168.1.75] (200-232-247-150.dsl.telesp.net.br.
+	[200.232.247.150]) by smtp.gmail.com with ESMTPSA id
+	j1sm2797676pfh.174.2019.08.29.05.51.44
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Thu, 29 Aug 2019 05:51:49 -0700 (PDT)
 References: <20190822161318.26236-1-gpiccoli@canonical.com>
-Message-ID: <87d0gnf53p.fsf@notabene.neil.brown.name>
+	<20190822161318.26236-2-gpiccoli@canonical.com>
+To: jes.sorensen@gmail.com
+From: "Guilherme G. Piccoli" <gpiccoli@canonical.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=gpiccoli@canonical.com; prefer-encrypt=mutual; keydata=
+	mQENBFpVBxcBCADPNKmu2iNKLepiv8+Ssx7+fVR8lrL7cvakMNFPXsXk+f0Bgq9NazNKWJIn
+	Qxpa1iEWTZcLS8ikjatHMECJJqWlt2YcjU5MGbH1mZh+bT3RxrJRhxONz5e5YILyNp7jX+Vh
+	30rhj3J0vdrlIhPS8/bAt5tvTb3ceWEic9mWZMsosPavsKVcLIO6iZFlzXVu2WJ9cov8eQM/
+	irIgzvmFEcRyiQ4K+XUhuA0ccGwgvoJv4/GWVPJFHfMX9+dat0Ev8HQEbN/mko/bUS4Wprdv
+	7HR5tP9efSLucnsVzay0O6niZ61e5c97oUa9bdqHyApkCnGgKCpg7OZqLMM9Y3EcdMIJABEB
+	AAG0LUd1aWxoZXJtZSBHLiBQaWNjb2xpIDxncGljY29saUBjYW5vbmljYWwuY29tPokBNwQT
+	AQgAIQUCWmClvQIbAwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRDOR5EF9K/7Gza3B/9d
+	5yczvEwvlh6ksYq+juyuElLvNwMFuyMPsvMfP38UslU8S3lf+ETukN1S8XVdeq9yscwtsRW/
+	4YoUwHinJGRovqy8gFlm3SAtjfdqysgJqUJwBmOtcsHkmvFXJmPPGVoH9rMCUr9s6VDPox8f
+	q2W5M7XE9YpsfchS/0fMn+DenhQpV3W6pbLtuDvH/81GKrhxO8whSEkByZbbc+mqRhUSTdN3
+	iMpRL0sULKPVYbVMbQEAnfJJ1LDkPqlTikAgt3peP7AaSpGs1e3pFzSEEW1VD2jIUmmDku0D
+	LmTHRl4t9KpbU/H2/OPZkrm7809QovJGRAxjLLPcYOAP7DUeltveuQENBFpVBxcBCADbxD6J
+	aNw/KgiSsbx5Sv8nNqO1ObTjhDR1wJw+02Bar9DGuFvx5/qs3ArSZkl8qX0X9Vhptk8rYnkn
+	pfcrtPBYLoux8zmrGPA5vRgK2ItvSc0WN31YR/6nqnMfeC4CumFa/yLl26uzHJa5RYYQ47jg
+	kZPehpc7IqEQ5IKy6cCKjgAkuvM1rDP1kWQ9noVhTUFr2SYVTT/WBHqUWorjhu57/OREo+Tl
+	nxI1KrnmW0DbF52tYoHLt85dK10HQrV35OEFXuz0QPSNrYJT0CZHpUprkUxrupDgkM+2F5LI
+	bIcaIQ4uDMWRyHpDbczQtmTke0x41AeIND3GUc+PQ4hWGp9XABEBAAGJAR8EGAEIAAkFAlpV
+	BxcCGwwACgkQzkeRBfSv+xv1wwgAj39/45O3eHN5pK0XMyiRF4ihH9p1+8JVfBoSQw7AJ6oU
+	1Hoa+sZnlag/l2GTjC8dfEGNoZd3aRxqfkTrpu2TcfT6jIAsxGjnu+fUCoRNZzmjvRziw3T8
+	egSPz+GbNXrTXB8g/nc9mqHPPprOiVHDSK8aGoBqkQAPZDjUtRwVx112wtaQwArT2+bDbb/Y
+	Yh6gTrYoRYHo6FuQl5YsHop/fmTahpTx11IMjuh6IJQ+lvdpdfYJ6hmAZ9kiVszDF6pGFVkY
+	kHWtnE2Aa5qkxnA2HoFpqFifNWn5TyvJFpyqwVhVI8XYtXyVHub/WbXLWQwSJA4OHmqU8gDl
+	X18zwLgdiQ==
+Message-ID: <d8185107-e517-2ce7-7f9b-aa029a97924a@canonical.com>
+Date: Thu, 29 Aug 2019 09:51:38 -0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.8.0
 MIME-Version: 1.0
+In-Reply-To: <20190822161318.26236-2-gpiccoli@canonical.com>
+Content-Language: en-US
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
-	[10.5.110.68]); Fri, 30 Aug 2019 08:08:22 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.68]);
-	Fri, 30 Aug 2019 08:08:22 +0000 (UTC) for IP:'195.135.220.15'
-	DOMAIN:'mx2.suse.de' HELO:'mx1.suse.de' FROM:'neilb@suse.de'
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.45]); Thu, 29 Aug 2019 12:51:54 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]);
+	Thu, 29 Aug 2019 12:51:54 +0000 (UTC) for IP:'91.189.89.112'
+	DOMAIN:'youngberry.canonical.com'
+	HELO:'youngberry.canonical.com' FROM:'gpiccoli@canonical.com'
 	RCPT:''
-X-RedHat-Spam-Score: -2.3  (RCVD_IN_DNSWL_MED, SPF_HELO_NONE,
-	SPF_PASS) 195.135.220.15 mx2.suse.de 195.135.220.15
-	mx2.suse.de <neilb@suse.de>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.68
+X-RedHat-Spam-Score: -4.998  (RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
+	SPF_NONE) 91.189.89.112 youngberry.canonical.com
+	91.189.89.112 youngberry.canonical.com <gpiccoli@canonical.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.45
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
-Cc: Neil F Brown <nfbrown@suse.com>, Song Liu <songliubraving@fb.com>,
-	liu.song.a23@gmail.com, linux-block@vger.kernel.org,
-	dm-devel@redhat.com, jay.vosburgh@canonical.com
-Subject: Re: [dm-devel] [PATCH v3 1/2] md raid0/linear: Mark array as
-	'broken' and fail BIOs if a member is gone
+X-Mailman-Approved-At: Fri, 30 Aug 2019 04:12:37 -0400
+Cc: linux-block@vger.kernel.org, Song Liu <songliubraving@fb.com>,
+	liu.song.a23@gmail.com, NeilBrown <neilb@suse.com>,
+	linux-raid@vger.kernel.org, dm-devel@redhat.com, jay.vosburgh@canonical.com
+Subject: Re: [dm-devel] [PATCH v3 2/2] mdadm: Introduce new array state
+ 'broken' for raid0/linear
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -72,275 +131,189 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4103811891291545270=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]); Fri, 30 Aug 2019 08:08:44 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]); Fri, 30 Aug 2019 08:12:43 +0000 (UTC)
 
---===============4103811891291545270==
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha256; protocol="application/pgp-signature"
-
---=-=-=
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Aug 22 2019,  Guilherme G. Piccoli  wrote:
-
-> Currently md raid0/linear are not provided with any mechanism to validate
-> if an array member got removed or failed. The driver keeps sending BIOs
-> regardless of the state of array members, and kernel shows state 'clean'
-> in the 'array_state' sysfs attribute. This leads to the following
-> situation: if a raid0/linear array member is removed and the array is
-> mounted, some user writing to this array won't realize that errors are
-> happening unless they check dmesg or perform one fsync per written file.
-> Despite udev signaling the member device is gone, 'mdadm' cannot issue the
-> STOP_ARRAY ioctl successfully, given the array is mounted.
->
-> In other words, no -EIO is returned and writes (except direct ones) appear
-> normal. Meaning the user might think the wrote data is correctly stored in
-> the array, but instead garbage was written given that raid0 does stripping
-> (and so, it requires all its members to be working in order to not corrupt
-> data). For md/linear, writes to the available members will work fine, but
-> if the writes go to the missing member(s), it'll cause a file corruption
-> situation, whereas the portion of the writes to the missing devices aren't
-> written effectively.
->
-> This patch changes this behavior: we check if the block device's gendisk
-> is UP when submitting the BIO to the array member, and if it isn't, we fl=
-ag
-> the md device as MD_BROKEN and fail subsequent I/Os to that device; a read
-> request to the array requiring data from a valid member is still complete=
-d.
-> While flagging the device as MD_BROKEN, we also show a rate-limited warni=
-ng
-> in the kernel log.
->
-> A new array state 'broken' was added too: it mimics the state 'clean' in
-> every aspect, being useful only to distinguish if the array has some memb=
-er
-> missing. We rely on the MD_BROKEN flag to put the array in the 'broken'
-> state. This state cannot be written in 'array_state' as it just shows
-> one or more members of the array are missing but acts like 'clean', it
-> wouldn't make sense to write it.
->
-> With this patch, the filesystem reacts much faster to the event of missing
-> array member: after some I/O errors, ext4 for instance aborts the journal
-> and prevents corruption. Without this change, we're able to keep writing
-> in the disk and after a machine reboot, e2fsck shows some severe fs errors
-> that demand fixing. This patch was tested in ext4 and xfs filesystems, and
-> requires a 'mdadm' counterpart to handle the 'broken' state.
->
+On 22/08/2019 13:13, Guilherme G. Piccoli wrote:
+> Currently if a md raid0/linear array gets one or more members removed while
+> being mounted, kernel keeps showing state 'clean' in the 'array_state'
+> sysfs attribute. Despite udev signaling the member device is gone, 'mdadm'
+> cannot issue the STOP_ARRAY ioctl successfully, given the array is mounted.
+> 
+> Nothing else hints that something is wrong (except that the removed devices
+> don't show properly in the output of mdadm 'detail' command). There is no
+> other property to be checked, and if user is not performing reads/writes
+> to the array, even kernel log is quiet and doesn't give a clue about the
+> missing member.
+> 
+> This patch is the mdadm counterpart of kernel new array state 'broken'.
+> The 'broken' state mimics the state 'clean' in every aspect, being useful
+> only to distinguish if an array has some member missing. All necessary
+> paths in mdadm were changed to deal with 'broken' state, and in case the
+> tool runs in a kernel that is not updated, it'll work normally, i.e., it
+> doesn't require the 'broken' state in order to work.
+> Also, this patch changes the way the array state is showed in the 'detail'
+> command (for raid0/linear only) - now it takes the 'array_state' sysfs
+> attribute into account instead of only rely in the MD_SB_CLEAN flag.
+> 
 > Cc: NeilBrown <neilb@suse.com>
 > Cc: Song Liu <songliubraving@fb.com>
 > Signed-off-by: Guilherme G. Piccoli <gpiccoli@canonical.com>
 > ---
->
+> 
 > v2 -> v3:
-> * Rebased against md-next.
->
-> * Merged both patches in a single one (thanks Song for the
-> suggestion); now we fail BIOs and mark array as MD_BROKEN
-> when a member is missing. We rely in the MD_BROKEN flag
-> to set array to 'broken' state.
->
-> * Function is_missing_dev() was removed due to the above.
->
+> * Nothing changed.
+> 
 > v1 -> v2:
-> * Added handling for md/linear 'broken' state;
-> * Check for is_missing_dev() instead of personality (thanks Neil for
-> the suggestion);
-> * Changed is_missing_dev() handlers to static;
-> * Print rate-limited warning in case of more members go away, not only
-> the first.
->
-> Cover-letter from v1:
-> lore.kernel.org/linux-block/20190729203135.12934-1-gpiccoli@canonical.com
->
->
->  drivers/md/md-linear.c |  9 +++++++++
->  drivers/md/md.c        | 22 ++++++++++++++++++----
->  drivers/md/md.h        |  3 +++
->  drivers/md/raid0.c     | 10 ++++++++++
->  4 files changed, 40 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/md/md-linear.c b/drivers/md/md-linear.c
-> index 7354466ddc90..0479ccdbdeeb 100644
-> --- a/drivers/md/md-linear.c
-> +++ b/drivers/md/md-linear.c
-> @@ -258,6 +258,15 @@ static bool linear_make_request(struct mddev *mddev,=
- struct bio *bio)
->  		     bio_sector < start_sector))
->  		goto out_of_bounds;
->=20=20
-> +	if (unlikely(!(tmp_dev->rdev->bdev->bd_disk->flags & GENHD_FL_UP))) {
-> +		if (!test_bit(MD_BROKEN, &mddev->flags))
-> +			pr_warn("md: %s: linear array has a missing/failed member\n",
-> +				mdname(mddev));
-> +		set_bit(MD_BROKEN, &mddev->flags);
-
-It is a minor point, but I think this would look nicer as
-   if (!test_and_set_bit(MD_BROKEN, ....) { .. . }
-
-
-> +		bio_io_error(bio);
-> +		return true;
-> +	}
+> * Added handling for md/linear 'broken' state.
+> 
+> 
+>  Detail.c  | 17 +++++++++++++++--
+>  Monitor.c |  9 +++++++--
+>  maps.c    |  1 +
+>  mdadm.h   |  1 +
+>  mdmon.h   |  2 +-
+>  monitor.c |  4 ++--
+>  6 files changed, 27 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Detail.c b/Detail.c
+> index ad60434..cc7e9f1 100644
+> --- a/Detail.c
+> +++ b/Detail.c
+> @@ -81,6 +81,7 @@ int Detail(char *dev, struct context *c)
+>  	int external;
+>  	int inactive;
+>  	int is_container = 0;
+> +	char arrayst[12] = { 0 }; /* no state is >10 chars currently */
+>  
+>  	if (fd < 0) {
+>  		pr_err("cannot open %s: %s\n",
+> @@ -485,9 +486,21 @@ int Detail(char *dev, struct context *c)
+>  			else
+>  				st = ", degraded";
+>  
+> +			if (array.state & (1 << MD_SB_CLEAN)) {
+> +				if ((array.level == 0) ||
+> +				    (array.level == LEVEL_LINEAR))
+> +					strncpy(arrayst,
+> +						map_num(sysfs_array_states,
+> +							sra->array_state),
+> +						sizeof(arrayst)-1);
+> +				else
+> +					strncpy(arrayst, "clean",
+> +						sizeof(arrayst)-1);
+> +			} else
+> +				strncpy(arrayst, "active", sizeof(arrayst)-1);
 > +
->  	if (unlikely(bio_end_sector(bio) > end_sector)) {
->  		/* This bio crosses a device boundary, so we have to split it */
->  		struct bio *split =3D bio_split(bio, end_sector - bio_sector,
-> diff --git a/drivers/md/md.c b/drivers/md/md.c
-> index b46bb143e3c5..e7612033005f 100644
-> --- a/drivers/md/md.c
-> +++ b/drivers/md/md.c
-> @@ -376,6 +376,11 @@ static blk_qc_t md_make_request(struct request_queue=
- *q, struct bio *bio)
->  	struct mddev *mddev =3D q->queuedata;
->  	unsigned int sectors;
->=20=20
-> +	if (unlikely(test_bit(MD_BROKEN, &mddev->flags)) && (rw =3D=3D WRITE)) {
-> +		bio_io_error(bio);
-> +		return BLK_QC_T_NONE;
-> +	}
-> +
->  	blk_queue_split(q, &bio);
->=20=20
->  	if (mddev =3D=3D NULL || mddev->pers =3D=3D NULL) {
-> @@ -4158,12 +4163,17 @@ __ATTR_PREALLOC(resync_start, S_IRUGO|S_IWUSR,
->   * active-idle
->   *     like active, but no writes have been seen for a while (100msec).
->   *
-> + * broken
-> + *     RAID0/LINEAR-only: same as clean, but array is missing a member.
-> + *     It's useful because RAID0/LINEAR mounted-arrays aren't stopped
-> + *     when a member is gone, so this state will at least alert the
-> + *     user that something is wrong.
->   */
->  enum array_state { clear, inactive, suspended, readonly, read_auto, clea=
-n, active,
-> -		   write_pending, active_idle, bad_word};
-> +		   write_pending, active_idle, broken, bad_word};
->  static char *array_states[] =3D {
->  	"clear", "inactive", "suspended", "readonly", "read-auto", "clean", "ac=
-tive",
-> -	"write-pending", "active-idle", NULL };
-> +	"write-pending", "active-idle", "broken", NULL };
->=20=20
->  static int match_word(const char *word, char **list)
->  {
-> @@ -4179,7 +4189,7 @@ array_state_show(struct mddev *mddev, char *page)
->  {
->  	enum array_state st =3D inactive;
->=20=20
-> -	if (mddev->pers && !test_bit(MD_NOT_READY, &mddev->flags))
-> +	if (mddev->pers && !test_bit(MD_NOT_READY, &mddev->flags)) {
->  		switch(mddev->ro) {
->  		case 1:
->  			st =3D readonly;
-> @@ -4199,7 +4209,10 @@ array_state_show(struct mddev *mddev, char *page)
->  				st =3D active;
->  			spin_unlock(&mddev->lock);
->  		}
-> -	else {
-> +
-> +		if (unlikely(test_bit(MD_BROKEN, &mddev->flags)) && st =3D=3D clean)
-
-I prefer to keep "unlikely" for performance-sensitive code.  This is not
-performance sensitive.
-
-Even without those changes:
-  Reviewed-by: NeilBrown <neilb@suse.de>
-
-
-Thanks,
-NeilBrown
-
-> +			st =3D broken;
-> +	} else {
->  		if (list_empty(&mddev->disks) &&
->  		    mddev->raid_disks =3D=3D 0 &&
->  		    mddev->dev_sectors =3D=3D 0)
-> @@ -4313,6 +4326,7 @@ array_state_store(struct mddev *mddev, const char *=
-buf, size_t len)
->  		break;
->  	case write_pending:
->  	case active_idle:
-> +	case broken:
->  		/* these cannot be set */
->  		break;
+>  			printf("             State : %s%s%s%s%s%s \n",
+> -			       (array.state & (1 << MD_SB_CLEAN)) ?
+> -			       "clean" : "active", st,
+> +			       arrayst, st,
+>  			       (!e || (e->percent < 0 &&
+>  				       e->percent != RESYNC_PENDING &&
+>  				       e->percent != RESYNC_DELAYED)) ?
+> diff --git a/Monitor.c b/Monitor.c
+> index 036103f..9fd5406 100644
+> --- a/Monitor.c
+> +++ b/Monitor.c
+> @@ -1055,8 +1055,12 @@ int Wait(char *dev)
 >  	}
-> diff --git a/drivers/md/md.h b/drivers/md/md.h
-> index 1edcd967eb8e..240de65e15e8 100644
-> --- a/drivers/md/md.h
-> +++ b/drivers/md/md.h
-> @@ -251,6 +251,9 @@ enum mddev_flags {
->  	MD_NOT_READY,		/* do_md_run() is active, so 'array_state'
->  				 * must not report that array is ready yet
->  				 */
-> +	MD_BROKEN,              /* This is used in RAID-0/LINEAR only, to stop
-> +				 * I/O in case an array member is gone/failed.
-> +				 */
+>  }
+>  
+> +/* The state "broken" is used only for RAID0/LINEAR - it's the same as
+> + * "clean", but used in case the array has one or more members missing.
+> + */
+> +#define CLEAN_STATES_LAST_POS	5
+>  static char *clean_states[] = {
+> -	"clear", "inactive", "readonly", "read-auto", "clean", NULL };
+> +	"clear", "inactive", "readonly", "read-auto", "clean", "broken", NULL };
+>  
+>  int WaitClean(char *dev, int verbose)
+>  {
+> @@ -1116,7 +1120,8 @@ int WaitClean(char *dev, int verbose)
+>  			rv = read(state_fd, buf, sizeof(buf));
+>  			if (rv < 0)
+>  				break;
+> -			if (sysfs_match_word(buf, clean_states) <= 4)
+> +			if (sysfs_match_word(buf, clean_states)
+> +			    <= CLEAN_STATES_LAST_POS)
+>  				break;
+>  			rv = sysfs_wait(state_fd, &delay);
+>  			if (rv < 0 && errno != EINTR)
+> diff --git a/maps.c b/maps.c
+> index 02a0474..49b7f2c 100644
+> --- a/maps.c
+> +++ b/maps.c
+> @@ -150,6 +150,7 @@ mapping_t sysfs_array_states[] = {
+>  	{ "read-auto", ARRAY_READ_AUTO },
+>  	{ "clean", ARRAY_CLEAN },
+>  	{ "write-pending", ARRAY_WRITE_PENDING },
+> +	{ "broken", ARRAY_BROKEN },
+>  	{ NULL, ARRAY_UNKNOWN_STATE }
 >  };
->=20=20
->  enum mddev_sb_flags {
-> diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
-> index bf5cf184a260..7772f5350bf2 100644
-> --- a/drivers/md/raid0.c
-> +++ b/drivers/md/raid0.c
-> @@ -586,6 +586,16 @@ static bool raid0_make_request(struct mddev *mddev, =
-struct bio *bio)
->=20=20
->  	zone =3D find_zone(mddev->private, &sector);
->  	tmp_dev =3D map_sector(mddev, zone, sector, &sector);
-> +
-> +	if (unlikely(!(tmp_dev->bdev->bd_disk->flags & GENHD_FL_UP))) {
-> +		if (!test_bit(MD_BROKEN, &mddev->flags))
-> +			pr_warn("md: %s: raid0 array has a missing/failed member\n",
-> +				mdname(mddev));
-> +		set_bit(MD_BROKEN, &mddev->flags);
-> +		bio_io_error(bio);
-> +		return true;
-> +	}
-> +
->  	bio_set_dev(bio, tmp_dev->bdev);
->  	bio->bi_iter.bi_sector =3D sector + zone->dev_start +
->  		tmp_dev->data_offset;
-> --=20
-> 2.22.0
+>  
+> diff --git a/mdadm.h b/mdadm.h
+> index 43b07d5..c88ceab 100644
+> --- a/mdadm.h
+> +++ b/mdadm.h
+> @@ -373,6 +373,7 @@ struct mdinfo {
+>  		ARRAY_ACTIVE,
+>  		ARRAY_WRITE_PENDING,
+>  		ARRAY_ACTIVE_IDLE,
+> +		ARRAY_BROKEN,
+>  		ARRAY_UNKNOWN_STATE,
+>  	} array_state;
+>  	struct md_bb bb;
+> diff --git a/mdmon.h b/mdmon.h
+> index 818367c..b3d72ac 100644
+> --- a/mdmon.h
+> +++ b/mdmon.h
+> @@ -21,7 +21,7 @@
+>  extern const char Name[];
+>  
+>  enum array_state { clear, inactive, suspended, readonly, read_auto,
+> -		   clean, active, write_pending, active_idle, bad_word};
+> +		   clean, active, write_pending, active_idle, broken, bad_word};
+>  
+>  enum sync_action { idle, reshape, resync, recover, check, repair, bad_action };
+>  
+> diff --git a/monitor.c b/monitor.c
+> index 81537ed..e0d3be6 100644
+> --- a/monitor.c
+> +++ b/monitor.c
+> @@ -26,7 +26,7 @@
+>  
+>  static char *array_states[] = {
+>  	"clear", "inactive", "suspended", "readonly", "read-auto",
+> -	"clean", "active", "write-pending", "active-idle", NULL };
+> +	"clean", "active", "write-pending", "active-idle", "broken", NULL };
+>  static char *sync_actions[] = {
+>  	"idle", "reshape", "resync", "recover", "check", "repair", NULL
+>  };
+> @@ -476,7 +476,7 @@ static int read_and_act(struct active_array *a, fd_set *fds)
+>  		a->next_state = clean;
+>  		ret |= ARRAY_DIRTY;
+>  	}
+> -	if (a->curr_state == clean) {
+> +	if ((a->curr_state == clean) || (a->curr_state == broken)) {
+>  		a->container->ss->set_array_state(a, 1);
+>  	}
+>  	if (a->curr_state == active ||
+> 
 
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAl1o2WsACgkQOeye3VZi
-gbnEahAAh7csw4AcVbuP23lk6OnyJaDC57BKbTiWM9IhMjR+hLfTwWeXo6QNnwvq
-1/geFX/p8iGZT5hUM1lCYe6FEpw8vYtOnciXldaaJrdcB/QNc68oJ8P0DMIkJGxT
-dEQS6mrX5e1dWPaWWA3ZP8woXgHr+RuQMBpuukn65obsvwfv3IOsuCCUMorO2H9v
-JnpPd8Y3RnZIdAdg/HW2CN+rIEptU4DYK3ZwBCDglH+DDoWXmBGJQZENw9KykZ3k
-p23Kw+WwNi9PoeqyHwxqlne6Xt5Q7GHXVqFp8OQM71TtGOQCXUN6LA5hgKLzl73E
-6Aus59MW4zNlPxgZPu2gdh5vt1G54H1kXO+7Cvdy353wRXa6DpG+3ppHrOYG63z8
-cMT7FcTlGK76qzbpNQ9AijCuH4fUT+HJEQrQSQdEGsyuqjUx9hnGLCRcpFPUbyqa
-w4foUg/2LR00k8RGWhgOx6tznxjPMRhYlCSJgfAqV9EqxRG71fgAfho3yjGn2ltW
-/uvwYv+TbRTw2w9oK0WmhPvstxl3Jg1iqr7NABIKVz4j1BQLBGI8LKLtNjpwImbL
-V16RdU1MqHQwuLqPNQjGvhJhC9UQaRD30lEeFRK2beSzdPcevHBYCeLknaTja/pE
-jnNZhYdjtnVfytrhFVWg3mPchbr4w4O3HQfQovpHWfWilUDOb/A=
-=pmHU
------END PGP SIGNATURE-----
---=-=-=--
+Hi Jes, is there anything to improve in this patch? I'll submit V4 soon
+to include some suggestions from Song (in the driver), so if you have
+suggestions here I could add them to v4.
+Thanks in advance,
 
 
---===============4103811891291545270==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Guilherme
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
---===============4103811891291545270==--
-
