@@ -2,73 +2,86 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2A3DA3532
-	for <lists+dm-devel@lfdr.de>; Fri, 30 Aug 2019 12:47:56 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 85D4EA4152
+	for <lists+dm-devel@lfdr.de>; Sat, 31 Aug 2019 02:30:13 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id D62793082141;
-	Fri, 30 Aug 2019 10:47:52 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 482205D9E5;
-	Fri, 30 Aug 2019 10:47:51 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 96B8483BD2;
+	Sat, 31 Aug 2019 00:30:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C0851608A5;
+	Sat, 31 Aug 2019 00:30:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 436E289CF;
-	Fri, 30 Aug 2019 10:47:44 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F26551802218;
+	Sat, 31 Aug 2019 00:29:49 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
 	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x7UAlVeG015256 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 30 Aug 2019 06:47:31 -0400
+	id x7V0RvmZ009227 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 30 Aug 2019 20:27:57 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9A34F60CC0; Fri, 30 Aug 2019 10:47:31 +0000 (UTC)
+	id 8A70C60BF7; Sat, 31 Aug 2019 00:27:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx08.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.32])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9618760F82
-	for <dm-devel@redhat.com>; Fri, 30 Aug 2019 10:47:29 +0000 (UTC)
-Received: from smtp.hosts.co.uk (smtp.hosts.co.uk [85.233.160.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.redhat.com (ext-mx25.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.66])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 84E0560BEC
+	for <dm-devel@redhat.com>; Sat, 31 Aug 2019 00:27:55 +0000 (UTC)
+Received: from mail-yb1-f169.google.com (mail-yb1-f169.google.com
+	[209.85.219.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id CFAA8C05AA52
-	for <dm-devel@redhat.com>; Fri, 30 Aug 2019 10:47:26 +0000 (UTC)
-Received: from [81.153.82.187] (helo=[192.168.1.118])
-	by smtp.hosts.co.uk with esmtpa (Exim)
-	(envelope-from <antlists@youngman.org.uk>)
-	id 1i3eRB-0000pe-3q; Fri, 30 Aug 2019 11:47:25 +0100
-To: Song Liu <songliubraving@fb.com>,
-	"Guilherme G. Piccoli" <gpiccoli@canonical.com>
-References: <20190822161318.26236-1-gpiccoli@canonical.com>
-	<73C4747E-7A9E-4833-8393-B6A06C935DBE@fb.com>
-	<8163258e-839c-e0b8-fc4b-74c94c9dae1d@canonical.com>
-	<F0E716F8-76EC-4315-933D-A547B52F1D27@fb.com>
-From: Wols Lists <antlists@youngman.org.uk>
-Message-ID: <5D68FEBC.9060709@youngman.org.uk>
-Date: Fri, 30 Aug 2019 11:47:24 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
-	Thunderbird/38.7.0
+	by mx1.redhat.com (Postfix) with ESMTPS id 9FEBF10F23F7
+	for <dm-devel@redhat.com>; Sat, 31 Aug 2019 00:27:53 +0000 (UTC)
+Received: by mail-yb1-f169.google.com with SMTP id y21so3088315ybi.11
+	for <dm-devel@redhat.com>; Fri, 30 Aug 2019 17:27:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=mime-version:from:date:message-id:subject:to:cc;
+	bh=/6sj/1KFErkTLfZwBj9nEUaXoIe1A0ss/20eaHdy3Vk=;
+	b=lz2Qez8aHpQpigEAMDsVbRsbLgEzMAwuL8UdlT8V47MmynY2kkf9I/A6jWLqZpSWHZ
+	JPKXg0dkK+xE/vnMhUQtop6qZdxlZjZwST430RAnuqK1T+s6ZKDzSRKXjNUuz0NYQr65
+	dUJGC3kI4PBa8GrG7hKp6wvNvQCtLRpToJlt+tGRt3IdC1OrYj6TjF30Y40ls4//xKof
+	7hlMKT1KkPurJveVeLGXTGghjIjR/ULmiEHaWm2yXIkAsLE+ICYXodZeXEfFn+IUKlub
+	72B2derafFLGM8JoJz2YUi8n7R2orqg1Ln/in1ve5LXAIERFCYXEW5araBOzr0TRzx5V
+	7B8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+	bh=/6sj/1KFErkTLfZwBj9nEUaXoIe1A0ss/20eaHdy3Vk=;
+	b=ZWsJgShbVfdlGzP6d41dMgblsO5pOWdAnqm3Pgi1oxcZBlCRwJjuyVFmoNw5X1YzQ0
+	heSdXiJ+05cBKVFlfqPd+IZV6llxQTPpMSFUV8LXlBqqXD7IEzS4KLnlE6utxJwqd7Vt
+	CvRtfgVoXlcVgDlR+wa16qPGdJ9O2iEMfKETuPvlsoL4r9t6tivnRXI63S33ojGGN7Ad
+	CFvSPGfNaxHPxN6xZDInQEkZKeps5UYsG73351OIVhs+rcvUPJpdsDvfqqqLjlbeaKjL
+	bEKXC+KrUR8e5U4V6GI0QNqGjaq4t58QQIxdlfsHEN27KtZMJtO+LUr5xSHYoQF5Gac5
+	j6iQ==
+X-Gm-Message-State: APjAAAVNRpRNbkWXLMAwQwZQOrDJX9r3w4hrV6SQLcjfDwYJMPbrrPsG
+	WK/DHQtG9W8r2YEuIvEK5pG8F54mDTTTNIQqZrH67PA=
+X-Google-Smtp-Source: APXvYqzMLz0oFYy87HRtkaUtBXmpLbn0/vdiPMEJbAW8lZalvZ1rMHKcnYFzA6SNVqXW4FYJnJo7VeDwkbxPSbEOg9M=
+X-Received: by 2002:a5b:70b:: with SMTP id g11mr12904801ybq.468.1567211272719; 
+	Fri, 30 Aug 2019 17:27:52 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <F0E716F8-76EC-4315-933D-A547B52F1D27@fb.com>
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.32]); Fri, 30 Aug 2019 10:47:27 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]);
-	Fri, 30 Aug 2019 10:47:27 +0000 (UTC) for IP:'85.233.160.19'
-	DOMAIN:'smtp.hosts.co.uk' HELO:'smtp.hosts.co.uk'
-	FROM:'antlists@youngman.org.uk' RCPT:''
-X-RedHat-Spam-Score: -0.702  (RCVD_IN_DNSWL_LOW, SPF_HELO_PASS,
-	SPF_PASS) 85.233.160.19 smtp.hosts.co.uk 85.233.160.19
-	smtp.hosts.co.uk <antlists@youngman.org.uk>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.32
+From: Turritopsis Dohrnii Teo En Ming <tdteoenming@gmail.com>
+Date: Sat, 31 Aug 2019 08:27:39 +0800
+Message-ID: <CANnei0HbqysOC-fDdcU8DRaL+QuKTXYyO6v3j+3UzqCNFfZvyw@mail.gmail.com>
+To: dm-devel@redhat.com
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2
+	(mx1.redhat.com [10.5.110.66]);
+	Sat, 31 Aug 2019 00:27:53 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.66]);
+	Sat, 31 Aug 2019 00:27:53 +0000 (UTC) for IP:'209.85.219.169'
+	DOMAIN:'mail-yb1-f169.google.com'
+	HELO:'mail-yb1-f169.google.com' FROM:'tdteoenming@gmail.com'
+	RCPT:''
+X-RedHat-Spam-Score: -0.099  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
+	SPF_PASS) 209.85.219.169 mail-yb1-f169.google.com 209.85.219.169
+	mail-yb1-f169.google.com <tdteoenming@gmail.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.66
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
-Cc: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	Song Liu <liu.song.a23@gmail.com>, NeilBrown <neilb@suse.com>,
-	linux-raid <linux-raid@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	Jay Vosburgh <jay.vosburgh@canonical.com>
-Subject: Re: [dm-devel] [PATCH v3 1/2] md raid0/linear: Mark array as
- 'broken' and fail BIOs if a member is gone
+Cc: Turritopsis Dohrnii Teo En Ming <tdteoenming@gmail.com>
+Subject: [dm-devel] Singaporean Mr. Teo En Ming's Refugee Seeking Attempts,
+ In Search of a Substantially Better Life
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,22 +97,84 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]); Fri, 30 Aug 2019 10:47:55 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.71]); Sat, 31 Aug 2019 00:30:12 +0000 (UTC)
 
-On 23/08/19 18:51, Song Liu wrote:
-> I guess md_is_broken() should return bool? Otherwise, looks good to me. 
+Subject: Singaporean Mr. Teo En Ming's Refugee Seeking Attempts, In
+Search of a Substantially Better Life
 
-Just an outsider's observation - if the function is actually checking
-whether a member is missing maybe it should read
+In reverse chronological order:
 
-   broken = md_member_is_missing();
+[1] Petition to the Government of Taiwan for Refugee Status, 5th
+August 2019 Monday
 
-That way the function says what it does, and the assignment says what
-you're doing with it.
+Photo #1: At the building of the National Immigration Agency, Ministry
+of the Interior, Taipei, Taiwan, 5th August 2019
 
-Cheers,
-Wol
+Photo #2: Queue ticket no. 515 at the National Immigration Agency,
+Ministry of the Interior, Taipei, Taiwan, 5th August 2019
+
+Photo #3: Submission of documents/petition to the National Immigration
+Agency, Ministry of the Interior, Taipei, Taiwan, 5th August 2019
+
+Photos #4 and #5: Acknowledgement of Receipt (no. 03142) for the
+submission of documents/petition from the National Immigration Agency,
+Ministry of the Interior, Taipei, Taiwan, 5th August 2019, 10:00 AM
+
+References:
+
+(a) Petition to the Government of Taiwan for Refugee Status, 5th
+August 2019 Monday (Blogspot blog)
+
+Link: https://tdtemcerts.blogspot.sg/2019/08/petition-to-government-of-taiwan-for.html
+
+(b) Petition to the Government of Taiwan for Refugee Status, 5th
+August 2019 Monday (Wordpress blog)
+
+Link: https://tdtemcerts.wordpress.com/2019/08/23/petition-to-the-government-of-taiwan-for-refugee-status/
+
+[2] Application for Refugee Status at the United Nations Refugee
+Agency, Bangkok, Thailand, 21st March 2017 Tuesday
+
+References:
+
+(a) [YOUTUBE] Vlog: The Road to Application for Refugee Status at the
+United Nations High Commissioner for Refugees, Bangkok
+
+Link: https://www.youtube.com/watch?v=utpuAa1eUNI
+
+YouTube video Published on March 22nd, 2017
+
+Views as at 31st August 2019: 593
+
+YouTube Channel: Turritopsis Dohrnii Teo En Ming
+Subscribers as at 31st August 2019: 2815
+Link: https://www.youtube.com/channel/UC__F2hzlqNEEGx-IXxQi3hA
+
+
+
+
+-----BEGIN EMAIL SIGNATURE-----
+
+The Gospel for all Targeted Individuals (TIs):
+
+[The New York Times] Microwave Weapons Are Prime Suspect in Ills of
+U.S. Embassy Workers
+
+Link: https://www.nytimes.com/2018/09/01/science/sonic-attack-cuba-microwave.html
+
+********************************************************************************************
+
+Singaporean Mr. Turritopsis Dohrnii Teo En Ming's Academic
+Qualifications as at 14 Feb 2019
+
+[1] https://tdtemcerts.wordpress.com/
+
+[2] https://tdtemcerts.blogspot.sg/
+
+[3] https://www.scribd.com/user/270125049/Teo-En-Ming
+
+-----END EMAIL SIGNATURE-----
 
 --
 dm-devel mailing list
