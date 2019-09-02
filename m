@@ -2,86 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C633A626B
-	for <lists+dm-devel@lfdr.de>; Tue,  3 Sep 2019 09:28:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B72EA626D
+	for <lists+dm-devel@lfdr.de>; Tue,  3 Sep 2019 09:28:26 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 81EE218C893C;
-	Tue,  3 Sep 2019 07:28:21 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0445C5C1B5;
-	Tue,  3 Sep 2019 07:28:21 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 0185F10F09;
+	Tue,  3 Sep 2019 07:28:24 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C1C825C22C;
+	Tue,  3 Sep 2019 07:28:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 22B122551E;
-	Tue,  3 Sep 2019 07:28:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 60DB71802216;
+	Tue,  3 Sep 2019 07:28:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x82A5CV8023714 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 2 Sep 2019 06:05:12 -0400
+	id x82DwrkK032503 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 2 Sep 2019 09:58:53 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A127F60C47; Mon,  2 Sep 2019 10:05:12 +0000 (UTC)
+	id 201596012A; Mon,  2 Sep 2019 13:58:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx01.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 71CC060C18;
-	Mon,  2 Sep 2019 10:05:07 +0000 (UTC)
-Received: from sender4-pp-o95.zoho.com (sender4-pp-o95.zoho.com
-	[136.143.188.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from mx1.redhat.com (ext-mx11.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.40])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1820E60126;
+	Mon,  2 Sep 2019 13:58:50 +0000 (UTC)
+Received: from mail.gusev.co (de1.gusev.co [84.16.227.28])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 2789485360;
-	Mon,  2 Sep 2019 10:05:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1567418704; cv=none; d=zoho.com; s=zohoarc; 
-	b=TM+4mEo1xD2rzEeOfUxWndcC3p0c8zhKYLLPAqM/BOV14zqFaKumCXx8Zy6hu/18AsOsP+TPVaeLZ6bVemP8diEYHDUtiSrdc+2uwGNy4KNQ9PLRA9IP62A95m4Zdq78av9OhLMHjmxQpvXd4kGpx5CBmWAKV71d+vLLd295Bno=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zoho.com;
-	s=zohoarc; t=1567418704;
-	h=Cc:Date:From:Message-ID:Subject:To:ARC-Authentication-Results;
-	bh=Ot31l6YpX1Hep2bcCR1LFgbNEtu8dKylpOjGYbOxviM=; 
-	b=biMCUT0zeW4LfaIQz+uiKhh4+fQoHdfApmOIaEMmq+7+RRv2qfDaiGqns4/K9isfdmumv+kaCUScwZIeIdCf0Hk2pPEnySpR5NS0qnsjXthJDtrJx+tzUld6g0W1c/0cjbkdCS9FhSYzfVBhoqUKbBEwdsg/BDJ1UYZ6uXHz+zQ=
-ARC-Authentication-Results: i=1; mx.zoho.com; dkim=pass  header.i=zoho.com;
-	spf=pass  smtp.mailfrom=yehs2007@zoho.com;
-	dmarc=pass header.from=<yehs2007@zoho.com>
-	header.from=<yehs2007@zoho.com>
-DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=zapps768; d=zoho.com; 
-	h=from:to:cc:subject:date:message-id; 
-	b=czy/eCu1ugpkJGhENvNLqYJWEHDA7rdgLAiR+89XIzN4M3F28ach6VP6qA3xNdZmujT7mhNHokCP
-	rqxXqCcUvxCnXrXxzODJoYdpApi/RsxExfeDwO8ISwt71/kfEhTG  
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1567418704; 
-	s=zm2019; d=zoho.com; i=yehs2007@zoho.com;
-	h=From:To:Cc:Subject:Date:Message-Id; l=911;
-	bh=Ot31l6YpX1Hep2bcCR1LFgbNEtu8dKylpOjGYbOxviM=;
-	b=QxLgzFE7GjTrKP6CgR4RAKH6pA4VZ3f28TEBGKKPr1hYWk8Xibf9nCE9OxBkS4iw
-	1u0MfRITi23bPn3e5Oq61rL25siCq5jjD2Y7XUDNVgiuF5iIdKM/SAaWR92UyuYTaDv
-	Jedy067xd+CjwOPefeZo8UCAM0joTFR8j3Ui7COc=
-Received: from YEHS1XPF1D05WL.lenovo.com (111.205.43.251 [111.205.43.251]) by
-	mx.zohomail.com with SMTPS id 1567418703324628.2466891855994;
-	Mon, 2 Sep 2019 03:05:03 -0700 (PDT)
-From: Huaisheng Ye <yehs2007@zoho.com>
-To: mpatocka@redhat.com, snitzer@redhat.com, agk@redhat.com
-Date: Mon,  2 Sep 2019 18:04:50 +0800
-Message-Id: <20190902100450.10600-1-yehs2007@zoho.com>
-X-ZohoMailClient: External
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.25]); Mon, 02 Sep 2019 10:05:06 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]);
-	Mon, 02 Sep 2019 10:05:06 +0000 (UTC) for IP:'136.143.188.95'
-	DOMAIN:'sender4-pp-o95.zoho.com' HELO:'sender4-pp-o95.zoho.com'
-	FROM:'yehs2007@zoho.com' RCPT:''
-X-RedHat-Spam-Score: 0.151  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
-	SPF_HELO_NONE,
-	SPF_PASS) 136.143.188.95 sender4-pp-o95.zoho.com 136.143.188.95
-	sender4-pp-o95.zoho.com <yehs2007@zoho.com>
-X-Scanned-By: MIMEDefang 2.83 on 10.5.110.25
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+	by mx1.redhat.com (Postfix) with ESMTPS id 60F793084212;
+	Mon,  2 Sep 2019 13:58:48 +0000 (UTC)
+Received: from [10.0.0.5] (78-57-160-222.static.zebra.lt [78.57.160.222])
+	by mail.gusev.co (Postfix) with ESMTPSA id 94FFC23DD6;
+	Mon,  2 Sep 2019 16:58:46 +0300 (EEST)
+To: Zdenek Kabelac <zkabelac@redhat.com>
+References: <20190829081514.29660-1-yuyufen@huawei.com>
+	<877e6vf45p.fsf@notabene.neil.brown.name>
+	<07ffeca5-6b69-0602-0981-2221cfb682af@huawei.com>
+	<8a1c4146-fdc5-138d-af2d-a77b606b59e2@gusev.co>
+	<1cd9447e-9d84-e7f3-3b5f-c3064537e6e3@redhat.com>
+From: Dmitrij Gusev <dmitrij@gusev.co>
+Message-ID: <24771f1a-7b0c-d63f-1df1-3349c5c0f6c6@gusev.co>
+Date: Mon, 2 Sep 2019 16:58:46 +0300
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+	Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <1cd9447e-9d84-e7f3-3b5f-c3064537e6e3@redhat.com>
+Content-Language: en-US
+X-Greylist: Sender passed SPF test, ACL 264 matched, not delayed by
+	milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]);
+	Mon, 02 Sep 2019 13:58:49 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]);
+	Mon, 02 Sep 2019 13:58:49 +0000 (UTC) for IP:'84.16.227.28'
+	DOMAIN:'de1.gusev.co' HELO:'mail.gusev.co'
+	FROM:'dmitrij@gusev.co' RCPT:''
+X-RedHat-Spam-Score: 0  (SPF_HELO_NONE,
+	SPF_PASS) 84.16.227.28 de1.gusev.co 84.16.227.28
+	de1.gusev.co <dmitrij@gusev.co>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.40
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 03 Sep 2019 03:28:11 -0400
-Cc: prarit@redhat.com, dm-devel@redhat.com, linux-kernel@vger.kernel.org,
-	tyu1@lenovo.com, Huaisheng Ye <yehs1@lenovo.com>
-Subject: [dm-devel] [PATCH] dm writecache: skip writecache_wait for pmem mode
+Cc: device-mapper development <dm-devel@redhat.com>
+Subject: Re: [dm-devel] Kernel error at a LVM snapshot creation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,43 +76,54 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.70]); Tue, 03 Sep 2019 07:28:22 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.39]); Tue, 03 Sep 2019 07:28:24 +0000 (UTC)
 
-From: Huaisheng Ye <yehs1@lenovo.com>
+Hello.
 
-The array bio_in_progress[2] only have chance to be increased and
-decreased with ssd mode. For pmem mode, they are not involved at all.
-So skip writecache_wait_for_ios in writecache_flush for pmem.
+Please find answers below.
+Thank you.
+Dmitrij
 
-Suggested-by: Doris Yu <tyu1@lenovo.com>
-Signed-off-by: Huaisheng Ye <yehs1@lenovo.com>
----
- drivers/md/dm-writecache.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On 2019-09-02 11:32, Zdenek Kabelac wrote:
+> Dne 02. 09. 19 v 3:04 Dmitrij Gusev napsal(a):
+>> Hello.
+>>
+>> I get a kernel error every time I create LVM snapshot - at the 
+>> creation and at boot time, though the snapshot itself is working 
+>> properly.
+>>
+>> Linux nexus 4.19.69 #2 SMP Thu Aug 29 16:33:35 CDT 2019 x86_64 
+>> Intel(R) Xeon(R) E-2174G CPU @ 3.80GHz GenuineIntel GNU/Linux
+>
+> Hi
+>
+>
+> This is likely not a kernel error.
+>
+> In which way are you creating your snapshot ?
+> Seems like it's made read-only ?
 
-diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
-index c481947..d06b8aa 100644
---- a/drivers/md/dm-writecache.c
-+++ b/drivers/md/dm-writecache.c
-@@ -726,7 +726,8 @@ static void writecache_flush(struct dm_writecache *wc)
- 	}
- 	writecache_commit_flushed(wc);
- 
--	writecache_wait_for_ios(wc, WRITE);
-+	if (!WC_MODE_PMEM(wc))
-+		writecache_wait_for_ios(wc, WRITE);
- 
- 	wc->seq_count++;
- 	pmem_assign(sb(wc)->seq_count, cpu_to_le64(wc->seq_count));
--- 
-1.8.3.1
+Yes, I create read-only snapshot in this case.
 
+cmd line: lvcreate -pr --size $size --snapshot -n $snap $lv $pv
+
+>
+> What version of lvm2 are you using ?
+> (there used to be bug when creating COW as read-only device)
+
+I use lvm2 format.
+
+LVM utility version: lvm2-2.02.154 (Slackware 14.2).
+
+>
+> Regard
+>
+> Zdenek
 
 --
 dm-devel mailing list
