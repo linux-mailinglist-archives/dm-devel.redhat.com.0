@@ -2,69 +2,48 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD5C2A626C
-	for <lists+dm-devel@lfdr.de>; Tue,  3 Sep 2019 09:28:23 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by mail.lfdr.de (Postfix) with ESMTPS id 31176A692D
+	for <lists+dm-devel@lfdr.de>; Tue,  3 Sep 2019 15:02:31 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id E053AA36F09;
-	Tue,  3 Sep 2019 07:28:21 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 77BEE8980F6;
+	Tue,  3 Sep 2019 13:02:26 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B10D81001947;
-	Tue,  3 Sep 2019 07:28:21 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A7B106012C;
+	Tue,  3 Sep 2019 13:02:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1746B2551C;
-	Tue,  3 Sep 2019 07:28:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 543D624F30;
+	Tue,  3 Sep 2019 13:02:14 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x82N2tRF012937 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 2 Sep 2019 19:02:55 -0400
+	id x83D22uL006630 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 3 Sep 2019 09:02:02 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 286AD5D6B7; Mon,  2 Sep 2019 23:02:55 +0000 (UTC)
+	id 44D141001B13; Tue,  3 Sep 2019 13:02:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx25.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.66])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 987025D6B0;
-	Mon,  2 Sep 2019 23:02:52 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by mx1.redhat.com (Postfix) with ESMTP id 315A810F23E5;
-	Mon,  2 Sep 2019 23:02:50 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 82626344;
-	Mon,  2 Sep 2019 16:02:49 -0700 (PDT)
-Received: from [10.0.2.15] (unknown [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 2D2563F59C; 
-	Mon,  2 Sep 2019 16:02:48 -0700 (PDT)
-To: Alexey Dobriyan <adobriyan@gmail.com>, mingo@redhat.com,
-	peterz@infradead.org
-References: <20190902210558.GA23013@avx2>
-From: Valentin Schneider <valentin.schneider@arm.com>
-Message-ID: <7b94004e-4a65-462b-cd6b-5cbd23d607bf@arm.com>
-Date: Tue, 3 Sep 2019 00:02:38 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.8.0
+Received: from 10.255.255.10 (ovpn-204-73.brq.redhat.com [10.40.204.73])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A07B21001B1A;
+	Tue,  3 Sep 2019 13:01:53 +0000 (UTC)
+Date: Tue, 3 Sep 2019 15:01:50 +0200
+From: Karel Zak <kzak@redhat.com>
+To: Anatoly Pugachev <matorola@gmail.com>
+Message-ID: <20190903130150.iatqincnxf4re7ce@10.255.255.10>
+References: <alpine.LRH.2.02.1908291142470.17653@file01.intranet.prod.int.rdu2.redhat.com>
+	<20190902105909.ah4pi4nwjefygskd@10.255.255.10>
+	<CADxRZqwURQJMCCAkY8TvjBaQnCL9j1AHN3mY6b1q3bN-VCZRyA@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20190902210558.GA23013@avx2>
-Content-Language: en-US
-X-Greylist: Sender passed SPF test, ACL 264 matched, not delayed by
-	milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.66]);
-	Mon, 02 Sep 2019 23:02:51 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.66]);
-	Mon, 02 Sep 2019 23:02:51 +0000 (UTC) for IP:'217.140.110.172'
-	DOMAIN:'foss.arm.com' HELO:'foss.arm.com'
-	FROM:'valentin.schneider@arm.com' RCPT:''
-X-RedHat-Spam-Score: 0  (SPF_HELO_NONE,
-	SPF_PASS) 217.140.110.172 foss.arm.com 217.140.110.172
-	foss.arm.com <valentin.schneider@arm.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.66
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+Content-Disposition: inline
+In-Reply-To: <CADxRZqwURQJMCCAkY8TvjBaQnCL9j1AHN3mY6b1q3bN-VCZRyA@mail.gmail.com>
+User-Agent: NeoMutt/20180716-1584-710bcd
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Tue, 03 Sep 2019 03:28:11 -0400
-Cc: aarcange@redhat.com, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
-	dm-devel@redhat.com, axboe@kernel.dk
-Subject: Re: [dm-devel] [PATCH] sched: make struct task_struct::state 32-bit
+Cc: util-linux <util-linux@vger.kernel.org>,
+	Heinz Mauelshagen <heinzm@redhat.com>,
+	Mike Snitzer <msnitzer@redhat.com>, lvm-devel@redhat.com,
+	dm-devel@redhat.com, Mikulas Patocka <mpatocka@redhat.com>
+Subject: Re: [dm-devel] [PATCH] blkid: retport block size of a filesystem
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,53 +59,61 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.68]); Tue, 03 Sep 2019 07:28:22 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.67]); Tue, 03 Sep 2019 13:02:29 +0000 (UTC)
 
-Hi,
-
-On 02/09/2019 22:05, Alexey Dobriyan wrote:
-> 32-bit accesses are shorter than 64-bit accesses on x86_64.
-> Nothing uses 64-bitness of ->state.
+On Tue, Sep 03, 2019 at 03:36:46PM +0300, Anatoly Pugachev wrote:
+> On Mon, Sep 2, 2019 at 1:59 PM Karel Zak <kzak@redhat.com> wrote:
+> > Applied (with two small fixes), thanks!
 > 
-> Space savings are ~2KB on F30 kernel config.
+> Karel, Mikulas,
 > 
-> Signed-off-by: Alexey Dobriyan <adobriyan@gmail.com>
-> ---
+> ts/blkid/low-probe started to fail on sparc64 with this patch:
+> 
+>         blkid: superblocks probing: [97] xfs-log             ... OK
+>         blkid: superblocks probing: [98] xfs                 ...
+> FAILED (blkid/low-probe-xfs)
+> 
+> but is "OK" on x86_64.
+> 
+> $ diff -u expected/blkid/low-probe-xfs output/blkid/low-probe-xfs
+> --- expected/blkid/low-probe-xfs        2019-09-03 12:45:18.779505561 +0300
+> +++ output/blkid/low-probe-xfs  2019-09-03 14:35:41.569815684 +0300
+> @@ -1,4 +1,4 @@
+> -ID_FS_BLOCK_SIZE=512
+> +ID_FS_BLOCK_SIZE=131072
 
-Interestingly this has been volatile long since forever (or 2002, which is
-my take on "forever" given the history tree), although the task states
-seem to have never gone above 0x1000 (the current TASK_STATE_MAX).
+  blkid_probe_set_block_size(pr, xs->sb_sectsize * 256);
 
-[...]
+be16_to_cpu() is missing here :-) I'll fix it.
 
-> --- a/include/linux/sched.h
-> +++ b/include/linux/sched.h
-> @@ -643,7 +643,7 @@ struct task_struct {
->  	struct thread_info		thread_info;
->  #endif
->  	/* -1 unrunnable, 0 runnable, >0 stopped: */
-> -	volatile long			state;
-> +	volatile int			state;
+    Karel
 
-This leads to having some padding after this field (w/o randomization):
 
-struct task_struct {
-	struct thread_info         thread_info;          /*     0    24 */
-	volatile int               state;                /*    24     4 */
+>  ID_FS_LABEL=test-xfs
+>  ID_FS_LABEL_ENC=test-xfs
+>  ID_FS_TYPE=xfs
+> 
+> $ md5sum output/blkid/images-fs/xfs.img
+> c4a59d4039b5ed5557e8502ca2906373  output/blkid/images-fs/xfs.img
+> 
+> (md5 is the same as on x86_64 test machine)
+> 
+> You can use gcc202 sparc64 machine from gcc compile farm for the test.
+> 
+> PS: can someone regenerate xfs.img(xz) with more recent XFS filesystem version?
+> 
+> $ xfs_info output/blkid/images-fs/xfs.img
+> xfs_info: V1 inodes unsupported. Please try an older xfsprogs.
 
-	/* XXX 4 bytes hole, try to pack */
+or we need to add another xfs image. I guess we want to support all
+versions.
 
-	void *                     stack;                /*    32     8 */
+    Karel
 
-Though seeing as this is also the boundary of the randomized layout we can't
-really do much better without changing the boundary itself. So much for
-cacheline use :/
-
-Anyway, task_struct doesn't shrink but we can cut some corners in the asm,
-I guess that's fine?
-
-[...]
+-- 
+ Karel Zak  <kzak@redhat.com>
+ http://karelzak.blogspot.com
 
 --
 dm-devel mailing list
