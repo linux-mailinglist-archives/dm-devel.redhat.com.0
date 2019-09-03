@@ -2,55 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 211D6A7E49
-	for <lists+dm-devel@lfdr.de>; Wed,  4 Sep 2019 10:48:59 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+	by mail.lfdr.de (Postfix) with ESMTPS id 65B6AA7E6D
+	for <lists+dm-devel@lfdr.de>; Wed,  4 Sep 2019 10:53:29 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 56416308213F;
-	Wed,  4 Sep 2019 08:48:55 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 5B1E583F3B;
+	Wed,  4 Sep 2019 08:53:27 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CD84360A9F;
-	Wed,  4 Sep 2019 08:48:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2C6496012E;
+	Wed,  4 Sep 2019 08:53:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A20074A486;
-	Wed,  4 Sep 2019 08:48:46 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 737582551C;
+	Wed,  4 Sep 2019 08:53:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x848maEB014396 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 4 Sep 2019 04:48:36 -0400
+	id x83GVsgJ017592 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 3 Sep 2019 12:31:54 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 51B3F60C63; Wed,  4 Sep 2019 08:48:36 +0000 (UTC)
+	id 0FE61194B9; Tue,  3 Sep 2019 16:31:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C9AD560BFB;
-	Wed,  4 Sep 2019 08:48:30 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id x848mUBu011879; Wed, 4 Sep 2019 04:48:30 -0400
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id x848mUGT011875; Wed, 4 Sep 2019 04:48:30 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Wed, 4 Sep 2019 04:48:30 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Huaisheng Ye <yehs2007@zoho.com>
-In-Reply-To: <20190902100450.10600-1-yehs2007@zoho.com>
-Message-ID: <alpine.LRH.2.02.1909040444440.11252@file01.intranet.prod.int.rdu2.redhat.com>
-References: <20190902100450.10600-1-yehs2007@zoho.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mx1.redhat.com (ext-mx08.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.32])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A845519C78;
+	Tue,  3 Sep 2019 16:31:50 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by mx1.redhat.com (Postfix) with ESMTP id C84C4C058CB8;
+	Tue,  3 Sep 2019 16:31:48 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 80A9C360;
+	Tue,  3 Sep 2019 09:31:48 -0700 (PDT)
+Received: from [10.1.194.37] (e113632-lin.cambridge.arm.com [10.1.194.37])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 59C973F246;
+	Tue,  3 Sep 2019 09:31:47 -0700 (PDT)
+To: Alexey Dobriyan <adobriyan@gmail.com>
+References: <20190902210558.GA23013@avx2>
+	<7b94004e-4a65-462b-cd6b-5cbd23d607bf@arm.com>
+	<20190903162303.GA2173@avx2>
+From: Valentin Schneider <valentin.schneider@arm.com>
+Message-ID: <64003dcd-d954-b76d-856a-214ff11ac000@arm.com>
+Date: Tue, 3 Sep 2019 17:31:46 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.8.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+In-Reply-To: <20190903162303.GA2173@avx2>
+Content-Language: en-US
+X-Greylist: Sender passed SPF test, ACL 264 matched, not delayed by
+	milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]);
+	Tue, 03 Sep 2019 16:31:49 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]);
+	Tue, 03 Sep 2019 16:31:49 +0000 (UTC) for IP:'217.140.110.172'
+	DOMAIN:'foss.arm.com' HELO:'foss.arm.com'
+	FROM:'valentin.schneider@arm.com' RCPT:''
+X-RedHat-Spam-Score: 0  (SPF_HELO_NONE,
+	SPF_PASS) 217.140.110.172 foss.arm.com 217.140.110.172
+	foss.arm.com <valentin.schneider@arm.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.32
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: prarit@redhat.com, Huaisheng Ye <yehs1@lenovo.com>, snitzer@redhat.com,
-	linux-kernel@vger.kernel.org, dm-devel@redhat.com,
-	tyu1@lenovo.com, agk@redhat.com
-Subject: Re: [dm-devel] [PATCH] dm writecache: skip writecache_wait for pmem
-	mode
+X-Mailman-Approved-At: Wed, 04 Sep 2019 04:53:21 -0400
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org, peterz@infradead.org,
+	aarcange@redhat.com, linux-kernel@vger.kernel.org,
+	rcu@vger.kernel.org, dm-devel@redhat.com, mingo@redhat.com
+Subject: Re: [dm-devel] [PATCH] sched: make struct task_struct::state 32-bit
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,49 +81,29 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]); Wed, 04 Sep 2019 08:48:57 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Wed, 04 Sep 2019 08:53:27 +0000 (UTC)
 
 
 
-On Mon, 2 Sep 2019, Huaisheng Ye wrote:
-
-> From: Huaisheng Ye <yehs1@lenovo.com>
+On 03/09/2019 17:23, Alexey Dobriyan wrote:
+> On Tue, Sep 03, 2019 at 12:02:38AM +0100, Valentin Schneider wrote:
+>> struct task_struct {
+>> 	struct thread_info         thread_info;          /*     0    24 */
+>> 	volatile int               state;                /*    24     4 */
+>>
+>> 	/* XXX 4 bytes hole, try to pack */
+>>
+>> 	void *                     stack;                /*    32     8 */
+>>
+>> Though seeing as this is also the boundary of the randomized layout we can't
+>> really do much better without changing the boundary itself. So much for
+>> cacheline use :/
 > 
-> The array bio_in_progress[2] only have chance to be increased and
-> decreased with ssd mode. For pmem mode, they are not involved at all.
-> So skip writecache_wait_for_ios in writecache_flush for pmem.
+> Cacheline use of task_struct is pretty hopeless because of all the ifdefs.
 > 
-> Suggested-by: Doris Yu <tyu1@lenovo.com>
-> Signed-off-by: Huaisheng Ye <yehs1@lenovo.com>
-> ---
->  drivers/md/dm-writecache.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
-> index c481947..d06b8aa 100644
-> --- a/drivers/md/dm-writecache.c
-> +++ b/drivers/md/dm-writecache.c
-> @@ -726,7 +726,8 @@ static void writecache_flush(struct dm_writecache *wc)
->  	}
->  	writecache_commit_flushed(wc);
->  
-> -	writecache_wait_for_ios(wc, WRITE);
-> +	if (!WC_MODE_PMEM(wc))
-> +		writecache_wait_for_ios(wc, WRITE);
->  
->  	wc->seq_count++;
->  	pmem_assign(sb(wc)->seq_count, cpu_to_le64(wc->seq_count));
-> -- 
-> 1.8.3.1
 
-I think this is not needed - wait_event in writecache_wait_for_ios exits 
-immediatelly if the condition is true.
-
-This code path is not so hot that we would need microoptimizations like 
-this to avoid function calls.
-
-Mikulas
+Yeah I figured, then had a minute of silence for those forsaken bytes.
 
 --
 dm-devel mailing list
