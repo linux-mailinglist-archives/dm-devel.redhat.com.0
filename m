@@ -2,93 +2,93 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id D52C1A6E04
-	for <lists+dm-devel@lfdr.de>; Tue,  3 Sep 2019 18:24:17 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A97EA727C
+	for <lists+dm-devel@lfdr.de>; Tue,  3 Sep 2019 20:19:58 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 3D7FE3001571;
-	Tue,  3 Sep 2019 16:24:15 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 52FB43018ED0;
+	Tue,  3 Sep 2019 18:19:55 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F31AC60C18;
-	Tue,  3 Sep 2019 16:24:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E769A60606;
+	Tue,  3 Sep 2019 18:19:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4FEA824F2F;
-	Tue,  3 Sep 2019 16:24:05 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6DEFEC593;
+	Tue,  3 Sep 2019 18:19:42 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x83GNCht016912 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 3 Sep 2019 12:23:12 -0400
+	id x83IJRhG022504 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 3 Sep 2019 14:19:27 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 516995DD63; Tue,  3 Sep 2019 16:23:12 +0000 (UTC)
+	id 45E835C22C; Tue,  3 Sep 2019 18:19:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx11.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.40])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E0DB15DA8C;
-	Tue,  3 Sep 2019 16:23:09 +0000 (UTC)
-Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
-	[209.85.221.68])
+Received: from mx1.redhat.com (ext-mx01.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.25])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A37BF5C220;
+	Tue,  3 Sep 2019 18:19:24 +0000 (UTC)
+Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com
+	[209.85.221.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 3A5283084029;
-	Tue,  3 Sep 2019 16:23:09 +0000 (UTC)
-Received: by mail-wr1-f68.google.com with SMTP id j16so18167961wrr.8;
-	Tue, 03 Sep 2019 09:23:09 -0700 (PDT)
+	by mx1.redhat.com (Postfix) with ESMTPS id EB2B581DE3;
+	Tue,  3 Sep 2019 18:19:23 +0000 (UTC)
+Received: by mail-wr1-f67.google.com with SMTP id u16so18533891wrr.0;
+	Tue, 03 Sep 2019 11:19:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
 	h=date:from:to:cc:subject:message-id:references:mime-version
 	:content-disposition:in-reply-to:user-agent;
-	bh=TepBcnay70WrGmb0WBkOD/Cs9CShXo+TxS9/OGqh6Bw=;
-	b=EKHkp/aqR3DigOCLFd9MIjlOwoKCQetnK8fr3HngH/gmy44B/y+LUfRJnQJYWb6Cvo
-	8mEv5H9vPsNOdeBU6+QazVE8YKbL4Ks0DybjlhHXBqNmcH8loNv9Yp47V1EmvhvpineH
-	M0H4k3nAyfQh480J1dBLjqfa+BSK1wWphJaM2ef0qpf7OjVmdoHnF9SQt+HNNmNQ2at/
-	Y9yU3fbQC4I2CC9fwIX1huaI5p9BHj9JMlCN+EKbXwcPw3B/YI8zycMEkVzAScoOuEf1
-	juB1OBjcPWcL3N+j+VnKYHpHRr34IiVZ//Oo17/9CkRglejFCo2L6hRYuW4uNwWs2/er
-	nO3A==
+	bh=Ty/2ohLAJ+2sCNPsz6Mg9g82ZAcXCLPeRSTUh8dn1AM=;
+	b=iXrN3Q7PNVG79k4/QPwtJd360wJBFRowaCrtFARluncD92iaxPMac9rPX4B8Hxlta6
+	u/egCzq2FHk7WjWNT5OjHCutDCAyvbBIMEMQuj8Uk4fIXVLKHzupt38V5eoEGLwnfxwW
+	SqBXpSsY/Zq0zJG1z5wQjb1fmAE3V7w/wzzAZ519iQse6X2qAu5JHAI73GwS2t32czqK
+	aEyRcgYkrUFclz9SJ+tw3xs2406lVI/hppCdyT62DYo33sOUME/5kqeaSlong/0UwJNK
+	BC39yQeVjmmfS/aYtMtAzcaVCNQrjnTBP1j/Srlo1GRn0raysle8n1hJupyIU46tYxsy
+	mumA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
 	:mime-version:content-disposition:in-reply-to:user-agent;
-	bh=TepBcnay70WrGmb0WBkOD/Cs9CShXo+TxS9/OGqh6Bw=;
-	b=XM0pfCwH5wIGtzrAWoq8HrX7uLYr47paMU7BqnifDDoYAADWtsvCx93o+teo/MLs38
-	tPzd0g2YTxjWrX7eqbhV6/H1nMOhV1mJbfmVZW2qOy+Xwo4bpTy0+YTXEUIAIA41PXwr
-	QdfE7BetQgt+moZ7w74mbjwWvKJ2gELTMAoAYrOjcQeS0NddNGzKBayMnI9Q7TVrr+gq
-	WVVgsHbUMUvJ9dg9B4WFu1qKUPo5nEwCaA+cK/tO3UF8Qq4AlyPWS27YtU2V6baWR6q7
-	fgQF4+twCHqVpoqJ6GM10ZkYutHfMC/T4DtFkyOPD+3fsZNwHv88aV/MSHwECzlW+7ay
-	hsnA==
-X-Gm-Message-State: APjAAAVzb2U95SNHqN4gr5Mvi7rHsuAGm73sHoI0S9sL3zj5tFFJj2iN
-	qrQvuNqOvTy8QIMSjhwvDg==
-X-Google-Smtp-Source: APXvYqwx0bJ6xnL9cz14xzE50FT6ThicgK4OWReQhuR8YKvDLg+VcrlLQG0HKsV1CSwULWCwxVvs1A==
-X-Received: by 2002:adf:f20f:: with SMTP id p15mr8540655wro.17.1567527788037; 
-	Tue, 03 Sep 2019 09:23:08 -0700 (PDT)
-Received: from avx2 ([46.53.254.228])
-	by smtp.gmail.com with ESMTPSA id c74sm11892wme.46.2019.09.03.09.23.05
+	bh=Ty/2ohLAJ+2sCNPsz6Mg9g82ZAcXCLPeRSTUh8dn1AM=;
+	b=Y1zrPwECYUx0cqSQ1S/F9Nq0ZGXbXgzrHN+Pwv/Q5y8ykRW4Q8CX0j3YtEI/3NUP6K
+	0ZJs1yV8BxqJJqzf3ZenvjPR8SEjX8n+rsa8ypYScurNP+F2Pk6h0Fm1fXuWCLmSxnxZ
+	pjhR6G8fSzCelTUS+pxfo76N9ae0OhvGBRB36AEynOYJu8SOtSi848t4qJ/dyF5FKYHQ
+	lrAD5fKC537BoTEhxMeQKEDnCoUw9gVXGDrpBqQ0SBew1+0KkPRUvFoWOg5L1ajVa7Ry
+	2ru1TwV6oV9GN9ImQfJSAQdA6vy/I7YFijFQnbYaweKKu7NKZouoq45JQFu0ESxVHd3P
+	nUYQ==
+X-Gm-Message-State: APjAAAWoGPZTS7jQV4sKWcdjQ0pwvEhNpFLffV5uQ2UgfuBl7t6kb74p
+	SyrHHO4EQaSyVH/miPiZOg==
+X-Google-Smtp-Source: APXvYqxlHBA49WV+BHVeO2PilKn9QU1HiFxpBtiAo0xzOr9c+REPpHiXHtdsI/PxDenk0UyGl0Lj6A==
+X-Received: by 2002:adf:fad0:: with SMTP id a16mr1790618wrs.195.1567534762701; 
+	Tue, 03 Sep 2019 11:19:22 -0700 (PDT)
+Received: from avx2 ([46.53.254.228]) by smtp.gmail.com with ESMTPSA id
+	t14sm19292468wrs.58.2019.09.03.11.19.21
 	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Tue, 03 Sep 2019 09:23:07 -0700 (PDT)
-Date: Tue, 3 Sep 2019 19:23:03 +0300
+	Tue, 03 Sep 2019 11:19:22 -0700 (PDT)
+Date: Tue, 3 Sep 2019 21:19:20 +0300
 From: Alexey Dobriyan <adobriyan@gmail.com>
 To: Valentin Schneider <valentin.schneider@arm.com>
-Message-ID: <20190903162303.GA2173@avx2>
+Message-ID: <20190903181920.GA22358@avx2>
 References: <20190902210558.GA23013@avx2>
-	<7b94004e-4a65-462b-cd6b-5cbd23d607bf@arm.com>
+	<d8ad0be1-4ed7-df74-d415-2b1c9a44bac7@arm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <7b94004e-4a65-462b-cd6b-5cbd23d607bf@arm.com>
+In-Reply-To: <d8ad0be1-4ed7-df74-d415-2b1c9a44bac7@arm.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.40]);
-	Tue, 03 Sep 2019 16:23:09 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]);
-	Tue, 03 Sep 2019 16:23:09 +0000 (UTC) for IP:'209.85.221.68'
-	DOMAIN:'mail-wr1-f68.google.com' HELO:'mail-wr1-f68.google.com'
+	(mx1.redhat.com [10.5.110.25]);
+	Tue, 03 Sep 2019 18:19:24 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]);
+	Tue, 03 Sep 2019 18:19:24 +0000 (UTC) for IP:'209.85.221.67'
+	DOMAIN:'mail-wr1-f67.google.com' HELO:'mail-wr1-f67.google.com'
 	FROM:'adobriyan@gmail.com' RCPT:''
 X-RedHat-Spam-Score: -0.1  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
 	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2,
 	SPF_HELO_NONE,
-	SPF_PASS) 209.85.221.68 mail-wr1-f68.google.com 209.85.221.68
-	mail-wr1-f68.google.com <adobriyan@gmail.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.40
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+	SPF_PASS) 209.85.221.67 mail-wr1-f67.google.com 209.85.221.67
+	mail-wr1-f67.google.com <adobriyan@gmail.com>
+X-Scanned-By: MIMEDefang 2.83 on 10.5.110.25
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
 Cc: axboe@kernel.dk, linux-block@vger.kernel.org, peterz@infradead.org,
 	aarcange@redhat.com, linux-kernel@vger.kernel.org,
@@ -109,23 +109,35 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]); Tue, 03 Sep 2019 16:24:16 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]); Tue, 03 Sep 2019 18:19:56 +0000 (UTC)
 
-On Tue, Sep 03, 2019 at 12:02:38AM +0100, Valentin Schneider wrote:
-> struct task_struct {
-> 	struct thread_info         thread_info;          /*     0    24 */
-> 	volatile int               state;                /*    24     4 */
-> 
-> 	/* XXX 4 bytes hole, try to pack */
-> 
-> 	void *                     stack;                /*    32     8 */
-> 
-> Though seeing as this is also the boundary of the randomized layout we can't
-> really do much better without changing the boundary itself. So much for
-> cacheline use :/
+On Tue, Sep 03, 2019 at 06:29:06PM +0100, Valentin Schneider wrote:
+> On 02/09/2019 22:05, Alexey Dobriyan wrote:
+> > 32-bit accesses are shorter than 64-bit accesses on x86_64.
+> > Nothing uses 64-bitness of ->state.
 
-Cacheline use of task_struct is pretty hopeless because of all the ifdefs.
+> It looks like you missed a few places. There's a long prev_state in
+> sched/core.c::finish_task_switch() for instance.
+> 
+> I suppose that's where coccinelle oughta help but I'm really not fluent
+> in that. Is there a way to make it match p.state accesses with p task_struct?
+> And if so, can we make it change the type of the variable being read from
+> / written to?
+
+Coccinelle is interesting: basic
+
+	- foo
+	+ bar
+
+doesn't find "foo" in function arguments.
+
+I'm scared of coccinelle.
+
+> How did you come up with this changeset, did you pickaxe for some regexp?
+
+No, manually, backtracking up to the call chain.
+Maybe I missed a few places.
 
 --
 dm-devel mailing list
