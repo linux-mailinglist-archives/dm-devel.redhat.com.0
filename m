@@ -2,92 +2,98 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8AEDA6BB7
-	for <lists+dm-devel@lfdr.de>; Tue,  3 Sep 2019 16:42:21 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by mail.lfdr.de (Postfix) with ESMTPS id D52C1A6E04
+	for <lists+dm-devel@lfdr.de>; Tue,  3 Sep 2019 18:24:17 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 16ED6106E294;
-	Tue,  3 Sep 2019 14:42:19 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 3D7FE3001571;
+	Tue,  3 Sep 2019 16:24:15 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2941F601A5;
-	Tue,  3 Sep 2019 14:42:16 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F31AC60C18;
+	Tue,  3 Sep 2019 16:24:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 18CE0E202;
-	Tue,  3 Sep 2019 14:42:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4FEA824F2F;
+	Tue,  3 Sep 2019 16:24:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x83Cb51G005874 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 3 Sep 2019 08:37:05 -0400
+	id x83GNCht016912 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 3 Sep 2019 12:23:12 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id CBE6360166; Tue,  3 Sep 2019 12:37:05 +0000 (UTC)
+	id 516995DD63; Tue,  3 Sep 2019 16:23:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx14.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.43])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9B91B6012C;
-	Tue,  3 Sep 2019 12:36:59 +0000 (UTC)
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
-	[209.85.208.66])
+Received: from mx1.redhat.com (ext-mx11.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.40])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E0DB15DA8C;
+	Tue,  3 Sep 2019 16:23:09 +0000 (UTC)
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
+	[209.85.221.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 0CCFE308FC22;
-	Tue,  3 Sep 2019 12:36:59 +0000 (UTC)
-Received: by mail-ed1-f66.google.com with SMTP id i8so4647543edn.13;
-	Tue, 03 Sep 2019 05:36:58 -0700 (PDT)
+	by mx1.redhat.com (Postfix) with ESMTPS id 3A5283084029;
+	Tue,  3 Sep 2019 16:23:09 +0000 (UTC)
+Received: by mail-wr1-f68.google.com with SMTP id j16so18167961wrr.8;
+	Tue, 03 Sep 2019 09:23:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=X+JOjjC9ZVu192uQtB4c+PagHpVwrX1ckHNApDJzFx4=;
-	b=shACxTOdGhf746uYGbysRNVKvvDBq+FtlkRxg22lR/WWvFgbINsfw97jbqcnipn8d6
-	7ziGigbhzXm9x7AejOCUflas0/quQhqoNytjxLpCD9bdIKohxu/00WQ3Zmllcxr7iJRL
-	FwXbpOgMj9s47di5YPfJQETREm90LEaoMzY4lXoQ9UyB76yazUk8kp7n1wXbdux79g7Q
-	fSWSoUtLh3GKb03ICbCrYirSWh3uXp3KvEWtLj8q+tm6BaCzXznROjEh5lqVTJolcos8
-	6l2jnpSFhlTGwFT+N/WHZaQM2APatjKRGNqviGNVy2rAet+ovziIWK9OHAjMm/Br3VI0
-	rOAA==
+	h=date:from:to:cc:subject:message-id:references:mime-version
+	:content-disposition:in-reply-to:user-agent;
+	bh=TepBcnay70WrGmb0WBkOD/Cs9CShXo+TxS9/OGqh6Bw=;
+	b=EKHkp/aqR3DigOCLFd9MIjlOwoKCQetnK8fr3HngH/gmy44B/y+LUfRJnQJYWb6Cvo
+	8mEv5H9vPsNOdeBU6+QazVE8YKbL4Ks0DybjlhHXBqNmcH8loNv9Yp47V1EmvhvpineH
+	M0H4k3nAyfQh480J1dBLjqfa+BSK1wWphJaM2ef0qpf7OjVmdoHnF9SQt+HNNmNQ2at/
+	Y9yU3fbQC4I2CC9fwIX1huaI5p9BHj9JMlCN+EKbXwcPw3B/YI8zycMEkVzAScoOuEf1
+	juB1OBjcPWcL3N+j+VnKYHpHRr34IiVZ//Oo17/9CkRglejFCo2L6hRYuW4uNwWs2/er
+	nO3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=X+JOjjC9ZVu192uQtB4c+PagHpVwrX1ckHNApDJzFx4=;
-	b=p9SiE79CAB0gARmJjiEgXshF1Roacrn7En+VwzfFT7O0MuljE22AQr7SnjbXT4O4UH
-	05uHozolr+SmlQKT6Uz1c8yS+0x8oLR4HYNzNOOvuZi0ioSQdEE81hyRQe5h76a+Knte
-	l20QXkE6ZFdNX57V3gOXxEM5xxjr5Crk2+xxVEIwku0Pg24/HDQgGlP4fEfrKmtqNlsW
-	uSEFNgd0jrWN9NMP9IqTy4dS8JjcW1tLLERxAhW8+hsX1IeiAcK77TAlFFsowoBzh2TW
-	f0sOJfulgFfo316WHzcRav1B/in+YmJpwg/oy4UaMXWeecKxXeQpm0ju7ZrWoXxyVvmT
-	Thig==
-X-Gm-Message-State: APjAAAU6Lf3N115XV0kbfUOhfQ2QLhCX2VibJa8os9V9QFhr/OFQ1FyA
-	bamy0htoairTblBP+TnMLSJ/M6jUSRRP5A+BKNPZx6GU
-X-Google-Smtp-Source: APXvYqwsNfvafGEiRyz40BWvbFExKtfeTVOTJ5DuTi/JgrhmCKiKMbArB4z6BmT03Lr0MgzyGNeEzERLYJg+HPLgs64=
-X-Received: by 2002:a50:a147:: with SMTP id 65mr17334939edj.241.1567514217476; 
-	Tue, 03 Sep 2019 05:36:57 -0700 (PDT)
+	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+	:mime-version:content-disposition:in-reply-to:user-agent;
+	bh=TepBcnay70WrGmb0WBkOD/Cs9CShXo+TxS9/OGqh6Bw=;
+	b=XM0pfCwH5wIGtzrAWoq8HrX7uLYr47paMU7BqnifDDoYAADWtsvCx93o+teo/MLs38
+	tPzd0g2YTxjWrX7eqbhV6/H1nMOhV1mJbfmVZW2qOy+Xwo4bpTy0+YTXEUIAIA41PXwr
+	QdfE7BetQgt+moZ7w74mbjwWvKJ2gELTMAoAYrOjcQeS0NddNGzKBayMnI9Q7TVrr+gq
+	WVVgsHbUMUvJ9dg9B4WFu1qKUPo5nEwCaA+cK/tO3UF8Qq4AlyPWS27YtU2V6baWR6q7
+	fgQF4+twCHqVpoqJ6GM10ZkYutHfMC/T4DtFkyOPD+3fsZNwHv88aV/MSHwECzlW+7ay
+	hsnA==
+X-Gm-Message-State: APjAAAVzb2U95SNHqN4gr5Mvi7rHsuAGm73sHoI0S9sL3zj5tFFJj2iN
+	qrQvuNqOvTy8QIMSjhwvDg==
+X-Google-Smtp-Source: APXvYqwx0bJ6xnL9cz14xzE50FT6ThicgK4OWReQhuR8YKvDLg+VcrlLQG0HKsV1CSwULWCwxVvs1A==
+X-Received: by 2002:adf:f20f:: with SMTP id p15mr8540655wro.17.1567527788037; 
+	Tue, 03 Sep 2019 09:23:08 -0700 (PDT)
+Received: from avx2 ([46.53.254.228])
+	by smtp.gmail.com with ESMTPSA id c74sm11892wme.46.2019.09.03.09.23.05
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Tue, 03 Sep 2019 09:23:07 -0700 (PDT)
+Date: Tue, 3 Sep 2019 19:23:03 +0300
+From: Alexey Dobriyan <adobriyan@gmail.com>
+To: Valentin Schneider <valentin.schneider@arm.com>
+Message-ID: <20190903162303.GA2173@avx2>
+References: <20190902210558.GA23013@avx2>
+	<7b94004e-4a65-462b-cd6b-5cbd23d607bf@arm.com>
 MIME-Version: 1.0
-References: <alpine.LRH.2.02.1908291142470.17653@file01.intranet.prod.int.rdu2.redhat.com>
-	<20190902105909.ah4pi4nwjefygskd@10.255.255.10>
-In-Reply-To: <20190902105909.ah4pi4nwjefygskd@10.255.255.10>
-From: Anatoly Pugachev <matorola@gmail.com>
-Date: Tue, 3 Sep 2019 15:36:46 +0300
-Message-ID: <CADxRZqwURQJMCCAkY8TvjBaQnCL9j1AHN3mY6b1q3bN-VCZRyA@mail.gmail.com>
-To: Karel Zak <kzak@redhat.com>, Mikulas Patocka <mpatocka@redhat.com>
+Content-Disposition: inline
+In-Reply-To: <7b94004e-4a65-462b-cd6b-5cbd23d607bf@arm.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.43]);
-	Tue, 03 Sep 2019 12:36:59 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]);
-	Tue, 03 Sep 2019 12:36:59 +0000 (UTC) for IP:'209.85.208.66'
-	DOMAIN:'mail-ed1-f66.google.com' HELO:'mail-ed1-f66.google.com'
-	FROM:'matorola@gmail.com' RCPT:''
-X-RedHat-Spam-Score: -0.099  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
-	SPF_PASS) 209.85.208.66 mail-ed1-f66.google.com 209.85.208.66
-	mail-ed1-f66.google.com <matorola@gmail.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.43
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+	(mx1.redhat.com [10.5.110.40]);
+	Tue, 03 Sep 2019 16:23:09 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]);
+	Tue, 03 Sep 2019 16:23:09 +0000 (UTC) for IP:'209.85.221.68'
+	DOMAIN:'mail-wr1-f68.google.com' HELO:'mail-wr1-f68.google.com'
+	FROM:'adobriyan@gmail.com' RCPT:''
+X-RedHat-Spam-Score: -0.1  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2,
+	SPF_HELO_NONE,
+	SPF_PASS) 209.85.221.68 mail-wr1-f68.google.com 209.85.221.68
+	mail-wr1-f68.google.com <adobriyan@gmail.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.40
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Tue, 03 Sep 2019 10:42:03 -0400
-Cc: Heinz Mauelshagen <heinzm@redhat.com>,
-	util-linux <util-linux@vger.kernel.org>,
-	Mike Snitzer <msnitzer@redhat.com>, dm-devel@redhat.com,
-	lvm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH] blkid: retport block size of a filesystem
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org, peterz@infradead.org,
+	aarcange@redhat.com, linux-kernel@vger.kernel.org,
+	rcu@vger.kernel.org, dm-devel@redhat.com, mingo@redhat.com
+Subject: Re: [dm-devel] [PATCH] sched: make struct task_struct::state 32-bit
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -103,47 +109,23 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.64]); Tue, 03 Sep 2019 14:42:20 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]); Tue, 03 Sep 2019 16:24:16 +0000 (UTC)
 
-On Mon, Sep 2, 2019 at 1:59 PM Karel Zak <kzak@redhat.com> wrote:
-> Applied (with two small fixes), thanks!
+On Tue, Sep 03, 2019 at 12:02:38AM +0100, Valentin Schneider wrote:
+> struct task_struct {
+> 	struct thread_info         thread_info;          /*     0    24 */
+> 	volatile int               state;                /*    24     4 */
+> 
+> 	/* XXX 4 bytes hole, try to pack */
+> 
+> 	void *                     stack;                /*    32     8 */
+> 
+> Though seeing as this is also the boundary of the randomized layout we can't
+> really do much better without changing the boundary itself. So much for
+> cacheline use :/
 
-Karel, Mikulas,
-
-ts/blkid/low-probe started to fail on sparc64 with this patch:
-
-        blkid: superblocks probing: [97] xfs-log             ... OK
-        blkid: superblocks probing: [98] xfs                 ...
-FAILED (blkid/low-probe-xfs)
-
-but is "OK" on x86_64.
-
-$ diff -u expected/blkid/low-probe-xfs output/blkid/low-probe-xfs
---- expected/blkid/low-probe-xfs        2019-09-03 12:45:18.779505561 +0300
-+++ output/blkid/low-probe-xfs  2019-09-03 14:35:41.569815684 +0300
-@@ -1,4 +1,4 @@
--ID_FS_BLOCK_SIZE=512
-+ID_FS_BLOCK_SIZE=131072
- ID_FS_LABEL=test-xfs
- ID_FS_LABEL_ENC=test-xfs
- ID_FS_TYPE=xfs
-
-$ md5sum output/blkid/images-fs/xfs.img
-c4a59d4039b5ed5557e8502ca2906373  output/blkid/images-fs/xfs.img
-
-(md5 is the same as on x86_64 test machine)
-
-You can use gcc202 sparc64 machine from gcc compile farm for the test.
-
-PS: can someone regenerate xfs.img(xz) with more recent XFS filesystem version?
-
-$ xfs_info output/blkid/images-fs/xfs.img
-xfs_info: V1 inodes unsupported. Please try an older xfsprogs.
-
-$ dpkg -l xfsprogs
-ii  xfsprogs       5.0.0-1      sparc64      Utilities for managing
-the XFS filesystem
+Cacheline use of task_struct is pretty hopeless because of all the ifdefs.
 
 --
 dm-devel mailing list
