@@ -2,182 +2,172 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35615A9BCD
-	for <lists+dm-devel@lfdr.de>; Thu,  5 Sep 2019 09:30:37 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6640EA9BCB
+	for <lists+dm-devel@lfdr.de>; Thu,  5 Sep 2019 09:30:30 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 4750A18C4283;
-	Thu,  5 Sep 2019 07:30:35 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 159E21EC;
-	Thu,  5 Sep 2019 07:30:35 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id EE8B22A09D9;
+	Thu,  5 Sep 2019 07:30:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B3F1260126;
+	Thu,  5 Sep 2019 07:30:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A008A24F31;
-	Thu,  5 Sep 2019 07:30:34 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 59F681802218;
+	Thu,  5 Sep 2019 07:30:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x84FJ1UO028019 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 4 Sep 2019 11:19:01 -0400
+	id x84FqM1b029512 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 4 Sep 2019 11:52:22 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8720960610; Wed,  4 Sep 2019 15:19:01 +0000 (UTC)
+	id 8CEB55D9E1; Wed,  4 Sep 2019 15:52:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx29.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.70])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AB4726060D;
-	Wed,  4 Sep 2019 15:18:56 +0000 (UTC)
-Received: from mail1.bemta24.messagelabs.com (mail1.bemta24.messagelabs.com
-	[67.219.250.116])
+Received: from mx1.redhat.com (ext-mx30.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.71])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 86AA15D9C9
+	for <dm-devel@redhat.com>; Wed,  4 Sep 2019 15:52:20 +0000 (UTC)
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+	[67.231.145.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 9F9CF18C8938;
-	Wed,  4 Sep 2019 15:18:52 +0000 (UTC)
-Received: from [67.219.250.198] (using TLSv1.2 with cipher
-	DHE-RSA-AES256-GCM-SHA384 (256 bits))
-	by server-5.bemta.az-b.us-west-2.aws.symcld.net id 8B/61-05805-BD5DF6D5;
-	Wed, 04 Sep 2019 15:18:51 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrIJsWRWlGSWpSXmKPExsWS8eIhj+7tq/m
-	xBmfPclisP3WM2WLvu9msFpd3zWGzmNhxlcni3Y9edou2jV8ZLfYc7WB2YPd4v+8qm8fnTXIe
-	5+//Yw9gjmLNzEvKr0hgzbh15DRzQYtgxe65y9kbGGfxdTFycQgJNDBJTJ9/ghnCecUosebpb
-	Ha4zO2ZU6EyjUwSJ/v6wDKMAkuZJU6fusfYxcgJ5BxjkXhzRQIisYFRovvXZ7AEi8BuZom379
-	Uh2icwSfydNxdq1j1GiQPXVzODVLEJaEqcfHMNzBYRCJXYv/MiO4jNLPCfUWL7PSEQW1ggXGL
-	V32msEDUREtdv7GeBsI0krm26ygyxTUXi+p55YHFegRiJK/v/QH3Rxiix88gesASnQLTElUnT
-	mSDulpWY9ug+E8QycYm502aBLZAQEJBYsuc8M4QtKvHy8T+gOAdQfZDEuy1xIKaEgLLE2ZPuE
-	BWyEpfmdzNC2L4Sb2Z8YgVZKyFwk1Hi/s9NLBD1WhKbj+dCmCoS/w5VQpRnS9z8/4ppAqPhLC
-	Q3QNg6Egt2f2KDsLUlli18zTwL7DFBiZMzn7AsYGRZxWiRVJSZnlGSm5iZo2toYKBraGika2h
-	somtoYqSXWKWbpFdarFueWlyiC+SWF+sVV+Ym56To5aWWbGIEpquUgra+HYwXZ73RO8QoycGk
-	JMqr2JwXK8SXlJ9SmZFYnBFfVJqTWnyIUYaDQ0mCV/RKfqyQYFFqempFWmYOMHXCpCU4eJREe
-	NWB6VOIt7ggMbc4Mx0idYrRmGPCy7mLmDlOrlqyiFmIJS8/L1VKnFcapFQApDSjNA9uECylX2
-	KUlRLmZWRgYBDiKUgtys0sQZV/xSjOwagkzCsOcg9PZl4J3D5gwgX6QoQ3szcX5JSSRISUVAP
-	TIYmrdbPX/r54UzFph2QN11W17PWcDe4sCpWyHX8MHpyaL7L+w9o5W7jWb7WZUeVQ+dX5h8zH
-	uRbhy/Q4Fim+mJfWmZoW+ZWDP3qz7uvDMTtUNz19HFoheffmbB/D7t2VDBXOhvZZk8+cqdl+f
-	u2bg8WCRxvFYpderrQ1a147R9tcInTbble2ItcnhcHZwsnCp1J/dd5yrWN0bE+Pi1QVUy33u/
-	j1ScT8ljdPFyuvFTGLWT2hwfduXuSMK/yvO5IaZ622fL7kqivvf2lb18d29tnfrs27PGPJWuN
-	wKwnxw5ZlDzbYPfjkv3X96X0LS44J/mPUKbhR8mLBeXdXzoPdzWvDeCffzPj9ffo1kbn3lFiK
-	MxINtZiLihMBkHi20mQEAAA=
-X-Env-Sender: yehs1@lenovo.com
-X-Msg-Ref: server-5.tower-346.messagelabs.com!1567610329!552!1
-X-Originating-IP: [104.232.225.12]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.43.12; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 9122 invoked from network); 4 Sep 2019 15:18:50 -0000
-Received: from unknown (HELO aesmtp.lenovo.com) (104.232.225.12)
-	by server-5.tower-346.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
-	encrypted SMTP; 4 Sep 2019 15:18:50 -0000
-Received: from HKGWPEMAIL04.lenovo.com (unknown [10.128.3.72])
-	(using TLSv1.2 with cipher AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by Forcepoint Email with ESMTPS id 333053C4BE353D129112;
-	Wed,  4 Sep 2019 11:18:48 -0400 (EDT)
-Received: from HKGWPEMAIL01.lenovo.com (10.128.3.69) by
-	HKGWPEMAIL04.lenovo.com (10.128.3.72) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.1.1591.10; Wed, 4 Sep 2019 23:18:46 +0800
-Received: from HKEXEDGE02.lenovo.com (10.128.62.72) by HKGWPEMAIL01.lenovo.com
-	(10.128.3.69) with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.1591.10 via
-	Frontend Transport; Wed, 4 Sep 2019 23:18:29 +0800
-Received: from KOR01-PS2-obe.outbound.protection.outlook.com (104.47.109.58)
-	by HKEXEDGE01.lenovo.com (10.128.62.72) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.1.1591.10; Wed, 4 Sep 2019 23:18:45 +0800
+	by mx1.redhat.com (Postfix) with ESMTPS id E06AD1DA3
+	for <dm-devel@redhat.com>; Wed,  4 Sep 2019 15:52:18 +0000 (UTC)
+Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+	x84FqCaF011552; Wed, 4 Sep 2019 08:52:16 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+	h=from : to : cc : subject
+	: date : message-id : references : in-reply-to : content-type :
+	content-id
+	: content-transfer-encoding : mime-version; s=facebook;
+	bh=I0EqiGf/OE+bKvwpTFSbj449/dU/+SySmyP7VJIM/7s=;
+	b=UAFjtQ3Ayf4lmCqZ9vJQub90RKz40o6WXHWSKEPz4DqhH9eBfLZa1qYI0zPy4iTZ/F98
+	w5424t8B+FunamAuKWPNhDR7sT8Q/aERuLMRIuhC/7RQ9MiiMgy3R+NDxmAm0kMi/A43
+	BkSi+5HN4szJ5bC3viTB8KL4PnCmtPymkPI= 
+Received: from maileast.thefacebook.com ([163.114.130.16])
+	by mx0a-00082601.pphosted.com with ESMTP id 2usqs7e6j4-5
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128
+	verify=NOT); Wed, 04 Sep 2019 08:52:15 -0700
+Received: from ash-exhub104.TheFacebook.com (2620:10d:c0a8:82::d) by
+	ash-exhub102.TheFacebook.com (2620:10d:c0a8:82::f) with Microsoft SMTP
+	Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+	15.1.1713.5; Wed, 4 Sep 2019 08:51:52 -0700
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com (100.104.31.183)
+	by o365-in.thefacebook.com (100.104.35.175) with Microsoft SMTP
+	Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
+	via Frontend Transport; Wed, 4 Sep 2019 08:51:52 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
-	b=gnYrV7BSO9Qi+vwlC0eKNo1CUwndTmr3y73BmDxzT6DUiuc2LU9HsUTLMKswqYhfyp4MaUTVkmE+zc4yOKUcD6imVgtUklOEJDPJKo/uyUY7lHJ1/BHViUQzoXjrNmikg6o5sdgB+Jn5knWex/FKfJFfXdzqcNZMYst3FKJokFwcdCR6/m3RTG4/dbd2yxgp8LZt6qqE6QUb5L76/OmeLN3X2t2LVnATI93UsIqa9fh28OHBr7Mz8aHsdZ7szMVNO/hU8NDnEBgsIHwkZ0Ey2Hivr31IimptPCWSFGZuyUjPZDt1Abz1CE2yrKcx2uEaae4cGoXrkPubAvnx+Lcl0g==
+	b=NoS486xanOjRG9dU/ahr/qGmI1Yj2ZQiAk4g+HVXhlYDGpUIKKBJ0Dto4ejMtLFyRrRirzQ4HZuS8lVFI5XdvBIbY4VClqGQCErsW2oEoc8mi1o6EhPcQPhqcRaVrdJYg1KyZRoKcWHARpy7MwgUlEuL3M88CxhMeg5QzzWS8a6DBHgvscwA34w/hyzwQtFjbK30xcrPm3HFip/dFlo5WhHZGiDLbydHb/wh0CiLRD2HnEMp7NvdXJ8kzRNSO4fCv46ek4w0t2Ct7OsngcJRgq39rtouLXdHW0yuR6tSIgNdjqjnkO4BwVidwbTCqdmS3KgPxEame80/PfmQayFOog==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
 	s=arcselector9901;
 	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
-	bh=5Nzzr7wWlLbkHtj2rX7biwCPrXx8C3WZTFT1rNuh5gw=;
-	b=i+CmnhWcaUlUduZyNsXWRGIJHAMA4JPHS9TKTeBLWFAp5K4S3Oo3OmZIQzoEq2XJxVcOIOrov8hHMqXqhAIAHP7sQwPtZEmnQUM7KfVbsW4eMXIfjHrSrICqEbiamqyLH/OoEDgGPkW00NvJ2HswJSvQiQ17xH6m+4i5IlabuxO47kBw2oCt+NeAnG+cLY+EhVTQsbDyUh4gRk4iF5Z5bg5xnbTQGUmxOZS3dmB7dryChig58mwwA/Ez/B9q0OTG/XnJD4+Wn4I61nIMi+BMUid3NxWgiNnhlY/gucJo0m06Z3BBpsg/qgETA5jI6eoqFhrPciflXfdcHFCmg1mfWQ==
+	bh=I0EqiGf/OE+bKvwpTFSbj449/dU/+SySmyP7VJIM/7s=;
+	b=AVmxsjai/7vtgoiLY/47+fk4yNqBm11UIan/Qg/I+ieUFuU1KL2mDjOix/mgBW2+owEPdhKKCovk/36dX3qeXMEKgahWibcfuLypDDdqH0A5HifaXcbQI5o6m8imTWLOw29MPW23N5QH9coFlTi3GGjutg3nkeRv8gEJzC1TFmZpSMi72IdKLyC43SQavjJ92DYpkTAqSexcpZk1/k22cb5xwufIBlSzXRpNDbRe0Zg9pjVmHnpaTRVI0QXwDG75U9UvGYSwJrIlE1U3r5nTLD6Rw3nSvnutJntRQ+tM4s7pjSJVDNgbK8C4AB+v22ivZOT4nMOU3fXR9pw/NRkbNw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
-	smtp.mailfrom=lenovo.com; dmarc=pass action=none header.from=lenovo.com;
-	dkim=pass header.d=lenovo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=LenovoBeijing.onmicrosoft.com;
-	s=selector2-LenovoBeijing-onmicrosoft-com; 
+	smtp.mailfrom=fb.com; dmarc=pass action=none header.from=fb.com;
+	dkim=pass header.d=fb.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+	s=selector2-fb-onmicrosoft-com;
 	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
-	bh=5Nzzr7wWlLbkHtj2rX7biwCPrXx8C3WZTFT1rNuh5gw=;
-	b=f1t0YBdUCMnQ1r7Q0NaZpuoUnKG293v2PNm/EFO1hai2KO2S3JQE5Xp9u+Xbbb08a8beSrSyodDz+6hwH8wgM5cp1jZSAAoGqHaRPNvcos3cO0w+TVmwzFFDIpGGTWKMwuGNFrKGTNg3c9Nkb7m2KZcD/AsWhlZasDS+Ua6ZHe8=
-Received: from SL2PR03MB4425.apcprd03.prod.outlook.com (20.178.163.203) by
-	SL2PR03MB4427.apcprd03.prod.outlook.com (20.178.163.149) with Microsoft
+	bh=I0EqiGf/OE+bKvwpTFSbj449/dU/+SySmyP7VJIM/7s=;
+	b=bXK1CEer9yYPOJBboO+2GQhdqqfUmkNCj+JuCswdkaUcAX3FMD0FZi0W2Sy70yWco5yp630oHyW3GLXLsVu9bms4beC2dTMFvCfrGuJe/Y7dG+bu3Fuvkj9/soWuh8JTq61jQ8/uTAyM23Q4SGY6Tx6n0nw4Z6co+XozPYQAfnw=
+Received: from MWHPR15MB1165.namprd15.prod.outlook.com (10.175.3.22) by
+	MWHPR15MB1854.namprd15.prod.outlook.com (10.174.96.150) with Microsoft
 	SMTP
 	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.2241.5; Wed, 4 Sep 2019 15:18:43 +0000
-Received: from SL2PR03MB4425.apcprd03.prod.outlook.com
-	([fe80::8589:2a15:f169:4d86]) by
-	SL2PR03MB4425.apcprd03.prod.outlook.com
-	([fe80::8589:2a15:f169:4d86%7]) with mapi id 15.20.2241.012;
-	Wed, 4 Sep 2019 15:18:43 +0000
-From: Huaisheng HS1 Ye <yehs1@lenovo.com>
-To: Mikulas Patocka <mpatocka@redhat.com>, "snitzer@redhat.com"
-	<snitzer@redhat.com>
-Thread-Topic: [External] Re: [PATCH] dm writecache: skip writecache_wait for
-	pmem mode
-Thread-Index: AQHVYv2oc/+jfoUYskeMVJQ6yGY6a6cbnUDQ
-Date: Wed, 4 Sep 2019 15:18:42 +0000
-Message-ID: <SL2PR03MB44250F8E14C877F400295EA892B80@SL2PR03MB4425.apcprd03.prod.outlook.com>
-References: <20190902100450.10600-1-yehs2007@zoho.com>
-	<alpine.LRH.2.02.1909040444440.11252@file01.intranet.prod.int.rdu2.redhat.com>
-In-Reply-To: <alpine.LRH.2.02.1909040444440.11252@file01.intranet.prod.int.rdu2.redhat.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
+	15.20.2220.20; Wed, 4 Sep 2019 15:51:51 +0000
+Received: from MWHPR15MB1165.namprd15.prod.outlook.com
+	([fe80::a828:5750:379d:b9a1]) by
+	MWHPR15MB1165.namprd15.prod.outlook.com
+	([fe80::a828:5750:379d:b9a1%8]) with mapi id 15.20.2220.022;
+	Wed, 4 Sep 2019 15:51:51 +0000
+From: Song Liu <songliubraving@fb.com>
+To: "Guilherme G. Piccoli" <gpiccoli@canonical.com>, Jes Sorensen
+	<jsorensen@fb.com>
+Thread-Topic: [PATCH v4 2/2] mdadm: Introduce new array state 'broken' for
+	raid0/linear
+Thread-Index: AQHVYpC9BL+movukAkyf47O/zAZ5aqcbrDIA
+Date: Wed, 4 Sep 2019 15:51:51 +0000
+Message-ID: <A0D1B6AB-50CF-4B38-8452-A4E18AFDC8EB@fb.com>
+References: <20190903194901.13524-1-gpiccoli@canonical.com>
+	<20190903194901.13524-2-gpiccoli@canonical.com>
+In-Reply-To: <20190903194901.13524-2-gpiccoli@canonical.com>
+Accept-Language: en-US
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [123.116.211.237]
+x-originating-ip: [2620:10d:c090:180::f079]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 6dd07813-6b06-419f-0d0f-08d7314b2c4a
+x-ms-office365-filtering-correlation-id: e56be0d2-07d8-42fb-2978-08d7314fcdad
 x-microsoft-antispam: BCL:0; PCL:0;
 	RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600166)(711020)(4605104)(1401327)(2017052603328)(7193020);
-	SRVR:SL2PR03MB4427; 
-x-ms-traffictypediagnostic: SL2PR03MB4427:
+	SRVR:MWHPR15MB1854; 
+x-ms-traffictypediagnostic: MWHPR15MB1854:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <SL2PR03MB4427102CCC1A7F4456407BC992B80@SL2PR03MB4427.apcprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-microsoft-antispam-prvs: <MWHPR15MB185489B2757BAFADCC49169DB3B80@MWHPR15MB1854.namprd15.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
 x-forefront-prvs: 0150F3F97D
 x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10019020)(376002)(396003)(366004)(39860400002)(346002)(136003)(189003)(13464003)(199004)(7736002)(5660300002)(6116002)(25786009)(478600001)(3846002)(33656002)(14454004)(6436002)(81166006)(81156014)(8936002)(8676002)(7696005)(305945005)(86362001)(2906002)(316002)(74316002)(66066001)(99286004)(229853002)(446003)(52536014)(66556008)(66446008)(14444005)(6506007)(71200400001)(64756008)(9686003)(76176011)(53936002)(102836004)(55016002)(66946007)(476003)(11346002)(486006)(66476007)(26005)(76116006)(186003)(2501003)(6246003)(256004)(54906003)(71190400001)(4326008)(110136005)(9126004);
-	DIR:OUT; SFP:1102; SCL:1; SRVR:SL2PR03MB4427;
-	H:SL2PR03MB4425.apcprd03.prod.outlook.com; FPR:; SPF:None;
+	SFS:(10019020)(366004)(136003)(396003)(376002)(39860400002)(346002)(189003)(199004)(50226002)(4326008)(81166006)(14454004)(7736002)(305945005)(81156014)(99286004)(6246003)(76176011)(86362001)(53936002)(229853002)(6636002)(66446008)(486006)(33656002)(316002)(476003)(14444005)(256004)(8936002)(446003)(2906002)(6486002)(54906003)(110136005)(2616005)(6436002)(6506007)(6512007)(11346002)(53546011)(57306001)(71190400001)(46003)(71200400001)(102836004)(8676002)(6116002)(66476007)(66556008)(478600001)(64756008)(5660300002)(186003)(25786009)(36756003)(76116006)(66946007)(91956017);
+	DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1854;
+	H:MWHPR15MB1165.namprd15.prod.outlook.com; FPR:; SPF:None;
 	LANG:en; PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: lenovo.com does not designate
+received-spf: None (protection.outlook.com: fb.com does not designate
 	permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: BdLGjApG8tYzoxdFx2vMa7b6sTw5ZF7+q+21f2H9iWui47gsWqXmPe5GeJ0QKfAlKQtkfYw6+kOq1m5idKFYHC5qL1xvOBNHmQFaSzZgEYSZ+dx1b+VMsF6swTEc1ztFCETWKpl8wcQoB1sFJIfD15HgmeMqWkeFHYKYmsS6+HkwUQqFErGvm2c4NA5bXpK9kxbQAElQSkMo2cT23cOfIPv2C8KiMxncGfaiVX3613H8JbEU7uAr1sMCDF43cbWWipK1B/dJdj7bLQXvI59HngqTMlc11HxDfKBr3NMM4kIyGKtvhUu9YY5uLYNa8VJQpT4cIdcnRCtmdXfEH+ZaKMrKFR3gCdkeH2iMJsmkIQxjLifVvDqEM0S9F2ulnjrRsxJSkgm/UTEI48H073sBZFHEAHshk7Tq1MWh/x7gQas=
+x-microsoft-antispam-message-info: sUiLnvFFEzs3LiNCqZDp7jqreJi97O/uGimmMu8prSQXVzMgNHwXlULM360uBX+JOm8od2B0+clH52+jfHiaXJT0d4hbZGdni9diAlnvozLvtxEuXdK8kUmRnjMrYk74C85iJRTY6+zQBGEJASGDtcrBqEaiSNpR5yIsCi28ZgNzK6oOlQU8WD9efUgsZi5BMrxSac7ECOywItoELCqSWSNbFaqAlRcxzaTZf4PdHuqJyj+1vShHlp1V/SqUZi83M9EmmIiYIQbTlY6YBQs3fb4nTkcjOHNqN1gFvXoTP7XWztUUBDl5ctuvhisMXa4GEHUq41XFRbcrmHSzF5Abr0jo7Uoq1kJcY9VNT7Co9I3399yYJAdZqLPoSgNTJeXf3NDTBlpEKCuHEeT8AsRxbZ7QRzLXxRyLGUrz6rebuEs=
+Content-ID: <D616B14D23BF49478B91C4E7C7C5D6EC@namprd15.prod.outlook.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6dd07813-6b06-419f-0d0f-08d7314b2c4a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Sep 2019 15:18:42.9784 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e56be0d2-07d8-42fb-2978-08d7314fcdad
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Sep 2019 15:51:51.6930 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 5c7d0b28-bdf8-410c-aa93-4df372b16203
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Ez8odjxltUwioQZQfmDD39QwsEZZEwO6soSo0mOmCjXLNNXbkRsGhYYx09ntvlDmPDznkcWGT9ypJai+u+ZlCA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SL2PR03MB4427
-X-OriginatorOrg: lenovo.com
+X-MS-Exchange-CrossTenant-userprincipalname: QudCIenIMf9nfb8dCggBbvoXf1rpcUp6ouRnuYcII97QL8R/Wi34dFQhrhJVUK9JnRQJvbVomgZV90P1QtTBpQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1854
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.70,1.0.8
+	definitions=2019-09-04_04:2019-09-04,2019-09-04 signatures=0
+X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
+	mlxscore=0
+	mlxlogscore=955 impostorscore=0 suspectscore=0 bulkscore=0
+	clxscore=1015
+	lowpriorityscore=0 phishscore=0 priorityscore=1501 adultscore=0
+	spamscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
+	scancount=1
+	engine=8.12.0-1906280000 definitions=main-1909040155
+X-FB-Internal: deliver
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
 	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
-	[10.5.110.70]); Wed, 04 Sep 2019 15:18:53 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.70]);
-	Wed, 04 Sep 2019 15:18:53 +0000 (UTC) for IP:'67.219.250.116'
-	DOMAIN:'mail1.bemta24.messagelabs.com'
-	HELO:'mail1.bemta24.messagelabs.com' FROM:'yehs1@lenovo.com'
+	[10.5.110.71]); Wed, 04 Sep 2019 15:52:19 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.71]);
+	Wed, 04 Sep 2019 15:52:19 +0000 (UTC) for IP:'67.231.145.42'
+	DOMAIN:'mx0a-00082601.pphosted.com'
+	HELO:'mx0a-00082601.pphosted.com' FROM:'songliubraving@fb.com'
 	RCPT:''
-X-RedHat-Spam-Score: -0.002  (DKIM_SIGNED, DKIM_VALID, RCVD_IN_DNSWL_NONE,
-	SPF_HELO_PASS,
-	SPF_PASS) 67.219.250.116 mail1.bemta24.messagelabs.com 67.219.250.116
-	mail1.bemta24.messagelabs.com <yehs1@lenovo.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.70
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-RedHat-Spam-Score: -0.801  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
+	DKIM_VALID_AU, RCVD_IN_DNSWL_LOW, SPF_HELO_NONE,
+	SPF_PASS) 67.231.145.42 mx0a-00082601.pphosted.com 67.231.145.42
+	mx0a-00082601.pphosted.com
+	<prvs=4150130aaa=songliubraving@fb.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.71
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id x84FJ1UO028019
+	lists01.pubmisc.prod.ext.phx2.redhat.com id x84FqM1b029512
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 05 Sep 2019 03:30:15 -0400
-Cc: "prarit@redhat.com" <prarit@redhat.com>, Huaisheng Ye <yehs2007@zoho.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+Cc: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"jes.sorensen@gmail.com" <jes.sorensen@gmail.com>,
+	"nfbrown@suse.com" <nfbrown@suse.com>,
+	"liu.song.a23@gmail.com" <liu.song.a23@gmail.com>,
+	linux-raid <linux-raid@vger.kernel.org>,
 	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	Tzu ting Yu1 <tyu1@lenovo.com>, "agk@redhat.com" <agk@redhat.com>
-Subject: Re: [dm-devel] [External] Re: [PATCH] dm writecache: skip
- writecache_wait for pmem mode
+	"jay.vosburgh@canonical.com" <jay.vosburgh@canonical.com>
+Subject: Re: [dm-devel] [PATCH v4 2/2] mdadm: Introduce new array state
+ 'broken' for raid0/linear
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -193,71 +183,45 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.62]); Thu, 05 Sep 2019 07:30:35 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]); Thu, 05 Sep 2019 07:30:28 +0000 (UTC)
 
-> -----Original Message-----
-> From: Mikulas Patocka <mpatocka@redhat.com>
-> Sent: Wednesday, September 4, 2019 4:49 PM
-> On Mon, 2 Sep 2019, Huaisheng Ye wrote:
+
+
+> On Sep 3, 2019, at 12:49 PM, Guilherme G. Piccoli <gpiccoli@canonical.com> wrote:
 > 
-> > From: Huaisheng Ye <yehs1@lenovo.com>
-> >
-> > The array bio_in_progress[2] only have chance to be increased and
-> > decreased with ssd mode. For pmem mode, they are not involved at all.
-> > So skip writecache_wait_for_ios in writecache_flush for pmem.
-> >
-> > Suggested-by: Doris Yu <tyu1@lenovo.com>
-> > Signed-off-by: Huaisheng Ye <yehs1@lenovo.com>
-> > ---
-> >  drivers/md/dm-writecache.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
-> > index c481947..d06b8aa 100644
-> > --- a/drivers/md/dm-writecache.c
-> > +++ b/drivers/md/dm-writecache.c
-> > @@ -726,7 +726,8 @@ static void writecache_flush(struct dm_writecache *wc)
-> >  	}
-> >  	writecache_commit_flushed(wc);
-> >
-> > -	writecache_wait_for_ios(wc, WRITE);
-> > +	if (!WC_MODE_PMEM(wc))
-> > +		writecache_wait_for_ios(wc, WRITE);
-> >
-> >  	wc->seq_count++;
-> >  	pmem_assign(sb(wc)->seq_count, cpu_to_le64(wc->seq_count));
-> > --
-> > 1.8.3.1
+> Currently if a md raid0/linear array gets one or more members removed while
+> being mounted, kernel keeps showing state 'clean' in the 'array_state'
+> sysfs attribute. Despite udev signaling the member device is gone, 'mdadm'
+> cannot issue the STOP_ARRAY ioctl successfully, given the array is mounted.
 > 
-> I think this is not needed - wait_event in writecache_wait_for_ios exits
-> immediatelly if the condition is true.
+> Nothing else hints that something is wrong (except that the removed devices
+> don't show properly in the output of mdadm 'detail' command). There is no
+> other property to be checked, and if user is not performing reads/writes
+> to the array, even kernel log is quiet and doesn't give a clue about the
+> missing member.
 > 
-> This code path is not so hot that we would need microoptimizations like this to
-> avoid function calls.
+> This patch is the mdadm counterpart of kernel new array state 'broken'.
+> The 'broken' state mimics the state 'clean' in every aspect, being useful
+> only to distinguish if an array has some member missing. All necessary
+> paths in mdadm were changed to deal with 'broken' state, and in case the
+> tool runs in a kernel that is not updated, it'll work normally, i.e., it
+> doesn't require the 'broken' state in order to work.
+> Also, this patch changes the way the array state is showed in the 'detail'
+> command (for raid0/linear only) - now it takes the 'array_state' sysfs
+> attribute into account instead of only rely in the MD_SB_CLEAN flag.
+> 
+> Cc: Jes Sorensen <jes.sorensen@gmail.com>
+> Cc: NeilBrown <neilb@suse.de>
+> Cc: Song Liu <songliubraving@fb.com>
+> Signed-off-by: Guilherme G. Piccoli <gpiccoli@canonical.com>
 
-Hi Mikulas,
+Acked-by: Song Liu <songliubraving@fb.com>
 
-Thanks for your reply, I see what you mean, but I can't agree with you.
+Jes, does this look good?
 
-For pmem mode, this code path (writecache_flush) is much more hot than SSD mode.
-Because in the code, the AUTOCOMMIT_BLOCKS_PMEM	has been defined to 64, which means if more than 64 blocks have been inserted to cache device, also called uncommitted, writecache_flush would be called.
-Otherwise, there is a timer callback function will be called every 1000 milliseconds.
-
-#define AUTOCOMMIT_BLOCKS_SSD		65536
-#define AUTOCOMMIT_BLOCKS_PMEM		64
-#define AUTOCOMMIT_MSEC			1000
-
-So when dm-writecache running in working mode, there are continuous WRITE operations has been mapped to writecache_map, writecache_flush will be used much more often than SSD mode.
-
-Cheers,
-Huaisheng Ye
-
-
-
-
-
-
+Thanks,
+Song
 
 --
 dm-devel mailing list
