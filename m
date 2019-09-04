@@ -2,47 +2,59 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5425A85D7
-	for <lists+dm-devel@lfdr.de>; Wed,  4 Sep 2019 17:02:01 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+	by mail.lfdr.de (Postfix) with ESMTPS id DB13EA8619
+	for <lists+dm-devel@lfdr.de>; Wed,  4 Sep 2019 17:36:31 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id A2242308FE8D;
-	Wed,  4 Sep 2019 15:01:55 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 6528918B3D84;
+	Wed,  4 Sep 2019 15:36:28 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0D5615D70D;
-	Wed,  4 Sep 2019 15:01:51 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 02FCE60606;
+	Wed,  4 Sep 2019 15:36:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8353A206CD;
-	Wed,  4 Sep 2019 15:01:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EE7F5E202;
+	Wed,  4 Sep 2019 15:36:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x84F1I10027150 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 4 Sep 2019 11:01:18 -0400
+	id x84FaGtF028707 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 4 Sep 2019 11:36:16 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9EA775D9C9; Wed,  4 Sep 2019 15:01:18 +0000 (UTC)
+	id CC64260610; Wed,  4 Sep 2019 15:36:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C2F805DA60;
-	Wed,  4 Sep 2019 15:01:15 +0000 (UTC)
-Date: Wed, 4 Sep 2019 11:01:14 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: Nikos Tsironis <ntsironis@arrikto.com>
-Message-ID: <20190904150114.GA18180@redhat.com>
-References: <20190709141522.29606-1-ntsironis@arrikto.com>
-	<20190709141522.29606-2-ntsironis@arrikto.com>
-	<20190829161929.GA34247@lobo>
-	<d33e472f-1413-d311-5659-94d2709b3fe1@arrikto.com>
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 62C5B60606;
+	Wed,  4 Sep 2019 15:36:11 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id x84FaA0n019063; Wed, 4 Sep 2019 11:36:10 -0400
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id x84FaAY3019059; Wed, 4 Sep 2019 11:36:10 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Wed, 4 Sep 2019 11:36:10 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Huaisheng HS1 Ye <yehs1@lenovo.com>
+In-Reply-To: <SL2PR03MB44250F8E14C877F400295EA892B80@SL2PR03MB4425.apcprd03.prod.outlook.com>
+Message-ID: <alpine.LRH.2.02.1909041130520.16043@file01.intranet.prod.int.rdu2.redhat.com>
+References: <20190902100450.10600-1-yehs2007@zoho.com>
+	<alpine.LRH.2.02.1909040444440.11252@file01.intranet.prod.int.rdu2.redhat.com>
+	<SL2PR03MB44250F8E14C877F400295EA892B80@SL2PR03MB4425.apcprd03.prod.outlook.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <d33e472f-1413-d311-5659-94d2709b3fe1@arrikto.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-Cc: vkoukis@arrikto.com, dm-devel@redhat.com, agk@redhat.com,
-	iliastsi@arrikto.com
-Subject: Re: [dm-devel] [RFC PATCH 1/1] dm: add clone target
+Cc: "prarit@redhat.com" <prarit@redhat.com>, Huaisheng Ye <yehs2007@zoho.com>,
+	"snitzer@redhat.com" <snitzer@redhat.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	Tzu ting Yu1 <tyu1@lenovo.com>, "agk@redhat.com" <agk@redhat.com>
+Subject: Re: [dm-devel] [External] Re: [PATCH] dm writecache: skip
+ writecache_wait for pmem mode
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -58,210 +70,84 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]); Wed, 04 Sep 2019 15:02:00 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.63]); Wed, 04 Sep 2019 15:36:30 +0000 (UTC)
 
-On Sat, Aug 31 2019 at  5:55am -0400,
-Nikos Tsironis <ntsironis@arrikto.com> wrote:
 
-> On 8/29/19 7:19 PM, Mike Snitzer wrote:
-> > On Tue, Jul 09 2019 at 10:15am -0400,
-> > Nikos Tsironis <ntsironis@arrikto.com> wrote:
-> > 
-> >> Add the dm-clone target, which allows cloning of arbitrary block
-> >> devices.
-> >>
-> >> dm-clone produces a one-to-one copy of an existing, read-only device
-> >> (origin) into a writable device (clone): It presents a virtual block
-> >> device which makes all data appear immediately, and redirects reads and
-> >> writes accordingly.
-> >>
-> >> The main use case of dm-clone is to clone a potentially remote,
-> >> high-latency, read-only, archival-type block device into a writable,
-> >> fast, primary-type device for fast, low-latency I/O. The cloned device
-> >> is visible/mountable immediately and the copy of the origin device to
-> >> the clone device happens in the background, in parallel with user I/O.
-> >>
-> >> When the cloning completes, the dm-clone table can be removed altogether
-> >> and be replaced, e.g., by a linear table, mapping directly to the clone
-> >> device.
-> >>
-> >> For further information and examples of how to use dm-clone, please read
-> >> Documentation/device-mapper/dm-clone.rst
-> >>
-> >> Suggested-by: Vangelis Koukis <vkoukis@arrikto.com>
-> >> Co-developed-by: Ilias Tsitsimpis <iliastsi@arrikto.com>
-> >> Signed-off-by: Ilias Tsitsimpis <iliastsi@arrikto.com>
-> >> Signed-off-by: Nikos Tsironis <ntsironis@arrikto.com>
-> >> ---
-> >>  Documentation/device-mapper/dm-clone.rst |  334 +++++
-> >>  drivers/md/Kconfig                       |   13 +
-> >>  drivers/md/Makefile                      |    2 +
-> >>  drivers/md/dm-clone-metadata.c           |  991 +++++++++++++
-> >>  drivers/md/dm-clone-metadata.h           |  158 +++
-> >>  drivers/md/dm-clone-target.c             | 2244 ++++++++++++++++++++++++++++++
-> >>  6 files changed, 3742 insertions(+)
-> >>  create mode 100644 Documentation/device-mapper/dm-clone.rst
-> >>  create mode 100644 drivers/md/dm-clone-metadata.c
-> >>  create mode 100644 drivers/md/dm-clone-metadata.h
-> >>  create mode 100644 drivers/md/dm-clone-target.c
-> >>
-> >> diff --git a/Documentation/device-mapper/dm-clone.rst b/Documentation/device-mapper/dm-clone.rst
-> >> new file mode 100644
-> >> index 000000000000..948b7ce31ce3
-> >> --- /dev/null
-> >> +++ b/Documentation/device-mapper/dm-clone.rst
-> >> @@ -0,0 +1,334 @@
-> >> +.. SPDX-License-Identifier: GPL-2.0-only
-> >> +
-> >> +========
-> >> +dm-clone
-> >> +========
-> >> +
-> >> +Introduction
-> >> +============
-> >> +
-> >> +dm-clone is a device mapper target which produces a one-to-one copy of an
-> >> +existing, read-only device (origin) into a writable device (clone): It presents
-> >> +a virtual block device which makes all data appear immediately, and redirects
-> >> +reads and writes accordingly.
-> >> +
-> >> +The main use case of dm-clone is to clone a potentially remote, high-latency,
-> >> +read-only, archival-type block device into a writable, fast, primary-type device
-> >> +for fast, low-latency I/O. The cloned device is visible/mountable immediately
-> >> +and the copy of the origin device to the clone device happens in the background,
-> >> +in parallel with user I/O.
-> >> +
-> >> +For example, one could restore an application backup from a read-only copy,
-> >> +accessible through a network storage protocol (NBD, Fibre Channel, iSCSI, AoE,
-> >> +etc.), into a local SSD or NVMe device, and start using the device immediately,
-> >> +without waiting for the restore to complete.
-> >> +
-> >> +When the cloning completes, the dm-clone table can be removed altogether and be
-> >> +replaced, e.g., by a linear table, mapping directly to the clone device.
-> >> +
-> >> +The dm-clone target reuses the metadata library used by the thin-provisioning
-> >> +target.
-> >> +
-> >> +Glossary
-> >> +========
-> >> +
-> >> +   Region
-> >> +     A fixed sized block. The unit of hydration.
-> >> +
-> >> +   Hydration
-> >> +     The process of filling a region of the clone device with data from the same
-> >> +     region of the origin device, i.e., copying the region from the origin to
-> >> +     the clone device.
-> >> +
-> >> +Once a region gets hydrated we redirect all I/O regarding it to the clone
-> >> +device.
-> > 
-> > There is a lot of awkward jargon that you're mixing into this target.
-> > 
-> > Why "region" and not "block"?  I can let "region" go but please be
-> > consistent (don't fall back to calling a region a block anywhere).
-> > 
-> 
-> I used the term "region" to avoid confusion with a device's
-> logical/physical block size. A "region" is the unit of copying from the
-> source to the destination device. dm-raid, also, uses the term "region".
-> 
-> But you are right that I should be consistent and never fall back to
-> calling it a block. I will fix this in v2.
-> 
-> > Why "hydration"?  Just needed to call it _something_?  I can let it go
-> > as long as it is a construct internal to the target's implementation.  I
-> > see no point making consumers of this target, that copies data from a
-> > source to destination, have to call something "hydration".
-> > 
-> 
-> Hydration refers to the process of filling an object, a region in the
-> case of dm-clone, with data from a data source, which is the source
-> device in our case.
-> 
-> Please see the below links for a more detailed definition of the term:
-> 
-> https://stackoverflow.com/questions/6991135/what-does-it-mean-to-hydrate-an-object/20787106#20787106
-> https://www.snaplogic.com/glossary/data-hydration
-> 
-> I think the term "hydration" is fit to what dm-clone is doing, but if
-> you insist I can change it to "background copying" both in the user
-> facing documentation and internally.
 
-OK, hydration it is... ;)
+On Wed, 4 Sep 2019, Huaisheng HS1 Ye wrote:
 
-> Please let me know what you think.
-> 
-> > And while we're at it why "origin" device instead of "source"?
-> > Why "clone" device instead of "dest" or "destination"?
+> > -----Original Message-----
+> > From: Mikulas Patocka <mpatocka@redhat.com>
+> > Sent: Wednesday, September 4, 2019 4:49 PM
+> > On Mon, 2 Sep 2019, Huaisheng Ye wrote:
 > > 
-> 
-> You are right. The terms "source" and "destination" are better and less
-> confusing than "origin" and "clone". I will rename both of these to
-> "source" and "destination" in v2.
-> 
-> > I can give the target name "dm-clone" a pass.. but dm-copy is less
-> > opaque IMHO.. I could go either way on those.
+> > > From: Huaisheng Ye <yehs1@lenovo.com>
+> > >
+> > > The array bio_in_progress[2] only have chance to be increased and
+> > > decreased with ssd mode. For pmem mode, they are not involved at all.
+> > > So skip writecache_wait_for_ios in writecache_flush for pmem.
+> > >
+> > > Suggested-by: Doris Yu <tyu1@lenovo.com>
+> > > Signed-off-by: Huaisheng Ye <yehs1@lenovo.com>
+> > > ---
+> > >  drivers/md/dm-writecache.c | 3 ++-
+> > >  1 file changed, 2 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
+> > > index c481947..d06b8aa 100644
+> > > --- a/drivers/md/dm-writecache.c
+> > > +++ b/drivers/md/dm-writecache.c
+> > > @@ -726,7 +726,8 @@ static void writecache_flush(struct dm_writecache *wc)
+> > >  	}
+> > >  	writecache_commit_flushed(wc);
+> > >
+> > > -	writecache_wait_for_ios(wc, WRITE);
+> > > +	if (!WC_MODE_PMEM(wc))
+> > > +		writecache_wait_for_ios(wc, WRITE);
+> > >
+> > >  	wc->seq_count++;
+> > >  	pmem_assign(sb(wc)->seq_count, cpu_to_le64(wc->seq_count));
+> > > --
+> > > 1.8.3.1
 > > 
+> > I think this is not needed - wait_event in writecache_wait_for_ios exits
+> > immediatelly if the condition is true.
+> > 
+> > This code path is not so hot that we would need microoptimizations like this to
+> > avoid function calls.
 > 
-> I think the term "clone" describes the functionality of the target
-> better than the term "copy". Even if we disable the background copying,
-> the target exposes a "clone" of the source device, which can be used for
-> I/O right away, even if no regions have been cloned/copied to the
-> destination device yet.
+> Hi Mikulas,
 > 
-> Moreover, the term "clone" describes better the intended use case of the
-> target, i.e., to clone a read-only snapshot to a writable block device.
+> Thanks for your reply, I see what you mean, but I can't agree with you.
+> 
+> For pmem mode, this code path (writecache_flush) is much more hot than 
+> SSD mode. Because in the code, the AUTOCOMMIT_BLOCKS_PMEM has been 
+> defined to 64, which means if more than 64 blocks have been inserted to 
+> cache device, also called uncommitted, writecache_flush would be called. 
+> Otherwise, there is a timer callback function will be called every 1000 
+> milliseconds.
+> 
+> #define AUTOCOMMIT_BLOCKS_SSD		65536
+> #define AUTOCOMMIT_BLOCKS_PMEM		64
+> #define AUTOCOMMIT_MSEC			1000
+> 
+> So when dm-writecache running in working mode, there are continuous 
+> WRITE operations has been mapped to writecache_map, writecache_flush 
+> will be used much more often than SSD mode.
+> 
+> Cheers,
+> Huaisheng Ye
 
-Sure, I'm fine with clone.. not a big deal really.
+So, you save one instruction cache line for every 64*4096 bytes written to 
+persistent memory.
 
-> >> +Background Hydration
-> >> +--------------------
-> >> +
-> >> +dm-clone copies continuously from the origin to the clone device, until all of
-> >> +the device has been copied.
-> >> +
-> >> +Copying data from the origin to the clone device uses bandwidth. The user can
-> >> +set a throttle to prevent more than a certain amount of copying occurring at any
-> >> +one time. Moreover, dm-clone takes into account user I/O traffic going to the
-> >> +devices and pauses the background hydration when there is I/O in-flight.
-> >> +
-> >> +A message `hydration_threshold <#sectors>` can be used to set the maximum number
-> >> +of sectors being copied, the default being 2048 sectors (1MB).
-> > 
-> > Think this should really be expressed in multiples of a region, e.g.:
-> > copy_threshold <# regions> (or clone_threshold)
-> > 
-> 
-> Ack, I will fix it in v2.
-> 
-> >> +dm-clone employs dm-kcopyd for copying portions of the origin device to the
-> >> +clone device. By default, we issue copy requests of size equal to the region
-> >> +size. A message `hydration_block_size <#sectors>` can be used to tune the size
-> >> +of these copy requests. Increasing the hydration block size results in dm-clone
-> >> +trying to batch together contiguous regions, so we copy the data in blocks of
-> >> +this size.
-> > 
-> > It is awkward to have 'hydration_block_size' vs target ctr
-> > provided "region size".  copy_batch_size <# regions>?  (or
-> > clone_batch_size)?
-> > 
-> 
-> You are right, I will fix this also in v2.
-> 
-> > Please take care of the external facing documentation to not use
-> > "hydration".  Of all the naming I dislike it the most.. sorry.
-> > 
-> > Also, please fold the following patch in before making any edits to the
-> > .c files for v2.
-> > 
-> 
-> Yes, of course. Thank you for the patch.
+If you insist on it, I can acknowledge it, but I think it is really an 
+over-optimization.
 
-I look forward to your v2, thanks.
+Acked-By: Mikulas Patocka <mpatocka@redhat.com>
 
-Mike
+Mikulas
 
 --
 dm-devel mailing list
