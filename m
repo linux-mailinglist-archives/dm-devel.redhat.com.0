@@ -2,130 +2,48 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93778A7E6E
-	for <lists+dm-devel@lfdr.de>; Wed,  4 Sep 2019 10:53:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A716A7F63
+	for <lists+dm-devel@lfdr.de>; Wed,  4 Sep 2019 11:30:00 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id A5D8F2026F;
-	Wed,  4 Sep 2019 08:53:29 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 8B34C301D678;
+	Wed,  4 Sep 2019 09:29:57 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 778C85DA21;
-	Wed,  4 Sep 2019 08:53:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F16EB5D9C9;
+	Wed,  4 Sep 2019 09:29:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 127161800B74;
-	Wed,  4 Sep 2019 08:53:29 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D520A1802218;
+	Wed,  4 Sep 2019 09:29:50 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x83MKE5g029215 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 3 Sep 2019 18:20:14 -0400
+	id x849Tgi4015535 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 4 Sep 2019 05:29:42 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 173B45DAAE; Tue,  3 Sep 2019 22:20:14 +0000 (UTC)
+	id 67A406092D; Wed,  4 Sep 2019 09:29:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx28.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.69])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 123735DAAD
-	for <dm-devel@redhat.com>; Tue,  3 Sep 2019 22:20:11 +0000 (UTC)
-Received: from youngberry.canonical.com (youngberry.canonical.com
-	[91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id E1AB98A1C82
-	for <dm-devel@redhat.com>; Tue,  3 Sep 2019 22:20:10 +0000 (UTC)
-Received: from mail-qt1-f199.google.com ([209.85.160.199])
-	by youngberry.canonical.com with esmtps
-	(TLS1.0:RSA_AES_128_CBC_SHA1:16) (Exim 4.76)
-	(envelope-from <gpiccoli@canonical.com>) id 1i5H9l-0002ku-B9
-	for dm-devel@redhat.com; Tue, 03 Sep 2019 22:20:09 +0000
-Received: by mail-qt1-f199.google.com with SMTP id x11so20560575qtm.11
-	for <dm-devel@redhat.com>; Tue, 03 Sep 2019 15:20:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
-	:message-id:date:user-agent:mime-version:in-reply-to
-	:content-language:content-transfer-encoding;
-	bh=u0k3XnaaOH+YvkPPo0BqIKxocTRXrQHC0zFyGWZv4eg=;
-	b=DdaivxCBpf8dhHgMScOtcgoMxkGwM8tHtNmZ6yShLSERLcm3lMhiPLLEIoyRw4qR9+
-	ZX0r34rvMKsbvpdiMuMYehErMALhJvZqrjUHJOtyXzu0dfwJABcTCShaFCR/XQh8lF6a
-	yMuGY1/FLjDHU/1hedom4dhVtAtRas29vV18eln9DtNhKPH8T81Hsr0LYK7AVbGazNSL
-	Ht8bfAIoxVAkYMdfpTz2chFK6ODVfexDGFqDOPi0WUXGVtE1m3aQkHEknrhC0mcq3gOV
-	PFFPoAqFuDinIs4qgNIxHWi4n7e9jciZXnpkwTQDOyj4VFi1Ebyz7DM3xk1VuGK6rr46
-	xxIA==
-X-Gm-Message-State: APjAAAUSh6oegiBWmQifkqBiOVKwLknj9yVPeHTcvV9YASmk4xMBCEP0
-	XB3R5pcaELArTkXxB2j+tEMXzF7DzOvn4vg8Z1SqzHRBbpH8a+RpfnquGzamcX8p4fpUzJWELsw
-	dgsnAB3N5A1fcYbKiVUbsx+KPxOxckg==
-X-Received: by 2002:a37:4a8d:: with SMTP id
-	x135mr35319759qka.472.1567549208183; 
-	Tue, 03 Sep 2019 15:20:08 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqxu1D2zYJ06nd5yZW9zEhNaIRg1S5Xyi0L1I8Gx7RslRfRbxnXGaaDntVnwvIFQ9lx3oP6aXw==
-X-Received: by 2002:a37:4a8d:: with SMTP id
-	x135mr35319746qka.472.1567549208041; 
-	Tue, 03 Sep 2019 15:20:08 -0700 (PDT)
-Received: from [192.168.1.203] (201-93-37-171.dial-up.telesp.net.br.
-	[201.93.37.171]) by smtp.gmail.com with ESMTPSA id
-	r19sm10188022qte.63.2019.09.03.15.20.04
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Tue, 03 Sep 2019 15:20:07 -0700 (PDT)
-To: Song Liu <songliubraving@fb.com>
-References: <20190903194901.13524-1-gpiccoli@canonical.com>
-	<E393EAA5-6A9D-464A-A70E-56A258559712@fb.com>
-From: "Guilherme G. Piccoli" <gpiccoli@canonical.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=gpiccoli@canonical.com; prefer-encrypt=mutual; keydata=
-	mQENBFpVBxcBCADPNKmu2iNKLepiv8+Ssx7+fVR8lrL7cvakMNFPXsXk+f0Bgq9NazNKWJIn
-	Qxpa1iEWTZcLS8ikjatHMECJJqWlt2YcjU5MGbH1mZh+bT3RxrJRhxONz5e5YILyNp7jX+Vh
-	30rhj3J0vdrlIhPS8/bAt5tvTb3ceWEic9mWZMsosPavsKVcLIO6iZFlzXVu2WJ9cov8eQM/
-	irIgzvmFEcRyiQ4K+XUhuA0ccGwgvoJv4/GWVPJFHfMX9+dat0Ev8HQEbN/mko/bUS4Wprdv
-	7HR5tP9efSLucnsVzay0O6niZ61e5c97oUa9bdqHyApkCnGgKCpg7OZqLMM9Y3EcdMIJABEB
-	AAG0LUd1aWxoZXJtZSBHLiBQaWNjb2xpIDxncGljY29saUBjYW5vbmljYWwuY29tPokBNwQT
-	AQgAIQUCWmClvQIbAwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRDOR5EF9K/7Gza3B/9d
-	5yczvEwvlh6ksYq+juyuElLvNwMFuyMPsvMfP38UslU8S3lf+ETukN1S8XVdeq9yscwtsRW/
-	4YoUwHinJGRovqy8gFlm3SAtjfdqysgJqUJwBmOtcsHkmvFXJmPPGVoH9rMCUr9s6VDPox8f
-	q2W5M7XE9YpsfchS/0fMn+DenhQpV3W6pbLtuDvH/81GKrhxO8whSEkByZbbc+mqRhUSTdN3
-	iMpRL0sULKPVYbVMbQEAnfJJ1LDkPqlTikAgt3peP7AaSpGs1e3pFzSEEW1VD2jIUmmDku0D
-	LmTHRl4t9KpbU/H2/OPZkrm7809QovJGRAxjLLPcYOAP7DUeltveuQENBFpVBxcBCADbxD6J
-	aNw/KgiSsbx5Sv8nNqO1ObTjhDR1wJw+02Bar9DGuFvx5/qs3ArSZkl8qX0X9Vhptk8rYnkn
-	pfcrtPBYLoux8zmrGPA5vRgK2ItvSc0WN31YR/6nqnMfeC4CumFa/yLl26uzHJa5RYYQ47jg
-	kZPehpc7IqEQ5IKy6cCKjgAkuvM1rDP1kWQ9noVhTUFr2SYVTT/WBHqUWorjhu57/OREo+Tl
-	nxI1KrnmW0DbF52tYoHLt85dK10HQrV35OEFXuz0QPSNrYJT0CZHpUprkUxrupDgkM+2F5LI
-	bIcaIQ4uDMWRyHpDbczQtmTke0x41AeIND3GUc+PQ4hWGp9XABEBAAGJAR8EGAEIAAkFAlpV
-	BxcCGwwACgkQzkeRBfSv+xv1wwgAj39/45O3eHN5pK0XMyiRF4ihH9p1+8JVfBoSQw7AJ6oU
-	1Hoa+sZnlag/l2GTjC8dfEGNoZd3aRxqfkTrpu2TcfT6jIAsxGjnu+fUCoRNZzmjvRziw3T8
-	egSPz+GbNXrTXB8g/nc9mqHPPprOiVHDSK8aGoBqkQAPZDjUtRwVx112wtaQwArT2+bDbb/Y
-	Yh6gTrYoRYHo6FuQl5YsHop/fmTahpTx11IMjuh6IJQ+lvdpdfYJ6hmAZ9kiVszDF6pGFVkY
-	kHWtnE2Aa5qkxnA2HoFpqFifNWn5TyvJFpyqwVhVI8XYtXyVHub/WbXLWQwSJA4OHmqU8gDl
-	X18zwLgdiQ==
-Message-ID: <cfb3d90f-ff93-7ddd-9178-7542cab3b17b@canonical.com>
-Date: Tue, 3 Sep 2019 19:20:02 -0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.8.0
+Received: from ming.t460p (ovpn-8-23.pek2.redhat.com [10.72.8.23])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1323160625;
+	Wed,  4 Sep 2019 09:29:21 +0000 (UTC)
+Date: Wed, 4 Sep 2019 17:29:17 +0800
+From: Ming Lei <ming.lei@redhat.com>
+To: Damien Le Moal <damien.lemoal@wdc.com>
+Message-ID: <20190904092915.GF7578@ming.t460p>
+References: <20190904084247.23338-1-damien.lemoal@wdc.com>
+	<20190904084247.23338-6-damien.lemoal@wdc.com>
 MIME-Version: 1.0
-In-Reply-To: <E393EAA5-6A9D-464A-A70E-56A258559712@fb.com>
-Content-Language: en-US
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
-	[10.5.110.69]); Tue, 03 Sep 2019 22:20:11 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.69]);
-	Tue, 03 Sep 2019 22:20:11 +0000 (UTC) for IP:'91.189.89.112'
-	DOMAIN:'youngberry.canonical.com'
-	HELO:'youngberry.canonical.com' FROM:'gpiccoli@canonical.com'
-	RCPT:''
-X-RedHat-Spam-Score: -4.998  (RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
-	SPF_NONE) 91.189.89.112 youngberry.canonical.com
-	91.189.89.112 youngberry.canonical.com <gpiccoli@canonical.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.69
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+Content-Disposition: inline
+In-Reply-To: <20190904084247.23338-6-damien.lemoal@wdc.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Wed, 04 Sep 2019 04:53:21 -0400
-Cc: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"jes.sorensen@gmail.com" <jes.sorensen@gmail.com>,
-	"nfbrown@suse.com" <nfbrown@suse.com>,
-	"liu.song.a23@gmail.com" <liu.song.a23@gmail.com>,
-	linux-raid <linux-raid@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"jay.vosburgh@canonical.com" <jay.vosburgh@canonical.com>
-Subject: Re: [dm-devel] [PATCH v4 1/2] md raid0/linear: Mark array as
- 'broken' and fail BIOs if a member is gone
+Cc: Jens Axboe <axboe@kernel.dk>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Mike Snitzer <snitzer@redhat.com>, linux-block@vger.kernel.org,
+	dm-devel@redhat.com, linux-scsi@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH v3 5/7] block: Delay default elevator
+	initialization
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -142,17 +60,96 @@ Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]); Wed, 04 Sep 2019 08:53:30 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Wed, 04 Sep 2019 09:29:59 +0000 (UTC)
 
-On 03/09/2019 18:56, Song Liu wrote:
-> [...] 
-> Applied to md-next. 
+On Wed, Sep 04, 2019 at 05:42:45PM +0900, Damien Le Moal wrote:
+> When elevator_init_mq() is called from blk_mq_init_allocated_queue(),
+> the only information known about the device is the number of hardware
+> queues as the block device scan by the device driver is not completed
+> yet. The device type and the device required features are not set yet,
+> preventing to correctly choose the default elevator most suitable for
+> the device.
 > 
-> Thanks!
+> This currently affects all multi-queue zoned block devices which default
+> to the "none" elevator instead of the required "mq-deadline" elevator.
+> These drives currently include host-managed SMR disks connected to a
+> smartpqi HBA and null_blk block devices with zoned mode enabled.
+> Upcoming NVMe Zoned Namespace devices will also be affected.
 > 
+> Fix this by moving the execution of elevator_init_mq() from
+> blk_mq_init_allocated_queue() into __device_add_disk() to allow for the
+> device driver to probe the device characteristics and set attributes
+> of the device request queue prior to the elevator initialization.
+> 
+> Also to make sure that the elevator initialization is never done while
+> requests are in-flight (there should be none when the device driver
+> calls device_add_disk()), freeze and quiesce the device request queue
+> before executing blk_mq_init_sched().
+> 
+> Signed-off-by: Damien Le Moal <damien.lemoal@wdc.com>
+> ---
+>  block/blk-mq.c   | 2 --
+>  block/elevator.c | 7 +++++++
+>  block/genhd.c    | 8 ++++++++
+>  3 files changed, 15 insertions(+), 2 deletions(-)
+> 
+> diff --git a/block/blk-mq.c b/block/blk-mq.c
+> index ee4caf0c0807..a37503984206 100644
+> --- a/block/blk-mq.c
+> +++ b/block/blk-mq.c
+> @@ -2902,8 +2902,6 @@ struct request_queue *blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
+>  	blk_mq_add_queue_tag_set(set, q);
+>  	blk_mq_map_swqueue(q);
+>  
+> -	elevator_init_mq(q);
+> -
+>  	return q;
+>  
+>  err_hctxs:
+> diff --git a/block/elevator.c b/block/elevator.c
+> index 520d6b224b74..096a670d22d7 100644
+> --- a/block/elevator.c
+> +++ b/block/elevator.c
+> @@ -712,7 +712,14 @@ void elevator_init_mq(struct request_queue *q)
+>  	if (!e)
+>  		return;
+>  
+> +	blk_mq_freeze_queue(q);
+> +	blk_mq_quiesce_queue(q);
+> +
+>  	err = blk_mq_init_sched(q, e);
+> +
+> +	blk_mq_unquiesce_queue(q);
+> +	blk_mq_unfreeze_queue(q);
+> +
+>  	if (err) {
+>  		pr_warn("\"%s\" elevator initialization failed, "
+>  			"falling back to \"none\"\n", e->elevator_name);
+> diff --git a/block/genhd.c b/block/genhd.c
+> index 54f1f0d381f4..7380dd7b2257 100644
+> --- a/block/genhd.c
+> +++ b/block/genhd.c
+> @@ -695,6 +695,13 @@ static void __device_add_disk(struct device *parent, struct gendisk *disk,
+>  	dev_t devt;
+>  	int retval;
+>  
+> +	/*
+> +	 * The disk queue should now be all set with enough information about
+> +	 * the device for the elevator code to pick an adequate default
+> +	 * elevator.
+> +	 */
+> +	elevator_init_mq(disk->queue);
+> +
 
-Thanks a lot Song!
-How can we get the mdadm counterpart applied?
+For dm-rq, add_disk_no_queue_reg() is called before blk_mq_init_allocated_queue().
+
+That means this patch actually sets elevator early for dm-rq, and I
+guess this way may not work as expected since hw/sw queues aren't allocated
+yet.
+
+
+Thanks,
+Ming
 
 --
 dm-devel mailing list
