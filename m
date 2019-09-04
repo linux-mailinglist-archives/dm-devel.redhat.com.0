@@ -2,48 +2,93 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A716A7F63
-	for <lists+dm-devel@lfdr.de>; Wed,  4 Sep 2019 11:30:00 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4244FA80BD
+	for <lists+dm-devel@lfdr.de>; Wed,  4 Sep 2019 13:04:39 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 8B34C301D678;
-	Wed,  4 Sep 2019 09:29:57 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id E2BEA88319;
+	Wed,  4 Sep 2019 11:04:36 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F16EB5D9C9;
-	Wed,  4 Sep 2019 09:29:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 469F9600CD;
+	Wed,  4 Sep 2019 11:04:36 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D520A1802218;
-	Wed,  4 Sep 2019 09:29:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 11A551800B74;
+	Wed,  4 Sep 2019 11:04:34 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x849Tgi4015535 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 4 Sep 2019 05:29:42 -0400
+	id x849hWhd015835 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 4 Sep 2019 05:43:32 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 67A406092D; Wed,  4 Sep 2019 09:29:42 +0000 (UTC)
+	id 46A785D712; Wed,  4 Sep 2019 09:43:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from ming.t460p (ovpn-8-23.pek2.redhat.com [10.72.8.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1323160625;
-	Wed,  4 Sep 2019 09:29:21 +0000 (UTC)
-Date: Wed, 4 Sep 2019 17:29:17 +0800
-From: Ming Lei <ming.lei@redhat.com>
-To: Damien Le Moal <damien.lemoal@wdc.com>
-Message-ID: <20190904092915.GF7578@ming.t460p>
-References: <20190904084247.23338-1-damien.lemoal@wdc.com>
-	<20190904084247.23338-6-damien.lemoal@wdc.com>
+Received: from mx1.redhat.com (ext-mx17.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.46])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 404745D70D
+	for <dm-devel@redhat.com>; Wed,  4 Sep 2019 09:43:28 +0000 (UTC)
+Received: from eu-smtp-delivery-151.mimecast.com
+	(eu-smtp-delivery-151.mimecast.com [207.82.80.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 481873082E72
+	for <dm-devel@redhat.com>; Wed,  4 Sep 2019 09:43:27 +0000 (UTC)
+Received: from AcuMS.aculab.com (156.67.243.126 [156.67.243.126]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	uk-mta-2-idzu5r6TOlu_emqmv_fYOA-1; Wed, 04 Sep 2019 10:43:24 +0100
+Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) by
+	AcuMS.aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) with Microsoft
+	SMTP Server (TLS) id 15.0.1347.2; Wed, 4 Sep 2019 10:43:23 +0100
+Received: from AcuMS.Aculab.com ([fe80::43c:695e:880f:8750]) by
+	AcuMS.aculab.com ([fe80::43c:695e:880f:8750%12]) with mapi id
+	15.00.1347.000; Wed, 4 Sep 2019 10:43:23 +0100
+From: David Laight <David.Laight@aculab.com>
+To: "'Alexey Dobriyan'" <adobriyan@gmail.com>, Valentin Schneider
+	<valentin.schneider@arm.com>
+Thread-Topic: [PATCH] sched: make struct task_struct::state 32-bit
+Thread-Index: AQHVYoQgiajii1HT8kenaFCmXyiHJqcbRQQA
+Date: Wed, 4 Sep 2019 09:43:23 +0000
+Message-ID: <651c419e45e043e9be8d0877b5a5406d@AcuMS.aculab.com>
+References: <20190902210558.GA23013@avx2>
+	<d8ad0be1-4ed7-df74-d415-2b1c9a44bac7@arm.com>
+	<20190903181920.GA22358@avx2>
+In-Reply-To: <20190903181920.GA22358@avx2>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.202.205.107]
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190904084247.23338-6-damien.lemoal@wdc.com>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-MC-Unique: idzu5r6TOlu_emqmv_fYOA-1
+X-Mimecast-Spam-Score: 0
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.46]); Wed, 04 Sep 2019 09:43:27 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.46]);
+	Wed, 04 Sep 2019 09:43:27 +0000 (UTC) for IP:'207.82.80.151'
+	DOMAIN:'eu-smtp-delivery-151.mimecast.com'
+	HELO:'eu-smtp-delivery-151.mimecast.com'
+	FROM:'david.laight@aculab.com' RCPT:''
+X-RedHat-Spam-Score: -0.7  (RCVD_IN_DNSWL_LOW, SPF_HELO_NONE,
+	SPF_PASS) 207.82.80.151 eu-smtp-delivery-151.mimecast.com
+	207.82.80.151 eu-smtp-delivery-151.mimecast.com
+	<david.laight@aculab.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.46
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-MIME-Autoconverted: from base64 to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id x849hWhd015835
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Mike Snitzer <snitzer@redhat.com>, linux-block@vger.kernel.org,
-	dm-devel@redhat.com, linux-scsi@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v3 5/7] block: Delay default elevator
-	initialization
+X-Mailman-Approved-At: Wed, 04 Sep 2019 07:04:28 -0400
+Cc: "axboe@kernel.dk" <axboe@kernel.dk>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"peterz@infradead.org" <peterz@infradead.org>,
+	"aarcange@redhat.com" <aarcange@redhat.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"rcu@vger.kernel.org" <rcu@vger.kernel.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"mingo@redhat.com" <mingo@redhat.com>
+Subject: Re: [dm-devel] [PATCH] sched: make struct task_struct::state 32-bit
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -59,97 +104,24 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Wed, 04 Sep 2019 09:29:59 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]); Wed, 04 Sep 2019 11:04:37 +0000 (UTC)
 
-On Wed, Sep 04, 2019 at 05:42:45PM +0900, Damien Le Moal wrote:
-> When elevator_init_mq() is called from blk_mq_init_allocated_queue(),
-> the only information known about the device is the number of hardware
-> queues as the block device scan by the device driver is not completed
-> yet. The device type and the device required features are not set yet,
-> preventing to correctly choose the default elevator most suitable for
-> the device.
+From: Alexey Dobriyan
+> Sent: 03 September 2019 19:19
+...
+> > How did you come up with this changeset, did you pickaxe for some regexp?
 > 
-> This currently affects all multi-queue zoned block devices which default
-> to the "none" elevator instead of the required "mq-deadline" elevator.
-> These drives currently include host-managed SMR disks connected to a
-> smartpqi HBA and null_blk block devices with zoned mode enabled.
-> Upcoming NVMe Zoned Namespace devices will also be affected.
-> 
-> Fix this by moving the execution of elevator_init_mq() from
-> blk_mq_init_allocated_queue() into __device_add_disk() to allow for the
-> device driver to probe the device characteristics and set attributes
-> of the device request queue prior to the elevator initialization.
-> 
-> Also to make sure that the elevator initialization is never done while
-> requests are in-flight (there should be none when the device driver
-> calls device_add_disk()), freeze and quiesce the device request queue
-> before executing blk_mq_init_sched().
-> 
-> Signed-off-by: Damien Le Moal <damien.lemoal@wdc.com>
-> ---
->  block/blk-mq.c   | 2 --
->  block/elevator.c | 7 +++++++
->  block/genhd.c    | 8 ++++++++
->  3 files changed, 15 insertions(+), 2 deletions(-)
-> 
-> diff --git a/block/blk-mq.c b/block/blk-mq.c
-> index ee4caf0c0807..a37503984206 100644
-> --- a/block/blk-mq.c
-> +++ b/block/blk-mq.c
-> @@ -2902,8 +2902,6 @@ struct request_queue *blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
->  	blk_mq_add_queue_tag_set(set, q);
->  	blk_mq_map_swqueue(q);
->  
-> -	elevator_init_mq(q);
-> -
->  	return q;
->  
->  err_hctxs:
-> diff --git a/block/elevator.c b/block/elevator.c
-> index 520d6b224b74..096a670d22d7 100644
-> --- a/block/elevator.c
-> +++ b/block/elevator.c
-> @@ -712,7 +712,14 @@ void elevator_init_mq(struct request_queue *q)
->  	if (!e)
->  		return;
->  
-> +	blk_mq_freeze_queue(q);
-> +	blk_mq_quiesce_queue(q);
-> +
->  	err = blk_mq_init_sched(q, e);
-> +
-> +	blk_mq_unquiesce_queue(q);
-> +	blk_mq_unfreeze_queue(q);
-> +
->  	if (err) {
->  		pr_warn("\"%s\" elevator initialization failed, "
->  			"falling back to \"none\"\n", e->elevator_name);
-> diff --git a/block/genhd.c b/block/genhd.c
-> index 54f1f0d381f4..7380dd7b2257 100644
-> --- a/block/genhd.c
-> +++ b/block/genhd.c
-> @@ -695,6 +695,13 @@ static void __device_add_disk(struct device *parent, struct gendisk *disk,
->  	dev_t devt;
->  	int retval;
->  
-> +	/*
-> +	 * The disk queue should now be all set with enough information about
-> +	 * the device for the elevator code to pick an adequate default
-> +	 * elevator.
-> +	 */
-> +	elevator_init_mq(disk->queue);
-> +
+> No, manually, backtracking up to the call chain.
+> Maybe I missed a few places.
 
-For dm-rq, add_disk_no_queue_reg() is called before blk_mq_init_allocated_queue().
+Renaming the structure field and getting the compiler to find all the uses can help.
 
-That means this patch actually sets elevator early for dm-rq, and I
-guess this way may not work as expected since hw/sw queues aren't allocated
-yet.
+	David
 
-
-Thanks,
-Ming
+-
+Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1PT, UK
+Registration No: 1397386 (Wales)
 
 --
 dm-devel mailing list
