@@ -2,145 +2,149 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DE2CA9C22
-	for <lists+dm-devel@lfdr.de>; Thu,  5 Sep 2019 09:43:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58F21A9C77
+	for <lists+dm-devel@lfdr.de>; Thu,  5 Sep 2019 09:59:37 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 29BBB106E292;
-	Thu,  5 Sep 2019 07:43:17 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F92E60126;
-	Thu,  5 Sep 2019 07:43:15 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 7B8F93082B4B;
+	Thu,  5 Sep 2019 07:59:34 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 171ED600F8;
+	Thu,  5 Sep 2019 07:59:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4F7B81802218;
-	Thu,  5 Sep 2019 07:43:12 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0AFF12551B;
+	Thu,  5 Sep 2019 07:59:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x857h1SA022326 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 5 Sep 2019 03:43:01 -0400
+	id x857xIke022716 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 5 Sep 2019 03:59:18 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0C54F5D772; Thu,  5 Sep 2019 07:43:01 +0000 (UTC)
+	id 074E260606; Thu,  5 Sep 2019 07:59:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx18.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.47])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 78F555D721;
-	Thu,  5 Sep 2019 07:42:57 +0000 (UTC)
-Received: from m9a0001g.houston.softwaregrp.com
-	(m9a0001g.houston.softwaregrp.com [15.124.64.66])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.redhat.com (ext-mx19.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.48])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2974560610;
+	Thu,  5 Sep 2019 07:59:10 +0000 (UTC)
+Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id E9C5A306E115;
-	Thu,  5 Sep 2019 07:42:42 +0000 (UTC)
-Received: FROM m9a0001g.houston.softwaregrp.com (15.121.0.191) BY
-	m9a0001g.houston.softwaregrp.com WITH ESMTP; 
-	Thu,  5 Sep 2019 07:42:06 +0000
-Received: from M9W0067.microfocus.com (2002:f79:be::f79:be) by
-	M9W0068.microfocus.com (2002:f79:bf::f79:bf) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
-	15.1.1591.10; Thu, 5 Sep 2019 07:36:59 +0000
-Received: from NAM03-BY2-obe.outbound.protection.outlook.com (15.124.72.10) by
-	M9W0067.microfocus.com (15.121.0.190) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
-	15.1.1591.10 via Frontend Transport; Thu, 5 Sep 2019 07:36:59 +0000
+	by mx1.redhat.com (Postfix) with ESMTPS id 48B56307D978;
+	Thu,  5 Sep 2019 07:58:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+	d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
+	t=1567670342; x=1599206342;
+	h=from:to:cc:subject:date:message-id:references:
+	content-transfer-encoding:mime-version;
+	bh=Q0AiLP0bQ9HsDTlkg7Yjt+JiQRG1e0oEy4oWXDVLFHI=;
+	b=T6KNCmygsYpzGqz4cAiRYlMGEfAAS+gEJCGxHbEKyNE4QTRj50xs5a/d
+	QvlXqftxttBgZH2NGvEj2KyPAcFpLg+PSu1Oy5/+nh4J/M4y9VP/vMth8
+	U3mlBLxX9th/3GnGM0Y3Qu+IzwekFumjo6WgiJeIGEKnkij4f88D9a97e
+	M5utnBjLzwERU2Nnfkqri7f84PPpIcrBD+VLwIX/4rS/5Wh1v9SROKl5C
+	WdWfv1xRP3Ee79v3+6hZDdLJIck3Puf9bBCCLyFBBX+X/TRmABWvBJKix
+	suijicAJ8hvejY6qOHaYZuPMeUmZ719HhI0IE7fAXAoD7V/PY9OViI6J3 Q==;
+IronPort-SDR: ElboP8c5JSw0arzwF6WYEbH7gA386A6+ddEIiNPiGXmUMyOy5bqOHuRfM8kG+/RfplVOzUmVSd
+	CYGs/T3H3ANv0jcjQ9i9vstaGlAaqHat0U6TmP7lVq0nTzCAj6NVO3OOq3oWpbZ3oHOGhfpZTJ
+	xAXprkwF89AJ1wLraKPE7Ww02zKC2+hH2lQmV6+Q2zCY3xnoPDNWquFshNafDQl1PWxiyoA3Lq
+	veCSPt2bNoqrCThWXvQOIyQd2Rocug09dLfNY1M4IGM2hQ1/XZy5qB6XBw7wV6K5nb9zFi+7v8
+	WE4=
+X-IronPort-AV: E=Sophos;i="5.64,469,1559491200"; d="scan'208";a="224257056"
+Received: from mail-co1nam04lp2057.outbound.protection.outlook.com (HELO
+	NAM04-CO1-obe.outbound.protection.outlook.com) ([104.47.45.57])
+	by ob1.hgst.iphmx.com with ESMTP; 05 Sep 2019 15:58:31 +0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
-	b=f//vn0sO+WkUFtNb6g2/KmEtQ8qMGTrtU3g47VrsQIQO+ZEMKECIygmIiis9lsAI78qiRanZM3JlYyTdgY/61ddnDLGpvwYNu5bOC4pwH+1RLqneQX6nh+PRpLpKhjo4gpTlzWtQ9IEN1L1jW3cs+Z72DpuhBqKtbXhYTBnYPmEyQm25sqgG0BSsd1Z2andQjX+m1k+L6ML9wYI+dCg8rxxav/rzj8IZAOM94MdWZhdwkz5X5JUN6E9gWMYuL/fbQu0EOWhRcMr+/1GjyeL/1Ug4sKDSXeZvg9YRs2URc2C05bhK9xDNcfbomprnZwiSTrihrqJpNaw4tMLUHM1XBw==
+	b=XqBGxJhRfsi29ltt78kxqoEoMsDfdtc8zmJKLrUAw6FVyE0ICMZib0pIv+ercVuOSzfuf8HtSADI/fmeCx7ggUkx7YbQOa466H3ryIlHm9LS+XN3+Mq9XSMkRyoaamtxAgBsprWndlT2mLAclgdn8eVN07YHJFtvLSSiY2GMidw09ImIqNRaexesLXhHFbQ79oxPf+POR+KR1CCN1RMZbEBeoXp/DvJvhsLBRuB1A6XDI5cYJnog5bT3WrExSWQ0dglvFaBEYSYN2LDNmC7id5XiwB4Ux3MpeXxPCaIEwELK9BlhnAQnxr/lu/y+Wm8lm29U8qFKeJRsoY3SDB0xvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
 	s=arcselector9901;
 	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
-	bh=Clx0jMggRDbnfPGdhiuJGnmg231ikjJiszUF10MxlYo=;
-	b=EmyH5ZBM3VWyYbHCfxaS4I+/96GMBuEyv2meaVIc5UcyMuNjqvTz/yMmOK5domaDHaBBlAEIzxf8bmS30kegHLsfiV4sg7tZfLSZYO1x2UlpKK9dUfHPy8sRIJsDL39oXMKC8VCnz0cRUoou0BVpPdqg+bllj7lwz1nncP5AfUUnQtys0jX8fR5CnNmfBhpzbCfPku+S2f9X4EClroWoCX2/XNnwTy4oMqfY3Fljkst9ATxZRF+tKUhKx1PDzgqXOIvbwLB8ZwqGSp0zkbV7VWqVEeMjIjg73f/KRFU8g1UPVqqHNdb195xK1auC5CiHFDVyfNGxCm1n3UqdZTPWFQ==
+	bh=+9Gmtws++kMbOxYJYvsDfieC05c/FQdHWjJwkTd41Dk=;
+	b=jNgIF29VBYs9j57MFyVUv4F56kpYm/f1We/qiRXVlSzCS9Yp7xB6Q8lo0UK69p8wYkYxas8BZMykSGs5DVzJIP0IDrHuLvBBtPRYFuvCVNxWtTWCXPzNhlby/LvC9AHyfYvcILyvph2NWLxbXxg/NjhEh3b1GtOn7324OipP3atxxQbYwAYo/JLvuXQklaT/6UseaCemgufLDATJauuT8hj1pCyUNC02+/BUnqMQr3923fGFBnv2oEdiTu9PdY9cc/QsmFICW56TZuMLa1GH35/KngqRnSuLM8UFW6z/rvEsBdKVeMo60A3XzfWE+wLMMcdxOKruF3EXyBwSxRLcig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
-	smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
-	dkim=pass header.d=suse.com; arc=none
-Received: from CH2PR18MB3349.namprd18.prod.outlook.com (52.132.246.91) by
-	CH2PR18MB3175.namprd18.prod.outlook.com (52.132.244.149) with Microsoft
+	smtp.mailfrom=wdc.com; dmarc=pass action=none header.from=wdc.com;
+	dkim=pass header.d=wdc.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=sharedspace.onmicrosoft.com; s=selector2-sharedspace-onmicrosoft-com; 
+	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+	bh=+9Gmtws++kMbOxYJYvsDfieC05c/FQdHWjJwkTd41Dk=;
+	b=WXpMJk9wIDeYA8v0qxY59qK0PMCULOBiyv80Xr/juUD72qmOTID36Ix3povSNC7g1IwLTWJ96BmEPaAETIVkhNKW8+zcsI2+kyNxCijxpn+psipjSeCdp+P3Bkh4KpMsLMF3d+LhG3aRfGKjqd6Hs3rLVyMkVuhkucsDBrs5W1M=
+Received: from BYAPR04MB5816.namprd04.prod.outlook.com (20.179.58.207) by
+	BYAPR04MB5336.namprd04.prod.outlook.com (20.178.50.13) with Microsoft
 	SMTP
 	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.2241.13; Thu, 5 Sep 2019 07:36:52 +0000
-Received: from CH2PR18MB3349.namprd18.prod.outlook.com
-	([fe80::d507:1099:1d46:c025]) by
-	CH2PR18MB3349.namprd18.prod.outlook.com
-	([fe80::d507:1099:1d46:c025%6]) with mapi id 15.20.2241.014;
-	Thu, 5 Sep 2019 07:36:52 +0000
-From: Martin Wilck <Martin.Wilck@suse.com>
-To: "bmarzins@redhat.com" <bmarzins@redhat.com>, "dm-devel@redhat.com"
-	<dm-devel@redhat.com>, "wu.chongyun@h3c.com" <wu.chongyun@h3c.com>
-Thread-Topic: [dm-devel] [PATCH] libmultipath:  multipath active paths count
-	optimization
-Thread-Index: AQHVY7yvDLD5TfO4nkevkDluf0+ZKw==
-Date: Thu, 5 Sep 2019 07:36:52 +0000
-Message-ID: <e33a9aefa073e1d9c107dce12c32608afc50090e.camel@suse.com>
-References: <413f046d0cfc4d5dbd39ebed92068c8b@h3c.com>
-In-Reply-To: <413f046d0cfc4d5dbd39ebed92068c8b@h3c.com>
+	15.20.2220.18; Thu, 5 Sep 2019 07:58:30 +0000
+Received: from BYAPR04MB5816.namprd04.prod.outlook.com
+	([fe80::50cc:80d2:5c1b:3a10]) by
+	BYAPR04MB5816.namprd04.prod.outlook.com
+	([fe80::50cc:80d2:5c1b:3a10%5]) with mapi id 15.20.2241.014;
+	Thu, 5 Sep 2019 07:58:30 +0000
+From: Damien Le Moal <Damien.LeMoal@wdc.com>
+To: Ming Lei <ming.lei@redhat.com>, "dm-devel@redhat.com"
+	<dm-devel@redhat.com>, Mike Snitzer <snitzer@redhat.com>
+Thread-Topic: [PATCH v4 5/7] block: Delay default elevator initialization
+Thread-Index: AQHVY6J5Jdv2Ped9mkuVchC9QRiFdg==
+Date: Thu, 5 Sep 2019 07:58:30 +0000
+Message-ID: <BYAPR04MB581640203E7CCD2F8F34D0D3E7BB0@BYAPR04MB5816.namprd04.prod.outlook.com>
+References: <20190905042901.5830-1-damien.lemoal@wdc.com>
+	<20190905042901.5830-6-damien.lemoal@wdc.com>
+	<20190905071923.GA8898@ming.t460p>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 authentication-results: spf=none (sender IP is )
-	smtp.mailfrom=Martin.Wilck@suse.com; 
-x-originating-ip: [90.186.0.117]
+	smtp.mailfrom=Damien.LeMoal@wdc.com; 
+x-originating-ip: [199.255.44.174]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9f626551-ea7d-427b-c939-08d731d3d222
+x-ms-office365-filtering-correlation-id: f2810797-efa3-4c77-1974-08d731d6d7be
+x-ms-office365-filtering-ht: Tenant
 x-microsoft-antispam: BCL:0; PCL:0;
-	RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600166)(711020)(4605104)(1401327)(2017052603328)(7193020);
-	SRVR:CH2PR18MB3175; 
-x-ms-traffictypediagnostic: CH2PR18MB3175:
-x-microsoft-antispam-prvs: <CH2PR18MB31753B08D42382B9DEA3A7D8FCBB0@CH2PR18MB3175.namprd18.prod.outlook.com>
+	RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600166)(711020)(4605104)(1401327)(4618075)(2017052603328)(7193020);
+	SRVR:BYAPR04MB5336; 
+x-ms-traffictypediagnostic: BYAPR04MB5336:
+x-microsoft-antispam-prvs: <BYAPR04MB533618C6D38A0F0A35EA8B79E7BB0@BYAPR04MB5336.namprd04.prod.outlook.com>
+wdcipoutbound: EOP-TRUE
 x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-forefront-prvs: 015114592F
 x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10019020)(4636009)(136003)(376002)(346002)(366004)(396003)(39860400002)(199004)(189003)(6436002)(6116002)(2501003)(14454004)(5660300002)(4326008)(3846002)(66066001)(11346002)(446003)(486006)(2906002)(66946007)(66476007)(91956017)(81166006)(81156014)(99286004)(8676002)(76116006)(2616005)(6512007)(476003)(36756003)(66446008)(64756008)(66556008)(76176011)(8936002)(2201001)(54906003)(316002)(53936002)(110136005)(186003)(86362001)(229853002)(6486002)(7416002)(6246003)(7736002)(256004)(25786009)(102836004)(118296001)(478600001)(53546011)(71190400001)(71200400001)(6506007)(305945005)(14444005)(26005);
-	DIR:OUT; SFP:1102; SCL:1; SRVR:CH2PR18MB3175;
-	H:CH2PR18MB3349.namprd18.prod.outlook.com; FPR:; SPF:None;
+	SFS:(10019020)(4636009)(39860400002)(376002)(396003)(346002)(136003)(366004)(199004)(189003)(2501003)(6506007)(446003)(14444005)(53546011)(256004)(102836004)(486006)(33656002)(476003)(2906002)(5660300002)(53936002)(25786009)(6436002)(55016002)(76176011)(4326008)(6246003)(99286004)(9686003)(54906003)(71200400001)(7736002)(478600001)(74316002)(7696005)(86362001)(81156014)(8676002)(81166006)(8936002)(66066001)(14454004)(71190400001)(110136005)(305945005)(52536014)(76116006)(186003)(66556008)(66476007)(66946007)(229853002)(64756008)(66446008)(6116002)(3846002)(26005)(316002);
+	DIR:OUT; SFP:1102; SCL:1; SRVR:BYAPR04MB5336;
+	H:BYAPR04MB5816.namprd04.prod.outlook.com; FPR:; SPF:None;
 	LANG:en; PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: suse.com does not designate
-	permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: lXYaonDdmgNpkLB4rT7Z2KgDpdCd9/0hyBKUABKrubEqi3c1x0Y6ryeId/SnVnd80mHYh+c6IQDjTg4aK4Aa2Lj9tkEWGHL3B/d5iqCAV87mXgLjc14YgoewtDzVq+mjf2d/n6N6HwaxYVKWcs9MlnmoJ8cYTsB3NXC5N/K56uib6LSbdcIGpmmfaFJ9/G5o2FIi2ERUAofJa344SVz/Mt57zJfN5shUb2YyDRNuIPh74r94KT8aQtq/npnA5Z+dhmIFK0VeQFrc5DzVe4z18EDZLnc//6vLU2fwDaieZzI7ztEXsnNOoPE0gtf+6AxXUJBxwN1lYZ2T+iBwaV61z3F0Ezf/ykHFk5akIgJOqF3b1o0FJ8R9pFrFyZFnU4XP5a2cbMUnfIJ1dN1XfHMqN9EalXRTlAelfzuhZYd4Uj0=
+x-microsoft-antispam-message-info: yMKSyFu8w4Hz2M+xDxmq59joP6XikU547k064xircwcsgKidss2bYQcQBxtyRMmk8H0tI1JgmEuyynhcPepZ4sNJMp2JOIG2Oy4mRf4SoD+LRfxLgfDekuXKe3Hqq/HhgdNcknfg/Oy3xmnagxLkNRx8P9JkVvb0caYdMNHyHB9TLGoVgCZb1lQ2UWDXolf5aWeHOumvGEAGn7SDNteI4FiK8+EHz373tQD/K02C1fHTrxXMCtbdc4L9euTZzGy90l9l96Y/Ngulq1WRp/ng+00JbhGQzmLHIuJrDJk0LcyV5GrBOuEewWWjE93bqAGuGrAVaAlknr7cyuMP7RsXSztfs3RXWpfSg2Mhwp/62ZRRCH/xc1AQh/lYaVJe2d2WGJS/ezsimkgmV9qaI5vLaMnigFtck2eafiqcxqNRQDM=
 x-ms-exchange-transport-forked: True
-Content-ID: <99742E329A7D324DA053E4F0448D2E2F@namprd18.prod.outlook.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f626551-ea7d-427b-c939-08d731d3d222
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Sep 2019 07:36:52.7301 (UTC)
+X-OriginatorOrg: wdc.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2810797-efa3-4c77-1974-08d731d6d7be
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Sep 2019 07:58:30.6537 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
+X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: j4GIJTypPkSva9ObrOfoloTJqVj+WiJwlumDI9NZmt1DlVaEXS+sPLRMpIV4ijpKYB+L/Uuj5ivZIumyxLQ5Zg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR18MB3175
-X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-userprincipalname: QpyiknNZsN/K28fPkxP1KEF9MnAVehVMIISQmYQ4W6vvmlsDGbXEYFwIQYmFFenDVHLMvsygZ7AYPHZDApQi+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR04MB5336
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
 	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.47]); Thu, 05 Sep 2019 07:42:55 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]);
-	Thu, 05 Sep 2019 07:42:55 +0000 (UTC) for IP:'15.124.64.66'
-	DOMAIN:'m9a0001g.houston.softwaregrp.com'
-	HELO:'m9a0001g.houston.softwaregrp.com'
-	FROM:'Martin.Wilck@suse.com' RCPT:''
-X-RedHat-Spam-Score: 0.001  (RCVD_IN_DNSWL_NONE, SPF_HELO_NONE, SPF_PASS,
-	UNPARSEABLE_RELAY) 15.124.64.66
-	m9a0001g.houston.softwaregrp.com 15.124.64.66
-	m9a0001g.houston.softwaregrp.com <Martin.Wilck@suse.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.47
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-MIME-Autoconverted: from base64 to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id x857h1SA022326
+	[10.5.110.48]); Thu, 05 Sep 2019 07:59:02 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]);
+	Thu, 05 Sep 2019 07:59:02 +0000 (UTC) for IP:'68.232.141.245'
+	DOMAIN:'esa1.hgst.iphmx.com' HELO:'esa1.hgst.iphmx.com'
+	FROM:'Damien.LeMoal@wdc.com' RCPT:''
+X-RedHat-Spam-Score: -2.299  (DKIM_SIGNED, DKIM_VALID, RCVD_IN_DNSWL_MED,
+	SPF_HELO_NONE) 68.232.141.245 esa1.hgst.iphmx.com
+	68.232.141.245 esa1.hgst.iphmx.com
+	<prvs=1441e10e1=Damien.LeMoal@wdc.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.48
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id x857xIke022716
 X-loop: dm-devel@redhat.com
-Cc: "liu.cong@h3c.com" <liu.cong@h3c.com>,
-	"zhang.chengA@h3c.com" <zhang.chengA@h3c.com>,
-	"guozhonghua@h3c.com" <guozhonghua@h3c.com>,
-	"zhang.duan@h3c.com" <zhang.duan@h3c.com>,
-	"li.liangA@h3c.com" <li.liangA@h3c.com>,
-	"changlimin@h3c.com" <changlimin@h3c.com>,
-	"ren.qinwei@h3c.com" <ren.qinwei@h3c.com>,
-	"wang.xibo@h3c.com" <wang.xibo@h3c.com>,
-	"li.kai4@h3c.com" <li.kai4@h3c.com>,
-	"zhang.guanghui@h3c.com" <zhang.guanghui@h3c.com>,
-	"wang.yongD@h3c.com" <wang.yongD@h3c.com>,
-	"huang.yongA@h3c.com" <huang.yongA@h3c.com>
-Subject: Re: [dm-devel] [PATCH] libmultipath: multipath active paths count
- optimization
+Cc: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>
+Subject: Re: [dm-devel] [PATCH v4 5/7] block: Delay default elevator
+	initialization
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -157,65 +161,108 @@ Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.64]); Thu, 05 Sep 2019 07:43:19 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]); Thu, 05 Sep 2019 07:59:35 +0000 (UTC)
 
-Hi Chongyun,
-
-On Thu, 2019-09-05 at 02:58 +0000, Chongyun Wu wrote:
-> Hi Martin, Ben and other viewers
+On 2019/09/05 16:19, Ming Lei wrote:
+> On Thu, Sep 05, 2019 at 01:28:59PM +0900, Damien Le Moal wrote:
+>> When elevator_init_mq() is called from blk_mq_init_allocated_queue(),
+>> the only information known about the device is the number of hardware
+>> queues as the block device scan by the device driver is not completed
+>> yet. The device type and the device required features are not set yet,
+>> preventing to correctly choose the default elevator most suitable for
+>> the device.
+>>
+>> This currently affects all multi-queue zoned block devices which default
+>> to the "none" elevator instead of the required "mq-deadline" elevator.
+>> These drives currently include host-managed SMR disks connected to a
+>> smartpqi HBA and null_blk block devices with zoned mode enabled.
+>> Upcoming NVMe Zoned Namespace devices will also be affected.
+>>
+>> Fix this by moving the execution of elevator_init_mq() from
+>> blk_mq_init_allocated_queue() into __device_add_disk() to allow for the
+>> device driver to probe the device characteristics and set attributes
+>> of the device request queue prior to the elevator initialization. This
+>> initialization is skipped for DM devices using
+>> device_add_disk_no_queue_reg() as this also skips the queue
+>> registration.
+>>
+>> Additionally, to make sure that the elevator initialization is never
+>> done while requests are in-flight (there should be none when the device
+>> driver calls device_add_disk()), freeze and quiesce the device request
+>> queue before calling blk_mq_init_sched() in elevator_init_mq().
+>>
+>> Signed-off-by: Damien Le Moal <damien.lemoal@wdc.com>
+>> ---
+>>  block/blk-mq.c   | 2 --
+>>  block/elevator.c | 7 +++++++
+>>  block/genhd.c    | 9 +++++++++
+>>  3 files changed, 16 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/block/blk-mq.c b/block/blk-mq.c
+>> index ee4caf0c0807..a37503984206 100644
+>> --- a/block/blk-mq.c
+>> +++ b/block/blk-mq.c
+>> @@ -2902,8 +2902,6 @@ struct request_queue *blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
+>>  	blk_mq_add_queue_tag_set(set, q);
+>>  	blk_mq_map_swqueue(q);
+>>  
+>> -	elevator_init_mq(q);
+>> -
+>>  	return q;
+>>  
+>>  err_hctxs:
+>> diff --git a/block/elevator.c b/block/elevator.c
+>> index 520d6b224b74..096a670d22d7 100644
+>> --- a/block/elevator.c
+>> +++ b/block/elevator.c
+>> @@ -712,7 +712,14 @@ void elevator_init_mq(struct request_queue *q)
+>>  	if (!e)
+>>  		return;
+>>  
+>> +	blk_mq_freeze_queue(q);
+>> +	blk_mq_quiesce_queue(q);
+>> +
+>>  	err = blk_mq_init_sched(q, e);
+>> +
+>> +	blk_mq_unquiesce_queue(q);
+>> +	blk_mq_unfreeze_queue(q);
+>> +
+>>  	if (err) {
+>>  		pr_warn("\"%s\" elevator initialization failed, "
+>>  			"falling back to \"none\"\n", e->elevator_name);
+>> diff --git a/block/genhd.c b/block/genhd.c
+>> index 54f1f0d381f4..26b31fcae217 100644
+>> --- a/block/genhd.c
+>> +++ b/block/genhd.c
+>> @@ -695,6 +695,15 @@ static void __device_add_disk(struct device *parent, struct gendisk *disk,
+>>  	dev_t devt;
+>>  	int retval;
+>>  
+>> +	/*
+>> +	 * The disk queue should now be all set with enough information about
+>> +	 * the device for the elevator code to pick an adequate default
+>> +	 * elevator if one is needed, that is, for devices requesting queue
+>> +	 * registration.
+>> +	 */
+>> +	if (register_queue)
+>> +		elevator_init_mq(disk->queue);
+>> +
 > 
-> Cloud you help to view below patch which try to deal with a multipath
-> active paths
-> count not right issue, thanks a lot.
-> 
-> From deee7196ece43b01b8ee635e60ce465080905b5e Mon Sep 17 00:00:00
-> 2001
-> From: Chongyun Wu <wu.chongyun@h3c.com>
-> Date: Tue, 27 Aug 2019 13:58:33 +0800
-> Subject: [PATCH] libmultipath:  multipath active paths count
-> optimization
-> 
-> Really count multipath active paths not use mpp->nr_active++
-> or mpp->nr_active--, because there are other places might call
-> pathinfo to change path state not only in check_path, if other
-> places detect and changed path state but not do mpp->nr_active++
-> or mpp->nr_active--, the active paths might not right any more.
-> 
-> We meet an issue which actually have three paths but after all
-> paths down syslog report have three paths remaining so multipathd
-> not send disable queueing to dm and this dm device been blocked.
-> This patch might fix this issue.
-> 
-> Signed-off-by: Chongyun Wu <wu.chongyun@h3c.com>
-> ---
->  libmultipath/structs_vec.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
+> This way is better, but still changes the default elevator to 'none'
+> for dm-rq always.
 
+Got it ! I was looking only at mapped_device() in dm.c. But for request based
+DMs, the queue is prepared differently in dm_mq_init_request_queue(), using
+blk_mq_init_allocated_queue() and blk_register_queue() afterward in
+dm_setup_md_queue().
 
-Thanks a lot for your patch. We've discussed this previously, and in
-general, there's little reason not to do it - pathcount() is fast, and
-could be made even faster. But if we do, we should ditch the nr_active
-field altogether - no need to carry it around if we re-calculate it
-anyway when we need it.
+Sending a V5 to fix that.
 
-However, it worries me a bit that nr_active may go wrong. Both Ben and
-I have reviewed the code and we thought the nr_active tracking was
-correct. Something seems to happen in our code that we don't
-understand.
+Thanks.
 
- - can you please confirm that you are using the latest code,
-containing e224d57 "libmutipath: continue to use old state on
-PATH_PENDING", 9b715bf "multipathd: Fix miscounting active paths" and
-(in case you're using the marginal_paths options) also 7d4b40f and
-058df77 ?
-
- - If you have a reliable reproducer, would you mind adding log
-messages to the code you just submitted, so that we can observe how
-nr_active evolves in time, and perhaps understand why it's going wrong?
-
-Regards
-Martin
-
+-- 
+Damien Le Moal
+Western Digital Research
 
 --
 dm-devel mailing list
