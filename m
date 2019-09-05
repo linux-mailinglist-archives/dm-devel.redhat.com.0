@@ -2,100 +2,91 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10BD2A9EEF
-	for <lists+dm-devel@lfdr.de>; Thu,  5 Sep 2019 11:54:23 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by mail.lfdr.de (Postfix) with ESMTPS id C86F7A9F36
+	for <lists+dm-devel@lfdr.de>; Thu,  5 Sep 2019 12:04:46 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 1DDD23082149;
-	Thu,  5 Sep 2019 09:54:21 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id AD1F78980E5;
+	Thu,  5 Sep 2019 10:04:43 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E7F301001947;
-	Thu,  5 Sep 2019 09:54:20 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 04DDC60126;
+	Thu,  5 Sep 2019 10:04:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6395A18089C8;
-	Thu,  5 Sep 2019 09:54:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2F9CC18089C8;
+	Thu,  5 Sep 2019 10:04:39 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x859sHBd026906 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 5 Sep 2019 05:54:17 -0400
+	id x85A4Wme027268 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 5 Sep 2019 06:04:32 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2FE3B5D9E5; Thu,  5 Sep 2019 09:54:17 +0000 (UTC)
+	id 16B1219C77; Thu,  5 Sep 2019 10:04:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx29.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.70])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA4BA5D9E2;
-	Thu,  5 Sep 2019 09:54:10 +0000 (UTC)
-Received: from esa6.hgst.iphmx.com (esa6.hgst.iphmx.com [216.71.154.45])
+Received: from mx1.redhat.com (ext-mx22.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.63])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 864C019C6A;
+	Thu,  5 Sep 2019 10:04:27 +0000 (UTC)
+Received: from h3cspam01-ex.h3c.com (smtp.h3c.com [60.191.123.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id BDA6D18C8929;
-	Thu,  5 Sep 2019 09:53:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-	d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
-	t=1567677240; x=1599213240;
-	h=from:to:cc:subject:date:message-id:in-reply-to:
-	references:mime-version:content-transfer-encoding;
-	bh=/XtlwHOsIPicnyo2flJ5KzL1vmCB4hpFdRCl5+DsDD4=;
-	b=UqYKVliaqvgUoyg51C/qj/wr6pyD/4LyzvaFy4FJrbwaWmmDtusKhZ7z
-	MUuSCu01tcsuhqugbIcOu0LrHSppT7uaI4d+5XxKowEjUEJ3IGhQay7by
-	V+OAhfDdtjEcNsm9GhloMaCjfAg1y0AKlyyLZ0sDw4NA9yHcRh4I9jIOO
-	rEOLppop0AzhobsHfcXyIvpw/PgRicbCZI0x+C3bT9l3bT4UikhdcXNmH
-	CeT6UMuTliUSBs8kcfmVqPKhHZohdMZiEfCr0/fEkt9ZJZmBnfmgxyzKQ
-	NKD/R1yjWQbGJyPe0qskLNq9oLUODRxQfiTMcO8uNO8lNi2v0+S3wj3d7 g==;
-IronPort-SDR: HaI0zjOW90nwlp1j2wsoWbF7aw43TSrSEQbGn1TOHyit27hTmhY4jjRIXkPzcM24W4uwgD8Kgs
-	f1PZbHwXADTtJCUTOjFNR6RyXY2F4Yp5cc6AUPfYWT0k518TT8ZDAsk1tpCeHMO/S3UVYQiYg9
-	wkOBIb0IPBwgCMUxI/D6BIuk4bOCiroTVJ1XZzi3/BhS6Morv5Ss470tZFG8bUzW+l3VLjdvjV
-	eVg4ayOKZUObzQDl/bT9/rNwVvX1mkwvSFa+jJhqyGOH6k+GZomuyqFe8mxXsltySxOZq+MsEd
-	kc4=
-X-IronPort-AV: E=Sophos;i="5.64,470,1559491200"; d="scan'208";a="119106284"
-Received: from uls-op-cesaip01.wdc.com (HELO uls-op-cesaep01.wdc.com)
-	([199.255.45.14])
-	by ob1.hgst.iphmx.com with ESMTP; 05 Sep 2019 17:51:47 +0800
-IronPort-SDR: dbWMGhh7qRQ3myMhe0vBEakahocaAgcANhzqkvWc/Fd7VpFbkl1gmTddh0ZMaMrzevj3Sxz/3j
-	p8OAJ9XYso/PvkENkRgmBhMEnOetKjCyKIIFVBJqv6lwvffsMn2kyVI/mTLYtordbJRakXmvvQ
-	bQ00ku8ohmB9U3UotwmVCIduYFAgmazeVZuhGwCRRwmx92GpVrI8kBqN+hoGY0/v8z2swlKXJU
-	a7Z8MsFEInYtSQXQijuNsxWlOF++Ftt3Tn7rbFYJKQc17Unmwaz7TT2kovuQL5ww/88XLgaZ4D
-	w47PP/G9gqUADRJa1NLM/qPy
-Received: from uls-op-cesaip01.wdc.com ([10.248.3.36])
-	by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	05 Sep 2019 02:48:43 -0700
-IronPort-SDR: PMcqYEJtk0jNIxalMYnj1tGVSoFhITi6da+9KU/BbwBavagIEJVYSrRDsTM+vRMVIhqb4doxaC
-	kWs/cbz3itasjn4XhJExza74T8zJXrlVKgF16N2qLo9ED5Gpr/LnPa/himSsRWGYLYDjGCFtv0
-	STrpHKMJiJS84SBMdTyKHRZHqd0C7HlprXT0V8ZnoE67PHSxG/6lbaaVjVLJ+ptkqjkjnY4g8Z
-	ROg1ezQjpPJmmoeUX4o/5AB0aEA6jPX1G8VKMCa/3b1V6N5RrYlOG27+l4NgXPoMxhbwWl3Cag
-	fWc=
-WDCIronportException: Internal
-Received: from washi.fujisawa.hgst.com ([10.149.53.254])
-	by uls-op-cesaip01.wdc.com with ESMTP; 05 Sep 2019 02:51:46 -0700
-From: Damien Le Moal <damien.lemoal@wdc.com>
-To: linux-block@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	linux-scsi@vger.kernel.org,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>
-Date: Thu,  5 Sep 2019 18:51:35 +0900
-Message-Id: <20190905095135.26026-8-damien.lemoal@wdc.com>
-In-Reply-To: <20190905095135.26026-1-damien.lemoal@wdc.com>
-References: <20190905095135.26026-1-damien.lemoal@wdc.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id 3658C18F3500;
+	Thu,  5 Sep 2019 10:04:24 +0000 (UTC)
+Received: from DAG2EX09-IDC.srv.huawei-3com.com ([10.8.0.72])
+	by h3cspam01-ex.h3c.com with ESMTPS id x85A3tHI034280
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 5 Sep 2019 18:03:56 +0800 (GMT-8)
+	(envelope-from wu.chongyun@h3c.com)
+Received: from DAG2EX01-BASE.srv.huawei-3com.com (10.8.0.64) by
+	DAG2EX09-IDC.srv.huawei-3com.com (10.8.0.72) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+	15.1.1713.5; Thu, 5 Sep 2019 18:03:57 +0800
+Received: from DAG2EX01-BASE.srv.huawei-3com.com ([::1]) by
+	DAG2EX01-BASE.srv.huawei-3com.com ([fe80::64d2:2654:b7b6:3653%6]) with
+	mapi id 15.01.1713.004; Thu, 5 Sep 2019 18:03:57 +0800
+From: Chongyun Wu <wu.chongyun@h3c.com>
+To: Martin Wilck <Martin.Wilck@suse.com>, "bmarzins@redhat.com"
+	<bmarzins@redhat.com>, "dm-devel@redhat.com" <dm-devel@redhat.com>
+Thread-Topic: [dm-devel] [PATCH] libmultipath:  multipath active paths count
+	optimization
+Thread-Index: AdVhNnQW1jI2k62vQWmrQDfZZyGCMACQyzgAABNEg+A=
+Date: Thu, 5 Sep 2019 10:03:57 +0000
+Message-ID: <5c5907c12623406c8d2da30bf31a180e@h3c.com>
+References: <413f046d0cfc4d5dbd39ebed92068c8b@h3c.com>
+	<e33a9aefa073e1d9c107dce12c32608afc50090e.camel@suse.com>
+In-Reply-To: <e33a9aefa073e1d9c107dce12c32608afc50090e.camel@suse.com>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.125.108.109]
 MIME-Version: 1.0
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
-	[10.5.110.70]); Thu, 05 Sep 2019 09:54:00 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.70]);
-	Thu, 05 Sep 2019 09:54:00 +0000 (UTC) for IP:'216.71.154.45'
-	DOMAIN:'esa6.hgst.iphmx.com' HELO:'esa6.hgst.iphmx.com'
-	FROM:'damien.lemoal@wdc.com' RCPT:''
-X-RedHat-Spam-Score: -2.399  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_MED,
-	SPF_HELO_NONE) 216.71.154.45 esa6.hgst.iphmx.com 216.71.154.45
-	esa6.hgst.iphmx.com <prvs=1441e10e1=damien.lemoal@wdc.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.70
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-DNSRBL: 
+X-MAIL: h3cspam01-ex.h3c.com x85A3tHI034280
+X-Greylist: Sender passed SPF test, ACL 264 matched, not delayed by
+	milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.63]);
+	Thu, 05 Sep 2019 10:04:25 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.63]);
+	Thu, 05 Sep 2019 10:04:25 +0000 (UTC) for IP:'60.191.123.56'
+	DOMAIN:'smtp.h3c.com' HELO:'h3cspam01-ex.h3c.com'
+	FROM:'wu.chongyun@h3c.com' RCPT:''
+X-RedHat-Spam-Score: 0  (SPF_HELO_NONE,
+	SPF_PASS) 60.191.123.56 smtp.h3c.com 60.191.123.56
+	smtp.h3c.com <wu.chongyun@h3c.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.63
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-MIME-Autoconverted: from base64 to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id x85A4Wme027268
 X-loop: dm-devel@redhat.com
-Cc: Ming Lei <ming.lei@redhat.com>
-Subject: [dm-devel] [PATCH v5 7/7] sd: Set ELEVATOR_F_ZBD_SEQ_WRITE for ZBC
-	disks
+Cc: Liucong <liu.cong@h3c.com>, Zhangcheng <zhang.chengA@h3c.com>,
+	Guozhonghua <guozhonghua@h3c.com>,
+	Zhangduan <zhang.duan@h3c.com>, Liliang <li.liangA@h3c.com>,
+	Changlimin <changlimin@h3c.com>, Renqinwei <ren.qinwei@h3c.com>,
+	Wangxibo <wang.xibo@h3c.com>, Likai <li.kai4@h3c.com>,
+	Zhangguanghui <zhang.guanghui@h3c.com>,
+	Wangyong <wang.yongD@h3c.com>, Huangyong <huang.yongA@h3c.com>
+Subject: [dm-devel] =?utf-8?b?562U5aSNOiAgW1BBVENIXSBsaWJtdWx0aXBhdGg6ICBt?=
+ =?utf-8?q?ultipath_active_paths_count_optimization?=
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -107,45 +98,70 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]); Thu, 05 Sep 2019 09:54:21 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.67]); Thu, 05 Sep 2019 10:04:45 +0000 (UTC)
 
-Using the helper blk_queue_required_elevator_features(), set the
-elevator feature ELEVATOR_F_ZBD_SEQ_WRITE as required for the request
-queue of SCSI ZBC disks.
-
-This feature requirement can always be satisfied as the mq-deadline
-elevator is always selected for in-kernel compilation when
-CONFIG_BLK_DEV_ZONED (zoned block device support) is enabled.
-
-Signed-off-by: Damien Le Moal <damien.lemoal@wdc.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Johannes Thumshirn <jthumshirn@suse.de>
----
- drivers/scsi/sd_zbc.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/scsi/sd_zbc.c b/drivers/scsi/sd_zbc.c
-index 367614f0e34f..de4019dc0f0b 100644
---- a/drivers/scsi/sd_zbc.c
-+++ b/drivers/scsi/sd_zbc.c
-@@ -493,6 +493,8 @@ int sd_zbc_read_zones(struct scsi_disk *sdkp, unsigned char *buf)
- 	blk_queue_chunk_sectors(sdkp->disk->queue,
- 			logical_to_sectors(sdkp->device, zone_blocks));
- 	blk_queue_flag_set(QUEUE_FLAG_ZONE_RESETALL, sdkp->disk->queue);
-+	blk_queue_required_elevator_features(sdkp->disk->queue,
-+					     ELEVATOR_F_ZBD_SEQ_WRITE);
- 	nr_zones = round_up(sdkp->capacity, zone_blocks) >> ilog2(zone_blocks);
- 
- 	/* READ16/WRITE16 is mandatory for ZBC disks */
--- 
-2.21.0
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+SGkgTWFydGluLAoKVGhhbmtzIGEgbG90LiAKSSB0aGluayBwYXRjaCBlMjI0ZDU3ICJsaWJtdXRp
+cGF0aDogY29udGludWUgdG8gdXNlIG9sZCBzdGF0ZSBvbiBQQVRIX1BFTkRJTkciIG1pZ2h0IGZp
+eCBvdXIgaXNzdWUgY29tcGFyZSB0byBvdXIgc3lzbG9nIG91dHB1dCwgSSB3aWxsIGNoZXJyeS1w
+aWNrIGl0LiAKQW5kIGFsc28gbmVlZCBjaGVycnktcGljayA5YjcxNWJmICJtdWx0aXBhdGhkOiBG
+aXggbWlzY291bnRpbmcgYWN0aXZlIHBhdGhzIiBmb3IgZ29vZC4KClJlZ2FyZHMKQ2hvbmd5dW4g
+V3UKCi0tLS0t6YKu5Lu25Y6f5Lu2LS0tLS0K5Y+R5Lu25Lq6OiBNYXJ0aW4gV2lsY2sgW21haWx0
+bzpNYXJ0aW4uV2lsY2tAc3VzZS5jb21dIArlj5HpgIHml7bpl7Q6IDIwMTnlubQ55pyINeaXpSAx
+NTozNwrmlLbku7bkuro6IGJtYXJ6aW5zQHJlZGhhdC5jb207IGRtLWRldmVsQHJlZGhhdC5jb207
+IHd1Y2hvbmd5dW4gKENsb3VkKSA8d3UuY2hvbmd5dW5AaDNjLmNvbT4K5oqE6YCBOiBndW96aG9u
+Z2h1YSAoQ2xvdWQpIDxndW96aG9uZ2h1YUBoM2MuY29tPjsgbGlrYWkgKENsb3VkKSA8bGkua2Fp
+NEBoM2MuY29tPjsgcmVucWlud2VpIChDbG91ZCkgPHJlbi5xaW53ZWlAaDNjLmNvbT47IGxpbGlh
+bmcgKENsb3VkKSA8bGkubGlhbmdBQGgzYy5jb20+OyBsaXVjb25nIChDbG91ZCkgPGxpdS5jb25n
+QGgzYy5jb20+OyB3YW5neW9uZyAoQ2xvdWQpIDx3YW5nLnlvbmdEQGgzYy5jb20+OyBjaGFuZ2xp
+bWluIChDbG91ZCkgPGNoYW5nbGltaW5AaDNjLmNvbT47IHpoYW5nZHVhbiAoQ2xvdWQpIDx6aGFu
+Zy5kdWFuQGgzYy5jb20+OyBodWFuZ3lvbmcgKENsb3VkKSA8aHVhbmcueW9uZ0FAaDNjLmNvbT47
+IHdhbmd4aWJvIChDbG91ZCkgPHdhbmcueGlib0BoM2MuY29tPjsgemhhbmdndWFuZ2h1aSAoQ2xv
+dWQpIDx6aGFuZy5ndWFuZ2h1aUBoM2MuY29tPjsgemhhbmdjaGVuZyAoQ2xvdWQpIDx6aGFuZy5j
+aGVuZ0FAaDNjLmNvbT4K5Li76aKYOiBSZTogW2RtLWRldmVsXSBbUEFUQ0hdIGxpYm11bHRpcGF0
+aDogbXVsdGlwYXRoIGFjdGl2ZSBwYXRocyBjb3VudCBvcHRpbWl6YXRpb24KCkhpIENob25neXVu
+LAoKT24gVGh1LCAyMDE5LTA5LTA1IGF0IDAyOjU4ICswMDAwLCBDaG9uZ3l1biBXdSB3cm90ZToK
+PiBIaSBNYXJ0aW4sIEJlbiBhbmQgb3RoZXIgdmlld2Vycwo+IAo+IENsb3VkIHlvdSBoZWxwIHRv
+IHZpZXcgYmVsb3cgcGF0Y2ggd2hpY2ggdHJ5IHRvIGRlYWwgd2l0aCBhIG11bHRpcGF0aCAKPiBh
+Y3RpdmUgcGF0aHMgY291bnQgbm90IHJpZ2h0IGlzc3VlLCB0aGFua3MgYSBsb3QuCj4gCj4gRnJv
+bSBkZWVlNzE5NmVjZTQzYjAxYjhlZTYzNWU2MGNlNDY1MDgwOTA1YjVlIE1vbiBTZXAgMTcgMDA6
+MDA6MDAKPiAyMDAxCj4gRnJvbTogQ2hvbmd5dW4gV3UgPHd1LmNob25neXVuQGgzYy5jb20+Cj4g
+RGF0ZTogVHVlLCAyNyBBdWcgMjAxOSAxMzo1ODozMyArMDgwMAo+IFN1YmplY3Q6IFtQQVRDSF0g
+bGlibXVsdGlwYXRoOiAgbXVsdGlwYXRoIGFjdGl2ZSBwYXRocyBjb3VudCAKPiBvcHRpbWl6YXRp
+b24KPiAKPiBSZWFsbHkgY291bnQgbXVsdGlwYXRoIGFjdGl2ZSBwYXRocyBub3QgdXNlIG1wcC0+
+bnJfYWN0aXZlKysgb3IgCj4gbXBwLT5ucl9hY3RpdmUtLSwgYmVjYXVzZSB0aGVyZSBhcmUgb3Ro
+ZXIgcGxhY2VzIG1pZ2h0IGNhbGwgcGF0aGluZm8gCj4gdG8gY2hhbmdlIHBhdGggc3RhdGUgbm90
+IG9ubHkgaW4gY2hlY2tfcGF0aCwgaWYgb3RoZXIgcGxhY2VzIGRldGVjdCAKPiBhbmQgY2hhbmdl
+ZCBwYXRoIHN0YXRlIGJ1dCBub3QgZG8gbXBwLT5ucl9hY3RpdmUrKyBvciAKPiBtcHAtPm5yX2Fj
+dGl2ZS0tLCB0aGUgYWN0aXZlIHBhdGhzIG1pZ2h0IG5vdCByaWdodCBhbnkgbW9yZS4KPiAKPiBX
+ZSBtZWV0IGFuIGlzc3VlIHdoaWNoIGFjdHVhbGx5IGhhdmUgdGhyZWUgcGF0aHMgYnV0IGFmdGVy
+IGFsbCBwYXRocyAKPiBkb3duIHN5c2xvZyByZXBvcnQgaGF2ZSB0aHJlZSBwYXRocyByZW1haW5p
+bmcgc28gbXVsdGlwYXRoZCBub3Qgc2VuZCAKPiBkaXNhYmxlIHF1ZXVlaW5nIHRvIGRtIGFuZCB0
+aGlzIGRtIGRldmljZSBiZWVuIGJsb2NrZWQuCj4gVGhpcyBwYXRjaCBtaWdodCBmaXggdGhpcyBp
+c3N1ZS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBDaG9uZ3l1biBXdSA8d3UuY2hvbmd5dW5AaDNjLmNv
+bT4KPiAtLS0KPiAgbGlibXVsdGlwYXRoL3N0cnVjdHNfdmVjLmMgfCA4ICsrKysrKy0tCj4gIDEg
+ZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgoKVGhhbmtzIGEg
+bG90IGZvciB5b3VyIHBhdGNoLiBXZSd2ZSBkaXNjdXNzZWQgdGhpcyBwcmV2aW91c2x5LCBhbmQg
+aW4gZ2VuZXJhbCwgdGhlcmUncyBsaXR0bGUgcmVhc29uIG5vdCB0byBkbyBpdCAtIHBhdGhjb3Vu
+dCgpIGlzIGZhc3QsIGFuZCBjb3VsZCBiZSBtYWRlIGV2ZW4gZmFzdGVyLiBCdXQgaWYgd2UgZG8s
+IHdlIHNob3VsZCBkaXRjaCB0aGUgbnJfYWN0aXZlIGZpZWxkIGFsdG9nZXRoZXIgLSBubyBuZWVk
+IHRvIGNhcnJ5IGl0IGFyb3VuZCBpZiB3ZSByZS1jYWxjdWxhdGUgaXQgYW55d2F5IHdoZW4gd2Ug
+bmVlZCBpdC4KCkhvd2V2ZXIsIGl0IHdvcnJpZXMgbWUgYSBiaXQgdGhhdCBucl9hY3RpdmUgbWF5
+IGdvIHdyb25nLiBCb3RoIEJlbiBhbmQgSSBoYXZlIHJldmlld2VkIHRoZSBjb2RlIGFuZCB3ZSB0
+aG91Z2h0IHRoZSBucl9hY3RpdmUgdHJhY2tpbmcgd2FzIGNvcnJlY3QuIFNvbWV0aGluZyBzZWVt
+cyB0byBoYXBwZW4gaW4gb3VyIGNvZGUgdGhhdCB3ZSBkb24ndCB1bmRlcnN0YW5kLgoKIC0gY2Fu
+IHlvdSBwbGVhc2UgY29uZmlybSB0aGF0IHlvdSBhcmUgdXNpbmcgdGhlIGxhdGVzdCBjb2RlLCBj
+b250YWluaW5nIGUyMjRkNTcgImxpYm11dGlwYXRoOiBjb250aW51ZSB0byB1c2Ugb2xkIHN0YXRl
+IG9uIFBBVEhfUEVORElORyIsIDliNzE1YmYgIm11bHRpcGF0aGQ6IEZpeCBtaXNjb3VudGluZyBh
+Y3RpdmUgcGF0aHMiIGFuZCAoaW4gY2FzZSB5b3UncmUgdXNpbmcgdGhlIG1hcmdpbmFsX3BhdGhz
+IG9wdGlvbnMpIGFsc28gN2Q0YjQwZiBhbmQKMDU4ZGY3NyA/CgogLSBJZiB5b3UgaGF2ZSBhIHJl
+bGlhYmxlIHJlcHJvZHVjZXIsIHdvdWxkIHlvdSBtaW5kIGFkZGluZyBsb2cgbWVzc2FnZXMgdG8g
+dGhlIGNvZGUgeW91IGp1c3Qgc3VibWl0dGVkLCBzbyB0aGF0IHdlIGNhbiBvYnNlcnZlIGhvdyBu
+cl9hY3RpdmUgZXZvbHZlcyBpbiB0aW1lLCBhbmQgcGVyaGFwcyB1bmRlcnN0YW5kIHdoeSBpdCdz
+IGdvaW5nIHdyb25nPwoKUmVnYXJkcwpNYXJ0aW4KCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QK
+ZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL3d3dy5yZWRoYXQuY29tL21haWxtYW4vbGlzdGlu
+Zm8vZG0tZGV2ZWw=
