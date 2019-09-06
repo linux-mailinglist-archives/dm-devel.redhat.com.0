@@ -2,99 +2,88 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 183F9AB401
-	for <lists+dm-devel@lfdr.de>; Fri,  6 Sep 2019 10:28:09 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DA9FABAD1
+	for <lists+dm-devel@lfdr.de>; Fri,  6 Sep 2019 16:28:17 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 1E3A1301A3E3;
-	Fri,  6 Sep 2019 08:28:07 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 547F4600CC;
-	Fri,  6 Sep 2019 08:28:03 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 4267510C6973;
+	Fri,  6 Sep 2019 14:28:15 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5053B5D712;
+	Fri,  6 Sep 2019 14:28:14 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 84533180221E;
-	Fri,  6 Sep 2019 08:27:54 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6F7094EE68;
+	Fri,  6 Sep 2019 14:28:08 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x867jaRO002241 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 6 Sep 2019 03:45:36 -0400
+	id x86ERfkL017956 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 6 Sep 2019 10:27:41 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2F36B60C18; Fri,  6 Sep 2019 07:45:36 +0000 (UTC)
+	id 392F0600C8; Fri,  6 Sep 2019 14:27:41 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx16.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.45])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 292CA60C5D
-	for <dm-devel@redhat.com>; Fri,  6 Sep 2019 07:45:33 +0000 (UTC)
-Received: from mail-ed1-f65.google.com (mail-ed1-f65.google.com
-	[209.85.208.65])
+Received: from mx1.redhat.com (ext-mx20.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.49])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 339A7600C4
+	for <dm-devel@redhat.com>; Fri,  6 Sep 2019 14:27:38 +0000 (UTC)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+	[209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 63E303082B43
-	for <dm-devel@redhat.com>; Fri,  6 Sep 2019 07:45:32 +0000 (UTC)
-Received: by mail-ed1-f65.google.com with SMTP id i1so5445733edv.4
-	for <dm-devel@redhat.com>; Fri, 06 Sep 2019 00:45:32 -0700 (PDT)
+	by mx1.redhat.com (Postfix) with ESMTPS id 69D86308FEC1
+	for <dm-devel@redhat.com>; Fri,  6 Sep 2019 14:27:37 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id k2so6727127wmj.4
+	for <dm-devel@redhat.com>; Fri, 06 Sep 2019 07:27:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=android.com; s=20161025;
-	h=from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=zo7pH214UHwzpcJKHz+DSAZKUS6UbKLfm3ouHEw9TdY=;
-	b=eLxc4P2GE5OEYYrsrSZcd7X16YU1qq8WWoRTUyYnrHQ79ArSd+KEhoY0mtL39f86Tu
-	fFTIvKEk3XMAV+o7x2d/e7HmfX5PO5Dol5+343Uh4m08cmCvzWDlPvHXuwaAQMVvcOdO
-	klTXJp+3I35x9Thh+9gMsuP5swWQp1WD3J3lVSXrtXDN9qf5JnuI4bjeu+vyjy11I+aB
-	Lm0r2sHfuNffvOQv3dENiIUPC9g4/MArMpNJNVRHKTBIwAcN+Hv5oX8g+tpMnS5va2OV
-	PMei5Jfu5ry5XHGKlSC42w/5BK61LuSnXtxgpV72kuOHL+uTF5ZjAxtXol7gTV6K4ynD
-	CY7g==
+	d=arrikto-com.20150623.gappssmtp.com; s=20150623;
+	h=from:to:cc:subject:date:message-id;
+	bh=uNhD6UWqX5s3wcrJiKKCW2IoG4hJLxgTKOdwMwRN7Bc=;
+	b=r5h+tQ/VFTG8OtjU1TmkO9I0AyVNQ55PTd0nSPm/XBt3URJny735Dpq+MOaVFQlFJO
+	kLOqCTzLjhZpbj2M2exKumcGvFnT4YVl02Djr8SzLXWWB7qPaweHbzPMxZcSnixxUdZM
+	7ZnWotYqBlyAPm3W4ws1daxtJ7IAe3F1O4jRz8/xkBN4cPP+h+nwKv6mjgoLVtA1BTjk
+	CroUnmVZ+YnGdOmz3O753JA3H+rP/jMfZ7EahquH6R78xdueYUr0C4fa6PJ/CXUKZtZP
+	ZCOfFJbDzuTxXOW3p5eAi/694qAGKielY0dTepsw2x1OslNsd1cxZSQ+Valmqi7opi46
+	Hhyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=zo7pH214UHwzpcJKHz+DSAZKUS6UbKLfm3ouHEw9TdY=;
-	b=mrdNR5F244b+Kj728eCvsGUs1Tx6M9xKZAbgbalseIRaHXcnwQAumv4dNSbJ/jAYnM
-	rInNZJ/wfAMD3J0Sw0o6lGbqTAV9C2idSrQ7u2Yo/8bEfnTEISsm6sGlmckAhf0K0FjT
-	c3OzEUZT+7r5AGB0wOyFYjg70U+0radjsQl7s20qtxzH1u/qP+rJngx6aS/mLI7gvGMT
-	cw7tAm6WK9eZse8LMqSMkqalLt13gEgcsIOD2akNklLl/Im790eDGLRmQ5nc9vfhTnDs
-	cEjOWr70RstjibIM9KS4e+jJuqWppAjuxa1jsdUeejiuSGqCUZ6qiMEUFCETXp8CY4MS
-	WR2Q==
-X-Gm-Message-State: APjAAAWxoFfzRTwKbIVgS/+iC5kOZroO2ibZAL/NAEDKMGyclk8GNMEH
-	2sn2g3CjfEQsnw+k4T9AgUCELQ==
-X-Google-Smtp-Source: APXvYqz5t2n0Cz3SWMqp+PJxO+EEtSxd7CrrMRDClS4OArRgLQd502XG8mJBe7tqpVJIgjUGwvRQVg==
-X-Received: by 2002:a17:906:1903:: with SMTP id
-	a3mr6146192eje.112.1567755930993; 
-	Fri, 06 Sep 2019 00:45:30 -0700 (PDT)
-Received: from maco2.ams.corp.google.com (a83-162-234-235.adsl.xs4all.nl.
-	[83.162.234.235])
-	by smtp.gmail.com with ESMTPSA id z65sm799136ede.86.2019.09.06.00.45.30
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Fri, 06 Sep 2019 00:45:30 -0700 (PDT)
-From: Martijn Coenen <maco@android.com>
-To: agk@redhat.com, snitzer@redhat.com, dm-devel@redhat.com
-Date: Fri,  6 Sep 2019 09:45:26 +0200
-Message-Id: <20190906074526.169194-1-maco@android.com>
-MIME-Version: 1.0
+	h=x-gm-message-state:from:to:cc:subject:date:message-id;
+	bh=uNhD6UWqX5s3wcrJiKKCW2IoG4hJLxgTKOdwMwRN7Bc=;
+	b=ojD2hkrTk92cdYFcX8Nkj0GZNSm3zB7Df0l/sD9x8q+MPlNSD0+KHep6xA6XBAaXRP
+	lD0ctxXqjUw8NpOYkEiwZ77FeBimxVNpSl/AaCGTauxhoTx6Gges7DOVvQzZ1BMBriyj
+	tKxjDqiVtq/osifyuyKBHYEU4kvAAYrMRpqXgmK18MvwyZL+D9uJxZ8PUH6+ojnXbYcv
+	hTrRXrZQvh06m1Ld77eXP+H1J7YnE1iCk4r7kr8hHSugqMmWPbXt70FZijYwscGFNOjY
+	zmKmDrXjsSJKlQ3EccagTv1ecFVQ8EI9mB/Q+ID3Wy7Bp+9WJ/zdZg0Kr3rVLEIaBJGM
+	TzsQ==
+X-Gm-Message-State: APjAAAXO0sF645EEMi48xps9cWjsZyg0LB2xNdGzFvZMSfglppQog//W
+	D8x7Zgqv+Z8pjeZFlWXblIMJXg==
+X-Google-Smtp-Source: APXvYqwfYKfM3AFjp+OdeGwQzDNxgnXG0CQkcmhhMqgsQLe71oQvBHF52KDFWBHnk2eVEZqx9mlPRA==
+X-Received: by 2002:a1c:4384:: with SMTP id q126mr8238818wma.153.1567780056131;
+	Fri, 06 Sep 2019 07:27:36 -0700 (PDT)
+Received: from snf-864.vm.snf.arr ([31.177.62.212])
+	by smtp.gmail.com with ESMTPSA id k6sm10432883wrg.0.2019.09.06.07.27.34
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Fri, 06 Sep 2019 07:27:35 -0700 (PDT)
+From: Nikos Tsironis <ntsironis@arrikto.com>
+To: snitzer@redhat.com, agk@redhat.com, dm-devel@redhat.com
+Date: Fri,  6 Sep 2019 17:26:55 +0300
+Message-Id: <20190906142656.5338-1-ntsironis@arrikto.com>
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.45]);
-	Fri, 06 Sep 2019 07:45:32 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]);
-	Fri, 06 Sep 2019 07:45:32 +0000 (UTC) for IP:'209.85.208.65'
-	DOMAIN:'mail-ed1-f65.google.com' HELO:'mail-ed1-f65.google.com'
-	FROM:'maco@android.com' RCPT:''
-X-RedHat-Spam-Score: -0.102  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
-	DKIM_VALID_AU, RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2,
+	(mx1.redhat.com [10.5.110.49]);
+	Fri, 06 Sep 2019 14:27:37 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]);
+	Fri, 06 Sep 2019 14:27:37 +0000 (UTC) for IP:'209.85.128.42'
+	DOMAIN:'mail-wm1-f42.google.com' HELO:'mail-wm1-f42.google.com'
+	FROM:'ntsironis@arrikto.com' RCPT:''
+X-RedHat-Spam-Score: 0  (DKIM_SIGNED, DKIM_VALID, RCVD_IN_DNSWL_NONE,
 	SPF_HELO_NONE,
-	SPF_PASS) 209.85.208.65 mail-ed1-f65.google.com 209.85.208.65
-	mail-ed1-f65.google.com <maco@android.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.45
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+	SPF_PASS) 209.85.128.42 mail-wm1-f42.google.com 209.85.128.42
+	mail-wm1-f42.google.com <ntsironis@arrikto.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.49
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Fri, 06 Sep 2019 04:27:24 -0400
-Cc: dariofreni@google.com, jiyong@google.com, gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org, maco@google.com,
-	Martijn Coenen <maco@android.com>, ioffe@google.com,
-	narayan@google.com, kernel-team@android.com
-Subject: [dm-devel] [PATCH] dm-bufio: Allow clients to specify an upper
-	bound on cache size.
+Cc: vkoukis@arrikto.com, ntsironis@arrikto.com, iliastsi@arrikto.com
+Subject: [dm-devel] [RFC PATCH v2 0/1] dm: add clone target
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -106,178 +95,84 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]); Fri, 06 Sep 2019 08:28:07 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.65]); Fri, 06 Sep 2019 14:28:16 +0000 (UTC)
 
-The upper limit on the cache size of a client is currently determined by
-dividing the total cache size by the number of clients. However, in some
-cases it is beneficial to give one client a higher limit than others; an
-example is a device with many dm-verity targets, where one target has a
-very large hashtree, and all the others have a small hashtree. Giving
-the target with the large hashtree a higher limit will be beneficial.
-Another example is dm-verity-fec: FEC is only used in (rare) error
-conditions, yet for every dm-verity target with FEC, we create two FEC
-dm-bufio clients, which together have a higher cache limit than the
-dm-verity target itself.
+This patch adds the dm-clone target, which allows cloning of arbitrary
+block devices.
 
-This patchset allows a client to indicate a maximum cache size for its
-client; if that maximum is lower than the calculated per-client limit,
-that maximum will be used instead, and the freed up cache size will be
-allocated to other clients (that haven't set a maximum).
+dm-clone produces a one-to-one copy of an existing, read-only source
+device into a writable destination device: It presents a virtual block
+device which makes all data appear immediately, and redirects reads and
+writes accordingly.
 
-Note that this algorithm is not perfect; if we have 100MB with 3
-clients, where the first set a max of 1MB, the second set a max of 40MB,
-and the third set no maximumm, the ideal allocation would be 1:40:59,
-respectively. However, because the initial per-client limit is 100 / 3
-=~33MB, the requested max of 40MB is over the per-client limit, and
-instead the allocation will end up being ~ 1:40:49. This is still better
-than the original 33:33:33 allocation. An iterative algorithm could do
-better, but it also complicates the code significantly.
+The main use case of dm-clone is to clone a potentially remote,
+high-latency, read-only, archival-type block device into a writable,
+fast, primary-type device for fast, low-latency I/O. The cloned device
+is visible/mountable immediately and the copy of the source device to
+the destination device happens in the background, in parallel with user
+I/O.
 
-Signed-off-by: Martijn Coenen <maco@android.com>
----
- drivers/md/dm-bufio.c    | 60 +++++++++++++++++++++++++++++++++++++---
- include/linux/dm-bufio.h |  7 +++++
- 2 files changed, 63 insertions(+), 4 deletions(-)
+For example, one could restore an application backup from a read-only
+copy, accessible through a network storage protocol (NBD, Fibre Channel,
+iSCSI, AoE, etc.), into a local SSD or NVMe device, and start using the
+device immediately, without waiting for the restore to complete.
 
-diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
-index b6b5acc92ca2d..d116030107c54 100644
---- a/drivers/md/dm-bufio.c
-+++ b/drivers/md/dm-bufio.c
-@@ -25,9 +25,20 @@
-  * Memory management policy:
-  *	Limit the number of buffers to DM_BUFIO_MEMORY_PERCENT of main memory
-  *	or DM_BUFIO_VMALLOC_PERCENT of vmalloc memory (whichever is lower).
-- *	Always allocate at least DM_BUFIO_MIN_BUFFERS buffers.
-- *	Start background writeback when there are DM_BUFIO_WRITEBACK_PERCENT
-- *	dirty buffers.
-+ *
-+ *	By default, all clients have an equal memory limit, which is the total
-+ *	cache size divided by the number of clients. On devices with few
-+ *	clients, this can be quite a large amount, and clients that know an
-+ *	upper bound on their desired cache size can call
-+ *	dm_bufio_set_maximum_buffers() to indicate this, to allow more "needy"
-+ *	clients to get higher limits. In that case, if the per-client memory
-+ *	limit exceeds the requested maximum, we use the requested maximum
-+ *	instead, and divide the freed up space evenly with other clients that
-+ *	haven't requested a maximum.
-+ *
-+ *	Always allocate at least DM_BUFIO_MIN_BUFFERS buffers.  Start
-+ *	background writeback when there are DM_BUFIO_WRITEBACK_PERCENT dirty
-+ *	buffers.
-  */
- #define DM_BUFIO_MIN_BUFFERS		8
- 
-@@ -98,6 +109,7 @@ struct dm_bufio_client {
- 	unsigned need_reserved_buffers;
- 
- 	unsigned minimum_buffers;
-+	unsigned maximum_buffers;
- 
- 	struct rb_root buffer_tree;
- 	wait_queue_head_t free_buffer_wait;
-@@ -310,6 +322,11 @@ static void adjust_total_allocated(unsigned char data_mode, long diff)
-  */
- static void __cache_size_refresh(void)
- {
-+	unsigned long max_cache_size_per_client;
-+	unsigned long remaining_cache_size_to_divide;
-+	struct dm_bufio_client *c;
-+	unsigned int num_clients_to_divide = 0;
-+
- 	BUG_ON(!mutex_is_locked(&dm_bufio_clients_lock));
- 	BUG_ON(dm_bufio_client_count < 0);
- 
-@@ -324,8 +341,22 @@ static void __cache_size_refresh(void)
- 		dm_bufio_cache_size_latch = dm_bufio_default_cache_size;
- 	}
- 
--	dm_bufio_cache_size_per_client = dm_bufio_cache_size_latch /
-+	remaining_cache_size_to_divide = dm_bufio_cache_size_latch;
-+	max_cache_size_per_client = dm_bufio_cache_size_latch /
- 					 (dm_bufio_client_count ? : 1);
-+
-+	list_for_each_entry(c, &dm_bufio_all_clients, client_list) {
-+		unsigned long max = (unsigned long) c->maximum_buffers *
-+			c->block_size;
-+
-+		if (max > 0 && max < max_cache_size_per_client)
-+			remaining_cache_size_to_divide -= max;
-+		else
-+			num_clients_to_divide++;
-+	}
-+
-+	dm_bufio_cache_size_per_client = remaining_cache_size_to_divide /
-+					 (num_clients_to_divide ? : 1);
- }
- 
- /*
-@@ -928,6 +959,15 @@ static void __get_memory_limit(struct dm_bufio_client *c,
- 	else
- 		buffers /= c->block_size;
- 
-+	/*
-+	 * Note that dm_bufio_cache_size_per_client already takes into account
-+	 * clients requesting less than is available; but that means the
-+	 * available cache size per client has increased, and if they were
-+	 * below the per-client limit then, they will still be below the limit
-+	 * now.
-+	 */
-+	if ((c->maximum_buffers > 0) && buffers > c->maximum_buffers)
-+		buffers = c->maximum_buffers;
- 	if (buffers < c->minimum_buffers)
- 		buffers = c->minimum_buffers;
- 
-@@ -1450,6 +1490,17 @@ void dm_bufio_set_minimum_buffers(struct dm_bufio_client *c, unsigned n)
- }
- EXPORT_SYMBOL_GPL(dm_bufio_set_minimum_buffers);
- 
-+void dm_bufio_set_maximum_buffers(struct dm_bufio_client *c, unsigned n)
-+{
-+	mutex_lock(&dm_bufio_clients_lock);
-+
-+	c->maximum_buffers = n;
-+	__cache_size_refresh();
-+
-+	mutex_unlock(&dm_bufio_clients_lock);
-+}
-+EXPORT_SYMBOL(dm_bufio_set_maximum_buffers);
-+
- unsigned dm_bufio_get_block_size(struct dm_bufio_client *c)
- {
- 	return c->block_size;
-@@ -1664,6 +1715,7 @@ struct dm_bufio_client *dm_bufio_client_create(struct block_device *bdev, unsign
- 	c->need_reserved_buffers = reserved_buffers;
- 
- 	dm_bufio_set_minimum_buffers(c, DM_BUFIO_MIN_BUFFERS);
-+	c->maximum_buffers = 0;
- 
- 	init_waitqueue_head(&c->free_buffer_wait);
- 	c->async_write_error = 0;
-diff --git a/include/linux/dm-bufio.h b/include/linux/dm-bufio.h
-index 3c8b7d274bd9b..89f2f04c16ef2 100644
---- a/include/linux/dm-bufio.h
-+++ b/include/linux/dm-bufio.h
-@@ -136,6 +136,13 @@ void dm_bufio_forget(struct dm_bufio_client *c, sector_t block);
-  */
- void dm_bufio_set_minimum_buffers(struct dm_bufio_client *c, unsigned n);
- 
-+/*
-+ * Set the maximum number of buffers a client can hold. If called with a value
-+ * of 0 (which is also the default), the maximum number of buffers is equal to
-+ * the total cache size divided by the number of clients.
-+ */
-+void dm_bufio_set_maximum_buffers(struct dm_bufio_client *c, unsigned n);
-+
- unsigned dm_bufio_get_block_size(struct dm_bufio_client *c);
- sector_t dm_bufio_get_device_size(struct dm_bufio_client *c);
- sector_t dm_bufio_get_block_number(struct dm_buffer *b);
+When the cloning completes, the dm-clone table can be removed altogether
+and be replaced, e.g., by a linear table, mapping directly to the
+destination device.
+
+dm-clone is optimized for small, random writes, with size equal to
+dm-clone's region size, e.g., 4K.
+
+For more information regarding dm-clone's operation, please read the
+attached documentation.
+
+A preliminary test suite for dm-clone can be found at
+https://github.com/arrikto/device-mapper-test-suite/tree/feature-dm-clone
+
+Changes in v2:
+  - Remove needless empty newlines.
+  - Use the term "region" consistently and never call it a block.
+  - Rename "origin" device to "source" device and "clone" device to
+    "destination" device.
+  - Express "hydration_threshold" in multiples of a region.
+  - Rename "hydration_block_size" to "hydration_batch_size" and express
+    it in multiples of a region.
+  - Add missing "static" keyword to __load_bitset_in_core() and
+    __metadata_commit().
+  - clone_message(): Don't print misleading error message about
+    "unsupported message" in case of correct messages with wrong number
+    of arguments.
+  - Rename module parameter "clone_copy_throttle" to
+    "clone_hydration_throttle" to be consistent with its description.
+
+I also updated the test suite to reflect these changes.
+
+v1: https://www.redhat.com/archives/dm-devel/2019-July/msg00088.html
+
+Nikos Tsironis (1):
+  dm: add clone target
+
+ Documentation/device-mapper/dm-clone.rst |  333 +++++
+ drivers/md/Kconfig                       |   14 +
+ drivers/md/Makefile                      |    2 +
+ drivers/md/dm-clone-metadata.c           |  963 +++++++++++++
+ drivers/md/dm-clone-metadata.h           |  158 +++
+ drivers/md/dm-clone-target.c             | 2190 ++++++++++++++++++++++++++++++
+ 6 files changed, 3660 insertions(+)
+ create mode 100644 Documentation/device-mapper/dm-clone.rst
+ create mode 100644 drivers/md/dm-clone-metadata.c
+ create mode 100644 drivers/md/dm-clone-metadata.h
+ create mode 100644 drivers/md/dm-clone-target.c
+
 -- 
-2.23.0.162.g0b9fbb3734-goog
+2.11.0
 
 --
 dm-devel mailing list
