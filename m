@@ -2,47 +2,45 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F931ADB93
-	for <lists+dm-devel@lfdr.de>; Mon,  9 Sep 2019 16:57:58 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B41DAF2FC
+	for <lists+dm-devel@lfdr.de>; Wed, 11 Sep 2019 00:40:12 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 674983090FEF;
-	Mon,  9 Sep 2019 14:57:54 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9E41F60A35;
-	Mon,  9 Sep 2019 14:57:52 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 307E687638;
+	Tue, 10 Sep 2019 22:40:10 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 332D65C21E;
+	Tue, 10 Sep 2019 22:40:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9D32B2551C;
-	Mon,  9 Sep 2019 14:57:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3BCBD180221E;
+	Tue, 10 Sep 2019 22:39:56 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x89EvE6F022697 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 9 Sep 2019 10:57:14 -0400
+	id x8AMdQmu030066 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 10 Sep 2019 18:39:26 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5E8CB61F22; Mon,  9 Sep 2019 14:57:14 +0000 (UTC)
+	id 672436012C; Tue, 10 Sep 2019 22:39:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D6A295D6B2;
-	Mon,  9 Sep 2019 14:57:04 +0000 (UTC)
-Date: Mon, 9 Sep 2019 10:57:04 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: Martijn Coenen <maco@android.com>, Mikulas Patocka <mpatocka@redhat.com>
-Message-ID: <20190909145703.GA16249@redhat.com>
-References: <20190906074526.169194-1-maco@android.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190906074526.169194-1-maco@android.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DC9F8600F8;
+	Tue, 10 Sep 2019 22:39:23 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id x8AMdM5M009381; 
+	Tue, 10 Sep 2019 17:39:22 -0500
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id x8AMdL8B009380;
+	Tue, 10 Sep 2019 17:39:21 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>
+Date: Tue, 10 Sep 2019 17:39:17 -0500
+Message-Id: <1568155161-9343-1-git-send-email-bmarzins@redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
-Cc: dariofreni@google.com, jiyong@google.com, gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org, dm-devel@redhat.com,
-	maco@google.com, ioffe@google.com, narayan@google.com,
-	kernel-team@android.com, agk@redhat.com
-Subject: Re: [dm-devel] dm-bufio: Allow clients to specify an upper bound on
-	cache size.
+Cc: device-mapper development <dm-devel@redhat.com>,
+	Martin Wilck <Martin.Wilck@suse.com>
+Subject: [dm-devel] [PATCH 0/4] misc multipath patches
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -54,54 +52,39 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]); Mon, 09 Sep 2019 14:57:57 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]); Tue, 10 Sep 2019 22:40:11 +0000 (UTC)
 
-On Fri, Sep 06 2019 at  3:45am -0400,
-Martijn Coenen <maco@android.com> wrote:
+These are a couple of disconnected multipath patches.
 
-> The upper limit on the cache size of a client is currently determined by
-> dividing the total cache size by the number of clients. However, in some
-> cases it is beneficial to give one client a higher limit than others; an
-> example is a device with many dm-verity targets, where one target has a
-> very large hashtree, and all the others have a small hashtree. Giving
-> the target with the large hashtree a higher limit will be beneficial.
-> Another example is dm-verity-fec: FEC is only used in (rare) error
-> conditions, yet for every dm-verity target with FEC, we create two FEC
-> dm-bufio clients, which together have a higher cache limit than the
-> dm-verity target itself.
-> 
-> This patchset allows a client to indicate a maximum cache size for its
-> client; if that maximum is lower than the calculated per-client limit,
-> that maximum will be used instead, and the freed up cache size will be
-> allocated to other clients (that haven't set a maximum).
-> 
-> Note that this algorithm is not perfect; if we have 100MB with 3
-> clients, where the first set a max of 1MB, the second set a max of 40MB,
-> and the third set no maximumm, the ideal allocation would be 1:40:59,
-> respectively. However, because the initial per-client limit is 100 / 3
-> =~33MB, the requested max of 40MB is over the per-client limit, and
-> instead the allocation will end up being ~ 1:40:49. This is still better
-> than the original 33:33:33 allocation. An iterative algorithm could do
-> better, but it also complicates the code significantly.
+Benjamin Marzinski (4):
+  mpathpersist: remove broken/unused code
+  libmultipath: EMC PowerMax NVMe device config
+  mpathpersist: fix leaks
+  libmultipath: fix mpcontext initialization
 
-Definitely not very intuitive.. but yes I think it is a reasonable
-tradeoff between your goals and further code complexity to be able to
-achieve the "ideal".
+ libmpathpersist/mpath_persist.c      | 16 ++++----------
+ libmultipath/checkers.c              | 29 ++++++++++++++++++++++++--
+ libmultipath/checkers.h              |  1 +
+ libmultipath/checkers/cciss_tur.c    |  5 +++++
+ libmultipath/checkers/directio.c     |  5 +++++
+ libmultipath/checkers/emc_clariion.c |  7 +++++++
+ libmultipath/checkers/hp_sw.c        |  5 +++++
+ libmultipath/checkers/rdac.c         |  5 +++++
+ libmultipath/checkers/readsector0.c  |  5 +++++
+ libmultipath/checkers/tur.c          |  5 +++++
+ libmultipath/discovery.c             |  2 ++
+ libmultipath/hwtable.c               |  6 ++++++
+ mpathpersist/main.c                  | 31 ++++++++++++++++++----------
+ 13 files changed, 97 insertions(+), 25 deletions(-)
 
-Think the documented example can be made clearer by documenting that
-dm_bufio_cache_size_per_client = 49.  And that _that_ is the reason why
-the client that didn't set a maximum is bounded to 49.
-
-Overall I think this patch looks reasonable, but I'd like Mikulas to
-review this closer before I pick it up.
-
-Thanks,
-Mike
+-- 
+2.17.2
 
 --
 dm-devel mailing list
