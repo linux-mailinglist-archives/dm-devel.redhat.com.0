@@ -2,102 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8397B03DB
-	for <lists+dm-devel@lfdr.de>; Wed, 11 Sep 2019 20:47:35 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+	by mail.lfdr.de (Postfix) with ESMTPS id F09DCB0455
+	for <lists+dm-devel@lfdr.de>; Wed, 11 Sep 2019 21:00:13 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id D03E88A1C8B;
-	Wed, 11 Sep 2019 18:47:32 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 9BCE780038D;
+	Wed, 11 Sep 2019 19:00:10 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B0FEE60852;
-	Wed, 11 Sep 2019 18:47:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6927060C18;
+	Wed, 11 Sep 2019 19:00:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4F8704A460;
-	Wed, 11 Sep 2019 18:47:26 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 45BE42551C;
+	Wed, 11 Sep 2019 19:00:06 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
 	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x8BIl0iv021056 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 11 Sep 2019 14:47:00 -0400
+	id x8BIxduM021867 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 11 Sep 2019 14:59:39 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 874233DB2; Wed, 11 Sep 2019 18:47:00 +0000 (UTC)
+	id CB73419C78; Wed, 11 Sep 2019 18:59:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx20.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.49])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8079419C77
-	for <dm-devel@redhat.com>; Wed, 11 Sep 2019 18:46:58 +0000 (UTC)
-Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
-	[209.85.128.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.redhat.com (ext-mx09.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.38])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 71E8B19C6A;
+	Wed, 11 Sep 2019 18:59:31 +0000 (UTC)
+Received: from mail.stoffel.org (li1843-175.members.linode.com
+	[172.104.24.175])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 98338300B916
-	for <dm-devel@redhat.com>; Wed, 11 Sep 2019 18:46:56 +0000 (UTC)
-Received: by mail-wm1-f65.google.com with SMTP id n10so4766093wmj.0
-	for <dm-devel@redhat.com>; Wed, 11 Sep 2019 11:46:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=arrikto-com.20150623.gappssmtp.com; s=20150623;
-	h=subject:to:cc:references:from:message-id:date:user-agent
-	:mime-version:in-reply-to:content-language:content-transfer-encoding;
-	bh=F1VQEQbUlehPYMDrwrNTFmrN1nMIWQX0CLUFAcGoyCE=;
-	b=fuIL0jqxGSt5usBQ9DaAR9IGYeKXxiBebqXeuAgob4NKA5/X1UZ1yMKYkJv4WhwQTp
-	Bz6BNakHOVmLTSOYLI9cF/UCnYxgZS5RbnMoIR9DMWg2JaChF0EcrwiDsaS63JE68Ktz
-	Jwyobe1TWHBs/T6IAGFZG5p1kscbFKKgzSQPlSlSqjK8MK8HL9/QS5PF0tUjugUTvrxk
-	CbY9Nhu8jBOTBNolFrBfZa+34gLBdxQyUKICkOmxbbXJeeBDcfPnNVpWWDwjeib5Jx6k
-	0BsRxev3drR4ppLY4yUHw9gmjYk94GD0uJ0PCw0R/WrDzBIPGxv8yKi2EVe26Iw/Ge+q
-	IU9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=F1VQEQbUlehPYMDrwrNTFmrN1nMIWQX0CLUFAcGoyCE=;
-	b=GroCPtVQNJHsASyGZjfFqaA2dRc9/VWK5CnM470AMxnJYmk839n//SKWdDXxVXUtbn
-	cxlFxEoZOozKkZuB48xRDXSssdVaR41Fh600XxqwRo/Hp09Iuq6tNXyI/Va0fq2p8BHE
-	0pb/HCzL+ZmGhryJATnsIWKrc8PI/FDpWY0HwM+MNNxZsXZv7Bzyr9naRuIMF2dlj/LD
-	J1VoXiQORU0RzeLTev82df0ZrS1QR9Q9MfKM0YU2trHxbhEjkBV/jaMHC6zf3kPOD5ny
-	oF/GVRTgKVkAFGn9ydauLDZFeWjUDM680UBh0IctX0v5feNmOYYcYgSwzdpDSWU6M5zL
-	OfbQ==
-X-Gm-Message-State: APjAAAVhSqcC7oWp/53rKzGCyDf/0s7UJkJL4eKTMZZXeqdTg7VaXoPQ
-	VrpdqltAtNjjA2PvBgHAiEdpbe84nz0=
-X-Google-Smtp-Source: APXvYqxCEnUtl5HDXhThkjYnR5uNDsGGEPV0oiGejp1aYFqdpo7PUuvt4OgQKzjKiwkXSvuszM6RkA==
-X-Received: by 2002:a1c:2d11:: with SMTP id t17mr5238350wmt.147.1568227615203; 
-	Wed, 11 Sep 2019 11:46:55 -0700 (PDT)
-Received: from [192.168.1.103] (213.16.185.228.dsl.dyn.forthnet.gr.
-	[213.16.185.228]) by smtp.gmail.com with ESMTPSA id
-	r15sm3900695wmh.42.2019.09.11.11.46.54
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Wed, 11 Sep 2019 11:46:54 -0700 (PDT)
-To: Mike Snitzer <snitzer@redhat.com>, kbuild test robot <lkp@intel.com>
-References: <201909120035.YsFPOauD%lkp@intel.com>
-	<20190911182251.GA634@redhat.com>
-From: Nikos Tsironis <ntsironis@arrikto.com>
-Message-ID: <c35fcc93-91a2-20c2-da4c-9bbdee94e510@arrikto.com>
-Date: Wed, 11 Sep 2019 21:46:53 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.8.0
+	by mx1.redhat.com (Postfix) with ESMTPS id 06F8A4ACA5;
+	Wed, 11 Sep 2019 18:59:30 +0000 (UTC)
+Received: from quad.stoffel.org (66-189-75-104.dhcp.oxfr.ma.charter.com
+	[66.189.75.104])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.stoffel.org (Postfix) with ESMTPSA id A4F161E275;
+	Wed, 11 Sep 2019 14:59:28 -0400 (EDT)
+Received: by quad.stoffel.org (Postfix, from userid 1000)
+	id 36B8CA5B0D; Wed, 11 Sep 2019 14:59:28 -0400 (EDT)
 MIME-Version: 1.0
-In-Reply-To: <20190911182251.GA634@redhat.com>
-Content-Language: en-US
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.49]);
-	Wed, 11 Sep 2019 18:46:56 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]);
-	Wed, 11 Sep 2019 18:46:56 +0000 (UTC) for IP:'209.85.128.65'
-	DOMAIN:'mail-wm1-f65.google.com' HELO:'mail-wm1-f65.google.com'
-	FROM:'ntsironis@arrikto.com' RCPT:''
-X-RedHat-Spam-Score: -0.001  (DKIM_SIGNED, DKIM_VALID, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
-	SPF_PASS) 209.85.128.65 mail-wm1-f65.google.com 209.85.128.65
-	mail-wm1-f65.google.com <ntsironis@arrikto.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.49
+Message-ID: <23929.17424.161332.501830@quad.stoffel.home>
+Date: Wed, 11 Sep 2019 14:59:28 -0400
+From: "John Stoffel" <john@stoffel.org>
+To: Mike Snitzer <snitzer@redhat.com>
+In-Reply-To: <20190911133523.GA32121@redhat.com>
+References: <20190911113133.837-1-ming.lei@redhat.com>
+	<20190911133523.GA32121@redhat.com>
+X-Greylist: Sender passed SPF test, ACL 264 matched, not delayed by
+	milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]);
+	Wed, 11 Sep 2019 18:59:30 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]);
+	Wed, 11 Sep 2019 18:59:30 +0000 (UTC) for IP:'172.104.24.175'
+	DOMAIN:'li1843-175.members.linode.com' HELO:'mail.stoffel.org'
+	FROM:'john@stoffel.org' RCPT:''
+X-RedHat-Spam-Score: -0.002  (SPF_HELO_PASS,
+	SPF_PASS) 172.104.24.175 li1843-175.members.linode.com
+	172.104.24.175 li1843-175.members.linode.com <john@stoffel.org>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.38
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, kbuild-all@01.org,
-	Ilias Tsitsimpis <iliastsi@arrikto.com>
-Subject: Re: [dm-devel] [dm:for-next 29/30]
- drivers//md/dm-clone-target.c:563:14: error: implicit declaration of
- function 'vmalloc'; did you mean 'kmalloc'?
+Cc: dm-devel@redhat.com, stable@vger.kernel.org, Ming Lei <ming.lei@redhat.com>
+Subject: Re: [dm-devel] [PATCH V2] dm-raid: fix updating
+	of	max_discard_sectors limit
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -113,140 +80,86 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.69]); Wed, 11 Sep 2019 18:47:34 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.69]); Wed, 11 Sep 2019 19:00:12 +0000 (UTC)
 
-On 9/11/19 9:22 PM, Mike Snitzer wrote:> 
-> I resolved this and pushed new code, thanks!
-> 
+>>>>> "Mike" == Mike Snitzer <snitzer@redhat.com> writes:
 
-Hi Mike,
+Mike> On Wed, Sep 11 2019 at  7:31am -0400,
+Mike> Ming Lei <ming.lei@redhat.com> wrote:
 
-I just saw the report and was about to fix it, but I noticed you have
-already fixed it. Thanks a lot.
-
-I had forgotten to include the header file for vmalloc(), but I saw you
-used kvmalloc(), which is even better.
-
-I took a quick look at the diff and there are a few places that still
-need fixing:
-
-drivers/md/dm-clone-target.c:563: clone->ht = vmalloc(sz *sizeof(struct hash_table_bucket));
-drivers/md/dm-clone-target.c:579: vfree(clone->ht);
-
-Also, the allocation of cmd->region_map is done with kvmalloc(), but the
-deallocation is still done with vfree():
-
-drivers/md/dm-clone-metadata.c:597: vfree(cmd->region_map);
-
-I will be away from keyboard for the rest of the day, but I will take a
-closer look at the diff tomorrow and I will send a new version fixing
-these and any other issues I might find.
-
-Thanks,
-Nikos.
-
-> On Wed, Sep 11 2019 at 12:03pm -0400,
-> kbuild test robot <lkp@intel.com> wrote:
-> 
->> tree:   https://kernel.googlesource.com/pub/scm/linux/kernel/git/device-mapper/linux-dm.git for-next
->> head:   509818079bf1fefff4ed02d6a1b994e20efc0480
->> commit: 1529a543debdf75fb26e7ecd732da0cc36f78a36 [29/30] dm: add clone target
->> config: sparc64-allmodconfig (attached as .config)
->> compiler: sparc64-linux-gcc (GCC) 7.4.0
->> reproduce:
->>         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
->>         chmod +x ~/bin/make.cross
->>         git checkout 1529a543debdf75fb26e7ecd732da0cc36f78a36
->>         # save the attached .config to linux build tree
->>         GCC_VERSION=7.4.0 make.cross ARCH=sparc64 
->>
->> If you fix the issue, kindly add following tag
->> Reported-by: kbuild test robot <lkp@intel.com>
->>
->> All error/warnings (new ones prefixed by >>):
->>
->>    drivers//md/dm-clone-target.c: In function 'hash_table_init':
->>>> drivers//md/dm-clone-target.c:563:14: error: implicit declaration of function 'vmalloc'; did you mean 'kmalloc'? [-Werror=implicit-function-declaration]
->>      clone->ht = vmalloc(sz * sizeof(struct hash_table_bucket));
->>                  ^~~~~~~
->>                  kmalloc
->>>> drivers//md/dm-clone-target.c:563:12: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
->>      clone->ht = vmalloc(sz * sizeof(struct hash_table_bucket));
->>                ^
->>    drivers//md/dm-clone-target.c: In function 'hash_table_exit':
->>>> drivers//md/dm-clone-target.c:579:2: error: implicit declaration of function 'vfree'; did you mean 'kfree'? [-Werror=implicit-function-declaration]
->>      vfree(clone->ht);
->>      ^~~~~
->>      kfree
->>    cc1: some warnings being treated as errors
->> --
->>    drivers//md/dm-clone-metadata.c: In function 'dirty_map_init':
->>>> drivers//md/dm-clone-metadata.c:466:28: error: implicit declaration of function 'vzalloc'; did you mean 'kvzalloc'? [-Werror=implicit-function-declaration]
->>      md->dmap[0].dirty_words = vzalloc(bitmap_size(md->nr_words));
->>                                ^~~~~~~
->>                                kvzalloc
->>>> drivers//md/dm-clone-metadata.c:466:26: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
->>      md->dmap[0].dirty_words = vzalloc(bitmap_size(md->nr_words));
->>                              ^
->>    drivers//md/dm-clone-metadata.c:474:26: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
->>      md->dmap[1].dirty_words = vzalloc(bitmap_size(md->nr_words));
->>                              ^
->>>> drivers//md/dm-clone-metadata.c:478:3: error: implicit declaration of function 'vfree'; did you mean 'kvfree'? [-Werror=implicit-function-declaration]
->>       vfree(md->dmap[0].dirty_words);
->>       ^~~~~
->>       kvfree
->>    drivers//md/dm-clone-metadata.c: In function 'dm_clone_metadata_open':
->>>> drivers//md/dm-clone-metadata.c:553:19: error: implicit declaration of function 'vmalloc'; did you mean 'kvmalloc'? [-Werror=implicit-function-declaration]
->>      md->region_map = vmalloc(bitmap_size(md->nr_regions));
->>                       ^~~~~~~
->>                       kvmalloc
->>    drivers//md/dm-clone-metadata.c:553:17: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
->>      md->region_map = vmalloc(bitmap_size(md->nr_regions));
->>                     ^
->>    cc1: some warnings being treated as errors
->>
->> vim +563 drivers//md/dm-clone-target.c
->>
->>    549	
->>    550	#define bucket_lock_irqsave(bucket, flags) \
->>    551		spin_lock_irqsave(&(bucket)->lock, flags)
->>    552	
->>    553	#define bucket_unlock_irqrestore(bucket, flags) \
->>    554		spin_unlock_irqrestore(&(bucket)->lock, flags)
->>    555	
->>    556	static int hash_table_init(struct clone *clone)
->>    557	{
->>    558		unsigned int i, sz;
->>    559		struct hash_table_bucket *bucket;
->>    560	
->>    561		sz = 1 << HASH_TABLE_BITS;
->>    562	
->>  > 563		clone->ht = vmalloc(sz * sizeof(struct hash_table_bucket));
->>    564		if (!clone->ht)
->>    565			return -ENOMEM;
->>    566	
->>    567		for (i = 0; i < sz; i++) {
->>    568			bucket = clone->ht + i;
->>    569	
->>    570			INIT_HLIST_HEAD(&bucket->head);
->>    571			spin_lock_init(&bucket->lock);
->>    572		}
->>    573	
->>    574		return 0;
->>    575	}
->>    576	
->>    577	static void hash_table_exit(struct clone *clone)
->>    578	{
->>  > 579		vfree(clone->ht);
->>    580	}
->>    581	
->>
+>> Unit of 'chunk_size' is byte, instead of sector, so fix it.
+>> 
+>> Without this fix, too big max_discard_sectors is applied on the request queue
+>> of dm-raid, finally raid code has to split the bio again.
+>> 
+>> This re-split done by raid causes the following nested clone_endio:
+>> 
+>> 1) one big bio 'A' is submitted to dm queue, and served as the original
+>> bio
+>> 
+>> 2) one new bio 'B' is cloned from the original bio 'A', and .map()
+>> is run on this bio of 'B', and B's original bio points to 'A'
+>> 
+>> 3) raid code sees that 'B' is too big, and split 'B' and re-submit
+>> the remainded part of 'B' to dm-raid queue via generic_make_request().
+>> 
+>> 4) now dm will hanlde 'B' as new original bio, then allocate a new
+>> clone bio of 'C' and run .map() on 'C'. Meantime C's original bio
+>> points to 'B'.
+>> 
+>> 5) suppose now 'C' is completed by raid direclty, then the following
+>> clone_endio() is called recursively:
+>> 
+>> clone_endio(C)
+-> clone_endio(B)		#B is original bio of 'C'
+-> bio_endio(A)
+>> 
+>> 'A' can be big enough to make handreds of nested clone_endio(), then
+>> stack can be corrupted easily.
+>> 
+>> Cc: <stable@vger.kernel.org>
+>> Signed-off-by: Ming Lei <ming.lei@redhat.com>
 >> ---
->> 0-DAY kernel test infrastructure                Open Source Technology Center
->> https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
-> 
-> 
+>> V2:
+>> - fix commit log a bit
+>> 
+>> drivers/md/dm-raid.c | 2 +-
+>> 1 file changed, 1 insertion(+), 1 deletion(-)
+>> 
+>> diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
+>> index 8a60a4a070ac..c26aa4e8207a 100644
+>> --- a/drivers/md/dm-raid.c
+>> +++ b/drivers/md/dm-raid.c
+>> @@ -3749,7 +3749,7 @@ static void raid_io_hints(struct dm_target *ti, struct queue_limits *limits)
+>> */
+>> if (rs_is_raid1(rs) || rs_is_raid10(rs)) {
+limits-> discard_granularity = chunk_size;
+>> -		limits->max_discard_sectors = chunk_size;
+>> +		limits->max_discard_sectors = chunk_size >> 9;
+>> }
+>> }
+>> 
+>> -- 
+>> 2.20.1
+>> 
+
+Mike> Thanks a lot Ming!  But oof, really embarassing oversight on my part!
+
+Mike> FYI, I added a "Fixes:" tag to the commit header and switched to
+Mike> shifting by SECTOR_SHIFT instead of 9, staged commit for 5.4 is here:
+
+Mike> https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/commit/?h=dm-5.4&id=509818079bf1fefff4ed02d6a1b994e20efc0480
+
+Mike> --
+Mike> dm-devel mailing list
+Mike> dm-devel@redhat.com
+Mike> https://www.redhat.com/mailman/listinfo/dm-devel
+
+
+
+Would it make sense to re-name the variable to chunk_size_bytes as
+well?  
 
 --
 dm-devel mailing list
