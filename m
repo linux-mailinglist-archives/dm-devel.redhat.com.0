@@ -2,135 +2,106 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8344CB19AE
-	for <lists+dm-devel@lfdr.de>; Fri, 13 Sep 2019 10:33:38 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+	by mail.lfdr.de (Postfix) with ESMTPS id B776FB23D2
+	for <lists+dm-devel@lfdr.de>; Fri, 13 Sep 2019 18:06:39 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 4240D308FBFC;
-	Fri, 13 Sep 2019 08:33:36 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 66FC55C219;
-	Fri, 13 Sep 2019 08:33:33 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 20B89308219E;
+	Fri, 13 Sep 2019 16:06:37 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 95CA9194B9;
+	Fri, 13 Sep 2019 16:06:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D88C42551B;
-	Fri, 13 Sep 2019 08:33:29 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B38F9180221D;
+	Fri, 13 Sep 2019 16:06:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x8D8UsWL009972 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 13 Sep 2019 04:30:54 -0400
+	id x8DG0EuW008414 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 13 Sep 2019 12:00:14 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 474743CCE; Fri, 13 Sep 2019 08:30:54 +0000 (UTC)
+	id 2A0705DA8D; Fri, 13 Sep 2019 16:00:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx29.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.70])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ABDB319C5B;
-	Fri, 13 Sep 2019 08:30:51 +0000 (UTC)
-Received: from m4a0040g.houston.softwaregrp.com
-	(m4a0040g.houston.softwaregrp.com [15.124.2.86])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.redhat.com (ext-mx15.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.44])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1BAD65D9CD;
+	Fri, 13 Sep 2019 16:00:11 +0000 (UTC)
+Received: from mail-qk1-f195.google.com (mail-qk1-f195.google.com
+	[209.85.222.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 9AD8718C892F;
-	Fri, 13 Sep 2019 08:30:46 +0000 (UTC)
-Received: FROM m4a0040g.houston.softwaregrp.com (15.120.17.146) BY
-	m4a0040g.houston.softwaregrp.com WITH ESMTP; 
-	Fri, 13 Sep 2019 08:29:48 +0000
-Received: from M4W0335.microfocus.com (2002:f78:1193::f78:1193) by
-	M4W0334.microfocus.com (2002:f78:1192::f78:1192) with Microsoft SMTP
-	Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
-	15.1.1591.10; Fri, 13 Sep 2019 08:29:06 +0000
-Received: from NAM04-CO1-obe.outbound.protection.outlook.com (15.124.8.14) by
-	M4W0335.microfocus.com (15.120.17.147) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
-	15.1.1591.10 via Frontend Transport; Fri, 13 Sep 2019 08:29:06 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
-	b=VwHu7vzPl/RDskK15BwIjjfuBcwiYwgD5gB3JmAG7AcMvGoTDMT8h3gIZHrz53/K8RiX5eJUno2qZbJf0scWd1hvX5vZU3YwbfPgiuiZ1hL35de+fcD6f6+R45WCTEouJlmwGmcG9NpYwjyb0jHW8mwggbaHlJ3txYGuL8XwoyhyEq3NUJ8smwdtQNkx3LoEQYccZkcR9B6y/wwV+x0jTICGxLEoIT/yLyPPFCzbkVt373RtwZjSh3Wbkizkax+XdC0nkLTzr1hxFOMEk4yml52edE6ShMqPHOsIa/xuVBG38w6SxbK/0svbUXmIaCzRbgNDhIOoQnqKIhMwNnLuTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
-	s=arcselector9901;
-	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
-	bh=o1NB6MCTOKO1JmEiZVxwFutvFWaRpI7IorY9W6Hm1/4=;
-	b=n+fJF2yifYxh2icPThyZ1/aQQ3Tia0Nala/ycSE+g5rYy5NwxWEHsc8XjG3oxvUXiQnwPCYSDKEakruVOsgYqF6nLcyDlhYAfOYg1CTvy9Fo7iO0wkf5QusctzVFS39RJoz3oQ9oobMN7QQUuzceWJ0INOKwIkMmjoytMkrYgprnVBrGQiT8fPZSuPnovZmPEA4jQ0zrp11VKuPePN/NUxJ00s1oY5j25FP1AC4hpjvFpxK5ULuxKrsa56k9hN2L2Qvll5q8nP0PnMhwapWE9MRPfCwFc2RmrDHcm0ZHE/lrtCRjZC2fG9Ps+EMSrK1LH0bGZwCeV1gfnJeHVKv3vw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
-	smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
-	dkim=pass header.d=suse.com; arc=none
-Received: from CH2PR18MB3349.namprd18.prod.outlook.com (52.132.246.91) by
-	CH2PR18MB3253.namprd18.prod.outlook.com (52.132.245.91) with Microsoft
-	SMTP
-	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.2241.18; Fri, 13 Sep 2019 08:28:59 +0000
-Received: from CH2PR18MB3349.namprd18.prod.outlook.com
-	([fe80::d507:1099:1d46:c025]) by
-	CH2PR18MB3349.namprd18.prod.outlook.com
-	([fe80::d507:1099:1d46:c025%6]) with mapi id 15.20.2241.018;
-	Fri, 13 Sep 2019 08:28:59 +0000
-From: Martin Wilck <Martin.Wilck@suse.com>
-To: "bmarzins@redhat.com" <bmarzins@redhat.com>,
-	"christophe.varoqui@opensvc.com" <christophe.varoqui@opensvc.com>
-Thread-Topic: [PATCH 4/4] libmultipath: fix mpcontext initialization
-Thread-Index: AQHVag1KRoqjXBBEcUKAILD89qqSEg==
-Date: Fri, 13 Sep 2019 08:28:59 +0000
-Message-ID: <a7b7b31b82369a51e9490c1a6fd7ce770be3bfbe.camel@suse.com>
-References: <1568155161-9343-1-git-send-email-bmarzins@redhat.com>
-	<1568155161-9343-5-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1568155161-9343-5-git-send-email-bmarzins@redhat.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
-	smtp.mailfrom=Martin.Wilck@suse.com; 
-x-originating-ip: [90.186.0.117]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 55bbb54b-0206-4df6-8fe4-08d738246d40
-x-microsoft-antispam: BCL:0; PCL:0;
-	RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600166)(711020)(4605104)(1401327)(2017052603328)(7193020);
-	SRVR:CH2PR18MB3253; 
-x-ms-traffictypediagnostic: CH2PR18MB3253:
-x-microsoft-antispam-prvs: <CH2PR18MB325360B4D14A02CFEA485178FCB30@CH2PR18MB3253.namprd18.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-forefront-prvs: 0159AC2B97
-x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10019020)(4636009)(39860400002)(366004)(396003)(376002)(346002)(136003)(199004)(189003)(53936002)(6506007)(6512007)(71200400001)(71190400001)(8936002)(2501003)(36756003)(6246003)(66476007)(66556008)(64756008)(66446008)(25786009)(81166006)(305945005)(81156014)(6116002)(229853002)(4326008)(7736002)(118296001)(66946007)(2906002)(66066001)(76116006)(11346002)(446003)(76176011)(91956017)(476003)(186003)(26005)(2616005)(256004)(8676002)(6486002)(3846002)(86362001)(6436002)(110136005)(316002)(5660300002)(486006)(99286004)(478600001)(102836004)(14454004);
-	DIR:OUT; SFP:1102; SCL:1; SRVR:CH2PR18MB3253;
-	H:CH2PR18MB3349.namprd18.prod.outlook.com; FPR:; SPF:None;
-	LANG:en; PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: suse.com does not designate
-	permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: 6VKuSMXllajbn38I7gIvnH4xIo32ninEwuDItrvL3TUp3bMFuy3/2PCXlqo8/Mkv2OHAyVAY713ZlFRk/NN0gY2j4zphmHHitgkhUj2qhj20mYp1/YbfCjMrvvo+cLoCAMg2rhznnYrFMSdtf74dgyp9e20KW6TdilWR5ZqUR0Y80HH6sA7Mt0TgoSHA7PYlie7De/I47gMXrFVrNd/qWpQjZFrF5HhhkqMFqBc5d6q0P/s1oGrHvb1rDKH4zrfq0f52vmGKYYdOGFQevJCiKxGub/LrlmSWC4Pe04Geodeu+KR4ueWXdaj0YoTkyWSccH1V/kBxMZX38+UH4mhhalIznT4Fzsb/6zG6BNbyzEAZuDjvgbdHMikmuuOUxakOg1t45wFuODgMmqeJForqYpVxqIgw/Aw2NnfDs5LPXII=
-x-ms-exchange-transport-forked: True
-Content-ID: <B0A02253C443C74FAD92DC3F381D4ABE@namprd18.prod.outlook.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id 99B0930860CB;
+	Fri, 13 Sep 2019 16:00:09 +0000 (UTC)
+Received: by mail-qk1-f195.google.com with SMTP id y144so20608012qkb.7;
+	Fri, 13 Sep 2019 09:00:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=sender:date:from:to:cc:subject:message-id:references:mime-version
+	:content-disposition:in-reply-to:user-agent;
+	bh=vzFH4j4q3YMrEpL/cQj4ozdunPcbeuloDdvzHOPqU+M=;
+	b=J0DwkFpjrDxipzihDx5yud4w1Sux7bGssB6cepspYVURONhXk7jVnxdMCmxVD9DNR5
+	NU/k2ZtBNB2jpcK4FJuPK7fofTuMr/OLXfwQKMsT/fia+faZLN7o9aAU+uRC7XkMT2XS
+	VoaNZvvFbsFlitc92ThwGsrrM+R3JUM0xP9Mx9zJVZW6YTU+ijCNzosH1si/k0S3P53N
+	uJB1+hckkvIQvOPsh2iFRwAbWEtnpni/h9BM/XoEGkawISarS7gcte3Smnmd/fEFKHkp
+	lP7Chwc7DQPD3RZPFI+QZ8AZnMkBS/0xd6ja+LUcbxmBEKZVDqarM9uqcmlXFkkXEbyn
+	5Png==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+	:references:mime-version:content-disposition:in-reply-to:user-agent;
+	bh=vzFH4j4q3YMrEpL/cQj4ozdunPcbeuloDdvzHOPqU+M=;
+	b=aNCjA+SO270SU7+ipvRqHEjQwpmav/rRYTKBcbOerAoCETcqsBiFEX8rYQAepH8wKa
+	9aptW6TIundYJ9WufQn6dBVrmzM5k6IePwdEEKB5QbQEoyhktS1pmeAQ7CClCOy+eYf+
+	mj3KWNiqDO4U2+G0+EEOjTA37JXVxxmld+5qEm7ma+7jEHbOkdocBhLFhRvyNg0Aps4z
+	cZKqdy/RZLAoLEzwCKOCfMKk/2NuaQRcUHShrTurGnRb6eyNyJAeBqUfa0YKRlytMGdC
+	kOAMZsO09DqJ5A4DYybNk9h/jhPy0hZ+q4HsRKwEYB9R4LByLvLjjFroDHD1IO1as2Od
+	v9IA==
+X-Gm-Message-State: APjAAAXvCT84fYI9k/4Nq6zX16jgg9GHdAzTAFtonVjzanJd9GBWdX5b
+	PWfHFmiPQ4zjueSVS2oc+tgi0FHRvbI=
+X-Google-Smtp-Source: APXvYqzxfsWlmXVz0yEEY6pgXlz3y/pp6KxcF4ebpaeHRqpp3a3Zaw0afNEhapMvMbPzpqNGQzs4rg==
+X-Received: by 2002:a05:620a:1006:: with SMTP id
+	z6mr3318136qkj.319.1568390408269; 
+	Fri, 13 Sep 2019 09:00:08 -0700 (PDT)
+Received: from localhost (nat-pool-bos-t.redhat.com. [66.187.233.206])
+	by smtp.gmail.com with ESMTPSA id
+	s1sm12472287qkj.125.2019.09.13.09.00.07
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Fri, 13 Sep 2019 09:00:07 -0700 (PDT)
+Date: Fri, 13 Sep 2019 12:00:06 -0400
+From: Mike Snitzer <snitzer@redhat.com>
+To: Mikulas Patocka <mpatocka@redhat.com>
+Message-ID: <20190913160006.GA59158@lobo>
+References: <20190912084550.401229120@debian-a64.vm>
+	<03876828-40a1-7adc-d40c-939853e8259c@redhat.com>
+	<alpine.LRH.2.02.1909121206130.31437@file01.intranet.prod.int.rdu2.redhat.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55bbb54b-0206-4df6-8fe4-08d738246d40
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Sep 2019 08:28:59.8060 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: thFXnJx3OZleDdfdwRriH3AKKNeVcrEFzuenku2JyRc30KxYO1dA3EL+ctpVX0mmyY1eietltPEmwuyk0pjYZQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR18MB3253
-X-OriginatorOrg: suse.com
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
-	[10.5.110.70]); Fri, 13 Sep 2019 08:30:51 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.70]);
-	Fri, 13 Sep 2019 08:30:51 +0000 (UTC) for IP:'15.124.2.86'
-	DOMAIN:'m4a0040g.houston.softwaregrp.com'
-	HELO:'m4a0040g.houston.softwaregrp.com'
-	FROM:'Martin.Wilck@suse.com' RCPT:''
-X-RedHat-Spam-Score: 0.001  (RCVD_IN_DNSWL_NONE, SPF_HELO_NONE, SPF_PASS,
-	UNPARSEABLE_RELAY) 15.124.2.86
-	m4a0040g.houston.softwaregrp.com 15.124.2.86
-	m4a0040g.houston.softwaregrp.com <Martin.Wilck@suse.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.70
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-MIME-Autoconverted: from base64 to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id x8D8UsWL009972
+Content-Disposition: inline
+In-Reply-To: <alpine.LRH.2.02.1909121206130.31437@file01.intranet.prod.int.rdu2.redhat.com>
+User-Agent: Mutt/1.11.4 (2019-03-13)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.44]);
+	Fri, 13 Sep 2019 16:00:09 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.44]);
+	Fri, 13 Sep 2019 16:00:09 +0000 (UTC) for IP:'209.85.222.195'
+	DOMAIN:'mail-qk1-f195.google.com'
+	HELO:'mail-qk1-f195.google.com' FROM:'snitzer@gmail.com' RCPT:''
+X-RedHat-Spam-Score: 0.002  (DKIM_SIGNED, DKIM_VALID,
+	FREEMAIL_FORGED_FROMDOMAIN, FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
+	SPF_PASS) 209.85.222.195 mail-qk1-f195.google.com 209.85.222.195
+	mail-qk1-f195.google.com <snitzer@gmail.com>
+X-RedHat-Possible-Forgery: <snitzer@gmail.com> Mike Snitzer
+	<snitzer@redhat.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.44
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH 4/4] libmultipath: fix mpcontext
-	initialization
+Cc: Mike Snitzer <msnitzer@redhat.com>, jiyong@google.com,
+	kernel-team@android.com, Heinz Mauelshagen <heinzm@redhat.com>,
+	dariofreni@google.com, dm-devel@redhat.com, maco@google.com,
+	Martijn Coenen <maco@android.com>, Alasdair G Kergon <agk@redhat.com>
+Subject: Re: [dm-devel] [PATCH v2 5/5] dm-bufio: introduce a global cache
+	replacement
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -146,53 +117,160 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.43]); Fri, 13 Sep 2019 08:33:37 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Fri, 13 Sep 2019 16:06:38 +0000 (UTC)
 
-On Tue, 2019-09-10 at 17:39 -0500, Benjamin Marzinski wrote:
-> If a path is discovered before there is a multipath device for it to
-> belong to, the checker will not have its mpcontext initialized, even
-> if
-> that path later belongs to a multipath device. A checker's mpcontext
-> is
-> only set when the checker is selected, and is set to NULL if there is
-> no
-> multipath device associated with the path. This only impacts the emc
-> checker. However, it makes the emc checker unable to determine if a
-> passive path is connected to an inactive snapshot or not.
+On Thu, Sep 12 2019 at 12:07P -0400,
+Mikulas Patocka <mpatocka@redhat.com> wrote:
+
 > 
-> This can be solved by adding a new checker class function, mp_init().
-> This is called when the checker is first initialized, and whenever
-> the
-> checker is called, if the checker's mpcontext hasn't been
-> initialized.
 > 
-> Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
-> ---
->  libmultipath/checkers.c              | 29
-> ++++++++++++++++++++++++++--
->  libmultipath/checkers.h              |  1 +
->  libmultipath/checkers/cciss_tur.c    |  5 +++++
->  libmultipath/checkers/directio.c     |  5 +++++
->  libmultipath/checkers/emc_clariion.c |  7 +++++++
->  libmultipath/checkers/hp_sw.c        |  5 +++++
->  libmultipath/checkers/rdac.c         |  5 +++++
->  libmultipath/checkers/readsector0.c  |  5 +++++
->  libmultipath/checkers/tur.c          |  5 +++++
->  libmultipath/discovery.c             |  2 ++
->  10 files changed, 67 insertions(+), 2 deletions(-)
+> On Thu, 12 Sep 2019, Heinz Mauelshagen wrote:
 > 
+> > Mikulas,
+> > 
+> > please use list_move instead of list_del/list_add pairs.
+> > 
+> > Heinz
+> 
+> OK. Here I resend it.
+> 
+> 
+> 
+> From: Mikulas Patocka <mpatocka@redhat.com>
+> 
+> This patch introduces a global cache replacement (instead of per-client
+> cleanup).
+> 
+> If one bufio client uses the cache heavily and another client is not using
+> it, we want to let the first client use most of the cache. The old
+> algorithm would partition the cache equally betwen the clients and that is
+> inoptimal.
+> 
+> For cache replacement, we use the clock algorithm because it doesn't
+> require taking any lock when the buffer is accessed.
+> 
+> Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
-I see the problem and agree the solution is correct. But I'd prefer if
-the mp_init() method was optional and, if not defined in the
-libcheckX.so, would simply be set to NULL. So you wouldn't need to
-define empty methods for all checkers except emc. 
+I'd like to fold in this cleanup if you're OK with it.
 
-checker_mp_init() checks for mp_init() being non-NULL anyway.
+Rather use a main control structure for the loop rather than gotos.
 
-Thanks,
-Martin
+You OK with this?
 
+diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
+index 8c6edec8a838..2d519c223562 100644
+--- a/drivers/md/dm-bufio.c
++++ b/drivers/md/dm-bufio.c
+@@ -230,7 +230,6 @@ static LIST_HEAD(dm_bufio_all_clients);
+  */
+ static DEFINE_MUTEX(dm_bufio_clients_lock);
+ 
+-
+ static struct workqueue_struct *dm_bufio_wq;
+ static struct delayed_work dm_bufio_cleanup_old_work;
+ static struct work_struct dm_bufio_replacement_work;
+@@ -1827,62 +1826,60 @@ static void do_global_cleanup(struct work_struct *w)
+ 	struct dm_bufio_client *current_client;
+ 	struct dm_buffer *b;
+ 	unsigned spinlock_hold_count;
+-	unsigned long threshold = dm_bufio_cache_size - dm_bufio_cache_size / DM_BUFIO_LOW_WATERMARK_RATIO;
++	unsigned long threshold = dm_bufio_cache_size -
++		dm_bufio_cache_size / DM_BUFIO_LOW_WATERMARK_RATIO;
+ 	unsigned long loops = global_num * 2;
+ 
+ 	mutex_lock(&dm_bufio_clients_lock);
+ 
+-reacquire_spinlock:
+-	cond_resched();
++	while (1) {
++		cond_resched();
+ 
+-	spin_lock(&global_spinlock);
+-	if (unlikely(dm_bufio_current_allocated <= threshold))
+-		goto exit;
++		spin_lock(&global_spinlock);
++		if (unlikely(dm_bufio_current_allocated <= threshold))
++			break;
+ 
+-	spinlock_hold_count = 0;
++		spinlock_hold_count = 0;
+ get_next:
+-	if (!loops--)
+-		goto exit;
+-	if (unlikely(list_empty(&global_queue)))
+-		goto exit;
+-	b = list_entry(global_queue.prev, struct dm_buffer, global_list);
+-
+-	if (b->accessed) {
+-		b->accessed = 0;
+-		list_move(&b->global_list, &global_queue);
+-		if (likely(++spinlock_hold_count < 16)) {
+-			goto get_next;
+-		}
+-		spin_unlock(&global_spinlock);
+-		goto reacquire_spinlock;
+-	}
+-
+-	current_client = b->c;
+-	if (unlikely(current_client != locked_client)) {
+-		if (locked_client)
+-			dm_bufio_unlock(locked_client);
++		if (!loops--)
++			break;
++		if (unlikely(list_empty(&global_queue)))
++			break;
++		b = list_entry(global_queue.prev, struct dm_buffer, global_list);
+ 
+-		if (!dm_bufio_trylock(current_client)) {
++		if (b->accessed) {
++			b->accessed = 0;
++			list_move(&b->global_list, &global_queue);
++			if (likely(++spinlock_hold_count < 16))
++				goto get_next;
+ 			spin_unlock(&global_spinlock);
+-			dm_bufio_lock(current_client);
+-			locked_client = current_client;
+-			goto reacquire_spinlock;
++			continue;
+ 		}
+ 
+-		locked_client = current_client;
+-	}
++		current_client = b->c;
++		if (unlikely(current_client != locked_client)) {
++			if (locked_client)
++				dm_bufio_unlock(locked_client);
+ 
+-	spin_unlock(&global_spinlock);
++			if (!dm_bufio_trylock(current_client)) {
++				spin_unlock(&global_spinlock);
++				dm_bufio_lock(current_client);
++				locked_client = current_client;
++				continue;
++			}
++
++			locked_client = current_client;
++		}
+ 
+-	if (unlikely(!__try_evict_buffer(b, GFP_KERNEL))) {
+-		spin_lock(&global_spinlock);
+-		list_move(&b->global_list, &global_queue);
+ 		spin_unlock(&global_spinlock);
+-	}
+ 
+-	goto reacquire_spinlock;
++		if (unlikely(!__try_evict_buffer(b, GFP_KERNEL))) {
++			spin_lock(&global_spinlock);
++			list_move(&b->global_list, &global_queue);
++			spin_unlock(&global_spinlock);
++		}
++	}
+ 
+-exit:
+ 	spin_unlock(&global_spinlock);
+ 
+ 	if (locked_client)
 
 --
 dm-devel mailing list
