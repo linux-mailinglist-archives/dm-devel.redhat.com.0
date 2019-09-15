@@ -2,74 +2,130 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E9F5B367A
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BCB7B3679
 	for <lists+dm-devel@lfdr.de>; Mon, 16 Sep 2019 10:38:43 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 07B9518CB8F5;
+	by mx1.redhat.com (Postfix) with ESMTPS id 7763610C0939;
 	Mon, 16 Sep 2019 08:38:41 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C9B0B60606;
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E276E5D9DC;
 	Mon, 16 Sep 2019 08:38:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 24BC51808876;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 27EAA4E58A;
 	Mon, 16 Sep 2019 08:38:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x8DDfVpa032047 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 13 Sep 2019 09:41:31 -0400
+	id x8FJdQBS016100 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 15 Sep 2019 15:39:26 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2C4CC5C22F; Fri, 13 Sep 2019 13:41:31 +0000 (UTC)
+	id 326E45B681; Sun, 15 Sep 2019 19:39:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx25.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.66])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 25ADA5C219
-	for <dm-devel@redhat.com>; Fri, 13 Sep 2019 13:41:26 +0000 (UTC)
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.45])
-	by mx1.redhat.com (Postfix) with ESMTP id DBA1E10F2E81
-	for <dm-devel@redhat.com>; Fri, 13 Sep 2019 13:41:25 +0000 (UTC)
-Received: from mail.ispras.ru (localhost [127.0.0.1])
-	by mail.ispras.ru (Postfix) with ESMTPSA id 9EB1654008B;
-	Fri, 13 Sep 2019 16:41:24 +0300 (MSK)
+Received: from mx1.redhat.com (ext-mx19.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.48])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2C95F5D772
+	for <dm-devel@redhat.com>; Sun, 15 Sep 2019 19:39:23 +0000 (UTC)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+	[91.189.89.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id D0AC7307D960
+	for <dm-devel@redhat.com>; Sun, 15 Sep 2019 19:39:22 +0000 (UTC)
+Received: from mail-qt1-f197.google.com ([209.85.160.197])
+	by youngberry.canonical.com with esmtps
+	(TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+	(envelope-from <gpiccoli@canonical.com>) id 1i9aMj-0003WY-2q
+	for dm-devel@redhat.com; Sun, 15 Sep 2019 19:39:21 +0000
+Received: by mail-qt1-f197.google.com with SMTP id n59so38544264qtd.8
+	for <dm-devel@redhat.com>; Sun, 15 Sep 2019 12:39:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
+	:message-id:date:user-agent:mime-version:in-reply-to
+	:content-language:content-transfer-encoding;
+	bh=jFGCIfzQsU5xnbkAwOQ/cWsVPPngjr/o/8PhxsMzzrI=;
+	b=iV7u7afSgFyq8ibsi54le183c07yp8K0OnhvHCrkX08OmylTTVrBUx1kS6gPFHZeLW
+	Q5iLtD7CH0Jqj2Sed7hPsmU97WZ5fr2H4K4Vf2R1PLQyI3l1Br7xkqMtGzcf5Fc2CK6g
+	SmtSaa1xZthfpSlWDNFmXbbcMBjEKUvt6FIaN40DXMq6moOjqpzvhaZL2lvWQ/TB8TZn
+	RMTLMSfrMtC1w02cE2gEBWbaU/k0OxpsmJuZ4yVp00hhfiY1P9xOVOXlogS7glQsbxiE
+	8ziyozbUR7ThvD92Q0qxT+Adupyq0JjdqyJcleZyF8WwINJbWG/gS1qOj/H9tv1Q0jmL
+	cRMg==
+X-Gm-Message-State: APjAAAWhhijAut2egi/mw//NgqCJOVOw/MNTupEGdKAK0XTnTiOJ6iII
+	1U0FZrWClzFVOHOPhcgDolidIkg5yaOqI73kc/teKo7ycNK/yzKJXlHJR20qNdC5ArAeD6NX0hv
+	V4VnEviQwTafH2jR7XMV+3QahCR0P4Q==
+X-Received: by 2002:ac8:36b7:: with SMTP id a52mr14358114qtc.181.1568576360321;
+	Sun, 15 Sep 2019 12:39:20 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqwwyo50DPpAitPmFw2d2/Jnhl2dHtjT1HtTBsLwqq5BMzRsdx7D4p/nHvvIEbElTyONxI06rw==
+X-Received: by 2002:ac8:36b7:: with SMTP id a52mr14358098qtc.181.1568576360149;
+	Sun, 15 Sep 2019 12:39:20 -0700 (PDT)
+Received: from [192.168.0.239] ([177.183.163.179])
+	by smtp.gmail.com with ESMTPSA id
+	w131sm3088195qka.85.2019.09.15.12.39.15
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Sun, 15 Sep 2019 12:39:19 -0700 (PDT)
+To: Jes Sorensen <jsorensen@fb.com>,
+	"jes.sorensen@gmail.com" <jes.sorensen@gmail.com>
+References: <20190903194901.13524-1-gpiccoli@canonical.com>
+	<20190903194901.13524-2-gpiccoli@canonical.com>
+	<A0D1B6AB-50CF-4B38-8452-A4E18AFDC8EB@fb.com>
+From: "Guilherme G. Piccoli" <gpiccoli@canonical.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=gpiccoli@canonical.com; prefer-encrypt=mutual; keydata=
+	mQENBFpVBxcBCADPNKmu2iNKLepiv8+Ssx7+fVR8lrL7cvakMNFPXsXk+f0Bgq9NazNKWJIn
+	Qxpa1iEWTZcLS8ikjatHMECJJqWlt2YcjU5MGbH1mZh+bT3RxrJRhxONz5e5YILyNp7jX+Vh
+	30rhj3J0vdrlIhPS8/bAt5tvTb3ceWEic9mWZMsosPavsKVcLIO6iZFlzXVu2WJ9cov8eQM/
+	irIgzvmFEcRyiQ4K+XUhuA0ccGwgvoJv4/GWVPJFHfMX9+dat0Ev8HQEbN/mko/bUS4Wprdv
+	7HR5tP9efSLucnsVzay0O6niZ61e5c97oUa9bdqHyApkCnGgKCpg7OZqLMM9Y3EcdMIJABEB
+	AAG0LUd1aWxoZXJtZSBHLiBQaWNjb2xpIDxncGljY29saUBjYW5vbmljYWwuY29tPokBNwQT
+	AQgAIQUCWmClvQIbAwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRDOR5EF9K/7Gza3B/9d
+	5yczvEwvlh6ksYq+juyuElLvNwMFuyMPsvMfP38UslU8S3lf+ETukN1S8XVdeq9yscwtsRW/
+	4YoUwHinJGRovqy8gFlm3SAtjfdqysgJqUJwBmOtcsHkmvFXJmPPGVoH9rMCUr9s6VDPox8f
+	q2W5M7XE9YpsfchS/0fMn+DenhQpV3W6pbLtuDvH/81GKrhxO8whSEkByZbbc+mqRhUSTdN3
+	iMpRL0sULKPVYbVMbQEAnfJJ1LDkPqlTikAgt3peP7AaSpGs1e3pFzSEEW1VD2jIUmmDku0D
+	LmTHRl4t9KpbU/H2/OPZkrm7809QovJGRAxjLLPcYOAP7DUeltveuQENBFpVBxcBCADbxD6J
+	aNw/KgiSsbx5Sv8nNqO1ObTjhDR1wJw+02Bar9DGuFvx5/qs3ArSZkl8qX0X9Vhptk8rYnkn
+	pfcrtPBYLoux8zmrGPA5vRgK2ItvSc0WN31YR/6nqnMfeC4CumFa/yLl26uzHJa5RYYQ47jg
+	kZPehpc7IqEQ5IKy6cCKjgAkuvM1rDP1kWQ9noVhTUFr2SYVTT/WBHqUWorjhu57/OREo+Tl
+	nxI1KrnmW0DbF52tYoHLt85dK10HQrV35OEFXuz0QPSNrYJT0CZHpUprkUxrupDgkM+2F5LI
+	bIcaIQ4uDMWRyHpDbczQtmTke0x41AeIND3GUc+PQ4hWGp9XABEBAAGJAR8EGAEIAAkFAlpV
+	BxcCGwwACgkQzkeRBfSv+xv1wwgAj39/45O3eHN5pK0XMyiRF4ihH9p1+8JVfBoSQw7AJ6oU
+	1Hoa+sZnlag/l2GTjC8dfEGNoZd3aRxqfkTrpu2TcfT6jIAsxGjnu+fUCoRNZzmjvRziw3T8
+	egSPz+GbNXrTXB8g/nc9mqHPPprOiVHDSK8aGoBqkQAPZDjUtRwVx112wtaQwArT2+bDbb/Y
+	Yh6gTrYoRYHo6FuQl5YsHop/fmTahpTx11IMjuh6IJQ+lvdpdfYJ6hmAZ9kiVszDF6pGFVkY
+	kHWtnE2Aa5qkxnA2HoFpqFifNWn5TyvJFpyqwVhVI8XYtXyVHub/WbXLWQwSJA4OHmqU8gDl
+	X18zwLgdiQ==
+Message-ID: <5a17d353-3d47-d994-d462-cbe1e9d75778@canonical.com>
+Date: Sun, 15 Sep 2019 16:39:11 -0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.8.0
 MIME-Version: 1.0
-Date: Fri, 13 Sep 2019 16:41:24 +0300
-From: efremov <efremov@ispras.ru>
-To: Denis Efremov <efremov@ispras.ru>
-Organization: ISPRAS
-In-Reply-To: <85d9e45a-9631-a139-2d65-86a6753a35e6@ispras.ru>
-References: <20190821074200.2203-1-efremov@ispras.ru>
-	<20190824100102.1167-1-efremov@ispras.ru>
-	<20190825061158.GC28002@bombadil.infradead.org>
-	<ba051566-0343-ea75-0484-8852f65a15da@ispras.ru>
-	<20190826183956.GF15933@bombadil.infradead.org>
-	<85d9e45a-9631-a139-2d65-86a6753a35e6@ispras.ru>
-Message-ID: <b9471f7165bf57e348729a09e07d7055@ispras.ru>
-X-Sender: efremov@ispras.ru
-User-Agent: Roundcube Webmail/1.1.2
+In-Reply-To: <A0D1B6AB-50CF-4B38-8452-A4E18AFDC8EB@fb.com>
+Content-Language: en-US
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
-	[10.5.110.66]); Fri, 13 Sep 2019 13:41:26 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.66]);
-	Fri, 13 Sep 2019 13:41:26 +0000 (UTC) for IP:'83.149.199.45'
-	DOMAIN:'mail.ispras.ru' HELO:'mail.ispras.ru'
-	FROM:'efremov@ispras.ru' RCPT:''
-X-RedHat-Spam-Score: 0  (RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
-	SPF_PASS) 83.149.199.45 mail.ispras.ru 83.149.199.45
-	mail.ispras.ru <efremov@ispras.ru>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.66
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.48]); Sun, 15 Sep 2019 19:39:23 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]);
+	Sun, 15 Sep 2019 19:39:23 +0000 (UTC) for IP:'91.189.89.112'
+	DOMAIN:'youngberry.canonical.com'
+	HELO:'youngberry.canonical.com' FROM:'gpiccoli@canonical.com'
+	RCPT:''
+X-RedHat-Spam-Score: -4.998  (RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
+	SPF_NONE) 91.189.89.112 youngberry.canonical.com
+	91.189.89.112 youngberry.canonical.com <gpiccoli@canonical.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.48
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 16 Sep 2019 04:38:17 -0400
-Cc: Shelekhov <vshel@iis.nsk.su>, Jan Kara <jack@suse.cz>, Vladimir,
-	Matthew Wilcox <matthew@wil.cx>, Akinobu, Mita <akinobu.mita@gmail.com>,
-	Matthew Wilcox <willy@infradead.org>,
-	linux-kernel@vger.kernel.org, dm-devel@redhat.com,
-	Erdem Tumurov <erdemus@gmail.com>, linux-fsdevel@vger.kernel.org,
-	akpm@linux-foundation.org, linux-media@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v2] lib/memweight.c: open codes
-	bitmap_weight()
+Cc: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	Song Liu <songliubraving@fb.com>, "nfbrown@suse.com" <nfbrown@suse.com>,
+	"liu.song.a23@gmail.com" <liu.song.a23@gmail.com>,
+	linux-raid <linux-raid@vger.kernel.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"jay.vosburgh@canonical.com" <jay.vosburgh@canonical.com>
+Subject: Re: [dm-devel] [PATCH v4 2/2] mdadm: Introduce new array state
+ 'broken' for raid0/linear
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,35 +137,39 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.63]); Mon, 16 Sep 2019 08:38:42 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.66]); Mon, 16 Sep 2019 08:38:42 +0000 (UTC)
 
-U29ycnksIG5vIHF1ZXN0aW9uLCBwb2ludGVyIGFsaWdubWVudCBvZiBjb3Vyc2UuCgpEZW5pcyBF
-ZnJlbW92INC/0LjRgdCw0LsgMjAxOS0wOS0xMyAxNDo0ODoKPiBIaSwKPiAKPiBTb3JyeSBmb3Ig
-cmV2aXZpbmcgdGhpcyBjb252ZXJzYXRpb24sIGJ1dCBpdCBsb29rcyB0byBtZSBsaWtlCj4gdGhp
-cyBmdW5jdGlvbiBjb3VsZCBiZSByZWR1Y2VkIHRvIGEgc2luZ2xlIGJpdG1hcF93ZWlnaHQgY2Fs
-bDoKPiAKPiBzdGF0aWMgaW5saW5lIHNpemVfdCBtZW13ZWlnaHQoY29uc3Qgdm9pZCAqcHRyLCBz
-aXplX3QgYnl0ZXMpCj4gewo+ICAgICAgICAgQlVHX09OKGJ5dGVzID49IFVJTlRfTUFYIC8gQklU
-U19QRVJfQllURSk7Cj4gICAgICAgICByZXR1cm4gYml0bWFwX3dlaWdodChwdHIsIGJ5dGVzICog
-QklUU19QRVJfQllURSk7Cj4gfQo+IAo+IENvbXBhcmluZyB0byB0aGUgY3VycmVudCBpbXBsZW1l
-bnRhdGlvbgo+IGh0dHBzOi8vZWxpeGlyLmJvb3RsaW4uY29tL2xpbnV4L2xhdGVzdC9zb3VyY2Uv
-bGliL21lbXdlaWdodC5jI0wxMQo+IHRoaXMgcmVzdWx0cyBpbiBhIHNpZ25pZmljYXRpb24gc2lt
-cGxpZmljYXRpb24uCj4gCj4gX19iaXRtYXBfd2VpZ2h0IGFscmVhZHkgY291bnQgbGFzdCBiaXRz
-IHdpdGggaHdlaWdodF9sb25nIGFzIHdlCj4gZGlzY3Vzc2VkIGVhcmxpZXIuCj4gCj4gaW50IF9f
-Yml0bWFwX3dlaWdodChjb25zdCB1bnNpZ25lZCBsb25nICpiaXRtYXAsIHVuc2lnbmVkIGludCBi
-aXRzKQo+IHsKPiAJLi4uCj4gCWlmIChiaXRzICUgQklUU19QRVJfTE9ORykKPiAJCXcgKz0gaHdl
-aWdodF9sb25nKGJpdG1hcFtrXSAmIEJJVE1BUF9MQVNUX1dPUkRfTUFTSyhiaXRzKSk7Cj4gCS4u
-Lgo+IH0KPiAKPiBhbmQgX19hcmNoX2h3ZWlnaHQqIGZ1bmN0aW9ucyB1c2UgcG9wY250IGluc3Ry
-dWN0aW9uLgo+IAo+IEkndmUgYnJpZWZseSB0ZXN0ZWQgdGhlIGVxdWl2YWxlbmNlIG9mIDIgaW1w
-bGVtZW50YXRpb25zIG9uIHg4Nl82NCB3aXRoCj4gZnV6emluZyBoZXJlOiAKPiBodHRwczovL2dp
-c3QuZ2l0aHViLmNvbS9ldmRlbmlzLzk1YThiOWI4MDQxZTA5MzY4YjMxYzNhOTUxMDQ5MWE1Cj4g
-Cj4gV2hhdCBkbyB5b3UgdGhpbmsgbWFraW5nIHRoaXMgZnVuY3Rpb24gc3RhdGljIGlubGluZSBh
-bmQgbW92aW5nIGl0Cj4gdG8gaW5jbHVkZS9saW51eC9zdHJpbmcuaD8gSSBjb3VsZCBwcmVwYXJl
-IGEgcGF0Y2ggZm9yIGl0IGFuZCBhZGQgc29tZSAKPiB0ZXN0cyBmb3IKPiBtZW13ZWlnaHQgYW5k
-IGJpdG1hcF93ZWlnaHQuIE9yIG1heWJlIEkgbWlzcyBzb21ldGhpbmcgYWdhaW4/Cj4gCj4gQmVz
-dCByZWdhcmRzLAo+IERlbmlzCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVk
-aGF0LmNvbQpodHRwczovL3d3dy5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWw=
+On 04/09/2019 12:51, Song Liu wrote:
+> [...] 
+>>
+>> Cc: Jes Sorensen <jes.sorensen@gmail.com>
+>> Cc: NeilBrown <neilb@suse.de>
+>> Cc: Song Liu <songliubraving@fb.com>
+>> Signed-off-by: Guilherme G. Piccoli <gpiccoli@canonical.com>
+> 
+> Acked-by: Song Liu <songliubraving@fb.com>
+> 
+> Jes, does this look good?
+> 
+> Thanks,
+> Song
+> 
+
+Jes, do you have any comment about this patch? It'd be good having this
+code merged before the 5.4 kernel windows ends, since the kernel
+counterpart is ready to get merged (it's on Jens' tree).
+
+Thanks in advance,
+
+
+Guilherme
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
