@@ -2,130 +2,51 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BCB7B3679
-	for <lists+dm-devel@lfdr.de>; Mon, 16 Sep 2019 10:38:43 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id ABF6CB379B
+	for <lists+dm-devel@lfdr.de>; Mon, 16 Sep 2019 11:56:11 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 7763610C0939;
-	Mon, 16 Sep 2019 08:38:41 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id BFE598750EF;
+	Mon, 16 Sep 2019 09:56:08 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E276E5D9DC;
-	Mon, 16 Sep 2019 08:38:40 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 060345D6A3;
+	Mon, 16 Sep 2019 09:56:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 27EAA4E58A;
-	Mon, 16 Sep 2019 08:38:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C2E644E589;
+	Mon, 16 Sep 2019 09:55:58 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x8FJdQBS016100 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 15 Sep 2019 15:39:26 -0400
+	id x8G9tm4U017223 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 16 Sep 2019 05:55:48 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 326E45B681; Sun, 15 Sep 2019 19:39:26 +0000 (UTC)
+	id 79A4E60610; Mon, 16 Sep 2019 09:55:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx19.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.48])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2C95F5D772
-	for <dm-devel@redhat.com>; Sun, 15 Sep 2019 19:39:23 +0000 (UTC)
-Received: from youngberry.canonical.com (youngberry.canonical.com
-	[91.189.89.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id D0AC7307D960
-	for <dm-devel@redhat.com>; Sun, 15 Sep 2019 19:39:22 +0000 (UTC)
-Received: from mail-qt1-f197.google.com ([209.85.160.197])
-	by youngberry.canonical.com with esmtps
-	(TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
-	(envelope-from <gpiccoli@canonical.com>) id 1i9aMj-0003WY-2q
-	for dm-devel@redhat.com; Sun, 15 Sep 2019 19:39:21 +0000
-Received: by mail-qt1-f197.google.com with SMTP id n59so38544264qtd.8
-	for <dm-devel@redhat.com>; Sun, 15 Sep 2019 12:39:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
-	:message-id:date:user-agent:mime-version:in-reply-to
-	:content-language:content-transfer-encoding;
-	bh=jFGCIfzQsU5xnbkAwOQ/cWsVPPngjr/o/8PhxsMzzrI=;
-	b=iV7u7afSgFyq8ibsi54le183c07yp8K0OnhvHCrkX08OmylTTVrBUx1kS6gPFHZeLW
-	Q5iLtD7CH0Jqj2Sed7hPsmU97WZ5fr2H4K4Vf2R1PLQyI3l1Br7xkqMtGzcf5Fc2CK6g
-	SmtSaa1xZthfpSlWDNFmXbbcMBjEKUvt6FIaN40DXMq6moOjqpzvhaZL2lvWQ/TB8TZn
-	RMTLMSfrMtC1w02cE2gEBWbaU/k0OxpsmJuZ4yVp00hhfiY1P9xOVOXlogS7glQsbxiE
-	8ziyozbUR7ThvD92Q0qxT+Adupyq0JjdqyJcleZyF8WwINJbWG/gS1qOj/H9tv1Q0jmL
-	cRMg==
-X-Gm-Message-State: APjAAAWhhijAut2egi/mw//NgqCJOVOw/MNTupEGdKAK0XTnTiOJ6iII
-	1U0FZrWClzFVOHOPhcgDolidIkg5yaOqI73kc/teKo7ycNK/yzKJXlHJR20qNdC5ArAeD6NX0hv
-	V4VnEviQwTafH2jR7XMV+3QahCR0P4Q==
-X-Received: by 2002:ac8:36b7:: with SMTP id a52mr14358114qtc.181.1568576360321;
-	Sun, 15 Sep 2019 12:39:20 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqwwyo50DPpAitPmFw2d2/Jnhl2dHtjT1HtTBsLwqq5BMzRsdx7D4p/nHvvIEbElTyONxI06rw==
-X-Received: by 2002:ac8:36b7:: with SMTP id a52mr14358098qtc.181.1568576360149;
-	Sun, 15 Sep 2019 12:39:20 -0700 (PDT)
-Received: from [192.168.0.239] ([177.183.163.179])
-	by smtp.gmail.com with ESMTPSA id
-	w131sm3088195qka.85.2019.09.15.12.39.15
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Sun, 15 Sep 2019 12:39:19 -0700 (PDT)
-To: Jes Sorensen <jsorensen@fb.com>,
-	"jes.sorensen@gmail.com" <jes.sorensen@gmail.com>
-References: <20190903194901.13524-1-gpiccoli@canonical.com>
-	<20190903194901.13524-2-gpiccoli@canonical.com>
-	<A0D1B6AB-50CF-4B38-8452-A4E18AFDC8EB@fb.com>
-From: "Guilherme G. Piccoli" <gpiccoli@canonical.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=gpiccoli@canonical.com; prefer-encrypt=mutual; keydata=
-	mQENBFpVBxcBCADPNKmu2iNKLepiv8+Ssx7+fVR8lrL7cvakMNFPXsXk+f0Bgq9NazNKWJIn
-	Qxpa1iEWTZcLS8ikjatHMECJJqWlt2YcjU5MGbH1mZh+bT3RxrJRhxONz5e5YILyNp7jX+Vh
-	30rhj3J0vdrlIhPS8/bAt5tvTb3ceWEic9mWZMsosPavsKVcLIO6iZFlzXVu2WJ9cov8eQM/
-	irIgzvmFEcRyiQ4K+XUhuA0ccGwgvoJv4/GWVPJFHfMX9+dat0Ev8HQEbN/mko/bUS4Wprdv
-	7HR5tP9efSLucnsVzay0O6niZ61e5c97oUa9bdqHyApkCnGgKCpg7OZqLMM9Y3EcdMIJABEB
-	AAG0LUd1aWxoZXJtZSBHLiBQaWNjb2xpIDxncGljY29saUBjYW5vbmljYWwuY29tPokBNwQT
-	AQgAIQUCWmClvQIbAwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRDOR5EF9K/7Gza3B/9d
-	5yczvEwvlh6ksYq+juyuElLvNwMFuyMPsvMfP38UslU8S3lf+ETukN1S8XVdeq9yscwtsRW/
-	4YoUwHinJGRovqy8gFlm3SAtjfdqysgJqUJwBmOtcsHkmvFXJmPPGVoH9rMCUr9s6VDPox8f
-	q2W5M7XE9YpsfchS/0fMn+DenhQpV3W6pbLtuDvH/81GKrhxO8whSEkByZbbc+mqRhUSTdN3
-	iMpRL0sULKPVYbVMbQEAnfJJ1LDkPqlTikAgt3peP7AaSpGs1e3pFzSEEW1VD2jIUmmDku0D
-	LmTHRl4t9KpbU/H2/OPZkrm7809QovJGRAxjLLPcYOAP7DUeltveuQENBFpVBxcBCADbxD6J
-	aNw/KgiSsbx5Sv8nNqO1ObTjhDR1wJw+02Bar9DGuFvx5/qs3ArSZkl8qX0X9Vhptk8rYnkn
-	pfcrtPBYLoux8zmrGPA5vRgK2ItvSc0WN31YR/6nqnMfeC4CumFa/yLl26uzHJa5RYYQ47jg
-	kZPehpc7IqEQ5IKy6cCKjgAkuvM1rDP1kWQ9noVhTUFr2SYVTT/WBHqUWorjhu57/OREo+Tl
-	nxI1KrnmW0DbF52tYoHLt85dK10HQrV35OEFXuz0QPSNrYJT0CZHpUprkUxrupDgkM+2F5LI
-	bIcaIQ4uDMWRyHpDbczQtmTke0x41AeIND3GUc+PQ4hWGp9XABEBAAGJAR8EGAEIAAkFAlpV
-	BxcCGwwACgkQzkeRBfSv+xv1wwgAj39/45O3eHN5pK0XMyiRF4ihH9p1+8JVfBoSQw7AJ6oU
-	1Hoa+sZnlag/l2GTjC8dfEGNoZd3aRxqfkTrpu2TcfT6jIAsxGjnu+fUCoRNZzmjvRziw3T8
-	egSPz+GbNXrTXB8g/nc9mqHPPprOiVHDSK8aGoBqkQAPZDjUtRwVx112wtaQwArT2+bDbb/Y
-	Yh6gTrYoRYHo6FuQl5YsHop/fmTahpTx11IMjuh6IJQ+lvdpdfYJ6hmAZ9kiVszDF6pGFVkY
-	kHWtnE2Aa5qkxnA2HoFpqFifNWn5TyvJFpyqwVhVI8XYtXyVHub/WbXLWQwSJA4OHmqU8gDl
-	X18zwLgdiQ==
-Message-ID: <5a17d353-3d47-d994-d462-cbe1e9d75778@canonical.com>
-Date: Sun, 15 Sep 2019 16:39:11 -0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.8.0
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 928B5608C2;
+	Mon, 16 Sep 2019 09:55:43 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id x8G9thu6013012; Mon, 16 Sep 2019 05:55:43 -0400
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id x8G9thkb013008; Mon, 16 Sep 2019 05:55:43 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Mon, 16 Sep 2019 05:55:42 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Milan Broz <mbroz@redhat.com>, Mike Snitzer <msnitzer@redhat.com>,
+	Zdenek Kabelac <zkabelac@redhat.com>
+Message-ID: <alpine.LRH.2.02.1909160553360.11421@file01.intranet.prod.int.rdu2.redhat.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-In-Reply-To: <A0D1B6AB-50CF-4B38-8452-A4E18AFDC8EB@fb.com>
-Content-Language: en-US
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.48]); Sun, 15 Sep 2019 19:39:23 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]);
-	Sun, 15 Sep 2019 19:39:23 +0000 (UTC) for IP:'91.189.89.112'
-	DOMAIN:'youngberry.canonical.com'
-	HELO:'youngberry.canonical.com' FROM:'gpiccoli@canonical.com'
-	RCPT:''
-X-RedHat-Spam-Score: -4.998  (RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
-	SPF_NONE) 91.189.89.112 youngberry.canonical.com
-	91.189.89.112 youngberry.canonical.com <gpiccoli@canonical.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.48
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Mon, 16 Sep 2019 04:38:17 -0400
-Cc: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	Song Liu <songliubraving@fb.com>, "nfbrown@suse.com" <nfbrown@suse.com>,
-	"liu.song.a23@gmail.com" <liu.song.a23@gmail.com>,
-	linux-raid <linux-raid@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"jay.vosburgh@canonical.com" <jay.vosburgh@canonical.com>
-Subject: Re: [dm-devel] [PATCH v4 2/2] mdadm: Introduce new array state
- 'broken' for raid0/linear
+Cc: dm-devel@redhat.com, lvm-devel@redhat.com
+Subject: [dm-devel] [PATCH] dm: introduce DM_GET_TARGET_VERSION
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -141,33 +62,125 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.66]); Mon, 16 Sep 2019 08:38:42 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.68]); Mon, 16 Sep 2019 09:56:10 +0000 (UTC)
 
-On 04/09/2019 12:51, Song Liu wrote:
-> [...] 
->>
->> Cc: Jes Sorensen <jes.sorensen@gmail.com>
->> Cc: NeilBrown <neilb@suse.de>
->> Cc: Song Liu <songliubraving@fb.com>
->> Signed-off-by: Guilherme G. Piccoli <gpiccoli@canonical.com>
-> 
-> Acked-by: Song Liu <songliubraving@fb.com>
-> 
-> Jes, does this look good?
-> 
-> Thanks,
-> Song
-> 
+This patch introduces a new ioctl DM_GET_TARGET_VERSION. It will load a
+target that is specified in the "name" entry in the parameter structure
+and return its version.
 
-Jes, do you have any comment about this patch? It'd be good having this
-code merged before the 5.4 kernel windows ends, since the kernel
-counterpart is ready to get merged (it's on Jens' tree).
+This functionality is intended to be used by cryptsetup, so that it can
+query kernel capabilities before activating the device.
 
-Thanks in advance,
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
+---
+ drivers/md/dm-ioctl.c         |   32 +++++++++++++++++++++++++++++---
+ include/uapi/linux/dm-ioctl.h |    6 ++++--
+ 2 files changed, 33 insertions(+), 5 deletions(-)
 
-Guilherme
+Index: linux-2.6/drivers/md/dm-ioctl.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-ioctl.c	2019-09-16 11:42:45.000000000 +0200
++++ linux-2.6/drivers/md/dm-ioctl.c	2019-09-16 11:50:10.000000000 +0200
+@@ -601,17 +601,27 @@ static void list_version_get_info(struct
+     info->vers = align_ptr(((void *) ++info->vers) + strlen(tt->name) + 1);
+ }
+ 
+-static int list_versions(struct file *filp, struct dm_ioctl *param, size_t param_size)
++static int __list_versions(struct dm_ioctl *param, size_t param_size, const char *name)
+ {
+ 	size_t len, needed = 0;
+ 	struct dm_target_versions *vers;
+ 	struct vers_iter iter_info;
++	struct target_type *tt = NULL;
++
++	if (name) {
++		tt = dm_get_target_type(name);
++		if (!tt)
++			return -EINVAL;
++	}
+ 
+ 	/*
+ 	 * Loop through all the devices working out how much
+ 	 * space we need.
+ 	 */
+-	dm_target_iterate(list_version_get_needed, &needed);
++	if (!tt)
++		dm_target_iterate(list_version_get_needed, &needed);
++	else
++		list_version_get_needed(tt, &needed);
+ 
+ 	/*
+ 	 * Grab our output buffer.
+@@ -632,13 +642,28 @@ static int list_versions(struct file *fi
+ 	/*
+ 	 * Now loop through filling out the names & versions.
+ 	 */
+-	dm_target_iterate(list_version_get_info, &iter_info);
++	if (!tt)
++		dm_target_iterate(list_version_get_info, &iter_info);
++	else
++		list_version_get_info(tt, &iter_info);
+ 	param->flags |= iter_info.flags;
+ 
+  out:
++	if (tt)
++		dm_put_target_type(tt);
+ 	return 0;
+ }
+ 
++static int list_versions(struct file *filp, struct dm_ioctl *param, size_t param_size)
++{
++	return __list_versions(param, param_size, NULL);
++}
++
++static int get_target_version(struct file *filp, struct dm_ioctl *param, size_t param_size)
++{
++	return __list_versions(param, param_size, param->name);
++}
++
+ static int check_name(const char *name)
+ {
+ 	if (strchr(name, '/')) {
+@@ -1664,6 +1689,7 @@ static ioctl_fn lookup_ioctl(unsigned in
+ 		{DM_TARGET_MSG_CMD, 0, target_message},
+ 		{DM_DEV_SET_GEOMETRY_CMD, 0, dev_set_geometry},
+ 		{DM_DEV_ARM_POLL, IOCTL_FLAGS_NO_PARAMS, dev_arm_poll},
++		{DM_GET_TARGET_VERSION, 0, get_target_version},
+ 	};
+ 
+ 	if (unlikely(cmd >= ARRAY_SIZE(_ioctls)))
+Index: linux-2.6/include/uapi/linux/dm-ioctl.h
+===================================================================
+--- linux-2.6.orig/include/uapi/linux/dm-ioctl.h	2019-09-16 11:42:45.000000000 +0200
++++ linux-2.6/include/uapi/linux/dm-ioctl.h	2019-09-16 11:50:37.000000000 +0200
+@@ -243,6 +243,7 @@ enum {
+ 	DM_TARGET_MSG_CMD,
+ 	DM_DEV_SET_GEOMETRY_CMD,
+ 	DM_DEV_ARM_POLL_CMD,
++	DM_GET_TARGET_VERSION_CMD,
+ };
+ 
+ #define DM_IOCTL 0xfd
+@@ -265,14 +266,15 @@ enum {
+ #define DM_TABLE_STATUS  _IOWR(DM_IOCTL, DM_TABLE_STATUS_CMD, struct dm_ioctl)
+ 
+ #define DM_LIST_VERSIONS _IOWR(DM_IOCTL, DM_LIST_VERSIONS_CMD, struct dm_ioctl)
++#define DM_GET_TARGET_VERSION _IOWR(DM_IOCTL, DM_GET_TARGET_VERSION_CMD, struct dm_ioctl)
+ 
+ #define DM_TARGET_MSG	 _IOWR(DM_IOCTL, DM_TARGET_MSG_CMD, struct dm_ioctl)
+ #define DM_DEV_SET_GEOMETRY	_IOWR(DM_IOCTL, DM_DEV_SET_GEOMETRY_CMD, struct dm_ioctl)
+ 
+ #define DM_VERSION_MAJOR	4
+-#define DM_VERSION_MINOR	40
++#define DM_VERSION_MINOR	41
+ #define DM_VERSION_PATCHLEVEL	0
+-#define DM_VERSION_EXTRA	"-ioctl (2019-01-18)"
++#define DM_VERSION_EXTRA	"-ioctl (2019-09-16)"
+ 
+ /* Status bits */
+ #define DM_READONLY_FLAG	(1 << 0) /* In/Out */
 
 --
 dm-devel mailing list
