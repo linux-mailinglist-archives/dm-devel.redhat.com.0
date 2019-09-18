@@ -2,100 +2,115 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FF84B7455
-	for <lists+dm-devel@lfdr.de>; Thu, 19 Sep 2019 09:43:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F7C7B7453
+	for <lists+dm-devel@lfdr.de>; Thu, 19 Sep 2019 09:43:17 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id F14BA3084037;
-	Thu, 19 Sep 2019 07:43:16 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C1B846060D;
-	Thu, 19 Sep 2019 07:43:16 +0000 (UTC)
-Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 00EDF180085A;
+	by mx1.redhat.com (Postfix) with ESMTPS id A02A93DE31;
 	Thu, 19 Sep 2019 07:43:15 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8174160933;
+	Thu, 19 Sep 2019 07:43:13 +0000 (UTC)
+Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ADDC74E58A;
+	Thu, 19 Sep 2019 07:43:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x8IFWmV1006582 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 18 Sep 2019 11:32:48 -0400
+	id x8IFZM9O006663 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 18 Sep 2019 11:35:22 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 632575C221; Wed, 18 Sep 2019 15:32:48 +0000 (UTC)
+	id 37AE060606; Wed, 18 Sep 2019 15:35:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx21.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.62])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 547A05C219;
-	Wed, 18 Sep 2019 15:32:48 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
+Received: from mx1.redhat.com (ext-mx25.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.66])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 325E460872
+	for <dm-devel@redhat.com>; Wed, 18 Sep 2019 15:35:19 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+	[148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 48BCC18C426B;
-	Wed, 18 Sep 2019 15:32:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
-	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=6fG+7cFY8qKmNTeE0/oK7OzO5e+bx/UyTCd8HlUszGk=;
-	b=ZzuVXWgde4+duuEB1OGFxwXyL
-	zT5zbMFJfP50QtwClsnUB+7Mvd48Bl4ixy1YiIPOVwLntpL1zltX+RHsgjOc6wv4dWoBgou8UMZZQ
-	ScL36uk7mVmpeTbMJjtwoaDJXR5hAOJ8M/NEUgx79e2ESUepbiZtd4qtYE9t6vTQWxB6E=; 
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
-	([82.37.168.47] helo=ypsilon.sirena.org.uk)
-	by heliosphere.sirena.org.uk with esmtpsa
-	(TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
-	(envelope-from <broonie@sirena.co.uk>)
-	id 1iAbwI-0005tn-Oo; Wed, 18 Sep 2019 15:32:18 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
-	id B53AB2742927; Wed, 18 Sep 2019 16:32:17 +0100 (BST)
-Date: Wed, 18 Sep 2019 16:32:17 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Steffen Maier <maier@linux.ibm.com>
-Message-ID: <20190918153217.GN2596@sirena.co.uk>
-References: <20190807144948.28265-1-maier@linux.ibm.com>
-	<20190807144948.28265-2-maier@linux.ibm.com>
-	<CACVXFVM0tFj8CmcHON04_KjxR=QErCbUx0abJgG2W9OBb7akZA@mail.gmail.com>
-	<yq136iccsbw.fsf@oracle.com>
-	<bec80a65-9a8c-54a9-fe70-876fcbe3d592@linux.ibm.com>
-MIME-Version: 1.0
-In-Reply-To: <bec80a65-9a8c-54a9-fe70-876fcbe3d592@linux.ibm.com>
-X-Cookie: The devil finds work for idle glands.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+	by mx1.redhat.com (Postfix) with ESMTPS id B0993111B947
+	for <dm-devel@redhat.com>; Wed, 18 Sep 2019 15:35:17 +0000 (UTC)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+	x8IFWKfx077898
+	for <dm-devel@redhat.com>; Wed, 18 Sep 2019 11:35:17 -0400
+Received: from e06smtp05.uk.ibm.com (e06smtp05.uk.ibm.com [195.75.94.101])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 2v3nry4ats-1
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <dm-devel@redhat.com>; Wed, 18 Sep 2019 11:35:16 -0400
+Received: from localhost
+	by e06smtp05.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use
+	Only! Violators will be prosecuted
+	for <dm-devel@redhat.com> from <maier@linux.ibm.com>;
+	Wed, 18 Sep 2019 16:35:14 +0100
+Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
+	by e06smtp05.uk.ibm.com (192.168.101.135) with IBM ESMTP SMTP Gateway:
+	Authorized Use Only! Violators will be prosecuted; 
+	(version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+	Wed, 18 Sep 2019 16:35:08 +0100
+Received: from d06av21.portsmouth.uk.ibm.com (d06av21.portsmouth.uk.ibm.com
+	[9.149.105.232])
+	by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+	ESMTP id x8IFZ7e259703518
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=OK); Wed, 18 Sep 2019 15:35:07 GMT
+Received: from d06av21.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EAD8E5205A;
+	Wed, 18 Sep 2019 15:35:06 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.152.85.9])
+	by d06av21.portsmouth.uk.ibm.com (Postfix) with ESMTP id 458B352063;
+	Wed, 18 Sep 2019 15:35:06 +0000 (GMT)
+From: Steffen Maier <maier@linux.ibm.com>
+To: Arnd Bergmann <arnd@arndb.de>,
+	"James E . J . Bottomley" <jejb@linux.ibm.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Doug Gilbert <dgilbert@interlog.com>
+Date: Wed, 18 Sep 2019 17:34:45 +0200
+X-TM-AS-GCONF: 00
+x-cbid: 19091815-0020-0000-0000-0000036E9CA7
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19091815-0021-0000-0000-000021C4468C
+Message-Id: <20190918153445.1241-1-maier@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+	definitions=2019-09-18_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+	priorityscore=1501
+	malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+	clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+	mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+	scancount=1 engine=8.0.1-1908290000 definitions=main-1909180152
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
 	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
-	[10.5.110.62]); Wed, 18 Sep 2019 15:32:47 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.62]);
-	Wed, 18 Sep 2019 15:32:47 +0000 (UTC) for IP:'172.104.155.198'
-	DOMAIN:'heliosphere.sirena.org.uk'
-	HELO:'heliosphere.sirena.org.uk' FROM:'broonie@sirena.co.uk'
+	[10.5.110.66]); Wed, 18 Sep 2019 15:35:17 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.66]);
+	Wed, 18 Sep 2019 15:35:17 +0000 (UTC) for IP:'148.163.158.5'
+	DOMAIN:'mx0b-001b2d01.pphosted.com'
+	HELO:'mx0a-001b2d01.pphosted.com' FROM:'maier@linux.ibm.com'
 	RCPT:''
-X-RedHat-Spam-Score: 0.249  (DKIM_SIGNED, DKIM_VALID,
-	HEADER_FROM_DIFFERENT_DOMAINS, RCVD_IN_DNSWL_NONE, SPF_HELO_NONE,
-	SPF_PASS) 172.104.155.198 heliosphere.sirena.org.uk 172.104.155.198
-	heliosphere.sirena.org.uk <broonie@sirena.co.uk>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.62
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-RedHat-Spam-Score: -0.7  (RCVD_IN_DNSWL_LOW, SPF_HELO_NONE,
+	SPF_PASS) 148.163.158.5 mx0b-001b2d01.pphosted.com
+	148.163.158.5 mx0b-001b2d01.pphosted.com <maier@linux.ibm.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.66
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 19 Sep 2019 03:42:51 -0400
-Cc: Vasily Gorbik <gor@linux.ibm.com>, linux-s390 <linux-s390@vger.kernel.org>,
+Cc: Jens Axboe <axboe@kernel.dk>, linux-s390@vger.kernel.org,
 	Benjamin Block <bblock@linux.ibm.com>,
-	Linux SCSI List <linux-scsi@vger.kernel.org>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Ming Lei <tom.leiming@gmail.com>,
-	"James E . J . Bottomley" <jejb@linux.ibm.com>,
+	linux-scsi@vger.kernel.org, Vasily Gorbik <gor@linux.ibm.com>,
+	Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>,
+	Mark Brown <broonie@kernel.org>,
 	Heiko Carstens <heiko.carstens@de.ibm.com>,
-	Hannes Reinecke <hare@suse.com>, "Ewan D . Milne" <emilne@redhat.com>,
-	Ming Lei <ming.lei@redhat.com>, linux-block <linux-block@vger.kernel.org>,
-	"open list:DEVICE-MAPPER \(LVM\)" <dm-devel@redhat.com>,
-	Linux-Next Mailing List <linux-next@vger.kernel.org>,
-	Mike Snitzer <snitzer@redhat.com>, Jens Axboe <axboe@kernel.dk>,
-	Paolo Bonzini <pbonzini@redhat.com>, Christoph Hellwig <hch@lst.de>,
-	Bart Van Assche <bvanassche@acm.org>
-Subject: Re: [dm-devel] [PATCH 1/2] scsi: core: fix missing .cleanup_rq for
- SCSI hosts without request batching
+	linux-kernel@vger.kernel.org, Omar Sandoval <osandov@fb.com>,
+	linux-block@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+	dm-devel@redhat.com, linux-next@vger.kernel.org,
+	viro@zeniv.linux.org.uk, linux-fsdevel@vger.kernel.org,
+	Steffen Maier <maier@linux.ibm.com>, Thomas Gleixner <tglx@linutronix.de>
+Subject: [dm-devel] [PATCH] compat_ioctl: fix reimplemented SG_IO handling
+	causing -EINVAL from sg_io()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -107,62 +122,71 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4859397541990601135=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]); Thu, 19 Sep 2019 07:43:17 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]); Thu, 19 Sep 2019 07:43:16 +0000 (UTC)
 
+scsi_cmd_ioctl() had hdr as on stack auto variable and called
+copy_{from,to}_user with the address operator &hdr and sizeof(hdr).
 
---===============4859397541990601135==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0NB0lE7sNnW8+0qW"
-Content-Disposition: inline
+After the refactoring, {get,put}_sg_io_hdr() takes a pointer &hdr.
+So the copy_{from,to}_user within the new helper functions should
+just take the given pointer argument hdr and sizeof(*hdr).
 
+I saw -EINVAL from sg_io() done by /usr/lib/udev/scsi_id which could
+in turn no longer whitelist SCSI disks for devicemapper multipath.
 
---0NB0lE7sNnW8+0qW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: Steffen Maier <maier@linux.ibm.com>
+Fixes: 4f45155c29fd ("compat_ioctl: reimplement SG_IO handling")
+---
 
-On Wed, Sep 18, 2019 at 05:09:50PM +0200, Steffen Maier wrote:
-> On 8/8/19 4:18 AM, Martin K. Petersen wrote:
+Arnd, I'm not sure about the sizeof(hdr32) change in the compat part in
+put_sg_io_hdr().
 
-> > I'll set up an amalgamated for-next branch tomorrow.
+This is for next, probably via Arnd's y2038/y2038,
+and it fixes next-20190917 for me regarding SCSI generic.
 
-> Martin, is it possible that you re-wrote your for-next and it now no longer
-> contains a merged 5.4/scsi-postmerge with those fixes?
-> At least I cannot find the fix code in next-20190917 and it fails again for me.
+ block/scsi_ioctl.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Well, there's no sign of a branch called postmerge in the SCSI history
-recently and I've not run into any SCSI-related conflicts so...
-
---0NB0lE7sNnW8+0qW
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2CTgAACgkQJNaLcl1U
-h9DyCQgAhI9PE5cah3tJXlfm2IgfE6DGqrY+ZgkKfYQRbESZUGGvH0C8ZHzfdF9s
-ew1oLds2WQCiwXttdV/OQrmwkkHibCqk7ZruKQJpmIDN9CmRPnO1EHunK1UFVuli
-YGsRLI1Lp/gzfAzbaoA7BihFFKukgTxrZYcH9SfERbpf/raKMrEB9HUbyFDeBBKN
-btGkV2DjeLMwQxiwQLTNDZ8NQ9oUwkaX1kGOv3CilW2qDkueaghQnMpyw05kuddR
-4F5rE8+vA4jHJssZOqsoUJiNFzc9lloTdKeUDd4tR0qgY/thaG+RA2OVgh1XR1x1
-wYZjyEIwrB4FhNOMDMiIl6jcM6uoqw==
-=63JF
------END PGP SIGNATURE-----
-
---0NB0lE7sNnW8+0qW--
-
-
---===============4859397541990601135==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/block/scsi_ioctl.c b/block/scsi_ioctl.c
+index cbeb629ee917..650bade5ea5a 100644
+--- a/block/scsi_ioctl.c
++++ b/block/scsi_ioctl.c
+@@ -607,14 +607,14 @@ int put_sg_io_hdr(const struct sg_io_hdr *hdr, void __user *argp)
+ 			.info		 = hdr->info,
+ 		};
+ 
+-		if (copy_to_user(argp, &hdr32, sizeof(hdr)))
++		if (copy_to_user(argp, &hdr32, sizeof(hdr32)))
+ 			return -EFAULT;
+ 
+ 		return 0;
+ 	}
+ #endif
+ 
+-	if (copy_to_user(argp, &hdr, sizeof(hdr)))
++	if (copy_to_user(argp, hdr, sizeof(*hdr)))
+ 		return -EFAULT;
+ 
+ 	return 0;
+@@ -659,7 +659,7 @@ int get_sg_io_hdr(struct sg_io_hdr *hdr, const void __user *argp)
+ 	}
+ #endif
+ 
+-	if (copy_from_user(&hdr, argp, sizeof(hdr)))
++	if (copy_from_user(hdr, argp, sizeof(*hdr)))
+ 		return -EFAULT;
+ 
+ 	return 0;
+-- 
+2.17.1
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
---===============4859397541990601135==--
-
