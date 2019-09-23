@@ -2,114 +2,105 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id C36F3BAFCD
-	for <lists+dm-devel@lfdr.de>; Mon, 23 Sep 2019 10:40:47 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+	by mail.lfdr.de (Postfix) with ESMTPS id EC047BB19D
+	for <lists+dm-devel@lfdr.de>; Mon, 23 Sep 2019 11:47:30 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 1367E307D90D;
-	Mon, 23 Sep 2019 08:40:46 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 4FF2E8535C;
+	Mon, 23 Sep 2019 09:47:28 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DDD5C5D713;
-	Mon, 23 Sep 2019 08:40:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ADBEF5C1B2;
+	Mon, 23 Sep 2019 09:47:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A0592180085A;
-	Mon, 23 Sep 2019 08:40:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 97434180085A;
+	Mon, 23 Sep 2019 09:47:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x8MJdGqx022305 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 22 Sep 2019 15:39:16 -0400
+	id x8N9l57n022931 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 23 Sep 2019 05:47:05 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B24FB60C80; Sun, 22 Sep 2019 19:39:16 +0000 (UTC)
+	id 4C8021001B08; Mon, 23 Sep 2019 09:47:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx01.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AC1EC60C63
-	for <dm-devel@redhat.com>; Sun, 22 Sep 2019 19:39:14 +0000 (UTC)
-Received: from gproxy1-pub.mail.unifiedlayer.com
-	(gproxy1-pub.mail.unifiedlayer.com [69.89.25.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.redhat.com (ext-mx11.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.40])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C5631101E678;
+	Mon, 23 Sep 2019 09:46:59 +0000 (UTC)
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
+	[209.85.128.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id B1F7885360
-	for <dm-devel@redhat.com>; Sun, 22 Sep 2019 19:39:13 +0000 (UTC)
-Received: from cmgw15.unifiedlayer.com (unknown [10.9.0.15])
-	by gproxy1.mail.unifiedlayer.com (Postfix) with ESMTP id 82C26DE693ABF
-	for <dm-devel@redhat.com>; Sun, 22 Sep 2019 13:39:11 -0600 (MDT)
-Received: from host449.hostmonster.com ([67.20.76.149]) by cmsmtp with ESMTP
-	id C7hPiZaWdBeseC7hPiBWSX; Sun, 22 Sep 2019 13:39:11 -0600
-X-Authority-Reason: nr=8
-X-Authority-Analysis: v=2.3 cv=YcOTGTZf c=1 sm=1 tr=0
-	a=yEtxjLh4/o1uitG8KVajyg==:117 a=yEtxjLh4/o1uitG8KVajyg==:17
-	a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19 a=IkcTkHD0fZMA:10:nop_charset_1
-	a=J70Eh1EUuV4A:10:nop_rcvd_month_year
-	a=KDLhjfZvl3oA:10:endurance_base64_authed_username_1 a=qT-TnOy5AAAA:8
-	a=h3Oyiwak1teKTfzpQGYA:9 a=QEXdDO2ut3YA:10:nop_charset_2
-	a=0jIuqRY4CROcQgrwc8YH:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=petasan.org
-	; s=default;
-	h=Content-Transfer-Encoding:Content-Type:MIME-Version:Date:
-	Message-ID:Cc:Subject:From:To:Sender:Reply-To:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=JI6/JCiXHi9iVljplCegRbIAKZK8KSZDY4hTRMmgzus=;
-	b=vvgq+NVCPS8WrlLsIK2omDbU0s
-	Jkna0uul5UVKAcvN35OVo9UdqlAlE5vwYjMEYo+y1vGaWJ75NPXgBzxFu2VTeOJ4Ek8/nQVa7J45G
-	oHYatEKvmoG6RnueYjuDA+msFM35K333XI1Cxy03MSakd5on2WoD1Mu9Fl3SpmdkkF5AEn4vWgyRE
-	fkUK7LwY3bC2fTRDjJk0FNFfstGXplyjkMIPsUfbqTKDdDOB6Vy1Be+iU7B4zfpaW0tid5sYKXD3v
-	TJJ64e2WIHXqQGWtMPiyB4aUlh2sBJ+9hNKExXPtfJhaUq3nALVCS6Se8wwvJf3+CTNv4RpK6tb0y
-	hnBAlIHA==;
-Received: from [196.154.129.70] (port=44058 helo=[192.168.100.132])
-	by host449.hostmonster.com with esmtpsa
-	(TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128) (Exim 4.92)
-	(envelope-from <mmokhtar@petasan.org>)
-	id 1iC7hO-000ivY-OM; Sun, 22 Sep 2019 13:39:11 -0600
-To: mpatocka@redhat.com
-From: Maged Mokhtar <mmokhtar@petasan.org>
-Message-ID: <fa95f1f0-67d6-d02e-6999-ba1f90d70fe2@petasan.org>
-Date: Sun, 22 Sep 2019 21:39:06 +0200
+	by mx1.redhat.com (Postfix) with ESMTPS id 158D73084212;
+	Mon, 23 Sep 2019 09:46:59 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id p7so9098457wmp.4;
+	Mon, 23 Sep 2019 02:46:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	h=subject:to:references:from:openpgp:message-id:date:user-agent
+	:mime-version:in-reply-to:content-language:content-transfer-encoding;
+	bh=5elTXzM6xlr8PjUTcrYvX5g+KiCaroLiG/40wyuwe8s=;
+	b=IXLOA+1T4aETvd3O9XWO8iNbUKNrgVGLqUimU+DN5SdqYCrVRZFp8ITqo/SWtvODY0
+	do42IgUiw7g5IRxm+5mARa1kr+2mJZ9xHZG5RtJdz3jQy78nhtyO+hhK2LRtxaXt6vAA
+	GJSvkFzeWH/nmuHeBbublaFZmxG4xXf7MtqxuhtFTm5rPWEOb0IEx9q5mpsYyQplCcIs
+	2Jp5ygJxcv+yaVO2bscDRYdWJYIHUEZJPZEu9SKFIreP4Y5NTUo6GQBQ05dVJkncyigx
+	5PuEw/l0x/EC+6GoSsSAU7sLk6gnXsA0W/Hofb6yWadlH/VJOt4hIJbHEixQxjNPsFr1
+	FFkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:references:from:openpgp:message-id
+	:date:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=5elTXzM6xlr8PjUTcrYvX5g+KiCaroLiG/40wyuwe8s=;
+	b=r+EbCTGqlobZ9oXsfkzMT6a+0arqWLD0fRKg80YKYHpW7Ad4fdjyW7V3AJWMzmWDtL
+	ePwGLmcDZ79AAv50rTa4xEH9Du5UdZtzy6FnSDBWdg9zK3qHzRwXQcGbz8ulcjX+/hUO
+	GVOO83QVqNKWntrgP/bmZFyS5p4tGSa0fpkJF6LPMaMOAlLL6x5J89QmbgNQF86r75zg
+	RgeJtsyOHEa3R8+8XbLydowlgOJCM1TFmOPtXRtGikU3qb4qSNnFuPE5xy3On/nlj0vc
+	CunDDPp9Bw3c6QK4o58H2gi2G/QTbk8gCgNFYMvj46TwNf877uPfzx4jOgd+lbLyLUiF
+	2Ljg==
+X-Gm-Message-State: APjAAAXXeDHl9mNXS9sk7E2l6CqLqIZka4vswWgkmXo1ATVYZirlvfHF
+	wkgDPTyK635nevgWabO/TGgL627s
+X-Google-Smtp-Source: APXvYqy93ietjX1bSVrNtVPwZS+jbfnCafIE+1DjFr1b+2lowlovhD+hOJDzgtxTj7pFEKe6Yu2tnQ==
+X-Received: by 2002:a05:600c:241:: with SMTP id
+	1mr12931695wmj.162.1569232017788; 
+	Mon, 23 Sep 2019 02:46:57 -0700 (PDT)
+Received: from [10.43.17.245] (nat-pool-brq-t.redhat.com. [213.175.37.10])
+	by smtp.gmail.com with ESMTPSA id
+	o19sm13347126wro.50.2019.09.23.02.46.56
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Mon, 23 Sep 2019 02:46:57 -0700 (PDT)
+To: Thibaut Sautereau <thibaut.sautereau@clip-os.org>,
+	Mike Snitzer <snitzer@redhat.com>, dm-devel@redhat.com,
+	Alasdair Kergon <agk@redhat.com>, linux-kernel@vger.kernel.org
+References: <20190920154434.GA923@gandi.net>
+	<20190920173707.GA21143@redhat.com>
+	<13e25b01-f344-ea1d-8f6c-9d0a60eb1e0f@gmail.com>
+	<20190920212746.GA22061@redhat.com> <20190920214758.GA162854@gmail.com>
+	<20190923082016.GA913@gandi.net>
+From: Milan Broz <gmazyland@gmail.com>
+Openpgp: preference=signencrypt
+Message-ID: <f820c3e8-8538-ac95-9303-eeee77c903ee@gmail.com>
+Date: Mon, 23 Sep 2019 11:46:55 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.2.1
+	Thunderbird/60.9.0
 MIME-Version: 1.0
+In-Reply-To: <20190923082016.GA913@gandi.net>
 Content-Language: en-US
-X-AntiAbuse: This header was added to track abuse,
-	please include it with any abuse report
-X-AntiAbuse: Primary Hostname - host449.hostmonster.com
-X-AntiAbuse: Original Domain - redhat.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - petasan.org
-X-BWhitelist: no
-X-Source-IP: 196.154.129.70
-X-Source-L: No
-X-Exim-ID: 1iC7hO-000ivY-OM
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: ([192.168.100.132]) [196.154.129.70]:44058
-X-Source-Auth: mmokhtar@petasan.org
-X-Email-Count: 3
-X-Source-Cap: cGV0YXNhbm87cGV0YXNhbm87aG9zdDQ0OS5ob3N0bW9uc3Rlci5jb20=
-X-Local-Domain: yes
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.25]); Sun, 22 Sep 2019 19:39:13 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]);
-	Sun, 22 Sep 2019 19:39:13 +0000 (UTC) for IP:'69.89.25.95'
-	DOMAIN:'gproxy1-pub.mail.unifiedlayer.com'
-	HELO:'gproxy1-pub.mail.unifiedlayer.com'
-	FROM:'mmokhtar@petasan.org' RCPT:''
-X-RedHat-Spam-Score: -0.101  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
-	SPF_PASS) 69.89.25.95 gproxy1-pub.mail.unifiedlayer.com 69.89.25.95
-	gproxy1-pub.mail.unifiedlayer.com <mmokhtar@petasan.org>
-X-Scanned-By: MIMEDefang 2.83 on 10.5.110.25
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.40]);
+	Mon, 23 Sep 2019 09:46:59 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]);
+	Mon, 23 Sep 2019 09:46:59 +0000 (UTC) for IP:'209.85.128.65'
+	DOMAIN:'mail-wm1-f65.google.com' HELO:'mail-wm1-f65.google.com'
+	FROM:'gmazyland@gmail.com' RCPT:''
+X-RedHat-Spam-Score: -0.1  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2,
+	SPF_HELO_NONE,
+	SPF_PASS) 209.85.128.65 mail-wm1-f65.google.com 209.85.128.65
+	mail-wm1-f65.google.com <gmazyland@gmail.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.40
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Mon, 23 Sep 2019 04:38:28 -0400
-Cc: dm-devel@redhat.com
-Subject: [dm-devel] [PATCH] dm-writecache: change config parameters using
- messages
+Subject: Re: [dm-devel] dm-crypt error when CONFIG_CRYPTO_AUTHENC is disabled
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -121,106 +112,29 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]); Mon, 23 Sep 2019 08:40:46 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]); Mon, 23 Sep 2019 09:47:29 +0000 (UTC)
 
-Support changing configuration parameters using device-mapper messages
-E.g.
-    dmsetup message vg1/lv1 0 high_watermark 60
+On 23/09/2019 10:20, Thibaut Sautereau wrote:
+> 
+> On top of that, there's no hint in kernel logs about a particular
+> algorithm, feature or Kconfig option that could be missing. Do we really
+> expect people simply tuning their kernel configuration to go and read
+> the source code to ensure they are not breaking their system?
 
-Signed-off-by: Maged Mokhtar <mmokhtar@petasan.org>
----
-  drivers/md/dm-writecache.c |   68 +++++++++++++++++++++++++++++++++++
-  1 file changed, 68 insertions(+)
+AFAIK all standard Linux kernels in distros have these options enabled,
+so it works out of the box.
 
---- a/drivers/md/dm-writecache.c	2019-08-25 16:13:54.000000000 +0200
-+++ b/drivers/md/dm-writecache.c	2019-09-21 16:22:23.000000000 +0200
-@@ -1009,6 +1009,69 @@ static int process_flush_on_suspend_mesg
-  	return 0;
-  }
+So it is the opposite view - if you are setting your kernel options,
+you need to dig much deeper...
 
-+static int set_config_value(struct dm_writecache *wc, char *key, char *val)
-+{
-+	unsigned v,x;
-+	if (sscanf(val, "%u", &v) != 1)
-+		return -EINVAL;
-+	if (!strcasecmp(key, "high_watermark")) {
-+		if (v < 0 || v > 100)
-+			return -EINVAL;
-+		wc_lock(wc);
-+		x = (uint64_t)wc->n_blocks * (100 - v);
-+		x += 50;
-+		do_div(x, 100);
-+		if (wc->freelist_low_watermark < x) {
-+			wc_unlock(wc);
-+			return -EINVAL;
-+		}
-+		wc->freelist_high_watermark = x;
-+		wc->high_wm_percent_set = true;
-+		if (wc->freelist_size + wc->writeback_size
-+			<= wc->freelist_high_watermark)
-+			queue_work(wc->writeback_wq, &wc->writeback_work);
-+		wc_unlock(wc);
-+	}
-+	else if (!strcasecmp(key, "low_watermark")) {
-+		if (v < 0 || v > 100)
-+			return -EINVAL;
-+		wc_lock(wc);
-+		x = (uint64_t)wc->n_blocks * (100 - v);
-+		x += 50;
-+		do_div(x, 100);
-+		if (x < wc->freelist_high_watermark) {
-+			wc_unlock(wc);
-+			return -EINVAL;
-+		}
-+		wc->freelist_low_watermark = x;
-+		wc->low_wm_percent_set = true;
-+		wc_unlock(wc);
-+	}
-+	else if (!strcasecmp(key, "writeback_jobs")) {
-+		wc_lock(wc);
-+		wc->max_writeback_jobs = v;
-+		wc->max_writeback_jobs_set = true;
-+		wc_unlock(wc);
-+	}
-+	else if (!strcasecmp(key, "autocommit_blocks")) {
-+		wc_lock(wc);
-+		wc->autocommit_blocks = v;
-+		wc->autocommit_blocks_set = true;
-+		wc_unlock(wc);
-+	}
-+	else if (!strcasecmp(key, "autocommit_time")) {
-+		if (v < 1 || v > 3600000)
-+			return -EINVAL;
-+		wc_lock(wc);
-+		wc->autocommit_jiffies = msecs_to_jiffies(v);
-+		wc->autocommit_time_set = true;
-+		wc_unlock(wc);
-+	}
-+	else
-+		return -EINVAL;
-+	return 0;
-+}
-+
-  static int writecache_message(struct dm_target *ti, unsigned argc, 
-char **argv,
-  			      char *result, unsigned maxlen)
-  {
-@@ -1019,6 +1082,11 @@ static int writecache_message(struct dm_
-  		r = process_flush_mesg(argc, argv, wc);
-  	else if (!strcasecmp(argv[0], "flush_on_suspend"))
-  		r = process_flush_on_suspend_mesg(argc, argv, wc);
-+	else if (argc==2) {
-+		r = set_config_value(wc, argv[0], argv[1]);
-+		if (r==-EINVAL)
-+			DMERR("invalid message received: %s %s", argv[0], argv[1]);
-+	}
-  	else
-  		DMERR("unrecognised message received: %s", argv[0]);
+I can perhaps add some hint to userspace if this is detectable from errno though.
+
+Milan
 
 --
 dm-devel mailing list
