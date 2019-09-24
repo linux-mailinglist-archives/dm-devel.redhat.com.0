@@ -2,54 +2,55 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B56FBC59B
-	for <lists+dm-devel@lfdr.de>; Tue, 24 Sep 2019 12:18:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 171E5BC599
+	for <lists+dm-devel@lfdr.de>; Tue, 24 Sep 2019 12:18:49 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id B51A6A26674;
+	by mx1.redhat.com (Postfix) with ESMTPS id A8A9B3007C5E;
 	Tue, 24 Sep 2019 10:18:46 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0CAFD5C21F;
-	Tue, 24 Sep 2019 10:18:46 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F188C5C1B2;
+	Tue, 24 Sep 2019 10:18:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 513E54EBC9;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4E1B01800B74;
 	Tue, 24 Sep 2019 10:18:38 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
 	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x8O88DY9003429 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 24 Sep 2019 04:08:13 -0400
+	id x8O8Snd0005667 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 24 Sep 2019 04:28:49 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E277160933; Tue, 24 Sep 2019 08:08:13 +0000 (UTC)
+	id 28757608C0; Tue, 24 Sep 2019 08:28:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx25.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.66])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 26B2C60852;
-	Tue, 24 Sep 2019 08:08:11 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.15.4])
+Received: from mx1.redhat.com (ext-mx27.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.68])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 896B960852;
+	Tue, 24 Sep 2019 08:28:46 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [212.227.15.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 6220F10C0949;
-	Tue, 24 Sep 2019 08:08:09 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id E147CA26674;
+	Tue, 24 Sep 2019 08:28:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
-	s=dbaedf251592; t=1569312482;
-	bh=5UUB7nBISPCMR8MLkZQo563E2CTK7plA3+JuTrsQPlU=;
+	s=dbaedf251592; t=1569313715;
+	bh=81JZBQpINSCG3/xfWngKEmRt/JYECAlDxcVtcKbD0XQ=;
 	h=X-UI-Sender-Class:Subject:To:Cc:References:From:Date:In-Reply-To;
-	b=hEEPKBhivbXBokJZPSixHFQyrwbGDoTQfOUMwaSxHAT+mm73WXm1wk+J0XjHaBXAR
-	fqrJifb6ER1xWqCtVT/c3fxnMrRIIiXiGSno3JlXkqT+FBBRJYFxvjtTrVBz1jpaTx
-	m7kYHgHNuH+TBbxdB1g+/DN4wjPrT5OCjPPvB9DQ=
+	b=hEr+GJ4RlK/hsMoY0C/r5GnM/nsLXtR9L9fV42Ha784ZP0Sc4t/aqOBD/fg1HZiBy
+	i1uVvlHrGPxx/zcQtXq78+Y/KD9WNz/3HPFRjacY9XR1hA/dW7mWt+92f0ke2ko63S
+	4YsFsEvHo/8F4aS94Z36l7FnvuBbDE6nCRyCijAg=
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.2] ([93.131.71.162]) by smtp.web.de (mrweb003
-	[213.165.67.108]) with ESMTPSA (Nemesis) id 0M6Dve-1hxcnA2BeE-00yDJX;
-	Tue, 24 Sep 2019 10:08:02 +0200
+Received: from [192.168.1.2] ([93.131.71.162]) by smtp.web.de (mrweb001
+	[213.165.67.108]) with ESMTPSA (Nemesis) id 0MfYXz-1iWfm420E7-00P72Z;
+	Tue, 24 Sep 2019 10:28:35 +0200
 To: Valentin Schneider <valentin.schneider@arm.com>,
-	Alexey Dobriyan <adobriyan@gmail.com>, dm-devel@redhat.com,
-	linux-block@vger.kernel.org, rcu@vger.kernel.org
+	Julia Lawall <julia.lawall@lip6.fr>
 References: <a43fe392-bd6a-71f5-8611-c6b764ba56c3@arm.com>
 	<7e3e784c-e8e6-f9ba-490f-ec3bf956d96b@web.de>
 	<0c4dcb91-4830-0013-b8c6-64b9e1ce47d4@arm.com>
 	<32d65b15-1855-e7eb-e9c4-81560fab62ea@arm.com>
+	<alpine.DEB.2.21.1909231228200.2272@hadrien>
+	<d529c390-546e-a8a4-f475-c3ee41f97645@arm.com>
 From: Markus Elfring <Markus.Elfring@web.de>
 Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
 	mQINBFg2+xABEADBJW2hoUoFXVFWTeKbqqif8VjszdMkriilx90WB5c0ddWQX14h6w5bT/A8
@@ -95,56 +96,58 @@ Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
 	x0n1QFc1xxJhbzN+r9djSGGN/5IBDfUqSANC8cWzHpWaHmSuU3JSAMB/N+yQjIad2ztTckZY
 	pwT6oxng29LzZspTYUEzMz3wK2jQHw+U66qBFk8whA7B2uAU1QdGyPgahLYSOa4XAEGb6wbI
 	FEE=
-Message-ID: <af969579-116c-fba7-fd32-15a876ac0445@web.de>
-Date: Tue, 24 Sep 2019 10:07:54 +0200
+Message-ID: <a1491516-a701-8804-8277-75fb5247191a@web.de>
+Date: Tue, 24 Sep 2019 10:28:33 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
 	Thunderbird/68.1.0
 MIME-Version: 1.0
-In-Reply-To: <32d65b15-1855-e7eb-e9c4-81560fab62ea@arm.com>
+In-Reply-To: <d529c390-546e-a8a4-f475-c3ee41f97645@arm.com>
 Content-Language: en-US
-X-Provags-ID: V03:K1:gdWTto7J1BLMzpuLsjXkxMpm9JPQANR6lT0+Gi8LVIYwwvcnmCB
-	wbRC8Aq7YkXsjPF2BrDnR9s/c6qPEEeWSZK/1z0lz52lbZhqTmxMIlxXHOnRhiYfG5sQtoQ
-	FwqPHD58FJBBWWLkgBF6+0ELov+JPZgWu/8tcNRcWkjWo+IVraNRuisxGf/B+KkFlahpWIz
-	8h+zWSyzIgQs9I7ijaaeg==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:axxi6oXRmys=:x4mHB2rn9HIwxjm/+2t7zx
-	F1NrtiZgELzy2ru7iCxdt4NWKcGpGGjPsVpGg8+16qutpm0DWxghSB/AXMPHdJBFv332Hh1Vb
-	PT7SQ7NNJ+cIwPLJ5/SCW9E9keRAkmt1EyMCNy2gN91IKJFEswwEJ0MmC7+/cfjfCFsIEp6pJ
-	FLKEG3th06O4BcFH8mqUF9Mk4vWFLAyKc4IAj9KPFUt52E88JzUorbGFyke7DxbVSNwlWGRmd
-	335yNlorr+YGfDVj0M7VGzOXfmdyK/rJYLlXc52IO7MSuwslC2MYJTko88PnGyQ+/+QfCyApC
-	EntibQqhHBCyVM5ev/ZHr9rVu8zwj57bXWJ699bXDBgazEIswXQyyihh4mbJ4ecIVkoFl6zS/
-	cmxBNk4APQ06Nkwb0sN06cnrenzVEypb4td+1BnXd/fC93T0aJEqvSdc+khMwrsfS46p3iBh1
-	Dj/iHl0ASgnP7MZxzb3RukBHlJBf6p2O2kKB004Qj2B+0e1dGistXv+swgJ12UOJETuqvAm5l
-	qPmCXhUb8nv7iEJcl2Q1sYYlegwEqaVo2Zp9r1fDY1TFN2OurCMZhS9mF/ifkxvL+2XjT4pkq
-	jmIC43UcGojXxpC8CMkTJB5B35KhuI0zPlAI8WwIUHGGIou7SrQYfzRxpZJr5Q2rYWNd6LlS1
-	wtkwa2yF+Zab/WaSEEdbyG49wgbEzyfLNSPWscRO3DxAVNSSI5NUfgsV8+gf7FvTGFV7Sa70F
-	Gb9yZFcwP8MbIsaC7DRzl5OCJ1vqXTurImDFjGp95IRRCW7Qp7Vnegr0rpBQU+FJSxm8ci/U1
-	AuG8PMOB6Gf6MZXYSAFURWupW33l69XI9GojX2CvRivO6UaD+tFtqRrQuVzFwFQ0Ok/zs1nuY
-	ogEE5QDEKFNi+dWpAnx9GbB1/ThpKJnD7hOGMZCSTnrSYMxUkOnb98c78kYM+RuZWSt0+GgAo
-	OpqtSr0JhRztyLJDymLPBkgF6xliV49tYmmc5M+Gv+favKnyfoTs4tEQlR79y/G6fSRHfMHFU
-	KB1tngPzCRERXJi5gE/qlFIVq6PQdxebZZXRI+GHpuIECb8p3VI4kFiblW4qezbxEVS77nryq
-	IzBd3+9e1OyF3NzrLITHCQ8g3zZCgCqD7XCvxGbTmEfHFB+aFVOnETsmB9L3rRk7kJS2spFvm
-	nA1BDxjDD0G0bT53sK5dPzMc/2dAyNrR9YFqfCAKWIzVYKPGNcudBkVPMA2oBfj2TejziW80d
-	hoed+CDCFa7ucCxSpJghlOwp/KfxX/t8n/+xfb924K9fDBc4oTMisWxIOUzs=
+X-Provags-ID: V03:K1:+LGehVKc09r1KuvfQbU6UtXN4wMbiGphRgKwWf6E5/pcoBay+CX
+	hxQtIG/AXQEA72ofNH+z/E/IQpI5dOlGwrkTiXGvRXac9WkyaBILSc1Nm7Y6OAR1aZzZvWg
+	nHknsoTJNX0ExTzcE5uNE85trDQdcAC0c4Zi+3Wh4WnEWRN1kWL+oGgg1Dsbvi+YoiGCEiN
+	8Xi5iXU/pgbViJyNEWwpg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:ndp5C+YO2XY=:bEjXmQLpbsDAKujsReYlP8
+	/XjsIU2C+Ky2XLlpzdHutvatEFcllHuXSxRUC/kxW5mVs4L56PKsiWb3Vu/awYqYOSUjCiFtK
+	Tn9ch+XE0/oigNL9MCWTwiVeKf/bl4s1ntlH+QK8zpEvIghww7JM9k0mLUP/MKrAgBcIJGXk6
+	fFTmhQenEdXjTJjJtRE4qykb3cgp25icMONDt+BUgdfLscQDk79gZxs04A0VtoCP21oxIxYNs
+	M9/mqOV9UawZUTzbd0k0GAHBRPp64+TqC8YIhXu9TXcLeBW+PFPqXCCU6kT718VIb3HthvWLr
+	pcnu7HKUmXXdsvpfY0qiNtG3iOxFkdFA2FKJecfLN+VZlHVVbu1yaJ+bJlLebOfFKdwR1q3/r
+	GlEDkuCt+L0BHFMgUge/73z14ZDk7KGwdJm6CykFn741DOBovrJDgDC6RiBotpTVbHtqPWj6V
+	6NoW29Efn3woO+w1Nrodwj3W7HoDLZej+GyZy6Da8Cl6/cTNegUSGny8MyAoxbCW5gaiEsTb1
+	C55rPTkg/WF4UxWSzF7x3OIUL3wHCVp5oDlCA+m201nBGwmnnLZchCXqmgWJLg9I8zXafKddS
+	RIiiLMh2Va39nInIuOUxk80sTu6FVl9qBr3qCqAy8V5L3QuPhkktVyioTrCVqYVSTRX+I0/mM
+	LGspeNnawObv8ixw0+lwHzH3N//oWVGlZgskvghpDq8vRH0tO/+YYVjrg+prIcLfoZxeWajJi
+	0EsVGGgtOLIVAPAdh+ge5KNHqK3nxJ8lQG1VvelpOAX1YFrn/BVzG1UI1OzVqVKM4jaEN9b+b
+	qXzH/7M3UTlAYS0GiP26fbg+yd/Fqf0wTsf8YcSc5pOHjyORTLwkRqcVd0r3xa/5VhFf6Yh8N
+	TBayi9AAhDN1fyYMMVDhawHQzU8jy2448GMq4o8ze5kDpw6ZwkfnAHzboUSLwf64eurYTvWQG
+	IkmrpazD352W9fmVxHlN+84kAdiRohhnJS9Rxp0rs21rPduut3yWyVsyA3hV3ttpfbu8V9NJf
+	zF9ou78u4fguhc8JeEJOaj94oMGvFZ4hYceM/9vhku023HywU45SYPKwN1gIpgRkiYdSfZW9s
+	xFIA9iaQArvMJ6HKnkb9sQ8p6CnMAsusNE+Aj4m54WGP/xTrHYIma4f60oFCs2XyX5D7oTDtX
+	MA7L5LzS8o0IhUz/EW1A9YN59hv1REZcUDAt97uYZ8+H/6xx6wYnPxKfVfGQQ35r4f7GWyfDh
+	vWqXuncgK1OxgPp40RuPQf91P3AKVzgbkTbNhqFhA99XjSI7T/vcRzwinywY=
 X-Greylist: Sender passed SPF test, ACL 264 matched, not delayed by
-	milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.66]);
-	Tue, 24 Sep 2019 08:08:10 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.66]);
-	Tue, 24 Sep 2019 08:08:10 +0000 (UTC) for IP:'212.227.15.4'
+	milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.68]);
+	Tue, 24 Sep 2019 08:28:45 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.68]);
+	Tue, 24 Sep 2019 08:28:45 +0000 (UTC) for IP:'212.227.15.3'
 	DOMAIN:'mout.web.de' HELO:'mout.web.de'
 	FROM:'Markus.Elfring@web.de' RCPT:''
 X-RedHat-Spam-Score: -0.099  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
 	FREEMAIL_FROM, SPF_HELO_NONE,
-	SPF_PASS) 212.227.15.4 mout.web.de 212.227.15.4 mout.web.de
+	SPF_PASS) 212.227.15.3 mout.web.de 212.227.15.3 mout.web.de
 	<Markus.Elfring@web.de>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.66
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.68
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id x8O88DY9003429
+	lists01.pubmisc.prod.ext.phx2.redhat.com id x8O8Snd0005667
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 24 Sep 2019 06:18:27 -0400
-Cc: Andrea Arcangeli <aarcange@redhat.com>, Jens Axboe <axboe@kernel.dk>,
-	Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
-	Julia Lawall <julia.lawall@lip6.fr>, Ingo Molnar <mingo@redhat.com>
+Cc: Andrea Arcangeli <aarcange@redhat.com>, rcu@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
+	dm-devel@redhat.com, Ingo Molnar <mingo@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>, Alexey Dobriyan <adobriyan@gmail.com>
 Subject: Re: [dm-devel] sched: make struct task_struct::state 32-bit
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -157,28 +160,40 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.68]); Tue, 24 Sep 2019 10:18:48 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]); Tue, 24 Sep 2019 10:18:47 +0000 (UTC)
 
-PiAvLyBGSVhNRTogY3VycmVudCBub3QgcmVjb2duaXplZCBhcyB0YXNrX3N0cnVjdCosIGZpeGhh
-Y2sgd2l0aCByZWdleHAKPiBpZGVudGlmaWVyIGN1cnJlbnQgPX4gIl5jdXJyZW50JCI7CgpXb3Vs
-ZCB5b3UgcmVhbGx5IGxpa2UgdG8gdXNlIGEgcmVndWxhciBleHByZXNzaW9uIGZvciBmaW5kaW5n
-IGEgc2luZ2xlIHdvcmQ/CgoKPiBpZGVudGlmaWVyIHN0YXRlX3ZhcjsKPiBwb3NpdGlvbiBwb3M7
-Cj4gQEAKPgo+ICgKPiAgIHAtPnN0YXRlICYgc3RhdGVfdmFyQHBvcwo+IHwKPiAgIGN1cnJlbnQt
-PnN0YXRlICYgc3RhdGVfdmFyQHBvcwo+IHwKCkkgc2VlIGZ1cnRoZXIgb3Bwb3J0dW5pdGllcyB0
-byBtYWtlIHN1Y2ggYSBTbVBMIGRpc2p1bmN0aW9uIG1vcmUgc3VjY2luY3QuCgoqCiggKCBcKCBw
-IFx8IGN1cnJlbnQgXCkgKSAtPiBzdGF0ZSAmIHN0YXRlX3ZhckBwb3MKfArigKYKCiogSG93IGRv
-IHlvdSB0aGluayBhYm91dCB0byB3b3JrIHdpdGggYSBTbVBMIGNvbnN0cmFpbnQKICBmb3IgYSBt
-ZXRhdmFyaWFibGUgd2l0aCB0aGUgdHlwZSDigJxiaW5hcnkgb3BlcmF0b3LigJ0/CgoKPiAgIHNl
-dF9jdXJyZW50X3N0YXRlKHN0YXRlX3ZhckBwb3MpCj4gfAo+ICAgc2V0X3NwZWNpYWxfc3RhdGUo
-c3RhdGVfdmFyQHBvcykKCnwgXCggc2V0X2N1cnJlbnRfc3RhdGUgXHwgc2V0X3NwZWNpYWxfc3Rh
-dGUgXCkgKHN0YXRlX3ZhckBwb3MpCgoKPiB8Cj4gICBzaWduYWxfcGVuZGluZ19zdGF0ZShzdGF0
-ZV92YXJAcG9zLCBwKQo+IHwKPiAgIHNpZ25hbF9wZW5kaW5nX3N0YXRlKHN0YXRlX3ZhckBwb3Ms
-IGN1cnJlbnQpCgp8IHNpZ25hbF9wZW5kaW5nX3N0YXRlKHN0YXRlX3ZhckBwb3MsIFwoIHAgXHwg
-Y3VycmVudCBcKSApCgoKUmVnYXJkcywKTWFya3VzCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QK
-ZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL3d3dy5yZWRoYXQuY29tL21haWxtYW4vbGlzdGlu
-Zm8vZG0tZGV2ZWw=
+>>> identifier task_state =~ "^TASK_";
+>>
+>> Are there a lot of options?  You can also enumerate them in {}, ie
+>>
+>> identifier task_state = {TASK_BLAH, TASK_BLAHBLAH};
+>
+> Around a dozen, can be enumerated easily and is indeed probably better than
+> a regexp.
+
+Can the application of a regular expression be more convenient
+for such an use case?
+
+
+>> You want to look at the definitions of called functions?
+>> Coccinelle doesn't really support that,
+
+I got an other impression.
+
+
+>> but there are hackish ways to add that.
+
+How do you think about to discuss corresponding software development challenges?
+
+Regards,
+Markus
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
