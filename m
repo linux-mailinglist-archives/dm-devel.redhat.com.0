@@ -2,71 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28F53BE682
-	for <lists+dm-devel@lfdr.de>; Wed, 25 Sep 2019 22:33:54 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by mail.lfdr.de (Postfix) with ESMTPS id D0978BF929
+	for <lists+dm-devel@lfdr.de>; Thu, 26 Sep 2019 20:27:59 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 7AABFC0578F4;
-	Wed, 25 Sep 2019 20:33:51 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 29370C00A175;
+	Thu, 26 Sep 2019 18:27:56 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BE33C196AE;
-	Wed, 25 Sep 2019 20:33:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 007A55D6B0;
+	Thu, 26 Sep 2019 18:27:53 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6146518005A0;
-	Wed, 25 Sep 2019 20:33:46 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E68721803517;
+	Thu, 26 Sep 2019 18:27:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x8PKXbmq007101 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 25 Sep 2019 16:33:38 -0400
+	id x8QIRL1J010621 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 26 Sep 2019 14:27:21 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E20B15D9DC; Wed, 25 Sep 2019 20:33:37 +0000 (UTC)
+	id B2D491FD3B; Thu, 26 Sep 2019 18:27:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx01.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 751655D9CC;
-	Wed, 25 Sep 2019 20:33:31 +0000 (UTC)
+Received: from mx1.redhat.com (ext-mx25.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.66])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CE2DF194B2;
+	Thu, 26 Sep 2019 18:27:12 +0000 (UTC)
 Received: from mx.ewheeler.net (mx.ewheeler.net [66.155.3.69])
-	by mx1.redhat.com (Postfix) with ESMTP id 9DEA3796E0;
-	Wed, 25 Sep 2019 20:33:29 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTP id 0D24010C094B;
+	Thu, 26 Sep 2019 18:27:11 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
-	by mx.ewheeler.net (Postfix) with ESMTP id 203B3A0692;
-	Wed, 25 Sep 2019 20:33:29 +0000 (UTC)
+	by mx.ewheeler.net (Postfix) with ESMTP id A5D0AA0692;
+	Thu, 26 Sep 2019 18:27:10 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at ewheeler.net
 Received: from mx.ewheeler.net ([127.0.0.1])
 	by localhost (mx.ewheeler.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id Bj4fB9uVFoVs; Wed, 25 Sep 2019 20:33:28 +0000 (UTC)
+	with LMTP id rBHwo9Fq6jaB; Thu, 26 Sep 2019 18:27:09 +0000 (UTC)
 Received: from mx.ewheeler.net (mx.ewheeler.net [66.155.3.69])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx.ewheeler.net (Postfix) with ESMTPSA id 2BCCDA067D;
-	Wed, 25 Sep 2019 20:33:28 +0000 (UTC)
-Date: Wed, 25 Sep 2019 20:33:28 +0000 (UTC)
+	by mx.ewheeler.net (Postfix) with ESMTPSA id B635EA067D;
+	Thu, 26 Sep 2019 18:27:09 +0000 (UTC)
+Date: Thu, 26 Sep 2019 18:27:09 +0000 (UTC)
 From: Eric Wheeler <dm-devel@lists.ewheeler.net>
 X-X-Sender: lists@mx.ewheeler.net
-To: Coly Li <colyli@suse.de>
+To: Mike Snitzer <snitzer@redhat.com>
 In-Reply-To: <20190925200138.GA20584@redhat.com>
-Message-ID: <alpine.LRH.2.11.1909252030160.15810@mx.ewheeler.net>
+Message-ID: <alpine.LRH.2.11.1909261819300.15810@mx.ewheeler.net>
 References: <alpine.LRH.2.11.1909251814220.15810@mx.ewheeler.net>
 	<20190925200138.GA20584@redhat.com>
 User-Agent: Alpine 2.11 (LRH 23 2013-08-11)
 MIME-Version: 1.0
-X-Greylist: Delayed for 01:53:00 by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.25]); Wed, 25 Sep 2019 20:33:30 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]);
-	Wed, 25 Sep 2019 20:33:30 +0000 (UTC) for IP:'66.155.3.69'
+X-Greylist: Delayed for 23:46:41 by milter-greylist-4.6.2 (mx1.redhat.com
+	[10.5.110.66]); Thu, 26 Sep 2019 18:27:11 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.66]);
+	Thu, 26 Sep 2019 18:27:11 +0000 (UTC) for IP:'66.155.3.69'
 	DOMAIN:'mx.ewheeler.net' HELO:'mx.ewheeler.net'
 	FROM:'dm-devel@lists.ewheeler.net' RCPT:''
 X-RedHat-Spam-Score: 0.002  (SPF_HELO_NONE,
 	SPF_NONE) 66.155.3.69 mx.ewheeler.net 66.155.3.69
 	mx.ewheeler.net <dm-devel@lists.ewheeler.net>
-X-Scanned-By: MIMEDefang 2.83 on 10.5.110.25
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.66
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: Mike Snitzer <snitzer@redhat.com>, dm-devel@redhat.com,
-	linux-bcache@vger.kernel.org, lvm-devel@redhat.com,
-	linux-block@vger.kernel.org, ejt@redhat.com
+Cc: dm-devel@redhat.com, linux-bcache@vger.kernel.org, lvm-devel@redhat.com,
+	linux-block@vger.kernel.org, ejt@redhat.com, Coly Li <colyli@suse.de>
 Subject: Re: [dm-devel] kernel BUG at
  drivers/md/persistent-data/dm-space-map-disk.c:178 with
  scsi_mod.use_blk_mq=y
@@ -85,11 +84,12 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.31]); Wed, 25 Sep 2019 20:33:52 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]); Thu, 26 Sep 2019 18:27:58 +0000 (UTC)
 
 On Wed, 25 Sep 2019, Mike Snitzer wrote:
-> On Wed, Sep 25 2019 at  2:40pm -0400, Eric Wheeler <dm-devel@lists.ewheeler.net> wrote:
+> On Wed, Sep 25 2019 at  2:40pm -0400,
+> Eric Wheeler <dm-devel@lists.ewheeler.net> wrote:
 > 
 > > Hello,
 > > 
@@ -128,7 +128,23 @@ On Wed, 25 Sep 2019, Mike Snitzer wrote:
 > 
 > So bcache is be used for both data and metadata.
 
-Correct.
+Hi Mike, 
+
+I pvmoved the tmeta to an SSD logical volume (dm-linear) on a non-bcache 
+volume and we got the same trace this morning, so while the tdata still 
+passes through bcache, all meta operations are direct to an SSD. This is 
+still using multi-queue scsi, but dm_mod.use_blk_mq=N.
+
+Since bcache is no longer involved with metadata operations, and since 
+this appears to be a metadata issue, are there any other reasons to 
+suspect bcache?
+
+Since we seem to hit this every night, I can try any patches that you 
+would like for testing. I appreciate your help, hopefully we can solve 
+this quickly. 
+
+
+-Eric
   
 > > We were transferring data to the new thin volumes and it ran for about 12 
 > > hours and then gave the trace below.  So far it has only happened once 
@@ -198,14 +214,10 @@ Correct.
 > But could it be that bcache is the source of the data device race (same
 > block used concurrently)?  And DM thinp is acting as the canary in the
 > coal mine?
-
-Hi Mike, thanks for the detail.  
-
-Coly, any idea on the possible bcache interaction here?
-
-
---
-Eric Wheeler
+> 
+> Thanks,
+> Mike
+> 
 
 --
 dm-devel mailing list
