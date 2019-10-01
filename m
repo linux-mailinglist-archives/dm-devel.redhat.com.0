@@ -2,128 +2,90 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91729C2EB0
-	for <lists+dm-devel@lfdr.de>; Tue,  1 Oct 2019 10:15:26 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by mail.lfdr.de (Postfix) with ESMTPS id 47E26C338C
+	for <lists+dm-devel@lfdr.de>; Tue,  1 Oct 2019 13:58:53 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 6765A30917AF;
-	Tue,  1 Oct 2019 08:15:24 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id B245C3084025;
+	Tue,  1 Oct 2019 11:58:49 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3475F60166;
-	Tue,  1 Oct 2019 08:15:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A9A8104812A;
+	Tue,  1 Oct 2019 11:58:48 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8C7ED4E58A;
-	Tue,  1 Oct 2019 08:15:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A93824EE6A;
+	Tue,  1 Oct 2019 11:58:38 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x8UJeNjh004105 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 30 Sep 2019 15:40:23 -0400
+	id x91BwRnH020654 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 1 Oct 2019 07:58:27 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5EE1E19C7F; Mon, 30 Sep 2019 19:40:23 +0000 (UTC)
+	id 996A062A66; Tue,  1 Oct 2019 11:58:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx25.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.66])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5920519C58
-	for <dm-devel@redhat.com>; Mon, 30 Sep 2019 19:40:21 +0000 (UTC)
-Received: from youngberry.canonical.com (youngberry.canonical.com
-	[91.189.89.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Received: from mx1.redhat.com (ext-mx03.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.27])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 90A5E98AC
+	for <dm-devel@redhat.com>; Tue,  1 Oct 2019 11:58:19 +0000 (UTC)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+	[209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 2891210C0943
-	for <dm-devel@redhat.com>; Mon, 30 Sep 2019 19:40:20 +0000 (UTC)
-Received: from mail-pf1-f200.google.com ([209.85.210.200])
-	by youngberry.canonical.com with esmtps
-	(TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
-	(envelope-from <gpiccoli@canonical.com>) id 1iF1Ws-00057e-Nw
-	for dm-devel@redhat.com; Mon, 30 Sep 2019 19:40:18 +0000
-Received: by mail-pf1-f200.google.com with SMTP id a1so8568558pfn.1
-	for <dm-devel@redhat.com>; Mon, 30 Sep 2019 12:40:18 -0700 (PDT)
+	by mx1.redhat.com (Postfix) with ESMTPS id 014DD80F7C
+	for <dm-devel@redhat.com>; Tue,  1 Oct 2019 11:58:18 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id y19so15167551wrd.3
+	for <dm-devel@redhat.com>; Tue, 01 Oct 2019 04:58:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=arrikto-com.20150623.gappssmtp.com; s=20150623;
+	h=from:to:cc:subject:date:message-id;
+	bh=Mz8mujd/cbIj4LCwvkeuHB0Jnp7YUXJ8uMt/TpTIIT4=;
+	b=mmht+NIw6XT+bPA5QBB5i4EV5CL2sx1F6PaN/gq6u/tBlgWHTKctI/VooB6vGRLTok
+	xu87MUcPE/Cc1bIb4JJnQZ9IcVswvcyRmG9j7GiPVtLvVqPkCeIelIiXcuKFZm9Msj85
+	/tISlNmRmc8pCwtIQGkrOt011Y6b29gNHvkUW2pDgS9ibGnnYt2Uqih4X5hiNlLm+nL6
+	O4HEitprQIetHLUpSmCxBM0e50Rc+5RVzEzhnbwYk/xNEzzVd4FLx2EuZs94qAJBGkdA
+	pKL9umv/9pR06ZdS1NXdeoq6p75Nn5Tp2mQXfdOlWytPxo1ky9lzqzyMkiE6vNbiPZuy
+	DNEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
-	:message-id:date:user-agent:mime-version:in-reply-to
-	:content-language:content-transfer-encoding;
-	bh=09P9hryk4X9pxrU6lU1eu8xnMAXUu4sGNFiOeA8zkAc=;
-	b=GlpqzuLcMEGSgppuzzguCKxD4bZ+DkX+3HgkZca8BbmOl3FFqXPfnzC28qJF1x85Nu
-	VOSUMvRPWKQ7M57911mHjpfSGMZlAbCfr1ZqyIzOrJr8JLJO07x3JKDaqygkJfRQftIe
-	MQBESx4vUFrtJDU0rUNgdWC7UFW1jO/m5QDG417DUQ80KVGepiTFjxvbfx8FVXpSMFmY
-	xHDkP8Hf3bnSAhQvqG4qXsJ7P7B/vJkv+WGZciynfQG8U6wLhCmAzsZhdcIPv0sOnXAK
-	NsZ5ytN+NcsCBXMGV3t/BOe9PwQ881kqepEdkyVpcS96ugrKXkkpnvZBRRTln7FZV3np
-	k6mQ==
-X-Gm-Message-State: APjAAAXwnovohKktZHpiw+by3I35VCQFv2skFh+fkHEWxIAF3VCTsKI6
-	KxiqFs2fOw94AHLspuw+4nM9wd/hb31f7oQ2q+YDZMk8aYE7XW5rqpqm7GCTwnWQJpV4GDC7Xff
-	H2s1LVHjEy0aB5xtWrCSYbu0WEYOXZw==
-X-Received: by 2002:a17:90a:264a:: with SMTP id
-	l68mr1039497pje.74.1569872417342; 
-	Mon, 30 Sep 2019 12:40:17 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqwZ8h4rNs89cKWhr/JmybSS+4c+v6Mw1oFylzJu67DnGjq96+R4Zln+w1cF96kir99q9ot53A==
-X-Received: by 2002:a17:90a:264a:: with SMTP id
-	l68mr1039458pje.74.1569872416994; 
-	Mon, 30 Sep 2019 12:40:16 -0700 (PDT)
-Received: from [192.168.1.75] (201-0-39-188.dsl.telesp.net.br. [201.0.39.188])
+	h=x-gm-message-state:from:to:cc:subject:date:message-id;
+	bh=Mz8mujd/cbIj4LCwvkeuHB0Jnp7YUXJ8uMt/TpTIIT4=;
+	b=TSixCrRofOgOJ19CpMNAEsT4d+YCRCch262X67xKTGQpgkk9iCURxXOqftGGkmQpU8
+	oZSVkiIzZoubER5v1f1tPWNCrj76odEpcr3g9IcKX/Lq8os/xBHXWQCTux7n8352GOV9
+	GDr426coTJcxG4efK92hN0eiH/xfri0njyaBNLMLN+19cHIzzsagVgRhEGfFMK8Xtc/J
+	3FxH85DJaUGdSa27R5Cv/pOp0i7xMEG9hTcjcvX5t72yrK/D7dcloVlHj2oSNxR6gH6/
+	P0+iartCawoBhthihIl2WkRdAwLtMqZNtammOtfErDQRS33ONsc+lOoubRTQEBWMZo+M
+	Hg+Q==
+X-Gm-Message-State: APjAAAWUuJz1FMLHvyfL586V7EBbQRQHfVrpYSy9TBUrgaCRf2K2tcEq
+	sY9eSDHHYAgnjujLXvhkGTuYhg==
+X-Google-Smtp-Source: APXvYqxkykm/VpKvcmJl0VgrxZVRnE685GNMAxEo6uxB80v3BqVVyudgdGKVA8TQ2OF5fGtA4KRmJw==
+X-Received: by 2002:a5d:4f91:: with SMTP id d17mr461216wru.329.1569931096746; 
+	Tue, 01 Oct 2019 04:58:16 -0700 (PDT)
+Received: from snf-864.vm.snf.arr ([31.177.62.212])
 	by smtp.gmail.com with ESMTPSA id
-	o60sm373324pje.21.2019.09.30.12.40.10
+	b12sm15589174wrt.21.2019.10.01.04.58.15
 	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Mon, 30 Sep 2019 12:40:15 -0700 (PDT)
-To: Jes Sorensen <jes.sorensen@gmail.com>, linux-raid@vger.kernel.org
-References: <20190903194901.13524-1-gpiccoli@canonical.com>
-	<20190903194901.13524-2-gpiccoli@canonical.com>
-	<608284db-7b82-6545-74bf-7a9f1d578c2f@gmail.com>
-From: "Guilherme G. Piccoli" <gpiccoli@canonical.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=gpiccoli@canonical.com; prefer-encrypt=mutual; keydata=
-	mQENBFpVBxcBCADPNKmu2iNKLepiv8+Ssx7+fVR8lrL7cvakMNFPXsXk+f0Bgq9NazNKWJIn
-	Qxpa1iEWTZcLS8ikjatHMECJJqWlt2YcjU5MGbH1mZh+bT3RxrJRhxONz5e5YILyNp7jX+Vh
-	30rhj3J0vdrlIhPS8/bAt5tvTb3ceWEic9mWZMsosPavsKVcLIO6iZFlzXVu2WJ9cov8eQM/
-	irIgzvmFEcRyiQ4K+XUhuA0ccGwgvoJv4/GWVPJFHfMX9+dat0Ev8HQEbN/mko/bUS4Wprdv
-	7HR5tP9efSLucnsVzay0O6niZ61e5c97oUa9bdqHyApkCnGgKCpg7OZqLMM9Y3EcdMIJABEB
-	AAG0LUd1aWxoZXJtZSBHLiBQaWNjb2xpIDxncGljY29saUBjYW5vbmljYWwuY29tPokBNwQT
-	AQgAIQUCWmClvQIbAwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRDOR5EF9K/7Gza3B/9d
-	5yczvEwvlh6ksYq+juyuElLvNwMFuyMPsvMfP38UslU8S3lf+ETukN1S8XVdeq9yscwtsRW/
-	4YoUwHinJGRovqy8gFlm3SAtjfdqysgJqUJwBmOtcsHkmvFXJmPPGVoH9rMCUr9s6VDPox8f
-	q2W5M7XE9YpsfchS/0fMn+DenhQpV3W6pbLtuDvH/81GKrhxO8whSEkByZbbc+mqRhUSTdN3
-	iMpRL0sULKPVYbVMbQEAnfJJ1LDkPqlTikAgt3peP7AaSpGs1e3pFzSEEW1VD2jIUmmDku0D
-	LmTHRl4t9KpbU/H2/OPZkrm7809QovJGRAxjLLPcYOAP7DUeltveuQENBFpVBxcBCADbxD6J
-	aNw/KgiSsbx5Sv8nNqO1ObTjhDR1wJw+02Bar9DGuFvx5/qs3ArSZkl8qX0X9Vhptk8rYnkn
-	pfcrtPBYLoux8zmrGPA5vRgK2ItvSc0WN31YR/6nqnMfeC4CumFa/yLl26uzHJa5RYYQ47jg
-	kZPehpc7IqEQ5IKy6cCKjgAkuvM1rDP1kWQ9noVhTUFr2SYVTT/WBHqUWorjhu57/OREo+Tl
-	nxI1KrnmW0DbF52tYoHLt85dK10HQrV35OEFXuz0QPSNrYJT0CZHpUprkUxrupDgkM+2F5LI
-	bIcaIQ4uDMWRyHpDbczQtmTke0x41AeIND3GUc+PQ4hWGp9XABEBAAGJAR8EGAEIAAkFAlpV
-	BxcCGwwACgkQzkeRBfSv+xv1wwgAj39/45O3eHN5pK0XMyiRF4ihH9p1+8JVfBoSQw7AJ6oU
-	1Hoa+sZnlag/l2GTjC8dfEGNoZd3aRxqfkTrpu2TcfT6jIAsxGjnu+fUCoRNZzmjvRziw3T8
-	egSPz+GbNXrTXB8g/nc9mqHPPprOiVHDSK8aGoBqkQAPZDjUtRwVx112wtaQwArT2+bDbb/Y
-	Yh6gTrYoRYHo6FuQl5YsHop/fmTahpTx11IMjuh6IJQ+lvdpdfYJ6hmAZ9kiVszDF6pGFVkY
-	kHWtnE2Aa5qkxnA2HoFpqFifNWn5TyvJFpyqwVhVI8XYtXyVHub/WbXLWQwSJA4OHmqU8gDl
-	X18zwLgdiQ==
-Message-ID: <a7796eb4-f28f-9360-2ad2-a76d472c2e4c@canonical.com>
-Date: Mon, 30 Sep 2019 16:40:05 -0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <608284db-7b82-6545-74bf-7a9f1d578c2f@gmail.com>
-Content-Language: en-US
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
-	[10.5.110.66]); Mon, 30 Sep 2019 19:40:20 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.66]);
-	Mon, 30 Sep 2019 19:40:20 +0000 (UTC) for IP:'91.189.89.112'
-	DOMAIN:'youngberry.canonical.com'
-	HELO:'youngberry.canonical.com' FROM:'gpiccoli@canonical.com'
-	RCPT:''
-X-RedHat-Spam-Score: -4.998  (RCVD_IN_DNSWL_HI, SPF_HELO_NONE,
-	SPF_NONE) 91.189.89.112 youngberry.canonical.com
-	91.189.89.112 youngberry.canonical.com <gpiccoli@canonical.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.66
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+	Tue, 01 Oct 2019 04:58:15 -0700 (PDT)
+From: Nikos Tsironis <ntsironis@arrikto.com>
+To: snitzer@redhat.com, agk@redhat.com, dm-devel@redhat.com
+Date: Tue,  1 Oct 2019 14:57:46 +0300
+Message-Id: <20191001115747.4473-1-ntsironis@arrikto.com>
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.27]);
+	Tue, 01 Oct 2019 11:58:18 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]);
+	Tue, 01 Oct 2019 11:58:18 +0000 (UTC) for IP:'209.85.221.48'
+	DOMAIN:'mail-wr1-f48.google.com' HELO:'mail-wr1-f48.google.com'
+	FROM:'ntsironis@arrikto.com' RCPT:''
+X-RedHat-Spam-Score: -0.001  (DKIM_SIGNED, DKIM_VALID, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
+	SPF_PASS) 209.85.221.48 mail-wr1-f48.google.com 209.85.221.48
+	mail-wr1-f48.google.com <ntsironis@arrikto.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.27
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Tue, 01 Oct 2019 04:14:27 -0400
-Cc: nfbrown@suse.com, Song Liu <songliubraving@fb.com>, liu.song.a23@gmail.com,
-	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	jay.vosburgh@canonical.com
-Subject: Re: [dm-devel] [PATCH v4 2/2] mdadm: Introduce new array state
- 'broken' for raid0/linear
+Cc: ntsironis@arrikto.com, guru2018@gmail.com
+Subject: [dm-devel] [PATCH 0/1] dm snapshot: Fix bug in COW throttling
+	mechanism causing deadlocks
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -135,28 +97,35 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]); Tue, 01 Oct 2019 08:15:25 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.40]); Tue, 01 Oct 2019 11:58:52 +0000 (UTC)
 
-T24gMzAvMDkvMjAxOSAxNjozNiwgSmVzIFNvcmVuc2VuIHdyb3RlOgo+IFsuLi5dCj4gQXBwbGll
-ZCB0aGFua3MhCj4gCj4gSSBmaXhlZCB1cCBvbmUgbWlub3Igbml0IHJhdGhlciB0aGFuIGhhdmlu
-ZyB0byBkbyB0aGUgbWVycnktZ28tcm91bmQgYnkKPiBlbWFpbCBvbmUgbW9yZSB0aW1lOgo+IAo+
-PiBkaWZmIC0tZ2l0IGEvTW9uaXRvci5jIGIvTW9uaXRvci5jCj4+IGluZGV4IDAzNjEwM2YuLmNm
-MDYxMGIgMTAwNjQ0Cj4+IC0tLSBhL01vbml0b3IuYwo+PiArKysgYi9Nb25pdG9yLmMKPiBbc25p
-cF0KPiAKPj4gQEAgLTExMTYsNyArMTExOSw4IEBAIGludCBXYWl0Q2xlYW4oY2hhciAqZGV2LCBp
-bnQgdmVyYm9zZSkKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcnYgPSByZWFkKHN0YXRl
-X2ZkLCBidWYsIHNpemVvZihidWYpKTsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYg
-KHJ2IDwgMCkKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsKPj4g
-LcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHN5c2ZzX21hdGNoX3dvcmQoYnVmLCBjbGVhbl9z
-dGF0ZXMpIDw9IDQpCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChzeXNmc19tYXRjaF93
-b3JkKGJ1ZiwgY2xlYW5fc3RhdGVzKQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IDwgKGludClBUlJBWV9TSVpFKGNsZWFuX3N0YXRlcyktMSkKPiAKPiBJIG1vdmVkIHRoZSA8IHVw
-IHRvIHRoZSBjb3JyZWN0IGxpbmUgd2hlcmUgaXQgYmVsb25ncywgYW5kIGFkZGVkIHNwYWNlcwo+
-ICIpIC0gMSkiCj4gCj4gQ2hlZXJzLAo+IEplcwoKClRoYW5rcyBhIGxvdCBKZXMsIG11Y2ggYXBw
-cmVjaWF0ZWQhCkNoZWVycywKCgpHdWlsaGVybWUKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApk
-bS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5m
-by9kbS1kZXZlbA==
+Hello,
+
+This patch fixes the deadlock issue reported in this thread:
+https://www.redhat.com/archives/dm-devel/2019-September/msg00168.html.
+
+Although I have been really careful preparing this patch, in order to
+avoid any further issues, any extra review would be greatly appreciated.
+
+Thanks,
+Nikos
+
+Nikos Tsironis (1):
+  dm snapshot: Fix bug in COW throttling mechanism causing deadlocks
+
+ drivers/md/dm-snap.c | 99 +++++++++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 90 insertions(+), 9 deletions(-)
+
+-- 
+2.11.0
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
