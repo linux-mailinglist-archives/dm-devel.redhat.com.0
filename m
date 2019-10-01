@@ -2,136 +2,117 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F88EC47F3
-	for <lists+dm-devel@lfdr.de>; Wed,  2 Oct 2019 08:51:41 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+	by mail.lfdr.de (Postfix) with ESMTPS id D4963C4879
+	for <lists+dm-devel@lfdr.de>; Wed,  2 Oct 2019 09:30:07 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 3C747C0546D5;
-	Wed,  2 Oct 2019 06:51:39 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 3220510CC20A;
+	Wed,  2 Oct 2019 07:30:03 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1190C614C2;
-	Wed,  2 Oct 2019 06:51:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2FB022618A;
+	Wed,  2 Oct 2019 07:30:00 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 25EEF4E589;
-	Wed,  2 Oct 2019 06:51:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 422B94A486;
+	Wed,  2 Oct 2019 07:29:55 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x926pZQa014229 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Oct 2019 02:51:35 -0400
+	id x91KkKSb019284 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 1 Oct 2019 16:46:20 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0230E5D9DC; Wed,  2 Oct 2019 06:51:35 +0000 (UTC)
+	id 4A0D960C83; Tue,  1 Oct 2019 20:46:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx22.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.63])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9648D5D9D3;
-	Wed,  2 Oct 2019 06:51:32 +0000 (UTC)
-Received: from m4a0039g.houston.softwaregrp.com
-	(m4a0039g.houston.softwaregrp.com [15.124.2.85])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.redhat.com (ext-mx30.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.71])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 62AE060BE0;
+	Tue,  1 Oct 2019 20:46:12 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+	[148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 9CC2918CB8E2;
-	Wed,  2 Oct 2019 06:51:28 +0000 (UTC)
-Received: FROM m4a0039g.houston.softwaregrp.com (15.120.17.146) BY
-	m4a0039g.houston.softwaregrp.com WITH ESMTP; 
-	Wed,  2 Oct 2019 06:50:28 +0000
-Received: from M4W0335.microfocus.com (2002:f78:1193::f78:1193) by
-	M4W0334.microfocus.com (2002:f78:1192::f78:1192) with Microsoft SMTP
-	Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
-	15.1.1591.10; Wed, 2 Oct 2019 06:48:11 +0000
-Received: from NAM01-BY2-obe.outbound.protection.outlook.com (15.124.8.11) by
-	M4W0335.microfocus.com (15.120.17.147) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
-	15.1.1591.10 via Frontend Transport; Wed, 2 Oct 2019 06:48:10 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
-	b=hOrqHKsMXNFMDtUFQJpnl24F/pp5vMnRtMXjxol92kIWJ9zWt8+YAa3/Rj9vU8SztJHrMydzxmpDPBH++hO/WsjBdGCFf8E4ysqAY4Eb/8f/PJKSbdZRy8U38mJdWnzAT3W2/zNHLCCTnJKH/F2Le/fxQO19DJlF37W+qGjryL0U3f8kCxjEgaAQ13c/LB5rvZcFNZFRqasor5xH8MRQZ4DFQMhovycHYBfCE+r+SnpjIbyrWnTOM0z+xJ23bKojqdSqUi9qwey+Wp3LvqZTEt6a71ECGP7J2uJfkaFekh/TiF5FWsJrR2itCk+jM+1Vt22NjXgzi2hbGkmrR9m0bQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
-	s=arcselector9901;
-	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
-	bh=diE0/FHzmK3JsAo+CBN9lmFeILeAXUWNkSrbs/aOpn4=;
-	b=WKZxXbhE/SJRtxxWE0Zc11tSPJFLJII4KAsq5FHa5GVTm922vcPPcYynFW8n35exIaeNPDHtTe/9UK+soe1LnGtox2Iu4bjrFVwK5reID/I8maqdCWr9UA76K+UWYwIP7L44ZtnB6WVUijMn3wocpxPVnRCqI2CFwd5ugsWhjQrwTWwXuVSqaKN647zDqajON8NAmylS9CedTwsGOwoL7Bv2DlHxEvy/CITmyoRdUj0s36In0GK1v3GXF09BBz4IGmQV5L9EJJwLAkmoCuRORtq1RPhEPGp0V9ShYp7KYvbkIuywpZ3j/Cx7Z0ikbV/OX2nTruYQwhebzm3iW115Kg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
-	smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
-	dkim=pass header.d=suse.com; arc=none
-Received: from CH2PR18MB3349.namprd18.prod.outlook.com (52.132.245.83) by
-	CH2PR18MB3176.namprd18.prod.outlook.com (52.132.244.150) with Microsoft
-	SMTP
-	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.2305.20; Wed, 2 Oct 2019 06:48:06 +0000
-Received: from CH2PR18MB3349.namprd18.prod.outlook.com
-	([fe80::1075:2453:9278:e985]) by
-	CH2PR18MB3349.namprd18.prod.outlook.com
-	([fe80::1075:2453:9278:e985%5]) with mapi id 15.20.2305.017;
-	Wed, 2 Oct 2019 06:48:06 +0000
-From: Martin Wilck <Martin.Wilck@suse.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>, Chongyun Wu
-	<wu.chongyun@h3c.com>
-Thread-Topic: [PATCH 2/3] multipath.conf.5: document foreign library support
-Thread-Index: AQHVeO1YmXZf8a+h5E++fB/ILfCvmw==
-Date: Wed, 2 Oct 2019 06:48:05 +0000
-Message-ID: <20191002064655.2669-3-martin.wilck@suse.com>
-References: <20191002064655.2669-1-martin.wilck@suse.com>
-In-Reply-To: <20191002064655.2669-1-martin.wilck@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-clientproxiedby: AM3PR07CA0111.eurprd07.prod.outlook.com
-	(2603:10a6:207:7::21) To CH2PR18MB3349.namprd18.prod.outlook.com
-	(2603:10b6:610:28::19)
-authentication-results: spf=none (sender IP is )
-	smtp.mailfrom=Martin.Wilck@suse.com; 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [2.203.223.119]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 62e65d75-9c41-4789-8d2e-08d747047a7a
-x-ms-traffictypediagnostic: CH2PR18MB3176:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH2PR18MB31761FD0CBEDEDF669010B88FC9C0@CH2PR18MB3176.namprd18.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-forefront-prvs: 0178184651
-x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10019020)(4636009)(376002)(366004)(136003)(396003)(39860400002)(346002)(189003)(199004)(6506007)(110136005)(25786009)(5660300002)(66066001)(2906002)(316002)(102836004)(478600001)(76176011)(14454004)(52116002)(26005)(4326008)(99286004)(6486002)(186003)(81166006)(81156014)(8936002)(50226002)(6116002)(6512007)(54906003)(66446008)(64756008)(66946007)(256004)(386003)(3846002)(107886003)(44832011)(8676002)(2616005)(66556008)(6436002)(66476007)(476003)(71200400001)(1076003)(86362001)(71190400001)(36756003)(486006)(446003)(11346002)(305945005)(7736002);
-	DIR:OUT; SFP:1102; SCL:1; SRVR:CH2PR18MB3176;
-	H:CH2PR18MB3349.namprd18.prod.outlook.com; FPR:; SPF:None;
-	LANG:en; PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: suse.com does not designate
-	permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: HRw+6MWyx9yl9NXvp5r6/Fzhh83XrF41TEq9Mj34VnaFHrmN0i4xMdGCNRPindWd5y/w6x4+4R0aEosBv3rAHRxVNvG7RUqFUvP4eJQiVYXAW6o7m4mn0tgEBKsA4/tnJPNX3V+ZbYSZndYBIV7nP9bPuoTvSzb8sB/Gu8T4ES0D1PCYnK70g3qLIfTFIOSYwpHANfJYLZa6frHge/KRG8BEkOmg2KhqB6WN966hvq6Sd0gztrSxTASCd8/RTWd9Ob3kc7FQ2x9989IWs3+xEUR7nCZT0DHJE1RH2hIUkUvWdhdtKGtHwJuhMt6ub6+09W0X1AdHT/zUhFxI24sbJC7Bhp6waKiES7nD2IYwGUk8s6a1AVTHEHawf3/ylUcR4z3M8fF0fbKrwYw8vrxWmXEqQXbA5jOuXjQHDBUy+G4=
+	by mx1.redhat.com (Postfix) with ESMTPS id 4B342254D;
+	Tue,  1 Oct 2019 20:46:11 +0000 (UTC)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+	x91Kfwnb041565; Tue, 1 Oct 2019 16:46:10 -0400
+Received: from pps.reinject (localhost [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 2vccr3ap62-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Tue, 01 Oct 2019 16:46:10 -0400
+Received: from m0098393.ppops.net (m0098393.ppops.net [127.0.0.1])
+	by pps.reinject (8.16.0.27/8.16.0.27) with SMTP id x91KguOM043788;
+	Tue, 1 Oct 2019 16:46:10 -0400
+Received: from ppma04wdc.us.ibm.com (1a.90.2fa9.ip4.static.sl-reverse.com
+	[169.47.144.26])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 2vccr3ap5k-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Tue, 01 Oct 2019 16:46:10 -0400
+Received: from pps.filterd (ppma04wdc.us.ibm.com [127.0.0.1])
+	by ppma04wdc.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id
+	x91KivOG029201; Tue, 1 Oct 2019 20:46:09 GMT
+Received: from b03cxnp08028.gho.boulder.ibm.com
+	(b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
+	by ppma04wdc.us.ibm.com with ESMTP id 2v9y57xdcd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Tue, 01 Oct 2019 20:46:09 +0000
+Received: from b03ledav004.gho.boulder.ibm.com
+	(b03ledav004.gho.boulder.ibm.com [9.17.130.235])
+	by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+	ESMTP id x91Kk8Nq53019090
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=OK); Tue, 1 Oct 2019 20:46:08 GMT
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 022007805E;
+	Tue,  1 Oct 2019 20:46:08 +0000 (GMT)
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D0FF27805C;
+	Tue,  1 Oct 2019 20:46:06 +0000 (GMT)
+Received: from [9.85.183.38] (unknown [9.85.183.38])
+	by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP;
+	Tue,  1 Oct 2019 20:46:06 +0000 (GMT)
+To: Damien Le Moal <damien.lemoal@wdc.com>, linux-block@vger.kernel.org,
+	Jens Axboe <axboe@kernel.dk>, linux-scsi@vger.kernel.org,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>
+References: <20190905095135.26026-1-damien.lemoal@wdc.com>
+	<20190905095135.26026-6-damien.lemoal@wdc.com>
+From: Eric Farman <farman@linux.ibm.com>
+Message-ID: <9355c25f-61d7-b290-7d60-552ef4206e8c@linux.ibm.com>
+Date: Tue, 1 Oct 2019 16:46:06 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.9.0
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62e65d75-9c41-4789-8d2e-08d747047a7a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Oct 2019 06:48:05.8706 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +4ZLel2A4JApOchSVlNaQCnWOlBf1v+mKo76cFevx504b4azBT3lXoO4oA/8CY4dcix8pO32AGHCjTwnPMQHhw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR18MB3176
-X-OriginatorOrg: suse.com
+In-Reply-To: <20190905095135.26026-6-damien.lemoal@wdc.com>
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+	definitions=2019-10-01_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+	priorityscore=1501
+	malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+	clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+	mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+	scancount=1 engine=8.0.1-1908290000 definitions=main-1910010171
 X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
 	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
-	[10.5.110.63]); Wed, 02 Oct 2019 06:51:31 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.63]);
-	Wed, 02 Oct 2019 06:51:31 +0000 (UTC) for IP:'15.124.2.85'
-	DOMAIN:'m4a0039g.houston.softwaregrp.com'
-	HELO:'m4a0039g.houston.softwaregrp.com'
-	FROM:'Martin.Wilck@suse.com' RCPT:''
-X-RedHat-Spam-Score: 0.001  (RCVD_IN_DNSWL_NONE, SPF_HELO_NONE, SPF_PASS,
-	UNPARSEABLE_RELAY) 15.124.2.85
-	m4a0039g.houston.softwaregrp.com 15.124.2.85
-	m4a0039g.houston.softwaregrp.com <Martin.Wilck@suse.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.63
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id x926pZQa014229
+	[10.5.110.71]); Tue, 01 Oct 2019 20:46:11 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.71]);
+	Tue, 01 Oct 2019 20:46:11 +0000 (UTC) for IP:'148.163.156.1'
+	DOMAIN:'mx0a-001b2d01.pphosted.com'
+	HELO:'mx0a-001b2d01.pphosted.com' FROM:'farman@linux.ibm.com'
+	RCPT:''
+X-RedHat-Spam-Score: -0.7  (RCVD_IN_DNSWL_LOW, SPF_HELO_NONE,
+	SPF_PASS) 148.163.156.1 mx0a-001b2d01.pphosted.com
+	148.163.156.1 mx0a-001b2d01.pphosted.com <farman@linux.ibm.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.71
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>,
-	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH 2/3] multipath.conf.5: document foreign library
-	support
+X-Mailman-Approved-At: Wed, 02 Oct 2019 03:29:47 -0400
+Cc: Christian Borntraeger <borntraeger@de.ibm.com>,
+	Ming Lei <ming.lei@redhat.com>
+Subject: Re: [dm-devel] [PATCH v5 5/7] block: Delay default elevator
+	initialization
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -147,80 +128,205 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]); Wed, 02 Oct 2019 06:51:39 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.65]); Wed, 02 Oct 2019 07:30:06 +0000 (UTC)
 
-From: Martin Wilck <mwilck@suse.com>
 
-Add documentation for foreign library support, and for the
-"enable_foreign" parameter.
 
-Signed-off-by: Martin Wilck <mwilck@suse.com>
----
- multipath/multipath.conf.5 | 40 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 40 insertions(+)
+On 9/5/19 5:51 AM, Damien Le Moal wrote:
+> When elevator_init_mq() is called from blk_mq_init_allocated_queue(),
+> the only information known about the device is the number of hardware
+> queues as the block device scan by the device driver is not completed
+> yet for most drivers. The device type and elevator required features
+> are not set yet, preventing to correctly select the default elevator
+> most suitable for the device.
+> 
+> This currently affects all multi-queue zoned block devices which default
+> to the "none" elevator instead of the required "mq-deadline" elevator.
+> These drives currently include host-managed SMR disks connected to a
+> smartpqi HBA and null_blk block devices with zoned mode enabled.
+> Upcoming NVMe Zoned Namespace devices will also be affected.
+> 
+> Fix this by adding the boolean elevator_init argument to
+> blk_mq_init_allocated_queue() to control the execution of
+> elevator_init_mq(). Two cases exist:
+> 1) elevator_init = false is used for calls to
+>    blk_mq_init_allocated_queue() within blk_mq_init_queue(). In this
+>    case, a call to elevator_init_mq() is added to __device_add_disk(),
+>    resulting in the delayed initialization of the queue elevator
+>    after the device driver finished probing the device information. This
+>    effectively allows elevator_init_mq() access to more information
+>    about the device.
+> 2) elevator_init = true preserves the current behavior of initializing
+>    the elevator directly from blk_mq_init_allocated_queue(). This case
+>    is used for the special request based DM devices where the device
+>    gendisk is created before the queue initialization and device
+>    information (e.g. queue limits) is already known when the queue
+>    initialization is executed.
+> 
+> Additionally, to make sure that the elevator initialization is never
+> done while requests are in-flight (there should be none when the device
+> driver calls device_add_disk()), freeze and quiesce the device request
+> queue before calling blk_mq_init_sched() in elevator_init_mq().
+> 
+> Signed-off-by: Damien Le Moal <damien.lemoal@wdc.com>
 
-diff --git a/multipath/multipath.conf.5 b/multipath/multipath.conf.5
-index 23a79e9b..e866da23 100644
---- a/multipath/multipath.conf.5
-+++ b/multipath/multipath.conf.5
-@@ -1220,6 +1220,21 @@ makes multipath immediately mark a device with only ghost paths as ready.
- The default is: \fBno\fR
- .RE
- .
-+.
-+.TP
-+.B enable_foreign
-+Enables or disables foreign libraries (see section
-+.I FOREIGN MULTIPATH SUPPORT
-+below). The value is a regular expression; foreign libraries are loaded
-+if their name (e.g. \(dqnvme\(dq) matches the expression. By default,
-+all foreign libraries are enabled.
-+.RS
-+.TP
-+The default is: \fB\(dq\(dq\fR (the empty regular expression)
-+.RE
-+.
-+.
-+
- .
- .\" ----------------------------------------------------------------------------
- .SH "blacklist and blacklist_exceptions sections"
-@@ -1763,6 +1778,31 @@ unpredictable ways. If the \(dqmarginal_path\(dq method is active, the
- .
- .
- .\" ----------------------------------------------------------------------------
-+.SH "FOREIGN MULTIPATH SUPPORT"
-+.\" ----------------------------------------------------------------------------
-+.
-+multipath and multipathd can load \(dqforeign\(dq libraries to add
-+support for other multipathing technologies besides the Linux device mapper.
-+Currently this support is limited to printing detected information about
-+multipath setup. In topology output, the names of foreign maps are prefixed by
-+the foreign library name in square brackets, as in this example:
-+.
-+.P
-+.EX
-+# multipath -ll
-+uuid.fedcba98-3579-4567-8765-123456789abc [nvme]:nvme4n9 NVMe,Some NVMe controller,FFFFFFFF
-+size=167772160 features='n/a' hwhandler='ANA' wp=rw
-+|-+- policy='n/a' prio=50 status=optimized
-+| `- 4:38:1    nvme4c38n1 0:0     n/a   optimized    live
-+`-+- policy='n/a' prio=50 status=optimized
-+  `- 4:39:1    nvme4c39n1 0:0     n/a   optimized    live
-+.EE
-+.
-+.P
-+The \(dqnvme\(dq foreign library provides support for NVMe native multipathing
-+in the kernel. It is part of the standard multipath package.
-+.
-+.\" ----------------------------------------------------------------------------
- .SH "KNOWN ISSUES"
- .\" ----------------------------------------------------------------------------
- .
--- 
-2.23.0
+Coincidentally, I had been looking into a problem that is fixed in
+5.4-rc1 by this patch.  Thanks for that!
 
+The problem was a delay during boot of a KVM guest with virtio-scsi
+devices (or hotplug of such a device to a guest) in recent releases,
+especially when virtio-scsi is configured as a module.  The symptoms
+look like:
+
+[    0.975315] virtio_blk virtio2: [vda] 1803060 4096-byte logical
+blocks (7.39 GB/6.88 GiB)
+[    0.977859] scsi host0: Virtio SCSI HBA
+[    0.980339] scsi 0:0:0:0: Direct-Access     QEMU     QEMU HARDDISK
+2.5+ PQ: 0 ANSI: 5
+[    0.981685]  vda:VOL1/  0XA906: vda1
+[    0.988253] alg: No test for crc32be (crc32be-vx)
+...stall...
+[   24.544920] sd 0:0:0:0: Power-on or device reset occurred
+[   24.545176] sd 0:0:0:0: Attached scsi generic sg0 type 0
+[   24.545292] sd 0:0:0:0: [sda] 385 512-byte logical blocks: (197
+kB/193 KiB)
+[   24.545368] sd 0:0:0:0: [sda] Write Protect is off
+[   24.545416] sd 0:0:0:0: [sda] Mode Sense: 63 00 00 08
+[   24.545456] sd 0:0:0:0: [sda] Write cache: enabled, read cache:
+enabled, doesn't support DPO or FUA
+[   24.547033] sd 0:0:0:0: [sda] Attached SCSI disk
+
+I debugged this down to the same behavior described/fixed back in 3.18
+by commit 17497acbdce9 ("blk-mq, percpu_ref: start q->mq_usage_counter
+in atomic mode"), and for the same reason.  The delay starts occurring
+as soon as q->q_usage_counter is converted to percpu for the one LUN tha
+twas found, while scsi_scan_channel() is still working on its loop of
+mostly non-existent devices.  Exactly when this problem started
+re-occuring is not certain to me, though I did see this problem with 5.2
+on linux-stable.
+
+When I run with a 5.3 kernel, the problem is easily reproducible.  So I
+bisected between 5.3 and 5.4-rc1, and got here.  Cherry-picking this
+patch on top of 5.3 cleans up the boot/hotplug process and removes any
+stall.  Any chance this could be cc'd to stable?  Any data someone wants
+to see behavioral changes?
+
+Thanks,
+Eric
+
+> ---
+>  block/blk-mq.c         | 12 +++++++++---
+>  block/elevator.c       |  7 +++++++
+>  block/genhd.c          |  9 +++++++++
+>  drivers/md/dm-rq.c     |  2 +-
+>  include/linux/blk-mq.h |  3 ++-
+>  5 files changed, 28 insertions(+), 5 deletions(-)
+> 
+> diff --git a/block/blk-mq.c b/block/blk-mq.c
+> index ee4caf0c0807..240416057f28 100644
+> --- a/block/blk-mq.c
+> +++ b/block/blk-mq.c
+> @@ -2689,7 +2689,11 @@ struct request_queue *blk_mq_init_queue(struct blk_mq_tag_set *set)
+>  	if (!uninit_q)
+>  		return ERR_PTR(-ENOMEM);
+>  
+> -	q = blk_mq_init_allocated_queue(set, uninit_q);
+> +	/*
+> +	 * Initialize the queue without an elevator. device_add_disk() will do
+> +	 * the initialization.
+> +	 */
+> +	q = blk_mq_init_allocated_queue(set, uninit_q, false);
+>  	if (IS_ERR(q))
+>  		blk_cleanup_queue(uninit_q);
+>  
+> @@ -2840,7 +2844,8 @@ static unsigned int nr_hw_queues(struct blk_mq_tag_set *set)
+>  }
+>  
+>  struct request_queue *blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
+> -						  struct request_queue *q)
+> +						  struct request_queue *q,
+> +						  bool elevator_init)
+>  {
+>  	/* mark the queue as mq asap */
+>  	q->mq_ops = set->ops;
+> @@ -2902,7 +2907,8 @@ struct request_queue *blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
+>  	blk_mq_add_queue_tag_set(set, q);
+>  	blk_mq_map_swqueue(q);
+>  
+> -	elevator_init_mq(q);
+> +	if (elevator_init)
+> +		elevator_init_mq(q);
+>  
+>  	return q;
+>  
+> diff --git a/block/elevator.c b/block/elevator.c
+> index 520d6b224b74..096a670d22d7 100644
+> --- a/block/elevator.c
+> +++ b/block/elevator.c
+> @@ -712,7 +712,14 @@ void elevator_init_mq(struct request_queue *q)
+>  	if (!e)
+>  		return;
+>  
+> +	blk_mq_freeze_queue(q);
+> +	blk_mq_quiesce_queue(q);
+> +
+>  	err = blk_mq_init_sched(q, e);
+> +
+> +	blk_mq_unquiesce_queue(q);
+> +	blk_mq_unfreeze_queue(q);
+> +
+>  	if (err) {
+>  		pr_warn("\"%s\" elevator initialization failed, "
+>  			"falling back to \"none\"\n", e->elevator_name);
+> diff --git a/block/genhd.c b/block/genhd.c
+> index 54f1f0d381f4..26b31fcae217 100644
+> --- a/block/genhd.c
+> +++ b/block/genhd.c
+> @@ -695,6 +695,15 @@ static void __device_add_disk(struct device *parent, struct gendisk *disk,
+>  	dev_t devt;
+>  	int retval;
+>  
+> +	/*
+> +	 * The disk queue should now be all set with enough information about
+> +	 * the device for the elevator code to pick an adequate default
+> +	 * elevator if one is needed, that is, for devices requesting queue
+> +	 * registration.
+> +	 */
+> +	if (register_queue)
+> +		elevator_init_mq(disk->queue);
+> +
+>  	/* minors == 0 indicates to use ext devt from part0 and should
+>  	 * be accompanied with EXT_DEVT flag.  Make sure all
+>  	 * parameters make sense.
+> diff --git a/drivers/md/dm-rq.c b/drivers/md/dm-rq.c
+> index 21d5c1784d0c..3f8577e2c13b 100644
+> --- a/drivers/md/dm-rq.c
+> +++ b/drivers/md/dm-rq.c
+> @@ -563,7 +563,7 @@ int dm_mq_init_request_queue(struct mapped_device *md, struct dm_table *t)
+>  	if (err)
+>  		goto out_kfree_tag_set;
+>  
+> -	q = blk_mq_init_allocated_queue(md->tag_set, md->queue);
+> +	q = blk_mq_init_allocated_queue(md->tag_set, md->queue, true);
+>  	if (IS_ERR(q)) {
+>  		err = PTR_ERR(q);
+>  		goto out_tag_set;
+> diff --git a/include/linux/blk-mq.h b/include/linux/blk-mq.h
+> index 62a3bb715899..0bf056de5cc3 100644
+> --- a/include/linux/blk-mq.h
+> +++ b/include/linux/blk-mq.h
+> @@ -248,7 +248,8 @@ enum {
+>  
+>  struct request_queue *blk_mq_init_queue(struct blk_mq_tag_set *);
+>  struct request_queue *blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
+> -						  struct request_queue *q);
+> +						  struct request_queue *q,
+> +						  bool elevator_init);
+>  struct request_queue *blk_mq_init_sq_queue(struct blk_mq_tag_set *set,
+>  						const struct blk_mq_ops *ops,
+>  						unsigned int queue_depth,
+> 
 
 --
 dm-devel mailing list
