@@ -2,75 +2,72 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56EC5C3F8C
-	for <lists+dm-devel@lfdr.de>; Tue,  1 Oct 2019 20:15:28 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+	by mail.lfdr.de (Postfix) with ESMTPS id E87D8C41CE
+	for <lists+dm-devel@lfdr.de>; Tue,  1 Oct 2019 22:31:16 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 6FA7418CB905;
-	Tue,  1 Oct 2019 18:15:26 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 676CB2543;
+	Tue,  1 Oct 2019 20:31:10 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0E6AC3CC8;
-	Tue,  1 Oct 2019 18:15:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 85ED360BE0;
+	Tue,  1 Oct 2019 20:31:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2EFF34EE50;
-	Tue,  1 Oct 2019 18:15:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4FEA24EE68;
+	Tue,  1 Oct 2019 20:30:58 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x91IFKZe011318 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 1 Oct 2019 14:15:20 -0400
+	id x91KUjXd018492 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 1 Oct 2019 16:30:45 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id AB4655D9CC; Tue,  1 Oct 2019 18:15:20 +0000 (UTC)
+	id 989635D717; Tue,  1 Oct 2019 20:30:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx27.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.68])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 124B25D9D6;
-	Tue,  1 Oct 2019 18:15:06 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mx1.redhat.com (ext-mx28.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.69])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 24C285D6D0;
+	Tue,  1 Oct 2019 20:30:43 +0000 (UTC)
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
+	[217.70.183.200])
+	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 76CFC878E46;
-	Tue,  1 Oct 2019 18:15:03 +0000 (UTC)
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
-	[83.86.89.107])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 586B321855;
-	Tue,  1 Oct 2019 18:15:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1569953702;
-	bh=58hjnWFWg4objqJkLOiRF6VJpJ+IkAbmRZMgk522XgY=;
-	h=Subject:To:Cc:From:Date:From;
-	b=tWb6SvYGMpioyL3BJkkay9Uv0PAAzVy40aJTi+9iNO5kEYPuncE+lCebGhePnpC4r
-	cn3GxYrmYIoVJxflndropiimrwLAVk0utRoCQzbeEUPk1sPunu25cCVwot/oIA44HM
-	4+IrupX2/Ezbagxyv8D0GKBlzQWPnobj7xg8cBzE=
-To: axboe@kernel.dk, bvanassche@acm.org, dm-devel@redhat.com,
-	emilne@redhat.com, gregkh@linuxfoundation.org, hare@suse.com,
-	hch@lst.de, ming.lei@redhat.com, snitzer@redhat.com
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 01 Oct 2019 20:06:38 +0200
-Message-ID: <156995319823252@kroah.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id 44D5D8A2195;
+	Tue,  1 Oct 2019 20:30:39 +0000 (UTC)
+X-Originating-IP: 209.85.166.47
+Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
+	[209.85.166.47]) (Authenticated sender: gmail@opensvc.com)
+	by relay7-d.mail.gandi.net (Postfix) with ESMTPSA id 32D9B20006;
+	Tue,  1 Oct 2019 20:30:37 +0000 (UTC)
+Received: by mail-io1-f47.google.com with SMTP id v2so51407239iob.10;
+	Tue, 01 Oct 2019 13:30:36 -0700 (PDT)
+X-Gm-Message-State: APjAAAVzMgwBNL2mAkx/2P6Ktfz+4szB/xNJHDaT+AWOS2MTenE2QTd9
+	m8xne8gZRAKYa9eXc5isPKqlRZWmuNWtYmSWkpI=
+X-Google-Smtp-Source: APXvYqwN6Z/V0J1huwrI5JNeb5b0N8c6yglI5jpYyZ/gD8GOsS3wz2M9FMXvxj7U788cwPYomB653JfS4XZKtkHLYGk=
+X-Received: by 2002:a92:5e0b:: with SMTP id s11mr28873480ilb.26.1569961835728; 
+	Tue, 01 Oct 2019 13:30:35 -0700 (PDT)
 MIME-Version: 1.0
-X-stable: commit
-X-Patchwork-Hint: ignore 
-X-Greylist: Sender DNS name whitelisted, not delayed by milter-greylist-4.6.2
-	(mx1.redhat.com [10.5.110.68]);
-	Tue, 01 Oct 2019 18:15:03 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.68]);
-	Tue, 01 Oct 2019 18:15:03 +0000 (UTC) for IP:'198.145.29.99'
-	DOMAIN:'mail.kernel.org' HELO:'mail.kernel.org'
-	FROM:'gregkh@linuxfoundation.org' RCPT:''
-X-RedHat-Spam-Score: -2.527  (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
-	RCVD_IN_DNSWL_HI, SORTED_RECIPS, SPF_HELO_NONE,
-	SPF_PASS) 198.145.29.99 mail.kernel.org 198.145.29.99 mail.kernel.org
-	<gregkh@linuxfoundation.org>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.68
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+From: Christophe Varoqui <christophe.varoqui@opensvc.com>
+Date: Tue, 1 Oct 2019 22:30:24 +0200
+X-Gmail-Original-Message-ID: <CABr-Gncq_wj6iv7knLFLU-oEMBXtP2oPfOjUFUNMMRC6Q_F12g@mail.gmail.com>
+Message-ID: <CABr-Gncq_wj6iv7knLFLU-oEMBXtP2oPfOjUFUNMMRC6Q_F12g@mail.gmail.com>
+To: petr.vorel@gmail.com, Martin Wilck <Martin.Wilck@suse.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>, Chongyun Wu <wu.chongyun@h3c.com>
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
+	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
+	[10.5.110.69]); Tue, 01 Oct 2019 20:30:42 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.69]);
+	Tue, 01 Oct 2019 20:30:42 +0000 (UTC) for IP:'217.70.183.200'
+	DOMAIN:'relay7-d.mail.gandi.net' HELO:'relay7-d.mail.gandi.net'
+	FROM:'christophe.varoqui@opensvc.com' RCPT:''
+X-RedHat-Spam-Score: -0.699  (HTML_MESSAGE, RCVD_IN_DNSWL_LOW, SPF_HELO_NONE,
+	SPF_PASS) 217.70.183.200 relay7-d.mail.gandi.net
+	217.70.183.200 relay7-d.mail.gandi.net
+	<christophe.varoqui@opensvc.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.69
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-Cc: stable-commits@vger.kernel.org
-Subject: [dm-devel] Patch "scsi: implement .cleanup_rq callback" has been
-	added to the 5.3-stable tree
+Cc: device-mapper development <dm-devel@redhat.com>
+Subject: [dm-devel] [multipath-tools] merges
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,94 +79,63 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8502878492485126767=="
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.63]); Tue, 01 Oct 2019 18:15:27 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.71]); Tue, 01 Oct 2019 20:31:15 +0000 (UTC)
+
+--===============8502878492485126767==
+Content-Type: multipart/alternative; boundary="0000000000008799370593df3900"
+
+--0000000000008799370593df3900
+Content-Type: text/plain; charset="UTF-8"
+
+Hi,
+
+I merged the patchsets posted and reviewed in past months.
+
+Here are the remaining sets needing rebase:
+
+* Martin's "enable_foreign" patchset from aug 15
+* Chongyun's "san_path_err" optimization patchset from aug 27
+
+I'll bump the version after merging these missing patchs.
+
+Petr, do you intent to submit a v2 of the s/daddr_t/__kernel_daddr_t/ patch
+posted jul 08, following Christoph H's comment ... or is the posted version
+fit for inclusion ?
+
+Thanks,
+Christophe
+
+--0000000000008799370593df3900
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<div><br></div><div>I merged the patchsets posted and r=
+eviewed in past months.</div><div><br></div><div>Here are the remaining set=
+s needing rebase:</div><div><br></div><div>* Martin&#39;s &quot;enable_fore=
+ign&quot; patchset from aug 15</div><div>* Chongyun&#39;s &quot;san_path_er=
+r&quot; optimization patchset from aug 27</div><div><br></div><div>I&#39;ll=
+ bump the version after merging these missing patchs.</div><div><br></div><=
+div>Petr, do you intent to submit a v2 of the s/daddr_t/__kernel_daddr_t/ p=
+atch posted jul 08, following Christoph H&#39;s comment ... or is the poste=
+d version fit for inclusion ?</div><div><br></div><div>Thanks,</div><div>Ch=
+ristophe</div></div>
+
+--0000000000008799370593df3900--
 
 
-This is a note to let you know that I've just added the patch titled
-
-    scsi: implement .cleanup_rq callback
-
-to the 5.3-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     scsi-implement-.cleanup_rq-callback.patch
-and it can be found in the queue-5.3 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
->From b7e9e1fb7a9227be34ad4a5e778022c3164494cf Mon Sep 17 00:00:00 2001
-From: Ming Lei <ming.lei@redhat.com>
-Date: Thu, 25 Jul 2019 10:05:00 +0800
-Subject: scsi: implement .cleanup_rq callback
-
-From: Ming Lei <ming.lei@redhat.com>
-
-commit b7e9e1fb7a9227be34ad4a5e778022c3164494cf upstream.
-
-Implement .cleanup_rq() callback for freeing driver private part
-of the request. Then we can avoid to leak this part if the request isn't
-completed by SCSI, and freed by blk-mq or upper layer(such as dm-rq) finally.
-
-Cc: Ewan D. Milne <emilne@redhat.com>
-Cc: Bart Van Assche <bvanassche@acm.org>
-Cc: Hannes Reinecke <hare@suse.com>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Mike Snitzer <snitzer@redhat.com>
-Cc: dm-devel@redhat.com
-Cc: <stable@vger.kernel.org>
-Fixes: 396eaf21ee17 ("blk-mq: improve DM's blk-mq IO merging via blk_insert_cloned_request feedback")
-Signed-off-by: Ming Lei <ming.lei@redhat.com>
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
----
- drivers/scsi/scsi_lib.c |   13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
---- a/drivers/scsi/scsi_lib.c
-+++ b/drivers/scsi/scsi_lib.c
-@@ -1089,6 +1089,18 @@ static void scsi_initialize_rq(struct re
- 	cmd->retries = 0;
- }
- 
-+/*
-+ * Only called when the request isn't completed by SCSI, and not freed by
-+ * SCSI
-+ */
-+static void scsi_cleanup_rq(struct request *rq)
-+{
-+	if (rq->rq_flags & RQF_DONTPREP) {
-+		scsi_mq_uninit_cmd(blk_mq_rq_to_pdu(rq));
-+		rq->rq_flags &= ~RQF_DONTPREP;
-+	}
-+}
-+
- /* Add a command to the list used by the aacraid and dpt_i2o drivers */
- void scsi_add_cmd_to_list(struct scsi_cmnd *cmd)
- {
-@@ -1821,6 +1833,7 @@ static const struct blk_mq_ops scsi_mq_o
- 	.init_request	= scsi_mq_init_request,
- 	.exit_request	= scsi_mq_exit_request,
- 	.initialize_rq_fn = scsi_initialize_rq,
-+	.cleanup_rq	= scsi_cleanup_rq,
- 	.busy		= scsi_mq_lld_busy,
- 	.map_queues	= scsi_map_queues,
- };
-
-
-Patches currently in stable-queue which might be from ming.lei@redhat.com are
-
-queue-5.3/scsi-implement-.cleanup_rq-callback.patch
+--===============8502878492485126767==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
+--===============8502878492485126767==--
+
