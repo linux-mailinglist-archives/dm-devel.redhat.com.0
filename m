@@ -2,105 +2,100 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B609C914B
-	for <lists+dm-devel@lfdr.de>; Wed,  2 Oct 2019 21:04:55 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+	by mail.lfdr.de (Postfix) with ESMTPS id 70824C92B9
+	for <lists+dm-devel@lfdr.de>; Wed,  2 Oct 2019 22:00:51 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 732C912A2;
-	Wed,  2 Oct 2019 19:04:51 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id A66DD309BF02;
+	Wed,  2 Oct 2019 20:00:44 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 366F15D9DC;
-	Wed,  2 Oct 2019 19:04:46 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CBEEC60BE0;
+	Wed,  2 Oct 2019 20:00:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 861E41803B37;
-	Wed,  2 Oct 2019 19:04:35 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6E6EB18089C8;
+	Wed,  2 Oct 2019 20:00:38 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x92J4LqP015993 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Oct 2019 15:04:21 -0400
+	id x92K0TTi018625 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Oct 2019 16:00:29 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8B0A0601B3; Wed,  2 Oct 2019 19:04:21 +0000 (UTC)
+	id 0419760C18; Wed,  2 Oct 2019 20:00:29 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx04.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.28])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 858CE6013A
-	for <dm-devel@redhat.com>; Wed,  2 Oct 2019 19:04:18 +0000 (UTC)
-Received: from gateway24.websitewelcome.com (gateway24.websitewelcome.com
-	[192.185.51.122])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mx1.redhat.com (ext-mx16.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.45])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F20D460BE0
+	for <dm-devel@redhat.com>; Wed,  2 Oct 2019 20:00:26 +0000 (UTC)
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+	[209.85.128.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id D59DE85543
-	for <dm-devel@redhat.com>; Wed,  2 Oct 2019 19:04:15 +0000 (UTC)
-Received: from cm11.websitewelcome.com (cm11.websitewelcome.com [100.42.49.5])
-	by gateway24.websitewelcome.com (Postfix) with ESMTP id C76525A064
-	for <dm-devel@redhat.com>; Wed,  2 Oct 2019 14:04:14 -0500 (CDT)
-Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with SMTP
-	id Fjv4iiVeyVUVYFjv4iVQsN; Wed, 02 Oct 2019 14:04:14 -0500
-X-Authority-Reason: nr=8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=embeddedor.com; s=default;
-	h=Content-Type:MIME-Version:Message-ID:Subject:
-	Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=lGuFHxBRnjeWcjmv8+OVj8h6DT2+GVr2Gf8sL4rtDWM=;
-	b=iCsBeVOYQ8y5i0JxkH7to0mWYD
-	nHxhmItBEKPjOco0tAuRVIq+WBxiu994Y2EkTRb704t1zGngb5RkHIe6VV8ImtoUtUJEBmU0Kk1nv
-	UL35BlIIoraV6yiT5wmIuoYClrOIKQ0drO01Qw7V2lA8noPMfgeMfjbllZiffnrr5tzZCs9I7imOd
-	KPdWXoupPZalrpljy6xtAK8Y9VFmEP8Ie2/OGmVaLmSsCb/ARPklUkjJSikxUt/+TQn/fclSf0G9n
-	CjRooX9KKaOo/+3WfV7wo1dG0AfS2sWiuuBJNflXy0Zyy3TQ7g/wBzccnCxpN6fKv43zwgQxCpgC8
-	CVS4/Osw==;
-Received: from 187-162-252-62.static.axtel.net ([187.162.252.62]:39692
-	helo=embeddedor) by gator4166.hostgator.com with esmtpa (Exim 4.92)
-	(envelope-from <gustavo@embeddedor.com>)
-	id 1iFjv3-0047wu-MW; Wed, 02 Oct 2019 14:04:13 -0500
-Date: Wed, 2 Oct 2019 14:03:41 -0500
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>
-Message-ID: <20191002190341.GA8900@embeddedor>
+	by mx1.redhat.com (Postfix) with ESMTPS id C7719309BF02
+	for <dm-devel@redhat.com>; Wed,  2 Oct 2019 20:00:24 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id 5so224660wmg.0
+	for <dm-devel@redhat.com>; Wed, 02 Oct 2019 13:00:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=arrikto-com.20150623.gappssmtp.com; s=20150623;
+	h=subject:to:cc:references:from:message-id:date:user-agent
+	:mime-version:in-reply-to:content-language:content-transfer-encoding;
+	bh=RfaapF2O2nO4XtJE0Sp9/W+WL5rrB7/5PtQvYL6hbQs=;
+	b=Y1pdN4J/3swmFOp6tfZaZe/c9N3fxxv+Y4ruLHIynPI1nIC9j4aAZFWry+QxTItE28
+	sAE2VpLvz6DlMKf9sjEfQ9qDEfBEk1b7fY9q0UA4wR412I5uGh2Wj/yDeJCn6Oi8xyU5
+	lKvLpntQQDeqgmPXQvQeD0WEoApsPMy913SJWtjWPOqyUADLnnWDAnbblgoCzanA0YQf
+	9mTSFvfTPUwavCyPPaOePXo1Gix77kJRd7Rjf9NyIvj+oZeEcOKFgLxr1F6/aBoK433A
+	ORxf3FqWA6vGMVD9MzqdA2y21ySEb8qTRtzH+YxFF9Nw4d40G0oJEYkTIiQukxYVFmvW
+	v+eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=RfaapF2O2nO4XtJE0Sp9/W+WL5rrB7/5PtQvYL6hbQs=;
+	b=EBma+k3k6peRYFmTFq8DPZMUX74IiLv32pIwcvC8bOg+dqgCZpRksq02uvCY7Da/F8
+	/jxj9+TiKpZVY75+Lcp9RkVTqj8J7EcfT4UkdO+mNAx0YpeIvJhKPNaSGa2tCWn7xkJe
+	uhh7D0Ah75mdiD9I4iEgwyjXcpwvRIikYlXnF4VZC9nG/HHXSyyIGOSQnp+40hN6qb/m
+	9uHzLV9lOd8wU59Bujx4XK0ldJPhe670PV6zai1gycgF7SfxqQxGSoqC8uazbmTcnc4X
+	X04EsKpXLkSOLTcV5QuRNuaGnGk/5SJfrq6h4lsREe3N/eVVrAPwrPCmbNMVam5yMgb4
+	y0tA==
+X-Gm-Message-State: APjAAAUBMpkJ9n9E6Fl2OZqGSi9SHcdoglc6PzYnr2DGOsCOS8r9dOuS
+	UuJMt48+J4rNLYQYBUECtAuYQSpF474=
+X-Google-Smtp-Source: APXvYqyobOlVOHBSkxOxuEYRQLXTbCJHKwVvEhxUi60gbGAMI3KC5vCloDNlKslsJSs417DBwqi/gQ==
+X-Received: by 2002:a05:600c:34e:: with SMTP id
+	u14mr3922774wmd.110.1570046423207; 
+	Wed, 02 Oct 2019 13:00:23 -0700 (PDT)
+Received: from [192.168.1.108] (130.43.56.1.dsl.dyn.forthnet.gr. [130.43.56.1])
+	by smtp.gmail.com with ESMTPSA id
+	q192sm304338wme.23.2019.10.02.13.00.21
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Wed, 02 Oct 2019 13:00:22 -0700 (PDT)
+To: Mikulas Patocka <mpatocka@redhat.com>, Mike Snitzer <snitzer@redhat.com>, 
+	Alasdair Kergon <agk@redhat.com>
+References: <alpine.LRH.2.02.1910020614190.973@file01.intranet.prod.int.rdu2.redhat.com>
+From: Nikos Tsironis <ntsironis@arrikto.com>
+Message-ID: <b63d2544-64fd-de75-15c1-d85be0cd887e@arrikto.com>
+Date: Wed, 2 Oct 2019 23:00:21 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.9.0
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-AntiAbuse: This header was added to track abuse,
-	please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - redhat.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 187.162.252.62
-X-Source-L: No
-X-Exim-ID: 1iFjv3-0047wu-MW
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 187-162-252-62.static.axtel.net (embeddedor)
-	[187.162.252.62]:39692
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 3
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-Greylist: Sender passed SPF test, ACL 264 matched, not delayed by
-	milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]);
-	Wed, 02 Oct 2019 19:04:17 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.28]);
-	Wed, 02 Oct 2019 19:04:17 +0000 (UTC) for IP:'192.185.51.122'
-	DOMAIN:'gateway24.websitewelcome.com'
-	HELO:'gateway24.websitewelcome.com'
-	FROM:'gustavo@embeddedor.com' RCPT:''
-X-RedHat-Spam-Score: -0.102  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	SPF_HELO_PASS,
-	SPF_PASS) 192.185.51.122 gateway24.websitewelcome.com 192.185.51.122
-	gateway24.websitewelcome.com <gustavo@embeddedor.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.28
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+In-Reply-To: <alpine.LRH.2.02.1910020614190.973@file01.intranet.prod.int.rdu2.redhat.com>
+Content-Language: en-US
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.45]);
+	Wed, 02 Oct 2019 20:00:25 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]);
+	Wed, 02 Oct 2019 20:00:25 +0000 (UTC) for IP:'209.85.128.68'
+	DOMAIN:'mail-wm1-f68.google.com' HELO:'mail-wm1-f68.google.com'
+	FROM:'ntsironis@arrikto.com' RCPT:''
+X-RedHat-Spam-Score: -0.001  (DKIM_SIGNED, DKIM_VALID, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
+	SPF_PASS) 209.85.128.68 mail-wm1-f68.google.com 209.85.128.68
+	mail-wm1-f68.google.com <ntsironis@arrikto.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.45
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, linux-kernel@vger.kernel.org,
-	"Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: [dm-devel] [PATCH] md: dm-stripe: Use struct_size() in kmalloc()
+Cc: dm-devel@redhat.com, guru2018@gmail.com
+Subject: Re: [dm-devel] [PATCH 2/2] dm-snapshot: Reimplement the cow limit.
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -116,80 +111,269 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.29]); Wed, 02 Oct 2019 19:04:54 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]); Wed, 02 Oct 2019 20:00:49 +0000 (UTC)
 
-One of the more common cases of allocation size calculations is finding
-the size of a structure that has a zero-sized array at the end, along
-with memory for some number of elements for that array. For example:
+Hi Mikulas,
 
-struct stripe_c {
-        ...
-        struct stripe stripe[0];
-};
+I agree that it's better to avoid holding any locks while waiting for
+some pending kcopyd jobs to finish, but please see the comments below.
 
-In this case alloc_context() and dm_array_too_big() are removed and
-replaced by the direct use of the struct_size() helper in kmalloc().
+On 10/2/19 1:15 PM, Mikulas Patocka wrote:
+> Commit 721b1d98fb517a ("dm snapshot: Fix excessive memory usage and
+> workqueue stalls") introduced a semaphore to limit the maximum number of
+> in-flight kcopyd (COW) jobs.
+> 
+> The implementation of this throttling mechanism is prone to a deadlock:
+> 
+> 1. One or more threads write to the origin device causing COW, which is
+>    performed by kcopyd.
+> 
+> 2. At some point some of these threads might reach the s->cow_count
+>    semaphore limit and block in down(&s->cow_count), holding a read lock
+>    on _origins_lock.
+> 
+> 3. Someone tries to acquire a write lock on _origins_lock, e.g.,
+>    snapshot_ctr(), which blocks because the threads at step (2) already
+>    hold a read lock on it.
+> 
+> 4. A COW operation completes and kcopyd runs dm-snapshot's completion
+>    callback, which ends up calling pending_complete().
+>    pending_complete() tries to resubmit any deferred origin bios. This
+>    requires acquiring a read lock on _origins_lock, which blocks.
+> 
+>    This happens because the read-write semaphore implementation gives
+>    priority to writers, meaning that as soon as a writer tries to enter
+>    the critical section, no readers will be allowed in, until all
+>    writers have completed their work.
+> 
+>    So, pending_complete() waits for the writer at step (3) to acquire
+>    and release the lock. This writer waits for the readers at step (2)
+>    to release the read lock and those readers wait for
+>    pending_complete() (the kcopyd thread) to signal the s->cow_count
+>    semaphore: DEADLOCK.
+> 
+> In order to fix the bug, I reworked limiting, so that it waits without 
+> holding any locks. The patch adds a variable in_progress that counts how 
+> many kcopyd jobs are running. A function wait_for_in_progress will sleep 
+> if the variable in_progress is over the limit. It drops _origins_lock in 
+> order to avoid the deadlock.
+> 
+> Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+> Cc: stable@vger.kernel.org	# v5.0+
+> Fixes: 721b1d98fb51 ("dm snapshot: Fix excessive memory usage and workqueue stalls")
+> 
+> ---
+>  drivers/md/dm-snap.c |   69 ++++++++++++++++++++++++++++++++++++++++-----------
+>  1 file changed, 55 insertions(+), 14 deletions(-)
+> 
+> Index: linux-2.6/drivers/md/dm-snap.c
+> ===================================================================
+> --- linux-2.6.orig/drivers/md/dm-snap.c	2019-10-01 15:23:42.000000000 +0200
+> +++ linux-2.6/drivers/md/dm-snap.c	2019-10-02 12:01:23.000000000 +0200
+> @@ -18,7 +18,6 @@
+>  #include <linux/vmalloc.h>
+>  #include <linux/log2.h>
+>  #include <linux/dm-kcopyd.h>
+> -#include <linux/semaphore.h>
+>  
+>  #include "dm.h"
+>  
+> @@ -107,8 +106,8 @@ struct dm_snapshot {
+>  	/* The on disk metadata handler */
+>  	struct dm_exception_store *store;
+>  
+> -	/* Maximum number of in-flight COW jobs. */
+> -	struct semaphore cow_count;
+> +	unsigned in_progress;
+> +	struct wait_queue_head in_progress_wait;
+>  
+>  	struct dm_kcopyd_client *kcopyd_client;
+>  
+> @@ -162,8 +161,8 @@ struct dm_snapshot {
+>   */
+>  #define DEFAULT_COW_THRESHOLD 2048
+>  
+> -static int cow_threshold = DEFAULT_COW_THRESHOLD;
+> -module_param_named(snapshot_cow_threshold, cow_threshold, int, 0644);
+> +static unsigned cow_threshold = DEFAULT_COW_THRESHOLD;
+> +module_param_named(snapshot_cow_threshold, cow_threshold, uint, 0644);
+>  MODULE_PARM_DESC(snapshot_cow_threshold, "Maximum number of chunks being copied on write");
+>  
+>  DECLARE_DM_KCOPYD_THROTTLE_WITH_MODULE_PARM(snapshot_copy_throttle,
+> @@ -1327,7 +1326,7 @@ static int snapshot_ctr(struct dm_target
+>  		goto bad_hash_tables;
+>  	}
+>  
+> -	sema_init(&s->cow_count, (cow_threshold > 0) ? cow_threshold : INT_MAX);
+> +	init_waitqueue_head(&s->in_progress_wait);
+>  
+>  	s->kcopyd_client = dm_kcopyd_client_create(&dm_kcopyd_throttle);
+>  	if (IS_ERR(s->kcopyd_client)) {
+> @@ -1509,17 +1508,46 @@ static void snapshot_dtr(struct dm_targe
+>  
+>  	dm_put_device(ti, s->origin);
+>  
+> +	WARN_ON(s->in_progress);
+> +
+>  	kfree(s);
+>  }
+>  
+>  static void account_start_copy(struct dm_snapshot *s)
+>  {
+> -	down(&s->cow_count);
+> +	spin_lock(&s->in_progress_wait.lock);
+> +	s->in_progress++;
+> +	spin_unlock(&s->in_progress_wait.lock);
+>  }
+>  
+>  static void account_end_copy(struct dm_snapshot *s)
+>  {
+> -	up(&s->cow_count);
+> +	spin_lock(&s->in_progress_wait.lock);
+> +	BUG_ON(!s->in_progress);
+> +	s->in_progress--;
+> +	if (likely(s->in_progress <= cow_threshold) && unlikely(waitqueue_active(&s->in_progress_wait)))
+> +		wake_up_locked(&s->in_progress_wait);
+> +	spin_unlock(&s->in_progress_wait.lock);
+> +}
+> +
+> +static bool wait_for_in_progress(struct dm_snapshot *s, bool unlock_origins)
+> +{
+> +	if (unlikely(s->in_progress > cow_threshold)) {
+> +		spin_lock(&s->in_progress_wait.lock);
+> +		if (likely(s->in_progress > cow_threshold)) {
+> +			DECLARE_WAITQUEUE(wait, current);
+> +			__add_wait_queue(&s->in_progress_wait, &wait);
+> +			__set_current_state(TASK_UNINTERRUPTIBLE);
+> +			spin_unlock(&s->in_progress_wait.lock);
+> +			if (unlock_origins)
+> +				up_read(&_origins_lock);
+> +			io_schedule();
+> +			remove_wait_queue(&s->in_progress_wait, &wait);
+> +			return false;
+> +		}
+> +		spin_unlock(&s->in_progress_wait.lock);
+> +	}
+> +	return true;
+>  }
 
-Notice that open-coded form is prone to type mistakes.
+wait_for_in_progress() doesn't take into account which chunk is written
+and whether it has already been reallocated or it is currently
+reallocating.
 
-This code was detected with the help of Coccinelle.
+This means, if I am not missing something, that both origin_map() and
+snapshot_map() might unnecessarily throttle writes that don't need any
+COW to take place.
 
-Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
----
- drivers/md/dm-stripe.c        | 15 +--------------
- include/linux/device-mapper.h |  3 ---
- 2 files changed, 1 insertion(+), 17 deletions(-)
+For example, if we have some writes coming in, that trigger COW and
+cause the COW limit to be reached, and then some more writes come in for
+chunks that have already been reallocated (and before any kcopyd job
+finishes and decrements s->in_progress), the latter writes would be
+delayed without a reason, as they don't require any COW to be performed.
 
-diff --git a/drivers/md/dm-stripe.c b/drivers/md/dm-stripe.c
-index 8547d7594338..63bbcc20f49a 100644
---- a/drivers/md/dm-stripe.c
-+++ b/drivers/md/dm-stripe.c
-@@ -55,19 +55,6 @@ static void trigger_event(struct work_struct *work)
- 	dm_table_event(sc->ti->table);
- }
- 
--static inline struct stripe_c *alloc_context(unsigned int stripes)
--{
--	size_t len;
--
--	if (dm_array_too_big(sizeof(struct stripe_c), sizeof(struct stripe),
--			     stripes))
--		return NULL;
--
--	len = sizeof(struct stripe_c) + (sizeof(struct stripe) * stripes);
--
--	return kmalloc(len, GFP_KERNEL);
--}
--
- /*
-  * Parse a single <dev> <sector> pair
-  */
-@@ -142,7 +129,7 @@ static int stripe_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 		return -EINVAL;
- 	}
- 
--	sc = alloc_context(stripes);
-+	sc = kmalloc(struct_size(sc, stripe, stripes), GFP_KERNEL);
- 	if (!sc) {
- 		ti->error = "Memory allocation for striped context "
- 		    "failed";
-diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
-index 399ad8632356..2e13826898b2 100644
---- a/include/linux/device-mapper.h
-+++ b/include/linux/device-mapper.h
-@@ -594,9 +594,6 @@ void *dm_vcalloc(unsigned long nmemb, unsigned long elem_size);
-  */
- #define dm_round_up(n, sz) (dm_div_up((n), (sz)) * (sz))
- 
--#define dm_array_too_big(fixed, obj, num) \
--	((num) > (UINT_MAX - (fixed)) / (obj))
--
- /*
-  * Sector offset taken relative to the start of the target instead of
-  * relative to the start of the device.
--- 
-2.23.0
+It seems strange that the COW throttling mechanism might also throttle
+writes that don't require any COW.
+
+Moreover, if we have reached the COW limit and we get a write for a
+chunk that is currently reallocating we will block the thread, when we
+could just add the bio to the origin_bios list of the pending exception
+and move on.
+
+wait_for_in_progress() could check if the exception is already
+reallocated or is being reallocated, but the extra locking in the
+critical path might have an adverse effect on performance, especially in
+multi-threaded workloads. Maybe some benchmarks would help clarify that.
+
+As a final note, in case the devices are slow, there might be many
+writers waiting in s->in_progress_wait. When a kcopyd job finishes, all
+of them will wake up and in some cases we might end up issuing more COW
+jobs than the cow_count limit, as the accounting for new COW jobs
+doesn't happen atomically with the check for the cow_count limit in
+wait_for_in_progress().
+
+That said, I don't think having a few more COW jobs in flight, than the
+defined limit, will cause any issues.
+
+Nikos
+
+>  
+>  /*
+> @@ -1537,7 +1565,7 @@ static void flush_bios(struct bio *bio)
+>  	}
+>  }
+>  
+> -static int do_origin(struct dm_dev *origin, struct bio *bio);
+> +static int do_origin(struct dm_dev *origin, struct bio *bio, bool limit);
+>  
+>  /*
+>   * Flush a list of buffers.
+> @@ -1550,7 +1578,7 @@ static void retry_origin_bios(struct dm_
+>  	while (bio) {
+>  		n = bio->bi_next;
+>  		bio->bi_next = NULL;
+> -		r = do_origin(s->origin, bio);
+> +		r = do_origin(s->origin, bio, false);
+>  		if (r == DM_MAPIO_REMAPPED)
+>  			generic_make_request(bio);
+>  		bio = n;
+> @@ -1926,6 +1954,10 @@ static int snapshot_map(struct dm_target
+>  	if (!s->valid)
+>  		return DM_MAPIO_KILL;
+>  
+> +	if (bio_data_dir(bio) == WRITE) {
+> +		while (unlikely(!wait_for_in_progress(s, false))) ;
+> +	}
+> +
+>  	down_read(&s->lock);
+>  	dm_exception_table_lock(&lock);
+>  
+> @@ -2122,7 +2154,7 @@ redirect_to_origin:
+>  
+>  	if (bio_data_dir(bio) == WRITE) {
+>  		up_write(&s->lock);
+> -		return do_origin(s->origin, bio);
+> +		return do_origin(s->origin, bio, false);
+>  	}
+>  
+>  out_unlock:
+> @@ -2497,15 +2529,24 @@ next_snapshot:
+>  /*
+>   * Called on a write from the origin driver.
+>   */
+> -static int do_origin(struct dm_dev *origin, struct bio *bio)
+> +static int do_origin(struct dm_dev *origin, struct bio *bio, bool limit)
+>  {
+>  	struct origin *o;
+>  	int r = DM_MAPIO_REMAPPED;
+>  
+> +again:
+>  	down_read(&_origins_lock);
+>  	o = __lookup_origin(origin->bdev);
+> -	if (o)
+> +	if (o) {
+> +		struct dm_snapshot *s;
+> +		if (limit) {
+> +			list_for_each_entry(s, &o->snapshots, list)
+> +				if (unlikely(!wait_for_in_progress(s, true)))
+> +					goto again;
+> +		}
+> +
+>  		r = __origin_write(&o->snapshots, bio->bi_iter.bi_sector, bio);
+> +	}
+>  	up_read(&_origins_lock);
+>  
+>  	return r;
+> @@ -2618,7 +2659,7 @@ static int origin_map(struct dm_target *
+>  		dm_accept_partial_bio(bio, available_sectors);
+>  
+>  	/* Only tell snapshots if this is a write */
+> -	return do_origin(o->dev, bio);
+> +	return do_origin(o->dev, bio, true);
+>  }
+>  
+>  /*
+> 
 
 --
 dm-devel mailing list
