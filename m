@@ -2,101 +2,133 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B6B4CB355
-	for <lists+dm-devel@lfdr.de>; Fri,  4 Oct 2019 04:45:34 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BEE5CB500
+	for <lists+dm-devel@lfdr.de>; Fri,  4 Oct 2019 09:30:50 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 152A0301D678;
-	Fri,  4 Oct 2019 02:45:30 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id D29DB10CC1F1;
+	Fri,  4 Oct 2019 07:30:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 95C0D600C4;
-	Fri,  4 Oct 2019 02:45:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7AE355D9DC;
+	Fri,  4 Oct 2019 07:30:39 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 836E318005A0;
-	Fri,  4 Oct 2019 02:45:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7F72D1808878;
+	Fri,  4 Oct 2019 07:30:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x942im65024119 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 3 Oct 2019 22:44:48 -0400
+	id x947UBjX004820 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 4 Oct 2019 03:30:12 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2414560C63; Fri,  4 Oct 2019 02:44:48 +0000 (UTC)
+	id D1F92600C4; Fri,  4 Oct 2019 07:30:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.41])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 956A360BE1;
-	Fri,  4 Oct 2019 02:44:45 +0000 (UTC)
-Received: from mail-qt1-f196.google.com (mail-qt1-f196.google.com
-	[209.85.160.196])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.redhat.com (ext-mx09.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.38])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 68F7C6046B;
+	Fri,  4 Oct 2019 07:30:09 +0000 (UTC)
+Received: from m9a0002g.houston.softwaregrp.com
+	(m9a0002g.houston.softwaregrp.com [15.124.64.67])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 902413099F56;
-	Fri,  4 Oct 2019 02:44:44 +0000 (UTC)
-Received: by mail-qt1-f196.google.com with SMTP id u22so6539638qtq.13;
-	Thu, 03 Oct 2019 19:44:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=sender:date:from:to:cc:subject:message-id:references:mime-version
-	:content-disposition:in-reply-to:user-agent;
-	bh=l8xq+LOf6drx1dVW8JIVfrnDpkyF/Qfs/r311RJMN/M=;
-	b=hNFF6qtTUlTjciadfxsf1D2+i9hwZXN4iBWSQpoXpGUojukyx8sWTsFi0H6QNCBxhX
-	VkafeC/OpILhlxYlnRrHxx7U7xD1MWCrY2N9UwzGTkZpB/jczXFQyl4tgWqiVJ6AxLjP
-	6hxC8u+mc252VDWyVYlp+M0qMMbzilQvDxmse6L8H+kIeulQj+qCHb0FUNw5Og9Z98eh
-	8Rs+yOBsMPNDjrvXLi4VnPLpMf2pvUPoR1q7OApvxnHv5HIdObf8Xn2PAa94nk3YxOda
-	TJXnUwrdCW9imTlBCKxCtpgmovWSrgpReSG9mRW8k1QsS4dzwxcnn6QHOEmjBswaOFOa
-	purQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
-	:references:mime-version:content-disposition:in-reply-to:user-agent;
-	bh=l8xq+LOf6drx1dVW8JIVfrnDpkyF/Qfs/r311RJMN/M=;
-	b=MRb3pVXFG3RPp9pfBAZKwdYfqGPbLOHkOOawwanQ/wCrINmCqHhSUqcpcmFPYSn6AJ
-	HBKOcdCr7MWIb0sjEBylvZqMjQ2ygTKMy1K3ASIRZSMm1KwuyJu3RP5/OOCJl35lEStm
-	XVb6Vb6ylDb1z5FY3sez9/7cYImEWDWYhYNGT+j3RZxkupIC2evH0BN8LL8TWuHx0hfS
-	dzlYRjLp8qq94JWnvkJBRzaq5GtcVoJL71uMULCZc8dCUVvnzujqWlFllL/TvR9cjfo6
-	U6AuECzAkBac2bcYbcaT87xsEOfC7hdnqAuY48DAhCTGibmvzXqQ1KAFFDbkqQv1ryMl
-	cGjQ==
-X-Gm-Message-State: APjAAAX583Tu5g1+xRQoD02lzb95bp09QjCrJ4T/9wxoLQ7r9sL5kO3d
-	/KEsux7O9p0Fw1jCgh5FzNb1xIPlN8g=
-X-Google-Smtp-Source: APXvYqzcB4xAs6eOwToc4pHXtu8/mGVEtAhI5uYdpcoYvFQ3jdr/b/wUAxoJEOkNNE1qJg6esLeerQ==
-X-Received: by 2002:aed:30aa:: with SMTP id 39mr13899899qtf.9.1570157083129;
-	Thu, 03 Oct 2019 19:44:43 -0700 (PDT)
-Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
-	[68.160.176.52])
-	by smtp.gmail.com with ESMTPSA id p7sm2503351qkc.21.2019.10.03.19.44.42
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Thu, 03 Oct 2019 19:44:42 -0700 (PDT)
-Date: Thu, 3 Oct 2019 22:44:41 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: Mikulas Patocka <mpatocka@redhat.com>
-Message-ID: <20191004024438.GA3250@lobo>
-References: <alpine.LRH.2.02.1910020614190.973@file01.intranet.prod.int.rdu2.redhat.com>
-	<b63d2544-64fd-de75-15c1-d85be0cd887e@arrikto.com>
-	<alpine.LRH.2.02.1910031601030.26094@file01.intranet.prod.int.rdu2.redhat.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id 146E199C42;
+	Fri,  4 Oct 2019 07:30:06 +0000 (UTC)
+Received: FROM m9a0002g.houston.softwaregrp.com (15.121.0.191) BY
+	m9a0002g.houston.softwaregrp.com WITH ESMTP; 
+	Fri,  4 Oct 2019 07:29:27 +0000
+Received: from M9W0068.microfocus.com (2002:f79:bf::f79:bf) by
+	M9W0068.microfocus.com (2002:f79:bf::f79:bf) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+	15.1.1591.10; Fri, 4 Oct 2019 07:03:29 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com (15.124.72.11) by
+	M9W0068.microfocus.com (15.121.0.191) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+	15.1.1591.10 via Frontend Transport; Fri, 4 Oct 2019 07:03:29 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+	b=jmlFCjreNOmYMSjOKSf+MAiM1OAx4/lXww5XEf5T/0Wnt/t7t2qeLJWFIsQa+LM2nLYEVepdnjVV2W4ceMFnoiTC/0tHkfpogOeb3bDccVn/w4gkx72B7DffZ76svYfu6mXVG7Lr8nVW3i4zTDznAyhgrcLs7sk2iv7qZ2LA2fvZHOmSAPFDxehd5IjVeNsa9ZitBafI4BI8cX8wS3BQLSLRJc4/SnKUH0UHfrTT8RE0v8YySBEqqjm3azIemDwzRZ7Ddkzo92UkeZG4zzGBWhP7hKwF5wwW0dydH0BIl3jUBkxNYWY3Sr9EkuIn1quxU1V+udoFCSVqvLoRO5cwNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+	s=arcselector9901;
+	h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+	bh=quSqr07pIHGRSDyIWZFVB4NfQQN6UuH6QMrgqttwVnE=;
+	b=IuQe/KR8L/+yEZpFBAm8kEnZt8FtPfqSGxbFI6jg04i/ch8x39XrLKrD90tiZgtJkY1z6quuahg8csIEejAIkf1sI6TYcvrvtZ4+v6aq6G4f2CRjgFo8Vd4aFFzZC76JDS9Nsgvb8jlTKENtSfpFBbVA1UI3zOgW0rSlH5K2S7fkmvjc2CuwezMXcPvAYPuVzTOqMMDAGbu1FelHPPcPYA0ohixbo8bja8hdoQDl+DIxUsj43j49+lV4HAL8/NkPuNgis2ZyYLPFMiz00o/jZoHjFLaOKvCtdh9ExnnOMSgt7P8hGJ0LB8yF24niDDzAQdtpMo0z6xGQPIs25EcSWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+	smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+	dkim=pass header.d=suse.com; arc=none
+Received: from CH2PR18MB3349.namprd18.prod.outlook.com (52.132.245.83) by
+	CH2PR18MB3269.namprd18.prod.outlook.com (52.132.245.10) with Microsoft
+	SMTP
+	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	15.20.2305.20; Fri, 4 Oct 2019 07:03:27 +0000
+Received: from CH2PR18MB3349.namprd18.prod.outlook.com
+	([fe80::1075:2453:9278:e985]) by
+	CH2PR18MB3349.namprd18.prod.outlook.com
+	([fe80::1075:2453:9278:e985%5]) with mapi id 15.20.2305.023;
+	Fri, 4 Oct 2019 07:03:27 +0000
+From: Martin Wilck <Martin.Wilck@suse.com>
+To: "bmarzins@redhat.com" <bmarzins@redhat.com>, "xose.vazquez@gmail.com"
+	<xose.vazquez@gmail.com>
+Thread-Topic: multipath-tools: RH-patches for upstream ???
+Thread-Index: AQHVeoHRF/rLQgi/70K7O53hqETajQ==
+Date: Fri, 4 Oct 2019 07:03:26 +0000
+Message-ID: <5d38873e4ea51f00d1d49e9e9fb86419542598e8.camel@suse.com>
+References: <e2b955d0-69ea-2c2b-9f0f-ccf3b5f369d0@gmail.com>
+	<20191003214420.GE25414@octiron.msp.redhat.com>
+In-Reply-To: <20191003214420.GE25414@octiron.msp.redhat.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+	smtp.mailfrom=Martin.Wilck@suse.com; 
+x-originating-ip: [2.203.223.119]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 1c8b50d7-6c31-4603-b3f9-08d74898f48f
+x-ms-traffictypediagnostic: CH2PR18MB3269:
+x-ms-exchange-purlcount: 8
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CH2PR18MB3269CC10E6156AC35D63347AFC9E0@CH2PR18MB3269.namprd18.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-forefront-prvs: 018093A9B5
+x-forefront-antispam-report: SFV:NSPM;
+	SFS:(10019020)(4636009)(366004)(396003)(136003)(346002)(376002)(39860400002)(189003)(199004)(316002)(8676002)(66066001)(2906002)(14454004)(5660300002)(6246003)(305945005)(110136005)(478600001)(6506007)(91956017)(25786009)(86362001)(256004)(486006)(54906003)(14444005)(2616005)(11346002)(476003)(229853002)(446003)(76116006)(71200400001)(6512007)(71190400001)(76176011)(3846002)(6436002)(6116002)(107886003)(66476007)(4326008)(66946007)(81166006)(8936002)(2501003)(81156014)(118296001)(102836004)(966005)(36756003)(66556008)(26005)(7736002)(186003)(66446008)(64756008)(6306002)(99286004)(6486002);
+	DIR:OUT; SFP:1102; SCL:1; SRVR:CH2PR18MB3269;
+	H:CH2PR18MB3349.namprd18.prod.outlook.com; FPR:; SPF:None;
+	LANG:en; PTR:InfoNoRecords; MX:3; A:1; 
+received-spf: None (protection.outlook.com: suse.com does not designate
+	permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ZWWAdttynaM03RQJ5etykuVZRVLpJTTVOH4EEX0FchwCGQ2m0Xjw3hODkFejsee+ymaHbuADFkj8femEb8BWoXY7+DxIPMRr4O8DsjU9ptHuNGZr2F763/n7W8gd+rFFa5XOyedGVGRW0duJKf6+z24+t2ufNd7BzQgxDsGpv6XwvFb1MKOwZL+3OhEuhB8DO9r4hk65fMTELMIAjTcUlHZbjKepUTpaHg90Ieg5z+ix1NfC3vm65wnXAaUEIYs5lTCmUc9GemC/C0xr6MPxeJ8bEwWWMB2OZVdlSoDJBLPHjPNA4KjwLZHnG8tLV3IRRliFch0SF1HjVd/R65l9WPW0Q0VaMqXLBWx5bUYzv8ZuaDDUaLbL/vxrFewWMoLV7cBsDZVerF2w2wQKHTh4Fjez4V4b4qoszFsVmWeJaGip0ztWpFqkw6yybN20J67z/n9YWTAEDGhBHbAB44fInw==
+Content-ID: <B5EA101DCFB37841BA149AE71BED68C9@namprd18.prod.outlook.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <alpine.LRH.2.02.1910031601030.26094@file01.intranet.prod.int.rdu2.redhat.com>
-User-Agent: Mutt/1.11.4 (2019-03-13)
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.41]);
-	Fri, 04 Oct 2019 02:44:44 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]);
-	Fri, 04 Oct 2019 02:44:44 +0000 (UTC) for IP:'209.85.160.196'
-	DOMAIN:'mail-qt1-f196.google.com'
-	HELO:'mail-qt1-f196.google.com' FROM:'snitzer@gmail.com' RCPT:''
-X-RedHat-Spam-Score: 0.25  (DKIM_SIGNED, DKIM_VALID, FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM, HEADER_FROM_DIFFERENT_DOMAINS, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
-	SPF_PASS) 209.85.160.196 mail-qt1-f196.google.com 209.85.160.196
-	mail-qt1-f196.google.com <snitzer@gmail.com>
-X-RedHat-Possible-Forgery: <snitzer@gmail.com> Mike Snitzer
-	<snitzer@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.41
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c8b50d7-6c31-4603-b3f9-08d74898f48f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Oct 2019 07:03:26.9393 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jcHu4d3KqAlw59Ptq256Tnh6OkzozK+fmHUEQOYyLvud/2gR7UqlnIcEQ5TitfaCrKGdtYjx3zlzl38P67eXEQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR18MB3269
+X-OriginatorOrg: suse.com
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.38]); Fri, 04 Oct 2019 07:30:08 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.38]);
+	Fri, 04 Oct 2019 07:30:08 +0000 (UTC) for IP:'15.124.64.67'
+	DOMAIN:'m9a0002g.houston.softwaregrp.com'
+	HELO:'m9a0002g.houston.softwaregrp.com'
+	FROM:'Martin.Wilck@suse.com' RCPT:''
+X-RedHat-Spam-Score: 0.001  (RCVD_IN_DNSWL_NONE, SPF_HELO_NONE, SPF_PASS,
+	UNPARSEABLE_RELAY) 15.124.64.67
+	m9a0002g.houston.softwaregrp.com 15.124.64.67
+	m9a0002g.houston.softwaregrp.com <Martin.Wilck@suse.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.38
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-MIME-Autoconverted: from base64 to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id x947UBjX004820
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Nikos Tsironis <ntsironis@arrikto.com>,
-	Alasdair Kergon <agk@redhat.com>, guru2018@gmail.com
-Subject: Re: [dm-devel] [PATCH 2/2] dm-snapshot: Reimplement the cow limit.
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>,
+	Hannes Reinecke <hare@suse.com>
+Subject: Re: [dm-devel] multipath-tools: RH-patches for upstream ???
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -112,158 +144,194 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.47]); Fri, 04 Oct 2019 02:45:32 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.65]); Fri, 04 Oct 2019 07:30:48 +0000 (UTC)
 
-On Thu, Oct 03 2019 at  4:06P -0400,
-Mikulas Patocka <mpatocka@redhat.com> wrote:
+Hi Xose, hi Ben,
+
+On Thu, 2019-10-03 at 16:44 -0500, Benjamin Marzinski wrote:
+> On Thu, Oct 03, 2019 at 08:28:06PM +0200, Xose Vazquez Perez wrote:
+> > Hi Benjamin,
+> > 
+> > 
+> > Is there any relevant RH-patch for upstream in fedora repo:
+> > https://src.fedoraproject.org/rpms/device-mapper-multipath/ ???
+> > 
+> > Maybe:
+> > 
+> > - 
+> > https://src.fedoraproject.org/rpms/device-mapper-multipath/blob/master/f/0022-RH-Remove-the-property-blacklist-exception-builtin.patch
+> > 
+> >    Subject: [PATCH] RH: Remove the property blacklist exception
+> > builtin
+> > 
+> >     Multipath set the default property blacklist exceptions to	
+> >     (ID_SCSI_VPD|ID_WWN).  This has the effect of blacklisting some
+> > internal
+> >     devices.  These devices may never have multiple paths, but it
+> > is nice
+> >     to be able to set multipath up on them all the same.  This
+> > patch simply
+> >     removes the default, and makes it so that if no property
+> >     blacklist_exception is given, then devices aren't failed for
+> > not matching
+> >     it.
+> 
+> Redhat doesn't include the udev rules file that sets ID_SCSI_VPD, so
+> there are some rare cases where this property blacklists valid
+> devices.
+> Thus, it's easier for us to simply include this property line in the
+> default multipath.conf, and let users remove it if necessary. I would
+> be
+> fine with this being included upstream, but I suspect it would mess
+> with
+> other ditsros which are currently assuming that it is there.
+
+Hm. ID_SCSI_VPD is nowhere referenced in the upstream code. The default
+is "(SCSI_IDENT_|ID_WWN)", where SCSI_IDENT_ could be regarded as a
+SUSE-ism because the SCSI_IDENT_* properties are set by sg_inq / sg_vpd
+calls, and I'm not sure if other distros consequently use sg_inq rather
+than scs_id like we do. We (SUSE) have been working on replacing
+scsi_id by sg3_utils calls in upstream systemd, but so far that hasn't
+been merged, systemd maintainers are very cautious about touching these
+udev rules.
+
+I'd be interested in seeing an example for a device that is erroneously
+excluded by the default blacklist rule.
+
+In general, it's a shortcoming of multipath-tools that the built-in
+blacklists can only be appended to, not replaced, by user
+configuration.
+
+> > 
+> > - https://src.fedoraproject.org/rpms/device-mapper-
+> > multipath/blob/master/f/0026-RH-add-wwids-from-kernel-cmdline-
+> > mpath.wwids-with-A.patch
+> > 
+> >    Subject: [PATCH] RH: add wwids from kernel cmdline mpath.wwids
+> > with -A
+> > 
+> >     This patch adds another option to multipath, "-A", which reads
+> >     /proc/cmdline for mpath.wwid=<WWID> options, and adds any wwids
+> > it finds
+> >     to /etc/multipath/wwids.  While this isn't usually important
+> > during
+> >     normal operation, since these wwids should already be added, it
+> > can be
+> >     helpful during installation, to make sure that multipath can
+> > claim
+> >     devices as its own, before LVM or something else makes use of
+> > them.  The
+> >     patch also execs "/sbin/multipath -A" before running multipathd
+> > in
+> >     multipathd.service
+> > 
+> 
+> I posted this upstream and Hannes NAKed it a while back. We still
+> find
+> it useful, since the default multipath.conf file for Redhat sets
+> find_multipaths to yes. You can currently avoid the race that this is
+> fixing by setting find_multipaths to smart, but there were objections
+> to
+> using that as a default in Redhat. However, I never really understood
+> the objection to this patch, and I'd be fine with re-posting it.
+
+https://www.redhat.com/archives/dm-devel/2014-July/msg00011.html
+
+I'm with Hannes. Doing this in dracut, udev rules, or systemd service
+files seems cleaner to me than yet another daemon that tries to
+interpret the kernel command line.
+
+See e.g. how we implemented multipath=off (cd3184e).
+
+> > - 
+> > https://src.fedoraproject.org/rpms/device-mapper-multipath/blob/master/f/0027-RH-warn-on-invalid-regex-instead-of-failing.patch
+> > 
+> >    Subject: [PATCH] RH: warn on invalid regex instead of failing
+> > 
+> >     multipath.conf used to allow "*" as a match everything regular
+> > expression,
+> >     instead of requiring ".*". Instead of erroring when the old
+> > style
+> >     regular expressions are used, it should print a warning and
+> > convert
+> >     them.
+> c45d2a0e
+> When multipath used its old regex code, "*" worked to match
+> everything.
+> This patch just exists to make sure that customers didn't need to
+> change
+> their configs when the regex code changed. Since it's been there
+> posting
+> warning messages for a while, I plan to eventually drop it entirely,
+> and
+> let anyone who has been ignoring the warning messages for years
+> finally
+> have their config error. I see no reason to add it back to the
+> upstream
+> code now.
+
+Ack. Upstream has removed support for "*" in 2014 (b9d11f3), and did
+it deliberately.
+
+>  
+> > - 
+> > https://src.fedoraproject.org/rpms/device-mapper-multipath/blob/master/f/0028-RH-reset-default-find_mutipaths-value-to-off.patch
+> > 
+> >    Subject: [PATCH] RH: reset default find_mutipaths value to off
+> > 
+> >     Upstream has changed to default find_multipaths to "strict".
+> > For now
+> >     Redhat will retain the previous default of "off".
+> 
+> This is simply to retain the previous default behavior, for much the
+> same reason as the above patch. I see no reason to change this
+> upstream.
+
+Ack. Btw SUSE changes the default, too (to "greedy", though).
 
 > 
+> > - 
+> > https://src.fedoraproject.org/rpms/device-mapper-multipath/blob/master/f/0029-RH-Fix-nvme-compilation-warning.patch
+> > 
+> >    Subject: [PATCH] RH: Fix nvme compilation warning
+> > 
 > 
-> On Wed, 2 Oct 2019, Nikos Tsironis wrote:
+> I assume that other people aren't seeing these compilation warnings,
+> and
+> this it due to different options that redhat uses when compiling.  I
+> really should push this patch upstream, but that upstream isn't
+> multipath-tools, its nvme-cli, where we copied this file from. Once
+> it's
+> changed there, we can pull the updated files back to multipath-tools.
+
+Ack. Which compiler option triggers this warning?
+
+>  
+> > - 
+> > https://src.fedoraproject.org/rpms/device-mapper-multipath/blob/master/f/0030-RH-attempt-to-get-ANA-info-via-sysfs-first.patch
+> > 
+> >    Subject: [PATCH] RH: attempt to get ANA info via sysfs first
+> > 
+> >     When the ANA prioritizer is run, first see if the "ana_state"
+> > sysfs file
+> >     exists, and if it does, try to read the state from there. If
+> > that fails,
+> >     fallback to using an ioctl.
+> > 
 > 
-> > Hi Mikulas,
-> > 
-> > I agree that it's better to avoid holding any locks while waiting for
-> > some pending kcopyd jobs to finish, but please see the comments below.
-> > 
-> > On 10/2/19 1:15 PM, Mikulas Patocka wrote:
-> > > +
-> > > +static bool wait_for_in_progress(struct dm_snapshot *s, bool unlock_origins)
-> > > +{
-> > > +	if (unlikely(s->in_progress > cow_threshold)) {
-> > > +		spin_lock(&s->in_progress_wait.lock);
-> > > +		if (likely(s->in_progress > cow_threshold)) {
-> > > +			DECLARE_WAITQUEUE(wait, current);
-> > > +			__add_wait_queue(&s->in_progress_wait, &wait);
-> > > +			__set_current_state(TASK_UNINTERRUPTIBLE);
-> > > +			spin_unlock(&s->in_progress_wait.lock);
-> > > +			if (unlock_origins)
-> > > +				up_read(&_origins_lock);
-> > > +			io_schedule();
-> > > +			remove_wait_queue(&s->in_progress_wait, &wait);
-> > > +			return false;
-> > > +		}
-> > > +		spin_unlock(&s->in_progress_wait.lock);
-> > > +	}
-> > > +	return true;
-> > >  }
-> > 
-> > wait_for_in_progress() doesn't take into account which chunk is written
-> > and whether it has already been reallocated or it is currently
-> > reallocating.
-> > 
-> > This means, if I am not missing something, that both origin_map() and
-> > snapshot_map() might unnecessarily throttle writes that don't need any
-> > COW to take place.
-> 
-> I know about it, but I think it's not serious problem - if there are 2048 
-> outstanding I/Os the system is already heavily congested. It doesn't 
-> matter if you allow a few more writes or not.
-> 
-> Mikulas
-> 
-> > For example, if we have some writes coming in, that trigger COW and
-> > cause the COW limit to be reached, and then some more writes come in for
-> > chunks that have already been reallocated (and before any kcopyd job
-> > finishes and decrements s->in_progress), the latter writes would be
-> > delayed without a reason, as they don't require any COW to be performed.
-> > 
-> > It seems strange that the COW throttling mechanism might also throttle
-> > writes that don't require any COW.
-> > 
-> > Moreover, if we have reached the COW limit and we get a write for a
-> > chunk that is currently reallocating we will block the thread, when we
-> > could just add the bio to the origin_bios list of the pending exception
-> > and move on.
-> > 
-> > wait_for_in_progress() could check if the exception is already
-> > reallocated or is being reallocated, but the extra locking in the
-> > critical path might have an adverse effect on performance, especially in
-> > multi-threaded workloads. Maybe some benchmarks would help clarify that.
-> > 
-> > As a final note, in case the devices are slow, there might be many
-> > writers waiting in s->in_progress_wait. When a kcopyd job finishes, all
-> > of them will wake up and in some cases we might end up issuing more COW
-> > jobs than the cow_count limit, as the accounting for new COW jobs
-> > doesn't happen atomically with the check for the cow_count limit in
-> > wait_for_in_progress().
-> > 
-> > That said, I don't think having a few more COW jobs in flight, than the
-> > defined limit, will cause any issues.
+> This won't do anything upstream. This requires a redhat specific
+> kernel
+> patch that wasn't accepted in the upstream nvme kernel code.  It
+> really
+> doesn't make much of a difference. It just makes multipath try to
+> grab
+> ANA state info from sysfs, before failing back to the same ioctl that
+> upstream uses.
 
-Nikos,
+Ack.
 
-I looked at your concern even before Mikulas replied and found it to be
-valid.  But in the end I struggled to imagine how imposing extra
-throttling once above the thorttle threshold would significantly impact
-performance.
-
-So when I saw Mikulas' reply he definitely reinforced my thinking.  But
-please feel free to explore whether further refinement is needed.  I
-think your concern about extra locking in the hotpath (to check if a
-chunk already triggered an exception) was a great observation but if
-such a check is done I'm hopeful it won't be _that_ costly because we'll
-have already reached the cow threshold and would already be taking the
-lock (as the 2nd phase of the double checked locking).
-
-Anyway, I folded these small tweaks into Mikulas' 2nd patch:
-
-diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
-index 560b8cb38026..4fb1a40e68a0 100644
---- a/drivers/md/dm-snap.c
-+++ b/drivers/md/dm-snap.c
-@@ -1525,7 +1525,8 @@ static void account_end_copy(struct dm_snapshot *s)
- 	spin_lock(&s->in_progress_wait.lock);
- 	BUG_ON(!s->in_progress);
- 	s->in_progress--;
--	if (likely(s->in_progress <= cow_threshold) && unlikely(waitqueue_active(&s->in_progress_wait)))
-+	if (likely(s->in_progress <= cow_threshold) &&
-+	    unlikely(waitqueue_active(&s->in_progress_wait)))
- 		wake_up_locked(&s->in_progress_wait);
- 	spin_unlock(&s->in_progress_wait.lock);
- }
-@@ -1535,6 +1536,13 @@ static bool wait_for_in_progress(struct dm_snapshot *s, bool unlock_origins)
- 	if (unlikely(s->in_progress > cow_threshold)) {
- 		spin_lock(&s->in_progress_wait.lock);
- 		if (likely(s->in_progress > cow_threshold)) {
-+			/*
-+			 * NOTE: this throttle doesn't account for whether
-+			 * the caller is servicing an IO that will trigger a COW
-+			 * so excess throttling may result for chunks not required
-+			 * to be COW'd.  But if cow_threshold was reached, extra
-+			 * throttling is unlikely to negatively impact performance.
-+			 */
- 			DECLARE_WAITQUEUE(wait, current);
- 			__add_wait_queue(&s->in_progress_wait, &wait);
- 			__set_current_state(TASK_UNINTERRUPTIBLE);
-@@ -1955,7 +1963,8 @@ static int snapshot_map(struct dm_target *ti, struct bio *bio)
- 		return DM_MAPIO_KILL;
- 
- 	if (bio_data_dir(bio) == WRITE) {
--		while (unlikely(!wait_for_in_progress(s, false))) ;
-+		while (unlikely(!wait_for_in_progress(s, false)))
-+			; /* wait_for_in_progress() has slept */
- 	}
- 
- 	down_read(&s->lock);
-@@ -2538,8 +2547,8 @@ static int do_origin(struct dm_dev *origin, struct bio *bio, bool limit)
- 	down_read(&_origins_lock);
- 	o = __lookup_origin(origin->bdev);
- 	if (o) {
--		struct dm_snapshot *s;
- 		if (limit) {
-+			struct dm_snapshot *s;
- 			list_for_each_entry(s, &o->snapshots, list)
- 				if (unlikely(!wait_for_in_progress(s, true)))
- 					goto again;
-
-and I've pushed the changes to linux-next via linux-dm.git's for-next
-(with tweaked commit headers).  But if you or Mikulas find something
-that would warrant destaging these changes I'd welcome that feedback.
-
-Thanks,
-Mike
+Martin
 
 --
 dm-devel mailing list
