@@ -2,96 +2,132 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66C5BCC689
-	for <lists+dm-devel@lfdr.de>; Sat,  5 Oct 2019 01:30:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97159CDF62
+	for <lists+dm-devel@lfdr.de>; Mon,  7 Oct 2019 12:32:55 +0200 (CEST)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 8091EC057E9A;
-	Fri,  4 Oct 2019 23:30:36 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 718815C1B5;
-	Fri,  4 Oct 2019 23:30:33 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 7D7053082B40;
+	Mon,  7 Oct 2019 10:32:51 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2D8EC5C219;
+	Mon,  7 Oct 2019 10:32:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A25EA4A486;
-	Fri,  4 Oct 2019 23:30:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2E44B1808876;
+	Mon,  7 Oct 2019 10:32:31 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x94NUCEh020915 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 4 Oct 2019 19:30:12 -0400
+	id x978R7qc029687 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 7 Oct 2019 04:27:07 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8926310018FF; Fri,  4 Oct 2019 23:30:12 +0000 (UTC)
+	id 6593360C57; Mon,  7 Oct 2019 08:27:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx27.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.68])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82BC010018F8
-	for <dm-devel@redhat.com>; Fri,  4 Oct 2019 23:30:09 +0000 (UTC)
-Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
-	[209.85.221.66])
+Received: from mx1.redhat.com (ext-mx12.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.41])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5F6ED60C05
+	for <dm-devel@redhat.com>; Mon,  7 Oct 2019 08:27:02 +0000 (UTC)
+Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
+	[209.85.210.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 0F9C38372E9
-	for <dm-devel@redhat.com>; Fri,  4 Oct 2019 23:30:09 +0000 (UTC)
-Received: by mail-wr1-f66.google.com with SMTP id p14so8041844wro.4
-	for <dm-devel@redhat.com>; Fri, 04 Oct 2019 16:30:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=subject:from:to:references:message-id:date:mime-version:in-reply-to
-	:content-language:content-transfer-encoding;
-	bh=CIsBzjkanL1a646kjl/Vdxu5lNimzDt1tYL9BkFfRkY=;
-	b=TUNKsMEG/ILYHB0tx0+Eh/G7wYkk/nr6lHktvK19x/2jjvo8vo4lIeUTQgiHDE1CPH
-	3TlskOnAKQtXyF34EQcH8HjCVWfQC36HQ/WS7N+zXaV8Gh/1Ca9jK2CaOyiDp4CVc0s/
-	wGcpVAathG4HXsKDlZxocPlFJpu7iKq4msSDbPVibWsclN2D7j0FR5c6ZGwA8T8CHqMo
-	YkRTA68kw5xw59AF2Ipt/GtI3ub+vJsJvzv+7Hywe9ZU6yOU1G0Lh+0AkRGKeJxKkONp
-	Sbwb3seBTHQj960VYwU1ER1J/F9jLJArkZwuILx0FpSenRF/DTRxl6eOwYopfOHHuFHQ
-	dKnQ==
+	by mx1.redhat.com (Postfix) with ESMTPS id DBA1D309174E
+	for <dm-devel@redhat.com>; Mon,  7 Oct 2019 08:27:01 +0000 (UTC)
+Received: by mail-ot1-f67.google.com with SMTP id 60so10265881otu.0
+	for <dm-devel@redhat.com>; Mon, 07 Oct 2019 01:27:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:from:to:references:message-id:date
-	:mime-version:in-reply-to:content-language:content-transfer-encoding;
-	bh=CIsBzjkanL1a646kjl/Vdxu5lNimzDt1tYL9BkFfRkY=;
-	b=klnsOxkCrKIBGR3DUobDc1Ciwg5TLOnvFnIljBn/ILSxGc53B/GiskSUh0Y8KqxCge
-	gLJN5P/wzkpuF6dtNH0fL260ADgJJN+zKgffozyTcdYctoIJUk+jkac8kInETdnBNGqy
-	ov/S86z3rKPaBnHOibQO6XJA4ULkWdsTBgmUO9OPex8bsdPcsSns036bk940HvQv7ve/
-	BiX/YClN8X7XoaDoEMjXRyE8Z0V5JWn+wZOivu4kXjyjHZ3D/SimCs/Fqg0bemnbBW85
-	L8M4auDV/6YVFwtH0C1H2n1URJNFK7S7nhyGrrmXLVRvP7FN7E4H4MIPpfR/x6WzAkdw
-	diHQ==
-X-Gm-Message-State: APjAAAVX+8Nzt8kVgbnseAWWfAcRQYVc9fzymykTYuEeEa6dEDLdrRV/
-	Rv5rIoxPIMzzGR/kP5rrPqMsNEs=
-X-Google-Smtp-Source: APXvYqzhTLjnaz6HXI8AvzJWFxewT1cbnQDOz8mwrqtWbDQdPZYOzqj3DkRrKxpg6+Puyh8o+T9bGw==
-X-Received: by 2002:adf:eb42:: with SMTP id u2mr13385815wrn.307.1570231807336; 
-	Fri, 04 Oct 2019 16:30:07 -0700 (PDT)
-Received: from localhost (28.red-83-37-139.dynamicip.rima-tde.net.
-	[83.37.139.28]) by smtp.gmail.com with ESMTPSA id
-	b186sm15315951wmd.16.2019.10.04.16.30.06
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Fri, 04 Oct 2019 16:30:06 -0700 (PDT)
-From: Xose Vazquez Perez <xose.vazquez@gmail.com>
-To: Brian Bunker <brian@purestorage.com>,
-	device-mapper development <dm-devel@redhat.com>
-References: <EF473529-CF81-4AE9-BD96-08624B59BA10@purestorage.com>
-	<dd8cbe47-3dc8-4136-2e75-5c8694e6c412@gmail.com>
-Message-ID: <08bb49d9-5a9e-62b9-99c4-d11e7013c823@gmail.com>
-Date: Sat, 5 Oct 2019 01:30:05 +0200
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=VKymJxaLp2SF18G9ExdMOsAdXsmgBDVfrU/If3JZGxo=;
+	b=SRNta1/G1L7RMCC0G6TCyG0xaEgEKwyYefc5clrhGLIuO3ZtsKEg9/VbnPsCWufWln
+	kEPTsnX/W2E7dvcjea+wVNnNcE/brDe4NqIbdgekHxlCR5/Bhm6slM9F/fL/XUwHIKI4
+	XRG0SOp7QjrIYaWq9lOL7UpcFNF3zAlxOxiN54NfxxGEfQR4MQgoH5mO9l1NUPcU4z2g
+	zsre8nrUHdIeZPAIEZjCaar54UdbOq5ChgIAtPrMb0BJUOrE4Cbob0FcMHMJvLMOK5qw
+	vyJZAOEK+dOLpLOs5AYVX0Kv41GsF/FQu/GdXV2T8BlRvOas5l/yocA2Qam0LODWvp+b
+	Nlnw==
+X-Gm-Message-State: APjAAAUaNEC272ULH8KCnsc9MOyTdK2zwYdrFMGtJzrXBZ5HbVCBzHLq
+	zMMYzXtsBBBz4WTHJmESRtHXxUYtt47NPot4ErM=
+X-Google-Smtp-Source: APXvYqxEOkV8nJCSllSqxdkQVypo90wcNgBvYDBNSKRgpoLJCvXTnmOdSLlUAojqzzfR9rCgupdlwodIFF5kpYpgt28=
+X-Received: by 2002:a9d:17e6:: with SMTP id j93mr20339687otj.297.1570436821298;
+	Mon, 07 Oct 2019 01:27:01 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <dd8cbe47-3dc8-4136-2e75-5c8694e6c412@gmail.com>
-Content-Language: en-US
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2
-	(mx1.redhat.com [10.5.110.68]);
-	Fri, 04 Oct 2019 23:30:09 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.68]);
-	Fri, 04 Oct 2019 23:30:09 +0000 (UTC) for IP:'209.85.221.66'
-	DOMAIN:'mail-wr1-f66.google.com' HELO:'mail-wr1-f66.google.com'
-	FROM:'xose.vazquez@gmail.com' RCPT:''
-X-RedHat-Spam-Score: -0.1  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_FROM, RCVD_IN_DNSWL_NONE, RCVD_IN_MSPIKE_H2,
-	SPF_HELO_NONE,
-	SPF_PASS) 209.85.221.66 mail-wr1-f66.google.com 209.85.221.66
-	mail-wr1-f66.google.com <xose.vazquez@gmail.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.68
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+References: <20191004145544.5066-1-krzk@kernel.org>
+	<20191004145544.5066-3-krzk@kernel.org>
+In-Reply-To: <20191004145544.5066-3-krzk@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 7 Oct 2019 10:26:49 +0200
+Message-ID: <CAMuHMdW0DSujexoGq4CJAYP40DvMcigk08aEnyQ72haY6jds5Q@mail.gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.41]);
+	Mon, 07 Oct 2019 08:27:02 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.41]);
+	Mon, 07 Oct 2019 08:27:02 +0000 (UTC) for IP:'209.85.210.67'
+	DOMAIN:'mail-ot1-f67.google.com' HELO:'mail-ot1-f67.google.com'
+	FROM:'geert.uytterhoeven@gmail.com' RCPT:''
+X-RedHat-Spam-Score: 0.253  (FREEMAIL_FORGED_FROMDOMAIN, FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
+	SPF_PASS) 209.85.210.67 mail-ot1-f67.google.com 209.85.210.67
+	mail-ot1-f67.google.com <geert.uytterhoeven@gmail.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.41
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH] ALUA support for PURE FlashArray
+X-Mailman-Approved-At: Mon, 07 Oct 2019 06:31:55 -0400
+Cc: linux-m68k <linux-m68k@vger.kernel.org>,
+	linux-efi <linux-efi@vger.kernel.org>,
+	Linux-sh list <linux-sh@vger.kernel.org>,
+	linux-iio@vger.kernel.org, linux-pci <linux-pci@vger.kernel.org>,
+	"open list:REMOTE PROCESSOR \(REMOTEPROC\) SUBSYSTEM"
+	<linux-remoteproc@vger.kernel.org>,
+	Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
+	DRI Development <dri-devel@lists.freedesktop.org>,
+	platform-driver-x86@vger.kernel.org, linux-ide@vger.kernel.org,
+	dm-devel@redhat.com, keyrings@vger.kernel.org,
+	MTD Maling List <linux-mtd@lists.infradead.org>,
+	Linux I2C <linux-i2c@vger.kernel.org>, linux-riscv@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	ac100@lists.launchpad.net, linux-rtc@vger.kernel.org,
+	linux-samsung-soc@vger.kernel.org, scsi <linux-scsi@vger.kernel.org>,
+	"open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+	linux-rdma <linux-rdma@vger.kernel.org>, esc.storagedev@microsemi.com,
+	linux-security-module@vger.kernel.org,
+	linux-clk <linux-clk@vger.kernel.org>,
+	ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
+	bcm-kernel-feedback-list@broadcom.com,
+	"open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
+	linux-input@vger.kernel.org, xen-devel@lists.xenproject.org,
+	virtualization@lists.linux-foundation.org,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	"moderated list:H8/300 ARCHITECTURE"
+	<uclinux-h8-devel@lists.sourceforge.jp>,
+	driverdevel <devel@driverdev.osuosl.org>,
+	Linux PM list <linux-pm@vger.kernel.org>,
+	linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+	linux-um@lists.infradead.org, linux-block@vger.kernel.org,
+	"open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+	Openrisc <openrisc@lists.librecores.org>,
+	linux-mediatek@lists.infradead.org,
+	linux-rpi-kernel <linux-rpi-kernel@lists.infradead.org>,
+	linux-tegra <linux-tegra@vger.kernel.org>,
+	openipmi-developer@lists.sourceforge.net,
+	"open list:TI ETHERNET SWITCH DRIVER \(CPSW\)"
+	<linux-omap@vger.kernel.org>,
+	Linux ARM <linux-arm-kernel@lists.infradead.org>,
+	linux-edac@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-raid@vger.kernel.org, Jiri Kosina <trivial@kernel.org>,
+	Linux MM <linux-mm@kvack.org>, netdev <netdev@vger.kernel.org>,
+	Linux MMC List <linux-mmc@vger.kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-spi <linux-spi@vger.kernel.org>,
+	Linux IOMMU <iommu@lists.linux-foundation.org>,
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+	alpha <linux-alpha@vger.kernel.org>, dmaengine@vger.kernel.org,
+	linux-integrity <linux-integrity@vger.kernel.org>,
+	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
+Subject: Re: [dm-devel] [RESEND TRIVIAL 3/3] treewide: arch: Fix Kconfig
+	indentation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -103,23 +139,39 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]); Fri, 04 Oct 2019 23:30:38 +0000 (UTC)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.45]); Mon, 07 Oct 2019 10:32:54 +0000 (UTC)
 
-T24gMTAvNC8xOSAxMDo1MSBQTSwgWG9zZSBWYXpxdWV6IFBlcmV6IHdyb3RlOgoKPiBPbiA2LzI2
-LzE5IDc6MzcgUE0sIEJyaWFuIEJ1bmtlciB3cm90ZToKPiAKPj4gSXQgaGFzIGJlZW4gc29tZSB0
-aW1lIHNpbmNlIHdlIHVwZGF0ZWQgb3VyIFBVUkUgRmxhc2hBcnJheSBjb25maWd1cmF0aW9uLiBU
-aGUKPj4gTGludXggdmVuZG9ycyB0aGF0IHdlIGhhZCBiZWVuIHNlZWluZyBpbiB0aGUgZmllbGQg
-d2VyZSB1c2luZyB2ZXJ5IG9sZCB2ZXJzaW9ucwo+PiBvZiBtdWx0aXBhdGgtdG9vbHMsIHNvIHdl
-IGhhdmVu4oCZdCBuZWVkZWQgdG8gY2hhbmdlIGFueXRoaW5nIGZvciBzb21lIHRpbWUuIFdpdGgK
-Pj4gdGhlIHJlbGVhc2Ugb2YgUkhFTDgsIHNvbWUgb2Ygb3VyIGVhcmxpZXIgdmFsdWVzIGhhdmUg
-YmVlbiBsb3N0IGJ5IHVwc3RyZWFtCj4+IGNoYW5nZXMuIAo+IAo+IFJlc2VuZCBpdCwgd2l0aCBD
-QzogQ2hyaXN0b3BoZSBWYXJvcXVpIDxjaHJpc3RvcGhlLnZhcm9xdWlAb3BlbnN2Yy5jb20+CgpD
-b3VsZCB5b3UgcGxlYXNlIGFsc28gc2VuZCB0aGUgY29uZi4gZm9yIE5WTWUgZGV2aWNlcyBbMV0g
-PwoKVGhhbmsgeW91LgoKClsxXSBodHRwczovL2Jsb2cucHVyZXN0b3JhZ2UuY29tL252bWVvZi1y
-b2NlLXN1c2UtMTUvCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNv
-bQpodHRwczovL3d3dy5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWw=
+On Fri, Oct 4, 2019 at 4:57 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> Adjust indentation from spaces to tab (+optional two spaces) as in
+> coding style with command like:
+>     $ sed -e 's/^        /\t/' -i */Kconfig
+>
+> Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+
+>  arch/m68k/Kconfig.bus                  |  2 +-
+>  arch/m68k/Kconfig.debug                | 16 ++++++++--------
+>  arch/m68k/Kconfig.machine              |  8 ++++----
+
+For m68k:
+Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
