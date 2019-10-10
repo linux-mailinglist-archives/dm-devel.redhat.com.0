@@ -2,100 +2,99 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FC0BD220F
-	for <lists+dm-devel@lfdr.de>; Thu, 10 Oct 2019 09:45:25 +0200 (CEST)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+	by mail.lfdr.de (Postfix) with ESMTPS id 47CD0D2810
+	for <lists+dm-devel@lfdr.de>; Thu, 10 Oct 2019 13:38:59 +0200 (CEST)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 50423C057F23;
-	Thu, 10 Oct 2019 07:45:23 +0000 (UTC)
+	by mx1.redhat.com (Postfix) with ESMTPS id 964E181F18;
+	Thu, 10 Oct 2019 11:38:55 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A3957600C4;
-	Thu, 10 Oct 2019 07:45:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F6525C1B5;
+	Thu, 10 Oct 2019 11:38:51 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6101418089DC;
-	Thu, 10 Oct 2019 07:45:21 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A7EBE18089DC;
+	Thu, 10 Oct 2019 11:38:40 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x9A6Z94h022488 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 10 Oct 2019 02:35:09 -0400
+	id x9ABcBol012674 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 10 Oct 2019 07:38:11 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1B5E05D6C8; Thu, 10 Oct 2019 06:35:09 +0000 (UTC)
+	id 440D86061E; Thu, 10 Oct 2019 11:38:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mx1.redhat.com (ext-mx22.extmail.prod.ext.phx2.redhat.com
 	[10.5.110.63])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DA1BD5D6A5;
-	Thu, 10 Oct 2019 06:35:02 +0000 (UTC)
-Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
-	[209.85.166.66])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3EEF260A9F
+	for <dm-devel@redhat.com>; Thu, 10 Oct 2019 11:38:08 +0000 (UTC)
+Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
+	[209.85.128.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id B8C7218CB903;
-	Thu, 10 Oct 2019 06:35:01 +0000 (UTC)
-Received: by mail-io1-f66.google.com with SMTP id h144so11191212iof.7;
-	Wed, 09 Oct 2019 23:35:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
-	h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-	:cc; bh=ZZD/CJd62tG66QcRvqetgEEpcprBbvtkzIhvoEhQgUI=;
-	b=te5jr4QL0/hnCxDWjGiEd6EMzlt5wz0ayvKLiMU+CxA0whrKv6pxB9Al6wgtRVIlTd
-	Zg+gaahvJ9nRfw16mFjoayC+sZn6uS3ewPz5V1FVuFlxryiItkNjYFd1hYlazrKanKkz
-	ww0eZC2mzRMi3VRLhxpe4hVmgmxKdBCBrzzPSzyvhfy5GoVCHqb82tNL1AYYFJYD8DzU
-	e5UgRsMi07QlxWbb3VaZ7s2qeDMZtIOYKvlniDkEHN+KUocVg8ORB8g5e20fN0yqMUuI
-	5gFzXT8tlpPUiIXCSH1/nZpWYuuAW0I7kPgvd8vWxc8/AlLReM0nNtQYuh9FpXIMrmMK
-	PCxw==
+	by mx1.redhat.com (Postfix) with ESMTPS id 6BD0018CB903
+	for <dm-devel@redhat.com>; Thu, 10 Oct 2019 11:38:07 +0000 (UTC)
+Received: by mail-wm1-f66.google.com with SMTP id m18so6423544wmc.1
+	for <dm-devel@redhat.com>; Thu, 10 Oct 2019 04:38:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=arrikto-com.20150623.gappssmtp.com; s=20150623;
+	h=subject:to:cc:references:from:message-id:date:user-agent
+	:mime-version:in-reply-to:content-language:content-transfer-encoding;
+	bh=zH51v+/VpKqWqMJT/iQCa90mMj5rtP16zBFhHDCPCd0=;
+	b=UbTPNenKKZFOWHHIA+bBbuzWnGJ8/Pb8a9F1iEi+qCNjD4E76N0+qS0K4tc/0kDgB7
+	vnnL2tOTLOsW9qPgO3qUtV19bnEy7KdZ4Otmx7Afolh2eE0h7tdd1WFNxMSgQdq3zoKw
+	1iDsFp2QD7YNzlguzixftI3FKaNxYJf4K5jKOH4qIJ8bRX8sg5XOfAWX+r+7pN8vSz/+
+	zOFfBnrv/WU9Re1xVlbD2fWDWORGad6aGNvjaV0zrzuSz1KbyAvT+w6tM0SnCQglkACc
+	UhCsFAHr7UoC4VcpdVGTvHieR19YT68ox5rALonFY3OUGaeNhe2Srnb45zp4khoJRfWY
+	XzGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=ZZD/CJd62tG66QcRvqetgEEpcprBbvtkzIhvoEhQgUI=;
-	b=lZKHLYwTiiugsiW17hj0iz3kIYEhEw3+NsR61nyMrsDvPN7ZEv8FuN0rAUJ5pxXPdC
-	aEGqumtUolMJhQayPbdgdMYXNm4tACAWb/GNCAFe98rX4eHOyCKlmztUbH+SDkNkphMP
-	+0XnLtO6xmiVSJeRkIS9zPIhlJo8BHcsC73afR83HDyg+TQKNGQmgb/6lnTYPRJluFl7
-	haWbjwPnk95aUyZm0FLe3YpXLfkcq5FqZMVaLQoJVM3mi+CRRefxq8QWnE2XWEJyoaXj
-	HGuJiAhWD3gN0wVtBGPH1rsb398kqXrGlrXK6c440/dA9HY/c5iaAwdCsQPZ3vHSHTFU
-	Q4Ww==
-X-Gm-Message-State: APjAAAW4+9zvDGP4UnnWtOK2zFe0No6tPQ3Yz2ENpVAXqg10U+1ehxDz
-	415XLUXVufuPW2c7iZYpBhU5kOfnGq9js/kED8m1Qkyk+CQ=
-X-Google-Smtp-Source: APXvYqwsHvWDJwm4eEq7yEPVSmW9sBAAIMlxTE9at/pyHwto6Ma7rU3v4MQYLY332pDJvKRHnDzp4Gqd8MQurcptpT4=
-X-Received: by 2002:a6b:f30f:: with SMTP id m15mr413108ioh.44.1570689300613;
-	Wed, 09 Oct 2019 23:35:00 -0700 (PDT)
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=zH51v+/VpKqWqMJT/iQCa90mMj5rtP16zBFhHDCPCd0=;
+	b=PGh4sIJSke8eQowJaQ9TESgLA4d4Q/CtX6YzjLgTkb8U9RADD0/pQSi203UFQPDOG/
+	/M5tjyoDww9ypidFzMzycmhtVXEJMcPZBK4mQedqFz0+zTG0pInN5Dai4VjxQafaAScv
+	nee6WYE6zncAXKVC83Ojgj9GR/LseES/VQvtEqWrucihb1eVd6XuzMOVGoqyKwjwq6m6
+	nedK3YeOroDD/YaRcvxMdTwuP7EgJ2NdtqjYbhGPwHzazxtvoJ7QxqvLQZLaMcltlmmo
+	6ANctkXzv/hq+4qJ4WoyMVraxqcFLkzxduGcThESf/WKLq2BeonI4imiZ6Lj8EFWn1Tc
+	kDMw==
+X-Gm-Message-State: APjAAAWayOgj/fJUs4eNnyaAj6kD2jkXlNLsBm+/NleqEg5ASqfAl4aO
+	MLKgtlqj3VXzljDKcQ/YlH8eWC0yK4w=
+X-Google-Smtp-Source: APXvYqy3soqHisVwA6EhwYYiGMxEnq2q+0wPyQy4ze5Xr5rLZV430ALlIgEaJtHmkX0db3GXv+zgTQ==
+X-Received: by 2002:a7b:cc06:: with SMTP id f6mr6049656wmh.158.1570707485935; 
+	Thu, 10 Oct 2019 04:38:05 -0700 (PDT)
+Received: from [10.94.250.119] ([31.177.62.212])
+	by smtp.gmail.com with ESMTPSA id p5sm7837615wmi.4.2019.10.10.04.38.05
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Thu, 10 Oct 2019 04:38:05 -0700 (PDT)
+To: Mikulas Patocka <mpatocka@redhat.com>, Mike Snitzer <msnitzer@redhat.com>,
+	Alasdair Kergon <agk@redhat.com>
+References: <alpine.LRH.2.02.1910020613070.973@file01.intranet.prod.int.rdu2.redhat.com>
+From: Nikos Tsironis <ntsironis@arrikto.com>
+Message-ID: <546fde99-ad48-9b36-d21b-00f463b5a8fc@arrikto.com>
+Date: Thu, 10 Oct 2019 14:38:03 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.9.0
 MIME-Version: 1.0
-References: <CAHSpA58dehDfou0ogCYnkziBt4oU5yo1SGHLhJb7vFKy9HhJPQ@mail.gmail.com>
-	<db9a2b56-244b-1285-208c-14944f559f36@arrikto.com>
-	<CAHSpA58H_Vuhub6Eqqmi2QZ2g4AAUX8KCCUMzMvyc87hDaVDKg@mail.gmail.com>
-	<1b2b06a1-0b68-c265-e211-48273f26efaf@arrikto.com>
-	<CAHSpA59rG7qhEDjtUUTNv5evyWHS_iTL0o8utRCr9MQvMDsEgw@mail.gmail.com>
-	<e15bb4d9-d19b-f954-f71d-2985dd6e455a@arrikto.com>
-	<20191009141308.GA1670@redhat.com>
-	<d6aaebd8-ed3e-2e6a-14ea-33bf023ee4bb@arrikto.com>
-	<20191009160446.GA2284@redhat.com>
-	<CAHSpA59T+JCR+_3ZCYShXa6GtQddAcaQE0OP5GWbSEG0qMAQOg@mail.gmail.com>
-In-Reply-To: <CAHSpA59T+JCR+_3ZCYShXa6GtQddAcaQE0OP5GWbSEG0qMAQOg@mail.gmail.com>
-From: Guruswamy Basavaiah <guru2018@gmail.com>
-Date: Thu, 10 Oct 2019 12:04:50 +0530
-Message-ID: <CAHSpA5_miJX74Th-_hinLr_q-sVR2G3M-_aS2c2fJBSr1eDnfg@mail.gmail.com>
-To: Mike Snitzer <snitzer@redhat.com>
+In-Reply-To: <alpine.LRH.2.02.1910020613070.973@file01.intranet.prod.int.rdu2.redhat.com>
+Content-Language: en-US
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2
 	(mx1.redhat.com [10.5.110.63]);
-	Thu, 10 Oct 2019 06:35:01 +0000 (UTC)
+	Thu, 10 Oct 2019 11:38:07 +0000 (UTC)
 X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.63]);
-	Thu, 10 Oct 2019 06:35:01 +0000 (UTC) for IP:'209.85.166.66'
-	DOMAIN:'mail-io1-f66.google.com' HELO:'mail-io1-f66.google.com'
-	FROM:'guru2018@gmail.com' RCPT:''
-X-RedHat-Spam-Score: 0.15  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, RCVD_IN_DNSWL_NONE,
+	Thu, 10 Oct 2019 11:38:07 +0000 (UTC) for IP:'209.85.128.66'
+	DOMAIN:'mail-wm1-f66.google.com' HELO:'mail-wm1-f66.google.com'
+	FROM:'ntsironis@arrikto.com' RCPT:''
+X-RedHat-Spam-Score: -0.001  (DKIM_SIGNED, DKIM_VALID, RCVD_IN_DNSWL_NONE,
 	RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
-	SPF_PASS) 209.85.166.66 mail-io1-f66.google.com 209.85.166.66
-	mail-io1-f66.google.com <guru2018@gmail.com>
+	SPF_PASS) 209.85.128.66 mail-wm1-f66.google.com 209.85.128.66
+	mail-wm1-f66.google.com <ntsironis@arrikto.com>
 X-Scanned-By: MIMEDefang 2.84 on 10.5.110.63
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Thu, 10 Oct 2019 03:42:31 -0400
-Cc: dm-devel@redhat.com, Nikos Tsironis <ntsironis@arrikto.com>, agk@redhat.com,
-	iliastsi@arrikto.com
-Subject: Re: [dm-devel] Fix "dm kcopyd: Fix bug causing workqueue stalls"
-	causes dead lock
+Cc: dm-devel@redhat.com, guru2018@gmail.com
+Subject: Re: [dm-devel] [PATCH 1/2] dm-snapshot: introduce
+ account_start_copy and account_end_copy
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -111,127 +110,91 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.32]); Thu, 10 Oct 2019 07:45:23 +0000 (UTC)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.27]); Thu, 10 Oct 2019 11:38:58 +0000 (UTC)
 
-Hello,
-We use 4.4.184 in our builds and the patch fails to apply.
-Is it possible to give a patch for 4.4.x branch ?
+On 10/2/19 1:14 PM, Mikulas Patocka wrote:
+> This is simple refactoring that moves code for modifying the semaphore
+> cow_count into separate functions. It is needed by the following patch.
+> 
+> Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+> Cc: stable@vger.kernel.org	# v5.0+
+> Fixes: 721b1d98fb51 ("dm snapshot: Fix excessive memory usage and workqueue stalls")
+> 
 
-patching Logs.
-patching file drivers/md/dm-snap.c
-Hunk #1 succeeded at 19 (offset 1 line).
-Hunk #2 succeeded at 105 (offset -1 lines).
-Hunk #3 succeeded at 157 (offset -4 lines).
-Hunk #4 succeeded at 1206 (offset -120 lines).
-Hunk #5 FAILED at 1508.
-Hunk #6 succeeded at 1412 (offset -124 lines).
-Hunk #7 succeeded at 1425 (offset -124 lines).
-Hunk #8 FAILED at 1925.
-Hunk #9 succeeded at 1866 with fuzz 2 (offset -255 lines).
-Hunk #10 succeeded at 2202 (offset -294 lines).
-Hunk #11 succeeded at 2332 (offset -294 lines).
-2 out of 11 hunks FAILED -- saving rejects to file drivers/md/dm-snap.c.rej
+Reviewed-by: Nikos Tsironis <ntsironis@arrikto.com>
 
-Guru
-
-On Thu, 10 Oct 2019 at 01:33, Guruswamy Basavaiah <guru2018@gmail.com> wrote:
->
-> Hello Mike,
->  I will get the testing result before end of Thursday.
-> Guru
->
-> On Wed, 9 Oct 2019 at 21:34, Mike Snitzer <snitzer@redhat.com> wrote:
-> >
-> > On Wed, Oct 09 2019 at 11:44am -0400,
-> > Nikos Tsironis <ntsironis@arrikto.com> wrote:
-> >
-> > > On 10/9/19 5:13 PM, Mike Snitzer wrote:> On Tue, Oct 01 2019 at  8:43am -0400,
-> > > > Nikos Tsironis <ntsironis@arrikto.com> wrote:
-> > > >
-> > > >> On 10/1/19 3:27 PM, Guruswamy Basavaiah wrote:
-> > > >>> Hello Nikos,
-> > > >>>  Yes, issue is consistently reproducible with us, in a particular
-> > > >>> set-up and test case.
-> > > >>>  I will get the access to set-up next week, will try to test and let
-> > > >>> you know the results before end of next week.
-> > > >>>
-> > > >>
-> > > >> That sounds great!
-> > > >>
-> > > >> Thanks a lot,
-> > > >> Nikos
-> > > >
-> > > > Hi Guru,
-> > > >
-> > > > Any chance you could try this fix that I've staged to send to Linus?
-> > > > https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/commit/?h=dm-5.4&id=633b1613b2a49304743c18314bb6e6465c21fd8a
-> > > >
-> > > > Shiort of that, Nikos: do you happen to have a test scenario that teases
-> > > > out this deadlock?
-> > > >
-> > >
-> > > Hi Mike,
-> > >
-> > > Yes,
-> > >
-> > > I created a 50G LV and took a snapshot of the same size:
-> > >
-> > >   lvcreate -n data-lv -L50G testvg
-> > >   lvcreate -n snap-lv -L50G -s testvg/data-lv
-> > >
-> > > Then I ran the following fio job:
-> > >
-> > > [global]
-> > > randrepeat=1
-> > > ioengine=libaio
-> > > bs=1M
-> > > size=6G
-> > > offset_increment=6G
-> > > numjobs=8
-> > > direct=1
-> > > iodepth=32
-> > > group_reporting
-> > > filename=/dev/testvg/data-lv
-> > >
-> > > [test]
-> > > rw=write
-> > > timeout=180
-> > >
-> > > , concurrently with the following script:
-> > >
-> > > lvcreate -n dummy-lv -L1G testvg
-> > >
-> > > while true
-> > > do
-> > >  lvcreate -n dummy-snap -L1M -s testvg/dummy-lv
-> > >  lvremove -f testvg/dummy-snap
-> > > done
-> > >
-> > > This reproduced the deadlock for me. I also ran 'echo 30 >
-> > > /proc/sys/kernel/hung_task_timeout_secs', to reduce the hung task
-> > > timeout.
-> > >
-> > > Nikos.
-> >
-> > Very nice, well done.  Curious if you've tested with the fix I've staged
-> > (see above)?  If so, does it resolve the deadlock?  If you've had
-> > success I'd be happy to update the tags in the commit header to include
-> > your Tested-by before sending it to Linus.  Also, any review of the
-> > patch that you can do would be appreciated and with your formal
-> > Reviewed-by reply would be welcomed and folded in too.
-> >
-> > Mike
->
->
->
-> --
-> Guruswamy Basavaiah
-
-
-
--- 
-Guruswamy Basavaiah
+> ---
+>  drivers/md/dm-snap.c |   20 +++++++++++++++-----
+>  1 file changed, 15 insertions(+), 5 deletions(-)
+> 
+> Index: linux-2.6/drivers/md/dm-snap.c
+> ===================================================================
+> --- linux-2.6.orig/drivers/md/dm-snap.c	2019-10-01 15:19:20.000000000 +0200
+> +++ linux-2.6/drivers/md/dm-snap.c	2019-10-01 15:23:10.000000000 +0200
+> @@ -1512,6 +1512,16 @@ static void snapshot_dtr(struct dm_targe
+>  	kfree(s);
+>  }
+>  
+> +static void account_start_copy(struct dm_snapshot *s)
+> +{
+> +	down(&s->cow_count);
+> +}
+> +
+> +static void account_end_copy(struct dm_snapshot *s)
+> +{
+> +	up(&s->cow_count);
+> +}
+> +
+>  /*
+>   * Flush a list of buffers.
+>   */
+> @@ -1732,7 +1742,7 @@ static void copy_callback(int read_err,
+>  		rb_link_node(&pe->out_of_order_node, parent, p);
+>  		rb_insert_color(&pe->out_of_order_node, &s->out_of_order_tree);
+>  	}
+> -	up(&s->cow_count);
+> +	account_end_copy(s);
+>  }
+>  
+>  /*
+> @@ -1756,7 +1766,7 @@ static void start_copy(struct dm_snap_pe
+>  	dest.count = src.count;
+>  
+>  	/* Hand over to kcopyd */
+> -	down(&s->cow_count);
+> +	account_start_copy(s);
+>  	dm_kcopyd_copy(s->kcopyd_client, &src, 1, &dest, 0, copy_callback, pe);
+>  }
+>  
+> @@ -1776,7 +1786,7 @@ static void start_full_bio(struct dm_sna
+>  	pe->full_bio = bio;
+>  	pe->full_bio_end_io = bio->bi_end_io;
+>  
+> -	down(&s->cow_count);
+> +	account_start_copy(s);
+>  	callback_data = dm_kcopyd_prepare_callback(s->kcopyd_client,
+>  						   copy_callback, pe);
+>  
+> @@ -1866,7 +1876,7 @@ static void zero_callback(int read_err,
+>  	struct bio *bio = context;
+>  	struct dm_snapshot *s = bio->bi_private;
+>  
+> -	up(&s->cow_count);
+> +	account_end_copy(s);
+>  	bio->bi_status = write_err ? BLK_STS_IOERR : 0;
+>  	bio_endio(bio);
+>  }
+> @@ -1880,7 +1890,7 @@ static void zero_exception(struct dm_sna
+>  	dest.sector = bio->bi_iter.bi_sector;
+>  	dest.count = s->store->chunk_size;
+>  
+> -	down(&s->cow_count);
+> +	account_start_copy(s);
+>  	WARN_ON_ONCE(bio->bi_private);
+>  	bio->bi_private = s;
+>  	dm_kcopyd_zero(s->kcopyd_client, 1, &dest, 0, zero_callback, bio);
+> 
 
 --
 dm-devel mailing list
