@@ -1,132 +1,137 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id E77B2E0DCF
-	for <lists+dm-devel@lfdr.de>; Tue, 22 Oct 2019 23:33:29 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id F1FABE1596
+	for <lists+dm-devel@lfdr.de>; Wed, 23 Oct 2019 11:17:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1571780008;
+	s=mimecast20190719; t=1571822247;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post:autocrypt:autocrypt;
-	bh=Z9eKxEWwxYmVX8C6tbFQ5RyXpw1qMc4ADCgKgpM9kbM=;
-	b=CXhR2/Qp9fD1CYcrBSrq4MB1yoZSdpw6mDRxBh1nqnHKM5fgmU0p7tbViHAavRd0i41v9q
-	RA7orCMpQDvDEzuI5AgXnQ3BBS1q8obQVvfJ83sbJtcRjm843c/8HkNYYFevZuFXxP88oA
-	z5ighpgTNaZ4JUV2lFwjffGzc/TLHDM=
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=/0RduXq1Kgqs7K6XQFMHzrv2CdOyfoQTL+V/nVMyEPg=;
+	b=CKVb9ThA6KX/P1b+Y0Odt2k/bZc+j4Hlmr3TxDlzgyzTy8VYAkPLWyT1btpbjCHfuQX8n5
+	VsNcgtMQsGMDizhy9xGV5znB5cAgur6Z0e4xXVryEqoP9Hy++wZdSYyhcWRWTtNNTsm8mb
+	2VaKzbjkk6AH6fb0TuQf3NaeXqkyEao=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-292-oKl0TcrbNqqx0lNt_NcuPQ-1; Tue, 22 Oct 2019 17:33:26 -0400
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-68-8xhg7NwbOpeSDMnLFuxACg-1; Wed, 23 Oct 2019 05:17:25 -0400
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8220A1005509;
-	Tue, 22 Oct 2019 21:33:20 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E7F5110027A1;
-	Tue, 22 Oct 2019 21:33:18 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4A77A1800D6B;
+	Wed, 23 Oct 2019 09:17:19 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 59E1E600CC;
+	Wed, 23 Oct 2019 09:17:14 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8320E4A486;
-	Tue, 22 Oct 2019 21:33:13 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D49AD18089C8;
+	Wed, 23 Oct 2019 09:17:04 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
 	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x9MLX4vQ025130 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 22 Oct 2019 17:33:04 -0400
+	id x9N9Gq59017022 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 23 Oct 2019 05:16:52 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 92B5260624; Tue, 22 Oct 2019 21:33:04 +0000 (UTC)
+	id 7D21860624; Wed, 23 Oct 2019 09:16:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mx1.redhat.com (ext-mx25.extmail.prod.ext.phx2.redhat.com
 	[10.5.110.66])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 246FD614C4;
-	Tue, 22 Oct 2019 21:32:59 +0000 (UTC)
-Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
-	[209.85.214.196])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0D99F608C0;
+	Wed, 23 Oct 2019 09:16:50 +0000 (UTC)
+Received: from m9a0003g.houston.softwaregrp.com
+	(m9a0003g.houston.softwaregrp.com [15.124.64.68])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 8009710C0925;
-	Tue, 22 Oct 2019 21:32:58 +0000 (UTC)
-Received: by mail-pl1-f196.google.com with SMTP id q15so8951918pll.11;
-	Tue, 22 Oct 2019 14:32:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:autocrypt
-	:message-id:date:user-agent:mime-version:in-reply-to
-	:content-language:content-transfer-encoding;
-	bh=11+q5wn9mwwOL/OFJ3WGFp4s5Otq+BkeU+jDJ4wjv0M=;
-	b=dbEDcT4ABB7GK2ZGdjKhMyS0pObfJ88v1Vy70txf+QzGtpBjwVu2pZ8CD+8NUfsidl
-	yUi0EuwTLcLI+eNtDbjDum9X5AYEQzLAF/PhC0a2/EOy1/lEHmq1n0/CSgjWdSPDLu0D
-	znboXkEkz2/5AiMGsruuPyrrff6BLARaNTNh88vWG5C/LYVfeRFfZnFK8Hh0sty5vJFM
-	Wjd0+ekGg5IxpQ5H65BGP1Cpi+X1ec0dpP+cnz1yNJV54NjEA/lOZJvKlOC1yUBdRV71
-	avFQEVisqIKYX+yvh+AsNB1u2uurKZTdLL+aFZz4izKCoKDhMv/jlYudrQeQ5QumZc7W
-	PMGw==
-X-Gm-Message-State: APjAAAUBm95TwbiAANlLtVSLvTOTmPPoZgIAbpAvYGXrvAjNA75oQS1H
-	GU8BVWtmoQj4PSZ3O1Ba8JOPZehD
-X-Google-Smtp-Source: APXvYqzvaKzzV35d8g4+jTlkRM/R+xEyUuJVh00hkQibaCjo7m2PHnZukc8t5vaoH6ZNiJSt8zeoAQ==
-X-Received: by 2002:a17:902:b58e:: with SMTP id
-	a14mr6046680pls.0.1571779977253; 
-	Tue, 22 Oct 2019 14:32:57 -0700 (PDT)
-Received: from localhost.localdomain ([2601:647:4000:c3:ccbd:2d81:281:ddbd])
-	by smtp.gmail.com with ESMTPSA id 16sm3055216pgd.0.2019.10.22.14.32.55
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Tue, 22 Oct 2019 14:32:56 -0700 (PDT)
-To: Martin Wilck <Martin.Wilck@suse.com>,
-	"bmarzins@redhat.com" <bmarzins@redhat.com>,
-	"christophe.varoqui@opensvc.com" <christophe.varoqui@opensvc.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id B545710C0922;
+	Wed, 23 Oct 2019 09:16:28 +0000 (UTC)
+Received: FROM m9a0003g.houston.softwaregrp.com (15.121.0.190) BY
+	m9a0003g.houston.softwaregrp.com WITH ESMTP; 
+	Wed, 23 Oct 2019 09:16:06 +0000
+Received: from M9W0067.microfocus.com (2002:f79:be::f79:be) by
+	M9W0067.microfocus.com (2002:f79:be::f79:be) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+	15.1.1591.10; Wed, 23 Oct 2019 09:11:21 +0000
+Received: from NAM05-CO1-obe.outbound.protection.outlook.com (15.124.72.11) by
+	M9W0067.microfocus.com (15.121.0.190) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+	15.1.1591.10 via Frontend Transport; Wed, 23 Oct 2019 09:11:21 +0000
+Received: from CH2PR18MB3349.namprd18.prod.outlook.com (52.132.245.83) by
+	CH2PR18MB3158.namprd18.prod.outlook.com (52.132.247.221) with Microsoft
+	SMTP
+	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	15.20.2367.20; Wed, 23 Oct 2019 09:11:04 +0000
+Received: from CH2PR18MB3349.namprd18.prod.outlook.com
+	([fe80::1075:2453:9278:e985]) by
+	CH2PR18MB3349.namprd18.prod.outlook.com
+	([fe80::1075:2453:9278:e985%5]) with mapi id 15.20.2347.028;
+	Wed, 23 Oct 2019 09:11:04 +0000
+From: Martin Wilck <Martin.Wilck@suse.com>
+To: "bmarzins@redhat.com" <bmarzins@redhat.com>, "bvanassche@acm.org"
+	<bvanassche@acm.org>, "christophe.varoqui@opensvc.com"
+	<christophe.varoqui@opensvc.com>
+Thread-Topic: [dm-devel] [PATCH 45/72] libmultipath: fix -Wsign-compare
+	warnings with snprintf()
+Thread-Index: AQHVgUP/vRjgspJFLEGusG/rLD5KFg==
+Date: Wed, 23 Oct 2019 09:11:04 +0000
+Message-ID: <427b0092920fc26be91794a5a54cc0ca71183745.camel@suse.com>
 References: <20191012212703.12989-1-martin.wilck@suse.com>
 	<20191012212703.12989-46-martin.wilck@suse.com>
 	<34e6fc87-10f6-efd7-c8df-710e56cc1956@acm.org>
 	<f895f01df7c429abf4a32a395764513c92ecc3af.camel@suse.com>
 	<42e85b61-3f38-af4e-a485-1ba230506d0f@acm.org>
 	<690ab1be1dc189c6efebf5fb953f31f9f0341286.camel@suse.com>
-From: Bart Van Assche <bvanassche@acm.org>
-Autocrypt: addr=bvanassche@acm.org; prefer-encrypt=mutual; keydata=
-	mQENBFSOu4oBCADcRWxVUvkkvRmmwTwIjIJvZOu6wNm+dz5AF4z0FHW2KNZL3oheO3P8UZWr
-	LQOrCfRcK8e/sIs2Y2D3Lg/SL7qqbMehGEYcJptu6mKkywBfoYbtBkVoJ/jQsi2H0vBiiCOy
-	fmxMHIPcYxaJdXxrOG2UO4B60Y/BzE6OrPDT44w4cZA9DH5xialliWU447Bts8TJNa3lZKS1
-	AvW1ZklbvJfAJJAwzDih35LxU2fcWbmhPa7EO2DCv/LM1B10GBB/oQB5kvlq4aA2PSIWkqz4
-	3SI5kCPSsygD6wKnbRsvNn2mIACva6VHdm62A7xel5dJRfpQjXj2snd1F/YNoNc66UUTABEB
-	AAG0JEJhcnQgVmFuIEFzc2NoZSA8YnZhbmFzc2NoZUBhY20ub3JnPokBOQQTAQIAIwUCVI67
-	igIbAwcLCQgHAwIBBhUIAgkKCwQWAgMBAh4BAheAAAoJEHFcPTXFzhAJ8QkH/1AdXblKL65M
-	Y1Zk1bYKnkAb4a98LxCPm/pJBilvci6boefwlBDZ2NZuuYWYgyrehMB5H+q+Kq4P0IBbTqTa
-	jTPAANn62A6jwJ0FnCn6YaM9TZQjM1F7LoDX3v+oAkaoXuq0dQ4hnxQNu792bi6QyVdZUvKc
-	macVFVgfK9n04mL7RzjO3f+X4midKt/s+G+IPr4DGlrq+WH27eDbpUR3aYRk8EgbgGKvQFdD
-	CEBFJi+5ZKOArmJVBSk21RHDpqyz6Vit3rjep7c1SN8s7NhVi9cjkKmMDM7KYhXkWc10lKx2
-	RTkFI30rkDm4U+JpdAd2+tP3tjGf9AyGGinpzE2XY1K5AQ0EVI67igEIAKiSyd0nECrgz+H5
-	PcFDGYQpGDMTl8MOPCKw/F3diXPuj2eql4xSbAdbUCJzk2ETif5s3twT2ER8cUTEVOaCEUY3
-	eOiaFgQ+nGLx4BXqqGewikPJCe+UBjFnH1m2/IFn4T9jPZkV8xlkKmDUqMK5EV9n3eQLkn5g
-	lco+FepTtmbkSCCjd91EfThVbNYpVQ5ZjdBCXN66CKyJDMJ85HVr5rmXG/nqriTh6cv1l1Js
-	T7AFvvPjUPknS6d+BETMhTkbGzoyS+sywEsQAgA+BMCxBH4LvUmHYhpS+W6CiZ3ZMxjO8Hgc
-	++w1mLeRUvda3i4/U8wDT3SWuHcB3DWlcppECLkAEQEAAYkBHwQYAQIACQUCVI67igIbDAAK
-	CRBxXD01xc4QCZ4dB/0QrnEasxjM0PGeXK5hcZMT9Eo998alUfn5XU0RQDYdwp6/kMEXMdmT
-	oH0F0xB3SQ8WVSXA9rrc4EBvZruWQ+5/zjVrhhfUAx12CzL4oQ9Ro2k45daYaonKTANYG22y
-	//x8dLe2Fv1By4SKGhmzwH87uXxbTJAUxiWIi1np0z3/RDnoVyfmfbbL1DY7zf2hYXLLzsJR
-	mSsED/1nlJ9Oq5fALdNEPgDyPUerqHxcmIub+pF0AzJoYHK5punqpqfGmqPbjxrJLPJfHVKy
-	goMj5DlBMoYqEgpbwdUYkH6QdizJJCur4icy8GUNbisFYABeoJ91pnD4IGei3MTdvINSZI5e
-Message-ID: <b4e750e1-ecc1-853d-5582-fae16b3932f0@acm.org>
-Date: Tue, 22 Oct 2019 14:32:54 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.1.2
-MIME-Version: 1.0
-In-Reply-To: <690ab1be1dc189c6efebf5fb953f31f9f0341286.camel@suse.com>
+	<b4e750e1-ecc1-853d-5582-fae16b3932f0@acm.org>
+In-Reply-To: <b4e750e1-ecc1-853d-5582-fae16b3932f0@acm.org>
+Accept-Language: en-US
 Content-Language: en-US
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2
-	(mx1.redhat.com [10.5.110.66]);
-	Tue, 22 Oct 2019 21:32:58 +0000 (UTC)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [90.186.0.223]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: d6b68bd8-c033-4ae7-70a2-08d75798ee8c
+x-ms-traffictypediagnostic: CH2PR18MB3158:
+x-microsoft-antispam-prvs: <CH2PR18MB315875D69DAFC9BC817B8614FC6B0@CH2PR18MB3158.namprd18.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1728;
+x-forefront-prvs: 019919A9E4
+x-forefront-antispam-report: SFV:NSPM;
+	SFS:(10019020)(4636009)(39860400002)(396003)(376002)(346002)(366004)(136003)(189003)(199004)(8936002)(6246003)(4001150100001)(4326008)(110136005)(8676002)(6486002)(81156014)(81166006)(3846002)(305945005)(118296001)(2906002)(6116002)(71200400001)(76176011)(71190400001)(4744005)(316002)(7736002)(99286004)(36756003)(86362001)(25786009)(2201001)(186003)(66446008)(64756008)(66476007)(66556008)(5660300002)(6512007)(66066001)(66946007)(91956017)(76116006)(14454004)(478600001)(6436002)(11346002)(2501003)(446003)(2616005)(476003)(26005)(256004)(229853002)(6506007)(102836004)(486006);
+	DIR:OUT; SFP:1102; SCL:1; SRVR:CH2PR18MB3158;
+	H:CH2PR18MB3349.namprd18.prod.outlook.com; FPR:; SPF:None;
+	PTR:InfoNoRecords; MX:1; A:1;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: LpXuUAUye7sxXJYdgdi0bE2NETJLbZC2OrTObNe4NejvK7rjlPhTiBvynneLHTa9OvBDrWB6j/JpU+hR5l4HA1D2vn0Mmkri+bQ4FuAkuxt8RdH5dipVkCyKHNR+wcP9iA+Gy+4mSGDNirJNT2PkP+Qo96KlRUd/R5p2b6tUY3svDOeaW2Tp9eZqCjXZSxA+AN1BHcmiM432KmUOeu03xt2OaLtqv2PsWQdx3AjgEBShwhaZzmYz5LnQ/WPnGwRyyRU/BQsmeCIkaIH+lXAxVWEDCIMFOcLARjL7ogeoCbLGWj6sCvkY9OJYv6fxVW1cdLGYIDg1+Ke+sN0BUUCqOzwF9uSFq2sb0sYnAYL+kTdgrY4hjCopYJFsobgPsEV64FTMFVDyGzEabLr5aQD5I1DRNTZtdNSJwZlDU+sPA3C2/FY0JreZ1SKCk7Z4LCLb
+x-ms-exchange-transport-forked: True
+Content-ID: <8935A8793384E1468406C08E23B7F3E6@namprd18.prod.outlook.com>
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6b68bd8-c033-4ae7-70a2-08d75798ee8c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2019 09:11:04.3752 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VPFo3q1IqAJpa9KWCbM7EVsVrvTLG0y25ELwCOkdRDlyBc42efgpdF9BOg2Vb6rhkiy3Wg0oPeFu0Pr540SuVw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR18MB3158
+X-OriginatorOrg: suse.com
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
+	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
+	[10.5.110.66]); Wed, 23 Oct 2019 09:16:49 +0000 (UTC)
 X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.66]);
-	Tue, 22 Oct 2019 21:32:58 +0000 (UTC) for IP:'209.85.214.196'
-	DOMAIN:'mail-pl1-f196.google.com'
-	HELO:'mail-pl1-f196.google.com' FROM:'bart.vanassche@gmail.com'
-	RCPT:''
-X-RedHat-Spam-Score: 0.478  (FREEMAIL_FORGED_FROMDOMAIN, FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
-	SPF_PASS) 209.85.214.196 mail-pl1-f196.google.com 209.85.214.196
-	mail-pl1-f196.google.com <bart.vanassche@gmail.com>
+	Wed, 23 Oct 2019 09:16:49 +0000 (UTC) for IP:'15.124.64.68'
+	DOMAIN:'m9a0003g.houston.softwaregrp.com'
+	HELO:'m9a0003g.houston.softwaregrp.com'
+	FROM:'Martin.Wilck@suse.com' RCPT:''
+X-RedHat-Spam-Score: 0.001  (RCVD_IN_DNSWL_NONE, SPF_HELO_NONE, SPF_PASS,
+	UNPARSEABLE_RELAY) 15.124.64.68
+	m9a0003g.houston.softwaregrp.com 15.124.64.68
+	m9a0003g.houston.softwaregrp.com <Martin.Wilck@suse.com>
 X-Scanned-By: MIMEDefang 2.84 on 10.5.110.66
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-MIME-Autoconverted: from base64 to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id x9N9Gq59017022
 X-loop: dm-devel@redhat.com
 Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
 Subject: Re: [dm-devel] [PATCH 45/72] libmultipath: fix -Wsign-compare
@@ -144,33 +149,27 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-MC-Unique: oKl0TcrbNqqx0lNt_NcuPQ-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-MC-Unique: 8xhg7NwbOpeSDMnLFuxACg-1
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
 
-On 2019-10-22 13:34, Martin Wilck wrote:
-> Most uses of snprintf() are in libmultipath printing code, where items
-> are printed sequentially into a big buffer, advancing the buffer
-> pointer on the way. asprintf() doesn't match that use case well,
-> AFAICS. But in some other places, switching to asprintf would certainly
-> make sense. Anyway, I'd like to do that in a separate patch set if you
-> don't mind; this one is big enough already.
+Hello Bart,
 
-Hi Martin,
+On Tue, 2019-10-22 at 14:32 -0700, Bart Van Assche wrote:
+> I'd like to reiterate that introducing -Wsign-compare seems dubious
+> to me.
 
-For this patch, have you considered to change the type of the 'bufsiz'
-argument of format_partname() from size_t into int or unsigned int? I do
-not expect that the output string will ever exceed 65535 characters. As
-you probably know the C standard guarantees that there are at least 16
-bits in an int.
+While I disagree with this general statement, I now realized that
+my approach to use (int) casts in this specific patch was indeed wrong,
+because it prevents detection of negative snprintf() return values.
 
-I'd like to reiterate that introducing -Wsign-compare seems dubious to me.
+I'm going to rework this patch.
 
-Thanks,
+Regards,
+Martin
 
-Bart.
 
 --
 dm-devel mailing list
