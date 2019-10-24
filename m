@@ -1,67 +1,99 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 84EF0E1CE7
-	for <lists+dm-devel@lfdr.de>; Wed, 23 Oct 2019 15:40:08 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 2C798E2A99
+	for <lists+dm-devel@lfdr.de>; Thu, 24 Oct 2019 08:51:24 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1571838007;
+	s=mimecast20190719; t=1571899882;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=q9kRHRhEhho1QNGCqkjcGxJoTuA2PD2H3yFrvB/slws=;
-	b=LjBLsnS1AbCgUYiL31ibxe8NinbgTUxTdU1l/gDx27XN5VhqAoyaB2i1+FctwDeMNDCImy
-	AruZv/tZuE4x7e6pm9bmKt/btxnquKcFefu+yFFRngslfo0XN1FhbBuQO1FDrZIFR0QrNP
-	Mc4eQgVsKNUn1e/sCPe9TLQpzdO+ltE=
+	bh=2Gxe01NyXRbo6KIKM5/PsV6q3BDHrK/Kd/v0LmaTcFo=;
+	b=X2RdRm3dE2wfhz0DqYTlV/FTWkoJZll932nn14OCmBRHLKqj8KG83tZzw5izvbFzNe9d39
+	Hqy344eVCWyGuz9Xea8X7ybYa1FTSu9zjzwa2K8tGCv/Xu+u4StIYKoNRpI4UtJbrCzX6y
+	6oCwSSqTFwqkso72ESr0UnuFKXg5f9Q=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-325-yexyQ2jXO9KkZzePUt8eKA-1; Wed, 23 Oct 2019 09:40:01 -0400
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-64-u3bWivMPMamjv6LgtM1Aqw-1; Thu, 24 Oct 2019 02:51:20 -0400
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2420C100551D;
-	Wed, 23 Oct 2019 13:39:55 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E6C125D717;
-	Wed, 23 Oct 2019 13:39:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 932AC80183E;
+	Thu, 24 Oct 2019 06:51:12 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 31A321001DE4;
+	Thu, 24 Oct 2019 06:51:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F325F4EE6A;
-	Wed, 23 Oct 2019 13:39:50 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2577B18005A0;
+	Thu, 24 Oct 2019 06:50:57 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
 	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x9NDdj4x028572 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 23 Oct 2019 09:39:45 -0400
+	id x9O6oiBf013528 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 24 Oct 2019 02:50:44 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DA1F95C219; Wed, 23 Oct 2019 13:39:45 +0000 (UTC)
+	id 400B25C219; Thu, 24 Oct 2019 06:50:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3BE5C5C1D4;
-	Wed, 23 Oct 2019 13:39:43 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id x9NDdgjK030172; Wed, 23 Oct 2019 09:39:42 -0400
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id x9NDdgVC030168; Wed, 23 Oct 2019 09:39:42 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Wed, 23 Oct 2019 09:39:42 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Mike Snitzer <msnitzer@redhat.com>, Joe Thornber <thornber@redhat.com>,
-	Alasdair Kergon <agk@redhat.com>
-Message-ID: <alpine.LRH.2.02.1910230939160.29580@file01.intranet.prod.int.rdu2.redhat.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mx1.redhat.com (ext-mx13.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.42])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A12B55C1B5;
+	Thu, 24 Oct 2019 06:50:38 +0000 (UTC)
+Received: from esa5.hgst.iphmx.com (esa5.hgst.iphmx.com [216.71.153.144])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id E411C3082135;
+	Thu, 24 Oct 2019 06:50:16 +0000 (UTC)
+IronPort-SDR: Q2p/y3m5PskSQC8eCKoXkHW87hj9c7pproKud8qLnZOVTVBT+HaDyH4FFMhqMPG8n2ods4f/50
+	Vibwpu/7O53ZKISx/fKf07HQyiPyO2DLuZvAsyYcS6tGciYvRpPDnhpdKW8hgc0e8+914nE7wu
+	KJ32LEfmNUkClzh4BlH/cFf2+qkCbWvwa5tHs9kiCBTTAodObh9J6GTPt10BRvUMrLauVmL8na
+	nts9dmVMxV6G/yTNzmofrS3zLePIrQCiPU32dY5Hbz+ncCHdV9ddw3rPSfg7qZ8dK403+rSMP7
+	V8E=
+X-IronPort-AV: E=Sophos;i="5.68,223,1569254400"; d="scan'208";a="121990222"
+Received: from h199-255-45-15.hgst.com (HELO uls-op-cesaep02.wdc.com)
+	([199.255.45.15])
+	by ob1.hgst.iphmx.com with ESMTP; 24 Oct 2019 14:50:08 +0800
+IronPort-SDR: DjmvvndtcNNcb7WQ3Jf7Jfwsepf87/sMCd0OhvW08fJ+1SFIYJ1HmJ79Tn/gDB209cl5iBPP/8
+	x/IxCg2vdPuDHY2ZPF2QosaSahh+axwcm5yr0Wetc5X0qHX/sFVQmeawkIZS1ydQMu3zGynfMY
+	01414XwPm43MgONIKiP//8xVT1s74EN6JShREVAZVnF77OmwD4XuszTSEo0Pp8MAINeiKey2Ry
+	Wg3HWOOGceak+MOlCQCFNSsHyFhQypUwz+oBgyFpb0vFkmmlW0bEhT/1Nli2xZ0JBkHkr1KGr9
+	K5K0eIrkuSUn6/sJiA7NkTxN
+Received: from uls-op-cesaip01.wdc.com ([10.248.3.36])
+	by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	23 Oct 2019 23:45:42 -0700
+IronPort-SDR: z+VWTacWY9yax5Jn5lpu1A8gHjm/99wY+Sk0dn57pCL3QsHFOlw07IHg2JZUABdXbKCTLR5QwW
+	RoMIF3BsW1KSaICNuicq9HByueB0FWp+SbzoDcI8lJxXvmN8b982rEOrdXHkqIQwXICd3sl/y6
+	CUwJIhD8OjEoSFA1q/p/HmKTc2LL/UJEPOAWY32lo5ojX0DIZH6DkW4L4CX5tS0QNW1Bd8h51o
+	fQBoC8POs7d/5QyKw5GINoxaVUcdGMQxe1YSBSEJdKeFZZi9bag604ZwRhm4wuf01AUMRa9i5Y
+	qZk=
+WDCIronportException: Internal
+Received: from washi.fujisawa.hgst.com ([10.149.53.254])
+	by uls-op-cesaip01.wdc.com with ESMTP; 23 Oct 2019 23:50:08 -0700
+From: Damien Le Moal <damien.lemoal@wdc.com>
+To: linux-block@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	linux-scsi@vger.kernel.org,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>
+Date: Thu, 24 Oct 2019 15:50:02 +0900
+Message-Id: <20191024065006.8684-1-damien.lemoal@wdc.com>
 MIME-Version: 1.0
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.42]); Thu, 24 Oct 2019 06:50:29 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.42]);
+	Thu, 24 Oct 2019 06:50:29 +0000 (UTC) for IP:'216.71.153.144'
+	DOMAIN:'esa5.hgst.iphmx.com' HELO:'esa5.hgst.iphmx.com'
+	FROM:'damien.lemoal@wdc.com' RCPT:''
+X-RedHat-Spam-Score: -2.399  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
+	RCVD_IN_DNSWL_MED,
+	SPF_HELO_NONE) 216.71.153.144 esa5.hgst.iphmx.com 216.71.153.144
+	esa5.hgst.iphmx.com <prvs=193aaee55=damien.lemoal@wdc.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.42
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com
-Subject: [dm-devel] [PATCH] dm-bio-prison-v2: replace spin_lock_irqsave with
- spin_lock_irq
+Subject: [dm-devel] [PATCH 0/4] zoned block device report zones enhancements
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,99 +107,41 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-MC-Unique: yexyQ2jXO9KkZzePUt8eKA-1
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-MC-Unique: u3bWivMPMamjv6LgtM1Aqw-1
 X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-Replace spin_lock_irqsave/irqrestore with spin_lock_irq/spin_unlock_irq.
+This series of patches improve the handling and execution of report
+zones operations for zoned block devices.
 
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+The first patch enhances device revalidation by moving zone information
+checks from the low level driver into the block layer. The second patch
+remove some unnecessary code. The last two patches introduce generic
+allocation of report zones command buffer, further enhancing zoned disk
+revalidation.
 
----
- drivers/md/dm-bio-prison-v2.c |   26 ++++++++++----------------
- 1 file changed, 10 insertions(+), 16 deletions(-)
+As always, comments are welcome.
 
-Index: linux-2.6/drivers/md/dm-bio-prison-v2.c
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
---- linux-2.6.orig/drivers/md/dm-bio-prison-v2.c=092019-10-10 16:52:03.0000=
-00000 +0200
-+++ linux-2.6/drivers/md/dm-bio-prison-v2.c=092019-10-16 17:08:47.000000000=
- +0200
-@@ -177,11 +177,10 @@ bool dm_cell_get_v2(struct dm_bio_prison
- =09=09    struct dm_bio_prison_cell_v2 **cell_result)
- {
- =09int r;
--=09unsigned long flags;
-=20
--=09spin_lock_irqsave(&prison->lock, flags);
-+=09spin_lock_irq(&prison->lock);
- =09r =3D __get(prison, key, lock_level, inmate, cell_prealloc, cell_result=
-);
--=09spin_unlock_irqrestore(&prison->lock, flags);
-+=09spin_unlock_irq(&prison->lock);
-=20
- =09return r;
- }
-@@ -261,11 +260,10 @@ int dm_cell_lock_v2(struct dm_bio_prison
- =09=09    struct dm_bio_prison_cell_v2 **cell_result)
- {
- =09int r;
--=09unsigned long flags;
-=20
--=09spin_lock_irqsave(&prison->lock, flags);
-+=09spin_lock_irq(&prison->lock);
- =09r =3D __lock(prison, key, lock_level, cell_prealloc, cell_result);
--=09spin_unlock_irqrestore(&prison->lock, flags);
-+=09spin_unlock_irq(&prison->lock);
-=20
- =09return r;
- }
-@@ -285,11 +283,9 @@ void dm_cell_quiesce_v2(struct dm_bio_pr
- =09=09=09struct dm_bio_prison_cell_v2 *cell,
- =09=09=09struct work_struct *continuation)
- {
--=09unsigned long flags;
--
--=09spin_lock_irqsave(&prison->lock, flags);
-+=09spin_lock_irq(&prison->lock);
- =09__quiesce(prison, cell, continuation);
--=09spin_unlock_irqrestore(&prison->lock, flags);
-+=09spin_unlock_irq(&prison->lock);
- }
- EXPORT_SYMBOL_GPL(dm_cell_quiesce_v2);
-=20
-@@ -309,11 +305,10 @@ int dm_cell_lock_promote_v2(struct dm_bi
- =09=09=09    unsigned new_lock_level)
- {
- =09int r;
--=09unsigned long flags;
-=20
--=09spin_lock_irqsave(&prison->lock, flags);
-+=09spin_lock_irq(&prison->lock);
- =09r =3D __promote(prison, cell, new_lock_level);
--=09spin_unlock_irqrestore(&prison->lock, flags);
-+=09spin_unlock_irq(&prison->lock);
-=20
- =09return r;
- }
-@@ -342,11 +337,10 @@ bool dm_cell_unlock_v2(struct dm_bio_pri
- =09=09       struct bio_list *bios)
- {
- =09bool r;
--=09unsigned long flags;
-=20
--=09spin_lock_irqsave(&prison->lock, flags);
-+=09spin_lock_irq(&prison->lock);
- =09r =3D __unlock(prison, cell, bios);
--=09spin_unlock_irqrestore(&prison->lock, flags);
-+=09spin_unlock_irq(&prison->lock);
-=20
- =09return r;
- }
+Damien Le Moal (4):
+  block: Enhance blk_revalidate_disk_zones()
+  block: Simplify report zones execution
+  block: Introduce report zones queue limits
+  block: Generically handle report zones buffer
+
+ block/blk-settings.c           |   3 +
+ block/blk-zoned.c              | 178 +++++++++++++++++----------
+ drivers/block/null_blk.h       |   6 +-
+ drivers/block/null_blk_zoned.c |   3 +-
+ drivers/md/dm.c                |   9 +-
+ drivers/scsi/sd.h              |   3 +-
+ drivers/scsi/sd_zbc.c          | 212 +++++++++------------------------
+ include/linux/blkdev.h         |  12 +-
+ 8 files changed, 193 insertions(+), 233 deletions(-)
+
+-- 
+2.21.0
 
 --
 dm-devel mailing list
