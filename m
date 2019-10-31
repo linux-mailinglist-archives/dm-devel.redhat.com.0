@@ -1,66 +1,87 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 84A4BE9E3C
-	for <lists+dm-devel@lfdr.de>; Wed, 30 Oct 2019 16:02:10 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id EA8A1EAB7D
+	for <lists+dm-devel@lfdr.de>; Thu, 31 Oct 2019 09:22:02 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1572447729;
+	s=mimecast20190719; t=1572510121;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=3l/i3tLQKyERl9mAM1o1QkDJlx3HGWl178+kdDi/2D0=;
-	b=e8CPhPx1yIbZKmxP9PvGsTUkQfw0j308uFdIW6Y94LS31dh1S4tsfTYgx9F7pm5R2ojj9m
-	cQ7NsBbdJ7udCysRom3G+vmE+hGhfs/quEJUmO15h9vTc2xr4uEWt8US1bVbhH9RKyPUqg
-	c81OLyK74AwMH3Q8gJlCd4/LJL9GQQ4=
+	bh=L4/4RZU3pPjQJUoB6yMrvtSa5xN/HvsELZKUbTIViJU=;
+	b=NjPkCFizppFMdbJ1+E3fx3l26YhDxsqVKwmOR5vgefSuTQ67aFtP7+JYioDrkKM8OZTAfH
+	UdC3d7R580268MfZP5J4cPeDmLKg9nJphIw8Fm9Z7UIGx3p9z0vLPrfSMHylLGwSb1Pqaa
+	/BGl0sFDQV8F9LGn0lMJJylNbtO6xuI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-373-60kK6oLTNJysvZDcFjjc7w-1; Wed, 30 Oct 2019 11:02:05 -0400
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-214-4k5f-N3EPKSWWKktSkCZ9w-1; Thu, 31 Oct 2019 04:21:53 -0400
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1E26D107ACC3;
-	Wed, 30 Oct 2019 15:02:00 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 359821005500;
+	Thu, 31 Oct 2019 08:21:47 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CEA9A600C8;
-	Wed, 30 Oct 2019 15:01:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E16851001B28;
+	Thu, 31 Oct 2019 08:21:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 499C3182B00F;
-	Wed, 30 Oct 2019 15:01:59 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E134518034EA;
+	Thu, 31 Oct 2019 08:21:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id x9UExv1C012675 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 30 Oct 2019 10:59:57 -0400
+	id x9V8LFSc031001 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 31 Oct 2019 04:21:15 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 99AFC5DA32; Wed, 30 Oct 2019 14:59:57 +0000 (UTC)
+	id 7CCED608A5; Thu, 31 Oct 2019 08:21:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D8EAE5DA7E;
-	Wed, 30 Oct 2019 14:59:51 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id x9UExo31019930; 
-	Wed, 30 Oct 2019 09:59:50 -0500
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id x9UExodK019929;
-	Wed, 30 Oct 2019 09:59:50 -0500
-Date: Wed, 30 Oct 2019 09:59:49 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <Martin.Wilck@suse.com>
-Message-ID: <20191030145949.GP25414@octiron.msp.redhat.com>
-References: <20191024150556.19575-1-martin.wilck@suse.com>
+Received: from mx1.redhat.com (ext-mx19.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.48])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8AFFA60852;
+	Thu, 31 Oct 2019 08:21:06 +0000 (UTC)
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.redhat.com (Postfix) with ESMTPS id 8EA31307D8E3;
+	Thu, 31 Oct 2019 08:21:03 +0000 (UTC)
+Received: from DGGEMS401-HUB.china.huawei.com (unknown [172.30.72.58])
+	by Forcepoint Email with ESMTP id 8026DFD9B8147D72A51C;
+	Thu, 31 Oct 2019 16:20:59 +0800 (CST)
+Received: from [127.0.0.1] (10.173.220.145) by DGGEMS401-HUB.china.huawei.com
+	(10.3.19.201) with Microsoft SMTP Server id 14.3.439.0;
+	Thu, 31 Oct 2019 16:20:56 +0800
+To: Dmitry Fomichev <Dmitry.Fomichev@wdc.com>, "dm-devel@redhat.com"
+	<dm-devel@redhat.com>, "agk@redhat.com" <agk@redhat.com>, Damien Le Moal
+	<Damien.LeMoal@wdc.com>, "snitzer@redhat.com" <snitzer@redhat.com>
+References: <203cc4c8-b380-5b2f-c9e7-766b3f031c8c@huawei.com>
+	<38d2a401ad8111ec0e6806f3e165916b18769d6d.camel@wdc.com>
+From: "zhangxiaoxu (A)" <zhangxiaoxu5@huawei.com>
+Message-ID: <63f060dc-d3b9-f4d1-8c86-27e75f1d1441@huawei.com>
+Date: Thu, 31 Oct 2019 16:20:55 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+	Thunderbird/68.1.2
 MIME-Version: 1.0
-In-Reply-To: <20191024150556.19575-1-martin.wilck@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+In-Reply-To: <38d2a401ad8111ec0e6806f3e165916b18769d6d.camel@wdc.com>
+X-Originating-IP: [10.173.220.145]
+X-CFilter-Loop: Reflected
+X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
+	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
+	[10.5.110.48]); Thu, 31 Oct 2019 08:21:05 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.48]);
+	Thu, 31 Oct 2019 08:21:05 +0000 (UTC) for IP:'45.249.212.191'
+	DOMAIN:'szxga05-in.huawei.com' HELO:'huawei.com'
+	FROM:'zhangxiaoxu5@huawei.com' RCPT:''
+X-RedHat-Spam-Score: -2.302  (RCVD_IN_DNSWL_MED, SPF_HELO_PASS,
+	SPF_PASS) 45.249.212.191 szxga05-in.huawei.com
+	45.249.212.191 szxga05-in.huawei.com <zhangxiaoxu5@huawei.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.110.48
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>,
-	Bart Van Assche <Bart.VanAssche@sandisk.com>
-Subject: Re: [dm-devel] [PATCH v2 00/72] multipath-tools: cleanup and
-	warning enablement
+Subject: Re: [dm-devel] dm-zoned performance degradation after apply
+ 75d66ffb48efb3 ("dm zoned:, properly handle backing device failure")
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -74,284 +95,108 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-MC-Unique: 60kK6oLTNJysvZDcFjjc7w-1
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-MC-Unique: 4k5f-N3EPKSWWKktSkCZ9w-1
 X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-On Thu, Oct 24, 2019 at 03:06:08PM +0000, Martin Wilck wrote:
-> From: Martin Wilck <mwilck@suse.com>
-
-ACK for all the patches except 16
-"libmultipath: make path_discovery() pthread_cancel()-safe"
-
--Ben
-
->=20
-> Hi Christophe, hi Ben, hi Bart,
->=20
-> here is a series with cleanup patches and minor fixes for multipath-tools=
-.
-> Sorry about the number of patches, I hope this way the series will be eas=
-ier
-> to review. There are lots of obvious, short hunks. In terms of LoC, most
-> of the changes are in a new unit test, in the NVMe code update, and in
-> a (necessary) indentation change in the VPD code.
->=20
-> Patch 01-14 are part of a recent effort to go over the multipath-tools
-> code, re-review, and modernize the code a bit. Part of that is adding "co=
-nst"
-> qualifiers to function arguments, as I did before. I happened to start wi=
-th
-> "alias.c", for alphabetic reasons. Other parts of the code will hopefully
-> follow.
->=20
-> 15-20 are misc fixes for stuff I came across while working on the
-> "-Wclobbered" flag (see below).
->=20
-> The rest of the series is an attempt to get rid of the disablement of
-> warnings that we had so far in multipath-tools. I believe we agree that
-> warning-free code is a good thing and that disabling warnings should be
-> avoided if possible. My goal was to be able to set "-Werror" and compile
-> successfully with all currently relevant compilers.
->=20
-> Patch 21-42 fix issues with -Wunused-parameter and finally enable that
-> warning. -Wno-unused-parameter is only kept in place for
-> libmultipath/dict.c and multipathd/cli-handlers.c, which basically consis=
-t
-> only of implementations of certain prototypes where many functions don't
-> use every argument, and hundreds of "unused" attributes would pollute the
-> code too much. Patch 53-58 fix issues with "-Wsign-compare". This was
-> actually a good excercise, because I was forced to think twice which
-> signedness was correct for certain variables and expressions. Patch 59-64
-> fix some warnings that are issued by clang with our current warning setti=
-ngs
-> (in particular, -Wformat-literal).
->=20
-> Patch 65 is an update of our nvme code from nvme-cli 1.9. Patch 66-71
-> contain some make file fixes and cleanups, and adaptations for older
-> compilers. Finally, Patch 71 enables -Werror, and patch 72 tests for
-> "-Wno-clobbered", which clang doesn't support.
->=20
-> I can proudly say that multipath-tools now compiles without warnings or
-> errors with -Werror and with a large set of compilers. I tested gcc 4.8,
-> 7, 8, 9 and clang 3.9, 6, 7, and 8.
->=20
-> The only "-Wno" option that now remains is "-Wclobbered". I have put
-> considerable work into trying to eliminate that as well. The result
-> can be examined in the "Wclobbered" branch of my github fork:
-> https://github.com/mwilck/multipath-tools/commits/Wclobbered
-> (yes, that's another 37 patches on top of this already long series).
->=20
-> I have pondered this back and forth whether to submit that part of the
-> series, too. All the -Wclobbered warnings are caused by pthread_cleanup_p=
-ush()
-> calls, of which our code has a lot, and which glibc implements using a
-> sigsetjmp() call. These warnings are arguably a false positives, and
-> a bug of either gcc, glibc, or both
-> (see e.g. https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D61118).=20
->=20
-> Eliminating these warnings is possible, but it requires a lot of changes
-> in the code. Some of them are actually beneficial for readability, but
-> others are rather not. Some are outright mysterious (e.g.
-> https://github.com/mwilck/multipath-tools/commit/bb53d666777f072e60372979=
-eed51752db03cec4),
-> and finding the workarounds was trial-and error work. Also, there are
-> variations between gcc versions.
->=20
-> The bottom line is, while I feel sorry about the vain effort=20
-> I put into this, my personal opinion is that silencing just this single
-> warning isn't worth that big amount of changes.
->=20
-> Reviews and opinions welcome.
->=20
-> Regards
-> Martin
->=20
-> Changes in v2:
->   45/72: The way I handled snprintf() was wrong. Fix it, and use
->          safe_sn?printf() to hide cast ugliness (Bart van Assche)
->=20
->   All other patches remain unchanged, not resending them.
->=20
-> Martin Wilck (72):
->   multipath tests: move condlog test wrappers to separate file
->   multipath tests: add tests for alias handling
->   libmultipath: alias.c: constify function arguments
->   libmultipath: alias.c: use strlcpy(), and 2 minor fixes
->   libmultipath: format_devname: avoid buffer overflow
->   libmultipath: scan_devname: fix int overflow detection
->   libmultipath: lookup_binding(): don't rely on int overflow
->   libmultipath: rlookup_binding(): removed unused parameter
->   libmultipath: allocate_binding(): error out for id=3D0
->   libmultipath: allocate_binding(): detect line overflow
->   multipath tests: alias: add tests for allocate_binding()
->   multipath tests: alias: add format/scan test
->   libmultipath: alias.c: prepare for cancel-safe allocation
->   multipath tests: use -lpthread for alias test
->   libmultipath: path_discovery: handle libudev errors
->   libmultipath: make path_discovery() pthread_cancel()-safe
->   libmultipath: uevent_listen(): fix poll() retval check
->   libmultipath: replace_wwids(): fix possible fd leak
->   libmultipath: remove_wwids(): fix possible leaks
->   libmultipath: _init_foreign(): fix possible memory leak
->   libmultipath: process_config_dir(): remove unused argument
->   libmultipath: mark unused arguments in partmap functions
->   libmultipath: scsi_ioctl_pathinfo(): remove unused argument
->   multipath-tools: mark unused params in signal and cleanup handlers
->   libmultipath: get_ana_info(): remove unused parameter
->   libmultipath: mark unused params in getprio() methods
->   libmultipath: hp_sw: remove usused argument in do_inq()
->   libmultipath: checkers: mark unused arguments in methods
->   multipathd: stop_waiter_thread(): removed unused parameter
->   multipath tools: mark unused arguments in thread routines
->   kpartx: gpt: remove unused arg in read_lastoddsector()
->   kpartx: mark unused arguments in ptreader methods
->   libmultipath: mark missing arguments in functions matching prototypes
->   libmultipath: get_pgpolicy_name(): use "len" parameter
->   libmultipath: snprint_multipath_map_json(): remove unused argument
->   multipath: delegate_to_multipathd: mark unused arguments
->   libmultipath: use -Wno-unused-parameter for dict.c
->   multipathd: use -Wno-unused-parameter for cli_handlers.c
->   libmpathpersist: remove unused "noisy" argument in various functions
->   libmpathpersist: fix copy-paste error in mpath_format_readresv()
->   multipath-tools tests: add -Wno-unused-parameter
->   multipath-tools: Makefile.inc: remove -Wno-unused-parameter
->   libmultipath: dev_loss_tmo is unsigned
->   libmultipath: trivial changes for -Wsign-compare
->   libmultipath: fix -Wsign-compare warnings with snprintf()
->   libmultipath: parse_vpd_pg83(): sanitize indentation
->   libmultipath: parse_vpd_pg83(): fix -Wsign-compare warnings
->   libmultipath: print: use unsigned int for "width" field
->   libmultipath: vector_for_each_slot: fix -Wsign-compare warnings
->   libmultipath: set_int(): add error check and set_uint()
->   libmultipath: make "checkint" unsigned
->   libmultipath: use unsigned blksize in directio context
->   libmultipath, kpartx: byteorder: always use unsigned types
->   libmpathcmd: fix -Wsign-compare warnings
->   libmpathpersist: fix -Wsign-compare warnings
->   kpartx: use unsigned arguments in dm_devn() and dm_prereq()
->   kpartx: use unsigned int for "ns" argument of ptreader
->   multipath-tools: Makefile.inc: enable -Wsign-compare
->   libdmmp: fix clang -Wformat-nonliteral warnings
->   libmultipath: fix clang -Wformat-literal warnings
->   multipath tests: blacklist: remove always-true condition
->   multipath tests: hwtable: fix strncat() invocation
->   multipath tests: fix -Wformat-literal warning
->   multipath tests: util: fix clang strlcpy warnings
->   libmultipath: nvme: update to nvme-cli v1.9
->   multipath-tools: Makefile.inc: fix TEST_CC_OPTION
->   multipath-tools: Makefile.inc: use -Wp,... for compiling only
->   multipath-tools: Makefile: use proper directory recursion
->   multipath tests: Makefile: fix "clean" target
->   multipath tests: Makefile: avoid gcc 4.8 missing initializers failure
->   multipath-tools: Makefile.inc: enable -Werror
->   multipath-tools: Makefile.inc: test for -Wno-clobbered support
->=20
->  Makefile                                 |  38 +-
->  Makefile.inc                             |  15 +-
->  kpartx/bsd.c                             |   4 +-
->  kpartx/dasd.c                            |   3 +-
->  kpartx/devmapper.c                       |  13 +-
->  kpartx/devmapper.h                       |   7 +-
->  kpartx/dos.c                             |   4 +-
->  kpartx/gpt.c                             |  15 +-
->  kpartx/gpt.h                             |   2 +-
->  kpartx/kpartx.h                          |  20 +-
->  kpartx/mac.c                             |   5 +-
->  kpartx/ps3.c                             |   5 +-
->  kpartx/solaris.c                         |   4 +-
->  kpartx/sun.c                             |   4 +-
->  kpartx/unixware.c                        |   4 +-
->  libdmmp/libdmmp_private.h                |   8 +-
->  libmpathcmd/mpath_cmd.c                  |   5 +-
->  libmpathpersist/mpath_persist.c          |   3 +-
->  libmpathpersist/mpath_pr_ioctl.c         |  40 +-
->  libmultipath/Makefile                    |   5 +
->  libmultipath/alias.c                     | 134 ++--
->  libmultipath/alias.h                     |  12 +-
->  libmultipath/byteorder.h                 |  12 +-
->  libmultipath/checkers/cciss_tur.c        |   4 +-
->  libmultipath/checkers/directio.c         |   2 +-
->  libmultipath/checkers/hp_sw.c            |   8 +-
->  libmultipath/checkers/rdac.c             |   2 +-
->  libmultipath/checkers/readsector0.c      |   4 +-
->  libmultipath/config.c                    |   4 +-
->  libmultipath/config.h                    |   4 +-
->  libmultipath/defaults.h                  |   4 +-
->  libmultipath/devmapper.c                 |  10 +-
->  libmultipath/dict.c                      |  52 +-
->  libmultipath/discovery.c                 | 284 +++++----
->  libmultipath/discovery.h                 |   2 +-
->  libmultipath/dm-generic.c                |   6 +-
->  libmultipath/file.c                      |   5 +-
->  libmultipath/foreign.c                   |  20 +-
->  libmultipath/foreign/nvme.c              |  26 +-
->  libmultipath/generic.c                   |   2 +-
->  libmultipath/io_err_stat.c               |  10 +-
->  libmultipath/log.h                       |   3 +-
->  libmultipath/log_pthread.c               |   2 +-
->  libmultipath/log_pthread.h               |   3 +-
->  libmultipath/nvme/linux/nvme.h           | 136 ++++-
->  libmultipath/nvme/nvme-ioctl.c           | 229 ++++---
->  libmultipath/nvme/nvme-ioctl.h           |  31 +-
->  libmultipath/nvme/nvme.h                 | 121 +++-
->  libmultipath/parser.c                    |   2 +-
->  libmultipath/pgpolicies.c                |   2 +-
->  libmultipath/print.c                     |  14 +-
->  libmultipath/print.h                     |   8 +-
->  libmultipath/prioritizers/alua_rtpg.c    |   2 +-
->  libmultipath/prioritizers/ana.c          |  14 +-
->  libmultipath/prioritizers/const.c        |   4 +-
->  libmultipath/prioritizers/datacore.c     |   3 +-
->  libmultipath/prioritizers/emc.c          |   3 +-
->  libmultipath/prioritizers/hds.c          |   3 +-
->  libmultipath/prioritizers/hp_sw.c        |   3 +-
->  libmultipath/prioritizers/iet.c          |   3 +-
->  libmultipath/prioritizers/ontap.c        |   3 +-
->  libmultipath/prioritizers/random.c       |   4 +-
->  libmultipath/prioritizers/rdac.c         |   3 +-
->  libmultipath/prioritizers/sysfs.c        |   3 +-
->  libmultipath/prioritizers/weightedpath.c |   3 +-
->  libmultipath/structs.c                   |   4 +-
->  libmultipath/structs.h                   |   3 +-
->  libmultipath/structs_vec.c               |   2 +-
->  libmultipath/sysfs.c                     |  13 +-
->  libmultipath/time-util.c                 |   6 +-
->  libmultipath/uevent.c                    |   5 +-
->  libmultipath/util.c                      |   7 +-
->  libmultipath/util.h                      |  15 +-
->  libmultipath/uxsock.c                    |   3 +-
->  libmultipath/vector.h                    |   4 +-
->  libmultipath/wwids.c                     |  40 +-
->  mpathpersist/main.c                      |   2 +-
->  multipath/main.c                         |  11 +-
->  multipathd/Makefile                      |   3 +
->  multipathd/cli_handlers.c                |   2 +-
->  multipathd/dmevents.c                    |   4 +-
->  multipathd/main.c                        |  36 +-
->  multipathd/pidfile.c                     |   2 +-
->  multipathd/waiter.c                      |   2 +-
->  multipathd/waiter.h                      |   2 +-
->  tests/Makefile                           |  19 +-
->  tests/alias.c                            | 744 +++++++++++++++++++++++
->  tests/blacklist.c                        |  22 +-
->  tests/hwtable.c                          |   2 +-
->  tests/test-log.c                         |  27 +
->  tests/test-log.h                         |   7 +
->  tests/util.c                             |  16 +-
->  92 files changed, 1818 insertions(+), 598 deletions(-)
->  create mode 100644 tests/alias.c
->  create mode 100644 tests/test-log.c
->  create mode 100644 tests/test-log.h
->=20
-> --=20
-> 2.23.0
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+aGkgRG1pdHJ5LCB0aGFua3MgZm9yIHlvdXIgcmVwbHkuCgpJIGFsc28gdGVzdCBpdCB1c2UgdGhl
+IG1haW5saW5lLCBpdCBhbHNvIHRha2VzIG1vcmUgdGhhbiAxIGhvdXJzLgpteSBtZWNoaW5lIGhh
+cyA2NCBDUFVzIGNvcmUgYW5kIHRoZSBkaXNrIGlzIFNBVEEuCgp3aGVuIG1rZnMuZXh0NCwgSSBm
+b3VuZCB0aGUgJ3Njc2lfdGVzdF91bml0X3JlYWR5JyBydW4gbW9yZSB0aGFuIDEwMDAgdGltZXMK
+cGVyIHNlY29uZCBieSB0aGUgZGlmZmVyZW50IGt3b3JrZXIuCmFuZCBldmVyeSAnc2NzaV90ZXN0
+X3VuaXRfcmVhZHknIHRha2VzIG1vcmUgdGhhbiAyMDB1cywgYW5kIHRoZSBpbnRlcnZhbApsZXNz
+IHRoYW4gMjB1cy4KU28sIEkgdGhpbmsgeW91ciBndWVzcyBpcyByaWdodC4KCmJ1dCB0aGVyZSBp
+cyBhbm90aGVyIHF1ZXN0aW9uLCB3aHkgNC4xOSBicmFuY2ggdGFrZXMgbW9yZSB0aGFuIDEwIGhv
+dXI/Ckkgd2lsbCB3b3JrIG9uIGl0LCBpZiBhbnkgaW5mb3JtYXRpb24gYWJvdXQgaXQsIEkgd2ls
+bCByZXBseSB5b3UuCgpUaGFua3MuCgpteSBzY3JpcHQ6CglkbXphZG0gLS1mb3JtYXQgL2Rldi9z
+ZGkKCWVjaG8gIjAgMjE0ODUzMjIyNDAgem9uZWQgL2Rldi9zZGkiIHwgZG1zZXR1cCBjcmVhdGUg
+ZG16LXNkaQoJZGF0ZTsgbWtmcy5leHQ0IC9kZXYvbWFwcGVyL2Rtei1zZGk7IGRhdGUKCm1haW5s
+aW5lOgoJW3Jvb3RAbG9jYWxob3N0IH5dIyB1bmFtZSAtYQoJTGludXggbG9jYWxob3N0IDUuNC4w
+LXJjNSAjMSBTTVAgVGh1IE9jdCAzMSAxMTo0MToyMCBDU1QgMjAxOSBhYXJjaDY0IGFhcmNoNjQg
+YWFyY2g2NCBHTlUvTGludXgKCglUaHUgT2N0IDMxIDEzOjU4OjU1IENTVCAyMDE5Cglta2UyZnMg
+MS40My42ICgyOS1BdWctMjAxNykKCURpc2NhcmRpbmcgZGV2aWNlIGJsb2NrczogZG9uZQoJQ3Jl
+YXRpbmcgZmlsZXN5c3RlbSB3aXRoIDI2ODQzNTQ1NjAgNGsgYmxvY2tzIGFuZCAzMzU1NDQzMjAg
+aW5vZGVzCglGaWxlc3lzdGVtIFVVSUQ6IGUwZDhlMDFlLWVmYTgtNDdmZC1hMDE5LWIxODRlNjZm
+NjViMAoJU3VwZXJibG9jayBiYWNrdXBzIHN0b3JlZCBvbiBibG9ja3M6CgkJMzI3NjgsIDk4MzA0
+LCAxNjM4NDAsIDIyOTM3NiwgMjk0OTEyLCA4MTkyMDAsIDg4NDczNiwgMTYwNTYzMiwgMjY1NDIw
+OCwKCQk0MDk2MDAwLCA3OTYyNjI0LCAxMTIzOTQyNCwgMjA0ODAwMDAsIDIzODg3ODcyLCA3MTY2
+MzYxNiwgNzg2NzU5NjgsCgkJMTAyNDAwMDAwLCAyMTQ5OTA4NDgsIDUxMjAwMDAwMCwgNTUwNzMx
+Nzc2LCA2NDQ5NzI1NDQsIDE5MzQ5MTc2MzIsCgkJMjU2MDAwMDAwMAoKCUFsbG9jYXRpbmcgZ3Jv
+dXAgdGFibGVzOiBkb25lCglXcml0aW5nIGlub2RlIHRhYmxlczogZG9uZQoJQ3JlYXRpbmcgam91
+cm5hbCAoMjYyMTQ0IGJsb2Nrcyk6IGRvbmUKCVdyaXRpbmcgc3VwZXJibG9ja3MgYW5kIGZpbGVz
+eXN0ZW0gYWNjb3VudGluZyBpbmZvcm1hdGlvbjogZG9uZQoKCVRodSBPY3QgMzEgMTU6MDE6MDEg
+Q1NUIDIwMTkKCmFmdGVyIGRlbGV0ZSB0aGUgJ2NoZWNrX2V2ZW50cycgb24gbWFpbmxpbmU6Cglb
+cm9vdEBsb2NhbGhvc3Qgfl0jIHVuYW1lIC1hCglMaW51eCBsb2NhbGhvc3QgNS40LjAtcmM1KyAj
+MiBTTVAgVGh1IE9jdCAzMSAxNTowNzozNiBDU1QgMjAxOSBhYXJjaDY0IGFhcmNoNjQgYWFyY2g2
+NCBHTlUvTGludXgKCVRodSBPY3QgMzEgMTU6MTk6NTYgQ1NUIDIwMTkKCW1rZTJmcyAxLjQzLjYg
+KDI5LUF1Zy0yMDE3KQoJRGlzY2FyZGluZyBkZXZpY2UgYmxvY2tzOiBkb25lCglDcmVhdGluZyBm
+aWxlc3lzdGVtIHdpdGggMjY4NDM1NDU2MCA0ayBibG9ja3MgYW5kIDMzNTU0NDMyMCBpbm9kZXMK
+CUZpbGVzeXN0ZW0gVVVJRDogNzM1MTk4ZTgtOWRmMC00OWZjLWFhYTgtMjNiMDg2OWRmYTA1CglT
+dXBlcmJsb2NrIGJhY2t1cHMgc3RvcmVkIG9uIGJsb2NrczoKCQkzMjc2OCwgOTgzMDQsIDE2Mzg0
+MCwgMjI5Mzc2LCAyOTQ5MTIsIDgxOTIwMCwgODg0NzM2LCAxNjA1NjMyLCAyNjU0MjA4LAoJCTQw
+OTYwMDAsIDc5NjI2MjQsIDExMjM5NDI0LCAyMDQ4MDAwMCwgMjM4ODc4NzIsIDcxNjYzNjE2LCA3
+ODY3NTk2OCwKCQkxMDI0MDAwMDAsIDIxNDk5MDg0OCwgNTEyMDAwMDAwLCA1NTA3MzE3NzYsIDY0
+NDk3MjU0NCwgMTkzNDkxNzYzMiwKCQkyNTYwMDAwMDAwCgoJQWxsb2NhdGluZyBncm91cCB0YWJs
+ZXM6IGRvbmUKCVdyaXRpbmcgaW5vZGUgdGFibGVzOiBkb25lCglDcmVhdGluZyBqb3VybmFsICgy
+NjIxNDQgYmxvY2tzKTogZG9uZQoJV3JpdGluZyBzdXBlcmJsb2NrcyBhbmQgZmlsZXN5c3RlbSBh
+Y2NvdW50aW5nIGluZm9ybWF0aW9uOiBkb25lCgoJVGh1IE9jdCAzMSAxNTozMDo1MSBDU1QgMjAx
+OQoK5ZyoIDIwMTkvMTAvMjcgMTA6NTYsIERtaXRyeSBGb21pY2hldiDlhpnpgZM6Cj4gWmhhbmcs
+Cj4gCj4gSSBqdXN0IGRpZCBzb21lIHRlc3Rpbmcgb2YgdGhpcyBzY2VuYXJpbyB3aXRoIGEgcmVj
+ZW50IGtlcm5lbCB0aGF0IGluY2x1ZGVzIHRoaXMgcGF0Y2guCj4gCj4gVGhlIGxvZyBiZWxvdyBp
+cyBhIHJ1biBpbiBRRU1VIHdpdGggOCBDUFVzIGFuZCBpdCB0b29rIDE4LjUgbWludXRlcyB0byBj
+cmVhdGUgdGhlIEZTIG9uIGEKPiAxNFRCIEFUQSBkcml2ZS4gRG9pbmcgdGhlIHNhbWUgdGhpbmcg
+b24gYmFyZSBtZXRhbCB3aXRoIDMyIENQVXMgdGFrZXMgMTAuNSBtaW51dGVzIGluIG15Cj4gZW52
+aXJvbm1lbnQuIEhvd2V2ZXIsIHdoZW4gZG9pbmcgdGhlIHNhbWUgdGVzdCB3aXRoIGEgU0FTIGRy
+aXZlLCB0aGUgcnVuIHRha2VzIDQzIG1pbnV0ZXMuCj4gVGhpcyBpcyBub3QgcXVpdGUgdGhlIGRl
+Z3JhZGF0aW9uIHlvdSBhcmUgb2JzZXJ2aW5nLCBidXQgc3RpbGwgYSBiaWcgcGVyZm9ybWFuY2Ug
+aGl0Lgo+IAo+IElzIHRoZSBkaXNrIHRoYXQgeW91IGFyZSB1c2luZyBTQVMgb3IgU0FUQT8KPiAK
+PiBNeSBjdXJyZW50IGd1ZXNzIGlzIHRoYXQgc2QgZHJpdmVyIG1heSBnZW5lcmF0ZSBzb21lIFRF
+U1QgVU5JVCBSRUFEWSBjb21tYW5kcyB0byBjaGVjayBpZgo+IHRoZSBkcml2ZSBpcyByZWFsbHkg
+b25saW5lIGFzIGEgcGFydCBvZiBjaGVja19ldmVudHMoKSBwcm9jZXNzaW5nLiBGb3IgQVRBIGRy
+aXZlcywgdGhpcyBpcwo+IG5lYXJseSBhIE5PUCBzaW5jZSBhbGwgVFVScyBhcmUgY29tcGxldGVk
+IGludGVybmFsbHkgaW4gbGliYXRhLiBCdXQsIGluIFNDU0kgY2FzZSwgdGhlc2UKPiBibG9ja2lu
+ZyBUVVJzIGFyZSBpc3N1ZWQgdG8gdGhlIGRyaXZlIGFuZCBjZXJ0YWlubHkgbWF5IGRlZ3JhZGUg
+cGVyZm9ybWFuY2UuCj4gCj4gVGhlIGNoZWNrX2V2ZW50cygpIGNhbGwgaGFzIGJlZW4gYWRkZWQg
+dG8gYmRldl9kZXZpY2VfaXNfZHlpbmcoKSBiZWNhdXNlIHNpbXBseSBjYWxsaW5nCj4gYmRldl9x
+dWV1ZV9keWluZygpIGRvZXNuJ3QgY292ZXIgdGhlIHNpdHVhdGlvbiB3aGVuIHRoZSBkcml2ZSBn
+ZXRzIG9mZmxpbmVkIGluIFNDU0kgbGF5ZXIuCj4gSXQgbWlnaHQgYmUgcG9zc2libGUgdG8gb25s
+eSBjYWxsIGNoZWNrX2V2ZW50cygpIG9uY2UgYmVmb3JlIGV2ZXJ5IHJlY2xhaW0gcnVuIGFuZCB0
+byBhdm9pZAo+IGNhbGxpbmcgaXQgaW4gSS9PIG1hcHBpbmcgcGF0aC4gSWYgdGhpcyB3b3Jrcywg
+dGhlIG92ZXJoZWFkIHdvdWxkIGxpa2VseSBiZSBhY2NlcHRhYmxlLgo+IEkgYW0gZ29pbmcgdG8g
+dGFrZSBhIGxvb2sgaW50byB0aGlzLgo+IAo+IFJlZ2FyZHMsCj4gRG1pdHJ5Cj4gCj4gW3Jvb3RA
+eHh4IGRtel0jIHVuYW1lIC1hCj4gTGludXggeHh4IDUuNC4wLXJjMS1ETVorICMxIFNNUCBGcmkg
+T2N0IDExIDExOjIzOjEzIFBEVCAyMDE5IHg4Nl82NCB4ODZfNjQgeDg2XzY0IEdOVS9MaW51eAo+
+IFtyb290QHh4eCBkbXpdIyBsc3Njc2kKPiBbMDowOjA6MF0gICAgZGlzayAgICBRRU1VICAgICBR
+RU1VIEhBUkRESVNLICAgIDIuNSsgIC9kZXYvc2RhCj4gWzE6MDowOjBdICAgIHpiYyAgICAgQVRB
+ICAgICAgSEdTVCBIU0g3MjE0MTVBTCBUMjQwICAvZGV2L3NkYgo+IFtyb290QHh4eCBkbXpdIyAu
+L3NldHVwLWRteiB0ZXN0IC9kZXYvc2RiCj4gW3Jvb3RAeHh4IGRtel0jIGNhdCAvcHJvYy9rYWxs
+c3ltcyB8IGdyZXAgZG16X2JkZXZfaXNfZHlpbmcKPiAoc3RhbmRhcmQgaW5wdXQpOjkwNzgyOmZm
+ZmZmZmZmYzA3MGE0MDEgdCBkbXpfYmRldl9pc19keWluZy5jb2xkCVtkbV96b25lZF0KPiAoc3Rh
+bmRhcmQgaW5wdXQpOjkwODQ5OmZmZmZmZmZmYzA3MDZlMTAgdCBkbXpfYmRldl9pc19keWluZwlb
+ZG1fem9uZWRdCj4gW3Jvb3RAeHh4IGRtel0jIHRpbWUgbWtmcy5leHQ0IC9kZXYvbWFwcGVyL3Rl
+c3QKPiBta2UyZnMgMS40NC42ICg1LU1hci0yMDE5KQo+IERpc2NhcmRpbmcgZGV2aWNlIGJsb2Nr
+czogZG9uZQo+IENyZWF0aW5nIGZpbGVzeXN0ZW0gd2l0aCAzNjYwODQwOTYwIDRrIGJsb2NrcyBh
+bmQgNDU3NjA1MTIwIGlub2Rlcwo+IEZpbGVzeXN0ZW0gVVVJRDogNDUzNmJhY2QtY2ZiNS00MWIy
+LWIwYmYtYzI1MTNlNmUzMzYwCj4gU3VwZXJibG9jayBiYWNrdXBzIHN0b3JlZCBvbiBibG9ja3M6
+Cj4gCTMyNzY4LCA5ODMwNCwgMTYzODQwLCAyMjkzNzYsIDI5NDkxMiwgODE5MjAwLCA4ODQ3MzYs
+IDE2MDU2MzIsIDI2NTQyMDgsCj4gCTQwOTYwMDAsIDc5NjI2MjQsIDExMjM5NDI0LCAyMDQ4MDAw
+MCwgMjM4ODc4NzIsIDcxNjYzNjE2LCA3ODY3NTk2OCwKPiAJMTAyNDAwMDAwLCAyMTQ5OTA4NDgs
+IDUxMjAwMDAwMCwgNTUwNzMxNzc2LCA2NDQ5NzI1NDQsIDE5MzQ5MTc2MzIsCj4gCTI1NjAwMDAw
+MDAKPiAKPiBBbGxvY2F0aW5nIGdyb3VwIHRhYmxlczogZG9uZQo+IFdyaXRpbmcgaW5vZGUgdGFi
+bGVzOiBkb25lCj4gQ3JlYXRpbmcgam91cm5hbCAoMjYyMTQ0IGJsb2Nrcyk6IGRvbmUKPiBXcml0
+aW5nIHN1cGVyYmxvY2tzIGFuZCBmaWxlc3lzdGVtIGFjY291bnRpbmcgaW5mb3JtYXRpb246IGRv
+bmUKPiAKPiAKPiByZWFsCTE4bTMwLjg2N3MKPiB1c2VyCTBtMC4xNzJzCj4gc3lzCTBtMTEuMTk4
+cwo+IAo+IAo+IE9uIFNhdCwgMjAxOS0xMC0yNiBhdCAwOTo1NiArMDgwMCwgemhhbmd4aWFveHUg
+KEEpIHdyb3RlOgo+PiBIaSBhbGwsIHdoZW4gSSAnbWtmcy5leHQ0JyBvbiB0aGUgZG16IGRldmlj
+ZSBiYXNlZCBvbiAxMFQgc21yIGRpc2ssCj4+IGl0IHRha2VzIG1vcmUgdGhhbiAxMCBob3VycyBh
+ZnRlciBhcHBseSA3NWQ2NmZmYjQ4ZWZiMyAoImRtIHpvbmVkOgo+PiBwcm9wZXJseSBoYW5kbGUg
+YmFja2luZyBkZXZpY2UgZmFpbHVyZSIpLgo+Pgo+PiBBZnRlciBkZWxldGUgdGhlICdjaGVja19l
+dmVudHMnIGluICdkbXpfYmRldl9pc19keWluZycsIGl0IGp1c3QKPj4gdGFrZSBsZXNzIHRoYW4g
+MTIgbWlucy4KPj4KPj4gSSB0ZXN0IGl0IGJhc2VkIG9uIDQuMTkgYnJhbmNoLgo+PiBNdXN0IHdl
+IGRvIHRoZSAnY2hlY2tfZXZlbnRzJyBhdCBtYXBwaW5nIHBhdGgsIHJlY2xhaW0gb3IgbWV0YWRh
+dGEgSS9PPwo+Pgo+PiBUaGFua3MuCj4+CgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2
+ZWxAcmVkaGF0LmNvbQpodHRwczovL3d3dy5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0t
+ZGV2ZWw=
 
