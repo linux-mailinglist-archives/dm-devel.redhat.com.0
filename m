@@ -1,135 +1,105 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 305D0EDA97
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Nov 2019 09:31:02 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 39464EE518
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Nov 2019 17:49:44 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1572856260;
+	s=mimecast20190719; t=1572886183;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=q6mWutuXOr+nTNUFiPfdnEbCWT20wQQZtgFDlY/B+Z8=;
-	b=B9rLgmzEarw8oJ+6F/zSG6mCCTLPf+61RZeN8oIoQ3ZuowAnsNP/8O71yLb8QWzAP21OKs
-	+UTtqubZpozlJfyuZ5iIEY0rZIeOlMHR/1ESvGLlx3OEAeLxTVgAKq8LZR/DHVHTbgv5EB
-	kJq8O7AFTY2dAliDZmwhhDT9XmgKuzI=
+	bh=VC5MDJcVnma32Y4SAcpm6q/gXl4bJw4sThvweP7cf4c=;
+	b=Mxz9p/V5WeqpWkVRF+Be8czdvA6ctNzqiqG5AnSaDdcNOvUmF3Z/+hAviJCDDuP+drO4E8
+	I0anxKSFDMVnHpIr8AnNXFhqQ4u7nRB0/Ojyhtsnp7ZiJ0Qb0GLsugEEKRZRb27vq8LO4O
+	cS2rW4xPaaYOJuuFipRAtb4zbMlte2w=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-46-rpr5yLJ9PuGiFCBOLITlbA-1; Mon, 04 Nov 2019 03:30:54 -0500
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-97-NicBOgTjMKOHhsfX_JcwNg-1; Mon, 04 Nov 2019 11:49:40 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A965A1800D78;
-	Mon,  4 Nov 2019 08:30:47 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 53E9526FAF;
-	Mon,  4 Nov 2019 08:30:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F0F97800054;
+	Mon,  4 Nov 2019 16:49:33 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 95BFD5D9CD;
+	Mon,  4 Nov 2019 16:49:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CD8B318089C8;
-	Mon,  4 Nov 2019 08:30:29 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 88A634BB65;
+	Mon,  4 Nov 2019 16:49:20 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xA48UG8h029267 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 4 Nov 2019 03:30:17 -0500
+	id xA4Gn9I5026954 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 4 Nov 2019 11:49:09 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E76D81001DD7; Mon,  4 Nov 2019 08:30:16 +0000 (UTC)
+	id 2D79B50; Mon,  4 Nov 2019 16:49:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx20.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.49])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B7ED1001B36;
-	Mon,  4 Nov 2019 08:30:14 +0000 (UTC)
-Received: from m4a0039g.houston.softwaregrp.com
-	(m4a0039g.houston.softwaregrp.com [15.124.2.85])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.redhat.com (ext-mx02.extmail.prod.ext.phx2.redhat.com
+	[10.5.110.26])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 274F319C68
+	for <dm-devel@redhat.com>; Mon,  4 Nov 2019 16:49:06 +0000 (UTC)
+Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
+	[209.85.128.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id BEFD73086243;
-	Mon,  4 Nov 2019 08:30:07 +0000 (UTC)
-Received: FROM m4a0039g.houston.softwaregrp.com (15.120.17.147) BY
-	m4a0039g.houston.softwaregrp.com WITH ESMTP; 
-	Mon,  4 Nov 2019 08:29:04 +0000
-Received: from M4W0335.microfocus.com (2002:f78:1193::f78:1193) by
-	M4W0335.microfocus.com (2002:f78:1193::f78:1193) with Microsoft SMTP
-	Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
-	15.1.1591.10; Mon, 4 Nov 2019 08:29:22 +0000
-Received: from NAM01-SN1-obe.outbound.protection.outlook.com (15.124.8.13) by
-	M4W0335.microfocus.com (15.120.17.147) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
-	15.1.1591.10 via Frontend Transport; Mon, 4 Nov 2019 08:29:22 +0000
-Received: from CH2PR18MB3349.namprd18.prod.outlook.com (52.132.245.83) by
-	CH2PR18MB3206.namprd18.prod.outlook.com (52.132.247.79) with Microsoft
-	SMTP
-	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.2408.24; Mon, 4 Nov 2019 08:29:21 +0000
-Received: from CH2PR18MB3349.namprd18.prod.outlook.com
-	([fe80::9917:1509:5d1:6f89]) by CH2PR18MB3349.namprd18.prod.outlook.com
-	([fe80::9917:1509:5d1:6f89%6]) with mapi id 15.20.2408.024;
-	Mon, 4 Nov 2019 08:29:21 +0000
-From: Martin Wilck <Martin.Wilck@suse.com>
-To: "bmarzins@redhat.com" <bmarzins@redhat.com>
-Thread-Topic: [PATCH 16/72] libmultipath: make path_discovery()
-	pthread_cancel()-safe
-Thread-Index: AQHVgUPqnzv3jnlGqEilDNHk61rXRA==
-Date: Mon, 4 Nov 2019 08:29:21 +0000
-Message-ID: <1dafb5da296c6eec383213ec04dcf399fe45c0f6.camel@suse.com>
-References: <20191012212703.12989-1-martin.wilck@suse.com>
-	<20191012212703.12989-17-martin.wilck@suse.com>
-	<20191030145333.GN25414@octiron.msp.redhat.com>
-In-Reply-To: <20191030145333.GN25414@octiron.msp.redhat.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2.206.153.8]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 18edd756-563a-44ae-d16b-08d7610117a6
-x-ms-traffictypediagnostic: CH2PR18MB3206:
-x-microsoft-antispam-prvs: <CH2PR18MB3206A3BC7E9D40C5DD90731EFC7F0@CH2PR18MB3206.namprd18.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-forefront-prvs: 0211965D06
-x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10019020)(4636009)(136003)(366004)(376002)(39860400002)(346002)(396003)(199004)(189003)(256004)(66066001)(476003)(14454004)(26005)(478600001)(8676002)(81156014)(3846002)(6116002)(99286004)(11346002)(86362001)(446003)(4326008)(229853002)(6512007)(36756003)(2501003)(2616005)(6486002)(5660300002)(118296001)(486006)(6436002)(6916009)(316002)(6506007)(5640700003)(186003)(2906002)(54906003)(1730700003)(81166006)(6246003)(8936002)(71200400001)(71190400001)(305945005)(66446008)(76116006)(64756008)(66476007)(76176011)(66946007)(2351001)(91956017)(4001150100001)(66556008)(25786009)(7736002)(102836004)(14444005);
-	DIR:OUT; SFP:1102; SCL:1; SRVR:CH2PR18MB3206;
-	H:CH2PR18MB3349.namprd18.prod.outlook.com; FPR:; SPF:None;
-	LANG:en; PTR:InfoNoRecords; A:1; MX:1;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: TQnH351x3OF6ABTPZiIwjiUdlIxJJUvUevkQo/W4pp/vCXzg3V8f38YA4/lVaLoGoXm8a8zcSuXjz6I6e7giuMpBX8ojnEqn1bLK8cyIj0i1RHEVumXxxTF1vjP2u6dqz0PY2W0fWcA/zim6TDVN1daUrBkNLSBzQRSW+VN4hIo6qFp6VCudM3QSe4yH3QUCschJYwGot2i0oriFOC0teZ0OEWxXD8iqShYofv7Gu+Po/XgJSTHsrdbk1hV7a3DrtOI/s/wT/Zozy3bqYjYmrHbQ4Uj0xLvnN3G7nJBFdafjkpp+69jTXPkJWAMaebHbKw+Zl4RyaA25izFU3/hxsZ9uF/4BlcgXmesyq20O3IG88yCRcNTsL39aotOfatDC8ytZajtmq0nVfnsx7MscEW/iqTIIHxldwibachtBdJrflvSTXtk7kGL+NyYMq2uE
-x-ms-exchange-transport-forked: True
-Content-ID: <E780AEFB409EB5488FA4192F92BFD6F3@namprd18.prod.outlook.com>
+	by mx1.redhat.com (Postfix) with ESMTPS id C08E5806CD
+	for <dm-devel@redhat.com>; Mon,  4 Nov 2019 16:49:04 +0000 (UTC)
+Received: by mail-wm1-f66.google.com with SMTP id c22so16817641wmd.1
+	for <dm-devel@redhat.com>; Mon, 04 Nov 2019 08:49:04 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+	:mime-version:content-disposition:in-reply-to:user-agent;
+	bh=2GCXse3i8dZWY3iqcdbG+HD0y8Pc0P0D/i6paZcwU8A=;
+	b=RRe8TYglnXIpGSBdnXY5AsN8eyY5PfuoEnlinrNg6IM+QRoDiuBxhaDweSSCzY+4GN
+	O/cY2FyLlcLAg+lyKQeXC/mzEQEcpb6eS5U4OwFQW8m+omrM+iNMf4yI9pW4T5Kl+w1p
+	kHkyB8s/XqfCTnNuBV4GESnybU2k3+ElDVrOsMj0qFymBHL/H3eO6m9gD3z4dnskBo8A
+	9Puk5wfUX9Q/8z6JHXWCy3Uy72h+D8+BSlW8k+rpw1iQ5ZWwo1MtHaoDg62WvPVK2OAe
+	VOg4NsYbcmf651wNK62gtcQtclIfrjQz7mgoUtTIZRWzA8ODoPHgI/SFlPelQMYM+DXo
+	cUjA==
+X-Gm-Message-State: APjAAAVg8MCREAo3l1e9td1dBf74nnZBgw5vnb9eN+P23mtoZWytsWYp
+	aEOmla0d8RmUZRmPtd2wWFVLug==
+X-Google-Smtp-Source: APXvYqzS3PC9EJyw/esjee1y5JXKX5z6exdfXWx7Y3WpW46Yp/B/ETCxm60YFm9UwlSt0+elBZDFaA==
+X-Received: by 2002:a1c:60d7:: with SMTP id u206mr15589wmb.101.1572886143360; 
+	Mon, 04 Nov 2019 08:49:03 -0800 (PST)
+Received: from google.com ([2a00:79e0:d:210:e751:37a0:1e95:e65d])
+	by smtp.gmail.com with ESMTPSA id
+	x205sm23003638wmb.5.2019.11.04.08.49.02
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Mon, 04 Nov 2019 08:49:02 -0800 (PST)
+Date: Mon, 4 Nov 2019 16:49:00 +0000
+From: Alessio Balsini <balsini@android.com>
+To: Mikulas Patocka <mpatocka@redhat.com>
+Message-ID: <20191104164900.GA10934@google.com>
+References: <20191025101624.GA61225@google.com>
+	<alpine.LRH.2.02.1910290957220.25731@file01.intranet.prod.int.rdu2.redhat.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18edd756-563a-44ae-d16b-08d7610117a6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2019 08:29:21.2896 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Dbe1d1vRoMnXmRRMMwpHtjOOexL/txcSyre0cXh97GhiYUEsGx6Oo+3JL0l2JaNa9luxr3mwkChslaRGW3uKbA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR18MB3206
-X-OriginatorOrg: suse.com
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.49]); Mon, 04 Nov 2019 08:30:13 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.49]);
-	Mon, 04 Nov 2019 08:30:13 +0000 (UTC) for IP:'15.124.2.85'
-	DOMAIN:'m4a0039g.houston.softwaregrp.com'
-	HELO:'m4a0039g.houston.softwaregrp.com'
-	FROM:'Martin.Wilck@suse.com' RCPT:''
-X-RedHat-Spam-Score: 0.001  (RCVD_IN_DNSWL_NONE, SPF_HELO_NONE, SPF_PASS,
-	UNPARSEABLE_RELAY) 15.124.2.85
-	m4a0039g.houston.softwaregrp.com 15.124.2.85
-	m4a0039g.houston.softwaregrp.com <Martin.Wilck@suse.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.49
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-MIME-Autoconverted: from base64 to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id xA48UG8h029267
+In-Reply-To: <alpine.LRH.2.02.1910290957220.25731@file01.intranet.prod.int.rdu2.redhat.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+	(mx1.redhat.com [10.5.110.26]);
+	Mon, 04 Nov 2019 16:49:05 +0000 (UTC)
+X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]);
+	Mon, 04 Nov 2019 16:49:05 +0000 (UTC) for IP:'209.85.128.66'
+	DOMAIN:'mail-wm1-f66.google.com' HELO:'mail-wm1-f66.google.com'
+	FROM:'balsini@android.com' RCPT:''
+X-RedHat-Spam-Score: 4.344 **** (DKIMWL_WL_HIGH, DKIM_SIGNED, DKIM_VALID,
+	DKIM_VALID_AU, FSL_HELO_FAKE, RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
+	SPF_PASS) 209.85.128.66 mail-wm1-f66.google.com 209.85.128.66
+	mail-wm1-f66.google.com <balsini@android.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.5.110.26
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH 16/72] libmultipath: make path_discovery()
- pthread_cancel()-safe
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, elsk@google.com,
+	dm-devel@redhat.com, dvander@google.com, kernel-team@android.com,
+	Alasdair G Kergon <agk@redhat.com>
+Subject: Re: [dm-devel] dm-snapshot for system updates in Android
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -143,148 +113,191 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-MC-Unique: rpr5yLJ9PuGiFCBOLITlbA-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-MC-Unique: NicBOgTjMKOHhsfX_JcwNg-1
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-Hi Ben,
+Hi Mikulas,
 
-thanks for looking into this.
+Thank you for your answer and suggestions.
 
-On Wed, 2019-10-30 at 09:53 -0500, Benjamin Marzinski wrote:
-> On Sat, Oct 12, 2019 at 09:27:57PM +0000, Martin Wilck wrote:
-> > From: Martin Wilck <mwilck@suse.com>
-> >=20
-> > The udev_enumerate and udev_device refs wouldn't be released
-> > if the thread was cancelled. Fix it.
-> >=20
-> > Signed-off-by: Martin Wilck <mwilck@suse.com>
-> > ---
-> >  libmultipath/discovery.c | 51 +++++++++++++++++++++++++++++++-----
-> > ----
-> >  1 file changed, 40 insertions(+), 11 deletions(-)
-> >=20
-> > diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
-> > index e68b0e9f..d217ca92 100644
-> > --- a/libmultipath/discovery.c
-> > +++ b/libmultipath/discovery.c
-> > @@ -140,19 +140,47 @@ path_discover (vector pathvec, struct config
-> > * conf,
-> >  =09return pathinfo(pp, conf, flag);
-> >  }
-> > =20
-> > +static void cleanup_udev_enumerate_ptr(void *arg)
-> > +{
-> > +=09struct udev_enumerate *ue;
-> > +
-> > +=09if (!arg)
-> > +=09=09return;
-> > +=09ue =3D *((struct udev_enumerate**) arg);
-> > +=09if (ue)
-> > +=09=09(void)udev_enumerate_unref(ue);
-> > +}
-> > +
-> > +static void cleanup_udev_device_ptr(void *arg)
-> > +{
-> > +=09struct udev_device *ud;
-> > +
-> > +=09if (!arg)
-> > +=09=09return;
-> > +=09ud =3D *((struct udev_device**) arg);
-> > +=09if (ud)
-> > +=09=09(void)udev_device_unref(ud);
-> > +}
-> > +
-> >  int
-> >  path_discovery (vector pathvec, int flag)
-> >  {
-> > -=09struct udev_enumerate *udev_iter;
-> > +=09struct udev_enumerate *udev_iter =3D NULL;
-> >  =09struct udev_list_entry *entry;
-> > -=09struct udev_device *udevice;
-> > +=09struct udev_device *udevice =3D NULL;
-> >  =09struct config *conf;
-> > -=09const char *devpath;
-> >  =09int num_paths =3D 0, total_paths =3D 0, ret;
-> > =20
-> > +=09pthread_cleanup_push(cleanup_udev_enumerate_ptr, &udev_iter);
-> > +=09pthread_cleanup_push(cleanup_udev_device_ptr, &udevice);
-> > +=09conf =3D get_multipath_config();
-> > +=09pthread_cleanup_push(put_multipath_config, conf);
-> > +
-> >  =09udev_iter =3D udev_enumerate_new(udev);
-> > -=09if (!udev_iter)
-> > -=09=09return -ENOMEM;
-> > +=09if (!udev_iter) {
-> > +=09=09ret =3D -ENOMEM;
-> > +=09=09goto out;
-> > +=09}
-> > =20
-> >  =09if (udev_enumerate_add_match_subsystem(udev_iter, "block") < 0
-> > ||
-> >  =09    udev_enumerate_add_match_is_initialized(udev_iter) < 0 ||
-> > @@ -165,6 +193,8 @@ path_discovery (vector pathvec, int flag)
-> >  =09udev_list_entry_foreach(entry,
-> >  =09=09=09=09udev_enumerate_get_list_entry(udev_iter
-> > )) {
-> >  =09=09const char *devtype;
-> > +=09=09const char *devpath;
-> > +
-> >  =09=09devpath =3D udev_list_entry_get_name(entry);
-> >  =09=09condlog(4, "Discover device %s", devpath);
-> >  =09=09udevice =3D udev_device_new_from_syspath(udev, devpath);
-> > @@ -175,19 +205,18 @@ path_discovery (vector pathvec, int flag)
-> >  =09=09devtype =3D udev_device_get_devtype(udevice);
-> >  =09=09if(devtype && !strncmp(devtype, "disk", 4)) {
-> >  =09=09=09total_paths++;
-> > -=09=09=09conf =3D get_multipath_config();
-> > -=09=09=09pthread_cleanup_push(put_multipath_config,
-> > conf);
+On Tue, Oct 29, 2019 at 10:21:14AM -0400, Mikulas Patocka wrote:
+> Hi
 >=20
-> Why move grabbing the config RCU lock out of the loop?=20
+> On Fri, 25 Oct 2019, Alessio Balsini wrote:
+>=20
+> > Hello everyone!
+> >=20
+> > I hope you will appreciate knowing that we are currently evaluating the=
+ use of
+> > dm-snapshot to implement a mechanism to obtain revertible, space-effici=
+ent
+> > system upgrades in Android.  More specifically, we are using
+> > dm-snapshot-persistent to test the updated device after reboot, then is=
+sue a
+> > merge in case of success, otherwise, destroy the snapshot.
+> > This new update mechanism is still under evaluation, but its developmen=
+t is
+> > openly done in AOSP.
+> >=20
+> > At the current stage, we have a prototype we are happy with, both in te=
+rms of
+> > space consumption overhead (for the COW device) and benchmarking result=
+s for
+> > read-write and merge operations.
+> >=20
+> > I would be glad if you could provide some feedback on a few points that=
+ I don't
+> > have completely clear.
+> >=20
+> >=20
+> > -- Interface stability
+> >=20
+> > To obtain an initial, empty COW device as quick as possible, we force t=
+o 0 only
+> > its first 32 bit (magic field). This solution looks clear from the kern=
+el code,
+> > but can we rely on that for all the kernels with SNAPSHOT_DISK_VERSION =
+=3D=3D 1?
+>=20
+> It will work, but, to be consistent with lvm, I suggest to overwrite the=
+=20
+> first 4k with zeroes.
+>=20
+> > Would you appreciate it if a similar statement is added as part of
+> > /Documentation, making this solution more stable? Or maybe I can think =
+of
+> > adding an initialization flag to the dm-snapshot table to explicitly re=
+quest
+> > the COW initialization within the kernel?
+> >=20
+> > Another issue we are facing is to be able to know in advance what the m=
+inimum
+> > COW device size would be for a given update to be able to allocate the =
+right
+>=20
+> This is hard to say, it depends on what the user is doing with the phone.=
+=20
+> When dm-snapshot runs out of space, it invalidates the whole snapshot.=20
+> You'll have to monitor the snapshot space very carefully and take action=
+=20
+> before it fills up.
 
-Yes, that was the idea.
+I forgot to mention that all the partitions we are updating are
+read-only, and can only be modified by snapshot-merge. This allows us to
+establish a direct relation between the required COW device size and the
+operations performed by the update (i.e. the number of chunks that are
+going to be modified).
 
-> All things being
-> equal, it seems like we'd rather hold this for less time, and
-> rcu_read_lock() is designed to be lightweight, so calling it more
-> times
-> shouldn't be an issue.=20
+>=20
+> I suggest - run main system on the origin target and attach a snapshot=20
+> that will be used for backup of the data overwritten in the origin. If th=
+e=20
+> updated system fails, merge the snapshot back into the origin; if the=20
+> update succeeds, drop the snapshot. If the user writes too much data to=
+=20
+> the device, it would invalidate the only the snapshot (so he can't revert=
+=20
+> anymore), but it would not invalidate the origin and the data would not b=
+e=20
+> lost.
 
-It's not the execution time of rcu_read_lock() that I'm concerned
-about.=20
+This is an approach we evaluated, but the main reason why we decided for
+the solution of updating the snapshot and then merging it to the base
+device is that we want to be sure that the update was successful before
+permanently change to the base device. For example, if for some reason
+the update is interrupted, it would be more difficult to roll-back or
+restore the update. Additionally, if the update wants to resize the
+partitions, this operation could not be done until reboot.
 
-In this particular loop, my estimate is that >90% of time is spent in
-path_discover()/pathinfo(), so time-during-which-lock-is-held-wise, we
-gain little by taking and releasing the RCU lock in every iteration.=20
+>=20
+> > size for the COW device in advance.  To do so, we rely on the current C=
+OW
+> > structure that seems to have kept the same stable shape in the last dec=
+ade, and
+> > compute the total COW size by knowing the number of modified chunks. Th=
+e
+> > formula would be something like that:
+> >=20
+> >   table_line_bytes      =3D 64 * 2 / 8;
+> >   exceptions_per_chunk  =3D chunk_size_bytes / table_line_bytes;
+> >   total_cow_size_chunks =3D 1 + 1 + modified_chunks
+> >                         + modified_chunks / exceptions_per_chunk;
+> >=20
+> > This formula seems to be valid for all the recent kernels we checked. A=
+gain,
+> > can we assume it to be valid for all the kernels for which
+> > SNAPSHOT_DISK_VERSION =3D=3D 1?
+>=20
+> Yes, we don't plan to change it.
+>=20
+> > -- Alignment
+> >=20
+> > Our approach follows the solution proposed by Mikulas [1].
+> > Being the block alignment of file extents automatically managed by the
+> > filesystem, using FIEMAP should have no alignment-related performance i=
+ssue.
+> > But in our implementation we hit a misalignment [2] branch which leads =
+to
+> > dmwarning messages [3, 4].
+> >=20
+> > I have a limited experience with the block layer and dm, so I'm still
+> > struggling in finding the root cause for this, either in user space or =
+kernel
+> > space.
+>=20
+> I don't know. What is the block size of the filesystem? Are all mappings=
+=20
+> aligned to this block size?
 
-Right, we might catch a configuration change _earlier_ if we release
-the lock between pathinfo() invocations. But - do we actually want
-that? This lock protects us against corruption of the multipathd
-configuration, basically against someone calling "multipathd
-reconfigure" while our code is running. But if the configuration ins
-really changed, what we're currently doing is vain anyway - once the
-configure() call is finished, we will go through yet another full
-reconfigure cycle. IOW: Do we seriously want to call pathinfo() for the
-different paths in the system with  different configuration, once with
-and once without "user_friendly_names", for example?
+Here follows a just generated warning coming from a Pixel 4 kernel (4.14):
 
-Given that the code we're talking about is only called from
-reconfigure(), multipath_conf having just been reassigned, IMO it's an
-improvement to hold the lock through the entire loop. It might even be
-good to hold the lock for the complete invocation of configure(), but I
-haven't thought about that in detail yet.
+[ 3093.443808] device-mapper: table: 253:16: adding target device dm-15
+caused an alignment inconsistency: physical_block_size=3D4096,
+logical_block_size=3D4096, alignment_offset=3D61440, start=3D0
 
-Does this make sense?
+Does this contain all the info you asked for?
 
-Besides, to my taste at least, it improves readability of the code to
-move get_multipath_config() out of certain loops.
+I started investigating this issue, but since we didn't notice any
+performance degradation, I prioritized other things. I'll be hopefully
+able to get back to this warning in the next months.
+Please let me know if I can help you with that or if you need additional
+information.
 
-Thanks,
-Martin
+>=20
+> > But our benchmarks seems to be good, so we were thinking as last option=
+ to
+> > rate-limit or directly remove that warning from our kernels as a tempor=
+ary
+> > solution, but we prefer to avoid diverging from mainline. Rate-limiting=
+ is a
+> > solution that would make sense also to be proposed in the list, but com=
+pletely
+> > removing the warning doesn't seem the right thing to do. Maybe we are
+> > benchmarking something else? What do you think?
+> >=20
+> > Many thanks for taking the time to read this, feedbacks would be highly
+> > appreciated.
+> >=20
+> > Regards.
+> > Alessio
+> >=20
+> > [1] https://www.redhat.com/archives/dm-devel/2018-October/msg00363.html
+> > [2] https://elixir.bootlin.com/linux/v5.3/source/block/blk-settings.c#L=
+540
+> > [3] https://elixir.bootlin.com/linux/v5.3/source/drivers/md/dm-table.c#=
+L484
+> > [4] https://elixir.bootlin.com/linux/v5.3/source/drivers/md/dm-table.c#=
+L1558
+>=20
+> Mikulas
+>=20
 
+Thanks again,
+Alessio
 
 --
 dm-devel mailing list
