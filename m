@@ -1,108 +1,62 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 81C2BF303D
-	for <lists+dm-devel@lfdr.de>; Thu,  7 Nov 2019 14:43:51 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 3CBF8F383C
+	for <lists+dm-devel@lfdr.de>; Thu,  7 Nov 2019 20:10:49 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1573134230;
+	s=mimecast20190719; t=1573153845;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=qoW8r601YKsfyKwE3w/htRsR9g7k+b7WA44zJZJvTvI=;
-	b=DUOflBkiOmIHXHsW/mfK/0M0emE5sst5Is3FMHXls23ODG45OB+GWnl04E+CjGkCFaUYfm
-	MAx5ETmBLHASLePCM5utZQO+JEebtEBGxBkqrcpzFjpusZJLrmfi/V/rS01JGFXdskbUdL
-	q9jMeHyzTQ1bPKBGbh1+/uLEIsUaWzM=
+	bh=mGmyJmRvNWFtsipHQNVO12Wg1nclAMXUnDspTMs4yQc=;
+	b=eE6WH6Y06WoN/wwnIlb6/gGq0WHlz8Qh2/DvFWiEQbWvY8kvHQVjYReOeJkaq+hF/l2wJG
+	ssC6z4rHqAbwmVTAWZGtpIm497h0OfbtymLTaX2oLdWZetRcMG5i4vG4qZRr0EQQQLhCdy
+	6cHccdlur6eDnAbLfd61nJvCWIn1BB4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-422-qrx7TGZUOIqthAnYI1hCWQ-1; Thu, 07 Nov 2019 08:43:47 -0500
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-322-IKUffzDgPoC-UmUtpiv35g-1; Thu, 07 Nov 2019 14:10:40 -0500
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B6FDC1005500;
-	Thu,  7 Nov 2019 13:43:40 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B3D31001DE0;
-	Thu,  7 Nov 2019 13:43:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 44E1C477;
+	Thu,  7 Nov 2019 19:10:32 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B924B600D3;
+	Thu,  7 Nov 2019 19:10:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DD7321832DEA;
-	Thu,  7 Nov 2019 13:43:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 916554BB65;
+	Thu,  7 Nov 2019 19:10:16 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xA7DeSPf026435 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 7 Nov 2019 08:40:28 -0500
+	id xA7JA20d012702 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 7 Nov 2019 14:10:02 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id C2A1B5DA76; Thu,  7 Nov 2019 13:40:28 +0000 (UTC)
+	id A2F1E5D726; Thu,  7 Nov 2019 19:10:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx01.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BABC95DA32
-	for <dm-devel@redhat.com>; Thu,  7 Nov 2019 13:40:25 +0000 (UTC)
-Received: from mail-pl1-f194.google.com (mail-pl1-f194.google.com
-	[209.85.214.194])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 4F8287C0A7
-	for <dm-devel@redhat.com>; Thu,  7 Nov 2019 13:40:22 +0000 (UTC)
-Received: by mail-pl1-f194.google.com with SMTP id o9so1478516plk.6
-	for <dm-devel@redhat.com>; Thu, 07 Nov 2019 05:40:22 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=4jwWug07MWOkr2qYik00IBFcec60QuuQYmHGTX5Nfvk=;
-	b=JlT34mmsI4J54iPUTW2IHfEckqMhgJvzaCipHwdUQdf+8SuLGbaouS64T47b1v544b
-	cO0dshXJPnpnBeNZmU2B5Kqg2wZMZbo1D+Ox29PFzid+yAp+niVPIlEGC6hlciqvEnpx
-	A3ylZKzNz62AmiSQ5b6ZlsBDKBpr+TTPFvkNK9h/RVFSW6mwOIs6b+XtHIvrEzUJp/vb
-	GQjrkDJn/zWW79W/SiC1wEvBS4r/Ut/MLFPig6TdE5+yDojq692bEm0KiMimYjt/psR1
-	PJ/5wTx7UhAIJqhu3h/5X8d2SdDoylidcGCTBKNTRIZamouiSPvoeM7Z7iwXTcS6cEsu
-	k/wA==
-X-Gm-Message-State: APjAAAWFJLkOhuOLsiSGgbbhY9BasOfMyCPGoIcC6GTb8VYzIPHhod/I
-	0C+/aZ99Yqk/ZCXTykK+WF1PKg==
-X-Google-Smtp-Source: APXvYqxUqwziIRejg0VlHTo/IjAZ8qKz+Umil4abg66UwevSjmyaJOge6jJD9qFWjmRFk+eqOImpbg==
-X-Received: by 2002:a17:902:47:: with SMTP id 65mr3722636pla.94.1573134021445; 
-	Thu, 07 Nov 2019 05:40:21 -0800 (PST)
-Received: from [192.168.1.188] ([66.219.217.79])
-	by smtp.gmail.com with ESMTPSA id
-	r11sm2255570pjp.14.2019.11.07.05.40.18
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Thu, 07 Nov 2019 05:40:20 -0800 (PST)
-To: Damien Le Moal <damien.lemoal@wdc.com>, linux-block@vger.kernel.org,
-	linux-scsi@vger.kernel.org, "Martin K . Petersen"
-	<martin.petersen@oracle.com>,
-	dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>
-References: <20191027140549.26272-1-damien.lemoal@wdc.com>
-From: Jens Axboe <axboe@kernel.dk>
-Message-ID: <31755ade-ae21-8842-05c0-47017cea7e29@kernel.dk>
-Date: Thu, 7 Nov 2019 06:40:16 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.9.0
+Received: from localhost (unknown [10.18.25.174])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 955DC5D713;
+	Thu,  7 Nov 2019 19:09:59 +0000 (UTC)
+Date: Thu, 7 Nov 2019 14:09:58 -0500
+From: Mike Snitzer <snitzer@redhat.com>
+To: Maged Mokhtar <mmokhtar@petasan.org>
+Message-ID: <20191107190958.GA2821@redhat.com>
+References: <fa95f1f0-67d6-d02e-6999-ba1f90d70fe2@petasan.org>
+	<8388b99a-a531-981e-9e36-8aeb3dffd18e@petasan.org>
+	<20191106150831.GA27888@redhat.com>
+	<5370f009-c324-1530-4400-adf1b59f0bbd@petasan.org>
 MIME-Version: 1.0
-In-Reply-To: <20191027140549.26272-1-damien.lemoal@wdc.com>
-Content-Language: en-US
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
-	(mx1.redhat.com [10.5.110.25]);
-	Thu, 07 Nov 2019 13:40:22 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.25]);
-	Thu, 07 Nov 2019 13:40:22 +0000 (UTC) for IP:'209.85.214.194'
-	DOMAIN:'mail-pl1-f194.google.com'
-	HELO:'mail-pl1-f194.google.com' FROM:'axboe@kernel.dk' RCPT:''
-X-RedHat-Spam-Score: 0.002  (DKIM_SIGNED, DKIM_VALID, RCVD_IN_DNSWL_NONE,
-	RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
-	SPF_PASS) 209.85.214.194 mail-pl1-f194.google.com 209.85.214.194
-	mail-pl1-f194.google.com <axboe@kernel.dk>
-X-Scanned-By: MIMEDefang 2.83 on 10.5.110.25
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+In-Reply-To: <5370f009-c324-1530-4400-adf1b59f0bbd@petasan.org>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-Cc: Dmitry Fomichev <dmitry.fomichev@wdc.com>, Keith Busch <kbusch@kernel.org>,
-	Hans Holmberg <Hans.Holmberg@wdc.com>, Ajay Joshi <ajay.joshi@wdc.com>,
-	Matias Bjorling <matias.bjorling@wdc.com>
-Subject: Re: [dm-devel] [PATCH 0/8] Zone management commands support
+Cc: dm-devel@redhat.com, mpatocka@redhat.com
+Subject: Re: [dm-devel] dm-writecache: change config parameters using
+	messages
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -116,47 +70,62 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-MC-Unique: qrx7TGZUOIqthAnYI1hCWQ-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-MC-Unique: IKUffzDgPoC-UmUtpiv35g-1
 X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-On 10/27/19 8:05 AM, Damien Le Moal wrote:
-> This series implements a few improvements and cleanups to zone block
-> device zone reset operations with the first three patches.
-> 
-> The remaining of the series patches introduce zone open, close and
-> finish support, allowing users of zoned block devices to explicitly
-> control the condition (state) of zones.
-> 
-> While these operations are not stricktly necessary for the correct
-> operation of zoned block devices, the open and close operations can
-> improve performance for some device implementations of the ZBC and ZAC
-> standards under write workloads. The finish zone operation, which
-> transition a zone to the full state, can also be useful to protect a
-> zone data by preventing further zone writes.
-> 
-> These operations are implemented by introducing the new
-> REQ_OP_ZONE_OPEN, REQ_OP_ZONE_CLOSE and REQ_OP_ZONE_FINISH request codes
-> and the function blkdev_zone_mgmt() to issue these requests. This new
-> function also replaces the former blkdev_reset_zones() function to reset
-> zones write pointer.
-> 
-> The new ioctls BLKOPENZONE, BLKCLOSEZONE and BLKFINISHZONE are also
-> defined to allow applications to issue these new requests without
-> resorting to a device passthrough interface (e.g. SG_IO).
-> 
-> Support for these operations is added to the SCSI sd driver, to the dm
-> infrastructure (dm-linear and dm-flakey targets) and to the null_blk
-> driver.
+On Thu, Nov 07 2019 at  1:55pm -0500,
+Maged Mokhtar <mmokhtar@petasan.org> wrote:
 
-Applied for 5.5, thanks. I've got the last sd patch pending, the conflict
-is rather ugly. I'll setup a post branch for drivers with this in, once
-the dependent fix has landed in Linus's tree.
+>=20
+>=20
+> On 06/11/2019 17:08, Mike Snitzer wrote:
+> >On Tue, Nov 05 2019 at  4:19pm -0500,
+> >Maged Mokhtar <mmokhtar@petasan.org> wrote:
+> >
+> >>Gentle ping please.
+> >>
+> >>It could add flexibility in changing cache parameters after device crea=
+tion.
+> >
+> >I'm inclined to _not_ take this type of change.
+> >
+> >Why isn't changing the config parameters via table reload viable for
+> >you?
+> >
+>=20
+>=20
+> Hi Mike,
+>=20
+> Thank you for your response. The main issue is to enable setting
+> some config parameters while the device is mounted and running and
+> avoid calling target ctr() by sending parameter changes via
+> messages. A similar setup was used in dm-cache.
+>=20
+> The reason is that tuning the write cache may require run time
+> changes. If un-tuned we can observes periods of spikes and/or step
+> like disk utilization on the slow device during writeback using
+> iostat, and these spikes correspond to periods of increased client
+> io latency. Utilization can be tuned by varying the number of active
+> writeback jobs + the gap between high and low marks to achieve a
+> smooth high utilization.  Such tuning is difficult to do when
+> creating the cache device as it depends on the hardware and io
+> workload. We are hoping to use some userspace monitoring and tuning
+> tool to periodically adjust these values while the device is
+> running.
 
--- 
-Jens Axboe
+I think you're missing that any actively used DM device can be
+suspended, table reloaded, resumed.  So the tuning at runtime is still
+possible, it just requires more steps.
+
+And I'm saying that unless/until there is a better reason other than
+"dm-cache allowed tuning via messages" I'm not interested in having
+multiple methods for tuning dm-writecache.
+
+Mike
 
 --
 dm-devel mailing list
