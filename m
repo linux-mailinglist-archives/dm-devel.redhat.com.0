@@ -1,116 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 59A41F46D9
-	for <lists+dm-devel@lfdr.de>; Fri,  8 Nov 2019 12:45:51 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 97DB0F4B99
+	for <lists+dm-devel@lfdr.de>; Fri,  8 Nov 2019 13:32:13 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1573213550;
+	s=mimecast20190719; t=1573216331;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=8ZpZ4GurfksCjeRlfRB0w6pMZYrAYQlI/SHaUVyx2gE=;
-	b=KeoaAVK38TiGkgP+JiUNadDoYmPCv0mg0OWk7aC9cP84aR/n8wH87CxucShfn3ngp7dSmI
-	fKdhFUPhTrFyE7Ws+YnQjDRM6CKIMzo6KTEwwKF7/fs/s45w+Jaqjtefy22ySuSVfPr9ix
-	arXEe9oUutLSUOfMn5P0IEZudbv/wyM=
+	bh=y0IHlL8Q3kO5CivN1jOuoHaKia2osfk/XREaa9oiECY=;
+	b=JEDGWWnhkvEe3g++Dv2F5bHy6s1PQ1rbFS6TuROVAGKc0JN7RJ5Erq6yXK/hQbPXigKVeO
+	wT+odPGQrfCj0uHuD5nwxOiRgbJ11ZKXVx04/sZOb5cBndTNJSX2qCPq10urMZRuCMwrux
+	2/H2cq9e15BRc4imBMUvyFG/FdhWQYo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-272-ct-8uCDCNteJfn1Q1S0m5w-1; Fri, 08 Nov 2019 06:45:47 -0500
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-196-_80QfvKZNOKwiee8VSyV-w-1; Fri, 08 Nov 2019 07:32:09 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EE563FB;
-	Fri,  8 Nov 2019 11:45:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 38F035EA;
+	Fri,  8 Nov 2019 12:32:03 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3D4D0271B4;
-	Fri,  8 Nov 2019 11:45:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 043361001B39;
+	Fri,  8 Nov 2019 12:32:00 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 746C14BB65;
-	Fri,  8 Nov 2019 11:45:35 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 19D634BB65;
+	Fri,  8 Nov 2019 12:31:56 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xA7JUAc1013761 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 7 Nov 2019 14:30:10 -0500
+	id xA8CVmHf001845 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 8 Nov 2019 07:31:48 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 89145600F0; Thu,  7 Nov 2019 19:30:10 +0000 (UTC)
+	id 846461001DC2; Fri,  8 Nov 2019 12:31:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx02.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.26])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7FEA6600D3
-	for <dm-devel@redhat.com>; Thu,  7 Nov 2019 19:30:07 +0000 (UTC)
-Received: from gateway32.websitewelcome.com (gateway32.websitewelcome.com
-	[192.185.145.125])
-	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id B940E859FB
-	for <dm-devel@redhat.com>; Thu,  7 Nov 2019 19:30:04 +0000 (UTC)
-Received: from cm11.websitewelcome.com (cm11.websitewelcome.com [100.42.49.5])
-	by gateway32.websitewelcome.com (Postfix) with ESMTP id 16E9E7369EA
-	for <dm-devel@redhat.com>; Thu,  7 Nov 2019 13:30:04 -0600 (CST)
-Received: from host2059.hostmonster.com ([67.20.112.233]) by cmsmtp with SMTP
-	id SnTliRf2MiJ43SnTmi10dm; Thu, 07 Nov 2019 13:30:04 -0600
-X-Authority-Reason: nr=8
-Received: from [196.145.3.46] (port=4913 helo=[192.168.100.138])
-	by host2059.hostmonster.com with esmtpsa
-	(TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128) (Exim 4.92)
-	(envelope-from <mmokhtar@petasan.org>)
-	id 1iSnTl-0024l2-0Q; Thu, 07 Nov 2019 12:30:01 -0700
-To: Mike Snitzer <snitzer@redhat.com>
-References: <fa95f1f0-67d6-d02e-6999-ba1f90d70fe2@petasan.org>
-	<8388b99a-a531-981e-9e36-8aeb3dffd18e@petasan.org>
-	<20191106150831.GA27888@redhat.com>
-	<5370f009-c324-1530-4400-adf1b59f0bbd@petasan.org>
-	<20191107190958.GA2821@redhat.com>
-From: Maged Mokhtar <mmokhtar@petasan.org>
-Message-ID: <cba8f93a-3477-9c87-0bff-fe7e6962d606@petasan.org>
-Date: Thu, 7 Nov 2019 21:29:56 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.2.1
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BEFA31001902;
+	Fri,  8 Nov 2019 12:31:45 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id xA8CVjPD004476; Fri, 8 Nov 2019 07:31:45 -0500
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id xA8CViNb004472; Fri, 8 Nov 2019 07:31:44 -0500
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Fri, 8 Nov 2019 07:31:44 -0500 (EST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Alessio Balsini <balsini@android.com>
+In-Reply-To: <20191104164900.GA10934@google.com>
+Message-ID: <alpine.LRH.2.02.1911080723130.3392@file01.intranet.prod.int.rdu2.redhat.com>
+References: <20191025101624.GA61225@google.com>
+	<alpine.LRH.2.02.1910290957220.25731@file01.intranet.prod.int.rdu2.redhat.com>
+	<20191104164900.GA10934@google.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-In-Reply-To: <20191107190958.GA2821@redhat.com>
-Content-Language: en-US
-X-AntiAbuse: This header was added to track abuse,
-	please include it with any abuse report
-X-AntiAbuse: Primary Hostname - host2059.hostmonster.com
-X-AntiAbuse: Original Domain - redhat.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - petasan.org
-X-BWhitelist: no
-X-Source-IP: 196.145.3.46
-X-Source-L: No
-X-Exim-ID: 1iSnTl-0024l2-0Q
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: ([192.168.100.138]) [196.145.3.46]:4913
-X-Source-Auth: mmokhtar@petasan.org
-X-Email-Count: 4
-X-Source-Cap: cGV0YXNhbm87cGV0YXNhbm87aG9zdDIwNTkuaG9zdG1vbnN0ZXIuY29t
-X-Local-Domain: yes
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.5.16 (mx1.redhat.com
-	[10.5.110.26]); Thu, 07 Nov 2019 19:30:04 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.5.16 (mx1.redhat.com [10.5.110.26]);
-	Thu, 07 Nov 2019 19:30:04 +0000 (UTC) for IP:'192.185.145.125'
-	DOMAIN:'gateway32.websitewelcome.com'
-	HELO:'gateway32.websitewelcome.com' FROM:'mmokhtar@petasan.org'
-	RCPT:''
-X-RedHat-Spam-Score: 0.551  (DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU,
-	RCVD_IN_DNSWL_NONE, SPF_HELO_PASS,
-	SPF_NEUTRAL) 192.185.145.125 gateway32.websitewelcome.com
-	192.185.145.125 gateway32.websitewelcome.com
-	<mmokhtar@petasan.org>
-X-Scanned-By: MIMEDefang 2.78 on 10.5.110.26
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Fri, 08 Nov 2019 06:44:42 -0500
-Cc: dm-devel@redhat.com, mpatocka@redhat.com
-Subject: Re: [dm-devel] dm-writecache: change config parameters using
-	messages
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, elsk@google.com,
+	dm-devel@redhat.com, dvander@google.com, kernel-team@android.com,
+	Alasdair G Kergon <agk@redhat.com>
+Subject: Re: [dm-devel] dm-snapshot for system updates in Android
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -124,66 +81,60 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-MC-Unique: ct-8uCDCNteJfn1Q1S0m5w-1
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-MC-Unique: _80QfvKZNOKwiee8VSyV-w-1
 X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
 
 
 
-On 07/11/2019 21:09, Mike Snitzer wrote:
-> On Thu, Nov 07 2019 at  1:55pm -0500,
-> Maged Mokhtar <mmokhtar@petasan.org> wrote:
-> 
->>
->>
->> On 06/11/2019 17:08, Mike Snitzer wrote:
->>> On Tue, Nov 05 2019 at  4:19pm -0500,
->>> Maged Mokhtar <mmokhtar@petasan.org> wrote:
->>>
->>>> Gentle ping please.
->>>>
->>>> It could add flexibility in changing cache parameters after device creation.
->>>
->>> I'm inclined to _not_ take this type of change.
->>>
->>> Why isn't changing the config parameters via table reload viable for
->>> you?
->>>
->>
->>
->> Hi Mike,
->>
->> Thank you for your response. The main issue is to enable setting
->> some config parameters while the device is mounted and running and
->> avoid calling target ctr() by sending parameter changes via
->> messages. A similar setup was used in dm-cache.
->>
->> The reason is that tuning the write cache may require run time
->> changes. If un-tuned we can observes periods of spikes and/or step
->> like disk utilization on the slow device during writeback using
->> iostat, and these spikes correspond to periods of increased client
->> io latency. Utilization can be tuned by varying the number of active
->> writeback jobs + the gap between high and low marks to achieve a
->> smooth high utilization.  Such tuning is difficult to do when
->> creating the cache device as it depends on the hardware and io
->> workload. We are hoping to use some userspace monitoring and tuning
->> tool to periodically adjust these values while the device is
->> running.
-> 
-> I think you're missing that any actively used DM device can be
-> suspended, table reloaded, resumed.  So the tuning at runtime is still
-> possible, it just requires more steps.
-> 
-> And I'm saying that unless/until there is a better reason other than
-> "dm-cache allowed tuning via messages" I'm not interested in having
-> multiple methods for tuning dm-writecache.
-> 
-> Mike
-> 
-just for my understanding, does not table reload call _ctr() and 
-re-initializes things like threads/read metadada ..?
+On Mon, 4 Nov 2019, Alessio Balsini wrote:
+
+> > > -- Alignment
+> > >=20
+> > > Our approach follows the solution proposed by Mikulas [1].
+> > > Being the block alignment of file extents automatically managed by th=
+e
+> > > filesystem, using FIEMAP should have no alignment-related performance=
+ issue.
+> > > But in our implementation we hit a misalignment [2] branch which lead=
+s to
+> > > dmwarning messages [3, 4].
+> > >=20
+> > > I have a limited experience with the block layer and dm, so I'm still
+> > > struggling in finding the root cause for this, either in user space o=
+r kernel
+> > > space.
+> >=20
+> > I don't know. What is the block size of the filesystem? Are all mapping=
+s=20
+> > aligned to this block size?
+>=20
+> Here follows a just generated warning coming from a Pixel 4 kernel (4.14)=
+:
+>=20
+> [ 3093.443808] device-mapper: table: 253:16: adding target device dm-15
+> caused an alignment inconsistency: physical_block_size=3D4096,
+> logical_block_size=3D4096, alignment_offset=3D61440, start=3D0
+>=20
+> Does this contain all the info you asked for?
+
+Look at the function blk_stack_limits - it has various checks that make it=
+=20
+return -1. Insert some debugging printk's there and find out which check=20
+made the function return -1.
+
+Based on this, we can find out which of the limits triggered the error=20
+message.
+
+> I started investigating this issue, but since we didn't notice any
+> performance degradation, I prioritized other things. I'll be hopefully
+> able to get back to this warning in the next months.
+> Please let me know if I can help you with that or if you need additional
+> information.
+
+Mikulas
 
 --
 dm-devel mailing list
