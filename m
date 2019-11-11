@@ -1,136 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 3D8D4F7145
-	for <lists+dm-devel@lfdr.de>; Mon, 11 Nov 2019 10:58:49 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 754FEF75D0
+	for <lists+dm-devel@lfdr.de>; Mon, 11 Nov 2019 15:00:15 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1573466328;
+	s=mimecast20190719; t=1573480814;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=gvAX1AjAzk1Hs6uCNv5OiUNlA3ICuDK7R1o0+CQ5O0o=;
-	b=LhipjVKxXckQFTuIWkcBRhINluIWnErhTXludYqbcxwdmOkTMx131steqM+NMPcFnRsh2G
-	oGJIiY8u0sOfWxQ+h4rMGOO7iKm0UTU2fhOKH3YzXRZwndp8HimBYyRFrhNJILUS3FWXQl
-	Xz4BRdb6mrHIBOgp+NtwPwYPDvmEePg=
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=npW3UKl0tIHQRWsVok10XWiM6klN1RAg5a3PttawTcE=;
+	b=iWCXup91BxckpcRNAftrqn+7o6VnaQr57w9cEIdVC5A9ZHqqCIs0NEJ5B/vdzXqOFJwFgL
+	9ZgjCoHSANm5/XYSJEvjKWzyPsdWz6DjBNCJsjpyMsZBnp4VdsuopxH1gXaGmz5ltd4enD
+	SqFFA14dZnQ4lMvLebRjAlqsMfuCfO4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-317-GZBKnXS_PaKJyJgl8zAjMA-1; Mon, 11 Nov 2019 04:58:44 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-274-WAStUJtcNhm1R2G22OQxyg-1; Mon, 11 Nov 2019 09:00:11 -0500
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0922B1005511;
-	Mon, 11 Nov 2019 09:58:39 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D128A5EE0F;
-	Mon, 11 Nov 2019 09:58:38 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E0E03927F1C;
+	Mon, 11 Nov 2019 14:00:04 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C03F660156;
+	Mon, 11 Nov 2019 14:00:03 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4022318089C8;
-	Mon, 11 Nov 2019 09:58:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8A38F4BB65;
+	Mon, 11 Nov 2019 13:59:56 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xA8Ioxic027160 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 8 Nov 2019 13:50:59 -0500
+	id xABDximc017345 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 11 Nov 2019 08:59:44 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 232D55C578; Fri,  8 Nov 2019 18:50:59 +0000 (UTC)
+	id 4A02C5D72C; Mon, 11 Nov 2019 13:59:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mx1.redhat.com (ext-mx30.extmail.prod.ext.phx2.redhat.com
-	[10.5.110.71])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 842365C298;
-	Fri,  8 Nov 2019 18:50:54 +0000 (UTC)
-Received: from esa3.hgst.iphmx.com (esa3.hgst.iphmx.com [216.71.153.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id 754A058C66;
-	Fri,  8 Nov 2019 18:50:32 +0000 (UTC)
-IronPort-SDR: OxAJnPtem5ArCNNmgAVdLDOppM+BK5Tb9NnJsuKeGM8R5R4Y3a0T7nCp6T54Md7PGlVNLpLk1t
-	lcKJJRshIyytgz+REu0JZ3KU+HneXrpzBAiWc2xz/nLrT29p4Ym7r+W6uyNwiIQfX7bzm1TiIA
-	NitoxPqaHsDdEoVA4/ITi+aaYiwrakwCDBc4fKLjAJU9quLVe8HT8ddxmikm3G+0g7yc1ZIOi9
-	Rr3h4CVapQ46nbsCazkoO+ZQkXu4IP0uXXjK+M1Gdrsbo5I/xt/AcotqSbuHxsOLSF74BPhRqT
-	E3E=
-X-IronPort-AV: E=Sophos;i="5.68,282,1569254400"; d="scan'208";a="126961447"
-Received: from mail-cys01nam02lp2056.outbound.protection.outlook.com (HELO
-	NAM02-CY1-obe.outbound.protection.outlook.com) ([104.47.37.56])
-	by ob1.hgst.iphmx.com with ESMTP; 09 Nov 2019 02:50:24 +0800
-Received: from DM6PR04MB5754.namprd04.prod.outlook.com (20.179.52.22) by
-	DM6PR04MB4042.namprd04.prod.outlook.com (20.176.87.12) with Microsoft
-	SMTP
-	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.2430.25; Fri, 8 Nov 2019 18:50:22 +0000
-Received: from DM6PR04MB5754.namprd04.prod.outlook.com
-	([fe80::65c4:52fd:1454:4b04]) by
-	DM6PR04MB5754.namprd04.prod.outlook.com
-	([fe80::65c4:52fd:1454:4b04%7]) with mapi id 15.20.2430.020;
-	Fri, 8 Nov 2019 18:50:22 +0000
-From: Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>
-To: Damien Le Moal <Damien.LeMoal@wdc.com>, "linux-block@vger.kernel.org"
-	<linux-block@vger.kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>, "Martin K .
-	Petersen" <martin.petersen@oracle.com>, "dm-devel@redhat.com"
-	<dm-devel@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
-	"linux-f2fs-devel@lists.sourceforge.net"
-	<linux-f2fs-devel@lists.sourceforge.net>,
-	Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <yuchao0@huawei.com>
-Thread-Topic: [PATCH 2/9] block: cleanup the !zoned case in
-	blk_revalidate_disk_zones
-Thread-Index: AQHVldfc9s3RcjAaAUWO67LxGbcSfg==
-Date: Fri, 8 Nov 2019 18:50:22 +0000
-Message-ID: <DM6PR04MB5754E84538F2E0AC9C3FD797867B0@DM6PR04MB5754.namprd04.prod.outlook.com>
-References: <20191108015702.233102-1-damien.lemoal@wdc.com>
-	<20191108015702.233102-3-damien.lemoal@wdc.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [199.255.45.62]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 335b990a-eac9-4400-7934-08d7647c8272
-x-ms-traffictypediagnostic: DM6PR04MB4042:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR04MB4042D948C540A667C897611B867B0@DM6PR04MB4042.namprd04.prod.outlook.com>
-wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:2512;
-x-forefront-prvs: 0215D7173F
-x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10019020)(4636009)(366004)(396003)(39860400002)(376002)(136003)(346002)(189003)(199004)(81156014)(229853002)(99286004)(14454004)(66946007)(6246003)(86362001)(102836004)(4744005)(8936002)(305945005)(14444005)(486006)(76176011)(5660300002)(66446008)(7736002)(446003)(74316002)(81166006)(478600001)(66476007)(66556008)(64756008)(33656002)(9686003)(55016002)(186003)(52536014)(6436002)(476003)(110136005)(26005)(91956017)(2501003)(25786009)(316002)(256004)(7696005)(71200400001)(3846002)(6116002)(53546011)(6506007)(71190400001)(66066001)(76116006)(2906002)(8676002)(921003)(1121003);
-	DIR:OUT; SFP:1102; SCL:1; SRVR:DM6PR04MB4042;
-	H:DM6PR04MB5754.namprd04.prod.outlook.com; FPR:; SPF:None;
-	LANG:en; PTR:InfoNoRecords; MX:1; A:1;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 1VefVcdWrIleAOQ3p2ujBxXhf7nDGY/mWMgl1miqXRiNkPRH/3yNKUPdqBrZFONYt2zIPOgHuCsVfE5pxxb2sVFF5Ewp+7y8iwrHpzK0PBYNJYgQDhIZ0FXBPkehb4cH6bilx+s1CW71yZaHnralPe0ae492BqAzF2Y4AN49KZfLoxihP/+wru6mDrQMu1fcNpw5irXx0ipAn9QY2EXq5I4KtuBJoz0bo2Jls57xHv+EC6JdIf41VZDDycWPN0DhpeyDDC25jwpiaLdIzAqji3Akh7s1UaQzz+Wn0Y2iliNxSrtkR3bjF7JZ6cR5zY3MZlKLBMeVzYbkWfeX9WKyUGh8IvzL2yVz5jp9EQnY2D3EkULohxfqgpWmx8zGA8MMZNUbmgTxI/hifHw25Oba4iFGkLEdjkRiRtkYdpMKWmo4zvZgW/1vgReWpGBFmjY6
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7266F5EE0F;
+	Mon, 11 Nov 2019 13:59:41 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id xABDxeQv032313; Mon, 11 Nov 2019 08:59:40 -0500
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id xABDxeDE032307; Mon, 11 Nov 2019 08:59:40 -0500
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Mon, 11 Nov 2019 08:59:40 -0500 (EST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Mike Snitzer <msnitzer@redhat.com>, Scott Wood <swood@redhat.com>
+Message-ID: <alpine.LRH.2.02.1911110811060.28408@file01.intranet.prod.int.rdu2.redhat.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 335b990a-eac9-4400-7934-08d7647c8272
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Nov 2019 18:50:22.1658 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +/mqLsfKPN3fR+TDy77ZwhjMImDOwK/kri/RvC4q0GO80xZhwyDiqmL1NWs7qnBqBzYH6yUBd8F/q1coVcm/pTrSxdRZINhHJecRK7nqAHc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR04MB4042
-X-Greylist: Sender passed SPF test, Sender IP whitelisted by DNSRBL, ACL 238
-	matched, not delayed by milter-greylist-4.6.2 (mx1.redhat.com
-	[10.5.110.71]); Fri, 08 Nov 2019 18:50:45 +0000 (UTC)
-X-Greylist: inspected by milter-greylist-4.6.2 (mx1.redhat.com [10.5.110.71]);
-	Fri, 08 Nov 2019 18:50:45 +0000 (UTC) for IP:'216.71.153.141'
-	DOMAIN:'esa3.hgst.iphmx.com' HELO:'esa3.hgst.iphmx.com'
-	FROM:'Chaitanya.Kulkarni@wdc.com' RCPT:''
-X-RedHat-Spam-Score: -2.299  (DKIM_SIGNED, DKIM_VALID, RCVD_IN_DNSWL_MED,
-	SPF_HELO_NONE) 216.71.153.141 esa3.hgst.iphmx.com
-	216.71.153.141 esa3.hgst.iphmx.com
-	<prvs=20831143c=Chaitanya.Kulkarni@wdc.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.110.71
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id xA8Ioxic027160
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Mon, 11 Nov 2019 04:58:01 -0500
-Subject: Re: [dm-devel] [PATCH 2/9] block: cleanup the !zoned case in
- blk_revalidate_disk_zones
+Cc: dm-devel@redhat.com, Nikos Tsironis <ntsironis@arrikto.com>,
+	Ilias Tsitsimpis <iliastsi@arrikto.com>
+Subject: [dm-devel] [PATCH 1/2] dm-snapshot: fix crash with the realtime
+	kernel
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -144,26 +75,269 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-MC-Unique: GZBKnXS_PaKJyJgl8zAjMA-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-MC-Unique: WAStUJtcNhm1R2G22OQxyg-1
 X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
 
-Looks good to me.
+Snapshot doesn't work with realtime kernels since the commit f79ae415b64c.
+hlist_bl is implemented as a raw spinlock and the code takes two non-raw
+spinlocks while holding hlist_bl (non-raw spinlocks are blocking mutexes
+in the realtime kernel, so they couldn't be taken inside a raw spinlock).
 
-Reviewed-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
+This patch fixes the problem by using non-raw spinlock
+exception_table_lock instead of the hlist_bl lock.
 
-On 11/07/2019 05:57 PM, Damien Le Moal wrote:
-> From: Christoph Hellwig<hch@lst.de>
->
-> blk_revalidate_disk_zones is never called for non-zoned devices.  Just
-> return early and warn instead of trying to handle this case.
->
-> Signed-off-by: Christoph Hellwig<hch@lst.de>
-> Signed-off-by: Damien Le Moal<damien.lemoal@wdc.com>
-> ---
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Fixes: f79ae415b64c ("dm snapshot: Make exception tables scalable")
 
+---
+ drivers/md/dm-snap.c |   65 ++++++++++++++++++++++++++++++++--------------=
+-----
+ 1 file changed, 42 insertions(+), 23 deletions(-)
+
+Index: linux-2.6/drivers/md/dm-snap.c
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+--- linux-2.6.orig/drivers/md/dm-snap.c=092019-11-08 15:51:42.000000000 +01=
+00
++++ linux-2.6/drivers/md/dm-snap.c=092019-11-08 15:54:58.000000000 +0100
+@@ -141,6 +141,10 @@ struct dm_snapshot {
+ =09 * for them to be committed.
+ =09 */
+ =09struct bio_list bios_queued_during_merge;
++
++#ifdef CONFIG_PREEMPT_RT_BASE
++=09spinlock_t exception_table_lock;
++#endif
+ };
+=20
+ /*
+@@ -625,30 +629,42 @@ static uint32_t exception_hash(struct dm
+=20
+ /* Lock to protect access to the completed and pending exception hash tabl=
+es. */
+ struct dm_exception_table_lock {
++#ifndef CONFIG_PREEMPT_RT_BASE
+ =09struct hlist_bl_head *complete_slot;
+ =09struct hlist_bl_head *pending_slot;
++#endif
+ };
+=20
+ static void dm_exception_table_lock_init(struct dm_snapshot *s, chunk_t ch=
+unk,
+ =09=09=09=09=09 struct dm_exception_table_lock *lock)
+ {
++#ifndef CONFIG_PREEMPT_RT_BASE
+ =09struct dm_exception_table *complete =3D &s->complete;
+ =09struct dm_exception_table *pending =3D &s->pending;
+=20
+ =09lock->complete_slot =3D &complete->table[exception_hash(complete, chunk=
+)];
+ =09lock->pending_slot =3D &pending->table[exception_hash(pending, chunk)];
++#endif
+ }
+=20
+-static void dm_exception_table_lock(struct dm_exception_table_lock *lock)
++static void dm_exception_table_lock(struct dm_snapshot *s, struct dm_excep=
+tion_table_lock *lock)
+ {
++#ifdef CONFIG_PREEMPT_RT_BASE
++=09spin_lock(&s->exception_table_lock);
++#else
+ =09hlist_bl_lock(lock->complete_slot);
+ =09hlist_bl_lock(lock->pending_slot);
++#endif
+ }
+=20
+-static void dm_exception_table_unlock(struct dm_exception_table_lock *lock=
+)
++static void dm_exception_table_unlock(struct dm_snapshot *s, struct dm_exc=
+eption_table_lock *lock)
+ {
++#ifdef CONFIG_PREEMPT_RT_BASE
++=09spin_unlock(&s->exception_table_lock);
++#else
+ =09hlist_bl_unlock(lock->pending_slot);
+ =09hlist_bl_unlock(lock->complete_slot);
++#endif
+ }
+=20
+ static int dm_exception_table_init(struct dm_exception_table *et,
+@@ -835,9 +851,9 @@ static int dm_add_exception(void *contex
+ =09 */
+ =09dm_exception_table_lock_init(s, old, &lock);
+=20
+-=09dm_exception_table_lock(&lock);
++=09dm_exception_table_lock(s, &lock);
+ =09dm_insert_exception(&s->complete, e);
+-=09dm_exception_table_unlock(&lock);
++=09dm_exception_table_unlock(s, &lock);
+=20
+ =09return 0;
+ }
+@@ -1318,6 +1334,9 @@ static int snapshot_ctr(struct dm_target
+ =09s->first_merging_chunk =3D 0;
+ =09s->num_merging_chunks =3D 0;
+ =09bio_list_init(&s->bios_queued_during_merge);
++#ifdef CONFIG_PREEMPT_RT_BASE
++=09spin_lock_init(&s->exception_table_lock);
++#endif
+=20
+ =09/* Allocate hash table for COW data */
+ =09if (init_hash_tables(s)) {
+@@ -1651,7 +1670,7 @@ static void pending_complete(void *conte
+ =09=09invalidate_snapshot(s, -EIO);
+ =09=09error =3D 1;
+=20
+-=09=09dm_exception_table_lock(&lock);
++=09=09dm_exception_table_lock(s, &lock);
+ =09=09goto out;
+ =09}
+=20
+@@ -1660,13 +1679,13 @@ static void pending_complete(void *conte
+ =09=09invalidate_snapshot(s, -ENOMEM);
+ =09=09error =3D 1;
+=20
+-=09=09dm_exception_table_lock(&lock);
++=09=09dm_exception_table_lock(s, &lock);
+ =09=09goto out;
+ =09}
+ =09*e =3D pe->e;
+=20
+ =09down_read(&s->lock);
+-=09dm_exception_table_lock(&lock);
++=09dm_exception_table_lock(s, &lock);
+ =09if (!s->valid) {
+ =09=09up_read(&s->lock);
+ =09=09free_completed_exception(e);
+@@ -1687,16 +1706,16 @@ static void pending_complete(void *conte
+=20
+ =09/* Wait for conflicting reads to drain */
+ =09if (__chunk_is_tracked(s, pe->e.old_chunk)) {
+-=09=09dm_exception_table_unlock(&lock);
++=09=09dm_exception_table_unlock(s, &lock);
+ =09=09__check_for_conflicting_io(s, pe->e.old_chunk);
+-=09=09dm_exception_table_lock(&lock);
++=09=09dm_exception_table_lock(s, &lock);
+ =09}
+=20
+ out:
+ =09/* Remove the in-flight exception from the list */
+ =09dm_remove_exception(&pe->e);
+=20
+-=09dm_exception_table_unlock(&lock);
++=09dm_exception_table_unlock(s, &lock);
+=20
+ =09snapshot_bios =3D bio_list_get(&pe->snapshot_bios);
+ =09origin_bios =3D bio_list_get(&pe->origin_bios);
+@@ -1968,7 +1987,7 @@ static int snapshot_map(struct dm_target
+ =09}
+=20
+ =09down_read(&s->lock);
+-=09dm_exception_table_lock(&lock);
++=09dm_exception_table_lock(s, &lock);
+=20
+ =09if (!s->valid || (unlikely(s->snapshot_overflowed) &&
+ =09    bio_data_dir(bio) =3D=3D WRITE)) {
+@@ -1997,7 +2016,7 @@ static int snapshot_map(struct dm_target
+ =09=09remap_exception(s, e, bio, chunk);
+ =09=09if (unlikely(bio_op(bio) =3D=3D REQ_OP_DISCARD) &&
+ =09=09    io_overlaps_chunk(s, bio)) {
+-=09=09=09dm_exception_table_unlock(&lock);
++=09=09=09dm_exception_table_unlock(s, &lock);
+ =09=09=09up_read(&s->lock);
+ =09=09=09zero_exception(s, e, bio, chunk);
+ =09=09=09r =3D DM_MAPIO_SUBMITTED; /* discard is not issued */
+@@ -2024,9 +2043,9 @@ static int snapshot_map(struct dm_target
+ =09if (bio_data_dir(bio) =3D=3D WRITE) {
+ =09=09pe =3D __lookup_pending_exception(s, chunk);
+ =09=09if (!pe) {
+-=09=09=09dm_exception_table_unlock(&lock);
++=09=09=09dm_exception_table_unlock(s, &lock);
+ =09=09=09pe =3D alloc_pending_exception(s);
+-=09=09=09dm_exception_table_lock(&lock);
++=09=09=09dm_exception_table_lock(s, &lock);
+=20
+ =09=09=09e =3D dm_lookup_exception(&s->complete, chunk);
+ =09=09=09if (e) {
+@@ -2037,7 +2056,7 @@ static int snapshot_map(struct dm_target
+=20
+ =09=09=09pe =3D __find_pending_exception(s, pe, chunk);
+ =09=09=09if (!pe) {
+-=09=09=09=09dm_exception_table_unlock(&lock);
++=09=09=09=09dm_exception_table_unlock(s, &lock);
+ =09=09=09=09up_read(&s->lock);
+=20
+ =09=09=09=09down_write(&s->lock);
+@@ -2063,7 +2082,7 @@ static int snapshot_map(struct dm_target
+ =09=09if (!pe->started && io_overlaps_chunk(s, bio)) {
+ =09=09=09pe->started =3D 1;
+=20
+-=09=09=09dm_exception_table_unlock(&lock);
++=09=09=09dm_exception_table_unlock(s, &lock);
+ =09=09=09up_read(&s->lock);
+=20
+ =09=09=09start_full_bio(pe, bio);
+@@ -2076,7 +2095,7 @@ static int snapshot_map(struct dm_target
+ =09=09=09/* this is protected by the exception table lock */
+ =09=09=09pe->started =3D 1;
+=20
+-=09=09=09dm_exception_table_unlock(&lock);
++=09=09=09dm_exception_table_unlock(s, &lock);
+ =09=09=09up_read(&s->lock);
+=20
+ =09=09=09start_copy(pe);
+@@ -2088,7 +2107,7 @@ static int snapshot_map(struct dm_target
+ =09}
+=20
+ out_unlock:
+-=09dm_exception_table_unlock(&lock);
++=09dm_exception_table_unlock(s, &lock);
+ =09up_read(&s->lock);
+ out:
+ =09return r;
+@@ -2449,7 +2468,7 @@ static int __origin_write(struct list_he
+ =09=09dm_exception_table_lock_init(snap, chunk, &lock);
+=20
+ =09=09down_read(&snap->lock);
+-=09=09dm_exception_table_lock(&lock);
++=09=09dm_exception_table_lock(snap, &lock);
+=20
+ =09=09/* Only deal with valid and active snapshots */
+ =09=09if (!snap->valid || !snap->active)
+@@ -2466,9 +2485,9 @@ static int __origin_write(struct list_he
+ =09=09=09if (e)
+ =09=09=09=09goto next_snapshot;
+=20
+-=09=09=09dm_exception_table_unlock(&lock);
++=09=09=09dm_exception_table_unlock(snap, &lock);
+ =09=09=09pe =3D alloc_pending_exception(snap);
+-=09=09=09dm_exception_table_lock(&lock);
++=09=09=09dm_exception_table_lock(snap, &lock);
+=20
+ =09=09=09pe2 =3D __lookup_pending_exception(snap, chunk);
+=20
+@@ -2481,7 +2500,7 @@ static int __origin_write(struct list_he
+=20
+ =09=09=09=09pe =3D __insert_pending_exception(snap, pe, chunk);
+ =09=09=09=09if (!pe) {
+-=09=09=09=09=09dm_exception_table_unlock(&lock);
++=09=09=09=09=09dm_exception_table_unlock(snap, &lock);
+ =09=09=09=09=09up_read(&snap->lock);
+=20
+ =09=09=09=09=09invalidate_snapshot(snap, -ENOMEM);
+@@ -2516,7 +2535,7 @@ static int __origin_write(struct list_he
+ =09=09}
+=20
+ next_snapshot:
+-=09=09dm_exception_table_unlock(&lock);
++=09=09dm_exception_table_unlock(snap, &lock);
+ =09=09up_read(&snap->lock);
+=20
+ =09=09if (pe_to_start_now) {
 
 --
 dm-devel mailing list
