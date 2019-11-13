@@ -1,66 +1,66 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id DB772FAFFC
-	for <lists+dm-devel@lfdr.de>; Wed, 13 Nov 2019 12:48:50 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id B6D22FB012
+	for <lists+dm-devel@lfdr.de>; Wed, 13 Nov 2019 12:57:34 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1573645729;
+	s=mimecast20190719; t=1573646253;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=AjaDrabQcw2rWJ3iS/8KhCytjuuSMaHKQw1HqaZXJb0=;
-	b=it7lQkZ/tz9g0fTqkB/gfaRwtBE+1Sg9EnU2qIPMnA4u4SgqIKUnsVy9dUNpHu9In+3QC0
-	+wQE3RICOylh5/NUSRlPMSS960KqgIvvl0tkRri0gDjyo2226u0TqJ3NiJtumnhm3LiRVd
-	p2Puic9xAnXcOkA+lEloO2bsK71u4u0=
+	bh=EWWYrdxwTryjjO/lvWGPMNPRjSOkp8Zziiz/3Ca68kQ=;
+	b=bMRhvzjWSNFcF03q5nqBH/6LvMwDkeAgj6wV1TjxUeppLfToj3LE7ExKGiG2aHxJEU188X
+	w8BQww2spT9nWs5jJu+mK4lBVCjluMmkwYWoqZonFyqkdsgfQ4sROBksOqlUhLukoYbTht
+	LwXSgjO1sj0f1IuDW4qgBZfupKiwwGs=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-131-t3SDWYCxN9KXaeiNDq9e7w-1; Wed, 13 Nov 2019 06:48:47 -0500
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-198-iZMtNY5dMOG40HBLM7ftUw-1; Wed, 13 Nov 2019 06:57:31 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ACD82DBA3;
-	Wed, 13 Nov 2019 11:48:40 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8BF735C1D4;
-	Wed, 13 Nov 2019 11:48:36 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 79B7518B5FA1;
+	Wed, 13 Nov 2019 11:57:26 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A598F5DE7A;
+	Wed, 13 Nov 2019 11:57:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A3EE64BB5B;
-	Wed, 13 Nov 2019 11:48:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C1A011808878;
+	Wed, 13 Nov 2019 11:57:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xADBmJrl001837 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 13 Nov 2019 06:48:19 -0500
+	id xADBvGgP002454 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 13 Nov 2019 06:57:16 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id A54221B5B2; Wed, 13 Nov 2019 11:48:19 +0000 (UTC)
+	id 664CA5DF2B; Wed, 13 Nov 2019 11:57:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from file01.intranet.prod.int.rdu2.redhat.com
 	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E4BA608CC;
-	Wed, 13 Nov 2019 11:48:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 122045DE7A;
+	Wed, 13 Nov 2019 11:57:13 +0000 (UTC)
 Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
 	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id xADBmGNl025435; Wed, 13 Nov 2019 06:48:16 -0500
+	id xADBvCwo026045; Wed, 13 Nov 2019 06:57:12 -0500
 Received: from localhost (mpatocka@localhost)
 	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id xADBmGZK025431; Wed, 13 Nov 2019 06:48:16 -0500
+	ESMTP id xADBvCuj026042; Wed, 13 Nov 2019 06:57:12 -0500
 X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
 	owned process doing -bs
-Date: Wed, 13 Nov 2019 06:48:16 -0500 (EST)
+Date: Wed, 13 Nov 2019 06:57:12 -0500 (EST)
 From: Mikulas Patocka <mpatocka@redhat.com>
 X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Mike Snitzer <msnitzer@redhat.com>, Milan Broz <mbroz@redhat.com>
-Message-ID: <alpine.LRH.2.02.1911130625330.20335@file01.intranet.prod.int.rdu2.redhat.com>
+To: Milan Broz <mbroz@redhat.com>, Mike Snitzer <msnitzer@redhat.com>
+Message-ID: <alpine.LRH.2.02.1911130648210.20335@file01.intranet.prod.int.rdu2.redhat.com>
 User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com
-Subject: [dm-devel] [PATCH] dm-integrity: fix excessive alignment of
-	metadata runs
+Cc: dm-crypt@saout.de, dm-devel@redhat.com
+Subject: [dm-devel] [PATCH] cryptsetup: add support for the "fix_padding"
+	option
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -74,176 +74,211 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-MC-Unique: t3SDWYCxN9KXaeiNDq9e7w-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-MC-Unique: iZMtNY5dMOG40HBLM7ftUw-1
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
 
-Metadata runs are supposed to be aligned on 4k boundary (so that they work
-efficiently with disks with 4k sectors). However, there was a programming
-bug that makes them aligned on 128k boundary instead. The unused space is
-wasted.
+This patch adds support for fixed padding to cryptsetup.
 
-This patch fixes the bug by providing a proper alignment. In order to keep
-existing volumes working, we introduce a new flag SB_FLAG_FIXED_PADDING -
-when the flag is clear, we calculate the padding the old way. In order to
-make sure that the old version cannot mount the volume created by the new
-version, we increase superblock version to 4.
+* Cryptsetup will accept superblocks version 4.
+* If the dm-integrity target version is greater than 1.4, cryptsetup will=
+=20
+  add a flag "fix_padding" to the dm-integrity target arguments.
 
-In order to not break with old integritysetup, we fix alignment only if
-the parameter "fix_padding" is present when formatting the device.
+There is still one quirk: if we have an old libdm without=20
+DM_DEVICE_GET_TARGET_VERSION and if dm-integrity module is not loaded,=20
+cryptsetup will not detect that it can use the "fix_padding" option.
 
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
 ---
- Documentation/admin-guide/device-mapper/dm-integrity.rst |    5 ++
- drivers/md/dm-integrity.c                                |   26 ++++++++++=
-++---
- 2 files changed, 27 insertions(+), 4 deletions(-)
+ lib/integrity/integrity.c |    7 +++----
+ lib/integrity/integrity.h |    2 ++
+ lib/libdevmapper.c        |   20 +++++++++++++++++++-
+ lib/utils_dm.h            |    6 +++++-
+ 4 files changed, 29 insertions(+), 6 deletions(-)
 
-Index: linux-2.6/drivers/md/dm-integrity.c
+Index: cryptsetup/lib/integrity/integrity.c
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
---- linux-2.6.orig/drivers/md/dm-integrity.c=092019-11-12 21:13:57.00000000=
-0 +0100
-+++ linux-2.6/drivers/md/dm-integrity.c=092019-11-13 12:29:00.000000000 +01=
-00
-@@ -53,6 +53,7 @@
- #define SB_VERSION_1=09=09=091
- #define SB_VERSION_2=09=09=092
- #define SB_VERSION_3=09=09=093
-+#define SB_VERSION_4=09=09=094
- #define SB_SECTORS=09=09=098
- #define MAX_SECTORS_PER_BLOCK=09=098
-=20
-@@ -73,6 +74,7 @@ struct superblock {
- #define SB_FLAG_HAVE_JOURNAL_MAC=090x1
- #define SB_FLAG_RECALCULATING=09=090x2
- #define SB_FLAG_DIRTY_BITMAP=09=090x4
-+#define SB_FLAG_FIXED_PADDING=09=090x8
-=20
- #define=09JOURNAL_ENTRY_ROUNDUP=09=098
-=20
-@@ -250,6 +252,7 @@ struct dm_integrity_c {
- =09bool journal_uptodate;
- =09bool just_formatted;
- =09bool recalculate_flag;
-+=09bool fix_padding;
-=20
- =09struct alg_spec internal_hash_alg;
- =09struct alg_spec journal_crypt_alg;
-@@ -463,7 +466,9 @@ static void wraparound_section(struct dm
-=20
- static void sb_set_version(struct dm_integrity_c *ic)
- {
--=09if (ic->mode =3D=3D 'B' || ic->sb->flags & cpu_to_le32(SB_FLAG_DIRTY_BI=
-TMAP))
-+=09if (ic->sb->flags & cpu_to_le32(SB_FLAG_FIXED_PADDING))
-+=09=09ic->sb->version =3D SB_VERSION_4;
-+=09else if (ic->mode =3D=3D 'B' || ic->sb->flags & cpu_to_le32(SB_FLAG_DIR=
-TY_BITMAP))
- =09=09ic->sb->version =3D SB_VERSION_3;
- =09else if (ic->meta_dev || ic->sb->flags & cpu_to_le32(SB_FLAG_RECALCULAT=
-ING))
- =09=09ic->sb->version =3D SB_VERSION_2;
-@@ -2955,6 +2960,7 @@ static void dm_integrity_status(struct d
- =09=09arg_count +=3D !!ic->internal_hash_alg.alg_string;
- =09=09arg_count +=3D !!ic->journal_crypt_alg.alg_string;
- =09=09arg_count +=3D !!ic->journal_mac_alg.alg_string;
-+=09=09arg_count +=3D (ic->sb->flags & cpu_to_le32(SB_FLAG_FIXED_PADDING)) =
-!=3D 0;
- =09=09DMEMIT("%s %llu %u %c %u", ic->dev->name, (unsigned long long)ic->st=
-art,
- =09=09       ic->tag_size, ic->mode, arg_count);
- =09=09if (ic->meta_dev)
-@@ -2974,6 +2980,8 @@ static void dm_integrity_status(struct d
- =09=09=09DMEMIT(" sectors_per_bit:%llu", (unsigned long long)ic->sectors_p=
-er_block << ic->log2_blocks_per_bitmap_bit);
- =09=09=09DMEMIT(" bitmap_flush_interval:%u", jiffies_to_msecs(ic->bitmap_f=
-lush_interval));
- =09=09}
-+=09=09if ((ic->sb->flags & cpu_to_le32(SB_FLAG_FIXED_PADDING)) !=3D 0)
-+=09=09=09DMEMIT(" fix_padding");
-=20
- #define EMIT_ALG(a, n)=09=09=09=09=09=09=09\
- =09=09do {=09=09=09=09=09=09=09\
-@@ -3042,8 +3050,14 @@ static int calculate_device_limits(struc
- =09if (!ic->meta_dev) {
- =09=09sector_t last_sector, last_area, last_offset;
-=20
-+=09=09/* we have to maintain excessive padding for compatibility with exis=
-ting volumes */
-+=09=09u64 metadata_run_padding =3D
-+=09=09=09ic->sb->flags & cpu_to_le32(SB_FLAG_FIXED_PADDING) ?
-+=09=09=09(__u64)(METADATA_PADDING_SECTORS << SECTOR_SHIFT) :
-+=09=09=09(__u64)(1 << SECTOR_SHIFT << METADATA_PADDING_SECTORS);
-+
- =09=09ic->metadata_run =3D roundup((__u64)ic->tag_size << (ic->sb->log2_in=
-terleave_sectors - ic->sb->log2_sectors_per_block),
--=09=09=09=09=09   (__u64)(1 << SECTOR_SHIFT << METADATA_PADDING_SECTORS)) =
->> SECTOR_SHIFT;
-+=09=09=09=09=09   metadata_run_padding) >> SECTOR_SHIFT;
- =09=09if (!(ic->metadata_run & (ic->metadata_run - 1)))
- =09=09=09ic->log2_metadata_run =3D __ffs(ic->metadata_run);
- =09=09else
-@@ -3086,6 +3100,8 @@ static int initialize_superblock(struct
- =09=09journal_sections =3D 1;
-=20
- =09if (!ic->meta_dev) {
-+=09=09if (ic->fix_padding)
-+=09=09=09ic->sb->flags |=3D cpu_to_le32(SB_FLAG_FIXED_PADDING);
- =09=09ic->sb->journal_sections =3D cpu_to_le32(journal_sections);
- =09=09if (!interleave_sectors)
- =09=09=09interleave_sectors =3D DEFAULT_INTERLEAVE_SECTORS;
-@@ -3725,6 +3741,8 @@ static int dm_integrity_ctr(struct dm_ta
- =09=09=09=09goto bad;
- =09=09} else if (!strcmp(opt_string, "recalculate")) {
- =09=09=09ic->recalculate_flag =3D true;
-+=09=09} else if (!strcmp(opt_string, "fix_padding")) {
-+=09=09=09ic->fix_padding =3D true;
- =09=09} else {
- =09=09=09r =3D -EINVAL;
- =09=09=09ti->error =3D "Invalid argument";
-@@ -3867,7 +3885,7 @@ static int dm_integrity_ctr(struct dm_ta
- =09=09=09should_write_sb =3D true;
- =09}
-=20
--=09if (!ic->sb->version || ic->sb->version > SB_VERSION_3) {
-+=09if (!ic->sb->version || ic->sb->version > SB_VERSION_4) {
+--- cryptsetup.orig/lib/integrity/integrity.c=092019-11-12 20:09:30.0000000=
+00 +0100
++++ cryptsetup/lib/integrity/integrity.c=092019-11-12 21:09:05.000000000 +0=
+100
+@@ -41,8 +41,7 @@ static int INTEGRITY_read_superblock(str
+ =09if (read_lseek_blockwise(devfd, device_block_size(cd, device),
+ =09=09device_alignment(device), sb, sizeof(*sb), offset) !=3D sizeof(*sb) =
+||
+ =09    memcmp(sb->magic, SB_MAGIC, sizeof(sb->magic)) ||
+-=09    (sb->version !=3D SB_VERSION_1 && sb->version !=3D SB_VERSION_2 &&
+-=09     sb->version !=3D SB_VERSION_3)) {
++=09    sb->version < SB_VERSION_1 || sb->version > SB_VERSION_4) {
+ =09=09log_std(cd, "No integrity superblock detected on %s.\n",
+ =09=09=09device_path(device));
  =09=09r =3D -EINVAL;
- =09=09ti->error =3D "Unknown version";
- =09=09goto bad;
-@@ -4182,7 +4200,7 @@ static void dm_integrity_dtr(struct dm_t
+@@ -203,7 +202,7 @@ int INTEGRITY_create_dmd_device(struct c
+ =09if (r < 0)
+ =09=09return r;
 =20
- static struct target_type integrity_target =3D {
- =09.name=09=09=09=3D "integrity",
--=09.version=09=09=3D {1, 3, 0},
-+=09.version=09=09=3D {1, 4, 0},
- =09.module=09=09=09=3D THIS_MODULE,
- =09.features=09=09=3D DM_TARGET_SINGLETON | DM_TARGET_INTEGRITY,
- =09.ctr=09=09=09=3D dm_integrity_ctr,
-Index: linux-2.6/Documentation/admin-guide/device-mapper/dm-integrity.rst
+-=09return dm_integrity_target_set(&dmd->segment, 0, dmd->size,
++=09return dm_integrity_target_set(cd, &dmd->segment, 0, dmd->size,
+ =09=09=09crypt_metadata_device(cd), crypt_data_device(cd),
+ =09=09=09crypt_get_integrity_tag_size(cd), crypt_get_data_offset(cd),
+ =09=09=09crypt_get_sector_size(cd), vk, journal_crypt_key,
+@@ -289,7 +288,7 @@ int INTEGRITY_format(struct crypt_device
+ =09if (params && params->integrity_key_size)
+ =09=09vk =3D crypt_alloc_volume_key(params->integrity_key_size, NULL);
+=20
+-=09r =3D dm_integrity_target_set(tgt, 0, dmdi.size, crypt_metadata_device(=
+cd),
++=09r =3D dm_integrity_target_set(cd, tgt, 0, dmdi.size, crypt_metadata_dev=
+ice(cd),
+ =09=09=09crypt_data_device(cd), crypt_get_integrity_tag_size(cd),
+ =09=09=09crypt_get_data_offset(cd), crypt_get_sector_size(cd), vk,
+ =09=09=09journal_crypt_key, journal_mac_key, params);
+Index: cryptsetup/lib/integrity/integrity.h
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
---- linux-2.6.orig/Documentation/admin-guide/device-mapper/dm-integrity.rst=
-=092019-10-10 16:51:56.000000000 +0200
-+++ linux-2.6/Documentation/admin-guide/device-mapper/dm-integrity.rst=0920=
-19-11-13 12:24:48.000000000 +0100
-@@ -177,6 +177,11 @@ bitmap_flush_interval:number
- =09The bitmap flush interval in milliseconds. The metadata buffers
- =09are synchronized when this interval expires.
+--- cryptsetup.orig/lib/integrity/integrity.h=092019-11-12 20:09:30.0000000=
+00 +0100
++++ cryptsetup/lib/integrity/integrity.h=092019-11-12 20:12:54.000000000 +0=
+100
+@@ -34,10 +34,12 @@ struct crypt_dm_active_device;
+ #define SB_VERSION_1=091
+ #define SB_VERSION_2=092
+ #define SB_VERSION_3=093
++#define SB_VERSION_4=094
 =20
-+fix_padding
-+=09Use a smaller padding of the tag area that is more
-+=09space-efficient. If this option is not present, large padding is
-+=09used - that is for compatibility with older kernels.
+ #define SB_FLAG_HAVE_JOURNAL_MAC=09(1 << 0)
+ #define SB_FLAG_RECALCULATING=09=09(1 << 1) /* V2 only */
+ #define SB_FLAG_DIRTY_BITMAP=09=09(1 << 2) /* V3 only */
++#define SB_FLAG_FIXED_PADDING=09=09(1 << 3) /* V4 only */
+=20
+ struct superblock {
+ =09uint8_t magic[8];
+Index: cryptsetup/lib/libdevmapper.c
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+--- cryptsetup.orig/lib/libdevmapper.c=092019-11-12 20:09:30.000000000 +010=
+0
++++ cryptsetup/lib/libdevmapper.c=092019-11-13 12:42:39.000000000 +0100
+@@ -218,6 +218,9 @@ static void _dm_set_integrity_compat(str
+ =09if (_dm_satisfies_version(1, 3, 0, integrity_maj, integrity_min, integr=
+ity_patch))
+ =09=09_dm_flags |=3D DM_INTEGRITY_BITMAP_SUPPORTED;
+=20
++=09if (_dm_satisfies_version(1, 4, 0, integrity_maj, integrity_min, integr=
+ity_patch))
++=09=09_dm_flags |=3D DM_INTEGRITY_FIX_PADDING_SUPPORTED;
 +
+ =09_dm_integrity_checked =3D true;
+ }
 =20
- The journal mode (D/J), buffer_sectors, journal_watermark, commit_time can
- be changed when reloading the target (load an inactive table and swap the
+@@ -866,6 +869,11 @@ static char *get_dm_integrity_params(con
+ =09=09strncat(features, feature, sizeof(features) - strlen(features) - 1);
+ =09=09crypt_safe_free(hexkey);
+ =09}
++=09if (tgt->u.integrity.fix_padding) {
++=09=09num_options++;
++=09=09snprintf(feature, sizeof(feature), "fix_padding ");
++=09=09strncat(features, feature, sizeof(features) - strlen(features) - 1);
++=09}
+=20
+ =09if (flags & CRYPT_ACTIVATE_RECALCULATE) {
+ =09=09num_options++;
+@@ -2334,6 +2342,8 @@ static int _dm_target_query_integrity(st
+ =09=09=09=09}
+ =09=09=09} else if (!strcmp(arg, "recalculate")) {
+ =09=09=09=09*act_flags |=3D CRYPT_ACTIVATE_RECALCULATE;
++=09=09=09} else if (!strcmp(arg, "fix_padding")) {
++=09=09=09=09tgt->u.integrity.fix_padding =3D true;
+ =09=09=09} else /* unknown option */
+ =09=09=09=09goto err;
+ =09=09}
+@@ -2865,16 +2875,21 @@ int dm_verity_target_set(struct dm_targe
+ =09return 0;
+ }
+=20
+-int dm_integrity_target_set(struct dm_target *tgt, uint64_t seg_offset, ui=
+nt64_t seg_size,
++int dm_integrity_target_set(struct crypt_device *cd,
++=09=09=09struct dm_target *tgt, uint64_t seg_offset, uint64_t seg_size,
+ =09=09=09struct device *meta_device,
+ =09=09        struct device *data_device, uint64_t tag_size, uint64_t offs=
+et,
+ =09=09=09uint32_t sector_size, struct volume_key *vk,
+ =09=09=09struct volume_key *journal_crypt_key, struct volume_key *journal_=
+mac_key,
+ =09=09=09const struct crypt_params_integrity *ip)
+ {
++=09uint32_t dmi_flags;
++
+ =09if (!data_device)
+ =09=09return -EINVAL;
+=20
++=09_dm_check_versions(cd, DM_INTEGRITY);
++
+ =09tgt->type =3D DM_INTEGRITY;
+ =09tgt->direction =3D TARGET_SET;
+ =09tgt->offset =3D seg_offset;
+@@ -2890,6 +2905,9 @@ int dm_integrity_target_set(struct dm_ta
+ =09tgt->u.integrity.journal_crypt_key =3D journal_crypt_key;
+ =09tgt->u.integrity.journal_integrity_key =3D journal_mac_key;
+=20
++=09if (!dm_flags(cd, DM_INTEGRITY, &dmi_flags) && dmi_flags & DM_INTEGRITY=
+_FIX_PADDING_SUPPORTED)
++=09=09tgt->u.integrity.fix_padding =3D true;
++
+ =09if (ip) {
+ =09=09tgt->u.integrity.journal_size =3D ip->journal_size;
+ =09=09tgt->u.integrity.journal_watermark =3D ip->journal_watermark;
+Index: cryptsetup/lib/utils_dm.h
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+--- cryptsetup.orig/lib/utils_dm.h=092019-11-12 20:09:30.000000000 +0100
++++ cryptsetup/lib/utils_dm.h=092019-11-12 21:09:25.000000000 +0100
+@@ -64,6 +64,7 @@ static inline uint32_t act2dmflags(uint3
+ #define DM_INTEGRITY_RECALC_SUPPORTED (1 << 16) /* dm-integrity automatic =
+recalculation supported */
+ #define DM_INTEGRITY_BITMAP_SUPPORTED (1 << 17) /* dm-integrity bitmap mod=
+e supported */
+ #define DM_GET_TARGET_VERSION_SUPPORTED (1 << 18) /* dm DM_GET_TARGET vers=
+ion ioctl supported */
++#define DM_INTEGRITY_FIX_PADDING_SUPPORTED (1 << 19) /* supports the param=
+eter fix_padding that fixes a bug that caused excessive padding */
+=20
+ typedef enum { DM_CRYPT =3D 0, DM_VERITY, DM_INTEGRITY, DM_LINEAR, DM_ERRO=
+R, DM_UNKNOWN } dm_target_type;
+ enum tdirection { TARGET_SET =3D 1, TARGET_QUERY };
+@@ -138,6 +139,8 @@ struct dm_target {
+ =09=09struct volume_key *journal_crypt_key;
+=20
+ =09=09struct device *meta_device;
++
++=09=09bool fix_padding;
+ =09} integrity;
+ =09struct {
+ =09=09uint64_t offset;
+@@ -177,7 +180,8 @@ int dm_verity_target_set(struct dm_targe
+ =09struct device *data_device, struct device *hash_device, struct device *=
+fec_device,
+ =09const char *root_hash, uint32_t root_hash_size, uint64_t hash_offset_bl=
+ock,
+ =09uint64_t hash_blocks, struct crypt_params_verity *vp);
+-int dm_integrity_target_set(struct dm_target *tgt, uint64_t seg_offset, ui=
+nt64_t seg_size,
++int dm_integrity_target_set(struct crypt_device *cd,
++=09struct dm_target *tgt, uint64_t seg_offset, uint64_t seg_size,
+ =09struct device *meta_device,
+ =09struct device *data_device, uint64_t tag_size, uint64_t offset, uint32_=
+t sector_size,
+ =09struct volume_key *vk,
 
 --
 dm-devel mailing list
