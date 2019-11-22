@@ -1,82 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 1315D10683C
-	for <lists+dm-devel@lfdr.de>; Fri, 22 Nov 2019 09:45:21 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 5F6FF1068A0
+	for <lists+dm-devel@lfdr.de>; Fri, 22 Nov 2019 10:08:13 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1574412320;
+	s=mimecast20190719; t=1574413692;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=+0/1ZXisQXqD1IaHgnWd53MNGCr8+yM3bP+hEJEVDe4=;
-	b=XN4GeHGvDr6fMndL6Po1shVwgii1AWp4nZiu8qc0Ycm5tgJ6cygQ/7Eew56FnZxi5ixJqI
-	v/jS46vkTboaM1rbFjfTB2QuCPAKKAJkMDO6roYXvBS+8VVEVeZXQbFp7x94azXPR2dIwg
-	jyTQpQmMSbZIjA3mkOkxvEL9H+jPJZs=
+	bh=wNkB8u6XsN4DpTUyApQXoAEXdW9W3oMQd/LFMAAHPOc=;
+	b=U2iDAXuQn580mdI5oCH50YDKffgqf51pcq/S8gm/4cyVeoyX0kwa7PoLK1D4v/4w5NLkUN
+	Z5+jr2NMdSo26MEoXiUWlJqfIpPX7/A7+ugqfRa/MXBTyskcZhNb6pm5xlc6OGCjdcmwZS
+	I58A7NWtMkxImV1ThenKvlQa8c6RVTo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-50-ZtDiftKhM2Wgd01xNBWCCw-1; Fri, 22 Nov 2019 03:45:18 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-115-Xgfh3HPHP6afgS8IKv7VKg-1; Fri, 22 Nov 2019 04:08:07 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4D36A107ACCA;
-	Fri, 22 Nov 2019 08:45:13 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0132A60167;
-	Fri, 22 Nov 2019 08:45:12 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3A4EEDB4A;
+	Fri, 22 Nov 2019 09:07:59 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 687CB5F700;
+	Fri, 22 Nov 2019 09:07:56 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E396918089C8;
-	Fri, 22 Nov 2019 08:45:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 606CF4BB65;
+	Fri, 22 Nov 2019 09:07:43 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xAM62CAZ004147 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 22 Nov 2019 01:02:12 -0500
+	id xAM97PSY008713 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 22 Nov 2019 04:07:25 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 02700100D61; Fri, 22 Nov 2019 06:02:12 +0000 (UTC)
+	id EE4702166B2A; Fri, 22 Nov 2019 09:07:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F2BA6E38DF
-	for <dm-devel@redhat.com>; Fri, 22 Nov 2019 06:02:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E80602157F44
+	for <dm-devel@redhat.com>; Fri, 22 Nov 2019 09:07:22 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A3F25185A79C
-	for <dm-devel@redhat.com>; Fri, 22 Nov 2019 06:02:09 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-24-XbOBI2XSOlCCzc_K08_dwA-1; 
-	Fri, 22 Nov 2019 01:02:05 -0500
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
-	[73.47.72.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 8EA3A2071F;
-	Fri, 22 Nov 2019 06:02:03 +0000 (UTC)
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Fri, 22 Nov 2019 01:00:30 -0500
-Message-Id: <20191122060129.4239-31-sashal@kernel.org>
-In-Reply-To: <20191122060129.4239-1-sashal@kernel.org>
-References: <20191122060129.4239-1-sashal@kernel.org>
-MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-MC-Unique: XbOBI2XSOlCCzc_K08_dwA-1
-X-MC-Unique: ZtDiftKhM2Wgd01xNBWCCw-1
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C208F8007D9
+	for <dm-devel@redhat.com>; Fri, 22 Nov 2019 09:07:22 +0000 (UTC)
+Received: from szilassi.eckner.net (szilassi.eckner.net [193.30.121.109])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-269--hP-HQN4MImp2Y2g4WmkDQ-1; Fri, 22 Nov 2019 04:07:20 -0500
+Received: from nlopc43.ioq.uni-jena.de (musketeer-15.fusion.uni-jena.de
+	[::ffff:141.35.40.15]) (AUTH: PLAIN erich@eckner.net, )
+	by szilassi.eckner.net with ESMTPSA
+	id 0000000000760301.000000005DD7A547.0000F351;
+	Fri, 22 Nov 2019 10:07:19 +0100
+Date: Fri, 22 Nov 2019 10:07:14 +0100 (CET)
+From: Erich Eckner <device-mapper@eckner.net>
+X-X-Sender: erich@nlopc43.ioq.uni-jena.de
+To: dm-devel@redhat.com
+Message-ID: <alpine.LNX.2.21.99999.375.1911221006490.1609868@nlopc43.ioq.uni-jena.de>
+User-Agent: Alpine 2.21.99999 (LNX 375 2019-10-29)
+Mime-Version: 1.0
+X-MC-Unique: -hP-HQN4MImp2Y2g4WmkDQ-1
+X-MC-Unique: Xgfh3HPHP6afgS8IKv7VKg-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id xAM62CAZ004147
+	lists01.pubmisc.prod.ext.phx2.redhat.com id xAM97PSY008713
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Fri, 22 Nov 2019 03:43:26 -0500
-Cc: Sweet Tea <sweettea@redhat.com>, Sasha Levin <sashal@kernel.org>,
-	dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>,
-	John Dorminy <jdorminy@redhat.com>
-Subject: [dm-devel] [PATCH AUTOSEL 4.9 32/91] dm flakey: Properly corrupt
-	multi-page bios.
+Subject: [dm-devel] ignore/update integrity checksums
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,83 +81,87 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=WINDOWS-1252; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-From: Sweet Tea <sweettea@redhat.com>
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
 
-[ Upstream commit a00f5276e26636cbf72f24f79831026d2e2868e7 ]
+Hi,
 
-The flakey target is documented to be able to corrupt the Nth byte in
-a bio, but does not corrupt byte indices after the first biovec in the
-bio. Change the corrupting function to actually corrupt the Nth byte
-no matter in which biovec that index falls.
+I have multiple disks with LUKS+integrity created by
 
-A test device generating two-page bios, atop a flakey device configured
-to corrupt a byte index on the second page, verified both the failure
-to corrupt before this patch and the expected corruption after this
-change.
+cryptsetup luksFormat /dev/sde --key-file /mnt/key/key --integrity hmac-sha=
+256
 
-Signed-off-by: John Dorminy <jdorminy@redhat.com>
-Signed-off-by: Mike Snitzer <snitzer@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/md/dm-flakey.c | 33 ++++++++++++++++++++++-----------
- 1 file changed, 22 insertions(+), 11 deletions(-)
+which are part of a raid6. Details of the device:
 
-diff --git a/drivers/md/dm-flakey.c b/drivers/md/dm-flakey.c
-index 3643cba713518..742c1fa870dae 100644
---- a/drivers/md/dm-flakey.c
-+++ b/drivers/md/dm-flakey.c
-@@ -258,20 +258,31 @@ static void flakey_map_bio(struct dm_target *ti, stru=
-ct bio *bio)
+/dev/mapper/leg0 is active.
+   type:    LUKS2
+   cipher:  aes-xts-plain64
+   keysize: 768 bits
+   key location: keyring
+   integrity: hmac(sha256)
+   integrity keysize: 256 bits
+   device:  /dev/sdb
+   sector size:  512
+   offset:  0 sectors
+   size:    11031354576 sectors
+   mode:    read/write
+
+
+Recently, I rebooted this box and apparently, I missed to cleanly sync the=
 =20
- static void corrupt_bio_data(struct bio *bio, struct flakey_c *fc)
- {
--=09unsigned bio_bytes =3D bio_cur_bytes(bio);
--=09char *data =3D bio_data(bio);
-+=09unsigned int corrupt_bio_byte =3D fc->corrupt_bio_byte - 1;
-+
-+=09struct bvec_iter iter;
-+=09struct bio_vec bvec;
-+
-+=09if (!bio_has_data(bio))
-+=09=09return;
+disks, so they now report integrity errors, when mdadm probes (during=20
+assemble) for the raid superblock:
+
+device-mapper: crypt: dm-1: INTEGRITY AEAD ERROR, sector 11031354368
+
+There was no write activity on the raid before the reboot except for a=20
+running
+
+mdadm /dev/md0 --replace /dev/dm-0 --with /dev/dm-1
+
+which of course might have written a lot to all superblocks.
+
+Since I believe, the superblocks should be mostly in-sync (except for=20
+event-counters?): Is there a way to ignore or re-calculate the integrity=20
+checks?
+
+Also: What is the correct way to assure, that data has been synced to the=
 =20
- =09/*
--=09 * Overwrite the Nth byte of the data returned.
-+=09 * Overwrite the Nth byte of the bio's data, on whichever page
-+=09 * it falls.
- =09 */
--=09if (data && bio_bytes >=3D fc->corrupt_bio_byte) {
--=09=09data[fc->corrupt_bio_byte - 1] =3D fc->corrupt_bio_value;
--
--=09=09DMDEBUG("Corrupting data bio=3D%p by writing %u to byte %u "
--=09=09=09"(rw=3D%c bi_opf=3D%u bi_sector=3D%llu cur_bytes=3D%u)\n",
--=09=09=09bio, fc->corrupt_bio_value, fc->corrupt_bio_byte,
--=09=09=09(bio_data_dir(bio) =3D=3D WRITE) ? 'w' : 'r', bio->bi_opf,
--=09=09=09(unsigned long long)bio->bi_iter.bi_sector, bio_bytes);
-+=09bio_for_each_segment(bvec, bio, iter) {
-+=09=09if (bio_iter_len(bio, iter) > corrupt_bio_byte) {
-+=09=09=09char *segment =3D (page_address(bio_iter_page(bio, iter))
-+=09=09=09=09=09 + bio_iter_offset(bio, iter));
-+=09=09=09segment[corrupt_bio_byte] =3D fc->corrupt_bio_value;
-+=09=09=09DMDEBUG("Corrupting data bio=3D%p by writing %u to byte %u "
-+=09=09=09=09"(rw=3D%c bi_opf=3D%u bi_sector=3D%llu size=3D%u)\n",
-+=09=09=09=09bio, fc->corrupt_bio_value, fc->corrupt_bio_byte,
-+=09=09=09=09(bio_data_dir(bio) =3D=3D WRITE) ? 'w' : 'r', bio->bi_opf,
-+=09=09=09=09(unsigned long long)bio->bi_iter.bi_sector, bio->bi_iter.bi_si=
-ze);
-+=09=09=09break;
-+=09=09}
-+=09=09corrupt_bio_byte -=3D bio_iter_len(bio, iter);
- =09}
- }
+disk(s) before switching off power? (If that matters, there is a=20
+raid-controller underneath: "06:00.0 RAID bus controller: Hewlett-Packard=
 =20
---=20
-2.20.1
+Company Smart Array G6 controllers (rev 01)" - but it
+does not actually handle the raid, it only feeds the disks through to the=
+=20
+os) I can execute any command after closing the luks-integrity device, my=
+=20
+question aims at: what should I execute?
+
+regards,
+Erich
+
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE3p92iMrPBP64GmxZCu7JB1Xae1oFAl3XpUQACgkQCu7JB1Xa
+e1ry/hAAsWBT+D4UgVEbLNQj8s2cpFP8z4iTfT2vTG9UeEilxjpxrU5tPcRGKANv
+qewyTwC5JrH6Mst3AE6P+ToSUWisMOcUXSg663dh4q8lmJjL/IdBrTU6cMqrFJV/
+QXx3crf3j6soZ9AXSQgGRJm0wIV24WKg5vgTTDug56TR0ifUK+KJrWsqtforhtYu
+hynMYlMHOcYUX4aPRHL6M56K9dSt92/9i5oRcm+jmKKSnTceJHduSD4RPMs93Lb9
+JYIef1Qg+0wZqPZr1JD5AR+IU4J4dvysiqP9H3XYNIZaGYo2dGI6q6+6ksuGDxDu
+sCeMFNlOdftptC8HlVUm29sERNEXqN+cWZ5X9OdEPKPuY+fQtF4vugy9rRcw+Q41
+FHLGs5Aip/jGbXxh0vtOflcpZF4O4j4mu5r0KWEh1YgMIOb+JeWueGamSCdvb0yP
+p/ZwfCM0a3sncOw5YRIIS6YXshCl57xzgRv326Z199Y9uROAd0pGvW2B91pKS2QM
+W++AaEozRAT5X/5PSSJpw9bx2iprS6YwkygCeFuIswcrMfvbaiwBdXeIVvPZRJjO
+lTVMnxWIqt3zkDWaZdwJzQCFycLtlGGXlei4Y3TCBfwRRGBWj6iLRY6t7SlKX9ST
+7KHoha1dp2EheKJV6eZXo0mxrF7bt6gcPeVpPZIKKGJG5XkgHMA=3D
+=3DVedA
+-----END PGP SIGNATURE-----
 
 
 --
