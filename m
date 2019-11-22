@@ -1,71 +1,77 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 68C4F1041A5
-	for <lists+dm-devel@lfdr.de>; Wed, 20 Nov 2019 18:02:09 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id B659F106838
+	for <lists+dm-devel@lfdr.de>; Fri, 22 Nov 2019 09:45:11 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1574269328;
+	s=mimecast20190719; t=1574412310;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=hON727+C6ZW5+CMlylkKFg4RU+gwrahUzOE8U5N8z58=;
-	b=MEE4hN90RPRsNE+K9E0XWq0fIQaZheyWDXq6ff2FzomFtRQ6u4lrJlo+ASEp5BQqyPrdwQ
-	TWgD0jJQt3RMKYkI/AtKCAi9Sxl5NARWEVcs1CTD1BIrtFwj3MjyxJjxJY+HR+sYaWQiKU
-	9j08XcwzwCGS4PRJAcDFvVztqtzapEs=
+	bh=Z1Pp8yQxOcqLRQzMkQw1cFfrSwwjCzW0VIaXLxOq4nU=;
+	b=MsKFl5qFJiDFMifbl46AaO9YweBzlDOks2xOdOlLtVAYhy+6FK5Jv8XCLivPE3R2EpfFFU
+	hRJp8KjPd8CCY2a2+Q88xQ17NsvQODbiDXWsR4JlM5AXHwrUr2ncfA1EAnn+zGSvSddqaK
+	vPQ3Va/iS/a819yVbt1qSgEknbThzpQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-308-c2GBqwWJPTaPjFx1kmPdfw-1; Wed, 20 Nov 2019 12:02:06 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-3-qr-rjTRbOxWNkrm1KlY5dg-1; Fri, 22 Nov 2019 03:45:07 -0500
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6AD361005509;
-	Wed, 20 Nov 2019 17:01:59 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 84C0C5ED4B;
-	Wed, 20 Nov 2019 17:01:52 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AD257184CAA8;
+	Fri, 22 Nov 2019 08:44:59 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EB13161F36;
+	Fri, 22 Nov 2019 08:44:58 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B61D84BB65;
-	Wed, 20 Nov 2019 17:01:42 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D918918089C8;
+	Fri, 22 Nov 2019 08:44:43 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xAKH1URp010570 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 20 Nov 2019 12:01:30 -0500
+	id xAM3EOn4032011 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 21 Nov 2019 22:14:24 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 27E895ED43; Wed, 20 Nov 2019 17:01:30 +0000 (UTC)
+	id A3EB21069F58; Fri, 22 Nov 2019 03:14:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 900545E7A0;
-	Wed, 20 Nov 2019 17:01:27 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id xAKH1QUx027087; 
-	Wed, 20 Nov 2019 11:01:26 -0600
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id xAKH1NW1027084;
-	Wed, 20 Nov 2019 11:01:23 -0600
-Date: Wed, 20 Nov 2019 11:01:23 -0600
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <Martin.Wilck@suse.com>
-Message-ID: <20191120170122.GQ30153@octiron.msp.redhat.com>
-References: <20191115143403.31692-1-martin.wilck@suse.com>
-	<20191115143403.31692-6-martin.wilck@suse.com>
-	<20191119222954.GM30153@octiron.msp.redhat.com>
-	<9dbb15bcf8c527c950876505aaf52e0ea606cb5e.camel@suse.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9FFAA1069F57
+	for <dm-devel@redhat.com>; Fri, 22 Nov 2019 03:14:22 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9CAEB900ABA
+	for <dm-devel@redhat.com>; Fri, 22 Nov 2019 03:14:22 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R151e4; CH=green; DM=||false|;
+	FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e07417;
+	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=1; SR=0;
+	TI=SMTPD_---0TilFRs7_1574392455;
+Received: from out30-54.freemail.mail.aliyun.com
+	(out30-54.freemail.mail.aliyun.com [115.124.30.54]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-168-VDDWbBmiP3y6VIp0T4nZ9Q-1;
+	Thu, 21 Nov 2019 22:14:20 -0500
+Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
+	fp:SMTPD_---0TilFRs7_1574392455) by smtp.aliyun-inc.com(127.0.0.1);
+	Fri, 22 Nov 2019 11:14:16 +0800
+To: dm-devel@redhat.com
+From: JeffleXu <jefflexu@linux.alibaba.com>
+Message-ID: <35cf1ecf-5cd8-604b-ec4e-18c9fd4a4195@linux.alibaba.com>
+Date: Fri, 22 Nov 2019 11:14:15 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:60.0)
+	Gecko/20100101 Thunderbird/60.9.1
 MIME-Version: 1.0
-In-Reply-To: <9dbb15bcf8c527c950876505aaf52e0ea606cb5e.camel@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-MC-Unique: VDDWbBmiP3y6VIp0T4nZ9Q-1
+X-MC-Unique: qr-rjTRbOxWNkrm1KlY5dg-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id xAM3EOn4032011
 X-loop: dm-devel@redhat.com
-Cc: "xose.vazquez@gmail.com" <xose.vazquez@gmail.com>,
-	"wu.chongyun@h3c.com" <wu.chongyun@h3c.com>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"Bart.VanAssche@sandisk.com" <Bart.VanAssche@sandisk.com>
-Subject: Re: [dm-devel] [PATCH 5/5] libmultipath: fix ALUA autodetection
- when paths are down
+X-Mailman-Approved-At: Fri, 22 Nov 2019 03:43:26 -0500
+Subject: [dm-devel] dm-thin: Several Questions on dm-thin performance.
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,88 +85,39 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-MC-Unique: c2GBqwWJPTaPjFx1kmPdfw-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-On Wed, Nov 20, 2019 at 12:33:15PM +0000, Martin Wilck wrote:
-> On Tue, 2019-11-19 at 16:29 -0600, Benjamin Marzinski wrote:
-> > On Fri, Nov 15, 2019 at 02:41:54PM +0000, Martin Wilck wrote:
-> > > From: Martin Wilck <mwilck@suse.com>
-> > >=20
-> > > If a single path was offline when detect_alua() was called,
-> > > multipathd would assume ALUA was generally unsupported.
-> > >=20
-> > > Fix that by assuming that if at least one path has ALUA support and
-> > > no path explicitly does not have it, ALUA is supported.
-> > >=20
-> > > Signed-off-by: Martin Wilck <mwilck@suse.com>
-> > > ---
-> > >  libmultipath/discovery.c | 22 +++++++++++++++++++++-
-> > >  libmultipath/propsel.c   | 20 +++++++++++++++++---
-> > >  2 files changed, 38 insertions(+), 4 deletions(-)
-> > >=20
-> > > diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
-> > > index 4288c9fd..5f41dcb7 100644
-> > > --- a/libmultipath/discovery.c
-> > > +++ b/libmultipath/discovery.c
-> > > @@ -871,6 +871,10 @@ get_serial (char * str, int maxlen, int fd)
-> > >  =09return 1;
-> > >  }
-> > > =20
-> > > /*
-> > > + * Side effect: sets pp->tpgs if it could be determined.
-> > > + * If ALUA calls fail because paths are unreachable, pp->tpgs
-> > > remains unchanged.
-> > > + */
-> > >  static void
-> > >  detect_alua(struct path * pp)
-> > >  {
-> > > @@ -881,12 +885,28 @@ detect_alua(struct path * pp)
-> > >  =09if (sysfs_get_timeout(pp, &timeout) <=3D 0)
-> > >  =09=09timeout =3D DEF_TIMEOUT;
-> > > =20
-> > > -=09if ((tpgs =3D get_target_port_group_support(pp, timeout)) <=3D 0)=
- {
-> > > +=09tpgs =3D get_target_port_group_support(pp, timeout);
-> > > +=09if (tpgs =3D=3D -RTPG_INQUIRY_FAILED)
-> > > +=09=09return;
-> > > +=09else if (tpgs <=3D 0) {
-> > >  =09=09pp->tpgs =3D TPGS_NONE;
-> > >  =09=09return;
-> > >  =09}
-> > > +
-> > > +=09if (pp->fd =3D=3D -1 || pp->offline)
-> > > +=09=09return;
-> > > +
-> > =20
-> > This is just a nitpick, but won't tpgs already be
-> > -RTPG_INQUIRY_FAILED
-> > if pp->fd =3D=3D -1. This check makes more sense before
-> > get_target_port_group_support().
->=20
-> Not really, because get_target_port_group_support() normally obtains
-> INQUIRY data from sysfs, which can return something reasonable even
-> if fd =3D=3D -1 (e.g. if the path is temporarily offline). In particular,
-> it could indicate that the device has no TPGS support. That's why I
-> call it first.
-
-Oops. My bad.
-
-Reviewed-by: Benjamin Marzinsk <bmarzins@redhat.com>
-
--Ben
-
->=20
-> Regards,
-> Martin
->=20
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+SGkgZ3V5cywKCkkgaGF2ZSBzZXZlcmFsIHF1ZXN0aW9ucyBvbiBkbS10aGluIHdoZW4gSSdtIHRl
+c3RpbmcgYW5kIGV2YWx1YXRpbmcgSU8gCnBlcmZvcm1hbmNlIG9mIGRtLXRoaW4uIEkgd291bGQg
+YmUgZ3JhdGVmdWwgaWYgc29tZW9uZSBjb3VsZCBzcGVuZCBhIApsaXR0bGUgdGltZSBvbiBpdC4K
+CgpUaGUgZmlyc3QgcXVlc3Rpb24gaXMgd2hhdCdzIHRoZSBwdXJwb3NlIG9mIGRhdGEgY2VsbD8g
+SW4gCnRoaW5fYmlvX21hcCgpLCBub3JtYWwgYmlvIHdpbGwgYmUgcGFja2VkIGFzIGEgdmlydHVh
+bCBjZWxsIGFuZCBkYXRhIApjZWxsLiBJIGNhbiB1bmRlcnN0YW5kIHRoYXQgdmlydHVhbCBjZWxs
+IGlzIHVzZWQgdG8gcHJldmVudCBkaXNjYXJkIGJpbyAKYW5kIG5vbi1kaXNjYXJkIGJpbyB0YXJn
+ZXRpbmcgdGhlIHNhbWUgYmxvY2sgZnJvbSBiZWluZyBwcm9jZXNzZWQgYXQgdGhlIApzYW1lIHRp
+bWUuIEkgZmluZCBpdCB3YXMgYWRkZWQgaW4gY29tbWl0IMKgwqDCoCAKZTgwODgwNzNjOTYxMGFm
+MDE3ZmQ0N2ZkZGQxMDRhMmMzYWZiMzJlOCAoZG0gdGhpbjogZml4IHJhY2UgYmV0d2VlbiAKc2lt
+dWx0YW5lb3VzIGlvIGFuZCBkaXNjYXJkcyB0byBzYW1lIGJsb2NrKSwgYnV0IEknbSBzdGlsbCBj
+b25mdXNlZCAKYWJvdXQgdGhlIHVzZSBvZiBkYXRhIGNlbGwuCgoKVGhlIHNlY29uZCBxdWVzdGlv
+biBpcyB0aGUgaW1wYWN0IG9mIHZpcnR1YWwgY2VsbCBhbmQgZGF0YSBjZWxsIG9uIElPIApwZXJm
+b3JtYW5jZS4gSWYgJGRhdGFfYmxvY2tfc2l6ZSBpcyBsYXJnZSBmb3IgZXhhbXBsZSAxRywgaW4g
+bXVsdGl0aHJlYWQgCmZpbyB0ZXN0LCBtb3N0IGJpbyB3aWxsIGJlIGJ1ZmZlcmVkIGluIGNlbGwt
+PmJpb3MgbGlzdCBhbmQgdGhlbiBiZSAKcHJvY2Vzc2VkIGJ5IHdvcmtlciB0aHJlYWQgYXN5bmNo
+cm9ub3VzbHksIGV2ZW4gd2hlbiB0aGVyZSdzIG5vIGRpc2NhcmQgCmJpby4gVGh1cyB0aGUgb3Jp
+Z2luYWwgcGFyYWxsZWwgSU8gaXMgcHJvY2Vzc2VkIGJ5IHdvcmtlciB0aHJlYWQgCnNlcmlhbGx5
+IG5vdy4gQXMgdGhlIG51bWJlciBvZiBmaW8gdGVzdCB0aHJlYWRzIGluY3JlYXNlLCB0aGUgc2lu
+Z2xlIAp3b3JrZXIgdGhyZWFkIGNhbiBlYXNpbHkgZ2V0IENQVSAxMDAlLCBhbmQgdGh1cyBiZWNv
+bWUgdGhlIGJvdHRsZW5lY2sgb2YgCnRoZSBwZXJmb3JtYW5jZSBzaW5jZSBkbS10aGluIHdvcmtx
+dWV1ZSBpcyBvcmRlcmVkIHVuYm91bmQuCgpVc2luZyBhbiBudm1lIFNTRCBhbmQgZmlvIChkaXJl
+Y3Q9MSwgaW9lbmdpbmU9bGliYWlvLCBpb2RlcHRoPTEyOCwgCm51bWpvYnM9NCwgcnc9cmVhZCwg
+YnM9NGspLCB0aGUgYmFuZHdpZHRoIG9uIGJhcmUgbnZtZSBpcyAxNTg5TWlCL3MuIFRoZSAKYmFu
+ZHdpZHRoIG9uIHRoaW4gZGV2aWNlIGlzIG9ubHkgMTI3NE1pQi9zLCB3aGlsZSB0aGUgZm91ciBm
+aW8gdGhyZWFkcyAKcnVuIGF0IDIwMCUgQ1BVIGFuZCB0aGUgc2luZ2xlIHdvcmtlciB0aHJlYWQg
+aXMgYWx3YXlzIHJ1bmluZyBhdCAxMDAlIApDUFUuIHBlcmYgb2Ygd29ya2VyIHRocmVhZCBzaG93
+ZXMgdGhhdCBwcm9jZXNzX2JpbygpIGNvbnN1bWVzIDg2JSBvZiB0aGUgCnRpbWUuCgoKUmVnYXJk
+cwoKSmVmZmxlIFh1CgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5j
+b20KaHR0cHM6Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
 
