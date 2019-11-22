@@ -1,76 +1,77 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id B659F106838
-	for <lists+dm-devel@lfdr.de>; Fri, 22 Nov 2019 09:45:11 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id C6544106837
+	for <lists+dm-devel@lfdr.de>; Fri, 22 Nov 2019 09:45:10 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1574412310;
+	s=mimecast20190719; t=1574412309;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Z1Pp8yQxOcqLRQzMkQw1cFfrSwwjCzW0VIaXLxOq4nU=;
-	b=MsKFl5qFJiDFMifbl46AaO9YweBzlDOks2xOdOlLtVAYhy+6FK5Jv8XCLivPE3R2EpfFFU
-	hRJp8KjPd8CCY2a2+Q88xQ17NsvQODbiDXWsR4JlM5AXHwrUr2ncfA1EAnn+zGSvSddqaK
-	vPQ3Va/iS/a819yVbt1qSgEknbThzpQ=
+	bh=rDvZBgUe3FlC0TqEbQU38jo0TUYRSr+dLfWbqdW9iPw=;
+	b=EKw+QLPM84VRw0ScaezQgkQTlr7wUKsiWABErt0MV7HxhgRCFG86BIP1+2aNVoBy0sECAy
+	/sWycHFr9X1zd5OJhmJc9/uBLJOIBljC2MHBNq/L67PjLTN6G6e4kiOXzv7MYCSGuwZoXO
+	v1S6JVn94PX6QTt/pFyHQ35kcItWuWY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-3-qr-rjTRbOxWNkrm1KlY5dg-1; Fri, 22 Nov 2019 03:45:07 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-409-JOG_oS49Oy6qcLROQi9dNQ-1; Fri, 22 Nov 2019 03:45:07 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AD257184CAA8;
-	Fri, 22 Nov 2019 08:44:59 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EB13161F36;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 05115100551A;
+	Fri, 22 Nov 2019 08:45:00 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CC6FF1036C91;
 	Fri, 22 Nov 2019 08:44:58 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D918918089C8;
-	Fri, 22 Nov 2019 08:44:43 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3E5714BB65;
+	Fri, 22 Nov 2019 08:44:45 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xAM3EOn4032011 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 21 Nov 2019 22:14:24 -0500
+	id xAM3hLgG032616 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 21 Nov 2019 22:43:22 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id A3EB21069F58; Fri, 22 Nov 2019 03:14:24 +0000 (UTC)
+	id D284F1055236; Fri, 22 Nov 2019 03:43:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9FFAA1069F57
-	for <dm-devel@redhat.com>; Fri, 22 Nov 2019 03:14:22 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CE68D1055070
+	for <dm-devel@redhat.com>; Fri, 22 Nov 2019 03:43:19 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9CAEB900ABA
-	for <dm-devel@redhat.com>; Fri, 22 Nov 2019 03:14:22 +0000 (UTC)
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R151e4; CH=green; DM=||false|;
-	FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e07417;
-	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=1; SR=0;
-	TI=SMTPD_---0TilFRs7_1574392455;
-Received: from out30-54.freemail.mail.aliyun.com
-	(out30-54.freemail.mail.aliyun.com [115.124.30.54]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-168-VDDWbBmiP3y6VIp0T4nZ9Q-1;
-	Thu, 21 Nov 2019 22:14:20 -0500
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 67E4F1011A64
+	for <dm-devel@redhat.com>; Fri, 22 Nov 2019 03:43:19 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R201e4; CH=green; DM=||false|;
+	FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04395;
+	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=3; SR=0;
+	TI=SMTPD_---0Tilmjj3_1574394180;
+Received: from out4436.biz.mail.alibaba.com (out4436.biz.mail.alibaba.com
+	[47.88.44.36]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-103-Kp9xN5ivOZi2lhR_w8iFug-1; Thu, 21 Nov 2019 22:43:15 -0500
 Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0TilFRs7_1574392455) by smtp.aliyun-inc.com(127.0.0.1);
-	Fri, 22 Nov 2019 11:14:16 +0800
-To: dm-devel@redhat.com
+	fp:SMTPD_---0Tilmjj3_1574394180) by smtp.aliyun-inc.com(127.0.0.1);
+	Fri, 22 Nov 2019 11:43:01 +0800
+To: agk@redhat.com, Mike Snitzer <snitzer@redhat.com>
 From: JeffleXu <jefflexu@linux.alibaba.com>
-Message-ID: <35cf1ecf-5cd8-604b-ec4e-18c9fd4a4195@linux.alibaba.com>
-Date: Fri, 22 Nov 2019 11:14:15 +0800
+Message-ID: <95b81e25-49ed-71a9-5dcf-0ff3618f2ea6@linux.alibaba.com>
+Date: Fri, 22 Nov 2019 11:43:00 +0800
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:60.0)
 	Gecko/20100101 Thunderbird/60.9.1
 MIME-Version: 1.0
-X-MC-Unique: VDDWbBmiP3y6VIp0T4nZ9Q-1
-X-MC-Unique: qr-rjTRbOxWNkrm1KlY5dg-1
+X-MC-Unique: Kp9xN5ivOZi2lhR_w8iFug-1
+X-MC-Unique: JOG_oS49Oy6qcLROQi9dNQ-1
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id xAM3EOn4032011
+	lists01.pubmisc.prod.ext.phx2.redhat.com id xAM3hLgG032616
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 22 Nov 2019 03:43:26 -0500
+Cc: dm-devel@redhat.com
 Subject: [dm-devel] dm-thin: Several Questions on dm-thin performance.
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -85,7 +86,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
@@ -117,7 +118,9 @@ YnM9NGspLCB0aGUgYmFuZHdpZHRoIG9uIGJhcmUgbnZtZSBpcyAxNTg5TWlCL3MuIFRoZSAKYmFu
 ZHdpZHRoIG9uIHRoaW4gZGV2aWNlIGlzIG9ubHkgMTI3NE1pQi9zLCB3aGlsZSB0aGUgZm91ciBm
 aW8gdGhyZWFkcyAKcnVuIGF0IDIwMCUgQ1BVIGFuZCB0aGUgc2luZ2xlIHdvcmtlciB0aHJlYWQg
 aXMgYWx3YXlzIHJ1bmluZyBhdCAxMDAlIApDUFUuIHBlcmYgb2Ygd29ya2VyIHRocmVhZCBzaG93
-ZXMgdGhhdCBwcm9jZXNzX2JpbygpIGNvbnN1bWVzIDg2JSBvZiB0aGUgCnRpbWUuCgoKUmVnYXJk
-cwoKSmVmZmxlIFh1CgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5j
-b20KaHR0cHM6Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
+ZXMgdGhhdCBwcm9jZXNzX2JpbygpIGNvbnN1bWVzIDg2JSBvZiB0aGUgCnRpbWUuCgoKQmVzaWRl
+cyBpdCBzZWVtcyB0aGF0IEkgY2FuJ3Qgc2VuZCBlbWFpbCB0byBkbS1kZXZlbEByZWRoYXQuY29t
+IG1haWxpbmcgCmxpc3QuCgoKUmVnYXJkcwoKSmVmZmxlIFh1CgoKLS0KZG0tZGV2ZWwgbWFpbGlu
+ZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFu
+L2xpc3RpbmZvL2RtLWRldmVs
 
