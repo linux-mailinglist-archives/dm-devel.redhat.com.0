@@ -1,83 +1,76 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 058791094BE
-	for <lists+dm-devel@lfdr.de>; Mon, 25 Nov 2019 21:43:22 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 508141094ED
+	for <lists+dm-devel@lfdr.de>; Mon, 25 Nov 2019 22:07:55 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1574714601;
+	s=mimecast20190719; t=1574716074;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=TS+fYXRNP1Bg7va70KcGkDHnriSaE1ymSrFAxgk3jUw=;
-	b=WUpFsEir4kqdUptF2LDVkliHrLevNz+NYv/mzjSoIdh29lHGjwZwXVyzVt7rd8IAm7Kak0
-	6QoLlfBz+NxZfk1fmFmnBTBieUunCMO3GmKTCUWKcqcveOh6ebvp7EeI0EebOWBEqXwWuR
-	xtIJMID8eDj+fGX9et8NOVdOU7Bphhg=
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=sEszJo1jgh6omksrcKZDuhWLirPFqo5ANL7hYzfhAMA=;
+	b=K6AQ8A9QWuq5cuJBk30otC//3pgYMzHpUPEBmuiUtXkH8bLsVmi/NVgIgeOMYLpU8fkmw5
+	XSNnC8IimZoWQSSgipil6jJQo5kHJ5QjLoHveXzFWLVQCNGpGuOqNAmiD/SgU7Gnrh4X61
+	U6iQqWha05vvnzU1UxZh3ExZktK4C7g=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-27-Wm4cqrBmOM2qcXfLaDT8BQ-1; Mon, 25 Nov 2019 15:43:17 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-171-9ZKVsXgvO_S_GQKeRGOORg-1; Mon, 25 Nov 2019 16:07:51 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 586288051E2;
-	Mon, 25 Nov 2019 20:43:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1B3471007BF0;
+	Mon, 25 Nov 2019 21:07:44 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DA57B5D9CA;
-	Mon, 25 Nov 2019 20:43:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B2271001B08;
+	Mon, 25 Nov 2019 21:07:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C627E4BB5C;
-	Mon, 25 Nov 2019 20:42:59 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5F7A87F20C;
+	Mon, 25 Nov 2019 21:07:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xAPKgmbU001838 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 25 Nov 2019 15:42:49 -0500
+	id xAPL7KcE003267 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 25 Nov 2019 16:07:20 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id CFCDF10ABCAB; Mon, 25 Nov 2019 20:42:48 +0000 (UTC)
+	id DC86B2026D69; Mon, 25 Nov 2019 21:07:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CA8B210ABC97
-	for <dm-devel@redhat.com>; Mon, 25 Nov 2019 20:42:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D830F2026D67
+	for <dm-devel@redhat.com>; Mon, 25 Nov 2019 21:07:18 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5DD611024D12
-	for <dm-devel@redhat.com>; Mon, 25 Nov 2019 20:42:46 +0000 (UTC)
-Received: from mail-io1-f48.google.com (mail-io1-f48.google.com
-	[209.85.166.48]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-413-TKVwyEjhPGiQ75F7LyQoHA-1; Mon, 25 Nov 2019 15:42:43 -0500
-Received: by mail-io1-f48.google.com with SMTP id k13so17812298ioa.9
-	for <dm-devel@redhat.com>; Mon, 25 Nov 2019 12:42:42 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to;
-	bh=GYt1Ms2Fpapcb2SfQ350QLztV93YMChNbsnl6+AAf18=;
-	b=JdkGOh6ma9mccWGetYTb5bBNwQaHPynfYt5UzzvxGjXRdmlJ9KkGKN3xGrJXtIWAH3
-	i2cUpYoGX17ZVnaIQAdcqWWn8vBuslSNENRVY3bfUH8lcb6ypW60llL+CzDlAvANiyVr
-	r0ME6Tp68N/iOCH6Zu8OchkDkbpV+rL+TqnIU62RkhLglSv9ojHcpXhmre/iX5wxJEiz
-	tmSS+ryy9zE5SsYV56A2d7zWYvxEf8Ols7G/CEUgjy+DNwj4zokiquLhpPjMxCqjs+CF
-	cLgM9PZE0GloSryRvA8PtRNRC2QiEtTZUU/jqPiOANqUOfftUNj4an2Fgy/GMYPMrC+R
-	rU8w==
-X-Gm-Message-State: APjAAAWyxPaDkvyZwXFthLldBPHCgLTCOojwUm0YdFIyk/jleol1ICky
-	/QG34BxKpN8JzgfMu8DCQL9CfnfB/2w4Nd5LNjOEUp/PVzY=
-X-Google-Smtp-Source: APXvYqxzyUX0BsaaVcfGkzKxr+NqXAS8nY5UwAVryAXsCMvLXRL64qbIBrg1+11uMjDIhWqILCyhJL+kz7dF29NqSZU=
-X-Received: by 2002:a5d:9351:: with SMTP id i17mr26857501ioo.297.1574714561832;
-	Mon, 25 Nov 2019 12:42:41 -0800 (PST)
-MIME-Version: 1.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1A1528F71AB
+	for <dm-devel@redhat.com>; Mon, 25 Nov 2019 21:07:18 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-178-xBkSVG-dOauiic-5xKbtmQ-1;
+	Mon, 25 Nov 2019 16:07:12 -0500
+Received: from relay2.suse.de (unknown [195.135.220.254])
+	by mx1.suse.de (Postfix) with ESMTP id 2CD75B008;
+	Mon, 25 Nov 2019 21:07:09 +0000 (UTC)
+Message-ID: <a9b5e49f6c6ef0fedaa403ce02cf0d1b39912cff.camel@suse.de>
+From: Martin Wilck <mwilck@suse.de>
+To: Drew Hastings <dhastings@crucialwebhost.com>, dm-devel@redhat.com
+Date: Mon, 25 Nov 2019 22:07:48 +0100
+In-Reply-To: <CAN-y+E+65bgiUSL6VMvRJLd3AiqD7xApbm1nA69ue_M6tTsGrA@mail.gmail.com>
 References: <CAN-y+EJOt=MRDEXCx9_U4zmDs+i9yXj364E4+z=xC=u8+Ao1PQ@mail.gmail.com>
 	<329fd408ea605f1f14c0eebb46209fd3c46c3af8.camel@suse.de>
-In-Reply-To: <329fd408ea605f1f14c0eebb46209fd3c46c3af8.camel@suse.de>
-From: Drew Hastings <dhastings@crucialwebhost.com>
-Date: Mon, 25 Nov 2019 13:42:30 -0700
-Message-ID: <CAN-y+E+65bgiUSL6VMvRJLd3AiqD7xApbm1nA69ue_M6tTsGrA@mail.gmail.com>
-To: Martin Wilck <mwilck@suse.de>, dm-devel@redhat.com
-X-MC-Unique: TKVwyEjhPGiQ75F7LyQoHA-1
-X-MC-Unique: Wm4cqrBmOM2qcXfLaDT8BQ-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+	<CAN-y+E+65bgiUSL6VMvRJLd3AiqD7xApbm1nA69ue_M6tTsGrA@mail.gmail.com>
+User-Agent: Evolution 3.34.1
+MIME-Version: 1.0
+X-MC-Unique: xBkSVG-dOauiic-5xKbtmQ-1
+X-MC-Unique: 9ZKVsXgvO_S_GQKeRGOORg-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id xAPL7KcE003267
 X-loop: dm-devel@redhat.com
+Cc: Mike Snitzer <snitzer@redhat.com>
 Subject: Re: [dm-devel] multipath - unable to use multiple active paths at
  once, and deprecated example in docs
 X-BeenThere: dm-devel@redhat.com
@@ -93,84 +86,58 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-Mimecast-Spam-Score: 0
-Content-Type: multipart/mixed; boundary="===============1772977514116751290=="
-
---===============1772977514116751290==
-Content-Type: multipart/alternative; boundary="00000000000014c4cb059831ce1b"
-
---00000000000014c4cb059831ce1b
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Nov 25, 2019 at 12:48 PM Martin Wilck <mwilck@suse.de> wrote:
-
->
-> I think you are seeing this FIXME:
->
-> https://elixir.bootlin.com/linux/v4.19.79/source/drivers/md/dm-mpath.c#L6=
-12
->
-> For your testing, perhaps you just remove that if(!pgpath) condition.
->
-> Regards,
-> Martin
->
-
-That's correct, thanks. It works as expected after removing that condition.
-
-With some limited testing using fio, I don't see any obvious negative
-impacts of allowing choose_pgpath to run each bio mapping. I also don't see
-any significant increase in CPU usage or IO latency during benchmarking.
-
-The FIXME comment acknowledges that this sort of defeats the balancing
-function of multipath, so I'm assuming this was removed for a good reason.
-Does anyone know why this was done? In my particular use case, I benefit
-from balancing the paths for throughput, so it's useful to me.
-
-Thanks!
-- Drew
-
---00000000000014c4cb059831ce1b
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Nov 25, 2019=
- at 12:48 PM Martin Wilck &lt;<a href=3D"mailto:mwilck@suse.de">mwilck@suse=
-.de</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
-in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
-x"><br>
-I think you are seeing this FIXME:<br>
-<br>
-<a href=3D"https://elixir.bootlin.com/linux/v4.19.79/source/drivers/md/dm-m=
-path.c#L612" rel=3D"noreferrer" target=3D"_blank">https://elixir.bootlin.co=
-m/linux/v4.19.79/source/drivers/md/dm-mpath.c#L612</a><br>
-<br>
-For your testing, perhaps you just remove that if(!pgpath) condition.<br>
-<br>
-Regards,<br>
-Martin<br></blockquote><br>That&#39;s correct, thanks. It works as expected=
- after removing that condition.<br><br>With some limited testing using fio,=
- I don&#39;t see any obvious negative impacts of allowing=C2=A0choose_pgpat=
-h to run each bio mapping. I also don&#39;t see any significant increase in=
- CPU usage or IO latency during benchmarking.<br><br>The FIXME comment ackn=
-owledges that this sort of defeats the balancing function of multipath, so =
-I&#39;m assuming this was removed for a good reason. Does anyone know why t=
-his was done? In my particular use case, I benefit from balancing the paths=
- for throughput, so it&#39;s useful to me.<br><br>Thanks!<br>- Drew</div>
-
---00000000000014c4cb059831ce1b--
-
---===============1772977514116751290==
 Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+On Mon, 2019-11-25 at 13:42 -0700, Drew Hastings wrote:
+> On Mon, Nov 25, 2019 at 12:48 PM Martin Wilck <mwilck@suse.de> wrote:
+> > I think you are seeing this FIXME:
+> > 
+> > https://elixir.bootlin.com/linux/v4.19.79/source/drivers/md/dm-mpath.c#L612
+> > 
+> > For your testing, perhaps you just remove that if(!pgpath)
+> > condition.
+> > 
+> > Regards,
+> > Martin
+> 
+> That's correct, thanks. It works as expected after removing that
+> condition.
+> 
+> With some limited testing using fio, I don't see any obvious negative
+> impacts of allowing choose_pgpath to run each bio mapping. I also
+> don't see any significant increase in CPU usage or IO latency during
+> benchmarking.
+> 
+> The FIXME comment acknowledges that this sort of defeats the
+> balancing function of multipath, so I'm assuming this was removed for
+> a good reason. Does anyone know why this was done? In my particular
+> use case, I benefit from balancing the paths for throughput, so it's
+> useful to me.
+
+This originates from the former use of dm-multipath for NVMe devices,
+the now obsolete "nvme" queue mode, and from the attempt to separate
+dm-multipath from SCSI and its device handler model. See 8d47e65948dd
+("dm mpath: remove unnecessary NVMe branching in favor of scsi_dh
+checks").
+
+It seems indeed strange to skip choosing the path in the absence of the
+SCSI device handler, which is (with a grain of salt) responsible for
+switching *path groups*, not paths inside a group. It's a corner case,
+I don't think many real-world multipath setups deploy bio-based dm-
+mpath without a device handler.
+
+So, I suggest you submit a patch and discuss this with Mike :-)
+
+Regards,
+Martin
+
+
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
---===============1772977514116751290==--
 
