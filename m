@@ -1,82 +1,77 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 28A5410F2D9
-	for <lists+dm-devel@lfdr.de>; Mon,  2 Dec 2019 23:27:03 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id E434310FC8E
+	for <lists+dm-devel@lfdr.de>; Tue,  3 Dec 2019 12:36:42 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1575325621;
+	s=mimecast20190719; t=1575373001;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=SXQZLw7XVYikRRM8k5f/ZHJVkoyAAm3MubbC4rqRX4g=;
-	b=ALa5lDqmRppC1wae6492WDa6zoc/uFbikemqM/YOy68zcvi2lERLlGm27FcLUPcfKhSe80
-	i7Hdd6iglCX0dd5PXPXvOtSKuGmiqLJQtX+XalH5PQYVzzLdAoX63rrwsuLLRkQnR2ToE8
-	QFu9+E7pdJaGqsz3GfWcMK1j8CMmpuU=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=GCZQgrBTh0MyX2ShmMmLmf3qFS+qG9CvGPOOrxQSZMI=;
+	b=HtqLemSK1esWlzapHrF06xjqBbtfnw7XftzaGNYhG3kWcEu1EyvduYPJ3aVhQgbS9jlTM3
+	0mBrN1ax4Bu1eb0s36OUWFFCiCkaIOqp+52C76uDaaQhBLDaB5NmF0rfSoXuSXRxaG5FtO
+	vajHc8u/v55539CRqZoqyVFXgpuh4Kw=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-325-iY4s79ohOMi_azyJ0tBYEA-1; Mon, 02 Dec 2019 17:27:00 -0500
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-32-LfYm64mPMjSSAlj8sVUQDg-1; Tue, 03 Dec 2019 06:36:39 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B50B3DB2D;
-	Mon,  2 Dec 2019 22:26:52 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 134A267648;
-	Mon,  2 Dec 2019 22:26:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 25F9C107ACE8;
+	Tue,  3 Dec 2019 11:36:33 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A383819C69;
+	Tue,  3 Dec 2019 11:36:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9384518089CD;
-	Mon,  2 Dec 2019 22:26:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 40C985BBFB;
+	Tue,  3 Dec 2019 11:36:16 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xB2MQUdY021321 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 2 Dec 2019 17:26:31 -0500
+	id xB3BZvK0009659 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 3 Dec 2019 06:35:57 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B94FEED158; Mon,  2 Dec 2019 22:26:30 +0000 (UTC)
+	id 364F320316EB; Tue,  3 Dec 2019 11:35:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B53C5ED153
-	for <dm-devel@redhat.com>; Mon,  2 Dec 2019 22:26:28 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 31D0320316E0
+	for <dm-devel@redhat.com>; Tue,  3 Dec 2019 11:35:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1673C80207E
-	for <dm-devel@redhat.com>; Mon,  2 Dec 2019 22:26:28 +0000 (UTC)
-Received: from mx.ewheeler.net (mx.ewheeler.net [173.205.220.69]) by
-	relay.mimecast.com with ESMTP id us-mta-24-31UKCQGrM9SqtDhIN5otFw-1;
-	Mon, 02 Dec 2019 17:26:24 -0500
-Received: from localhost (localhost [127.0.0.1])
-	by mx.ewheeler.net (Postfix) with ESMTP id 1E6A5A0692;
-	Mon,  2 Dec 2019 22:26:23 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at ewheeler.net
-Received: from mx.ewheeler.net ([127.0.0.1])
-	by localhost (mx.ewheeler.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id YnXiFCX4wPNP; Mon,  2 Dec 2019 22:26:01 +0000 (UTC)
-Received: from mx.ewheeler.net (mx.ewheeler.net [173.205.220.69])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mx.ewheeler.net (Postfix) with ESMTPSA id AB13DA0440;
-	Mon,  2 Dec 2019 22:26:01 +0000 (UTC)
-Date: Mon, 2 Dec 2019 22:26:00 +0000 (UTC)
-From: Eric Wheeler <dm-devel@lists.ewheeler.net>
-X-X-Sender: lists@mx.ewheeler.net
-To: Joe Thornber <thornber@redhat.com>, JeffleXu <jefflexu@linux.alibaba.com>
-In-Reply-To: <6b12137e-411e-0368-518e-41ae54e138e0@linux.alibaba.com>
-Message-ID: <alpine.LRH.2.11.1912022002210.11561@mx.ewheeler.net>
-References: <35cf1ecf-5cd8-604b-ec4e-18c9fd4a4195@linux.alibaba.com>
-	<20191122185530.pcrgmb655dkdbdcq@reti>
-	<6b12137e-411e-0368-518e-41ae54e138e0@linux.alibaba.com>
-User-Agent: Alpine 2.11 (LRH 23 2013-08-11)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 62FF085A30D
+	for <dm-devel@redhat.com>; Tue,  3 Dec 2019 11:35:53 +0000 (UTC)
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-256-C7Tyl06bPj63-3pNoSSwNg-1; Tue, 03 Dec 2019 06:35:49 -0500
+Received: from DGGEMS404-HUB.china.huawei.com (unknown [172.30.72.59])
+	by Forcepoint Email with ESMTP id 159845D8FAC6798ECC27;
+	Tue,  3 Dec 2019 19:35:44 +0800 (CST)
+Received: from huawei.com (10.90.53.225) by DGGEMS404-HUB.china.huawei.com
+	(10.3.19.204) with Microsoft SMTP Server id 14.3.439.0; Tue, 3 Dec 2019
+	19:35:36 +0800
+From: Hou Tao <houtao1@huawei.com>
+To: <dm-devel@redhat.com>
+Date: Tue, 3 Dec 2019 19:42:58 +0800
+Message-ID: <20191203114258.8912-1-houtao1@huawei.com>
 MIME-Version: 1.0
-X-MC-Unique: 31UKCQGrM9SqtDhIN5otFw-1
-X-MC-Unique: iY4s79ohOMi_azyJ0tBYEA-1
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Originating-IP: [10.90.53.225]
+X-CFilter-Loop: Reflected
+X-MC-Unique: C7Tyl06bPj63-3pNoSSwNg-1
+X-MC-Unique: LfYm64mPMjSSAlj8sVUQDg-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id xB3BZvK0009659
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com
-Subject: Re: [dm-devel] dm-thin: Several Questions on dm-thin performance.
+Cc: thornber@redhat.com, snitzer@redhat.com, agk@redhat.com, houtao1@huawei.com
+Subject: [dm-devel] [PATCH] dm btree: increase rebalance threshold in
+	__rebalance2()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,159 +85,72 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
-Content-Type: MULTIPART/MIXED;
-	BOUNDARY="-844282404-1390322935-1575316954=:11561"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
----844282404-1390322935-1575316954=:11561
-Content-Type: TEXT/PLAIN; CHARSET=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 2 Dec 2019, JeffleXu wrote:
-> =E5=9C=A8 2019/11/23 =E4=B8=8A=E5=8D=882:55, Joe Thornber =E5=86=99=E9=81=
-=93:
->=20
-> > On Fri, Nov 22, 2019 at 11:14:15AM +0800, JeffleXu wrote:
-> >
-> > > The first question is what's the purpose of data cell? In thin_bio_ma=
-p(),
-> > > normal bio will be packed as a virtual cell and data cell. I can
-> > > understand
-> > > that virtual cell is used to prevent discard bio and non-discard bio
-> > > targeting the same block from being processed at the same time. I fin=
-d it
-> > > was added in commit =C2=A0=C2=A0=C2=A0 e8088073c9610af017fd47fddd104a=
-2c3afb32e8 (dm thin:
-> > > fix race between simultaneous io and discards to same block), but I'm
-> > > still
-> > > confused about the use of data cell.
-> > As you are aware there are two address spaces for the locks.  The 'virt=
-ual'
-> > one
-> > refers to cells in the logical address space of the thin devices, and t=
-he
-> > 'data' one
-> > refers to the underlying data device.  There are certain conditions whe=
-re we
-> > unfortunately need to hold both of these (eg, to prevent a data block b=
-eing
-> > reprovisioned
-> > before an io to it has completed).
-> >
-> > > The second question is the impact of virtual cell and data cell on IO
-> > > performance. If $data_block_size is large for example 1G, in multithr=
-ead
-> > > fio
-> > > test, most bio will be buffered in cell->bios list and then be proces=
-sed
-> > > by
-> > > worker thread asynchronously, even when there's no discard bio. Thus =
-the
-> > > original parallel IO is processed by worker thread serially now. As t=
-he
-> > > number of fio test threads increase, the single worker thread can eas=
-ily
-> > > get
-> > > CPU 100%, and thus become the bottleneck of the performance since dm-=
-thin
-> > > workqueue is ordered unbound.
-> > Yep, this is a big issue.  Take a look at dm-bio-prison-v2.h, this is t=
-he
-> > new interface that we need to move dm-thin across to use (dm-cache alre=
-ady
-> > uses it).
-> > It allows concurrent holders of a cell (ie, read locks), so we'll be ab=
-le to
-> > remap
-> > much more io without handing it off to a worker thread.  Once this is d=
-one I
-> > want
-> > to add an extra field to cells that will cache the mapping, this way if=
- you
-> > acquire a
-> > cell that is already held then you can avoid the expensive btree lookup=
-.
-> > Together
-> > these changes should make a huge difference to the performance.
-> >
-> > If you've got some spare coding cycles I'd love some help with this ;)
-
-Hi Joe,
-
-I'm not sure if I will have the time but thought I would start the=20
-research and ask a few questions. I looked at the v1/v2 .h files and some=
-=20
-of the functions just change suffix to _v2 and maybe calling=20
-convention/structure field changes.
-
-However, there appear to be some design changes, too:
-
-* dm_deferred_set - These appear to be used a bit in dm-thin.c. =20
-The dm_deferred_set calls don't seem to reference anything prison-related,=
-=20
-but they are defined in dm-bio-prison-v1.h.  Can you provide direction on=
-=20
-how these would be refactored, or if they can just remain as-is?
-  Call counts in dm-thin.c:
-      2 dm_deferred_entry_dec
-      2 dm_deferred_set_create
-      3 dm_deferred_entry_inc
-      3 dm_deferred_set_add_work
-      4 dm_deferred_set_destroy
-
-* dm_bio_detain - is this replaced by dm_cell_get_v2?
-=09- It looks like dm_bio_detain() returns 1 if already held, but=20
-=09  dm_cell_get_v2() returns true if the lock is granted.  How might=20
-=09  this be handled?
-=09- What are the lock_levels?
-=09- What in dm-thin.c would then call dm_cell_put_v2?
-
-* dm_cell_release(_no_holder) - is this replaced by dm_cell_unlock_v2?
-=09- How would the _no_holder version be refactored?
-
-* dm_cell_visit_release - This function uses a callback, but none of the=20
-v2 functions have such a callback.  Do we need to write a helper function=
-=20
-with get/unlock(?) around the cell?
-
-
-* dm_cell_error - no equivalent v2 implementation.  Suggestions?
-
-
-What other considerations might there be in the v2 port?
-
-Thanks!
-
---
-Eric Wheeler
-
-
-> >
-> > - Joe
-> >
-> > --
-> > dm-devel mailing list
-> > dm-devel@redhat.com
-> > https://www.redhat.com/mailman/listinfo/dm-devel
->=20
->=20
-> --
-> dm-devel mailing list
-> dm-devel@redhat.com
-> https://www.redhat.com/mailman/listinfo/dm-devel
-> 
----844282404-1390322935-1575316954=:11561
 Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+We got the following warnings from thin_check during thin-pool setup:
+
+  $ thin_check /dev/vdb
+  examining superblock
+  examining devices tree
+    missing devices: [1, 84]
+      too few entries in btree_node: 41, expected at least 42 (block 138, max_entries = 126)
+  examining mapping tree
+
+The phenomenon is the number of entries in one node of details_info tree is
+less than (max_entries / 3). And it can be easily reproduced by the following
+procedures:
+
+  $ new a thin pool
+  $ presume the max entries of details_info tree is 126
+  $ new 127 thin devices (e.g. 1~127) to make the root node being full
+    and then split
+  $ remove the first 43 (e.g. 1~43) thin devices to make the children
+    reblance repeatedly
+  $ stop the thin pool
+  $ thin_check
+
+The root cause is that the B-tree removal procedure in __rebalance2()
+doesn't guarantee the invariance: the minimal number of entries in
+non-root node should be >= (max_entries / 3).
+
+Simply fix the problem by increasing the rebalance threshold to
+make sure the number of entries in each child will be greater
+than or equal to (max_entries / 3 + 1), so no matter which
+child is used for removal, the number will still be valid.
+
+Signed-off-by: Hou Tao <houtao1@huawei.com>
+---
+ drivers/md/persistent-data/dm-btree-remove.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/md/persistent-data/dm-btree-remove.c b/drivers/md/persistent-data/dm-btree-remove.c
+index 21ea537bd55e..eff04fa23dfa 100644
+--- a/drivers/md/persistent-data/dm-btree-remove.c
++++ b/drivers/md/persistent-data/dm-btree-remove.c
+@@ -203,7 +203,13 @@ static void __rebalance2(struct dm_btree_info *info, struct btree_node *parent,
+ 	struct btree_node *right = r->n;
+ 	uint32_t nr_left = le32_to_cpu(left->header.nr_entries);
+ 	uint32_t nr_right = le32_to_cpu(right->header.nr_entries);
+-	unsigned threshold = 2 * merge_threshold(left) + 1;
++	/*
++	 * Ensure the number of entries in each child will be greater
++	 * than or equal to (max_entries / 3 + 1), so no matter which
++	 * child is used for removal, the number will still be not
++	 * less than (max_entries / 3).
++	 */
++	unsigned int threshold = 2 * (merge_threshold(left) + 1);
+ 
+ 	if (nr_left + nr_right < threshold) {
+ 		/*
+-- 
+2.22.0
+
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
----844282404-1390322935-1575316954=:11561--
 
