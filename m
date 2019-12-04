@@ -1,101 +1,89 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 39BC511303A
-	for <lists+dm-devel@lfdr.de>; Wed,  4 Dec 2019 17:48:03 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 0710E11307D
+	for <lists+dm-devel@lfdr.de>; Wed,  4 Dec 2019 18:07:31 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1575478082;
+	s=mimecast20190719; t=1575479250;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=jMhWMZq+Or/ovzJ909TN6YGJWQR8mmc2cM/pkt1xHsY=;
-	b=cJ3W89jUEEdSCwEGDjG18/wF38ZyXQ8oouhQD1pnKiiDueFKM2BSNddVZbkqjtU0qIZ7EW
-	Q5Gie2PhUm9LGIlewNWK1Wq0Dpc0XLJIYSR90DxOmsle6tngZgzIK/dpvAqotXaOrY8g/G
-	j0jqnO8dZme3XINIyF/+t4BhZCyaChg=
+	bh=PrBibkZwILvhFh4Kx+Ij0KN4rtkFokEQQVvaa6/W7Gs=;
+	b=BxHnO5w/BsVrTY4CKsZ2MHd6W8mHKWtc38mfOqr7cVL+xvWDjNBxJ6vkR4VGIibiQky9K/
+	wuzyUB2fMf3K+BgD0vS2ovhH002jPUbpi43tot+OzvQdXued6kBUveXiJXMwt+VO1vCP5h
+	flyPUFrV36+tDD1kMZf3Z+P+CYUEREc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-405-WVjP0xG7M9uJMnjuSjSEhw-1; Wed, 04 Dec 2019 11:48:00 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-98-tuRc5l60MXShofEjkA_mZQ-1; Wed, 04 Dec 2019 12:07:27 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E7E7D801E77;
-	Wed,  4 Dec 2019 16:47:52 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 618B0800EB9;
+	Wed,  4 Dec 2019 17:07:20 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7811A5D6BB;
-	Wed,  4 Dec 2019 16:47:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5FB555C1B2;
+	Wed,  4 Dec 2019 17:07:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 16F325BC11;
-	Wed,  4 Dec 2019 16:47:49 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ACF235BC11;
+	Wed,  4 Dec 2019 17:07:13 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xB4GlgCE016855 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 4 Dec 2019 11:47:42 -0500
+	id xB4H767L017880 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 4 Dec 2019 12:07:06 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 403EA2026D67; Wed,  4 Dec 2019 16:47:42 +0000 (UTC)
+	id EB12F2026D67; Wed,  4 Dec 2019 17:07:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3870320316E0
-	for <dm-devel@redhat.com>; Wed,  4 Dec 2019 16:47:39 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E62642022AC7
+	for <dm-devel@redhat.com>; Wed,  4 Dec 2019 17:07:03 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 906AE10131C2
-	for <dm-devel@redhat.com>; Wed,  4 Dec 2019 16:47:39 +0000 (UTC)
-Received: from mail-lj1-f193.google.com (mail-lj1-f193.google.com
-	[209.85.208.193]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-63-r7BFHyezMSSYj_c4MydDxg-1; Wed, 04 Dec 2019 11:47:37 -0500
-Received: by mail-lj1-f193.google.com with SMTP id u17so75999lja.4
-	for <dm-devel@redhat.com>; Wed, 04 Dec 2019 08:47:37 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5D696906E38
+	for <dm-devel@redhat.com>; Wed,  4 Dec 2019 17:07:03 +0000 (UTC)
+Received: from mail-lj1-f196.google.com (mail-lj1-f196.google.com
+	[209.85.208.196]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-79-mRkV9iYYP76iLKwLUAc2_Q-1; Wed, 04 Dec 2019 12:07:01 -0500
+Received: by mail-lj1-f196.google.com with SMTP id 21so185531ljr.0
+	for <dm-devel@redhat.com>; Wed, 04 Dec 2019 09:07:01 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=YyMM0D0shdzBn3zas2+m9mHmpEmLrcfrJ76wD+YyLvg=;
-	b=ZUHtbm1H/60azmog/Tn9FzXDH7nUEUYoenKVuk24E8/K7kxbqtbQeBPMdqqC/Pxot0
-	jQyTckH8lw8LnXl3S7orDgHVvAGI8guYNWwMp6XvuBMp31J0EQNnSjZELCMU03uTNRp1
-	K+x0Z+nYaAEX/7XKtVYDoX15z/IrKGAx0cY0Z/T/HCrkilvvaQrXKz7+RnNbv80621fK
-	2k0GWD51rwvMxwBbkSKsbCZ6oe8mbU+Ox41TQdtH689th5MdCxYhGgz7YB2wY3/4eEl3
-	qg2fGV3yQs9pTj5xRE2IK89yLLfPZi+AFnWoMAwW+uta2OIGJkvY3HSHJbVDSb9yfbLx
-	aDLA==
-X-Gm-Message-State: APjAAAVbwO18dRFkBl8Zhqscp36Jr3fM/y/GdOCpJB9vJYas+paXDpVg
-	XOOOyMvui7IgB5eancxoekcHDg==
-X-Google-Smtp-Source: APXvYqzCjy8mxU+0z13pm+WM/iRI7KQE57yiTXMNvhAvXKBtoUhrHBN+XBlNT+PfG61vVd3b+8WlDw==
-X-Received: by 2002:a05:651c:2046:: with SMTP id
-	t6mr2298763ljo.180.1575478056285; 
-	Wed, 04 Dec 2019 08:47:36 -0800 (PST)
-Received: from [10.94.250.133] ([31.177.62.212])
+	h=x-gm-message-state:from:to:cc:subject:date:message-id;
+	bh=YtvRfca1B9FfncqPc/9Q+cAAti2STDJrcaMPYGh1WOY=;
+	b=oaNhxyAh+tJAl4s7IIr18XIXBedpw1kzj2rNuV+2sLSzo4Ugv2VZ6OkaILIdFlfcNk
+	UjbW/t4+y7w3LE+g5OA2ZdJKoZ7LOi4+iwU54hzmg2S8D+DG3wEO16aGovd0fF620ebF
+	VkASNKF1K1OcVJuiTnL6v3zZHXgoAk8zzvDyqEEpi3VuI9vB4aLQmCMjSwrXw7Hhmcu/
+	t4LU6H8z4cYdQv1046e/M2tRkUKbuCD0YzzS0eumA++dXtoFXhV+LfO394251ejVP/zo
+	p2bMT7CUWjDssT51D6RPpE8oHZD0+lYEaj+osuTMpqwTjjbaLyJX7fUqCytQsH6qz0AP
+	jPvg==
+X-Gm-Message-State: APjAAAVl7SjI4uUdmzq1O7SGQ1dth9BAXZl1KoAqKi4so/eikp4KoZcb
+	Y09/VowFSyUjBi2kJ9wl4gWH+w==
+X-Google-Smtp-Source: APXvYqxbH2w420jibn6UjYw26AYaLlmwCgMMoVu6kt9G5iBUIqy1acK5uvRoq4Fr71+Sq0ZGsqKgXA==
+X-Received: by 2002:a2e:9b8f:: with SMTP id z15mr2731983lji.20.1575479220241; 
+	Wed, 04 Dec 2019 09:07:00 -0800 (PST)
+Received: from snf-864.vm.snf.arr ([31.177.62.212])
 	by smtp.gmail.com with ESMTPSA id
-	d25sm1863168ljj.51.2019.12.04.08.47.35
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Wed, 04 Dec 2019 08:47:35 -0800 (PST)
-To: Mike Snitzer <snitzer@redhat.com>
-References: <20191204140742.26273-1-ntsironis@arrikto.com>
-	<20191204140742.26273-3-ntsironis@arrikto.com>
-	<20191204152759.qhh2f6ybhww7ivel@reti>
-	<4627d4b3-fced-0d22-34c5-258733c9afa9@arrikto.com>
-	<20191204163939.GA30305@redhat.com>
+	n19sm3570737lfl.85.2019.12.04.09.06.58
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Wed, 04 Dec 2019 09:06:59 -0800 (PST)
 From: Nikos Tsironis <ntsironis@arrikto.com>
-Message-ID: <79971756-2f21-09e1-bfec-7fbc16eba44e@arrikto.com>
-Date: Wed, 4 Dec 2019 18:47:34 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.2.2
-MIME-Version: 1.0
-In-Reply-To: <20191204163939.GA30305@redhat.com>
-Content-Language: en-US
-X-MC-Unique: r7BFHyezMSSYj_c4MydDxg-1
-X-MC-Unique: WVjP0xG7M9uJMnjuSjSEhw-1
+To: snitzer@redhat.com, agk@redhat.com, dm-devel@redhat.com
+Date: Wed,  4 Dec 2019 19:06:38 +0200
+Message-Id: <20191204170638.28163-1-ntsironis@arrikto.com>
+X-MC-Unique: mRkV9iYYP76iLKwLUAc2_Q-1
+X-MC-Unique: tuRc5l60MXShofEjkA_mZQ-1
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id xB4H767L017880
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, thornber@redhat.com, agk@redhat.com
-Subject: Re: [dm-devel] [PATCH 2/2] dm thin: Flush data device before
-	committing metadata
+Cc: thornber@redhat.com, ntsironis@arrikto.com
+Subject: [dm-devel] [PATCH] dm thin: Avoid flushing the data device twice
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -107,82 +95,53 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 12/4/19 6:39 PM, Mike Snitzer wrote:>
-On Wed, Dec 04 2019 at 11:17am -0500,
-> Nikos Tsironis <ntsironis@arrikto.com> wrote:
-> 
->> On 12/4/19 5:27 PM, Joe Thornber wrote:
->>> On Wed, Dec 04, 2019 at 04:07:42PM +0200, Nikos Tsironis wrote:
->>>> The thin provisioning target maintains per thin device mappings that map
->>>> virtual blocks to data blocks in the data device.
->>>
->>>
->>> Ack.  But I think we're issuing the FLUSH twice with your patch.  Since the
->>> original bio is still remapped and issued at the end of process_deferred_bios?
->>>
->>
->> Yes, that's correct. I thought of it and of putting a check in
->> process_deferred_bios() to complete FLUSH bios immediately, but I have
->> one concern and I preferred to be safe than sorry.
->>
->> In __commit_transaction() there is the following check:
->>
->>    if (unlikely(!pmd->in_service))
->>              return 0;
->>
->> , which means we don't commit the metadata, and thus we don't flush the
->> data device, in case the pool is not in service.
->>
->> Opening a thin device doesn't seem to put the pool in service, since
->> dm_pool_open_thin_device() uses pmd_write_lock_in_core().
->>
->> Can I assume that the pool is in service if I/O can be mapped to a thin
->> device? If so, it's safe to put such a check in process_deferred_bios().
-> 
-> In service means upper layer has issued a write to a thin device of a
-> pool.  The header for commit 873f258becca87 gets into more detail.
-> 
->> On second thought though, in order for a flush bio to end up in
->> deferred_flush_bios in the first place, someone must have changed the
->> metadata and thus put the pool in service. Otherwise, it would have been
->> submitted directly to the data device. So, it's probably safe to check
->> for flush bios after commit() in process_deferred_bios() and complete
->> them immediately.
-> 
-> Yes, I think so, which was Joe's original point.
->   
->> If you confirm too that this is safe, I will send a second version of
->> the patch adding the check.
-> 
-> Not seeing why we need another in_service check.  After your changes are
-> applied, any commit will trigger a preceeding flush.. so the deferred
-> flushes are redundant.
-> 
+Since we flush the data device as part of a metadata commit, it's
+redundant to then submit any deferred REQ_PREFLUSH bios.
 
-Yes, I meant add a check in process_deferred_bios(), after commit(), to
-check for REQ_PREFLUSH bios and complete them immediately. I should have
-clarified that.
+Add a check in process_deferred_bios() for deferred REQ_PREFLUSH bios
+and complete them immediately.
 
-> By definition, these deferred bios imply the pool is in service.
-> 
-> I'd be fine with seeing a 3rd follow-on thinp patch that completes the
-> redundant flushes immediately.
-> 
+Signed-off-by: Nikos Tsironis <ntsironis@arrikto.com>
+---
+ drivers/md/dm-thin.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-Ack, I will send another patch fixing this.
+diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
+index e0be545080d0..40d8a255dbc3 100644
+--- a/drivers/md/dm-thin.c
++++ b/drivers/md/dm-thin.c
+@@ -2383,8 +2383,18 @@ static void process_deferred_bios(struct pool *pool)
+ 	while ((bio = bio_list_pop(&bio_completions)))
+ 		bio_endio(bio);
+ 
+-	while ((bio = bio_list_pop(&bios)))
+-		generic_make_request(bio);
++	while ((bio = bio_list_pop(&bios))) {
++		if (bio->bi_opf & REQ_PREFLUSH) {
++			/*
++			 * We just flushed the data device as part of the
++			 * metadata commit, so there is no reason to send
++			 * another flush.
++			 */
++			bio_endio(bio);
++		} else {
++			generic_make_request(bio);
++		}
++	}
+ }
+ 
+ static void do_worker(struct work_struct *ws)
+-- 
+2.11.0
 
-Nikos
-
-> Thanks,
-> Mike
-> 
 
 --
 dm-devel mailing list
