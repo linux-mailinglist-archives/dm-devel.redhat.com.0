@@ -2,67 +2,97 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 7FABB114803
-	for <lists+dm-devel@lfdr.de>; Thu,  5 Dec 2019 21:22:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3C71C1148BD
+	for <lists+dm-devel@lfdr.de>; Thu,  5 Dec 2019 22:34:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1575577371;
+	s=mimecast20190719; t=1575581661;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=yNzh6YfEWR8UqfnNKlilwOZysth0vhlo5zjOsUyhbEg=;
-	b=XuIqLhsp8bAjgfBKZFABJICwlHYqGBImJcA087ozNSFm1RJZH60BGcSkLOdYtt7YCjxhbe
-	Pp2dVYwoho6Nty9N0D0mGwF9VdFDhQZ/RfxlLCdHapbSZt0oa8UNV4qEQkuZ8GUlF3YbcY
-	Dz7pwUvE/fOad/+FmRtJi74+JfGr4qY=
+	bh=DCnTKETraugf2/RZLs64h1ZPSPHvuk5UoAXcKFnZGHU=;
+	b=Efjh1tJ37naHrlVQzTSfvwotOiQBX7/VcNPYyjPHvPzOZuEhAUFymqSgFlM63HjmRX5Hi1
+	E7I8TUJ9gJ1xQPYPETlAt57r0M3f5RI6DFNtuR/4/eJCYAY7eDumKPBsYJ+lCbyssOLVtC
+	NeTUdTjbk6tjkuZMm3+1HJ1DxE7nTBo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-301-zgOtuMi6PiKQJTcqtr9uXg-1; Thu, 05 Dec 2019 15:22:49 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-305-k1EJAh3HMX6jJoJywrNDZw-1; Thu, 05 Dec 2019 16:34:16 -0500
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D43EEDB21;
-	Thu,  5 Dec 2019 20:22:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4B1C2DB20;
+	Thu,  5 Dec 2019 21:34:09 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2CD395D9C9;
-	Thu,  5 Dec 2019 20:22:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 001616106B;
+	Thu,  5 Dec 2019 21:34:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4920E65D31;
-	Thu,  5 Dec 2019 20:22:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 04A3441F07;
+	Thu,  5 Dec 2019 21:33:55 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xB5KMUVE013345 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 5 Dec 2019 15:22:30 -0500
+	id xB5LXiDH019023 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 5 Dec 2019 16:33:45 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 45C1B5D6AE; Thu,  5 Dec 2019 20:22:30 +0000 (UTC)
+	id B75F5101F0D4; Thu,  5 Dec 2019 21:33:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BF40C5D6A3;
-	Thu,  5 Dec 2019 20:22:27 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id xB5KMQhR018434; 
-	Thu, 5 Dec 2019 14:22:26 -0600
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id xB5KMOTd018433;
-	Thu, 5 Dec 2019 14:22:24 -0600
-Date: Thu, 5 Dec 2019 14:22:24 -0600
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <Martin.Wilck@suse.com>
-Message-ID: <20191205202224.GZ30153@octiron.msp.redhat.com>
-References: <20191127150604.31417-1-martin.wilck@suse.com>
-	<20191127150604.31417-4-martin.wilck@suse.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B0A96101F0D7
+	for <dm-devel@redhat.com>; Thu,  5 Dec 2019 21:33:42 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0362C801E7A
+	for <dm-devel@redhat.com>; Thu,  5 Dec 2019 21:33:42 +0000 (UTC)
+Received: from mail-lj1-f195.google.com (mail-lj1-f195.google.com
+	[209.85.208.195]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-241-Ts-7B_j-MPOeb68DyiFH9A-1; Thu, 05 Dec 2019 16:33:37 -0500
+Received: by mail-lj1-f195.google.com with SMTP id a13so5261670ljm.10
+	for <dm-devel@redhat.com>; Thu, 05 Dec 2019 13:33:37 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=HmLCyhiMM+MyK+zjG6bdWzTrjn6Jve1KbWvurbTeOY8=;
+	b=OFDSULz5yvag4u81OsN0k0SLbyc8gFXIN0Cf4HbywjA7gDNMpp+9KZJEUWJhsbH1VO
+	NfNA3ZQBhZLGN372c8A05tOcSSKKtfnmghbh0tMDgsFBJ9tfQK6eQmuLM9IJLmWFEqBc
+	cunX+XZAUWGHw3pSQRJlm6MA7S4HJ3f69EqJv5HRnVTf66PSvt9GFpHwTKITImvIvskU
+	ynZ4qN4xnodpecoalzjDEBWURLP/ciQZrCVJyLk3IUVr6vuMGmJn1AGzfNjvHHYfFiYD
+	1DGtswMSI+VR32qhp+FgicU7bv6VzLJI6qfImLOYdDTtZw3QaS0LRvd1c2+++uyyc4so
+	zHvQ==
+X-Gm-Message-State: APjAAAUHUu/hzW/hWIpaSTLC/DzkbojT23mlEj53UTQ7XJQMlOSXIhe+
+	xngXpTXef0T4SP1PoNAWVqXSAw==
+X-Google-Smtp-Source: APXvYqz1xVhxo8oBOjVFy5rQ5/5YJjiX3EXr+JhzwO83grogGUSdMSi0X0Lgfp6c7uoKjPszDSof1Q==
+X-Received: by 2002:a2e:8646:: with SMTP id i6mr6842775ljj.122.1575581616195; 
+	Thu, 05 Dec 2019 13:33:36 -0800 (PST)
+Received: from [192.168.1.116] (130.43.113.55.dsl.dyn.forthnet.gr.
+	[130.43.113.55])
+	by smtp.gmail.com with ESMTPSA id d9sm2972797lja.73.2019.12.05.13.33.34
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Thu, 05 Dec 2019 13:33:35 -0800 (PST)
+To: Mike Snitzer <snitzer@redhat.com>
+References: <20191204140742.26273-1-ntsironis@arrikto.com>
+	<20191204140742.26273-2-ntsironis@arrikto.com>
+	<20191205193157.GA95063@lobo>
+From: Nikos Tsironis <ntsironis@arrikto.com>
+Message-ID: <3ea785c5-5421-9fb3-5516-95cc42392c2b@arrikto.com>
+Date: Thu, 5 Dec 2019 23:33:33 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.2.2
 MIME-Version: 1.0
-In-Reply-To: <20191127150604.31417-4-martin.wilck@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+In-Reply-To: <20191205193157.GA95063@lobo>
+Content-Language: en-US
+X-MC-Unique: Ts-7B_j-MPOeb68DyiFH9A-1
+X-MC-Unique: k1EJAh3HMX6jJoJywrNDZw-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>,
-	Xose Vazquez Perez <xose.vazquez@gmail.com>,
-	Chongyun Wu <wu.chongyun@h3c.com>
-Subject: Re: [dm-devel] [PATCH v2 3/5] libmultipath: drop mpp->nr_active
-	field
+Cc: dm-devel@redhat.com, thornber@redhat.com, agk@redhat.com
+Subject: Re: [dm-devel] [PATCH 1/2] dm thin metadata: Add support for a
+ pre-commit callback
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -76,507 +106,147 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-MC-Unique: zgOtuMi6PiKQJTcqtr9uXg-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-On Wed, Nov 27, 2019 at 03:05:50PM +0000, Martin Wilck wrote:
-> From: Martin Wilck <mwilck@suse.com>
+On 12/5/19 9:40 PM, Mike Snitzer wrote:
+> On Wed, Dec 04 2019 at  9:07P -0500,
+> Nikos Tsironis <ntsironis@arrikto.com> wrote:
 > 
-> The tracking of nr_active has turned out to be error prone and hard
-> to verify. Calculating it on the fly is a quick operation, so
-> do this rather than trying to track nr_active. Use a boolean
-> field instead to track whether a map is currently in recovery mode.
+>> Add support for one pre-commit callback which is run right before the
+>> metadata are committed.
+>>
+>> This allows the thin provisioning target to run a callback before the
+>> metadata are committed and is required by the next commit.
+>>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Nikos Tsironis <ntsironis@arrikto.com>
+>> ---
+>>   drivers/md/dm-thin-metadata.c | 29 +++++++++++++++++++++++++++++
+>>   drivers/md/dm-thin-metadata.h |  7 +++++++
+>>   2 files changed, 36 insertions(+)
+>>
+>> diff --git a/drivers/md/dm-thin-metadata.c b/drivers/md/dm-thin-metadata.c
+>> index 4c68a7b93d5e..b88d6d701f5b 100644
+>> --- a/drivers/md/dm-thin-metadata.c
+>> +++ b/drivers/md/dm-thin-metadata.c
+>> @@ -189,6 +189,15 @@ struct dm_pool_metadata {
+>>   	sector_t data_block_size;
+>>   
+>>   	/*
+>> +	 * Pre-commit callback.
+>> +	 *
+>> +	 * This allows the thin provisioning target to run a callback before
+>> +	 * the metadata are committed.
+>> +	 */
+>> +	dm_pool_pre_commit_fn pre_commit_fn;
+>> +	void *pre_commit_context;
+>> +
+>> +	/*
+>>   	 * We reserve a section of the metadata for commit overhead.
+>>   	 * All reported space does *not* include this.
+>>   	 */
+>> @@ -826,6 +835,14 @@ static int __commit_transaction(struct dm_pool_metadata *pmd)
+>>   	if (unlikely(!pmd->in_service))
+>>   		return 0;
+>>   
+>> +	if (pmd->pre_commit_fn) {
+>> +		r = pmd->pre_commit_fn(pmd->pre_commit_context);
+>> +		if (r < 0) {
+>> +			DMERR("pre-commit callback failed");
+>> +			return r;
+>> +		}
+>> +	}
+>> +
+>>   	r = __write_changed_details(pmd);
+>>   	if (r < 0)
+>>   		return r;
+>> @@ -892,6 +909,8 @@ struct dm_pool_metadata *dm_pool_metadata_open(struct block_device *bdev,
+>>   	pmd->in_service = false;
+>>   	pmd->bdev = bdev;
+>>   	pmd->data_block_size = data_block_size;
+>> +	pmd->pre_commit_fn = NULL;
+>> +	pmd->pre_commit_context = NULL;
+>>   
+>>   	r = __create_persistent_data_objects(pmd, format_device);
+>>   	if (r) {
+>> @@ -2044,6 +2063,16 @@ int dm_pool_register_metadata_threshold(struct dm_pool_metadata *pmd,
+>>   	return r;
+>>   }
+>>   
+>> +void dm_pool_register_pre_commit_callback(struct dm_pool_metadata *pmd,
+>> +					  dm_pool_pre_commit_fn fn,
+>> +					  void *context)
+>> +{
+>> +	pmd_write_lock_in_core(pmd);
+>> +	pmd->pre_commit_fn = fn;
+>> +	pmd->pre_commit_context = context;
+>> +	pmd_write_unlock(pmd);
+>> +}
+>> +
+>>   int dm_pool_metadata_set_needs_check(struct dm_pool_metadata *pmd)
+>>   {
+>>   	int r = -EINVAL;
+>> diff --git a/drivers/md/dm-thin-metadata.h b/drivers/md/dm-thin-metadata.h
+>> index f6be0d733c20..7ef56bd2a7e3 100644
+>> --- a/drivers/md/dm-thin-metadata.h
+>> +++ b/drivers/md/dm-thin-metadata.h
+>> @@ -230,6 +230,13 @@ bool dm_pool_metadata_needs_check(struct dm_pool_metadata *pmd);
+>>    */
+>>   void dm_pool_issue_prefetches(struct dm_pool_metadata *pmd);
+>>   
+>> +/* Pre-commit callback */
+>> +typedef int (*dm_pool_pre_commit_fn)(void *context);
+>> +
+>> +void dm_pool_register_pre_commit_callback(struct dm_pool_metadata *pmd,
+>> +					  dm_pool_pre_commit_fn fn,
+>> +					  void *context);
+>> +
+>>   /*----------------------------------------------------------------*/
+>>   
+>>   #endif
+>> -- 
+>> 2.11.0
+>>
 > 
-> Moreover, clean up the recovery logic by making set_no_path_retry()
-> the place that checks the current configuration and state, sets
-> "queue_if_no_path" if necessary, and enters or leaves recovery
-> mode if necessary. This ensures that consistent logic is applied.
-> 
-> In the client handlers, we can't be sure that mpp->features is
-> up-to-date. Also, users that change the queuing mode expect that
-> the requested action is performed, regardless of state. Therefore,
-> transform set_no_path_retry() into __set_no_path_retry(), which takes
-> an additional parameter indicating whether the current state should
-> be checked, and set this parameter to false when calling the function
-> from the client handler code, true otherwise. Moreover, in the very
-> unlikely case mpp->features is NULL, don't assume that queuing is off,
-> just make no assumption about the current state.
-> 
+> I have this incremental, not seeing need to avoid using blkdev_issue_flush
+>
 
-Thanks.
+Ack,
 
-Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
-> Signed-off-by: Martin Wilck <mwilck@suse.com>
+Nikos.
+  
 > ---
->  libmultipath/configure.c   |  5 +--
->  libmultipath/devmapper.c   |  2 +-
->  libmultipath/io_err_stat.c |  4 +-
->  libmultipath/print.c       |  5 ++-
->  libmultipath/structs.c     | 19 +++++++++
->  libmultipath/structs.h     |  4 +-
->  libmultipath/structs_vec.c | 81 ++++++++++++++++++++++++++------------
->  libmultipath/structs_vec.h |  4 +-
->  multipathd/cli_handlers.c  | 41 ++++++++-----------
->  multipathd/main.c          | 19 +++------
->  10 files changed, 110 insertions(+), 74 deletions(-)
+>   drivers/md/dm-thin.c | 12 +-----------
+>   1 file changed, 1 insertion(+), 11 deletions(-)
 > 
-> diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-> index 5ac7d903..c95848a0 100644
-> --- a/libmultipath/configure.c
-> +++ b/libmultipath/configure.c
-> @@ -401,7 +401,6 @@ int setup_map(struct multipath *mpp, char *params, int params_size,
->  			condlog(2, "%s: setting up map with %d/%d path checkers pending",
->  				mpp->alias, n_pending, n_paths);
->  	}
-> -	mpp->nr_active = pathcount(mpp, PATH_UP) + pathcount(mpp, PATH_GHOST);
->  
->  	/*
->  	 * ponders each path group and determine highest prio pg
-> @@ -934,8 +933,8 @@ int domap(struct multipath *mpp, char *params, int is_daemon)
->  		}
->  
->  		sysfs_set_max_sectors_kb(mpp, 0);
-> -		if (is_daemon && mpp->ghost_delay > 0 && mpp->nr_active &&
-> -		    pathcount(mpp, PATH_GHOST) == mpp->nr_active)
-> +		if (is_daemon && mpp->ghost_delay > 0 && count_active_paths(mpp) &&
-> +		    pathcount(mpp, PATH_UP) == 0)
->  			mpp->ghost_delay_tick = mpp->ghost_delay;
->  		r = dm_addmap_create(mpp, params);
->  
-> diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
-> index acf576aa..bed8ddc6 100644
-> --- a/libmultipath/devmapper.c
-> +++ b/libmultipath/devmapper.c
-> @@ -403,7 +403,7 @@ static uint16_t build_udev_flags(const struct multipath *mpp, int reload)
->  	/* DM_UDEV_DISABLE_LIBRARY_FALLBACK is added in dm_addmap */
->  	return	(mpp->skip_kpartx == SKIP_KPARTX_ON ?
->  		 MPATH_UDEV_NO_KPARTX_FLAG : 0) |
-> -		((mpp->nr_active == 0 || mpp->ghost_delay_tick > 0)?
-> +		((count_active_paths(mpp) == 0 || mpp->ghost_delay_tick > 0) ?
->  		 MPATH_UDEV_NO_PATHS_FLAG : 0) |
->  		(reload && !mpp->force_udev_reload ?
->  		 MPATH_UDEV_RELOAD_FLAG : 0);
-> diff --git a/libmultipath/io_err_stat.c b/libmultipath/io_err_stat.c
-> index dcc8690d..1b9cd6c0 100644
-> --- a/libmultipath/io_err_stat.c
-> +++ b/libmultipath/io_err_stat.c
-> @@ -383,7 +383,7 @@ int need_io_err_check(struct path *pp)
->  
->  	if (uatomic_read(&io_err_thread_running) == 0)
->  		return 0;
-> -	if (pp->mpp->nr_active <= 0) {
-> +	if (count_active_paths(pp->mpp) <= 0) {
->  		io_err_stat_log(2, "%s: recover path early", pp->dev);
->  		goto recover;
->  	}
-> @@ -481,7 +481,7 @@ static int poll_io_err_stat(struct vectors *vecs, struct io_err_stat_path *pp)
->  		 */
->  		path->tick = 1;
->  
-> -	} else if (path->mpp && path->mpp->nr_active > 0) {
-> +	} else if (path->mpp && count_active_paths(path->mpp) > 0) {
->  		io_err_stat_log(3, "%s: keep failing the dm path %s",
->  				path->mpp->alias, path->dev);
->  		path->io_err_pathfail_cnt = PATH_IO_ERR_WAITING_TO_CHECK;
-> diff --git a/libmultipath/print.c b/libmultipath/print.c
-> index b98e9bda..e1ef4d3f 100644
-> --- a/libmultipath/print.c
-> +++ b/libmultipath/print.c
-> @@ -181,9 +181,10 @@ snprint_queueing (char * buff, size_t len, const struct multipath * mpp)
->  		return snprintf(buff, len, "-");
->  	else if (mpp->no_path_retry > 0) {
->  		if (mpp->retry_tick > 0)
-> +
->  			return snprintf(buff, len, "%i sec",
->  					mpp->retry_tick);
-> -		else if (mpp->retry_tick == 0 && mpp->nr_active > 0)
-> +		else if (mpp->retry_tick == 0 && count_active_paths(mpp) > 0)
->  			return snprintf(buff, len, "%i chk",
->  					mpp->no_path_retry);
->  		else
-> @@ -195,7 +196,7 @@ snprint_queueing (char * buff, size_t len, const struct multipath * mpp)
->  static int
->  snprint_nb_paths (char * buff, size_t len, const struct multipath * mpp)
->  {
-> -	return snprint_int(buff, len, mpp->nr_active);
-> +	return snprint_int(buff, len, count_active_paths(mpp));
->  }
->  
->  static int
-> diff --git a/libmultipath/structs.c b/libmultipath/structs.c
-> index f420ee5c..cc931e4e 100644
-> --- a/libmultipath/structs.c
-> +++ b/libmultipath/structs.c
-> @@ -478,6 +478,25 @@ int pathcount(const struct multipath *mpp, int state)
->  	return count;
->  }
->  
-> +int count_active_paths(const struct multipath *mpp)
-> +{
-> +	struct pathgroup *pgp;
-> +	struct path *pp;
-> +	int count = 0;
-> +	int i, j;
-> +
-> +	if (!mpp->pg)
-> +		return 0;
-> +
-> +	vector_foreach_slot (mpp->pg, pgp, i) {
-> +		vector_foreach_slot (pgp->paths, pp, j) {
-> +			if (pp->state == PATH_UP || pp->state == PATH_GHOST)
-> +				count++;
-> +		}
-> +	}
-> +	return count;
-> +}
-> +
->  int pathcmp(const struct pathgroup *pgp, const struct pathgroup *cpgp)
->  {
->  	int i, j;
-> diff --git a/libmultipath/structs.h b/libmultipath/structs.h
-> index 3665b89a..da4b6ca0 100644
-> --- a/libmultipath/structs.h
-> +++ b/libmultipath/structs.h
-> @@ -3,6 +3,7 @@
->  
->  #include <sys/types.h>
->  #include <inttypes.h>
-> +#include <stdbool.h>
->  
->  #include "prio.h"
->  #include "byteorder.h"
-> @@ -309,7 +310,6 @@ struct multipath {
->  	int pgfailback;
->  	int failback_tick;
->  	int rr_weight;
-> -	int nr_active;     /* current available(= not known as failed) paths */
->  	int no_path_retry; /* number of retries after all paths are down */
->  	int retry_tick;    /* remaining times for retries */
->  	int disable_queueing;
-> @@ -319,6 +319,7 @@ struct multipath {
->  	int fast_io_fail;
->  	int retain_hwhandler;
->  	int deferred_remove;
-> +	bool in_recovery;
->  	int san_path_err_threshold;
->  	int san_path_err_forget_rate;
->  	int san_path_err_recovery_time;
-> @@ -449,6 +450,7 @@ struct path * first_path (const struct multipath *mpp);
->  
->  int pathcountgr (const struct pathgroup *, int);
->  int pathcount (const struct multipath *, int);
-> +int count_active_paths(const struct multipath *);
->  int pathcmp (const struct pathgroup *, const struct pathgroup *);
->  int add_feature (char **, const char *);
->  int remove_feature (char **, const char *);
-> diff --git a/libmultipath/structs_vec.c b/libmultipath/structs_vec.c
-> index fbe97662..3dbbaa0f 100644
-> --- a/libmultipath/structs_vec.c
-> +++ b/libmultipath/structs_vec.c
-> @@ -290,10 +290,15 @@ update_multipath_strings(struct multipath *mpp, vector pathvec, int is_daemon)
->  	return 0;
->  }
->  
-> -void enter_recovery_mode(struct multipath *mpp)
-> +static void enter_recovery_mode(struct multipath *mpp)
->  {
->  	unsigned int checkint;
-> -	struct config *conf = get_multipath_config();
-> +	struct config *conf;
-> +
-> +	if (mpp->in_recovery || mpp->no_path_retry <= 0)
-> +		return;
-> +
-> +	conf = get_multipath_config();
->  	checkint = conf->checkint;
->  	put_multipath_config(conf);
->  
-> @@ -302,37 +307,63 @@ void enter_recovery_mode(struct multipath *mpp)
->  	 * meaning of +1: retry_tick may be decremented in checkerloop before
->  	 * starting retry.
->  	 */
-> +	mpp->in_recovery = true;
->  	mpp->stat_queueing_timeouts++;
->  	mpp->retry_tick = mpp->no_path_retry * checkint + 1;
->  	condlog(1, "%s: Entering recovery mode: max_retries=%d",
->  		mpp->alias, mpp->no_path_retry);
->  }
->  
-> -void set_no_path_retry(struct multipath *mpp)
-> +static void leave_recovery_mode(struct multipath *mpp)
-> +{
-> +	bool recovery = mpp->in_recovery;
-> +
-> +	mpp->in_recovery = false;
-> +	mpp->retry_tick = 0;
-> +
-> +	/*
-> +	 * in_recovery is only ever set if mpp->no_path_retry > 0
-> +	 * (see enter_recovery_mode()). But no_path_retry may have been
-> +	 * changed while the map was recovering, so test it here again.
-> +	 */
-> +	if (recovery && (mpp->no_path_retry == NO_PATH_RETRY_QUEUE ||
-> +			 mpp->no_path_retry > 0)) {
-> +		dm_queue_if_no_path(mpp->alias, 1);
-> +		condlog(2, "%s: queue_if_no_path enabled", mpp->alias);
-> +		condlog(1, "%s: Recovered to normal mode", mpp->alias);
-> +	}
-> +}
-> +
-> +void __set_no_path_retry(struct multipath *mpp, bool check_features)
->  {
-> -	char is_queueing = 0;
-> +	bool is_queueing;
->  
-> -	mpp->nr_active = pathcount(mpp, PATH_UP) + pathcount(mpp, PATH_GHOST);
-> -	if (mpp->features && strstr(mpp->features, "queue_if_no_path"))
-> -		is_queueing = 1;
-> +	check_features = check_features && mpp->features != NULL;
-> +	if (check_features)
-> +		is_queueing = strstr(mpp->features, "queue_if_no_path");
->  
->  	switch (mpp->no_path_retry) {
->  	case NO_PATH_RETRY_UNDEF:
->  		break;
->  	case NO_PATH_RETRY_FAIL:
-> -		if (is_queueing)
-> +		if (!check_features || is_queueing)
->  			dm_queue_if_no_path(mpp->alias, 0);
->  		break;
->  	case NO_PATH_RETRY_QUEUE:
-> -		if (!is_queueing)
-> +		if (!check_features || !is_queueing)
->  			dm_queue_if_no_path(mpp->alias, 1);
->  		break;
->  	default:
-> -		if (mpp->nr_active > 0) {
-> -			mpp->retry_tick = 0;
-> -			if (!is_queueing)
-> +		if (count_active_paths(mpp) > 0) {
-> +			/*
-> +			 * If in_recovery is set, leave_recovery_mode() takes
-> +			 * care of dm_queue_if_no_path. Otherwise, do it here.
-> +			 */
-> +			if ((!check_features || !is_queueing) &&
-> +			    !mpp->in_recovery)
->  				dm_queue_if_no_path(mpp->alias, 1);
-> -		} else if (is_queueing && mpp->retry_tick == 0)
-> +			leave_recovery_mode(mpp);
-> +		} else
->  			enter_recovery_mode(mpp);
->  		break;
->  	}
-> @@ -480,25 +511,23 @@ int verify_paths(struct multipath *mpp, struct vectors *vecs)
->   */
->  void update_queue_mode_del_path(struct multipath *mpp)
->  {
-> -	if (--mpp->nr_active == 0) {
-> -		if (mpp->no_path_retry > 0)
-> -			enter_recovery_mode(mpp);
-> -		else if (mpp->no_path_retry != NO_PATH_RETRY_QUEUE)
-> +	int active = count_active_paths(mpp);
-> +
-> +	if (active == 0) {
-> +		enter_recovery_mode(mpp);
-> +		if (mpp->no_path_retry != NO_PATH_RETRY_QUEUE)
->  			mpp->stat_map_failures++;
->  	}
-> -	condlog(2, "%s: remaining active paths: %d", mpp->alias, mpp->nr_active);
-> +	condlog(2, "%s: remaining active paths: %d", mpp->alias, active);
->  }
->  
->  void update_queue_mode_add_path(struct multipath *mpp)
->  {
-> -	if (mpp->nr_active++ == 0 && mpp->no_path_retry > 0) {
-> -		/* come back to normal mode from retry mode */
-> -		mpp->retry_tick = 0;
-> -		dm_queue_if_no_path(mpp->alias, 1);
-> -		condlog(2, "%s: queue_if_no_path enabled", mpp->alias);
-> -		condlog(1, "%s: Recovered to normal mode", mpp->alias);
-> -	}
-> -	condlog(2, "%s: remaining active paths: %d", mpp->alias, mpp->nr_active);
-> +	int active = count_active_paths(mpp);
-> +
-> +	if (active > 0)
-> +		leave_recovery_mode(mpp);
-> +	condlog(2, "%s: remaining active paths: %d", mpp->alias, active);
->  }
->  
->  vector get_used_hwes(const struct _vector *pathvec)
-> diff --git a/libmultipath/structs_vec.h b/libmultipath/structs_vec.h
-> index d3219278..2a5e3d60 100644
-> --- a/libmultipath/structs_vec.h
-> +++ b/libmultipath/structs_vec.h
-> @@ -11,8 +11,8 @@ struct vectors {
->  	vector mpvec;
->  };
->  
-> -void set_no_path_retry(struct multipath *mpp);
-> -void enter_recovery_mode(struct multipath *mpp);
-> +void __set_no_path_retry(struct multipath *mpp, bool check_features);
-> +#define set_no_path_retry(mpp) __set_no_path_retry(mpp, true)
->  
->  int adopt_paths (vector pathvec, struct multipath * mpp);
->  void orphan_paths(vector pathvec, struct multipath *mpp,
-> diff --git a/multipathd/cli_handlers.c b/multipathd/cli_handlers.c
-> index 371b0a79..14447c3c 100644
-> --- a/multipathd/cli_handlers.c
-> +++ b/multipathd/cli_handlers.c
-> @@ -1024,16 +1024,16 @@ cli_restore_queueing(void *v, char **reply, int *len, void *data)
->  	select_no_path_retry(conf, mpp);
->  	pthread_cleanup_pop(1);
->  
-> -	if (mpp->no_path_retry != NO_PATH_RETRY_UNDEF &&
-> -			mpp->no_path_retry != NO_PATH_RETRY_FAIL) {
-> -		dm_queue_if_no_path(mpp->alias, 1);
-> -		if (mpp->no_path_retry > 0) {
-> -			if (mpp->nr_active > 0)
-> -				mpp->retry_tick = 0;
-> -			else
-> -				enter_recovery_mode(mpp);
-> -		}
-> -	}
-> +	/*
-> +	 * Don't call set_no_path_retry() for the NO_PATH_RETRY_FAIL case.
-> +	 * That would disable queueing when "restorequeueing" is called,
-> +	 * and the code never behaved that way. Users might not expect it.
-> +	 * In almost all cases, queueing will be disabled anyway when we
-> +	 * are here.
-> +	 */
-> +	if (mpp->no_path_retry != NO_PATH_RETRY_FAIL)
-> +		__set_no_path_retry(mpp, false);
-> +
->  	return 0;
->  }
->  
-> @@ -1051,16 +1051,9 @@ cli_restore_all_queueing(void *v, char **reply, int *len, void *data)
->  		pthread_cleanup_push(put_multipath_config, conf);
->  		select_no_path_retry(conf, mpp);
->  		pthread_cleanup_pop(1);
-> -		if (mpp->no_path_retry != NO_PATH_RETRY_UNDEF &&
-> -		    mpp->no_path_retry != NO_PATH_RETRY_FAIL) {
-> -			dm_queue_if_no_path(mpp->alias, 1);
-> -			if (mpp->no_path_retry > 0) {
-> -				if (mpp->nr_active > 0)
-> -					mpp->retry_tick = 0;
-> -				else
-> -					enter_recovery_mode(mpp);
-> -			}
-> -		}
-> +		/* See comment in cli_restore_queueing() */
-> +		if (mpp->no_path_retry != NO_PATH_RETRY_FAIL)
-> +			__set_no_path_retry(mpp, false);
->  	}
->  	return 0;
->  }
-> @@ -1085,12 +1078,12 @@ cli_disable_queueing(void *v, char **reply, int *len, void *data)
->  		return 1;
->  	}
->  
-> -	if (mpp->nr_active == 0)
-> +	if (count_active_paths(mpp) == 0)
->  		mpp->stat_map_failures++;
->  	mpp->retry_tick = 0;
->  	mpp->no_path_retry = NO_PATH_RETRY_FAIL;
->  	mpp->disable_queueing = 1;
-> -	dm_queue_if_no_path(mpp->alias, 0);
-> +	__set_no_path_retry(mpp, false);
->  	return 0;
->  }
->  
-> @@ -1103,12 +1096,12 @@ cli_disable_all_queueing(void *v, char **reply, int *len, void *data)
->  
->  	condlog(2, "disable queueing (operator)");
->  	vector_foreach_slot(vecs->mpvec, mpp, i) {
-> -		if (mpp->nr_active == 0)
-> +		if (count_active_paths(mpp) == 0)
->  			mpp->stat_map_failures++;
->  		mpp->retry_tick = 0;
->  		mpp->no_path_retry = NO_PATH_RETRY_FAIL;
->  		mpp->disable_queueing = 1;
-> -		dm_queue_if_no_path(mpp->alias, 0);
-> +		__set_no_path_retry(mpp, false);
->  	}
->  	return 0;
->  }
-> diff --git a/multipathd/main.c b/multipathd/main.c
-> index a21d96e4..c0423602 100644
-> --- a/multipathd/main.c
-> +++ b/multipathd/main.c
-> @@ -1616,7 +1616,7 @@ fail_path (struct path * pp, int del_active)
->   * caller must have locked the path list before calling that function
->   */
->  static int
-> -reinstate_path (struct path * pp, int add_active)
-> +reinstate_path (struct path * pp)
->  {
->  	int ret = 0;
->  
-> @@ -1628,8 +1628,7 @@ reinstate_path (struct path * pp, int add_active)
->  		ret = 1;
->  	} else {
->  		condlog(2, "%s: reinstated", pp->dev_t);
-> -		if (add_active)
-> -			update_queue_mode_add_path(pp->mpp);
-> +		update_queue_mode_add_path(pp->mpp);
->  	}
->  	return ret;
->  }
-> @@ -1861,7 +1860,7 @@ static int check_path_reinstate_state(struct path * pp) {
->  
->  	if (pp->disable_reinstate) {
->  		/* If there are no other usable paths, reinstate the path */
-> -		if (pp->mpp->nr_active == 0) {
-> +		if (count_active_paths(pp->mpp) == 0) {
->  			condlog(2, "%s : reinstating path early", pp->dev);
->  			goto reinstate_path;
->  		}
-> @@ -1960,7 +1959,6 @@ check_path (struct vectors * vecs, struct path * pp, unsigned int ticks)
->  	int newstate;
->  	int new_path_up = 0;
->  	int chkr_new_path_up = 0;
-> -	int add_active;
->  	int disable_reinstate = 0;
->  	int oldchkrstate = pp->chkrstate;
->  	int retrigger_tries, verbosity;
-> @@ -2134,7 +2132,7 @@ check_path (struct vectors * vecs, struct path * pp, unsigned int ticks)
->  	 * paths if there are no other active paths in map.
->  	 */
->  	disable_reinstate = (newstate == PATH_GHOST &&
-> -			     pp->mpp->nr_active == 0 &&
-> +			     count_active_paths(pp->mpp) == 0 &&
->  			     path_get_tpgs(pp) == TPGS_IMPLICIT) ? 1 : 0;
->  
->  	pp->chkrstate = newstate;
-> @@ -2185,12 +2183,7 @@ check_path (struct vectors * vecs, struct path * pp, unsigned int ticks)
->  		/*
->  		 * reinstate this path
->  		 */
-> -		if (oldstate != PATH_UP &&
-> -		    oldstate != PATH_GHOST)
-> -			add_active = 1;
-> -		else
-> -			add_active = 0;
-> -		if (!disable_reinstate && reinstate_path(pp, add_active)) {
-> +		if (!disable_reinstate && reinstate_path(pp)) {
->  			condlog(3, "%s: reload map", pp->dev);
->  			ev_add_path(pp, vecs, 1);
->  			pp->tick = 1;
-> @@ -2213,7 +2206,7 @@ check_path (struct vectors * vecs, struct path * pp, unsigned int ticks)
->  		    pp->dmstate == PSTATE_UNDEF) &&
->  		    !disable_reinstate) {
->  			/* Clear IO errors */
-> -			if (reinstate_path(pp, 0)) {
-> +			if (reinstate_path(pp)) {
->  				condlog(3, "%s: reload map", pp->dev);
->  				ev_add_path(pp, vecs, 1);
->  				pp->tick = 1;
-> -- 
-> 2.24.0
+> diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
+> index 9c9a323c0c30..255a52f7bbf0 100644
+> --- a/drivers/md/dm-thin.c
+> +++ b/drivers/md/dm-thin.c
+> @@ -3203,18 +3203,8 @@ static void metadata_low_callback(void *context)
+>   static int metadata_pre_commit_callback(void *context)
+>   {
+>   	struct pool_c *pt = context;
+> -	struct bio bio;
+> -	int r;
+> -
+> -	bio_init(&bio, NULL, 0);
+> -	bio_set_dev(&bio, pt->data_dev->bdev);
+> -	bio.bi_opf = REQ_OP_WRITE | REQ_PREFLUSH;
+> -
+> -	r = submit_bio_wait(&bio);
+>   
+> -	bio_uninit(&bio);
+> -
+> -	return r;
+> +	return blkdev_issue_flush(pt->data_dev->bdev, GFP_NOIO, NULL);
+>   }
+>   
+>   static sector_t get_dev_size(struct block_device *bdev)
+> 
 
 --
 dm-devel mailing list
