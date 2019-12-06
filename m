@@ -1,86 +1,93 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id A00F91149B7
-	for <lists+dm-devel@lfdr.de>; Fri,  6 Dec 2019 00:15:19 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 6964511525A
+	for <lists+dm-devel@lfdr.de>; Fri,  6 Dec 2019 15:16:02 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1575587718;
+	s=mimecast20190719; t=1575641761;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=iBt5A3Q6KgNOL7VaPsrDk57dkcajtiGwt+lAGQoz0YI=;
-	b=boBiEPrNJly5KEbf0EFRYGVh0NBEC0XwVf/fL5V1N1Yk8TeBTevI3XQk91vsCG0qn1dC76
-	PVqnkb19g6n5/wlyEOuZxhdLTkHz6vAiNBlPA6Ofv1eLOdSkLQGbv6BcCCkDcksWafFCS1
-	kUHt5/31Vom0bfyEPn+VRlLmzwgmAc0=
+	bh=6pl3OafyWEC2raL0zos0G2HjTSSKGVqH8lwIQWef48o=;
+	b=Xqs/wxsXM+g5SEEqgELGt7ZE0/2x9jEkEV56M1aoA0XIoE0k3fneS/RwkzvlkUmyQ3KN6G
+	U6vaMVMGFD9qfuFWtuaWkpI1VrMB2wW1LrRQPFADSF+V6OVcVtFkc8aTTAm1G/mcTOqkRV
+	sEHhvWFmNMUwmo+wxcRjGp/nQi1KlWA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-390-WHcLqiIKOiaZcBH9WT6ulg-1; Thu, 05 Dec 2019 18:15:16 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-155-_eiNgcBgNECgMf9DuyIagw-1; Fri, 06 Dec 2019 09:15:57 -0500
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 978711883521;
-	Thu,  5 Dec 2019 23:15:09 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CCD7560C80;
-	Thu,  5 Dec 2019 23:15:07 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7A37463CC0;
+	Fri,  6 Dec 2019 14:15:50 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B8AA060138;
+	Fri,  6 Dec 2019 14:15:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D484918089CD;
-	Thu,  5 Dec 2019 23:15:00 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AA72965D21;
+	Fri,  6 Dec 2019 14:15:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xB5NES8b024630 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 5 Dec 2019 18:14:28 -0500
+	id xB6EFJO4014386 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 6 Dec 2019 09:15:19 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 26233167ED3; Thu,  5 Dec 2019 23:14:28 +0000 (UTC)
+	id 5B3922166B2E; Fri,  6 Dec 2019 14:15:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 21015167ED2
-	for <dm-devel@redhat.com>; Thu,  5 Dec 2019 23:14:26 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 569F32166B30
+	for <dm-devel@redhat.com>; Fri,  6 Dec 2019 14:15:17 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3A80710163CC
-	for <dm-devel@redhat.com>; Thu,  5 Dec 2019 23:14:26 +0000 (UTC)
-Received: from mx.ewheeler.net (mx.ewheeler.net [173.205.220.69]) by
-	relay.mimecast.com with ESMTP id us-mta-111-uEGVXxnGOQeziReQNpjkSA-1;
-	Thu, 05 Dec 2019 18:14:24 -0500
-Received: from localhost (localhost [127.0.0.1])
-	by mx.ewheeler.net (Postfix) with ESMTP id 10210A0633;
-	Thu,  5 Dec 2019 23:14:23 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at ewheeler.net
-Received: from mx.ewheeler.net ([127.0.0.1])
-	by localhost (mx.ewheeler.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id w-w1J2nLpTsq; Thu,  5 Dec 2019 23:14:01 +0000 (UTC)
-Received: from mx.ewheeler.net (mx.ewheeler.net [173.205.220.69])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mx.ewheeler.net (Postfix) with ESMTPSA id 7EB97A0440;
-	Thu,  5 Dec 2019 23:14:01 +0000 (UTC)
-Date: Thu, 5 Dec 2019 23:14:00 +0000 (UTC)
-From: Eric Wheeler <dm-devel@lists.ewheeler.net>
-X-X-Sender: lists@mx.ewheeler.net
-To: Joe Thornber <thornber@redhat.com>
-In-Reply-To: <20191204121106.lw32xoe7mil274of@reti>
-Message-ID: <alpine.LRH.2.11.1912041959250.11561@mx.ewheeler.net>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6AA788C4409
+	for <dm-devel@redhat.com>; Fri,  6 Dec 2019 14:15:17 +0000 (UTC)
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
+	[209.85.208.176]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-305-I5cbsrGuNA2wyPQC11fTGA-1; Fri, 06 Dec 2019 09:15:15 -0500
+Received: by mail-lj1-f176.google.com with SMTP id k8so7819165ljh.5
+	for <dm-devel@redhat.com>; Fri, 06 Dec 2019 06:15:14 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:references:from:cc:message-id:date
+	:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=wdGGvPmbKyl1Mo/x+Ao8de4aMgM9SLc+rvOhBwfvllw=;
+	b=N4aZRwlzwF1aAZqTTc2LrZUyFLZZFK9kWegPt2hHfbx2t91RGNvP/5aOpwjSHCtgF4
+	UuMX9MUq6+6U6aGG8BKKVixiIs+60062LEIJQwCkg/oJjZliofmCKuT08XJz2v9OXJba
+	d08AspOFosD5UBUKnLT/BedXgh/HdOqhNDoDE3/1qDW6k0lBpBaFq8IPr6nzNA04G/TH
+	EM5RTJshZ6j0UTJHfdfsB7hmNAu29IkZSyZ4AW/cEA6e0sN1eUEFmTjh7VhLqgRH+SKM
+	tsxvjez0qVsBTkXewUMXXst2IYogBlOLEjAIbu0HG91XMnZ1P/Wy1GQdBqJK/w5NaBmm
+	YzbQ==
+X-Gm-Message-State: APjAAAV3jLFl9GyF7OFcGiBCL+YSCskfdU8dCfqxWCMIuPYfH3OjqsU+
+	UIQDSgDdAFrPDwjAk0PBMCoYJTNbqeg=
+X-Google-Smtp-Source: APXvYqy7xc7Ma5dYipbsgBTOv5vccqQqggfOccW22QoQLuEogfguuUv0Y6CIUKNwC9SFI1DJEDsSXA==
+X-Received: by 2002:a05:651c:285:: with SMTP id
+	b5mr8935465ljo.14.1575641712554; 
+	Fri, 06 Dec 2019 06:15:12 -0800 (PST)
+Received: from [10.94.250.133] ([31.177.62.212])
+	by smtp.gmail.com with ESMTPSA id e8sm7810516ljb.45.2019.12.06.06.15.11
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Fri, 06 Dec 2019 06:15:12 -0800 (PST)
+To: thornber@redhat.com
 References: <35cf1ecf-5cd8-604b-ec4e-18c9fd4a4195@linux.alibaba.com>
 	<20191122185530.pcrgmb655dkdbdcq@reti>
-	<6b12137e-411e-0368-518e-41ae54e138e0@linux.alibaba.com>
-	<alpine.LRH.2.11.1912022002210.11561@mx.ewheeler.net>
-	<20191203125115.rdc74jgjdz2673ig@reti>
-	<20191204121106.lw32xoe7mil274of@reti>
-User-Agent: Alpine 2.11 (LRH 23 2013-08-11)
+From: Nikos Tsironis <ntsironis@arrikto.com>
+Message-ID: <629bd851-8d89-00bd-0fea-d140961e8752@arrikto.com>
+Date: Fri, 6 Dec 2019 16:15:09 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.2.2
 MIME-Version: 1.0
-X-MC-Unique: uEGVXxnGOQeziReQNpjkSA-1
-X-MC-Unique: WHcLqiIKOiaZcBH9WT6ulg-1
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id xB5NES8b024630
+In-Reply-To: <20191122185530.pcrgmb655dkdbdcq@reti>
+Content-Language: en-US
+X-MC-Unique: I5cbsrGuNA2wyPQC11fTGA-1
+X-MC-Unique: _eiNgcBgNECgMf9DuyIagw-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: JeffleXu <jefflexu@linux.alibaba.com>, dm-devel@redhat.com
 Subject: Re: [dm-devel] dm-thin: Several Questions on dm-thin performance.
@@ -97,352 +104,64 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Content-Transfer-Encoding: 7bit
 
-Thanks Joe, great writeup.  Maybe this should go in thin-provisioning.txt.
-
-More below:
-
-On Wed, 4 Dec 2019, Joe Thornber wrote:
-
-> (These notes are for my own benefit as much as anything, I haven't
-> worked on this for a couple of years and will forget it all completely
-> if I don't write it down somewhere).
+On 11/22/19 8:55 PM, Joe Thornber wrote:
+> On Fri, Nov 22, 2019 at 11:14:15AM +0800, JeffleXu wrote:
 > 
-> Let's start by writing some pseudocode for what the remap function for
-> thin provisioning actually does.
+>> The first question is what's the purpose of data cell? In thin_bio_map(),
+>> normal bio will be packed as a virtual cell and data cell. I can understand
+>> that virtual cell is used to prevent discard bio and non-discard bio
+>> targeting the same block from being processed at the same time. I find it
+>> was added in commit     e8088073c9610af017fd47fddd104a2c3afb32e8 (dm thin:
+>> fix race between simultaneous io and discards to same block), but I'm still
+>> confused about the use of data cell.
 > 
-> 	----------------------------------------------------------
-> 	-- Metadata
+> As you are aware there are two address spaces for the locks.  The 'virtual' one
+> refers to cells in the logical address space of the thin devices, and the 'data' one
+> refers to the underlying data device.  There are certain conditions where we
+> unfortunately need to hold both of these (eg, to prevent a data block being reprovisioned
+> before an io to it has completed).
 > 
-> 	newtype ThinId = Int
-> 	data Bio = Bio
-> 	newtype VBlock = Integer	-- virtual block
-> 	newtype DBlock = Integer	-- data block
-
-Can you define virtual block vs data block?  Is this just the thin volume 
-offset vs the tdata offset?
-
+>> The second question is the impact of virtual cell and data cell on IO
+>> performance. If $data_block_size is large for example 1G, in multithread fio
+>> test, most bio will be buffered in cell->bios list and then be processed by
+>> worker thread asynchronously, even when there's no discard bio. Thus the
+>> original parallel IO is processed by worker thread serially now. As the
+>> number of fio test threads increase, the single worker thread can easily get
+>> CPU 100%, and thus become the bottleneck of the performance since dm-thin
+>> workqueue is ordered unbound.
 > 
-> 	data LookupResult =
-> 	    Unprovisioned |
-> 	    Provisioned { lrDBlock :: DataBlock,
-> 	                  lrShared :: Bool
-> 	                }
-
-What is "lr"? as in lrDBlock?
-
-> 	metadataLookup :: ThinId -> VBlock -> Task LookupResult
-> 	metadataLookup = undefined
+> Yep, this is a big issue.  Take a look at dm-bio-prison-v2.h, this is the
+> new interface that we need to move dm-thin across to use (dm-cache already uses it).
+> It allows concurrent holders of a cell (ie, read locks), so we'll be able to remap
+> much more io without handing it off to a worker thread.  Once this is done I want
+> to add an extra field to cells that will cache the mapping, this way if you acquire a
+> cell that is already held then you can avoid the expensive btree lookup.  Together
+> these changes should make a huge difference to the performance.
 > 
-> 	metadataInsert :: ThinId -> VBlock -> DBlock -> Task ()
-> 	metadataInsert = undefined
-> 
-> 	metadataRemove :: ThinId -> VBlock -> Task ()
-> 	metadataRemove = undefined
-> 
-> 	-- Blocks all other metadata operations while running
-> 	metadataCommit :: Task ()
-> 	metadataCommit = undefined
-> 
-> 	----------------------------------------------------------
-> 	-- Tasks
-> 
-> 	-- Many steps of servicing a bio can block.  eg, taking a lock,
-> 	-- reading metadata, updating metadata, zeroing data, copying
-> 	-- data ...
-> 	-- So we completely side step the issue in this pseudocode by
-> 	-- running everything in a magic light weight thread.
-> 	spawn :: Task () -> IO ()
-> 	spawn = undefined
-> 
-> 	----------------------------------------------------------
-> 	-- Locking
-> 
-> 	-- These 'with' primitives acquire a lock (can block of course), perform
-> 	-- an action, and then automatically release the lock.
-> 	 
-> 	-- Shared lock can be upgraded, so we need to pass the lock into
-> 	-- the action body.
-> 	withSharedLock :: ThinId -> VBlock -> (Lock -> Task ()) -> Task ()
-> 	withSharedLock thinId vblock actionFn = undefined
-> 
-> 	withExclusiveLock :: ThinId -> VBlock -> Task () -> Task ()
-> 	withExclusiveLock thinId vblock action = undefined
-> 
-> 	-- This promotes a shared lock to exclusive.
-> 	withUpgradedLock :: Lock -> Task () -> Task ()
-> 	withUpgradedLock lock action = undefined
-> 
-> 	-- Data locks are always exclusive
-> 	withDataLock :: DBlock -> Task () -> Task ()
-> 	withDataLock dblock action = undefined
-> 
-> 	----------------------------------------------------------
-> 
-> 	-- Top level remap function.  Kicks off a green thread for each bio.
-> 	-- How we handle a bio depends on whether it's a read, write, discard
-> 	-- or flush bio.  Whether the block is already provisioned, and if so
-> 	-- whether it is shared between snapshots.
-> 	remap :: ThinId -> Bio -> IO ()
-> 	remap thinId bio = spawn $ remapFn thinId bio vblock
-> 	    where
-> 	        vblock = virtBlock bio
-> 	        remapFn = case classifyBio bio of
-> 	            ReadBio -> remapRead
-> 	            WriteBio -> remapWrite
-> 	            DiscardBio -> remapDiscard
-> 	            FlushBio -> remapFlush
-> 
-> 	----------------------------------------------------------
-> 
-> 	remapRead :: ThinId -> Bio -> VBlock -> Task ()
-> 	remapRead thinId bio vblock = do
-> 	    withSharedLock thinId vblock $ \_ -> do
-> 	        lr <- metadataLookup thinId vblock
-> 	        case lr of
-> 	            -- Read, Unprovisioned, Shared/!Shared
-> 	            Unprovisioned -> do
-> 	                fillWithZeroes bio
-> 	                complete bio Success
-> 
-> 	            -- Read, Provisioned, Shared/!Shared
-> 	            (Provisioned dblock _) ->
-> 	                remapAndWait bio dblock
-> 
-> 	----------------------------------------------------------
-> 
-> 	remapWrite :: ThinId -> Bio -> VBlock -> Task ()
-> 	remapWrite thinId bio vblock = do
-> 	    withSharedLock thinId vblock $ \lock -> do
-> 	        lr <- metadataLookup thinId vblock
-> 	        case lr of
-> 	            -- Write, Unprovisioned
-> 	            Unprovisioned ->
-> 	                withUpgradedLock lock $
-> 	                    provision thinId bio vblock
-> 
-> 	            -- Write, Provisioned, !Shared
-> 	            (Provisioned dblock False) ->
-> 	                remapAndWait bio dblock
-> 
-> 	            -- Write, Provisioned, Shared
-> 	            (Provisioned dblock True) ->
-> 	                withUpgradedLock lock $
-> 	                    breakSharing thinId bio vblock dblock
-> 
-> 	breakSharing :: ThinId -> Bio -> VBlock -> DataBlock -> Task ()
-> 	breakSharing thinId bio vblock dblockOld = do
-> 	    ab <- allocateBlock
-> 	   case ab of
-> 	       NoDataSpace ->
-> 	           complete bio Failure
-> 
-> 	       (Allocated dblockNew) ->
-> 	           withDataLock dblockOld $		-- we grab data locks to avoid races with discard
-> 	               withDataLock dblockNew $ do
-> 	                   copy dblockOld dblockNew
-> 	                   metadataInsert thinId vblock dblockNew
-> 	           remapAndWait thinId bio dblockNew
-> 
-> 	provision :: ThinId -> Bio -> VBlock -> Task ()
-> 	provision thinId bio vblock = do
-> 	    case allocateBlock of
-> 	        NoDataSpace ->
-> 	            complete bio Failure
-> 
-> 	        (Allocated dblock) ->
-> 	            withDataLock dblock $ do
-> 	                metadataInsert thinId vblock dblock
-> 	                remapAndWait thinId bio dblock
-
-Does the allocator block?  If so, it would be neat to pre-allocate some 
-number of blocks during metadata idle times.  There could be a hidden thin 
-volume (ie, devid #16777215) that blocks are allocated into and then 
-stolen from for use elsewhere.  The blocks could be pre-zeroed, too!
-
-> 	            
-> 	----------------------------------------------------------
-> 
-> 	discard :: ThinId -> Bio -> VBlock -> Task ()
-> 	discard thinId bio vblock = do
-> 	    withExclusiveLock thinId vblock $ do
-> 	        lr <- metadataLookup thinId vblock
-> 	        case lr of
-> 	            -- Discard, Unprovisioned
-> 	            Unprovisioned ->
-> 	                complete bio Success
-> 
-> 	            -- Discard, Provisioned, !Shared
-> 	            (Provisioned dblock False) ->
-> 	                withDataLock dblock $ do
-> 	                    remapAndWait bio dblock  		-- passdown
-> 	                    metadataRemove thinId dblock
-> 
-> 	            -- Discard, Provisioned, Shared
-> 	           (Provisioned dblock True) ->
-> 	               withDataLock dblock $ do
-> 	                   metadataRemove thinId dblock
-> 	                   complete bio Success
-> 
-> 	----------------------------------------------------------
-> 
-> 	flush :: Task ()
-> 	flush = metadataCommit
-> 	    
-> 	----------------------------------------------------------
-> 
-> 	remapAndWait :: Bio -> DataBlock -> Task ()
-> 	remapAndWait bio dblock = do
-> 	    remap bio dblock
-> 	    issue bio
-> 	    wait bio
->    
-> The above is a simplification (eg, discards can cover more than a single
-> block, the pool has multiple modes like OUT_OF_DATA_SPACE).  But it gives
-> a good idea of what the dm target needs to do, and in a succinct manner.
-> 
-> Now dm-thin.c is anything but succinct, for a couple of reasons:
-> 
-> - Because of where we are in the IO stack we cannot allocate memory.
->   This means we either use memory preallocated via mempools, or allocate
->   a fixed size block before a bio is processed.
-> 
-> - We don't have a magic green threads library that hides the numerous
->   blocking operations that we need.  Instead we have low level facilities
->   like workqueues etc.  This tends to have the effect of breaking up the logic
->   and scattering it across lots of little completion functions.
-> 
-> 
-> How we handle blocking, locking, and quiescing IO are all intertwined.
-> Which is why switching over to the new bio_prison interface is going to
-> involve an awful lot of churn.
-> 
-> In the upstream code
-> ====================
-> 
-> - Locking
-> 
->   The locks provided by bio_prison (v1), are all exclusive locks.  As such
->   we take pains to hold them for as short a period as possible.  This means
->   holding them for the duration of an IO is completely out of the question.
->   Nonetheless, as pointed out in the original post for this thread, this
->   can cause bad lock contention, especially if the data block size is large.
-> 
-> - Quiescing
-> 
->   Because we do not hold locks for the lifetime of the bios, we need
->   another way of tracking IO and quiescing regions.  This is what the
->   deferred_set component does.  Effectively it divides time up into
->   bins, and keeps a reference count of how many IOs are still in flight
->   for each bin.  To quiesce we grab a lock, and then wait for all bins
->   before this lock was acquired to drain.  Advantages of this approach
->   is it uses very little memory (I think we're currently running with
->   64 bins), and consumes v. little cpu.  But we're never specific about
-
-curious, is "v." short for "very" (not "versus")?
-
->   which region we're waiting to quiesce, instead always waiting for all
->   IO older than a certain point to drain.  So we are certainly introducing
->   more latency here.
-> 
-> - Blocking
-> 
->   A single thread services any operations that could block.
->   When there is work for this thread to perform a work queue item
->   is queued (do_worker()).  This then examines linked lists of work
->   (prepared_mappings, discard_pt1, discard_pt2, prefetches etc), and
->   processes each list as a batch.  Batching like this is a mixed blessing;
->   it allows us to sort incoming bios so we can process bios to the same
->   region at the same time, but it is also v. bad for max latency, as we
->   have no idea which piece of work was there the longest.
-> 
-> Next iteration of the code
-> ========================== 
-> 
-> - Locking
-> 
->   bio_prison (v2) provides shared locks, and custom lock levels.  So,
->   at the expense of memory, we can hold shared locks for long periods
->   that cover the lifetime of the bio.  Acquiring a lock now blocks.
-> 
-> - Quiescing
-> 
->   Because we hold the locks for long periods we can now do away with the
->   deferred set completely.  If you want to quiesce a region, just grab
->   the exclusive lock associated with it, when it's finally granted you
->   know it's also quiesced.
+> If you've got some spare coding cycles I'd love some help with this ;)
 > 
 
-good to know.
+Hi Joe,
 
-> - Blocking
-> 
->   I want to move away from the idea of a single worker function that
->   has different categories of work stored for it in different lists.
->   Instead, storing specific work structs on the work queue for each bio.
->   Partly this is to reduce latency by increasing 'fairness'.  But also
->   the fact that acquiring a lock now blocks means there are a lot more
->   block operations to handle, and we'd just end up with a lot of these
->   lists of work.  It would also allow us to have multiple kernel threads
->   servicing the workqueue.
-> 
->   If you look at dm-cache-target.c you'll see this has already been
->   done for that target.  We have continuation structs that represent
->   the work to be performed after the current blocking op has completed.
->   dm-cache uses this for migrations, which have a much simpler state model
->   than dm-thin.  Even so there are a lot of these little continuation
->   functions (eg, mg_start, mg_lock_writes, mg_copy, mg_full_copy,
->   mg_upgrade_lock, mg_update_metadata_after_copy, mg_update_metadata,
->   mg_success, mg_complete).
-> 
-> 
-> Where are we now?
-> =================
-> 
-> I did a lot of work on this a couple of years ago.  First I just dove
-> in, trying to code things up by hand.  But it quickly devolved into a
-> maze of badly named continuation functions, all alike.  It's very hard
-> to give these functions meaningful names; go through the pseudocode at
-> the top of this email and for each place where we could block, try to
-> describe where we are.  The biggest problem is as we introduce more of
-> these continuations big picture logic receeds and it becomes v. hard to
-> reason about the code.
+I would be interested in helping you with this task. I can't make any
+promises, but I believe I could probably spare some time to work on it.
 
-Event-driven continuation functions seem to pop up frequently in the Linux 
-kernel.  It would be neat if there was a framework to write these 
-procedurally.  Macros might help, could still be pretty ugly.  Almost 
-needs GCC support.
- 
-> I then experimented with automatically generating all the code from a
-> simpler specification (I used a lispy version of the pseudocode above).
-> This showed promise and I got it generating kernel code that would
-> compile.  I was debugging this when I got dragged onto other work,
-> and this has stagnated since.
+If you think you could use the extra help, let me know.
 
-Do you think this is the best way to proceed?  Someone with Lisp 
-background would need to help. It might generate first-pass code but would 
-be difficult to maintain as kernel changes patch the auto-generated code.
+Nikos
 
--Eric
-
-> 
-> 
-> So that's where we are.
->  
-> 
-> 
+> - Joe
 > 
 > --
 > dm-devel mailing list
 > dm-devel@redhat.com
 > https://www.redhat.com/mailman/listinfo/dm-devel
 > 
-> 
-
 
 --
 dm-devel mailing list
