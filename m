@@ -1,96 +1,100 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 6964511525A
-	for <lists+dm-devel@lfdr.de>; Fri,  6 Dec 2019 15:16:02 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id AE289115406
+	for <lists+dm-devel@lfdr.de>; Fri,  6 Dec 2019 16:14:47 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1575641761;
+	s=mimecast20190719; t=1575645286;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=6pl3OafyWEC2raL0zos0G2HjTSSKGVqH8lwIQWef48o=;
-	b=Xqs/wxsXM+g5SEEqgELGt7ZE0/2x9jEkEV56M1aoA0XIoE0k3fneS/RwkzvlkUmyQ3KN6G
-	U6vaMVMGFD9qfuFWtuaWkpI1VrMB2wW1LrRQPFADSF+V6OVcVtFkc8aTTAm1G/mcTOqkRV
-	sEHhvWFmNMUwmo+wxcRjGp/nQi1KlWA=
+	bh=i5YupUHSlyY0hWSdtED5ceWn1BhPVM1Q6sPGxieNPgk=;
+	b=ZubXqqr8y7YspQMk12XDdRNky1/Mz43Z7BJJZewQqiYWwpliBZ2ko9fR3wfoikNbNmvAnz
+	jVfDx/38ziYNteefaj8UheNlpKf8rbqMVtJABJHWZLnxAxE1I6trI1L6x9qli1HOy+xsym
+	qVgujUq548T7vZfsx63DiQ06P4g3yHo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-155-_eiNgcBgNECgMf9DuyIagw-1; Fri, 06 Dec 2019 09:15:57 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-193-duQ_zKq-P8OyFsJjpyS7OA-1; Fri, 06 Dec 2019 10:14:44 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7A37463CC0;
-	Fri,  6 Dec 2019 14:15:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B8AA060138;
-	Fri,  6 Dec 2019 14:15:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8E9A3DB20;
+	Fri,  6 Dec 2019 15:14:35 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C0BD81CB;
+	Fri,  6 Dec 2019 15:14:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AA72965D21;
-	Fri,  6 Dec 2019 14:15:35 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 23AD718034EA;
+	Fri,  6 Dec 2019 15:14:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xB6EFJO4014386 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 6 Dec 2019 09:15:19 -0500
+	id xB6FEILg020042 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 6 Dec 2019 10:14:18 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5B3922166B2E; Fri,  6 Dec 2019 14:15:19 +0000 (UTC)
+	id 7AAFF2063203; Fri,  6 Dec 2019 15:14:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 569F32166B30
-	for <dm-devel@redhat.com>; Fri,  6 Dec 2019 14:15:17 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 760622026D69
+	for <dm-devel@redhat.com>; Fri,  6 Dec 2019 15:14:16 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6AA788C4409
-	for <dm-devel@redhat.com>; Fri,  6 Dec 2019 14:15:17 +0000 (UTC)
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
-	[209.85.208.176]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-305-I5cbsrGuNA2wyPQC11fTGA-1; Fri, 06 Dec 2019 09:15:15 -0500
-Received: by mail-lj1-f176.google.com with SMTP id k8so7819165ljh.5
-	for <dm-devel@redhat.com>; Fri, 06 Dec 2019 06:15:14 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1D2198001FC
+	for <dm-devel@redhat.com>; Fri,  6 Dec 2019 15:14:16 +0000 (UTC)
+Received: from mail-lj1-f193.google.com (mail-lj1-f193.google.com
+	[209.85.208.193]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-290-aiM_L9ISPxmf2jrDy4VWQg-1; Fri, 06 Dec 2019 10:14:14 -0500
+Received: by mail-lj1-f193.google.com with SMTP id z17so7967748ljk.13
+	for <dm-devel@redhat.com>; Fri, 06 Dec 2019 07:14:14 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:references:from:cc:message-id:date
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
 	:user-agent:mime-version:in-reply-to:content-language
 	:content-transfer-encoding;
-	bh=wdGGvPmbKyl1Mo/x+Ao8de4aMgM9SLc+rvOhBwfvllw=;
-	b=N4aZRwlzwF1aAZqTTc2LrZUyFLZZFK9kWegPt2hHfbx2t91RGNvP/5aOpwjSHCtgF4
-	UuMX9MUq6+6U6aGG8BKKVixiIs+60062LEIJQwCkg/oJjZliofmCKuT08XJz2v9OXJba
-	d08AspOFosD5UBUKnLT/BedXgh/HdOqhNDoDE3/1qDW6k0lBpBaFq8IPr6nzNA04G/TH
-	EM5RTJshZ6j0UTJHfdfsB7hmNAu29IkZSyZ4AW/cEA6e0sN1eUEFmTjh7VhLqgRH+SKM
-	tsxvjez0qVsBTkXewUMXXst2IYogBlOLEjAIbu0HG91XMnZ1P/Wy1GQdBqJK/w5NaBmm
-	YzbQ==
-X-Gm-Message-State: APjAAAV3jLFl9GyF7OFcGiBCL+YSCskfdU8dCfqxWCMIuPYfH3OjqsU+
-	UIQDSgDdAFrPDwjAk0PBMCoYJTNbqeg=
-X-Google-Smtp-Source: APXvYqy7xc7Ma5dYipbsgBTOv5vccqQqggfOccW22QoQLuEogfguuUv0Y6CIUKNwC9SFI1DJEDsSXA==
-X-Received: by 2002:a05:651c:285:: with SMTP id
-	b5mr8935465ljo.14.1575641712554; 
-	Fri, 06 Dec 2019 06:15:12 -0800 (PST)
+	bh=tBvkWIKIwp5ewy4A+/ckiBdxYSx3YRiAr+gmZSCZ6EI=;
+	b=Wit9tvekWV4btDvZKsOumYYNMTknOJ/h7kkTw1G0eGvDjJ2RDNoH+PGpqpkK+209m+
+	pdqKFN096InRJh8aYu8Z8eV6uoLBOkjjCTqRSKCHdt3PHe580k2ZnSxyeT1o8A4VTM5j
+	0sLBlolWeGae+iYlZtuFrsp/S3EN3IlbchH+iv0CIyk9kVgU593SvbXKnpnOh+ScB5Y2
+	CHvTTiRAYa5XVooED4p3/rxaiDVOPbHPz6etoAiKRrvwsyrv9TZ65cLv9aZMTNUKVhHB
+	819gx2xUxnukUCNn9RjZOJqCskrrK/CZu4/O1NKWriwu9VvzY5NxGHYODuvjRg1CnCri
+	xLkA==
+X-Gm-Message-State: APjAAAVJbV0yq0bdLIxyQIacb1DXBcIYleXzq7d3F7muajmtO34cNwOh
+	n5dbIiOcwLcl2INL6Jx7f0YH3A==
+X-Google-Smtp-Source: APXvYqzVFst/T4LqWP4Rr2IhMFL7HFRBZEvfdEcZWieiTsSnULfhPS4rQ60Vr5CaeoG55SEhJOEYeA==
+X-Received: by 2002:a2e:93c9:: with SMTP id p9mr2624787ljh.136.1575645252828; 
+	Fri, 06 Dec 2019 07:14:12 -0800 (PST)
 Received: from [10.94.250.133] ([31.177.62.212])
-	by smtp.gmail.com with ESMTPSA id e8sm7810516ljb.45.2019.12.06.06.15.11
+	by smtp.gmail.com with ESMTPSA id m15sm7037459ljg.4.2019.12.06.07.14.11
 	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Fri, 06 Dec 2019 06:15:12 -0800 (PST)
-To: thornber@redhat.com
-References: <35cf1ecf-5cd8-604b-ec4e-18c9fd4a4195@linux.alibaba.com>
-	<20191122185530.pcrgmb655dkdbdcq@reti>
+	Fri, 06 Dec 2019 07:14:12 -0800 (PST)
+To: Eric Wheeler <dm-devel@lists.ewheeler.net>
+References: <20191204140742.26273-1-ntsironis@arrikto.com>
+	<alpine.LRH.2.11.1912041907490.11561@mx.ewheeler.net>
+	<20191204201710.GA31432@redhat.com>
+	<a60f1571-fff1-8be8-5537-f604747b39c9@arrikto.com>
+	<alpine.LRH.2.11.1912052227130.11561@mx.ewheeler.net>
 From: Nikos Tsironis <ntsironis@arrikto.com>
-Message-ID: <629bd851-8d89-00bd-0fea-d140961e8752@arrikto.com>
-Date: Fri, 6 Dec 2019 16:15:09 +0200
+Message-ID: <d5000bac-208b-a9d3-1990-4517d72b2965@arrikto.com>
+Date: Fri, 6 Dec 2019 17:14:11 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
 	Thunderbird/68.2.2
 MIME-Version: 1.0
-In-Reply-To: <20191122185530.pcrgmb655dkdbdcq@reti>
+In-Reply-To: <alpine.LRH.2.11.1912052227130.11561@mx.ewheeler.net>
 Content-Language: en-US
-X-MC-Unique: I5cbsrGuNA2wyPQC11fTGA-1
-X-MC-Unique: _eiNgcBgNECgMf9DuyIagw-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MC-Unique: aiM_L9ISPxmf2jrDy4VWQg-1
+X-MC-Unique: duQ_zKq-P8OyFsJjpyS7OA-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: JeffleXu <jefflexu@linux.alibaba.com>, dm-devel@redhat.com
-Subject: Re: [dm-devel] dm-thin: Several Questions on dm-thin performance.
+Cc: dm-devel@redhat.com, thornber@redhat.com, agk@redhat.com,
+	Mike Snitzer <snitzer@redhat.com>
+Subject: Re: [dm-devel] [PATCH 0/2] dm thin: Flush data device before
+ committing metadata to avoid data corruption
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -104,64 +108,129 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Content-Transfer-Encoding: 7bit
 
-On 11/22/19 8:55 PM, Joe Thornber wrote:
-> On Fri, Nov 22, 2019 at 11:14:15AM +0800, JeffleXu wrote:
+On 12/6/19 12:34 AM, Eric Wheeler wrote:
+> On Thu, 5 Dec 2019, Nikos Tsironis wrote:
+>> On 12/4/19 10:17 PM, Mike Snitzer wrote:
+>>> On Wed, Dec 04 2019 at  2:58pm -0500,
+>>> Eric Wheeler <dm-devel@lists.ewheeler.net> wrote:
+>>>
+>>>> On Wed, 4 Dec 2019, Nikos Tsironis wrote:
+>>>>
+>>>>> The thin provisioning target maintains per thin device mappings that map
+>>>>> virtual blocks to data blocks in the data device.
+>>>>>
+>>>>> When we write to a shared block, in case of internal snapshots, or
+>>>>> provision a new block, in case of external snapshots, we copy the shared
+>>>>> block to a new data block (COW), update the mapping for the relevant
+>>>>> virtual block and then issue the write to the new data block.
+>>>>>
+>>>>> Suppose the data device has a volatile write-back cache and the
+>>>>> following sequence of events occur:
+>>>>
+>>>> For those with NV caches, can the data disk flush be optional (maybe as a
+>>>> table flag)?
+>>>
+>>> IIRC block core should avoid issuing the flush if not needed.  I'll have
+>>> a closer look to verify as much.
+>>>
+>>
+>> For devices without a volatile write-back cache block core strips off
+>> the REQ_PREFLUSH and REQ_FUA bits from requests with a payload and
+>> completes empty REQ_PREFLUSH requests before entering the driver.
+>>
+>> This happens in generic_make_request_checks():
+>>
+>> 		/*
+>> 		 * Filter flush bio's early so that make_request based
+>> 		 * drivers without flush support don't have to worry
+>> 		 * about them.
+>> 		 */
+>> 		if (op_is_flush(bio->bi_opf) &&
+>> 		    !test_bit(QUEUE_FLAG_WC, &q->queue_flags)) {
+>> 		        bio->bi_opf &= ~(REQ_PREFLUSH | REQ_FUA);
+>> 		        if (!nr_sectors) {
+>> 		                status = BLK_STS_OK;
+>> 		                goto end_io;
+>> 		        }
+>> 		}
+>>
+>> If I am not mistaken, it all depends on whether the underlying device
+>> reports the existence of a write back cache or not.
+>>
+>> You could check this by looking at /sys/block/<device>/queue/write_cache
+>> If it says "write back" then flushes will be issued.
+>>
+>> In case the sysfs entry reports a "write back" cache for a device with a
+>> non-volatile write cache, I think you can change the kernel's view of
+>> the device by writing to this entry (you could also create a udev rule
+>> for this).
+>>
+>> This way you can set the write cache as write through. This will
+>> eliminate the cache flushes issued by the kernel, without altering the
+>> device state (Documentation/block/queue-sysfs.rst).
 > 
->> The first question is what's the purpose of data cell? In thin_bio_map(),
->> normal bio will be packed as a virtual cell and data cell. I can understand
->> that virtual cell is used to prevent discard bio and non-discard bio
->> targeting the same block from being processed at the same time. I find it
->> was added in commit     e8088073c9610af017fd47fddd104a2c3afb32e8 (dm thin:
->> fix race between simultaneous io and discards to same block), but I'm still
->> confused about the use of data cell.
+> Interesting, I'll remember that. I think this is a documentation bug, isn't this backwards:
+> 	'This means that it might not be safe to toggle the setting from
+> 	"write back" to "write through", since that will also eliminate
+> 	cache flushes issued by the kernel.'
+> 	[https://www.kernel.org/doc/Documentation/block/queue-sysfs.rst]
 > 
-> As you are aware there are two address spaces for the locks.  The 'virtual' one
-> refers to cells in the logical address space of the thin devices, and the 'data' one
-> refers to the underlying data device.  There are certain conditions where we
-> unfortunately need to hold both of these (eg, to prevent a data block being reprovisioned
-> before an io to it has completed).
-> 
->> The second question is the impact of virtual cell and data cell on IO
->> performance. If $data_block_size is large for example 1G, in multithread fio
->> test, most bio will be buffered in cell->bios list and then be processed by
->> worker thread asynchronously, even when there's no discard bio. Thus the
->> original parallel IO is processed by worker thread serially now. As the
->> number of fio test threads increase, the single worker thread can easily get
->> CPU 100%, and thus become the bottleneck of the performance since dm-thin
->> workqueue is ordered unbound.
-> 
-> Yep, this is a big issue.  Take a look at dm-bio-prison-v2.h, this is the
-> new interface that we need to move dm-thin across to use (dm-cache already uses it).
-> It allows concurrent holders of a cell (ie, read locks), so we'll be able to remap
-> much more io without handing it off to a worker thread.  Once this is done I want
-> to add an extra field to cells that will cache the mapping, this way if you acquire a
-> cell that is already held then you can avoid the expensive btree lookup.  Together
-> these changes should make a huge difference to the performance.
-> 
-> If you've got some spare coding cycles I'd love some help with this ;)
 > 
 
-Hi Joe,
+If a device has a volatile cache then the write_cache sysfs entry will
+be "write back" and we have to issue flushes to the device. In all other
+cases write_cache will be "write through".
 
-I would be interested in helping you with this task. I can't make any
-promises, but I believe I could probably spare some time to work on it.
+It's not safe to toggle write_cache from "write back" to "write through"
+because this stops the kernel from sending flushes to the device, but
+the device will continue caching the writes. So, in case something goes
+wrong, you might lose your writes or end up with some kind of
+corruption.
 
-If you think you could use the extra help, let me know.
+> How does this work with stacking blockdevs?  Does it inherit from the
+> lower-level dev? If an upper-level is misconfigured, would a writeback at
+> higher levels would clear the flush for lower levels?
+> 
+
+As Mike already mentioned in another reply to this thread, the device
+capabilities are stacked up when each device is created and are
+inherited from component devices.
+
+The logic for device stacking is implemented in various functions in
+block/blk-settings.c (blk_set_stacking_limits(), blk_stack_limits(),
+etc.), which are used also by DM core in dm-table.c to set the
+capabilities of DM devices.
+
+If an upper layer device reports a "write back" cache then flushes will
+be issued to it by the kernel, no matter what the capabilities of the
+underlying devices are.
+
+Normally an upper layer device would report a "write back" cache if at
+least one underlying device supports flushes. But, some DM devices
+report a "write back" cache irrespective of the underlying devices,
+e.g., dm-thin, dm-clone, dm-cache. This is required so they can flush
+their own metadata. They then pass the flush request down to the
+underlying device and rely on block core to do the right thing. Either
+actually send the flush to the device, if it has a volatile cache, or
+complete it immediately.
 
 Nikos
 
-> - Joe
-> 
 > --
-> dm-devel mailing list
-> dm-devel@redhat.com
-> https://www.redhat.com/mailman/listinfo/dm-devel
+> Eric Wheeler
 > 
+> 
+> 
+>> Nikos
+>>
+>>> Mike
+>>>
+>>
 
 --
 dm-devel mailing list
