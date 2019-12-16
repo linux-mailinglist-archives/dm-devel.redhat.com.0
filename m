@@ -1,89 +1,132 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id D1EBF11FB8D
-	for <lists+dm-devel@lfdr.de>; Sun, 15 Dec 2019 22:46:30 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id A5BAE12021D
+	for <lists+dm-devel@lfdr.de>; Mon, 16 Dec 2019 11:17:10 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1576446389;
+	s=mimecast20190719; t=1576491429;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=0Orglgu6ofYLGbzoB3n5amPd/JWm7kDuzJURurLcZB0=;
-	b=P9ao64uqsBahddSsjc39fEONUmlJhhBjHzHcHBgRjBNVRS4VZfuWknyWk1KdbQ551GIIjo
-	X8XNUbDD60OM5HNMRl3rddfU578LzD+BJs6uodpw4YsZvQnWitCC5vbSkCjjTchaEJ/Re+
-	U1OIqJNjhYddpC5SVOh2E0Bx2wODrgQ=
+	bh=eNXG25yykY2phMMCPUkWu7urJA+QxWA6DjAcoTM+hh4=;
+	b=bdDAGVGjgXhiD2ElhUC6GwENTx2FNOOd+KJ4AJMSiN4XSCcHGcvGsDYxBltk0eBE4AgnB6
+	FyBkIuMJzCpscufffOB3ETKQjuQr5lNOER/L7JsNBkTwDHu4mjY7z+KusHs++WzybrXxYz
+	77DRvYn+M6OCh2UZr+znpWK/FdmMnmk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-391-CmegVzM_NUaQNhoq2oiisg-1; Sun, 15 Dec 2019 16:46:27 -0500
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-213-aUzJDBmcNLqZ26_OOWxXuw-1; Mon, 16 Dec 2019 05:17:05 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D5F51100550E;
-	Sun, 15 Dec 2019 21:46:19 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6A4B560933;
-	Sun, 15 Dec 2019 21:46:12 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 18AF9DB20;
+	Mon, 16 Dec 2019 10:16:58 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E0E301001B07;
+	Mon, 16 Dec 2019 10:16:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A24D518089C8;
-	Sun, 15 Dec 2019 21:45:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 74ADFADAAB;
+	Mon, 16 Dec 2019 10:16:47 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xBFLjVxc008337 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 15 Dec 2019 16:45:31 -0500
+	id xBG22tbl016380 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 15 Dec 2019 21:02:56 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 881AD10B2B23; Sun, 15 Dec 2019 21:45:31 +0000 (UTC)
+	id BD94E2166B2D; Mon, 16 Dec 2019 02:02:55 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 830D210B2B20
-	for <dm-devel@redhat.com>; Sun, 15 Dec 2019 21:45:29 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B88892166B2C
+	for <dm-devel@redhat.com>; Mon, 16 Dec 2019 02:02:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6319E8012A1
-	for <dm-devel@redhat.com>; Sun, 15 Dec 2019 21:45:29 +0000 (UTC)
-Received: from mx.ewheeler.net (mx.ewheeler.net [173.205.220.69]) by
-	relay.mimecast.com with ESMTP id us-mta-187-t226xD1sOs2BJNc1z21smw-1;
-	Sun, 15 Dec 2019 16:45:27 -0500
-Received: from localhost (localhost [127.0.0.1])
-	by mx.ewheeler.net (Postfix) with ESMTP id DA63DA0692;
-	Sun, 15 Dec 2019 21:45:20 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at ewheeler.net
-Received: from mx.ewheeler.net ([127.0.0.1])
-	by localhost (mx.ewheeler.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id 8jX8K4eRamCp; Sun, 15 Dec 2019 21:44:50 +0000 (UTC)
-Received: from mx.ewheeler.net (mx.ewheeler.net [173.205.220.69])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mx.ewheeler.net (Postfix) with ESMTPSA id 1D37DA0440;
-	Sun, 15 Dec 2019 21:44:50 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx.ewheeler.net 1D37DA0440
-Date: Sun, 15 Dec 2019 21:44:49 +0000 (UTC)
-From: Eric Wheeler <dm-devel@lists.ewheeler.net>
-X-X-Sender: lists@mx.ewheeler.net
-To: thornber@redhat.com
-In-Reply-To: <alpine.LRH.2.11.1912130129120.11561@mx.ewheeler.net>
-Message-ID: <alpine.LRH.2.11.1912152140020.11561@mx.ewheeler.net>
-References: <35cf1ecf-5cd8-604b-ec4e-18c9fd4a4195@linux.alibaba.com>
-	<20191122185530.pcrgmb655dkdbdcq@reti>
-	<629bd851-8d89-00bd-0fea-d140961e8752@arrikto.com>
-	<alpine.LRH.2.11.1912130129120.11561@mx.ewheeler.net>
-User-Agent: Alpine 2.11 (LRH 23 2013-08-11)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A211D10192A0
+	for <dm-devel@redhat.com>; Mon, 16 Dec 2019 02:02:53 +0000 (UTC)
+Received: from APC01-HK2-obe.outbound.protection.outlook.com
+	(mail-eopbgr1300087.outbound.protection.outlook.com [40.107.130.87])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-423-IpWd2sv0Pe67MJVdlkKPpg-1; Sun, 15 Dec 2019 21:02:49 -0500
+Received: from SG2PR0401CA0001.apcprd04.prod.outlook.com (2603:1096:3:1::11)
+	by HK0PR04MB2564.apcprd04.prod.outlook.com (2603:1096:203:67::10) with
+	Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.15;
+	Mon, 16 Dec 2019 02:02:45 +0000
+Received: from PU1APC01FT049.eop-APC01.prod.protection.outlook.com
+	(2a01:111:f400:7ebd::208) by SG2PR0401CA0001.outlook.office365.com
+	(2603:1096:3:1::11) with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.15 via
+	Frontend Transport; Mon, 16 Dec 2019 02:02:44 +0000
+Received: from mail.transsion.com (27.115.63.14) by
+	PU1APC01FT049.mail.protection.outlook.com (10.152.253.9) with Microsoft
+	SMTP
+	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+	15.20.2538.15 via Frontend Transport; Mon, 16 Dec 2019 02:02:43 +0000
+Received: from SH-EXC-MX01.transsion.com (10.150.2.41) by
+	SH-EXC-MX01.transsion.com (10.150.2.41) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+	15.1.1591.10; Mon, 16 Dec 2019 10:02:33 +0800
+Received: from SH-EXC-MX01.transsion.com ([fe80::a9c9:4b06:6245:846c]) by
+	SH-EXC-MX01.transsion.com ([fe80::a9c9:4b06:6245:846c%13]) with mapi id
+	15.01.1591.008; Mon, 16 Dec 2019 10:02:33 +0800
+From: =?gb2312?B?eGlhbnJvbmcuemhvdSjW3M/IyNkp?= <xianrong.zhou@transsion.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Thread-Topic: Reply [PATCH] dm-verity: unnecessary data blocks that need not
+	read hash blocks
+Thread-Index: AdWztMxRz9kVwcU5TJCkJS5tt5ezYg==
+Date: Mon, 16 Dec 2019 02:02:33 +0000
+Message-ID: <727b9e9279a546beb2ae63a18eae6ab0@transsion.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.150.151.93]
 MIME-Version: 1.0
-X-MC-Unique: t226xD1sOs2BJNc1z21smw-1
-X-MC-Unique: CmegVzM_NUaQNhoq2oiisg-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id xBFLjVxc008337
+X-EOPAttributedMessage: 0
+X-Forefront-Antispam-Report: CIP:27.115.63.14; IPV:; CTRY:CN; EFV:NLI; SFV:NSPM;
+	SFS:(10009020)(346002)(376002)(39850400004)(136003)(396003)(1110001)(339900001)(199004)(189003)(316002)(2906002)(5660300002)(8676002)(4326008)(8936002)(81166006)(6916009)(336012)(478600001)(186003)(26005)(426003)(81156014)(70206006)(54906003)(108616005)(85182001)(356004)(36756003)(86362001)(2616005)(70586007)(7696005)(24736004);
+	DIR:OUT; SFP:1101; SCL:1; SRVR:HK0PR04MB2564;
+	H:mail.transsion.com; FPR:; SPF:Fail; LANG:en;
+	PTR:mail.reallytek.com; A:1; MX:1;
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8c813980-4f7a-48c6-4836-08d781cc09ee
+X-MS-TrafficTypeDiagnostic: HK0PR04MB2564:
+X-Microsoft-Antispam-PRVS: <HK0PR04MB256419E689FBE9AA81B992D1F8510@HK0PR04MB2564.apcprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-Forefront-PRVS: 02530BD3AA
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: pZBBX22bDThTCzV21FdYsZx4HhRYRbBijLxObb6JM2/Ht1JU7YtMyMXV4bKb7z64wHGxaxVtJhyuf/lhRWNkJxbHgamIyI5iFGVjkCNLi6MmDIbU0zoJ3DEtNgobOi/Kr7ikvgtqi1epsX2Yi4bFopHdLlmr6l3fA04n7sOMJllqqdiDCG7nSSni/5ZS/LfWxjIQs9AzDRlQ73KGGrbR3a/oP9zj/MHlW5KrvzJ2Fjqq5GoFbGcLwY4ycFdhdYS2chz4TUEYcc9EOGtR4CdaqCpvzhYb+kGnSxV1SlE7vTtOQkG+O7+UUA4swUPLq3zxVc1awAvOLR3CG9lbUvDg+oUbaimAtWdIfPHv1sSb1tnhW22llt0hDt4maPybvsJHlef8weg4awbuf26FwuQqRJuVmOC1RkB71TwhZlnM0w7zfYUYwA67Izcz8D7jY0Ln
+X-OriginatorOrg: transsion.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2019 02:02:43.4375 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c813980-4f7a-48c6-4836-08d781cc09ee
+X-MS-Exchange-CrossTenant-Id: 2e8503a6-2d01-4333-8e36-6ab7c8cd7ae2
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=2e8503a6-2d01-4333-8e36-6ab7c8cd7ae2; Ip=[27.115.63.14];
+	Helo=[mail.transsion.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK0PR04MB2564
+X-MC-Unique: IpWd2sv0Pe67MJVdlkKPpg-1
+X-MC-Unique: aUzJDBmcNLqZ26_OOWxXuw-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from base64 to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id xBG22tbl016380
 X-loop: dm-devel@redhat.com
-Cc: JeffleXu <jefflexu@linux.alibaba.com>, dm-devel@redhat.com,
-	Nikos Tsironis <ntsironis@arrikto.com>
-Subject: Re: [dm-devel] dm-thin: Several Questions on dm-thin performance.
+X-Mailman-Approved-At: Mon, 16 Dec 2019 05:16:37 -0500
+Cc: =?gb2312?B?d2VpbWluLm1hbyjDq87Aw/Ep?= <weimin.mao@transsion.com>,
+	=?gb2312?B?aGFpemhvdS5zb25nKMvOuqPW2yk=?= <haizhou.song@transsion.com>,
+	"snitzer@redhat.com" <snitzer@redhat.com>,
+	=?gb2312?B?d2FuYmluLndhbmcozfTN8rHzKQ==?= <wanbin.wang@transsion.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	=?gb2312?B?eXVhbmppb25nLmdhbyi439Sovrwp?= <yuanjiong.gao@transsion.com>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	=?gb2312?B?cnV4aWFuLmZlbmcot+vI5ea1KQ==?= <ruxian.feng@transsion.com>,
+	"agk@redhat.com" <agk@redhat.com>
+Subject: [dm-devel] Reply [PATCH] dm-verity: unnecessary data blocks that
+ need not read hash blocks
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,131 +140,71 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 13 Dec 2019, Eric Wheeler wrote:
-> On Fri, 6 Dec 2019, Nikos Tsironis wrote:
-> > On 11/22/19 8:55 PM, Joe Thornber wrote:
-> > > On Fri, Nov 22, 2019 at 11:14:15AM +0800, JeffleXu wrote:
-> > > 
-> > > > The first question is what's the purpose of data cell? In thin_bio_map(),
-> > > > normal bio will be packed as a virtual cell and data cell. I can
-> > > > understand
-> > > > that virtual cell is used to prevent discard bio and non-discard bio
-> > > > targeting the same block from being processed at the same time. I find it
-> > > > was added in commit     e8088073c9610af017fd47fddd104a2c3afb32e8 (dm thin:
-> > > > fix race between simultaneous io and discards to same block), but I'm
-> > > > still
-> > > > confused about the use of data cell.
-> > > 
-> > > As you are aware there are two address spaces for the locks.  The 'virtual'
-> > > one
-> > > refers to cells in the logical address space of the thin devices, and the
-> > > 'data' one
-> > > refers to the underlying data device.  There are certain conditions where we
-> > > unfortunately need to hold both of these (eg, to prevent a data block being
-> > > reprovisioned
-> > > before an io to it has completed).
-> > > 
-> > > > The second question is the impact of virtual cell and data cell on IO
-> > > > performance. If $data_block_size is large for example 1G, in multithread
-> > > > fio
-> > > > test, most bio will be buffered in cell->bios list and then be processed
-> > > > by
-> > > > worker thread asynchronously, even when there's no discard bio. Thus the
-> > > > original parallel IO is processed by worker thread serially now. As the
-> > > > number of fio test threads increase, the single worker thread can easily
-> > > > get
-> > > > CPU 100%, and thus become the bottleneck of the performance since dm-thin
-> > > > workqueue is ordered unbound.
-> > > 
-> > > Yep, this is a big issue.  Take a look at dm-bio-prison-v2.h, this is the
-> > > new interface that we need to move dm-thin across to use (dm-cache already
-> > > uses it).
-> > > It allows concurrent holders of a cell (ie, read locks), so we'll be able to
-> > > remap
-> > > much more io without handing it off to a worker thread.  Once this is done I
-> > > want
-> > > to add an extra field to cells that will cache the mapping, this way if you
-> > > acquire a
-> > > cell that is already held then you can avoid the expensive btree lookup.
-> > > Together
-> > > these changes should make a huge difference to the performance.
-> > > 
-> > > If you've got some spare coding cycles I'd love some help with this ;)
-> > > 
-> > 
-> > Hi Joe,
-> > 
-> > I would be interested in helping you with this task. I can't make any
-> > promises, but I believe I could probably spare some time to work on it.
-> 
-> 
-> Hi Nikos, it would be great if you are able help with the 
-> dm-thin port to dm-bio-prison-v2.  I'm glad to see you are interested in 
-> dm-thin performance too.
-> 
-> These are the commits that implemented dm-bio-prison-v2 in dm-cache back 
-> in ~4.12, maybe it can give you a good start on what the conversion might 
-> look like:
-> 
-> b29d4986d dm cache: significant rework to leverage dm-bio-prison-v2
-> 
-> Here's a related bugfix:
-> 
-> d1260e2a3 dm cache: fix race condition in the writeback mode overwrite_bio optimisation
+hey Eric:
 
-Hi Joe,
+On Wed, Dec 11, 2019 at 11:32:40AM +0800, zhou xianrong wrote:
+> From: "xianrong.zhou" <xianrong.zhou@transsion.com>
+> 
+> If check_at_most_once enabled, just like verity work the prefetching 
+> work should check for data block bitmap firstly before reading hash 
+> block as well. Skip bit-set data blocks from both ends of data block 
+> range by testing the validated bitmap. This can reduce the amounts of 
+> data blocks which need to read hash blocks.
+> 
+> Launching 91 apps every 15s and repeat 21 rounds on Android Q.
+> In prefetching work we can let only 2602/360312 = 0.72% data blocks 
+> really need to read hash blocks.
+> 
+> But the reduced data blocks range would be enlarged again by 
+> dm_verity_prefetch_cluster later.
+> 
+> Signed-off-by: xianrong.zhou <xianrong.zhou@transsion.com>
+> Signed-off-by: yuanjiong.gao <yuanjiong.gao@transsion.com>
+> Tested-by: ruxian.feng <ruxian.feng@transsion.com>
+> ---
+>  drivers/md/dm-verity-target.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
+> diff --git a/drivers/md/dm-verity-target.c 
+> b/drivers/md/dm-verity-target.c index 4fb33e7562c5..7b8eb754c0b6 
+> 100644
+> --- a/drivers/md/dm-verity-target.c
+> +++ b/drivers/md/dm-verity-target.c
+> @@ -581,6 +581,22 @@ static void verity_prefetch_io(struct work_struct *work)
+>  	struct dm_verity *v = pw->v;
+>  	int i;
+>  
+> +	if (v->validated_blocks) {
+> +		while (pw->n_blocks) {
+> +			if (unlikely(!test_bit(pw->block, v->validated_blocks)))
+> +				break;
+> +			pw->block++;
+> +			pw->n_blocks--;
+> +		}
+> +		while (pw->n_blocks) {
+> +			if (unlikely(!test_bit(pw->block + pw->n_blocks - 1,
+> +				v->validated_blocks)))
+> +				break;
+> +			pw->n_blocks--;
+> +		}
+> +		if (!pw->n_blocks)
+> +			return;
+> +	}
 
-I was looking through the dm-bio-prison-v2 commit for dm-cache (b29d4986d) 
-and it is huge, ~5k lines.  Do you still have a git branch with these 
-commits in smaller pieces (not squashed) so we can find the bits that 
-might be informative for converting lv-thin to use dm-bio-prison-v2?
+This is a good idea, but shouldn't this logic go in verity_submit_prefetch() prior to the struct dm_verity_prefetch_work being allocated?  Then if no prefeching is needed, allocating and scheduling the work object can be skipped.
 
-For example, I think that, at least, the policy changes and 
-btracker code is dm-cache specific and just a distraction when trying to 
-understand the dm-bio-prison-v2 conversion.
+Eric, Do you mean it is more suitable in dm_bufio_prefetch which is called on different paths even though prefeching is disabled ?
 
---
-Eric Wheeler
+Also note that you're currently leaking the work object with the early return.	
 
+Right! I leaked this. always so. Thanks!!!
 
-> 
-> 
-> 
-> --
-> Eric Wheeler
-> 
-> 
-> > 
-> > Nikos
-> > 
-> > > - Joe
-> > > 
-> > > --
-> > > dm-devel mailing list
-> > > dm-devel@redhat.com
-> > > https://www.redhat.com/mailman/listinfo/dm-devel
-> > > 
-> > 
-> > --
-> > dm-devel mailing list
-> > dm-devel@redhat.com
-> > https://www.redhat.com/mailman/listinfo/dm-devel
-> > 
-> > 
-> 
-> 
-> --
-> dm-devel mailing list
-> dm-devel@redhat.com
-> https://www.redhat.com/mailman/listinfo/dm-devel
-> 
-> 
-
+- Eric
 
 --
 dm-devel mailing list
