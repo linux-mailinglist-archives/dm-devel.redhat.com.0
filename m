@@ -1,92 +1,54 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 0D27A125374
-	for <lists+dm-devel@lfdr.de>; Wed, 18 Dec 2019 21:28:43 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 7282A126786
+	for <lists+dm-devel@lfdr.de>; Thu, 19 Dec 2019 17:59:42 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1576700922;
+	s=mimecast20190719; t=1576774781;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=6Tq/ZeieuVNuRXueemPCKtTHq/D5aFLY0ZttQreG5iE=;
-	b=Ezz/Qgc/EjXP1eV8Wrjm9htJX1sXg5PFq1Af4v+84vTvF25Bbzq37N4BKKhp0ZvLedrdgS
-	vmW0PQ8QE+XmrNVsHsQR5zUq2MwlEQYrmH/aI7GirDkD6fHw0ciR52AQf/3GLtQgX06ksb
-	WZaHZsZmpSNtbphPcUjIW9NQb2ogQe0=
+	bh=UD6RS3PXE6A4YJ/2XURXT3iE1jD2gE9VSImzuXDnLkU=;
+	b=EVBgEYJkib7cE2C8Qchlg2Rw2/qDt7mLknAlZ/zjBxKR37Nmp8tlRi5Uu9io4xuGgC7aMd
+	7ldUrt45vBBd3AUJj0ocbrI2MqERvowVOLQdfubUd+FuQe/FbKTPrNzQZdV3r1KbcyS0j2
+	HokQhINdghB3Ic98h1IJKBlp6McHxpE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-422-5inL83rdPmCp1mxSMkaZUA-1; Wed, 18 Dec 2019 15:28:38 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-31-MyBssURbONGTV32N8ub71Q-1; Thu, 19 Dec 2019 11:59:38 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D940B107ACC5;
-	Wed, 18 Dec 2019 20:28:32 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BD87C5D9E2;
-	Wed, 18 Dec 2019 20:28:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1186B801E6D;
+	Thu, 19 Dec 2019 16:59:30 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 25D8E19C68;
+	Thu, 19 Dec 2019 16:59:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5E70018034EA;
-	Wed, 18 Dec 2019 20:28:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3D903252CC;
+	Thu, 19 Dec 2019 16:59:07 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xBIKS4Le020220 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 18 Dec 2019 15:28:04 -0500
+	id xBJGwrco025435 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 19 Dec 2019 11:58:53 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0C42C2166B28; Wed, 18 Dec 2019 20:28:04 +0000 (UTC)
+	id 8EEEA38A; Thu, 19 Dec 2019 16:58:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0800F2166B2F
-	for <dm-devel@redhat.com>; Wed, 18 Dec 2019 20:28:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E6FD218E6C41
-	for <dm-devel@redhat.com>; Wed, 18 Dec 2019 20:27:59 +0000 (UTC)
-Received: from mx.ewheeler.net (mx.ewheeler.net [173.205.220.69]) by
-	relay.mimecast.com with ESMTP id us-mta-429-0aZ0FOjoPU2RmbQLJRmzVA-1;
-	Wed, 18 Dec 2019 15:27:58 -0500
-Received: from localhost (localhost [127.0.0.1])
-	by mx.ewheeler.net (Postfix) with ESMTP id F364AA0440;
-	Wed, 18 Dec 2019 20:27:51 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at ewheeler.net
-Received: from mx.ewheeler.net ([127.0.0.1])
-	by localhost (mx.ewheeler.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id kk_lUpTqpeVh; Wed, 18 Dec 2019 20:27:31 +0000 (UTC)
-Received: from mx.ewheeler.net (mx.ewheeler.net [173.205.220.69])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mx.ewheeler.net (Postfix) with ESMTPSA id C867BA0693;
-	Wed, 18 Dec 2019 20:27:30 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx.ewheeler.net C867BA0693
-Date: Wed, 18 Dec 2019 20:27:26 +0000 (UTC)
-From: Eric Wheeler <dm-devel@lists.ewheeler.net>
-X-X-Sender: lists@mx.ewheeler.net
-To: Joe Thornber <thornber@redhat.com>
-In-Reply-To: <20191218131334.pngvyqoebsdmicun@reti>
-Message-ID: <alpine.LRH.2.11.1912182024550.26683@mx.ewheeler.net>
-References: <35cf1ecf-5cd8-604b-ec4e-18c9fd4a4195@linux.alibaba.com>
-	<20191122185530.pcrgmb655dkdbdcq@reti>
-	<629bd851-8d89-00bd-0fea-d140961e8752@arrikto.com>
-	<alpine.LRH.2.11.1912130129120.11561@mx.ewheeler.net>
-	<alpine.LRH.2.11.1912152140020.11561@mx.ewheeler.net>
-	<20191218131334.pngvyqoebsdmicun@reti>
-User-Agent: Alpine 2.11 (LRH 23 2013-08-11)
+Received: from o.ww.redhat.com (unknown [10.36.117.0])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1E75319C69;
+	Thu, 19 Dec 2019 16:58:47 +0000 (UTC)
+From: Heinz Mauelshagen <heinzm@redhat.com>
+To: dm-devel@redhat.com
+Date: Thu, 19 Dec 2019 17:58:46 +0100
+Message-Id: <f5f97e95f2856dff42aff1a1e807fff9dc2f2db7.1576774631.git.heinzm@redhat.com>
 MIME-Version: 1.0
-X-MC-Unique: 0aZ0FOjoPU2RmbQLJRmzVA-1
-X-MC-Unique: 5inL83rdPmCp1mxSMkaZUA-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id xBIKS4Le020220
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: JeffleXu <jefflexu@linux.alibaba.com>, dm-devel@redhat.com,
-	Nikos Tsironis <ntsironis@arrikto.com>
-Subject: Re: [dm-devel] dm-thin: Several Questions on dm-thin performance.
+Cc: snitzer@redhat.com
+Subject: [dm-devel] [PATCH] dm raid: table line rebuild status fix
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,49 +62,134 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-MC-Unique: MyBssURbONGTV32N8ub71Q-1
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 18 Dec 2019, Joe Thornber wrote:
+raid_status() wasn't emitting rebuild flags on the table line properly because
+the rdev number in doing so is not yet set properly; index raid component
+devices array directly to solve.
 
-> On Sun, Dec 15, 2019 at 09:44:49PM +0000, Eric Wheeler wrote:
-> > I was looking through the dm-bio-prison-v2 commit for dm-cache (b29d4986d) 
-> > and it is huge, ~5k lines.  Do you still have a git branch with these 
-> > commits in smaller pieces (not squashed) so we can find the bits that 
-> > might be informative for converting lv-thin to use dm-bio-prison-v2?
-> > 
-> > For example, I think that, at least, the policy changes and 
-> > btracker code is dm-cache specific and just a distraction when trying to 
-> > understand the dm-bio-prison-v2 conversion.
-> 
-> To be honest I would hold off for a couple of months.  I've been working
-> on the design for thinp 2 and have got to the point where I need to write
-> a userland proof of concept implementation.  In particular I've focussed on
-> packing more into btree nodes, and separating transactions so IO to different
-> thins has no locking contention.  The proof of concept will tell me just how
-> small I can get the metadata.  If the level of metadata compression is ~1/10th
-> we'll plug the new btrees into the existing design and switch to bio prison v2.
-> If it's greater, say 1/50th, then I'll rewrite the whole target to
-> use write-ahead logging for transactionality and ditch all metadata sharing altogether.
-> When the metadata is that small we can copy entire btrees to implement snapshots.
+Also fix wrong argument count on emitted table line caused by 1 too many
+rebuild/write_mostly argument and consider any journal_(dev|mode) pairs.
 
+Related: https://bugzilla.redhat.com/1782045
+Signed-off-by: Heinz Mauelshagen <heinzm@redhat.com>
+---
+ .../admin-guide/device-mapper/dm-raid.rst     |  2 +
+ drivers/md/dm-raid.c                          | 40 +++++++++----------
+ 2 files changed, 22 insertions(+), 20 deletions(-)
 
-Sounds great, looking forward to it.  The thinp target has worked great 
-for us over the years.  Packing metadata and reducing lock contention will 
-make it even better.
-
---
-Eric Wheeler
-
-
-
-> 
-> - Joe
-> 
-> 
-
+diff --git a/Documentation/admin-guide/device-mapper/dm-raid.rst b/Documentation/admin-guide/device-mapper/dm-raid.rst
+index f6344675e395..695a2ea1d1ae 100644
+--- a/Documentation/admin-guide/device-mapper/dm-raid.rst
++++ b/Documentation/admin-guide/device-mapper/dm-raid.rst
+@@ -419,3 +419,5 @@ Version History
+ 	rebuild errors.
+  1.15.0 Fix size extensions not being synchronized in case of new MD bitmap
+         pages allocated;  also fix those not occuring after previous reductions
++ 1.15.1 Fix argument count and arguments for rebuild/write_mostly/journal_(dev|mode)
++        on the status line.
+diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
+index c412eaa975fc..85b374ee3326 100644
+--- a/drivers/md/dm-raid.c
++++ b/drivers/md/dm-raid.c
+@@ -129,7 +129,9 @@ struct raid_dev {
+ 				  CTR_FLAG_RAID10_COPIES | \
+ 				  CTR_FLAG_RAID10_FORMAT | \
+ 				  CTR_FLAG_DELTA_DISKS | \
+-				  CTR_FLAG_DATA_OFFSET)
++				  CTR_FLAG_DATA_OFFSET | \
++				  CTR_FLAG_JOURNAL_DEV | \
++				  CTR_FLAG_JOURNAL_MODE)
+ 
+ /* Valid options definitions per raid level... */
+ 
+@@ -3001,7 +3003,6 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 		{ 1, 254, "Cannot understand number of raid devices parameters" }
+ 	};
+ 
+-	/* Must have <raid_type> */
+ 	arg = dm_shift_arg(&as);
+ 	if (!arg) {
+ 		ti->error = "No arguments";
+@@ -3508,8 +3509,7 @@ static void raid_status(struct dm_target *ti, status_type_t type,
+ 	unsigned long recovery;
+ 	unsigned int raid_param_cnt = 1; /* at least 1 for chunksize */
+ 	unsigned int sz = 0;
+-	unsigned int rebuild_disks;
+-	unsigned int write_mostly_params = 0;
++	unsigned int rebuild_writemostly_count = 0;
+ 	sector_t progress, resync_max_sectors, resync_mismatches;
+ 	enum sync_state state;
+ 	struct raid_type *rt;
+@@ -3593,18 +3593,19 @@ static void raid_status(struct dm_target *ti, status_type_t type,
+ 	case STATUSTYPE_TABLE:
+ 		/* Report the table line string you would use to construct this raid set */
+ 
+-		/* Calculate raid parameter count */
++		/*
++		 * Count any rebuild or writemostly argument pairs and subtract the
++		 * hweight count being added below of any rebuild and writemostly ctr flags.
++		 */
+ 		for (i = 0; i < rs->raid_disks; i++)
+-			if (test_bit(WriteMostly, &rs->dev[i].rdev.flags))
+-				write_mostly_params += 2;
+-		rebuild_disks = memweight(rs->rebuild_disks, DISKS_ARRAY_ELEMS * sizeof(*rs->rebuild_disks));
+-		raid_param_cnt += rebuild_disks * 2 +
+-				  write_mostly_params +
++			rebuild_writemostly_count += (test_bit(i, (void *) rs->rebuild_disks) ? 2 : 0) +
++						     (test_bit(WriteMostly, &rs->dev[i].rdev.flags) ? 2 : 0);
++		rebuild_writemostly_count -= (test_bit(__CTR_FLAG_REBUILD, &rs->ctr_flags) ? 2 : 0) +
++					     (test_bit(__CTR_FLAG_WRITE_MOSTLY, &rs->ctr_flags) ? 2 : 0);
++		/* Calculate raid parameter count based on ^ rebuild/writemostly argument counts and ctr flags set. */
++		raid_param_cnt += rebuild_writemostly_count +
+ 				  hweight32(rs->ctr_flags & CTR_FLAG_OPTIONS_NO_ARGS) +
+-				  hweight32(rs->ctr_flags & CTR_FLAG_OPTIONS_ONE_ARG) * 2 +
+-				  (test_bit(__CTR_FLAG_JOURNAL_DEV, &rs->ctr_flags) ? 2 : 0) +
+-				  (test_bit(__CTR_FLAG_JOURNAL_MODE, &rs->ctr_flags) ? 2 : 0);
+-
++				  hweight32(rs->ctr_flags & CTR_FLAG_OPTIONS_ONE_ARG) * 2;
+ 		/* Emit table line */
+ 		/* This has to be in the documented order for userspace! */
+ 		DMEMIT("%s %u %u", rs->raid_type->name, raid_param_cnt, mddev->new_chunk_sectors);
+@@ -3612,11 +3613,10 @@ static void raid_status(struct dm_target *ti, status_type_t type,
+ 			DMEMIT(" %s", dm_raid_arg_name_by_flag(CTR_FLAG_SYNC));
+ 		if (test_bit(__CTR_FLAG_NOSYNC, &rs->ctr_flags))
+ 			DMEMIT(" %s", dm_raid_arg_name_by_flag(CTR_FLAG_NOSYNC));
+-		if (rebuild_disks)
++		if (test_bit(__CTR_FLAG_REBUILD, &rs->ctr_flags))
+ 			for (i = 0; i < rs->raid_disks; i++)
+-				if (test_bit(rs->dev[i].rdev.raid_disk, (void *) rs->rebuild_disks))
+-					DMEMIT(" %s %u", dm_raid_arg_name_by_flag(CTR_FLAG_REBUILD),
+-							 rs->dev[i].rdev.raid_disk);
++				if (test_bit(i, (void *) rs->rebuild_disks))
++					DMEMIT(" %s %u", dm_raid_arg_name_by_flag(CTR_FLAG_REBUILD), i);
+ 		if (test_bit(__CTR_FLAG_DAEMON_SLEEP, &rs->ctr_flags))
+ 			DMEMIT(" %s %lu", dm_raid_arg_name_by_flag(CTR_FLAG_DAEMON_SLEEP),
+ 					  mddev->bitmap_info.daemon_sleep);
+@@ -3626,7 +3626,7 @@ static void raid_status(struct dm_target *ti, status_type_t type,
+ 		if (test_bit(__CTR_FLAG_MAX_RECOVERY_RATE, &rs->ctr_flags))
+ 			DMEMIT(" %s %d", dm_raid_arg_name_by_flag(CTR_FLAG_MAX_RECOVERY_RATE),
+ 					 mddev->sync_speed_max);
+-		if (write_mostly_params)
++		if (test_bit(__CTR_FLAG_WRITE_MOSTLY, &rs->ctr_flags))
+ 			for (i = 0; i < rs->raid_disks; i++)
+ 				if (test_bit(WriteMostly, &rs->dev[i].rdev.flags))
+ 					DMEMIT(" %s %d", dm_raid_arg_name_by_flag(CTR_FLAG_WRITE_MOSTLY),
+@@ -4029,7 +4029,7 @@ static void raid_resume(struct dm_target *ti)
+ 
+ static struct target_type raid_target = {
+ 	.name = "raid",
+-	.version = {1, 15, 0},
++	.version = {1, 15, 1},
+ 	.module = THIS_MODULE,
+ 	.ctr = raid_ctr,
+ 	.dtr = raid_dtr,
+-- 
+2.23.0
 
 --
 dm-devel mailing list
