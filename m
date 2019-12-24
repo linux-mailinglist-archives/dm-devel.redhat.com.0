@@ -1,90 +1,94 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 163051282F0
-	for <lists+dm-devel@lfdr.de>; Fri, 20 Dec 2019 20:56:07 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id DA9B5129C50
+	for <lists+dm-devel@lfdr.de>; Tue, 24 Dec 2019 02:06:52 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1576871766;
+	s=mimecast20190719; t=1577149610;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=HXRUYkS4tsm0+wpSXDioNpU4Xie9+T5mKnvb0YTh8vY=;
-	b=SVAYhb39XRmWCbLR7oNQAEuOvH+u6WofzT5LsdAWv7jkeAfq5QiOPLaoKD+wz9E32xypbU
-	eXUz9sd7sD+6YUWldFusitWKpqM1cCZcqbvUvmURkC0KkIvkBWyLy+vfrdZPlI0zvktLwj
-	p7pJ7DUzYoxK/JkAGDqTQ/OPViU3kWM=
+	bh=SSMU4Lf6DUay/yBm+5qX1M9k5HMJAHW05DaaLK1TvBQ=;
+	b=DNtmvgHZYTrdpPTTUABkKne8yisY9VWnIZWXeQc9x97h7ZeAj48neadokBpfpsLogRL1TU
+	Ov17vPrxmPShvZxmQKKEswTrejKh8Nn/r3WdDAw9b6HZQ4nuRAO0E5Au8CU1Vru6Ny5nII
+	Z7Ro7NaapD+PiidQLxtbVJb3CVAuHhE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-190-6kJW8UzxOGijZ2YyqXUrYQ-1; Fri, 20 Dec 2019 14:56:03 -0500
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-394-hINHTo1BOQO8tRiYllQwmg-1; Mon, 23 Dec 2019 20:06:48 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 742B6DBE7;
-	Fri, 20 Dec 2019 19:55:57 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F222110013A7;
-	Fri, 20 Dec 2019 19:55:51 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2D4D7184B459;
+	Tue, 24 Dec 2019 01:06:41 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4D8295DA32;
+	Tue, 24 Dec 2019 01:06:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A0E0E18089CD;
-	Fri, 20 Dec 2019 19:55:35 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CBF87825AB;
+	Tue, 24 Dec 2019 01:06:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id xBKJtLZL010470 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 20 Dec 2019 14:55:22 -0500
+	id xBO15s46020692 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 23 Dec 2019 20:05:54 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BA1A02026D67; Fri, 20 Dec 2019 19:55:21 +0000 (UTC)
+	id 9B82A637BD; Tue, 24 Dec 2019 01:05:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B3B092026D69
-	for <dm-devel@redhat.com>; Fri, 20 Dec 2019 19:55:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 96C6C1DB2F
+	for <dm-devel@redhat.com>; Tue, 24 Dec 2019 01:05:52 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 717688032B4
-	for <dm-devel@redhat.com>; Fri, 20 Dec 2019 19:55:19 +0000 (UTC)
-Received: from mx.ewheeler.net (mx.ewheeler.net [173.205.220.69]) by
-	relay.mimecast.com with ESMTP id us-mta-385-rayfTMShP463i_QUkQNrkw-1;
-	Fri, 20 Dec 2019 14:55:15 -0500
-Received: from localhost (localhost [127.0.0.1])
-	by mx.ewheeler.net (Postfix) with ESMTP id 1AC86A0633;
-	Fri, 20 Dec 2019 19:55:09 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at ewheeler.net
-Received: from mx.ewheeler.net ([127.0.0.1])
-	by localhost (mx.ewheeler.net [127.0.0.1]) (amavisd-new, port 10024)
-	with LMTP id lsMFqJwOvuwn; Fri, 20 Dec 2019 19:54:47 +0000 (UTC)
-Received: from mx.ewheeler.net (mx.ewheeler.net [173.205.220.69])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by mx.ewheeler.net (Postfix) with ESMTPSA id C5038A0440;
-	Fri, 20 Dec 2019 19:54:46 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx.ewheeler.net C5038A0440
-Date: Fri, 20 Dec 2019 19:54:45 +0000 (UTC)
-From: Eric Wheeler <dm-devel@lists.ewheeler.net>
-X-X-Sender: lists@mx.ewheeler.net
-To: ejt@redhat.com
-In-Reply-To: <alpine.LRH.2.11.1909251814220.15810@mx.ewheeler.net>
-Message-ID: <alpine.LRH.2.11.1912201829300.26683@mx.ewheeler.net>
-References: <alpine.LRH.2.11.1909251814220.15810@mx.ewheeler.net>
-User-Agent: Alpine 2.11 (LRH 23 2013-08-11)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BACFE800180
+	for <dm-devel@redhat.com>; Tue, 24 Dec 2019 01:05:52 +0000 (UTC)
+IronPort-SDR: hQVU4rLMSyJNc7pyTj3w4LFVamTwm77vp7mnnvWwxQ8XlBA6MswZHife4OBBepxUyG65otSfkS
+	obRQKmN6tb68RgLjm1VTwcUPzt0fPssLR9KJFbdXZa334P5wv+z9+pSMcXARJQ09Gl0nm+iaYc
+	pD9dyn2LC31dCxXmXUk5Xha3eoF8UAd50r2Jc1zADAh6mO/tk9p9/2rXactrwU73N597PZIGUJ
+	bBVT//gn1PDOeCDNxQnBeT6Z5g8CdxVbrTNyCU7YO6duTRh/qW8Qwqzps1khN2yIWZ0jjwPwd4
+	yls=
+X-IronPort-AV: E=Sophos;i="5.69,349,1571673600"; d="scan'208";a="233677232"
+Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-228-oGzSYL4oN8KkgbBkXGswZg-1; Mon, 23 Dec 2019 20:05:50 -0500
+Received: from uls-op-cesaip01.wdc.com (HELO uls-op-cesaep01.wdc.com)
+	([199.255.45.14])
+	by ob1.hgst.iphmx.com with ESMTP; 24 Dec 2019 09:05:49 +0800
+IronPort-SDR: 8XAuF73bkTI4P2cDdziCXwXYxZEhOJMSKHnabmV2FW8wz4LXaoQF5tMB6//fH+VqrcIa3W6eUB
+	PwFB80+8qISC9DHuMErmnEZMhl9myl/cgc4U2aNlYHGv8EqQNgEJ0WzVKWp4Dx0iuWyz9s7Ubc
+	r/6QxG+158dzctnDnKEFPA2oMC/05dW3PYqTQWoCcgfWB7LeqDZa54CcYwO21N6DyUnkh/Mmq0
+	UZuFVw+7jaiv5abRMvSUa2nqLdpFrZWjmxzQhxLog7SRyheZLdpYWxyU9XmQbkBFPo1CHzlZZ6
+	j6+6GW9b3u1VlWUVNw2gnYuB
+Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
+	by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	23 Dec 2019 17:00:03 -0800
+IronPort-SDR: vfOUAtyGMKq98O3h7V4xwJ8q0S37aV27zQNZmrtmUb6J8Aj4K0La0HCRkcwue/WYI4CjOwexB8
+	5T2rR9QCAIxB0ltHKGjg+8oO7EjdAf9RuLcDbw3qSopdxIOTXHYHdnUD8zJY4ej1GkNvJ9Brbk
+	eLPy8bwHX+k0HLdTcV4oWtJaqCx2jpI+gD4BrhdpVnn59aPTwsD0jm5j9jRc6r3e6F56y9tFZA
+	LB+u5+gH6EJod5u6koFbzBpeNANQp15t2UYjC0l647WSEJApdf7MfeTz5WR80rH0Hlo1ap2K2b
+	Ckc=
+WDCIronportException: Internal
+Received: from dhcp-10-88-173-170.hgst.com (HELO localhost.localdomain)
+	([10.88.173.170])
+	by uls-op-cesaip02.wdc.com with ESMTP; 23 Dec 2019 17:05:48 -0800
+From: Dmitry Fomichev <dmitry.fomichev@wdc.com>
+To: dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>
+Date: Mon, 23 Dec 2019 17:05:46 -0800
+Message-Id: <20191224010546.20532-1-dmitry.fomichev@wdc.com>
 MIME-Version: 1.0
-X-MC-Unique: rayfTMShP463i_QUkQNrkw-1
-X-MC-Unique: 6kJW8UzxOGijZ2YyqXUrYQ-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MC-Unique: oGzSYL4oN8KkgbBkXGswZg-1
+X-MC-Unique: hINHTo1BOQO8tRiYllQwmg-1
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id xBKJtLZL010470
+	lists01.pubmisc.prod.ext.phx2.redhat.com id xBO15s46020692
 X-loop: dm-devel@redhat.com
-Cc: Mike Snitzer <snitzer@redhat.com>, markus.schade@gmail.com,
-	lvm-devel@redhat.com, linux-block@vger.kernel.org,
-	dm-devel@redhat.com, joe.thornber@gmail.com
-Subject: Re: [dm-devel] kernel BUG at
- drivers/md/persistent-data/dm-space-map-disk.c:178 with
- scsi_mod.use_blk_mq=y
+Cc: Dmitry Fomichev <dmitry.fomichev@wdc.com>,
+	Damien Le Moal <damien.lemoal@wdc.com>
+Subject: [dm-devel] [PATCH] dm-zoned: support zone sizes smaller than 128MiB
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -98,414 +102,120 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 25 Sep 2019, Eric Wheeler wrote:
-> We are using the 4.19.75 stable tree with dm-thin and multi-queue scsi.  
-> We have been using the 4.19 branch for months without issue; we just 
-> switched to MQ and we seem to have hit this BUG_ON.  Whether or not MQ is 
-> related to the issue, I don't know, maybe coincidence:
-> 
-> 	static int sm_disk_new_block(struct dm_space_map *sm, dm_block_t *b)
-> 	{
-> 	    int r;
-> 	    enum allocation_event ev;
-> 	    struct sm_disk *smd = container_of(sm, struct sm_disk, sm);
-> 
-> 	    /* FIXME: we should loop round a couple of times */
-> 	    r = sm_ll_find_free_block(&smd->old_ll, smd->begin, smd->old_ll.nr_blocks, b);
-> 	    if (r)
-> 		return r;
-> 
-> 	    smd->begin = *b + 1;
-> 	    r = sm_ll_inc(&smd->ll, *b, &ev);
-> 	    if (!r) {
-> 		BUG_ON(ev != SM_ALLOC); <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-> 		smd->nr_allocated_this_transaction++;
-> 	    }
+dm-zoned is observed to log failed kernel assertions and not to work
+correctly when operating against a device with a zone size smaller
+than 128MiB (4K block size times 32768 bits per 4K block). The reason
+is that the bitmap size per zone is calculated as zero with such a
+small zone size. This patch fixes this problem and also makes the code
+related to zone bitmap management be able to handle per zone bitmaps
+smaller than a single block.
 
-Hello all,
+A dm-zoned-tools patch is required to properly format dm-zoned devices
+with zone sizes smaller than 128MiB and this patch is being posted
+separately.
 
-We hit this BUG_ON again, this time with 4.19.86 with 
-scsi_mod.use_blk_mq=y, and it is known to be present as of 5.1.2 as 
-additionally reported by Markus Schade:
+Fixes: 3b1a94c88b79 ("dm zoned: drive-managed zoned block device target")
+Cc: stable@vger.kernel.org
+Signed-off-by: Dmitry Fomichev <dmitry.fomichev@wdc.com>
+---
+ drivers/md/dm-zoned-metadata.c | 23 ++++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
 
-  https://www.redhat.com/archives/dm-devel/2019-June/msg00116.html
-     and
-  https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1777398
-
-In our case, the most latest trace (below) is from a different system that
-has been stable for years on Linux 4.1 with tmeta direct on the SSD.
-We updated to 4.19.86 a few weeks ago and just hit this, what Mike
-Snitzer explains to be an allocator race:
-
-On Wed, 25 Sep 2019, Mike Snitzer wrote:
-> > [199391.691714]  dm_pool_alloc_data_block+0x3f/0x60 [dm_thin_pool]
-> > [199391.692411]  alloc_data_block.isra.52+0x6d/0x1e0 [dm_thin_pool]
-> > [199391.693142]  process_cell+0x2a3/0x550 [dm_thin_pool]
-> > [199391.693852]  ? sort+0x17b/0x270
-> > [199391.694527]  ? u32_swap+0x10/0x10
-> > [199391.695192]  do_worker+0x268/0x9a0 [dm_thin_pool]
-> > [199391.695890]  process_one_work+0x171/0x370
-> > [199391.696640]  worker_thread+0x49/0x3f0
-> > [199391.697332]  kthread+0xf8/0x130
-> > [199391.697988]  ? max_active_store+0x80/0x80
-> > [199391.698659]  ? kthread_bind+0x10/0x10
-> > [199391.699281]  ret_from_fork+0x1f/0x40
-> 
-> The stack shows the call to sm_disk_new_block() is due to
-> dm_pool_alloc_data_block().
-> 
-> sm_disk_new_block()'s BUG_ON(ev != SM_ALLOC) indicates that somehow it is
-> getting called without the passed 'ev' being set to SM_ALLOC.  Only
-> drivers/md/persistent-dat/dm-space-map-common.c:sm_ll_mutate() sets
-> SM_ALLOC. sm_disk_new_block() is indirectly calling sm_ll_mutate()
-> 
-> sm_ll_mutate() will only return 0 if ll->save_ie() does, the ll_disk *ll
-> should be ll_disk, and so disk_ll_save_ie()'s call to dm_btree_insert()
-> returns 0 -- which simply means success.  And on success
-> sm_disk_new_block() assumes ev was set to SM_ALLOC (by sm_ll_mutate).
-> 
-> sm_ll_mutate() decided to _not_ set SM_ALLOC because either:
-> 1) ref_count wasn't set
-> or
-> 2) old was identified
-> 
-> So all said: somehow a new data block was found to already be in use.
-> _WHY_ that is the case isn't clear from this stack...
-> 
-> But it does speak to the possibility of data block allocation racing
-> with other operations to the same block.  Which implies missing locking.
-
-Where would you look to add locking do you think? 
-
-> But that's all I've got so far... I'll review past dm-thinp changes with
-> all this in mind and see what turns up.  But Joe Thornber (ejt) likely
-> needs to have a look at this too.
-> 
-> But could it be that bcache is the source of the data device race (same
-> block used concurrently)?  And DM thinp is acting as the canary in the
-> coal mine?
-
-As Marcus has shown, this bug triggers without bcache.
-
-
-Other questions:
-
-1) Can sm_disk_new_block() fail more gracefully than BUG_ON?  For example:
-
-+	spin_lock(&lock); /* protect smd->begin */
-	smd->begin = *b + 1;
-	r = sm_ll_inc(&smd->ll, *b, &ev);
-	if (!r) {
--		BUG_ON(ev != SM_ALLOC); 
-		smd->nr_allocated_this_transaction++;
-	}
-+	else {
-+		r = -ENOSPC;
-+		smd->begin = *b - 1;
-+	}
-+	spin_unlock(&lock);
-
-The lock might protect smd->begin, but I'm not sure how &smd->ll might 
-have been modified by sm_ll_inc().  However, since ll->save_ie() failed in 
-sm_ll_mutate() then perhaps this is safe.  What do you think?
-
-Putting the pool into PM_OUT_OF_DATA_SPACE isn't ideal since it isn't out 
-of space, but I would take it over a BUG_ON.
-
-2) If example #1 above returned -EAGAIN, how might alloc_data_block be 
-   taught retry?  This bug shows up weeks or months apart, even on heavily 
-   loaded systems with ~100 live thin volumes, so retrying would be fine 
-   IMHO.
-
-3) In the thread from June, Marcus says:
-	"Judging from the call trace, my guess is that there is somewhere 
-	a race condition, when a new block needs to be allocated which has 
-	still to be discarded."
-
-Is this discard sitation possible?  Wouldn't the bio prison prevent this?
-
---
-Eric Wheeler
-www.datawall.us
-
-
-
-Here is the new trace, old trace below:
-
-kernel BUG at drivers/md/persistent-data/dm-space-map-disk.c:178!
-invalid opcode: 0000 [#1] SMP NOPTI
-CPU: 11 PID: 22939 Comm: kworker/u48:1 Not tainted 4.19.86 #1
-Hardware name: Supermicro SYS-2026T-6RFT+/X8DTU-6+, BIOS 2.1c       11/30/2012
-Workqueue: dm-thin do_worker [dm_thin_pool]
-RIP: 0010:sm_disk_new_block+0xa0/0xb0 [dm_persistent_data]
-Code: 22 00 00 49 8b 34 24 e8 4e f9 ff ff 85 c0 75 11 83 7c 24 04 01 75 13 48 83 83 28 22 00 00 01 eb af 89 c5 eb ab e8 b0 a5 a9 e0 <0f> 0b 0f 1f 40 00 66 2e 0f 1f 84 00 00 00 00 00 66 66 66 66 90 55
-RSP: 0018:ffffc90007237c78 EFLAGS: 00010297
-RAX: 0000000000000000 RBX: ffff88861d7ac000 RCX: 0000000000000000
-RDX: ffff8885f3d13f00 RSI: 0000000000000246 RDI: ffff888620e38c00
-RBP: 0000000000000000 R08: 0000000000000000 R09: ffff888620e38c98
-R10: ffffffff810f9177 R11: 0000000000000000 R12: ffffc90007237d48
-R13: ffffc90007237d48 R14: 00000000ffffffc3 R15: 00000000000d9e3a
-FS:  0000000000000000(0000) GS:ffff8886279c0000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00000000081ceff0 CR3: 000000000200a004 CR4: 00000000000226e0
-Call Trace:
- dm_pool_alloc_data_block+0x3f/0x60 [dm_thin_pool]
- alloc_data_block.isra.52+0x6d/0x1e0 [dm_thin_pool]
- process_cell+0x2a3/0x550 [dm_thin_pool]
- ? mempool_alloc+0x6f/0x180
- ? sort+0x17b/0x270
- ? u32_swap+0x10/0x10
- process_deferred_bios+0x1af/0x870 [dm_thin_pool]
- do_worker+0x94/0xe0 [dm_thin_pool]
- process_one_work+0x171/0x370
- worker_thread+0x49/0x3f0
- kthread+0xf8/0x130
- ? max_active_store+0x80/0x80
- ? kthread_bind+0x10/0x10
- ret_from_fork+0x1f/0x40
-
-> 
-> [199391.677689] ------------[ cut here ]------------
-> [199391.678437] kernel BUG at drivers/md/persistent-data/dm-space-map-disk.c:178!
-> [199391.679183] invalid opcode: 0000 [#1] SMP NOPTI
-> [199391.679941] CPU: 4 PID: 31359 Comm: kworker/u16:4 Not tainted 4.19.75 #1
-> [199391.680683] Hardware name: Supermicro X9SCL/X9SCM/X9SCL/X9SCM, BIOS 2.2 02/20/2015
-> [199391.681446] Workqueue: dm-thin do_worker [dm_thin_pool]
-> [199391.682187] RIP: 0010:sm_disk_new_block+0xa0/0xb0 [dm_persistent_data]
-> [199391.682929] Code: 22 00 00 49 8b 34 24 e8 4e f9 ff ff 85 c0 75 11 83 7c 24 04 01 75 13 48 83 83 28 22 00 00 01 eb af 89 c5 eb ab e8 e0 95 9b e0 <0f> 0b 0f 1f 40 00 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 55
-> [199391.684432] RSP: 0018:ffffc9000a147c88 EFLAGS: 00010297
-> [199391.685186] RAX: 0000000000000000 RBX: ffff8887ceed8000 RCX: 0000000000000000
-> [199391.685936] RDX: ffff8887d093ac80 RSI: 0000000000000246 RDI: ffff8887faab0a00
-> [199391.686659] RBP: 0000000000000000 R08: 0000000000000000 R09: ffff8887faab0a98
-> [199391.687379] R10: ffffffff810f8077 R11: 0000000000000000 R12: ffffc9000a147d58
-> [199391.688120] R13: ffffc9000a147d58 R14: 00000000ffffffc3 R15: 000000000014bbc0
-> [199391.688843] FS:  0000000000000000(0000) GS:ffff88880fb00000(0000) knlGS:0000000000000000
-> [199391.689571] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [199391.690253] CR2: 00007f5ae49a1000 CR3: 000000000200a003 CR4: 00000000001626e0
-> [199391.690984] Call Trace:
-> [199391.691714]  dm_pool_alloc_data_block+0x3f/0x60 [dm_thin_pool]
-> [199391.692411]  alloc_data_block.isra.52+0x6d/0x1e0 [dm_thin_pool]
-> [199391.693142]  process_cell+0x2a3/0x550 [dm_thin_pool]
-> [199391.693852]  ? sort+0x17b/0x270
-> [199391.694527]  ? u32_swap+0x10/0x10
-> [199391.695192]  do_worker+0x268/0x9a0 [dm_thin_pool]
-> [199391.695890]  process_one_work+0x171/0x370
-> [199391.696640]  worker_thread+0x49/0x3f0
-> [199391.697332]  kthread+0xf8/0x130
-> [199391.697988]  ? max_active_store+0x80/0x80
-> [199391.698659]  ? kthread_bind+0x10/0x10
-> [199391.699281]  ret_from_fork+0x1f/0x40
-> [199391.699930] Modules linked in: dm_snapshot btrfs xor zstd_decompress zstd_compress xxhash raid6_pq xfs dm_thin_pool dm_persistent_data dm_bio_prison dm_bufio drbd lru_cache xt_CHECKSUM iptable_mangle ipt_MASQUERADE iptable_nat nf_nat_ipv4 nf_nat xt_conntrack nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 libcrc32c ipt_REJECT nf_reject_ipv4 ebtable_filter ebtables binfmt_misc ip6table_filter ip6_tables bcache xt_comment crc64 iptable_filter netconsole bridge 8021q garp stp mrp llc lz4 lz4_compress zram sunrpc x86_pkg_temp_thermal intel_powerclamp coretemp iTCO_wdt iTCO_vendor_support kvm_intel kvm irqbypass crct10dif_pclmul crc32_pclmul pcc_cpufreq ghash_clmulni_intel pcspkr sg ipmi_si ipmi_devintf lpc_ich ipmi_msghandler video i2c_i801 mfd_core ip_tables ext4 mbcache jbd2 mgag200 i2c_algo_bit drm_kms_helper
-> [199391.705631]  syscopyarea sysfillrect sysimgblt fb_sys_fops ttm drm crc32c_intel i2c_core ahci libahci ixgbe libata e1000e arcmsr mdio dca dm_mirror dm_region_hash dm_log dm_mod
-> [199391.708083] ---[ end trace c31536d98046e8ec ]---
-> [199391.866776] RIP: 0010:sm_disk_new_block+0xa0/0xb0 [dm_persistent_data]
-> [199391.867960] Code: 22 00 00 49 8b 34 24 e8 4e f9 ff ff 85 c0 75 11 83 7c 24 04 01 75 13 48 83 83 28 22 00 00 01 eb af 89 c5 eb ab e8 e0 95 9b e0 <0f> 0b 0f 1f 40 00 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 55
-> [199391.870379] RSP: 0018:ffffc9000a147c88 EFLAGS: 00010297
-> [199391.871524] RAX: 0000000000000000 RBX: ffff8887ceed8000 RCX: 0000000000000000
-> [199391.872364] RDX: ffff8887d093ac80 RSI: 0000000000000246 RDI: ffff8887faab0a00
-> [199391.873173] RBP: 0000000000000000 R08: 0000000000000000 R09: ffff8887faab0a98
-> [199391.873871] R10: ffffffff810f8077 R11: 0000000000000000 R12: ffffc9000a147d58
-> [199391.874550] R13: ffffc9000a147d58 R14: 00000000ffffffc3 R15: 000000000014bbc0
-> [199391.875231] FS:  0000000000000000(0000) GS:ffff88880fb00000(0000) knlGS:0000000000000000
-> [199391.875941] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [199391.876633] CR2: 00007f5ae49a1000 CR3: 000000000200a003 CR4: 00000000001626e0
-> [199391.877317] Kernel panic - not syncing: Fatal exception
-> [199391.878006] Kernel Offset: disabled
-> [199392.032304] ---[ end Kernel panic - not syncing: Fatal exception ]---
-> [199392.032962] unchecked MSR access error: WRMSR to 0x83f (tried to write 0x00000000000000f6) at rIP: 0xffffffff81067af4 (native_write_msr+0x4/0x20)
-> [199392.034277] Call Trace:
-> [199392.034929]  <IRQ>
-> [199392.035576]  native_apic_msr_write+0x2e/0x40
-> [199392.036228]  arch_irq_work_raise+0x28/0x40
-> [199392.036877]  irq_work_queue_on+0x83/0xa0
-> [199392.037518]  irq_work_run_list+0x4c/0x70
-> [199392.038149]  irq_work_run+0x14/0x40
-> [199392.038771]  smp_call_function_single_interrupt+0x3a/0xd0
-> [199392.039393]  call_function_single_interrupt+0xf/0x20
-> [199392.040011]  </IRQ>
-> [199392.040624] RIP: 0010:panic+0x209/0x25c
-> [199392.041234] Code: 83 3d 86 de 75 01 00 74 05 e8 ff 5d 02 00 48 c7 c6 e0 bc 80 82 48 c7 c7 10 cd e5 81 31 c0 e8 fe 2b 06 00 fb 66 0f 1f 44 00 00 <45> 31 e4 e8 eb 2e 0d 00 4d 39 ec 7c 1e 41 83 f6 01 48 8b 05 2b de
-> [199392.042518] RSP: 0018:ffffc9000a147a30 EFLAGS: 00000246 ORIG_RAX: ffffffffffffff04
-> [199392.043174] RAX: 0000000000000039 RBX: 0000000000000200 RCX: 0000000000000006
-> [199392.043833] RDX: 0000000000000000 RSI: 0000000000000086 RDI: ffff88880fb168b0
-> [199392.044493] RBP: ffffc9000a147aa0 R08: 0000000000000001 R09: 00000000000174b5
-> [199392.045155] R10: ffff8883d9753f00 R11: 0000000000000001 R12: ffffffff81e4a15c
-> [199392.045820] R13: 0000000000000000 R14: 0000000000000000 R15: ffffffff81e49951
-> [199392.046486]  oops_end+0xc1/0xd0
-> [199392.047149]  do_trap+0x13d/0x150
-> [199392.047795]  do_error_trap+0xd5/0x130
-> [199392.048427]  ? sm_disk_new_block+0xa0/0xb0 [dm_persistent_data]
-> [199392.049048]  invalid_op+0x14/0x20
-> [199392.049650] RIP: 0010:sm_disk_new_block+0xa0/0xb0 [dm_persistent_data]
-> [199392.050245] Code: 22 00 00 49 8b 34 24 e8 4e f9 ff ff 85 c0 75 11 83 7c 24 04 01 75 13 48 83 83 28 22 00 00 01 eb af 89 c5 eb ab e8 e0 95 9b e0 <0f> 0b 0f 1f 40 00 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 55
-> [199392.051434] RSP: 0018:ffffc9000a147c88 EFLAGS: 00010297
-> [199392.052010] RAX: 0000000000000000 RBX: ffff8887ceed8000 RCX: 0000000000000000
-> [199392.052580] RDX: ffff8887d093ac80 RSI: 0000000000000246 RDI: ffff8887faab0a00
-> [199392.053150] RBP: 0000000000000000 R08: 0000000000000000 R09: ffff8887faab0a98
-> [199392.053715] R10: ffffffff810f8077 R11: 0000000000000000 R12: ffffc9000a147d58
-> [199392.054266] R13: ffffc9000a147d58 R14: 00000000ffffffc3 R15: 000000000014bbc0
-> [199392.054807]  ? __wake_up_common_lock+0x87/0xc0
-> [199392.055342]  ? sm_disk_new_block+0x82/0xb0 [dm_persistent_data]
-> [199392.055877]  dm_pool_alloc_data_block+0x3f/0x60 [dm_thin_pool]
-> [199392.056410]  alloc_data_block.isra.52+0x6d/0x1e0 [dm_thin_pool]
-> [199392.056947]  process_cell+0x2a3/0x550 [dm_thin_pool]
-> [199392.057484]  ? sort+0x17b/0x270
-> [199392.058016]  ? u32_swap+0x10/0x10
-> [199392.058538]  do_worker+0x268/0x9a0 [dm_thin_pool]
-> [199392.059060]  process_one_work+0x171/0x370
-> [199392.059576]  worker_thread+0x49/0x3f0
-> [199392.060083]  kthread+0xf8/0x130
-> [199392.060587]  ? max_active_store+0x80/0x80
-> [199392.061086]  ? kthread_bind+0x10/0x10
-> [199392.061569]  ret_from_fork+0x1f/0x40
-> [199392.062038] ------------[ cut here ]------------
-> [199392.062508] sched: Unexpected reschedule of offline CPU#1!
-> [199392.062989] WARNING: CPU: 4 PID: 31359 at arch/x86/kernel/smp.c:128 native_smp_send_reschedule+0x39/0x40
-> [199392.063485] Modules linked in: dm_snapshot btrfs xor zstd_decompress zstd_compress xxhash raid6_pq xfs dm_thin_pool dm_persistent_data dm_bio_prison dm_bufio drbd lru_cache xt_CHECKSUM iptable_mangle ipt_MASQUERADE iptable_nat nf_nat_ipv4 nf_nat xt_conntrack nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 libcrc32c ipt_REJECT nf_reject_ipv4 ebtable_filter ebtables binfmt_misc ip6table_filter ip6_tables bcache xt_comment crc64 iptable_filter netconsole bridge 8021q garp stp mrp llc lz4 lz4_compress zram sunrpc x86_pkg_temp_thermal intel_powerclamp coretemp iTCO_wdt iTCO_vendor_support kvm_intel kvm irqbypass crct10dif_pclmul crc32_pclmul pcc_cpufreq ghash_clmulni_intel pcspkr sg ipmi_si ipmi_devintf lpc_ich ipmi_msghandler video i2c_i801 mfd_core ip_tables ext4 mbcache jbd2 mgag200 i2c_algo_bit drm_kms_helper
-> [199392.067463]  syscopyarea sysfillrect sysimgblt fb_sys_fops ttm drm crc32c_intel i2c_core ahci libahci ixgbe libata e1000e arcmsr mdio dca dm_mirror dm_region_hash dm_log dm_mod
-> [199392.068729] CPU: 4 PID: 31359 Comm: kworker/u16:4 Tainted: G      D           4.19.75 #1
-> [199392.069356] Hardware name: Supermicro X9SCL/X9SCM/X9SCL/X9SCM, BIOS 2.2 02/20/2015
-> [199392.069982] Workqueue: dm-thin do_worker [dm_thin_pool]
-> [199392.070604] RIP: 0010:native_smp_send_reschedule+0x39/0x40
-> [199392.071229] Code: 0f 92 c0 84 c0 74 15 48 8b 05 93 f1 eb 00 be fd 00 00 00 48 8b 40 30 e9 85 f4 9a 00 89 fe 48 c7 c7 08 23 e5 81 e8 c7 9a 05 00 <0f> 0b c3 0f 1f 40 00 0f 1f 44 00 00 53 be 20 00 48 00 48 89 fb 48
-> [199392.072528] RSP: 0018:ffff88880fb03dc0 EFLAGS: 00010082
-> [199392.073186] RAX: 0000000000000000 RBX: ffff88880fa625c0 RCX: 0000000000000006
-> [199392.073847] RDX: 0000000000000000 RSI: 0000000000000096 RDI: ffff88880fb168b0
-> [199392.074512] RBP: ffff88880fa625c0 R08: 0000000000000001 R09: 00000000000174e5
-> [199392.075182] R10: ffff8881f2512300 R11: 0000000000000000 R12: ffff888804541640
-> [199392.075849] R13: ffff88880fb03e08 R14: 0000000000000000 R15: 0000000000000001
-> [199392.076512] FS:  0000000000000000(0000) GS:ffff88880fb00000(0000) knlGS:0000000000000000
-> [199392.077179] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [199392.077833] CR2: 00007f5ae49a1000 CR3: 000000000200a003 CR4: 00000000001626e0
-> [199392.078481] Call Trace:
-> [199392.079117]  <IRQ>
-> [199392.079745]  check_preempt_curr+0x6b/0x90
-> [199392.080373]  ttwu_do_wakeup+0x19/0x130
-> [199392.080999]  try_to_wake_up+0x1e2/0x460
-> [199392.081623]  __wake_up_common+0x8f/0x160
-> [199392.082246]  ep_poll_callback+0x1af/0x300
-> [199392.082860]  __wake_up_common+0x8f/0x160
-> [199392.083470]  __wake_up_common_lock+0x7a/0xc0
-> [199392.084074]  irq_work_run_list+0x4c/0x70
-> [199392.084675]  smp_call_function_single_interrupt+0x3a/0xd0
-> [199392.085277]  call_function_single_interrupt+0xf/0x20
-> [199392.085879]  </IRQ>
-> [199392.086477] RIP: 0010:panic+0x209/0x25c
-> [199392.087079] Code: 83 3d 86 de 75 01 00 74 05 e8 ff 5d 02 00 48 c7 c6 e0 bc 80 82 48 c7 c7 10 cd e5 81 31 c0 e8 fe 2b 06 00 fb 66 0f 1f 44 00 00 <45> 31 e4 e8 eb 2e 0d 00 4d 39 ec 7c 1e 41 83 f6 01 48 8b 05 2b de
-> [199392.088341] RSP: 0018:ffffc9000a147a30 EFLAGS: 00000246 ORIG_RAX: ffffffffffffff04
-> [199392.088988] RAX: 0000000000000039 RBX: 0000000000000200 RCX: 0000000000000006
-> [199392.089639] RDX: 0000000000000000 RSI: 0000000000000086 RDI: ffff88880fb168b0
-> [199392.090291] RBP: ffffc9000a147aa0 R08: 0000000000000001 R09: 00000000000174b5
-> [199392.090947] R10: ffff8883d9753f00 R11: 0000000000000001 R12: ffffffff81e4a15c
-> [199392.091601] R13: 0000000000000000 R14: 0000000000000000 R15: ffffffff81e49951
-> [199392.092255]  oops_end+0xc1/0xd0
-> [199392.092894]  do_trap+0x13d/0x150
-> [199392.093516]  do_error_trap+0xd5/0x130
-> [199392.094122]  ? sm_disk_new_block+0xa0/0xb0 [dm_persistent_data]
-> [199392.094718]  invalid_op+0x14/0x20
-> [199392.095296] RIP: 0010:sm_disk_new_block+0xa0/0xb0 [dm_persistent_data]
-> [199392.095866] Code: 22 00 00 49 8b 34 24 e8 4e f9 ff ff 85 c0 75 11 83 7c 24 04 01 75 13 48 83 83 28 22 00 00 01 eb af 89 c5 eb ab e8 e0 95 9b e0 <0f> 0b 0f 1f 40 00 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 55
-> [199392.097006] RSP: 0018:ffffc9000a147c88 EFLAGS: 00010297
-> [199392.097558] RAX: 0000000000000000 RBX: ffff8887ceed8000 RCX: 0000000000000000
-> [199392.098103] RDX: ffff8887d093ac80 RSI: 0000000000000246 RDI: ffff8887faab0a00
-> [199392.098644] RBP: 0000000000000000 R08: 0000000000000000 R09: ffff8887faab0a98
-> [199392.099176] R10: ffffffff810f8077 R11: 0000000000000000 R12: ffffc9000a147d58
-> [199392.099703] R13: ffffc9000a147d58 R14: 00000000ffffffc3 R15: 000000000014bbc0
-> [199392.100229]  ? __wake_up_common_lock+0x87/0xc0
-> [199392.100744]  ? sm_disk_new_block+0x82/0xb0 [dm_persistent_data]
-> [199392.101251]  dm_pool_alloc_data_block+0x3f/0x60 [dm_thin_pool]
-> [199392.101752]  alloc_data_block.isra.52+0x6d/0x1e0 [dm_thin_pool]
-> [199392.102252]  process_cell+0x2a3/0x550 [dm_thin_pool]
-> [199392.102750]  ? sort+0x17b/0x270
-> [199392.103242]  ? u32_swap+0x10/0x10
-> [199392.103733]  do_worker+0x268/0x9a0 [dm_thin_pool]
-> [199392.104228]  process_one_work+0x171/0x370
-> [199392.104714]  worker_thread+0x49/0x3f0
-> [199392.105193]  kthread+0xf8/0x130
-> [199392.105665]  ? max_active_store+0x80/0x80
-> [199392.106132]  ? kthread_bind+0x10/0x10
-> [199392.106601]  ret_from_fork+0x1f/0x40
-> [199392.107069] ---[ end trace c31536d98046e8ed ]---
-> [199392.107544] ------------[ cut here ]------------
-> [199392.108017] sched: Unexpected reschedule of offline CPU#7!
-> [199392.108497] WARNING: CPU: 4 PID: 31359 at arch/x86/kernel/smp.c:128 native_smp_send_reschedule+0x39/0x40
-> [199392.108996] Modules linked in: dm_snapshot btrfs xor zstd_decompress zstd_compress xxhash raid6_pq xfs dm_thin_pool dm_persistent_data dm_bio_prison dm_bufio drbd lru_cache xt_CHECKSUM iptable_mangle ipt_MASQUERADE iptable_nat nf_nat_ipv4 nf_nat xt_conntrack nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 libcrc32c ipt_REJECT nf_reject_ipv4 ebtable_filter ebtables binfmt_misc ip6table_filter ip6_tables bcache xt_comment crc64 iptable_filter netconsole bridge 8021q garp stp mrp llc lz4 lz4_compress zram sunrpc x86_pkg_temp_thermal intel_powerclamp coretemp iTCO_wdt iTCO_vendor_support kvm_intel kvm irqbypass crct10dif_pclmul crc32_pclmul pcc_cpufreq ghash_clmulni_intel pcspkr sg ipmi_si ipmi_devintf lpc_ich ipmi_msghandler video i2c_i801 mfd_core ip_tables ext4 mbcache jbd2 mgag200 i2c_algo_bit drm_kms_helper
-> [199392.112967]  syscopyarea sysfillrect sysimgblt fb_sys_fops ttm drm crc32c_intel i2c_core ahci libahci ixgbe libata e1000e arcmsr mdio dca dm_mirror dm_region_hash dm_log dm_mod
-> [199392.114203] CPU: 4 PID: 31359 Comm: kworker/u16:4 Tainted: G      D W         4.19.75 #1
-> [199392.114819] Hardware name: Supermicro X9SCL/X9SCM/X9SCL/X9SCM, BIOS 2.2 02/20/2015
-> [199392.115439] Workqueue: dm-thin do_worker [dm_thin_pool]
-> [199392.116061] RIP: 0010:native_smp_send_reschedule+0x39/0x40
-> [199392.116683] Code: 0f 92 c0 84 c0 74 15 48 8b 05 93 f1 eb 00 be fd 00 00 00 48 8b 40 30 e9 85 f4 9a 00 89 fe 48 c7 c7 08 23 e5 81 e8 c7 9a 05 00 <0f> 0b c3 0f 1f 40 00 0f 1f 44 00 00 53 be 20 00 48 00 48 89 fb 48
-> [199392.117982] RSP: 0018:ffff88880fb03ee0 EFLAGS: 00010082
-> [199392.118632] RAX: 0000000000000000 RBX: ffff8887d093ac80 RCX: 0000000000000006
-> [199392.119295] RDX: 0000000000000000 RSI: 0000000000000092 RDI: ffff88880fb168b0
-> [199392.119961] RBP: 0000000000000000 R08: 0000000000000001 R09: 0000000000017529
-> [199392.120623] R10: ffff8881438ba800 R11: 0000000000000000 R12: ffffc9000a147988
-> [199392.121283] R13: ffffffff8113f9a0 R14: 0000000000000002 R15: ffff88880fb1cff8
-> [199392.121938] FS:  0000000000000000(0000) GS:ffff88880fb00000(0000) knlGS:0000000000000000
-> [199392.122589] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [199392.123229] CR2: 00007f5ae49a1000 CR3: 000000000200a003 CR4: 00000000001626e0
-> [199392.123867] Call Trace:
-> [199392.124495]  <IRQ>
-> [199392.125116]  update_process_times+0x40/0x50
-> [199392.125742]  tick_sched_handle+0x25/0x60
-> [199392.126367]  tick_sched_timer+0x37/0x70
-> [199392.126987]  __hrtimer_run_queues+0xfb/0x270
-> [199392.127601]  hrtimer_interrupt+0x122/0x270
-> [199392.128211]  smp_apic_timer_interrupt+0x6a/0x140
-> [199392.128819]  apic_timer_interrupt+0xf/0x20
-> [199392.129423]  </IRQ>
-> [199392.130020] RIP: 0010:panic+0x209/0x25c
-> [199392.130619] Code: 83 3d 86 de 75 01 00 74 05 e8 ff 5d 02 00 48 c7 c6 e0 bc 80 82 48 c7 c7 10 cd e5 81 31 c0 e8 fe 2b 06 00 fb 66 0f 1f 44 00 00 <45> 31 e4 e8 eb 2e 0d 00 4d 39 ec 7c 1e 41 83 f6 01 48 8b 05 2b de
-> [199392.131883] RSP: 0018:ffffc9000a147a30 EFLAGS: 00000246 ORIG_RAX: ffffffffffffff13
-> [199392.132530] RAX: 0000000000000039 RBX: 0000000000000200 RCX: 0000000000000006
-> [199392.133180] RDX: 0000000000000000 RSI: 0000000000000086 RDI: ffff88880fb168b0
-> [199392.133830] RBP: ffffc9000a147aa0 R08: 0000000000000001 R09: 00000000000174b5
-> [199392.134482] R10: ffff8883d9753f00 R11: 0000000000000001 R12: ffffffff81e4a15c
-> [199392.135136] R13: 0000000000000000 R14: 0000000000000000 R15: ffffffff81e49951
-> [199392.135792]  oops_end+0xc1/0xd0
-> [199392.136444]  do_trap+0x13d/0x150
-> [199392.137094]  do_error_trap+0xd5/0x130
-> [199392.137740]  ? sm_disk_new_block+0xa0/0xb0 [dm_persistent_data]
-> [199392.138383]  invalid_op+0x14/0x20
-> [199392.139010] RIP: 0010:sm_disk_new_block+0xa0/0xb0 [dm_persistent_data]
-> [199392.139630] Code: 22 00 00 49 8b 34 24 e8 4e f9 ff ff 85 c0 75 11 83 7c 24 04 01 75 13 48 83 83 28 22 00 00 01 eb af 89 c5 eb ab e8 e0 95 9b e0 <0f> 0b 0f 1f 40 00 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 55
-> [199392.140870] RSP: 0018:ffffc9000a147c88 EFLAGS: 00010297
-> [199392.141472] RAX: 0000000000000000 RBX: ffff8887ceed8000 RCX: 0000000000000000
-> [199392.142066] RDX: ffff8887d093ac80 RSI: 0000000000000246 RDI: ffff8887faab0a00
-> [199392.142647] RBP: 0000000000000000 R08: 0000000000000000 R09: ffff8887faab0a98
-> [199392.143211] R10: ffffffff810f8077 R11: 0000000000000000 R12: ffffc9000a147d58
-> [199392.143759] R13: ffffc9000a147d58 R14: 00000000ffffffc3 R15: 000000000014bbc0
-> [199392.144301]  ? __wake_up_common_lock+0x87/0xc0
-> [199392.144838]  ? sm_disk_new_block+0x82/0xb0 [dm_persistent_data]
-> [199392.145374]  dm_pool_alloc_data_block+0x3f/0x60 [dm_thin_pool]
-> [199392.145909]  alloc_data_block.isra.52+0x6d/0x1e0 [dm_thin_pool]
-> [199392.146435]  process_cell+0x2a3/0x550 [dm_thin_pool]
-> [199392.146949]  ? sort+0x17b/0x270
-> [199392.147450]  ? u32_swap+0x10/0x10
-> [199392.147944]  do_worker+0x268/0x9a0 [dm_thin_pool]
-> [199392.148441]  process_one_work+0x171/0x370
-> [199392.148937]  worker_thread+0x49/0x3f0
-> [199392.149430]  kthread+0xf8/0x130
-> [199392.149922]  ? max_active_store+0x80/0x80
-> [199392.150406]  ? kthread_bind+0x10/0x10
-> [199392.150883]  ret_from_fork+0x1f/0x40
-> [199392.151353] ---[ end trace c31536d98046e8ee ]---
-> 
-> 
-> --
-> Eric Wheeler
-> 
-> --
-> dm-devel mailing list
-> dm-devel@redhat.com
-> https://www.redhat.com/mailman/listinfo/dm-devel
-> 
+diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
+index 069e4675da6b..91512eb40458 100644
+--- a/drivers/md/dm-zoned-metadata.c
++++ b/drivers/md/dm-zoned-metadata.c
+@@ -134,6 +134,7 @@ struct dmz_metadata {
+ 
+ 	sector_t		zone_bitmap_size;
+ 	unsigned int		zone_nr_bitmap_blocks;
++	unsigned int		zone_bits_per_mblk;
+ 
+ 	unsigned int		nr_bitmap_blocks;
+ 	unsigned int		nr_map_blocks;
+@@ -1153,7 +1154,10 @@ static int dmz_init_zones(struct dmz_metadata *zmd)
+ 
+ 	/* Init */
+ 	zmd->zone_bitmap_size = dev->zone_nr_blocks >> 3;
+-	zmd->zone_nr_bitmap_blocks = zmd->zone_bitmap_size >> DMZ_BLOCK_SHIFT;
++	zmd->zone_nr_bitmap_blocks =
++		max_t(sector_t, 1, zmd->zone_bitmap_size >> DMZ_BLOCK_SHIFT);
++	zmd->zone_bits_per_mblk = min_t(sector_t, dev->zone_nr_blocks,
++					DMZ_BLOCK_SIZE_BITS);
+ 
+ 	/* Allocate zone array */
+ 	zmd->zones = kcalloc(dev->nr_zones, sizeof(struct dm_zone), GFP_KERNEL);
+@@ -1947,7 +1951,7 @@ int dmz_copy_valid_blocks(struct dmz_metadata *zmd, struct dm_zone *from_zone,
+ 		dmz_release_mblock(zmd, to_mblk);
+ 		dmz_release_mblock(zmd, from_mblk);
+ 
+-		chunk_block += DMZ_BLOCK_SIZE_BITS;
++		chunk_block += zmd->zone_bits_per_mblk;
+ 	}
+ 
+ 	to_zone->weight = from_zone->weight;
+@@ -2008,7 +2012,7 @@ int dmz_validate_blocks(struct dmz_metadata *zmd, struct dm_zone *zone,
+ 
+ 		/* Set bits */
+ 		bit = chunk_block & DMZ_BLOCK_MASK_BITS;
+-		nr_bits = min(nr_blocks, DMZ_BLOCK_SIZE_BITS - bit);
++		nr_bits = min(nr_blocks, zmd->zone_bits_per_mblk - bit);
+ 
+ 		count = dmz_set_bits((unsigned long *)mblk->data, bit, nr_bits);
+ 		if (count) {
+@@ -2087,7 +2091,7 @@ int dmz_invalidate_blocks(struct dmz_metadata *zmd, struct dm_zone *zone,
+ 
+ 		/* Clear bits */
+ 		bit = chunk_block & DMZ_BLOCK_MASK_BITS;
+-		nr_bits = min(nr_blocks, DMZ_BLOCK_SIZE_BITS - bit);
++		nr_bits = min(nr_blocks, zmd->zone_bits_per_mblk - bit);
+ 
+ 		count = dmz_clear_bits((unsigned long *)mblk->data,
+ 				       bit, nr_bits);
+@@ -2147,6 +2151,7 @@ static int dmz_to_next_set_block(struct dmz_metadata *zmd, struct dm_zone *zone,
+ {
+ 	struct dmz_mblock *mblk;
+ 	unsigned int bit, set_bit, nr_bits;
++	unsigned int zone_bits = zmd->zone_bits_per_mblk;
+ 	unsigned long *bitmap;
+ 	int n = 0;
+ 
+@@ -2161,15 +2166,15 @@ static int dmz_to_next_set_block(struct dmz_metadata *zmd, struct dm_zone *zone,
+ 		/* Get offset */
+ 		bitmap = (unsigned long *) mblk->data;
+ 		bit = chunk_block & DMZ_BLOCK_MASK_BITS;
+-		nr_bits = min(nr_blocks, DMZ_BLOCK_SIZE_BITS - bit);
++		nr_bits = min(nr_blocks, zone_bits - bit);
+ 		if (set)
+-			set_bit = find_next_bit(bitmap, DMZ_BLOCK_SIZE_BITS, bit);
++			set_bit = find_next_bit(bitmap, zone_bits, bit);
+ 		else
+-			set_bit = find_next_zero_bit(bitmap, DMZ_BLOCK_SIZE_BITS, bit);
++			set_bit = find_next_zero_bit(bitmap, zone_bits, bit);
+ 		dmz_release_mblock(zmd, mblk);
+ 
+ 		n += set_bit - bit;
+-		if (set_bit < DMZ_BLOCK_SIZE_BITS)
++		if (set_bit < zone_bits)
+ 			break;
+ 
+ 		nr_blocks -= nr_bits;
+@@ -2272,7 +2277,7 @@ static void dmz_get_zone_weight(struct dmz_metadata *zmd, struct dm_zone *zone)
+ 		/* Count bits in this block */
+ 		bitmap = mblk->data;
+ 		bit = chunk_block & DMZ_BLOCK_MASK_BITS;
+-		nr_bits = min(nr_blocks, DMZ_BLOCK_SIZE_BITS - bit);
++		nr_bits = min(nr_blocks, zmd->zone_bits_per_mblk - bit);
+ 		n += dmz_count_bits(bitmap, bit, nr_bits);
+ 
+ 		dmz_release_mblock(zmd, mblk);
+-- 
+2.21.0
 
 
 --
