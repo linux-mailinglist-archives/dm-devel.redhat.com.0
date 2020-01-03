@@ -1,66 +1,86 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 8320412FB71
-	for <lists+dm-devel@lfdr.de>; Fri,  3 Jan 2020 18:14:47 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id E507812FC6E
+	for <lists+dm-devel@lfdr.de>; Fri,  3 Jan 2020 19:25:04 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1578071685;
+	s=mimecast20190719; t=1578075903;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=YjniyL4FYu7OhKuPfH8TTQJ76ePtww1fW+vCm++KxQg=;
-	b=LZkoMTOj0BYAvOnPvmrCxP5M14CkoUYN91veyEDI2+Nffdp3Wu3a98s32YAQqwy19RwDVx
-	OLvOAfPOlNFVRi8Kt5YgO3/9CYofAgJzJusuId6K9PAZYCtmJ2RgfM9WSmGiUwvGNddrKR
-	N6eQtxgs8OU63tzuzgn4FiEDto/EOHY=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=gbUINNwMQJzJrl20ThwULP30XytlMMKB7GEKXsln8sE=;
+	b=GzAtLlUCs/r6inNbF8w2GR8T5sxvFYStCyfaAG7YDKMf+q8hzx9rzzXxWWsQPJ4jC73+sc
+	YnhZe5OJ4HFfawy6O+eWal7bWEg/hsLJ7kAnWsMNJKc65pgPyFYJ+frnX619gYKW0QRPPz
+	XYW/x87Xsj+Cq3NQ3uGAd09BGnGMiNA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-310-J2NN-SSmNf-Vrqf35UuhqA-1; Fri, 03 Jan 2020 12:14:44 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-366-Sunt5P4vOqyE_qCzNfxfaQ-1; Fri, 03 Jan 2020 13:25:02 -0500
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A010E1005510;
-	Fri,  3 Jan 2020 17:14:36 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C245E10054C3;
+	Fri,  3 Jan 2020 18:24:53 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A2715D9D6;
-	Fri,  3 Jan 2020 17:14:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 77FBD7BA35;
+	Fri,  3 Jan 2020 18:24:51 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A39F7820EB;
-	Fri,  3 Jan 2020 17:14:24 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1312D81E26;
+	Fri,  3 Jan 2020 18:24:43 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 003HEBSU018677 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 3 Jan 2020 12:14:11 -0500
+	id 003IOTSY020409 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 3 Jan 2020 13:24:30 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 20312386; Fri,  3 Jan 2020 17:14:11 +0000 (UTC)
+	id E15882166B2A; Fri,  3 Jan 2020 18:24:29 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F291387;
-	Fri,  3 Jan 2020 17:14:08 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id 003HE7j1012071; Fri, 3 Jan 2020 12:14:07 -0500
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id 003HE7jP012067; Fri, 3 Jan 2020 12:14:07 -0500
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Fri, 3 Jan 2020 12:14:07 -0500 (EST)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Patrick Dung <patdung100@gmail.com>
-In-Reply-To: <CAJTWkdu1-k5m0F-uzp-EMrncL1w4wLqEi8LgF0U1Js_Nf-YphQ@mail.gmail.com>
-Message-ID: <alpine.LRH.2.02.2001031206190.11685@file01.intranet.prod.int.rdu2.redhat.com>
-References: <CAJTWkdu1-k5m0F-uzp-EMrncL1w4wLqEi8LgF0U1Js_Nf-YphQ@mail.gmail.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mimecast-mx02.redhat.com
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DD3892166B29
+	for <dm-devel@redhat.com>; Fri,  3 Jan 2020 18:24:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C20AD802884
+	for <dm-devel@redhat.com>; Fri,  3 Jan 2020 18:24:26 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-121-iRREmyeCNjmd6n-6zBDQHQ-1;
+	Fri, 03 Jan 2020 13:24:22 -0500
+Received: from gmail.com (unknown [104.132.1.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 9E5D62253D;
+	Fri,  3 Jan 2020 18:24:20 +0000 (UTC)
+Date: Fri, 3 Jan 2020 10:24:19 -0800
+From: Eric Biggers <ebiggers@kernel.org>
+To: =?utf-8?B?eGlhbnJvbmcuemhvdSjlkajlhYjojaMp?= <xianrong.zhou@transsion.com>
+Message-ID: <20200103182418.GQ19521@gmail.com>
+References: <727b9e9279a546beb2ae63a18eae6ab0@transsion.com>
+	<20191216185025.GF139479@gmail.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+In-Reply-To: <20191216185025.GF139479@gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-MC-Unique: iRREmyeCNjmd6n-6zBDQHQ-1
+X-MC-Unique: Sunt5P4vOqyE_qCzNfxfaQ-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 003IOTSY020409
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com
-Subject: Re: [dm-devel] About dm-integrity layer and fsync
+Cc: =?utf-8?B?d2VpbWluLm1hbyjmr5vljavmsJEp?= <weimin.mao@transsion.com>,
+	=?utf-8?B?aGFpemhvdS5zb25nKOWui+a1t+iInyk=?= <haizhou.song@transsion.com>,
+	"snitzer@redhat.com" <snitzer@redhat.com>,
+	=?utf-8?B?d2FuYmluLndhbmco5rGq5LiH5paMKQ==?= <wanbin.wang@transsion.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	=?utf-8?B?eXVhbmppb25nLmdhbyjpq5jmuIrngq8p?= <yuanjiong.gao@transsion.com>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	=?utf-8?B?cnV4aWFuLmZlbmco5Yav5YSS5ai0KQ==?=
+	<ruxian.feng@transsion.com>, "agk@redhat.com" <agk@redhat.com>
+Subject: Re: [dm-devel] [PATCH] dm-verity: unnecessary data blocks that need
+ not read hash blocks
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -74,89 +94,62 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-MC-Unique: J2NN-SSmNf-Vrqf35UuhqA-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
-Content-Type: MULTIPART/MIXED;
-	BOUNDARY="185206533-1783000016-1578071647=:11685"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
---185206533-1783000016-1578071647=:11685
-Content-Type: TEXT/PLAIN; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-
-
-On Fri, 3 Jan 2020, Patrick Dung wrote:
-
-> Hello,
->=20
-> A quick question on dm-integrity. Does dm-integrity layer honors fsync?
-
-Yes it does.
-
-However, it writes data into the journal and when the journal is flushed,=
-=20
-it reports the fsync function as finished.
-
-On a mechanical disk, writes to contiguous space (i.e. the journal) are=20
-faster than random writes all over the disk, that's why you see better=20
-performance with dm-integrity than without it.
-
-Mikulas
-
-> I was testing dm-integrity and performance. It had a strange result that =
-using dm-integrity with journal is faster than a normal file system or dm-i=
-ntegrity with
-> bitmap (no journal). fio is used for testing the storage performance. The=
- device is a SATA hard disk drive. Then I created a 100GB partition for tes=
-ting.
->=20
-> Below is the test cases:
->=20
-> 1) XFS on a partition directly test case
->=20
-> 2) dm-integrity: crc32c on a partition with default setting journal commi=
-t interval is 10 seconds. Then create XFS on it. test case
->=20
-> 3) dm-integrity: crc32c on a partition default setting journal commit int=
-erval set to 5 seconds. Then create XFS on it.
->=20
-> 4) dm-integrity:=C2=A0 crc32c on a partition default setting but using bi=
-tmap instead of journal. Then create XFS on it.
->=20
-> FIO command:
->=20
-> fio --filename=3D./t1 --direct=3D1 --rw=3Drandrw --refill_buffers --noran=
-dommap --randrepeat=3D0 --ioengine=3Dsync --bs=3D4k --rwmixread=3D75 --iode=
-pth=3D16 --numjobs=3D8 --runtime=3D60
-> --group_reporting --fsync=3D1 --name=3D4ktest --size=3D4G
->=20
-> Result:
->=20
->  1. Read/Write IOPS: 117/41. Read/Write Speed 481KB/s 168KB/s
->  2. Read/Write IOPS: 178/59. Read/Write Speed 732KB/s 244KB/s
->  3. Read/Write IOPS: 169/57. Read/Write Speed 695KB/s 236KB/s
->  4. Read/Write IOPS: 97/32. Read/Write Speed 400K/s 131KB/s
-> The original discussion in: https://gitlab.com/cryptsetup/cryptsetup/issu=
-es/513 . Milan Broz said the dm-devel mailing list is a suitable place to d=
-iscuss the probem.
->=20
-> Thanks in advance.
->=20
-> Patrick
->=20
-> 
---185206533-1783000016-1578071647=:11685
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Content-Disposition: inline
 
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
---185206533-1783000016-1578071647=:11685--
+T24gTW9uLCBEZWMgMTYsIDIwMTkgYXQgMTA6NTA6MjZBTSAtMDgwMCwgRXJpYyBCaWdnZXJzIHdy
+b3RlOgo+IE9uIE1vbiwgRGVjIDE2LCAyMDE5IGF0IDAyOjAyOjMzQU0gKzAwMDAsIHhpYW5yb25n
+Lnpob3Uo5ZGo5YWI6I2jKSB3cm90ZToKPiA+IGhleSBFcmljOgo+ID4gCj4gPiBPbiBXZWQsIERl
+YyAxMSwgMjAxOSBhdCAxMTozMjo0MEFNICswODAwLCB6aG91IHhpYW5yb25nIHdyb3RlOgo+ID4g
+PiBGcm9tOiAieGlhbnJvbmcuemhvdSIgPHhpYW5yb25nLnpob3VAdHJhbnNzaW9uLmNvbT4KPiA+
+ID4gCj4gPiA+IElmIGNoZWNrX2F0X21vc3Rfb25jZSBlbmFibGVkLCBqdXN0IGxpa2UgdmVyaXR5
+IHdvcmsgdGhlIHByZWZldGNoaW5nIAo+ID4gPiB3b3JrIHNob3VsZCBjaGVjayBmb3IgZGF0YSBi
+bG9jayBiaXRtYXAgZmlyc3RseSBiZWZvcmUgcmVhZGluZyBoYXNoIAo+ID4gPiBibG9jayBhcyB3
+ZWxsLiBTa2lwIGJpdC1zZXQgZGF0YSBibG9ja3MgZnJvbSBib3RoIGVuZHMgb2YgZGF0YSBibG9j
+ayAKPiA+ID4gcmFuZ2UgYnkgdGVzdGluZyB0aGUgdmFsaWRhdGVkIGJpdG1hcC4gVGhpcyBjYW4g
+cmVkdWNlIHRoZSBhbW91bnRzIG9mIAo+ID4gPiBkYXRhIGJsb2NrcyB3aGljaCBuZWVkIHRvIHJl
+YWQgaGFzaCBibG9ja3MuCj4gPiA+IAo+ID4gPiBMYXVuY2hpbmcgOTEgYXBwcyBldmVyeSAxNXMg
+YW5kIHJlcGVhdCAyMSByb3VuZHMgb24gQW5kcm9pZCBRLgo+ID4gPiBJbiBwcmVmZXRjaGluZyB3
+b3JrIHdlIGNhbiBsZXQgb25seSAyNjAyLzM2MDMxMiA9IDAuNzIlIGRhdGEgYmxvY2tzIAo+ID4g
+PiByZWFsbHkgbmVlZCB0byByZWFkIGhhc2ggYmxvY2tzLgo+ID4gPiAKPiA+ID4gQnV0IHRoZSBy
+ZWR1Y2VkIGRhdGEgYmxvY2tzIHJhbmdlIHdvdWxkIGJlIGVubGFyZ2VkIGFnYWluIGJ5IAo+ID4g
+PiBkbV92ZXJpdHlfcHJlZmV0Y2hfY2x1c3RlciBsYXRlci4KPiA+ID4gCj4gPiA+IFNpZ25lZC1v
+ZmYtYnk6IHhpYW5yb25nLnpob3UgPHhpYW5yb25nLnpob3VAdHJhbnNzaW9uLmNvbT4KPiA+ID4g
+U2lnbmVkLW9mZi1ieTogeXVhbmppb25nLmdhbyA8eXVhbmppb25nLmdhb0B0cmFuc3Npb24uY29t
+Pgo+ID4gPiBUZXN0ZWQtYnk6IHJ1eGlhbi5mZW5nIDxydXhpYW4uZmVuZ0B0cmFuc3Npb24uY29t
+Pgo+ID4gPiAtLS0KPiA+ID4gIGRyaXZlcnMvbWQvZG0tdmVyaXR5LXRhcmdldC5jIHwgMTYgKysr
+KysrKysrKysrKysrKwo+ID4gPiAgMSBmaWxlIGNoYW5nZWQsIDE2IGluc2VydGlvbnMoKykKPiA+
+ID4gCj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21kL2RtLXZlcml0eS10YXJnZXQuYyAKPiA+
+ID4gYi9kcml2ZXJzL21kL2RtLXZlcml0eS10YXJnZXQuYyBpbmRleCA0ZmIzM2U3NTYyYzUuLjdi
+OGViNzU0YzBiNiAKPiA+ID4gMTAwNjQ0Cj4gPiA+IC0tLSBhL2RyaXZlcnMvbWQvZG0tdmVyaXR5
+LXRhcmdldC5jCj4gPiA+ICsrKyBiL2RyaXZlcnMvbWQvZG0tdmVyaXR5LXRhcmdldC5jCj4gPiA+
+IEBAIC01ODEsNiArNTgxLDIyIEBAIHN0YXRpYyB2b2lkIHZlcml0eV9wcmVmZXRjaF9pbyhzdHJ1
+Y3Qgd29ya19zdHJ1Y3QgKndvcmspCj4gPiA+ICAJc3RydWN0IGRtX3Zlcml0eSAqdiA9IHB3LT52
+Owo+ID4gPiAgCWludCBpOwo+ID4gPiAgCj4gPiA+ICsJaWYgKHYtPnZhbGlkYXRlZF9ibG9ja3Mp
+IHsKPiA+ID4gKwkJd2hpbGUgKHB3LT5uX2Jsb2Nrcykgewo+ID4gPiArCQkJaWYgKHVubGlrZWx5
+KCF0ZXN0X2JpdChwdy0+YmxvY2ssIHYtPnZhbGlkYXRlZF9ibG9ja3MpKSkKPiA+ID4gKwkJCQli
+cmVhazsKPiA+ID4gKwkJCXB3LT5ibG9jaysrOwo+ID4gPiArCQkJcHctPm5fYmxvY2tzLS07Cj4g
+PiA+ICsJCX0KPiA+ID4gKwkJd2hpbGUgKHB3LT5uX2Jsb2Nrcykgewo+ID4gPiArCQkJaWYgKHVu
+bGlrZWx5KCF0ZXN0X2JpdChwdy0+YmxvY2sgKyBwdy0+bl9ibG9ja3MgLSAxLAo+ID4gPiArCQkJ
+CXYtPnZhbGlkYXRlZF9ibG9ja3MpKSkKPiA+ID4gKwkJCQlicmVhazsKPiA+ID4gKwkJCXB3LT5u
+X2Jsb2Nrcy0tOwo+ID4gPiArCQl9Cj4gPiA+ICsJCWlmICghcHctPm5fYmxvY2tzKQo+ID4gPiAr
+CQkJcmV0dXJuOwo+ID4gPiArCX0KPiA+IAo+ID4gVGhpcyBpcyBhIGdvb2QgaWRlYSwgYnV0IHNo
+b3VsZG4ndCB0aGlzIGxvZ2ljIGdvIGluIHZlcml0eV9zdWJtaXRfcHJlZmV0Y2goKQo+ID4gcHJp
+b3IgdG8gdGhlIHN0cnVjdCBkbV92ZXJpdHlfcHJlZmV0Y2hfd29yayBiZWluZyBhbGxvY2F0ZWQ/
+ICBUaGVuIGlmIG5vCj4gPiBwcmVmZWNoaW5nIGlzIG5lZWRlZCwgYWxsb2NhdGluZyBhbmQgc2No
+ZWR1bGluZyB0aGUgd29yayBvYmplY3QgY2FuIGJlCj4gPiBza2lwcGVkLgo+ID4gCj4gPiBFcmlj
+LCBEbyB5b3UgbWVhbiBpdCBpcyBtb3JlIHN1aXRhYmxlIGluIGRtX2J1ZmlvX3ByZWZldGNoIHdo
+aWNoIGlzIGNhbGxlZCBvbgo+ID4gZGlmZmVyZW50IHBhdGhzIGV2ZW4gdGhvdWdoIHByZWZlY2hp
+bmcgaXMgZGlzYWJsZWQgPwo+ID4gCj4gCj4gTm8sIEknbSB0YWxraW5nIGFib3V0IHZlcml0eV9z
+dWJtaXRfcHJlZmV0Y2goKS4gIHZlcml0eV9zdWJtaXRfcHJlZmV0Y2goKQo+IGFsbG9jYXRlcyBh
+bmQgc2NoZWR1bGVzIGEgd29yayBvYmplY3QsIHdoaWNoIGV4ZWN1dGVzIHZlcml0eV9wcmVmZXRj
+aF9pbygpLgo+IElmIGFsbCBkYXRhIGJsb2NrcyBpbiB0aGUgSS9PIHJlcXVlc3Qgd2VyZSBhbHJl
+YWR5IHZhbGlkYXRlZCwgdGhlcmUncyBubyBuZWVkIHRvCj4gYWxsb2NhdGUgYW5kIHNjaGVkdWxl
+IHRoZSBwcmVmZXRjaCB3b3JrLgo+IAo+IC0gRXJpYwo+IAoKQXJlIHlvdSBwbGFubmluZyB0byBz
+ZW5kIGEgbmV3IHZlcnNpb24gb2YgdGhpcyBwYXRjaD8KCi0gRXJpYwoKCi0tCmRtLWRldmVsIG1h
+aWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFp
+bG1hbi9saXN0aW5mby9kbS1kZXZlbA==
 
