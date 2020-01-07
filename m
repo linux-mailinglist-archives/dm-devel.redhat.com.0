@@ -1,52 +1,52 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 535F913241C
-	for <lists+dm-devel@lfdr.de>; Tue,  7 Jan 2020 11:48:02 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 98BDB13262A
+	for <lists+dm-devel@lfdr.de>; Tue,  7 Jan 2020 13:29:14 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1578394081;
+	s=mimecast20190719; t=1578400153;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=6u7w1S2j68SplKHiJhIcikHa4NayUYQ2Zt8Xjc7o69Q=;
-	b=WQ1TBUmwhguYe00QjjCKoa5GNueYlZmbJ+ofS8+6k18st4XLRhmxrhdU4GU/Zjt2dwVU6Y
-	nlgrJVk7Yyf3K2nvCWn7CrHYaHtPlw5VgOUbCjm3gUAASdXLu48FHzjCBlQ0HHz4qEttr5
-	uBKC8IMf70mJDW1a6J11G0PrTWWm5LE=
+	bh=PM8HzjLnFDCm2L2FLlKfaIcpZzSjNBMvYvvTYMlNDkw=;
+	b=dWAN4c3FxlpYTDaO47sw5qOZFfmFW3iXPpSW20ePiQ4shSFARFLtVOCwpxreEEEPchNwx6
+	sya3tHLbtepCKKRhWl1SSNuoH/w57bRu6iw797zshHgCZNrdiJjlfUf8NsiS2edkD1og8F
+	zhD9FZHFPPDeibReoRs9vWlALrmP9/Q=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-370-R0zj3scGNgiExiMI0cuxQQ-1; Tue, 07 Jan 2020 05:46:58 -0500
+ us-mta-38-l-Vs41vPOIaqvZab7lxkbw-1; Tue, 07 Jan 2020 07:29:09 -0500
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CE701801E72;
-	Tue,  7 Jan 2020 10:46:52 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 29A4191220;
+	Tue,  7 Jan 2020 12:29:03 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 595D91001902;
-	Tue,  7 Jan 2020 10:46:51 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3BFE41084192;
+	Tue,  7 Jan 2020 12:28:58 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 518F281C68;
-	Tue,  7 Jan 2020 10:46:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F331781C88;
+	Tue,  7 Jan 2020 12:28:48 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 007AkcLm015144 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 7 Jan 2020 05:46:38 -0500
+	id 007CSa4B022127 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 7 Jan 2020 07:28:36 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 312AC60C88; Tue,  7 Jan 2020 10:46:38 +0000 (UTC)
+	id 52CEE84FE2; Tue,  7 Jan 2020 12:28:36 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from localhost (unknown [10.33.36.144])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B2B6060BE2;
-	Tue,  7 Jan 2020 10:46:28 +0000 (UTC)
-Date: Tue, 7 Jan 2020 10:46:27 +0000
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B752A8208E;
+	Tue,  7 Jan 2020 12:28:26 +0000 (UTC)
+Date: Tue, 7 Jan 2020 12:28:25 +0000
 From: Joe Thornber <thornber@redhat.com>
 To: LVM2 development <lvm-devel@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
 	markus.schade@gmail.com, ejt@redhat.com, linux-block@vger.kernel.org,
 	dm-devel@redhat.com, joe.thornber@gmail.com
-Message-ID: <20200107104627.plviq37qhok2igt4@reti>
+Message-ID: <20200107122825.qr7o5d6dpwa6kv62@reti>
 Mail-Followup-To: LVM2 development <lvm-devel@redhat.com>,
 	Mike Snitzer <snitzer@redhat.com>, markus.schade@gmail.com,
 	ejt@redhat.com, linux-block@vger.kernel.org, dm-devel@redhat.com,
@@ -56,9 +56,10 @@ References: <alpine.LRH.2.11.1909251814220.15810@mx.ewheeler.net>
 	<alpine.LRH.2.11.1912270137420.26683@mx.ewheeler.net>
 	<alpine.LRH.2.11.1912271946380.26683@mx.ewheeler.net>
 	<20200107103546.asf4tmlfdmk6xsub@reti>
+	<20200107104627.plviq37qhok2igt4@reti>
 MIME-Version: 1.0
-In-Reply-To: <20200107103546.asf4tmlfdmk6xsub@reti>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+In-Reply-To: <20200107104627.plviq37qhok2igt4@reti>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
 Subject: Re: [dm-devel] [lvm-devel] kernel BUG at
  drivers/md/persistent-data/dm-space-map-disk.c:178
@@ -76,50 +77,132 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-MC-Unique: R0zj3scGNgiExiMI0cuxQQ-1
+X-MC-Unique: l-Vs41vPOIaqvZab7lxkbw-1
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-On Tue, Jan 07, 2020 at 10:35:46AM +0000, Joe Thornber wrote:
-> On Sat, Dec 28, 2019 at 02:13:07AM +0000, Eric Wheeler wrote:
-> > On Fri, 27 Dec 2019, Eric Wheeler wrote:
-> 
-> > > Just hit the bug again without mq-scsi (scsi_mod.use_blk_mq=n), all other 
-> > > times MQ has been turned on. 
-> > > 
-> > > I'm trying the -ENOSPC hack which will flag the pool as being out of space 
-> > > so I can recover more gracefully than a BUG_ON. Here's a first-draft 
-> > > patch, maybe the spinlock will even prevent the issue.
-> > > 
-> > > Compile tested, I'll try on a real system tomorrow.
-> > > 
-> > > Comments welcome:
-> 
-> Both sm_ll_find_free_block() and sm_ll_inc() can trigger synchronous IO.  So you
-> absolutely cannot use a spin lock.
-> 
-> dm_pool_alloc_data_block() holds a big rw semaphore which should prevent anything
-> else trying to allocate at the same time.
+On Tue, Jan 07, 2020 at 10:46:27AM +0000, Joe Thornber wrote:
+> I'll get a patch to you later today.
 
-I suspect the problem is to do with the way we search for the new block in the 
-space map for the previous transaction (sm->old_ll), and then increment in the current
-transaction (sm->ll).
+Eric,
 
-We keep old_ll around so we can ensure we never (re) allocate a block that's used in
-the previous transaction.  This gives us our crash resistance, since if anything goes
-wrong we effectively rollback to the previous transaction.
-
-What I think we should be doing is running find_free on the old_ll, then double checking
-it's not actually used in the current transaction.  ATM we're relying on smd->begin being
-set properly everywhere, and I suspect this isn't the case.  A quick look shows sm_disk_inc_block()
-doesn't adjust it.  sm_disk_inc_block() can be called when breaking sharing of a neighbouring entry
-in a leaf btree node ... and we know you use snapshots very heavily.
-
-I'll get a patch to you later today.
+Patch below.  I've run it through a bunch of tests in the dm test suite.  But
+obviously I have never hit your issue.  Will do more testing today.
 
 - Joe
+
+
+
+Author: Joe Thornber <ejt@redhat.com>
+Date:   Tue Jan 7 11:58:42 2020 +0000
+
+    [dm-thin, dm-cache] Fix bug in space-maps.
+    
+    The space-maps track the reference counts for disk blocks.  There are variants
+    for tracking metadata blocks, and data blocks.
+    
+    We implement transactionality by never touching blocks from the previous
+    transaction, so we can rollback in the event of a crash.
+    
+    When allocating a new block we need to ensure the block is free (has reference
+    count of 0) in both the current and previous transaction.  Prior to this patch we
+    were doing this by searching for a free block in the previous transaction, and
+    relying on a 'begin' counter to track where the last allocation in the current
+    transaction was.  This 'begin' field was not being updated in all code paths (eg,
+    increment of a data block reference count due to breaking sharing of a neighbour
+    block in the same btree leaf).
+    
+    This patch keeps the 'begin' field, but now it's just a hint to speed up the search.
+    Instead we search the current transaction for a free block, and then double check
+    it's free in the old transaction.  Much simpler.
+
+diff --git a/drivers/md/persistent-data/dm-space-map-common.c b/drivers/md/persistent-data/dm-space-map-common.c
+index bd68f6fef694..b4983e4022e6 100644
+--- a/drivers/md/persistent-data/dm-space-map-common.c
++++ b/drivers/md/persistent-data/dm-space-map-common.c
+@@ -380,6 +380,34 @@ int sm_ll_find_free_block(struct ll_disk *ll, dm_block_t begin,
+ 	return -ENOSPC;
+ }
+ 
++int sm_ll_find_common_free_block(struct ll_disk *old_ll, struct ll_disk *new_ll,
++	                         dm_block_t begin, dm_block_t end, dm_block_t *b)
++{
++	int r;
++	uint32_t count;
++
++	do {
++		r = sm_ll_find_free_block(new_ll, begin, new_ll->nr_blocks, b);
++		if (r)
++			break;
++
++		/* double check this block wasn't used in the old transaction */
++		if (*b >= old_ll->nr_blocks)
++			count = 0;
++
++		else {
++			r = sm_ll_lookup(old_ll, *b, &count);
++			if (r)
++				break;
++
++			if (count)
++				begin = *b + 1;
++		}
++	} while (count);
++
++	return r;
++}
++
+ static int sm_ll_mutate(struct ll_disk *ll, dm_block_t b,
+ 			int (*mutator)(void *context, uint32_t old, uint32_t *new),
+ 			void *context, enum allocation_event *ev)
+diff --git a/drivers/md/persistent-data/dm-space-map-common.h b/drivers/md/persistent-data/dm-space-map-common.h
+index b3078d5eda0c..8de63ce39bdd 100644
+--- a/drivers/md/persistent-data/dm-space-map-common.h
++++ b/drivers/md/persistent-data/dm-space-map-common.h
+@@ -109,6 +109,8 @@ int sm_ll_lookup_bitmap(struct ll_disk *ll, dm_block_t b, uint32_t *result);
+ int sm_ll_lookup(struct ll_disk *ll, dm_block_t b, uint32_t *result);
+ int sm_ll_find_free_block(struct ll_disk *ll, dm_block_t begin,
+ 			  dm_block_t end, dm_block_t *result);
++int sm_ll_find_common_free_block(struct ll_disk *old_ll, struct ll_disk *new_ll,
++	                         dm_block_t begin, dm_block_t end, dm_block_t *result);
+ int sm_ll_insert(struct ll_disk *ll, dm_block_t b, uint32_t ref_count, enum allocation_event *ev);
+ int sm_ll_inc(struct ll_disk *ll, dm_block_t b, enum allocation_event *ev);
+ int sm_ll_dec(struct ll_disk *ll, dm_block_t b, enum allocation_event *ev);
+diff --git a/drivers/md/persistent-data/dm-space-map-disk.c b/drivers/md/persistent-data/dm-space-map-disk.c
+index 32adf6b4a9c7..bf4c5e2ccb6f 100644
+--- a/drivers/md/persistent-data/dm-space-map-disk.c
++++ b/drivers/md/persistent-data/dm-space-map-disk.c
+@@ -167,8 +167,10 @@ static int sm_disk_new_block(struct dm_space_map *sm, dm_block_t *b)
+ 	enum allocation_event ev;
+ 	struct sm_disk *smd = container_of(sm, struct sm_disk, sm);
+ 
+-	/* FIXME: we should loop round a couple of times */
+-	r = sm_ll_find_free_block(&smd->old_ll, smd->begin, smd->old_ll.nr_blocks, b);
++	/*
++	 * Any block we allocate has to be free in both the old and current ll.
++	 */
++	r = sm_ll_find_common_free_block(&smd->old_ll, &smd->ll, smd->begin, smd->ll.nr_blocks, b);
+ 	if (r)
+ 		return r;
+ 
+diff --git a/drivers/md/persistent-data/dm-space-map-metadata.c b/drivers/md/persistent-data/dm-space-map-metadata.c
+index 25328582cc48..9e3c64ec2026 100644
+--- a/drivers/md/persistent-data/dm-space-map-metadata.c
++++ b/drivers/md/persistent-data/dm-space-map-metadata.c
+@@ -448,7 +448,10 @@ static int sm_metadata_new_block_(struct dm_space_map *sm, dm_block_t *b)
+ 	enum allocation_event ev;
+ 	struct sm_metadata *smm = container_of(sm, struct sm_metadata, sm);
+ 
+-	r = sm_ll_find_free_block(&smm->old_ll, smm->begin, smm->old_ll.nr_blocks, b);
++	/*
++	 * Any block we allocate has to be free in both the old and current ll.
++	 */
++	r = sm_ll_find_common_free_block(&smm->old_ll, &smm->ll, smm->begin, smm->ll.nr_blocks, b);
+ 	if (r)
+ 		return r;
+ 
 
 --
 dm-devel mailing list
