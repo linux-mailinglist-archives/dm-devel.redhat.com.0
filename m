@@ -2,135 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id E6956133D03
-	for <lists+dm-devel@lfdr.de>; Wed,  8 Jan 2020 09:22:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 96697134454
+	for <lists+dm-devel@lfdr.de>; Wed,  8 Jan 2020 14:54:52 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1578471732;
+	s=mimecast20190719; t=1578491691;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=Wl12ogLJrHNEErGXhpmexWp6wrS54qo2W+9qPs/a+sw=;
-	b=DDV3BiRPRNG0g2OpvdllyZSj+ep8erMCPeICvPKr4DBlQfNaccE06KfAGSRT03MYfCt3BS
-	wao6GpnvCSER18IUebh1QmkNT0wYKBarRCMnfmKU0lb1oDKdDo2Uo5cVra1v9MEPDeLvF+
-	UCxCHG/oaxA5Vt1TLD24m52S80l1gNc=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=Tvsyi+mVPaeXeIU7WIGt5s0Ct6thBD4xtfcGK0ihzEM=;
+	b=jUd9o4U12fBaUs+N9lkGVXCsFpT342sxkW20Mmgiy8Tko2Noe3ZRljajfl/Ry9gCPiBxqf
+	nQ1Xnx490I4pPrUMUno+C2Xm7U7SPcWl9Aad0KYOQ0Kl5e9eUHRTj7Tkxo/vPUWlDJuwls
+	bW848Dh34cc+7hZ5RZt1XpjViVIy8S4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-297-BhtnxfWiM62kB2ydC2DGZQ-1; Wed, 08 Jan 2020 03:22:10 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-167-gAjeL2FMMZuM3i4v5-IYlg-1; Wed, 08 Jan 2020 08:54:49 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 716D418C35A7;
-	Wed,  8 Jan 2020 08:22:03 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 65E5C60CC0;
-	Wed,  8 Jan 2020 08:22:01 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4CA481085988;
+	Wed,  8 Jan 2020 13:54:42 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 60BD71001B28;
+	Wed,  8 Jan 2020 13:54:39 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 127C5820EE;
-	Wed,  8 Jan 2020 08:21:56 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4C80318089CD;
+	Wed,  8 Jan 2020 13:54:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 007IFX2O016148 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 7 Jan 2020 13:15:33 -0500
+	id 008Ds39i032200 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 8 Jan 2020 08:54:03 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 874CF100D74; Tue,  7 Jan 2020 18:15:33 +0000 (UTC)
+	id 943137FB7F; Wed,  8 Jan 2020 13:54:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 80040F4994
-	for <dm-devel@redhat.com>; Tue,  7 Jan 2020 18:15:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 68F978007DC
-	for <dm-devel@redhat.com>; Tue,  7 Jan 2020 18:15:31 +0000 (UTC)
-IronPort-SDR: 6NqzSdyPZEDLBekS4PclRh/hvz7Yn5TRJ9wx2TvAoohFquK5SK/fFi+2EoXrGWcq0hzL1IU28F
-	vpgp/qSezSGp8ayjOJYlDwNFSEd5T1Qj8B+81mK1IXYWrPlT06oFyip1tiDBD6Yy+oQkVtdePZ
-	m3W6vCd/6c/uYhAgzlBj/BYUFhBZeEiQ3/Lto+lHF9IH2Yo3BjwCjyXIywz1efaTO8SNmYrmUU
-	kpSlXQ8VjdOXaNSZBiwQBycJ4+sXqQFSQ42gH+rI+8LWaw2jLf6T94VBDmf9O8MfAAlpI4HjrK
-	kA4=
-X-IronPort-AV: E=Sophos;i="5.69,406,1571673600"; d="scan'208";a="234671188"
-Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-103-EVz5OqlFPIewss3NFLkYPA-1; Tue, 07 Jan 2020 13:15:27 -0500
-Received: from mail-bl2nam02lp2056.outbound.protection.outlook.com (HELO
-	NAM02-BL2-obe.outbound.protection.outlook.com) ([104.47.38.56])
-	by ob1.hgst.iphmx.com with ESMTP; 08 Jan 2020 02:14:18 +0800
-Received: from BYAPR04MB5749.namprd04.prod.outlook.com (20.179.57.21) by
-	BYAPR04MB4470.namprd04.prod.outlook.com (52.135.237.79) with Microsoft
-	SMTP
-	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.2602.15; Tue, 7 Jan 2020 18:14:17 +0000
-Received: from BYAPR04MB5749.namprd04.prod.outlook.com
-	([fe80::a8ea:4ba9:cb57:e90f]) by
-	BYAPR04MB5749.namprd04.prod.outlook.com
-	([fe80::a8ea:4ba9:cb57:e90f%5]) with mapi id 15.20.2602.016;
-	Tue, 7 Jan 2020 18:14:17 +0000
-From: Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>
-To: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"lsf-pc@lists.linux-foundation.org" <lsf-pc@lists.linux-foundation.org>
-Thread-Topic: [LSF/MM/BFP ATTEND] [LSF/MM/BFP TOPIC] Storage: Copy Offload
-Thread-Index: AQHVxYZFlOEpmvYia0KWnm3aEM0giQ==
-Date: Tue, 7 Jan 2020 18:14:17 +0000
-Message-ID: <BYAPR04MB5749820C322B40C7DBBBCA02863F0@BYAPR04MB5749.namprd04.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [199.255.45.62]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: e26e0278-6748-4345-c3ec-08d7939d6903
-x-ms-traffictypediagnostic: BYAPR04MB4470:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BYAPR04MB4470E21158188BE326CB46FE863F0@BYAPR04MB4470.namprd04.prod.outlook.com>
-wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-forefront-prvs: 027578BB13
-x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10019020)(4636009)(376002)(346002)(396003)(39860400002)(136003)(366004)(189003)(199004)(53754006)(33656002)(2906002)(4326008)(478600001)(55016002)(9686003)(186003)(66476007)(7696005)(66446008)(66946007)(66556008)(6506007)(76116006)(64756008)(54906003)(316002)(110136005)(26005)(8676002)(66574012)(8936002)(81156014)(71200400001)(7416002)(81166006)(966005)(5660300002)(86362001)(52536014)(15398625002);
-	DIR:OUT; SFP:1102; SCL:1; SRVR:BYAPR04MB4470;
-	H:BYAPR04MB5749.namprd04.prod.outlook.com; FPR:; SPF:None;
-	LANG:en; PTR:InfoNoRecords; MX:1; A:1;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: kDiD37JNy1JZmPtUS/37Sot6KGO73Hr4rc05OR1VzDSubpJwBFTBrLy2vPoeuGAMUDb4oy5pRobKRBOlvIJHO3PDlOIaUwFDwBRNDwx6E0rHT77ih8YhfWSca8Ew3nJTXYnRtK2HCwvL8uucm4+J9kOYyPtrNZM8e/yHIDa+91/8cA3n2zKOWAKEzoVydKcOFy+C+d2McSr5/Vb7EG7fpwg0Zf4tggfjt0NAoZ2S75ZmPYrhVNnFs2sWnu8e3Dzn6Xjb8vHKwkQ78uEg4mnajXZ8DaDq9kqf3T6sx7H4muj+ig1W/2ObezykOBLiMCW22m9oYGQl4Cwq+QqsdX3GqBi62qzuW7z6iW1ri8ZlfEN6CslbzPwJ11T6GI44O3M3IxNg6JTwd4V6uxskDZiK5UFra0oPZXZK5Xzdp9bTpnBBqkI4XDjMoe2/uKqB/fRbfk2KPJb4L6AfrkuqJH5geTlZphIyKCyN9CoaxrhFtdYYxe6Q1rDArZ49Mh/1O6twzdsCNl1D3CYPR311WIJF6nPdXpFWRTg1XsOe1YmojErl1R9aq7dzI0uqlsuInACjt6upEoY3J1kWn4Y7WbpUNVmbmALqJdbqzHuQai2FUlE=
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F03267FB55;
+	Wed,  8 Jan 2020 13:54:00 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 008Ds0BV023020; Wed, 8 Jan 2020 08:54:00 -0500
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 008Ds0wN023016; Wed, 8 Jan 2020 08:54:00 -0500
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Wed, 8 Jan 2020 08:54:00 -0500 (EST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Maged Mokhtar <mmokhtar@petasan.org>
+In-Reply-To: <d76f7245-034c-f225-00fe-f33c5e9abf1a@petasan.org>
+Message-ID: <alpine.LRH.2.02.2001021144450.18253@file01.intranet.prod.int.rdu2.redhat.com>
+References: <598c7c64-9b11-3407-2060-8d43b1ef1241@petasan.org>
+	<d76f7245-034c-f225-00fe-f33c5e9abf1a@petasan.org>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e26e0278-6748-4345-c3ec-08d7939d6903
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jan 2020 18:14:17.5528 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: uV11/h+HQVGH+b5DmUGntMKLo6BW2Q3YISL02PtEEeMRyp5pY6axhwkDnCH4dH8iJ4f4lPAG5T0mZXteMpMAYj8MU3qAbjzdfNp/Y0hhgoE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR04MB4470
-X-MC-Unique: EVz5OqlFPIewss3NFLkYPA-1
-X-MC-Unique: BhtnxfWiM62kB2ydC2DGZQ-1
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 007IFX2O016148
+Content-ID: <alpine.LRH.2.02.2001021312320.25908@file01.intranet.prod.int.rdu2.redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Wed, 08 Jan 2020 03:21:49 -0500
-Cc: "axboe@kernel.dk" <axboe@kernel.dk>,
-	"msnitzer@redhat.com" <msnitzer@redhat.com>,
-	"bvanassche@acm.org" <bvanassche@acm.org>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>, Christoph,
-	Matias Bjorling <Matias.Bjorling@wdc.com>,
-	Stephen Bates <sbates@raithlin.com>,
-	"roland@purestorage.com" <roland@purestorage.com>,
-	"mpatocka@redhat.com" <mpatocka@redhat.com>,
-	Keith Busch <kbusch@kernel.org>,
-	"rwheeler@redhat.com" <rwheeler@redhat.com>, Hellwig <hch@lst.de>,
-	"frederick.knight@netapp.com" <frederick.knight@netapp.com>,
-	"zach.brown@ni.com" <zach.brown@ni.com>
-Subject: [dm-devel] [LSF/MM/BFP ATTEND] [LSF/MM/BFP TOPIC] Storage: Copy
-	Offload
+Cc: dm-devel@redhat.com, Mike Snitzer <msnitzer@redhat.com>
+Subject: Re: [dm-devel] [PATCH] dm writecache: SB remove seq_count
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -144,141 +76,240 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-MC-Unique: gAjeL2FMMZuM3i4v5-IYlg-1
 X-Mimecast-Spam-Score: 0
-Content-Type: text/plain; charset="iso-8859-1"
+Content-Type: MULTIPART/MIXED; BOUNDARY="185206533-718882174-1577985305=:18253"
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+--185206533-718882174-1577985305=:18253
+Content-Type: TEXT/PLAIN; CHARSET=ISO-8859-15
+Content-ID: <alpine.LRH.2.02.2001021312321.25908@file01.intranet.prod.int.rdu2.redhat.com>
 Content-Transfer-Encoding: quoted-printable
 
-Hi all,
-
-* Background :-
------------------------------------------------------------------------
-
-Copy offload is a feature that allows file-systems or storage devices
-to be instructed to copy files/logical blocks without requiring
-involvement of the local CPU.
-
-With reference to the RISC-V summit keynote [1] single threaded
-performance is limiting due to Denard scaling and multi-threaded
-performance is slowing down due Moore's law limitations. With the rise
-of SNIA Computation Technical Storage Working Group (TWG) [2],
-offloading computations to the device or over the fabrics is becoming
-popular as there are several solutions available [2]. One of the common
-operation which is popular in the kernel and is not merged yet is Copy
-offload over the fabrics or on to the device.
-
-* Problem :-
------------------------------------------------------------------------
-
-The original work which is done by Martin is present here [3]. The
-latest work which is posted by Mikulas [4] is not merged yet. These two
-approaches are totally different from each other. Several storage
-vendors discourage mixing copy offload requests with regular READ/WRITE
-I/O. Also, the fact that the operation fails if a copy request ever
-needs to be split as it traverses the stack it has the unfortunate
-side-effect of preventing copy offload from working in pretty much
-every common deployment configuration out there.
-
-* Current state of the work :-
------------------------------------------------------------------------
-
-With [3] being hard to handle arbitrary DM/MD stacking without
-splitting the command in two, one for copying IN and one for copying
-OUT. Which is then demonstrated by the [4] why [3] it is not a suitable
-candidate. Also, with [4] there is an unresolved problem with the
-two-command approach about how to handle changes to the DM layout
-between an IN and OUT operations.
-
-* Why Linux Kernel Storage System needs Copy Offload support now ?
------------------------------------------------------------------------
-
-With the rise of the SNIA Computational Storage TWG and solutions [2],
-existing SCSI XCopy support in the protocol, recent advancement in the
-Linux Kernel File System for Zoned devices (Zonefs [5]), Peer to Peer
-DMA support in the Linux Kernel mainly for NVMe devices [7] and
-eventually NVMe Devices and subsystem (NVMe PCIe/NVMeOF) will benefit
-from Copy offload operation.
-
-With this background we have significant number of use-cases which are
-strong candidates waiting for outstanding Linux Kernel Block Layer Copy
-Offload support, so that Linux Kernel Storage subsystem can to address
-previously mentioned problems [1] and allow efficient offloading of the
-data related operations. (Such as move/copy etc.)
-
-For reference following is the list of the use-cases/candidates waiting
-for Copy Offload support :-
-
-1. SCSI-attached storage arrays.
-2. Stacking drivers supporting XCopy DM/MD.
-3. Computational Storage solutions.
-7. File systems :- Local, NFS and Zonefs.
-4. Block devices :- Distributed, local, and Zoned devices.
-5. Peer to Peer DMA support solutions.
-6. Potentially NVMe subsystem both NVMe PCIe and NVMeOF.
-
-* What we will discuss in the proposed session ?
------------------------------------------------------------------------
-
-I'd like to propose a session to go over this topic to understand :-
-
-1. What are the blockers for Copy Offload implementation ?
-2. Discussion about having a file system interface.
-3. Discussion about having right system call for user-space.
-4. What is the right way to move this work forward ?
-5. How can we help to contribute and move this work forward ?
-
-* Required Participants :-
------------------------------------------------------------------------
-
-I'd like to invite block layer, device drivers and file system
-developers to:-
-
-1. Share their opinion on the topic.
-2. Share their experience and any other issues with [4].
-3. Uncover additional details that are missing from this proposal.
-
-Required attendees :-
-
-Martin K. Petersen
-Jens Axboe
-Christoph Hellwig
-Bart Van Assche
-Stephen Bates
-Zach Brown
-Roland Dreier
-Ric Wheeler
-Trond Myklebust
-Mike Snitzer
-Keith Busch
-Sagi Grimberg
-Hannes Reinecke
-Frederick Knight
-Mikulas Patocka
-Matias Bj=F8rling
-
-[1]https://content.riscv.org/wp-content/uploads/2018/12/A-New-Golden-Age-fo=
-r-Computer-Architecture-History-Challenges-and-Opportunities-David-Patterso=
-n-.pdf
-[2] https://www.snia.org/computational
-https://www.napatech.com/support/resources/solution-descriptions/napatech-s=
-martnic-solution-for-hardware-offload/
-      https://www.eideticom.com/products.html
-https://www.xilinx.com/applications/data-center/computational-storage.html
-[3] git://git.kernel.org/pub/scm/linux/kernel/git/mkp/linux.git xcopy
-[4] https://www.spinics.net/lists/linux-block/msg00599.html
-[5] https://lwn.net/Articles/793585/
-[6] https://nvmexpress.org/new-nvmetm-specification-defines-zoned-
-namespaces-zns-as-go-to-industry-technology/
-[7] https://github.com/sbates130272/linux-p2pmem
-[8] https://kernel.dk/io_uring.pdf
-
-Regards,
-Chaitanya
+Hi
 
 
+On Thu, 2 Jan 2020, Maged Mokhtar wrote:
+
+> Any feedback on this patch please.
+
+This will definitely not work for persistent memory - it could corrupt=20
+data if a crash happens. The CPU can flush data in arbitrary order and it=
+=20
+may happen that the seq count is flushed before the pertaining data.
+
+As for SSD mode - we could avoid updating the refcount in the superblock,=
+=20
+but it wouldn't be much helpful.
+
+I.e. normally, commit is done this way:
+1. submit data writes
+2. submit metadata writes
+3. flush disk cache
+4. submit the write of superblock with increased seq_count
+5. flush disk cache
+
+If we wanted to avoid writing the seq_count, we would need to change it=20
+to:
+1. submit data writes
+2. flush disk cache
+3. submit metadata writes
+4. flush disk cache
+
+- i.e. it sill needs two disk cache flushes per one commit request - and=20
+it is not much better than the existing solution.
+
+Mikulas
+
+> On 06/12/2019 21:03, Maged Mokhtar wrote:
+> > Removes seq_count from super block. Currently the super block gets writ=
+ten
+> > in each commit to update the seq_count which is just used when the targ=
+et is
+> > restarted/resumed. This extra iop has a performance impact on small blo=
+ck
+> > size writes which do FUA/sync on every request. A 4k sync write current=
+ly
+> > requires 3 write ops: submitted data, metadata + super block seq_count
+> > update, removal of seq_count update reduces required write ops to 2.
+> >=20
+> > Rebuild of seq_count at start/resumption can be done quickly by looping
+> > through memory entry metadata within the resume() function.
+> >=20
+> > Signed-off-by: Maged Mokhtar <mmokhtar@petasan.org>
+> > ---
+> >  =A0drivers/md/dm-writecache.c |=A0=A0 56 ++++++++++++++++++++++++++---=
+------
+> >  =A01 file changed, 42 insertions(+), 14 deletions(-)
+> >=20
+> > --- a/drivers/md/dm-writecache.c=A0=A0=A0 2019-12-06 03:07:53.000000000=
+ -0800
+> > +++ b/drivers/md/dm-writecache.c=A0=A0=A0 2019-12-06 09:25:45.000000000=
+ -0800
+> > @@ -52,7 +52,8 @@ do {=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 \
+> >  =A0#endif
+> >=20
+> >  =A0#define MEMORY_SUPERBLOCK_MAGIC=A0=A0=A0=A0=A0=A0=A0 0x23489321
+> > -#define MEMORY_SUPERBLOCK_VERSION=A0=A0=A0 1
+> > +#define MEMORY_SUPERBLOCK_VERSION_1=A0=A0=A0 1
+> > +#define MEMORY_SUPERBLOCK_VERSION_2=A0=A0=A0 2
+> >=20
+> >  =A0struct wc_memory_entry {
+> >  =A0=A0=A0=A0 __le64 original_sector;
+> > @@ -67,7 +68,6 @@ struct wc_memory_superblock {
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 __le32 block_size;
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 __le32 pad;
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 __le64 n_blocks;
+> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 __le64 seq_count;
+> >  =A0=A0=A0=A0=A0=A0=A0=A0 };
+> >  =A0=A0=A0=A0=A0=A0=A0=A0 __le64 padding[8];
+> >  =A0=A0=A0=A0 };
+> > @@ -380,6 +380,41 @@ static uint64_t read_seq_count(struct dm
+> >  =A0#endif
+> >  =A0}
+> >=20
+> > +static uint64_t read_last_seq_count(struct dm_writecache *wc)
+> > +{
+> > +=A0=A0=A0 size_t b;
+> > +=A0=A0=A0 uint64_t last_seq_count =3D 0;
+> > +=A0=A0=A0 uint64_t seq_count;
+> > +=A0=A0=A0 __le64 empty =3D cpu_to_le64(-1);
+> > +
+> > +=A0=A0=A0 if (WC_MODE_PMEM(wc)) {
+> > +=A0=A0=A0=A0=A0=A0=A0 struct wc_memory_entry wme;
+> > +=A0=A0=A0=A0=A0=A0=A0 for (b =3D 0; b < wc->n_blocks; b++) {
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 BUG_ON(memcpy_mcsafe(&wme, &sb(wc)->=
+entries[b],
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 sizeof(struct wc_memory_=
+entry)));
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 if (wme.seq_count !=3D empty) {
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 seq_count =3D le64_to_cp=
+u(wme.seq_count);
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 if (last_seq_count < seq=
+_count)
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 last_seq_cou=
+nt =3D seq_count;
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 }
+> > +=A0=A0=A0=A0=A0=A0=A0 }
+> > +=A0=A0=A0 }
+> > +=A0=A0=A0 else {
+> > +=A0=A0=A0=A0=A0=A0=A0 struct wc_memory_entry *p =3D &sb(wc)->entries[0=
+];
+> > +=A0=A0=A0=A0=A0=A0=A0 b =3D wc->n_blocks;
+> > +=A0=A0=A0=A0=A0=A0=A0 while (0 < b) {
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 if (p->seq_count !=3D empty) {
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 seq_count =3D le64_to_cp=
+u(p->seq_count);
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 if (last_seq_count < seq=
+_count)
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 last_seq_cou=
+nt =3D seq_count;
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 }
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 p++;
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 b--;
+> > +=A0=A0=A0=A0=A0=A0=A0 }
+> > +=A0=A0=A0 }
+> > +=A0=A0=A0 return last_seq_count;
+> > +}
+> > +
+> >  =A0static void clear_seq_count(struct dm_writecache *wc, struct wc_ent=
+ry *e)
+> >  =A0{
+> >  =A0#ifdef DM_WRITECACHE_HANDLE_HARDWARE_ERRORS
+> > @@ -730,8 +765,6 @@ static void writecache_flush(struct dm_w
+> >  =A0=A0=A0=A0=A0=A0=A0=A0 writecache_wait_for_ios(wc, WRITE);
+> >=20
+> >  =A0=A0=A0=A0 wc->seq_count++;
+> > -=A0=A0=A0 pmem_assign(sb(wc)->seq_count, cpu_to_le64(wc->seq_count));
+> > -=A0=A0=A0 writecache_flush_region(wc, &sb(wc)->seq_count, sizeof
+> > sb(wc)->seq_count);
+> >  =A0=A0=A0=A0 writecache_commit_flushed(wc);
+> >=20
+> >  =A0=A0=A0=A0 wc->overwrote_committed =3D false;
+> > @@ -876,7 +909,6 @@ static void writecache_resume(struct dm_
+> >  =A0=A0=A0=A0 struct dm_writecache *wc =3D ti->private;
+> >  =A0=A0=A0=A0 size_t b;
+> >  =A0=A0=A0=A0 bool need_flush =3D false;
+> > -=A0=A0=A0 __le64 sb_seq_count;
+> >  =A0=A0=A0=A0 int r;
+> >=20
+> >  =A0=A0=A0=A0 wc_lock(wc);
+> > @@ -894,12 +926,7 @@ static void writecache_resume(struct dm_
+> >  =A0=A0=A0=A0 }
+> >  =A0=A0=A0=A0 wc->freelist_size =3D 0;
+> >=20
+> > -=A0=A0=A0 r =3D memcpy_mcsafe(&sb_seq_count, &sb(wc)->seq_count, sizeo=
+f(uint64_t));
+> > -=A0=A0=A0 if (r) {
+> > -=A0=A0=A0=A0=A0=A0=A0 writecache_error(wc, r, "hardware memory error w=
+hen reading
+> > superblock: %d", r);
+> > -=A0=A0=A0=A0=A0=A0=A0 sb_seq_count =3D cpu_to_le64(0);
+> > -=A0=A0=A0 }
+> > -=A0=A0=A0 wc->seq_count =3D le64_to_cpu(sb_seq_count);
+> > +=A0=A0=A0 wc->seq_count =3D read_last_seq_count(wc) + 1;
+> >=20
+> >  =A0#ifdef DM_WRITECACHE_HANDLE_HARDWARE_ERRORS
+> >  =A0=A0=A0=A0 for (b =3D 0; b < wc->n_blocks; b++) {
+> > @@ -1757,10 +1784,9 @@ static int init_memory(struct dm_writeca
+> >=20
+> >  =A0=A0=A0=A0 for (b =3D 0; b < ARRAY_SIZE(sb(wc)->padding); b++)
+> >  =A0=A0=A0=A0=A0=A0=A0=A0 pmem_assign(sb(wc)->padding[b], cpu_to_le64(0=
+));
+> > -=A0=A0=A0 pmem_assign(sb(wc)->version, cpu_to_le32(MEMORY_SUPERBLOCK_V=
+ERSION));
+> > +=A0=A0=A0 pmem_assign(sb(wc)->version, cpu_to_le32(MEMORY_SUPERBLOCK_V=
+ERSION_2));
+> >  =A0=A0=A0=A0 pmem_assign(sb(wc)->block_size, cpu_to_le32(wc->block_siz=
+e));
+> >  =A0=A0=A0=A0 pmem_assign(sb(wc)->n_blocks, cpu_to_le64(wc->n_blocks));
+> > -=A0=A0=A0 pmem_assign(sb(wc)->seq_count, cpu_to_le64(0));
+> >=20
+> >  =A0=A0=A0=A0 for (b =3D 0; b < wc->n_blocks; b++)
+> >  =A0=A0=A0=A0=A0=A0=A0=A0 write_original_sector_seq_count(wc, &wc->entr=
+ies[b], -1, -1);
+> > @@ -2159,11 +2185,13 @@ invalid_optional:
+> >  =A0=A0=A0=A0=A0=A0=A0=A0 goto bad;
+> >  =A0=A0=A0=A0 }
+> >=20
+> > -=A0=A0=A0 if (le32_to_cpu(s.version) !=3D MEMORY_SUPERBLOCK_VERSION) {
+> > +=A0=A0=A0 if (le32_to_cpu(s.version) !=3D MEMORY_SUPERBLOCK_VERSION_1 =
+&&
+> > +=A0=A0=A0=A0=A0=A0=A0 le32_to_cpu(s.version) !=3D MEMORY_SUPERBLOCK_VE=
+RSION_2) {
+> >  =A0=A0=A0=A0=A0=A0=A0=A0 ti->error =3D "Invalid version in the superbl=
+ock";
+> >  =A0=A0=A0=A0=A0=A0=A0=A0 r =3D -EINVAL;
+> >  =A0=A0=A0=A0=A0=A0=A0=A0 goto bad;
+> >  =A0=A0=A0=A0 }
+> > +=A0=A0=A0 pmem_assign(sb(wc)->version, cpu_to_le32(MEMORY_SUPERBLOCK_V=
+ERSION_2));
+> >=20
+> >  =A0=A0=A0=A0 if (le32_to_cpu(s.block_size) !=3D wc->block_size) {
+> >  =A0=A0=A0=A0=A0=A0=A0=A0 ti->error =3D "Block size does not match supe=
+rblock";
+>=20
+> --=20
+> Maged Mokhtar
+> CEO PetaSAN
+> 4 Emad El Deen Kamel
+> Cairo 11371, Egypt
+> www.petasan.org
+> +201006979931
+> skype: maged.mokhtar
+> 
+--185206533-718882174-1577985305=:18253
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
+--185206533-718882174-1577985305=:18253--
 
