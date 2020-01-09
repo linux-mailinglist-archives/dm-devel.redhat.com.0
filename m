@@ -1,127 +1,139 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id B343513513E
-	for <lists+dm-devel@lfdr.de>; Thu,  9 Jan 2020 03:05:51 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 4BF9F1351DD
+	for <lists+dm-devel@lfdr.de>; Thu,  9 Jan 2020 04:19:40 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1578535548;
+	s=mimecast20190719; t=1578539979;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=hu9Dp4VTQh5a8v9UrGJ32vgTLX8WLsqFWrRs9b2avds=;
-	b=EhQzHSx+SllizPtbhqq74OOWIDYShMYFfoH3BwQo6/iaOWqTS4FZgWVXIDmJ1u7ESxQMDo
-	tdElaeCReG6sP+nR4IV74eBu8bgY07S3g6rIDLjY2vwOoMh6YVKDYqAVvazATwB0NIduzF
-	roFD7pvkvzvDINmwZKdTCYFAruphhK8=
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post:autocrypt:autocrypt;
+	bh=y5/o7utb7oawPxuS5qy5+hJ/NRufCpGZY9j+8+4uDeY=;
+	b=OPaHYQkLjXCfvB5RWPTy2KRuTdIvp3HSJjwu/jIksyce7KTS6i4aIPMrTycqT8PbEzOMt4
+	x257Ca2npEt6/0ZCAVdUAhYdT14MktomX1pWylPJ353/8eH0ee7laodPLxkkgcnhikRY3/
+	baYHTwbhM6EveuM5422RSwytowbDUyA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-156-nyPZ0H75NfSJUgKZTNeIFg-1; Wed, 08 Jan 2020 21:05:45 -0500
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-109-wIcwYqO-P6WNa3ajO96D9A-1; Wed, 08 Jan 2020 22:19:37 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1F73E1005512;
-	Thu,  9 Jan 2020 02:05:39 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0B9DC86C5F;
-	Thu,  9 Jan 2020 02:05:32 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2B88C800D48;
+	Thu,  9 Jan 2020 03:19:31 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ADDD71A8E9;
+	Thu,  9 Jan 2020 03:19:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B6543503A4;
-	Thu,  9 Jan 2020 02:05:22 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9DAE51809567;
+	Thu,  9 Jan 2020 03:19:18 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 009259ZS021790 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 8 Jan 2020 21:05:09 -0500
+	id 0093J4Sd027590 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 8 Jan 2020 22:19:04 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 67C2C2026D67; Thu,  9 Jan 2020 02:05:09 +0000 (UTC)
+	id 8620A2022EA7; Thu,  9 Jan 2020 03:19:04 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 60E3F20292BF
-	for <dm-devel@redhat.com>; Thu,  9 Jan 2020 02:05:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 808092026D67
+	for <dm-devel@redhat.com>; Thu,  9 Jan 2020 03:19:02 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C30FC800A1B
-	for <dm-devel@redhat.com>; Thu,  9 Jan 2020 02:05:06 +0000 (UTC)
-IronPort-SDR: 6KnVZRn92a89s+lP9Mby7sQ7dpbqgyILLrdWoR+0hB6ufrsvhURdtqvhNRcXMFJ9+KDvObfFKD
-	NKzUsyUDsxTpfYKzhDgh0IOEmQKSLdneZxD6c5KmjyrVNQdWRQsT4JrhGUYm6EwPMCxjDYpU5i
-	BH/6V486hxEAk74+fIF8U6xWGVZf5HWd2Ua8SANlwabtEFdvXHe+lU4JrIwvdb4ZmD0zFFNPzV
-	KiF+lzvcPRjxt6G4D/To1iIZRDfNnOuGmpnjyp0LaDLYQaWjO7CZ/VNhs06NFxqMBAHb8YgscQ
-	bOE=
-X-IronPort-AV: E=Sophos;i="5.69,412,1571673600"; d="scan'208";a="234800942"
-Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-376-32miw_dBOeezDaQizmAO2Q-1; Wed, 08 Jan 2020 21:05:05 -0500
-Received: from mail-sn1nam04lp2055.outbound.protection.outlook.com (HELO
-	NAM04-SN1-obe.outbound.protection.outlook.com) ([104.47.44.55])
-	by ob1.hgst.iphmx.com with ESMTP; 09 Jan 2020 10:05:02 +0800
-Received: from BYAPR04MB5816.namprd04.prod.outlook.com (20.179.59.16) by
-	BYAPR04MB3862.namprd04.prod.outlook.com (52.135.214.149) with Microsoft
-	SMTP
-	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.2623.9; Thu, 9 Jan 2020 02:05:01 +0000
-Received: from BYAPR04MB5816.namprd04.prod.outlook.com
-	([fe80::cd8e:d1de:e661:a61]) by BYAPR04MB5816.namprd04.prod.outlook.com
-	([fe80::cd8e:d1de:e661:a61%5]) with mapi id 15.20.2602.017;
-	Thu, 9 Jan 2020 02:05:01 +0000
-From: Damien Le Moal <Damien.LeMoal@wdc.com>
-To: Bob Liu <bob.liu@oracle.com>, "dm-devel@redhat.com" <dm-devel@redhat.com>
-Thread-Topic: [RFC PATCH] dm-zoned: extend the way of exposing zoned block
-	device
-Thread-Index: AQHVxfMPtnSx9ygQV0yw4PguyV00/g==
-Date: Thu, 9 Jan 2020 02:05:01 +0000
-Message-ID: <BYAPR04MB5816DF518F723BE1A9776C62E7390@BYAPR04MB5816.namprd04.prod.outlook.com>
-References: <20200108071212.27230-1-Nobody@nobody.com>
-	<BYAPR04MB5816BA749332D2FC6CE3993AE73E0@BYAPR04MB5816.namprd04.prod.outlook.com>
-	<9e7d2f84-6efa-7c44-2313-860d5e8ed067@oracle.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [199.255.47.5]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: d5c59a85-d275-4695-2bff-08d794a8560d
-x-ms-traffictypediagnostic: BYAPR04MB3862:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BYAPR04MB386213559409BBBE1E93EA25E7390@BYAPR04MB3862.namprd04.prod.outlook.com>
-wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-forefront-prvs: 02778BF158
-x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10019020)(4636009)(366004)(376002)(136003)(39860400002)(396003)(346002)(189003)(199004)(81156014)(316002)(9686003)(8676002)(81166006)(33656002)(66556008)(66946007)(2906002)(76116006)(91956017)(54906003)(110136005)(66446008)(64756008)(66476007)(71200400001)(55016002)(4326008)(478600001)(6506007)(53546011)(7696005)(86362001)(26005)(52536014)(186003)(8936002)(5660300002);
-	DIR:OUT; SFP:1102; SCL:1; SRVR:BYAPR04MB3862;
-	H:BYAPR04MB5816.namprd04.prod.outlook.com; FPR:; SPF:None;
-	LANG:en; PTR:InfoNoRecords; MX:1; A:1;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 2oeDa6EhN6cqMKCwhMziFPjMyxossIjRqal9YeSyVE1WB4n5Bdzusaom2dz2OmX6RU/xgaRRCtFFLCdP3q+TWqMp6ncTCAnS80FotSIrQmpNz2Rm+3zh4uPDSHknoXKez3WfYrLmne+2UMz0ObZR3Fa/bNGFq0/X+3F/TBi3pa/B0eXnr52G+c5m9oLjQQqOtvmFyTfy/JOLIkluGW9/yCHjL49sD22E8bd23hEg2p8kUdpQdxX71Bo2JJCi4FHg7Su2g/vTHQYon+7aDFQ1Wc9C9cDopwZLz6yAesZSDp6vt2/Fn/6YxyJz+XwFttBGAyURr29Wb1GlIqs/hyp47/LrTJhPwepS6ofAT0Fu6jKtzB+fxxqAOsCk7hNH3KPKshEyf10CRCtYNIECNPWxtM3SKDif9geIJ+KS1AJqnsBkQMGxwv0LINo5XRSU62SR
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5639F8028B8
+	for <dm-devel@redhat.com>; Thu,  9 Jan 2020 03:19:02 +0000 (UTC)
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
+	[209.85.210.195]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-257-AkYh0wjfOA2096JBSuQNoQ-1; Wed, 08 Jan 2020 22:18:58 -0500
+Received: by mail-pf1-f195.google.com with SMTP id q8so2633299pfh.7;
+	Wed, 08 Jan 2020 19:18:57 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:cc:references:from:autocrypt
+	:message-id:date:user-agent:mime-version:in-reply-to
+	:content-language:content-transfer-encoding;
+	bh=xvwJUZHq6lxJoKDxCisGtxxmXtMnuv/UNfH5O07lFZo=;
+	b=EoK+2IcwECyJ6xEKYSsptYtGolnvMOiuU6xtgg6xzUaQ6AZ6skIVYdL84Wk7NuGZ7c
+	N8qVUPaa++a7fp6Q9BT6QYrbHu90xjb2VfWVTVBjojPvCv1Prt0r+x5lRbmy0OqaEH05
+	4smOBke12qoLLXyyrhlDYd3GClK0GMqAdL9bBMSU2u7HQjwZAdrdXbvPkOIB3LUWuo9H
+	fdDIlc0MzZMlf2RuqKcbpcmIPm0ifKJaPhcrS6NI1SnQecnyJtJNLBQn2ShKWG984WAr
+	qQnEP+6XHGQYnLK4mEaJNEkjlKzlsavjM5eblLteUH3r2bL6m68HoSZ3DGIHY5RUKgJU
+	KRFQ==
+X-Gm-Message-State: APjAAAXzbq62SP/8Ll4q1UeQz3AEwTQOZLQ/tcZWAaKJJY+EMTConbA9
+	JXWJXDHxdSWmn2oyiGDpklE=
+X-Google-Smtp-Source: APXvYqyGcYW8QghgpwpHDZvledwi63ygsODu3fJ9j6dW7GYv2QsLTnEXqFY8v4xdUd00X1/vgofBjA==
+X-Received: by 2002:a63:ea4b:: with SMTP id l11mr8663718pgk.357.1578539936882; 
+	Wed, 08 Jan 2020 19:18:56 -0800 (PST)
+Received: from ?IPv6:2601:647:4000:13e0:f4e4:e61b:5262:7ebf?
+	([2601:647:4000:13e0:f4e4:e61b:5262:7ebf])
+	by smtp.gmail.com with ESMTPSA id
+	h126sm5594082pfe.19.2020.01.08.19.18.55
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Wed, 08 Jan 2020 19:18:55 -0800 (PST)
+To: Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"lsf-pc@lists.linux-foundation.org" <lsf-pc@lists.linux-foundation.org>
+References: <BYAPR04MB5749820C322B40C7DBBBCA02863F0@BYAPR04MB5749.namprd04.prod.outlook.com>
+From: Bart Van Assche <bvanassche@acm.org>
+Autocrypt: addr=bvanassche@acm.org; prefer-encrypt=mutual; keydata=
+	mQENBFSOu4oBCADcRWxVUvkkvRmmwTwIjIJvZOu6wNm+dz5AF4z0FHW2KNZL3oheO3P8UZWr
+	LQOrCfRcK8e/sIs2Y2D3Lg/SL7qqbMehGEYcJptu6mKkywBfoYbtBkVoJ/jQsi2H0vBiiCOy
+	fmxMHIPcYxaJdXxrOG2UO4B60Y/BzE6OrPDT44w4cZA9DH5xialliWU447Bts8TJNa3lZKS1
+	AvW1ZklbvJfAJJAwzDih35LxU2fcWbmhPa7EO2DCv/LM1B10GBB/oQB5kvlq4aA2PSIWkqz4
+	3SI5kCPSsygD6wKnbRsvNn2mIACva6VHdm62A7xel5dJRfpQjXj2snd1F/YNoNc66UUTABEB
+	AAG0JEJhcnQgVmFuIEFzc2NoZSA8YnZhbmFzc2NoZUBhY20ub3JnPokBOQQTAQIAIwUCVI67
+	igIbAwcLCQgHAwIBBhUIAgkKCwQWAgMBAh4BAheAAAoJEHFcPTXFzhAJ8QkH/1AdXblKL65M
+	Y1Zk1bYKnkAb4a98LxCPm/pJBilvci6boefwlBDZ2NZuuYWYgyrehMB5H+q+Kq4P0IBbTqTa
+	jTPAANn62A6jwJ0FnCn6YaM9TZQjM1F7LoDX3v+oAkaoXuq0dQ4hnxQNu792bi6QyVdZUvKc
+	macVFVgfK9n04mL7RzjO3f+X4midKt/s+G+IPr4DGlrq+WH27eDbpUR3aYRk8EgbgGKvQFdD
+	CEBFJi+5ZKOArmJVBSk21RHDpqyz6Vit3rjep7c1SN8s7NhVi9cjkKmMDM7KYhXkWc10lKx2
+	RTkFI30rkDm4U+JpdAd2+tP3tjGf9AyGGinpzE2XY1K5AQ0EVI67igEIAKiSyd0nECrgz+H5
+	PcFDGYQpGDMTl8MOPCKw/F3diXPuj2eql4xSbAdbUCJzk2ETif5s3twT2ER8cUTEVOaCEUY3
+	eOiaFgQ+nGLx4BXqqGewikPJCe+UBjFnH1m2/IFn4T9jPZkV8xlkKmDUqMK5EV9n3eQLkn5g
+	lco+FepTtmbkSCCjd91EfThVbNYpVQ5ZjdBCXN66CKyJDMJ85HVr5rmXG/nqriTh6cv1l1Js
+	T7AFvvPjUPknS6d+BETMhTkbGzoyS+sywEsQAgA+BMCxBH4LvUmHYhpS+W6CiZ3ZMxjO8Hgc
+	++w1mLeRUvda3i4/U8wDT3SWuHcB3DWlcppECLkAEQEAAYkBHwQYAQIACQUCVI67igIbDAAK
+	CRBxXD01xc4QCZ4dB/0QrnEasxjM0PGeXK5hcZMT9Eo998alUfn5XU0RQDYdwp6/kMEXMdmT
+	oH0F0xB3SQ8WVSXA9rrc4EBvZruWQ+5/zjVrhhfUAx12CzL4oQ9Ro2k45daYaonKTANYG22y
+	//x8dLe2Fv1By4SKGhmzwH87uXxbTJAUxiWIi1np0z3/RDnoVyfmfbbL1DY7zf2hYXLLzsJR
+	mSsED/1nlJ9Oq5fALdNEPgDyPUerqHxcmIub+pF0AzJoYHK5punqpqfGmqPbjxrJLPJfHVKy
+	goMj5DlBMoYqEgpbwdUYkH6QdizJJCur4icy8GUNbisFYABeoJ91pnD4IGei3MTdvINSZI5e
+Message-ID: <fda88fd3-2d75-085e-ca15-a29f89c1e781@acm.org>
+Date: Wed, 8 Jan 2020 19:18:54 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.3.0
 MIME-Version: 1.0
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5c59a85-d275-4695-2bff-08d794a8560d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jan 2020 02:05:01.2976 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +2iK0nFCD1KAUCXERz4zKiTeAdOdqfezl+lFZzpczvKDyqTDts6uSKvCeK+pGrKrz0qLP0y6njlHEhDlSPRPCA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR04MB3862
-X-MC-Unique: 32miw_dBOeezDaQizmAO2Q-1
-X-MC-Unique: nyPZ0H75NfSJUgKZTNeIFg-1
+In-Reply-To: <BYAPR04MB5749820C322B40C7DBBBCA02863F0@BYAPR04MB5749.namprd04.prod.outlook.com>
+Content-Language: en-US
+X-MC-Unique: AkYh0wjfOA2096JBSuQNoQ-1
+X-MC-Unique: wIcwYqO-P6WNa3ajO96D9A-1
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 009259ZS021790
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0093J4Sd027590
 X-loop: dm-devel@redhat.com
-Cc: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	Dmitry Fomichev <Dmitry.Fomichev@wdc.com>,
-	"shirley.ma@oracle.com" <shirley.ma@oracle.com>,
-	"martin.petersen@oracle.com" <martin.petersen@oracle.com>,
-	"snitzer@redhat.com" <snitzer@redhat.com>
-Subject: Re: [dm-devel] [RFC PATCH] dm-zoned: extend the way of exposing
- zoned block device
+Cc: "axboe@kernel.dk" <axboe@kernel.dk>,
+	"msnitzer@redhat.com" <msnitzer@redhat.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Matias Bjorling <Matias.Bjorling@wdc.com>,
+	Stephen Bates <sbates@raithlin.com>,
+	"roland@purestorage.com" <roland@purestorage.com>,
+	"mpatocka@redhat.com" <mpatocka@redhat.com>,
+	Keith Busch <kbusch@kernel.org>,
+	"rwheeler@redhat.com" <rwheeler@redhat.com>,
+	Christoph Hellwig <hch@lst.de>,
+	"frederick.knight@netapp.com" <frederick.knight@netapp.com>,
+	"zach.brown@ni.com" <zach.brown@ni.com>
+Subject: Re: [dm-devel] [LSF/MM/BFP ATTEND] [LSF/MM/BFP TOPIC] Storage: Copy
+	Offload
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -135,74 +147,155 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 2020/01/08 22:49, Bob Liu wrote:
-> On 1/8/20 3:40 PM, Damien Le Moal wrote:
->> On 2020/01/08 16:13, Nobody wrote:
->>> From: Bob Liu <bob.liu@oracle.com>
->>>
->>> Motivation:
->>> Now the dm-zoned device mapper target exposes a zoned block device(ZBC) as a
->>> regular block device by storing metadata and buffering random writes in
->>> conventional zones.
->>> This way is not very flexible, there must be enough conventional zones and the
->>> performance may be constrained.
->>> By putting metadata(also buffering random writes) in separated device we can get
->>> more flexibility and potential performance improvement e.g by storing metadata
->>> in faster device like persistent memory.
->>>
->>> This patch try to split the metadata of dm-zoned to an extra block
->>> device instead of zoned block device itself.
->>> (Buffering random writes also in the todo list.)
->>>
->>> Patch is at the very early stage, just want to receive some feedback about
->>> this extension.
->>> Another option is to create an new md-zoned device with separated metadata
->>> device based on md framework.
->>
->> For metadata only, it should not be hard at all to move to another
->> conventional zone device. It will however be a little more tricky for
->> conventional zones used for data since dm-zoned assumes that this random
->> write space is also zoned. Moving this space to a conventional device
->> requires implementing a zone emulation (fake zones) for the regular
->> drive, using a zone size that matches the size of sequential zones.
->>
+On 2020-01-07 10:14, Chaitanya Kulkarni wrote:
+> * Current state of the work :-
+> -----------------------------------------------------------------------
 > 
-> Indeed.
-> I'll try to implement zone emulation next version.
-> 
->> Beyond this, dm-zoned also needs to be changed to accept partial drives
->> and the dm core code to accept mixing of regular and zoned disks (that
->> is forbidden now).
->>
-> 
-> Do you mean the check in device_area_is_invalid()? 
-> 
->  320         /*
->  321          * If the target is mapped to zoned block device(s), check
->  322          * that the zones are not partially mapped.
->  323          */
->  324         if (bdev_zoned_model(bdev) != BLK_ZONED_NONE) {
+> With [3] being hard to handle arbitrary DM/MD stacking without
+> splitting the command in two, one for copying IN and one for copying
+> OUT. Which is then demonstrated by the [4] why [3] it is not a suitable
+> candidate. Also, with [4] there is an unresolved problem with the
+> two-command approach about how to handle changes to the DM layout
+> between an IN and OUT operations.
 
-This is only to check that the mapping are zone aligned for zoned block
-devices. I was referring to the checks done using the
-device_is_zoned_model() callback in dm_table_supports_zoned_model()
-which restricts mappings to be *all* on top of zoned disks for targets
-that have the DM_TARGET_ZONED_HM feature set. That code will prevent
-using a regular SSD and an SMR disk for dm-zoned. A new feature (e.g.
-DM_TARGET_MIXED_ZONED_HM or something) will be needed.
+Was this last discussed during the 2018 edition of LSF/MM (see also
+https://www.spinics.net/lists/linux-block/msg24986.html)? Has anyone
+taken notes during that session? I haven't found a report of that
+session in the official proceedings (https://lwn.net/Articles/752509/).
 
-Best regards.
+Thanks,
+
+Bart.
 
 
--- 
-Damien Le Moal
-Western Digital Research
+This is my own collection with two year old notes about copy offloading
+for the Linux Kernel:
 
+Potential Users
+* All dm-kcopyd users, e.g. dm-cache-target, dm-raid1, dm-snap, dm-thin,
+  dm-writecache and dm-zoned.
+* Local filesystems like BTRFS, f2fs and bcachefs: garbage collection
+  and RAID, at least if RAID is supported by the filesystem. Note: the
+  BTRFS_IOC_CLONE_RANGE ioctl is no longer supported. Applications
+  should use FICLONERANGE instead.
+* Network filesystems, e.g. NFS. Copying at the server side can reduce
+  network traffic significantly.
+* Linux SCSI initiator systems connected to SAN systems such that
+  copying can happen locally on the storage array. XCOPY is widely used
+  for provisioning virtual machine images.
+* Copy offloading in NVMe fabrics using PCIe peer-to-peer communication.
+
+Requirements
+* The block layer must gain support for XCOPY. The new XCOPY API must
+  support asynchronous operation such that users of this API are not
+  blocked while the XCOPY operation is in progress.
+* Copying must be supported not only within a single storage device but
+  also between storage devices.
+* The SCSI sd driver must gain support for XCOPY.
+* A user space API must be added and that API must support asynchronous
+  (non-blocking) operation.
+* The block layer XCOPY primitive must be support by the device mapper.
+
+SCSI Extended Copy (ANSI T10 SPC)
+The SCSI commands that support extended copy operations are:
+* POPULATE TOKEN + WRITE USING TOKEN.
+* EXTENDED COPY(LID1/4) + RECEIVE COPY STATUS(LID1/4). LID1 stands for a
+  List Identifier length of 1 byte and LID4 stands for a List Identifier
+  length of 4 bytes.
+* SPC-3 and before define EXTENDED COPY(LID1) (83h/00h). SPC-4 added
+  EXTENDED COPY(LID4) (83h/01h).
+
+Existing Users and Implementations of SCSI XCOPY
+* VMware, which uses XCOPY (with a one-byte length ID, aka LID1).
+* Microsoft, which uses ODX (aka LID4 because it has a four-byte length
+  ID).
+* Storage vendors all support XCOPY, but ODX support is growing.
+
+Block Layer Notes
+The block layer supports the following types of block drivers:
+* blk-mq request-based drivers.
+* make_request drivers.
+
+Notes:
+With each request a list of bio's is associated.
+Since submit_bio() only accepts a single bio and not a bio list this
+means that all make_request block drivers process one bio at a time.
+
+Device Mapper
+The device mapper core supports bio processing and blk-mq requests. The
+function in the device mapper that creates a request queue is called
+alloc_dev(). That function not only allocates a request queue but also
+associates a struct gendisk with the request queue. The
+DM_DEV_CREATE_CMD ioctl triggers a call of alloc_dev(). The
+DM_TABLE_LOAD ioctl loads a table definition. Loading a table definition
+causes the type of a dm device to be set to one of the following:
+DM_TYPE_NONE;
+DM_TYPE_BIO_BASED;
+DM_TYPE_REQUEST_BASED;
+DM_TYPE_MQ_REQUEST_BASED;
+DM_TYPE_DAX_BIO_BASED;
+DM_TYPE_NVME_BIO_BASED.
+
+Device mapper drivers must implement target_type.map(),
+target_type.clone_and_map_rq() or both. .map() maps a bio list.
+.clone_and_map_rq() maps a single request. The multipath and error
+device mapper drivers implement both methods. All other dm drivers only
+implement the .map() method.
+
+Device mapper bio processing
+submit_bio()
+-> generic_make_request()
+  -> dm_make_request()
+    -> __dm_make_request()
+      -> __split_and_process_bio()
+        -> __split_and_process_non_flush()
+          -> __clone_and_map_data_bio()
+          -> alloc_tio()
+          -> clone_bio()
+            -> bio_advance()
+          -> __map_bio()
+
+Existing Linux Copy Offload APIs
+* The FICLONERANGE ioctl. From <include/linux/fs.h>:
+  #define FICLONERANGE _IOW(0x94, 13, struct file_clone_range)
+
+struct file_clone_range {
+	__s64 src_fd;
+	__u64 src_offset;
+	__u64 src_length;
+	__u64 dest_offset;
+};
+
+* The sendfile() system call. sendfile() copies a given number of bytes
+  from one file to another. The output offset is the offset of the
+  output file descriptor. The input offset is either the input file
+  descriptor offset or can be specified explicitly. The sendfile()
+  prototype is as follows:
+  ssize_t sendfile(int out_fd, int in_fd, off_t *ppos, size_t count);
+  ssize_t sendfile64(int out_fd, int in_fd, loff_t *ppos, size_t count);
+* The copy_file_range() system call. See also vfs_copy_file_range(). Its
+  prototype is as follows:
+  ssize_t copy_file_range(int fd_in, loff_t *off_in, int fd_out,
+     loff_t *off_out, size_t len, unsigned int flags);
+* The splice() system call is not appropriate for adding extended copy
+  functionality since it copies data from or to a pipe. Its prototype is
+  as follows:
+  long splice(struct file *in, loff_t *off_in, struct file *out,
+    loff_t *off_out, size_t len, unsigned int flags);
+
+Existing Linux Block Layer Copy Offload Implementations
+* Martin Petersen's REQ_COPY bio, where source and destination block
+  device are both specified in the same bio. Only works for block
+  devices. Does not work for files. Adds a new blocking ioctl() for
+  XCOPY from user space.
+* Mikulas Patocka's approach: separate REQ_OP_COPY_WRITE and
+  REQ_OP_COPY_READ operations. These are sent individually down stacked
+  drivers and are paired by the driver at the bottom of the stack.
 
 
 --
