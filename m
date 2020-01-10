@@ -1,128 +1,63 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 083031366BF
-	for <lists+dm-devel@lfdr.de>; Fri, 10 Jan 2020 06:35:12 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 13D3F13774C
+	for <lists+dm-devel@lfdr.de>; Fri, 10 Jan 2020 20:34:16 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1578634511;
+	s=mimecast20190719; t=1578684855;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=cWcjnnchSFsJEn4DLtQ2HQtywaaGUPZE6c9ArOhrSPM=;
-	b=QHv+JBXRp5W5/6mx6kWKLvdn7YbhPFuTOTtyalzGbHysiU8jYhW9ownTLJJ8seh4rNF+2z
-	7VsqkQ4WP1Me+qCizhL+oo8cyloHXDRqMfrPBJVKYY3EhOlitoDI8cQsoLBSs1M4JyE7RK
-	LBzdCFt2o/vncEyIPpaREUfwhmKF9es=
+	bh=8zqffD5PKj0DXiX4k2kOFOVoA9oXXuxB8J7iqSdqkTo=;
+	b=PWRS/mXty1EOOqfjxinG0MgbKSAXszi9a63slwi91TUMaMtoN2lPtNIvn41KIvO5evnqN1
+	fl8sF9TsqDnOVbA43D0H+DAWluY+oeclPXcPlzDQsq4XPHVVldWkYOi4TGoiIw9HI4cOVn
+	+TDrCaHBJ2RgrXQm2BV1YErNqdgpC/w=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-27-Gnk9Ifp3NP6yI0O3MXH7Bg-1; Fri, 10 Jan 2020 00:35:10 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-357-x8PQj_2PPWywnlMIDi89VA-1; Fri, 10 Jan 2020 14:34:13 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7180F801E67;
-	Fri, 10 Jan 2020 05:35:01 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 21DC45D9C5;
-	Fri, 10 Jan 2020 05:34:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 41DC28024FB;
+	Fri, 10 Jan 2020 19:34:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9DE9E86CA0;
+	Fri, 10 Jan 2020 19:34:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 126B4503CA;
-	Fri, 10 Jan 2020 05:34:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9E4981809567;
+	Fri, 10 Jan 2020 19:33:52 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00A5YFC5018538 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 10 Jan 2020 00:34:15 -0500
+	id 00AJXc9d006022 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 10 Jan 2020 14:33:38 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EA198106A72C; Fri, 10 Jan 2020 05:34:14 +0000 (UTC)
+	id 748101001925; Fri, 10 Jan 2020 19:33:38 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E4FB3106A72B
-	for <dm-devel@redhat.com>; Fri, 10 Jan 2020 05:34:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0DF3B8D775B
-	for <dm-devel@redhat.com>; Fri, 10 Jan 2020 05:34:12 +0000 (UTC)
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-166-dL03BKGHNCujEg5sPvEa-A-1; Fri, 10 Jan 2020 00:34:10 -0500
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
-	by aserp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
-	00A5NNMX031215; Fri, 10 Jan 2020 05:33:41 GMT
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
-	by aserp2120.oracle.com with ESMTP id 2xajnqfq75-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 10 Jan 2020 05:33:41 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
-	by userp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
-	00A5Oge4175226; Fri, 10 Jan 2020 05:33:40 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
-	by userp3030.oracle.com with ESMTP id 2xeh8yxj4f-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 10 Jan 2020 05:33:40 +0000
-Received: from abhmp0020.oracle.com (abhmp0020.oracle.com [141.146.116.26])
-	by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 00A5XVT1011528;
-	Fri, 10 Jan 2020 05:33:32 GMT
-Received: from ca-mkp.ca.oracle.com (/10.159.214.123)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Thu, 09 Jan 2020 21:33:31 -0800
-To: Bart Van Assche <bvanassche@acm.org>
-From: "Martin K. Petersen" <martin.petersen@oracle.com>
-Organization: Oracle Corporation
-References: <BYAPR04MB5749820C322B40C7DBBBCA02863F0@BYAPR04MB5749.namprd04.prod.outlook.com>
-	<fda88fd3-2d75-085e-ca15-a29f89c1e781@acm.org>
-Date: Fri, 10 Jan 2020 00:33:27 -0500
-In-Reply-To: <fda88fd3-2d75-085e-ca15-a29f89c1e781@acm.org> (Bart Van Assche's
-	message of "Wed, 8 Jan 2020 19:18:54 -0800")
-Message-ID: <yq1pnfrx4d4.fsf@oracle.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1.92 (gnu/linux)
+Received: from localhost (unknown [10.18.25.174])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D05B81001902;
+	Fri, 10 Jan 2020 19:33:35 +0000 (UTC)
+Date: Fri, 10 Jan 2020 14:33:34 -0500
+From: Mike Snitzer <snitzer@redhat.com>
+To: Khazhismel Kumykov <khazhy@google.com>
+Message-ID: <20200110193334.GA13817@redhat.com>
+References: <20200102224512.3605010-1-krisman@collabora.com>
+	<20200106162833.GA15829@redhat.com>
+	<CACGdZYK25G5BqQeG2AeF9JvwhXOtcFRxxwqGdRugnPC+vYJHXQ@mail.gmail.com>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9495
-	signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
-	malwarescore=0
-	phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
-	adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.0.1-1911140001 definitions=main-2001100047
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9495
-	signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
-	priorityscore=1501 malwarescore=0
-	suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
-	lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999
-	adultscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
-	definitions=main-2001100047
-X-MC-Unique: dL03BKGHNCujEg5sPvEa-A-1
-X-MC-Unique: Gnk9Ifp3NP6yI0O3MXH7Bg-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 00A5YFC5018538
+In-Reply-To: <CACGdZYK25G5BqQeG2AeF9JvwhXOtcFRxxwqGdRugnPC+vYJHXQ@mail.gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-Cc: "axboe@kernel.dk" <axboe@kernel.dk>,
-	"roland@purestorage.com" <roland@purestorage.com>,
-	"msnitzer@redhat.com" <msnitzer@redhat.com>,
-	Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	Matias Bjorling <Matias.Bjorling@wdc.com>,
-	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
-	Stephen Bates <sbates@raithlin.com>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"mpatocka@redhat.com" <mpatocka@redhat.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Keith Busch <kbusch@kernel.org>,
-	"lsf-pc@lists.linux-foundation.org" <lsf-pc@lists.linux-foundation.org>,
-	"rwheeler@redhat.com" <rwheeler@redhat.com>,
-	Christoph Hellwig <hch@lst.de>,
-	"frederick.knight@netapp.com" <frederick.knight@netapp.com>,
-	"zach.brown@ni.com" <zach.brown@ni.com>
-Subject: Re: [dm-devel] [LSF/MM/BFP ATTEND] [LSF/MM/BFP TOPIC] Storage: Copy
-	Offload
+Cc: Frank Mayhar <fmayhar@google.com>, dm-devel@redhat.com,
+	Anatol Pomazau <anatol@google.com>,
+	Bharath Ravi <rbharath@google.com>, kernel@collabora.com,
+	Gabriel Krisman Bertazi <krisman@collabora.com>, agk@redhat.com
+Subject: Re: [dm-devel] dm mpath: Add timeout mechanism for queue_if_no_path
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -136,34 +71,99 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-MC-Unique: x8PQj_2PPWywnlMIDi89VA-1
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
+On Mon, Jan 06 2020 at  4:52pm -0500,
+Khazhismel Kumykov <khazhy@google.com> wrote:
 
-Bart,
+> On Mon, Jan 6, 2020 at 11:28 AM Mike Snitzer <snitzer@redhat.com> wrote:
+> >
+> > On Thu, Jan 02 2020 at  5:45pm -0500,
+> > Gabriel Krisman Bertazi <krisman@collabora.com> wrote:
+> >
+> > > From: Anatol Pomazau <anatol@google.com>
+> > >
+> > > Add a configurable timeout mechanism to disable queue_if_no_path without
+> > > assistance from multipathd.  In reality, this reimplements the
+> > > no_path_retry mechanism from multipathd in kernel space, which is
+> > > interesting for cases where we cannot rely on a daemon being present all
+> > > the time, in case of failure or to reduce the guest footprint of cloud
+> > > services.
+> > >
+> > > Despite replicating the policy configuration on kernel space, it is
+> > > quite an important case to prevent IOs from hanging forever, waiting for
+> > > userspace to behave correctly.
+> > >
+> > > Co-developed-by: Frank Mayhar <fmayhar@google.com>
+> > > Signed-off-by: Frank Mayhar <fmayhar@google.com>
+> > > Co-developed-by: Bharath Ravi <rbharath@google.com>
+> > > Signed-off-by: Bharath Ravi <rbharath@google.com>
+> > > Co-developed-by: Khazhismel Kumykov <khazhy@google.com>
+> > > Signed-off-by: Khazhismel Kumykov <khazhy@google.com>
+> > > Signed-off-by: Anatol Pomazau <anatol@google.com>
+> > > Co-developed-by: Gabriel Krisman Bertazi <krisman@collabora.com>
+> > > Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
+> >
+> > This seems like a slippery slope.
+> >
+> > I've heard this line of dm-multipath concern from Google before
+> > (e.g. doesn't want to rely on availability of userspace component).
+> >
+> > Thing is, to properly use dm-multipath (e.g. to reinstate failed paths)
+> > multipathd really is needed no?
+> Yeah, in order to reinstate the failed paths, or any full recovery, we
+> do need the user space component to be running, and this doesn't aim
+> to change the responsibilities here. Rather, we're aiming to avoid
+> in-kernel hangs/processes lingering indefinitely in unkillable sleep
+> due to buggy/unavailable/down userspace multipath daemon.
 
-> * Copying must be supported not only within a single storage device but
->   also between storage devices.
+Sorry but the above patch header clearly states:
+"or to reduce the guest footprint of cloud services"
 
-Identifying which devices to permit copies between has been challenging.
-That has since been addressed in T10.
+Which implies that multipathd isn't available by design in the
+referenced environment.
 
-> * VMware, which uses XCOPY (with a one-byte length ID, aka LID1).
+> >
+> > If not, how is it that the proposed patch is all that is missing when
+> > multipathd isn't running?  I find that hard to appreciate.
+> >
+> > So I'm inclined to not accept this type of change.  But especially not
+> > until more comprehensive context is given for how Google is using
+> > dm-multipath without multipathd.
+> 
+> This patch isn't aimed at enabling dm-multipath without a userspace
+> multipath daemon, rather to avoid processes hanging indefinitely in
+> the event the daemon is unable to proceed (for whatever reason).
 
-I don't think LID1 vs LID4 is particularly interesting for the Linux use
-case. It's just an additional command tag since the copy manager is a
-third party.
+Again, I don't buy it given the patch header explicitly says
+dm-multipath could be deployed in the cloud without the benefit of
+multipathd running.
 
-> * Microsoft, which uses ODX (aka LID4 because it has a four-byte length
->   ID).
+But I'll meet you half-way to start: rather than make the timeout
+configurable on a per multipath table basis, please just set a longer
+stopgap default and allow that timeout value to be configured with a
+module parameter (e.g. dm_multipath.queue_if_no_path_timeout=120,
+and setting it to 0 disables the timeout).
 
-Microsoft uses the token commands.
+This would follow the same pattern that was established by DM
+thin-provisioning's no_space_timeout modparm with these commits:
+85ad643b dm thin: add timeout to stop out-of-data-space mode holding IO forever
+80c57893 dm thin: add 'no_space_timeout' dm-thin-pool module param
 
--- 
-Martin K. Petersen	Oracle Linux Engineering
+That'd save us from having to do a bunch of fiddley DM multpath table
+parsing for now.  But if for some crazy reason in the future it is
+determined that a longer duration stop-gap timeout cannot be
+one-size-fits-all we can layer per device configuration in at that
+time.
 
+How does that sound?
+
+Mike
 
 --
 dm-devel mailing list
