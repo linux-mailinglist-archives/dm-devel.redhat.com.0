@@ -1,76 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id F181613A8C3
-	for <lists+dm-devel@lfdr.de>; Tue, 14 Jan 2020 12:56:00 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 2F42813ACA2
+	for <lists+dm-devel@lfdr.de>; Tue, 14 Jan 2020 15:50:55 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1579002959;
+	s=mimecast20190719; t=1579013453;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=4EqnPEgte3motIOFC22CGmnRKNjvteMm8zjNTNnn4iM=;
-	b=Xi0ykcN5S3zG62yoznw+BUmEpNozNMih9Dcowo38qd1exScSh7tzQSro+8A4GC65uesskX
-	rJi1ycThYU0Z2zAP170BiAJnr+2g9ZLFzs5Wx4m52euNfTvuOOzIFi0xnigKnQhRNhFAom
-	NCpxTgtaeJ0IoiQFA285WRIaT7w79BQ=
+	bh=Jc0JfPX9Io5PUF5jsiik56Jdf3Xgs2uK7w7ROc8Zrrk=;
+	b=XCrKmL0bPWkdlW50xXbDJLTcinYOaBriA8D6O7Z/vQLOV+oeksPy1H61Je/pii2t66o942
+	iCPwL6kWMt5hjtp9qrClPIEclSH/lZPmmSmmpDQ7nXsMYHZrInXbB00Gbc8plFMFEvxpfj
+	yseGD7RQvx1yaXD5xw76odY2yveiy7c=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-193-azKGWtj6NgyMNDeZAnFDsw-1; Tue, 14 Jan 2020 06:55:57 -0500
+ us-mta-399-u7I9f6j1O5SUr8usw8n3EQ-1; Tue, 14 Jan 2020 09:50:52 -0500
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 44A8D100551D;
-	Tue, 14 Jan 2020 11:55:46 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 894D38024D6;
+	Tue, 14 Jan 2020 14:50:44 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C6B4A5C1D6;
-	Tue, 14 Jan 2020 11:55:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1CA325C299;
+	Tue, 14 Jan 2020 14:50:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4B28C1803C33;
-	Tue, 14 Jan 2020 11:55:45 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8B1911832961;
+	Tue, 14 Jan 2020 14:50:34 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00DMfbot019865 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 13 Jan 2020 17:41:38 -0500
+	id 00EEoNX8013480 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 14 Jan 2020 09:50:23 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id C4F2C10F1C0C; Mon, 13 Jan 2020 22:41:37 +0000 (UTC)
+	id 89F105DA76; Tue, 14 Jan 2020 14:50:23 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C012810F1C07
-	for <dm-devel@redhat.com>; Mon, 13 Jan 2020 22:41:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D31EF80301F
-	for <dm-devel@redhat.com>; Mon, 13 Jan 2020 22:41:35 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
-	[46.235.227.227]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-243-wVUCjW6fMIyWrqdGQADrjw-1; Mon, 13 Jan 2020 17:41:31 -0500
-Received: from localhost (unknown [IPv6:2610:98:8005::27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested) (Authenticated sender: krisman)
-	by bhuna.collabora.co.uk (Postfix) with ESMTPSA id D4CD4291385;
-	Mon, 13 Jan 2020 22:41:29 +0000 (GMT)
-From: Gabriel Krisman Bertazi <krisman@collabora.com>
-To: snitzer@redhat.com
-Date: Mon, 13 Jan 2020 17:41:27 -0500
-Message-Id: <20200113224127.3367484-1-krisman@collabora.com>
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 16B2E5D9E5;
+	Tue, 14 Jan 2020 14:50:20 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 00EEoKal016073; Tue, 14 Jan 2020 09:50:20 -0500
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 00EEoKlC016069; Tue, 14 Jan 2020 09:50:20 -0500
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Tue, 14 Jan 2020 09:50:20 -0500 (EST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Maged Mokhtar <mmokhtar@petasan.org>
+In-Reply-To: <a858b409-d3d5-b439-5f15-563fb5316d2a@petasan.org>
+Message-ID: <alpine.LRH.2.02.2001140943090.15105@file01.intranet.prod.int.rdu2.redhat.com>
+References: <598c7c64-9b11-3407-2060-8d43b1ef1241@petasan.org>
+	<d76f7245-034c-f225-00fe-f33c5e9abf1a@petasan.org>
+	<alpine.LRH.2.02.2001021144450.18253@file01.intranet.prod.int.rdu2.redhat.com>
+	<a858b409-d3d5-b439-5f15-563fb5316d2a@petasan.org>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-X-MC-Unique: wVUCjW6fMIyWrqdGQADrjw-1
-X-MC-Unique: azKGWtj6NgyMNDeZAnFDsw-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 00DMfbot019865
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Tue, 14 Jan 2020 06:55:09 -0500
-Cc: dm-devel@redhat.com, kernel@collabora.com, krisman@collabora.com,
-	khazhy@google.com
-Subject: [dm-devel] [PATCH v2] dm mpath: Add timeout mechanism for
-	queue_if_no_path
+Cc: dm-devel@redhat.com, Mike Snitzer <msnitzer@redhat.com>
+Subject: Re: [dm-devel] [PATCH] dm writecache: SB remove seq_count
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,207 +80,111 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-MC-Unique: u7I9f6j1O5SUr8usw8n3EQ-1
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Anatol Pomazau <anatol@google.com>
 
-Add a configurable timeout mechanism to disable queue_if_no_path without
-assistance from multipathd.  In reality, this reimplements the
-no_path_retry mechanism from multipathd in kernel space, which is
-interesting to prevent processes from hanging indefinitely in cases
-where the daemon might be unable to respond, after a failure or for
-whatever reason.
 
-Despite replicating the policy configuration on kernel space, it is
-quite an important case to prevent IOs from hanging forever, waiting for
-userspace to behave correctly.
+On Mon, 13 Jan 2020, Maged Mokhtar wrote:
 
-v2:
-  - Use a module parameter instead of configuring per table
-  - Simplify code
+> 
+> 
+> > Hi
+> > 
+> > 
+> > On Thu, 2 Jan 2020, Maged Mokhtar wrote:
+> > 
+> > > Any feedback on this patch please.
+> > 
+> > This will definitely not work for persistent memory - it could corrupt
+> > data if a crash happens. The CPU can flush data in arbitrary order and it
+> > may happen that the seq count is flushed before the pertaining data.
+> > 
+> > As for SSD mode - we could avoid updating the refcount in the superblock,
+> > but it wouldn't be much helpful.
+> > 
+> > I.e. normally, commit is done this way:
+> > 1. submit data writes
+> > 2. submit metadata writes
+> > 3. flush disk cache
+> > 4. submit the write of superblock with increased seq_count
+> > 5. flush disk cache
+> > 
+> > If we wanted to avoid writing the seq_count, we would need to change it
+> > to:
+> > 1. submit data writes
+> > 2. flush disk cache
+> > 3. submit metadata writes
+> > 4. flush disk cache
+> > 
+> > - i.e. it sill needs two disk cache flushes per one commit request - and
+> > it is not much better than the existing solution.
+> > 
+> > Mikulas
+> > 
+> 
+> 
+> Hi Mikulas,
+> 
+> I appreciate your review. For SSD mode, I see the advantages of SB writes for
+> handling crash recovery and agree with what you say. Note however that after a
+> crash a proper client should not assume the data is valid on a device, only at
+> the point it last issued a successful flush should the data be consistent,
 
-Co-developed-by: Frank Mayhar <fmayhar@google.com>
-Signed-off-by: Frank Mayhar <fmayhar@google.com>
-Co-developed-by: Bharath Ravi <rbharath@google.com>
-Signed-off-by: Bharath Ravi <rbharath@google.com>
-Co-developed-by: Khazhismel Kumykov <khazhy@google.com>
-Signed-off-by: Khazhismel Kumykov <khazhy@google.com>
-Signed-off-by: Anatol Pomazau <anatol@google.com>
-Co-developed-by: Gabriel Krisman Bertazi <krisman@collabora.com>
-Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
----
- drivers/md/dm-mpath.c | 62 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 62 insertions(+)
+Yes.
 
-diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
-index e0c32793c248..52d90900e85b 100644
---- a/drivers/md/dm-mpath.c
-+++ b/drivers/md/dm-mpath.c
-@@ -29,6 +29,7 @@
- #define DM_MSG_PREFIX "multipath"
- #define DM_PG_INIT_DELAY_MSECS 2000
- #define DM_PG_INIT_DELAY_DEFAULT ((unsigned) -1)
-+#define QUEUE_IF_NO_PATH_TIMEOUT_DEFAULT 0
- 
- /* Path properties */
- struct pgpath {
-@@ -91,6 +92,8 @@ struct multipath {
- 
- 	struct work_struct process_queued_bios;
- 	struct bio_list queued_bios;
-+
-+	struct timer_list nopath_timer;	/* Timeout for queue_if_no_path */
- };
- 
- /*
-@@ -101,6 +104,10 @@ struct dm_mpath_io {
- 	size_t nr_bytes;
- };
- 
-+static unsigned long queue_if_no_path_timeout = QUEUE_IF_NO_PATH_TIMEOUT_DEFAULT;
-+module_param_named(queue_if_no_path_timeout_secs,
-+                  queue_if_no_path_timeout, ulong, 0644);
-+
- typedef int (*action_fn) (struct pgpath *pgpath);
- 
- static struct workqueue_struct *kmultipathd, *kmpath_handlerd;
-@@ -109,6 +116,10 @@ static void activate_or_offline_path(struct pgpath *pgpath);
- static void activate_path_work(struct work_struct *work);
- static void process_queued_bios(struct work_struct *work);
- 
-+static void queue_if_no_path_timeout_work(struct timer_list *t);
-+static void enable_nopath_timeout(struct multipath *m);
-+static void disable_nopath_timeout(struct multipath *m);
-+
- /*-----------------------------------------------
-  * Multipath state flags.
-  *-----------------------------------------------*/
-@@ -195,6 +206,8 @@ static struct multipath *alloc_multipath(struct dm_target *ti)
- 
- 		m->ti = ti;
- 		ti->private = m;
-+
-+		timer_setup(&m->nopath_timer, queue_if_no_path_timeout_work, 0);
- 	}
- 
- 	return m;
-@@ -1090,6 +1103,7 @@ static int multipath_ctr(struct dm_target *ti, unsigned argc, char **argv)
- 	struct dm_arg_set as;
- 	unsigned pg_count = 0;
- 	unsigned next_pg_num;
-+	unsigned long flags;
- 
- 	as.argc = argc;
- 	as.argv = argv;
-@@ -1154,6 +1168,10 @@ static int multipath_ctr(struct dm_target *ti, unsigned argc, char **argv)
- 		goto bad;
- 	}
- 
-+	spin_lock_irqsave(&m->lock, flags);
-+	enable_nopath_timeout(m);
-+	spin_unlock_irqrestore(&m->lock, flags);
-+
- 	ti->num_flush_bios = 1;
- 	ti->num_discard_bios = 1;
- 	ti->num_write_same_bios = 1;
-@@ -1208,10 +1226,25 @@ static void multipath_dtr(struct dm_target *ti)
- {
- 	struct multipath *m = ti->private;
- 
-+	disable_nopath_timeout(m);
- 	flush_multipath_work(m);
- 	free_multipath(m);
- }
- 
-+/*
-+ * If the queue_if_no_path timeout fires, turn off queue_if_no_path and
-+ * process any queued I/O.
-+ */
-+static void queue_if_no_path_timeout_work(struct timer_list *t)
-+{
-+	struct multipath *m = from_timer(m, t, nopath_timer);
-+	struct mapped_device *md = dm_table_get_md((m)->ti->table);
-+
-+	DMWARN("queue_if_no_path timeout on %s", dm_device_name(md));
-+
-+	queue_if_no_path(m, false, false);
-+}
-+
- /*
-  * Take a path out of use.
-  */
-@@ -1241,6 +1274,8 @@ static int fail_path(struct pgpath *pgpath)
- 
- 	schedule_work(&m->trigger_event);
- 
-+	enable_nopath_timeout(m);
-+
- out:
- 	spin_unlock_irqrestore(&m->lock, flags);
- 
-@@ -1291,6 +1326,9 @@ static int reinstate_path(struct pgpath *pgpath)
- 		process_queued_io_list(m);
- 	}
- 
-+	if (pgpath->is_active)
-+		disable_nopath_timeout(m);
-+
- 	return r;
- }
- 
-@@ -1314,6 +1352,25 @@ static int action_dev(struct multipath *m, struct dm_dev *dev,
- 	return r;
- }
- 
-+/*
-+ * Enable the queue_if_no_path timeout if necessary.  Called with m->lock
-+ * held.
-+ */
-+static void enable_nopath_timeout(struct multipath *m)
-+{
-+	if (queue_if_no_path_timeout > 0 &&
-+	    atomic_read(&m->nr_valid_paths) == 0 &&
-+	    test_bit(MPATHF_QUEUE_IF_NO_PATH, &m->flags)) {
-+		mod_timer(&m->nopath_timer,
-+			  jiffies + queue_if_no_path_timeout * HZ);
-+	}
-+}
-+
-+static void disable_nopath_timeout(struct multipath *m)
-+{
-+	del_timer_sync(&m->nopath_timer);
-+}
-+
- /*
-  * Temporarily try to avoid having to use the specified PG
-  */
-@@ -1789,6 +1846,7 @@ static int multipath_message(struct dm_target *ti, unsigned argc, char **argv,
- 	struct dm_dev *dev;
- 	struct multipath *m = ti->private;
- 	action_fn action;
-+	unsigned long flags;
- 
- 	mutex_lock(&m->work_mutex);
- 
-@@ -1800,9 +1858,13 @@ static int multipath_message(struct dm_target *ti, unsigned argc, char **argv,
- 	if (argc == 1) {
- 		if (!strcasecmp(argv[0], "queue_if_no_path")) {
- 			r = queue_if_no_path(m, true, false);
-+			spin_lock_irqsave(&m->lock, flags);
-+			enable_nopath_timeout(m);
-+			spin_unlock_irqrestore(&m->lock, flags);
- 			goto out;
- 		} else if (!strcasecmp(argv[0], "fail_if_no_path")) {
- 			r = queue_if_no_path(m, false, false);
-+			disable_nopath_timeout(m);
- 			goto out;
- 		}
- 	}
--- 
-2.24.1
+> after this it should not assume so. A filesystem/db should handle
+> journals/transaction at a higher level than the device. But again anything we
+> can do on the device/target to make things more consistent, the better, so i
+> agree there.
+> 
+> There is also limit to what the current crash recovery code can do, as i
+> understand it if you have metadata already committed, their seq count is not
+> incremented for new io on the same blocks, the crash recovery code will
+> therefore not detect or recover cases where new data is written to existing 4k
+> blocks at the time of crash, some blocks will end up with new data, others
+> will not. Again this is my understanding so i could be wrong.
 
+If the userspace writes some block, it is unspecified if the block will 
+contain old data or new data after a crash. (the SCSI standard at some 
+point even specified that the written block may contain arbitrary data - 
+not just old or new).
+
+> I think if crash consistency needs to be enhanced, it should take into account
+> that most consumer/non-enterprise SSDs do not offer power loss protection. For
+
+Both SATA and SCSI standard have command that flushes the cache in the 
+disk or SSD. If the SSD ignores this command, it is broken.
+
+> many such devices power loss can corrupt data that is already written as they
+> commit data in larger chunks via a read/modify/erase/write cycle. It is
+> particularly bad for metadata as it could affect many data blocks. Maybe it
+> could be good to have metadata writes via transactions or journaling, dm-cache
+> and thin provisioning do something like this i think.
+
+Both dm-cache and dm-writecache use the flush command to write the device 
+cache.
+
+> i also think your suggestion of:
+> > If we wanted to avoid writing the seq_count, we would need to change it
+> > to:
+> > 1. submit data writes
+> > 2. flush disk cache
+> > 3. submit metadata writes
+> > 4. flush disk cache
+> 
+> could be better in terms of prolonging SSD lifetime, as currently the
+> superblock gets much higher write frequency.
+
+The SSDs allocate new blocks with each write, so it doesn't matter that we 
+write the same block multiple times. With real persistent memory, it may 
+be an issue.
+
+> /Maged
+
+Mikulas
 
 --
 dm-devel mailing list
