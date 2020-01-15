@@ -1,123 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id E3F9A13BC89
-	for <lists+dm-devel@lfdr.de>; Wed, 15 Jan 2020 10:38:50 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id A3A7313C34E
+	for <lists+dm-devel@lfdr.de>; Wed, 15 Jan 2020 14:36:17 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1579081129;
+	s=mimecast20190719; t=1579095376;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=XEPBNuxtlZmOhPdaOT4hcUNfwYRCwUx0drMJBE/pMaQ=;
-	b=SnLklXqtO+ozn4IV0jqJfNj1MRQDstDiuJVWrz9jV25EKRGGXTpWwvPuRcCD2k0xKOn9qZ
-	bVk+UUtEpizYjUgK74W9EReZv5x5qGQmNymXagT/wrn3d5Zl4piXFme4MjSvyyIh5P6yDT
-	s9wBjlamVDwSCQ0wXBv4KX+2msmY9KA=
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=8mVxoVeTCAlVPSq7p9FkCuu7gQ+UOcRVCUJ5m8kTe8Q=;
+	b=Woi4uy6TItBFKjyMWPHiKn3O6VmnQ16+qTOyVW4pwK/FVAFxjkpa1YSfxn6lWjtUaVJuf8
+	p0ouzCOVR/FbJUfkuFkz8wFEto7uIgELx1bLKkFh/7j8cRVibU9n2mqvcWVEuPqNAhh1M2
+	y5E1GAEI7ER2t5H7FprJI3BLIXlA57E=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-44-0NMW-ix3Mw2CADAtIJSgRg-1; Wed, 15 Jan 2020 04:38:47 -0500
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-227-82pjGmE5O0C0SezKeyXU1Q-1; Wed, 15 Jan 2020 08:36:15 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0095C107B784;
-	Wed, 15 Jan 2020 09:38:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 87D9518A6EE1;
+	Wed, 15 Jan 2020 13:36:04 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3EF90277BA;
-	Wed, 15 Jan 2020 09:38:37 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 65DBD5C3F8;
+	Wed, 15 Jan 2020 13:36:00 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7C5EB8250B;
-	Wed, 15 Jan 2020 09:38:34 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 55F5C824EC;
+	Wed, 15 Jan 2020 13:35:45 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00F9cQ3Z021714 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 15 Jan 2020 04:38:27 -0500
+	id 00FDZTHZ003781 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 15 Jan 2020 08:35:29 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id ADB452166B2B; Wed, 15 Jan 2020 09:38:26 +0000 (UTC)
+	id 42B5B8248B; Wed, 15 Jan 2020 13:35:29 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A8CCE2166B28
-	for <dm-devel@redhat.com>; Wed, 15 Jan 2020 09:38:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A14EE802A51
-	for <dm-devel@redhat.com>; Wed, 15 Jan 2020 09:38:24 +0000 (UTC)
-Received: from mx0b-00154904.pphosted.com (mx0b-00154904.pphosted.com
-	[148.163.137.20]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-366-j5nMz0clN3SUIgPUaooIxg-1; Wed, 15 Jan 2020 04:38:22 -0500
-Received: from pps.filterd (m0170397.ppops.net [127.0.0.1])
-	by mx0b-00154904.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
-	00F9ZBGb010220
-	for <dm-devel@redhat.com>; Wed, 15 Jan 2020 04:38:21 -0500
-Received: from mx0a-00154901.pphosted.com (mx0a-00154901.pphosted.com
-	[67.231.149.39])
-	by mx0b-00154904.pphosted.com with ESMTP id 2xf8awexrq-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT)
-	for <dm-devel@redhat.com>; Wed, 15 Jan 2020 04:38:21 -0500
-Received: from pps.filterd (m0142699.ppops.net [127.0.0.1])
-	by mx0a-00154901.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
-	00F9XLQh191801
-	for <dm-devel@redhat.com>; Wed, 15 Jan 2020 04:38:20 -0500
-Received: from ausxipps301.us.dell.com (ausxipps301.us.dell.com
-	[143.166.148.223])
-	by mx0a-00154901.pphosted.com with ESMTP id 2xh8xqmay8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <dm-devel@redhat.com>; Wed, 15 Jan 2020 04:38:20 -0500
-X-LoopCount0: from 10.166.134.82
-X-PREM-Routing: D-Outbound
-X-IronPort-AV: E=Sophos;i="5.60,349,1549951200"; 
-	d="scan'208,217";a="445922836"
-From: <Sreenivas.Honnur@dell.com>
-To: <dm-devel@redhat.com>
-Thread-Topic: device blacklisting and suspend issue
-Thread-Index: AdXLcvsStNGWHshsTnS9ETD6TDW7UAAFH3qA
-Date: Wed, 15 Jan 2020 09:38:15 +0000
-Message-ID: <c552c34848e146b49861b4ac28690d6b@BLRX13MDC423.AMER.DELL.COM>
-References: <451c7e3b120e4880b9ed178850f15285@BLRX13MDC423.AMER.DELL.COM>
-In-Reply-To: <451c7e3b120e4880b9ed178850f15285@BLRX13MDC423.AMER.DELL.COM>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Enabled=True;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_SiteId=945c199a-83a2-4e80-9f8c-5a91be5752dd;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Owner=Sreenivas_Honnur@Dell.com;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_SetDate=2020-01-15T07:11:38.0323047Z;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Name=External Public;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Application=Microsoft
-	Azure Information Protection;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Extended_MSFT_Method=Manual;
-	aiplabel=External Public
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [143.166.11.235]
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CAA1D82486;
+	Wed, 15 Jan 2020 13:35:26 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 00FDZQWD031608; Wed, 15 Jan 2020 08:35:26 -0500
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 00FDZPSf031604; Wed, 15 Jan 2020 08:35:26 -0500
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Wed, 15 Jan 2020 08:35:25 -0500 (EST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Jens Axboe <axboe@kernel.dk>
+Message-ID: <alpine.LRH.2.02.2001150833180.31494@file01.intranet.prod.int.rdu2.redhat.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
-	definitions=2020-01-15_01:2020-01-15,
-	2020-01-14 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
-	suspectscore=0 malwarescore=0
-	mlxscore=0 spamscore=0 mlxlogscore=700 lowpriorityscore=0 adultscore=0
-	impostorscore=0 clxscore=1015 priorityscore=1501 phishscore=0
-	bulkscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-1910280000 definitions=main-2001150081
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
-	mlxlogscore=824
-	lowpriorityscore=0 malwarescore=0 bulkscore=0 impostorscore=0
-	mlxscore=0
-	adultscore=0 spamscore=0 phishscore=0 clxscore=1015 priorityscore=1501
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-1910280000 definitions=main-2001150081
-X-MC-Unique: j5nMz0clN3SUIgPUaooIxg-1
-X-MC-Unique: 0NMW-ix3Mw2CADAtIJSgRg-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-Subject: [dm-devel] device blacklisting and suspend issue
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
+	Mike Snitzer <msnitzer@redhat.com>
+Subject: [dm-devel] [PATCH] block: fix an integer overflow in logical block
+	size
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -131,227 +75,130 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-MC-Unique: 82pjGmE5O0C0SezKeyXU1Q-1
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="===============8619715706011029612=="
-
---===============8619715706011029612==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_c552c34848e146b49861b4ac28690d6bBLRX13MDC423AMERDELLCOM_"
-
---_000_c552c34848e146b49861b4ac28690d6bBLRX13MDC423AMERDELLCOM_
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Transfer-Encoding: quoted-printable
-
-I have two queries:
-
-  1.  We have an issue with device blacklisting. We add an entry in /etc/mu=
-ltipath.conf" and do "service multipathd reload".
-After this to check if device is blacklisted we issue "multipathd show blac=
-klist" command in a loop(with a delay of 1 second).
-Sometimes I see that this command takes too much time to come out or someti=
-mes it just hangs. Is this the correct way to check if device is blackliste=
-d? Or is there any other way to do it?
-
-
-  1.  After suspending (dmsetup suspend wwid) a device,  is there a way to =
-inform multipathd not to make it active if some events happen on this devic=
-e(like new path added..etc...I see that the table is reloaded and device be=
-comes active)
-
-How to avoid this i.e. the device should be in "suspended" state until I do=
- a "resume" on it, "multipathd" should not enable it until I do "dmsetup re=
-sume"
-
-
-
-
-
-
-
---_000_c552c34848e146b49861b4ac28690d6bBLRX13MDC423AMERDELLCOM_
-Content-Type: text/html; charset=WINDOWS-1252
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-=09{font-family:"Cambria Math";
-=09panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-=09{font-family:Calibri;
-=09panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-=09{margin:0in;
-=09margin-bottom:.0001pt;
-=09font-size:11.0pt;
-=09font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-=09{mso-style-priority:99;
-=09color:#0563C1;
-=09text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-=09{mso-style-priority:99;
-=09color:#954F72;
-=09text-decoration:underline;}
-p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-=09{mso-style-priority:34;
-=09margin-top:0in;
-=09margin-right:0in;
-=09margin-bottom:0in;
-=09margin-left:.5in;
-=09margin-bottom:.0001pt;
-=09font-size:11.0pt;
-=09font-family:"Calibri",sans-serif;}
-p.msonormal0, li.msonormal0, div.msonormal0
-=09{mso-style-name:msonormal;
-=09mso-margin-top-alt:auto;
-=09margin-right:0in;
-=09mso-margin-bottom-alt:auto;
-=09margin-left:0in;
-=09font-size:11.0pt;
-=09font-family:"Calibri",sans-serif;}
-span.EmailStyle19
-=09{mso-style-type:personal;
-=09font-family:"Calibri",sans-serif;
-=09color:windowtext;}
-span.EmailStyle20
-=09{mso-style-type:personal-reply;
-=09font-family:"Calibri",sans-serif;
-=09color:windowtext;}
-.MsoChpDefault
-=09{mso-style-type:export-only;
-=09font-size:10.0pt;}
-@page WordSection1
-=09{size:8.5in 11.0in;
-=09margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-=09{page:WordSection1;}
-/* List Definitions */
-@list l0
-=09{mso-list-id:222982715;
-=09mso-list-template-ids:286786354;}
-@list l1
-=09{mso-list-id:847448017;
-=09mso-list-type:hybrid;
-=09mso-list-template-ids:-612727868 67698703 67698713 67698715 67698703 676=
-98713 67698715 67698703 67698713 67698715;}
-@list l1:level1
-=09{mso-level-tab-stop:none;
-=09mso-level-number-position:left;
-=09text-indent:-.25in;}
-@list l1:level2
-=09{mso-level-number-format:alpha-lower;
-=09mso-level-tab-stop:none;
-=09mso-level-number-position:left;
-=09text-indent:-.25in;}
-@list l1:level3
-=09{mso-level-number-format:roman-lower;
-=09mso-level-tab-stop:none;
-=09mso-level-number-position:right;
-=09text-indent:-9.0pt;}
-@list l1:level4
-=09{mso-level-tab-stop:none;
-=09mso-level-number-position:left;
-=09text-indent:-.25in;}
-@list l1:level5
-=09{mso-level-number-format:alpha-lower;
-=09mso-level-tab-stop:none;
-=09mso-level-number-position:left;
-=09text-indent:-.25in;}
-@list l1:level6
-=09{mso-level-number-format:roman-lower;
-=09mso-level-tab-stop:none;
-=09mso-level-number-position:right;
-=09text-indent:-9.0pt;}
-@list l1:level7
-=09{mso-level-tab-stop:none;
-=09mso-level-number-position:left;
-=09text-indent:-.25in;}
-@list l1:level8
-=09{mso-level-number-format:alpha-lower;
-=09mso-level-tab-stop:none;
-=09mso-level-number-position:left;
-=09text-indent:-.25in;}
-@list l1:level9
-=09{mso-level-number-format:roman-lower;
-=09mso-level-tab-stop:none;
-=09mso-level-number-position:right;
-=09text-indent:-9.0pt;}
-@list l2
-=09{mso-list-id:1929272034;
-=09mso-list-template-ids:-933040778;}
-@list l2:level1
-=09{mso-level-start-at:2;
-=09mso-level-tab-stop:.5in;
-=09mso-level-number-position:left;
-=09text-indent:-.25in;}
-ol
-=09{margin-bottom:0in;}
-ul
-=09{margin-bottom:0in;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">I have two queries:<o:p></o:p></p>
-<ol style=3D"margin-top:0in" start=3D"1" type=3D"1">
-<li class=3D"MsoListParagraph" style=3D"margin-left:0in;mso-list:l1 level1 =
-lfo3">We have an issue with device blacklisting. We add an entry in /etc/mu=
-ltipath.conf&#8221; and do &#8220;service multipathd reload&#8221;.<o:p></o=
-:p></li></ol>
-<p class=3D"MsoNormal">After this to check if device is blacklisted we issu=
-e &#8220;multipathd show blacklist&#8221; command in a loop(with a delay of=
- 1 second).<o:p></o:p></p>
-<p class=3D"MsoNormal">Sometimes I see that this command takes too much tim=
-e to come out or sometimes it just hangs. Is this the correct way to check =
-if device is blacklisted? Or is there any other way to do it?<o:p></o:p></p=
->
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<ol style=3D"margin-top:0in" start=3D"2" type=3D"1">
-<li class=3D"MsoListParagraph" style=3D"margin-left:0in;mso-list:l1 level1 =
-lfo3">After suspending (dmsetup suspend wwid) a device, &nbsp;is there a wa=
-y to inform multipathd not to make it active if some events happen on this =
-device(like new path added..etc&#8230;I see that
- the table is reloaded and device becomes active)<o:p></o:p></li></ol>
-<p class=3D"MsoListParagraph">How to avoid this i.e. the device should be i=
-n &#8220;suspended&#8221; state until I do a &#8220;resume&#8221; on it, &#=
-8220;multipathd&#8221; should not enable it until I do &#8220;dmsetup resum=
-e&#8221;<o:p></o:p></p>
-<p class=3D"MsoListParagraph"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoListParagraph"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoListParagraph"><o:p>&nbsp;</o:p></p>
-</div>
-</body>
-</html>
-
---_000_c552c34848e146b49861b4ac28690d6bBLRX13MDC423AMERDELLCOM_--
-
---===============8619715706011029612==
 Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+Logical block size has type unsigned short. That means that it can be at
+most 32768. However, there are architectures that can run with 64k pages
+(for example arm64) and on these architectures, it may be possible to
+create block devices with 64k block size.
+
+For exmaple (run this on an architecture with 64k pages):
+# modprobe brd rd_size=1048576
+# dmsetup create cache --table "0 `blockdev --getsize /dev/ram0` writecache s /dev/ram0 /dev/ram1 65536 0"
+# mkfs.ext4 -b 65536 /dev/mapper/cache
+# mount -t ext4 /dev/mapper/cache /mnt/test
+
+Mount will fail with this error because it tries to read the superblock using 2-sector
+access:
+  device-mapper: writecache: I/O is not aligned, sector 2, size 1024, block size 65536
+  EXT4-fs (dm-0): unable to read superblock
+
+This patch changes the logical block size from unsigned short to unsigned
+int to avoid the overflow.
+
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Cc: stable@vger.kernel.org
+
+---
+ block/blk-settings.c            |    2 +-
+ drivers/md/dm-snap-persistent.c |    2 +-
+ drivers/md/raid0.c              |    2 +-
+ include/linux/blkdev.h          |    8 ++++----
+ 4 files changed, 7 insertions(+), 7 deletions(-)
+
+Index: linux-2.6/block/blk-settings.c
+===================================================================
+--- linux-2.6.orig/block/blk-settings.c	2020-01-15 14:02:54.000000000 +0100
++++ linux-2.6/block/blk-settings.c	2020-01-15 14:02:54.000000000 +0100
+@@ -328,7 +328,7 @@ EXPORT_SYMBOL(blk_queue_max_segment_size
+  *   storage device can address.  The default of 512 covers most
+  *   hardware.
+  **/
+-void blk_queue_logical_block_size(struct request_queue *q, unsigned short size)
++void blk_queue_logical_block_size(struct request_queue *q, unsigned int size)
+ {
+ 	q->limits.logical_block_size = size;
+ 
+Index: linux-2.6/include/linux/blkdev.h
+===================================================================
+--- linux-2.6.orig/include/linux/blkdev.h	2020-01-15 14:02:54.000000000 +0100
++++ linux-2.6/include/linux/blkdev.h	2020-01-15 14:11:07.000000000 +0100
+@@ -328,6 +328,7 @@ struct queue_limits {
+ 	unsigned int		max_sectors;
+ 	unsigned int		max_segment_size;
+ 	unsigned int		physical_block_size;
++	unsigned int		logical_block_size;
+ 	unsigned int		alignment_offset;
+ 	unsigned int		io_min;
+ 	unsigned int		io_opt;
+@@ -338,7 +339,6 @@ struct queue_limits {
+ 	unsigned int		discard_granularity;
+ 	unsigned int		discard_alignment;
+ 
+-	unsigned short		logical_block_size;
+ 	unsigned short		max_segments;
+ 	unsigned short		max_integrity_segments;
+ 	unsigned short		max_discard_segments;
+@@ -1077,7 +1077,7 @@ extern void blk_queue_max_write_same_sec
+ 		unsigned int max_write_same_sectors);
+ extern void blk_queue_max_write_zeroes_sectors(struct request_queue *q,
+ 		unsigned int max_write_same_sectors);
+-extern void blk_queue_logical_block_size(struct request_queue *, unsigned short);
++extern void blk_queue_logical_block_size(struct request_queue *, unsigned int);
+ extern void blk_queue_physical_block_size(struct request_queue *, unsigned int);
+ extern void blk_queue_alignment_offset(struct request_queue *q,
+ 				       unsigned int alignment);
+@@ -1291,7 +1291,7 @@ static inline unsigned int queue_max_seg
+ 	return q->limits.max_segment_size;
+ }
+ 
+-static inline unsigned short queue_logical_block_size(const struct request_queue *q)
++static inline unsigned queue_logical_block_size(const struct request_queue *q)
+ {
+ 	int retval = 512;
+ 
+@@ -1301,7 +1301,7 @@ static inline unsigned short queue_logic
+ 	return retval;
+ }
+ 
+-static inline unsigned short bdev_logical_block_size(struct block_device *bdev)
++static inline unsigned int bdev_logical_block_size(struct block_device *bdev)
+ {
+ 	return queue_logical_block_size(bdev_get_queue(bdev));
+ }
+Index: linux-2.6/drivers/md/dm-snap-persistent.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-snap-persistent.c	2019-10-10 16:52:03.000000000 +0200
++++ linux-2.6/drivers/md/dm-snap-persistent.c	2020-01-15 14:14:11.000000000 +0100
+@@ -17,7 +17,7 @@
+ #include <linux/dm-bufio.h>
+ 
+ #define DM_MSG_PREFIX "persistent snapshot"
+-#define DM_CHUNK_SIZE_DEFAULT_SECTORS 32	/* 16KB */
++#define DM_CHUNK_SIZE_DEFAULT_SECTORS 32U	/* 16KB */
+ 
+ #define DM_PREFETCH_CHUNKS		12
+ 
+Index: linux-2.6/drivers/md/raid0.c
+===================================================================
+--- linux-2.6.orig/drivers/md/raid0.c	2019-12-11 09:31:25.000000000 +0100
++++ linux-2.6/drivers/md/raid0.c	2020-01-15 14:15:14.000000000 +0100
+@@ -87,7 +87,7 @@ static int create_strip_zones(struct mdd
+ 	char b[BDEVNAME_SIZE];
+ 	char b2[BDEVNAME_SIZE];
+ 	struct r0conf *conf = kzalloc(sizeof(*conf), GFP_KERNEL);
+-	unsigned short blksize = 512;
++	unsigned blksize = 512;
+ 
+ 	*private_conf = ERR_PTR(-ENOMEM);
+ 	if (!conf)
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
---===============8619715706011029612==--
 
