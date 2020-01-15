@@ -1,81 +1,66 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id BB75913BB39
-	for <lists+dm-devel@lfdr.de>; Wed, 15 Jan 2020 09:37:57 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 0D91213BC7D
+	for <lists+dm-devel@lfdr.de>; Wed, 15 Jan 2020 10:35:49 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1579077476;
+	s=mimecast20190719; t=1579080948;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=VBfGbmVhk8siMqC5Wm4mNi/IIzpCy9rgdwmHcGdfiQk=;
-	b=ZFOA3MQu3l7+BJCfjK+tiqhN4C6H5WK1gVLFb9PUKHV9A93T6yXIGg9IERZlBac2iUsIgq
-	tz+lzqC7MW5erdTU/0/NCB9DB8P+1i5XVwjgJ0Tb7sZxEVuDXywdnTOjVHzVo4zZkrnwgg
-	e3xrdYC9U2F2xcLGgIVITjOgPjLjdHg=
+	bh=5ftPn6ttc4RvJ0lUqOGQ2ktB/fJF8NVfD3lqHn8bzkA=;
+	b=akX4+7JN1KvOxbYWoLrBLY5LVu4jdHZQKadzQVioS1CQGk0ika/DxNhYPxKgqD98wcuK95
+	7+YLO7ugQgXfgaXeF0R+XK1vokW3E5C7SzkbseGdThmQqk1FAqOAk0kOYJ9Ujidy5ibD68
+	2JFb+0HN6zIWsCWJzXbR8NljkJPBB6g=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-399-OquB6bC3NpK5fEflai1Y8w-1; Wed, 15 Jan 2020 03:37:55 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-28-gFG-tJYfODetnQKZEamzjQ-1; Wed, 15 Jan 2020 04:35:47 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8ADA12EDA;
-	Wed, 15 Jan 2020 08:37:48 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4897184322;
-	Wed, 15 Jan 2020 08:37:45 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 528B9800D4E;
+	Wed, 15 Jan 2020 09:35:41 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3F15D5C1D6;
+	Wed, 15 Jan 2020 09:35:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1005F18089C8;
-	Wed, 15 Jan 2020 08:37:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B50EB824EC;
+	Wed, 15 Jan 2020 09:35:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00EGVSFa020865 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 14 Jan 2020 11:31:28 -0500
+	id 00F9ZP72021464 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 15 Jan 2020 04:35:25 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 835636DCF3; Tue, 14 Jan 2020 16:31:28 +0000 (UTC)
+	id 0AC83272A2; Wed, 15 Jan 2020 09:35:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7EE4CDBF08
-	for <dm-devel@redhat.com>; Tue, 14 Jan 2020 16:31:26 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A2578185AB7E
-	for <dm-devel@redhat.com>; Tue, 14 Jan 2020 16:31:26 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
-	[46.235.227.227]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-417-hEad75BuMa2KwN7lVyrP4Q-1; Tue, 14 Jan 2020 11:31:23 -0500
-Received: from localhost (unknown [IPv6:2610:98:8005::27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested) (Authenticated sender: krisman)
-	by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 35222292898;
-	Tue, 14 Jan 2020 16:31:21 +0000 (GMT)
-From: Gabriel Krisman Bertazi <krisman@collabora.com>
-To: Mike Snitzer <snitzer@redhat.com>
-Organization: Collabora
-References: <20200113224127.3367484-1-krisman@collabora.com>
-	<20200114161505.GA48507@lobo>
-Date: Tue, 14 Jan 2020 11:31:18 -0500
-In-Reply-To: <20200114161505.GA48507@lobo> (Mike Snitzer's message of "Tue, 14
-	Jan 2020 11:15:05 -0500")
-Message-ID: <85pnfmyp7t.fsf@collabora.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1 (gnu/linux)
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9CE49277A5;
+	Wed, 15 Jan 2020 09:35:22 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 00F9ZMgd011096; Wed, 15 Jan 2020 04:35:22 -0500
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 00F9ZMGF011093; Wed, 15 Jan 2020 04:35:22 -0500
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Wed, 15 Jan 2020 04:35:22 -0500 (EST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Mike Snitzer <msnitzer@redhat.com>, Nikhil Kshirsagar <nkshirsa@redhat.com>
+Message-ID: <alpine.LRH.2.02.2001150432500.10972@file01.intranet.prod.int.rdu2.redhat.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-X-MC-Unique: hEad75BuMa2KwN7lVyrP4Q-1
-X-MC-Unique: OquB6bC3NpK5fEflai1Y8w-1
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 00EGVSFa020865
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Wed, 15 Jan 2020 03:37:26 -0500
-Cc: dm-devel@redhat.com, kernel@collabora.com, khazhy@google.com
-Subject: Re: [dm-devel] [PATCH v2] dm mpath: Add timeout mechanism for
-	queue_if_no_path
+Cc: dm-devel@redhat.com
+Subject: [dm-devel] [PATCH] dm-writecache: improve performance of large
+ linear writes on SSDs
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,85 +74,110 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-MC-Unique: gFG-tJYfODetnQKZEamzjQ-1
 X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Mike Snitzer <snitzer@redhat.com> writes:
+When dm-writecache is used with SSD as a cache device, it would submit
+separate bio for each written block. The I/Os would be merged by the disk
+scheduler, but this merging degrades performance.
 
-> On Mon, Jan 13 2020 at  5:41P -0500,
-> Gabriel Krisman Bertazi <krisman@collabora.com> wrote:
->
->> From: Anatol Pomazau <anatol@google.com>
->> 
->> Add a configurable timeout mechanism to disable queue_if_no_path without
->> assistance from multipathd.  In reality, this reimplements the
->> no_path_retry mechanism from multipathd in kernel space, which is
->> interesting to prevent processes from hanging indefinitely in cases
->> where the daemon might be unable to respond, after a failure or for
->> whatever reason.
->> 
->> Despite replicating the policy configuration on kernel space, it is
->> quite an important case to prevent IOs from hanging forever, waiting for
->> userspace to behave correctly.
->> 
->> v2:
->>   - Use a module parameter instead of configuring per table
->>   - Simplify code
->> 
->> Co-developed-by: Frank Mayhar <fmayhar@google.com>
->> Signed-off-by: Frank Mayhar <fmayhar@google.com>
->> Co-developed-by: Bharath Ravi <rbharath@google.com>
->> Signed-off-by: Bharath Ravi <rbharath@google.com>
->> Co-developed-by: Khazhismel Kumykov <khazhy@google.com>
->> Signed-off-by: Khazhismel Kumykov <khazhy@google.com>
->> Signed-off-by: Anatol Pomazau <anatol@google.com>
->> Co-developed-by: Gabriel Krisman Bertazi <krisman@collabora.com>
->> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
->
-> All these tags seem rather excessive (especially in that you aren't cc
-> most of them on the submission).  Please review/scrub.  Just seems odd
-> that so many had a hand in this relatively small patch.
+This patch makes dm-writecache submit larger bios - we can submit large
+bio as long as there is consecutive free space on the cache device.
 
-Hey,
+Benchmark (arm64 with 64k page size, using /dev/ram0 as a cache device):
 
-I removed some of the Cc's because those emails addresses were bouncing.
-Still, I kept the lines for credits.  I got the bounces when sending v1.
+fio --bs=512k --iodepth=32 --size=400M --direct=1 --filename=/dev/mapper/cache --rw=randwrite --numjobs=1 --name=test
 
-> The Signed-off-by for anatol@google.com seems wrong, or did Anatol
-> shephard this patch at some point?  Or did you mean Reviewed-by?
-> Something else?
+block	old	new
+size	MiB/s	MiB/s
+---------------------
+512	181	700
+1k	347	1256
+2k	644	2020
+4k	1183	2759
+8k	1852	3333
+16k	2469	3509
+32k	2974	3670
+64k	3404	3810
 
-Anatol was the main author, as listed in the From: header.  This
-seems correct with regard to the ordering rules of
-Documentation/process/submitting-patches.rst, in particular the second
-example, (Example of a patch submitted by a Co-developed-by: author::).
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
-Am I missing something?
+---
+ drivers/md/dm-writecache.c |   28 ++++++++++++++++++++++++----
+ 1 file changed, 24 insertions(+), 4 deletions(-)
 
->
-> Anyway, if in the end you hold these tags to reflect the development
-> evolution of this patch then so be it ;)
->
-> I've reviewed the changes and found various things I felt were
-> worthwhile to modify.  Summary:
->
-> - included missing <linux/timer.h>
-> - added MODULE_PARM_DESC
-> - moved new functions to reduce needed forward declarations
-> - tweaked queue_if_no_path_timeout_work's DMWARN message
-> - added lockdep_assert_held to enable_nopath_timeout
-> - renamed static queue_if_no_path_timeout to queue_if_no_path_timeout_secs
-> - use READ_ONCE when accessing queue_if_no_path_timeout_secs
->
-
-The changes you made look good to me and your version of the patch
-passes my testcase.
-
--- 
-Gabriel Krisman Bertazi
-
+Index: linux-2.6/drivers/md/dm-writecache.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-writecache.c	2020-01-14 16:11:09.000000000 +0100
++++ linux-2.6/drivers/md/dm-writecache.c	2020-01-14 21:42:44.000000000 +0100
+@@ -626,7 +626,7 @@ static void writecache_add_to_freelist(s
+ 	wc->freelist_size++;
+ }
+ 
+-static struct wc_entry *writecache_pop_from_freelist(struct dm_writecache *wc)
++static struct wc_entry *writecache_pop_from_freelist(struct dm_writecache *wc, sector_t expected_sector)
+ {
+ 	struct wc_entry *e;
+ 
+@@ -635,6 +635,8 @@ static struct wc_entry *writecache_pop_f
+ 		if (unlikely(!wc->current_free))
+ 			return NULL;
+ 		e = wc->current_free;
++		if (expected_sector != (sector_t)-1 && unlikely(cache_sector(wc, e) != expected_sector))
++			return NULL;
+ 		next = rb_next(&e->rb_node);
+ 		rb_erase(&e->rb_node, &wc->freetree);
+ 		if (unlikely(!next))
+@@ -644,6 +646,8 @@ static struct wc_entry *writecache_pop_f
+ 		if (unlikely(list_empty(&wc->freelist)))
+ 			return NULL;
+ 		e = container_of(wc->freelist.next, struct wc_entry, lru);
++		if (expected_sector != (sector_t)-1 && unlikely(cache_sector(wc, e) != expected_sector))
++			return NULL;
+ 		list_del(&e->lru);
+ 	}
+ 	wc->freelist_size--;
+@@ -1194,7 +1198,7 @@ read_next_block:
+ 					goto bio_copy;
+ 				}
+ 			}
+-			e = writecache_pop_from_freelist(wc);
++			e = writecache_pop_from_freelist(wc, (sector_t)-1);
+ 			if (unlikely(!e)) {
+ 				writecache_wait_on_freelist(wc);
+ 				continue;
+@@ -1206,9 +1210,25 @@ bio_copy:
+ 			if (WC_MODE_PMEM(wc)) {
+ 				bio_copy_block(wc, bio, memory_data(wc, e));
+ 			} else {
+-				dm_accept_partial_bio(bio, wc->block_size >> SECTOR_SHIFT);
++				unsigned bio_size = wc->block_size;
++				sector_t start_cache_sec = cache_sector(wc, e);
++				sector_t current_cache_sec = start_cache_sec + (bio_size >> SECTOR_SHIFT);
++
++				while (bio_size < bio->bi_iter.bi_size) {
++					struct wc_entry *f = writecache_pop_from_freelist(wc, current_cache_sec);
++					if (!f)
++						break;
++					write_original_sector_seq_count(wc, f, bio->bi_iter.bi_sector + (bio_size >> SECTOR_SHIFT), wc->seq_count);
++					writecache_insert_entry(wc, f);
++					wc->uncommitted_blocks++;
++					bio_size += wc->block_size;
++					current_cache_sec += wc->block_size >> SECTOR_SHIFT;
++				}
++
+ 				bio_set_dev(bio, wc->ssd_dev->bdev);
+-				bio->bi_iter.bi_sector = cache_sector(wc, e);
++				bio->bi_iter.bi_sector = start_cache_sec;
++				dm_accept_partial_bio(bio, bio_size >> SECTOR_SHIFT);
++
+ 				if (unlikely(wc->uncommitted_blocks >= wc->autocommit_blocks)) {
+ 					wc->uncommitted_blocks = 0;
+ 					queue_work(wc->writeback_wq, &wc->flush_work);
 
 --
 dm-devel mailing list
