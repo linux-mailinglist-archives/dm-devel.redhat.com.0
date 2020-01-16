@@ -2,105 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 3A33713D1CC
-	for <lists+dm-devel@lfdr.de>; Thu, 16 Jan 2020 03:00:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 42EF613D26B
+	for <lists+dm-devel@lfdr.de>; Thu, 16 Jan 2020 04:03:39 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1579140041;
+	s=mimecast20190719; t=1579143818;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=cwb5HSRpsslOVnIAaGqO22n+BdSQ7GnMr+6ticDi75w=;
-	b=JrzzkhaoWz/sCn0woExxtf0lnQWFYA10VN6cEKLdBLPvjSEBdqIhekANopa1yVOSy4/o0x
-	y1PvBkSAHcPC43jxZU6h5ekHMrJCXqD6uJr+utS54EDjOGquiwX1PE7f+wk4hX3SjqoPQB
-	CYRjVGfUlI1/lU1Lwk5L4WVp0bZWFOM=
+	bh=jkTzmGNBM7ECdXfTI7Zr0+O7ylKRURdstNQgzrqkg4g=;
+	b=O0IYkcxCweh0+H9qMcL51tAKPIUqA79OnLKKnyuxDGJj7dq3rBNFUG+4PbAXT/3Ar9+iQa
+	GOX1KPcy2rdmki4QP/EyYtcxmeqQrze1isY//UhrgOtuByrxEJn7tnrRHPQj458MmbSAKu
+	3VhxF18zxE+91yjrZbc4HCrmIrokPPM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-285-9vqPDfY5PiSytsrY0wUVSw-1; Wed, 15 Jan 2020 21:00:38 -0500
+ us-mta-249-RBN8kjecPAmIPq_UIMkslQ-1; Wed, 15 Jan 2020 22:03:36 -0500
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B3BE4477;
-	Thu, 16 Jan 2020 02:00:27 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 260F9811EE;
-	Thu, 16 Jan 2020 02:00:21 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B4BE6DB60;
+	Thu, 16 Jan 2020 03:03:28 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4757E811E7;
+	Thu, 16 Jan 2020 03:03:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 50D72845DF;
-	Thu, 16 Jan 2020 02:00:01 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D85B118089C8;
+	Thu, 16 Jan 2020 03:03:12 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00G1xi2E014347 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 15 Jan 2020 20:59:44 -0500
+	id 00G32vdk017394 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 15 Jan 2020 22:02:57 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 201BFB350E; Thu, 16 Jan 2020 01:59:44 +0000 (UTC)
+	id 38BAE46; Thu, 16 Jan 2020 03:02:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1C30DED164
-	for <dm-devel@redhat.com>; Thu, 16 Jan 2020 01:59:41 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6A789803872
-	for <dm-devel@redhat.com>; Thu, 16 Jan 2020 01:59:41 +0000 (UTC)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-1-Nfxa97nJMf6OOLnZq8sJOA-1; Wed, 15 Jan 2020 20:59:37 -0500
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
-	by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
-	00G1vwbl045643; Thu, 16 Jan 2020 01:59:34 GMT
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
-	by userp2120.oracle.com with ESMTP id 2xf73yqr3p-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 16 Jan 2020 01:59:34 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
-	by userp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
-	00G1rohe153343; Thu, 16 Jan 2020 01:59:34 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
-	by userp3030.oracle.com with ESMTP id 2xhy22e618-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 16 Jan 2020 01:59:34 +0000
-Received: from abhmp0013.oracle.com (abhmp0013.oracle.com [141.146.116.19])
-	by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 00G1xWLO032402;
-	Thu, 16 Jan 2020 01:59:33 GMT
-Received: from ca-mkp.ca.oracle.com (/10.159.214.123)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Wed, 15 Jan 2020 17:59:31 -0800
+Received: from ming.t460p (ovpn-8-17.pek2.redhat.com [10.72.8.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 70E83390;
+	Thu, 16 Jan 2020 03:02:48 +0000 (UTC)
+Date: Thu, 16 Jan 2020 11:02:44 +0800
+From: Ming Lei <ming.lei@redhat.com>
 To: Mikulas Patocka <mpatocka@redhat.com>
-From: "Martin K. Petersen" <martin.petersen@oracle.com>
-Organization: Oracle Corporation
+Message-ID: <20200116030244.GB24105@ming.t460p>
 References: <alpine.LRH.2.02.2001150833180.31494@file01.intranet.prod.int.rdu2.redhat.com>
-Date: Wed, 15 Jan 2020 20:59:29 -0500
-In-Reply-To: <alpine.LRH.2.02.2001150833180.31494@file01.intranet.prod.int.rdu2.redhat.com>
-	(Mikulas Patocka's message of "Wed, 15 Jan 2020 08:35:25 -0500 (EST)")
-Message-ID: <yq1sgkgp3em.fsf@oracle.com>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1.92 (gnu/linux)
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9501
-	signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
-	malwarescore=0
-	phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=742
-	adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.0.1-1911140001 definitions=main-2001160014
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9501
-	signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
-	priorityscore=1501 malwarescore=0
-	suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
-	lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=817
-	adultscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
-	definitions=main-2001160014
-X-MC-Unique: Nfxa97nJMf6OOLnZq8sJOA-1
-X-MC-Unique: 9vqPDfY5PiSytsrY0wUVSw-1
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 00G1xi2E014347
+In-Reply-To: <alpine.LRH.2.02.2001150833180.31494@file01.intranet.prod.int.rdu2.redhat.com>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
 Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
 	dm-devel@redhat.com, Mike Snitzer <msnitzer@redhat.com>
@@ -120,23 +69,26 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-MC-Unique: RBN8kjecPAmIPq_UIMkslQ-1
 X-Mimecast-Spam-Score: 0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+On Wed, Jan 15, 2020 at 08:35:25AM -0500, Mikulas Patocka wrote:
+> Logical block size has type unsigned short. That means that it can be at
+> most 32768. However, there are architectures that can run with 64k pages
+> (for example arm64) and on these architectures, it may be possible to
+> create block devices with 64k block size.
+
+The patch looks fine, and other drivers(loop, nbd, virtio_blk, ...) allow
+user to pass customized logical block size, and the passed size can be > 32k.
+
+Reviewed-by: Ming Lei <ming.lei@redhat.com>
 
 
-Mikulas,
-
-> This patch changes the logical block size from unsigned short to
-> unsigned int to avoid the overflow.
-
-Looks fine.
-
-Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
-
--- 
-Martin K. Petersen	Oracle Linux Engineering
-
+Thanks,
+Ming
 
 --
 dm-devel mailing list
