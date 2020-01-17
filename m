@@ -1,64 +1,64 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 3B8381401CD
-	for <lists+dm-devel@lfdr.de>; Fri, 17 Jan 2020 03:20:11 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id A8C8A1401C5
+	for <lists+dm-devel@lfdr.de>; Fri, 17 Jan 2020 03:19:10 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1579227609;
+	s=mimecast20190719; t=1579227549;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=mbOTTZhN12ag0VNmOt4c5x4+EctdQppSIAhgkFNsYcA=;
-	b=T+4tMelfXLG9505AZGWPFjWfUI/u+qfSf4LgF8PR07pyJMzlzen9pXyw0snNnBgxUo4JSa
-	zQM1MHSg/LHu2Q9RIaAeRtf0YVqg11mcR0sYpexQuJ8GZ6aFkTcbMHpfKcqBhI4EmHeghY
-	xfUT8G4jZ34VLAZsnjR3IH1pwyM0LWg=
+	bh=l7OVQlDj6XpBlicYM4lwDKq8J6lh4GG7FlQUmxFEtxM=;
+	b=Ka8GB01A9NIHjDJgGf0PYKfyfmR0MtXJWwUezww0RIoIevDUzEYGUDJmjdBDeNcJm6ytP7
+	c9Yc2Zu+BKiRzS99ZQR9OQK9xRtRcKbF6Y5e7hw7WUXyre0XHVRH8QseAFs0xl2imjBB25
+	6jRxFw6tKL+/8965Oa4hFGrplezEfKY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-333-HV-UcUb2P5OKtzVKUJnibQ-1; Thu, 16 Jan 2020 21:19:04 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-191-ibzfgC4dO3Wp2V82cF0EvA-1; Thu, 16 Jan 2020 21:19:08 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 32CD18010D5;
-	Fri, 17 Jan 2020 02:18:56 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 05BFC60FC2;
-	Fri, 17 Jan 2020 02:18:56 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 50C8F18AAFB1;
+	Fri, 17 Jan 2020 02:18:59 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2A8575D9C9;
+	Fri, 17 Jan 2020 02:18:59 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8F0B318089D6;
-	Fri, 17 Jan 2020 02:18:55 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B15A38708B;
+	Fri, 17 Jan 2020 02:18:58 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00H2IdDY030702 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 16 Jan 2020 21:18:39 -0500
+	id 00H2IhEp030726 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 16 Jan 2020 21:18:43 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7DECF88872; Fri, 17 Jan 2020 02:18:39 +0000 (UTC)
+	id 6BCE438B; Fri, 17 Jan 2020 02:18:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6895787ECD;
-	Fri, 17 Jan 2020 02:18:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0E12619C5B;
+	Fri, 17 Jan 2020 02:18:40 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 00H2IcFd017277; 
-	Thu, 16 Jan 2020 20:18:38 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 00H2IdZm017281; 
+	Thu, 16 Jan 2020 20:18:39 -0600
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 00H2Ibv9017276;
-	Thu, 16 Jan 2020 20:18:37 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 00H2IdMn017280;
+	Thu, 16 Jan 2020 20:18:39 -0600
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Thu, 16 Jan 2020 20:18:15 -0600
-Message-Id: <1579227500-17196-11-git-send-email-bmarzins@redhat.com>
+Date: Thu, 16 Jan 2020 20:18:16 -0600
+Message-Id: <1579227500-17196-12-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1579227500-17196-1-git-send-email-bmarzins@redhat.com>
 References: <1579227500-17196-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
 Cc: device-mapper development <dm-devel@redhat.com>,
 	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH 10/15] libmultipath: change how the checker async
-	is set
+Subject: [dm-devel] [PATCH 11/15] libmultipath: change failed path prio
+	timeout
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -73,75 +73,91 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-MC-Unique: HV-UcUb2P5OKtzVKUJnibQ-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-MC-Unique: ibzfgC4dO3Wp2V82cF0EvA-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The way that the checkers async mode worked in multipathd didn't make
-much sense. When multipathd starts up, all checker classes are in the
-sync mode, and any pathinfo() calls on devices would run the checker in
-sync mode. However, the First time a checker class was used in
-checkerloop, it would set that checker class to async (assuming
-force_sync wasn't set).  After that, no matter when a checker from that
-class was called, it would always run in async mode.  Multipathd doesn't
-need to run checkers in sync mode at all, so don't.
+multipath will try to get the priority from a PATH_DOWN path, if the
+path doesn't currently have a valid priority. However, if the priority
+code needs to contact the device to get the priority, this is likely to
+fail for PATH_DOWN paths.  This code dates back to when multipathd could
+not easily reload device tables with failed paths, so getting the
+correct priority was important to have a correctly configured device.
+Now multipathd can simply reload the device to move the path to the
+correct pathgroup when the path comes back up.  Since there are a number
+of prioritizers that don't require talking to the device, multipath
+shouldn't completely skip attempting to get the priority of these paths,
+but it should set a small timeout, so that it isn't hanging in the
+case where it needs to contact a device through a failed path.
 
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmpathpersist/mpath_persist.c |  2 +-
- libmultipath/discovery.c        | 10 ++++------
- multipath/main.c                |  1 +
- 3 files changed, 6 insertions(+), 7 deletions(-)
+ libmultipath/discovery.c | 14 ++++++--------
+ libmultipath/prio.c      |  2 +-
+ 2 files changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/libmpathpersist/mpath_persist.c b/libmpathpersist/mpath_persist.c
-index 603cfc3b..b2238f00 100644
---- a/libmpathpersist/mpath_persist.c
-+++ b/libmpathpersist/mpath_persist.c
-@@ -47,7 +47,7 @@ mpath_lib_init (void)
- 		condlog(0, "Failed to initialize multipath config.");
- 		return NULL;
- 	}
--
-+	conf->force_sync = 1;
- 	set_max_fds(conf->max_fds);
- 
- 	return conf;
 diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
-index d2773c3a..1ab093f4 100644
+index 1ab093f4..2c331db8 100644
 --- a/libmultipath/discovery.c
 +++ b/libmultipath/discovery.c
-@@ -1643,12 +1643,10 @@ get_state (struct path * pp, struct config *conf, int daemon, int oldstate)
- 	if (pp->mpp && !c->mpcontext)
- 		checker_mp_init(c, &pp->mpp->mpcontext);
- 	checker_clear_message(c);
--	if (daemon) {
--		if (conf->force_sync == 0)
--			checker_set_async(c);
--		else
--			checker_set_sync(c);
--	}
-+	if (conf->force_sync == 0)
-+		checker_set_async(c);
-+	else
-+		checker_set_sync(c);
- 	if (!conf->checker_timeout &&
- 	    sysfs_get_timeout(pp, &(c->timeout)) <= 0)
- 		c->timeout = DEF_TIMEOUT;
-diff --git a/multipath/main.c b/multipath/main.c
-index 4f4d8e89..aebabd9b 100644
---- a/multipath/main.c
-+++ b/multipath/main.c
-@@ -905,6 +905,7 @@ main (int argc, char *argv[])
- 		exit(RTVL_FAIL);
- 	multipath_conf = conf;
- 	conf->retrigger_tries = 0;
-+	conf->force_sync = 1;
- 	while ((arg = getopt(argc, argv, ":adcChl::FfM:v:p:b:BrR:itTquUwW")) != EOF ) {
- 		switch(arg) {
- 		case 1: printf("optarg : %s\n",optarg);
+@@ -1661,11 +1661,10 @@ get_state (struct path * pp, struct config *conf, int daemon, int oldstate)
+ }
+ 
+ static int
+-get_prio (struct path * pp)
++get_prio (struct path * pp, int timeout)
+ {
+ 	struct prio * p;
+ 	struct config *conf;
+-	int checker_timeout;
+ 	int old_prio;
+ 
+ 	if (!pp)
+@@ -1684,11 +1683,8 @@ get_prio (struct path * pp)
+ 			return 1;
+ 		}
+ 	}
+-	conf = get_multipath_config();
+-	checker_timeout = conf->checker_timeout;
+-	put_multipath_config(conf);
+ 	old_prio = pp->priority;
+-	pp->priority = prio_getprio(p, pp, checker_timeout);
++	pp->priority = prio_getprio(p, pp, timeout);
+ 	if (pp->priority < 0) {
+ 		/* this changes pp->offline, but why not */
+ 		int state = path_offline(pp);
+@@ -2095,11 +2091,13 @@ int pathinfo(struct path *pp, struct config *conf, int mask)
+ 
+ 	 /*
+ 	  * Retrieve path priority, even for PATH_DOWN paths if it has never
+-	  * been successfully obtained before.
++	  * been successfully obtained before. If path is down don't try
++	  * for too long.
+ 	  */
+ 	if ((mask & DI_PRIO) && path_state == PATH_UP && strlen(pp->wwid)) {
+ 		if (pp->state != PATH_DOWN || pp->priority == PRIO_UNDEF) {
+-			get_prio(pp);
++			get_prio(pp, (pp->state != PATH_DOWN)?
++				     (conf->checker_timeout * 1000) : 10);
+ 		}
+ 	}
+ 
+diff --git a/libmultipath/prio.c b/libmultipath/prio.c
+index 87de1f97..21c1b092 100644
+--- a/libmultipath/prio.c
++++ b/libmultipath/prio.c
+@@ -14,7 +14,7 @@ unsigned int get_prio_timeout(unsigned int checker_timeout,
+ 			      unsigned int default_timeout)
+ {
+ 	if (checker_timeout)
+-		return checker_timeout * 1000;
++		return checker_timeout;
+ 	return default_timeout;
+ }
+ 
 -- 
 2.17.2
 
