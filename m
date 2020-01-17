@@ -1,64 +1,63 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id A49D61401C4
-	for <lists+dm-devel@lfdr.de>; Fri, 17 Jan 2020 03:19:09 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 0A9A81401C6
+	for <lists+dm-devel@lfdr.de>; Fri, 17 Jan 2020 03:19:15 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1579227548;
+	s=mimecast20190719; t=1579227554;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=2E1y/MSxObOD3a97LQ4WnEslozilC9SFnr0+yriJJXw=;
-	b=fHr0Kw2Ea+T3J4rpVy6m97i8GGVao+2cDdUvt7uqbq3TA3uaxUfBnB1mGn0h6+xaDWGNoX
-	PJ4h/ewInntEkOTvb04DjtaieN1lmVBCoRlD4nUwLQEwTvts+dTfNtdVj9sg81thdlXABq
-	h1vlpPMKHxrupsR2bGDvmNKK4umMP9w=
+	bh=qDjUPrDt7drxUzQ2NEtfl+i1W+4eEmrqkyr1TPifmAQ=;
+	b=XdhFRl+19Rexqp5KRF/ZT/rwny9VETUBnfpGDeOLwlR+u/iK+1S9VnUysPen8UrqXhz2Mx
+	th/MejcQGiqVnG8BEMBAaa9bqNXap5PveWLn3NMtjKqZZpQua5QWwrLXSo+08F6GLYM3Ov
+	3woq/7kjXtc3lzNlAniHxeKqHyLz5jY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-17-K1_hxs2WMJ6n0wm_tkLzHA-1; Thu, 16 Jan 2020 21:19:07 -0500
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-171-UMsy9ZHzPO-wR6M6Z-uGSg-1; Thu, 16 Jan 2020 21:19:12 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 079FBDB30;
-	Fri, 17 Jan 2020 02:18:56 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CB7D21C947;
-	Fri, 17 Jan 2020 02:18:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 97916DB25;
+	Fri, 17 Jan 2020 02:19:06 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 716675C28D;
+	Fri, 17 Jan 2020 02:19:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6011187085;
-	Fri, 17 Jan 2020 02:18:55 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 016BE180880D;
+	Fri, 17 Jan 2020 02:19:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00H2Iotp030775 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 16 Jan 2020 21:18:50 -0500
+	id 00H2InEi030768 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 16 Jan 2020 21:18:49 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 164285DA75; Fri, 17 Jan 2020 02:18:50 +0000 (UTC)
+	id 5FDF380F64; Fri, 17 Jan 2020 02:18:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 96B175D9C9;
-	Fri, 17 Jan 2020 02:18:47 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2DAA280F5F;
+	Fri, 17 Jan 2020 02:18:49 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 00H2IkJK017293; 
-	Thu, 16 Jan 2020 20:18:46 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 00H2Il4q017297; 
+	Thu, 16 Jan 2020 20:18:48 -0600
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 00H2IjcG017292;
-	Thu, 16 Jan 2020 20:18:45 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 00H2Illc017296;
+	Thu, 16 Jan 2020 20:18:47 -0600
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Thu, 16 Jan 2020 20:18:19 -0600
-Message-Id: <1579227500-17196-15-git-send-email-bmarzins@redhat.com>
+Date: Thu, 16 Jan 2020 20:18:20 -0600
+Message-Id: <1579227500-17196-16-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1579227500-17196-1-git-send-email-bmarzins@redhat.com>
 References: <1579227500-17196-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
 Cc: device-mapper development <dm-devel@redhat.com>,
 	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH 14/15] libmultipath: make directio checker share
-	io contexts
+Subject: [dm-devel] [PATCH 15/15] tests: add directio unit tests
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -73,480 +72,744 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-MC-Unique: K1_hxs2WMJ6n0wm_tkLzHA-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-MC-Unique: UMsy9ZHzPO-wR6M6Z-uGSg-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On systems with a large number of cores (>500), io_destroy() can take
-tens to hundreds of milliseconds to complete, due to RCU
-synchronization. If there are a large number of paths using the directio
-checker on such a system, this can lead to multipath taking almost a
-minute to complete, with the vast majority of time taken up by
-io_destroy().
-
-To solve this, the directio checker now allocates one aio context for
-every 1024 checkers. This reduces the io_destroy() delay to a thousandth
-of its previous level. However, this means that muliple checkers are
-sharing the same aio context, and must be able to handle getting results
-for other checkers.  Because only one checker is ever running at a
-time, this doesn't require any locking.  However, locking could be added
-in the future if necessary, to allow multiple checkers to run at the
-same time.
-
-When checkers are freed, they usually no longer destroy the io context.
-Instead, they attempt to cancel any outstanding request. If that fails,
-they put the request on an orphan list, so that it can be freed by other
-checkers, once it has completed. IO contexts are only destroyed at three
-times, during reconfigure (to deal with the possibility that multipathd
-is holding more aio events than it needs to be, since there is a single
-limit for the whole system), when the checker class is unloaded, and
-in a corner case when checkers are freed. If an aio_group (which
-contains the aio context) is entirely full of orphaned requests, then
-no checker can use it. Since no checker is using it, there is no checker
-to clear out the orphaned requests. In this (likely rare) case, the
-last checker from that group to be freed and leave behind an orphaned
-request will call io_destroy() and remove the group.
-
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/checkers/directio.c | 337 +++++++++++++++++++++++++------
- 1 file changed, 278 insertions(+), 59 deletions(-)
+ tests/Makefile   |   3 +-
+ tests/directio.c | 704 +++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 706 insertions(+), 1 deletion(-)
+ create mode 100644 tests/directio.c
 
-diff --git a/libmultipath/checkers/directio.c b/libmultipath/checkers/directio.c
-index 1b00b775..0863db2a 100644
---- a/libmultipath/checkers/directio.c
-+++ b/libmultipath/checkers/directio.c
-@@ -17,6 +17,33 @@
+diff --git a/tests/Makefile b/tests/Makefile
+index a5cdf390..275fdd7d 100644
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -3,7 +3,8 @@ include ../Makefile.inc
+ CFLAGS += $(BIN_CFLAGS) -I$(multipathdir) -I$(mpathcmddir)
+ LIBDEPS += -L$(multipathdir) -lmultipath -lcmocka
  
- #include "checkers.h"
- #include "../libmultipath/debug.h"
-+#include "../libmultipath/time-util.h"
-+
-+#define AIO_GROUP_SIZE 1024
-+
-+/* Note: This checker type relies on the fact that only one checker can be run
-+ * at a time, since multiple checkers share the same aio_group, and must be
-+ * able to modify other checker's async_reqs. If multple checkers become able
-+ * to be run at the same time, this checker will need to add locking, and
-+ * probably polling on event fds, to deal with that */
-+
-+struct aio_group {
-+	struct list_head node;
-+	int holders;
-+	io_context_t ioctx;
-+	struct list_head orphans;
-+};
-+
-+struct async_req {
-+	struct iocb io;
-+	int blksize;
-+	unsigned char *	buf;
-+	unsigned char * ptr;
-+	struct list_head node;
-+	int state; /* PATH_REMOVED means this is an orphan */
-+};
-+
-+static LIST_HEAD(aio_grp_list);
+-TESTS := uevent parser util dmevents hwtable blacklist unaligned vpd pgpolicy
++TESTS := uevent parser util dmevents hwtable blacklist unaligned vpd pgpolicy \
++	 directio
  
- enum {
- 	MSG_DIRECTIO_UNKNOWN = CHECKER_FIRST_MSGID,
-@@ -37,18 +64,134 @@ const char *libcheck_msgtable[] = {
- struct directio_context {
- 	int		running;
- 	int		reset_flags;
--	int		blksize;
--	unsigned char *	buf;
--	unsigned char * ptr;
--	io_context_t	ioctx;
--	struct iocb	io;
-+	struct aio_group *aio_grp;
-+	struct async_req *req;
- };
- 
-+static struct aio_group *
-+add_aio_group(void)
+ .SILENT: $(TESTS:%=%.o)
+ .PRECIOUS: $(TESTS:%=%-test)
+diff --git a/tests/directio.c b/tests/directio.c
+new file mode 100644
+index 00000000..c64d21d2
+--- /dev/null
++++ b/tests/directio.c
+@@ -0,0 +1,704 @@
++/*
++ * Copyright (c) 2018 Benjamin Marzinski, Redhat
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version 2
++ * of the License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
++ *
++ */
++
++#define _GNU_SOURCE
++#include <stdint.h>
++#include <stdbool.h>
++#include <stdarg.h>
++#include <stddef.h>
++#include <setjmp.h>
++#include <stdlib.h>
++#define UNIT_TESTING /* enable memory testing in directio.c */
++#include <cmocka.h>
++#include "globals.c"
++#include "../libmultipath/checkers/directio.c"
++
++int test_fd = 111;
++int ioctx_count = 0;
++struct io_event mock_events[AIO_GROUP_SIZE]; /* same as the checker max */
++int ev_off = 0;
++struct timespec zero_timeout = {0};
++struct timespec full_timeout = { .tv_sec = -1 };
++
++int __wrap_ioctl(int fd, unsigned long request, void *argp)
 +{
-+	struct aio_group *aio_grp;
++	int *blocksize = (int *)argp;
 +
-+	aio_grp = malloc(sizeof(struct aio_group));
-+	if (!aio_grp)
-+		return NULL;
-+	memset(aio_grp, 0, sizeof(struct aio_group));
-+	INIT_LIST_HEAD(&aio_grp->orphans);
-+
-+	if (io_setup(AIO_GROUP_SIZE, &aio_grp->ioctx) != 0) {
-+		LOG(1, "io_setup failed");
-+		free(aio_grp);
-+		return NULL;
-+	}
-+	list_add(&aio_grp->node, &aio_grp_list);
-+	return aio_grp;
-+}
-+
-+static int
-+set_aio_group(struct directio_context *ct)
-+{
-+	struct aio_group *aio_grp = NULL;
-+
-+	list_for_each_entry(aio_grp, &aio_grp_list, node)
-+		if (aio_grp->holders < AIO_GROUP_SIZE)
-+			goto found;
-+	aio_grp = add_aio_group();
-+	if (!aio_grp) {
-+		ct->aio_grp = NULL;
-+		return -1;
-+	}
-+found:
-+	aio_grp->holders++;
-+	ct->aio_grp = aio_grp;
++	assert_int_equal(fd, test_fd);
++	assert_int_equal(request, BLKBSZGET);
++	assert_non_null(blocksize);
++	*blocksize = mock_type(int);
 +	return 0;
 +}
 +
-+static void
-+remove_aio_group(struct aio_group *aio_grp)
++int __wrap_fcntl(int fd, int cmd, long arg)
 +{
-+	struct async_req *req, *tmp;
-+
-+	io_destroy(aio_grp->ioctx);
-+	list_for_each_entry_safe(req, tmp, &aio_grp->orphans, node) {
-+		list_del(&req->node);
-+		free(req->buf);
-+		free(req);
-+	}
-+	list_del(&aio_grp->node);
-+	free(aio_grp);
++	assert_int_equal(fd, test_fd);
++	assert_int_equal(cmd, F_GETFL);
++	return O_DIRECT;
 +}
 +
-+/* If an aio_group is completely full of orphans, then no checkers can
-+ * use it, which means that no checkers can clear out the orphans. To
-+ * avoid keeping the useless group around, simply remove remove the
-+ * group */
-+static void
-+check_orphaned_group(struct aio_group *aio_grp)
++int __wrap___fxstat(int ver, int fd, struct stat *statbuf)
++{
++	assert_int_equal(fd, test_fd);
++	assert_non_null(statbuf);
++	memset(statbuf, 0, sizeof(struct stat));
++	return 0;
++}
++
++int __wrap_io_setup(int maxevents, io_context_t *ctxp)
++{
++	ioctx_count++;
++	return mock_type(int);
++}
++
++int __wrap_io_destroy(io_context_t ctx)
++{
++	ioctx_count--;
++	return mock_type(int);
++}
++
++int __wrap_io_submit(io_context_t ctx, long nr, struct iocb *ios[])
++{
++	return mock_type(int);
++}
++
++int __wrap_io_cancel(io_context_t ctx, struct iocb *iocb, struct io_event *evt)
++{
++	return mock_type(int);
++}
++
++int __wrap_io_getevents(io_context_t ctx, long min_nr, long nr,
++			struct io_event *events, struct timespec *timeout)
++{
++	int i, nr_evs;
++	struct timespec *sleep_tmo;
++	struct io_event *evs;
++
++	assert_non_null(timeout);
++	nr_evs = mock_type(int);
++	assert_true(nr_evs <= nr);
++	if (!nr_evs)
++		return 0;
++	sleep_tmo = mock_ptr_type(struct timespec *);
++	if (sleep_tmo) {
++		if (sleep_tmo->tv_sec < 0)
++			nanosleep(timeout, NULL);
++		else
++			nanosleep(sleep_tmo, NULL);
++	}
++	if (nr_evs < 0) {
++		errno = -nr_evs;
++		return -1;
++	}
++	evs = mock_ptr_type(struct io_event *);
++	for (i = 0; i < nr_evs; i++)
++		events[i] = evs[i];
++	ev_off -= nr_evs;
++	return nr_evs;
++}
++
++static void return_io_getevents_none(void)
++{
++	will_return(__wrap_io_getevents, 0);
++}
++
++static void return_io_getevents_nr(struct timespec *ts, int nr,
++				   struct async_req **reqs, int *res)
++{
++	int i, off = 0;
++
++	for(i = 0; i < nr; i++) {
++		mock_events[i + ev_off].obj = &reqs[i]->io;
++		if (res[i] == 0)
++			mock_events[i + ev_off].res = reqs[i]->blksize;
++	}
++	while (nr > 0) {
++		will_return(__wrap_io_getevents, (nr > 128)? 128 : nr);
++		will_return(__wrap_io_getevents, ts);
++		will_return(__wrap_io_getevents, &mock_events[off + ev_off]);
++		ts = NULL;
++		off += 128;
++		nr -= 128;
++	}
++	if (nr == 0)
++		will_return(__wrap_io_getevents, 0);
++	ev_off += i;
++}
++
++void do_check_state(struct checker *c, int sync, int timeout, int chk_state)
++{
++	struct directio_context * ct = (struct directio_context *)c->context;
++
++	if (!ct->running)
++		will_return(__wrap_io_submit, 1);
++	assert_int_equal(check_state(test_fd, ct, sync, timeout), chk_state);
++	assert_int_equal(ev_off, 0);
++	memset(mock_events, 0, sizeof(mock_events));
++}
++
++void do_libcheck_unload(int nr_aio_grps)
++{
++	int count = 0;
++	struct aio_group *aio_grp;
++
++	list_for_each_entry(aio_grp, &aio_grp_list, node)
++		count++;
++	assert_int_equal(count, nr_aio_grps);
++	for (count = 0; count < nr_aio_grps; count++)
++		will_return(__wrap_io_destroy, 0);
++	libcheck_unload();
++	assert_true(list_empty(&aio_grp_list));
++	assert_int_equal(ioctx_count, 0);
++}
++
++static void do_libcheck_init(struct checker *c, int blocksize,
++			     struct async_req **req)
++{
++	struct directio_context * ct;
++
++	c->fd = test_fd;
++	will_return(__wrap_ioctl, blocksize);
++	assert_int_equal(libcheck_init(c), 0);
++	ct = (struct directio_context *)c->context;
++	assert_non_null(ct);
++	assert_non_null(ct->aio_grp);
++	assert_non_null(ct->req);
++	if (req)
++		*req = ct->req;
++	assert_int_equal(ct->req->blksize, blocksize);
++}
++
++static int is_checker_running(struct checker *c)
++{
++	struct directio_context * ct = (struct directio_context *)c->context;
++	return ct->running;
++}
++
++static struct aio_group *get_aio_grp(struct checker *c)
++{
++	struct directio_context * ct = (struct directio_context *)c->context;
++
++	assert_non_null(ct);
++	return ct->aio_grp;
++}
++
++static void check_aio_grp(struct aio_group *aio_grp, int holders,
++			  int orphans)
 +{
 +	int count = 0;
 +	struct list_head *item;
 +
-+	if (aio_grp->holders < AIO_GROUP_SIZE)
-+		return;
 +	list_for_each(item, &aio_grp->orphans)
 +		count++;
-+	if (count >= AIO_GROUP_SIZE) {
-+		remove_aio_group(aio_grp);
-+		if (list_empty(&aio_grp_list))
-+			add_aio_group();
-+	}
++	assert_int_equal(holders, aio_grp->holders);
++	assert_int_equal(orphans, count);
 +}
 +
-+int libcheck_load (void)
++static void do_libcheck_load(void)
 +{
-+	if (add_aio_group() == NULL) {
-+		LOG(1, "libcheck_load failed: %s", strerror(errno));
-+		return 1;
-+	}
-+	return 0;
-+}
++	int count = 0;
++	struct aio_group *aio_grp;
 +
-+void libcheck_unload (void)
-+{
-+	struct aio_group *aio_grp, *tmp;
-+
-+	list_for_each_entry_safe(aio_grp, tmp, &aio_grp_list, node)
-+		remove_aio_group(aio_grp);
-+}
-+
-+int libcheck_reset (void)
-+{
-+	struct aio_group *aio_grp, *tmp, *reset_grp = NULL;
-+
-+	/* If a clean existing aio_group exists, use that. Otherwise add a
-+	 * new one */
++	assert_true(list_empty(&aio_grp_list));
++	will_return(__wrap_io_setup, 0);
++	assert_int_equal(libcheck_load(), 0);
 +	list_for_each_entry(aio_grp, &aio_grp_list, node) {
-+		if (aio_grp->holders == 0 &&
-+		    list_empty(&aio_grp->orphans)) {
-+			reset_grp = aio_grp;
-+			break;
-+		}
++		assert_int_equal(aio_grp->holders, 0);
++		count++;
 +	}
-+	if (!reset_grp)
-+		reset_grp = add_aio_group();
-+	if (!reset_grp) {
-+		LOG(1, "checker reset failed");
-+		return 1;
-+	}
-+
-+	list_for_each_entry_safe(aio_grp, tmp, &aio_grp_list, node) {
-+		if (aio_grp != reset_grp)
-+			remove_aio_group(aio_grp);
-+	}
-+	return 0;
-+}
- 
- int libcheck_init (struct checker * c)
- {
- 	unsigned long pgsize = getpagesize();
- 	struct directio_context * ct;
-+	struct async_req *req = NULL;
- 	long flags;
- 
- 	ct = malloc(sizeof(struct directio_context));
-@@ -56,26 +199,31 @@ int libcheck_init (struct checker * c)
- 		return 1;
- 	memset(ct, 0, sizeof(struct directio_context));
- 
--	if (io_setup(1, &ct->ioctx) != 0) {
--		condlog(1, "io_setup failed");
--		free(ct);
--		return 1;
-+	if (set_aio_group(ct) < 0)
-+		goto out;
-+
-+	req = malloc(sizeof(struct async_req));
-+	if (!req) {
-+		goto out;
- 	}
-+	memset(req, 0, sizeof(struct async_req));
-+	INIT_LIST_HEAD(&req->node);
- 
--	if (ioctl(c->fd, BLKBSZGET, &ct->blksize) < 0) {
-+	if (ioctl(c->fd, BLKBSZGET, &req->blksize) < 0) {
- 		c->msgid = MSG_DIRECTIO_BLOCKSIZE;
--		ct->blksize = 512;
-+		req->blksize = 512;
- 	}
--	if (ct->blksize > 4096) {
-+	if (req->blksize > 4096) {
- 		/*
- 		 * Sanity check for DASD; BSZGET is broken
- 		 */
--		ct->blksize = 4096;
-+		req->blksize = 4096;
- 	}
--	if (!ct->blksize)
-+	if (!req->blksize)
- 		goto out;
--	ct->buf = (unsigned char *)malloc(ct->blksize + pgsize);
--	if (!ct->buf)
-+
-+	req->buf = (unsigned char *)malloc(req->blksize + pgsize);
-+	if (!req->buf)
- 		goto out;
- 
- 	flags = fcntl(c->fd, F_GETFL);
-@@ -88,17 +236,22 @@ int libcheck_init (struct checker * c)
- 		ct->reset_flags = 1;
- 	}
- 
--	ct->ptr = (unsigned char *) (((unsigned long)ct->buf + pgsize - 1) &
-+	req->ptr = (unsigned char *) (((unsigned long)req->buf + pgsize - 1) &
- 		  (~(pgsize - 1)));
- 
- 	/* Successfully initialized, return the context. */
-+	ct->req = req;
- 	c->context = (void *) ct;
- 	return 0;
- 
- out:
--	if (ct->buf)
--		free(ct->buf);
--	io_destroy(ct->ioctx);
-+	if (req) {
-+		if (req->buf)
-+			free(req->buf);
-+		free(req);
-+	}
-+	if (ct->aio_grp)
-+		ct->aio_grp->holders--;
- 	free(ct);
- 	return 1;
- }
-@@ -106,6 +259,7 @@ out:
- void libcheck_free (struct checker * c)
- {
- 	struct directio_context * ct = (struct directio_context *)c->context;
-+	struct io_event event;
- 	long flags;
- 
- 	if (!ct)
-@@ -121,20 +275,73 @@ void libcheck_free (struct checker * c)
- 		}
- 	}
- 
--	if (ct->buf)
--		free(ct->buf);
--	io_destroy(ct->ioctx);
-+	if (ct->running &&
-+	    (ct->req->state != PATH_PENDING ||
-+	     io_cancel(ct->aio_grp->ioctx, &ct->req->io, &event) == 0))
-+		ct->running = 0;
-+	if (!ct->running) {
-+		free(ct->req->buf);
-+		free(ct->req);
-+		ct->aio_grp->holders--;
-+	} else {
-+		LOG(3, "io_cancel error while freeing: %i", errno);
-+		ct->req->state = PATH_REMOVED;
-+		list_add(&ct->req->node, &ct->aio_grp->orphans);
-+		check_orphaned_group(ct->aio_grp);
-+	}
-+
- 	free(ct);
-+	c->context = NULL;
++	assert_int_equal(count, 1);
 +}
 +
-+static int
-+get_events(struct aio_group *aio_grp, struct timespec *timeout)
++/* simple loading resetting and unloading test */
++static void test_load_reset_unload(void **state)
 +{
-+	struct io_event events[128];
-+	int i, nr, got_events = 0;
-+	struct timespec zero_timeout = {0};
-+	struct timespec *timep = (timeout)? timeout : &zero_timeout;
++	struct list_head *item;
++	do_libcheck_load();
++	item = aio_grp_list.next;
++	assert_int_equal(libcheck_reset(), 0);
++	assert_false(list_empty(&aio_grp_list));
++	assert_true(item == aio_grp_list.next);
++	do_libcheck_unload(1);
++}
 +
-+	do {
-+		errno = 0;
-+		nr = io_getevents(aio_grp->ioctx, 1, 128, events, timep);
-+		got_events |= (nr > 0);
++/* test initializing and then freeing 4096 checkers */
++static void test_init_free(void **state)
++{
++	int i, count = 0;
++	struct checker c[4096] = {0};
++	struct aio_group *aio_grp;
 +
-+		for (i = 0; i < nr; i++) {
-+			struct async_req *req = container_of(events[i].obj, struct async_req, io);
++	do_libcheck_load();
++	aio_grp = list_entry(aio_grp_list.next, typeof(*aio_grp), node);
++	will_return(__wrap_io_setup, 0);
++	will_return(__wrap_io_setup, 0);
++	will_return(__wrap_io_setup, 0);
++	for (i = 0; i < 4096; i++) {
++		struct directio_context * ct;
 +
-+			LOG(3, "io finished %lu/%lu", events[i].res,
-+			    events[i].res2);
-+
-+			/* got an orphaned request */
-+			if (req->state == PATH_REMOVED) {
-+				list_del(&req->node);
-+				free(req->buf);
-+				free(req);
-+				aio_grp->holders--;
-+			} else
-+				req->state = (events[i].res == req->blksize) ?
-+					      PATH_UP : PATH_DOWN;
-+		}
-+		timep = &zero_timeout;
-+	} while (nr == 128); /* assume there are more events and try again */
-+
-+	if (nr < 0)
-+		LOG(3, "async io getevents returned %i (errno=%s)",
-+		    nr, strerror(errno));
-+
-+	return got_events;
- }
- 
- static int
- check_state(int fd, struct directio_context *ct, int sync, int timeout_secs)
- {
- 	struct timespec	timeout = { .tv_nsec = 5 };
--	struct io_event event;
- 	struct stat	sb;
--	int		rc = PATH_UNCHECKED;
-+	int		rc;
- 	long		r;
-+	struct timespec currtime, endtime;
-+	struct timespec *timep = &timeout;
- 
- 	if (fstat(fd, &sb) == 0) {
- 		LOG(4, "called for %x", (unsigned) sb.st_rdev);
-@@ -145,50 +352,62 @@ check_state(int fd, struct directio_context *ct, int sync, int timeout_secs)
- 		timeout.tv_nsec = 0;
- 	}
- 
--	if (!ct->running) {
--		struct iocb *ios[1] = { &ct->io };
-+	if (ct->running) {
-+		if (ct->req->state != PATH_PENDING) {
-+			ct->running = 0;
-+			return ct->req->state;
-+		}
-+	} else {
-+		struct iocb *ios[1] = { &ct->req->io };
- 
- 		LOG(3, "starting new request");
--		memset(&ct->io, 0, sizeof(struct iocb));
--		io_prep_pread(&ct->io, fd, ct->ptr, ct->blksize, 0);
--		if (io_submit(ct->ioctx, 1, ios) != 1) {
-+		memset(&ct->req->io, 0, sizeof(struct iocb));
-+		io_prep_pread(&ct->req->io, fd, ct->req->ptr,
-+			      ct->req->blksize, 0);
-+		ct->req->state = PATH_PENDING;
-+		if (io_submit(ct->aio_grp->ioctx, 1, ios) != 1) {
- 			LOG(3, "io_submit error %i", errno);
- 			return PATH_UNCHECKED;
- 		}
- 	}
- 	ct->running++;
- 
--	errno = 0;
--	r = io_getevents(ct->ioctx, 1L, 1L, &event, &timeout);
-+	get_monotonic_time(&endtime);
-+	endtime.tv_sec += timeout.tv_sec;
-+	endtime.tv_nsec += timeout.tv_nsec;
-+	normalize_timespec(&endtime);
-+	while(1) {
-+		r = get_events(ct->aio_grp, timep);
- 
--	if (r < 0 ) {
--		LOG(3, "async io getevents returned %li (errno=%s)", r,
--		    strerror(errno));
--		ct->running = 0;
--		rc = PATH_UNCHECKED;
--	} else if (r < 1L) {
--		if (ct->running > timeout_secs || sync) {
--			struct iocb *ios[1] = { &ct->io };
--
--			LOG(3, "abort check on timeout");
--			r = io_cancel(ct->ioctx, ios[0], &event);
--			/*
--			 * Only reset ct->running if we really
--			 * could abort the pending I/O
--			 */
--			if (r)
--				LOG(3, "io_cancel error %i", errno);
--			else
--				ct->running = 0;
--			rc = PATH_DOWN;
--		} else {
--			LOG(3, "async io pending");
--			rc = PATH_PENDING;
--		}
-+		if (ct->req->state != PATH_PENDING) {
-+			ct->running = 0;
-+			return ct->req->state;
-+		} else if (r == 0 || !timep)
-+			break;
-+
-+		get_monotonic_time(&currtime);
-+		timespecsub(&endtime, &currtime, &timeout);
-+		if (timeout.tv_sec < 0)
-+			timep = NULL;
-+	}
-+	if (ct->running > timeout_secs || sync) {
-+		struct io_event event;
-+
-+		LOG(3, "abort check on timeout");
-+
-+		r = io_cancel(ct->aio_grp->ioctx, &ct->req->io, &event);
-+		/*
-+		 * Only reset ct->running if we really
-+		 * could abort the pending I/O
-+		 */
-+		if (r)
-+			LOG(3, "io_cancel error %i", errno);
++		if (i % 3 == 0)
++			do_libcheck_init(&c[i], 512, NULL);
++		else if (i % 3 == 1)
++			do_libcheck_init(&c[i], 1024, NULL);
 +		else
-+			ct->running = 0;
-+		rc = PATH_DOWN;
- 	} else {
--		LOG(3, "io finished %lu/%lu", event.res, event.res2);
--		ct->running = 0;
--		rc = (event.res == ct->blksize) ? PATH_UP : PATH_DOWN;
-+		LOG(3, "async io pending");
-+		rc = PATH_PENDING;
- 	}
- 
- 	return rc;
++			do_libcheck_init(&c[i], 4096, NULL);
++		ct = (struct directio_context *)c[i].context;
++		assert_non_null(ct->aio_grp);
++		if (i && (i & 1023) == 0)
++			aio_grp = ct->aio_grp;
++		else {
++			assert_ptr_equal(ct->aio_grp, aio_grp);
++			assert_int_equal(aio_grp->holders, (i & 1023) + 1);
++		}
++	}
++	count = 0;
++	list_for_each_entry(aio_grp, &aio_grp_list, node)
++		count++;
++	assert_int_equal(count, 4);
++	for (i = 0; i < 4096; i++) {
++		struct directio_context * ct = (struct directio_context *)c[i].context;
++
++		aio_grp = ct->aio_grp;
++		libcheck_free(&c[i]);
++		assert_int_equal(aio_grp->holders, 1023 - (i & 1023));
++	}
++	count = 0;
++	list_for_each_entry(aio_grp, &aio_grp_list, node) {
++		assert_int_equal(aio_grp->holders, 0);
++		count++;
++	}
++	assert_int_equal(count, 4);
++	will_return(__wrap_io_destroy, 0);
++	will_return(__wrap_io_destroy, 0);
++	will_return(__wrap_io_destroy, 0);
++	assert_int_equal(libcheck_reset(), 0);
++	do_libcheck_unload(1);
++}
++
++/* check mixed initializing and freeing 4096 checkers */
++static void test_multi_init_free(void **state)
++{
++	int i, count;
++	struct checker c[4096] = {0};
++	struct aio_group *aio_grp;
++
++	do_libcheck_load();
++	will_return(__wrap_io_setup, 0);
++	will_return(__wrap_io_setup, 0);
++	will_return(__wrap_io_setup, 0);
++	for (count = 0, i = 0; i < 4096; count++) {
++		/* usually init, but occasionally free checkers */
++		if (count == 0 || (count % 5 != 0 && count % 7 != 0)) {
++			do_libcheck_init(&c[i], 4096, NULL);
++			i++;
++		} else {
++			i--;
++			libcheck_free(&c[i]);
++		}
++	}
++	count = 0;
++	list_for_each_entry(aio_grp, &aio_grp_list, node) {
++		assert_int_equal(aio_grp->holders, 1024);
++		count++;
++	}
++	assert_int_equal(count, 4);
++	for (count = 0, i = 4096; i > 0; count++) {
++		/* usually free, but occasionally init checkers */
++		if (count == 0 || (count % 5 != 0 && count % 7 != 0)) {
++			i--;
++			libcheck_free(&c[i]);
++		} else {
++			do_libcheck_init(&c[i], 4096, NULL);
++			i++;
++		}
++	}
++	do_libcheck_unload(4);
++}
++
++/* simple single checker sync test */
++static void test_check_state_simple(void **state)
++{
++	struct checker c = {0};
++	struct async_req *req;
++	int res = 0;
++
++	do_libcheck_load();
++	do_libcheck_init(&c, 4096, &req);
++	return_io_getevents_nr(NULL, 1, &req, &res);
++	do_check_state(&c, 1, 30, PATH_UP);
++	libcheck_free(&c);
++	do_libcheck_unload(1);
++}
++
++/* test sync timeout */
++static void test_check_state_timeout(void **state)
++{
++	struct checker c = {0};
++	struct aio_group *aio_grp;
++
++	do_libcheck_load();
++	do_libcheck_init(&c, 4096, NULL);
++	aio_grp = get_aio_grp(&c);
++	return_io_getevents_none();
++	will_return(__wrap_io_cancel, 0);
++	do_check_state(&c, 1, 30, PATH_DOWN);
++	check_aio_grp(aio_grp, 1, 0);
++	libcheck_free(&c);
++	do_libcheck_unload(1);
++}
++
++/* test async timeout */
++static void test_check_state_async_timeout(void **state)
++{
++	struct checker c = {0};
++	struct aio_group *aio_grp;
++
++	do_libcheck_load();
++	do_libcheck_init(&c, 4096, NULL);
++	aio_grp = get_aio_grp(&c);
++	return_io_getevents_none();
++	do_check_state(&c, 0, 3, PATH_PENDING);
++	return_io_getevents_none();
++	do_check_state(&c, 0, 3, PATH_PENDING);
++	return_io_getevents_none();
++	do_check_state(&c, 0, 3, PATH_PENDING);
++	return_io_getevents_none();
++	will_return(__wrap_io_cancel, 0);
++	do_check_state(&c, 0, 3, PATH_DOWN);
++	check_aio_grp(aio_grp, 1, 0);
++	libcheck_free(&c);
++	do_libcheck_unload(1);
++}
++
++/* test freeing checkers with outstanding requests */
++static void test_free_with_pending(void **state)
++{
++        struct checker c[2] = {0};
++        struct aio_group *aio_grp;
++	struct async_req *req;
++	int res = 0;
++
++        do_libcheck_load();
++        do_libcheck_init(&c[0], 4096, &req);
++	do_libcheck_init(&c[1], 4096, NULL);
++        aio_grp = get_aio_grp(c);
++        return_io_getevents_none();
++        do_check_state(&c[0], 0, 30, PATH_PENDING);
++	return_io_getevents_nr(NULL, 1, &req, &res);
++	return_io_getevents_none();
++	do_check_state(&c[1], 0, 30, PATH_PENDING);
++	assert_true(is_checker_running(&c[0]));
++	assert_true(is_checker_running(&c[1]));
++	check_aio_grp(aio_grp, 2, 0);
++        libcheck_free(&c[0]);
++	check_aio_grp(aio_grp, 1, 0);
++        will_return(__wrap_io_cancel, 0);
++        libcheck_free(&c[1]);
++        check_aio_grp(aio_grp, 0, 0);
++        do_libcheck_unload(1);
++}
++
++/* test removing orpahed aio_group on free */
++static void test_orphaned_aio_group(void **state)
++{
++	struct checker c[AIO_GROUP_SIZE] = {0};
++	struct aio_group *aio_grp, *tmp_grp;
++	int i;
++
++        do_libcheck_load();
++	for (i = 0; i < AIO_GROUP_SIZE; i++) {
++		do_libcheck_init(&c[i], 4096, NULL);
++		return_io_getevents_none();
++		do_check_state(&c[i], 0, 30, PATH_PENDING);
++	}
++	aio_grp = get_aio_grp(c);
++	check_aio_grp(aio_grp, AIO_GROUP_SIZE, 0);
++	i = 0;
++	list_for_each_entry(tmp_grp, &aio_grp_list, node)
++		i++;
++	assert_int_equal(i, 1);
++	for (i = 0; i < AIO_GROUP_SIZE; i++) {
++		assert_true(is_checker_running(&c[i]));
++		will_return(__wrap_io_cancel, -1);
++		if (i == AIO_GROUP_SIZE - 1) {
++			/* remove the orphaned group and create a new one */
++			will_return(__wrap_io_destroy, 0);
++			will_return(__wrap_io_setup, 0);
++		}
++		libcheck_free(&c[i]);
++	}
++	i = 0;
++	list_for_each_entry(tmp_grp, &aio_grp_list, node) {
++		i++;
++		check_aio_grp(aio_grp, 0, 0);
++	}
++	assert_int_equal(i, 1);
++        do_libcheck_unload(1);
++}
++
++/* test sync timeout with failed cancel and cleanup by another
++ * checker */
++static void test_timeout_cancel_failed(void **state)
++{
++	struct checker c[2] = {0};
++	struct aio_group *aio_grp;
++	struct async_req *reqs[2];
++	int res[] = {0,0};
++	int i;
++
++	do_libcheck_load();
++	for (i = 0; i < 2; i++)
++		do_libcheck_init(&c[i], 4096, &reqs[i]);
++	aio_grp = get_aio_grp(c);
++	return_io_getevents_none();
++	will_return(__wrap_io_cancel, -1);
++	do_check_state(&c[0], 1, 30, PATH_DOWN);
++	assert_true(is_checker_running(&c[0]));
++	check_aio_grp(aio_grp, 2, 0);
++	return_io_getevents_none();
++	will_return(__wrap_io_cancel, -1);
++	do_check_state(&c[0], 1, 30, PATH_DOWN);
++	assert_true(is_checker_running(&c[0]));
++	return_io_getevents_nr(NULL, 2, reqs, res);
++	do_check_state(&c[1], 1, 30, PATH_UP);
++	do_check_state(&c[0], 1, 30, PATH_UP);
++	for (i = 0; i < 2; i++) {
++		assert_false(is_checker_running(&c[i]));
++		libcheck_free(&c[i]);
++	}
++	do_libcheck_unload(1);
++}
++
++/* test async timeout with failed cancel and cleanup by another
++ * checker */
++static void test_async_timeout_cancel_failed(void **state)
++{
++	struct checker c[2] = {0};
++	struct async_req *reqs[2];
++	int res[] = {0,0};
++	int i;
++
++	do_libcheck_load();
++	for (i = 0; i < 2; i++)
++		do_libcheck_init(&c[i], 4096, &reqs[i]);
++	return_io_getevents_none();
++	do_check_state(&c[0], 0, 2, PATH_PENDING);
++	return_io_getevents_none();
++	do_check_state(&c[1], 0, 2, PATH_PENDING);
++	return_io_getevents_none();
++	do_check_state(&c[0], 0, 2, PATH_PENDING);
++	return_io_getevents_none();
++	do_check_state(&c[1], 0, 2, PATH_PENDING);
++	return_io_getevents_none();
++	will_return(__wrap_io_cancel, -1);
++	do_check_state(&c[0], 0, 2, PATH_DOWN);
++	return_io_getevents_nr(NULL, 1, &reqs[1], &res[1]);
++	do_check_state(&c[1], 0, 2, PATH_UP);
++	return_io_getevents_none();
++	will_return(__wrap_io_cancel, -1);
++	do_check_state(&c[0], 0, 2, PATH_DOWN);
++	assert_true(is_checker_running(&c[0]));
++	return_io_getevents_nr(NULL, 2, reqs, res);
++	do_check_state(&c[1], 0, 2, PATH_UP);
++	do_check_state(&c[0], 0, 2, PATH_UP);
++	for (i = 0; i < 2; i++) {
++		assert_false(is_checker_running(&c[i]));
++		libcheck_free(&c[i]);
++	}
++	do_libcheck_unload(1);
++}
++
++/* test orphaning a request, and having another checker clean it up */
++static void test_orphan_checker_cleanup(void **state)
++{
++	struct checker c[2] = {0};
++	struct async_req *reqs[2];
++	int res[] = {0,0};
++	struct aio_group *aio_grp;
++	int i;
++
++	do_libcheck_load();
++	for (i = 0; i < 2; i++)
++		do_libcheck_init(&c[i], 4096, &reqs[i]);
++	aio_grp = get_aio_grp(c);
++	return_io_getevents_none();
++	do_check_state(&c[0], 0, 30, PATH_PENDING);
++	will_return(__wrap_io_cancel, -1);
++	check_aio_grp(aio_grp, 2, 0);
++	libcheck_free(&c[0]);
++	check_aio_grp(aio_grp, 2, 1);
++	return_io_getevents_nr(NULL, 2, reqs, res);
++	do_check_state(&c[1], 0, 2, PATH_UP);
++	check_aio_grp(aio_grp, 1, 0);
++	libcheck_free(&c[1]);
++	check_aio_grp(aio_grp, 0, 0);
++	do_libcheck_unload(1);
++}
++
++/* test orphaning a request, and having reset clean it up */
++static void test_orphan_reset_cleanup(void **state)
++{
++	struct checker c;
++	struct aio_group *orphan_aio_grp, *tmp_aio_grp;
++	int found, count;
++
++	do_libcheck_load();
++	do_libcheck_init(&c, 4096, NULL);
++	orphan_aio_grp = get_aio_grp(&c);
++	return_io_getevents_none();
++	do_check_state(&c, 0, 30, PATH_PENDING);
++	will_return(__wrap_io_cancel, -1);
++	check_aio_grp(orphan_aio_grp, 1, 0);
++	libcheck_free(&c);
++	check_aio_grp(orphan_aio_grp, 1, 1);
++	found = count = 0;
++	list_for_each_entry(tmp_aio_grp, &aio_grp_list, node) {
++		count++;
++		if (tmp_aio_grp == orphan_aio_grp)
++			found = 1;
++	}
++	assert_int_equal(count, 1);
++	assert_int_equal(found, 1);
++	will_return(__wrap_io_setup, 0);
++	will_return(__wrap_io_destroy, 0);
++	assert_int_equal(libcheck_reset(), 0);
++	found = count = 0;
++	list_for_each_entry(tmp_aio_grp, &aio_grp_list, node) {
++		count++;
++		check_aio_grp(tmp_aio_grp, 0, 0);
++		if (tmp_aio_grp == orphan_aio_grp)
++			found = 1;
++	}
++	assert_int_equal(count, 1);
++	assert_int_equal(found, 0);
++	do_libcheck_unload(1);
++}
++
++/* test orphaning a request, and having unload clean it up */
++static void test_orphan_unload_cleanup(void **state)
++{
++	struct checker c;
++	struct aio_group *orphan_aio_grp, *tmp_aio_grp;
++	int found, count;
++
++	do_libcheck_load();
++	do_libcheck_init(&c, 4096, NULL);
++	orphan_aio_grp = get_aio_grp(&c);
++	return_io_getevents_none();
++	do_check_state(&c, 0, 30, PATH_PENDING);
++	will_return(__wrap_io_cancel, -1);
++	check_aio_grp(orphan_aio_grp, 1, 0);
++	libcheck_free(&c);
++	check_aio_grp(orphan_aio_grp, 1, 1);
++	found = count = 0;
++	list_for_each_entry(tmp_aio_grp, &aio_grp_list, node) {
++		count++;
++		if (tmp_aio_grp == orphan_aio_grp)
++			found = 1;
++	}
++	assert_int_equal(count, 1);
++	assert_int_equal(found, 1);
++	do_libcheck_unload(1);
++}
++
++/* test checkers with different blocksizes */
++static void test_check_state_blksize(void **state)
++{
++	int i;
++	struct checker c[3] = {0};
++	int blksize[] = {4096, 1024, 512};
++	struct async_req *reqs[3];
++	int res[] = {0,1,0};
++	int chk_state[] = {PATH_UP, PATH_DOWN, PATH_UP};
++
++	do_libcheck_load();
++	for (i = 0; i < 3; i++)
++		do_libcheck_init(&c[i], blksize[i], &reqs[i]);
++	for (i = 0; i < 3; i++) {
++		return_io_getevents_nr(NULL, 1, &reqs[i], &res[i]);
++		do_check_state(&c[i], 1, 30, chk_state[i]);
++	}
++	for (i = 0; i < 3; i++) {
++		assert_false(is_checker_running(&c[i]));
++		libcheck_free(&c[i]);
++	}
++	do_libcheck_unload(1);
++}
++
++/* test async checkers pending and getting resovled by another checker
++ * as well as the loops for getting multiple events */
++static void test_check_state_async(void **state)
++{
++	int i;
++	struct checker c[257] = {0};
++	struct async_req *reqs[257];
++	int res[257] = {0};
++
++	do_libcheck_load();
++	for (i = 0; i < 257; i++)
++		do_libcheck_init(&c[i], 4096, &reqs[i]);
++	for (i = 0; i < 256; i++) {
++		return_io_getevents_none();
++		do_check_state(&c[i], 0, 30, PATH_PENDING);
++		assert_true(is_checker_running(&c[i]));
++	}
++	return_io_getevents_nr(&full_timeout, 256, reqs, res);
++	return_io_getevents_nr(NULL, 1, &reqs[256], &res[256]);
++	do_check_state(&c[256], 0, 30, PATH_UP);
++	assert_false(is_checker_running(&c[256]));
++	libcheck_free(&c[i]);
++	for (i = 0; i < 256; i++) {
++		do_check_state(&c[i], 0, 30, PATH_UP);
++		assert_false(is_checker_running(&c[i]));
++		libcheck_free(&c[i]);
++	}
++	do_libcheck_unload(1);
++}
++
++int test_directio(void)
++{
++	const struct CMUnitTest tests[] = {
++		cmocka_unit_test(test_load_reset_unload),
++		cmocka_unit_test(test_init_free),
++		cmocka_unit_test(test_multi_init_free),
++		cmocka_unit_test(test_check_state_simple),
++		cmocka_unit_test(test_check_state_timeout),
++		cmocka_unit_test(test_check_state_async_timeout),
++		cmocka_unit_test(test_free_with_pending),
++		cmocka_unit_test(test_timeout_cancel_failed),
++		cmocka_unit_test(test_async_timeout_cancel_failed),
++		cmocka_unit_test(test_orphan_checker_cleanup),
++		cmocka_unit_test(test_orphan_reset_cleanup),
++		cmocka_unit_test(test_orphan_unload_cleanup),
++		cmocka_unit_test(test_check_state_blksize),
++		cmocka_unit_test(test_check_state_async),
++		cmocka_unit_test(test_orphaned_aio_group),
++	};
++
++	return cmocka_run_group_tests(tests, NULL, NULL);
++}
++
++int main(void)
++{
++	int ret = 0;
++
++	conf.verbosity = 2;
++	ret += test_directio();
++	return ret;
++}
 -- 
 2.17.2
 
