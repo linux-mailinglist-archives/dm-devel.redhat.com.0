@@ -1,82 +1,96 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 636071418CB
-	for <lists+dm-devel@lfdr.de>; Sat, 18 Jan 2020 18:44:21 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 63C9D1418CF
+	for <lists+dm-devel@lfdr.de>; Sat, 18 Jan 2020 18:51:40 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1579369460;
+	s=mimecast20190719; t=1579369899;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=XExv3KKkJO64OIKWam36e6mNf4rXalhqUijJHC7+iUk=;
-	b=ME+nRiE6PnelhFGiHU/I2wC5SsZ0/sw6x+NHMVLx7XvFFT/v46MefqnsWL6iu/gmn1ASRr
-	gXi5FofCUeNNZGK9L0YZamnDMP6gvkXdCEkz8md5fVkX6rpAEcjiXMLrf+pTCSO4ZX0iph
-	2qFAYjOkd0kPaAFKkJhqSPr0/R8HNeY=
+	bh=mmXRIZNMA0VCiZ25MlRL+MU4hdMqQ3UABgdQnBAQVYU=;
+	b=dCAL2xmQ1eaMN9me87gIezQcrAiVBdE+wl2uHX1DWiqEUmHlIFNHov72ukEV5vtZhz64WC
+	rZ49otw6cIReTajhx7YsvvbEhFgF5wy2SiNAopwUi5SHmMJxcqc4BLiX63Y1TdXEvxCg8z
+	QK4rVKeFIo3bteyCERs/MJJZ/SFiRYs=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-82-J4E10oGKMjSlC__2rkpl8g-1; Sat, 18 Jan 2020 12:44:18 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-393-apXy8GN1NveuP0pi3SqaXA-1; Sat, 18 Jan 2020 12:51:37 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7CD5F8017CC;
-	Sat, 18 Jan 2020 17:44:12 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3F1E5107ACC4;
+	Sat, 18 Jan 2020 17:51:30 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A9E160BEC;
-	Sat, 18 Jan 2020 17:44:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2622E19C4F;
+	Sat, 18 Jan 2020 17:51:29 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5AE6E18089C8;
-	Sat, 18 Jan 2020 17:44:05 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7F96718089C8;
+	Sat, 18 Jan 2020 17:51:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00IHhvmc021075 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 18 Jan 2020 12:43:57 -0500
+	id 00IHpHqa021480 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 18 Jan 2020 12:51:17 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 16856A316E; Sat, 18 Jan 2020 17:43:57 +0000 (UTC)
+	id A475310DCF49; Sat, 18 Jan 2020 17:51:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 128FAA3194
-	for <dm-devel@redhat.com>; Sat, 18 Jan 2020 17:43:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9F8ED10DCF47
+	for <dm-devel@redhat.com>; Sat, 18 Jan 2020 17:51:16 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 955F1803006
-	for <dm-devel@redhat.com>; Sat, 18 Jan 2020 17:43:54 +0000 (UTC)
-Received: from mail.stoffel.org (li1843-175.members.linode.com
-	[172.104.24.175]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-261-1kk1-w7jNC6HOvmdMS4cng-1; Sat, 18 Jan 2020 12:43:50 -0500
-Received: from quad.stoffel.org (66-189-75-104.dhcp.oxfr.ma.charter.com
-	[66.189.75.104])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D72708E3897
+	for <dm-devel@redhat.com>; Sat, 18 Jan 2020 17:51:15 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com
+	(bedivere.hansenpartnership.com [66.63.167.143]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-205-teWGYouWM4abw122_pi0Ag-1;
+	Sat, 18 Jan 2020 12:51:11 -0500
+Received: from localhost (localhost [127.0.0.1])
+	by bedivere.hansenpartnership.com (Postfix) with ESMTP id 7F9CB8EE2AB; 
+	Sat, 18 Jan 2020 09:51:08 -0800 (PST)
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+	port 10024)
+	with ESMTP id 4aWzOveehLuA; Sat, 18 Jan 2020 09:51:08 -0800 (PST)
+Received: from jarvis.lan (unknown [50.35.76.230])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.stoffel.org (Postfix) with ESMTPSA id 4E3E622B4D;
-	Sat, 18 Jan 2020 12:43:50 -0500 (EST)
-Received: by quad.stoffel.org (Postfix, from userid 1000)
-	id F30DDA5F1D; Sat, 18 Jan 2020 12:43:49 -0500 (EST)
-MIME-Version: 1.0
-Message-ID: <24099.17365.933723.879139@quad.stoffel.home>
-Date: Sat, 18 Jan 2020 12:43:49 -0500
-From: "John Stoffel" <john@stoffel.org>
-To: Benjamin Marzinski <bmarzins@redhat.com>
-In-Reply-To: <1579227500-17196-11-git-send-email-bmarzins@redhat.com>
-References: <1579227500-17196-1-git-send-email-bmarzins@redhat.com>
-	<1579227500-17196-11-git-send-email-bmarzins@redhat.com>
-X-MC-Unique: 1kk1-w7jNC6HOvmdMS4cng-1
-X-MC-Unique: J4E10oGKMjSlC__2rkpl8g-1
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id E43F88EE17D;
+	Sat, 18 Jan 2020 09:51:06 -0800 (PST)
+Message-ID: <1579369864.3421.16.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@hansenpartnership.com>
+To: Franck Lenormand <franck.lenormand@nxp.com>, David Howells
+	<dhowells@redhat.com>
+Date: Sat, 18 Jan 2020 09:51:04 -0800
+In-Reply-To: <AM6PR04MB54473C2D30DDD7CDC8522DF9924C0@AM6PR04MB5447.eurprd04.prod.outlook.com>
+References: <1551456599-10603-1-git-send-email-franck.lenormand@nxp.com>
+	<11177.1551893395@warthog.procyon.org.uk>
+	<AM6PR04MB54473C2D30DDD7CDC8522DF9924C0@AM6PR04MB5447.eurprd04.prod.outlook.com>
+Mime-Version: 1.0
+X-MC-Unique: teWGYouWM4abw122_pi0Ag-1
+X-MC-Unique: apXy8GN1NveuP0pi3SqaXA-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 00IHhvmc021075
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 00IHpHqa021480
 X-loop: dm-devel@redhat.com
-Cc: device-mapper development <dm-devel@redhat.com>,
-	Martin Wilck <Martin.Wilck@suse.com>
-Subject: Re: [dm-devel] [PATCH 10/15] libmultipath: change how the checker
-	async	is set
+Cc: "snitzer@redhat.com" <snitzer@redhat.com>,
+	Horia Geanta <horia.geanta@nxp.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"jmorris@namei.org" <jmorris@namei.org>,
+	"linux-security-module@vger.kernel.org"
+	<linux-security-module@vger.kernel.org>,
+	"keyrings@vger.kernel.org" <keyrings@vger.kernel.org>,
+	Ninno <silvano.dininno@nxp.com>, Silvano,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"agk@redhat.com" <agk@redhat.com>, "serge@hallyn.com" <serge@hallyn.com>
+Subject: Re: [dm-devel] [RFC PATCH 0/2] Create CAAM HW key in linux keyring
+ and use in dmcrypt
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,92 +104,82 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
->>>>> "Benjamin" == Benjamin Marzinski <bmarzins@redhat.com> writes:
+On Thu, 2019-03-07 at 13:17 +0000, Franck Lenormand wrote:
+> > -----Original Message-----
+> > From: David Howells <dhowells@redhat.com>
+> > Sent: Wednesday, March 6, 2019 6:30 PM
+> > To: Franck Lenormand <franck.lenormand@nxp.com>
+> > Cc: dhowells@redhat.com; linux-kernel@vger.kernel.org; linux-
+> > security-
+> > module@vger.kernel.org; keyrings@vger.kernel.org; Horia Geanta
+> > <horia.geanta@nxp.com>; Silvano Di Ninno <silvano.dininno@nxp.com>;
+> > agk@redhat.com; snitzer@redhat.com; dm-devel@redhat.com;
+> > jmorris@namei.org; serge@hallyn.com
+> > Subject: Re: [RFC PATCH 0/2] Create CAAM HW key in linux keyring
+> > and use in
+> > dmcrypt
+> > 
+> > Franck LENORMAND <franck.lenormand@nxp.com> wrote:
+> > 
+> > > The capacity to generate or load keys already available in the
+> > > Linux
+> > > key retention service does not allows to exploit CAAM
+> > > capabilities
+> > > hence we need to create a new key_type. The new key type
+> > > "caam_tk"
+> > 
+> > allows to:
+> > >  - Create a black key from random
+> > >  - Create a black key from a red key
+> > >  - Load a black blob to retrieve the black key
+> > 
+> > Is it possible that this could be done through an existing key
+> > type, such as the
+> > asymmetric, trusted or encrypted key typed?
+> > 
+> > David
+> 
+> Hello David,
+> 
+> I didn't know about asymmetric key type so I looked it up, from my
+> observation, it would not be possible to use it for the caam_tk as
+> we must perform operations on the data provided.
+> The name " asymmetric " is also misleading for the use we would have.
+> 
+> The trusted and encrypted does not provides the necessary
+> callbacks to do what we would need or require huge modifications.
+> 
+> I would like, for this series to focus on the change related to
+> dm-crypt. In effect, it is currently not possible to pass a key
+> from the asymmetric key type to it.
 
-Benjamin> The way that the checkers async mode worked in multipathd didn't make
-Benjamin> much sense. When multipathd starts up, all checker classes are in the
-Benjamin> sync mode, and any pathinfo() calls on devices would run the checker in
-Benjamin> sync mode. However, the First time a checker class was used in
-Benjamin> checkerloop, it would set that checker class to async (assuming
-Benjamin> force_sync wasn't set).  After that, no matter when a checker from that
-Benjamin> class was called, it would always run in async mode.  Multipathd doesn't
-Benjamin> need to run checkers in sync mode at all, so don't.
+What you're performing are all bog standard key wrapping operations
+which is why we're asking the question: do we have to expose any of
+this to the user?  Can this whole thing not be encapsulated in such a
+way that the kernel automatically selects the best key
+escrow/accelerator technology on boot and uses it (if there are > 1
+there would have to be an interface for the user to choose).  We make
+all the accelerator device key formats distinguishable so the kernel
+can figure out on load what is supposed to be handling them.  That way
+the user never need worry about naming the actual key handler at all,
+it would all be taken care of under the covers.
 
-Sorry, I had a hard time parsing this description, especially the last
-sentence.  Do you mean that checkers should default to async then,
-instead of sync mode?  And from looking at the code, don't you mean
-that you force sync mode?  I guess the question is whether checker
-classes should default sync, or async.  And if they move to async,
-should they stay there?
-    
+The one key type per escrow/accelerator has us all going ... "aren't
+there hundreds of these on the market?"  which would seem to be a huge
+usability explosion because a user will likely only have one, but they
+have to figure out the type instructions for that one.  I really think
+a better way is to have a more generic key type that's capable of
+interfacing to the wrap/unwrap and crypto functions in such a way that
+the end user doesn't have to know which they're using: most platforms
+only have one thing installed, so you use that thing.
 
-
-Benjamin> Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
-Benjamin> ---
-Benjamin>  libmpathpersist/mpath_persist.c |  2 +-
-Benjamin>  libmultipath/discovery.c        | 10 ++++------
-Benjamin>  multipath/main.c                |  1 +
-Benjamin>  3 files changed, 6 insertions(+), 7 deletions(-)
-
-Benjamin> diff --git a/libmpathpersist/mpath_persist.c b/libmpathpersist/mpath_persist.c
-Benjamin> index 603cfc3b..b2238f00 100644
-Benjamin> --- a/libmpathpersist/mpath_persist.c
-Benjamin> +++ b/libmpathpersist/mpath_persist.c
-Benjamin> @@ -47,7 +47,7 @@ mpath_lib_init (void)
-Benjamin>  		condlog(0, "Failed to initialize multipath config.");
-Benjamin>  		return NULL;
-Benjamin>  	}
-Benjamin> -
-Benjamin> +	conf->force_sync = 1;
-Benjamin>  	set_max_fds(conf->max_fds);
- 
-Benjamin>  	return conf;
-Benjamin> diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
-Benjamin> index d2773c3a..1ab093f4 100644
-Benjamin> --- a/libmultipath/discovery.c
-Benjamin> +++ b/libmultipath/discovery.c
-Benjamin> @@ -1643,12 +1643,10 @@ get_state (struct path * pp, struct config *conf, int daemon, int oldstate)
-Benjamin>  	if (pp->mpp && !c->mpcontext)
-Benjamin>  		checker_mp_init(c, &pp->mpp->mpcontext);
-Benjamin>  	checker_clear_message(c);
-Benjamin> -	if (daemon) {
-Benjamin> -		if (conf->force_sync == 0)
-Benjamin> -			checker_set_async(c);
-Benjamin> -		else
-Benjamin> -			checker_set_sync(c);
-Benjamin> -	}
-Benjamin> +	if (conf->force_sync == 0)
-Benjamin> +		checker_set_async(c);
-Benjamin> +	else
-Benjamin> +		checker_set_sync(c);
-Benjamin>  	if (!conf->checker_timeout &&
-Benjamin>  	    sysfs_get_timeout(pp, &(c->timeout)) <= 0)
-c-> timeout = DEF_TIMEOUT;
-Benjamin> diff --git a/multipath/main.c b/multipath/main.c
-Benjamin> index 4f4d8e89..aebabd9b 100644
-Benjamin> --- a/multipath/main.c
-Benjamin> +++ b/multipath/main.c
-Benjamin> @@ -905,6 +905,7 @@ main (int argc, char *argv[])
-Benjamin>  		exit(RTVL_FAIL);
-Benjamin>  	multipath_conf = conf;
-conf-> retrigger_tries = 0;
-Benjamin> +	conf->force_sync = 1;
-Benjamin>  	while ((arg = getopt(argc, argv, ":adcChl::FfM:v:p:b:BrR:itTquUwW")) != EOF ) {
-Benjamin>  		switch(arg) {
-Benjamin>  		case 1: printf("optarg : %s\n",optarg);
-Benjamin> -- 
-Benjamin> 2.17.2
-
-Benjamin> --
-Benjamin> dm-devel mailing list
-Benjamin> dm-devel@redhat.com
-Benjamin> https://www.redhat.com/mailman/listinfo/dm-devel
+James
 
 
 --
