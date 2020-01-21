@@ -1,86 +1,90 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 5B6D5144D45
-	for <lists+dm-devel@lfdr.de>; Wed, 22 Jan 2020 09:21:46 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id AAE4B144D37
+	for <lists+dm-devel@lfdr.de>; Wed, 22 Jan 2020 09:21:35 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1579681305;
+	s=mimecast20190719; t=1579681294;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=+SOsEIQu4sYPn5tdn1zsxxdbS7MxolifkWyaKdYvyOk=;
-	b=hLpwoijI9gGMQbBvKSazXxxDKB66PpZVWw4FSMJHc5+/g5ZhKqAqghMPBhxxn27zdSAZst
-	K6sqatUwDRzVpjjG9rzK4JPbrK+uE2S93HVJ1PWXUpdgb/oxVnnmVBureimCowb3QyuUt3
-	alYdF+7ScLwrd+CxgmrU3nnSmzyh3Vg=
+	bh=7tmpim861WoNpB6Fyu4OoONuONWvSbO2RquIWObTJsU=;
+	b=VCMHdhELbgAba0HLnpkfwwB1LTS1Boji7JvTcXe1PItVB/AMkWQqquyvdyJFWJVWzZQQ5e
+	9o99cygnAHa7/dH2BgHnla5h4maEOBKC4GHG2UjYh/mvSpQrHJzLAsLalsZipZ0sga/jg6
+	bVty+upq8FnEcpdSvBEYYk6rWLgaZfA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-65-5eylqR55OISvgfKKXKh-Pg-1; Wed, 22 Jan 2020 03:21:40 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-317-rmjWVNvoNxyudwRkNIxSSA-1; Wed, 22 Jan 2020 03:21:31 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 99FE6800D5E;
-	Wed, 22 Jan 2020 08:21:33 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 72E245DA7F;
-	Wed, 22 Jan 2020 08:21:33 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 30A12184AD52;
+	Wed, 22 Jan 2020 08:21:25 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 07AFB8CCCC;
+	Wed, 22 Jan 2020 08:21:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 084D0870A8;
-	Wed, 22 Jan 2020 08:21:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 96DD618089CD;
+	Wed, 22 Jan 2020 08:21:24 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00LAhG2g005955 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 21 Jan 2020 05:43:16 -0500
+	id 00LCbd6w012880 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 21 Jan 2020 07:37:40 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6B8BFD95F3; Tue, 21 Jan 2020 10:43:16 +0000 (UTC)
+	id D7B912026D67; Tue, 21 Jan 2020 12:37:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 681E8D95ED
-	for <dm-devel@redhat.com>; Tue, 21 Jan 2020 10:43:16 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D15CB2026FFE
+	for <dm-devel@redhat.com>; Tue, 21 Jan 2020 12:37:38 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4B2EA80329C
-	for <dm-devel@redhat.com>; Tue, 21 Jan 2020 10:43:16 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1653380300F
+	for <dm-devel@redhat.com>; Tue, 21 Jan 2020 12:37:38 +0000 (UTC)
 Received: from relay.sw.ru (relay.sw.ru [185.231.240.75]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-200-d8gwT54sPW-otbbiYQX__Q-1;
-	Tue, 21 Jan 2020 05:43:12 -0500
-Received: from dhcp-172-16-24-104.sw.ru ([172.16.24.104]
-	helo=localhost.localdomain) by relay.sw.ru with esmtp (Exim 4.92.3)
+	relay.mimecast.com with ESMTP id us-mta-197-2MtLT2L8MGOW4kYpTwzdNA-1;
+	Tue, 21 Jan 2020 07:37:34 -0500
+Received: from dhcp-172-16-24-104.sw.ru ([172.16.24.104])
+	by relay.sw.ru with esmtp (Exim 4.92.3)
 	(envelope-from <ktkhai@virtuozzo.com>)
-	id 1itqzq-0006R9-Dg; Tue, 21 Jan 2020 13:42:58 +0300
-From: Kirill Tkhai <ktkhai@virtuozzo.com>
-To: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-	martin.petersen@oracle.com, bob.liu@oracle.com, axboe@kernel.dk,
-	agk@redhat.com, snitzer@redhat.com, dm-devel@redhat.com,
-	song@kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
-	Chaitanya.Kulkarni@wdc.com, darrick.wong@oracle.com,
-	ming.lei@redhat.com, osandov@fb.com, jthumshirn@suse.de,
-	minwoo.im.dev@gmail.com, damien.lemoal@wdc.com,
-	andrea.parri@amarulasolutions.com, hare@suse.com, tj@kernel.org,
-	ajay.joshi@wdc.com, sagi@grimberg.me, dsterba@suse.com,
-	chaitanya.kulkarni@wdc.com, bvanassche@acm.org, dhowells@redhat.com,
-	asml.silence@gmail.com, ktkhai@virtuozzo.com
-Date: Tue, 21 Jan 2020 13:42:58 +0300
-Message-ID: <157960337828.108120.15650028156076032048.stgit@localhost.localdomain>
-In-Reply-To: <157960325642.108120.13626623438131044304.stgit@localhost.localdomain>
+	id 1itsm0-0007Qx-N2; Tue, 21 Jan 2020 15:36:48 +0300
+To: Mike Snitzer <snitzer@redhat.com>
 References: <157960325642.108120.13626623438131044304.stgit@localhost.localdomain>
-User-Agent: StGit/0.19
+	<157960337238.108120.18048939587162465175.stgit@localhost.localdomain>
+	<20200121122458.GA9365@redhat.com>
+From: Kirill Tkhai <ktkhai@virtuozzo.com>
+Message-ID: <f7e0fb38-a894-da33-c46b-e192ed907ee0@virtuozzo.com>
+Date: Tue, 21 Jan 2020 15:36:47 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.4.1
 MIME-Version: 1.0
-X-MC-Unique: d8gwT54sPW-otbbiYQX__Q-1
-X-MC-Unique: 5eylqR55OISvgfKKXKh-Pg-1
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+In-Reply-To: <20200121122458.GA9365@redhat.com>
+Content-Language: en-US
+X-MC-Unique: 2MtLT2L8MGOW4kYpTwzdNA-1
+X-MC-Unique: rmjWVNvoNxyudwRkNIxSSA-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 00LAhG2g005955
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 00LCbd6w012880
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 22 Jan 2020 03:20:59 -0500
-Subject: [dm-devel] [PATCH v4 7/7] loop: Add support for REQ_ALLOCATE
+Cc: andrea.parri@amarulasolutions.com, dhowells@redhat.com, song@kernel.org,
+	dm-devel@redhat.com, adilger.kernel@dilger.ca, osandov@fb.com,
+	agk@redhat.com, hare@suse.com, sagi@grimberg.me,
+	darrick.wong@oracle.com, bob.liu@oracle.com,
+	minwoo.im.dev@gmail.com, jthumshirn@suse.de, ajay.joshi@wdc.com,
+	Chaitanya.Kulkarni@wdc.com, ming.lei@redhat.com,
+	linux-block@vger.kernel.org, dsterba@suse.com,
+	bvanassche@acm.org, axboe@kernel.dk, damien.lemoal@wdc.com,
+	tytso@mit.edu, martin.petersen@oracle.com,
+	linux-kernel@vger.kernel.org, tj@kernel.org, asml.silence@gmail.com
+Subject: Re: [dm-devel] [PATCH v4 6/7] dm: Directly disable
+	max_allocate_sectors for now
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,69 +98,46 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Support for new modifier of REQ_OP_WRITE_ZEROES command.
-This results in allocation extents in backing file instead
-of actual blocks zeroing.
+On 21.01.2020 15:24, Mike Snitzer wrote:
+> On Tue, Jan 21 2020 at  5:42am -0500,
+> Kirill Tkhai <ktkhai@virtuozzo.com> wrote:
+> 
+>> Since dm inherits limits from underlining block devices,
+>> this patch directly disables max_allocate_sectors for dm
+>> till full allocation support is implemented.
+>>
+>> This prevents high-level primitives (generic_make_request_checks(),
+>> __blkdev_issue_write_zeroes(), ...) from sending REQ_ALLOCATE
+>> requests.
+>>
+>> Signed-off-by: Kirill Tkhai <ktkhai@virtuozzo.com>
+>> ---
+>>  drivers/md/dm-table.c |    2 ++
+>>  drivers/md/md.h       |    1 +
+>>  2 files changed, 3 insertions(+)
+> 
+> You're mixing DM and MD changes in the same patch.
+> 
+> But I'm wondering if it might be best to set this default for stacking
+> devices in blk_set_stacking_limits()?
+> 
+> And then it is up to each stacking driver to override as needed.
 
-Signed-off-by: Kirill Tkhai <ktkhai@virtuozzo.com>
----
- drivers/block/loop.c |   15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+Hm. Sound like a good idea. This "lim->max_allocate_sectors = 0" in blk_set_stacking_limits()
+should work for dm's dm_calculate_queue_limits(), since it calls blk_stack_limits(), which is:
 
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index 739b372a5112..bfe76d9adf09 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -581,6 +581,15 @@ static int lo_rw_aio(struct loop_device *lo, struct loop_cmd *cmd,
- 	return 0;
- }
- 
-+static unsigned int write_zeroes_to_fallocate_mode(unsigned int flags)
-+{
-+	if (flags & REQ_ALLOCATE)
-+		return 0;
-+	if (flags & REQ_NOUNMAP)
-+		return FALLOC_FL_ZERO_RANGE;
-+	return FALLOC_FL_PUNCH_HOLE;
-+}
-+
- static int do_req_filebacked(struct loop_device *lo, struct request *rq)
- {
- 	struct loop_cmd *cmd = blk_mq_rq_to_pdu(rq);
-@@ -604,9 +613,7 @@ static int do_req_filebacked(struct loop_device *lo, struct request *rq)
- 		 * write zeroes the range.  Otherwise, punch them out.
- 		 */
- 		return lo_fallocate(lo, rq, pos,
--			(rq->cmd_flags & REQ_NOUNMAP) ?
--				FALLOC_FL_ZERO_RANGE :
--				FALLOC_FL_PUNCH_HOLE);
-+			write_zeroes_to_fallocate_mode(rq->cmd_flags));
- 	case REQ_OP_DISCARD:
- 		return lo_fallocate(lo, rq, pos, FALLOC_FL_PUNCH_HOLE);
- 	case REQ_OP_WRITE:
-@@ -877,6 +884,7 @@ static void loop_config_discard(struct loop_device *lo)
- 		q->limits.discard_alignment = 0;
- 		blk_queue_max_discard_sectors(q, 0);
- 		blk_queue_max_write_zeroes_sectors(q, 0);
-+		blk_queue_max_allocate_sectors(q, 0);
- 		blk_queue_flag_clear(QUEUE_FLAG_DISCARD, q);
- 		return;
- 	}
-@@ -886,6 +894,7 @@ static void loop_config_discard(struct loop_device *lo)
- 
- 	blk_queue_max_discard_sectors(q, UINT_MAX >> 9);
- 	blk_queue_max_write_zeroes_sectors(q, UINT_MAX >> 9);
-+	blk_queue_max_allocate_sectors(q, UINT_MAX >> 9);
- 	blk_queue_flag_set(QUEUE_FLAG_DISCARD, q);
- }
- 
+	t->max_allocate_sectors = min(t->max_allocate_sectors,
+				      b->max_allocate_sectors);
 
+Could you please tell is this fix is also enough for md?
+
+Kirill
 
 
 --
