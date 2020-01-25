@@ -1,122 +1,119 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id D69C01493EF
-	for <lists+dm-devel@lfdr.de>; Sat, 25 Jan 2020 08:54:37 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 2523214A0E9
+	for <lists+dm-devel@lfdr.de>; Mon, 27 Jan 2020 10:34:34 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1579938876;
+	s=mimecast20190719; t=1580117673;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=50CViiXmtW5n/a82l+r1F5fFdz9cPd3kjweJnD0GZfU=;
-	b=X8W/7Cqa3yD/UJPgvIOGK1w/nPY4Zb3QRW6iLtP1QNR/VP1s89tqOxi3CS1g2ZZP1uuaHi
-	GYS7SnkweKsNZLxa7db+ywvODBUwQ7qgccOwmFM+F46jkPiEgnc325CwbV0GaxhZRlKv49
-	XzOni1JgbcRAwVSTFxTGYH4FexlT7sw=
+	bh=3a1bVnGtU347hlpY9NutyjrI8nAjsusZhQrujNmHFOA=;
+	b=Kk3ZasptbQQXC4EoiAMFG14h+kE9FWWHPP+GiDM9ZL47DD9Ie7h9pif3hxgXMMl6nK676V
+	0GUMrio49uv4g5dpP0JRngq2Qnl8qOZVJp9QWvPLgsd+On2Q6XgTfCQSC3+SQu6xv0XfLK
+	D1+D7DPbqHuSHVHJeqIkuzhFXz8Qo1U=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-256-O62MpgoMOFeBFnm2UKbwBA-1; Sat, 25 Jan 2020 02:54:34 -0500
+ us-mta-201-JtXtzcbBMVGr1dZZge3NjA-1; Mon, 27 Jan 2020 04:34:30 -0500
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 01709107ACC4;
-	Sat, 25 Jan 2020 07:54:27 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 316A65DDAA;
-	Sat, 25 Jan 2020 07:54:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E142E8010C5;
+	Mon, 27 Jan 2020 09:34:24 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B955D5E241;
+	Mon, 27 Jan 2020 09:34:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0AC4F1809567;
-	Sat, 25 Jan 2020 07:54:03 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8D83A81969;
+	Mon, 27 Jan 2020 09:34:13 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00P7rk5X031325 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 25 Jan 2020 02:53:47 -0500
+	id 00P2cWsb014642 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 24 Jan 2020 21:38:32 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BFF72121139; Sat, 25 Jan 2020 07:53:46 +0000 (UTC)
+	id E939D2026D67; Sat, 25 Jan 2020 02:38:31 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA93F11D2B3
-	for <dm-devel@redhat.com>; Sat, 25 Jan 2020 07:53:44 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E38832037E42
+	for <dm-devel@redhat.com>; Sat, 25 Jan 2020 02:38:29 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 384E88EB44F
-	for <dm-devel@redhat.com>; Sat, 25 Jan 2020 07:53:44 +0000 (UTC)
-Received: from mx0b-00154904.pphosted.com (mx0b-00154904.pphosted.com
-	[148.163.137.20]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-224-3KbHWiwiPNyrv7PbnqxbxA-1; Sat, 25 Jan 2020 02:53:42 -0500
-Received: from pps.filterd (m0170398.ppops.net [127.0.0.1])
-	by mx0b-00154904.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
-	00P7o9xB008117
-	for <dm-devel@redhat.com>; Sat, 25 Jan 2020 02:53:42 -0500
-Received: from mx0b-00154901.pphosted.com (mx0b-00154901.pphosted.com
-	[67.231.157.37])
-	by mx0b-00154904.pphosted.com with ESMTP id 2xr631hwkm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT)
-	for <dm-devel@redhat.com>; Sat, 25 Jan 2020 02:53:41 -0500
-Received: from pps.filterd (m0089483.ppops.net [127.0.0.1])
-	by mx0b-00154901.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
-	00P7rfbl002863
-	for <dm-devel@redhat.com>; Sat, 25 Jan 2020 02:53:41 -0500
-Received: from ausc60ps301.us.dell.com (ausc60ps301.us.dell.com
-	[143.166.148.206])
-	by mx0b-00154901.pphosted.com with ESMTP id 2xr622q3sj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <dm-devel@redhat.com>; Sat, 25 Jan 2020 02:53:41 -0500
-X-LoopCount0: from 10.166.135.108
-X-PREM-Routing: D-Outbound
-X-IronPort-AV: E=Sophos;i="5.60,349,1549951200"; d="scan'208";a="1402361216"
-From: <Sreenivas.Honnur@dell.com>
-To: <dm-devel@redhat.com>
-Thread-Topic: device blacklisting and suspend issue
-Thread-Index: AdXTU0MOTdIfX9+0S+O/q/SIh5mHdg==
-Date: Sat, 25 Jan 2020 07:51:54 +0000
-Message-ID: <a06c41ee9a6a40288b05d016455469ab@BLRX13MDC419.AMER.DELL.COM>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Enabled=True;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_SiteId=945c199a-83a2-4e80-9f8c-5a91be5752dd;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Owner=Sreenivas_Honnur@Dell.com;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_SetDate=2020-01-25T07:51:42.9325008Z;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Name=External Public;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Application=Microsoft
-	Azure Information Protection;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Extended_MSFT_Method=Manual;
-	aiplabel=External Public
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [143.166.11.234]
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6D96785A302
+	for <dm-devel@redhat.com>; Sat, 25 Jan 2020 02:38:29 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-279-EQGnG3gpNIesM1DX4oxP5Q-1; Fri, 24 Jan 2020 21:38:27 -0500
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+	by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
+	00P2Y8PA022556; Sat, 25 Jan 2020 02:38:12 GMT
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+	by userp2120.oracle.com with ESMTP id 2xktnrv593-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sat, 25 Jan 2020 02:38:12 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+	by userp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id
+	00P2YF9A110642; Sat, 25 Jan 2020 02:38:12 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+	by userp3020.oracle.com with ESMTP id 2xrd0rr2bq-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sat, 25 Jan 2020 02:38:12 +0000
+Received: from abhmp0002.oracle.com (abhmp0002.oracle.com [141.146.116.8])
+	by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 00P2c4cC021548;
+	Sat, 25 Jan 2020 02:38:05 GMT
+Received: from [192.168.0.110] (/39.176.206.183)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Fri, 24 Jan 2020 18:38:04 -0800
+To: Kirill Tkhai <ktkhai@virtuozzo.com>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, martin.petersen@oracle.com,
+	axboe@kernel.dk, agk@redhat.com, snitzer@redhat.com,
+	dm-devel@redhat.com, song@kernel.org, tytso@mit.edu,
+	adilger.kernel@dilger.ca, Chaitanya.Kulkarni@wdc.com,
+	darrick.wong@oracle.com, ming.lei@redhat.com, osandov@fb.com,
+	jthumshirn@suse.de, minwoo.im.dev@gmail.com, damien.lemoal@wdc.com,
+	andrea.parri@amarulasolutions.com, hare@suse.com, tj@kernel.org,
+	ajay.joshi@wdc.com, sagi@grimberg.me, dsterba@suse.com,
+	bvanassche@acm.org, dhowells@redhat.com, asml.silence@gmail.com
+References: <157968992539.174869.7490844754165043549.stgit@localhost.localdomain>
+	<157969068296.174869.13461609442947913096.stgit@localhost.localdomain>
+From: Bob Liu <bob.liu@oracle.com>
+Message-ID: <8b77117b-1cc0-a379-2cdf-554a8060206c@oracle.com>
+Date: Sat, 25 Jan 2020 10:37:51 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.5.1
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
-	definitions=2020-01-25_02:2020-01-24,
-	2020-01-25 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
-	priorityscore=1501
-	adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0 mlxlogscore=828
-	phishscore=0 spamscore=0 malwarescore=0 mlxscore=0 suspectscore=0
-	lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-1911200001 definitions=main-2001250067
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=949
-	phishscore=0
-	priorityscore=1501 spamscore=0 mlxscore=0 malwarescore=0
-	lowpriorityscore=0 bulkscore=0 clxscore=1015 adultscore=0
-	impostorscore=0
-	suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-1911200001 definitions=main-2001250066
-X-MC-Unique: 3KbHWiwiPNyrv7PbnqxbxA-1
-X-MC-Unique: O62MpgoMOFeBFnm2UKbwBA-1
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 00P7rk5X031325
+In-Reply-To: <157969068296.174869.13461609442947913096.stgit@localhost.localdomain>
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9510
+	signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+	malwarescore=0
+	phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+	adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.0.1-1911140001 definitions=main-2001250021
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9510
+	signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+	priorityscore=1501 malwarescore=0
+	suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+	lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999
+	adultscore=0
+	classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
+	definitions=main-2001250021
+X-MC-Unique: EQGnG3gpNIesM1DX4oxP5Q-1
+X-MC-Unique: JtXtzcbBMVGr1dZZge3NjA-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Subject: [dm-devel] device blacklisting and suspend issue
+X-Mailman-Approved-At: Mon, 27 Jan 2020 04:34:01 -0500
+Subject: Re: [dm-devel] [PATCH v5 2/6] block: Pass op_flags into
+ blk_queue_get_max_sectors()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -136,19 +133,70 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-I have below queries, help is appreciated.
+On 1/22/20 6:58 PM, Kirill Tkhai wrote:
+> This preparation patch changes argument type, and now
+> the function takes full op_flags instead of just op code.
+> 
+> Signed-off-by: Kirill Tkhai <ktkhai@virtuozzo.com>
+> ---
+>  block/blk-core.c       |    4 ++--
+>  include/linux/blkdev.h |    8 +++++---
+>  2 files changed, 7 insertions(+), 5 deletions(-)
+> 
+> diff --git a/block/blk-core.c b/block/blk-core.c
+> index 50a5de025d5e..ac2634bcda1f 100644
+> --- a/block/blk-core.c
+> +++ b/block/blk-core.c
+> @@ -1250,10 +1250,10 @@ EXPORT_SYMBOL(submit_bio);
+>  static int blk_cloned_rq_check_limits(struct request_queue *q,
+>  				      struct request *rq)
+>  {
+> -	if (blk_rq_sectors(rq) > blk_queue_get_max_sectors(q, req_op(rq))) {
+> +	if (blk_rq_sectors(rq) > blk_queue_get_max_sectors(q, rq->cmd_flags)) {
+>  		printk(KERN_ERR "%s: over max size limit. (%u > %u)\n",
+>  			__func__, blk_rq_sectors(rq),
+> -			blk_queue_get_max_sectors(q, req_op(rq)));
+> +			blk_queue_get_max_sectors(q, rq->cmd_flags));
+>  		return -EIO;
+>  	}
+>  
+> diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+> index 0f1127d0b043..23a5850f35f6 100644
+> --- a/include/linux/blkdev.h
+> +++ b/include/linux/blkdev.h
+> @@ -989,8 +989,10 @@ static inline struct bio_vec req_bvec(struct request *rq)
+>  }
+>  
+>  static inline unsigned int blk_queue_get_max_sectors(struct request_queue *q,
+> -						     int op)
+> +						     unsigned int op_flags)
+>  {
+> +	int op = op_flags & REQ_OP_MASK;
+> +
 
-1.	We have an issue with device blacklisting. To blacklist a device we add an entry in /etc/multipath.conf" and do "service multipathd reload". After this to check if device is blacklisted we issue "multipathd show blacklist" command in a loop(with a delay of 10 second). Sometimes I see that this command takes too much time to come out or sometimes it just hangs. 
-	a. Is this the correct way to check if device is blacklisted? Or is there any other way to do it?
-	b. Is "multipathd reload" a async call? Is there a way to know that "multipathd reload" is completed?
+Nitpick. int op = req_op(rq);
 
-2.	After suspending (dmsetup suspend wwid) a device,  is there a way to inform multipathd not to make it active if some events happen on this device(like new path added..etc...I see that the table is reloaded and device becomes active)
-How to avoid this i.e. the device should be in "suspended" state until I do a "resume" on it, "multipathd" should not enable it until I do "dmsetup resume"
+Anyway, looks good to me.
+Reviewed-by: Bob Liu <bob.liu@oracle.com>
 
-3.  " blk_cloned_rq_check_limits: over max size limit." Error
-I have a requirement to change(decrease) the max_sector_kb value of a device, when I do that (using "echo value /sys/block/dm-x/queue/max_sector_kb) I hit above error.
-How I can I avoid this error when I change the max_sector_kb value?
-
+>  	if (unlikely(op == REQ_OP_DISCARD || op == REQ_OP_SECURE_ERASE))
+>  		return min(q->limits.max_discard_sectors,
+>  			   UINT_MAX >> SECTOR_SHIFT);
+> @@ -1029,10 +1031,10 @@ static inline unsigned int blk_rq_get_max_sectors(struct request *rq,
+>  	if (!q->limits.chunk_sectors ||
+>  	    req_op(rq) == REQ_OP_DISCARD ||
+>  	    req_op(rq) == REQ_OP_SECURE_ERASE)
+> -		return blk_queue_get_max_sectors(q, req_op(rq));
+> +		return blk_queue_get_max_sectors(q, rq->cmd_flags);
+>  
+>  	return min(blk_max_size_offset(q, offset),
+> -			blk_queue_get_max_sectors(q, req_op(rq)));
+> +			blk_queue_get_max_sectors(q, rq->cmd_flags));
+>  }
+>  
+>  static inline unsigned int blk_rq_count_bios(struct request *rq)
+> 
+> 
 
 --
 dm-devel mailing list
