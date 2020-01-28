@@ -1,122 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 0649B14B4CF
-	for <lists+dm-devel@lfdr.de>; Tue, 28 Jan 2020 14:23:13 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 1EB5914BDAB
+	for <lists+dm-devel@lfdr.de>; Tue, 28 Jan 2020 17:26:55 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1580217792;
+	s=mimecast20190719; t=1580228813;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=akXiU/o3Oqfo62VknCuNh7Mj/P8ImOZMLSVjKVx4rmo=;
-	b=ZvnJt0gXuEXyf+nNe9e+WqRQIE5XO87Qu8tZWPTvre2G7u8x/582ESmVv9Vlhj2oGwWh+Z
-	cYxaKTLqJeVPncQGgz22LtvrRFMriuwtrcHjKamddXb9xuw0iF0tmv1bJbEOTu0JdJ8MK6
-	OPul4TRDoaNzuFLMOi1Y6tMOlWZnRYE=
+	bh=rm9wL4ePPyorFgKzg3hU6Ym4CGA58D54ux7CD+4U11E=;
+	b=fyLLbmczJUWa37aoI+fg9eWjgFd8u/I9vl7OOvIq/9AZEnNcN06ShS467ILPOV8LpoEYRd
+	OuO1Qw/HIKNgivAB3PR05PlCIhVhk3XjpCqC9UgiwdxrcQESpNPXV1Un2ziA0jIW0cnYPc
+	cSutRVZtqfjWUDEunhNe/AFkjNPzyIQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-440-vOPkf17YPPOwAJfNH0zykA-1; Tue, 28 Jan 2020 08:23:09 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-238-vZ6PGKSlOJizQqeb1vj_QA-1; Tue, 28 Jan 2020 11:26:50 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7887713E5;
-	Tue, 28 Jan 2020 13:23:02 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AE47E100551C;
+	Tue, 28 Jan 2020 16:26:44 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 187C98702A;
-	Tue, 28 Jan 2020 13:22:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E102260C21;
+	Tue, 28 Jan 2020 16:26:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 37ED31819ACE;
-	Tue, 28 Jan 2020 13:22:48 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DB51418089CE;
+	Tue, 28 Jan 2020 16:26:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 00SDMXHD020219 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 28 Jan 2020 08:22:34 -0500
+	id 00SGQGAp027236 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 28 Jan 2020 11:26:16 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id CF3572026D67; Tue, 28 Jan 2020 13:22:33 +0000 (UTC)
+	id A87BD88838; Tue, 28 Jan 2020 16:26:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C9C622031A48
-	for <dm-devel@redhat.com>; Tue, 28 Jan 2020 13:22:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5A672801019
-	for <dm-devel@redhat.com>; Tue, 28 Jan 2020 13:22:31 +0000 (UTC)
-Received: from mx0b-00154904.pphosted.com (mx0b-00154904.pphosted.com
-	[148.163.137.20]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-115-l2r5Wd61MY2aop6TITi02A-1; Tue, 28 Jan 2020 08:22:29 -0500
-Received: from pps.filterd (m0170395.ppops.net [127.0.0.1])
-	by mx0b-00154904.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
-	00SDExrW008374
-	for <dm-devel@redhat.com>; Tue, 28 Jan 2020 08:22:28 -0500
-Received: from mx0b-00154901.pphosted.com (mx0b-00154901.pphosted.com
-	[67.231.157.37])
-	by mx0b-00154904.pphosted.com with ESMTP id 2xrk7ru1ay-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT)
-	for <dm-devel@redhat.com>; Tue, 28 Jan 2020 08:22:28 -0500
-Received: from pps.filterd (m0144103.ppops.net [127.0.0.1])
-	by mx0b-00154901.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
-	00SDJCHm040582
-	for <dm-devel@redhat.com>; Tue, 28 Jan 2020 08:22:28 -0500
-Received: from ausxippc101.us.dell.com (ausxippc101.us.dell.com
-	[143.166.85.207])
-	by mx0b-00154901.pphosted.com with ESMTP id 2xrh3ervey-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
-	for <dm-devel@redhat.com>; Tue, 28 Jan 2020 08:22:28 -0500
-X-LoopCount0: from 10.166.132.131
-X-PREM-Routing: D-Outbound
-X-IronPort-AV: E=Sophos;i="5.60,346,1549951200"; d="scan'208";a="1351988839"
-From: <Sreenivas.Honnur@dell.com>
-To: <dm-devel@redhat.com>
-Thread-Topic: [dm-devel] device blacklisting and suspend issue
-Thread-Index: AdXV3cULSccvTIM/R9ah9Pn2zUtvDg==
-Date: Tue, 28 Jan 2020 13:22:23 +0000
-Message-ID: <5fb5dfe2cd274b0091076df214fd25a5@BLRX13MDC419.AMER.DELL.COM>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Enabled=True;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_SiteId=945c199a-83a2-4e80-9f8c-5a91be5752dd;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Owner=Sreenivas_Honnur@Dell.com;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_SetDate=2020-01-25T07:51:42.9325008Z;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Name=External Public;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Application=Microsoft
-	Azure Information Protection;
-	MSIP_Label_17cb76b2-10b8-4fe1-93d4-2202842406cd_Extended_MSFT_Method=Manual;
-	aiplabel=External Public
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [143.166.11.234]
+Received: from localhost (unknown [10.18.25.174])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A189863DE;
+	Tue, 28 Jan 2020 16:26:11 +0000 (UTC)
+Date: Tue, 28 Jan 2020 11:26:10 -0500
+From: Mike Snitzer <snitzer@redhat.com>
+To: Stefan Bader <stefan.bader@canonical.com>
+Message-ID: <20200128162610.GA15575@redhat.com>
+References: <20200123091713.12623-1-stefan.bader@canonical.com>
+	<20200123091713.12623-2-stefan.bader@canonical.com>
+	<20200123103541.GA28102@redhat.com>
+	<20200123172816.GA31063@redhat.com>
+	<81055166-37fb-ad65-6a53-11c22c626ab1@kernel.dk>
+	<20200127193225.GA5065@redhat.com>
+	<e0475dae-a55f-f30e-a82f-ee35cdb171c4@canonical.com>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
-	definitions=2020-01-28_03:2020-01-28,
-	2020-01-28 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
-	suspectscore=0
-	priorityscore=1501 adultscore=0 impostorscore=0 malwarescore=0
-	phishscore=0 mlxlogscore=941 bulkscore=0 clxscore=1015 spamscore=0
-	lowpriorityscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx
-	scancount=1 engine=8.12.0-1911200001 definitions=main-2001280107
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
-	malwarescore=0 phishscore=0
-	spamscore=0 impostorscore=0 clxscore=1015 lowpriorityscore=0
-	adultscore=0
-	bulkscore=0 mlxlogscore=999 priorityscore=1501 suspectscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-1911200001 definitions=main-2001280106
-X-MC-Unique: l2r5Wd61MY2aop6TITi02A-1
-X-MC-Unique: vOPkf17YPPOwAJfNH0zykA-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 00SDMXHD020219
+In-Reply-To: <e0475dae-a55f-f30e-a82f-ee35cdb171c4@canonical.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
-Subject: [dm-devel]  device blacklisting and suspend issue
+Cc: Jens Axboe <axboe@kernel.dk>, linux-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org, dm-devel@redhat.com,
+	Tyler Hicks <tyler.hicks@canonical.com>, Alasdair Kergon <agk@redhat.com>
+Subject: Re: [dm-devel] [PATCH 1/1] blk/core: Gracefully handle unset
+	make_request_fn
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -130,24 +75,64 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-MC-Unique: vZ6PGKSlOJizQqeb1vj_QA-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-I have below queries, help is appreciated.
+On Tue, Jan 28 2020 at  9:32am -0500,
+Stefan Bader <stefan.bader@canonical.com> wrote:
 
-1.	We have an issue with device blacklisting. To blacklist a device we add an entry in /etc/multipath.conf" and do "service multipathd reload". After this to check if device is blacklisted we issue "multipathd show blacklist" command in a loop(with a delay of 10 second). Sometimes I see that this command takes too much time to come out or sometimes it just hangs. 
-	a. Is this the correct way to check if device is blacklisted? Or is there any other way to do it?
-	b. Is "multipathd reload" a async call? Is there a way to know that "multipathd reload" is completed?
+> On 27.01.20 20:32, Mike Snitzer wrote:
+> > 
+> > I just staged the following DM fix:
+> > https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/commit/?h=dm-5.6&id=28a101d6b344f5a38d482a686d18b1205bc92333
+> 
+> Thanks Mike,
+> 
+> yeah this looks like it resolves the problem without adding any impact on the
+> generic I/O path. We certainly had thought about that but felt uncertain whether
+> it would not open other risks. Like something adding requests just before the
+> table load. Could this cause some I/O be handled by one function and the rest by
+> another? And would that really matter?
 
-2.	After suspending (dmsetup suspend wwid) a device,  is there a way to inform multipathd not to make it active if some events happen on this device(like new path added..etc...I see that the table is reloaded and device becomes active)
-How to avoid this i.e. the device should be in "suspended" state until I do a "resume" on it, "multipathd" should not enable it until I do "dmsetup resume"
+I considered this too.  Any IO issued to the device before it is "ready"
+won't matter anyway (no where to send the IO due to not having a DM
+table -- such IO should result in an error (from dm.c:dm_process_bio's
+!map check).  But given the device has no size, a simple write will hit
+-ENOSPC before.
 
-3.  " blk_cloned_rq_check_limits: over max size limit." Error I have a requirement to change(decrease) the max_sector_kb value of a device, when I do that (using "echo value /sys/block/dm-x/queue/max_sector_kb) I hit above error.
-How I can I avoid this error when I change the max_sector_kb value?
+And the only way to get the DM device to have a proper destination for
+its IO is to load a table, which requires a sequence like:
 
+# dmsetup create -n test
+# dmsetup table
+test:
+# echo "0 20971520 linear 259:0 2048" | dmsetup load test
+# dmsetup table --inactive
+test: 0 20971520 linear 259:0 2048
+# dmsetup suspend test
+# dmsetup resume test
+# dmsetup table
+test: 0 20971520 linear 259:0 2048
+
+And once a table is loaded there will be accompanying change
+uevents that trigger udev, blkid, etc.
+
+(NOTE: the suspend phase implies a flush of all outstanding IO, but even
+if 'dmsetup suspend --noflush test' were used the IO would just get
+pushed onto a list in DM core and it would be issued after the new table
+is in place).
+
+> The other thing that was a bit strange but maybe someone else's problem is that
+> mount generated I/O requests to start with. The device size should be 0 still.
+
+That's just mount not having a negative check for device size being 0.
+
+Mike
 
 --
 dm-devel mailing list
