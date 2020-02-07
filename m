@@ -1,60 +1,61 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 7303B155F9D
-	for <lists+dm-devel@lfdr.de>; Fri,  7 Feb 2020 21:27:38 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id D7438155F9E
+	for <lists+dm-devel@lfdr.de>; Fri,  7 Feb 2020 21:27:40 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1581107257;
+	s=mimecast20190719; t=1581107259;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=o75qwB6NOlHxlvid51hoti2CIPWgSC5Qi0fuYMI2eKs=;
-	b=Y0i5rIvcnxNL2DwF+tYb25rdKqVPNxycVe9+kXcDGbN4Rm8LbLdn0BqNoyMdUEvg9pdlsq
-	6Cu1q+wDwONb7SIrP4hRyyKlnH/wgsyL3l+gA/dUEKwiWRRFdufocvSRM2SM6l55yNR45k
-	YG65P196uEDBv5Tm1QtvwcaBd/8UVgA=
+	bh=bO7SlUK2oAgALtAbqurDsiiriC37eY7rp4aYo2hGnkY=;
+	b=HNXBNnkxCIUTwi0/6n8RiBhuNAyUjZndvOn5Xh8/L6/v+iuNh7QWVM0F138Zv1hTkbqmGW
+	YZOgRgnCxsMEJchI5bMMeA2HW2ANZl4kATULaUeKV0cevneygmXnNUg9BC9oMGKp3SldWu
+	uR+y/QObVYZvnQIckzdEor8xI6Pp66Y=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-29-T5tId1rnNmCo3llEC7CtMg-1; Fri, 07 Feb 2020 15:27:33 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-176-VDoal6N9PjSUZaXSUtiMHg-1; Fri, 07 Feb 2020 15:27:33 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 79DA3107B270;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 901C18024CD;
 	Fri,  7 Feb 2020 20:27:26 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 46F30790D8;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 63B3187B00;
 	Fri,  7 Feb 2020 20:27:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C7633866B7;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DBAA4866BB;
 	Fri,  7 Feb 2020 20:27:25 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
 	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 017KR61Z019052 for <dm-devel@listman.util.phx.redhat.com>;
+	id 017KR6sY019045 for <dm-devel@listman.util.phx.redhat.com>;
 	Fri, 7 Feb 2020 15:27:06 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 66E8C100164D; Fri,  7 Feb 2020 20:27:06 +0000 (UTC)
+	id 5AF5C1001DC2; Fri,  7 Feb 2020 20:27:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from horse.redhat.com (unknown [10.18.25.35])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 359881001B2C;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3A196100164D;
 	Fri,  7 Feb 2020 20:27:06 +0000 (UTC)
 Received: by horse.redhat.com (Postfix, from userid 10451)
-	id 9FB5D2257D7; Fri,  7 Feb 2020 15:27:02 -0500 (EST)
+	id A5C232257D8; Fri,  7 Feb 2020 15:27:02 -0500 (EST)
 From: Vivek Goyal <vgoyal@redhat.com>
 To: linux-fsdevel@vger.kernel.org, linux-nvdimm@lists.01.org,
 	hch@infradead.org, dan.j.williams@intel.com
-Date: Fri,  7 Feb 2020 15:26:50 -0500
-Message-Id: <20200207202652.1439-6-vgoyal@redhat.com>
+Date: Fri,  7 Feb 2020 15:26:51 -0500
+Message-Id: <20200207202652.1439-7-vgoyal@redhat.com>
 In-Reply-To: <20200207202652.1439-1-vgoyal@redhat.com>
 References: <20200207202652.1439-1-vgoyal@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
 Cc: vishal.l.verma@intel.com, dm-devel@redhat.com, vgoyal@redhat.com
-Subject: [dm-devel] [PATCH v3 5/7] dm, dax: Add dax zero_page_range operation
+Subject: [dm-devel] [PATCH v3 6/7] dax,
+	iomap: Start using dax native zero_page_range()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -68,226 +69,84 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-MC-Unique: T5tId1rnNmCo3llEC7CtMg-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-MC-Unique: VDoal6N9PjSUZaXSUtiMHg-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This patch adds support for dax zero_page_range operation to dm targets.
+Get rid of calling block device interface for zeroing in iomap dax
+zeroing path and use dax native zeroing interface instead.
 
+Suggested-by: Christoph Hellwig <hch@infradead.org>
 Signed-off-by: Vivek Goyal <vgoyal@redhat.com>
 ---
- drivers/md/dm-linear.c        | 21 +++++++++++++++++++++
- drivers/md/dm-log-writes.c    | 19 +++++++++++++++++++
- drivers/md/dm-stripe.c        | 26 ++++++++++++++++++++++++++
- drivers/md/dm.c               | 31 +++++++++++++++++++++++++++++++
- include/linux/device-mapper.h |  3 +++
- 5 files changed, 100 insertions(+)
+ fs/dax.c | 45 +++++++++------------------------------------
+ 1 file changed, 9 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/md/dm-linear.c b/drivers/md/dm-linear.c
-index 8d07fdf63a47..03f99e6ad372 100644
---- a/drivers/md/dm-linear.c
-+++ b/drivers/md/dm-linear.c
-@@ -201,10 +201,30 @@ static size_t linear_dax_copy_to_iter(struct dm_target *ti, pgoff_t pgoff,
- 	return dax_copy_to_iter(dax_dev, pgoff, addr, bytes, i);
- }
- 
-+static int linear_dax_zero_page_range(struct dm_target *ti, u64 offset,
-+				      size_t len)
-+{
-+	int ret;
-+	struct linear_c *lc = ti->private;
-+	struct block_device *bdev = lc->dev->bdev;
-+	struct dax_device *dax_dev = lc->dev->dax_dev;
-+	pgoff_t pgoff = offset >> PAGE_SHIFT;
-+	unsigned page_offset = offset_in_page(offset);
-+	sector_t dev_sector, sector = pgoff * PAGE_SECTORS;
-+
-+	dev_sector = linear_map_sector(ti, sector);
-+	ret = bdev_dax_pgoff(bdev, dev_sector, ALIGN(len, PAGE_SIZE), &pgoff);
-+	if (ret)
-+		return ret;
-+	return dax_zero_page_range(dax_dev, (pgoff << PAGE_SHIFT) + page_offset,
-+				   len);
-+}
-+
- #else
- #define linear_dax_direct_access NULL
- #define linear_dax_copy_from_iter NULL
- #define linear_dax_copy_to_iter NULL
-+#define linear_dax_zero_page_range NULL
- #endif
- 
- static struct target_type linear_target = {
-@@ -226,6 +246,7 @@ static struct target_type linear_target = {
- 	.direct_access = linear_dax_direct_access,
- 	.dax_copy_from_iter = linear_dax_copy_from_iter,
- 	.dax_copy_to_iter = linear_dax_copy_to_iter,
-+	.dax_zero_page_range = linear_dax_zero_page_range,
- };
- 
- int __init dm_linear_init(void)
-diff --git a/drivers/md/dm-log-writes.c b/drivers/md/dm-log-writes.c
-index 99721c76225d..f36ee223cb60 100644
---- a/drivers/md/dm-log-writes.c
-+++ b/drivers/md/dm-log-writes.c
-@@ -994,10 +994,28 @@ static size_t log_writes_dax_copy_to_iter(struct dm_target *ti,
- 	return dax_copy_to_iter(lc->dev->dax_dev, pgoff, addr, bytes, i);
- }
- 
-+static int log_writes_dax_zero_page_range(struct dm_target *ti, u64 offset,
-+					  size_t len)
-+{
-+	int ret;
-+	struct log_writes_c *lc = ti->private;
-+	pgoff_t pgoff = offset >> PAGE_SHIFT;
-+	unsigned page_offset = offset_in_page(offset);
-+	sector_t sector = pgoff * PAGE_SECTORS;
-+
-+	ret = bdev_dax_pgoff(lc->dev->bdev, sector, ALIGN(len, PAGE_SIZE),
-+			     &pgoff);
-+	if (ret)
-+		return ret;
-+	return dax_zero_page_range(lc->dev->dax_dev,
-+				   (pgoff << PAGE_SHIFT) + page_offset, len);
-+}
-+
- #else
- #define log_writes_dax_direct_access NULL
- #define log_writes_dax_copy_from_iter NULL
- #define log_writes_dax_copy_to_iter NULL
-+#define log_writes_dax_zero_page_range NULL
- #endif
- 
- static struct target_type log_writes_target = {
-@@ -1016,6 +1034,7 @@ static struct target_type log_writes_target = {
- 	.direct_access = log_writes_dax_direct_access,
- 	.dax_copy_from_iter = log_writes_dax_copy_from_iter,
- 	.dax_copy_to_iter = log_writes_dax_copy_to_iter,
-+	.dax_zero_page_range = log_writes_dax_zero_page_range,
- };
- 
- static int __init dm_log_writes_init(void)
-diff --git a/drivers/md/dm-stripe.c b/drivers/md/dm-stripe.c
-index 63bbcc20f49a..f5e17284c615 100644
---- a/drivers/md/dm-stripe.c
-+++ b/drivers/md/dm-stripe.c
-@@ -360,10 +360,35 @@ static size_t stripe_dax_copy_to_iter(struct dm_target *ti, pgoff_t pgoff,
- 	return dax_copy_to_iter(dax_dev, pgoff, addr, bytes, i);
- }
- 
-+static int stripe_dax_zero_page_range(struct dm_target *ti, u64 offset,
-+				      size_t len)
-+{
-+	int ret;
-+	pgoff_t pgoff = offset >> PAGE_SHIFT;
-+	unsigned page_offset = offset_in_page(offset);
-+	sector_t dev_sector, sector = pgoff * PAGE_SECTORS;
-+	struct stripe_c *sc = ti->private;
-+	struct dax_device *dax_dev;
-+	struct block_device *bdev;
-+	uint32_t stripe;
-+
-+	stripe_map_sector(sc, sector, &stripe, &dev_sector);
-+	dev_sector += sc->stripe[stripe].physical_start;
-+	dax_dev = sc->stripe[stripe].dev->dax_dev;
-+	bdev = sc->stripe[stripe].dev->bdev;
-+
-+	ret = bdev_dax_pgoff(bdev, dev_sector, ALIGN(len, PAGE_SIZE), &pgoff);
-+	if (ret)
-+		return ret;
-+	return dax_zero_page_range(dax_dev, (pgoff << PAGE_SHIFT) + page_offset,
-+				   len);
-+}
-+
- #else
- #define stripe_dax_direct_access NULL
- #define stripe_dax_copy_from_iter NULL
- #define stripe_dax_copy_to_iter NULL
-+#define stripe_dax_zero_page_range NULL
- #endif
- 
- /*
-@@ -486,6 +511,7 @@ static struct target_type stripe_target = {
- 	.direct_access = stripe_dax_direct_access,
- 	.dax_copy_from_iter = stripe_dax_copy_from_iter,
- 	.dax_copy_to_iter = stripe_dax_copy_to_iter,
-+	.dax_zero_page_range = stripe_dax_zero_page_range,
- };
- 
- int __init dm_stripe_init(void)
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index e8f9661a10a1..4d2a6eadd901 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -1198,6 +1198,36 @@ static size_t dm_dax_copy_to_iter(struct dax_device *dax_dev, pgoff_t pgoff,
+diff --git a/fs/dax.c b/fs/dax.c
+index 1f1f0201cad1..6757e12b86b2 100644
+--- a/fs/dax.c
++++ b/fs/dax.c
+@@ -1044,48 +1044,21 @@ static vm_fault_t dax_load_hole(struct xa_state *xas,
  	return ret;
  }
  
-+static int dm_dax_zero_page_range(struct dax_device *dax_dev, u64 offset,
-+				  size_t len)
-+{
-+	struct mapped_device *md = dax_get_private(dax_dev);
-+	pgoff_t pgoff = offset >> PAGE_SHIFT;
-+	sector_t sector = pgoff * PAGE_SECTORS;
-+	struct dm_target *ti;
-+	int ret = -EIO;
-+	int srcu_idx;
-+
-+	ti = dm_dax_get_live_target(md, sector, &srcu_idx);
-+
-+	if (!ti)
-+		goto out;
-+	if (WARN_ON(!ti->type->dax_zero_page_range)) {
-+		/*
-+		 * ->zero_page_range() is mandatory dax operation. If we are
-+		 *  here, something is wrong.
-+		 */
-+		dm_put_live_table(md, srcu_idx);
-+		goto out;
-+	}
-+	ret = ti->type->dax_zero_page_range(ti, offset, len);
-+
-+ out:
-+	dm_put_live_table(md, srcu_idx);
-+
-+	return ret;
-+}
-+
- /*
-  * A target may call dm_accept_partial_bio only from the map routine.  It is
-  * allowed for all bio types except REQ_PREFLUSH, REQ_OP_ZONE_RESET,
-@@ -3194,6 +3224,7 @@ static const struct dax_operations dm_dax_ops = {
- 	.dax_supported = dm_dax_supported,
- 	.copy_from_iter = dm_dax_copy_from_iter,
- 	.copy_to_iter = dm_dax_copy_to_iter,
-+	.zero_page_range = dm_dax_zero_page_range,
- };
+-static bool dax_range_is_aligned(struct block_device *bdev,
+-				 unsigned int offset, unsigned int length)
+-{
+-	unsigned short sector_size = bdev_logical_block_size(bdev);
+-
+-	if (!IS_ALIGNED(offset, sector_size))
+-		return false;
+-	if (!IS_ALIGNED(length, sector_size))
+-		return false;
+-
+-	return true;
+-}
+-
+ int __dax_zero_page_range(struct block_device *bdev,
+ 		struct dax_device *dax_dev, sector_t sector,
+ 		unsigned int offset, unsigned int size)
+ {
+-	if (dax_range_is_aligned(bdev, offset, size)) {
+-		sector_t start_sector = sector + (offset >> 9);
+-
+-		return blkdev_issue_zeroout(bdev, start_sector,
+-				size >> 9, GFP_NOFS, 0);
+-	} else {
+-		pgoff_t pgoff;
+-		long rc, id;
+-		void *kaddr;
++	pgoff_t pgoff;
++	long rc, id;
  
- /*
-diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
-index 475668c69dbc..b4ef5b07be74 100644
---- a/include/linux/device-mapper.h
-+++ b/include/linux/device-mapper.h
-@@ -141,6 +141,8 @@ typedef long (*dm_dax_direct_access_fn) (struct dm_target *ti, pgoff_t pgoff,
- 		long nr_pages, void **kaddr, pfn_t *pfn);
- typedef size_t (*dm_dax_copy_iter_fn)(struct dm_target *ti, pgoff_t pgoff,
- 		void *addr, size_t bytes, struct iov_iter *i);
-+typedef int (*dm_dax_zero_page_range_fn)(struct dm_target *ti, u64 offset,
-+		size_t len);
- #define PAGE_SECTORS (PAGE_SIZE / 512)
+-		rc = bdev_dax_pgoff(bdev, sector, PAGE_SIZE, &pgoff);
+-		if (rc)
+-			return rc;
++	rc = bdev_dax_pgoff(bdev, sector, PAGE_SIZE, &pgoff);
++	if (rc)
++		return rc;
  
- void dm_error(const char *message);
-@@ -195,6 +197,7 @@ struct target_type {
- 	dm_dax_direct_access_fn direct_access;
- 	dm_dax_copy_iter_fn dax_copy_from_iter;
- 	dm_dax_copy_iter_fn dax_copy_to_iter;
-+	dm_dax_zero_page_range_fn dax_zero_page_range;
+-		id = dax_read_lock();
+-		rc = dax_direct_access(dax_dev, pgoff, 1, &kaddr, NULL);
+-		if (rc < 0) {
+-			dax_read_unlock(id);
+-			return rc;
+-		}
+-		memset(kaddr + offset, 0, size);
+-		dax_flush(dax_dev, kaddr + offset, size);
+-		dax_read_unlock(id);
+-	}
+-	return 0;
++	id = dax_read_lock();
++	rc = dax_zero_page_range(dax_dev, (pgoff << PAGE_SHIFT) + offset, size);
++	dax_read_unlock(id);
++	return rc;
+ }
+ EXPORT_SYMBOL_GPL(__dax_zero_page_range);
  
- 	/* For internal device-mapper use. */
- 	struct list_head list;
 -- 
 2.20.1
 
