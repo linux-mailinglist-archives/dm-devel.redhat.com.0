@@ -1,91 +1,63 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 3E4B0155C46
-	for <lists+dm-devel@lfdr.de>; Fri,  7 Feb 2020 17:59:20 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 89D44155C7D
+	for <lists+dm-devel@lfdr.de>; Fri,  7 Feb 2020 18:03:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1581094759;
+	s=mimecast20190719; t=1581095025;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=nsCpsbFBddBqUyzRR/QtOEdOWjaaZk3+KtZR+RYLzR0=;
-	b=f4Ds6ENzLLk2/yHjWCWVEBWw90Fwot9WWfADa9npSoAtgXFNgXsdF2o3Lcop3eqDubFya6
-	/jtfXRdbTYw+Qv0fmDLm91arCT9gigCZy3GD8wi0VQfV73Q8ffcg4wsjv1XlT9jarssNba
-	qoYbRfaoBv9PkIT1hh6pb6AIJrzsxkQ=
+	bh=0hziBD2IN0+5fF0OoRk7HKICYBJqhplKg1EdHYSJpyU=;
+	b=eS2F+VBxx0DbABG6aXwBfK5ykk2nL3Ntmvll0Ap2xKWTQRZ2xyqnzEvYii3YZ1cym21cpy
+	ALgjfvJ3Z3fLd1wSwc4VwcSquI/G16HxSB79Jfh360eCmoxisZmjVtQFhHpg2kuBQNkxl0
+	kx6oHTm8elFt5z+Q4npqKPWuR6WoAKA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-82-BW9GFZ8SMOaDhFZ7T0FIbw-1; Fri, 07 Feb 2020 11:59:16 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-282-wsiZrtcMM0SXCfreNJSYHg-1; Fri, 07 Feb 2020 12:03:37 -0500
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5B5E01857343;
-	Fri,  7 Feb 2020 16:59:09 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3706F859A5;
-	Fri,  7 Feb 2020 16:59:09 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5CDAB801A02;
+	Fri,  7 Feb 2020 17:03:31 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C2C9F60BF7;
+	Fri,  7 Feb 2020 17:03:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 23A5E18089CD;
-	Fri,  7 Feb 2020 16:59:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 09518866B3;
+	Fri,  7 Feb 2020 17:03:27 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 017Gx3XR010772 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 7 Feb 2020 11:59:03 -0500
+	id 017H1rKQ010975 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 7 Feb 2020 12:01:53 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 11FDF2049CB5; Fri,  7 Feb 2020 16:59:03 +0000 (UTC)
+	id 89820863A5; Fri,  7 Feb 2020 17:01:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0C9982093CE4
-	for <dm-devel@redhat.com>; Fri,  7 Feb 2020 16:59:00 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 84DAF802E43
-	for <dm-devel@redhat.com>; Fri,  7 Feb 2020 16:59:00 +0000 (UTC)
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
-	[209.85.210.67]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-375-fQ-CZDt_PZmvIufzxtdM3A-1; Fri, 07 Feb 2020 11:58:58 -0500
-Received: by mail-ot1-f67.google.com with SMTP id z9so2794933oth.5
-	for <dm-devel@redhat.com>; Fri, 07 Feb 2020 08:58:58 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=8bcluL/nyB0VjYEVoSs9KiwWiRD7Dbfw+/1BJdMrk04=;
-	b=cCKDpgBmdH3++9iDCxuvrWgqDWzEOzszDVp6Mtuqim2mCo30z7oaN88zOwUqdy7wWf
-	uKYBTWv7j6wv9PtkAU47uNrtLKCnlIgC9gz3IsGsHOhTx3WgIOCitEP+ZTIKPhUuVLrG
-	2Eum4WkOuamxFjAAIR+42oiungMNqcOOultNgu00aQD3ojE3UjCcDEuLpZJXZhDNf1ms
-	BzdFsv3240TWFEd5FJYMkBBONq4GDb884XrNXFra8ppKF9/KmTplFe2sFQhlFGnc+Q42
-	8eKqixma7C7FeBr7esKjhlRHyS9DlOshZLcBkmFfH3XsOJSj/vKHC1pP5H7z4MMaYXPG
-	AWWA==
-X-Gm-Message-State: APjAAAWbOieSEtu33IFw2dSRYqWTaUoABSOZnCB7i1xgCpI/JQ1u4GNZ
-	CXV2EkxeU4pPKjn5vG+tEFV6p7GcQkfWBtLz+vPmORzl
-X-Google-Smtp-Source: APXvYqw/6C4HAwNxaZVrwpTLMDnDTG++NB0iw0IEYHejzh7To9hof2jrUWdeK9OYAkgfD9kJ++NgZCvHPVbY0ouBQlw=
-X-Received: by 2002:a9d:6f11:: with SMTP id n17mr251422otq.126.1581094737435; 
-	Fri, 07 Feb 2020 08:58:57 -0800 (PST)
-MIME-Version: 1.0
+Received: from horse.redhat.com (unknown [10.18.25.35])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B56C7859A5;
+	Fri,  7 Feb 2020 17:01:50 +0000 (UTC)
+Received: by horse.redhat.com (Postfix, from userid 10451)
+	id 46A67220A24; Fri,  7 Feb 2020 12:01:50 -0500 (EST)
+Date: Fri, 7 Feb 2020 12:01:50 -0500
+From: Vivek Goyal <vgoyal@redhat.com>
+To: Dan Williams <dan.j.williams@intel.com>
+Message-ID: <20200207170150.GC11998@redhat.com>
 References: <20200203200029.4592-1-vgoyal@redhat.com>
 	<20200203200029.4592-2-vgoyal@redhat.com>
 	<20200205183050.GA26711@infradead.org>
 	<20200205200259.GE14544@redhat.com>
 	<CAPcyv4iY=gw86UDLqpiCtathGXRUuxOMuU=unwxzA-cm=0x+Sg@mail.gmail.com>
-	<20200206143443.GB12036@redhat.com>
-In-Reply-To: <20200206143443.GB12036@redhat.com>
-From: Dan Williams <dan.j.williams@intel.com>
-Date: Fri, 7 Feb 2020 08:58:45 -0800
-Message-ID: <CAPcyv4j_SN3cyeVfkVQBEniGBZ+XgmCx3ezBJ_KwiUpawaq40g@mail.gmail.com>
-To: Vivek Goyal <vgoyal@redhat.com>
-X-MC-Unique: fQ-CZDt_PZmvIufzxtdM3A-1
-X-MC-Unique: BW9GFZ8SMOaDhFZ7T0FIbw-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 017Gx3XR010772
+	<20200206074142.GB28365@infradead.org>
+	<CAPcyv4iTBTOuKjQX3eoojLM=Eai_pfARXmzpMAtgi5OWBHXvzQ@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAPcyv4iTBTOuKjQX3eoojLM=Eai_pfARXmzpMAtgi5OWBHXvzQ@mail.gmail.com>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
 Cc: Christoph Hellwig <hch@infradead.org>,
 	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
@@ -106,65 +78,43 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-MC-Unique: wsiZrtcMM0SXCfreNJSYHg-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-On Thu, Feb 6, 2020 at 6:35 AM Vivek Goyal <vgoyal@redhat.com> wrote:
->
-> On Wed, Feb 05, 2020 at 04:40:44PM -0800, Dan Williams wrote:
-> > On Wed, Feb 5, 2020 at 12:03 PM Vivek Goyal <vgoyal@redhat.com> wrote:
-> > >
-> > > On Wed, Feb 05, 2020 at 10:30:50AM -0800, Christoph Hellwig wrote:
-> > > > > +   /*
-> > > > > +    * There are no users as of now. Once users are there, fix dm code
-> > > > > +    * to be able to split a long range across targets.
-> > > > > +    */
-> > > >
-> > > > This comment confused me.  I think this wants to say something like:
-> > > >
-> > > >       /*
-> > > >        * There are now callers that want to zero across a page boundary as of
-> > > >        * now.  Once there are users this check can be removed after the
-> > > >        * device mapper code has been updated to split ranges across targets.
-> > > >        */
-> > >
-> > > Yes, that's what I wanted to say but I missed one line. Thanks. Will fix
-> > > it.
-> > >
-> > > >
-> > > > > +static int pmem_dax_zero_page_range(struct dax_device *dax_dev, pgoff_t pgoff,
-> > > > > +                               unsigned int offset, size_t len)
-> > > > > +{
-> > > > > +   int rc = 0;
-> > > > > +   phys_addr_t phys_pos = pgoff * PAGE_SIZE + offset;
-> > > >
-> > > > Any reason not to pass a phys_addr_t in the calling convention for the
-> > > > method and maybe also for dax_zero_page_range itself?
-> > >
-> > > I don't have any reason not to pass phys_addr_t. If that sounds better,
-> > > will make changes.
+On Fri, Feb 07, 2020 at 08:57:39AM -0800, Dan Williams wrote:
+> On Wed, Feb 5, 2020 at 11:41 PM Christoph Hellwig <hch@infradead.org> wrote:
 > >
-> > The problem is device-mapper. That wants to use offset to route
-> > through the map to the leaf device. If it weren't for the firmware
-> > communication requirement you could do:
+> > On Wed, Feb 05, 2020 at 04:40:44PM -0800, Dan Williams wrote:
+> > > > I don't have any reason not to pass phys_addr_t. If that sounds better,
+> > > > will make changes.
+> > >
+> > > The problem is device-mapper. That wants to use offset to route
+> > > through the map to the leaf device. If it weren't for the firmware
+> > > communication requirement you could do:
+> > >
+> > > dax_direct_access(...)
+> > > generic_dax_zero_page_range(...)
+> > >
+> > > ...but as long as the firmware error clearing path is required I think
+> > > we need to do pass the pgoff through the interface and do the pgoff to
+> > > virt / phys translation inside the ops handler.
 > >
-> > dax_direct_access(...)
-> > generic_dax_zero_page_range(...)
-> >
-> > ...but as long as the firmware error clearing path is required I think
-> > we need to do pass the pgoff through the interface and do the pgoff to
-> > virt / phys translation inside the ops handler.
->
-> Hi Dan,
->
-> Drivers can easily convert offset into dax device (say phys_addr_t) to
-> pgoff and offset into page, isn't it?
+> > Maybe phys_addr_t was the wrong type - but why do we split the offset
+> > into the block device argument into a pgoff and offset into page instead
+> > of a single 64-bit value?
+> 
+> Oh, got it yes, that looks odd for sub-page zeroing. Yes, let's just
+> have one device relative byte-offset.
 
-It's not a phys_addr_t it's a 64-bit device relative offset.
+So what's the best type to represent this offset. "u64" or "phys_addr_t"
+or "loff_t" or something else.  I like phys_addr_t followed by u64.
 
+Vivek
 
 --
 dm-devel mailing list
