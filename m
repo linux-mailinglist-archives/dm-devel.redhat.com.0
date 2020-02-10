@@ -1,54 +1,79 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 796F4157DDD
-	for <lists+dm-devel@lfdr.de>; Mon, 10 Feb 2020 15:54:22 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 4AB27158098
+	for <lists+dm-devel@lfdr.de>; Mon, 10 Feb 2020 18:08:47 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1581346461;
+	s=mimecast20190719; t=1581354526;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=9EYdy6a1Etoe/EuNsuuMevPYyp3xEV1PgnTkkWi/KmA=;
-	b=N0OX5RVwxqcLUjz0zRqBKJsumLQeCkJoiM8tbW/tjbu5D1tREYm1ykFN4rghC2UuH8R2Kz
-	lT1W1pLklEfCcn0rPJOrUuFy/0Lt/sySp+gDHLTWJBMBiyYnOSAsMRwJ4fzCEaqSznapn7
-	0BWw8y+TQZwx82e/IqWM1Nb9x9O9G9s=
+	bh=dONiJBUjuAr20atpT5nfotxAFJ3ryVagVTSiq+D7o6U=;
+	b=DsoC0DsmJxGQwBkS/fOPbEq3O1hBhtMSzv5MsieXPosBhEMqir2+ZP8hmvJc7mbkfKSlYH
+	FYT11TYm3XRpnMZmWg1u3xjz1w/EazcS0TBnbn1IMb7kRon5mb5SE/HRJ8cOsVTpYu9rbK
+	k1+TzfVBgjURF/8HgDpmoTlgSozZ+nc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-130-GRwmjz8LNFmTu3QPYZcc7g-1; Mon, 10 Feb 2020 09:54:19 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-341-5DVRw80kNbKRkwa4AgH6-g-1; Mon, 10 Feb 2020 12:08:43 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 94D8F107ACCA;
-	Mon, 10 Feb 2020 14:54:13 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D6D1B108BD14;
+	Mon, 10 Feb 2020 17:08:34 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F9D189F1B;
-	Mon, 10 Feb 2020 14:54:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4134310013A7;
+	Mon, 10 Feb 2020 17:08:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2ADCF183269C;
-	Mon, 10 Feb 2020 14:54:12 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4CA2518089CD;
+	Mon, 10 Feb 2020 17:08:18 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01AEs7gM019332 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 10 Feb 2020 09:54:07 -0500
+	id 01AH6q4I027385 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 10 Feb 2020 12:06:52 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 22FA016D20; Mon, 10 Feb 2020 14:54:07 +0000 (UTC)
+	id 3399F874C2; Mon, 10 Feb 2020 17:06:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from o.ww.redhat.com (ovpn-117-113.ams2.redhat.com [10.36.117.113])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6884326FCF;
-	Mon, 10 Feb 2020 14:53:58 +0000 (UTC)
-From: Heinz Mauelshagen <heinzm@redhat.com>
-To: dm-devel@redhat.com
-Date: Mon, 10 Feb 2020 15:53:57 +0100
-Message-Id: <55d8319f6ca77567a86002c447a614291e185766.1581346359.git.heinzm@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2EB551CBCB
+	for <dm-devel@redhat.com>; Mon, 10 Feb 2020 17:06:50 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EF61A101928E
+	for <dm-devel@redhat.com>; Mon, 10 Feb 2020 17:06:49 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-415-xFlQoceoOtC3kW6f-drxkQ-1;
+	Mon, 10 Feb 2020 12:06:47 -0500
+Received: from relay2.suse.de (unknown [195.135.220.254])
+	by mx2.suse.de (Postfix) with ESMTP id C2614ACD7;
+	Mon, 10 Feb 2020 17:06:45 +0000 (UTC)
+Message-ID: <5f6810410ac8deac3e335ad45ba02184eff155ac.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Benjamin Marzinski <bmarzins@redhat.com>, Christophe Varoqui
+	<christophe.varoqui@opensvc.com>
+Date: Mon, 10 Feb 2020 18:08:14 +0100
+In-Reply-To: <1580929100-32572-16-git-send-email-bmarzins@redhat.com>
+References: <1580929100-32572-1-git-send-email-bmarzins@redhat.com>
+	<1580929100-32572-16-git-send-email-bmarzins@redhat.com>
+User-Agent: Evolution 3.34.3
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-MC-Unique: xFlQoceoOtC3kW6f-drxkQ-1
+X-MC-Unique: 5DVRw80kNbKRkwa4AgH6-g-1
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01AH6q4I027385
 X-loop: dm-devel@redhat.com
-Cc: awalsh@redhat.com, corwin@redhat.com, snitzer@redhat.com
-Subject: [dm-devel] [PATCH] dm ebs: new block size emulating target
+Cc: device-mapper development <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH v2 15/17] libmultipath: make directio checker
+ share io contexts
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -62,540 +87,453 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-MC-Unique: GRwmjz8LNFmTu3QPYZcc7g-1
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This new target is similar to the linear target except that it emulates
-a smaller logical block size on devices with larger ones.  It's main
-purpose is to emulate 512 byte sectors on 4K native disks (i.e. 512e).
+On Wed, 2020-02-05 at 12:58 -0600, Benjamin Marzinski wrote:
+> On systems with a large number of cores (>500), io_destroy() can take
+> tens to hundreds of milliseconds to complete, due to RCU
+> synchronization. If there are a large number of paths using the directio
+> checker on such a system, this can lead to multipath taking almost a
+> minute to complete, with the vast majority of time taken up by
+> io_destroy().
+> 
+> To solve this, the directio checker now allocates one aio context for
+> every 1024 checkers. This reduces the io_destroy() delay to a thousandth
+> of its previous level. However, this means that muliple checkers are
+> sharing the same aio context, and must be able to handle getting results
+> for other checkers.  Because only one checker is ever running at a
+> time, this doesn't require any locking.  However, locking could be added
+> in the future if necessary, to allow multiple checkers to run at the
+> same time.
+> 
+> When checkers are freed, they usually no longer destroy the io context.
+> Instead, they attempt to cancel any outstanding request. If that fails,
+> they put the request on an orphan list, so that it can be freed by other
+> checkers, once it has completed. IO contexts are only destroyed at three
+> times, during reconfigure (to deal with the possibility that multipathd
+> is holding more aio events than it needs to be, since there is a single
+> limit for the whole system), when the checker class is unloaded, and
+> in a corner case when checkers are freed. If an aio_group (which
+> contains the aio context) is entirely full of orphaned requests, then
+> no checker can use it. Since no checker is using it, there is no checker
+> to clear out the orphaned requests. In this (likely rare) case, the
+> last checker from that group to be freed and leave behind an orphaned
+> request will call io_destroy() and remove the group.
+> 
+> Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+> ---
+>  libmultipath/checkers/directio.c | 336 +++++++++++++++++++++++++------
+>  multipath/multipath.conf.5       |   7 +-
+>  2 files changed, 281 insertions(+), 62 deletions(-)
 
-See Documentaiton/admn-guide/device-mapper/dm-ebs.rst for details.
+Although I concur now that your design is sound, I still have some
+issues, see below.
 
-Signed-off-by: Heinz Mauelshagen <heinzm@redhat.com>
----
- .../admin-guide/device-mapper/dm-ebs.rst      |  47 ++
- drivers/md/Kconfig                            |   8 +
- drivers/md/Makefile                           |   2 +
- drivers/md/dm-ebs-target.c                    | 411 ++++++++++++++++++
- 4 files changed, 468 insertions(+)
- create mode 100644 Documentation/admin-guide/device-mapper/dm-ebs.rst
- create mode 100644 drivers/md/dm-ebs-target.c
+> 
+> diff --git a/libmultipath/checkers/directio.c b/libmultipath/checkers/directio.c
+> index 1b00b775..740c68e5 100644
+> --- a/libmultipath/checkers/directio.c
+> +++ b/libmultipath/checkers/directio.c
+> 
+> +/* If an aio_group is completely full of orphans, then no checkers can
+> + * use it, which means that no checkers can clear out the orphans. To
+> + * avoid keeping the useless group around, simply remove remove the
+> + * group */
+> +static void
+> +check_orphaned_group(struct aio_group *aio_grp)
+> +{
+> +	int count = 0;
+> +	struct list_head *item;
+> +
+> +	if (aio_grp->holders < AIO_GROUP_SIZE)
+> +		return;
+> +	list_for_each(item, &aio_grp->orphans)
+> +		count++;
+> +	if (count >= AIO_GROUP_SIZE) {
+> +		remove_aio_group(aio_grp);
+> +		if (list_empty(&aio_grp_list))
+> +			add_aio_group();
 
-diff --git a/Documentation/admin-guide/device-mapper/dm-ebs.rst b/Documentation/admin-guide/device-mapper/dm-ebs.rst
-new file mode 100644
-index 000000000000..bc79e7860a5d
---- /dev/null
-+++ b/Documentation/admin-guide/device-mapper/dm-ebs.rst
-@@ -0,0 +1,47 @@
-+======
-+dm-ebs
-+======
-+
-+This target is similar to the linear target except that it emulates
-+smaller logical block size on devices with larger ones.   It's main
-+purpose is to emulate 512 byte sectors on 4K native disks (i.e 512e).
-+
-+Supported emulated logical block sizes 512, 1024, 2048 and 4096.
-+
-+
-+Table parameters
-+----------------
-+  <dev path> <offset> <emulated sectors> [<underlying sectors>]
-+
-+Mandatory parameters:
-+
-+    <dev path>:
-+        Full pathname to the underlying block-device,
-+        or a "major:minor" device-number.
-+    <offset>:
-+        Starting sector within the device;
-+        has to be a multiple of <emulated sectors>.
-+    <emulated sectors>:
-+        Number of sectors defining the logical block size to be emulated;
-+        1, 2, 4, 8 sectors of 512 bytes supported.
-+
-+Optional parameter:
-+
-+    <underyling sectors>:
-+        Number of sectors defining the logical block size of <dev path>.
-+        1, 2, 4, 8 supported, e.g. 8 = emulate 8 sectors of 512 bytes = 4KiB.
-+        If not provided, the logical block size of <dev path> will be used.
-+
-+
-+Examples:
-+
-+Emulate 1 sector = 512 bytes logical block size on /dev/sda starting at
-+offset 1024 sectors with underlying devices block size automatically set:
-+
-+ebs /dev/sda 1024 1
-+
-+Emulate 2 sector = 1KiB logical block size on /dev/sda starting at
-+offset 128 sectors, enforce 2KiB underlying device block size.
-+This presumes 2KiB logical blocksize on /dev/sda or less to work:
-+
-+ebs /dev/sda 128 2 4
-diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-index d6d5ab23c088..392974a2999d 100644
---- a/drivers/md/Kconfig
-+++ b/drivers/md/Kconfig
-@@ -336,6 +336,14 @@ config DM_WRITECACHE
- 	   The writecache target doesn't cache reads because reads are supposed
- 	   to be cached in standard RAM.
- 
-+config DM_EBS
-+       tristate "Emulated block size target (EXPERIMENTAL)"
-+       depends on BLK_DEV_DM
-+       default n
-+       ---help---
-+	 dm-ebs emulates smaller logical block size on backing devices
-+	 with larger ones (e.g. 512 byte sectors on 4K native disks).
-+
- config DM_ERA
-        tristate "Era target (EXPERIMENTAL)"
-        depends on BLK_DEV_DM
-diff --git a/drivers/md/Makefile b/drivers/md/Makefile
-index d91a7edcd2ab..9a2d673f94bc 100644
---- a/drivers/md/Makefile
-+++ b/drivers/md/Makefile
-@@ -17,6 +17,7 @@ dm-thin-pool-y	+= dm-thin.o dm-thin-metadata.o
- dm-cache-y	+= dm-cache-target.o dm-cache-metadata.o dm-cache-policy.o \
- 		    dm-cache-background-tracker.o
- dm-cache-smq-y   += dm-cache-policy-smq.o
-+dm-ebs-y	+= dm-ebs-target.o
- dm-era-y	+= dm-era-target.o
- dm-clone-y	+= dm-clone-target.o dm-clone-metadata.o
- dm-verity-y	+= dm-verity-target.o
-@@ -65,6 +66,7 @@ obj-$(CONFIG_DM_THIN_PROVISIONING)	+= dm-thin-pool.o
- obj-$(CONFIG_DM_VERITY)		+= dm-verity.o
- obj-$(CONFIG_DM_CACHE)		+= dm-cache.o
- obj-$(CONFIG_DM_CACHE_SMQ)	+= dm-cache-smq.o
-+obj-$(CONFIG_DM_EBS)		+= dm-ebs.o
- obj-$(CONFIG_DM_ERA)		+= dm-era.o
- obj-$(CONFIG_DM_CLONE)		+= dm-clone.o
- obj-$(CONFIG_DM_LOG_WRITES)	+= dm-log-writes.o
-diff --git a/drivers/md/dm-ebs-target.c b/drivers/md/dm-ebs-target.c
-new file mode 100644
-index 000000000000..913c646feea9
---- /dev/null
-+++ b/drivers/md/dm-ebs-target.c
-@@ -0,0 +1,411 @@
-+/*
-+ * Copyright (C) 2020 Red Hat GmbH
-+ *
-+ * This file is released under the GPL.
-+ *
-+ * Device-mapper target to emulate smaller logical block
-+ * size on backing devices exposing (natively) larger ones.
-+ *
-+ * E.g. 512 byte sector emultaion on 4K native disks.
-+ */
-+
-+#include "dm.h"
-+#include <linux/module.h>
-+#include <linux/workqueue.h>
-+#include <linux/dm-bufio.h>
-+
-+#define DM_MSG_PREFIX "ebs"
-+
-+static void ebs_dtr(struct dm_target *ti);
-+
-+/* Emulated block size context. */
-+struct ebs_c {
-+	struct dm_dev *dev;
-+	struct dm_bufio_client *bufio;
-+	struct work_struct ws;
-+	struct workqueue_struct *wq;
-+	struct bio_list bios_in;
-+	spinlock_t lock; /* Guard bios_in list above */
-+	sector_t start;
-+	unsigned int ebs;
-+	unsigned int ubs;
-+	unsigned char shift;
-+	unsigned short ubs_set:1;
-+};
-+
-+static sector_t __sector_to_block(struct ebs_c *ec, sector_t sector)
-+{
-+	return sector >> ec->shift;
-+}
-+
-+static sector_t __block_mod(sector_t sector, unsigned int bs)
-+{
-+	return sector & (bs - 1);
-+
-+}
-+
-+/* Return number of blocks for a bio */
-+static unsigned int __nr_blocks(struct ebs_c *ec, struct bio *bio)
-+{
-+	sector_t end_sector = __block_mod(bio->bi_iter.bi_sector, ec->ubs) + bio_sectors(bio);
-+
-+	return __sector_to_block(ec, end_sector) + __block_mod(end_sector, ec->ubs) ? 1 : 0;
-+}
-+
-+static bool __ebs_check_bs(unsigned int bs)
-+{
-+	return bs && is_power_of_2(bs) && to_bytes(bs) <= PAGE_SIZE;
-+}
-+
-+/* READ/WRITE bio vector: copy blocks between bufio blocks and bio vector's (partial/overlapping) pages. */
-+/* FIXME: use async_memcpy() ? */
-+static int __ebs_rw_bvec(struct ebs_c *ec, int rw, struct bio_vec *bv, struct bvec_iter *iter)
-+{
-+	int r = 0;
-+	unsigned char *ba, *pa = page_address(bv->bv_page) + bv->bv_offset;
-+	unsigned int cur_len;
-+	unsigned int bv_len = bv->bv_len;
-+	unsigned int buf_off = to_bytes(__block_mod(iter->bi_sector, ec->ubs));
-+	sector_t block = __sector_to_block(ec, iter->bi_sector);
-+	struct dm_buffer *b;
-+
-+	if (!bv->bv_page || !bv_len)
-+		return -EIO;
-+
-+	/* Handle overlapping page <-> blocks */
-+	while (bv_len) {
-+		cur_len = min(dm_bufio_get_block_size(ec->bufio) - buf_off, bv_len);
-+
-+		/* Avoid reading for writes in case bio vector's page overwrites block completely. */
-+		if (rw == READ || buf_off || bv_len < dm_bufio_get_block_size(ec->bufio))
-+			ba = dm_bufio_read(ec->bufio, block, &b);
-+		else
-+			ba = dm_bufio_new(ec->bufio, block, &b);
-+
-+		if (unlikely(IS_ERR(ba)))
-+			r = PTR_ERR(ba); /* Carry on with next buffer if any but return error. */
-+		else {
-+			/* Copy data to/from bio to buffer if read/new was successful above. */
-+			ba += buf_off;
-+			if (rw == READ)
-+				memcpy(pa, ba, cur_len);
-+			else {
-+				memcpy(ba, pa, cur_len);
-+				dm_bufio_mark_partial_buffer_dirty(b, buf_off, buf_off + cur_len);
-+			}
-+
-+			dm_bufio_release(b);
-+		}
-+
-+		pa += cur_len;
-+		bv_len -= cur_len;
-+		buf_off = 0;
-+		block++;
-+	}
-+
-+	return r;
-+}
-+
-+/* READ/WRITE: iterate bio vector's copying between (partial) pages and bufio blocks. */
-+static int __ebs_rw_bio(struct ebs_c *ec, int rw, struct bio *bio)
-+{
-+	int r = 0, rr;
-+	struct bio_vec bv;
-+	struct bvec_iter iter;
-+
-+	bio_for_each_bvec(bv, bio, iter) {
-+		rr = __ebs_rw_bvec(ec, rw, &bv, &iter);
-+		if (rr)
-+			r = rr;
-+	}
-+
-+	return r;
-+}
-+
-+/* 'Discard' blocks, i.e. release them from the bufio cache. */
-+static int __ebs_forget_bio(struct ebs_c *ec, struct bio *bio)
-+{
-+	sector_t end = bio_end_sector(bio), sector;
-+
-+	for (sector = bio->bi_iter.bi_sector; sector < end; sector += ec->ubs)
-+		dm_bufio_forget(ec->bufio, __sector_to_block(ec, sector));
-+
-+	return 0;
-+}
-+
-+/* Worker funtion to process incoming bios. */
-+static void __ebs_process_bios(struct work_struct *ws)
-+{
-+	int r;
-+	bool write = false;
-+	struct ebs_c *ec = container_of(ws, struct ebs_c, ws);
-+	struct bio *bio;
-+	struct bio_list bios;
-+
-+	bio_list_init(&bios);
-+
-+	spin_lock_irq(&ec->lock);
-+	bios = ec->bios_in;
-+	bio_list_init(&ec->bios_in);
-+	spin_unlock_irq(&ec->lock);
-+
-+	bio_list_for_each(bio, &bios)
-+		if (bio_op(bio) == REQ_OP_READ)
-+			dm_bufio_prefetch(ec->bufio, __sector_to_block(ec, bio->bi_iter.bi_sector), __nr_blocks(ec, bio));
-+
-+	bio_list_for_each(bio, &bios) {
-+		r = -EIO;
-+
-+		if (bio_op(bio) == REQ_OP_READ)
-+			r = __ebs_rw_bio(ec, READ, bio);
-+		else if (bio_op(bio) == REQ_OP_WRITE) {
-+			write = true;
-+			r = __ebs_rw_bio(ec, WRITE, bio);
-+		} else if (bio_op(bio) == REQ_OP_DISCARD)
-+			/* FIXME: call dm_bufio_discard_buffers() once upstream. */
-+			r = __ebs_forget_bio(ec, bio);
-+
-+		if (r)
-+			bio->bi_status = BLK_STS_IOERR;
-+	}
-+
-+	r = write ? dm_bufio_write_dirty_buffers(ec->bufio) : 0;
-+
-+	while ((bio = bio_list_pop(&bios))) {
-+		/* FIXME: any other request is just endioed for now. */
-+		if (unlikely(r && bio_op(bio) == REQ_OP_WRITE))
-+			bio_io_error(bio);
-+		else
-+			bio_endio(bio);
-+	}
-+}
-+
-+/*
-+ * Construct an emulated block size mapping: <dev_path> <offset> <ebs> [<ubs>]
-+ *
-+ * <dev_path>: path of the underlying device
-+ * <offset>: offset in 512 bytes sectors into <dev_path>
-+ * <ebs>: emulated block size in units of 512 bytes exposed to the upper layer
-+ * i[<ubs>]: underlying block size in units of 512 bytes imposed on the lower layer;
-+ * 	     optional, if not supplied, retrieve logical block size from underlying device
-+ */
-+static int ebs_ctr(struct dm_target *ti, unsigned int argc, char **argv)
-+{
-+	int r;
-+	unsigned short tmp1;
-+	unsigned long long tmp;
-+	char dummy;
-+	struct ebs_c *ec;
-+
-+	if (argc < 3 || argc > 4) {
-+		ti->error = "Invalid argument count";
-+		return -EINVAL;
-+	}
-+
-+	ec = ti->private = kzalloc(sizeof(*ec), GFP_KERNEL);
-+	if (!ec) {
-+		ti->error = "Cannot allocate ebs context";
-+		return -ENOMEM;
-+	}
-+
-+	r = -EINVAL;
-+	if (sscanf(argv[1], "%llu%c", &tmp, &dummy) != 1 ||
-+		   tmp != (sector_t)tmp ||
-+		   (sector_t)tmp >= ti->len) {
-+		ti->error = "Invalid device offset sector";
-+		goto bad;
-+	}
-+	ec->start = tmp;
-+
-+	if (sscanf(argv[2], "%hu%c", &tmp1, &dummy) != 1 || !__ebs_check_bs(tmp1)) {
-+		ti->error = "Invalid emulated block size";
-+		goto bad;
-+	}
-+	ec->ebs = tmp1;
-+
-+	if (argc > 3) {
-+		if (sscanf(argv[3], "%hu%c", &tmp1, &dummy) != 1 || !__ebs_check_bs(tmp1)) {
-+			ti->error = "Invalid underlying block size";
-+			goto bad;
-+		}
-+		ec->ubs = tmp1;
-+		ec->ubs_set = true;
-+	} else
-+		ec->ubs_set = false;
-+
-+	r = dm_get_device(ti, argv[0], dm_table_get_mode(ti->table), &ec->dev);
-+	if (r) {
-+		ti->error = "Device lookup failed";
-+		ec->dev = NULL;
-+		goto bad;
-+	}
-+
-+	r = -EINVAL;
-+	if (!ec->ubs_set) {
-+		ec->ubs = to_sector(bdev_logical_block_size(ec->dev->bdev));
-+		if (!__ebs_check_bs(ec->ubs)) {
-+			ti->error = "Invalid retrieved underlying block size";
-+			goto bad;
-+		}
-+	}
-+
-+	if (!ec->ubs_set && ec->ebs == ec->ubs)
-+		DMERR("Emulation superfluous: emulated equal to underlying block size");
-+
-+	if (__block_mod(ec->start, ec->ubs)) {
-+		ti->error = "Device offset must be multiple of underlying block size";
-+		goto bad;
-+	}
-+
-+	ec->bufio = dm_bufio_client_create(ec->dev->bdev, to_bytes(ec->ubs), 1, 0, NULL, NULL);
-+	if (IS_ERR(ec->bufio)) {
-+		ti->error = "Cannot create dm bufio client";
-+		r = PTR_ERR(ec->bufio);
-+		ec->bufio = NULL;
-+		goto bad;
-+	}
-+
-+	ec->wq = alloc_ordered_workqueue("dm-" DM_MSG_PREFIX, WQ_MEM_RECLAIM);
-+	if (!ec->wq) {
-+		ti->error = "Cannot create dm-" DM_MSG_PREFIX " workqueue";
-+		r = -ENOMEM;
-+		goto bad;
-+	}
-+
-+	ec->shift = __ffs(ec->ubs);
-+	INIT_WORK(&ec->ws, &__ebs_process_bios);
-+	bio_list_init(&ec->bios_in);
-+	spin_lock_init(&ec->lock);
-+
-+	ti->num_flush_bios = 1;
-+	ti->num_discard_bios = 1;
-+	ti->num_secure_erase_bios = 0;
-+	ti->num_write_same_bios = 0;
-+	ti->num_write_zeroes_bios = 0;
-+	return 0;
-+bad:
-+	ebs_dtr(ti);
-+	return r;
-+}
-+
-+static void ebs_dtr(struct dm_target *ti)
-+{
-+	struct ebs_c *ec = ti->private;
-+
-+	if (ec->wq)
-+		destroy_workqueue(ec->wq);
-+	if (ec->bufio)
-+		dm_bufio_client_destroy(ec->bufio);
-+	if (ec->dev)
-+		dm_put_device(ti, ec->dev);
-+	kfree(ec);
-+}
-+
-+static int ebs_map(struct dm_target *ti, struct bio *bio)
-+{
-+	struct ebs_c *ec = ti->private;
-+
-+	bio_set_dev(bio, ec->dev->bdev);
-+	bio->bi_iter.bi_sector = ec->start + dm_target_offset(ti, bio->bi_iter.bi_sector);
-+
-+	if (unlikely(bio->bi_opf & REQ_OP_FLUSH))
-+		return DM_MAPIO_REMAPPED;
-+
-+	/* Only queue for bufio processing in case of partial or overlapping buffers -or- REMOVEME: superfluos emulation with ebs == ubs. */
-+	if (likely(__block_mod(bio->bi_iter.bi_sector, ec->ubs) || __block_mod(bio_end_sector(bio), ec->ubs) || ec->ebs == ec->ubs)) {
-+		spin_lock_irq(&ec->lock);
-+		bio_list_add(&ec->bios_in, bio);
-+		spin_unlock_irq(&ec->lock);
-+
-+		queue_work(ec->wq, &ec->ws);
-+
-+		return DM_MAPIO_SUBMITTED;
-+	}
-+
-+	/* Forget any buffer content relative to this direct backing device I/O. */
-+	__ebs_forget_bio(ec, bio);
-+
-+	return DM_MAPIO_REMAPPED;
-+}
-+
-+static void ebs_status(struct dm_target *ti, status_type_t type,
-+			  unsigned status_flags, char *result, unsigned maxlen)
-+{
-+	struct ebs_c *ec = (struct ebs_c *) ti->private;
-+
-+	switch (type) {
-+	case STATUSTYPE_INFO:
-+		*result = '\0';
-+		break;
-+	case STATUSTYPE_TABLE:
-+		snprintf(result, maxlen, ec->ubs_set ? "%s %llu %u %u" : "%s %llu %u",
-+			 ec->dev->name, (unsigned long long)ec->start, ec->ebs, ec->ubs);
-+		break;
-+	}
-+}
-+
-+static int ebs_prepare_ioctl(struct dm_target *ti, struct block_device **bdev)
-+{
-+	struct ebs_c *ec = (struct ebs_c *) ti->private;
-+	struct dm_dev *dev = ec->dev;
-+
-+	/*
-+	 * Only pass ioctls through if the device sizes match exactly.
-+	 */
-+	*bdev = dev->bdev;
-+	return !!(ec->start || ti->len != i_size_read(dev->bdev->bd_inode) >> SECTOR_SHIFT);
-+}
-+
-+static void ebs_io_hints(struct dm_target *ti, struct queue_limits *limits)
-+{
-+	struct ebs_c *ec = ti->private;
-+
-+	limits->logical_block_size = to_bytes(ec->ebs);
-+	limits->physical_block_size = to_bytes(ec->ubs);
-+	limits->alignment_offset = limits->physical_block_size;
-+	blk_limits_io_min(limits, limits->logical_block_size);
-+}
-+
-+static int ebs_iterate_devices(struct dm_target *ti,
-+				  iterate_devices_callout_fn fn, void *data)
-+{
-+	struct ebs_c *ec = ti->private;
-+
-+	return fn(ti, ec->dev, ec->start, ti->len, data);
-+}
-+
-+static struct target_type ebs_target = {
-+	.name   = "ebs",
-+	.version = {1, 0, 0},
-+	.features = DM_TARGET_PASSES_INTEGRITY,
-+	.module = THIS_MODULE,
-+	.ctr    = ebs_ctr,
-+	.dtr    = ebs_dtr,
-+	.map    = ebs_map,
-+	.status = ebs_status,
-+	.io_hints = ebs_io_hints,
-+	.prepare_ioctl = ebs_prepare_ioctl,
-+	.iterate_devices = ebs_iterate_devices,
-+};
-+
-+int __init dm_ebs_init(void)
-+{
-+	int r = dm_register_target(&ebs_target);
-+
-+	if (r < 0)
-+		DMERR("register failed %d", r);
-+
-+	return r;
-+}
-+
-+void dm_ebs_exit(void)
-+{
-+	dm_unregister_target(&ebs_target);
-+}
-+
-+module_init(dm_ebs_init);
-+module_exit(dm_ebs_exit);
-+
-+MODULE_AUTHOR("Heinz Mauelshagen <dm-devel@redhat.com>");
-+MODULE_DESCRIPTION(DM_NAME " emmulated block size target");
-+MODULE_LICENSE("GPL");
--- 
-2.24.1
+OK, but not beautiful. Can be improved later, I guess. In general, you
+could delay allocation of an aio_group until it's actually needed (i.e.
+when the first path is using it, in set_aio_group(), as you're already
+doing it for 2nd and later groups).
+
+> +	}
+> +}
+> +
+> +int libcheck_load (void)
+> +{
+> +	if (add_aio_group() == NULL) {
+> +		LOG(1, "libcheck_load failed: %s", strerror(errno));
+> +		return 1;
+> +	}
+> +	return 0;
+> +}
+> +
+> +void libcheck_unload (void)
+> +{
+> +	struct aio_group *aio_grp, *tmp;
+> +
+> +	list_for_each_entry_safe(aio_grp, tmp, &aio_grp_list, node)
+> +		remove_aio_group(aio_grp);
+> +}
+
+I have one concern here - this might cause delays during multipathd
+shutdown, which we have struggled to eliminate in previous patches.
+OTOH, according to what you wrote, with the current code the shutdown
+delays will probably be higher, so this is actually an improvement.
+We should take a mental note about the shutdown issue. Like with TUR,
+avoiding hanging on shutdown is tricky if we consider possibly hanging
+device I/O.
+
+> +
+> +int libcheck_reset (void)
+> +{
+> +	struct aio_group *aio_grp, *tmp, *reset_grp = NULL;
+> +
+> +	/* If a clean existing aio_group exists, use that. Otherwise add a
+> +	 * new one */
+> +	list_for_each_entry(aio_grp, &aio_grp_list, node) {
+> +		if (aio_grp->holders == 0 &&
+> +		    list_empty(&aio_grp->orphans)) {
+> +			reset_grp = aio_grp;
+> +			break;
+> +		}
+> +	}
+> +	if (!reset_grp)
+> +		reset_grp = add_aio_group();
+> +	if (!reset_grp) {
+> +		LOG(1, "checker reset failed");
+> +		return 1;
+> +	}
+> +
+> +	list_for_each_entry_safe(aio_grp, tmp, &aio_grp_list, node) {
+> +		if (aio_grp != reset_grp)
+> +			remove_aio_group(aio_grp);
+> +	}
+> +	return 0;
+> +}
+>  
+>  int libcheck_init (struct checker * c)
+>  {
+>  	unsigned long pgsize = getpagesize();
+>  	struct directio_context * ct;
+> +	struct async_req *req = NULL;
+>  	long flags;
+>  
+>  	ct = malloc(sizeof(struct directio_context));
+> @@ -56,26 +201,31 @@ int libcheck_init (struct checker * c)
+>  		return 1;
+>  	memset(ct, 0, sizeof(struct directio_context));
+>  
+> -	if (io_setup(1, &ct->ioctx) != 0) {
+> -		condlog(1, "io_setup failed");
+> -		free(ct);
+> -		return 1;
+> +	if (set_aio_group(ct) < 0)
+> +		goto out;
+> +
+> +	req = malloc(sizeof(struct async_req));
+> +	if (!req) {
+> +		goto out;
+>  	}
+> +	memset(req, 0, sizeof(struct async_req));
+> +	INIT_LIST_HEAD(&req->node);
+>  
+> -	if (ioctl(c->fd, BLKBSZGET, &ct->blksize) < 0) {
+> +	if (ioctl(c->fd, BLKBSZGET, &req->blksize) < 0) {
+>  		c->msgid = MSG_DIRECTIO_BLOCKSIZE;
+> -		ct->blksize = 512;
+> +		req->blksize = 512;
+
+You didn't change this, but I wonder if this is really a safe default.
+IIUC it's safe (although perhaps a bit slower) to read a multiple of
+the logical block size, but reading less than the logical block size
+might fail. Perhaps we should default to 4k?
+
+>  	}
+> -	if (ct->blksize > 4096) {
+> +	if (req->blksize > 4096) {
+>  		/*
+>  		 * Sanity check for DASD; BSZGET is broken
+>  		 */
+> -		ct->blksize = 4096;
+> +		req->blksize = 4096;
+>  	}
+> -	if (!ct->blksize)
+> +	if (!req->blksize)
+>  		goto out;
+> -	ct->buf = (unsigned char *)malloc(ct->blksize + pgsize);
+> -	if (!ct->buf)
+> +
+> +	req->buf = (unsigned char *)malloc(req->blksize + pgsize);
+
+Why don't you simply use posix_memalign()?
+
+> +	if (!req->buf)
+>  		goto out;
+>  
+>  	flags = fcntl(c->fd, F_GETFL);
+> @@ -88,17 +238,22 @@ int libcheck_init (struct checker * c)
+>  		ct->reset_flags = 1;
+>  	}
+>  
+> -	ct->ptr = (unsigned char *) (((unsigned long)ct->buf + pgsize - 1) &
+> +	req->ptr = (unsigned char *) (((unsigned long)req->buf + pgsize - 1) &
+>  		  (~(pgsize - 1)));
+
+See above.
+
+>  
+>  	/* Successfully initialized, return the context. */
+> +	ct->req = req;
+>  	c->context = (void *) ct;
+>  	return 0;
+>  
+>  out:
+> -	if (ct->buf)
+> -		free(ct->buf);
+> -	io_destroy(ct->ioctx);
+> +	if (req) {
+> +		if (req->buf)
+> +			free(req->buf);
+> +		free(req);
+> +	}
+> +	if (ct->aio_grp)
+> +		ct->aio_grp->holders--;
+>  	free(ct);
+>  	return 1;
+>  }
+> @@ -106,6 +261,7 @@ out:
+>  void libcheck_free (struct checker * c)
+>  {
+>  	struct directio_context * ct = (struct directio_context *)c->context;
+> +	struct io_event event;
+>  	long flags;
+>  
+>  	if (!ct)
+> @@ -121,20 +277,72 @@ void libcheck_free (struct checker * c)
+>  		}
+>  	}
+>  
+> -	if (ct->buf)
+> -		free(ct->buf);
+> -	io_destroy(ct->ioctx);
+> +	if (ct->running &&
+> +	    (ct->req->state != PATH_PENDING ||
+> +	     io_cancel(ct->aio_grp->ioctx, &ct->req->io, &event) == 0))
+> +		ct->running = 0;
+> +	if (!ct->running) {
+> +		free(ct->req->buf);
+> +		free(ct->req);
+> +		ct->aio_grp->holders--;
+> +	} else {
+> +		ct->req->state = PATH_REMOVED;
+> +		list_add(&ct->req->node, &ct->aio_grp->orphans);
+> +		check_orphaned_group(ct->aio_grp);
+> +	}
+> +
+>  	free(ct);
+> +	c->context = NULL;
+> +}
+> +
+> +static int
+> +get_events(struct aio_group *aio_grp, struct timespec *timeout)
+> +{
+> +	struct io_event events[128];
+> +	int i, nr, got_events = 0;
+> +	struct timespec zero_timeout = {0};
+> +	struct timespec *timep = (timeout)? timeout : &zero_timeout;
+
+This isn't wrong, but the semantics of the "timeout" parameter are a
+bit confusing, as io_getevents() would interpret a NULL timeout as
+"forever", and get_events is mostly a wrapper around io_getevents().
+
+> +
+> +	do {
+> +		errno = 0;
+> +		nr = io_getevents(aio_grp->ioctx, 1, 128, events, timep);
+> +		got_events |= (nr > 0);
+> +
+> +		for (i = 0; i < nr; i++) {
+> +			struct async_req *req = container_of(events[i].obj, struct async_req, io);
+> +
+> +			LOG(3, "io finished %lu/%lu", events[i].res,
+> +			    events[i].res2);
+> +
+> +			/* got an orphaned request */
+> +			if (req->state == PATH_REMOVED) {
+> +				list_del(&req->node);
+> +				free(req->buf);
+> +				free(req);
+> +				aio_grp->holders--;
+> +			} else
+> +				req->state = (events[i].res == req->blksize) ?
+> +					      PATH_UP : PATH_DOWN;
+> +		}
+> +		timep = &zero_timeout;
+> +	} while (nr == 128); /* assume there are more events and try again */
+> +
+> +	if (nr < 0)
+> +		LOG(3, "async io getevents returned %i (errno=%s)",
+> +		    nr, strerror(errno));
+> +
+> +	return got_events;
+>  }
+>  static int
+>  check_state(int fd, struct directio_context *ct, int sync, int timeout_secs)
+>  {
+>  	struct timespec	timeout = { .tv_nsec = 5 };
+
+What's the purpose of these 5ns? Unless the device in question is an
+NVDIMM, I'd say 5ns is practically equivalent to 0.
+
+
+> -	struct io_event event;
+>  	struct stat	sb;
+> -	int		rc = PATH_UNCHECKED;
+> +	int		rc;
+>  	long		r;
+> +	struct timespec currtime, endtime;
+> +	struct timespec *timep = &timeout;
+>  
+>  	if (fstat(fd, &sb) == 0) {
+>  		LOG(4, "called for %x", (unsigned) sb.st_rdev);
+> @@ -145,50 +353,60 @@ check_state(int fd, struct directio_context *ct, int sync, int timeout_secs)
+>  		timeout.tv_nsec = 0;
+>  	}
+>  
+> -	if (!ct->running) {
+> -		struct iocb *ios[1] = { &ct->io };
+> +	if (ct->running) {
+> +		if (ct->req->state != PATH_PENDING) {
+> +			ct->running = 0;
+> +			return ct->req->state;
+> +		}
+> +	} else {
+> +		struct iocb *ios[1] = { &ct->req->io };
+>  
+>  		LOG(3, "starting new request");
+> -		memset(&ct->io, 0, sizeof(struct iocb));
+> -		io_prep_pread(&ct->io, fd, ct->ptr, ct->blksize, 0);
+> -		if (io_submit(ct->ioctx, 1, ios) != 1) {
+> +		memset(&ct->req->io, 0, sizeof(struct iocb));
+> +		io_prep_pread(&ct->req->io, fd, ct->req->ptr,
+> +			      ct->req->blksize, 0);
+> +		ct->req->state = PATH_PENDING;
+> +		if (io_submit(ct->aio_grp->ioctx, 1, ios) != 1) {
+>  			LOG(3, "io_submit error %i", errno);
+>  			return PATH_UNCHECKED;
+>  		}
+>  	}
+>  	ct->running++;
+
+This looks to me as if in the case (ct->running && ct->req->state ==
+PATH_PENDING), ct->running could become > 1, even though you don't
+start a new IO. Is that intended? I don't think it matters because you
+never decrement, but it looks weird.
+
+>  
+> -	errno = 0;
+> -	r = io_getevents(ct->ioctx, 1L, 1L, &event, &timeout);
+> +	get_monotonic_time(&endtime);
+> +	endtime.tv_sec += timeout.tv_sec;
+> +	endtime.tv_nsec += timeout.tv_nsec;
+> +	normalize_timespec(&endtime);
+> +	while(1) {
+> +		r = get_events(ct->aio_grp, timep);
+>  
+> -	if (r < 0 ) {
+> -		LOG(3, "async io getevents returned %li (errno=%s)", r,
+> -		    strerror(errno));
+> -		ct->running = 0;
+> -		rc = PATH_UNCHECKED;
+> -	} else if (r < 1L) {
+> -		if (ct->running > timeout_secs || sync) {
+> -			struct iocb *ios[1] = { &ct->io };
+> -
+> -			LOG(3, "abort check on timeout");
+> -			r = io_cancel(ct->ioctx, ios[0], &event);
+> -			/*
+> -			 * Only reset ct->running if we really
+> -			 * could abort the pending I/O
+> -			 */
+> -			if (r)
+> -				LOG(3, "io_cancel error %i", errno);
+> -			else
+> -				ct->running = 0;
+> -			rc = PATH_DOWN;
+> -		} else {
+> -			LOG(3, "async io pending");
+> -			rc = PATH_PENDING;
+> -		}
+> +		if (ct->req->state != PATH_PENDING) {
+> +			ct->running = 0;
+> +			return ct->req->state;
+> +		} else if (r == 0 || !timep)
+> +			break;
+> +
+> +		get_monotonic_time(&currtime);
+> +		timespecsub(&endtime, &currtime, &timeout);
+> +		if (timeout.tv_sec < 0)
+> +			timep = NULL;
+
+See comment for get_events() above. Why don't you simply do this?
+
+    timeout.tv_sec = timeout.tv_nsec = 0;
+
+
+> +	}
+> +	if (ct->running > timeout_secs || sync) {
+> +		struct io_event event;
+> +
+> +		LOG(3, "abort check on timeout");
+> +
+> +		r = io_cancel(ct->aio_grp->ioctx, &ct->req->io, &event);
+> +		/*
+> +		 * Only reset ct->running if we really
+> +		 * could abort the pending I/O
+
+... which will never happen ... but never mind.
+
+> +		 */
+> +		if (!r)
+> +			ct->running = 0;
+> +		rc = PATH_DOWN;
+>  	} else {
+> -		LOG(3, "io finished %lu/%lu", event.res, event.res2);
+> -		ct->running = 0;
+> -		rc = (event.res == ct->blksize) ? PATH_UP : PATH_DOWN;
+> +		LOG(3, "async io pending");
+> +		rc = PATH_PENDING;
+>  	}
+>  
+>  	return rc;
+> diff --git a/multipath/multipath.conf.5 b/multipath/multipath.conf.5
+> index dc103fd8..05a5e8ff 100644
+> --- a/multipath/multipath.conf.5
+> +++ b/multipath/multipath.conf.5
+> @@ -494,9 +494,10 @@ Check the path state for LSI/Engenio/NetApp RDAC class as NetApp SANtricity E/EF
+>  Series, and OEM arrays from IBM DELL SGI STK and SUN.
+>  .TP
+>  .I directio
+> -(Deprecated) Read the first sector with direct I/O. This checker is being
+> -deprecated, it could cause spurious path failures under high load.
+> -Please use \fItur\fR instead.
+> +(Deprecated) Read the first sector with direct I/O. If you have a large number
+> +of paths, or many AIO users on a system, you may need to use sysctl to
+> +increase fs.aio-max-nr. This checker is being deprecated, it could cause
+> +spurious path failures under high load. Please use \fItur\fR instead.
+>  .TP
+>  .I cciss_tur
+>  (Hardware-dependent)
+
+
 
 --
 dm-devel mailing list
