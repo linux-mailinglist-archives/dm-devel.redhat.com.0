@@ -1,128 +1,54 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id A339A157DE1
-	for <lists+dm-devel@lfdr.de>; Mon, 10 Feb 2020 15:54:39 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 796F4157DDD
+	for <lists+dm-devel@lfdr.de>; Mon, 10 Feb 2020 15:54:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1581346478;
+	s=mimecast20190719; t=1581346461;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=LdhkxtBo/cfNON+xOZv3IDF5VorWia77yL4DaYK6A6s=;
-	b=XcPPBBBu9U1hVxfPgKGhLbEqN249vnBe8qYFd5uXrttjCMmx7Rta0ArsW+USW/Xwf0JQG4
-	VNRV8Q3O93IqpzOY9LgH+AqtamZSP47jFMh4Wu6j9m7v2R97fWDZcSrG88jvoUwZqdqRDM
-	x/O3iCM+zjJAdrXS6NIX2FY9YSSqcyo=
+	bh=9EYdy6a1Etoe/EuNsuuMevPYyp3xEV1PgnTkkWi/KmA=;
+	b=N0OX5RVwxqcLUjz0zRqBKJsumLQeCkJoiM8tbW/tjbu5D1tREYm1ykFN4rghC2UuH8R2Kz
+	lT1W1pLklEfCcn0rPJOrUuFy/0Lt/sySp+gDHLTWJBMBiyYnOSAsMRwJ4fzCEaqSznapn7
+	0BWw8y+TQZwx82e/IqWM1Nb9x9O9G9s=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-113-YDKVfuaBNlC05ADy47hTkQ-1; Mon, 10 Feb 2020 09:54:36 -0500
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-130-GRwmjz8LNFmTu3QPYZcc7g-1; Mon, 10 Feb 2020 09:54:19 -0500
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 088B2800D41;
-	Mon, 10 Feb 2020 14:54:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 94D8F107ACCA;
+	Mon, 10 Feb 2020 14:54:13 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C9B2110021B2;
-	Mon, 10 Feb 2020 14:54:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F9D189F1B;
+	Mon, 10 Feb 2020 14:54:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 650A5183269E;
-	Mon, 10 Feb 2020 14:54:29 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2ADCF183269C;
+	Mon, 10 Feb 2020 14:54:12 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01AEraW1019302 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 10 Feb 2020 09:53:36 -0500
+	id 01AEs7gM019332 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 10 Feb 2020 09:54:07 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9F49B2166B2B; Mon, 10 Feb 2020 14:53:36 +0000 (UTC)
+	id 22FA016D20; Mon, 10 Feb 2020 14:54:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 99AF62166B2A
-	for <dm-devel@redhat.com>; Mon, 10 Feb 2020 14:53:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 806C7800F48
-	for <dm-devel@redhat.com>; Mon, 10 Feb 2020 14:53:34 +0000 (UTC)
-Received: from m9a0013g.houston.softwaregrp.com
-	(m9a0013g.houston.softwaregrp.com [15.124.64.91]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-259-uVMHQ1yKNTyM5oqggnRIBA-1;
-	Mon, 10 Feb 2020 09:53:32 -0500
-Received: FROM m9a0013g.houston.softwaregrp.com (15.121.0.191) BY
-	m9a0013g.houston.softwaregrp.com WITH ESMTP; 
-	Mon, 10 Feb 2020 14:52:45 +0000
-Received: from M9W0068.microfocus.com (2002:f79:bf::f79:bf) by
-	M9W0068.microfocus.com (2002:f79:bf::f79:bf) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
-	15.1.1591.10; Mon, 10 Feb 2020 14:51:53 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (15.124.72.11) by
-	M9W0068.microfocus.com (15.121.0.191) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
-	15.1.1591.10 via Frontend Transport; Mon, 10 Feb 2020 14:51:53 +0000
-Received: from DM5PR18MB1355.namprd18.prod.outlook.com (10.175.223.16) by
-	DM5PR18MB1178.namprd18.prod.outlook.com (10.173.212.148) with Microsoft
-	SMTP
-	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.2707.21; Mon, 10 Feb 2020 14:51:52 +0000
-Received: from DM5PR18MB1355.namprd18.prod.outlook.com
-	([fe80::946a:bcb6:670b:8e86]) by
-	DM5PR18MB1355.namprd18.prod.outlook.com
-	([fe80::946a:bcb6:670b:8e86%12]) with mapi id 15.20.2707.028;
-	Mon, 10 Feb 2020 14:51:52 +0000
-From: Martin Wilck <Martin.Wilck@suse.com>
-To: "bmarzins@redhat.com" <bmarzins@redhat.com>,
-	"christophe.varoqui@opensvc.com" <christophe.varoqui@opensvc.com>
-Thread-Topic: [PATCH v2 12/17] libmultipath: change failed path prio timeout
-Thread-Index: AQHV3FZbWm9vToX1O0m4uyanX3RDs6gUiv+A
-Date: Mon, 10 Feb 2020 14:51:52 +0000
-Message-ID: <c852ad0717dd51caf3161aa283b0e93059cdebfc.camel@suse.com>
-References: <1580929100-32572-1-git-send-email-bmarzins@redhat.com>
-	<1580929100-32572-13-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1580929100-32572-13-git-send-email-bmarzins@redhat.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [94.218.227.247]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: dfecfb57-2bc7-4032-83de-08d7ae38c3e9
-x-ms-traffictypediagnostic: DM5PR18MB1178:
-x-microsoft-antispam-prvs: <DM5PR18MB117888E584128EA424CB171DFC190@DM5PR18MB1178.namprd18.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-forefront-prvs: 03094A4065
-x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10019020)(4636009)(136003)(366004)(39860400002)(376002)(346002)(396003)(189003)(199004)(36756003)(71200400001)(2616005)(478600001)(66556008)(66446008)(64756008)(66476007)(6512007)(6486002)(76116006)(66946007)(91956017)(5660300002)(26005)(6506007)(110136005)(4326008)(86362001)(186003)(81156014)(2906002)(316002)(66574012)(8936002)(8676002)(81166006);
-	DIR:OUT; SFP:1102; SCL:1; SRVR:DM5PR18MB1178;
-	H:DM5PR18MB1355.namprd18.prod.outlook.com; FPR:; SPF:None;
-	LANG:en; PTR:InfoNoRecords; MX:1; A:1;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: NziDcMON9bltRb2sttLWunR6OWpFaIStUafflmRpf7cDbg2NzCENRL6u9HD9P79nuA6X6YD0gbh92R8GkSE3L0ysl8b67LHPjKXXZnhnzjD8Ik0hkmwdGR25yGEcmAcRHn3gQVkAkziSVShaPgNOyrOwRKTLOmoGOqHTeniOK4TuBFqbXtUeHiI871TUPgC8Fh8tKwsh98xymLuB9D121wctWzXA5YpRnhAIBf0DNSz7decwfQpAOWWmFxmkqMPhpYwFb/tkJyQ9I4yOJXceKErYd2iZP4AQkJq5+RR+H0SMfOS/VnaoXGwoOCKVy555gDIfus5i3N3n8eZKElvuahf1ltMClWcxG4TxX3vZQ/Yk8M8nqxYbInlgaoEJ62cnOZJr+K6bTuyDMOPREvhGG7E6ywAF6jf6fblWSVp5GPxHoxDoH+tMyzt75MeTfx3r
-x-ms-exchange-antispam-messagedata: JO/y2BVGLMsH8h6Vj99I6LWAhyTRjY6BVBNe0PREJOEVapfYn5sTUXN/scUfHPshVI5OtbvLZjGJZmVctc52uwsz0bOwKr+x1qjSazU+4eoYOd8DuwEFnyEkiHcf0QdkSuwZXhBeaHI3W966HimsuQ==
-x-ms-exchange-transport-forked: True
-Content-ID: <B179715B43A315439BF9DCF449D8F06B@namprd18.prod.outlook.com>
+Received: from o.ww.redhat.com (ovpn-117-113.ams2.redhat.com [10.36.117.113])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6884326FCF;
+	Mon, 10 Feb 2020 14:53:58 +0000 (UTC)
+From: Heinz Mauelshagen <heinzm@redhat.com>
+To: dm-devel@redhat.com
+Date: Mon, 10 Feb 2020 15:53:57 +0100
+Message-Id: <55d8319f6ca77567a86002c447a614291e185766.1581346359.git.heinzm@redhat.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: dfecfb57-2bc7-4032-83de-08d7ae38c3e9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Feb 2020 14:51:52.2477 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: NQesGz/4GOatxdvFWkL8uFzDehVabfjfG8v37YcpWSafCK/0qmluH0Y9LzH+OtgUfJYIa3osjWzMSjhhykLVlQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR18MB1178
-X-OriginatorOrg: suse.com
-X-MC-Unique: uVMHQ1yKNTyM5oqggnRIBA-1
-X-MC-Unique: YDKVfuaBNlC05ADy47hTkQ-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 01AEraW1019302
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH v2 12/17] libmultipath: change failed path
-	prio timeout
+Cc: awalsh@redhat.com, corwin@redhat.com, snitzer@redhat.com
+Subject: [dm-devel] [PATCH] dm ebs: new block size emulating target
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -136,46 +62,540 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-MC-Unique: GRwmjz8LNFmTu3QPYZcc7g-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Wed, 2020-02-05 at 12:58 -0600, Benjamin Marzinski wrote:
-> multipath will try to get the priority from a PATH_DOWN path, if the
-> path doesn't currently have a valid priority. However, if the
-> priority
-> code needs to contact the device to get the priority, this is likely
-> to
-> fail for PATH_DOWN paths.  This code dates back to when multipathd
-> could
-> not easily reload device tables with failed paths, so getting the
-> correct priority was important to have a correctly configured device.
-> Now multipathd can simply reload the device to move the path to the
-> correct pathgroup when the path comes back up.  Since there are a
-> number
-> of prioritizers that don't require talking to the device, multipath
-> shouldn't completely skip attempting to get the priority of these
-> paths,
-> but it should set a small timeout, so that it isn't hanging in the
-> case where it needs to contact a device through a failed path.
->=20
-> Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
-> ---
->  libmultipath/discovery.c | 14 ++++++--------
->  libmultipath/prio.c      |  6 +++---
->  2 files changed, 9 insertions(+), 11 deletions(-)
+This new target is similar to the linear target except that it emulates
+a smaller logical block size on devices with larger ones.  It's main
+purpose is to emulate 512 byte sectors on 4K native disks (i.e. 512e).
 
-Reviewed-by: Martin Wilck <mwilck@suse.com>
+See Documentaiton/admn-guide/device-mapper/dm-ebs.rst for details.
 
---=20
-Dr. Martin Wilck <mwilck@suse.com>, Tel. +49 (0)911 74053 2107
-SUSE  Software Solutions Germany GmbH
-HRB 36809, AG N=FCrnberg GF: Felix
-Imend=F6rffer
+Signed-off-by: Heinz Mauelshagen <heinzm@redhat.com>
+---
+ .../admin-guide/device-mapper/dm-ebs.rst      |  47 ++
+ drivers/md/Kconfig                            |   8 +
+ drivers/md/Makefile                           |   2 +
+ drivers/md/dm-ebs-target.c                    | 411 ++++++++++++++++++
+ 4 files changed, 468 insertions(+)
+ create mode 100644 Documentation/admin-guide/device-mapper/dm-ebs.rst
+ create mode 100644 drivers/md/dm-ebs-target.c
 
-
+diff --git a/Documentation/admin-guide/device-mapper/dm-ebs.rst b/Documentation/admin-guide/device-mapper/dm-ebs.rst
+new file mode 100644
+index 000000000000..bc79e7860a5d
+--- /dev/null
++++ b/Documentation/admin-guide/device-mapper/dm-ebs.rst
+@@ -0,0 +1,47 @@
++======
++dm-ebs
++======
++
++This target is similar to the linear target except that it emulates
++smaller logical block size on devices with larger ones.   It's main
++purpose is to emulate 512 byte sectors on 4K native disks (i.e 512e).
++
++Supported emulated logical block sizes 512, 1024, 2048 and 4096.
++
++
++Table parameters
++----------------
++  <dev path> <offset> <emulated sectors> [<underlying sectors>]
++
++Mandatory parameters:
++
++    <dev path>:
++        Full pathname to the underlying block-device,
++        or a "major:minor" device-number.
++    <offset>:
++        Starting sector within the device;
++        has to be a multiple of <emulated sectors>.
++    <emulated sectors>:
++        Number of sectors defining the logical block size to be emulated;
++        1, 2, 4, 8 sectors of 512 bytes supported.
++
++Optional parameter:
++
++    <underyling sectors>:
++        Number of sectors defining the logical block size of <dev path>.
++        1, 2, 4, 8 supported, e.g. 8 = emulate 8 sectors of 512 bytes = 4KiB.
++        If not provided, the logical block size of <dev path> will be used.
++
++
++Examples:
++
++Emulate 1 sector = 512 bytes logical block size on /dev/sda starting at
++offset 1024 sectors with underlying devices block size automatically set:
++
++ebs /dev/sda 1024 1
++
++Emulate 2 sector = 1KiB logical block size on /dev/sda starting at
++offset 128 sectors, enforce 2KiB underlying device block size.
++This presumes 2KiB logical blocksize on /dev/sda or less to work:
++
++ebs /dev/sda 128 2 4
+diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
+index d6d5ab23c088..392974a2999d 100644
+--- a/drivers/md/Kconfig
++++ b/drivers/md/Kconfig
+@@ -336,6 +336,14 @@ config DM_WRITECACHE
+ 	   The writecache target doesn't cache reads because reads are supposed
+ 	   to be cached in standard RAM.
+ 
++config DM_EBS
++       tristate "Emulated block size target (EXPERIMENTAL)"
++       depends on BLK_DEV_DM
++       default n
++       ---help---
++	 dm-ebs emulates smaller logical block size on backing devices
++	 with larger ones (e.g. 512 byte sectors on 4K native disks).
++
+ config DM_ERA
+        tristate "Era target (EXPERIMENTAL)"
+        depends on BLK_DEV_DM
+diff --git a/drivers/md/Makefile b/drivers/md/Makefile
+index d91a7edcd2ab..9a2d673f94bc 100644
+--- a/drivers/md/Makefile
++++ b/drivers/md/Makefile
+@@ -17,6 +17,7 @@ dm-thin-pool-y	+= dm-thin.o dm-thin-metadata.o
+ dm-cache-y	+= dm-cache-target.o dm-cache-metadata.o dm-cache-policy.o \
+ 		    dm-cache-background-tracker.o
+ dm-cache-smq-y   += dm-cache-policy-smq.o
++dm-ebs-y	+= dm-ebs-target.o
+ dm-era-y	+= dm-era-target.o
+ dm-clone-y	+= dm-clone-target.o dm-clone-metadata.o
+ dm-verity-y	+= dm-verity-target.o
+@@ -65,6 +66,7 @@ obj-$(CONFIG_DM_THIN_PROVISIONING)	+= dm-thin-pool.o
+ obj-$(CONFIG_DM_VERITY)		+= dm-verity.o
+ obj-$(CONFIG_DM_CACHE)		+= dm-cache.o
+ obj-$(CONFIG_DM_CACHE_SMQ)	+= dm-cache-smq.o
++obj-$(CONFIG_DM_EBS)		+= dm-ebs.o
+ obj-$(CONFIG_DM_ERA)		+= dm-era.o
+ obj-$(CONFIG_DM_CLONE)		+= dm-clone.o
+ obj-$(CONFIG_DM_LOG_WRITES)	+= dm-log-writes.o
+diff --git a/drivers/md/dm-ebs-target.c b/drivers/md/dm-ebs-target.c
+new file mode 100644
+index 000000000000..913c646feea9
+--- /dev/null
++++ b/drivers/md/dm-ebs-target.c
+@@ -0,0 +1,411 @@
++/*
++ * Copyright (C) 2020 Red Hat GmbH
++ *
++ * This file is released under the GPL.
++ *
++ * Device-mapper target to emulate smaller logical block
++ * size on backing devices exposing (natively) larger ones.
++ *
++ * E.g. 512 byte sector emultaion on 4K native disks.
++ */
++
++#include "dm.h"
++#include <linux/module.h>
++#include <linux/workqueue.h>
++#include <linux/dm-bufio.h>
++
++#define DM_MSG_PREFIX "ebs"
++
++static void ebs_dtr(struct dm_target *ti);
++
++/* Emulated block size context. */
++struct ebs_c {
++	struct dm_dev *dev;
++	struct dm_bufio_client *bufio;
++	struct work_struct ws;
++	struct workqueue_struct *wq;
++	struct bio_list bios_in;
++	spinlock_t lock; /* Guard bios_in list above */
++	sector_t start;
++	unsigned int ebs;
++	unsigned int ubs;
++	unsigned char shift;
++	unsigned short ubs_set:1;
++};
++
++static sector_t __sector_to_block(struct ebs_c *ec, sector_t sector)
++{
++	return sector >> ec->shift;
++}
++
++static sector_t __block_mod(sector_t sector, unsigned int bs)
++{
++	return sector & (bs - 1);
++
++}
++
++/* Return number of blocks for a bio */
++static unsigned int __nr_blocks(struct ebs_c *ec, struct bio *bio)
++{
++	sector_t end_sector = __block_mod(bio->bi_iter.bi_sector, ec->ubs) + bio_sectors(bio);
++
++	return __sector_to_block(ec, end_sector) + __block_mod(end_sector, ec->ubs) ? 1 : 0;
++}
++
++static bool __ebs_check_bs(unsigned int bs)
++{
++	return bs && is_power_of_2(bs) && to_bytes(bs) <= PAGE_SIZE;
++}
++
++/* READ/WRITE bio vector: copy blocks between bufio blocks and bio vector's (partial/overlapping) pages. */
++/* FIXME: use async_memcpy() ? */
++static int __ebs_rw_bvec(struct ebs_c *ec, int rw, struct bio_vec *bv, struct bvec_iter *iter)
++{
++	int r = 0;
++	unsigned char *ba, *pa = page_address(bv->bv_page) + bv->bv_offset;
++	unsigned int cur_len;
++	unsigned int bv_len = bv->bv_len;
++	unsigned int buf_off = to_bytes(__block_mod(iter->bi_sector, ec->ubs));
++	sector_t block = __sector_to_block(ec, iter->bi_sector);
++	struct dm_buffer *b;
++
++	if (!bv->bv_page || !bv_len)
++		return -EIO;
++
++	/* Handle overlapping page <-> blocks */
++	while (bv_len) {
++		cur_len = min(dm_bufio_get_block_size(ec->bufio) - buf_off, bv_len);
++
++		/* Avoid reading for writes in case bio vector's page overwrites block completely. */
++		if (rw == READ || buf_off || bv_len < dm_bufio_get_block_size(ec->bufio))
++			ba = dm_bufio_read(ec->bufio, block, &b);
++		else
++			ba = dm_bufio_new(ec->bufio, block, &b);
++
++		if (unlikely(IS_ERR(ba)))
++			r = PTR_ERR(ba); /* Carry on with next buffer if any but return error. */
++		else {
++			/* Copy data to/from bio to buffer if read/new was successful above. */
++			ba += buf_off;
++			if (rw == READ)
++				memcpy(pa, ba, cur_len);
++			else {
++				memcpy(ba, pa, cur_len);
++				dm_bufio_mark_partial_buffer_dirty(b, buf_off, buf_off + cur_len);
++			}
++
++			dm_bufio_release(b);
++		}
++
++		pa += cur_len;
++		bv_len -= cur_len;
++		buf_off = 0;
++		block++;
++	}
++
++	return r;
++}
++
++/* READ/WRITE: iterate bio vector's copying between (partial) pages and bufio blocks. */
++static int __ebs_rw_bio(struct ebs_c *ec, int rw, struct bio *bio)
++{
++	int r = 0, rr;
++	struct bio_vec bv;
++	struct bvec_iter iter;
++
++	bio_for_each_bvec(bv, bio, iter) {
++		rr = __ebs_rw_bvec(ec, rw, &bv, &iter);
++		if (rr)
++			r = rr;
++	}
++
++	return r;
++}
++
++/* 'Discard' blocks, i.e. release them from the bufio cache. */
++static int __ebs_forget_bio(struct ebs_c *ec, struct bio *bio)
++{
++	sector_t end = bio_end_sector(bio), sector;
++
++	for (sector = bio->bi_iter.bi_sector; sector < end; sector += ec->ubs)
++		dm_bufio_forget(ec->bufio, __sector_to_block(ec, sector));
++
++	return 0;
++}
++
++/* Worker funtion to process incoming bios. */
++static void __ebs_process_bios(struct work_struct *ws)
++{
++	int r;
++	bool write = false;
++	struct ebs_c *ec = container_of(ws, struct ebs_c, ws);
++	struct bio *bio;
++	struct bio_list bios;
++
++	bio_list_init(&bios);
++
++	spin_lock_irq(&ec->lock);
++	bios = ec->bios_in;
++	bio_list_init(&ec->bios_in);
++	spin_unlock_irq(&ec->lock);
++
++	bio_list_for_each(bio, &bios)
++		if (bio_op(bio) == REQ_OP_READ)
++			dm_bufio_prefetch(ec->bufio, __sector_to_block(ec, bio->bi_iter.bi_sector), __nr_blocks(ec, bio));
++
++	bio_list_for_each(bio, &bios) {
++		r = -EIO;
++
++		if (bio_op(bio) == REQ_OP_READ)
++			r = __ebs_rw_bio(ec, READ, bio);
++		else if (bio_op(bio) == REQ_OP_WRITE) {
++			write = true;
++			r = __ebs_rw_bio(ec, WRITE, bio);
++		} else if (bio_op(bio) == REQ_OP_DISCARD)
++			/* FIXME: call dm_bufio_discard_buffers() once upstream. */
++			r = __ebs_forget_bio(ec, bio);
++
++		if (r)
++			bio->bi_status = BLK_STS_IOERR;
++	}
++
++	r = write ? dm_bufio_write_dirty_buffers(ec->bufio) : 0;
++
++	while ((bio = bio_list_pop(&bios))) {
++		/* FIXME: any other request is just endioed for now. */
++		if (unlikely(r && bio_op(bio) == REQ_OP_WRITE))
++			bio_io_error(bio);
++		else
++			bio_endio(bio);
++	}
++}
++
++/*
++ * Construct an emulated block size mapping: <dev_path> <offset> <ebs> [<ubs>]
++ *
++ * <dev_path>: path of the underlying device
++ * <offset>: offset in 512 bytes sectors into <dev_path>
++ * <ebs>: emulated block size in units of 512 bytes exposed to the upper layer
++ * i[<ubs>]: underlying block size in units of 512 bytes imposed on the lower layer;
++ * 	     optional, if not supplied, retrieve logical block size from underlying device
++ */
++static int ebs_ctr(struct dm_target *ti, unsigned int argc, char **argv)
++{
++	int r;
++	unsigned short tmp1;
++	unsigned long long tmp;
++	char dummy;
++	struct ebs_c *ec;
++
++	if (argc < 3 || argc > 4) {
++		ti->error = "Invalid argument count";
++		return -EINVAL;
++	}
++
++	ec = ti->private = kzalloc(sizeof(*ec), GFP_KERNEL);
++	if (!ec) {
++		ti->error = "Cannot allocate ebs context";
++		return -ENOMEM;
++	}
++
++	r = -EINVAL;
++	if (sscanf(argv[1], "%llu%c", &tmp, &dummy) != 1 ||
++		   tmp != (sector_t)tmp ||
++		   (sector_t)tmp >= ti->len) {
++		ti->error = "Invalid device offset sector";
++		goto bad;
++	}
++	ec->start = tmp;
++
++	if (sscanf(argv[2], "%hu%c", &tmp1, &dummy) != 1 || !__ebs_check_bs(tmp1)) {
++		ti->error = "Invalid emulated block size";
++		goto bad;
++	}
++	ec->ebs = tmp1;
++
++	if (argc > 3) {
++		if (sscanf(argv[3], "%hu%c", &tmp1, &dummy) != 1 || !__ebs_check_bs(tmp1)) {
++			ti->error = "Invalid underlying block size";
++			goto bad;
++		}
++		ec->ubs = tmp1;
++		ec->ubs_set = true;
++	} else
++		ec->ubs_set = false;
++
++	r = dm_get_device(ti, argv[0], dm_table_get_mode(ti->table), &ec->dev);
++	if (r) {
++		ti->error = "Device lookup failed";
++		ec->dev = NULL;
++		goto bad;
++	}
++
++	r = -EINVAL;
++	if (!ec->ubs_set) {
++		ec->ubs = to_sector(bdev_logical_block_size(ec->dev->bdev));
++		if (!__ebs_check_bs(ec->ubs)) {
++			ti->error = "Invalid retrieved underlying block size";
++			goto bad;
++		}
++	}
++
++	if (!ec->ubs_set && ec->ebs == ec->ubs)
++		DMERR("Emulation superfluous: emulated equal to underlying block size");
++
++	if (__block_mod(ec->start, ec->ubs)) {
++		ti->error = "Device offset must be multiple of underlying block size";
++		goto bad;
++	}
++
++	ec->bufio = dm_bufio_client_create(ec->dev->bdev, to_bytes(ec->ubs), 1, 0, NULL, NULL);
++	if (IS_ERR(ec->bufio)) {
++		ti->error = "Cannot create dm bufio client";
++		r = PTR_ERR(ec->bufio);
++		ec->bufio = NULL;
++		goto bad;
++	}
++
++	ec->wq = alloc_ordered_workqueue("dm-" DM_MSG_PREFIX, WQ_MEM_RECLAIM);
++	if (!ec->wq) {
++		ti->error = "Cannot create dm-" DM_MSG_PREFIX " workqueue";
++		r = -ENOMEM;
++		goto bad;
++	}
++
++	ec->shift = __ffs(ec->ubs);
++	INIT_WORK(&ec->ws, &__ebs_process_bios);
++	bio_list_init(&ec->bios_in);
++	spin_lock_init(&ec->lock);
++
++	ti->num_flush_bios = 1;
++	ti->num_discard_bios = 1;
++	ti->num_secure_erase_bios = 0;
++	ti->num_write_same_bios = 0;
++	ti->num_write_zeroes_bios = 0;
++	return 0;
++bad:
++	ebs_dtr(ti);
++	return r;
++}
++
++static void ebs_dtr(struct dm_target *ti)
++{
++	struct ebs_c *ec = ti->private;
++
++	if (ec->wq)
++		destroy_workqueue(ec->wq);
++	if (ec->bufio)
++		dm_bufio_client_destroy(ec->bufio);
++	if (ec->dev)
++		dm_put_device(ti, ec->dev);
++	kfree(ec);
++}
++
++static int ebs_map(struct dm_target *ti, struct bio *bio)
++{
++	struct ebs_c *ec = ti->private;
++
++	bio_set_dev(bio, ec->dev->bdev);
++	bio->bi_iter.bi_sector = ec->start + dm_target_offset(ti, bio->bi_iter.bi_sector);
++
++	if (unlikely(bio->bi_opf & REQ_OP_FLUSH))
++		return DM_MAPIO_REMAPPED;
++
++	/* Only queue for bufio processing in case of partial or overlapping buffers -or- REMOVEME: superfluos emulation with ebs == ubs. */
++	if (likely(__block_mod(bio->bi_iter.bi_sector, ec->ubs) || __block_mod(bio_end_sector(bio), ec->ubs) || ec->ebs == ec->ubs)) {
++		spin_lock_irq(&ec->lock);
++		bio_list_add(&ec->bios_in, bio);
++		spin_unlock_irq(&ec->lock);
++
++		queue_work(ec->wq, &ec->ws);
++
++		return DM_MAPIO_SUBMITTED;
++	}
++
++	/* Forget any buffer content relative to this direct backing device I/O. */
++	__ebs_forget_bio(ec, bio);
++
++	return DM_MAPIO_REMAPPED;
++}
++
++static void ebs_status(struct dm_target *ti, status_type_t type,
++			  unsigned status_flags, char *result, unsigned maxlen)
++{
++	struct ebs_c *ec = (struct ebs_c *) ti->private;
++
++	switch (type) {
++	case STATUSTYPE_INFO:
++		*result = '\0';
++		break;
++	case STATUSTYPE_TABLE:
++		snprintf(result, maxlen, ec->ubs_set ? "%s %llu %u %u" : "%s %llu %u",
++			 ec->dev->name, (unsigned long long)ec->start, ec->ebs, ec->ubs);
++		break;
++	}
++}
++
++static int ebs_prepare_ioctl(struct dm_target *ti, struct block_device **bdev)
++{
++	struct ebs_c *ec = (struct ebs_c *) ti->private;
++	struct dm_dev *dev = ec->dev;
++
++	/*
++	 * Only pass ioctls through if the device sizes match exactly.
++	 */
++	*bdev = dev->bdev;
++	return !!(ec->start || ti->len != i_size_read(dev->bdev->bd_inode) >> SECTOR_SHIFT);
++}
++
++static void ebs_io_hints(struct dm_target *ti, struct queue_limits *limits)
++{
++	struct ebs_c *ec = ti->private;
++
++	limits->logical_block_size = to_bytes(ec->ebs);
++	limits->physical_block_size = to_bytes(ec->ubs);
++	limits->alignment_offset = limits->physical_block_size;
++	blk_limits_io_min(limits, limits->logical_block_size);
++}
++
++static int ebs_iterate_devices(struct dm_target *ti,
++				  iterate_devices_callout_fn fn, void *data)
++{
++	struct ebs_c *ec = ti->private;
++
++	return fn(ti, ec->dev, ec->start, ti->len, data);
++}
++
++static struct target_type ebs_target = {
++	.name   = "ebs",
++	.version = {1, 0, 0},
++	.features = DM_TARGET_PASSES_INTEGRITY,
++	.module = THIS_MODULE,
++	.ctr    = ebs_ctr,
++	.dtr    = ebs_dtr,
++	.map    = ebs_map,
++	.status = ebs_status,
++	.io_hints = ebs_io_hints,
++	.prepare_ioctl = ebs_prepare_ioctl,
++	.iterate_devices = ebs_iterate_devices,
++};
++
++int __init dm_ebs_init(void)
++{
++	int r = dm_register_target(&ebs_target);
++
++	if (r < 0)
++		DMERR("register failed %d", r);
++
++	return r;
++}
++
++void dm_ebs_exit(void)
++{
++	dm_unregister_target(&ebs_target);
++}
++
++module_init(dm_ebs_init);
++module_exit(dm_ebs_exit);
++
++MODULE_AUTHOR("Heinz Mauelshagen <dm-devel@redhat.com>");
++MODULE_DESCRIPTION(DM_NAME " emmulated block size target");
++MODULE_LICENSE("GPL");
+-- 
+2.24.1
 
 --
 dm-devel mailing list
