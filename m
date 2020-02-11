@@ -1,67 +1,79 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 00C08158616
-	for <lists+dm-devel@lfdr.de>; Tue, 11 Feb 2020 00:16:38 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 6D596158B16
+	for <lists+dm-devel@lfdr.de>; Tue, 11 Feb 2020 09:12:09 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1581376597;
+	s=mimecast20190719; t=1581408728;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=b+gfYfR64bo/DK8VBMVzA+FNWHMspwVeCfy/VpFZ3Hg=;
-	b=gSlee2ilgy5hnWwF/lLIXeF9Tm9QI4g4GKpFBWq1ikBa/Y4CD14QF34r6A7YCLmx1c1KBB
-	Y6QmIpmH+sE47kNlqLCah0VLkZ1wXUBRN8oME5wVxiM9Jsial4LufoqCBjiPTS7eKn3w0i
-	z0Y4HYaub2HUNpeGh2Ym711hp7yEXQA=
+	bh=xdOjHf5ugVA7vO+suxpoeUgsaM0gafitaAwu9WaVEvM=;
+	b=bk3QtcjBpibj7lOC5UMG6mjuF5I4LxmUqzpFeET6tiM6c70Ym2G/VB7ZbSyw3Ppqn06YbK
+	W+2J1EyaXc2/iKHxtFePg44HagIx/hUEVqrvnHfUWG1NMrvTUzz+Um1jHomcevNwEp7kgP
+	PDAvwLSfIuJTPOpjeXK5BilKiTg15Lg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-226-l0qchf-KPOq_ovC_dgq1Ow-1; Mon, 10 Feb 2020 18:16:35 -0500
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-323-CA3SoPU5MLe_oWdnklRWcA-1; Tue, 11 Feb 2020 03:12:06 -0500
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2ABD1800D41;
-	Mon, 10 Feb 2020 23:16:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 43CAB107ACC4;
+	Tue, 11 Feb 2020 08:11:58 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 84C748EA1C;
-	Mon, 10 Feb 2020 23:16:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B376260BF4;
+	Tue, 11 Feb 2020 08:11:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E1A8B866D4;
-	Mon, 10 Feb 2020 23:16:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5B87C866C6;
+	Tue, 11 Feb 2020 08:11:39 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01ANFwC4014727 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 10 Feb 2020 18:15:58 -0500
+	id 01B88Qt9006111 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 11 Feb 2020 03:08:27 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E2264387; Mon, 10 Feb 2020 23:15:58 +0000 (UTC)
+	id C3DAC206320B; Tue, 11 Feb 2020 08:08:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A8EE019C70;
-	Mon, 10 Feb 2020 23:15:55 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 01ANFsFX026293; 
-	Mon, 10 Feb 2020 17:15:54 -0600
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 01ANFsjV026292;
-	Mon, 10 Feb 2020 17:15:54 -0600
-Date: Mon, 10 Feb 2020 17:15:53 -0600
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <mwilck@suse.com>
-Message-ID: <20200210231553.GE30153@octiron.msp.redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BF2AA2026D67
+	for <dm-devel@redhat.com>; Tue, 11 Feb 2020 08:08:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6338D80418A
+	for <dm-devel@redhat.com>; Tue, 11 Feb 2020 08:08:24 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-216-ekR48km8OSCDgEqBGgynCw-1;
+	Tue, 11 Feb 2020 03:08:20 -0500
+Received: from relay2.suse.de (unknown [195.135.220.254])
+	by mx2.suse.de (Postfix) with ESMTP id 582FBACB1;
+	Tue, 11 Feb 2020 08:08:19 +0000 (UTC)
+Message-ID: <2f1e42b45a985db8a1231698609682d1a4bfcbea.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Benjamin Marzinski <bmarzins@redhat.com>
+Date: Tue, 11 Feb 2020 09:09:48 +0100
+In-Reply-To: <20200210204942.GD30153@octiron.msp.redhat.com>
 References: <1580929100-32572-1-git-send-email-bmarzins@redhat.com>
-	<1580929100-32572-16-git-send-email-bmarzins@redhat.com>
-	<5f6810410ac8deac3e335ad45ba02184eff155ac.camel@suse.com>
+	<1580929100-32572-11-git-send-email-bmarzins@redhat.com>
+	<ad6542e5dce892c1b631f661c51c2e4d107d699c.camel@suse.com>
+	<20200210204942.GD30153@octiron.msp.redhat.com>
+User-Agent: Evolution 3.34.3
 MIME-Version: 1.0
-In-Reply-To: <5f6810410ac8deac3e335ad45ba02184eff155ac.camel@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-MC-Unique: ekR48km8OSCDgEqBGgynCw-1
+X-MC-Unique: CA3SoPU5MLe_oWdnklRWcA-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01B88Qt9006111
 X-loop: dm-devel@redhat.com
-Cc: device-mapper development <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH v2 15/17] libmultipath: make directio checker
- share io contexts
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH v2 10/17] libmultipath: add code to get
+ vendor specific vpd data
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,497 +87,79 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-MC-Unique: l0qchf-KPOq_ovC_dgq1Ow-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-On Mon, Feb 10, 2020 at 06:08:14PM +0100, Martin Wilck wrote:
-> On Wed, 2020-02-05 at 12:58 -0600, Benjamin Marzinski wrote:
-> > On systems with a large number of cores (>500), io_destroy() can take
-> > tens to hundreds of milliseconds to complete, due to RCU
-> > synchronization. If there are a large number of paths using the directio
-> > checker on such a system, this can lead to multipath taking almost a
-> > minute to complete, with the vast majority of time taken up by
-> > io_destroy().
+On Mon, 2020-02-10 at 14:49 -0600, Benjamin Marzinski wrote:
+> On Mon, Feb 10, 2020 at 02:49:38PM +0000, Martin Wilck wrote:
+> > On Wed, 2020-02-05 at 12:58 -0600, Benjamin Marzinski wrote:
+> > > This adds the wildcard 'g' for multipath and path formatted
+> > > printing,
+> > > which returns extra data from a device's vendor specific vpd
+> > > page.  The
+> > > specific vendor vpd page to use, and the vendor/product id to
+> > > decode
+> > > it
+> > > can be set in the hwentry with vpd_vendor_pg and vpd_vendor_id.
+> > > It
+> > > can
+> > > be configured in the devices section of multipath.conf with the
+> > > vpd_vendor parameter. Currently, the only devices that use this
+> > > are
+> > > HPE
+> > > 3PAR arrays, to return the Volume Name.
+> > > 
+> > > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+> > > ---
+> > >  libmultipath/config.c      |  2 ++
+> > >  libmultipath/config.h      |  1 +
+> > >  libmultipath/dict.c        | 38
+> > > ++++++++++++++++++++++++++++++++++++
+> > >  libmultipath/discovery.c   | 40
+> > > +++++++++++++++++++++++++++++++++++++-
+> > >  libmultipath/hwtable.c     |  1 +
+> > >  libmultipath/print.c       | 25 ++++++++++++++++++++++++
+> > >  libmultipath/propsel.c     | 18 +++++++++++++++++
+> > >  libmultipath/propsel.h     |  1 +
+> > >  libmultipath/structs.h     | 15 ++++++++++++++
+> > >  multipath/multipath.conf.5 |  8 ++++++++
+> > >  10 files changed, 148 insertions(+), 1 deletion(-)
+> > > 
+> > >  struct sg_id {
+> > >  	int host_no;
+> > >  	int channel;
+> > > @@ -255,6 +268,7 @@ struct path {
+> > >  	char rev[PATH_REV_SIZE];
+> > >  	char serial[SERIAL_SIZE];
+> > >  	char tgt_node_name[NODE_NAME_SIZE];
+> > > +	char vpd_data[VPD_DATA_SIZE];
 > > 
-> > To solve this, the directio checker now allocates one aio context for
-> > every 1024 checkers. This reduces the io_destroy() delay to a thousandth
-> > of its previous level. However, this means that muliple checkers are
-> > sharing the same aio context, and must be able to handle getting results
-> > for other checkers.  Because only one checker is ever running at a
-> > time, this doesn't require any locking.  However, locking could be added
-> > in the future if necessary, to allow multiple checkers to run at the
-> > same time.
-> > 
-> > When checkers are freed, they usually no longer destroy the io context.
-> > Instead, they attempt to cancel any outstanding request. If that fails,
-> > they put the request on an orphan list, so that it can be freed by other
-> > checkers, once it has completed. IO contexts are only destroyed at three
-> > times, during reconfigure (to deal with the possibility that multipathd
-> > is holding more aio events than it needs to be, since there is a single
-> > limit for the whole system), when the checker class is unloaded, and
-> > in a corner case when checkers are freed. If an aio_group (which
-> > contains the aio context) is entirely full of orphaned requests, then
-> > no checker can use it. Since no checker is using it, there is no checker
-> > to clear out the orphaned requests. In this (likely rare) case, the
-> > last checker from that group to be freed and leave behind an orphaned
-> > request will call io_destroy() and remove the group.
-> > 
-> > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
-> > ---
-> >  libmultipath/checkers/directio.c | 336 +++++++++++++++++++++++++------
-> >  multipath/multipath.conf.5       |   7 +-
-> >  2 files changed, 281 insertions(+), 62 deletions(-)
+> > Hm, 128 more bytes per path for a rarely-used property... do we
+> > need to
+> > store this in "struct path"? Can't we simply fetch that information
+> > when someone requests it with the %g format wildcard? It doesn't
+> > matter
+> > much today as "struct path" is really thick already, but I have
+> > hopes
+> > to make it a bit leaner some day.
 > 
-> Although I concur now that your design is sound, I still have some
-> issues, see below.
-> 
-> > 
-> > diff --git a/libmultipath/checkers/directio.c b/libmultipath/checkers/directio.c
-> > index 1b00b775..740c68e5 100644
-> > --- a/libmultipath/checkers/directio.c
-> > +++ b/libmultipath/checkers/directio.c
-> > 
-> > +/* If an aio_group is completely full of orphans, then no checkers can
-> > + * use it, which means that no checkers can clear out the orphans. To
-> > + * avoid keeping the useless group around, simply remove remove the
-> > + * group */
-> > +static void
-> > +check_orphaned_group(struct aio_group *aio_grp)
-> > +{
-> > +	int count = 0;
-> > +	struct list_head *item;
-> > +
-> > +	if (aio_grp->holders < AIO_GROUP_SIZE)
-> > +		return;
-> > +	list_for_each(item, &aio_grp->orphans)
-> > +		count++;
-> > +	if (count >= AIO_GROUP_SIZE) {
-> > +		remove_aio_group(aio_grp);
-> > +		if (list_empty(&aio_grp_list))
-> > +			add_aio_group();
-> 
-> OK, but not beautiful. Can be improved later, I guess. In general, you
-> could delay allocation of an aio_group until it's actually needed (i.e.
-> when the first path is using it, in set_aio_group(), as you're already
-> doing it for 2nd and later groups).
+> Well, the thought was that this information (which should help map
+> the
+> path to a physical array) would most often be wanted when things were
+> going badly, and you might not be able to access the device.
 
-Sure. I figured it would be more consistent to always have a group after
-start-up, since even on reset we keep a group around, to avoid the pain
-of removing and then re-adding it. But there really isn't any need to do
-it that way, so if you would rather it worked the other way, I can send
-another patch to change that.
+Point taken. How about using a pointer? That would be only 8 extra
+bytes for those cases where the field was unused.
+Call me old-fashioned, I've grown up in a world where 1000x128 bytes
+mattered.
 
-> 
-> > +	}
-> > +}
-> > +
-> > +int libcheck_load (void)
-> > +{
-> > +	if (add_aio_group() == NULL) {
-> > +		LOG(1, "libcheck_load failed: %s", strerror(errno));
-> > +		return 1;
-> > +	}
-> > +	return 0;
-> > +}
-> > +
-> > +void libcheck_unload (void)
-> > +{
-> > +	struct aio_group *aio_grp, *tmp;
-> > +
-> > +	list_for_each_entry_safe(aio_grp, tmp, &aio_grp_list, node)
-> > +		remove_aio_group(aio_grp);
-> > +}
-> 
-> I have one concern here - this might cause delays during multipathd
-> shutdown, which we have struggled to eliminate in previous patches.
-> OTOH, according to what you wrote, with the current code the shutdown
-> delays will probably be higher, so this is actually an improvement.
-> We should take a mental note about the shutdown issue. Like with TUR,
-> avoiding hanging on shutdown is tricky if we consider possibly hanging
-> device I/O.
+Regards,
+Martin
 
-Yeah. This should be faster than calling io_destroy on each path, when
-shutting down, especially when you have a large number of CPUs and
-devices.
 
-> > +
-> > +int libcheck_reset (void)
-> > +{
-> > +	struct aio_group *aio_grp, *tmp, *reset_grp = NULL;
-> > +
-> > +	/* If a clean existing aio_group exists, use that. Otherwise add a
-> > +	 * new one */
-> > +	list_for_each_entry(aio_grp, &aio_grp_list, node) {
-> > +		if (aio_grp->holders == 0 &&
-> > +		    list_empty(&aio_grp->orphans)) {
-> > +			reset_grp = aio_grp;
-> > +			break;
-> > +		}
-> > +	}
-> > +	if (!reset_grp)
-> > +		reset_grp = add_aio_group();
-> > +	if (!reset_grp) {
-> > +		LOG(1, "checker reset failed");
-> > +		return 1;
-> > +	}
-> > +
-> > +	list_for_each_entry_safe(aio_grp, tmp, &aio_grp_list, node) {
-> > +		if (aio_grp != reset_grp)
-> > +			remove_aio_group(aio_grp);
-> > +	}
-> > +	return 0;
-> > +}
-> >  
-> >  int libcheck_init (struct checker * c)
-> >  {
-> >  	unsigned long pgsize = getpagesize();
-> >  	struct directio_context * ct;
-> > +	struct async_req *req = NULL;
-> >  	long flags;
-> >  
-> >  	ct = malloc(sizeof(struct directio_context));
-> > @@ -56,26 +201,31 @@ int libcheck_init (struct checker * c)
-> >  		return 1;
-> >  	memset(ct, 0, sizeof(struct directio_context));
-> >  
-> > -	if (io_setup(1, &ct->ioctx) != 0) {
-> > -		condlog(1, "io_setup failed");
-> > -		free(ct);
-> > -		return 1;
-> > +	if (set_aio_group(ct) < 0)
-> > +		goto out;
-> > +
-> > +	req = malloc(sizeof(struct async_req));
-> > +	if (!req) {
-> > +		goto out;
-> >  	}
-> > +	memset(req, 0, sizeof(struct async_req));
-> > +	INIT_LIST_HEAD(&req->node);
-> >  
-> > -	if (ioctl(c->fd, BLKBSZGET, &ct->blksize) < 0) {
-> > +	if (ioctl(c->fd, BLKBSZGET, &req->blksize) < 0) {
-> >  		c->msgid = MSG_DIRECTIO_BLOCKSIZE;
-> > -		ct->blksize = 512;
-> > +		req->blksize = 512;
-> 
-> You didn't change this, but I wonder if this is really a safe default.
-> IIUC it's safe (although perhaps a bit slower) to read a multiple of
-> the logical block size, but reading less than the logical block size
-> might fail. Perhaps we should default to 4k?
-
-Sure. I can add that to the follow-up patch.
-
-> >  	}
-> > -	if (ct->blksize > 4096) {
-> > +	if (req->blksize > 4096) {
-> >  		/*
-> >  		 * Sanity check for DASD; BSZGET is broken
-> >  		 */
-> > -		ct->blksize = 4096;
-> > +		req->blksize = 4096;
-> >  	}
-> > -	if (!ct->blksize)
-> > +	if (!req->blksize)
-> >  		goto out;
-> > -	ct->buf = (unsigned char *)malloc(ct->blksize + pgsize);
-> > -	if (!ct->buf)
-> > +
-> > +	req->buf = (unsigned char *)malloc(req->blksize + pgsize);
-> 
-> Why don't you simply use posix_memalign()?
-
-I just reused the code that was already there to allocate the buffer.
-Again, follow up patch.
-
-> > +	if (!req->buf)
-> >  		goto out;
-> >  
-> >  	flags = fcntl(c->fd, F_GETFL);
-> > @@ -88,17 +238,22 @@ int libcheck_init (struct checker * c)
-> >  		ct->reset_flags = 1;
-> >  	}
-> >  
-> > -	ct->ptr = (unsigned char *) (((unsigned long)ct->buf + pgsize - 1) &
-> > +	req->ptr = (unsigned char *) (((unsigned long)req->buf + pgsize - 1) &
-> >  		  (~(pgsize - 1)));
-> 
-> See above.
-> 
-> >  
-> >  	/* Successfully initialized, return the context. */
-> > +	ct->req = req;
-> >  	c->context = (void *) ct;
-> >  	return 0;
-> >  
-> >  out:
-> > -	if (ct->buf)
-> > -		free(ct->buf);
-> > -	io_destroy(ct->ioctx);
-> > +	if (req) {
-> > +		if (req->buf)
-> > +			free(req->buf);
-> > +		free(req);
-> > +	}
-> > +	if (ct->aio_grp)
-> > +		ct->aio_grp->holders--;
-> >  	free(ct);
-> >  	return 1;
-> >  }
-> > @@ -106,6 +261,7 @@ out:
-> >  void libcheck_free (struct checker * c)
-> >  {
-> >  	struct directio_context * ct = (struct directio_context *)c->context;
-> > +	struct io_event event;
-> >  	long flags;
-> >  
-> >  	if (!ct)
-> > @@ -121,20 +277,72 @@ void libcheck_free (struct checker * c)
-> >  		}
-> >  	}
-> >  
-> > -	if (ct->buf)
-> > -		free(ct->buf);
-> > -	io_destroy(ct->ioctx);
-> > +	if (ct->running &&
-> > +	    (ct->req->state != PATH_PENDING ||
-> > +	     io_cancel(ct->aio_grp->ioctx, &ct->req->io, &event) == 0))
-> > +		ct->running = 0;
-> > +	if (!ct->running) {
-> > +		free(ct->req->buf);
-> > +		free(ct->req);
-> > +		ct->aio_grp->holders--;
-> > +	} else {
-> > +		ct->req->state = PATH_REMOVED;
-> > +		list_add(&ct->req->node, &ct->aio_grp->orphans);
-> > +		check_orphaned_group(ct->aio_grp);
-> > +	}
-> > +
-> >  	free(ct);
-> > +	c->context = NULL;
-> > +}
-> > +
-> > +static int
-> > +get_events(struct aio_group *aio_grp, struct timespec *timeout)
-> > +{
-> > +	struct io_event events[128];
-> > +	int i, nr, got_events = 0;
-> > +	struct timespec zero_timeout = {0};
-> > +	struct timespec *timep = (timeout)? timeout : &zero_timeout;
-> 
-> This isn't wrong, but the semantics of the "timeout" parameter are a
-> bit confusing, as io_getevents() would interpret a NULL timeout as
-> "forever", and get_events is mostly a wrapper around io_getevents().
-
-Sure. I can change that.
-
-> > +
-> > +	do {
-> > +		errno = 0;
-> > +		nr = io_getevents(aio_grp->ioctx, 1, 128, events, timep);
-> > +		got_events |= (nr > 0);
-> > +
-> > +		for (i = 0; i < nr; i++) {
-> > +			struct async_req *req = container_of(events[i].obj, struct async_req, io);
-> > +
-> > +			LOG(3, "io finished %lu/%lu", events[i].res,
-> > +			    events[i].res2);
-> > +
-> > +			/* got an orphaned request */
-> > +			if (req->state == PATH_REMOVED) {
-> > +				list_del(&req->node);
-> > +				free(req->buf);
-> > +				free(req);
-> > +				aio_grp->holders--;
-> > +			} else
-> > +				req->state = (events[i].res == req->blksize) ?
-> > +					      PATH_UP : PATH_DOWN;
-> > +		}
-> > +		timep = &zero_timeout;
-> > +	} while (nr == 128); /* assume there are more events and try again */
-> > +
-> > +	if (nr < 0)
-> > +		LOG(3, "async io getevents returned %i (errno=%s)",
-> > +		    nr, strerror(errno));
-> > +
-> > +	return got_events;
-> >  }
-> >  static int
-> >  check_state(int fd, struct directio_context *ct, int sync, int timeout_secs)
-> >  {
-> >  	struct timespec	timeout = { .tv_nsec = 5 };
-> 
-> What's the purpose of these 5ns? Unless the device in question is an
-> NVDIMM, I'd say 5ns is practically equivalent to 0.
-
-again, I just kept this the same to keep the checker working the same as
-it did before, but yes, this basically means that checker will basically
-always return PATH_PENDING on the call where it issues the IO for NAS
-storage.  I'm fine with changing this to 1 ms. 
-
-> 
-> > -	struct io_event event;
-> >  	struct stat	sb;
-> > -	int		rc = PATH_UNCHECKED;
-> > +	int		rc;
-> >  	long		r;
-> > +	struct timespec currtime, endtime;
-> > +	struct timespec *timep = &timeout;
-> >  
-> >  	if (fstat(fd, &sb) == 0) {
-> >  		LOG(4, "called for %x", (unsigned) sb.st_rdev);
-> > @@ -145,50 +353,60 @@ check_state(int fd, struct directio_context *ct, int sync, int timeout_secs)
-> >  		timeout.tv_nsec = 0;
-> >  	}
-> >  
-> > -	if (!ct->running) {
-> > -		struct iocb *ios[1] = { &ct->io };
-> > +	if (ct->running) {
-> > +		if (ct->req->state != PATH_PENDING) {
-> > +			ct->running = 0;
-> > +			return ct->req->state;
-> > +		}
-> > +	} else {
-> > +		struct iocb *ios[1] = { &ct->req->io };
-> >  
-> >  		LOG(3, "starting new request");
-> > -		memset(&ct->io, 0, sizeof(struct iocb));
-> > -		io_prep_pread(&ct->io, fd, ct->ptr, ct->blksize, 0);
-> > -		if (io_submit(ct->ioctx, 1, ios) != 1) {
-> > +		memset(&ct->req->io, 0, sizeof(struct iocb));
-> > +		io_prep_pread(&ct->req->io, fd, ct->req->ptr,
-> > +			      ct->req->blksize, 0);
-> > +		ct->req->state = PATH_PENDING;
-> > +		if (io_submit(ct->aio_grp->ioctx, 1, ios) != 1) {
-> >  			LOG(3, "io_submit error %i", errno);
-> >  			return PATH_UNCHECKED;
-> >  		}
-> >  	}
-> >  	ct->running++;
-> 
-> This looks to me as if in the case (ct->running && ct->req->state ==
-> PATH_PENDING), ct->running could become > 1, even though you don't
-> start a new IO. Is that intended? I don't think it matters because you
-> never decrement, but it looks weird.
-
-That's necessary for how the checker currently works. In async mode
-checker doesn't actually wait for a specific number of seconds (and
-didn't before my patch). It assumes 1 sec call times for pending paths,
-and times out after ct->running > timeout_secs. That's why the unit
-tests can get away with simply calling the checker repeatedly, without
-waiting, to make it timeout. But I suppose that wait_for_pending_paths()
-will also be making the checker time out quicker, so this should
-probably be changed. However, since check_path won't set a paths state
-to PATH_PENDING if it wasn't already, it's not really a very likely
-issue to occur.
- 
-> >  
-> > -	errno = 0;
-> > -	r = io_getevents(ct->ioctx, 1L, 1L, &event, &timeout);
-> > +	get_monotonic_time(&endtime);
-> > +	endtime.tv_sec += timeout.tv_sec;
-> > +	endtime.tv_nsec += timeout.tv_nsec;
-> > +	normalize_timespec(&endtime);
-> > +	while(1) {
-> > +		r = get_events(ct->aio_grp, timep);
-> >  
-> > -	if (r < 0 ) {
-> > -		LOG(3, "async io getevents returned %li (errno=%s)", r,
-> > -		    strerror(errno));
-> > -		ct->running = 0;
-> > -		rc = PATH_UNCHECKED;
-> > -	} else if (r < 1L) {
-> > -		if (ct->running > timeout_secs || sync) {
-> > -			struct iocb *ios[1] = { &ct->io };
-> > -
-> > -			LOG(3, "abort check on timeout");
-> > -			r = io_cancel(ct->ioctx, ios[0], &event);
-> > -			/*
-> > -			 * Only reset ct->running if we really
-> > -			 * could abort the pending I/O
-> > -			 */
-> > -			if (r)
-> > -				LOG(3, "io_cancel error %i", errno);
-> > -			else
-> > -				ct->running = 0;
-> > -			rc = PATH_DOWN;
-> > -		} else {
-> > -			LOG(3, "async io pending");
-> > -			rc = PATH_PENDING;
-> > -		}
-> > +		if (ct->req->state != PATH_PENDING) {
-> > +			ct->running = 0;
-> > +			return ct->req->state;
-> > +		} else if (r == 0 || !timep)
-> > +			break;
-> > +
-> > +		get_monotonic_time(&currtime);
-> > +		timespecsub(&endtime, &currtime, &timeout);
-> > +		if (timeout.tv_sec < 0)
-> > +			timep = NULL;
-> 
-> See comment for get_events() above. Why don't you simply do this?
-> 
->     timeout.tv_sec = timeout.tv_nsec = 0;
-> 
-
-Sure.
-
-So, If I will post a seperate patch that resolves these issues, can this
-one have an ack?
-
--Ben
-
-> 
-> > +	}
-> > +	if (ct->running > timeout_secs || sync) {
-> > +		struct io_event event;
-> > +
-> > +		LOG(3, "abort check on timeout");
-> > +
-> > +		r = io_cancel(ct->aio_grp->ioctx, &ct->req->io, &event);
-> > +		/*
-> > +		 * Only reset ct->running if we really
-> > +		 * could abort the pending I/O
-> 
-> ... which will never happen ... but never mind.
-> 
-> > +		 */
-> > +		if (!r)
-> > +			ct->running = 0;
-> > +		rc = PATH_DOWN;
-> >  	} else {
-> > -		LOG(3, "io finished %lu/%lu", event.res, event.res2);
-> > -		ct->running = 0;
-> > -		rc = (event.res == ct->blksize) ? PATH_UP : PATH_DOWN;
-> > +		LOG(3, "async io pending");
-> > +		rc = PATH_PENDING;
-> >  	}
-> >  
-> >  	return rc;
-> > diff --git a/multipath/multipath.conf.5 b/multipath/multipath.conf.5
-> > index dc103fd8..05a5e8ff 100644
-> > --- a/multipath/multipath.conf.5
-> > +++ b/multipath/multipath.conf.5
-> > @@ -494,9 +494,10 @@ Check the path state for LSI/Engenio/NetApp RDAC class as NetApp SANtricity E/EF
-> >  Series, and OEM arrays from IBM DELL SGI STK and SUN.
-> >  .TP
-> >  .I directio
-> > -(Deprecated) Read the first sector with direct I/O. This checker is being
-> > -deprecated, it could cause spurious path failures under high load.
-> > -Please use \fItur\fR instead.
-> > +(Deprecated) Read the first sector with direct I/O. If you have a large number
-> > +of paths, or many AIO users on a system, you may need to use sysctl to
-> > +increase fs.aio-max-nr. This checker is being deprecated, it could cause
-> > +spurious path failures under high load. Please use \fItur\fR instead.
-> >  .TP
-> >  .I cciss_tur
-> >  (Hardware-dependent)
-> 
 
 --
 dm-devel mailing list
