@@ -1,76 +1,75 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 2652C1659C1
-	for <lists+dm-devel@lfdr.de>; Thu, 20 Feb 2020 10:06:26 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 216261659C2
+	for <lists+dm-devel@lfdr.de>; Thu, 20 Feb 2020 10:06:31 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1582189585;
+	s=mimecast20190719; t=1582189590;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=25bdGyI0m7lEY7UhXJkfOpVf6mymBIMOswYbwjSQcCs=;
-	b=CN0DjwFg0/O3aFyLs0cj/Yg5RtaQ40CpHJQfe16xEFhjvpdhSQ6fIkoGf4TyXo68bgUZbk
-	o2KtOzSABqEFFW9Q5cyvq94cBfEZjSYmSn9ImpgS5a7/P8+FFwmtr7fkup4tPo8Z8WimKq
-	v43AuojSX3vR8aRth4Awute9DYSQjfI=
+	bh=rZM7o8hlsJGRAW3JLNf3YuDGd5Axy+wO4wzFr0LtzhU=;
+	b=AEotQ3/b7jFd6BwkuKOLbv/5UnQfFCW6eJRbEdd+X8BmPAq1Zp+W18N0TOBKVUtmve3Gg2
+	YxiNHC7OcT82Tvvif6EnCgwGvRU+7sQAyYXofzrtI4W7USFnZN17xDgn/B+0QI9CxDorwR
+	u1HEx6ejh5gTlaqIUv8tPFPDYrjR2Ss=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-346-4W7DYV8RNp2NQ1QeLpVSvA-1; Thu, 20 Feb 2020 04:06:20 -0500
+ us-mta-387-lUJ0uNwpP2iQ7FITbhFt2g-1; Thu, 20 Feb 2020 04:06:27 -0500
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8533018AB2C3;
-	Thu, 20 Feb 2020 09:06:15 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 58D9385735;
-	Thu, 20 Feb 2020 09:06:15 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 716BF801E7B;
+	Thu, 20 Feb 2020 09:06:18 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3E6578B54A;
+	Thu, 20 Feb 2020 09:06:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BADC18B2CC;
-	Thu, 20 Feb 2020 09:06:14 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C0BFE1803C42;
+	Thu, 20 Feb 2020 09:06:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01CHZHQr002769 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 12 Feb 2020 12:35:17 -0500
+	id 01CK124h011593 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 12 Feb 2020 15:01:03 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 386601003342; Wed, 12 Feb 2020 17:35:17 +0000 (UTC)
+	id A84FC2026FFE; Wed, 12 Feb 2020 20:01:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 333771004C47
-	for <dm-devel@redhat.com>; Wed, 12 Feb 2020 17:35:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A38702026D67
+	for <dm-devel@redhat.com>; Wed, 12 Feb 2020 20:01:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 66EC9802897
-	for <dm-devel@redhat.com>; Wed, 12 Feb 2020 17:35:15 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 582471017E4E
+	for <dm-devel@redhat.com>; Wed, 12 Feb 2020 20:01:00 +0000 (UTC)
 Received: from relay.sw.ru (relay.sw.ru [185.231.240.75]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-363-3istYdWBOca4NNq5tbjE_w-1;
-	Wed, 12 Feb 2020 12:35:11 -0500
-Received: from [192.168.15.107] by relay.sw.ru with esmtp (Exim 4.92.3)
+	relay.mimecast.com with ESMTP id us-mta-141-XQfksw-LMtSjRMj13RTRKA-1;
+	Wed, 12 Feb 2020 15:00:56 -0500
+Received: from [192.168.15.120] by relay.sw.ru with esmtp (Exim 4.92.3)
 	(envelope-from <ktkhai@virtuozzo.com>)
-	id 1j1vuX-0007GT-JU; Wed, 12 Feb 2020 20:34:53 +0300
+	id 1j1yBE-0007nX-2q; Wed, 12 Feb 2020 23:00:16 +0300
 To: "Darrick J. Wong" <darrick.wong@oracle.com>
 References: <158132703141.239613.3550455492676290009.stgit@localhost.localdomain>
 	<158132724397.239613.16927024926439560344.stgit@localhost.localdomain>
 	<20200212170156.GM6874@magnolia>
 From: Kirill Tkhai <ktkhai@virtuozzo.com>
-Message-ID: <786c991e-cfaa-b2af-cac2-7165e6d7fa34@virtuozzo.com>
-Date: Wed, 12 Feb 2020 20:34:52 +0300
+Message-ID: <f108e700-62fb-6ecd-2bba-0ab7a6b9ef7b@virtuozzo.com>
+Date: Wed, 12 Feb 2020 23:00:15 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
 	Thunderbird/68.4.2
 MIME-Version: 1.0
 In-Reply-To: <20200212170156.GM6874@magnolia>
 Content-Language: en-US
-X-MC-Unique: 3istYdWBOca4NNq5tbjE_w-1
-X-MC-Unique: 4W7DYV8RNp2NQ1QeLpVSvA-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MC-Unique: XQfksw-LMtSjRMj13RTRKA-1
+X-MC-Unique: lUJ0uNwpP2iQ7FITbhFt2g-1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 01CHZHQr002769
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01CK124h011593
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 20 Feb 2020 04:05:51 -0500
 Cc: andrea.parri@amarulasolutions.com, snitzer@redhat.com, dhowells@redhat.com,
@@ -141,14 +140,14 @@ On 12.02.2020 20:01, Darrick J. Wong wrote:
 > 
 > Please update this comment to reflect the new REQ_ALLOCATE mode, and
 > move it to where you define write_zeroes_to_fallocate_mode().
-
-Ok, I'll update it in v7
-
+> 
 > With that fixed,
 > 
 > Reviewed-by: Darrick J. Wong <darrick.wong@oracle.com>
 
-Thanks
+Just to clarify. Is this "Reviewed-by:" tag for this patch or for the whole series?
+
+Kirill
 
 
 --
