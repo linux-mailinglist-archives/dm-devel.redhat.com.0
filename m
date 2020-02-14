@@ -1,75 +1,62 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id BB27415CC97
-	for <lists+dm-devel@lfdr.de>; Thu, 13 Feb 2020 21:51:09 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 62A2115D7D8
+	for <lists+dm-devel@lfdr.de>; Fri, 14 Feb 2020 13:58:02 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1581627068;
+	s=mimecast20190719; t=1581685081;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=b4IqB7cEenWWV/zmiZzBsb8bJHN7jSZvXA+hobT4aLo=;
-	b=UCx6KpK+b0mYwo1EoX0W/Ltw2DZjrOIq5NxzhFShTetz/I9RcDXssyZw89ozMP3mJXshro
-	Pl2jqdsodZY2HwOL2V9rvmySe9T6Wr68bGhTe8L1l8TQed0eISFCrDL/dieWd5mzBLdMZL
-	eimhtUzi1zkUTlVQmtOICdljB3bqK7w=
+	bh=ZspnjMPtSRkS1PK7a97vOCCH7ROvRZrEJNvPqlDBk2s=;
+	b=RYGnCfj0qh+2ranrGGXCuzitczu+C6mLsGasK+E9K3gDdUStChWf6PXqNKAN4N5oc312Hh
+	giBQJyyGDk7WbUzJXl+JhJRYQT2LkhczIF7GZmD7TMiW3oWV6EAwGW5EWrpIQWUdSocBzd
+	9ydReC2ahvwmH/DyEP/NOrjP6Xz0wAk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-149-8exwKUAzOq60L2Nhz0jL3g-1; Thu, 13 Feb 2020 15:51:06 -0500
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-313-o7ODMuKWPleggaDmv8Z2IA-1; Fri, 14 Feb 2020 07:57:59 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A07C01005510;
-	Thu, 13 Feb 2020 20:50:59 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E5CDF19925;
-	Thu, 13 Feb 2020 20:50:52 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 732CE107ACC9;
+	Fri, 14 Feb 2020 12:57:52 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8162A5C1C3;
+	Fri, 14 Feb 2020 12:57:48 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6ACEC4EBC8;
-	Thu, 13 Feb 2020 20:50:42 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 269191803C33;
+	Fri, 14 Feb 2020 12:57:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01DKoQvl001458 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 13 Feb 2020 15:50:26 -0500
+	id 01ECvKU3014971 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 14 Feb 2020 07:57:20 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3FD041012EC3; Thu, 13 Feb 2020 20:50:26 +0000 (UTC)
+	id 796609009A; Fri, 14 Feb 2020 12:57:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B4091006EC0
-	for <dm-devel@redhat.com>; Thu, 13 Feb 2020 20:50:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2ADBA800155
-	for <dm-devel@redhat.com>; Thu, 13 Feb 2020 20:50:24 +0000 (UTC)
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-298-l2KG3IbWO8WD9W_sPcd_sQ-1; Thu, 13 Feb 2020 15:50:21 -0500
-Received: from callcc.thunk.org (guestnat-104-133-0-101.corp.google.com
-	[104.133.0.101] (may be forged)) (authenticated bits=0)
-	(User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 01DKoFPp005245
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Thu, 13 Feb 2020 15:50:15 -0500
-Received: by callcc.thunk.org (Postfix, from userid 15806)
-	id BBB4642032C; Thu, 13 Feb 2020 15:50:14 -0500 (EST)
-Date: Thu, 13 Feb 2020 15:50:14 -0500
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: dm-devel@redhat.com
-Message-ID: <20200213205014.GA349527@mit.edu>
+Received: from horse.redhat.com (unknown [10.18.25.35])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CCC978ECFA;
+	Fri, 14 Feb 2020 12:57:17 +0000 (UTC)
+Received: by horse.redhat.com (Postfix, from userid 10451)
+	id 4BD172257D2; Fri, 14 Feb 2020 07:57:17 -0500 (EST)
+Date: Fri, 14 Feb 2020 07:57:17 -0500
+From: Vivek Goyal <vgoyal@redhat.com>
+To: linux-fsdevel@vger.kernel.org, linux-nvdimm@lists.01.org,
+	hch@infradead.org, dan.j.williams@intel.com
+Message-ID: <20200214125717.GA18654@redhat.com>
+References: <20200207202652.1439-1-vgoyal@redhat.com>
 MIME-Version: 1.0
-X-MC-Unique: l2KG3IbWO8WD9W_sPcd_sQ-1
-X-MC-Unique: 8exwKUAzOq60L2Nhz0jL3g-1
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 01DKoQvl001458
+In-Reply-To: <20200207202652.1439-1-vgoyal@redhat.com>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-Subject: [dm-devel] 5.6-rc1 lockdep warning during dm-thin shutdown
+Cc: vishal.l.verma@intel.com, dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH v3 0/7] dax,
+ pmem: Provide a dax operation to zero range of memory
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,207 +70,81 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-MC-Unique: o7ODMuKWPleggaDmv8Z2IA-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-I noticed this while running xfstests generic/347.  The lockdep report is below:
+On Fri, Feb 07, 2020 at 03:26:45PM -0500, Vivek Goyal wrote:
+> Hi,
+> 
+> This is V3 of patches. I have dropped RFC tag from the series as it
+> looks like there is agreement on the interface. These patches are also
+> available at.
 
-[ 3742.062744] run fstests generic/347 at 2020-02-13 13:18:03
-[ 3742.431761] EXT4-fs (dm-0): mounted filesystem with ordered data mode. Opts: acl,user_xattr,block_validity
-[ 3743.696630] EXT4-fs (dm-5): mounted filesystem with ordered data mode. Opts: acl,user_xattr,block_validity
-[ 3749.384483] device-mapper: thin: 253:4: reached low water mark for data device: sending event.
-[ 3750.853156] device-mapper: thin: 253:4: switching pool to out-of-data-space (queue IO) mode
-[ 3812.123242] device-mapper: thin: 253:4: switching pool to out-of-data-space (error IO) mode
-[ 3812.138217] EXT4-fs warning (device dm-5): ext4_end_bio:347: I/O error 3 writing to inode 378 starting block 128192)
-[ 3812.150804] buffer_io_error: 708 callbacks suppressed
-[ 3812.150809] Buffer I/O error on device dm-5, logical block 128000
-[ 3812.162553] Buffer I/O error on device dm-5, logical block 128001
-[ 3812.169205] Buffer I/O error on device dm-5, logical block 128002
-[ 3812.175793] Buffer I/O error on device dm-5, logical block 128003
-[ 3812.183686] Buffer I/O error on device dm-5, logical block 128004
-[ 3812.191467] Buffer I/O error on device dm-5, logical block 128005
-[ 3812.199311] Buffer I/O error on device dm-5, logical block 128006
-[ 3812.207204] Buffer I/O error on device dm-5, logical block 128007
-[ 3812.214915] Buffer I/O error on device dm-5, logical block 128008
-[ 3812.222699] Buffer I/O error on device dm-5, logical block 128009
-[ 3812.240796] EXT4-fs warning (device dm-5): ext4_end_bio:347: I/O error 3 writing to inode 379 starting block 128448)
-[ 3812.264563] EXT4-fs warning (device dm-5): ext4_end_bio:347: I/O error 3 writing to inode 380 starting block 128704)
-[ 3812.287052] EXT4-fs warning (device dm-5): ext4_end_bio:347: I/O error 3 writing to inode 381 starting block 128960)
-[ 3812.308866] EXT4-fs warning (device dm-5): ext4_end_bio:347: I/O error 3 writing to inode 382 starting block 129216)
-[ 3812.330810] EXT4-fs warning (device dm-5): ext4_end_bio:347: I/O error 3 writing to inode 383 starting block 129472)
-[ 3812.352898] EXT4-fs warning (device dm-5): ext4_end_bio:347: I/O error 3 writing to inode 384 starting block 129728)
-[ 3812.373989] EXT4-fs warning (device dm-5): ext4_end_bio:347: I/O error 3 writing to inode 385 starting block 129984)
-[ 3812.395096] EXT4-fs warning (device dm-5): ext4_end_bio:347: I/O error 3 writing to inode 386 starting block 130240)
-[ 3812.416946] EXT4-fs warning (device dm-5): ext4_end_bio:347: I/O error 3 writing to inode 387 starting block 130496)
-[ 3813.736289] device-mapper: thin: 253:4: switching pool to write mode
-[ 3813.736304] device-mapper: thin: 253:4: growing the data device from 1000 to 1200 blocks
-[ 3813.848386] device-mapper: thin: 253:4: reached low water mark for data device: sending event.
+Hi Dan, Christoph,
 
-[ 3814.349795] ======================================================
-[ 3814.356234] WARNING: possible circular locking dependency detected
-[ 3814.362533] 5.5.0-xfstests-07635-gc96dceeabf76 #1477 Not tainted
-[ 3814.368654] ------------------------------------------------------
-[ 3814.374947] dmsetup/10207 is trying to acquire lock:
-[ 3814.380079] ffffffff85489a78 (shrinker_rwsem){++++}, at: unregister_shrinker+0x22/0x80
-[ 3814.388115] 
-               but task is already holding lock:
-[ 3814.394061] ffff9c184c8c95d0 (&pmd->root_lock){++++}, at: dm_pool_metadata_close+0xba/0x120
-[ 3814.402530] 
-               which lock already depends on the new lock.
+Ping for this patch series. How does it look? Do you have concerns?
+If not, it will be good if this is merged.
 
-[ 3814.411867] 
-               the existing dependency chain (in reverse order) is:
-[ 3814.419464] 
-               -> #3 (&pmd->root_lock){++++}:
-[ 3814.425321]        lock_acquire+0x9a/0x160
-[ 3814.429545]        down_read+0x41/0x200
-[ 3814.433542]        dm_thin_find_block+0x2e/0x80
-[ 3814.438590]        thin_map+0x172/0x270
-[ 3814.442548]        __map_bio+0x42/0x210
-[ 3814.446501]        __split_and_process_non_flush+0xd6/0x150
-[ 3814.452292]        __split_and_process_bio+0xe0/0x380
-[ 3814.457588]        dm_process_bio+0x90/0x2b0
-[ 3814.462838]        dm_make_request+0x54/0x120
-[ 3814.467596]        generic_make_request+0xd8/0x400
-[ 3814.472508]        submit_bio+0x3c/0x140
-[ 3814.476587]        submit_bh_wbc+0x16d/0x190
-[ 3814.480975]        ext4_read_block_bitmap_nowait+0x41d/0x670
-[ 3814.486896]        ext4_mb_init_cache+0x163/0x760
-[ 3814.491799]        ext4_mb_init_group+0x19a/0x260
-[ 3814.496759]        ext4_mb_good_group+0x16a/0x180
-[ 3814.501587]        ext4_mb_regular_allocator+0x28f/0x400
-[ 3814.507036]        ext4_mb_new_blocks+0x57e/0xbe0
-[ 3814.512016]        ext4_ext_map_blocks+0xb32/0xf30
-[ 3814.516992]        ext4_map_blocks+0xef/0x580
-[ 3814.521743]        mpage_map_and_submit_extent+0xe7/0x510
-[ 3814.527259]        ext4_writepages+0x895/0xb10
-[ 3814.531971]        do_writepages+0x41/0xe0
-[ 3814.536199]        __filemap_fdatawrite_range+0xd2/0x120
-[ 3814.541752]        file_write_and_wait_range+0x71/0xc0
-[ 3814.547100]        ext4_sync_file+0x130/0x4b0
-[ 3814.551580]        do_fsync+0x38/0x70
-[ 3814.555367]        __x64_sys_fsync+0x10/0x20
-[ 3814.559760]        do_syscall_64+0x50/0x1f0
-[ 3814.564195]        entry_SYSCALL_64_after_hwframe+0x49/0xbe
-[ 3814.569882] 
-               -> #2 (&ei->i_data_sem){++++}:
-[ 3814.575580]        lock_acquire+0x9a/0x160
-[ 3814.580109]        down_write+0x40/0x110
-[ 3814.584145]        ext4_truncate+0x3ce/0x510
-[ 3814.588529]        ext4_evict_inode+0x29a/0x5c0
-[ 3814.593184]        evict+0xd0/0x1a0
-[ 3814.596952]        vfs_rmdir+0x167/0x190
-[ 3814.600990]        do_rmdir+0x145/0x1b0
-[ 3814.605303]        do_syscall_64+0x50/0x1f0
-[ 3814.609613]        entry_SYSCALL_64_after_hwframe+0x49/0xbe
-[ 3814.615301] 
-               -> #1 (jbd2_handle){++++}:
-[ 3814.620744]        lock_acquire+0x9a/0x160
-[ 3814.625088]        start_this_handle+0x226/0x680
-[ 3814.629824]        jbd2__journal_start+0xf7/0x270
-[ 3814.634856]        __ext4_journal_start_sb+0x85/0x1b0
-[ 3814.640051]        ext4_release_dquot+0x68/0xc0
-[ 3814.644716]        dqput.part.0+0x7f/0x210
-[ 3814.648931]        __dquot_drop+0x69/0x90
-[ 3814.653495]        ext4_clear_inode+0x35/0x90
-[ 3814.658107]        ext4_evict_inode+0x6f/0x5c0
-[ 3814.662767]        evict+0xd0/0x1a0
-[ 3814.666365]        dispose_list+0x48/0x70
-[ 3814.673422]        prune_icache_sb+0x54/0x80
-[ 3814.677808]        super_cache_scan+0x124/0x1a0
-[ 3814.682454]        do_shrink_slab+0x171/0x3a0
-[ 3814.687036]        shrink_slab+0x22c/0x2b0
-[ 3814.691322]        drop_slab_node+0x2e/0x50
-[ 3814.695628]        drop_slab+0x34/0x60
-[ 3814.699511]        drop_caches_sysctl_handler+0x70/0x80
-[ 3814.704859]        proc_sys_call_handler+0x19d/0x1c0
-[ 3814.709944]        vfs_write+0xde/0x1b0
-[ 3814.713911]        ksys_write+0x68/0xe0
-[ 3814.718207]        do_syscall_64+0x50/0x1f0
-[ 3814.722512]        entry_SYSCALL_64_after_hwframe+0x49/0xbe
-[ 3814.728895] 
-               -> #0 (shrinker_rwsem){++++}:
-[ 3814.734504]        check_prev_add+0x8e/0x9f0
-[ 3814.738897]        __lock_acquire+0xcdf/0xf80
-[ 3814.743431]        lock_acquire+0x9a/0x160
-[ 3814.747651]        down_write+0x40/0x110
-[ 3814.751806]        unregister_shrinker+0x22/0x80
-[ 3814.756646]        dm_bufio_client_destroy+0xbf/0x220
-[ 3814.761922]        dm_block_manager_destroy+0x11/0x20
-[ 3814.767098]        dm_pool_metadata_close+0x113/0x120
-[ 3814.772503]        __pool_dec+0x96/0x120
-[ 3814.776547]        pool_dtr+0x2d/0x70
-[ 3814.780574]        dm_table_destroy+0x58/0x110
-[ 3814.785137]        __dm_destroy+0x159/0x1b0
-[ 3814.789444]        dev_remove+0xd3/0x110
-[ 3814.793482]        ctl_ioctl+0x1ab/0x3b0
-[ 3814.797543]        dm_ctl_ioctl+0xa/0x10
-[ 3814.801608]        ksys_ioctl+0x82/0xc0
-[ 3814.805593]        __x64_sys_ioctl+0x16/0x20
-[ 3814.809991]        do_syscall_64+0x50/0x1f0
-[ 3814.814401]        entry_SYSCALL_64_after_hwframe+0x49/0xbe
-[ 3814.820226] 
-               other info that might help us debug this:
+Thanks
+Vivek
 
-[ 3814.828343] Chain exists of:
-                 shrinker_rwsem --> &ei->i_data_sem --> &pmd->root_lock
-
-[ 3814.839823]  Possible unsafe locking scenario:
-
-[ 3814.845864]        CPU0                    CPU1
-[ 3814.850625]        ----                    ----
-[ 3814.855274]   lock(&pmd->root_lock);
-[ 3814.858962]                                lock(&ei->i_data_sem);
-[ 3814.865215]                                lock(&pmd->root_lock);
-[ 3814.871686]   lock(shrinker_rwsem);
-[ 3814.875377] 
-                *** DEADLOCK ***
-
-[ 3814.881412] 2 locks held by dmsetup/10207:
-[ 3814.885637]  #0: ffffffff86fc05f0 (&dm_thin_pool_table.mutex){+.+.}, at: pool_dtr+0x1d/0x70
-[ 3814.894114]  #1: ffff9c184c8c95d0 (&pmd->root_lock){++++}, at: dm_pool_metadata_close+0xba/0x120
-[ 3814.903068] 
-               stack backtrace:
-[ 3814.907544] CPU: 1 PID: 10207 Comm: dmsetup Not tainted 5.5.0-xfstests-07635-gc96dceeabf76 #1477
-[ 3814.916451] Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
-[ 3814.925915] Call Trace:
-[ 3814.928485]  dump_stack+0x71/0xa0
-[ 3814.931929]  check_noncircular+0x162/0x180
-[ 3814.936144]  check_prev_add+0x8e/0x9f0
-[ 3814.940010]  __lock_acquire+0xcdf/0xf80
-[ 3814.943964]  lock_acquire+0x9a/0x160
-[ 3814.947733]  ? unregister_shrinker+0x22/0x80
-[ 3814.952123]  down_write+0x40/0x110
-[ 3814.955650]  ? unregister_shrinker+0x22/0x80
-[ 3814.960035]  unregister_shrinker+0x22/0x80
-[ 3814.964248]  dm_bufio_client_destroy+0xbf/0x220
-[ 3814.968898]  dm_block_manager_destroy+0x11/0x20
-[ 3814.973551]  dm_pool_metadata_close+0x113/0x120
-[ 3814.978307]  __pool_dec+0x96/0x120
-[ 3814.981829]  pool_dtr+0x2d/0x70
-[ 3814.985086]  dm_table_destroy+0x58/0x110
-[ 3814.989156]  __dm_destroy+0x159/0x1b0
-[ 3814.992939]  dev_remove+0xd3/0x110
-[ 3814.996494]  ? remove_all+0x30/0x30
-[ 3815.000136]  ctl_ioctl+0x1ab/0x3b0
-[ 3815.003672]  dm_ctl_ioctl+0xa/0x10
-[ 3815.007187]  ksys_ioctl+0x82/0xc0
-[ 3815.010614]  __x64_sys_ioctl+0x16/0x20
-[ 3815.014474]  do_syscall_64+0x50/0x1f0
-[ 3815.018257]  entry_SYSCALL_64_after_hwframe+0x49/0xbe
-[ 3815.023440] RIP: 0033:0x7f2c9d82e427
-[ 3815.027131] Code: 00 00 90 48 8b 05 69 aa 0c 00 64 c7 00 26 00 00 00 48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 b8 10 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 39 aa 0c 00 f7 d8 64 89 01 48
-[ 3815.046014] RSP: 002b:00007ffee7570578 EFLAGS: 00000202 ORIG_RAX: 0000000000000010
-[ 3815.053715] RAX: ffffffffffffffda RBX: 00007f2c9d90ca7f RCX: 00007f2c9d82e427
-[ 3815.061052] RDX: 00005625880b2b40 RSI: 00000000c138fd04 RDI: 0000000000000003
-[ 3815.068302] RBP: 00007ffee7570630 R08: 00007f2c9d95b310 R09: 00007ffee75703e0
-[ 3815.076018] R10: 00007f2c9d95a65a R11: 0000000000000202 R12: 00007f2c9d95a65a
-[ 3815.083398] R13: 00007f2c9d95a65a R14: 00007f2c9d95a65a R15: 00007f2c9d95a65a
-
+> 
+> https://github.com/rhvgoyal/linux/commits/dax-zero-range-v3
+> 
+> I posted previous versions here.
+> 
+> v2:
+> https://lore.kernel.org/linux-fsdevel/20200203200029.4592-1-vgoyal@redhat.com/
+> v1:
+> https://lore.kernel.org/linux-fsdevel/20200123165249.GA7664@redhat.com/
+> 
+> Changes since V2:
+> 
+> Primarily took care of comments from Christoph.
+> 
+> - Changed zero_copy_range() parameters to pass dax device offset as u64.
+> - Fixed comment which says current interface only supports zeroing
+>   with-in page.
+> - Refactored pmem_do_bvec() and reused write side of code in
+>   zero_page_range().
+> - Removed generic_dax_zero_page_range()
+> - Fixed s390 dcssblk.c compilation issue.
+> 
+> Please review. 
+> 
+> Thanks
+> Vivek
+> 
+> Vivek Goyal (7):
+>   pmem: Add functions for reading/writing page to/from pmem
+>   pmem: Enable pmem_do_write() to deal with arbitrary ranges
+>   dax, pmem: Add a dax operation zero_page_range
+>   s390,dcssblk,dax: Add dax zero_page_range operation to dcssblk driver
+>   dm,dax: Add dax zero_page_range operation
+>   dax,iomap: Start using dax native zero_page_range()
+>   dax,iomap: Add helper dax_iomap_zero() to zero a range
+> 
+>  drivers/dax/super.c           |  19 ++++++
+>  drivers/md/dm-linear.c        |  21 +++++++
+>  drivers/md/dm-log-writes.c    |  19 ++++++
+>  drivers/md/dm-stripe.c        |  26 ++++++++
+>  drivers/md/dm.c               |  31 ++++++++++
+>  drivers/nvdimm/pmem.c         | 112 ++++++++++++++++++++++++----------
+>  drivers/s390/block/dcssblk.c  |  17 ++++++
+>  fs/dax.c                      |  53 ++++------------
+>  fs/iomap/buffered-io.c        |   9 +--
+>  include/linux/dax.h           |  20 ++----
+>  include/linux/device-mapper.h |   3 +
+>  11 files changed, 235 insertions(+), 95 deletions(-)
+> 
+> -- 
+> 2.20.1
+> 
 
 --
 dm-devel mailing list
