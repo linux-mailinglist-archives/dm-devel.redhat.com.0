@@ -2,61 +2,60 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 023E4163572
-	for <lists+dm-devel@lfdr.de>; Tue, 18 Feb 2020 22:49:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 74DFF16356B
+	for <lists+dm-devel@lfdr.de>; Tue, 18 Feb 2020 22:49:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1582062568;
+	s=mimecast20190719; t=1582062561;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=IuDgcgmkxXWrpxk4FBdz/X6mSCS/kovIUuDjcx79PsY=;
-	b=SRUexbXWAz7AeJ0E4hqcpplU//alPkh0h9jTDlUBGsq4GbZATXUKPobjQNOX3d8hHv+4p1
-	we4uYkWtOEv0HR32aWWNcwihIawgmwD6ChDfqgO6q3aFXRRK9iB7vPy4oKpmdMA9A0ZEYm
-	M6cTsgVqfueInCIUbaz9aqoqAdjc3jo=
+	bh=b75+6LpX+On3YfhdeGmoeKFb29+9XyCkcdNPuZTXm2o=;
+	b=N7ri84csuqPl4a7ydqLkBC2FxvaiCCM4vej1f8B65tYumwPjco0zDZuDPcu4k8GDzeKTh5
+	1aXpsz4JqT/Lp/U/GMS3DwaDIE7gOui3fMhISgQRtt41LCW0PAhM6ohiO/edSeTFpqnqYD
+	WBcWO+DO5VNhF4/eIL3gc2J571NC71U=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-160-uuD8lxl1NZKoF7fPBcyuVA-1; Tue, 18 Feb 2020 16:49:22 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-210-EFvtEM2zPtu6vKnq6FUFzA-1; Tue, 18 Feb 2020 16:49:19 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6BCE9190B2A6;
-	Tue, 18 Feb 2020 21:49:16 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F2E27DB67;
+	Tue, 18 Feb 2020 21:49:12 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4000790F57;
-	Tue, 18 Feb 2020 21:49:16 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C646790089;
+	Tue, 18 Feb 2020 21:49:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A7E0718089D0;
-	Tue, 18 Feb 2020 21:49:15 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4BBC418089CE;
+	Tue, 18 Feb 2020 21:49:12 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01ILmtHY020619 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 18 Feb 2020 16:48:56 -0500
+	id 01ILmtkQ020615 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 18 Feb 2020 16:48:55 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EE1505C3FA; Tue, 18 Feb 2020 21:48:55 +0000 (UTC)
+	id E5F0A5DA76; Tue, 18 Feb 2020 21:48:55 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from horse.redhat.com (unknown [10.18.25.35])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 10EBE5C1B0;
-	Tue, 18 Feb 2020 21:48:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 007E75D9E5;
+	Tue, 18 Feb 2020 21:48:52 +0000 (UTC)
 Received: by horse.redhat.com (Postfix, from userid 10451)
-	id 8E9362257D3; Tue, 18 Feb 2020 16:48:52 -0500 (EST)
+	id 9429C2257D4; Tue, 18 Feb 2020 16:48:52 -0500 (EST)
 From: Vivek Goyal <vgoyal@redhat.com>
 To: linux-fsdevel@vger.kernel.org, linux-nvdimm@lists.01.org,
 	hch@infradead.org, dan.j.williams@intel.com
-Date: Tue, 18 Feb 2020 16:48:34 -0500
-Message-Id: <20200218214841.10076-2-vgoyal@redhat.com>
+Date: Tue, 18 Feb 2020 16:48:35 -0500
+Message-Id: <20200218214841.10076-3-vgoyal@redhat.com>
 In-Reply-To: <20200218214841.10076-1-vgoyal@redhat.com>
 References: <20200218214841.10076-1-vgoyal@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
-Cc: vishal.l.verma@intel.com, dm-devel@redhat.com,
-	Christoph Hellwig <hch@lst.de>, vgoyal@redhat.com
-Subject: [dm-devel] [PATCH v5 1/8] pmem: Add functions for reading/writing
-	page to/from pmem
+Cc: vishal.l.verma@intel.com, dm-devel@redhat.com, vgoyal@redhat.com
+Subject: [dm-devel] [PATCH v5 2/8] drivers/pmem: Allow pmem_clear_poison()
+	to accept arbitrary offset and len
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -70,142 +69,71 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-MC-Unique: uuD8lxl1NZKoF7fPBcyuVA-1
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-MC-Unique: EFvtEM2zPtu6vKnq6FUFzA-1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This splits pmem_do_bvec() into pmem_do_read() and pmem_do_write().
-pmem_do_write() will be used by pmem zero_page_range() as well. Hence
-sharing the same code.
+Currently pmem_clear_poison() expects offset and len to be sector aligned.
+Atleast that seems to be the assumption with which code has been written.
+It is called only from pmem_do_bvec() which is called only from pmem_rw_page()
+and pmem_make_request() which will only passe sector aligned offset and len.
 
-Suggested-by: Christoph Hellwig <hch@infradead.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+Soon we want use this function from dax_zero_page_range() code path which
+can try to zero arbitrary range of memory with-in a page. So update this
+function to assume that offset and length can be arbitrary and do the
+necessary alignments as needed.
+
+nvdimm_clear_poison() seems to assume offset and len to be aligned to
+clear_err_unit boundary. But this is currently internal detail and is
+not exported for others to use. So for now, continue to align offset and
+length to SECTOR_SIZE boundary. Improving it further and to align it
+to clear_err_unit boundary is a TODO item for future.
+
 Signed-off-by: Vivek Goyal <vgoyal@redhat.com>
 ---
- drivers/nvdimm/pmem.c | 86 +++++++++++++++++++++++++------------------
- 1 file changed, 50 insertions(+), 36 deletions(-)
+ drivers/nvdimm/pmem.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
-index 4eae441f86c9..075b11682192 100644
+index 075b11682192..e72959203253 100644
 --- a/drivers/nvdimm/pmem.c
 +++ b/drivers/nvdimm/pmem.c
-@@ -136,9 +136,25 @@ static blk_status_t read_pmem(struct page *page, unsigned int off,
- 	return BLK_STS_OK;
- }
- 
--static blk_status_t pmem_do_bvec(struct pmem_device *pmem, struct page *page,
--			unsigned int len, unsigned int off, unsigned int op,
--			sector_t sector)
-+static blk_status_t pmem_do_read(struct pmem_device *pmem,
-+			struct page *page, unsigned int page_off,
-+			sector_t sector, unsigned int len)
-+{
-+	blk_status_t rc;
-+	phys_addr_t pmem_off = sector * 512 + pmem->data_offset;
-+	void *pmem_addr = pmem->virt_addr + pmem_off;
-+
-+	if (unlikely(is_bad_pmem(&pmem->bb, sector, len)))
-+		return BLK_STS_IOERR;
-+
-+	rc = read_pmem(page, page_off, pmem_addr, len);
-+	flush_dcache_page(page);
-+	return rc;
-+}
-+
-+static blk_status_t pmem_do_write(struct pmem_device *pmem,
-+			struct page *page, unsigned int page_off,
-+			sector_t sector, unsigned int len)
- {
+@@ -74,14 +74,28 @@ static blk_status_t pmem_clear_poison(struct pmem_device *pmem,
+ 	sector_t sector;
+ 	long cleared;
  	blk_status_t rc = BLK_STS_OK;
- 	bool bad_pmem = false;
-@@ -148,34 +164,25 @@ static blk_status_t pmem_do_bvec(struct pmem_device *pmem, struct page *page,
- 	if (unlikely(is_bad_pmem(&pmem->bb, sector, len)))
- 		bad_pmem = true;
++	phys_addr_t start_aligned, end_aligned;
++	unsigned int len_aligned;
  
--	if (!op_is_write(op)) {
--		if (unlikely(bad_pmem))
--			rc = BLK_STS_IOERR;
--		else {
--			rc = read_pmem(page, off, pmem_addr, len);
--			flush_dcache_page(page);
--		}
--	} else {
--		/*
--		 * Note that we write the data both before and after
--		 * clearing poison.  The write before clear poison
--		 * handles situations where the latest written data is
--		 * preserved and the clear poison operation simply marks
--		 * the address range as valid without changing the data.
--		 * In this case application software can assume that an
--		 * interrupted write will either return the new good
--		 * data or an error.
--		 *
--		 * However, if pmem_clear_poison() leaves the data in an
--		 * indeterminate state we need to perform the write
--		 * after clear poison.
--		 */
--		flush_dcache_page(page);
--		write_pmem(pmem_addr, page, off, len);
--		if (unlikely(bad_pmem)) {
--			rc = pmem_clear_poison(pmem, pmem_off, len);
--			write_pmem(pmem_addr, page, off, len);
--		}
+-	sector = (offset - pmem->data_offset) / 512;
 +	/*
-+	 * Note that we write the data both before and after
-+	 * clearing poison.  The write before clear poison
-+	 * handles situations where the latest written data is
-+	 * preserved and the clear poison operation simply marks
-+	 * the address range as valid without changing the data.
-+	 * In this case application software can assume that an
-+	 * interrupted write will either return the new good
-+	 * data or an error.
-+	 *
-+	 * However, if pmem_clear_poison() leaves the data in an
-+	 * indeterminate state we need to perform the write
-+	 * after clear poison.
++	 * Callers can pass arbitrary offset and len. But nvdimm_clear_poison()
++	 * expects memory offset and length to meet certain alignment
++	 * restrction (clear_err_unit). Currently nvdimm does not export
++	 * required alignment. So align offset and length to sector boundary
++	 * before passing it to nvdimm_clear_poison().
 +	 */
-+	flush_dcache_page(page);
-+	write_pmem(pmem_addr, page, page_off, len);
-+	if (unlikely(bad_pmem)) {
-+		rc = pmem_clear_poison(pmem, pmem_off, len);
-+		write_pmem(pmem_addr, page, page_off, len);
- 	}
++	start_aligned = ALIGN(offset, SECTOR_SIZE);
++	end_aligned = ALIGN_DOWN((offset + len), SECTOR_SIZE) - 1;
++	len_aligned = end_aligned - start_aligned + 1;
++
++	sector = (start_aligned - pmem->data_offset) / 512;
  
- 	return rc;
-@@ -197,8 +204,12 @@ static blk_qc_t pmem_make_request(struct request_queue *q, struct bio *bio)
- 
- 	do_acct = nd_iostat_start(bio, &start);
- 	bio_for_each_segment(bvec, bio, iter) {
--		rc = pmem_do_bvec(pmem, bvec.bv_page, bvec.bv_len,
--				bvec.bv_offset, bio_op(bio), iter.bi_sector);
-+		if (op_is_write(bio_op(bio)))
-+			rc = pmem_do_write(pmem, bvec.bv_page, bvec.bv_offset,
-+				iter.bi_sector, bvec.bv_len);
-+		else
-+			rc = pmem_do_read(pmem, bvec.bv_page, bvec.bv_offset,
-+				iter.bi_sector, bvec.bv_len);
- 		if (rc) {
- 			bio->bi_status = rc;
- 			break;
-@@ -223,9 +234,12 @@ static int pmem_rw_page(struct block_device *bdev, sector_t sector,
- 	struct pmem_device *pmem = bdev->bd_queue->queuedata;
- 	blk_status_t rc;
- 
--	rc = pmem_do_bvec(pmem, page, hpage_nr_pages(page) * PAGE_SIZE,
--			  0, op, sector);
--
-+	if (op_is_write(op))
-+		rc = pmem_do_write(pmem, page, 0, sector,
-+				   hpage_nr_pages(page) * PAGE_SIZE);
-+	else
-+		rc = pmem_do_read(pmem, page, 0, sector,
-+				   hpage_nr_pages(page) * PAGE_SIZE);
- 	/*
- 	 * The ->rw_page interface is subtle and tricky.  The core
- 	 * retries on any error, so we can only invoke page_endio() in
+-	cleared = nvdimm_clear_poison(dev, pmem->phys_addr + offset, len);
+-	if (cleared < len)
++	cleared = nvdimm_clear_poison(dev, pmem->phys_addr + start_aligned,
++				      len_aligned);
++	if (cleared < len_aligned)
+ 		rc = BLK_STS_IOERR;
+ 	if (cleared > 0 && cleared / 512) {
+-		hwpoison_clear(pmem, pmem->phys_addr + offset, cleared);
++		hwpoison_clear(pmem, pmem->phys_addr + start_aligned, cleared);
+ 		cleared /= 512;
+ 		dev_dbg(dev, "%#llx clear %ld sector%s\n",
+ 				(unsigned long long) sector, cleared,
 -- 
 2.20.1
 
