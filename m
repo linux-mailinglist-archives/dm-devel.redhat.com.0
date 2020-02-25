@@ -1,83 +1,75 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id CC2A616EF73
-	for <lists+dm-devel@lfdr.de>; Tue, 25 Feb 2020 20:54:42 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id E9A6616EFC7
+	for <lists+dm-devel@lfdr.de>; Tue, 25 Feb 2020 21:08:57 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1582660481;
+	s=mimecast20190719; t=1582661337;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post:openpgp:openpgp;
-	bh=unHXENfQyKLRyTS+y0Rve8OliGi7xUwcKa5FphAMvfw=;
-	b=JIWzfTx27TE4yd6mcdJUYhcAVTorOpj7Tb5qUiS+dnspKpBV8/TWaNse7O4xBY8OdurCaZ
-	HhfRHV4n/tKC+Lseo/GaHMYYHwbXxtIbS1656TZYfbR8fTQpDKcaDY4FPJ+tx1axqU3ODG
-	RHChWuWIrJnypEGoFNjkwvQjwa1w5QE=
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=1EgeEj10h6+AMKez6H+a+oNnSfWFZjfvzVHQZD6B31M=;
+	b=RR0Ec2ye/ZTKNQtE+3CgxnpNVBZG93EEMKqpudnG0xA5LO87obi1isr/jszC3iKnEkzTxH
+	5/92HBLky5DobNwgD9HpMrAO/N+pjMsJfjsDc/6RxaBGUVX0nPb4tFSA8zraMbr2St1GNr
+	WC6B7u3U1ybSlMmk/vv1I4fJmzTl97k=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-390-b1a4HWCCN9eyS-Ur9RmwFw-1; Tue, 25 Feb 2020 14:54:39 -0500
-X-MC-Unique: b1a4HWCCN9eyS-Ur9RmwFw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-393-a1wSgFgpPXCs3QGmTKYuHQ-1; Tue, 25 Feb 2020 15:08:55 -0500
+X-MC-Unique: a1wSgFgpPXCs3QGmTKYuHQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 74CD9107ACC4;
-	Tue, 25 Feb 2020 19:54:32 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C453C13F7;
+	Tue, 25 Feb 2020 20:08:47 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2747460BE2;
-	Tue, 25 Feb 2020 19:54:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F9A790A01;
+	Tue, 25 Feb 2020 20:08:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 12CCF8B2D8;
-	Tue, 25 Feb 2020 19:54:26 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A54058B2DA;
+	Tue, 25 Feb 2020 20:08:37 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01PJsIJZ003459 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 25 Feb 2020 14:54:18 -0500
+	id 01PK8SJu004709 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 25 Feb 2020 15:08:28 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id ED57820267F2; Tue, 25 Feb 2020 19:54:17 +0000 (UTC)
+	id 12DC61001DC2; Tue, 25 Feb 2020 20:08:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E8F702026FFE
-	for <dm-devel@redhat.com>; Tue, 25 Feb 2020 19:54:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DAF76185A79B
-	for <dm-devel@redhat.com>; Tue, 25 Feb 2020 19:54:15 +0000 (UTC)
-Received: from mx1.emlix.com (mx1.emlix.com [188.40.240.192]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-47-ykJBo2c3PAmtjl1dQXILpw-1;
-	Tue, 25 Feb 2020 14:54:11 -0500
-X-MC-Unique: ykJBo2c3PAmtjl1dQXILpw-1
-Received: from mailer.emlix.com (unknown [81.20.119.6])
-	(using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mx1.emlix.com (Postfix) with ESMTPS id E3F1D5F9B0;
-	Tue, 25 Feb 2020 20:54:07 +0100 (CET)
-To: Christoph Hellwig <hch@infradead.org>
-References: <20200225170744.10485-1-dg@emlix.com>
-	<20200225191222.GA3908@infradead.org>
-From: =?UTF-8?Q?Daniel_Gl=c3=b6ckner?= <dg@emlix.com>
-Openpgp: preference=signencrypt
-Organization: emlix GmbH
-Message-ID: <a932a297-266e-4dee-f030-40ecbc9899ca@emlix.com>
-Date: Tue, 25 Feb 2020 20:54:07 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
-	Thunderbird/52.8.0
+Received: from horse.redhat.com (unknown [10.18.25.35])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 58C121001B2C;
+	Tue, 25 Feb 2020 20:08:25 +0000 (UTC)
+Received: by horse.redhat.com (Postfix, from userid 10451)
+	id D471F2257D2; Tue, 25 Feb 2020 15:08:24 -0500 (EST)
+Date: Tue, 25 Feb 2020 15:08:24 -0500
+From: Vivek Goyal <vgoyal@redhat.com>
+To: Dan Williams <dan.j.williams@intel.com>
+Message-ID: <20200225200824.GB7488@redhat.com>
+References: <20200220215707.GC10816@redhat.com>
+	<x498skv3i5r.fsf@segfault.boston.devel.redhat.com>
+	<20200221201759.GF25974@redhat.com>
+	<20200223230330.GE10737@dread.disaster.area>
+	<20200224201346.GC14651@redhat.com>
+	<CAPcyv4gGrimesjZ=OKRaYTDd5dUVz+U9aPeBMh_H3_YCz4FOEQ@mail.gmail.com>
+	<20200224211553.GD14651@redhat.com>
+	<CAPcyv4gX8p0YuMg3=r9DtPAO3Lz-96nuNyXbK1X5-cyVzNrDTA@mail.gmail.com>
+	<20200225133653.GA7488@redhat.com>
+	<CAPcyv4h2fdo=-jqLPTqnuxYVMbBgODWPqafH35yBMBaPa5Rxcw@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20200225191222.GA3908@infradead.org>
-Content-Language: de-DE
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 01PJsIJZ003459
+In-Reply-To: <CAPcyv4h2fdo=-jqLPTqnuxYVMbBgODWPqafH35yBMBaPa5Rxcw@mail.gmail.com>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
-	Mikulas Patocka <mpatocka@redhat.com>, Mike Snitzer <snitzer@redhat.com>
-Subject: Re: [dm-devel] [PATCH] dm integrity: reinitialize __bi_remaining
- when reusing bio
+Cc: linux-nvdimm <linux-nvdimm@lists.01.org>,
+	Dave Chinner <david@fromorbit.com>,
+	device-mapper development <dm-devel@redhat.com>,
+	Christoph Hellwig <hch@infradead.org>, Jeff Moyer <jmoyer@redhat.com>,
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>
+Subject: Re: [dm-devel] [PATCH v5 2/8] drivers/pmem: Allow
+ pmem_clear_poison() to accept arbitrary offset and len
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,43 +83,183 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-SGVsbG8gQ2hyaXN0b3BoLAoKQW0gMDIvMjUvMjAgdW0gMjA6MTIgc2NocmllYiBDaHJpc3RvcGgg
-SGVsbHdpZzoKPiBPbiBUdWUsIEZlYiAyNSwgMjAyMCBhdCAwNjowNzo0NFBNICswMTAwLCBEYW5p
-ZWwgR2zDtmNrbmVyIHdyb3RlOgo+PiBJbiBjYXNlcyB3aGVyZSBkZWNfaW5fZmxpZ2h0IGhhcyB0
-byByZXF1ZXVlIHRoZSBpbnRlZ3JpdHlfYmlvX3dhaXQgd29yawo+PiB0byB0cmFuc2ZlciB0aGUg
-cmVzdCBvZiB0aGUgZGF0YSwgdGhlIF9fYmlfcmVtYWluaW5nIGZpZWxkIG9mIHRoZSBiaW8KPj4g
-bWlnaHQgYWxyZWFkeSBoYXZlIGJlZW4gZGVjcmVtZW50ZWQgdG8gemVyby4gUmV1c2luZyB0aGUg
-YmlvIHdpdGhvdXQKPj4gcmVpbml0aWFsaXppbmcgdGhhdCBjb3VudGVyIHRvIDEgY2FuIHRoZW4g
-cmVzdWx0IGluIGludGVncml0eV9lbmRfaW8KPj4gYmVpbmcgY2FsbGVkIHRvbyBlYXJseSB3aGVu
-IHRoZSBCSU9fQ0hBSU4gZmxhZyBpcyBzZXQsIGYuZXguIGR1ZSB0bwo+PiBibGtfcXVldWVfc3Bs
-aXQuIEluIG91ciBjYXNlIHRoaXMgdHJpZ2dlcmVkIHRoZSBCVUcoKSBpbgo+PiBibGtfbXFfZW5k
-X3JlcXVlc3Qgd2hlbiB0aGUgaGFyZHdhcmUgc2lnbmFsbGVkIGNvbXBsZXRpb24gb2YgdGhlIGJp
-bwo+PiBhZnRlciBpbnRlZ3JpdHlfZW5kX2lvIGhhZCBtb2RpZmllZCBpdC4KPj4KPj4gU2lnbmVk
-LW9mZi1ieTogRGFuaWVsIEdsw7Zja25lciA8ZGdAZW1saXguY29tPgo+IAo+IERyaXZlcnMgaGF2
-ZSBubyBidXNpbmVzcyBwb2tpbmcgaW50byB0aGVzZSBpbnRlcm5hbHMuICBJZiBhIGJpbyBpcwo+
-IHJldXNlZCB0aGUgY2FsbGVyIG5lZWRzIHRvIHVzZSBiaW9fcmVzZXQgaW5zdGVhZC4KCmJpb19y
-ZXNldCB3aWxsIHJlc2V0IHRvbyBtYW55IGZpZWxkcy4gQXMgeW91IGNhbiBzZWUgaW4gdGhlIGNv
-bnRleHQgb2YKdGhlIGRpZmYsIGRtLWludGVncml0eSBleHBlY3RzIGYuZXguIHRoZSB2YWx1ZXMg
-bW9kaWZpZWQgYnkgYmlvX2FkdmFuY2UKdG8gc3RheSBpbnRhY3QgYW5kIHRoZSB0cmFuc2ZlciBz
-aG91bGQgb2YgY291cnNlIHVzZSB0aGUgc2FtZSBkaXNrIGFuZApvcGVyYXRpb24uCgpIb3cgYWJv
-dXQgZG9pbmcgdGhlIGF0b21pY19zZXQgaW4gYmlvX3JlbWFpbmluZ19kb25lIChpbiBibG9jay9i
-aW8uYykKd2hlcmUgdGhlIEJJT19DSEFJTiBmbGFnIGlzIGNsZWFyZWQgb25jZSBfX2JpX3JlbWFp
-bmluZyBoaXRzIHplcm8/Ck9yIGlzIHJlcXVldWluZyBhIGJpbyB3aXRob3V0IGJpb19yZXNldCBy
-ZWFsbHkgYSBuby1nbz8gSW4gdGhhdCBjYXNlIGEKb25lLWxpbmVyIHdvbid0IGRvLi4uCgpCZXN0
-IHJlZ2FyZHMsCgogIERhbmllbAoKLS0gCkJlc3VjaGVuIFNpZSB1bnMgYXVmIGRlciBFbWJlZGRl
-ZCBXb3JsZCAyMDIwIGluIE7DvHJuYmVyZyEKLT4gSGFsbGUgNCwgU3RhbmQgMzY4CgpEaXBsLi1N
-YXRoLiBEYW5pZWwgR2zDtmNrbmVyLCBlbWxpeCBHbWJILCBodHRwOi8vd3d3LmVtbGl4LmNvbQpG
-b24gKzQ5IDU1MSAzMDY2NC0wLCBGYXggKzQ5IDU1MSAzMDY2NC0xMSwKR290aGFlciBQbGF0eiAz
-LCAzNzA4MyBHw7Z0dGluZ2VuLCBHZXJtYW55ClNpdHogZGVyIEdlc2VsbHNjaGFmdDogR8O2dHRp
-bmdlbiwgQW10c2dlcmljaHQgR8O2dHRpbmdlbiBIUiBCIDMxNjAKR2VzY2jDpGZ0c2bDvGhydW5n
-OiBIZWlrZSBKb3JkYW4sIERyLiBVd2UgS3JhY2tlClVzdC1JZE5yLjogREUgMjA1IDE5OCAwNTUK
-CmVtbGl4IC0geW91ciBlbWJlZGRlZCBsaW51eCBwYXJ0bmVyCgoKLS0KZG0tZGV2ZWwgbWFpbGlu
-ZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFu
-L2xpc3RpbmZvL2RtLWRldmVs
+On Tue, Feb 25, 2020 at 08:25:27AM -0800, Dan Williams wrote:
+> On Tue, Feb 25, 2020 at 5:37 AM Vivek Goyal <vgoyal@redhat.com> wrote:
+> >
+> > On Mon, Feb 24, 2020 at 01:32:58PM -0800, Dan Williams wrote:
+> >
+> > [..]
+> > > > > > Ok, how about if I add one more patch to the series which will check
+> > > > > > if unwritten portion of the page has known poison. If it has, then
+> > > > > > -EIO is returned.
+> > > > > >
+> > > > > >
+> > > > > > Subject: pmem: zero page range return error if poisoned memory in unwritten area
+> > > > > >
+> > > > > > Filesystems call into pmem_dax_zero_page_range() to zero partial page upon
+> > > > > > truncate. If partial page is being zeroed, then at the end of operation
+> > > > > > file systems expect that there is no poison in the whole page (atleast
+> > > > > > known poison).
+> > > > > >
+> > > > > > So make sure part of the partial page which is not being written, does not
+> > > > > > have poison. If it does, return error. If there is poison in area of page
+> > > > > > being written, it will be cleared.
+> > > > >
+> > > > > No, I don't like that the zero operation is special cased compared to
+> > > > > the write case. I'd say let's make them identical for now. I.e. fail
+> > > > > the I/O at dax_direct_access() time.
+> > > >
+> > > > So basically __dax_zero_page_range() will only write zeros (and not
+> > > > try to clear any poison). Right?
+> > >
+> > > Yes, the zero operation would have already failed at the
+> > > dax_direct_access() step if there was present poison.
+> > >
+> > > > > I think the error clearing
+> > > > > interface should be an explicit / separate op rather than a
+> > > > > side-effect. What about an explicit interface for initializing newly
+> > > > > allocated blocks, and the only reliable way to destroy poison through
+> > > > > the filesystem is to free the block?
+> > > >
+> > > > Effectively pmem_make_request() is already that interface filesystems
+> > > > use to initialize blocks and clear poison. So we don't really have to
+> > > > introduce a new interface?
+> > >
+> > > pmem_make_request() is shared with the I/O path and is too low in the
+> > > stack to understand intent. DAX intercepts the I/O path closer to the
+> > > filesystem and can understand zeroing vs writing today. I'm proposing
+> > > we go a step further and make DAX understand free-to-allocated-block
+> > > initialization instead of just zeroing. Inject the error clearing into
+> > > that initialization interface.
+> > >
+> > > > Or you are suggesting separate dax_zero_page_range() interface which will
+> > > > always call into firmware to clear poison. And that will make sure latent
+> > > > poison is cleared as well and filesystem should use that for block
+> > > > initialization instead?
+> > >
+> > > Yes, except latent poison would not be cleared until the zeroing is
+> > > implemented with movdir64b instead of callouts to firmware. It's
+> > > otherwise too slow to call out to firmware unconditionally.
+> > >
+> > > > I do like the idea of not having to differentiate
+> > > > between known poison and latent poison. Once a block has been initialized
+> > > > all poison should be cleared (known/latent). I am worried though that
+> > > > on large devices this might slowdown filesystem initialization a lot
+> > > > if they are zeroing large range of blocks.
+> > > >
+> > > > If yes, this sounds like two different patch series. First patch series
+> > > > takes care of removing blkdev_issue_zeroout() from
+> > > > __dax_zero_page_range() and couple of iomap related cleans christoph
+> > > > wanted.
+> > > >
+> > > > And second patch series for adding new dax operation to zero a range
+> > > > and always call info firmware to clear poison and modify filesystems
+> > > > accordingly.
+> > >
+> > > Yes, but they may need to be merged together. I don't want to regress
+> > > the ability of a block-aligned hole-punch to clear errors.
+> >
+> > Hi Dan,
+> >
+> > IIUC, block aligned hole punch don't go through __dax_zero_page_range()
+> > path. Instead they call blkdev_issue_zeroout() at later point of time.
+> >
+> > Only partial block zeroing path is taking __dax_zero_page_range(). So
+> > even if we remove poison clearing code from __dax_zero_page_range(),
+> > there should not be a regression w.r.t full block zeroing. Only possible
+> > regression will be if somebody was doing partial block zeroing on sector
+> > boundary, then poison will not be cleared.
+> >
+> > We now seem to be discussing too many issues w.r.t poison clearing
+> > and dax. Atleast 3 issues are mentioned in this thread.
+> >
+> > A. Get rid of dependency on block device in dax zeroing path.
+> >    (__dax_zero_page_range)
+> >
+> > B. Provide a way to clear latent poison. And possibly use movdir64b to
+> >    do that and make filesystems use that interface for initialization
+> >    of blocks.
+> >
+> > C. Dax zero operation is clearing known poison while copy_from_iter() is
+> >    not. I guess this ship has already sailed. If we change it now,
+> >    somebody will complain of some regression.
+> >
+> > For issue A, there are two possible ways to deal with it.
+> >
+> > 1. Implement a dax method to zero page. And this method will also clear
+> >    known poison. This is what my patch series is doing.
+> >
+> > 2. Just get rid of blkdev_issue_zeroout() from __dax_zero_page_range()
+> >    so that no poison will be cleared in __dax_zero_page_range() path. This
+> >    path is currently used in partial page zeroing path and full filesystem
+> >    block zeroing happens with blkdev_issue_zeroout(). There is a small
+> >    chance of regression here in case of sector aligned partial block
+> >    zeroing.
+> >
+> > My patch series takes care of issue A without any regressions. In fact it
+> > improves current interface. For example, currently "truncate -s 512
+> > foo.txt" will succeed even if first sector in the block is poisoned. My
+> > patch series fixes it. Current implementation will return error on if any
+> > non sector aligned truncate is done and any of the sector is poisoned. My
+> > implementation will not return error if poisoned can be cleared as part
+> > of zeroing. It will return only if poison is present in non-zeoring part.
+> 
+> That asymmetry makes the implementation too much of a special case. If
+> the dax mapping path forces error boundaries on PAGE_SIZE blocks then
+> so should zeroing.
+> 
+> >
+> > Why don't we solve one issue A now and deal with issue B and C later in
+> > a sepaprate patch series. This patch series gets rid of dependency on
+> > block device in dax path and also makes current zeroing interface better.
+> 
+> I'm ok with replacing blkdev_issue_zeroout() with a dax operation
+> callback that deals with page aligned entries. That change at least
+> makes the error boundary symmetric across copy_from_iter() and the
+> zeroing path.
+
+IIUC, you are suggesting that modify dax_zero_page_range() to take page
+aligned start and size and call this interface from
+__dax_zero_page_range() and get rid of blkdev_issue_zeroout() in that
+path?
+
+Something like.
+
+__dax_zero_page_range() {
+  if(page_aligned_io)
+  	call_dax_page_zero_range()
+  else
+   	use_direct_access_and_memcpy;
+}
+
+And other callers of blkdev_issue_zeroout() in filesystems can migrate
+to calling dax_zero_page_range() instead.
+
+If yes, I am not seeing what advantage do we get by this change.
+
+- __dax_zero_page_range() seems to be called by only partial block
+  zeroing code. So dax_zero_page_range() call will remain unused.
+
+- dax_zero_page_range() will be exact replacement of
+  blkdev_issue_zeroout() so filesystems will not gain anything. Just that
+  it will create a dax specific hook.
+
+In that case it might be simpler to just get rid of blkdev_issue_zeroout()
+call from __dax_zero_page_range() and make sure there are no callers of
+full block zeroing from this path.
+
+Thanks
+Vivek
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
