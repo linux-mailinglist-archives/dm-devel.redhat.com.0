@@ -1,71 +1,77 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 50E1616ED50
-	for <lists+dm-devel@lfdr.de>; Tue, 25 Feb 2020 18:59:10 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id E840616EF1D
+	for <lists+dm-devel@lfdr.de>; Tue, 25 Feb 2020 20:35:53 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1582653549;
+	s=mimecast20190719; t=1582659352;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=AzTDgx97IU6/v9q9UOLZdY4qc0R532ccs2fhIlStPQ4=;
-	b=AxelPjtcniN5o9qMyXF4kxxkJ7vWQdpwCsRCoZCuCzjQ06UttUzECQMBIRbl1ijp6KrEVO
-	jEq03+Pu7zqO/nau8XJUfWr1KLNPQQa3DW+zROlZSO7S3tmhJIzBj47A4hAVggc8kfUKJo
-	q/q8xn3c1BYiGEk/+rHf3Qx0ohAo+q0=
+	bh=cfm76uZe3onm+1b06R+gHER6jgXL53bbbltwbIYhpvo=;
+	b=Dq2UmcKNZqeZEBZDRlOUF82+TRdDKJGT1YJkcAHTQzJ3LeUSmbzvLYf3HWfAlvYTpDgqmN
+	ZBiVW9B66NNcTQ0H4jOy4+OMxjPQX3d94/KXlzGxJsyepH1J8MteXdwkN+QUucQB8z+WRG
+	I/fZOSY2qRzeXYePlipigH2XVP0DQ8A=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-339-f2dNWAX6NUCF1OxvcS90jA-1; Tue, 25 Feb 2020 12:59:07 -0500
-X-MC-Unique: f2dNWAX6NUCF1OxvcS90jA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-465--EkxJ-c_OGKPa95qRvNkoA-1; Tue, 25 Feb 2020 14:35:50 -0500
+X-MC-Unique: -EkxJ-c_OGKPa95qRvNkoA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2A2511005516;
-	Tue, 25 Feb 2020 17:59:00 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F363909FD;
-	Tue, 25 Feb 2020 17:58:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 11C1E10509B9;
+	Tue, 25 Feb 2020 19:35:43 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 98B388C066;
+	Tue, 25 Feb 2020 19:35:39 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E6A77860F7;
-	Tue, 25 Feb 2020 17:58:41 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1B01B1803C33;
+	Tue, 25 Feb 2020 19:35:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01PHwPlQ028710 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 25 Feb 2020 12:58:25 -0500
+	id 01PJZGr5002448 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 25 Feb 2020 14:35:17 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id C6E2391840; Tue, 25 Feb 2020 17:58:25 +0000 (UTC)
+	id C5B542166B27; Tue, 25 Feb 2020 19:35:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F22A38681F;
-	Tue, 25 Feb 2020 17:58:22 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 01PHwL7l014542; 
-	Tue, 25 Feb 2020 11:58:21 -0600
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 01PHwKjX014541;
-	Tue, 25 Feb 2020 11:58:20 -0600
-Date: Tue, 25 Feb 2020 11:58:20 -0600
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <mwilck@suse.com>
-Message-ID: <20200225175820.GO30153@octiron.msp.redhat.com>
-References: <8f4d39d663aad324017297db0d31a0a24369c9a4.camel@suse.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BC46E2166B2A
+	for <dm-devel@redhat.com>; Tue, 25 Feb 2020 19:35:14 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BFC0D800299
+	for <dm-devel@redhat.com>; Tue, 25 Feb 2020 19:35:14 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-143-8ROmZpuzOhWQZvh9GmV4QA-1; Tue, 25 Feb 2020 14:35:10 -0500
+X-MC-Unique: 8ROmZpuzOhWQZvh9GmV4QA-1
+Received: from hch by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
+	Hat Linux)) id 1j6fd0-0001Yv-M6; Tue, 25 Feb 2020 19:12:22 +0000
+Date: Tue, 25 Feb 2020 11:12:22 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: Daniel =?iso-8859-1?Q?Gl=F6ckner?= <dg@emlix.com>
+Message-ID: <20200225191222.GA3908@infradead.org>
+References: <20200225170744.10485-1-dg@emlix.com>
 MIME-Version: 1.0
-In-Reply-To: <8f4d39d663aad324017297db0d31a0a24369c9a4.camel@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+In-Reply-To: <20200225170744.10485-1-dg@emlix.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01PJZGr5002448
 X-loop: dm-devel@redhat.com
-Cc: "George, Martin" <Martin.George@netapp.com>,
-	Hannes Reinecke <hare@suse.com>,
-	Xose Vazquez Perez <xose.vazquez@gmail.com>, "Schremmer,
-	Steven" <Steve.Schremmer@netapp.com>,
-	dm-devel mailing list <dm-devel@redhat.com>,
-	JulianAndresKlode <julian.klode@canonical.com>
-Subject: Re: [dm-devel] RFC: multipath-tools: NVMe native multipath and
- default setting for "enable_foreign"
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
+	Mikulas Patocka <mpatocka@redhat.com>, Mike Snitzer <snitzer@redhat.com>
+Subject: Re: [dm-devel] [PATCH] dm integrity: reinitialize __bi_remaining
+ when reusing bio
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,68 +85,28 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Content-Disposition: inline
 
-On Wed, Feb 19, 2020 at 05:17:48PM +0100, Martin Wilck wrote:
-> multipath-tools has support for "foreign" libraries in multipath-tools
-> since 0.8.0, and support for enabling/disabling them at runtime since
-> 0.8.3.
-> 
-> The only foreign library that exists is "nvme" (for native NVMe
-> multipath), and it's likely to remain so for some time. Currently
-> upstream multipath-tools ships with all foreign libraries enabled by
-> default, and documentation about how to disable them.
-> 
-> There's an ongoing discussion between myself and folks from Netapp
-> about changing the code such that the nvme library is disabled by
-> default. People at Netapp are worried that multipath's output for NVMe
-> native multipath maps would confuse customers and break scripts.
-> I've suggested that Netapp simply ship a drop-in configuration file
-> to be put in /etc/multipath/conf.d to disable the nvme library, but I'm
-> told that customers are wary about vendor-supplied configuration files.
-> 
-> For SUSE's enterprise product, SLE, we have made this change and
-> disabled the nvme library by default. Now Netapp is asking me to
-> forward this change upstream. Personally, I'm not too fond of the
-> proposal, because I think the original idea (enable people to use the
-> tools they are used to) is still valid (*). OTOH, the "nvme" tool can
-> provide similar information and is likely to be used by NVMe users
-> anyway, so perhaps there's no urgent need for this functionality in
-> multipath-tools any more.
-> 
-> I really don't know if people out there find this feature rather
-> helpful or rather confusing. Therefore I'd like to ask for opinions
-> here on the list.
+On Tue, Feb 25, 2020 at 06:07:44PM +0100, Daniel Gl=F6ckner wrote:
+> In cases where dec_in_flight has to requeue the integrity_bio_wait work
+> to transfer the rest of the data, the __bi_remaining field of the bio
+> might already have been decremented to zero. Reusing the bio without
+> reinitializing that counter to 1 can then result in integrity_end_io
+> being called too early when the BIO_CHAIN flag is set, f.ex. due to
+> blk_queue_split. In our case this triggered the BUG() in
+> blk_mq_end_request when the hardware signalled completion of the bio
+> after integrity_end_io had modified it.
+>=20
+> Signed-off-by: Daniel Gl=F6ckner <dg@emlix.com>
 
-In RHEL we don't disable them in the builtin defaults, since we already
-had a release with them enabled. Instead we disable them in the default
-config file that we use (at Netapp's request).
+Drivers have no business poking into these internals.  If a bio is
+reused the caller needs to use bio_reset instead.
 
-In the next major RHEL release, I have nothing really against disabling
-them by default. Unfortunately, since they are now disabled in for most
-users in SLE and RHEL, it's hard to guage how much interest people have
-in them. I do think that some people will find them useful, and not want
-to change their config file to use them (especially since they may not
-have any dm-multipathed devices at all, and not really need a config
-file).  Perhaps disabling them by default, but including command line
-option to enable all foreign libraries would be a reasonable compromise.
-Then people who wanted to use this for native NVMe would just add
-something like "-e" (for enable all foreign libraries) to their
-commands.
-
--Ben
- 
-> Regards,
-> Martin
-> 
-> (*) Also because I, myself, have put quite some effort into the
-> "foreign/nvme" feature and wouldn't be happy to see it go away. 
-> 
 
 --
 dm-devel mailing list
