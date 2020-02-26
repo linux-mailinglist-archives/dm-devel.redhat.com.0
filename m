@@ -1,125 +1,103 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 89194170072
-	for <lists+dm-devel@lfdr.de>; Wed, 26 Feb 2020 14:52:31 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 50F8D170073
+	for <lists+dm-devel@lfdr.de>; Wed, 26 Feb 2020 14:52:34 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1582725150;
+	s=mimecast20190719; t=1582725153;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=OkEAX2NaCMc0dzWzv7PtOMEaTMKoR74AJloSBymxkig=;
-	b=giSra1dCX3PbTU9OXdPPzVmWDV7YP4o828YU1SiONuke+VgQNKR9L3Us3zLdxTgoDWjKOk
-	I/0mzZCwOn6MH9MLlBX4AaBwCYtMrgAj9ESRa93UA1VQDJF7DAJcCG9EIP95j63Ozx2ub4
-	BSWOZnFwVw1N+EyfvcWycmtndECCkGo=
+	bh=iYJ0bf7F4W6T8ohED3CWe2ajaZ2hGUzA5z42S4srKXo=;
+	b=HgmxKO9y50N3gU+7noBfe0kw7E+Tpnvlf6lirSLFnK1TlMMWaNB4VZcIC82cnJjTWFXzvF
+	3UN53mTJv2aEeDRsmWAUbPHvbLltLTJy+LS4z6C57BiJ86YLkbBuxi3bo6C+55shEQYZ+C
+	K9m1m+l2EvnjpyHEfERyxD+c3HqvpfE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-171--Ryi_1VBPI6UfNsfg8KO9w-1; Wed, 26 Feb 2020 08:52:28 -0500
-X-MC-Unique: -Ryi_1VBPI6UfNsfg8KO9w-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-222-LTDxl2ayNYGdy-CTL7WCrA-1; Wed, 26 Feb 2020 08:52:30 -0500
+X-MC-Unique: LTDxl2ayNYGdy-CTL7WCrA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D9CDC10CE783;
-	Wed, 26 Feb 2020 13:52:21 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AF64E8AC42;
-	Wed, 26 Feb 2020 13:52:21 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E3E1D800D55;
+	Wed, 26 Feb 2020 13:52:24 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B39E25C545;
+	Wed, 26 Feb 2020 13:52:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CD03A84476;
-	Wed, 26 Feb 2020 13:52:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4A9D61803C43;
+	Wed, 26 Feb 2020 13:52:24 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01PNQdrJ018602 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 25 Feb 2020 18:26:39 -0500
+	id 01Q8RECs017921 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 26 Feb 2020 03:27:14 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1F39C10AF41A; Tue, 25 Feb 2020 23:26:39 +0000 (UTC)
+	id 6E6482026E1C; Wed, 26 Feb 2020 08:27:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A3FE10AF419
-	for <dm-devel@redhat.com>; Tue, 25 Feb 2020 23:26:36 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 697E72026D69
+	for <dm-devel@redhat.com>; Wed, 26 Feb 2020 08:27:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8135D800658
-	for <dm-devel@redhat.com>; Tue, 25 Feb 2020 23:26:36 +0000 (UTC)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-15-PRmuFxUyO8eZNqNapgGy_Q-1; Tue, 25 Feb 2020 18:26:34 -0500
-X-MC-Unique: PRmuFxUyO8eZNqNapgGy_Q-1
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
-	by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	01PNMc1P018859; Tue, 25 Feb 2020 23:26:17 GMT
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
-	by userp2120.oracle.com with ESMTP id 2ydct3034a-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 25 Feb 2020 23:26:17 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
-	by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	01PNGcH2149500; Tue, 25 Feb 2020 23:26:17 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
-	by aserp3030.oracle.com with ESMTP id 2ydcs8h6bu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 25 Feb 2020 23:26:16 +0000
-Received: from abhmp0011.oracle.com (abhmp0011.oracle.com [141.146.116.17])
-	by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 01PNQFFM012171;
-	Tue, 25 Feb 2020 23:26:15 GMT
-Received: from [10.159.230.155] (/10.159.230.155)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Tue, 25 Feb 2020 15:26:15 -0800
-To: Dan Williams <dan.j.williams@intel.com>, Jeff Moyer <jmoyer@redhat.com>
-References: <20200218214841.10076-1-vgoyal@redhat.com>
-	<20200218214841.10076-3-vgoyal@redhat.com>
-	<x49lfoxj622.fsf@segfault.boston.devel.redhat.com>
-	<20200220215707.GC10816@redhat.com>
-	<x498skv3i5r.fsf@segfault.boston.devel.redhat.com>
-	<20200221201759.GF25974@redhat.com>
-	<20200223230330.GE10737@dread.disaster.area>
-	<CAPcyv4ghusuMsAq8gSLJKh1fiKjwa8R_-ojVgjsttoPRqBd_Sg@mail.gmail.com>
-	<x49blpop00m.fsf@segfault.boston.devel.redhat.com>
-	<CAPcyv4gCA_oR8_8+zhAhMnqOga9GcpMX97S+x8_UD6zLEQ0Cew@mail.gmail.com>
-	<x49sgizodni.fsf@segfault.boston.devel.redhat.com>
-	<CAPcyv4gUM47QgGKvK4ZVUek6f=ABT7hRFX47-DQiD6AcrxtRHA@mail.gmail.com>
-From: Jane Chu <jane.chu@oracle.com>
-Organization: Oracle Corporation
-Message-ID: <f4085f6f-8305-2e50-fffc-07f5fc116017@oracle.com>
-Date: Tue, 25 Feb 2020 15:26:13 -0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
-	Thunderbird/68.4.2
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2420F185A78F
+	for <dm-devel@redhat.com>; Wed, 26 Feb 2020 08:27:12 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [212.227.15.14]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-346-VCoB4QqhMImSDh84L0vrFw-1;
+	Wed, 26 Feb 2020 03:27:07 -0500
+X-MC-Unique: VCoB4QqhMImSDh84L0vrFw-1
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from luklap ([88.130.61.40]) by smtp.web.de (mrweb004
+	[213.165.67.108]) with ESMTPSA (Nemesis) id 0LkEaw-1jhqPT3e8I-00cA8r;
+	Wed, 26 Feb 2020 09:27:05 +0100
+Date: Wed, 26 Feb 2020 09:27:05 +0100
+From: Lukas Straub <lukasstraub2@web.de>
+To: Mikulas Patocka <mpatocka@redhat.com>
+Message-ID: <20200226092705.61b7dcf4@luklap>
+In-Reply-To: <alpine.LRH.2.02.2002251127070.1014@file01.intranet.prod.int.rdu2.redhat.com>
+References: <20200220190445.2222af54@luklap>
+	<alpine.LRH.2.02.2002251127070.1014@file01.intranet.prod.int.rdu2.redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <CAPcyv4gUM47QgGKvK4ZVUek6f=ABT7hRFX47-DQiD6AcrxtRHA@mail.gmail.com>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9542
-	signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
-	phishscore=0 bulkscore=0
-	spamscore=0 mlxlogscore=999 mlxscore=0 suspectscore=8 malwarescore=0
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2001150001 definitions=main-2002250162
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9542
-	signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
-	lowpriorityscore=0 bulkscore=0
-	impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0
-	adultscore=0
-	phishscore=0 mlxlogscore=999 mlxscore=0 suspectscore=8 clxscore=1011
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2001150001 definitions=main-2002250162
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Provags-ID: V03:K1:ETYl0Nmp3BF/MjJ/ywSqfTGadH2Jkw7G4NCOcWFPRVYc/it9z6+
+	gorTJAvGCgN5F2oo98DrfZ8iHj4B3THNc94CCiLEV+IqBEzKmXFWlSh1PRMhqeqWy2c1MrK
+	rIRFdyczRA+nqHNhZ5W0A7J+tevklDI7xfGk0y6avTdPTYT7SCwgCYDCqPIesStq3B2Ul6k
+	eLoA9WZKCD5faokEHFheQ==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:c9UlD8rtFnw=:ocJhNvvcmDUsl36w2AdP2I
+	Lh7iLzt1yODX/OpHqWpcKuyfCI6GbJOPm05/7H6ROqX9TvjPo6y5r+/8Vyzc7/qlpYu7SyfMZ
+	mhbvKP4DY7jOqgj1ATXeVhrv6elAJKZWkRqa6ItSFJXeOLF0Fr3T7jN6sEV+KCyC5wQjqUDxh
+	SxPZLACj8Y3embk4pCEeS+3EbtxHgwkUQrrtXeoG7+GBib5kPD8DZMnzRsPptBrGsgTyaqZX6
+	pbe/XoW24cLlejvz1s1ulLvnjqAlN9rsCQEbxl6o9DOaYuIuYyILDT03u8xPq7CnX1/82lQQd
+	2atxEvW7ChkY+AU4ZqIVzszgLD40Fdrk4WdvjAdv4Lo5lLPzBhi4ZZOuob5IujnGMvxYz0JuH
+	6A6rJ2BNMCNLlK0b0C7PiUeYFmVwsqBJ7w3BJ3ZsON5Dp2I/RBdEgCwGJnNZtCtn1nx9HbCtD
+	TiBvtE6cL4FKccKqgIu5JfA5bvhITT3Yz1kEPz5O6LXrBSWc4SUk5A165sJhrzAk5J21sqJe6
+	BvbUhIeOQfTF7nyy7FW5g8y0UtINKGS3BMZEnnSZoRKGNI2O7lIHs54psoo9njUoghi2dyNXV
+	zphxrUmfKFUvRrFGwWC+Y7H8qnJZxNfhYLuTwhEVZHX0f7NVHYJQZcY5EEMuIDHhUibU9kdiM
+	Ws0ErmVoZav9mVW57wzJAcJTamA1gtGioLDUJwdzcFqxKFB2tjL83IwyWwz2in+6/E2bzdgTZ
+	2Gut0xgQxcQHlfDWySf1vfZr57An1dGzkY2vdgKDSuTkMAfPj76Y/+q4BzSUcD8JpEdCmdGAq
+	nTe2g8nmJtjF93T3wB9PA5f8DxsGzsooFFlLqsG0VXEP8KUalvYTRvT0iQQYfnbw0ghedSG8F
+	myX0so5j1KahzgsGUP2Aeev//f3s/HD4QQYn9N4/kPXeHwsTJHZ91SDJb6yK+La/6BGGJ3FKo
+	3kW6m4p8MT34yOInc3L+iRbD8I9b4hebbsIX5OlYFXLGTY8nC1KWEXBoUnfbsRCguBGMygijq
+	/7vtJXmzReLpJXZ77uHnJEAR8d1jmQonsCa3VJ3BT67RxNF4d2GAVSw8ICvQAOqkYRX9qXCos
+	wju8iQ2e4P546rivKHuk6aQFjr9ewQAFsYMyLSwBV9oXRwBDk/g8v5G7I+Y8+riXtJ7oFV8nN
+	4jE2onmlS/UQyW+foUcUBbgO95biI+dIqcZohN5E6z2XMOc20Z2YJ7rrBUZ3IIvXxvmnDFjUz
+	YRa8NDkR2+ZMFzPrN
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01Q8RECs017921
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 26 Feb 2020 08:52:14 -0500
-Cc: linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	Christoph Hellwig <hch@infradead.org>,
-	device-mapper development <dm-devel@redhat.com>,
-	Dave Chinner <david@fromorbit.com>,
-	linux-nvdimm <linux-nvdimm@lists.01.org>
-Subject: Re: [dm-devel] [PATCH v5 2/8] drivers/pmem: Allow
- pmem_clear_poison() to accept arbitrary offset and len
+Cc: dm-devel <dm-devel@redhat.com>, Alasdair Kergon <agk@redhat.com>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	Mike Snitzer <snitzer@redhat.com>
+Subject: Re: [dm-devel] [PATCH] dm-integrity: Prevent RMW for full tag area
+ writes
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -133,97 +111,232 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 2/24/2020 4:26 PM, Dan Williams wrote:
-> On Mon, Feb 24, 2020 at 1:53 PM Jeff Moyer <jmoyer@redhat.com> wrote:
->>
->> Dan Williams <dan.j.williams@intel.com> writes:
->>
->>>> Let's just focus on reporting errors when we know we have them.
->>>
->>> That's the problem in my eyes. If software needs to contend with
->>> latent error reporting then it should always contend otherwise
->>> software has multiple error models to wrangle.
->>
->> The only way for an application to know that the data has been written
->> successfully would be to issue a read after every write.  That's not a
->> performance hit most applications are willing to take.  And, of course,
->> the media can still go bad at a later time, so it only guarantees the
->> data is accessible immediately after having been written.
->>
->> What I'm suggesting is that we should not complete a write successfully
->> if we know that the data will not be retrievable.  I wouldn't call this
->> adding an extra error model to contend with.  Applications should
->> already be checking for errors on write.
->>
->> Does that make sense? Are we talking past each other?
-> 
-> The badblock list is late to update in both directions, late to add
-> entries that the scrub needs to find and late to delete entries that
-> were inadvertently cleared by cache-line writes that did not first
-> ingest the poison for a read-modify-write. So I see the above as being
-> wishful in using the error list as the hard source of truth and
-> unfortunate to up-level all sub-sector error entries into full
-> PAGE_SIZE data offline events.
+On Tue, 25 Feb 2020 11:41:45 -0500 (EST)
+Mikulas Patocka <mpatocka@redhat.com> wrote:
 
-Sorry, don't mean to distract the discussion, but I'm wondering if
-anyone has noticed SIGBUS with si_code = MCEERR_AO in a single process 
-poison test over a dax-xfs file?  There is only 1 poison in the
-file which has been consumed, it's the recovery code path (hole punch/
-munmap/mmap/pwrite/read) that encounters the _AO. I'm confident that
-latent error isn't the scenario per ARS scrub. Also, the _AO appears
-rarely. This is un-explainable given the kernel MCE pmem handling
-implementation.
+> On Thu, 20 Feb 2020, Lukas Straub wrote:
+>
+> > If a full tag area is being written, don't read it first. This prevents a
+> > read-modify-write cycle and increases performance on HDDs considerably.
+> >
+> > To do this we now calculate the checksums for all sectors in the bio in one
+> > go in integrity_metadata and then pass the result to dm_integrity_rw_tag,
+> > which now checks if we overwrite the whole tag area.
+> >
+> > Benchmarking with a 5400RPM HDD with bitmap mode:
+> > integritysetup format --no-wipe --batch-mode --interleave-sectors $((64*1024)) -t 4 -s 512 -I crc32c -B /dev/sdc
+> > integritysetup open -I crc32c -B /dev/sdc hdda_integ
+> > dd if=/dev/zero of=/dev/mapper/hdda_integ bs=64K count=$((16*1024*4)) conv=fsync oflag=direct status=progress
+> >
+> > Without patch:
+> > 4294967296 bytes (4.3 GB, 4.0 GiB) copied, 400.326 s, 10.7 MB/s
+> >
+> > With patch:
+> > 4294967296 bytes (4.3 GB, 4.0 GiB) copied, 41.2057 s, 104 MB/s
+> >
+> > Signed-off-by: Lukas Straub <lukasstraub2@web.de>
+> > ---
+> >  drivers/md/dm-integrity.c | 80 ++++++++++++++++++++++-----------------
+> >  1 file changed, 46 insertions(+), 34 deletions(-)
+> >
+> > diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+> > index b225b3e445fa..0e5ddcf44935 100644
+> > --- a/drivers/md/dm-integrity.c
+> > +++ b/drivers/md/dm-integrity.c
+> > @@ -1309,9 +1309,16 @@ static int dm_integrity_rw_tag(struct dm_integrity_c *ic, unsigned char *tag, se
+> >  		if (unlikely(r))
+> >  			return r;
+> >
+> > -		data = dm_bufio_read(ic->bufio, *metadata_block, &b);
+> > -		if (IS_ERR(data))
+> > -			return PTR_ERR(data);
+> > +		/* Don't read tag area from disk if we're going to overwrite it completely */
+> > +		if (op == TAG_WRITE && *metadata_offset == 0 && total_size >= ic->metadata_run) {
+>
+> Hi
+>
+> This is incorrect logic because ic->metadata_run is in the units of
+> 512-byte sectors and total_size is in bytes.
+>
+> If I correct the bug and change it to "if (op == TAG_WRITE &&
+> *metadata_offset == 0 && total_size >= ic->metadata_run << SECTOR_SHIFT)",
+> then the benchmark doesn't show any performance advantage at all.
 
-> 
-> I'm hoping we can find a way to make the error handling more fine
-> grained over time, but for the current patch, managing the blast
-> radius as PAGE_SIZE granularity at least matches the zero path with
-> the write path.
+Uh oh, looking at it again i have mixed up sectors/bytes elsewhere too.
+Actually, could we rewrite this check like
+ total_size >= (1U << SECTOR_SHIFT << ic->log2_buffer_sectors)?
+this should work, right?
+So we only have to overwrite part of the tag area, as long as it's whole sectors.
 
-Maybe the new filesystem op for clearing pmem poison should insist on
-4K alignment? because in hwpoison_clear() the starting pfn is given
-by PHYS_PFN which rounds down to the nearest page, so we might inadvertently
-clear the poison bit and 'noce' bit from a page when we only cleared a
-poison e.g. in the second half of the page.
+> You would need much bigger bios to take advantage for this - for example,
+> if we have 4k block size and 64k metadata buffer size and 4-byte crc32,
+> there are 65536/4=16384 tags in one metadata buffer and we would need
+> 16384*4096=64MiB bio to completely overwrite the metadata buffer. Such big
+> bios are not realistic.
 
-BTW, set_mce_nospec() doesn't seem to work in 5.5 release,
-   [ 2321.209382] Could not invalidate pfn=0x1850600 from 1:1 map
-I will see if I can find more information.
+What prevents us from using a single sector as the tag area? (Which was my assumption with this patch)
+Then we would have (with 512b sectors) 512/4 = 128 tags = 64k bio, which is still below the optimal write
+size of raid5/6.
+I just tried to accomplish this, but there seems to be minimum limit of interleave_sectors.
 
-> 
->>> Setting that aside we can start with just treating zeroing the same as
->>> the copy_from_iter() case and fail the I/O at the dax_direct_access()
->>> step.
->>
->> OK.
->>
->>> I'd rather have a separate op that filesystems can use to clear errors
->>> at block allocation time that can be enforced to have the correct
->>> alignment.
->>
->> So would file systems always call that routine instead of zeroing, or
->> would they first check to see if there are badblocks?
-> 
-> The proposal is that filesystems distinguish zeroing from free-block
-> allocation/initialization such that the fsdax implementation directs
-> initialization to a driver callback. This "initialization op" would
-> take care to check for poison and clear it. All other dax paths would
-> not consult the badblocks list.
+Regards,
+Lukas Straub
 
-thanks!
--jane
+> Mikulas
+>
+>
+> > +			data = dm_bufio_new(ic->bufio, *metadata_block, &b);
+> > +			if (IS_ERR(data))
+> > +				return PTR_ERR(data);
+> > +		} else {
+> > +			data = dm_bufio_read(ic->bufio, *metadata_block, &b);
+> > +			if (IS_ERR(data))
+> > +				return PTR_ERR(data);
+> > +		}
+> >
+> >  		to_copy = min((1U << SECTOR_SHIFT << ic->log2_buffer_sectors) - *metadata_offset, total_size);
+> >  		dp = data + *metadata_offset;
+> > @@ -1514,6 +1521,8 @@ static void integrity_metadata(struct work_struct *w)
+> >  {
+> >  	struct dm_integrity_io *dio = container_of(w, struct dm_integrity_io, work);
+> >  	struct dm_integrity_c *ic = dio->ic;
+> > +	unsigned sectors_to_process = dio->range.n_sectors;
+> > +	sector_t sector = dio->range.logical_sector;
+> >
+> >  	int r;
+> >
+> > @@ -1522,16 +1531,14 @@ static void integrity_metadata(struct work_struct *w)
+> >  		struct bio_vec bv;
+> >  		unsigned digest_size = crypto_shash_digestsize(ic->internal_hash);
+> >  		struct bio *bio = dm_bio_from_per_bio_data(dio, sizeof(struct dm_integrity_io));
+> > -		char *checksums;
+> > +		char *checksums, *checksums_ptr;
+> >  		unsigned extra_space = unlikely(digest_size > ic->tag_size) ? digest_size - ic->tag_size : 0;
+> >  		char checksums_onstack[HASH_MAX_DIGESTSIZE];
+> > -		unsigned sectors_to_process = dio->range.n_sectors;
+> > -		sector_t sector = dio->range.logical_sector;
+> >
+> >  		if (unlikely(ic->mode == 'R'))
+> >  			goto skip_io;
+> >
+> > -		checksums = kmalloc((PAGE_SIZE >> SECTOR_SHIFT >> ic->sb->log2_sectors_per_block) * ic->tag_size + extra_space,
+> > +		checksums = kmalloc((dio->range.n_sectors >> ic->sb->log2_sectors_per_block) * ic->tag_size + extra_space,
+> >  				    GFP_NOIO | __GFP_NORETRY | __GFP_NOWARN);
+> >  		if (!checksums) {
+> >  			checksums = checksums_onstack;
+> > @@ -1542,49 +1549,45 @@ static void integrity_metadata(struct work_struct *w)
+> >  			}
+> >  		}
+> >
+> > +		checksums_ptr = checksums;
+> >  		__bio_for_each_segment(bv, bio, iter, dio->orig_bi_iter) {
+> >  			unsigned pos;
+> > -			char *mem, *checksums_ptr;
+> > -
+> > -again:
+> > +			char *mem;
+> >  			mem = (char *)kmap_atomic(bv.bv_page) + bv.bv_offset;
+> >  			pos = 0;
+> > -			checksums_ptr = checksums;
+> >  			do {
+> >  				integrity_sector_checksum(ic, sector, mem + pos, checksums_ptr);
+> > -				checksums_ptr += ic->tag_size;
+> > -				sectors_to_process -= ic->sectors_per_block;
+> > +
+> > +				if (likely(checksums != checksums_onstack)) {
+> > +					checksums_ptr += ic->tag_size;
+> > +				} else {
+> > +					r = dm_integrity_rw_tag(ic, checksums, &dio->metadata_block, &dio->metadata_offset,
+> > +								ic->tag_size, !dio->write ? TAG_CMP : TAG_WRITE);
+> > +					if (unlikely(r))
+> > +						goto internal_hash_error;
+> > +				}
+> > +
+> >  				pos += ic->sectors_per_block << SECTOR_SHIFT;
+> >  				sector += ic->sectors_per_block;
+> > -			} while (pos < bv.bv_len && sectors_to_process && checksums != checksums_onstack);
+> > +				sectors_to_process -= ic->sectors_per_block;
+> > +			} while (pos < bv.bv_len && sectors_to_process);
+> >  			kunmap_atomic(mem);
+> >
+> > -			r = dm_integrity_rw_tag(ic, checksums, &dio->metadata_block, &dio->metadata_offset,
+> > -						checksums_ptr - checksums, !dio->write ? TAG_CMP : TAG_WRITE);
+> > -			if (unlikely(r)) {
+> > -				if (r > 0) {
+> > -					DMERR_LIMIT("Checksum failed at sector 0x%llx",
+> > -						    (unsigned long long)(sector - ((r + ic->tag_size - 1) / ic->tag_size)));
+> > -					r = -EILSEQ;
+> > -					atomic64_inc(&ic->number_of_mismatches);
+> > -				}
+> > -				if (likely(checksums != checksums_onstack))
+> > -					kfree(checksums);
+> > -				goto error;
+> > -			}
+> > -
+> >  			if (!sectors_to_process)
+> >  				break;
+> > +		}
+> >
+> > -			if (unlikely(pos < bv.bv_len)) {
+> > -				bv.bv_offset += pos;
+> > -				bv.bv_len -= pos;
+> > -				goto again;
+> > +		if (likely(checksums != checksums_onstack)) {
+> > +			r = dm_integrity_rw_tag(ic, checksums, &dio->metadata_block, &dio->metadata_offset,
+> > +						(dio->range.n_sectors >> ic->sb->log2_sectors_per_block) * ic->tag_size,
+> > +						!dio->write ? TAG_CMP : TAG_WRITE);
+> > +			if (unlikely(r)) {
+> > +				kfree(checksums);
+> > +				goto internal_hash_error;
+> >  			}
+> > +			kfree(checksums);
+> >  		}
+> >
+> > -		if (likely(checksums != checksums_onstack))
+> > -			kfree(checksums);
+> >  	} else {
+> >  		struct bio_integrity_payload *bip = dio->orig_bi_integrity;
+> >
+> > @@ -1615,6 +1618,13 @@ static void integrity_metadata(struct work_struct *w)
+> >  skip_io:
+> >  	dec_in_flight(dio);
+> >  	return;
+> > +internal_hash_error:
+> > +	if (r > 0) {
+> > +		DMERR_LIMIT("Checksum failed at sector 0x%llx",
+> > +				(unsigned long long)(sector - ((r + ic->tag_size - 1) / ic->tag_size)));
+> > +		r = -EILSEQ;
+> > +		atomic64_inc(&ic->number_of_mismatches);
+> > +	}
+> >  error:
+> >  	dio->bi_status = errno_to_blk_status(r);
+> >  	dec_in_flight(dio);
+> > @@ -3019,6 +3029,8 @@ static void dm_integrity_io_hints(struct dm_target *ti, struct queue_limits *lim
+> >  		limits->physical_block_size = ic->sectors_per_block << SECTOR_SHIFT;
+> >  		blk_limits_io_min(limits, ic->sectors_per_block << SECTOR_SHIFT);
+> >  	}
+> > +
+> > +	blk_limits_io_opt(limits, (1U << ic->sb->log2_interleave_sectors));
+> >  }
+> >
+> >  static void calculate_journal_section_size(struct dm_integrity_c *ic)
+> > --
+> > 2.20.1
+> >
+> >
+> > --
+> > dm-devel mailing list
+> > dm-devel@redhat.com
+> > https://www.redhat.com/mailman/listinfo/dm-devel
+> >
+>
 
-
-> _______________________________________________
-> Linux-nvdimm mailing list -- linux-nvdimm@lists.01.org
-> To unsubscribe send an email to linux-nvdimm-leave@lists.01.org
-> 
 
 --
 dm-devel mailing list
