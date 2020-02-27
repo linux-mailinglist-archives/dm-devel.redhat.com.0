@@ -1,123 +1,95 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id DB2B8170D1D
-	for <lists+dm-devel@lfdr.de>; Thu, 27 Feb 2020 01:21:19 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 77B67170ED0
+	for <lists+dm-devel@lfdr.de>; Thu, 27 Feb 2020 04:03:42 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1582762878;
+	s=mimecast20190719; t=1582772621;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=q+JudLyey9fEaZwJREMKnVs01UM5X5grW0oC3gietGk=;
-	b=KqlS85Bu7sgGHNsVQwo8c+oCZcgBhay3jA4VBe4l6/E7ttCXBegkMTJxuVtcZ3mqAnYwcr
-	r09LBo2XsMXP4ZZaS6/IrcOEVEsjswYK4YzKcELmgp36AcMLshXnMQDgSSB38m6UXwpu7k
-	CMBPEFXWjTrGlM5OP1TopJ6tBoL/hzc=
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=XmFNSheeBN7bkQwMw3Qg5qwnKoGY48Xixd6zw7IevYo=;
+	b=TnhcRRNxJcoIczMlnGH8vbSL2ORll1wxWPxakrf6dB7chFSQGOaks/QVFaoNfkQk5pNiBh
+	tPThoW0bDEMQPDR4Y26CWD6kkuPT6SAoBVo4zQoNbaTLnMkVW8MPztzBniMcSbz2YTBNBA
+	2UOLlFKkJL2Yuyq0t/z+svcLKS+ou/g=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-15-0sejS__ONbqqjpsz37JUJA-1; Wed, 26 Feb 2020 19:21:16 -0500
-X-MC-Unique: 0sejS__ONbqqjpsz37JUJA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-250-NH4oluKWMea-6eFT4czLBA-1; Wed, 26 Feb 2020 22:03:38 -0500
+X-MC-Unique: NH4oluKWMea-6eFT4czLBA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C584D13E5;
-	Thu, 27 Feb 2020 00:21:10 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 68E4A100E7E3;
-	Thu, 27 Feb 2020 00:21:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 606DC800D50;
+	Thu, 27 Feb 2020 03:03:31 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 183BA60BE1;
+	Thu, 27 Feb 2020 03:03:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 036D518089CD;
-	Thu, 27 Feb 2020 00:21:08 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 08FD284460;
+	Thu, 27 Feb 2020 03:03:14 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01R0KqnU017367 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 26 Feb 2020 19:20:53 -0500
+	id 01R3301P025631 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 26 Feb 2020 22:03:00 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id DB65120267F2; Thu, 27 Feb 2020 00:20:52 +0000 (UTC)
+	id BB1282026FFE; Thu, 27 Feb 2020 03:03:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D57C92026D69
-	for <dm-devel@redhat.com>; Thu, 27 Feb 2020 00:20:50 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B614F2026D69
+	for <dm-devel@redhat.com>; Thu, 27 Feb 2020 03:02:58 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A997B8007AC
-	for <dm-devel@redhat.com>; Thu, 27 Feb 2020 00:20:50 +0000 (UTC)
-Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-77-HsFxN3YsO1eSoRTlJGGWgw-1; Wed, 26 Feb 2020 19:20:46 -0500
-X-MC-Unique: HsFxN3YsO1eSoRTlJGGWgw-1
-IronPort-SDR: CSkRJw/YybNjJTqu8UDXC1ZFoMYh8RrOYdsduQVvzT8jhJopoaEEID9AV7Ppi+S8B5OdNWRbJF
-	U8Dmj8DOoM8nhuITfhslYDpVaqcBng1rC28tJcK6L85GHf4u/8wPk2AtwPh4c1hEhnmaV4WOao
-	Z91ZNsjbNBzP2cCa4IjxGGFWfx5N7Ree/jDx8c3L4iPsdjGpp22lQsLdP2pE9gJ9xNdBpqWnIy
-	VETCM6Xaw4oiXE50hlwXZP6+WHA1InOe/d0ucPFojsX+eQjlTOuA4lBQxxCs3vEKNAj/Cwga//
-	5Fg=
-X-IronPort-AV: E=Sophos;i="5.70,490,1574092800"; d="scan'208";a="130845439"
-Received: from mail-dm6nam11lp2168.outbound.protection.outlook.com (HELO
-	NAM11-DM6-obe.outbound.protection.outlook.com) ([104.47.57.168])
-	by ob1.hgst.iphmx.com with ESMTP; 27 Feb 2020 08:20:45 +0800
-Received: from BYAPR04MB5816.namprd04.prod.outlook.com (2603:10b6:a03:10e::16)
-	by BYAPR04MB4422.namprd04.prod.outlook.com (2603:10b6:a03::19) with
-	Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.2750.22; Thu, 27 Feb 2020 00:20:44 +0000
-Received: from BYAPR04MB5816.namprd04.prod.outlook.com
-	([fe80::6daf:1b7c:1a61:8cb2]) by
-	BYAPR04MB5816.namprd04.prod.outlook.com
-	([fe80::6daf:1b7c:1a61:8cb2%6]) with mapi id 15.20.2772.012;
-	Thu, 27 Feb 2020 00:20:44 +0000
-From: Damien Le Moal <Damien.LeMoal@wdc.com>
-To: Shinichiro Kawasaki <shinichiro.kawasaki@wdc.com>, "dm-devel@redhat.com"
-	<dm-devel@redhat.com>, Mike Snitzer <snitzer@redhat.com>
-Thread-Topic: [PATCH] dm zoned: Fix reference counter initial value of chunk
-	works
-Thread-Index: AQHV7QOAUumt4z+SjkCrdLpDnnxvZA==
-Date: Thu, 27 Feb 2020 00:20:44 +0000
-Message-ID: <BYAPR04MB58167D20A8333523AEE96362E7EB0@BYAPR04MB5816.namprd04.prod.outlook.com>
-References: <20200227001852.287194-1-shinichiro.kawasaki@wdc.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [129.253.182.57]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 45cf86d7-cbf4-4b82-ad57-08d7bb1ae2c1
-x-ms-traffictypediagnostic: BYAPR04MB4422:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BYAPR04MB44223416B044A78499C9D886E7EB0@BYAPR04MB4422.namprd04.prod.outlook.com>
-wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:451;
-x-forefront-prvs: 03264AEA72
-x-forefront-antispam-report: SFV:NSPM;
-	SFS:(10019020)(4636009)(136003)(376002)(346002)(39860400002)(366004)(396003)(189003)(199004)(316002)(55016002)(8676002)(110136005)(66946007)(86362001)(52536014)(76116006)(45080400002)(9686003)(81156014)(53546011)(450100002)(478600001)(5660300002)(6506007)(81166006)(2906002)(71200400001)(64756008)(7696005)(66446008)(66476007)(66556008)(26005)(33656002)(8936002)(186003);
-	DIR:OUT; SFP:1102; SCL:1; SRVR:BYAPR04MB4422;
-	H:BYAPR04MB5816.namprd04.prod.outlook.com; FPR:; SPF:None;
-	LANG:en; PTR:InfoNoRecords; MX:1; A:1;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: HhCHZBxVqHfgvuGb7Q1z1/E3W4aXIEsHa12MnaJUctg+wAtSiF1P3IXMRsiiPy/uEGkbrAdOtfFnpsYYb9pydwAkGjoFMqV3dNGlRenFNuJdAUqIJL1j0VapeMmbuLVz+ZlvwToOvxvEr9xnU3BhHi0YZtboJdz8+4s3kliHM9htBlZBsR0QIvz7p5CMAFViKbhJlxs005PpBlRSgDJtnP9T/ObJpDXx44s0mL04HNu+HOBVYi0yEKiFceY7/w3rPOGoN3iuVrZXCm0x5a++4BA4tj1wdugqEhJvNY8U39JlB4iD+Q31TYaRtGKVqlm6xawDKKdV9LofdqwHmiUDJF+BwtHQn4/Ll+t8aojk7ecvOPgjr4PpXDt0LP2Ez78bwo3gwWtrxQv1bEneBxn84yw8B4RckMCDybNypGg8mIzLHAYbYbgTcaYykND1IDnZ
-x-ms-exchange-antispam-messagedata: 6c4zzIvyYbx39PrPBvAu7mO755KWcRjg+kG1ETSTPUYaa/ZpXY0Gl3vGWBlsssuzmqUnqxwcih+Vy76RzC3eILebYCwTbNNAXlF3agGMitHf8O/TPJpRoyrHniSMMZk27pRGDRVfv5NjpptND9B7Nw==
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8FD49867455
+	for <dm-devel@redhat.com>; Thu, 27 Feb 2020 03:02:58 +0000 (UTC)
+Received: from mail104.syd.optusnet.com.au (mail104.syd.optusnet.com.au
+	[211.29.132.246]) by relay.mimecast.com with ESMTP id
+	us-mta-422-oC9mCEZmMwKHgIr2mFfowA-1; Wed, 26 Feb 2020 22:02:54 -0500
+X-MC-Unique: oC9mCEZmMwKHgIr2mFfowA-1
+Received: from dread.disaster.area (pa49-195-202-68.pa.nsw.optusnet.com.au
+	[49.195.202.68])
+	by mail104.syd.optusnet.com.au (Postfix) with ESMTPS id 6CEFB7E8BF1;
+	Thu, 27 Feb 2020 14:02:50 +1100 (AEDT)
+Received: from dave by dread.disaster.area with local (Exim 4.92.3)
+	(envelope-from <david@fromorbit.com>)
+	id 1j79Rp-00068S-3M; Thu, 27 Feb 2020 14:02:49 +1100
+Date: Thu, 27 Feb 2020 14:02:49 +1100
+From: Dave Chinner <david@fromorbit.com>
+To: Vivek Goyal <vgoyal@redhat.com>
+Message-ID: <20200227030248.GG10737@dread.disaster.area>
+References: <20200218214841.10076-1-vgoyal@redhat.com>
+	<20200218214841.10076-3-vgoyal@redhat.com>
+	<x49lfoxj622.fsf@segfault.boston.devel.redhat.com>
+	<20200220215707.GC10816@redhat.com>
+	<x498skv3i5r.fsf@segfault.boston.devel.redhat.com>
+	<20200221201759.GF25974@redhat.com>
+	<20200223230330.GE10737@dread.disaster.area>
+	<20200224153844.GB14651@redhat.com>
 MIME-Version: 1.0
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45cf86d7-cbf4-4b82-ad57-08d7bb1ae2c1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Feb 2020 00:20:44.2303 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: N1txZqd7+Epl3bUXnogl000v9MDQiTP6ej1l7SBheS39zibTRAo3FCGceG2bgSOOL33rViWo9k/pb/x+eo1zow==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR04MB4422
+In-Reply-To: <20200224153844.GB14651@redhat.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Optus-CM-Score: 0
+X-Optus-CM-Analysis: v=2.3 cv=W5xGqiek c=1 sm=1 tr=0
+	a=mqTaRPt+QsUAtUurwE173Q==:117 a=mqTaRPt+QsUAtUurwE173Q==:17
+	a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=kj9zAlcOel0A:10 a=l697ptgUJYAA:10
+	a=7-415B0cAAAA:8 a=3Uponxbm9rQKfJszS7gA:9 a=Ka0kt8yWCJBL3DhL:21
+	a=hsboJL87aekKxaTp:21 a=CjuIK1q_8ugA:10 a=biEYGPWJfzWAr4FL6Ov7:22
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 01R0KqnU017367
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01R3301P025631
 X-loop: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH] dm zoned: Fix reference counter initial
- value of chunk works
+Cc: linux-nvdimm@lists.01.org, dm-devel@redhat.com, hch@infradead.org,
+	Jeff Moyer <jmoyer@redhat.com>, linux-fsdevel@vger.kernel.org,
+	dan.j.williams@intel.com
+Subject: Re: [dm-devel] [PATCH v5 2/8] drivers/pmem: Allow
+ pmem_clear_poison() to accept arbitrary offset and len
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -131,123 +103,195 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-On 2020/02/27 9:18, Shin'ichiro Kawasaki wrote:
-> Dm-zoned initializes reference counters of new chunk works with zero
-> value and refcount_inc() is called to increment the counter. However, the
-> refcount_inc() function handles the addition to zero value as an error
-> and triggers the warning as follows:
+On Mon, Feb 24, 2020 at 10:38:44AM -0500, Vivek Goyal wrote:
+> On Mon, Feb 24, 2020 at 10:03:30AM +1100, Dave Chinner wrote:
 > 
-> refcount_t: addition on 0; use-after-free.
-> WARNING: CPU: 7 PID: 1506 at lib/refcount.c:25 refcount_warn_saturate+0x68/0xf0
-> Modules linked in: dm_zoned bridge stp llc rpcsec_gss_krb5 auth_rpcgss nfsv4 dns_resolver nfs lockd grace fscache nf_conntrack_netbios_ns nf_o
-> CPU: 7 PID: 1506 Comm: systemd-udevd Not tainted 5.4.0+ #134
-> ...
-> Call Trace:
->  dmz_map+0x2d2/0x350 [dm_zoned]
->  __map_bio+0x42/0x1a0
->  __split_and_process_non_flush+0x14a/0x1b0
->  __split_and_process_bio+0x83/0x240
->  ? kmem_cache_alloc+0x165/0x220
->  dm_process_bio+0x90/0x230
->  ? generic_make_request_checks+0x2e7/0x680
->  dm_make_request+0x3e/0xb0
->  generic_make_request+0xcf/0x320
->  ? memcg_drain_all_list_lrus+0x1c0/0x1c0
->  submit_bio+0x3c/0x160
->  ? guard_bio_eod+0x2c/0x130
->  mpage_readpages+0x182/0x1d0
->  ? bdev_evict_inode+0xf0/0xf0
->  read_pages+0x6b/0x1b0
->  __do_page_cache_readahead+0x1ba/0x1d0
->  force_page_cache_readahead+0x93/0x100
->  generic_file_read_iter+0x83a/0xe40
->  ? __seccomp_filter+0x7b/0x670
->  new_sync_read+0x12a/0x1c0
->  vfs_read+0x9d/0x150
->  ksys_read+0x5f/0xe0
->  do_syscall_64+0x5b/0x180
->  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-> ...
+> [..]
+> > > > > Hi Jeff,
+> > > > >
+> > > > > New dax zeroing interface (dax_zero_page_range()) can technically pass
+> > > > > a range which is less than a sector. Or which is bigger than a sector
+> > > > > but start and end are not aligned on sector boundaries.
+> > > > 
+> > > > Sure, but who will call it with misaligned ranges?
+> > > 
+> > > create a file foo.txt of size 4K and then truncate it.
+> > > 
+> > > "truncate -s 23 foo.txt". Filesystems try to zero the bytes from 24 to
+> > > 4095.
+> > 
+> > This should fail with EIO. Only full page writes should clear the
+> > bad page state, and partial writes should therefore fail because
+> > they do not guarantee the data in the filesystem block is all good.
+> > 
+> > If this zeroing was a buffered write to an address with a bad
+> > sector, then the writeback will fail and the user will (eventually)
+> > get an EIO on the file.
+> > 
+> > DAX should do the same thing, except because the zeroing is
+> > synchronous (i.e. done directly by the truncate syscall) we can -
+> > and should - return EIO immediately.
+> > 
+> > Indeed, with your code, if we then extend the file by truncating up
+> > back to 4k, then the range between 23 and 512 is still bad, even
+> > though we've successfully zeroed it and the user knows it. An
+> > attempt to read anywhere in this range (e.g. 10 bytes at offset 100)
+> > will fail with EIO, but reading 10 bytes at offset 2000 will
+> > succeed.
 > 
-> After this warning, following refcount API calls for the counter all fail
-> to change the counter value.
+> Hi Dave,
 > 
-> Fix this by setting the initial reference counter value not zero but one
-> for the new chunk works. Instead, do not call refcount_inc() via
-> dmz_get_chunk_work() for the new chunks works.
-> 
-> The failure was observed with linux version 5.4 with CONFIG_REFCOUNT_FULL
-> enabled. Refcount rework was merged to linux version 5.5 by the
-> commit 168829ad09ca ("Merge branch 'locking-core-for-linus' of
-> git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip"). After this
-> commit, CONFIG_REFCOUNT_FULL was removed and the failure was observed
-> regardless of kernel configuration.
-> 
-> Linux version 4.20 merged the commit 092b5648760a ("dm zoned: target: use
-> refcount_t for dm zoned reference counters"). Before this commit, dm
-> zoned used atomic_t APIs which does not check addition to zero, then this
-> fix is not necessary.
-> 
-> Fixes: 092b5648760a ("dm zoned: target: use refcount_t for dm zoned reference counters")
-> Cc: stable@vger.kernel.org # 5.5
-> Cc: stable@vger.kernel.org # 5.4
-> Signed-off-by: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
+> What is expected if I do "truncate -s 512 foo.txt". Say first sector (0 to
+> 511) is poisoned and rest don't have poison. Should this fail with -EIO.
 
-Looks good to me.
+Yes - the filesystem block still contains bad data.
 
-Reviewed-by: Damien Le Moal <damien.lemoal@wdc.com>
+> In current implementation it does not.
 
+I'm not surprised - the whole hardware error handling architecture
+for FS-DAX is fundamentally broken. It was designed for device-dax,
+and it just doesn't work for FS-DAX.
 
-> ---
->  drivers/md/dm-zoned-target.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/md/dm-zoned-target.c b/drivers/md/dm-zoned-target.c
-> index 70a1063161c0..b1e64cd31647 100644
-> --- a/drivers/md/dm-zoned-target.c
-> +++ b/drivers/md/dm-zoned-target.c
-> @@ -533,8 +533,9 @@ static int dmz_queue_chunk_work(struct dmz_target *dmz, struct bio *bio)
->  
->  	/* Get the BIO chunk work. If one is not active yet, create one */
->  	cw = radix_tree_lookup(&dmz->chunk_rxtree, chunk);
-> -	if (!cw) {
-> -
-> +	if (cw) {
-> +		dmz_get_chunk_work(cw);
-> +	} else {
->  		/* Create a new chunk work */
->  		cw = kmalloc(sizeof(struct dm_chunk_work), GFP_NOIO);
->  		if (unlikely(!cw)) {
-> @@ -543,7 +544,7 @@ static int dmz_queue_chunk_work(struct dmz_target *dmz, struct bio *bio)
->  		}
->  
->  		INIT_WORK(&cw->work, dmz_chunk_work);
-> -		refcount_set(&cw->refcount, 0);
-> +		refcount_set(&cw->refcount, 1);
->  		cw->target = dmz;
->  		cw->chunk = chunk;
->  		bio_list_init(&cw->bio_list);
-> @@ -556,7 +557,6 @@ static int dmz_queue_chunk_work(struct dmz_target *dmz, struct bio *bio)
->  	}
->  
->  	bio_list_add(&cw->bio_list, bio);
-> -	dmz_get_chunk_work(cw);
->  
->  	dmz_reclaim_bio_acc(dmz->reclaim);
->  	if (queue_work(dmz->chunk_wq, &cw->work))
-> 
+For example, to get the hardware error handling to be able to kill
+userspace applications, a 1:1 physical-to-logical association
+constraint was added to fs/dax.c:
 
+/*
+ * TODO: for reflink+dax we need a way to associate a single page with
+ * multiple address_space instances at different linear_page_index()
+ * offsets.
+ */
+static void dax_associate_entry(void *entry, struct address_space *mapping,
+                struct vm_area_struct *vma, unsigned long address)
 
+because device-dax only has *linear mappings* and so has a fixed
+reverse mapping architecture.
+
+i.e. the whole hardware error handling infrastructure was designed
+around the constraints of device-dax. device-dax does not having any
+structure to serialise access to the physical storage, so locking
+was added to the mapping tree. THe mapping tree locking is accessed
+on hardware error via the reverse mappingi association in the struct
+page and that's how device-dax serialises direct physical storage
+access against hardware error processing.  And while the page index
+is locked in the mapping tree, it can walk the process vmas that
+have the page mapped to kill them so that they don't try to access
+the bad page.
+
+That bad physical storage state is carried in a volatile struct page
+flag, hence requiring some mechanism to make it persistent (the
+device bad blocks register) and some other mechanism to clear the
+poison state (direct IO, IIRC).
+
+It's also a big, nasty, solid roadblock to implementing shared
+data extents in FS-DAX. We basically have to completely re-architect
+the hardware error handling for FS-DAX so that such errors are
+reported to the filesystem first and then the filesystem does what
+is needed to handle the error.
+
+None of this works for filesystems because they need to perform
+different operations depending on what the page that went bad
+contains. FS-DAX should never trip over an unexpected poisoned page;
+we do so now because such physical storage errors are completely
+hidden form the fielsystem.
+
+What you are trying to do is slap a band-aid over what to do when we
+hit an unexpected page containing bad data. Filesystems expect to
+find out about bad data in storage when they marshall the data into
+or out of memory. They make the assumption that once it is in memory
+it remains valid on the physical storage. Hence if an in-memory
+error occurs, we can just toss it away and re-read it from storage,
+and all is good.
+
+FS-DAX changes that - we are no longer marshalling data into and out
+of memory so we don't have a mechanism to get EIO when reading the
+page into the page cache or writing it back to disk. We also don't
+have an in-memory copy of the data - the physical storage is the
+in-memory copy, and so we can't just toss it away when an error
+occurs.
+
+What we actually require is instantaneous notification of physical
+storage errors so we can handle the error immediately. And that, in
+turn, means we should never poison or see poisoned pages during
+direct access operations because the filesystem doesn't need to
+poison pages to prevent user access - it controls how the storage is
+accessed directly.
+
+e.g. if this error is in filesystem metadata, we might be able to
+recover from it as that metadata might have a full copy in memory
+(metadata is buffered in both XFS and ext4) or we might be able to
+reconstruct it from other sources. Worst case, we have shut the
+filesystem down completely so the admin can repair the damage the
+lost page has caused.
+
+e.g. The physical page may be located in free space, in which case
+we don't care and can just zero it so all the bad hardware state is
+cleared. The page never goes bad or gets poisoned in that case.
+
+e.g. The physical page may be user data, in which case it may be
+buffered in the page cache (non-dax) and so can easily be recovered.
+It may not be recoverable, in which case we need to issue log
+messages indicating that data has been lost (path, offset, length),
+and do the VMA walk and kill processes that map that page. Then we
+can zero the page to clear the bad state.
+
+If, at any point we can't clear the bad state (e.g. the zeroing or
+the read-back verification fails), then we need to make sure that
+filesystem block is marked as allocated in the free space map, then
+tell the reverse map that it's owner is now "bad storage" so it
+never gets used again. i.e. this is the persistent bad block
+storage, but doing it this way results in the rest of the filesystem
+code never, ever seeing a poisoned page. And users never see it
+either, because it will never be returned to the free space pool.
+
+Of course, this relies of the filesystem having reverse mapping
+capability. XFS already has this funcitonality available as a mkfs
+option (mkfs.xfs -m rmapbt=1 ...), and we really need this so we can
+get rid of the association of a physical page with a mapping and
+file offset that device-dax requires for hardware page error
+handling.  This means we don't need the physical storage to try to
+hold filesystem layer reverse mapping information for us, and this
+also removes the roadblock that the hardware error handling has
+placed on implementing reflink w/ FS-DAX.
+
+IOWs, the problem you are trying to solve is a direct result of
+filesysetms not being informed when a physical pmem page goes bad
+and the current error handling being implemented at entirely the
+wrong layer for FS-DAX. It may work for device-dax, but it's most
+definitely insufficient for correct error handling for filesystems.
+
+> Anyway, partial page truncate can't ensure that data in rest of the page can
+> be read back successfully. Memory can get poison after the write and
+> hence read after truncate will still fail.
+
+Which is where the notification requirement comes in. Yes, we may
+still get errors on read or write, but if memory at rest goes bad,
+we want to handle that and correct it ASAP, not wait days or months
+for something to trip over the poisoned page before we find out
+about it.
+
+> Hence, all we are trying to ensure is that if a poison is known at the
+> time of writing partial page, then we should return error to user space.
+
+I think within FS-DAX infrastructure, any access to the data (read
+or write) within a poisoned page or a page marked with PageError()
+should return EIO to the caller, unless it's the specific command to
+clear the error/poison state on the page. What happens with that
+error state is then up to the caller.
+
+Cheers,
+
+Dave.
 -- 
-Damien Le Moal
-Western Digital Research
-
+Dave Chinner
+david@fromorbit.com
 
 
 --
