@@ -1,92 +1,93 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 84FC61757B0
-	for <lists+dm-devel@lfdr.de>; Mon,  2 Mar 2020 10:53:21 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id C24FB1757B2
+	for <lists+dm-devel@lfdr.de>; Mon,  2 Mar 2020 10:53:23 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1583142800;
+	s=mimecast20190719; t=1583142802;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=BMdBW3BgSsoXgGVuW/eCNCRseiaZFTee6XgdNiLNrgE=;
-	b=Nsed6/orio8oAV39ic1HQXK4BGhJTne+4Mf8hMrSWKYsogpizwALKy3/SF8DRsu3N4u4+F
-	1jXIVELOUOXSOxZK2+27JaK75Z5zzmXlzpLv6ySr3wuMyxjjnZhxnUi117IbJWSx74hXi1
-	aDgem8nr0PIzLmlY516drblb+aKz9ZU=
+	bh=4n+6d0TmKbHgeBzNBiOr82blFjF9O3nvbvfyOuywEbE=;
+	b=ErBXZzNFAJML7UdJSt2rNc44UmAsUPgxKVVQ2HcpeZldV2cU0cKzwFrFl/5lxOq6OiuuiX
+	/8FdpKXVh/v0CbJroVNUR4/pzzHlMXX2MIq2O2IXxC154yr9WNICfCzr1OqwKd71q1+joQ
+	E10ydMTOTSusomThjT3VYdVq1cMZr3A=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-142-fthFQU4zOtSX88LOEruIiQ-1; Mon, 02 Mar 2020 04:53:17 -0500
-X-MC-Unique: fthFQU4zOtSX88LOEruIiQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-407-oX1Mh56dMpafETGe2H6BiA-1; Mon, 02 Mar 2020 04:53:20 -0500
+X-MC-Unique: oX1Mh56dMpafETGe2H6BiA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6BFEA800D6C;
-	Mon,  2 Mar 2020 09:53:12 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B772992D00;
-	Mon,  2 Mar 2020 09:53:11 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1A4B2107ACCA;
+	Mon,  2 Mar 2020 09:53:15 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DC6671001DF2;
+	Mon,  2 Mar 2020 09:53:14 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7464218089C8;
-	Mon,  2 Mar 2020 09:53:07 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3E7878446C;
+	Mon,  2 Mar 2020 09:53:14 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 01T9HCIs024991 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 29 Feb 2020 04:17:12 -0500
+	id 01T9Ltea025325 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 29 Feb 2020 04:21:55 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id AB38B120EA7; Sat, 29 Feb 2020 09:17:12 +0000 (UTC)
+	id B35EB103F272; Sat, 29 Feb 2020 09:21:55 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A6209121154
-	for <dm-devel@redhat.com>; Sat, 29 Feb 2020 09:17:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AE8B1103F270
+	for <dm-devel@redhat.com>; Sat, 29 Feb 2020 09:21:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7F9CB8007AC
-	for <dm-devel@redhat.com>; Sat, 29 Feb 2020 09:17:10 +0000 (UTC)
-Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
-	[209.85.128.66]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-182-uIfFLNpnOP-LfxkpDQFL8A-1; Sat, 29 Feb 2020 04:17:06 -0500
-X-MC-Unique: uIfFLNpnOP-LfxkpDQFL8A-1
-Received: by mail-wm1-f66.google.com with SMTP id f15so5969213wml.3;
-	Sat, 29 Feb 2020 01:17:06 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 290E6101A55A
+	for <dm-devel@redhat.com>; Sat, 29 Feb 2020 09:21:53 +0000 (UTC)
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+	[209.85.128.68]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-119-tV8iZiJnMu6bEQDOvohV6w-1; Sat, 29 Feb 2020 04:21:50 -0500
+X-MC-Unique: tV8iZiJnMu6bEQDOvohV6w-1
+Received: by mail-wm1-f68.google.com with SMTP id a5so6003649wmb.0;
+	Sat, 29 Feb 2020 01:21:50 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=84l+/iPVMM8/hLUieRf6a7Y3yljDnv4PnRrTq7Jpkjg=;
-	b=eoQvKDM3It7UQeKo7qJi2xOpOWXSK3QZmaQ4Doe1Gf2rCMiQAFUYhzc2DmObXojUHi
-	Qxt7/frvxDcLkE0RZp0U62kRvRhow1fbkQyOAISJa9f2EFTVr67JSa696rcCLL85VW3+
-	KYmdNuKjdpaulYi1QJW2mXFpUpvCeMyFqwghEqTEChQ+7JCZ9QzeVUnmc3RLM/NYzCJ8
-	BYeWNmUr72Rbp2EpX2wBi0l9NhIHSqvr1/1AmTE+7Ol0eRch0aDjDpF584blkJifRVXM
-	s2wY819ozsjD6suVLg/s5I9g1Zd+0r5bugOyM7PIXNTxk8NTExUPkPpPENJ2sSekm0Yd
-	cV1g==
-X-Gm-Message-State: APjAAAW5+7ZaNvRxNLZZNb+czKjP3Ed+LyGbeCLlncp7EDLfZeOTwFTE
-	g5o7AQxbLAej/ZskbjdqZeXxhofFFKD8WN0iLF2b/JXqV7I=
-X-Google-Smtp-Source: APXvYqxfLRiVrnYhDu4x+AqoqT6WXSX/Yp2zDg70IB8IAjbVVRQuJ0ZHm+nq/8o1RcPnF9HGEur2CkpJXILJQTL0jqQ=
-X-Received: by 2002:a1c:a789:: with SMTP id q131mr9556538wme.127.1582967824944;
-	Sat, 29 Feb 2020 01:17:04 -0800 (PST)
+	bh=2Ue+Dgx3CeJSePHgMAW1fINAp8LiFMrWYxPNI01tF+o=;
+	b=JvTiI7xH2mmOstjHe96kaMpP/7Xvjwj28BEo5Xmpk6Es3M0mCtLc4EqmSvX3AdNLTY
+	/NlcCEjlXJgHTIZGzQcWsqfgIsty2+0kvn7d52oovP9YROiw+pURl9GwV9M0l3TzcMbL
+	9nroHVUaFLij2XL5t0PP/t6MfYAcVbukZpNSyfDSCrGDFf2kDIF60mTvGVZLRVwN+f4J
+	7azTKGLH3N30BPBMKQau6UVfjvFXH9ixLHPkqch+ULN8utA8srAIPmSTaXMa6FbTtDYT
+	TQCFVweqmFcvdNMiAZsZTGcVdIOc5PAORQK1v2dOnf0kJhKgBc7YbMcXz8K2N0Urb58b
+	imGg==
+X-Gm-Message-State: APjAAAVmaokaaI74gdzgmZIFLpnWX/nAOXezSPGXI248YFa8PdUthy57
+	Yzj4Yqi64AnOmO+UkdILTIIP6Z+IBHQgARNup7RaS1zZQ/w=
+X-Google-Smtp-Source: APXvYqwXr3ckvpjnUV3luGA4fCi4IOXlgKlcLyhHcepYxIFSxB+bII3J0lhiHYkO46BI/jCcSRb6B2gBvrulhaqW66Y=
+X-Received: by 2002:a1c:25c5:: with SMTP id l188mr9801660wml.105.1582968108954;
+	Sat, 29 Feb 2020 01:21:48 -0800 (PST)
 MIME-Version: 1.0
 References: <20200228163456.1587-1-vgoyal@redhat.com>
-In-Reply-To: <20200228163456.1587-1-vgoyal@redhat.com>
+	<20200228163456.1587-3-vgoyal@redhat.com>
+In-Reply-To: <20200228163456.1587-3-vgoyal@redhat.com>
 From: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
-Date: Sat, 29 Feb 2020 10:16:53 +0100
-Message-ID: <CAM9Jb+j46n3Ykca3_F0zb-7U1M5C8KmmH+3uzB1z7MqH60mQBA@mail.gmail.com>
+Date: Sat, 29 Feb 2020 10:21:37 +0100
+Message-ID: <CAM9Jb+gLczXgFmLJg8a=XThoJT1S8XajFkb8AkjDCV1XXyarqg@mail.gmail.com>
 To: Vivek Goyal <vgoyal@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 01T9HCIs024991
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 01T9Ltea025325
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 02 Mar 2020 04:53:00 -0500
 Cc: linux-nvdimm@lists.01.org, david@fromorbit.com, hch@infradead.org,
 	dm-devel@redhat.com, linux-fsdevel@vger.kernel.org,
 	dan.j.williams@intel.com
-Subject: Re: [dm-devel] [PATCH v6 0/6] dax/pmem: Provide a dax operation to
-	zero page range
+Subject: Re: [dm-devel] [PATCH v6 2/6] dax,
+	pmem: Add a dax operation zero_page_range
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,71 +101,119 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Vivek,
-
 >
-> Hi,
+> Add a dax operation zero_page_range, to zero a page. This will also clear any
+> known poison in the page being zeroed.
 >
-> This is V6 of patches. These patches are also available at.
-
-Looks like cover letter is missing the motivation for the patchset.
-Though I found it in previous posting. Its good to add it in the series
-for anyone joining the discussion at later stages.
-
-Thanks,
-Pankaj
-
+> As of now, zeroing of one page is allowed in a single call. There
+> are no callers which are trying to zero more than a page in a single call.
+> Once we grow the callers which zero more than a page in single call, we
+> can add that support. Primary reason for not doing that yet is that this
+> will add little complexity in dm implementation where a range might be
+> spanning multiple underlying targets and one will have to split the range
+> into multiple sub ranges and call zero_page_range() on individual targets.
 >
-> Changes since V5:
+> Suggested-by: Christoph Hellwig <hch@infradead.org>
+> Signed-off-by: Vivek Goyal <vgoyal@redhat.com>
+> ---
+>  drivers/dax/super.c   | 20 ++++++++++++++++++++
+>  drivers/nvdimm/pmem.c | 11 +++++++++++
+>  include/linux/dax.h   |  4 ++++
+>  3 files changed, 35 insertions(+)
 >
-> - Dan Williams preferred ->zero_page_range() to only accept PAGE_SIZE
->   aligned request and clear poison only on page size aligned zeroing. So
->   I changed it accordingly.
+> diff --git a/drivers/dax/super.c b/drivers/dax/super.c
+> index 0aa4b6bc5101..e498daf3c0d7 100644
+> --- a/drivers/dax/super.c
+> +++ b/drivers/dax/super.c
+> @@ -344,6 +344,26 @@ size_t dax_copy_to_iter(struct dax_device *dax_dev, pgoff_t pgoff, void *addr,
+>  }
+>  EXPORT_SYMBOL_GPL(dax_copy_to_iter);
 >
-> - Dropped all the modifications which were required to support arbitrary
->   range zeroing with-in a page.
+> +int dax_zero_page_range(struct dax_device *dax_dev, pgoff_t pgoff,
+> +                       size_t nr_pages)
+> +{
+> +       if (!dax_alive(dax_dev))
+> +               return -ENXIO;
+> +
+> +       if (!dax_dev->ops->zero_page_range)
+> +               return -EOPNOTSUPP;
+> +       /*
+> +        * There are no callers that want to zero more than one page as of now.
+> +        * Once users are there, this check can be removed after the
+> +        * device mapper code has been updated to split ranges across targets.
+> +        */
+> +       if (nr_pages != 1)
+> +               return -EIO;
+> +
+> +       return dax_dev->ops->zero_page_range(dax_dev, pgoff, nr_pages);
+> +}
+> +EXPORT_SYMBOL_GPL(dax_zero_page_range);
+> +
+>  #ifdef CONFIG_ARCH_HAS_PMEM_API
+>  void arch_wb_cache_pmem(void *addr, size_t size);
+>  void dax_flush(struct dax_device *dax_dev, void *addr, size_t size)
+> diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
+> index 075b11682192..5b774ddd0efb 100644
+> --- a/drivers/nvdimm/pmem.c
+> +++ b/drivers/nvdimm/pmem.c
+> @@ -282,6 +282,16 @@ static const struct block_device_operations pmem_fops = {
+>         .revalidate_disk =      nvdimm_revalidate_disk,
+>  };
 >
-> - This patch series also fixes the issue where "truncate -s 512 foo.txt"
->   will fail if first sector of file is poisoned. Currently it succeeds
->   and filesystem expectes whole of the filesystem block to be free of
->   poison at the end of the operation.
+> +static int pmem_dax_zero_page_range(struct dax_device *dax_dev, pgoff_t pgoff,
+> +                                   size_t nr_pages)
+> +{
+> +       struct pmem_device *pmem = dax_get_private(dax_dev);
+> +
+> +       return blk_status_to_errno(pmem_do_write(pmem, ZERO_PAGE(0), 0,
+> +                                  PFN_PHYS(pgoff) >> SECTOR_SHIFT,
+> +                                  PAGE_SIZE));
+> +}
+> +
+>  static long pmem_dax_direct_access(struct dax_device *dax_dev,
+>                 pgoff_t pgoff, long nr_pages, void **kaddr, pfn_t *pfn)
+>  {
+> @@ -313,6 +323,7 @@ static const struct dax_operations pmem_dax_ops = {
+>         .dax_supported = generic_fsdax_supported,
+>         .copy_from_iter = pmem_copy_from_iter,
+>         .copy_to_iter = pmem_copy_to_iter,
+> +       .zero_page_range = pmem_dax_zero_page_range,
+>  };
 >
-> Christoph, I have dropped your Reviewed-by tag on 1-2 patches because
-> these patches changed substantially. Especially signature of of
-> dax zero_page_range() helper.
+>  static const struct attribute_group *pmem_attribute_groups[] = {
+> diff --git a/include/linux/dax.h b/include/linux/dax.h
+> index 328c2dbb4409..71735c430c05 100644
+> --- a/include/linux/dax.h
+> +++ b/include/linux/dax.h
+> @@ -34,6 +34,8 @@ struct dax_operations {
+>         /* copy_to_iter: required operation for fs-dax direct-i/o */
+>         size_t (*copy_to_iter)(struct dax_device *, pgoff_t, void *, size_t,
+>                         struct iov_iter *);
+> +       /* zero_page_range: required operation. Zero page range   */
+> +       int (*zero_page_range)(struct dax_device *, pgoff_t, size_t);
+>  };
 >
-> Thanks
-> Vivek
+>  extern struct attribute_group dax_attribute_group;
+> @@ -199,6 +201,8 @@ size_t dax_copy_from_iter(struct dax_device *dax_dev, pgoff_t pgoff, void *addr,
+>                 size_t bytes, struct iov_iter *i);
+>  size_t dax_copy_to_iter(struct dax_device *dax_dev, pgoff_t pgoff, void *addr,
+>                 size_t bytes, struct iov_iter *i);
+> +int dax_zero_page_range(struct dax_device *dax_dev, pgoff_t pgoff,
+> +                       size_t nr_pages);
+>  void dax_flush(struct dax_device *dax_dev, void *addr, size_t size);
 >
-> Vivek Goyal (6):
->   pmem: Add functions for reading/writing page to/from pmem
->   dax, pmem: Add a dax operation zero_page_range
->   s390,dcssblk,dax: Add dax zero_page_range operation to dcssblk driver
->   dm,dax: Add dax zero_page_range operation
->   dax: Use new dax zero page method for zeroing a page
->   dax,iomap: Add helper dax_iomap_zero() to zero a range
->
->  drivers/dax/super.c           | 20 ++++++++
->  drivers/md/dm-linear.c        | 18 +++++++
->  drivers/md/dm-log-writes.c    | 17 ++++++
->  drivers/md/dm-stripe.c        | 23 +++++++++
->  drivers/md/dm.c               | 30 +++++++++++
->  drivers/nvdimm/pmem.c         | 97 ++++++++++++++++++++++-------------
->  drivers/s390/block/dcssblk.c  | 15 ++++++
->  fs/dax.c                      | 59 ++++++++++-----------
->  fs/iomap/buffered-io.c        |  9 +---
->  include/linux/dax.h           | 21 +++-----
->  include/linux/device-mapper.h |  3 ++
->  11 files changed, 221 insertions(+), 91 deletions(-)
->
+>  ssize_t dax_iomap_rw(struct kiocb *iocb, struct iov_iter *iter,
 > --
 > 2.20.1
+
+Zeroing single page seems right approach for now.
+Reviewed-by: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
 > _______________________________________________
 > Linux-nvdimm mailing list -- linux-nvdimm@lists.01.org
 > To unsubscribe send an email to linux-nvdimm-leave@lists.01.org
