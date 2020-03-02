@@ -1,92 +1,80 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id B6C2A175DA4
-	for <lists+dm-devel@lfdr.de>; Mon,  2 Mar 2020 15:54:32 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 9D0B3175DCD
+	for <lists+dm-devel@lfdr.de>; Mon,  2 Mar 2020 16:03:49 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1583160871;
+	s=mimecast20190719; t=1583161428;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=PqQBdI0NInx0Eb7o/pF75BY/2aK7ZA8UScEM3pd8tJo=;
-	b=HW+BlVWbLR9kA4KMSXvcocxs9E5ZraDzcfXHtWW8H9JmmqosOwAT/UuMuqKE/f96NU/H5N
-	6h4N4RRCraCUqEbNdBS/eS6LTInkx1nZo1TRK2K0G/lm5esNGwO9Pgprua5Oo+kdQTnts4
-	ucbvDg7r9wzNJ+nN4YzriK87qaXa3SU=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=+2+Se3UNnBYWN6yzYrrKmC66gFtONIt84YA6H0DpMNY=;
+	b=gu+v8I86yBiTOEEPiFHsNqN138tJddHWB96tzjpfW8nnMw4yxNkVCmesAbVw+qcb1Ei15N
+	kugiBfbgwPxp2lASyvhzw/L4X+V+gyeCndLS8p4CqhiBNFhUt9EqXml+HtQEq4cVGJ7CFm
+	4Fg4uT6pSntNCjJnc5zgp+c/c8b5p7M=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-387-QYHtmK1uOLKnQJHwqKl2Ww-1; Mon, 02 Mar 2020 09:54:29 -0500
-X-MC-Unique: QYHtmK1uOLKnQJHwqKl2Ww-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-155-ULF05Z_YPLCEl5EHYnKDxw-1; Mon, 02 Mar 2020 10:03:45 -0500
+X-MC-Unique: ULF05Z_YPLCEl5EHYnKDxw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 08928800D4E;
-	Mon,  2 Mar 2020 14:54:23 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 604A65C1B0;
-	Mon,  2 Mar 2020 14:54:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D40711895F30;
+	Mon,  2 Mar 2020 15:03:38 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BCC285D9C9;
+	Mon,  2 Mar 2020 15:03:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 80B7035AE1;
-	Mon,  2 Mar 2020 14:54:15 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1CD24182B00F;
+	Mon,  2 Mar 2020 15:03:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 022Es4ni007866 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 2 Mar 2020 09:54:04 -0500
+	id 022F3R0Q008596 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 2 Mar 2020 10:03:27 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1B8262166B2B; Mon,  2 Mar 2020 14:54:04 +0000 (UTC)
+	id 01F22C690A; Mon,  2 Mar 2020 15:03:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 16B752166B2E
-	for <dm-devel@redhat.com>; Mon,  2 Mar 2020 14:54:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F1341D0B48
+	for <dm-devel@redhat.com>; Mon,  2 Mar 2020 15:03:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 51478185A78E
-	for <dm-devel@redhat.com>; Mon,  2 Mar 2020 14:54:01 +0000 (UTC)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
-	[209.85.128.49]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-425-pvtnVABUPfy8ArHuYQUmkg-1; Mon, 02 Mar 2020 09:53:58 -0500
-X-MC-Unique: pvtnVABUPfy8ArHuYQUmkg-1
-Received: by mail-wm1-f49.google.com with SMTP id a141so10940716wme.2
-	for <dm-devel@redhat.com>; Mon, 02 Mar 2020 06:53:58 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=TJQbbPefZlxS5DcIgEeha7GKHhInYNHL5rPCPokNLcc=;
-	b=UErxnnPyGS2x/WRUdQrmaWSucNj/tUSXaWEtel0rUCTj2PgfU0vsx/j0tyFuP5y3bY
-	s6SZR7G+6IWL3C7rrGXX8zmzRdYeCwmz/0APHv20DSwy/AVjov96okkbYTcmJz3w9xSD
-	Ty3cnz7sjigBO/7rEDgk/i0e/bZ7reGN+9BPcQ4Rf7dvlnBf78PZqzINKMxGPSxU5kOf
-	qiQH250b9ayNA/ojLvySWc1dyeYLVOI68lB7DygTc/kLuDhGn7I26luS8eElwBB02iKn
-	RyOi5M9i+7nDPDqt9taU0D7OL6H5lcCWe0rC+N0Ys4p59r/nCjTQoIRVSGHOOsPTm3Pq
-	Ly4w==
-X-Gm-Message-State: APjAAAXF/4hm2Q/CMhQ+MIF7JR0dT5PTqx1WrZlwLj8c9TX8Ttfy2hgU
-	ewuwnCgxJ5KGolH4jt+7ew==
-X-Google-Smtp-Source: APXvYqz9NzJWLArSW4pk5UyQ6aP6W+wTXT7pUnGov3YNyBVtu0ogMGdenBAQVeVeyqw0P7U9VzngAg==
-X-Received: by 2002:a1c:f615:: with SMTP id w21mr19889633wmc.152.1583160837586;
-	Mon, 02 Mar 2020 06:53:57 -0800 (PST)
-Received: from localhost (250.red-83-37-138.dynamicip.rima-tde.net.
-	[83.37.138.250]) by smtp.gmail.com with ESMTPSA id
-	z12sm2021078wrs.43.2020.03.02.06.53.56
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Mon, 02 Mar 2020 06:53:57 -0800 (PST)
-From: Xose Vazquez Perez <xose.vazquez@gmail.com>
-To: 
-Date: Mon,  2 Mar 2020 15:53:54 +0100
-Message-Id: <20200302145354.1352-1-xose.vazquez@gmail.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5B402101A55E
+	for <dm-devel@redhat.com>; Mon,  2 Mar 2020 15:03:24 +0000 (UTC)
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+	[217.70.183.197]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-180-x4iX3MirM0qa3bI2iJSofA-1; Mon, 02 Mar 2020 10:03:21 -0500
+X-MC-Unique: x4iX3MirM0qa3bI2iJSofA-1
+X-Originating-IP: 209.85.166.173
+Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
+	[209.85.166.173]) (Authenticated sender: gmail@opensvc.com)
+	by relay5-d.mail.gandi.net (Postfix) with ESMTPSA id AEF701C0010
+	for <dm-devel@redhat.com>; Mon,  2 Mar 2020 15:03:19 +0000 (UTC)
+Received: by mail-il1-f173.google.com with SMTP id r4so8213318iln.0
+	for <dm-devel@redhat.com>; Mon, 02 Mar 2020 07:03:19 -0800 (PST)
+X-Gm-Message-State: ANhLgQ1CwgWHE5GK6d2LT/Cx8tt6AZ4flbwQZwLAakDDLwpWmyELF/9M
+	NyIHkKJx9Nd+AeaWM+K1huzNaFqet9bA5A3eJ14=
+X-Google-Smtp-Source: ADFU+vv84YznzU7Q1JzDVQRqVH6uYHT+p9msU8vwsRX8qJ9P0U31VD5lTVDWBsoPg1H4t6pIGMGu4Hey6eUObyC6sNA=
+X-Received: by 2002:a05:6e02:eb4:: with SMTP id u20mr37471ilj.57.1583161398295;
+	Mon, 02 Mar 2020 07:03:18 -0800 (PST)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 022Es4ni007866
+References: <20200302145354.1352-1-xose.vazquez@gmail.com>
+In-Reply-To: <20200302145354.1352-1-xose.vazquez@gmail.com>
+From: Christophe Varoqui <christophe.varoqui@opensvc.com>
+Date: Mon, 2 Mar 2020 16:03:06 +0100
+X-Gmail-Original-Message-ID: <CABr-Gnc6kgT3jbZysKkU12dyS9_xReXmo8wW4_EX329CT3Oneg@mail.gmail.com>
+Message-ID: <CABr-Gnc6kgT3jbZysKkU12dyS9_xReXmo8wW4_EX329CT3Oneg@mail.gmail.com>
+To: Xose Vazquez Perez <xose.vazquez@gmail.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: DM-DEVEL ML <dm-devel@redhat.com>,
-	Xose Vazquez Perez <xose.vazquez@gmail.com>,
-	Brian Bunker <brian@purestorage.com>
-Subject: [dm-devel] [PATCH resend] ALUA support for PURE FlashArray
+Cc: DM-DEVEL ML <dm-devel@redhat.com>, Brian Bunker <brian@purestorage.com>
+Subject: Re: [dm-devel] [PATCH resend] ALUA support for PURE FlashArray
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,42 +88,182 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============3341276955627513961=="
 
-RnJvbTogQnJpYW4gQnVua2VyIDxicmlhbkBwdXJlc3RvcmFnZS5jb20+CgpIZWxsbyBhbGwsCgpJ
-dCBoYXMgYmVlbiBzb21lIHRpbWUgc2luY2Ugd2UgdXBkYXRlZCBvdXIgUFVSRSBGbGFzaEFycmF5
-CmNvbmZpZ3VyYXRpb24uIFRoZSBMaW51eCB2ZW5kb3JzIHRoYXQgd2UgaGFkIGJlZW4gc2VlaW5n
-IGluIHRoZSBmaWVsZAp3ZXJlIHVzaW5nIHZlcnkgb2xkIHZlcnNpb25zIG9mIG11bHRpcGF0aC10
-b29scywgc28gd2UgaGF2ZW7igJl0IG5lZWRlZCB0bwpjaGFuZ2UgYW55dGhpbmcgZm9yIHNvbWUg
-dGltZS4gV2l0aCB0aGUgcmVsZWFzZSBvZiBSSEVMOCwgc29tZSBvZiBvdXIKZWFybGllciB2YWx1
-ZXMgaGF2ZSBiZWVuIGxvc3QgYnkgdXBzdHJlYW0gY2hhbmdlcy4KCkluIGFkZGl0aW9uIHdlIGhh
-dmUgb3VyIEFjdGl2ZSBDbHVzdGVyIGZlYXR1cmUgd2hpY2ggbGV2ZXJhZ2VzIEFMVUEKc2luY2Ug
-b3VyIGxhc3QgcGF0Y2guIFRoZSBBTFVBIGNvbmZndXJhdGlvbiB3aWxsIHdvcmsgZm9yIGFsbApG
-bGFzaEFycmF5cyB3aXRoIG9yIHdpdGhvdXQgQWN0aXZlIENsdXN0ZXIuCgpXZSBhcmUgY2hhbmdp
-bmcgMyB0aGluZ3MuCgoxLiBBTFVBIHN1cHBvcnQKMi4gRmFzdCBmYWlsIHRpbWVvdXQgZnJvbSB0
-aGUgZGVmYXVsdCBvZiA1IHNlY29uZHMgdG8gMTAgc2Vjb25kcyAoV2UKICAgbmVlZCB0aGlzIGZv
-ciBvdXIgRkMgTlBJViBwb3J0IG1pZ3JhdGlvbikuCjMuIE1heGltdW0gc2VjdG9yIHNpemUgb2Yg
-NE1CLiBTb21lIExpbnV4IHZlbmRvcnMgZG9u4oCZdCBob25vciB0aGUgYmxvY2sKICAgbGltaXRz
-IFZQRCBwYWdlIG9mIElOUVVJUlkpLgoKVGhhbmtzLApCcmlhbgoKQ2M6IENocmlzdG9waGUgVmFy
-b3F1aSA8Y2hyaXN0b3BoZS52YXJvcXVpQG9wZW5zdmMuY29tPgpDYzogRE0tREVWRUwgTUwgPGRt
-LWRldmVsQHJlZGhhdC5jb20+ClNpZ25lZC1vZmYtYnk6IFhvc2UgVmF6cXVleiBQZXJleiA8eG9z
-ZS52YXpxdWV6QGdtYWlsLmNvbT4KU2lnbmVkLW9mZi1ieTogQnJpYW4gQnVua2VyIDxicmlhbkBw
-dXJlc3RvcmFnZS5jb20+Ci0tLQogbGlibXVsdGlwYXRoL2h3dGFibGUuYyB8IDcgKysrKysrLQog
-MSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdp
-dCBhL2xpYm11bHRpcGF0aC9od3RhYmxlLmMgYi9saWJtdWx0aXBhdGgvaHd0YWJsZS5jCmluZGV4
-IDE2NjI3ZWMuLjliYzU5ZjEgMTAwNjQ0Ci0tLSBhL2xpYm11bHRpcGF0aC9od3RhYmxlLmMKKysr
-IGIvbGlibXVsdGlwYXRoL2h3dGFibGUuYwpAQCAtMTAzOSw3ICsxMDM5LDEyIEBAIHN0YXRpYyBz
-dHJ1Y3QgaHdlbnRyeSBkZWZhdWx0X2h3W10gPSB7CiAJCS8qIEZsYXNoQXJyYXkgKi8KIAkJLnZl
-bmRvciAgICAgICAgPSAiUFVSRSIsCiAJCS5wcm9kdWN0ICAgICAgID0gIkZsYXNoQXJyYXkiLAot
-CQkucGdwb2xpY3kgICAgICA9IE1VTFRJQlVTLAorCQkucGdwb2xpY3kgICAgICA9IEdST1VQX0JZ
-X1BSSU8sCisJCS5wZ2ZhaWxiYWNrICAgID0gLUZBSUxCQUNLX0lNTUVESUFURSwKKwkJLmh3aGFu
-ZGxlciAgICAgPSAiMSBhbHVhIiwKKwkJLnByaW9fbmFtZSAgICAgPSBQUklPX0FMVUEsCisJCS5m
-YXN0X2lvX2ZhaWwgID0gMTAsCisJCS5tYXhfc2VjdG9yc19rYiA9IDQwOTYsCiAJfSwKIAkvKgog
-CSAqIEh1YXdlaQotLSAKMi4yNC4xCgpCcmlhbiBCdW5rZXIKU1cgRW5nCmJyaWFuQHB1cmVzdG9y
-YWdlLmNvbQoKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0
-dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
+--===============3341276955627513961==
+Content-Type: multipart/alternative; boundary="000000000000c480e2059fe07c7e"
+
+--000000000000c480e2059fe07c7e
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Applied,
+thanks.
+
+On Mon, Mar 2, 2020 at 3:53 PM Xose Vazquez Perez <xose.vazquez@gmail.com>
+wrote:
+
+> From: Brian Bunker <brian@purestorage.com>
+>
+> Hello all,
+>
+> It has been some time since we updated our PURE FlashArray
+> configuration. The Linux vendors that we had been seeing in the field
+> were using very old versions of multipath-tools, so we haven=E2=80=99t ne=
+eded to
+> change anything for some time. With the release of RHEL8, some of our
+> earlier values have been lost by upstream changes.
+>
+> In addition we have our Active Cluster feature which leverages ALUA
+> since our last patch. The ALUA confguration will work for all
+> FlashArrays with or without Active Cluster.
+>
+> We are changing 3 things.
+>
+> 1. ALUA support
+> 2. Fast fail timeout from the default of 5 seconds to 10 seconds (We
+>    need this for our FC NPIV port migration).
+> 3. Maximum sector size of 4MB. Some Linux vendors don=E2=80=99t honor the=
+ block
+>    limits VPD page of INQUIRY).
+>
+> Thanks,
+> Brian
+>
+> Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
+> Cc: DM-DEVEL ML <dm-devel@redhat.com>
+> Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
+> Signed-off-by: Brian Bunker <brian@purestorage.com>
+> ---
+>  libmultipath/hwtable.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c
+> index 16627ec..9bc59f1 100644
+> --- a/libmultipath/hwtable.c
+> +++ b/libmultipath/hwtable.c
+> @@ -1039,7 +1039,12 @@ static struct hwentry default_hw[] =3D {
+>                 /* FlashArray */
+>                 .vendor        =3D "PURE",
+>                 .product       =3D "FlashArray",
+> -               .pgpolicy      =3D MULTIBUS,
+> +               .pgpolicy      =3D GROUP_BY_PRIO,
+> +               .pgfailback    =3D -FAILBACK_IMMEDIATE,
+> +               .hwhandler     =3D "1 alua",
+> +               .prio_name     =3D PRIO_ALUA,
+> +               .fast_io_fail  =3D 10,
+> +               .max_sectors_kb =3D 4096,
+>         },
+>         /*
+>          * Huawei
+> --
+> 2.24.1
+>
+> Brian Bunker
+> SW Eng
+> brian@purestorage.com
+>
+
+--000000000000c480e2059fe07c7e
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Applied,<div>thanks.</div></div><br><div class=3D"gmail_qu=
+ote"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Mar 2, 2020 at 3:53 PM X=
+ose Vazquez Perez &lt;<a href=3D"mailto:xose.vazquez@gmail.com">xose.vazque=
+z@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">From: Brian Bunker &lt;<a href=3D"mailto:brian@purestorage.com" =
+target=3D"_blank">brian@purestorage.com</a>&gt;<br>
+<br>
+Hello all,<br>
+<br>
+It has been some time since we updated our PURE FlashArray<br>
+configuration. The Linux vendors that we had been seeing in the field<br>
+were using very old versions of multipath-tools, so we haven=E2=80=99t need=
+ed to<br>
+change anything for some time. With the release of RHEL8, some of our<br>
+earlier values have been lost by upstream changes.<br>
+<br>
+In addition we have our Active Cluster feature which leverages ALUA<br>
+since our last patch. The ALUA confguration will work for all<br>
+FlashArrays with or without Active Cluster.<br>
+<br>
+We are changing 3 things.<br>
+<br>
+1. ALUA support<br>
+2. Fast fail timeout from the default of 5 seconds to 10 seconds (We<br>
+=C2=A0 =C2=A0need this for our FC NPIV port migration).<br>
+3. Maximum sector size of 4MB. Some Linux vendors don=E2=80=99t honor the b=
+lock<br>
+=C2=A0 =C2=A0limits VPD page of INQUIRY).<br>
+<br>
+Thanks,<br>
+Brian<br>
+<br>
+Cc: Christophe Varoqui &lt;<a href=3D"mailto:christophe.varoqui@opensvc.com=
+" target=3D"_blank">christophe.varoqui@opensvc.com</a>&gt;<br>
+Cc: DM-DEVEL ML &lt;<a href=3D"mailto:dm-devel@redhat.com" target=3D"_blank=
+">dm-devel@redhat.com</a>&gt;<br>
+Signed-off-by: Xose Vazquez Perez &lt;<a href=3D"mailto:xose.vazquez@gmail.=
+com" target=3D"_blank">xose.vazquez@gmail.com</a>&gt;<br>
+Signed-off-by: Brian Bunker &lt;<a href=3D"mailto:brian@purestorage.com" ta=
+rget=3D"_blank">brian@purestorage.com</a>&gt;<br>
+---<br>
+=C2=A0libmultipath/hwtable.c | 7 ++++++-<br>
+=C2=A01 file changed, 6 insertions(+), 1 deletion(-)<br>
+<br>
+diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c<br>
+index 16627ec..9bc59f1 100644<br>
+--- a/libmultipath/hwtable.c<br>
++++ b/libmultipath/hwtable.c<br>
+@@ -1039,7 +1039,12 @@ static struct hwentry default_hw[] =3D {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* FlashArray */<br=
+>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .vendor=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =3D &quot;PURE&quot;,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 .product=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0=3D &quot;FlashArray&quot;,<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.pgpolicy=C2=A0 =C2=
+=A0 =C2=A0 =3D MULTIBUS,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.pgpolicy=C2=A0 =C2=
+=A0 =C2=A0 =3D GROUP_BY_PRIO,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.pgfailback=C2=A0 =
+=C2=A0 =3D -FAILBACK_IMMEDIATE,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.hwhandler=C2=A0 =
+=C2=A0 =C2=A0=3D &quot;1 alua&quot;,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.prio_name=C2=A0 =
+=C2=A0 =C2=A0=3D PRIO_ALUA,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.fast_io_fail=C2=A0=
+ =3D 10,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.max_sectors_kb =3D=
+ 4096,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 },<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /*<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* Huawei<br>
+-- <br>
+2.24.1<br>
+<br>
+Brian Bunker<br>
+SW Eng<br>
+<a href=3D"mailto:brian@purestorage.com" target=3D"_blank">brian@purestorag=
+e.com</a><br>
+</blockquote></div>
+
+--000000000000c480e2059fe07c7e--
+
+--===============3341276955627513961==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
+--===============3341276955627513961==--
 
