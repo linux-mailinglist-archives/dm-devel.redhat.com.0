@@ -1,81 +1,62 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id DFBF11798BD
-	for <lists+dm-devel@lfdr.de>; Wed,  4 Mar 2020 20:15:34 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id CBC491798EE
+	for <lists+dm-devel@lfdr.de>; Wed,  4 Mar 2020 20:24:05 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1583349333;
+	s=mimecast20190719; t=1583349844;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=MRwoBpXPruwB8CoNTUxPz5+Ei+gs/EbFEeNxZPXFdvM=;
-	b=EMuZE6VAnFf9+F30t3nOk4mQuBIbk1WWvacGowDHPu+DlMZYSeaSIPS1UcR6u1RcXZFfbx
-	fcqRL/+79qjEMHyhUYqh83/IcSTH2E/3nNJaxYO4CB36BgsIMYBL84KtbucONs55kReXeT
-	07ox+iq1d6ta1KOu3+C/GfvN1W45RzU=
+	bh=1VwqVjNcObXigBZU+Xyly6TjowhKkiiFq0BJeha6IKY=;
+	b=JvTlshrYMrkQu1wq8t/W3AwC2xrk28V2jgwXBJPbm7ofqqmP4GuaiX+foLc9ZXaPHudPds
+	cvEABkoaNI2vtB6TS8yT0AR38p2+pMf3AjZ9bXsW/vrP10ffR093pcBJT5yTVHUPVD6hIG
+	bEnLNrcATYRRGlh3ZsdrbHnCsZ/uJVM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-455-jMwLmCWHOUuK4mfG_0rnbA-1; Wed, 04 Mar 2020 14:15:31 -0500
-X-MC-Unique: jMwLmCWHOUuK4mfG_0rnbA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-309-8VMnebYhPCmFEyyjePdTfw-1; Wed, 04 Mar 2020 14:24:00 -0500
+X-MC-Unique: 8VMnebYhPCmFEyyjePdTfw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 54A9D1084420;
-	Wed,  4 Mar 2020 19:15:24 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3014C1BC6D;
-	Wed,  4 Mar 2020 19:15:22 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4685C13E4;
+	Wed,  4 Mar 2020 19:23:53 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 258505DA76;
+	Wed,  4 Mar 2020 19:23:51 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C4F0E18034E9;
-	Wed,  4 Mar 2020 19:15:19 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C704886A04;
+	Wed,  4 Mar 2020 19:23:47 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 024JFCnF003547 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 4 Mar 2020 14:15:12 -0500
+	id 024JNd5U004332 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 4 Mar 2020 14:23:39 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 25A932038B80; Wed,  4 Mar 2020 19:15:12 +0000 (UTC)
+	id B56F990CD6; Wed,  4 Mar 2020 19:23:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F74F2038B82
-	for <dm-devel@redhat.com>; Wed,  4 Mar 2020 19:15:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 03D908E6858
-	for <dm-devel@redhat.com>; Wed,  4 Mar 2020 19:15:10 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-382-vEWBXzubO7qlQPpgL1IE-w-1;
-	Wed, 04 Mar 2020 14:15:07 -0500
-X-MC-Unique: vEWBXzubO7qlQPpgL1IE-w-1
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20200304150257.GA19885@redhat.com>
+Received: from localhost (unknown [10.18.25.174])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 98A8F91D68;
+	Wed,  4 Mar 2020 19:23:36 +0000 (UTC)
+Date: Wed, 4 Mar 2020 14:23:35 -0500
+From: Mike Snitzer <snitzer@redhat.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20200304192335.GA24296@redhat.com>
 References: <20200304150257.GA19885@redhat.com>
-X-PR-Tracked-List-Id: <linux-block.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20200304150257.GA19885@redhat.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git
-	tags/for-5.6/dm-fixes
-X-PR-Tracked-Commit-Id: 636be4241bdd88fec273b38723e44bad4e1c4fae
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 776e49e8ddb5169e6477fd33a396e9c7b2eb7400
-Message-Id: <158334930588.25458.12566074369061946037.pr-tracker-bot@kernel.org>
-Date: Wed, 04 Mar 2020 19:15:05 +0000
-To: Mike Snitzer <snitzer@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 024JFCnF003547
+	<CAHk-=wgP=q648JXn8Hd9q7DuNaOEpLmxQp2W3RO3vkaD2CS_9g@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAHk-=wgP=q648JXn8Hd9q7DuNaOEpLmxQp2W3RO3vkaD2CS_9g@mail.gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-Cc: Theodore Ts'o <tytso@mit.edu>, linux-block@vger.kernel.org,
+Cc: Theodore Ts'o <tytso@mit.edu>, linux-block <linux-block@vger.kernel.org>,
 	dm-devel@redhat.com, Mikulas Patocka <mpatocka@redhat.com>,
 	Hou Tao <houtao1@huawei.com>,
 	Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
 	Alasdair G Kergon <agk@redhat.com>
 Subject: Re: [dm-devel] [git pull] device mapper fixes for 5.6-rc5
 X-BeenThere: dm-devel@redhat.com
@@ -89,28 +70,50 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-The pull request you sent on Wed, 4 Mar 2020 10:02:57 -0500:
+On Wed, Mar 04 2020 at  2:06pm -0500,
+Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git tags/for-5.6/dm-fixes
+> On Wed, Mar 4, 2020 at 9:03 AM Mike Snitzer <snitzer@redhat.com> wrote:
+> >
+> > - Bump the minor version for DM core and all target versions that have
+> >   seen interface changes or important fixes during the 5.6 cycle.
+> 
+> Can we please remove these pointless version markers entirely?
+> 
+> They make no sense. The kernel doesn't allow backwards incompatible
+> changes anyway, so the whole point of using some kind of interface
+> versioning is entirely bogus.
+> 
+> The way you test if a new feature exists or not is to just use it, and
+> if you're running on an old kernel that doesn't support that
+> operation, then it should return an error.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/776e49e8ddb5169e6477fd33a396e9c7b2eb7400
+These versions are for userspace's benefit (be it lvm2, cryptsetup,
+multipath-tools, etc).  But yes, these versions are bogus even for
+that -- primarily because it requires userspace to know when a
+particular feature/fix it cares about was introduced.  In addition: if
+fixes, that also bump version, are marked for stable@ then we're quickly
+in versioning hell -- which is why I always try to decouple version
+bumps from fixes.
 
-Thank you!
+Others have suggested setting feature flags.  I expect you'd hate those
+too.  I suspect I quickly would too given flag bits are finite and
+really tedious to deal with.
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.wiki.kernel.org/userdoc/prtracker
+I'll think further about this issue and consult with userspace
+developers and see what we might do.
 
+Thanks (for the needed kick in the ass).
+Mike
 
 --
 dm-devel mailing list
