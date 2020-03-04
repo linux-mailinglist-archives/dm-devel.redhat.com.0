@@ -1,60 +1,81 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id A169D1792EF
-	for <lists+dm-devel@lfdr.de>; Wed,  4 Mar 2020 16:03:47 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id F1D8B1795A2
+	for <lists+dm-devel@lfdr.de>; Wed,  4 Mar 2020 17:48:23 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1583334226;
+	s=mimecast20190719; t=1583340502;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=2mxnIbCusXIBWKZd/aoV9WefTUR01VJ+gF/HLIFXoi4=;
-	b=BBCfF3g90kjmCfmVp9u0MllH/8CqQncTMH9HneZ3MnRnxn8J1SXulA/Ufzu8qNbvhOt99e
-	AeuiFu2RizRoLY74t9SSazROHc1WJaUiBduv5W6E7xgW+NpgQTU7h0Ti78vkFT666LIGdP
-	GKvk/5we7Bs4dSAMORf6/anS3rbPrTE=
+	bh=UXv+ZZG5VpAdp/VXgFb8LqN05EWL+qxZPZyviSb6J6M=;
+	b=b6TTSNuxaKZVkH84CGOVn/uxj78evDMYYFDj+StkQKZEMoX4yPbO2BvH8SEF8tUxvT3FE8
+	QePVDPhuFr8rSZFBg4rRLsOHVVnc3o+8SB0RwfVer3wm8GezmUWpKQCTSm5g3sG2FxcCB0
+	SyjplOhgJK9hjevL/ILF3olT45JPVhk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-202-nrd9nSkENTqgJ8xbromEZQ-1; Wed, 04 Mar 2020 10:03:43 -0500
-X-MC-Unique: nrd9nSkENTqgJ8xbromEZQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-308-d7QpIFLZP36w_L1MxNHcwQ-1; Wed, 04 Mar 2020 11:48:20 -0500
+X-MC-Unique: d7QpIFLZP36w_L1MxNHcwQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4FBBA18C43CB;
-	Wed,  4 Mar 2020 15:03:36 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3A40C8010EE;
+	Wed,  4 Mar 2020 16:48:09 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B916A8B570;
-	Wed,  4 Mar 2020 15:03:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E9818100194E;
+	Wed,  4 Mar 2020 16:48:04 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E49DE86A04;
-	Wed,  4 Mar 2020 15:03:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9F18D8174D;
+	Wed,  4 Mar 2020 16:47:49 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 024F31hI015992 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 4 Mar 2020 10:03:01 -0500
+	id 024GlXMI023736 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 4 Mar 2020 11:47:33 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id DC58290CC3; Wed,  4 Mar 2020 15:03:01 +0000 (UTC)
+	id 624DF2102BF5; Wed,  4 Mar 2020 16:47:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4445691D8C;
-	Wed,  4 Mar 2020 15:02:58 +0000 (UTC)
-Date: Wed, 4 Mar 2020 10:02:57 -0500
-From: Mike Snitzer <snitzer@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20200304150257.GA19885@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5D4482026D68
+	for <dm-devel@redhat.com>; Wed,  4 Mar 2020 16:47:31 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 65111800299
+	for <dm-devel@redhat.com>; Wed,  4 Mar 2020 16:47:31 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-92-vxTVYAwUNsWGJPtYbGzuwg-1; Wed, 04 Mar 2020 11:47:28 -0500
+X-MC-Unique: vxTVYAwUNsWGJPtYbGzuwg-1
+Received: from hch by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
+	Hat Linux)) id 1j9WhJ-0005Qk-3b; Wed, 04 Mar 2020 16:16:37 +0000
+Date: Wed, 4 Mar 2020 08:16:37 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: Pankaj Gupta <pankaj.gupta.linux@gmail.com>
+Message-ID: <20200304161637.GA16390@infradead.org>
+References: <20200228163456.1587-1-vgoyal@redhat.com>
+	<20200228163456.1587-2-vgoyal@redhat.com>
+	<CAM9Jb+gJWH_bC-9fgGdeP5LaSVjJ3JgTnjBxpRJMfe6vbTPOTA@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+In-Reply-To: <CAM9Jb+gJWH_bC-9fgGdeP5LaSVjJ3JgTnjBxpRJMfe6vbTPOTA@mail.gmail.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 024GlXMI023736
 X-loop: dm-devel@redhat.com
-Cc: Theodore Ts'o <tytso@mit.edu>, linux-block@vger.kernel.org,
-	dm-devel@redhat.com, Mikulas Patocka <mpatocka@redhat.com>,
-	Hou Tao <houtao1@huawei.com>,
-	Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
-	Alasdair G Kergon <agk@redhat.com>
-Subject: [dm-devel] [git pull] device mapper fixes for 5.6-rc5
+Cc: linux-nvdimm@lists.01.org, david@fromorbit.com, hch@infradead.org,
+	dm-devel@redhat.com, linux-fsdevel@vger.kernel.org,
+	dan.j.williams@intel.com, Christoph Hellwig <hch@lst.de>,
+	Vivek Goyal <vgoyal@redhat.com>
+Subject: Re: [dm-devel] [PATCH v6 1/6] pmem: Add functions for
+ reading/writing page to/from pmem
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -68,89 +89,21 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-Hi Linus,
+On Sat, Feb 29, 2020 at 09:04:00AM +0100, Pankaj Gupta wrote:
+> > +       phys_addr_t pmem_off = sector * 512 + pmem->data_offset;
+> 
+> minor nit,  maybe 512 is replaced by macro? Looks like its used at multiple
+> places, maybe can keep at is for now.
 
-The following changes since commit 47ace7e012b9f7ad71d43ac9063d335ea3d6820b:
+That would be the existing SECTOR_SIZE macro.
 
-  dm: fix potential for q->make_request_fn NULL pointer (2020-01-27 14:52:36 -0500)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git tags/for-5.6/dm-fixes
-
-for you to fetch changes up to 636be4241bdd88fec273b38723e44bad4e1c4fae:
-
-  dm: bump version of core and various targets (2020-03-03 11:10:21 -0500)
-
-Please pull, thanks!
-Mike
-
-----------------------------------------------------------------
-- Fix request-based DM's congestion_fn and actually wire it up to the
-  bdi.
-
-- Extend dm-bio-record to track additional struct bio members needed
-  by DM integrity target.
-
-- Fix DM core to properly advertise that a device is suspended during
-  unload (between the presuspend and postsuspend hooks).  This change
-  is a prereq for related DM integrity and DM writecache fixes.  It
-  elevates DM integrity's 'suspending' state tracking to DM core.
-
-- Four stable fixes for DM integrity target.
-
-- Fix crash in DM cache target due to incorrect work item cancelling.
-
-- Fix DM thin metadata lockdep warning that was introduced during 5.6
-  merge window.
-
-- Fix DM zoned target's chunk work refcounting that regressed during
-  recent conversion to refcount_t.
-
-- Bump the minor version for DM core and all target versions that have
-  seen interface changes or important fixes during the 5.6 cycle.
-
-----------------------------------------------------------------
-Hou Tao (1):
-      dm: fix congested_fn for request-based device
-
-Mike Snitzer (3):
-      dm bio record: save/restore bi_end_io and bi_integrity
-      dm integrity: use dm_bio_record and dm_bio_restore
-      dm: bump version of core and various targets
-
-Mikulas Patocka (6):
-      dm integrity: fix recalculation when moving from journal mode to bitmap mode
-      dm integrity: fix a deadlock due to offloading to an incorrect workqueue
-      dm integrity: fix invalid table returned due to argument count mismatch
-      dm cache: fix a crash due to incorrect work item cancelling
-      dm: report suspended device during destroy
-      dm writecache: verify watermark during resume
-
-Shin'ichiro Kawasaki (1):
-      dm zoned: Fix reference counter initial value of chunk works
-
-Theodore Ts'o (1):
-      dm thin metadata: fix lockdep complaint
-
- drivers/md/dm-bio-record.h    | 15 ++++++++
- drivers/md/dm-cache-target.c  |  6 ++--
- drivers/md/dm-integrity.c     | 84 ++++++++++++++++++++++---------------------
- drivers/md/dm-mpath.c         |  2 +-
- drivers/md/dm-thin-metadata.c |  2 +-
- drivers/md/dm-verity-target.c |  2 +-
- drivers/md/dm-writecache.c    | 16 ++++++---
- drivers/md/dm-zoned-target.c  | 10 +++---
- drivers/md/dm.c               | 22 ++++++------
- include/uapi/linux/dm-ioctl.h |  4 +--
- 10 files changed, 94 insertions(+), 69 deletions(-)
 
 --
 dm-devel mailing list
