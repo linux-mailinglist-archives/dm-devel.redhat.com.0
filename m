@@ -1,75 +1,70 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id D4FF617A226
-	for <lists+dm-devel@lfdr.de>; Thu,  5 Mar 2020 10:19:36 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id D3F2317A26D
+	for <lists+dm-devel@lfdr.de>; Thu,  5 Mar 2020 10:44:56 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1583399975;
+	s=mimecast20190719; t=1583401495;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vb8hrgPQWIRmG89qC0itQ5TNTDRQ2CjBn+N+DNW8Fjo=;
-	b=ibfejKPjV7YTeFNGiYOt/qNQ8vrn24Gyh0sBR49TbZPvBjQaOQzuq1l3X14lm+d2JRwhA6
-	vmZGmNpv1Nnfhu9ryR30zn7bSTxcHYgN8o7yZ7h2R5xb516MWxL+ND6W/wEe/BaeELR/3U
-	7oCrqYzBHw3WZeEnY1Vhkl28gJf8BTM=
+	bh=BM89uJeMrmfYws192pgt+t2+D9glFGSq5BZeZLuWCdM=;
+	b=VHZXlDFfHj3KDwj/ZGxwaI2yr0kxCCb4V2fGauTHulbmRWnCqnTZ7CI33RRsFoLzjSNBQe
+	X7MWIiTSv2oYJXxquBJAWht1b2kXuS33zNFtQfhX5ON9QgJdT/SgbCZ8iao4ZePk6l2Dc6
+	FCdl5JJUsp6iU0AamH3HgZ1i6SujSP4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-300-kjyEu0HEMjCjlxxbe66uDA-1; Thu, 05 Mar 2020 04:19:33 -0500
-X-MC-Unique: kjyEu0HEMjCjlxxbe66uDA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-472-udaD0DwyOE-t4FD-56d83A-1; Thu, 05 Mar 2020 04:44:53 -0500
+X-MC-Unique: udaD0DwyOE-t4FD-56d83A-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 60F581005512;
-	Thu,  5 Mar 2020 09:19:23 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 45C438010EC;
+	Thu,  5 Mar 2020 09:44:46 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 73F0190CF0;
-	Thu,  5 Mar 2020 09:19:21 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BAD3F5D9C9;
+	Thu,  5 Mar 2020 09:44:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DA1C98449D;
-	Thu,  5 Mar 2020 09:19:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 78CD48174D;
+	Thu,  5 Mar 2020 09:44:38 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 024GeJqx023160 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 4 Mar 2020 11:40:19 -0500
+	id 0259iT8h022994 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 5 Mar 2020 04:44:29 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E2F57100D89; Wed,  4 Mar 2020 16:40:18 +0000 (UTC)
+	id B92B491D8F; Thu,  5 Mar 2020 09:44:29 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DF5F8108BD8
-	for <dm-devel@redhat.com>; Wed,  4 Mar 2020 16:40:16 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 45AE6185A790
-	for <dm-devel@redhat.com>; Wed,  4 Mar 2020 16:40:16 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
-	[46.235.227.227]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-183-UFt_esZ5NDiBRmFv_J9wXw-1; Wed, 04 Mar 2020 11:39:59 -0500
-X-MC-Unique: UFt_esZ5NDiBRmFv_J9wXw-1
-Received: from localhost (unknown [IPv6:2610:98:8005::7c7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested) (Authenticated sender: krisman)
-	by bhuna.collabora.co.uk (Postfix) with ESMTPSA id A34E5277952;
-	Wed,  4 Mar 2020 16:39:57 +0000 (GMT)
-From: Gabriel Krisman Bertazi <krisman@collabora.com>
-To: agk@redhat.com
-Date: Wed,  4 Mar 2020 11:39:53 -0500
-Message-Id: <20200304163953.578311-1-krisman@collabora.com>
+Received: from [10.43.17.55] (unknown [10.43.17.55])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A76EC90795;
+	Thu,  5 Mar 2020 09:44:22 +0000 (UTC)
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+	Mike Snitzer <snitzer@redhat.com>
+References: <20200304150257.GA19885@redhat.com>
+	<CAHk-=wgP=q648JXn8Hd9q7DuNaOEpLmxQp2W3RO3vkaD2CS_9g@mail.gmail.com>
+	<20200304192335.GA24296@redhat.com>
+	<CAHk-=wjdzxSGRLVHheRd1WA_FhsAMEV5pOwy08x8NaMG7ty8DQ@mail.gmail.com>
+From: Zdenek Kabelac <zkabelac@redhat.com>
+Organization: Red Hat
+Message-ID: <7493a5fb-e267-6aaa-286b-16472ac8a5ca@redhat.com>
+Date: Thu, 5 Mar 2020 10:44:21 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.5.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 024GeJqx023160
+In-Reply-To: <CAHk-=wjdzxSGRLVHheRd1WA_FhsAMEV5pOwy08x8NaMG7ty8DQ@mail.gmail.com>
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Thu, 05 Mar 2020 04:18:51 -0500
-Cc: Tahsin Erdogan <tahsin@google.com>, snitzer@redhat.com,
-	Khazhismel Kumykov <khazhy@google.com>, dm-devel@redhat.com,
-	kernel@collabora.com, Gabriel Krisman Bertazi <krisman@collabora.com>
-Subject: [dm-devel] [PATCH] iscsi: do not wait for IOs in dm shrinker
+Cc: Theodore Ts'o <tytso@mit.edu>, linux-block <linux-block@vger.kernel.org>,
+	dm-devel@redhat.com, Mikulas Patocka <mpatocka@redhat.com>,
+	Hou Tao <houtao1@huawei.com>,
+	Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
+	Alasdair G Kergon <agk@redhat.com>
+Subject: Re: [dm-devel] [git pull] device mapper fixes for 5.6-rc5
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,189 +78,74 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 
-From: Tahsin Erdogan <tahsin@google.com>
-
-If something goes wrong with an iscsi session, the problem is reported
-to giscsid via a netlink message. Then, giscsid tries to add a new device
-and destroy the old one. During old device destruction, the pending ios
-get completed with an error. Without destroying the device the io
-operations are stuck forever.
-
-If dm shrinker is invoked with __GFP_IO, shrinker gets blocked waiting for
-the pending ios to complete. So, if the giscsid repair path ends up
-doing a memory allocation with __GFP_IO enabled, it could end up in a
-deadlock because the iscsi io cannot be completed until giscsid can do its
-job and giscsid cannot do its job until the io completes.
-
-Even worse, the deadlock can also occur even if giscsid avoids __GFP_IO
-in all paths. For instance, if giscsid tries to grab a mutex held by
-another thread and that thread invokes the shrinker we again may enter a
-deadlock. Here is a scenario stitched from multiple bugs that
-demonstrates how the deadlock can occur:
-
-iSCSI-write
-        holding: rx_queue_mutex
-        waiting: uevent_sock_mutex
-
-        kobject_uevent_env+0x1bd/0x419
-        kobject_uevent+0xb/0xd
-        device_add+0x48a/0x678
-        scsi_add_host_with_dma+0xc5/0x22d
-        iscsi_host_add+0x53/0x55
-        iscsi_sw_tcp_session_create+0xa6/0x129
-        iscsi_if_rx+0x100/0x1247
-        netlink_unicast+0x213/0x4f0
-        netlink_sendmsg+0x230/0x3c0
-
-iscsi_fail iscsi_conn_failure
-        waiting: rx_queue_mutex
-
-        schedule_preempt_disabled+0x325/0x734
-        __mutex_lock_slowpath+0x18b/0x230
-        mutex_lock+0x22/0x40
-        iscsi_conn_failure+0x42/0x149
-        worker_thread+0x24a/0xbc0
-
-EventManager_
-        holding: uevent_sock_mutex
-        waiting: dm_bufio_client->lock
-
-        dm_bufio_lock+0xe/0x10
-        shrink+0x34/0xf7
-        shrink_slab+0x177/0x5d0
-        do_try_to_free_pages+0x129/0x470
-        try_to_free_mem_cgroup_pages+0x14f/0x210
-        memcg_kmem_newpage_charge+0xa6d/0x13b0
-        __alloc_pages_nodemask+0x4a3/0x1a70
-        fallback_alloc+0x1b2/0x36c
-        __kmalloc_node_track_caller+0xb9/0x10d0
-        __alloc_skb+0x83/0x2f0
-        kobject_uevent_env+0x26b/0x419
-        dm_kobject_uevent+0x70/0x79
-        dev_suspend+0x1a9/0x1e7
-        ctl_ioctl+0x3e9/0x411
-        dm_ctl_ioctl+0x13/0x17
-        do_vfs_ioctl+0xb3/0x460
-        SyS_ioctl+0x5e/0x90
-
-MemcgReclaimerD"
-        holding: dm_bufio_client->lock
-        waiting: stuck io to finish (needs iscsi_fail thread to progress)
-
-        schedule at ffffffffbd603618
-        io_schedule at ffffffffbd603ba4
-        do_io_schedule at ffffffffbdaf0d94
-        __wait_on_bit at ffffffffbd6008a6
-        out_of_line_wait_on_bit at ffffffffbd600960
-        wait_on_bit.constprop.10 at ffffffffbdaf0f17
-        __make_buffer_clean at ffffffffbdaf18ba
-        __cleanup_old_buffer at ffffffffbdaf192f
-        shrink at ffffffffbdaf19fd
-        do_shrink_slab at ffffffffbd6ec000
-        shrink_slab at ffffffffbd6ec24a
-        do_try_to_free_pages at ffffffffbd6eda09
-        try_to_free_mem_cgroup_pages at ffffffffbd6ede7e
-        mem_cgroup_resize_limit at ffffffffbd7024c0
-        mem_cgroup_write at ffffffffbd703149
-        cgroup_file_write at ffffffffbd6d9c6e
-        sys_write at ffffffffbd6662ea
-        system_call_fastpath at ffffffffbdbc34a2
-
-Co-developed-by: Khazhismel Kumykov <khazhy@google.com>
-Signed-off-by: Khazhismel Kumykov <khazhy@google.com>
-Signed-off-by: Tahsin Erdogan <tahsin@google.com>
-Co-developed-by: Gabriel Krisman Bertazi <krisman@collabora.com>
-Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
----
- drivers/md/dm-bufio.c | 31 +++++++++++++------------------
- 1 file changed, 13 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
-index 2d519c223562..4c4f80e894b6 100644
---- a/drivers/md/dm-bufio.c
-+++ b/drivers/md/dm-bufio.c
-@@ -1516,18 +1516,16 @@ static void drop_buffers(struct dm_bufio_client *c)
-  * We may not be able to evict this buffer if IO pending or the client
-  * is still using it.  Caller is expected to know buffer is too old.
-  *
-- * And if GFP_NOFS is used, we must not do any I/O because we hold
-- * dm_bufio_clients_lock and we would risk deadlock if the I/O gets
-- * rerouted to different bufio client.
-+ * We must not do any I/O because we hold dm_bufio_clients_lock and we
-+ * would risk deadlock if the I/O gets rerouted to different bufio
-+ * client.
-  */
--static bool __try_evict_buffer(struct dm_buffer *b, gfp_t gfp)
-+static bool __try_evict_buffer(struct dm_buffer *b)
- {
--	if (!(gfp & __GFP_FS)) {
--		if (test_bit(B_READING, &b->state) ||
--		    test_bit(B_WRITING, &b->state) ||
--		    test_bit(B_DIRTY, &b->state))
--			return false;
--	}
-+	if (test_bit(B_READING, &b->state) ||
-+	    test_bit(B_WRITING, &b->state) ||
-+	    test_bit(B_DIRTY, &b->state))
-+		return false;
- 
- 	if (b->hold_count)
- 		return false;
-@@ -1549,8 +1547,7 @@ static unsigned long get_retain_buffers(struct dm_bufio_client *c)
- 	return retain_bytes;
- }
- 
--static unsigned long __scan(struct dm_bufio_client *c, unsigned long nr_to_scan,
--			    gfp_t gfp_mask)
-+static unsigned long __scan(struct dm_bufio_client *c, unsigned long nr_to_scan)
- {
- 	int l;
- 	struct dm_buffer *b, *tmp;
-@@ -1561,7 +1558,7 @@ static unsigned long __scan(struct dm_bufio_client *c, unsigned long nr_to_scan,
- 
- 	for (l = 0; l < LIST_SIZE; l++) {
- 		list_for_each_entry_safe_reverse(b, tmp, &c->lru[l], lru_list) {
--			if (__try_evict_buffer(b, gfp_mask))
-+			if (__try_evict_buffer(b))
- 				freed++;
- 			if (!--nr_to_scan || ((count - freed) <= retain_target))
- 				return freed;
-@@ -1578,12 +1575,10 @@ dm_bufio_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
- 	unsigned long freed;
- 
- 	c = container_of(shrink, struct dm_bufio_client, shrinker);
--	if (sc->gfp_mask & __GFP_FS)
--		dm_bufio_lock(c);
--	else if (!dm_bufio_trylock(c))
-+	if (!dm_bufio_trylock(c))
- 		return SHRINK_STOP;
- 
--	freed  = __scan(c, sc->nr_to_scan, sc->gfp_mask);
-+	freed  = __scan(c, sc->nr_to_scan);
- 	dm_bufio_unlock(c);
- 	return freed;
- }
-@@ -1811,7 +1806,7 @@ static void __evict_old_buffers(struct dm_bufio_client *c, unsigned long age_hz)
- 		if (!older_than(b, age_hz))
- 			break;
- 
--		if (__try_evict_buffer(b, 0))
-+		if (__try_evict_buffer(b))
- 			count--;
- 
- 		cond_resched();
--- 
-2.25.0
-
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+RG5lIDA0LiAwMy4gMjAgdiAyMDozNCBMaW51cyBUb3J2YWxkcyBuYXBzYWwoYSk6Cj4gCj4gCj4g
+T24gV2VkLCBNYXIgNCwgMjAyMCwgMTM6MjMgTWlrZSBTbml0emVyIDxzbml0emVyQHJlZGhhdC5j
+b20gCj4gPG1haWx0bzpzbml0emVyQHJlZGhhdC5jb20+PiB3cm90ZToKPiAKPiAKPiAgICAgVGhl
+c2UgdmVyc2lvbnMgYXJlIGZvciB1c2Vyc3BhY2UncyBiZW5lZml0IChiZSBpdCBsdm0yLCBjcnlw
+dHNldHVwLAo+ICAgICBtdWx0aXBhdGgtdG9vbHMsIGV0YykuwqAgQnV0IHllcywgdGhlc2UgdmVy
+c2lvbnMgYXJlIGJvZ3VzIGV2ZW4gZm9yCj4gICAgIHRoYXQgLS0gcHJpbWFyaWx5IGJlY2F1c2Ug
+aXQgcmVxdWlyZXMgdXNlcnNwYWNlIHRvIGtub3cgd2hlbiBhCj4gICAgIHBhcnRpY3VsYXIgZmVh
+dHVyZS9maXggaXQgY2FyZXMgYWJvdXQgd2FzIGludHJvZHVjZWQuwqAgSW4gYWRkaXRpb246IGlm
+Cj4gICAgIGZpeGVzLCB0aGF0IGFsc28gYnVtcCB2ZXJzaW9uLCBhcmUgbWFya2VkIGZvciBzdGFi
+bGVAIHRoZW4gd2UncmUgcXVpY2tseQo+ICAgICBpbiB2ZXJzaW9uaW5nIGhlbGwgLS0gd2hpY2gg
+aXMgd2h5IEkgYWx3YXlzIHRyeSB0byBkZWNvdXBsZSB2ZXJzaW9uCj4gICAgIGJ1bXBzIGZyb20g
+Zml4ZXMuCj4gCj4gCj4gWWVhaCwgSSB0aGluayB0aGUgZHJtIHBlb3BsZSB1c2VkIHRvIGhhdmUg
+YSB2ZXJzaW9uIG51bWJlciB0b28sIGFuZCBpdCdzIG5vdCAKPiBqdXN0IGZpeGVzIGdldHRpbmcg
+YmFja3BvcnRlZCB0byBzdGFibGUgLSBpdCdzIGRpc3RybyBrZXJuZWxzIHRha2luZyBjaGFuZ2Vz
+IAo+IGZvciBuZXcgaGFyZHdhcmUgd2l0aG91dCB0YWtpbmcgb3RoZXIgcGFydHMgZXRjLgo+IAo+
+IFNvIHRoZSB2ZXJzaW9uaW5nIGVuZHMgdXAgbm90IGV2ZXIgd29ya2luZyByZWxpYWJseSBhbnl3
+YXkgLSB0aGUgc2FtZSB3YXkgdGhhdCAKPiB5b3UgY2FuJ3QgdXNlIHRoZSBrZXJuZWwgdmVyc2lv
+biBudW1iZXIgdG8gZGV0ZXJtaW5lIHdoYXQgc3lzdGVtIGNhbGxzIGFyZSAKPiBhdmFpbGFibGUu
+Cj4gCj4gU28gdmVyc2lvbnMgY2FuIG5vdCBldmVyIGJlIGFueXRoaW5nIG1vcmUgdGhhbiBpbmZv
+cm1hdGlvbmFsLCBhbmQgaXQncyB1c3VhbGx5IAo+IGp1c3QgdmVyeSBjb25mdXNpbmcgdG8gaGF2
+ZSBtdWx0aXBsZSBkaWZmZXJlbnQgdmVyc2lvbiBudW1iZXJzIChpZSAiSSdtIAo+IHJ1bm5pbmcg
+a2VybmVsIHY1LjQsIGFuZCBteSBkcml2ZXIgYWJjIHZlcnNpb24gaXMgMS40LjJhIiBpcyAqbm90
+KiBpbiB0aGUgCj4gbGVhc3QgaGVscGZ1bCkuCj4gCj4gICAgIE90aGVycyBoYXZlIHN1Z2dlc3Rl
+ZCBzZXR0aW5nIGZlYXR1cmUgZmxhZ3MuwqAgSSBleHBlY3QgeW91J2QgaGF0ZSB0aG9zZQo+ICAg
+ICB0b28uwqAgSSBzdXNwZWN0IEkgcXVpY2tseSB3b3VsZCB0b28gZ2l2ZW4gZmxhZyBiaXRzIGFy
+ZSBmaW5pdGUgYW5kCj4gICAgIHJlYWxseSB0ZWRpb3VzIHRvIGRlYWwgd2l0aC4KPiAKPiAKPiBJ
+dCBhbHNvIGxlYWRzIHRvIHNvbWUgcGVvcGxlIHRoZW4gdGhpbmtpbmcgaXQncyBvayB0byByZW1v
+dmUgZmVhdHVyZXMgKHBlcmhhcHMgCj4gdG8gcmVpbXBsZW1lbnQgdGhlbSBkaWZmZXJlbnRseSkg
+aWYgdGhleSBvbmx5IGNsZWFyIHRoZSBmZWF0dXJlIGJpdC4KPiAKPiBBbmQgbm8sIGl0J3Mgbm90
+IGhvdyBrZXJuZWwgaW50ZXJmYWNlcyB3b3JrLiBXZSBrZWVwIHRoZSBpbnRlcmZhY2VzIGV2ZW4g
+aWYgCj4gdGhlIGludGVybmFscyBjaGFuZ2UuCj4gCj4gU28gSSd2ZSBiZWVuIHN1Z2dlc3Rpbmcg
+dGhhdCBwZW9wbGUganVzdCBmcmVlemUgdGhlIHZlcnNpb24sIG9yIHJlbW92ZSB0aGUgCj4gaW50
+ZXJmYWNlIGVudGlyZWx5IGlzIHBvc3NpYmxlLgo+IAo+IEJlY2F1c2Ugb3RoZXJ3aXNlIGl0J3Mg
+anVzdCBhIHNvdXJjZSBvZiBwcm9ibGVtcywgd2hlcmUgdXNlciBzcGFjZSBtaWdodCAKPiByZWZ1
+c2UgdG8gZG8gc29tZXRoaW5nIHRoYXQgdGhlIGtlcm5lbCBzdXBwb3J0cyBiZWNhdXNlIG9mIHNv
+bWUgc2lsbHkgdmVyc2lvbiAKPiBjaGVjay4uLgoKSGkKClBPViBvZiBsdm0yIGRldmVsb3BlciAt
+IHRoZXJlIGFyZSAyIHRoaW5ncyB0byBzb2x2ZSAtIDFzdC4gaXMgdGhlIGludHJvZHVjdGlvbiAK
+b2YgYSBuZXcgJ2ZlYXR1cmVzJy4gVGhlIDJuZC4gaXMgdXNhYmlsaXR5L3N0YWJpbGl0eSBvZiBj
+ZXJ0YWluIHZlcnNpb24gb2YgZG0gCnRhcmdldHMgLSBzbyB3aGVuIHdlIGxhdGVyIGRpc2NvdmVy
+IHNvbWUgY29tYmluYXRpb24gb2YgZGV2aWNlIHN0YWNrIGFyZSBub3QgCnNhZmUgdG8gdXNlIChj
+YW4gbGVhZCB0byBzaWduaWZpY2FudCBsb3NlIG9mIHVzZXIncyBkYXRhKSBsdm0yIGFkZHMgY2hl
+Y2sgZm9yIAp0aGlzLgoKVGhlIHJlYXNvbiBmb3IgY29tcGxleGl0eSBjb21lcyBmcm9tIGZhY3Qg
+LSBudW1lcm91cyBkaXN0cmlidXRpb24gdXNlIHZlcnNpb24Kb2Yga2VybmVsIFguWS5aIHdoaWxl
+IHRoZXkgY2FuIGhhdmUgbXVjaCBuZXcgRE0gdGFyZ2V0IHZlcnNpb24gYXMgaXQncyBtdWNoIApt
+b3JlIHNpbXBsZSB0byBiYWNrcG9ydCBuZXcgRE0gaW50byBvbGRlciB2ZXJzaW9uLgoKTm90aGlu
+ZyBpcyBjbGVhcmx5ICdwZXJmZWN0JywgdGhlcmUgaXMgbm8gaWRlYWwgc29sdXRpb24gdG8gY292
+ZXIgYWxsIApjb21iaW5hdGlvbiBvZiBhbGwga2VybmVsIGJhY2twb3J0cyAtIGJ1dCBjdXJyZW50
+IHNlcGFyYXRlIHZlcnNpb25pbmcgc3RyZWFtCm9mIERNIHRhcmdldHMgYWRkZWQgdG8ga2VybmVs
+IHZlcnNpb25pbmcsIHdoaWNoIGkuZS4gbHZtMiBhbHNvIGlzIHRyYWNraW5nLCAKYWRkcyBtb3Jl
+IGhpbnRzIGZvciBzYWZlIGRlY2lzaW9uIChhcyB0aGUgc2FmZXR5IG9mIHVzZXIncyBkYXRhIGlz
+IHRoZSBtb3N0IAppbXBvcnRhbnQgaGVyZSkgIGFuZCBhbGxvd3MgdmFyaW91cyBkaXN0cmlidXRp
+b25zIHRvICdzb21laG93IHJlYXNvbmFibHknIApoYW5kbGUgYmFja3BvcnRpbmcgb2YgYnVnZml4
+ZXMuCgpTbyBpZiB0aGVyZSB3b3VsZCBiZSAnZmVhdHVyZSBmbGFnJyBsaXN0IHByb3ZpZGVkIGJ5
+IERNIHRhcmdldCAtIHRoZXJlIHN0aWxsIApzaG91bGQgYmUgdmlzaWJsZSB3aGljaCB2ZXJzaW9u
+IG9mIGltcGxlbWVudGVkIGZsYWcgaXMgdGhhdCAtIGFzIHdoZW4gdGhlIG5ldyAKZmVhdHVyZSBp
+cyBhZGRlZCAtIGl0J3Mgbm90IGFsd2F5cyAncGVyZmVjdCcgLSBzb21ldGltZXMgd2UgZGlzY292
+ZXIgcSBidWcgCnF1aXRlIGxhdGUgaW4gdGhlIHByb2Nlc3Mgb2YgbmV3IGZlYXR1cmUgaW50cm9k
+dWN0aW9uIC0gc28gdGhlIHBsYWluIGZhY3QgCidmZWF0dXJlWFlaJyBpcyBwcmVzZW50IHVuZm9y
+dHVuYXRlbHkgZG9lc24ndCBhbHdheXMgbWVhbiBpdCdzIHVzYWJsZS4KU29tZXRpbWVzIGV2ZW4g
+J2ZpeGluZycgb25lIGJ1ZyBtYXkgaW50cm9kdWNlIGEgbmV3IHByb2JsZW0gd2UgZGlzY292ZXIg
+YWdhaW4gCmxhdGVyICh0ZXN0aW5nIGNvbWJpbmF0aW9ucyBvZiBkZXZpY2Ugc3RhY2tzIGlzIHJl
+YWxseSBtYWRuZXNzIG9mIGl0cyBvd24uLi4pCgoKWmRlbmVrCgotLQpkbS1kZXZlbCBtYWlsaW5n
+IGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL3d3dy5yZWRoYXQuY29tL21haWxtYW4v
+bGlzdGluZm8vZG0tZGV2ZWw=
 
