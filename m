@@ -1,78 +1,83 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 207A217C8B2
-	for <lists+dm-devel@lfdr.de>; Sat,  7 Mar 2020 00:08:04 +0100 (CET)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id E73B917CDB9
+	for <lists+dm-devel@lfdr.de>; Sat,  7 Mar 2020 12:01:44 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1583536082;
+	s=mimecast20190719; t=1583578903;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=Nb7ciJqWc/gcoxOaBlFUS+YiluDixqWV5sw8YNboZhU=;
-	b=XG8qQc7FYAvCRB3qo1vJCVfDAVMkdSGobq7uH7TR/IioyXS6iDrZuFT+Dkapu0Ro4oUYQq
-	eIy3voQzOuTueIt5DMwJxIUyUBba0dqIAayZXC18qdYUQXcFUM+Rwt0H8QbNbl0Kg+4h6E
-	UmeOBoVspRVyprUmmf2eu0g3sKdg1zw=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=Hg6/vY4hEXKwo+l6kbcT3VDZ6NPn6uw5QYQprxrxR9M=;
+	b=GcnaJRTuUM/0+ZHH1ZmNq3abtf+DqSlkMWk4Z6Yr01bsloBqMn/6WTa1o8eCJF3LN9rif/
+	SVPTyKQNtiWvQzgunL5vYw7MEUrKdhBsVwG3BLzrWTqZ/QdSoPCnPwP2FsoTsZmw7PsDBS
+	GuGTZ3Lhn3x4e8xplwJDSTgASdQlo9w=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-440-SYiMlT8WPkSsq58kk68rQg-1; Fri, 06 Mar 2020 18:07:19 -0500
-X-MC-Unique: SYiMlT8WPkSsq58kk68rQg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-89-Uwyo-2pANPuwrIUZ6IedSA-1; Sat, 07 Mar 2020 06:01:40 -0500
+X-MC-Unique: Uwyo-2pANPuwrIUZ6IedSA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 06711184C804;
-	Fri,  6 Mar 2020 23:07:14 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EB37D107ACC7;
+	Sat,  7 Mar 2020 11:01:30 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D14C890CF0;
-	Fri,  6 Mar 2020 23:07:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 510935C1B2;
+	Sat,  7 Mar 2020 11:01:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6DB1D18089D0;
-	Fri,  6 Mar 2020 23:07:13 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8677E18089C8;
+	Sat,  7 Mar 2020 11:01:13 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 026N6ZZs011273 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 6 Mar 2020 18:06:36 -0500
+	id 027B0rsn032302 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 7 Mar 2020 06:00:54 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BDC52104FA55; Fri,  6 Mar 2020 23:06:35 +0000 (UTC)
+	id B2E80121850; Sat,  7 Mar 2020 11:00:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B95C1104FFBF
-	for <dm-devel@redhat.com>; Fri,  6 Mar 2020 23:06:33 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ACDA1121859
+	for <dm-devel@redhat.com>; Sat,  7 Mar 2020 11:00:51 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C8B9D800294
-	for <dm-devel@redhat.com>; Fri,  6 Mar 2020 23:06:33 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-89-BYytu22-MsCwCCEKzUQ-YQ-1;
-	Fri, 06 Mar 2020 18:06:31 -0500
-X-MC-Unique: BYytu22-MsCwCCEKzUQ-YQ-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
-	by mx2.suse.de (Postfix) with ESMTP id 39723B071;
-	Fri,  6 Mar 2020 23:06:30 +0000 (UTC)
-From: mwilck@suse.com
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Sat,  7 Mar 2020 00:06:05 +0100
-Message-Id: <20200306230605.3473-5-mwilck@suse.com>
-In-Reply-To: <20200306230605.3473-1-mwilck@suse.com>
-References: <20200306230605.3473-1-mwilck@suse.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 115E68BA502
+	for <dm-devel@redhat.com>; Sat,  7 Mar 2020 11:00:51 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+	[217.70.183.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-156-SL8MQp58PaeLZmk4Kl-zLQ-1; Sat, 07 Mar 2020 06:00:47 -0500
+X-MC-Unique: SL8MQp58PaeLZmk4Kl-zLQ-1
+X-Originating-IP: 209.85.166.176
+Received: from mail-il1-f176.google.com (mail-il1-f176.google.com
+	[209.85.166.176]) (Authenticated sender: gmail@opensvc.com)
+	by relay9-d.mail.gandi.net (Postfix) with ESMTPSA id 437B8FF806;
+	Sat,  7 Mar 2020 11:00:45 +0000 (UTC)
+Received: by mail-il1-f176.google.com with SMTP id f5so4441762ilq.5;
+	Sat, 07 Mar 2020 03:00:45 -0800 (PST)
+X-Gm-Message-State: ANhLgQ3/A9Ln1YlQazSkc8CibWcWK7LjNKxcYdbO4pV6tYFpiH7XAWjQ
+	16AyAHSNuCbNZ+a4MrQugd8z6hqFtbZFN94NvJE=
+X-Google-Smtp-Source: ADFU+vs5dU/IYDZKGpsuOfk7nkoICU+PqP0NP7L3Z13/qO4Iuz7JFzWzTuZRS2aqv14tQf6qLvc6SSbOGXfCIiwSjcQ=
+X-Received: by 2002:a92:760e:: with SMTP id r14mr6805670ilc.59.1583578843651; 
+	Sat, 07 Mar 2020 03:00:43 -0800 (PST)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 026N6ZZs011273
+References: <CABr-Gne_oOns4W0A4Ny4t4xRPbU3qdtS5Z6BSt7wQ0N7cRqDeQ@mail.gmail.com>
+	<3f8ae4512f68c5ba0cce93e5da27bb812dd8107e.camel@suse.com>
+	<CABr-GnckSFPe5aRMQgRqUR2Lg9q5nomX00pL9JKOk-qoGAweMw@mail.gmail.com>
+	<5773a737cfb455e37b3b54a728080d2087332734.camel@suse.com>
+In-Reply-To: <5773a737cfb455e37b3b54a728080d2087332734.camel@suse.com>
+From: Christophe Varoqui <christophe.varoqui@opensvc.com>
+Date: Sat, 7 Mar 2020 12:00:32 +0100
+X-Gmail-Original-Message-ID: <CABr-GncN5onh6j-=QedBoqqm6+EradOQYVejEN0N-R5Oz2WUVA@mail.gmail.com>
+Message-ID: <CABr-GncN5onh6j-=QedBoqqm6+EradOQYVejEN0N-R5Oz2WUVA@mail.gmail.com>
+To: Martin Wilck <Martin.Wilck@suse.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>,
-	David Bond <dbond@suse.com>
-Subject: [dm-devel] [PATCH 4/4] libmpathpersist: ABI change: limit
-	data-in/out size to 8192 bytes
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Subject: Re: [dm-devel] multipath-tools merges
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,70 +91,107 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Type: multipart/mixed; boundary="===============3797076274951972188=="
+
+--===============3797076274951972188==
+Content-Type: multipart/alternative; boundary="00000000000073250e05a041aefd"
+
+--00000000000073250e05a041aefd
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Thanks,
+the delta is committed with your authoring information.
+
+Best,
+Christophe
+
+On Fri, Mar 6, 2020 at 5:28 PM Martin Wilck <Martin.Wilck@suse.com> wrote:
+
+> Hello Christophe,
+>
+> On Tue, 2020-03-03 at 00:35 +0100, Christophe Varoqui wrote:
+> > Hi Martin,
+> >
+> > Thanks for pointing these missing patches.
+> > They are now merged.
+>
+> Thanks. Still a nit: you picked v1 of my
+> "libmultipath: drop mpp->nr_active field" patch (from Nov. 15th) rather
+> than v2 (from Nov. 20th):
+> https://www.redhat.com/archives/dm-devel/2019-November/msg00133.html
+>
+> The v2 patch added some additional hunks (attached) and also a some
+> text in the commit message.
+>
+> Regards,
+> Martin
+>
+> --
+> Dr. Martin Wilck <mwilck@suse.com>, Tel. +49 (0)911 74053 2107
+> SUSE  Software Solutions Germany GmbH
+> HRB 36809, AG N=C3=BCrnberg GF: Felix
+> Imend=C3=B6rffer
+>
+>
+>
+
+--00000000000073250e05a041aefd
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thanks,<div>the delta is committed with your authoring inf=
+ormation.</div><div><br></div><div>Best,</div><div>Christophe</div></div><b=
+r><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, =
+Mar 6, 2020 at 5:28 PM Martin Wilck &lt;<a href=3D"mailto:Martin.Wilck@suse=
+.com">Martin.Wilck@suse.com</a>&gt; wrote:<br></div><blockquote class=3D"gm=
+ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,=
+204,204);padding-left:1ex">Hello Christophe,<br>
+<br>
+On Tue, 2020-03-03 at 00:35 +0100, Christophe Varoqui wrote:<br>
+&gt; Hi Martin,<br>
+&gt; <br>
+&gt; Thanks for pointing these missing patches.<br>
+&gt; They are now merged.<br>
+<br>
+Thanks. Still a nit: you picked v1 of my <br>
+&quot;libmultipath: drop mpp-&gt;nr_active field&quot; patch (from Nov. 15t=
+h) rather<br>
+than v2 (from Nov. 20th):<br>
+<a href=3D"https://www.redhat.com/archives/dm-devel/2019-November/msg00133.=
+html" rel=3D"noreferrer" target=3D"_blank">https://www.redhat.com/archives/=
+dm-devel/2019-November/msg00133.html</a><br>
+<br>
+The v2 patch added some additional hunks (attached) and also a some<br>
+text in the commit message.<br>
+<br>
+Regards,<br>
+Martin<br>
+<br>
+-- <br>
+Dr. Martin Wilck &lt;<a href=3D"mailto:mwilck@suse.com" target=3D"_blank">m=
+wilck@suse.com</a>&gt;, Tel. +49 (0)911 74053 2107<br>
+SUSE=C2=A0 Software Solutions Germany GmbH<br>
+HRB 36809, AG N=C3=BCrnberg GF: Felix<br>
+Imend=C3=B6rffer<br>
+<br>
+<br>
+</blockquote></div>
+
+--00000000000073250e05a041aefd--
+
+--===============3797076274951972188==
 Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-
-From: Martin Wilck <mwilck@suse.com>
-
-Make sure that data structures used for PERSISTENT RESERVE IN/OUT
-fit into 8k buffers.
-
-This patch breaks the libmpathpersist ABI.
-
-Signed-off-by: Martin Wilck <mwilck@suse.com>
----
- libmpathpersist/mpath_persist.h | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
-
-diff --git a/libmpathpersist/mpath_persist.h b/libmpathpersist/mpath_persist.h
-index 7cf4faf9..bdf4069d 100644
---- a/libmpathpersist/mpath_persist.h
-+++ b/libmpathpersist/mpath_persist.h
-@@ -92,7 +92,7 @@ struct prin_readdescr
- 	uint32_t prgeneration;
- 	uint32_t additional_length;	/* The value should be either 0 or divisible by 8.
- 					   0 indicates no registered reservation key. */
--	uint8_t	 key_list[MPATH_MAX_PARAM_LEN];
-+	uint8_t	 key_list[MPATH_MAX_PARAM_LEN - 2 * sizeof(uint32_t)];
- };
- 
- struct prin_resvdescr
-@@ -141,7 +141,9 @@ struct print_fulldescr_list
- {
- 	uint32_t prgeneration;
- 	uint32_t number_of_descriptor;
--	uint8_t private_buffer[MPATH_MAX_PARAM_LEN]; /*Private buffer for list storage*/
-+	/* Data-in; Private buffer for list storage */
-+	uint8_t private_buffer[MPATH_MAX_PARAM_LEN - 2 * sizeof(uint32_t)];
-+	/* array of pointers into private_buffer */
- 	struct prin_fulldescr *descriptors[];
- };
- 
-@@ -163,8 +165,13 @@ struct prout_param_descriptor {		/* PROUT parameter descriptor */
- 	uint8_t	 sa_flags;
- 	uint8_t _reserved;
- 	uint16_t _obsolete1;
--	uint8_t  private_buffer[MPATH_MAX_PARAM_LEN]; /*private buffer for list storage*/
--	uint32_t num_transportid;	/* Number of Transport ID listed in trnptid_list[]*/
-+	/*private buffer for list storage; data-out */
-+	/* 24: offsetof (struct prout_param_descriptor, private_buffer) */
-+	uint8_t  private_buffer[MPATH_MAX_PARAM_LEN - 24];
-+	/* Internal use below here */
-+	/* Number of Transport ID listed in trnptid_list[] */
-+	uint32_t num_transportid;
-+	/* pointers into private_buffer */
- 	struct transportid *trnptid_list[];
- };
- 
--- 
-2.25.1
-
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
+--===============3797076274951972188==--
 
