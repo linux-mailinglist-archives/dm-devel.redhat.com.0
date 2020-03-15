@@ -1,79 +1,74 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id C89D2185FD7
-	for <lists+dm-devel@lfdr.de>; Sun, 15 Mar 2020 21:46:49 +0100 (CET)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 65AA9185FEA
+	for <lists+dm-devel@lfdr.de>; Sun, 15 Mar 2020 22:06:24 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1584305208;
+	s=mimecast20190719; t=1584306383;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=fNahWQN8ej3jULPKDQ+QEvmuLIHCXIrArMYZU1zyjuA=;
-	b=XIPaHhLJ7MuuyYCncmdPU9YoonW/b4Lb4XMAXe0XND7mrUSH+7MJ3FC4wq6IcquXUjqUJc
-	jabmr70jL2wLqLYnGyyzZ/Z0SUW4b4WUZZOUDE6BIwsZ+OBcSUgRORJAX08ofvRGVr1vkv
-	Wh/+XN1XEMxawsMwNeOj6v6kltBr5K0=
+	bh=CclvPbvMaS5Wc/WveVLDmhIJlGD/NdzAGbKxdqibvxg=;
+	b=YGQnq8NQ3OwFPZLDcSEQXt+mkU/qMo8VRrPISzReNoi1HInSVEjlIxcv1LedTcyNygoMLc
+	rNIBLpvseVOipUXETRv4FCXPVuk7nrMj0FIn/t2e4bUuVriQK3qzIhvi1NokHRJQ0ZNRd2
+	c7u/Cy3vYKnHrYCEAu+kTrEym5IzgRI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-204-KKkQQFi-OIyEYelAxfHrlw-1; Sun, 15 Mar 2020 16:46:45 -0400
-X-MC-Unique: KKkQQFi-OIyEYelAxfHrlw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-19-6ZrVdKxCOjq8kCnZyVpq2Q-1; Sun, 15 Mar 2020 17:06:20 -0400
+X-MC-Unique: 6ZrVdKxCOjq8kCnZyVpq2Q-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6EBBB800D50;
-	Sun, 15 Mar 2020 20:46:38 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2B2731005510;
+	Sun, 15 Mar 2020 21:06:15 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CF7FB60BE2;
-	Sun, 15 Mar 2020 20:46:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EEF475DA76;
+	Sun, 15 Mar 2020 21:06:14 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D6DFE85EFB;
-	Sun, 15 Mar 2020 20:46:17 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3497886A3E;
+	Sun, 15 Mar 2020 21:06:13 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 02FKjw35007202 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 15 Mar 2020 16:45:58 -0400
+	id 02FL5vCo008179 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 15 Mar 2020 17:05:57 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B17DA884EA; Sun, 15 Mar 2020 20:45:58 +0000 (UTC)
+	id 829BC2166B2D; Sun, 15 Mar 2020 21:05:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AC407874FE
-	for <dm-devel@redhat.com>; Sun, 15 Mar 2020 20:45:56 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F1382166B2E
+	for <dm-devel@redhat.com>; Sun, 15 Mar 2020 21:05:55 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 66DAD101A55A
-	for <dm-devel@redhat.com>; Sun, 15 Mar 2020 20:45:56 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6B30B185A78F
+	for <dm-devel@redhat.com>; Sun, 15 Mar 2020 21:05:55 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-359-GrEvlElMPU-7ZgKIVExr2A-1;
-	Sun, 15 Mar 2020 16:45:53 -0400
-X-MC-Unique: GrEvlElMPU-7ZgKIVExr2A-1
+	relay.mimecast.com with ESMTP id us-mta-129-8vaYCsu2Ny-HcrLDKVtuXA-1;
+	Sun, 15 Mar 2020 17:05:50 -0400
+X-MC-Unique: 8vaYCsu2Ny-HcrLDKVtuXA-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
-	by mx2.suse.de (Postfix) with ESMTP id 0E8EFABE7;
-	Sun, 15 Mar 2020 20:45:52 +0000 (UTC)
-Message-ID: <a561b7a338a2941b4929742e10016bfd59330bc8.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Benjamin Marzinski <bmarzins@redhat.com>
-Date: Sun, 15 Mar 2020 21:45:58 +0100
-In-Reply-To: <78489690d69561da912f944ef072f18900e679f5.camel@suse.com>
-References: <20200306230605.3473-1-mwilck@suse.com>
-	<20200306230605.3473-5-mwilck@suse.com>
-	<20200315001935.GU30153@octiron.msp.redhat.com>
-	<78489690d69561da912f944ef072f18900e679f5.camel@suse.com>
-User-Agent: Evolution 3.34.4
+	by mx2.suse.de (Postfix) with ESMTP id 1B343AC51;
+	Sun, 15 Mar 2020 21:05:49 +0000 (UTC)
+From: mwilck@suse.com
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>
+Date: Sun, 15 Mar 2020 22:05:17 +0100
+Message-Id: <20200315210521.12109-1-mwilck@suse.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 02FKjw35007202
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 02FL5vCo008179
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, David Bond <dbond@suse.com>
-Subject: Re: [dm-devel] [PATCH 4/4] libmpathpersist: ABI change: limit
- data-in/out size to 8192 bytes
+Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Subject: [dm-devel] [PATCH v2 0/4] [PATCH 0/4] libmpathpersist allocation
+	size fixes
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,30 +82,43 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sun, 2020-03-15 at 01:27 +0100, Martin Wilck wrote:
-> 
-> A program written against the old API might assume that the length of
-> private_buffer was MPATH_MAX_PARAM_LEN, and call e.g.
-> memset(private_buffer, 0, MPATH_MAX_PARAM_LEN), overwriting
-> num_transportid.
+From: Martin Wilck <mwilck@suse.com>
 
-And programs compiled against old headers would obviously use the
-wrong offsets for num_transportids and trnptid_list.
+Hi Christophe,
 
-Similar for struct print_fulldescr_list.descriptors.
+We recently found a problem with mpathpersist using an allocation length
+of > 8192 bytes for PERSISTENT RESERVE IN/OUT commands. This patch set
+tries to fix it. The last patch would change the ABI for external programs,
+it's optional.
 
-So I this does indeed break the ABI. Perhaps we shouldn't apply this
-without implementing clean so numbering.
+(Christophe, to avoid misunderstanding:	This set is not meant to be included
+in the upcoming merge).
 
-Regards
-Martin
+Reviews and comments welcome.
 
+Changes in v2:
+ - 02/04: fix overflow calculation (Ben)
+ - 04/04: improve commit description wrt ABI breakage
+
+Martin Wilck (4):
+  libmpathpersist: limit PRIN allocation length to 8192 bytes
+  libmpathpersist: format_transportids(): avoid PROUT overflow
+  libmpathpersist: mpath_format_readfullstatus(): use real buffer size
+  libmpathpersist: ABI change: limit data-in/out size to 8192 bytes
+
+ libmpathpersist/mpath_persist.h  | 15 ++++++++---
+ libmpathpersist/mpath_pr_ioctl.c | 45 +++++++++++++++++++++++++++-----
+ 2 files changed, 50 insertions(+), 10 deletions(-)
+
+--
+
+2.25.1
 
 
 --
