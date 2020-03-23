@@ -2,70 +2,80 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [63.128.21.74])
-	by mail.lfdr.de (Postfix) with ESMTP id B924B18F920
-	for <lists+dm-devel@lfdr.de>; Mon, 23 Mar 2020 17:00:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1FE3518F95F
+	for <lists+dm-devel@lfdr.de>; Mon, 23 Mar 2020 17:11:31 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1584979222;
+	s=mimecast20190719; t=1584979889;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=EbscWEe4sQWKpU9MN43NjOrsPVYp4z5f0VKMGXjwPO4=;
-	b=bDXgoDTAMSWPrxANNskotCPO7yq9QOm0YC7gFOsZ4Xknylfo+qMDPtX7ojJIpqrcgJg6u6
-	jjf0n5X6yShn9o9CYqyS7IF6SzSE9wTlQ/Eo7ZDTw33UMvuvYSY/nChBPK8FuHDrNwyMiX
-	KG17mjGIFmfOtCjyRsrEiwBY2rbi/0Y=
+	bh=KDFrdoQR49YoTphavAl7NwVFbk0M61dwOwaUgZZDLQY=;
+	b=AG8mgT7d9KrXYgbe6ZAQcAnr18c4O/o3X0RJcyXiOkpdEXEiYVarpOCLl1il/gSFZ4Wzzj
+	xmBH8/X4PmWAGyqEiVQxxGBVVWJ5kWA7hY4xk1eWrUM9eTC1yVyGO9elnk4ZmwYTcR9g32
+	bMsjoXVA7iq3fSRgDudHybhbUxrLdhQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-492-8Hcmbh0XOUqS5TCDw_1u8w-1; Mon, 23 Mar 2020 12:00:18 -0400
-X-MC-Unique: 8Hcmbh0XOUqS5TCDw_1u8w-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-340-2YHiNmCGMxi-0OL9j_cxfg-1; Mon, 23 Mar 2020 12:11:27 -0400
+X-MC-Unique: 2YHiNmCGMxi-0OL9j_cxfg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EF74A101FC62;
-	Mon, 23 Mar 2020 16:00:09 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AB16394978;
-	Mon, 23 Mar 2020 16:00:06 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C09BC100550E;
+	Mon, 23 Mar 2020 16:11:20 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 27D747E324;
+	Mon, 23 Mar 2020 16:11:19 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6766318089C8;
-	Mon, 23 Mar 2020 16:00:02 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 44A3686385;
+	Mon, 23 Mar 2020 16:11:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 02NFwvBY004137 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 23 Mar 2020 11:58:57 -0400
+	id 02NGAxbx005014 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 23 Mar 2020 12:10:59 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6CB89194BB; Mon, 23 Mar 2020 15:58:57 +0000 (UTC)
+	id 7C02910E51B0; Mon, 23 Mar 2020 16:10:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E158119C4F;
-	Mon, 23 Mar 2020 15:58:49 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id 02NFwnC0005246; Mon, 23 Mar 2020 11:58:49 -0400
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id 02NFwnLG005243; Mon, 23 Mar 2020 11:58:49 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Mon, 23 Mar 2020 11:58:49 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Gabriel Krisman Bertazi <krisman@collabora.com>
-In-Reply-To: <20200304163953.578311-1-krisman@collabora.com>
-Message-ID: <alpine.LRH.2.02.2003231148560.30812@file01.intranet.prod.int.rdu2.redhat.com>
-References: <20200304163953.578311-1-krisman@collabora.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7805210E51AD
+	for <dm-devel@redhat.com>; Mon, 23 Mar 2020 16:10:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1AB098F7827
+	for <dm-devel@redhat.com>; Mon, 23 Mar 2020 16:10:57 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-452-rxYbtcCZNvi943dCvUOzrw-1;
+	Mon, 23 Mar 2020 12:10:54 -0400
+X-MC-Unique: rxYbtcCZNvi943dCvUOzrw-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+	by mx2.suse.de (Postfix) with ESMTP id 82BC5ADF8;
+	Mon, 23 Mar 2020 16:10:52 +0000 (UTC)
+To: Mike Snitzer <snitzer@redhat.com>
+References: <20200323150352.107826-1-hare@suse.de>
+	<20200323151538.GA27573@redhat.com>
+	<69ce4dd2-81d3-0ac6-933b-a1f781836597@suse.de>
+	<20200323153944.GA27615@redhat.com>
+From: Hannes Reinecke <hare@suse.de>
+Message-ID: <7e92a106-b072-126f-fda5-80a8d4abc296@suse.de>
+Date: Mon, 23 Mar 2020 17:10:48 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.5.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+In-Reply-To: <20200323153944.GA27615@redhat.com>
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 02NGAxbx005014
 X-loop: dm-devel@redhat.com
-Cc: Tahsin Erdogan <tahsin@google.com>, snitzer@redhat.com,
-	Khazhismel Kumykov <khazhy@google.com>, dm-devel@redhat.com,
-	kernel@collabora.com, agk@redhat.com
-Subject: Re: [dm-devel] [PATCH] iscsi: do not wait for IOs in dm shrinker
+Cc: Damien LeMoal <damien.lemoal@wdc.com>, Johannes Thumshirn <jth@kernel.org>,
+	dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH RFC 0/2] dm-zoned: add cache device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,219 +89,52 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 
-Hi
-
-There are other cases where the kernel could issue or wait on I/O in a 
-shrinker (for example in inode shrinker). Instead of fixing all these 
-cases, you should fix the process giscsid to not issue an I/O when it is 
-not safe.
-
-For example, the lvm and dmeventd processes lock themselves in memory 
-using mlock, to make sure that they won't generate I/Os when some device 
-mapper targets are suspended - so you should use a similar thing in iscsi.
-
-Another possibility is to set the flag PF_MEMALLOC_NOIO for the giscsid 
-process - that will imply that all allocations done by this process have 
-the GFP_NOIO flag set.
-
-If still think that no shrinkers should issue I/O anytime, you should 
-change the shrinker API (i.e. don't pass the gfp mask to shrinkers) and 
-get this patch through the memory management maintainers.
-
-Mikulas
-
-
-On Wed, 4 Mar 2020, Gabriel Krisman Bertazi wrote:
-
-> From: Tahsin Erdogan <tahsin@google.com>
-> 
-> If something goes wrong with an iscsi session, the problem is reported
-> to giscsid via a netlink message. Then, giscsid tries to add a new device
-> and destroy the old one. During old device destruction, the pending ios
-> get completed with an error. Without destroying the device the io
-> operations are stuck forever.
-> 
-> If dm shrinker is invoked with __GFP_IO, shrinker gets blocked waiting for
-> the pending ios to complete. So, if the giscsid repair path ends up
-> doing a memory allocation with __GFP_IO enabled, it could end up in a
-> deadlock because the iscsi io cannot be completed until giscsid can do its
-> job and giscsid cannot do its job until the io completes.
-> 
-> Even worse, the deadlock can also occur even if giscsid avoids __GFP_IO
-> in all paths. For instance, if giscsid tries to grab a mutex held by
-> another thread and that thread invokes the shrinker we again may enter a
-> deadlock. Here is a scenario stitched from multiple bugs that
-> demonstrates how the deadlock can occur:
-> 
-> iSCSI-write
->         holding: rx_queue_mutex
->         waiting: uevent_sock_mutex
-> 
->         kobject_uevent_env+0x1bd/0x419
->         kobject_uevent+0xb/0xd
->         device_add+0x48a/0x678
->         scsi_add_host_with_dma+0xc5/0x22d
->         iscsi_host_add+0x53/0x55
->         iscsi_sw_tcp_session_create+0xa6/0x129
->         iscsi_if_rx+0x100/0x1247
->         netlink_unicast+0x213/0x4f0
->         netlink_sendmsg+0x230/0x3c0
-> 
-> iscsi_fail iscsi_conn_failure
->         waiting: rx_queue_mutex
-> 
->         schedule_preempt_disabled+0x325/0x734
->         __mutex_lock_slowpath+0x18b/0x230
->         mutex_lock+0x22/0x40
->         iscsi_conn_failure+0x42/0x149
->         worker_thread+0x24a/0xbc0
-> 
-> EventManager_
->         holding: uevent_sock_mutex
->         waiting: dm_bufio_client->lock
-> 
->         dm_bufio_lock+0xe/0x10
->         shrink+0x34/0xf7
->         shrink_slab+0x177/0x5d0
->         do_try_to_free_pages+0x129/0x470
->         try_to_free_mem_cgroup_pages+0x14f/0x210
->         memcg_kmem_newpage_charge+0xa6d/0x13b0
->         __alloc_pages_nodemask+0x4a3/0x1a70
->         fallback_alloc+0x1b2/0x36c
->         __kmalloc_node_track_caller+0xb9/0x10d0
->         __alloc_skb+0x83/0x2f0
->         kobject_uevent_env+0x26b/0x419
->         dm_kobject_uevent+0x70/0x79
->         dev_suspend+0x1a9/0x1e7
->         ctl_ioctl+0x3e9/0x411
->         dm_ctl_ioctl+0x13/0x17
->         do_vfs_ioctl+0xb3/0x460
->         SyS_ioctl+0x5e/0x90
-> 
-> MemcgReclaimerD"
->         holding: dm_bufio_client->lock
->         waiting: stuck io to finish (needs iscsi_fail thread to progress)
-> 
->         schedule at ffffffffbd603618
->         io_schedule at ffffffffbd603ba4
->         do_io_schedule at ffffffffbdaf0d94
->         __wait_on_bit at ffffffffbd6008a6
->         out_of_line_wait_on_bit at ffffffffbd600960
->         wait_on_bit.constprop.10 at ffffffffbdaf0f17
->         __make_buffer_clean at ffffffffbdaf18ba
->         __cleanup_old_buffer at ffffffffbdaf192f
->         shrink at ffffffffbdaf19fd
->         do_shrink_slab at ffffffffbd6ec000
->         shrink_slab at ffffffffbd6ec24a
->         do_try_to_free_pages at ffffffffbd6eda09
->         try_to_free_mem_cgroup_pages at ffffffffbd6ede7e
->         mem_cgroup_resize_limit at ffffffffbd7024c0
->         mem_cgroup_write at ffffffffbd703149
->         cgroup_file_write at ffffffffbd6d9c6e
->         sys_write at ffffffffbd6662ea
->         system_call_fastpath at ffffffffbdbc34a2
-> 
-> Co-developed-by: Khazhismel Kumykov <khazhy@google.com>
-> Signed-off-by: Khazhismel Kumykov <khazhy@google.com>
-> Signed-off-by: Tahsin Erdogan <tahsin@google.com>
-> Co-developed-by: Gabriel Krisman Bertazi <krisman@collabora.com>
-> Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
-> ---
->  drivers/md/dm-bufio.c | 31 +++++++++++++------------------
->  1 file changed, 13 insertions(+), 18 deletions(-)
-> 
-> diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
-> index 2d519c223562..4c4f80e894b6 100644
-> --- a/drivers/md/dm-bufio.c
-> +++ b/drivers/md/dm-bufio.c
-> @@ -1516,18 +1516,16 @@ static void drop_buffers(struct dm_bufio_client *c)
->   * We may not be able to evict this buffer if IO pending or the client
->   * is still using it.  Caller is expected to know buffer is too old.
->   *
-> - * And if GFP_NOFS is used, we must not do any I/O because we hold
-> - * dm_bufio_clients_lock and we would risk deadlock if the I/O gets
-> - * rerouted to different bufio client.
-> + * We must not do any I/O because we hold dm_bufio_clients_lock and we
-> + * would risk deadlock if the I/O gets rerouted to different bufio
-> + * client.
->   */
-> -static bool __try_evict_buffer(struct dm_buffer *b, gfp_t gfp)
-> +static bool __try_evict_buffer(struct dm_buffer *b)
->  {
-> -	if (!(gfp & __GFP_FS)) {
-> -		if (test_bit(B_READING, &b->state) ||
-> -		    test_bit(B_WRITING, &b->state) ||
-> -		    test_bit(B_DIRTY, &b->state))
-> -			return false;
-> -	}
-> +	if (test_bit(B_READING, &b->state) ||
-> +	    test_bit(B_WRITING, &b->state) ||
-> +	    test_bit(B_DIRTY, &b->state))
-> +		return false;
->  
->  	if (b->hold_count)
->  		return false;
-> @@ -1549,8 +1547,7 @@ static unsigned long get_retain_buffers(struct dm_bufio_client *c)
->  	return retain_bytes;
->  }
->  
-> -static unsigned long __scan(struct dm_bufio_client *c, unsigned long nr_to_scan,
-> -			    gfp_t gfp_mask)
-> +static unsigned long __scan(struct dm_bufio_client *c, unsigned long nr_to_scan)
->  {
->  	int l;
->  	struct dm_buffer *b, *tmp;
-> @@ -1561,7 +1558,7 @@ static unsigned long __scan(struct dm_bufio_client *c, unsigned long nr_to_scan,
->  
->  	for (l = 0; l < LIST_SIZE; l++) {
->  		list_for_each_entry_safe_reverse(b, tmp, &c->lru[l], lru_list) {
-> -			if (__try_evict_buffer(b, gfp_mask))
-> +			if (__try_evict_buffer(b))
->  				freed++;
->  			if (!--nr_to_scan || ((count - freed) <= retain_target))
->  				return freed;
-> @@ -1578,12 +1575,10 @@ dm_bufio_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
->  	unsigned long freed;
->  
->  	c = container_of(shrink, struct dm_bufio_client, shrinker);
-> -	if (sc->gfp_mask & __GFP_FS)
-> -		dm_bufio_lock(c);
-> -	else if (!dm_bufio_trylock(c))
-> +	if (!dm_bufio_trylock(c))
->  		return SHRINK_STOP;
->  
-> -	freed  = __scan(c, sc->nr_to_scan, sc->gfp_mask);
-> +	freed  = __scan(c, sc->nr_to_scan);
->  	dm_bufio_unlock(c);
->  	return freed;
->  }
-> @@ -1811,7 +1806,7 @@ static void __evict_old_buffers(struct dm_bufio_client *c, unsigned long age_hz)
->  		if (!older_than(b, age_hz))
->  			break;
->  
-> -		if (__try_evict_buffer(b, 0))
-> +		if (__try_evict_buffer(b))
->  			count--;
->  
->  		cond_resched();
-> -- 
-> 2.25.0
-> 
-> 
-> --
-> dm-devel mailing list
-> dm-devel@redhat.com
-> https://www.redhat.com/mailman/listinfo/dm-devel
-> 
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+T24gMy8yMy8yMCA0OjM5IFBNLCBNaWtlIFNuaXR6ZXIgd3JvdGU6Cj4gT24gTW9uLCBNYXIgMjMg
+MjAyMCBhdCAxMToyNmFtIC0wNDAwLAo+IEhhbm5lcyBSZWluZWNrZSA8aGFyZUBzdXNlLmRlPiB3
+cm90ZToKPiAKPj4gT24gMy8yMy8yMCA0OjE1IFBNLCBNaWtlIFNuaXR6ZXIgd3JvdGU6Cj4+PiBP
+biBNb24sIE1hciAyMyAyMDIwIGF0IDExOjAzYW0gLTA0MDAsCj4+PiBIYW5uZXMgUmVpbmVja2Ug
+PGhhcmVAc3VzZS5kZT4gd3JvdGU6Cj4+Pgo+Pj4+IEhpIERhbWllbiwKPj4+Pgo+Pj4+IGFzIG15
+IG9yaWdpbmFsIHBsYW4gdG8gdXBncmFkZSBiY2FjaGUgdG8gd29yayBmb3IgU01SIGRldmljZXMK
+Pj4+PiB0dXJuZWQgb3V0IHRvIGJlIG1vcmUgY29tcGxleCB0aGFuIGFudGljaXBhdGVkIEkgd2Vu
+dCBmb3IgdGhlCj4+Pj4gc2ltcGxlciBhcHByb2FjaCBhbmQgYWRkZWQgYSAnY2FjaGUnIGRldmlj
+ZSBmb3IgZG0tem9uZWQuCj4+Pj4gSXQgaXMgdXNpbmcgYSBub3JtYWwgZGV2aWNlIChlZyAnL2Rl
+di9wbWVtMCcgOi0pLCBzcGxpdCBpdAo+Pj4+IGludG8gem9uZXMgb2YgdGhlIHNhbWUgc2l6ZSBv
+ZiB0aGUgb3JpZ2luYWwgU01SIGRldmljZSwgYW5kCj4+Pj4gbWFrZXMgdGhvc2UgJ3ZpcnR1YWwn
+IHpvbmVzIGF2aWFsYWJsZSB0byBkbS16b25lZCBpbiBhIHNpbWlsYXIKPj4+PiBtYW5uZXIgdGhh
+biB0aGUgZXhpc3RpbmcgJ3JhbmRvbSB3cml0ZScgem9uZWQuCj4+Pj4KPj4+PiBUaGUgaW1wbGVt
+ZW50YXRpb24gaXMgc3RpbGwgYSBiaXQgcm91Z2ggKG9uZSB3b3VsZCBuZWVkIHRvIGFkZAo+Pj4+
+IG1ldGFkYXRhIHRvIHRoZSBjYWNoZSBkZXZpY2UsIHRvbyksIGJ1dCBzbyBmYXIgaXQgc2VlbXMg
+dG8gd29yawo+Pj4+IHF1aXRlIHdlbGw7IHN0aWxsIHJ1bm5pbmcgYWZ0ZXIgY29weWluZyAzMDBH
+QiBvZiBkYXRhIGJhY2sgYW5kIGZvcnRoLgo+Pj4+Cj4+Pj4gQXMgdXN1YWwsIGNvbW1lbnRzIGFu
+ZCByZXZpZXdzIGFyZSB3ZWxjb21lLgo+Pj4KPj4+IE5vdCBzZWVpbmcgd2h5IHRoaXMgbmVlZHMg
+dG8gYmUgc28gc3BlY2lhbGl6ZWQgKG5hdGl2ZWx5IGltcGxlbWVudGVkIGluCj4+PiBkbS16b25l
+ZCkuICBEaWQgeW91IHRyeSBzdGFja2luZyBkbS13cml0ZWNhY2hlIG9uIGRtLXpvbmVkPwo+Pj4K
+Pj4gZG0tem9uZWQgaXMgdXNpbmcgdGhlIHJhbmRvbS13cml0ZSB6b25lcyBpbnRlcm5hbGx5IHRv
+IHN0YWdlIHdyaXRlcwo+PiB0byB0aGUgc2VxdWVudGlhbCB6b25lcywgc28gaW4gZWZmZWN0IGl0
+IGFscmVhZHkgaGFzIGFuIGludGVybmFsCj4+IGNhY2hpbmcuCj4+IEFsbCB0aGlzIHBhdGNoIGRv
+ZXMgaXMgdG8gdXNlIGEgZGlmZmVyZW50IGRldmljZSBmb3IgdGhlIGFscmVhZHkgcHJlc2VudAo+
+PiBtZWNoYW5pc20uCj4+IFVzaW5nIGRtLXdyaXRlY2FjaGUgd291bGQgYmUgaWdub3JhbnQgb2Yg
+dGhhdCBtZWNoYW5pc20sIGxlYWRpbmcgdG8KPj4gZG91YmxlIGNhY2hpbmcgYW5kIGRldHJpbWVu
+dGFsIHJlc3VsdHMuCj4gCj4gSWYgZG0td3JpdGVjYWNoZSB3ZXJlIGVmZmVjdGl2ZSBhdCBzdWJt
+aXR0aW5nIGxhcmdlciBJTyB0aGVuIGRtLXpvbmVkCj4gc2hvdWxkbid0IGJlIHJlc29ydGluZyB0
+byBjYWNoaW5nIGluIHJhbmRvbS13cml0ZSB6b25lcyBhdCBhbGwgLS0gdGhhdAo+IGlzIGEgYmln
+IGlmLCBzbyBub3Qgc2F5aW5nIGl0J2xsICJqdXN0IHdvcmsiLiAgQnV0IGlmIGJvdGggbGF5ZXJz
+IGFyZQo+IHdvcmtpbmcgdGhlbiBpdCBzaG91bGQuCj4gCldlbGwsIGJ5IHRoZSBsb29rcyBvZiBp
+dCBkbS13cml0ZWNhY2hlIHN1ZmZlcnMgZnJvbSB0aGUgc2FtZSBwcm9ibGVtIApiY2FjaGUgaGFz
+OyBpdCBhbGxvd3MgZm9yIGJsb2NrcyB1cCB0byA2NGsgc2VjdG9ycyB0byBiZSBzdWJtaXR0ZWQu
+ClNhZGx5IGZvciBTTVIgZHJpdmVzIEkgd291bGQgbmVlZCB0byBzdWJtaXQgYmxvY2sgb2YgMjU2
+TS4uLgpCdXQgYmVmb3JlIGRpc2N1c3NpbmcgYW55IGZ1cnRoZXIgSSdsbCBnaXZlIGl0IGEgZ28g
+YW5kIHNlZSB3aGVyZSBJIGVuZCB1cC4KCkNoZWVycywKCkhhbm5lcwotLSAKRHIuIEhhbm5lcyBS
+ZWluZWNrZSAgICAgICAgICAgIFRlYW1sZWFkIFN0b3JhZ2UgJiBOZXR3b3JraW5nCmhhcmVAc3Vz
+ZS5kZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICArNDkgOTExIDc0MDUzIDY4OApTVVNF
+IFNvZnR3YXJlIFNvbHV0aW9ucyBHbWJILCBNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJlcmcK
+SFJCIDM2ODA5IChBRyBOw7xybmJlcmcpLCBHZXNjaMOkZnRzZsO8aHJlcjogRmVsaXggSW1lbmTD
+tnJmZmVyCgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0
+cHM6Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
 
