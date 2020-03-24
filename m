@@ -1,83 +1,105 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [63.128.21.74])
-	by mail.lfdr.de (Postfix) with ESMTP id F16E219214E
-	for <lists+dm-devel@lfdr.de>; Wed, 25 Mar 2020 07:48:14 +0100 (CET)
+Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [216.205.24.74])
+	by mail.lfdr.de (Postfix) with ESMTP id A094C192242
+	for <lists+dm-devel@lfdr.de>; Wed, 25 Mar 2020 09:14:03 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1585118893;
+	s=mimecast20190719; t=1585124042;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=aqnw+cinz08OWKp6Knj1dlyW9FKZHI6v5S3edB6d7Qc=;
-	b=ha7ZiPfd0wLKyN2FsLmmMVY1XyUGQ4zvMBWLOghyeKcK13OlrkK4dSVP/0MSL2x4oiU4vZ
-	AotmFOX7bbzqsjirZjxYDJZ6AttX0KjUH/EVqWGFAJudYue6g1wxD6hBXY5dd7d4Xu5d+d
-	MCJula3TWioRamFeoafnRv5a4Zb88Nc=
+	bh=4fmm+OV/y3I+k9eMV2ebiKNsVHsB5GAado1dLd06OMI=;
+	b=MQVDQUfMVRuJxiwYl8ViLyo2FBNGFXhT5HZ86CFfTESvlw/ey5y0aty2zmvT5pejnfjOHT
+	TUbOPnnq/ZeI8b7s5YE8gn0xQgwGgjerAZ+A+hR0Xr1dYy9LB/dv4SjGJGxbrfydcAv8mJ
+	hK9oi/FaaWU2Y/0yCkJRk3l4KYwkpVM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-16-hXr7oZ1yNe-FfKIgKWsTgw-1; Wed, 25 Mar 2020 02:48:10 -0400
-X-MC-Unique: hXr7oZ1yNe-FfKIgKWsTgw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-207-jpe8mKfgN02IaBzhdvUbkQ-1; Wed, 25 Mar 2020 04:13:21 -0400
+X-MC-Unique: jpe8mKfgN02IaBzhdvUbkQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2D8A118C35A1;
-	Wed, 25 Mar 2020 06:48:04 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9E7115D9C5;
-	Wed, 25 Mar 2020 06:48:00 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D66B3DB2D;
+	Wed, 25 Mar 2020 08:13:10 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6ADBA91293;
+	Wed, 25 Mar 2020 08:13:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 458DF18089C8;
-	Wed, 25 Mar 2020 06:47:51 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F194C86385;
+	Wed, 25 Mar 2020 08:13:06 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 02P6lflI023253 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 25 Mar 2020 02:47:42 -0400
+	id 02OB3U7v008792 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 24 Mar 2020 07:03:30 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id CEADBF9AAB; Wed, 25 Mar 2020 06:47:41 +0000 (UTC)
+	id 625E52166B2B; Tue, 24 Mar 2020 11:03:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CA1DFF89E2
-	for <dm-devel@redhat.com>; Wed, 25 Mar 2020 06:47:37 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5E5EB2166B2A
+	for <dm-devel@redhat.com>; Tue, 24 Mar 2020 11:03:28 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8144A185A78E
-	for <dm-devel@redhat.com>; Wed, 25 Mar 2020 06:47:37 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-292-appHryDeM9S9aqS-MuPd4A-1;
-	Wed, 25 Mar 2020 02:47:34 -0400
-X-MC-Unique: appHryDeM9S9aqS-MuPd4A-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
-	by mx2.suse.de (Postfix) with ESMTP id 6ABDFABC2;
-	Wed, 25 Mar 2020 06:47:33 +0000 (UTC)
-To: Damien Le Moal <Damien.LeMoal@wdc.com>, Bob Liu <bob.liu@oracle.com>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>
-References: <20200324110255.8385-1-bob.liu@oracle.com>
-	<20200324110255.8385-4-bob.liu@oracle.com>
-	<CO2PR04MB23438E0AB35CC46732F96085E7CE0@CO2PR04MB2343.namprd04.prod.outlook.com>
-From: Hannes Reinecke <hare@suse.de>
-Message-ID: <812da9e9-cfd2-ea24-60cb-4af48f476079@suse.de>
-Date: Wed, 25 Mar 2020 07:47:30 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.5.0
-MIME-Version: 1.0
-In-Reply-To: <CO2PR04MB23438E0AB35CC46732F96085E7CE0@CO2PR04MB2343.namprd04.prod.outlook.com>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 25ECE8F7830
+	for <dm-devel@redhat.com>; Tue, 24 Mar 2020 11:03:28 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-309-pZmbHICQNAqXgOzSu72vZA-1; Tue, 24 Mar 2020 07:03:25 -0400
+X-MC-Unique: pZmbHICQNAqXgOzSu72vZA-1
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+	by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
+	02OAsEGM039518; Tue, 24 Mar 2020 11:03:24 GMT
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+	by userp2120.oracle.com with ESMTP id 2yx8ac0jvu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 24 Mar 2020 11:03:24 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+	by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
+	02OApXjK110378; Tue, 24 Mar 2020 11:03:24 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+	by userp3020.oracle.com with ESMTP id 2yxw6mfp69-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 24 Mar 2020 11:03:24 +0000
+Received: from abhmp0020.oracle.com (abhmp0020.oracle.com [141.146.116.26])
+	by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 02OB3MdY025839;
+	Tue, 24 Mar 2020 11:03:22 GMT
+Received: from localhost.localdomain (/114.88.246.185)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Tue, 24 Mar 2020 04:03:22 -0700
+From: Bob Liu <bob.liu@oracle.com>
+To: dm-devel@redhat.com
+Date: Tue, 24 Mar 2020 19:02:52 +0800
+Message-Id: <20200324110255.8385-1-bob.liu@oracle.com>
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9569
+	signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=1
+	adultscore=0
+	malwarescore=0 mlxscore=0 spamscore=0 mlxlogscore=765 bulkscore=0
+	phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2003020000 definitions=main-2003240059
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9569
+	signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+	clxscore=1015
+	lowpriorityscore=0 suspectscore=1 priorityscore=1501 malwarescore=0
+	mlxscore=0 adultscore=0 phishscore=0 impostorscore=0 mlxlogscore=839
+	bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2003020000 definitions=main-2003240059
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 02P6lflI023253
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 02OB3U7v008792
 X-loop: dm-devel@redhat.com
-Cc: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	Dmitry Fomichev <Dmitry.Fomichev@wdc.com>
-Subject: Re: [dm-devel] [RFC PATCH v2 3/3] dm zoned: add regular device info
-	to metadata
+X-Mailman-Approved-At: Wed, 25 Mar 2020 04:12:59 -0400
+Cc: linux-block@vger.kernel.org, Dmitry.Fomichev@wdc.com, Damien.LeMoal@wdc.com,
+	Bob Liu <bob.liu@oracle.com>
+Subject: [dm-devel] [RFC PATCH v2 0/3] dm zoned: extend the way of exposing
+	zoned block device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,55 +111,50 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gMy8yNS8yMCA3OjI5IEFNLCBEYW1pZW4gTGUgTW9hbCB3cm90ZToKPiBPbiAyMDIwLzAzLzI0
-IDIwOjA0LCBCb2IgTGl1IHdyb3RlOgo+PiBUaGlzIHBhdGNoIGltcGxlbWVudGVkIG1ldGFkYXRh
-IHN1cHBvcnQgZm9yIHJlZ3VsYXIgZGV2aWNlIGJ5Ogo+PiAgIC0gRW11bGF0ZWQgem9uZSBpbmZv
-cm1hdGlvbiBmb3IgcmVndWxhciBkZXZpY2UuCj4+ICAgLSBTdG9yZSBtZXRhZGF0YSBhdCB0aGUg
-YmVnaW5uaW5nIG9mIHJlZ3VsYXIgZGV2aWNlLgo+Pgo+PiAgICAgICB8IC0tLSB6b25lZCBkZXZp
-Y2UgLS0tIHwgLS0gcmVndWxhciBkZXZpY2UgfHwKPj4gICAgICAgXiAgICAgICAgICAgICAgICAg
-ICAgICBeCj4+ICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgfE1ldGFkYXRhCj4+IHpvbmUg
-MAo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBCb2IgTGl1IDxib2IubGl1QG9yYWNsZS5jb20+Cj4+IC0t
-LQo+PiAgIGRyaXZlcnMvbWQvZG0tem9uZWQtbWV0YWRhdGEuYyB8IDEzNSArKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLQo+PiAgIGRyaXZlcnMvbWQvZG0tem9uZWQtdGFy
-Z2V0LmMgICB8ICAgNiArLQo+PiAgIGRyaXZlcnMvbWQvZG0tem9uZWQuaCAgICAgICAgICB8ICAg
-MyArLQo+PiAgIDMgZmlsZXMgY2hhbmdlZCwgMTA4IGluc2VydGlvbnMoKyksIDM2IGRlbGV0aW9u
-cygtKQo+PgpIYXZpbmcgdGhvdWdodCBhYm91dCBpdCBzb21lIG1vcmUsIEkgdGhpbmsgd2UgY2Fu
-bm90IGNvbnRpbnVlIHdpdGggdGhpcyAKJ3NpbXBsZScgYXBwcm9hY2guClRoZSBpbW1lZGlhdGUg
-cHJvYmxlbSBpcyB0aGF0IHdlIGxpZSBhYm91dCB0aGUgZGlzayBzaXplOyBjbGVhcmx5IHRoZQpt
-ZXRhZGF0YSBjYW5ub3QgYmUgdXNlZCBmb3IgcmVndWxhciBkYXRhLCB5ZXQgd2UgZXhwb3NlIGEg
-dGFyZ2V0IGRldmljZSAKd2l0aCB0aGUgZnVsbCBzaXplIG9mIHRoZSB1bmRlcmx5aW5nIGRldmlj
-ZS4KTWFraW5nIG1lIHdvbmRlciBpZiBhbnlib2R5IGV2ZXIgdGVzdGVkIGEgZGlzay1mdWxsIHNj
-ZW5hcmlvLi4uClRoZSBvdGhlciBwcm9ibGVtIGlzIHRoYXQgd2l0aCB0d28gZGV2aWNlcyB3ZSBu
-ZWVkIHRvIGJlIGFibGUgdG8gc3RpdGNoIAp0aGVtIHRvZ2V0aGVyIGluIGFuIGF1dG9tYXRlZCBm
-YXNoaW9uLCBlZyB2aWEgYSBzeXN0ZW1kIHNlcnZpY2Ugb3IgdWRldiAKcnVsZS4KQnV0IGZvciB0
-aGlzIHdlIG5lZWQgdG8gYmUgYWJsZSB0byBpZGVudGlmeSB0aGUgZGV2aWNlcywgd2hpY2ggbWVh
-bnMgCmJvdGggbmVlZCB0byBjYXJyeSBtZXRhZGF0YSwgYW5kIGJvdGggbmVlZCB0byBoYXZlIHVu
-aXF1ZSBpZGVudGlmaWVyIAp3aXRoaW4gdGhlIG1ldGFkYXRhLiBXaGljaCB0aGUgY3VycmVudCBt
-ZXRhZGF0YSBkb2Vzbid0IGFsbG93IHRvLgoKSGVuY2UgbXkgcGxhbiBpcyB0byBpbXBsZW1lbnQg
-YSB2MiBtZXRhZGF0YSwgY2FycnlpbmcgVVVJRHMgZm9yIHRoZSBkbXogCnNldCBfYW5kXyB0aGUg
-Y29tcG9uZW50IGRldmljZS4gV2l0aCB0aGF0IHdlIGNhbiB1cGRhdGUgYmxraWQgdG8gY3JlYXRl
-IApsaW5rcyBldGMgc28gdGhhdCB0aGUgZGV2aWNlcyBjYW4gYmUgaWRlbnRpZmllZCBpbiB0aGUg
-c3lzdGVtLgpBZGRpdGlvbmFsbHkgSSB3b3VsZCBiZSB1cGRhdGluZyBkbXphZG0gdG8gd3JpdGUg
-dGhlIG5ldyBtZXRhZGF0YS4KCkFuZCBJIHdpbGwgYWRkIGEgbmV3IGNvbW1hbmQgJ3N0YXJ0JyB0
-byBkbXphZG0gd2hpY2ggd2lsbCB0aGVuIGNyZWF0ZSAKdGhlIGRldmljZS1tYXBwZXIgZGV2aWNl
-IF93aXRoIHRoZSBjb3JyZWN0IHNpemVfLiBJdCBhbHNvIGhhcyB0aGUgCmJlbmVmaXQgdGhhdCB3
-ZSBjYW4gY3JlYXRlIHRoZSBkZXZpY2UtbWFwcGVyIHRhcmdldCB3aXRoIHRoZSBVVUlEIApzcGVj
-aWZpZWQgaW4gdGhlIG1ldGFkYXRhLCBzbyB0aGUgcGVyc2lzdGVudCBkZXZpY2UgbGlua3Mgd2ls
-bCBiZSAKY3JlYXRlZCBhdXRvbWF0aWNhbGx5LgoKQm9iLCBjYW4geW91IHNlbmQgbWUgeW91ciBp
-bXByb3ZlbWVudHMgdG8gZG16YWRtIHNvIHRoYXQgSSBjYW4gaW5jbHVkZSAKdGhlbSBpbiBteSBj
-aGFuZ2VzPwoKQ2hlZXJzLAoKSGFubmVzCi0tIApEci4gSGFubmVzIFJlaW5lY2tlICAgICAgICAg
-ICAgVGVhbWxlYWQgU3RvcmFnZSAmIE5ldHdvcmtpbmcKaGFyZUBzdXNlLmRlICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICs0OSA5MTEgNzQwNTMgNjg4ClNVU0UgU29mdHdhcmUgU29sdXRp
-b25zIEdtYkgsIE1heGZlbGRzdHIuIDUsIDkwNDA5IE7DvHJuYmVyZwpIUkIgMzY4MDkgKEFHIE7D
-vHJuYmVyZyksIEdlc2Now6RmdHNmw7xocmVyOiBGZWxpeCBJbWVuZMO2cmZmZXIKCgotLQpkbS1k
-ZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL3d3dy5yZWRoYXQu
-Y29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWw=
+Motivation:
+dm-zoned exposes a zoned block device(ZBC) as a regular block device by storing
+metadata and buffering random writes in its conventional zones.
+This way is not flexible, there must be enough conventional zones and the
+performance may be constrained.
+
+This patchset split the metadata from zoned device to an extra regular device,
+with aim to increase the flexibility and potential performance.
+For example, now we can store metadata in a faster device like persistent memory.
+Also random writes can go to the regular devices in this version.
+
+Usage(will send user space patches later):
+> dmzadm --format $zoned_dev --regular=$regu_dev --force
+> echo "0 $size zoned $regu_dev $zoned_dev" | dmsetup create $dm-zoned-name
+
+v2:
+ * emulate regular device zone info
+ * support write both metadata and random writes to regular dev
+
+Bob Liu (3):
+  dm zoned: rename dev name to zoned_dev
+  dm zoned: introduce regular device to dm-zoned-target
+  dm zoned: add regular device info to metadata
+
+ drivers/md/dm-zoned-metadata.c | 205 +++++++++++++++++++++++++++--------------
+ drivers/md/dm-zoned-target.c   | 205 +++++++++++++++++++++++------------------
+ drivers/md/dm-zoned.h          |  53 ++++++++++-
+ 3 files changed, 299 insertions(+), 164 deletions(-)
+
+-- 
+2.9.5
+
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
