@@ -1,80 +1,63 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [216.205.24.74])
-	by mail.lfdr.de (Postfix) with ESMTP id 3E5551933A2
-	for <lists+dm-devel@lfdr.de>; Wed, 25 Mar 2020 23:13:09 +0100 (CET)
+Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [63.128.21.74])
+	by mail.lfdr.de (Postfix) with ESMTP id 7F82D193745
+	for <lists+dm-devel@lfdr.de>; Thu, 26 Mar 2020 05:23:27 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1585174388;
+	s=mimecast20190719; t=1585196606;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=QLQ9Hji6m9Ws5Z35HGq9H3TbVunpm7zEG/j7VlbId78=;
-	b=CNeH8QER6yOBmoTLI6ax2SVjpTRbq+1aK0hCQvLr1Bb6WaZt9SaZV0N1wVqv0OVTXZgsI8
-	QrMVSb5OvWMZM0yfaZ2wf+61zzxcmS0s2rPlvwCptH4Tkd+OtyAKtqbnQCmINktiyw2FkU
-	W4yTQTFhCA6UXICkPRpByUJdzkIQ9k8=
+	bh=Eig8ohWrwuciUrHbH0Oc16iqJVfq9+yfUHBETJtxKPY=;
+	b=FvKzwPXMa+xjVyuGgU6igYlkeW0C1nCfcqsV4ySJr1wILqKNl1kQ05swCIp2y2IB/xcPxG
+	K7v/3l4PzLmh+jRQdo7WYmf05HR1l4ODxUmsMfOdtW9z0OINuRij1uGUnGyrx4jcaLsI7H
+	zcWogCUJwJgAHkw+nsCWW4fBTxfH20s=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-225-T2_reUzBOXmJZ-bXzUCeEA-1; Wed, 25 Mar 2020 18:13:05 -0400
-X-MC-Unique: T2_reUzBOXmJZ-bXzUCeEA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-222-6rVizqoBMsqlBzWTXicfFw-1; Thu, 26 Mar 2020 00:23:22 -0400
+X-MC-Unique: 6rVizqoBMsqlBzWTXicfFw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A1964107ACCA;
-	Wed, 25 Mar 2020 22:12:59 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 65697107ACCA;
+	Thu, 26 Mar 2020 04:23:17 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A97D5C1B0;
-	Wed, 25 Mar 2020 22:12:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82C2160BF3;
+	Thu, 26 Mar 2020 04:23:14 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DE9E6863B9;
-	Wed, 25 Mar 2020 22:12:52 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 60CB7863BD;
+	Thu, 26 Mar 2020 04:23:06 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 02PMBKk1025462 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 25 Mar 2020 18:11:20 -0400
+	id 02Q4Mr8Y003791 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 26 Mar 2020 00:22:53 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 078AA109E86B; Wed, 25 Mar 2020 22:11:20 +0000 (UTC)
+	id BB06D5C1D4; Thu, 26 Mar 2020 04:22:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 03BBD109E867
-	for <dm-devel@redhat.com>; Wed, 25 Mar 2020 22:11:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1310F8F7825
-	for <dm-devel@redhat.com>; Wed, 25 Mar 2020 22:11:18 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-431-yxOllvFkPASuOgOqixBGMQ-1;
-	Wed, 25 Mar 2020 18:11:15 -0400
-X-MC-Unique: yxOllvFkPASuOgOqixBGMQ-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
-	by mx2.suse.de (Postfix) with ESMTP id CCFCEAD33;
-	Wed, 25 Mar 2020 22:11:13 +0000 (UTC)
-Message-ID: <cc2a180a52602e90c94eff1f2c725fd4b93c3927.camel@suse.com>
-From: Martin Wilck <martin.wilck@suse.com>
-To: Benjamin Marzinski <bmarzins@redhat.com>
-In-Reply-To: <20200325220045.GC17313@octiron.msp.redhat.com>
-References: <1585083834-14237-1-git-send-email-bmarzins@redhat.com>
-	<1585083834-14237-2-git-send-email-bmarzins@redhat.com>
-	<ebfcb22b005314635b77e4820e205971d708d07d.camel@suse.com>
-	<20200325205255.GB17313@octiron.msp.redhat.com>
-	<20200325220045.GC17313@octiron.msp.redhat.com>
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2DB845C1B0;
+	Thu, 26 Mar 2020 04:22:50 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 02Q4MnNI023752; 
+	Wed, 25 Mar 2020 23:22:49 -0500
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 02Q4MmnS023751;
+	Wed, 25 Mar 2020 23:22:48 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>
+Date: Wed, 25 Mar 2020 23:22:46 -0500
+Message-Id: <1585196568-23714-1-git-send-email-bmarzins@redhat.com>
 MIME-Version: 1.0
-Date: Wed, 25 Mar 2020 23:11:00 +0100
-User-Agent: Evolution 3.34.4
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 02PMBKk1025462
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH 2/3] libmutipath: don't close fd on
- dm_lib_release
+Cc: device-mapper development <dm-devel@redhat.com>,
+	Martin Wilck <Martin.Wilck@suse.com>
+Subject: [dm-devel] [PATCH v2 1/3] libmultipath: assign variable to make gcc
+	happy
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -88,69 +71,32 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Wed, 2020-03-25 at 17:00 -0500, Benjamin Marzinski wrote:
-> On Wed, Mar 25, 2020 at 03:52:55PM -0500, Benjamin Marzinski wrote:
-> > On Wed, Mar 25, 2020 at 03:16:50PM +0000, Martin Wilck wrote:
-> > > On Tue, 2020-03-24 at 16:03 -0500, Benjamin Marzinski wrote:
-> > >=20
-> > > AFAICS, this function has been in libdm since 1.02.111. We
-> > > support
-> > > 1.02.89 (if all features enabled, otherwise even older). Perhaps
-> > > we
-> > > should make this function call conditional on the libdm verson?
-> > >=20
-> > > But perhaps more importantly, why do we still need to call
-> > > dm_lib_release()? AFAICS it's only needed for systems that have
-> > > no udev
-> > > support for creating device nodes (to call update_devs() via
-> > > dm_lib_release()), and we don't support that anymore anyway, do
-> > > we?=20
-> > >=20
-> > > Since 26c4bb0, we're always setting the
-> > > DM_UDEV_DISABLE_LIBRARY_FALLBACK flag, and the cookie, too
-> > > (we aren't setting it for DM_DEVICE_RELOAD, but it isn't needed
-> > > for
-> > > that, either, since no device nodes need to be created or
-> > > removed); so
-> > > dm_lib_release() should really have no effect.
-> > >=20
-> > > Regards
-> > > Martin
-> >=20
-> > Good call. I'll redo this patch.
->=20
-> Actually, I've changed my mind. Calling dm_lib_release() lets us
-> release
-> the memory that device-mapper uses to store all the node ops that it
-> was saving up.  Without calling dm_lib_release(), AFAICS, that memory
-> keeps growing until the daemon exits.
-
-Ok, I see. libdm stacks the node ops, even if it's told to rely on
-udev. The question is, what for, as it will discard the stacked nodes
-later on anyway.=20
-
-Fine, then. But please add a check for the libdm version.
-
-Thanks,
-Martin
-
---=20
-Dr. Martin Wilck <mwilck@suse.com>, Tel. +49 (0)911 74053 2107
-SUSE  Software Solutions Germany GmbH
-HRB 36809, AG N=FCrnberg GF: Felix
-Imend=F6rffer
-
-
-
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+VGhlcmUgaXMgbm90aGluZyB3cm9uZyB3aXRoIGlzX3F1ZXVlaW5nIG5vdCBiZWluZyBzZXQgYXQg
+dGhlIHN0YXJ0Cm9mIF9fc2V0X25vX3BhdGhfcmV0cnkoKSwgaXQgd2lsbCBhbHdheXMgZ2V0IHNl
+dCBiZWZvcmUgaXQgaXMgYWNjZXNzZWQsCmJ1dCBnY2MgOC4yLjEgaXMgZmFpbGluZyB3aXRoCgpz
+dHJ1Y3RzX3ZlYy5jOiBJbiBmdW5jdGlvbiDigJhfX3NldF9ub19wYXRoX3JldHJ54oCZOgpzdHJ1
+Y3RzX3ZlYy5jOjMzOTo3OiBlcnJvcjog4oCYaXNfcXVldWVpbmfigJkgbWF5IGJlIHVzZWQgdW5p
+bml0aWFsaXplZCBpbgp0aGlzIGZ1bmN0aW9uIFstV2Vycm9yPW1heWJlLXVuaW5pdGlhbGl6ZWRd
+CiAgYm9vbCBpc19xdWV1ZWluZzsKICAgICAgIF5+fn5+fn5+fn5+CgpzbywgYXNzaWduIGEgdmFs
+dWUgdG8gbWFrZSBpdCBoYXBweS4KClJldmlld2VkLWJ5OiBNYXJ0aW4gV2lsY2sgPG13aWxja0Bz
+dXNlLmNvbT4KU2lnbmVkLW9mZi1ieTogQmVuamFtaW4gTWFyemluc2tpIDxibWFyemluc0ByZWRo
+YXQuY29tPgotLS0KIGxpYm11bHRpcGF0aC9zdHJ1Y3RzX3ZlYy5jIHwgMiArLQogMSBmaWxlIGNo
+YW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvbGlibXVs
+dGlwYXRoL3N0cnVjdHNfdmVjLmMgYi9saWJtdWx0aXBhdGgvc3RydWN0c192ZWMuYwppbmRleCAz
+ZGJiYWEwZi4uMDc3ZjJlNDIgMTAwNjQ0Ci0tLSBhL2xpYm11bHRpcGF0aC9zdHJ1Y3RzX3ZlYy5j
+CisrKyBiL2xpYm11bHRpcGF0aC9zdHJ1Y3RzX3ZlYy5jCkBAIC0zMzYsNyArMzM2LDcgQEAgc3Rh
+dGljIHZvaWQgbGVhdmVfcmVjb3ZlcnlfbW9kZShzdHJ1Y3QgbXVsdGlwYXRoICptcHApCiAKIHZv
+aWQgX19zZXRfbm9fcGF0aF9yZXRyeShzdHJ1Y3QgbXVsdGlwYXRoICptcHAsIGJvb2wgY2hlY2tf
+ZmVhdHVyZXMpCiB7Ci0JYm9vbCBpc19xdWV1ZWluZzsKKwlib29sIGlzX3F1ZXVlaW5nID0gZmFs
+c2U7IC8qIGFzc2lnbiBhIHZhbHVlIHRvIG1ha2UgZ2NjIGhhcHB5ICovCiAKIAljaGVja19mZWF0
+dXJlcyA9IGNoZWNrX2ZlYXR1cmVzICYmIG1wcC0+ZmVhdHVyZXMgIT0gTlVMTDsKIAlpZiAoY2hl
+Y2tfZmVhdHVyZXMpCi0tIAoyLjE3LjIKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZl
+bEByZWRoYXQuY29tCmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1k
+ZXZlbA==
 
