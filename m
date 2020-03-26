@@ -1,91 +1,62 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [216.205.24.74])
-	by mail.lfdr.de (Postfix) with ESMTP id CB7DA1941D5
-	for <lists+dm-devel@lfdr.de>; Thu, 26 Mar 2020 15:46:33 +0100 (CET)
+Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [63.128.21.74])
+	by mail.lfdr.de (Postfix) with ESMTP id 058C0194D4D
+	for <lists+dm-devel@lfdr.de>; Fri, 27 Mar 2020 00:32:34 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1585233992;
+	s=mimecast20190719; t=1585265553;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=mZD5fbSiPld5mSSkMyJXeQwrx4otmEVt1WlEyhtY4Vg=;
-	b=PtEP8I44THVJnryyOQsCWP9aFMuTygjio1Cskz0potzDyoegk4Rx/9I3Ax+NlM3dw6p/mK
-	g0RMu0lM7UmhqWO/58YK4CdCh0R+1vd7P35vkNrxMiHEEF3QIQQdqn6334ffjoYDTRPmWq
-	vvou8LJ0GRlcCwR04PL3wFjAQFghEtI=
+	bh=KJjPRjVoUPaNR/y2+IlyScY9/S5tW+mAuenl4yajxJk=;
+	b=Cp/rtTS/xSwTxcTwEbGvAHGec7qd5C3HJDZjIXYdvAn6FxKqHNyAtF5+d8MfWKZT48+Xfk
+	my8wQ1mDM0M/X5lXz/qJ5LDzUzRvHGATr2ykcSSE2lAPBGyKVOeOFm89bU9FocuVJqEN9J
+	zUX5S1Lu7+Zip9p3DQXsciQJ0KgOZfI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-107-AufCaXs8PIOATmzLpNhQGA-1; Thu, 26 Mar 2020 10:46:30 -0400
-X-MC-Unique: AufCaXs8PIOATmzLpNhQGA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-14-vljQ_arZMNaEBDe_h9ISXg-1; Thu, 26 Mar 2020 19:32:31 -0400
+X-MC-Unique: vljQ_arZMNaEBDe_h9ISXg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 93435101FC61;
-	Thu, 26 Mar 2020 14:46:24 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 354345DA75;
-	Thu, 26 Mar 2020 14:46:22 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F34451005510;
+	Thu, 26 Mar 2020 23:32:22 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F06B5E002;
+	Thu, 26 Mar 2020 23:32:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C667018089CD;
-	Thu, 26 Mar 2020 14:46:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5276F8A03F;
+	Thu, 26 Mar 2020 23:32:08 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 02QEkCBB027583 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 26 Mar 2020 10:46:12 -0400
+	id 02QNVpHr014187 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 26 Mar 2020 19:31:51 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id F3C7C11D286; Thu, 26 Mar 2020 14:46:11 +0000 (UTC)
+	id 7289260BF4; Thu, 26 Mar 2020 23:31:51 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EF52411D28D
-	for <dm-devel@redhat.com>; Thu, 26 Mar 2020 14:46:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED86C800294
-	for <dm-devel@redhat.com>; Thu, 26 Mar 2020 14:46:09 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-356-a_jgxwj7OVqDBH-semdSNg-1; Thu, 26 Mar 2020 10:46:04 -0400
-X-MC-Unique: a_jgxwj7OVqDBH-semdSNg-1
-Received: from hch by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
-	Hat Linux)) id 1jHTlc-0002Pb-5G; Thu, 26 Mar 2020 14:45:56 +0000
-Date: Thu, 26 Mar 2020 07:45:56 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: "Martin K. Petersen" <martin.petersen@oracle.com>
-Message-ID: <20200326144556.GA4317@infradead.org>
-References: <e2b7cbab-d91f-fd7b-de6f-a671caa6f5eb@virtuozzo.com>
-	<69c0b8a4-656f-98c4-eb55-2fd1184f5fc9@virtuozzo.com>
-	<67d63190-c16f-cd26-6b67-641c8943dc3d@virtuozzo.com>
-	<20200319102819.GA26418@infradead.org> <yq1tv2k8pjn.fsf@oracle.com>
-	<20200325162656.GJ29351@magnolia>
-	<20200325163223.GA27156@infradead.org> <yq1d090jqlm.fsf@oracle.com>
-	<20200326092935.GA6478@infradead.org> <yq1lfnngp6l.fsf@oracle.com>
+Received: from agk-dp.fab.redhat.com (agk-dp.fab.redhat.com [10.33.15.10])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DAF5D60BF3;
+	Thu, 26 Mar 2020 23:31:46 +0000 (UTC)
+Received: from agk by agk-dp.fab.redhat.com with local (Exim 4.69)
+	(envelope-from <agk@redhat.com>)
+	id 1jHbyT-0007Bh-3j; Thu, 26 Mar 2020 23:31:45 +0000
+Date: Thu, 26 Mar 2020 23:31:45 +0000
+From: Alasdair G Kergon <agk@redhat.com>
+To: dm-devel@redhat.com, linux-lvm@redhat.com
+Message-ID: <20200326233144.GM17504@agk-dp.fab.redhat.com>
+Mail-Followup-To: dm-devel@redhat.com, linux-lvm@redhat.com
 MIME-Version: 1.0
-In-Reply-To: <yq1lfnngp6l.fsf@oracle.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	bombadil.infradead.org. See http://www.infradead.org/rpr.html
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 02QEkCBB027583
+Organization: Red Hat UK Ltd. Registered in England and Wales, number
+	03798903. Registered Office: Peninsular House, 30-36 Monument
+	Street, 4th Floor, London, England, EC3R 8NB.
+User-Agent: Mutt/1.5.18 (2008-05-17)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
-Cc: andrea.parri@amarulasolutions.com, snitzer@redhat.com, dhowells@redhat.com,
-	song@kernel.org, dm-devel@redhat.com, adilger.kernel@dilger.ca,
-	osandov@fb.com, agk@redhat.com, hare@suse.com, sagi@grimberg.me,
-	"Darrick J. Wong" <darrick.wong@oracle.com>,
-	Christoph Hellwig <hch@infradead.org>, bob.liu@oracle.com,
-	minwoo.im.dev@gmail.com, jthumshirn@suse.de, ajay.joshi@wdc.com,
-	Chaitanya.Kulkarni@wdc.com, ming.lei@redhat.com,
-	linux-block@vger.kernel.org, Kirill Tkhai <ktkhai@virtuozzo.com>,
-	dsterba@suse.com, bvanassche@acm.org, axboe@kernel.dk,
-	damien.lemoal@wdc.com, tytso@mit.edu,
-	linux-kernel@vger.kernel.org, tj@kernel.org, asml.silence@gmail.com
-Subject: Re: [dm-devel] [PATCH v7 0/6] block: Introduce REQ_ALLOCATE flag
- for REQ_OP_WRITE_ZEROES
+Subject: [dm-devel] storage-logger: Recording changes to the udev database
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -99,23 +70,86 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-On Thu, Mar 26, 2020 at 10:34:42AM -0400, Martin K. Petersen wrote:
-> I just worry about the proliferation of identical merging and splitting
-> code throughout the block stack as we add additional single-range, no
-> payload operations (Verify, etc.). I prefer to enforce the semantics in
-> the LLD and not in the plumbing. But I won't object to a separate
-> REQ_OP_ALLOCATE if you find the resulting code duplication acceptable.
+I'm experimenting with ways of recording changes to the udev database so
+you can look back at the history of the storage stack on a particular
+machine.  This is still a work-in-progress, but it's reached a point
+where I'd like more people to try it out.
 
-I find it acceptable for now.  And I think we should find some way
-(e.g. by being table driven) to share code between differnet opcodes.
+I've written a shell script that records data related to storage uevents
+in the system journal and a perl script that helps you to interrogate
+this data later to create a representation of the storage components.
 
+If you're interested, please try this out and let me know if you think
+pursing this approach further would lead to something that you would
+use and distributions should ship.
+
+Source code:
+  https://github.com/lvmteam/storage-logger
+Fedora builds:
+  https://copr.fedorainfracloud.org/coprs/agk/storage-logger/build/1320735/
+Presentation:
+  https://fosdem.org/2020/schedule/event/storage_logger/
+
+
+Storage-logger
+==============
+The storage-logger project maintains a record of the storage
+configuration of a linux system as it changes over time.
+The idea is to provide a quick way to check the state
+of a system at times in the past.
+
+Logging
+=======
+The initial logging implementation is triggered by storage uevents and
+consists of two components:
+
+1. A new udev rule file, 99-zzz-storage-logger.rules, which runs after
+all the other rules have run and invokes:
+
+2. A script, udev_storage_logger.sh, that captures relevant
+information about devices that changed and stores it in the system
+journal.
+
+The effect is to log relevant uevents plus some supplementary
+information.  It does not yet handle filesystem-related events.
+
+Reporting
+=========
+Two methods to query the data are offered:
+
+1. journalctl
+Reports the raw data using simple filtering.
+Data is tagged with the identifier UDEVLOG and retrievable as
+key-value pairs.
+All the captured data:
+  journalctl -t UDEVLOG --output verbose
+or as JSON:
+  journalctl -t UDEVLOG --output json
+Between a time range:
+  --since 'YYYY-MM-DD HH:MM:SS' 
+  --until 'YYYY-MM-DD HH:MM:SS'
+Other filtering features are described in the man page.
+
+2. lsblkj
+This wrapper creates a dummy system environment that "looks like" the
+system did at a specified earlier time and then runs lsblk against it.
+It accepts --since and --until arguments to pass to journalctl to
+select the desired data, and passes other arguments controlling
+the output format to the real lsblk.  
+Use --verbose to watch it setting up the temporary environment .
+Use --dry-run to see what it would do without actually doing it.
+Use --git to create a git repository recording the changes over time.
+ 
+Alasdair
+-- 
+agk@redhat.com
 
 --
 dm-devel mailing list
