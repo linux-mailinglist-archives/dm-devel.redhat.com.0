@@ -1,123 +1,126 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 6AA3219BC94
-	for <lists+dm-devel@lfdr.de>; Thu,  2 Apr 2020 09:20:50 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id AFB7819BC93
+	for <lists+dm-devel@lfdr.de>; Thu,  2 Apr 2020 09:20:49 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1585812049;
+	s=mimecast20190719; t=1585812048;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=u8GTs+mltNypUY9tjVZJUdD2x3mOveefg/RxYeAFpZQ=;
-	b=HYwdMp7joCJSKevUS3iTLgOPLHPSzNOA8m7lcFm+86EXdTA03s93J3kFVxkX9abDHWDhaN
-	plHoFVufMjgjOCx0nI397CMeuoK/CyKb/C4Mhf2toeOLXZ6EbmGxkkWj3McYveDrLcV9US
-	mq3ycTZSEzjvQH8yiABJojXTUZ5w/pc=
+	bh=HjAvRqGiXMatRdqeiibn4g4FVybvYeYc38bTkDcRWhM=;
+	b=aROFc3km/95DzDjKKLWJPityKiZy4uFj0TUzf2khQpQy14ntdVPtazTB3tetZXbDowFGjU
+	bqBL92zXdm2WFPkAvlgxxcPdWnNnDUg/6lv5UFDR1IWZUFjWi7sc5YUmxZe569TgK3qHq8
+	c4Xg+0mhKCXS4Q5RP5N+4jrRYLdvbWc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-274-hG3HiYUvOdWBvl_78L5_zw-1; Thu, 02 Apr 2020 03:20:46 -0400
-X-MC-Unique: hG3HiYUvOdWBvl_78L5_zw-1
+ us-mta-265-0ZKHMrz-Omewo3-i-PCt8w-1; Thu, 02 Apr 2020 03:20:46 -0400
+X-MC-Unique: 0ZKHMrz-Omewo3-i-PCt8w-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EA237800D6C;
-	Thu,  2 Apr 2020 07:20:39 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DC005DA10A;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1BECB801E6C;
+	Thu,  2 Apr 2020 07:20:41 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 48703DA113;
 	Thu,  2 Apr 2020 07:20:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 32FB718089CD;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3316F944CC;
 	Thu,  2 Apr 2020 07:20:26 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 02UCd2bP017055 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 30 Mar 2020 08:39:02 -0400
+	id 02UFi5Jo028585 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 30 Mar 2020 11:44:05 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 52B2B2166B30; Mon, 30 Mar 2020 12:39:02 +0000 (UTC)
+	id 30514C68FA; Mon, 30 Mar 2020 15:44:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4CE602166B33
-	for <dm-devel@redhat.com>; Mon, 30 Mar 2020 12:38:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B6FFD0168
+	for <dm-devel@redhat.com>; Mon, 30 Mar 2020 15:44:03 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8F2FA8FF671
-	for <dm-devel@redhat.com>; Mon, 30 Mar 2020 12:38:59 +0000 (UTC)
-Received: from esa15.sap.c3s2.iphmx.com (esa15.sap.c3s2.iphmx.com
-	[216.71.156.113]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-123-PXyx8O13NkSz-_jAkDmRig-1; Mon, 30 Mar 2020 08:38:57 -0400
-X-MC-Unique: PXyx8O13NkSz-_jAkDmRig-1
-IronPort-SDR: m+S6lToFIgBZ4TyKTwvpqjjdoTaHfZbe2T1Wi7AMO88ho4PNyzCcU2Tvns4I76G3NV6sDuRn+c
-	9s2Z8p55MEhdJzAeyPTINznbEnNEMMgQBcdNTOcO+ajxqTyamKNLkRVGIkmX3/7+sFaeOjmXO1
-	wkCWidaDXu1wBiU8QgKwMSxUA3GqfAbJyCrB/cOoCA1pCS6N7r+PU6+Djcrr2kSKg2xoZvlE+y
-	X2pcWCpo5+cvgR+I9Fyjh6nRsStnBxhxSc1zQMk1pFJ0lTz27KQDPRIbEa7mLLYM0YuMt3hlJH
-	KQnOpV8989DObbpDrKbGsr/L
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 41B558001E4
+	for <dm-devel@redhat.com>; Mon, 30 Mar 2020 15:44:03 +0000 (UTC)
+Received: from esa3.sap.c3s2.iphmx.com (esa3.sap.c3s2.iphmx.com
+	[68.232.159.191]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-163-Qpcz2-74O1Gxiqy47v9p1w-1; Mon, 30 Mar 2020 11:44:00 -0400
+X-MC-Unique: Qpcz2-74O1Gxiqy47v9p1w-1
+IronPort-SDR: eoGEuhOLQKvtRGdSZgHMw9qvadvEYggMWRzOdmRoTgURdxvixmyf6MZo01ocyCZv6BbuTV0Idy
+	doZd9psvsk3AkHGVYqfzGppdJ29S7gRQcKOxYmTFTXnEwg7QCcE2j8nSJG7zu9G69XSuHFyliy
+	Ob1QM4e2ufErpM9Hko4QJ4C59xVsscFPFwUYLjEkU0U6ABt5BnukHEr7OC1p1xFk2PrD2EQ9hT
+	/pqYw4WUNGKOkFTQYD8mBmX82HJ2H+02BjZuY0z6cavrvSeDObrgv1Fbab/7bSzv0SHugJIYUI
+	v6oB+Jqlh4MuRpeI/s1iL3ZS
 X-Amp-Result: SKIPPED(no attachment in message)
-Received: from smtpgw04.mail.net.sap (HELO smtpgw.sap-ag.de) ([155.56.66.99])
-	by esa15.sap.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA384;
-	30 Mar 2020 14:37:52 +0200
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com (104.47.18.111)
-	by smtpgw04.sap-ag.de (155.56.66.99) with Microsoft SMTP Server (TLS)
-	id 15.0.1395.4; Mon, 30 Mar 2020 14:37:51 +0200
+Received: from smtpgw02.mail.net.sap (HELO smtpgw.sap-ag.de) ([155.56.66.97])
+	by esa3.sap.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA384;
+	30 Mar 2020 17:42:56 +0200
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com (104.47.17.174)
+	by smtpgw02.sap-ag.de (155.56.66.97) with Microsoft SMTP Server (TLS)
+	id 15.0.1395.4; Mon, 30 Mar 2020 17:42:54 +0200
 Received: from AM0PR02MB3842.eurprd02.prod.outlook.com (52.134.80.145) by
-	AM0PR02MB3857.eurprd02.prod.outlook.com (52.134.85.144) with Microsoft
+	AM0PR02MB5555.eurprd02.prod.outlook.com (20.179.39.159) with Microsoft
 	SMTP
 	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.2856.20; Mon, 30 Mar 2020 12:37:50 +0000
+	15.20.2856.19; Mon, 30 Mar 2020 15:42:53 +0000
 Received: from AM0PR02MB3842.eurprd02.prod.outlook.com
 	([fe80::41a9:104d:1efe:6e2]) by AM0PR02MB3842.eurprd02.prod.outlook.com
 	([fe80::41a9:104d:1efe:6e2%3]) with mapi id 15.20.2856.019;
-	Mon, 30 Mar 2020 12:37:49 +0000
+	Mon, 30 Mar 2020 15:42:53 +0000
 From: "Bruggeman, Otto (external - Partner)" <otto.bruggeman@sap.com>
-To: Mikulas Patocka <mpatocka@redhat.com>, Dan Williams
-	<dan.j.williams@intel.com>, Vishal Verma <vishal.l.verma@intel.com>, "Dave
-	Jiang" <dave.jiang@intel.com>, Ira Weiny <ira.weiny@intel.com>,
+To: "Bruggeman, Otto (external - Partner)" <otto.bruggeman@sap.com>, "Mikulas
+	Patocka" <mpatocka@redhat.com>, Dan Williams <dan.j.williams@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>, Ira Weiny <ira.weiny@intel.com>,
 	Mike Snitzer <msnitzer@redhat.com>
 Thread-Topic: Optane nvdimm performance
-Thread-Index: AQHWBghJaSj9hvr+Gk+/gQ/orgjnU6hhE9Ww
-Date: Mon, 30 Mar 2020 12:37:48 +0000
-Message-ID: <AM0PR02MB3842ACBE359003CFBF32B6C59BCB0@AM0PR02MB3842.eurprd02.prod.outlook.com>
+Thread-Index: AQHWBghJaSj9hvr+Gk+/gQ/orgjnU6hhE9WwgAAzhyA=
+Date: Mon, 30 Mar 2020 15:42:52 +0000
+Message-ID: <AM0PR02MB38422D6FEBB0D5FB3D23167A9BCB0@AM0PR02MB3842.eurprd02.prod.outlook.com>
 References: <alpine.LRH.2.02.2003291116490.9236@file01.intranet.prod.int.rdu2.redhat.com>
-In-Reply-To: <alpine.LRH.2.02.2003291116490.9236@file01.intranet.prod.int.rdu2.redhat.com>
+	<AM0PR02MB3842ACBE359003CFBF32B6C59BCB0@AM0PR02MB3842.eurprd02.prod.outlook.com>
+In-Reply-To: <AM0PR02MB3842ACBE359003CFBF32B6C59BCB0@AM0PR02MB3842.eurprd02.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-originating-ip: [193.16.224.10]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d9c6be91-3482-4ad8-ffc0-08d7d4a72825
-x-ms-traffictypediagnostic: AM0PR02MB3857:
-x-microsoft-antispam-prvs: <AM0PR02MB385709A4A3866763918AB85D9BCB0@AM0PR02MB3857.eurprd02.prod.outlook.com>
+x-ms-office365-filtering-correlation-id: 1c8d3b87-7d93-4f26-1096-08d7d4c1027e
+x-ms-traffictypediagnostic: AM0PR02MB5555:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <AM0PR02MB555520B5A0A306790DEBC23B9BCB0@AM0PR02MB5555.eurprd02.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:3173;
 x-forefront-prvs: 0358535363
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
 	IPV:NLI; SFV:NSPM; H:AM0PR02MB3842.eurprd02.prod.outlook.com;
 	PTR:; CAT:NONE; SFTY:;
-	SFS:(10009020)(4636009)(136003)(366004)(346002)(396003)(39860400002)(376002)(71200400001)(8676002)(6506007)(81166006)(966005)(7116003)(81156014)(7696005)(9686003)(86362001)(53546011)(4326008)(478600001)(5660300002)(52536014)(76116006)(66946007)(66446008)(64756008)(66556008)(66476007)(3480700007)(110136005)(55016002)(186003)(54906003)(33656002)(26005)(2906002)(8936002)(316002);
+	SFS:(10009020)(4636009)(39860400002)(396003)(366004)(346002)(376002)(136003)(66946007)(186003)(316002)(2940100002)(71200400001)(7116003)(54906003)(3480700007)(966005)(55016002)(110136005)(8936002)(26005)(8676002)(81166006)(2906002)(81156014)(9686003)(86362001)(76116006)(5660300002)(4326008)(66476007)(7696005)(52536014)(33656002)(64756008)(478600001)(6506007)(66556008)(66446008)(53546011);
 	DIR:OUT; SFP:1101;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: DR72ItQJi8UD303jgSefcuWhZDSib5V879c2s441I95hzJWJWnFD+vf2QGd2yGWOmI+VeqM6U0OuDnKAn6KbdRvTP2ZS4jFIEijYULr7hPPpo2v01VTgK+VJ6ny8M6GN96/ZMLQZdZwUZ/7jNi8XzSR6GKCbxOEn4zWskkA/yav0pAkloN7jV+DvubiDesPrXHDaOfgBK5vUT4BrVsDN4t/ezkAHNgsPbetoWqZsVHfIismny8DFDeOEgBbOt2dqIJiGJ5ScKAbSRA+/xwlQcLiDJBhrynDgYK6u9k+MV2JyoCUrlkrUrUpOacR8eTF1y2SI5CZ/m7x/VDlI/QxGwh1DgfbBI6CVvDq6wjjb26TQiv2fatGpyk68XeB565pxYRgU41KZx7aaJC7O6TFYsMKxh/iiaEumrcLAiUGtf5YZqNrdQEpQCzZaULsKw2kk2OLS/qDSU4HGtOyxviM7xFaOPhml7YiJ2bXxNYxS6l6IQspQ6ANnmaPxxUddD83yXRVCQe8v85MqwtApr4v/2g==
-x-ms-exchange-antispam-messagedata: sjhUiPecDBNbbbItQsxGbLDYCxfuCO6ik+pesY1b7XHSKQZMntAOgXUM46b3frogWuZc1XSNECfchcFgofUJkhy0rBHFY1J3efxL2GJVVcJyapkhwiNzFV/nKNNoWM0yQH79fTuYEjNuosIH/KZSow==
-x-ms-exchange-transport-forked: True
+x-microsoft-antispam-message-info: E6jCVVk1EcgNV0kXv3iFrlBAPYNnutuXAP2bTH1sBdRyheO0ym1vBGoD71zNudp/LzlmLsMbV6xhIcLpfvpqg5lXzYkzjnXxwreJy6UVUbS8b0k4YK1ExERvBjtSlDLhLijxCHMsYcnlgIUqp5bbvTUHEI0GMTIOXLMJgGjE89o95f7vvmBp6bRub1LgM12/slq7zARSbamgjs1E+I8PhALeb77zN7dwcVTe+Qh4DnLfWnWa/meQvyAGYGrW+zf7ktwhPLPvnEEvQCD/vf8l7A0NNxKK4iOvqSUl+DqH9RI7HlEPX/aYugkl+vvtvCimzxeidrCvAjPu2x1RaCSXez7NmTraq62vRquAWwyn+GD3HByLTBcBF+9YwTu9S4GI6KW/aSl+8UAQWiEWAanC1fPzQy3xFs5zpjnPRnihngMhbr7RvSsNIKTtbTLMyweXDF7n+j8h5ovJbiC8bWFUKxj6wpDuwDkfLx7z28Vw/GGQ089l7bKwCa0BdB6wEMbzV6DTgLhZ4p5qdIozmqIBcA==
+x-ms-exchange-antispam-messagedata: 2O8aVlgZBtMl7Y0q8jYX/OJbL2yUcRt0eMBRGxrY7yPf4G0zUS97HOetQ4xpPuTvp8kbxTO5Hch4NlZPXxF0gJgNThqqrXA43oFb1eEowRqXnsOjkPPTooNmiEv4zbEct2X7faIoLav9dncLPphhSQ==
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9c6be91-3482-4ad8-ffc0-08d7d4a72825
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Mar 2020 12:37:49.3550 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c8d3b87-7d93-4f26-1096-08d7d4c1027e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Mar 2020 15:42:52.4061 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 42f7676c-f455-423c-82f6-dc2d99791af7
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: VpS8K+3rkro0+jJLrcLIvTe1YhD5eNZa8OdK8sDVbFX8KtXBQWXxQSdvI74y1tzPrp/zairaZNFVU7KvYl6jqA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR02MB3857
+X-MS-Exchange-CrossTenant-userprincipalname: 8zkKUOuXpRtA7gS/b3T513qRV+cDqHGpN0tyBbxXCzTQyMhxGzPPXKx9yw8D7mvAFX/RBq5MyRVErVsZ1eItsw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR02MB5555
 X-Mimecast-Bulk-Signature: yes
 X-Mimecast-Spam-Signature: bulk
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 02UCd2bP017055
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 02UFi5Jo028585
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 02 Apr 2020 03:20:12 -0400
 Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>,
@@ -141,6 +144,15 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+
+My apologies, I meant to forward this mail and managed to press the wrong button...
+
+-----Original Message-----
+From: Bruggeman, Otto (external - Partner) <otto.bruggeman@sap.com> 
+Sent: Monday, March 30, 2020 2:38 PM
+To: Mikulas Patocka <mpatocka@redhat.com>; Dan Williams <dan.j.williams@intel.com>; Vishal Verma <vishal.l.verma@intel.com>; Dave Jiang <dave.jiang@intel.com>; Ira Weiny <ira.weiny@intel.com>; Mike Snitzer <msnitzer@redhat.com>
+Cc: linux-nvdimm@lists.01.org; dm-devel@redhat.com
+Subject: [CAUTION] RE: Optane nvdimm performance
 
 FYI Mal sehen was da an antworten kommen...
 
@@ -210,6 +222,9 @@ clflushopt for transfers larger than 768 bytes.
 
 
 Mikulas
+_______________________________________________
+Linux-nvdimm mailing list -- linux-nvdimm@lists.01.org
+To unsubscribe send an email to linux-nvdimm-leave@lists.01.org
 _______________________________________________
 Linux-nvdimm mailing list -- linux-nvdimm@lists.01.org
 To unsubscribe send an email to linux-nvdimm-leave@lists.01.org
