@@ -1,72 +1,128 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [63.128.21.74])
-	by mail.lfdr.de (Postfix) with ESMTP id BD01C198155
-	for <lists+dm-devel@lfdr.de>; Mon, 30 Mar 2020 18:35:14 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 6AA3219BC94
+	for <lists+dm-devel@lfdr.de>; Thu,  2 Apr 2020 09:20:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1585586113;
+	s=mimecast20190719; t=1585812049;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=o2NJ1G3jkWb/jXw7bCtNPnzuSZeuscHS5awI4O8rLPs=;
-	b=jJTdE3SF2yo8rZ3aWNsdUoEuCWBqZIM9CQOO4sWUd8AB9oGLrQFcWkkyfcvKQjUnqWscSH
-	s6cJ1ywpCc4KPt6k8WWCvHlxkvhVi5cZuY5rC1UGEdWjpNexfpKA6BZP5ijHq4Wmkt/psC
-	Y+wY4YCiFLWGBkpvIptiCwQp1I5sXek=
+	bh=u8GTs+mltNypUY9tjVZJUdD2x3mOveefg/RxYeAFpZQ=;
+	b=HYwdMp7joCJSKevUS3iTLgOPLHPSzNOA8m7lcFm+86EXdTA03s93J3kFVxkX9abDHWDhaN
+	plHoFVufMjgjOCx0nI397CMeuoK/CyKb/C4Mhf2toeOLXZ6EbmGxkkWj3McYveDrLcV9US
+	mq3ycTZSEzjvQH8yiABJojXTUZ5w/pc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-384-FVYIHZnvOsiB2K1cqBGZsA-1; Mon, 30 Mar 2020 12:35:11 -0400
-X-MC-Unique: FVYIHZnvOsiB2K1cqBGZsA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-274-hG3HiYUvOdWBvl_78L5_zw-1; Thu, 02 Apr 2020 03:20:46 -0400
+X-MC-Unique: hG3HiYUvOdWBvl_78L5_zw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C16F9107B78C;
-	Mon, 30 Mar 2020 16:35:04 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EA237800D6C;
+	Thu,  2 Apr 2020 07:20:39 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7E43F5C1D8;
-	Mon, 30 Mar 2020 16:35:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DC005DA10A;
+	Thu,  2 Apr 2020 07:20:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3D95A18089CD;
-	Mon, 30 Mar 2020 16:34:46 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 32FB718089CD;
+	Thu,  2 Apr 2020 07:20:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 02UGYA4v032530 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 30 Mar 2020 12:34:10 -0400
+	id 02UCd2bP017055 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 30 Mar 2020 08:39:02 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 98303100EBBD; Mon, 30 Mar 2020 16:34:10 +0000 (UTC)
+	id 52B2B2166B30; Mon, 30 Mar 2020 12:39:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 484DE1001925;
-	Mon, 30 Mar 2020 16:34:05 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id 02UGY49r010458; Mon, 30 Mar 2020 12:34:04 -0400
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id 02UGY4fc010454; Mon, 30 Mar 2020 12:34:04 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Mon, 30 Mar 2020 12:34:04 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Lukas Straub <lukasstraub2@web.de>
-In-Reply-To: <20200227142601.61f3cd54@luklap>
-Message-ID: <alpine.LRH.2.02.2003301215050.8032@file01.intranet.prod.int.rdu2.redhat.com>
-References: <20200227142601.61f3cd54@luklap>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4CE602166B33
+	for <dm-devel@redhat.com>; Mon, 30 Mar 2020 12:38:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8F2FA8FF671
+	for <dm-devel@redhat.com>; Mon, 30 Mar 2020 12:38:59 +0000 (UTC)
+Received: from esa15.sap.c3s2.iphmx.com (esa15.sap.c3s2.iphmx.com
+	[216.71.156.113]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-123-PXyx8O13NkSz-_jAkDmRig-1; Mon, 30 Mar 2020 08:38:57 -0400
+X-MC-Unique: PXyx8O13NkSz-_jAkDmRig-1
+IronPort-SDR: m+S6lToFIgBZ4TyKTwvpqjjdoTaHfZbe2T1Wi7AMO88ho4PNyzCcU2Tvns4I76G3NV6sDuRn+c
+	9s2Z8p55MEhdJzAeyPTINznbEnNEMMgQBcdNTOcO+ajxqTyamKNLkRVGIkmX3/7+sFaeOjmXO1
+	wkCWidaDXu1wBiU8QgKwMSxUA3GqfAbJyCrB/cOoCA1pCS6N7r+PU6+Djcrr2kSKg2xoZvlE+y
+	X2pcWCpo5+cvgR+I9Fyjh6nRsStnBxhxSc1zQMk1pFJ0lTz27KQDPRIbEa7mLLYM0YuMt3hlJH
+	KQnOpV8989DObbpDrKbGsr/L
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from smtpgw04.mail.net.sap (HELO smtpgw.sap-ag.de) ([155.56.66.99])
+	by esa15.sap.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-SHA384;
+	30 Mar 2020 14:37:52 +0200
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com (104.47.18.111)
+	by smtpgw04.sap-ag.de (155.56.66.99) with Microsoft SMTP Server (TLS)
+	id 15.0.1395.4; Mon, 30 Mar 2020 14:37:51 +0200
+Received: from AM0PR02MB3842.eurprd02.prod.outlook.com (52.134.80.145) by
+	AM0PR02MB3857.eurprd02.prod.outlook.com (52.134.85.144) with Microsoft
+	SMTP
+	Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	15.20.2856.20; Mon, 30 Mar 2020 12:37:50 +0000
+Received: from AM0PR02MB3842.eurprd02.prod.outlook.com
+	([fe80::41a9:104d:1efe:6e2]) by AM0PR02MB3842.eurprd02.prod.outlook.com
+	([fe80::41a9:104d:1efe:6e2%3]) with mapi id 15.20.2856.019;
+	Mon, 30 Mar 2020 12:37:49 +0000
+From: "Bruggeman, Otto (external - Partner)" <otto.bruggeman@sap.com>
+To: Mikulas Patocka <mpatocka@redhat.com>, Dan Williams
+	<dan.j.williams@intel.com>, Vishal Verma <vishal.l.verma@intel.com>, "Dave
+	Jiang" <dave.jiang@intel.com>, Ira Weiny <ira.weiny@intel.com>,
+	Mike Snitzer <msnitzer@redhat.com>
+Thread-Topic: Optane nvdimm performance
+Thread-Index: AQHWBghJaSj9hvr+Gk+/gQ/orgjnU6hhE9Ww
+Date: Mon, 30 Mar 2020 12:37:48 +0000
+Message-ID: <AM0PR02MB3842ACBE359003CFBF32B6C59BCB0@AM0PR02MB3842.eurprd02.prod.outlook.com>
+References: <alpine.LRH.2.02.2003291116490.9236@file01.intranet.prod.int.rdu2.redhat.com>
+In-Reply-To: <alpine.LRH.2.02.2003291116490.9236@file01.intranet.prod.int.rdu2.redhat.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [193.16.224.10]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: d9c6be91-3482-4ad8-ffc0-08d7d4a72825
+x-ms-traffictypediagnostic: AM0PR02MB3857:
+x-microsoft-antispam-prvs: <AM0PR02MB385709A4A3866763918AB85D9BCB0@AM0PR02MB3857.eurprd02.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3173;
+x-forefront-prvs: 0358535363
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:AM0PR02MB3842.eurprd02.prod.outlook.com;
+	PTR:; CAT:NONE; SFTY:;
+	SFS:(10009020)(4636009)(136003)(366004)(346002)(396003)(39860400002)(376002)(71200400001)(8676002)(6506007)(81166006)(966005)(7116003)(81156014)(7696005)(9686003)(86362001)(53546011)(4326008)(478600001)(5660300002)(52536014)(76116006)(66946007)(66446008)(64756008)(66556008)(66476007)(3480700007)(110136005)(55016002)(186003)(54906003)(33656002)(26005)(2906002)(8936002)(316002);
+	DIR:OUT; SFP:1101;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: DR72ItQJi8UD303jgSefcuWhZDSib5V879c2s441I95hzJWJWnFD+vf2QGd2yGWOmI+VeqM6U0OuDnKAn6KbdRvTP2ZS4jFIEijYULr7hPPpo2v01VTgK+VJ6ny8M6GN96/ZMLQZdZwUZ/7jNi8XzSR6GKCbxOEn4zWskkA/yav0pAkloN7jV+DvubiDesPrXHDaOfgBK5vUT4BrVsDN4t/ezkAHNgsPbetoWqZsVHfIismny8DFDeOEgBbOt2dqIJiGJ5ScKAbSRA+/xwlQcLiDJBhrynDgYK6u9k+MV2JyoCUrlkrUrUpOacR8eTF1y2SI5CZ/m7x/VDlI/QxGwh1DgfbBI6CVvDq6wjjb26TQiv2fatGpyk68XeB565pxYRgU41KZx7aaJC7O6TFYsMKxh/iiaEumrcLAiUGtf5YZqNrdQEpQCzZaULsKw2kk2OLS/qDSU4HGtOyxviM7xFaOPhml7YiJ2bXxNYxS6l6IQspQ6ANnmaPxxUddD83yXRVCQe8v85MqwtApr4v/2g==
+x-ms-exchange-antispam-messagedata: sjhUiPecDBNbbbItQsxGbLDYCxfuCO6ik+pesY1b7XHSKQZMntAOgXUM46b3frogWuZc1XSNECfchcFgofUJkhy0rBHFY1J3efxL2GJVVcJyapkhwiNzFV/nKNNoWM0yQH79fTuYEjNuosIH/KZSow==
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9c6be91-3482-4ad8-ffc0-08d7d4a72825
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Mar 2020 12:37:49.3550 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 42f7676c-f455-423c-82f6-dc2d99791af7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VpS8K+3rkro0+jJLrcLIvTe1YhD5eNZa8OdK8sDVbFX8KtXBQWXxQSdvI74y1tzPrp/zairaZNFVU7KvYl6jqA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR02MB3857
+X-Mimecast-Bulk-Signature: yes
+X-Mimecast-Spam-Signature: bulk
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 02UCd2bP017055
 X-loop: dm-devel@redhat.com
-Cc: dm-devel <dm-devel@redhat.com>, Alasdair Kergon <agk@redhat.com>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	Mike Snitzer <snitzer@redhat.com>
-Subject: Re: [dm-devel] [PATCH v2] dm-integrity: Prevent RMW for full
- metadata buffer writes
+X-Mailman-Approved-At: Thu, 02 Apr 2020 03:20:12 -0400
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"linux-nvdimm@lists.01.org" <linux-nvdimm@lists.01.org>
+Subject: Re: [dm-devel] Optane nvdimm performance
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,234 +136,84 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+FYI Mal sehen was da an antworten kommen...
+
+-----Original Message-----
+From: Mikulas Patocka <mpatocka@redhat.com> 
+Sent: Sunday, March 29, 2020 10:26 PM
+To: Dan Williams <dan.j.williams@intel.com>; Vishal Verma <vishal.l.verma@intel.com>; Dave Jiang <dave.jiang@intel.com>; Ira Weiny <ira.weiny@intel.com>; Mike Snitzer <msnitzer@redhat.com>
+Cc: linux-nvdimm@lists.01.org; dm-devel@redhat.com
+Subject: Optane nvdimm performance
+
 Hi
 
-I tested it on my rotational disk:
+I performed some microbenchmarks on a system with real Optane-based nvdimm 
+and I found out that the fastest method how to write to persistent memory 
+is to fill a cacheline with 8 8-byte writes and then issue clwb or 
+clflushopt on the cacheline. With this method, we can achieve 1.6 GB/s 
+throughput for linear writes. On the other hand, non-temporal writes 
+achieve only 1.3 GB/s.
+
+The results are here:
+http://people.redhat.com/~mpatocka/testcases/pmem/microbenchmarks/pmem.txt
+
+The benchmarks here:
+http://people.redhat.com/~mpatocka/testcases/pmem/microbenchmarks/
+
+The winning benchmark is this:
+http://people.redhat.com/~mpatocka/testcases/pmem/microbenchmarks/thrp-write-8-clwb.c
 
 
-On Thu, 27 Feb 2020, Lukas Straub wrote:
+However, the kernel is not using this fastest method, it is using 
+non-temporal stores instead.
 
-> If a full metadata buffer is being written, don't read it first. This
-> prevents a read-modify-write cycle and increases performance on HDDs
-> considerably.
-> 
-> To do this we now calculate the checksums for all sectors in the bio in one
-> go in integrity_metadata and then pass the result to dm_integrity_rw_tag,
-> which now checks if we overwrite the whole buffer.
-> 
-> Benchmarking with a 5400RPM HDD with bitmap mode:
-> integritysetup format --no-wipe --batch-mode --interleave-sectors $((64*1024)) -t 4 -s 512 -I crc32c -B /dev/sdc
-> integritysetup open --buffer-sectors=1 -I crc32c -B /dev/sdc hdda_integ
-> dd if=/dev/zero of=/dev/mapper/hdda_integ bs=64K count=$((16*1024*4)) conv=fsync oflag=direct status=progress
-> 
-> Without patch:
-> 4294967296 bytes (4.3 GB, 4.0 GiB) copied, 400.326 s, 10.7 MB/s
 
-I get 42.3 MB/s. (it seems that my disk has better prefetch than yours).
+I took the novafs filesystem (see git clone 
+https://github.com/NVSL/linux-nova), it uses 
+__copy_from_user_inatomic_nocache, which calls __copy_user_nocache which 
+performs non-temporal stores. I hacked __copy_user_nocache to use clwb 
+instead of non-temporal stores and it improved filesystem performance 
+significantly.
 
-> With patch:
-> 4294967296 bytes (4.3 GB, 4.0 GiB) copied, 41.2057 s, 104 MB/s
+This is the patch
+http://people.redhat.com/~mpatocka/testcases/pmem/benchmarks/copy-nocache.patch 
+(for the kernel 5.1 because novafs needs this version) and these are 
+benchmark results:
+http://people.redhat.com/~mpatocka/testcases/pmem/benchmarks/fs-bench.txt
 
-I get 110 MB/s.
+- you can see that "test2" has twice the write throughput of "test1"
 
-> Signed-off-by: Lukas Straub <lukasstraub2@web.de>
 
-BUT: when I removed "--buffer-sectors=1" from the command line, I've got 
-these numbers:
-without the patch: 101 MB/s
-with the patch: 101 MB/s
+I took the dm-writecache driver, it uses memcpy_flushcache to write data 
+to persistent memory. I hacked memcpy_flushcache to use clwb instead of 
+non-temporal stores.
 
-So, you crippled performance with "--buffer-sectors=1" and then made a 
-patch to restore it.
+The result is - for 512-byte writes, non-temporal stores perform better 
+than cache flushing. For 1024-byte and larger writes, cache flushing 
+performs better than non-temporal stores. (I also tried to use cached 
+writes + clwb for dm-writecache metadata updates, but it had bad 
+performance)
 
-The patch only helps 10%.
+
+Do you have some explanation why nontemporal stores are better for 
+512-byte copies and worse for 1024-byte copies? (like filling up some 
+buffers inside the CPU)?
+
+In the next email, I'm sending a patch that makes memcpy_flushcache use 
+clflushopt for transfers larger than 768 bytes.
+
 
 Mikulas
+_______________________________________________
+Linux-nvdimm mailing list -- linux-nvdimm@lists.01.org
+To unsubscribe send an email to linux-nvdimm-leave@lists.01.org
 
-
-> ---
-> Hello Everyone,
-> So here is v2, now checking if we overwrite a whole metadata buffer instead
-> of the (buggy) check if we overwrite a whole tag area before.
-> Performance stayed the same (with --buffer-sectors=1).
-> 
-> The only quirk now is that it advertises a very big optimal io size in the
-> standard configuration (where buffer_sectors=128). Is this a Problem?
-> 
-> v2:
->  -fix dm_integrity_rw_tag to check if we overwrite a whole metadat buffer
->  -fix optimal io size to check if we overwrite a whole metadata buffer
-> 
-> Regards,
-> Lukas Straub
-> 
->  drivers/md/dm-integrity.c | 81 +++++++++++++++++++++++----------------
->  1 file changed, 47 insertions(+), 34 deletions(-)
-> 
-> diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-> index b225b3e445fa..a6d3cf1406df 100644
-> --- a/drivers/md/dm-integrity.c
-> +++ b/drivers/md/dm-integrity.c
-> @@ -1309,9 +1309,17 @@ static int dm_integrity_rw_tag(struct dm_integrity_c *ic, unsigned char *tag, se
->  		if (unlikely(r))
->  			return r;
-> 
-> -		data = dm_bufio_read(ic->bufio, *metadata_block, &b);
-> -		if (IS_ERR(data))
-> -			return PTR_ERR(data);
-> +		/* Don't read metadata sectors from disk if we're going to overwrite them completely */
-> +		if (op == TAG_WRITE && *metadata_offset == 0 \
-> +			&& total_size >= (1U << SECTOR_SHIFT << ic->log2_buffer_sectors)) {
-> +			data = dm_bufio_new(ic->bufio, *metadata_block, &b);
-> +			if (IS_ERR(data))
-> +				return PTR_ERR(data);
-> +		} else {
-> +			data = dm_bufio_read(ic->bufio, *metadata_block, &b);
-> +			if (IS_ERR(data))
-> +				return PTR_ERR(data);
-> +		}
-> 
->  		to_copy = min((1U << SECTOR_SHIFT << ic->log2_buffer_sectors) - *metadata_offset, total_size);
->  		dp = data + *metadata_offset;
-> @@ -1514,6 +1522,8 @@ static void integrity_metadata(struct work_struct *w)
->  {
->  	struct dm_integrity_io *dio = container_of(w, struct dm_integrity_io, work);
->  	struct dm_integrity_c *ic = dio->ic;
-> +	unsigned sectors_to_process = dio->range.n_sectors;
-> +	sector_t sector = dio->range.logical_sector;
-> 
->  	int r;
-> 
-> @@ -1522,16 +1532,14 @@ static void integrity_metadata(struct work_struct *w)
->  		struct bio_vec bv;
->  		unsigned digest_size = crypto_shash_digestsize(ic->internal_hash);
->  		struct bio *bio = dm_bio_from_per_bio_data(dio, sizeof(struct dm_integrity_io));
-> -		char *checksums;
-> +		char *checksums, *checksums_ptr;
->  		unsigned extra_space = unlikely(digest_size > ic->tag_size) ? digest_size - ic->tag_size : 0;
->  		char checksums_onstack[HASH_MAX_DIGESTSIZE];
-> -		unsigned sectors_to_process = dio->range.n_sectors;
-> -		sector_t sector = dio->range.logical_sector;
-> 
->  		if (unlikely(ic->mode == 'R'))
->  			goto skip_io;
-> 
-> -		checksums = kmalloc((PAGE_SIZE >> SECTOR_SHIFT >> ic->sb->log2_sectors_per_block) * ic->tag_size + extra_space,
-> +		checksums = kmalloc((dio->range.n_sectors >> ic->sb->log2_sectors_per_block) * ic->tag_size + extra_space,
->  				    GFP_NOIO | __GFP_NORETRY | __GFP_NOWARN);
->  		if (!checksums) {
->  			checksums = checksums_onstack;
-> @@ -1542,49 +1550,45 @@ static void integrity_metadata(struct work_struct *w)
->  			}
->  		}
-> 
-> +		checksums_ptr = checksums;
->  		__bio_for_each_segment(bv, bio, iter, dio->orig_bi_iter) {
->  			unsigned pos;
-> -			char *mem, *checksums_ptr;
-> -
-> -again:
-> +			char *mem;
->  			mem = (char *)kmap_atomic(bv.bv_page) + bv.bv_offset;
->  			pos = 0;
-> -			checksums_ptr = checksums;
->  			do {
->  				integrity_sector_checksum(ic, sector, mem + pos, checksums_ptr);
-> -				checksums_ptr += ic->tag_size;
-> -				sectors_to_process -= ic->sectors_per_block;
-> +
-> +				if (likely(checksums != checksums_onstack)) {
-> +					checksums_ptr += ic->tag_size;
-> +				} else {
-> +					r = dm_integrity_rw_tag(ic, checksums, &dio->metadata_block, &dio->metadata_offset,
-> +								ic->tag_size, !dio->write ? TAG_CMP : TAG_WRITE);
-> +					if (unlikely(r))
-> +						goto internal_hash_error;
-> +				}
-> +
->  				pos += ic->sectors_per_block << SECTOR_SHIFT;
->  				sector += ic->sectors_per_block;
-> -			} while (pos < bv.bv_len && sectors_to_process && checksums != checksums_onstack);
-> +				sectors_to_process -= ic->sectors_per_block;
-> +			} while (pos < bv.bv_len && sectors_to_process);
->  			kunmap_atomic(mem);
-> 
-> -			r = dm_integrity_rw_tag(ic, checksums, &dio->metadata_block, &dio->metadata_offset,
-> -						checksums_ptr - checksums, !dio->write ? TAG_CMP : TAG_WRITE);
-> -			if (unlikely(r)) {
-> -				if (r > 0) {
-> -					DMERR_LIMIT("Checksum failed at sector 0x%llx",
-> -						    (unsigned long long)(sector - ((r + ic->tag_size - 1) / ic->tag_size)));
-> -					r = -EILSEQ;
-> -					atomic64_inc(&ic->number_of_mismatches);
-> -				}
-> -				if (likely(checksums != checksums_onstack))
-> -					kfree(checksums);
-> -				goto error;
-> -			}
-> -
->  			if (!sectors_to_process)
->  				break;
-> +		}
-> 
-> -			if (unlikely(pos < bv.bv_len)) {
-> -				bv.bv_offset += pos;
-> -				bv.bv_len -= pos;
-> -				goto again;
-> +		if (likely(checksums != checksums_onstack)) {
-> +			r = dm_integrity_rw_tag(ic, checksums, &dio->metadata_block, &dio->metadata_offset,
-> +						(dio->range.n_sectors >> ic->sb->log2_sectors_per_block) * ic->tag_size,
-> +						!dio->write ? TAG_CMP : TAG_WRITE);
-> +			if (unlikely(r)) {
-> +				kfree(checksums);
-> +				goto internal_hash_error;
->  			}
-> +			kfree(checksums);
->  		}
-> 
-> -		if (likely(checksums != checksums_onstack))
-> -			kfree(checksums);
->  	} else {
->  		struct bio_integrity_payload *bip = dio->orig_bi_integrity;
-> 
-> @@ -1615,6 +1619,13 @@ static void integrity_metadata(struct work_struct *w)
->  skip_io:
->  	dec_in_flight(dio);
->  	return;
-> +internal_hash_error:
-> +	if (r > 0) {
-> +		DMERR_LIMIT("Checksum failed at sector 0x%llx",
-> +				(unsigned long long)(sector - ((r + ic->tag_size - 1) / ic->tag_size)));
-> +		r = -EILSEQ;
-> +		atomic64_inc(&ic->number_of_mismatches);
-> +	}
->  error:
->  	dio->bi_status = errno_to_blk_status(r);
->  	dec_in_flight(dio);
-> @@ -3019,6 +3030,8 @@ static void dm_integrity_io_hints(struct dm_target *ti, struct queue_limits *lim
->  		limits->physical_block_size = ic->sectors_per_block << SECTOR_SHIFT;
->  		blk_limits_io_min(limits, ic->sectors_per_block << SECTOR_SHIFT);
->  	}
-> +
-> +	blk_limits_io_opt(limits, 1U << SECTOR_SHIFT << ic->log2_buffer_sectors >> ic->log2_tag_size << SECTOR_SHIFT );
->  }
-> 
->  static void calculate_journal_section_size(struct dm_integrity_c *ic)
-> --
-> 2.20.1
-> 
-> 
-> --
-> dm-devel mailing list
-> dm-devel@redhat.com
-> https://www.redhat.com/mailman/listinfo/dm-devel
-> 
 
 --
 dm-devel mailing list
