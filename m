@@ -1,110 +1,76 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 8B09619BC98
-	for <lists+dm-devel@lfdr.de>; Thu,  2 Apr 2020 09:20:57 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id C4A801995E4
+	for <lists+dm-devel@lfdr.de>; Tue, 31 Mar 2020 14:01:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1585812056;
+	s=mimecast20190719; t=1585656069;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=y+tdHnSPQBeA5BcgNgNRMkGOjy3QesY/gpQbwq+R9rs=;
-	b=T74rAEuQKilr6KLrdCioOMHv6fNSIYTOZuIwVxSnaTrUqjHJj2VV+DWfaBDJjrUqzJFczI
-	iZ/mDS//MKiFIozroPUYxi7v75J5lLCJPL6v+L6p6TQUCWMkbKVIbeh9s3+TyclTkN6A6W
-	/6Ln3TZl7zf9Vf3PHBlb3AFDHf8nXoo=
+	bh=I7XzUgCacyEhbCZzEAl7HXxmIlEXr6dnFjfUf1lEM5M=;
+	b=VGFRikXNwhh6GttS421atXqs7LJNHaxJHIJwZNWuXyFipxG/dkzqoaknnXgTFv3vcY0f2V
+	Xdne0ggZPNPFKbFmXm/3kiR+CdvT39VEhXo2lgXFmwaq33EuRocAvrNwPFKgr/CwrVYha4
+	yWNmqFI6uLkHU86zcM5hpalXUpFil6c=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-84-eTzdfyIUP4iMFCNS8OnTEg-1; Thu, 02 Apr 2020 03:20:53 -0400
-X-MC-Unique: eTzdfyIUP4iMFCNS8OnTEg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-15-8UBZKQSKMQa3tQpWY62aqg-1; Tue, 31 Mar 2020 08:01:06 -0400
+X-MC-Unique: 8UBZKQSKMQa3tQpWY62aqg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B59358018A7;
-	Thu,  2 Apr 2020 07:20:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8036B10883AC;
+	Tue, 31 Mar 2020 12:00:58 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 83D311C947;
-	Thu,  2 Apr 2020 07:20:47 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D66FAD769D;
+	Tue, 31 Mar 2020 12:00:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 08FA3944D1;
-	Thu,  2 Apr 2020 07:20:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1AAA8969AC;
+	Tue, 31 Mar 2020 12:00:45 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 02V9BWRm024063 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 31 Mar 2020 05:11:32 -0400
+	id 02VC0S2w001481 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 31 Mar 2020 08:00:28 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 98AB3DBF04; Tue, 31 Mar 2020 09:11:32 +0000 (UTC)
+	id 7DE1F5C1D8; Tue, 31 Mar 2020 12:00:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 943E6D9609
-	for <dm-devel@redhat.com>; Tue, 31 Mar 2020 09:11:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 97558800297
-	for <dm-devel@redhat.com>; Tue, 31 Mar 2020 09:11:30 +0000 (UTC)
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-345-ZJda-6mgPeCmqFfUF5II7Q-1; Tue, 31 Mar 2020 05:11:28 -0400
-X-MC-Unique: ZJda-6mgPeCmqFfUF5II7Q-1
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
-	by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	02V9BQQH028612; Tue, 31 Mar 2020 09:11:27 GMT
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
-	by aserp2120.oracle.com with ESMTP id 303yun11g4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 31 Mar 2020 09:11:27 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
-	by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	02V98B1x063672; Tue, 31 Mar 2020 09:11:25 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
-	by userp3020.oracle.com with ESMTP id 302g9ww1su-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 31 Mar 2020 09:11:25 +0000
-Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
-	by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 02V9BOl3014587;
-	Tue, 31 Mar 2020 09:11:24 GMT
-Received: from [192.168.1.14] (/114.88.246.185)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Tue, 31 Mar 2020 02:11:24 -0700
-To: Hannes Reinecke <hare@suse.de>, Mike Snitzer <snitzer@redhat.com>
-References: <20200327071459.67796-1-hare@suse.de>
-	<20200327071459.67796-4-hare@suse.de>
-From: Bob Liu <bob.liu@oracle.com>
-Message-ID: <93a26ed9-6f6e-2a4d-38d3-3fb76fa91e70@oracle.com>
-Date: Tue, 31 Mar 2020 17:11:17 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.5.1
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7E7495C240;
+	Tue, 31 Mar 2020 12:00:18 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 02VBxktS017612; Tue, 31 Mar 2020 07:59:46 -0400
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 02VBwYXk017547; Tue, 31 Mar 2020 07:58:58 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Tue, 31 Mar 2020 07:58:34 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: "Elliott, Robert (Servers)" <elliott@hpe.com>
+In-Reply-To: <CS1PR8401MB12377197482867F688BF93F7ABC80@CS1PR8401MB1237.NAMPRD84.PROD.OUTLOOK.COM>
+Message-ID: <alpine.LRH.2.02.2003310709090.2117@file01.intranet.prod.int.rdu2.redhat.com>
+References: <alpine.LRH.2.02.2003291625590.32108@file01.intranet.prod.int.rdu2.redhat.com>
+	<alpine.LRH.2.02.2003300729320.9938@file01.intranet.prod.int.rdu2.redhat.com>
+	<CS1PR8401MB12377197482867F688BF93F7ABC80@CS1PR8401MB1237.NAMPRD84.PROD.OUTLOOK.COM>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-In-Reply-To: <20200327071459.67796-4-hare@suse.de>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9576
-	signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
-	malwarescore=0
-	mlxlogscore=999 bulkscore=0 mlxscore=0 spamscore=0 adultscore=0
-	phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2003020000 definitions=main-2003310082
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9576
-	signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
-	lowpriorityscore=0
-	malwarescore=0 adultscore=0 priorityscore=1501 mlxlogscore=999
-	bulkscore=0
-	suspectscore=0 mlxscore=0 spamscore=0 impostorscore=0 clxscore=1015
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2003020000 definitions=main-2003310082
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Thu, 02 Apr 2020 03:20:12 -0400
-Cc: Damien LeMoal <damien.lemoal@wdc.com>, dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 3/4] dm-zoned: V2 metadata handling
+Cc: Mike Snitzer <msnitzer@redhat.com>, Dave Jiang <dave.jiang@intel.com>,
+	"linux-nvdimm@lists.01.org" <linux-nvdimm@lists.01.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	Dan Williams <dan.j.williams@intel.com>, Ira Weiny <ira.weiny@intel.com>
+Subject: Re: [dm-devel] [PATCH v2] memcpy_flushcache: use cache flusing for
+ larger lengths
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -118,184 +84,103 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 3/27/20 3:14 PM, Hannes Reinecke wrote:
-> Add 'V2' metadata which includes UUIDs for the dmz set and for
-> the device itself.
-> 
-> Signed-off-by: Hannes Reinecke <hare@suse.de>
 
-Reviewed-by: Bob Liu <bob.liu@oracle.com>
 
-> ---
->  drivers/md/dm-zoned-metadata.c | 80 +++++++++++++++++++++++++++++++++---------
->  drivers/md/dm-zoned-target.c   |  2 +-
->  2 files changed, 64 insertions(+), 18 deletions(-)
+On Tue, 31 Mar 2020, Elliott, Robert (Servers) wrote:
+
 > 
-> diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
-> index dc1d17bc3bbb..026f285fba33 100644
-> --- a/drivers/md/dm-zoned-metadata.c
-> +++ b/drivers/md/dm-zoned-metadata.c
-> @@ -16,7 +16,8 @@
->  /*
->   * Metadata version.
->   */
-> -#define DMZ_META_VER	1
-> +#define DMZ_META_COMPAT_VER 1
-> +#define DMZ_META_VER	2
->  
->  /*
->   * On-disk super block magic.
-> @@ -69,8 +70,17 @@ struct dmz_super {
->  	/* Checksum */
->  	__le32		crc;			/*  48 */
->  
-> -	/* Padding to full 512B sector */
-> -	u8		reserved[464];		/* 512 */
-> +	/* DM-Zoned label */
-> +	u8		dmz_label[32];		/*  80 */
-> +
-> +	/* DM-Zoned UUID */
-> +	u8		dmz_uuid[16];		/*  96 */
-> +
-> +	/* Device UUID */
-> +	u8		dev_uuid[16];		/* 112 */
-> +
-> +	/* Padding to full 512B - CRC sector */
-> +	u8		reserved[400];		/* 512 */
->  };
->  
->  /*
-> @@ -133,6 +143,10 @@ struct dmz_sb {
->  struct dmz_metadata {
->  	struct dmz_dev		*dev;
->  
-> +	char			dmz_label[BDEVNAME_SIZE];
-> +	uuid_t			dmz_uuid;
-> +	uuid_t			dev_uuid;
-> +
->  	sector_t		zone_bitmap_size;
->  	unsigned int		zone_nr_bitmap_blocks;
->  	unsigned int		zone_bits_per_mblk;
-> @@ -659,7 +673,14 @@ static int dmz_write_sb(struct dmz_metadata *zmd, unsigned int set)
->  	int ret;
->  
->  	sb->magic = cpu_to_le32(DMZ_MAGIC);
-> -	sb->version = cpu_to_le32(DMZ_META_VER);
-> +
-> +	if (!uuid_is_null(&zmd->dmz_uuid)) {
-> +		sb->version = cpu_to_le32(DMZ_META_VER);
-> +		uuid_copy((uuid_t *)sb->dmz_uuid, &zmd->dmz_uuid);
-> +		memcpy(sb->dmz_label, zmd->dmz_label, BDEVNAME_SIZE);
-> +		uuid_copy((uuid_t *)sb->dev_uuid, &zmd->dev_uuid);
-> +	} else
-> +		sb->version = cpu_to_le32(DMZ_META_COMPAT_VER);
->  
->  	sb->gen = cpu_to_le64(sb_gen);
->  
-> @@ -848,28 +869,29 @@ static int dmz_check_sb(struct dmz_metadata *zmd, struct dmz_super *sb)
->  {
->  	unsigned int nr_meta_zones, nr_data_zones;
->  	struct dmz_dev *dev = zmd->dev;
-> -	u32 crc, stored_crc;
-> +	u32 crc, stored_crc, dmz_version;
->  	u64 gen;
->  
-> -	gen = le64_to_cpu(sb->gen);
-> -	stored_crc = le32_to_cpu(sb->crc);
-> -	sb->crc = 0;
-> -	crc = crc32_le(gen, (unsigned char *)sb, DMZ_BLOCK_SIZE);
-> -	if (crc != stored_crc) {
-> -		dmz_dev_err(dev, "Invalid checksum (needed 0x%08x, got 0x%08x)",
-> -			    crc, stored_crc);
-> -		return -ENXIO;
-> -	}
-> -
->  	if (le32_to_cpu(sb->magic) != DMZ_MAGIC) {
->  		dmz_dev_err(dev, "Invalid meta magic (needed 0x%08x, got 0x%08x)",
->  			    DMZ_MAGIC, le32_to_cpu(sb->magic));
->  		return -ENXIO;
->  	}
->  
-> -	if (le32_to_cpu(sb->version) != DMZ_META_VER) {
-> +	dmz_version = le32_to_cpu(sb->version);
-> +	if (dmz_version > DMZ_META_VER) {
->  		dmz_dev_err(dev, "Invalid meta version (needed %d, got %d)",
-> -			    DMZ_META_VER, le32_to_cpu(sb->version));
-> +			    DMZ_META_VER, dmz_version);
-> +		return -ENXIO;
-> +	}
-> +
-> +	gen = le64_to_cpu(sb->gen);
-> +	stored_crc = le32_to_cpu(sb->crc);
-> +	sb->crc = 0;
-> +	crc = crc32_le(gen, (unsigned char *)sb, DMZ_BLOCK_SIZE);
-> +	if (crc != stored_crc) {
-> +		dmz_dev_err(dev, "Invalid checksum (needed 0x%08x, got 0x%08x)",
-> +			    crc, stored_crc);
->  		return -ENXIO;
->  	}
->  
-> @@ -895,6 +917,21 @@ static int dmz_check_sb(struct dmz_metadata *zmd, struct dmz_super *sb)
->  		return -ENXIO;
->  	}
->  
-> +	if (dmz_version == DMZ_META_VER) {
-> +		if (uuid_is_null((uuid_t *)sb->dmz_uuid)) {
-> +			dmz_dev_err(dev, "NULL DM-Zoned uuid");
-> +			return -ENXIO;
-> +		}
-> +		uuid_copy(&zmd->dmz_uuid, (uuid_t *)sb->dmz_uuid);
-> +		memcpy(zmd->dmz_label, sb->dmz_label, BDEVNAME_SIZE);
-> +		if (uuid_is_null((uuid_t *)sb->dev_uuid)) {
-> +			dmz_dev_err(dev, "NULL device uuid");
-> +			return -ENXIO;
-> +		}
-> +		uuid_copy(&zmd->dev_uuid, (uuid_t *)sb->dev_uuid);
-> +
-> +	}
-> +
->  	/* OK */
->  	zmd->nr_meta_blocks = le32_to_cpu(sb->nr_meta_blocks);
->  	zmd->nr_reserved_seq = le32_to_cpu(sb->nr_reserved_seq);
-> @@ -2460,9 +2497,18 @@ int dmz_ctr_metadata(struct dmz_dev *dev, struct dmz_metadata **metadata)
->  		goto err;
->  	}
->  
-> +	dmz_dev_info(dev, "DM-Zoned version %d",
-> +		     uuid_is_null(&zmd->dmz_uuid) ?
-> +		     DMZ_META_COMPAT_VER : DMZ_META_VER);
-> +	if (!uuid_is_null(&zmd->dmz_uuid))
-> +		dmz_dev_info(dev, "DM UUID %pUl", &zmd->dmz_uuid);
-> +	if (strlen(zmd->dmz_label))
-> +		dmz_dev_info(dev, "DM Label %s", zmd->dmz_label);
->  	dmz_dev_info(dev, "Host-%s zoned block device",
->  		     bdev_zoned_model(dev->bdev) == BLK_ZONED_HA ?
->  		     "aware" : "managed");
-> +	if (!uuid_is_null(&zmd->dev_uuid))
-> +		dmz_dev_info(dev, "  uuid %pUl", &zmd->dev_uuid);
->  	dmz_dev_info(dev, "  %llu 512-byte logical sectors",
->  		     (u64)dev->capacity);
->  	dmz_dev_info(dev, "  %u zones of %llu 512-byte logical sectors",
-> diff --git a/drivers/md/dm-zoned-target.c b/drivers/md/dm-zoned-target.c
-> index 44e30a7de8b9..7ec9dde24516 100644
-> --- a/drivers/md/dm-zoned-target.c
-> +++ b/drivers/md/dm-zoned-target.c
-> @@ -1008,7 +1008,7 @@ static int dmz_message(struct dm_target *ti, unsigned int argc, char **argv,
->  
->  static struct target_type dmz_type = {
->  	.name		 = "zoned",
-> -	.version	 = {1, 1, 0},
-> +	.version	 = {1, 2, 0},
->  	.features	 = DM_TARGET_SINGLETON | DM_TARGET_ZONED_HM,
->  	.module		 = THIS_MODULE,
->  	.ctr		 = dmz_ctr,
 > 
+> > -----Original Message-----
+> > From: Mikulas Patocka <mpatocka@redhat.com>
+> > Sent: Monday, March 30, 2020 6:32 AM
+> > To: Dan Williams <dan.j.williams@intel.com>; Vishal Verma
+> > <vishal.l.verma@intel.com>; Dave Jiang <dave.jiang@intel.com>; Ira
+> > Weiny <ira.weiny@intel.com>; Mike Snitzer <msnitzer@redhat.com>
+> > Cc: linux-nvdimm@lists.01.org; dm-devel@redhat.com
+> > Subject: [PATCH v2] memcpy_flushcache: use cache flusing for larger
+> > lengths
+> > 
+> > I tested dm-writecache performance on a machine with Optane nvdimm
+> > and it turned out that for larger writes, cached stores + cache
+> > flushing perform better than non-temporal stores. This is the
+> > throughput of dm- writecache measured with this command:
+> > dd if=/dev/zero of=/dev/mapper/wc bs=64 oflag=direct
+> > 
+> > block size	512		1024		2048		4096
+> > movnti	496 MB/s	642 MB/s	725 MB/s	744 MB/s
+> > clflushopt	373 MB/s	688 MB/s	1.1 GB/s	1.2 GB/s
+> > 
+> > We can see that for smaller block, movnti performs better, but for
+> > larger blocks, clflushopt has better performance.
+> 
+> There are other interactions to consider... see threads from the last
+> few years on the linux-nvdimm list.
+
+dm-writecache is the only linux driver that uses memcpy_flushcache on 
+persistent memory. There is also the btt driver, it uses the "do_io" 
+method to write to persistent memory and I don't know where this method 
+comes from.
+
+Anyway, if patching memcpy_flushcache conflicts with something else, we 
+should introduce memcpy_flushcache_to_pmem.
+
+> For example, software generally expects that read()s take a long time and
+> avoids re-reading from disk; the normal pattern is to hold the data in
+> memory and read it from there. By using normal stores, CPU caches end up
+> holding a bunch of persistent memory data that is probably not going to
+> be read again any time soon, bumping out more useful data. In contrast,
+> movnti avoids filling the CPU caches.
+
+But if I write one cacheline and flush it immediatelly, it would consume 
+just one associative entry in the cache.
+
+> Another option is the AVX vmovntdq instruction (if available), the
+> most recent of which does 64-byte (cache line) sized transfers to
+> zmm registers. There's a hefty context switching overhead (e.g.,
+> 304 clocks), and the CPU often runs AVX instructions at a slower
+> clock frequency, so it's hard to judge when it's worthwhile.
+
+The benchmark shows that 64-byte non-temporal avx512 vmovntdq is as good 
+as 8, 16 or 32-bytes writes.
+                                         ram            nvdimm
+sequential write-nt 4 bytes              4.1 GB/s       1.3 GB/s
+sequential write-nt 8 bytes              4.1 GB/s       1.3 GB/s
+sequential write-nt 16 bytes (sse)       4.1 GB/s       1.3 GB/s
+sequential write-nt 32 bytes (avx)       4.2 GB/s       1.3 GB/s
+sequential write-nt 64 bytes (avx512)    4.1 GB/s       1.3 GB/s
+
+With cached writes (where each cache line is immediatelly followed by clwb 
+or clflushopt), 8, 16 or 32-byte write performs better than non-temporal 
+stores and avx512 performs worse.
+
+sequential write 8 + clwb                5.1 GB/s       1.6 GB/s
+sequential write 16 (sse) + clwb         5.1 GB/s       1.6 GB/s
+sequential write 32 (avx) + clwb         4.4 GB/s       1.5 GB/s
+sequential write 64 (avx512) + clwb      1.7 GB/s       0.6 GB/s
+
+
+> In user space, glibc faces similar choices for its memcpy() functions;
+> glibc memcpy() uses non-temporal stores for transfers > 75% of the
+> L3 cache size divided by the number of cores. For example, with
+> glibc-2.216-16.fc27 (August 2017), on a Broadwell system with
+> E5-2699 36 cores 45 MiB L3 cache, non-temporal stores are used
+> for memcpy()s over 36 MiB.
+
+BTW. what does glibc do with reads? Does it flush them from the cache 
+after they are consumed?
+
+AFAIK glibc doesn't support persistent memory - i.e. there is no function 
+that flushes data and the user has to use inline assembly for that.
+
+> It'd be nice if glibc, PMDK, and the kernel used the same algorithms.
+
+Mikulas
 
 --
 dm-devel mailing list
