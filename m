@@ -2,7 +2,7 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [216.205.24.74])
-	by mail.lfdr.de (Postfix) with ESMTP id 372231989C2
+	by mail.lfdr.de (Postfix) with ESMTP id 80D7F1989C3
 	for <lists+dm-devel@lfdr.de>; Tue, 31 Mar 2020 04:01:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1585620097;
@@ -12,54 +12,53 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=dvaayZCgTduG4NDJM4QGgo+bfrF12nYDk4kITyZe/vM=;
-	b=i5kbU4m2PTq5jzbXFlIHzDLPlXuP5YbJWMEX075oUQrmrqHQMMyN5JZNBQmW11x0Yd0y8K
-	eA0Pf/+oqBfjFpkCmAxFcxM0Y6TQiXi0/PzScb88OEmsGXF2E1UzSQZiX3Bt2Y11uKYW/5
-	6u5P/Exr96yFMQFPsm6w+pFwBuocOp4=
+	bh=3pAojY5Vx2KFZZxRaqJaL4KEyEqQwJD8pk3c5TC+OK8=;
+	b=GtahJwH0gR0VyLoqDSEsFEocmDG+Fnki6yn2S8HMf50T6mIc13u633OpsKV4JY/h1XiYL+
+	N9uQzCLUftfJek21zVPZg7gjyHnLhOca8T3LvAoh+iF3QgeWolvXMetg91cKtl3HVwde8i
+	UT7lF9eBz1ZDxQU+ZdhcLqObHocefns=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-467-C47iU-66P2CN-KaIj71NUg-1; Mon, 30 Mar 2020 22:01:35 -0400
-X-MC-Unique: C47iU-66P2CN-KaIj71NUg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-43-FjFmMcpQM1yUMPNq-4K2Lg-1; Mon, 30 Mar 2020 22:01:35 -0400
+X-MC-Unique: FjFmMcpQM1yUMPNq-4K2Lg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 60F67100726C;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0D80E13FD;
 	Tue, 31 Mar 2020 02:01:29 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1BCB95DA60;
-	Tue, 31 Mar 2020 02:01:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C33775C21B;
+	Tue, 31 Mar 2020 02:01:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5F67F1809567;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 355131809565;
 	Tue, 31 Mar 2020 02:01:28 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
 	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 02V2138O032334 for <dm-devel@listman.util.phx.redhat.com>;
+	id 02V213fX032339 for <dm-devel@listman.util.phx.redhat.com>;
 	Mon, 30 Mar 2020 22:01:03 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 373FB5C21B; Tue, 31 Mar 2020 02:01:03 +0000 (UTC)
+	id 518E85C1D8; Tue, 31 Mar 2020 02:01:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9F5F35C1D8;
-	Tue, 31 Mar 2020 02:01:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 11C455C1C5;
+	Tue, 31 Mar 2020 02:01:02 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 02V20xlO027162; 
-	Mon, 30 Mar 2020 21:00:59 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 02V2106X027166; 
+	Mon, 30 Mar 2020 21:01:00 -0500
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 02V20w1s027161;
-	Mon, 30 Mar 2020 21:00:58 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 02V210Q2027165;
+	Mon, 30 Mar 2020 21:01:00 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Mon, 30 Mar 2020 21:00:54 -0500
-Message-Id: <1585620055-27112-3-git-send-email-bmarzins@redhat.com>
+Date: Mon, 30 Mar 2020 21:00:55 -0500
+Message-Id: <1585620055-27112-4-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1585620055-27112-1-git-send-email-bmarzins@redhat.com>
 References: <1585620055-27112-1-git-send-email-bmarzins@redhat.com>
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
 Cc: device-mapper development <dm-devel@redhat.com>,
 	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [RFC Patch 2/3] libmultipath: make sysfs_is_multipathed
-	able to return wwid
+Subject: [dm-devel] [RFC Patch 3/3] multipath: add libmpathvalid library
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -74,100 +73,456 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-sysfs_is_multipathed reads the wwid of the dm device holding a path to
-check if its a multipath device.  Add code to optinally set pp->wwid to
-that wwid.  This will be used by a future patch.
+This library allows other programs to check if a path should be claimed
+by multipath.  Currently, it only includes one function,
+mpath_is_path(), which takes a device name, mode to for checking the
+path, and an optional info structure, to return the wwid. The modes work
+mostly like they do for "multipath -c/-u", with a few exceptions.
+
+1. If a device is currently multipathed, it is always VALID. This
+perhaps should be true for the existing path valid code.
+
+2. There is no seperate "on" mode. It is instead treated like "smart".
+This is because the library only looks at a single path, so it can only
+say that a device could be multpathed, if there was another path.  It is
+the caller's job to check if another path exists, or to wait for another
+path appear.
+
+3. The library does check if there already is an existing multipath
+device with the same wwid, and if so, will declare the path valid.
+
+In order to act more library-like, libmpathvalid doesn't set its own
+device-mapper log functions. It leaves this to the caller. It currently
+keeps condlog() from printing anything, but should eventually include a
+function to allow the caller set the logging. It also uses a statically
+compiled version of libmultipath, both to keep that library from
+polluting the namespace of the caller, and to avoid the caller needing
+to set up the variables and functions (like logsink, and
+get_multipath_config) that it expects.
 
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/sysfs.c | 22 +++++++++++++++++++---
- libmultipath/sysfs.h |  2 +-
- multipath/main.c     |  7 ++++---
- 3 files changed, 24 insertions(+), 7 deletions(-)
+ Makefile                            |   1 +
+ Makefile.inc                        |   1 +
+ libmpathvalid/Makefile              |  38 +++++++
+ libmpathvalid/libmpathvalid.version |   6 +
+ libmpathvalid/mpath_valid.c         | 171 ++++++++++++++++++++++++++++
+ libmpathvalid/mpath_valid.h         |  53 +++++++++
+ libmultipath/Makefile               |   1 +
+ libmultipath/devmapper.c            |  49 ++++++++
+ libmultipath/devmapper.h            |   1 +
+ 9 files changed, 321 insertions(+)
+ create mode 100644 libmpathvalid/Makefile
+ create mode 100644 libmpathvalid/libmpathvalid.version
+ create mode 100644 libmpathvalid/mpath_valid.c
+ create mode 100644 libmpathvalid/mpath_valid.h
 
-diff --git a/libmultipath/sysfs.c b/libmultipath/sysfs.c
-index 62ec2ed7..034f082f 100644
---- a/libmultipath/sysfs.c
-+++ b/libmultipath/sysfs.c
-@@ -295,7 +295,7 @@ static int select_dm_devs(const struct dirent *di)
- 	return fnmatch("dm-*", di->d_name, FNM_FILE_NAME) == 0;
+diff --git a/Makefile b/Makefile
+index 1dee3680..462d6655 100644
+--- a/Makefile
++++ b/Makefile
+@@ -9,6 +9,7 @@ BUILDDIRS := \
+ 	libmultipath/checkers \
+ 	libmultipath/foreign \
+ 	libmpathpersist \
++	libmpathvalid \
+ 	multipath \
+ 	multipathd \
+ 	mpathpersist \
+diff --git a/Makefile.inc b/Makefile.inc
+index d4d1e0dd..7e0e8203 100644
+--- a/Makefile.inc
++++ b/Makefile.inc
+@@ -66,6 +66,7 @@ libdir		= $(prefix)/$(LIB)/multipath
+ unitdir		= $(prefix)/$(SYSTEMDPATH)/systemd/system
+ mpathpersistdir	= $(TOPDIR)/libmpathpersist
+ mpathcmddir	= $(TOPDIR)/libmpathcmd
++mpathvaliddir	= $(TOPDIR)/libmpathvalid
+ thirdpartydir	= $(TOPDIR)/third-party
+ libdmmpdir	= $(TOPDIR)/libdmmp
+ nvmedir		= $(TOPDIR)/libmultipath/nvme
+diff --git a/libmpathvalid/Makefile b/libmpathvalid/Makefile
+new file mode 100644
+index 00000000..5fc97022
+--- /dev/null
++++ b/libmpathvalid/Makefile
+@@ -0,0 +1,38 @@
++include ../Makefile.inc
++
++SONAME = 0
++DEVLIB = libmpathvalid.so
++LIBS = $(DEVLIB).$(SONAME)
++
++CFLAGS += $(LIB_CFLAGS) -I$(multipathdir) -I$(mpathcmddir)
++
++LIBDEPS += -lpthread -ldevmapper -ldl -L$(multipathdir) \
++	   -lmultipath_nonshared -L$(mpathcmddir) -lmpathcmd -ludev
++
++OBJS = mpath_valid.o
++
++all: $(LIBS)
++
++$(LIBS): $(OBJS)
++	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=$@ -o $@ $(OBJS) $(LIBDEPS) -Wl,--version-script=libmpathvalid.version
++	$(LN) $(LIBS) $(DEVLIB)
++
++install: $(LIBS)
++	$(INSTALL_PROGRAM) -m 755 -d $(DESTDIR)$(syslibdir)
++	$(INSTALL_PROGRAM) -m 755 $(LIBS) $(DESTDIR)$(syslibdir)/$(LIBS)
++	$(LN) $(LIBS) $(DESTDIR)$(syslibdir)/$(DEVLIB)
++	$(INSTALL_PROGRAM) -m 755 -d $(DESTDIR)$(includedir)
++	$(INSTALL_PROGRAM) -m 644 mpath_valid.h $(DESTDIR)$(includedir)
++
++uninstall:
++	$(RM) $(DESTDIR)$(syslibdir)/$(LIBS)
++	$(RM) $(DESTDIR)$(syslibdir)/$(DEVLIB)
++	$(RM) $(DESTDIR)$(includedir)/mpath_valid.h
++
++clean: dep_clean
++	$(RM) core *.a *.o *.so *.so.* *.gz
++
++include $(wildcard $(OBJS:.o=.d))
++
++dep_clean:
++	$(RM) $(OBJS:.o=.d)
+diff --git a/libmpathvalid/libmpathvalid.version b/libmpathvalid/libmpathvalid.version
+new file mode 100644
+index 00000000..e8967951
+--- /dev/null
++++ b/libmpathvalid/libmpathvalid.version
+@@ -0,0 +1,6 @@
++MPATH_1.0 {
++	global:
++		mpath_is_path;
++	local:
++		*;
++};
+diff --git a/libmpathvalid/mpath_valid.c b/libmpathvalid/mpath_valid.c
+new file mode 100644
+index 00000000..3d96c32f
+--- /dev/null
++++ b/libmpathvalid/mpath_valid.c
+@@ -0,0 +1,171 @@
++#include <stdio.h>
++#include <stdint.h>
++#include <libdevmapper.h>
++#include <libudev.h>
++#include <errno.h>
++
++#include "devmapper.h"
++#include "structs.h"
++#include "util.h"
++#include "config.h"
++#include "discovery.h"
++#include "wwids.h"
++#include "sysfs.h"
++#include "mpath_cmd.h"
++#include "mpath_valid.h"
++
++struct udev *udev;
++int logsink = -1;
++static struct config default_config = { .verbosity = -1 };
++static struct config *multipath_conf;
++
++struct config *get_multipath_config(void)
++{
++	return (multipath_conf)? multipath_conf : &default_config;
++}
++
++void put_multipath_config(__attribute__((unused))void *conf)
++{
++	/* Noop */
++}
++
++static int get_conf_mode(struct config *conf)
++{
++	if (conf->find_multipaths == FIND_MULTIPATHS_ON ||
++	    conf->find_multipaths == FIND_MULTIPATHS_SMART)
++		return MPATH_SMART;
++	if (conf->find_multipaths == FIND_MULTIPATHS_GREEDY)
++		return MPATH_GREEDY;
++	return MPATH_STRICT;
++}
++
++
++/*
++ * Return
++ *  2: possible path (only in MPATH_GREEDY mode)
++ *  1: mpath path
++ *  0: not mpath path
++ * -1: Failure
++ */
++int
++mpath_is_path(const char *name, unsigned int mode, struct mpath_info *info)
++{
++	struct config *conf;
++	struct path * pp;
++	int r = MPATH_IS_ERROR;
++	int fd = -1;
++	unsigned int version[3];
++	bool already_multipathed = false;
++
++	if (info)
++		memset(info, 0, sizeof(struct mpath_info));
++
++	if (!name || mode >= MPATH_MAX_MODE)
++		return r;
++
++	skip_libmp_dm_init();
++	udev = udev_new();
++	if (!udev)
++		goto out;
++	conf = load_config(DEFAULT_CONFIGFILE);
++	if (!conf)
++		goto out_udev;
++	conf->verbosity = -1;
++	if (mode == MPATH_DEFAULT)
++		mode = get_conf_mode(conf);
++
++	if (dm_prereq(version))
++		goto out_config;
++	memcpy(conf->version, version, sizeof(version));
++	multipath_conf = conf;
++
++	pp = alloc_path();
++	if (!pp)
++		goto out_config;
++
++	if (safe_sprintf(pp->dev, "%s", name))
++		goto out_path;
++
++	if (sysfs_is_multipathed(pp, true)) {
++		if (!info || pp->wwid[0] != '\0') {
++			r = MPATH_IS_VALID;
++			goto out_path;
++		}
++		already_multipathed = true;
++	}
++
++	fd = __mpath_connect(1);
++	if (fd < 0) {
++		if (errno != EAGAIN && !systemd_service_enabled(name)) {
++			r = MPATH_IS_NOT_VALID;
++			goto out_path;
++		}
++	} else
++		mpath_disconnect(fd);
++
++	pp->udev = udev_device_new_from_subsystem_sysname(udev, "block", name);
++	if (!pp->udev)
++		goto out_path;
++
++	r = pathinfo(pp, conf, DI_SYSFS | DI_WWID | DI_BLACKLIST);
++	if (r) {
++		if (r == PATHINFO_SKIPPED)
++			r = MPATH_IS_NOT_VALID;
++		else
++			r = MPATH_IS_ERROR;
++		goto out_path;
++	}
++
++	if (pp->wwid[0] == '\0') {
++		r = MPATH_IS_NOT_VALID;
++		goto out_path;
++	}
++
++	if (already_multipathed)
++		goto out_path;
++
++	if (dm_is_mpath_uuid(pp->wwid) == 1) {
++		r = MPATH_IS_VALID;
++		goto out_path;
++	}
++
++	r = is_failed_wwid(pp->wwid);
++	if (r != WWID_IS_NOT_FAILED) {
++		if (r == WWID_IS_FAILED)
++			r = MPATH_IS_NOT_VALID;
++		else
++			r = MPATH_IS_ERROR;
++		goto out_path;
++	}
++
++	if (mode == MPATH_GREEDY) {
++		r = MPATH_IS_VALID;
++		goto out_path;
++	}
++
++	if (check_wwids_file(pp->wwid, 0) == 0) {
++		r = MPATH_IS_VALID;
++		goto out_path;
++	}
++
++	if (mode == MPATH_STRICT) {
++		r = MPATH_IS_NOT_VALID;
++		goto out_path;
++	}
++
++	/* mode == SMART */
++	r = MPATH_IS_MAYBE_VALID;
++
++out_path:
++	if (already_multipathed)
++		r = MPATH_IS_VALID;
++	if (info && (r == MPATH_IS_VALID || r == MPATH_IS_MAYBE_VALID))
++		strlcpy(info->wwid, pp->wwid, 128);
++	free_path(pp);
++out_config:
++	free_config(conf);
++out_udev:
++	udev_unref(udev);
++out:
++	return r;
++}
+diff --git a/libmpathvalid/mpath_valid.h b/libmpathvalid/mpath_valid.h
+new file mode 100644
+index 00000000..b9e420a8
+--- /dev/null
++++ b/libmpathvalid/mpath_valid.h
+@@ -0,0 +1,53 @@
++/*
++ * Copyright (C) 2015 Red Hat, Inc.
++ *
++ * This file is part of the device-mapper multipath userspace tools.
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Lesser General Public License
++ * as published by the Free Software Foundation; either version 2
++ * of the License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU Lesser General Public License for more details.
++ *
++ * You should have received a copy of the GNU Lesser General Public License
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
++ */
++
++#ifndef LIB_MPATH_VALID_H
++#define LIB_MPATH_VALID_H
++
++#ifdef __cpluscplus
++extern "C" {
++#endif
++
++enum mpath_valid_mode {
++	MPATH_DEFAULT,
++	MPATH_STRICT,
++	MPATH_SMART,
++	MPATH_GREEDY,
++	MPATH_MAX_MODE,  /* used only for bounds checking */
++};
++
++enum mpath_valid_result {
++	MPATH_IS_ERROR = -1,
++	MPATH_IS_NOT_VALID,
++	MPATH_IS_VALID,
++	MPATH_IS_MAYBE_VALID,
++};
++
++struct mpath_info {
++	char wwid[128];
++};
++
++int mpath_is_path(const char *name, unsigned int mode, struct mpath_info *info);
++
++
++#ifdef __cplusplus
++}
++#endif
++#endif /* LIB_PATH_VALID_H */
++
+diff --git a/libmultipath/Makefile b/libmultipath/Makefile
+index ad690a49..7e2c00cf 100644
+--- a/libmultipath/Makefile
++++ b/libmultipath/Makefile
+@@ -69,6 +69,7 @@ nvme-ioctl.h: nvme/nvme-ioctl.h
+ 
+ $(LIBS): $(OBJS)
+ 	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=$@ -o $@ $(OBJS) $(LIBDEPS)
++	ar rcs libmultipath_nonshared.a $(OBJS)
+ 	$(LN) $@ $(DEVLIB)
+ 
+ install:
+diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
+index 7ed494a1..27d4f61f 100644
+--- a/libmultipath/devmapper.c
++++ b/libmultipath/devmapper.c
+@@ -770,6 +770,55 @@ out:
+ 	return r;
  }
  
--bool sysfs_is_multipathed(const struct path *pp)
-+bool sysfs_is_multipathed(struct path *pp, bool set_wwid)
- {
- 	char pathbuf[PATH_MAX];
- 	struct scandir_result sr;
-@@ -342,9 +342,25 @@ bool sysfs_is_multipathed(const struct path *pp)
- 		if (nr == sizeof(uuid) && !memcmp(uuid, "mpath-", sizeof(uuid)))
- 			found = true;
- 		else if (nr < 0) {
--			condlog(1, "%s: error reading from %s: %s",
--				__func__, pathbuf, strerror(errno));
-+			condlog(1, "%s: error reading from %s: %m",
-+				__func__, pathbuf);
- 		}
-+		if (found && set_wwid) {
-+			nr = read(fd, pp->wwid, WWID_SIZE);
-+			if (nr < 0) {
-+				condlog(1, "%s: error reading from %s: %m",
-+					__func__, pathbuf);
-+				pp->wwid[0] = '\0';
-+			} else if (nr == WWID_SIZE) {
-+				condlog(4, "%s: overflow while reading from %s",
-+					__func__, pathbuf);
-+				pp->wwid[0] = '\0';
-+			} else {
-+				pp->wwid[nr] = '\0';
-+				strchop(pp->wwid);
-+			}
-+                }
++/*
++ * Return
++ *   1 : map with uuid exists
++ *   0 : map with uuid doesn't exist
++ *  -1 : error
++ */
++int
++dm_is_mpath_uuid(const char *uuid)
++{
++	struct dm_task *dmt;
++	struct dm_info info;
++	char prefixed_uuid[WWID_SIZE + UUID_PREFIX_LEN];
++	int r = -1;
 +
- 		pthread_cleanup_pop(1);
- 	}
- 	pthread_cleanup_pop(1);
-diff --git a/libmultipath/sysfs.h b/libmultipath/sysfs.h
-index 9ae30b39..72b39ab2 100644
---- a/libmultipath/sysfs.h
-+++ b/libmultipath/sysfs.h
-@@ -14,5 +14,5 @@ ssize_t sysfs_bin_attr_get_value(struct udev_device *dev, const char *attr_name,
- 				 unsigned char * value, size_t value_len);
- int sysfs_get_size (struct path *pp, unsigned long long * size);
- int sysfs_check_holders(char * check_devt, char * new_devt);
--bool sysfs_is_multipathed(const struct path *pp);
-+bool sysfs_is_multipathed(struct path *pp, bool set_wwid);
- #endif
-diff --git a/multipath/main.c b/multipath/main.c
-index cf9d2a28..545ead87 100644
---- a/multipath/main.c
-+++ b/multipath/main.c
-@@ -638,7 +638,8 @@ configure (struct config *conf, enum mpath_cmds cmd,
- 			 * Shortcut for find_multipaths smart:
- 			 * Quick check if path is already multipathed.
- 			 */
--			if (sysfs_is_multipathed(VECTOR_SLOT(pathvec, 0))) {
-+			if (sysfs_is_multipathed(VECTOR_SLOT(pathvec, 0),
-+						 false)) {
- 				r = RTVL_YES;
- 				goto print_valid;
- 			}
-@@ -747,8 +748,8 @@ configure (struct config *conf, enum mpath_cmds cmd,
- 			/*
- 			 * Check if we raced with multipathd
- 			 */
--			r = sysfs_is_multipathed(VECTOR_SLOT(pathvec, 0)) ?
--				RTVL_YES : RTVL_NO;
-+			r = sysfs_is_multipathed(VECTOR_SLOT(pathvec, 0),
-+						 false) ? RTVL_YES : RTVL_NO;
- 		}
- 		goto print_valid;
- 	}
++	if (!uuid || uuid[0] == '\0')
++		return 0;
++
++	if (safe_sprintf(prefixed_uuid, UUID_PREFIX "%s", uuid))
++		goto out;
++
++	if (!(dmt = dm_task_create(DM_DEVICE_INFO)))
++		goto out;
++
++	dm_task_no_open_count(dmt);
++
++	if (!dm_task_set_uuid(dmt, prefixed_uuid))
++		goto out_task;
++
++	if (!dm_task_run(dmt))
++		goto out_task;
++
++	if (!dm_task_get_info(dmt, &info))
++		goto out_task;
++
++	r = 0;
++
++	if (!info.exists)
++		goto out_task;
++
++	r = 1;
++out_task:
++	dm_task_destroy(dmt);
++out:
++	if (r < 0)
++		condlog(3, "%s: dm command failed in %s: %s", uuid,
++			__FUNCTION__, strerror(errno));
++	return r;
++}
++
+ static int
+ dm_dev_t (const char * mapname, char * dev_t, int len)
+ {
+diff --git a/libmultipath/devmapper.h b/libmultipath/devmapper.h
+index 17fc9faf..fa2513c2 100644
+--- a/libmultipath/devmapper.h
++++ b/libmultipath/devmapper.h
+@@ -43,6 +43,7 @@ int dm_get_map(const char *, unsigned long long *, char *);
+ int dm_get_status(const char *, char *);
+ int dm_type(const char *, char *);
+ int dm_is_mpath(const char *);
++int dm_is_mpath_uuid(const char *uuid);
+ int _dm_flush_map (const char *, int, int, int, int);
+ int dm_flush_map_nopaths(const char * mapname, int deferred_remove);
+ #define dm_flush_map(mapname) _dm_flush_map(mapname, 1, 0, 0, 0)
 -- 
 2.17.2
 
