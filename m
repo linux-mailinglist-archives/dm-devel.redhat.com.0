@@ -1,150 +1,121 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 2174619BC96
-	for <lists+dm-devel@lfdr.de>; Thu,  2 Apr 2020 09:20:52 +0200 (CEST)
+Received: from us-smtp-delivery-74.mimecast.com (us-smtp-delivery-74.mimecast.com [63.128.21.74])
+	by mail.lfdr.de (Postfix) with ESMTP id 2FD821988EC
+	for <lists+dm-devel@lfdr.de>; Tue, 31 Mar 2020 02:32:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1585812051;
+	s=mimecast20190719; t=1585614730;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=snFe6Jc+9KnlcQ+xrdWwZ8FKNtolShXIatf7p8mPBX4=;
-	b=YhjPes0GMqwv1NB8OdpqgQFAivXBDQ2GoxPiNVIkOtBgksrAOc2QMr+2m5j80NSeIph8EX
-	qXbgWVH5EbyGHPT9oD5u482KHUwjV7ajEGw+fnxpaf63TG0ZMaoX6YqTZ/vXsogSmOfA5M
-	vfRdGRU4P4G8mD1e4T9N2bohJdlyVmg=
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=ySXraRSZ4RUPvcfp61Kagr+o+pI1/F3zZ814kb056QE=;
+	b=f1mtzTqa4i0agYlwHADChjBmB15icMVwgu/B64WrOuqNinuq9/45w26r8jTewtEUNVq/IM
+	CkFGGuE+j1WPmFjguuz81lLM+Sdl2JxjDkO2K/cjD/PbRn1+SXDzkHJ5LSNVOELwqAHbZi
+	8ZJzoWOW1tzWaoWm0MnNjvH41jzLjBc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-52-IDjMS1TiMWCqB2zZomhvUg-1; Thu, 02 Apr 2020 03:20:48 -0400
-X-MC-Unique: IDjMS1TiMWCqB2zZomhvUg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-234-gKX7ZMU_MKCt49YrdsVnbg-1; Mon, 30 Mar 2020 20:32:07 -0400
+X-MC-Unique: gKX7ZMU_MKCt49YrdsVnbg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3B827107ACCA;
-	Thu,  2 Apr 2020 07:20:41 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 042346EF97;
-	Thu,  2 Apr 2020 07:20:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2A3228017CC;
+	Tue, 31 Mar 2020 00:31:58 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A08119C58;
+	Tue, 31 Mar 2020 00:31:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 82AA9944D2;
-	Thu,  2 Apr 2020 07:20:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ED1B118089C8;
+	Tue, 31 Mar 2020 00:31:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 02V0SBeb026930 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 30 Mar 2020 20:28:11 -0400
+	id 02V0VHp9027015 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 30 Mar 2020 20:31:17 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9E41F2166B30; Tue, 31 Mar 2020 00:28:11 +0000 (UTC)
+	id 5BA161000DA5; Tue, 31 Mar 2020 00:31:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 99AF72166B32
-	for <dm-devel@redhat.com>; Tue, 31 Mar 2020 00:28:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 55EEB1006B21
+	for <dm-devel@redhat.com>; Tue, 31 Mar 2020 00:31:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 56C618007A4
-	for <dm-devel@redhat.com>; Tue, 31 Mar 2020 00:28:09 +0000 (UTC)
-Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com
-	[148.163.147.86]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-339-QgYNH5YOOfu5rQq4dvOU8w-1; Mon, 30 Mar 2020 20:28:06 -0400
-X-MC-Unique: QgYNH5YOOfu5rQq4dvOU8w-1
-Received: from pps.filterd (m0148663.ppops.net [127.0.0.1])
-	by mx0a-002e3701.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
-	02V0NKkx012711; Tue, 31 Mar 2020 00:28:04 GMT
-Received: from g9t5009.houston.hpe.com (g9t5009.houston.hpe.com [15.241.48.73])
-	by mx0a-002e3701.pphosted.com with ESMTP id 303qjk9df1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Tue, 31 Mar 2020 00:28:04 +0000
-Received: from G9W8456.americas.hpqcorp.net (exchangepmrr1.us.hpecorp.net
-	[16.216.161.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by g9t5009.houston.hpe.com (Postfix) with ESMTPS id 899E270;
-	Tue, 31 Mar 2020 00:28:03 +0000 (UTC)
-Received: from G9W8454.americas.hpqcorp.net (2002:10d8:a104::10d8:a104) by
-	G9W8456.americas.hpqcorp.net (2002:10d8:a15f::10d8:a15f) with Microsoft
-	SMTP Server (TLS) id 15.0.1497.2; Tue, 31 Mar 2020 00:28:03 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (15.241.52.12) by
-	G9W8454.americas.hpqcorp.net (16.216.161.4) with Microsoft SMTP
-	Server (TLS)
-	id 15.0.1497.2 via Frontend Transport; Tue, 31 Mar 2020 00:28:03 +0000
-Received: from CS1PR8401MB1237.NAMPRD84.PROD.OUTLOOK.COM
-	(2a01:111:e400:7514::15) by CS1PR8401MB0519.NAMPRD84.PROD.OUTLOOK.COM
-	(2a01:111:e400:7509::23) with Microsoft SMTP Server (version=TLS1_2,
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2DF0F101A55A
+	for <dm-devel@redhat.com>; Tue, 31 Mar 2020 00:31:15 +0000 (UTC)
+Received: from esa3.hgst.iphmx.com (esa3.hgst.iphmx.com [216.71.153.141])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-444-AYbmEnkZOOOKUTeu8yhMbQ-1; Mon, 30 Mar 2020 20:31:12 -0400
+X-MC-Unique: AYbmEnkZOOOKUTeu8yhMbQ-1
+IronPort-SDR: mUqR/48LlClLVk+DVvWLNMJUFnIFerrIwEJIsyJA5P8tgXy83JmOZEIs6QGCbMYg4/jtFW/f9W
+	M6qOYDuEDjyBrRybV+uuCL3YzZ2z/PwWO02vjtT/a3iHd6mvRT2ICTm0d1nhxGFslHM4l32zpf
+	iKvK/1m1p0T+6Insp7UvuhEq7cxoxuSyfdw3fhftBrwCYOdKvErPqY+3zn/vv3pz41TF1nVeUG
+	FCbcwaNV8cGiNVf8X64oFODDG55BZJ8rCVuOGMGQU/edY+3szEOrxnJQ1LMVfcwDBwXJ0AbHc/
+	XqQ=
+X-IronPort-AV: E=Sophos;i="5.72,326,1580745600"; d="scan'208";a="138300418"
+Received: from mail-bn8nam12lp2174.outbound.protection.outlook.com (HELO
+	NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.174])
+	by ob1.hgst.iphmx.com with ESMTP; 31 Mar 2020 08:31:11 +0800
+Received: from CO2PR04MB2343.namprd04.prod.outlook.com (2603:10b6:102:12::9)
+	by CO2PR04MB2247.namprd04.prod.outlook.com (2603:10b6:102:13::11) with
+	Microsoft SMTP Server (version=TLS1_2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.20;
-	Tue, 31 Mar 2020 00:28:01 +0000
-Received: from CS1PR8401MB1237.NAMPRD84.PROD.OUTLOOK.COM
-	([fe80::6023:914f:6cca:4c98]) by
-	CS1PR8401MB1237.NAMPRD84.PROD.OUTLOOK.COM
-	([fe80::6023:914f:6cca:4c98%7]) with mapi id 15.20.2856.019;
-	Tue, 31 Mar 2020 00:28:01 +0000
-From: "Elliott, Robert (Servers)" <elliott@hpe.com>
-To: Mikulas Patocka <mpatocka@redhat.com>, Dan Williams
-	<dan.j.williams@intel.com>, Vishal Verma <vishal.l.verma@intel.com>, "Dave
-	Jiang" <dave.jiang@intel.com>, Ira Weiny <ira.weiny@intel.com>,
-	Mike Snitzer <msnitzer@redhat.com>
-Thread-Topic: [PATCH v2] memcpy_flushcache: use cache flusing for larger
-	lengths
-Thread-Index: AQHWBob+0rIHl10OXEaKSzaWD6MWpKhh0ScQ
-Date: Tue, 31 Mar 2020 00:28:01 +0000
-Message-ID: <CS1PR8401MB12377197482867F688BF93F7ABC80@CS1PR8401MB1237.NAMPRD84.PROD.OUTLOOK.COM>
-References: <alpine.LRH.2.02.2003291625590.32108@file01.intranet.prod.int.rdu2.redhat.com>
-	<alpine.LRH.2.02.2003300729320.9938@file01.intranet.prod.int.rdu2.redhat.com>
-In-Reply-To: <alpine.LRH.2.02.2003300729320.9938@file01.intranet.prod.int.rdu2.redhat.com>
+	Tue, 31 Mar 2020 00:31:10 +0000
+Received: from CO2PR04MB2343.namprd04.prod.outlook.com
+	([fe80::c1a:6c0f:8207:580b]) by CO2PR04MB2343.namprd04.prod.outlook.com
+	([fe80::c1a:6c0f:8207:580b%7]) with mapi id 15.20.2856.019;
+	Tue, 31 Mar 2020 00:31:09 +0000
+From: Damien Le Moal <Damien.LeMoal@wdc.com>
+To: Hannes Reinecke <hare@suse.de>, Mike Snitzer <snitzer@redhat.com>
+Thread-Topic: [PATCH] dm-zoned: add 'status' and 'message' callbacks
+Thread-Index: AQHWBAaYHqsTsVeKQE6+tdf/igewjw==
+Date: Tue, 31 Mar 2020 00:31:09 +0000
+Message-ID: <CO2PR04MB23437D3AB9358726A7E858E5E7C80@CO2PR04MB2343.namprd04.prod.outlook.com>
+References: <20200327070849.67694-1-hare@suse.de>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [73.206.28.217]
+x-originating-ip: [129.253.182.57]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 487cec50-a767-46f6-87fd-08d7d50a5ee6
-x-ms-traffictypediagnostic: CS1PR8401MB0519:
-x-microsoft-antispam-prvs: <CS1PR8401MB0519F05506A9C9E69E24D4B6ABC80@CS1PR8401MB0519.NAMPRD84.PROD.OUTLOOK.COM>
-x-ms-oob-tlc-oobclassifiers: OLM:473;
+x-ms-office365-filtering-correlation-id: 6f6b6270-6933-4c1f-443c-08d7d50acf44
+x-ms-traffictypediagnostic: CO2PR04MB2247:
+x-microsoft-antispam-prvs: <CO2PR04MB224794A5CE8867780519AF67E7C80@CO2PR04MB2247.namprd04.prod.outlook.com>
+wdcipoutbound: EOP-TRUE
+x-ms-oob-tlc-oobclassifiers: OLM:883;
 x-forefront-prvs: 0359162B6D
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:CS1PR8401MB1237.NAMPRD84.PROD.OUTLOOK.COM;
+	IPV:NLI; SFV:NSPM; H:CO2PR04MB2343.namprd04.prod.outlook.com;
 	PTR:; CAT:NONE; SFTY:;
-	SFS:(10019020)(136003)(346002)(376002)(396003)(39860400002)(366004)(55016002)(81166006)(8676002)(81156014)(53546011)(54906003)(316002)(110136005)(7696005)(6506007)(66946007)(71200400001)(66446008)(86362001)(8936002)(33656002)(9686003)(186003)(478600001)(26005)(76116006)(4326008)(2906002)(64756008)(66476007)(52536014)(5660300002)(66556008);
+	SFS:(10019020)(4636009)(376002)(346002)(39860400002)(366004)(396003)(136003)(53546011)(8676002)(186003)(81166006)(478600001)(6506007)(110136005)(86362001)(5660300002)(52536014)(2906002)(33656002)(91956017)(76116006)(66556008)(66476007)(71200400001)(81156014)(64756008)(66946007)(316002)(66446008)(55016002)(15650500001)(8936002)(4326008)(7696005)(26005)(9686003);
 	DIR:OUT; SFP:1102;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: JTiLml9JUPekVlsBCXfsfTKyJvTNiV1dZsrkQ1Un/YlbvqvfipcZkX+LNrVVo8xVIp3b3/egS5ou5oA1oVs08NkpeDRQ/PaKsCQuIghIz0tq6pDCp0uHI0xR9+U5GEi+F5l4yY6wsryGkUC+j7KzNiNO7VYLaQCvwvbx8jHL/26De1gvP+RsH67OZaQDwr/l68EBQ2vcDDRT4CliIyP6TTJ7/Ay+1mzMXOEiGjkmfGoaXV1bYNb40szvwQ0pcUDXHxdx49eT9z0r5udsrcWo67+lSzrb4csDz6KtZedb+9jYBDqQsyqvmTeoJFpnhxnAYw4cajs4IJf2Tsu1saisq+c3sKvFgXPdiDaYAZeW2OqMsNkTj/S5tscethihpCdxUBC/eNaBMY0dC2VAJiGWH3oiYS+EzUV23GzR8XXRv/N13v6kApw6k8PdtYtXBc9O
-x-ms-exchange-antispam-messagedata: YY8r65q0WyiPF93UJ3S4KRMPdfw+50yiJdr4o79W84aztSzvBEJNAefDIwnPkpark8tFhqZxqNaQSPTkpsB22ZyAlGC9s7whF6RFtMhZ1gGfK4UMJPciju7rFICfrgVhvQePDSEBcZvro0AV2iU2Rw==
+x-microsoft-antispam-message-info: xjAoeez5NLhbyR0f1ixFvBHdmR5tnet/5g6Y4nfLRH6MvUV+ictwl1gIq2oXI6t5Mv7seNKe8qHYPA7cmmASrQQPcZ0V5LiHuneqXtLZWjQV1qSDcbSgKhuRKRGBT10aSCmSf0r0mlijxWfqCuOZNbaIv1PB7kAaQuGJ/oQwdSl5EHPNJnuscAUrLtV4MQOvHDDJkkBAPTUE8Qlzq4cNXocQDN+tymjzvVWeNT9VdyZP3GEERZ48qKTg1TCS/r5Dfu8xQSvvZb+4AzfTC76V68jSgWeenb/t6Mxcak35+jJsKc7Hzae7qxB6l/n52Zw1zLXQhOzygKtH2so5+y3a2UColaybr4nvkAIEaPpF3RY2zv5Oz10uvkc2NbfB/Ymes3Ha6oxBOSwLilY+7klQKEP/vtIQuvuIwKDa+ZPf+UrxOqoEaFgkrb0RITUlHF8Z
+x-ms-exchange-antispam-messagedata: MF0i6PJtr+Gs1mjQIxuJwgBsIrzUWKjtaZjPEk7IVhMFbG53xu8qxWX+3ZlSWOduhyWL1PmmurWJcQBbnVGTorsVX1AAnjEINwVCB2E6b9umZFgivSVRMk3+QbuqVl9izfUQdiBVs0N1a5kUMRJdyg==
 x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 487cec50-a767-46f6-87fd-08d7d50a5ee6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Mar 2020 00:28:01.3750 (UTC)
+X-OriginatorOrg: wdc.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f6b6270-6933-4c1f-443c-08d7d50acf44
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Mar 2020 00:31:09.8651 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 105b2061-b669-4b31-92ac-24d304d195dc
+X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: iZ3oXsVHYr/mCTYfW567NqKUugVjIu6HmfzIQdRVGILcGow4hZXCtKY6BpHJRPef
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CS1PR8401MB0519
-X-OriginatorOrg: hpe.com
-X-HPE-SCL: -1
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
-	definitions=2020-03-30_07:2020-03-30,
-	2020-03-30 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
-	mlxscore=0 phishscore=0
-	mlxlogscore=999 spamscore=0 adultscore=0 bulkscore=0 impostorscore=0
-	clxscore=1011 lowpriorityscore=0 suspectscore=0 malwarescore=0
-	priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2003020000 definitions=main-2003310000
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MS-Exchange-CrossTenant-userprincipalname: Or1n9xy43joNA1oKUgs5tHiSD9PNQP6LjxhfuDKx+UaQuTVzgf0CAkHI8HV0MJbUixsePjPFDwhSGZhbx3eVmA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO2PR04MB2247
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 02V0SBeb026930
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 02V0VHp9027015
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Thu, 02 Apr 2020 03:20:12 -0400
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"linux-nvdimm@lists.01.org" <linux-nvdimm@lists.01.org>
-Subject: Re: [dm-devel] [PATCH v2] memcpy_flushcache: use cache flusing for
- larger lengths
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH] dm-zoned: add 'status' and 'message'
+	callbacks
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -158,61 +129,146 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-
-
-> -----Original Message-----
-> From: Mikulas Patocka <mpatocka@redhat.com>
-> Sent: Monday, March 30, 2020 6:32 AM
-> To: Dan Williams <dan.j.williams@intel.com>; Vishal Verma
-> <vishal.l.verma@intel.com>; Dave Jiang <dave.jiang@intel.com>; Ira
-> Weiny <ira.weiny@intel.com>; Mike Snitzer <msnitzer@redhat.com>
-> Cc: linux-nvdimm@lists.01.org; dm-devel@redhat.com
-> Subject: [PATCH v2] memcpy_flushcache: use cache flusing for larger
-> lengths
+On 2020/03/27 16:09, Hannes Reinecke wrote:
+> Add callbacks to supply information for 'dmsetup status'
+> and 'dmsetup info', and implement the message 'reclaim'
+> to start the reclaim worker.
 > 
-> I tested dm-writecache performance on a machine with Optane nvdimm
-> and it turned out that for larger writes, cached stores + cache
-> flushing perform better than non-temporal stores. This is the
-> throughput of dm- writecache measured with this command:
-> dd if=/dev/zero of=/dev/mapper/wc bs=64 oflag=direct
+> Signed-off-by: Hannes Reinecke <hare@suse.de>
+
+Looks good.
+
+Reviewed-by: Damien Le Moal <damien.lemoal@wdc.com>
+
+> ---
+>  drivers/md/dm-zoned-metadata.c | 15 +++++++++++++++
+>  drivers/md/dm-zoned-target.c   | 43 ++++++++++++++++++++++++++++++++++++++++++
+>  drivers/md/dm-zoned.h          |  3 +++
+>  3 files changed, 61 insertions(+)
 > 
-> block size	512		1024		2048		4096
-> movnti	496 MB/s	642 MB/s	725 MB/s	744 MB/s
-> clflushopt	373 MB/s	688 MB/s	1.1 GB/s	1.2 GB/s
+> diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
+> index 516c7b671d25..6c456b9165db 100644
+> --- a/drivers/md/dm-zoned-metadata.c
+> +++ b/drivers/md/dm-zoned-metadata.c
+> @@ -202,6 +202,11 @@ sector_t dmz_start_block(struct dmz_metadata *zmd, struct dm_zone *zone)
+>  	return (sector_t)dmz_id(zmd, zone) << zmd->dev->zone_nr_blocks_shift;
+>  }
+>  
+> +unsigned int dmz_nr_zones(struct dmz_metadata *zmd)
+> +{
+> +	return zmd->dev->nr_zones;
+> +}
+> +
+>  unsigned int dmz_nr_chunks(struct dmz_metadata *zmd)
+>  {
+>  	return zmd->nr_chunks;
+> @@ -217,6 +222,16 @@ unsigned int dmz_nr_unmap_rnd_zones(struct dmz_metadata *zmd)
+>  	return atomic_read(&zmd->unmap_nr_rnd);
+>  }
+>  
+> +unsigned int dmz_nr_seq_zones(struct dmz_metadata *zmd)
+> +{
+> +	return zmd->nr_seq;
+> +}
+> +
+> +unsigned int dmz_nr_unmap_seq_zones(struct dmz_metadata *zmd)
+> +{
+> +	return atomic_read(&zmd->unmap_nr_seq);
+> +}
+> +
+>  /*
+>   * Lock/unlock mapping table.
+>   * The map lock also protects all the zone lists.
+> diff --git a/drivers/md/dm-zoned-target.c b/drivers/md/dm-zoned-target.c
+> index f4f83d39b3dc..44e30a7de8b9 100644
+> --- a/drivers/md/dm-zoned-target.c
+> +++ b/drivers/md/dm-zoned-target.c
+> @@ -965,6 +965,47 @@ static int dmz_iterate_devices(struct dm_target *ti,
+>  	return fn(ti, dmz->ddev, 0, capacity, data);
+>  }
+>  
+> +static void dmz_status(struct dm_target *ti, status_type_t type,
+> +		       unsigned int status_flags, char *result,
+> +		       unsigned int maxlen)
+> +{
+> +	struct dmz_target *dmz = ti->private;
+> +	ssize_t sz = 0;
+> +	char buf[BDEVNAME_SIZE];
+> +
+> +	switch (type) {
+> +	case STATUSTYPE_INFO:
+> +		DMEMIT("%u zones "
+> +		       "%u/%u random "
+> +		       "%u/%u sequential",
+> +		       dmz_nr_zones(dmz->metadata),
+> +		       dmz_nr_unmap_rnd_zones(dmz->metadata),
+> +		       dmz_nr_rnd_zones(dmz->metadata),
+> +		       dmz_nr_unmap_seq_zones(dmz->metadata),
+> +		       dmz_nr_seq_zones(dmz->metadata));
+> +		break;
+> +	case STATUSTYPE_TABLE:
+> +		format_dev_t(buf, dmz->dev->bdev->bd_dev);
+> +		DMEMIT("%s ", buf);
+> +		break;
+> +	}
+> +	return;
+> +}
+> +
+> +static int dmz_message(struct dm_target *ti, unsigned int argc, char **argv,
+> +		       char *result, unsigned int maxlen)
+> +{
+> +	struct dmz_target *dmz = ti->private;
+> +	int r = -EINVAL;
+> +
+> +	if (!strcasecmp(argv[0], "reclaim")) {
+> +		dmz_schedule_reclaim(dmz->reclaim);
+> +		r = 0;
+> +	} else
+> +		DMERR("unrecognized message %s", argv[0]);
+> +	return r;
+> +}
+> +
+>  static struct target_type dmz_type = {
+>  	.name		 = "zoned",
+>  	.version	 = {1, 1, 0},
+> @@ -978,6 +1019,8 @@ static struct target_type dmz_type = {
+>  	.postsuspend	 = dmz_suspend,
+>  	.resume		 = dmz_resume,
+>  	.iterate_devices = dmz_iterate_devices,
+> +	.status		 = dmz_status,
+> +	.message	 = dmz_message,
+>  };
+>  
+>  static int __init dmz_init(void)
+> diff --git a/drivers/md/dm-zoned.h b/drivers/md/dm-zoned.h
+> index 5b5e493d479c..884c0e586082 100644
+> --- a/drivers/md/dm-zoned.h
+> +++ b/drivers/md/dm-zoned.h
+> @@ -190,8 +190,11 @@ void dmz_free_zone(struct dmz_metadata *zmd, struct dm_zone *zone);
+>  void dmz_map_zone(struct dmz_metadata *zmd, struct dm_zone *zone,
+>  		  unsigned int chunk);
+>  void dmz_unmap_zone(struct dmz_metadata *zmd, struct dm_zone *zone);
+> +unsigned int dmz_nr_zones(struct dmz_metadata *zmd);
+>  unsigned int dmz_nr_rnd_zones(struct dmz_metadata *zmd);
+>  unsigned int dmz_nr_unmap_rnd_zones(struct dmz_metadata *zmd);
+> +unsigned int dmz_nr_seq_zones(struct dmz_metadata *zmd);
+> +unsigned int dmz_nr_unmap_seq_zones(struct dmz_metadata *zmd);
+>  
+>  /*
+>   * Activate a zone (increment its reference count).
 > 
-> We can see that for smaller block, movnti performs better, but for
-> larger blocks, clflushopt has better performance.
 
-There are other interactions to consider... see threads from the last
-few years on the linux-nvdimm list.
 
-For example, software generally expects that read()s take a long time and
-avoids re-reading from disk; the normal pattern is to hold the data in
-memory and read it from there. By using normal stores, CPU caches end up
-holding a bunch of persistent memory data that is probably not going to
-be read again any time soon, bumping out more useful data. In contrast,
-movnti avoids filling the CPU caches.
+-- 
+Damien Le Moal
+Western Digital Research
 
-Another option is the AVX vmovntdq instruction (if available), the
-most recent of which does 64-byte (cache line) sized transfers to
-zmm registers. There's a hefty context switching overhead (e.g.,
-304 clocks), and the CPU often runs AVX instructions at a slower
-clock frequency, so it's hard to judge when it's worthwhile.
-
-In user space, glibc faces similar choices for its memcpy() functions;
-glibc memcpy() uses non-temporal stores for transfers > 75% of the
-L3 cache size divided by the number of cores. For example, with
-glibc-2.216-16.fc27 (August 2017), on a Broadwell system with
-E5-2699 36 cores 45 MiB L3 cache, non-temporal stores are used
-for memcpy()s over 36 MiB.
-
-It'd be nice if glibc, PMDK, and the kernel used the same algorithms.
 
 
 --
