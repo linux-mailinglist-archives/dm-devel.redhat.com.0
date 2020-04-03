@@ -1,57 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 2A96519DA62
-	for <lists+dm-devel@lfdr.de>; Fri,  3 Apr 2020 17:43:06 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id DFFBD19DBFF
+	for <lists+dm-devel@lfdr.de>; Fri,  3 Apr 2020 18:48:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1585928584;
+	s=mimecast20190719; t=1585932530;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=0eSWCKM/38Aov/OXwjRrsUf/qt1hl+BVrsaVX9At/O8=;
-	b=fF4WewdmoHxl5qXlxAuWmeW+OqIzY9YldfllnEnXbIRtuz7EklrhRCgW/frhIvVEjlFnuh
-	JamsKcB3L6zFOhuas4cbEopUSYlbRVhjAi2raB0Moag6I+TAePR9CKR9I+Nizoea+m1A2L
-	PdOw9KAK6GpqMYCN3LR2s+8OE+LxgtY=
+	bh=rGPySvPXusRknNkZaa1ggW5wDmo79SAhJZYGKX95Aw8=;
+	b=ggGtJa9eosdrvnyAKwauTUDMiAKc6qK7AvzfSJr55ifsKoYQz1NkbY9WBj5InPHSkJg3qT
+	cddSFEZRJch0N7LSc6GE+zLama+4khmEVOTdjKTGM9fwT5C167RUiRW7Fc1HGjPHwU+EJt
+	X3YqGfogmvv/DMFL3rFvCnWnqyIKK2Q=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-144-iClp0VxGMTqMowmYGaIs9A-1; Fri, 03 Apr 2020 11:43:01 -0400
-X-MC-Unique: iClp0VxGMTqMowmYGaIs9A-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-427-rlk7J6v2PRyVwQgrogcxFg-1; Fri, 03 Apr 2020 12:48:48 -0400
+X-MC-Unique: rlk7J6v2PRyVwQgrogcxFg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 704C2101FC80;
-	Fri,  3 Apr 2020 15:42:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B941A107ACCC;
+	Fri,  3 Apr 2020 16:48:42 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 84C5D1147DA;
-	Fri,  3 Apr 2020 15:42:47 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 45EB15E000;
+	Fri,  3 Apr 2020 16:48:41 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C92991819ACE;
-	Fri,  3 Apr 2020 15:42:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 024A118089CD;
+	Fri,  3 Apr 2020 16:48:31 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 033FgJCs029694 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 3 Apr 2020 11:42:19 -0400
+	id 033GmHxJ001503 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 3 Apr 2020 12:48:17 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8FA225E24D; Fri,  3 Apr 2020 15:42:19 +0000 (UTC)
+	id E27E750BEE; Fri,  3 Apr 2020 16:48:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 986EA5DE79;
-	Fri,  3 Apr 2020 15:42:14 +0000 (UTC)
-Date: Fri, 3 Apr 2020 11:42:13 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20200403154213.GA18386@redhat.com>
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 509EC18A85;
+	Fri,  3 Apr 2020 16:48:15 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 033GmDst030469; 
+	Fri, 3 Apr 2020 11:48:13 -0500
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 033GmC6P030468;
+	Fri, 3 Apr 2020 11:48:12 -0500
+Date: Fri, 3 Apr 2020 11:48:12 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: mwilck@suse.com
+Message-ID: <20200403164812.GC5907@octiron.msp.redhat.com>
+References: <20200403111914.30717-1-mwilck@suse.com>
+	<20200403111914.30717-2-mwilck@suse.com>
 MIME-Version: 1.0
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+In-Reply-To: <20200403111914.30717-2-mwilck@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
-Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
-	Alasdair G Kergon <agk@redhat.com>
-Subject: [dm-devel] [git pull] device mapper fixes for 5.7
+Cc: dm-devel@redhat.com, vliaskovitis@suse.com
+Subject: Re: [dm-devel] [PATCH v2 1/2] kpartx.rules: honor
+ DM_UDEV_DISABLE_OTHER_RULES_FLAG
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -65,43 +75,43 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-Hi Linus,
+On Fri, Apr 03, 2020 at 01:19:13PM +0200, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
+> 
+> 10-dm.rules sets DM_UDEV_DISABLE_OTHER_RULES_FLAG for spurious
+> events that should be ignored by other layers. This means devices
+> with DISK_RO set, and devices that have never been set up properly
+> by device-mapper before. This flag should be respected by kpartx.
+> 
 
-The following changes since commit 81d5553d1288c2ec0390f02f84d71ca0f0f9f137:
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 
-  dm clone metadata: Fix return type of dm_clone_nr_of_hydrated_regions() (2020-03-27 14:42:51 -0400)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git tags/for-5.7/dm-fixes
-
-for you to fetch changes up to 120c9257f5f19e5d1e87efcbb5531b7cd81b7d74:
-
-  Revert "dm: always call blk_queue_split() in dm_process_bio()" (2020-04-03 11:32:19 -0400)
-
-Please pull, thanks!
-Mike
-
-----------------------------------------------------------------
-- Fix excessive bio splitting that caused performance regressions.
-
-- Fix DM integrity warning on ppc64le due to missing cast.
-
-----------------------------------------------------------------
-Mike Snitzer (2):
-      dm integrity: fix ppc64le warning
-      Revert "dm: always call blk_queue_split() in dm_process_bio()"
-
- drivers/md/dm-integrity.c | 2 +-
- drivers/md/dm.c           | 5 +++--
- 2 files changed, 4 insertions(+), 3 deletions(-)
+> Signed-off-by: Martin Wilck <mwilck@suse.com>
+> ---
+>  kpartx/kpartx.rules | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/kpartx/kpartx.rules b/kpartx/kpartx.rules
+> index 8f990494..f1bf31ca 100644
+> --- a/kpartx/kpartx.rules
+> +++ b/kpartx/kpartx.rules
+> @@ -7,6 +7,7 @@
+>  KERNEL!="dm-*", GOTO="kpartx_end"
+>  ACTION!="add|change", GOTO="kpartx_end"
+>  ENV{DM_UUID}!="?*", GOTO="kpartx_end"
+> +ENV{DM_UDEV_DISABLE_OTHER_RULES_FLAG}=="1", GOTO="kpartx_end"
+>  
+>  # Create dm tables for partitions on multipath devices.
+>  ENV{DM_UUID}!="mpath-?*", GOTO="mpath_kpartx_end"
+> -- 
+> 2.25.1
 
 --
 dm-devel mailing list
