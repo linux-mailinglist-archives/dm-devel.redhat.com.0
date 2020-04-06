@@ -1,80 +1,80 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 092931A00E3
-	for <lists+dm-devel@lfdr.de>; Tue,  7 Apr 2020 00:15:37 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 16A641A00D4
+	for <lists+dm-devel@lfdr.de>; Tue,  7 Apr 2020 00:15:31 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1586211336;
+	s=mimecast20190719; t=1586211331;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=i2KW7GuRdXo9TIxDoKmbOwj4fc6PwiGiKjEAwooeMhM=;
-	b=Ga2MSlIi6lBB46HX80KduygtX6HiEtB3iHrK5xg5R9dPYXGna+QsTbH1QGG2z2cHhSzpQN
-	EBUeQlZ5AfocJLj4eqkN2RSdSJv06g0TqMOAHLKASWJnlXCwYZFHr62AvQxRAdEnxACaw9
-	fmqvLR1MJXtU9+eAXmuHEwXj70BU9VI=
+	bh=a72rifyPr0FZ2TgyQzek7kGH48CFeeWMO+Qk9eE7JRY=;
+	b=Y+zNHf/wwHVMIShP7IB5grQKO0wJGco1FYLxn5BGXw2uE8zZmuAkmtq/ki/0325uwrcoyM
+	i6lRkQ/SQ7+VCLMnIj++kcp2fFoic8Se42vjZ2/VF9C+JIy7/04EanK2y/2h5QXMS5HL3j
+	IZRLjmWYqjwbbjQWKnUy/WzZeIsDkUc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-434-wwAzsNQdOLG2VDQXlFTwjA-1; Mon, 06 Apr 2020 18:15:32 -0400
-X-MC-Unique: wwAzsNQdOLG2VDQXlFTwjA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-243-LJYl8I5JOsmsTYg4VsSA2Q-1; Mon, 06 Apr 2020 18:15:28 -0400
+X-MC-Unique: LJYl8I5JOsmsTYg4VsSA2Q-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 257EB108442F;
-	Mon,  6 Apr 2020 22:15:26 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2483B107ACC9;
+	Mon,  6 Apr 2020 22:15:22 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E85DF1036B47;
-	Mon,  6 Apr 2020 22:15:25 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E137ECDBE2;
+	Mon,  6 Apr 2020 22:15:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7276A18089CD;
-	Mon,  6 Apr 2020 22:15:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5F11518089C8;
+	Mon,  6 Apr 2020 22:15:21 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 036MEuis018679 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 6 Apr 2020 18:14:56 -0400
+	id 036MEvHf018690 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 6 Apr 2020 18:14:57 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id AA8E82166B2C; Mon,  6 Apr 2020 22:14:56 +0000 (UTC)
+	id 1A3F7D0185; Mon,  6 Apr 2020 22:14:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A64F82166B29
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 139C2D018C
 	for <dm-devel@redhat.com>; Mon,  6 Apr 2020 22:14:56 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6FC25101A55F
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9C9FE8FF67C
 	for <dm-devel@redhat.com>; Mon,  6 Apr 2020 22:14:56 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-313-X3cujO6MMKWKMB_WD8rONw-1;
+	relay.mimecast.com with ESMTP id us-mta-413-YkSBEfIGNHyKaDNaJZnbCQ-1;
 	Mon, 06 Apr 2020 18:14:51 -0400
-X-MC-Unique: X3cujO6MMKWKMB_WD8rONw-1
+X-MC-Unique: YkSBEfIGNHyKaDNaJZnbCQ-1
 Received: from dede-linux.corp.microsoft.com (unknown [131.107.147.242])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 16335207295D;
+	by linux.microsoft.com (Postfix) with ESMTPSA id 4E312207295F;
 	Mon,  6 Apr 2020 15:14:49 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 16335207295D
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4E312207295F
 From: deven.desai@linux.microsoft.com
 To: agk@redhat.com, axboe@kernel.dk, snitzer@redhat.com, jmorris@namei.org,
 	serge@hallyn.com, zohar@linux.ibm.com, linux-integrity@vger.kernel.org, 
 	linux-security-module@vger.kernel.org, dm-devel@redhat.com,
 	linux-block@vger.kernel.org
-Date: Mon,  6 Apr 2020 15:14:37 -0700
-Message-Id: <20200406221439.1469862-11-deven.desai@linux.microsoft.com>
+Date: Mon,  6 Apr 2020 15:14:38 -0700
+Message-Id: <20200406221439.1469862-12-deven.desai@linux.microsoft.com>
 In-Reply-To: <20200406221439.1469862-1-deven.desai@linux.microsoft.com>
 References: <20200406221439.1469862-1-deven.desai@linux.microsoft.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 036MEuis018679
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 036MEvHf018690
 X-loop: dm-devel@redhat.com
 Cc: sashal@kernel.org, pasha.tatashin@soleen.com, mdsakib@linux.microsoft.com,
 	linux-kernel@vger.kernel.org, nramas@linux.microsoft.com,
 	tyhicks@linux.microsoft.com, jaskarankhurana@linux.microsoft.com
-Subject: [dm-devel] [RFC PATCH v2 10/12] ipe: add property for dmverity
-	roothash
+Subject: [dm-devel] [RFC PATCH v2 11/12] documentation: Add IPE Documentation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -88,7 +88,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -96,293 +96,562 @@ Content-Transfer-Encoding: 7bit
 
 From: Deven Bowers <deven.desai@linux.microsoft.com>
 
-Add a property to allow IPE policy to express rules around a specific
-root-hash of a dm-verity volume.
-
-This can be used for revocation, (when combined with the previous dm-verity
-property) or the authorization of a single dm-verity volume.
+Add IPE's documentation to the kernel tree.
 
 Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
 ---
- security/ipe/ipe-blobs.c                    |  10 ++
- security/ipe/ipe-engine.h                   |   3 +
- security/ipe/ipe.c                          |   4 +
- security/ipe/properties/Kconfig             |  13 +-
- security/ipe/properties/Makefile            |   1 +
- security/ipe/properties/dmverity-roothash.c | 155 ++++++++++++++++++++
- security/ipe/properties/prop-entry.h        |   9 ++
- 7 files changed, 194 insertions(+), 1 deletion(-)
- create mode 100644 security/ipe/properties/dmverity-roothash.c
+ Documentation/admin-guide/LSM/index.rst       |   1 +
+ Documentation/admin-guide/LSM/ipe.rst         | 487 ++++++++++++++++++
+ .../admin-guide/kernel-parameters.txt         |  20 +
+ MAINTAINERS                                   |   1 +
+ 4 files changed, 509 insertions(+)
+ create mode 100644 Documentation/admin-guide/LSM/ipe.rst
 
-diff --git a/security/ipe/ipe-blobs.c b/security/ipe/ipe-blobs.c
-index a4ee8df02855..1e054eb13857 100644
---- a/security/ipe/ipe-blobs.c
-+++ b/security/ipe/ipe-blobs.c
-@@ -45,6 +45,8 @@ void ipe_bdev_free_security(struct block_device *bdev)
- {
- 	struct ipe_bdev_blob *bdev_sec = ipe_bdev(bdev);
- 
-+	kfree(bdev_sec->dmverity_rh);
-+
- 	memset(bdev_sec, 0x0, sizeof(*bdev_sec));
- }
- 
-@@ -76,5 +78,13 @@ int ipe_bdev_setsecurity(struct block_device *bdev, const char *key,
- 		bdev_sec->dmv_rh_sig_len = len;
- 	}
- 
-+	if (!strcmp(key, DM_VERITY_ROOTHASH_SEC_NAME)) {
-+		bdev_sec->dmverity_rh = kmemdup(value, len, GFP_KERNEL);
-+		if (!bdev_sec->dmverity_rh)
-+			return -ENOMEM;
-+
-+		bdev_sec->rh_size = len;
-+	}
-+
- 	return 0;
- }
-diff --git a/security/ipe/ipe-engine.h b/security/ipe/ipe-engine.h
-index be17115861cb..d8cdb3cc7af8 100644
---- a/security/ipe/ipe-engine.h
-+++ b/security/ipe/ipe-engine.h
-@@ -18,6 +18,9 @@
- struct ipe_bdev_blob {
- 	u8	*dmverity_rh_sig;
- 	size_t	dmv_rh_sig_len;
-+
-+	u8 *dmverity_rh;
-+	size_t rh_size;
- };
- 
- struct ipe_engine_ctx {
-diff --git a/security/ipe/ipe.c b/security/ipe/ipe.c
-index 924f535c3d32..b398eafa6049 100644
---- a/security/ipe/ipe.c
-+++ b/security/ipe/ipe.c
-@@ -49,6 +49,10 @@ static int __init ipe_load_properties(void)
- 	if (rc != 0)
- 		return rc;
- 
-+	rc = ipe_init_dm_verity_rh();
-+	if (rc != 0)
-+		return rc;
-+
- 	return rc;
- }
- 
-diff --git a/security/ipe/properties/Kconfig b/security/ipe/properties/Kconfig
-index 2d8866ee456e..57b97b2b3877 100644
---- a/security/ipe/properties/Kconfig
-+++ b/security/ipe/properties/Kconfig
-@@ -13,8 +13,19 @@ config IPE_BOOT_PROP
- 
- 	  if unsure, answer N.
- 
-+config IPE_DM_VERITY_ROOTHASH
-+	bool "Enable property for authorizing dm-verity volumes via root-hash"
-+	depends on DM_VERITY
-+	help
-+	  This option enables IPE's integration with Device-Mapper Verity.
-+	  This enables the usage of the property "dmverity_roothash" in IPE's
-+	  policy. This property allows authorization or revocation via a
-+	  a hex-string representing the roothash of a dmverity volume.
-+
-+	  if unsure, answer Y.
-+
- config IPE_DM_VERITY_SIGNATURE
--	bool "Enable property for signature verified dm-verity volumes"
-+	bool "Enable property for verified dm-verity volumes"
- 	depends on DM_VERITY_VERIFY_ROOTHASH_SIG
- 	help
- 	  This option enables IPE's integration with Device-Mapper Verity's
-diff --git a/security/ipe/properties/Makefile b/security/ipe/properties/Makefile
-index 6b67cbe36e31..d9a3807797f4 100644
---- a/security/ipe/properties/Makefile
-+++ b/security/ipe/properties/Makefile
-@@ -10,3 +10,4 @@ obj-$(CONFIG_SECURITY_IPE) += properties.o
- 
- properties-$(CONFIG_IPE_BOOT_PROP) += boot-verified.o
- properties-$(CONFIG_IPE_DM_VERITY_SIGNATURE) += dmverity-signature.o
-+properties-$(CONFIG_IPE_DM_VERITY_ROOTHASH) += dmverity-roothash.o
-diff --git a/security/ipe/properties/dmverity-roothash.c b/security/ipe/properties/dmverity-roothash.c
+diff --git a/Documentation/admin-guide/LSM/index.rst b/Documentation/admin-guide/LSM/index.rst
+index a6ba95fbaa9f..ce63be6d64ad 100644
+--- a/Documentation/admin-guide/LSM/index.rst
++++ b/Documentation/admin-guide/LSM/index.rst
+@@ -47,3 +47,4 @@ subdirectories.
+    tomoyo
+    Yama
+    SafeSetID
++   ipe
+diff --git a/Documentation/admin-guide/LSM/ipe.rst b/Documentation/admin-guide/LSM/ipe.rst
 new file mode 100644
-index 000000000000..5c575fc275bc
+index 000000000000..def353e34288
 --- /dev/null
-+++ b/security/ipe/properties/dmverity-roothash.c
-@@ -0,0 +1,155 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) Microsoft Corporation. All rights reserved.
-+ */
++++ b/Documentation/admin-guide/LSM/ipe.rst
+@@ -0,0 +1,487 @@
++.. SPDX-License-Identifier: GPL-2.0
 +
-+#include "../ipe.h"
-+#include "../ipe-pin.h"
-+#include "../ipe-property.h"
-+#include "../utility.h"
++Integrity Policy Enforcement (IPE)
++==================================
 +
-+#include <linux/types.h>
-+#include <linux/slab.h>
-+#include <linux/fs.h>
-+#include <linux/mount.h>
-+#include <linux/audit.h>
-+#include <linux/kernel.h>
++Overview
++--------
 +
-+#define PROPERTY_NAME "dmverity_roothash"
++IPE is a Linux Security Module, which allows for a configurable policy
++to enforce integrity requirements on the whole system. It attempts to
++solve the issue of Code Integrity: that any code being executed (or
++files being read), are identical to the version that was built by a
++trusted source.
 +
-+struct counted_array {
-+	u8 *arr;
-+	size_t len;
-+};
++There are multiple implementations within the Linux kernel that solve
++some measure of integrity verification. For instance, device-mapper
++verity, which ensures integrity for a block device, and fs-verity which
++is a system that ensures integrity for a filesystem. What these
++implementations lack is a measure of run-time verification that binaries
++are sourced from these locations. IPE aims to address this gap.
 +
-+static void audit(struct audit_buffer *ab, const void *value)
-+{
-+	const struct counted_array *a = (const struct counted_array *)value;
++IPE is separated between two major components: A configurable policy,
++provided by the LSM ("IPE Core"), and deterministic attributes provided
++by the kernel to evaluate files against, ("IPE Properties").
 +
-+	if (!a || a->len == 0)
-+		audit_log_format(ab, "NULL");
-+	else
-+		audit_log_n_hex(ab, a->arr, a->len);
-+}
++Use Cases
++---------
 +
-+static inline void audit_rule_value(struct audit_buffer *ab,
-+				    const void *value)
-+{
-+	audit(ab, value);
-+}
++IPE is designed for use is an embedded device with a specific purpose
++(e.g. network firewall device in a data center), where all software and
++configuration is built and provisioned by the owner.
 +
-+static inline void audit_ctx(struct audit_buffer *ab,
-+			     const struct ipe_engine_ctx *ctx,
-+			     const void *storage)
-+{
-+	struct counted_array a;
++Ideally, a system which leverages IPE is not intended for general
++purpose computing and does not utilize any software or configuration
++built by a third party. An ideal system to leverage IPE has both mutable
++and immutable components, however, all binary executable code is
++immutable.
 +
-+	if (!has_bdev(ctx->file))
-+		return audit(ab, NULL);
++For the highest level of security, platform firmware should verify the
++the kernel and optionally the root filesystem (e.g. via U-Boot verified
++boot). This allows the entire system to be integrity verified.
 +
-+	a.arr = ctx->sec_bdev->dmverity_rh;
-+	a.len = ctx->sec_bdev->rh_size;
++Known Gaps
++----------
 +
-+	return audit(ab, &a);
-+}
++IPE cannot verify the integrity of anonymous executable memory, such as
++the trampolines created by gcc closures and libffi, or JIT'd code.
++Unfortunately, as this is dynamically generated code, there is no way
++for IPE to detect that this code has not been tampered with in
++transition from where it was built, to where it is running. As a result,
++IPE is incapable of tackling this problem for dynamically generated
++code.
 +
-+static bool evaluate(const struct ipe_engine_ctx *ctx,
-+		     const void *value, void **storage)
-+{
-+	const struct counted_array *a = (const struct counted_array *)value;
++IPE cannot verify the integrity of interpreted languages' programs when
++these scripts invoked via ``<interpreter> <file>``. This is because the
++way interpreters execute these files, the scripts themselves are not
++evaluated as executable code through one of IPE's hooks. Interpreters
++can be enlightened to the usage of IPE by trying to mmap a file into
++executable memory (+X), after opening the file and responding to the
++error code appropriately. This also applies to included files, or high
++value files, such as configuration files of critical system components.
++This specific gap is planned on being addressed within IPE.
 +
-+	if (!has_bdev(ctx->file))
-+		return false;
++Threat Model
++------------
 +
-+	if (a->len != ctx->sec_bdev->rh_size)
-+		return false;
++The threat type addressed by IPE is tampering of executable user-land
++code beyond the initially booted kernel, and the initial verification of
++kernel modules that are loaded in userland through ``modprobe`` or
++``insmod``.
 +
-+	return memcmp(a->arr, ctx->sec_bdev->dmverity_rh, a->len) == 0;
-+}
++Tampering violates the property of integrity. IPE's role in mitigating
++this threat is to verify the integrity (and authenticity) of all
++executable code and to deny their use if integrity verification fails.
++IPE generates audit logs which may be utilized to detect integrity
++verification failures.
 +
-+static int parse(const char *val_str, void **value)
-+{
-+	struct counted_array *arr = NULL;
-+	int rv = 0;
++Tampering threat scenarios include modification or replacement of
++executable code by a range of actors including:
 +
-+	arr = kzalloc(sizeof(*arr), GFP_KERNEL);
-+	if (!arr) {
-+		rv = -ENOMEM;
-+		goto err;
-+	}
++-  Insiders with physical access to the hardware
++-  Insiders with local network access to the system
++-  Insiders with access to the deployment system
++-  Compromised internal systems under external control
++-  Malicious end users of the system
++-  Compromised end users of the system
++-  Remote (external) compromise of the system
 +
-+	arr->len = strlen(val_str) / 2;
++IPE does not mitigate threats arising from malicious authorized
++developers, or compromised developer tools used by authorized
++developers. Additionally, IPE draws hard security boundary between user
++mode and kernel mode. As a result, IPE does not provide any protections
++against a kernel level exploit, and a kernel-level exploit can disable
++or tamper with IPE's protections.
 +
-+	arr->arr = kzalloc(arr->len, GFP_KERNEL);
-+	if (!arr->arr) {
-+		rv = -ENOMEM;
-+		goto err;
-+	}
++The root of trust for all of IPE's verifications is the
++``SYSTEM_TRUSTED_KEYRING``.
 +
-+	rv = hex2bin(arr->arr, val_str, arr->len);
-+	if (rv != 0)
-+		goto err;
++IPE Core
++--------
 +
-+	*value = arr;
-+	return rv;
-+err:
-+	if (arr)
-+		kfree(arr->arr);
-+	kfree(arr);
-+	return rv;
-+}
++IPE Policy
++~~~~~~~~~~
 +
-+static int duplicate(const void *src, void **dest)
-+{
-+	struct counted_array *arr = NULL;
-+	const struct counted_array *src_arr = src;
-+	int rv = 0;
++IPE policy is designed to be both forward compatible and backwards
++compatible. There is one required line, at the top of the policy,
++indicating the policy name, and the policy version, for instance:
 +
-+	arr = kmemdup(src_arr, sizeof(*arr), GFP_KERNEL);
-+	if (!arr) {
-+		rv = -ENOMEM;
-+		goto err;
-+	}
++::
 +
-+	arr->arr = kmemdup(src_arr->arr, src_arr->len, GFP_KERNEL);
-+	if (!arr->arr) {
-+		rv = -ENOMEM;
-+		goto err;
-+	}
++   policy_name="Ex Policy" policy_version=0.0.0
 +
-+	*dest = arr;
-+	return rv;
-+err:
-+	if (arr)
-+		kfree(arr->arr);
-+	kfree(arr);
++The policy name is a unique key identifying this policy in a human
++readable name. This is used to create nodes under securityfs as well as
++uniquely identify policies to deploy new policies vs update existing
++policies.
 +
-+	return rv;
-+}
++The policy version indicates the current version of the policy (NOT the
++policy syntax version). This is used to prevent roll-back of policy to
++potentially insecure previous versions of the policy.
 +
-+static void free_val(void **value)
-+{
-+	struct counted_array *a = (struct counted_array *)*value;
++The next portion of IPE policy, are rules. Rules are formed by key=value
++pairs, known as properties. IPE rules require two properties: "action",
++which determines what IPE does when it encounters a match against the
++rule, and "op", which determines when that rule should be evaluated.
++Thus, a minimal rule is:
 +
-+	if (a)
-+		kfree(a->arr);
-+	kfree(a);
-+	*value = NULL;
-+}
++::
 +
-+static const struct ipe_property dmv_roothash = {
-+	.property_name = PROPERTY_NAME,
-+	.eval = evaluate,
-+	.parse = parse,
-+	.rule_audit = audit_rule_value,
-+	.ctx_audit = audit_ctx,
-+	.dup = duplicate,
-+	.free_val = free_val,
-+	.prealloc = NULL,
-+	.free_storage = NULL,
-+};
++   op=EXECUTE action=ALLOW
 +
-+int ipe_init_dm_verity_rh(void)
-+{
-+	return ipe_register_property(&dmv_roothash);
-+}
-diff --git a/security/ipe/properties/prop-entry.h b/security/ipe/properties/prop-entry.h
-index 85366366ff0d..86a360570f3b 100644
---- a/security/ipe/properties/prop-entry.h
-+++ b/security/ipe/properties/prop-entry.h
-@@ -26,4 +26,13 @@ static inline int __init ipe_init_dm_verity_signature(void)
- int __init ipe_init_dm_verity_signature(void);
- #endif /* CONFIG_IPE_DM_VERITY_SIGNATURE */
++This example will allow any execution. Additional properties are used to
++restrict attributes about the files being evaluated. These properties
++are intended to be deterministic attributes that are resident in the
++kernel.
++
++Order does not matter for the rule's properties - they can be listed in
++any order, however it is encouraged to have the "op" property be first,
++and the "action" property be last for readability. Rules are evaluated
++top-to-bottom. As a result, any revocation rules, or denies should be
++placed early in the file to ensure that these rules are evaluated before
++as rule with "action=ALLOW" is hit.
++
++IPE policy is designed to be forward compatible and backwards
++compatible, thus any failure to parse a rule will result in the line
++being ignored, and a warning being emitted. If backwards compatibility
++is not required, the kernel command line parameter and sysctl,
++``ipe.strict_parse`` can be enabled, which will cause these warnings to
++be fatal.
++
++IPE policy supports comments. The character '#' will function as a
++comment, ignoring all characters to the right of '#' until the newline.
++
++The default behavior of IPE evaluations can also be expressed in policy,
++through the ``DEFAULT`` statement. This can be done at a global level,
++or a per-operation level:
++
++::
++
++   # Global
++   DEFAULT action=ALLOW
++
++   # Operation Specific
++   DEFAULT op=EXECUTE action=ALLOW
++
++If a global default is unset, and a specific operation default is not
++set for an IPE operation, it will assume that the default action should
++be ``ALLOW``. This is to preserve compatibility between policies and the
++LSM.
++
++With configurable policy-based LSMs, there's several issues with
++enforcing the configurable policies at startup, around reading and
++parsing the policy:
++
++1. The kernel *should* not read files from userland, so directly reading
++   the policy file is prohibited.
++2. The kernel command line has a character limit, and one kernel module
++   should not reserve the entire character limit for its own
++   configuration.
++3. There are various boot loaders in the kernel ecosystem, so handing
++   off a memory block would be costly to maintain.
++
++As a result, IPE has addressed this problem through a concept of a "boot
++policy". A boot policy is a minimal policy, compiled into the kernel.
++This policy is intended to get the system to a state where userland is
++setup and ready to receive commands, at which point a more complex
++policy ("user policies") can be deployed via securityfs. The boot policy
++can be specified via the Kconfig, ``SECURITY_IPE_BOOT_POLICY``, which
++accepts a path to a plain-text version of the IPE policy to apply. This
++policy will be compiled into the kernel. If not specified, IPE will be
++disabled until a policy is deployed through securityfs, and activated
++through sysfs.
++
++Deploying Policies
++^^^^^^^^^^^^^^^^^^
++
++User policies as explained above, are policies that are deployed from
++userland, through securityfs. These policies are signed to enforce some
++level of authorization of the policies (prohibiting an attacker from
++gaining root, and deploying an "allow all" policy), through the PKCS#7
++enveloped data format. These policies must be signed by a certificate
++that chains to the ``SYSTEM_TRUSTED_KEYRING``. Through openssl, the
++signing can be done via:
++
++::
++
++   openssl smime -sign -in "$MY_POLICY" -signer "$MY_CERTIFICATE" \
++     -inkey "$MY_PRIVATE_KEY" -binary -outform der -noattr -nodetach \
++     -out "$MY_POLICY.p7s"
++
++Deploying the policies is done through securityfs, through the
++``new_policy`` node. To deploy a policy, simply cat the file into the
++securityfs node:
++
++::
++
++   cat "$MY_POLICY.p7s" > /sys/kernel/security/ipe/new_policy
++
++Upon success, this will create one subdirectory under
++``/sys/kernel/security/ipe/policies/``. The subdirectory will be the
++``policy_name`` field of the policy deployed, so for the example above,
++the directory will be ``/sys/kernel/security/ipe/policies/Ex\ Policy``.
++Within this directory, there will be two files: ``raw`` and ``content``.
++
++The ``raw`` file is rw, reading will provide the raw PKCS#7 data that
++was provided to the kernel, representing the policy. Writing, will
++deploy an in-place policy update - if this policy is the currently
++running policy, the new updated policy will replace it immediately upon
++success.
++
++The ``content`` file is read only. Reading will provide the PKCS#7 inner
++content of the policy, which will be the plain text policy.
++
++Similarly, the ``cat`` command above will result in an error upon
++syntactically invalid or untrusted policies. It will also error if a
++policy already exists with the same ``policy_name``. The write to the
++``raw`` node will error upon syntactically invalid, untrusted policies,
++or if the payload fails the version check. The write will also fail if
++the ``policy_name`` in the payload does not match the existing policy.
++
++Deploying these policies will *not* cause IPE to start enforcing this
++policy. Once deployment is successful, a policy can be marked as active,
++via the sysctl, ``ipe.active_policy``. IPE will enforce whatever policy
++is marked as active. For our example, we can activate the ``Ex Policy``
++via:
++
++::
++
++   sysctl ipe.active_policy="Ex Policy"
++
++At which point, ``Ex Policy`` will now be the enforced policy on the
++system.
++
++IPE also provides a way to delete policies. This can be done via the
++``del_policy`` securityfs node, ``/sys/kernel/security/ipe/del_policy``.
++Writing the ``policy_name`` of the policy to be deleted will delete that
++node:
++
++::
++
++   echo -n "$MY_POLICY_NAME" > /sys/kernel/security/ipe/del_policy
++
++There are two requirements to delete policies:
++
++1. The policy being deleted must not be the active policy.
++2. The policy being deleted must not be the boot policy.
++
++NOTE: It's important to know above that the "echo" command will add a
++newline to the end of the input, and this will be considered as part of
++the filename. You can remove the newline via the -n parameter.
++
++Modes
++~~~~~
++
++IPE supports two modes of operation: permissive (similar to SELinux's
++permissive mode) and enforce. Permissive mode performs the same checks
++as enforce mode, and logs policy violations, but will not enforce the
++policy. This allows users to test policies before enforcing them.
++
++The default mode is enforce, and can be changed via the kernel command
++line parameter ``ipe.enforce=(0|1)``, or the sysctl
++``ipe.enforce=(0|1)``. The ability to switch modes can be compiled out
++of the LSM via setting the Kconfig
++``CONFIG_SECURITY_IPE_PERMISSIVE_SWITCH`` to N.
++
++Audit Events
++~~~~~~~~~~~~
++
++Success Auditing
++^^^^^^^^^^^^^^^^
++
++IPE supports success auditing. When enabled, all events that pass IPE
++policy and are not blocked will emit an audit event. This is disabled by
++default, and can be enabled via the kernel command line
++``ipe.success_audit=(0|1)`` or the sysctl ``ipe.success_audit=(0|1)``.
++
++This is very noisy, as IPE will check every user-mode binary on the
++system, but is useful for debugging policies.
++
++IPE Properties
++--------------
++
++As explained above, IPE properties are ``key=value`` pairs expressed in
++IPE policy. Two properties are built-into the policy parser: 'op' and
++'action'. The other properties are determinstic attributes to express
++across files. Currently those properties are: 'boot_verified',
++'dmverity_signature', 'dmverity_roothash'. A description of all
++properties supported by IPE are listed below:
++
++op
++~~
++
++Indicates the operation for a rule to apply to. Must be in every rule.
++IPE supports the following operations:
++
++``EXECUTE``
++
++   Pertains to any file attempting to be executed, or loaded as an
++   executable.
++
++``FIRMWARE``:
++
++   Pertains to firmware being loaded via the firmware_class interface.
++   This covers both the preallocated buffer and the firmware file
++   itself.
++
++``KMODULE``:
++
++   Pertains to loading kernel modules via ``modprobe`` or ``insmod``.
++
++``KEXEC_IMAGE``:
++
++   Pertains to kernel images loading via ``kexec``.
++
++``KEXEC_INITRAMFS``
++
++   Pertains to initrd images loading via ``kexec --initrd``.
++
++``POLICY``:
++
++   Controls loading IMA policies through the
++   ``/sys/kernel/security/ima/policy`` securityfs entry.
++
++``X509_CERT``:
++
++   Controls loading IMA certificates through the Kconfigs,
++   ``CONFIG_IMA_X509_PATH`` and ``CONFIG_EVM_X509_PATH``.
++
++action
++~~~~~~
++
++Determines what IPE should do when a rule matches. Must be in every
++rule. Can be one of:
++
++``ALLOW``:
++
++   If the rule matches, explicitly allow the call to proceed without
++   executing any more rules.
++
++``DENY``:
++
++   If the rule matches, explicitly prohibit the call from proceeding
++   without executing any more rules.
++
++boot_verified
++~~~~~~~~~~~~~
++
++This property can be utilized for authorization of the first super-block
++that is mounted on the system, where IPE attempts to evaluate a file.
++Typically this is used for systems with an initramfs or other initial
++disk, where this is unmounted before the system becomes available, and
++is not covered by any other property. This property is controlled by the
++Kconfig, ``CONFIG_IPE_BOOT_PROP``. The format of this property is:
++
++::
++
++       boot_verified=(TRUE|FALSE)
++
++
++.. WARNING::
++
++  This property will trust any disk where the first IPE
++  evaluation occurs. If you do not have a startup disk that is
++  unpacked and unmounted (like initramfs), then it will automatically
++  trust the root filesystem and potentially overauthorize the entire
++  disk.
++
++dmverity_roothash
++~~~~~~~~~~~~~~~~~
++
++This property can be utilized for authorization or revocation of
++specific dm-verity volumes, identified via root hash. It has a
++dependency on the DM_VERITY module. This property is controlled by the
++property: ``CONFIG_IPE_DM_VERITY_ROOTHASH``. The format of this property
++is:
++
++::
++
++   dmverity_roothash=HashHexDigest
++
++dmverity_signature
++~~~~~~~~~~~~~~~~~~
++
++This property can be utilized for authorization of all dm-verity volumes
++that have a signed roothash that chains to the system trusted keyring.
++It has a dependency on the ``DM_VERITY_VERIFY_ROOTHASH_SIG`` Kconfig.
++This property is controlled by the Kconfig:
++``CONFIG_IPE_DM_VERITY_SIGNATURE``. The format of this property is:
++
++::
++
++   dmverity_signature=(TRUE|FALSE)
++
++Policy Examples
++---------------
++
++Allow all
++~~~~~~~~~
++
++::
++
++   policy_name="Allow All" policy_version=0.0.0
++   DEFAULT action=ALLOW
++
++Allow only initial superblock
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++::
++
++   policy_name="Allow All Initial SB" policy_version=0.0.0
++   DEFAULT action=DENY
++
++   op=EXECUTE boot_verified=TRUE action=ALLOW
++
++Allow any signed dm-verity volume and the initial superblock
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++::
++
++   policy_name="AllowSignedAndInitial" policy_version=0.0.0
++   DEFAULT action=DENY
++
++   op=EXECUTE boot_verified=TRUE action=ALLOW
++   op=EXECUTE dmverity_signature=TRUE action=ALLOW
++
++Prohibit execution from a specific dm-verity volume
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++::
++
++   policy_name="AllowSignedAndInitial" policy_version=0.0.0
++   DEFAULT action=DENY
++
++   op=EXECUTE dmverity_roothash=401fcec5944823ae12f62726e8184407a5fa9599783f030dec146938 action=DENY
++   op=EXECUTE boot_verified=TRUE action=ALLOW
++   op=EXECUTE dmverity_signature=TRUE action=ALLOW
++
++Allow only a specific dm-verity volume
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++::
++
++   policy_name="AllowSignedAndInitial" policy_version=0.0.0
++   DEFAULT action=DENY
++
++   op=EXECUTE dmverity_roothash=401fcec5944823ae12f62726e8184407a5fa9599783f030dec146938 action=ALLOW
++
++External Information
++--------------------
++
++Please see the github repository at: https://github.com/microsoft/Integrity-Policy-Enforcement-LSM
++
++FAQ
++---
++
++Q: What's the difference between other LSMs which provide integrity
++verification (i.e. IMA)?
++
++A: IPE differs from other LSMs which provide integrity checking, as it
++has no dependency on the filesystem metadata itself. The attributes that
++IPE checks are deterministic properties that exist solely in the kernel.
++Additionally, IPE provides no additional mechanisms of verifying these
++files (e.g. IMA Signatures) - all of the attributes of verifying files
++are existing features within the kernel.
++
++Additionally, IPE is completely restricted to integrity. It offers no
++measurement or attestation features, which IMA addresses.
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 4d5a4fe22703..9eb8b19fe9db 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -1913,6 +1913,26 @@
+ 	ip=		[IP_PNP]
+ 			See Documentation/admin-guide/nfs/nfsroot.rst.
  
-+#ifndef CONFIG_IPE_DM_VERITY_ROOTHASH
-+static inline int __init ipe_init_dm_verity_rh(void)
-+{
-+	return 0;
-+}
-+#else
-+int __init ipe_init_dm_verity_rh(void);
-+#endif /* CONFIG_IPE_DM_VERITY_ROOTHASH */
++	ipe.enforce=	[IPE]
++			Format: { "0" | "1" }
++			0 - Start IPE in audit mode
++			1 - Start IPE in enforce mode (default).
++			See Documentation/security/ipe.rst
 +
- #endif /* IPE_PROP_ENTRY_H */
++	ipe.success_audit=
++			[IPE] Start IPE with success auditing
++			Format: { "0" | "1" }
++			0 - Disable success auditing (default)
++			1 - Enable success auditing
++			See Documentation/security/ipe.rst
++
++	ipe.strict_parse=
++			[IPE] Start IPE with strict policy parsing enabled
++			Format: { "0" | "1" }
++			0 - Disable strict parsing (default)
++			1 - Enable strict parsing
++			See Documentation/security/ipe.rst
++
+ 	ipcmni_extend	[KNL] Extend the maximum number of unique System V
+ 			IPC identifiers from 32,768 to 16,777,216.
+ 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index ab9adcd37a0c..897da80af3f8 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8441,6 +8441,7 @@ INTEGRITY POLICY ENFORCEMENT (IPE)
+ M:	Deven Bowers <deven.desai@linux.microsoft.com>
+ L:	linux-integrity@vger.kernel.org
+ S:	Supported
++F:	Documentation/admin-guide/LSM/ipe.rst
+ F:	scripts/ipe/
+ F:	security/ipe/
+ 
 -- 
 2.26.0
 
