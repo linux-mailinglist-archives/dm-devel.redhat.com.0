@@ -1,75 +1,78 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 9448F19FB96
-	for <lists+dm-devel@lfdr.de>; Mon,  6 Apr 2020 19:30:01 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 90E2C19FDC6
+	for <lists+dm-devel@lfdr.de>; Mon,  6 Apr 2020 20:59:54 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1586194199;
+	s=mimecast20190719; t=1586199593;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=UzENi2Ioj8G6CnfT8mrU/Y63J/Le1SUOZVid5RK7aA4=;
-	b=N5zzV4yzBapESDqb0YChsbtBJ9sGo4VaLUwzyYH/Z6U6OCL+vP8tCb6ebqqcLOsfSrleQC
-	HTsBMQlTvWR+yxit+PuCIxjnWB7sGDcg7DpQexP+XpkodOR8pt2XQocV7WuSxCxpRMbEOL
-	ANZnvNn+XzFMPIShQD8EgNmvIoGQRak=
+	bh=vJPGXn7tLkfEDR3vg5kOoVMZllakScBwNj7ZTkqFMhQ=;
+	b=W1bp7bI9phbssI/GO+7rRFHWNP7dUsi0RZszVW0UBy+hrtt/9qQdWuplreqmFXeZCvlrQm
+	+4i7ZPPlHw6B7f8oi7LwxrqaZTBILeJ52/iVCG74H4ePXs3/q+xXZl7c9qq4H/qZh9Wk/i
+	tXa87Wh9o9GuBbdygrtKkFW3i0slUis=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-142-8sVyGxeOPdy00pOwA4TjUg-1; Mon, 06 Apr 2020 13:29:57 -0400
-X-MC-Unique: 8sVyGxeOPdy00pOwA4TjUg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-349-z5n1OrsZNp2TvJJ3qaEzFA-1; Mon, 06 Apr 2020 14:59:49 -0400
+X-MC-Unique: z5n1OrsZNp2TvJJ3qaEzFA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DAA0018C35AB;
-	Mon,  6 Apr 2020 17:29:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A09001005F87;
+	Mon,  6 Apr 2020 18:59:40 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ABA279D36D;
-	Mon,  6 Apr 2020 17:29:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 723915DA7C;
+	Mon,  6 Apr 2020 18:59:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1289C18089C8;
-	Mon,  6 Apr 2020 17:29:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 10DF21808855;
+	Mon,  6 Apr 2020 18:59:40 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 036HTjCo000908 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 6 Apr 2020 13:29:45 -0400
+	id 036IHADt003587 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 6 Apr 2020 14:17:10 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0553E2166B2A; Mon,  6 Apr 2020 17:29:45 +0000 (UTC)
+	id E494020230A9; Mon,  6 Apr 2020 18:17:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 00F002166B29
-	for <dm-devel@redhat.com>; Mon,  6 Apr 2020 17:29:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E0734202A943
+	for <dm-devel@redhat.com>; Mon,  6 Apr 2020 18:17:09 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 520EB101A55F
-	for <dm-devel@redhat.com>; Mon,  6 Apr 2020 17:29:42 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-58-2nmaMyqFP8OZflYOQTRCvA-1;
-	Mon, 06 Apr 2020 13:29:37 -0400
-X-MC-Unique: 2nmaMyqFP8OZflYOQTRCvA-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
-	by mx2.suse.de (Postfix) with ESMTP id 70F31BB3B;
-	Mon,  6 Apr 2020 17:29:34 +0000 (UTC)
-From: Hannes Reinecke <hare@suse.de>
-To: Mike Snitzer <snitzer@redhat.com>
-Date: Mon,  6 Apr 2020 16:35:05 +0200
-Message-Id: <20200406143505.133271-12-hare@suse.de>
-In-Reply-To: <20200406143505.133271-1-hare@suse.de>
-References: <20200406143505.133271-1-hare@suse.de>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 99F10101A55E
+	for <dm-devel@redhat.com>; Mon,  6 Apr 2020 18:17:09 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
+	relay.mimecast.com with ESMTP id us-mta-231-pza_EGmnN4y64gtxaWaWlA-1;
+	Mon, 06 Apr 2020 14:17:04 -0400
+X-MC-Unique: pza_EGmnN4y64gtxaWaWlA-1
+Received: from dede-linux.corp.microsoft.com (unknown [131.107.147.242])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 8C9E52072933;
+	Mon,  6 Apr 2020 11:10:56 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8C9E52072933
+From: deven.desai@linux.microsoft.com
+To: agk@redhat.com, axboe@kernel.dk, snitzer@redhat.com, jmorris@namei.org,
+	serge@hallyn.com, zohar@linux.ibm.com, linux-integrity@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, dm-devel@redhat.com,
+	linux-block@vger.kernel.org
+Date: Mon,  6 Apr 2020 11:10:34 -0700
+Message-Id: <20200406181045.1024164-1-deven.desai@linux.microsoft.com>
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 036HTjCo000908
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 036IHADt003587
 X-loop: dm-devel@redhat.com
-Cc: Damien LeMoal <damien.lemoal@wdc.com>, Bob Liu <bob.liu@oracle.com>,
-	dm-devel@redhat.com
-Subject: [dm-devel] [PATCH 11/11] dm-zoned: metadata version 2
+X-Mailman-Approved-At: Mon, 06 Apr 2020 14:59:16 -0400
+Cc: sashal@kernel.org, pasha.tatashin@soleen.com, mdsakib@linux.microsoft.com,
+	nramas@linux.microsoft.com, tyhicks@linux.microsoft.com,
+	jaskarankhurana@linux.microsoft.com
+Subject: [dm-devel] [RESEND PATCH 00/11] Integrity Policy Enforcement LSM
+	(IPE)
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,824 +84,582 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Implement handling for metadata version 2. The new metadata adds
-a label and UUID for the device mapper device, and additional UUID
-for the underlying block devices.
-It also allows for an additional regular drive to be used for
-emulating random access zones. The emulated zones will be placed
-logically in front of the zones from the zoned block device, causing
-the superblocks and metadata to be stored on that device.
-The first zone of the original zoned device will be used to hold
-another, tertiary copy of the metadata. This copy carries a
-generation number of 0 and is never updated; it's just used
-for identification.
-The zones are spaced equidistant, which means that any eventual
-runt zones will be counted, too. They are marked as 'offline' and
-ignored when selecting zones.
+From: Deven Bowers <deven.desai@linux.microsoft.com>
 
-Signed-off-by: Hannes Reinecke <hare@suse.de>
----
- drivers/md/dm-zoned-metadata.c | 269 +++++++++++++++++++++++++++------
- drivers/md/dm-zoned-target.c   | 128 +++++++++-------
- drivers/md/dm-zoned.h          |   7 +-
- 3 files changed, 304 insertions(+), 100 deletions(-)
+Overview:
+------------------------------------
+IPE is a Linux Security Module, which allows for a configurable
+policy to enforce integrity requirements on the whole system. It
+attempts to solve the issue of Code Integrity: that any code being
+executed (or files being read), are identical to the version that
+was built by a trusted source.
 
-diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
-index e036ba4bfe57..e498e1aee915 100644
---- a/drivers/md/dm-zoned-metadata.c
-+++ b/drivers/md/dm-zoned-metadata.c
-@@ -16,7 +16,7 @@
- /*
-  * Metadata version.
-  */
--#define DMZ_META_VER	1
-+#define DMZ_META_VER	2
- 
- /*
-  * On-disk super block magic.
-@@ -69,8 +69,17 @@ struct dmz_super {
- 	/* Checksum */
- 	__le32		crc;			/*  48 */
- 
-+	/* DM-Zoned label */
-+	u8		dmz_label[32];		/*  80 */
-+
-+	/* DM-Zoned UUID */
-+	u8		dmz_uuid[16];		/*  96 */
-+
-+	/* Device UUID */
-+	u8		dev_uuid[16];		/* 112 */
-+
- 	/* Padding to full 512B sector */
--	u8		reserved[464];		/* 512 */
-+	u8		reserved[400];		/* 512 */
- };
- 
- /*
-@@ -135,6 +144,8 @@ struct dmz_metadata {
- 	struct dmz_dev		*dev;
- 
- 	char			devname[BDEVNAME_SIZE];
-+	char			label[BDEVNAME_SIZE];
-+	uuid_t			uuid;
- 
- 	sector_t		zone_bitmap_size;
- 	unsigned int		zone_nr_bitmap_blocks;
-@@ -161,8 +172,9 @@ struct dmz_metadata {
- 	/* Zone information array */
- 	struct dm_zone		*zones;
- 
--	struct dmz_sb		sb[2];
-+	struct dmz_sb		sb[3];
- 	unsigned int		mblk_primary;
-+	unsigned int		sb_version;
- 	u64			sb_gen;
- 	unsigned int		min_nr_mblks;
- 	unsigned int		max_nr_mblks;
-@@ -195,16 +207,16 @@ struct dmz_metadata {
- };
- 
- #define dmz_zmd_info(zmd, format, args...)	\
--	DMINFO("(%s): " format, (zmd)->devname, ## args)
-+	DMINFO("(%s): " format, (zmd)->label, ## args)
- 
- #define dmz_zmd_err(zmd, format, args...)	\
--	DMERR("(%s): " format, (zmd)->devname, ## args)
-+	DMERR("(%s): " format, (zmd)->label, ## args)
- 
- #define dmz_zmd_warn(zmd, format, args...)	\
--	DMWARN("(%s): " format, (zmd)->devname, ## args)
-+	DMWARN("(%s): " format, (zmd)->label, ## args)
- 
- #define dmz_zmd_debug(zmd, format, args...)	\
--	DMDEBUG("(%s): " format, (zmd)->devname, ## args)
-+	DMDEBUG("(%s): " format, (zmd)->label, ## args)
- /*
-  * Various accessors
-  */
-@@ -215,16 +227,41 @@ unsigned int dmz_id(struct dmz_metadata *zmd, struct dm_zone *zone)
- 
- sector_t dmz_start_sect(struct dmz_metadata *zmd, struct dm_zone *zone)
- {
--	return (sector_t)dmz_id(zmd, zone) << zmd->zone_nr_sectors_shift;
-+	unsigned int zone_id;
-+
-+	if (WARN_ON(!zone))
-+		return 0;
-+
-+	zone_id = zone->id;
-+	if (zmd->dev[0].zone_offset &&
-+	    (zone_id >= zmd->dev[0].zone_offset))
-+		zone_id -= zmd->dev[0].zone_offset;
-+	return (sector_t)zone_id << zmd->zone_nr_sectors_shift;
- }
- 
- sector_t dmz_start_block(struct dmz_metadata *zmd, struct dm_zone *zone)
- {
--	return (sector_t)dmz_id(zmd, zone) << zmd->zone_nr_blocks_shift;
-+	unsigned int zone_id;
-+
-+	if (WARN_ON(!zone))
-+		return 0;
-+
-+	zone_id = zone->id;
-+	if (zmd->dev[0].zone_offset &&
-+	    (zone_id >= zmd->dev[0].zone_offset))
-+		zone_id -= zmd->dev[0].zone_offset;
-+	return (sector_t)zone_id << zmd->zone_nr_blocks_shift;
- }
- 
- struct dmz_dev *dmz_zone_to_dev(struct dmz_metadata *zmd, struct dm_zone *zone)
- {
-+	if (WARN_ON(!zone))
-+		return &zmd->dev[0];
-+
-+	if (zmd->dev[0].zone_offset &&
-+	    zone->id < zmd->dev[0].zone_offset)
-+			return &zmd->dev[1];
-+
- 	return &zmd->dev[0];
- }
- 
-@@ -280,7 +317,7 @@ unsigned int dmz_nr_unmap_seq_zones(struct dmz_metadata *zmd)
- 
- const char *dmz_metadata_label(struct dmz_metadata *zmd)
- {
--	return (const char *)zmd->devname;
-+	return (const char *)zmd->label;
- }
- 
- bool dmz_check_dev(struct dmz_metadata *zmd)
-@@ -687,6 +724,9 @@ static int dmz_rdwr_block(struct dmz_dev *dev, int op,
- 	struct bio *bio;
- 	int ret;
- 
-+	if (WARN_ON(!dev))
-+		return -EIO;
-+
- 	if (dmz_bdev_is_dying(dev))
- 		return -EIO;
- 
-@@ -711,7 +751,8 @@ static int dmz_rdwr_block(struct dmz_dev *dev, int op,
-  */
- static int dmz_write_sb(struct dmz_metadata *zmd, unsigned int set)
- {
--	sector_t block = zmd->sb[set].block;
-+	unsigned int sb_zid = dmz_id(zmd, zmd->sb[set].zone);
-+	sector_t sb_block = sb_zid << zmd->zone_nr_blocks_shift;
- 	struct dmz_mblock *mblk = zmd->sb[set].mblk;
- 	struct dmz_super *sb = zmd->sb[set].sb;
- 	struct dmz_dev *dev = zmd->sb[set].dev;
-@@ -719,11 +760,17 @@ static int dmz_write_sb(struct dmz_metadata *zmd, unsigned int set)
- 	int ret;
- 
- 	sb->magic = cpu_to_le32(DMZ_MAGIC);
--	sb->version = cpu_to_le32(DMZ_META_VER);
-+
-+	sb->version = cpu_to_le32(zmd->sb_version);
-+	if (zmd->sb_version > 1) {
-+		uuid_copy((uuid_t *)sb->dmz_uuid, &zmd->uuid);
-+		memcpy(sb->dmz_label, zmd->label, BDEVNAME_SIZE);
-+		uuid_copy((uuid_t *)sb->dev_uuid, &dev->uuid);
-+	}
- 
- 	sb->gen = cpu_to_le64(sb_gen);
- 
--	sb->sb_block = cpu_to_le64(block);
-+	sb->sb_block = cpu_to_le64(sb_block);
- 	sb->nr_meta_blocks = cpu_to_le32(zmd->nr_meta_blocks);
- 	sb->nr_reserved_seq = cpu_to_le32(zmd->nr_reserved_seq);
- 	sb->nr_chunks = cpu_to_le32(zmd->nr_chunks);
-@@ -734,7 +781,8 @@ static int dmz_write_sb(struct dmz_metadata *zmd, unsigned int set)
- 	sb->crc = 0;
- 	sb->crc = cpu_to_le32(crc32_le(sb_gen, (unsigned char *)sb, DMZ_BLOCK_SIZE));
- 
--	ret = dmz_rdwr_block(dev, REQ_OP_WRITE, block, mblk->page);
-+	ret = dmz_rdwr_block(dev, REQ_OP_WRITE, zmd->sb[set].block,
-+			     mblk->page);
- 	if (ret == 0)
- 		ret = blkdev_issue_flush(dev->bdev, GFP_NOIO, NULL);
- 
-@@ -915,6 +963,23 @@ static int dmz_check_sb(struct dmz_metadata *zmd, unsigned int set)
- 	u32 crc, stored_crc;
- 	u64 gen;
- 
-+	if (le32_to_cpu(sb->magic) != DMZ_MAGIC) {
-+		dmz_dev_err(dev, "Invalid meta magic (needed 0x%08x, got 0x%08x)",
-+			    DMZ_MAGIC, le32_to_cpu(sb->magic));
-+		return -ENXIO;
-+	}
-+
-+	zmd->sb_version = le32_to_cpu(sb->version);
-+	if (zmd->sb_version > DMZ_META_VER) {
-+		dmz_dev_err(dev, "Invalid meta version (needed %d, got %d)",
-+			    DMZ_META_VER, zmd->sb_version);
-+		return -EINVAL;
-+	}
-+	if ((zmd->sb_version < 1) && (set == 2)) {
-+		dmz_dev_err(dev, "Tertiary superblocks are not supported");
-+		return -EINVAL;
-+	}
-+
- 	gen = le64_to_cpu(sb->gen);
- 	stored_crc = le32_to_cpu(sb->crc);
- 	sb->crc = 0;
-@@ -925,18 +990,41 @@ static int dmz_check_sb(struct dmz_metadata *zmd, unsigned int set)
- 		return -ENXIO;
- 	}
- 
--	if (le32_to_cpu(sb->magic) != DMZ_MAGIC) {
--		dmz_dev_err(dev, "Invalid meta magic (needed 0x%08x, got 0x%08x)",
--			    DMZ_MAGIC, le32_to_cpu(sb->magic));
--		return -ENXIO;
--	}
-+	if (zmd->sb_version > 1) {
-+		if (uuid_is_null((uuid_t *)sb->dmz_uuid)) {
-+			dmz_dev_err(dev, "sb%d: NULL DM-Zoned uuid", set);
-+			return -ENXIO;
-+		} else if (uuid_is_null(&zmd->uuid)) {
-+			uuid_copy(&zmd->uuid, (uuid_t *)sb->dmz_uuid);
-+		} else if (!uuid_equal(&zmd->uuid, (uuid_t *)sb->dmz_uuid)) {
-+			dmz_dev_err(dev, "sb%d: mismatching DM-Zoned uuid, "
-+				    "is %pUl expected %pUl", set,
-+				    (uuid_t *)sb->dmz_uuid, &zmd->uuid);
-+			return -ENXIO;
-+		}
-+		if (!strlen(zmd->label))
-+			memcpy(zmd->label, sb->dmz_label, BDEVNAME_SIZE);
-+		else if (memcmp(zmd->label, sb->dmz_label, BDEVNAME_SIZE)) {
-+			dmz_dev_err(dev, "sb%d: mismatching DM-Zoned label, "
-+				    "is %s expected %s",
-+				    set, sb->dmz_label, zmd->label);
-+			return -ENXIO;
-+		}
-+		if (uuid_is_null((uuid_t *)sb->dev_uuid)) {
-+			dmz_dev_err(dev, "sb%d: NULL device uuid", set);
-+			return -ENXIO;
-+		}
-+		uuid_copy(&dev->uuid, (uuid_t *)sb->dev_uuid);
- 
--	if (le32_to_cpu(sb->version) != DMZ_META_VER) {
--		dmz_dev_err(dev, "Invalid meta version (needed %d, got %d)",
--			    DMZ_META_VER, le32_to_cpu(sb->version));
--		return -ENXIO;
-+		if (set == 2) {
-+			if (gen != 0) {
-+				dmz_dev_err(dev, "sb%d: Invalid generation %llu",
-+					    set, gen);
-+				return -ENXIO;
-+			}
-+			return 0;
-+		}
- 	}
--
- 	nr_meta_zones = (le32_to_cpu(sb->nr_meta_blocks) + zmd->zone_nr_blocks - 1)
- 		>> zmd->zone_nr_blocks_shift;
- 	if (!nr_meta_zones ||
-@@ -1185,21 +1273,37 @@ static int dmz_load_sb(struct dmz_metadata *zmd)
- 		      "Using super block %u (gen %llu)",
- 		      zmd->mblk_primary, zmd->sb_gen);
- 
-+	if ((zmd->sb_version > 1) && zmd->sb[2].zone) {
-+		zmd->sb[2].block = dmz_start_block(zmd, zmd->sb[2].zone);
-+		zmd->sb[2].dev = dmz_zone_to_dev(zmd, zmd->sb[2].zone);
-+		ret = dmz_get_sb(zmd, 2);
-+		if (ret) {
-+			dmz_dev_err(zmd->sb[2].dev,
-+				    "Read tertiary super block failed");
-+			return ret;
-+		}
-+		ret = dmz_check_sb(zmd, 2);
-+		if (ret == -EINVAL)
-+			return ret;
-+	}
- 	return 0;
- }
- 
- /*
-  * Initialize a zone descriptor.
-  */
--static int dmz_init_zone(struct blk_zone *blkz, unsigned int idx, void *data)
-+static int dmz_init_zone(struct blk_zone *blkz, unsigned int num, void *data)
- {
- 	struct dmz_metadata *zmd = data;
-+	int idx = num + zmd->dev[0].zone_offset;
- 	struct dm_zone *zone = &zmd->zones[idx];
--	struct dmz_dev *dev = zmd->dev;
- 
--	/* Ignore the eventual last runt (smaller) zone */
- 	if (blkz->len != zmd->zone_nr_sectors) {
--		if (blkz->start + blkz->len == dev->capacity)
-+		if (zmd->sb_version > 1) {
-+			/* Ignore the eventual runt (smaller) zone */
-+			set_bit(DMZ_OFFLINE, &zone->flags);
-+			return 0;
-+		} else if (blkz->start + blkz->len == dev->capacity)
- 			return 0;
- 		return -ENXIO;
- 	}
-@@ -1235,10 +1339,14 @@ static int dmz_init_zone(struct blk_zone *blkz, unsigned int idx, void *data)
- 		if (dmz_is_rnd(zone)) {
- 			zmd->nr_rnd_zones++;
- 			if (!zmd->sb[0].zone) {
--				/* Super block zone */
-+				/* Primary super block zone */
- 				zmd->sb[0].zone = zone;
- 			}
- 		}
-+		if (zmd->dev[1].bdev && !zmd->sb[2].zone) {
-+			/* Tertiary superblock zone */
-+			zmd->sb[2].zone = zone;
-+		}
- 	}
- 
- 	return 0;
-@@ -1259,11 +1367,10 @@ static void dmz_drop_zones(struct dmz_metadata *zmd)
-  */
- static int dmz_init_zones(struct dmz_metadata *zmd)
- {
--	struct dmz_dev *dev = &zmd->dev[0];
- 	int ret;
- 
- 	/* Init */
--	zmd->zone_nr_sectors = dev->zone_nr_sectors;
-+	zmd->zone_nr_sectors = zmd->dev[0].zone_nr_sectors;
- 	zmd->zone_nr_sectors_shift = ilog2(zmd->zone_nr_sectors);
- 	zmd->zone_nr_blocks = dmz_sect2blk(zmd->zone_nr_sectors);
- 	zmd->zone_nr_blocks_shift = ilog2(zmd->zone_nr_blocks);
-@@ -1274,7 +1381,14 @@ static int dmz_init_zones(struct dmz_metadata *zmd)
- 					DMZ_BLOCK_SIZE_BITS);
- 
- 	/* Allocate zone array */
--	zmd->nr_zones = dev->nr_zones;
-+	zmd->nr_zones = zmd->dev[0].nr_zones;
-+	if (zmd->dev[1].bdev)
-+		zmd->nr_zones += zmd->dev[1].nr_zones;
-+
-+	if (!zmd->nr_zones) {
-+		DMERR("(%s): No zones found", zmd->devname);
-+		return -ENXIO;
-+	}
- 	zmd->zones = kcalloc(zmd->nr_zones, sizeof(struct dm_zone), GFP_KERNEL);
- 	if (!zmd->zones)
- 		return -ENOMEM;
-@@ -1282,13 +1396,43 @@ static int dmz_init_zones(struct dmz_metadata *zmd)
- 	DMINFO("(%s): Using %zu B for zone information",
- 	       zmd->devname, sizeof(struct dm_zone) * zmd->nr_zones);
- 
-+	if (zmd->dev[1].bdev) {
-+		int idx;
-+		sector_t zone_offset = 0;
-+
-+		for(idx = 0; idx < zmd->dev[1].nr_zones; idx++) {
-+			struct dm_zone *zone = &zmd->zones[idx];
-+
-+			INIT_LIST_HEAD(&zone->link);
-+			atomic_set(&zone->refcount, 0);
-+			zone->id = idx;
-+			zone->chunk = DMZ_MAP_UNMAPPED;
-+			set_bit(DMZ_RND, &zone->flags);
-+			zone->wp_block = 0;
-+			zmd->nr_rnd_zones++;
-+			zmd->nr_useable_zones++;
-+			if (zmd->dev[1].capacity - zone_offset <
-+			    zmd->zone_nr_sectors) {
-+				/* Disable runt zone */
-+				set_bit(DMZ_OFFLINE, &zone->flags);
-+				break;
-+			}
-+			zone_offset += zmd->zone_nr_sectors;
-+			if (!zmd->sb[0].zone) {
-+				/* Primary superblock zone */
-+				zmd->sb[0].zone = zone;
-+			}
-+		}
-+		zmd->dev[0].zone_offset = zmd->dev[1].nr_zones;
-+	}
-+
- 	/*
- 	 * Get zone information and initialize zone descriptors.  At the same
- 	 * time, determine where the super block should be: first block of the
- 	 * first randomly writable zone.
- 	 */
--	ret = blkdev_report_zones(dev->bdev, 0, BLK_ALL_ZONES, dmz_init_zone,
--				  zmd);
-+	ret = blkdev_report_zones(zmd->dev[0].bdev, 0, BLK_ALL_ZONES,
-+				  dmz_init_zone, zmd);
- 	if (ret < 0) {
- 		dmz_drop_zones(zmd);
- 		return ret;
-@@ -1325,6 +1469,9 @@ static int dmz_update_zone(struct dmz_metadata *zmd, struct dm_zone *zone)
- 	unsigned int noio_flag;
- 	int ret;
- 
-+	if (dev->flags & DMZ_BDEV_REGULAR)
-+		return 0;
-+
- 	/*
- 	 * Get zone information from disk. Since blkdev_report_zones() uses
- 	 * GFP_KERNEL by default for memory allocations, set the per-task
-@@ -1741,7 +1888,8 @@ struct dm_zone *dmz_get_chunk_mapping(struct dmz_metadata *zmd, unsigned int chu
- 		/* Allocate a random zone */
- 		dzone = dmz_alloc_zone(zmd, DMZ_ALLOC_RND);
- 		if (!dzone) {
--			if (dmz_bdev_is_dying(zmd->dev)) {
-+			if (dmz_bdev_is_dying(&zmd->dev[0]) ||
-+			    dmz_bdev_is_dying(&zmd->dev[1])) {
- 				dzone = ERR_PTR(-EIO);
- 				goto out;
- 			}
-@@ -1842,7 +1990,8 @@ struct dm_zone *dmz_get_chunk_buffer(struct dmz_metadata *zmd,
- 	/* Allocate a random zone */
- 	bzone = dmz_alloc_zone(zmd, DMZ_ALLOC_RND);
- 	if (!bzone) {
--		if (dmz_bdev_is_dying(zmd->dev)) {
-+		if (dmz_bdev_is_dying(&zmd->dev[0]) ||
-+		    dmz_bdev_is_dying(&zmd->dev[1])) {
- 			bzone = ERR_PTR(-EIO);
- 			goto out;
- 		}
-@@ -2480,18 +2629,34 @@ void dmz_print_dev(struct dmz_metadata *zmd, int num)
- {
- 	struct dmz_dev *dev = &zmd->dev[num];
- 
--	dmz_dev_info(dev, "Host-%s zoned block device",
--		     bdev_zoned_model(dev->bdev) == BLK_ZONED_HA ?
--		     "aware" : "managed");
--	dmz_dev_info(dev, "  %llu 512-byte logical sectors",
--		     (u64)dev->capacity);
--	dmz_dev_info(dev, "  %u zones of %llu 512-byte logical sectors",
--		     dev->nr_zones, (u64)zmd->zone_nr_sectors);
-+	if (bdev_zoned_model(dev->bdev) == BLK_ZONED_NONE)
-+		dmz_dev_info(dev, "Regular block device");
-+	else
-+		dmz_dev_info(dev, "Host-%s zoned block device",
-+			     bdev_zoned_model(dev->bdev) == BLK_ZONED_HA ?
-+			     "aware" : "managed");
-+	if (zmd->sb_version > 1) {
-+		sector_t sector_offset =
-+			dev->zone_offset << zmd->zone_nr_sectors_shift;
-+
-+		dmz_dev_info(dev, "  uuid %pUl", &dev->uuid);
-+		dmz_dev_info(dev, "  %llu 512-byte logical sectors (offset %llu)",
-+			     (u64)dev->capacity, (u64)sector_offset);
-+		dmz_dev_info(dev, "  %u zones of %llu 512-byte logical sectors (offset %llu)",
-+			     dev->nr_zones, (u64)zmd->zone_nr_sectors,
-+			     (u64)dev->zone_offset);
-+	} else {
-+		dmz_dev_info(dev, "  %llu 512-byte logical sectors",
-+			     (u64)dev->capacity);
-+		dmz_dev_info(dev, "  %u zones of %llu 512-byte logical sectors",
-+			     dev->nr_zones, (u64)zmd->zone_nr_sectors);
-+	}
- }
- /*
-  * Initialize the zoned metadata.
-  */
--int dmz_ctr_metadata(struct dmz_dev *dev, struct dmz_metadata **metadata,
-+int dmz_ctr_metadata(struct dmz_dev *dev, int num_dev,
-+		     struct dmz_metadata **metadata,
- 		     const char *devname)
- {
- 	struct dmz_metadata *zmd;
-@@ -2544,7 +2709,13 @@ int dmz_ctr_metadata(struct dmz_dev *dev, struct dmz_metadata **metadata,
- 			goto err;
- 		set_bit(DMZ_META, &zone->flags);
- 	}
--
-+	if (zmd->sb[2].zone) {
-+		zid = dmz_id(zmd, zmd->sb[2].zone);
-+		zone = dmz_get(zmd, zid);
-+		if (!zone)
-+			goto err;
-+		set_bit(DMZ_META, &zone->flags);
-+	}
- 	/* Load mapping table */
- 	ret = dmz_load_mapping(zmd);
- 	if (ret)
-@@ -2569,8 +2740,14 @@ int dmz_ctr_metadata(struct dmz_dev *dev, struct dmz_metadata **metadata,
- 		goto err;
- 	}
- 
--	dmz_zmd_info(zmd, "DM-Zoned metadata version %d", DMZ_META_VER);
-+	dmz_zmd_info(zmd, "DM-Zoned metadata version %d", zmd->sb_version);
-+	if (zmd->sb_version > 1) {
-+		dmz_zmd_info(zmd, "DM UUID %pUl", &zmd->uuid);
-+		dmz_zmd_info(zmd, "DM Label %s", zmd->label);
-+	}
- 	dmz_print_dev(zmd, 0);
-+	if (zmd->dev[1].bdev)
-+		dmz_print_dev(zmd, 1);
- 
- 	dmz_zmd_info(zmd, "  %u zones of %llu 512-byte logical sectors",
- 		     zmd->nr_zones, (u64)zmd->zone_nr_sectors);
-diff --git a/drivers/md/dm-zoned-target.c b/drivers/md/dm-zoned-target.c
-index ccf90608f434..4cfb34b38659 100644
---- a/drivers/md/dm-zoned-target.c
-+++ b/drivers/md/dm-zoned-target.c
-@@ -38,7 +38,7 @@ struct dm_chunk_work {
-  * Target descriptor.
-  */
- struct dmz_target {
--	struct dm_dev		*ddev;
-+	struct dm_dev		*ddev[2];
- 
- 	unsigned long		flags;
- 
-@@ -223,6 +223,9 @@ static int dmz_handle_read(struct dmz_target *dmz, struct dmz_dev *dev,
- 		}
- 
- 		if (nr_blocks) {
-+			if (rzone != zone)
-+				dev = dmz_zone_to_dev(zmd, rzone);
-+
- 			/* Valid blocks found: read them */
- 			nr_blocks = min_t(unsigned int, nr_blocks, end_block - chunk_block);
- 			ret = dmz_submit_bio(dmz, dev, rzone, bio,
-@@ -298,6 +301,7 @@ static int dmz_handle_buffered_write(struct dmz_target *dmz,
- 		return -EROFS;
- 
- 	/* Submit write */
-+	dev = dmz_zone_to_dev(zmd, bzone);
- 	ret = dmz_submit_bio(dmz, dev, bzone, bio, chunk_block, nr_blocks);
- 	if (ret)
- 		return ret;
-@@ -591,6 +595,10 @@ static int dmz_queue_chunk_work(struct dmz_target *dmz, struct bio *bio)
-  */
- bool dmz_bdev_is_dying(struct dmz_dev *dmz_dev)
- {
-+	/* Device not configured, no error */
-+	if (!dmz_dev->bdev)
-+		return false;
-+
- 	if (dmz_dev->flags & DMZ_BDEV_DYING)
- 		return true;
- 
-@@ -698,60 +706,47 @@ static int dmz_map(struct dm_target *ti, struct bio *bio)
- /*
-  * Get zoned device information.
-  */
--static int dmz_get_zoned_device(struct dm_target *ti, char *path)
-+static int dmz_get_zoned_device(struct dm_target *ti, char *path,
-+				struct dmz_dev *dev, int num)
- {
- 	struct dmz_target *dmz = ti->private;
- 	struct request_queue *q;
--	struct dmz_dev *dev;
--	sector_t aligned_capacity;
- 	int ret;
- 
- 	/* Get the target device */
--	ret = dm_get_device(ti, path, dm_table_get_mode(ti->table), &dmz->ddev);
-+	ret = dm_get_device(ti, path, dm_table_get_mode(ti->table),
-+			    &dmz->ddev[num]);
- 	if (ret) {
- 		ti->error = "Get target device failed";
--		dmz->ddev = NULL;
-+		dmz->ddev[num] = NULL;
- 		return ret;
- 	}
- 
--	dev = kzalloc(sizeof(struct dmz_dev), GFP_KERNEL);
--	if (!dev) {
--		ret = -ENOMEM;
--		goto err;
--	}
--
--	dev->bdev = dmz->ddev->bdev;
-+	dev->bdev = dmz->ddev[num]->bdev;
- 	(void)bdevname(dev->bdev, dev->name);
- 
--	if (bdev_zoned_model(dev->bdev) == BLK_ZONED_NONE) {
--		ti->error = "Not a zoned block device";
--		ret = -EINVAL;
--		goto err;
--	}
-+	if (bdev_zoned_model(dev->bdev) == BLK_ZONED_NONE)
-+		dev->flags = DMZ_BDEV_REGULAR;
- 
- 	q = bdev_get_queue(dev->bdev);
- 	dev->capacity = i_size_read(dev->bdev->bd_inode) >> SECTOR_SHIFT;
--	aligned_capacity = dev->capacity &
--				~((sector_t)blk_queue_zone_sectors(q) - 1);
--	if (ti->begin ||
--	    ((ti->len != dev->capacity) && (ti->len != aligned_capacity))) {
--		ti->error = "Partial mapping not supported";
--		ret = -EINVAL;
--		goto err;
-+	if (ti->begin) {
-+		ti->error = "Partial mapping is not supported";
-+		dm_put_device(ti, dmz->ddev[num]);
-+		dmz->ddev[num] = NULL;
-+		return -EINVAL;
- 	}
- 
--	dev->zone_nr_sectors = blk_queue_zone_sectors(q);
--
--	dev->nr_zones = blkdev_nr_zones(dev->bdev->bd_disk);
--
--	dmz->dev = dev;
--
-+	if (num == 1) {
-+		dev->zone_nr_sectors = dmz->dev[0].zone_nr_sectors;
-+		dev->nr_zones = dev->capacity / dev->zone_nr_sectors;
-+		if (dev->capacity % dev->nr_zones)
-+			dev->nr_zones++;
-+	} else {
-+		dev->zone_nr_sectors = blk_queue_zone_sectors(q);
-+		dev->nr_zones = blkdev_nr_zones(dev->bdev->bd_disk);
-+	}
- 	return 0;
--err:
--	dm_put_device(ti, dmz->ddev);
--	kfree(dev);
--
--	return ret;
- }
- 
- /*
-@@ -761,9 +756,12 @@ static void dmz_put_zoned_device(struct dm_target *ti)
- {
- 	struct dmz_target *dmz = ti->private;
- 
--	dm_put_device(ti, dmz->ddev);
--	kfree(dmz->dev);
--	dmz->dev = NULL;
-+	if (dmz->ddev[1]) {
-+		dm_put_device(ti, dmz->ddev[1]);
-+		dmz->ddev[1] = NULL;
-+	}
-+	dm_put_device(ti, dmz->ddev[0]);
-+	dmz->ddev[0] = NULL;
- }
- 
- /*
-@@ -772,11 +770,10 @@ static void dmz_put_zoned_device(struct dm_target *ti)
- static int dmz_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- {
- 	struct dmz_target *dmz;
--	struct dmz_dev *dev;
- 	int ret;
- 
- 	/* Check arguments */
--	if (argc != 1) {
-+	if (argc < 1 || argc > 2) {
- 		ti->error = "Invalid argument count";
- 		return -EINVAL;
- 	}
-@@ -787,18 +784,29 @@ static int dmz_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 		ti->error = "Unable to allocate the zoned target descriptor";
- 		return -ENOMEM;
- 	}
-+	dmz->dev = kcalloc(2, sizeof(struct dmz_dev), GFP_KERNEL);
-+	if (!dmz->dev) {
-+		ti->error = "Unable to allocate the zoned device descriptors";
-+		kfree(dmz);
-+		return -ENOMEM;
-+	}
- 	ti->private = dmz;
- 
- 	/* Get the target zoned block device */
--	ret = dmz_get_zoned_device(ti, argv[0]);
--	if (ret) {
--		dmz->ddev = NULL;
-+	ret = dmz_get_zoned_device(ti, argv[0], &dmz->dev[0], 0);
-+	if (ret)
- 		goto err;
-+
-+	if (argc == 2) {
-+		ret = dmz_get_zoned_device(ti, argv[1], &dmz->dev[1], 1);
-+		if (ret) {
-+			dmz_put_zoned_device(ti);
-+			goto err;
-+		}
- 	}
- 
- 	/* Initialize metadata */
--	dev = dmz->dev;
--	ret = dmz_ctr_metadata(dev, &dmz->metadata,
-+	ret = dmz_ctr_metadata(dmz->dev, argc, &dmz->metadata,
- 			       dm_table_device_name(ti->table));
- 	if (ret) {
- 		ti->error = "Metadata initialization failed";
-@@ -875,6 +883,7 @@ static int dmz_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- err_dev:
- 	dmz_put_zoned_device(ti);
- err:
-+	kfree(dmz->dev);
- 	kfree(dmz);
- 
- 	return ret;
-@@ -905,6 +914,7 @@ static void dmz_dtr(struct dm_target *ti)
- 
- 	mutex_destroy(&dmz->chunk_lock);
- 
-+	kfree(dmz->dev);
- 	kfree(dmz);
- }
- 
-@@ -979,10 +989,17 @@ static int dmz_iterate_devices(struct dm_target *ti,
- 			       iterate_devices_callout_fn fn, void *data)
- {
- 	struct dmz_target *dmz = ti->private;
--	struct dmz_dev *dev = dmz->dev;
--	sector_t capacity = dev->capacity & ~(dmz_zone_nr_sectors(dmz->metadata) - 1);
--
--	return fn(ti, dmz->ddev, 0, capacity, data);
-+	unsigned int zone_nr_sectors = dmz_zone_nr_sectors(dmz->metadata);
-+	sector_t capacity;
-+	int r;
-+
-+	capacity = dmz->dev[0].capacity & ~(zone_nr_sectors - 1);
-+	r = fn(ti, dmz->ddev[0], 0, capacity, data);
-+	if (!r && dmz->ddev[1]) {
-+		capacity = dmz->dev[1].capacity & ~(zone_nr_sectors - 1);
-+		r = fn(ti, dmz->ddev[1], 0, capacity, data);
-+	}
-+	return r;
- }
- 
- static void dmz_status(struct dm_target *ti, status_type_t type,
-@@ -992,6 +1009,7 @@ static void dmz_status(struct dm_target *ti, status_type_t type,
- 	struct dmz_target *dmz = ti->private;
- 	ssize_t sz = 0;
- 	char buf[BDEVNAME_SIZE];
-+	struct dmz_dev *dev;
- 
- 	switch (type) {
- 	case STATUSTYPE_INFO:
-@@ -1005,8 +1023,14 @@ static void dmz_status(struct dm_target *ti, status_type_t type,
- 		       dmz_nr_seq_zones(dmz->metadata));
- 		break;
- 	case STATUSTYPE_TABLE:
--		format_dev_t(buf, dmz->dev->bdev->bd_dev);
-+		dev = &dmz->dev[0];
-+		format_dev_t(buf, dev->bdev->bd_dev);
- 		DMEMIT("%s ", buf);
-+		if (dmz->dev[1].bdev) {
-+			dev = &dmz->dev[1];
-+			format_dev_t(buf, dev->bdev->bd_dev);
-+			DMEMIT("%s ", buf);
-+		}
- 		break;
- 	}
- 	return;
-@@ -1028,7 +1052,7 @@ static int dmz_message(struct dm_target *ti, unsigned int argc, char **argv,
- 
- static struct target_type dmz_type = {
- 	.name		 = "zoned",
--	.version	 = {1, 1, 0},
-+	.version	 = {1, 2, 0},
- 	.features	 = DM_TARGET_SINGLETON | DM_TARGET_ZONED_HM,
- 	.module		 = THIS_MODULE,
- 	.ctr		 = dmz_ctr,
-diff --git a/drivers/md/dm-zoned.h b/drivers/md/dm-zoned.h
-index 808ffbef0da3..6eb37b639f24 100644
---- a/drivers/md/dm-zoned.h
-+++ b/drivers/md/dm-zoned.h
-@@ -52,10 +52,12 @@ struct dmz_dev {
- 	struct block_device	*bdev;
- 
- 	char			name[BDEVNAME_SIZE];
-+	uuid_t			uuid;
- 
- 	sector_t		capacity;
- 
- 	unsigned int		nr_zones;
-+	unsigned int		zone_offset;
- 
- 	unsigned int		flags;
- 
-@@ -69,6 +71,7 @@ struct dmz_dev {
- /* Device flags. */
- #define DMZ_BDEV_DYING		(1 << 0)
- #define DMZ_CHECK_BDEV		(2 << 0)
-+#define DMZ_BDEV_REGULAR	(4 << 0)
- 
- /*
-  * Zone descriptor.
-@@ -163,8 +166,8 @@ struct dmz_reclaim;
- /*
-  * Functions defined in dm-zoned-metadata.c
-  */
--int dmz_ctr_metadata(struct dmz_dev *dev, struct dmz_metadata **zmd,
--		     const char *devname);
-+int dmz_ctr_metadata(struct dmz_dev *dev, int num_dev,
-+		     struct dmz_metadata **zmd, const char *devname);
- void dmz_dtr_metadata(struct dmz_metadata *zmd);
- int dmz_resume_metadata(struct dmz_metadata *zmd);
- 
+The type of system for which IPE is designed for use is an embedded device
+with a specific purpose (e.g. network firewall device in a data center),
+where all software and configuration is built and provisioned by the owner.
+
+Specifically, a system which leverages IPE is not intended for general
+purpose computing and does not utilize any software or configuration
+built by a third party. An ideal system to leverage IPE has both mutable
+and immutable components, however, all binary executable code is immutable.
+
+The scope of IPE is constrained to the OS. It is assumed that platform
+firmware verifies the the kernel and optionally the root filesystem (e.g.
+via U-Boot verified boot). IPE then utilizes LSM hooks to enforce a
+flexible, kernel-resident integrity verification policy.
+
+IPE differs from other LSMs which provide integrity checking (for instance,
+IMA), as it has no dependency on the filesystem metadata itself. The
+attributes that IPE checks are deterministic properties that exist solely
+in the kernel. Additionally, IPE provides no additional mechanisms of
+verifying these files (e.g. IMA Signatures) - all of the attributes of
+verifying files are existing features within the kernel, such as dm-verity
+or fsverity.
+
+IPE provides a policy that allows owners of the system to easily specify
+integrity requirements and uses dm-verity signatures to simplify the
+authentication of allowed objects like authorized code and data.
+
+IPE supports two modes, permissive (similar to SELinux's permissive mode)
+and enforce. Permissive mode performs the same checks, and logs policy
+violations as enforce mode, but will not enforce the policy. This allows
+users to test policies before enforcing them.
+
+The default mode is enforce, and can be changed via the kernel commandline
+parameter `ipe.enforce=(0|1)`, or the sysctl `ipe.enforce=(0|1)`. The
+ability to switch modes can be compiled out of the LSM via setting the
+config CONFIG_SECURITY_IPE_PERMISSIVE_SWITCH to N.
+
+IPE additionally supports success auditing. When enabled, all events
+that pass IPE policy and are not blocked will emit an audit event. This
+is disabled by default, and can be enabled via the kernel commandline
+`ipe.success_audit=(0|1)` or the sysctl `ipe.success_audit=(0|1)`.
+
+Policies can be staged at runtime through securityfs and activated through
+sysfs. Please see the Deploying Policies section of this cover letter for
+more information.
+
+The IPE LSM is compiled under CONFIG_SECURITY_IPE.
+
+Policy:
+------------------------------------
+
+IPE policy is designed to be both forward compatible and backwards
+compatible. There is one required line, at the top of the policy,
+indicating the policy name, and the policy version, for instance:
+
+  policy_name="Ex Policy" policy_version=0.0.0
+
+The policy version indicates the current version of the policy (NOT the
+policy syntax version). This is used to prevent roll-back of policy to
+potentially insecure previous versions of the policy.
+
+The next portion of IPE policy, are rules. Rules are formed by key=value
+pairs, known as properties. IPE rules require two properties: "action",
+which determines what IPE does when it encounters a match against the
+policy, and "op", which determines when that rule should be evaluated.
+Thus, a minimal rule is:
+
+  op=EXECUTE action=ALLOW
+
+This example will allow any execution. Additional properties are used to
+restrict attributes about the files being evaluated. These properties are
+intended to be deterministic attributes that are resident in the kernel.
+Available properties for IPE described in the properties section of this
+cover-letter, the repository available in Appendix A, and the kernel
+documentation page.
+
+Order does not matter for the rule's properties - they can be listed in
+any order, however it is encouraged to have the "op" property be first,
+and the "action" property be last, for readability.
+
+Additionally, rules are evaluated top-to-bottom. As a result, any
+revocation rules, or denies should be placed early in the file to ensure
+that these rules are evaluated before a rule with "action=ALLOW" is hit.
+
+IPE policy is designed to be forward compatible and backwards compatible,
+thus any failure to parse a rule will result in the line being ignored,
+and a warning being emitted. If backwards compatibility is not required,
+the kernel commandline parameter and sysctl, ipe.strict_parse can be
+enabled, which will cause these warnings to be fatal.
+
+For more information about the policy syntax, please see Appendix A or
+the kernel documentation page.
+
+Early Usermode Protection:
+--------------------------
+
+IPE can be provided with a policy at startup to load and enforce.
+This is intended to be a minimal policy to get the system to a state
+where userland is setup and ready to receive commands, at which
+point a policy can be deployed via securityfs. This "boot policy" can be
+specified via the config, SECURITY_IPE_BOOT_POLICY, which accepts a path
+to a plain-text version of the IPE policy to apply. This policy will be
+compiled into the kernel. If not specified, IPE will be disabled until a
+policy is deployed and activated through the method above.
+
+Policy Examples:
+------------------------------------
+
+Allow all:
+
+  policy_name="Allow All" policy_version=0.0.0
+  DEFAULT action=ALLOW
+
+Allow only initial superblock:
+
+  policy_name="Allow All Initial SB" policy_version=0.0.0
+  DEFAULT action=DENY
+
+  op=EXECUTE boot_verified=TRUE action=ALLOW
+
+Allow any signed dm-verity volume and the initial superblock:
+
+  policy_name="AllowSignedAndInitial" policy_version=0.0.0
+  DEFAULT action=DENY
+
+  op=EXECUTE boot_verified=TRUE action=ALLOW
+  op=EXECUTE dmverity_signature=TRUE action=ALLOW
+
+Prohibit execution from a specific dm-verity volume:
+
+  policy_name="AllowSignedAndInitial" policy_version=0.0.0
+  DEFAULT action=DENY
+
+  op=EXECUTE dmverity_roothash=401fcec5944823ae12f62726e8184407a5fa9599783f030dec146938 action=DENY
+  op=EXECUTE boot_verified=TRUE action=ALLOW
+  op=EXECUTE dmverity_signature=TRUE action=ALLOW
+
+Allow only a specific dm-verity volume:
+
+  policy_name="AllowSignedAndInitial" policy_version=0.0.0
+  DEFAULT action=DENY
+
+  op=EXECUTE dmverity_roothash=401fcec5944823ae12f62726e8184407a5fa9599783f030dec146938 action=ALLOW
+
+Deploying Policies:
+-------------------
+
+Deploying policies is simple. First sign a plain text policy, with a
+certificate that is present in the SYSTEM_TRUSTED_KEYRING of your test
+machine. Through openssl, the signing can be done via:
+
+  openssl smime -sign -in "$MY_POLICY" -signer "$MY_CERTIFICATE" \
+    -inkey "$MY_PRIVATE_KEY" -binary -outform der -noattr -nodetach \
+    -out "$MY_POLICY.p7s"
+
+Then, simply cat the file into the IPE's "new_policy" securityfs node:
+
+  cat "$MY_POLICY.p7s" > /sys/kernel/security/ipe/new_policy
+
+The policy should now be present under the policies/ subdirectory, under
+its "policy_name" attribute.
+
+The policy is now present in the kernel and can be marked as active,
+via the sysctl "ipe.active_policy":
+
+  sysctl ipe.active_policy="$MY_POLICY_NAME"
+
+This will now mark the policy as active and the system will be enforcing
+$MY_POLICY_NAME. At any point the policy can be updated on the provision
+that the policy version to be deployed is greater than or equal to the
+running version (to prevent roll-back attacks). This update can be done
+by redirecting the file into the policy's "raw" node, under the policies
+subdirectory:
+
+  cat "$MY_UPDATED_POLICY.p7s" > \
+    "/sys/kernel/security/ipe/policies/$MY_POLICY_NAME/raw"
+
+Additionally, policies can be deleted via the "del_policy" securityfs
+node. Simply write the name of the policy to be deleted to that node:
+
+  echo -n "$MY_POLICY_NAME" > /sys/kernel/security/ipe/del_policy
+
+There are two requirements to delete policies:
+
+1. The policy being deleted must not be the active policy.
+2. The policy being deleted must not be the boot policy.
+
+It's important to know above that the "echo" command will add a newline
+to the end of the input, and this will be considered as part of the
+filename. You can remove the newline via the -n parameter.
+
+NOTE: If a MAC LSM is enabled, all of these commands will require
+CAP_MAC_ADMIN.
+
+Properties:
+------------------------------------
+
+This initial patchset introducing IPE adds three properties:
+'boot_verified', 'dmverity_signature' and 'dmverity_roothash'.
+
+boot_verified (CONFIG_IPE_BOOT_PROP):
+  This property can be utilized for authorization of the first
+  super-block that is mounted on the system, where IPE attempts
+  to evaluate a file. Typically this is used for systems with
+  an initramfs or other initial disk, where this is unmounted before
+  the system becomes available, and is not covered by any other property.
+  The format of this property is:
+
+    boot_verified=(TRUE|FALSE)
+
+  WARNING: This property will trust any disk where the first IPE
+  evaluation occurs. If you do not have a startup disk that is
+  unpacked and unmounted (like initramfs), then it will automatically
+  trust the root filesystem and potentially overauthorize the entire
+  disk.
+
+dmverity_roothash (CONFIG_IPE_DM_VERITY_ROOTHASH):
+  This property can be utilized for authorization or revocation of
+  specific dmverity volumes, identified via root hash. It has a
+  dependency on the DM_VERITY module. The format of this property is:
+
+    dmverity_roothash=<HashHexDigest>
+
+dmverity_signature (CONFIG_IPE_DM_VERITY_SIGNATURE):
+  This property can be utilized for authorization of all dm-verity
+  volumes that have a signed roothash that chains to the system
+  trusted keyring. It has a dependency on the
+  DM_VERITY_VERIFY_ROOTHASH_SIG config. The format of this property is:
+
+    dmverity_signature=(TRUE|FALSE)
+
+Testing:
+------------------------------------
+
+A test suite is available (Appendix B) for ease of use. For manual
+instructions:
+
+Enable IPE through the following Kconfigs:
+
+  CONFIG_SECURITY_IPE=y
+  CONFIG_SECURITY_IPE_BOOT_POLICY="../AllowAllInitialSB.pol"
+  CONFIG_SECURITY_IPE_AUDIT_SWITCH=y
+  CONFIG_IPE_BOOT_PROP=y
+  CONFIG_IPE_DM_VERITY_ROOTHASH=y
+  CONFIG_IPE_DM_VERITY_SIGNATURE=y
+  CONFIG_DM_VERITY=y
+  CONFIG_DM_VERITY_VERIFY_ROOTHASH_SIG=y
+  CONFIG_SYSTEM_TRUSTED_KEYRING=y
+  CONFIG_SYSTEM_TRUSTED_KEYS="/path/to/my/cert/list.pem"
+
+Start a test system, that boots directly from the filesystem, without
+an initrd. I recommend testing in permissive mode until all tests
+pass, then switch to enforce to ensure behavior remains identical.
+
+boot_verified:
+
+  If booted correctly, the filesystem mounted on / should be marked as
+  boot_verified. Verify by turning on success auditing (sysctl
+  ipe.success_audit=1), and run a binary. In the audit output,
+  `prop_boot_verified` should be `TRUE`.
+
+  To test denials, mount a temporary filesystem (mount -t tmpfs -o
+  size=4M tmp tmp), and copy a binary (e.g. ls) to this new
+  filesystem. Disable success auditing and attempt to run the file.
+  The file should have an audit event, but be allowed to execute in
+  permissive mode, and prop_boot_verified should be FALSE.
+
+dmverity_roothash:
+
+  First, you must create a dm-verity volume. This can be done through
+  squashfs-tools and veritysetup (provided by cryptsetup).
+
+  Creating a squashfs volume:
+
+    mksquashfs /path/to/directory/with/executable /path/to/output.squashfs
+
+  Format the volume for use with dm-verity & save the root hash:
+
+    output_rh=$(veritysetup format output.squashfs output.hashtree | \
+      tee verity_out.txt | awk "/Root hash/" | \
+      sed -E "s/Root hash:\s+//g")
+
+    echo -n $output_rh > output.roothash
+
+  Create a two policies, filling in the appropriate fields below:
+
+    Policy 1:
+
+      policy_name="roothash-denial" policy_version=0.0.0
+      DEFAULT action=ALLOW
+      op=EXECUTE dmverity_roothash=$output_rh action=DENY
+
+    Policy 2:
+
+      policy_name="roothash-allow" policy_version=0.0.0
+      DEFAULT action=ALLOW
+      DEFAULT op=EXECUTE action=DENY
+
+      op=EXECUTE boot_verified=TRUE action=ALLOW
+      op=EXECUTE dmverity_roothash=$output_rh action=ALLOW
+
+  Deploy each policy, then mark the first, "roothash-denial" as active,
+  per the "Deploying Policies" section of this cover letter. Mount the
+  dm-verity volume:
+
+    veritysetup open output.squashfs output.hashtree unverified \
+      `cat output.roothash`
+
+    mount /dev/mapper/unverified /my/mount/point
+
+  Attempt to execute a binary in the mount point, and it should emit an
+  audit event for a match against the rule:
+  
+    op=EXECUTE dmverity_roothash=$output_rh action=DENY
+
+  To test the second policy, perform the same steps, but this time, enable
+  success auditing before running the executable. The success audit event
+  should be a match against this rule:
+
+    op=EXECUTE dmverity_roothash=$output_rh action=ALLOW
+
+dmverity_signature:
+
+  Follow the setup steps for dmverity_roothash. Sign the roothash via:
+
+    openssl smime -sign -in "output.roothash" -signer "$MY_CERTIFICATE" \
+      -inkey "$MY_PRIVATE_KEY" -binary -outform der -noattr \
+      -out "output.p7s"
+
+    Create a policy:
+
+      policy_name="verified" policy_version=0.0.0
+      DEFAULT action=DENY
+
+      op=EXECUTE boot_verified=TRUE action=ALLOW
+      op=EXECUTE dmverity_verified=TRUE action=ALLOW
+
+  Deploy the policy, and mark as active, per the "Deploying Policies"
+  section of this cover letter. Mount the dm-verity volume with
+  verification:
+
+    veritysetup open output.squashfs output.hashtree unverified \
+      `cat output.roothash` --root-hash-signature=output.p7s
+
+    mount /dev/mapper/unverified /my/mount/point
+
+  NOTE: The --root-hash-signature option was introduced in veritysetup
+  2.3.0
+
+  Turn on success auditing and attempt to execute a binary in the mount
+  point, and it should emit an audit event for a match against the rule:
+
+    op=EXECUTE dmverity_verified=TRUE action=ALLOW
+
+  To test denials, mount the dm-verity volume the same way as the
+  "dmverity_roothash" section, and attempt to execute a binary. Failure
+  should occur.
+
+Documentation:
+------------------------------------
+
+Full documentation is available on github in IPE's master repository
+(Appendix A). This is intended to be an exhaustive source of documentation
+around IPE.
+
+Additionally, there is higher level documentation in the admin-guide.
+
+Known Gaps:
+------------------------------------
+
+IPE has two known gaps:
+
+1. IPE cannot verify the integrity of anonymous executable memory, such as
+  the trampolines created by gcc closures and libffi, or JIT'd code.
+  Unfortunately, as this is dynamically generated code, there is no way for
+  IPE to detect that this code has not been tampered with in transition
+  from where it was built, to where it is running. As a result, IPE is
+  incapable of tackling this problem for dynamically generated code.
+  However, there is a patch series being prepared that addresses this
+  problem for libffi and gcc closures by implemeting a safer kernel
+  trampoline API.
+
+2. IPE cannot verify the integrity of interpreted languages' programs when
+  these scripts invoked via `<interpreter> <file>`. This is because the way
+  interpreters execute these files, the scripts themselves are not
+  evaluated as executable code through one of IPE's hooks. Interpreters
+  can be enlightened to the usage of IPE by trying to mmap a file into
+  executable memory (+X), after opening the file and responding to the
+  error code appropriately. This also applies to included files, or high
+  value files, such as configuration files of critical system components.
+  This specific gap is planned on being addressed within IPE. For more
+  information on how we plan to address this gap, please see the Future
+  Development section, below.
+
+Future Development:
+------------------------------------
+
+Support for filtering signatures by specific certificates. In this case,
+our "dmverity_signature" (or a separate property) can be set to a
+specific certificate declared in IPE's policy, allowing for more
+controlled use-cases determine by a user's PKI structure.
+
+Support for integrity verification for general file reads. This addresses
+the script interpreter issue indicated in the "Known Gaps" section, as
+these script files are typically opened with O_RDONLY. We are evaluating
+whether to do this by comparing the original userland filepath passed into
+the open syscall, thereby allowing existing callers to take advantage
+without any code changes; the alternate design is to extend the new
+openat2(2) syscall, with an new flag, tentatively called "O_VERIFY". While
+the second option requires a code change for all the interpreters,
+frameworks and languages that wish to leverage it, it is a wholly cleaner
+implementation in the kernel.
+
+Onboarding IPE's test suite to KernelCI. Currently we are developing a
+test suite in the same vein as SELinux's test suite. Once development
+of the test suite is complete, and provided IPE is accepted, we intend
+to onboard this test suite onto KernelCI.
+
+Hardened resistance against roll-back attacks. Currently there exists a
+window of opportunity between user-mode setup and the user-policy being
+deployed, where a prior user-policy can be loaded, that is potentially
+insecure. However, with a kernel update, you can revise the boot policy's
+version to be the same version as the latest policy, closing this window.
+In the future, I would like to close this window of opportunity without
+a kernel update, using some persistent storage mechanism.
+
+Open Issues:
+------------
+
+For linux-audit/integrity folks:
+1. Introduction of new audit definitions in the kernel integrity range - is
+  this preferred, as opposed to reusing definitions with existing IMA
+  definitions?
+
+TODOs:
+------
+
+linux-audit changes to support the new audit events.
+
+
+Appendix:
+------------------------------------
+
+A. IPE Github Repository: https://github.com/microsoft/ipe
+   Hosted Documentation: https://microsoft.github.io/ipe
+B. IPE Users' Guide: Documentation/admin-guide/LSM/ipe.rst
+C. IPE Test Suite: *TBA* (under development)
+
+Deven Bowers (11):
+  scripts: add ipe tooling to generate boot policy
+  security: add ipe lsm
+  ipe: add property for trust of boot volume
+  fs: add security blob and hooks for block_device
+  dm-verity: move signature check after tree validation
+  dm-verity: add bdev_setsecurity hook for dm-verity signature
+  ipe: add property for signed dmverity volumes
+  dm-verity: add bdev_setsecurity hook for root-hash
+  ipe: add property for dmverity roothash
+  documentation: Add IPE Documentation
+  cleanup: uapi/linux/audit.h
+
+ Documentation/admin-guide/LSM/index.rst       |   1 +
+ Documentation/admin-guide/LSM/ipe.rst         | 487 ++++++++++
+ .../admin-guide/kernel-parameters.txt         |  20 +
+ MAINTAINERS                                   |   8 +
+ drivers/md/dm-verity-target.c                 |  50 +-
+ drivers/md/dm-verity-verify-sig.c             | 147 ++-
+ drivers/md/dm-verity-verify-sig.h             |  20 +-
+ drivers/md/dm-verity.h                        |   2 +-
+ fs/block_dev.c                                |   8 +
+ include/linux/device-mapper.h                 |   3 +
+ include/linux/fs.h                            |   1 +
+ include/linux/lsm_hook_defs.h                 |   5 +
+ include/linux/lsm_hooks.h                     |  11 +
+ include/linux/security.h                      |  22 +
+ include/uapi/linux/audit.h                    |  36 +-
+ scripts/Makefile                              |   1 +
+ scripts/ipe/Makefile                          |   2 +
+ scripts/ipe/polgen/.gitignore                 |   1 +
+ scripts/ipe/polgen/Makefile                   |   7 +
+ scripts/ipe/polgen/polgen.c                   | 136 +++
+ security/Kconfig                              |  12 +-
+ security/Makefile                             |   2 +
+ security/ipe/.gitignore                       |   2 +
+ security/ipe/Kconfig                          |  43 +
+ security/ipe/Makefile                         |  34 +
+ security/ipe/ipe-audit.c                      | 313 ++++++
+ security/ipe/ipe-audit.h                      |  76 ++
+ security/ipe/ipe-blobs.c                      |  90 ++
+ security/ipe/ipe-blobs.h                      |  18 +
+ security/ipe/ipe-engine.c                     | 352 +++++++
+ security/ipe/ipe-engine.h                     |  61 ++
+ security/ipe/ipe-hooks.c                      | 171 ++++
+ security/ipe/ipe-hooks.h                      | 159 ++++
+ security/ipe/ipe-parse.c                      | 898 ++++++++++++++++++
+ security/ipe/ipe-parse.h                      |  35 +
+ security/ipe/ipe-pin.c                        |  93 ++
+ security/ipe/ipe-pin.h                        |  56 ++
+ security/ipe/ipe-policy.c                     | 181 ++++
+ security/ipe/ipe-policy.h                     | 116 +++
+ security/ipe/ipe-prop-internal.h              |  43 +
+ security/ipe/ipe-property.c                   | 112 +++
+ security/ipe/ipe-property.h                   | 159 ++++
+ security/ipe/ipe-secfs.c                      | 814 ++++++++++++++++
+ security/ipe/ipe-secfs.h                      |  25 +
+ security/ipe/ipe-sysfs.c                      | 203 ++++
+ security/ipe/ipe-sysfs.h                      |  21 +
+ security/ipe/ipe.c                            | 146 +++
+ security/ipe/ipe.h                            |  23 +
+ security/ipe/properties/Kconfig               |  35 +
+ security/ipe/properties/Makefile              |  13 +
+ security/ipe/properties/boot-verified.c       |  84 ++
+ security/ipe/properties/dmverity-roothash.c   | 155 +++
+ security/ipe/properties/dmverity-signature.c  |  84 ++
+ security/ipe/properties/prop-entry.h          |  38 +
+ security/ipe/utility.h                        |  32 +
+ security/security.c                           |  61 ++
+ 56 files changed, 5634 insertions(+), 94 deletions(-)
+ create mode 100644 Documentation/admin-guide/LSM/ipe.rst
+ create mode 100644 scripts/ipe/Makefile
+ create mode 100644 scripts/ipe/polgen/.gitignore
+ create mode 100644 scripts/ipe/polgen/Makefile
+ create mode 100644 scripts/ipe/polgen/polgen.c
+ create mode 100644 security/ipe/.gitignore
+ create mode 100644 security/ipe/Kconfig
+ create mode 100644 security/ipe/Makefile
+ create mode 100644 security/ipe/ipe-audit.c
+ create mode 100644 security/ipe/ipe-audit.h
+ create mode 100644 security/ipe/ipe-blobs.c
+ create mode 100644 security/ipe/ipe-blobs.h
+ create mode 100644 security/ipe/ipe-engine.c
+ create mode 100644 security/ipe/ipe-engine.h
+ create mode 100644 security/ipe/ipe-hooks.c
+ create mode 100644 security/ipe/ipe-hooks.h
+ create mode 100644 security/ipe/ipe-parse.c
+ create mode 100644 security/ipe/ipe-parse.h
+ create mode 100644 security/ipe/ipe-pin.c
+ create mode 100644 security/ipe/ipe-pin.h
+ create mode 100644 security/ipe/ipe-policy.c
+ create mode 100644 security/ipe/ipe-policy.h
+ create mode 100644 security/ipe/ipe-prop-internal.h
+ create mode 100644 security/ipe/ipe-property.c
+ create mode 100644 security/ipe/ipe-property.h
+ create mode 100644 security/ipe/ipe-secfs.c
+ create mode 100644 security/ipe/ipe-secfs.h
+ create mode 100644 security/ipe/ipe-sysfs.c
+ create mode 100644 security/ipe/ipe-sysfs.h
+ create mode 100644 security/ipe/ipe.c
+ create mode 100644 security/ipe/ipe.h
+ create mode 100644 security/ipe/properties/Kconfig
+ create mode 100644 security/ipe/properties/Makefile
+ create mode 100644 security/ipe/properties/boot-verified.c
+ create mode 100644 security/ipe/properties/dmverity-roothash.c
+ create mode 100644 security/ipe/properties/dmverity-signature.c
+ create mode 100644 security/ipe/properties/prop-entry.h
+ create mode 100644 security/ipe/utility.h
+
 -- 
-2.25.0
+2.26.0
 
 
 --
