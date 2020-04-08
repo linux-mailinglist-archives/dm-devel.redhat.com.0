@@ -1,80 +1,80 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id DD8F81A2345
-	for <lists+dm-devel@lfdr.de>; Wed,  8 Apr 2020 15:45:08 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 721F01A2347
+	for <lists+dm-devel@lfdr.de>; Wed,  8 Apr 2020 15:45:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1586353507;
+	s=mimecast20190719; t=1586353520;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vM2jHuuxyjdXnggp4Nd1ZJ+azSb5uAEk31SWb7LYnjg=;
-	b=BcaE8f6o9uvSG2Vgk1f3B04DcefUr9c9BxHSCqr7bcTHHJ33E9OnsUSyUOGEmIfskPWuLi
-	ay0oy7w4V7vxbgKt66e1uBuR9bpnjtaWLf4MoAyzSVnD5wOJhllHn20Fj2Nhl5dvcZeZzU
-	h9ISAJmiU3tOp/eF4V+UA95RxBWh3OI=
+	bh=Tz7SkGBU4PI32xRn/CI/8mBAJoA+dX04IV8rw/da8sU=;
+	b=Sw49I6BEaFr+CuBa7hTjTtKeVNc2t5Xru8bH3WJcZkv0eOq7/5TpRnESi3lSNdmDcBSuek
+	u0Bc+wdhmQHiP72hpz8YTNF9xwgrzC6NsrnzVbkqw6WzQPa9eNQOHJSNMow7Pv682JlSbq
+	Q/VSfLUhXY5QxQHthiWQL6oD7hDgSgs=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-407-C73tboRGMIWW7X7IEw7VLw-1; Wed, 08 Apr 2020 09:45:04 -0400
-X-MC-Unique: C73tboRGMIWW7X7IEw7VLw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-409-LctQarc-PfCkBGThNnLlug-1; Wed, 08 Apr 2020 09:45:12 -0400
+X-MC-Unique: LctQarc-PfCkBGThNnLlug-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3FEFE1005513;
-	Wed,  8 Apr 2020 13:44:56 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5BCF1107B113;
+	Wed,  8 Apr 2020 13:45:06 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2D0525E010;
-	Wed,  8 Apr 2020 13:44:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B3C938D;
+	Wed,  8 Apr 2020 13:45:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8A54D18089C8;
-	Wed,  8 Apr 2020 13:44:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4030B18089CD;
+	Wed,  8 Apr 2020 13:45:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0387RijT019231 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 8 Apr 2020 03:27:44 -0400
+	id 038AR8UT028988 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 8 Apr 2020 06:27:08 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7B490108BED; Wed,  8 Apr 2020 07:27:44 +0000 (UTC)
+	id 98F3E107CD14; Wed,  8 Apr 2020 10:27:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 76D03108BE9
-	for <dm-devel@redhat.com>; Wed,  8 Apr 2020 07:27:41 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5CBA2107CD16
+	for <dm-devel@redhat.com>; Wed,  8 Apr 2020 10:27:05 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DA66980029A
-	for <dm-devel@redhat.com>; Wed,  8 Apr 2020 07:27:41 +0000 (UTC)
-Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-376-2g3ysYhfPIqDPrfrl8NtrA-1; Wed, 08 Apr 2020 03:27:39 -0400
-X-MC-Unique: 2g3ysYhfPIqDPrfrl8NtrA-1
-Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.58])
-	by Forcepoint Email with ESMTP id 7CF5A5AEDFCA8666080F;
-	Wed,  8 Apr 2020 15:27:35 +0800 (CST)
-Received: from localhost.localdomain.localdomain (10.175.113.25) by
-	DGGEMS412-HUB.china.huawei.com (10.3.19.212) with Microsoft SMTP Server
-	id 14.3.487.0; Wed, 8 Apr 2020 15:27:27 +0800
-From: YueHaibing <yuehaibing@huawei.com>
-To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>
-Date: Wed, 8 Apr 2020 07:29:48 +0000
-Message-ID: <20200408072948.156175-1-yuehaibing@huawei.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D8CF78FF66C
+	for <dm-devel@redhat.com>; Wed,  8 Apr 2020 10:27:05 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
+	relay.mimecast.com with ESMTP id us-mta-129-izU-ci5eOBab7_DIBfLuHA-1;
+	Wed, 08 Apr 2020 06:27:03 -0400
+X-MC-Unique: izU-ci5eOBab7_DIBfLuHA-1
+Received: from [192.168.86.21] (c-71-197-163-6.hsd1.wa.comcast.net
+	[71.197.163.6])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 752B420B4737;
+	Wed,  8 Apr 2020 03:19:39 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 752B420B4737
+To: linux-integrity@vger.kernel.org, zohar@linux.ibm.com,
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org,
+	dm-devel@redhat.com
+From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+Message-ID: <f92bef0f-eb40-0e07-540c-321134e4b070@linux.microsoft.com>
+Date: Wed, 8 Apr 2020 03:19:38 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.4.1
 MIME-Version: 1.0
-X-Originating-IP: [10.175.113.25]
-X-CFilter-Loop: Reflected
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0387RijT019231
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 038AR8UT028988
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 08 Apr 2020 09:37:20 -0400
-Cc: kernel-janitors@vger.kernel.org, dm-devel@redhat.com,
-	YueHaibing <yuehaibing@huawei.com>, linux-kernel@vger.kernel.org,
-	Hulk Robot <hulkci@huawei.com>
-Subject: [dm-devel] [PATCH -next] dm integrity: remove set but not used
-	variables
+Cc: sashal@kernel.org, nramas@linux.microsoft.com, jmorris@namei.org,
+	chpebeni@linux.microsoft.com, suredd@microsoft.com, balajib@microsoft.com
+Subject: [dm-devel] [RFC] IMA: New IMA measurements for dm-crypt and selinux
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -88,51 +88,99 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Content-Transfer-Encoding: 7bit
 
-Fixes gcc '-Wunused-but-set-variable' warning:
+The goals of the kernel integrity subsystem are to detect if files have
+been accidentally or maliciously altered, both remotely and locally,
+appraise a file's measurement against a "good" value stored as an
+extended attribute, and enforce local file integrity [1].
 
-drivers/md/dm-integrity.c: In function 'integrity_metadata':
-drivers/md/dm-integrity.c:1557:12: warning:
- variable 'save_metadata_offset' set but not used [-Wunused-but-set-variable]
-drivers/md/dm-integrity.c:1556:12: warning:
- variable 'save_metadata_block' set but not used [-Wunused-but-set-variable]
+To achieve these goals, IMA subsystem measures several in-memory
+constructs and files.
 
-They are never used, so remove it.
+We propose to measure constructs in dm-crypt and selinux to further
+enhance measuring capabilities of IMA.
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- drivers/md/dm-integrity.c | 4 ----
- 1 file changed, 4 deletions(-)
+If there is existing or planned work to measure dm-crypt and selinux
+constructs, we would like to contribute to that.
 
-diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-index b989d109d55d..94fb584854b8 100644
---- a/drivers/md/dm-integrity.c
-+++ b/drivers/md/dm-integrity.c
-@@ -1553,8 +1553,6 @@ static void integrity_metadata(struct work_struct *w)
- 		char checksums_onstack[max((size_t)HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
- 		sector_t sector;
- 		unsigned sectors_to_process;
--		sector_t save_metadata_block;
--		unsigned save_metadata_offset;
- 
- 		if (unlikely(ic->mode == 'R'))
- 			goto skip_io;
-@@ -1605,8 +1603,6 @@ static void integrity_metadata(struct work_struct *w)
- 			goto skip_io;
- 		}
- 
--		save_metadata_block = dio->metadata_block;
--		save_metadata_offset = dio->metadata_offset;
- 		sector = dio->range.logical_sector;
- 		sectors_to_process = dio->range.n_sectors;
+dm-crypt is a subsystem used for encryption of the block device, which
+is essential for ensuring protection of data and secrets at rest.
 
+Measuring encryption status of the device will ensure the device is not
+maliciously reporting false encryption status - thus, it can be
+entrusted with sensitive data to be protected at rest.
 
+SELinux is an implementation of mandatory access controls (MAC) on
+Linux. Mandatory access controls allow an administrator of a system to
+define how applications and users can access different resources - such
+as files, devices, networks and inter-process communication. With
+SELinux an administrator can differentiate a user from the applications
+a user runs [2].
+
+Measuring SELinux status and various SELinux policies can help ensure
+mandatory access control of the system is not compromised.
+
+Proposal:
+---------
+A. Measuring dmcrypt constructs:
+     We can add an IMA hook in crypt_ctr() present in
+     drivers/md/dm-crypt.c, so that IMA can start measuring the status of
+     various dm-crypt targets (represented by crypt_target struct - also
+     defined in dm-crypt.c).
+     The mapping table[3] has information of devices being encrypted
+     (start sector, size, target name, cypher, key, device path, and
+     other optional parameters.)
+     e.g.
+     0 417792 crypt serpent-cbc-essiv:sha256
+     a7f67ad520bd83b9725df6ebd76c3eee 0 /dev/sdb 0 1 allow_discards
+
+     We can pass various attributes of mapping table to IMA through a key
+     value pair of various dmcrypt constructs.
+
+     Proposed Function Signature of the IMA hook:
+     void ima_dmcrypt_status(void *dmcrypt_status, int len);
+
+B. Measuring selinux constructs:
+     We propose to add an IMA hook in enforcing_set() present under
+     security/selinux/include/security.h.
+     enforcing_set() sets the selinux state to enforcing/permissive etc.
+     and is called from key places like selinux_init(),
+     sel_write_enforce() etc.
+     The hook will measure various attributes related to selinux status.
+     Majority of the attributes are present in the struct selinux_state
+     present in security/selinux/include/security.h
+     e.g.
+     $sestatus
+            SELinux status:              enabled
+            SELinuxfs mount:             /sys/fs/selinux
+            SELinux root directory:      /etc/selinux
+            Loaded policy name:          default
+            Current mode:                permissive
+            Mode from config file:       permissive
+            Policy MLS status:           enabled
+            Policy deny_unknown status:  allowed
+            Memory protection checking:  requested (insecure)
+            Max kernel policy version:   32
+
+     The above attributes will be serialized into a set of key=value
+     pairs when passed to IMA for measurement.
+
+     Proposed Function Signature of the IMA hook:
+     void ima_selinux_status(void *selinux_status, int len);
+
+Please provide comments\feedback on the proposal.
+
+Thanks,
+Tushar
+
+[1] https://sourceforge.net/p/linux-ima/wiki/Home/
+[2] https://selinuxproject.org/page/FAQ
+[3] https://gitlab.com/cryptsetup/cryptsetup/wikis/DMCrypt
 
 
 --
