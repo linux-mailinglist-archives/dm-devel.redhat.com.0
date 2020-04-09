@@ -1,76 +1,76 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 5C8DC1A37F9
-	for <lists+dm-devel@lfdr.de>; Thu,  9 Apr 2020 18:27:36 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id A2CFD1A382D
+	for <lists+dm-devel@lfdr.de>; Thu,  9 Apr 2020 18:42:13 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1586449655;
+	s=mimecast20190719; t=1586450532;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ey9FySgtgu4ZInosrrFbSaP+IXfw4958dQpt1+vX5ww=;
-	b=NtXFAXNo2P3tyia6Jigom6m9gmnAtaOYL//4DRra+0vZRZo5OwA67j5jIWEcyGsJgBeqiu
-	tzk7wEuAQUQlIraJTXzdiypmzNZxO0sftfzDQLqCBWBGIRNdNQmZzn2Rue2qKibIfLpyoo
-	p8HuxZksAaHhMcI9iI+OcuP8MJuTm1Y=
+	bh=BN0f5e5Pe5345GloCq7FGDEeXXcnmcOkOgNWvDMbyfs=;
+	b=JGfsJzZVUY2wS4sT73A944JW9hrx6GEgvoCvnM462HlistBSxlMcP5HWbHav1c13YSgYco
+	g1t4WcddjIT9Dv94ha31IyFIz85BDFGZJZR45J4+Rf2lHUDR67qny5EevnHpt7NCF5/TH8
+	XAT9wp2Y8SQx/VCqXf0NBuSYlx6CEH0=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-264-aOQvPRQePyKypDOv8VvR1g-1; Thu, 09 Apr 2020 12:27:31 -0400
-X-MC-Unique: aOQvPRQePyKypDOv8VvR1g-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-42-DWqqBU3CP2GTIKehYaRIAQ-1; Thu, 09 Apr 2020 12:42:09 -0400
+X-MC-Unique: DWqqBU3CP2GTIKehYaRIAQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 60704107B103;
-	Thu,  9 Apr 2020 16:27:26 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E4C57C0D9F;
-	Thu,  9 Apr 2020 16:27:25 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 22B1613FC;
+	Thu,  9 Apr 2020 16:42:03 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F247E9DD78;
+	Thu,  9 Apr 2020 16:42:00 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EFCC193075;
-	Thu,  9 Apr 2020 16:27:24 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6164918089CE;
+	Thu,  9 Apr 2020 16:41:57 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 039GRJ2A011742 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 9 Apr 2020 12:27:19 -0400
+	id 039Gfo06012318 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 9 Apr 2020 12:41:50 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id F02271006B0F; Thu,  9 Apr 2020 16:27:18 +0000 (UTC)
+	id EA99C120ECF; Thu,  9 Apr 2020 16:41:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EB25F1006B07
-	for <dm-devel@redhat.com>; Thu,  9 Apr 2020 16:27:16 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E6331120ECE
+	for <dm-devel@redhat.com>; Thu,  9 Apr 2020 16:41:47 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0E6EB800297
-	for <dm-devel@redhat.com>; Thu,  9 Apr 2020 16:27:16 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 79BCA185A791
+	for <dm-devel@redhat.com>; Thu,  9 Apr 2020 16:41:47 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-479-Rl4pGzw_MpWHRpiawcUPDA-1;
-	Thu, 09 Apr 2020 12:27:11 -0400
-X-MC-Unique: Rl4pGzw_MpWHRpiawcUPDA-1
+	relay.mimecast.com with ESMTP id us-mta-365-XEVz1OzeMuO1aVYpTjln1w-1;
+	Thu, 09 Apr 2020 12:41:42 -0400
+X-MC-Unique: XEVz1OzeMuO1aVYpTjln1w-1
 Received: from [10.137.106.115] (unknown [131.107.174.243])
-	by linux.microsoft.com (Postfix) with ESMTPSA id A0CB220B46F0;
-	Thu,  9 Apr 2020 09:27:09 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com A0CB220B46F0
+	by linux.microsoft.com (Postfix) with ESMTPSA id 4300320B4737;
+	Thu,  9 Apr 2020 09:41:41 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4300320B4737
 From: Deven Bowers <deven.desai@linux.microsoft.com>
 To: Jann Horn <jannh@google.com>
 References: <20200406221439.1469862-1-deven.desai@linux.microsoft.com>
-	<20200406221439.1469862-3-deven.desai@linux.microsoft.com>
-	<CAG48ez3oT4PvLThTqyruoTaNuYRcM_-dy5Vtdpugk2-7zJ8bXw@mail.gmail.com>
-Message-ID: <d827fa51-7047-0e4d-0d1e-6047ae8bcf13@linux.microsoft.com>
-Date: Thu, 9 Apr 2020 09:27:09 -0700
+	<20200406221439.1469862-4-deven.desai@linux.microsoft.com>
+	<CAG48ez2FfRK-ivZ0cJ4k-UqKfduQS_b2WCcD5Aj45sJKAqS58Q@mail.gmail.com>
+Message-ID: <cf3ea4c8-19c8-d859-21a2-c6eb4c1755f3@linux.microsoft.com>
+Date: Thu, 9 Apr 2020 09:41:40 -0700
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
 	Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <CAG48ez3oT4PvLThTqyruoTaNuYRcM_-dy5Vtdpugk2-7zJ8bXw@mail.gmail.com>
+In-Reply-To: <CAG48ez2FfRK-ivZ0cJ4k-UqKfduQS_b2WCcD5Aj45sJKAqS58Q@mail.gmail.com>
 Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 039GRJ2A011742
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 039Gfo06012318
 X-loop: dm-devel@redhat.com
 Cc: Jens Axboe <axboe@kernel.dk>, Sasha Levin <sashal@kernel.org>,
 	dm-devel@redhat.com, snitzer@redhat.com,
@@ -83,8 +83,8 @@ Cc: Jens Axboe <axboe@kernel.dk>, Sasha Levin <sashal@kernel.org>,
 	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org,
 	jaskarankhurana@linux.microsoft.com, agk@redhat.com,
 	"Serge E. Hallyn" <serge@hallyn.com>
-Subject: Re: [dm-devel] [RFC PATCH v2 02/12] security: add ipe lsm
- evaluation loop and audit system
+Subject: Re: [dm-devel] [RFC PATCH v2 03/12] security: add ipe lsm policy
+ parser and policy loading
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -98,572 +98,373 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 
-
-On 4/7/2020 5:13 AM, Jann Horn wrote:
-> On Tue, Apr 7, 2020 at 12:14 AM<deven.desai@linux.microsoft.com>  wrote:
->> Add the core logic of the IPE LSM, the evaluation loop (engine),
->> the audit system, and the skeleton of the policy structure.
-> Here's a first review pass for this patch without really understanding
-> your data structures yet:
->
-> [...]
->> diff --git a/security/ipe/Kconfig b/security/ipe/Kconfig
->> new file mode 100644
->> index 000000000000..0c67cd049d0c
->> --- /dev/null
->> +++ b/security/ipe/Kconfig
->> @@ -0,0 +1,41 @@
->> +# SPDX-License-Identifier: GPL-2.0-only
->> +#
->> +# Integrity Policy Enforcement (IPE) configuration
->> +#
->> +
->> +menuconfig SECURITY_IPE
->> +       bool "Integrity Policy Enforcement (IPE)"
->> +       depends on SECURITY && AUDIT
->> +       select SYSTEM_DATA_VERIFICATION
->> +       help
->> +         This option enables the Integrity Policy Enforcement subsystem,
->> +         allowing systems to enforce integrity requirements on various
->> +         aspects of user-mode applications. These requirements are
->> +         controlled by a policy.
-> This text is very generic and doesn't really make it clear how IPE is
-> different from other LSMs; could you perhaps add some more text here
-> on the parts of IPE that distinguish it from other LSMs?
->
-> In the cover letter, you have this stuff at the top:
->
-> """
-> The type of system for which IPE is designed for use is an embedded device
-> with a specific purpose (e.g. network firewall device in a data center),
-> where all software and configuration is built and provisioned by the owner.
->
-> Specifically, a system which leverages IPE is not intended for general
-> purpose computing and does not utilize any software or configuration
-> built by a third party. An ideal system to leverage IPE has both mutable
-> and immutable components, however, all binary executable code is immutable.
->
-> The scope of IPE is constrained to the OS. It is assumed that platform
-> firmware verifies the the kernel and optionally the root filesystem (e.g.
-> via U-Boot verified boot). IPE then utilizes LSM hooks to enforce a
-> flexible, kernel-resident integrity verification policy.
->
-> IPE differs from other LSMs which provide integrity checking (for instance,
-> IMA), as it has no dependency on the filesystem metadata itself. The
-> attributes that IPE checks are deterministic properties that exist solely
-> in the kernel. Additionally, IPE provides no additional mechanisms of
-> verifying these files (e.g. IMA Signatures) - all of the attributes of
-> verifying files are existing features within the kernel, such as dm-verity
-> or fsverity.
->
-> IPE provides a policy that allows owners of the system to easily specify
-> integrity requirements and uses dm-verity signatures to simplify the
-> authentication of allowed objects like authorized code and data.
-> """
->
-> Perhaps you could add a summary of that here?
-Sure, no problem. I'll add a bit more detail to the Kconfig in v3, 
-something
-like:
-
-"""
-This option enables the Integrity Policy Enforcement subsystem
-allowing systems to enforce integrity requirements on user land
-binaries. IPE differs from other LSMs by removing dependencies
-on filesystem metadata, making its decisions based off of kernel-
-resident features and data structures. A key feature of IPE is a
-customizable policy to allow admins to reconfigure integrity
-requirements on the fly.
-"""
-> [...]
->> diff --git a/security/ipe/ipe-audit.c b/security/ipe/ipe-audit.c
-> [...]
->> +void ipe_audit_mode(void)
->> +{
->> +       struct audit_buffer *ab;
->> +
->> +       ab = audit_log_start(audit_context(), GFP_ATOMIC | __GFP_NOWARN,
->> +                            AUDIT_INTEGRITY_MODE);
-> Why is this GFP_ATOMIC? ipe_audit_mode() is used from
-> ipe_switch_mode(), which is allowed to sleep, right?
-
-Yeah, that's a fair point. I had originally based _all_ of these audit
-functions off of common_lsm_audit which utilizes these two flags.
-We chose not to use that specific function for several reasons, but
-there's no reason to keep these allocator flags. I'll move it to
-GFP_KERNEL.
->> +       if (!ab)
->> +               return;
->> +
->> +       audit_log_format(ab, "IPE mode=%s", (enforce) ? IPE_MODE_ENFORCE :
->> +                                                       IPE_MODE_PERMISSIVE);
->> +
->> +       audit_log_end(ab);
->> +}
-> [...]
->> +/**
->> + * ipe_audit_ignore_line: Emit a warning that the line was not understood by
->> + *                       IPE's parser and the line will be ignored and not
->> + *                       parsed.
->> + * @line_num: line number that is being ignored.
->> + */
->> +void ipe_audit_ignore_line(size_t i)
->> +{
->> +       pr_warn("failed to parse line number %zu, ignoring", i);
->> +}
-> It seems a bit silly to have an extra method just for this?
-Fair point. I wanted to collapse as much of the *common* user-facing 
-strings
-into one file, and I was trying to adhere to the 80-character limit.
-
-I'll remove the function and inline it.
->> +/**
->> + * ipe_audit_policy_activation: Emit an audit event that a specific policy
->> + *                             was activated as the active policy.
->> + * @pol: policy that is being activated
->> + */
->> +void ipe_audit_policy_activation(const struct ipe_policy *pol)
->> +{
->> +       struct audit_buffer *ab;
->> +
->> +       ab = audit_log_start(audit_context(), GFP_ATOMIC | __GFP_NOWARN,
->> +                            AUDIT_INTEGRITY_POLICY_ACTIVATE);
-> Again, this runs in sleepable context and GFP_ATOMIC is unnecessary, right?
-Yep. I'll fix it in v3. Same with ipe_audit_policy_activation, below. 
-The only one
-that runs in non-sleepable context is ipe_audit_match.
->> +       if (!ab)
->> +               return;
->> +
->> +       audit_log_format(ab, POLICY_ACTIVATE_STR, pol->policy_name,
->> +                        pol->policy_version.major, pol->policy_version.minor,
->> +                        pol->policy_version.rev);
->> +
->> +       audit_log_end(ab);
->> +}
-> [...]
->> diff --git a/security/ipe/ipe-engine.c b/security/ipe/ipe-engine.c
-> [...]
->> +/**
->> + * get_audit_pathname: Return the absolute path of the file struct passed in
->> + * @file: file to derive an absolute path from.
->> + *
->> + * This function walks past chroots and mount points.
-> [...]
->> + */
->> +static char *get_audit_pathname(const struct file *file)
->> +{
-> [...]
->> +       sb = file->f_path.dentry->d_sb;
->> +
->> +       pathbuf = __getname();
->> +       if (!pathbuf) {
->> +               rc = -ENOMEM;
->> +               goto err;
->> +       }
->> +
->> +       pos = d_absolute_path(&file->f_path, pathbuf, PATH_MAX);
-> Just as an FYI, no change required: d_absolute_path() will also
-> succeed for files that are not contained within the filesystem root of
-> the current process; in that case, you'll get stuff like paths rooted
-> in a different mount namespace.
->
->> +       if (IS_ERR(pos)) {
->> +               rc = PTR_ERR(pos);
->> +               goto err;
->> +       }
->> +
->> +       temp_path = __getname();
->> +       if (!temp_path) {
->> +               rc = -ENOMEM;
->> +               goto err;
->> +       }
->> +
->> +       strlcpy(temp_path, pos, PATH_MAX);
->> +
->> +       if (pathbuf)
-> This check seems superfluous.
-I'll remove it.
->> +               __putname(pathbuf);
->> +
->> +       return temp_path;
->> +err:
->> +       if (pathbuf)
->> +               __putname(pathbuf);
->> +       if (temp_path)
->> +               __putname(temp_path);
->> +
->> +       return ERR_PTR(rc);
->> +}
-> [...]
->> +/**
->> + * prealloc_cache: preallocate the cache tree for all ipe properties, so
->> + *                that this data maybe used later in the read side critical
-> s/maybe/may be/
-Thanks!
->> + *                section.
->> + * @ctx: Ipe engine context structure passed to the property prealloc function.
->> + * @cache: Root of the cache tree to insert nodes under.
->> + *
->> + * Return:
->> + * 0 - OK
->> + * -ENOMEM - Out of memory
->> + * Other - See individual property preallocator functions.
->> + */
->> +static int prealloc_cache(struct ipe_engine_ctx *ctx,
->> +                         struct rb_root *cache)
->> +{
->> +       int rc = 0;
->> +       struct rb_node *node;
->> +       struct ipe_prop_reg *reg;
->> +       struct ipe_prop_cache *storage;
->> +
->> +       for (node = rb_first(&ipe_registry_root); node; node = rb_next(node)) {
->> +               reg = container_of(node, struct ipe_prop_reg, node);
->> +
->> +               storage = insert_or_find_cache(cache, reg->prop);
->> +               if (IS_ERR(storage))
->> +                       return PTR_ERR(storage);
->> +
->> +               if (reg->prop->prealloc) {
->> +                       rc = reg->prop->prealloc(ctx, &storage->storage);
->> +                       if (rc != 0)
->> +                               return rc;
->> +               }
->> +       }
->> +
->> +       return rc;
->> +}
->> +
->> +/**
->> + * evaluate: Process an @ctx against IPE's current active policy.
->> + * @ctx: the engine ctx to perform an evaluation on.
->> + * @cache: the red-black tree root that is used for cache storage.
->> + *
->> + * This uses a preallocated @cache as storage for the properties to avoid
->> + * re-evaulation.
->> + *
->> + * Return:
->> + * -EACCES - A match occurred against a "action=DENY" rule
->> + * -ENOMEM - Out of memory
->> + */
->> +static int evaluate(struct ipe_engine_ctx *ctx, struct rb_root *cache)
->> +{
->> +       int rc = 0;
->> +       bool match = false;
->> +       enum ipe_action action;
->> +       struct ipe_prop_cache *c;
->> +       enum ipe_match match_type;
->> +       const struct ipe_rule *rule;
->> +       const struct ipe_policy *pol;
->> +       const struct ipe_rule_table *rules;
->> +       const struct ipe_prop_container *prop;
->> +
->> +       if (!ipe_active_policy)
-> Please use rcu_access_pointer() here.
-Thanks. I'm still new to rcu - any comments or corrections regarding it
-are greatly appreciated.
->> +               return rc;
->> +
->> +       rcu_read_lock();
->> +
->> +       pol = rcu_dereference(ipe_active_policy);
->> +
->> +       rules = &pol->ops[ctx->op];
->> +
->> +       list_for_each_entry(rule, &rules->rules, next) {
->> +               match = true;
->> +
->> +               list_for_each_entry(prop, &rule->props, next) {
->> +                       void *cache = NULL;
->> +
->> +                       if (prop->prop->prealloc) {
->> +                               c = insert_or_find_cache(cache, prop->prop);
-> What's going on with the `cache` pointer here? We give
-> insert_or_find_cache() a NULL cache, and then in
-> insert_or_find_cache() `new` will be a near-NULL pointer, and it'll
-> crash immediately at `while (*new)`? Am I missing something?
->
-> Also, I think the intent here is that the preceding call to
-> prealloc_cache() should have allocated memory for us. If so, can you
-> please add a short comment here, something like "/* won't sleep
-> because of preceding prealloc_cache() */"?
-
-Well, this is embarrassing. This is supposed to be the argument, cache,
-not the variable, cache. The variable shadowing does indeed do what you
-describe.
-
-This didn't come up in any of my testing because none of the
-properties introduced in this patch series utilize the cache. It's kept in
-to facilitate the storage of potentially expensive operations.
-
-I'm just going to cut out all of this code. It'll be re-added
-if something actually needs it.
-
->> +                               if (IS_ERR(c))
->> +                                       return PTR_ERR(c);
->> +
->> +                               cache = c->storage;
->> +                       }
->> +
->> +                       match = match && prop->prop->eval(ctx, prop->value,
->> +                                                         &cache);
->> +               }
->> +
->> +               if (match)
->> +                       break;
->> +       }
->> +
->> +       if (match) {
->> +               match_type = ipe_match_rule;
->> +               action = rule->action;
->> +       } else if (rules->def != ipe_action_unset) {
->> +               match_type = ipe_match_table;
->> +               action = rules->def;
->> +               rule = NULL;
->> +       } else {
->> +               match_type = ipe_match_global;
->> +               action = pol->def;
->> +               rule = NULL;
->> +       }
->> +
->> +       ipe_audit_match(ctx, cache, match_type, action, rule);
->> +
->> +       if (action == ipe_action_deny)
->> +               rc = -EACCES;
->> +
->> +       if (enforce == 0)
->> +               rc = 0;
->> +
->> +       rcu_read_unlock();
->> +       return rc;
->> +}
->> +
->> +/**
->> + * ipe_process_event: Perform an evaluation of @file, @op, and @hook against
->> + *                   IPE's current active policy.
->> + * @file: File that is being evaluated against IPE policy.
->> + * @op: Operation that the file is being evaluated against.
->> + * @hook: Specific hook that the file is being evaluated through.
->> + *
->> + * Return:
->> + * -ENOMEM: (No Memory)
->> + * -EACCES: (A match occurred against a "action=DENY" rule)
->> + */
->> +int ipe_process_event(const struct file *file, enum ipe_op op,
->> +                     enum ipe_hook hook)
->> +{
->> +       int rc = 0;
->> +       struct ipe_engine_ctx *ctx;
->> +       struct rb_root cache = RB_ROOT;
->> +
->> +       ctx = build_ctx(file, op, hook);
->> +       if (IS_ERR(ctx))
->> +               goto cleanup;
->> +
->> +       rc = prealloc_cache(ctx, &cache);
->> +       if (rc != 0)
->> +               goto cleanup;
->> +
->> +       rc = evaluate(ctx, &cache);
->> +
->> +cleanup:
->> +       free_ctx(ctx);
->> +       destroy_cache(&cache);
->> +       return rc;
->> +}
-> [...]
->> diff --git a/security/ipe/ipe-hooks.c b/security/ipe/ipe-hooks.c
-> [..]
->> +#define HAS_EXEC(_p, _rp) (((_rp) & PROT_EXEC) || ((_p) & PROT_EXEC))
-> This should be unnecessary; reqprot are the protections requested by
-> userspace, prot are the possibly expanded protections the kernel is
-> applying. I think you just want to use prot and ignore reqprot.
-Thanks, I'll correct it.
-> [...]
->> diff --git a/security/ipe/ipe-policy.h b/security/ipe/ipe-policy.h
-> [...]
->> +extern const char *const ipe_boot_policy;
-> I don't see anything in the entire patch series that actually sets
-> this variable. Am I missing something?
-This variable is set by an auto-generated file, invoked by the tool created
-in the first patch of this series. It creates a file called "ipe-bp.c" 
-whose
-only purpose is to set this variable.
->> +extern const struct ipe_policy *ipe_active_policy;
-> [...]
->> diff --git a/security/ipe/ipe-property.c b/security/ipe/ipe-property.c
-> [...]
->> +/* global root containing all registered properties */
->> +struct rb_root ipe_registry_root = RB_ROOT;
-> [...]
->> +static struct ipe_prop_reg *reg_lookup(const char *key)
->> +{
->> +       struct rb_node *n = ipe_registry_root.rb_node;
->> +
->> +       while (n) {
->> +               int r;
->> +               struct ipe_prop_reg *reg =
->> +                       container_of(n, struct ipe_prop_reg, node);
->> +
->> +               r = strcmp(reg->prop->property_name, key);
->> +               if (r == 0)
->> +                       return reg;
->> +               else if (r > 0)
->> +                       n = n->rb_right;
->> +               else
->> +                       n = n->rb_left;
->> +       }
->> +
->> +       return NULL;
->> +}
-> Where is the locking for ipe_registry_root? I've looked through the
-> callers and can't find it. Also, please add a lockdep assertion
-> (`lockdep_assert_held(...)`) here if possible to ensure that when the
-> kernel is buildt with appropriate debugging options turned on
-> (CONFIG_LOCKDEP), it will warn about calling this method with
-> inappropriate locking.
-I'm not sure why locking is necessary on this structure? This structure is
-only added to, synchronously, at lsm_init. The first time it's queried 
-after
-that is core_init with ipe_securityfs_init. Every subsequent time is when
-user mode is setup and 1.) IPE is evaluating a binary, or 2.) IPE is 
-loading
-a policy. We don't support the run time loading of properties, nor do we
-support the removal of policies, so the tree should be stable without locks?
-> [...]
->> +/**
->> + * ipe_register_property: Insert a property into the registration system.
->> + * @prop: Read-only property structure containing the property_name, as well
->> + *       as the necessary function pointers for a property.
->> + *
->> + * The caller needs to maintain the lifetime of @prop throughout the life of
->> + * the system, after calling ipe_register_property.
->> + *
->> + * All necessary properties need to be loaded via this method before
->> + * loading a policy, otherwise the properties will be ignored as unknown.
->> + *
->> + * Return:
->> + * 0 - OK
->> + * -EEXIST - A key exists with the name @prop->property_name
->> + * -ENOMEM - Out of memory
->> + */
->> +int ipe_register_property(const struct ipe_property *prop);
-> Normal Linux kernel style is to have comments on the definitions of
-> methods (in the .c files), not in the headers. It looks like you
-> duplicated the same comment between the header and the .c file -
-> please don't do that. Same thing in a bunch of other places.
-Thanks, I'll strip the header comments.
->> +#endif /* IPE_PROPERTY_H */
->> diff --git a/security/ipe/ipe-sysfs.c b/security/ipe/ipe-sysfs.c
-> [...]
->> +#else /* !CONFIG_SYSCTL */
->> +
->> +/**
->> + * ipe_sysctl_init: Initialize IPE's sysfs entries.
->> + *
->> + * Return:
->> + * 0 - OK
->> + * -ENOMEM - Sysctl registration failed
->> + */
->> +inline int __init ipe_sysctl_init(void)
-> "inline" doesn't make sense to me if the caller is in a different
-> compilation unit
-I'll remove it.
-> [...]
->> diff --git a/security/ipe/ipe.c b/security/ipe/ipe.c
-> [...]
->> +/**
->> + * ipe_load_properties: Call the property entry points for all the IPE modules
->> + *                     that were selected at kernel build-time.
->> + *
->> + * Return:
->> + * 0 - OK
->> + */
->> +static int __init ipe_load_properties(void)
->> +{
->> +       return 0;
->> +}
-> this belongs in patch 4 ("ipe: add property for trust of boot volume")
-I'll move it forward.
-> [...]
->> +static int __init ipe_init(void)
->> +{
->> +       int rc = 0;
-> useless initialization
-I'll fix it.
->> +       rc = ipe_sysctl_init();
->> +       if (rc != 0)
->> +               pr_err("failed to configure sysctl: %d", -rc);
-> pr_err() needs to have an explicit \n at the end of the message unless
-> you're planning to continue printing more text on the same line via
-> pr_cont(). Same issue in many other places.
-Easily fixed by adding a \n to pr_fmt. Will be fixed in next iteration.
->> +
->> +       pr_info("mode=%s", (enforce == 1) ? IPE_MODE_ENFORCE :
->> +                                           IPE_MODE_PERMISSIVE);
->> +
->> +       RCU_INIT_POINTER(ipe_active_policy, NULL);
-> Why? Statically allocated variables are zero-initialized by default in C.
-This is my inexperience with rcu. I recognize statically allocated 
-variables
-are zero-initialized, however, I thought that the rcu system needed to set
-things up with the pointer through this method before it can be used.
-I'll remove it.
->> +       security_add_hooks(ipe_hooks, ARRAY_SIZE(ipe_hooks), "IPE");
->> +
->> +       return rc;
->> +}
-> [...]
->> +/**
->> + * enforce: Kernel command line parameter to set the permissive mode for IPE
->> + *         at system startup. By default, this will always be in enforce mode.
->> + *
->> + * This is also controlled by the sysctl, "ipe.enforce".
->> + */
->> +module_param(enforce, int, 0644);
->> +MODULE_PARM_DESC(enforce, "enforce/permissive mode switch");
-> [...]
->> +/**
->> + * success_audit: Kernel command line parameter to enable success auditing
->> + *               (emit an audit event when a file is allowed) at system
->> + *               startup. By default, this will be off.
->> + *
->> + * This is also controlled by the sysctl, "ipe.success_audit".
->> + */
->> +int success_audit;
->> +module_param(success_audit, int, 0644);
->> +MODULE_PARM_DESC(success_audit, "audit message on allow");
-> There is a pending patch series that will allow setting arbitrary
-> sysctls from the kernel command line
-> (https://lore.kernel.org/lkml/20200330115535.3215-1-vbabka@suse.cz/);
-> if that also works for your usecase, you should probably avoid
-> explicitly adding module parameters here, unless that is necessary
-> because the pending series sets the sysctls too late.
-Ah, this is great! It's not a problem with the sysctls being set too 
-late - the
-enforce and success_audit sysctls only come into play once user land is 
-setup
-after kernel boot,
->> diff --git a/security/ipe/ipe.h b/security/ipe/ipe.h
-> [...]
->> +extern int enforce;
->> +extern int success_audit;
-> You probably shouldn't be defining global symbols with such broad
-> names to avoid colliding with global symbols defined elsewhere in the
-> kernel. Consider adding "ipe_" prefixes to the variable names, or
-> something like that.
-I'll add the prefixes. Thanks.
-
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+Ck9uIDQvNy8yMDIwIDg6MzkgQU0sIEphbm4gSG9ybiB3cm90ZToKPiBPbiBUdWUsIEFwciA3LCAy
+MDIwIGF0IDEyOjE0IEFNPGRldmVuLmRlc2FpQGxpbnV4Lm1pY3Jvc29mdC5jb20+ICB3cm90ZToK
+PiBbLi4uXQo+PiBBZGRzIHRoZSBwb2xpY3kgcGFyc2VyIGFuZCB0aGUgcG9saWN5IGxvYWRpbmcg
+dG8gSVBFLCBhbG9uZyB3aXRoIHRoZQo+PiByZWxhdGVkIHN5c2ZzIGFuZCBzZWN1cml0eWZzIGVu
+dHJpZXMuCj4gWy4uLl0KPj4gZGlmZiAtLWdpdCBhL3NlY3VyaXR5L2lwZS9pcGUtcGFyc2UuYyBi
+L3NlY3VyaXR5L2lwZS9pcGUtcGFyc2UuYwo+IFsuLi5dCj4+ICsvKiBJbnRlcm5hbCBUeXBlIERl
+ZmluaXRpb25zICovCj4+ICtlbnVtIHByb3BlcnR5X3ByaW9yaXR5IHsKPj4gKyAgICAgICBvdGhl
+ciA9IDAsCj4+ICsgICAgICAgYWN0aW9uID0gMSwKPj4gKyAgICAgICBvcCA9IDIsCj4+ICsgICAg
+ICAgZGVmYXVsdF9hY3Rpb24gPSAzLAo+PiArICAgICAgIHBvbGljeV92ZXIgPSA0LAo+PiArICAg
+ICAgIHBvbGljeV9uYW1lID0gNSwKPj4gK307Cj4+ICsKPj4gK3N0cnVjdCB0b2tlbiB7Cj4+ICsg
+ICAgICAgc3RydWN0IGxpc3RfaGVhZCAgICAgICAgbmV4dF90b2s7Cj4+ICsgICAgICAgY29uc3Qg
+Y2hhciAgICAgICAgICAgICAgKmtleTsKPj4gKyAgICAgICBlbnVtIHByb3BlcnR5X3ByaW9yaXR5
+ICBrZXlfcHJpb3JpdHk7Cj4+ICsgICAgICAgY29uc3QgY2hhciAgICAgICAgICAgICAgKnZhbDsK
+Pj4gK307Cj4+ICsKPiBbLi4uXQo+PiArLyoqCj4+ICsgKiBpcGVfZnJlZV9wb2xpY3k6IERlYWxs
+b2NhdGUgYW4gaXBlX3BvbGljeSBzdHJ1Y3R1cmUuCj4+ICsgKiBAcG9sOiBQb2xpY3kgdG8gZnJl
+ZS4KPj4gKyAqLwo+PiArdm9pZCBpcGVfZnJlZV9wb2xpY3koc3RydWN0IGlwZV9wb2xpY3kgKnBv
+bCkKPj4gK3sKPj4gKyAgICAgICBzaXplX3QgaTsKPj4gKyAgICAgICBzdHJ1Y3QgaXBlX3J1bGUg
+KnB0cjsKPj4gKyAgICAgICBzdHJ1Y3QgaXBlX3J1bGVfdGFibGUgKm9wOwo+PiArICAgICAgIHN0
+cnVjdCBsaXN0X2hlYWQgKmxfcHRyLCAqbF9uZXh0Owo+PiArCj4+ICsgICAgICAgaWYgKElTX0VS
+Ul9PUl9OVUxMKHBvbCkpCj4+ICsgICAgICAgICAgICAgICByZXR1cm47Cj4+ICsKPj4gKyAgICAg
+ICBmb3IgKGkgPSAwOyBpIDwgQVJSQVlfU0laRShwb2wtPm9wcyk7ICsraSkgewo+PiArICAgICAg
+ICAgICAgICAgb3AgPSAmcG9sLT5vcHNbaV07Cj4+ICsKPj4gKyAgICAgICAgICAgICAgIGxpc3Rf
+Zm9yX2VhY2hfc2FmZShsX3B0ciwgbF9uZXh0LCAmb3AtPnJ1bGVzKSB7Cj4+ICsgICAgICAgICAg
+ICAgICAgICAgICAgIHB0ciA9IGxpc3RfZW50cnkobF9wdHIsIHN0cnVjdCBpcGVfcnVsZSwgbmV4
+dCk7Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGxpc3RfZGVsKGxfcHRyKTsKPj4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgaXBlX2ZyZWVfcnVsZShwdHIpOwo+PiArICAgICAgICAgICAgICAg
+fQo+PiArICAgICAgIH0KPj4gKwo+PiArICAgICAgIGtmcmVlKHBvbC0+cG9saWN5X25hbWUpOwo+
+PiArICAgICAgIGtmcmVlKHBvbCk7Cj4+ICsgICAgICAgcG9sID0gTlVMTDsKPiBXaGF0IGlzIHRo
+aXMgYXNzaWdubWVudCBzdXBwb3NlZCB0byBkbz8KCkFwb2xvZ2llcywgaXQncyBhIHVzZWxlc3Mg
+c3RhdGVtZW50LiBJIG9jY2FzaW9uYWxseSBmb3JnZXQgdG8gc3RyaXAgdGhpcwpwYXR0ZXJuIHRo
+cm91Z2hvdXQgbXkgY29kZS4gSXQncyBzdXBwb3NlZCB0byBoZWxwIGF2b2lkIGRvdWJsZS1mcmVl
+CmJ1dCB1bHRpbWF0ZWx5IGl0J3MgdXNlbGVzcy4KCj4+ICt9Cj4gWy4uLl0KPj4gZGlmZiAtLWdp
+dCBhL3NlY3VyaXR5L2lwZS9pcGUtcG9saWN5LmMgYi9zZWN1cml0eS9pcGUvaXBlLXBvbGljeS5j
+Cj4gWy4uLl0KPj4gKy8qKgo+PiArICogaXBlX2lzX2FjdGl2ZV9wb2xpY3k6IERldGVybWluZSBp
+ZiBAcG9saWN5IGlzIHRoZSBjdXJyZW50bHkgYWN0aXZlIHBvbGljeS4KPj4gKyAqIEBwb2xpY3k6
+IFBvbGljeSB0byBjaGVjayBpZiBpdCdzIHRoZSBhY3RpdmUgcG9saWN5Lgo+PiArICoKPj4gKyAq
+IE5PVEU6IElmIHRoaXMgYXR0cmlidXRlIGlzIG5lZWRlZCB0byBiZSBjb25zaXN0ZW50IG92ZXIg
+YSBjcml0aWNhbCBzZWN0aW9uLAo+PiArICogICAgICAgZG8gbm90IHVzZSB0aGlzIGZ1bmN0aW9u
+LCBhcyBpdCBkb2VzIG5vdCBob2xkIHRoZSByZWFkIGxvY2sgb3ZlciB0aGUKPj4gKyAqICAgICAg
+IGVudGlyZXR5IG9mIHRoZSBjcml0aWNhbCBzZWN0aW9uLgo+PiArICoKPj4gKyAqIFJldHVybjoK
+Pj4gKyAqIHRydWUgLSBAcG9saWN5IGlzIHRoZSBhY3RpdmUgcG9saWN5Cj4+ICsgKiBmYWxzZSAt
+IEBwb2xpY3kgaXMgbm90IHRoZSBhY3RpdmUgcG9saWN5Cj4+ICsgKi8KPj4gK2Jvb2wgaXBlX2lz
+X2FjdGl2ZV9wb2xpY3koY29uc3Qgc3RydWN0IGlwZV9wb2xpY3kgKnBvbGljeSkKPj4gK3sKPj4g
+KyAgICAgICBib29sIHJlc3VsdDsKPj4gKwo+PiArICAgICAgIHJjdV9yZWFkX2xvY2soKTsKPj4g
+Kwo+PiArICAgICAgIHJlc3VsdCA9IHJjdV9kZXJlZmVyZW5jZShpcGVfYWN0aXZlX3BvbGljeSkg
+PT0gcG9saWN5Owo+PiArCj4+ICsgICAgICAgcmN1X3JlYWRfdW5sb2NrKCk7Cj4gWW91J3JlIG5v
+dCBhY3R1YWxseSBhY2Nlc3NpbmcgdGhlIHBvaW50ZXIsIHNvIHlvdSBjYW4gdXNlIHJjdV9hY2Nl
+c3NfcG9pbnRlcigpCj4gYW5kIGdldCByaWQgb2YgdGhlIHJjdV9yZWFkX2xvY2soKS9yY3VfcmVh
+ZF91bmxvY2soKS4gVGhlbiB0aGlzIGhlbHBlciB0dXJucwo+IGludG8gYSBvbmUtbGluZXIuCkdv
+dCBpdC4gVGhlcmUncyBzZXZlcmFsIHBsYWNlcyBpdCBsb29rcyBsaWtlIEkgZGlkIHRoaXMuIEkn
+bGwgZml4IGl0IGFsbC4KPj4gKyAgICAgICByZXR1cm4gcmVzdWx0Owo+PiArfQo+PiArCj4+ICsv
+KioKPj4gKyAqIGlwZV91cGRhdGVfYWN0aXZlX3BvbGljeTogRGV0ZXJtaW5lIGlmIEBvbGQgaXMg
+dGhlIGFjdGl2ZSBwb2xpY3ksIGFuZCB1cGRhdGUKPj4gKyAqICAgICAgICAgICAgICAgICAgICAg
+ICAgICB0aGUgYWN0aXZlIHBvbGljeSBpZiBuZWNlc3NhcnkuCj4+ICsgKiBAb2xkOiBUaGUgcHJl
+dmlvdXMgcG9saWN5IHRoYXQgdGhlIHVwZGF0ZSBpcyB0cnlpbmcgdG8gcmVwbGFjZS4KPj4gKyAq
+IEBuZXc6IFRoZSBuZXcgcG9saWN5IGF0dGVtcHRpbmcgdG8gcmVwbGFjZSBAb2xkLgo+PiArICoK
+Pj4gKyAqIElmIEBvbGQgaXMgbm90IHRoZSBhY3RpdmUgcG9saWN5LCBub3RoaW5nIHdpbGwgYmUg
+ZG9uZS4KPj4gKyAqCj4+ICsgKiBSZXR1cm46Cj4+ICsgKiAwIC0gT0sKPj4gKyAqIC1FQkFETVNH
+IC0gSW52YWxpZCBQb2xpY3kKPj4gKyAqLwo+PiAraW50IGlwZV91cGRhdGVfYWN0aXZlX3BvbGlj
+eShjb25zdCBzdHJ1Y3QgaXBlX3BvbGljeSAqb2xkLAo+PiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIGNvbnN0IHN0cnVjdCBpcGVfcG9saWN5ICpuZXcpCj4+ICt7Cj4+ICsgICAgICAgaW50
+IHJjID0gMDsKPj4gKyAgICAgICBjb25zdCBzdHJ1Y3QgaXBlX3BvbGljeSAqY3Vycl9wb2xpY3kg
+PSBOVUxMOwo+PiArCj4+ICsgICAgICAgLyogbm8gYWN0aXZlIHBvbGljeSwgc2FmZSB0byB1cGRh
+dGUgKi8KPj4gKyAgICAgICBpZiAoIWlwZV9hY3RpdmVfcG9saWN5KQo+IFRoaXMgc2hvdWxkIGJl
+IHJjdV9hY2Nlc3NfcG9pbnRlcigpLgpHb3QgaXQuCj4+ICsgICAgICAgICAgICAgICByZXR1cm4g
+MDsKPiBbLi4uXQo+PiArfQo+IFsuLi5dCj4+IGRpZmYgLS1naXQgYS9zZWN1cml0eS9pcGUvaXBl
+LXNlY2ZzLmMgYi9zZWN1cml0eS9pcGUvaXBlLXNlY2ZzLmMKPiBbLi4uXQo+PiArLyoqCj4+ICsg
+KiBhbGxvY19jYWxsYmFjazogQ2FsbGJhY2sgZ2l2ZW4gdG8gdmVyaWZ5X3BrY3M3X3NpZ25hdHVy
+ZSBmdW5jdGlvbiB0byBzZXQKPj4gKyAqICAgICAgICAgICAgICAgIHRoZSBpbm5lciBjb250ZW50
+IHJlZmVyZW5jZSBhbmQgcGFyc2UgdGhlIHBvbGljeS4KPj4gKyAqIEBjdHg6ICJpcGVfcG9saWN5
+X25vZGUiIHRvIHNldCBpbm5lciBjb250ZW50LCBzaXplIGFuZCBwYXJzZWQgcG9saWN5IG9mLgo+
+PiArICogQGRhdGE6IFN0YXJ0IG9mIFBLQ1MjNyBpbm5lciBjb250ZW50Lgo+PiArICogQGxlbjog
+TGVuZ3RoIG9mIEBkYXRhLgo+PiArICogQGFzbjFoZHJsZW46IFVudXNlZC4KPj4gKyAqCj4+ICsg
+KiBSZXR1cm46Cj4+ICsgKiAwIC0gT0sKPj4gKyAqIEVSUl9QVFIoLUVCQURNU0cpIC0gSW52YWxp
+ZCBwb2xpY3kgc3ludGF4Cj4+ICsgKiBFUlJfUFRSKC1FTk9NRU0pIC0gT3V0IG9mIG1lbW9yeQo+
+PiArICovCj4+ICtzdGF0aWMgaW50IGFsbG9jX2NhbGxiYWNrKHZvaWQgKmN0eCwgY29uc3Qgdm9p
+ZCAqZGF0YSwgc2l6ZV90IGxlbiwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICBzaXplX3Qg
+YXNuMWhkcmxlbikKPj4gK3sKPj4gKyAgICAgICBjaGFyICpjcHkgPSBOVUxMOwo+PiArICAgICAg
+IHN0cnVjdCBpcGVfcG9saWN5ICpwb2wgPSBOVUxMOwo+PiArICAgICAgIHN0cnVjdCBpcGVfcG9s
+aWN5X25vZGUgKm4gPSAoc3RydWN0IGlwZV9wb2xpY3lfbm9kZSAqKWN0eDsKPj4gKwo+PiArICAg
+ICAgIG4tPmNvbnRlbnQgPSAoY29uc3QgdTggKilkYXRhOwo+PiArICAgICAgIG4tPmNvbnRlbnRf
+c2l6ZSA9IGxlbjsKPj4gKwo+PiArICAgICAgIGlmIChsZW4gPT0gMCkKPj4gKyAgICAgICAgICAg
+ICAgIHJldHVybiAtRUJBRE1TRzsKPj4gKwo+PiArICAgICAgIGNweSA9IGt6YWxsb2MobGVuICsg
+MSwgR0ZQX0tFUk5FTCk7Cj4+ICsgICAgICAgaWYgKCFjcHkpCj4+ICsgICAgICAgICAgICAgICBy
+ZXR1cm4gLUVOT01FTTsKPj4gKwo+PiArICAgICAgICh2b2lkKXN0cm5jcHkoY3B5LCBkYXRhLCBs
+ZW4pOwo+IFNob3VsZG4ndCB0aGlzIGp1c3QgYmUgbWVtY3B5KCk/Ckdvb2QgcG9pbnQuIEl0IHdv
+bid0IGV2ZXIgYmUgbnVsbCB0ZXJtaW5hdGVkIGJlY2F1c2Ugb2YgdGhlCnNpZ25hdHVyZSBmb3Jt
+YXQsIHNvIGl0J3MgZWZmZWN0aXZlbHkgbWVtY3B5LiBJJ2xsIGNoYW5nZSBpdC4KPj4gKyAgICAg
+ICBwb2wgPSBpcGVfcGFyc2VfcG9saWN5KGNweSk7Cj4+ICsgICAgICAgaWYgKElTX0VSUihwb2wp
+KSB7Cj4+ICsgICAgICAgICAgICAgICBrZnJlZShjcHkpOwo+PiArICAgICAgICAgICAgICAgcmV0
+dXJuIFBUUl9FUlIocG9sKTsKPj4gKyAgICAgICB9Cj4+ICsKPj4gKyAgICAgICBuLT5wYXJzZWQg
+PSBwb2w7Cj4+ICsgICAgICAga2ZyZWUoY3B5KTsKPj4gKyAgICAgICByZXR1cm4gMDsKPj4gK30K
+PiBbLi4uXQo+PiArc3RhdGljIHNzaXplX3QgaXBlX3NlY2ZzX25ld19wb2xpY3koc3RydWN0IGZp
+bGUgKmYsIGNvbnN0IGNoYXIgX191c2VyICpkYXRhLAo+PiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBzaXplX3QgbGVuLCBsb2ZmX3QgKm9mZnNldCkKPj4gK3sKPj4gKyAgICAg
+ICBzc2l6ZV90IHJjID0gMDsKPj4gKyAgICAgICB1OCAqY3B5ID0gTlVMTDsKPj4gKyAgICAgICBz
+c2l6ZV90IHdyaXR0ZW4gPSAwOwo+PiArCj4+ICsgICAgICAgaWYgKCFuc19jYXBhYmxlKGN1cnJl
+bnRfdXNlcl9ucygpLCBDQVBfTUFDX0FETUlOKSkKPj4gKyAgICAgICAgICAgICAgIHJldHVybiAt
+RVBFUk07Cj4gVXNlIGZpbGVfbnNfY2FwYWJsZShmLCAmaW5pdF91c2VyX25zLCBDQVBfTUFDX0FE
+TUlOKSBpbnN0ZWFkLCBib3RoIGhlcmUgYW5kCj4gZWxzZXdoZXJlLgpUaGFua3MuCj4+ICsgICAg
+ICAgY3B5ID0ga3phbGxvYyhsZW4sIEdGUF9LRVJORUwpOwo+PiArICAgICAgIGlmICghY3B5KSB7
+Cj4+ICsgICAgICAgICAgICAgICByYyA9IC1FTk9NRU07Cj4+ICsgICAgICAgICAgICAgICBnb3Rv
+IGVycjsKPj4gKyAgICAgICB9Cj4+ICsKPj4gKyAgICAgICB3cml0dGVuID0gc2ltcGxlX3dyaXRl
+X3RvX2J1ZmZlcihjcHksIGxlbiwgb2Zmc2V0LCBkYXRhLCBsZW4pOwo+PiArICAgICAgIGlmICh3
+cml0dGVuIDwgMCkgewo+PiArICAgICAgICAgICAgICAgcmMgPSB3cml0dGVuOwo+PiArICAgICAg
+ICAgICAgICAgZ290byBlcnI7Cj4+ICsgICAgICAgfQo+IFRoaXMgc2hvdWxkIHByb2JhYmx5IGJl
+IG1lbWR1cF91c2VyKCkgaW5zdGVhZCBvZgo+IGt6YWxsb2MoKStzaW1wbGVfd3JpdGVfdG9fYnVm
+ZmVyKCk/Ckkgd2Fzbid0IGF3YXJlIG9mIG1lbWR1cF91c2VyLiBJJ2xsIGNoYW5nZSBpdCBuZXh0
+IGl0ZXJhdGlvbi4KPj4gKyAgICAgICByYyA9IGlwZV9idWlsZF9wb2xpY3lfc2VjZnNfbm9kZShj
+cHksIHdyaXR0ZW4pOwo+PiArZXJyOgo+PiArICAgICAgIGtmcmVlKGNweSk7Cj4+ICsgICAgICAg
+cmV0dXJuIHJjIDwgMCA/IHJjIDogd3JpdHRlbjsKPj4gK30KPj4gKwo+PiArLyoqCj4+ICsgKiBy
+ZXRyaWV2ZV9iYWNrZWRfZGVudHJ5OiBSZXRyaWV2ZSBhIGRlbnRyeSB3aXRoIGEgYmFja2luZyBp
+bm9kZSwgaWRlbnRpZmllZAo+PiArICogICAgICAgICAgICAgICAgICAgICAgICBieSBAbmFtZSwg
+dW5kZXIgQHBhcmVudC4KPj4gKyAqIEBuYW1lOiBOYW1lIG9mIHRoZSBkZW50cnkgdW5kZXIgQHBh
+cmVudC4KPj4gKyAqIEBwYXJlbnQ6IFRoZSBwYXJlbnQgZGVudHJ5IHRvIHNlYXJjaCB1bmRlciBm
+b3IgQG5hbWUuCj4+ICsgKiBAc2l6ZTogTGVuZ3RoIG9mIEBuYW1lLgo+PiArICoKPj4gKyAqIFRo
+aXMgdGFrZXMgYSByZWZlcmVuY2UgdG8gdGhlIHJldHVybmVkIGRlbnRyeS4gQ2FsbGVyIG5lZWRz
+IHRvIGNhbGwgZHB1dAo+PiArICogdG8gZHJvcCB0aGUgcmVmZXJlbmNlLgo+PiArICoKPj4gKyAq
+IFJldHVybjoKPj4gKyAqIHZhbGlkIGRlbnRyeSAtIE9LCj4+ICsgKiBFUlJfUFRSIC0gRXJyb3Is
+IHNlZSBsb29rdXBfb25lX2xlbl91bmxvY2tlZAo+PiArICogTlVMTCAtIE5vIGJhY2tpbmcgaW5v
+ZGUgd2FzIGZvdW5kCj4+ICsgKi8KPj4gK3N0YXRpYyBzdHJ1Y3QgZGVudHJ5ICpyZXRyaWV2ZV9i
+YWNrZWRfZGVudHJ5KGNvbnN0IGNoYXIgKm5hbWUsCj4+ICsgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBkZW50cnkgKnBhcmVudCwKPj4gKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2l6ZV90IHNpemUpCj4+ICt7Cj4+
+ICsgICAgICAgaW50IHJjID0gMDsKPj4gKyAgICAgICBzdHJ1Y3QgZGVudHJ5ICp0bXAgPSBOVUxM
+Owo+PiArCj4+ICsgICAgICAgdG1wID0gbG9va3VwX29uZV9sZW5fdW5sb2NrZWQobmFtZSwgcGFy
+ZW50LCBzaXplKTsKPj4gKyAgICAgICBpZiAoSVNfRVJSKHRtcCkpIHsKPj4gKyAgICAgICAgICAg
+ICAgIHJjID0gUFRSX0VSUih0bXApOwo+PiArICAgICAgICAgICAgICAgZ290byBvdXQ7Cj4+ICsg
+ICAgICAgfQo+IFlvdSBjb3VsZCBqdXN0ICJyZXR1cm4gdG1wOyIgaGVyZS4KPgo+PiArCj4+ICsg
+ICAgICAgaWYgKCFkX3JlYWxseV9pc19wb3NpdGl2ZSh0bXApKQo+PiArICAgICAgICAgICAgICAg
+Z290byBvdXQxOwo+IEFuZCBoZXJlICJyZXR1cm4gTlVMTDsiLgo+Cj4+ICsgICAgICAgcmV0dXJu
+IHRtcDsKPj4gK291dDE6Cj4+ICsgICAgICAgdG1wID0gTlVMTDsKPiBUaGlzIGp1c3Qgc2V0cyBh
+IHZhcmlhYmxlIHRoYXQgaXMgbmV2ZXIgcmVhZCBhZ2FpbiB0byBOVUxMPwpUaGFua3MsIEknbGwg
+Zml4IHRoZXNlIHVwLgo+PiArb3V0Ogo+PiArICAgICAgIHJldHVybiByYyA9PSAwID8gTlVMTCA6
+IEVSUl9QVFIocmMpOwo+PiArfQo+PiArCj4+ICsvKioKPj4gKyAqIGlwZV9zZWNmc19kZWxfcG9s
+aWN5OiBEZWxldGUgYSBwb2xpY3kgaW5kaWNhdGVkIGJ5IHRoZSBuYW1lIHByb3ZpZGVkIGJ5Cj4+
+ICsgKiAgICAgICAgICAgICAgICAgICAgICBAZGF0YQo+PiArICogQGY6IFVudXNlZC4KPj4gKyAq
+IEBkYXRhOiBCdWZmZXIgY29udGFpbmluZyB0aGUgcG9saWN5IGlkIHRvIGRlbGV0ZS4KPj4gKyAq
+IEBsZW46IExlbmd0aCBvZiBAZGF0YS4KPj4gKyAqIEBvZmZzZXQ6IE9mZnNldCBpbnRvIEBkYXRh
+Lgo+PiArICoKPj4gKyAqIE5PVEU6IE5ld2xpbmVzIGFyZSB0cmVhdGVkIGFzIHBhcnQgb2YgdGhl
+IG5hbWUsIGlmIHVzaW5nIGVjaG8gdG8gdGVzdCwKPj4gKyAqIHVzZSAtbiB0byBwcm9oaWJpdCB0
+aGUgc2lsZW50IGFkZGl0aW9uIG9mIGEgbmV3bGluZS4KPj4gKyAqCj4+ICsgKiBSZXR1cm46Cj4+
+ICsgKiA+IDAgLSBPSwo+PiArICogLUVOT01FTSAtIE91dCBvZiBtZW1vcnkKPj4gKyAqIC1FUEVS
+TSAtIFBvbGljeSBpcyBhY3RpdmUKPj4gKyAqIC1FTk9FTlQgLSBQb2xpY3kgZG9lcyBub3QgZXhp
+c3QKPj4gKyAqIC1FUEVSTSAtIGlmIGEgTUFDIHN1YnN5c3RlbSBpcyBlbmFibGVkLCBtaXNzaW5n
+IENBUF9NQUNfQURNSU4KPj4gKyAqIE90aGVyIC0gU2VlIHJldHJpZXZlX2JhY2tlZF9kZW50cnkK
+Pj4gKyAqLwo+PiArc3RhdGljIHNzaXplX3QgaXBlX3NlY2ZzX2RlbF9wb2xpY3koc3RydWN0IGZp
+bGUgKmYsIGNvbnN0IGNoYXIgX191c2VyICpkYXRhLAo+PiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBzaXplX3QgbGVuLCBsb2ZmX3QgKm9mZnNldCkKPj4gK3sKPj4gKyAgICAg
+ICBzc2l6ZV90IHJjID0gMDsKPj4gKyAgICAgICBjaGFyICppZCA9IE5VTEw7Cj4+ICsgICAgICAg
+c3NpemVfdCB3cml0dGVuID0gMDsKPj4gKyAgICAgICBzdHJ1Y3QgZGVudHJ5ICpyYXcgPSBOVUxM
+Owo+PiArICAgICAgIHN0cnVjdCBkZW50cnkgKmNvbnRlbnQgPSBOVUxMOwo+PiArICAgICAgIHN0
+cnVjdCBpbm9kZSAqcG9saWN5X2kgPSBOVUxMOwo+PiArICAgICAgIHN0cnVjdCBkZW50cnkgKnBv
+bGljeV9yb290ID0gTlVMTDsKPj4gKyAgICAgICBzdHJ1Y3QgaW5vZGUgKnBvbGljaWVzX3Jvb3Qg
+PSBOVUxMOwo+PiArICAgICAgIGNvbnN0IHN0cnVjdCBpcGVfcG9saWN5ICp0YXJnZXQgPSBOVUxM
+Owo+PiArCj4+ICsgICAgICAgaWYgKCFuc19jYXBhYmxlKGN1cnJlbnRfdXNlcl9ucygpLCBDQVBf
+TUFDX0FETUlOKSkKPj4gKyAgICAgICAgICAgICAgIHJldHVybiAtRVBFUk07Cj4+ICsKPj4gKyAg
+ICAgICBpZCA9IGt6YWxsb2MobGVuLCBHRlBfS0VSTkVMKTsKPj4gKyAgICAgICBpZiAoIWlkKSB7
+Cj4+ICsgICAgICAgICAgICAgICByYyA9IC1FTk9NRU07Cj4+ICsgICAgICAgICAgICAgICBnb3Rv
+IG91dDsKPj4gKyAgICAgICB9Cj4+ICsKPj4gKyAgICAgICB3cml0dGVuID0gc2ltcGxlX3dyaXRl
+X3RvX2J1ZmZlcihpZCwgbGVuLCBvZmZzZXQsIGRhdGEsIGxlbik7Cj4+ICsgICAgICAgaWYgKHdy
+aXR0ZW4gPCAwKSB7Cj4+ICsgICAgICAgICAgICAgICByYyA9IHdyaXR0ZW47Cj4+ICsgICAgICAg
+ICAgICAgICBnb3RvIG91dDsKPj4gKyAgICAgICB9Cj4+ICsKPj4gKyAgICAgICBwb2xpY2llc19y
+b290ID0gZF9pbm9kZShpcGVfcG9saWNpZXNfcm9vdCk7Cj4+ICsKPj4gKyAgICAgICBwb2xpY3lf
+cm9vdCA9IHJldHJpZXZlX2JhY2tlZF9kZW50cnkoaWQsIGlwZV9wb2xpY2llc19yb290LCB3cml0
+dGVuKTsKPj4gKyAgICAgICBpZiAoSVNfRVJSX09SX05VTEwocG9saWN5X3Jvb3QpKSB7Cj4+ICsg
+ICAgICAgICAgICAgICByYyA9IElTX0VSUihwb2xpY3lfcm9vdCkgPyBQVFJfRVJSKHBvbGljeV9y
+b290KSA6IC1FTk9FTlQ7Cj4+ICsgICAgICAgICAgICAgICBnb3RvIG91dDsKPj4gKyAgICAgICB9
+Cj4+ICsKPj4gKyAgICAgICBwb2xpY3lfaSA9IGRfaW5vZGUocG9saWN5X3Jvb3QpOwo+PiArCj4+
+ICsgICAgICAgLyogaWYgdGhlIGZvdW5kIGRlbnRyeSBtYXRjaGVzIGJvb3QgcG9saWN5LCBmYWls
+ICovCj4+ICsgICAgICAgaWYgKGJvb3RfcG9saWN5X25vZGUgPT0gcG9saWN5X3Jvb3QpIHsKPj4g
+KyAgICAgICAgICAgICAgIHJjID0gLUVBQ0NFUzsKPj4gKyAgICAgICAgICAgICAgIGdvdG8gb3V0
+MTsKPj4gKyAgICAgICB9Cj4+ICsKPj4gKyAgICAgICB0YXJnZXQgPSAoKHN0cnVjdCBpcGVfcG9s
+aWN5X25vZGUgKilwb2xpY3lfaS0+aV9wcml2YXRlKS0+cGFyc2VkOwo+PiArCj4+ICsgICAgICAg
+LyogZmFpbCBpZiBpdCdzIHRoZSBhY3RpdmUgcG9saWN5ICovCj4+ICsgICAgICAgaWYgKGlwZV9p
+c19hY3RpdmVfcG9saWN5KHRhcmdldCkpIHsKPj4gKyAgICAgICAgICAgICAgIHJjID0gLUVQRVJN
+Owo+PiArICAgICAgICAgICAgICAgZ290byBvdXQxOwo+PiArICAgICAgIH0KPiBXaHkgY2FuIGl0
+IG5vdCBiZWNvbWUgdGhlIGFjdGl2ZSBwb2xpY3kgYWZ0ZXIgdGhpcyBjaGVjaz8KQWgsIGdvb2Qg
+Y2F0Y2guIChUaGUgdGVzdCBzdWl0ZSBqdXN0IGNhdWdodCB0aGlzIGFzIHdlbGwpLiBTbyB0aGlz
+IG5lZWRzIHRvCmJlIHN5bmNocm9uaXplZCB3aXRoIHRoZSBhY3RpdmUgcG9saWN5wqAgZnVuY3Rp
+b25zLiBJJ20gcHJldHR5IHN1cmUgSSBzaG91bGQKanVzdCBtb3ZlIHRoZSBwb2xpY3kgbG9jayBm
+cm9tIHRoZSBhY3RpdmF0aW9uIGZ1bmN0aW9ucyB0byBiZSBsb2NrZWQgJgp1bmxvY2tlZCBoZXJl
+LiBUaGF0J2xsIGVuZm9yY2UgdGhhdCBib3RoIGFyZSBjaGVja2VkIGluIGJsb2NraW5nIHNlY3Rp
+b25zLgo+PiArICAgICAgIHJhdyA9IHJldHJpZXZlX2JhY2tlZF9kZW50cnkoSVBFX0ZVTExfQ09O
+VEVOVCwgcG9saWN5X3Jvb3QsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBzdHJsZW4oSVBFX0ZVTExfQ09OVEVOVCkpOwo+PiArICAgICAgIGlmIChJU19FUlJfT1JfTlVM
+TChyYXcpKSB7Cj4+ICsgICAgICAgICAgICAgICByYyA9IElTX0VSUihyYXcpID8gUFRSX0VSUihy
+YXcpIDogLUVOT0VOVDsKPj4gKyAgICAgICAgICAgICAgIGdvdG8gb3V0MTsKPj4gKyAgICAgICB9
+Cj4+ICsKPj4gKyAgICAgICBjb250ZW50ID0gcmV0cmlldmVfYmFja2VkX2RlbnRyeShJUEVfSU5O
+RVJfQ09OVEVOVCwgcG9saWN5X3Jvb3QsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgc3RybGVuKElQRV9JTk5FUl9DT05URU5UKSk7Cj4+ICsgICAgICAgaWYgKElT
+X0VSUl9PUl9OVUxMKGNvbnRlbnQpKSB7Cj4+ICsgICAgICAgICAgICAgICByYyA9IElTX0VSUihj
+b250ZW50KSA/IFBUUl9FUlIoY29udGVudCkgOiAtRU5PRU5UOwo+PiArICAgICAgICAgICAgICAg
+Z290byBvdXQyOwo+PiArICAgICAgIH0KPj4gKwo+PiArICAgICAgIGlub2RlX2xvY2socG9saWNp
+ZXNfcm9vdCk7Cj4+ICsgICAgICAgaXBlX2ZyZWVfcG9saWN5X25vZGUocG9saWN5X2ktPmlfcHJp
+dmF0ZSk7Cj4+ICsgICAgICAgcG9saWN5X2ktPmlfcHJpdmF0ZSA9IE5VTEw7Cj4+ICsgICAgICAg
+aW5vZGVfdW5sb2NrKHBvbGljaWVzX3Jvb3QpOwo+PiArCj4+ICsgICAgICAgZHB1dChyYXcpOwo+
+PiArICAgICAgIGRwdXQoY29udGVudCk7Cj4+ICsgICAgICAgZHB1dChwb2xpY3lfcm9vdCk7Cj4+
+ICsgICAgICAgc2VjdXJpdHlmc19yZW1vdmUocmF3KTsKPj4gKyAgICAgICBzZWN1cml0eWZzX3Jl
+bW92ZShjb250ZW50KTsKPj4gKyAgICAgICBzZWN1cml0eWZzX3JlbW92ZShwb2xpY3lfcm9vdCk7
+Cj4+ICsKPj4gKyAgICAgICBrZnJlZShpZCk7Cj4+ICsgICAgICAgcmV0dXJuIHdyaXR0ZW47Cj4+
+ICtvdXQyOgo+PiArICAgICAgIGRwdXQocmF3KTsKPj4gK291dDE6Cj4+ICsgICAgICAgZHB1dChw
+b2xpY3lfcm9vdCk7Cj4+ICtvdXQ6Cj4+ICsgICAgICAga2ZyZWUoaWQpOwo+PiArICAgICAgIHJl
+dHVybiByYzsKPj4gK30KPj4gKwo+PiArLyoqCj4+ICsgKiBpcGVfc2VjZnNfcmRfcG9saWN5OiBS
+ZWFkIHRoZSByYXcgY29udGVudCAoZnVsbCBlbnZlbG9wZWQgUEtDUzcpIGRhdGEgb2YKPj4gKyAq
+ICAgICAgICAgICAgICAgICAgICAgdGhlIHBvbGljeSBzdG9yZWQgd2l0aGluIHRoZSBmaWxlJ3Mg
+cGFyZW50IGlub2RlLgo+PiArICogQGY6IEZpbGUgcmVwcmVzZW50aW5nIHRoZSBzZWN1cml0eWZz
+IGVudHJ5Lgo+PiArICogQGRhdGE6IFVzZXIgbW9kZSBidWZmZXIgdG8gcGxhY2UgdGhlIHJhdyBw
+a2NzNy4KPj4gKyAqIEBsZW46IExlbmd0aCBvZiBAZGF0YS4KPj4gKyAqIEBvZmZzZXQ6IE9mZnNl
+dCBpbnRvIEBkYXRhLgo+PiArICoKPj4gKyAqIFJldHVybjoKPj4gKyAqID4gMCAtIE9LCj4+ICsg
+KiAtRU5PTUVNIC0gT3V0IG9mIG1lbW9yeQo+PiArICovCj4+ICtzdGF0aWMgc3NpemVfdCBpcGVf
+c2VjZnNfcmRfcG9saWN5KHN0cnVjdCBmaWxlICpmLCBjaGFyIF9fdXNlciAqZGF0YSwKPj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzaXplX3Qgc2l6ZSwgbG9mZl90ICpvZmZz
+ZXQpCj4+ICt7Cj4+ICsgICAgICAgc3NpemVfdCByYyA9IDA7Cj4+ICsgICAgICAgc2l6ZV90IGF2
+YWlsID0gMDsKPj4gKyAgICAgICB1OCAqYnVmZmVyID0gTlVMTDsKPj4gKyAgICAgICBzdHJ1Y3Qg
+aW5vZGUgKnJvb3QgPSBOVUxMOwo+PiArICAgICAgIGNvbnN0IHN0cnVjdCBpcGVfcG9saWN5X25v
+ZGUgKm5vZGUgPSBOVUxMOwo+PiArCj4+ICsgICAgICAgcm9vdCA9IGRfaW5vZGUoZi0+Zl9wYXRo
+LmRlbnRyeS0+ZF9wYXJlbnQpOwo+PiArCj4+ICsgICAgICAgaW5vZGVfbG9ja19zaGFyZWQocm9v
+dCk7Cj4+ICsgICAgICAgbm9kZSA9IChjb25zdCBzdHJ1Y3QgaXBlX3BvbGljeV9ub2RlICopcm9v
+dC0+aV9wcml2YXRlOwo+PiArCj4+ICsgICAgICAgYXZhaWwgPSBub2RlLT5kYXRhX2xlbjsKPj4g
+KyAgICAgICBidWZmZXIgPSBrbWVtZHVwKG5vZGUtPmRhdGEsIGF2YWlsLCBHRlBfS0VSTkVMKTsK
+Pj4gKyAgICAgICBpZiAoIWJ1ZmZlcikgewo+PiArICAgICAgICAgICAgICAgcmMgPSAtRU5PTUVN
+Owo+PiArICAgICAgICAgICAgICAgZ290byBjbGVhbnVwOwo+PiArICAgICAgIH0KPj4gKwo+PiAr
+ICAgICAgIHJjID0gc2ltcGxlX3JlYWRfZnJvbV9idWZmZXIoZGF0YSwgc2l6ZSwgb2Zmc2V0LCBi
+dWZmZXIsIGF2YWlsKTsKPj4gK2NsZWFudXA6Cj4+ICsgICAgICAgaW5vZGVfdW5sb2NrX3NoYXJl
+ZChyb290KTsKPiBTYW1lIHRoaW5nIGFzIGluIGlwZV9zZWNmc19yZF9jb250ZW50KCk6IHNpbXBs
+ZV9yZWFkX2Zyb21fYnVmZmVyKCkgbmVlZGxlc3NseQo+IHdpdGhpbiBsb2NrZWQgc2VjdGlvbiwg
+YnVmZmVyIG5vdCBmcmVlZC4KSSBkb24ndCBrbm93IGhvdyBJIG1pc3NlZCBzdWNoIGFuIG9idmlv
+dXMgbWVtbGVhay4gSSdsbCByZW1vdmUgdGhlIAp1bm5lY2Vzc2FyeQprbWVtZHVwLgo+PiArCj4+
+ICsgICAgICAgcmV0dXJuIHJjOwo+PiArfQo+PiArCj4+ICsvKioKPj4gKyAqIGlwZV9zZWNmc191
+ZF9wb2xpY3k6IFVwZGF0ZSBhIHBvbGljeSBpbiBwbGFjZSB3aXRoIGEgbmV3IFBLQ1M3IHBvbGlj
+eS4KPj4gKyAqIEBmOiBGaWxlIHJlcHJlc2VudGluZyB0aGUgc2VjdXJpdHlmcyBlbnRyeS4KPj4g
+KyAqIEBkYXRhOiBCdWZmZXIgdXNlciBtb2RlIHRvIHBsYWNlIHRoZSByYXcgcGtjczcuCj4+ICsg
+KiBAbGVuOiBMZW5ndGggb2YgQGRhdGEuCj4+ICsgKiBAb2Zmc2V0OiBPZmZzZXQgaW50byBAZGF0
+YS4KPj4gKyAqCj4+ICsgKiBSZXR1cm46Cj4+ICsgKiAwIC0gT0sKPj4gKyAqIC1FQkFETVNHIC0g
+SW52YWxpZCBwb2xpY3kgZm9ybWF0Cj4+ICsgKiAtRU5PTUVNIC0gT3V0IG9mIG1lbW9yeQo+PiAr
+ICogLUVQRVJNIC0gaWYgYSBNQUMgc3Vic3lzdGVtIGlzIGVuYWJsZWQsIG1pc3NpbmcgQ0FQX01B
+Q19BRE1JTgo+PiArICogLUVJTlZBTCAtIEluY29ycmVjdCBwb2xpY3kgbmFtZSBmb3IgdGhpcyBu
+b2RlLCBvciB2ZXJzaW9uIGlzIDwgY3VycmVudAo+PiArICovCj4+ICtzdGF0aWMgc3NpemVfdCBp
+cGVfc2VjZnNfdWRfcG9saWN5KHN0cnVjdCBmaWxlICpmLCBjb25zdCBjaGFyIF9fdXNlciAqZGF0
+YSwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzaXplX3QgbGVuLCBsb2Zm
+X3QgKm9mZnNldCkKPj4gK3sKPj4gKyAgICAgICBzc2l6ZV90IHJjID0gMDsKPj4gKyAgICAgICB1
+OCAqY3B5ID0gTlVMTDsKPj4gKyAgICAgICBzc2l6ZV90IHdyaXR0ZW4gPSAwOwo+PiArICAgICAg
+IHN0cnVjdCBpbm9kZSAqcm9vdCA9IE5VTEw7Cj4+ICsgICAgICAgc3RydWN0IGNyeXB0b19zaGFz
+aCAqdGZtID0gTlVMTDsKPj4gKyAgICAgICBzdHJ1Y3QgaXBlX3BvbGljeV9ub2RlICpuZXcgPSBO
+VUxMOwo+PiArICAgICAgIHN0cnVjdCBpcGVfcG9saWN5X25vZGUgKm9sZCA9IE5VTEw7Cj4+ICsK
+Pj4gKyAgICAgICBpZiAoIW5zX2NhcGFibGUoY3VycmVudF91c2VyX25zKCksIENBUF9NQUNfQURN
+SU4pKQo+PiArICAgICAgICAgICAgICAgcmV0dXJuIC1FUEVSTTsKPj4gKwo+PiArICAgICAgIGNw
+eSA9IGt6YWxsb2MobGVuLCBHRlBfS0VSTkVMKTsKPj4gKyAgICAgICBpZiAoIWNweSkgewo+PiAr
+ICAgICAgICAgICAgICAgcmMgPSAtRU5PTUVNOwo+PiArICAgICAgICAgICAgICAgZ290byBvdXQ7
+Cj4+ICsgICAgICAgfQo+PiArCj4+ICsgICAgICAgd3JpdHRlbiA9IHNpbXBsZV93cml0ZV90b19i
+dWZmZXIoY3B5LCBsZW4sIG9mZnNldCwgZGF0YSwgbGVuKTsKPj4gKyAgICAgICBpZiAod3JpdHRl
+biA8IDApIHsKPj4gKyAgICAgICAgICAgICAgIHJjID0gd3JpdHRlbjsKPj4gKyAgICAgICAgICAg
+ICAgIGdvdG8gb3V0Owo+PiArICAgICAgIH0KPiBZb3UnZCBwcm9iYWJseSBiZSBiZXR0ZXIgb2Zm
+IGp1c3QgZG9pbmcgbWVtZHVwX3VzZXIoKSBoZXJlLgo+IHNpbXBsZV93cml0ZV90b19idWZmZXIo
+KSBvbmx5IG1ha2VzIHNlbnNlIGlmIHlvdSBoYXZlIGEgYnVmZmVyIHRoYXQgY2FuIGJlCj4gY29u
+dGludW91c2x5IHVwZGF0ZWQgd2l0aCBtdWx0aXBsZSB3cml0ZXMuClRoYW5rcywgSSdsbCBmaXgg
+aXQuCj4+ICsgICAgICAgbmV3ID0gaXBlX2FsbG9jX3BvbGljeV9ub2RlKGNweSwgbGVuKTsKPj4g
+KyAgICAgICBpZiAoSVNfRVJSKG5ldykpIHsKPj4gKyAgICAgICAgICAgICAgIHJjID0gUFRSX0VS
+UihuZXcpOwo+PiArICAgICAgICAgICAgICAgZ290byBvdXQ7Cj4+ICsgICAgICAgfQo+PiArCj4+
+ICsgICAgICAgdGZtID0gY3J5cHRvX2FsbG9jX3NoYXNoKCJzaGExIiwgMCwgMCk7Cj4+ICsgICAg
+ICAgaWYgKElTX0VSUih0Zm0pKQo+PiArICAgICAgICAgICAgICAgZ290byBvdXQyOwo+PiArCj4+
+ICsgICAgICAgcm9vdCA9IGRfaW5vZGUoZi0+Zl9wYXRoLmRlbnRyeS0+ZF9wYXJlbnQpOwo+PiAr
+ICAgICAgIGlub2RlX2xvY2socm9vdCk7Cj4+ICsKPj4gKyAgICAgICBvbGQgPSAoc3RydWN0IGlw
+ZV9wb2xpY3lfbm9kZSAqKXJvb3QtPmlfcHJpdmF0ZTsKPj4gKwo+PiArICAgICAgIGlmIChzdHJj
+bXAob2xkLT5wYXJzZWQtPnBvbGljeV9uYW1lLCBuZXctPnBhcnNlZC0+cG9saWN5X25hbWUpKSB7
+Cj4+ICsgICAgICAgICAgICAgICByYyA9IC1FSU5WQUw7Cj4+ICsgICAgICAgICAgICAgICBnb3Rv
+IG91dDM7Cj4+ICsgICAgICAgfQo+PiArCj4+ICsgICAgICAgaWYgKCFpcGVfaXNfdmFsaWRfcG9s
+aWN5KG9sZC0+cGFyc2VkLCBuZXctPnBhcnNlZCkpIHsKPj4gKyAgICAgICAgICAgICAgIHJjID0g
+LUVJTlZBTDsKPj4gKyAgICAgICAgICAgICAgIGdvdG8gb3V0MzsKPj4gKyAgICAgICB9Cj4+ICsK
+Pj4gKyAgICAgICByYyA9IGlwZV91cGRhdGVfYWN0aXZlX3BvbGljeShvbGQtPnBhcnNlZCwgbmV3
+LT5wYXJzZWQpOwo+PiArICAgICAgIGlmIChyYyAhPSAwKQo+PiArICAgICAgICAgICAgICAgZ290
+byBvdXQzOwo+PiArCj4+ICsgICAgICAgaXBlX2F1ZGl0X3BvbGljeV9sb2FkKG5ldy0+cGFyc2Vk
+LCBuZXctPmRhdGEsIG5ldy0+ZGF0YV9sZW4sIHRmbSk7Cj4+ICsgICAgICAgc3dhcChyb290LT5p
+X3ByaXZhdGUsIG5ldyk7Cj4+ICsKPj4gKyAgICAgICBpbm9kZV91bmxvY2socm9vdCk7Cj4+ICsg
+ICAgICAga2ZyZWUoY3B5KTsKPj4gKyAgICAgICBpcGVfZnJlZV9wb2xpY3lfbm9kZShuZXcpOwo+
+PiArICAgICAgIGNyeXB0b19mcmVlX3NoYXNoKHRmbSk7Cj4+ICsKPj4gKyAgICAgICByZXR1cm4g
+d3JpdHRlbjsKPj4gK291dDM6Cj4+ICsgICAgICAgaW5vZGVfdW5sb2NrKHJvb3QpOwo+PiArICAg
+ICAgIGlwZV9mcmVlX3BvbGljeV9ub2RlKG5ldyk7Cj4+ICtvdXQyOgo+PiArICAgICAgIGNyeXB0
+b19mcmVlX3NoYXNoKHRmbSk7Cj4+ICtvdXQ6Cj4+ICsgICAgICAga2ZyZWUoY3B5KTsKPj4gKyAg
+ICAgICByZXR1cm4gcmM7Cj4+ICt9Cj4gWy4uLl0KPj4gK3N0YXRpYyBzc2l6ZV90IGlwZV9zZWNm
+c19yZF9jb250ZW50KHN0cnVjdCBmaWxlICpmLCBjaGFyIF9fdXNlciAqZGF0YSwKPj4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2l6ZV90IHNpemUsIGxvZmZfdCAqb2Zmc2V0
+KQo+PiArewo+PiArICAgICAgIHNzaXplX3QgcmMgPSAwOwo+PiArICAgICAgIHNpemVfdCBhdmFp
+bCA9IDA7Cj4+ICsgICAgICAgdTggKmJ1ZmZlciA9IE5VTEw7Cj4+ICsgICAgICAgc3RydWN0IGlu
+b2RlICpyb290ID0gTlVMTDsKPj4gKyAgICAgICBjb25zdCBzdHJ1Y3QgaXBlX3BvbGljeV9ub2Rl
+ICpub2RlID0gTlVMTDsKPj4gKwo+PiArICAgICAgIHJvb3QgPSBkX2lub2RlKGYtPmZfcGF0aC5k
+ZW50cnktPmRfcGFyZW50KTsKPj4gKwo+PiArICAgICAgIGlub2RlX2xvY2socm9vdCk7Cj4+ICsg
+ICAgICAgbm9kZSA9IChjb25zdCBzdHJ1Y3QgaXBlX3BvbGljeV9ub2RlICopcm9vdC0+aV9wcml2
+YXRlOwo+PiArCj4+ICsgICAgICAgYXZhaWwgPSBub2RlLT5jb250ZW50X3NpemU7Cj4+ICsgICAg
+ICAgYnVmZmVyID0ga21lbWR1cChub2RlLT5jb250ZW50LCBhdmFpbCwgR0ZQX0tFUk5FTCk7Cj4+
+ICsgICAgICAgaWYgKCFidWZmZXIpIHsKPj4gKyAgICAgICAgICAgICAgIHJjID0gLUVOT01FTTsK
+Pj4gKyAgICAgICAgICAgICAgIGdvdG8gY2xlYW51cDsKPj4gKyAgICAgICB9Cj4+ICsKPj4gKyAg
+ICAgICByYyA9IHNpbXBsZV9yZWFkX2Zyb21fYnVmZmVyKGRhdGEsIHNpemUsIG9mZnNldCwgYnVm
+ZmVyLCBhdmFpbCk7Cj4+ICtjbGVhbnVwOgo+PiArICAgICAgIGlub2RlX3VubG9jayhyb290KTsK
+PiBXaHkgYXJlIHlvdSBub2QgZG9pbmcgdGhlIHNpbXBsZV9yZWFkX2Zyb21fYnVmZmVyKCkgYWZ0
+ZXIgaW5vZGVfdW5sb2NrKCk/Cj4gVGhlIHdheSB5b3UncmUgZG9pbmcgaXQgbm93LCB0aGVyZSBp
+c24ndCByZWFsbHkgYSBwb2ludCBpbiB0aGUga21lbWR1cCgpIGF0Cj4gYWxsLi4uCj4gQWxzbywg
+eW91J2xsIGhhdmUgdG8gZnJlZSB0aGUgYnVmZmVyIGJlZm9yZSByZXR1cm5pbmcuCkkgZG9uJ3Qg
+a25vdyBob3cgSSBtaXNzZWQgc3VjaCBhbiBvYnZpb3VzIG1lbWxlYWsuIEknbGwgcmVtb3ZlIHRo
+ZSAKdW5uZWNlc3NhcnkKa21lbWR1cC4KPgo+PiArICAgICAgIHJldHVybiByYzsKPj4gK30KPiBb
+Li4uXQo+PiBkaWZmIC0tZ2l0IGEvc2VjdXJpdHkvaXBlL2lwZS1zeXNmcy5jIGIvc2VjdXJpdHkv
+aXBlL2lwZS1zeXNmcy5jCj4gWy4uLl0KPj4gK3N0YXRpYyBpbnQgaXBlX3N3aXRjaF9hY3RpdmVf
+cG9saWN5KHN0cnVjdCBjdGxfdGFibGUgKnRhYmxlLCBpbnQgd3JpdGUsCj4+ICsgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHZvaWQgX191c2VyICpidWZmZXIsIHNpemVfdCAqbGVu
+cCwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbG9mZl90ICpwcG9zKQo+
+PiArewo+PiArICAgICAgIGludCByYyA9IDA7Cj4+ICsgICAgICAgY2hhciAqaWQgPSBOVUxMOwo+
+PiArICAgICAgIHNpemVfdCBzaXplID0gMDsKPj4gKwo+PiArICAgICAgIGlmICh3cml0ZSkgewo+
+PiArICAgICAgICAgICAgICAgaWQgPSBremFsbG9jKCgqbGVucCkgKyAxLCBHRlBfS0VSTkVMKTsK
+Pj4gKyAgICAgICAgICAgICAgIGlmICghaWQpCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIHJl
+dHVybiAtRU5PTUVNOwo+PiArCj4+ICsgICAgICAgICAgICAgICB0YWJsZS0+ZGF0YSA9IGlkOwo+
+PiArICAgICAgICAgICAgICAgdGFibGUtPm1heGxlbiA9ICgqbGVucCkgKyAxOwo+PiArCj4+ICsg
+ICAgICAgICAgICAgICByYyA9IHByb2NfZG9zdHJpbmcodGFibGUsIHdyaXRlLCBidWZmZXIsIGxl
+bnAsIHBwb3MpOwo+PiArICAgICAgICAgICAgICAgaWYgKHJjICE9IDApCj4+ICsgICAgICAgICAg
+ICAgICAgICAgICAgIGdvdG8gb3V0Owo+PiArCj4+ICsgICAgICAgICAgICAgICByYyA9IGlwZV9z
+ZXRfYWN0aXZlX3BvbGljeShpZCwgc3RybGVuKGlkKSk7Cj4+ICsgICAgICAgfSBlbHNlIHsKPj4g
+KyAgICAgICAgICAgICAgIHJjdV9yZWFkX2xvY2soKTsKPj4gKyAgICAgICAgICAgICAgIHNpemUg
+PSBzdHJsZW4ocmN1X2RlcmVmZXJlbmNlKGlwZV9hY3RpdmVfcG9saWN5KS0+cG9saWN5X25hbWUp
+Owo+IENhbid0IGBpcGVfYWN0aXZlX3BvbGljeWAgYmUgTlVMTCBoZXJlPwo+Cj4+ICsgICAgICAg
+ICAgICAgICByY3VfcmVhZF91bmxvY2soKTsKPj4gKwo+PiArICAgICAgICAgICAgICAgaWQgPSBr
+emFsbG9jKHNpemUgKyAxLCBHRlBfS0VSTkVMKTsKPiBUaGUgYCsgMWAgc2VlbXMgdW5uZWNlc3Nh
+cnkuClRoaXMgaXMgYWN0dWFsbHkgbmVjZXNzYXJ5LiBzaXplIHdvdWxkIHBvaW50IHRvIHRoZSBz
+dHJpbmcgd2l0aG91dCAKbnVsbHRlcm0uIHN0cm5jcHkKYmVsb3cgaXMgZHVlIHRvIGlmIHRoZSBh
+Y3RpdmUgcG9saWN5IGNoYW5nZXM6IGlmIGl0J3MgYmlnZ2VyLCB0aGVuIHdlIAp0cnVuY2F0ZSwg
+aWYgaXQncwpzbWFsbGVyLCB3ZSdsbCBleGl0IGVhcmx5LiBFaXRoZXIgd2F5LCBpdCdzIGd1YXJh
+bnRlZWQgdG8gYmUgbnVsbCAKdGVybWluYXRlZC4KCkxhdGVyLCBpbiBwcm9jX2Rvc3RyaW5nLCBz
+dHJsZW4gaXMgY2FsbGVkLCBhbmQgYXMgYSByZXN1bHQgS0FTQU4gY2F0Y2hlcyAKYW4gT09CCnJl
+YWQgd2l0aG91dCB0aGUgKzEuCj4KPj4gKyAgICAgICAgICAgICAgIGlmICghaWQpCj4+ICsgICAg
+ICAgICAgICAgICAgICAgICAgIHJldHVybiAtRU5PTUVNOwo+PiArCj4+ICsgICAgICAgICAgICAg
+ICByY3VfcmVhZF9sb2NrKCk7Cj4+ICsgICAgICAgICAgICAgICBzdHJuY3B5KGlkLCByY3VfZGVy
+ZWZlcmVuY2UoaXBlX2FjdGl2ZV9wb2xpY3kpLT5wb2xpY3lfbmFtZSwKPj4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgc2l6ZSk7Cj4+ICsgICAgICAgICAgICAgICByY3VfcmVhZF91bmxvY2soKTsK
+Pj4gKwo+PiArICAgICAgICAgICAgICAgdGFibGUtPmRhdGEgPSBpZDsKPj4gKyAgICAgICAgICAg
+ICAgIHRhYmxlLT5tYXhsZW4gPSBzaXplOwo+PiArCj4+ICsgICAgICAgICAgICAgICByYyA9IHBy
+b2NfZG9zdHJpbmcodGFibGUsIHdyaXRlLCBidWZmZXIsIGxlbnAsIHBwb3MpOwo+PiArICAgICAg
+IH0KPj4gK291dDoKPj4gKyAgICAgICBrZnJlZShpZCk7Cj4+ICsgICAgICAgcmV0dXJuIHJjOwo+
+PiArfQo+PiArCj4+ICsjZW5kaWYgLyogQ09ORklHX1NFQ1VSSVRZRlMgKi8KPiBbLi4uXQo+PiBk
+aWZmIC0tZ2l0IGEvc2VjdXJpdHkvaXBlL2lwZS5jIGIvc2VjdXJpdHkvaXBlL2lwZS5jCj4gWy4u
+Ll0KPj4gKwo+PiArLyoqCj4+ICsgKiBzdHJpY3RfcGFyc2U6IEtlcm5lbCBjb21tYW5kIGxpbmUg
+cGFyYW1ldGVyIHRvIGVuYWJsZSBzdHJpY3QgcGFyc2luZyBvZgo+PiArICogICAgICAgICAgICAg
+IElQRSBwb2xpY2llcyAtIGNhdXNpbmcgdW5yZWNvZ25pemVkIHByb3BlcnRpZXMgdG8gZmFpbAo+
+PiArICogICAgICAgICAgICAgIHBhcnNpbmcuIFRoaXMgYnJlYWtzIGJhY2t3YXJkcyBjb21wYXRp
+YmlsaXR5IG9mIElQRSBwb2xpY2llcywKPj4gKyAqICAgICAgICAgICAgICB3aGVuIGVuYWJsZWQu
+Cj4gSSBndWVzcyB0aGUgYmFja3dhcmRzIGNvbXBhdGliaWxpdHkgc3R1ZmYgaXMgcmVmZXJyaW5n
+IHRvIGFuIG91dC1vZi10cmVlIHZlcnNpb24KPiBvZiB0aGlzIHNlcmllcyB0aGF0IHlvdSd2ZSBh
+bHJlYWR5IHNoaXBwZWQ/CkFjdHVhbGx5IG5vLiBUaGUgYmFja3dhcmRzIGNvbXBhdGliaWxpdHkg
+c3R1ZmYgaXMgaW50ZW5kZWQgdG8gaGVscCAKZGl2b3JjaW5nIGtlcm5lbCB1cGRhdGVzIGZyb20g
+cG9saWN5IHVwZGF0ZXMuCkF0IHRoZSBtb21lbnQsIHRoZSBkZWZhdWx0IGJlaGF2aW9yIG9mIElQ
+RSBpcyB0byBpZ25vcmUgYW55IGxpbmVzIHRoYXQgCmRvIG5vdCBwYXJzZSBzdWNjZXNzZnVsbHku
+IFRoaXMgYWxsb3dzIHBvbGljaWVzCndyaXR0ZW4gZm9yIG5ld2VyIHZlcnNpb25zIG9mIElQRSB0
+byBwYXJzZSBhbmQgYXBwbHkgc3VjY2Vzc2Z1bGx5LiBUaHVzLCAKcG9saWN5IGNhbiBiZSB1cGRh
+dGVkIHdpdGhvdXQgYSBkZXBlbmRlbmN5Cm9uIHRoZSBrZXJuZWwgYmVpbmcgdXBkYXRlZC4KCklm
+IHRoYXQgYmVoYXZpb3IgaXNuJ3QgZGVzaXJhYmxlLCB0aGVuIHlvdSBjYW4gZW5hYmxlIHRoaXMg
+c3lzY3RsIC8gCmtlcm5lbCBjb21tYW5kIGxpbmUgcGFyYW1ldGVyIHRvIGNhdXNlIHRoZQp1bnJl
+Y29nbml6ZWQgbGluZXMgdG8gZXJyb3IgZmF0YWxseS7CoCBPcGVyYXRpb25hbGx5LCBJIHNlZSBt
+ZXJpdHMgdG8gCmJvdGggbWV0aG9kcywgYXQgdGhlIGNvc3Qgb2Ygd2hhdCBib2lscyBkb3duCnRv
+IGFuIGlmIHN0YXRlbWVudCwgc28gSSBrZXB0IHRoaXMgYXMgYSBjb25maWd1cmFibGUgb3B0aW9u
+Lgo+Cj4+ICsgKiBUaGlzIGlzIGFsc28gY29udHJvbGxlZCBieSB0aGUgc3lzY3RsLCAiaXBlLnN0
+cmljdF9wYXJzZSIuCj4+ICsgKi8KPiAoQWxzbywgc2FtZSB0aGluZyBhcyBpbiB0aGUgb3RoZXIg
+cGF0Y2ggcmUgc3lzY3RscyBhbmQga2VybmVsIGNvbW1hbmQgbGluZQo+IHBhcmFtZXRlcnMgZm9y
+IHRoZSBzYW1lIGZlYXR1cmUuKQpZZXMsIEkgYW0gZ29pbmcgdG8gc3RyaXAgb3V0IGFsbCB0aGlz
+LgoKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8v
+d3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
 
