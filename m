@@ -1,77 +1,86 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id E8EC51A360A
-	for <lists+dm-devel@lfdr.de>; Thu,  9 Apr 2020 16:37:05 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 13F1F1A37F3
+	for <lists+dm-devel@lfdr.de>; Thu,  9 Apr 2020 18:26:47 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1586443024;
+	s=mimecast20190719; t=1586449606;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=yrMeSSqK3HtlEmjX+bWDnCKmuMtH4tL4dbcrXRb0Wac=;
-	b=I95VboEScNx6NBk2kGQoCUhEm5nRZDrKk64BDb3tBn2G2/KYFmUAPgx/XIi3FFwUQZiWVK
-	1dKfmjQNkXbC2Eum1JQ+CSPvu1L19+Ogi90WiqSDNOJEtAuoqoS2jiV1II0BRk9CPfAmah
-	qPMrRpm2/6GIgZ6P61691H30GauzkqE=
+	bh=Z6ZDnaW+r4LbtDEWcpPsQLiU4sXX9yBBtieKwZmgNHk=;
+	b=UD0UbYjJMcGKEteYkePs50kDYslAEUYOFX6UB9PLWEO0UP918NJDoPbvQVIL5mc1jDD2MT
+	E6VXMdDMb1M8kiWPFU41f3v+eHcSwk1NfjxTX67qLmzIKAnsLRtgMyCAmwtkVP44LzzCc+
+	jDpMuRr+eEkXqHjtccaxRB39bsg7Ryw=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-253-d0gusveSPI6IkpKK9S04pQ-1; Thu, 09 Apr 2020 10:37:01 -0400
-X-MC-Unique: d0gusveSPI6IkpKK9S04pQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-208-s5lmTD9bOrapxlvbm7HTqA-1; Thu, 09 Apr 2020 12:26:44 -0400
+X-MC-Unique: s5lmTD9bOrapxlvbm7HTqA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 46A8813FC;
-	Thu,  9 Apr 2020 14:36:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C3B48801E6C;
+	Thu,  9 Apr 2020 16:26:36 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 425168D57F;
-	Thu,  9 Apr 2020 14:36:43 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6A4CF5D9CA;
+	Thu,  9 Apr 2020 16:26:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9AFCA18089CD;
-	Thu,  9 Apr 2020 14:36:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0D2B018089CD;
+	Thu,  9 Apr 2020 16:26:21 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 039EaMvg002763 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 9 Apr 2020 10:36:22 -0400
+	id 039GQ74P011698 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 9 Apr 2020 12:26:07 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A3ADE396; Thu,  9 Apr 2020 14:36:22 +0000 (UTC)
+	id 24BD02026D66; Thu,  9 Apr 2020 16:26:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C0C3719757;
-	Thu,  9 Apr 2020 14:36:19 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id 039EaJ0x021764; Thu, 9 Apr 2020 10:36:19 -0400
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id 039EaHUd021758; Thu, 9 Apr 2020 10:36:17 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Thu, 9 Apr 2020 10:36:17 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Dan Williams <dan.j.williams@intel.com>
-In-Reply-To: <CAPcyv4grNHvyYEc4W6PkymhEJvLb17tXbC3JZdqvtFxmMZ8DCQ@mail.gmail.com>
-Message-ID: <alpine.LRH.2.02.2004090612320.27517@file01.intranet.prod.int.rdu2.redhat.com>
-References: <alpine.LRH.2.02.2004071029270.8662@file01.intranet.prod.int.rdu2.redhat.com>
-	<CAPcyv4goJ2jbXNVZbMUKtRUominhuMhuTKrMh=fnhrfvC4jyjw@mail.gmail.com>
-	<alpine.LRH.2.02.2004081439080.13932@file01.intranet.prod.int.rdu2.redhat.com>
-	<CAPcyv4grNHvyYEc4W6PkymhEJvLb17tXbC3JZdqvtFxmMZ8DCQ@mail.gmail.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F6922026D68
+	for <dm-devel@redhat.com>; Thu,  9 Apr 2020 16:26:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7642280029B
+	for <dm-devel@redhat.com>; Thu,  9 Apr 2020 16:26:04 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
+	relay.mimecast.com with ESMTP id us-mta-452-E8deM0j_ObmIlBurJnKZ5g-1;
+	Thu, 09 Apr 2020 12:25:59 -0400
+X-MC-Unique: E8deM0j_ObmIlBurJnKZ5g-1
+Received: from [10.137.106.115] (unknown [131.107.174.243])
+	by linux.microsoft.com (Postfix) with ESMTPSA id CC37A2007679;
+	Thu,  9 Apr 2020 09:25:57 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com CC37A2007679
+To: Nayna <nayna@linux.vnet.ibm.com>
+References: <20200406221439.1469862-1-deven.desai@linux.microsoft.com>
+	<c1466cc8-8a08-708a-4629-234485bb833e@linux.vnet.ibm.com>
+From: Deven Bowers <deven.desai@linux.microsoft.com>
+Message-ID: <35afdffe-179c-aedd-333a-9dfc20635fc3@linux.microsoft.com>
+Date: Thu, 9 Apr 2020 09:25:57 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+	Thunderbird/68.7.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+In-Reply-To: <c1466cc8-8a08-708a-4629-234485bb833e@linux.vnet.ibm.com>
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 039GQ74P011698
 X-loop: dm-devel@redhat.com
-Cc: Peter Zijlstra <peterz@infradead.org>, X86 ML <x86@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	device-mapper development <dm-devel@redhat.com>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	"H. Peter Anvin" <hpa@zytor.com>, Thomas Gleixner <tglx@linutronix.de>
-Subject: Re: [dm-devel] [PATCH] memcpy_flushcache: use cache flusing for
- larger lengths
+Cc: axboe@kernel.dk, sashal@kernel.org, dm-devel@redhat.com, snitzer@redhat.com,
+	linux-kernel@vger.kernel.org, pasha.tatashin@soleen.com,
+	jmorris@namei.org, zohar@linux.ibm.com,
+	mdsakib@linux.microsoft.com, linux-block@vger.kernel.org,
+	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
+	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org,
+	jaskarankhurana@linux.microsoft.com, agk@redhat.com, serge@hallyn.com
+Subject: Re: [dm-devel] [RFC PATCH v2 00/12] Integrity Policy Enforcement
+	LSM (IPE)
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,158 +94,49 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 
-
-
-On Wed, 8 Apr 2020, Dan Williams wrote:
-
-> On Wed, Apr 8, 2020 at 11:54 AM Mikulas Patocka <mpatocka@redhat.com> wrote:
-> >
-> >
-> >
-> > On Tue, 7 Apr 2020, Dan Williams wrote:
-> >
-> > > On Tue, Apr 7, 2020 at 8:02 AM Mikulas Patocka <mpatocka@redhat.com> wrote:
-> > > >
-> > > This should use clwb instead of clflushopt, the clwb macri
-> > > automatically converts back to clflushopt if clwb is not supported.
-> >
-> > But we want to invalidate cache, we do not expect CPU to access these data
-> > anymore (it will be accessed by a DMA engine during writeback).
-> 
-> The cluflushopt and clwb instructions should have identical overhead,
-> but clwb wins on the rare chance the written data is needed again
-> soon. If it is never needed again then the cost of dropping a clean
-> cache line is the same as if the line was invalidated in the first
-> instance. In both cases (clflushopt and clwb) the snoop traffic
-> overhead is still paid whether the written-back line is still present
-> in the cache or not.
-
-But my concern is that clflushopt removes the line from the cache and 
-makes room for another line (this is desired behavior) - clwb keeps the 
-line cached and the line would have to compete with other cache lines in 
-the same associative set.
-
-Do you know how does the CPU select the cache line to be replaced?
-
-dm-writecache is intended to be used for workloads like database logs that 
-need extra-low commit latency. The committed data is not read back during 
-normal workload.
-
-> > > > Other ideas - should we introduce memcpy_to_pmem instead of modifying
-> > > > memcpy_flushcache and move this logic there? Or should I modify the
-> > > > dm-writecache target directly to use clflushopt with no change to the
-> > > > architecture-specific code?
-> > >
-> > > This also needs to mention your analysis that showed that this can
-> > > have negative cache pollution effects [1], so I'm not sure how to
-> > > decide when to make the tradeoff. Once we have movdir64b the tradeoff
-> > > equation changes yet again:
-> > >
-> > > [1]: https://lore.kernel.org/linux-nvdimm/alpine.LRH.2.02.2004010941310.23210@file01.intranet.prod.int.rdu2.redhat.com/
-> >
-> > I analyzed it some more. I have created this program that tests writecache
-> > w.r.t. cache pollution:
-> >
-> > http://people.redhat.com/~mpatocka/testcases/pmem/misc/l1-test-2.c
-> >
-> > It fills the cache with a chain of random pointers and then walks these
-> > pointers to evaluate cache pollution. Between the walks, it writes data to
-> > the dm-writecache target.
-> >
-> > With the original kernel, the result is:
-> > 8503 - 11366
-> > real    0m7.985s
-> > user    0m0.585s
-> > sys     0m7.390s
-> >
-> > With dm-writecache hacked to use cached writes + clflushopt:
-> > 8513 - 11379
-> > real    0m5.045s
-> > user    0m0.670s
-> > sys     0m4.365s
-> >
-> > So, the hacked dm-writecache is significantly faster, while the cache
-> > micro-benchmark doesn't show any more cache pollution.
-> 
-> Nice. These are now the pmem numbers, or dram?
-
-pmem
-
-
-With dm-writecache on emulated pmem (with the memmap argument), we get
-
-With the original kernel:
-8508 - 11378
-real    0m4.960s
-user    0m0.638s
-sys     0m4.312s
-
-With dm-writecache hacked to use cached writes + clflushopt:
-8505 - 11378
-real    0m4.151s
-user    0m0.560s
-sys     0m3.582s
-
-So - clflushopt is still slightly better.
-
-> Otherwise, what changed that was making nt-writes on pmem perform better 
-> compared to your previous test? I'm just trying to track the results.
-
-I re-ran the previous test 
-( http://people.redhat.com/~mpatocka/testcases/pmem/misc/l1-test.c )
-and the result is this:
-
-Write + clflushopt:
-./l1-test /dev/ram0 f
-8502 - 22616
-./l1-test /dev/dax3.0 f
-8502 - 22902
-./l1-test /dev/dax4.0 f
-8500 - 11970
-
-Write + clwb:
-./l1-test /dev/ram0 w
-8502 - 22602
-./l1-test /dev/dax3.0 w
-8502 - 22454
-./l1-test /dev/dax4.0 w
-8502 - 11566
-
-Non-temporal stores:
-./l1-test /dev/ram0 n
-8504 - 22162
-./l1-test /dev/dax3.0 n
-8502 - 12336
-./l1-test /dev/dax4.0 n
-8502 - 10662
-
-(/dev/dax3.0 is the real persistent memory, /dev/dax4.0 is pmem emulated 
-with the memmap parameter)
-
-"./l1-test /dev/ram0 n" is slower than "./l1-test /dev/dax4.0 n" while 
-both of these tests are on RAM. The pmem is mapped with large pages and 
-mem map for ramdisk is not - perhaps this is making the difference?
-
-"./l1-test /dev/dax3.0 n" is better than "./l1-test /dev/dax3.0 w" and 
-"./l1-test /dev/dax3.0 f" - although the benchmaks done on dm-writecache 
-show that cached writes + clflushopt perform better. I don't know why 
-there is this disparity.
-
-> > That's for dm-writecache. Are there some other significant users of
-> > memcpy_flushcache that need to be checked?
-> 
-> The only other user is direct and dax-I/O to the pmem driver.
-
-Mikulas
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+T24gNC83LzIwMjAgMjozMSBQTSwgTmF5bmEgd3JvdGU6Cgo+Cj4gT24gNC82LzIwIDY6MTQgUE0s
+IGRldmVuLmRlc2FpQGxpbnV4Lm1pY3Jvc29mdC5jb20gd3JvdGU6Cj4+IEZyb206IERldmVuIEJv
+d2VycyA8ZGV2ZW4uZGVzYWlAbGludXgubWljcm9zb2Z0LmNvbT4KPj4KPj4gQ2hhbmdlbG9nOgo+
+PiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPj4KPj4gdjE6IEludHJvZHVj
+ZWQKPj4KPj4gdjI6Cj4+IMKgwqAgU3BsaXQgdGhlIHNlY29uZCBwYXRjaCBvZiB0aGUgcHJldmlv
+dXMgc2VyaWVzIGludG8gdHdvLgo+PiDCoMKgIE1pbm9yIGNvcnJlY3Rpb25zIGluIHRoZSBjb3Zl
+ci1sZXR0ZXIgYW5kIGRvY3VtZW50YXRpb24KPj4gwqDCoCBjb21tZW50cyByZWdhcmRpbmcgQ0FQ
+X01BQ19BRE1JTiBjaGVja3MgaW4gSVBFLgo+Pgo+PiBPdmVydmlldzoKPj4gLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4+IElQRSBpcyBhIExpbnV4IFNlY3VyaXR5IE1vZHVs
+ZSwgd2hpY2ggYWxsb3dzIGZvciBhIGNvbmZpZ3VyYWJsZQo+PiBwb2xpY3kgdG8gZW5mb3JjZSBp
+bnRlZ3JpdHkgcmVxdWlyZW1lbnRzIG9uIHRoZSB3aG9sZSBzeXN0ZW0uIEl0Cj4+IGF0dGVtcHRz
+IHRvIHNvbHZlIHRoZSBpc3N1ZSBvZiBDb2RlIEludGVncml0eTogdGhhdCBhbnkgY29kZSBiZWlu
+Zwo+PiBleGVjdXRlZCAob3IgZmlsZXMgYmVpbmcgcmVhZCksIGFyZSBpZGVudGljYWwgdG8gdGhl
+IHZlcnNpb24gdGhhdAo+PiB3YXMgYnVpbHQgYnkgYSB0cnVzdGVkIHNvdXJjZS4KPgo+IENhbiB5
+b3UgcGxlYXNlIGNsYXJpZnkgdGhlICJtb3RpdmF0aW9uIiBmb3IgdGhpcyBwYXRjaCBzZXQgbW9y
+ZSAKPiBjbGVhcmx5PyBJdCBzZWVtcyB0byBkZWZpbmUgYSBwb2xpY3kgbGF5ZXIgb24gdG9wIG9m
+IGRtLXZlcml0eSwgd2hpY2ggCj4gbWF5IGJlIGNvbXBpbGVkIGludG8gdGhlIGtlcm5lbC4gSW4g
+dGhlIG1vdGl2YXRpb24sIGNhbiB5b3UgcGxlYXNlIAo+IGFsc28gbWFrZSBpdCBleHBsaWNpdCB3
+aHkgZXhpc3RpbmcgbWVjaGFuaXNtcyBjYW5ub3QgYmUgZXh0ZW5kZWQgdG8gCj4gYWNoaWV2ZSB5
+b3VyIHB1cnBvc2U/Cj4KVGhpcyBMU00gd2FzIGJvcm4gb3V0IG9mIGEgbW90aXZhdGlvbiB0byBw
+cm92aWRlIHN0cm9uZyBpbnRlZ3JpdHkgCmd1YXJhbnRlZXMgd2l0aG91dCBhIGRlcGVuZGVuY3kg
+b24gZmlsZS1tZXRhZGF0YSwgYWxsb3cgdGhlIGludGVncml0eSAKY2xhaW1zIHRvIGJlIGNvbmZp
+Z3VyYWJsZSBvbiBhIGhvdCBzeXN0ZW0sIGFuZCBhbGxvdyBmb3IgdGhlIG1lY2hhbmlzbXMgCmZv
+ciBlbnN1cmluZyBpbnRlZ3JpdHkgdG8gYmUgZXh0ZW5kYWJsZS4KClRoaXMgbmF0dXJhbGx5IGhh
+ZCB0byBiZSBhbiBMU00sIGFzIGNvbnRyb2xsaW5nIGV4ZWN1dGlvbiBhdCB0aGUgYmxvY2sgCm9y
+IGZpbGVzeXN0ZW0gbGF5ZXIgZG9lcyBub3QgbWFrZSBzZW5zZS4gRXhpc3RpbmcgTFNNIGltcGxl
+bWVudGF0aW9ucyAKdXNlIGZpbGVzeXN0ZW0gbWV0YWRhdGEsIGFuZCBzaW5jZSBvbmUgb2YgSVBF
+J3MgZ29hbHMgaXMgdG8gc2VjdXJlIGZpbGUgCm1ldGFkYXRhLCBpdCBpcyBjaXJjdWxhciB0byBk
+ZXBlbmQgb24gdGhlIGZpbGUgbWV0YWRhdGEgaXRzZWxmIHRvIG1ha2UgCmRlY2lzaW9ucyBhYm91
+dCB3aGV0aGVyIHRoZSBmaWxlIGhhcyBiZWVuIG1vZGlmaWVkLgoKQWRkaXRpb25hbGx5LCBJUEUg
+d2hpbGUgSVBFIGN1cnJlbnRseSBwcm92aWRlcyBkbS12ZXJpdHkgc3VwcG9ydCBhbmQgdGhlIAp0
+cnVzdCByb290IHN1cHBvcnQsIGl0IGNhbiBiZSBlYXNpbHkgZXh0ZW5kZWQgdG8gb3RoZXIgaW1w
+bGVtZW50YXRpb25zIApzdWNoIGFzIGZzLXZlcml0eS4gQXQgaXQncyBjb3JlLCBJUEUgaXMgYXR0
+ZW1wdGluZyB0byBzZXBhcmF0ZSBtZWNoYW5pc20gCihkbS12ZXJpdHksIGZzLXZlcml0eSwgZXRj
+LikgZnJvbSBwb2xpY3kgKElQRSkuCgo+IEFsc28sIEFGSUssIHRoZSBjaGFuZ2Vsb2cgc2hvdWxk
+IGJlIG1vdmVkIHRvIHRoZSBlbmQgb2YgdGhlIHBhdGNoIAo+IGRlc2NyaXB0aW9uLgo+ClRoYW5r
+cyEgSSdsbCBtb3ZlIHRoZSBjaGFuZ2Vsb2cuCgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRt
+LWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZv
+L2RtLWRldmVs
 
