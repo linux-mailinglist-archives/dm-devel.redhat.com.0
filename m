@@ -1,110 +1,96 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 75E841A73AF
-	for <lists+dm-devel@lfdr.de>; Tue, 14 Apr 2020 08:29:48 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id D99EC1A73B3
+	for <lists+dm-devel@lfdr.de>; Tue, 14 Apr 2020 08:29:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1586845787;
+	s=mimecast20190719; t=1586845790;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=DK8ltt7dSJNMtJh5zPNlhjad8FVt1WnvOm6BsBt67fU=;
-	b=VuYwqqSfS294V8lToUrtiyOfVrZOZUjI6kbjLYcjPoC+sNxBO7kJoK3TbCJDp8ud65LUaz
-	d5uOdXBq47hGSpZGAebd5Ry72bxmQwc02bw6tFnRWh2G7CD/EYM7mXgDNoev4v58zTX051
-	sW3FJfdldYvaIIXdLmH07paoNyLrnNg=
+	bh=Vgb6+wgphxTI8xWwRvrOZ53B9FAqcXTOyMPt0WYmqTg=;
+	b=QM+0NbixjKaBBlqLy3hVpcLsOwSnDmJEiHH3fzVl3JBnRsVbkh4y+UERhdm9xV4+zZo8T0
+	E4yrA4PaztED7ee5zTKCN2KyzngQ57skcszOGlznsCHKIZECjoWrsF7neSZN6D2ZUPB/DJ
+	IVT64unjOQ6/NH86x4UgGhVuS3Kvmp8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-205-_L5ILCUFMaypiYfHWWmvlA-1; Tue, 14 Apr 2020 02:29:45 -0400
-X-MC-Unique: _L5ILCUFMaypiYfHWWmvlA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-92-fITR9HXZMpaU8N0r1hqPHg-1; Tue, 14 Apr 2020 02:29:47 -0400
+X-MC-Unique: fITR9HXZMpaU8N0r1hqPHg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F2DFF107ACC9;
-	Tue, 14 Apr 2020 06:29:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 38D3B1007282;
+	Tue, 14 Apr 2020 06:29:42 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 517851000325;
-	Tue, 14 Apr 2020 06:29:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 116725C1B5;
+	Tue, 14 Apr 2020 06:29:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 602DA18089CD;
-	Tue, 14 Apr 2020 06:29:34 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9D17518089CE;
+	Tue, 14 Apr 2020 06:29:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 03BCUJPS001061 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 11 Apr 2020 08:30:20 -0400
+	id 03BJ5oeo020438 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 11 Apr 2020 15:05:50 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B62C42093CC3; Sat, 11 Apr 2020 12:30:19 +0000 (UTC)
+	id 505F6AF79A; Sat, 11 Apr 2020 19:05:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B1C182028DCB
-	for <dm-devel@redhat.com>; Sat, 11 Apr 2020 12:30:17 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 43C8EAF799
+	for <dm-devel@redhat.com>; Sat, 11 Apr 2020 19:05:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5F73B80028B
-	for <dm-devel@redhat.com>; Sat, 11 Apr 2020 12:30:17 +0000 (UTC)
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-351-e4PqzQ9DPC6FC8thYrX3hA-1; Sat, 11 Apr 2020 08:30:15 -0400
-X-MC-Unique: e4PqzQ9DPC6FC8thYrX3hA-1
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
-	by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	03BCTa8U117307; Sat, 11 Apr 2020 12:30:13 GMT
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
-	by userp2130.oracle.com with ESMTP id 30b5aqrwuv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 11 Apr 2020 12:30:13 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
-	by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	03BCRXCh058180; Sat, 11 Apr 2020 12:30:13 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
-	by userp3030.oracle.com with ESMTP id 30b30st2dm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 11 Apr 2020 12:30:13 +0000
-Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
-	by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 03BCUCrc001660;
-	Sat, 11 Apr 2020 12:30:12 GMT
-Received: from [192.168.1.14] (/114.88.246.185)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Sat, 11 Apr 2020 05:30:11 -0700
-To: Hannes Reinecke <hare@suse.de>, Mike Snitzer <snitzer@redhat.com>
-References: <20200409064527.82992-1-hare@suse.de>
-From: Bob Liu <bob.liu@oracle.com>
-Message-ID: <4052464c-cf93-3e22-3050-58183b9ae564@oracle.com>
-Date: Sat, 11 Apr 2020 20:30:02 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.5.1
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C44098FF67D
+	for <dm-devel@redhat.com>; Sat, 11 Apr 2020 19:05:47 +0000 (UTC)
+Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com
+	[209.85.221.67]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-66-Ni7y4Ww_MDOuAibxykj7_A-1; Sat, 11 Apr 2020 15:05:21 -0400
+X-MC-Unique: Ni7y4Ww_MDOuAibxykj7_A-1
+Received: by mail-wr1-f67.google.com with SMTP id c15so5821125wro.11
+	for <dm-devel@redhat.com>; Sat, 11 Apr 2020 12:05:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=JJ7hnNFhk/mxUWoU/yAmjq9znKBHBG2b6AkM8126D5U=;
+	b=VMzlBW41PXJ3vNcdiXOLU4dZBPUwTgbOB/g+HBT6C74+g+kUug9lxOoyLImjGxjJxW
+	1XfKupahXvtjWgcz3YkA8F8HNLiNRo61DsHaDj2r8G/DMpnCGsD25rTLgTrhttJqr6XQ
+	afXRFyZXSACjSK8VP7/DfZwkfu7gZLMfeSstwKQwv1g+nLT47onYNSmS013Kqnnbaz7q
+	C9azDy3UdLRti8109UqMWFIHn4TOWGsGlfGDEuyRDgwQ1VI+lMIs2z26WUQNIkI/uVxy
+	eSYG84+FnWNApxGu50+itnpY3ciJXb9Mi+nf/8jC4j89puhdjgiOtSUSfTVefq+JJ8uF
+	Xc+g==
+X-Gm-Message-State: AGi0PuafT4tHtq3JS6uBwmp6DvPSdZYjKirkOx3mIzLZuDpCRGsiZcV2
+	CIAtrHg0Jgjniqd3AVVEtJEKEwMLaTY9yGM7km8=
+X-Google-Smtp-Source: APiQypJfCKuBECqeq8oDEtF/Z00WuOl3uUYTl8M4KrnDNnIXPvozYKdyuDjc253Vbg821RFqmPypKE6hVppwiaGCPwU=
+X-Received: by 2002:a5d:4111:: with SMTP id l17mr11678394wrp.271.1586631919839;
+	Sat, 11 Apr 2020 12:05:19 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200409064527.82992-1-hare@suse.de>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9587
-	signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
-	malwarescore=0
-	phishscore=0 adultscore=0 mlxlogscore=999 bulkscore=0 spamscore=0
-	mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2003020000 definitions=main-2004110117
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9587
-	signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
-	impostorscore=0
-	clxscore=1015 priorityscore=1501 malwarescore=0 phishscore=0
-	spamscore=0
-	mlxlogscore=999 suspectscore=0 adultscore=0 mlxscore=0
-	lowpriorityscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2003020000 definitions=main-2004110117
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+References: <f92bef0f-eb40-0e07-540c-321134e4b070@linux.microsoft.com>
+In-Reply-To: <f92bef0f-eb40-0e07-540c-321134e4b070@linux.microsoft.com>
+From: Stephen Smalley <stephen.smalley@gmail.com>
+Date: Sat, 11 Apr 2020 15:05:07 -0400
+Message-ID: <CAB9W1A1=JyOV3-+6jn3xX-M+GKWBB2cCNh-VWB_kzf+YiR_d2Q@mail.gmail.com>
+To: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 03BJ5oeo020438
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 14 Apr 2020 02:29:25 -0400
-Cc: Damien LeMoal <damien.lemoal@wdc.com>, dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCHv3 00/11] dm-zoned: metadata version 2
+Cc: sashal@kernel.org, nramas@linux.microsoft.com,
+	SELinux <selinux@vger.kernel.org>,
+	LSM List <linux-security-module@vger.kernel.org>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	James Morris <jmorris@namei.org>, chpebeni@linux.microsoft.com,
+	dm-devel@redhat.com, suredd@microsoft.com,
+	linux-integrity@vger.kernel.org, balajib@microsoft.com
+Subject: Re: [dm-devel] [RFC] IMA: New IMA measurements for dm-crypt and
+	selinux
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -118,87 +104,59 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 4/9/20 2:45 PM, Hannes Reinecke wrote:
-> Hi all,
-> 
-> this patchset adds a new metadata version 2, which brings the following
-> improvements:
-> - UUIDs and labels: Adding three more fields to the metadata containing
->   the dm-zoned device UUID and label, and the device UUID. This allows
->   for an unique identification of the devices, so that several dm-zoned
->   sets can coexist and have a persistent identification.
-> - Extend random zones by an additional regular disk device: A regular
->   block device can be added together with the zoned block device, providing
->   additional (emulated) random write zones. With this it's possible to
->   handle sequential zones only devices; also there will be a speed-up if
->   the regular block device resides on a fast medium. The regular block device
->   is placed logically in front of the zoned block device, so that metadata
->   and mapping tables reside on the regular block device, not the zoned device.
-> - Tertiary superblock support: In addition to the two existing sets of metadata
->   another, tertiary, superblock is written to the first block of the zoned
->   block device. This superblock is for identification only; the generation
->   number is set to '0' and the block itself it never updated. The additional
->   metadate like bitmap tables etc are not copied.
-> 
-> To handle this, some changes to the original handling are introduced:
-> - Zones are now equidistant. Originally, runt zones were ignored, and
->   not counted when sizing the mapping tables. With the dual device setup
->   runt zones might occur at the end of the regular block device, making
->   direct translation between zone number and sector/block number complex.
->   For metadata version 2 all zones are considered to be of the same size,
->   and runt zones are simply marked as 'offline' to have them ignored when
->   allocating a new zone.
-> - The block number in the superblock is now the global number, and refers to
->   the location of the superblock relative to the resulting device-mapper
->   device. Which means that the tertiary superblock contains absolute block
->   addresses, which needs to be translated to the relative device addresses
->   to find the referenced block.
-> 
-> There is an accompanying patchset for dm-zoned-tools for writing and checking
-> this new metadata.
-> 
-> As usual, comments and reviews are welcome.
-> 
-> Changes to v2:
-> - Kill dmz_id()
-> - Include reviews from Damien
-> - Sanitize uuid handling as suggested by John Dorminy
-> 
+On Wed, Apr 8, 2020 at 6:28 AM Tushar Sugandhi
+<tusharsu@linux.microsoft.com> wrote:
+> Measuring SELinux status and various SELinux policies can help ensure
+> mandatory access control of the system is not compromised.
+<snip>
+> B. Measuring selinux constructs:
+>      We propose to add an IMA hook in enforcing_set() present under
+>      security/selinux/include/security.h.
+>      enforcing_set() sets the selinux state to enforcing/permissive etc.
+>      and is called from key places like selinux_init(),
+>      sel_write_enforce() etc.
+>      The hook will measure various attributes related to selinux status.
+>      Majority of the attributes are present in the struct selinux_state
+>      present in security/selinux/include/security.h
+>      e.g.
+>      $sestatus
+>             SELinux status:              enabled
+>             SELinuxfs mount:             /sys/fs/selinux
+>             SELinux root directory:      /etc/selinux
+>             Loaded policy name:          default
+>             Current mode:                permissive
+>             Mode from config file:       permissive
+>             Policy MLS status:           enabled
+>             Policy deny_unknown status:  allowed
+>             Memory protection checking:  requested (insecure)
+>             Max kernel policy version:   32
+>
+>      The above attributes will be serialized into a set of key=value
+>      pairs when passed to IMA for measurement.
+>
+>      Proposed Function Signature of the IMA hook:
+>      void ima_selinux_status(void *selinux_status, int len);
 
-This series looks good to me, feel free to add my
-Reviewed-by: Bob Liu <bob.liu@oracle.com>
+This won't detect changes to any of these state variables via a kernel
+write vulnerability,
+so it would be good to provide a way to trigger measurement of the
+current values on
+demand.
+You'll also likely want to measure parts of the child structures of
+selinux_state, e.g. selinux_ss,
+especially selinux_map and policydb.  You can simplify measurement of
+the policydb by
+serializing it first via policydb_write() and hashing the result. I
+suppose one question is whether you can do all of this
+already from userspace by just having userspace read
+/sys/fs/selinux/enforce, /sys/fs/selinux/policy, etc.
 
-By the way, have you completed the patches for regular device support?
-I was considering rebase my previous patches to this series but not sure is it still necessary.
-
-Regards,
-Bob
-
-> Hannes Reinecke (11):
->   dm-zoned: store zone id within the zone structure and kill dmz_id()
->   dm-zoned: use array for superblock zones
->   dm-zoned: store device in struct dmz_sb
->   dm-zoned: move fields from struct dmz_dev to dmz_metadata
->   dm-zoned: introduce dmz_metadata_label() to format device name
->   dm-zoned: remove 'dev' argument from reclaim
->   dm-zoned: replace 'target' pointer in the bio context
->   dm-zoned: use dmz_zone_to_dev() when handling metadata I/O
->   dm-zoned: add metadata logging functions
->   dm-zoned: ignore metadata zone in dmz_alloc_zone()
->   dm-zoned: metadata version 2
-> 
->  drivers/md/dm-zoned-metadata.c | 601 ++++++++++++++++++++++++---------
->  drivers/md/dm-zoned-reclaim.c  |  89 ++---
->  drivers/md/dm-zoned-target.c   | 273 ++++++++-------
->  drivers/md/dm-zoned.h          |  29 +-
->  4 files changed, 659 insertions(+), 333 deletions(-)
-> 
 
 --
 dm-devel mailing list
