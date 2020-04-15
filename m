@@ -2,80 +2,71 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 23C511A9E69
-	for <lists+dm-devel@lfdr.de>; Wed, 15 Apr 2020 13:58:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5F36B1AA021
+	for <lists+dm-devel@lfdr.de>; Wed, 15 Apr 2020 14:31:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1586951916;
+	s=mimecast20190719; t=1586953902;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=AdOGdSfMAL10czaQX+IxKbC3DD530VmWUGtKK7oq3mM=;
-	b=VEw9TK3JD/lmtQtu6RmL6BCU+3YutnEHkp6ZAN9rCbGvKjnppdVOIeOG7d0vyhMwh8OCfn
-	Vgjf49AJP7D8Qhc3PvkeaIlJqbxtMu9B8eu8lnt/TsnKU6M0f9u4d5nJ5wdo0KHRWQ770O
-	iNth63Te0s0VXunvNCCdM3otgD6xkxo=
+	bh=YETl2uX+mbZfcSEEe7ZkTRxrVKhfKsjexWSqb9eKg0E=;
+	b=VChy/uW3LzUX35SEoBYtIkEXOydIRJlYBy9TE+AncZkpymUrLXlz6PCq3wVuSH/ZFrfSCt
+	+jbhO0T2NANxS7NHVWjGgUwHaZHqNf1ab5HrR1owg6WYGY5RTxO7XA+S5MHs2lrUc84pH+
+	OfMgttL1bCbYVcxwtb+zMImc6/dgXSc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-498-KFYCHkqLMR-584RfrUaAKQ-1; Wed, 15 Apr 2020 07:58:34 -0400
-X-MC-Unique: KFYCHkqLMR-584RfrUaAKQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-308-KOWoKJFcPl2eF_5onObXGQ-1; Wed, 15 Apr 2020 08:31:39 -0400
+X-MC-Unique: KOWoKJFcPl2eF_5onObXGQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 05F37149C2;
-	Wed, 15 Apr 2020 11:58:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CABE519057A2;
+	Wed, 15 Apr 2020 12:31:31 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 31CEF126571;
-	Wed, 15 Apr 2020 11:58:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A3FC5D9E2;
+	Wed, 15 Apr 2020 12:31:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D46B7180CB3B;
-	Wed, 15 Apr 2020 11:58:09 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F412918363D0;
+	Wed, 15 Apr 2020 12:31:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 03FBvunX027353 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 15 Apr 2020 07:57:56 -0400
+	id 03FCVGPQ030115 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 15 Apr 2020 08:31:16 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5C9B82166B2B; Wed, 15 Apr 2020 11:57:56 +0000 (UTC)
+	id 2FB78C0DB9; Wed, 15 Apr 2020 12:31:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 576242166B2D
-	for <dm-devel@redhat.com>; Wed, 15 Apr 2020 11:57:53 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8551F8056A3
-	for <dm-devel@redhat.com>; Wed, 15 Apr 2020 11:57:53 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-393-PEZT8weWM1mKE9EfuyOYHg-1; Wed, 15 Apr 2020 07:57:48 -0400
-X-MC-Unique: PEZT8weWM1mKE9EfuyOYHg-1
-Received: from DGGEMS406-HUB.china.huawei.com (unknown [172.30.72.59])
-	by Forcepoint Email with ESMTP id CCB38869BAD155A7B79A;
-	Wed, 15 Apr 2020 19:57:40 +0800 (CST)
-Received: from [127.0.0.1] (10.173.220.183) by DGGEMS406-HUB.china.huawei.com
-	(10.3.19.206) with Microsoft SMTP Server id 14.3.487.0;
-	Wed, 15 Apr 2020 19:57:32 +0800
-To: <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-From: Zhiqiang Liu <liuzhiqiang26@huawei.com>
-Message-ID: <a7643d1a-940b-c8a8-686e-a660f0feeb96@huawei.com>
-Date: Wed, 15 Apr 2020 19:57:31 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
-	Thunderbird/68.2.2
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 65D99116D7D;
+	Wed, 15 Apr 2020 12:31:10 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 03FCVAf7026372; Wed, 15 Apr 2020 08:31:10 -0400
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 03FCVAp7026368; Wed, 15 Apr 2020 08:31:10 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Wed, 15 Apr 2020 08:31:10 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Mike Snitzer <snitzer@redhat.com>
+In-Reply-To: <alpine.LRH.2.02.2004150405330.3968@file01.intranet.prod.int.rdu2.redhat.com>
+Message-ID: <alpine.LRH.2.02.2004150822230.25321@file01.intranet.prod.int.rdu2.redhat.com>
+References: <alpine.LRH.2.02.2004081459520.14853@file01.intranet.prod.int.rdu2.redhat.com>
+	<20200414190515.GA25340@redhat.com>
+	<alpine.LRH.2.02.2004150405330.3968@file01.intranet.prod.int.rdu2.redhat.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-Content-Language: en-US
-X-Originating-IP: [10.173.220.183]
-X-CFilter-Loop: Reflected
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 03FBvunX027353
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-Cc: linfeilong <linfeilong@huawei.com>, "wubo \(T\)" <wubo40@huawei.com>,
-	Mingfangsen <mingfangsen@huawei.com>, Yanxiaodan <yanxiaodan@huawei.com>
-Subject: [dm-devel] [PATCH] md/persistent-data: exit_ro_spine func return
-	void
+Cc: dm-devel@redhat.com, David Teigland <teigland@redhat.com>
+Subject: [dm-devel] [PATCH v2] dm writecache: fix data corruption when
+ reloading the target
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,62 +80,131 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Zhiqiang Liu <liuzhiqiang26@huawei.com>
+Here I resubmit it.
 
-In commit 4c7da06f5a78 ("dm persistent data: eliminate unnecessary return values"),
-r value in exit_ro_spine will not changes, so exit_ro_spine donot need
-to return values.
+The reason for this is: we want to read as little data as possible (that's 
+bdev_logical_block_size), however, if the user has a pathological setup 
+where wc->metadata_sectors < bdev_logical_block_size >> SECTOR_SHIFT, we 
+don't want to over-read the allocated memory. Note that if 
+wc->metadata_sectors < bdev_logical_block_size >> SECTOR_SHIFT, it won't 
+work anyway, but I tried to prevent kernel memory corruption.
 
-Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
++               r = writecache_read_metadata(wc,
++                       min((sector_t)bdev_logical_block_size(wc->ssd_dev->bdev) >> SECTOR_SHIFT,
++                           (sector_t)wc->metadata_sectors));
+
+
+
+From: Mikulas Patocka <mpatocka@redhat.com>
+
+dm writecache: fix data corruption when reloading the target
+
+The dm-writecache reads metadata in the target constructor. However, when
+we reload the target, there could be another active instance running on
+the same device. This is the sequence of operations when doing a reload:
+
+1. construct new target
+2. suspend old target
+3. resume new target
+4. destroy old target
+
+Metadata that were written by the old target between steps 1 and 2 would
+not be visible by the new target.
+
+This patch fixes the data corruption by loading the metadata in the resume
+handler.
+
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Cc: stable@vger.kernel.org	# v4.18+
+Fixes: 48debafe4f2f ("dm: add writecache target")
+
 ---
- drivers/md/persistent-data/dm-btree-internal.h | 2 +-
- drivers/md/persistent-data/dm-btree-spine.c    | 6 ++----
- 2 files changed, 3 insertions(+), 5 deletions(-)
+ drivers/md/dm-writecache.c |   44 ++++++++++++++++++++++++++++++--------------
+ 1 file changed, 30 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/md/persistent-data/dm-btree-internal.h b/drivers/md/persistent-data/dm-btree-internal.h
-index a240990a7f33..55a4096f1334 100644
---- a/drivers/md/persistent-data/dm-btree-internal.h
-+++ b/drivers/md/persistent-data/dm-btree-internal.h
-@@ -68,7 +68,7 @@ struct ro_spine {
- };
-
- void init_ro_spine(struct ro_spine *s, struct dm_btree_info *info);
--int exit_ro_spine(struct ro_spine *s);
-+void exit_ro_spine(struct ro_spine *s);
- int ro_step(struct ro_spine *s, dm_block_t new_child);
- void ro_pop(struct ro_spine *s);
- struct btree_node *ro_node(struct ro_spine *s);
-diff --git a/drivers/md/persistent-data/dm-btree-spine.c b/drivers/md/persistent-data/dm-btree-spine.c
-index b27b8091a1ca..e03cb9e48773 100644
---- a/drivers/md/persistent-data/dm-btree-spine.c
-+++ b/drivers/md/persistent-data/dm-btree-spine.c
-@@ -132,15 +132,13 @@ void init_ro_spine(struct ro_spine *s, struct dm_btree_info *info)
- 	s->nodes[1] = NULL;
+Index: linux-2.6/drivers/md/dm-writecache.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-writecache.c	2020-04-13 18:27:52.000000000 +0200
++++ linux-2.6/drivers/md/dm-writecache.c	2020-04-15 09:39:27.000000000 +0200
+@@ -931,6 +931,24 @@ static int writecache_alloc_entries(stru
+ 	return 0;
  }
-
--int exit_ro_spine(struct ro_spine *s)
-+void exit_ro_spine(struct ro_spine *s)
+ 
++static int writecache_read_metadata(struct dm_writecache *wc, sector_t n_sectors)
++{
++	struct dm_io_region region;
++	struct dm_io_request req;
++
++	region.bdev = wc->ssd_dev->bdev;
++	region.sector = wc->start_sector;
++	region.count = n_sectors;
++	req.bi_op = REQ_OP_READ;
++	req.bi_op_flags = REQ_SYNC;
++	req.mem.type = DM_IO_VMA;
++	req.mem.ptr.vma = (char *)wc->memory_map;
++	req.client = wc->dm_io;
++	req.notify.fn = NULL;
++
++	return dm_io(&req, 1, &region, NULL);
++}
++
+ static void writecache_resume(struct dm_target *ti)
  {
--	int r = 0, i;
-+	int i;
-
- 	for (i = 0; i < s->count; i++) {
- 		unlock_block(s->info, s->nodes[i]);
- 	}
+ 	struct dm_writecache *wc = ti->private;
+@@ -941,8 +959,16 @@ static void writecache_resume(struct dm_
+ 
+ 	wc_lock(wc);
+ 
+-	if (WC_MODE_PMEM(wc))
++	if (WC_MODE_PMEM(wc)) {
+ 		persistent_memory_invalidate_cache(wc->memory_map, wc->memory_map_size);
++	} else {
++		r = writecache_read_metadata(wc, wc->metadata_sectors);
++		if (r) {
++			writecache_error(wc, r, "unable to read metadata: %d", r);
++			memset((char *)wc->memory_map + offsetof(struct wc_memory_superblock, entries), -1,
++			       (wc->metadata_sectors << SECTOR_SHIFT) - offsetof(struct wc_memory_superblock, entries));
++		}
++	}
+ 
+ 	wc->tree = RB_ROOT;
+ 	INIT_LIST_HEAD(&wc->lru);
+@@ -2200,8 +2226,6 @@ invalid_optional:
+ 			goto bad;
+ 		}
+ 	} else {
+-		struct dm_io_region region;
+-		struct dm_io_request req;
+ 		size_t n_blocks, n_metadata_blocks;
+ 		uint64_t n_bitmap_bits;
+ 
+@@ -2258,17 +2282,9 @@ invalid_optional:
+ 			goto bad;
+ 		}
+ 
+-		region.bdev = wc->ssd_dev->bdev;
+-		region.sector = wc->start_sector;
+-		region.count = wc->metadata_sectors;
+-		req.bi_op = REQ_OP_READ;
+-		req.bi_op_flags = REQ_SYNC;
+-		req.mem.type = DM_IO_VMA;
+-		req.mem.ptr.vma = (char *)wc->memory_map;
+-		req.client = wc->dm_io;
+-		req.notify.fn = NULL;
 -
--	return r;
- }
-
- int ro_step(struct ro_spine *s, dm_block_t new_child)
--- 
-2.19.1
-
+-		r = dm_io(&req, 1, &region, NULL);
++		r = writecache_read_metadata(wc,
++			min((sector_t)bdev_logical_block_size(wc->ssd_dev->bdev) >> SECTOR_SHIFT,
++			    (sector_t)wc->metadata_sectors));
+ 		if (r) {
+ 			ti->error = "Unable to read metadata";
+ 			goto bad;
 
 --
 dm-devel mailing list
