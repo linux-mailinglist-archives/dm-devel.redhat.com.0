@@ -1,75 +1,85 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id B7CC51AD66B
-	for <lists+dm-devel@lfdr.de>; Fri, 17 Apr 2020 08:44:25 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 56EEF1AD661
+	for <lists+dm-devel@lfdr.de>; Fri, 17 Apr 2020 08:44:20 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1587105864;
+	s=mimecast20190719; t=1587105859;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=7FaCW6svnWbXg5vUtrBjPaN7D/PaJ1MFL028yempma4=;
-	b=TGa0eO1oQNktyEeXV5vAXDeC3KL3MeMx04qpk9L7ae5QDPP76eurXaAJuN87cM7Pl6UACb
-	h7U/U9T6cJxB7TwYfHOQytyUCYfivW7pwMMULhStHGZVxe8pjs32Oo/PtWvOIkrJy5RJY9
-	pJ52lu0DzW5+c6g6nNAbVfQWniTDAeo=
+	bh=dKYeVN8woqUZhy9NkMRALYr63+HoOxAf7HbE0aJVD5U=;
+	b=UGF/ZueFzZbv/HjbcETlcOxV0QfWwLzNBoD/NfreQhIu3nM1LLRdrk2OheQUTFsYVOFlB5
+	myptolF2qYZr2wZMf6IU0yVIII8oLnaoYhN87c9N0C3zmzR25yqrwy6igKytXOEoMZlmud
+	G/f8GzYxDqvcsS3nr02zFB20o7a0mZ8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-131-UzfMxUMlN7Gxu_MghAfICw-1; Fri, 17 Apr 2020 02:44:21 -0400
-X-MC-Unique: UzfMxUMlN7Gxu_MghAfICw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-458-EBrdXmMfOXC5XQE8o4ZBmA-1; Fri, 17 Apr 2020 02:44:16 -0400
+X-MC-Unique: EBrdXmMfOXC5XQE8o4ZBmA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E4BB6801E5C;
-	Fri, 17 Apr 2020 06:44:13 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BB4FF11A08E;
-	Fri, 17 Apr 2020 06:44:13 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6A7D88017FC;
+	Fri, 17 Apr 2020 06:44:11 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C5B8C60BE0;
+	Fri, 17 Apr 2020 06:44:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 52A749350C;
-	Fri, 17 Apr 2020 06:44:13 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 15F3A18089C8;
+	Fri, 17 Apr 2020 06:44:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 03GLDwSR002331 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 16 Apr 2020 17:13:58 -0400
+	id 03H0keQg016185 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 16 Apr 2020 20:46:40 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7B48C12EC3C; Thu, 16 Apr 2020 21:13:58 +0000 (UTC)
+	id 3E7541006B05; Fri, 17 Apr 2020 00:46:40 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7739B124552
-	for <dm-devel@redhat.com>; Thu, 16 Apr 2020 21:13:56 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3ADC8100724D
+	for <dm-devel@redhat.com>; Fri, 17 Apr 2020 00:46:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2AE8C80029A
-	for <dm-devel@redhat.com>; Thu, 16 Apr 2020 21:13:56 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
-	[46.235.227.227]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-85-CheC3k0YNr280IRmgcU7rg-1; Thu, 16 Apr 2020 17:13:51 -0400
-X-MC-Unique: CheC3k0YNr280IRmgcU7rg-1
-Received: from [127.0.0.1] (localhost [127.0.0.1])
-	(Authenticated sender: krisman) with ESMTPSA id B0B482A23F4
-From: Gabriel Krisman Bertazi <krisman@collabora.com>
-To: agk@redhat.com, snitzer@redhat.com
-Date: Thu, 16 Apr 2020 17:13:36 -0400
-Message-Id: <20200416211336.2423618-3-krisman@collabora.com>
-In-Reply-To: <20200416211336.2423618-1-krisman@collabora.com>
-References: <20200416211336.2423618-1-krisman@collabora.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 443438FF67F
+	for <dm-devel@redhat.com>; Fri, 17 Apr 2020 00:46:37 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
+	relay.mimecast.com with ESMTP id us-mta-59-0Qe5gqHkMAeC8g4n1m1Elw-1;
+	Thu, 16 Apr 2020 20:46:34 -0400
+X-MC-Unique: 0Qe5gqHkMAeC8g4n1m1Elw-1
+Received: from [192.168.86.21] (c-71-197-163-6.hsd1.wa.comcast.net
+	[71.197.163.6])
+	by linux.microsoft.com (Postfix) with ESMTPSA id AE0E62072958;
+	Thu, 16 Apr 2020 17:46:31 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com AE0E62072958
+To: Milan Broz <gmazyland@gmail.com>, linux-integrity@vger.kernel.org,
+	zohar@linux.ibm.com, linux-security-module@vger.kernel.org,
+	selinux@vger.kernel.org, dm-devel@redhat.com
+References: <f92bef0f-eb40-0e07-540c-321134e4b070@linux.microsoft.com>
+	<76a9556d-b141-d26f-7b3c-3887d3a4ae16@gmail.com>
+From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+Message-ID: <c76e89f4-6f39-f2f0-6459-a723df67c75f@linux.microsoft.com>
+Date: Thu, 16 Apr 2020 17:46:31 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.7.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+In-Reply-To: <76a9556d-b141-d26f-7b3c-3887d3a4ae16@gmail.com>
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 03GLDwSR002331
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 03H0keQg016185
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 17 Apr 2020 02:43:50 -0400
-Cc: linux-kernel@vger.kernel.org, khazhy@google.com, song@kernel.org,
-	dm-devel@redhat.com, kernel@collabora.com,
-	Gabriel Krisman Bertazi <krisman@collabora.com>
-Subject: [dm-devel] [PATCH 2/2] md: Add Historical Service Time Path Selector
+Cc: sashal@kernel.org, nramas@linux.microsoft.com, jmorris@namei.org,
+	chpebeni@linux.microsoft.com, suredd@microsoft.com, balajib@microsoft.com
+Subject: Re: [dm-devel] [RFC] IMA: New IMA measurements for dm-crypt and
+	selinux
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,639 +93,58 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Content-Transfer-Encoding: 7bit
 
-From: Khazhismel Kumykov <khazhy@google.com>
 
-This new selector keeps an exponential moving average of the service
-time for each path (losely defined as delta between start_io and
-end_io), and uses this along with the number of inflight requests to
-estimate future service time for a path.  Since we don't have a prober
-to account for temporally slow paths, re-try "slow" paths every once in
-a while (num_paths * historical_service_time). To account for fast paths
-transitioning to slow, if a path has not completed any request within
-(num_paths * historical_service_time), limit the number of outstanding
-requests.  To account for low volume situations where number of
-inflights would be zero, the last finish time of each path is factored
-in.
 
-Signed-off-by: Khazhismel Kumykov <khazhy@google.com>
-Co-developed-by: Gabriel Krisman Bertazi <krisman@collabora.com>
-Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
----
- drivers/md/Kconfig                      |  11 +
- drivers/md/Makefile                     |   1 +
- drivers/md/dm-historical-service-time.c | 561 ++++++++++++++++++++++++
- 3 files changed, 573 insertions(+)
- create mode 100644 drivers/md/dm-historical-service-time.c
-
-diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-index d6d5ab23c088..6f348a66450c 100644
---- a/drivers/md/Kconfig
-+++ b/drivers/md/Kconfig
-@@ -443,6 +443,17 @@ config DM_MULTIPATH_ST
- 
- 	  If unsure, say N.
- 
-+config DM_MULTIPATH_HST
-+	tristate "I/O Path Selector based on historical service time"
-+	depends on DM_MULTIPATH
-+	help
-+	  This path selector is a dynamic load balancer which selects
-+	  the path expected to complete the incoming I/O in the shortest
-+	  time by comparing estimated service time (based on historical
-+	  service time).
-+
-+	  If unsure, say N.
-+
- config DM_DELAY
- 	tristate "I/O delaying target"
- 	depends on BLK_DEV_DM
-diff --git a/drivers/md/Makefile b/drivers/md/Makefile
-index d91a7edcd2ab..d148eeade973 100644
---- a/drivers/md/Makefile
-+++ b/drivers/md/Makefile
-@@ -54,6 +54,7 @@ obj-$(CONFIG_DM_FLAKEY)		+= dm-flakey.o
- obj-$(CONFIG_DM_MULTIPATH)	+= dm-multipath.o dm-round-robin.o
- obj-$(CONFIG_DM_MULTIPATH_QL)	+= dm-queue-length.o
- obj-$(CONFIG_DM_MULTIPATH_ST)	+= dm-service-time.o
-+obj-$(CONFIG_DM_MULTIPATH_HST)	+= dm-historical-service-time.o
- obj-$(CONFIG_DM_SWITCH)		+= dm-switch.o
- obj-$(CONFIG_DM_SNAPSHOT)	+= dm-snapshot.o
- obj-$(CONFIG_DM_PERSISTENT_DATA)	+= persistent-data/
-diff --git a/drivers/md/dm-historical-service-time.c b/drivers/md/dm-historical-service-time.c
-new file mode 100644
-index 000000000000..96bab52bba94
---- /dev/null
-+++ b/drivers/md/dm-historical-service-time.c
-@@ -0,0 +1,561 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Historical Service Time
-+ *
-+ *  Keeps a time-weighted exponential moving average of the historical
-+ *  service time. Estimates future service time based on the historical
-+ *  service time and the number of outstanding requests.
-+ *
-+ *  Marks paths stale if they have not finished within hst *
-+ *  num_paths. If a path is stale and unused, we will send a single
-+ *  request to probe in case the path has improved. This situation
-+ *  generally arises if the path is so much worse than others that it
-+ *  will never have the best estimated service time, or if the entire
-+ *  multipath device is unused. If a path is stale and in use, limit the
-+ *  number of requests it can receive with the assumption that the path
-+ *  has become degraded.
-+ *
-+ *  To avoid repeatedly calculating exponents for time weighting, times
-+ *  are split into HST_WEIGHT_COUNT buckets each (1 >> HST_BUCKET_SHIFT)
-+ *  ns, and the weighting is pre-calculated.
-+ *
-+ */
-+
-+#include "dm.h"
-+#include "dm-path-selector.h"
-+
-+#include <linux/blkdev.h>
-+#include <linux/slab.h>
-+#include <linux/module.h>
-+
-+
-+#define DM_MSG_PREFIX	"multipath historical-service-time"
-+#define HST_MIN_IO 1
-+#define HST_VERSION "0.1.1"
-+
-+#define HST_FIXED_SHIFT 10  /* 10 bits of decimal precision */
-+#define HST_FIXED_MAX (ULLONG_MAX >> HST_FIXED_SHIFT)
-+#define HST_FIXED_1 (1 << HST_FIXED_SHIFT)
-+#define HST_FIXED_95 972
-+#define HST_MAX_INFLIGHT HST_FIXED_1
-+#define HST_BUCKET_SHIFT 24 /* Buckets are ~ 16ms */
-+#define HST_WEIGHT_COUNT 64ULL
-+
-+struct selector {
-+	struct list_head valid_paths;
-+	struct list_head failed_paths;
-+	int valid_count;
-+	spinlock_t lock;
-+
-+	unsigned int weights[HST_WEIGHT_COUNT];
-+	unsigned int threshold_multiplier;
-+};
-+
-+struct path_info {
-+	struct list_head list;
-+	struct dm_path *path;
-+	unsigned int repeat_count;
-+
-+	spinlock_t lock;
-+
-+	u64 historical_service_time; /* Fixed point */
-+
-+	u64 stale_after;
-+	u64 last_finish;
-+
-+	u64 outstanding;
-+};
-+
-+/**
-+ * fixed_power - compute: x^n, in O(log n) time
-+ *
-+ * @x:         base of the power
-+ * @frac_bits: fractional bits of @x
-+ * @n:         power to raise @x to.
-+ *
-+ * By exploiting the relation between the definition of the natural power
-+ * function: x^n := x*x*...*x (x multiplied by itself for n times), and
-+ * the binary encoding of numbers used by computers: n := \Sum n_i * 2^i,
-+ * (where: n_i \elem {0, 1}, the binary vector representing n),
-+ * we find: x^n := x^(\Sum n_i * 2^i) := \Prod x^(n_i * 2^i), which is
-+ * of course trivially computable in O(log_2 n), the length of our binary
-+ * vector.
-+ *
-+ * (see: kernel/sched/loadavg.c)
-+ */
-+static u64 fixed_power(u64 x, unsigned int frac_bits, unsigned int n)
-+{
-+	unsigned long result = 1UL << frac_bits;
-+
-+	if (n) {
-+		for (;;) {
-+			if (n & 1) {
-+				result *= x;
-+				result += 1UL << (frac_bits - 1);
-+				result >>= frac_bits;
-+			}
-+			n >>= 1;
-+			if (!n)
-+				break;
-+			x *= x;
-+			x += 1UL << (frac_bits - 1);
-+			x >>= frac_bits;
-+		}
-+	}
-+
-+	return result;
-+}
-+
-+/*
-+ * Calculate the next value of an exponential moving average
-+ * a_1 = a_0 * e + a * (1 - e)
-+ *
-+ * @last: [0, ULLONG_MAX >> HST_FIXED_SHIFT]
-+ * @next: [0, ULLONG_MAX >> HST_FIXED_SHIFT]
-+ * @weight: [0, HST_FIXED_1]
-+ *
-+ * Note:
-+ *   To account for multiple periods in the same calculation,
-+ *   a_n = a_0 * e^n + a * (1 - e^n),
-+ *   so call fixed_ema(last, next, pow(weight, N))
-+ */
-+static u64 fixed_ema(u64 last, u64 next, u64 weight)
-+{
-+	last *= weight;
-+	last += next * (HST_FIXED_1 - weight);
-+	last += 1ULL << (HST_FIXED_SHIFT - 1);
-+	return last >> HST_FIXED_SHIFT;
-+}
-+
-+static struct selector *alloc_selector(void)
-+{
-+	struct selector *s = kmalloc(sizeof(*s), GFP_KERNEL);
-+
-+	if (s) {
-+		INIT_LIST_HEAD(&s->valid_paths);
-+		INIT_LIST_HEAD(&s->failed_paths);
-+		spin_lock_init(&s->lock);
-+		s->valid_count = 0;
-+	}
-+
-+	return s;
-+}
-+
-+/*
-+ * Get the weight for a given time span.
-+ */
-+static u64 hst_weight(struct path_selector *ps, u64 delta)
-+{
-+	struct selector *s = ps->context;
-+	int bucket = clamp(delta >> HST_BUCKET_SHIFT, 0ULL,
-+			   HST_WEIGHT_COUNT - 1);
-+
-+	return s->weights[bucket];
-+}
-+
-+/*
-+ * Set up the weights array.
-+ *
-+ * weights[len-1] = 0
-+ * weights[n] = base ^ (n + 1)
-+ */
-+static void hst_set_weights(struct path_selector *ps, unsigned int base)
-+{
-+	struct selector *s = ps->context;
-+	int i;
-+
-+	if (base >= HST_FIXED_1)
-+		return;
-+
-+	for (i = 0; i < HST_WEIGHT_COUNT - 1; i++)
-+		s->weights[i] = fixed_power(base, HST_FIXED_SHIFT, i + 1);
-+	s->weights[HST_WEIGHT_COUNT - 1] = 0;
-+}
-+
-+static int hst_create(struct path_selector *ps, unsigned int argc, char **argv)
-+{
-+	struct selector *s;
-+	unsigned int base_weight = HST_FIXED_95;
-+	unsigned int threshold_multiplier = 0;
-+	char dummy;
-+
-+	/*
-+	 * Arguments: [<base_weight> [<threshold_multiplier>]]
-+	 *   <base_weight>: Base weight for ema [0, 1024) 10-bit fixed point. A
-+	 *                  value of 0 will completely ignore any history.
-+	 *                  If not given, default (HST_FIXED_95) is used.
-+	 *   <threshold_multiplier>: Minimum threshold multiplier for paths to
-+	 *                  be considered different. That is, a path is
-+	 *                  considered different iff (p1 > N * p2) where p1
-+	 *                  is the path with higher service time. A threshold
-+	 *                  of 1 or 0 has no effect. Defaults to 0.
-+	 */
-+	if (argc > 2)
-+		return -EINVAL;
-+
-+	if (argc && (sscanf(argv[0], "%u%c", &base_weight, &dummy) != 1 ||
-+	     base_weight >= HST_FIXED_1)) {
-+		return -EINVAL;
-+	}
-+
-+	if (argc > 1 && (sscanf(argv[1], "%u%c",
-+				&threshold_multiplier, &dummy) != 1)) {
-+		return -EINVAL;
-+	}
-+
-+	s = alloc_selector();
-+	if (!s)
-+		return -ENOMEM;
-+
-+	ps->context = s;
-+
-+	hst_set_weights(ps, base_weight);
-+	s->threshold_multiplier = threshold_multiplier;
-+	return 0;
-+}
-+
-+static void free_paths(struct list_head *paths)
-+{
-+	struct path_info *pi, *next;
-+
-+	list_for_each_entry_safe(pi, next, paths, list) {
-+		list_del(&pi->list);
-+		kfree(pi);
-+	}
-+}
-+
-+static void hst_destroy(struct path_selector *ps)
-+{
-+	struct selector *s = ps->context;
-+
-+	free_paths(&s->valid_paths);
-+	free_paths(&s->failed_paths);
-+	kfree(s);
-+	ps->context = NULL;
-+}
-+
-+static int hst_status(struct path_selector *ps, struct dm_path *path,
-+		     status_type_t type, char *result, unsigned int maxlen)
-+{
-+	unsigned int sz = 0;
-+	struct path_info *pi;
-+
-+	if (!path) {
-+		struct selector *s = ps->context;
-+
-+		DMEMIT("2 %u %u ", s->weights[0], s->threshold_multiplier);
-+	} else {
-+		pi = path->pscontext;
-+
-+		switch (type) {
-+		case STATUSTYPE_INFO:
-+			DMEMIT("%llu %llu %llu ", pi->historical_service_time,
-+			       pi->outstanding, pi->stale_after);
-+			break;
-+		case STATUSTYPE_TABLE:
-+			DMEMIT("0 ");
-+			break;
-+		}
-+	}
-+
-+	return sz;
-+}
-+
-+static int hst_add_path(struct path_selector *ps, struct dm_path *path,
-+		       int argc, char **argv, char **error)
-+{
-+	struct selector *s = ps->context;
-+	struct path_info *pi;
-+	unsigned int repeat_count = HST_MIN_IO;
-+	char dummy;
-+	unsigned long flags;
-+
-+	/*
-+	 * Arguments: [<repeat_count>]
-+	 *   <repeat_count>: The number of I/Os before switching path.
-+	 *                   If not given, default (HST_MIN_IO) is used.
-+	 */
-+	if (argc > 1) {
-+		*error = "historical-service-time ps: incorrect number of arguments";
-+		return -EINVAL;
-+	}
-+
-+	if (argc && (sscanf(argv[0], "%u%c", &repeat_count, &dummy) != 1)) {
-+		*error = "historical-service-time ps: invalid repeat count";
-+		return -EINVAL;
-+	}
-+
-+	/* allocate the path */
-+	pi = kmalloc(sizeof(*pi), GFP_KERNEL);
-+	if (!pi) {
-+		*error = "historical-service-time ps: Error allocating path context";
-+		return -ENOMEM;
-+	}
-+
-+	pi->path = path;
-+	pi->repeat_count = repeat_count;
-+
-+	pi->historical_service_time = HST_FIXED_1;
-+
-+	spin_lock_init(&pi->lock);
-+	pi->outstanding = 0;
-+
-+	pi->stale_after = 0;
-+	pi->last_finish = 0;
-+
-+	path->pscontext = pi;
-+
-+	spin_lock_irqsave(&s->lock, flags);
-+	list_add_tail(&pi->list, &s->valid_paths);
-+	s->valid_count++;
-+	spin_unlock_irqrestore(&s->lock, flags);
-+
-+	return 0;
-+}
-+
-+static void hst_fail_path(struct path_selector *ps, struct dm_path *path)
-+{
-+	struct selector *s = ps->context;
-+	struct path_info *pi = path->pscontext;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&s->lock, flags);
-+	list_move(&pi->list, &s->failed_paths);
-+	s->valid_count--;
-+	spin_unlock_irqrestore(&s->lock, flags);
-+}
-+
-+static int hst_reinstate_path(struct path_selector *ps, struct dm_path *path)
-+{
-+	struct selector *s = ps->context;
-+	struct path_info *pi = path->pscontext;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&s->lock, flags);
-+	list_move_tail(&pi->list, &s->valid_paths);
-+	s->valid_count++;
-+	spin_unlock_irqrestore(&s->lock, flags);
-+
-+	return 0;
-+}
-+
-+static void hst_fill_compare(struct path_info *pi, u64 *hst,
-+			     u64 *out, u64 *stale)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&pi->lock, flags);
-+	*hst = pi->historical_service_time;
-+	*out = pi->outstanding;
-+	*stale = pi->stale_after;
-+	spin_unlock_irqrestore(&pi->lock, flags);
-+}
-+
-+/*
-+ * Compare the estimated service time of 2 paths, pi1 and pi2,
-+ * for the incoming I/O.
-+ *
-+ * Returns:
-+ * < 0 : pi1 is better
-+ * 0   : no difference between pi1 and pi2
-+ * > 0 : pi2 is better
-+ *
-+ */
-+static long long hst_compare(struct path_info *pi1, struct path_info *pi2,
-+			     u64 time_now, struct path_selector *ps)
-+{
-+	struct selector *s = ps->context;
-+	u64 hst1, hst2;
-+	long long out1, out2, stale1, stale2;
-+	int pi2_better, over_threshold;
-+
-+	hst_fill_compare(pi1, &hst1, &out1, &stale1);
-+	hst_fill_compare(pi2, &hst2, &out2, &stale2);
-+
-+	/* Check here if estimated latency for two paths are too similar.
-+	 * If this is the case, we skip extra calculation and just compare
-+	 * outstanding requests. In this case, any unloaded paths will
-+	 * be preferred.
-+	 */
-+	if (hst1 > hst2)
-+		over_threshold = hst1 > (s->threshold_multiplier * hst2);
-+	else
-+		over_threshold = hst2 > (s->threshold_multiplier * hst1);
-+
-+	if (!over_threshold)
-+		return out1 - out2;
-+
-+	/*
-+	 * If an unloaded path is stale, choose it. If both paths are unloaded,
-+	 * choose path that is the most stale.
-+	 * (If one path is loaded, choose the other)
-+	 */
-+	if ((!out1 && stale1 < time_now) || (!out2 && stale2 < time_now) ||
-+	    (!out1 && !out2))
-+		return (!out2 * stale1) - (!out1 * stale2);
-+
-+	/* Compare estimated service time. If outstanding is the same, we
-+	 * don't need to multiply
-+	 */
-+	if (out1 == out2) {
-+		pi2_better = hst1 > hst2;
-+	} else {
-+		/* Potential overflow with out >= 1024 */
-+		if (unlikely(out1 >= HST_MAX_INFLIGHT ||
-+			     out2 >= HST_MAX_INFLIGHT)) {
-+			/* If over 1023 in-flights, we may overflow if hst
-+			 * is at max. (With this shift we still overflow at
-+			 * 1048576 in-flights, which is high enough).
-+			 */
-+			hst1 >>= HST_FIXED_SHIFT;
-+			hst2 >>= HST_FIXED_SHIFT;
-+		}
-+		pi2_better = (1 + out1) * hst1 > (1 + out2) * hst2;
-+	}
-+
-+	/* In the case that the 'winner' is stale, limit to equal usage. */
-+	if (pi2_better) {
-+		if (stale2 < time_now)
-+			return out1 - out2;
-+		return 1;
-+	}
-+	if (stale1 < time_now)
-+		return out1 - out2;
-+	return -1;
-+}
-+
-+static struct dm_path *hst_select_path(struct path_selector *ps,
-+				       size_t nr_bytes)
-+{
-+	struct selector *s = ps->context;
-+	struct path_info *pi = NULL, *best = NULL;
-+	u64 time_now = sched_clock();
-+	struct dm_path *ret = NULL;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&s->lock, flags);
-+	if (list_empty(&s->valid_paths))
-+		goto out;
-+
-+	list_for_each_entry(pi, &s->valid_paths, list) {
-+		if (!best || (hst_compare(pi, best, time_now, ps) < 0))
-+			best = pi;
-+	}
-+
-+	if (!best)
-+		goto out;
-+
-+	/* Move last used path to end (least preferred in case of ties) */
-+	list_move_tail(&best->list, &s->valid_paths);
-+
-+	ret = best->path;
-+
-+out:
-+	spin_unlock_irqrestore(&s->lock, flags);
-+	return ret;
-+}
-+
-+static int hst_start_io(struct path_selector *ps, struct dm_path *path,
-+		       const struct request *rq, size_t nr_bytes)
-+{
-+	struct path_info *pi = path->pscontext;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&pi->lock, flags);
-+	pi->outstanding++;
-+	spin_unlock_irqrestore(&pi->lock, flags);
-+
-+	return 0;
-+}
-+
-+static u64 path_service_time(struct path_info *pi, const struct request *rq)
-+{
-+	u64 start_time = rq->io_start_time_ns;
-+	u64 sched_now = ktime_get_ns();
-+
-+	/* if a previous disk request has finished after this IO was
-+	 * sent to the hardware, pretend the submission happened
-+	 * serially.
-+	 */
-+	if (time_after64(pi->last_finish, rq->io_start_time_ns))
-+		start_time = pi->last_finish;
-+
-+	pi->last_finish = sched_now;
-+	if (time_before64(sched_now, start_time))
-+		return 0;
-+
-+	return sched_now - start_time;
-+}
-+
-+static int hst_end_io(struct path_selector *ps, struct dm_path *path,
-+		      const struct request *rq, size_t nr_bytes)
-+{
-+	struct path_info *pi = path->pscontext;
-+	struct selector *s = ps->context;
-+	unsigned long flags;
-+	u64 st;
-+
-+	spin_lock_irqsave(&pi->lock, flags);
-+
-+	st = path_service_time(pi, rq);
-+	pi->outstanding--;
-+	pi->historical_service_time =
-+		fixed_ema(pi->historical_service_time,
-+			  min(st * HST_FIXED_1, HST_FIXED_MAX),
-+			  hst_weight(ps, st));
-+
-+	/*
-+	 * On request end, mark path as fresh. If a path hasn't
-+	 * finished any requests within the fresh period, the estimated
-+	 * service time is considered too optimistic and we limit the
-+	 * maximum requests on that path.
-+	 */
-+	pi->stale_after = pi->last_finish +
-+		(s->valid_count * (pi->historical_service_time >> HST_FIXED_SHIFT));
-+	spin_unlock_irqrestore(&pi->lock, flags);
-+
-+	return 0;
-+}
-+
-+static struct path_selector_type hst_ps = {
-+	.name		= "historical-service-time",
-+	.module		= THIS_MODULE,
-+	.table_args	= 1,
-+	.info_args	= 3,
-+	.create		= hst_create,
-+	.destroy	= hst_destroy,
-+	.status		= hst_status,
-+	.add_path	= hst_add_path,
-+	.fail_path	= hst_fail_path,
-+	.reinstate_path	= hst_reinstate_path,
-+	.select_path	= hst_select_path,
-+	.start_io_rq	= hst_start_io,
-+	.end_io_rq	= hst_end_io,
-+};
-+
-+static int __init dm_hst_init(void)
-+{
-+	int r = dm_register_path_selector(&hst_ps);
-+
-+	if (r < 0)
-+		DMERR("register failed %d", r);
-+
-+	DMINFO("version " HST_VERSION " loaded");
-+
-+	return r;
-+}
-+
-+static void __exit dm_hst_exit(void)
-+{
-+	int r = dm_unregister_path_selector(&hst_ps);
-+
-+	if (r < 0)
-+		DMERR("unregister failed %d", r);
-+}
-+
-+module_init(dm_hst_init);
-+module_exit(dm_hst_exit);
-+
-+MODULE_DESCRIPTION(DM_NAME " measured service time oriented path selector");
-+MODULE_AUTHOR("Khazhismel Kumykov <khazhy@google.com>");
-+MODULE_LICENSE("GPL");
--- 
-2.26.0
+On 2020-04-08 9:28 a.m., Milan Broz wrote:
+> On 08/04/2020 12:19, Tushar Sugandhi wrote:
+<snip>
+>> Proposal:
+>> ---------
+>> A. Measuring dmcrypt constructs:
+>>       We can add an IMA hook in crypt_ctr() present in
+>>       drivers/md/dm-crypt.c, so that IMA can start measuring the status of
+>>       various dm-crypt targets (represented by crypt_target struct - also
+>>       defined in dm-crypt.c).
+> 
+> Hi,
+> 
+> I do not think you should just cherry-pick dm-crypt here. What about other
+> device-mapper targets? Apparently, dm-verity or dm-integrity are obvious
+> candidates too.
+> 
+> But device-mapper logic is based on stacking devices, so in generic case
+> (not just in some very special embedded configuration) you need to measure
+> the whole stack of devices.
+> (Just imagine a target stacked below dm-crypt that decrypts the device or so. :-)
+> 
+> Moreover, dm-crypt allows some specific actions like wiping and reloading
+> of the encryption key through device-mapper dm-crypt message.
+> If you check parameter only in crypt_ctr, this message path must be disabled,
+> basically crippling dm-crypt functionality (it is intended to wipe key in-memory
+> during hw suspend).
+> 
+> 
+> IMO if you want implement something like IMA measurement, I think you should
+> implement it in device-mapper core, and provide support for all targets.
+I agree that this needs to be implemented in device-mapper core,
+rather than highter applications like  dm-crypt, dm-verity, or dm-integrity.
+Functions like dm_table_create(), dm_table_destroy(), 
+dm_table_verify_integrity(),
+dm_table_complete(), dm_table_add_target() etc. in drivers/md/dm-table.c 
+look like good
+candidates to add hooks for IMA.
+Please let me know if you have any other recommendations.
+> I guess some new target specific callback is needed and some flags that
+> could enforce/disable stacking if a IMA measurement is in place etc.
+> 
+> Milan
+> 
 
 
 --
