@@ -1,65 +1,72 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id CA0FA1B0328
-	for <lists+dm-devel@lfdr.de>; Mon, 20 Apr 2020 09:36:12 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 60B631B0643
+	for <lists+dm-devel@lfdr.de>; Mon, 20 Apr 2020 12:09:24 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1587368171;
+	s=mimecast20190719; t=1587377363;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=s4xOyzZhXis1Jtk74aYOp3dZEyfKu4w9MtuJnf5LiPY=;
-	b=fOQ4AcndFAxeTYvBVWd5gO0UHVrcS7Us1CKTBPMxEKYG5ym8fgZzAfmrxHV+zQxPmf6Wzz
-	FJmLkElP3cxvF5MIDuZOtXHcJNUwM0m0sdT1qHbCZYH5yz7NQklJ92FECFC2xa7zsX8S5f
-	zlyTnEfPsWZr3IR7lvU0rd/QpsdB28g=
+	bh=T0NWazBUQWinZ9T+7FDhzsAp2t3V62V1s3LyT7Uc08I=;
+	b=DQ+Gt8f/EP+tr3PkN83nNerWlRqmhz9cuNWVpGLK9yLxDsrJzgU8t35z735/FVCRczzi3d
+	4KWp4ng9NwDOt/iO1Rd3Ho/lrA9S5wzdB+PV/fGZ1kp/sxJJlApt6fX58zP8FyfB4F3z56
+	C2wPUL84GmVj8+zhOqZ+PnF/60pEFOY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-9-85dVO9NjODOjzdUF86b0AQ-1; Mon, 20 Apr 2020 03:36:09 -0400
-X-MC-Unique: 85dVO9NjODOjzdUF86b0AQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-14-AYcwUW2mNEGL6QZA_9i9aw-1; Mon, 20 Apr 2020 06:09:21 -0400
+X-MC-Unique: AYcwUW2mNEGL6QZA_9i9aw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1D94F107ACC9;
-	Mon, 20 Apr 2020 07:36:04 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7E8401001DC2;
-	Mon, 20 Apr 2020 07:36:01 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 81AF28017F6;
+	Mon, 20 Apr 2020 10:09:15 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 56B781265A0;
+	Mon, 20 Apr 2020 10:09:14 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B0C2B938F3;
-	Mon, 20 Apr 2020 07:35:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 972D618089CE;
+	Mon, 20 Apr 2020 10:09:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 03K7Zk4J029626 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 20 Apr 2020 03:35:46 -0400
+	id 03KA8mQs008173 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 20 Apr 2020 06:08:49 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 261A460C84; Mon, 20 Apr 2020 07:35:46 +0000 (UTC)
+	id CF2202166B28; Mon, 20 Apr 2020 10:08:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost.localdomain (unknown [10.40.194.16])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8F8D760C63;
-	Mon, 20 Apr 2020 07:35:39 +0000 (UTC)
-To: dm-devel@redhat.com
-References: <20200419073026.197967-1-pabs3@bonedaddy.net>
-	<20200419131908.GA22398@redhat.com>
-	<9cb6a39a43178be29af2f47a92c2e84754b62b69.camel@bonedaddy.net>
-From: Ondrej Kozina <okozina@redhat.com>
-Message-ID: <6bbf9d94-2fbb-f96f-ea85-a480ba109c55@redhat.com>
-Date: Mon, 20 Apr 2020 09:35:38 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <9cb6a39a43178be29af2f47a92c2e84754b62b69.camel@bonedaddy.net>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C72DF2166B2E
+	for <dm-devel@redhat.com>; Mon, 20 Apr 2020 10:08:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 993A98EE313
+	for <dm-devel@redhat.com>; Mon, 20 Apr 2020 10:08:46 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-514-WwrAjA5zM9aX41_IqD4E1A-1;
+	Mon, 20 Apr 2020 06:08:44 -0400
+X-MC-Unique: WwrAjA5zM9aX41_IqD4E1A-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+	by mx2.suse.de (Postfix) with ESMTP id BFD8EAC52;
+	Mon, 20 Apr 2020 10:08:41 +0000 (UTC)
+From: Hannes Reinecke <hare@suse.de>
+To: Mike Snitzer <snitzer@redhat.com>
+Date: Mon, 20 Apr 2020 12:08:11 +0200
+Message-Id: <20200420100824.124618-1-hare@suse.de>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 03KA8mQs008173
 X-loop: dm-devel@redhat.com
-Cc: Paul Wise <pabs3@bonedaddy.net>, linux-kernel@vger.kernel.org,
-	Mike Snitzer <snitzer@redhat.com>, Alasdair Kergon <agk@redhat.com>
-Subject: Re: [dm-devel] [PATCH 0/3] dm raid/raid1: enable discard support
- when any devices support discard
+Cc: Damien LeMoal <damien.lemoal@wdc.com>, Bob Liu <bob.liu@oracle.com>,
+	dm-devel@redhat.com
+Subject: [dm-devel] [PATCHv4 00/13] dm-zoned: metadata version 2
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,50 +78,91 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 4/19/20 4:48 PM, Paul Wise wrote:
-> On Sun, 2020-04-19 at 09:19 -0400, Mike Snitzer wrote:
-> 
->> You went overboard with implementation before checking to see if your
->> work would be well received.  Your 2/3 patch header shows you're
->> capable of analyzing past commits to explain the evolution of code,
->> etc.  But yet you make no mention of this commit header which explicitly
->> speaks to why what you're proposing is _not_ acceptable:
->>
->> commit 8a74d29d541cd86569139c6f3f44b2d210458071
->> Author: Mike Snitzer <snitzer@redhat.com>
->> Date:   Tue Nov 14 15:40:52 2017 -0500
->>
->>      dm: discard support requires all targets in a table support discards
-> 
-> I do remember seeing this commit while working on this, I guess I
-> ignored it in my attempts to get fstrim working on my rootfs, woops.
-> 
->> I haven't looked closely at MD raid in this area but if you trully think
->> underlying MD raid can cope with issuing discards to devices that don't
->> support them (or that it avoids issuing them?) then please update
->> dm-raid.c to conditionally set ti->discard_supported (if not all devices
->> support discard).  That is how to inform DM core that the target knows
->> better and it will manage discards issued to it.  It keeps the change
->> local to dm-raid.c without the flag-day you're proposing.
-> 
-> On my system I have a HDD and an SSD, with /boot on MD RAID and / on
-> ext4 on DM RAID on 2 DM crypt volumes. In this setup fstrim works on
-> /boot but does not work on / and with my patches it works on / again.
-> In addition I don't see any messages in dmesg or other issues when
-> doing fstrim / with my patches.
+Hi all,
 
-Did you have discard allowed on both dm-crypt devices? dm-crypt (kernel) 
-does not allow discards by default.
+this patchset adds a new metadata version 2 for dm-zoned, which brings the
+following improvements:
+- UUIDs and labels: Adding three more fields to the metadata containing
+  the dm-zoned device UUID and label, and the device UUID. This allows
+  for an unique identification of the devices, so that several dm-zoned
+  sets can coexist and have a persistent identification.
+- Extend random zones by an additional regular disk device: A regular
+  block device can be added together with the zoned block device, providing
+  additional (emulated) random write zones. With this it's possible to
+  handle sequential zones only devices; also there will be a speed-up if
+  the regular block device resides on a fast medium. The regular block device
+  is placed logically in front of the zoned block device, so that metadata
+  and mapping tables reside on the regular block device, not the zoned device.
+- Tertiary superblock support: In addition to the two existing sets of metadata
+  another, tertiary, superblock is written to the first block of the zoned
+  block device. This superblock is for identification only; the generation
+  number is set to '0' and the block itself it never updated. The additional
+  metadate like bitmap tables etc are not copied.
 
-Regards O.
+To handle this, some changes to the original handling are introduced:
+- Zones are now equidistant. Originally, runt zones were ignored, and
+  not counted when sizing the mapping tables. With the dual device setup
+  runt zones might occur at the end of the regular block device, making
+  direct translation between zone number and sector/block number complex.
+  For metadata version 2 all zones are considered to be of the same size,
+  and runt zones are simply marked as 'offline' to have them ignored when
+  allocating a new zone.
+- The block number in the superblock is now the global number, and refers to
+  the location of the superblock relative to the resulting device-mapper
+  device. Which means that the tertiary superblock contains absolute block
+  addresses, which needs to be translated to the relative device addresses
+  to find the referenced block.
+
+There is an accompanying patchset for dm-zoned-tools for writing and checking
+this new metadata.
+
+As usual, comments and reviews are welcome.
+
+Changes to v3:
+- Reorder devices such that the regular device is always at position 0,
+  and the zoned device is always at position 1.
+- Split off dmz_dev_is_dying() into a separate patch
+- Include reviews from Damien
+
+Changes to v2:
+- Kill dmz_id()
+- Include reviews from Damien
+- Sanitize uuid handling as suggested by John Dorminy
+
+
+Hannes Reinecke (13):
+  dm-zoned: add 'status' and 'message' callbacks
+  dm-zoned: store zone id within the zone structure and kill dmz_id()
+  dm-zoned: use array for superblock zones
+  dm-zoned: store device in struct dmz_sb
+  dm-zoned: move fields from struct dmz_dev to dmz_metadata
+  dm-zoned: introduce dmz_metadata_label() to format device name
+  dm-zoned: Introduce dmz_dev_is_dying() and dmz_check_dev()
+  dm-zoned: remove 'dev' argument from reclaim
+  dm-zoned: replace 'target' pointer in the bio context
+  dm-zoned: use dmz_zone_to_dev() when handling metadata I/O
+  dm-zoned: add metadata logging functions
+  dm-zoned: ignore metadata zone in dmz_alloc_zone()
+  dm-zoned: metadata version 2
+
+ drivers/md/dm-zoned-metadata.c | 658 +++++++++++++++++++++++++++++++----------
+ drivers/md/dm-zoned-reclaim.c  |  88 +++---
+ drivers/md/dm-zoned-target.c   | 331 +++++++++++++--------
+ drivers/md/dm-zoned.h          |  33 ++-
+ 4 files changed, 780 insertions(+), 330 deletions(-)
+
+-- 
+2.16.4
+
 
 --
 dm-devel mailing list
