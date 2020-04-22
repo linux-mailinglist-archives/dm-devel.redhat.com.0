@@ -2,60 +2,63 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id AE4311B4F60
-	for <lists+dm-devel@lfdr.de>; Wed, 22 Apr 2020 23:27:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 162891B4F8F
+	for <lists+dm-devel@lfdr.de>; Wed, 22 Apr 2020 23:43:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1587590859;
+	s=mimecast20190719; t=1587591791;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=0aRoY9NzYxLzn8JceTvnbYIB52bmoHU+mV1kZ7VPmoA=;
-	b=bf1v+LQjIcIrSE3DzF4a9ayiIxfZtXAp8zHe3WjK8bpZzZzWa3F+kLSVi3xPE9ckcuzCVz
-	mXVYbe3DEv9Z6Zx6JUxLnWEgBq7Idaa9ou0Em4PwrqJ9tvsPx6PAFYJ6BBLjfZ76xZn7mL
-	QJog+PFAYWq+hnKs+MmwayuN337LDcw=
+	bh=ZTgFU6C/2n+ZZcjFcve4cMygkVvrFA7oT4JLXmbeMbY=;
+	b=EzQppiB3qZ8TGMmc6FKSKO26V3T04xW2GSDih6ptysldlJeukNYc26xd7+9TEghOfYgof6
+	AfZbh9Kb45vQKGYwPII+i73WWvz0YTi6I8JBaLZ4vrXWjQsF5Y/Jn9jG/SaasUs4WCfZcc
+	uW+DfFGe+EL5PPBD2H79QiBfGWs05As=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-447-Sd_hBlaPOr2p3Js4bDEb8Q-1; Wed, 22 Apr 2020 17:27:37 -0400
-X-MC-Unique: Sd_hBlaPOr2p3Js4bDEb8Q-1
+ us-mta-157-PvNp8HziNtGU2LJAAM10HQ-1; Wed, 22 Apr 2020 17:43:08 -0400
+X-MC-Unique: PvNp8HziNtGU2LJAAM10HQ-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AB84D100CCC0;
-	Wed, 22 Apr 2020 21:27:31 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1190B1000079;
-	Wed, 22 Apr 2020 21:27:29 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 109A0800FC7;
+	Wed, 22 Apr 2020 21:43:01 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4D13F10246E7;
+	Wed, 22 Apr 2020 21:42:58 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A6FED938FB;
-	Wed, 22 Apr 2020 21:27:26 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E08211809541;
+	Wed, 22 Apr 2020 21:42:53 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
 	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 03MLPhJ9008427 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 22 Apr 2020 17:25:43 -0400
+	id 03MLeuYX009736 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 22 Apr 2020 17:40:56 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A7A47600F7; Wed, 22 Apr 2020 21:25:43 +0000 (UTC)
+	id 7722A600E8; Wed, 22 Apr 2020 21:40:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 10EE9600D2;
-	Wed, 22 Apr 2020 21:25:38 +0000 (UTC)
-Date: Wed, 22 Apr 2020 17:25:38 -0400
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A7C2600E5;
+	Wed, 22 Apr 2020 21:40:53 +0000 (UTC)
+Date: Wed, 22 Apr 2020 17:40:52 -0400
 From: Mike Snitzer <snitzer@redhat.com>
-To: kbuild test robot <lkp@intel.com>
-Message-ID: <20200422212538.GA10422@redhat.com>
-References: <202004230513.auAlcg7E%lkp@intel.com>
+To: Milan Broz <gmazyland@gmail.com>
+Message-ID: <20200422214052.GA10695@redhat.com>
+References: <20200420134659.1640089-1-dbaryshkov@gmail.com>
+	<20200421182754.GA49104@lobo>
+	<e3b78a32-4307-c60c-f9c3-dd6d71b6633c@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <202004230513.auAlcg7E%lkp@intel.com>
+In-Reply-To: <e3b78a32-4307-c60c-f9c3-dd6d71b6633c@gmail.com>
 User-Agent: Mutt/1.5.21 (2010-09-15)
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
-Cc: Dmitry Baryshkov <dmitry_baryshkov@mentor.com>, dm-devel@redhat.com,
-	kbuild-all@lists.01.org
-Subject: Re: [dm-devel] [dm:for-next 27/28] drivers/md/dm-crypt.c:2281:
- undefined reference to `key_type_encrypted'
+Cc: Dmitry Baryshkov <dbaryshkov@gmail.com>,
+	Dmitry Baryshkov <dmitry_baryshkov@mentor.com>,
+	David Howells <dhowells@redhat.com>, dm-devel@redhat.com,
+	Alasdair Kergon <agk@redhat.com>
+Subject: Re: [dm-devel] dm-crypt: support using encrypted keys
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -76,114 +79,53 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
+On Wed, Apr 22 2020 at 12:47pm -0400,
+Milan Broz <gmazyland@gmail.com> wrote:
 
-I fixed this ~3 minutes after pushing.. amazing how quick the kbuild test robot is!
+> On 21/04/2020 20:27, Mike Snitzer wrote:
+> > On Mon, Apr 20 2020 at  9:46P -0400,
+> > Dmitry Baryshkov <dbaryshkov@gmail.com> wrote:
+> > 
+> >> From: Dmitry Baryshkov <dmitry_baryshkov@mentor.com>
+> >>
+> >> Allow one to use encrypted in addition to user and login key types for
+> >> device encryption.
+> >>
+> >> Signed-off-by: Dmitry Baryshkov <dmitry_baryshkov@mentor.com>
+> > 
+> > I fixed up some issues, please see the following incremental patch,
+> > I'll get this folded in and staged for 5.8.
+> 
+> And you just created hard dependence on encrypted key type...
+> 
+> If you disable this type (CONFIG_ENCRYPTED_KEYS option), it cannot load the module anymore:
+> ERROR: modpost: "key_type_encrypted" [drivers/md/dm-crypt.ko] undefined!
 
-But thanks,
+Yes, I was made aware via linux-next last night.
+
+> We had this idea before, and this implementation in dm-crypt just requires dynamic
+> key type loading implemented first.
+>
+> David Howells (cc) promised that moths ago, but apparently nothing was yet submitted
+> (and the proof-of-concept patch no longer works).
+
+Why is it so bad for dm-crypt to depend on CONFIG_ENCRYPTED_KEYS while
+we wait for the innovation from David?
+ 
+> Mike, I think you should revert this patch from the tree until it is solved.
+> 
+> Once fixed, we should also support "trusted" key type.
+> 
+> Also please -  do no forget to increase dm-crypt minor version here...
+
+I fixed the patch up and staged it in linux-next to get test coverage,
+see:
+https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/commit/?h=for-next&id=5eb07fda05fbf87d9a37939d1cd445203c55e126
+
+Doesn't mean I intend to keep it staged; just would like to validate the
+patch before tabling it (if that's what is ultimately decided for now).
+
 Mike
-
-On Wed, Apr 22 2020 at  5:21pm -0400,
-kbuild test robot <lkp@intel.com> wrote:
-
-> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git for-next
-> head:   2d56364c7c7ba64576c37a16c8af98f66b4bb16b
-> commit: 5cacab0334b940164ad6aac39712f4d3b06076bc [27/28] dm crypt: support using encrypted keys
-> config: i386-randconfig-e001-20200421 (attached as .config)
-> compiler: gcc-7 (Ubuntu 7.5.0-6ubuntu2) 7.5.0
-> reproduce:
->         git checkout 5cacab0334b940164ad6aac39712f4d3b06076bc
->         # save the attached .config to linux build tree
->         make ARCH=i386 
-> 
-> If you fix the issue, kindly add following tag as appropriate
-> Reported-by: kbuild test robot <lkp@intel.com>
-> 
-> All errors (new ones prefixed by >>):
-> 
->    ld: drivers/md/dm-crypt.o: in function `crypt_set_keyring_key':
-> >> drivers/md/dm-crypt.c:2281: undefined reference to `key_type_encrypted'
-> 
-> vim +2281 drivers/md/dm-crypt.c
-> 
->   2251	
->   2252	static int crypt_set_keyring_key(struct crypt_config *cc, const char *key_string)
->   2253	{
->   2254		char *new_key_string, *key_desc;
->   2255		int ret;
->   2256		struct key_type *type;
->   2257		struct key *key;
->   2258		int (*set_key)(struct crypt_config *cc, struct key *key);
->   2259	
->   2260		/*
->   2261		 * Reject key_string with whitespace. dm core currently lacks code for
->   2262		 * proper whitespace escaping in arguments on DM_TABLE_STATUS path.
->   2263		 */
->   2264		if (contains_whitespace(key_string)) {
->   2265			DMERR("whitespace chars not allowed in key string");
->   2266			return -EINVAL;
->   2267		}
->   2268	
->   2269		/* look for next ':' separating key_type from key_description */
->   2270		key_desc = strpbrk(key_string, ":");
->   2271		if (!key_desc || key_desc == key_string || !strlen(key_desc + 1))
->   2272			return -EINVAL;
->   2273	
->   2274		if (!strncmp(key_string, "logon:", key_desc - key_string + 1)) {
->   2275			type = &key_type_logon;
->   2276			set_key = set_key_user;
->   2277		} else if (!strncmp(key_string, "user:", key_desc - key_string + 1)) {
->   2278			type = &key_type_user;
->   2279			set_key = set_key_user;
->   2280		} else if (!strncmp(key_string, "encrypted:", key_desc - key_string + 1)) {
-> > 2281			type = &key_type_encrypted;
->   2282			set_key = set_key_encrypted;
->   2283		} else {
->   2284			return -EINVAL;
->   2285		}
->   2286	
->   2287		new_key_string = kstrdup(key_string, GFP_KERNEL);
->   2288		if (!new_key_string)
->   2289			return -ENOMEM;
->   2290	
->   2291		key = request_key(type, key_desc + 1, NULL);
->   2292		if (IS_ERR(key)) {
->   2293			kzfree(new_key_string);
->   2294			return PTR_ERR(key);
->   2295		}
->   2296	
->   2297		down_read(&key->sem);
->   2298	
->   2299		ret = set_key(cc, key);
->   2300		if (ret < 0) {
->   2301			up_read(&key->sem);
->   2302			key_put(key);
->   2303			kzfree(new_key_string);
->   2304			return ret;
->   2305		}
->   2306	
->   2307		up_read(&key->sem);
->   2308		key_put(key);
->   2309	
->   2310		/* clear the flag since following operations may invalidate previously valid key */
->   2311		clear_bit(DM_CRYPT_KEY_VALID, &cc->flags);
->   2312	
->   2313		ret = crypt_setkey(cc);
->   2314	
->   2315		if (!ret) {
->   2316			set_bit(DM_CRYPT_KEY_VALID, &cc->flags);
->   2317			kzfree(cc->key_string);
->   2318			cc->key_string = new_key_string;
->   2319		} else
->   2320			kzfree(new_key_string);
->   2321	
->   2322		return ret;
->   2323	}
->   2324	
-> 
-> ---
-> 0-DAY CI Kernel Test Service, Intel Corporation
-> https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
-
 
 --
 dm-devel mailing list
