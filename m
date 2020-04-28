@@ -1,62 +1,60 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 3EFC71BC692
-	for <lists+dm-devel@lfdr.de>; Tue, 28 Apr 2020 19:25:58 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 0D5A41BC698
+	for <lists+dm-devel@lfdr.de>; Tue, 28 Apr 2020 19:27:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1588094757;
+	s=mimecast20190719; t=1588094832;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=thirkNPU9k5q6tNk8DxUsBL648ti+L0vBVqTsZOeLis=;
-	b=Zu4Z/vw99Lbs0EN41QkNKMAQ0J8lf7f/QweBJHGjkjVa0CcGBnN67+X74hzU6msXYDrHMZ
-	4OXoIgs4Nyg+8WXrsq1Ur/tc+FxgpACI/wR4GesKFpmGwNJ+1kmyOmWcxDXG4RfIFTkOqN
-	ezzkmxBq+FYWplUPLgiQG7UR2GsY3pw=
+	bh=C9fWQ5liP818f2YlTowIkxGXP5iaFTcg+tHix6LwzjU=;
+	b=XrsPhLGMbihn2dK/5NYEnQMjidfqCoxqOt+/FD/exsTyrLCG4hKHXt+5DB3Uuq5EPUuTgM
+	hFipBw3P206DtOgFe/RSc7UlGbnHztsPLJ4Jm+lbeBeFElsT03qS2P/WxZTc03R2mtCbRG
+	JzvIyK5xBfIXvtCjHU4SFj9wpjh0l44=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-164-Bu9QjLyKO0uc7rjXD8RIvQ-1; Tue, 28 Apr 2020 13:25:53 -0400
-X-MC-Unique: Bu9QjLyKO0uc7rjXD8RIvQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-35-rFi4rGeWOy2uImsIHnGVZA-1; Tue, 28 Apr 2020 13:27:09 -0400
+X-MC-Unique: rFi4rGeWOy2uImsIHnGVZA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 91478107ACCA;
-	Tue, 28 Apr 2020 17:25:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 067B8835B44;
+	Tue, 28 Apr 2020 17:27:03 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 03DE460CD3;
-	Tue, 28 Apr 2020 17:25:46 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B1424648D3;
+	Tue, 28 Apr 2020 17:27:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 11A044CAA0;
-	Tue, 28 Apr 2020 17:25:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 723F24CAA0;
+	Tue, 28 Apr 2020 17:27:01 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 03SHPc3f019082 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 28 Apr 2020 13:25:38 -0400
+	id 03SHQuvE019227 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 28 Apr 2020 13:26:56 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9A5E55D9F1; Tue, 28 Apr 2020 17:25:38 +0000 (UTC)
+	id 408665C254; Tue, 28 Apr 2020 17:26:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D17185D9E5;
-	Tue, 28 Apr 2020 17:25:35 +0000 (UTC)
-Date: Tue, 28 Apr 2020 13:25:35 -0400
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 609EB5C1D4;
+	Tue, 28 Apr 2020 17:26:53 +0000 (UTC)
+Date: Tue, 28 Apr 2020 13:26:52 -0400
 From: Mike Snitzer <snitzer@redhat.com>
 To: Gabriel Krisman Bertazi <krisman@collabora.com>
-Message-ID: <20200428172534.GB17285@redhat.com>
-References: <20200428005146.242231-1-krisman@collabora.com>
-	<20200428005146.242231-3-krisman@collabora.com>
+Message-ID: <20200428172651.GC17285@redhat.com>
+References: <20200428003911.222717-1-krisman@collabora.com>
 MIME-Version: 1.0
-In-Reply-To: <20200428005146.242231-3-krisman@collabora.com>
+In-Reply-To: <20200428003911.222717-1-krisman@collabora.com>
 User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, kernel@collabora.com, khazhy@google.com,
-	agk@redhat.com
-Subject: Re: [dm-devel] [PATCH v2 2/3] md: multipath: Pass io_start_time to
- the path selector
+Cc: dm-devel@redhat.com, kernel@collabora.com, agk@redhat.com
+Subject: Re: [dm-devel] dm: multipath: Use updated MPATHF_QUEUE_IO on
+ mapping for BIO-based mpath
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -70,92 +68,83 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-On Mon, Apr 27 2020 at  8:51pm -0400,
+On Mon, Apr 27 2020 at  8:39pm -0400,
 Gabriel Krisman Bertazi <krisman@collabora.com> wrote:
 
-> HST need to know the IO start time in order to predict path
-> performance. For request-based multipath use the block layer
-> io_start_time, while for BIO use the dm_io start_time.
+> When adding devices that don't have a scsi_dh on a BIO based multipath,
+> I was able to consistently hit the warning below and lock-up the system.
 > 
-> The dm_start_time_ns_from_clone function was suggested and implemented
-> by Mike Snitzer <snitzer@redhat.com>.
+> The problem is that __map_bio reads the flag before it potentially being
+> modified by choose_pgpath, and ends up using the older value.
 > 
-> Cc: Mike Snitzer <snitzer@redhat.com>
-> Cc: Khazhismel Kumykov <khazhy@google.com>
+> The WARN_ON below is not trivially linked to the issue. It goes like
+> this: The activate_path delayed_work is not initialized for non-scsi_dh
+> devices, but we always set MPATHF_QUEUE_IO, asking for initialization.
+> That is fine, since MPATHF_QUEUE_IO would be cleared in choose_pgpath.
+> Nevertheless, only for BIO-based mpath, we cache the flag before calling
+> choose_pgpath, and use the older version when deciding if we should
+> initialize the path.  Therefore, we end up trying to initialize the
+> paths, and calling the non-initialized activate_path work.
+> 
+> [   82.437100] ------------[ cut here ]------------
+> [   82.437659] WARNING: CPU: 3 PID: 602 at kernel/workqueue.c:1624
+>   __queue_delayed_work+0x71/0x90
+> [   82.438436] Modules linked in:
+> [   82.438911] CPU: 3 PID: 602 Comm: systemd-udevd Not tainted 5.6.0-rc6+ #339
+> [   82.439680] RIP: 0010:__queue_delayed_work+0x71/0x90
+> [   82.440287] Code: c1 48 89 4a 50 81 ff 00 02 00 00 75 2a 4c 89 cf e9
+> 94 d6 07 00 e9 7f e9 ff ff 0f 0b eb c7 0f 0b 48 81 7a 58 40 74 a8 94 74
+> a7 <0f> 0b 48 83 7a 48 00 74 a5 0f 0b eb a1 89 fe 4c 89 cf e9 c8 c4 07
+> [   82.441719] RSP: 0018:ffffb738803977c0 EFLAGS: 00010007
+> [   82.442121] RAX: ffffa086389f9740 RBX: 0000000000000002 RCX: 0000000000000000
+> [   82.442718] RDX: ffffa086350dd930 RSI: ffffa0863d76f600 RDI: 0000000000000200
+> [   82.443484] RBP: 0000000000000200 R08: 0000000000000000 R09: ffffa086350dd970
+> [   82.444128] R10: 0000000000000000 R11: 0000000000000000 R12: ffffa086350dd930
+> [   82.444773] R13: ffffa0863d76f600 R14: 0000000000000000 R15: ffffa08636738008
+> [   82.445427] FS:  00007f6abfe9dd40(0000) GS:ffffa0863dd80000(0000) knlGS:00000
+> [   82.446040] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   82.446478] CR2: 0000557d288db4e8 CR3: 0000000078b36000 CR4: 00000000000006e0
+> [   82.447104] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+> [   82.447561] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+> [   82.448012] Call Trace:
+> [   82.448164]  queue_delayed_work_on+0x6d/0x80
+> [   82.448472]  __pg_init_all_paths+0x7b/0xf0
+> [   82.448714]  pg_init_all_paths+0x26/0x40
+> [   82.448980]  __multipath_map_bio.isra.0+0x84/0x210
+> [   82.449267]  __map_bio+0x3c/0x1f0
+> [   82.449468]  __split_and_process_non_flush+0x14a/0x1b0
+> [   82.449775]  __split_and_process_bio+0xde/0x340
+> [   82.450045]  ? dm_get_live_table+0x5/0xb0
+> [   82.450278]  dm_process_bio+0x98/0x290
+> [   82.450518]  dm_make_request+0x54/0x120
+> [   82.450778]  generic_make_request+0xd2/0x3e0
+> [   82.451038]  ? submit_bio+0x3c/0x150
+> [   82.451278]  submit_bio+0x3c/0x150
+> [   82.451492]  mpage_readpages+0x129/0x160
+> [   82.451756]  ? bdev_evict_inode+0x1d0/0x1d0
+> [   82.452033]  read_pages+0x72/0x170
+> [   82.452260]  __do_page_cache_readahead+0x1ba/0x1d0
+> [   82.452624]  force_page_cache_readahead+0x96/0x110
+> [   82.452903]  generic_file_read_iter+0x84f/0xae0
+> [   82.453192]  ? __seccomp_filter+0x7c/0x670
+> [   82.453547]  new_sync_read+0x10e/0x190
+> [   82.453883]  vfs_read+0x9d/0x150
+> [   82.454172]  ksys_read+0x65/0xe0
+> [   82.454466]  do_syscall_64+0x4e/0x210
+> [   82.454828]  entry_SYSCALL_64_after_hwframe+0x49/0xbe
+> [...]
+> [   82.462501] ---[ end trace bb39975e9cf45daa ]---
+> 
 > Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
-> ---
->  drivers/md/dm-mpath.c         | 25 +++++++++++++++----------
->  drivers/md/dm-path-selector.h |  1 +
->  drivers/md/dm.c               | 10 ++++++++++
->  include/linux/device-mapper.h |  2 ++
->  4 files changed, 28 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
-> index 1ef4fc2e745b..7af3249948be 100644
-> --- a/drivers/md/dm-mpath.c
-> +++ b/drivers/md/dm-mpath.c
-> @@ -500,8 +500,9 @@ static int multipath_clone_and_map(struct dm_target *ti, struct request *rq,
->  	struct dm_mpath_io *mpio = get_mpio(map_context);
->  	struct request_queue *q;
->  	struct request *clone;
-> -	struct path_selector_io_data io_data = {
-> +	struct path_selector_io_data ps_io_data = {
->  		.nr_bytes = nr_bytes,
-> +		.io_start_time = rq->io_start_time_ns
->  	};
->  
->  	/* Do we need to select a new pgpath? */
-> @@ -552,7 +553,7 @@ static int multipath_clone_and_map(struct dm_target *ti, struct request *rq,
->  	if (pgpath->pg->ps.type->start_io)
->  		pgpath->pg->ps.type->start_io(&pgpath->pg->ps,
->  					      &pgpath->path,
-> -					      &io_data);
-> +					      &ps_io_data);
->  	return DM_MAPIO_REMAPPED;
->  }
->  
-> @@ -568,6 +569,7 @@ static void multipath_release_clone(struct request *clone,
->  		struct pgpath *pgpath = mpio->pgpath;
->  		struct path_selector_io_data ps_io_data = {
->  			.nr_bytes = mpio->nr_bytes,
-> +			.io_start_time = clone->io_start_time_ns,
->  		};
->  
->  		if (pgpath && pgpath->pg->ps.type->end_io)
-> @@ -623,8 +625,9 @@ static int __multipath_map_bio(struct multipath *m, struct bio *bio,
->  			       struct dm_mpath_io *mpio)
->  {
->  	struct pgpath *pgpath = __map_bio(m, bio);
-> -	struct path_selector_io_data io_data = {
-> +	struct path_selector_io_data ps_io_data = {
->  		.nr_bytes = mpio->nr_bytes,
-> +		.io_start_time = dm_start_time_ns_from_clone(bio)
->  	};
->  
->  	if (IS_ERR(pgpath))
-> @@ -646,7 +649,7 @@ static int __multipath_map_bio(struct multipath *m, struct bio *bio,
->  	if (pgpath->pg->ps.type->start_io)
->  		pgpath->pg->ps.type->start_io(&pgpath->pg->ps,
->  					      &pgpath->path,
-> -					      &io_data);
-> +					      &ps_io_data);
->  	return DM_MAPIO_REMAPPED;
->  }
->  
 
-io_start_time_ns isn't needed by any path selector's start_io method.
-Please drop that from start_io and only pass it to the end_io hook.
-
-(the need for dm_start_time_ns_from_clone() to access the more nested
-nature of a bio clone's start_time showcases why we should avoid
-needless collection of parameters that aren't required).
+I'll get this queued for 5.7-rcX and stable@
 
 Thanks,
 Mike
