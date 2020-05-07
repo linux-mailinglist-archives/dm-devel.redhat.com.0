@@ -1,64 +1,64 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 0433C1C8C9A
-	for <lists+dm-devel@lfdr.de>; Thu,  7 May 2020 15:40:35 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id E5BC81C8CA0
+	for <lists+dm-devel@lfdr.de>; Thu,  7 May 2020 15:40:42 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1588858835;
+	s=mimecast20190719; t=1588858842;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=omv63yxU58ELqDoW7bj1tBNSXo8IbAswXjbb0aRWGgg=;
-	b=g4ZXFf49APO8z6DOkMrZwk0ypcQaN3fjldadowcGmZqi3X2PrSrX5tr/hmz20FjSqr+Y+j
-	7odo34b0w2Jq9wLTICVQuTJARdwIB7YpyQDvYgfqT3U9SFHa3RFCHDCpUFtQrZFSsJxFat
-	ilU8FY6TI6ZAW6/5FbTgin+9iMFCIC0=
+	bh=Gc6T3m611IAZ+Qme3EA/egR6ZfBRKrZCp+J1E2iPkDk=;
+	b=b4YlfxDhyvz5Gctn0Y+LKDpPtJVEyCR52YldTbYKbqD4PxN/ljq9q4dvFesn6LLGnlM5Op
+	GPTbjTnW66HmxQk7dXQ2cV45bHbZaQqtecMvMmVluGlfcON+PrFWrWmIMIQa//49HSXraV
+	iOaPoDWBwcF1FBI64WTWzGT/IneGFGk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-403-O8B0fxJMP1ST-uG_aPbUhA-1; Thu, 07 May 2020 09:40:31 -0400
-X-MC-Unique: O8B0fxJMP1ST-uG_aPbUhA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-215-Bm-6vkRiOXaOEtXeZnPF7g-1; Thu, 07 May 2020 09:40:38 -0400
+X-MC-Unique: Bm-6vkRiOXaOEtXeZnPF7g-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 24E8BBFC4;
-	Thu,  7 May 2020 13:40:26 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 278EA108BD09;
+	Thu,  7 May 2020 13:40:32 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E5ACC60BEC;
-	Thu,  7 May 2020 13:40:25 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 00DF15799C;
+	Thu,  7 May 2020 13:40:32 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7C7634E561;
-	Thu,  7 May 2020 13:40:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 956E04E585;
+	Thu,  7 May 2020 13:40:31 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0477u69J023954 for <dm-devel@listman.util.phx.redhat.com>;
+	id 0477u7Aa023957 for <dm-devel@listman.util.phx.redhat.com>;
 	Thu, 7 May 2020 03:56:07 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DACE41033C48; Thu,  7 May 2020 07:56:06 +0000 (UTC)
+	id EDA152026D5D; Thu,  7 May 2020 07:56:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D6E321033C44
-	for <dm-devel@redhat.com>; Thu,  7 May 2020 07:56:06 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E7858202B16F
+	for <dm-devel@redhat.com>; Thu,  7 May 2020 07:56:05 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B69D980066D
-	for <dm-devel@redhat.com>; Thu,  7 May 2020 07:56:06 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32]) (Using
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 05BE31859171
+	for <dm-devel@redhat.com>; Thu,  7 May 2020 07:56:05 +0000 (UTC)
+Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-267-j_Z9JP5kMy-7r7IcVXl2rA-1; Thu, 07 May 2020 03:56:03 -0400
-X-MC-Unique: j_Z9JP5kMy-7r7IcVXl2rA-1
-Received: from DGGEMS406-HUB.china.huawei.com (unknown [172.30.72.58])
-	by Forcepoint Email with ESMTP id A7051CED3291C742681E;
+	us-mta-242-uS5JuYrePf2fNwRyuPXimA-1; Thu, 07 May 2020 03:56:02 -0400
+X-MC-Unique: uS5JuYrePf2fNwRyuPXimA-1
+Received: from DGGEMS406-HUB.china.huawei.com (unknown [172.30.72.60])
+	by Forcepoint Email with ESMTP id 65D8F75FC4DD6324E1FD;
 	Thu,  7 May 2020 15:55:58 +0800 (CST)
 Received: from DESKTOP-C3MD9UG.china.huawei.com (10.166.215.55) by
 	DGGEMS406-HUB.china.huawei.com (10.3.19.206) with Microsoft SMTP Server
-	id 14.3.487.0; Thu, 7 May 2020 15:55:48 +0800
+	id 14.3.487.0; Thu, 7 May 2020 15:55:49 +0800
 From: Zhen Lei <thunder.leizhen@huawei.com>
 To: Minchan Kim <minchan@kernel.org>, Nitin Gupta <ngupta@vflare.org>,
 	"Sergey Senozhatsky" <sergey.senozhatsky.work@gmail.com>, Matthew Wilcox
@@ -69,20 +69,21 @@ To: Minchan Kim <minchan@kernel.org>, Nitin Gupta <ngupta@vflare.org>,
 	linux-mm <linux-mm@kvack.org>, dm-devel <dm-devel@redhat.com>, Song Liu
 	<song@kernel.org>, linux-raid <linux-raid@vger.kernel.org>, linux-kernel
 	<linux-kernel@vger.kernel.org>
-Date: Thu, 7 May 2020 15:50:55 +0800
-Message-ID: <20200507075100.1779-6-thunder.leizhen@huawei.com>
+Date: Thu, 7 May 2020 15:50:56 +0800
+Message-ID: <20200507075100.1779-7-thunder.leizhen@huawei.com>
 In-Reply-To: <20200507075100.1779-1-thunder.leizhen@huawei.com>
 References: <20200507075100.1779-1-thunder.leizhen@huawei.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.166.215.55]
 X-CFilter-Loop: Reflected
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0477u69J023954
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0477u7Aa023957
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 07 May 2020 09:40:06 -0400
 Cc: Zhen Lei <thunder.leizhen@huawei.com>
-Subject: [dm-devel] [PATCH v2 05/10] block: abolish macro PAGE_SECTORS_SHIFT
+Subject: [dm-devel] [PATCH v2 06/10] mm/swap: use npage_to_sectors() and
+	PAGE_SECTORS to clean up code
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,102 +97,81 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The name of PAGE_SECTORS_SHIFT is quite hard to read.
-1. use sectors_to_npage() to replace ">> PAGE_SECTORS_SHIFT"
-2. use npage_to_sectors() to replace "<< PAGE_SECTORS_SHIFT"
+1. Replace "<<= (PAGE_SHIFT - 9)" with "*= PAGE_SECTORS"
+2. Replace "<< (PAGE_SHIFT - 9)" with npage_to_sectors()
 
 Suggested-by: Matthew Wilcox <willy@infradead.org>
 Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
 ---
- drivers/block/brd.c           | 6 ++----
- drivers/block/null_blk_main.c | 9 ++++-----
- 2 files changed, 6 insertions(+), 9 deletions(-)
+ mm/page_io.c  |  4 ++--
+ mm/swapfile.c | 12 ++++++------
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/block/brd.c b/drivers/block/brd.c
-index 30df6daa9dbc..051c5a50497f 100644
---- a/drivers/block/brd.c
-+++ b/drivers/block/brd.c
-@@ -25,8 +25,6 @@
+diff --git a/mm/page_io.c b/mm/page_io.c
+index 76965be1d40e..23291a49ab91 100644
+--- a/mm/page_io.c
++++ b/mm/page_io.c
+@@ -38,7 +38,7 @@ static struct bio *get_swap_bio(gfp_t gfp_flags,
  
- #include <linux/uaccess.h>
+ 		bio->bi_iter.bi_sector = map_swap_page(page, &bdev);
+ 		bio_set_dev(bio, bdev);
+-		bio->bi_iter.bi_sector <<= PAGE_SHIFT - 9;
++		bio->bi_iter.bi_sector *= PAGE_SECTORS;
+ 		bio->bi_end_io = end_io;
  
--#define PAGE_SECTORS_SHIFT	(PAGE_SHIFT - SECTOR_SHIFT)
--
- /*
-  * Each block ramdisk device has a radix_tree brd_pages of pages that stores
-  * the pages containing the block device's contents. A brd page's ->index is
-@@ -69,7 +67,7 @@ static struct page *brd_lookup_page(struct brd_device *brd, sector_t sector)
- 	 * here, only deletes).
- 	 */
- 	rcu_read_lock();
--	idx = sector >> PAGE_SECTORS_SHIFT; /* sector to page index */
-+	idx = sectors_to_npage(sector);
- 	page = radix_tree_lookup(&brd->brd_pages, idx);
- 	rcu_read_unlock();
+ 		bio_add_page(bio, page, PAGE_SIZE * hpage_nr_pages(page), 0);
+@@ -266,7 +266,7 @@ int swap_writepage(struct page *page, struct writeback_control *wbc)
  
-@@ -108,7 +106,7 @@ static struct page *brd_insert_page(struct brd_device *brd, sector_t sector)
+ static sector_t swap_page_sector(struct page *page)
+ {
+-	return (sector_t)__page_file_index(page) << (PAGE_SHIFT - 9);
++	return npage_to_sectors((sector_t)__page_file_index(page));
+ }
+ 
+ static inline void count_swpout_vm_event(struct page *page)
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 5871a2aa86a5..c8be92f972a4 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -177,8 +177,8 @@ static int discard_swap(struct swap_info_struct *si)
+ 
+ 	/* Do not discard the swap header page! */
+ 	se = first_se(si);
+-	start_block = (se->start_block + 1) << (PAGE_SHIFT - 9);
+-	nr_blocks = ((sector_t)se->nr_pages - 1) << (PAGE_SHIFT - 9);
++	start_block = npage_to_sectors(se->start_block + 1);
++	nr_blocks = npage_to_sectors((sector_t)se->nr_pages - 1);
+ 	if (nr_blocks) {
+ 		err = blkdev_issue_discard(si->bdev, start_block,
+ 				nr_blocks, GFP_KERNEL, 0);
+@@ -188,8 +188,8 @@ static int discard_swap(struct swap_info_struct *si)
  	}
  
- 	spin_lock(&brd->brd_lock);
--	idx = sector >> PAGE_SECTORS_SHIFT;
-+	idx = sectors_to_npage(sector);
- 	page->index = idx;
- 	if (radix_tree_insert(&brd->brd_pages, idx, page)) {
- 		__free_page(page);
-diff --git a/drivers/block/null_blk_main.c b/drivers/block/null_blk_main.c
-index 25048ff15858..81485f47dcf0 100644
---- a/drivers/block/null_blk_main.c
-+++ b/drivers/block/null_blk_main.c
-@@ -11,7 +11,6 @@
- #include <linux/init.h>
- #include "null_blk.h"
+ 	for (se = next_se(se); se; se = next_se(se)) {
+-		start_block = se->start_block << (PAGE_SHIFT - 9);
+-		nr_blocks = (sector_t)se->nr_pages << (PAGE_SHIFT - 9);
++		start_block = npage_to_sectors(se->start_block);
++		nr_blocks = npage_to_sectors((sector_t)se->nr_pages);
  
--#define PAGE_SECTORS_SHIFT	(PAGE_SHIFT - SECTOR_SHIFT)
- #define SECTOR_MASK		(PAGE_SECTORS - 1)
+ 		err = blkdev_issue_discard(si->bdev, start_block,
+ 				nr_blocks, GFP_KERNEL, 0);
+@@ -240,8 +240,8 @@ static void discard_swap_cluster(struct swap_info_struct *si,
+ 		start_page += nr_blocks;
+ 		nr_pages -= nr_blocks;
  
- #define FREE_BATCH		16
-@@ -737,7 +736,7 @@ static void null_free_sector(struct nullb *nullb, sector_t sector,
- 	struct radix_tree_root *root;
- 
- 	root = is_cache ? &nullb->dev->cache : &nullb->dev->data;
--	idx = sector >> PAGE_SECTORS_SHIFT;
-+	idx = sectors_to_npage(sector);
- 	sector_bit = (sector & SECTOR_MASK);
- 
- 	t_page = radix_tree_lookup(root, idx);
-@@ -808,7 +807,7 @@ static struct nullb_page *__null_lookup_page(struct nullb *nullb,
- 	struct nullb_page *t_page;
- 	struct radix_tree_root *root;
- 
--	idx = sector >> PAGE_SECTORS_SHIFT;
-+	idx = sectors_to_npage(sector);
- 	sector_bit = (sector & SECTOR_MASK);
- 
- 	root = is_cache ? &nullb->dev->cache : &nullb->dev->data;
-@@ -855,7 +854,7 @@ static struct nullb_page *null_insert_page(struct nullb *nullb,
- 		goto out_freepage;
- 
- 	spin_lock_irq(&nullb->lock);
--	idx = sector >> PAGE_SECTORS_SHIFT;
-+	idx = sectors_to_npage(sector);
- 	t_page->page->index = idx;
- 	t_page = null_radix_tree_insert(nullb, idx, t_page, !ignore_cache);
- 	radix_tree_preload_end();
-@@ -878,7 +877,7 @@ static int null_flush_cache_page(struct nullb *nullb, struct nullb_page *c_page)
- 
- 	idx = c_page->page->index;
- 
--	t_page = null_insert_page(nullb, idx << PAGE_SECTORS_SHIFT, true);
-+	t_page = null_insert_page(nullb, npage_to_sectors(idx), true);
- 
- 	__clear_bit(NULLB_PAGE_LOCK, c_page->bitmap);
- 	if (test_bit(NULLB_PAGE_FREE, c_page->bitmap)) {
+-		start_block <<= PAGE_SHIFT - 9;
+-		nr_blocks <<= PAGE_SHIFT - 9;
++		start_block *= PAGE_SECTORS;
++		nr_blocks *= PAGE_SECTORS;
+ 		if (blkdev_issue_discard(si->bdev, start_block,
+ 					nr_blocks, GFP_NOIO, 0))
+ 			break;
 -- 
 2.26.0.106.g9fadedd
 
