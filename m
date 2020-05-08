@@ -1,84 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 970211CA605
-	for <lists+dm-devel@lfdr.de>; Fri,  8 May 2020 10:27:26 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 8A7BA1CA6BB
+	for <lists+dm-devel@lfdr.de>; Fri,  8 May 2020 11:04:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1588926445;
+	s=mimecast20190719; t=1588928664;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=KCvRk5Y/1E5IvV8eNOXvLo1wLBGTW5rBQdqRQ73iXB0=;
-	b=gVxa/Fx/Qzc+yDWVsRFZO/6zQbHrULAOHW0qkNJu3ynP0dAhMjAEAiP6+brLzmrQnobKr3
-	b+RBBbEpmcpd4oFYeky0YnbIDZDgXiN3wiEOzqhNEGM3iTToP0zXaQ9jmsOIoke31VQtut
-	Al7uvF1xNvXiS2RfZYDHCM3omzY9whY=
+	bh=1NRoeMAtyIKVSdlBg+XcfxfziLojFdmAV9KjC/gXUNY=;
+	b=SV8Q7cPlhog5oPNgrVHrGy2pMYiAsLgQzzZdiz1n0gl0XIeUueDMHzQXCVdsDjaVfRaxnR
+	GVhTvHVAA34qbtDG0wRVzpqZPGKM9GytFNUnL6MiU18+LXea+IaFatWPr55FNP/zoeGZcZ
+	1eROWgswBkwPYvjSxBY5cZGlWSev+EE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-246-1PrPJRWsMHafh5wvoJ6S4Q-1; Fri, 08 May 2020 04:27:22 -0400
-X-MC-Unique: 1PrPJRWsMHafh5wvoJ6S4Q-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-297-HuIA8G-dMomivy8eSn-qYQ-1; Fri, 08 May 2020 05:04:22 -0400
+X-MC-Unique: HuIA8G-dMomivy8eSn-qYQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CB700107ACF8;
-	Fri,  8 May 2020 08:27:14 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B72EA1001925;
-	Fri,  8 May 2020 08:27:09 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 86BBC872FE2;
+	Fri,  8 May 2020 09:04:16 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C32215C1BE;
+	Fri,  8 May 2020 09:04:15 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 34C8D1809543;
-	Fri,  8 May 2020 08:26:56 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B8EF74CAA0;
+	Fri,  8 May 2020 09:04:09 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0488Qdpn031251 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 8 May 2020 04:26:40 -0400
+	id 048941sD000732 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 8 May 2020 05:04:01 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id CA3B820267F2; Fri,  8 May 2020 08:26:39 +0000 (UTC)
+	id 4595C2026972; Fri,  8 May 2020 09:04:01 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C6A96202683D
-	for <dm-devel@redhat.com>; Fri,  8 May 2020 08:26:37 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 418642026DFD
+	for <dm-devel@redhat.com>; Fri,  8 May 2020 09:03:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 93F88185A78B
-	for <dm-devel@redhat.com>; Fri,  8 May 2020 08:26:37 +0000 (UTC)
-Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
-	[209.85.166.45]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-281-iXPltFxSN_ShnO-BrDwyNw-1; Fri, 08 May 2020 04:26:35 -0400
-X-MC-Unique: iXPltFxSN_ShnO-BrDwyNw-1
-Received: by mail-io1-f45.google.com with SMTP id w11so1013856iov.8;
-	Fri, 08 May 2020 01:26:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-	bh=DzNkrLXMkfZyR5EdoJaKHZI7iHOsKEkXwnvcgQTTqSA=;
-	b=d9FFg9PdgRKu+JElPFUC2Dxix+f89CIvWIkpvgF4C1J9Xy73MmEfhpkyFmby1Bqmxn
-	9+YHsQOh5Jz2Dda7k2Y6XImNv002hJt/FnKRyMW3sb3Ha2I2VXCziQdoxKIg0q09+12T
-	LdwvuTIASxr2S4bcL1lUIWLvcEQhkeUAyz/RpCQAN6dLJ8jqKMXW5nrtOGiUQhuy4Vo5
-	iyJKwQTpvzK3kXdywArHCGbAoDTC4tcWIm2e6M/NrdrPoW6QkvhhkP6G6uQzLIzq6PtI
-	yxiBkUmP/WuklThnEPnvy7hk6mAgq7EVj4/uWnxZHBmf+4g9VfO5PWbiWamPGSQRGrfU
-	fPJg==
-X-Gm-Message-State: AGi0PuawqxgyUxCqAToDdUkhvpyBxdqxd/zlKQMUGORh01fou/KH2eQR
-	jLssx+hhuMxRfEpUVeUKLIzJ/2CNqfWFo2rMiY8a4W3NvArGOQ==
-X-Google-Smtp-Source: APiQypKKGnGHF4tnmlwtWGF4DpTbHht+3aEAOscU3G23j5zTPCpmd6YJlMRvb/03pqvb+46nouXpy1xY4bl3GTgm598=
-X-Received: by 2002:a02:b055:: with SMTP id q21mr1499678jah.7.1588926394147;
-	Fri, 08 May 2020 01:26:34 -0700 (PDT)
-MIME-Version: 1.0
-From: Paul Richards <paul.richards@gmail.com>
-Date: Fri, 8 May 2020 09:26:23 +0100
-Message-ID: <CAMoswehmi-hhp2M0w_8nEwX5CwPKKR7YW9jw1QrNzE=PFqKcRw@mail.gmail.com>
-To: dm-devel@redhat.com, linux-lvm@redhat.com
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F233D8007DB
+	for <dm-devel@redhat.com>; Fri,  8 May 2020 09:03:58 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-274-Rth6dghUMHK5oQDtrwwzSQ-1;
+	Fri, 08 May 2020 05:03:56 -0400
+X-MC-Unique: Rth6dghUMHK5oQDtrwwzSQ-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+	by mx2.suse.de (Postfix) with ESMTP id E101DADB3;
+	Fri,  8 May 2020 09:03:56 +0000 (UTC)
+From: Hannes Reinecke <hare@suse.de>
+To: Mike Snitzer <snitzer@redhat.com>
+Date: Fri,  8 May 2020 11:03:18 +0200
+Message-Id: <20200508090332.40716-1-hare@suse.de>
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0488Qdpn031251
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 048941sD000732
 X-loop: dm-devel@redhat.com
-Subject: [dm-devel] lvmcache comes back dirty after unclean shutdown
+Cc: Damien LeMoal <damien.lemoal@wdc.com>, Bob Liu <bob.liu@oracle.com>,
+	dm-devel@redhat.com
+Subject: [dm-devel] [PATCHv5 00/14] dm-zoned: metadata version 2
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,45 +77,97 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hello,
-I would like to add a warning to the lvmcache man page about its
-suitability in environments that expect unclean shutdowns.
+Hi all,
 
-I've been using lvmcache on my laptop which has a small nvme drive and
-a much larger hdd.  I am using approx 60GiB of the nvme drive as a
-cache for the 1TiB HDD.
+this patchset adds a new metadata version 2 for dm-zoned, which brings the
+following improvements:
 
-With both "writethrough" and "writeback" modes an unclean shutdown
-results in the entire cache being marked as dirty.  On next boot the
-system then spends a long time (4+ hours) writing the cache out to
-disk.  From what I can see this is known behavior of lvmcache ([1] and
-[2]).  It's even documented in the kernel device mapper docs [3].
+- UUIDs and labels: Adding three more fields to the metadata containing
+  the dm-zoned device UUID and label, and the device UUID. This allows
+  for an unique identification of the devices, so that several dm-zoned
+  sets can coexist and have a persistent identification.
+- Extend random zones by an additional regular disk device: A regular
+  block device can be added together with the zoned block device, providing
+  additional (emulated) random write zones. With this it's possible to
+  handle sequential zones only devices; also there will be a speed-up if
+  the regular block device resides on a fast medium. The regular block device
+  is placed logically in front of the zoned block device, so that metadata
+  and mapping tables reside on the regular block device, not the zoned device.
+- Tertiary superblock support: In addition to the two existing sets of metadata
+  another, tertiary, superblock is written to the first block of the zoned
+  block device. This superblock is for identification only; the generation
+  number is set to '0' and the block itself it never updated. The addition
+  metadate like bitmap tables etc are not copied.
 
-It seems to me that dm-cache and lvmcache are not appropriate for
-environments that expect unclean shutdowns.  In those environments I
-have found bcache to be a bit more robust.
+To handle this, some changes to the original handling are introduced:
+- Zones are now equidistant. Originally, runt zones were ignored, and
+  not counted when sizing the mapping tables. With the dual device setup
+  runt zones might occur at the end of the regular block device, making
+  direct translation between zone number and sector/block number complex.
+  For metadata version 2 all zones are considered to be of the same size,
+  and runt zones are simply marked as 'offline' to have them ignored when
+  allocating a new zone.
+- The block number in the superblock is now the global number, and refers to
+  the location of the superblock relative to the resulting device-mapper
+  device. Which means that the tertiary superblock contains absolute block
+  addresses, which needs to be translated to the relative device addresses
+  to find the referenced block.
 
-This is not a criticism of lvmcache and dm-cache.  I am sure they
-perform well in more robust environments.  But I wonder if it would be
-appropriate to add a warning note to the lvmcache man page about this
-issue?
+There is an accompanying patchset for dm-zoned-tools for writing and checking
+this new metadata.
+
+As usual, comments and reviews are welcome.
+
+Changes to v4:
+- Add reviews from Damien
+- Silence logging output as suggested by Mike Snitzer
+- Fixup compilation on 32bit archs
+
+Changes to v3:
+- Reorder devices such that the regular device is always at position 0,
+  and the zoned device is always at position 1.
+- Split off dmz_dev_is_dying() into a separate patch
+- Include reviews from Damien
+
+Changes to v2:
+- Kill dmz_id()
+- Include reviews from Damien
+- Sanitize uuid handling as suggested by John Dorminy
 
 
-I am using Ubuntu 20.04 currently, if that's relevant, and I saw the
-same issue with 18.04.
+Hannes Reinecke (14):
+  dm-zoned: add 'status' and 'message' callbacks
+  dm-zoned: store zone id within the zone structure and kill dmz_id()
+  dm-zoned: use array for superblock zones
+  dm-zoned: store device in struct dmz_sb
+  dm-zoned: move fields from struct dmz_dev to dmz_metadata
+  dm-zoned: introduce dmz_metadata_label() to format device name
+  dm-zoned: Introduce dmz_dev_is_dying() and dmz_check_dev()
+  dm-zoned: remove 'dev' argument from reclaim
+  dm-zoned: replace 'target' pointer in the bio context
+  dm-zoned: use dmz_zone_to_dev() when handling metadata I/O
+  dm-zoned: add metadata logging functions
+  dm-zoned: Reduce logging output on startup
+  dm-zoned: ignore metadata zone in dmz_alloc_zone()
+  dm-zoned: metadata version 2
 
+ drivers/md/dm-zoned-metadata.c | 664 +++++++++++++++++++++++++++++++----------
+ drivers/md/dm-zoned-reclaim.c  |  88 +++---
+ drivers/md/dm-zoned-target.c   | 376 +++++++++++++++--------
+ drivers/md/dm-zoned.h          |  35 ++-
+ 4 files changed, 825 insertions(+), 338 deletions(-)
 
-1: https://www.redhat.com/archives/dm-devel/2019-July/msg00114.html
-2: https://www.redhat.com/archives/dm-devel/2014-December/msg00143.html
-3: https://github.com/torvalds/linux/blame/79dede78c0573618e3137d3d8cbf78c84e25fabd/Documentation/admin-guide/device-mapper/cache.rst#L140-L143
+-- 
+2.16.4
 
 
 --
