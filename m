@@ -1,85 +1,86 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id ED8BA1CD80B
-	for <lists+dm-devel@lfdr.de>; Mon, 11 May 2020 13:25:27 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 3BE601CD8CA
+	for <lists+dm-devel@lfdr.de>; Mon, 11 May 2020 13:47:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1589196326;
+	s=mimecast20190719; t=1589197638;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=ZbUOZW/5Z3X2xs5myzQtA+F9s0Xapnsd3wy9naIJS8s=;
-	b=Rx29IGOt0yIMd4qzemJrar3k1UInzI6TcrKvP0x3Uk3KE0pVWk/vvhlLrz83jXPC/5e1no
-	8ce89vfAld8jb2RnhcaWmv/ub26I68IvItcpdoIK2sDsIGxHTTTgj2rf7mtn+Hzsa2E3xV
-	jAQbuNC+WS4BADp+bnp1XiXqMnK9bYU=
+	 list-subscribe:list-post; bh=Ihh8dNgmOyJwYEpHDjS3dg0D/rjIMDmQR65Ku8tT1Jw=;
+	b=HMU4/mdoNmB5ccAI7s2SxnFGbcOEF9mC6UOKkwNqvyd14Ksgy4Be814GJDBTVElwjT1V41
+	324JDvGFMmWtn3NpgPhJJLDXI/HMNbjls9LRwkF4El3LcOW1+cKhbe7d/YfUJjy061xWUO
+	XutjB0HlfRr3ltOJgUS3o09R78GEUd8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-426-qZX3ZDQzMGK5uGT4tVzZ2Q-1; Mon, 11 May 2020 07:25:24 -0400
-X-MC-Unique: qZX3ZDQzMGK5uGT4tVzZ2Q-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-162-kJJHRqSwNwqV3hbJ1tFMnw-1; Mon, 11 May 2020 07:47:16 -0400
+X-MC-Unique: kJJHRqSwNwqV3hbJ1tFMnw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3ABD61899527;
-	Mon, 11 May 2020 11:25:19 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D25B419057A0;
+	Mon, 11 May 2020 11:47:09 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DC7337526E;
-	Mon, 11 May 2020 11:25:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9DF7B6C794;
+	Mon, 11 May 2020 11:47:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 724D31809543;
-	Mon, 11 May 2020 11:25:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EF6511809543;
+	Mon, 11 May 2020 11:47:01 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04BBPBfn018540 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 11 May 2020 07:25:11 -0400
+	id 04BBkq52020140 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 11 May 2020 07:46:53 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8FE0B2166BA0; Mon, 11 May 2020 11:25:11 +0000 (UTC)
+	id B783720A8DCD; Mon, 11 May 2020 11:46:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B37F2166B28
-	for <dm-devel@redhat.com>; Mon, 11 May 2020 11:25:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B2D8A2026FFE
+	for <dm-devel@redhat.com>; Mon, 11 May 2020 11:46:48 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 71ED8833B45
-	for <dm-devel@redhat.com>; Mon, 11 May 2020 11:25:09 +0000 (UTC)
-Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BF6A7833B49
+	for <dm-devel@redhat.com>; Mon, 11 May 2020 11:46:48 +0000 (UTC)
+Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-239-YP1dbNzFMvKc-yGsrygQFA-1; Mon, 11 May 2020 07:25:05 -0400
-X-MC-Unique: YP1dbNzFMvKc-yGsrygQFA-1
-IronPort-SDR: FPtxwJ9jfIWxweLGmR9zVVW3UkcnCc2nbwfn3kdjJTPKvxxcJXvoukq+SiQ3Rk/Oy3GM8kOvRV
-	MGhTHDhpannu4xZ3MjiQZCEoleObnSpYcdDFBAYwn332VFwoIiC7unQupej+QxSnisJUIpRzMf
-	34rAarUu40gQfQZQDbPCDDFURZ3C49WA9iv5ndVrtUSCH/Zo3X9Ja3nvHFANP3y4ndqOcYSh7+
-	JBePmUy7WWSY+ADoR2ljPwkkWCNSywsPViMTrWuK9XE85c557QWgYBTFonx+KuPqvdjxWUbJJP
-	HTg=
-X-IronPort-AV: E=Sophos;i="5.73,379,1583164800"; d="scan'208";a="137400997"
-Received: from mail-co1nam11lp2169.outbound.protection.outlook.com (HELO
-	NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.169])
-	by ob1.hgst.iphmx.com with ESMTP; 11 May 2020 19:25:03 +0800
+	us-mta-210-AMgW_PXAPpy6t9csjqzcZw-1; Mon, 11 May 2020 07:46:46 -0400
+X-MC-Unique: AMgW_PXAPpy6t9csjqzcZw-1
+IronPort-SDR: IgkLCOCvhtKO4NqQOT9bgLzV6RuvKWdwSgVKPrZoVRvnmetx9rJe37yn2NmNV3xX103d2/H1lc
+	0LSftMzQtlkGp+SCI+ugaEBGCx73s4srGoFqmtQHmjFeFohMDCU9ArBbu7ltrgom/+BPXj0Igw
+	VoxZGGVKApPRxH31tmwhQzFaGikZLLnN+NbLAtuoN1E1p4tabQYDD/eUqqhmrlZ2nr51MuyEko
+	EDAMZsrrmATYf6wUZTs2PWE8EFdExTXeP640xWQMaN/l0iaw/Aq09BN+aDeiLWvos8Fj41rB/D
+	Jao=
+X-IronPort-AV: E=Sophos;i="5.73,379,1583164800"; d="scan'208";a="246315435"
+Received: from mail-mw2nam10lp2108.outbound.protection.outlook.com (HELO
+	NAM10-MW2-obe.outbound.protection.outlook.com) ([104.47.55.108])
+	by ob1.hgst.iphmx.com with ESMTP; 11 May 2020 19:46:44 +0800
 Received: from BY5PR04MB6900.namprd04.prod.outlook.com (2603:10b6:a03:229::20)
-	by BY5PR04MB6549.namprd04.prod.outlook.com (2603:10b6:a03:1d2::23)
+	by BY5PR04MB6801.namprd04.prod.outlook.com (2603:10b6:a03:222::22)
 	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.34;
-	Mon, 11 May 2020 11:25:02 +0000
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.28;
+	Mon, 11 May 2020 11:46:44 +0000
 Received: from BY5PR04MB6900.namprd04.prod.outlook.com
 	([fe80::b574:3071:da2f:7606]) by
 	BY5PR04MB6900.namprd04.prod.outlook.com
 	([fe80::b574:3071:da2f:7606%6]) with mapi id 15.20.2979.033;
-	Mon, 11 May 2020 11:25:02 +0000
+	Mon, 11 May 2020 11:46:44 +0000
 From: Damien Le Moal <Damien.LeMoal@wdc.com>
 To: Hannes Reinecke <hare@suse.de>, Mike Snitzer <snitzer@redhat.com>
 Thread-Topic: [PATCHv5 00/14] dm-zoned: metadata version 2
 Thread-Index: AQHWJRechFCM8ZarfEqHZb3tednc9w==
-Date: Mon, 11 May 2020 11:25:02 +0000
-Message-ID: <BY5PR04MB69008CD2C559E69DC17158C8E7A10@BY5PR04MB6900.namprd04.prod.outlook.com>
+Date: Mon, 11 May 2020 11:46:43 +0000
+Message-ID: <BY5PR04MB6900C84D00585D3560D4C51AE7A10@BY5PR04MB6900.namprd04.prod.outlook.com>
 References: <20200508090332.40716-1-hare@suse.de>
 	<BY5PR04MB6900138C0F78196D0F81BF07E7A10@BY5PR04MB6900.namprd04.prod.outlook.com>
 	<BY5PR04MB6900C76141ABD428F42C1840E7A10@BY5PR04MB6900.namprd04.prod.outlook.com>
-	<f3b1182e-45fb-4b8b-71ca-a1b340403260@suse.de>
+	<2553e593-795d-6aed-f983-e990a283e2ff@suse.de>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -87,34 +88,34 @@ X-MS-TNEF-Correlator:
 x-originating-ip: [129.253.182.57]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 6c022514-6291-44fc-6a86-08d7f59df295
-x-ms-traffictypediagnostic: BY5PR04MB6549:
-x-microsoft-antispam-prvs: <BY5PR04MB6549829636AC1A83562493D1E7A10@BY5PR04MB6549.namprd04.prod.outlook.com>
+x-ms-office365-filtering-correlation-id: f7f0cce3-71ff-40a4-e0b6-08d7f5a0fa66
+x-ms-traffictypediagnostic: BY5PR04MB6801:
+x-microsoft-antispam-prvs: <BY5PR04MB6801511F008857400C0D498CE7A10@BY5PR04MB6801.namprd04.prod.outlook.com>
 wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
 x-forefront-prvs: 04004D94E2
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 0WW+bBHva+RCOYI8kn1JnipecFDCPGaJeh2oCz5oAB1zdNnYl5KvkJF9/a7tlw/gjzwBRdtlJkjdou7gs4TzgRGUsso+NwJl5pgU/0vykHfoomCJfsDF2rtuMZopVj1Vi1aiV+Zj6ZHaJmg7VUCJgLBQOAq0ySc6unfOIh5l03U72zKyMuZ/EEKHSlGI4sW6mAAfnUtukNRFhxDMOt0bbqVVt5oVv1p3P5UINlpjHft2oh6y0ZHvnbYR4NNSw0lbikAgh017ct6VJvKR44ygGxkOYxHhLVi1myCmsYpGQ0pWhlFqphRT0RXo3Aaif+zb5AeCqZr2TEFlcwJWKlkfoyqGDoFixNX+q6hcZDGU/TC3p5oVCWuoZVECHsQjZ9n383mYoIcMuivsKAejntVccfzADUDDz946VnnDAKd1YTpv/M9MwYn4yfEVXs+BWwsIZzOU5MKTCRxbqKQwac2nrN+JYWC5xH54AJsJB+bB4ksUpyvrBgQlq1i9I6WqmU19q7JjS9u9YQN3y8X+2rY9Hw==
+x-microsoft-antispam-message-info: 8Qn3j9MZJQBWm99vOcEoNdLB0gcPfZyBv02yJhivEkU7IE/kwGgW5Esx/PwwVREv+NgycCa84q8n0souKizXJn6YFjJorgcpQwi0udcERfv765UM51PgnVUDoyxHAKUvSawavijiiY1NmW/tGZU7luw9PFpgOJRDG+kXJznFFVwAQTcVRPvfNRO5rw1sWRpcQdoKNNxNuN4jU8Bbygurb1YSEgGsKNODNB7X9ej/qt5QHh/TaWKKs0jem1++8G3q45Fb5wtcdQeTYiPkeV/GIZrwytZzxNnksisNWmS7RNFWsRyywptFM/RdVKgnac4CJETcub2gJWMQXd1VBEIRH01cN25Mrb1Mvp5I4p6WUmaQ9xwhdfpUmINp4NekEv8iSejuKMwUks6s9bZ5NApKhn0Fta/klKf9jjkaV1qnRIFNnzaf1WPbfrOnNwD3YUOBETutJ1EnXHTBq0lC+jD/E/R0JxNZlD2YMLdcUabXLcuFWEy8HSo9O5y0uchmQQsZcIIHrM1GjomLHRP5qDIr1A==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
 	IPV:NLI; SFV:NSPM; H:BY5PR04MB6900.namprd04.prod.outlook.com;
 	PTR:; CAT:NONE; SFTY:;
-	SFS:(4636009)(136003)(396003)(366004)(376002)(39860400002)(346002)(33430700001)(186003)(6506007)(53546011)(86362001)(71200400001)(5660300002)(76116006)(66446008)(8676002)(64756008)(8936002)(66556008)(66476007)(2906002)(478600001)(66946007)(110136005)(54906003)(33440700001)(316002)(26005)(55016002)(4326008)(9686003)(7696005)(33656002)(52536014);
+	SFS:(4636009)(396003)(366004)(39860400002)(136003)(346002)(376002)(33430700001)(8676002)(7696005)(478600001)(2906002)(55016002)(76116006)(26005)(4326008)(9686003)(186003)(53546011)(8936002)(6506007)(52536014)(33440700001)(5660300002)(54906003)(110136005)(86362001)(33656002)(316002)(66556008)(66476007)(66946007)(66446008)(64756008)(71200400001);
 	DIR:OUT; SFP:1102;
-x-ms-exchange-antispam-messagedata: 0tujz6kq3VF8dmN1H/eAn8xD7douGzfSCvJYhidtw8b8qJwnE/5NVtObE6lgq27xzRKbSVfwFkui4J16WdPoCeDKLgQ63CLhG3hfX/v6SW46W2rDiWAZ9Ibf1ClYq9DBz5YEcmylEOpOY1ayYV8E7+LQKl/eOVGWS66qojIFAXGE1QWQ0atCFojmBvE8RHJEtWWMoG6pwaB3AyjOE9JU8Kgt5fI7Az6xDni//sEnzr+o0IfT3TekOBm4iaJhhtD9qG/CQL/Qrq094i7jHawaGgYR2PddruKrvX6HYC3jxvgGcZzQXQxBgZGXbK7evWl6zZ561GoVe1aLdFuJQuj2B6Q0NyGzXmGuxG5qRTFi2X+t+6jzQS2+ydOSMT3eriZo6mxudAXklWEWUV2drUE++ljFI8fTJX8zo8093MlHLxNDMHUfSik16xFYvqz7C+tvEMujGk+cbEjLGaeG7fxzbqi6mViU3ZI5JwooegO0EoS4UC8BXzARWcI+5KKJCKrn
+x-ms-exchange-antispam-messagedata: cr4EjtJoWEFhW4LgaNVSLiyup4r8o0yzRNTpexF++jl1b98aNz6gUmbneK+rb9YG6ljGhU4BhN7XnomNvw4fM01WRCSItjcPcWzZyVafxGvpyZ0256hXCu4Kse7gTIVW/LOuc85xXgmGr0B49/r/MPPoxvWOT8tmCciZmEtYkf62VC6FKKzv853wDmGnqhw/NA7b7OvqMsJN76lsGEcK+jVYjueWEWaro+UidHOqbIp5X9cpK4m5CdkIAM2NaHTGCU+lEssUz5D/FhH367GcsleOfv82/tmX8xCElC5uOOjMem+bT4FVYVSl5A+BVUU1gWHBtEDB0e8PSSNxK3xsnVsi+Ea0fJgc9R5ezCVBSxSir/BIHxk4EYWKwwroQ3ltRCk58jRJP/JgUENBpmZ57vruNPI5v3LLaeliBaEGfGTSbYVcPaKgA6rvQDBQTTMYcnms0spMZlck1D3zRHzcbwxvMPG3RVlrI7hJnUFuwwWPEtoeQ/9Nb1GyNJb8VTqM
 x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
 X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c022514-6291-44fc-6a86-08d7f59df295
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2020 11:25:02.2742 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7f0cce3-71ff-40a4-e0b6-08d7f5a0fa66
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2020 11:46:43.9200 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EpZvHwLQlFRKxKQUYJabNTuO3I0B+krtz2GPLzlE5G4LKA8WTSkXZA3RnUkRJYtSMyx2ernp/qaaGEaWf8g6jQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR04MB6549
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MS-Exchange-CrossTenant-userprincipalname: hfrX4pmnOWugI+ua9MccTODj+btxeIVFJ9icktqGP63meKrCtDrZ1oNHy8lV/Hd8zBie7iUVPlXQR2mlayiE2w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR04MB6801
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 04BBPBfn018540
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 04BBkq52020140
 X-loop: dm-devel@redhat.com
 Cc: Bob Liu <bob.liu@oracle.com>, "dm-devel@redhat.com" <dm-devel@redhat.com>
 Subject: Re: [dm-devel] [PATCHv5 00/14] dm-zoned: metadata version 2
@@ -131,13 +132,13 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 2020/05/11 20:19, Hannes Reinecke wrote:
+On 2020/05/11 20:25, Hannes Reinecke wrote:
 > On 5/11/20 12:55 PM, Damien Le Moal wrote:
 >> On 2020/05/11 11:46, Damien Le Moal wrote:
 >>> Mike,
@@ -175,22 +176,47 @@ On 2020/05/11 20:19, Hannes Reinecke wrote:
 >> fixed ?
 >>
 >>
-> I _thought_ I had this fixed; the idea was to manipulate the 'runt' zone 
-> such that the zone would always displayed as a zone with same size as 
-> all the other zones, but marked as offline. IE the (logical) zone layout 
-> would always be equidistant, with no runt zones in between.
->  From that perspective the actual size of the runt zone wouldn't matter 
-> at all.
+>>
+>>
+> Does this one help?
+
+Nope. Same warning.
+
 > 
-> Lemme check.
+> diff --git a/drivers/md/dm-zoned-target.c b/drivers/md/dm-zoned-target.c
+> index ea43f6892ced..5daca82b5ec7 100644
+> --- a/drivers/md/dm-zoned-target.c
+> +++ b/drivers/md/dm-zoned-target.c
+> @@ -1041,13 +1041,17 @@ static int dmz_iterate_devices(struct dm_target *ti,
+>   {
+>          struct dmz_target *dmz = ti->private;
+>          unsigned int zone_nr_sectors = dmz_zone_nr_sectors(dmz->metadata);
+> +       unsigned int nr_zones;
+>          sector_t capacity;
+>          int r;
+> 
+> -       capacity = dmz->dev[0].capacity & ~(zone_nr_sectors - 1);
+> +       nr_zones = DIV_ROUND_DOWN(dmz->dev[0].capacity, zone_nr_sectors);
+> +       capacity = nr_zones * zone_nr_sectors;
 
-Was just playing with dmzadm right now, and I did notice that the second device
-start offset is indeed a round number of zones, larger than the actual regular
-device capacity in my test case. So indeed, that code is in place there.
+	capacity = round_down(dmz->dev[0].capacity, zone_nr_sectors);
 
-So the problem may be on the kernel side, something using the first dev capacity
-as is instead of the rounded-up value to the zone size... Digging too.
+is simpler :)
 
+In any case, your change does seem to do anything here. Before and after, the
+capacity is rounded down to full zones, excluding the last runt zone. I think it
+is to do with the table entry start offset given on DM start by dmzadm...
+
+
+>          r = fn(ti, dmz->ddev[0], 0, capacity, data);
+>          if (!r && dmz->ddev[1]) {
+> -               capacity = dmz->dev[1].capacity & ~(zone_nr_sectors - 1);
+> +               nr_zones = DIV_ROUND_DOWN(dmz->dev[1.capacity,
+> +                                                  zone_nr_sectors));
+> +               capacity = nr_zones * zone_nr_sectors;
+>                  r = fn(ti, dmz->ddev[1], 0, capacity, data);
+>          }
+>          return r;
 > 
 > Cheers,
 > 
