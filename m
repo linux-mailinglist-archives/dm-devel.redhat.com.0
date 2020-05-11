@@ -1,8 +1,8 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 32E471CD3BA
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id BBF261CD3BB
 	for <lists+dm-devel@lfdr.de>; Mon, 11 May 2020 10:25:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1589185515;
@@ -12,62 +12,62 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=1CaxFbnAO6GXm069wKnafZTC2g8xreNIHr2EsPSiygY=;
-	b=LrWan400AYQz1NpoCoyf19kk9pOoheoOIi6ruw8GztXh0yIua/+Tur5l2Ls0sRoqDd1m92
-	8jjKWCYTD/nMbJ+TnuwfBTIowThLNO5RLN5osdKan88n+9oznEcYsRl6Tw3u2jV550IQU9
-	B4mmVNGoghyet8HrG+EfXPtDnPn9SE4=
+	bh=7A9yYwm89opjCOJV1bdg5wNjOQmlBLyBuANRHfSEgwo=;
+	b=JLaAXpHTHBVihSUROrgMM5281e62BKc1eucJtdNSNbBJH77U4EREP21UMcjZV0lLF7J5o2
+	Rl3TNxs5s65zpActc3u3DjsIA4Dt8TvRy5OawntZMelv3WRc2tGE87AXxB9SbkWEWjvgq8
+	m7sCu7k2Pa3q1KNMVqw9GZ9SYRtYP+g=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-469-4qVFUYqwP-Gwu3cVU4OIBw-1; Mon, 11 May 2020 04:25:13 -0400
-X-MC-Unique: 4qVFUYqwP-Gwu3cVU4OIBw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-40-adJHZwdOOCmX-PSBmaR2UQ-1; Mon, 11 May 2020 04:25:13 -0400
+X-MC-Unique: adJHZwdOOCmX-PSBmaR2UQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0C18C835BA8;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7D7F518FE864;
 	Mon, 11 May 2020 08:25:06 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C963F196BC;
-	Mon, 11 May 2020 08:25:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4860E6C787;
+	Mon, 11 May 2020 08:25:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 336D31809561;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B145D1809563;
 	Mon, 11 May 2020 08:25:05 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04B8OqXJ031863 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 11 May 2020 04:24:52 -0400
+	id 04B8OrDe031900 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 11 May 2020 04:24:53 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4E94420A8DCA; Mon, 11 May 2020 08:24:52 +0000 (UTC)
+	id 60D042156A4A; Mon, 11 May 2020 08:24:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 499E6202696C
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5BFF92157F24
 	for <dm-devel@redhat.com>; Mon, 11 May 2020 08:24:50 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B9D62800307
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 62206101A526
 	for <dm-devel@redhat.com>; Mon, 11 May 2020 08:24:50 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-188-W3rP3XVWMROjd1nBFZiHkg-1;
+	relay.mimecast.com with ESMTP id us-mta-273-_fpmmVTUPSKnIpYkeW8CJw-1;
 	Mon, 11 May 2020 04:24:48 -0400
-X-MC-Unique: W3rP3XVWMROjd1nBFZiHkg-1
+X-MC-Unique: _fpmmVTUPSKnIpYkeW8CJw-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
-	by mx2.suse.de (Postfix) with ESMTP id 57BB6AE3C;
+	by mx2.suse.de (Postfix) with ESMTP id 59ED8AEA3;
 	Mon, 11 May 2020 08:24:47 +0000 (UTC)
 From: Hannes Reinecke <hare@suse.de>
 To: Mike Snitzer <snitzer@redhat.com>
-Date: Mon, 11 May 2020 10:24:22 +0200
-Message-Id: <20200511082430.39455-8-hare@suse.de>
+Date: Mon, 11 May 2020 10:24:23 +0200
+Message-Id: <20200511082430.39455-9-hare@suse.de>
 In-Reply-To: <20200511082430.39455-1-hare@suse.de>
 References: <20200511082430.39455-1-hare@suse.de>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: Damien LeMoal <damien.lemoal@wdc.com>, Bob Liu <bob.liu@oracle.com>,
 	dm-devel@redhat.com
-Subject: [dm-devel] [PATCH 07/15] dm-zoned: introduce dmz_metadata_label()
-	to format device name
+Subject: [dm-devel] [PATCH 08/15] dm-zoned: Introduce dmz_dev_is_dying() and
+	dmz_check_dev()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,281 +82,113 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Introduce dmz_metadata_label() to format the device-mapper device
-name and use it instead of the device name of the underlying device.
+Introduce accessors dmz_dev_is_dying() and dmz_check_dev() to
+avoid having to reference the devices directly.
 
 Signed-off-by: Hannes Reinecke <hare@suse.de>
-Reviewed-by: Damien Le Moal <damien.lemoal@wdc.com>
 Reviewed-by: Bob Liu <bob.liu@oracle.com>
+Reviewed-by: Damien Le Moal <damien.lemoal@wdc.com>
 ---
- drivers/md/dm-zoned-metadata.c | 11 ++++++-
- drivers/md/dm-zoned-reclaim.c  | 15 +++++----
- drivers/md/dm-zoned-target.c   | 74 +++++++++++++++++++++++-------------------
- drivers/md/dm-zoned.h          |  4 ++-
- 4 files changed, 62 insertions(+), 42 deletions(-)
+ drivers/md/dm-zoned-metadata.c | 14 ++++++++++++--
+ drivers/md/dm-zoned-reclaim.c  |  4 ++--
+ drivers/md/dm-zoned-target.c   |  2 +-
+ drivers/md/dm-zoned.h          |  3 +++
+ 4 files changed, 18 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
-index b844ff02ae7b..7cda48683c0b 100644
+index 7cda48683c0b..426af738f1ca 100644
 --- a/drivers/md/dm-zoned-metadata.c
 +++ b/drivers/md/dm-zoned-metadata.c
-@@ -134,6 +134,8 @@ struct dmz_sb {
- struct dmz_metadata {
- 	struct dmz_dev		*dev;
- 
-+	char			devname[BDEVNAME_SIZE];
-+
- 	sector_t		zone_bitmap_size;
- 	unsigned int		zone_nr_bitmap_blocks;
- 	unsigned int		zone_bits_per_mblk;
-@@ -260,6 +262,11 @@ unsigned int dmz_nr_unmap_seq_zones(struct dmz_metadata *zmd)
- 	return atomic_read(&zmd->unmap_nr_seq);
+@@ -267,6 +267,16 @@ const char *dmz_metadata_label(struct dmz_metadata *zmd)
+ 	return (const char *)zmd->devname;
  }
  
-+const char *dmz_metadata_label(struct dmz_metadata *zmd)
++bool dmz_check_dev(struct dmz_metadata *zmd)
 +{
-+	return (const char *)zmd->devname;
++	return dmz_check_bdev(&zmd->dev[0]);
++}
++
++bool dmz_dev_is_dying(struct dmz_metadata *zmd)
++{
++	return dmz_bdev_is_dying(&zmd->dev[0]);
 +}
 +
  /*
   * Lock/unlock mapping table.
   * The map lock also protects all the zone lists.
-@@ -2439,7 +2446,8 @@ static void dmz_cleanup_metadata(struct dmz_metadata *zmd)
- /*
-  * Initialize the zoned metadata.
-  */
--int dmz_ctr_metadata(struct dmz_dev *dev, struct dmz_metadata **metadata)
-+int dmz_ctr_metadata(struct dmz_dev *dev, struct dmz_metadata **metadata,
-+		     const char *devname)
- {
- 	struct dmz_metadata *zmd;
- 	unsigned int i;
-@@ -2450,6 +2458,7 @@ int dmz_ctr_metadata(struct dmz_dev *dev, struct dmz_metadata **metadata)
- 	if (!zmd)
- 		return -ENOMEM;
- 
-+	strcpy(zmd->devname, devname);
- 	zmd->dev = dev;
- 	zmd->mblk_rbtree = RB_ROOT;
- 	init_rwsem(&zmd->mblk_sem);
+@@ -1719,7 +1729,7 @@ struct dm_zone *dmz_get_chunk_mapping(struct dmz_metadata *zmd, unsigned int chu
+ 		/* Allocate a random zone */
+ 		dzone = dmz_alloc_zone(zmd, DMZ_ALLOC_RND);
+ 		if (!dzone) {
+-			if (dmz_bdev_is_dying(zmd->dev)) {
++			if (dmz_dev_is_dying(zmd)) {
+ 				dzone = ERR_PTR(-EIO);
+ 				goto out;
+ 			}
+@@ -1820,7 +1830,7 @@ struct dm_zone *dmz_get_chunk_buffer(struct dmz_metadata *zmd,
+ 	/* Allocate a random zone */
+ 	bzone = dmz_alloc_zone(zmd, DMZ_ALLOC_RND);
+ 	if (!bzone) {
+-		if (dmz_bdev_is_dying(zmd->dev)) {
++		if (dmz_dev_is_dying(zmd)) {
+ 			bzone = ERR_PTR(-EIO);
+ 			goto out;
+ 		}
 diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
-index 5aa5e5130fe8..699c4145306e 100644
+index 699c4145306e..5daede0daf92 100644
 --- a/drivers/md/dm-zoned-reclaim.c
 +++ b/drivers/md/dm-zoned-reclaim.c
-@@ -480,15 +480,16 @@ static void dmz_reclaim_work(struct work_struct *work)
- 		zrc->kc_throttle.throttle = min(75U, 100U - p_unmap_rnd / 2);
- 	}
+@@ -455,7 +455,7 @@ static void dmz_reclaim_work(struct work_struct *work)
+ 	unsigned int p_unmap_rnd;
+ 	int ret;
  
--	dmz_dev_debug(zrc->dev,
--		      "Reclaim (%u): %s, %u%% free rnd zones (%u/%u)",
--		      zrc->kc_throttle.throttle,
--		      (dmz_target_idle(zrc) ? "Idle" : "Busy"),
--		      p_unmap_rnd, nr_unmap_rnd, nr_rnd);
-+	DMDEBUG("(%s): Reclaim (%u): %s, %u%% free rnd zones (%u/%u)",
-+		dmz_metadata_label(zmd),
-+		zrc->kc_throttle.throttle,
-+		(dmz_target_idle(zrc) ? "Idle" : "Busy"),
-+		p_unmap_rnd, nr_unmap_rnd, nr_rnd);
+-	if (dmz_bdev_is_dying(zrc->dev))
++	if (dmz_dev_is_dying(zmd))
+ 		return;
  
- 	ret = dmz_do_reclaim(zrc);
+ 	if (!dmz_should_reclaim(zrc)) {
+@@ -490,7 +490,7 @@ static void dmz_reclaim_work(struct work_struct *work)
  	if (ret) {
--		dmz_dev_debug(zrc->dev, "Reclaim error %d\n", ret);
-+		DMDEBUG("(%s): Reclaim error %d\n",
-+			dmz_metadata_label(zmd), ret);
- 		if (!dmz_check_bdev(zrc->dev))
+ 		DMDEBUG("(%s): Reclaim error %d\n",
+ 			dmz_metadata_label(zmd), ret);
+-		if (!dmz_check_bdev(zrc->dev))
++		if (!dmz_check_dev(zmd))
  			return;
  	}
-@@ -524,7 +525,7 @@ int dmz_ctr_reclaim(struct dmz_dev *dev, struct dmz_metadata *zmd,
- 	/* Reclaim work */
- 	INIT_DELAYED_WORK(&zrc->work, dmz_reclaim_work);
- 	zrc->wq = alloc_ordered_workqueue("dmz_rwq_%s", WQ_MEM_RECLAIM,
--					  dev->name);
-+					  dmz_metadata_label(zmd));
- 	if (!zrc->wq) {
- 		ret = -ENOMEM;
- 		goto err;
+ 
 diff --git a/drivers/md/dm-zoned-target.c b/drivers/md/dm-zoned-target.c
-index 68c5684d7b01..ba5b8c507c98 100644
+index ba5b8c507c98..b32e791b8a5c 100644
 --- a/drivers/md/dm-zoned-target.c
 +++ b/drivers/md/dm-zoned-target.c
-@@ -178,11 +178,12 @@ static int dmz_handle_read(struct dmz_target *dmz, struct dm_zone *zone,
- 		return 0;
- 	}
+@@ -632,7 +632,7 @@ static int dmz_map(struct dm_target *ti, struct bio *bio)
+ 	sector_t chunk_sector;
+ 	int ret;
  
--	dmz_dev_debug(dmz->dev, "READ chunk %llu -> %s zone %u, block %llu, %u blocks",
--		      (unsigned long long)dmz_bio_chunk(zmd, bio),
--		      (dmz_is_rnd(zone) ? "RND" : "SEQ"),
--		      zone->id,
--		      (unsigned long long)chunk_block, nr_blocks);
-+	DMDEBUG("(%s): READ chunk %llu -> %s zone %u, block %llu, %u blocks",
-+		dmz_metadata_label(zmd),
-+		(unsigned long long)dmz_bio_chunk(zmd, bio),
-+		(dmz_is_rnd(zone) ? "RND" : "SEQ"),
-+		zone->id,
-+		(unsigned long long)chunk_block, nr_blocks);
- 
- 	/* Check block validity to determine the read location */
- 	bzone = zone->bzone;
-@@ -316,11 +317,12 @@ static int dmz_handle_write(struct dmz_target *dmz, struct dm_zone *zone,
- 	if (!zone)
- 		return -ENOSPC;
- 
--	dmz_dev_debug(dmz->dev, "WRITE chunk %llu -> %s zone %u, block %llu, %u blocks",
--		      (unsigned long long)dmz_bio_chunk(zmd, bio),
--		      (dmz_is_rnd(zone) ? "RND" : "SEQ"),
--		      zone->id,
--		      (unsigned long long)chunk_block, nr_blocks);
-+	DMDEBUG("(%s): WRITE chunk %llu -> %s zone %u, block %llu, %u blocks",
-+		dmz_metadata_label(zmd),
-+		(unsigned long long)dmz_bio_chunk(zmd, bio),
-+		(dmz_is_rnd(zone) ? "RND" : "SEQ"),
-+		zone->id,
-+		(unsigned long long)chunk_block, nr_blocks);
- 
- 	if (dmz_is_rnd(zone) || chunk_block == zone->wp_block) {
- 		/*
-@@ -357,10 +359,11 @@ static int dmz_handle_discard(struct dmz_target *dmz, struct dm_zone *zone,
- 	if (dmz_is_readonly(zone))
- 		return -EROFS;
- 
--	dmz_dev_debug(dmz->dev, "DISCARD chunk %llu -> zone %u, block %llu, %u blocks",
--		      (unsigned long long)dmz_bio_chunk(zmd, bio),
--		      zone->id,
--		      (unsigned long long)chunk_block, nr_blocks);
-+	DMDEBUG("(%s): DISCARD chunk %llu -> zone %u, block %llu, %u blocks",
-+		dmz_metadata_label(dmz->metadata),
-+		(unsigned long long)dmz_bio_chunk(zmd, bio),
-+		zone->id,
-+		(unsigned long long)chunk_block, nr_blocks);
- 
- 	/*
- 	 * Invalidate blocks in the data zone and its
-@@ -429,8 +432,8 @@ static void dmz_handle_bio(struct dmz_target *dmz, struct dm_chunk_work *cw,
- 		ret = dmz_handle_discard(dmz, zone, bio);
- 		break;
- 	default:
--		dmz_dev_err(dmz->dev, "Unsupported BIO operation 0x%x",
--			    bio_op(bio));
-+		DMERR("(%s): Unsupported BIO operation 0x%x",
-+		      dmz_metadata_label(dmz->metadata), bio_op(bio));
- 		ret = -EIO;
- 	}
- 
-@@ -504,7 +507,8 @@ static void dmz_flush_work(struct work_struct *work)
- 	/* Flush dirty metadata blocks */
- 	ret = dmz_flush_metadata(dmz->metadata);
- 	if (ret)
--		dmz_dev_debug(dmz->dev, "Metadata flush failed, rc=%d\n", ret);
-+		DMDEBUG("(%s): Metadata flush failed, rc=%d\n",
-+			dmz_metadata_label(dmz->metadata), ret);
- 
- 	/* Process queued flush requests */
- 	while (1) {
-@@ -631,11 +635,12 @@ static int dmz_map(struct dm_target *ti, struct bio *bio)
- 	if (dmz_bdev_is_dying(dmz->dev))
+-	if (dmz_bdev_is_dying(dmz->dev))
++	if (dmz_dev_is_dying(zmd))
  		return DM_MAPIO_KILL;
  
--	dmz_dev_debug(dev, "BIO op %d sector %llu + %u => chunk %llu, block %llu, %u blocks",
--		      bio_op(bio), (unsigned long long)sector, nr_sectors,
--		      (unsigned long long)dmz_bio_chunk(zmd, bio),
--		      (unsigned long long)dmz_chunk_block(zmd, dmz_bio_block(bio)),
--		      (unsigned int)dmz_bio_blocks(bio));
-+	DMDEBUG("(%s): BIO op %d sector %llu + %u => chunk %llu, block %llu, %u blocks",
-+		dmz_metadata_label(zmd),
-+		bio_op(bio), (unsigned long long)sector, nr_sectors,
-+		(unsigned long long)dmz_bio_chunk(zmd, bio),
-+		(unsigned long long)dmz_chunk_block(zmd, dmz_bio_block(bio)),
-+		(unsigned int)dmz_bio_blocks(bio));
- 
- 	bio_set_dev(bio, dev->bdev);
- 
-@@ -669,10 +674,10 @@ static int dmz_map(struct dm_target *ti, struct bio *bio)
- 	/* Now ready to handle this BIO */
- 	ret = dmz_queue_chunk_work(dmz, bio);
- 	if (ret) {
--		dmz_dev_debug(dmz->dev,
--			      "BIO op %d, can't process chunk %llu, err %i\n",
--			      bio_op(bio), (u64)dmz_bio_chunk(zmd, bio),
--			      ret);
-+		DMDEBUG("(%s): BIO op %d, can't process chunk %llu, err %i\n",
-+			dmz_metadata_label(zmd),
-+			bio_op(bio), (u64)dmz_bio_chunk(zmd, bio),
-+			ret);
- 		return DM_MAPIO_REQUEUE;
- 	}
- 
-@@ -782,7 +787,8 @@ static int dmz_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 
- 	/* Initialize metadata */
- 	dev = dmz->dev;
--	ret = dmz_ctr_metadata(dev, &dmz->metadata);
-+	ret = dmz_ctr_metadata(dev, &dmz->metadata,
-+			       dm_table_device_name(ti->table));
- 	if (ret) {
- 		ti->error = "Metadata initialization failed";
- 		goto err_dev;
-@@ -811,8 +817,9 @@ static int dmz_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	/* Chunk BIO work */
- 	mutex_init(&dmz->chunk_lock);
- 	INIT_RADIX_TREE(&dmz->chunk_rxtree, GFP_NOIO);
--	dmz->chunk_wq = alloc_workqueue("dmz_cwq_%s", WQ_MEM_RECLAIM | WQ_UNBOUND,
--					0, dev->name);
-+	dmz->chunk_wq = alloc_workqueue("dmz_cwq_%s",
-+					WQ_MEM_RECLAIM | WQ_UNBOUND, 0,
-+					dmz_metadata_label(dmz->metadata));
- 	if (!dmz->chunk_wq) {
- 		ti->error = "Create chunk workqueue failed";
- 		ret = -ENOMEM;
-@@ -824,7 +831,7 @@ static int dmz_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	bio_list_init(&dmz->flush_list);
- 	INIT_DELAYED_WORK(&dmz->flush_work, dmz_flush_work);
- 	dmz->flush_wq = alloc_ordered_workqueue("dmz_fwq_%s", WQ_MEM_RECLAIM,
--						dev->name);
-+						dmz_metadata_label(dmz->metadata));
- 	if (!dmz->flush_wq) {
- 		ti->error = "Create flush workqueue failed";
- 		ret = -ENOMEM;
-@@ -839,9 +846,10 @@ static int dmz_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 		goto err_fwq;
- 	}
- 
--	dmz_dev_info(dev, "Target device: %llu 512-byte logical sectors (%llu blocks)",
--		     (unsigned long long)ti->len,
--		     (unsigned long long)dmz_sect2blk(ti->len));
-+	DMINFO("(%s): Target device: %llu 512-byte logical sectors (%llu blocks)",
-+	       dmz_metadata_label(dmz->metadata),
-+	       (unsigned long long)ti->len,
-+	       (unsigned long long)dmz_sect2blk(ti->len));
- 
- 	return 0;
- err_fwq:
+ 	DMDEBUG("(%s): BIO op %d sector %llu + %u => chunk %llu, block %llu, %u blocks",
 diff --git a/drivers/md/dm-zoned.h b/drivers/md/dm-zoned.h
-index f997ad62c7b4..dd768dc60341 100644
+index dd768dc60341..e0883df8a903 100644
 --- a/drivers/md/dm-zoned.h
 +++ b/drivers/md/dm-zoned.h
-@@ -163,7 +163,8 @@ struct dmz_reclaim;
- /*
-  * Functions defined in dm-zoned-metadata.c
-  */
--int dmz_ctr_metadata(struct dmz_dev *dev, struct dmz_metadata **zmd);
-+int dmz_ctr_metadata(struct dmz_dev *dev, struct dmz_metadata **zmd,
-+		     const char *devname);
- void dmz_dtr_metadata(struct dmz_metadata *zmd);
- int dmz_resume_metadata(struct dmz_metadata *zmd);
- 
-@@ -174,6 +175,7 @@ void dmz_unlock_metadata(struct dmz_metadata *zmd);
- void dmz_lock_flush(struct dmz_metadata *zmd);
- void dmz_unlock_flush(struct dmz_metadata *zmd);
- int dmz_flush_metadata(struct dmz_metadata *zmd);
-+const char *dmz_metadata_label(struct dmz_metadata *zmd);
- 
- sector_t dmz_start_sect(struct dmz_metadata *zmd, struct dm_zone *zone);
+@@ -181,6 +181,9 @@ sector_t dmz_start_sect(struct dmz_metadata *zmd, struct dm_zone *zone);
  sector_t dmz_start_block(struct dmz_metadata *zmd, struct dm_zone *zone);
+ unsigned int dmz_nr_chunks(struct dmz_metadata *zmd);
+ 
++bool dmz_check_dev(struct dmz_metadata *zmd);
++bool dmz_dev_is_dying(struct dmz_metadata *zmd);
++
+ #define DMZ_ALLOC_RND		0x01
+ #define DMZ_ALLOC_RECLAIM	0x02
+ 
 -- 
 2.16.4
 
