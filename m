@@ -1,87 +1,63 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 3CBE11CFFC1
-	for <lists+dm-devel@lfdr.de>; Tue, 12 May 2020 22:46:35 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 3D3441D05A3
+	for <lists+dm-devel@lfdr.de>; Wed, 13 May 2020 05:49:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1589316394;
+	s=mimecast20190719; t=1589341765;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=34oszPCHESikPyRhKeTfHs8L/qtnwnb2WAx/hR8k3WQ=;
-	b=VFg/dRp35Fx9MTCWbZxgTJk85zJ3YZ7ccfkKcBuMlBUMikdto+9mzuKQ/nKr8jKf9oP2kC
-	VjWjCwFgIRbzobfLahqYN8u0qhW0im92txkssXFVRMyuQwTuDkWGENkAGOii9YtczbPinS
-	38/7xJMEGwpBPRWFAj4O+BCXxDu1J70=
+	bh=YQH1gGEieQlxaF2ZEpN7AFAxvHU2gNUh8xugdsGwdcU=;
+	b=XG92E7u/+Ima7ot4RXuKKFAKTo+FZUKRC6A9WoTSQcJ+2ZBHBscnT/dLMvyaQbwqkowq8b
+	Z5IRy8UWNzuH33gAcgUktgkxIiJUNXK5ZqKrlXgi9Sr4dXrMlKtN7PHgSf6lp7GdyIKeKQ
+	0O0Tm2XGOCtakB5g6vJo9/HU/XdU21s=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-91-5cm9xkFsNk-ods-EWc3kXg-1; Tue, 12 May 2020 16:46:31 -0400
-X-MC-Unique: 5cm9xkFsNk-ods-EWc3kXg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-422-QexcHz42Pz6yTvteuQLoXA-1; Tue, 12 May 2020 23:49:23 -0400
+X-MC-Unique: QexcHz42Pz6yTvteuQLoXA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9F730460;
-	Tue, 12 May 2020 20:46:25 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 60B7F63F8F;
-	Tue, 12 May 2020 20:46:22 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 18F9E80183C;
+	Wed, 13 May 2020 03:49:16 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D041B60CD3;
+	Wed, 13 May 2020 03:49:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 05B7D1809543;
-	Tue, 12 May 2020 20:46:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0D2874CAA0;
+	Wed, 13 May 2020 03:48:58 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04CKkBEo019178 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 12 May 2020 16:46:12 -0400
+	id 04D3mPDF013377 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 12 May 2020 23:48:25 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id BCB8B2156A3D; Tue, 12 May 2020 20:46:11 +0000 (UTC)
+	id 15D44100EBA9; Wed, 13 May 2020 03:48:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B87A92156A49
-	for <dm-devel@redhat.com>; Tue, 12 May 2020 20:46:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BA1B1801009
-	for <dm-devel@redhat.com>; Tue, 12 May 2020 20:46:09 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-295-PTi4ogQUPCW2OoxtHa_m1Q-1;
-	Tue, 12 May 2020 16:46:02 -0400
-X-MC-Unique: PTi4ogQUPCW2OoxtHa_m1Q-1
-Received: from [10.137.106.115] (unknown [131.107.174.243])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 8F07520B717B;
-	Tue, 12 May 2020 13:46:00 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8F07520B717B
-From: Deven Bowers <deven.desai@linux.microsoft.com>
-To: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>, agk@redhat.com,
-	axboe@kernel.dk, snitzer@redhat.com, jmorris@namei.org,
-	serge@hallyn.com, zohar@linux.ibm.com, linux-integrity@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, dm-devel@redhat.com,
-	linux-block@vger.kernel.org, jannh@google.com
-References: <20200415162550.2324-1-deven.desai@linux.microsoft.com>
-	<b07ac7e1-7cf5-92c9-81d0-64174c3d5024@digikod.net>
-	<0001755a-6b2a-b13b-960c-eb0b065c8e3c@linux.microsoft.com>
-Message-ID: <8ba7b15f-de91-40f7-fc95-115228345fce@linux.microsoft.com>
-Date: Tue, 12 May 2020 13:46:00 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
-	Thunderbird/68.8.0
+Received: from localhost (ovpn-12-166.pek2.redhat.com [10.72.12.166])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7F99A10013D9;
+	Wed, 13 May 2020 03:48:14 +0000 (UTC)
+From: Ming Lei <ming.lei@redhat.com>
+To: Jens Axboe <axboe@kernel.dk>
+Date: Wed, 13 May 2020 11:47:52 +0800
+Message-Id: <20200513034803.1844579-2-ming.lei@redhat.com>
+In-Reply-To: <20200513034803.1844579-1-ming.lei@redhat.com>
+References: <20200513034803.1844579-1-ming.lei@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <0001755a-6b2a-b13b-960c-eb0b065c8e3c@linux.microsoft.com>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 04CKkBEo019178
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-Cc: sashal@kernel.org, pasha.tatashin@soleen.com, corbet@lwn.net,
-	mdsakib@linux.microsoft.com, linux-kernel@vger.kernel.org,
-	nramas@linux.microsoft.com, tyhicks@linux.microsoft.com,
-	jaskarankhurana@linux.microsoft.com
-Subject: Re: [dm-devel] [RFC PATCH v3 00/12] Integrity Policy Enforcement
-	LSM (IPE)
+Cc: Hannes Reinecke <hare@suse.com>, Bart Van Assche <bvanassche@acm.org>,
+	Mike Snitzer <snitzer@redhat.com>, John Garry <john.garry@huawei.com>,
+	Ming Lei <ming.lei@redhat.com>, linux-block@vger.kernel.org,
+	dm-devel@redhat.com, "Martin K . Petersen" <martin.petersen@oracle.com>,
+	Thomas Gleixner <tglx@linutronix.de>, Christoph Hellwig <hch@lst.de>
+Subject: [dm-devel] [PATCH V11 01/12] block: clone nr_integrity_segments and
+	write_hint in blk_rq_prep_clone
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,95 +71,54 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="iso-8859-15"; Format="flowed"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
+So far blk_rq_prep_clone() is only used for setup one underlying cloned
+request from dm-rq request. block intetrity can be enabled for both dm-rq
+and the underlying queues, so it is reasonable to clone rq's
+nr_integrity_segments. Also write_hint is from bio, it should have been
+cloned too.
 
+So clone nr_integrity_segments and write_hint in blk_rq_prep_clone.
 
-On 5/11/2020 11:03 AM, Deven Bowers wrote:
->=20
->=20
-> On 5/10/2020 2:28 AM, Micka=EBl Sala=FCn wrote:
->=20
-> [...snip]
->=20
->>>
->>> Additionally, rules are evaluated top-to-bottom. As a result, any
->>> revocation rules, or denies should be placed early in the file to ensur=
-e
->>> that these rules are evaluated before a rule with "action=3DALLOW" is h=
-it.
->>>
->>> IPE policy is designed to be forward compatible and backwards=20
->>> compatible,
->>> thus any failure to parse a rule will result in the line being ignored,
->>> and a warning being emitted. If backwards compatibility is not required=
-,
->>> the kernel commandline parameter and sysctl, ipe.strict_parse can be
->>> enabled, which will cause these warnings to be fatal.
->>
->> Ignoring unknown command may lead to inconsistent beaviors. To achieve
->> forward compatibility, I think it would be better to never ignore
->> unknown rule but to give a way to userspace to known what is the current
->> kernel ABI. This could be done with a securityfs file listing the
->> current policy grammar.
->>
->=20
-> That's a fair point. From a manual perspective, I think this is fine.
-> A human-user can interpret a grammar successfully on their own when new
-> syntax is introduced.
->=20
->  From a producing API perspective, I'd have to think about it a bit=20
-> more. Ideally, the grammar would be structured in such a way that the=20
-> userland
-> interpreter of this grammar would not have to be updated once new syntax
-> is introduced, avoiding the need to update the userland binary. To do so
-> generically ("op=3D%s") is easy, but doesn't necessarily convey sufficien=
-t
-> information (what happens when a new "op" token is introduced?). I think
-> this may come down to regular expression representations of valid values
-> for these tokens, which worries me as regular expressions are incredibly
-> error-prone[1].
->=20
-> I'll see what I can come up with regarding this.
+Cc: John Garry <john.garry@huawei.com>
+Cc: Bart Van Assche <bvanassche@acm.org>
+Cc: Hannes Reinecke <hare@suse.com>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Mike Snitzer <snitzer@redhat.com>
+Cc: dm-devel@redhat.com
+Reviewed-by: Hannes Reinecke <hare@suse.de>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
+Signed-off-by: Ming Lei <ming.lei@redhat.com>
+---
+ block/blk-core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-I have not found a way that I like to expose some kind of grammar
-through securityfs that can be understood by usermode to parse the
-policy. Here's what I propose as a compromise:
-
-=091. I remove the unknown command behavior. This address your
-first point about inconsistent behaviors, and effectively removes the
-strict_parse sysctl (as it is always enabled).
-
-=092. I introduce a versioning system for the properties
-themselves. The valid set of properties and their versions
-can be found in securityfs, under say, ipe/config in a key=3Dvalue
-format where `key` indicates the understood token, and `value`
-indicates their current version. For example:
-
-=09$ cat $SECURITYFS/ipe/config
-=09op=3D1
-=09action=3D1
-=09policy_name=3D1
-=09policy_version=3D1
-=09dmverity_signature=3D1
-=09dmverity_roothash=3D1
-=09boot_verified=3D1
-
-if new syntax is introduced, the version number is increased.
-
-=093. The format of those versions are documented as part of
-the admin-guide around IPE. If user-mode at that point wants to rip
-the documentation formats and correlate with the versioning, then
-it fulfills the same functionality as above, with out the complexity
-around exposing a parsing grammar and interpreting it on-the-fly.
-Many of these are unlikely to move past version 1, however.
-
-Thoughts?
-
+diff --git a/block/blk-core.c b/block/blk-core.c
+index cf5b2163edfe..08ee92baa451 100644
+--- a/block/blk-core.c
++++ b/block/blk-core.c
+@@ -1669,8 +1669,12 @@ int blk_rq_prep_clone(struct request *rq, struct request *rq_src,
+ 		rq->rq_flags |= RQF_SPECIAL_PAYLOAD;
+ 		rq->special_vec = rq_src->special_vec;
+ 	}
++#ifdef CONFIG_BLK_DEV_INTEGRITY
++	rq->nr_integrity_segments = rq_src->nr_integrity_segments;
++#endif
+ 	rq->nr_phys_segments = rq_src->nr_phys_segments;
+ 	rq->ioprio = rq_src->ioprio;
++	rq->write_hint = rq_src->write_hint;
+ 
+ 	return 0;
+ 
+-- 
+2.25.2
 
 --
 dm-devel mailing list
