@@ -1,85 +1,123 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 5789B1D285D
-	for <lists+dm-devel@lfdr.de>; Thu, 14 May 2020 08:59:21 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id C00A31D291E
+	for <lists+dm-devel@lfdr.de>; Thu, 14 May 2020 09:53:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1589439560;
+	s=mimecast20190719; t=1589442830;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=oVe7mOO990081jGEFFGCk8PERPXuba3LpIywO8/8zQY=;
-	b=J953wMrPE83Ule8MJMmZovGvdeKPUTC1BOcC2ZK127zMw9PKQ3eZcebgzJTgqEEccXQJet
-	dxRsKkVzfnqrz/gae561kd8eoPL6kIMLwDYXfztji0yHrN/Lr1o3q5pyp23+ZePxRY1zrF
-	3Jzup0+I98SviimhC2qUMYxIM946Wqs=
+	 content-transfer-encoding:content-transfer-encoding:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=HpdqgFLAyojzfKJkYfQedTgCa+FwEEE3DGRthUK9gz4=;
+	b=BLmN7qXeRZ8zzDvKQyA8W3OHSnXa9NQ0Vp1BihaLibkj6neNSMjrXW5frouNV/dCzYKsF6
+	GJbMT95OXH6lYJ7ZAIy9uIvT/RMWoymFywXYnOe3qzEnj764I8+vAtrH1TgUh8qEVrlhrj
+	9ZtTm7PBG0dD4XDZXlbF6REUbhTOBRk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-431-9M08OgWZMmCTrS-KfzSqoQ-1; Thu, 14 May 2020 02:59:18 -0400
-X-MC-Unique: 9M08OgWZMmCTrS-KfzSqoQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-109-u-iqawl8MJWPkpyTSS2L0A-1; Thu, 14 May 2020 03:53:48 -0400
+X-MC-Unique: u-iqawl8MJWPkpyTSS2L0A-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 569B0835B40;
-	Thu, 14 May 2020 06:59:11 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F0B8E579AD;
-	Thu, 14 May 2020 06:59:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 81105872FEB;
+	Thu, 14 May 2020 07:53:42 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D1BD85C1D6;
+	Thu, 14 May 2020 07:53:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ED5244E982;
-	Thu, 14 May 2020 06:59:06 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 89A71180954D;
+	Thu, 14 May 2020 07:53:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04E6wQ6G031503 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 14 May 2020 02:58:27 -0400
+	id 04E7rIHA002223 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 14 May 2020 03:53:18 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A9C1D2029F71; Thu, 14 May 2020 06:58:26 +0000 (UTC)
+	id 69A642166B27; Thu, 14 May 2020 07:53:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9E79B200A773
-	for <dm-devel@redhat.com>; Thu, 14 May 2020 06:58:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6C2B22166BA4
+	for <dm-devel@redhat.com>; Thu, 14 May 2020 07:53:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9CD5418A6661
-	for <dm-devel@redhat.com>; Thu, 14 May 2020 06:58:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 69D7B186E3A2
+	for <dm-devel@redhat.com>; Thu, 14 May 2020 07:53:12 +0000 (UTC)
 Received: from esa2.hgst.iphmx.com (esa2.hgst.iphmx.com [68.232.143.124])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-203-T1muVqhrNGGHBsKuJWv69Q-1; Thu, 14 May 2020 02:58:22 -0400
-X-MC-Unique: T1muVqhrNGGHBsKuJWv69Q-1
-IronPort-SDR: 0xxNBG3zcK/UnRXlyKQ+MmEMYyNESUlyVWZxGL7bjoAAXdtD2t48C6v84kwpck8iIPfdMTBC3+
-	WlQCCO8mQZUK6UmJbrTM3OcN2LPnSbe06z39uOdupt6OKZCnlwVd4MGJr4THdMmKTLvW+K//0C
-	FPHlHdY2dHOJFyw1/Sv6/pui8O72PBXPpbO+8qgeAR+OMSEmWSQWfLQrc0hCvpBQSXKODnR6Ex
-	KfkkDuFIQJAz2jM0kvl2/ynGuznNA3LFkF452HyRm10ZpANxiS4a6Nq/Mgo12H5bHA8CdbhrFd
-	td4=
-X-IronPort-AV: E=Sophos;i="5.73,390,1583164800"; d="scan'208";a="240361183"
-Received: from uls-op-cesaip01.wdc.com (HELO uls-op-cesaep01.wdc.com)
-	([199.255.45.14])
-	by ob1.hgst.iphmx.com with ESMTP; 14 May 2020 14:58:37 +0800
-IronPort-SDR: 7LuIhVkR5KnG/32ZmY2wtt3xZobOEeULc7TpsNfrGVemEqdA5+DqfPZBIEKsB3SzMWZgWY8q3t
-	kZdxdIpyFALIB3l+mXnHtDsY5ZWr5S1Tw=
-Received: from uls-op-cesaip01.wdc.com ([10.248.3.36])
-	by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	13 May 2020 23:48:34 -0700
-IronPort-SDR: 3muka8KvTa6xnEWniJ3JmJeimalLxxDU9I8aUCRbikqGt289fABnOEaqtp4neE1Rev4pzOxI6t
-	5lXzgtCl2A0g==
-WDCIronportException: Internal
-Received: from washi.fujisawa.hgst.com ([10.149.53.254])
-	by uls-op-cesaip01.wdc.com with ESMTP; 13 May 2020 23:58:19 -0700
-From: Damien Le Moal <damien.lemoal@wdc.com>
-To: linux-block@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	linux-nvme@lists.infradead.org, Keith Busch <kbusch@kernel.org>,
-	dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>
-Date: Thu, 14 May 2020 15:58:19 +0900
-Message-Id: <20200514065819.1113949-1-damien.lemoal@wdc.com>
+	us-mta-103-wQ9PEKUcMqGmco6MH2W8Nw-1; Thu, 14 May 2020 03:53:07 -0400
+X-MC-Unique: wQ9PEKUcMqGmco6MH2W8Nw-1
+IronPort-SDR: +J8qH0dYgt3DIQtMCNWFFS0grtJu0zwR5OA5wJ/m37+EoI3JR1ut+HhvgyhK8VmZ0onWZpVPr7
+	5IoWQ7pqLCsLbIylLsnf02YP23XNFWwLMYonvGVPET10h6oibDV59CFf/tHfhIxP6pQGb0VyMO
+	A7qg6XC2J21nyGFVpG+iQY/stbb86gzMJLb0RojaO+CokyZ+2bUPBgq9155K87f/qqyAx/v63Y
+	B1H+vkXlydZC62y0nRTCHmMGcOJz3pHp6bDm61ZWXyNo5wos0n2nbWFqQ+W43yxISCwRZE6bqK
+	ggY=
+X-IronPort-AV: E=Sophos;i="5.73,390,1583164800"; d="scan'208";a="240364931"
+Received: from mail-dm6nam12lp2177.outbound.protection.outlook.com (HELO
+	NAM12-DM6-obe.outbound.protection.outlook.com) ([104.47.59.177])
+	by ob1.hgst.iphmx.com with ESMTP; 14 May 2020 15:53:41 +0800
+Received: from BY5PR04MB6900.namprd04.prod.outlook.com (2603:10b6:a03:229::20)
+	by BY5PR04MB6293.namprd04.prod.outlook.com (2603:10b6:a03:1ef::17)
+	with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.33;
+	Thu, 14 May 2020 07:53:03 +0000
+Received: from BY5PR04MB6900.namprd04.prod.outlook.com
+	([fe80::b574:3071:da2f:7606]) by
+	BY5PR04MB6900.namprd04.prod.outlook.com
+	([fe80::b574:3071:da2f:7606%6]) with mapi id 15.20.3000.016;
+	Thu, 14 May 2020 07:53:03 +0000
+From: Damien Le Moal <Damien.LeMoal@wdc.com>
+To: Hannes Reinecke <hare@suse.de>, Mike Snitzer <snitzer@redhat.com>
+Thread-Topic: [PATCH 1/2] device-mapper: use dynamic debug instead of
+	compile-time config option
+Thread-Index: AQHWKbZA43FxlpbIHEa1m40eGN1o/g==
+Date: Thu, 14 May 2020 07:53:03 +0000
+Message-ID: <BY5PR04MB6900948BCF84B9B97C5E5921E7BC0@BY5PR04MB6900.namprd04.prod.outlook.com>
+References: <20200514060929.85469-1-hare@suse.de>
+	<20200514060929.85469-2-hare@suse.de>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [129.253.182.57]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 80f75802-37fb-4fdb-5fac-08d7f7dbd4e7
+x-ms-traffictypediagnostic: BY5PR04MB6293:
+x-microsoft-antispam-prvs: <BY5PR04MB6293797428C350CC2E32FC2DE7BC0@BY5PR04MB6293.namprd04.prod.outlook.com>
+wdcipoutbound: EOP-TRUE
+x-ms-oob-tlc-oobclassifiers: OLM:1002;
+x-forefront-prvs: 040359335D
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: sb7ZxUAxExTQze/sKmca9cyy8mVnaffUG1JSOtwtrW+hz5DAjCUjZ79X/u668OboaVZzyjHuzVpLWKLV9xzjru+il8r6ZHwQ+neMvPjXv9QSwRCEEj/mRcv9ZBctOfYnVT3cp+LJVQmc/OWA4w+Hs1jEXi7FLGyXEWJmgnFU5yiGAIaYrAxCDBY4aWVMJOHOgnV5sQPa5ZYFCar3/qndqv555psmWkoF6Ap8wYVptp5QKGWkuvEpu2Ir5gwoFRnR/tAu8yLoMijZx6n3oDX4oIgL0Z44GBJYNC79WuC0Q1q4H+W4BY2DdiUUwmTGw0J98/lfbATbH4LW3g0BWxnWd+tKTS9nXZeboeZie52ZN9jZ5fpj/gYDfgU7mxvIa70kkV5qkUuXYwmcviLibbnBLUrrjC4XUuL8wjyzvkprRPutO+AlEEVxhV8ASLI6grLS
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:BY5PR04MB6900.namprd04.prod.outlook.com;
+	PTR:; CAT:NONE; SFTY:;
+	SFS:(4636009)(396003)(366004)(136003)(39860400002)(376002)(346002)(66556008)(8936002)(5660300002)(76116006)(186003)(86362001)(66946007)(478600001)(33656002)(316002)(26005)(7696005)(6506007)(66476007)(110136005)(53546011)(4326008)(55016002)(71200400001)(8676002)(52536014)(64756008)(66446008)(2906002)(9686003);
+	DIR:OUT; SFP:1102;
+x-ms-exchange-antispam-messagedata: a5zkpE11y2V8PvTkbzn0x54/HaJsvM3GZe0Lo7IQmsrp38VqcSzSH2Xe99Yb3+jwlrT6yaG8H7BFnYFKCZ4v2KXEsO5sXd5OQWMlZb0xs2sSYC7Uo3MdUg/7QHoFNOFz7JlOwd6NyHxDQbbr5MuLWkhdAfOvzWwBlqzNL+2c+Jw0xJ739uA4ck1y3nHyzcMCKSMvmP7VEcNnGLbmlZdkIbM+WLCXcHbNitj03rN5SkHIlV4iSFrGJznUIAlKK2bIvG7/ukI2PyC/L7DCI+VhAdSa8ZZZ9myVnUC+LOXn1fCWXGwVitHZxuHJGU8QZNyJ6KQ0apQn0ZaRWBIt/pXeII/MlJ3jUUGntzW0RMTI/KPGy3Ricgz6IwKsWvGdGxm80M/aeCHcvSAeR45wixt2kCAlZW5+CqgqeQcZsWaqBJjvX6n3DjERfhGyFCl1KzmJ/VIaD7DKSkAqy5XshfWDBoJUMqNfuGIpy1XSy0DmSStKnEtUpBCaJLDsxIBceZTF
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-OriginatorOrg: wdc.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80f75802-37fb-4fdb-5fac-08d7f7dbd4e7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 May 2020 07:53:03.6652 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: JtH/J+l3scgejMAj03XOqVxVIM4Yrpw2bZ9udPHUQFSbP8+dStiudWbWlfJBBCrEVO2EQVNAGBvFNX0vwQSGVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR04MB6293
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 04E7rIHA002223
 X-loop: dm-devel@redhat.com
-Subject: [dm-devel] [PATCH] block: Improve io_opt limit stacking
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH 1/2] device-mapper: use dynamic debug instead
+ of compile-time config option
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,60 +131,51 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-When devices with different physical sector sizes are stacked, the
-largest value is used as the stacked device physical sector size. For
-the optimal IO size, the lowest common multiple (lcm) of the underlying
-devices is used for the stacked device. In this scenario, if only one of
-the underlying device reports an optimal IO size, that value is used as
-is for the stacked device but that value may not be a multiple of the
-stacked device physical sector size. In this case, blk_stack_limits()
-returns an error resulting in warnings being printed on device mapper
-startup (observed with dm-zoned dual drive setup combining a 512B
-sector SSD with a 4K sector HDD).
+On 2020/05/14 15:09, Hannes Reinecke wrote:
+> Switch to use dynamic debug to avoid having recompile the kernel
+> just to enable debugging messages.
+> 
+> Signed-off-by: Hannes Reinecke <hare@suse.de>
+> ---
+>  include/linux/device-mapper.h | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
+> index af48d9da3916..4694e1bb4196 100644
+> --- a/include/linux/device-mapper.h
+> +++ b/include/linux/device-mapper.h
+> @@ -557,12 +557,11 @@ void *dm_vcalloc(unsigned long nmemb, unsigned long elem_size);
+>  #define DMINFO(fmt, ...) pr_info(DM_FMT(fmt), ##__VA_ARGS__)
+>  #define DMINFO_LIMIT(fmt, ...) pr_info_ratelimited(DM_FMT(fmt), ##__VA_ARGS__)
+>  
+> +#define DMDEBUG_LIMIT(fmt, ...) pr_debug_ratelimited(DM_FMT(fmt), ##__VA_ARGS__)
 
-To fix this, rather than returning an error, the optimal IO size limit
-for the stacked device can be adjusted to the lowest common multiple
-(lcm) of the stacked physical sector size and optimal IO size, resulting
-in a value that is a multiple of the physical sector size while still
-being an optimal size for the underlying devices.
+Why do you move this one out of the #ifdef CONFIG_DM_DEBUG scope ?
 
-This patch is complementary to the patch "nvme: Fix io_opt limit
-setting" which prevents the nvme driver from reporting an optimal IO
-size equal to a namespace sector size for a device that does not report
-an optimal IO size.
+>  #ifdef CONFIG_DM_DEBUG
+>  #define DMDEBUG(fmt, ...) printk(KERN_DEBUG DM_FMT(fmt), ##__VA_ARGS__)
+> -#define DMDEBUG_LIMIT(fmt, ...) pr_debug_ratelimited(DM_FMT(fmt), ##__VA_ARGS__)
+>  #else
+> -#define DMDEBUG(fmt, ...) no_printk(fmt, ##__VA_ARGS__)
+> -#define DMDEBUG_LIMIT(fmt, ...) no_printk(fmt, ##__VA_ARGS__)
+> +#define DMDEBUG(fmt, ...) pr_debug(DM_FMT(fmt), ##__VA_ARGS__)
+>  #endif
+>  
+>  #define DMEMIT(x...) sz += ((sz >= maxlen) ? \
+> 
 
-Suggested-by: Keith Busch <kbusch@kernel.org>
-Signed-off-by: Damien Le Moal <damien.lemoal@wdc.com>
----
- block/blk-settings.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/block/blk-settings.c b/block/blk-settings.c
-index 9a2c23cd9700..9a2b017ff681 100644
---- a/block/blk-settings.c
-+++ b/block/blk-settings.c
-@@ -561,11 +561,8 @@ int blk_stack_limits(struct queue_limits *t, struct queue_limits *b,
- 	}
- 
- 	/* Optimal I/O a multiple of the physical block size? */
--	if (t->io_opt & (t->physical_block_size - 1)) {
--		t->io_opt = 0;
--		t->misaligned = 1;
--		ret = -1;
--	}
-+	if (t->io_opt & (t->physical_block_size - 1))
-+		t->io_opt = lcm(t->io_opt, t->physical_block_size);
- 
- 	t->raid_partial_stripes_expensive =
- 		max(t->raid_partial_stripes_expensive,
 -- 
-2.25.4
+Damien Le Moal
+Western Digital Research
+
+
 
 --
 dm-devel mailing list
