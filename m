@@ -1,69 +1,69 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 17A6B1D46E5
-	for <lists+dm-devel@lfdr.de>; Fri, 15 May 2020 09:16:03 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 33A601D46E2
+	for <lists+dm-devel@lfdr.de>; Fri, 15 May 2020 09:15:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1589526963;
+	s=mimecast20190719; t=1589526958;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=L1RxCa3KCEmxNyQRbSGO379AJQKphngZwRl8WzGprJE=;
-	b=RpNM2l714BYorE5Y6Nu0YODnCZsHwvRpFR7fggAwmbOPzlAELaO8/6QJufwJRJx2E2PpWK
-	xdTkCDF7RCwIl7rBXRK3/3uFMOMduQyaBsRw6/Ou1fINCWuwxfUE+R7/aqm9kchkczKR7/
-	esmTH0d647jC8LTRYqvj7+iI++i0q7M=
+	bh=+lkqGETu0Ad4+vnGM+iwamUgIIeOT/Bzc2mTNvfwM+g=;
+	b=OyILwPXwvrhjoKI/Km0Yj0tjl3fsxtbj2tUxCkqhvZDoNDsH4XePUv9Bb3kJ2/+u2s+qhJ
+	Aki5wmRZrsFTAhwuK108Ja9D14uODJ3wRFaqnEl1DsYA1fe+7xVXQh+BhTgSO8WhwqdT1S
+	U5lDlsLSk9t0mfHD6BBFqnGRamHCQhI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-440-uT1f1m0ENeW9FfoKJIVN8w-1; Fri, 15 May 2020 03:15:53 -0400
-X-MC-Unique: uT1f1m0ENeW9FfoKJIVN8w-1
+ us-mta-138-RpLepi4WNdOgLzYxmtddDQ-1; Fri, 15 May 2020 03:15:55 -0400
+X-MC-Unique: RpLepi4WNdOgLzYxmtddDQ-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1D88B100CCC2;
-	Fri, 15 May 2020 07:15:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 044CE1899536;
+	Fri, 15 May 2020 07:15:50 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EA80610027AC;
-	Fri, 15 May 2020 07:15:47 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D18E4100EBAC;
+	Fri, 15 May 2020 07:15:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8D5F81809543;
-	Fri, 15 May 2020 07:15:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8AF801809547;
+	Fri, 15 May 2020 07:15:49 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04F4FE9D016002 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 15 May 2020 00:15:14 -0400
+	id 04F4JVQM016227 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 15 May 2020 00:19:31 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 31BF710AF410; Fri, 15 May 2020 04:15:14 +0000 (UTC)
+	id ECF17F7FB2; Fri, 15 May 2020 04:19:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 21BFD10F1BE2
-	for <dm-devel@redhat.com>; Fri, 15 May 2020 04:15:10 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E089AF5674
+	for <dm-devel@redhat.com>; Fri, 15 May 2020 04:19:27 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 85A638007CD
-	for <dm-devel@redhat.com>; Fri, 15 May 2020 04:15:10 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 18E4A185A78B
+	for <dm-devel@redhat.com>; Fri, 15 May 2020 04:19:27 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-132-vsknKa7WMbSnrxon78--9Q-1; Fri, 15 May 2020 00:15:08 -0400
-X-MC-Unique: vsknKa7WMbSnrxon78--9Q-1
+	us-mta-371-Tcyplx9oP4CF5YDqaTt66g-1; Fri, 15 May 2020 00:19:24 -0400
+X-MC-Unique: Tcyplx9oP4CF5YDqaTt66g-1
 Received: from willy by bombadil.infradead.org with local (Exim 4.92.3 #3 (Red
-	Hat Linux)) id 1jZRkO-0003X9-II; Fri, 15 May 2020 04:14:56 +0000
-Date: Thu, 14 May 2020 21:14:56 -0700
+	Hat Linux)) id 1jZRoa-0006Is-Ic; Fri, 15 May 2020 04:19:16 +0000
+Date: Thu, 14 May 2020 21:19:16 -0700
 From: Matthew Wilcox <willy@infradead.org>
 To: Zhen Lei <thunder.leizhen@huawei.com>
-Message-ID: <20200515041456.GD16070@bombadil.infradead.org>
+Message-ID: <20200515041916.GE16070@bombadil.infradead.org>
 References: <20200507075100.1779-1-thunder.leizhen@huawei.com>
-	<20200507075100.1779-7-thunder.leizhen@huawei.com>
+	<20200507075100.1779-8-thunder.leizhen@huawei.com>
 MIME-Version: 1.0
-In-Reply-To: <20200507075100.1779-7-thunder.leizhen@huawei.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+In-Reply-To: <20200507075100.1779-8-thunder.leizhen@huawei.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 15 May 2020 03:15:32 -0400
 Cc: Jens Axboe <axboe@kernel.dk>, linux-raid <linux-raid@vger.kernel.org>,
@@ -76,7 +76,7 @@ Cc: Jens Axboe <axboe@kernel.dk>, linux-raid <linux-raid@vger.kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Kent Overstreet <kent.overstreet@gmail.com>,
 	Nitin Gupta <ngupta@vflare.org>
-Subject: Re: [dm-devel] [PATCH v2 06/10] mm/swap: use npage_to_sectors() and
+Subject: Re: [dm-devel] [PATCH v2 07/10] block: use sectors_to_npage() and
  PAGE_SECTORS to clean up code
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -98,18 +98,27 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-On Thu, May 07, 2020 at 03:50:56PM +0800, Zhen Lei wrote:
-> +++ b/mm/page_io.c
-> @@ -38,7 +38,7 @@ static struct bio *get_swap_bio(gfp_t gfp_flags,
+On Thu, May 07, 2020 at 03:50:57PM +0800, Zhen Lei wrote:
+> +++ b/block/blk-settings.c
+> @@ -150,7 +150,7 @@ void blk_queue_max_hw_sectors(struct request_queue *q, unsigned int max_hw_secto
+>  	unsigned int max_sectors;
 >  
->  		bio->bi_iter.bi_sector = map_swap_page(page, &bdev);
->  		bio_set_dev(bio, bdev);
-> -		bio->bi_iter.bi_sector <<= PAGE_SHIFT - 9;
-> +		bio->bi_iter.bi_sector *= PAGE_SECTORS;
->  		bio->bi_end_io = end_io;
+>  	if ((max_hw_sectors << 9) < PAGE_SIZE) {
+> -		max_hw_sectors = 1 << (PAGE_SHIFT - 9);
+> +		max_hw_sectors = PAGE_SECTORS;
 
-This just doesn't look right.  Why is map_swap_page() returning a sector_t
-which isn't actually a sector_t?
+Surely this should be:
+
+	if (max_hw_sectors < PAGE_SECTORS) {
+		max_hw_sectors = PAGE_SECTORS;
+
+... no?
+
+> -	page = read_mapping_page(mapping,
+> -			(pgoff_t)(n >> (PAGE_SHIFT - 9)), NULL);
+> +	page = read_mapping_page(mapping, (pgoff_t)sectors_to_npage(n), NULL);
+
+... again, get the type right, and you won't need the cast.
 
 --
 dm-devel mailing list
