@@ -1,60 +1,65 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 38F0D1D4018
-	for <lists+dm-devel@lfdr.de>; Thu, 14 May 2020 23:33:55 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 956EB1D42F8
+	for <lists+dm-devel@lfdr.de>; Fri, 15 May 2020 03:32:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1589492034;
+	s=mimecast20190719; t=1589506371;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=epraLtwYbaJmT/wqVVC6NFCVTmuDtADfV7cCyijIuYY=;
-	b=OxWjVrnaw+1/ZmSZTQ4AdAPkHqIROsBMwhxKhW6Uz6Rd4kIWWTpXGZQCBJF9F7SRjm9xTa
-	TN3RKu+zUlJARlGFop06aF8ypLwjCX4IkSAINPss5khw8MMzHGpR1ezR66C403ehemxMYr
-	ylRO5tuHoDquYca6VPCp4bHXgHpKIXM=
+	bh=ynW9g48lZH4YXnkpJm/qgcFEi8RaZGhEAaUp/W1Vixw=;
+	b=h2aV2PDBj4+V6QNnQMbGhxT3dWEtNl1aheRvUgMMeJVYWqdyHSJZuTzWoBP42rX7kKa3rm
+	n2z6ua8+SKQzn1IAgroqCY6kh0GDg1RvwQ8Z8F8m7BX0Qba+LHYQSiVlceADDvINhhp1sF
+	uPdcYh92J/vNDZGZe8eNj8ZWHeBQHn4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-229-hjaolNMBNwyQOG89FQOf2w-1; Thu, 14 May 2020 17:33:51 -0400
-X-MC-Unique: hjaolNMBNwyQOG89FQOf2w-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-218-NZL7e33BMBWsR9y_t-X4Tw-1; Thu, 14 May 2020 21:32:48 -0400
+X-MC-Unique: NZL7e33BMBWsR9y_t-X4Tw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A1B3D80183C;
-	Thu, 14 May 2020 21:33:45 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0583C707D1;
-	Thu, 14 May 2020 21:33:44 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E07BD64ADA;
+	Fri, 15 May 2020 01:32:42 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B18510016E8;
+	Fri, 15 May 2020 01:32:39 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AF9941809543;
-	Thu, 14 May 2020 21:33:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 357E44E9B4;
+	Fri, 15 May 2020 01:32:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04ELXUMZ013800 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 14 May 2020 17:33:30 -0400
+	id 04F1V4hV000966 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 14 May 2020 21:31:04 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4F2826E6F2; Thu, 14 May 2020 21:33:30 +0000 (UTC)
+	id B78385C1D6; Fri, 15 May 2020 01:31:04 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 52CC061547;
-	Thu, 14 May 2020 21:33:27 +0000 (UTC)
-Date: Thu, 14 May 2020 17:33:26 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: kbuild test robot <lkp@intel.com>
-Message-ID: <20200514213326.GA661@redhat.com>
-References: <202005150550.wsVhyFma%lkp@intel.com>
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A70765C1D3;
+	Fri, 15 May 2020 01:31:01 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 04F1UxMl006651; 
+	Thu, 14 May 2020 20:31:00 -0500
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 04F1UxIl006650;
+	Thu, 14 May 2020 20:30:59 -0500
+Date: Thu, 14 May 2020 20:30:58 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: mwilck@suse.com
+Message-ID: <20200515013058.GT5907@octiron.msp.redhat.com>
+References: <20200511223931.18261-1-mwilck@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <202005150550.wsVhyFma%lkp@intel.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+In-Reply-To: <20200511223931.18261-1-mwilck@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, kbuild-all@lists.01.org
-Subject: Re: [dm-devel] [dm:dm-5.8 55/57]
- include/linux/device-mapper.h:626:2: error: #endif without #if
+Cc: dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH 00/11] Minor fixes for multipath-tools
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -68,162 +73,59 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-Sorry about that, now fixed.
+On Tue, May 12, 2020 at 12:39:20AM +0200, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
+> 
+> Hi Christophe, hi Ben,
+> 
+> This series fixes a couple of issues I recently found with the 32bit build
+> of multipath-tools, and after integrating our CI into the automated builds
+> on our build server.
+> 
+> Regards
+> Martin
 
-On Thu, May 14 2020 at  5:15pm -0400,
-kbuild test robot <lkp@intel.com> wrote:
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 
-> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git dm-5.8
-> head:   2e374fada9514fe10561a41838a52dc05f0317b4
-> commit: 6e1746c86200d4cd2562abe0a4b2892e3be04271 [55/57] dm: use dynamic debug instead of compile-time config option
-> config: sh-allmodconfig (attached as .config)
-> compiler: sh4-linux-gcc (GCC) 9.3.0
-> reproduce:
->         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
->         chmod +x ~/bin/make.cross
->         git checkout 6e1746c86200d4cd2562abe0a4b2892e3be04271
->         # save the attached .config to linux build tree
->         COMPILER_INSTALL_PATH=$HOME/0day GCC_VERSION=9.3.0 make.cross ARCH=sh 
-> 
-> If you fix the issue, kindly add following tag as appropriate
-> Reported-by: kbuild test robot <lkp@intel.com>
-> 
-> All errors (new ones prefixed by >>, old ones prefixed by <<):
-> 
-> In file included from drivers/md/dm.h:14,
-> from drivers/md/dm-uevent.c:14:
-> >> include/linux/device-mapper.h:626:2: error: #endif without #if
-> 626 | #endif /* _LINUX_DEVICE_MAPPER_H */
-> |  ^~~~~
-> --
-> In file included from drivers/md/dm.h:14,
-> from drivers/md/dm-linear.c:7:
-> >> include/linux/device-mapper.h:626:2: error: #endif without #if
-> 626 | #endif /* _LINUX_DEVICE_MAPPER_H */
-> |  ^~~~~
-> In file included from drivers/md/dm-linear.c:14:
-> >> include/linux/device-mapper.h:616:24: error: redefinition of 'to_sector'
-> 616 | static inline sector_t to_sector(unsigned long long n)
-> |                        ^~~~~~~~~
-> In file included from drivers/md/dm.h:14,
-> from drivers/md/dm-linear.c:7:
-> include/linux/device-mapper.h:616:24: note: previous definition of 'to_sector' was here
-> 616 | static inline sector_t to_sector(unsigned long long n)
-> |                        ^~~~~~~~~
-> In file included from drivers/md/dm-linear.c:14:
-> >> include/linux/device-mapper.h:621:29: error: redefinition of 'to_bytes'
-> 621 | static inline unsigned long to_bytes(sector_t n)
-> |                             ^~~~~~~~
-> In file included from drivers/md/dm.h:14,
-> from drivers/md/dm-linear.c:7:
-> include/linux/device-mapper.h:621:29: note: previous definition of 'to_bytes' was here
-> 621 | static inline unsigned long to_bytes(sector_t n)
-> |                             ^~~~~~~~
-> In file included from drivers/md/dm-linear.c:14:
-> >> include/linux/device-mapper.h:626:2: error: #endif without #if
-> 626 | #endif /* _LINUX_DEVICE_MAPPER_H */
-> |  ^~~~~
-> --
-> In file included from drivers/md/dm-snap.c:8:
-> >> include/linux/device-mapper.h:626:2: error: #endif without #if
-> 626 | #endif /* _LINUX_DEVICE_MAPPER_H */
-> |  ^~~~~
-> In file included from drivers/md/dm.h:14,
-> from drivers/md/dm-snap.c:22:
-> >> include/linux/device-mapper.h:616:24: error: redefinition of 'to_sector'
-> 616 | static inline sector_t to_sector(unsigned long long n)
-> |                        ^~~~~~~~~
-> In file included from drivers/md/dm-snap.c:8:
-> include/linux/device-mapper.h:616:24: note: previous definition of 'to_sector' was here
-> 616 | static inline sector_t to_sector(unsigned long long n)
-> |                        ^~~~~~~~~
-> In file included from drivers/md/dm.h:14,
-> from drivers/md/dm-snap.c:22:
-> >> include/linux/device-mapper.h:621:29: error: redefinition of 'to_bytes'
-> 621 | static inline unsigned long to_bytes(sector_t n)
-> |                             ^~~~~~~~
-> In file included from drivers/md/dm-snap.c:8:
-> include/linux/device-mapper.h:621:29: note: previous definition of 'to_bytes' was here
-> 621 | static inline unsigned long to_bytes(sector_t n)
-> |                             ^~~~~~~~
-> In file included from drivers/md/dm.h:14,
-> from drivers/md/dm-snap.c:22:
-> >> include/linux/device-mapper.h:626:2: error: #endif without #if
-> 626 | #endif /* _LINUX_DEVICE_MAPPER_H */
-> |  ^~~~~
-> In file included from drivers/md/dm-exception-store.h:15,
-> from drivers/md/dm-snap.c:24:
-> >> include/linux/device-mapper.h:616:24: error: redefinition of 'to_sector'
-> 616 | static inline sector_t to_sector(unsigned long long n)
-> |                        ^~~~~~~~~
-> In file included from drivers/md/dm.h:14,
-> from drivers/md/dm-snap.c:22:
-> include/linux/device-mapper.h:616:24: note: previous definition of 'to_sector' was here
-> 616 | static inline sector_t to_sector(unsigned long long n)
-> |                        ^~~~~~~~~
-> In file included from drivers/md/dm-exception-store.h:15,
-> from drivers/md/dm-snap.c:24:
-> >> include/linux/device-mapper.h:621:29: error: redefinition of 'to_bytes'
-> 621 | static inline unsigned long to_bytes(sector_t n)
-> |                             ^~~~~~~~
-> In file included from drivers/md/dm.h:14,
-> from drivers/md/dm-snap.c:22:
-> include/linux/device-mapper.h:621:29: note: previous definition of 'to_bytes' was here
-> 621 | static inline unsigned long to_bytes(sector_t n)
-> |                             ^~~~~~~~
-> In file included from drivers/md/dm-exception-store.h:15,
-> from drivers/md/dm-snap.c:24:
-> >> include/linux/device-mapper.h:626:2: error: #endif without #if
-> 626 | #endif /* _LINUX_DEVICE_MAPPER_H */
-> |  ^~~~~
-> --
-> In file included from drivers/md/dm-zoned.h:13,
-> from drivers/md/dm-zoned-metadata.c:8:
-> >> include/linux/device-mapper.h:626:2: error: #endif without #if
-> 626 | #endif /* _LINUX_DEVICE_MAPPER_H */
-> |  ^~~~~
-> drivers/md/dm-zoned-metadata.c: In function 'dmz_write_sb':
-> drivers/md/dm-zoned-metadata.c:779:3: error: implicit declaration of function 'export_uuid' [-Werror=implicit-function-declaration]
-> 779 |   export_uuid(sb->dmz_uuid, &zmd->uuid);
-> |   ^~~~~~~~~~~
-> drivers/md/dm-zoned-metadata.c: In function 'dmz_check_sb':
-> drivers/md/dm-zoned-metadata.c:1015:3: error: implicit declaration of function 'import_uuid' [-Werror=implicit-function-declaration]
-> 1015 |   import_uuid(&sb_uuid, sb->dmz_uuid);
-> |   ^~~~~~~~~~~
-> cc1: some warnings being treated as errors
-> 
-> vim +626 include/linux/device-mapper.h
-> 
-> 56a67df7660396 Mike Snitzer      2010-08-12  615  
-> 0bdb50c531f737 NeilBrown         2019-01-06 @616  static inline sector_t to_sector(unsigned long long n)
-> 0da336e5fab75c Alasdair G Kergon 2008-04-24  617  {
-> 0da336e5fab75c Alasdair G Kergon 2008-04-24  618  	return (n >> SECTOR_SHIFT);
-> 0da336e5fab75c Alasdair G Kergon 2008-04-24  619  }
-> 0da336e5fab75c Alasdair G Kergon 2008-04-24  620  
-> 0da336e5fab75c Alasdair G Kergon 2008-04-24 @621  static inline unsigned long to_bytes(sector_t n)
-> 0da336e5fab75c Alasdair G Kergon 2008-04-24  622  {
-> 0da336e5fab75c Alasdair G Kergon 2008-04-24  623  	return (n << SECTOR_SHIFT);
-> 0da336e5fab75c Alasdair G Kergon 2008-04-24  624  }
-> 0da336e5fab75c Alasdair G Kergon 2008-04-24  625  
-> ^1da177e4c3f41 Linus Torvalds    2005-04-16 @626  #endif	/* _LINUX_DEVICE_MAPPER_H */
-> 
-> :::::: The code at line 626 was first introduced by commit
-> :::::: 1da177e4c3f41524e886b7f1b8a0c1fc7321cac2 Linux-2.6.12-rc2
-> 
-> :::::: TO: Linus Torvalds <torvalds@ppc970.osdl.org>
-> :::::: CC: Linus Torvalds <torvalds@ppc970.osdl.org>
-> 
-> ---
-> 0-DAY CI Kernel Test Service, Intel Corporation
-> https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
+For the set.
 
+> 
+> Martin Wilck (11):
+>   multipath-tools: Makefile: more dependency fixes for parallel build
+>   multipath-tools: Makefile.inc: separate out OPTFLAGS
+>   multipath-tools: Makefile.inc: allow user settings for LDFLAGS
+>   multipath-tools: Makefile.inc: set -Wno-error=clobbered
+>   libmultipath: discovery.c: use %z qualifier for size_t
+>   libmultipath: eliminate more signed/unsigned comparisons
+>   libmultipath: set_uint: fix parsing for 32bit
+>   multipath-tools tests/Makefile: add -lmpathcmd to LIBDEPS
+>   multipath tools tests/Makefile: Fix OBJDEPS for hwtable-test
+>   multipath-tools tests/test-lib.c: drop __wrap_is_claimed_by_foreign
+>   multipath-tools tests/directio: fix -Wmaybe-uninitalized warning
+> 
+>  Makefile                              |  5 +++--
+>  Makefile.inc                          | 16 ++++++++--------
+>  libmpathpersist/mpath_pr_ioctl.c      |  2 +-
+>  libmultipath/dict.c                   | 11 +++++++----
+>  libmultipath/discovery.c              | 16 ++++++++--------
+>  libmultipath/print.c                  | 12 ++++++------
+>  libmultipath/prioritizers/alua_spc3.h |  2 +-
+>  multipathd/cli_handlers.c             | 20 ++++++++++----------
+>  multipathd/main.c                     |  2 +-
+>  tests/Makefile                        |  4 ++--
+>  tests/directio.c                      |  2 +-
+>  tests/test-lib.c                      |  6 ------
+>  12 files changed, 48 insertions(+), 50 deletions(-)
+> 
+> -- 
+> 2.26.2
 
 --
 dm-devel mailing list
