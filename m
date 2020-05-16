@@ -1,74 +1,135 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 323801D7364
-	for <lists+dm-devel@lfdr.de>; Mon, 18 May 2020 11:00:07 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 032101D63B7
+	for <lists+dm-devel@lfdr.de>; Sat, 16 May 2020 21:08:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1589792401;
+	s=mimecast20190719; t=1589656089;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=bhhsaluY5sqvw3P2oIJft61DjIvaWXe0sUicbPDAz9g=;
-	b=f0oOw9u8wlV+Vb5lHRK5QPUo9syL5mvRT9lB90O94opbpvC7PVtYz50Eb17NHtRM46xMgI
-	GmSQQHe3zndOKmiXKTeCy8LCaJYlfPddQuQ1cG10CsQcGFtuDvCKXVM87UciGxtx11DlGn
-	fIVh6YrPakWUctHVQ1gO34CYQAYSXwI=
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=P3SncOK9pE6OMtEbtlgbCkmDfzHv54A/2CpbCRzWS/I=;
+	b=LuS2Yl0Aj30HGJ3noQyJ/53gZGNAdD6Y/MezMQvDGbLxGPStThtnlQjwcejU2CLZFHD8dv
+	pjkBMb1VA3hmqIN9PtH/wvRl5CwMAC/1jU5JEDQZaZgrtBJ2poEtct3Eh64mtMh5bsGFkQ
+	Xk9sSQCzCytLQR0vQgwk/hXX6WCZdhM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-62-fr3afXrdPXm8gzW-qdWLKg-1; Mon, 18 May 2020 04:59:58 -0400
-X-MC-Unique: fr3afXrdPXm8gzW-qdWLKg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-345-_YFc0JMWOT2GkjYlq4LKoA-1; Sat, 16 May 2020 15:08:07 -0400
+X-MC-Unique: _YFc0JMWOT2GkjYlq4LKoA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 87E961800D42;
-	Mon, 18 May 2020 08:59:53 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 675B479587;
-	Mon, 18 May 2020 08:59:53 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1AF43460;
+	Sat, 16 May 2020 19:07:59 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 99C7C1001B07;
+	Sat, 16 May 2020 19:07:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 23B051809543;
-	Mon, 18 May 2020 08:59:52 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7F4F64EA0F;
+	Sat, 16 May 2020 19:07:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04GI4EYC026808 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 16 May 2020 14:04:14 -0400
+	id 04GJ7RZu031486 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 16 May 2020 15:07:27 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E62A32029F61; Sat, 16 May 2020 18:04:13 +0000 (UTC)
+	id 9947510F26FD; Sat, 16 May 2020 19:07:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E20CB2029F60
-	for <dm-devel@redhat.com>; Sat, 16 May 2020 18:04:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 94C2F10F26FB
+	for <dm-devel@redhat.com>; Sat, 16 May 2020 19:07:25 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C9F17101A525
-	for <dm-devel@redhat.com>; Sat, 16 May 2020 18:04:09 +0000 (UTC)
-Received: from out0.migadu.com (out0.migadu.com [94.23.1.103]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-215-zJFZ9qSeP9eJIaYyUaZM2w-1;
-	Sat, 16 May 2020 14:04:06 -0400
-X-MC-Unique: zJFZ9qSeP9eJIaYyUaZM2w-1
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
-	include these headers.
-From: Marius Bakke <marius@devup.no>
-To: dm-devel@redhat.com
-Date: Sat, 16 May 2020 19:55:08 +0200
-Message-Id: <20200516175508.12412-1-marius@devup.no>
-MIME-Version: 1.0
-X-Spam-Score: 4.90
-X-Mimecast-Bulk-Signature: yes
-X-Mimecast-Spam-Signature: bulk
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 04GI4EYC026808
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 26DDF80CDAE
+	for <dm-devel@redhat.com>; Sat, 16 May 2020 19:07:25 +0000 (UTC)
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=dkim.mimecast.com; s=201903; t=1589656044;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=u0fpT+MduABmuxzS+nhwmoO+3J2DaROt+ZvYCMb6TZc=;
+	b=dsSeaXcO8KlizFt76o2TjCt3wRdjvK4kRqXYju118U+X0evxQlSfbEBySMraGmxErpHiGb
+	snP5R/1wIuiqk+K8hQGlJyDBrcW7GMsRVNB4pTafna+gwWzsUuvgQiJ4mrGKjrsWLkjnkc
+	C5MupCxsimw/+aiBFHkRa2YGC7tQ7s6dyoUfIFXi0vgwA76Rww69vl8zaSMoNf5bfRr+e7
+	mMLDTiCyOhlRnLPlRZHPtK9DqBRCrzvr/UGAEdGJpkiAwHIPcCK3CaAGjBWS8L6sIkffEs
+	7DtmtTAtWhNq3zrfS9fYaVKwbSeiVEze4qQYctE/qAyxHzJdT9CaI0FQVbsLTw==
+ARC-Seal: i=1; s=201903; d=dkim.mimecast.com; t=1589656044; a=rsa-sha256;
+	cv=none;
+	b=QN94Qu3Lx0Iv7hsyikyCOKhEgkSdZr3CZv9T7HsLwDT65iCkuRgNFfXFEbfC4n5ZGxzOuY
+	FoSWv4iGd3p0w332hngza81aY75D7neAJm1Ugt/3nrtFUts9LVZXamexOSaRxIPhmIX+Uo
+	Uh2YZ+0NTp6PY/r78f+uxDCxG4fg/wV74lpkKt1y5KQmBiKE97+iFBSVTzjgzBRl9iVRx7
+	YpS19ZLFROoOJ8+/Rom6LiFdnEYyuk0a8Zzda4A2/Wh7FlCWFjOpgHObw+RtAMPpk3+90R
+	usp2cIhwxpPrf2FX8M3R5p/0TEnn3vsyE6CvYZXcSgNg/Wteb/dj9l0afqsgUQ==
+ARC-Authentication-Results: i=1; relay.mimecast.com;
+	dkim=pass header.d=hansenpartnership.com header.s=20151216
+	header.b=QZGtrnC0; 
+	dkim=pass header.d=hansenpartnership.com header.s=20151216
+	header.b=QZGtrnC0; 
+	dmarc=pass (policy=none) header.from=HansenPartnership.com;
+	spf=pass (relay.mimecast.com: domain of
+	james.bottomley@hansenpartnership.com designates 66.63.167.143
+	as permitted sender)
+	smtp.mailfrom=james.bottomley@hansenpartnership.com
+Received: from bedivere.hansenpartnership.com
+	(bedivere.hansenpartnership.com [66.63.167.143]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-191-GrrCa5M4PvaZ27ZGv2A2CA-1;
+	Sat, 16 May 2020 15:07:17 -0400
+X-MC-Unique: GrrCa5M4PvaZ27ZGv2A2CA-1
+Received: from localhost (localhost [127.0.0.1])
+	by bedivere.hansenpartnership.com (Postfix) with ESMTP id 918E88EE19F; 
+	Sat, 16 May 2020 12:07:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=hansenpartnership.com;
+	s=20151216; t=1589656032;
+	bh=D8G+NdjnQDRxlqYxDKGcemEgX/kXVlKUwQ2n9K0wbU0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=QZGtrnC0nkisDPiq5z/4wpE2unys4l8Z+NJySN4pHZbyl48d1+wy8Gv24YTUsG1X3
+	XpxXQ1s++yw509gQTJCIqhcpg9MrEnuD50xxjK5k3JZ7JTPBMTpLTbBkAgbEr0OOdM
+	7JI48ehZPPMJdFYLcB13SDXTkzRW2l6aJykiCNcI=
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+	port 10024)
+	with ESMTP id A1rl-KAx3JQT; Sat, 16 May 2020 12:07:12 -0700 (PDT)
+Received: from [153.66.254.194] (unknown [50.35.76.230])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id D801D8EE173;
+	Sat, 16 May 2020 12:07:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=hansenpartnership.com;
+	s=20151216; t=1589656032;
+	bh=D8G+NdjnQDRxlqYxDKGcemEgX/kXVlKUwQ2n9K0wbU0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=QZGtrnC0nkisDPiq5z/4wpE2unys4l8Z+NJySN4pHZbyl48d1+wy8Gv24YTUsG1X3
+	XpxXQ1s++yw509gQTJCIqhcpg9MrEnuD50xxjK5k3JZ7JTPBMTpLTbBkAgbEr0OOdM
+	7JI48ehZPPMJdFYLcB13SDXTkzRW2l6aJykiCNcI=
+Message-ID: <1589656023.8524.1.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@hansenpartnership.com>
+To: Valdis =?UTF-8?Q?Kl=C4=93tnieks?= <valdis.kletnieks@vt.edu>, Hannes
+	Reinecke <hare@suse.de>, Alasdair Kergon <agk@redhat.com>, Mike Snitzer
+	<snitzer@redhat.com>
+Date: Sat, 16 May 2020 12:07:03 -0700
+In-Reply-To: <367320.1589627953@turing-police>
+References: <367320.1589627953@turing-police>
+Mime-Version: 1.0
+Authentication-Results: relay.mimecast.com;
+	dkim=pass header.d=hansenpartnership.com
+	header.s=20151216 header.b=QZGtrnC0;
+	dkim=pass header.d=hansenpartnership.com header.s=20151216
+	header.b=QZGtrnC0;
+	dmarc=pass (policy=none) header.from=HansenPartnership.com;
+	spf=pass (relay.mimecast.com: domain of
+	james.bottomley@hansenpartnership.com designates 66.63.167.143
+	as permitted sender)
+	smtp.mailfrom=james.bottomley@hansenpartnership.com
+X-Mimecast-Spam-Score: 0
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Mon, 18 May 2020 04:59:34 -0400
-Subject: [dm-devel] [PATCH] multipath-tools: Fix compiler warnings when
-	built without systemd.
+Cc: dm-devel@redhat.com, linux-kernel@vger.kernel.org
+Subject: Re: [dm-devel] next-20200514 - build issue in
+ drivers/md/dm-zoned-target.c
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,106 +141,88 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+Content-Type: multipart/mixed; boundary="===============0314160435874863611=="
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+
+--===============0314160435874863611==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-Mp2dUCEd7FWpRS+D3bdZ"
+
+--=-Mp2dUCEd7FWpRS+D3bdZ
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Sat, 2020-05-16 at 07:19 -0400, Valdis Kl=C4=93tnieks wrote:
+> Am seeing a build error in next-0514.  -0420 built OK.
+> building a 'make allmodconfig' on a RPi4 in 32-bit mode.
+>=20
+>   MODPOST 7575 modules
+> ERROR: modpost: "__aeabi_uldivmod" [drivers/md/dm-zoned.ko]
+> undefined!
+>=20
+> objdump and 'make drivers/md/dm-zoned-target.s' tells
+> me that the problem is in function dmz_fixup_devices(), near here:
+>=20
+> @ drivers/md/dm-zoned-target.c:806:             reg_dev->nr_zones =3D
+> DIV_ROUND_UP(reg_dev->capacity,
+>         ldr     r0, [r6, #56]   @ reg_dev_166->capacity, reg_dev_166-
+> >capacity
+>         adds    r1, r3, r1      @ tmp316, _227, reg_dev_166->capacity
+>         adc     r0, r2, r0      @ tmp315, _227, reg_dev_166->capacity
+>         subs    r1, r1, #1      @, tmp316,
+> @ drivers/md/dm-zoned-target.c:805:             reg_dev-
+> >zone_nr_sectors =3D zoned_dev->zone_nr_sectors;
+>         strd    r2, [r6, #80]   @, reg_dev,
+> @ drivers/md/dm-zoned-target.c:806:             reg_dev->nr_zones =3D
+> DIV_ROUND_UP(reg_dev->capacity,
+>         sbc     r0, r0, #0      @, tmp315,
+>         bl      __aeabi_uldivmod                @
+> @ drivers/md/dm-zoned-target.c:806:             reg_dev->nr_zones =3D
+> DIV_ROUND_UP(reg_dev->capacity,
+>         str     r1, [r6, #64]   @ tmp306, reg_dev_166->nr_zones
+>=20
+> git blame points at this commit:
+>=20
+> commit 70978208ec91d798066f4c291bc98ff914bea222
+> Author: Hannes Reinecke <hare@suse.de>
+> Date:   Mon May 11 10:24:30 2020 +0200
+>=20
+>     dm zoned: metadata version 2
+>=20
+> Reverting that commit lets the build complete.
+
+That's because the DIV_ROUND_UP in the patch should actually be
+DIV_ROUND_UP_SECTOR_T I think.
+
+James
+
+--=-Mp2dUCEd7FWpRS+D3bdZ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
----
- libmultipath/config.c |  2 +-
- multipathd/main.c     | 19 +++++++++++++------
- 2 files changed, 14 insertions(+), 7 deletions(-)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/libmultipath/config.c b/libmultipath/config.c
-index b4d87689..a28dc4f2 100644
---- a/libmultipath/config.c
-+++ b/libmultipath/config.c
-@@ -696,7 +696,7 @@ process_config_dir(struct config *conf, char *dir)
- 	pthread_cleanup_pop(1);
- }
- 
--static void set_max_checkint_from_watchdog(struct config *conf)
-+static void set_max_checkint_from_watchdog(__attribute__((unused)) struct config *conf)
- {
- #ifdef USE_SYSTEMD
- 	char *envp = getenv("WATCHDOG_USEC");
-diff --git a/multipathd/main.c b/multipathd/main.c
-index 8baf9abe..8d3eace6 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -176,6 +176,7 @@ daemon_status(void)
- /*
-  * I love you too, systemd ...
-  */
-+#ifdef USE_SYSTEMD
- static const char *
- sd_notify_status(enum daemon_status state)
- {
-@@ -195,7 +196,6 @@ sd_notify_status(enum daemon_status state)
- 	return NULL;
- }
- 
--#ifdef USE_SYSTEMD
- static void do_sd_notify(enum daemon_status old_state,
- 			 enum daemon_status new_state)
- {
-@@ -247,7 +247,9 @@ enum daemon_status wait_for_state_change_if(enum daemon_status oldstate,
- static void __post_config_state(enum daemon_status state)
- {
- 	if (state != running_state && running_state != DAEMON_SHUTDOWN) {
--		enum daemon_status old_state = running_state;
-+		/* save state for sd_notify */
-+		enum daemon_status
-+			__attribute__((unused)) old_state = running_state;
- 
- 		running_state = state;
- 		pthread_cond_broadcast(&config_cond);
-@@ -272,7 +274,9 @@ int set_config_state(enum daemon_status state)
- 	pthread_cleanup_push(config_cleanup, NULL);
- 	pthread_mutex_lock(&config_lock);
- 	if (running_state != state) {
--		enum daemon_status old_state = running_state;
-+		/* save state for sd_notify */
-+		enum daemon_status
-+			__attribute__((unused)) old_state = running_state;
- 
- 		if (running_state == DAEMON_SHUTDOWN)
- 			rc = EINVAL;
-@@ -2280,7 +2284,6 @@ checkerloop (void *ap)
- 	struct timespec last_time;
- 	struct config *conf;
- 	int foreign_tick = 0;
--	bool use_watchdog;
- 
- 	pthread_cleanup_push(rcu_unregister, NULL);
- 	rcu_register_thread();
-@@ -2292,11 +2295,15 @@ checkerloop (void *ap)
- 	get_monotonic_time(&last_time);
- 	last_time.tv_sec -= 1;
- 
--	/* use_watchdog is set from process environment and never changes */
- 	conf = get_multipath_config();
--	use_watchdog = conf->use_watchdog;
- 	put_multipath_config(conf);
- 
-+#ifdef USE_SYSTEMD
-+	/* use_watchdog is set from process environment and never changes */
-+	bool use_watchdog;
-+	use_watchdog = conf->use_watchdog;
-+#endif
-+
- 	while (1) {
- 		struct timespec diff_time, start_time, end_time;
- 		int num_paths = 0, strict_timing, rc = 0;
--- 
-2.26.2
+iHUEABMIAB0WIQTnYEDbdso9F2cI+arnQslM7pishQUCXsA51wAKCRDnQslM7pis
+hZePAP9k+4pgr+O3cOw3dKCULg5dyXP0H/ovz0PjY3NwyCgqYAEA1ghh0wkxUfz4
+GB4Svstsox0oy29X7rGUd/p1slLLNZM=
+=2NcN
+-----END PGP SIGNATURE-----
 
+--=-Mp2dUCEd7FWpRS+D3bdZ--
+
+
+--===============0314160435874863611==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
+--===============0314160435874863611==--
 
