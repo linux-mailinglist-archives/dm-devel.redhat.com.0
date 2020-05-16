@@ -1,127 +1,128 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id A10041D5ABE
-	for <lists+dm-devel@lfdr.de>; Fri, 15 May 2020 22:39:20 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 80FD81D6093
+	for <lists+dm-devel@lfdr.de>; Sat, 16 May 2020 13:40:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1589575159;
+	s=mimecast20190719; t=1589629211;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=BTUm15HnlVoDSV4aPU3uM6+yQJjSUjMjqjBIl+Obx84=;
-	b=iuFA6rGNZQLvHgbTI+maFPpCJmwNDOhmuCPEpgPNrczxBwP9a3e1/dNl4OpElp7waa0TvN
-	fBFTM1tn3b6BvPyUL5LJkWgRqtNrdg6K8gJxF+wAWYnuUdeh0tvrO97OGRLEUoafNMJfgN
-	UCN6dqPVPjHinF7ym6XOw/hS8rSliOg=
+	 content-type:content-type:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=8OPhuuFR4Xhn/hWZG3ycOY4AtonDcU6bJ9wTSP1vhw4=;
+	b=PqukhfZkAn2Ajnydpx6q0SUm25l3QdMJAyVDB+Y5KxO38v4kImnTKSD3CLGTr9kN7/2/w5
+	GNgMo+cPVcrMMI4iljSdI2tvhAfla5p1VaziM77WER1ioQe51Xmfc4lqFhXBJ6C4ww6o+f
+	J8vGIQXxOzfzY4YhXxcwhAqN2nCEJ6E=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-339-ehiM7Y0EPe-ydvw_D0Be8g-1; Fri, 15 May 2020 16:39:17 -0400
-X-MC-Unique: ehiM7Y0EPe-ydvw_D0Be8g-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-168-TzL1IOMfMkyypmjJ_RCgbQ-1; Sat, 16 May 2020 07:40:08 -0400
+X-MC-Unique: TzL1IOMfMkyypmjJ_RCgbQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 158C71054F8B;
-	Fri, 15 May 2020 20:39:12 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BCD9A10013D9;
-	Fri, 15 May 2020 20:39:11 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BDB4B801503;
+	Sat, 16 May 2020 11:40:00 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0313D5D9D3;
+	Sat, 16 May 2020 11:39:53 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 457DE4E9FB;
-	Fri, 15 May 2020 20:39:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3455A1809543;
+	Sat, 16 May 2020 11:39:37 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04FKd7fA007972 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 15 May 2020 16:39:08 -0400
+	id 04GBdKCn003306 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 16 May 2020 07:39:20 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B51D1F1C80; Fri, 15 May 2020 20:39:07 +0000 (UTC)
+	id 362A51005E46; Sat, 16 May 2020 11:39:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A20CBE38D3
-	for <dm-devel@redhat.com>; Fri, 15 May 2020 20:39:05 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 313D01006B01
+	for <dm-devel@redhat.com>; Sat, 16 May 2020 11:39:17 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AA6FE831558
-	for <dm-devel@redhat.com>; Fri, 15 May 2020 20:39:05 +0000 (UTC)
-Received: from m9a0013g.houston.softwaregrp.com
-	(m9a0013g.houston.softwaregrp.com [15.124.64.91]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-326-k9RU6sOnNX2VG4DMBp0ofA-1;
-	Fri, 15 May 2020 16:39:03 -0400
-X-MC-Unique: k9RU6sOnNX2VG4DMBp0ofA-1
-Received: FROM m9a0013g.houston.softwaregrp.com (15.121.0.190) BY
-	m9a0013g.houston.softwaregrp.com WITH ESMTP; 
-	Fri, 15 May 2020 20:37:52 +0000
-Received: from M9W0068.microfocus.com (2002:f79:bf::f79:bf) by
-	M9W0067.microfocus.com (2002:f79:be::f79:be) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
-	15.1.1591.10; Fri, 15 May 2020 20:38:10 +0000
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com (15.124.72.13) by
-	M9W0068.microfocus.com (15.121.0.191) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
-	15.1.1591.10 via Frontend Transport; Fri, 15 May 2020 20:38:10 +0000
-Received: from DM5PR1801MB1883.namprd18.prod.outlook.com (2603:10b6:4:62::23)
-	by DM5PR1801MB1996.namprd18.prod.outlook.com (2603:10b6:4:62::31)
-	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.34;
-	Fri, 15 May 2020 20:38:09 +0000
-Received: from DM5PR1801MB1883.namprd18.prod.outlook.com
-	([fe80::cd6:b672:d8d3:2710]) by
-	DM5PR1801MB1883.namprd18.prod.outlook.com
-	([fe80::cd6:b672:d8d3:2710%7]) with mapi id 15.20.2979.033;
-	Fri, 15 May 2020 20:38:09 +0000
-From: Martin Wilck <Martin.Wilck@suse.com>
-To: "bmarzins@redhat.com" <bmarzins@redhat.com>,
-	"christophe.varoqui@opensvc.com" <christophe.varoqui@opensvc.com>
-Thread-Topic: [PATCH 5/6] libmultipath: simplify failed wwid code
-Thread-Index: AQHWKlyJvZyuqKVpakiW8pNgZwjm5aipnMIA
-Date: Fri, 15 May 2020 20:38:09 +0000
-Message-ID: <6edf2f5f3a74e16fa63cc108b6edba98d0b269b5.camel@suse.com>
-References: <1589507962-6895-1-git-send-email-bmarzins@redhat.com>
-	<1589507962-6895-6-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1589507962-6895-6-git-send-email-bmarzins@redhat.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.36.2
-x-originating-ip: [92.211.129.134]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 4d27571e-71c9-4285-9c1a-08d7f90fe155
-x-ms-traffictypediagnostic: DM5PR1801MB1996:
-x-microsoft-antispam-prvs: <DM5PR1801MB199688D8762EBB0BCA63FAD0FCBD0@DM5PR1801MB1996.namprd18.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-forefront-prvs: 04041A2886
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 0S3H3y/SgS9e6Ojn4GlyFkd4rBQawE1ehg31B+op/xfiTjVNJ8HLWr8MnbGSl8kv09dF6SvxQnPk/tNYjorWq5Nss9VInPoohX3EtIzxUf4S0kpuiLJNfKbOI5Pk/f+rH+aV8iqI9utsgYr58NBuWYHRT+AZKTlyC/pxxJF7dPq8MTvqE5rjtoGM5QObeWoLsHp0RYz4D6pWFkcqq/PaVbGeGDa4y+ZCA9JWEZuFs862GEubuCiWdFek3ayxJSrzOYzGxtaJ7yiwNALJ8nIGYQKELhzgByC43BrhpvtnAf1E7PvsU0A8W1PopwmvuJCuPen3RECTUK0o+RBrzI09iApPa18Z+mJBS3cpc4Y0HwqxZUcwDetFAjq6tssmn+vkxnB/+fOqDs4swM9KZxIvtUsOUC1+WBpY6S/59iJBgoaeRxSyAa9OWcUYCjVD5Psf
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:DM5PR1801MB1883.namprd18.prod.outlook.com;
-	PTR:; CAT:NONE; SFTY:;
-	SFS:(4636009)(376002)(366004)(396003)(136003)(39860400002)(346002)(110136005)(66556008)(5660300002)(6512007)(8936002)(66446008)(316002)(26005)(478600001)(71200400001)(76116006)(66574014)(86362001)(8676002)(91956017)(36756003)(66476007)(66946007)(64756008)(2906002)(4326008)(186003)(6506007)(2616005)(6486002);
-	DIR:OUT; SFP:1102;
-x-ms-exchange-antispam-messagedata: IipirylfE+VutlhJUNAWvBj826+islIvabWHL34OlSbq+dUHJEx+/vdq8Q8sBUDCFd+Jo9LbVjrH9TfjneZh8fGEDM38jbOweboHIjCWahn2jD65J/Xn3BhOMoyvNzhn9OM3j++0iNeldauNQePsslvRMqAy++UEhcCMuha1/sN5v/4NnrzJaehF50Dq02LoRvuvsMhn2ol7uRG5hC4HEQjBtNdNXtZZkUQbL0QVriPd8rt7lbFse4mf5yyBBIk06rxPrGQAZXWT916A0P754HxhBdiSjUKdJpsFqlDpP1nL/vKuUPF2AGibX72DXkAgUVK2hLXo0hGHyhuuX4CLCy3d0u6gF0P4jmLAc+GMUfxWmdE6GRi/wmJIasl9oOGoY5qUuMVLgau4u1HiUJwPeXsrmK1YKbJjpG8lt3G6sg8lk0FK8AoRKQ6XpYZPR2KRs+Q/WE6I59N38FNS6FYdtJy+iGsmu1hIGs1/C5Ao6KJUxgpE6odlLp1wlgorf5MN
-x-ms-exchange-transport-forked: True
-Content-ID: <DD79533A5BEA9741AB84220BDD7F9DC8@namprd18.prod.outlook.com>
-MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d27571e-71c9-4285-9c1a-08d7f90fe155
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 May 2020 20:38:09.5684 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: uCYnokzVRaS9XLu/cDshxbs1gxvQybSR0927sDIhJL/q09Hu4XBElaZVhzyfgeZVRcGZyogXRD2hmWQO1fmd4A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1801MB1996
-X-OriginatorOrg: suse.com
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 04FKd7fA007972
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C15B0185A78B
+	for <dm-devel@redhat.com>; Sat, 16 May 2020 11:39:17 +0000 (UTC)
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=dkim.mimecast.com; s=201903; t=1589629157;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	content-type:content-type;
+	bh=7nzjeA11iHruS820XTb1Yr4HhsdAtwCzcWD9bNKBytE=; 
+	b=HygEXd7+TMqmaO8TCeBSF9VcJs9x4cYHXT7V8zP1bM3061Feksb+GKgxqBYHLhPI6FuTLx
+	SVXpYcBaxpVjZIUCrWHTX0+CtrrctJ1PxyKqy9n5Nv27xScwE9O+9KhSvKxRdjamOPHySO
+	niPBRdHtT+K+ETzIP2ukstfl5LVlsp7jsrV3VejSKLTWpdYcWMrjndXdZ/xhmIuTUEKuK2
+	sCIPeMpubzSUOSCm8CX3sCMtdrnY0kq/4ocx30xPscttvUytjjesTs7FR/TRjfFQdllXDE
+	KtdV/qlIbpxie7tRfDpHeaQNTUOVjzhZW1afZChHp0TonfWWBhRFwL03cL7CNA==
+ARC-Seal: i=1; s=201903; d=dkim.mimecast.com; t=1589629157; a=rsa-sha256;
+	cv=none;
+	b=NYDqnTZ+mjH4HivatfZ1nZZE616DP4HD27hoql1E4IrPU0Uw06gFng36hy9DBRq0VEwE+5
+	BPXSc/wPW/sx2qQZ6Y8GkgZD12/vWVrf9Nt53BZVRCku4XNoxmJnrxHhzvDwUDVLHsB+o6
+	HxzFPWFcbgZ6aEO3/NO+D7nKd1mHoUmkKu4ZsXrx3vYbZIGYHcDG9OHpHZ+qBPJa1+X99h
+	k3sCcdSksUhpfVd2vpHY2S7LRO8jfUMoka5hHq/lncOJ0tzj8e5/lS4DmbfBlu6RfwgEPY
+	LYRMFhsW459L8lC0cgSRyAE3VNMS1MgBptRJUJJ4crtY7X2a9EuWiwjCelIG4A==
+ARC-Authentication-Results: i=1; relay.mimecast.com; dkim=none;
+	dmarc=pass (policy=none) header.from=vt.edu;
+	spf=pass (relay.mimecast.com: domain of valdis@vt.edu designates
+	198.82.183.121 as permitted sender) smtp.mailfrom=valdis@vt.edu
+Received: from omr2.cc.vt.edu (outbound.smtp.vt.edu [198.82.183.121]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-188-4pJaQLjAOWy6Mfr_NkdFDg-1; Sat, 16 May 2020 07:39:15 -0400
+X-MC-Unique: 4pJaQLjAOWy6Mfr_NkdFDg-1
+Received: from mr6.cc.vt.edu (mr6.cc.ipv6.vt.edu
+	[IPv6:2607:b400:92:8500:0:af:2d00:4488])
+	by omr2.cc.vt.edu (8.14.4/8.14.4) with ESMTP id 04GBJL0P012052
+	for <dm-devel@redhat.com>; Sat, 16 May 2020 07:19:21 -0400
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+	[209.85.160.199])
+	by mr6.cc.vt.edu (8.14.7/8.14.7) with ESMTP id 04GBJFj9029294
+	for <dm-devel@redhat.com>; Sat, 16 May 2020 07:19:21 -0400
+Received: by mail-qt1-f199.google.com with SMTP id m9so5538997qtf.2
+	for <dm-devel@redhat.com>; Sat, 16 May 2020 04:19:20 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:sender:from:to:cc:subject:mime-version
+	:content-transfer-encoding:date:message-id;
+	bh=7nzjeA11iHruS820XTb1Yr4HhsdAtwCzcWD9bNKBytE=;
+	b=l1cTpeXAiXt3vcAqmXbkXYdx5kiqx9HxCpr0zHauZubSG2+ou4ofYermAmnLrL+TCC
+	MJf2TrUIMWgujhJ/E88s1DWknwhStZFDwB/D2JTqwQDFmQWFWTqXIfpbnFB1K2zahNRA
+	M5Yxe2sg9rxi33eqtm/gE0YsdUYuQ3Gng4P/fNKhqViJonh3vSyyxbjQGZf25IVDT/kd
+	WWniLKNt93jeBIKKSbnzSHhlY0F15K7C0APLOHjKdtOfvm+NbfN/+1URy1bBffGd4Z3B
+	MBYfUoUmQD5rkl9KCMUhxRuNSn3ertMESSGXjf/AyndWC+bj6Najb4FkLu8ERWl7GGK4
+	Fyag==
+X-Gm-Message-State: AOAM532FWW0qQHsusbwVZFIsjZTQiukhGwgUzcGkR/qcPB0VFFtH7qNv
+	fBSzPDwe1x49y4vKC8+CYjoUlbhx8rrOC/8Io+PO7PN2wRrDbsUqTKyqzOrz6/jY2DbPtvjXBtZ
+	MK+wNJhhGCaAqIFI8b3V+kko=
+X-Received: by 2002:ac8:361b:: with SMTP id m27mr7849363qtb.60.1589627955702; 
+	Sat, 16 May 2020 04:19:15 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzu/VgBeAalVkQ2AoXUd1YZ5quJJpKb3lrAyS34gggihg4EW4vEhNzxDCfoUii8huxWiaMoqw==
+X-Received: by 2002:ac8:361b:: with SMTP id m27mr7849338qtb.60.1589627955267; 
+	Sat, 16 May 2020 04:19:15 -0700 (PDT)
+Received: from turing-police ([2601:5c0:c001:c9e1::359])
+	by smtp.gmail.com with ESMTPSA id
+	g5sm3567148qkl.114.2020.05.16.04.19.13
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Sat, 16 May 2020 04:19:14 -0700 (PDT)
+From: "Valdis =?utf-8?Q?Kl=c4=93tnieks?=" <valdis.kletnieks@vt.edu>
+X-Google-Original-From: "Valdis =?utf-8?Q?Kl=c4=93tnieks?="
+	<Valdis.Kletnieks@vt.edu>
+To: Hannes Reinecke <hare@suse.de>, Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@redhat.com>
+Mime-Version: 1.0
+Date: Sat, 16 May 2020 07:19:13 -0400
+Message-ID: <367320.1589627953@turing-police>
+Authentication-Results: relay.mimecast.com; dkim=none;
+	dmarc=pass (policy=none) header.from=vt.edu;
+	spf=pass (relay.mimecast.com: domain of valdis@vt.edu designates
+	198.82.183.121 as permitted sender) smtp.mailfrom=valdis@vt.edu
+X-Mimecast-Spam-Score: 1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH 5/6] libmultipath: simplify failed wwid code
+Cc: dm-devel@redhat.com, linux-kernel@vger.kernel.org
+Subject: [dm-devel] next-20200514 - build issue in
+	drivers/md/dm-zoned-target.c
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -133,49 +134,85 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+Content-Type: multipart/mixed; boundary="===============0688044448998079060=="
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 
-On Thu, 2020-05-14 at 20:59 -0500, Benjamin Marzinski wrote:
-> The (is|mark|unmark)_failed_wwid code is needlessly complicated.
-> Locking a file is necssary if multiple processes could otherwise be
-> writing to it at the same time. That is not the case with the
-> failed_wwids files. They can simply be empty files in a
-> directory.  Even
-> with all the locking in place, two processes accessing or modifying a
-> file at the same time will still race. And even without the locking,
-> if
-> two processes try to access or modify a file at the same time, they
-> will
-> both see a reasonable result, and will leave the files in a valid
-> state
-> afterwards.
->=20
-> Instead of doing all the locking work (which made it necessary to
-> write
-> a file, even just to check if a file existed), simply check for files
-> with lstat(), create them with open(), and remove them with unlink().
->=20
-> Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+--===============0688044448998079060==
+Content-Type: multipart/signed; boundary="==_Exmh_1589627953_23225P";
+	micalg=pgp-sha1; protocol="application/pgp-signature"
 
-With the follow-up (6/6):
-Reviewed-by: Martin Wilck <mwilck@suse.com>
+--==_Exmh_1589627953_23225P
+Content-Type: text/plain; charset=us-ascii
 
---=20
-Dr. Martin Wilck <mwilck@suse.com>, Tel. +49 (0)911 74053 2107
-SUSE  Software Solutions Germany GmbH
-HRB 36809, AG N=FCrnberg GF: Felix
-Imend=F6rffer
+Am seeing a build error in next-0514.  -0420 built OK.
+building a 'make allmodconfig' on a RPi4 in 32-bit mode.
+
+  MODPOST 7575 modules
+ERROR: modpost: "__aeabi_uldivmod" [drivers/md/dm-zoned.ko] undefined!
+
+objdump and 'make drivers/md/dm-zoned-target.s' tells
+me that the problem is in function dmz_fixup_devices(), near here:
+
+@ drivers/md/dm-zoned-target.c:806:             reg_dev->nr_zones = DIV_ROUND_UP(reg_dev->capacity,
+        ldr     r0, [r6, #56]   @ reg_dev_166->capacity, reg_dev_166->capacity
+        adds    r1, r3, r1      @ tmp316, _227, reg_dev_166->capacity
+        adc     r0, r2, r0      @ tmp315, _227, reg_dev_166->capacity
+        subs    r1, r1, #1      @, tmp316,
+@ drivers/md/dm-zoned-target.c:805:             reg_dev->zone_nr_sectors = zoned_dev->zone_nr_sectors;
+        strd    r2, [r6, #80]   @, reg_dev,
+@ drivers/md/dm-zoned-target.c:806:             reg_dev->nr_zones = DIV_ROUND_UP(reg_dev->capacity,
+        sbc     r0, r0, #0      @, tmp315,
+        bl      __aeabi_uldivmod                @
+@ drivers/md/dm-zoned-target.c:806:             reg_dev->nr_zones = DIV_ROUND_UP(reg_dev->capacity,
+        str     r1, [r6, #64]   @ tmp306, reg_dev_166->nr_zones
+
+git blame points at this commit:
+
+commit 70978208ec91d798066f4c291bc98ff914bea222
+Author: Hannes Reinecke <hare@suse.de>
+Date:   Mon May 11 10:24:30 2020 +0200
+
+    dm zoned: metadata version 2
+
+Reverting that commit lets the build complete.
 
 
+
+--==_Exmh_1589627953_23225P
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Comment: Exmh version 2.9.0 11/07/2018
+
+iQIVAwUBXr/MMAdmEQWDXROgAQLTXQ/+OU15bnjwmP85lolwTjIv5S1rqgFkYmu/
+57mmfcH6/P0JC/BvSfrQbaV7HdVx6xBYoywU4N24/huMaYLebX4gUd1ZVaF5QIVc
+XYndVZmi5cJb91q1SfzkV6Z6pcYdscMiyv+ViMuHR81G/4vBq4/CVYzyxKaGJBK3
+tj6mCALx/qvTN7EokTX+RQY3WHv75vKbS+RmgSwVNcQVuLT+PR6rJqYCIhKcpNIh
+54vj3sXGkkzHmhoKRck0qQ/h0yXLugHQtqpufLcAkoWwIIqRkcDKoJMqq15dZ8S3
+tA9wQ665Su47SbiUe6hjq7vJGcNAU0KsexfnRdKxGKElr8XYiHd2X2c5N9kCVh7i
+cLljCXsewU0tByCTo2KvzT9m5iEqQepjHcYJWhrDtrl3PkOnoVKeUoJD0G53ayoN
+mbyNxFm0IVY/+V6+FfuDuSVJ7lQK4jv6upibc+WUsA8LVi+sM+GeSCJx4Qx3Sfxd
+iFKJWW6e7rlpTy+eQp3ipIzR2rXgasfCaXTJXzIDkQiQKmUpeRTiMttInpyyFmwL
+mJRgcxq6HfXmREcy6yTRZf/IaTtxV2j3A6YZzoSFfg/pj52nX6dPbuaYPlhPDlaO
+6tWHzUk5DqIdh8ydmeK3KUrsCdvNPt/ksUuMkEi/vFQPOyQ1qFYC+9sdDltY4bXL
+AbbIXSkzR0A=
+=LIvL
+-----END PGP SIGNATURE-----
+
+--==_Exmh_1589627953_23225P--
+
+
+--===============0688044448998079060==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
+--===============0688044448998079060==--
 
