@@ -1,64 +1,64 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 764131D8EEF
-	for <lists+dm-devel@lfdr.de>; Tue, 19 May 2020 06:57:40 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 5CEC01D8EEE
+	for <lists+dm-devel@lfdr.de>; Tue, 19 May 2020 06:57:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1589864259;
+	s=mimecast20190719; t=1589864257;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=yeoXGo/IAtt0GAK/bB5ZkqW3uRgUpS7AaezHPwH3syI=;
-	b=WTaZr8b2rE5zKGe7OUsujrajrkLEvVzxM8kouU5J8NmITdIjIZjoI02szOcTbbUBDjBghf
-	k2D4UqCo7vjeCXC3wkPyzv/LmEGCeORzhXAJb6TmsRyUI+r+LIXlsU3cScOIYB2lAXAO9K
-	KUNHNf9OvopDtnj3srTNA6En/oYHWdU=
+	bh=9lKgY8UUoFF2yaPl9ayfzjvXFZOosDyV71NVBKFHkkk=;
+	b=ZJF3I5NuR5maIQu8tQldnr7k3bHQZUEIGohmA2UHlj++3QXPFPsBBU80wZaEt83bOIj3mz
+	jZu2cErCbrHC03W1domKdx9XBSo3r6luv9IDnEwJQmxN8ZUZbGFSShCsv1Z8grxqramJyo
+	7s4idrY2PisnII/dKTQB+87k+yy4iaQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-159-UoEVJx19MReTWK4Ki3phew-1; Tue, 19 May 2020 00:57:36 -0400
-X-MC-Unique: UoEVJx19MReTWK4Ki3phew-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-82-rchVS91vNvyBwayzDW5Pvw-1; Tue, 19 May 2020 00:57:33 -0400
+X-MC-Unique: rchVS91vNvyBwayzDW5Pvw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EB4117BAE;
-	Tue, 19 May 2020 04:57:30 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C74E519C4F;
-	Tue, 19 May 2020 04:57:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3EDAC107ACF5;
+	Tue, 19 May 2020 04:57:28 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D463E5D9E2;
+	Tue, 19 May 2020 04:57:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 87AC74ED59;
-	Tue, 19 May 2020 04:57:30 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CDD94180954D;
+	Tue, 19 May 2020 04:57:21 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
 	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04J4vH6K019161 for <dm-devel@listman.util.phx.redhat.com>;
+	id 04J4vH9k019160 for <dm-devel@listman.util.phx.redhat.com>;
 	Tue, 19 May 2020 00:57:17 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DA7E719C4F; Tue, 19 May 2020 04:57:17 +0000 (UTC)
+	id DA853397; Tue, 19 May 2020 04:57:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 18200196AE;
-	Tue, 19 May 2020 04:57:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9EF45398;
+	Tue, 19 May 2020 04:57:16 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 04J4vDMG001413; 
-	Mon, 18 May 2020 23:57:13 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 04J4vFuQ001417; 
+	Mon, 18 May 2020 23:57:15 -0500
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 04J4vD0q001412;
-	Mon, 18 May 2020 23:57:13 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 04J4vEML001416;
+	Mon, 18 May 2020 23:57:14 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Mon, 18 May 2020 23:57:05 -0500
-Message-Id: <1589864228-1363-4-git-send-email-bmarzins@redhat.com>
+Date: Mon, 18 May 2020 23:57:06 -0500
+Message-Id: <1589864228-1363-5-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1589864228-1363-1-git-send-email-bmarzins@redhat.com>
 References: <1589864228-1363-1-git-send-email-bmarzins@redhat.com>
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
 Cc: device-mapper development <dm-devel@redhat.com>,
 	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH v2 3/6] multipath: centralize validation code
+Subject: [dm-devel] [PATCH v2 4/6] Unit tests for is_path_valid()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -73,781 +73,533 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This code pulls the multipath path validation code out of configure(),
-and puts it into its own function, check_path_valid(). This function
-calls a new libmultipath function, is_path_valid() to check just path
-requested. This seperation exists so that is_path_valid() can be reused
-by future code. This code will give almost the same answer as the
-existing code, with the exception that now, if a device is currently
-multipathed, it will always be a valid multipath path.
-
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/Makefile    |   3 +-
- libmultipath/devmapper.c |  45 ++++++
- libmultipath/devmapper.h |   1 +
- libmultipath/structs.h   |  24 +---
- libmultipath/valid.c     | 118 ++++++++++++++++
- libmultipath/valid.h     |  42 ++++++
- libmultipath/wwids.c     |  10 +-
- multipath/main.c         | 296 +++++++++++++++++----------------------
- 8 files changed, 344 insertions(+), 195 deletions(-)
- create mode 100644 libmultipath/valid.c
- create mode 100644 libmultipath/valid.h
+ tests/Makefile |   4 +-
+ tests/valid.c  | 486 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 489 insertions(+), 1 deletion(-)
+ create mode 100644 tests/valid.c
 
-diff --git a/libmultipath/Makefile b/libmultipath/Makefile
-index ad690a49..436f479d 100644
---- a/libmultipath/Makefile
-+++ b/libmultipath/Makefile
-@@ -47,7 +47,8 @@ OBJS = memory.o parser.o vector.o devmapper.o callout.o \
- 	switchgroup.o uxsock.o print.o alias.o log_pthread.o \
- 	log.o configure.o structs_vec.o sysfs.o prio.o checkers.o \
- 	lock.o file.o wwids.o prioritizers/alua_rtpg.o prkey.o \
--	io_err_stat.o dm-generic.o generic.o foreign.o nvme-lib.o
-+	io_err_stat.o dm-generic.o generic.o foreign.o nvme-lib.o \
-+	valid.o
+diff --git a/tests/Makefile b/tests/Makefile
+index 77ff3249..7fc261c3 100644
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -13,7 +13,7 @@ CFLAGS += $(BIN_CFLAGS) -I$(multipathdir) -I$(mpathcmddir) \
+ LIBDEPS += -L$(multipathdir) -lmultipath -lcmocka
  
- all: $(LIBS)
+ TESTS := uevent parser util dmevents hwtable blacklist unaligned vpd pgpolicy \
+-	 alias directio
++	 alias directio valid
  
-diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
-index 7ed494a1..27d52398 100644
---- a/libmultipath/devmapper.c
-+++ b/libmultipath/devmapper.c
-@@ -770,6 +770,51 @@ out:
- 	return r;
- }
- 
-+/*
-+ * Return
-+ *   1 : map with uuid exists
-+ *   0 : map with uuid doesn't exist
-+ *  -1 : error
-+ */
-+int
-+dm_map_present_by_uuid(const char *uuid)
-+{
-+	struct dm_task *dmt;
-+	struct dm_info info;
-+	char prefixed_uuid[WWID_SIZE + UUID_PREFIX_LEN];
-+	int r = -1;
-+
-+	if (!uuid || uuid[0] == '\0')
-+		return 0;
-+
-+	if (safe_sprintf(prefixed_uuid, UUID_PREFIX "%s", uuid))
-+		goto out;
-+
-+	if (!(dmt = dm_task_create(DM_DEVICE_INFO)))
-+		goto out;
-+
-+	dm_task_no_open_count(dmt);
-+
-+	if (!dm_task_set_uuid(dmt, prefixed_uuid))
-+		goto out_task;
-+
-+	if (!dm_task_run(dmt))
-+		goto out_task;
-+
-+	if (!dm_task_get_info(dmt, &info))
-+		goto out_task;
-+
-+	r = !!info.exists;
-+
-+out_task:
-+	dm_task_destroy(dmt);
-+out:
-+	if (r < 0)
-+		condlog(3, "%s: dm command failed in %s: %s", uuid,
-+			__FUNCTION__, strerror(errno));
-+	return r;
-+}
-+
- static int
- dm_dev_t (const char * mapname, char * dev_t, int len)
- {
-diff --git a/libmultipath/devmapper.h b/libmultipath/devmapper.h
-index 17fc9faf..5ed7edc5 100644
---- a/libmultipath/devmapper.h
-+++ b/libmultipath/devmapper.h
-@@ -39,6 +39,7 @@ int dm_simplecmd_noflush (int, const char *, uint16_t);
- int dm_addmap_create (struct multipath *mpp, char *params);
- int dm_addmap_reload (struct multipath *mpp, char *params, int flush);
- int dm_map_present (const char *);
-+int dm_map_present_by_uuid(const char *uuid);
- int dm_get_map(const char *, unsigned long long *, char *);
- int dm_get_status(const char *, char *);
- int dm_type(const char *, char *);
-diff --git a/libmultipath/structs.h b/libmultipath/structs.h
-index 9bd39eb1..d69bc2e9 100644
---- a/libmultipath/structs.h
-+++ b/libmultipath/structs.h
-@@ -101,29 +101,13 @@ enum yes_no_undef_states {
- 	YNU_YES,
- };
- 
--#define _FIND_MULTIPATHS_F (1 << 1)
--#define _FIND_MULTIPATHS_I (1 << 2)
--#define _FIND_MULTIPATHS_N (1 << 3)
--/*
-- * _FIND_MULTIPATHS_F must have the same value as YNU_YES.
-- * Generate a compile time error if that isn't the case.
-- */
--extern char ___error1___[-(_FIND_MULTIPATHS_F != YNU_YES)];
--
--#define find_multipaths_on(conf) \
--	(!!((conf)->find_multipaths & _FIND_MULTIPATHS_F))
--#define ignore_wwids_on(conf) \
--	(!!((conf)->find_multipaths & _FIND_MULTIPATHS_I))
--#define ignore_new_devs_on(conf) \
--	(!!((conf)->find_multipaths & _FIND_MULTIPATHS_N))
--
- enum find_multipaths_states {
- 	FIND_MULTIPATHS_UNDEF = YNU_UNDEF,
- 	FIND_MULTIPATHS_OFF = YNU_NO,
--	FIND_MULTIPATHS_ON = _FIND_MULTIPATHS_F,
--	FIND_MULTIPATHS_GREEDY = _FIND_MULTIPATHS_I,
--	FIND_MULTIPATHS_SMART = _FIND_MULTIPATHS_F|_FIND_MULTIPATHS_I,
--	FIND_MULTIPATHS_STRICT = _FIND_MULTIPATHS_F|_FIND_MULTIPATHS_N,
-+	FIND_MULTIPATHS_ON = YNU_YES,
-+	FIND_MULTIPATHS_GREEDY,
-+	FIND_MULTIPATHS_SMART,
-+	FIND_MULTIPATHS_STRICT,
- 	__FIND_MULTIPATHS_LAST,
- };
- 
-diff --git a/libmultipath/valid.c b/libmultipath/valid.c
+ .SILENT: $(TESTS:%=%.o)
+ .PRECIOUS: $(TESTS:%=%-test)
+@@ -50,6 +50,8 @@ vpd-test_OBJDEPS :=  ../libmultipath/discovery.o
+ vpd-test_LIBDEPS := -ludev -lpthread -ldl
+ alias-test_TESTDEPS := test-log.o
+ alias-test_LIBDEPS := -lpthread -ldl
++valid-test_OBJDEPS := ../libmultipath/valid.o
++valid-test_LIBDEPS := -ludev -lpthread -ldl
+ ifneq ($(DIO_TEST_DEV),)
+ directio-test_LIBDEPS := -laio
+ endif
+diff --git a/tests/valid.c b/tests/valid.c
 new file mode 100644
-index 00000000..456b1f6e
+index 00000000..693c72c5
 --- /dev/null
-+++ b/libmultipath/valid.c
-@@ -0,0 +1,118 @@
++++ b/tests/valid.c
+@@ -0,0 +1,486 @@
 +/*
-+  Copyright (c) 2020 Benjamin Marzinski, IBM
-+
-+  This program is free software; you can redistribute it and/or
-+  modify it under the terms of the GNU General Public License
-+  as published by the Free Software Foundation; either version 2
-+  of the License, or (at your option) any later version.
-+
-+  This program is distributed in the hope that it will be useful,
-+  but WITHOUT ANY WARRANTY; without even the implied warranty of
-+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+  GNU General Public License for more details.
-+
-+  You should have received a copy of the GNU General Public License
-+  along with this program.  If not, see <https://www.gnu.org/licenses/>.
++ * Copyright (c) 2020 Benjamin Marzinski, Redhat
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version 2
++ * of the License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
++ *
 + */
-+#include <stddef.h>
-+#include <errno.h>
-+#include <libudev.h>
 +
-+#include "vector.h"
-+#include "config.h"
-+#include "debug.h"
++#define _GNU_SOURCE
++#include <stdint.h>
++#include <stdbool.h>
++#include <stdarg.h>
++#include <stddef.h>
++#include <setjmp.h>
++#include <stdlib.h>
++#include <errno.h>
++#include <cmocka.h>
++#include "globals.c"
 +#include "util.h"
-+#include "devmapper.h"
 +#include "discovery.h"
 +#include "wwids.h"
-+#include "sysfs.h"
 +#include "blacklist.h"
-+#include "mpath_cmd.h"
 +#include "valid.h"
 +
-+int
-+is_path_valid(const char *name, struct config *conf, struct path *pp,
-+	      bool check_multipathd)
++int test_fd;
++struct udev_device {
++	int unused;
++} test_udev;
++
++bool __wrap_sysfs_is_multipathed(struct path *pp, bool set_wwid)
 +{
-+	int r;
-+	int fd;
-+
-+	if (!pp || !name || !conf)
-+		return PATH_IS_ERROR;
-+
-+	if (conf->find_multipaths <= FIND_MULTIPATHS_UNDEF ||
-+	    conf->find_multipaths >= __FIND_MULTIPATHS_LAST)
-+		return PATH_IS_ERROR;
-+
-+	if (safe_sprintf(pp->dev, "%s", name))
-+		return PATH_IS_ERROR;
-+
-+	if (sysfs_is_multipathed(pp, true)) {
-+		if (pp->wwid[0] == '\0')
-+			return PATH_IS_ERROR;
-+		return PATH_IS_VALID_NO_CHECK;
-+	}
-+
-+	/*
-+	 * "multipath -u" may be run before the daemon is started. In this
-+	 * case, systemd might own the socket but might delay multipathd
-+	 * startup until some other unit (udev settle!)  has finished
-+	 * starting. With many LUNs, the listen backlog may be exceeded, which
-+	 * would cause connect() to block. This causes udev workers calling
-+	 * "multipath -u" to hang, and thus creates a deadlock, until "udev
-+	 * settle" times out.  To avoid this, call connect() in non-blocking
-+	 * mode here, and take EAGAIN as indication for a filled-up systemd
-+	 * backlog.
-+	 */
-+
-+	if (check_multipathd) {
-+		fd = __mpath_connect(1);
-+		if (fd < 0) {
-+			if (errno != EAGAIN && !systemd_service_enabled(name)) {
-+				condlog(3, "multipathd not running or enabled");
-+				return PATH_IS_NOT_VALID;
-+			}
-+		} else
-+			mpath_disconnect(fd);
-+	}
-+
-+	pp->udev = udev_device_new_from_subsystem_sysname(udev, "block", name);
-+	if (!pp->udev)
-+		return PATH_IS_ERROR;
-+
-+	r = pathinfo(pp, conf, DI_SYSFS | DI_WWID | DI_BLACKLIST);
-+	if (r == PATHINFO_SKIPPED)
-+		return PATH_IS_NOT_VALID;
-+	else if (r)
-+		return PATH_IS_ERROR;
-+
-+	if (pp->wwid[0] == '\0')
-+		return PATH_IS_NOT_VALID;
-+
-+	if (pp->udev && pp->uid_attribute &&
-+	    filter_property(conf, pp->udev, 3, pp->uid_attribute) > 0)
-+		return PATH_IS_NOT_VALID;
-+
-+	r = is_failed_wwid(pp->wwid);
-+	if (r != WWID_IS_NOT_FAILED) {
-+		if (r == WWID_IS_FAILED)
-+			return PATH_IS_NOT_VALID;
-+		return PATH_IS_ERROR;
-+	}
-+
-+	if (conf->find_multipaths == FIND_MULTIPATHS_GREEDY)
-+		return PATH_IS_VALID;
-+
-+	if (check_wwids_file(pp->wwid, 0) == 0)
-+		return PATH_IS_VALID_NO_CHECK;
-+
-+	if (dm_map_present_by_uuid(pp->wwid) == 1)
-+		return PATH_IS_VALID;
-+
-+	/* all these act like FIND_MULTIPATHS_STRICT for finding if a
-+	 * path is valid */
-+	if (conf->find_multipaths != FIND_MULTIPATHS_SMART)
-+		return PATH_IS_NOT_VALID;
-+
-+	return PATH_IS_MAYBE_VALID;
++	bool is_multipathed = mock_type(bool);
++	assert_non_null(pp);
++	assert_int_not_equal(strlen(pp->dev), 0);
++	if (is_multipathed && set_wwid)
++		strlcpy(pp->wwid, mock_ptr_type(char *), WWID_SIZE);
++	return is_multipathed;
 +}
-diff --git a/libmultipath/valid.h b/libmultipath/valid.h
-new file mode 100644
-index 00000000..ce1c7cbf
---- /dev/null
-+++ b/libmultipath/valid.h
-@@ -0,0 +1,42 @@
-+/*
-+  Copyright (c) 2020 Benjamin Marzinski, IBM
 +
-+  This program is free software; you can redistribute it and/or
-+  modify it under the terms of the GNU General Public License
-+  as published by the Free Software Foundation; either version 2
-+  of the License, or (at your option) any later version.
++int __wrap___mpath_connect(int nonblocking)
++{
++	bool connected = mock_type(bool);
++	assert_int_equal(nonblocking, 1);
++	if (connected)
++		return test_fd;
++	errno = mock_type(int);
++	return -1;
++}
 +
-+  This program is distributed in the hope that it will be useful,
-+  but WITHOUT ANY WARRANTY; without even the implied warranty of
-+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+  GNU General Public License for more details.
++int __wrap_systemd_service_enabled(const char *dev)
++{
++	return (int)mock_type(bool);
++}
 +
-+  You should have received a copy of the GNU General Public License
-+  along with this program.  If not, see <https://www.gnu.org/licenses/>.
-+ */
-+#ifndef _VALID_H
-+#define _VALID_H
++/* There's no point in checking the return value here */
++int __wrap_mpath_disconnect(int fd)
++{
++	assert_int_equal(fd, test_fd);
++	return 0;
++}
 +
-+/*
-+ * PATH_IS_VALID_NO_CHECK is returned when multipath should claim
-+ * the path, regardless of whether is has been released to systemd
-+ * already.
-+ * PATH_IS_VALID is returned by is_path_valid, when the path is
-+ * valid only if it hasn't been released to systemd already.
-+ * PATH_IS_MAYBE_VALID is returned when the the path would be valid
-+ * if other paths with the same wwid existed. It is up to the caller
-+ * to check for these other paths.
-+ */
-+enum is_path_valid_result {
-+	PATH_IS_ERROR = -1,
-+	PATH_IS_NOT_VALID,
-+	PATH_IS_VALID,
-+	PATH_IS_VALID_NO_CHECK,
-+	PATH_IS_MAYBE_VALID,
-+	PATH_MAX_VALID_RESULT, /* only for bounds checking */
++struct udev_device *__wrap_udev_device_new_from_subsystem_sysname(struct udev *udev, const char *subsystem, const char *sysname)
++{
++	bool passed = mock_type(bool);
++	assert_string_equal(sysname, mock_ptr_type(char *));
++	if (passed)
++		return &test_udev;
++	return NULL;
++}
++
++int __wrap_pathinfo(struct path *pp, struct config *conf, int mask)
++{
++	int ret = mock_type(int);
++	assert_string_equal(pp->dev, mock_ptr_type(char *));
++	assert_int_equal(mask, DI_SYSFS | DI_WWID | DI_BLACKLIST);
++	if (ret == PATHINFO_OK) {
++		pp->uid_attribute = "ID_TEST";
++		strlcpy(pp->wwid, mock_ptr_type(char *), WWID_SIZE);
++	} else
++		memset(pp->wwid, 0, WWID_SIZE);
++	return ret;
++}
++
++int __wrap_filter_property(struct config *conf, struct udev_device *udev,
++			   int lvl, const char *uid_attribute)
++{
++	int ret = mock_type(int);
++	assert_string_equal(uid_attribute, "ID_TEST");
++	return ret;
++}
++
++int __wrap_is_failed_wwid(const char *wwid)
++{
++	int ret = mock_type(int);
++	assert_string_equal(wwid, mock_ptr_type(char *));
++	return ret;
++}
++
++int __wrap_check_wwids_file(char *wwid, int write_wwid)
++{
++	bool passed = mock_type(bool);
++	assert_int_equal(write_wwid, 0);
++	assert_string_equal(wwid, mock_ptr_type(char *));
++	if (passed)
++		return 0;
++	else
++		return -1;
++}
++
++int __wrap_dm_map_present_by_uuid(const char *uuid)
++{
++	int ret = mock_type(int);
++	assert_string_equal(uuid, mock_ptr_type(char *));
++	return ret;
++}
++
++enum {
++	STAGE_IS_MULTIPATHED,
++	STAGE_CHECK_MULTIPATHD,
++	STAGE_GET_UDEV_DEVICE,
++	STAGE_PATHINFO,
++	STAGE_FILTER_PROPERTY,
++	STAGE_IS_FAILED,
++	STAGE_CHECK_WWIDS,
++	STAGE_UUID_PRESENT,
 +};
 +
-+int is_path_valid(const char *name, struct config *conf, struct path *pp,
-+		  bool check_multipathd);
++enum {
++	CHECK_MPATHD_RUNNING,
++	CHECK_MPATHD_EAGAIN,
++	CHECK_MPATHD_ENABLED,
++	CHECK_MPATHD_SKIP,
++};
 +
-+#endif /* _VALID_D */
-diff --git a/libmultipath/wwids.c b/libmultipath/wwids.c
-index fab6fc8f..397f6e54 100644
---- a/libmultipath/wwids.c
-+++ b/libmultipath/wwids.c
-@@ -289,19 +289,19 @@ out:
- int
- should_multipath(struct path *pp1, vector pathvec, vector mpvec)
- {
--	int i, ignore_new_devs, find_multipaths;
-+	int i, find_multipaths;
- 	struct path *pp2;
- 	struct config *conf;
- 
- 	conf = get_multipath_config();
--	ignore_new_devs = ignore_new_devs_on(conf);
--	find_multipaths = find_multipaths_on(conf);
-+	find_multipaths = conf->find_multipaths;
- 	put_multipath_config(conf);
--	if (!find_multipaths && !ignore_new_devs)
-+	if (find_multipaths == FIND_MULTIPATHS_OFF ||
-+	    find_multipaths == FIND_MULTIPATHS_GREEDY)
- 		return 1;
- 
- 	condlog(4, "checking if %s should be multipathed", pp1->dev);
--	if (!ignore_new_devs) {
-+	if (find_multipaths != FIND_MULTIPATHS_STRICT) {
- 		char tmp_wwid[WWID_SIZE];
- 		struct multipath *mp = find_mp_by_wwid(mpvec, pp1->wwid);
- 
-diff --git a/multipath/main.c b/multipath/main.c
-index f25b8693..5eac757a 100644
---- a/multipath/main.c
-+++ b/multipath/main.c
-@@ -63,21 +63,18 @@
- #include "propsel.h"
- #include "time-util.h"
- #include "file.h"
-+#include "valid.h"
- 
- int logsink;
- struct udev *udev;
- struct config *multipath_conf;
- 
- /*
-- * Return values of configure(), print_cmd_valid(), and main().
-- * RTVL_{YES,NO} are synonyms for RTVL_{OK,FAIL} for the CMD_VALID_PATH case.
-+ * Return values of configure(), check_path_valid(), and main().
-  */
- enum {
- 	RTVL_OK = 0,
--	RTVL_YES = RTVL_OK,
- 	RTVL_FAIL = 1,
--	RTVL_NO = RTVL_FAIL,
--	RTVL_MAYBE, /* only used internally, never returned */
- 	RTVL_RETRY, /* returned by configure(), not by main() */
- };
- 
-@@ -271,9 +268,6 @@ get_dm_mpvec (enum mpath_cmds cmd, vector curmp, vector pathvec, char * refwwid)
- 			continue;
- 		}
- 
--		if (cmd == CMD_VALID_PATH)
--			continue;
--
- 		dm_get_map(mpp->alias, &mpp->size, params);
- 		condlog(3, "params = %s", params);
- 		dm_get_status(mpp->alias, status);
-@@ -493,10 +487,11 @@ static int print_cmd_valid(int k, const vector pathvec,
- 	struct timespec until;
- 	struct path *pp;
- 
--	if (k != RTVL_YES && k != RTVL_NO && k != RTVL_MAYBE)
--		return RTVL_NO;
-+	if (k != PATH_IS_VALID && k != PATH_IS_NOT_VALID &&
-+	    k != PATH_IS_MAYBE_VALID)
-+		return PATH_IS_NOT_VALID;
- 
--	if (k == RTVL_MAYBE) {
-+	if (k == PATH_IS_MAYBE_VALID) {
- 		/*
- 		 * Caller ensures that pathvec[0] is the path to
- 		 * examine.
-@@ -506,7 +501,7 @@ static int print_cmd_valid(int k, const vector pathvec,
- 		wait = find_multipaths_check_timeout(
- 			pp, pp->find_multipaths_timeout, &until);
- 		if (wait != FIND_MULTIPATHS_WAITING)
--			k = RTVL_NO;
-+			k = PATH_IS_NOT_VALID;
- 	} else if (pathvec != NULL && (pp = VECTOR_SLOT(pathvec, 0)))
- 		wait = find_multipaths_check_timeout(pp, 0, &until);
- 	if (wait == FIND_MULTIPATHS_WAITING)
-@@ -515,9 +510,9 @@ static int print_cmd_valid(int k, const vector pathvec,
- 	else if (wait == FIND_MULTIPATHS_WAIT_DONE)
- 		printf("FIND_MULTIPATHS_WAIT_UNTIL=\"0\"\n");
- 	printf("DM_MULTIPATH_DEVICE_PATH=\"%d\"\n",
--	       k == RTVL_MAYBE ? 2 : k == RTVL_YES ? 1 : 0);
-+	       k == PATH_IS_MAYBE_VALID ? 2 : k == PATH_IS_VALID ? 1 : 0);
- 	/* Never return RTVL_MAYBE */
--	return k == RTVL_NO ? RTVL_NO : RTVL_YES;
-+	return k == PATH_IS_NOT_VALID ? PATH_IS_NOT_VALID : PATH_IS_VALID;
- }
- 
- /*
-@@ -550,7 +545,6 @@ configure (struct config *conf, enum mpath_cmds cmd,
- 	int di_flag = 0;
- 	char * refwwid = NULL;
- 	char * dev = NULL;
--	bool released = released_to_systemd();
- 
- 	/*
- 	 * allocate core vectors to store paths and multipaths
-@@ -575,7 +569,7 @@ configure (struct config *conf, enum mpath_cmds cmd,
- 	    cmd != CMD_REMOVE_WWID &&
- 	    (filter_devnode(conf->blist_devnode,
- 			    conf->elist_devnode, dev) > 0)) {
--		goto print_valid;
-+		goto out;
- 	}
- 
- 	/*
-@@ -583,14 +577,10 @@ configure (struct config *conf, enum mpath_cmds cmd,
- 	 * failing the translation is fatal (by policy)
- 	 */
- 	if (devpath) {
--		int failed = get_refwwid(cmd, devpath, dev_type,
--					 pathvec, &refwwid);
-+		get_refwwid(cmd, devpath, dev_type, pathvec, &refwwid);
- 		if (!refwwid) {
- 			condlog(4, "%s: failed to get wwid", devpath);
--			if (failed == 2 && cmd == CMD_VALID_PATH)
--				goto print_valid;
--			else
--				condlog(3, "scope is null");
-+			condlog(3, "scope is null");
- 			goto out;
- 		}
- 		if (cmd == CMD_REMOVE_WWID) {
-@@ -616,53 +606,6 @@ configure (struct config *conf, enum mpath_cmds cmd,
- 			goto out;
- 		}
- 		condlog(3, "scope limited to %s", refwwid);
--		/* If you are ignoring the wwids file and find_multipaths is
--		 * set, you need to actually check if there are two available
--		 * paths to determine if this path should be multipathed. To
--		 * do this, we put off the check until after discovering all
--		 * the paths.
--		 * Paths listed in the wwids file are always considered valid.
--		 */
--		if (cmd == CMD_VALID_PATH) {
--			if (is_failed_wwid(refwwid) == WWID_IS_FAILED) {
--				r = RTVL_NO;
--				goto print_valid;
--			}
--			if ((!find_multipaths_on(conf) &&
--				    ignore_wwids_on(conf)) ||
--				   check_wwids_file(refwwid, 0) == 0)
--				r = RTVL_YES;
--			if (!ignore_wwids_on(conf))
--				goto print_valid;
--			/* At this point, either r==0 or find_multipaths_on. */
--
--			/*
--			 * Shortcut for find_multipaths smart:
--			 * Quick check if path is already multipathed.
--			 */
--			if (sysfs_is_multipathed(VECTOR_SLOT(pathvec, 0),
--						 false)) {
--				r = RTVL_YES;
--				goto print_valid;
--			}
--
--			/*
--			 * DM_MULTIPATH_DEVICE_PATH=="0" means that we have
--			 * been called for this device already, and have
--			 * released it to systemd. Unless the device is now
--			 * already multipathed (see above), we can't try to
--			 * grab it, because setting SYSTEMD_READY=0 would
--			 * cause file systems to be unmounted.
--			 * Leave DM_MULTIPATH_DEVICE_PATH="0".
--			 */
--			if (released) {
--				r = RTVL_NO;
--				goto print_valid;
--			}
--			if (r == RTVL_YES)
--				goto print_valid;
--			/* find_multipaths_on: Fall through to path detection */
--		}
- 	}
- 
- 	/*
-@@ -703,59 +646,6 @@ configure (struct config *conf, enum mpath_cmds cmd,
- 		goto out;
- 	}
- 
--	if (cmd == CMD_VALID_PATH) {
--		struct path *pp;
--		int fd;
--
--		/* This only happens if find_multipaths and
--		 * ignore_wwids is set, and the path is not in WWIDs
--		 * file, not currently multipathed, and has
--		 * never been released to systemd.
--		 * If there is currently a multipath device matching
--		 * the refwwid, or there is more than one path matching
--		 * the refwwid, then the path is valid */
--		if (VECTOR_SIZE(curmp) != 0) {
--			r = RTVL_YES;
--			goto print_valid;
--		} else if (VECTOR_SIZE(pathvec) > 1)
--			r = RTVL_YES;
--		else
--			r = RTVL_MAYBE;
--
--		/*
--		 * If opening the path with O_EXCL fails, the path
--		 * is in use (e.g. mounted during initramfs processing).
--		 * We know that it's not used by dm-multipath.
--		 * We may not set SYSTEMD_READY=0 on such devices, it
--		 * might cause systemd to umount the device.
--		 * Use O_RDONLY, because udevd would trigger another
--		 * uevent for close-after-write.
--		 *
--		 * The O_EXCL check is potentially dangerous, because it may
--		 * race with other tasks trying to access the device. Therefore
--		 * this code is only executed if the path hasn't been released
--		 * to systemd earlier (see above).
--		 *
--		 * get_refwwid() above stores the path we examine in slot 0.
--		 */
--		pp = VECTOR_SLOT(pathvec, 0);
--		fd = open(udev_device_get_devnode(pp->udev),
--			  O_RDONLY|O_EXCL);
--		if (fd >= 0)
--			close(fd);
--		else {
--			condlog(3, "%s: path %s is in use: %s",
--				__func__, pp->dev,
--				strerror(errno));
--			/*
--			 * Check if we raced with multipathd
--			 */
--			r = sysfs_is_multipathed(VECTOR_SLOT(pathvec, 0),
--						 false) ? RTVL_YES : RTVL_NO;
--		}
--		goto print_valid;
--	}
--
- 	if (cmd != CMD_CREATE && cmd != CMD_DRY_RUN) {
- 		r = RTVL_OK;
- 		goto out;
-@@ -768,10 +658,6 @@ configure (struct config *conf, enum mpath_cmds cmd,
- 			   conf->force_reload, cmd);
- 	r = rc == CP_RETRY ? RTVL_RETRY : rc == CP_OK ? RTVL_OK : RTVL_FAIL;
- 
--print_valid:
--	if (cmd == CMD_VALID_PATH)
--		r = print_cmd_valid(r, pathvec, conf);
--
- out:
- 	if (refwwid)
- 		FREE(refwwid);
-@@ -782,6 +668,112 @@ out:
- 	return r;
- }
- 
-+static int
-+check_path_valid(const char *name, struct config *conf, bool is_uevent)
++/* setup the test to continue past the given stage in is_path_valid() */
++static void setup_passing(char *name, char *wwid, unsigned int check_multipathd,
++			  unsigned int stage)
 +{
-+	int fd, r = PATH_IS_ERROR;
-+	struct path *pp = NULL;
-+	vector pathvec = NULL;
-+
-+	pp = alloc_path();
-+	if (!pp)
-+		return RTVL_FAIL;
-+
-+	r = is_path_valid(name, conf, pp, is_uevent);
-+	if (r <= PATH_IS_ERROR || r >= PATH_MAX_VALID_RESULT)
-+		goto fail;
-+
-+	/* set path values if is_path_valid() didn't */
-+	if (!pp->udev)
-+		pp->udev = udev_device_new_from_subsystem_sysname(udev, "block",
-+								  name);
-+	if (!pp->udev)
-+		goto fail;
-+
-+	if (!strlen(pp->dev_t)) {
-+		dev_t devt = udev_device_get_devnum(pp->udev);
-+		if (major(devt) == 0 && minor(devt) == 0)
-+			goto fail;
-+		snprintf(pp->dev_t, BLK_DEV_SIZE, "%d:%d", major(devt),
-+			 minor(devt));
++	will_return(__wrap_sysfs_is_multipathed, false);
++	if (stage == STAGE_IS_MULTIPATHED)
++		return;
++	if (check_multipathd == CHECK_MPATHD_RUNNING)
++		will_return(__wrap___mpath_connect, true);
++	else if (check_multipathd == CHECK_MPATHD_EAGAIN) {
++		will_return(__wrap___mpath_connect, false);
++		will_return(__wrap___mpath_connect, EAGAIN);
++	} else if (check_multipathd == CHECK_MPATHD_ENABLED) {
++		will_return(__wrap___mpath_connect, false);
++		will_return(__wrap___mpath_connect, ECONNREFUSED);
++		will_return(__wrap_systemd_service_enabled, true);
 +	}
-+
-+	pathvec = vector_alloc();
-+	if (!pathvec)
-+		goto fail;
-+
-+	if (store_path(pathvec, pp) != 0) {
-+		free_path(pp);
-+		goto fail;
-+	}
-+
-+	if ((r == PATH_IS_VALID || r == PATH_IS_MAYBE_VALID) &&
-+	    released_to_systemd())
-+		r = PATH_IS_NOT_VALID;
-+
-+	/* This state is only used to skip the released_to_systemd() check */
-+	if (r == PATH_IS_VALID_NO_CHECK)
-+		r = PATH_IS_VALID;
-+
-+	if (r != PATH_IS_MAYBE_VALID)
-+		goto out;
-+
-+	/*
-+	 * If opening the path with O_EXCL fails, the path
-+	 * is in use (e.g. mounted during initramfs processing).
-+	 * We know that it's not used by dm-multipath.
-+	 * We may not set SYSTEMD_READY=0 on such devices, it
-+	 * might cause systemd to umount the device.
-+	 * Use O_RDONLY, because udevd would trigger another
-+	 * uevent for close-after-write.
-+	 *
-+	 * The O_EXCL check is potentially dangerous, because it may
-+	 * race with other tasks trying to access the device. Therefore
-+	 * this code is only executed if the path hasn't been released
-+	 * to systemd earlier (see above).
-+	 */
-+	fd = open(udev_device_get_devnode(pp->udev), O_RDONLY|O_EXCL);
-+	if (fd >= 0)
-+		close(fd);
-+	else {
-+		condlog(3, "%s: path %s is in use: %m", __func__, pp->dev);
-+		/* Check if we raced with multipathd */
-+		if (sysfs_is_multipathed(pp, false))
-+			r = PATH_IS_VALID;
-+		else
-+			r = PATH_IS_NOT_VALID;
-+		goto out;
-+	}
-+
-+	/* For find_multipaths = SMART, if there is more than one path
-+	 * matching the refwwid, then the path is valid */
-+	if (path_discovery(pathvec, DI_SYSFS | DI_WWID) < 0)
-+		goto fail;
-+	filter_pathvec(pathvec, pp->wwid);
-+	if (VECTOR_SIZE(pathvec) > 1)
-+		r = PATH_IS_VALID;
-+	else
-+		r = PATH_IS_MAYBE_VALID;
-+
-+out:
-+	r = print_cmd_valid(r, pathvec, conf);
-+	free_pathvec(pathvec, FREE_PATHS);
-+	/*
-+	 * multipath -u must exit with status 0, otherwise udev won't
-+	 * import its output.
-+	 */
-+	if (!is_uevent && r == PATH_IS_NOT_VALID)
-+		return RTVL_FAIL;
-+	return RTVL_OK;
-+
-+fail:
-+	if (pathvec)
-+		free_pathvec(pathvec, FREE_PATHS);
-+	else
-+		free_path(pp);
-+	return RTVL_FAIL;
++	/* nothing for CHECK_MPATHD_SKIP */
++	if (stage == STAGE_CHECK_MULTIPATHD)
++		return;
++	will_return(__wrap_udev_device_new_from_subsystem_sysname, true);
++	will_return(__wrap_udev_device_new_from_subsystem_sysname,
++		    name);
++	if (stage == STAGE_GET_UDEV_DEVICE)
++		return;
++	will_return(__wrap_pathinfo, PATHINFO_OK);
++	will_return(__wrap_pathinfo, name);
++	will_return(__wrap_pathinfo, wwid);
++	if (stage == STAGE_PATHINFO)
++		return;
++	will_return(__wrap_filter_property, MATCH_PROPERTY_BLIST_EXCEPT);
++	if (stage == STAGE_FILTER_PROPERTY)
++		return;
++	will_return(__wrap_is_failed_wwid, WWID_IS_NOT_FAILED);
++	will_return(__wrap_is_failed_wwid, wwid);
++	if (stage == STAGE_IS_FAILED)
++		return;
++	will_return(__wrap_check_wwids_file, false);
++	will_return(__wrap_check_wwids_file, wwid);
++	if (stage == STAGE_CHECK_WWIDS)
++		return;
++	will_return(__wrap_dm_map_present_by_uuid, 0);
++	will_return(__wrap_dm_map_present_by_uuid, wwid);
 +}
 +
- static int
- get_dev_type(char *dev) {
- 	struct stat buf;
-@@ -863,32 +855,6 @@ out:
- 	return r;
- }
- 
--static int test_multipathd_socket(void)
--{
--	int fd;
--	/*
--	 * "multipath -u" may be run before the daemon is started. In this
--	 * case, systemd might own the socket but might delay multipathd
--	 * startup until some other unit (udev settle!)  has finished
--	 * starting. With many LUNs, the listen backlog may be exceeded, which
--	 * would cause connect() to block. This causes udev workers calling
--	 * "multipath -u" to hang, and thus creates a deadlock, until "udev
--	 * settle" times out.  To avoid this, call connect() in non-blocking
--	 * mode here, and take EAGAIN as indication for a filled-up systemd
--	 * backlog.
--	 */
--
--	fd = __mpath_connect(1);
--	if (fd == -1) {
--		if (errno == EAGAIN)
--			condlog(3, "daemon backlog exceeded");
--		else
--			return 0;
--	} else
--		close(fd);
--	return 1;
--}
--
- int
- main (int argc, char *argv[])
- {
-@@ -972,7 +938,11 @@ main (int argc, char *argv[])
- 			conf->force_reload = FORCE_RELOAD_YES;
- 			break;
- 		case 'i':
--			conf->find_multipaths |= _FIND_MULTIPATHS_I;
-+			if (conf->find_multipaths == FIND_MULTIPATHS_ON ||
-+			    conf->find_multipaths == FIND_MULTIPATHS_STRICT)
-+				conf->find_multipaths = FIND_MULTIPATHS_SMART;
-+			else if (conf->find_multipaths == FIND_MULTIPATHS_OFF)
-+				conf->find_multipaths = FIND_MULTIPATHS_GREEDY;
- 			break;
- 		case 't':
- 			r = dump_config(conf, NULL, NULL) ? RTVL_FAIL : RTVL_OK;
-@@ -1070,15 +1040,10 @@ main (int argc, char *argv[])
- 		condlog(0, "the -c option requires a path to check");
- 		goto out;
- 	}
--	if (cmd == CMD_VALID_PATH &&
--	    dev_type == DEV_UEVENT) {
--		if (!test_multipathd_socket()) {
--			condlog(3, "%s: daemon is not running", dev);
--			if (!systemd_service_enabled(dev)) {
--				r = print_cmd_valid(RTVL_NO, NULL, conf);
--				goto out;
--			}
--		}
-+	if (cmd == CMD_VALID_PATH) {
-+		char * name = convert_dev(dev, (dev_type == DEV_DEVNODE));
-+		r = check_path_valid(name, conf, dev_type == DEV_UEVENT);
-+		goto out;
- 	}
- 
- 	if (cmd == CMD_REMOVE_WWID && !dev) {
-@@ -1142,13 +1107,6 @@ out:
- 	cleanup_prio();
- 	cleanup_checkers();
- 
--	/*
--	 * multipath -u must exit with status 0, otherwise udev won't
--	 * import its output.
--	 */
--	if (cmd == CMD_VALID_PATH && dev_type == DEV_UEVENT && r == RTVL_NO)
--		r = RTVL_OK;
--
- 	if (dev_type == DEV_UEVENT)
- 		closelog();
- 
++static void test_bad_arguments(void **state)
++{
++	struct path pp;
++	char too_long[FILE_NAME_SIZE + 1];
++
++	memset(&pp, 0, sizeof(pp));
++	/* test NULL pointers */
++	assert_int_equal(is_path_valid("test", &conf, NULL, true),
++			 PATH_IS_ERROR);
++	assert_int_equal(is_path_valid("test", NULL, &pp, true),
++			 PATH_IS_ERROR);
++	assert_int_equal(is_path_valid(NULL, &conf, &pp, true),
++			 PATH_IS_ERROR);
++	/* test undefined find_multipaths */
++	conf.find_multipaths = FIND_MULTIPATHS_UNDEF;
++	assert_int_equal(is_path_valid("test", &conf, &pp, true),
++			 PATH_IS_ERROR);
++	/* test name too long */
++	memset(too_long, 'x', sizeof(too_long));
++	too_long[sizeof(too_long) - 1] = '\0';
++	conf.find_multipaths = FIND_MULTIPATHS_STRICT;
++	assert_int_equal(is_path_valid(too_long, &conf, &pp, true),
++			 PATH_IS_ERROR);
++}
++
++static void test_sysfs_is_multipathed(void **state)
++{
++	struct path pp;
++	char *name = "test";
++	char *wwid = "test_wwid";
++
++	memset(&pp, 0, sizeof(pp));
++	conf.find_multipaths = FIND_MULTIPATHS_STRICT;
++	/* test for already existing multiapthed device */
++	will_return(__wrap_sysfs_is_multipathed, true);
++	will_return(__wrap_sysfs_is_multipathed, wwid);
++	assert_int_equal(is_path_valid(name, &conf, &pp, true),
++			 PATH_IS_VALID_NO_CHECK);
++	assert_string_equal(pp.dev, name);
++	assert_string_equal(pp.wwid, wwid);
++	/* test for wwid device with empty wwid */
++	will_return(__wrap_sysfs_is_multipathed, true);
++	will_return(__wrap_sysfs_is_multipathed, "");
++	assert_int_equal(is_path_valid(name, &conf, &pp, true),
++			 PATH_IS_ERROR);
++}
++
++static void test_check_multipathd(void **state)
++{
++	struct path pp;
++	char *name = "test";
++
++	memset(&pp, 0, sizeof(pp));
++	conf.find_multipaths = FIND_MULTIPATHS_STRICT;
++	/* test failed check to see if multipathd is active */
++	will_return(__wrap_sysfs_is_multipathed, false);
++	will_return(__wrap___mpath_connect, false);
++	will_return(__wrap___mpath_connect, ECONNREFUSED);
++	will_return(__wrap_systemd_service_enabled, false);
++	assert_int_equal(is_path_valid(name, &conf, &pp, true),
++			 PATH_IS_NOT_VALID);
++	assert_string_equal(pp.dev, name);
++	/* test pass because service is enabled. fail getting udev */
++	memset(&pp, 0, sizeof(pp));
++	setup_passing(name, NULL, CHECK_MPATHD_ENABLED, STAGE_CHECK_MULTIPATHD);
++	will_return(__wrap_udev_device_new_from_subsystem_sysname, false);
++	will_return(__wrap_udev_device_new_from_subsystem_sysname,
++		    name);
++	assert_int_equal(is_path_valid(name, &conf, &pp, true),
++			 PATH_IS_ERROR);
++	assert_string_equal(pp.dev, name);
++	/* test pass because connect returned EAGAIN. fail getting udev */
++	setup_passing(name, NULL, CHECK_MPATHD_EAGAIN, STAGE_CHECK_MULTIPATHD);
++	will_return(__wrap_udev_device_new_from_subsystem_sysname, false);
++	will_return(__wrap_udev_device_new_from_subsystem_sysname,
++		    name);
++	assert_int_equal(is_path_valid(name, &conf, &pp, true),
++			 PATH_IS_ERROR);
++	/* test pass because connect succeeded. fail getting udev */
++	memset(&pp, 0, sizeof(pp));
++	setup_passing(name, NULL, CHECK_MPATHD_RUNNING, STAGE_CHECK_MULTIPATHD);
++	will_return(__wrap_udev_device_new_from_subsystem_sysname, false);
++	will_return(__wrap_udev_device_new_from_subsystem_sysname,
++		    name);
++	assert_int_equal(is_path_valid(name, &conf, &pp, true),
++			 PATH_IS_ERROR);
++	assert_string_equal(pp.dev, name);
++}
++
++static void test_pathinfo(void **state)
++{
++	struct path pp;
++	char *name = "test";
++
++	memset(&pp, 0, sizeof(pp));
++	conf.find_multipaths = FIND_MULTIPATHS_STRICT;
++	/* Test pathinfo blacklisting device */
++	setup_passing(name, NULL, CHECK_MPATHD_SKIP, STAGE_GET_UDEV_DEVICE);
++	will_return(__wrap_pathinfo, PATHINFO_SKIPPED);
++	will_return(__wrap_pathinfo, name);
++	assert_int_equal(is_path_valid(name, &conf, &pp, false),
++			 PATH_IS_NOT_VALID);
++	assert_string_equal(pp.dev, name);
++	assert_ptr_equal(pp.udev, &test_udev);
++	/* Test pathinfo failing */
++	memset(&pp, 0, sizeof(pp));
++	setup_passing(name, NULL, CHECK_MPATHD_SKIP, STAGE_GET_UDEV_DEVICE);
++	will_return(__wrap_pathinfo, PATHINFO_FAILED);
++	will_return(__wrap_pathinfo, name);
++	assert_int_equal(is_path_valid(name, &conf, &pp, false),
++			 PATH_IS_ERROR);
++	/* Test blank wwid */
++	memset(&pp, 0, sizeof(pp));
++	setup_passing(name, NULL, CHECK_MPATHD_SKIP, STAGE_GET_UDEV_DEVICE);
++	will_return(__wrap_pathinfo, PATHINFO_OK);
++	will_return(__wrap_pathinfo, name);
++	will_return(__wrap_pathinfo, "");
++	assert_int_equal(is_path_valid(name, &conf, &pp, false),
++			 PATH_IS_NOT_VALID);
++}
++
++static void test_filter_property(void **state)
++{
++	struct path pp;
++	char *name = "test";
++	char *wwid = "test-wwid";
++
++	/* test blacklist property */
++	memset(&pp, 0, sizeof(pp));
++	conf.find_multipaths = FIND_MULTIPATHS_STRICT;
++	setup_passing(name, wwid, CHECK_MPATHD_SKIP, STAGE_PATHINFO);
++	will_return(__wrap_filter_property, MATCH_PROPERTY_BLIST);
++	assert_int_equal(is_path_valid(name, &conf, &pp, false),
++			 PATH_IS_NOT_VALID);
++	assert_ptr_equal(pp.udev, &test_udev);
++	assert_string_equal(pp.wwid, wwid);
++	/* test missing property */
++	memset(&pp, 0, sizeof(pp));
++	setup_passing(name, wwid, CHECK_MPATHD_SKIP, STAGE_PATHINFO);
++	will_return(__wrap_filter_property, MATCH_PROPERTY_BLIST_MISSING);
++	assert_int_equal(is_path_valid(name, &conf, &pp, false),
++			 PATH_IS_NOT_VALID);
++	/* test MATCH_NOTHING fail on is_failed_wwid */
++	memset(&pp, 0, sizeof(pp));
++	setup_passing(name, wwid, CHECK_MPATHD_SKIP, STAGE_PATHINFO);
++	will_return(__wrap_filter_property, MATCH_NOTHING);
++	will_return(__wrap_is_failed_wwid, WWID_IS_FAILED);
++	will_return(__wrap_is_failed_wwid, wwid);
++	assert_int_equal(is_path_valid(name, &conf, &pp, false),
++			 PATH_IS_NOT_VALID);
++}
++
++static void test_is_failed_wwid(void **state)
++{
++	struct path pp;
++	char *name = "test";
++	char *wwid = "test-wwid";
++
++	memset(&pp, 0, sizeof(pp));
++	conf.find_multipaths = FIND_MULTIPATHS_STRICT;
++	/* Test wwid failed */
++	setup_passing(name, wwid, CHECK_MPATHD_SKIP, STAGE_FILTER_PROPERTY);
++	will_return(__wrap_is_failed_wwid, WWID_IS_FAILED);
++	will_return(__wrap_is_failed_wwid, wwid);
++	assert_int_equal(is_path_valid(name, &conf, &pp, false),
++			 PATH_IS_NOT_VALID);
++	assert_string_equal(pp.dev, name);
++	assert_ptr_equal(pp.udev, &test_udev);
++	assert_string_equal(pp.wwid, wwid);
++	/* test is_failed_wwid error */
++	setup_passing(name, wwid, CHECK_MPATHD_SKIP, STAGE_FILTER_PROPERTY);
++	will_return(__wrap_is_failed_wwid, WWID_FAILED_ERROR);
++	will_return(__wrap_is_failed_wwid, wwid);
++	assert_int_equal(is_path_valid(name, &conf, &pp, false),
++			 PATH_IS_ERROR);
++}
++
++static void test_greedy(void **state)
++{
++	struct path pp;
++	char *name = "test";
++	char *wwid = "test-wwid";
++
++	/* test greedy success with checking multipathd */
++	memset(&pp, 0, sizeof(pp));
++	conf.find_multipaths = FIND_MULTIPATHS_GREEDY;
++	setup_passing(name, wwid, CHECK_MPATHD_RUNNING, STAGE_IS_FAILED);
++	assert_int_equal(is_path_valid(name, &conf, &pp, true),
++			 PATH_IS_VALID);
++	assert_string_equal(pp.dev, name);
++	assert_ptr_equal(pp.udev, &test_udev);
++	assert_string_equal(pp.wwid, wwid);
++	/* test greedy success without checking multiapthd */
++	memset(&pp, 0, sizeof(pp));
++	setup_passing(name, wwid, CHECK_MPATHD_SKIP, STAGE_IS_FAILED);
++	assert_int_equal(is_path_valid(name, &conf, &pp, false),
++			 PATH_IS_VALID);
++}
++
++static void test_check_wwids(void **state)
++{
++	struct path pp;
++	char *name = "test";
++	char *wwid = "test-wwid";
++
++	memset(&pp, 0, sizeof(pp));
++	conf.find_multipaths = FIND_MULTIPATHS_STRICT;
++	setup_passing(name, wwid, CHECK_MPATHD_EAGAIN, STAGE_IS_FAILED);
++	will_return(__wrap_check_wwids_file, true);
++	will_return(__wrap_check_wwids_file, wwid);
++	assert_int_equal(is_path_valid(name, &conf, &pp, true),
++			 PATH_IS_VALID_NO_CHECK);
++	assert_string_equal(pp.dev, name);
++	assert_ptr_equal(pp.udev, &test_udev);
++	assert_string_equal(pp.wwid, wwid);
++}
++
++static void test_check_uuid_present(void **state)
++{
++	struct path pp;
++	char *name = "test";
++	char *wwid = "test-wwid";
++
++	memset(&pp, 0, sizeof(pp));
++	conf.find_multipaths = FIND_MULTIPATHS_STRICT;
++	setup_passing(name, wwid, CHECK_MPATHD_ENABLED, STAGE_CHECK_WWIDS);
++	will_return(__wrap_dm_map_present_by_uuid, 1);
++	will_return(__wrap_dm_map_present_by_uuid, wwid);
++	assert_int_equal(is_path_valid(name, &conf, &pp, true),
++			 PATH_IS_VALID);
++	assert_string_equal(pp.dev, name);
++	assert_ptr_equal(pp.udev, &test_udev);
++	assert_string_equal(pp.wwid, wwid);
++}
++
++
++static void test_find_multipaths(void **state)
++{
++	struct path pp;
++	char *name = "test";
++	char *wwid = "test-wwid";
++
++	/* test find_multipaths = FIND_MULTIPATHS_STRICT */
++	memset(&pp, 0, sizeof(pp));
++	conf.find_multipaths = FIND_MULTIPATHS_STRICT;
++	setup_passing(name, wwid, CHECK_MPATHD_SKIP, STAGE_UUID_PRESENT);
++	assert_int_equal(is_path_valid(name, &conf, &pp, false),
++			 PATH_IS_NOT_VALID);
++	assert_string_equal(pp.dev, name);
++	assert_ptr_equal(pp.udev, &test_udev);
++	assert_string_equal(pp.wwid, wwid);
++	/* test find_multipaths = FIND_MULTIPATHS_OFF */
++	memset(&pp, 0, sizeof(pp));
++	conf.find_multipaths = FIND_MULTIPATHS_OFF;
++	setup_passing(name, wwid, CHECK_MPATHD_SKIP, STAGE_UUID_PRESENT);
++	assert_int_equal(is_path_valid(name, &conf, &pp, false),
++			 PATH_IS_NOT_VALID);
++	/* test find_multipaths = FIND_MULTIPATHS_ON */
++	memset(&pp, 0, sizeof(pp));
++	conf.find_multipaths = FIND_MULTIPATHS_ON;
++	setup_passing(name, wwid, CHECK_MPATHD_SKIP, STAGE_UUID_PRESENT);
++	assert_int_equal(is_path_valid(name, &conf, &pp, false),
++			 PATH_IS_NOT_VALID);
++	/* test find_multipaths = FIND_MULTIPATHS_SMART */
++	memset(&pp, 0, sizeof(pp));
++	conf.find_multipaths = FIND_MULTIPATHS_SMART;
++	setup_passing(name, wwid, CHECK_MPATHD_SKIP, STAGE_UUID_PRESENT);
++	assert_int_equal(is_path_valid(name, &conf, &pp, false),
++			 PATH_IS_MAYBE_VALID);
++	assert_string_equal(pp.dev, name);
++	assert_ptr_equal(pp.udev, &test_udev);
++	assert_string_equal(pp.wwid, wwid);
++}
++
++int test_valid(void)
++{
++	const struct CMUnitTest tests[] = {
++		cmocka_unit_test(test_bad_arguments),
++		cmocka_unit_test(test_sysfs_is_multipathed),
++		cmocka_unit_test(test_check_multipathd),
++		cmocka_unit_test(test_pathinfo),
++		cmocka_unit_test(test_filter_property),
++		cmocka_unit_test(test_is_failed_wwid),
++		cmocka_unit_test(test_greedy),
++		cmocka_unit_test(test_check_wwids),
++		cmocka_unit_test(test_check_uuid_present),
++		cmocka_unit_test(test_find_multipaths),
++	};
++	return cmocka_run_group_tests(tests, NULL, NULL);
++}
++
++int main(void)
++{
++	int ret = 0;
++	ret += test_valid();
++	return ret;
++}
 -- 
 2.17.2
 
