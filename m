@@ -1,64 +1,65 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 3802B1D8EEC
-	for <lists+dm-devel@lfdr.de>; Tue, 19 May 2020 06:57:38 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 9F8E11D8EEA
+	for <lists+dm-devel@lfdr.de>; Tue, 19 May 2020 06:57:36 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1589864257;
+	s=mimecast20190719; t=1589864255;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=dbo9sBCLG23y2wlS24QM5oDDZGwR0IlqFKbtooaH3lE=;
-	b=GBbX3Kz+RIKNk3UG1/12xTUswbWO2TcbaV9MfSyXK++bpX6jEiiStvl8IPHq1Z1KhjuhJX
-	u34FJOodKe45p2I4bf+bWm0dfl2FDBTh9u+4jD5DzE++0S3ItLvJdvWm6VZ9Et3m7s7VTa
-	L1bbHDLK10Dd1tb7FvA6f8Y9HZGosag=
+	bh=wjtqtLFGRPZ0srzNTn1Ng8smGQRwH9hDH7rZTIyo7UQ=;
+	b=c8GEqqAuRHyipb6XT/ne6SEK1vZljBx4epP62WHzyJT2gYkjTyzkezQnwEiKCTI/2k5rcB
+	KzCRx4ufv+H/uIbjNzOFQG/uACFjH3dByl8GU84Djt3iiqG/C9k4F/Vim0uPS71lpIxEp7
+	nwJQ7d2r0zPbS0uTXHqpiU9Y6mlHPJc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-466-lGbWHa8rMhy0B2fHtk9E9g-1; Tue, 19 May 2020 00:57:34 -0400
-X-MC-Unique: lGbWHa8rMhy0B2fHtk9E9g-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-344-u_Y9Ad0AOxyeSMBHwQ47Vw-1; Tue, 19 May 2020 00:57:33 -0400
+X-MC-Unique: u_Y9Ad0AOxyeSMBHwQ47Vw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 37A19835B44;
-	Tue, 19 May 2020 04:57:29 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 12E741002394;
-	Tue, 19 May 2020 04:57:29 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 937A7107ACF3;
+	Tue, 19 May 2020 04:57:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 512C35C1BB;
+	Tue, 19 May 2020 04:57:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C47A81809547;
-	Tue, 19 May 2020 04:57:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CDD714ED3C;
+	Tue, 19 May 2020 04:57:21 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04J4vEqM019134 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 19 May 2020 00:57:14 -0400
+	id 04J4vGpQ019146 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 19 May 2020 00:57:16 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id BEB2D60C05; Tue, 19 May 2020 04:57:14 +0000 (UTC)
+	id 7617F1002394; Tue, 19 May 2020 04:57:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 16B2B60BF3;
-	Tue, 19 May 2020 04:57:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9347110013D9;
+	Tue, 19 May 2020 04:57:13 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 04J4vAhY001405; 
-	Mon, 18 May 2020 23:57:10 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 04J4vCtW001409; 
+	Mon, 18 May 2020 23:57:12 -0500
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 04J4v9ms001404;
-	Mon, 18 May 2020 23:57:09 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 04J4vB5k001408;
+	Mon, 18 May 2020 23:57:11 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Mon, 18 May 2020 23:57:03 -0500
-Message-Id: <1589864228-1363-2-git-send-email-bmarzins@redhat.com>
+Date: Mon, 18 May 2020 23:57:04 -0500
+Message-Id: <1589864228-1363-3-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1589864228-1363-1-git-send-email-bmarzins@redhat.com>
 References: <1589864228-1363-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
 Cc: device-mapper development <dm-devel@redhat.com>,
 	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH v2 1/6] libmultipath: make libmp_dm_init optional
+Subject: [dm-devel] [PATCH v2 2/6] libmultipath: make sysfs_is_multipathed
+	able to return wwid
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -73,93 +74,112 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Move dm_initialized out of libmp_dm_task_create(), and add
-a function skip_libmp_dm_init() so that users of libmultipath can skip
-initializing device-mapper. This is needed for other programs that
-use libmultipath (or a library that depends on it) but want to control
-how device-mapper is set up.
-
-Also make dm_prereq a global function.
+sysfs_is_multipathed reads the wwid of the dm device holding a path to
+check if its a multipath device.  Add code to optinally set pp->wwid to
+that wwid.  This will be used by a future patch.
 
 Reviewed-by: Martin Wilck <mwilck@suse.com>
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/devmapper.c | 17 +++++++++++++----
- libmultipath/devmapper.h |  3 ++-
- 2 files changed, 15 insertions(+), 5 deletions(-)
+ libmultipath/sysfs.c | 24 +++++++++++++++++++-----
+ libmultipath/sysfs.h |  2 +-
+ multipath/main.c     |  7 ++++---
+ 3 files changed, 24 insertions(+), 9 deletions(-)
 
-diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
-index 13a1cf53..7ed494a1 100644
---- a/libmultipath/devmapper.c
-+++ b/libmultipath/devmapper.c
-@@ -33,6 +33,8 @@
- #define MAX_WAIT 5
- #define LOOPS_PER_SEC 5
- 
-+static pthread_once_t dm_initialized = PTHREAD_ONCE_INIT;
-+
- static int dm_conf_verbosity;
- 
- #ifdef LIBDM_API_DEFERRED
-@@ -229,7 +231,7 @@ dm_tgt_prereq (unsigned int *ver)
- 	return 1;
+diff --git a/libmultipath/sysfs.c b/libmultipath/sysfs.c
+index 62ec2ed7..12a82d95 100644
+--- a/libmultipath/sysfs.c
++++ b/libmultipath/sysfs.c
+@@ -295,7 +295,7 @@ static int select_dm_devs(const struct dirent *di)
+ 	return fnmatch("dm-*", di->d_name, FNM_FILE_NAME) == 0;
  }
  
--static int dm_prereq(unsigned int *v)
-+int dm_prereq(unsigned int *v)
+-bool sysfs_is_multipathed(const struct path *pp)
++bool sysfs_is_multipathed(struct path *pp, bool set_wwid)
  {
- 	if (dm_lib_prereq())
- 		return 1;
-@@ -243,7 +245,7 @@ void libmp_udev_set_sync_support(int on)
- 	libmp_dm_udev_sync = !!on;
- }
+ 	char pathbuf[PATH_MAX];
+ 	struct scandir_result sr;
+@@ -325,7 +325,7 @@ bool sysfs_is_multipathed(const struct path *pp)
+ 	for (i = 0; i < r && !found; i++) {
+ 		long fd;
+ 		int nr;
+-		char uuid[6];
++		char uuid[WWID_SIZE + UUID_PREFIX_LEN];
  
--void libmp_dm_init(void)
-+static void libmp_dm_init(void)
- {
- 	struct config *conf;
- 	int verbosity;
-@@ -262,11 +264,18 @@ void libmp_dm_init(void)
- 	dm_udev_set_sync_support(libmp_dm_udev_sync);
- }
+ 		if (safe_snprintf(pathbuf + n, sizeof(pathbuf) - n,
+ 				  "/%s/dm/uuid", di[i]->d_name))
+@@ -339,12 +339,26 @@ bool sysfs_is_multipathed(const struct path *pp)
  
-+static void _do_skip_libmp_dm_init(void)
-+{
-+}
+ 		pthread_cleanup_push(close_fd, (void *)fd);
+ 		nr = read(fd, uuid, sizeof(uuid));
+-		if (nr == sizeof(uuid) && !memcmp(uuid, "mpath-", sizeof(uuid)))
++		if (nr > (int)UUID_PREFIX_LEN &&
++		    !memcmp(uuid, UUID_PREFIX, UUID_PREFIX_LEN))
+ 			found = true;
+ 		else if (nr < 0) {
+-			condlog(1, "%s: error reading from %s: %s",
+-				__func__, pathbuf, strerror(errno));
++			condlog(1, "%s: error reading from %s: %m",
++				__func__, pathbuf);
+ 		}
++		if (found && set_wwid) {
++			nr -= UUID_PREFIX_LEN;
++			memcpy(pp->wwid, uuid + UUID_PREFIX_LEN, nr);
++			if (nr == WWID_SIZE) {
++				condlog(4, "%s: overflow while reading from %s",
++					__func__, pathbuf);
++				pp->wwid[0] = '\0';
++			} else {
++				pp->wwid[nr] = '\0';
++				strchop(pp->wwid);
++			}
++                }
 +
-+void skip_libmp_dm_init(void)
-+{
-+	pthread_once(&dm_initialized, _do_skip_libmp_dm_init);
-+}
-+
- struct dm_task*
- libmp_dm_task_create(int task)
- {
--	static pthread_once_t dm_initialized = PTHREAD_ONCE_INIT;
--
- 	pthread_once(&dm_initialized, libmp_dm_init);
- 	return dm_task_create(task);
- }
-diff --git a/libmultipath/devmapper.h b/libmultipath/devmapper.h
-index 7557a86b..17fc9faf 100644
---- a/libmultipath/devmapper.h
-+++ b/libmultipath/devmapper.h
-@@ -28,7 +28,8 @@
- #define UUID_PREFIX_LEN (sizeof(UUID_PREFIX) - 1)
- 
- void dm_init(int verbosity);
--void libmp_dm_init(void);
-+int dm_prereq(unsigned int *v);
-+void skip_libmp_dm_init(void);
- void libmp_udev_set_sync_support(int on);
- struct dm_task *libmp_dm_task_create(int task);
- int dm_drv_version (unsigned int * version);
+ 		pthread_cleanup_pop(1);
+ 	}
+ 	pthread_cleanup_pop(1);
+diff --git a/libmultipath/sysfs.h b/libmultipath/sysfs.h
+index 9ae30b39..72b39ab2 100644
+--- a/libmultipath/sysfs.h
++++ b/libmultipath/sysfs.h
+@@ -14,5 +14,5 @@ ssize_t sysfs_bin_attr_get_value(struct udev_device *dev, const char *attr_name,
+ 				 unsigned char * value, size_t value_len);
+ int sysfs_get_size (struct path *pp, unsigned long long * size);
+ int sysfs_check_holders(char * check_devt, char * new_devt);
+-bool sysfs_is_multipathed(const struct path *pp);
++bool sysfs_is_multipathed(struct path *pp, bool set_wwid);
+ #endif
+diff --git a/multipath/main.c b/multipath/main.c
+index 78822ee1..f25b8693 100644
+--- a/multipath/main.c
++++ b/multipath/main.c
+@@ -640,7 +640,8 @@ configure (struct config *conf, enum mpath_cmds cmd,
+ 			 * Shortcut for find_multipaths smart:
+ 			 * Quick check if path is already multipathed.
+ 			 */
+-			if (sysfs_is_multipathed(VECTOR_SLOT(pathvec, 0))) {
++			if (sysfs_is_multipathed(VECTOR_SLOT(pathvec, 0),
++						 false)) {
+ 				r = RTVL_YES;
+ 				goto print_valid;
+ 			}
+@@ -749,8 +750,8 @@ configure (struct config *conf, enum mpath_cmds cmd,
+ 			/*
+ 			 * Check if we raced with multipathd
+ 			 */
+-			r = sysfs_is_multipathed(VECTOR_SLOT(pathvec, 0)) ?
+-				RTVL_YES : RTVL_NO;
++			r = sysfs_is_multipathed(VECTOR_SLOT(pathvec, 0),
++						 false) ? RTVL_YES : RTVL_NO;
+ 		}
+ 		goto print_valid;
+ 	}
 -- 
 2.17.2
 
