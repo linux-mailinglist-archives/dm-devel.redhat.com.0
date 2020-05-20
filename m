@@ -1,77 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 45C391DC050
-	for <lists+dm-devel@lfdr.de>; Wed, 20 May 2020 22:37:49 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id DF1EA1DC06A
+	for <lists+dm-devel@lfdr.de>; Wed, 20 May 2020 22:45:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1590007068;
+	s=mimecast20190719; t=1590007505;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=J1zU7+BZ6+2SjrBQ1BlugdW9spatae7WJ8dNFT5imqk=;
-	b=R6v80un21VcJ30vtS3NtdnO4bJkpCwKOW4uoLunpgaaY5ANawtB4rD/whxYq8VotzOK1fn
-	L4pmwC9/5dp1etXhKSAsxRjk1jO5FIpVimUWXgsonrZ/crzczstPJV3gcbNpSZlhOtfcdX
-	BQRKNccMXLRzmXYFsgTBVUXsEIUklKs=
+	bh=5/f/6dIQsJ1clXTYqbACWwJtwbsX8pMLilWaPOhnsaA=;
+	b=hCB15SoiuFQCx6We9SJBiFmdHUIKPBcA9Ho7YaXqWzDwSsICDPYsw4S/qNJg+NwiGGyZpK
+	/Zbk3cIMeppDK+MpwQc/7U1+uL+ThbPk3yySoXyMWuZBVioZtz1PGmYEsy6dd8SOhxIfLM
+	GYAt4IwwskJbUOZMowgWV3r931DmDZg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-296-vVMz8QI8PFKBhdpxcuGtew-1; Wed, 20 May 2020 16:37:44 -0400
-X-MC-Unique: vVMz8QI8PFKBhdpxcuGtew-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-66-Diaei-CRMqCir__r5wbARw-1; Wed, 20 May 2020 16:45:01 -0400
+X-MC-Unique: Diaei-CRMqCir__r5wbARw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 78C5B800688;
-	Wed, 20 May 2020 20:37:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 86815800688;
+	Wed, 20 May 2020 20:44:55 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2A1C5473B8;
-	Wed, 20 May 2020 20:37:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D724F5D9CA;
+	Wed, 20 May 2020 20:44:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5AD3A1809543;
-	Wed, 20 May 2020 20:37:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 750A21809543;
+	Wed, 20 May 2020 20:44:51 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04KKbEsG032358 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 20 May 2020 16:37:14 -0400
+	id 04KKhiqJ032693 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 20 May 2020 16:43:44 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 100BC2156A3A; Wed, 20 May 2020 20:37:14 +0000 (UTC)
+	id CB34D202683E; Wed, 20 May 2020 20:43:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 036A42166BA2
-	for <dm-devel@redhat.com>; Wed, 20 May 2020 20:37:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C1FD0202696B
+	for <dm-devel@redhat.com>; Wed, 20 May 2020 20:43:41 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F306D8ECB1A
-	for <dm-devel@redhat.com>; Wed, 20 May 2020 20:37:11 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D060880067A
+	for <dm-devel@redhat.com>; Wed, 20 May 2020 20:43:41 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-128-tqdaFp9cNp6Leh3nwRxD_g-1;
-	Wed, 20 May 2020 16:37:09 -0400
-X-MC-Unique: tqdaFp9cNp6Leh3nwRxD_g-1
+	relay.mimecast.com with ESMTP id us-mta-166-0DpqQLaHMnihgbOATOW_EA-1;
+	Wed, 20 May 2020 16:43:36 -0400
+X-MC-Unique: 0DpqQLaHMnihgbOATOW_EA-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
-	by mx2.suse.de (Postfix) with ESMTP id 2D4CBC08F;
-	Wed, 20 May 2020 20:37:10 +0000 (UTC)
-Message-ID: <97355996ab3dfeda13cee42a93f92f3ab54d289a.camel@suse.com>
-From: Martin Wilck <martin.wilck@suse.com>
-To: Xose Vazquez Perez <xose.vazquez@gmail.com>
-In-Reply-To: <fbbd16f6-3564-288e-4180-6322a2b478da@gmail.com>
-References: <fbbd16f6-3564-288e-4180-6322a2b478da@gmail.com>
+	by mx2.suse.de (Postfix) with ESMTP id C266FC11C;
+	Wed, 20 May 2020 20:43:37 +0000 (UTC)
+From: mwilck@suse.com
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+	Xose Vazquez Perez <xose.vazquez@gmail.com>
+Date: Wed, 20 May 2020 22:43:13 +0200
+Message-Id: <20200520204313.29708-1-mwilck@suse.com>
 MIME-Version: 1.0
-Date: Wed, 20 May 2020 22:36:59 +0200
-User-Agent: Evolution 3.36.2
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 04KKbEsG032358
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 04KKhiqJ032693
 X-loop: dm-devel@redhat.com
-Cc: Christian Hesse <mail@eworm.de>,
-	dm-devel mailing list <dm-devel@redhat.com>
-Subject: Re: [dm-devel] multipath-tools: -1patch in upstream-queue
+Cc: Gris Ge <fge@redhat.com>, dm-devel@redhat.com,
+	"mail@eworm.de" <mail@eworm.de>
+Subject: [dm-devel] [PATCH] fix boolean value with json-c 0.14
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,45 +81,54 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-Hello Xose,
+From: "mail@eworm.de" <mail@eworm.de>
 
-On Wed, 2020-05-20 at 18:56 +0200, Xose Vazquez Perez wrote:
-> Hi Martin,
->=20
-> The JSON patch send by Christian Hesse(twice) is missed, in your
-> upstream-queue:
-> https://marc.info/?l=3Ddm-devel&m=3D158792878717348 or
-> https://marc.info/?l=3Ddm-devel&m=3D158797224229431
->=20
-> Thank you.
-
-Right, I missed that one. Thanks for pointing it out.
-
-However, it has no "Reviewed-by:" tag from anyone, including yourself,
-so it couldn't be pushed to upstream-queue yet.
-
-Actually, I don't like fixing this this way. I have no idea why the
-json-c people did this, but I'd rather fall back to stdbool.h than to 0
-and 1.
-
-I'm going to send a modified verson.
-
-Regards
-Martin
-
---=20
-Dr. Martin Wilck <mwilck@suse.com>, Tel. +49 (0)911 74053 2107
-SUSE  Software Solutions Germany GmbH
-HRB 36809, AG N=FCrnberg GF: Felix
-Imend=F6rffer
+Upstream json-c removed the TRUE and FALSE defines in commit
+0992aac61f8b087efd7094e9ac2b84fa9c040fcd.
 
 
+Signed-off-by: Christian Hesse <mail@eworm.de>
+Signed-off-by: Martin Wilck <mwilck@suse.com>
+---
+ libdmmp/libdmmp_private.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+---
+mwilck: Resent from Christian's patch from 2020-04-25.
+Changes wrt original patch:
+ - Use stdbool.h, and keep the error message unchanged.
+
+(Resent, as I forgot to cc dm-devel. Sorry!)
+
+diff --git a/libdmmp/libdmmp_private.h b/libdmmp/libdmmp_private.h
+index ac85b63f..b1a6ddea 100644
+--- a/libdmmp/libdmmp_private.h
++++ b/libdmmp/libdmmp_private.h
+@@ -30,6 +30,7 @@
+ #include <stdint.h>
+ #include <string.h>
+ #include <assert.h>
++#include <stdbool.h>
+ #include <json.h>
+ 
+ #include "libdmmp/libdmmp.h"
+@@ -82,7 +83,7 @@ static out_type func_name(struct dmmp_context *ctx, const char *var_name) { \
+ do { \
+ 	json_type j_type = json_type_null; \
+ 	json_object *j_obj_tmp = NULL; \
+-	if (json_object_object_get_ex(j_obj, key, &j_obj_tmp) != TRUE) { \
++	if (json_object_object_get_ex(j_obj, key, &j_obj_tmp) != true) { \
+ 		_error(ctx, "Invalid JSON output from multipathd IPC: " \
+ 		       "key '%s' not found", key); \
+ 		rc = DMMP_ERR_IPC_ERROR; \
+-- 
+2.26.2
 
 
 --
