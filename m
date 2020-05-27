@@ -1,71 +1,66 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 7A3D51E3906
-	for <lists+dm-devel@lfdr.de>; Wed, 27 May 2020 08:23:17 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 59BD51E3F88
+	for <lists+dm-devel@lfdr.de>; Wed, 27 May 2020 13:05:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1590560596;
+	s=mimecast20190719; t=1590577557;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=m78NjrOrONiAdmmjklVRVTjmS0i/NHbHnI7sgS8xl6Y=;
-	b=BzGyvvZbqWH5ceVid3Gtl+EbIL1mRmrHUU/Hw4lPGOLN2XyQUqoIRifShg+HCaonJ/jbBu
-	xvDGrdVvzurvHVSUKsosgD/CDAxgd/19VZimchZJl9XIx14npEo+1YSlf0CBMh1PzcSs7l
-	Fk7hml2Mkw4BbhC5Hpg8YR3xTG5sJX8=
+	bh=vo+LGypBIVHYFpGyMZG0wCamgdgD+woS1nhoO4ZrSYY=;
+	b=dkAX+x5rz4xDwddLjYC7r+Qk6szQ0xqTT/j1wOGN6cW6r2/w+sVbnaO8JLvbIPTE203fDL
+	S/7o/p+ZM9eAJrOmmM6ZRctMxmD8eqTfuUnIDpGJwEra5L+zp41mDXIkrjUlB3MlF9v8Et
+	arOySYPaZ6Dr67ojCFytKb+OUULGrMw=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-413-ymtxj-R4Pd-WZkzhHFW9jg-1; Wed, 27 May 2020 02:23:14 -0400
-X-MC-Unique: ymtxj-R4Pd-WZkzhHFW9jg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-356-R63oZXTWOL-3HjnVdqfPog-1; Wed, 27 May 2020 07:05:52 -0400
+X-MC-Unique: R63oZXTWOL-3HjnVdqfPog-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C994AEC1A5;
-	Wed, 27 May 2020 06:23:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4854018FF673;
+	Wed, 27 May 2020 11:05:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A46416EF8C;
-	Wed, 27 May 2020 06:23:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 468077A1ED;
+	Wed, 27 May 2020 11:05:41 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5D9F51806B0C;
-	Wed, 27 May 2020 06:23:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0FD261809541;
+	Wed, 27 May 2020 11:05:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04R6Muui015824 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 27 May 2020 02:22:56 -0400
+	id 04RB4oa9000796 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 27 May 2020 07:04:50 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C10682016F32; Wed, 27 May 2020 06:22:55 +0000 (UTC)
+	id 07B4F610AB; Wed, 27 May 2020 11:04:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A6B702029F62
-	for <dm-devel@redhat.com>; Wed, 27 May 2020 06:22:52 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BBB4F833B45
-	for <dm-devel@redhat.com>; Wed, 27 May 2020 06:22:52 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-471-UaErR_KKMqCyuSCEuk7tUQ-1;
-	Wed, 27 May 2020 02:22:44 -0400
-X-MC-Unique: UaErR_KKMqCyuSCEuk7tUQ-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
-	by mx2.suse.de (Postfix) with ESMTP id C110FB308;
-	Wed, 27 May 2020 06:22:43 +0000 (UTC)
-From: Hannes Reinecke <hare@suse.de>
-To: Mike Snitzer <snitzer@redhat.com>
-Date: Wed, 27 May 2020 08:22:25 +0200
-Message-Id: <20200527062225.72849-16-hare@suse.de>
-In-Reply-To: <20200527062225.72849-1-hare@suse.de>
-References: <20200527062225.72849-1-hare@suse.de>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F29760CC0;
+	Wed, 27 May 2020 11:04:47 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 04RB4kgK006131; Wed, 27 May 2020 07:04:46 -0400
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 04RB4k5V006128; Wed, 27 May 2020 07:04:46 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Wed, 27 May 2020 07:04:46 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Mike Snitzer <msnitzer@redhat.com>, Heinz Mauelshagen <heinzm@redhat.com>
+Message-ID: <alpine.LRH.2.02.2005270702460.6054@file01.intranet.prod.int.rdu2.redhat.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
-Cc: Damien LeMoal <damien.lemoal@wdc.com>, dm-devel@redhat.com
-Subject: [dm-devel] [PATCH 15/15] dm-zoned: prefer full zones for reclaim
+Cc: dm-devel@redhat.com
+Subject: [dm-devel] [PATCH] delete dm_bufio_discard_buffers
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -77,51 +72,80 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Prefer full zones when selecting the next zone for reclaim.
+Hi
 
-Signed-off-by: Hannes Reinecke <hare@suse.de>
----
- drivers/md/dm-zoned-metadata.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+I suggest to delete dm_bufio_discard_buffers because no one is using it.
 
-diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
-index b89b3d3b9ec9..f161ef4e3d3d 100644
---- a/drivers/md/dm-zoned-metadata.c
-+++ b/drivers/md/dm-zoned-metadata.c
-@@ -1936,7 +1936,7 @@ static struct dm_zone *dmz_get_rnd_zone_for_reclaim(struct dmz_metadata *zmd,
- 						    unsigned int idx, bool idle)
- {
- 	struct dm_zone *dzone = NULL;
--	struct dm_zone *zone;
-+	struct dm_zone *zone, *last = NULL;
- 	struct list_head *zone_list;
+If you need it in the future, tell me - and I will optimize it, so that it 
+walks the rb-tree of buffers instead of doing block-by-block lookups.
+
+Mikulas
+
+
+
+diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
+index bf289be1ee3a..993e624e506c 100644
+--- a/drivers/md/dm-bufio.c
++++ b/drivers/md/dm-bufio.c
+@@ -1358,32 +1358,6 @@ int dm_bufio_issue_discard(struct dm_bufio_client *c, sector_t block, sector_t c
+ }
+ EXPORT_SYMBOL_GPL(dm_bufio_issue_discard);
  
- 	/* If we have cache zones select from the cache zone list */
-@@ -1953,6 +1953,13 @@ static struct dm_zone *dmz_get_rnd_zone_for_reclaim(struct dmz_metadata *zmd,
- 			dzone = zone->bzone;
- 			if (dzone->dev->dev_idx != idx)
- 				continue;
-+			if (!last) {
-+				last = dzone;
-+				continue;
-+			}
-+			if (last->weight < dzone->weight)
-+				continue;
-+			dzone = last;
- 		} else
- 			dzone = zone;
- 		if (dmz_lock_zone_reclaim(dzone))
--- 
-2.16.4
+-/*
+- * Free the specified range of buffers. If a buffer is held by other process, it
+- * is not freed. If a buffer is dirty, it is discarded without writeback.
+- * Finally, send the discard request to the device.
+- */
+-int dm_bufio_discard_buffers(struct dm_bufio_client *c, sector_t block, sector_t count)
+-{
+-	sector_t i;
+-
+-	for (i = block; i < block + count; i++) {
+-		struct dm_buffer *b;
+-		dm_bufio_lock(c);
+-		b = __find(c, i);
+-		if (b && likely(!b->hold_count)) {
+-			wait_on_bit_io(&b->state, B_READING, TASK_UNINTERRUPTIBLE);
+-			wait_on_bit_io(&b->state, B_WRITING, TASK_UNINTERRUPTIBLE);
+-			__unlink_buffer(b);
+-			__free_buffer_wake(b);
+-		}
+-		dm_bufio_unlock(c);
+-	}
+-
+-	return dm_bufio_issue_discard(c, block, count);
+-}
+-EXPORT_SYMBOL_GPL(dm_bufio_discard_buffers);
+-
+ /*
+  * We first delete any other buffer that may be at that new location.
+  *
+diff --git a/include/linux/dm-bufio.h b/include/linux/dm-bufio.h
+index 07e1f163e299..5ec6bfbde9ae 100644
+--- a/include/linux/dm-bufio.h
++++ b/include/linux/dm-bufio.h
+@@ -123,13 +123,6 @@ int dm_bufio_issue_flush(struct dm_bufio_client *c);
+  */
+ int dm_bufio_issue_discard(struct dm_bufio_client *c, sector_t block, sector_t count);
+ 
+-/*
+- * Free the specified range of buffers. If a buffer is held by other process, it
+- * is not freed. If a buffer is dirty, it is discarded without writeback.
+- * Finally, send the discard request to the device.
+- */
+-int dm_bufio_discard_buffers(struct dm_bufio_client *c, sector_t block, sector_t count);
+-
+ /*
+  * Like dm_bufio_release but also move the buffer to the new
+  * block. dm_bufio_write_dirty_buffers is needed to commit the new block.
 
 --
 dm-devel mailing list
