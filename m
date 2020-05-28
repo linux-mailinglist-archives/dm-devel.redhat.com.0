@@ -1,83 +1,82 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 5BAEF1E5441
-	for <lists+dm-devel@lfdr.de>; Thu, 28 May 2020 04:54:49 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 1C1421E5448
+	for <lists+dm-devel@lfdr.de>; Thu, 28 May 2020 04:58:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1590634488;
+	s=mimecast20190719; t=1590634684;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=JjBvCNKaNISATLY2Qq1554AOvsUv9Bp9HbXYAxLa4QM=;
-	b=UhbFk8U9klv++i62XopKl15rIlBzrE/YQXVQB5yVsxhuMgH/s4ArjKJ/TSVAT8d7wH/3QZ
-	9mmrbxQWjT1rQ/jjczCtTS+HW8magm8R5AAMhWKx3XrgSWkd9qt94Iw1M6u+7rsW9UaREv
-	Y2cLiY9ZmRXZ6mYxFrDccqpec1tX3QI=
+	 list-subscribe:list-post; bh=6GHOY9Sv3KBHluxePd5AIH6Uy7Di6kiDQFB0AND87es=;
+	b=Fi3z+hB9mm9EBZ7TXzy7k7Jnzfb/iaXnvCqx4HjB7Y2+ETXkiX9Xpq5OZ3hUnK2EP9iVwU
+	pFu6YB9Hum8OY0HgI93zRq1lT9wwRUu1PSPXwZ9zKA3T/Nw3qMnISY520/zZCI8+wMtAcl
+	vt8V28g2SjU5Bv7B16k7xJlrTCoaCyM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-449-dMe5NpRQPCCo15v_Eddb2Q-1; Wed, 27 May 2020 22:54:46 -0400
-X-MC-Unique: dMe5NpRQPCCo15v_Eddb2Q-1
+ us-mta-402-3vGaAvkGNv2FN3igpiQkdg-1; Wed, 27 May 2020 22:58:01 -0400
+X-MC-Unique: 3vGaAvkGNv2FN3igpiQkdg-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2C40F19067E0;
-	Thu, 28 May 2020 02:54:38 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CB1E51A8EC;
-	Thu, 28 May 2020 02:54:36 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B01DA107ACF2;
+	Thu, 28 May 2020 02:57:55 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 317E72657C;
+	Thu, 28 May 2020 02:57:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B2D051809541;
-	Thu, 28 May 2020 02:54:32 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D2C846B4EF;
+	Thu, 28 May 2020 02:57:52 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04S2sQN5030757 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 27 May 2020 22:54:26 -0400
+	id 04S2vm6W030913 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 27 May 2020 22:57:48 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 54BB12156A22; Thu, 28 May 2020 02:54:26 +0000 (UTC)
+	id 6FCE7D1BA8; Thu, 28 May 2020 02:57:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 501072156A2D
-	for <dm-devel@redhat.com>; Thu, 28 May 2020 02:54:23 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 87051D9607
+	for <dm-devel@redhat.com>; Thu, 28 May 2020 02:57:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7C20380028B
-	for <dm-devel@redhat.com>; Thu, 28 May 2020 02:54:23 +0000 (UTC)
-Received: from esa5.hgst.iphmx.com (esa5.hgst.iphmx.com [216.71.153.144])
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0781F833B44
+	for <dm-devel@redhat.com>; Thu, 28 May 2020 02:57:44 +0000 (UTC)
+Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-444-pjUIeYGzMyGK6rWlL14A0w-1; Wed, 27 May 2020 22:54:21 -0400
-X-MC-Unique: pjUIeYGzMyGK6rWlL14A0w-1
-IronPort-SDR: +2/0WBEbIXVvq2ic6v2fgW3UiLQ3z7mQqPF2CkNFpfffJTI5ie/W2EKLjnxgHjj9j+cbdkItIp
-	aCX8wnH7IkLWyIfGfQx4Ixsk32lAg1S+w/6eUTGZNhUgn5IFYxR5V8Dc3VwRqLPS5h5U5WVRNh
-	ZUExbWRVmuWVWIu+Skju7EXgPiYlPGhrulgHSsCV4fZS147cJx/3VxtlgZfLNzUug8wfJK3mB/
-	dxZvye7hxyOAa4PIZePfGGQcXCtewG3ggdCAHyhL2kAUJKVCjnmf8l9YE6HhxHXrbpyCaqjcxx
-	RKU=
-X-IronPort-AV: E=Sophos;i="5.73,443,1583164800"; d="scan'208";a="138995349"
-Received: from mail-bn8nam11lp2174.outbound.protection.outlook.com (HELO
-	NAM11-BN8-obe.outbound.protection.outlook.com) ([104.47.58.174])
-	by ob1.hgst.iphmx.com with ESMTP; 28 May 2020 10:54:20 +0800
+	us-mta-437-On-3owz2OkW595uni6hurg-1; Wed, 27 May 2020 22:57:39 -0400
+X-MC-Unique: On-3owz2OkW595uni6hurg-1
+IronPort-SDR: +xNtQ9fzPG8sUnHQyh7rXDWzkcQ/Q1K3Qk0/ocl4KpE2NZGYVB2pstwe3j1Izgh34mLFdif2Ar
+	bp5DbQy7+bsmO/KipMghIyu+f+gOPJ0dBDgbp4Pw0tt+hDkyhVcfaIndOHpCK9DIJ3zmvFYwy/
+	Lc1CylUIXVSFkZXOw3UU5OYqGgb9o7KLb0TU38EdrtNpG+dH83YOwnEAFNireUYTqwYdZZ3QcH
+	gD+cPpssvwsQ0JCBwh075nYXzyVw6iaOPxG0MfhrjTuV1CauwFQLvhoKNpID3y8CgOWcX3eyRd
+	4ws=
+X-IronPort-AV: E=Sophos;i="5.73,443,1583164800"; d="scan'208";a="247726286"
+Received: from mail-sn1nam04lp2054.outbound.protection.outlook.com (HELO
+	NAM04-SN1-obe.outbound.protection.outlook.com) ([104.47.44.54])
+	by ob1.hgst.iphmx.com with ESMTP; 28 May 2020 10:57:32 +0800
 Received: from CY4PR04MB3751.namprd04.prod.outlook.com (2603:10b6:903:ec::14)
-	by CY4PR04MB1127.namprd04.prod.outlook.com (2603:10b6:903:bb::8) with
-	Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.23;
-	Thu, 28 May 2020 02:54:17 +0000
+	by CY4PR04MB1094.namprd04.prod.outlook.com (2603:10b6:910:52::31)
+	with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.27;
+	Thu, 28 May 2020 02:57:31 +0000
 Received: from CY4PR04MB3751.namprd04.prod.outlook.com
 	([fe80::c593:f271:eebe:ac7]) by CY4PR04MB3751.namprd04.prod.outlook.com
 	([fe80::c593:f271:eebe:ac7%9]) with mapi id 15.20.3021.029;
-	Thu, 28 May 2020 02:54:17 +0000
+	Thu, 28 May 2020 02:57:31 +0000
 From: Damien Le Moal <Damien.LeMoal@wdc.com>
 To: Hannes Reinecke <hare@suse.de>, Mike Snitzer <snitzer@redhat.com>
-Thread-Topic: [PATCH 06/15] dm-zoned: temporary superblock for tertiary devices
-Thread-Index: AQHWM+89X9h31qE0xEiEVcCiz6nRpw==
-Date: Thu, 28 May 2020 02:54:17 +0000
-Message-ID: <CY4PR04MB37510485B74E55A17B4106BDE78E0@CY4PR04MB3751.namprd04.prod.outlook.com>
+Thread-Topic: [PATCH 07/15] dm-zoned: add device pointer to struct dm_zone
+Thread-Index: AQHWM+89ZEN4lZh/OESq6HbkcQ5/LA==
+Date: Thu, 28 May 2020 02:57:30 +0000
+Message-ID: <CY4PR04MB37512702CEA45734C65005F9E78E0@CY4PR04MB3751.namprd04.prod.outlook.com>
 References: <20200527062225.72849-1-hare@suse.de>
-	<20200527062225.72849-7-hare@suse.de>
+	<20200527062225.72849-8-hare@suse.de>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -85,38 +84,38 @@ X-MS-TNEF-Correlator:
 x-originating-ip: [129.253.182.57]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 977462b0-c492-4804-3f50-08d802b26a04
-x-ms-traffictypediagnostic: CY4PR04MB1127:
-x-microsoft-antispam-prvs: <CY4PR04MB112746ACF47F177615E51FD2E78E0@CY4PR04MB1127.namprd04.prod.outlook.com>
+x-ms-office365-filtering-correlation-id: d12ab2aa-08c0-4011-39be-08d802b2dd24
+x-ms-traffictypediagnostic: CY4PR04MB1094:
+x-microsoft-antispam-prvs: <CY4PR04MB1094ED0E8FACCFFE30638D6DE78E0@CY4PR04MB1094.namprd04.prod.outlook.com>
 wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-oob-tlc-oobclassifiers: OLM:635;
 x-forefront-prvs: 0417A3FFD2
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: j/bVCV3zA3isRaQMyTm5b/bT71y+9bCXo7ZJmwUzvxzo8f9/DH4AZuGDjgsm4rKl6G2m3TGzD1KwKJyoABGq0VQ/LCDGUFMAhq+OiGz+tzetqQK+72f1Vb4A8+KLHiHM84I+/BZDibVtXbLDoJ1Dw7H+GXuh1ajnpqOtt7evW8/jwvDtE/SGbvQ2+yGq8dhytYWyiIZd36SDj6ZIhP3LB0fsXWPKJgZWQGlhOmgM25FWwEDl4a3H/yx1n2TYaKQTbkudVBEI4amc2ve2VBo7vQqNTFw3NxyaF/n3yA9xsdXlkGyT9g9Jz0aGImIdogW75nNZTjaaMr9pHZDYOuDXNQ==
+x-microsoft-antispam-message-info: 4JhzgiePpGFz3rDuNcPAFDh0mr/rFro3evxz73WeO+Dh4WP0rH/6HUW1HsDnTeyadOtToBBid3KJ+vHMDW6ASgefY2fYSrG/N46wRk7wRXt1m3Sz8+YDCY4X9F3xgAyPKW3CWVbYjr7HFTvDB5PkY0RE8xDv4JWI8aCH4fjWfg9bvvGdoI95HYUTEEWbu+utrWMVkbg37Wpewy7FClGruKqu8/bpWTfBCnMQe05npeQWIGDq1exzC0q+IJQpiEod5lS8s9Nu8lthdWLKaFtoEu4THwt0D8JiVTg5gfydW+37anzamKML5R/JDWlKa8g4ke4kyrxXeXPOTNV+uyzauQ==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
 	IPV:NLI; SFV:NSPM; H:CY4PR04MB3751.namprd04.prod.outlook.com;
 	PTR:; CAT:NONE; SFTY:;
-	SFS:(4636009)(366004)(39860400002)(136003)(376002)(346002)(396003)(91956017)(76116006)(6506007)(66476007)(53546011)(186003)(8676002)(5660300002)(2906002)(64756008)(7696005)(9686003)(52536014)(66946007)(316002)(55016002)(66556008)(26005)(66446008)(83380400001)(71200400001)(110136005)(8936002)(478600001)(33656002)(4326008)(86362001);
+	SFS:(4636009)(396003)(346002)(366004)(136003)(376002)(39860400002)(91956017)(76116006)(55016002)(52536014)(6506007)(53546011)(4326008)(9686003)(8676002)(8936002)(71200400001)(5660300002)(66946007)(7696005)(478600001)(186003)(64756008)(83380400001)(33656002)(66556008)(86362001)(110136005)(2906002)(66446008)(26005)(316002)(66476007);
 	DIR:OUT; SFP:1102;
-x-ms-exchange-antispam-messagedata: QqUADbrFNYsGfcTxUzdqr0EDEhm2Onfz0+ig40KeBmQ68C3MjqRVZNSoZLeYAnukKwlXImto24l8by4x11e6AcVtZwXa1F53LmmJ9Dg7w9NDqOMMFbOVrJKqVXHW3zI2hXGrBX65fwKhspwfLZZdw/IOE5RwcqUm43xBbfBt/LMQYvaNQlV32goqVDtmoQXhPboeS667XTcsFbeGhnnYUkeOUXruyWjqc9LUYnHsAa9xOnUfidGC+CJWepllB/nLdWzJ1CiZQNIZJMhlUa6+d3SPGEVV4/Gueg1wrpWI+M7FTCauQin0tGRUAuWjbRkZUx/z3YaClLRgJImQB8MqAjdUVsCJK833oqL1o0+AfEzN5pZKovpwwJs4tyWiiMoCtPMRZMe5TiCD/Gye+Y7IoLJtyzQdiaQCfGCr8EL8zrNEssaQDfOIgNpomFO+DgfPFIXYMhBcKLLvbTQXpPhD1fhAWI2YHaHAkclFdEnNSGO7ylshMCKCAtj3TfC2uklB
+x-ms-exchange-antispam-messagedata: Lci7ZVwBWmuiu9xpr5nm81V72n0+X0ySwVG+ltEdc6PG5B0uPHGOSmN6/ITJu0TbNCRZGP5RwwM8X5Mh3yzaM1E3xLkrs/0qpEv3SRVNJkFlI4qS2ea8wETubddpISRvO5b1jKhFlF4CIhsaw2P65ujws0scpuJ2fOPS74w0/3Jpp0v0GJaOSYFsLh1vIPRzIZsG+WLRbFnUMWCo8UPcg8TiCBKQWKUfbo9NVoYj61cYYfrCvWssE2aZDl16/lHxph4U9x5fMuZiGFei/ozHcm4u5ET2zjwvpEyUTKxgl5X/2/6Jh9b7cT6laOAKFETPysl88JS+MWKaTKakH0oaP4h9FMzHyRZV60VG1LDmnM3QcgyA3SbwUNkeMGdgKGS9/IlJZD3KHhvYSGsGqZoKZYudzDE+OsEGraHYlZxYxsJ3dPsI5uL6/Bs7JbuMSjqwOTVHWzrOL213R3+qZkXPFrfdKsmtlxGI0e4D5DFAal7k1Fww/pgw0KbzFwEmQB29
 x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
 X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 977462b0-c492-4804-3f50-08d802b26a04
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 May 2020 02:54:17.7733 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d12ab2aa-08c0-4011-39be-08d802b2dd24
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 May 2020 02:57:30.9958 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: sD8leQsnvtSiPtUTfk4PC8TGi5fXEa8jDYKLbcmf1salCm3G59znhSpn7WdoLZ83sf0cdMqICduTxrpPi0Mxvg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR04MB1127
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MS-Exchange-CrossTenant-userprincipalname: YcFh9bl/MsQSJ9O4T9rb0/SU5JDhSWhF9gs2EIu2ihEZea0ciAvT5hUFOC/novqGMUIjEdaJJTfDjOp/ZCleAQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR04MB1094
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 04S2sQN5030757
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 04S2vm6W030913
 X-loop: dm-devel@redhat.com
 Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH 06/15] dm-zoned: temporary superblock for
-	tertiary devices
+Subject: Re: [dm-devel] [PATCH 07/15] dm-zoned: add device pointer to struct
+	dm_zone
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -137,257 +136,235 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 On 2020/05/27 15:22, Hannes Reinecke wrote:
-> Checking the tertiary superblock just consists of validating UUIDs,
-> crcs, and the generation number; it doesn't have contents which
-> would be required during the actual operation.
-> So we should be allocating a temporary superblock when checking
-> tertiary devices and avoid having to store it together with the
-> 'real' superblocks.
+> Add a pointer to the containing device to struct dm_zone and
+> kill dmz_zone_to_dev().
 > 
 > Signed-off-by: Hannes Reinecke <hare@suse.de>
 > ---
->  drivers/md/dm-zoned-metadata.c | 104 ++++++++++++++++++++++-------------------
->  1 file changed, 57 insertions(+), 47 deletions(-)
+>  drivers/md/dm-zoned-metadata.c | 39 ++++++++++-----------------------------
+>  drivers/md/dm-zoned-reclaim.c  | 13 +++++--------
+>  drivers/md/dm-zoned-target.c   |  2 +-
+>  drivers/md/dm-zoned.h          |  4 +++-
+>  4 files changed, 19 insertions(+), 39 deletions(-)
 > 
 > diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
-> index 839f9078806d..bb9ce72bf18c 100644
+> index bb9ce72bf18c..302443b2d885 100644
 > --- a/drivers/md/dm-zoned-metadata.c
 > +++ b/drivers/md/dm-zoned-metadata.c
-> @@ -174,7 +174,7 @@ struct dmz_metadata {
->  	/* Zone information array */
->  	struct xarray		zones;
->  
-> -	struct dmz_sb		sb[3];
-> +	struct dmz_sb		sb[2];
->  	unsigned int		mblk_primary;
->  	unsigned int		sb_version;
->  	u64			sb_gen;
-> @@ -1014,10 +1014,11 @@ int dmz_flush_metadata(struct dmz_metadata *zmd)
->  /*
->   * Check super block.
+> @@ -229,16 +229,10 @@ struct dmz_metadata {
 >   */
-> -static int dmz_check_sb(struct dmz_metadata *zmd, unsigned int set)
-> +static int dmz_check_sb(struct dmz_metadata *zmd, struct dmz_sb *dsb,
-> +			bool tertiary)
+>  static unsigned int dmz_dev_zone_id(struct dmz_metadata *zmd, struct dm_zone *zone)
 >  {
-> -	struct dmz_super *sb = zmd->sb[set].sb;
-> -	struct dmz_dev *dev = zmd->sb[set].dev;
-> +	struct dmz_super *sb = dsb->sb;
-> +	struct dmz_dev *dev = dsb->dev;
->  	unsigned int nr_meta_zones, nr_data_zones;
->  	u32 crc, stored_crc;
->  	u64 gen;
-> @@ -1034,7 +1035,7 @@ static int dmz_check_sb(struct dmz_metadata *zmd, unsigned int set)
->  			    DMZ_META_VER, zmd->sb_version);
->  		return -EINVAL;
->  	}
-> -	if ((zmd->sb_version < 1) && (set == 2)) {
-> +	if ((zmd->sb_version < 1) && tertiary) {
-
-You can remove the parentheses around zmd->sb_version < 1 here.
-An shouldn't it be "zmd->sb_version <= 1" here ? That already was in the
-previous round of updates and did not detect any problem though. Will check again.
-
->  		dmz_dev_err(dev, "Tertiary superblocks are not supported");
->  		return -EINVAL;
->  	}
-> @@ -1078,7 +1079,7 @@ static int dmz_check_sb(struct dmz_metadata *zmd, unsigned int set)
->  			return -ENXIO;
->  		}
+> -	unsigned int zone_id;
+> -
+>  	if (WARN_ON(!zone))
+>  		return 0;
 >  
-> -		if (set == 2) {
-> +		if (tertiary) {
->  			/*
->  			 * Generation number should be 0, but it doesn't
->  			 * really matter if it isn't.
-> @@ -1127,14 +1128,13 @@ static int dmz_check_sb(struct dmz_metadata *zmd, unsigned int set)
->  /*
->   * Read the first or second super block from disk.
->   */
-> -static int dmz_read_sb(struct dmz_metadata *zmd, unsigned int set)
-> +static int dmz_read_sb(struct dmz_metadata *zmd, struct dmz_sb *sb, int set)
->  {
->  	dmz_zmd_debug(zmd, "read superblock set %d dev %s block %llu",
-> -		      set, zmd->sb[set].dev->name,
-> -		      zmd->sb[set].block);
-> +		      set, sb->dev->name, sb->block);
->  
-> -	return dmz_rdwr_block(zmd->sb[set].dev, REQ_OP_READ,
-> -			      zmd->sb[set].block, zmd->sb[set].mblk->page);
-> +	return dmz_rdwr_block(sb->dev, REQ_OP_READ,
-> +			      sb->block, sb->mblk->page);
+> -	zone_id = zone->id;
+> -	if (zmd->nr_devs > 1 &&
+> -	    (zone_id >= zmd->dev[1].zone_offset))
+> -		zone_id -= zmd->dev[1].zone_offset;
+> -	return zone_id;
+> +	return zone->id - zone->dev->zone_offset;
 >  }
 >  
->  /*
-> @@ -1162,7 +1162,7 @@ static int dmz_lookup_secondary_sb(struct dmz_metadata *zmd)
->  	zmd->sb[1].zone = dmz_get(zmd, zone_id + 1);
->  	zmd->sb[1].dev = zmd->sb[0].dev;
->  	for (i = 1; i < zmd->nr_rnd_zones; i++) {
-> -		if (dmz_read_sb(zmd, 1) != 0)
-> +		if (dmz_read_sb(zmd, &zmd->sb[1], 1) != 0)
->  			break;
->  		if (le32_to_cpu(zmd->sb[1].sb->magic) == DMZ_MAGIC)
->  			return 0;
-> @@ -1179,9 +1179,9 @@ static int dmz_lookup_secondary_sb(struct dmz_metadata *zmd)
+>  sector_t dmz_start_sect(struct dmz_metadata *zmd, struct dm_zone *zone)
+> @@ -255,18 +249,6 @@ sector_t dmz_start_block(struct dmz_metadata *zmd, struct dm_zone *zone)
+>  	return (sector_t)zone_id << zmd->zone_nr_blocks_shift;
 >  }
 >  
->  /*
-> - * Read the first or second super block from disk.
-> + * Read a super block from disk.
->   */
-> -static int dmz_get_sb(struct dmz_metadata *zmd, unsigned int set)
-> +static int dmz_get_sb(struct dmz_metadata *zmd, struct dmz_sb *sb, int set)
+> -struct dmz_dev *dmz_zone_to_dev(struct dmz_metadata *zmd, struct dm_zone *zone)
+> -{
+> -	if (WARN_ON(!zone))
+> -		return &zmd->dev[0];
+> -
+> -	if (zmd->nr_devs > 1 &&
+> -	    zone->id >= zmd->dev[1].zone_offset)
+> -		return &zmd->dev[1];
+> -
+> -	return &zmd->dev[0];
+> -}
+> -
+>  unsigned int dmz_zone_nr_blocks(struct dmz_metadata *zmd)
 >  {
->  	struct dmz_mblock *mblk;
->  	int ret;
-> @@ -1191,14 +1191,14 @@ static int dmz_get_sb(struct dmz_metadata *zmd, unsigned int set)
->  	if (!mblk)
->  		return -ENOMEM;
+>  	return zmd->zone_nr_blocks;
+> @@ -333,7 +315,7 @@ static struct dm_zone *dmz_get(struct dmz_metadata *zmd, unsigned int zone_id)
+>  }
 >  
-> -	zmd->sb[set].mblk = mblk;
-> -	zmd->sb[set].sb = mblk->data;
-> +	sb->mblk = mblk;
-> +	sb->sb = mblk->data;
+>  static struct dm_zone *dmz_insert(struct dmz_metadata *zmd,
+> -				  unsigned int zone_id)
+> +				  unsigned int zone_id, struct dmz_dev *dev)
+>  {
+>  	struct dm_zone *zone = kzalloc(sizeof(struct dm_zone), GFP_KERNEL);
 >  
->  	/* Read super block */
-> -	ret = dmz_read_sb(zmd, set);
-> +	ret = dmz_read_sb(zmd, sb, set);
->  	if (ret) {
->  		dmz_free_mblock(zmd, mblk);
-> -		zmd->sb[set].mblk = NULL;
-> +		sb->mblk = NULL;
->  		return ret;
->  	}
+> @@ -347,6 +329,7 @@ static struct dm_zone *dmz_insert(struct dmz_metadata *zmd,
+>  	atomic_set(&zone->refcount, 0);
+>  	zone->id = zone_id;
+>  	zone->chunk = DMZ_MAP_UNMAPPED;
+> +	zone->dev = dev;
 >  
-> @@ -1272,13 +1272,13 @@ static int dmz_load_sb(struct dmz_metadata *zmd)
+>  	return zone;
+>  }
+> @@ -1271,7 +1254,7 @@ static int dmz_load_sb(struct dmz_metadata *zmd)
+>  
 >  	/* Read and check the primary super block */
 >  	zmd->sb[0].block = dmz_start_block(zmd, zmd->sb[0].zone);
->  	zmd->sb[0].dev = dmz_zone_to_dev(zmd, zmd->sb[0].zone);
-> -	ret = dmz_get_sb(zmd, 0);
-> +	ret = dmz_get_sb(zmd, &zmd->sb[0], 0);
+> -	zmd->sb[0].dev = dmz_zone_to_dev(zmd, zmd->sb[0].zone);
+> +	zmd->sb[0].dev = zmd->sb[0].zone->dev;
+>  	ret = dmz_get_sb(zmd, &zmd->sb[0], 0);
 >  	if (ret) {
 >  		dmz_dev_err(zmd->sb[0].dev, "Read primary super block failed");
->  		return ret;
+> @@ -1388,7 +1371,7 @@ static int dmz_init_zone(struct blk_zone *blkz, unsigned int num, void *data)
+>  	int idx = num + dev->zone_offset;
+>  	struct dm_zone *zone;
+>  
+> -	zone = dmz_insert(zmd, idx);
+> +	zone = dmz_insert(zmd, idx, dev);
+>  	if (IS_ERR(zone))
+>  		return PTR_ERR(zone);
+>  
+> @@ -1452,7 +1435,7 @@ static int dmz_emulate_zones(struct dmz_metadata *zmd, struct dmz_dev *dev)
+>  	for(idx = 0; idx < dev->nr_zones; idx++) {
+>  		struct dm_zone *zone;
+>  
+> -		zone = dmz_insert(zmd, idx);
+> +		zone = dmz_insert(zmd, idx, dev);
+>  		if (IS_ERR(zone))
+>  			return PTR_ERR(zone);
+>  		set_bit(DMZ_CACHE, &zone->flags);
+> @@ -1578,7 +1561,7 @@ static int dmz_update_zone_cb(struct blk_zone *blkz, unsigned int idx,
+>   */
+>  static int dmz_update_zone(struct dmz_metadata *zmd, struct dm_zone *zone)
+>  {
+> -	struct dmz_dev *dev = dmz_zone_to_dev(zmd, zone);
+> +	struct dmz_dev *dev = zone->dev;
+>  	unsigned int noio_flag;
+>  	int ret;
+>  
+> @@ -1615,7 +1598,7 @@ static int dmz_update_zone(struct dmz_metadata *zmd, struct dm_zone *zone)
+>  static int dmz_handle_seq_write_err(struct dmz_metadata *zmd,
+>  				    struct dm_zone *zone)
+>  {
+> -	struct dmz_dev *dev = dmz_zone_to_dev(zmd, zone);
+> +	struct dmz_dev *dev = zone->dev;
+>  	unsigned int wp = 0;
+>  	int ret;
+>  
+> @@ -1652,7 +1635,7 @@ static int dmz_reset_zone(struct dmz_metadata *zmd, struct dm_zone *zone)
+>  		return 0;
+>  
+>  	if (!dmz_is_empty(zone) || dmz_seq_write_err(zone)) {
+> -		struct dmz_dev *dev = dmz_zone_to_dev(zmd, zone);
+> +		struct dmz_dev *dev = zone->dev;
+>  
+>  		ret = blkdev_zone_mgmt(dev->bdev, REQ_OP_ZONE_RESET,
+>  				       dmz_start_sect(zmd, zone),
+> @@ -2213,9 +2196,7 @@ struct dm_zone *dmz_alloc_zone(struct dmz_metadata *zmd, unsigned long flags)
+>  		goto again;
 >  	}
->  
-> -	ret = dmz_check_sb(zmd, 0);
-> +	ret = dmz_check_sb(zmd, &zmd->sb[0], false);
->  
->  	/* Read and check secondary super block */
->  	if (ret == 0) {
-> @@ -1291,7 +1291,7 @@ static int dmz_load_sb(struct dmz_metadata *zmd)
->  		}
->  		zmd->sb[1].block = dmz_start_block(zmd, zmd->sb[1].zone);
->  		zmd->sb[1].dev = zmd->sb[0].dev;
-> -		ret = dmz_get_sb(zmd, 1);
-> +		ret = dmz_get_sb(zmd, &zmd->sb[1], 1);
->  	} else
->  		ret = dmz_lookup_secondary_sb(zmd);
->  
-> @@ -1300,7 +1300,7 @@ static int dmz_load_sb(struct dmz_metadata *zmd)
->  		return ret;
->  	}
->  
-> -	ret = dmz_check_sb(zmd, 1);
-> +	ret = dmz_check_sb(zmd, &zmd->sb[1], false);
->  	if (ret == 0)
->  		sb_good[1] = true;
->  
-> @@ -1345,18 +1345,35 @@ static int dmz_load_sb(struct dmz_metadata *zmd)
->  		      "Using super block %u (gen %llu)",
->  		      zmd->mblk_primary, zmd->sb_gen);
->  
-> -	if ((zmd->sb_version > 1) && zmd->sb[2].zone) {
-> -		zmd->sb[2].block = dmz_start_block(zmd, zmd->sb[2].zone);
-> -		zmd->sb[2].dev = dmz_zone_to_dev(zmd, zmd->sb[2].zone);
-> -		ret = dmz_get_sb(zmd, 2);
-> -		if (ret) {
-> -			dmz_dev_err(zmd->sb[2].dev,
-> -				    "Read tertiary super block failed");
-> -			return ret;
-> +	if (zmd->sb_version > 1) {
-> +		int i;
-> +		struct dmz_sb *sb;
-> +
-> +		sb = kzalloc(sizeof(struct dmz_sb), GFP_KERNEL);
-> +		if (!sb)
-> +			return -ENOMEM;
-> +		for (i = 1; i < zmd->nr_devs; i++) {
-> +			sb->block = 0;
-> +			sb->zone = dmz_get(zmd, zmd->dev[i].zone_offset);
-> +			sb->dev = &zmd->dev[i];
-> +			if (!dmz_is_meta(sb->zone)) {
-> +				dmz_dev_err(sb->dev,
-> +					    "Tertiary super block zone %u not marked as metadata zone",
-> +					    sb->zone->id);
-> +				return -EINVAL;
-
-Mem leaking sb here...
-
-> +			}
-> +			ret = dmz_get_sb(zmd, sb, i + 1);
-> +			if (ret) {
-> +				dmz_dev_err(sb->dev,
-> +					    "Read tertiary super block failed");
-> +				return ret;
-
-Here too.
-
-> +			}
-> +			ret = dmz_check_sb(zmd, sb, true);
-> +			dmz_free_mblock(zmd, sb->mblk);
-> +			if (ret == -EINVAL)
-> +				return ret;
-
-And here.
-
->  		}
-> -		ret = dmz_check_sb(zmd, 2);
-> -		if (ret == -EINVAL)
-> -			return ret;
-> +		kfree(sb);
->  	}
->  	return 0;
->  }
-> @@ -1415,12 +1432,15 @@ static int dmz_init_zone(struct blk_zone *blkz, unsigned int num, void *data)
->  				zmd->sb[0].zone = zone;
->  			}
->  		}
-> -		if (zmd->nr_devs > 1 && !zmd->sb[2].zone) {
-> -			/* Tertiary superblock zone */
-> -			zmd->sb[2].zone = zone;
-> +		if (zmd->nr_devs > 1 && num == 0) {
-> +			/*
-> +			 * Tertiary superblock zones are always at the
-> +			 * start of the zoned devices, so mark them
-> +			 * as metadata zone.
-> +			 */
-> +			set_bit(DMZ_META, &zone->flags);
->  		}
->  	}
+>  	if (dmz_is_meta(zone)) {
+> -		struct dmz_dev *dev = dmz_zone_to_dev(zmd, zone);
 > -
->  	return 0;
->  }
->  
-> @@ -2858,16 +2878,6 @@ int dmz_ctr_metadata(struct dmz_dev *dev, int num_dev,
->  		}
->  		set_bit(DMZ_META, &zone->flags);
+> -		dmz_dev_warn(dev, "Zone %u has metadata", zone->id);
+> +		dmz_zmd_warn(zmd, "Zone %u has metadata", zone->id);
+>  		zone = NULL;
+>  		goto again;
 >  	}
-> -	if (zmd->sb[2].zone) {
-> -		zone = dmz_get(zmd, zmd->sb[2].zone->id);
-> -		if (!zone) {
-> -			dmz_zmd_err(zmd,
-> -				    "Tertiary metadata zone not present");
-> -			ret = -ENXIO;
-> -			goto err;
-> -		}
-> -		set_bit(DMZ_META, &zone->flags);
-> -	}
->  	/* Load mapping table */
->  	ret = dmz_load_mapping(zmd);
->  	if (ret)
+> diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
+> index fd4d47dfcea1..e9e3b730e258 100644
+> --- a/drivers/md/dm-zoned-reclaim.c
+> +++ b/drivers/md/dm-zoned-reclaim.c
+> @@ -58,7 +58,7 @@ static int dmz_reclaim_align_wp(struct dmz_reclaim *zrc, struct dm_zone *zone,
+>  				sector_t block)
+>  {
+>  	struct dmz_metadata *zmd = zrc->metadata;
+> -	struct dmz_dev *dev = dmz_zone_to_dev(zmd, zone);
+> +	struct dmz_dev *dev = zone->dev;
+>  	sector_t wp_block = zone->wp_block;
+>  	unsigned int nr_blocks;
+>  	int ret;
+> @@ -116,7 +116,6 @@ static int dmz_reclaim_copy(struct dmz_reclaim *zrc,
+>  			    struct dm_zone *src_zone, struct dm_zone *dst_zone)
+>  {
+>  	struct dmz_metadata *zmd = zrc->metadata;
+> -	struct dmz_dev *src_dev, *dst_dev;
+>  	struct dm_io_region src, dst;
+>  	sector_t block = 0, end_block;
+>  	sector_t nr_blocks;
+> @@ -130,17 +129,15 @@ static int dmz_reclaim_copy(struct dmz_reclaim *zrc,
+>  	else
+>  		end_block = dmz_zone_nr_blocks(zmd);
+>  	src_zone_block = dmz_start_block(zmd, src_zone);
+> -	src_dev = dmz_zone_to_dev(zmd, src_zone);
+>  	dst_zone_block = dmz_start_block(zmd, dst_zone);
+> -	dst_dev = dmz_zone_to_dev(zmd, dst_zone);
+>  
+>  	if (dmz_is_seq(dst_zone))
+>  		set_bit(DM_KCOPYD_WRITE_SEQ, &flags);
+>  
+>  	while (block < end_block) {
+> -		if (src_dev->flags & DMZ_BDEV_DYING)
+> +		if (src_zone->dev->flags & DMZ_BDEV_DYING)
+>  			return -EIO;
+> -		if (dst_dev->flags & DMZ_BDEV_DYING)
+> +		if (dst_zone->dev->flags & DMZ_BDEV_DYING)
+>  			return -EIO;
+>  
+>  		if (dmz_reclaim_should_terminate(src_zone))
+> @@ -163,11 +160,11 @@ static int dmz_reclaim_copy(struct dmz_reclaim *zrc,
+>  				return ret;
+>  		}
+>  
+> -		src.bdev = src_dev->bdev;
+> +		src.bdev = src_zone->dev->bdev;
+>  		src.sector = dmz_blk2sect(src_zone_block + block);
+>  		src.count = dmz_blk2sect(nr_blocks);
+>  
+> -		dst.bdev = dst_dev->bdev;
+> +		dst.bdev = dst_zone->dev->bdev;
+>  		dst.sector = dmz_blk2sect(dst_zone_block + block);
+>  		dst.count = src.count;
+>  
+> diff --git a/drivers/md/dm-zoned-target.c b/drivers/md/dm-zoned-target.c
+> index 2770e293a97b..087dd4801663 100644
+> --- a/drivers/md/dm-zoned-target.c
+> +++ b/drivers/md/dm-zoned-target.c
+> @@ -123,7 +123,7 @@ static int dmz_submit_bio(struct dmz_target *dmz, struct dm_zone *zone,
+>  {
+>  	struct dmz_bioctx *bioctx =
+>  		dm_per_bio_data(bio, sizeof(struct dmz_bioctx));
+> -	struct dmz_dev *dev = dmz_zone_to_dev(dmz->metadata, zone);
+> +	struct dmz_dev *dev = zone->dev;
+>  	struct bio *clone;
+>  
+>  	if (dev->flags & DMZ_BDEV_DYING)
+> diff --git a/drivers/md/dm-zoned.h b/drivers/md/dm-zoned.h
+> index 3451b5a768b4..316344bf07bd 100644
+> --- a/drivers/md/dm-zoned.h
+> +++ b/drivers/md/dm-zoned.h
+> @@ -80,6 +80,9 @@ struct dm_zone {
+>  	/* For listing the zone depending on its state */
+>  	struct list_head	link;
+>  
+> +	/* Device containing this zone */
+> +	struct dmz_dev		*dev;
+> +
+>  	/* Zone type and state */
+>  	unsigned long		flags;
+>  
+> @@ -190,7 +193,6 @@ const char *dmz_metadata_label(struct dmz_metadata *zmd);
+>  sector_t dmz_start_sect(struct dmz_metadata *zmd, struct dm_zone *zone);
+>  sector_t dmz_start_block(struct dmz_metadata *zmd, struct dm_zone *zone);
+>  unsigned int dmz_nr_chunks(struct dmz_metadata *zmd);
+> -struct dmz_dev *dmz_zone_to_dev(struct dmz_metadata *zmd, struct dm_zone *zone);
+>  
+>  bool dmz_check_dev(struct dmz_metadata *zmd);
+>  bool dmz_dev_is_dying(struct dmz_metadata *zmd);
 > 
 
+Looks good.
+
+Reviewed-by: Damien Le Moal <damien.lemoal@wdc.com>
 
 -- 
 Damien Le Moal
