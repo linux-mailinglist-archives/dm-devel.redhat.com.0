@@ -1,87 +1,84 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 40A7D1E966A
-	for <lists+dm-devel@lfdr.de>; Sun, 31 May 2020 10:55:43 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 9685C1E966B
+	for <lists+dm-devel@lfdr.de>; Sun, 31 May 2020 10:58:36 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1590915342;
+	s=mimecast20190719; t=1590915515;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=te3WqM40H63ic36jk7OW5Dl+Q8I5Lfaf3vEf33gAQ/E=;
-	b=WUra/hHJcTLcPYVbVlnjqp605uvjmNWyoXfThyBlTYnSX+Z60VbXQZ635TOGmcny1SvwM5
-	tbAMlSYcef0WWw43j0tW9+BJeK+Qb8rSXkvztlIzU8fFEzGWeU0JEQ2WAwQ8Ve+ZsRptwP
-	JYhwl9PzjWbaJfO+ASo/tpoK6jA62UA=
+	bh=Q6wrT+xZ7xzDEV4NXtI8MRnQkxbHgVKJeladFxIL21s=;
+	b=fz9NLUHB3WiUXiiigMxlr+aXmQoxj3ht/F5S99/DgCkRgM0t2lZGfB1Jw75XPhkGF95E4b
+	FhCed98GMoRN4UULCTowm/aDL2hDbekPQZdpidlXcHkPwgeGNlL2hbu5Hfa4FYVFIQumHW
+	c3kb4vkzV+nfEu50DaAZKb6Tx+FU27s=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-378-MblJCRdyOsqSvnJijGC9_Q-1; Sun, 31 May 2020 04:55:39 -0400
-X-MC-Unique: MblJCRdyOsqSvnJijGC9_Q-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-201-MZu8pP3OM0q1HfWtimXlnA-1; Sun, 31 May 2020 04:58:33 -0400
+X-MC-Unique: MZu8pP3OM0q1HfWtimXlnA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 516D98015CE;
-	Sun, 31 May 2020 08:55:29 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E531D461;
+	Sun, 31 May 2020 08:58:26 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CE9B45D9C5;
-	Sun, 31 May 2020 08:55:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 32AC119934;
+	Sun, 31 May 2020 08:58:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 66AEC1809543;
-	Sun, 31 May 2020 08:55:03 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6F4B41809543;
+	Sun, 31 May 2020 08:58:24 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 04V8spIk030303 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 31 May 2020 04:54:51 -0400
+	id 04V8wJAi030604 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 31 May 2020 04:58:19 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1A6B62026972; Sun, 31 May 2020 08:54:51 +0000 (UTC)
+	id 900E413D6FD; Sun, 31 May 2020 08:58:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1585A202696B
-	for <dm-devel@redhat.com>; Sun, 31 May 2020 08:54:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 204F113D705
+	for <dm-devel@redhat.com>; Sun, 31 May 2020 08:58:11 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B04718007A4
-	for <dm-devel@redhat.com>; Sun, 31 May 2020 08:54:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8D8791024D00
+	for <dm-devel@redhat.com>; Sun, 31 May 2020 08:58:11 +0000 (UTC)
 Received: from esa6.hgst.iphmx.com (esa6.hgst.iphmx.com [216.71.154.45])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-47--Use3MmnNIqCboXTDuMGxA-1; Sun, 31 May 2020 04:54:44 -0400
-X-MC-Unique: -Use3MmnNIqCboXTDuMGxA-1
-IronPort-SDR: Wl3kkFb0IXCEHR9Uel6Dx4MmB3wXOcBh35wiCh9Hog8/pzMdQnfmvt2HQNEhNxMSeEpYYnViTW
-	aqoUHD8qMak0Cm2gKvNttb+FHTbocN5h6aZJiz9rnUZkXLwLMuzAm255GnE/VqvMXXDBUCLguV
-	ne1KX2WaeNyDR5lavvI1TPl/GMUI5QZvkz67NuM5jRMGhC1Mu2Zx5a1m4b+1YlsFH8cg0Ex+6u
-	dyelfiMS5vufp3tHjr7ylSzGNRluZu3AJBnaOkosmCe1DrpVfJPsILz7R4l4af5pw8Jp1WcYFT
-	aYQ=
-X-IronPort-AV: E=Sophos;i="5.73,456,1583164800"; d="scan'208";a="140301695"
-Received: from mail-co1nam11lp2172.outbound.protection.outlook.com (HELO
-	NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.172])
-	by ob1.hgst.iphmx.com with ESMTP; 31 May 2020 16:54:42 +0800
+	us-mta-270-mIIHrql2MJmD6yMBP2_nqw-1; Sun, 31 May 2020 04:58:08 -0400
+X-MC-Unique: mIIHrql2MJmD6yMBP2_nqw-1
+IronPort-SDR: hgSV4E+YhmZkqEUXVDv0qM8Txyw6kkLQQIw+SVpOfoc9wX+u4TDCvz6CvQ/7egXwnS8Jd2axah
+	aFgTr3Mx31JryXfeEBO7P9Tt0z9atshWWq+7ia2gAoLci4OwrCitedP1yh9DloACl0RxStImH9
+	cBP+ALMjpt+fdKqA1a2vL41O2eFeYIGrhuG0xRJFkd5A3esRgBZ0Gb0/elX+nD3dqmIDV1lCuc
+	JpJEjpTa03RU2/Zc7sI4KeCFJqNVoEKN+7YBjY3gMkpH8DuAUVA9L+Ea9Jk6CMSmWI4SBX6qYO
+	QSM=
+X-IronPort-AV: E=Sophos;i="5.73,456,1583164800"; d="scan'208";a="140301742"
+Received: from mail-mw2nam10lp2105.outbound.protection.outlook.com (HELO
+	NAM10-MW2-obe.outbound.protection.outlook.com) ([104.47.55.105])
+	by ob1.hgst.iphmx.com with ESMTP; 31 May 2020 16:58:07 +0800
 Received: from CY4PR04MB3751.namprd04.prod.outlook.com (2603:10b6:903:ec::14)
 	by CY4PR04MB0871.namprd04.prod.outlook.com (2603:10b6:910:56::24)
 	with Microsoft SMTP Server (version=TLS1_2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3045.19;
-	Sun, 31 May 2020 08:54:41 +0000
+	Sun, 31 May 2020 08:58:05 +0000
 Received: from CY4PR04MB3751.namprd04.prod.outlook.com
 	([fe80::c593:f271:eebe:ac7]) by CY4PR04MB3751.namprd04.prod.outlook.com
 	([fe80::c593:f271:eebe:ac7%9]) with mapi id 15.20.3045.022;
-	Sun, 31 May 2020 08:54:40 +0000
+	Sun, 31 May 2020 08:58:05 +0000
 From: Damien Le Moal <Damien.LeMoal@wdc.com>
 To: "snitzer@redhat.com" <snitzer@redhat.com>, "hare@suse.de" <hare@suse.de>
-Thread-Topic: [PATCH 13/15] dm-zoned: allocate zone by device index
-Thread-Index: AQHWM+89YyBYJBoKJUKbmDE8V/aNnqi841YAgAJWCgCAArD9gA==
-Date: Sun, 31 May 2020 08:54:40 +0000
-Message-ID: <53b683b85375e5827dc98c54da4b131acbbbad49.camel@wdc.com>
-References: <20200527062225.72849-1-hare@suse.de>
-	<20200527062225.72849-14-hare@suse.de>
-	<f38d9c9802239e3021b602af8c178428d72e791b.camel@wdc.com>
-	<2966c1c2-86e9-2be3-09b8-3ab7cdb29d6a@suse.de>
-In-Reply-To: <2966c1c2-86e9-2be3-09b8-3ab7cdb29d6a@suse.de>
+Thread-Topic: [PATCH 06/14] dm-zoned: temporary superblock for tertiary devices
+Thread-Index: AQHWNeAWuKyK1D6poUCI+0vguDytUajB520A
+Date: Sun, 31 May 2020 08:58:04 +0000
+Message-ID: <736581c9a278556850b70a078980361212f155ca.camel@wdc.com>
+References: <20200529173907.40529-1-hare@suse.de>
+	<20200529173907.40529-7-hare@suse.de>
+In-Reply-To: <20200529173907.40529-7-hare@suse.de>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -90,38 +87,39 @@ user-agent: Evolution 3.36.2 (3.36.2-1.fc32)
 x-originating-ip: [60.117.181.124]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: b8ab9261-2d56-4005-4287-08d80540419c
+x-ms-office365-filtering-correlation-id: 998ce4c8-14d7-4a93-c1d0-08d80540bb47
 x-ms-traffictypediagnostic: CY4PR04MB0871:
-x-microsoft-antispam-prvs: <CY4PR04MB0871CD0065BFECFD3D7B40EFE78D0@CY4PR04MB0871.namprd04.prod.outlook.com>
+x-microsoft-antispam-prvs: <CY4PR04MB08713B0D57683BF2633111B5E78D0@CY4PR04MB0871.namprd04.prod.outlook.com>
 wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:538;
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
 x-forefront-prvs: 0420213CCD
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Lu9OteK0QzsB6dXgizrNEEttoCbgZoDtWF3Uq7lb6ASjYIlGEiCZHFf51KoGNOaYgNIkp6ug5XcRmgxsaokCA66ETozjecfx7/B8+eWJLS60hCQCe2a5fuCPZ4jczVD2QkoatRnVakQfpq9AQxLSpN5TQsZcx53GydM7n6scLksgCxh/QaK0hJhJxCwafPV18OQ0z8gwOa5Zf2V5Y6UOE7chE2cThhMn9/QZz3WVkmzG1n/Vqs7cRxkh0TJJsmgXehaedxbdwcLNJL4orqzgdQWNfr2TvzGPvy07d7q1/u0sjJPZiuYtGMDPQUU34B6i
+x-microsoft-antispam-message-info: 4SfifYSDo+KAf39yRPJRhhbGamgeQDw/RrszOeaNfLdK+u0cE16OdsjLX2P55jeKay2en/ssJsx1H0bcorBBXP9iUQ0woTJajZNwF8TarRBFg8O8U1F027mwB5Fwp78tsO0pUwePWycfyUZLnF2T3mET2Wtw3gMh5H5KgDSxYj4Jaqf12kn7Orzb0dQlAz/ya+/S4ld7dhU2ZXBRwal1exWkxufXZZH91pjkzdiNfk0JQdRm1sbxeH7g0cuhdpXJiB92U2eNGvYt4qX4fRtxYo7jkgHo0/FgEE1+pZC5UO3WkEuGYQD6E/bh9NA3Kb5XnN00lBQq5RwzJhKUE+d1hA==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
 	IPV:NLI; SFV:NSPM; H:CY4PR04MB3751.namprd04.prod.outlook.com;
 	PTR:; CAT:NONE; SFTY:;
-	SFS:(4636009)(136003)(346002)(366004)(39860400002)(396003)(376002)(186003)(478600001)(316002)(5660300002)(2906002)(83380400001)(6486002)(2616005)(110136005)(8936002)(71200400001)(6512007)(86362001)(36756003)(8676002)(4326008)(26005)(53546011)(66946007)(66556008)(6506007)(64756008)(66446008)(91956017)(66476007)(76116006);
+	SFS:(4636009)(136003)(346002)(366004)(39860400002)(396003)(376002)(186003)(478600001)(316002)(5660300002)(2906002)(83380400001)(6486002)(2616005)(110136005)(8936002)(71200400001)(6512007)(86362001)(36756003)(8676002)(4326008)(26005)(66946007)(66556008)(6506007)(64756008)(66446008)(91956017)(66476007)(76116006);
 	DIR:OUT; SFP:1102;
-x-ms-exchange-antispam-messagedata: wCmz4szJ3jW78g3+SlfP5DsjcDcqeQcxHG80e8Vt/julTM110uTDs0yyCAv+3Ijyw/aKbWqjQlu06SkmIMk5R8jEltNt46gqrFf5KblaPW87IF/7b+lxjeFj6npEOSTdlmoraLWX4MoLjpsMRAabxvjf3ef7krlkMSjDEsTwwJvnY18OjEul92ue74CEsmnQri9pXvimzx/3oTyDZ2yeVIjFt0UJ1mSntaVoI0zJZ31YOjViydIR1v59FScuItzWjXvsY+fk2pnBjMqwcwlHll/BHAwgEbh9Qn3Tb4TzeawOZ4SCUasBT8R/tJnLeUyY72DBNZlAFT3BbVfqyY3IljGWfWU2QEY4yCn13S+/J92V2jVSamtNQ/GQG3AON5sZ4l+i4t7EZyHgKpRCZ8Ffa7EIZ2YOTlnX6DDcjeHAl5tnnAN1sxe9hx654ZLYdlxsGMZzIckgVZokUIlMl/TU9a5iFl6rHKVm2lKJ00VK77TR1VZn/qyP7UArpa1u8IIp
+x-ms-exchange-antispam-messagedata: DXs140OCTvDVpw9+I0AZ1nkhrO8J/0TvCR1kIovg/tw71zsNpwlVTq6Wt0JTXtySFN+/u7b8VsYDqg5Ranjg9aSy11b8aRHtizgR/+l5f3NG0P/3HixmYhTUJ2yDZiVIX/jPDKrB5J8YdNx90/3wKhfujsRaVFleDtC2ECHI8fOyqxnRRqzQS5RvkFXVol8Py7dgGSKsbcNi+oXlmdjGCKdk0mUlXk6HtRo8kLBQj3eW0cdepW2HAuVNv7L4XrFUZ6MCrs3a9JQpaPQs8Gyoh35baTTEe7uiBFUcM3GC2SbQcIXOlwrMt7sCT/n/2sg2bzby3JbG1ZNE4XEsCDJfLsxiLLiii5HLIC0CfHUginD+VfhnPBRBhzb9soMZtkDyL4ayq26ijMLBWPTIEMGn4iY7fxPXO6hIapDfPxasOAnRe12MTUF1N4SujuOtTbk0n2mq1tmuyRiIbrbcRwX2g68umWYTgXllhPhEgo5HGtiR1djVhSvsclR0vR7vtMz4
 x-ms-exchange-transport-forked: True
-Content-ID: <49EAB7312E50A849AE8AFDE04BE75B6C@namprd04.prod.outlook.com>
+Content-ID: <5CB640D3D23644448945C395EB7DBB08@namprd04.prod.outlook.com>
 MIME-Version: 1.0
 X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8ab9261-2d56-4005-4287-08d80540419c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 May 2020 08:54:40.9180 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 998ce4c8-14d7-4a93-c1d0-08d80540bb47
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 May 2020 08:58:04.9633 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xjtRnjdyfJdzaSpBtLcjHJFlXiKGIBYCyB5hbUsQzXz0FTQchKDBiN63KFb+iw5GsflAT4xrGvZIjkcEcRreSg==
+X-MS-Exchange-CrossTenant-userprincipalname: t4KPsspnXdueYCpQ+R+ZVb+Q4HrHQuv1FgE0jXAJHjrmlpPHr7NMvYK0xclWfx9FrzVSAZkoFj+HmTogOijZuQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR04MB0871
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from base64 to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 04V8spIk030303
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 04V8wJAi030604
 X-loop: dm-devel@redhat.com
 Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH 13/15] dm-zoned: allocate zone by device index
+Subject: Re: [dm-devel] [PATCH 06/14] dm-zoned: temporary superblock for
+	tertiary devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -135,86 +133,259 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2020-05-29 at 17:48 +0200, Hannes Reinecke wrote:
-> On 5/28/20 6:08 AM, Damien Le Moal wrote:
-> > On Wed, 2020-05-27 at 08:22 +0200, Hannes Reinecke wrote:
-> > > When allocating a zone we should pass in an indicator on which
-> > > device the zone should be allocated; this increases performance
-> > > for a multi-device setup as then reclaim can allocate zones on
-> > > the device for which reclaim is running.
-> > > 
-> > > Signed-off-by: Hannes Reinecke <hare@suse.de>
-> > > ---
-> > >   drivers/md/dm-zoned-metadata.c | 17 +++++++++++------
-> > >   drivers/md/dm-zoned-reclaim.c  |  3 ++-
-> > >   drivers/md/dm-zoned.h          |  3 ++-
-> > >   3 files changed, 15 insertions(+), 8 deletions(-)
-> > > 
-> > > diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
-> > > index 689c1dd7ab20..0d65af94309a 100644
-> > > --- a/drivers/md/dm-zoned-metadata.c
-> > > +++ b/drivers/md/dm-zoned-metadata.c
-> > > @@ -2045,7 +2045,7 @@ struct dm_zone *dmz_get_chunk_mapping(struct dmz_metadata *zmd, unsigned int chu
-> > >   			goto out;
-> > >   
-> > >   		/* Allocate a random zone */
-> > > -		dzone = dmz_alloc_zone(zmd, alloc_flags);
-> > > +		dzone = dmz_alloc_zone(zmd, 0, alloc_flags);
-> > >   		if (!dzone) {
-> > >   			if (dmz_dev_is_dying(zmd)) {
-> > >   				dzone = ERR_PTR(-EIO);
-> > > @@ -2151,7 +2151,7 @@ struct dm_zone *dmz_get_chunk_buffer(struct dmz_metadata *zmd,
-> > >   		goto out;
-> > >   
-> > >   	/* Allocate a random zone */
-> > > -	bzone = dmz_alloc_zone(zmd, alloc_flags);
-> > > +	bzone = dmz_alloc_zone(zmd, 0, alloc_flags);
-> > >   	if (!bzone) {
-> > >   		if (dmz_dev_is_dying(zmd)) {
-> > >   			bzone = ERR_PTR(-EIO);
-> > > @@ -2182,11 +2182,12 @@ struct dm_zone *dmz_get_chunk_buffer(struct dmz_metadata *zmd,
-> > >    * Get an unmapped (free) zone.
-> > >    * This must be called with the mapping lock held.
-> > >    */
-> > > -struct dm_zone *dmz_alloc_zone(struct dmz_metadata *zmd, unsigned long flags)
-> > > +struct dm_zone *dmz_alloc_zone(struct dmz_metadata *zmd, unsigned int dev_idx,
-> > > +			       unsigned long flags)
-> > >   {
-> > >   	struct list_head *list;
-> > >   	struct dm_zone *zone;
-> > > -	unsigned int dev_idx = 0;
-> > > +	int i = 0;
-> > >   
-> > >   again:
-> > >   	if (flags & DMZ_ALLOC_CACHE)
-> > > @@ -2202,8 +2203,12 @@ struct dm_zone *dmz_alloc_zone(struct dmz_metadata *zmd, unsigned long flags)
-> > >   		 */
-> > >   		if (!(flags & DMZ_ALLOC_RECLAIM))
-> > >   			return NULL;
-> > > -		if (dev_idx < zmd->nr_devs) {
-> > > -			dev_idx++;
-> > > +		/*
-> > > +		 * Try to allocate from other devices
-> > > +		 */
-> > > +		if (i < zmd->nr_devs) {
-> > > +			dev_idx = (dev_idx + 1) % zmd->nr_devs;
-> > 
-> > Hu ? You deleted dev_idx declaration above...
-> > 
-> It's now the function argument ...
-
-Oops... Yes, missed that...
-
+On Fri, 2020-05-29 at 19:38 +0200, Hannes Reinecke wrote:
+> Checking the tertiary superblock just consists of validating UUIDs,
+> crcs, and the generation number; it doesn't have contents which
+> would be required during the actual operation.
+> So we should be allocating a temporary superblock when checking
+> tertiary devices and avoid having to store it together with the
+> 'real' superblocks.
 > 
-> Cheers,
+> Signed-off-by: Hannes Reinecke <hare@suse.de>
+> ---
+>  drivers/md/dm-zoned-metadata.c | 109 +++++++++++++++++++++++------------------
+>  1 file changed, 61 insertions(+), 48 deletions(-)
 > 
-> Hannes
+> diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
+> index 839f9078806d..d9f3ecc76eff 100644
+> --- a/drivers/md/dm-zoned-metadata.c
+> +++ b/drivers/md/dm-zoned-metadata.c
+> @@ -174,7 +174,7 @@ struct dmz_metadata {
+>  	/* Zone information array */
+>  	struct xarray		zones;
+>  
+> -	struct dmz_sb		sb[3];
+> +	struct dmz_sb		sb[2];
+>  	unsigned int		mblk_primary;
+>  	unsigned int		sb_version;
+>  	u64			sb_gen;
+> @@ -1014,10 +1014,11 @@ int dmz_flush_metadata(struct dmz_metadata *zmd)
+>  /*
+>   * Check super block.
+>   */
+> -static int dmz_check_sb(struct dmz_metadata *zmd, unsigned int set)
+> +static int dmz_check_sb(struct dmz_metadata *zmd, struct dmz_sb *dsb,
+> +			bool tertiary)
+>  {
+> -	struct dmz_super *sb = zmd->sb[set].sb;
+> -	struct dmz_dev *dev = zmd->sb[set].dev;
+> +	struct dmz_super *sb = dsb->sb;
+> +	struct dmz_dev *dev = dsb->dev;
+>  	unsigned int nr_meta_zones, nr_data_zones;
+>  	u32 crc, stored_crc;
+>  	u64 gen;
+> @@ -1034,7 +1035,7 @@ static int dmz_check_sb(struct dmz_metadata *zmd, unsigned int set)
+>  			    DMZ_META_VER, zmd->sb_version);
+>  		return -EINVAL;
+>  	}
+> -	if ((zmd->sb_version < 1) && (set == 2)) {
+> +	if (zmd->sb_version < 2 && tertiary) {
+>  		dmz_dev_err(dev, "Tertiary superblocks are not supported");
+>  		return -EINVAL;
+>  	}
+> @@ -1078,7 +1079,7 @@ static int dmz_check_sb(struct dmz_metadata *zmd, unsigned int set)
+>  			return -ENXIO;
+>  		}
+>  
+> -		if (set == 2) {
+> +		if (tertiary) {
+>  			/*
+>  			 * Generation number should be 0, but it doesn't
+>  			 * really matter if it isn't.
+> @@ -1127,14 +1128,13 @@ static int dmz_check_sb(struct dmz_metadata *zmd, unsigned int set)
+>  /*
+>   * Read the first or second super block from disk.
+>   */
+> -static int dmz_read_sb(struct dmz_metadata *zmd, unsigned int set)
+> +static int dmz_read_sb(struct dmz_metadata *zmd, struct dmz_sb *sb, int set)
+>  {
+>  	dmz_zmd_debug(zmd, "read superblock set %d dev %s block %llu",
+> -		      set, zmd->sb[set].dev->name,
+> -		      zmd->sb[set].block);
+> +		      set, sb->dev->name, sb->block);
+>  
+> -	return dmz_rdwr_block(zmd->sb[set].dev, REQ_OP_READ,
+> -			      zmd->sb[set].block, zmd->sb[set].mblk->page);
+> +	return dmz_rdwr_block(sb->dev, REQ_OP_READ,
+> +			      sb->block, sb->mblk->page);
+>  }
+>  
+>  /*
+> @@ -1162,7 +1162,7 @@ static int dmz_lookup_secondary_sb(struct dmz_metadata *zmd)
+>  	zmd->sb[1].zone = dmz_get(zmd, zone_id + 1);
+>  	zmd->sb[1].dev = zmd->sb[0].dev;
+>  	for (i = 1; i < zmd->nr_rnd_zones; i++) {
+> -		if (dmz_read_sb(zmd, 1) != 0)
+> +		if (dmz_read_sb(zmd, &zmd->sb[1], 1) != 0)
+>  			break;
+>  		if (le32_to_cpu(zmd->sb[1].sb->magic) == DMZ_MAGIC)
+>  			return 0;
+> @@ -1179,9 +1179,9 @@ static int dmz_lookup_secondary_sb(struct dmz_metadata *zmd)
+>  }
+>  
+>  /*
+> - * Read the first or second super block from disk.
+> + * Read a super block from disk.
+>   */
+> -static int dmz_get_sb(struct dmz_metadata *zmd, unsigned int set)
+> +static int dmz_get_sb(struct dmz_metadata *zmd, struct dmz_sb *sb, int set)
+>  {
+>  	struct dmz_mblock *mblk;
+>  	int ret;
+> @@ -1191,14 +1191,14 @@ static int dmz_get_sb(struct dmz_metadata *zmd, unsigned int set)
+>  	if (!mblk)
+>  		return -ENOMEM;
+>  
+> -	zmd->sb[set].mblk = mblk;
+> -	zmd->sb[set].sb = mblk->data;
+> +	sb->mblk = mblk;
+> +	sb->sb = mblk->data;
+>  
+>  	/* Read super block */
+> -	ret = dmz_read_sb(zmd, set);
+> +	ret = dmz_read_sb(zmd, sb, set);
+>  	if (ret) {
+>  		dmz_free_mblock(zmd, mblk);
+> -		zmd->sb[set].mblk = NULL;
+> +		sb->mblk = NULL;
+>  		return ret;
+>  	}
+>  
+> @@ -1272,13 +1272,13 @@ static int dmz_load_sb(struct dmz_metadata *zmd)
+>  	/* Read and check the primary super block */
+>  	zmd->sb[0].block = dmz_start_block(zmd, zmd->sb[0].zone);
+>  	zmd->sb[0].dev = dmz_zone_to_dev(zmd, zmd->sb[0].zone);
+> -	ret = dmz_get_sb(zmd, 0);
+> +	ret = dmz_get_sb(zmd, &zmd->sb[0], 0);
+>  	if (ret) {
+>  		dmz_dev_err(zmd->sb[0].dev, "Read primary super block failed");
+>  		return ret;
+>  	}
+>  
+> -	ret = dmz_check_sb(zmd, 0);
+> +	ret = dmz_check_sb(zmd, &zmd->sb[0], false);
+>  
+>  	/* Read and check secondary super block */
+>  	if (ret == 0) {
+> @@ -1291,7 +1291,7 @@ static int dmz_load_sb(struct dmz_metadata *zmd)
+>  		}
+>  		zmd->sb[1].block = dmz_start_block(zmd, zmd->sb[1].zone);
+>  		zmd->sb[1].dev = zmd->sb[0].dev;
+> -		ret = dmz_get_sb(zmd, 1);
+> +		ret = dmz_get_sb(zmd, &zmd->sb[1], 1);
+>  	} else
+>  		ret = dmz_lookup_secondary_sb(zmd);
+>  
+> @@ -1300,7 +1300,7 @@ static int dmz_load_sb(struct dmz_metadata *zmd)
+>  		return ret;
+>  	}
+>  
+> -	ret = dmz_check_sb(zmd, 1);
+> +	ret = dmz_check_sb(zmd, &zmd->sb[1], false);
+>  	if (ret == 0)
+>  		sb_good[1] = true;
+>  
+> @@ -1345,20 +1345,40 @@ static int dmz_load_sb(struct dmz_metadata *zmd)
+>  		      "Using super block %u (gen %llu)",
+>  		      zmd->mblk_primary, zmd->sb_gen);
+>  
+> -	if ((zmd->sb_version > 1) && zmd->sb[2].zone) {
+> -		zmd->sb[2].block = dmz_start_block(zmd, zmd->sb[2].zone);
+> -		zmd->sb[2].dev = dmz_zone_to_dev(zmd, zmd->sb[2].zone);
+> -		ret = dmz_get_sb(zmd, 2);
+> -		if (ret) {
+> -			dmz_dev_err(zmd->sb[2].dev,
+> -				    "Read tertiary super block failed");
+> -			return ret;
+> +	if (zmd->sb_version > 1) {
+> +		int i;
+> +		struct dmz_sb *sb;
+> +
+> +		sb = kzalloc(sizeof(struct dmz_sb), GFP_KERNEL);
+> +		if (!sb)
+> +			return -ENOMEM;
+> +		for (i = 1; i < zmd->nr_devs; i++) {
+> +			sb->block = 0;
+> +			sb->zone = dmz_get(zmd, zmd->dev[i].zone_offset);
+> +			sb->dev = &zmd->dev[i];
+> +			if (!dmz_is_meta(sb->zone)) {
+> +				dmz_dev_err(sb->dev,
+> +					    "Tertiary super block zone %u not marked as metadata zone",
+> +					    sb->zone->id);
+> +				ret = -EINVAL;
+> +				goto out_kfree;
+> +			}
+> +			ret = dmz_get_sb(zmd, sb, i + 1);
+> +			if (ret) {
+> +				dmz_dev_err(sb->dev,
+> +					    "Read tertiary super block failed");
+> +				dmz_free_mblock(zmd, sb->mblk);
+> +				goto out_kfree;
+> +			}
+> +			ret = dmz_check_sb(zmd, sb, true);
+> +			dmz_free_mblock(zmd, sb->mblk);
+> +			if (ret == -EINVAL)
+> +				goto out_kfree;
+>  		}
+> -		ret = dmz_check_sb(zmd, 2);
+> -		if (ret == -EINVAL)
+> -			return ret;
+> +	out_kfree:
+> +		kfree(sb);
+>  	}
+> -	return 0;
+> +	return ret;
+>  }
+>  
+>  /*
+> @@ -1415,12 +1435,15 @@ static int dmz_init_zone(struct blk_zone *blkz, unsigned int num, void *data)
+>  				zmd->sb[0].zone = zone;
+>  			}
+>  		}
+> -		if (zmd->nr_devs > 1 && !zmd->sb[2].zone) {
+> -			/* Tertiary superblock zone */
+> -			zmd->sb[2].zone = zone;
+> +		if (zmd->nr_devs > 1 && num == 0) {
+> +			/*
+> +			 * Tertiary superblock zones are always at the
+> +			 * start of the zoned devices, so mark them
+> +			 * as metadata zone.
+> +			 */
+> +			set_bit(DMZ_META, &zone->flags);
+>  		}
+>  	}
+> -
+>  	return 0;
+>  }
+>  
+> @@ -2858,16 +2881,6 @@ int dmz_ctr_metadata(struct dmz_dev *dev, int num_dev,
+>  		}
+>  		set_bit(DMZ_META, &zone->flags);
+>  	}
+> -	if (zmd->sb[2].zone) {
+> -		zone = dmz_get(zmd, zmd->sb[2].zone->id);
+> -		if (!zone) {
+> -			dmz_zmd_err(zmd,
+> -				    "Tertiary metadata zone not present");
+> -			ret = -ENXIO;
+> -			goto err;
+> -		}
+> -		set_bit(DMZ_META, &zone->flags);
+> -	}
+>  	/* Load mapping table */
+>  	ret = dmz_load_mapping(zmd);
+>  	if (ret)
+
+Looks good.
+
+Reviewed-by: Damien Le Moal <damien.lemoal@wdc.com>
+
 
 -- 
 Damien Le Moal
