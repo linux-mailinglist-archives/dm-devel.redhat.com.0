@@ -1,55 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 45F2F1EA78E
-	for <lists+dm-devel@lfdr.de>; Mon,  1 Jun 2020 18:08:58 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 0775C1EA789
+	for <lists+dm-devel@lfdr.de>; Mon,  1 Jun 2020 18:08:39 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1591027737;
+	s=mimecast20190719; t=1591027719;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=bgcH7/CTLVLAWj49w0Svzz5AN7MpSCyatwwd+leW8dg=;
-	b=f/ysaAcN8yK2j55b/gbU22zlS7MtFFUXfy4iQfNIl8vDlOFNMth8qv6INEABeODIrTNuJo
-	wFlm1wsDGF3AcNDDduIvxH4gTKmbPoeYCbpUwFbPtr2jko0cjyGH4XkN3tx0QdE2vCw2bO
-	3/csMt1IGpqouu/v8lu3iqp0q/9WndI=
+	bh=ZXyXIFVlz6llvzH11aVjfeZ3tGcmx9G5PPGst6jvS6I=;
+	b=Dw8/yttF+zc3VU3DOXnuuN8HFJjqfEyGz0y4xPXWlJQXm/Ekz9Qp3sg/LTWNlgqw8pEhyT
+	/NPoizxmX2pUCaweg6jaQNwau9yUPWnawH/ibXKa9R2gmtgO588b/ZGrdjLPtqqms6wlW5
+	GI+840UPTRSY+RYHgU8BBTrH3zQf27k=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-466-nsu6mTc8OxG8Dv36_MlJiw-1; Mon, 01 Jun 2020 12:08:54 -0400
-X-MC-Unique: nsu6mTc8OxG8Dv36_MlJiw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-455-E1xr_GUdNZ6HU7P0nEyvRA-1; Mon, 01 Jun 2020 12:08:36 -0400
+X-MC-Unique: E1xr_GUdNZ6HU7P0nEyvRA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E12DE64AE9;
-	Mon,  1 Jun 2020 16:08:47 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C09337E7F1;
-	Mon,  1 Jun 2020 16:08:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F07161B18BE9;
+	Mon,  1 Jun 2020 16:08:19 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B57019C4F;
+	Mon,  1 Jun 2020 16:08:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 82DA9938FB;
-	Mon,  1 Jun 2020 16:08:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A2ACC1809543;
+	Mon,  1 Jun 2020 16:08:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 051G4QGc032228 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 1 Jun 2020 12:04:26 -0400
+	id 051G4Rp7032243 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 1 Jun 2020 12:04:27 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2704E7E7F1; Mon,  1 Jun 2020 16:04:26 +0000 (UTC)
+	id AE9F560C81; Mon,  1 Jun 2020 16:04:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from leontynka.twibright.com (unknown [10.40.194.129])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B034B7E7D2;
-	Mon,  1 Jun 2020 16:04:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1409860F8D;
+	Mon,  1 Jun 2020 16:04:24 +0000 (UTC)
 Received: from debian-a64.vm ([192.168.208.2])
 	by leontynka.twibright.com with smtp (Exim 4.92)
 	(envelope-from <mpatocka@redhat.com>)
-	id 1jfmvE-0001Vu-8c; Mon, 01 Jun 2020 18:04:21 +0200
+	id 1jfmvF-0001Vy-Gk; Mon, 01 Jun 2020 18:04:22 +0200
 Received: by debian-a64.vm (sSMTP sendmail emulation);
-	Mon, 01 Jun 2020 18:04:19 +0200
-Message-Id: <20200601160419.414457600@debian-a64.vm>
+	Mon, 01 Jun 2020 18:04:20 +0200
+Message-Id: <20200601160420.666560920@debian-a64.vm>
 User-Agent: quilt/0.65
-Date: Mon, 01 Jun 2020 18:03:34 +0200
+Date: Mon, 01 Jun 2020 18:03:35 +0200
 From: Mikulas Patocka <mpatocka@redhat.com>
 To: Mike Snitzer <msnitzer@redhat.com>,
 	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
@@ -57,13 +57,12 @@ To: Mike Snitzer <msnitzer@redhat.com>,
 	"David S. Miller" <davem@davemloft.net>, Milan Broz <mbroz@redhat.com>, 
 	djeffery@redhat.com
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
 Cc: guazhang@redhat.com, qat-linux@intel.com, dm-devel@redhat.com,
 	Mikulas Patocka <mpatocka@redhat.com>,
 	linux-crypto@vger.kernel.org, jpittman@redhat.com
-Subject: [dm-devel] [PATCH 2/4] qat: fix misunderstood -EBUSY return code in
-	asym algorithms
+Subject: [dm-devel] [PATCH 3/4] qat: use GFP_KERNEL allocations
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -77,172 +76,143 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline; filename=qat-fix-asym.patch
+Content-Disposition: inline; filename=qat-gfp-kernel.patch
 
-This patch fixes a bug in QAT in async asymetric algorithm.
-
-adf_send_message returns -EAGAIN when the queue is full. The caller
-misunderstands it as -EBUSY - so the retry loop will never happen.
-
-Furthermore, when the crypto driver return -EBUSY, it is expected that it
-has queued the request and the caller should stop sending more requests.
-When the request is returned with -EINPROGRESS, the caller can send more
-requests.
+Use GFP_KERNEL when the flag CRYPTO_TFM_REQ_MAY_SLEEP is present.
+Also, use GFP_KERNEL when setting a key.
 
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 Cc: stable@vger.kernel.org
 
-Index: linux-2.6/drivers/crypto/qat/qat_common/qat_asym_algs.c
+Index: linux-2.6/drivers/crypto/qat/qat_common/qat_algs.c
 ===================================================================
---- linux-2.6.orig/drivers/crypto/qat/qat_common/qat_asym_algs.c
-+++ linux-2.6/drivers/crypto/qat/qat_common/qat_asym_algs.c
-@@ -179,6 +179,7 @@ struct qat_asym_request {
- 		struct kpp_request *dh;
- 	} areq;
- 	int err;
-+	int backed_off;
- 	void (*cb)(struct icp_qat_fw_pke_resp *resp);
- } __aligned(64);
+--- linux-2.6.orig/drivers/crypto/qat/qat_common/qat_algs.c
++++ linux-2.6/drivers/crypto/qat/qat_common/qat_algs.c
+@@ -134,6 +134,11 @@ struct qat_alg_skcipher_ctx {
+ 	struct crypto_skcipher *tfm;
+ };
  
-@@ -219,6 +220,8 @@ static void qat_dh_cb(struct icp_qat_fw_
- 			 sizeof(struct qat_dh_output_params),
- 			 DMA_TO_DEVICE);
- 
-+	if (req->backed_off)
-+		kpp_request_complete(areq, -EINPROGRESS);
- 	kpp_request_complete(areq, err);
- }
- 
-@@ -263,7 +266,7 @@ static int qat_dh_compute_value(struct k
- 	struct qat_asym_request *qat_req =
- 			PTR_ALIGN(kpp_request_ctx(req), 64);
- 	struct icp_qat_fw_pke_request *msg = &qat_req->req;
--	int ret, ctr = 0;
-+	int ret, backed_off;
- 	int n_input_params = 0;
- 
- 	if (unlikely(!ctx->xa))
-@@ -388,17 +391,17 @@ static int qat_dh_compute_value(struct k
- 	msg->input_param_count = n_input_params;
- 	msg->output_param_count = 1;
- 
--	do {
--		ret = adf_send_message(ctx->inst->pke_tx, (uint32_t *)msg);
--	} while (ret == -EBUSY && ctr++ < 100);
--
--	if (!ret)
--		return -EINPROGRESS;
--
--	if (!dma_mapping_error(dev, qat_req->phy_out))
--		dma_unmap_single(dev, qat_req->phy_out,
--				 sizeof(struct qat_dh_output_params),
--				 DMA_TO_DEVICE);
-+	qat_req->backed_off = backed_off = adf_should_back_off(ctx->inst->pke_tx);
-+again:
-+	ret = adf_send_message(ctx->inst->pke_tx, (uint32_t *)msg);
-+	if (ret == -EAGAIN) {
-+		qat_req->backed_off = backed_off = 1;
-+		cpu_relax();
-+		goto again;
-+	}
++static int qat_gfp(u32 flags)
++{
++	return flags & CRYPTO_TFM_REQ_MAY_SLEEP ? GFP_KERNEL : GFP_ATOMIC;
++}
 +
-+	return backed_off ? -EBUSY : -EINPROGRESS;
-+
- unmap_in_params:
- 	if (!dma_mapping_error(dev, qat_req->phy_in))
- 		dma_unmap_single(dev, qat_req->phy_in,
-@@ -585,6 +588,8 @@ static void qat_rsa_cb(struct icp_qat_fw
- 			 sizeof(struct qat_rsa_output_params),
- 			 DMA_TO_DEVICE);
- 
-+	if (req->backed_off)
-+		akcipher_request_complete(areq, -EINPROGRESS);
- 	akcipher_request_complete(areq, err);
- }
- 
-@@ -692,7 +697,7 @@ static int qat_rsa_enc(struct akcipher_r
- 	struct qat_asym_request *qat_req =
- 			PTR_ALIGN(akcipher_request_ctx(req), 64);
- 	struct icp_qat_fw_pke_request *msg = &qat_req->req;
--	int ret, ctr = 0;
-+	int ret, backed_off;
- 
- 	if (unlikely(!ctx->n || !ctx->e))
+ static int qat_get_inter_state_size(enum icp_qat_hw_auth_algo qat_hash_alg)
+ {
+ 	switch (qat_hash_alg) {
+@@ -622,14 +627,14 @@ static int qat_alg_aead_newkey(struct cr
+ 	ctx->inst = inst;
+ 	ctx->enc_cd = dma_alloc_coherent(dev, sizeof(*ctx->enc_cd),
+ 					 &ctx->enc_cd_paddr,
+-					 GFP_ATOMIC);
++					 GFP_KERNEL);
+ 	if (!ctx->enc_cd) {
+ 		ret = -ENOMEM;
+ 		goto out_free_inst;
+ 	}
+ 	ctx->dec_cd = dma_alloc_coherent(dev, sizeof(*ctx->dec_cd),
+ 					 &ctx->dec_cd_paddr,
+-					 GFP_ATOMIC);
++					 GFP_KERNEL);
+ 	if (!ctx->dec_cd) {
+ 		ret = -ENOMEM;
+ 		goto out_free_enc;
+@@ -704,7 +709,8 @@ static void qat_alg_free_bufl(struct qat
+ static int qat_alg_sgl_to_bufl(struct qat_crypto_instance *inst,
+ 			       struct scatterlist *sgl,
+ 			       struct scatterlist *sglout,
+-			       struct qat_crypto_request *qat_req)
++			       struct qat_crypto_request *qat_req,
++			       int gfp)
+ {
+ 	struct device *dev = &GET_DEV(inst->accel_dev);
+ 	int i, sg_nctr = 0;
+@@ -719,7 +725,7 @@ static int qat_alg_sgl_to_bufl(struct qa
+ 	if (unlikely(!n))
  		return -EINVAL;
-@@ -782,17 +787,18 @@ static int qat_rsa_enc(struct akcipher_r
- 	msg->pke_mid.opaque = (uint64_t)(__force long)qat_req;
- 	msg->input_param_count = 3;
- 	msg->output_param_count = 1;
--	do {
--		ret = adf_send_message(ctx->inst->pke_tx, (uint32_t *)msg);
--	} while (ret == -EBUSY && ctr++ < 100);
--
--	if (!ret)
--		return -EINPROGRESS;
--
--	if (!dma_mapping_error(dev, qat_req->phy_out))
--		dma_unmap_single(dev, qat_req->phy_out,
--				 sizeof(struct qat_rsa_output_params),
--				 DMA_TO_DEVICE);
-+
-+	qat_req->backed_off = backed_off = adf_should_back_off(ctx->inst->pke_tx);
-+again:
-+	ret = adf_send_message(ctx->inst->pke_tx, (uint32_t *)msg);
-+	if (ret == -EAGAIN) {
-+		qat_req->backed_off = backed_off = 1;
-+		cpu_relax();
-+		goto again;
-+	}
-+
-+	return backed_off ? -EBUSY : -EINPROGRESS;
-+
- unmap_in_params:
- 	if (!dma_mapping_error(dev, qat_req->phy_in))
- 		dma_unmap_single(dev, qat_req->phy_in,
-@@ -826,7 +832,7 @@ static int qat_rsa_dec(struct akcipher_r
- 	struct qat_asym_request *qat_req =
- 			PTR_ALIGN(akcipher_request_ctx(req), 64);
- 	struct icp_qat_fw_pke_request *msg = &qat_req->req;
--	int ret, ctr = 0;
-+	int ret, backed_off;
  
- 	if (unlikely(!ctx->n || !ctx->d))
- 		return -EINVAL;
-@@ -934,17 +940,18 @@ static int qat_rsa_dec(struct akcipher_r
- 		msg->input_param_count = 3;
+-	bufl = kzalloc_node(sz, GFP_ATOMIC,
++	bufl = kzalloc_node(sz, gfp,
+ 			    dev_to_node(&GET_DEV(inst->accel_dev)));
+ 	if (unlikely(!bufl))
+ 		return -ENOMEM;
+@@ -753,7 +759,7 @@ static int qat_alg_sgl_to_bufl(struct qa
+ 		n = sg_nents(sglout);
+ 		sz_out = struct_size(buflout, bufers, n + 1);
+ 		sg_nctr = 0;
+-		buflout = kzalloc_node(sz_out, GFP_ATOMIC,
++		buflout = kzalloc_node(sz_out, gfp,
+ 				       dev_to_node(&GET_DEV(inst->accel_dev)));
+ 		if (unlikely(!buflout))
+ 			goto err_in;
+@@ -876,7 +882,7 @@ static int qat_alg_aead_dec(struct aead_
+ 	int digst_size = crypto_aead_authsize(aead_tfm);
+ 	int ret, backed_off;
  
- 	msg->output_param_count = 1;
--	do {
--		ret = adf_send_message(ctx->inst->pke_tx, (uint32_t *)msg);
--	} while (ret == -EBUSY && ctr++ < 100);
--
--	if (!ret)
--		return -EINPROGRESS;
--
--	if (!dma_mapping_error(dev, qat_req->phy_out))
--		dma_unmap_single(dev, qat_req->phy_out,
--				 sizeof(struct qat_rsa_output_params),
--				 DMA_TO_DEVICE);
-+
-+	qat_req->backed_off = backed_off = adf_should_back_off(ctx->inst->pke_tx);
-+again:
-+	ret = adf_send_message(ctx->inst->pke_tx, (uint32_t *)msg);
-+	if (ret == -EAGAIN) {
-+		qat_req->backed_off = backed_off = 1;
-+		cpu_relax();
-+		goto again;
-+	}
-+
-+	return backed_off ? -EBUSY : -EINPROGRESS;
-+
- unmap_in_params:
- 	if (!dma_mapping_error(dev, qat_req->phy_in))
- 		dma_unmap_single(dev, qat_req->phy_in,
+-	ret = qat_alg_sgl_to_bufl(ctx->inst, areq->src, areq->dst, qat_req);
++	ret = qat_alg_sgl_to_bufl(ctx->inst, areq->src, areq->dst, qat_req, qat_gfp(areq->base.flags));
+ 	if (unlikely(ret))
+ 		return ret;
+ 
+@@ -919,7 +925,7 @@ static int qat_alg_aead_enc(struct aead_
+ 	uint8_t *iv = areq->iv;
+ 	int ret, backed_off;
+ 
+-	ret = qat_alg_sgl_to_bufl(ctx->inst, areq->src, areq->dst, qat_req);
++	ret = qat_alg_sgl_to_bufl(ctx->inst, areq->src, areq->dst, qat_req, qat_gfp(areq->base.flags));
+ 	if (unlikely(ret))
+ 		return ret;
+ 
+@@ -980,14 +986,14 @@ static int qat_alg_skcipher_newkey(struc
+ 	ctx->inst = inst;
+ 	ctx->enc_cd = dma_alloc_coherent(dev, sizeof(*ctx->enc_cd),
+ 					 &ctx->enc_cd_paddr,
+-					 GFP_ATOMIC);
++					 GFP_KERNEL);
+ 	if (!ctx->enc_cd) {
+ 		ret = -ENOMEM;
+ 		goto out_free_instance;
+ 	}
+ 	ctx->dec_cd = dma_alloc_coherent(dev, sizeof(*ctx->dec_cd),
+ 					 &ctx->dec_cd_paddr,
+-					 GFP_ATOMIC);
++					 GFP_KERNEL);
+ 	if (!ctx->dec_cd) {
+ 		ret = -ENOMEM;
+ 		goto out_free_enc;
+@@ -1063,11 +1069,11 @@ static int qat_alg_skcipher_encrypt(stru
+ 		return 0;
+ 
+ 	qat_req->iv = dma_alloc_coherent(dev, AES_BLOCK_SIZE,
+-					 &qat_req->iv_paddr, GFP_ATOMIC);
++					 &qat_req->iv_paddr, qat_gfp(req->base.flags));
+ 	if (!qat_req->iv)
+ 		return -ENOMEM;
+ 
+-	ret = qat_alg_sgl_to_bufl(ctx->inst, req->src, req->dst, qat_req);
++	ret = qat_alg_sgl_to_bufl(ctx->inst, req->src, req->dst, qat_req, qat_gfp(req->base.flags));
+ 	if (unlikely(ret)) {
+ 		dma_free_coherent(dev, AES_BLOCK_SIZE, qat_req->iv,
+ 				  qat_req->iv_paddr);
+@@ -1122,11 +1128,11 @@ static int qat_alg_skcipher_decrypt(stru
+ 		return 0;
+ 
+ 	qat_req->iv = dma_alloc_coherent(dev, AES_BLOCK_SIZE,
+-					 &qat_req->iv_paddr, GFP_ATOMIC);
++					 &qat_req->iv_paddr, qat_gfp(req->base.flags));
+ 	if (!qat_req->iv)
+ 		return -ENOMEM;
+ 
+-	ret = qat_alg_sgl_to_bufl(ctx->inst, req->src, req->dst, qat_req);
++	ret = qat_alg_sgl_to_bufl(ctx->inst, req->src, req->dst, qat_req, qat_gfp(req->base.flags));
+ 	if (unlikely(ret)) {
+ 		dma_free_coherent(dev, AES_BLOCK_SIZE, qat_req->iv,
+ 				  qat_req->iv_paddr);
 
 --
 dm-devel mailing list
