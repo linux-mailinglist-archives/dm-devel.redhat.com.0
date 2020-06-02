@@ -1,76 +1,59 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id CCBA01EC46E
-	for <lists+dm-devel@lfdr.de>; Tue,  2 Jun 2020 23:39:57 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id CED0A1EC4E4
+	for <lists+dm-devel@lfdr.de>; Wed,  3 Jun 2020 00:27:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1591133996;
+	s=mimecast20190719; t=1591136876;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=wvQTP5Y0TfiXRV2LOEOrvCUgsJyqunbYR5gjdoG8DJ0=;
-	b=Myr/AHAqxKgDtqhZ7jTo6m9tHNaAIAl/eT326G4QJeYNd/oeVeVkgqt40DCW2cmqxDI5N+
-	+rLJPzfI7lgn8ZLnjcLTxqGHLSC8swhuAnN7xsFJCrkDyzyqnzE95cvgp+xL6MoA0f90DW
-	rhl0r3dxY6JOcYXbckZwDwaQ3TB7K8c=
+	bh=sM3dmTiYRhuubPfi+rTWopmQiC2RqYL77TNw8fCQbvg=;
+	b=CZEvl5/Gm6lIobqKLuFyefO5OImlEiC/dRdoGDxKWTe4ot5WotIxghcIhfa+VdM5lQmVEE
+	22gNdsi3Miwr7w4GdvSz2L/zaF3Xg3kaCBm437nbNduFmYEzShbQgAWPf57dOPXUdOYAKt
+	4wxBtvycDi0M/q+XXnTk3wtdlbIKWNs=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-402-7tJv4f4jOO-mdTs7pzoJ6g-1; Tue, 02 Jun 2020 17:39:54 -0400
-X-MC-Unique: 7tJv4f4jOO-mdTs7pzoJ6g-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-411-trzmwtY2OKOxVuQPK29o5g-1; Tue, 02 Jun 2020 18:27:54 -0400
+X-MC-Unique: trzmwtY2OKOxVuQPK29o5g-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 72E96107ACCA;
-	Tue,  2 Jun 2020 21:39:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7DD3280058E;
+	Tue,  2 Jun 2020 22:27:47 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 25560D0212;
-	Tue,  2 Jun 2020 21:39:46 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E67C76116D;
+	Tue,  2 Jun 2020 22:27:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AB06593902;
-	Tue,  2 Jun 2020 21:39:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 681A29701E;
+	Tue,  2 Jun 2020 22:27:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 052LdVJI018864 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 2 Jun 2020 17:39:31 -0400
+	id 052MROMx022742 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 2 Jun 2020 18:27:24 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9CF102026E04; Tue,  2 Jun 2020 21:39:31 +0000 (UTC)
+	id CC92D768BB; Tue,  2 Jun 2020 22:27:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 98B052026D67
-	for <dm-devel@redhat.com>; Tue,  2 Jun 2020 21:39:29 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EEBDB186E3A1
-	for <dm-devel@redhat.com>; Tue,  2 Jun 2020 21:39:28 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-43-hafYhlakP3Kvu18avukFBw-1; 
-	Tue, 02 Jun 2020 17:39:24 -0400
-X-MC-Unique: hafYhlakP3Kvu18avukFBw-1
-Received: from gmail.com (unknown [104.132.1.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 3AF5720870;
-	Tue,  2 Jun 2020 21:39:23 +0000 (UTC)
-Date: Tue, 2 Jun 2020 14:39:21 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Mikulas Patocka <mpatocka@redhat.com>
-Message-ID: <20200602213921.GA229073@gmail.com>
-References: <alpine.LRH.2.02.2001150833180.31494@file01.intranet.prod.int.rdu2.redhat.com>
+Received: from localhost (unknown [10.18.25.174])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E436E1BCBE;
+	Tue,  2 Jun 2020 22:27:21 +0000 (UTC)
+Date: Tue, 2 Jun 2020 18:27:19 -0400
+From: Mike Snitzer <snitzer@redhat.com>
+To: Hannes Reinecke <hare@suse.de>
+Message-ID: <20200602222719.GA14318@redhat.com>
+References: <20200602110956.121170-1-hare@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <alpine.LRH.2.02.2001150833180.31494@file01.intranet.prod.int.rdu2.redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+In-Reply-To: <20200602110956.121170-1-hare@suse.de>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
-	dm-devel@redhat.com, Mike Snitzer <msnitzer@redhat.com>
-Subject: Re: [dm-devel] [PATCH] block: fix an integer overflow in logical
-	block size
+Cc: Damien LeMoal <damien.lemoal@wdc.com>, dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCHv4 00/15] dm-zoned: multiple drive support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,45 +67,62 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-On Wed, Jan 15, 2020 at 08:35:25AM -0500, Mikulas Patocka wrote:
-> Logical block size has type unsigned short. That means that it can be at
-> most 32768. However, there are architectures that can run with 64k pages
-> (for example arm64) and on these architectures, it may be possible to
-> create block devices with 64k block size.
-> 
-> For exmaple (run this on an architecture with 64k pages):
-> # modprobe brd rd_size=1048576
-> # dmsetup create cache --table "0 `blockdev --getsize /dev/ram0` writecache s /dev/ram0 /dev/ram1 65536 0"
-> # mkfs.ext4 -b 65536 /dev/mapper/cache
-> # mount -t ext4 /dev/mapper/cache /mnt/test
-> 
-> Mount will fail with this error because it tries to read the superblock using 2-sector
-> access:
->   device-mapper: writecache: I/O is not aligned, sector 2, size 1024, block size 65536
->   EXT4-fs (dm-0): unable to read superblock
-> 
-> This patch changes the logical block size from unsigned short to unsigned
-> int to avoid the overflow.
-> 
-> Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+On Tue, Jun 02 2020 at  7:09am -0400,
+Hannes Reinecke <hare@suse.de> wrote:
 
-Mikulas, a question about this patch.  In crypt_io_hints() in
-drivers/md/dm-crypt.c there is:
+> Hi all,
+> 
+> here's the second version of my patchset to support multiple zoned
+> drives with dm-zoned.
+> This patchset:
+> - Converts the zone array to using xarray for better scalability
+> - Separates out shared structures into per-device structure
+> - Enforce drive-locality for allocating and reclaiming zones
+> - Lifts the restriction of 2 devices to handle an arbitrary number
+>   of drives.
+> 
+> This gives me a near-perfect scalability by increasing the write
+> speed from 150MB/s (for a cache and one zoned drive) to 300MB/s
+> (for a cache and two zoned drives).
+> 
+> Changes to v1:
+> - Include reviews from Damien
+> - Reshuffle patches
+> Changes to v2:
+> - Add reviews from Damien
+> - Merge patches 'dynamic device allocation' and
+>   'support arbitrary number of devices'
+> - Fix memory leak when reading tertiary superblocks
+> Changes to v3:
+> - Add reviews from Damien
+> - Add patch to ensure correct device ordering
 
-       limits->logical_block_size =
-                max_t(unsigned short, limits->logical_block_size, cc->sector_size);
+I've picked this series up for 5.8 (yes, I know it is last minute).  But
+I saw no benefit to merging the initial 2 device step in 5.8 only to
+then churn the code and interface to support an arbitrary number of
+devices in 5.9.  Easier to support one major update to the code now.
 
-Shouldn't that have been changed to 'unsigned int', now that
-limits->logical_block_size is 'unsigned int' rather than 'unsigned short'?
+As such the target's version number was _not_ bumped from 2.0.0 to
+3.0.0.
 
-- Eric
+I tweaked various patch headers (_please_ "dm zoned" instead of
+"dm-zoned" in commit subjects, also don't ever say "we" or "this patch"
+in a commit header... if you do, I am forced to rewrite the header).
+
+BTW, just so I feel like I said it: all these changes to use additional
+device(s) really seems like a tradeoff between performance and reduced
+MTBF -- there is increased potential for failure with each additional
+device that is added to the dm-zoned device... there I've said it ;)
+
+Thanks,
+Mike
 
 --
 dm-devel mailing list
