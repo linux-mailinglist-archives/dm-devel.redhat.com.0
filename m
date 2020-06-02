@@ -1,62 +1,66 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 115101EBD31
-	for <lists+dm-devel@lfdr.de>; Tue,  2 Jun 2020 15:37:59 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 826B31EBD4E
+	for <lists+dm-devel@lfdr.de>; Tue,  2 Jun 2020 15:48:37 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1591105079;
+	s=mimecast20190719; t=1591105716;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=aalfDCQwPh4HB/XvzVkH6pP61Do9rUB23SGHPhgNUus=;
-	b=dH84KA+IIORzZOVJAGW+soUcqcJ+SeZAKQMIg1Q9WcBTj4LaTBbs9BYLkny1hA7UG5SDdR
-	tWqPKcwJ8/drKWdxiA8nlVSaxvg88SlqNhB1hS0HgwVx+6zEaOrXsvm2ANEPHZKKO6IF6K
-	zbeaZ+Hjtc48hgqPd5IYNvwOQmajxT4=
+	bh=uEBV22ynuw0sc33HOwWCXHcESUhdp3uJR/v5LR/3oRI=;
+	b=QsP5K4+7gMa5gUIOtGiiranjyjdV+Y0G7u4UILOYJsvvNe2JPFk54DrBY+CwMAL8gBn7r9
+	GekxMExjaID4g+w2tB2RdRA6u/ZTtlVvoiYROZ+wU9wLo0x68RtvGC7Kbrck95e+5gTWx4
+	nsJzwFjiaIyEjR6KceWaFVe3wMC/mbk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-22-njUytFVqPWWWHVSGdF6uhw-1; Tue, 02 Jun 2020 09:37:56 -0400
-X-MC-Unique: njUytFVqPWWWHVSGdF6uhw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-197-LJ4ac0W2OQq2Zl6UsWfArA-1; Tue, 02 Jun 2020 09:48:34 -0400
+X-MC-Unique: LJ4ac0W2OQq2Zl6UsWfArA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DF932100CD09;
-	Tue,  2 Jun 2020 13:37:44 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0ADAB78EFF;
-	Tue,  2 Jun 2020 13:37:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ACCC1107ACCA;
+	Tue,  2 Jun 2020 13:48:28 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 771847F0BE;
+	Tue,  2 Jun 2020 13:48:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6E16C93515;
-	Tue,  2 Jun 2020 13:37:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2991F1809547;
+	Tue,  2 Jun 2020 13:48:20 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 052DZG9x007910 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 2 Jun 2020 09:35:16 -0400
+	id 052DmEBc009473 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 2 Jun 2020 09:48:14 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 61CFF78F04; Tue,  2 Jun 2020 13:35:16 +0000 (UTC)
+	id 6899F7F0AC; Tue,  2 Jun 2020 13:48:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from leontynka.twibright.com (unknown [10.40.194.129])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2389A6C776;
-	Tue,  2 Jun 2020 13:35:16 +0000 (UTC)
-Received: from debian-a64.vm ([192.168.208.2])
-	by leontynka.twibright.com with smtp (Exim 4.92)
-	(envelope-from <mpatocka@redhat.com>)
-	id 1jg74T-0003XG-MX; Tue, 02 Jun 2020 15:35:14 +0200
-Received: by debian-a64.vm (sSMTP sendmail emulation);
-	Tue, 02 Jun 2020 15:35:13 +0200
-Message-Id: <20200602133513.046607000@debian-a64.vm>
-User-Agent: quilt/0.65
-Date: Tue, 02 Jun 2020 15:34:41 +0200
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 712807E7F1;
+	Tue,  2 Jun 2020 13:48:11 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 052DmA2Y002863; Tue, 2 Jun 2020 09:48:10 -0400
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 052DmAu1002859; Tue, 2 Jun 2020 09:48:10 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Tue, 2 Jun 2020 09:48:10 -0400 (EDT)
 From: Mikulas Patocka <mpatocka@redhat.com>
-To: Mike Snitzer <msnitzer@redhat.com>, Heinz Mauelshagen <heinzm@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Mike Snitzer <msnitzer@redhat.com>
+Message-ID: <alpine.LRH.2.02.2006020946520.826@file01.intranet.prod.int.rdu2.redhat.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Mikulas Patocka <mpatocka@redhat.com>
-Subject: [dm-devel] [PATCH 3/3] dm-ebs: use dm_bufio_forget_buffers
+Cc: dm-devel@redhat.com, Milan Broz <mbroz@redhat.com>
+Subject: [dm-devel] [PATCH] dm-integrity: add status line documentation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -70,38 +74,39 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline; filename=dm-ebs-forget-buffers.patch
 
-Use dm_bufio_forget_buffers instead of block-by-block loop and
-dm_bufio_forget. dm_bufio_forget_buffers is faster than the loop because
-it searches for used buffers using rb-tree.
+This patch adds status line documentation.
 
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
 ---
- drivers/md/dm-ebs-target.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ Documentation/admin-guide/device-mapper/dm-integrity.rst |    8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Index: linux-2.6/drivers/md/dm-ebs-target.c
+Index: linux-2.6/Documentation/admin-guide/device-mapper/dm-integrity.rst
 ===================================================================
---- linux-2.6.orig/drivers/md/dm-ebs-target.c	2020-06-02 13:27:14.000000000 +0200
-+++ linux-2.6/drivers/md/dm-ebs-target.c	2020-06-02 15:11:18.000000000 +0200
-@@ -167,8 +167,8 @@ static void __ebs_forget_bio(struct ebs_
- 	sector_t blocks, sector = bio->bi_iter.bi_sector;
+--- linux-2.6.orig/Documentation/admin-guide/device-mapper/dm-integrity.rst	2020-06-02 13:15:58.000000000 +0200
++++ linux-2.6/Documentation/admin-guide/device-mapper/dm-integrity.rst	2020-06-02 15:46:42.000000000 +0200
+@@ -193,6 +193,14 @@ should not be changed when reloading the
+ data depend on them and the reloaded target would be non-functional.
  
- 	blocks = __nr_blocks(ec, bio);
--	for (; blocks--; sector += ec->u_bs)
--		dm_bufio_forget(ec->bufio, __sector_to_block(ec, sector));
+ 
++Status line:
 +
-+	dm_bufio_forget_buffers(ec->bufio, __sector_to_block(ec, sector), blocks);
- }
++1. the number of integrity mismatches
++2. provided data sectors - that is the number of sectors that the user
++   could use
++3. the current recalculating position (or '-' if we didn't recalculate)
++
++
+ The layout of the formatted block device:
  
- /* Worker funtion to process incoming bios. */
+ * reserved sectors
 
 --
 dm-devel mailing list
