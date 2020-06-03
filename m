@@ -2,77 +2,73 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id EAF081ECA30
-	for <lists+dm-devel@lfdr.de>; Wed,  3 Jun 2020 09:10:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E1D971ECB9F
+	for <lists+dm-devel@lfdr.de>; Wed,  3 Jun 2020 10:32:37 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1591168202;
+	s=mimecast20190719; t=1591173156;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=tRIAn6f9fvWaPVe9V04VQHitLlsir9hA59ieMp5oQVU=;
-	b=CcMFwySoWxEnXVqP0z/nurY8TjpJl0ZYw//cwiS1T4hWzeZ3J7y6MM+ekqH7M7T3mh9bxP
-	TzxiZZozR71M9YhP2Bc3Rnp2NOcdf1Sa3htMXd7tel2M7E1FbpEPOREE/AOo6uVqVkocZ/
-	Z/HsNrguKV6RtAMGVBHCVvBdCHWR5qg=
+	bh=nSgTy9Z/Q+iUuJjtgsHIipEhIqniSjIjHOdue6To+uQ=;
+	b=EbB5zWymha854BZbXqMqyv8B+LuHrGn2IxkwmQi/PVtogkuBbFrBzatHIicJzyW57vsgp5
+	XhG7aUWIVkFcTR+f26Sh0TZ3eeAiZNQFKVVm6PGpacJE/xiRHpZz4rbgtlrenYj2v9Iaah
+	jr8A9tzY2Ea7IMk3IW8ZK+S+Bbiy698=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-255-4E8DsAAoO_qkv3uAwzAICA-1; Wed, 03 Jun 2020 03:10:00 -0400
-X-MC-Unique: 4E8DsAAoO_qkv3uAwzAICA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-141-mLJ06JdFMV65KP6It2s9Ww-1; Wed, 03 Jun 2020 04:32:34 -0400
+X-MC-Unique: mLJ06JdFMV65KP6It2s9Ww-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 38549872FE0;
-	Wed,  3 Jun 2020 07:09:53 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C87CF5C220;
-	Wed,  3 Jun 2020 07:09:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C07691883609;
+	Wed,  3 Jun 2020 08:32:22 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B14CD0206;
+	Wed,  3 Jun 2020 08:32:19 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2BB2793902;
-	Wed,  3 Jun 2020 07:09:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 74F441809542;
+	Wed,  3 Jun 2020 08:32:09 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05379RlB021319 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 3 Jun 2020 03:09:27 -0400
+	id 0538VwIF026575 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 3 Jun 2020 04:31:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E7971DBAE3; Wed,  3 Jun 2020 07:09:26 +0000 (UTC)
+	id 7F5EE2DE74; Wed,  3 Jun 2020 08:31:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E37FBE596F
-	for <dm-devel@redhat.com>; Wed,  3 Jun 2020 07:09:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 409171024D02
-	for <dm-devel@redhat.com>; Wed,  3 Jun 2020 07:09:24 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-249-u9L4CkpcNRaIkIXYNW4ZZg-1;
-	Wed, 03 Jun 2020 03:09:19 -0400
-X-MC-Unique: u9L4CkpcNRaIkIXYNW4ZZg-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
-	by mx2.suse.de (Postfix) with ESMTP id 5A1CDACB8;
-	Wed,  3 Jun 2020 07:09:21 +0000 (UTC)
-To: Mike Snitzer <snitzer@redhat.com>
-References: <20200602110956.121170-1-hare@suse.de>
-	<20200602222719.GA14318@redhat.com>
-From: Hannes Reinecke <hare@suse.de>
-Message-ID: <ff341711-ef31-d7e4-f45d-e788e25e7dad@suse.de>
-Date: Wed, 3 Jun 2020 09:09:15 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.8.0
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6FD2519C4F;
+	Wed,  3 Jun 2020 08:31:55 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 0538VshI016653; Wed, 3 Jun 2020 04:31:54 -0400
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 0538VsTC016649; Wed, 3 Jun 2020 04:31:54 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Wed, 3 Jun 2020 04:31:54 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+In-Reply-To: <20200602220516.GA20880@silpixa00400314>
+Message-ID: <alpine.LRH.2.02.2006030409520.15292@file01.intranet.prod.int.rdu2.redhat.com>
+References: <20200601160418.171851200@debian-a64.vm>
+	<20200602220516.GA20880@silpixa00400314>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-In-Reply-To: <20200602222719.GA14318@redhat.com>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 05379RlB021319
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: Damien LeMoal <damien.lemoal@wdc.com>, dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCHv4 00/15] dm-zoned: multiple drive support
+Cc: guazhang@redhat.com, Mike Snitzer <msnitzer@redhat.com>,
+	djeffery@redhat.com, Herbert Xu <herbert@gondor.apana.org.au>,
+	qat-linux@intel.com, jpittman@redhat.com, dm-devel@redhat.com,
+	linux-crypto@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+	Milan Broz <mbroz@redhat.com>
+Subject: Re: [dm-devel] [PATCH 1/4] qat: fix misunderstood -EBUSY return code
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,53 +82,108 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gNi8zLzIwIDEyOjI3IEFNLCBNaWtlIFNuaXR6ZXIgd3JvdGU6Cj4gT24gVHVlLCBKdW4gMDIg
-MjAyMCBhdCAgNzowOWFtIC0wNDAwLAo+IEhhbm5lcyBSZWluZWNrZSA8aGFyZUBzdXNlLmRlPiB3
-cm90ZToKPiAKPj4gSGkgYWxsLAo+Pgo+PiBoZXJlJ3MgdGhlIHNlY29uZCB2ZXJzaW9uIG9mIG15
-IHBhdGNoc2V0IHRvIHN1cHBvcnQgbXVsdGlwbGUgem9uZWQKPj4gZHJpdmVzIHdpdGggZG0tem9u
-ZWQuCj4+IFRoaXMgcGF0Y2hzZXQ6Cj4+IC0gQ29udmVydHMgdGhlIHpvbmUgYXJyYXkgdG8gdXNp
-bmcgeGFycmF5IGZvciBiZXR0ZXIgc2NhbGFiaWxpdHkKPj4gLSBTZXBhcmF0ZXMgb3V0IHNoYXJl
-ZCBzdHJ1Y3R1cmVzIGludG8gcGVyLWRldmljZSBzdHJ1Y3R1cmUKPj4gLSBFbmZvcmNlIGRyaXZl
-LWxvY2FsaXR5IGZvciBhbGxvY2F0aW5nIGFuZCByZWNsYWltaW5nIHpvbmVzCj4+IC0gTGlmdHMg
-dGhlIHJlc3RyaWN0aW9uIG9mIDIgZGV2aWNlcyB0byBoYW5kbGUgYW4gYXJiaXRyYXJ5IG51bWJl
-cgo+PiAgICBvZiBkcml2ZXMuCj4+Cj4+IFRoaXMgZ2l2ZXMgbWUgYSBuZWFyLXBlcmZlY3Qgc2Nh
-bGFiaWxpdHkgYnkgaW5jcmVhc2luZyB0aGUgd3JpdGUKPj4gc3BlZWQgZnJvbSAxNTBNQi9zIChm
-b3IgYSBjYWNoZSBhbmQgb25lIHpvbmVkIGRyaXZlKSB0byAzMDBNQi9zCj4+IChmb3IgYSBjYWNo
-ZSBhbmQgdHdvIHpvbmVkIGRyaXZlcykuCj4+Cj4+IENoYW5nZXMgdG8gdjE6Cj4+IC0gSW5jbHVk
-ZSByZXZpZXdzIGZyb20gRGFtaWVuCj4+IC0gUmVzaHVmZmxlIHBhdGNoZXMKPj4gQ2hhbmdlcyB0
-byB2MjoKPj4gLSBBZGQgcmV2aWV3cyBmcm9tIERhbWllbgo+PiAtIE1lcmdlIHBhdGNoZXMgJ2R5
-bmFtaWMgZGV2aWNlIGFsbG9jYXRpb24nIGFuZAo+PiAgICAnc3VwcG9ydCBhcmJpdHJhcnkgbnVt
-YmVyIG9mIGRldmljZXMnCj4+IC0gRml4IG1lbW9yeSBsZWFrIHdoZW4gcmVhZGluZyB0ZXJ0aWFy
-eSBzdXBlcmJsb2Nrcwo+PiBDaGFuZ2VzIHRvIHYzOgo+PiAtIEFkZCByZXZpZXdzIGZyb20gRGFt
-aWVuCj4+IC0gQWRkIHBhdGNoIHRvIGVuc3VyZSBjb3JyZWN0IGRldmljZSBvcmRlcmluZwo+IAo+
-IEkndmUgcGlja2VkIHRoaXMgc2VyaWVzIHVwIGZvciA1LjggKHllcywgSSBrbm93IGl0IGlzIGxh
-c3QgbWludXRlKS4gIEJ1dAo+IEkgc2F3IG5vIGJlbmVmaXQgdG8gbWVyZ2luZyB0aGUgaW5pdGlh
-bCAyIGRldmljZSBzdGVwIGluIDUuOCBvbmx5IHRvCj4gdGhlbiBjaHVybiB0aGUgY29kZSBhbmQg
-aW50ZXJmYWNlIHRvIHN1cHBvcnQgYW4gYXJiaXRyYXJ5IG51bWJlciBvZgo+IGRldmljZXMgaW4g
-NS45LiAgRWFzaWVyIHRvIHN1cHBvcnQgb25lIG1ham9yIHVwZGF0ZSB0byB0aGUgY29kZSBub3cu
-Cj4gCj4gQXMgc3VjaCB0aGUgdGFyZ2V0J3MgdmVyc2lvbiBudW1iZXIgd2FzIF9ub3RfIGJ1bXBl
-ZCBmcm9tIDIuMC4wIHRvCj4gMy4wLjAuCj4gCj4gSSB0d2Vha2VkIHZhcmlvdXMgcGF0Y2ggaGVh
-ZGVycyAoX3BsZWFzZV8gImRtIHpvbmVkIiBpbnN0ZWFkIG9mCj4gImRtLXpvbmVkIiBpbiBjb21t
-aXQgc3ViamVjdHMsIGFsc28gZG9uJ3QgZXZlciBzYXkgIndlIiBvciAidGhpcyBwYXRjaCIKPiBp
-biBhIGNvbW1pdCBoZWFkZXIuLi4gaWYgeW91IGRvLCBJIGFtIGZvcmNlZCB0byByZXdyaXRlIHRo
-ZSBoZWFkZXIpLgo+IAo+IEJUVywganVzdCBzbyBJIGZlZWwgbGlrZSBJIHNhaWQgaXQ6IGFsbCB0
-aGVzZSBjaGFuZ2VzIHRvIHVzZSBhZGRpdGlvbmFsCj4gZGV2aWNlKHMpIHJlYWxseSBzZWVtcyBs
-aWtlIGEgdHJhZGVvZmYgYmV0d2VlbiBwZXJmb3JtYW5jZSBhbmQgcmVkdWNlZAo+IE1UQkYgLS0g
-dGhlcmUgaXMgaW5jcmVhc2VkIHBvdGVudGlhbCBmb3IgZmFpbHVyZSB3aXRoIGVhY2ggYWRkaXRp
-b25hbAo+IGRldmljZSB0aGF0IGlzIGFkZGVkIHRvIHRoZSBkbS16b25lZCBkZXZpY2UuLi4gdGhl
-cmUgSSd2ZSBzYWlkIGl0IDspCj4gCiJXZSIgKHNpYykgYXJlIGZ1bGx5IGF3YXJlLiBBbmQgSSdt
-IGxvb2tpbmcgaW50byBpdC4KClRoYW5rcyBmb3IgbWVyZ2luZyBpdC4gTW9zdCBhcHByZWNpYXRl
-ZC4KCkNoZWVycywKCkhhbm5lcwotLSAKRHIuIEhhbm5lcyBSZWluZWNrZSAgICAgICAgICAgIFRl
-YW1sZWFkIFN0b3JhZ2UgJiBOZXR3b3JraW5nCmhhcmVAc3VzZS5kZSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICArNDkgOTExIDc0MDUzIDY4OApTVVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBH
-bWJILCBNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJlcmcKSFJCIDM2ODA5IChBRyBOw7xybmJl
-cmcpLCBHZXNjaMOkZnRzZsO8aHJlcjogRmVsaXggSW1lbmTDtnJmZmVyCgoKLS0KZG0tZGV2ZWwg
-bWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly93d3cucmVkaGF0LmNvbS9t
-YWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
+
+
+On Tue, 2 Jun 2020, Giovanni Cabiddu wrote:
+
+> Hi Mikulas,
+> 
+> thanks for your patch. See below.
+> 
+> > +	qat_req->backed_off = backed_off = adf_should_back_off(ctx->inst->sym_tx);
+> > +again:
+> > +	ret = adf_send_message(ctx->inst->sym_tx, (uint32_t *)msg);
+> >  	if (ret == -EAGAIN) {
+> > -		qat_alg_free_bufl(ctx->inst, qat_req);
+> > -		return -EBUSY;
+> > +		qat_req->backed_off = backed_off = 1;
+> > +		cpu_relax();
+> > +		goto again;
+> >  	}
+> I am a bit concerned about this potential infinite loop.
+> If an error occurred on the device and the queue is full, we will be
+> stuck here forever.
+> Should we just retry a number of times and then fail?
+
+It's better to get stuck in an infinite loop than to cause random I/O 
+errors. The infinite loop requires reboot, but it doesn't damage data on 
+disks.
+
+The proper solution would be to add the request to a queue and process the 
+queue when some other request ended - but it would need substantial 
+rewrite of the driver. Do you want to rewrite it using a queue?
+
+> Or, should we just move to the crypto-engine?
+
+What do you mean by the crypto-engine?
+
+> > -	do {
+> > -		ret = adf_send_message(ctx->inst->sym_tx, (uint32_t *)msg);
+> > -	} while (ret == -EAGAIN && ctr++ < 10);
+> > -
+> > +	qat_req->backed_off = backed_off = adf_should_back_off(ctx->inst->sym_tx);
+> checkpatch: line over 80 characters - same in every place
+> adf_should_back_off is used.
+
+Recently, Linus announced that we can have larger lines than 80 bytes.
+See bdc48fa11e46f867ea4d75fa59ee87a7f48be144
+
+> >  static int qat_alg_skcipher_blk_decrypt(struct skcipher_request *req)
+> > Index: linux-2.6/drivers/crypto/qat/qat_common/adf_transport.c
+> > ===================================================================
+> > --- linux-2.6.orig/drivers/crypto/qat/qat_common/adf_transport.c
+> > +++ linux-2.6/drivers/crypto/qat/qat_common/adf_transport.c
+> > @@ -114,10 +114,19 @@ static void adf_disable_ring_irq(struct
+> >  	WRITE_CSR_INT_COL_EN(bank->csr_addr, bank->bank_number, bank->irq_mask);
+> >  }
+> >  
+> > +bool adf_should_back_off(struct adf_etr_ring_data *ring)
+> > +{
+> > +	return atomic_read(ring->inflights) > ADF_MAX_INFLIGHTS(ring->ring_size, ring->msg_size) * 15 / 16;
+> How did you came up with 15/16?
+
+I want the sender to back off before the queue is full, to avoid 
+busy-waiting. There may be more concurrent senders, so we want to back off 
+at some point before the queue is full.
+
+> checkpatch: WARNING: line over 80 characters
+> 
+> > +}
+> > +
+> >  int adf_send_message(struct adf_etr_ring_data *ring, uint32_t *msg)
+> >  {
+> > -	if (atomic_add_return(1, ring->inflights) >
+> > -	    ADF_MAX_INFLIGHTS(ring->ring_size, ring->msg_size)) {
+> > +	int limit = ADF_MAX_INFLIGHTS(ring->ring_size, ring->msg_size);
+> > +
+> > +	if (atomic_read(ring->inflights) >= limit)
+> > +		return -EAGAIN;
+
+> Can this be removed and leave only the condition below?
+> Am I missing something here?
+
+atomic_read is light, atomic_add_return is heavy. We may be busy-waiting 
+here, so I want to use the light instruction. Spinlocks do the same - when 
+they are spinning, they use just a light "read" instruction and when the 
+"read" instruction indicates that the spinlock is free, they execute the 
+read-modify-write instruction to actually acquire the lock.
+
+> > +
+> > +	if (atomic_add_return(1, ring->inflights) > limit) {
+> >  		atomic_dec(ring->inflights);
+> >  		return -EAGAIN;
+> >  	}
+
+Mikulas
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
