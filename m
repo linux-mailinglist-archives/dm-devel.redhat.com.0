@@ -1,69 +1,66 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 348391F41E4
-	for <lists+dm-devel@lfdr.de>; Tue,  9 Jun 2020 19:14:21 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id C4AAC1F47A7
+	for <lists+dm-devel@lfdr.de>; Tue,  9 Jun 2020 22:01:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1591722860;
+	s=mimecast20190719; t=1591732891;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Xlu9Qo1G0pIEN4l85kqJ15auLX+aoenIZ6olbr82tJk=;
-	b=ba3YLl/cPRtdd7QE7yzw0JAJDMmumGT4/PpMdzbWL5kpYcz0Pil4YpbisJeR27zIE6S/qK
-	egbJTnXZpO1zw6MSSH+gDrq4E0bd1bvBTP5w/2kfiOZJ9LNnPfBnJJ4e5KoJhxnqCeX3Rn
-	TSkDIHJmfy2PrSckumZ6P1nsx3X6/b4=
+	bh=bo3GDX1WQQQ9CqU5nlmDt5+nZ5zMXco/FhcMd81b1IE=;
+	b=ZUMqFfSUwQrGDoS159xZU40e2zj9m5vlfQXwu3u6GuAYIDy3493mvHDr7RKbOgo9a1N3Bj
+	bRF8pd3ohMmEnZlffQjYWlwIzmFR4IbtliNSIX+pbnSk5SQbuleyV84kb//vU6K8hsu8Ot
+	NRSTBSkh+LSWeFFWds/hmFZbgsq7X2U=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-457-GPjZxzf6NNul-ifpg4jxyA-1; Tue, 09 Jun 2020 13:14:18 -0400
-X-MC-Unique: GPjZxzf6NNul-ifpg4jxyA-1
+ us-mta-451-82iqhH0KOQ6H59--C36EFA-1; Tue, 09 Jun 2020 16:01:29 -0400
+X-MC-Unique: 82iqhH0KOQ6H59--C36EFA-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C6B48BFC1;
-	Tue,  9 Jun 2020 17:14:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D04941940925;
+	Tue,  9 Jun 2020 20:01:20 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1228C7A1EB;
-	Tue,  9 Jun 2020 17:14:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5FFFD5C48E;
+	Tue,  9 Jun 2020 20:01:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DAD8CB349D;
-	Tue,  9 Jun 2020 17:13:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BCC14B34A1;
+	Tue,  9 Jun 2020 20:01:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 059HBHR7030501 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 9 Jun 2020 13:11:17 -0400
+	id 059K0mC8019319 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 9 Jun 2020 16:00:48 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 271345C3FD; Tue,  9 Jun 2020 17:11:17 +0000 (UTC)
+	id 6588760C87; Tue,  9 Jun 2020 20:00:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4D6B25F9DC;
-	Tue,  9 Jun 2020 17:11:07 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id 059HB6Tw031653; Tue, 9 Jun 2020 13:11:06 -0400
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id 059HB6RA031649; Tue, 9 Jun 2020 13:11:06 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Tue, 9 Jun 2020 13:11:05 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>
-Message-ID: <alpine.LRH.2.02.2006091259250.30590@file01.intranet.prod.int.rdu2.redhat.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A7C660C84;
+	Tue,  9 Jun 2020 20:00:44 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 059K0h2M026115; 
+	Tue, 9 Jun 2020 15:00:43 -0500
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 059K0gCe026114;
+	Tue, 9 Jun 2020 15:00:42 -0500
+Date: Tue, 9 Jun 2020 15:00:42 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: mwilck@suse.com
+Message-ID: <20200609200042.GD5894@octiron.msp.redhat.com>
+References: <20200508193302.11401-1-mwilck@suse.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+In-Reply-To: <20200508193302.11401-1-mwilck@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
-Cc: linux-kernel@vger.kernel.org, Mike Snitzer <msnitzer@redhat.com>,
-	linux-crypto@vger.kernel.org, dm-devel@redhat.com,
-	Milan Broz <mbroz@redhat.com>
-Subject: [dm-devel] crypto API and GFP_ATOMIC
+Cc: dm-devel@redhat.com, "George, Martin" <Martin.George@netapp.com>
+Subject: Re: [dm-devel] [PATCH 0/2] multipath-tools: disable foreign
+	libraries by default
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,34 +79,45 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-Hi
+On Fri, May 08, 2020 at 09:33:00PM +0200, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
+> 
+> Hi Christophe,
+> 
+> This is a follow-up to the previous discussion with topic 'RFC:
+> multipath-tools: NVMe native multipath and default setting for
+> "enable_foreign"'. Upon Netapp's initiative, I'd asked for foreign
+> libraries to be disabled by default. Ben had replied he'd agree,
+> and suggested implementing a "-e" option for multipath to enable
+> all foreign libraries:
+> 
+> https://www.redhat.com/archives/dm-devel/2020-February/msg00271.html
+> 
+> This patch set implements this idea.
+> 
 
-I've found out that a lot of hardware crypto drivers use GFP_ATOMIC. Some 
-of them switch between GFP_ATOMIC and GFP_KERNEL based on the flag 
-CRYPTO_TFM_REQ_MAY_SLEEP.
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 
-dm-crypt and dm-integrity don't use CRYPTO_TFM_REQ_MAY_SLEEP (because 
-GFP_KERNEL allocation requests can recurse back to the block device 
-drivers and cause deadlocks).
+For the set.
 
-So, basically, the crypto requests submitted by dm-crypt and dm-integrity 
-can fail anytime. I'd like to ask, how to handle these random -ENOMEM 
-return codes. If we pass -ENOMEM back to the block device stack, it could 
-cause random I/O errors and data corruption.
-
-The question is - if the crypto request returns -ENOMEM, could we sleep 
-and retry it? I thought about it - the problem could be, if the crypto 
-requests proceeds hafway through and then returns -ENOMEM, and if we 
-retried it, it would cause data corruption, because part of the data would 
-be decrypted twice.
-
-Is it safe to assume that when we get -ENOMEM, the crypto driver didn't 
-modify anything?
-
-Do you have another idea how to solve this problem?
-
-Mikulas
+> Regards,
+> Martin
+> 
+> 
+> Martin Wilck (2):
+>   libmultipath: set "enable_foreign" to NONE by default
+>   multipath: add "-e" option to enable foreign libraries
+> 
+>  libmultipath/defaults.h    |  4 ++--
+>  multipath/main.c           | 11 ++++++++++-
+>  multipath/multipath.8      |  6 ++++++
+>  multipath/multipath.conf.5 |  5 +++--
+>  4 files changed, 21 insertions(+), 5 deletions(-)
+> 
+> -- 
+> 2.26.2
 
 --
 dm-devel mailing list
