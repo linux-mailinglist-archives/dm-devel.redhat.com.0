@@ -1,71 +1,77 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 5C2EB1F8346
-	for <lists+dm-devel@lfdr.de>; Sat, 13 Jun 2020 14:46:43 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id AECBE1F8CA1
+	for <lists+dm-devel@lfdr.de>; Mon, 15 Jun 2020 05:43:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1592052402;
+	s=mimecast20190719; t=1592192622;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=0zm49c9XnleO6I1g4gVJ1C0KerRp8Y+f1iQ98xR6BCU=;
-	b=jCzDaQKgryoMBB+OyC6ndt3re33mVdvDEQOiGdFpPzNROYj1T1BdbBcRdgfWKWWS4IcCGV
-	POPz3WVJ5axhoZXLnnRmjc51BUBQSE72fE9WSjDSrlCOw74I1cp1cVUXbJhk0Sr334Fyva
-	d9i16dwCsg4XUQzX48AAa+q0vrRrq1E=
+	bh=AzpMnHMe6jm+akZvMwqJSvqMQ8iC/J78LYlqs2f2NbI=;
+	b=NClUFDh6TooJZW5mC7CqZYaVsD+hCkPUwM20BpVQlegLGsZplJEWmAEvp7DNbxoHuXY9wI
+	4bimeChAWP60D6eWa6I85e50YLwl5D+dtfv0SgXP1l88xpJbrWGP3jP5XQ7163AkEykLhf
+	z6PZOz+oF1kjkds/XE9eILCDDPJGsRc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-448-obJBwFrRNKCnatAx-ek5Cw-1; Sat, 13 Jun 2020 08:46:39 -0400
-X-MC-Unique: obJBwFrRNKCnatAx-ek5Cw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-302-GhbVMba6OEyMZsc2r4CRMQ-1; Sun, 14 Jun 2020 23:43:40 -0400
+X-MC-Unique: GhbVMba6OEyMZsc2r4CRMQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A7FF81009441;
-	Sat, 13 Jun 2020 12:46:33 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 553EE800053;
+	Mon, 15 Jun 2020 03:43:32 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A5DC25D9CA;
-	Sat, 13 Jun 2020 12:46:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B237F19C66;
+	Mon, 15 Jun 2020 03:43:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 808451809547;
-	Sat, 13 Jun 2020 12:46:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 976CF1809547;
+	Mon, 15 Jun 2020 03:43:14 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05DCkKgx013291 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 13 Jun 2020 08:46:20 -0400
+	id 05F3gvJ7010654 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 14 Jun 2020 23:42:57 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 02ADD6AD0C; Sat, 13 Jun 2020 12:46:20 +0000 (UTC)
+	id 8D308110F3A8; Mon, 15 Jun 2020 03:42:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6D5D67FD0A;
-	Sat, 13 Jun 2020 12:46:14 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id 05DCkDsr028099; Sat, 13 Jun 2020 08:46:13 -0400
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id 05DCkDLL028095; Sat, 13 Jun 2020 08:46:13 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Sat, 13 Jun 2020 08:46:13 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Huaisheng Ye <yehs2007@zoho.com>
-In-Reply-To: <20200612155544.90348-1-yehs2007@zoho.com>
-Message-ID: <alpine.LRH.2.02.2006130845530.27500@file01.intranet.prod.int.rdu2.redhat.com>
-References: <20200612155544.90348-1-yehs2007@zoho.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 89319110F3A7
+	for <dm-devel@redhat.com>; Mon, 15 Jun 2020 03:42:54 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 894AE811E77
+	for <dm-devel@redhat.com>; Mon, 15 Jun 2020 03:42:54 +0000 (UTC)
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-353-Tam4Spd7NAiCU0gSeeBZqA-1; Sun, 14 Jun 2020 23:42:51 -0400
+X-MC-Unique: Tam4Spd7NAiCU0gSeeBZqA-1
+Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.59])
+	by Forcepoint Email with ESMTP id EDE3D384DC8E028CB08C;
+	Mon, 15 Jun 2020 11:26:20 +0800 (CST)
+Received: from huawei.com (10.90.53.225) by DGGEMS409-HUB.china.huawei.com
+	(10.3.19.209) with Microsoft SMTP Server id 14.3.487.0; Mon, 15 Jun 2020
+	11:26:18 +0800
+From: Hou Tao <houtao1@huawei.com>
+To: <dm-devel@redhat.com>
+Date: Mon, 15 Jun 2020 11:33:23 +0800
+Message-ID: <20200615033323.146312-1-houtao1@huawei.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Originating-IP: [10.90.53.225]
+X-CFilter-Loop: Reflected
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 05F3gvJ7010654
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Huaisheng Ye <yehs1@lenovo.com>, agk@redhat.com,
-	snitzer@redhat.com, linux-kernel@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH] dm writecache: skip writecache_wait when
- using pmem mode
+Cc: Bart Van Assche <bvanassche@acm.org>,
+	Damien Le Moal <damien.lemoal@wdc.com>, Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@redhat.com>, Hannes Reinecke <hare@suse.com>
+Subject: [dm-devel] [PATCH] dm zoned: assign max_io_len correctly
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,49 +85,37 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+The unit of max_io_len is sector instead of byte (spotted through
+code review), so fix it.
 
+Fixes: 3b1a94c88b79 ("dm zoned: drive-managed zoned block device target")
+Signed-off-by: Hou Tao <houtao1@huawei.com>
+---
+ drivers/md/dm-zoned-target.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Fri, 12 Jun 2020, Huaisheng Ye wrote:
+diff --git a/drivers/md/dm-zoned-target.c b/drivers/md/dm-zoned-target.c
+index a907a9446c0b..cf915009c306 100644
+--- a/drivers/md/dm-zoned-target.c
++++ b/drivers/md/dm-zoned-target.c
+@@ -890,7 +890,7 @@ static int dmz_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	}
+ 
+ 	/* Set target (no write same support) */
+-	ti->max_io_len = dmz_zone_nr_sectors(dmz->metadata) << 9;
++	ti->max_io_len = dmz_zone_nr_sectors(dmz->metadata);
+ 	ti->num_flush_bios = 1;
+ 	ti->num_discard_bios = 1;
+ 	ti->num_write_zeroes_bios = 1;
+-- 
+2.25.0.4.g0ad7144999
 
-> From: Huaisheng Ye <yehs1@lenovo.com>
-> 
-> The array bio_in_progress is only used with ssd mode. So skip
-> writecache_wait_for_ios in writecache_discard when pmem mode.
-> 
-> Signed-off-by: Huaisheng Ye <yehs1@lenovo.com>
-
-Acked-by: Mikulas Patocka <mpatocka@redhat.com>
-
-> ---
->  drivers/md/dm-writecache.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
-> index 66f3a3b..4367cc7 100644
-> --- a/drivers/md/dm-writecache.c
-> +++ b/drivers/md/dm-writecache.c
-> @@ -849,8 +849,10 @@ static void writecache_discard(struct dm_writecache *wc, sector_t start, sector_
->  
->  		if (likely(!e->write_in_progress)) {
->  			if (!discarded_something) {
-> -				writecache_wait_for_ios(wc, READ);
-> -				writecache_wait_for_ios(wc, WRITE);
-> +				if (!WC_MODE_PMEM(wc)) {
-> +					writecache_wait_for_ios(wc, READ);
-> +					writecache_wait_for_ios(wc, WRITE);
-> +				}
->  				discarded_something = true;
->  			}
->  			writecache_free_entry(wc, e);
-> -- 
-> 1.8.3.1
-> 
 
 --
 dm-devel mailing list
