@@ -1,59 +1,74 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id AEC731FB0AB
-	for <lists+dm-devel@lfdr.de>; Tue, 16 Jun 2020 14:28:57 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 7DC251FB54C
+	for <lists+dm-devel@lfdr.de>; Tue, 16 Jun 2020 17:01:45 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1592310536;
+	s=mimecast20190719; t=1592319704;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=UQ5qUwivGu0xmcfsw/ZUFH1XzMRESCktVBgurlDCn/I=;
-	b=W5v9fq8IrTD3p1mQIdjP9sPZsteOJBdRmOi8ylqlYRvyOtMalz6RhZCnkoCkg5rKqOYJeC
-	w2v1/zQDpw9Va6qZMUVNxQXRt8Tbo2kF0Fw/4HpN9MQsV5dqa6vTWh6SoNglhQDHV2Zqk5
-	AAmZ7oemMm1hunBxK4UM9mTPF2bF9rU=
+	bh=CzF7VyBQUUbwXtEP7eWlnYZf2ibpV19yeHIsLT3nTwk=;
+	b=QWMcVc36EzA+atNpfLJ0ufH5Y7CyDE89yhPPyNsf5mmbo71btt3/ajMUIcKOd0M8ZExXpx
+	xVkjxHBNjL7LQRH29gOImefPEAytUBr4+PXTLP7KofmRCVzwAQw2yCtRqkL6wAL7eeZm+N
+	HIYVsR+I4BrsFJMXCR7PW0oG0Wr53jM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-42-U_XVJLRwPkWZdPePCr7yNg-1; Tue, 16 Jun 2020 08:28:53 -0400
-X-MC-Unique: U_XVJLRwPkWZdPePCr7yNg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-297-ahS7Wz2tOqK1LcLacyt6BA-1; Tue, 16 Jun 2020 11:01:41 -0400
+X-MC-Unique: ahS7Wz2tOqK1LcLacyt6BA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5A9C1835B5D;
-	Tue, 16 Jun 2020 12:28:44 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA69019D7D;
-	Tue, 16 Jun 2020 12:28:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3D559134002;
+	Tue, 16 Jun 2020 15:01:33 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5D7D15D9DA;
+	Tue, 16 Jun 2020 15:01:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 586B6833BD;
-	Tue, 16 Jun 2020 12:28:26 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1314E1809547;
+	Tue, 16 Jun 2020 15:01:21 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05GCSDhR003076 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 16 Jun 2020 08:28:13 -0400
+	id 05GF150P026097 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 16 Jun 2020 11:01:05 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8F27460F8D; Tue, 16 Jun 2020 12:28:13 +0000 (UTC)
+	id CC1A5867F4; Tue, 16 Jun 2020 15:01:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost.localdomain (unknown [10.33.36.159])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 48DC360C05;
-	Tue, 16 Jun 2020 12:28:06 +0000 (UTC)
-Date: Tue, 16 Jun 2020 13:28:03 +0100
-From: "Bryn M. Reeves" <bmr@redhat.com>
-To: yangerkun <yangerkun@huawei.com>, bgurney@redhat.com, agk@redhat.com,
-	snitzer@redhat.com, dm-devel@redhat.com
-Message-ID: <20200616122803.GA24935@localhost.localdomain>
-References: <20200608084513.115671-1-yangerkun@huawei.com>
-	<20200615170331.GA12312@agk-dp.fab.redhat.com>
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EC5547FE95;
+	Tue, 16 Jun 2020 15:01:01 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 05GF11mo028805; Tue, 16 Jun 2020 11:01:01 -0400
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 05GF10rb028801; Tue, 16 Jun 2020 11:01:01 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Tue, 16 Jun 2020 11:01:00 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Herbert Xu <herbert@gondor.apana.org.au>
+In-Reply-To: <20200610121106.GA23137@gondor.apana.org.au>
+Message-ID: <alpine.LRH.2.02.2006161052540.28052@file01.intranet.prod.int.rdu2.redhat.com>
+References: <alpine.LRH.2.02.2006091259250.30590@file01.intranet.prod.int.rdu2.redhat.com>
+	<20200610010450.GA6449@gondor.apana.org.au>
+	<alpine.LRH.2.02.2006100756270.27811@file01.intranet.prod.int.rdu2.redhat.com>
+	<20200610121106.GA23137@gondor.apana.org.au>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-In-Reply-To: <20200615170331.GA12312@agk-dp.fab.redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 0/2] introduce interface to list all	badblocks
+Cc: Mike Snitzer <msnitzer@redhat.com>, linux-kernel@vger.kernel.org,
+	dm-devel@redhat.com, linux-crypto@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>, Milan Broz <mbroz@redhat.com>
+Subject: Re: [dm-devel] crypto API and GFP_ATOMIC
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -67,44 +82,46 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-On Mon, Jun 15, 2020 at 06:03:31PM +0100, Alasdair G Kergon wrote:
-> On Mon, Jun 08, 2020 at 04:45:11PM +0800, yangerkun wrote:
-> >     $ sudo dmsetup message dust1 0 listbadblocks
-> > The following message will appear, listing one bad block number per
+
+
+On Wed, 10 Jun 2020, Herbert Xu wrote:
+
+> On Wed, Jun 10, 2020 at 08:02:23AM -0400, Mikulas Patocka wrote:
+> >
+> > Yes, fixing the drivers would be the best - but you can hardly find any 
+> > person who has all the crypto hardware and who is willing to rewrite all 
+> > the drivers for it.
 > 
-> Did you consider returning the data directly to the caller so it
-> can be accessed directly?
+> We don't have to rewrite them straight away.  We could mark the
+> known broken ones (or the known working ones) and then dm-crypt
+> can allocate only those using the types/mask to crypto_alloc.
 > 
-> (e.g. like @stats_list handled in dm-stats.c)
+> Cheers,
 
-Having this returned in the message response would certainly be more
-natural and would simplify parsing the data: sending it to the log seems
-like it would allow log lines from distinct devices to become
-interleaved when the lists are long and the message is sent to two or
-more devices near simultaneously. Without something to identify the
-devices in each message you can't distinguish them.
+I triaged the drivers in drivers/crypto and unfortunatelly, most of them 
+do memory allocation in the encryption routine. Some of the do GFP_KERNEL 
+allocation even in the absence of CRYPTO_TFM_REQ_MAY_SLEEP.
 
-Even with large numbers of bad blocks userspace libdevmapper will
-automatically handle re-trying with a larger buffer if the list is too
-big for the default.
+I'm sending the patches:
 
-We use (sometimes very large) message replies heavily in libdm-stats.
+The first patch adds a new flag CRYPTO_ALG_ALLOCATES_MEMORY.
 
-device-mapper.h provides the DMEMIT macro to output message replies.
-See dm_stats_print() or various target status() functions for
-examples.
+The second patch passes CRYPTO_ALG_ALLOCATES_MEMORY through the crypto API 
+stack (please check it - I am not an expert in this area).
 
-Regards,
-Bryn.
+The third patch sets CRYPTO_ALG_ALLOCATES_MEMORY on drivers that allocate 
+memory in the encrypt/decrypt routine.
+
+The fourth patch fixes the drivers that use GFP_KERNEL in non-blocking 
+context.
+
+Mikulas
 
 --
 dm-devel mailing list
