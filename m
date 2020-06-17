@@ -1,75 +1,83 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 1E4311FC871
-	for <lists+dm-devel@lfdr.de>; Wed, 17 Jun 2020 10:21:25 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 3504D1FCEC6
+	for <lists+dm-devel@lfdr.de>; Wed, 17 Jun 2020 15:47:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1592382084;
+	s=mimecast20190719; t=1592401634;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=9CEvhCThl0uGU3u6WwTfhleaSUks2ZiNuKiRuLsEVfg=;
-	b=QknSP1t0+trvF+dmHT16wtL6R4VNb5HoVLemivVqlt64VeL9T4/bjENFmETEj8vvIiMYm8
-	lyW9jwsj7lqxiwlCq01LqYY+WySNOkodcd4KzBQMO2ijSontnB3Q5meLNi11cRxnexpxbV
-	2LO9Mlsu0x73RLnc9OTQyNnRkGt6NME=
+	bh=8Mi4HHugqouPXJjCkZyeUo0GfsJc0s2lNkXzw0rO5oc=;
+	b=ZB+r7nwZIpdqorOBSQtvfZB6do+3lt2fR/maxK0KObdNOm2ye4+bE0aFAo++9uIYHB2BDn
+	IZ3mH4zvveStRdPSm7tFdhDGQn0LNkwn8CMv9NpS4p6jWZAVwpfVIkJHtEJhAxnShn4n1d
+	YKVc6Dyzd9/E/PBXbClTemvWs45EM9s=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-189-RW9StuKqNjOfdC9yPMsA1A-1; Wed, 17 Jun 2020 04:21:21 -0400
-X-MC-Unique: RW9StuKqNjOfdC9yPMsA1A-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-62-uCTPCDgQMjmp16RHE4UAFg-1; Wed, 17 Jun 2020 09:47:12 -0400
+X-MC-Unique: uCTPCDgQMjmp16RHE4UAFg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7722418A266E;
-	Wed, 17 Jun 2020 08:21:16 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2D2CE7A3BD;
+	Wed, 17 Jun 2020 13:47:05 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 560A55C1BD;
-	Wed, 17 Jun 2020 08:21:16 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CC4011992D;
+	Wed, 17 Jun 2020 13:47:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3D2DF833C6;
-	Wed, 17 Jun 2020 08:21:15 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4A216833CA;
+	Wed, 17 Jun 2020 13:46:52 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05GNOQhQ020465 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 16 Jun 2020 19:24:27 -0400
+	id 05HDkeM1032433 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 17 Jun 2020 09:46:40 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B190E202696C; Tue, 16 Jun 2020 23:24:26 +0000 (UTC)
+	id AEFA75D9E5; Wed, 17 Jun 2020 13:46:40 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AD13E2026DFD
-	for <dm-devel@redhat.com>; Tue, 16 Jun 2020 23:24:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 17BCA1859162
-	for <dm-devel@redhat.com>; Tue, 16 Jun 2020 23:24:24 +0000 (UTC)
-Received: from out1.migadu.com (out1.migadu.com [91.121.223.63]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-178-ALPiMYuJO2if9SaErFaQVA-1;
-	Tue, 16 Jun 2020 19:24:21 -0400
-X-MC-Unique: ALPiMYuJO2if9SaErFaQVA-1
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
-	include these headers.
-From: Marius Bakke <marius@devup.no>
-To: Martin Wilck <mwilck@suse.com>, dm-devel@redhat.com
-In-Reply-To: <d909fc0a2383f028ae7c3ad00c142193ca8d9ae7.camel@suse.com>
-References: <20200516175508.12412-1-marius@devup.no>
-	<d909fc0a2383f028ae7c3ad00c142193ca8d9ae7.camel@suse.com>
-Date: Wed, 17 Jun 2020 01:17:57 +0200
-Message-ID: <87d05yeh22.fsf@gnu.org>
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 482CC5D9D3;
+	Wed, 17 Jun 2020 13:46:37 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 05HDkaMH022324; Wed, 17 Jun 2020 09:46:36 -0400
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 05HDkY4V022320; Wed, 17 Jun 2020 09:46:34 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Wed, 17 Jun 2020 09:46:34 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Eric Biggers <ebiggers@kernel.org>, George Cherian <gcherian@marvell.com>, 
+	Wei Xu <xuwei5@hisilicon.com>, Zaibo Xu <xuzaibo@huawei.com>
+In-Reply-To: <20200616182327.GE207319@gmail.com>
+Message-ID: <alpine.LRH.2.02.2006170940510.18714@file01.intranet.prod.int.rdu2.redhat.com>
+References: <alpine.LRH.2.02.2006091259250.30590@file01.intranet.prod.int.rdu2.redhat.com>
+	<20200610010450.GA6449@gondor.apana.org.au>
+	<alpine.LRH.2.02.2006100756270.27811@file01.intranet.prod.int.rdu2.redhat.com>
+	<20200610121106.GA23137@gondor.apana.org.au>
+	<alpine.LRH.2.02.2006161052540.28052@file01.intranet.prod.int.rdu2.redhat.com>
+	<alpine.LRH.2.02.2006161102250.28052@file01.intranet.prod.int.rdu2.redhat.com>
+	<20200616175022.GD207319@gmail.com>
+	<alpine.LRH.2.02.2006161416510.12390@file01.intranet.prod.int.rdu2.redhat.com>
+	<20200616182327.GE207319@gmail.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-X-Spam-Score: -0.10
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Wed, 17 Jun 2020 04:20:55 -0400
-Cc: Xose Vazquez Perez <xose.vazquez@gmail.com>
-Subject: Re: [dm-devel] [PATCH] multipath-tools: Fix compiler warnings when
-	built without systemd.
+Cc: Mike Snitzer <msnitzer@redhat.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	linux-kernel@vger.kernel.org, dm-devel@redhat.com,
+	linux-crypto@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+	Milan Broz <mbroz@redhat.com>
+Subject: Re: [dm-devel] [PATCH 4/4] crypto: fix the drivers that don't
+ respect CRYPTO_TFM_REQ_MAY_SLEEP
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,46 +91,66 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Martin Wilck <mwilck@suse.com> writes:
 
-> Hello Marius,
->
-> On Sat, 2020-05-16 at 19:55 +0200, Marius Bakke wrote:
->> ---
->>  libmultipath/config.c |  2 +-
->>  multipathd/main.c     | 19 +++++++++++++------
->>  2 files changed, 14 insertions(+), 7 deletions(-)
->> 
->
-> thank you for the patch, and sorry for the late reply.
-> Thanks to Xose, too, for making me aware of it.
->
-> This patch needs some improvements, see remarks below.
->
-> In general, please note that the development and in particular the
-> testing of multipath-tools has been done almost exclusively on systems
-> using systemd for several years now. The compilation issues you
-> encountered may only be the tip of the iceberg. In particular, the udev
-> rules shipped with multipath-tools rely on systemd for proper device
-> setup.
 
-Thanks for reviewing.  I'm mainly here for 'kpartx' anyway, but "good"
-to know that multipath-tools may need extra care outside of systemd.
+On Tue, 16 Jun 2020, Eric Biggers wrote:
 
-I'm hardly a C programmer, so thanks for bearing with me.  Adding just
-plain old ifdef guards is much clearer than sprinkling __attribute__
-around.
+> On Tue, Jun 16, 2020 at 02:18:17PM -0400, Mikulas Patocka wrote:
+> > 
+> > 
+> > On Tue, 16 Jun 2020, Eric Biggers wrote:
+> > 
+> > > On Tue, Jun 16, 2020 at 11:02:50AM -0400, Mikulas Patocka wrote:
+> > > > Fix the crypto drivers that don't respect CRYPTO_TFM_REQ_MAY_SLEEP. If
+> > > > CRYPTO_TFM_REQ_MAY_SLEEP is not set, the driver must not do allocation
+> > > > that sleeps.
+> > > > 
+> > > > Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+> > > 
+> > > I think you need to split this up per driver with a proper explanation and a
+> > > "Fixes:" tag for each driver.
+> > > 
+> > > Also, these bugs should have been detected by the crypto self-tests already,
+> > > since they test having preemption disabled and CRYPTO_TFM_REQ_MAY_SLEEP cleared.
+> > > Can you double check whether these are all valid fixes?  One thing to watch out
+> > > 
+> > > for is that CRYPTO_TFM_REQ_MAY_SLEEP only applies to the function call like
+> > > crypto_skcipher_encrypt() itself.  If the implementation is asynchronous and the
+> > > request gets processed in the background (i.e. if crypto_skcipher_encrypt()
+> > > returns -EINPROGRESS), the background work doesn't have to honor
+> > > CRYPTO_TFM_REQ_MAY_SLEEP.
+> > > 
+> > > - Eric
+> > 
+> > I can only compile-test this patch. I don't have the hardware.
+> > 
+> 
+> I'm just asking for you to check the code extra carefully.  The fact that the
+> self-tests should have been detecting this type of bug implies that these might
+> not actually be valid fixes.
 
-V2 sent in a separate message.
+I've checked it more thoroughly and found out that 3 out of 5 drivers do
+the GFP_KERNEL allocation from crypto-engine callback. So, it is
+supposedly OK.
 
-Thanks,
-Marius
+> However, we do know that not all crypto drivers are being actively tested with
+> the latest self-tests and with kernel debugging options enabled.  So it's
+> expected that some are indeed broken.
+> 
+> - Eric
+
+The broken ones are drivers/crypto/cavium/cpt/ and 
+drivers/crypto/hisilicon/sec/
+
+I'm sending patches for them.
+
+Mikulas
 
 --
 dm-devel mailing list
