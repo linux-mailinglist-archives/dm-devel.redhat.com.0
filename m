@@ -1,80 +1,80 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id E44391FDD37
-	for <lists+dm-devel@lfdr.de>; Thu, 18 Jun 2020 03:25:03 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 815801FDD83
+	for <lists+dm-devel@lfdr.de>; Thu, 18 Jun 2020 03:26:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1592443502;
+	s=mimecast20190719; t=1592443615;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=4GJxctFe/J+AB9vZdNmmk0CpijHZNU198waS11vwGYw=;
-	b=Ni8JztqSGJEsKg7jMLlzfKgvaSpRDsw+fec27YHGqivf9p/pdp+itOpjKZ/SKWQOerUZ/t
-	Y9CucChpGfJdrPM6Cy8/1U+WH/wL3aybXyV551NLQ3fa26/+abFXFyPdRgZ8FRxtqV3URS
-	SPeKjhab84HsL21dx/zepDE3EfegGGY=
+	bh=z2WSXLSPojDUQ7WtyT/XsSbY6YdPs45iMkV8n7GG9cw=;
+	b=c3c0wcA75t196McdePUf+/5eD/iSgGV+KMJpMhK7a8TW55EfihDhIQ+l6Uk7v3wfEAP+Lk
+	YoELRxx8fSXmihvtLSQNZ8JjHHB94M41+ys94m5Xw+Ud9UM18y5W9NxwUpnuy+Xosy/DCI
+	EPJNJujA8Va1bNpB0kullC9+nk0V2k0=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-80-9SD3R9B_PuGDOwj_KjLC_Q-1; Wed, 17 Jun 2020 21:24:59 -0400
-X-MC-Unique: 9SD3R9B_PuGDOwj_KjLC_Q-1
+ us-mta-401--ie5nxj_M0yd6J2LYO65ww-1; Wed, 17 Jun 2020 21:26:50 -0400
+X-MC-Unique: -ie5nxj_M0yd6J2LYO65ww-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5319EA0BDC;
-	Thu, 18 Jun 2020 01:24:53 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5DC021940922;
+	Thu, 18 Jun 2020 01:26:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ACAF55D9D3;
-	Thu, 18 Jun 2020 01:24:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 67BAA5D9D3;
+	Thu, 18 Jun 2020 01:26:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 52A5E833C6;
-	Thu, 18 Jun 2020 01:24:51 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 77325833C6;
+	Thu, 18 Jun 2020 01:26:39 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05I1Oinj000489 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 17 Jun 2020 21:24:44 -0400
+	id 05I1QYAM000685 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 17 Jun 2020 21:26:34 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1EE2E2157F25; Thu, 18 Jun 2020 01:24:44 +0000 (UTC)
+	id 0480B2029F62; Thu, 18 Jun 2020 01:26:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A6BC2157F23
-	for <dm-devel@redhat.com>; Thu, 18 Jun 2020 01:24:41 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 002D52028E91
+	for <dm-devel@redhat.com>; Thu, 18 Jun 2020 01:26:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5E163811E77
-	for <dm-devel@redhat.com>; Thu, 18 Jun 2020 01:24:41 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 066AA8007B1
+	for <dm-devel@redhat.com>; Thu, 18 Jun 2020 01:26:32 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-148-X6yUEM76NG2MQHLqz4BJHA-1;
-	Wed, 17 Jun 2020 21:24:38 -0400
-X-MC-Unique: X6yUEM76NG2MQHLqz4BJHA-1
+	by relay.mimecast.com with ESMTP id us-mta-135-cVi8qmTVM5-5QPQU1bmRcA-1;
+	Wed, 17 Jun 2020 21:26:27 -0400
+X-MC-Unique: cVi8qmTVM5-5QPQU1bmRcA-1
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
 	[73.47.72.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 82A4F20776;
-	Thu, 18 Jun 2020 01:24:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPSA id B183D20B1F;
+	Thu, 18 Jun 2020 01:26:23 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 17 Jun 2020 21:21:13 -0400
-Message-Id: <20200618012218.607130-107-sashal@kernel.org>
-In-Reply-To: <20200618012218.607130-1-sashal@kernel.org>
-References: <20200618012218.607130-1-sashal@kernel.org>
+Date: Wed, 17 Jun 2020 21:24:31 -0400
+Message-Id: <20200618012600.608744-19-sashal@kernel.org>
+In-Reply-To: <20200618012600.608744-1-sashal@kernel.org>
+References: <20200618012600.608744-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 05I1Oinj000489
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 05I1QYAM000685
 X-loop: dm-devel@redhat.com
-Cc: Sasha Levin <sashal@kernel.org>, Damien Le Moal <damien.lemoal@wdc.com>,
-	dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>
-Subject: [dm-devel] [PATCH AUTOSEL 4.19 107/172] dm zoned: return NULL if
-	dmz_get_zone_for_reclaim() fails to find a zone
+Cc: Sasha Levin <sashal@kernel.org>, dm-devel@redhat.com,
+	Martin Wilck <mwilck@suse.com>, Mike Snitzer <snitzer@redhat.com>
+Subject: [dm-devel] [PATCH AUTOSEL 4.14 019/108] dm mpath: switch paths in
+	dm_blk_ioctl() code path
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,61 +94,47 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Hannes Reinecke <hare@suse.de>
+From: Martin Wilck <mwilck@suse.com>
 
-[ Upstream commit 489dc0f06a5837f87482c0ce61d830d24e17082e ]
+[ Upstream commit 2361ae595352dec015d14292f1b539242d8446d6 ]
 
-The only case where dmz_get_zone_for_reclaim() cannot return a zone is
-if the respective lists are empty. So we should just return a simple
-NULL value here as we really don't have an error code which would make
-sense.
+SCSI LUN passthrough code such as qemu's "scsi-block" device model
+pass every IO to the host via SG_IO ioctls. Currently, dm-multipath
+calls choose_pgpath() only in the block IO code path, not in the ioctl
+code path (unless current_pgpath is NULL). This has the effect that no
+path switching and thus no load balancing is done for SCSI-passthrough
+IO, unless the active path fails.
 
-Signed-off-by: Hannes Reinecke <hare@suse.de>
-Reviewed-by: Damien Le Moal <damien.lemoal@wdc.com>
+Fix this by using the same logic in multipath_prepare_ioctl() as in
+multipath_clone_and_map().
+
+Note: The allegedly best path selection algorithm, service-time,
+still wouldn't work perfectly, because the io size of the current
+request is always set to 0. Changing that for the IO passthrough
+case would require the ioctl cmd and arg to be passed to dm's
+prepare_ioctl() method.
+
+Signed-off-by: Martin Wilck <mwilck@suse.com>
+Reviewed-by: Hannes Reinecke <hare@suse.de>
 Signed-off-by: Mike Snitzer <snitzer@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/dm-zoned-metadata.c | 4 ++--
- drivers/md/dm-zoned-reclaim.c  | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/md/dm-mpath.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
-index 53eb21343b11..5c2bbdf67f25 100644
---- a/drivers/md/dm-zoned-metadata.c
-+++ b/drivers/md/dm-zoned-metadata.c
-@@ -1580,7 +1580,7 @@ static struct dm_zone *dmz_get_rnd_zone_for_reclaim(struct dmz_metadata *zmd)
- 			return dzone;
- 	}
+diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
+index 8b7328666eaa..7c60aace8d25 100644
+--- a/drivers/md/dm-mpath.c
++++ b/drivers/md/dm-mpath.c
+@@ -1815,7 +1815,7 @@ static int multipath_prepare_ioctl(struct dm_target *ti,
+ 	int r;
  
--	return ERR_PTR(-EBUSY);
-+	return NULL;
- }
+ 	current_pgpath = READ_ONCE(m->current_pgpath);
+-	if (!current_pgpath)
++	if (!current_pgpath || !test_bit(MPATHF_QUEUE_IO, &m->flags))
+ 		current_pgpath = choose_pgpath(m, 0);
  
- /*
-@@ -1600,7 +1600,7 @@ static struct dm_zone *dmz_get_seq_zone_for_reclaim(struct dmz_metadata *zmd)
- 			return zone;
- 	}
- 
--	return ERR_PTR(-EBUSY);
-+	return NULL;
- }
- 
- /*
-diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
-index 84ac671acd2e..879848aad97a 100644
---- a/drivers/md/dm-zoned-reclaim.c
-+++ b/drivers/md/dm-zoned-reclaim.c
-@@ -348,8 +348,8 @@ static int dmz_do_reclaim(struct dmz_reclaim *zrc)
- 
- 	/* Get a data zone */
- 	dzone = dmz_get_zone_for_reclaim(zmd);
--	if (IS_ERR(dzone))
--		return PTR_ERR(dzone);
-+	if (!dzone)
-+		return -EBUSY;
- 
- 	start = jiffies;
- 
+ 	if (current_pgpath) {
 -- 
 2.25.1
 
