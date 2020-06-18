@@ -1,65 +1,81 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id E69811FDA2E
-	for <lists+dm-devel@lfdr.de>; Thu, 18 Jun 2020 02:25:15 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 819BE1FDBE7
+	for <lists+dm-devel@lfdr.de>; Thu, 18 Jun 2020 03:15:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1592439915;
+	s=mimecast20190719; t=1592442937;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=X1jz0CebPYLjCACkQOUV7JAQZQOmv9a+PpgfU3b0vlU=;
-	b=Se5FbLQEjTB9mOV64R5D2iuPXyYgVVbFbzLQxLLc/kHzq1VK2HUM9L/ygDGcfS5IRN1d+C
-	SRs/FkybZXfK+MVJyA7SPCPhaXQoXogkGToCJR3Ihb9XOkPO+suAulNNkyXnHt5Xyh33c5
-	ESDIoE2oHobWNr/YY0NGkVQqoCQ+qA8=
+	bh=dvbMS4jMKpY+zOqKtrYs4OT+sFoi6V1rc/TFkT6oOos=;
+	b=dPHRj45ej45H/ORRVn/Kqdpx4e4R4iuJXIgc7viSs/eNeqcpLWOAhXGUwMM0SjRg0SvjtM
+	L+yrrapb8BYr/w1UJC4KuhsJ0YZ+xYf4vbdR2fPo432CMZnAa8itaJ/F7IjUXtDk0Crf1m
+	F/3ZqPc8QBDJ/4qsizbDGOSAOHKaIH0=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-447-iCfnca61Nwqfv_MLetrRSw-1; Wed, 17 Jun 2020 20:25:10 -0400
-X-MC-Unique: iCfnca61Nwqfv_MLetrRSw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-337-DCCU2dEyM-Wv-SD4qbWtpQ-1; Wed, 17 Jun 2020 21:15:31 -0400
+X-MC-Unique: DCCU2dEyM-Wv-SD4qbWtpQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C66B7835B47;
-	Thu, 18 Jun 2020 00:25:04 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A588D512FE;
-	Thu, 18 Jun 2020 00:25:04 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2BCEF8035C1;
+	Thu, 18 Jun 2020 01:15:26 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 952B87CAA8;
+	Thu, 18 Jun 2020 01:15:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6404F833BD;
-	Thu, 18 Jun 2020 00:25:04 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A45881809554;
+	Thu, 18 Jun 2020 01:15:24 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05I0Ofsq026557 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 17 Jun 2020 20:24:41 -0400
+	id 05I1FKqM031764 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 17 Jun 2020 21:15:20 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0C50E5EE0E; Thu, 18 Jun 2020 00:24:41 +0000 (UTC)
+	id 825272157F25; Thu, 18 Jun 2020 01:15:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 237357E59A;
-	Thu, 18 Jun 2020 00:24:38 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 05I0Oa6X018493; 
-	Wed, 17 Jun 2020 19:24:36 -0500
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 05I0OaRt018492;
-	Wed, 17 Jun 2020 19:24:36 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Wed, 17 Jun 2020 19:24:27 -0500
-Message-Id: <1592439867-18427-8-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1592439867-18427-1-git-send-email-bmarzins@redhat.com>
-References: <1592439867-18427-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7E04E2157F23
+	for <dm-devel@redhat.com>; Thu, 18 Jun 2020 01:15:17 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BF73E833B44
+	for <dm-devel@redhat.com>; Thu, 18 Jun 2020 01:15:17 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-40-gqTjh6nmPRSwq1TfB29hQA-1; 
+	Wed, 17 Jun 2020 21:15:15 -0400
+X-MC-Unique: gqTjh6nmPRSwq1TfB29hQA-1
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+	[73.47.72.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 3D3F521D79;
+	Thu, 18 Jun 2020 01:09:08 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 17 Jun 2020 21:02:24 -0400
+Message-Id: <20200618010805.600873-47-sashal@kernel.org>
+In-Reply-To: <20200618010805.600873-1-sashal@kernel.org>
+References: <20200618010805.600873-1-sashal@kernel.org>
+MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 05I1FKqM031764
 X-loop: dm-devel@redhat.com
-Cc: device-mapper development <dm-devel@redhat.com>,
-	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH 7/7] multipath: add option to skip multipathd
-	delegation
+Cc: Sasha Levin <sashal@kernel.org>, dm-devel@redhat.com,
+	Martin Wilck <mwilck@suse.com>, Mike Snitzer <snitzer@redhat.com>
+Subject: [dm-devel] [PATCH AUTOSEL 5.7 047/388] dm mpath: switch paths in
+	dm_blk_ioctl() code path
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,151 +87,58 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Add the -D option to allow users to skip delegating commands to
-multipathd.
+From: Martin Wilck <mwilck@suse.com>
 
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+[ Upstream commit 2361ae595352dec015d14292f1b539242d8446d6 ]
+
+SCSI LUN passthrough code such as qemu's "scsi-block" device model
+pass every IO to the host via SG_IO ioctls. Currently, dm-multipath
+calls choose_pgpath() only in the block IO code path, not in the ioctl
+code path (unless current_pgpath is NULL). This has the effect that no
+path switching and thus no load balancing is done for SCSI-passthrough
+IO, unless the active path fails.
+
+Fix this by using the same logic in multipath_prepare_ioctl() as in
+multipath_clone_and_map().
+
+Note: The allegedly best path selection algorithm, service-time,
+still wouldn't work perfectly, because the io size of the current
+request is always set to 0. Changing that for the IO passthrough
+case would require the ioctl cmd and arg to be passed to dm's
+prepare_ioctl() method.
+
+Signed-off-by: Martin Wilck <mwilck@suse.com>
+Reviewed-by: Hannes Reinecke <hare@suse.de>
+Signed-off-by: Mike Snitzer <snitzer@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- libmultipath/config.h |  1 +
- multipath/main.c      | 15 +++++++++++----
- multipath/multipath.8 | 16 +++++++++++-----
- 3 files changed, 23 insertions(+), 9 deletions(-)
+ drivers/md/dm-mpath.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/libmultipath/config.h b/libmultipath/config.h
-index 55569360..92c61a0d 100644
---- a/libmultipath/config.h
-+++ b/libmultipath/config.h
-@@ -190,6 +190,7 @@ struct config {
- 	int ghost_delay;
- 	int find_multipaths_timeout;
- 	int marginal_pathgroups;
-+	int skip_delegate;
- 	unsigned int version[3];
- 	unsigned int sequence_nr;
+diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
+index 3e500098132f..e0c800cf87a9 100644
+--- a/drivers/md/dm-mpath.c
++++ b/drivers/md/dm-mpath.c
+@@ -1918,7 +1918,7 @@ static int multipath_prepare_ioctl(struct dm_target *ti,
+ 	int r;
  
-diff --git a/multipath/main.c b/multipath/main.c
-index 6a24e483..0cf7608f 100644
---- a/multipath/main.c
-+++ b/multipath/main.c
-@@ -130,9 +130,9 @@ usage (char * progname)
- {
- 	fprintf (stderr, VERSION_STRING);
- 	fprintf (stderr, "Usage:\n");
--	fprintf (stderr, "  %s [-v level] [-B|-d|-i|-q|-r] [-b file] [-p policy] [device]\n", progname);
--	fprintf (stderr, "  %s [-v level] [-R retries] -f device\n", progname);
--	fprintf (stderr, "  %s [-v level] [-R retries] -F\n", progname);
-+	fprintf (stderr, "  %s [-v level] [-B|-d|-D|-i|-q|-r] [-b file] [-p policy] [device]\n", progname);
-+	fprintf (stderr, "  %s [-v level] [-D|-R retries] -f device\n", progname);
-+	fprintf (stderr, "  %s [-v level] [-D|-R retries] -F\n", progname);
- 	fprintf (stderr, "  %s [-v level] [-l|-ll] [device]\n", progname);
- 	fprintf (stderr, "  %s [-v level] [-a|-w] device\n", progname);
- 	fprintf (stderr, "  %s [-v level] -W\n", progname);
-@@ -153,6 +153,7 @@ usage (char * progname)
- 		"  -C      check if a multipath device has usable paths\n"
- 		"  -q      allow queue_if_no_path when multipathd is not running\n"
- 		"  -d      dry run, do not create or update devmaps\n"
-+		"  -D      Do not delegate command to multipathd\n"
- 		"  -t      display the currently used multipathd configuration\n"
- 		"  -T      display the multipathd configuration without builtin defaults\n"
- 		"  -r      force devmap reload\n"
-@@ -817,6 +818,9 @@ int delegate_to_multipathd(enum mpath_cmds cmd,
- 	*p = '\0';
- 	n = sizeof(command);
+ 	current_pgpath = READ_ONCE(m->current_pgpath);
+-	if (!current_pgpath)
++	if (!current_pgpath || !test_bit(MPATHF_QUEUE_IO, &m->flags))
+ 		current_pgpath = choose_pgpath(m, 0);
  
-+	if (conf->skip_delegate)
-+		return NOT_DELEGATED;
-+
- 	if (cmd == CMD_CREATE && conf->force_reload == FORCE_RELOAD_YES) {
- 		p += snprintf(p, n, "reconfigure");
- 	}
-@@ -890,7 +894,7 @@ main (int argc, char *argv[])
- 	multipath_conf = conf;
- 	conf->retrigger_tries = 0;
- 	conf->force_sync = 1;
--	while ((arg = getopt(argc, argv, ":adcChl::eFfM:v:p:b:BrR:itTquUwW")) != EOF ) {
-+	while ((arg = getopt(argc, argv, ":adDcChl::eFfM:v:p:b:BrR:itTquUwW")) != EOF ) {
- 		switch(arg) {
- 		case 1: printf("optarg : %s\n",optarg);
- 			break;
-@@ -922,6 +926,9 @@ main (int argc, char *argv[])
- 			if (cmd == CMD_CREATE)
- 				cmd = CMD_DRY_RUN;
- 			break;
-+		case 'D':
-+			conf->skip_delegate = 1;
-+			break;
- 		case 'f':
- 			cmd = CMD_FLUSH_ONE;
- 			break;
-diff --git a/multipath/multipath.8 b/multipath/multipath.8
-index 6fb8645a..16a27363 100644
---- a/multipath/multipath.8
-+++ b/multipath/multipath.8
-@@ -22,7 +22,7 @@ multipath \- Device mapper target autoconfig.
- .B multipath
- .RB [\| \-v\ \c
- .IR level \|]
--.RB [\| \-B | \-d | \-i | \-q | \-r \|]
-+.RB [\| \-B | \-d | \-D | \-i | \-q | \-r \|]
- .RB [\| \-b\ \c
- .IR file \|]
- .RB [\| \-p\ \c
-@@ -33,7 +33,7 @@ multipath \- Device mapper target autoconfig.
- .B multipath
- .RB [\| \-v\ \c
- .IR level \|]
--.RB [\| \-R\ \c
-+.RB [\| \-D | \-R\ \c
- .IR retries \|]
- .B \-f device
- .
-@@ -41,7 +41,7 @@ multipath \- Device mapper target autoconfig.
- .B multipath
- .RB [\| \-v\ \c
- .IR level \|]
--.RB [\| \-R\ \c
-+.RB [\| \-D | \-R\ \c
- .IR retries \|]
- .B \-F
- .
-@@ -125,11 +125,11 @@ the system.
- Other operation modes are chosen by using one of the following command line switches:
- .TP
- .B \-f
--Flush (remove) a multipath device map specified as parameter, if unused.
-+Flush (remove) a multipath device map specified as parameter, if unused. This operation is delegated to the multipathd daemon if it's running.
- .
- .TP
- .B \-F
--Flush (remove) all unused multipath device maps.
-+Flush (remove) all unused multipath device maps. This operation is delegated to the multipathd daemon if it's running.
- .
- .TP
- .B \-l
-@@ -223,6 +223,12 @@ The verbosity level also controls the level of log and debug messages printed to
- Dry run, do not create or update devmaps.
- .
- .TP
-+.B \-D
-+Do not delegate operation to multipathd. By default, multipath delegates
-+forced reloads and flushes (removes) to multipathd. Setting this option will
-+cause the multipath command to execute these operations itself.
-+.
-+.TP
- .B \-e
- Enable all foreign libraries. This overrides the
- .I enable_foreign 
+ 	if (current_pgpath) {
 -- 
-2.17.2
+2.25.1
+
 
 --
 dm-devel mailing list
