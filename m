@@ -1,61 +1,64 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 5F44D1FDA2A
-	for <lists+dm-devel@lfdr.de>; Thu, 18 Jun 2020 02:25:10 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 61D291FDA2B
+	for <lists+dm-devel@lfdr.de>; Thu, 18 Jun 2020 02:25:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1592439909;
+	s=mimecast20190719; t=1592439910;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=qz96H06beitwzFeuQ698ypMGK3ZomsMRQzHPuL0GgCo=;
-	b=BQRbPSsnehTl7ZduOMecai2dzuKx5IvkiGNFTSXKFMAgEkYBTtmeg7jl1a3cZJ0/FHIRJw
-	sF1WyE3kZeBy0TIrWZBQOwMcrLlhSZKHSvx1qbRaCpA7De6OI2UEuvLKM4P/fH5N/hqmCS
-	+Rqd4GhgpdzxdE0X8/CZQlWbejQrc94=
+	bh=M2fNJS7FobnW+rn/MBq7uOTVJLgb86BSwJVeVRh8Pbc=;
+	b=cIF1vUWZSYn+XD2GCZJWy2N/WaK76dH81JVjznG1r225+X1ofPcKhpFCaM+CUpD9lyobPD
+	5RxShF9v5aE+lPPsXPys/DDdWXdjRzL6+Ft24CHfiX31sCL5DRfAGbB/VJsScY4eaNFbJi
+	VfZs/X82Ia6sjHAX1uYYATPQPzAFE/w=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-148-Dy9e8h7dNNmndgGpMm-ZpQ-1; Wed, 17 Jun 2020 20:25:06 -0400
-X-MC-Unique: Dy9e8h7dNNmndgGpMm-ZpQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-321-QxDzVRoIOCmDA1DRNa9J-A-1; Wed, 17 Jun 2020 20:25:05 -0400
+X-MC-Unique: QxDzVRoIOCmDA1DRNa9J-A-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 79AC3A0C01;
-	Thu, 18 Jun 2020 00:25:00 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 22E1819931;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CA65410059A5;
+	Thu, 18 Jun 2020 00:24:59 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 279AC5D9E4;
 	Thu, 18 Jun 2020 00:24:59 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1F4CF833B1;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 20AE51809547;
 	Thu, 18 Jun 2020 00:24:46 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
 	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05I0OXWJ026481 for <dm-devel@listman.util.phx.redhat.com>;
+	id 05I0OXSb026480 for <dm-devel@listman.util.phx.redhat.com>;
 	Wed, 17 Jun 2020 20:24:33 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 005B95D9E8; Thu, 18 Jun 2020 00:24:33 +0000 (UTC)
+	id F28D25D9E5; Thu, 18 Jun 2020 00:24:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 22D7A5D9D3;
-	Thu, 18 Jun 2020 00:24:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 47EFB5D9E4;
+	Thu, 18 Jun 2020 00:24:31 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 05I0OStS018465; 
-	Wed, 17 Jun 2020 19:24:28 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 05I0OT1D018469; 
+	Wed, 17 Jun 2020 19:24:30 -0500
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 05I0OSI5018464;
-	Wed, 17 Jun 2020 19:24:28 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 05I0OT3Z018468;
+	Wed, 17 Jun 2020 19:24:29 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Wed, 17 Jun 2020 19:24:20 -0500
-Message-Id: <1592439867-18427-1-git-send-email-bmarzins@redhat.com>
+Date: Wed, 17 Jun 2020 19:24:21 -0500
+Message-Id: <1592439867-18427-2-git-send-email-bmarzins@redhat.com>
+In-Reply-To: <1592439867-18427-1-git-send-email-bmarzins@redhat.com>
+References: <1592439867-18427-1-git-send-email-bmarzins@redhat.com>
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
 Cc: device-mapper development <dm-devel@redhat.com>,
 	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH 0/7] Fix muitpath/multipathd flush issue
+Subject: [dm-devel] [PATCH 1/7] libmultipath: change do_get_info returns
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -70,71 +73,131 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-If a multipath device is removed, and check_path() checks one of its
-paths before multipathd processes either the uevent or the dm event from
-removing it, multipathd will recreate the removed device. This happens
-because check_path() will continute to check the removed device's former
-paths until an event arrives removing the device.  A missing multpath
-device will cause the update_multipath_strings() call to fail, setting
-pp->dmstate to PSTATE_UNDEF.  If the path is up, this dmstate will cause
-reinstate_path() to be called, which will also fail, because the
-multipath device doesn't exist.  This will trigger a reload, restoring
-the recently removed device.
+Make do_get_info() differentiate between dm failures and missing
+devices, and update callers to retain their current behavior. Also,
+rename it and make it external. These changes will be used by future
+commits.
 
-This patchset handles this is two ways. The first two patches directly
-fix these issues in check_path(), so that a missing multipath device
-will no longer get recreated when checking one of its former paths. 
+Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+---
+ libmultipath/devmapper.c | 29 ++++++++++++++++-------------
+ libmultipath/devmapper.h |  1 +
+ 2 files changed, 17 insertions(+), 13 deletions(-)
 
-The other 5 patches add a "multipathd del maps" command, and make the
-mutipath command delegate flush operations to multipathd so multipathd's
-state remains in sync with the kernel's, while doing removes.
-
-One source of complexity in these patches is that multipath suspends the
-device with flushing before removing it, while multipathd doesn't.  It
-does seem possible that the suspend could hang for a while, so I can
-understand multipathd not using it.  However, that would take the
-multipath device getting opened and IO being issued, between the time
-when _dm_flush_map() verifies that the device isn't opened, and when it
-suspends the device.  But more importantly, I don't understand how
-suspending the device is useful.  If the device were to be opened
-between when _dm_flush_map() checks the usage, and when it tries to
-delete the device, device-mapper would simply fail the remove.  And if
-the device isn't in use, there can't be any outstanding IO to flush.
-When this code was added in commit 9a4ff93, there was no check if the
-device was in use, and disabling queue_if_no_path could cause anything
-that had the device open to error out and close it. But now that
-multipath checks first if the device is open, I don't see the benefit to
-doing this anymore. Removing it would allow multipathd and multipath to
-use the same code to remove maps. Any thoughts?
-
-Benjamin Marzinski (7):
-  libmultipath: change do_get_info returns
-  multipathd: fix check_path errors with removed map
-  libmultipath: make dm_flush_maps only return 0 on success
-  multipathd: add "del maps" multipathd command
-  multipath: make flushing maps work like other commands
-  multipath: delegate flushing maps to multipathd
-  multipath: add option to skip multipathd delegation
-
- libmultipath/config.h     |  4 ++-
- libmultipath/configure.h  |  3 ---
- libmultipath/devmapper.c  | 41 ++++++++++++++++++-------------
- libmultipath/devmapper.h  |  3 ++-
- multipath/main.c          | 51 +++++++++++++++++++++++++++------------
- multipath/multipath.8     | 16 ++++++++----
- multipathd/cli.c          |  1 +
- multipathd/cli_handlers.c | 19 +++++++++++++++
- multipathd/cli_handlers.h |  1 +
- multipathd/main.c         | 39 ++++++++++++------------------
- multipathd/main.h         |  1 +
- 11 files changed, 114 insertions(+), 65 deletions(-)
-
+diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
+index 27d52398..b44f7545 100644
+--- a/libmultipath/devmapper.c
++++ b/libmultipath/devmapper.c
+@@ -496,8 +496,14 @@ int dm_addmap_reload(struct multipath *mpp, char *params, int flush)
+ 	return 0;
+ }
+ 
+-static int
+-do_get_info(const char *name, struct dm_info *info)
++/*
++ * Returns:
++ * -1: Error
++ *  0: device does not exist
++ *  1: device exists
++ */
++int
++do_dm_get_info(const char *name, struct dm_info *info)
+ {
+ 	int r = -1;
+ 	struct dm_task *dmt;
+@@ -516,10 +522,7 @@ do_get_info(const char *name, struct dm_info *info)
+ 	if (!dm_task_get_info(dmt, info))
+ 		goto out;
+ 
+-	if (!info->exists)
+-		goto out;
+-
+-	r = 0;
++	r = !!info->exists;
+ out:
+ 	dm_task_destroy(dmt);
+ 	return r;
+@@ -529,7 +532,7 @@ int dm_map_present(const char * str)
+ {
+ 	struct dm_info info;
+ 
+-	return (do_get_info(str, &info) == 0);
++	return (do_dm_get_info(str, &info) == 1);
+ }
+ 
+ int dm_get_map(const char *name, unsigned long long *size, char *outparams)
+@@ -820,7 +823,7 @@ dm_dev_t (const char * mapname, char * dev_t, int len)
+ {
+ 	struct dm_info info;
+ 
+-	if (do_get_info(mapname, &info) != 0)
++	if (do_dm_get_info(mapname, &info) != 1)
+ 		return 1;
+ 
+ 	if (snprintf(dev_t, len, "%i:%i", info.major, info.minor) > len)
+@@ -862,7 +865,7 @@ dm_get_major_minor(const char *name, int *major, int *minor)
+ {
+ 	struct dm_info info;
+ 
+-	if (do_get_info(name, &info) != 0)
++	if (do_dm_get_info(name, &info) != 1)
+ 		return -1;
+ 
+ 	*major = info.major;
+@@ -1199,7 +1202,7 @@ dm_geteventnr (const char *name)
+ {
+ 	struct dm_info info;
+ 
+-	if (do_get_info(name, &info) != 0)
++	if (do_dm_get_info(name, &info) != 1)
+ 		return -1;
+ 
+ 	return info.event_nr;
+@@ -1210,7 +1213,7 @@ dm_is_suspended(const char *name)
+ {
+ 	struct dm_info info;
+ 
+-	if (do_get_info(name, &info) != 0)
++	if (do_dm_get_info(name, &info) != 1)
+ 		return -1;
+ 
+ 	return info.suspended;
+@@ -1383,7 +1386,7 @@ dm_get_deferred_remove (const char * mapname)
+ {
+ 	struct dm_info info;
+ 
+-	if (do_get_info(mapname, &info) != 0)
++	if (do_dm_get_info(mapname, &info) != 1)
+ 		return -1;
+ 
+ 	return info.deferred_remove;
+@@ -1442,7 +1445,7 @@ dm_get_info (const char * mapname, struct dm_info ** dmi)
+ 	if (!*dmi)
+ 		return 1;
+ 
+-	if (do_get_info(mapname, *dmi) != 0) {
++	if (do_dm_get_info(mapname, *dmi) != 1) {
+ 		memset(*dmi, 0, sizeof(struct dm_info));
+ 		FREE(*dmi);
+ 		*dmi = NULL;
+diff --git a/libmultipath/devmapper.h b/libmultipath/devmapper.h
+index 5ed7edc5..79c9afb2 100644
+--- a/libmultipath/devmapper.h
++++ b/libmultipath/devmapper.h
+@@ -66,6 +66,7 @@ char * dm_mapname(int major, int minor);
+ int dm_remove_partmaps (const char * mapname, int need_sync,
+ 			int deferred_remove);
+ int dm_get_uuid(const char *name, char *uuid, int uuid_len);
++int do_dm_get_info(const char *, struct dm_info *);
+ int dm_get_info (const char * mapname, struct dm_info ** dmi);
+ int dm_rename (const char * old, char * new, char * delim, int skip_kpartx);
+ int dm_reassign(const char * mapname);
 -- 
 2.17.2
 
