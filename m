@@ -1,124 +1,80 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 8C24A20030C
-	for <lists+dm-devel@lfdr.de>; Fri, 19 Jun 2020 09:55:04 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 62469200346
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Jun 2020 10:07:54 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1592553303;
+	s=mimecast20190719; t=1592554073;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=UT0JvPJ/R3es6nav3SiCTJGayqW5Ccx+f7XBOd++rBM=;
-	b=CFeVRfEmn1D7tIS92087pQuMWG1qbG9RNgG9j0Bj4oJoEaDXaTU57UpSkukNBekuJPwI0C
-	cI4KCpDWE/KK9d+Vzmt5vHqIZJicc8b3nLuOKZI+3W5SNbsdZka9/dg6Bb0CccmU7gaJQy
-	YEJWDXA/lXC9Pb42h109fJ617HljPAw=
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=cJBn15t/cV5asqMq9P+4LDzGLh97N6OW9DX6ZkyU5EI=;
+	b=ald0AfMwdYHdw+T6zzjcjIjHnYt7GbaXyKXdW8B24kjI+/0z06SthAnxGolq6NZQnqEzd8
+	1aVzz9DXMnOWBI6QqP8GnHE8+2M3rMo5qFToFDEsRvVy7dO2WlJH+7X9rRfmhC/FU+gWeH
+	RPuSLqcktP2/DOKqa9cJWBnGwBsSWTs=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-179-nVhgQCRdO2eRqkckZJ7EDw-1; Fri, 19 Jun 2020 03:55:01 -0400
-X-MC-Unique: nVhgQCRdO2eRqkckZJ7EDw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-163-N3VzC3cdNJKILvt2aya1kQ-1; Fri, 19 Jun 2020 04:07:51 -0400
+X-MC-Unique: N3VzC3cdNJKILvt2aya1kQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2E055108BD0C;
-	Fri, 19 Jun 2020 07:54:56 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C364560BF4;
-	Fri, 19 Jun 2020 07:54:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A43A5107ACF3;
+	Fri, 19 Jun 2020 08:07:45 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9EB125C1D0;
+	Fri, 19 Jun 2020 08:07:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EBA0E833C1;
-	Fri, 19 Jun 2020 07:54:54 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EEA831809547;
+	Fri, 19 Jun 2020 08:07:40 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05J7sphd022853 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 19 Jun 2020 03:54:52 -0400
+	id 05J87YOM024605 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 19 Jun 2020 04:07:35 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C19632166BA3; Fri, 19 Jun 2020 07:54:51 +0000 (UTC)
+	id DFA0C2156A2E; Fri, 19 Jun 2020 08:07:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BCA0B2166B27
-	for <dm-devel@redhat.com>; Fri, 19 Jun 2020 07:54:49 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DAD752157F23
+	for <dm-devel@redhat.com>; Fri, 19 Jun 2020 08:07:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5F3D6858F02
-	for <dm-devel@redhat.com>; Fri, 19 Jun 2020 07:54:49 +0000 (UTC)
-Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-473-jBqmF9CNPxuysf4cJglOHQ-1; Fri, 19 Jun 2020 03:54:44 -0400
-X-MC-Unique: jBqmF9CNPxuysf4cJglOHQ-1
-IronPort-SDR: voT2mdNSf3PlrEdetbStl04aOedDKtrDSXgHL8qZMth8KGX003bBfQ8n45PVz3PK20Synsh+7I
-	vjYlATXFF0pE037IpyY9p7DRvY1gHILCgH/1PWIIFNj47GFHVZ8lcrFvlzhBtPwLNkprUnEAOZ
-	FisNqQzCMKl5cWugzGL0MnDezc+DqP/9RYK5jqDGxGUVRE/fPFpbrW4lsK/YNwTv7/AI9JkO5Y
-	NkBCVkzSKtvltYOFcRLYta6PjNGpFRdS1zkXCzEhE+So2wKAiAMU3SVxGfnGAZUQSX1hkiaCzp
-	Tpc=
-X-IronPort-AV: E=Sophos;i="5.75,254,1589212800"; d="scan'208";a="249595025"
-Received: from mail-mw2nam12lp2048.outbound.protection.outlook.com (HELO
-	NAM12-MW2-obe.outbound.protection.outlook.com) ([104.47.66.48])
-	by ob1.hgst.iphmx.com with ESMTP; 19 Jun 2020 15:54:27 +0800
-Received: from CY4PR04MB3751.namprd04.prod.outlook.com (2603:10b6:903:ec::14)
-	by CY4PR0401MB3636.namprd04.prod.outlook.com (2603:10b6:910:91::20)
-	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3088.23;
-	Fri, 19 Jun 2020 07:54:27 +0000
-Received: from CY4PR04MB3751.namprd04.prod.outlook.com
-	([fe80::c593:f271:eebe:ac7]) by CY4PR04MB3751.namprd04.prod.outlook.com
-	([fe80::c593:f271:eebe:ac7%9]) with mapi id 15.20.3109.023;
-	Fri, 19 Jun 2020 07:54:27 +0000
-From: Damien Le Moal <Damien.LeMoal@wdc.com>
-To: Johannes Thumshirn <Johannes.Thumshirn@wdc.com>, Mike Snitzer
-	<snitzer@redhat.com>
-Thread-Topic: [RFC PATCH 2/2] dm: don't try to split REQ_OP_ZONE_APPEND bios
-Thread-Index: AQHWRgczjPsIYl+9xUe/paWaQEGH6A==
-Date: Fri, 19 Jun 2020 07:54:27 +0000
-Message-ID: <CY4PR04MB37514CDC42E7F545244D66C6E7980@CY4PR04MB3751.namprd04.prod.outlook.com>
-References: <20200619065905.22228-1-johannes.thumshirn@wdc.com>
-	<20200619065905.22228-3-johannes.thumshirn@wdc.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [129.253.182.57]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 3d1434b9-65a9-4665-b176-08d81425fd85
-x-ms-traffictypediagnostic: CY4PR0401MB3636:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY4PR0401MB36369DB17886292E58A79E23E7980@CY4PR0401MB3636.namprd04.prod.outlook.com>
-wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
-x-forefront-prvs: 0439571D1D
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: e1tg/lQc7mMZYgrCVYU5R+wfDSQfP+dva+x8SpZe7pf/U8b5QEq2hGepMojJdiIzqLarF9bz/vJXkA2D84hNqKM11DeIYBq2tO9R+NP2ivcBYEOVui61GcA0eaWFbhBs5F4PfqZkMikXirl0nHVSkwAs6cPQa0nfqt63ZNVMcrnlqXp9MYRQVR4vueIuMszPX3HeoWXfupUGn6vtdVmvCHJLXa3UOX8pVZzPOiju5LU2etLPr0qsZwGaR6rMKEWSiKawy0IDwtMNfR6Kvu8yq48Tzq+38wQ3vFTg5VzGgJGph2M/rh2XeauCnV7Q5sU1
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:CY4PR04MB3751.namprd04.prod.outlook.com;
-	PTR:; CAT:NONE; SFTY:;
-	SFS:(4636009)(396003)(39860400002)(376002)(136003)(346002)(366004)(186003)(316002)(33656002)(8936002)(91956017)(66476007)(66946007)(110136005)(76116006)(52536014)(66446008)(6506007)(53546011)(4326008)(26005)(478600001)(54906003)(7696005)(66556008)(83380400001)(8676002)(64756008)(86362001)(2906002)(4744005)(71200400001)(5660300002)(55016002)(9686003);
-	DIR:OUT; SFP:1102;
-x-ms-exchange-antispam-messagedata: NMB5wfYGuJnHKmrKwvzkIyhwTxjtnHcaTm/PfFyT2YR5x8YmSQa0ACpbkWan4L9oa9rTjCvNB746JtPyL33s5VpQ/zMDDp2RbUpECw8buslX+8vVPGUOrbRMBsRYy3B0lB2LOIcN4S2Kn0ysxvNCneaNV76rbOmgQ5mq/78aBjk3D8LXiLkDE8yHlHrXZkipDLsLBljzknP1VIkjA3QFqN3t57iRN9S9gZAyIoz1K+yWZzdUGVX+2Q0UcUmpXN8wMrzUVXlRXqpiFmHIn89jVPg0hormfI845+HSaPsZ6dqYC2QE7E7J4w6INX0Fr9C/Df9S6q+y45Nm1FITIQaEjqxqNw0ucigZWGOz/YU24HU22J9NrRULU/ZKShEm5+lMJvfSZxHt3bdvUYV2jkNw84bngcmoOM1xqDBtJgUJb9b7G3iTkHRy+Ny+gaAMA5vWU6y2wbYkWkyg1nn8k5CiXdJLd6+5j9VQwgu3LizWP0istUJlaz9zUUN+oTWSYAyc
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7447E8316EB
+	for <dm-devel@redhat.com>; Fri, 19 Jun 2020 08:07:32 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-261-98Oq-a64MGynPU8c2RaEPg-1;
+	Fri, 19 Jun 2020 04:07:30 -0400
+X-MC-Unique: 98Oq-a64MGynPU8c2RaEPg-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+	by mx2.suse.de (Postfix) with ESMTP id EA115AC85;
+	Fri, 19 Jun 2020 08:07:27 +0000 (UTC)
+To: Damien Le Moal <damien.lemoal@wdc.com>, dm-devel@redhat.com,
+	Mike Snitzer <snitzer@redhat.com>
+References: <20200619074956.352647-1-damien.lemoal@wdc.com>
+	<20200619074956.352647-2-damien.lemoal@wdc.com>
+From: Hannes Reinecke <hare@suse.de>
+Message-ID: <57fa0c31-0c73-9142-b116-25d637d32485@suse.de>
+Date: Fri, 19 Jun 2020 10:07:24 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.8.0
 MIME-Version: 1.0
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d1434b9-65a9-4665-b176-08d81425fd85
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jun 2020 07:54:27.1578 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HvZyI52liZ2TcwX81fWpRN+ZHXaGw7lkYnh3YWQtUMDJV6UZAUU1wZO6n0bDnffzp1t40XyQyiVq7qURmw1deA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR0401MB3636
+In-Reply-To: <20200619074956.352647-2-damien.lemoal@wdc.com>
+Content-Language: en-US
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 05J7sphd022853
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 05J87YOM024605
 X-loop: dm-devel@redhat.com
-Cc: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	Naohiro Aota <Naohiro.Aota@wdc.com>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [RFC PATCH 2/2] dm: don't try to split
-	REQ_OP_ZONE_APPEND bios
+Cc: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
+Subject: Re: [dm-devel] [PATCH 1/2] dm zoned: Fix random zone reclaim
+	selection
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -132,50 +88,78 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 
-On 2020/06/19 15:59, Johannes Thumshirn wrote:
-> REQ_OP_ZONE_APPEND bios cannot be split so return EIO if we can't fit it
-> into one IO.
-> 
-> Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-> ---
->  drivers/md/dm.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-> index 058c34abe9d1..c720a7e3269a 100644
-> --- a/drivers/md/dm.c
-> +++ b/drivers/md/dm.c
-> @@ -1609,6 +1609,9 @@ static int __split_and_process_non_flush(struct clone_info *ci)
->  
->  	len = min_t(sector_t, max_io_len(ci->sector, ti), ci->sector_count);
->  
-> +	if (bio_op(ci->bio) == REQ_OP_ZONE_APPEND && len < ci->sector_count)
-> +		return -EIO;
-> +
->  	r = __clone_and_map_data_bio(ci, ti, ci->sector, &len);
->  	if (r < 0)
->  		return r;
-> 
-
-I think this is OK. The stacked max_zone_append_sectors limit should have
-prevented that to happen  in the first place I think, but better safe than sorry.
-
-Reviewed-by: Damien Le Moal <damien.lemoal@wdc.com>
-
--- 
-Damien Le Moal
-Western Digital Research
-
-
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+T24gNi8xOS8yMCA5OjQ5IEFNLCBEYW1pZW4gTGUgTW9hbCB3cm90ZToKPiBDb21taXQgMjA5NDA0
+NWZlNWI1ICgiZG0gem9uZWQ6IHByZWZlciBmdWxsIHpvbmVzIGZvciByZWNsYWltIikKPiBtb2Rp
+ZmllZCBkbXpfZ2V0X3JuZF96b25lX2Zvcl9yZWNsYWltKCkgdG8gYWRkIGEgc2VhcmNoIGZvciB0
+aGUgYnVmZmVyCj4gem9uZSB3aXRoIHRoZSBoZWF2aWVzdCB3ZWlnaHQgYXMgYW4gb3B0aW1hbCBj
+YW5kaWRhdGUgZm9yIHJlY2xhaW0uIFRoaXMKPiBtb2RpZmljYXRpb24gdXNlcyB0aGUgem9uZSBw
+b2ludGVyIHZhcmlhYmwgImxhc3QiIHdoaWNoIGlzIHNldCBvbmx5IG9uY2UKPiBhbmQgbmV2ZXIg
+bW9kaWZpZWQgYXMgem9uZXMgYXJlIHNjYW5uZWQsIHJlc3VsdGluZyBpbiB0aGUgc2VhcmNoIGJl
+aW5nCj4gaW5lZmVjdGl2ZS4gRnVydGhlcm1vcmUsIGlmIHRoZSBzZWxlY3RlZCBidWZmZXIgem9u
+ZSBhdCB0aGUgZW5kIG9mIHRoZQo+IHNlYXJjaCBsb29wIGlzIGFjdGl2ZSBvciBhbHJlYWR5IGxv
+Y2tlZCBmb3IgcmVjbGFpbSwKPiBkbXpfZ2V0X3JuZF96b25lX2Zvcl9yZWNsYWltKCkgcmV0dXJu
+cyBOVUxMIGV2ZW4gaWYgb3RoZXIgcmFuZG9tIHpvbmVzCj4gd2l0aCBhIGxlc3NlciB3ZWlnaHQg
+Y2FuIGJlIHJlY2xhaW1lZC4KPiAKPiBUbyBmaXggdGhlIHNlYXJjaCBhbmQgdG8gZ3VhcmFudGVl
+IHRoYXQgcmVjbGFpbSBjYW4gbWFrZSBmb3J3YXJkCj4gcHJvZ3Jlc3MsIGZpeCBkbXpfZ2V0X3Ju
+ZF96b25lX2Zvcl9yZWNsYWltKCkgbG9vcCB0byBjb3JyZWN0bHkgZmluZAo+IHRoZSBidWZmZXIg
+em9uZSB3aXRoIHRoZSBoZWF2aWVzdCB3ZWlnaHQgdXNpbmcgdGhlIHZhcmlhYmxlIG1heHdfei4K
+PiBBbHNvIG1ha2Ugc3VyZSB0byBmYWxsYmFjayB0byBmaW5kaW5nIHRoZSBmaXJzdCByYW5kb20g
+em9uZSB0aGF0IGNhbgo+IGJlIHJlY2xhaW1lZCBpZiB0aGlzIGJlc3QgY2FuZGlkYXRlIHpvbmUg
+Y2Fubm90IGJlIHJlY2xhaW1lZC4KPiAKPiBXaGlsZSBhdCBpdCwgYWxzbyBmaXggdGhlIGRldmlj
+ZSBpbmRleCBjaGVjayB0byBjb25zaWRlciBvbmx5IHJhbmRvbQo+IHpvbmVzLCBpZ25vcmluZyBj
+YWNoZSB6b25lcyBiZWxvbmdpbmcgdG8gdGhlIGNhY2hlIGRldmljZSBpZiBvbmUgaXMKPiB1c2Vk
+IGFzIHRoYXQgZGV2aWNlIGRvZXMgbm90IGhhdmUgYSByZWNsYWltIHByb2Nlc3MuCj4gCj4gRml4
+ZXM6IDIwOTQwNDVmZTViNSAoImRtIHpvbmVkOiBwcmVmZXIgZnVsbCB6b25lcyBmb3IgcmVjbGFp
+bSIpCj4gU2lnbmVkLW9mZi1ieTogRGFtaWVuIExlIE1vYWwgPGRhbWllbi5sZW1vYWxAd2RjLmNv
+bT4KPiAtLS0KPiAgIGRyaXZlcnMvbWQvZG0tem9uZWQtbWV0YWRhdGEuYyB8IDM1ICsrKysrKysr
+KysrKysrKysrKysrKysrKysrLS0tLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAyNyBpbnNlcnRp
+b25zKCspLCA4IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21kL2RtLXpv
+bmVkLW1ldGFkYXRhLmMgYi9kcml2ZXJzL21kL2RtLXpvbmVkLW1ldGFkYXRhLmMKPiBpbmRleCAx
+MzBiNWE2ZDlmMTIuLjhiZGY3MWRjZTdmYiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL21kL2RtLXpv
+bmVkLW1ldGFkYXRhLmMKPiArKysgYi9kcml2ZXJzL21kL2RtLXpvbmVkLW1ldGFkYXRhLmMKPiBA
+QCAtMTk0OSw3ICsxOTQ5LDcgQEAgc3RhdGljIHN0cnVjdCBkbV96b25lICpkbXpfZ2V0X3JuZF96
+b25lX2Zvcl9yZWNsYWltKHN0cnVjdCBkbXpfbWV0YWRhdGEgKnptZCwKPiAgIAkJCQkJCSAgICB1
+bnNpZ25lZCBpbnQgaWR4LCBib29sIGlkbGUpCj4gICB7Cj4gICAJc3RydWN0IGRtX3pvbmUgKmR6
+b25lID0gTlVMTDsKPiAtCXN0cnVjdCBkbV96b25lICp6b25lLCAqbGFzdCA9IE5VTEw7Cj4gKwlz
+dHJ1Y3QgZG1fem9uZSAqem9uZSwgKm1heHdfeiA9IE5VTEw7Cj4gICAJc3RydWN0IGxpc3RfaGVh
+ZCAqem9uZV9saXN0Owo+ICAgCj4gICAJLyogSWYgd2UgaGF2ZSBjYWNoZSB6b25lcyBzZWxlY3Qg
+ZnJvbSB0aGUgY2FjaGUgem9uZSBsaXN0ICovCj4gQEAgLTE5NjEsMTggKzE5NjEsMzcgQEAgc3Rh
+dGljIHN0cnVjdCBkbV96b25lICpkbXpfZ2V0X3JuZF96b25lX2Zvcl9yZWNsYWltKHN0cnVjdCBk
+bXpfbWV0YWRhdGEgKnptZCwKPiAgIAl9IGVsc2UKPiAgIAkJem9uZV9saXN0ID0gJnptZC0+ZGV2
+W2lkeF0ubWFwX3JuZF9saXN0Owo+ICAgCj4gKwkvKgo+ICsJICogRmluZCB0aGUgYnVmZmVyIHpv
+bmUgd2l0aCB0aGUgaGVhdmllc3Qgd2VpZ2h0IG9yIHRoZSBmaXJzdCAob2xkZXN0KQo+ICsJICog
+ZGF0YSB6b25lIHRoYXQgY2FuIGJlIHJlY2xhaW1lZC4KPiArCSAqLwo+ICAgCWxpc3RfZm9yX2Vh
+Y2hfZW50cnkoem9uZSwgem9uZV9saXN0LCBsaW5rKSB7Cj4gICAJCWlmIChkbXpfaXNfYnVmKHpv
+bmUpKSB7Cj4gICAJCQlkem9uZSA9IHpvbmUtPmJ6b25lOwo+IC0JCQlpZiAoZHpvbmUtPmRldi0+
+ZGV2X2lkeCAhPSBpZHgpCj4gKwkJCWlmIChkbXpfaXNfcm5kKGR6b25lKSAmJiBkem9uZS0+ZGV2
+LT5kZXZfaWR4ICE9IGlkeCkKPiAgIAkJCQljb250aW51ZTsKPiAtCQkJaWYgKCFsYXN0KSB7Cj4g
+LQkJCQlsYXN0ID0gZHpvbmU7Cj4gLQkJCQljb250aW51ZTsKPiAtCQkJfQo+IC0JCQlpZiAobGFz
+dC0+d2VpZ2h0IDwgZHpvbmUtPndlaWdodCkKPiArCQkJaWYgKCFtYXh3X3ogfHwgbWF4d196LT53
+ZWlnaHQgPCBkem9uZS0+d2VpZ2h0KQo+ICsJCQkJbWF4d196ID0gZHpvbmU7Cj4gKwkJfSBlbHNl
+IHsKPiArCQkJZHpvbmUgPSB6b25lOwo+ICsJCQlpZiAoZG16X2xvY2tfem9uZV9yZWNsYWltKGR6
+b25lKSkKPiArCQkJCXJldHVybiBkem9uZTsKPiArCQl9Cj4gKwl9Cj4gKwo+ICsJaWYgKG1heHdf
+eiAmJiBkbXpfbG9ja196b25lX3JlY2xhaW0obWF4d196KSkKPiArCQlyZXR1cm4gbWF4d196Owo+
+ICsKPiArCS8qCj4gKwkgKiBJZiB3ZSBjb21lIGhlcmUsIG5vbmUgb2YgdGhlIHpvbmVzIGluc3Bl
+Y3RlZCBjb3VsZCBiZSBsb2NrZWQgZm9yCj4gKwkgKiByZWNsYWltLiBUcnkgYWdhaW4sIGJlaW5n
+IG1vcmUgYWdncmVzc2l2ZSwgdGhhdCBpcywgZmluZCB0aGUKPiArCSAqIGZpcnN0IHpvbmUgdGhh
+dCBjYW4gYmUgcmVjbGFpbWVkIHJlZ2FyZGxlc3Mgb2YgaXRzIHdlaXRnaHQuCj4gKwkgKi8KPiAr
+CWxpc3RfZm9yX2VhY2hfZW50cnkoem9uZSwgem9uZV9saXN0LCBsaW5rKSB7Cj4gKwkJaWYgKGRt
+el9pc19idWYoem9uZSkpIHsKPiArCQkJZHpvbmUgPSB6b25lLT5iem9uZTsKPiArCQkJaWYgKGRt
+el9pc19ybmQoZHpvbmUpICYmIGR6b25lLT5kZXYtPmRldl9pZHggIT0gaWR4KQo+ICAgCQkJCWNv
+bnRpbnVlOwo+IC0JCQlkem9uZSA9IGxhc3Q7Cj4gICAJCX0gZWxzZQo+ICAgCQkJZHpvbmUgPSB6
+b25lOwo+ICAgCQlpZiAoZG16X2xvY2tfem9uZV9yZWNsYWltKGR6b25lKSkKPiAKSSBrbm93IGl0
+IHdhc24ndCB0aGF0IGVhc3kuIFRoYW5rcyBmb3IgdGhlIGZpeC4KClJldmlld2VkLWJ5OiBIYW5u
+ZXMgUmVpbmVja2UgPGhhcmVAc3VzZS5kZT4KCkNoZWVycywKCkhhbm5lcwotLSAKRHIuIEhhbm5l
+cyBSZWluZWNrZSAgICAgICAgICAgIFRlYW1sZWFkIFN0b3JhZ2UgJiBOZXR3b3JraW5nCmhhcmVA
+c3VzZS5kZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICArNDkgOTExIDc0MDUzIDY4OApT
+VVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHbWJILCBNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJl
+cmcKSFJCIDM2ODA5IChBRyBOw7xybmJlcmcpLCBHZXNjaMOkZnRzZsO8aHJlcjogRmVsaXggSW1l
+bmTDtnJmZmVyCgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20K
+aHR0cHM6Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
 
