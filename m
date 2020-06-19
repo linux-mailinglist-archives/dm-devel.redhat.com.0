@@ -1,56 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 33C70201CF3
-	for <lists+dm-devel@lfdr.de>; Fri, 19 Jun 2020 23:12:44 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 36A4B201CF4
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Jun 2020 23:13:09 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1592601163;
+	s=mimecast20190719; t=1592601188;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=kfcFHVjdZgP2PUAjsmdddC7IWMGMA4BRt/cSgtIrx+A=;
-	b=ViSyzuIuEaUdEK2X1TyeITu3AUrP0u9BWFaBQ42lv5A2p3FMOA4w2n6IW3OxvuH7NNhJbQ
-	h3uxV2BAXnthgInKOLIU5Xf6pUZdMVahmcIbRNUUVQoED73tn0wtYF3t3L+4GRtAsmZJmd
-	jJ56+2WMcSpMWdH6xhtAUb5lkE9wT6k=
+	bh=VsltEaMOsuVLJw7+lJMMkGewDzr+7px14nkfd6Dpte4=;
+	b=MpMMwhWBu0/fY5gtnJOnAO4LU0u/DxpjiYNFwuBdwriCWjXq/LWu+uvu9+lxQhIRtzS0Bb
+	pWfGpaUBZPB/+n0qIPciZ1a8KDbP0C2BYG4/b1TCocfe2u0++BWE0Mf+S5ZBMWMxHSYku6
+	rU73ysHW3QzrY0TQRKEmiugtMA31/Z8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-179-BQ7kY2OPM-SkJYmrbMlUEw-1; Fri, 19 Jun 2020 17:12:40 -0400
-X-MC-Unique: BQ7kY2OPM-SkJYmrbMlUEw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-3-7Ed1k4X8PMiwSaF1DZwaGg-1; Fri, 19 Jun 2020 17:13:05 -0400
+X-MC-Unique: 7Ed1k4X8PMiwSaF1DZwaGg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1F4C3835B44;
-	Fri, 19 Jun 2020 21:12:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 53EA010059A1;
+	Fri, 19 Jun 2020 21:13:00 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 934FE5C221;
-	Fri, 19 Jun 2020 21:12:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0B5A419C4F;
+	Fri, 19 Jun 2020 21:13:00 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D7C83833C8;
-	Fri, 19 Jun 2020 21:12:31 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C1506833C9;
+	Fri, 19 Jun 2020 21:12:59 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
 	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05JLCSp5006221 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 19 Jun 2020 17:12:28 -0400
+	id 05JLCuIk006307 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 19 Jun 2020 17:12:56 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 89A1619934; Fri, 19 Jun 2020 21:12:28 +0000 (UTC)
+	id 5BD2319934; Fri, 19 Jun 2020 21:12:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from bgurney.remote.csb (ovpn-115-194.rdu2.redhat.com
 	[10.10.115.194])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA22119D9E;
-	Fri, 19 Jun 2020 21:12:21 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6CCD119C4F;
+	Fri, 19 Jun 2020 21:12:49 +0000 (UTC)
 From: Bryan Gurney <bgurney@redhat.com>
 To: dm-devel@redhat.com, snitzer@redhat.com, agk@redhat.com
-Date: Fri, 19 Jun 2020 17:11:44 -0400
-Message-Id: <1592601104-3978-1-git-send-email-bgurney@redhat.com>
+Date: Fri, 19 Jun 2020 17:12:42 -0400
+Message-Id: <1592601162-4107-1-git-send-email-bgurney@redhat.com>
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
 Cc: yangerkun <yangerkun@huawei.com>, Bryan Gurney <bgurney@redhat.com>
-Subject: [dm-devel] [PATCH v4 2/4] dm dust: update doc after message results
-	report to user directly
+Subject: [dm-devel] [PATCH v4 3/4] dm dust: add interface to list all
+	badblocks
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -65,7 +65,9 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -75,73 +77,62 @@ From: yangerkun <yangerkun@huawei.com>
 
 From: yangerkun <yangerkun@huawei.com>
 
-Since some type of message will report the results to user directly,
-we should update the doc too.
+This interface may help anyone who want to know all badblocks without
+query block for each.
 
-[Bryan: update output examples to include function name printing]
+[Bryan: DMEMIT an empty list if no blocks are in the bad block list.]
 
 Signed-off-by: yangerkun <yangerkun@huawei.com>
 Signed-off-by: Bryan Gurney <bgurney@redhat.com>
 ---
- .../admin-guide/device-mapper/dm-dust.rst         | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ drivers/md/dm-dust.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/Documentation/admin-guide/device-mapper/dm-dust.rst b/Documentation/admin-guide/device-mapper/dm-dust.rst
-index b6e7e7ead831..cf8079e368de 100644
---- a/Documentation/admin-guide/device-mapper/dm-dust.rst
-+++ b/Documentation/admin-guide/device-mapper/dm-dust.rst
-@@ -69,10 +69,11 @@ Create the dm-dust device:
-         $ sudo dmsetup create dust1 --table '0 33552384 dust /dev/vdb1 0 4096'
+diff --git a/drivers/md/dm-dust.c b/drivers/md/dm-dust.c
+index f1f2dd6a4e84..f7be00a54268 100644
+--- a/drivers/md/dm-dust.c
++++ b/drivers/md/dm-dust.c
+@@ -284,6 +284,31 @@ static int dust_clear_badblocks(struct dust_device *dd, char *result, unsigned i
+ 	return 1;
+ }
  
- Check the status of the read behavior ("bypass" indicates that all I/O
--will be passed through to the underlying device)::
-+will be passed through to the underlying device; "verbose" indicates that
-+bad block additions, removals, and remaps will be verbosely logged)::
- 
-         $ sudo dmsetup status dust1
--        0 33552384 dust 252:17 bypass
-+        0 33552384 dust 252:17 bypass verbose
- 
-         $ sudo dd if=/dev/mapper/dust1 of=/dev/null bs=512 count=128 iflag=direct
-         128+0 records in
-@@ -164,7 +165,7 @@ following message command::
- A message will print with the number of bad blocks currently
- configured on the device::
- 
--        kernel: device-mapper: dust: countbadblocks: 895 badblock(s) found
-+        countbadblocks: 895 badblock(s) found
- 
- Querying for specific bad blocks
- --------------------------------
-@@ -176,11 +177,11 @@ following message command::
- 
- The following message will print if the block is in the list::
- 
--        device-mapper: dust: queryblock: block 72 found in badblocklist
-+        dust_query_block: block 72 found in badblocklist
- 
- The following message will print if the block is not in the list::
- 
--        device-mapper: dust: queryblock: block 72 not found in badblocklist
-+        dust_query_block: block 72 not found in badblocklist
- 
- The "queryblock" message command will work in both the "enabled"
- and "disabled" modes, allowing the verification of whether a block
-@@ -198,12 +199,12 @@ following message command::
- 
- After clearing the bad block list, the following message will appear::
- 
--        kernel: device-mapper: dust: clearbadblocks: badblocks cleared
-+        dust_clear_badblocks: badblocks cleared
- 
- If there were no bad blocks to clear, the following message will
- appear::
- 
--        kernel: device-mapper: dust: clearbadblocks: no badblocks found
-+        dust_clear_badblocks: no badblocks found
- 
- Message commands list
- ---------------------
++static int dust_list_badblocks(struct dust_device *dd, char *result, unsigned int maxlen,
++				unsigned int *sz_ptr)
++{
++	unsigned long flags;
++	struct rb_root badblocklist;
++	struct rb_node *node;
++	struct badblock *bblk;
++	unsigned int sz = *sz_ptr;
++	unsigned long long num = 0;
++
++	spin_lock_irqsave(&dd->dust_lock, flags);
++	badblocklist = dd->badblocklist;
++	for (node = rb_first(&badblocklist); node; node = rb_next(node)) {
++		bblk = rb_entry(node, struct badblock, node);
++		DMEMIT("%llu\n", bblk->bb);
++		num++;
++	}
++
++	spin_unlock_irqrestore(&dd->dust_lock, flags);
++	if (!num)
++		DMEMIT("");
++
++	return 1;
++}
++
+ /*
+  * Target parameters:
+  *
+@@ -427,6 +452,8 @@ static int dust_message(struct dm_target *ti, unsigned int argc, char **argv,
+ 			else
+ 				dd->quiet_mode = false;
+ 			r = 0;
++		} else if (!strcasecmp(argv[0], "listbadblocks")) {
++			r = dust_list_badblocks(dd, result, maxlen, &sz);
+ 		} else {
+ 			invalid_msg = true;
+ 		}
 -- 
 2.25.4
 
