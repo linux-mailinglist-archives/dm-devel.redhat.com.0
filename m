@@ -1,92 +1,61 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id EFD0D2012D0
-	for <lists+dm-devel@lfdr.de>; Fri, 19 Jun 2020 17:57:35 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 4EEF72013CB
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Jun 2020 18:07:49 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1592582252;
+	s=mimecast20190719; t=1592582868;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=g9LsodXhSeNcBtv22SQNQFNRWVsC3HR0z5QUqLfDDug=;
-	b=BMkmdW4LqBzAwavdkuwEYhN7uYlS33jo75q0xeGapRvF+hmSjF8/l7PC3OHgLit8eXrVBq
-	jUU45stslkJtPbMTMaq+EeacelL7Vl+05Jf45MaRt20Ofdlx/aueT3V+LDDR/r4LSM0hgw
-	DTGFi2O/lF+zfEn4s9bXboSaGYrvghA=
+	bh=MA/9TCeKxYvRKfGPHHizCAeQhlVhuy1Gp8Rm54nyH8A=;
+	b=HvOr07kpRr2Sf4IRB4ej8gyQTg6ICKelyEDgw6nd3O3fQ3W2wHM6WfCR6JkAYAIt2jZCUa
+	53tgfdfO6bSPyuy1QHqDHexKCZJa4NwLh2vb4y0wnUa9iD7VXxjEAKuZJre3GSFE0oZaEV
+	ulFtDtyEaLRXjcPE4O8ECD8AI9524Gc=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-150-ylrlSyLeP26DtsbxKhy-Cg-1; Fri, 19 Jun 2020 11:57:19 -0400
-X-MC-Unique: ylrlSyLeP26DtsbxKhy-Cg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-67-iqTlKlskOZGs5eRSRqOTqQ-1; Fri, 19 Jun 2020 12:07:44 -0400
+X-MC-Unique: iqTlKlskOZGs5eRSRqOTqQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B08DC15B7F;
-	Fri, 19 Jun 2020 15:57:13 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EFCC51992F;
-	Fri, 19 Jun 2020 15:57:11 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5EB94100CCC8;
+	Fri, 19 Jun 2020 16:07:25 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 96999619CC;
+	Fri, 19 Jun 2020 16:07:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CA2C914CC3;
-	Fri, 19 Jun 2020 15:57:07 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A8B0A180954D;
+	Fri, 19 Jun 2020 16:07:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05JFv1eh022732 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 19 Jun 2020 11:57:01 -0400
+	id 05JG7BEc024220 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 19 Jun 2020 12:07:11 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 491BB1055DB9; Fri, 19 Jun 2020 15:57:01 +0000 (UTC)
+	id 6036919D9E; Fri, 19 Jun 2020 16:07:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 44F3310590CD
-	for <dm-devel@redhat.com>; Fri, 19 Jun 2020 15:56:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EFF9E858EFE
-	for <dm-devel@redhat.com>; Fri, 19 Jun 2020 15:56:58 +0000 (UTC)
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
-	[209.85.128.69]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-58-2qxisG-3MiS3hSia_ce_OQ-1; Fri, 19 Jun 2020 11:56:57 -0400
-X-MC-Unique: 2qxisG-3MiS3hSia_ce_OQ-1
-Received: by mail-wm1-f69.google.com with SMTP id x6so4116206wmj.9
-	for <dm-devel@redhat.com>; Fri, 19 Jun 2020 08:56:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=AV8HEdbR3wHixH2A75nEf35IGTJzbvXF8nQmsMCrEvY=;
-	b=Zj47ZMBPvhkUovRUJ/oUtWEl11g6SedGOcy1NrXoj6ZZPW7LqeisyTKNWW/VvzFeZ+
-	+ZWKfZ+MVPdJUmSjsQZDmVSn3jGZQeZagWe6+mboov70B13BVYAxNwpRwQMghI0riCxT
-	ICzIeR6YvOh89LKKAEtrJXukdBH8qPtMdSar2WGHkHFVB83mkk+4lwSq6E3jchuLJfvA
-	cEqF7N9tTHEpnVPlU9yPPX/Mjg6FbzcNqI68LVPQmQqpuz545IMRU5BMaqidNf1LHqa3
-	wO7nDry5UKoaakj8wfFuj5gtactkwdfOl09qoBZTiOzNIffO6oE9oPrMoJCvySuVttPl
-	YVWw==
-X-Gm-Message-State: AOAM530akuCkETpqdwPz0TwBQ6S91vG3m9usz1upF3qH9QEiulAI1SNq
-	z1Yw1iylIWrZMLNrwT+aCv6F0hJRi2baICrytDYpTLTsAytH8BKltmbAKIP9SzOYw7dPzrpzEFc
-	QtxyLqmog3REzwUrfFxUBqGz/dffr2Dg=
-X-Received: by 2002:adf:f812:: with SMTP id s18mr4601266wrp.28.1592582216150; 
-	Fri, 19 Jun 2020 08:56:56 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwA4+1Lns67bTyhd3cKFHVaWR1ActNak+WfGbaQdgWtikYlQYtl0x/YUK2VmxQJyFNJKN6COO3oSngF1UpQmIk=
-X-Received: by 2002:adf:f812:: with SMTP id s18mr4601256wrp.28.1592582215946; 
-	Fri, 19 Jun 2020 08:56:55 -0700 (PDT)
+Received: from localhost (unknown [10.18.25.174])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ADA8419D7B;
+	Fri, 19 Jun 2020 16:06:58 +0000 (UTC)
+Date: Fri, 19 Jun 2020 12:06:57 -0400
+From: Mike Snitzer <snitzer@redhat.com>
+To: Ming Lei <ming.lei@redhat.com>
+Message-ID: <20200619160657.GA24520@redhat.com>
+References: <20200619084214.337449-1-ming.lei@redhat.com>
+	<20200619094250.GA18410@redhat.com> <20200619101142.GA339442@T590>
 MIME-Version: 1.0
-References: <20200619123803.1441373-1-yangerkun@huawei.com>
-	<20200619123803.1441373-4-yangerkun@huawei.com>
-In-Reply-To: <20200619123803.1441373-4-yangerkun@huawei.com>
-From: Bryan Gurney <bgurney@redhat.com>
-Date: Fri, 19 Jun 2020 11:56:45 -0400
-Message-ID: <CAHhmqcS5wJbJdgZ+EucVuP8T_9DhUP-un0=s6CRZKfHdLb7wcQ@mail.gmail.com>
-To: yangerkun <yangerkun@huawei.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+In-Reply-To: <20200619101142.GA339442@T590>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: bmr@redhat.com, dm-devel@redhat.com, "Alasdair G. Kergon" <agk@redhat.com>,
-	Mike Snitzer <snitzer@redhat.com>
-Subject: Re: [dm-devel] [PATCH v3 3/4] dm dust: add interface to list all
-	badblocks
+Cc: linux-block@vger.kernel.org, axboe@kernel.dk, dm-devel@redhat.com
+Subject: Re: [dm-devel] dm-rq: don't call blk_mq_queue_stopped in
+	dm_stop_queue()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,88 +69,103 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-On Fri, Jun 19, 2020 at 8:37 AM yangerkun <yangerkun@huawei.com> wrote:
->
-> This interface may help anyone who want to know all badblocks without
-> query block for each.
->
-> Signed-off-by: yangerkun <yangerkun@huawei.com>
-> ---
->  drivers/md/dm-dust.c | 27 +++++++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
->
-> diff --git a/drivers/md/dm-dust.c b/drivers/md/dm-dust.c
-> index a0c75c104de0..2ad8fc9293e0 100644
-> --- a/drivers/md/dm-dust.c
-> +++ b/drivers/md/dm-dust.c
-> @@ -284,6 +284,31 @@ static int dust_clear_badblocks(struct dust_device *dd, char *result, unsigned i
->         return 1;
->  }
->
-> +static int dust_list_badblocks(struct dust_device *dd, char *result, unsigned int maxlen,
-> +                               unsigned int *sz_ptr)
-> +{
-> +       unsigned long flags;
-> +       struct rb_root badblocklist;
-> +       struct rb_node *node;
-> +       struct badblock *bblk;
-> +       unsigned int sz = *sz_ptr;
-> +       unsigned long long num = 0;
-> +
-> +       spin_lock_irqsave(&dd->dust_lock, flags);
-> +       badblocklist = dd->badblocklist;
-> +       for (node = rb_first(&badblocklist); node; node = rb_next(node)) {
-> +               bblk = rb_entry(node, struct badblock, node);
-> +               DMEMIT("%llu\n", bblk->bb);
-> +               num++;
-> +       }
-> +
-> +       spin_unlock_irqrestore(&dd->dust_lock, flags);
-> +       if (!num)
-> +               DMEMIT("null");
+On Fri, Jun 19 2020 at  6:11am -0400,
+Ming Lei <ming.lei@redhat.com> wrote:
 
-Simply printing "null" may confuse the user into thinking that
-something is wrong, when in fact everything is running normally, and
-the bad block list is empty.
+> Hi Mike,
+> 
+> On Fri, Jun 19, 2020 at 05:42:50AM -0400, Mike Snitzer wrote:
+> > Hi Ming,
+> > 
+> > Thanks for the patch!  But I'm having a hard time understanding what
+> > you've written in the patch header,
+> > 
+> > On Fri, Jun 19 2020 at  4:42am -0400,
+> > Ming Lei <ming.lei@redhat.com> wrote:
+> > 
+> > > dm-rq won't stop queue, meantime blk-mq won't stop one queue too, so
+> > > remove the check.
+> > 
+> > It'd be helpful if you could unpack this with more detail before going on
+> > to explain why using blk_queue_quiesced, despite dm-rq using
+> > blk_mq_queue_stopped, would also be ineffective.
+> > 
+> > SO:
+> > 
+> > > dm-rq won't stop queue
+> > 
+> > 1) why won't dm-rq stop the queue?  Do you mean it won't reliably
+> >    _always_ stop the queue because of the blk_mq_queue_stopped() check?
+> 
+> device mapper doesn't call blk_mq_stop_hw_queue or blk_mq_stop_hw_queues.
+> 
+> > 
+> > > meantime blk-mq won't stop one queue too, so remove the check.
+> > 
+> > 2) Meaning?: blk_mq_queue_stopped() will return true even if only one hw
+> > queue is stopped, given blk-mq must stop all hw queues a positive return
+> > from this blk_mq_queue_stopped() check is incorrectly assuming it meanss
+> > all hw queues are stopped.
+> 
+> blk-mq won't call blk_mq_stop_hw_queue or blk_mq_stop_hw_queues for
+> dm-rq's queue too, so dm-rq's hw queue won't be stopped.
+> 
+> BTW blk_mq_stop_hw_queue or blk_mq_stop_hw_queues are supposed to be
+> used for throttling queue.
 
-Heinz recommended returning an empty report, and I agree with that.
-To the user, it would look something like this:
+I'm going to look at actually stopping the queue (using one of these
+interfaces).  I didn't realize I wasn't actually stopping the queue.
+The intent was to do so.
 
-$ sudo dmsetup message dust1 0 listbadblocks
+In speaking with Jens yesterday about freeze vs stop: it is clear that
+dm-rq needs to still be able to allocate new requests, but _not_ call
+the queue_rq to issue the requests, while "stopped" (due to dm-mpath
+potentially deferring retries of failed requests because of path failure
+while quiescing the queue during DM device suspend).  But that freezing
+the queue goes too far because it won't allow such request allocation.
 
-$ sudo dmsetup message dust1 0 countbadblocks
-countbadblocks: 0 badblock(s) found
+> > > dm_stop_queue() actually tries to quiesce hw queues via blk_mq_quiesce_queue(),
+> > > we can't check via blk_queue_quiesced for avoiding unnecessary queue
+> > > quiesce because the flag is set before synchronize_rcu() and dm_stop_queue
+> > > may be called when synchronize_rcu from another blk_mq_quiesce_queue is
+> > > in-progress.
+> > 
+> > But I'm left with questions/confusion on this too:
+> > 
+> > 1) you mention blk_queue_quiesced instead of blk_mq_queue_stopped, so I
+> >    assume you mean that: not only is blk_mq_queue_stopped()
+> >    ineffective, blk_queue_quiesced() would be too?
+> 
+> blk_mq_queue_stopped isn't necessary because dm-rq's hw queue won't be
+> stopped by anyone, meantime replacing it with blk_queue_quiesced() is wrong.
+> 
+> > 
+> > 2) the race you detail (with competing blk_mq_quiesce_queue) relative to
+> >    synchronize_rcu() and testing "the flag" is very detailed yet vague.
+> 
+> If two code paths are calling dm_stop_queue() at the same time, one path may
+> return immediately and it is wrong, sine synchronize_rcu() from another path
+> may not be done.
+> 
+> > 
+> > Anyway, once we get this heaader cleaned up a bit more I'll be happy to
+> > get this staged as a stable@ fix for 5.8 inclusion ASAP.
+> 
+> This patch isn't a fix, and it shouldn't be related with rhel8's issue.
 
+I realize that now.  I've changed the patch header to be a bit clearer
+and staged it for 5.9, see:
+https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/commit/?h=dm-5.9&id=06e788ed59e0095b679bdce9e39c1a251032ae62
 
 Thanks,
-
-Bryan
-
-> +
-> +       return 1;
-> +}
-> +
->  /*
->   * Target parameters:
->   *
-> @@ -427,6 +452,8 @@ static int dust_message(struct dm_target *ti, unsigned int argc, char **argv,
->                         else
->                                 dd->quiet_mode = false;
->                         r = 0;
-> +               } else if (!strcasecmp(argv[0], "listbadblocks")) {
-> +                       r = dust_list_badblocks(dd, result, maxlen, &sz);
->                 } else {
->                         invalid_msg = true;
->                 }
-> --
-> 2.25.4
->
+Mike
 
 --
 dm-devel mailing list
