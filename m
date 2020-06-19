@@ -1,67 +1,83 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 4A2381FFE82
-	for <lists+dm-devel@lfdr.de>; Fri, 19 Jun 2020 01:18:09 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id D37C02001F1
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Jun 2020 08:33:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1592522288;
+	s=mimecast20190719; t=1592548398;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=s/jn+9VzT4EesOsx9ii1lgUazIFpm+mb3KGC/SmWzis=;
-	b=YrfGF/RAr2qs8Uker6hdembF4Onxias9XsoaCQI0FWufK9az8xh43OzQIGeFxI8ZLN16YK
-	QgthZ5l+AujK7/6IBbEZsW2FvJKS44m3HB0HwfNOdWTQAwXRxbtvt7sddtAEvxImpXqY03
-	WsSKSmh1UTirtbIAjf6lP+152STzQVs=
+	bh=aWdCPeCPIRkrYYhK7LWcVW8FL4+bruzuJXL79saw8fA=;
+	b=J6XKAuxNxeUULYxTWsFPXX3MYi03x+nNt2g2Xu0QgY5eFpCIpL3xaEsyEqCMQsjsf0nVxt
+	4WLEdwICNOMN9fkSvRTjTljo7wSYmO+ukcIy5ZQ/KlTh3zDsA7WvmP+yprLZirrDftiBSh
+	nhzU3c4Tv+ELshA21O4ohpJiQO4y61s=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-179-2F5hAZabMmuzzHYDuKsFBg-1; Thu, 18 Jun 2020 19:17:49 -0400
-X-MC-Unique: 2F5hAZabMmuzzHYDuKsFBg-1
+ us-mta-176-RS19oBfbN5yZM7sEiJTS7g-1; Fri, 19 Jun 2020 02:33:16 -0400
+X-MC-Unique: RS19oBfbN5yZM7sEiJTS7g-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9191A18A8223;
-	Thu, 18 Jun 2020 23:17:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E7F811902EA9;
+	Fri, 19 Jun 2020 06:33:07 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7172C7CAA5;
-	Thu, 18 Jun 2020 23:17:43 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B76AE7CACB;
+	Fri, 19 Jun 2020 06:33:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 34FA1833CF;
-	Thu, 18 Jun 2020 23:17:43 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D40E4833C1;
+	Fri, 19 Jun 2020 06:32:54 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05INHefX017916 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 18 Jun 2020 19:17:40 -0400
+	id 05J6Wgps011290 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 19 Jun 2020 02:32:43 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2DB737CAB9; Thu, 18 Jun 2020 23:17:40 +0000 (UTC)
+	id B903B103285; Fri, 19 Jun 2020 06:32:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B81FE7CAA5;
-	Thu, 18 Jun 2020 23:17:35 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 05INHYPa026235; 
-	Thu, 18 Jun 2020 18:17:34 -0500
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 05INHYme026234;
-	Thu, 18 Jun 2020 18:17:34 -0500
-Date: Thu, 18 Jun 2020 18:17:33 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <Martin.Wilck@suse.com>
-Message-ID: <20200618231733.GN5894@octiron.msp.redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B4E26103284
+	for <dm-devel@redhat.com>; Fri, 19 Jun 2020 06:32:40 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6B68D101A526
+	for <dm-devel@redhat.com>; Fri, 19 Jun 2020 06:32:40 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-262-enUsVq6JOTOZMRj3K3zG_A-1;
+	Fri, 19 Jun 2020 02:32:37 -0400
+X-MC-Unique: enUsVq6JOTOZMRj3K3zG_A-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+	by mx2.suse.de (Postfix) with ESMTP id 369DDAC22;
+	Fri, 19 Jun 2020 06:32:35 +0000 (UTC)
+To: Benjamin Marzinski <bmarzins@redhat.com>,
+	Martin Wilck <Martin.Wilck@suse.com>
 References: <1592439867-18427-1-git-send-email-bmarzins@redhat.com>
-	<1592439867-18427-2-git-send-email-bmarzins@redhat.com>
-	<a0ac8df28c485019977a5baa3d1c4620604952db.camel@suse.com>
+	<1592439867-18427-3-git-send-email-bmarzins@redhat.com>
+	<f09ec3b6537a7b7ac1ae26433e43846176f1dd48.camel@suse.com>
+	<20200618231711.GM5894@octiron.msp.redhat.com>
+From: Hannes Reinecke <hare@suse.de>
+Message-ID: <a1df6c71-1427-9649-3e81-138ffcd04370@suse.de>
+Date: Fri, 19 Jun 2020 08:32:34 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.8.0
 MIME-Version: 1.0
-In-Reply-To: <a0ac8df28c485019977a5baa3d1c4620604952db.camel@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+In-Reply-To: <20200618231711.GM5894@octiron.msp.redhat.com>
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 05J6Wgps011290
 X-loop: dm-devel@redhat.com
 Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH 1/7] libmultipath: change do_get_info returns
+Subject: Re: [dm-devel] [PATCH 2/7] multipathd: fix check_path errors with
+	removed map
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,67 +94,66 @@ Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 
-On Thu, Jun 18, 2020 at 03:27:22PM +0000, Martin Wilck wrote:
-> On Wed, 2020-06-17 at 19:24 -0500, Benjamin Marzinski wrote:
-> > Make do_get_info() differentiate between dm failures and missing
-> > devices, and update callers to retain their current behavior. Also,
-> > rename it and make it external. These changes will be used by future
-> > commits.
-> >=20
-> > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
-> > ---
-> >  libmultipath/devmapper.c | 29 ++++++++++++++++-------------
-> >  libmultipath/devmapper.h |  1 +
-> >  2 files changed, 17 insertions(+), 13 deletions(-)
-> >=20
-> > diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
-> > index 27d52398..b44f7545 100644
-> > --- a/libmultipath/devmapper.c
-> > +++ b/libmultipath/devmapper.c
-> > @@ -496,8 +496,14 @@ int dm_addmap_reload(struct multipath *mpp, char
-> > *params, int flush)
-> >  =09return 0;
-> >  }
-> > =20
-> > -static int
-> > -do_get_info(const char *name, struct dm_info *info)
-> > +/*
-> > + * Returns:
-> > + * -1: Error
-> > + *  0: device does not exist
-> > + *  1: device exists
-> > + */
->=20
-> Can we use symbolic values here please? In particular as you have
-> changed the "success" return value from 0 to 1...
->=20
-> One day we should come up with a proper return value scheme
-> for libmultipath, defining specific enums for every function
-> doesn't scale. But do it here for now nonetheless, please.
-
-Sure
-
--Ben
-
->=20
-> Apart from that, ok.
->=20
-> Regards
-> Martin
->=20
-> --=20
-> Dr. Martin Wilck <mwilck@suse.com>, Tel. +49 (0)911 74053 2107
-> SUSE  Software Solutions Germany GmbH
-> HRB 36809, AG N=FCrnberg GF: Felix
-> Imend=F6rffer
->=20
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+T24gNi8xOS8yMCAxOjE3IEFNLCBCZW5qYW1pbiBNYXJ6aW5za2kgd3JvdGU6Cj4gT24gVGh1LCBK
+dW4gMTgsIDIwMjAgYXQgMDc6MzQ6MzhQTSArMDAwMCwgTWFydGluIFdpbGNrIHdyb3RlOgo+PiBP
+biBXZWQsIDIwMjAtMDYtMTcgYXQgMTk6MjQgLTA1MDAsIEJlbmphbWluIE1hcnppbnNraSB3cm90
+ZToKPj4+IElmIGEgbXVsdGlwYXRoIGRldmljZSBpcyByZW1vdmVkIGR1cmluZywgb3IgaW1tZWRp
+YXRlbHkgYmVmb3JlIHRoZQo+Pj4gY2FsbAo+Pj4gdG8gY2hlY2tfcGF0aCgpLCBtdWx0aXBhdGhk
+IGNhbiBiZWhhdmUgaW5jb3JyZWN0bHkuIEEgbWlzc2luZwo+Pj4gbXVsdHBhdGgKPj4+IGRldmlj
+ZSB3aWxsIGNhdXNlIHVwZGF0ZV9tdWx0aXBhdGhfc3RyaW5ncygpIHRvIGZhaWwsIHNldHRpbmcK
+Pj4+IHBwLT5kbXN0YXRlIHRvIFBTVEFURV9VTkRFRi4gIElmIHRoZSBwYXRoIGlzIHVwLCB0aGlz
+IHN0YXRlIHdpbGwKPj4+IGNhdXNlCj4+PiByZWluc3RhdGVfcGF0aCgpIHRvIGJlIGNhbGxlZCwg
+d2hpY2ggd2lsbCBhbHNvIGZhaWwuICBUaGlzIHdpbGwKPj4+IHRyaWdnZXIKPj4+IGEgcmVsb2Fk
+LCByZXN0b3JpbmcgdGhlIHJlY2VudGx5IHJlbW92ZWQgZGV2aWNlLgo+Pj4KPj4+IElmIHVwZGF0
+ZV9tdWx0aXBhdGhfc3RyaW5ncygpIGZhaWxzIGJlY2F1c2UgdGhlcmUgaXMgbm8gbXVsdGlwYXRo
+Cj4+PiBkZXZpY2UsIGNoZWNrX3BhdGggc2hvdWxkIGp1c3QgcXVpdCwgc2luY2UgdGhlIHJlbW92
+ZSBkbWV2ZW50IGFuZAo+Pj4gdWV2ZW50Cj4+PiBhcmUgbGlrZWx5IGFscmVhZHkgcXVldWVkIHVw
+LiBBbHNvLCBJIGRvbid0IHNlZSBhbnkgcmVhc29uIHRvIHJlbG9hZAo+Pj4gdGhlCj4+PiBtdWx0
+aXBhdGggZGV2aWNlIGlmIHJlaW5zdGF0ZSBmYWlscy4gVGhpcyBjb2RlIHdhcyBhZGRlZCBieQo+
+Pj4gZmFjNjhkN2E5OWVmMTdkNDk2MDc5NTM4YTVjNjgzNmFjZDc5MTFhYiwgd2hpY2ggY2xhbWlu
+ZWQgdGhhdAo+Pj4gcmVpbnN0YXRlCj4+PiBjb3VsZCBmYWlsIGlmIHRoZSBwYXRoIHdhcyBkaXNh
+YmxlZC4gIExvb2tpbmcgdGhyb3VnaCB0aGUgY3VycmVudAo+Pj4ga2VybmVsCj4+PiBjb2RlLCBJ
+IGNhbid0IHNlZSBhbnkgcmVhc29uIHdoeSBhIHJlaW5zdGF0ZSB3b3VsZCBmYWlsLCB3aGVyZSBh
+Cj4+PiByZWxvYWQKPj4+IHdvdWxkIGhlbHAuIElmIHRoZSBwYXRoIHdhcyBtaXNzaW5nIGZyb20g
+dGhlIG11bHRpcGF0aCBkZXZpY2UsCj4+PiB1cGRhdGVfbXVsdGlwYXRoX3N0cmluZ3MoKSB3b3Vs
+ZCBhbHJlYWR5IGNhdGNoIHRoYXQsIGFuZCBxdWl0Cj4+PiBjaGVja19wYXRoKCkgZWFybHksIHdo
+aWNoIG1ha2UgbW9yZSBzZW5zZSB0byBtZSB0aGFuIHJlbG9hZGluZyBkb2VzLgo+Pgo+PiBmYWM2
+OGQ3IGlzIHJlbGF0ZWQgdG8gdGhlIGZhbW91cyAiZG0tbXVsdGlwYXRoOiBBY2NlcHQgZmFpbGVk
+IHBhdGhzIGZvcgo+PiBtdWx0aXBhdGggbWFwcyIgcGF0Y2ggKGUuZy4KPj4gaHR0cHM6Ly9wYXRj
+aHdvcmsua2VybmVsLm9yZy9wYXRjaC8zMzY4MzgxLyM3MTkzMDAxKSwgd2hpY2ggbmV2ZXIgbWFk
+ZQo+PiBpdCB1cHN0cmVhbS4gU1VTRSBrZXJuZWxzIGhhdmUgc2hpcHBlZCB0aGlzIHBhdGNoIGZv
+ciBhIGxvbmcgdGltZSwgYnV0Cj4+IHdlIGRvbid0IGFwcGx5IGl0IGFueSBtb3JlIGluIHJlY2Vu
+dCBrZXJuZWxzLgo+Pgo+PiBXaXRoIHRoaXMgcGF0Y2gsIFRoZSByZWluc3RhdGVfcGF0aCgpIGZh
+aWx1cmUgd291bGQgb2NjdXIgaWYgbXVsdGlwYXRoZAo+PiBoYWQgY3JlYXRlZCBhIHRhYmxlIHdp
+dGggYSAiZGlzYWJsZWQiIGRldmljZSAob25lIHdoaWNoIHdvdWxkIGJlCj4+IHByZXNlbnQgaW4g
+YSBkbSBtYXAgZXZlbiB0aG91Z2ggdGhlIGFjdHVhbCBibG9jayBkZXZpY2UgZGlkbid0IGV4aXN0
+KSwKPj4gYW5kIHRoZW4gdHJpZWQgdG8gcmVpbnN0YXRlIHN1Y2ggYSBwYXRoLiBJdCBzb3VuZHMg
+dW5saWtlbHksIGJ1dCBpdAo+PiBtaWdodCBiZSBwb3NzaWJsZSBpZiBkZXZpY2VzIGFyZSBjb21p
+bmcgYW5kIGdvaW5nIGluIHF1aWNrIHN1Y2Nlc3Npb24uCj4+IEluIHRoYXQgc2l0dWF0aW9uLCBh
+bmQgd2l0aCB0aGUgImFjY2VwdCBmYWlsZWQgcGF0aCIgcGF0Y2ggYXBwbGllZCwgYQo+PiByZWxv
+YWQgbWFrZXMgc29tZSBzZW5zZSwgYmVjYXVzZSByZWxvYWQgKHVubGlrZSByZWluc3RhdGUpIHdv
+dWxkIG5vdAo+PiBmYWlsIChhdCBsZWFzdCBub3QgZm9yIHRoaXMgcmVhc29uKSBhbmQgd291bGQg
+YWN0dWFsbHkgYWRkIHRoYXQganVzdC0KPj4gcmVpbnN0YXRlZCBwYXRoLiBPVE9ILCBpdCdzIG5v
+dCBsaWtlbHkgdGhhdCB0aGUgcmVsb2FkIHdvdWxkIGltcHJvdmUKPj4gbWF0dGVycywgZWl0aGVy
+LiBBZnRlciBhbGwsIG11bHRpcGF0aGQgaXMganVzdCB0cnlpbmcgdG8gcmVpbnN0YXRlIGEKPj4g
+bm9uLWV4aXN0aW5nIHBhdGguIFNvLCBJJ20gZmluZSB3aXRoIHNraXBwaW5nIHRoZSByZWxvYWQu
+Cj4+Ckl0J3MgYWN0dWFsbHkgX25vdF8gdW5saWtlbHksIGJ1dCBhIGRpcmVjdCByZXN1bHQgb2Yg
+bXVsdGlwYXRoZCAKbGlzdGVuaW5nIHRvIHVldmVudHMuCgpJZiB5b3UgaGF2ZSBhIG1hcCB3aXRo
+IGZvdXIgcGF0aHMsIGFuZCBhbGwgZm91ciBvZiB0aGVtIGFyZSBnb2luZyBkb3duLCAKeW91IGVu
+ZCB1cCBnZXR0aW5nIGZvdXIgZXZlbnRzLgpBbmQgbXVsdGlwYXRoIHdpbGwgYmUgcHJvY2Vzc2lu
+ZyBlYWNoIGV2ZW50IF9pbmRpdmlkdWFsbHlfLCBjYXVzaW5nIGl0IAp0byBnZW5lcmF0ZSBhIHJl
+bG9hZCBzZXF1ZW5jZSBsaWtlOgoKW2EgYiBjIGRdCltiIGMgZF0KW2MgZF0KW2RdCltdCgpPZiB3
+aGljaCBvbmx5IHRoZSBsYXN0IGlzIHZhbGlkLCBhcyBhbGwgdGhlIGludGVybWVkaWF0ZSBvbmVz
+IGNvbnRhaW4gCmludmFsaWQgcGF0aHMuCgpBbmQgX3RoYXRfIGlzIHRoZSBzY2VuYXJpbyBJIHdh
+cyByZWZlcnJpbmcgdG8gd2hlbiBjcmVhdGluZyB0aGUgcGF0Y2guCgpDaGVlcnMsCgpIYW5uZXMK
+LS0gCkRyLiBIYW5uZXMgUmVpbmVja2UgICAgICAgICAgICBUZWFtbGVhZCBTdG9yYWdlICYgTmV0
+d29ya2luZwpoYXJlQHN1c2UuZGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKzQ5IDkx
+MSA3NDA1MyA2ODgKU1VTRSBTb2Z0d2FyZSBTb2x1dGlvbnMgR21iSCwgTWF4ZmVsZHN0ci4gNSwg
+OTA0MDkgTsO8cm5iZXJnCkhSQiAzNjgwOSAoQUcgTsO8cm5iZXJnKSwgR2VzY2jDpGZ0c2bDvGhy
+ZXI6IEZlbGl4IEltZW5kw7ZyZmZlcgoKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZl
+bEByZWRoYXQuY29tCmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1k
+ZXZlbA==
 
