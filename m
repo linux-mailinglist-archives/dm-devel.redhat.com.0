@@ -1,94 +1,130 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 223A3209C0D
-	for <lists+dm-devel@lfdr.de>; Thu, 25 Jun 2020 11:40:08 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 68260209C04
+	for <lists+dm-devel@lfdr.de>; Thu, 25 Jun 2020 11:39:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1593078007;
+	s=mimecast20190719; t=1593077971;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=pzrtzAbv9BjVtODvfsYLSYACGWQyIn4u90TjeJlUngo=;
-	b=hGAuhg3vmAhT00XPOfKH+UqGv7e3hHWvkto7C0FbfU2OojIuqI+Yn/D5YqR5yUCGySAO5A
-	eDia/BVZqWf6nXf30k+YH/QPcQu4Ikce979oAXk3hebAP7izcXD+OfOo9pfsKl+lWomGbr
-	hfvD5TFrAAnoq55DniCFkW5w5xZ0p8w=
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=6eL+6FSmIhUIYkkeF+42by55pzMZH/YrYwqTh2IMwPg=;
+	b=SZrLw73J2jnFN2+4z0SQe5vdYX7DXrFq7PFDdP73+FyO7TmdlLSu4UixrBBWNisGQ+841X
+	TAhG2JKovVeQ90Ikfs+lEkXuLORtnUBxV6AJ3EbsDrqy1gimu7uw4xXNG6zHFAOfm/fKfU
+	KkMpPTEphgnEIGbpuvj51OVWr4NdORQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-511-3ZdGUwucPl6SCJ0HJ6oRoA-1; Thu, 25 Jun 2020 05:39:28 -0400
-X-MC-Unique: 3ZdGUwucPl6SCJ0HJ6oRoA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-368-fo4fDC6YMQ29Y4mM6n5Eow-1; Thu, 25 Jun 2020 05:39:28 -0400
+X-MC-Unique: fo4fDC6YMQ29Y4mM6n5Eow-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4C3E419200C1;
-	Thu, 25 Jun 2020 09:39:22 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AAA08891D8;
-	Thu, 25 Jun 2020 09:39:19 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 31D7D805EE8;
+	Thu, 25 Jun 2020 09:39:23 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0AA7F19D61;
+	Thu, 25 Jun 2020 09:39:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 090B41809554;
-	Thu, 25 Jun 2020 09:39:07 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 428E7833BD;
+	Thu, 25 Jun 2020 09:39:21 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05OH14MZ006521 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 24 Jun 2020 13:01:04 -0400
+	id 05OMkKxO010335 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 24 Jun 2020 18:46:21 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0B236F1030; Wed, 24 Jun 2020 17:01:04 +0000 (UTC)
+	id D04062017F06; Wed, 24 Jun 2020 22:46:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0496FF11DA
-	for <dm-devel@redhat.com>; Wed, 24 Jun 2020 17:01:00 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CADC0202A942
+	for <dm-devel@redhat.com>; Wed, 24 Jun 2020 22:46:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CC41F188B2A5
-	for <dm-devel@redhat.com>; Wed, 24 Jun 2020 17:01:00 +0000 (UTC)
-Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
-	[209.85.128.66]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-369-6Jz41t_KOb2bJ_eMSOSJAw-1; Wed, 24 Jun 2020 13:00:58 -0400
-X-MC-Unique: 6Jz41t_KOb2bJ_eMSOSJAw-1
-Received: by mail-wm1-f66.google.com with SMTP id u26so4923628wmn.1
-	for <dm-devel@redhat.com>; Wed, 24 Jun 2020 10:00:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=zzdtk8DulCgW8E9yPjMJMwgX0/d4dwgCrXDFpHfsYHM=;
-	b=PkSX3t22FVjmj2n4r4oB571Llv14BAPGf+SqioLql2s9Z1/6yec9odsmPqBefryPDp
-	GDQpkygeYdI7HKO1/P3qwProM3VdpwUcxeMgNrGfvJWb7k8xXiFeiS7/DBVGKw8mWNdO
-	k54cJEgcpPmN2O0O3r9ruLLNOifRdQJYIP3TEa3969byk4dUWAUXxFdpNXO3EaFt0hN5
-	kJgFhEIZ+x4HTiFwecxsjFy3y1ZN6jFJvEgvDL4x+i5Q/8oZ0IdnjXOgMn4/nfenMYXq
-	RRgpA43iqPdx+V69fRZw7rM/gaHJMXQLJMTqgrLrMmvx0IR83/vR59L7lK9EPz3lwYHG
-	+AOw==
-X-Gm-Message-State: AOAM532kpap6xkUkZRAk/x7e+WKttkEq4uCA8ITcFa7kGpg/MF2UMZwN
-	Jmx77jMQT45yaS9NPV1XvME+PY8GXXBtVHa8yP9mvA==
-X-Google-Smtp-Source: ABdhPJx/+lRT2+hBd9KUPGRmFQSii8Z7C7Y2ImR7URuMi/+pppmPVDaua1f+kOHNlj3EjiwNboNV9qchU5FrvFlCTPc=
-X-Received: by 2002:a1c:238d:: with SMTP id j135mr1374992wmj.46.1593018057039; 
-	Wed, 24 Jun 2020 10:00:57 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DC725800394
+	for <dm-devel@redhat.com>; Wed, 24 Jun 2020 22:46:14 +0000 (UTC)
+Received: from esa5.hgst.iphmx.com (esa5.hgst.iphmx.com [216.71.153.144])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-475-C4UNo9JePCmhn5KOBkoShw-1; Wed, 24 Jun 2020 18:46:10 -0400
+X-MC-Unique: C4UNo9JePCmhn5KOBkoShw-1
+IronPort-SDR: 74PQLI+uqz1xA0twDFY5nrzAQSFh8pJUpSNUYaLI6cuJFaneeG55E6nljBHR9vqsRx9ZT+jdX8
+	uzbgplUjnEl1e2cXlwWtZ4L9OnsV4VSwY2wP8zYobDuAwfmNeSddwKPTZ6w4FlhxkofgYP/36e
+	361Jzw5DcIQ83l2Nm/vNzN9mivm8uqvBfxDY6QeL3RmxOGGuefm0Ug/n0IssmqggBfXoQRJKA7
+	/weN1UwQVueUkvz3FPq1WLzghC3gv3wXbMKFmlNMiIOLIUwgapsmPrRPxKmWsZoROGpIXLaqps
+	Qx4=
+X-IronPort-AV: E=Sophos;i="5.75,276,1589212800"; d="scan'208";a="141083698"
+Received: from mail-dm6nam10lp2106.outbound.protection.outlook.com (HELO
+	NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.106])
+	by ob1.hgst.iphmx.com with ESMTP; 25 Jun 2020 06:45:04 +0800
+Received: from BYAPR04MB4965.namprd04.prod.outlook.com (2603:10b6:a03:4d::25)
+	by BYAPR04MB5688.namprd04.prod.outlook.com (2603:10b6:a03:104::33)
+	with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.22;
+	Wed, 24 Jun 2020 22:45:02 +0000
+Received: from BYAPR04MB4965.namprd04.prod.outlook.com
+	([fe80::4d72:27c:c075:c5e6]) by BYAPR04MB4965.namprd04.prod.outlook.com
+	([fe80::4d72:27c:c075:c5e6%7]) with mapi id 15.20.3131.020;
+	Wed, 24 Jun 2020 22:45:02 +0000
+From: Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>
+To: Christoph Hellwig <hch@lst.de>
+Thread-Topic: [PATCH RFC] block: blktrace framework cleanup
+Thread-Index: AQHWSdd4UnyRRkLaf0OG0GWCqlwTUQ==
+Date: Wed, 24 Jun 2020 22:45:02 +0000
+Message-ID: <BYAPR04MB49653212CE32249C65C0A7F486950@BYAPR04MB4965.namprd04.prod.outlook.com>
+References: <20200624032752.4177-1-chaitanya.kulkarni@wdc.com>
+	<20200624064820.GA17964@lst.de>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [199.255.45.62]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 2da5678c-a5a1-4c07-896a-08d818903bbc
+x-ms-traffictypediagnostic: BYAPR04MB5688:
+x-microsoft-antispam-prvs: <BYAPR04MB5688F1049F95C98C268A176A86950@BYAPR04MB5688.namprd04.prod.outlook.com>
+wdcipoutbound: EOP-TRUE
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-forefront-prvs: 0444EB1997
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: j+4MxcY8WnjKsKUmBlapaUWawqEinfy/gEFO/vNGPDPwD/kP7uu14AqUgbWYf2eX31WSRDF/EO+6+7uKn0pjGWX8LhR+0x92EgWlborF8GUtsi7A4oaN0MCE8Ql4H1wfhPUrnTodW1B5LDkUPh8YxzVzKwS13C85bMDLKq/3I/ErLL8txTEBAJiKwlsZdI6mQ/hU619q2gHsqWmQzNZc7JeNyv5X4Wk3Vva4ANCI1UZbc4iKuLjjfrtlegt9ofM4vMOQhe3/byglQSqFv5+eOqeVZ/mQu6ED0ioRmdeEmapEuElrK75C72PFNuQNeCLyzQ4+SDwg1qi0r8akcSD7aw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:BYAPR04MB4965.namprd04.prod.outlook.com;
+	PTR:; CAT:NONE; SFTY:;
+	SFS:(4636009)(136003)(396003)(39860400002)(346002)(366004)(376002)(52536014)(6506007)(53546011)(6916009)(186003)(86362001)(76116006)(5660300002)(66946007)(83380400001)(26005)(7416002)(66476007)(66556008)(2906002)(33656002)(64756008)(478600001)(66446008)(4326008)(8936002)(8676002)(9686003)(54906003)(55016002)(7696005)(71200400001)(316002);
+	DIR:OUT; SFP:1102;
+x-ms-exchange-antispam-messagedata: xRH6Hl8/x2ZZfWilyMV6N26FwonUzrqzknUQKEb3Roqkv7brqIg05UlRFM+Aqq8WSECPQJz00mbEBBEq8ZEDMvX0m42WlqgEIRgvmQ5mTT3MNrOa/DEoo2kcY8LrPdRCswFsMoZsoKYXv3gW/4noY7dhqNLodxGHpx/bN1+MRCcqoNWKvoRPaPICZbMxtBG8TPxf1H8HEn4XuZeDu5C6uddcghlTn3kLjHE6z4VZuOGuq1YolmCPcyowiC2+cmm4h0hidOTtZwlkWYFv8xHZPcP8KYzJmUcQ2t+xEgVkic3/Ew6SEC1uOshqTemDUEFy5MUqPHevbI+7SHQYkuY58frr/2bJXIgHvcIXN9YOir4U+oSmezCxozPCtRLC9ycxyEdNdgRwFcaOJnJudihbcTEl0GX4ola+HVZjA9gPl4eHRBpJjZ9fe4rXTNgb3BWs3lseHhaoyN5nrO3lWHZJDd4usYGiT3NvBp+980PrjHA=
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-References: <20200619164132.1648-1-ignat@cloudflare.com>
-	<20200619164132.1648-2-ignat@cloudflare.com>
-	<20200624050452.GB844@sol.localdomain>
-	<CALrw=nFduv_X83V1Dfz+bt4bZqT19OSi3q5f7umhty1-DQ2SPg@mail.gmail.com>
-	<20200624162407.GB200774@gmail.com>
-In-Reply-To: <20200624162407.GB200774@gmail.com>
-From: Ignat Korchagin <ignat@cloudflare.com>
-Date: Wed, 24 Jun 2020 18:00:45 +0100
-Message-ID: <CALrw=nG-aduc2F0q=d1LXRG_mxJUSrE3xQHQDRQ_UbAx7TQeiQ@mail.gmail.com>
-To: Eric Biggers <ebiggers@kernel.org>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-OriginatorOrg: wdc.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2da5678c-a5a1-4c07-896a-08d818903bbc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jun 2020 22:45:02.7545 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: tTyo8GSALl26+0AKJVSJs4rKDBoz9rSaWieJTbPZS39R8+uKq/9ivDr1ObZk+HasXQP/YByN3KaH9i9zwiABF9nJBi2ZNzrAHZXP+4jrA+0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR04MB5688
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 05OMkKxO010335
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 25 Jun 2020 05:38:56 -0400
-Cc: Mike Snitzer <snitzer@redhat.com>, kernel-team <kernel-team@cloudflare.com>,
-	dm-crypt@saout.de, linux-kernel <linux-kernel@vger.kernel.org>,
-	dm-devel@redhat.com, agk@redhat.com
-Subject: Re: [dm-devel] [dm-crypt] [RFC PATCH 1/1] Add DM_CRYPT_FORCE_INLINE
- flag to dm-crypt target
+Cc: "axboe@kernel.dk" <axboe@kernel.dk>,
+	"snitzer@redhat.com" <snitzer@redhat.com>,
+	"rdunlap@infradead.org" <rdunlap@infradead.org>,
+	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"mingo@redhat.com" <mingo@redhat.com>,
+	"rostedt@goodmis.org" <rostedt@goodmis.org>,
+	"kbusch@kernel.org" <kbusch@kernel.org>, "agk@redhat.com" <agk@redhat.com>
+Subject: Re: [dm-devel] [PATCH RFC] block: blktrace framework cleanup
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -102,89 +138,72 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Jun 24, 2020 at 5:24 PM Eric Biggers <ebiggers@kernel.org> wrote:
->
-> On Wed, Jun 24, 2020 at 09:24:07AM +0100, Ignat Korchagin wrote:
-> > On Wed, Jun 24, 2020 at 6:04 AM Eric Biggers <ebiggers@kernel.org> wrote:
-> > >
-> > > On Fri, Jun 19, 2020 at 05:41:32PM +0100, Ignat Korchagin wrote:
-> > > > Sometimes extra thread offloading imposed by dm-crypt hurts IO latency. This is
-> > > > especially visible on busy systems with many processes/threads. Moreover, most
-> > > > Crypto API implementaions are async, that is they offload crypto operations on
-> > > > their own, so this dm-crypt offloading is excessive.
-> > >
-> > > This really should say "some Crypto API implementations are async" instead of
-> > > "most Crypto API implementations are async".
-> >
-> > The most accurate would probably be: most hardware-accelerated Crypto
-> > API implementations are async
-> >
-> > > Notably, the AES-NI implementation of AES-XTS is synchronous if you call it in a
-> > > context where SIMD instructions are usable.  It's only asynchronous when SIMD is
-> > > not usable.  (This seems to have been missed in your blog post.)
-> >
-> > No, it was not. This is exactly why we made xts-proxy Crypto API
-> > module as a second patch. But it seems now it does not make a big
-> > difference if a used Crypto API implementation is synchronous as well
-> > (based on some benchmarks outlined in the cover letter to this patch).
-> > I think the v2 of this patch will not require a synchronous Crypto
-> > API. This is probably a right thing to do, as the "inline" flag should
-> > control the way how dm-crypt itself handles requests, not how Crypto
-> > API handles requests. If a user wants to ensure a particular
-> > synchronous Crypto API implementation, they can already reconfigure
-> > dm-crypt and specify the implementation with a "capi:" prefix in the
-> > the dm table description.
->
-> I think you're missing the point.  Although xts-aes-aesni has the
-> CRYPTO_ALG_ASYNC bit set, the actual implementation processes the request
-> synchronously if SIMD instructions are currently usable.  That's always the case
-> in dm-crypt, as far as I can tell.  This algorithm has the ASYNC flag only
-> because it's not synchronous when called in hardIRQ context.
->
-> That's why your "xts-proxy" doesn't make a difference, and why it's misleading
-> to suggest that the crypto API is doing its own queueing when you're primarily
-> talking about xts-aes-aesni.  The crypto API definitely can do its own queueing,
-> mainly with hardware drivers.  But it doesn't in this common and relevant case.
+On 6/23/20 11:48 PM, Christoph Hellwig wrote:
+> 
+> 
+> On Tue, Jun 23, 2020 at 08:27:52PM -0700, Chaitanya Kulkarni wrote:
+>> There are many places where trace API accepts the struct request_queue*
+>> parameter which can be derived from other function parameters.
+>>
+>> This patch removes the struct request queue parameter from the
+>> blktrace framework and adjusts the tracepoints definition and usage
+>> along with the tracing API itself.
+> 
+> Good idea, and I had a half-ready patch for this already as well.
+> 
+Well, I sent out the reply to your suggestion didn't get any response so 
+I decided to send a patch, if you want we can merge it I'll keep you as 
+an author for the right reasons.
+> One issue, and two extra requests below:
+> 
+> 
+>>   	if (bio->bi_disk && bio_flagged(bio, BIO_TRACE_COMPLETION)) {
+>> -		trace_block_bio_complete(bio->bi_disk->queue, bio);
+>> +		trace_block_bio_complete(bio);
+> 
+> This one can also be called for a different queue than
+> bio->bi_disk->queue, so for this one particular tracepoint we'll need
+> to keep the request_queue argument.
+> 
+Yes, we should.
+>> diff --git a/block/blk-mq-sched.c b/block/blk-mq-sched.c
+>> index fdcc2c1dd178..a3cade16ef80 100644
+>> --- a/block/blk-mq-sched.c
+>> +++ b/block/blk-mq-sched.c
+>> @@ -409,7 +409,7 @@ EXPORT_SYMBOL_GPL(blk_mq_sched_try_insert_merge);
+>>   
+>>   void blk_mq_sched_request_inserted(struct request *rq)
+>>   {
+>> -	trace_block_rq_insert(rq->q, rq);
+>> +	trace_block_rq_insert(rq);
+>>   }
+>>   EXPORT_SYMBOL_GPL(blk_mq_sched_request_inserted);
+> 
+> As a follow on patch we should also remove this function.
+> 
+Okay will make it is a 2nd patch.
+>>   	}
+>>   
+>>   	spin_lock(&ctx->lock);
+>> @@ -2111,7 +2111,7 @@ blk_qc_t blk_mq_make_request(struct request_queue *q, struct bio *bio)
+>>   		goto queue_exit;
+>>   	}
+>>   
+>> -	trace_block_getrq(q, bio, bio->bi_opf);
+>> +	trace_block_getrq(bio, bio->bi_opf);
+> 
+> The second argument can be removed as well.  Maybe as another patch.
+Okay I'll make it in a 3rd patch.
+> 
 
-I think we're talking about the same things but from different points
-of view. I would like to clarify that the whole post and this change
-does not have the intention to focus on aesni (or any x86-specific
-crypto optimizations). In fact it is quite the opposite: we want to
-optimize the generic dm-crypt regardless of which crypto is used
-(that's why I just used a NULL cipher in the cover letter). We also
-have some arm64 machines [1] and I bet they would benefit here as
-well. The important point my post tries to make is that the original
-workqueue offloading in dm-crypt was added because the Crypto API was
-synchronous back in the day and, exactly as you say, you may not be
-able to use some hw-accelerated crypto in hard IRQ context as well as
-doing non-hw crypto in hard IRQ context is a bad idea. Now, most
-Crypto API are smart enough to figure out on their own if they should
-process the request inline or offload it to a workqueue, so the
-workarounds in the dm-crypt itself most likely are not needed. Though,
-the generic Crypto API "cipher walk" function does refuse to "walk"
-the buffers in hard IRQ context, so the "tasklet" functionality is
-still required.
 
-But from the dm-crypt perspective - it should not take into account if
-a particular xts-aes-aesni implementation is MOSTLY synchronous -
-those are details of the implementation of this particular cipher
-dm-crypt has no visibility into. So it would be right to say in my
-opinion if the cipher has the CRYPTO_ALG_ASYNC flag set - it can
-offload the crypto request to a workqueue at any time. How often does
-it do it - that's another story and probably should be reviewed
-elsewhere, if it does it too often.
 
-Ignat
-
-[1]: https://blog.cloudflare.com/arm-takes-wing/
-
-> - Eric
 
 --
 dm-devel mailing list
