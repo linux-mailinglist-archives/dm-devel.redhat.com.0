@@ -1,97 +1,61 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 6B06820A6D0
-	for <lists+dm-devel@lfdr.de>; Thu, 25 Jun 2020 22:36:52 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id EF5C620A6F5
+	for <lists+dm-devel@lfdr.de>; Thu, 25 Jun 2020 22:43:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1593117411;
+	s=mimecast20190719; t=1593117795;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=1m66QCJLdbN+V4hPPmJK98JUxYzD90hUjwikxKd6ziA=;
-	b=LoNAc28l9LKdqmCAzEVOcFkDK0xrBK1G0nsYBOyhOIuzFnqUiti9LFnJ5GW006F9dZfvcs
-	k5/5IKw17Y7UOyOfmKl/v/3SWFupNhyodN0gF1inks8KCQtDskpbS0ce3ktW4I6NrV2qdm
-	merFnw7S9dqQ+ao/I/yu0pl4CBiCJvM=
+	bh=Dg4A/2fFtf510rjBv6KDZ3lroYLhPknjHQ0hPrAaU3A=;
+	b=AkxnjdKgtymFxKARV9SdTi81Yl0FaveKUVCYkyBPErskZVNkNwJ1FBn03r0kEE4gmvUoS6
+	rzwdRr3tL8nGtFSb6dThvLC8z1Hv7cxUFY5BSLAeVoY67nbmqIvlxDlX+bY2p2Y47fYCJb
+	61NBwaXej0QX0DTusjF7jUmTOfaXi3U=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-119-Ro_aPERvNeWvJKZ8Xd3CHA-1; Thu, 25 Jun 2020 16:36:48 -0400
-X-MC-Unique: Ro_aPERvNeWvJKZ8Xd3CHA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-465-MvBgwpapMPaXaCtJk7MqDg-1; Thu, 25 Jun 2020 16:42:42 -0400
+X-MC-Unique: MvBgwpapMPaXaCtJk7MqDg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5DBA6EC1A0;
-	Thu, 25 Jun 2020 20:36:41 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 681CE1A835;
-	Thu, 25 Jun 2020 20:36:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BE8E0800597;
+	Thu, 25 Jun 2020 20:42:33 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8D0CD7554F;
+	Thu, 25 Jun 2020 20:42:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 711F0875A3;
-	Thu, 25 Jun 2020 20:36:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 504BB1809547;
+	Thu, 25 Jun 2020 20:42:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05PKaOR6013105 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 25 Jun 2020 16:36:24 -0400
+	id 05PKgSPP014012 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 25 Jun 2020 16:42:28 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5D602FC720; Thu, 25 Jun 2020 20:36:24 +0000 (UTC)
+	id DF3A52B4BF; Thu, 25 Jun 2020 20:42:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 59506F9ACA
-	for <dm-devel@redhat.com>; Thu, 25 Jun 2020 20:36:22 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 57338858F02
-	for <dm-devel@redhat.com>; Thu, 25 Jun 2020 20:36:22 +0000 (UTC)
-Received: from mail-ej1-f68.google.com (mail-ej1-f68.google.com
-	[209.85.218.68]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-243-DS4wT07INYODVYUzS6ZnHw-1; Thu, 25 Jun 2020 16:36:15 -0400
-X-MC-Unique: DS4wT07INYODVYUzS6ZnHw-1
-Received: by mail-ej1-f68.google.com with SMTP id y10so7286548eje.1;
-	Thu, 25 Jun 2020 13:36:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-	:mime-version:content-disposition:in-reply-to;
-	bh=rO9wobKDdJfB6GpyJylYAIJ+kYKUiyATVCtaBeDI+fw=;
-	b=k2p2KlqvOUwACxCVOgpUd9dVnA4bdyyMxosc5xm2YUM68wgBil3fxTUqVjm5A1xEau
-	okbGAxPrn0T8mXWt3caFsE8uJH4fZzNoWwjeoKlmbu+bXedbOCyZtpqzuTOOw1tAqaSI
-	imCy4160XtkNe5WkXPNGcll6X7pftkxTbUvmQsJysT0kPc2BqfFOexhhzVJ+bM5v6Mqd
-	ehhsSknwV+23wJ9TxNoEertsOaz0SQaO6WdqcK7PSwm2CUXwKc7SwJdaqXNOZgmPA1Aa
-	Ip+BNB3/MfLL5Mj7hzDIQNmPcmmzIhF6MO3HgKZ5UW/HJ7QMR4TcRKKOU1ElVcEja+j1
-	YKPg==
-X-Gm-Message-State: AOAM530ZN5pb1+JZIIKYEotmZ1daSSIvyRpXV0cil+cwW096qdSNv9KE
-	OkCcrmL1DiPjZ3E2a9+p4Bw=
-X-Google-Smtp-Source: ABdhPJzfhS7g3k5+vRs6JczdAsbHFNdSSLshuu/AhvsQ7cPrZgwO71TfhCq9ltNkBnPaHiW49BYdog==
-X-Received: by 2002:a17:906:4f87:: with SMTP id
-	o7mr30542289eju.233.1593117374457; 
-	Thu, 25 Jun 2020 13:36:14 -0700 (PDT)
-Received: from localhost (ip-37-188-168-3.eurotel.cz. [37.188.168.3])
-	by smtp.gmail.com with ESMTPSA id
-	bs18sm3790352edb.38.2020.06.25.13.36.12
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 25 Jun 2020 13:36:13 -0700 (PDT)
-Date: Thu, 25 Jun 2020 22:36:11 +0200
-From: Michal Hocko <mhocko@kernel.org>
-To: "Darrick J. Wong" <darrick.wong@oracle.com>
-Message-ID: <20200625203611.GS1320@dhcp22.suse.cz>
-References: <20200625113122.7540-1-willy@infradead.org>
-	<20200625184832.GP7606@magnolia>
-MIME-Version: 1.0
-In-Reply-To: <20200625184832.GP7606@magnolia>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8D88C2B47C;
+	Thu, 25 Jun 2020 20:42:23 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 05PKgMpx028788; 
+	Thu, 25 Jun 2020 15:42:22 -0500
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 05PKgL3D028787;
+	Thu, 25 Jun 2020 15:42:21 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>
+Date: Thu, 25 Jun 2020 15:42:14 -0500
+Message-Id: <1593117741-28750-1-git-send-email-bmarzins@redhat.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>, linux-kernel@vger.kernel.org,
-	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
-	linux-xfs@vger.kernel.org, linux-mm@kvack.org,
-	dm-devel@redhat.com, Yafang Shao <laoar.shao@gmail.com>,
-	Mikulas Patocka <mpatocka@redhat.com>
-Subject: Re: [dm-devel] [PATCH 0/6] Overhaul memalloc_no*
+Cc: device-mapper development <dm-devel@redhat.com>,
+	Martin Wilck <Martin.Wilck@suse.com>
+Subject: [dm-devel] [PATCH v2 0/7] Fix muitpath/multipathd flush issue
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -103,47 +67,85 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-On Thu 25-06-20 11:48:32, Darrick J. Wong wrote:
-> On Thu, Jun 25, 2020 at 12:31:16PM +0100, Matthew Wilcox (Oracle) wrote:
-> > I want a memalloc_nowait like we have memalloc_noio and memalloc_nofs
-> > for an upcoming patch series, and Jens also wants it for non-blocking
-> > io_uring.  It turns out we already have dm-bufio which could benefit
-> > from memalloc_nowait, so it may as well go into the tree now.
-> > 
-> > The biggest problem is that we're basically out of PF_ flags, so we need
-> > to find somewhere else to store the PF_MEMALLOC_NOWAIT flag.  It turns
-> > out the PF_ flags are really supposed to be used for flags which are
-> > accessed from other tasks, and the MEMALLOC flags are only going to
-> > be used by this task.  So shuffling everything around frees up some PF
-> > flags and generally makes the world a better place.
-> 
-> So, uh, how does this intersect with the patch "xfs: reintroduce
-> PF_FSTRANS for transaction reservation recursion protection" that
-> re-adds PF_TRANS because uh I guess we lost some subtlety or another at
-> some point?
+If a multipath device is removed, and check_path() checks one of its
+paths before multipathd processes either the uevent or the dm event from
+removing it, multipathd will recreate the removed device. This happens
+because check_path() will continute to check the removed device's former
+paths until an event arrives removing the device.  A missing multpath
+device will cause the update_multipath_strings() call to fail, setting
+pp->dmstate to PSTATE_UNDEF.  If the path is up, this dmstate will cause
+reinstate_path() to be called, which will also fail, because the
+multipath device doesn't exist.  This will trigger a reload, restoring
+the recently removed device.
 
-This is independent, really. It just relocates the NOFS flag. PF_TRANS
-is reintroduced for a different reason. When I have replaced the
-original PF_TRANS by PF_MEMALLOC_NOFS I didn't realized that xfs doesn't
-need only the NOFS semantic but also the transaction tracking so this
-cannot be a single bit only. So it has to be added back. But
-PF_MEMALLOC_NOFS needs to stay for the scoped NOFS semantic.
+This patchset handles this is two ways. The first two patches directly
+fix these issues in check_path(), so that a missing multipath device
+will no longer get recreated when checking one of its former paths.
 
-Hope this clarifies it a bit.
+The other 5 patches add a "multipathd del maps" command, and make the
+mutipath command delegate flush operations to multipathd so multipathd's
+state remains in sync with the kernel's, while doing removes.
+
+Changes from v1:
+0001:	This is completely different. I've change how patch 0002 detects
+	when a multipath device has disappeared. Instead of do_get_info,
+	I need more return values on dm_get_map/status, and the
+	update_multipath_* functions. I have used symbolic return
+	values, which was the objection to the previous patch. I tried
+	to picked generic enough names that they could be used for other
+	devmapper.c functions as well.
+
+0002:	At Martin's suggestion, multipath now differentiates between dm
+	failures and a missing multipath device in
+	update_multipath_strings(). So there is no need to recheck if
+	the device is missing.
+
+0006:	Added some man page info that was previously in patch 0007
+
+0007:	Removed mentions of the -D option in the man page and usage
+	output.
+
+I did not change anything about suspending the device on remove.  It was
+not obvious how to break that up between multipath and multipathd, and
+there are likely still some conversations to be had about what we need
+to do to remove a device in multipath, and in what order.  So, for now,
+I just kept all those functions the same, and just added the code
+necessary to make multpathd work with them correctly, as is.
+
+Benjamin Marzinski (7):
+  libmultipath: make dm_get_map/status return codes symbolic
+  multipathd: fix check_path errors with removed map
+  libmultipath: make dm_flush_maps only return 0 on success
+  multipathd: add "del maps" multipathd command
+  multipath: make flushing maps work like other commands
+  multipath: delegate flushing maps to multipathd
+  multipath: add option to skip multipathd delegation
+
+ libmultipath/config.h      |  4 ++-
+ libmultipath/configure.h   |  3 --
+ libmultipath/devmapper.c   | 63 +++++++++++++++++++++++++-------------
+ libmultipath/devmapper.h   |  8 ++++-
+ libmultipath/structs_vec.c | 45 +++++++++++++++------------
+ multipath/main.c           | 44 ++++++++++++++++++--------
+ multipath/multipath.8      |  4 +--
+ multipathd/cli.c           |  1 +
+ multipathd/cli_handlers.c  | 19 ++++++++++++
+ multipathd/cli_handlers.h  |  1 +
+ multipathd/main.c          | 50 +++++++++++++-----------------
+ multipathd/main.h          |  1 +
+ 12 files changed, 155 insertions(+), 88 deletions(-)
+
 -- 
-Michal Hocko
-SUSE Labs
+2.17.2
 
 --
 dm-devel mailing list
