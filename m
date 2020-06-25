@@ -1,96 +1,96 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 4C1BA20A00F
-	for <lists+dm-devel@lfdr.de>; Thu, 25 Jun 2020 15:35:09 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id D698120A014
+	for <lists+dm-devel@lfdr.de>; Thu, 25 Jun 2020 15:35:31 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1593092108;
+	s=mimecast20190719; t=1593092130;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Wpv8mG6pg8/k4gpJuOsJe/CiHlQoSoTtn7rtvhBX3gE=;
-	b=TfJ+ptbVU71iOdZ8Q0L3cqLtEx13zw03Pu2Mrn53AmWR0Wgw+sKU6o0YFBNiOcu14uNDel
-	kGhEo0zsE1SuPi3S1k4Ge96h9U2UBHJTBhwT7IvoE5KWc7ix3Um7x4hfqAmDfWzWnjqt9b
-	xUfs1EdIGHJ0q6jZZ2nUscO7BQkahhM=
+	bh=z3IdVApRdWSilNh2WfQiY2G0ODuQ3Y/GuArSjntAGNA=;
+	b=NYuZ1nJsrRqxVensAeSRlc0q1jQRBJepdIHQ8nvVHaon+EhrSHuhwPVFXp6mjR4sVHjstU
+	vBRH28AOCAVnfJmcJVFKp4dmW9svEnqxaw7fnbPKbcyZ9rrAJcKMAqLLz6W6WB+xB8gSzM
+	/JHTbYZlRnNmBMGYDywQ/Q3QGIeEbkM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-511-fgDYScx6O_a-u2QQBjm0QQ-1; Thu, 25 Jun 2020 09:35:06 -0400
-X-MC-Unique: fgDYScx6O_a-u2QQBjm0QQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-510-k7LlFZpdPgG348uCyqGmGA-1; Thu, 25 Jun 2020 09:35:28 -0400
+X-MC-Unique: k7LlFZpdPgG348uCyqGmGA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 51632835B49;
-	Thu, 25 Jun 2020 13:34:58 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E186A5C1BB;
-	Thu, 25 Jun 2020 13:34:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6184A464;
+	Thu, 25 Jun 2020 13:35:21 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B2675D9C5;
+	Thu, 25 Jun 2020 13:35:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 953261809547;
-	Thu, 25 Jun 2020 13:34:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 61BEC87582;
+	Thu, 25 Jun 2020 13:35:19 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05PDYXOO001476 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 25 Jun 2020 09:34:33 -0400
+	id 05PDZGsj001575 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 25 Jun 2020 09:35:16 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 798DDF6CD0; Thu, 25 Jun 2020 13:34:33 +0000 (UTC)
+	id 3B0902144B4A; Thu, 25 Jun 2020 13:35:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 061D9F7FB6
-	for <dm-devel@redhat.com>; Thu, 25 Jun 2020 13:34:29 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2A26A2144B39
+	for <dm-devel@redhat.com>; Thu, 25 Jun 2020 13:35:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 224D2805C20
-	for <dm-devel@redhat.com>; Thu, 25 Jun 2020 13:34:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B69C38001E1
+	for <dm-devel@redhat.com>; Thu, 25 Jun 2020 13:35:13 +0000 (UTC)
 Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
 	[209.85.221.68]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-514-muHGkjo-P-iLHpiiNpjEYQ-1; Thu, 25 Jun 2020 09:34:26 -0400
-X-MC-Unique: muHGkjo-P-iLHpiiNpjEYQ-1
-Received: by mail-wr1-f68.google.com with SMTP id h5so5865092wrc.7;
-	Thu, 25 Jun 2020 06:34:24 -0700 (PDT)
+	us-mta-257-b_ZAV1vHOCOftxg_CtjJjQ-1; Thu, 25 Jun 2020 09:35:06 -0400
+X-MC-Unique: b_ZAV1vHOCOftxg_CtjJjQ-1
+Received: by mail-wr1-f68.google.com with SMTP id b6so5843946wrs.11;
+	Thu, 25 Jun 2020 06:35:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
 	:mime-version:content-disposition:in-reply-to;
-	bh=gso1n2O6qGt4XCAgbt0r3fAr2sgINjgku+sh5gi1NWY=;
-	b=MyCutwAAzsUURuAAcvatByH6bjCBgI3hVCmy8sTJlb5+YKbqvG1mq79653dl1KBEzd
-	GwoWgw6JEEmyZqsmu/nzEAJasDigtytYgHcmyhKvLn5S0tW2ecb5RTEAaHsNuFznb58s
-	D8zP5rBFPDTmLVxQtYSDfepcBi/TD9QzRvzwsvM1rdpdq7j4D30Oc0InrvYa+0knVxyN
-	mwlPA9qesFCilsHNN6yqnrGuEs5i/U+iqbCHIcEKP0PbQibaI49ILFRy+SNrVzZIclVV
-	LcMSH9qPVMfoMp0nEEd8tV5a3O1isoTTTNGnjLkbRuDU58z+dciUhmBg4vUznYGDR1bi
-	rqQw==
-X-Gm-Message-State: AOAM532zInAbQ1G2NatmNlVVQqAFGx9zbc7c9SuRqkIhxXbVe9GzA7uB
-	U3Fsu8aDU9pZz+RitTMKKVA=
-X-Google-Smtp-Source: ABdhPJzpVrNaN5j5rVGXAiejljpXNjMiCVf/+8PXhmVJ4820v+TwTrdbGmEOyJwMQNORqxQ5JfER4g==
-X-Received: by 2002:adf:9c8c:: with SMTP id d12mr6351189wre.369.1593092063507; 
-	Thu, 25 Jun 2020 06:34:23 -0700 (PDT)
+	bh=IgYZrPxHW1Yk3TwSNNUUSYdD36C5CbbVMe0vITplDXw=;
+	b=fQDsJbS29OW+Tl7njxrutfArmaKIHYUTYzqIpVMfztUyLxy43mlXG30kdjZx7jTE5L
+	Dyv3UhAK2SuzhjqhX1nXbZ7mQk6DzCxwMsc6T/dDY2N2BQU64saNaq1Dan7jB28jvImk
+	kqXorC9zB26diSx4PJWqjXgxVFiMgZFcvmpvEeRUXeOq9zaZBfM2eOoS/CJFgsD0Mx5s
+	7F7fbrElgjUPZcFwE05Y++3Kt6a8vo7mhQp5DxpvnsJckk4H/1SOMJWU1GG2BAKzYl+6
+	yW7zH5yk0ceq+xDnzXWSg8GtC3CA8VP1YmdY8VZznfTMbIR0UdmHAXnoCwXyZna12kp5
+	53IA==
+X-Gm-Message-State: AOAM532GONeDg06ujmT3hxQ1fMb/eCQO4QEfE4nWGMySttaYUwlwJGxu
+	rImTkL27hSEh5homqMsp2BQ=
+X-Google-Smtp-Source: ABdhPJwaddI6ttW180z9XolsU5F/8EUo6u4oLwe5Z7g00mWKYqqFcDJ9Z0yPcz+5CvQGbwEE1bpQkg==
+X-Received: by 2002:a05:6000:18c:: with SMTP id
+	p12mr39132209wrx.66.1593092105200; 
+	Thu, 25 Jun 2020 06:35:05 -0700 (PDT)
 Received: from localhost (ip-37-188-168-3.eurotel.cz. [37.188.168.3])
 	by smtp.gmail.com with ESMTPSA id
-	v66sm12924082wme.13.2020.06.25.06.34.21
+	c143sm14010709wmd.1.2020.06.25.06.35.04
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 25 Jun 2020 06:34:22 -0700 (PDT)
-Date: Thu, 25 Jun 2020 15:34:20 +0200
+	Thu, 25 Jun 2020 06:35:04 -0700 (PDT)
+Date: Thu, 25 Jun 2020 15:35:03 +0200
 From: Michal Hocko <mhocko@kernel.org>
-To: Matthew Wilcox <willy@infradead.org>
-Message-ID: <20200625133420.GN1320@dhcp22.suse.cz>
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+Message-ID: <20200625133503.GO1320@dhcp22.suse.cz>
 References: <20200625113122.7540-1-willy@infradead.org>
-	<20200625113122.7540-7-willy@infradead.org>
-	<20200625124017.GL1320@dhcp22.suse.cz>
-	<20200625131055.GC7703@casper.infradead.org>
+	<20200625113122.7540-5-willy@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <20200625131055.GC7703@casper.infradead.org>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+In-Reply-To: <20200625113122.7540-5-willy@infradead.org>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: Jens Axboe <axboe@kernel.dk>, linux-kernel@vger.kernel.org,
 	linux-xfs@vger.kernel.org, linux-mm@kvack.org,
 	dm-devel@redhat.com, Mikulas Patocka <mpatocka@redhat.com>
-Subject: Re: [dm-devel] [PATCH 6/6] mm: Add memalloc_nowait
+Subject: Re: [dm-devel] [PATCH 4/6] mm: Replace PF_MEMALLOC_NOFS with
+	memalloc_nofs
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -104,77 +104,112 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-On Thu 25-06-20 14:10:55, Matthew Wilcox wrote:
-> On Thu, Jun 25, 2020 at 02:40:17PM +0200, Michal Hocko wrote:
-> > On Thu 25-06-20 12:31:22, Matthew Wilcox wrote:
-> > > Similar to memalloc_noio() and memalloc_nofs(), memalloc_nowait()
-> > > guarantees we will not sleep to reclaim memory.  Use it to simplify
-> > > dm-bufio's allocations.
-> > 
-> > memalloc_nowait is a good idea! I suspect the primary usecase would be
-> > vmalloc.
+On Thu 25-06-20 12:31:20, Matthew Wilcox wrote:
+> We're short on PF_* flags, so make memalloc_nofs its own bit where we
+> have plenty of space.
 > 
-> That's funny.  My use case is allocating page tables in an RCU protected
-> page fault handler.  Jens' use case is allocating page cache.  This one
-> is a vmalloc consumer (which is also indirectly page table allocation).
+> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+
+forgot to add
+Acked-by: Michal Hocko <mhocko@suse.com>
+
+> ---
+>  fs/iomap/buffered-io.c   |  2 +-
+>  include/linux/sched.h    |  2 +-
+>  include/linux/sched/mm.h | 13 ++++++-------
+>  3 files changed, 8 insertions(+), 9 deletions(-)
 > 
-> > > @@ -877,7 +857,9 @@ static struct dm_buffer *__alloc_buffer_wait_no_callback(struct dm_bufio_client
-> > >  	 */
-> > >  	while (1) {
-> > >  		if (dm_bufio_cache_size_latch != 1) {
-> > > -			b = alloc_buffer(c, GFP_NOWAIT | __GFP_NORETRY | __GFP_NOMEMALLOC | __GFP_NOWARN);
-> > > +			unsigned nowait_flag = memalloc_nowait_save();
-> > > +			b = alloc_buffer(c, GFP_KERNEL | __GFP_NOMEMALLOC | __GFP_NOWARN);
-> > > +			memalloc_nowait_restore(nowait_flag);
-> > 
-> > This looks confusing though. I am not familiar with alloc_buffer and
-> > there is quite some tweaking around __GFP_NORETRY in alloc_buffer_data
-> > which I do not follow but GFP_KERNEL just struck my eyes. So why cannot
-> > we have 
-> > 		alloc_buffer(GFP_NOWAIT | __GFP_NOMEMALLOC | __GFP_NOWARN);
-> 
-> Actually, I wanted to ask about the proliferation of __GFP_NOMEMALLOC
-> in the block layer.  Am I right in thinking it really has no effect
-> unless GFP_ATOMIC is set?
+> diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+> index bcfc288dba3f..87d66c13bf5c 100644
+> --- a/fs/iomap/buffered-io.c
+> +++ b/fs/iomap/buffered-io.c
+> @@ -1502,7 +1502,7 @@ iomap_do_writepage(struct page *page, struct writeback_control *wbc, void *data)
+>  	 * Given that we do not allow direct reclaim to call us, we should
+>  	 * never be called in a recursive filesystem reclaim context.
+>  	 */
+> -	if (WARN_ON_ONCE(current->flags & PF_MEMALLOC_NOFS))
+> +	if (WARN_ON_ONCE(current->memalloc_nofs))
+>  		goto redirty;
+>  
+>  	/*
+> diff --git a/include/linux/sched.h b/include/linux/sched.h
+> index cf18a3d2bc4c..eaf36ae1fde2 100644
+> --- a/include/linux/sched.h
+> +++ b/include/linux/sched.h
+> @@ -802,6 +802,7 @@ struct task_struct {
+>  	unsigned			in_memstall:1;
+>  #endif
+>  	unsigned			memalloc_noio:1;
+> +	unsigned			memalloc_nofs:1;
+>  
+>  	unsigned long			atomic_flags; /* Flags requiring atomic access. */
+>  
+> @@ -1505,7 +1506,6 @@ extern struct pid *cad_pid;
+>  #define PF_NOFREEZE		0x00008000	/* This thread should not be frozen */
+>  #define PF_FROZEN		0x00010000	/* Frozen for system suspend */
+>  #define PF_KSWAPD		0x00020000	/* I am kswapd */
+> -#define PF_MEMALLOC_NOFS	0x00040000	/* All allocation requests will inherit GFP_NOFS */
+>  #define PF_LOCAL_THROTTLE	0x00100000	/* Throttle writes only against the bdi I write to,
+>  						 * I am cleaning dirty pages from some other bdi. */
+>  #define PF_KTHREAD		0x00200000	/* I am a kernel thread */
+> diff --git a/include/linux/sched/mm.h b/include/linux/sched/mm.h
+> index b0089eadc367..08bc9d0606a8 100644
+> --- a/include/linux/sched/mm.h
+> +++ b/include/linux/sched/mm.h
+> @@ -175,20 +175,19 @@ static inline bool in_vfork(struct task_struct *tsk)
+>  
+>  /*
+>   * Applies per-task gfp context to the given allocation flags.
+> - * PF_MEMALLOC_NOFS implies GFP_NOFS
+>   * PF_MEMALLOC_NOCMA implies no allocation from CMA region.
+>   */
+>  static inline gfp_t current_gfp_context(gfp_t flags)
+>  {
+> -	if (unlikely(current->flags & (PF_MEMALLOC_NOFS | PF_MEMALLOC_NOCMA) ||
+> -		     current->memalloc_noio)) {
+> +	if (unlikely((current->flags & PF_MEMALLOC_NOCMA) ||
+> +		     current->memalloc_noio || current->memalloc_nofs)) {
+>  		/*
+>  		 * NOIO implies both NOIO and NOFS and it is a weaker context
+>  		 * so always make sure it makes precedence
+>  		 */
+>  		if (current->memalloc_noio)
+>  			flags &= ~(__GFP_IO | __GFP_FS);
+> -		else if (current->flags & PF_MEMALLOC_NOFS)
+> +		else if (current->memalloc_nofs)
+>  			flags &= ~__GFP_FS;
+>  #ifdef CONFIG_CMA
+>  		if (current->flags & PF_MEMALLOC_NOCMA)
+> @@ -254,8 +253,8 @@ static inline void memalloc_noio_restore(unsigned int flags)
+>   */
+>  static inline unsigned int memalloc_nofs_save(void)
+>  {
+> -	unsigned int flags = current->flags & PF_MEMALLOC_NOFS;
+> -	current->flags |= PF_MEMALLOC_NOFS;
+> +	unsigned int flags = current->memalloc_nofs;
+> +	current->memalloc_nofs = 1;
+>  	return flags;
+>  }
+>  
+> @@ -269,7 +268,7 @@ static inline unsigned int memalloc_nofs_save(void)
+>   */
+>  static inline void memalloc_nofs_restore(unsigned int flags)
+>  {
+> -	current->flags = (current->flags & ~PF_MEMALLOC_NOFS) | flags;
+> +	current->memalloc_nofs = flags ? 1 : 0;
+>  }
+>  
+>  static inline unsigned int memalloc_noreclaim_save(void)
+> -- 
+> 2.27.0
 
-It does have an effect as an __GFP_MEMALLOC resp PF_MEMALLOC inhibitor.
-
-> It seems like a magic flag that some driver
-> developers are sprinkling around randomly, so we probably need to clarify
-> the documentation on it.
-
-Would the following make more sense?
-diff --git a/include/linux/gfp.h b/include/linux/gfp.h
-index 67a0774e080b..014aa7a6d36a 100644
---- a/include/linux/gfp.h
-+++ b/include/linux/gfp.h
-@@ -116,8 +116,9 @@ struct vm_area_struct;
-  * Usage of a pre-allocated pool (e.g. mempool) should be always considered
-  * before using this flag.
-  *
-- * %__GFP_NOMEMALLOC is used to explicitly forbid access to emergency reserves.
-- * This takes precedence over the %__GFP_MEMALLOC flag if both are set.
-+ * %__GFP_NOMEMALLOC is used to inhibit __GFP_MEMALLOC resp. process scope
-+ * variant of it PF_MEMALLOC. So use this flag if the caller of the allocation
-+ * context might contain one or the other.
-  */
- #define __GFP_ATOMIC	((__force gfp_t)___GFP_ATOMIC)
- #define __GFP_HIGH	((__force gfp_t)___GFP_HIGH)
-
-> What I was trying to do was just use the memalloc_nofoo API to control
-> what was going on and then the driver can just use GFP_KERNEL.  I should
-> probably have completed that thought before sending the patches out.
-
-Yes the effect will be the same but it just really hit my eyes as this
-was in the same diff. IMHO GFP_NOWAIT would be easier to grasp but
-nothing I would dare to insist on.
 -- 
 Michal Hocko
 SUSE Labs
