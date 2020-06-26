@@ -1,89 +1,95 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 3C46220CB3A
-	for <lists+dm-devel@lfdr.de>; Mon, 29 Jun 2020 02:36:48 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id D1E5F20CD1C
+	for <lists+dm-devel@lfdr.de>; Mon, 29 Jun 2020 10:03:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1593391007;
+	s=mimecast20190719; t=1593417804;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=mE1pa+NkSLnG3YbgW5dq9sFV5r78YzWiSjx5oQHnodo=;
-	b=XWjXsmk9xssvZtBvm2Y0qqAI0DEgW/pUgZndgWtTeD9btIH9FI6CS8Xhfi8QZbaG8GCstq
-	MmXozUDHYQRq2p0tb+ZnbPUgXQokdBJAOX+rq4GsfV0UhRbergTGboHhPj0k/T30Uk1Xz0
-	wrZXVpPdcuoWJfgNUsdNEYA4A0Wn0x4=
+	bh=CHnJAxcUBcaTM/oq65liCvYj4uNoTIbHDO3ARnqei+I=;
+	b=Qpie4yzbAQH4epkev3HZmH9jS8gAI3I+pVrilkVMTqVYYjq89gcMrHqjneqmngh084oJch
+	9Uhh7ljTXSCRbj1L6L8ibv6lIAr3bLL+NTyQDq91MuOlnouzkdl3lO95knamDAInPpjd2B
+	uiHzMC+m3efWRgN9ZH5kMh1+BAJJ7m8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-454-evNL0WXMNlySrflf4G0bwA-1; Sun, 28 Jun 2020 20:36:44 -0400
-X-MC-Unique: evNL0WXMNlySrflf4G0bwA-1
+ us-mta-297-qRejJp3IO8GWzC8YEEOnVA-1; Mon, 29 Jun 2020 04:03:22 -0400
+X-MC-Unique: qRejJp3IO8GWzC8YEEOnVA-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D96608015CB;
-	Mon, 29 Jun 2020 00:36:37 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DB95719C58;
-	Mon, 29 Jun 2020 00:36:32 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0A19B800D5C;
+	Mon, 29 Jun 2020 08:03:17 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B11182B471;
+	Mon, 29 Jun 2020 08:03:15 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 606FB1809547;
-	Mon, 29 Jun 2020 00:36:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6126C8788F;
+	Mon, 29 Jun 2020 08:03:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05T0a25X016676 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 28 Jun 2020 20:36:02 -0400
+	id 05QL3PR4007580 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 26 Jun 2020 17:03:25 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9624E10C39FF; Mon, 29 Jun 2020 00:36:02 +0000 (UTC)
+	id 00425201B088; Fri, 26 Jun 2020 21:03:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9174310D16AE
-	for <dm-devel@redhat.com>; Mon, 29 Jun 2020 00:36:00 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EFA9820182A6
+	for <dm-devel@redhat.com>; Fri, 26 Jun 2020 21:03:22 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 99C151859163
-	for <dm-devel@redhat.com>; Mon, 29 Jun 2020 00:36:00 +0000 (UTC)
-Received: from mail106.syd.optusnet.com.au (mail106.syd.optusnet.com.au
-	[211.29.132.42]) by relay.mimecast.com with ESMTP id
-	us-mta-281-jdBfYtKGMJOqU5WVV4cD7g-1; Sun, 28 Jun 2020 20:35:56 -0400
-X-MC-Unique: jdBfYtKGMJOqU5WVV4cD7g-1
-Received: from dread.disaster.area (pa49-180-53-24.pa.nsw.optusnet.com.au
-	[49.180.53.24])
-	by mail106.syd.optusnet.com.au (Postfix) with ESMTPS id ED4835AD65B;
-	Mon, 29 Jun 2020 10:35:52 +1000 (AEST)
-Received: from dave by dread.disaster.area with local (Exim 4.92.3)
-	(envelope-from <david@fromorbit.com>)
-	id 1jphm2-0001Ps-9X; Mon, 29 Jun 2020 10:35:50 +1000
-Date: Mon, 29 Jun 2020 10:35:50 +1000
-From: Dave Chinner <david@fromorbit.com>
-To: Mikulas Patocka <mpatocka@redhat.com>
-Message-ID: <20200629003550.GJ2005@dread.disaster.area>
-References: <20200625113122.7540-1-willy@infradead.org>
-	<alpine.LRH.2.02.2006261058250.11899@file01.intranet.prod.int.rdu2.redhat.com>
-	<20200626230847.GI2005@dread.disaster.area>
-	<alpine.LRH.2.02.2006270848540.14350@file01.intranet.prod.int.rdu2.redhat.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DD6E6858EE2
+	for <dm-devel@redhat.com>; Fri, 26 Jun 2020 21:03:21 +0000 (UTC)
+Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
+	[209.85.128.66]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-399-CbkTxKPVNdGQkUrnqgPOoQ-1; Fri, 26 Jun 2020 17:03:19 -0400
+X-MC-Unique: CbkTxKPVNdGQkUrnqgPOoQ-1
+Received: by mail-wm1-f66.google.com with SMTP id g75so9972072wme.5
+	for <dm-devel@redhat.com>; Fri, 26 Jun 2020 14:03:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=Vy/ATAOFX7hbrWnTtmOf9WcoxFFYxh+7iBRu7AfkTYw=;
+	b=j/ra9F7YC0bOvgKxCqGec1VY2mbFRWV71UQZNdqG00qksi0Vlaq1C4TAqBMRLs8+kQ
+	6yAov8BW81g9u117JXPKzFl2wJZCvD/AJWQpaSZrvoBaXEJiMHX2vVKo2LKGAflyKk5R
+	2ShcCrWMM0KuAUWM+l5YdvOQ3OXihSwlS0qQE0IJ4sY3GUXwevQ0kMmMnTWoIL3TzwEm
+	9K2M9xg1OWMa9Dzlerv3f3/lrj+/Dvlxt7oJ3IA5Y5ZtQGhw2ezelWu30iFz2YIwLOEP
+	GqwS39u6MR19e0EXSbq+iazMz+ju191XG0CtR9HqFhkIXiybM+cPqFaw/NtEqiaOaY+t
+	P02w==
+X-Gm-Message-State: AOAM530DctGvetEsND/E32ocCQYBbnJvT4zl4D+bpGptEM9KD2TR23Ti
+	Je2Z181wWs+1CGTD+RM1X+iTQA==
+X-Google-Smtp-Source: ABdhPJxGkzKg+v+1VtCr3Q2WGSAzD+kLcRZYjMGgxMzklkxXqbllXB2rdz+l2+MTPnkb0ndF461zYQ==
+X-Received: by 2002:a1c:ac81:: with SMTP id v123mr5146884wme.159.1593205398177;
+	Fri, 26 Jun 2020 14:03:18 -0700 (PDT)
+Received: from localhost.localdomain (88-144-169-139.host.pobb.as13285.net.
+	[88.144.169.139]) by smtp.gmail.com with ESMTPSA id
+	138sm20024203wma.23.2020.06.26.14.03.16
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Fri, 26 Jun 2020 14:03:17 -0700 (PDT)
+From: Ignat Korchagin <ignat@cloudflare.com>
+To: agk@redhat.com, snitzer@redhat.com, dm-devel@redhat.com, dm-crypt@saout.de,
+	linux-kernel@vger.kernel.org
+Date: Fri, 26 Jun 2020 22:03:02 +0100
+Message-Id: <20200626210302.1813-1-ignat@cloudflare.com>
 MIME-Version: 1.0
-In-Reply-To: <alpine.LRH.2.02.2006270848540.14350@file01.intranet.prod.int.rdu2.redhat.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Optus-CM-Score: 0
-X-Optus-CM-Analysis: v=2.3 cv=QIgWuTDL c=1 sm=1 tr=0
-	a=moVtWZxmCkf3aAMJKIb/8g==:117 a=moVtWZxmCkf3aAMJKIb/8g==:17
-	a=kj9zAlcOel0A:10 a=nTHF0DUjJn0A:10 a=20KFwNOVAAAA:8 a=VwQbUJbxAAAA:8
-	a=7-415B0cAAAA:8 a=xnkzwwwhM5RMNMzHtikA:9 a=kZMiiJAICkdOfVTb:21
-	a=i3m0Sh721-YErq2I:21 a=CjuIK1q_8ugA:10 a=AjGcO6oz07-iQ99wixmX:22
-	a=biEYGPWJfzWAr4FL6Ov7:22
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Mimecast-Bulk-Signature: yes
+X-Mimecast-Spam-Signature: bulk
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>, linux-kernel@vger.kernel.org,
-	"Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
-	linux-xfs@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 0/6] Overhaul memalloc_no*
+X-Mailman-Approved-At: Mon, 29 Jun 2020 04:02:53 -0400
+Cc: Damien.LeMoal@wdc.com, herbert@gondor.apana.org.au,
+	kernel-team@cloudflare.com, ebiggers@kernel.org,
+	mpatocka@redhat.com, Ignat Korchagin <ignat@cloudflare.com>
+Subject: [dm-devel] [PATCH v2] dm crypt: add flags to optionally bypass
+	dm-crypt workqueues
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -102,187 +108,312 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-On Sat, Jun 27, 2020 at 09:09:09AM -0400, Mikulas Patocka wrote:
-> 
-> 
-> On Sat, 27 Jun 2020, Dave Chinner wrote:
-> 
-> > On Fri, Jun 26, 2020 at 11:02:19AM -0400, Mikulas Patocka wrote:
-> > > Hi
-> > > 
-> > > I suggest to join memalloc_noio and memalloc_nofs into just one flag that 
-> > > prevents both filesystem recursion and i/o recursion.
-> > > 
-> > > Note that any I/O can recurse into a filesystem via the loop device, thus 
-> > > it doesn't make much sense to have a context where PF_MEMALLOC_NOFS is set 
-> > > and PF_MEMALLOC_NOIO is not set.
-> > 
-> > Correct me if I'm wrong, but I think that will prevent swapping from
-> > GFP_NOFS memory reclaim contexts.
-> 
-> Yes.
-> 
-> > IOWs, this will substantially
-> > change the behaviour of the memory reclaim system under sustained
-> > GFP_NOFS memory pressure. Sustained GFP_NOFS memory pressure is
-> > quite common, so I really don't think we want to telling memory
-> > reclaim "you can't do IO at all" when all we are trying to do is
-> > prevent recursion back into the same filesystem.
-> 
-> So, we can define __GFP_ONLY_SWAP_IO and __GFP_IO.
+This is a follow up from [1]. Consider the following script:
 
-Uh, why?
+sudo modprobe brd rd_nr=1 rd_size=4194304
 
-Exactly what problem are you trying to solve here?
+echo '0 8388608 crypt capi:ecb(cipher_null) - 0 /dev/ram0 0' | \
+sudo dmsetup create eram0
 
-> > Given that the loop device IO path already operates under
-> > memalloc_noio context, (i.e. the recursion restriction is applied in
-> > only the context that needs is) I see no reason for making that a
-> > global reclaim limitation....
-> 
-> I think this is a problem.
-> 
-> Suppose that a filesystem does GFP_NOFS allocation, the allocation 
-> triggers an IO and waits for it to finish, the loop device driver 
-> redirects the IO to the same filesystem that did the GFP_NOFS allocation.
+echo '0 8388608 crypt capi:ecb(cipher_null) - 0 /dev/ram0 0 1 no_write_workqueue' | \
+sudo dmsetup create eram0-inline-write
 
-The loop device IO path is under memalloc_noio. By -definition-,
-allocations in that context cannot recurse back into filesystem
-level reclaim.
+echo '0 8388608 crypt capi:ecb(cipher_null) - 0 /dev/ram0 0 1 no_read_workqueue' | \
+sudo dmsetup create eram0-inline-read
 
-So either your aren't explaining the problem you are trying to solve
-clearly, or you're talking about allocations in the IO path that are
-broken because they don't use GFP_NOIO correctly...
+devices="/dev/ram0 /dev/mapper/eram0 /dev/mapper/eram0-inline-read "
+devices+="/dev/mapper/eram0-inline-write"
 
-> I saw this deadlock in the past in the dm-bufio subsystem - see the commit 
-> 9d28eb12447ee08bb5d1e8bb3195cf20e1ecd1c0 that fixed it.
+for dev in $devices; do
+  echo "reading from $dev"
+  sudo fio --filename=$dev --readwrite=read --bs=4k --direct=1 \
+  --loops=1000000 --runtime=3m --name=plain | grep READ
+done
 
-2014?
+for dev in $devices; do
+  echo "writing to $dev"
+  sudo fio --filename=$dev --readwrite=write --bs=4k --direct=1 \
+  --loops=1000000 --runtime=3m --name=plain | grep WRITE
+done
 
-/me looks closer.
+This script creates a ramdisk (to eliminate hardware bias in the benchmark) and
+three dm-crypt instances on top. All dm-crypt instances use the NULL cipher
+to eliminate potentially expensive crypto bias (the NULL cipher just uses memcpy
+for "encyption"). The first instance is the current dm-crypt implementation from
+5.8-rc2, the two others have new optional flags enabled, which bypass kcryptd
+workqueues for reads and writes respectively and write sorting for writes. On
+my VM (Debian in VirtualBox with 4 cores on 2.8 GHz Quad-Core Intel Core i7) I
+get the following output (formatted for better readability):
 
-Hmmm. Only sent to dm-devel, no comments, no review, just merged.
-No surprise that nobody else actually knows about this commit. Well,
-time to review it ~6 years after it was merged....
+reading from /dev/ram0
+   READ: bw=508MiB/s (533MB/s), 508MiB/s-508MiB/s (533MB/s-533MB/s), io=89.3GiB (95.9GB), run=180000-180000msec
 
-| dm-bufio tested for __GFP_IO. However, dm-bufio can run on a loop block
-| device that makes calls into the filesystem. If __GFP_IO is present and
-| __GFP_FS isn't, dm-bufio could still block on filesystem operations if it
-| runs on a loop block device.
+reading from /dev/mapper/eram0
+   READ: bw=80.6MiB/s (84.5MB/s), 80.6MiB/s-80.6MiB/s (84.5MB/s-84.5MB/s), io=14.2GiB (15.2GB), run=180000-180000msec
 
-OK, so from an architectural POV, this commit is fundamentally
-broken - block/device layer allocation should not allow relcaim
-recursion into filesystems because filesystems are dependent on
-the block layer making forwards progress. This commit is trying to
-work around the loop device doing GFP_KERNEL/GFP_NOFS context
-allocation back end IO path of the loop device. This part of the
-loop device is a block device, so needs to run under GFP_NOIO
-context.
+reading from /dev/mapper/eram0-inline-read
+   READ: bw=295MiB/s (309MB/s), 295MiB/s-295MiB/s (309MB/s-309MB/s), io=51.8GiB (55.6GB), run=180000-180000msec
 
-IOWs, this commit just papered over the reclaim context layering
-violation in the loop device by trying to avoid blocking filesystem
-IO in the dm-bufio shrinker context just in case it was IO from a
-loop device that was incorrectly tagged as GFP_KERNEL.
+reading from /dev/mapper/eram0-inline-write
+   READ: bw=114MiB/s (120MB/s), 114MiB/s-114MiB/s (120MB/s-120MB/s), io=20.1GiB (21.5GB), run=180000-180000msec
 
-So, step forward 5 years to 2019, and this change was made:
+writing to /dev/ram0
+  WRITE: bw=516MiB/s (541MB/s), 516MiB/s-516MiB/s (541MB/s-541MB/s), io=90.7GiB (97.4GB), run=180001-180001msec
 
-commit d0a255e795ab976481565f6ac178314b34fbf891
-Author: Mikulas Patocka <mpatocka@redhat.com>
-Date:   Thu Aug 8 11:17:01 2019 -0400
+writing to /dev/mapper/eram0
+  WRITE: bw=40.4MiB/s (42.4MB/s), 40.4MiB/s-40.4MiB/s (42.4MB/s-42.4MB/s), io=7271MiB (7624MB), run=180001-180001msec
 
-    loop: set PF_MEMALLOC_NOIO for the worker thread
-    
-    A deadlock with this stacktrace was observed.
-    
-    The loop thread does a GFP_KERNEL allocation, it calls into dm-bufio
-    shrinker and the shrinker depends on I/O completion in the dm-bufio
-    subsystem.
-    
-    In order to fix the deadlock (and other similar ones), we set the flag
-    PF_MEMALLOC_NOIO at loop thread entry.
-    
-    PID: 474    TASK: ffff8813e11f4600  CPU: 10  COMMAND: "kswapd0"
-       #0 [ffff8813dedfb938] __schedule at ffffffff8173f405
-       #1 [ffff8813dedfb990] schedule at ffffffff8173fa27
-       #2 [ffff8813dedfb9b0] schedule_timeout at ffffffff81742fec
-       #3 [ffff8813dedfba60] io_schedule_timeout at ffffffff8173f186
-       #4 [ffff8813dedfbaa0] bit_wait_io at ffffffff8174034f
-       #5 [ffff8813dedfbac0] __wait_on_bit at ffffffff8173fec8
-       #6 [ffff8813dedfbb10] out_of_line_wait_on_bit at ffffffff8173ff81
-       #7 [ffff8813dedfbb90] __make_buffer_clean at ffffffffa038736f [dm_bufio]
-       #8 [ffff8813dedfbbb0] __try_evict_buffer at ffffffffa0387bb8 [dm_bufio]
-       #9 [ffff8813dedfbbd0] dm_bufio_shrink_scan at ffffffffa0387cc3 [dm_bufio]
-      #10 [ffff8813dedfbc40] shrink_slab at ffffffff811a87ce
-      #11 [ffff8813dedfbd30] shrink_zone at ffffffff811ad778
-      #12 [ffff8813dedfbdc0] kswapd at ffffffff811ae92f
-      #13 [ffff8813dedfbec0] kthread at ffffffff810a8428
-      #14 [ffff8813dedfbf50] ret_from_fork at ffffffff81745242
-    
-      PID: 14127  TASK: ffff881455749c00  CPU: 11  COMMAND: "loop1"
-       #0 [ffff88272f5af228] __schedule at ffffffff8173f405
-       #1 [ffff88272f5af280] schedule at ffffffff8173fa27
-       #2 [ffff88272f5af2a0] schedule_preempt_disabled at ffffffff8173fd5e
-       #3 [ffff88272f5af2b0] __mutex_lock_slowpath at ffffffff81741fb5
-       #4 [ffff88272f5af330] mutex_lock at ffffffff81742133
-       #5 [ffff88272f5af350] dm_bufio_shrink_count at ffffffffa03865f9 [dm_bufio]
-       #6 [ffff88272f5af380] shrink_slab at ffffffff811a86bd
-       #7 [ffff88272f5af470] shrink_zone at ffffffff811ad778
-       #8 [ffff88272f5af500] do_try_to_free_pages at ffffffff811adb34
-       #9 [ffff88272f5af590] try_to_free_pages at ffffffff811adef8
-      #10 [ffff88272f5af610] __alloc_pages_nodemask at ffffffff811a09c3
-      #11 [ffff88272f5af710] alloc_pages_current at ffffffff811e8b71
-      #12 [ffff88272f5af760] new_slab at ffffffff811f4523
-      #13 [ffff88272f5af7b0] __slab_alloc at ffffffff8173a1b5
-      #14 [ffff88272f5af880] kmem_cache_alloc at ffffffff811f484b
-      #15 [ffff88272f5af8d0] do_blockdev_direct_IO at ffffffff812535b3
-      #16 [ffff88272f5afb00] __blockdev_direct_IO at ffffffff81255dc3
-      #17 [ffff88272f5afb30] xfs_vm_direct_IO at ffffffffa01fe3fc [xfs]
-      #18 [ffff88272f5afb90] generic_file_read_iter at ffffffff81198994
-      #19 [ffff88272f5afc50] __dta_xfs_file_read_iter_2398 at ffffffffa020c970 [xfs]
-      #20 [ffff88272f5afcc0] lo_rw_aio at ffffffffa0377042 [loop]
-      #21 [ffff88272f5afd70] loop_queue_work at ffffffffa0377c3b [loop]
-      #22 [ffff88272f5afe60] kthread_worker_fn at ffffffff810a8a0c
-      #23 [ffff88272f5afec0] kthread at ffffffff810a8428
-      #24 [ffff88272f5aff50] ret_from_fork at ffffffff81745242
-    
-    Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-    Cc: stable@vger.kernel.org
-    Signed-off-by: Jens Axboe <axboe@kernel.dk>
+writing to /dev/mapper/eram0-inline-read
+  WRITE: bw=38.9MiB/s (40.8MB/s), 38.9MiB/s-38.9MiB/s (40.8MB/s-40.8MB/s), io=7000MiB (7340MB), run=180001-180001msec
 
-That's the *same bug* as the 2014 commit was trying to address.  But
-because the 2014 commit didn't actually address the underlying
-architectural layering issue in the loop device, the problem was
-still there.
+writing to /dev/mapper/eram0-inline-write
+  WRITE: bw=277MiB/s (290MB/s), 277MiB/s-277MiB/s (290MB/s-290MB/s), io=48.6GiB (52.2GB), run=180000-180000msec
 
-The 2019 commit corrected the allocation context of the loop device
-to unconditionally use GFP_NOIO, and so prevents recursion back into
-both the filesystem and the block/device layers from the loop device
-IO path. Hence reclaim contexts are layered correctly again, and the
-deadlock in the dm-bufio code goes away.
+Current dm-crypt implementation creates a significant IO performance overhead
+(at least on small IO block sizes) for both latency and throughput. We suspect
+offloading IO request processing into workqueues and async threads is more
+harmful these days with the modern fast storage. I also did some digging into
+the dm-crypt git history and much of this async processing is not needed
+anymore, because the reasons it was added are mostly gone from the kernel. More
+details can be found in [2] (see "Git archeology" section).
 
-And that means you probably should revert the 2014 commit because
-it's a nasty layering violation that never should have been made....
+This change adds no_(read|write)_workqueue flags separately for read and write
+BIOs, which direct dm-crypt not to offload crypto operations into kcryptd
+workqueues and process everything inline. In addition, writes are not buffered
+to be sorted in the dm-crypt red-black tree, but dispatched immediately. For
+cases, where crypto operations cannot happen inline (hard interrupt context,
+for example the read path of some NVME drivers), we offload the work to a
+tasklet rather than a workqueue.
 
-> Other subsystems that do IO in GFP_NOFS context may deadlock just like 
-> bufio.
+These flags ensure inline BIO processing in the dm-crypt module only. It is
+worth noting that some Crypto API implementations may offload encryption into
+their own workqueues, which are independent of the dm-crypt and its
+configuration. However upon enabling no_(read|write)_workqueue flags dm-crypt
+will instruct Crypto API not to backlog crypto requests.
 
-Then they are as buggy as the dm-bufio code. Shrinkers needing to be
-aware of reclaim contexts above the layer the shrinker belongs to is
-a Big Red Flag that indicates something is violating reclaim
-recursion rules. i.e. that an allocation is simply not using
-GFP_NOFS/GFP_NOIO correctly. That's not a bug in the shrinker,
-that's a bug in the code that is doing the memory allocation.
+[1]: https://www.spinics.net/lists/dm-crypt/msg07516.html
+[2]: https://blog.cloudflare.com/speeding-up-linux-disk-encryption/
 
-I still don't see a need for more reclaim recursion layers here...
+Signed-off-by: Ignat Korchagin <ignat@cloudflare.com>
+---
+ drivers/md/dm-crypt.c | 68 +++++++++++++++++++++++++++++++++----------
+ 1 file changed, 52 insertions(+), 16 deletions(-)
 
-Cheers,
-
-Dave.
+diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
+index 000ddfab5ba0..6924eb49b1df 100644
+--- a/drivers/md/dm-crypt.c
++++ b/drivers/md/dm-crypt.c
+@@ -69,6 +69,7 @@ struct dm_crypt_io {
+ 	u8 *integrity_metadata;
+ 	bool integrity_metadata_from_pool;
+ 	struct work_struct work;
++	struct tasklet_struct tasklet;
+ 
+ 	struct convert_context ctx;
+ 
+@@ -127,7 +128,8 @@ struct iv_elephant_private {
+  * and encrypts / decrypts at the same time.
+  */
+ enum flags { DM_CRYPT_SUSPENDED, DM_CRYPT_KEY_VALID,
+-	     DM_CRYPT_SAME_CPU, DM_CRYPT_NO_OFFLOAD };
++	     DM_CRYPT_SAME_CPU, DM_CRYPT_NO_OFFLOAD,
++	     DM_CRYPT_NO_READ_WORKQUEUE, DM_CRYPT_NO_WRITE_WORKQUEUE };
+ 
+ enum cipher_flags {
+ 	CRYPT_MODE_INTEGRITY_AEAD,	/* Use authenticated mode for cihper */
+@@ -1449,7 +1451,7 @@ static void kcryptd_async_done(struct crypto_async_request *async_req,
+ 			       int error);
+ 
+ static void crypt_alloc_req_skcipher(struct crypt_config *cc,
+-				     struct convert_context *ctx)
++				     struct convert_context *ctx, bool nobacklog)
+ {
+ 	unsigned key_index = ctx->cc_sector & (cc->tfms_count - 1);
+ 
+@@ -1463,12 +1465,12 @@ static void crypt_alloc_req_skcipher(struct crypt_config *cc,
+ 	 * requests if driver request queue is full.
+ 	 */
+ 	skcipher_request_set_callback(ctx->r.req,
+-	    CRYPTO_TFM_REQ_MAY_BACKLOG,
++	    nobacklog ? 0 : CRYPTO_TFM_REQ_MAY_BACKLOG,
+ 	    kcryptd_async_done, dmreq_of_req(cc, ctx->r.req));
+ }
+ 
+ static void crypt_alloc_req_aead(struct crypt_config *cc,
+-				 struct convert_context *ctx)
++				 struct convert_context *ctx, bool nobacklog)
+ {
+ 	if (!ctx->r.req_aead)
+ 		ctx->r.req_aead = mempool_alloc(&cc->req_pool, GFP_NOIO);
+@@ -1480,17 +1482,17 @@ static void crypt_alloc_req_aead(struct crypt_config *cc,
+ 	 * requests if driver request queue is full.
+ 	 */
+ 	aead_request_set_callback(ctx->r.req_aead,
+-	    CRYPTO_TFM_REQ_MAY_BACKLOG,
++	    nobacklog ? 0 : CRYPTO_TFM_REQ_MAY_BACKLOG,
+ 	    kcryptd_async_done, dmreq_of_req(cc, ctx->r.req_aead));
+ }
+ 
+ static void crypt_alloc_req(struct crypt_config *cc,
+-			    struct convert_context *ctx)
++			    struct convert_context *ctx, bool nobacklog)
+ {
+ 	if (crypt_integrity_aead(cc))
+-		crypt_alloc_req_aead(cc, ctx);
++		crypt_alloc_req_aead(cc, ctx, nobacklog);
+ 	else
+-		crypt_alloc_req_skcipher(cc, ctx);
++		crypt_alloc_req_skcipher(cc, ctx, nobacklog);
+ }
+ 
+ static void crypt_free_req_skcipher(struct crypt_config *cc,
+@@ -1523,7 +1525,7 @@ static void crypt_free_req(struct crypt_config *cc, void *req, struct bio *base_
+  * Encrypt / decrypt data from one bio to another one (can be the same one)
+  */
+ static blk_status_t crypt_convert(struct crypt_config *cc,
+-			 struct convert_context *ctx)
++			 struct convert_context *ctx, bool noresched)
+ {
+ 	unsigned int tag_offset = 0;
+ 	unsigned int sector_step = cc->sector_size >> SECTOR_SHIFT;
+@@ -1533,7 +1535,7 @@ static blk_status_t crypt_convert(struct crypt_config *cc,
+ 
+ 	while (ctx->iter_in.bi_size && ctx->iter_out.bi_size) {
+ 
+-		crypt_alloc_req(cc, ctx);
++		crypt_alloc_req(cc, ctx, noresched);
+ 		atomic_inc(&ctx->cc_pending);
+ 
+ 		if (crypt_integrity_aead(cc))
+@@ -1566,7 +1568,8 @@ static blk_status_t crypt_convert(struct crypt_config *cc,
+ 			atomic_dec(&ctx->cc_pending);
+ 			ctx->cc_sector += sector_step;
+ 			tag_offset++;
+-			cond_resched();
++			if (!noresched)
++				cond_resched();
+ 			continue;
+ 		/*
+ 		 * There was a data integrity error.
+@@ -1879,6 +1882,9 @@ static void kcryptd_crypt_write_io_submit(struct dm_crypt_io *io, int async)
+ 	unsigned long flags;
+ 	sector_t sector;
+ 	struct rb_node **rbp, *parent;
++	bool nosort =
++			(likely(!async) && test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags)) ||
++			test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags);
+ 
+ 	if (unlikely(io->error)) {
+ 		crypt_free_buffer_pages(cc, clone);
+@@ -1892,7 +1898,7 @@ static void kcryptd_crypt_write_io_submit(struct dm_crypt_io *io, int async)
+ 
+ 	clone->bi_iter.bi_sector = cc->start + io->sector;
+ 
+-	if (likely(!async) && test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags)) {
++	if (nosort) {
+ 		generic_make_request(clone);
+ 		return;
+ 	}
+@@ -1941,7 +1947,7 @@ static void kcryptd_crypt_write_convert(struct dm_crypt_io *io)
+ 	sector += bio_sectors(clone);
+ 
+ 	crypt_inc_pending(io);
+-	r = crypt_convert(cc, &io->ctx);
++	r = crypt_convert(cc, &io->ctx, test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags));
+ 	if (r)
+ 		io->error = r;
+ 	crypt_finished = atomic_dec_and_test(&io->ctx.cc_pending);
+@@ -1971,7 +1977,7 @@ static void kcryptd_crypt_read_convert(struct dm_crypt_io *io)
+ 	crypt_convert_init(cc, &io->ctx, io->base_bio, io->base_bio,
+ 			   io->sector);
+ 
+-	r = crypt_convert(cc, &io->ctx);
++	r = crypt_convert(cc, &io->ctx, test_bit(DM_CRYPT_NO_READ_WORKQUEUE, &cc->flags));
+ 	if (r)
+ 		io->error = r;
+ 
+@@ -2031,9 +2037,29 @@ static void kcryptd_crypt(struct work_struct *work)
+ 		kcryptd_crypt_write_convert(io);
+ }
+ 
++static void kcryptd_crypt_tasklet(unsigned long work)
++{
++	kcryptd_crypt((struct work_struct *)work);
++}
++
+ static void kcryptd_queue_crypt(struct dm_crypt_io *io)
+ {
+ 	struct crypt_config *cc = io->cc;
++	bool noworkqueue =
++			(bio_data_dir(io->base_bio) == READ && test_bit(DM_CRYPT_NO_READ_WORKQUEUE, &cc->flags)) ||
++			(bio_data_dir(io->base_bio) == WRITE && test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags));
++
++	if (noworkqueue) {
++		if (in_irq()) {
++			/* Crypto API's "skcipher_walk_first() refuses to work in hard IRQ context */
++			tasklet_init(&io->tasklet, kcryptd_crypt_tasklet, (unsigned long)&io->work);
++			tasklet_schedule(&io->tasklet);
++			return;
++		}
++
++		kcryptd_crypt(&io->work);
++		return;
++	}
+ 
+ 	INIT_WORK(&io->work, kcryptd_crypt);
+ 	queue_work(cc->crypt_queue, &io->work);
+@@ -2838,7 +2864,7 @@ static int crypt_ctr_optional(struct dm_target *ti, unsigned int argc, char **ar
+ 	struct crypt_config *cc = ti->private;
+ 	struct dm_arg_set as;
+ 	static const struct dm_arg _args[] = {
+-		{0, 6, "Invalid number of feature args"},
++		{0, 8, "Invalid number of feature args"},
+ 	};
+ 	unsigned int opt_params, val;
+ 	const char *opt_string, *sval;
+@@ -2868,6 +2894,10 @@ static int crypt_ctr_optional(struct dm_target *ti, unsigned int argc, char **ar
+ 
+ 		else if (!strcasecmp(opt_string, "submit_from_crypt_cpus"))
+ 			set_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags);
++		else if (!strcasecmp(opt_string, "no_read_workqueue"))
++			set_bit(DM_CRYPT_NO_READ_WORKQUEUE, &cc->flags);
++		else if (!strcasecmp(opt_string, "no_write_workqueue"))
++			set_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags);
+ 		else if (sscanf(opt_string, "integrity:%u:", &val) == 1) {
+ 			if (val == 0 || val > MAX_TAG_SIZE) {
+ 				ti->error = "Invalid integrity arguments";
+@@ -3196,6 +3226,8 @@ static void crypt_status(struct dm_target *ti, status_type_t type,
+ 		num_feature_args += !!ti->num_discard_bios;
+ 		num_feature_args += test_bit(DM_CRYPT_SAME_CPU, &cc->flags);
+ 		num_feature_args += test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags);
++		num_feature_args += test_bit(DM_CRYPT_NO_READ_WORKQUEUE, &cc->flags);
++		num_feature_args += test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags);
+ 		num_feature_args += cc->sector_size != (1 << SECTOR_SHIFT);
+ 		num_feature_args += test_bit(CRYPT_IV_LARGE_SECTORS, &cc->cipher_flags);
+ 		if (cc->on_disk_tag_size)
+@@ -3208,6 +3240,10 @@ static void crypt_status(struct dm_target *ti, status_type_t type,
+ 				DMEMIT(" same_cpu_crypt");
+ 			if (test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags))
+ 				DMEMIT(" submit_from_crypt_cpus");
++			if (test_bit(DM_CRYPT_NO_READ_WORKQUEUE, &cc->flags))
++				DMEMIT(" no_read_workqueue");
++			if (test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags))
++				DMEMIT(" no_write_workqueue");
+ 			if (cc->on_disk_tag_size)
+ 				DMEMIT(" integrity:%u:%s", cc->on_disk_tag_size, cc->cipher_auth);
+ 			if (cc->sector_size != (1 << SECTOR_SHIFT))
+@@ -3320,7 +3356,7 @@ static void crypt_io_hints(struct dm_target *ti, struct queue_limits *limits)
+ 
+ static struct target_type crypt_target = {
+ 	.name   = "crypt",
+-	.version = {1, 21, 0},
++	.version = {1, 22, 0},
+ 	.module = THIS_MODULE,
+ 	.ctr    = crypt_ctr,
+ 	.dtr    = crypt_dtr,
 -- 
-Dave Chinner
-david@fromorbit.com
+2.20.1
 
 --
 dm-devel mailing list
