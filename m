@@ -1,61 +1,118 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 3671D20C8E8
-	for <lists+dm-devel@lfdr.de>; Sun, 28 Jun 2020 18:10:15 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id BF79520C90B
+	for <lists+dm-devel@lfdr.de>; Sun, 28 Jun 2020 18:51:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1593360613;
+	s=mimecast20190719; t=1593363077;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=z6bSTdXbMPfAGH2tTPYzVJYUftUOZTsxzo/T/4Z1VQA=;
-	b=ZYXFStZhz5nfBJdJJceHgsbeBccITU4Po1cObNobjX9VGB92FLYa9w2X+DTSdVGgD8j7B5
-	E9yk9MlXHZRFzlx6k/JsoUF6e0CjdmyLI+9AKqmjzobo6FSrXUqug/CIisWCytGCz4VlZN
-	BR5jZII/7BEtk5jDtyxa4Sdsf+5E+ZU=
+	 list-unsubscribe:list-subscribe:list-post:autocrypt:autocrypt;
+	bh=ddqKIh+i0XEbRBz0udGVVb50FOaszUEJFA30qyYvJQ8=;
+	b=GrLuRe9PigGh9RjvOZ5bkv5jVW6er32imPxfg4vnxSWeUTy/WBD4YxK5SNVtoLCBGIokrK
+	DA/cB6PVJlmYJqmAu/MTplZk3wEV/uR7d5Iqvcl/F/oB4XczoODsdsEppF6Wxf02rEOVE9
+	gNsucrQgcvLH/Dmer9Y6zR9N7r7x988=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-364-IZaiAew-P1Km8JZiLO_yHQ-1; Sun, 28 Jun 2020 12:10:10 -0400
-X-MC-Unique: IZaiAew-P1Km8JZiLO_yHQ-1
+ us-mta-422-gQ6cxYxWNwGdOnjLqEKGTA-1; Sun, 28 Jun 2020 12:51:15 -0400
+X-MC-Unique: gQ6cxYxWNwGdOnjLqEKGTA-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C647F1800D42;
-	Sun, 28 Jun 2020 16:09:59 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 130121005512;
+	Sun, 28 Jun 2020 16:51:09 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B5FF2100EBA4;
-	Sun, 28 Jun 2020 16:09:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D38CD1002397;
+	Sun, 28 Jun 2020 16:51:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 96DFE1809547;
-	Sun, 28 Jun 2020 16:09:42 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8B8E71809547;
+	Sun, 28 Jun 2020 16:50:58 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05SG9RYd030221 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 28 Jun 2020 12:09:27 -0400
+	id 05SGonMl001439 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 28 Jun 2020 12:50:50 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id BFC257C1E0; Sun, 28 Jun 2020 16:09:27 +0000 (UTC)
+	id DFCEA8A4DB; Sun, 28 Jun 2020 16:50:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C70617C201;
-	Sun, 28 Jun 2020 16:09:24 +0000 (UTC)
-Date: Sun, 28 Jun 2020 11:08:04 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: yangerkun <yangerkun@huawei.com>
-Message-ID: <20200628150804.GA8779@redhat.com>
-References: <1592601039-3868-1-git-send-email-bgurney@redhat.com>
-	<ab1e38c7-0394-a685-a406-2ead0291f4d5@huawei.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 909A38A4D8
+	for <dm-devel@redhat.com>; Sun, 28 Jun 2020 16:50:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7F018101A525
+	for <dm-devel@redhat.com>; Sun, 28 Jun 2020 16:50:46 +0000 (UTC)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+	[209.85.215.176]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-244--nWhiRsWP0-HD5XGC4VnHA-1; Sun, 28 Jun 2020 12:50:43 -0400
+X-MC-Unique: -nWhiRsWP0-HD5XGC4VnHA-1
+Received: by mail-pg1-f176.google.com with SMTP id w2so6411264pgg.10
+	for <dm-devel@redhat.com>; Sun, 28 Jun 2020 09:50:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:references:from:autocrypt:message-id
+	:date:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=ND4rpQ4Yjo4FAQdwrLPLeNgfb8+1JfelPZDKro4ozkI=;
+	b=QiJqQvqdZRSZ2LVjFO1BHIMDfKKFwxczUzJDF2HlbJ56fvysHOJyDai9fDGB11Zusl
+	TouUKqgH2g9erw7Gwvx3+wuHU8I+9iixGFf580AnAnveDkg4sdaWMbcKD5fwe/PVsoeb
+	w6rrSKPO9S2wiNBULICIMvkYLGT2fRUgjlIuaLno6sFwDUvGRF85zgUChzRljd8g8djk
+	2rJx/4JCBRMoeYD93kcqJV2gc8U+oNte+pGJHSkfYiBUOdzS10Fifb9vURRT5g6O7NC/
+	oxmvYr9eRFhp8+LSjfZTd9i34796nh3LXg7folZmiu8NBM4UNxpfPuAMY4BBNxxWb24/
+	mIqg==
+X-Gm-Message-State: AOAM533u8rMc6l3XjDrDOolXe/w+apvx5x5fDlZfDpwDGAqRJPpC5ncV
+	AISgajZBkP/ap6dI0e4DpDNObP64
+X-Google-Smtp-Source: ABdhPJwdk7Fkivknw1tGbqWA6V34a2qUVoJPhDpchHU2vijRQaqk6ywDqIavkk55gHQu3FtewroeSw==
+X-Received: by 2002:a62:ae0d:: with SMTP id q13mr2506473pff.89.1593363042119; 
+	Sun, 28 Jun 2020 09:50:42 -0700 (PDT)
+Received: from [192.168.50.147] (c-73-241-217-19.hsd1.ca.comcast.net.
+	[73.241.217.19]) by smtp.gmail.com with ESMTPSA id
+	bx23sm11368959pjb.47.2020.06.28.09.50.40
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Sun, 28 Jun 2020 09:50:41 -0700 (PDT)
+To: Artur Paszkiewicz <artur.paszkiewicz@intel.com>, dm-devel@redhat.com
+References: <fb4877be-4d88-2816-9000-dcc540e8c093@intel.com>
+From: Bart Van Assche <bvanassche@acm.org>
+Autocrypt: addr=bvanassche@acm.org; prefer-encrypt=mutual; keydata=
+	mQENBFSOu4oBCADcRWxVUvkkvRmmwTwIjIJvZOu6wNm+dz5AF4z0FHW2KNZL3oheO3P8UZWr
+	LQOrCfRcK8e/sIs2Y2D3Lg/SL7qqbMehGEYcJptu6mKkywBfoYbtBkVoJ/jQsi2H0vBiiCOy
+	fmxMHIPcYxaJdXxrOG2UO4B60Y/BzE6OrPDT44w4cZA9DH5xialliWU447Bts8TJNa3lZKS1
+	AvW1ZklbvJfAJJAwzDih35LxU2fcWbmhPa7EO2DCv/LM1B10GBB/oQB5kvlq4aA2PSIWkqz4
+	3SI5kCPSsygD6wKnbRsvNn2mIACva6VHdm62A7xel5dJRfpQjXj2snd1F/YNoNc66UUTABEB
+	AAG0JEJhcnQgVmFuIEFzc2NoZSA8YnZhbmFzc2NoZUBhY20ub3JnPokBOQQTAQIAIwUCVI67
+	igIbAwcLCQgHAwIBBhUIAgkKCwQWAgMBAh4BAheAAAoJEHFcPTXFzhAJ8QkH/1AdXblKL65M
+	Y1Zk1bYKnkAb4a98LxCPm/pJBilvci6boefwlBDZ2NZuuYWYgyrehMB5H+q+Kq4P0IBbTqTa
+	jTPAANn62A6jwJ0FnCn6YaM9TZQjM1F7LoDX3v+oAkaoXuq0dQ4hnxQNu792bi6QyVdZUvKc
+	macVFVgfK9n04mL7RzjO3f+X4midKt/s+G+IPr4DGlrq+WH27eDbpUR3aYRk8EgbgGKvQFdD
+	CEBFJi+5ZKOArmJVBSk21RHDpqyz6Vit3rjep7c1SN8s7NhVi9cjkKmMDM7KYhXkWc10lKx2
+	RTkFI30rkDm4U+JpdAd2+tP3tjGf9AyGGinpzE2XY1K5AQ0EVI67igEIAKiSyd0nECrgz+H5
+	PcFDGYQpGDMTl8MOPCKw/F3diXPuj2eql4xSbAdbUCJzk2ETif5s3twT2ER8cUTEVOaCEUY3
+	eOiaFgQ+nGLx4BXqqGewikPJCe+UBjFnH1m2/IFn4T9jPZkV8xlkKmDUqMK5EV9n3eQLkn5g
+	lco+FepTtmbkSCCjd91EfThVbNYpVQ5ZjdBCXN66CKyJDMJ85HVr5rmXG/nqriTh6cv1l1Js
+	T7AFvvPjUPknS6d+BETMhTkbGzoyS+sywEsQAgA+BMCxBH4LvUmHYhpS+W6CiZ3ZMxjO8Hgc
+	++w1mLeRUvda3i4/U8wDT3SWuHcB3DWlcppECLkAEQEAAYkBHwQYAQIACQUCVI67igIbDAAK
+	CRBxXD01xc4QCZ4dB/0QrnEasxjM0PGeXK5hcZMT9Eo998alUfn5XU0RQDYdwp6/kMEXMdmT
+	oH0F0xB3SQ8WVSXA9rrc4EBvZruWQ+5/zjVrhhfUAx12CzL4oQ9Ro2k45daYaonKTANYG22y
+	//x8dLe2Fv1By4SKGhmzwH87uXxbTJAUxiWIi1np0z3/RDnoVyfmfbbL1DY7zf2hYXLLzsJR
+	mSsED/1nlJ9Oq5fALdNEPgDyPUerqHxcmIub+pF0AzJoYHK5punqpqfGmqPbjxrJLPJfHVKy
+	goMj5DlBMoYqEgpbwdUYkH6QdizJJCur4icy8GUNbisFYABeoJ91pnD4IGei3MTdvINSZI5e
+Message-ID: <f4e57ef4-e0df-d2e6-a00a-074a08f10dbb@acm.org>
+Date: Sun, 28 Jun 2020 09:50:39 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.9.0
 MIME-Version: 1.0
-In-Reply-To: <ab1e38c7-0394-a685-a406-2ead0291f4d5@huawei.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+In-Reply-To: <fb4877be-4d88-2816-9000-dcc540e8c093@intel.com>
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, agk@redhat.com, Bryan Gurney <bgurney@redhat.com>
-Subject: Re: [dm-devel] [PATCH v4 1/4] dm dust: report some message results
- back to user directly
+Subject: Re: [dm-devel] dm-crypt hard lockup
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -72,94 +129,27 @@ Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-SXQgaXMgb24gdGhlIGRtLWRldmVsIHBhdGNod29yayBsaXN0IHRvIHBpY2sgdXAgZm9yIHRoZSA1
-LjkgbWVyZ2UKd2luZG93LiAgSSd2ZSBqdXN0IGJlZW4gYnVzeSB3aXRoIG90aGVyIHdvcmsuCgpU
-aGFua3MsCk1pa2UKCk9uIFNhdCwgSnVuIDI3IDIwMjAgYXQgIDk6MDhwbSAtMDQwMCwKeWFuZ2Vy
-a3VuIDx5YW5nZXJrdW5AaHVhd2VpLmNvbT4gd3JvdGU6Cgo+IEhpIE1pa2UsIGRvZXMgdGhlcmUg
-YW55IGFkdmljZSBmb3IgdGhpcyBwYXRjaHNldD8KPiAKPiBUaGFua3MsCj4gS3VuLgo+IAo+IOWc
-qCAyMDIwLzYvMjAgNToxMCwgQnJ5YW4gR3VybmV5IOWGmemBkzoKPiA+RnJvbTogeWFuZ2Vya3Vu
-IDx5YW5nZXJrdW5AaHVhd2VpLmNvbT4KPiA+Cj4gPkZyb206IHlhbmdlcmt1biA8eWFuZ2Vya3Vu
-QGh1YXdlaS5jb20+Cj4gPgo+ID5Tb21lIHR5cGUgb2YgbWVzc2FnZShxdWVyeWJsb2NrL2NvdW50
-YmFkYmxvY2tzL3JlbW92ZWJhZGJsb2NrKSBtYXkgYmV0dGVyCj4gPnJlcG9ydCByZXN1bHRzIHRv
-IHVzZXIgZGlyZWN0bHkuIERvIGl0IHdpdGggRE1FTUlULgo+ID4KPiA+W0JyeWFuOiBtYWludGFp
-biBfX2Z1bmNfXyBvdXRwdXQgaW4gRE1FTUlUIG1lc3NhZ2VzXQo+ID4KPiA+U2lnbmVkLW9mZi1i
-eTogeWFuZ2Vya3VuIDx5YW5nZXJrdW5AaHVhd2VpLmNvbT4KPiA+U2lnbmVkLW9mZi1ieTogQnJ5
-YW4gR3VybmV5IDxiZ3VybmV5QHJlZGhhdC5jb20+Cj4gPi0tLQo+ID4gIGRyaXZlcnMvbWQvZG0t
-ZHVzdC5jIHwgMzEgKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLQo+ID4gIDEgZmlsZSBj
-aGFuZ2VkLCAxOCBpbnNlcnRpb25zKCspLCAxMyBkZWxldGlvbnMoLSkKPiA+Cj4gPmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL21kL2RtLWR1c3QuYyBiL2RyaXZlcnMvbWQvZG0tZHVzdC5jCj4gPmluZGV4
-IGZmMDNiOTAwNzJjNS4uZjFmMmRkNmE0ZTg0IDEwMDY0NAo+ID4tLS0gYS9kcml2ZXJzL21kL2Rt
-LWR1c3QuYwo+ID4rKysgYi9kcml2ZXJzL21kL2RtLWR1c3QuYwo+ID5AQCAtMTM4LDIwICsxMzgs
-MjIgQEAgc3RhdGljIGludCBkdXN0X2FkZF9ibG9jayhzdHJ1Y3QgZHVzdF9kZXZpY2UgKmRkLCB1
-bnNpZ25lZCBsb25nIGxvbmcgYmxvY2ssCj4gPiAgCXJldHVybiAwOwo+ID4gIH0KPiA+LXN0YXRp
-YyBpbnQgZHVzdF9xdWVyeV9ibG9jayhzdHJ1Y3QgZHVzdF9kZXZpY2UgKmRkLCB1bnNpZ25lZCBs
-b25nIGxvbmcgYmxvY2spCj4gPitzdGF0aWMgaW50IGR1c3RfcXVlcnlfYmxvY2soc3RydWN0IGR1
-c3RfZGV2aWNlICpkZCwgdW5zaWduZWQgbG9uZyBsb25nIGJsb2NrLCBjaGFyICpyZXN1bHQsCj4g
-PisJCQkgICAgdW5zaWduZWQgaW50IG1heGxlbiwgdW5zaWduZWQgaW50ICpzel9wdHIpCj4gPiAg
-ewo+ID4gIAlzdHJ1Y3QgYmFkYmxvY2sgKmJibG9jazsKPiA+ICAJdW5zaWduZWQgbG9uZyBmbGFn
-czsKPiA+Kwl1bnNpZ25lZCBpbnQgc3ogPSAqc3pfcHRyOwo+ID4gIAlzcGluX2xvY2tfaXJxc2F2
-ZSgmZGQtPmR1c3RfbG9jaywgZmxhZ3MpOwo+ID4gIAliYmxvY2sgPSBkdXN0X3JiX3NlYXJjaCgm
-ZGQtPmJhZGJsb2NrbGlzdCwgYmxvY2spOwo+ID4gIAlpZiAoYmJsb2NrICE9IE5VTEwpCj4gPi0J
-CURNSU5GTygiJXM6IGJsb2NrICVsbHUgZm91bmQgaW4gYmFkYmxvY2tsaXN0IiwgX19mdW5jX18s
-IGJsb2NrKTsKPiA+KwkJRE1FTUlUKCIlczogYmxvY2sgJWxsdSBmb3VuZCBpbiBiYWRibG9ja2xp
-c3QiLCBfX2Z1bmNfXywgYmxvY2spOwo+ID4gIAllbHNlCj4gPi0JCURNSU5GTygiJXM6IGJsb2Nr
-ICVsbHUgbm90IGZvdW5kIGluIGJhZGJsb2NrbGlzdCIsIF9fZnVuY19fLCBibG9jayk7Cj4gPisJ
-CURNRU1JVCgiJXM6IGJsb2NrICVsbHUgbm90IGZvdW5kIGluIGJhZGJsb2NrbGlzdCIsIF9fZnVu
-Y19fLCBibG9jayk7Cj4gPiAgCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmRkLT5kdXN0X2xvY2ss
-IGZsYWdzKTsKPiA+LQlyZXR1cm4gMDsKPiA+KwlyZXR1cm4gMTsKPiA+ICB9Cj4gPiAgc3RhdGlj
-IGludCBfX2R1c3RfbWFwX3JlYWQoc3RydWN0IGR1c3RfZGV2aWNlICpkZCwgc2VjdG9yX3QgdGhp
-c2Jsb2NrKQo+ID5AQCAtMjU5LDExICsyNjEsMTMgQEAgc3RhdGljIGJvb2wgX19kdXN0X2NsZWFy
-X2JhZGJsb2NrcyhzdHJ1Y3QgcmJfcm9vdCAqdHJlZSwKPiA+ICAJcmV0dXJuIHRydWU7Cj4gPiAg
-fQo+ID4tc3RhdGljIGludCBkdXN0X2NsZWFyX2JhZGJsb2NrcyhzdHJ1Y3QgZHVzdF9kZXZpY2Ug
-KmRkKQo+ID4rc3RhdGljIGludCBkdXN0X2NsZWFyX2JhZGJsb2NrcyhzdHJ1Y3QgZHVzdF9kZXZp
-Y2UgKmRkLCBjaGFyICpyZXN1bHQsIHVuc2lnbmVkIGludCBtYXhsZW4sCj4gPisJCQkJdW5zaWdu
-ZWQgaW50ICpzel9wdHIpCj4gPiAgewo+ID4gIAl1bnNpZ25lZCBsb25nIGZsYWdzOwo+ID4gIAlz
-dHJ1Y3QgcmJfcm9vdCBiYWRibG9ja2xpc3Q7Cj4gPiAgCXVuc2lnbmVkIGxvbmcgbG9uZyBiYWRi
-bG9ja19jb3VudDsKPiA+Kwl1bnNpZ25lZCBpbnQgc3ogPSAqc3pfcHRyOwo+ID4gIAlzcGluX2xv
-Y2tfaXJxc2F2ZSgmZGQtPmR1c3RfbG9jaywgZmxhZ3MpOwo+ID4gIAliYWRibG9ja2xpc3QgPSBk
-ZC0+YmFkYmxvY2tsaXN0Owo+ID5AQCAtMjczLDExICsyNzcsMTEgQEAgc3RhdGljIGludCBkdXN0
-X2NsZWFyX2JhZGJsb2NrcyhzdHJ1Y3QgZHVzdF9kZXZpY2UgKmRkKQo+ID4gIAlzcGluX3VubG9j
-a19pcnFyZXN0b3JlKCZkZC0+ZHVzdF9sb2NrLCBmbGFncyk7Cj4gPiAgCWlmICghX19kdXN0X2Ns
-ZWFyX2JhZGJsb2NrcygmYmFkYmxvY2tsaXN0LCBiYWRibG9ja19jb3VudCkpCj4gPi0JCURNSU5G
-TygiJXM6IG5vIGJhZGJsb2NrcyBmb3VuZCIsIF9fZnVuY19fKTsKPiA+KwkJRE1FTUlUKCIlczog
-bm8gYmFkYmxvY2tzIGZvdW5kIiwgX19mdW5jX18pOwo+ID4gIAllbHNlCj4gPi0JCURNSU5GTygi
-JXM6IGJhZGJsb2NrcyBjbGVhcmVkIiwgX19mdW5jX18pOwo+ID4rCQlETUVNSVQoIiVzOiBiYWRi
-bG9ja3MgY2xlYXJlZCIsIF9fZnVuY19fKTsKPiA+LQlyZXR1cm4gMDsKPiA+KwlyZXR1cm4gMTsK
-PiA+ICB9Cj4gPiAgLyoKPiA+QEAgLTM4Myw3ICszODcsNyBAQCBzdGF0aWMgdm9pZCBkdXN0X2R0
-cihzdHJ1Y3QgZG1fdGFyZ2V0ICp0aSkKPiA+ICB9Cj4gPiAgc3RhdGljIGludCBkdXN0X21lc3Nh
-Z2Uoc3RydWN0IGRtX3RhcmdldCAqdGksIHVuc2lnbmVkIGludCBhcmdjLCBjaGFyICoqYXJndiwK
-PiA+LQkJCWNoYXIgKnJlc3VsdF9idWYsIHVuc2lnbmVkIGludCBtYXhsZW4pCj4gPisJCQljaGFy
-ICpyZXN1bHQsIHVuc2lnbmVkIGludCBtYXhsZW4pCj4gPiAgewo+ID4gIAlzdHJ1Y3QgZHVzdF9k
-ZXZpY2UgKmRkID0gdGktPnByaXZhdGU7Cj4gPiAgCXNlY3Rvcl90IHNpemUgPSBpX3NpemVfcmVh
-ZChkZC0+ZGV2LT5iZGV2LT5iZF9pbm9kZSkgPj4gU0VDVE9SX1NISUZUOwo+ID5AQCAtMzkzLDYg
-KzM5Nyw3IEBAIHN0YXRpYyBpbnQgZHVzdF9tZXNzYWdlKHN0cnVjdCBkbV90YXJnZXQgKnRpLCB1
-bnNpZ25lZCBpbnQgYXJnYywgY2hhciAqKmFyZ3YsCj4gPiAgCXVuc2lnbmVkIGNoYXIgd3JfZmFp
-bF9jbnQ7Cj4gPiAgCXVuc2lnbmVkIGludCB0bXBfdWk7Cj4gPiAgCXVuc2lnbmVkIGxvbmcgZmxh
-Z3M7Cj4gPisJdW5zaWduZWQgaW50IHN6ID0gMDsKPiA+ICAJY2hhciBkdW1teTsKPiA+ICAJaWYg
-KGFyZ2MgPT0gMSkgewo+ID5AQCAtNDEwLDEyICs0MTUsMTIgQEAgc3RhdGljIGludCBkdXN0X21l
-c3NhZ2Uoc3RydWN0IGRtX3RhcmdldCAqdGksIHVuc2lnbmVkIGludCBhcmdjLCBjaGFyICoqYXJn
-diwKPiA+ICAJCQlyID0gMDsKPiA+ICAJCX0gZWxzZSBpZiAoIXN0cmNhc2VjbXAoYXJndlswXSwg
-ImNvdW50YmFkYmxvY2tzIikpIHsKPiA+ICAJCQlzcGluX2xvY2tfaXJxc2F2ZSgmZGQtPmR1c3Rf
-bG9jaywgZmxhZ3MpOwo+ID4tCQkJRE1JTkZPKCJjb3VudGJhZGJsb2NrczogJWxsdSBiYWRibG9j
-ayhzKSBmb3VuZCIsCj4gPisJCQlETUVNSVQoImNvdW50YmFkYmxvY2tzOiAlbGx1IGJhZGJsb2Nr
-KHMpIGZvdW5kIiwKPiA+ICAJCQkgICAgICAgZGQtPmJhZGJsb2NrX2NvdW50KTsKPiA+ICAJCQlz
-cGluX3VubG9ja19pcnFyZXN0b3JlKCZkZC0+ZHVzdF9sb2NrLCBmbGFncyk7Cj4gPi0JCQlyID0g
-MDsKPiA+KwkJCXIgPSAxOwo+ID4gIAkJfSBlbHNlIGlmICghc3RyY2FzZWNtcChhcmd2WzBdLCAi
-Y2xlYXJiYWRibG9ja3MiKSkgewo+ID4tCQkJciA9IGR1c3RfY2xlYXJfYmFkYmxvY2tzKGRkKTsK
-PiA+KwkJCXIgPSBkdXN0X2NsZWFyX2JhZGJsb2NrcyhkZCwgcmVzdWx0LCBtYXhsZW4sICZzeik7
-Cj4gPiAgCQl9IGVsc2UgaWYgKCFzdHJjYXNlY21wKGFyZ3ZbMF0sICJxdWlldCIpKSB7Cj4gPiAg
-CQkJaWYgKCFkZC0+cXVpZXRfbW9kZSkKPiA+ICAJCQkJZGQtPnF1aWV0X21vZGUgPSB0cnVlOwo+
-ID5AQCAtNDQxLDcgKzQ0Niw3IEBAIHN0YXRpYyBpbnQgZHVzdF9tZXNzYWdlKHN0cnVjdCBkbV90
-YXJnZXQgKnRpLCB1bnNpZ25lZCBpbnQgYXJnYywgY2hhciAqKmFyZ3YsCj4gPiAgCQllbHNlIGlm
-ICghc3RyY2FzZWNtcChhcmd2WzBdLCAicmVtb3ZlYmFkYmxvY2siKSkKPiA+ICAJCQlyID0gZHVz
-dF9yZW1vdmVfYmxvY2soZGQsIGJsb2NrKTsKPiA+ICAJCWVsc2UgaWYgKCFzdHJjYXNlY21wKGFy
-Z3ZbMF0sICJxdWVyeWJsb2NrIikpCj4gPi0JCQlyID0gZHVzdF9xdWVyeV9ibG9jayhkZCwgYmxv
-Y2spOwo+ID4rCQkJciA9IGR1c3RfcXVlcnlfYmxvY2soZGQsIGJsb2NrLCByZXN1bHQsIG1heGxl
-biwgJnN6KTsKPiA+ICAJCWVsc2UKPiA+ICAJCQlpbnZhbGlkX21zZyA9IHRydWU7Cj4gPgo+IAoK
-LS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly93d3cu
-cmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
+On 2020-06-26 02:07, Artur Paszkiewicz wrote:
+> I'm getting regular lockups which seem to be caused by dm-crypt. I
+> reproduced it on vanilla v5.8-rc2, but I started regularly seeing this
+> some time ago on openSUSE Tumbleweed kernels. It's easily reproducible
+> (every time, after about a minute) when I run "make -j" on the linux
+> kernel sources, sometimes it occurs also when doing other IO intensive
+> tasks on multiple CPUs. I'm using LVM and ext4 on dm-crypt devices,
+> Intel SSDSC2KW010X6 and SSDSC2BA200G3 SSDs.
+
+Since considerable time I'm doing kernel builds (make -j8) on an
+openSUSE Tumbleweed system on top of dm-crypt and an NVMe SSD but I have
+not yet encountered any kind of lockup. Maybe another driver, e.g. an
+I/O scheduler, is responsible for the lockups?
+
+Bart.
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
