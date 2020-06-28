@@ -1,118 +1,86 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id BF79520C90B
-	for <lists+dm-devel@lfdr.de>; Sun, 28 Jun 2020 18:51:18 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 6D57C20C9C6
+	for <lists+dm-devel@lfdr.de>; Sun, 28 Jun 2020 21:05:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1593363077;
+	s=mimecast20190719; t=1593371109;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post:autocrypt:autocrypt;
-	bh=ddqKIh+i0XEbRBz0udGVVb50FOaszUEJFA30qyYvJQ8=;
-	b=GrLuRe9PigGh9RjvOZ5bkv5jVW6er32imPxfg4vnxSWeUTy/WBD4YxK5SNVtoLCBGIokrK
-	DA/cB6PVJlmYJqmAu/MTplZk3wEV/uR7d5Iqvcl/F/oB4XczoODsdsEppF6Wxf02rEOVE9
-	gNsucrQgcvLH/Dmer9Y6zR9N7r7x988=
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=XApNKiTz3fM3STe+SFLGpPQr5f7xtdCrooiWkRrHnMs=;
+	b=acCZ/5vHXbzdSNJlo85VbGyepB+1Oay8LOr3/VPZmV6dj2qtdMqrDU37HRPu5p7NplgwbO
+	HIvOacdZj+weBHXS+y2xLkFOh4WVgnMRVCJItHJvk6Z9qP8u8USnxsnpmvWSkr7KCEAKXx
+	pnXg0M/k1qwATGPCCFInsbYDD2g3gYI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-422-gQ6cxYxWNwGdOnjLqEKGTA-1; Sun, 28 Jun 2020 12:51:15 -0400
-X-MC-Unique: gQ6cxYxWNwGdOnjLqEKGTA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-150-j7DQF1ACNTKRKErArAz2wA-1; Sun, 28 Jun 2020 15:05:04 -0400
+X-MC-Unique: j7DQF1ACNTKRKErArAz2wA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 130121005512;
-	Sun, 28 Jun 2020 16:51:09 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AA952464;
+	Sun, 28 Jun 2020 19:04:57 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D38CD1002397;
-	Sun, 28 Jun 2020 16:51:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CAFF860BE2;
+	Sun, 28 Jun 2020 19:04:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8B8E71809547;
-	Sun, 28 Jun 2020 16:50:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8CAFE1809547;
+	Sun, 28 Jun 2020 19:04:42 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05SGonMl001439 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 28 Jun 2020 12:50:50 -0400
+	id 05SJ4TNb014679 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 28 Jun 2020 15:04:29 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DFCEA8A4DB; Sun, 28 Jun 2020 16:50:49 +0000 (UTC)
+	id C80BF9CFD2; Sun, 28 Jun 2020 19:04:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 909A38A4D8
-	for <dm-devel@redhat.com>; Sun, 28 Jun 2020 16:50:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7F018101A525
-	for <dm-devel@redhat.com>; Sun, 28 Jun 2020 16:50:46 +0000 (UTC)
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
-	[209.85.215.176]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-244--nWhiRsWP0-HD5XGC4VnHA-1; Sun, 28 Jun 2020 12:50:43 -0400
-X-MC-Unique: -nWhiRsWP0-HD5XGC4VnHA-1
-Received: by mail-pg1-f176.google.com with SMTP id w2so6411264pgg.10
-	for <dm-devel@redhat.com>; Sun, 28 Jun 2020 09:50:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:references:from:autocrypt:message-id
-	:date:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=ND4rpQ4Yjo4FAQdwrLPLeNgfb8+1JfelPZDKro4ozkI=;
-	b=QiJqQvqdZRSZ2LVjFO1BHIMDfKKFwxczUzJDF2HlbJ56fvysHOJyDai9fDGB11Zusl
-	TouUKqgH2g9erw7Gwvx3+wuHU8I+9iixGFf580AnAnveDkg4sdaWMbcKD5fwe/PVsoeb
-	w6rrSKPO9S2wiNBULICIMvkYLGT2fRUgjlIuaLno6sFwDUvGRF85zgUChzRljd8g8djk
-	2rJx/4JCBRMoeYD93kcqJV2gc8U+oNte+pGJHSkfYiBUOdzS10Fifb9vURRT5g6O7NC/
-	oxmvYr9eRFhp8+LSjfZTd9i34796nh3LXg7folZmiu8NBM4UNxpfPuAMY4BBNxxWb24/
-	mIqg==
-X-Gm-Message-State: AOAM533u8rMc6l3XjDrDOolXe/w+apvx5x5fDlZfDpwDGAqRJPpC5ncV
-	AISgajZBkP/ap6dI0e4DpDNObP64
-X-Google-Smtp-Source: ABdhPJwdk7Fkivknw1tGbqWA6V34a2qUVoJPhDpchHU2vijRQaqk6ywDqIavkk55gHQu3FtewroeSw==
-X-Received: by 2002:a62:ae0d:: with SMTP id q13mr2506473pff.89.1593363042119; 
-	Sun, 28 Jun 2020 09:50:42 -0700 (PDT)
-Received: from [192.168.50.147] (c-73-241-217-19.hsd1.ca.comcast.net.
-	[73.241.217.19]) by smtp.gmail.com with ESMTPSA id
-	bx23sm11368959pjb.47.2020.06.28.09.50.40
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Sun, 28 Jun 2020 09:50:41 -0700 (PDT)
-To: Artur Paszkiewicz <artur.paszkiewicz@intel.com>, dm-devel@redhat.com
-References: <fb4877be-4d88-2816-9000-dcc540e8c093@intel.com>
-From: Bart Van Assche <bvanassche@acm.org>
-Autocrypt: addr=bvanassche@acm.org; prefer-encrypt=mutual; keydata=
-	mQENBFSOu4oBCADcRWxVUvkkvRmmwTwIjIJvZOu6wNm+dz5AF4z0FHW2KNZL3oheO3P8UZWr
-	LQOrCfRcK8e/sIs2Y2D3Lg/SL7qqbMehGEYcJptu6mKkywBfoYbtBkVoJ/jQsi2H0vBiiCOy
-	fmxMHIPcYxaJdXxrOG2UO4B60Y/BzE6OrPDT44w4cZA9DH5xialliWU447Bts8TJNa3lZKS1
-	AvW1ZklbvJfAJJAwzDih35LxU2fcWbmhPa7EO2DCv/LM1B10GBB/oQB5kvlq4aA2PSIWkqz4
-	3SI5kCPSsygD6wKnbRsvNn2mIACva6VHdm62A7xel5dJRfpQjXj2snd1F/YNoNc66UUTABEB
-	AAG0JEJhcnQgVmFuIEFzc2NoZSA8YnZhbmFzc2NoZUBhY20ub3JnPokBOQQTAQIAIwUCVI67
-	igIbAwcLCQgHAwIBBhUIAgkKCwQWAgMBAh4BAheAAAoJEHFcPTXFzhAJ8QkH/1AdXblKL65M
-	Y1Zk1bYKnkAb4a98LxCPm/pJBilvci6boefwlBDZ2NZuuYWYgyrehMB5H+q+Kq4P0IBbTqTa
-	jTPAANn62A6jwJ0FnCn6YaM9TZQjM1F7LoDX3v+oAkaoXuq0dQ4hnxQNu792bi6QyVdZUvKc
-	macVFVgfK9n04mL7RzjO3f+X4midKt/s+G+IPr4DGlrq+WH27eDbpUR3aYRk8EgbgGKvQFdD
-	CEBFJi+5ZKOArmJVBSk21RHDpqyz6Vit3rjep7c1SN8s7NhVi9cjkKmMDM7KYhXkWc10lKx2
-	RTkFI30rkDm4U+JpdAd2+tP3tjGf9AyGGinpzE2XY1K5AQ0EVI67igEIAKiSyd0nECrgz+H5
-	PcFDGYQpGDMTl8MOPCKw/F3diXPuj2eql4xSbAdbUCJzk2ETif5s3twT2ER8cUTEVOaCEUY3
-	eOiaFgQ+nGLx4BXqqGewikPJCe+UBjFnH1m2/IFn4T9jPZkV8xlkKmDUqMK5EV9n3eQLkn5g
-	lco+FepTtmbkSCCjd91EfThVbNYpVQ5ZjdBCXN66CKyJDMJ85HVr5rmXG/nqriTh6cv1l1Js
-	T7AFvvPjUPknS6d+BETMhTkbGzoyS+sywEsQAgA+BMCxBH4LvUmHYhpS+W6CiZ3ZMxjO8Hgc
-	++w1mLeRUvda3i4/U8wDT3SWuHcB3DWlcppECLkAEQEAAYkBHwQYAQIACQUCVI67igIbDAAK
-	CRBxXD01xc4QCZ4dB/0QrnEasxjM0PGeXK5hcZMT9Eo998alUfn5XU0RQDYdwp6/kMEXMdmT
-	oH0F0xB3SQ8WVSXA9rrc4EBvZruWQ+5/zjVrhhfUAx12CzL4oQ9Ro2k45daYaonKTANYG22y
-	//x8dLe2Fv1By4SKGhmzwH87uXxbTJAUxiWIi1np0z3/RDnoVyfmfbbL1DY7zf2hYXLLzsJR
-	mSsED/1nlJ9Oq5fALdNEPgDyPUerqHxcmIub+pF0AzJoYHK5punqpqfGmqPbjxrJLPJfHVKy
-	goMj5DlBMoYqEgpbwdUYkH6QdizJJCur4icy8GUNbisFYABeoJ91pnD4IGei3MTdvINSZI5e
-Message-ID: <f4e57ef4-e0df-d2e6-a00a-074a08f10dbb@acm.org>
-Date: Sun, 28 Jun 2020 09:50:39 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.9.0
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E0E5B96B62;
+	Sun, 28 Jun 2020 19:04:24 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 05SJ4OPC003566; Sun, 28 Jun 2020 15:04:24 -0400
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 05SJ4M56003562; Sun, 28 Jun 2020 15:04:22 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Sun, 28 Jun 2020 15:04:22 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Eric Biggers <ebiggers@kernel.org>
+In-Reply-To: <20200626164617.GA211634@gmail.com>
+Message-ID: <alpine.LRH.2.02.2006281501230.347@file01.intranet.prod.int.rdu2.redhat.com>
+References: <alpine.LRH.2.02.2006100756270.27811@file01.intranet.prod.int.rdu2.redhat.com>
+	<20200610121106.GA23137@gondor.apana.org.au>
+	<alpine.LRH.2.02.2006161052540.28052@file01.intranet.prod.int.rdu2.redhat.com>
+	<alpine.LRH.2.02.2006161101080.28052@file01.intranet.prod.int.rdu2.redhat.com>
+	<20200616173620.GA207319@gmail.com>
+	<alpine.LRH.2.02.2006171107220.18714@file01.intranet.prod.int.rdu2.redhat.com>
+	<alpine.LRH.2.02.2006171108440.18714@file01.intranet.prod.int.rdu2.redhat.com>
+	<20200626044534.GA2870@gondor.apana.org.au>
+	<alpine.LRH.2.02.2006261109520.11899@file01.intranet.prod.int.rdu2.redhat.com>
+	<alpine.LRH.2.02.2006261215480.13882@file01.intranet.prod.int.rdu2.redhat.com>
+	<20200626164617.GA211634@gmail.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-In-Reply-To: <fb4877be-4d88-2816-9000-dcc540e8c093@intel.com>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-Subject: Re: [dm-devel] dm-crypt hard lockup
+Cc: Mike Snitzer <msnitzer@redhat.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Zaibo Xu <xuzaibo@Huawei.com>, linux-kernel@vger.kernel.org,
+	Wei Xu <xuwei5@hisilicon.com>, dm-devel@redhat.com,
+	George Cherian <gcherian@marvell.com>, linux-crypto@vger.kernel.org,
+	Jonathan Cameron <Jonathan.Cameron@Huawei.com>,
+	"David S. Miller" <davem@davemloft.net>, Milan Broz <mbroz@redhat.com>
+Subject: Re: [dm-devel] [PATCH 1/3 v2] crypto: introduce the flag
+ CRYPTO_ALG_ALLOCATES_MEMORY
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -126,27 +94,115 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 2020-06-26 02:07, Artur Paszkiewicz wrote:
-> I'm getting regular lockups which seem to be caused by dm-crypt. I
-> reproduced it on vanilla v5.8-rc2, but I started regularly seeing this
-> some time ago on openSUSE Tumbleweed kernels. It's easily reproducible
-> (every time, after about a minute) when I run "make -j" on the linux
-> kernel sources, sometimes it occurs also when doing other IO intensive
-> tasks on multiple CPUs. I'm using LVM and ext4 on dm-crypt devices,
-> Intel SSDSC2KW010X6 and SSDSC2BA200G3 SSDs.
 
-Since considerable time I'm doing kernel builds (make -j8) on an
-openSUSE Tumbleweed system on top of dm-crypt and an NVMe SSD but I have
-not yet encountered any kind of lockup. Maybe another driver, e.g. an
-I/O scheduler, is responsible for the lockups?
 
-Bart.
+On Fri, 26 Jun 2020, Eric Biggers wrote:
+
+> On Fri, Jun 26, 2020 at 12:16:33PM -0400, Mikulas Patocka wrote:
+> > +/*
+> > + * Pass these flags down through the crypto API.
+> > + */
+> > +#define CRYPTO_ALG_INHERITED_FLAGS	(CRYPTO_ALG_ASYNC | CRYPTO_ALG_ALLOCATES_MEMORY)
+> 
+> This comment is useless.  How about:
+> 
+> /*
+>  * When an algorithm uses another algorithm (e.g., if it's an instance of a
+>  * template), these are the flags that always get set on the "outer" algorithm
+>  * if any "inner" algorithm has them set.  In some cases other flags are
+>  * inherited too; these are just the flags that are *always* inherited.
+>  */
+> #define CRYPTO_ALG_INHERITED_FLAGS	(CRYPTO_ALG_ASYNC | CRYPTO_ALG_ALLOCATES_MEMORY)
+> 
+> Also I wonder about the case where the inner algorithm is a fallback rather than
+> part of a template instance.  This patch only handles templates, not fallbacks.
+> Is that intentional?  Isn't that technically a bug?
+
+I'm not an expert in crypto internals, so I don't know. I'll send version 
+3 of this patch and I'd like to ask you or Herbert to fix it.
+
+> > +
+> > +/*
+> >   * Transform masks and values (for crt_flags).
+> >   */
+> >  #define CRYPTO_TFM_NEED_KEY		0x00000001
+> > Index: linux-2.6/crypto/authenc.c
+> > ===================================================================
+> > --- linux-2.6.orig/crypto/authenc.c	2020-06-26 17:24:03.566417000 +0200
+> > +++ linux-2.6/crypto/authenc.c	2020-06-26 17:24:03.566417000 +0200
+> > @@ -388,7 +388,8 @@ static int crypto_authenc_create(struct
+> >  	if ((algt->type ^ CRYPTO_ALG_TYPE_AEAD) & algt->mask)
+> >  		return -EINVAL;
+> >  
+> > -	mask = crypto_requires_sync(algt->type, algt->mask);
+> > +	mask = crypto_requires_sync(algt->type, algt->mask) |
+> > +	       crypto_requires_nomem(algt->type, algt->mask);
+> 
+> As I suggested earlier, shouldn't there be a function that returns the mask for
+> all inherited flags, rather than handling each flag individually?
+
+Yes - I've created crypto_requires_inherited for this purpose.
+
+> >  
+> >  	inst = kzalloc(sizeof(*inst) + sizeof(*ctx), GFP_KERNEL);
+> >  	if (!inst)
+> > @@ -424,7 +425,7 @@ static int crypto_authenc_create(struct
+> >  		goto err_free_inst;
+> >  
+> >  	inst->alg.base.cra_flags = (auth_base->cra_flags |
+> > -				    enc->base.cra_flags) & CRYPTO_ALG_ASYNC;
+> > +			enc->base.cra_flags) & CRYPTO_ALG_INHERITED_FLAGS;
+> 
+> Strange indentation here.  Likewise in most of the other files.
+
+I was told that the code should be 80-characters wide.
+
+> > Index: linux-2.6/crypto/xts.c
+> > ===================================================================
+> > --- linux-2.6.orig/crypto/xts.c	2020-06-26 17:24:03.566417000 +0200
+> > +++ linux-2.6/crypto/xts.c	2020-06-26 17:24:03.566417000 +0200
+> > @@ -415,7 +415,7 @@ static int create(struct crypto_template
+> >  	} else
+> >  		goto err_free_inst;
+> >  
+> > -	inst->alg.base.cra_flags = alg->base.cra_flags & CRYPTO_ALG_ASYNC;
+> > +	inst->alg.base.cra_flags = alg->base.cra_flags & CRYPTO_ALG_INHERITED_FLAGS;
+> >  	inst->alg.base.cra_priority = alg->base.cra_priority;
+> >  	inst->alg.base.cra_blocksize = XTS_BLOCK_SIZE;
+> >  	inst->alg.base.cra_alignmask = alg->base.cra_alignmask |
+> 
+> Need to set the mask correctly in this file.
+
+I don't know what do you mean.
+
+> > Index: linux-2.6/crypto/adiantum.c
+> > ===================================================================
+> > --- linux-2.6.orig/crypto/adiantum.c	2020-06-26 17:24:03.566417000 +0200
+> > +++ linux-2.6/crypto/adiantum.c	2020-06-26 17:24:03.566417000 +0200
+> > @@ -507,7 +507,8 @@ static int adiantum_create(struct crypto
+> >  	if ((algt->type ^ CRYPTO_ALG_TYPE_SKCIPHER) & algt->mask)
+> >  		return -EINVAL;
+> >  
+> > -	mask = crypto_requires_sync(algt->type, algt->mask);
+> > +	mask = crypto_requires_sync(algt->type, algt->mask) |
+> > +	       crypto_requires_nomem(algt->type, algt->mask);
+> >  
+> >  	inst = kzalloc(sizeof(*inst) + sizeof(*ictx), GFP_KERNEL);
+> >  	if (!inst)
+> 
+> Need to use CRYPTO_ALG_INHERITED_FLAGS in this file.
+
+OK.
+
+> - Eric
+
+Mikulas
 
 --
 dm-devel mailing list
