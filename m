@@ -1,82 +1,77 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 787A120CD1D
-	for <lists+dm-devel@lfdr.de>; Mon, 29 Jun 2020 10:03:26 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id AE50E20CD20
+	for <lists+dm-devel@lfdr.de>; Mon, 29 Jun 2020 10:04:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1593417805;
+	s=mimecast20190719; t=1593417842;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vVRbnv0iemORY52pENkwO72EsrVyqb+zsLgh9ArQIaI=;
-	b=F1Mh4k5JgBGxmL5Jg1vRr30np7eWCV6ROcLoPIhIbqFNWL3emdpX1qTBQhG6mmm7yLWHYG
-	Nzsq305s0tFb3groZreTZK3K1Do7FZpAvOLMs/S6SBMV2Mcky03NW7G4t81YS1izc25/MX
-	7NOhFMl2jskBMYGjD7aXJ+a7s+2OU+w=
+	bh=ShQyVYZ4BO52aDvRf3/k5Wns7ywQ8VTGdejDh61v9uU=;
+	b=Y6Czp9cHSBxyb8BjQQfryXcpK8tGG8aPhPAH8kNeoY9/MiJg5uqS+tQ60N+SMX6QR+bHvG
+	CbkHIjkA1SqrYdfRkQAbQe545o0KW0WuEsNLI6frMux8ykd9VywGXZ+zUGTowxp1ojdJb6
+	GmVmlEvE5NbaSek3tLU+v2qzDcO6lbY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-327-Ux7VGcKWPiKB__jTTxPPTQ-1; Mon, 29 Jun 2020 04:03:23 -0400
-X-MC-Unique: Ux7VGcKWPiKB__jTTxPPTQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-166-ITLILRlsP82-0QhkoDFN3Q-1; Mon, 29 Jun 2020 04:03:23 -0400
+X-MC-Unique: ITLILRlsP82-0QhkoDFN3Q-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E479B100CD0D;
-	Mon, 29 Jun 2020 08:03:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0F9B018FE86A;
+	Mon, 29 Jun 2020 08:03:18 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BF01260C81;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E27C798FE0;
 	Mon, 29 Jun 2020 08:03:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 64B46180954D;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9D8EB1809554;
 	Mon, 29 Jun 2020 08:03:17 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05S18mlU010413 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 27 Jun 2020 21:08:49 -0400
+	id 05T5FOkj019628 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 29 Jun 2020 01:15:24 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 760A72144B5B; Sun, 28 Jun 2020 01:08:48 +0000 (UTC)
+	id 56FB72017F10; Mon, 29 Jun 2020 05:15:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6E7FD2156A50
-	for <dm-devel@redhat.com>; Sun, 28 Jun 2020 01:08:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5304E20267F2
+	for <dm-devel@redhat.com>; Mon, 29 Jun 2020 05:15:21 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 74D23101A525
-	for <dm-devel@redhat.com>; Sun, 28 Jun 2020 01:08:46 +0000 (UTC)
-Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-216-Dul9aItiMwGnA4DBBIutYA-1; Sat, 27 Jun 2020 21:08:43 -0400
-X-MC-Unique: Dul9aItiMwGnA4DBBIutYA-1
-Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.59])
-	by Forcepoint Email with ESMTP id 57A59A24BF0B97332D6E;
-	Sun, 28 Jun 2020 09:08:39 +0800 (CST)
-Received: from [127.0.0.1] (10.174.179.106) by DGGEMS412-HUB.china.huawei.com
-	(10.3.19.212) with Microsoft SMTP Server id 14.3.487.0;
-	Sun, 28 Jun 2020 09:08:35 +0800
-To: Bryan Gurney <bgurney@redhat.com>, <dm-devel@redhat.com>,
-	<snitzer@redhat.com>, <agk@redhat.com>
-References: <1592601039-3868-1-git-send-email-bgurney@redhat.com>
-From: yangerkun <yangerkun@huawei.com>
-Message-ID: <ab1e38c7-0394-a685-a406-2ead0291f4d5@huawei.com>
-Date: Sun, 28 Jun 2020 09:08:35 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
-	Thunderbird/68.7.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 33748101A525
+	for <dm-devel@redhat.com>; Mon, 29 Jun 2020 05:15:21 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-229-rXxnmAFzMFSled-Dz2_XHg-1;
+	Mon, 29 Jun 2020 01:15:17 -0400
+X-MC-Unique: rXxnmAFzMFSled-Dz2_XHg-1
+Received: from kernel.org (unknown [87.71.40.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 3FEEC2311E;
+	Mon, 29 Jun 2020 05:08:55 +0000 (UTC)
+Date: Mon, 29 Jun 2020 08:08:51 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+Message-ID: <20200629050851.GC1492837@kernel.org>
+References: <20200625113122.7540-1-willy@infradead.org>
+	<20200625113122.7540-7-willy@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <1592601039-3868-1-git-send-email-bgurney@redhat.com>
-X-Originating-IP: [10.174.179.106]
-X-CFilter-Loop: Reflected
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 05S18mlU010413
+In-Reply-To: <20200625113122.7540-7-willy@infradead.org>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 29 Jun 2020 04:02:53 -0400
-Subject: Re: [dm-devel] [PATCH v4 1/4] dm dust: report some message results
- back to user directly
+Cc: Jens Axboe <axboe@kernel.dk>, linux-kernel@vger.kernel.org,
+	linux-xfs@vger.kernel.org, linux-mm@kvack.org,
+	dm-devel@redhat.com, Mikulas Patocka <mpatocka@redhat.com>
+Subject: Re: [dm-devel] [PATCH 6/6] mm: Add memalloc_nowait
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,91 +85,142 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="gbk"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-SGkgTWlrZSwgZG9lcyB0aGVyZSBhbnkgYWR2aWNlIGZvciB0aGlzIHBhdGNoc2V0PwoKVGhhbmtz
-LApLdW4uCgrU2iAyMDIwLzYvMjAgNToxMCwgQnJ5YW4gR3VybmV5INC0tcA6Cj4gRnJvbTogeWFu
-Z2Vya3VuIDx5YW5nZXJrdW5AaHVhd2VpLmNvbT4KPiAKPiBGcm9tOiB5YW5nZXJrdW4gPHlhbmdl
-cmt1bkBodWF3ZWkuY29tPgo+IAo+IFNvbWUgdHlwZSBvZiBtZXNzYWdlKHF1ZXJ5YmxvY2svY291
-bnRiYWRibG9ja3MvcmVtb3ZlYmFkYmxvY2spIG1heSBiZXR0ZXIKPiByZXBvcnQgcmVzdWx0cyB0
-byB1c2VyIGRpcmVjdGx5LiBEbyBpdCB3aXRoIERNRU1JVC4KPiAKPiBbQnJ5YW46IG1haW50YWlu
-IF9fZnVuY19fIG91dHB1dCBpbiBETUVNSVQgbWVzc2FnZXNdCj4gCj4gU2lnbmVkLW9mZi1ieTog
-eWFuZ2Vya3VuIDx5YW5nZXJrdW5AaHVhd2VpLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBCcnlhbiBH
-dXJuZXkgPGJndXJuZXlAcmVkaGF0LmNvbT4KPiAtLS0KPiAgIGRyaXZlcnMvbWQvZG0tZHVzdC5j
-IHwgMzEgKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLQo+ICAgMSBmaWxlIGNoYW5nZWQs
-IDE4IGluc2VydGlvbnMoKyksIDEzIGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL21kL2RtLWR1c3QuYyBiL2RyaXZlcnMvbWQvZG0tZHVzdC5jCj4gaW5kZXggZmYwM2I5MDA3
-MmM1Li5mMWYyZGQ2YTRlODQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9tZC9kbS1kdXN0LmMKPiAr
-KysgYi9kcml2ZXJzL21kL2RtLWR1c3QuYwo+IEBAIC0xMzgsMjAgKzEzOCwyMiBAQCBzdGF0aWMg
-aW50IGR1c3RfYWRkX2Jsb2NrKHN0cnVjdCBkdXN0X2RldmljZSAqZGQsIHVuc2lnbmVkIGxvbmcg
-bG9uZyBibG9jaywKPiAgIAlyZXR1cm4gMDsKPiAgIH0KPiAgIAo+IC1zdGF0aWMgaW50IGR1c3Rf
-cXVlcnlfYmxvY2soc3RydWN0IGR1c3RfZGV2aWNlICpkZCwgdW5zaWduZWQgbG9uZyBsb25nIGJs
-b2NrKQo+ICtzdGF0aWMgaW50IGR1c3RfcXVlcnlfYmxvY2soc3RydWN0IGR1c3RfZGV2aWNlICpk
-ZCwgdW5zaWduZWQgbG9uZyBsb25nIGJsb2NrLCBjaGFyICpyZXN1bHQsCj4gKwkJCSAgICB1bnNp
-Z25lZCBpbnQgbWF4bGVuLCB1bnNpZ25lZCBpbnQgKnN6X3B0cikKPiAgIHsKPiAgIAlzdHJ1Y3Qg
-YmFkYmxvY2sgKmJibG9jazsKPiAgIAl1bnNpZ25lZCBsb25nIGZsYWdzOwo+ICsJdW5zaWduZWQg
-aW50IHN6ID0gKnN6X3B0cjsKPiAgIAo+ICAgCXNwaW5fbG9ja19pcnFzYXZlKCZkZC0+ZHVzdF9s
-b2NrLCBmbGFncyk7Cj4gICAJYmJsb2NrID0gZHVzdF9yYl9zZWFyY2goJmRkLT5iYWRibG9ja2xp
-c3QsIGJsb2NrKTsKPiAgIAlpZiAoYmJsb2NrICE9IE5VTEwpCj4gLQkJRE1JTkZPKCIlczogYmxv
-Y2sgJWxsdSBmb3VuZCBpbiBiYWRibG9ja2xpc3QiLCBfX2Z1bmNfXywgYmxvY2spOwo+ICsJCURN
-RU1JVCgiJXM6IGJsb2NrICVsbHUgZm91bmQgaW4gYmFkYmxvY2tsaXN0IiwgX19mdW5jX18sIGJs
-b2NrKTsKPiAgIAllbHNlCj4gLQkJRE1JTkZPKCIlczogYmxvY2sgJWxsdSBub3QgZm91bmQgaW4g
-YmFkYmxvY2tsaXN0IiwgX19mdW5jX18sIGJsb2NrKTsKPiArCQlETUVNSVQoIiVzOiBibG9jayAl
-bGx1IG5vdCBmb3VuZCBpbiBiYWRibG9ja2xpc3QiLCBfX2Z1bmNfXywgYmxvY2spOwo+ICAgCXNw
-aW5fdW5sb2NrX2lycXJlc3RvcmUoJmRkLT5kdXN0X2xvY2ssIGZsYWdzKTsKPiAgIAo+IC0JcmV0
-dXJuIDA7Cj4gKwlyZXR1cm4gMTsKPiAgIH0KPiAgIAo+ICAgc3RhdGljIGludCBfX2R1c3RfbWFw
-X3JlYWQoc3RydWN0IGR1c3RfZGV2aWNlICpkZCwgc2VjdG9yX3QgdGhpc2Jsb2NrKQo+IEBAIC0y
-NTksMTEgKzI2MSwxMyBAQCBzdGF0aWMgYm9vbCBfX2R1c3RfY2xlYXJfYmFkYmxvY2tzKHN0cnVj
-dCByYl9yb290ICp0cmVlLAo+ICAgCXJldHVybiB0cnVlOwo+ICAgfQo+ICAgCj4gLXN0YXRpYyBp
-bnQgZHVzdF9jbGVhcl9iYWRibG9ja3Moc3RydWN0IGR1c3RfZGV2aWNlICpkZCkKPiArc3RhdGlj
-IGludCBkdXN0X2NsZWFyX2JhZGJsb2NrcyhzdHJ1Y3QgZHVzdF9kZXZpY2UgKmRkLCBjaGFyICpy
-ZXN1bHQsIHVuc2lnbmVkIGludCBtYXhsZW4sCj4gKwkJCQl1bnNpZ25lZCBpbnQgKnN6X3B0cikK
-PiAgIHsKPiAgIAl1bnNpZ25lZCBsb25nIGZsYWdzOwo+ICAgCXN0cnVjdCByYl9yb290IGJhZGJs
-b2NrbGlzdDsKPiAgIAl1bnNpZ25lZCBsb25nIGxvbmcgYmFkYmxvY2tfY291bnQ7Cj4gKwl1bnNp
-Z25lZCBpbnQgc3ogPSAqc3pfcHRyOwo+ICAgCj4gICAJc3Bpbl9sb2NrX2lycXNhdmUoJmRkLT5k
-dXN0X2xvY2ssIGZsYWdzKTsKPiAgIAliYWRibG9ja2xpc3QgPSBkZC0+YmFkYmxvY2tsaXN0Owo+
-IEBAIC0yNzMsMTEgKzI3NywxMSBAQCBzdGF0aWMgaW50IGR1c3RfY2xlYXJfYmFkYmxvY2tzKHN0
-cnVjdCBkdXN0X2RldmljZSAqZGQpCj4gICAJc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmZGQtPmR1
-c3RfbG9jaywgZmxhZ3MpOwo+ICAgCj4gICAJaWYgKCFfX2R1c3RfY2xlYXJfYmFkYmxvY2tzKCZi
-YWRibG9ja2xpc3QsIGJhZGJsb2NrX2NvdW50KSkKPiAtCQlETUlORk8oIiVzOiBubyBiYWRibG9j
-a3MgZm91bmQiLCBfX2Z1bmNfXyk7Cj4gKwkJRE1FTUlUKCIlczogbm8gYmFkYmxvY2tzIGZvdW5k
-IiwgX19mdW5jX18pOwo+ICAgCWVsc2UKPiAtCQlETUlORk8oIiVzOiBiYWRibG9ja3MgY2xlYXJl
-ZCIsIF9fZnVuY19fKTsKPiArCQlETUVNSVQoIiVzOiBiYWRibG9ja3MgY2xlYXJlZCIsIF9fZnVu
-Y19fKTsKPiAgIAo+IC0JcmV0dXJuIDA7Cj4gKwlyZXR1cm4gMTsKPiAgIH0KPiAgIAo+ICAgLyoK
-PiBAQCAtMzgzLDcgKzM4Nyw3IEBAIHN0YXRpYyB2b2lkIGR1c3RfZHRyKHN0cnVjdCBkbV90YXJn
-ZXQgKnRpKQo+ICAgfQo+ICAgCj4gICBzdGF0aWMgaW50IGR1c3RfbWVzc2FnZShzdHJ1Y3QgZG1f
-dGFyZ2V0ICp0aSwgdW5zaWduZWQgaW50IGFyZ2MsIGNoYXIgKiphcmd2LAo+IC0JCQljaGFyICpy
-ZXN1bHRfYnVmLCB1bnNpZ25lZCBpbnQgbWF4bGVuKQo+ICsJCQljaGFyICpyZXN1bHQsIHVuc2ln
-bmVkIGludCBtYXhsZW4pCj4gICB7Cj4gICAJc3RydWN0IGR1c3RfZGV2aWNlICpkZCA9IHRpLT5w
-cml2YXRlOwo+ICAgCXNlY3Rvcl90IHNpemUgPSBpX3NpemVfcmVhZChkZC0+ZGV2LT5iZGV2LT5i
-ZF9pbm9kZSkgPj4gU0VDVE9SX1NISUZUOwo+IEBAIC0zOTMsNiArMzk3LDcgQEAgc3RhdGljIGlu
-dCBkdXN0X21lc3NhZ2Uoc3RydWN0IGRtX3RhcmdldCAqdGksIHVuc2lnbmVkIGludCBhcmdjLCBj
-aGFyICoqYXJndiwKPiAgIAl1bnNpZ25lZCBjaGFyIHdyX2ZhaWxfY250Owo+ICAgCXVuc2lnbmVk
-IGludCB0bXBfdWk7Cj4gICAJdW5zaWduZWQgbG9uZyBmbGFnczsKPiArCXVuc2lnbmVkIGludCBz
-eiA9IDA7Cj4gICAJY2hhciBkdW1teTsKPiAgIAo+ICAgCWlmIChhcmdjID09IDEpIHsKPiBAQCAt
-NDEwLDEyICs0MTUsMTIgQEAgc3RhdGljIGludCBkdXN0X21lc3NhZ2Uoc3RydWN0IGRtX3Rhcmdl
-dCAqdGksIHVuc2lnbmVkIGludCBhcmdjLCBjaGFyICoqYXJndiwKPiAgIAkJCXIgPSAwOwo+ICAg
-CQl9IGVsc2UgaWYgKCFzdHJjYXNlY21wKGFyZ3ZbMF0sICJjb3VudGJhZGJsb2NrcyIpKSB7Cj4g
-ICAJCQlzcGluX2xvY2tfaXJxc2F2ZSgmZGQtPmR1c3RfbG9jaywgZmxhZ3MpOwo+IC0JCQlETUlO
-Rk8oImNvdW50YmFkYmxvY2tzOiAlbGx1IGJhZGJsb2NrKHMpIGZvdW5kIiwKPiArCQkJRE1FTUlU
-KCJjb3VudGJhZGJsb2NrczogJWxsdSBiYWRibG9jayhzKSBmb3VuZCIsCj4gICAJCQkgICAgICAg
-ZGQtPmJhZGJsb2NrX2NvdW50KTsKPiAgIAkJCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmRkLT5k
-dXN0X2xvY2ssIGZsYWdzKTsKPiAtCQkJciA9IDA7Cj4gKwkJCXIgPSAxOwo+ICAgCQl9IGVsc2Ug
-aWYgKCFzdHJjYXNlY21wKGFyZ3ZbMF0sICJjbGVhcmJhZGJsb2NrcyIpKSB7Cj4gLQkJCXIgPSBk
-dXN0X2NsZWFyX2JhZGJsb2NrcyhkZCk7Cj4gKwkJCXIgPSBkdXN0X2NsZWFyX2JhZGJsb2Nrcyhk
-ZCwgcmVzdWx0LCBtYXhsZW4sICZzeik7Cj4gICAJCX0gZWxzZSBpZiAoIXN0cmNhc2VjbXAoYXJn
-dlswXSwgInF1aWV0IikpIHsKPiAgIAkJCWlmICghZGQtPnF1aWV0X21vZGUpCj4gICAJCQkJZGQt
-PnF1aWV0X21vZGUgPSB0cnVlOwo+IEBAIC00NDEsNyArNDQ2LDcgQEAgc3RhdGljIGludCBkdXN0
-X21lc3NhZ2Uoc3RydWN0IGRtX3RhcmdldCAqdGksIHVuc2lnbmVkIGludCBhcmdjLCBjaGFyICoq
-YXJndiwKPiAgIAkJZWxzZSBpZiAoIXN0cmNhc2VjbXAoYXJndlswXSwgInJlbW92ZWJhZGJsb2Nr
-IikpCj4gICAJCQlyID0gZHVzdF9yZW1vdmVfYmxvY2soZGQsIGJsb2NrKTsKPiAgIAkJZWxzZSBp
-ZiAoIXN0cmNhc2VjbXAoYXJndlswXSwgInF1ZXJ5YmxvY2siKSkKPiAtCQkJciA9IGR1c3RfcXVl
-cnlfYmxvY2soZGQsIGJsb2NrKTsKPiArCQkJciA9IGR1c3RfcXVlcnlfYmxvY2soZGQsIGJsb2Nr
-LCByZXN1bHQsIG1heGxlbiwgJnN6KTsKPiAgIAkJZWxzZQo+ICAgCQkJaW52YWxpZF9tc2cgPSB0
-cnVlOwo+ICAgCj4gCgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5j
-b20KaHR0cHM6Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
+On Thu, Jun 25, 2020 at 12:31:22PM +0100, Matthew Wilcox (Oracle) wrote:
+> Similar to memalloc_noio() and memalloc_nofs(), memalloc_nowait()
+> guarantees we will not sleep to reclaim memory.  Use it to simplify
+> dm-bufio's allocations.
+> 
+> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> ---
+>  drivers/md/dm-bufio.c    | 30 ++++++++----------------------
+>  include/linux/sched.h    |  1 +
+>  include/linux/sched/mm.h | 12 ++++++++----
+>  3 files changed, 17 insertions(+), 26 deletions(-)
+> 
+> diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
+> index 6d1565021d74..140ada9a2c8f 100644
+> --- a/drivers/md/dm-bufio.c
+> +++ b/drivers/md/dm-bufio.c
+> @@ -412,23 +412,6 @@ static void *alloc_buffer_data(struct dm_bufio_client *c, gfp_t gfp_mask,
+>  
+>  	*data_mode = DATA_MODE_VMALLOC;
+>  
+> -	/*
+> -	 * __vmalloc allocates the data pages and auxiliary structures with
+> -	 * gfp_flags that were specified, but pagetables are always allocated
+> -	 * with GFP_KERNEL, no matter what was specified as gfp_mask.
+> -	 *
+> -	 * Consequently, we must set per-process flag PF_MEMALLOC_NOIO so that
+> -	 * all allocations done by this process (including pagetables) are done
+> -	 * as if GFP_NOIO was specified.
+> -	 */
+> -	if (gfp_mask & __GFP_NORETRY) {
+> -		unsigned noio_flag = memalloc_noio_save();
+> -		void *ptr = __vmalloc(c->block_size, gfp_mask);
+> -
+> -		memalloc_noio_restore(noio_flag);
+> -		return ptr;
+> -	}
+> -
+>  	return __vmalloc(c->block_size, gfp_mask);
+>  }
+>  
+> @@ -866,9 +849,6 @@ static struct dm_buffer *__alloc_buffer_wait_no_callback(struct dm_bufio_client
+>  	 * dm-bufio is resistant to allocation failures (it just keeps
+>  	 * one buffer reserved in cases all the allocations fail).
+>  	 * So set flags to not try too hard:
+> -	 *	GFP_NOWAIT: don't wait; if we need to sleep we'll release our
+> -	 *		    mutex and wait ourselves.
+> -	 *	__GFP_NORETRY: don't retry and rather return failure
+>  	 *	__GFP_NOMEMALLOC: don't use emergency reserves
+>  	 *	__GFP_NOWARN: don't print a warning in case of failure
+>  	 *
+> @@ -877,7 +857,9 @@ static struct dm_buffer *__alloc_buffer_wait_no_callback(struct dm_bufio_client
+>  	 */
+>  	while (1) {
+>  		if (dm_bufio_cache_size_latch != 1) {
+> -			b = alloc_buffer(c, GFP_NOWAIT | __GFP_NORETRY | __GFP_NOMEMALLOC | __GFP_NOWARN);
+> +			unsigned nowait_flag = memalloc_nowait_save();
+> +			b = alloc_buffer(c, GFP_KERNEL | __GFP_NOMEMALLOC | __GFP_NOWARN);
+> +			memalloc_nowait_restore(nowait_flag);
+>  			if (b)
+>  				return b;
+>  		}
+> @@ -886,8 +868,12 @@ static struct dm_buffer *__alloc_buffer_wait_no_callback(struct dm_bufio_client
+>  			return NULL;
+>  
+>  		if (dm_bufio_cache_size_latch != 1 && !tried_noio_alloc) {
+> +			unsigned noio_flag;
+> +
+>  			dm_bufio_unlock(c);
+> -			b = alloc_buffer(c, GFP_NOIO | __GFP_NORETRY | __GFP_NOMEMALLOC | __GFP_NOWARN);
+> +			noio_flag = memalloc_noio_save();
+
+I've read the series twice and I'm still missing the definition of
+memalloc_noio_save().
+
+And also it would be nice to have a paragraph about it in
+Documentation/core-api/memory-allocation.rst
+
+> +			b = alloc_buffer(c, GFP_KERNEL |
+> __GFP_NOMEMALLOC | __GFP_NOWARN); +
+> memalloc_noio_restore(noio_flag); dm_bufio_lock(c); if (b)
+>  				return b;
+> diff --git a/include/linux/sched.h b/include/linux/sched.h
+> index 90336850e940..b1c2cddd366c 100644
+> --- a/include/linux/sched.h
+> +++ b/include/linux/sched.h
+> @@ -803,6 +803,7 @@ struct task_struct {
+>  #endif
+>  	unsigned			memalloc_noio:1;
+>  	unsigned			memalloc_nofs:1;
+> +	unsigned			memalloc_nowait:1;
+>  	unsigned			memalloc_nocma:1;
+>  
+>  	unsigned long			atomic_flags; /* Flags requiring atomic access. */
+> diff --git a/include/linux/sched/mm.h b/include/linux/sched/mm.h
+> index 6f7b59a848a6..6484569f50df 100644
+> --- a/include/linux/sched/mm.h
+> +++ b/include/linux/sched/mm.h
+> @@ -179,12 +179,16 @@ static inline bool in_vfork(struct task_struct *tsk)
+>  static inline gfp_t current_gfp_context(gfp_t flags)
+>  {
+>  	if (unlikely(current->memalloc_noio || current->memalloc_nofs ||
+> -		     current->memalloc_nocma)) {
+> +		     current->memalloc_nocma) || current->memalloc_nowait) {
+>  		/*
+> -		 * NOIO implies both NOIO and NOFS and it is a weaker context
+> -		 * so always make sure it makes precedence
+> +		 * Clearing DIRECT_RECLAIM means we won't get to the point
+> +		 * of testing IO or FS, so we don't need to bother clearing
+> +		 * them.  noio implies neither IO nor FS and it is a weaker
+> +		 * context so always make sure it takes precedence.
+>  		 */
+> -		if (current->memalloc_noio)
+> +		if (current->memalloc_nowait)
+> +			flags &= ~__GFP_DIRECT_RECLAIM;
+> +		else if (current->memalloc_noio)
+>  			flags &= ~(__GFP_IO | __GFP_FS);
+>  		else if (current->memalloc_nofs)
+>  			flags &= ~__GFP_FS;
+> -- 
+> 2.27.0
+> 
+> 
+
+-- 
+Sincerely yours,
+Mike.
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
