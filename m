@@ -1,70 +1,69 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 7E5B420F789
-	for <lists+dm-devel@lfdr.de>; Tue, 30 Jun 2020 16:49:18 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 12BC420F78F
+	for <lists+dm-devel@lfdr.de>; Tue, 30 Jun 2020 16:49:20 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-411-CrKHTN4UNhGW3sOJ_nu5JQ-1; Tue, 30 Jun 2020 10:49:15 -0400
-X-MC-Unique: CrKHTN4UNhGW3sOJ_nu5JQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-514-rNNo1owSPcWQdVplcdNe8g-1; Tue, 30 Jun 2020 10:49:17 -0400
+X-MC-Unique: rNNo1owSPcWQdVplcdNe8g-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2BA3B8064B2;
-	Tue, 30 Jun 2020 14:49:02 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2885E107B284;
+	Tue, 30 Jun 2020 14:49:04 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F007A2B47E;
-	Tue, 30 Jun 2020 14:49:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 03B907BEA0;
+	Tue, 30 Jun 2020 14:49:04 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AE28A6C9CB;
-	Tue, 30 Jun 2020 14:49:01 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B12AA6C9CE;
+	Tue, 30 Jun 2020 14:49:03 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05TNj35o020496 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 29 Jun 2020 19:45:03 -0400
+	id 05TNj7O9020516 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 29 Jun 2020 19:45:07 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0957E2157F25; Mon, 29 Jun 2020 23:45:03 +0000 (UTC)
+	id 09BB52156A4F; Mon, 29 Jun 2020 23:45:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 04DAB2166BA3
-	for <dm-devel@redhat.com>; Mon, 29 Jun 2020 23:45:00 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 057A82156A4E
+	for <dm-devel@redhat.com>; Mon, 29 Jun 2020 23:45:07 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CD2F2800260
-	for <dm-devel@redhat.com>; Mon, 29 Jun 2020 23:45:00 +0000 (UTC)
-Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DE389800260
+	for <dm-devel@redhat.com>; Mon, 29 Jun 2020 23:45:06 +0000 (UTC)
+Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-1--q9NBEFGMxuBEnncqU1mVw-1; Mon, 29 Jun 2020 19:44:58 -0400
-X-MC-Unique: -q9NBEFGMxuBEnncqU1mVw-1
-IronPort-SDR: /EC9w4DtCTB0Oq3TD+A6NI7LHVuaop72oHb0g/+ymgRjb4nD1RWgDVrjuTQUqjnlhiDJCZwzAy
-	F9lnyd5ybENGUo5T/91nMSfrtFS6U1pXQtw697/obK55p6xX60qjRB7LvPbytKHP0lP0usV/kg
-	SD1g4XngZnSovlUfafUa0lUyE6kRtMCBIzpRnls5mJmJdkMVUZCQyM1GkfajMNMpdgtwPTfYjl
-	H2m7BXlOab0pJqBE2iFWHFoxtX1Kc956eabF8vvG5fcaDPMV5CjXOB/yF2rBD5/a0kKTaQUFrc
-	UTU=
-X-IronPort-AV: E=Sophos;i="5.75,296,1589212800"; d="scan'208";a="141220130"
-Received: from uls-op-cesaip02.wdc.com (HELO uls-op-cesaep02.wdc.com)
+	us-mta-409-_PiV6O-HO0WQGdorwWM44g-1; Mon, 29 Jun 2020 19:45:02 -0400
+X-MC-Unique: _PiV6O-HO0WQGdorwWM44g-1
+IronPort-SDR: RDbrNq5en+/Emd78Yq+QKouObsy8BWeVaMVlxV7sZnPceZD9WWh2OR/SWt/tByHAFHM38QDub0
+	Uh5fRIsPy0XFl0hmdiLlkfkdCBw/8WbGwl0G392GydJGBYGHtrv6rTQjv9VNq5dFrHrerLC7XH
+	Gu4PXtsN8/FHvbVzunyVch4VxrsX5KhYVsVcSsmFzCUwIyM7sGPGWgSyvzeXX782atMWCqXC3g
+	FKM0ffoKQYQM1FGLxeFWqH2DGziM7BKSdo8KDg+s96yUlqCPCN701nB6uxGmPJlztjy5+djNmw
+	doo=
+X-IronPort-AV: E=Sophos;i="5.75,296,1589212800"; d="scan'208";a="250451525"
+Received: from h199-255-45-15.hgst.com (HELO uls-op-cesaep02.wdc.com)
 	([199.255.45.15])
-	by ob1.hgst.iphmx.com with ESMTP; 30 Jun 2020 07:44:52 +0800
-IronPort-SDR: hgHRUhkCMzpLcCNONUOjzEi6tFpV96LSYTjozJ0eLaMcbgEu8+KeuSMQKNX1H5lP1c7eQKSOyU
-	sPkqGHEwcR/pA9H9bA0R5jMhHUnWHUDSY=
+	by ob1.hgst.iphmx.com with ESMTP; 30 Jun 2020 07:45:00 +0800
+IronPort-SDR: vfrhNK5/BW9+Li0qalWwyoKTIAbV+ZvsF6GSbn8+1xebIf0t1b+jDG01pcbWVQpF+A4emV7M6n
+	PrKPrxSpgs0wExcNSa+8rZ2XIMhFCUUI4=
 Received: from uls-op-cesaip01.wdc.com ([10.248.3.36])
 	by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	29 Jun 2020 16:33:13 -0700
-IronPort-SDR: XOE0qzV3gOcUVjTZqV2zR0gAt4486Qd0+ZKTtGC+7TEtI4APUPn2jB3lLbTrA7WSNmPLQxX+9i
-	/fwMiZj37B2w==
+	29 Jun 2020 16:33:20 -0700
+IronPort-SDR: 6lJvjQXfWa7Clf3GSzVOBFEGRf7qj96erZRiTrcownPOnxcf3VeOT+CS0b4eeudQVMs5ebyHky
+	3Yp09SaAptIg==
 WDCIronportException: Internal
 Received: from iouring.labspan.wdc.com (HELO iouring.sc.wdc.com)
 	([10.6.138.107])
-	by uls-op-cesaip01.wdc.com with ESMTP; 29 Jun 2020 16:44:52 -0700
+	by uls-op-cesaip01.wdc.com with ESMTP; 29 Jun 2020 16:44:59 -0700
 From: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 To: linux-block@vger.kernel.org, dm-devel@redhat.com
-Date: Mon, 29 Jun 2020 16:43:13 -0700
-Message-Id: <20200629234314.10509-11-chaitanya.kulkarni@wdc.com>
+Date: Mon, 29 Jun 2020 16:43:14 -0700
+Message-Id: <20200629234314.10509-12-chaitanya.kulkarni@wdc.com>
 In-Reply-To: <20200629234314.10509-1-chaitanya.kulkarni@wdc.com>
 References: <20200629234314.10509-1-chaitanya.kulkarni@wdc.com>
 MIME-Version: 1.0
@@ -76,8 +75,7 @@ Cc: axboe@kernel.dk, paolo.valente@linaro.org, sagi@grimberg.me,
 	fangguoju@gmail.com, rdunlap@infradead.org, rostedt@goodmis.org,
 	ming.lei@redhat.com, mingo@redhat.com, colyli@suse.de,
 	jack@suse.czi, hch@lst.de, agk@redhat.com, bvanassche@acm.org
-Subject: [dm-devel] [PATCH 10/11] block: use block_bio class for getrq and
-	sleeprq
+Subject: [dm-devel] [PATCH 11/11] block: remove block_get_rq event class
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,7 +89,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -99,64 +97,53 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The only difference in block_get_rq and block_bio was the last param
-passed  __entry->nr_sector & bio->bi_iter.bi_size respectively. Since
-that is not the case anymore replace block_get_rq class with block_bio
-for block_getrq and block_sleeprq events, also adjust the code to handle
-null bio case in block_bio.
+Now that there are no users for the block_get_rq event class remove the
+event class.
 
 Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 ---
- include/trace/events/block.h | 22 +++++++++++++++-------
- 1 file changed, 15 insertions(+), 7 deletions(-)
+ include/trace/events/block.h | 28 ----------------------------
+ 1 file changed, 28 deletions(-)
 
 diff --git a/include/trace/events/block.h b/include/trace/events/block.h
-index d191d2cd1070..21f1daaf012b 100644
+index 21f1daaf012b..dc1834250baa 100644
 --- a/include/trace/events/block.h
 +++ b/include/trace/events/block.h
-@@ -272,11 +272,19 @@ DECLARE_EVENT_CLASS(block_bio,
- 	),
+@@ -353,34 +353,6 @@ DEFINE_EVENT(block_bio, block_bio_queue,
+ 	TP_ARGS(bio)
+ );
  
- 	TP_fast_assign(
--		__entry->dev		= bio_dev(bio);
--		__entry->sector		= bio->bi_iter.bi_sector;
--		__entry->nr_sector	= bio_sectors(bio);
--		blk_fill_rwbs(__entry->rwbs, bio->bi_opf);
+-DECLARE_EVENT_CLASS(block_get_rq,
+-
+-	TP_PROTO(struct bio *bio),
+-
+-	TP_ARGS(bio),
+-
+-	TP_STRUCT__entry(
+-		__field( dev_t,		dev			)
+-		__field( sector_t,	sector			)
+-		__field( unsigned int,	nr_sector		)
+-		__array( char,		rwbs,	RWBS_LEN	)
+-		__array( char,		comm,	TASK_COMM_LEN	)
+-        ),
+-
+-	TP_fast_assign(
+-		__entry->dev		= bio ? bio_dev(bio) : 0;
+-		__entry->sector		= bio ? bio->bi_iter.bi_sector : 0;
+-		__entry->nr_sector	= bio ? bio_sectors(bio) : 0;
+-		blk_fill_rwbs(__entry->rwbs, bio ? bio->bi_opf : 0);
 -		memcpy(__entry->comm, current->comm, TASK_COMM_LEN);
-+		if (bio) {
-+			__entry->dev		= bio_dev(bio);
-+			__entry->sector		= bio->bi_iter.bi_sector;
-+			__entry->nr_sector	= bio_sectors(bio);
-+			blk_fill_rwbs(__entry->rwbs, bio->bi_opf);
-+			memcpy(__entry->comm, current->comm, TASK_COMM_LEN);
-+		} else {
-+			__entry->dev		= 0;
-+			__entry->sector		= 0;
-+			__entry->nr_sector	= 0;
-+			blk_fill_rwbs(__entry->rwbs, 0);
-+			memcpy(__entry->comm, current->comm, TASK_COMM_LEN);
-+		}
- 	),
- 
- 	TP_printk("%d,%d %s %llu + %u [%s]",
-@@ -380,7 +388,7 @@ DECLARE_EVENT_CLASS(block_get_rq,
-  * A request struct for queue has been allocated to handle the
-  * block IO operation @bio.
-  */
--DEFINE_EVENT(block_get_rq, block_getrq,
-+DEFINE_EVENT(block_bio, block_getrq,
- 
- 	TP_PROTO(struct bio *bio),
- 
-@@ -396,7 +404,7 @@ DEFINE_EVENT(block_get_rq, block_getrq,
-  * available.  This tracepoint event is generated each time the
-  * process goes to sleep waiting for request struct become available.
-  */
--DEFINE_EVENT(block_get_rq, block_sleeprq,
-+DEFINE_EVENT(block_bio, block_sleeprq,
- 
- 	TP_PROTO(struct bio *bio),
- 
+-        ),
+-
+-	TP_printk("%d,%d %s %llu + %u [%s]",
+-		  MAJOR(__entry->dev), MINOR(__entry->dev), __entry->rwbs,
+-		  (unsigned long long)__entry->sector,
+-		  __entry->nr_sector, __entry->comm)
+-);
+-
+ /**
+  * block_getrq - get a free request entry in queue for block IO operations
+  * @bio: pending block IO operation (can be %NULL)
 -- 
 2.26.0
 
