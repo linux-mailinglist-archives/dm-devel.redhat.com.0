@@ -1,87 +1,92 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id B8DEB20F614
-	for <lists+dm-devel@lfdr.de>; Tue, 30 Jun 2020 15:46:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1593524783;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=saBJ8k7f+AN6aaeMuxJHLlAbWATDYVjKcgMAMlL07bU=;
-	b=Skjg7WAHnPgTwEiYFo86hloSrFPnVadQw4tBDVbdguPI+0Ys2P+wb8Ui4laYeuNvcsRjL0
-	PAYrtkF8TVKyoV91fYo4KD8Vj4eRXvWld7Vnnnz3PHqX8NV4VY27SHD3VCiRm8Y/kaUT7c
-	XEUeZsS59u6iaMJger3hTf3PldLjXbI=
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 634A320F672
+	for <lists+dm-devel@lfdr.de>; Tue, 30 Jun 2020 15:57:50 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-367-eA9BTLvoPzqHERFi4Pa0jg-1; Tue, 30 Jun 2020 09:46:21 -0400
-X-MC-Unique: eA9BTLvoPzqHERFi4Pa0jg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-379-kgOQE1iMNIyC1BsZBM1iQA-1; Tue, 30 Jun 2020 09:57:46 -0400
+X-MC-Unique: kgOQE1iMNIyC1BsZBM1iQA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6CB90100A692;
-	Tue, 30 Jun 2020 13:45:56 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B98BA93C844;
+	Tue, 30 Jun 2020 13:55:10 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DB23260C84;
-	Tue, 30 Jun 2020 13:45:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0EE47890AE;
+	Tue, 30 Jun 2020 13:55:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 346386C9C3;
-	Tue, 30 Jun 2020 13:45:51 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AF67C6C9C4;
+	Tue, 30 Jun 2020 13:55:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05UDjh4c024921 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 30 Jun 2020 09:45:43 -0400
+	id 05UDsusn025616 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 30 Jun 2020 09:54:56 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 37A1C6841B; Tue, 30 Jun 2020 13:45:43 +0000 (UTC)
+	id 1758A122D69; Tue, 30 Jun 2020 13:54:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 80B8C70126;
-	Tue, 30 Jun 2020 13:45:40 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id 05UDjdto015761; Tue, 30 Jun 2020 09:45:39 -0400
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id 05UDjbtN015757; Tue, 30 Jun 2020 09:45:37 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Tue, 30 Jun 2020 09:45:37 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Eric Biggers <ebiggers@kernel.org>
-In-Reply-To: <alpine.LRH.2.02.2006290905340.11293@file01.intranet.prod.int.rdu2.redhat.com>
-Message-ID: <alpine.LRH.2.02.2006300944210.15237@file01.intranet.prod.int.rdu2.redhat.com>
-References: <alpine.LRH.2.02.2006161101080.28052@file01.intranet.prod.int.rdu2.redhat.com>
-	<20200616173620.GA207319@gmail.com>
-	<alpine.LRH.2.02.2006171107220.18714@file01.intranet.prod.int.rdu2.redhat.com>
-	<alpine.LRH.2.02.2006171108440.18714@file01.intranet.prod.int.rdu2.redhat.com>
-	<20200626044534.GA2870@gondor.apana.org.au>
-	<alpine.LRH.2.02.2006261109520.11899@file01.intranet.prod.int.rdu2.redhat.com>
-	<alpine.LRH.2.02.2006261215480.13882@file01.intranet.prod.int.rdu2.redhat.com>
-	<20200626164617.GA211634@gmail.com>
-	<20200626170039.GB211634@gmail.com>
-	<alpine.LRH.2.02.2006281505530.347@file01.intranet.prod.int.rdu2.redhat.com>
-	<20200628200022.GE11197@sol.localdomain>
-	<alpine.LRH.2.02.2006290905340.11293@file01.intranet.prod.int.rdu2.redhat.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0E1D0122D65
+	for <dm-devel@redhat.com>; Tue, 30 Jun 2020 13:54:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A6321909975
+	for <dm-devel@redhat.com>; Tue, 30 Jun 2020 13:54:53 +0000 (UTC)
+Received: from mail-pl1-f193.google.com (mail-pl1-f193.google.com
+	[209.85.214.193]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-201-A5ul_4BlNsCImJZMlIh_iA-1; Tue, 30 Jun 2020 09:54:50 -0400
+X-MC-Unique: A5ul_4BlNsCImJZMlIh_iA-1
+Received: by mail-pl1-f193.google.com with SMTP id k1so8516365pls.2
+	for <dm-devel@redhat.com>; Tue, 30 Jun 2020 06:54:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=hKI90P9PUUShWQ5+4wQBc7xPIwXEAfQYKEsGh1MpJZs=;
+	b=E8F5ZpNghAe4G1hM5itEsp9nsTJlhdkvzC4q9PS2+C7CN0PudIAwQ9ytV9AH1vT6Bq
+	krHVy0UXxlnD5nQsMQCgO63Rps7rwqGkS9DAafq27AclweeprvhUB12upP9drnLPXww/
+	UsJ/ByWF8tmY5A6rhqYNa14p2bDiCiS3K+sHew1QIwRE8/97Ihk6CCRpQbuNn8tfJmo2
+	YhIT3Yhx41UgtoWGc9qJxZrSZc8+suvmDdtmw+iWGTml/7rnXIaJHMFEK73TT1Ohiafh
+	QkpR1zqLKsPxuC3a9ewHso2SPeVPmzgqjPSoNDMYtcrqj32i17qtGCanOuEuIB/63q/e
+	XK1w==
+X-Gm-Message-State: AOAM533/O5VI2nUm2ownhRufj5jP60HF1dJvYvUDfGyUOm/KVzfHWeZ8
+	BmSzuRveMzZFVJ/ltodZSAHzwg==
+X-Google-Smtp-Source: ABdhPJyz40Dk+a8U1c/CjzUO1QAZkxXoTvB1Z5x2Pa5jkubAyLo6SdeOcTzcPuLBVyj9atcxDTr0Bg==
+X-Received: by 2002:a17:902:ff0c:: with SMTP id
+	f12mr18122209plj.254.1593525289171; 
+	Tue, 30 Jun 2020 06:54:49 -0700 (PDT)
+Received: from ?IPv6:2605:e000:100e:8c61:4113:50ea:3eb3:a39b?
+	([2605:e000:100e:8c61:4113:50ea:3eb3:a39b])
+	by smtp.gmail.com with ESMTPSA id
+	l12sm2722675pff.212.2020.06.30.06.54.47
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Tue, 30 Jun 2020 06:54:48 -0700 (PDT)
+To: Christoph Hellwig <hch@lst.de>
+References: <20200629193947.2705954-1-hch@lst.de>
+	<20200629193947.2705954-12-hch@lst.de>
+From: Jens Axboe <axboe@kernel.dk>
+Message-ID: <70e8de25-4e26-9c00-1492-e433ebfdbc90@kernel.dk>
+Date: Tue, 30 Jun 2020 07:54:46 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.8.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+In-Reply-To: <20200629193947.2705954-12-hch@lst.de>
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: Mike Snitzer <msnitzer@redhat.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Zaibo Xu <xuzaibo@huawei.com>, linux-kernel@vger.kernel.org,
-	Wei Xu <xuwei5@hisilicon.com>, dm-devel@redhat.com,
-	George Cherian <gcherian@marvell.com>, linux-crypto@vger.kernel.org,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	"David S. Miller" <davem@davemloft.net>, Milan Broz <mbroz@redhat.com>
-Subject: Re: [dm-devel] [PATCH 1/3 v2] crypto: introduce the flag
- CRYPTO_ALG_ALLOCATES_MEMORY
+Cc: linux-bcache@vger.kernel.org, linux-xtensa@linux-xtensa.org,
+	linux-m68k@vger.kernel.org, linux-nvdimm@lists.01.org,
+	linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-nvme@lists.infradead.org, linux-raid@vger.kernel.org,
+	dm-devel@redhat.com, drbd-dev@tron.linbit.com,
+	linuxppc-dev@lists.ozlabs.org
+Subject: Re: [dm-devel] [PATCH 11/20] fs: remove a weird comment in
+	submit_bh_wbc
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,7 +100,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -103,22 +108,18 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+On 6/29/20 1:39 PM, Christoph Hellwig wrote:
+> All bios can get remapped if submitted to partitions.  No need to
+> comment on that.
 
+I'm pretty sure that comment is from me, dating back to when the bio
+code was introduced in 2001. The point wasn't the remapping, just
+that from here on down the IO was purely bio based, not buffer_heads.
+Anyway, totally agree that it should just die, it's not that
+interesting or useful anymore.
 
-On Mon, 29 Jun 2020, Mikulas Patocka wrote:
-
-> On Sun, 28 Jun 2020, Eric Biggers wrote:
-> 
-> > On Sun, Jun 28, 2020 at 03:07:49PM -0400, Mikulas Patocka wrote:
-> > > > 
-> > > > cryptd_create_skcipher(), cryptd_create_hash(), cryptd_create_aead(), and
-> > > > crypto_rfc4309_create() are also missing setting the mask.
-> > > > 
-> > > > pcrypt_create_aead() is missing both setting the mask and inheriting the flags.
-
-pcrypt_create_aead doesn't use "mask" and "type" arguments at all.
-
-Mikulas
+-- 
+Jens Axboe
 
 --
 dm-devel mailing list
