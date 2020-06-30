@@ -1,66 +1,69 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 7F0B320F75E
-	for <lists+dm-devel@lfdr.de>; Tue, 30 Jun 2020 16:38:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1593527917;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=jhlo86IxA+imYv+hrlPBGyG1mMFuLbhNc9HqP7NNB9o=;
-	b=EAJX2UckLT62d2QqFBHXeEYZmNo/qhWeJt4oEVlCyog2re2+PNMF4dY48Q3g/kmwgkPkuZ
-	G61H/4rPhqgzRQas/QcHq++JbPWLAuNu+LpoqMS3W2p1hZ2xrD/d2QYS0kqOsmiky/UcBw
-	pVXZ0ERg7XQR+C/s3417WKzr8ret4Rw=
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id AB03E20F78A
+	for <lists+dm-devel@lfdr.de>; Tue, 30 Jun 2020 16:49:18 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-244-952h1TOSNsuoIBXe719_9A-1; Tue, 30 Jun 2020 10:38:33 -0400
-X-MC-Unique: 952h1TOSNsuoIBXe719_9A-1
+ us-mta-140-xz3WZVcoNdy778PZVi2GXQ-1; Tue, 30 Jun 2020 10:49:13 -0400
+X-MC-Unique: xz3WZVcoNdy778PZVi2GXQ-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B386E8015F8;
-	Tue, 30 Jun 2020 14:38:26 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D649F6BF85;
+	Tue, 30 Jun 2020 14:48:59 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4C8A8607A0;
-	Tue, 30 Jun 2020 14:38:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B6B814F6B1;
+	Tue, 30 Jun 2020 14:48:59 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E60D41809542;
-	Tue, 30 Jun 2020 14:38:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 74E2B1809561;
+	Tue, 30 Jun 2020 14:48:59 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 05UEbwjY031549 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 30 Jun 2020 10:37:58 -0400
+	id 05UEAbVV027911 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 30 Jun 2020 10:10:37 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 92B3E741B1; Tue, 30 Jun 2020 14:37:58 +0000 (UTC)
+	id 35D37EE876; Tue, 30 Jun 2020 14:10:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E33DE7169B;
-	Tue, 30 Jun 2020 14:37:52 +0000 (UTC)
-Date: Tue, 30 Jun 2020 09:36:33 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: Michal =?iso-8859-1?Q?Such=E1nek?= <msuchanek@suse.de>
-Message-ID: <20200630133546.GA20439@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F879110C55
+	for <dm-devel@redhat.com>; Tue, 30 Jun 2020 14:10:33 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 16A45857CF5
+	for <dm-devel@redhat.com>; Tue, 30 Jun 2020 14:10:33 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-120-YBbQjj3oPuyVX4BUdnzt4A-1;
+	Tue, 30 Jun 2020 10:10:28 -0400
+X-MC-Unique: YBbQjj3oPuyVX4BUdnzt4A-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id DC17FB614;
+	Tue, 30 Jun 2020 14:10:23 +0000 (UTC)
+Date: Tue, 30 Jun 2020 16:10:22 +0200
+From: Michal =?iso-8859-1?Q?Such=E1nek?= <msuchanek@suse.de>
+To: Mikulas Patocka <mpatocka@redhat.com>
+Message-ID: <20200630141022.GZ21462@kitsune.suse.cz>
 References: <20200630123528.29660-1-msuchanek@suse.de>
 	<alpine.LRH.2.02.2006300929580.4801@file01.intranet.prod.int.rdu2.redhat.com>
-	<20200630141022.GZ21462@kitsune.suse.cz>
 MIME-Version: 1.0
-In-Reply-To: <20200630141022.GZ21462@kitsune.suse.cz>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+In-Reply-To: <alpine.LRH.2.02.2006300929580.4801@file01.intranet.prod.int.rdu2.redhat.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: Cornelia Huck <cohuck@redhat.com>, Jan Kara <jack@suse.cz>,
-	Jakub Staron <jstaron@google.com>, linux-nvdimm@lists.01.org,
+X-Mailman-Approved-At: Tue, 30 Jun 2020 10:48:45 -0400
+Cc: Pankaj Gupta <pagupta@redhat.com>, Cornelia Huck <cohuck@redhat.com>,
+	Jan Kara <jack@suse.cz>, Jakub Staron <jstaron@google.com>,
+	Mike Snitzer <snitzer@redhat.com>, linux-nvdimm@lists.01.org,
 	"Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org,
 	Yuval Shaia <yuval.shaia@oracle.com>, dm-devel@redhat.com,
-	Mikulas Patocka <mpatocka@redhat.com>, Alasdair Kergon <agk@redhat.com>
-Subject: Re: [dm-devel] dm writecache: reject asynchronous pmem.
+	Alasdair Kergon <agk@redhat.com>
+Subject: Re: [dm-devel] [PATCH] dm writecache: reject asynchronous pmem.
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,72 +82,59 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-On Tue, Jun 30 2020 at 10:10am -0400,
-Michal Such=E1nek <msuchanek@suse.de> wrote:
+On Tue, Jun 30, 2020 at 09:32:01AM -0400, Mikulas Patocka wrote:
+> 
+> 
+> On Tue, 30 Jun 2020, Michal Suchanek wrote:
+> 
+> > The writecache driver does not handle asynchronous pmem. Reject it when
+> > supplied as cache.
+> > 
+> > Link: https://lore.kernel.org/linux-nvdimm/87lfk5hahc.fsf@linux.ibm.com/
+> > Fixes: 6e84200c0a29 ("virtio-pmem: Add virtio pmem driver")
+> > 
+> > Signed-off-by: Michal Suchanek <msuchanek@suse.de>
+> > ---
+> >  drivers/md/dm-writecache.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> > 
+> > diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
+> > index 30505d70f423..57b0a972f6fd 100644
+> > --- a/drivers/md/dm-writecache.c
+> > +++ b/drivers/md/dm-writecache.c
+> > @@ -2277,6 +2277,12 @@ static int writecache_ctr(struct dm_target *ti, unsigned argc, char **argv)
+> >  
+> >  		wc->memory_map_size -= (uint64_t)wc->start_sector << SECTOR_SHIFT;
+> >  
+> > +		if (!dax_synchronous(wc->ssd_dev->dax_dev)) {
+> > +			r = -EOPNOTSUPP;
+> > +			ti->error = "Asynchronous persistent memory not supported as pmem cache";
+> > +			goto bad;
+> > +		}
+> > +
+> >  		bio_list_init(&wc->flush_list);
+> >  		wc->flush_thread = kthread_create(writecache_flush_thread, wc, "dm_writecache_flush");
+> >  		if (IS_ERR(wc->flush_thread)) {
+> > -- 
+> 
+> Hi
+> 
+> Shouldn't this be in the "if (WC_MODE_PMEM(wc))" block?
+That should be always the case at this point.
+> 
+> WC_MODE_PMEM(wc) retrurns true if we are using persistent memory as a 
+> cache device, otherwise we are using generic block device as a cache 
+> device.
+This is to prevent the situation where we have WC_MODE_PMEM(wc) but
+cannot guarantee consistency because the async flush is not handled.
 
-> On Tue, Jun 30, 2020 at 09:32:01AM -0400, Mikulas Patocka wrote:
-> >=20
-> >=20
-> > On Tue, 30 Jun 2020, Michal Suchanek wrote:
-> >=20
-> > > The writecache driver does not handle asynchronous pmem. Reject it wh=
-en
-> > > supplied as cache.
-> > >=20
-> > > Link: https://lore.kernel.org/linux-nvdimm/87lfk5hahc.fsf@linux.ibm.c=
-om/
-> > > Fixes: 6e84200c0a29 ("virtio-pmem: Add virtio pmem driver")
-> > >=20
-> > > Signed-off-by: Michal Suchanek <msuchanek@suse.de>
-> > > ---
-> > >  drivers/md/dm-writecache.c | 6 ++++++
-> > >  1 file changed, 6 insertions(+)
-> > >=20
-> > > diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
-> > > index 30505d70f423..57b0a972f6fd 100644
-> > > --- a/drivers/md/dm-writecache.c
-> > > +++ b/drivers/md/dm-writecache.c
-> > > @@ -2277,6 +2277,12 @@ static int writecache_ctr(struct dm_target *ti=
-, unsigned argc, char **argv)
-> > > =20
-> > >  =09=09wc->memory_map_size -=3D (uint64_t)wc->start_sector << SECTOR_=
-SHIFT;
-> > > =20
-> > > +=09=09if (!dax_synchronous(wc->ssd_dev->dax_dev)) {
-> > > +=09=09=09r =3D -EOPNOTSUPP;
-> > > +=09=09=09ti->error =3D "Asynchronous persistent memory not supported=
- as pmem cache";
-> > > +=09=09=09goto bad;
-> > > +=09=09}
-> > > +
-> > >  =09=09bio_list_init(&wc->flush_list);
-> > >  =09=09wc->flush_thread =3D kthread_create(writecache_flush_thread, w=
-c, "dm_writecache_flush");
-> > >  =09=09if (IS_ERR(wc->flush_thread)) {
-> > > --=20
-> >=20
-> > Hi
-> >=20
-> > Shouldn't this be in the "if (WC_MODE_PMEM(wc))" block?
-> That should be always the case at this point.
-> >=20
-> > WC_MODE_PMEM(wc) retrurns true if we are using persistent memory as a=
-=20
-> > cache device, otherwise we are using generic block device as a cache=20
-> > device.
->
-> This is to prevent the situation where we have WC_MODE_PMEM(wc) but
-> cannot guarantee consistency because the async flush is not handled.
+Thanks
 
-The writecache operates in 2 modes.  SSD or PMEM.  Mikulas is saying
-your dax_synchronous() check should go within a WC_MODE_PMEM(wc) block
-because it doesn't make sense to do the check when in SSD mode.
-
-Mike
+Michal
 
 --
 dm-devel mailing list
