@@ -1,65 +1,65 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id D7481211639
-	for <lists+dm-devel@lfdr.de>; Thu,  2 Jul 2020 00:43:47 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id A8E91211637
+	for <lists+dm-devel@lfdr.de>; Thu,  2 Jul 2020 00:43:17 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1593643426;
+	s=mimecast20190719; t=1593643396;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=QrPNIXmEtumeUVrw1ma8hqK5SXFJqCqF1u/8LGmJd1g=;
-	b=alPJrpnBMKF//zN0CL1YB0OfrwTnG0AwUZHWc8Vp3WAW0eRT3ireXqxNSNvFEbNowLIIBy
-	Og9alrzFceuzbdR5Sq6pEP2JSUwnsMp0LQliPdgciFsCXs/pHtzbV03ki7LdSfUP2LvOuS
-	yQ5yLIVxUbNFgBBYSivJ/rMNXqx6rAM=
+	bh=xXn6pqWrJubV7U7tYAMVCBIpkzjJ6YJzptQlHSelemE=;
+	b=AmRWAcTc2Bw1iNkHPcifHMZYyCwYU9hB5JVCoBGPe/zOvAeCFYjcxwRIo7ehvKi4NykwXx
+	Nn/IKcHXRTNIwmOdJvCDqxzPmTvfU8ON259mhjZByaRoV3ZbPi5kkgW6h7vPO5pPsYAlJf
+	w84RteyNV1u7rSOwPkYldfBZFAMEp5w=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-381-E5rtdbHQPTyxpO04D_yzCw-1; Wed, 01 Jul 2020 18:43:44 -0400
-X-MC-Unique: E5rtdbHQPTyxpO04D_yzCw-1
+ us-mta-26-knRrkwQSMu6GoDzZdtxqFQ-1; Wed, 01 Jul 2020 18:43:14 -0400
+X-MC-Unique: knRrkwQSMu6GoDzZdtxqFQ-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6BB15802ED6;
-	Wed,  1 Jul 2020 22:43:38 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4CE5773FC5;
-	Wed,  1 Jul 2020 22:43:38 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5A1A0800C64;
+	Wed,  1 Jul 2020 22:43:09 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A13773FC2;
+	Wed,  1 Jul 2020 22:43:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0EE0E6C9C6;
-	Wed,  1 Jul 2020 22:43:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ED2221809554;
+	Wed,  1 Jul 2020 22:43:08 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 061MdiEv020034 for <dm-devel@listman.util.phx.redhat.com>;
+	id 061Mdi6u020048 for <dm-devel@listman.util.phx.redhat.com>;
 	Wed, 1 Jul 2020 18:39:44 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1B7CF5C1C5; Wed,  1 Jul 2020 22:39:44 +0000 (UTC)
+	id CB58B1D1; Wed,  1 Jul 2020 22:39:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 273CA5C1BB;
-	Wed,  1 Jul 2020 22:39:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 22EAC5DC1E;
+	Wed,  1 Jul 2020 22:39:42 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 061Mddg3006256; 
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 061MdejA006260; 
 	Wed, 1 Jul 2020 17:39:40 -0500
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 061Mddas006255;
-	Wed, 1 Jul 2020 17:39:39 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 061MdebV006259;
+	Wed, 1 Jul 2020 17:39:40 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Wed,  1 Jul 2020 17:39:35 -0500
-Message-Id: <1593643176-6206-4-git-send-email-bmarzins@redhat.com>
+Date: Wed,  1 Jul 2020 17:39:36 -0500
+Message-Id: <1593643176-6206-5-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1593643176-6206-1-git-send-email-bmarzins@redhat.com>
 References: <1593643176-6206-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
 Cc: device-mapper development <dm-devel@redhat.com>,
 	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH 3/4] kpartx: handle alternate bsd disklabel
-	location
+Subject: [dm-devel] [PATCH 4/4] libmultipath: fix checker detection for nvme
+	devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,50 +82,59 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-bsd disk labels can either be at the start of the second sector, or 64
-bytes into the first sector, but kpartx only handled the first case.
-However the second case is what parted creates, and what the linux
-kernel partition code expects.  kpartx should handle both cases.
+In order to fix hwhandler autodetection, commit 8794a776 made
+detect_alua() differentiate between failures to detect whether alua was
+supported, and successfully detecting that it was not supported.
+However, this causes nvme devices to get the TUR checker assigned to
+them. This is because there is nothing in detect_alua() to make it only
+work on scsi devices, and select_checker wasn't updated to handle
+detect_alua() failing without setting pp->tpgs to TPGS_NONE.
 
+detect_alua() should automatically set pp->tpgs to TPGS_NONE and exit on
+non-scsi devices. Also, select_checker() should not assume that a
+devices is ALUA, simply because if failed to detect if alua was
+supported.
+
+Fixes: 8794a776 "libmultipath: fix ALUA autodetection when paths are
+                 down"
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- kpartx/bsd.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ libmultipath/discovery.c | 6 ++++++
+ libmultipath/propsel.c   | 4 +++-
+ 2 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/kpartx/bsd.c b/kpartx/bsd.c
-index 0e661fbc..950b0f92 100644
---- a/kpartx/bsd.c
-+++ b/kpartx/bsd.c
-@@ -1,6 +1,7 @@
- #include "kpartx.h"
- #include <stdio.h>
+diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
+index 6a45979a..bfdc8b31 100644
+--- a/libmultipath/discovery.c
++++ b/libmultipath/discovery.c
+@@ -888,6 +888,12 @@ detect_alua(struct path * pp)
+ 	int tpgs;
+ 	unsigned int timeout;
  
-+#define BSD_LABEL_OFFSET	64
- #define BSD_DISKMAGIC	(0x82564557UL)	/* The disk magic number */
- #define XBSD_MAXPARTITIONS	16
- #define BSD_FS_UNUSED		0
-@@ -60,8 +61,19 @@ read_bsd_pt(int fd, struct slice all, struct slice *sp, unsigned int ns) {
- 		return -1;
- 
- 	l = (struct bsd_disklabel *) bp;
--	if (l->d_magic != BSD_DISKMAGIC)
--		return -1;
-+	if (l->d_magic != BSD_DISKMAGIC) {
-+		/*
-+		 * BSD disklabels can also start 64 bytes offset from the
-+		 * start of the first sector
-+		 */
-+		bp = getblock(fd, offset);
-+		if (bp == NULL)
-+			return -1;
 +
-+		l = (struct bsd_disklabel *)(bp + 64);
-+		if (l->d_magic != BSD_DISKMAGIC)
-+			return -1;
++	if (pp->bus != SYSFS_BUS_SCSI) {
++		pp->tpgs = TPGS_NONE;
++		return;
 +	}
++
+ 	if (sysfs_get_timeout(pp, &timeout) <= 0)
+ 		timeout = DEF_TIMEOUT;
  
- 	max_partitions = 16;
- 	if (l->d_npartitions < max_partitions)
+diff --git a/libmultipath/propsel.c b/libmultipath/propsel.c
+index 897e48ca..d362beb4 100644
+--- a/libmultipath/propsel.c
++++ b/libmultipath/propsel.c
+@@ -521,7 +521,9 @@ int select_checker(struct config *conf, struct path *pp)
+ 		if (check_rdac(pp)) {
+ 			ckr_name = RDAC;
+ 			goto out;
+-		} else if (path_get_tpgs(pp) != TPGS_NONE) {
++		}
++		path_get_tpgs(pp);
++		if (pp->tpgs != TPGS_NONE && pp->tpgs != TPGS_UNDEF) {
+ 			ckr_name = TUR;
+ 			goto out;
+ 		}
 -- 
 2.17.2
 
