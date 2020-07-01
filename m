@@ -1,59 +1,58 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id D8A5A210764
-	for <lists+dm-devel@lfdr.de>; Wed,  1 Jul 2020 11:05:03 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 3DE4C210765
+	for <lists+dm-devel@lfdr.de>; Wed,  1 Jul 2020 11:05:04 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-425-SkhCV7uQM7CCCvTAVwVGYA-1; Wed, 01 Jul 2020 05:04:55 -0400
-X-MC-Unique: SkhCV7uQM7CCCvTAVwVGYA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-451-KESZhWBxP2OyJUMeEbWCbw-1; Wed, 01 Jul 2020 05:04:59 -0400
+X-MC-Unique: KESZhWBxP2OyJUMeEbWCbw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1BC36100CCC4;
-	Wed,  1 Jul 2020 09:04:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ED9CC5DAB0;
-	Wed,  1 Jul 2020 09:04:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E1254879520;
+	Wed,  1 Jul 2020 09:04:51 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BEAB3100164D;
+	Wed,  1 Jul 2020 09:04:51 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A1FE41809561;
-	Wed,  1 Jul 2020 09:04:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7B02E6C9CF;
+	Wed,  1 Jul 2020 09:04:51 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 061946Yq012753 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 1 Jul 2020 05:04:07 -0400
+	id 06193wGb012478 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 1 Jul 2020 05:03:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B64CE202B16D; Wed,  1 Jul 2020 09:04:06 +0000 (UTC)
+	id 9119DF8956; Wed,  1 Jul 2020 09:03:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B28252029F79
-	for <dm-devel@redhat.com>; Wed,  1 Jul 2020 09:04:06 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8CF96F885F
+	for <dm-devel@redhat.com>; Wed,  1 Jul 2020 09:03:58 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9A3E392490C
-	for <dm-devel@redhat.com>; Wed,  1 Jul 2020 09:04:06 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 79B4518A6660
+	for <dm-devel@redhat.com>; Wed,  1 Jul 2020 09:03:58 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-318-ETWmRWNZM_CRPTtGxjzVQw-1; Wed, 01 Jul 2020 05:04:02 -0400
-X-MC-Unique: ETWmRWNZM_CRPTtGxjzVQw-1
+	us-mta-199-scV0JHc4P9OC8CJHpYM0Aw-1; Wed, 01 Jul 2020 05:03:56 -0400
+X-MC-Unique: scV0JHc4P9OC8CJHpYM0Aw-1
 Received: from [2001:4bb8:184:76e3:ea38:596b:3e9e:422a] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1jqYb2-00089D-BO; Wed, 01 Jul 2020 09:00:00 +0000
+	id 1jqYb3-00089Z-KL; Wed, 01 Jul 2020 09:00:01 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed,  1 Jul 2020 10:59:35 +0200
-Message-Id: <20200701085947.3354405-9-hch@lst.de>
+Date: Wed,  1 Jul 2020 10:59:36 +0200
+Message-Id: <20200701085947.3354405-10-hch@lst.de>
 In-Reply-To: <20200701085947.3354405-1-hch@lst.de>
 References: <20200701085947.3354405-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	casper.infradead.org. See http://www.infradead.org/rpr.html
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: linux-bcache@vger.kernel.org, linux-xtensa@linux-xtensa.org,
 	linux-m68k@vger.kernel.org, linux-nvdimm@lists.01.org,
@@ -61,7 +60,7 @@ Cc: linux-bcache@vger.kernel.org, linux-xtensa@linux-xtensa.org,
 	linux-nvme@lists.infradead.org, linux-raid@vger.kernel.org,
 	dm-devel@redhat.com, drbd-dev@tron.linbit.com,
 	linuxppc-dev@lists.ozlabs.org
-Subject: [dm-devel] [PATCH 08/20] zram: stop using ->queuedata
+Subject: [dm-devel] [PATCH 09/20] bcache: stop setting ->queuedata
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,7 +74,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -83,35 +82,25 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Instead of setting up the queuedata as well just use one private data
-field.
+Nothing in bcache actually uses the ->queuedata field.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/block/zram/zram_drv.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/md/bcache/super.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index 6e2ad90b17a376..0564e3f384089e 100644
---- a/drivers/block/zram/zram_drv.c
-+++ b/drivers/block/zram/zram_drv.c
-@@ -1586,7 +1586,7 @@ static void __zram_make_request(struct zram *zram, struct bio *bio)
-  */
- static blk_qc_t zram_make_request(struct request_queue *queue, struct bio *bio)
- {
--	struct zram *zram = queue->queuedata;
-+	struct zram *zram = bio->bi_disk->private_data;
+diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
+index 2014016f9a60d3..21aa168113d30b 100644
+--- a/drivers/md/bcache/super.c
++++ b/drivers/md/bcache/super.c
+@@ -876,7 +876,6 @@ static int bcache_device_init(struct bcache_device *d, unsigned int block_size,
+ 		return -ENOMEM;
  
- 	if (!valid_io_request(zram, bio->bi_iter.bi_sector,
- 					bio->bi_iter.bi_size)) {
-@@ -1912,7 +1912,6 @@ static int zram_add(void)
- 	zram->disk->first_minor = device_id;
- 	zram->disk->fops = &zram_devops;
- 	zram->disk->queue = queue;
--	zram->disk->queue->queuedata = zram;
- 	zram->disk->private_data = zram;
- 	snprintf(zram->disk->disk_name, 16, "zram%d", device_id);
- 
+ 	d->disk->queue			= q;
+-	q->queuedata			= d;
+ 	q->backing_dev_info->congested_data = d;
+ 	q->limits.max_hw_sectors	= UINT_MAX;
+ 	q->limits.max_sectors		= UINT_MAX;
 -- 
 2.26.2
 
