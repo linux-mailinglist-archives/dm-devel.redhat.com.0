@@ -1,125 +1,62 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 267E6210315
-	for <lists+dm-devel@lfdr.de>; Wed,  1 Jul 2020 06:45:53 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 46ACA21032D
+	for <lists+dm-devel@lfdr.de>; Wed,  1 Jul 2020 06:54:26 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-228-tkhd3DEiOQSYNBnrddk9Xw-1; Wed, 01 Jul 2020 00:45:49 -0400
-X-MC-Unique: tkhd3DEiOQSYNBnrddk9Xw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-107-qc2MtjNsOuGrCzI0sVYBEg-1; Wed, 01 Jul 2020 00:54:23 -0400
+X-MC-Unique: qc2MtjNsOuGrCzI0sVYBEg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8239F107ACCD;
-	Wed,  1 Jul 2020 04:45:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D8D71107ACF7;
+	Wed,  1 Jul 2020 04:54:17 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA4D460E3E;
-	Wed,  1 Jul 2020 04:45:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B90525DC1E;
+	Wed,  1 Jul 2020 04:54:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7217E1809543;
-	Wed,  1 Jul 2020 04:45:35 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 772421809557;
+	Wed,  1 Jul 2020 04:54:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0614jRM8008113 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 1 Jul 2020 00:45:27 -0400
+	id 0614qfKN008800 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 1 Jul 2020 00:52:41 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E937EFC739; Wed,  1 Jul 2020 04:45:26 +0000 (UTC)
+	id 3FF17217B43D; Wed,  1 Jul 2020 04:52:41 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E3BC42EF94
-	for <dm-devel@redhat.com>; Wed,  1 Jul 2020 04:45:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2FAB5200BD64
+	for <dm-devel@redhat.com>; Wed,  1 Jul 2020 04:52:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 52015858EE9
-	for <dm-devel@redhat.com>; Wed,  1 Jul 2020 04:45:24 +0000 (UTC)
-Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-159-5mbIAVClNWCc5DHRAEximw-1; Wed, 01 Jul 2020 00:45:17 -0400
-X-MC-Unique: 5mbIAVClNWCc5DHRAEximw-1
-IronPort-SDR: QA5Jw3KQk3zjGJKg3C9ANi/ikEbyWtonTQuHdaOkMJx98rovTrT1KeOQ/iVqRZ5eOJOsKw3AnZ
-	HNEKrcHD5TlnCPkp6b7XZOa5eLFFvOF/AuOqr2WMXaSr90EUvfyALeDooDu4VJYDklUu4lkB85
-	hqvf9I9ENUI9cnM0fqX2yFEQkReIw7umAJylB8gXwHXyD5hrejhIUhAKOSjunH/JrWE2UVrnZL
-	K1gpx+gapiYjBigS/IS3gPkHSG7TDzJDInpuVs2C8XYAeXC0EzZ6e0J4wlxaX4dfN5B8qf54Wd
-	UhE=
-X-IronPort-AV: E=Sophos;i="5.75,298,1589212800"; d="scan'208";a="141341625"
-Received: from mail-bn7nam10lp2100.outbound.protection.outlook.com (HELO
-	NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.100])
-	by ob1.hgst.iphmx.com with ESMTP; 01 Jul 2020 12:45:06 +0800
-Received: from BYAPR04MB4965.namprd04.prod.outlook.com (2603:10b6:a03:4d::25)
-	by BY5PR04MB7124.namprd04.prod.outlook.com (2603:10b6:a03:22f::15)
-	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3131.26;
-	Wed, 1 Jul 2020 04:45:03 +0000
-Received: from BYAPR04MB4965.namprd04.prod.outlook.com
-	([fe80::4d72:27c:c075:c5e6]) by BYAPR04MB4965.namprd04.prod.outlook.com
-	([fe80::4d72:27c:c075:c5e6%7]) with mapi id 15.20.3131.027;
-	Wed, 1 Jul 2020 04:45:03 +0000
-From: Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>
-To: Christoph Hellwig <hch@lst.de>
-Thread-Topic: [PATCH 10/11] block: use block_bio class for getrq and sleeprq
-Thread-Index: AQHWTm9LvGU76q0unUybnpt+xj1KpQ==
-Date: Wed, 1 Jul 2020 04:45:03 +0000
-Message-ID: <BYAPR04MB4965E849D99120B59011CEF5866C0@BYAPR04MB4965.namprd04.prod.outlook.com>
-References: <20200629234314.10509-1-chaitanya.kulkarni@wdc.com>
-	<20200629234314.10509-11-chaitanya.kulkarni@wdc.com>
-	<20200630051332.GG27033@lst.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [199.255.45.62]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 044c2dbf-bbc5-46cb-013d-08d81d798520
-x-ms-traffictypediagnostic: BY5PR04MB7124:
-x-microsoft-antispam-prvs: <BY5PR04MB7124B1FD9FF9B8B3E1300E2B866C0@BY5PR04MB7124.namprd04.prod.outlook.com>
-wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-forefront-prvs: 04519BA941
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ci0D5I3VYMobN1/+lkENDXHzofKDM5bgVg8yEVlIlIjK040mKTo+6OJtlWVPPghQjMETY7Fx4iiMiFA6yEuZYLcIgyrlfIpMlIDcOQlEb12Omc7qQ7Y+eJVeYXKsYSTay2GyLcnrYXsPWxH1CwudWKpjPzHMyUgvrk9kg0nAMIWOEzzwRyG7ibGmSxt8kyavj2bDzo8ZOx/eA4Um76rAlj9csRIfWeCuGNR2V+fMpj2p8OMhJhIN5FGuGv7DvqtHg9r71l6AIv9bygDb9g62dxR1YT5ZHBxGXeFW27dNyQuVV8skdhGHM/+cc9VWJ80ZVSRusnwJRMSwHpChElFQYA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:BYAPR04MB4965.namprd04.prod.outlook.com;
-	PTR:; CAT:NONE; SFTY:;
-	SFS:(4636009)(39860400002)(136003)(346002)(396003)(366004)(376002)(6506007)(8676002)(316002)(53546011)(186003)(4326008)(26005)(6916009)(71200400001)(54906003)(52536014)(33656002)(4744005)(83380400001)(5660300002)(8936002)(76116006)(86362001)(64756008)(66446008)(66556008)(478600001)(66476007)(7416002)(55016002)(7696005)(66946007)(9686003)(2906002);
-	DIR:OUT; SFP:1102;
-x-ms-exchange-antispam-messagedata: GZ+A6Utax0lQCf/oBma9DK0wD7Z/VTsJ0TydVxMcK4cGyfgoWvXIVDbitid97br7c+Ljq4KkossdqQLh9f+PmYuK5ibwE44LTRoerZ2rC4A1eaSMMhmveB6bQDwKYKmXfb7pmSHHjiiAet2q++DS7r4cCGDDQtorlpWlb4LV0JWCyrIsBluDCSk22ofu4le+76F/jusP3GD1Egt74OHOD9PNwws5L2SIQzxL/GR3ooQx1cwod6EYxxSp2/mycpUqJnvvnBHGxb66Z53Yv8rvBRnp8zexRW28LwB7tU360ILXAxXxls47XcZSoSm19JYxbj2zGXkszcRDA2AzJUM+wBp55sHL3Zrh9nKRMZ87kzNdC5k1h7TJnFsTkjbKpyl2vTkIbgaqboldZiVnsRQX8es2DCxcEYjkBbj3n2qnnDJHBZYvpSeLTW4ag+aEM4Z8Lk4JblSfZPMoOvxploUk10KYPXR19d3xcBKZZzs3aiM=
-x-ms-exchange-transport-forked: True
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6CAAA1859162
+	for <dm-devel@redhat.com>; Wed,  1 Jul 2020 04:52:32 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-461-ru_HDD20MxKtd9kqeAQIqg-1;
+	Wed, 01 Jul 2020 00:52:30 -0400
+X-MC-Unique: ru_HDD20MxKtd9kqeAQIqg-1
+Received: from sol.hsd1.ca.comcast.net (c-107-3-166-239.hsd1.ca.comcast.net
+	[107.3.166.239])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 7D1702070C;
+	Wed,  1 Jul 2020 04:52:28 +0000 (UTC)
+From: Eric Biggers <ebiggers@kernel.org>
+To: Mikulas Patocka <mpatocka@redhat.com>, linux-crypto@vger.kernel.org
+Date: Tue, 30 Jun 2020 21:52:11 -0700
+Message-Id: <20200701045217.121126-1-ebiggers@kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR04MB4965.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 044c2dbf-bbc5-46cb-013d-08d81d798520
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jul 2020 04:45:03.2691 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QiYhxFY3ghqDClEPerInmD2HEEEcrTDhCbxanL93sjAAsZORgsh/f62K+4YpdvlBFvSaYkF6BPupnwLtFLg4uqLm4EMV12he+oK6fWtM6y0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR04MB7124
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0614jRM8008113
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0614qfKN008800
 X-loop: dm-devel@redhat.com
-Cc: "axboe@kernel.dk" <axboe@kernel.dk>,
-	"paolo.valente@linaro.org" <paolo.valente@linaro.org>,
-	"sagi@grimberg.me" <sagi@grimberg.me>,
-	"snitzer@redhat.com" <snitzer@redhat.com>,
-	"fangguoju@gmail.com" <fangguoju@gmail.com>,
-	"rdunlap@infradead.org" <rdunlap@infradead.org>,
-	"rostedt@goodmis.org" <rostedt@goodmis.org>,
-	"ming.lei@redhat.com" <ming.lei@redhat.com>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"mingo@redhat.com" <mingo@redhat.com>, "colyli@suse.de" <colyli@suse.de>,
-	"jack@suse.czi" <jack@suse.czi>, "agk@redhat.com" <agk@redhat.com>,
-	"bvanassche@acm.org" <bvanassche@acm.org>
-Subject: Re: [dm-devel] [PATCH 10/11] block: use block_bio class for getrq
-	and sleeprq
+Cc: dm-devel@redhat.com
+Subject: [dm-devel] [PATCH 0/6] crypto: add CRYPTO_ALG_ALLOCATES_MEMORY
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -133,7 +70,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -141,30 +78,110 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 6/29/20 10:13 PM, Christoph Hellwig wrote:
-> On Mon, Jun 29, 2020 at 04:43:13PM -0700, Chaitanya Kulkarni wrote:
->> The only difference in block_get_rq and block_bio was the last param
->> passed  __entry->nr_sector & bio->bi_iter.bi_size respectively. Since
->> that is not the case anymore replace block_get_rq class with block_bio
->> for block_getrq and block_sleeprq events, also adjust the code to handle
->> null bio case in block_bio.
-> To me it seems like keeping the NULL bio case separate actually is a
-> little simpler..
-> 
-> 
+This series introduces a flag that algorithms can set to indicate that
+they allocate memory during processing of typical inputs, and thus
+shouldn't be used in cases like dm-crypt where memory allocation
+failures aren't acceptable.
 
-Keeping it separate will have an extra event class and related
-event(s) for only handling null bio case.
+Compared to Mikulas's patches, I've made the following improvements:
 
-Also the block_get_rq class uses 4 comparisons with ?:.
-This patch reduces it to only one comparison in fast path.
+- Tried to clearly document the semantics of
+  CRYPTO_ALG_ALLOCATES_MEMORY.  This includes documenting the usage
+  constraints, since there are actually lots of cases that were
+  overlooked where algorithms can still allocate memory in some edge
+  cases where inputs are misaligned, fragemented, etc.  E.g. see
+  crypto/skcipher.c and crypto/ahash.c.  Mikulas, please let me know if
+  there are any concerns for dm-crypt.
 
-With above explanation does it make sense to get rid of the
-blk_get_rq ?
+- Moved the common mechanism for inheriting flags to its own patch.
 
+- crypto_grab_spawn() now handles propagating CRYPTO_ALG_INHERITED_FLAGS
+  to the new template instance.
 
+- Inherit the flags in various places that were missed.
 
+- Other cleanups.
 
+Note: Mikulas's patch "crypto: set the flag CRYPTO_ALG_ALLOCATES_MEMORY"
+still needs to be checked for cases where the flag no longer needs to be
+set due to the usage constraints I documented.
+
+Eric Biggers (4):
+  crypto: geniv - remove unneeded arguments from aead_geniv_alloc()
+  crypto: algapi - use common mechanism for inheriting flags
+  crypto: algapi - introduce the flag CRYPTO_ALG_ALLOCATES_MEMORY
+  crypto: algapi - remove crypto_check_attr_type()
+
+Mikulas Patocka (2):
+  crypto: set the flag CRYPTO_ALG_ALLOCATES_MEMORY
+  dm-crypt: don't use drivers that have CRYPTO_ALG_ALLOCATES_MEMORY
+
+ crypto/adiantum.c                             |   4 +-
+ crypto/algapi.c                               |  17 +--
+ crypto/authenc.c                              |   4 +-
+ crypto/authencesn.c                           |   4 +-
+ crypto/ccm.c                                  |  23 ++--
+ crypto/chacha20poly1305.c                     |   4 +-
+ crypto/cmac.c                                 |  15 ++-
+ crypto/cryptd.c                               |  59 ++++-----
+ crypto/ctr.c                                  |   8 +-
+ crypto/cts.c                                  |   3 +-
+ crypto/echainiv.c                             |   2 +-
+ crypto/essiv.c                                |  11 +-
+ crypto/gcm.c                                  |  10 +-
+ crypto/geniv.c                                |   9 +-
+ crypto/hmac.c                                 |  15 ++-
+ crypto/lrw.c                                  |   3 +-
+ crypto/pcrypt.c                               |  14 +--
+ crypto/rsa-pkcs1pad.c                         |   3 +-
+ crypto/seqiv.c                                |   2 +-
+ crypto/simd.c                                 |   6 +-
+ crypto/skcipher.c                             |   3 +-
+ crypto/vmac.c                                 |  15 ++-
+ crypto/xcbc.c                                 |  15 ++-
+ crypto/xts.c                                  |   3 +-
+ .../crypto/allwinner/sun8i-ce/sun8i-ce-core.c |  12 +-
+ .../crypto/allwinner/sun8i-ss/sun8i-ss-core.c |  12 +-
+ drivers/crypto/amlogic/amlogic-gxl-core.c     |   6 +-
+ drivers/crypto/axis/artpec6_crypto.c          |  20 ++-
+ drivers/crypto/bcm/cipher.c                   |  72 ++++++++---
+ drivers/crypto/caam/caamalg.c                 |   6 +-
+ drivers/crypto/caam/caamalg_qi.c              |   6 +-
+ drivers/crypto/caam/caamalg_qi2.c             |   8 +-
+ drivers/crypto/caam/caamhash.c                |   2 +-
+ drivers/crypto/cavium/cpt/cptvf_algs.c        |  18 ++-
+ drivers/crypto/cavium/nitrox/nitrox_aead.c    |   4 +-
+ .../crypto/cavium/nitrox/nitrox_skcipher.c    |  16 +--
+ drivers/crypto/ccp/ccp-crypto-aes-cmac.c      |   1 +
+ drivers/crypto/ccp/ccp-crypto-aes-galois.c    |   1 +
+ drivers/crypto/ccp/ccp-crypto-aes-xts.c       |   1 +
+ drivers/crypto/ccp/ccp-crypto-aes.c           |   2 +
+ drivers/crypto/ccp/ccp-crypto-des3.c          |   1 +
+ drivers/crypto/ccp/ccp-crypto-sha.c           |   1 +
+ drivers/crypto/chelsio/chcr_algo.c            |   7 +-
+ drivers/crypto/hisilicon/sec/sec_algs.c       |  24 ++--
+ drivers/crypto/hisilicon/sec2/sec_crypto.c    |   4 +-
+ .../crypto/inside-secure/safexcel_cipher.c    |  47 +++++++
+ drivers/crypto/inside-secure/safexcel_hash.c  |  18 +++
+ drivers/crypto/ixp4xx_crypto.c                |   6 +-
+ drivers/crypto/marvell/cesa/cipher.c          |  18 ++-
+ drivers/crypto/marvell/cesa/hash.c            |   6 +
+ .../crypto/marvell/octeontx/otx_cptvf_algs.c  |  30 ++---
+ drivers/crypto/n2_core.c                      |   3 +-
+ drivers/crypto/picoxcell_crypto.c             |  17 ++-
+ drivers/crypto/qat/qat_common/qat_algs.c      |  12 +-
+ drivers/crypto/qce/skcipher.c                 |   1 +
+ drivers/crypto/talitos.c                      | 117 ++++++++++++------
+ drivers/crypto/virtio/virtio_crypto_algs.c    |   3 +-
+ drivers/crypto/xilinx/zynqmp-aes-gcm.c        |   1 +
+ drivers/md/dm-crypt.c                         |  17 ++-
+ include/crypto/algapi.h                       |  23 +++-
+ include/crypto/internal/geniv.h               |   2 +-
+ include/linux/crypto.h                        |  32 +++++
+ 62 files changed, 550 insertions(+), 279 deletions(-)
+
+-- 
+2.27.0
 
 
 --
