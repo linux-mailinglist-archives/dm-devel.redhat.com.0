@@ -1,58 +1,59 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 78A8F21077D
-	for <lists+dm-devel@lfdr.de>; Wed,  1 Jul 2020 11:07:07 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id A22D1210778
+	for <lists+dm-devel@lfdr.de>; Wed,  1 Jul 2020 11:06:47 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-188-354NZ86mMg6aI-Car7VMOw-1; Wed, 01 Jul 2020 05:06:59 -0400
-X-MC-Unique: 354NZ86mMg6aI-Car7VMOw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-187-akNcD5ctMqGnEY30RmgqJQ-1; Wed, 01 Jul 2020 05:06:44 -0400
+X-MC-Unique: akNcD5ctMqGnEY30RmgqJQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D54DF108BD0F;
-	Wed,  1 Jul 2020 09:06:53 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E81498015F5;
+	Wed,  1 Jul 2020 09:06:38 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B390D7C1F6;
-	Wed,  1 Jul 2020 09:06:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C87D5B3A7E;
+	Wed,  1 Jul 2020 09:06:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7151D6C9C4;
-	Wed,  1 Jul 2020 09:06:53 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 877D76C9C3;
+	Wed,  1 Jul 2020 09:06:38 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06196Wg3018113 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 1 Jul 2020 05:06:32 -0400
+	id 06196XQW018124 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 1 Jul 2020 05:06:33 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6DAF011796F0; Wed,  1 Jul 2020 09:06:32 +0000 (UTC)
+	id F02DC11796EF; Wed,  1 Jul 2020 09:06:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4C5D2105CDB6
-	for <dm-devel@redhat.com>; Wed,  1 Jul 2020 09:06:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C913F105CDC5
+	for <dm-devel@redhat.com>; Wed,  1 Jul 2020 09:06:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D0CAC8EF3A4
-	for <dm-devel@redhat.com>; Wed,  1 Jul 2020 09:06:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AB63C108C26A
+	for <dm-devel@redhat.com>; Wed,  1 Jul 2020 09:06:32 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-211-yFY0dXf_PUCw-C6yjckgcQ-1; Wed, 01 Jul 2020 05:06:29 -0400
-X-MC-Unique: yFY0dXf_PUCw-C6yjckgcQ-1
+	us-mta-73-B_IOOeSWPbePKC3eJ_YAqw-1; Wed, 01 Jul 2020 05:06:30 -0400
+X-MC-Unique: B_IOOeSWPbePKC3eJ_YAqw-1
 Received: from [2001:4bb8:184:76e3:ea38:596b:3e9e:422a] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1jqYhG-0000hm-Tw; Wed, 01 Jul 2020 09:06:27 +0000
+	id 1jqYhI-0000iD-Ab; Wed, 01 Jul 2020 09:06:28 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed,  1 Jul 2020 11:06:20 +0200
-Message-Id: <20200701090622.3354860-3-hch@lst.de>
+Date: Wed,  1 Jul 2020 11:06:21 +0200
+Message-Id: <20200701090622.3354860-4-hch@lst.de>
 In-Reply-To: <20200701090622.3354860-1-hch@lst.de>
 References: <20200701090622.3354860-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	casper.infradead.org. See http://www.infradead.org/rpr.html
+X-Mimecast-Bulk-Signature: yes
+X-Mimecast-Spam-Signature: bulk
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 Cc: linux-raid@vger.kernel.org, linux-mm@kvack.org,
@@ -60,7 +61,8 @@ Cc: linux-raid@vger.kernel.org, linux-mm@kvack.org,
 	linux-block@vger.kernel.org, drbd-dev@tron.linbit.com,
 	dm-devel@redhat.com, Tejun Heo <tj@kernel.org>,
 	cgroups@vger.kernel.org, linux-btrfs@vger.kernel.org
-Subject: [dm-devel] [PATCH 2/4] writeback: remove {set,clear}_wb_congested
+Subject: [dm-devel] [PATCH 3/4] writeback: remove struct
+	bdi_writeback_congested
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -74,7 +76,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -82,79 +84,460 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Just merge them into their only callers.
+We never set any congested bits in the group writeback instances of it.
+And for the simpler bdi-wide case a simple scalar field is all that
+that is needed.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- include/linux/backing-dev-defs.h | 14 ++------------
- mm/backing-dev.c                 | 12 ++++++------
- 2 files changed, 8 insertions(+), 18 deletions(-)
+ block/blk-cgroup.c               |  19 +---
+ drivers/md/dm.c                  |   2 +-
+ include/linux/backing-dev-defs.h |  25 +-----
+ include/linux/backing-dev.h      |  18 +---
+ include/linux/blk-cgroup.h       |   6 --
+ mm/backing-dev.c                 | 149 ++-----------------------------
+ 6 files changed, 14 insertions(+), 205 deletions(-)
 
+diff --git a/block/blk-cgroup.c b/block/blk-cgroup.c
+index 1ce94afc03bcfd..30dc14ddf0f69c 100644
+--- a/block/blk-cgroup.c
++++ b/block/blk-cgroup.c
+@@ -95,9 +95,6 @@ static void __blkg_release(struct rcu_head *rcu)
+ 	css_put(&blkg->blkcg->css);
+ 	if (blkg->parent)
+ 		blkg_put(blkg->parent);
+-
+-	wb_congested_put(blkg->wb_congested);
+-
+ 	blkg_free(blkg);
+ }
+ 
+@@ -227,7 +224,6 @@ static struct blkcg_gq *blkg_create(struct blkcg *blkcg,
+ 				    struct blkcg_gq *new_blkg)
+ {
+ 	struct blkcg_gq *blkg;
+-	struct bdi_writeback_congested *wb_congested;
+ 	int i, ret;
+ 
+ 	WARN_ON_ONCE(!rcu_read_lock_held());
+@@ -245,31 +241,22 @@ static struct blkcg_gq *blkg_create(struct blkcg *blkcg,
+ 		goto err_free_blkg;
+ 	}
+ 
+-	wb_congested = wb_congested_get_create(q->backing_dev_info,
+-					       blkcg->css.id,
+-					       GFP_NOWAIT | __GFP_NOWARN);
+-	if (!wb_congested) {
+-		ret = -ENOMEM;
+-		goto err_put_css;
+-	}
+-
+ 	/* allocate */
+ 	if (!new_blkg) {
+ 		new_blkg = blkg_alloc(blkcg, q, GFP_NOWAIT | __GFP_NOWARN);
+ 		if (unlikely(!new_blkg)) {
+ 			ret = -ENOMEM;
+-			goto err_put_congested;
++			goto err_put_css;
+ 		}
+ 	}
+ 	blkg = new_blkg;
+-	blkg->wb_congested = wb_congested;
+ 
+ 	/* link parent */
+ 	if (blkcg_parent(blkcg)) {
+ 		blkg->parent = __blkg_lookup(blkcg_parent(blkcg), q, false);
+ 		if (WARN_ON_ONCE(!blkg->parent)) {
+ 			ret = -ENODEV;
+-			goto err_put_congested;
++			goto err_put_css;
+ 		}
+ 		blkg_get(blkg->parent);
+ 	}
+@@ -306,8 +293,6 @@ static struct blkcg_gq *blkg_create(struct blkcg *blkcg,
+ 	blkg_put(blkg);
+ 	return ERR_PTR(ret);
+ 
+-err_put_congested:
+-	wb_congested_put(wb_congested);
+ err_put_css:
+ 	css_put(&blkcg->css);
+ err_free_blkg:
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index e44473fe0f4873..97838b6d0b5473 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -1838,7 +1838,7 @@ static int dm_any_congested(void *congested_data, int bdi_bits)
+ 			 * top-level queue for congestion.
+ 			 */
+ 			struct backing_dev_info *bdi = md->queue->backing_dev_info;
+-			r = bdi->wb.congested->state & bdi_bits;
++			r = bdi->wb.congested & bdi_bits;
+ 		} else {
+ 			map = dm_get_live_table_fast(md);
+ 			if (map)
 diff --git a/include/linux/backing-dev-defs.h b/include/linux/backing-dev-defs.h
-index 90a7e844a098f3..cc5aa1f32b91f0 100644
+index cc5aa1f32b91f0..1cec4521e1fbe2 100644
 --- a/include/linux/backing-dev-defs.h
 +++ b/include/linux/backing-dev-defs.h
-@@ -232,18 +232,8 @@ enum {
- 	BLK_RW_SYNC	= 1,
- };
+@@ -87,26 +87,6 @@ struct wb_completion {
+ #define DEFINE_WB_COMPLETION(cmpl, bdi)	\
+ 	struct wb_completion cmpl = WB_COMPLETION_INIT(bdi)
  
--void clear_wb_congested(struct bdi_writeback_congested *congested, int sync);
--void set_wb_congested(struct bdi_writeback_congested *congested, int sync);
+-/*
+- * For cgroup writeback, multiple wb's may map to the same blkcg.  Those
+- * wb's can operate mostly independently but should share the congested
+- * state.  To facilitate such sharing, the congested state is tracked using
+- * the following struct which is created on demand, indexed by blkcg ID on
+- * its bdi, and refcounted.
+- */
+-struct bdi_writeback_congested {
+-	unsigned long state;		/* WB_[a]sync_congested flags */
+-	refcount_t refcnt;		/* nr of attached wb's and blkg */
 -
--static inline void clear_bdi_congested(struct backing_dev_info *bdi, int sync)
+-#ifdef CONFIG_CGROUP_WRITEBACK
+-	struct backing_dev_info *__bdi;	/* the associated bdi, set to NULL
+-					 * on bdi unregistration. For memcg-wb
+-					 * internal use only! */
+-	int blkcg_id;			/* ID of the associated blkcg */
+-	struct rb_node rb_node;		/* on bdi->cgwb_congestion_tree */
+-#endif
+-};
+-
+ /*
+  * Each wb (bdi_writeback) can perform writeback operations, is measured
+  * and throttled, independently.  Without cgroup writeback, each bdi
+@@ -140,7 +120,7 @@ struct bdi_writeback {
+ 
+ 	struct percpu_counter stat[NR_WB_STAT_ITEMS];
+ 
+-	struct bdi_writeback_congested *congested;
++	unsigned long congested;	/* WB_[a]sync_congested flags */
+ 
+ 	unsigned long bw_time_stamp;	/* last time write bw is updated */
+ 	unsigned long dirtied_stamp;
+@@ -208,11 +188,8 @@ struct backing_dev_info {
+ 	struct list_head wb_list; /* list of all wbs */
+ #ifdef CONFIG_CGROUP_WRITEBACK
+ 	struct radix_tree_root cgwb_tree; /* radix tree of active cgroup wbs */
+-	struct rb_root cgwb_congested_tree; /* their congested states */
+ 	struct mutex cgwb_release_mutex;  /* protect shutdown of wb structs */
+ 	struct rw_semaphore wb_switch_rwsem; /* no cgwb switch while syncing */
+-#else
+-	struct bdi_writeback_congested *wb_congested;
+ #endif
+ 	wait_queue_head_t wb_waitq;
+ 
+diff --git a/include/linux/backing-dev.h b/include/linux/backing-dev.h
+index 6b3504bf7a42b3..9173d2c22b4aa0 100644
+--- a/include/linux/backing-dev.h
++++ b/include/linux/backing-dev.h
+@@ -173,7 +173,7 @@ static inline int wb_congested(struct bdi_writeback *wb, int cong_bits)
+ 
+ 	if (bdi->congested_fn)
+ 		return bdi->congested_fn(bdi->congested_data, cong_bits);
+-	return wb->congested->state & cong_bits;
++	return wb->congested & cong_bits;
+ }
+ 
+ long congestion_wait(int sync, long timeout);
+@@ -224,9 +224,6 @@ static inline int bdi_sched_wait(void *word)
+ 
+ #ifdef CONFIG_CGROUP_WRITEBACK
+ 
+-struct bdi_writeback_congested *
+-wb_congested_get_create(struct backing_dev_info *bdi, int blkcg_id, gfp_t gfp);
+-void wb_congested_put(struct bdi_writeback_congested *congested);
+ struct bdi_writeback *wb_get_lookup(struct backing_dev_info *bdi,
+ 				    struct cgroup_subsys_state *memcg_css);
+ struct bdi_writeback *wb_get_create(struct backing_dev_info *bdi,
+@@ -404,19 +401,6 @@ static inline bool inode_cgwb_enabled(struct inode *inode)
+ 	return false;
+ }
+ 
+-static inline struct bdi_writeback_congested *
+-wb_congested_get_create(struct backing_dev_info *bdi, int blkcg_id, gfp_t gfp)
 -{
--	clear_wb_congested(bdi->wb.congested, sync);
+-	refcount_inc(&bdi->wb_congested->refcnt);
+-	return bdi->wb_congested;
 -}
 -
--static inline void set_bdi_congested(struct backing_dev_info *bdi, int sync)
+-static inline void wb_congested_put(struct bdi_writeback_congested *congested)
 -{
--	set_wb_congested(bdi->wb.congested, sync);
+-	if (refcount_dec_and_test(&congested->refcnt))
+-		kfree(congested);
 -}
-+void clear_bdi_congested(struct backing_dev_info *bdi, int sync);
-+void set_bdi_congested(struct backing_dev_info *bdi, int sync);
+-
+ static inline struct bdi_writeback *wb_find_current(struct backing_dev_info *bdi)
+ {
+ 	return &bdi->wb;
+diff --git a/include/linux/blk-cgroup.h b/include/linux/blk-cgroup.h
+index 431b2d18bf4074..c8fc9792ac776d 100644
+--- a/include/linux/blk-cgroup.h
++++ b/include/linux/blk-cgroup.h
+@@ -109,12 +109,6 @@ struct blkcg_gq {
+ 	struct hlist_node		blkcg_node;
+ 	struct blkcg			*blkcg;
  
- struct wb_lock_cookie {
- 	bool locked;
+-	/*
+-	 * Each blkg gets congested separately and the congestion state is
+-	 * propagated to the matching bdi_writeback_congested.
+-	 */
+-	struct bdi_writeback_congested	*wb_congested;
+-
+ 	/* all non-root blkcg_gq's are guaranteed to have access to parent */
+ 	struct blkcg_gq			*parent;
+ 
 diff --git a/mm/backing-dev.c b/mm/backing-dev.c
-index d382272bcc3100..3ebe5144a102f2 100644
+index 3ebe5144a102f2..8e8b00627bb2d8 100644
 --- a/mm/backing-dev.c
 +++ b/mm/backing-dev.c
-@@ -1047,29 +1047,29 @@ static wait_queue_head_t congestion_wqh[2] = {
- 	};
- static atomic_t nr_wb_congested[2];
+@@ -281,7 +281,7 @@ void wb_wakeup_delayed(struct bdi_writeback *wb)
+ #define INIT_BW		(100 << (20 - PAGE_SHIFT))
  
--void clear_wb_congested(struct bdi_writeback_congested *congested, int sync)
-+void clear_bdi_congested(struct backing_dev_info *bdi, int sync)
+ static int wb_init(struct bdi_writeback *wb, struct backing_dev_info *bdi,
+-		   int blkcg_id, gfp_t gfp)
++		   gfp_t gfp)
  {
- 	wait_queue_head_t *wqh = &congestion_wqh[sync];
+ 	int i, err;
+ 
+@@ -308,15 +308,9 @@ static int wb_init(struct bdi_writeback *wb, struct backing_dev_info *bdi,
+ 	INIT_DELAYED_WORK(&wb->dwork, wb_workfn);
+ 	wb->dirty_sleep = jiffies;
+ 
+-	wb->congested = wb_congested_get_create(bdi, blkcg_id, gfp);
+-	if (!wb->congested) {
+-		err = -ENOMEM;
+-		goto out_put_bdi;
+-	}
+-
+ 	err = fprop_local_init_percpu(&wb->completions, gfp);
+ 	if (err)
+-		goto out_put_cong;
++		goto out_put_bdi;
+ 
+ 	for (i = 0; i < NR_WB_STAT_ITEMS; i++) {
+ 		err = percpu_counter_init(&wb->stat[i], 0, gfp);
+@@ -330,8 +324,6 @@ static int wb_init(struct bdi_writeback *wb, struct backing_dev_info *bdi,
+ 	while (i--)
+ 		percpu_counter_destroy(&wb->stat[i]);
+ 	fprop_local_destroy_percpu(&wb->completions);
+-out_put_cong:
+-	wb_congested_put(wb->congested);
+ out_put_bdi:
+ 	if (wb != &bdi->wb)
+ 		bdi_put(bdi);
+@@ -374,7 +366,6 @@ static void wb_exit(struct bdi_writeback *wb)
+ 		percpu_counter_destroy(&wb->stat[i]);
+ 
+ 	fprop_local_destroy_percpu(&wb->completions);
+-	wb_congested_put(wb->congested);
+ 	if (wb != &wb->bdi->wb)
+ 		bdi_put(wb->bdi);
+ }
+@@ -384,99 +375,12 @@ static void wb_exit(struct bdi_writeback *wb)
+ #include <linux/memcontrol.h>
+ 
+ /*
+- * cgwb_lock protects bdi->cgwb_tree, bdi->cgwb_congested_tree,
+- * blkcg->cgwb_list, and memcg->cgwb_list.  bdi->cgwb_tree is also RCU
+- * protected.
++ * cgwb_lock protects bdi->cgwb_tree, blkcg->cgwb_list, and memcg->cgwb_list.
++ * bdi->cgwb_tree is also RCU protected.
+  */
+ static DEFINE_SPINLOCK(cgwb_lock);
+ static struct workqueue_struct *cgwb_release_wq;
+ 
+-/**
+- * wb_congested_get_create - get or create a wb_congested
+- * @bdi: associated bdi
+- * @blkcg_id: ID of the associated blkcg
+- * @gfp: allocation mask
+- *
+- * Look up the wb_congested for @blkcg_id on @bdi.  If missing, create one.
+- * The returned wb_congested has its reference count incremented.  Returns
+- * NULL on failure.
+- */
+-struct bdi_writeback_congested *
+-wb_congested_get_create(struct backing_dev_info *bdi, int blkcg_id, gfp_t gfp)
+-{
+-	struct bdi_writeback_congested *new_congested = NULL, *congested;
+-	struct rb_node **node, *parent;
+-	unsigned long flags;
+-retry:
+-	spin_lock_irqsave(&cgwb_lock, flags);
+-
+-	node = &bdi->cgwb_congested_tree.rb_node;
+-	parent = NULL;
+-
+-	while (*node != NULL) {
+-		parent = *node;
+-		congested = rb_entry(parent, struct bdi_writeback_congested,
+-				     rb_node);
+-		if (congested->blkcg_id < blkcg_id)
+-			node = &parent->rb_left;
+-		else if (congested->blkcg_id > blkcg_id)
+-			node = &parent->rb_right;
+-		else
+-			goto found;
+-	}
+-
+-	if (new_congested) {
+-		/* !found and storage for new one already allocated, insert */
+-		congested = new_congested;
+-		rb_link_node(&congested->rb_node, parent, node);
+-		rb_insert_color(&congested->rb_node, &bdi->cgwb_congested_tree);
+-		spin_unlock_irqrestore(&cgwb_lock, flags);
+-		return congested;
+-	}
+-
+-	spin_unlock_irqrestore(&cgwb_lock, flags);
+-
+-	/* allocate storage for new one and retry */
+-	new_congested = kzalloc(sizeof(*new_congested), gfp);
+-	if (!new_congested)
+-		return NULL;
+-
+-	refcount_set(&new_congested->refcnt, 1);
+-	new_congested->__bdi = bdi;
+-	new_congested->blkcg_id = blkcg_id;
+-	goto retry;
+-
+-found:
+-	refcount_inc(&congested->refcnt);
+-	spin_unlock_irqrestore(&cgwb_lock, flags);
+-	kfree(new_congested);
+-	return congested;
+-}
+-
+-/**
+- * wb_congested_put - put a wb_congested
+- * @congested: wb_congested to put
+- *
+- * Put @congested and destroy it if the refcnt reaches zero.
+- */
+-void wb_congested_put(struct bdi_writeback_congested *congested)
+-{
+-	unsigned long flags;
+-
+-	if (!refcount_dec_and_lock_irqsave(&congested->refcnt, &cgwb_lock, &flags))
+-		return;
+-
+-	/* bdi might already have been destroyed leaving @congested unlinked */
+-	if (congested->__bdi) {
+-		rb_erase(&congested->rb_node,
+-			 &congested->__bdi->cgwb_congested_tree);
+-		congested->__bdi = NULL;
+-	}
+-
+-	spin_unlock_irqrestore(&cgwb_lock, flags);
+-	kfree(congested);
+-}
+-
+ static void cgwb_release_workfn(struct work_struct *work)
+ {
+ 	struct bdi_writeback *wb = container_of(work, struct bdi_writeback,
+@@ -558,7 +462,7 @@ static int cgwb_create(struct backing_dev_info *bdi,
+ 		goto out_put;
+ 	}
+ 
+-	ret = wb_init(wb, bdi, blkcg_css->id, gfp);
++	ret = wb_init(wb, bdi, gfp);
+ 	if (ret)
+ 		goto err_free;
+ 
+@@ -696,11 +600,10 @@ static int cgwb_bdi_init(struct backing_dev_info *bdi)
+ 	int ret;
+ 
+ 	INIT_RADIX_TREE(&bdi->cgwb_tree, GFP_ATOMIC);
+-	bdi->cgwb_congested_tree = RB_ROOT;
+ 	mutex_init(&bdi->cgwb_release_mutex);
+ 	init_rwsem(&bdi->wb_switch_rwsem);
+ 
+-	ret = wb_init(&bdi->wb, bdi, 1, GFP_KERNEL);
++	ret = wb_init(&bdi->wb, bdi, GFP_KERNEL);
+ 	if (!ret) {
+ 		bdi->wb.memcg_css = &root_mem_cgroup->css;
+ 		bdi->wb.blkcg_css = blkcg_root_css;
+@@ -769,21 +672,6 @@ void wb_blkcg_offline(struct blkcg *blkcg)
+ 	spin_unlock_irq(&cgwb_lock);
+ }
+ 
+-static void cgwb_bdi_exit(struct backing_dev_info *bdi)
+-{
+-	struct rb_node *rbn;
+-
+-	spin_lock_irq(&cgwb_lock);
+-	while ((rbn = rb_first(&bdi->cgwb_congested_tree))) {
+-		struct bdi_writeback_congested *congested =
+-			rb_entry(rbn, struct bdi_writeback_congested, rb_node);
+-
+-		rb_erase(rbn, &bdi->cgwb_congested_tree);
+-		congested->__bdi = NULL;	/* mark @congested unlinked */
+-	}
+-	spin_unlock_irq(&cgwb_lock);
+-}
+-
+ static void cgwb_bdi_register(struct backing_dev_info *bdi)
+ {
+ 	spin_lock_irq(&cgwb_lock);
+@@ -810,29 +698,11 @@ subsys_initcall(cgwb_init);
+ 
+ static int cgwb_bdi_init(struct backing_dev_info *bdi)
+ {
+-	int err;
+-
+-	bdi->wb_congested = kzalloc(sizeof(*bdi->wb_congested), GFP_KERNEL);
+-	if (!bdi->wb_congested)
+-		return -ENOMEM;
+-
+-	refcount_set(&bdi->wb_congested->refcnt, 1);
+-
+-	err = wb_init(&bdi->wb, bdi, 1, GFP_KERNEL);
+-	if (err) {
+-		wb_congested_put(bdi->wb_congested);
+-		return err;
+-	}
+-	return 0;
++	return wb_init(&bdi->wb, bdi, GFP_KERNEL);
+ }
+ 
+ static void cgwb_bdi_unregister(struct backing_dev_info *bdi) { }
+ 
+-static void cgwb_bdi_exit(struct backing_dev_info *bdi)
+-{
+-	wb_congested_put(bdi->wb_congested);
+-}
+-
+ static void cgwb_bdi_register(struct backing_dev_info *bdi)
+ {
+ 	list_add_tail_rcu(&bdi->wb.bdi_node, &bdi->wb_list);
+@@ -1023,7 +893,6 @@ static void release_bdi(struct kref *ref)
+ 		bdi_unregister(bdi);
+ 	WARN_ON_ONCE(bdi->dev);
+ 	wb_exit(&bdi->wb);
+-	cgwb_bdi_exit(bdi);
+ 	kfree(bdi);
+ }
+ 
+@@ -1053,7 +922,7 @@ void clear_bdi_congested(struct backing_dev_info *bdi, int sync)
  	enum wb_congested_state bit;
  
  	bit = sync ? WB_sync_congested : WB_async_congested;
--	if (test_and_clear_bit(bit, &congested->state))
-+	if (test_and_clear_bit(bit, &bdi->wb.congested->state))
+-	if (test_and_clear_bit(bit, &bdi->wb.congested->state))
++	if (test_and_clear_bit(bit, &bdi->wb.congested))
  		atomic_dec(&nr_wb_congested[sync]);
  	smp_mb__after_atomic();
  	if (waitqueue_active(wqh))
- 		wake_up(wqh);
- }
--EXPORT_SYMBOL(clear_wb_congested);
-+EXPORT_SYMBOL(clear_bdi_congested);
- 
--void set_wb_congested(struct bdi_writeback_congested *congested, int sync)
-+void set_bdi_congested(struct backing_dev_info *bdi, int sync)
- {
+@@ -1066,7 +935,7 @@ void set_bdi_congested(struct backing_dev_info *bdi, int sync)
  	enum wb_congested_state bit;
  
  	bit = sync ? WB_sync_congested : WB_async_congested;
--	if (!test_and_set_bit(bit, &congested->state))
-+	if (!test_and_set_bit(bit, &bdi->wb.congested->state))
+-	if (!test_and_set_bit(bit, &bdi->wb.congested->state))
++	if (!test_and_set_bit(bit, &bdi->wb.congested))
  		atomic_inc(&nr_wb_congested[sync]);
  }
--EXPORT_SYMBOL(set_wb_congested);
-+EXPORT_SYMBOL(set_bdi_congested);
- 
- /**
-  * congestion_wait - wait for a backing_dev to become uncongested
+ EXPORT_SYMBOL(set_bdi_congested);
 -- 
 2.26.2
 
