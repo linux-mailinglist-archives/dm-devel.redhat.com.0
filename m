@@ -1,112 +1,112 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id ABB07212652
-	for <lists+dm-devel@lfdr.de>; Thu,  2 Jul 2020 16:32:07 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id B1C5E2126A7
+	for <lists+dm-devel@lfdr.de>; Thu,  2 Jul 2020 16:47:43 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-423-BGqFpLohNWu7j7qc8r-7Kw-1; Thu, 02 Jul 2020 10:32:02 -0400
-X-MC-Unique: BGqFpLohNWu7j7qc8r-7Kw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-180-heg8ruFQMzOrf1FJ7havmA-1; Thu, 02 Jul 2020 10:47:40 -0400
+X-MC-Unique: heg8ruFQMzOrf1FJ7havmA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 69FF910059A5;
-	Thu,  2 Jul 2020 14:31:55 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A5AED7610C;
-	Thu,  2 Jul 2020 14:31:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 90DA6100A8EA;
+	Thu,  2 Jul 2020 14:47:34 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DE3E62B4BE;
+	Thu,  2 Jul 2020 14:47:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CE6096C9C6;
-	Thu,  2 Jul 2020 14:31:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A82D5180954D;
+	Thu,  2 Jul 2020 14:47:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 062EVQZF009937 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 2 Jul 2020 10:31:27 -0400
+	id 062ElNww012974 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 2 Jul 2020 10:47:23 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id BBCE91160935; Thu,  2 Jul 2020 14:31:26 +0000 (UTC)
+	id ED6462144B5B; Thu,  2 Jul 2020 14:47:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B22EC116CCF9
-	for <dm-devel@redhat.com>; Thu,  2 Jul 2020 14:31:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E8F2B2144B52
+	for <dm-devel@redhat.com>; Thu,  2 Jul 2020 14:47:20 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8355980027E
-	for <dm-devel@redhat.com>; Thu,  2 Jul 2020 14:31:24 +0000 (UTC)
-Received: from de-smtp-delivery-102.mimecast.com
-	(de-smtp-delivery-102.mimecast.com [51.163.158.102]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-468-8bUSna0vMSW6iGbxiWhSDA-1;
-	Thu, 02 Jul 2020 10:31:22 -0400
-X-MC-Unique: 8bUSna0vMSW6iGbxiWhSDA-1
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
-	(mail-am6eur05lp2105.outbound.protection.outlook.com [104.47.18.105])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	de-mta-5-PCJSeS4iPhCZXj0jAKw-ng-1; Thu, 02 Jul 2020 16:31:19 +0200
-X-MC-Unique: PCJSeS4iPhCZXj0jAKw-ng-1
-Received: from DB8PR04MB6555.eurprd04.prod.outlook.com (2603:10a6:10:103::20)
-	by DB6PR0401MB2517.eurprd04.prod.outlook.com (2603:10a6:4:34::19)
-	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3131.23;
-	Thu, 2 Jul 2020 14:31:18 +0000
-Received: from DB8PR04MB6555.eurprd04.prod.outlook.com
-	([fe80::8130:53b2:48d5:593]) by DB8PR04MB6555.eurprd04.prod.outlook.com
-	([fe80::8130:53b2:48d5:593%3]) with mapi id 15.20.3131.035;
-	Thu, 2 Jul 2020 14:31:17 +0000
-From: Martin Wilck <Martin.Wilck@suse.com>
-To: "bmarzins@redhat.com" <bmarzins@redhat.com>,
-	"christophe.varoqui@opensvc.com" <christophe.varoqui@opensvc.com>
-Thread-Topic: [PATCH 1/4] libmultipath: fix sysfs dev_loss_tmo parsing
-Thread-Index: AQHWT/iI3BbhYH3wYUyKb9PS/jTy56j0WvIA
-Date: Thu, 2 Jul 2020 14:31:17 +0000
-Message-ID: <808a0a681be20a1d1cfe616bc5a370db7fda2ce9.camel@suse.com>
-References: <1593643176-6206-1-git-send-email-bmarzins@redhat.com>
-	<1593643176-6206-2-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1593643176-6206-2-git-send-email-bmarzins@redhat.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.36.3
-x-originating-ip: [94.218.227.113]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 6828f199-7b9f-41fe-c860-08d81e949531
-x-ms-traffictypediagnostic: DB6PR0401MB2517:
-x-microsoft-antispam-prvs: <DB6PR0401MB251786ACF3B6EAD9F63F10AEFC6D0@DB6PR0401MB2517.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3044;
-x-forefront-prvs: 0452022BE1
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Ce7kOiquMpGJhqGIPqSrbTPpqPZXaq4aPs37MJHLqwfR52ip2EUG5r2bDChOVgOh/026KZcf76oDzvZ0zlKH1F8bPIkXSUm/zrQCRV3sHJwNz6zZzaLLvIXhVT/mczLIKE/y04+hvdX3QwvJvPJO9ZsyckyGyuYPUooIrZ5A3yl/Lv6NOH7DraeCDdnygGyIIthjIxgA62wxoIgEzKuz5fenxN+f6bYh9qGvnv8cYSzVxGLG9v/LHuc8LdEgy3fbjR2YJfOlObb8WvYZtbXpdgeChFILdNjn+lYqZc19BVjwc2wAOClsDKMRxsL/unS79v+fgsJW8pkiXv08EC7T4A==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:DB8PR04MB6555.eurprd04.prod.outlook.com;
-	PTR:; CAT:NONE; SFTY:;
-	SFS:(396003)(376002)(366004)(39860400002)(136003)(346002)(8936002)(71200400001)(83380400001)(6486002)(316002)(64756008)(6512007)(2616005)(110136005)(86362001)(66556008)(66476007)(66946007)(91956017)(76116006)(36756003)(478600001)(66446008)(53546011)(6506007)(8676002)(186003)(26005)(4326008)(5660300002)(2906002);
-	DIR:OUT; SFP:1101;
-x-ms-exchange-antispam-messagedata: CWWFkcpyTOMhXMEcikDbxzRRNDrenL9/BisU1H5oH8odRLijEfelg8s/XzEcIu8UvjhzftE1Uqxs9hFgqHpXwt2RfIMhiPkdUdji4wSUAiQJCs/ktiXqv46cdqF81xaUqSskYVEO8Eng4ZhJCgVJUUMD5U0kXkhIwINQzJYzS+bLWpf/lS5hQRnMbFKB00Kl/RpfJzmKHPAhxlILy3/QxXsOwEjCsa7686Dg/LL6Z0P0uksxabZqKvp15RdmwpJU4VUGmUYFHhislv32VmJepaEa8MaTJD3X7VLFQZBcWmuCBDu+hh7aWoRiudw5eO1JE56h+JzW66gLUvHzAOC6bfQvnXdkvC6YvyZtmX7qNfWMRUaGI+mKUPke3Gcf9EVpAGeWlycKY7KiXZVE1EZcKpR8xHFCTWaMaK0IUhQt+sSUZOLKt2ePqQmHtmOG80jRDwQchjcjPz3dskaZ6Jxm0zWPOf6c5rTRW9dBw69bHOWU0Y4Bf5wFsD4IKSOw8dhB
-x-ms-exchange-transport-forked: True
-Content-ID: <F7CF0B1F88E84649B36891F792332436@eurprd04.prod.outlook.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 452AB108C270
+	for <dm-devel@redhat.com>; Thu,  2 Jul 2020 14:47:20 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-188-925-Q7wbMeW8fiOaCnO1JA-1;
+	Thu, 02 Jul 2020 10:47:18 -0400
+X-MC-Unique: 925-Q7wbMeW8fiOaCnO1JA-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id C3CFBADD9;
+	Thu,  2 Jul 2020 14:47:16 +0000 (UTC)
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
+References: <20200701085947.3354405-1-hch@lst.de>
+	<20200701085947.3354405-10-hch@lst.de>
+From: Coly Li <colyli@suse.de>
+Autocrypt: addr=colyli@suse.de; keydata=
+	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
+Message-ID: <67f92716-202d-5436-4a79-32f0942dc680@suse.de>
+Date: Thu, 2 Jul 2020 22:47:08 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+	Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6555.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6828f199-7b9f-41fe-c860-08d81e949531
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jul 2020 14:31:17.8157 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EIomDIQj4zDMM5ouQa7wUjltg6p7j9hDmbFS6fWU0QWjY1Ff55aN8Ghz2ZYtdP7XvXLlOZD74Uawq6rT7NdJSg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0401MB2517
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 062EVQZF009937
+In-Reply-To: <20200701085947.3354405-10-hch@lst.de>
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH 1/4] libmultipath: fix sysfs dev_loss_tmo
-	parsing
+Cc: linux-bcache@vger.kernel.org, linux-xtensa@linux-xtensa.org,
+	linux-m68k@vger.kernel.org, linux-nvdimm@lists.01.org,
+	linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-nvme@lists.infradead.org, linux-raid@vger.kernel.org,
+	dm-devel@redhat.com, drbd-dev@tron.linbit.com,
+	linuxppc-dev@lists.ozlabs.org
+Subject: Re: [dm-devel] [PATCH 09/20] bcache: stop setting ->queuedata
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -120,7 +120,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -128,65 +128,30 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2020-07-01 at 17:39 -0500, Benjamin Marzinski wrote:
-> dev_loss_tmo is a u32 value. However the kernel sysfs code prints it
-> as
-> a signed integer. This means that if dev_loss_tmo is above INT_MAX,
-> the
-> sysfs value will be a negative number. Parsing this was causing
-> sysfs_set_rport_tmo() to fail.
+On 2020/7/1 16:59, Christoph Hellwig wrote:
+> Nothing in bcache actually uses the ->queuedata field.
 > 
-> Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-Thanks for catching this. I think it can be fixed simpler, because 
-strtoul() parses negative values just fine. See below.
+Acked-by: Coly Li <colyli@suse.de>
 
-Regards,
-Martin
-
->From 16eca9b0f340a13fee0c28ae52dffa578193f015 Mon Sep 17 00:00:00 2001
-From: Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed, 1 Jul 2020 17:39:33 -0500
-Subject: [PATCH] libmultipath: fix sysfs dev_loss_tmo parsing
-
-dev_loss_tmo is a u32 value. However the kernel sysfs code prints it as
-a signed integer. This means that if dev_loss_tmo is above INT_MAX, the
-sysfs value will be a negative number. Parsing this was causing
-sysfs_set_rport_tmo() to fail.
-
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
-Signed-off-by: Martin Wilck <mwilck@suse.com>
----
- libmultipath/discovery.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
-index 1d542ea..3c9803a 100644
---- a/libmultipath/discovery.c
-+++ b/libmultipath/discovery.c
-@@ -581,7 +581,7 @@ sysfs_set_rport_tmo(struct multipath *mpp, struct path *pp)
- 	struct udev_device *rport_dev = NULL;
- 	char value[16], *eptr;
- 	char rport_id[32];
--	unsigned long long tmo = 0;
-+	unsigned int tmo;
- 	int ret;
- 
- 	sprintf(rport_id, "rport-%d:%d-%d",
-@@ -605,8 +605,8 @@ sysfs_set_rport_tmo(struct multipath *mpp, struct path *pp)
- 			"error %d", rport_id, -ret);
- 		goto out;
- 	}
--	tmo = strtoull(value, &eptr, 0);
--	if (value == eptr || tmo == ULLONG_MAX) {
-+	tmo = strtoul(value, &eptr, 0);
-+	if (value == eptr) {
- 		condlog(0, "%s: Cannot parse dev_loss_tmo "
- 			"attribute '%s'", rport_id, value);
- 		goto out;
--- 
-2.26.2
-
+> ---
+>  drivers/md/bcache/super.c | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
+> index 2014016f9a60d3..21aa168113d30b 100644
+> --- a/drivers/md/bcache/super.c
+> +++ b/drivers/md/bcache/super.c
+> @@ -876,7 +876,6 @@ static int bcache_device_init(struct bcache_device *d, unsigned int block_size,
+>  		return -ENOMEM;
+>  
+>  	d->disk->queue			= q;
+> -	q->queuedata			= d;
+>  	q->backing_dev_info->congested_data = d;
+>  	q->limits.max_hw_sectors	= UINT_MAX;
+>  	q->limits.max_sectors		= UINT_MAX;
+> 
 
 --
 dm-devel mailing list
