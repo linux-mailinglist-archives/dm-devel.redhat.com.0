@@ -1,65 +1,112 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id A8E91211637
-	for <lists+dm-devel@lfdr.de>; Thu,  2 Jul 2020 00:43:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1593643396;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=xXn6pqWrJubV7U7tYAMVCBIpkzjJ6YJzptQlHSelemE=;
-	b=AmRWAcTc2Bw1iNkHPcifHMZYyCwYU9hB5JVCoBGPe/zOvAeCFYjcxwRIo7ehvKi4NykwXx
-	Nn/IKcHXRTNIwmOdJvCDqxzPmTvfU8ON259mhjZByaRoV3ZbPi5kkgW6h7vPO5pPsYAlJf
-	w84RteyNV1u7rSOwPkYldfBZFAMEp5w=
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 8C1EB21177A
+	for <lists+dm-devel@lfdr.de>; Thu,  2 Jul 2020 02:54:36 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-26-knRrkwQSMu6GoDzZdtxqFQ-1; Wed, 01 Jul 2020 18:43:14 -0400
-X-MC-Unique: knRrkwQSMu6GoDzZdtxqFQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-189-IK0gmxWhPaKEq_hBk5dQrQ-1; Wed, 01 Jul 2020 20:54:33 -0400
+X-MC-Unique: IK0gmxWhPaKEq_hBk5dQrQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5A1A0800C64;
-	Wed,  1 Jul 2020 22:43:09 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 957E7107B0EF;
+	Thu,  2 Jul 2020 00:54:22 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A13773FC2;
-	Wed,  1 Jul 2020 22:43:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5FFDD5D9CA;
+	Thu,  2 Jul 2020 00:54:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ED2221809554;
-	Wed,  1 Jul 2020 22:43:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 912011809543;
+	Thu,  2 Jul 2020 00:54:06 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 061Mdi6u020048 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 1 Jul 2020 18:39:44 -0400
+	id 0620rodh004135 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 1 Jul 2020 20:53:50 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id CB58B1D1; Wed,  1 Jul 2020 22:39:44 +0000 (UTC)
+	id 10D492156A3B; Thu,  2 Jul 2020 00:53:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 22EAC5DC1E;
-	Wed,  1 Jul 2020 22:39:42 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 061MdejA006260; 
-	Wed, 1 Jul 2020 17:39:40 -0500
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 061MdebV006259;
-	Wed, 1 Jul 2020 17:39:40 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Wed,  1 Jul 2020 17:39:36 -0500
-Message-Id: <1593643176-6206-5-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1593643176-6206-1-git-send-email-bmarzins@redhat.com>
-References: <1593643176-6206-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0C8582144B34
+	for <dm-devel@redhat.com>; Thu,  2 Jul 2020 00:53:48 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 00DB78EF3A3
+	for <dm-devel@redhat.com>; Thu,  2 Jul 2020 00:53:47 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-200-MIZG30zPNJmeKWJ8FfYpQQ-1;
+	Wed, 01 Jul 2020 20:53:45 -0400
+X-MC-Unique: MIZG30zPNJmeKWJ8FfYpQQ-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 62419B1C2;
+	Thu,  2 Jul 2020 00:38:35 +0000 (UTC)
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
+References: <20200701090622.3354860-1-hch@lst.de>
+	<20200701090622.3354860-5-hch@lst.de>
+From: Coly Li <colyli@suse.de>
+Autocrypt: addr=colyli@suse.de; keydata=
+	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
+Message-ID: <69234075-06c9-fcca-0c59-2452aa4e2714@suse.de>
+Date: Thu, 2 Jul 2020 08:38:29 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+	Gecko/20100101 Thunderbird/68.9.0
+MIME-Version: 1.0
+In-Reply-To: <20200701090622.3354860-5-hch@lst.de>
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: device-mapper development <dm-devel@redhat.com>,
-	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH 4/4] libmultipath: fix checker detection for nvme
-	devices
+Cc: linux-raid@vger.kernel.org, linux-mm@kvack.org,
+	linux-bcache@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org, drbd-dev@tron.linbit.com,
+	dm-devel@redhat.com, Tejun Heo <tj@kernel.org>,
+	cgroups@vger.kernel.org, linux-btrfs@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH 4/4] writeback: remove bdi->congested_fn
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,10 +118,9 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -82,61 +128,177 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-In order to fix hwhandler autodetection, commit 8794a776 made
-detect_alua() differentiate between failures to detect whether alua was
-supported, and successfully detecting that it was not supported.
-However, this causes nvme devices to get the TUR checker assigned to
-them. This is because there is nothing in detect_alua() to make it only
-work on scsi devices, and select_checker wasn't updated to handle
-detect_alua() failing without setting pp->tpgs to TPGS_NONE.
+On 2020/7/1 17:06, Christoph Hellwig wrote:
+> Except for pktdvd, the only places setting congested bits are file
+> systems that allocate their own backing_dev_info structures.  And
+> pktdvd is a deprecated driver that isn't useful in stack setup
+> either.  So remove the dead congested_fn stacking infrastructure.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-detect_alua() should automatically set pp->tpgs to TPGS_NONE and exit on
-non-scsi devices. Also, select_checker() should not assume that a
-devices is ALUA, simply because if failed to detect if alua was
-supported.
+For the bcache part, Acked-by: Coly Li <colyli@suse.de>
 
-Fixes: 8794a776 "libmultipath: fix ALUA autodetection when paths are
-                 down"
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
----
- libmultipath/discovery.c | 6 ++++++
- libmultipath/propsel.c   | 4 +++-
- 2 files changed, 9 insertions(+), 1 deletion(-)
+Thanks.
 
-diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
-index 6a45979a..bfdc8b31 100644
---- a/libmultipath/discovery.c
-+++ b/libmultipath/discovery.c
-@@ -888,6 +888,12 @@ detect_alua(struct path * pp)
- 	int tpgs;
- 	unsigned int timeout;
- 
-+
-+	if (pp->bus != SYSFS_BUS_SCSI) {
-+		pp->tpgs = TPGS_NONE;
-+		return;
-+	}
-+
- 	if (sysfs_get_timeout(pp, &timeout) <= 0)
- 		timeout = DEF_TIMEOUT;
- 
-diff --git a/libmultipath/propsel.c b/libmultipath/propsel.c
-index 897e48ca..d362beb4 100644
---- a/libmultipath/propsel.c
-+++ b/libmultipath/propsel.c
-@@ -521,7 +521,9 @@ int select_checker(struct config *conf, struct path *pp)
- 		if (check_rdac(pp)) {
- 			ckr_name = RDAC;
- 			goto out;
--		} else if (path_get_tpgs(pp) != TPGS_NONE) {
-+		}
-+		path_get_tpgs(pp);
-+		if (pp->tpgs != TPGS_NONE && pp->tpgs != TPGS_UNDEF) {
- 			ckr_name = TUR;
- 			goto out;
- 		}
--- 
-2.17.2
+Coly Li
+
+
+> ---
+>  drivers/block/drbd/drbd_main.c   | 59 --------------------------------
+>  drivers/md/bcache/request.c      | 43 -----------------------
+>  drivers/md/bcache/super.c        |  1 -
+>  drivers/md/dm-cache-target.c     | 19 ----------
+>  drivers/md/dm-clone-target.c     | 15 --------
+>  drivers/md/dm-era-target.c       | 15 --------
+>  drivers/md/dm-raid.c             | 12 -------
+>  drivers/md/dm-table.c            | 37 +-------------------
+>  drivers/md/dm-thin.c             | 16 ---------
+>  drivers/md/dm.c                  | 33 ------------------
+>  drivers/md/dm.h                  |  1 -
+>  drivers/md/md-linear.c           | 24 -------------
+>  drivers/md/md-multipath.c        | 23 -------------
+>  drivers/md/md.c                  | 23 -------------
+>  drivers/md/md.h                  |  4 ---
+>  drivers/md/raid0.c               | 16 ---------
+>  drivers/md/raid1.c               | 31 -----------------
+>  drivers/md/raid10.c              | 26 --------------
+>  drivers/md/raid5.c               | 25 --------------
+>  fs/btrfs/disk-io.c               | 23 -------------
+>  include/linux/backing-dev-defs.h |  4 ---
+>  include/linux/backing-dev.h      |  4 ---
+>  include/linux/device-mapper.h    | 11 ------
+>  23 files changed, 1 insertion(+), 464 deletions(-)
+> 
+
+[snipped]
+
+> diff --git a/drivers/md/bcache/request.c b/drivers/md/bcache/request.c
+> index 7acf024e99f351..cda05fc61c3afa 100644
+> --- a/drivers/md/bcache/request.c
+> +++ b/drivers/md/bcache/request.c
+> @@ -1228,36 +1228,10 @@ static int cached_dev_ioctl(struct bcache_device *d, fmode_t mode,
+>  	return __blkdev_driver_ioctl(dc->bdev, mode, cmd, arg);
+>  }
+>  
+> -static int cached_dev_congested(void *data, int bits)
+> -{
+> -	struct bcache_device *d = data;
+> -	struct cached_dev *dc = container_of(d, struct cached_dev, disk);
+> -	struct request_queue *q = bdev_get_queue(dc->bdev);
+> -	int ret = 0;
+> -
+> -	if (bdi_congested(q->backing_dev_info, bits))
+> -		return 1;
+> -
+> -	if (cached_dev_get(dc)) {
+> -		unsigned int i;
+> -		struct cache *ca;
+> -
+> -		for_each_cache(ca, d->c, i) {
+> -			q = bdev_get_queue(ca->bdev);
+> -			ret |= bdi_congested(q->backing_dev_info, bits);
+> -		}
+> -
+> -		cached_dev_put(dc);
+> -	}
+> -
+> -	return ret;
+> -}
+> -
+>  void bch_cached_dev_request_init(struct cached_dev *dc)
+>  {
+>  	struct gendisk *g = dc->disk.disk;
+>  
+> -	g->queue->backing_dev_info->congested_fn = cached_dev_congested;
+>  	dc->disk.cache_miss			= cached_dev_cache_miss;
+>  	dc->disk.ioctl				= cached_dev_ioctl;
+>  }
+> @@ -1342,27 +1316,10 @@ static int flash_dev_ioctl(struct bcache_device *d, fmode_t mode,
+>  	return -ENOTTY;
+>  }
+>  
+> -static int flash_dev_congested(void *data, int bits)
+> -{
+> -	struct bcache_device *d = data;
+> -	struct request_queue *q;
+> -	struct cache *ca;
+> -	unsigned int i;
+> -	int ret = 0;
+> -
+> -	for_each_cache(ca, d->c, i) {
+> -		q = bdev_get_queue(ca->bdev);
+> -		ret |= bdi_congested(q->backing_dev_info, bits);
+> -	}
+> -
+> -	return ret;
+> -}
+> -
+>  void bch_flash_dev_request_init(struct bcache_device *d)
+>  {
+>  	struct gendisk *g = d->disk;
+>  
+> -	g->queue->backing_dev_info->congested_fn = flash_dev_congested;
+>  	d->cache_miss				= flash_dev_cache_miss;
+>  	d->ioctl				= flash_dev_ioctl;
+>  }
+> diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
+> index 2014016f9a60d3..1810d7ca2f6653 100644
+> --- a/drivers/md/bcache/super.c
+> +++ b/drivers/md/bcache/super.c
+> @@ -877,7 +877,6 @@ static int bcache_device_init(struct bcache_device *d, unsigned int block_size,
+>  
+>  	d->disk->queue			= q;
+>  	q->queuedata			= d;
+> -	q->backing_dev_info->congested_data = d;
+>  	q->limits.max_hw_sectors	= UINT_MAX;
+>  	q->limits.max_sectors		= UINT_MAX;
+>  	q->limits.max_segment_size	= UINT_MAX;
+> diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
+> index d3bb355819a421..24549dc92eeec5 100644
+> --- a/drivers/md/dm-cache-target.c
+> +++ b/drivers/md/dm-cache-target.c
+> @@ -421,8 +421,6 @@ struct cache {
+>  
+>  	struct rw_semaphore quiesce_lock;
+>  
+> -	struct dm_target_callbacks callbacks;
+> -
+>  	/*
+>  	 * origin_blocks entries, discarded if set.
+>  	 */
+> @@ -2423,20 +2421,6 @@ static void set_cache_size(struct cache *cache, dm_cblock_t size)
+>  	cache->cache_size = size;
+>  }
+>  
+> -static int is_congested(struct dm_dev *dev, int bdi_bits)
+> -{
+> -	struct request_queue *q = bdev_get_queue(dev->bdev);
+> -	return bdi_congested(q->backing_dev_info, bdi_bits);
+> -}
+> -
+> -static int cache_is_congested(struct dm_target_callbacks *cb, int bdi_bits)
+> -{
+> -	struct cache *cache = container_of(cb, struct cache, callbacks);
+> -
+> -	return is_congested(cache->origin_dev, bdi_bits) ||
+> -		is_congested(cache->cache_dev, bdi_bits);
+> -}
+> -
+>  #define DEFAULT_MIGRATION_THRESHOLD 2048
+>  
+>  static int cache_create(struct cache_args *ca, struct cache **result)
+> @@ -2471,9 +2455,6 @@ static int cache_create(struct cache_args *ca, struct cache **result)
+>  			goto bad;
+>  	}
+>  
+> -	cache->callbacks.congested_fn = cache_is_congested;
+> -	dm_table_add_target_callbacks(ti->table, &cache->callbacks);
+> -
+>  	cache->metadata_dev = ca->metadata_dev;
+>  	cache->origin_dev = ca->origin_dev;
+>  	cache->cache_dev = ca->cache_dev;
+
+[snipped]
 
 --
 dm-devel mailing list
