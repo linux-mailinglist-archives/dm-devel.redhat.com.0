@@ -1,70 +1,78 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id DC4A8211A8C
-	for <lists+dm-devel@lfdr.de>; Thu,  2 Jul 2020 05:15:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1593659731;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=ybQdcIFh2B2fSfLMZFKuJxC7dbGu6vVnISzMp8stxoM=;
-	b=OFPyMYl6Rc0juTVnixMuypbVx5W3P4jiEaIJn16fvILJu8lOr12N+QtuMx9+UmPO+5EWh4
-	seHpip4h/foJSO2tf/+BaGDBFNcRLnvzfq/ScrYEjYPiDp3iaW/Y4Ujq0D01IYwSy644NU
-	xg85FELNrdeqmYCgN1IcK7IoTW1QzAY=
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 87F12211FA6
+	for <lists+dm-devel@lfdr.de>; Thu,  2 Jul 2020 11:18:53 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-291-Am4H5kGmO2ijO6anfv9h5g-1; Wed, 01 Jul 2020 23:15:30 -0400
-X-MC-Unique: Am4H5kGmO2ijO6anfv9h5g-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-408-vr0dXo6IOPic0cAveg1VYw-1; Thu, 02 Jul 2020 05:18:49 -0400
+X-MC-Unique: vr0dXo6IOPic0cAveg1VYw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 36D3918A8220;
-	Thu,  2 Jul 2020 03:15:23 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CF50079234;
-	Thu,  2 Jul 2020 03:15:18 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 739171B18BC0;
+	Thu,  2 Jul 2020 09:18:42 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 043AE19C66;
+	Thu,  2 Jul 2020 09:18:41 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AA64A6C9C6;
-	Thu,  2 Jul 2020 03:15:09 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D22C51809547;
+	Thu,  2 Jul 2020 09:18:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0623Er5r017373 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 1 Jul 2020 23:14:53 -0400
+	id 0625jLUr002511 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 2 Jul 2020 01:45:21 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DEF60196B7; Thu,  2 Jul 2020 03:14:53 +0000 (UTC)
+	id 232A92144B3A; Thu,  2 Jul 2020 05:45:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 180DF60BE1;
-	Thu,  2 Jul 2020 03:14:51 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 0623EnR6007452; 
-	Wed, 1 Jul 2020 22:14:49 -0500
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 0623EnqK007451;
-	Wed, 1 Jul 2020 22:14:49 -0500
-Date: Wed, 1 Jul 2020 22:14:49 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <martin.wilck@suse.com>
-Message-ID: <20200702031449.GB29962@octiron.msp.redhat.com>
-References: <1592439867-18427-1-git-send-email-bmarzins@redhat.com>
-	<f60b8ea30ee0ce68a46ce8f5c9ebaee6314d57e4.camel@suse.com>
-	<20200618180458.GI5894@octiron.msp.redhat.com>
-	<c5e95e7bc75b11e811854ff0b0988ff19ef45e13.camel@suse.com>
-	<20200618230625.GJ5894@octiron.msp.redhat.com>
-	<5357998bd17e1147fd3a6615e03251d1aa4900d8.camel@suse.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1C07D2144B4F
+	for <dm-devel@redhat.com>; Thu,  2 Jul 2020 05:45:18 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 57841800883
+	for <dm-devel@redhat.com>; Thu,  2 Jul 2020 05:45:18 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-451-Zd19IkM6NbGnBLS-eDxP3w-1;
+	Thu, 02 Jul 2020 01:45:16 -0400
+X-MC-Unique: Zd19IkM6NbGnBLS-eDxP3w-1
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
+	[209.85.208.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 7167520884
+	for <dm-devel@redhat.com>; Thu,  2 Jul 2020 05:36:26 +0000 (UTC)
+Received: by mail-lj1-f176.google.com with SMTP id n23so30154667ljh.7
+	for <dm-devel@redhat.com>; Wed, 01 Jul 2020 22:36:26 -0700 (PDT)
+X-Gm-Message-State: AOAM532RRkys73o7q3hUkxwM88Lia29ZY1LGLEquTl9PqYB1/Nikbfca
+	ByBeB4xldzyXwEWKXX3xZRtv8ObIXm924517Imw=
+X-Google-Smtp-Source: ABdhPJymqO+8A/ON6cgRlyAmaadzhb/A3ETkgEahkbFx3Wp1rU/jFwtY3MDkzrSEOGWene4L2hOwuUlW51s/XrqmVQI=
+X-Received: by 2002:a2e:7f06:: with SMTP id a6mr4621445ljd.446.1593668184748; 
+	Wed, 01 Jul 2020 22:36:24 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <5357998bd17e1147fd3a6615e03251d1aa4900d8.camel@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+References: <20200701090622.3354860-1-hch@lst.de>
+	<20200701090622.3354860-5-hch@lst.de>
+In-Reply-To: <20200701090622.3354860-5-hch@lst.de>
+From: Song Liu <song@kernel.org>
+Date: Wed, 1 Jul 2020 22:36:13 -0700
+X-Gmail-Original-Message-ID: <CAPhsuW7QShNMnbCK-OrKkE8F5XyH45-ML-w5qKLVrO=VTt6npw@mail.gmail.com>
+Message-ID: <CAPhsuW7QShNMnbCK-OrKkE8F5XyH45-ML-w5qKLVrO=VTt6npw@mail.gmail.com>
+To: Christoph Hellwig <hch@lst.de>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH 0/7] Fix muitpath/multipathd flush issue
+X-Mailman-Approved-At: Thu, 02 Jul 2020 05:18:19 -0400
+Cc: Jens Axboe <axboe@kernel.dk>, linux-raid <linux-raid@vger.kernel.org>,
+	Linux-MM <linux-mm@kvack.org>, linux-bcache@vger.kernel.org,
+	open list <linux-kernel@vger.kernel.org>,
+	linux-block@vger.kernel.org, drbd-dev@tron.linbit.com,
+	dm-devel@redhat.com, Tejun Heo <tj@kernel.org>,
+	cgroups@vger.kernel.org, linux-btrfs@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH 4/4] writeback: remove bdi->congested_fn
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,71 +86,26 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jul 01, 2020 at 10:54:34PM +0200, Martin Wilck wrote:
-> On Thu, 2020-06-18 at 18:06 -0500, Benjamin Marzinski wrote:
-> >=20
-> > I uploaded the test program, aio_test:
-> >=20
-> > https://github.com/bmarzins/test_programs.git
-> >=20
-> > You just need to run in on a queueing multipath device with no active
-> > paths and an open count of 0. It will hang with the device open.
-> > Restore
-> > a path, and it will exit, and the open count will go to 0.
->=20
-> Tried it now, it behaves as you say. I admit I can't imagine how the
-> suspend/resume would improve anything here. Indeed, as you say, it opens=
-=20
-> up a race window. Another process might open the device while
-> it's suspended. Worse perhaps, once the device is resumed, an uevent will=
- be=20
-> generated, and stacked devices might (in principle at least) be recreated
-> before we get down to flush the map.
->=20
-> MAYBE the suspend/resume was necessary in the past because some earlier=
-=20
-> kernels wouldn't immediately fail all outstanding commands when=20
-> queue_if_no_path was deactivated? (just speculating, I don't know if this
-> is the case).
+On Wed, Jul 1, 2020 at 2:06 AM Christoph Hellwig <hch@lst.de> wrote:
+>
+> Except for pktdvd, the only places setting congested bits are file
+> systems that allocate their own backing_dev_info structures.  And
+> pktdvd is a deprecated driver that isn't useful in stack setup
+> either.  So remove the dead congested_fn stacking infrastructure.
+>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-If you disable queue_if_no_path and then do a suspend with flushing, you
-are guaranteed that the supend won't return until all the IO has
-completed or failed.  This would allow anything that was waiting on
-queued IO to have the IO failback, which could allow it to close the
-device in time for multipath to be able to remove it (obviously this is
-racey).  However, this assumes that you do your open checks after the
-suspend, which multipath no longer does. I realize that multipath can't
-suspend until after it tries to remove the partition devices, otherwise
-those can get stuck. But there probably is some order that gets this all
-right-ish.
+For md bits:
 
-So, for a while now, the suspending has been doing nothing for us.  We
-could either try to reorder things so that we actually try to flush the
-queued IOs back first (with or without suspending), or we could just
-remove suspending and say that things are working fine the way they
-currently are.
-
--Ben
-=20
-> Regards,
-> Martin
->=20
-> --=20
-> Dr. Martin Wilck <mwilck@suse.com>, Tel. +49 (0)911 74053 2107
-> SUSE  Software Solutions Germany GmbH
-> HRB 36809, AG N=FCrnberg GF: Felix
-> Imend=F6rffer
->=20
->=20
+Acked-by: Song Liu <song@kernel.org>
 
 --
 dm-devel mailing list
