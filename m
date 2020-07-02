@@ -2,115 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id C8A4B2129FB
-	for <lists+dm-devel@lfdr.de>; Thu,  2 Jul 2020 18:45:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 300A9212C65
+	for <lists+dm-devel@lfdr.de>; Thu,  2 Jul 2020 20:34:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1593714866;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=86isCRFniicLszHl60q0elSLvbk+pRriySJGt5w/L3o=;
+	b=cJWyI25/1MPNLFTidjxojGHwXMEWwgRIcqTtYedGHK6eE5wKCpNI4hEIscjD+A/C1QSCYY
+	mk8GLY7IcPKvLE4LYR9KDXJVxZKGD/tNN86edIIywptl4R3BQR2F2OkGG0dO8QjT364049
+	iFH0N0FvSmL+sKf3YTcCC4EjpHc/I7s=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-106-7sZM__osOzW6q6clo-Ibog-1; Thu, 02 Jul 2020 12:45:54 -0400
-X-MC-Unique: 7sZM__osOzW6q6clo-Ibog-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-126-vvfVSHiXMqa1euPb7Le9Xg-1; Thu, 02 Jul 2020 14:34:19 -0400
+X-MC-Unique: vvfVSHiXMqa1euPb7Le9Xg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6463313E9C3;
-	Thu,  2 Jul 2020 16:45:47 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 373D35C1C5;
-	Thu,  2 Jul 2020 16:45:45 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E672B804001;
+	Thu,  2 Jul 2020 18:34:11 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E48C71053B2B;
+	Thu,  2 Jul 2020 18:34:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AA3056C9C6;
-	Thu,  2 Jul 2020 16:45:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ABF091809547;
+	Thu,  2 Jul 2020 18:33:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 062GjUPb030633 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 2 Jul 2020 12:45:30 -0400
+	id 062IXcoa018624 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 2 Jul 2020 14:33:38 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 39C76207ADFE; Thu,  2 Jul 2020 16:45:30 +0000 (UTC)
+	id D48D2100164C; Thu,  2 Jul 2020 18:33:38 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 33F97207AEB9
-	for <dm-devel@redhat.com>; Thu,  2 Jul 2020 16:45:27 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C70E2185A78B
-	for <dm-devel@redhat.com>; Thu,  2 Jul 2020 16:45:27 +0000 (UTC)
-Received: from de-smtp-delivery-102.mimecast.com
-	(de-smtp-delivery-102.mimecast.com [62.140.7.102]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-478-ADg0jVMsOMq-apcsmzdisw-1;
-	Thu, 02 Jul 2020 12:45:25 -0400
-X-MC-Unique: ADg0jVMsOMq-apcsmzdisw-1
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
-	(mail-he1eur04lp2054.outbound.protection.outlook.com [104.47.13.54])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	de-mta-26-DaRz32UPPTGuHeeoolWArQ-1; Thu, 02 Jul 2020 18:45:23 +0200
-X-MC-Unique: DaRz32UPPTGuHeeoolWArQ-1
-Received: from DB8PR04MB6555.eurprd04.prod.outlook.com (2603:10a6:10:103::20)
-	by DB8PR04MB6476.eurprd04.prod.outlook.com (2603:10a6:10:104::32)
-	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3153.23;
-	Thu, 2 Jul 2020 16:45:22 +0000
-Received: from DB8PR04MB6555.eurprd04.prod.outlook.com
-	([fe80::8130:53b2:48d5:593]) by DB8PR04MB6555.eurprd04.prod.outlook.com
-	([fe80::8130:53b2:48d5:593%3]) with mapi id 15.20.3131.035;
-	Thu, 2 Jul 2020 16:45:22 +0000
-From: Martin Wilck <Martin.Wilck@suse.com>
-To: "bmarzins@redhat.com" <bmarzins@redhat.com>
-Thread-Topic: [dm-devel] [PATCH 0/7] Fix muitpath/multipathd flush issue
-Thread-Index: AQHWRQbaV48I+cUSsEqBTrzd+h1sK6jeE96AgACYCACAACIPAIAAMiuAgBRJeACAAGo9gIAAmZaAgAAwm4CAABhEAA==
-Date: Thu, 2 Jul 2020 16:45:21 +0000
-Message-ID: <cd568c7aabaa102db8ef6ba8ceb87b96d62f632c.camel@suse.com>
-References: <1592439867-18427-1-git-send-email-bmarzins@redhat.com>
-	<f60b8ea30ee0ce68a46ce8f5c9ebaee6314d57e4.camel@suse.com>
-	<20200618180458.GI5894@octiron.msp.redhat.com>
-	<c5e95e7bc75b11e811854ff0b0988ff19ef45e13.camel@suse.com>
-	<20200618230625.GJ5894@octiron.msp.redhat.com>
-	<5357998bd17e1147fd3a6615e03251d1aa4900d8.camel@suse.com>
-	<20200702031449.GB29962@octiron.msp.redhat.com>
-	<8158d509bca2cae483d553defdd1eb378c16d813.camel@suse.com>
-	<20200702151829.GA11089@octiron.msp.redhat.com>
-In-Reply-To: <20200702151829.GA11089@octiron.msp.redhat.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.36.3
-x-originating-ip: [94.218.227.113]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 5aa166c5-692d-47c1-0461-08d81ea74fd1
-x-ms-traffictypediagnostic: DB8PR04MB6476:
-x-microsoft-antispam-prvs: <DB8PR04MB6476F679400DCFA30B42BCFBFC6D0@DB8PR04MB6476.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-forefront-prvs: 0452022BE1
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: jwDvf+FrNsXfywEpYzClVFUiOuHUncjNBoZffOqmndrIs6WNPcdi4LcHNsu4r6jQft9F+vOwneGhReIAb2ykQlt6qrUUvPhg84L2ubbbSOC5Kby5NIfSK4blMiSj4zbDpgvbmyMVYSzgW52o8cMBmyya7dmZ5LgYYkkv2AbVMn9KvVQ66LCItQXXcOEpwdX/+viaYScC8jNUsdapfKmFIjl1oPWbm1QEak4WcTTMi1Hb3BJ9h/ZycImWxOM3T+2uKC8OiNncaS97vP9ElEhh1a7qNTeHllvqIwiOqFMvhKf0NJpdkcDUuwpawA/hL6lAiRHXwfp0eJLi1N4aN9YFiwjQo4Oh0IgzB7QlR0r18RwziFVuHnrmJLeksAJmiC+vX753gh6ix5qyOzzLYduA4w==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:DB8PR04MB6555.eurprd04.prod.outlook.com;
-	PTR:; CAT:NONE; SFTY:;
-	SFS:(396003)(376002)(136003)(39860400002)(346002)(366004)(71200400001)(26005)(478600001)(36756003)(6486002)(186003)(8936002)(2906002)(86362001)(66446008)(316002)(64756008)(5660300002)(6506007)(66556008)(83380400001)(66476007)(66946007)(2616005)(8676002)(4326008)(6916009)(91956017)(76116006)(450100002)(6512007)(966005);
-	DIR:OUT; SFP:1101;
-x-ms-exchange-antispam-messagedata: JKev/8J6UpUBVg+zHu2YH09HsXUTm8N5fNQXs7REbFIyZ2rFQqyKRL2oW6eo44g7OSG1rwv+i5d2w0bf5juG9XOJF7/FTYXie8J6ETLFzWCp7Q4YAl3OFl0HCJWPYv3bm2WFCpiPuRdFX7tRiK0VaNpkDtSx4ZFLJrQ2dQV1lzUxOEaBDKJ7GTuay0w9lT0ZL+rI71xc2xD8oiwFerBksjR6SMaXeDJw7YVPA2Z8xqU7LGg4Oy8qgrRfSGoSL5lUnjCH2CyhuNEBVcLD4YYxnHiwelLaWlKJ+owtioXa6Q6vsh9ZyPhsJw2WlP03LoA/EHaTOrp7KXpLdg4VhHbbwHwG1/+GCP8BH8Wxmpea+eKLUq91jfo/UbJWXa1G+n7KlLoIArSrgl+y2WiZceVuycwq7flfwfSwYjeFQ7wGlHc37N/mO9shH96Hj4Kl+iuPoG6GEkPDmyCVrpopBgZT5d0nR4zMnwr8E4blG2B7PTmTxxNGeLp5R4ViE55q2mWM
-x-ms-exchange-transport-forked: True
-Content-ID: <1883E6D4452DB44ABBE8A6AC5990AF16@eurprd04.prod.outlook.com>
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0B895105B1E3;
+	Thu,  2 Jul 2020 18:33:35 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 062IXYt4012313; 
+	Thu, 2 Jul 2020 13:33:34 -0500
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 062IXYBm012312;
+	Thu, 2 Jul 2020 13:33:34 -0500
+Date: Thu, 2 Jul 2020 13:33:34 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Martin Wilck <Martin.Wilck@suse.com>
+Message-ID: <20200702183334.GE11089@octiron.msp.redhat.com>
+References: <1593117741-28750-1-git-send-email-bmarzins@redhat.com>
+	<1593117741-28750-2-git-send-email-bmarzins@redhat.com>
+	<b81e6932dd0c20b0b6053c08c3e27118fb338235.camel@suse.com>
 MIME-Version: 1.0
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6555.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5aa166c5-692d-47c1-0461-08d81ea74fd1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jul 2020 16:45:21.9625 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: J4z/r4ZwEsICrSImdeeanaVc1BlfLz7gM2DXUgvfirjBUDG1dydKOjqJhc8p/L6LLOQ+XvxQtlXch/Ge8m9YEA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6476
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 062GjUPb030633
+In-Reply-To: <b81e6932dd0c20b0b6053c08c3e27118fb338235.camel@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
 Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH 0/7] Fix muitpath/multipathd flush issue
+Subject: Re: [dm-devel] [PATCH v2 1/7] libmultipath: make dm_get_map/status
+ return codes symbolic
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -124,194 +76,403 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-On Thu, 2020-07-02 at 10:18 -0500, Benjamin Marzinski wrote:
-> On Thu, Jul 02, 2020 at 12:24:32PM +0000, Martin Wilck wrote:
-> > On Wed, 2020-07-01 at 22:14 -0500, Benjamin Marzinski wrote:
-> > > On Wed, Jul 01, 2020 at 10:54:34PM +0200, Martin Wilck wrote:
-> > > > On Thu, 2020-06-18 at 18:06 -0500, Benjamin Marzinski wrote:
-> > > > > I uploaded the test program, aio_test:
-> > > > > 
-> > > > > https://github.com/bmarzins/test_programs.git
-> > > > > 
-> > > > > You just need to run in on a queueing multipath device with
-> > > > > no
-> > > > > active
-> > > > > paths and an open count of 0. It will hang with the device
-> > > > > open.
-> > > > > Restore
-> > > > > a path, and it will exit, and the open count will go to 0.
-> > > > 
-> > > > Tried it now, it behaves as you say. I admit I can't imagine
-> > > > how
-> > > > the
-> > > > suspend/resume would improve anything here. Indeed, as you say,
-> > > > it
-> > > > opens 
-> > > > up a race window. Another process might open the device while
-> > > > it's suspended. Worse perhaps, once the device is resumed, an
-> > > > uevent will be 
-> > > > generated, and stacked devices might (in principle at least) be
-> > > > recreated
-> > > > before we get down to flush the map.
-> > > > 
-> > > > MAYBE the suspend/resume was necessary in the past because some
-> > > > earlier 
-> > > > kernels wouldn't immediately fail all outstanding commands
-> > > > when 
-> > > > queue_if_no_path was deactivated? (just speculating, I don't
-> > > > know
-> > > > if this
-> > > > is the case).
-> > > 
-> > > If you disable queue_if_no_path and then do a suspend with
-> > > flushing,
-> > > you
-> > > are guaranteed that the supend won't return until all the IO has
-> > > completed or failed.
-> > 
-> > I just realized that if we suspend, we don't even need disable
-> > queue_if_no_path, because the kernel does that automatically if a
-> > "suspend with flush" is issued, and has been doing so basically
-> > forever.
-> > 
-> > >   This would allow anything that was waiting on
-> > > queued IO to have the IO failback, which could allow it to close
-> > > the
-> > > device in time for multipath to be able to remove it (obviously
-> > > this
-> > > is
-> > > racey).  However, this assumes that you do your open checks after
-> > > the
-> > > suspend, which multipath no longer does.
-> > >  I realize that multipath can't
-> > > suspend until after it tries to remove the partition devices,
-> > > otherwise
-> > > those can get stuck. But there probably is some order that gets
-> > > this
-> > > all
-> > > right-ish.
-> > 
-> > Our code is currently racy. IMO we should
-> > 
-> >  0 unset queue_if_no_path
-> >  1 remove partition mappings
-> >  2 open(O_EXCL|O_RDONLY) the device
-> >  3 If this fails, in multipath, try again after a suspend/resume
-> > cycle.
-> >    In multipathd, I think we should just fail for now; perhaps
-> > later
-> >    we could handle the explicit "remove map" command like
-> > multipath.
-> >  4 If it fails again, bail out (in multipath, retry if asked to do
-> > so)
-> >  5 run a "deferred remove" ioctl
-> >  6 close the fd, the dm device will now be removed "atomically".
-> > 
-> > This cuts down the race window to the minimum possible - after (2),
-> > no
-> > mounts / kpartx / lvm operations won't be possible any more.
-> 
-> I wasn't actually worried about someone wanting to use the device. In
-> that case the remove should fail.  I was worried about things that
-> would
-> close the device, but couldn't because of queued IO.  
-> The race I was
-> talking about is that after whatever has the device open gets the IO
-> error, it might not close the device before multipath checks the open
-> count.
+On Wed, Jul 01, 2020 at 08:15:49PM +0000, Martin Wilck wrote:
+> On Thu, 2020-06-25 at 15:42 -0500, Benjamin Marzinski wrote:
+> > dm_get_map() and dm_get_status() now use symbolic return codes. They
+> > also differentiate between failing to get information from device-
+> > mapper
+> > and not finding the requested device. These symboilc return codes are
+> > also used by update_multipath_* functions.
+> >=20
+> > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+> > ---
+> >  libmultipath/devmapper.c   | 51 +++++++++++++++++++++++++-----------
+> > --
+> >  libmultipath/devmapper.h   |  6 +++++
+> >  libmultipath/structs_vec.c | 45 +++++++++++++++++++--------------
+> >  multipathd/main.c          | 12 ++++-----
+> >  4 files changed, 72 insertions(+), 42 deletions(-)
+> >=20
+> > diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
+> > index 27d52398..f5cfe296 100644
+> > --- a/libmultipath/devmapper.c
+> > +++ b/libmultipath/devmapper.c
+> > @@ -534,36 +534,43 @@ int dm_map_present(const char * str)
+> > =20
+> >  int dm_get_map(const char *name, unsigned long long *size, char
+> > *outparams)
+> >  {
+> > -=09int r =3D 1;
+> > +=09int r =3D DMP_ERR;
+> >  =09struct dm_task *dmt;
+> >  =09uint64_t start, length;
+> >  =09char *target_type =3D NULL;
+> >  =09char *params =3D NULL;
+> > =20
+> >  =09if (!(dmt =3D libmp_dm_task_create(DM_DEVICE_TABLE)))
+> > -=09=09return 1;
+> > +=09=09return r;
+> > =20
+> >  =09if (!dm_task_set_name(dmt, name))
+> >  =09=09goto out;
+> > =20
+> >  =09dm_task_no_open_count(dmt);
+> > =20
+> > -=09if (!dm_task_run(dmt))
+> > +=09errno =3D 0;
+> > +=09if (!dm_task_run(dmt)) {
+> > +=09=09if (errno =3D=3D ENXIO)
+>=20
+> Don't you have to use dm_task_get_errno(dmt) here?
+> errno might have been overwritten... if you are certain you don't need
+> it, a comment explaining it would be helpful.
 
-Understood.
+Err.. I didn't know that existed. Sure I can use it, and your other
+suggestions are reasonable as well
 
-> Also, I'm not sure that resume helps us, since that will trigger
-> uevents, which will open the device again.
+-Ben
 
-Not sure if I understand correctly: It's possible to just suspend/flush
-and then remove the device, without resuming. But that's dangerous,
-because if some process opens the device while it's resumed, even if
-it's just for reading a single block (think blkid), the open will
-succeed, the IO will hang, the opencount will be increased, and the
-REMOVE ioctl will fail. Therefore I think *if* we suspend we should
-also resume. But I concur wrt the uevent, of course.
-
-> > When we remove the partition mappings, we could use the same
-> > technique
-> > to avoid races on that layer. Unfortunately, a pending "deferred
-> > remove" operation doesn't cause new open() or mount() calls to
-> > fail; if
-> > it did, we could use a simpler approach.
-> > 
-> > > So, for a while now, the suspending has been doing nothing for
-> > > us.  We
-> > > could either try to reorder things so that we actually try to
-> > > flush
-> > > the
-> > > queued IOs back first (with or without suspending), or we could
-> > > just
-> > > remove suspending and say that things are working fine the way
-> > > they
-> > > currently are.
-> > 
-> > What else can we do except suspend/resume to avoid racing with
-> > pending
-> > close(), umount() or similar operations? Well, I guess if we open
-> > the
-> > device anyway as I proposed, we could do an fsync() on it. That
-> > might
-> > actually be better because it avoids the uevent being sent on
-> > resume.
-> 
-> yeah. I think that simply disabling queueing and doing an fsync() is
-> probably better than suspending. If new IO comes in after that, then
-> something IS using the device, and we don't want to remove it. In
-> multipath, maybe:
-> 
-> 1. disable queueing
-> 2. remove partition mappings
-> 3. open device
-> 4. flush
-> 5. check if we are the only opener.
-> 	If not, and there are retries left... goto 4? sleep and
-> recheck?
-> 	we don't want to wait if the answer is that they device really
-> 	is in use.
-> 6. close device
-> 7. remove device
-> 
-> Possibly the solution to not wanting to wait when a device is in use
-> is
-> that we could add an option to multipath to distinguish between the
-> way
-> flushing works now, where we check early if the device is in use, and
-> just bail if it is, and a more aggressive attempt at remove that
-> might
-> take longer if used on devices that are in use.
-
-What's wrong with deferred remove? After all, the user explicitly asked
-for a flush. As long as some other process has the device open, it
-won't be removed. That's why I like the O_EXCL idea, which will allow
-small programs like blkid to access the device, but will cause all
-attempts to mount or add stacked devices to fail until the device is
-actually removed. I see no reason no to do this, as it's a race anyway
-if some other process opens the device when we're supposed to flush it
-and the opencount already dropped to 0. By using O_EXCL, we just
-increase multipathd's chances to win the race and do what the user
-asked for.
-
-To make sure we're on the same boat: this is a topic for a separate
-patch set IMO, I'm not expecting you to fix it in a v3.
-
-Cheers,
-Martin
-
-
+>=20
+>=20
+> > +=09=09=09r =3D DMP_FAIL;
+>=20
+> You've created generic names, which is good, but these are perhaps a
+> bit too generic. What's the difference bewteen DMP_FAIL and DMP_ERR? I
+> can derive it from your code, but it's not obvious from the retcode
+> names, and thus doesn't help the reader much. I suggest to keep DMT_ERR
+> to denote a "generic" error condition, and use e.g. DMP_NOTFOUND for
+> the other case.
+>=20
+> >  =09=09goto out;
+> > +=09}
+> > =20
+> > +=09r =3D DMP_FAIL;
+> >  =09/* Fetch 1st target */
+> > -=09dm_get_next_target(dmt, NULL, &start, &length,
+> > -=09=09=09   &target_type, &params);
+> > +=09if (dm_get_next_target(dmt, NULL, &start, &length,
+> > +=09=09=09       &target_type, &params) !=3D NULL)
+> > +=09=09/* more than one target */
+> > +=09=09goto out;
+> > =20
+> >  =09if (size)
+> >  =09=09*size =3D length;
+> > =20
+> >  =09if (!outparams) {
+> > -=09=09r =3D 0;
+> > +=09=09r =3D DMP_PASS;
+>=20
+> Nit: DMP_OK or DMP_SUCCESS would be more conventional for successful
+> completion. "pass" sounds like something more specific to me,
+> like having passed a test or a filter.
+>=20
+> >  =09=09goto out;
+> >  =09}
+> >  =09if (snprintf(outparams, PARAMS_SIZE, "%s", params) <=3D
+> > PARAMS_SIZE)
+> > -=09=09r =3D 0;
+> > +=09=09r =3D DMP_PASS;
+> >  out:
+> >  =09dm_task_destroy(dmt);
+> >  =09return r;
+> > @@ -637,35 +644,45 @@ is_mpath_part(const char *part_name, const char
+> > *map_name)
+> > =20
+> >  int dm_get_status(const char *name, char *outstatus)
+> >  {
+> > -=09int r =3D 1;
+> > +=09int r =3D DMP_ERR;
+> >  =09struct dm_task *dmt;
+> >  =09uint64_t start, length;
+> >  =09char *target_type =3D NULL;
+> >  =09char *status =3D NULL;
+> > =20
+> >  =09if (!(dmt =3D libmp_dm_task_create(DM_DEVICE_STATUS)))
+> > -=09=09return 1;
+> > +=09=09return r;
+> > =20
+> >  =09if (!dm_task_set_name(dmt, name))
+> >  =09=09goto out;
+> > =20
+> >  =09dm_task_no_open_count(dmt);
+> > =20
+> > -=09if (!dm_task_run(dmt))
+> > +=09errno =3D 0;
+> > +=09if (!dm_task_run(dmt)) {
+> > +=09=09if (errno =3D=3D ENXIO)
+> > +=09=09=09r =3D DMP_FAIL;
+> >  =09=09goto out;
+> > +=09}
+>=20
+> see above
+>=20
+> > =20
+> > +=09r =3D DMP_FAIL;
+> >  =09/* Fetch 1st target */
+> > -=09dm_get_next_target(dmt, NULL, &start, &length,
+> > -=09=09=09   &target_type, &status);
+> > +=09if (dm_get_next_target(dmt, NULL, &start, &length,
+> > +=09=09=09       &target_type, &status) !=3D NULL)
+> > +=09=09goto out;
+> > +
+> > +=09if (!target_type || strcmp(target_type, TGT_MPATH) !=3D 0)
+> > +=09=09goto out;
+> > +
+> >  =09if (!status) {
+> >  =09=09condlog(2, "get null status.");
+> >  =09=09goto out;
+> >  =09}
+> > =20
+> >  =09if (snprintf(outstatus, PARAMS_SIZE, "%s", status) <=3D
+> > PARAMS_SIZE)
+> > -=09=09r =3D 0;
+> > +=09=09r =3D DMP_PASS;
+> >  out:
+> > -=09if (r)
+> > +=09if (r !=3D DMP_PASS)
+> >  =09=09condlog(0, "%s: error getting map status string",
+> > name);
+> > =20
+> >  =09dm_task_destroy(dmt);
+> > @@ -920,7 +937,7 @@ int _dm_flush_map (const char * mapname, int
+> > need_sync, int deferred_remove,
+> >  =09=09=09return 1;
+> > =20
+> >  =09if (need_suspend &&
+> > -=09    !dm_get_map(mapname, &mapsize, params) &&
+> > +=09    dm_get_map(mapname, &mapsize, params) =3D=3D DMP_PASS &&
+> >  =09    strstr(params, "queue_if_no_path")) {
+> >  =09=09if (!dm_queue_if_no_path(mapname, 0))
+> >  =09=09=09queue_if_no_path =3D 1;
+> > @@ -1129,7 +1146,7 @@ struct multipath *dm_get_multipath(const char
+> > *name)
+> >  =09if (!mpp->alias)
+> >  =09=09goto out;
+> > =20
+> > -=09if (dm_get_map(name, &mpp->size, NULL))
+> > +=09if (dm_get_map(name, &mpp->size, NULL) !=3D DMP_PASS)
+> >  =09=09goto out;
+> > =20
+> >  =09dm_get_uuid(name, mpp->wwid, WWID_SIZE);
+> > @@ -1313,7 +1330,7 @@ do_foreach_partmaps (const char * mapname,
+> >  =09=09    /*
+> >  =09=09     * and we can fetch the map table from the kernel
+> >  =09=09     */
+> > -=09=09    !dm_get_map(names->name, &size, &params[0]) &&
+> > +=09=09    dm_get_map(names->name, &size, &params[0]) =3D=3D
+> > DMP_PASS &&
+> > =20
+> >  =09=09    /*
+> >  =09=09     * and the table maps over the multipath map
+> > diff --git a/libmultipath/devmapper.h b/libmultipath/devmapper.h
+> > index 5ed7edc5..5b18bf4b 100644
+> > --- a/libmultipath/devmapper.h
+> > +++ b/libmultipath/devmapper.h
+> > @@ -27,6 +27,12 @@
+> >  #define UUID_PREFIX "mpath-"
+> >  #define UUID_PREFIX_LEN (sizeof(UUID_PREFIX) - 1)
+> > =20
+> > +enum {
+> > +=09DMP_ERR =3D -1,
+> > +=09DMP_PASS,
+> > +=09DMP_FAIL,
+> > +};
+> > +
+>=20
+> Nit: Why use both negative and positive numbers? It's not important,
+> but I feel that unless we really want to treat DM_ERR in a very special
+> way, it would be better to use only positive values. (Actually, if we
+> go for some generalized retcode convention some day, we might save
+> negative return values for standard libc errno values such
+> as -ENOENT and use positive values for or own specific ones).
+>=20
+> (We can change the numeric values later of course).
+>=20
+> Cheers,
+> Martin
+>=20
+> >  void dm_init(int verbosity);
+> >  int dm_prereq(unsigned int *v);
+> >  void skip_libmp_dm_init(void);
+> > diff --git a/libmultipath/structs_vec.c b/libmultipath/structs_vec.c
+> > index 077f2e42..2225abeb 100644
+> > --- a/libmultipath/structs_vec.c
+> > +++ b/libmultipath/structs_vec.c
+> > @@ -196,43 +196,47 @@ extract_hwe_from_path(struct multipath * mpp)
+> >  int
+> >  update_multipath_table (struct multipath *mpp, vector pathvec, int
+> > is_daemon)
+> >  {
+> > +=09int r =3D DMP_ERR;
+> >  =09char params[PARAMS_SIZE] =3D {0};
+> > =20
+> >  =09if (!mpp)
+> > -=09=09return 1;
+> > +=09=09return r;
+> > =20
+> > -=09if (dm_get_map(mpp->alias, &mpp->size, params)) {
+> > -=09=09condlog(3, "%s: cannot get map", mpp->alias);
+> > -=09=09return 1;
+> > +=09r =3D dm_get_map(mpp->alias, &mpp->size, params);
+> > +=09if (r !=3D DMP_PASS) {
+> > +=09=09condlog(3, "%s: %s", mpp->alias, (r =3D=3D DMP_ERR)? "error
+> > getting table" : "map not present");
+> > +=09=09return r;
+> >  =09}
+> > =20
+> >  =09if (disassemble_map(pathvec, params, mpp, is_daemon)) {
+> >  =09=09condlog(3, "%s: cannot disassemble map", mpp->alias);
+> > -=09=09return 1;
+> > +=09=09return DMP_ERR;
+> >  =09}
+> > =20
+> > -=09return 0;
+> > +=09return DMP_PASS;
+> >  }
+> > =20
+> >  int
+> >  update_multipath_status (struct multipath *mpp)
+> >  {
+> > +=09int r =3D DMP_ERR;
+> >  =09char status[PARAMS_SIZE] =3D {0};
+> > =20
+> >  =09if (!mpp)
+> > -=09=09return 1;
+> > +=09=09return r;
+> > =20
+> > -=09if (dm_get_status(mpp->alias, status)) {
+> > -=09=09condlog(3, "%s: cannot get status", mpp->alias);
+> > -=09=09return 1;
+> > +=09r =3D dm_get_status(mpp->alias, status);
+> > +=09if (r !=3D DMP_PASS) {
+> > +=09=09condlog(3, "%s: %s", mpp->alias, (r =3D=3D DMP_ERR)? "error
+> > getting status" : "map not present");
+> > +=09=09return r;
+> >  =09}
+> > =20
+> >  =09if (disassemble_status(status, mpp)) {
+> >  =09=09condlog(3, "%s: cannot disassemble status", mpp-
+> > >alias);
+> > -=09=09return 1;
+> > +=09=09return DMP_ERR;
+> >  =09}
+> > =20
+> > -=09return 0;
+> > +=09return DMP_PASS;
+> >  }
+> > =20
+> >  void sync_paths(struct multipath *mpp, vector pathvec)
+> > @@ -264,10 +268,10 @@ int
+> >  update_multipath_strings(struct multipath *mpp, vector pathvec, int
+> > is_daemon)
+> >  {
+> >  =09struct pathgroup *pgp;
+> > -=09int i;
+> > +=09int i, r =3D DMP_ERR;
+> > =20
+> >  =09if (!mpp)
+> > -=09=09return 1;
+> > +=09=09return r;
+> > =20
+> >  =09update_mpp_paths(mpp, pathvec);
+> >  =09condlog(4, "%s: %s", mpp->alias, __FUNCTION__);
+> > @@ -276,18 +280,21 @@ update_multipath_strings(struct multipath *mpp,
+> > vector pathvec, int is_daemon)
+> >  =09free_pgvec(mpp->pg, KEEP_PATHS);
+> >  =09mpp->pg =3D NULL;
+> > =20
+> > -=09if (update_multipath_table(mpp, pathvec, is_daemon))
+> > -=09=09return 1;
+> > +=09r =3D update_multipath_table(mpp, pathvec, is_daemon);
+> > +=09if (r !=3D DMP_PASS)
+> > +=09=09return r;
+> > +
+> >  =09sync_paths(mpp, pathvec);
+> > =20
+> > -=09if (update_multipath_status(mpp))
+> > -=09=09return 1;
+> > +=09r =3D update_multipath_status(mpp);
+> > +=09if (r !=3D DMP_PASS)
+> > +=09=09return r;
+> > =20
+> >  =09vector_foreach_slot(mpp->pg, pgp, i)
+> >  =09=09if (pgp->paths)
+> >  =09=09=09path_group_prio_update(pgp);
+> > =20
+> > -=09return 0;
+> > +=09return DMP_PASS;
+> >  }
+> > =20
+> >  static void enter_recovery_mode(struct multipath *mpp)
+> > diff --git a/multipathd/main.c b/multipathd/main.c
+> > index 205ddb32..d73b1b9a 100644
+> > --- a/multipathd/main.c
+> > +++ b/multipathd/main.c
+> > @@ -418,7 +418,7 @@ int __setup_multipath(struct vectors *vecs,
+> > struct multipath *mpp,
+> >  =09=09goto out;
+> >  =09}
+> > =20
+> > -=09if (update_multipath_strings(mpp, vecs->pathvec, 1)) {
+> > +=09if (update_multipath_strings(mpp, vecs->pathvec, 1) !=3D
+> > DMP_PASS) {
+> >  =09=09condlog(0, "%s: failed to setup multipath", mpp-
+> > >alias);
+> >  =09=09goto out;
+> >  =09}
+> > @@ -557,9 +557,9 @@ add_map_without_path (struct vectors *vecs, const
+> > char *alias)
+> >  =09mpp->mpe =3D find_mpe(conf->mptable, mpp->wwid);
+> >  =09put_multipath_config(conf);
+> > =20
+> > -=09if (update_multipath_table(mpp, vecs->pathvec, 1))
+> > +=09if (update_multipath_table(mpp, vecs->pathvec, 1) !=3D DMP_PASS)
+> >  =09=09goto out;
+> > -=09if (update_multipath_status(mpp))
+> > +=09if (update_multipath_status(mpp) !=3D DMP_PASS)
+> >  =09=09goto out;
+> > =20
+> >  =09if (!vector_alloc_slot(vecs->mpvec))
+> > @@ -1350,8 +1350,8 @@ map_discovery (struct vectors * vecs)
+> >  =09=09return 1;
+> > =20
+> >  =09vector_foreach_slot (vecs->mpvec, mpp, i)
+> > -=09=09if (update_multipath_table(mpp, vecs->pathvec, 1) ||
+> > -=09=09    update_multipath_status(mpp)) {
+> > +=09=09if (update_multipath_table(mpp, vecs->pathvec, 1) !=3D
+> > DMP_PASS ||
+> > +=09=09    update_multipath_status(mpp) !=3D DMP_PASS) {
+> >  =09=09=09remove_map(mpp, vecs, 1);
+> >  =09=09=09i--;
+> >  =09=09}
+> > @@ -2091,7 +2091,7 @@ check_path (struct vectors * vecs, struct path
+> > * pp, unsigned int ticks)
+> >  =09/*
+> >  =09 * Synchronize with kernel state
+> >  =09 */
+> > -=09if (update_multipath_strings(pp->mpp, vecs->pathvec, 1)) {
+> > +=09if (update_multipath_strings(pp->mpp, vecs->pathvec, 1) !=3D
+> > DMP_PASS) {
+> >  =09=09condlog(1, "%s: Could not synchronize with kernel
+> > state",
+> >  =09=09=09pp->dev);
+> >  =09=09pp->dmstate =3D PSTATE_UNDEF;
+>=20
+> --=20
+> Dr. Martin Wilck <mwilck@suse.com>, Tel. +49 (0)911 74053 2107
+> SUSE  Software Solutions Germany GmbH
+> HRB 36809, AG N=FCrnberg GF: Felix
+> Imend=F6rffer
+>=20
 
 --
 dm-devel mailing list
