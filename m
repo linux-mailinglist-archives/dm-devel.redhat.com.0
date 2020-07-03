@@ -1,65 +1,61 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 3ABE421305C
-	for <lists+dm-devel@lfdr.de>; Fri,  3 Jul 2020 02:07:52 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 381A4213086
+	for <lists+dm-devel@lfdr.de>; Fri,  3 Jul 2020 02:40:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1593734871;
+	s=mimecast20190719; t=1593736809;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=gNjHkcwxGZQlHPhCvqgaagY3o6hFGKd81HE6Wdqa0D4=;
-	b=CVagt3H14msbB4Iz+E80czdKRwz+SlfYX2qIrdteIMLaZ9PN5Swu5B95CZmvWXnJroC9TK
-	l2FqnsPrZMQx8/FMWpJDs+Ry+V4bSxPgdyHrvyXjHBCjFxxxWYGSUdpewtRXUXFWB5ta0D
-	jI5yJg/PkJyFWNvx+0y9p7liNjlJFIY=
+	bh=H8RcgeiKJxT+J/n7OcfoNiVSIjhWIwbwx1h62ImTrIY=;
+	b=SxA/eXVHsgvNJXV9632hmm2zAYPSwFuntZugRs38yJOnuoiH3icanT76q7Vk2mfyjg9L5S
+	RMq2OrjgBD+vIelvBw4xgtRTps2wSkN2VBkFgvxffmuDybgYw7/6GSHAKXtojRF9rBAOnM
+	QFm8siwJTgm7XqRM2qI4FKKeR41QcG4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-340-BVAzEugmOoeX0Z71-gCn6g-1; Thu, 02 Jul 2020 20:07:49 -0400
-X-MC-Unique: BVAzEugmOoeX0Z71-gCn6g-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-142-kaFk3hYsPfuBmqiHGwFR5g-1; Thu, 02 Jul 2020 20:38:53 -0400
+X-MC-Unique: kaFk3hYsPfuBmqiHGwFR5g-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 99B631009610;
-	Fri,  3 Jul 2020 00:07:43 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 771C31D1;
-	Fri,  3 Jul 2020 00:07:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 42FA2800C60;
+	Fri,  3 Jul 2020 00:38:48 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 290105C1C5;
+	Fri,  3 Jul 2020 00:38:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1D4061809561;
-	Fri,  3 Jul 2020 00:07:43 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1BB9E6C9C6;
+	Fri,  3 Jul 2020 00:38:40 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06307Hfu014428 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 2 Jul 2020 20:07:17 -0400
+	id 0630cWLM019277 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 2 Jul 2020 20:38:32 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E5F5473FD1; Fri,  3 Jul 2020 00:07:17 +0000 (UTC)
+	id 77CD875550; Fri,  3 Jul 2020 00:38:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0AF7C5BAD8;
-	Fri,  3 Jul 2020 00:07:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ACAD57554F;
+	Fri,  3 Jul 2020 00:38:29 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 06307DxS014125; 
-	Thu, 2 Jul 2020 19:07:13 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 0630cSmT014254; 
+	Thu, 2 Jul 2020 19:38:28 -0500
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 06307DrR014124;
-	Thu, 2 Jul 2020 19:07:13 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 0630cSVI014253;
+	Thu, 2 Jul 2020 19:38:28 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Thu,  2 Jul 2020 19:07:06 -0500
-Message-Id: <1593734826-14059-8-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1593734826-14059-1-git-send-email-bmarzins@redhat.com>
-References: <1593734826-14059-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+Date: Thu,  2 Jul 2020 19:38:23 -0500
+Message-Id: <1593736707-14216-1-git-send-email-bmarzins@redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
 Cc: device-mapper development <dm-devel@redhat.com>,
 	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH v3 7/7] multipath: add option to skip multipathd
-	delegation
+Subject: [dm-devel] [PATCH v2 0/4] misc patches
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -74,7 +70,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -82,61 +78,32 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Add the -D option to allow users to skip delegating commands to
-multipathd.
+This is a small collection of individual bug fix patches that apply on
+top of my previous patch set.
 
-Reviewed-by: Martin Wilck <mwilck@suse.com>
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
----
- libmultipath/config.h | 1 +
- multipath/main.c      | 8 +++++++-
- 2 files changed, 8 insertions(+), 1 deletion(-)
+Changes from v1:
 
-diff --git a/libmultipath/config.h b/libmultipath/config.h
-index 55569360..92c61a0d 100644
---- a/libmultipath/config.h
-+++ b/libmultipath/config.h
-@@ -190,6 +190,7 @@ struct config {
- 	int ghost_delay;
- 	int find_multipaths_timeout;
- 	int marginal_pathgroups;
-+	int skip_delegate;
- 	unsigned int version[3];
- 	unsigned int sequence_nr;
- 
-diff --git a/multipath/main.c b/multipath/main.c
-index 6a24e483..4c43314e 100644
---- a/multipath/main.c
-+++ b/multipath/main.c
-@@ -817,6 +817,9 @@ int delegate_to_multipathd(enum mpath_cmds cmd,
- 	*p = '\0';
- 	n = sizeof(command);
- 
-+	if (conf->skip_delegate)
-+		return NOT_DELEGATED;
-+
- 	if (cmd == CMD_CREATE && conf->force_reload == FORCE_RELOAD_YES) {
- 		p += snprintf(p, n, "reconfigure");
- 	}
-@@ -890,7 +893,7 @@ main (int argc, char *argv[])
- 	multipath_conf = conf;
- 	conf->retrigger_tries = 0;
- 	conf->force_sync = 1;
--	while ((arg = getopt(argc, argv, ":adcChl::eFfM:v:p:b:BrR:itTquUwW")) != EOF ) {
-+	while ((arg = getopt(argc, argv, ":adDcChl::eFfM:v:p:b:BrR:itTquUwW")) != EOF ) {
- 		switch(arg) {
- 		case 1: printf("optarg : %s\n",optarg);
- 			break;
-@@ -922,6 +925,9 @@ main (int argc, char *argv[])
- 			if (cmd == CMD_CREATE)
- 				cmd = CMD_DRY_RUN;
- 			break;
-+		case 'D':
-+			conf->skip_delegate = 1;
-+			break;
- 		case 'f':
- 			cmd = CMD_FLUSH_ONE;
- 			break;
+0001:	Going with Martin's strtoul() method instead
+
+0002:	Now getpagesize() is only called once, and size_p is only set if
+	posix_memalign is successful, as suggested by Martin.
+	
+
+Benjamin Marzinski (4):
+  libmultipath: fix sysfs dev_loss_tmo parsing
+  kpartx: read devices with direct IO
+  kpartx: handle alternate bsd disklabel location
+  libmultipath: fix checker detection for nvme devices
+
+ kpartx/bsd.c             | 16 ++++++++++--
+ kpartx/dasd.c            |  7 ++---
+ kpartx/gpt.c             | 22 +++++++---------
+ kpartx/kpartx.c          | 56 ++++++++++++++++++++++++++++++++--------
+ kpartx/kpartx.h          |  2 ++
+ libmultipath/discovery.c | 12 ++++++---
+ libmultipath/propsel.c   |  4 ++-
+ 7 files changed, 87 insertions(+), 32 deletions(-)
+
 -- 
 2.17.2
 
