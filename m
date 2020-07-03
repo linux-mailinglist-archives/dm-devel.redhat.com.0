@@ -1,119 +1,124 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 04745213FA8
-	for <lists+dm-devel@lfdr.de>; Fri,  3 Jul 2020 20:51:15 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 540722141F6
+	for <lists+dm-devel@lfdr.de>; Sat,  4 Jul 2020 01:35:39 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-392-E-RnNIcJOtq2cNtIn2gcCw-1; Fri, 03 Jul 2020 14:51:12 -0400
-X-MC-Unique: E-RnNIcJOtq2cNtIn2gcCw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-368-ppcfYN9HOvyJwM-5m-_-Zw-1; Fri, 03 Jul 2020 19:35:35 -0400
+X-MC-Unique: ppcfYN9HOvyJwM-5m-_-Zw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4590A800597;
-	Fri,  3 Jul 2020 18:51:04 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9A7B05BACF;
-	Fri,  3 Jul 2020 18:51:01 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 79D8D107ACCD;
+	Fri,  3 Jul 2020 23:35:26 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 45084757DF;
+	Fri,  3 Jul 2020 23:35:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F2FF26C9CA;
-	Fri,  3 Jul 2020 18:50:48 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 40E3B1809547;
+	Fri,  3 Jul 2020 23:35:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 063IoZJx010670 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 3 Jul 2020 14:50:35 -0400
+	id 063NTfE7010620 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 3 Jul 2020 19:29:42 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 006C8207B426; Fri,  3 Jul 2020 18:50:35 +0000 (UTC)
+	id D965210BFD80; Fri,  3 Jul 2020 23:29:41 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EF45B207B428
-	for <dm-devel@redhat.com>; Fri,  3 Jul 2020 18:50:32 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D30BA10BFD6A
+	for <dm-devel@redhat.com>; Fri,  3 Jul 2020 23:29:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3D5208007A4
-	for <dm-devel@redhat.com>; Fri,  3 Jul 2020 18:50:32 +0000 (UTC)
-Received: from de-smtp-delivery-102.mimecast.com
-	(de-smtp-delivery-102.mimecast.com [51.163.158.102]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-253-5d9-aipDN_OV8uNvR7MwIQ-1;
-	Fri, 03 Jul 2020 14:50:30 -0400
-X-MC-Unique: 5d9-aipDN_OV8uNvR7MwIQ-1
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
-	(mail-he1eur04lp2052.outbound.protection.outlook.com [104.47.13.52])
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2470F800296
+	for <dm-devel@redhat.com>; Fri,  3 Jul 2020 23:29:36 +0000 (UTC)
+Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	de-mta-7-gbmeKUTYOgOdxl2cHD3K5g-1; Fri, 03 Jul 2020 20:50:27 +0200
-X-MC-Unique: gbmeKUTYOgOdxl2cHD3K5g-1
-Received: from DB8PR04MB6555.eurprd04.prod.outlook.com (2603:10a6:10:103::20)
-	by DB6PR04MB3000.eurprd04.prod.outlook.com (2603:10a6:6:b::21) with
-	Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.20.3131.26; Fri, 3 Jul 2020 18:50:26 +0000
-Received: from DB8PR04MB6555.eurprd04.prod.outlook.com
-	([fe80::8130:53b2:48d5:593]) by DB8PR04MB6555.eurprd04.prod.outlook.com
-	([fe80::8130:53b2:48d5:593%3]) with mapi id 15.20.3153.028;
-	Fri, 3 Jul 2020 18:50:26 +0000
-From: Martin Wilck <Martin.Wilck@suse.com>
-To: "snitzer@redhat.com" <snitzer@redhat.com>
-Thread-Topic: [dm-devel] [PATCH 0/7] Fix muitpath/multipathd flush issue
-Thread-Index: AQHWUWET2l0TZNBxQkS1qsaRuRy/yqj2MtwA
-Date: Fri, 3 Jul 2020 18:50:26 +0000
-Message-ID: <11f2c30ae0c94ce76e1bf110e8bc599cc7ddd832.camel@suse.com>
-References: <20200618180458.GI5894@octiron.msp.redhat.com>
-	<c5e95e7bc75b11e811854ff0b0988ff19ef45e13.camel@suse.com>
-	<20200618230625.GJ5894@octiron.msp.redhat.com>
-	<5357998bd17e1147fd3a6615e03251d1aa4900d8.camel@suse.com>
-	<20200702031449.GB29962@octiron.msp.redhat.com>
-	<8158d509bca2cae483d553defdd1eb378c16d813.camel@suse.com>
-	<20200702151829.GA11089@octiron.msp.redhat.com>
-	<cd568c7aabaa102db8ef6ba8ceb87b96d62f632c.camel@suse.com>
-	<20200702194128.GG11089@octiron.msp.redhat.com>
-	<be1e8d96543bc86a6a194bb9c708fba91878d9c9.camel@suse.com>
-	<20200703163909.GA7187@redhat.com>
-In-Reply-To: <20200703163909.GA7187@redhat.com>
+	us-mta-482-MI3parngPVyZ2xC29Rnrcw-1; Fri, 03 Jul 2020 19:29:31 -0400
+X-MC-Unique: MI3parngPVyZ2xC29Rnrcw-1
+IronPort-SDR: yWDJBC0i2wNVh45QPpFNAQTd+YftwoiPkKY0jIMFRNJvMLwhYw7Qgj6CdySMP30QrnfkhNyYk1
+	6I3RI9TU6pAgiORdKPwopEyo3NzeIi9QzOi7v1S0ShD7Kaxd/h++Nj4DexJVadvqyt/fkbyjeg
+	tOLb1p+5Fw8SGiLiwuHQjY00sQBbSoAulNCUXSdB/bjsCmcSMnhnKz2jK8shkE8eHNW03UbAkV
+	HDrmL4GqG9uQLzTvJRs0l4iMwtaRx1krghCSukrPiKcsB2xz5PzdO9o0Y1jTfujdjP1n+Kl7ih
+	+2k=
+X-IronPort-AV: E=Sophos;i="5.75,309,1589212800"; d="scan'208";a="141610806"
+Received: from mail-bn7nam10lp2107.outbound.protection.outlook.com (HELO
+	NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.107])
+	by ob1.hgst.iphmx.com with ESMTP; 04 Jul 2020 07:29:28 +0800
+Received: from BYAPR04MB4965.namprd04.prod.outlook.com (2603:10b6:a03:4d::25)
+	by BY5PR04MB6961.namprd04.prod.outlook.com (2603:10b6:a03:22b::21)
+	with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3153.20;
+	Fri, 3 Jul 2020 23:29:25 +0000
+Received: from BYAPR04MB4965.namprd04.prod.outlook.com
+	([fe80::4d72:27c:c075:c5e6]) by BYAPR04MB4965.namprd04.prod.outlook.com
+	([fe80::4d72:27c:c075:c5e6%7]) with mapi id 15.20.3153.027;
+	Fri, 3 Jul 2020 23:29:25 +0000
+From: Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>
+To: "hch@lst.de" <hch@lst.de>
+Thread-Topic: [PATCH 05/11] block: get rid of the trace rq insert wrapper
+Thread-Index: AQHWTm8vk3fl1wwNBEOkFWbWf3m+uA==
+Date: Fri, 3 Jul 2020 23:29:25 +0000
+Message-ID: <BYAPR04MB4965DFE805071F971DC8C71C866A0@BYAPR04MB4965.namprd04.prod.outlook.com>
+References: <20200629234314.10509-1-chaitanya.kulkarni@wdc.com>
+	<20200629234314.10509-6-chaitanya.kulkarni@wdc.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.36.3
-x-originating-ip: [94.218.227.113]
+x-originating-ip: [199.255.45.62]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9b6455f6-edbb-465a-6810-08d81f81f30e
-x-ms-traffictypediagnostic: DB6PR04MB3000:
-x-microsoft-antispam-prvs: <DB6PR04MB3000F5313657EE3D089E7280FC6A0@DB6PR04MB3000.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: ebbe502e-6e23-44fc-bd8b-08d81fa8ec6a
+x-ms-traffictypediagnostic: BY5PR04MB6961:
+x-microsoft-antispam-prvs: <BY5PR04MB69610F46129A7CBE896A2C25866A0@BY5PR04MB6961.namprd04.prod.outlook.com>
+wdcipoutbound: EOP-TRUE
+x-ms-oob-tlc-oobclassifiers: OLM:4502;
 x-forefront-prvs: 045315E1EE
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: NXSo+BFu/REAhKYF3uXgWY9vH8Wr6YZMj10YNMRyzr2kCMg+x+G5LqAyU0qj1E8iyQ1RQXh3d3dRYsqRNeuIrAZ+H9t03BgLrEJ0xpmn6WjVVTxbdo0cxs9OAa7PLFanJTcKpFqbcwvubAD27RkRmI+iWnzav0Nx4gE8/JTEFM83VE06SFz6Z/Ery8aIHyZ2KdbGfirFhTP98WzDsG1WxPNZ8fMyljQcI19nkeX2G+UIpSj1pTABt7aGpz4VCPazJMsSOTRQSN563dryEtapyY5dtGgQwBEUmH49vjSSm6+C0dnfavf1EDgBYkWTbM3h
+x-microsoft-antispam-message-info: aHbK1d8ZEFddcJNCB4YXgzcAMrjzHQLfUlyudRbLpRUVapJC0ReE66OcA69kdCCZ4qj7jZmfekPHH+h5BQ+xHwI18ibzZjEzzQAhk68UK3FyjZb8iRA5a4hb4pujak5uuy1DPuM4BHA3mDkMDeyxzkq7jwdGCL021Ybc7b/j5TKbZNLlldIRXEVQMyVpJGt9Xl+IY9/nUB25v79VJc5zEJb91ETBZmDJoH+JoI02W7BUKeMBz+iGwiKq0eOuDtkP2A6onH1flWkUZxzce7CTKMkhEo38ErRIAz3GfbtJpWmtS6fVyAu2bt9klYhQQEMVP1HyM8nezE5B+VUpdlcfYTSB1SR96eLsKQbzIBddp6zXIyoWadJmlbzukGj4/puU
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:DB8PR04MB6555.eurprd04.prod.outlook.com;
+	IPV:NLI; SFV:NSPM; H:BYAPR04MB4965.namprd04.prod.outlook.com;
 	PTR:; CAT:NONE; SFTY:;
-	SFS:(136003)(39860400002)(376002)(346002)(396003)(366004)(66476007)(450100002)(4744005)(36756003)(6512007)(478600001)(66946007)(71200400001)(66446008)(66556008)(6486002)(64756008)(4326008)(2616005)(8936002)(86362001)(66574015)(5660300002)(26005)(76116006)(316002)(83380400001)(8676002)(2906002)(6506007)(6916009)(186003)(54906003)(91956017);
-	DIR:OUT; SFP:1101;
-x-ms-exchange-antispam-messagedata: 4WF9A3xoTxhKe1Ul8B8rwpIm4PDEt6BSsCyERpCg+Njxgfs791GbPBeSVcnebVA4N2Hv8KBFgD8a49cyur5fCnpk56XS0Q+Nk3L5MbFpGs7rwZXaIgSwnrxiq9hF8t7xOG7lU4EE9vJyDP8tF4Lkz0exaAiRmkYREya8S+Sl9pv3J54frul2bWVx/90mfxnHBSUQc8yF4/EJl1NHWjr4IqcLJKjm7dcOOzX5rq0LnkfpdaAA7NNw4KiAheU4KSkuwiRWHQvKpTSxpAx1W76GvPEeXH7gvhXAFshWebcyGANJjDMKJBpeX5+IOxC19QThQg0LbwSCKDX7+4wRmu6ZxX7x7uwn2cIxTydgXy/VOK38sfA3mQrqdj76qoL4MKSSbwQ2DdUEkt86XOXSVP9Ss0DRhJF6Gur+Em4VeAKtxorVIOX2T9vdpryJ4m4GwOnq9TZBi1uO4tGS9+9xFIhPjh9Ebk84wx41mdzb584tncNAEQn276k54wgaWZMTlpSQ
+	SFS:(4636009)(136003)(39860400002)(396003)(376002)(366004)(346002)(55016002)(26005)(71200400001)(186003)(66946007)(7696005)(76116006)(478600001)(54906003)(52536014)(5660300002)(316002)(7416002)(9686003)(2906002)(86362001)(8936002)(8676002)(4326008)(66476007)(66556008)(66446008)(64756008)(6916009)(83380400001)(33656002)(6506007)(53546011)(26583001);
+	DIR:OUT; SFP:1102;
+x-ms-exchange-antispam-messagedata: GRpAjlEJSwXkVjDM84apE2wekkuAJ08L7k/ec3+IylKR/TDc28J16ZKqkLRu8g7VE6SwPbl8IQyPHvhtB6K3jntYJK+zWMbOfxDVDUmpzQfHNLk60FYg10RhhPdSWw2ROLJe2vuGFXOedRZBLoiGbuQf5Veif8mAEE3aKFxo1yhlTAiQswThR8eg7sxItcsnwVKQS032Rqjn981xO7UC+CZBdGOPJqNnqjmWCuDzkKue3XGaW0jVFRe6X5DoZEihOunhFDEHY/AEbOmiXH79zWWy/8S+ExtKuoHZ9E7BsFqLVM0aFaLJ2QUC3TK30EXB2ohvv4qPi3xIt5B7Tx4i91psi3HUlqKHMwecNMuGKoQTkkDeou4g72VIdWj4eXYYA8ujyKeu6zrHfv57spLpCNbne+kFfE+mfcBTZSy7lwkivj3aN79wTAi+j9+fSuvKX1I7Bumm0ebiMVAfPn9yREARw/TAQIr7KfNRnY2Chmo=
 x-ms-exchange-transport-forked: True
-Content-ID: <EE61EAF43CE96F48899739D2EF44C8E4@eurprd04.prod.outlook.com>
 MIME-Version: 1.0
-X-OriginatorOrg: suse.com
+X-OriginatorOrg: wdc.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6555.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b6455f6-edbb-465a-6810-08d81f81f30e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jul 2020 18:50:26.1235 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR04MB4965.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ebbe502e-6e23-44fc-bd8b-08d81fa8ec6a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jul 2020 23:29:25.2841 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9th1AQ1fvpfmXpPHN1Yo+yJVj2Vi4A/NsPWWpLjsgEVXd5RJVZLCrlVteKOXcEsSoIyow5WZlZDwtMWXyctF2Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR04MB3000
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MS-Exchange-CrossTenant-userprincipalname: kVmDLlrXTKpFqjWvC0CpvOvuffAmq2aNlUM9S6bdtbCPxOGQkUDPDNRRGUm78Bvis3/V8zVYetr+Rh8swMrJ8bfwKO1hvYZakaYiCmYpU80=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR04MB6961
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 063IoZJx010670
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 063NTfE7010620
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"zkabelac@redhat.com" <zkabelac@redhat.com>
-Subject: Re: [dm-devel] [PATCH 0/7] Fix muitpath/multipathd flush issue
+Cc: "axboe@kernel.dk" <axboe@kernel.dk>,
+	"paolo.valente@linaro.org" <paolo.valente@linaro.org>,
+	"sagi@grimberg.me" <sagi@grimberg.me>,
+	"snitzer@redhat.com" <snitzer@redhat.com>,
+	"fangguoju@gmail.com" <fangguoju@gmail.com>,
+	"rdunlap@infradead.org" <rdunlap@infradead.org>,
+	"rostedt@goodmis.org" <rostedt@goodmis.org>,
+	"ming.lei@redhat.com" <ming.lei@redhat.com>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"mingo@redhat.com" <mingo@redhat.com>, "colyli@suse.de" <colyli@suse.de>,
+	"jack@suse.czi" <jack@suse.czi>, "agk@redhat.com" <agk@redhat.com>,
+	"bvanassche@acm.org" <bvanassche@acm.org>
+Subject: Re: [dm-devel] [PATCH 05/11] block: get rid of the trace rq insert
+	wrapper
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -127,41 +132,104 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Fri, 2020-07-03 at 12:39 -0400, Mike Snitzer wrote:
->=20
-> Docker couldn't have later opens fail due to a pending removal --
-> it'd
-> break their app.  So if you want it to do what you'd have imagined it
-> to
-> be; we'll need to introduce a new flag that alters the behavior
-> (maybe
-> as a module param off of DM core's dm-mod.ko).  Patches welcome --
-> but
-> you'll need a pretty good reason (not read back far enough but maybe
-> you have one?).
+Christoph,
 
-Thanks a lot for the explanation. I don't think I'm going write patches
-and reason about it. We were just looking for the best way to safely
-flush maps in multipath-tools, and I'd considered deferred remove as
-one option, which it most likely is not. Anyway, I like to understand
-why thinks are the way they are, so thanks again.
+On 6/29/20 4:44 PM, Chaitanya Kulkarni wrote:
+> Get rid of the wrapper for trace_block_rq_insert() and call the function
+> directly.
+> 
+> Signed-off-by: Chaitanya Kulkarni<chaitanya.kulkarni@wdc.com>
+> ---
 
-Cheers,
-Martin
+Can we re-consider adding this patch ? here are couple of reasons:-
 
---=20
-Dr. Martin Wilck <mwilck@suse.com>, Tel. +49 (0)911 74053 2107
-SUSE  Software Solutions Germany GmbH
-HRB 36809, AG N=FCrnberg GF: Felix
-Imend=F6rffer
+1. Increase in the size of the text region of the object file:-
+
+    By adding the trace header #include <trace/events/block.h>
+    in io-scheduler where it is calling trace_block_rq_insert()
+    increases the size of the text region of the object file
+    kyber(+215) & bfq (+317) [1].
+
+2. Mandatory io-sched built-in kernel compilation:-
+
+    When testing with a different io-sched KConfig options ("*" vs "M"),
+    when kyber and bfq compilation option set to "M" having this patch
+    reports error[2].
+
+If I've not missed something here then can we drop this patch ?
+
+In case we really want to do this change it will need to have KConfig
+separate patch such that if tracing is selected it will force * 
+selection (built-in KConfig) for schedulers in question and etc.
+
+Do we want to do this ?
+
+Regards,
+Chaitanya
+
+
+[1] Scheduler IO object size comparison :-
+
+    Without this patch :-
+    ---------------------
+    # size block/bfq-iosched.o
+     text	   data	    bss	    dec	    hex	filename
+    62204	   1011	     32	  63247	   f70f	block/bfq-iosched.o
+    # size block/kyber-iosched.o
+     text	   data	    bss	    dec	    hex	filename
+    14808	   2699	     48	  17555	   4493	block/kyber-iosched.o
+    With this patch :-
+    ------------------
+    # size block/bfq-iosched.o
+     text	   data	    bss	    dec	    hex	filename
+    62521	   1028	     32	  63581	   f85d	block/bfq-iosched.o
+    # size block/kyber-iosched.o
+     text	   data	    bss	    dec	    hex	filename
+    15023	   2716	     48	  17787	   457b	block/kyber-iosched.o
+
+[2] Error with selecting M for io-sched kyber & bfq :-
+
+ERROR: modpost: "__tracepoint_block_rq_insert" [block/bfq.ko] undefined!
+ERROR: modpost: "__tracepoint_block_rq_insert" [block/kyber-iosched.ko] 
+undefined!
+make[2]: *** [Module.symvers] Error 1
+make[2]: *** Deleting file `Module.symvers'
+make[1]: *** [modules] Error 2
+make[1]: *** Waiting for unfinished jobs....
+arch/x86/tools/insn_decoder_test: success: Decoded and checked 4932572 
+instructions
+   TEST    posttest
+   arch/x86/tools/insn_sanity: Success: decoded and checked 1000000 
+random instructions with 0 errors (seed:0x4c6e1a40)
+	CC      arch/x86/boot/version.o
+	VOFFSET arch/x86/boot/compressed/../voffset.h
+	OBJCOPY arch/x86/boot/compressed/vmlinux.bin
+	RELOCS  arch/x86/boot/compressed/vmlinux.relocs
+	CC      arch/x86/boot/compressed/kaslr.o
+	CC      arch/x86/boot/compressed/misc.o
+	GZIP    arch/x86/boot/compressed/vmlinux.bin.gz
+	MKPIGGY arch/x86/boot/compressed/piggy.S
+	AS      arch/x86/boot/compressed/piggy.o
+	LD      arch/x86/boot/compressed/vmlinux
+	ZOFFSET arch/x86/boot/zoffset.h
+	OBJCOPY arch/x86/boot/vmlinux.bin
+	AS      arch/x86/boot/header.o
+	LD      arch/x86/boot/setup.elf
+	OBJCOPY arch/x86/boot/setup.bin
+	BUILD   arch/x86/boot/bzImage
+	Setup is 15132 bytes (padded to 15360 bytes).
+	System is 8951 kB
+	CRC ff6eac72
+Kernel: arch/x86/boot/bzImage is ready  (#59)
+	make: *** [__sub-make] Error 2
 
 
 
