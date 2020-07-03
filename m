@@ -2,65 +2,115 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 5FC5E2139E6
-	for <lists+dm-devel@lfdr.de>; Fri,  3 Jul 2020 14:19:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1593778754;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=mXkAYcrnsDt2EoocFY/vX0oImesWrvXLxfEblP3dDKo=;
-	b=XCvCnePboQ+sO8Q8zBL//egQPrNR5T7dNi+zvDRl5laARXuzRO29Z7CEux7vfZEw7q7G3U
-	PN6R3LM18SVXR4HQmrfyZRy1ZXK5zBkNF3/ivG0hOQCqsmfgmbCc60mTza5yTc4PUTkRva
-	TwzbwhtV+4rVmQpocyZNEKBrsq1VwLg=
+	by mail.lfdr.de (Postfix) with ESMTP id 98417213B7D
+	for <lists+dm-devel@lfdr.de>; Fri,  3 Jul 2020 16:06:45 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-412-RApHo76pOaW8GiiEoI7rbA-1; Fri, 03 Jul 2020 08:19:12 -0400
-X-MC-Unique: RApHo76pOaW8GiiEoI7rbA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-208-Q7gSN0aGMfWf4Cd_PDIH6g-1; Fri, 03 Jul 2020 10:06:42 -0400
+X-MC-Unique: Q7gSN0aGMfWf4Cd_PDIH6g-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9826F107ACF7;
-	Fri,  3 Jul 2020 12:19:05 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2133F7BD4A;
-	Fri,  3 Jul 2020 12:19:00 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 634BE7BAE;
+	Fri,  3 Jul 2020 14:06:35 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AAA871EE;
+	Fri,  3 Jul 2020 14:06:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0FC786C9CB;
-	Fri,  3 Jul 2020 12:18:46 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C491A1809547;
+	Fri,  3 Jul 2020 14:06:16 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 063CIWes031071 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 3 Jul 2020 08:18:32 -0400
+	id 063E67wt010160 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 3 Jul 2020 10:06:07 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4029A100238C; Fri,  3 Jul 2020 12:18:32 +0000 (UTC)
+	id 15104110F0C0; Fri,  3 Jul 2020 14:06:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5611D10013D4;
-	Fri,  3 Jul 2020 12:18:29 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id 063CISbW014177; Fri, 3 Jul 2020 08:18:28 -0400
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id 063CISKb014173; Fri, 3 Jul 2020 08:18:28 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Fri, 3 Jul 2020 08:18:28 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: linux-raid@vger.kernel.org, Song Liu <song@kernel.org>
-Message-ID: <alpine.LRH.2.02.2007030812320.13686@file01.intranet.prod.int.rdu2.redhat.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0FD59110F0BC
+	for <dm-devel@redhat.com>; Fri,  3 Jul 2020 14:06:05 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F0C018EF3A3
+	for <dm-devel@redhat.com>; Fri,  3 Jul 2020 14:06:04 +0000 (UTC)
+Received: from de-smtp-delivery-102.mimecast.com
+	(de-smtp-delivery-102.mimecast.com [62.140.7.102]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-143-UEXaa3-JOOK20DYCh0empw-1;
+	Fri, 03 Jul 2020 10:06:02 -0400
+X-MC-Unique: UEXaa3-JOOK20DYCh0empw-1
+Received: from EUR03-DB5-obe.outbound.protection.outlook.com
+	(mail-db5eur03lp2051.outbound.protection.outlook.com [104.47.10.51])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	de-mta-18-6jO2JhXCN4OGZuL1HBrUlQ-1; Fri, 03 Jul 2020 16:05:58 +0200
+X-MC-Unique: 6jO2JhXCN4OGZuL1HBrUlQ-1
+Received: from DB8PR04MB6555.eurprd04.prod.outlook.com (2603:10a6:10:103::20)
+	by DB7PR04MB5385.eurprd04.prod.outlook.com (2603:10a6:10:83::16) with
+	Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3153.24;
+	Fri, 3 Jul 2020 14:05:58 +0000
+Received: from DB8PR04MB6555.eurprd04.prod.outlook.com
+	([fe80::8130:53b2:48d5:593]) by DB8PR04MB6555.eurprd04.prod.outlook.com
+	([fe80::8130:53b2:48d5:593%3]) with mapi id 15.20.3153.028;
+	Fri, 3 Jul 2020 14:05:58 +0000
+From: Martin Wilck <Martin.Wilck@suse.com>
+To: "bmarzins@redhat.com" <bmarzins@redhat.com>
+Thread-Topic: [dm-devel] [PATCH 2/3] libmutipath: don't close fd on
+	dm_lib_release
+Thread-Index: AQHWAvDVMPVBmrxKu0ahxytrCBthq6j0yJkAgACKFACAAS2VAA==
+Date: Fri, 3 Jul 2020 14:05:57 +0000
+Message-ID: <69ee475e7cc3cfdacca20701ac0b44000ed33443.camel@suse.com>
+References: <1585083834-14237-1-git-send-email-bmarzins@redhat.com>
+	<1585083834-14237-2-git-send-email-bmarzins@redhat.com>
+	<ebfcb22b005314635b77e4820e205971d708d07d.camel@suse.com>
+	<20200325205255.GB17313@octiron.msp.redhat.com>
+	<20200325220045.GC17313@octiron.msp.redhat.com>
+	<4eaae3bfe0c383d23a839483e88ec093883f4e5a.camel@suse.com>
+	<20200702200632.GH11089@octiron.msp.redhat.com>
+In-Reply-To: <20200702200632.GH11089@octiron.msp.redhat.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.36.3
+x-originating-ip: [94.218.227.113]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 00affc07-8392-4ac9-6f3f-08d81f5a35b1
+x-ms-traffictypediagnostic: DB7PR04MB5385:
+x-microsoft-antispam-prvs: <DB7PR04MB538513B2D6E32F37FDF95E6AFC6A0@DB7PR04MB5385.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-forefront-prvs: 045315E1EE
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: t/CZkR7fdrf+pnjWF79//mqiMHsMKEu8On095Ft64egfNsqtm7lBzYxKLHlgcWC8WxzRa9aqG2s0DK1DhEdA4cuo9eyheqnRwsRtQEbZf1R+W8McQCQ+VKz4N15ygWYr+FMVygTThMn4b+/pY5I7qtK5SJPC1t2VA81mnUOyyo+byvtUClsZMv/kI0FZDMqUD34K5zf7W0j1obO3Dj/GTF5Mpid6fXWJOX67L9VqHjmIkuKta9n2p7R7rBJgPF7Eq+lNTjsMVa+CId1jrNIdxqQVe3PnVHY8Wz/r95NWzID6YN61EnXLgpMUfaQJLaukSutb1oFjgT/zOrywY8q9QQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:DB8PR04MB6555.eurprd04.prod.outlook.com;
+	PTR:; CAT:NONE; SFTY:;
+	SFS:(136003)(396003)(346002)(39860400002)(366004)(376002)(83380400001)(6916009)(2616005)(2906002)(26005)(478600001)(36756003)(76116006)(316002)(6486002)(66946007)(66476007)(86362001)(66556008)(64756008)(91956017)(66446008)(6506007)(71200400001)(186003)(8936002)(6512007)(5660300002)(8676002)(450100002)(4326008)(66574015);
+	DIR:OUT; SFP:1101;
+x-ms-exchange-antispam-messagedata: ECiLA05abNyr0wuVjTY5ddiB5qD/WruT5sbYAxhcdaQqhDPcgfePMn24O3ZkVTFA2a5MmLExrhUQ9WM1ys+4jk29Q3wZ0402KncKZpg8LuGC13iZBszm7w4S4PtBcNsMEnXY57cLQlY+2rV2BBeKqfiTZhqIjojpo/ksE94CCsQgd6j/s6BOJXxDXDiiAKbuO5JyeUh/C1mjD0m8kSUJW3I85BO3gf/ONVGKdCN+ZMfbdD+EcXiBhKfIXT26lnWWg7Tq1A4qF8bmnR5ur+M3hXMX0RKvVPxng5uZbmsWvRmgHxbwSp5KDEWem0zFZGLknnuelFItsTCr/nRiOx50Iw8Y1QgZehzoyqdeuyBIFtZ//h12oqfjp+ZIDGioJHzDCOTWGoup2LWE21iSgIwfFCZ3FF7p29t4djpY1kIG2lxAVxDjaiW+K2yJsg51VndVeYfuLvBzKhX554IW5INd5/6CuUnGkuBivGNA08hHuVdavo/sn8mq9EHDb1IY5w/q
+x-ms-exchange-transport-forked: True
+Content-ID: <BAD31EFE809A6447886A7865E1369B73@eurprd04.prod.outlook.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6555.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00affc07-8392-4ac9-6f3f-08d81f5a35b1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jul 2020 14:05:58.0893 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: tN7hEPrAxVuWn/9scIITwj5uKatvOJhCE0VJMUxGHXU47VNyGtawpCL0cV/mICcwr74QMhiLDCLgqV5Xmufqlw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB5385
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 063E67wt010160
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Mike Snitzer <msnitzer@redhat.com>
-Subject: [dm-devel] a crash in md-raid
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH 2/3] libmutipath: don't close fd on
+ dm_lib_release
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -74,86 +124,97 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
-Hi
+On Thu, 2020-07-02 at 15:06 -0500, Benjamin Marzinski wrote:
+> On Thu, Jul 02, 2020 at 11:52:21AM +0000, Martin Wilck wrote:
+> > On Wed, 2020-03-25 at 17:00 -0500, Benjamin Marzinski wrote:
+> > > On Wed, Mar 25, 2020 at 03:52:55PM -0500, Benjamin Marzinski
+> > > wrote:
+> > > > On Wed, Mar 25, 2020 at 03:16:50PM +0000, Martin Wilck wrote:
+> > > > > On Tue, 2020-03-24 at 16:03 -0500, Benjamin Marzinski wrote:
+> > > > >=20
+> > > > > AFAICS, this function has been in libdm since 1.02.111. We
+> > > > > support
+> > > > > 1.02.89 (if all features enabled, otherwise even older).
+> > > > > Perhaps
+> > > > > we
+> > > > > should make this function call conditional on the libdm
+> > > > > verson?
+> > > > >=20
+> > > > > But perhaps more importantly, why do we still need to call
+> > > > > dm_lib_release()? AFAICS it's only needed for systems that
+> > > > > have
+> > > > > no udev
+> > > > > support for creating device nodes (to call update_devs() via
+> > > > > dm_lib_release()), and we don't support that anymore anyway,
+> > > > > do
+> > > > > we?=20
+> > > > >=20
+> > > > > Since 26c4bb0, we're always setting the
+> > > > > DM_UDEV_DISABLE_LIBRARY_FALLBACK flag, and the cookie, too
+> > > > > (we aren't setting it for DM_DEVICE_RELOAD, but it isn't
+> > > > > needed
+> > > > > for
+> > > > > that, either, since no device nodes need to be created or
+> > > > > removed); so
+> > > > > dm_lib_release() should really have no effect.
+> > > > >=20
+> > > > > Regards
+> > > > > Martin
+> > > >=20
+> > > > Good call. I'll redo this patch.
+> > >=20
+> > > Actually, I've changed my mind. Calling dm_lib_release() lets us
+> > > release
+> > > the memory that device-mapper uses to store all the node ops that
+> > > it
+> > > was saving up.  Without calling dm_lib_release(), AFAICS, that
+> > > memory
+> > > keeps growing until the daemon exits.
+> >=20
+> > Sorry for coming back to this so late. I've just stared at the
+> > libdm
+> > code again.=20
+> >=20
+> > We always set DM_UDEV_DISABLE_LIBRARY_FALLBACK. In the standard
+> > CREATE
+> > and REMOVE cases, libdm doesn't stack any operations if this flag
+> > is
+> > set. The only exceptions are=20
+> >=20
+> >  a) RESUME operations with DM_ADD_NODE_ON_RESUME set. This happens
+> > implicity when we create new maps
+> >  b) RENAME operations
+> >=20
+> > In both cases, we call dm_udev_wait() after the libdm operation,
+> > which
+> > calls update_devs() and should thus have the same effect as
+> > dm_lib_release(). IOW, I still believe we don't need to call
+> > dm_lib_release() any more.
+>=20
+> Sure. But can we leave this patch as is, and remove those calls in a
+> different patch?
 
-I report a crash in md-raid. I have 5.8-rc3 kernel with debugging enabled. 
-The crash happened when running the "shell/integrity-blocksize.sh" lvm 
-test.
+Of course. It's not important, either. I just wanted to make sure
+we agree on the technical side.
 
-The crash is not reproducible.
+Regards
+Martin
 
-Mikulas
+--=20
+Dr. Martin Wilck <mwilck@suse.com>, Tel. +49 (0)911 74053 2107
+SUSE  Software Solutions Germany GmbH
+HRB 36809, AG N=FCrnberg GF: Felix
+Imend=F6rffer
 
 
-[ 1188.640677] device-mapper: raid: Superblocks created for new raid set
-[ 1188.679378] md/raid1:mdX: not clean -- starting background reconstruction
-[ 1188.681072] md/raid1:mdX: active with 2 out of 2 mirrors
-[ 1189.093707] mdX: bitmap file is out of date, doing full recovery
-[ 1189.108688] md: resync of RAID array mdX
-[ 1189.341925] Unable to handle kernel paging request at virtual address 006b6b6b6b6b6b73
-[ 1189.343183] Mem abort info:
-[ 1189.343632]   ESR = 0x96000004
-[ 1189.344219]   EC = 0x25: DABT (current EL), IL = 32 bits
-[ 1189.345012]   SET = 0, FnV = 0
-[ 1189.345483]   EA = 0, S1PTW = 0
-[ 1189.345998] Data abort info:
-[ 1189.346483]   ISV = 0, ISS = 0x00000004
-[ 1189.347109]   CM = 0, WnR = 0
-[ 1189.347589] [006b6b6b6b6b6b73] address between user and kernel address ranges
-[ 1189.348761] Internal error: Oops: 96000004 [#1] PREEMPT SMP
-[ 1189.349802] Modules linked in: brd reiserfs hmac crc32_generic dm_zero dm_integrity dm_crypt dm_writecache dm_raid xfs dm_thin_pool dm_cache_smq dm_cache dm_persistent_data dm_bio_prison dm_mirror dm_region_hash dm_log dm_snapshot dm_bufio loop ipv6 autofs4 binfmt_misc nls_utf8 nls_cp852 vfat fat dm_mod af_packet aes_ce_blk crypto_simd cryptd aes_ce_cipher crct10dif_ce ghash_ce gf128mul sha2_ce sha256_arm64 sha1_ce sha1_generic efivars sg virtio_rng virtio_net rng_core net_failover failover virtio_console ext4 crc16 mbcache jbd2 raid10 raid456 libcrc32c crc32c_generic async_raid6_recov async_memcpy async_pq raid6_pq async_xor xor xor_neon async_tx raid1 raid0 linear md_mod sd_mod t10_pi virtio_scsi scsi_mod virtio_blk virtio_mmio virtio_pci virtio_ring virtio [last unloaded: scsi_debug]
-[ 1189.370709] CPU: 2 PID: 20 Comm: ksoftirqd/2 Not tainted 5.8.0-rc3-debug #1
-[ 1189.372088] Hardware name: QEMU KVM Virtual Machine, BIOS 0.0.0 02/06/2015
-[ 1189.373400] pstate: 60000005 (nZCv daif -PAN -UAO BTYPE=--)
-[ 1189.374492] pc : end_sync_write+0x38/0xf8 [raid1]
-[ 1189.375408] lr : bio_endio+0x234/0x238
-[ 1189.376134] sp : ffffff80fee87af0
-[ 1189.376788] x29: ffffff80fee87af0 x28: 0000000000000004
-[ 1189.377817] x27: 0000000000000100 x26: ffffffc010532916
-[ 1189.378832] x25: 0000000100015b61 x24: 0000000100015b61
-[ 1189.379860] x23: 0000000000000001 x22: ffffffc01062f8e8
-[ 1189.380921] x21: 6b6b6b6b6b6b6b6b x20: ffffff80eaaa2058
-[ 1189.381967] x19: ffffff80d2e01c00 x18: 0000000000000000
-[ 1189.382970] x17: 0000000000000000 x16: 0000000000000000
-[ 1189.383994] x15: 0000000000000000 x14: 0000000000000000
-[ 1189.385003] x13: 0000000000000000 x12: 0000000000000001
-[ 1189.386010] x11: 0000000000000000 x10: 00000000000010f0
-[ 1189.387032] x9 : ffffff80f932cf98 x8 : 0000000000000000
-[ 1189.388044] x7 : 0000000000000000 x6 : 0000000000000000
-[ 1189.389050] x5 : 0000000000000001 x4 : ffffff80fee87aa0
-[ 1189.390062] x3 : ffffff8000000000 x2 : 0000000000000001
-[ 1189.391088] x1 : ffffff80fa22ca00 x0 : ffffff80d2e01c00
-[ 1189.392230] Call trace:
-[ 1189.392719]  end_sync_write+0x38/0xf8 [raid1]
-[ 1189.393553]  bio_endio+0x234/0x238
-[ 1189.394440]  dec_pending+0x1b8/0x1bc [dm_mod]
-[ 1189.395307]  clone_endio+0x14c/0x160 [dm_mod]
-[ 1189.396155]  bio_endio+0x234/0x238
-[ 1189.397602]  blk_update_request+0x2f8/0x418
-[ 1189.398473]  blk_mq_end_request+0x20/0x44
-[ 1189.400709]  lo_complete_rq+0x5c/0xbc [loop]
-[ 1189.401771]  blk_done_softirq+0xbc/0xc0
-[ 1189.402564]  efi_header_end+0x368/0x4b8
-[ 1189.403559]  run_ksoftirqd+0x34/0x64
-[ 1189.404303]  smpboot_thread_fn+0x228/0x22c
-[ 1189.405132]  kthread+0x114/0x124
-[ 1189.405807]  ret_from_fork+0x10/0x18
-[ 1189.406537] Code: f9400013 aa1303e0 f9401274 f9400295 (f94006a8)
-[ 1189.414734] ---[ end trace 4538a7676b244523 ]---
-[ 1189.415635] Kernel panic - not syncing: Fatal exception in interrupt
-[ 1189.416874] SMP: stopping secondary CPUs
-[ 1189.417691] Kernel Offset: disabled
-[ 1189.418380] CPU features: 0x000022,00002000
-[ 1189.419185] Memory Limit: none
-[ 1189.419743] ---[ end Kernel panic - not syncing: Fatal exception in interrupt ]---
 
 --
 dm-devel mailing list
