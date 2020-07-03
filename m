@@ -1,65 +1,65 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id D9B9321305E
-	for <lists+dm-devel@lfdr.de>; Fri,  3 Jul 2020 02:09:12 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id B901F213058
+	for <lists+dm-devel@lfdr.de>; Fri,  3 Jul 2020 02:07:49 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1593734951;
+	s=mimecast20190719; t=1593734868;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=1Tt0mWOmQMnIOw/PVs3fR8QJB+BQKydr75cnxyTEy0M=;
-	b=fo7zGVr2mjw4s85W/gH7K0laku2vmwl7w/owhqiwnXLtfHYJVvJcS1/NJ8ZsuD+6uD0I5l
-	nJ2B+J8yZeMZbTY+lhLUb/gymFpmpxSI2+x0KSkSHMNFip8T/nFvXkFJZZOD8sPRQzJB5e
-	O6XWywPVfz6zyPwmaXROrwUVaX58mjY=
+	bh=1xGIiTafq4vv9+l57BidSgH39hdduSbIWKWRRiEZZbw=;
+	b=X72LKL7WRplZ3W9iY6bk7QPk5qsSLURONqoOKVoycxucv3cg6JNg2mI9/DsBNrXsWsV6Jm
+	KtmUfQiika0qP4VvY+CBTEM1bgpBei7rQ4Ah60+4IYHjf94pOmstQAZvBiRtTSrLF/JPdO
+	CMUY1ulC1Zx/QFXi3muQiE2IhQsgHv8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-208-XpD5e2rBPEiMzHJ0WWZFfg-1; Thu, 02 Jul 2020 20:07:52 -0400
-X-MC-Unique: XpD5e2rBPEiMzHJ0WWZFfg-1
+ us-mta-470-biouOhN6Nx656eoWiTU_JA-1; Thu, 02 Jul 2020 20:07:46 -0400
+X-MC-Unique: biouOhN6Nx656eoWiTU_JA-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9BC76EC1A3;
-	Fri,  3 Jul 2020 00:07:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 82763EC1A7;
+	Fri,  3 Jul 2020 00:07:40 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7750F101F69D;
-	Fri,  3 Jul 2020 00:07:43 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DF965101042D;
+	Fri,  3 Jul 2020 00:07:39 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1EC8B1809563;
-	Fri,  3 Jul 2020 00:07:43 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 89A49180954D;
+	Fri,  3 Jul 2020 00:07:26 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
 	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06307D7m014362 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 2 Jul 2020 20:07:13 -0400
+	id 06307EcJ014377 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 2 Jul 2020 20:07:14 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 27A5610027AC; Fri,  3 Jul 2020 00:07:13 +0000 (UTC)
+	id 20285101042D; Fri,  3 Jul 2020 00:07:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1164410013D2;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A29810013D2;
 	Fri,  3 Jul 2020 00:07:13 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 06307BOt014117; 
-	Thu, 2 Jul 2020 19:07:11 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 06307Cvw014121; 
+	Thu, 2 Jul 2020 19:07:12 -0500
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 06307BxV014116;
-	Thu, 2 Jul 2020 19:07:11 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 06307Ce7014120;
+	Thu, 2 Jul 2020 19:07:12 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Thu,  2 Jul 2020 19:07:04 -0500
-Message-Id: <1593734826-14059-6-git-send-email-bmarzins@redhat.com>
+Date: Thu,  2 Jul 2020 19:07:05 -0500
+Message-Id: <1593734826-14059-7-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1593734826-14059-1-git-send-email-bmarzins@redhat.com>
 References: <1593734826-14059-1-git-send-email-bmarzins@redhat.com>
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
 Cc: device-mapper development <dm-devel@redhat.com>,
 	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH v3 5/7] multipath: make flushing maps work like
-	other commands
+Subject: [dm-devel] [PATCH v3 6/7] multipath: delegate flushing maps to
+	multipathd
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,102 +82,62 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The config structure doesn't need a special variable just for removes.
-Multipath can just use the cmd variable, like it does for the other
-commands.
+Since there can be problems with removing maps outside of multipathd,
+multipath should attempt to delegate this command to multipathd.
+However, multipathd doesn't attempt to suspend the device, in order
+to avoid potential hangs. If delegating to multipathd fails, multipath
+should try the remove itself.
 
 Reviewed-by: Martin Wilck <mwilck@suse.com>
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/config.h    |  3 ++-
- libmultipath/configure.h |  3 ---
- multipath/main.c         | 20 ++++++++++----------
- 3 files changed, 12 insertions(+), 14 deletions(-)
+ multipath/main.c      | 14 ++++++++++++++
+ multipath/multipath.8 |  4 ++--
+ 2 files changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/libmultipath/config.h b/libmultipath/config.h
-index ceecff2d..55569360 100644
---- a/libmultipath/config.h
-+++ b/libmultipath/config.h
-@@ -38,6 +38,8 @@ enum mpath_cmds {
- 	CMD_ADD_WWID,
- 	CMD_USABLE_PATHS,
- 	CMD_DUMP_CONFIG,
-+	CMD_FLUSH_ONE,
-+	CMD_FLUSH_ALL,
- };
- 
- enum force_reload_types {
-@@ -142,7 +144,6 @@ struct config {
- 	unsigned int max_checkint;
- 	bool use_watchdog;
- 	int pgfailback;
--	int remove;
- 	int rr_weight;
- 	int no_path_retry;
- 	int user_friendly_names;
-diff --git a/libmultipath/configure.h b/libmultipath/configure.h
-index d7509000..0e33bf40 100644
---- a/libmultipath/configure.h
-+++ b/libmultipath/configure.h
-@@ -45,9 +45,6 @@ enum {
- 	CP_RETRY,
- };
- 
--#define FLUSH_ONE 1
--#define FLUSH_ALL 2
--
- struct vectors;
- 
- int setup_map (struct multipath * mpp, char * params, int params_size,
 diff --git a/multipath/main.c b/multipath/main.c
-index d89f0a91..101fd656 100644
+index 101fd656..6a24e483 100644
 --- a/multipath/main.c
 +++ b/multipath/main.c
-@@ -909,10 +909,10 @@ main (int argc, char *argv[])
- 				cmd = CMD_DRY_RUN;
- 			break;
- 		case 'f':
--			conf->remove = FLUSH_ONE;
-+			cmd = CMD_FLUSH_ONE;
- 			break;
- 		case 'F':
--			conf->remove = FLUSH_ALL;
-+			cmd = CMD_FLUSH_ALL;
- 			break;
- 		case 'l':
- 			if (optarg && !strncmp(optarg, "l", 1))
-@@ -1053,6 +1053,10 @@ main (int argc, char *argv[])
- 		condlog(0, "the -w option requires a device");
- 		goto out;
+@@ -820,6 +820,20 @@ int delegate_to_multipathd(enum mpath_cmds cmd,
+ 	if (cmd == CMD_CREATE && conf->force_reload == FORCE_RELOAD_YES) {
+ 		p += snprintf(p, n, "reconfigure");
  	}
-+	if (cmd == CMD_FLUSH_ONE && dev_type != DEV_DEVMAP) {
-+		condlog(0, "the -f option requires a map name to remove");
-+		goto out;
++	else if (cmd == CMD_FLUSH_ONE && dev && dev_type == DEV_DEVMAP) {
++		p += snprintf(p, n, "del map %s", dev);
++		/* multipathd doesn't try as hard, to avoid potentially
++		 * hanging. If it fails, retry with the regular multipath
++		 * command */
++		r = NOT_DELEGATED;
 +	}
- 
- 	switch(delegate_to_multipathd(cmd, dev, dev_type, conf)) {
- 	case DELEGATE_OK:
-@@ -1086,16 +1090,12 @@ main (int argc, char *argv[])
- 	}
- 	if (retries < 0)
- 		retries = conf->remove_retries;
--	if (conf->remove == FLUSH_ONE) {
--		if (dev_type == DEV_DEVMAP) {
--			r = dm_suspend_and_flush_map(dev, retries) ?
--				RTVL_FAIL : RTVL_OK;
--		} else
--			condlog(0, "must provide a map name to remove");
--
-+	if (cmd == CMD_FLUSH_ONE) {
-+		r = dm_suspend_and_flush_map(dev, retries) ?
-+		    RTVL_FAIL : RTVL_OK;
- 		goto out;
- 	}
--	else if (conf->remove == FLUSH_ALL) {
 +	else if (cmd == CMD_FLUSH_ALL) {
- 		r = dm_flush_maps(1, retries) ? RTVL_FAIL : RTVL_OK;
- 		goto out;
- 	}
++		p += snprintf(p, n, "del maps");
++		/* multipathd doesn't try as hard, to avoid potentially
++		 * hanging. If it fails, retry with the regular multipath
++		 * command */
++		r = NOT_DELEGATED;
++	}
+ 	/* Add other translations here */
+ 
+ 	if (strlen(command) == 0)
+diff --git a/multipath/multipath.8 b/multipath/multipath.8
+index 6fb8645a..5b29a5d9 100644
+--- a/multipath/multipath.8
++++ b/multipath/multipath.8
+@@ -125,11 +125,11 @@ the system.
+ Other operation modes are chosen by using one of the following command line switches:
+ .TP
+ .B \-f
+-Flush (remove) a multipath device map specified as parameter, if unused.
++Flush (remove) a multipath device map specified as parameter, if unused. This operation is delegated to the multipathd daemon if it's running.
+ .
+ .TP
+ .B \-F
+-Flush (remove) all unused multipath device maps.
++Flush (remove) all unused multipath device maps. This operation is delegated to the multipathd daemon if it's running.
+ .
+ .TP
+ .B \-l
 -- 
 2.17.2
 
