@@ -1,85 +1,82 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 67A52216FAC
-	for <lists+dm-devel@lfdr.de>; Tue,  7 Jul 2020 17:07:04 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 2B270217A26
+	for <lists+dm-devel@lfdr.de>; Tue,  7 Jul 2020 23:22:28 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-446-OxyVU_0lPciMEi00aXYF3A-1; Tue, 07 Jul 2020 11:07:00 -0400
-X-MC-Unique: OxyVU_0lPciMEi00aXYF3A-1
+ us-mta-130-9nlD8qGNPeacU29hCN126g-1; Tue, 07 Jul 2020 17:22:24 -0400
+X-MC-Unique: 9nlD8qGNPeacU29hCN126g-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E261D8015F6;
-	Tue,  7 Jul 2020 15:06:53 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 18196797E4;
-	Tue,  7 Jul 2020 15:06:53 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 27BC1BFC0;
+	Tue,  7 Jul 2020 21:22:17 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0ADF679CE4;
+	Tue,  7 Jul 2020 21:22:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 35DAC1809554;
-	Tue,  7 Jul 2020 15:06:52 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6BD8272F4D;
+	Tue,  7 Jul 2020 21:22:05 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 067F6nKl029873 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 7 Jul 2020 11:06:49 -0400
+	id 067LI5ar010493 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 7 Jul 2020 17:18:05 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1240A53C4; Tue,  7 Jul 2020 15:06:49 +0000 (UTC)
+	id 6D8814C816; Tue,  7 Jul 2020 21:18:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0DE7B49C1A
-	for <dm-devel@redhat.com>; Tue,  7 Jul 2020 15:06:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 65B388287D
+	for <dm-devel@redhat.com>; Tue,  7 Jul 2020 21:18:03 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 152BB108C26C
-	for <dm-devel@redhat.com>; Tue,  7 Jul 2020 15:06:46 +0000 (UTC)
-Received: from mail-il1-f196.google.com (mail-il1-f196.google.com
-	[209.85.166.196]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-63--FrpO-NVMGyHisbhsA1AzQ-1; Tue, 07 Jul 2020 11:06:44 -0400
-X-MC-Unique: -FrpO-NVMGyHisbhsA1AzQ-1
-Received: by mail-il1-f196.google.com with SMTP id e18so25556612ilr.7
-	for <dm-devel@redhat.com>; Tue, 07 Jul 2020 08:06:43 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 66A888007D0
+	for <dm-devel@redhat.com>; Tue,  7 Jul 2020 21:18:03 +0000 (UTC)
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+	[209.85.128.68]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-189-5Waj_4_nOLOgsRTxjjEhsg-1; Tue, 07 Jul 2020 17:18:01 -0400
+X-MC-Unique: 5Waj_4_nOLOgsRTxjjEhsg-1
+Received: by mail-wm1-f68.google.com with SMTP id l2so686014wmf.0;
+	Tue, 07 Jul 2020 14:18:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
 	:content-transfer-encoding;
-	bh=2XASVM4AqY31qIAgIY2OK3nO95mUNITex7KrDrl4aN8=;
-	b=rft1jQTu1qCIku0fXAAkiLNYQ174DilSrwRpJOxiutqm9M0ybjjg5quZa7RfbkiGJb
-	XPCt+DeodHTeDt+IdYJJXokY0RKb3IuFk+2FhHn8dblY5zzKiLlxfBtbe7TB05CObRBO
-	x/e4jXoxGZDLlCksRINOjGgbD3FXr2mnLeHv+tPBqecpBc49wqG0WKcwDJY/7fVqQjFL
-	84zfamV6ZT/PAy7mLpwFvRYx2ZtlQOZe1GuIO6l/GNtoEPmZLdjbi241Jcf1kq3rKJaf
-	UYBp7tKZZFMhY9IMggw9yI3dAYmSLf7bS6KS5ls1bkH2s5FYBYd1YRYPKG/DgZeyHWgd
-	QppA==
-X-Gm-Message-State: AOAM5300aA4OrnIF0Uo3KrUtY+xPSaCAa8zPCk4XbEU3EtWNYOpxgtCj
-	R5Zg6MggzHh2vbHkbkXJotQMeQ==
-X-Google-Smtp-Source: ABdhPJzRlJE3eTlzkgRAxz2LN+fUaR3t68qtI+trr22emrpJiqK3il2bLM/g1joJmGIus/cnlN+rMQ==
-X-Received: by 2002:a92:c502:: with SMTP id r2mr37872563ilg.78.1594134403170; 
-	Tue, 07 Jul 2020 08:06:43 -0700 (PDT)
-Received: from [192.168.1.58] ([65.144.74.34])
-	by smtp.gmail.com with ESMTPSA id
-	v3sm13314560ili.12.2020.07.07.08.06.42
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Tue, 07 Jul 2020 08:06:42 -0700 (PDT)
-To: Mike Snitzer <snitzer@redhat.com>, linux-block@vger.kernel.org
-References: <20200707150433.39480-1-snitzer@redhat.com>
-From: Jens Axboe <axboe@kernel.dk>
-Message-ID: <dc5f15f0-db7f-eb1b-f504-d29ec5ef8a7e@kernel.dk>
-Date: Tue, 7 Jul 2020 09:06:41 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.8.0
+	bh=cLHz9dbPtFa6pyCNteEwZJnsZ87V50CW05UmV8YwEk4=;
+	b=RQBqFGm0FtGJSQPxMYNgwySBa9ZME4ZYUxceKQ0vGmHv8zDjlf4aNV5KNodCW9zA2C
+	0woVKY54amhoq1t3Nu0v6ew2nmOJmcctZRebXNButgG/ubj5ZRRTpJ0mNEkWlpCUcF31
+	PAqdMlRuEgENRk9qR8oS1KZ5mpm4IK1qryNsN93oN/xZyzpp1HtmUZyR2fFwsu7+2SX6
+	h2Zh6txV0DDm1x2qAvitSuG52XL0wqdetg8c2kmaPbkk+YkDayRQqvEruacrbV0t9lkh
+	QDY8xyk19nZ2p5UQ2HWx0quK/Z54Yq0erkGkE+/CAB2ubTtovOU1iEKXQmBEkUlrUdHy
+	NiPQ==
+X-Gm-Message-State: AOAM533Xppy6aH4OKa2mtkB33j49LMnH0AmNGOIQYKOHfDkdJFGTIXwv
+	L0wuQbZUrFoisiBdxe8aFg==
+X-Google-Smtp-Source: ABdhPJxoGeXyF8IAhKv+MtUajjs/YEE9STg2OylU67tmEPihulkz0WKnpRyeUrbTPB/ZiNeBa8xH7Q==
+X-Received: by 2002:a1c:acc3:: with SMTP id v186mr6319535wme.79.1594156680012; 
+	Tue, 07 Jul 2020 14:18:00 -0700 (PDT)
+Received: from localhost (181.red-83-37-105.dynamicip.rima-tde.net.
+	[83.37.105.181]) by smtp.gmail.com with ESMTPSA id
+	z132sm2831884wmb.21.2020.07.07.14.17.59
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Tue, 07 Jul 2020 14:17:59 -0700 (PDT)
+From: Xose Vazquez Perez <xose.vazquez@gmail.com>
+To: 
+Date: Tue,  7 Jul 2020 23:17:58 +0200
+Message-Id: <20200707211758.12528-1-xose.vazquez@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20200707150433.39480-1-snitzer@redhat.com>
-Content-Language: en-US
+X-Patchwork-Bot: notify
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, stable@vger.kernel.org, Ming Lei <ming.lei@redhat.com>
-Subject: Re: [dm-devel] [PATCH] blk-mq: consider non-idle request as
- "inflight" in blk_mq_rq_inflight()
+Cc: Xose Vazquez Perez <xose.vazquez@gmail.com>,
+	Khazhismel Kumykov <khazhy@google.com>, DM-DEVEL ML <dm-devel@redhat.com>,
+	Gabriel Krisman Bertazi <krisman@collabora.com>,
+	Martin Wilck <mwilck@suse.com>
+Subject: [dm-devel] [PATCH] multipath-tools: add info to man page for the
+	historical-service-time path selector
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -101,30 +98,34 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 7/7/20 9:04 AM, Mike Snitzer wrote:
-> From: Ming Lei <ming.lei@redhat.com>
-> 
-> dm-multipath is the only user of blk_mq_queue_inflight().  When
-> dm-multipath calls blk_mq_queue_inflight() to check if it has
-> outstanding IO it can get a false negative.  The reason for this is
-> blk_mq_rq_inflight() doesn't consider requests that are no longer
-> MQ_RQ_IN_FLIGHT but that are now MQ_RQ_COMPLETE (->complete isn't
-> called or finished yet) as "inflight".
-> 
-> This causes request-based dm-multipath's dm_wait_for_completion() to
-> return before all outstanding dm-multipath requests have actually
-> completed.  This breaks DM multipath's suspend functionality because
-> blk-mq requests complete after DM's suspend has finished -- which
-> shouldn't happen.
-> 
-> Fix this by considering any request not in the MQ_RQ_IDLE state
-> (so either MQ_RQ_COMPLETE or MQ_RQ_IN_FLIGHT) as "inflight" in
-> blk_mq_rq_inflight().
+Cc: Khazhismel Kumykov <khazhy@google.com>
+Cc: Gabriel Krisman Bertazi <krisman@collabora.com>
+Cc: Martin Wilck <mwilck@suse.com>
+Cc: Benjamin Marzinski <bmarzins@redhat.com>
+Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
+Cc: DM-DEVEL ML <dm-devel@redhat.com>
+Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
+---
+ multipath/multipath.conf.5 | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Applied, thanks.
-
+diff --git a/multipath/multipath.conf.5 b/multipath/multipath.conf.5
+index 05a5e8ff..6e637769 100644
+--- a/multipath/multipath.conf.5
++++ b/multipath/multipath.conf.5
+@@ -205,6 +205,10 @@ of outstanding I/O to the path.
+ (Since 2.6.31 kernel) Choose the path for the next bunch of I/O based on the amount
+ of outstanding I/O to the path and its relative throughput.
+ .TP
++.I "historical-service-time 0"
++(Since 5.8 kernel) Choose the path for the next bunch of I/O based on the shortest
++time by comparing estimated service time (based on historical service time).
++.TP
+ The default is: \fBservice-time 0\fR
+ .RE
+ .
 -- 
-Jens Axboe
+2.26.2
 
 --
 dm-devel mailing list
