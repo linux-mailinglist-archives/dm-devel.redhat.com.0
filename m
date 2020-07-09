@@ -1,63 +1,64 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 45F58219EA1
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 4DC42219EA2
 	for <lists+dm-devel@lfdr.de>; Thu,  9 Jul 2020 13:04:15 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-301-pIwqAvq2NUiY1AQRMzFBXA-1; Thu, 09 Jul 2020 07:04:12 -0400
-X-MC-Unique: pIwqAvq2NUiY1AQRMzFBXA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-455-uGTrBUXvOaGaanb__5cUtg-1; Thu, 09 Jul 2020 07:04:11 -0400
+X-MC-Unique: uGTrBUXvOaGaanb__5cUtg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 092A6108BD0A;
-	Thu,  9 Jul 2020 11:04:07 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D9C076106A;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 25F95186A8C5;
+	Thu,  9 Jul 2020 11:04:06 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0269690E6B;
 	Thu,  9 Jul 2020 11:04:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 74FA61CA6;
-	Thu,  9 Jul 2020 11:04:05 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 52C811809547;
+	Thu,  9 Jul 2020 11:04:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 069B3voD002093 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 9 Jul 2020 07:03:57 -0400
+	id 069B3vIO002104 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 9 Jul 2020 07:03:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C5C62114B304; Thu,  9 Jul 2020 11:03:56 +0000 (UTC)
+	id 885D7200BD8B; Thu,  9 Jul 2020 11:03:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9D40C114B300
-	for <dm-devel@redhat.com>; Thu,  9 Jul 2020 11:03:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4DCC72166B28
+	for <dm-devel@redhat.com>; Thu,  9 Jul 2020 11:03:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B1B10858EE4
-	for <dm-devel@redhat.com>; Thu,  9 Jul 2020 11:03:54 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 923C718056A0
+	for <dm-devel@redhat.com>; Thu,  9 Jul 2020 11:03:53 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-140-Csum6q4YN_yGUNbuzfvg3w-1;
-	Thu, 09 Jul 2020 07:03:50 -0400
-X-MC-Unique: Csum6q4YN_yGUNbuzfvg3w-1
+	relay.mimecast.com with ESMTP id us-mta-359-cFA1CuYSOuCWKobD5g700A-1;
+	Thu, 09 Jul 2020 07:03:48 -0400
+X-MC-Unique: cFA1CuYSOuCWKobD5g700A-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id A227FAE84;
+	by mx2.suse.de (Postfix) with ESMTP id D3D7CAED9;
 	Thu,  9 Jul 2020 11:03:46 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu,  9 Jul 2020 13:03:24 +0200
-Message-Id: <20200709110330.9917-1-mwilck@suse.com>
+Date: Thu,  9 Jul 2020 13:03:25 +0200
+Message-Id: <20200709110330.9917-2-mwilck@suse.com>
+In-Reply-To: <20200709110330.9917-1-mwilck@suse.com>
+References: <20200709110330.9917-1-mwilck@suse.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 069B3voD002093
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 069B3vIO002104
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 00/80] multipath-tools series part VI: incomplete
-	udev initialization
+Subject: [dm-devel] [PATCH 75/80] multipathd: uev_trigger(): handle
+	incomplete ADD events
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,7 +72,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -81,58 +82,54 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Hi Christophe, hi Ben,
+Udev may be killed after handling the ADD event for a multipath map,
+but before handling the subsequent CHANGE event that populates the
+udev data base with the device properties (e.g. during initrd processing).
+If this happens, the ADD uevent sent during coldplug will only provide a
+subset of the device properties. We need another CHANGE event to make the map
+available to the system.
 
-This is part VI of a larger patch series for multipath-tools I've been preparing.
-It's based on the previously submitted part V.
+Signed-off-by: Martin Wilck <mwilck@suse.com>
+---
+ multipathd/main.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-The full series will also be available here:
-https://github.com/mwilck/multipath-tools/tree/ups/submit-2007
-
-There are tags in that repo for each part of the series.
-This part is tagged "submit-200709-6".
-
-The series handles an issue observed in certain partner installations, where
-DM devices were incompletely initialized by udev - during initrd procesing,
-the "add" event had been processed, but the subsequent "change" event had not,
-because udevd had been killed before getting around to handle them.
-
-My first attempt to fix this was based on udev rules ("11-dm-mpath.rules: Fix
-udev rule processing during coldplug"), but this patch was wrong. We have to
-add logic in multipathd itself. The most important patch in the series that
-fixed the actual customer problem is patch 76. Patch 75 was supposed to handle
-a slightly different incarnation of the same problem, which so far hasn't been
-actually observed. But I think having this patch "just in case" doesn't hurt,
-either.
-
-Patch 78 and 79 rename "update_path_groups()", which over time has grown
-to be the main entry point for reloading maps.
-
-Patch 80 fixes an issue which I observed while testing the first 3 patches.
-
-Regards,
-Martin
-
-Martin Wilck (6):
-  multipathd: uev_trigger(): handle incomplete ADD events
-  libmultipath: select_action(): force udev reload for uninitialized
-    maps
-  libmultipath: log dm_task_run() errors
-  libmultipath: move reload_map() to multipathd
-  multipathd: rename update_path_groups() -> reload_and_sync_map()
-  libmultipath: select_action(): don't drop map if alias clashes
-
- libmultipath/configure.c  | 112 +++++++++++++++-----------------------
- libmultipath/configure.h  |   3 +-
- libmultipath/devmapper.c  |  61 +++++++++++++++++----
- libmultipath/devmapper.h  |   4 ++
- multipathd/cli_handlers.c |   8 +--
- multipathd/dmevents.c     |   4 +-
- multipathd/main.c         |  71 ++++++++++++++++++++++--
- multipathd/main.h         |   4 +-
- multipathd/waiter.c       |   2 +
- 9 files changed, 178 insertions(+), 91 deletions(-)
-
+diff --git a/multipathd/main.c b/multipathd/main.c
+index 66ca4e3..29227cd 100644
+--- a/multipathd/main.c
++++ b/multipathd/main.c
+@@ -1508,6 +1508,31 @@ uev_trigger (struct uevent * uev, void * trigger_data)
+ 			uev_pathfail_check(uev, vecs);
+ 		} else if (!strncmp(uev->action, "remove", 6)) {
+ 			r = uev_remove_map(uev, vecs);
++		} else if (!strncmp(uev->action, "add", 3)) {
++			const char *ev_name;
++			char *dm_name;
++			int major = -1, minor = -1;
++
++			/*
++			 * If DM_NAME is not set for a valid map, trigger a
++			 * change event. This can happen during coldplug
++			 * if udev was killed between handling the 'add' and
++			 * 'change' events before.
++			 */
++			ev_name = uevent_get_dm_name(uev);
++			if (!ev_name) {
++				major = uevent_get_major(uev);
++				minor = uevent_get_minor(uev);
++				dm_name = dm_mapname(major, minor);
++				if (dm_name && *dm_name) {
++					condlog(2, "%s: received incomplete 'add' uevent, triggering change",
++						dm_name);
++					udev_device_set_sysattr_value(uev->udev,
++								      "uevent",
++								      "change");
++					free(dm_name);
++				}
++			}
+ 		}
+ 		goto out;
+ 	}
 -- 
 2.26.2
 
