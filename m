@@ -1,55 +1,62 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 4698B21AF8B
-	for <lists+dm-devel@lfdr.de>; Fri, 10 Jul 2020 08:38:28 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id BF74D21BCEA
+	for <lists+dm-devel@lfdr.de>; Fri, 10 Jul 2020 20:27:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1594405625;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=EMbhxgWup/Hviij1CUpM3/gZ25zTWpk/esKrfGuLmjA=;
+	b=erHi+OZhilZF4FrHb1q+GkcwQOy/JXZLMBJQov+vlp5Om556cUnVwg8WCe/azkXiQcGquU
+	R1lEuKGjR8Bz0W/8NXCv8aM10E3nY9Np82548AOPj6t1YyHAyRehaa7fDatvJtDWCNEORt
+	YV/wr6dxDMKIgiHuDRVucMsS1W8pXgE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-29-ZoaZg1_pNX25hMS93J16oA-1; Fri, 10 Jul 2020 02:38:25 -0400
-X-MC-Unique: ZoaZg1_pNX25hMS93J16oA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-280-Jr0pif-oO9eGjDTmO4hPIw-1; Fri, 10 Jul 2020 14:27:01 -0400
+X-MC-Unique: Jr0pif-oO9eGjDTmO4hPIw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D67E51092;
-	Fri, 10 Jul 2020 06:38:16 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9534DE91B;
+	Fri, 10 Jul 2020 18:26:52 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BF7CA70100;
-	Fri, 10 Jul 2020 06:38:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 394125F7D8;
+	Fri, 10 Jul 2020 18:26:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6120A72F48;
-	Fri, 10 Jul 2020 06:38:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E4FEC84352;
+	Fri, 10 Jul 2020 18:26:29 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06A6c33F007339 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 10 Jul 2020 02:38:03 -0400
+	id 06AIMFuk000752 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 10 Jul 2020 14:22:15 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6D1BF10013D4; Fri, 10 Jul 2020 06:38:03 +0000 (UTC)
+	id A49281A8EC; Fri, 10 Jul 2020 18:22:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from fornost.hmeau.com (vpn2-54-195.bne.redhat.com [10.64.54.195])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F7271002380;
-	Fri, 10 Jul 2020 06:38:00 +0000 (UTC)
-Received: from gwarestrin.arnor.me.apana.org.au ([192.168.0.7])
-	by fornost.hmeau.com with smtp (Exim 4.92 #5 (Debian))
-	id 1jtmfS-0006IF-3g; Fri, 10 Jul 2020 16:37:55 +1000
-Received: by gwarestrin.arnor.me.apana.org.au (sSMTP sendmail emulation);
-	Fri, 10 Jul 2020 16:37:54 +1000
-Date: Fri, 10 Jul 2020 16:37:54 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Eric Biggers <ebiggers@kernel.org>
-Message-ID: <20200710063753.GA1974@gondor.apana.org.au>
-References: <20200701045217.121126-3-ebiggers@kernel.org>
-	<20200709053126.GA5510@gondor.apana.org.au>
-	<20200710062403.GB2805@sol.localdomain>
+Received: from localhost (unknown [10.18.25.174])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C2ED919C66;
+	Fri, 10 Jul 2020 18:22:12 +0000 (UTC)
+Date: Fri, 10 Jul 2020 14:22:12 -0400
+From: Mike Snitzer <snitzer@redhat.com>
+To: Gabriel Krisman Bertazi <krisman@collabora.com>
+Message-ID: <20200710182211.GA20272@redhat.com>
+References: <alpine.LRH.2.02.2007081222500.4103@file01.intranet.prod.int.rdu2.redhat.com>
+	<873661g8wq.fsf@collabora.com> <20200708173356.GA8116@redhat.com>
+	<87v9ixer30.fsf@collabora.com>
 MIME-Version: 1.0
-In-Reply-To: <20200710062403.GB2805@sol.localdomain>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+In-Reply-To: <87v9ixer30.fsf@collabora.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, mpatocka@redhat.com, linux-crypto@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH 2/6] crypto: algapi - use common mechanism
- for inheriting flags
+Cc: dm-devel@redhat.com, Mikulas Patocka <mpatocka@redhat.com>,
+	Khazhismel Kumykov <khazhy@google.com>
+Subject: Re: [dm-devel] dm: use noio when sending kobject event
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -63,27 +70,52 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-On Thu, Jul 09, 2020 at 11:24:03PM -0700, Eric Biggers wrote:
->
-> I decided to make crypto_check_attr_type() return the mask instead, and do so
-> via a pointer argument instead of the return value (so that we don't overload an
-> errno return value and prevent flag 0x80000000 from working).
-> Please take a look at v2.  Thanks!
+On Wed, Jul 08 2020 at  3:37pm -0400,
+Gabriel Krisman Bertazi <krisman@collabora.com> wrote:
 
-Looks good.  Thanks!
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+> Mike Snitzer <snitzer@redhat.com> writes:
+> 
+> > On Wed, Jul 08 2020 at  2:26pm -0400,
+> > Gabriel Krisman Bertazi <krisman@collabora.com> wrote:
+> >
+> >> If I understand it correctly, considering the deadlock you shared, this
+> >> doesn't solve the entire issue. For instance, kobject_uevent_env on the
+> >> GFP_NOIO thread waits on uevent_sock_mutex, and another thread with
+> >> GFP_IO holding the mutex might have triggered the shrinker from inside
+> >> kobject_uevent_net_broadcast.  I believe 7e7cd796f277 ("scsi: iscsi: Fix
+> >> deadlock on recovery path during GFP_IO reclaim") solved the one you
+> >> shared and other similar cases for iSCSI in a different way.
+> >
+> > I staged a different fix, from Mikulas, for 5.9 that is meant to address
+> > the original report, please see:
+> > https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/commit/?h=dm-5.9&id=e5bfe9baf23dca211f4b794b651e871032c427ec
+> >
+> > I'd appreciate it if you could try this commit to se if it fixes the
+> > original issue you reported.
+> 
+> I reverted 7e7cd796f277 and cherry-picked e5bfe9baf23dc on my tree.
+> After a few iterations, I could see the conditions that formerly
+> triggered the deadlock happening, but this patch successfully allowed
+> the reclaim to succeed and the iscsi recovery thread to run.
+> 
+> My reproducer is a bit artificial, as I wrote it only from only the
+> problem description provided by google.  They were hitting this in
+> production and might have a better final word on the fix, though I know
+> they don't have a simple way to reproduce it.
+
+Nice job on getting together a reproducer that even begins to model
+the issue google's production setup teased out.
+
+Thanks for testing, I've added your Tested-by to the commit.
+
+Mike
 
 --
 dm-devel mailing list
