@@ -1,60 +1,51 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id D639C21AF64
-	for <lists+dm-devel@lfdr.de>; Fri, 10 Jul 2020 08:25:03 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 4698B21AF8B
+	for <lists+dm-devel@lfdr.de>; Fri, 10 Jul 2020 08:38:28 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-119-OLoDWFGGNoal2CtN0_-JeA-1; Fri, 10 Jul 2020 02:24:24 -0400
-X-MC-Unique: OLoDWFGGNoal2CtN0_-JeA-1
+ us-mta-29-ZoaZg1_pNX25hMS93J16oA-1; Fri, 10 Jul 2020 02:38:25 -0400
+X-MC-Unique: ZoaZg1_pNX25hMS93J16oA-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6A245800FF1;
-	Fri, 10 Jul 2020 06:24:19 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D67E51092;
+	Fri, 10 Jul 2020 06:38:16 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 45D4860C80;
-	Fri, 10 Jul 2020 06:24:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BF7CA70100;
+	Fri, 10 Jul 2020 06:38:15 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A29EC72F4B;
-	Fri, 10 Jul 2020 06:24:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6120A72F48;
+	Fri, 10 Jul 2020 06:38:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06A6OD2O006204 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 10 Jul 2020 02:24:13 -0400
+	id 06A6c33F007339 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 10 Jul 2020 02:38:03 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 064DB20A052D; Fri, 10 Jul 2020 06:24:13 +0000 (UTC)
+	id 6D1BF10013D4; Fri, 10 Jul 2020 06:38:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 021F220A052C
-	for <dm-devel@redhat.com>; Fri, 10 Jul 2020 06:24:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AB1E285A5B3
-	for <dm-devel@redhat.com>; Fri, 10 Jul 2020 06:24:10 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-286-3_9TFE0QO3ajiJYIyIueLg-1;
-	Fri, 10 Jul 2020 02:24:06 -0400
-X-MC-Unique: 3_9TFE0QO3ajiJYIyIueLg-1
-Received: from sol.localdomain (c-107-3-166-239.hsd1.ca.comcast.net
-	[107.3.166.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 8AF8B2072E;
-	Fri, 10 Jul 2020 06:24:04 +0000 (UTC)
-Date: Thu, 9 Jul 2020 23:24:03 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Message-ID: <20200710062403.GB2805@sol.localdomain>
+Received: from fornost.hmeau.com (vpn2-54-195.bne.redhat.com [10.64.54.195])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F7271002380;
+	Fri, 10 Jul 2020 06:38:00 +0000 (UTC)
+Received: from gwarestrin.arnor.me.apana.org.au ([192.168.0.7])
+	by fornost.hmeau.com with smtp (Exim 4.92 #5 (Debian))
+	id 1jtmfS-0006IF-3g; Fri, 10 Jul 2020 16:37:55 +1000
+Received: by gwarestrin.arnor.me.apana.org.au (sSMTP sendmail emulation);
+	Fri, 10 Jul 2020 16:37:54 +1000
+Date: Fri, 10 Jul 2020 16:37:54 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Eric Biggers <ebiggers@kernel.org>
+Message-ID: <20200710063753.GA1974@gondor.apana.org.au>
 References: <20200701045217.121126-3-ebiggers@kernel.org>
 	<20200709053126.GA5510@gondor.apana.org.au>
+	<20200710062403.GB2805@sol.localdomain>
 MIME-Version: 1.0
-In-Reply-To: <20200709053126.GA5510@gondor.apana.org.au>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+In-Reply-To: <20200710062403.GB2805@sol.localdomain>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, mpatocka@redhat.com, linux-crypto@vger.kernel.org
 Subject: Re: [dm-devel] [PATCH 2/6] crypto: algapi - use common mechanism
@@ -81,54 +72,18 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-On Thu, Jul 09, 2020 at 03:31:26PM +1000, Herbert Xu wrote:
-> Eric Biggers <ebiggers@kernel.org> wrote:
-> >
-> > @@ -875,14 +873,21 @@ static void cbcmac_exit_tfm(struct crypto_tfm *tfm)
-> > 
-> > static int cbcmac_create(struct crypto_template *tmpl, struct rtattr **tb)
-> > {
-> > +       struct crypto_attr_type *algt;
-> >        struct shash_instance *inst;
-> >        struct crypto_cipher_spawn *spawn;
-> >        struct crypto_alg *alg;
-> > +       u32 mask;
-> >        int err;
-> > 
-> > -       err = crypto_check_attr_type(tb, CRYPTO_ALG_TYPE_SHASH);
-> > -       if (err)
-> > -               return err;
-> > +       algt = crypto_get_attr_type(tb);
-> > +       if (IS_ERR(algt))
-> > +               return PTR_ERR(algt);
-> > +
-> > +       if ((algt->type ^ CRYPTO_ALG_TYPE_SHASH) & algt->mask)
-> > +               return -EINVAL;
-> > +
-> > +       mask = crypto_algt_inherited_mask(algt);
-> 
-> How about moving the types check into crypto_algt_inherited_mask,
-> e.g.,
-> 
-> 	u32 mask;
-> 	int err;
-> 
-> 	err = crypto_algt_inherited_mask(tb, CRYPTO_ALG_TYPE_SHASH);
-> 	if (err < 0)
-> 		return err;
-> 
-> 	mask = err;
-> 
-> This could then be used to simplify other templates too, such as
-> gcm.
-> 
+On Thu, Jul 09, 2020 at 11:24:03PM -0700, Eric Biggers wrote:
+>
+> I decided to make crypto_check_attr_type() return the mask instead, and do so
+> via a pointer argument instead of the return value (so that we don't overload an
+> errno return value and prevent flag 0x80000000 from working).
+> Please take a look at v2.  Thanks!
 
-I decided to make crypto_check_attr_type() return the mask instead, and do so
-via a pointer argument instead of the return value (so that we don't overload an
-errno return value and prevent flag 0x80000000 from working).
-Please take a look at v2.  Thanks!
-
-- Eric
+Looks good.  Thanks!
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
 
 --
 dm-devel mailing list
