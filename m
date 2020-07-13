@@ -1,108 +1,68 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 636BD21DABF
-	for <lists+dm-devel@lfdr.de>; Mon, 13 Jul 2020 17:49:52 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id EAFD221DB17
+	for <lists+dm-devel@lfdr.de>; Mon, 13 Jul 2020 18:02:10 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-209-sF6gEjHdM5KyuSzUKlXf7w-1; Mon, 13 Jul 2020 11:49:49 -0400
-X-MC-Unique: sF6gEjHdM5KyuSzUKlXf7w-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-297-eEoKHLYZOUmcTuezGGxUgw-1; Mon, 13 Jul 2020 12:02:06 -0400
+X-MC-Unique: eEoKHLYZOUmcTuezGGxUgw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B7EC61081;
-	Mon, 13 Jul 2020 15:49:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B65A88027E3;
+	Mon, 13 Jul 2020 16:02:00 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6507319D7E;
-	Mon, 13 Jul 2020 15:49:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9C929100E870;
+	Mon, 13 Jul 2020 16:01:58 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4009572F54;
-	Mon, 13 Jul 2020 15:49:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5C9CE94EEF;
+	Mon, 13 Jul 2020 16:01:55 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06DFnHNd020549 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 13 Jul 2020 11:49:17 -0400
+	id 06DG1ln4022050 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 13 Jul 2020 12:01:47 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 524E9EC4A7; Mon, 13 Jul 2020 15:49:17 +0000 (UTC)
+	id EEC682026D5D; Mon, 13 Jul 2020 16:01:46 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BD947E5B1A
-	for <dm-devel@redhat.com>; Mon, 13 Jul 2020 15:49:13 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EABE12018283
+	for <dm-devel@redhat.com>; Mon, 13 Jul 2020 16:01:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9F55E10B945E
-	for <dm-devel@redhat.com>; Mon, 13 Jul 2020 15:49:13 +0000 (UTC)
-Received: from EUR03-VE1-obe.outbound.protection.outlook.com
-	(mail-eopbgr50058.outbound.protection.outlook.com [40.107.5.58]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-456-fupyagfJOz2KoCMyKMaIng-1; Mon, 13 Jul 2020 11:49:07 -0400
-X-MC-Unique: fupyagfJOz2KoCMyKMaIng-1
-Received: from VI1PR04MB4046.eurprd04.prod.outlook.com (2603:10a6:803:4d::29)
-	by VI1PR04MB6815.eurprd04.prod.outlook.com (2603:10a6:803:130::10)
-	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3174.20;
-	Mon, 13 Jul 2020 15:49:03 +0000
-Received: from VI1PR04MB4046.eurprd04.prod.outlook.com
-	([fe80::8459:4be8:7034:7a81]) by
-	VI1PR04MB4046.eurprd04.prod.outlook.com
-	([fe80::8459:4be8:7034:7a81%6]) with mapi id 15.20.3174.025;
-	Mon, 13 Jul 2020 15:49:03 +0000
-To: Eric Biggers <ebiggers@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
-	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5D1C8100E7DB
+	for <dm-devel@redhat.com>; Mon, 13 Jul 2020 16:01:44 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-467-f41N5PsjOAmkHt5GwNL6IA-1;
+	Mon, 13 Jul 2020 12:01:40 -0400
+X-MC-Unique: f41N5PsjOAmkHt5GwNL6IA-1
+Received: from sol.localdomain (c-107-3-166-239.hsd1.ca.comcast.net
+	[107.3.166.239])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 2D2A82067D;
+	Mon, 13 Jul 2020 16:01:38 +0000 (UTC)
+Date: Mon, 13 Jul 2020 09:01:36 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>
+Message-ID: <20200713160136.GA1696@sol.localdomain>
 References: <20200701045217.121126-1-ebiggers@kernel.org>
 	<20200701045217.121126-6-ebiggers@kernel.org>
-From: =?UTF-8?Q?Horia_Geant=c4=83?= <horia.geanta@nxp.com>
-Message-ID: <3f2d3409-2739-b121-0469-b14c86110b2d@nxp.com>
-Date: Mon, 13 Jul 2020 18:49:00 +0300
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
-In-Reply-To: <20200701045217.121126-6-ebiggers@kernel.org>
-Content-Language: en-US
-X-ClientProxiedBy: AM3PR07CA0145.eurprd07.prod.outlook.com
-	(2603:10a6:207:8::31) To VI1PR04MB4046.eurprd04.prod.outlook.com
-	(2603:10a6:803:4d::29)
+	<3f2d3409-2739-b121-0469-b14c86110b2d@nxp.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.0.129] (84.117.251.185) by
-	AM3PR07CA0145.eurprd07.prod.outlook.com (2603:10a6:207:8::31)
-	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3195.16
-	via Frontend Transport; Mon, 13 Jul 2020 15:49:02 +0000
-X-Originating-IP: [84.117.251.185]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 1060a725-c530-44b1-d17c-08d82744445e
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6815:
-X-Microsoft-Antispam-PRVS: <VI1PR04MB6815779B0E4B14847BCAB99298600@VI1PR04MB6815.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /bX4p1FrlB0O/Qc+9QRFIwmIHHrutAA6azjO1o81WmvZtaCUnSkTZSB98w/hRe0n9qgWJCSq5ChYtpeK4B5yV/7/PoYsvhGpYQw5615mdMLveyf86a3t3kiwZHag1mJ+5zPBl94oz4kBq7smuOQkaoHwbJGzTchl4462182qXCA+yvabIG84y3IX/jZSY6fbOSPE0128E4bIPoyGuLp4TXegjBlBlgpH+fjnkNu/Au0r2QQXP/q1fc+PlBWCWxHwFUVXsUGtgY7og0sMQL57m9lDoBcPbaKcoM+qPWP4F8clyAhMtANzN+886dlgZZUw7iKciR2qFK9pukP8EuJFu42cfqa9VCxA/nQVESZSyW5SloqEbL/isFnTQ8FgGtcQHSBTKYDtEFjuKWOfEtuDEIBFWz+qqMhypSoFpkQ5QVfBXVR19fMW8y1HEffqDnKPvZ/oLkm7C8cGlEPNLJgN6g==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:VI1PR04MB4046.eurprd04.prod.outlook.com;
-	PTR:; CAT:NONE; SFTY:;
-	SFS:(4636009)(396003)(136003)(346002)(376002)(39860400002)(366004)(5660300002)(66476007)(66946007)(66556008)(52116002)(53546011)(2906002)(31686004)(36756003)(31696002)(8676002)(86362001)(16526019)(4326008)(966005)(956004)(83380400001)(110136005)(478600001)(26005)(2616005)(16576012)(6486002)(186003)(8936002)(316002)(43740500002);
-	DIR:OUT; SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: sAglqdfsWhn+2W4QOzcYYJigwd9bWnW8FQhgH6RABmWwgMMoeNpZMhurrelUNH6+jqwDJR5FuyCcrMmkb+z8zeK6OevdjDrsbOba4+MmwQC1ag8PCbrewOGp5551PPECTo+oSwizq7rhK8FIQJ/NU4C8qH4pnVa2xXUh8NACQltCi+COH7/wtnDQ973duIutMJGCIwBAm92k8gG6gNvelWClEEAukdlX9ZxH1ZHUjn4s+vAtW7Hg/Oa0f7OkrZqneXqfEa1BWXyz88INKBvdi+sg9XMBisI7REGBXHiQEUmp7dXY0GtttTjWU3g5ofRKoSIn2VTHYcrM4p9ceYm4ooXztXSZFFCDv8DEI9wzXKzTPCbie2C6Xi9CaXBWqP+QXKqFweQwGY2M5hnZADHY4wfMSvKD3cHi6tifikFleyhGL1v0o02lRZUgrN4ZzdmXu8+8PIo2/G36uhaf9xnPY+wAcXxUXU0CYbO8NqB4zhwCRfsaHYkje5w8JaLLVtF7
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1060a725-c530-44b1-d17c-08d82744445e
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB4046.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2020 15:49:03.5266 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /K9fl8CNNVGVU2+JhfpS/Yuop/gxJ6DuzbZuiRtz4oot/v814x7L+9Cz2EAsiC5cEoblW1ctS3caoZDkRXD/vQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6815
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+In-Reply-To: <3f2d3409-2739-b121-0469-b14c86110b2d@nxp.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 06DG1ln4022050
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>
 Subject: Re: [dm-devel] [PATCH 5/6] crypto: set the flag
 	CRYPTO_ALG_ALLOCATES_MEMORY
 X-BeenThere: dm-devel@redhat.com
@@ -118,68 +78,61 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
 
-On 7/1/2020 7:52 AM, Eric Biggers wrote:
-> From: Mikulas Patocka <mpatocka@redhat.com>
-> 
-> Set the flag CRYPTO_ALG_ALLOCATES_MEMORY in the crypto drivers that
-> allocate memory.
-> 
-Quite a few drivers are impacted.
-
-I wonder what's the proper way to address the memory allocation.
-
-Herbert mentioned setting up reqsize:
-https://lore.kernel.org/linux-crypto/20200610010450.GA6449@gondor.apana.org.au/
-
-I see at least two hurdles in converting the drivers to using reqsize:
-
-1. Some drivers allocate the memory using GFP_DMA
-
-reqsize does not allow drivers to control gfp allocation flags.
-
-I've tried converting talitos driver (to use reqsize) at some point,
-and in the process adding a generic CRYPTO_TFM_REQ_DMA flag:
-https://lore.kernel.org/linux-crypto/54FD8D3B.5040409@freescale.com
-https://lore.kernel.org/linux-crypto/1426266882-31626-1-git-send-email-horia.geanta@freescale.com
-
-The flag was supposed to be transparent for the user,
-however there were users that open-coded the request allocation,
-for example esp_alloc_tmp() in net/ipv4/esp4.c.
-At that time, Dave NACK-ed the change:
-https://lore.kernel.org/linux-crypto/1426266922-31679-1-git-send-email-horia.geanta@freescale.com
-
-
-2. Memory requirements cannot be determined / are not known
-at request allocation time
-
-An analysis for talitos driver is here:
-https://lore.kernel.org/linux-crypto/54F8235B.5080301@freescale.com
-
-In general, drivers would be forced to ask more memory than needed,
-to handle the "worst-case".
-Logic will be needed to fail in case the "worst-case" isn't correctly estimated.
-
-However, this is still problematic.
-
-For example, a driver could set up reqsize to accommodate for 32 S/G entries
-(in the HW S/G table). In case a dm-crypt encryption request would require more,
-then driver's .encrypt callback would fail, possibly with -ENOMEM,
-since there's not enough pre-allocated memory.
-This brings us back to the same problem we're trying to solve,
-since in this case the driver would be forced to either fail immediately or
-to allocate memory at .encrypt/.decrypt time.
-
-Thanks,
-Horia
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+T24gTW9uLCBKdWwgMTMsIDIwMjAgYXQgMDY6NDk6MDBQTSArMDMwMCwgSG9yaWEgR2VhbnTEgyB3
+cm90ZToKPiBPbiA3LzEvMjAyMCA3OjUyIEFNLCBFcmljIEJpZ2dlcnMgd3JvdGU6Cj4gPiBGcm9t
+OiBNaWt1bGFzIFBhdG9ja2EgPG1wYXRvY2thQHJlZGhhdC5jb20+Cj4gPiAKPiA+IFNldCB0aGUg
+ZmxhZyBDUllQVE9fQUxHX0FMTE9DQVRFU19NRU1PUlkgaW4gdGhlIGNyeXB0byBkcml2ZXJzIHRo
+YXQKPiA+IGFsbG9jYXRlIG1lbW9yeS4KPiA+IAo+IFF1aXRlIGEgZmV3IGRyaXZlcnMgYXJlIGlt
+cGFjdGVkLgo+IAo+IEkgd29uZGVyIHdoYXQncyB0aGUgcHJvcGVyIHdheSB0byBhZGRyZXNzIHRo
+ZSBtZW1vcnkgYWxsb2NhdGlvbi4KPiAKPiBIZXJiZXJ0IG1lbnRpb25lZCBzZXR0aW5nIHVwIHJl
+cXNpemU6Cj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtY3J5cHRvLzIwMjAwNjEwMDEw
+NDUwLkdBNjQ0OUBnb25kb3IuYXBhbmEub3JnLmF1Lwo+IAo+IEkgc2VlIGF0IGxlYXN0IHR3byBo
+dXJkbGVzIGluIGNvbnZlcnRpbmcgdGhlIGRyaXZlcnMgdG8gdXNpbmcgcmVxc2l6ZToKPiAKPiAx
+LiBTb21lIGRyaXZlcnMgYWxsb2NhdGUgdGhlIG1lbW9yeSB1c2luZyBHRlBfRE1BCj4gCj4gcmVx
+c2l6ZSBkb2VzIG5vdCBhbGxvdyBkcml2ZXJzIHRvIGNvbnRyb2wgZ2ZwIGFsbG9jYXRpb24gZmxh
+Z3MuCj4gCj4gSSd2ZSB0cmllZCBjb252ZXJ0aW5nIHRhbGl0b3MgZHJpdmVyICh0byB1c2UgcmVx
+c2l6ZSkgYXQgc29tZSBwb2ludCwKPiBhbmQgaW4gdGhlIHByb2Nlc3MgYWRkaW5nIGEgZ2VuZXJp
+YyBDUllQVE9fVEZNX1JFUV9ETUEgZmxhZzoKPiBodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51
+eC1jcnlwdG8vNTRGRDhEM0IuNTA0MDQwOUBmcmVlc2NhbGUuY29tCj4gaHR0cHM6Ly9sb3JlLmtl
+cm5lbC5vcmcvbGludXgtY3J5cHRvLzE0MjYyNjY4ODItMzE2MjYtMS1naXQtc2VuZC1lbWFpbC1o
+b3JpYS5nZWFudGFAZnJlZXNjYWxlLmNvbQo+IAo+IFRoZSBmbGFnIHdhcyBzdXBwb3NlZCB0byBi
+ZSB0cmFuc3BhcmVudCBmb3IgdGhlIHVzZXIsCj4gaG93ZXZlciB0aGVyZSB3ZXJlIHVzZXJzIHRo
+YXQgb3Blbi1jb2RlZCB0aGUgcmVxdWVzdCBhbGxvY2F0aW9uLAo+IGZvciBleGFtcGxlIGVzcF9h
+bGxvY190bXAoKSBpbiBuZXQvaXB2NC9lc3A0LmMuCj4gQXQgdGhhdCB0aW1lLCBEYXZlIE5BQ0st
+ZWQgdGhlIGNoYW5nZToKPiBodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1jcnlwdG8vMTQy
+NjI2NjkyMi0zMTY3OS0xLWdpdC1zZW5kLWVtYWlsLWhvcmlhLmdlYW50YUBmcmVlc2NhbGUuY29t
+Cj4gCj4gCj4gMi4gTWVtb3J5IHJlcXVpcmVtZW50cyBjYW5ub3QgYmUgZGV0ZXJtaW5lZCAvIGFy
+ZSBub3Qga25vd24KPiBhdCByZXF1ZXN0IGFsbG9jYXRpb24gdGltZQo+IAo+IEFuIGFuYWx5c2lz
+IGZvciB0YWxpdG9zIGRyaXZlciBpcyBoZXJlOgo+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xp
+bnV4LWNyeXB0by81NEY4MjM1Qi41MDgwMzAxQGZyZWVzY2FsZS5jb20KPiAKPiBJbiBnZW5lcmFs
+LCBkcml2ZXJzIHdvdWxkIGJlIGZvcmNlZCB0byBhc2sgbW9yZSBtZW1vcnkgdGhhbiBuZWVkZWQs
+Cj4gdG8gaGFuZGxlIHRoZSAid29yc3QtY2FzZSIuCj4gTG9naWMgd2lsbCBiZSBuZWVkZWQgdG8g
+ZmFpbCBpbiBjYXNlIHRoZSAid29yc3QtY2FzZSIgaXNuJ3QgY29ycmVjdGx5IGVzdGltYXRlZC4K
+PiAKPiBIb3dldmVyLCB0aGlzIGlzIHN0aWxsIHByb2JsZW1hdGljLgo+IAo+IEZvciBleGFtcGxl
+LCBhIGRyaXZlciBjb3VsZCBzZXQgdXAgcmVxc2l6ZSB0byBhY2NvbW1vZGF0ZSBmb3IgMzIgUy9H
+IGVudHJpZXMKPiAoaW4gdGhlIEhXIFMvRyB0YWJsZSkuIEluIGNhc2UgYSBkbS1jcnlwdCBlbmNy
+eXB0aW9uIHJlcXVlc3Qgd291bGQgcmVxdWlyZSBtb3JlLAo+IHRoZW4gZHJpdmVyJ3MgLmVuY3J5
+cHQgY2FsbGJhY2sgd291bGQgZmFpbCwgcG9zc2libHkgd2l0aCAtRU5PTUVNLAo+IHNpbmNlIHRo
+ZXJlJ3Mgbm90IGVub3VnaCBwcmUtYWxsb2NhdGVkIG1lbW9yeS4KPiBUaGlzIGJyaW5ncyB1cyBi
+YWNrIHRvIHRoZSBzYW1lIHByb2JsZW0gd2UncmUgdHJ5aW5nIHRvIHNvbHZlLAo+IHNpbmNlIGlu
+IHRoaXMgY2FzZSB0aGUgZHJpdmVyIHdvdWxkIGJlIGZvcmNlZCB0byBlaXRoZXIgZmFpbCBpbW1l
+ZGlhdGVseSBvcgo+IHRvIGFsbG9jYXRlIG1lbW9yeSBhdCAuZW5jcnlwdC8uZGVjcnlwdCB0aW1l
+Lgo+IAoKV2UgaGF2ZSB0byBwbGFjZSByZXN0cmljdGlvbnMgb24gd2hhdCBjYXNlcwohKGZsYWdz
+ICYgQ1JZUFRPX0FMR19BTExPQ0FURVNfTUVNT1JZKSBhcHBsaWVzIHRvIGFueXdheTsgc2VlIHRo
+ZSBwYXRjaCB0aGF0CmludHJvZHVjZXMgaXQuICBJZiBuZWVkZWQgd2UgY291bGQgYWRkIG1vcmUg
+cmVzdHJpY3Rpb25zLCBsaWtlIGxpbWl0IHRoZSBudW1iZXIKb2Ygc2NhdHRlcmxpc3QgZWxlbWVu
+dHMuICBJZiB3ZSBkaWQgdGhhdCwgdGhlIGRyaXZlciBjb3VsZCBhbGxvY2F0ZSBtZW1vcnkgaWYK
+dGhlIG51bWJlciBvZiBzY2F0dGVybGlzdCBlbGVtZW50cyBpcyBsYXJnZSwgd2l0aG91dCBoYXZp
+bmcgdG8gc2V0CkNSWVBUT19BTEdfQUxMT0NBVEVTX01FTU9SWS4KCkFsc28sIGhhdmUgeW91IGNv
+bnNpZGVyZWQgdXNpbmcgYSBtZW1wb29sPyAgQSBtZW1wb29sIGFsbG93cyBhbGxvY2F0aW9ucyB3
+aXRob3V0CmEgcG9zc2liaWxpdHkgb2YgZmFpbHVyZSwgYXQgdGhlIGNvc3Qgb2YgcHJlLWFsbG9j
+YXRpb25zLgoKLSBFcmljCgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhh
+dC5jb20KaHR0cHM6Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
 
