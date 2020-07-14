@@ -1,75 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 80FD321F2CA
-	for <lists+dm-devel@lfdr.de>; Tue, 14 Jul 2020 15:39:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1594733973;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=nnvABAr0/Wqnvf6h3zvWtF2l5rRQHVjhzvU+NbSbCbU=;
-	b=fGPpIr8g3qjrln+CfQezGJL1WAFYoPPB1rdmj5VW0LuICemqdgo0Lr7jUliBHl09pXIlri
-	DRsbLazAtK+z6ILbwNHRV1rHClzbKXHhhjMEWk7bUcR4t/ytrnNRs+ts45C9kAHyWxyS9m
-	Rmt0s30Dll1Q9EAmFVJx7Nr59W32QY4=
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 0178921F449
+	for <lists+dm-devel@lfdr.de>; Tue, 14 Jul 2020 16:39:59 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-140-ri7zvDXlP6uuhJUknXQzlA-1; Tue, 14 Jul 2020 09:39:30 -0400
-X-MC-Unique: ri7zvDXlP6uuhJUknXQzlA-1
+ us-mta-419-x9woxJSCMpaSAqtvLjlE2g-1; Tue, 14 Jul 2020 10:39:56 -0400
+X-MC-Unique: x9woxJSCMpaSAqtvLjlE2g-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F39CD8014D7;
-	Tue, 14 Jul 2020 13:39:21 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0C4058027F6;
+	Tue, 14 Jul 2020 14:39:48 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2BE1078A55;
-	Tue, 14 Jul 2020 13:39:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1DBA15D9C5;
+	Tue, 14 Jul 2020 14:39:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1CD118434B;
-	Tue, 14 Jul 2020 13:39:04 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 85AEF93F93;
+	Tue, 14 Jul 2020 14:39:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06EDco98025448 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 14 Jul 2020 09:38:50 -0400
+	id 06EEdKSj000317 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 14 Jul 2020 10:39:20 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DC274710B5; Tue, 14 Jul 2020 13:38:50 +0000 (UTC)
+	id DC3632156A30; Tue, 14 Jul 2020 14:39:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A926C710C8;
-	Tue, 14 Jul 2020 13:38:47 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id 06EDclcC017184; Tue, 14 Jul 2020 09:38:47 -0400
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id 06EDciQQ017180; Tue, 14 Jul 2020 09:38:44 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Tue, 14 Jul 2020 09:38:44 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: =?ISO-8859-2?Q?Horia_Geant=E3?= <horia.geanta@nxp.com>
-In-Reply-To: <780cb500-2241-61bc-eb44-6f872ad567d3@nxp.com>
-Message-ID: <alpine.LRH.2.02.2007140937260.17016@file01.intranet.prod.int.rdu2.redhat.com>
-References: <20200701045217.121126-1-ebiggers@kernel.org>
-	<20200701045217.121126-6-ebiggers@kernel.org>
-	<3f2d3409-2739-b121-0469-b14c86110b2d@nxp.com>
-	<20200713160136.GA1696@sol.localdomain>
-	<780cb500-2241-61bc-eb44-6f872ad567d3@nxp.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D84512157F26
+	for <dm-devel@redhat.com>; Tue, 14 Jul 2020 14:39:17 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1860985A5B2
+	for <dm-devel@redhat.com>; Tue, 14 Jul 2020 14:39:17 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-375-C4IMrdibOUC9Fz3cVLsLtA-1;
+	Tue, 14 Jul 2020 10:39:13 -0400
+X-MC-Unique: C4IMrdibOUC9Fz3cVLsLtA-1
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+	[73.47.72.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 7A0202253D;
+	Tue, 14 Jul 2020 14:39:11 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Tue, 14 Jul 2020 10:38:48 -0400
+Message-Id: <20200714143849.4035283-18-sashal@kernel.org>
+In-Reply-To: <20200714143849.4035283-1-sashal@kernel.org>
+References: <20200714143849.4035283-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 06EEdKSj000317
 X-loop: dm-devel@redhat.com
-Cc: Eric Biggers <ebiggers@kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>
-Subject: Re: [dm-devel] [PATCH 5/6] crypto: set the flag
-	CRYPTO_ALG_ALLOCATES_MEMORY
+Cc: Sasha Levin <sashal@kernel.org>,
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+	dm-devel@redhat.com, Christoph Hellwig <hch@lst.de>,
+	Mike Snitzer <snitzer@redhat.com>
+Subject: [dm-devel] [PATCH AUTOSEL 5.7 18/19] dm: use bio_uninit instead of
+	bio_disassociate_blkg
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,108 +82,64 @@ Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: MULTIPART/MIXED;
-	BOUNDARY="185206533-1492832032-1594733927=:17016"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
---185206533-1492832032-1594733927=:17016
-Content-Type: TEXT/PLAIN; charset=utf-8
-Content-Transfer-Encoding: 8BIT
-
-
-
-On Mon, 13 Jul 2020, Horia Geantă wrote:
-
-> On 7/13/2020 7:01 PM, Eric Biggers wrote:
-> > On Mon, Jul 13, 2020 at 06:49:00PM +0300, Horia Geantă wrote:
-> >> On 7/1/2020 7:52 AM, Eric Biggers wrote:
-> >>> From: Mikulas Patocka <mpatocka@redhat.com>
-> >>>
-> >>> Set the flag CRYPTO_ALG_ALLOCATES_MEMORY in the crypto drivers that
-> >>> allocate memory.
-> >>>
-> >> Quite a few drivers are impacted.
-> >>
-> >> I wonder what's the proper way to address the memory allocation.
-> >>
-> >> Herbert mentioned setting up reqsize:
-> >> https://lore.kernel.org/linux-crypto/20200610010450.GA6449@gondor.apana.org.au/
-> >>
-> >> I see at least two hurdles in converting the drivers to using reqsize:
-> >>
-> >> 1. Some drivers allocate the memory using GFP_DMA
-> >>
-> >> reqsize does not allow drivers to control gfp allocation flags.
-> >>
-> >> I've tried converting talitos driver (to use reqsize) at some point,
-> >> and in the process adding a generic CRYPTO_TFM_REQ_DMA flag:
-> >> https://lore.kernel.org/linux-crypto/54FD8D3B.5040409@freescale.com
-> >> https://lore.kernel.org/linux-crypto/1426266882-31626-1-git-send-email-horia.geanta@freescale.com
-> >>
-> >> The flag was supposed to be transparent for the user,
-> >> however there were users that open-coded the request allocation,
-> >> for example esp_alloc_tmp() in net/ipv4/esp4.c.
-> >> At that time, Dave NACK-ed the change:
-> >> https://lore.kernel.org/linux-crypto/1426266922-31679-1-git-send-email-horia.geanta@freescale.com
-> >>
-> >>
-> >> 2. Memory requirements cannot be determined / are not known
-> >> at request allocation time
-> >>
-> >> An analysis for talitos driver is here:
-> >> https://lore.kernel.org/linux-crypto/54F8235B.5080301@freescale.com
-> >>
-> >> In general, drivers would be forced to ask more memory than needed,
-> >> to handle the "worst-case".
-> >> Logic will be needed to fail in case the "worst-case" isn't correctly estimated.
-> >>
-> >> However, this is still problematic.
-> >>
-> >> For example, a driver could set up reqsize to accommodate for 32 S/G entries
-> >> (in the HW S/G table). In case a dm-crypt encryption request would require more,
-> >> then driver's .encrypt callback would fail, possibly with -ENOMEM,
-> >> since there's not enough pre-allocated memory.
-> >> This brings us back to the same problem we're trying to solve,
-> >> since in this case the driver would be forced to either fail immediately or
-> >> to allocate memory at .encrypt/.decrypt time.
-> >>
-> > 
-> > We have to place restrictions on what cases
-> > !(flags & CRYPTO_ALG_ALLOCATES_MEMORY) applies to anyway; see the patch that
-> > introduces it.  If needed we could add more restrictions, like limit the number
-> > of scatterlist elements.  If we did that, the driver could allocate memory if
-> > the number of scatterlist elements is large, without having to set
-> > CRYPTO_ALG_ALLOCATES_MEMORY.
-> > 
-> This sounds reasonable.
-> 
-> > Also, have you considered using a mempool?  A mempool allows allocations without
-> > a possibility of failure, at the cost of pre-allocations.
-> > 
-> Thanks for the suggestion.
-> 
-> Would this be safe for all cases, e.g. IPsec - where .encrypt/.decrypt callbacks
-> execute in (soft)IRQ context?
-> kernel-doc for mempool_alloc() mentions it could fail when called from
-> "IRQ context". 
-
-In IPsec, you can drop packets (and TCP will retransmit them), so there is 
-no problem with memory allocation failures.
-
-> Thanks,
-> Horia
-
-Mikulas
---185206533-1492832032-1594733927=:17016
 Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+From: Christoph Hellwig <hch@lst.de>
+
+[ Upstream commit 382761dc6312965a11f82f2217e16ec421bf17ae ]
+
+bio_uninit is the proper API to clean up a BIO that has been allocated
+on stack or inside a structure that doesn't come from the BIO allocator.
+Switch dm to use that instead of bio_disassociate_blkg, which really is
+an implementation detail.  Note that the bio_uninit calls are also moved
+to the two callers of __send_empty_flush, so that they better pair with
+the bio_init calls used to initialize them.
+
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+Signed-off-by: Mike Snitzer <snitzer@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/md/dm.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index db9e461146531..c33aaf29f1379 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -1445,9 +1445,6 @@ static int __send_empty_flush(struct clone_info *ci)
+ 	BUG_ON(bio_has_data(ci->bio));
+ 	while ((ti = dm_table_get_target(ci->map, target_nr++)))
+ 		__send_duplicate_bios(ci, ti, ti->num_flush_bios, NULL);
+-
+-	bio_disassociate_blkg(ci->bio);
+-
+ 	return 0;
+ }
+ 
+@@ -1635,6 +1632,7 @@ static blk_qc_t __split_and_process_bio(struct mapped_device *md,
+ 		ci.bio = &flush_bio;
+ 		ci.sector_count = 0;
+ 		error = __send_empty_flush(&ci);
++		bio_uninit(ci.bio);
+ 		/* dec_pending submits any data associated with flush */
+ 	} else if (op_is_zone_mgmt(bio_op(bio))) {
+ 		ci.bio = bio;
+@@ -1709,6 +1707,7 @@ static blk_qc_t __process_bio(struct mapped_device *md, struct dm_table *map,
+ 		ci.bio = &flush_bio;
+ 		ci.sector_count = 0;
+ 		error = __send_empty_flush(&ci);
++		bio_uninit(ci.bio);
+ 		/* dec_pending submits any data associated with flush */
+ 	} else {
+ 		struct dm_target_io *tio;
+-- 
+2.25.1
+
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
---185206533-1492832032-1594733927=:17016--
 
