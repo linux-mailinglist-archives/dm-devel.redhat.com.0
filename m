@@ -1,50 +1,50 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id E941B2246EC
-	for <lists+dm-devel@lfdr.de>; Sat, 18 Jul 2020 01:21:28 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 66A672246EA
+	for <lists+dm-devel@lfdr.de>; Sat, 18 Jul 2020 01:21:12 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-479-_wNU53mUOE27VwCHUBavWg-1; Fri, 17 Jul 2020 19:21:25 -0400
-X-MC-Unique: _wNU53mUOE27VwCHUBavWg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-33-NmO7MR26MBGiRpgNhMXyIA-1; Fri, 17 Jul 2020 19:21:09 -0400
+X-MC-Unique: NmO7MR26MBGiRpgNhMXyIA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B48D78018A1;
-	Fri, 17 Jul 2020 23:21:20 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 906EA619C4;
-	Fri, 17 Jul 2020 23:21:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1B1D8106B248;
+	Fri, 17 Jul 2020 23:21:02 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EBD9810013C0;
+	Fri, 17 Jul 2020 23:21:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4DBB61809561;
-	Fri, 17 Jul 2020 23:21:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A782796255;
+	Fri, 17 Jul 2020 23:21:01 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06HNGkv6002180 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 17 Jul 2020 19:16:46 -0400
+	id 06HNGnIU002260 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 17 Jul 2020 19:16:49 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3AF1F20A0535; Fri, 17 Jul 2020 23:16:46 +0000 (UTC)
+	id 0769A115152; Fri, 17 Jul 2020 23:16:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 36BDB20A0534
-	for <dm-devel@redhat.com>; Fri, 17 Jul 2020 23:16:43 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 02CAF115165
+	for <dm-devel@redhat.com>; Fri, 17 Jul 2020 23:16:49 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 510C6800399
-	for <dm-devel@redhat.com>; Fri, 17 Jul 2020 23:16:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DE307185A797
+	for <dm-devel@redhat.com>; Fri, 17 Jul 2020 23:16:48 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-16-moFNxnF9MYCR7X6Qwb8Sxg-1;
-	Fri, 17 Jul 2020 19:16:41 -0400
-X-MC-Unique: moFNxnF9MYCR7X6Qwb8Sxg-1
+	relay.mimecast.com with ESMTP id us-mta-303-4fAe1ySlNNu0aDsoe0cEmg-1;
+	Fri, 17 Jul 2020 19:16:44 -0400
+X-MC-Unique: 4fAe1ySlNNu0aDsoe0cEmg-1
 Received: from dede-linux-virt.corp.microsoft.com (unknown [131.107.160.54])
-	by linux.microsoft.com (Postfix) with ESMTPSA id ABB7720B4916;
+	by linux.microsoft.com (Postfix) with ESMTPSA id EC2F320B4917;
 	Fri, 17 Jul 2020 16:09:48 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com ABB7720B4916
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com EC2F320B4917
 From: Deven Bowers <deven.desai@linux.microsoft.com>
 To: agk@redhat.com, axboe@kernel.dk, snitzer@redhat.com, jmorris@namei.org,
 	serge@hallyn.com, zohar@linux.ibm.com, viro@zeniv.linux.org.uk,
@@ -52,21 +52,21 @@ To: agk@redhat.com, axboe@kernel.dk, snitzer@redhat.com, jmorris@namei.org,
 	dm-devel@redhat.com, linux-integrity@vger.kernel.org,
 	linux-security-module@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	linux-block@vger.kernel.org, linux-audit@redhat.com
-Date: Fri, 17 Jul 2020 16:09:38 -0700
-Message-Id: <20200717230941.1190744-10-deven.desai@linux.microsoft.com>
+Date: Fri, 17 Jul 2020 16:09:39 -0700
+Message-Id: <20200717230941.1190744-11-deven.desai@linux.microsoft.com>
 In-Reply-To: <20200717230941.1190744-1-deven.desai@linux.microsoft.com>
 References: <20200717230941.1190744-1-deven.desai@linux.microsoft.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 06HNGkv6002180
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 06HNGnIU002260
 X-loop: dm-devel@redhat.com
 Cc: sashal@kernel.org, mdsakib@microsoft.com, corbet@lwn.net,
 	linux-kernel@vger.kernel.org, pasha.tatshin@soleen.com,
 	nramas@linux.microsoft.com, tyhicks@linux.microsoft.com,
 	jaskarankhurana@linux.microsoft.com
-Subject: [dm-devel] [RFC PATCH v4 09/12] dm-verity: add bdev_setsecurity
-	hook for root-hash
+Subject: [dm-devel] [RFC PATCH v4 10/12] ipe: add property for dmverity
+	roothash
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,60 +80,298 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Add a security hook call to set a security property of a block_device
-in dm-verity with the root-hash that was verified to match the merkel-tree.
+Add a property to allow IPE policy to express rules around a specific
+root-hash of a dm-verity volume.
+
+This can be used for revocation, (when combined with the previous dm-verity
+property) or the authorization of a single dm-verity volume.
 
 Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
 ---
- drivers/md/dm-verity-target.c | 8 ++++++++
- include/linux/device-mapper.h | 1 +
- 2 files changed, 9 insertions(+)
+ security/ipe/ipe-blobs.c                    |   9 ++
+ security/ipe/ipe-engine.h                   |   3 +
+ security/ipe/ipe.c                          |   4 +
+ security/ipe/properties/Kconfig             |  13 +-
+ security/ipe/properties/Makefile            |   1 +
+ security/ipe/properties/dmverity-roothash.c | 153 ++++++++++++++++++++
+ security/ipe/properties/prop-entry.h        |   9 ++
+ 7 files changed, 191 insertions(+), 1 deletion(-)
+ create mode 100644 security/ipe/properties/dmverity-roothash.c
 
-diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index c507f3a4e237..225f67ab378d 100644
---- a/drivers/md/dm-verity-target.c
-+++ b/drivers/md/dm-verity-target.c
-@@ -16,8 +16,10 @@
- #include "dm-verity.h"
- #include "dm-verity-fec.h"
- #include "dm-verity-verify-sig.h"
-+#include "dm-core.h"
- #include <linux/module.h>
- #include <linux/reboot.h>
-+#include <linux/security.h>
+diff --git a/security/ipe/ipe-blobs.c b/security/ipe/ipe-blobs.c
+index 03e916d13ac1..d2cdd120d5ed 100644
+--- a/security/ipe/ipe-blobs.c
++++ b/security/ipe/ipe-blobs.c
+@@ -46,6 +46,7 @@ void ipe_bdev_free_security(struct block_device *bdev)
+ 	struct ipe_bdev_blob *bdev_sec = ipe_bdev(bdev);
  
- #define DM_MSG_PREFIX			"verity"
+ 	kfree(bdev_sec->dmverity_rh_sig);
++	kfree(bdev_sec->dmverity_rh);
  
-@@ -530,6 +532,12 @@ static int verity_verify_io(struct dm_verity_io *io)
- 			return -EIO;
+ 	memset(bdev_sec, 0x0, sizeof(*bdev_sec));
+ }
+@@ -78,5 +79,13 @@ int ipe_bdev_setsecurity(struct block_device *bdev, const char *key,
+ 		bdev_sec->dmv_rh_sig_len = len;
  	}
  
-+	r = security_bdev_setsecurity(dm_table_get_md(v->ti->table)->bdev,
-+				      DM_VERITY_ROOTHASH_SEC_NAME,
-+				      v->root_digest, v->digest_size);
-+	if (unlikely(r < 0))
-+		return r;
++	if (!strcmp(key, DM_VERITY_ROOTHASH_SEC_NAME)) {
++		bdev_sec->dmverity_rh = kmemdup(value, len, GFP_KERNEL);
++		if (!bdev_sec->dmverity_rh)
++			return -ENOMEM;
 +
- 	/*
- 	 * At this point, the merkel tree has finished validating.
- 	 * if signature was specified, validate the signature here.
-diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
-index 02be0be21d38..b82e8223d52a 100644
---- a/include/linux/device-mapper.h
-+++ b/include/linux/device-mapper.h
-@@ -625,5 +625,6 @@ static inline unsigned long to_bytes(sector_t n)
++		bdev_sec->rh_size = len;
++	}
++
+ 	return 0;
+ }
+diff --git a/security/ipe/ipe-engine.h b/security/ipe/ipe-engine.h
+index 038c39a8973e..696baaa423ff 100644
+--- a/security/ipe/ipe-engine.h
++++ b/security/ipe/ipe-engine.h
+@@ -18,6 +18,9 @@
+ struct ipe_bdev_blob {
+ 	u8	*dmverity_rh_sig;
+ 	size_t	dmv_rh_sig_len;
++
++	u8 *dmverity_rh;
++	size_t rh_size;
+ };
+ 
+ struct ipe_engine_ctx {
+diff --git a/security/ipe/ipe.c b/security/ipe/ipe.c
+index b7d112fce62f..35653fd8155d 100644
+--- a/security/ipe/ipe.c
++++ b/security/ipe/ipe.c
+@@ -48,6 +48,10 @@ static int __init ipe_load_properties(void)
+ 	if (rc != 0)
+ 		return rc;
+ 
++	rc = ipe_init_dm_verity_rh();
++	if (rc != 0)
++		return rc;
++
+ 	return rc;
  }
  
- #define DM_VERITY_SIGNATURE_SEC_NAME DM_NAME	".verity-sig"
-+#define DM_VERITY_ROOTHASH_SEC_NAME DM_NAME	".verity-rh"
+diff --git a/security/ipe/properties/Kconfig b/security/ipe/properties/Kconfig
+index 4046f7e5eaef..4f09092522d9 100644
+--- a/security/ipe/properties/Kconfig
++++ b/security/ipe/properties/Kconfig
+@@ -14,8 +14,19 @@ config IPE_BOOT_PROP
  
- #endif	/* _LINUX_DEVICE_MAPPER_H */
+ 	  if unsure, answer N.
+ 
++config IPE_DM_VERITY_ROOTHASH
++	bool "Enable property for authorizing dm-verity volumes via root-hash"
++	depends on DM_VERITY
++	help
++	  This option enables IPE's integration with Device-Mapper Verity.
++	  This enables the usage of the property "dmverity_roothash" in IPE's
++	  policy. This property allows authorization or revocation via a
++	  a hex-string representing the roothash of a dmverity volume.
++
++	  if unsure, answer Y.
++
+ config IPE_DM_VERITY_SIGNATURE
+-	bool "Enable property for signature verified dm-verity volumes"
++	bool "Enable property for verified dm-verity volumes"
+ 	depends on DM_VERITY_VERIFY_ROOTHASH_SIG
+ 	help
+ 	  This option enables IPE's integration with Device-Mapper Verity's
+diff --git a/security/ipe/properties/Makefile b/security/ipe/properties/Makefile
+index 6b67cbe36e31..d9a3807797f4 100644
+--- a/security/ipe/properties/Makefile
++++ b/security/ipe/properties/Makefile
+@@ -10,3 +10,4 @@ obj-$(CONFIG_SECURITY_IPE) += properties.o
+ 
+ properties-$(CONFIG_IPE_BOOT_PROP) += boot-verified.o
+ properties-$(CONFIG_IPE_DM_VERITY_SIGNATURE) += dmverity-signature.o
++properties-$(CONFIG_IPE_DM_VERITY_ROOTHASH) += dmverity-roothash.o
+diff --git a/security/ipe/properties/dmverity-roothash.c b/security/ipe/properties/dmverity-roothash.c
+new file mode 100644
+index 000000000000..09112e1af753
+--- /dev/null
++++ b/security/ipe/properties/dmverity-roothash.c
+@@ -0,0 +1,153 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) Microsoft Corporation. All rights reserved.
++ */
++
++#include "../ipe.h"
++#include "../ipe-pin.h"
++#include "../ipe-property.h"
++#include "../utility.h"
++
++#include <linux/types.h>
++#include <linux/slab.h>
++#include <linux/fs.h>
++#include <linux/mount.h>
++#include <linux/audit.h>
++#include <linux/kernel.h>
++
++#define PROPERTY_NAME "dmverity_roothash"
++
++struct counted_array {
++	u8 *arr;
++	size_t len;
++};
++
++static void audit(struct audit_buffer *ab, const void *value)
++{
++	const struct counted_array *a = (const struct counted_array *)value;
++
++	if (!a || a->len == 0)
++		audit_log_format(ab, "NULL");
++	else
++		audit_log_n_hex(ab, a->arr, a->len);
++}
++
++static inline void audit_rule_value(struct audit_buffer *ab,
++				    const void *value)
++{
++	audit(ab, value);
++}
++
++static inline void audit_ctx(struct audit_buffer *ab,
++			     const struct ipe_engine_ctx *ctx)
++{
++	struct counted_array a;
++
++	if (!has_bdev(ctx->file))
++		return audit(ab, NULL);
++
++	a.arr = ctx->sec_bdev->dmverity_rh;
++	a.len = ctx->sec_bdev->rh_size;
++
++	return audit(ab, &a);
++}
++
++static bool evaluate(const struct ipe_engine_ctx *ctx,
++		     const void *value)
++{
++	const struct counted_array *a = (const struct counted_array *)value;
++
++	if (!has_bdev(ctx->file))
++		return false;
++
++	if (a->len != ctx->sec_bdev->rh_size)
++		return false;
++
++	return memcmp(a->arr, ctx->sec_bdev->dmverity_rh, a->len) == 0;
++}
++
++static int parse(const char *val_str, void **value)
++{
++	struct counted_array *arr = NULL;
++	int rv = 0;
++
++	arr = kzalloc(sizeof(*arr), GFP_KERNEL);
++	if (!arr) {
++		rv = -ENOMEM;
++		goto err;
++	}
++
++	arr->len = strlen(val_str) / 2;
++
++	arr->arr = kzalloc(arr->len, GFP_KERNEL);
++	if (!arr->arr) {
++		rv = -ENOMEM;
++		goto err;
++	}
++
++	rv = hex2bin(arr->arr, val_str, arr->len);
++	if (rv != 0)
++		goto err;
++
++	*value = arr;
++	return rv;
++err:
++	if (arr)
++		kfree(arr->arr);
++	kfree(arr);
++	return rv;
++}
++
++static int duplicate(const void *src, void **dest)
++{
++	struct counted_array *arr = NULL;
++	const struct counted_array *src_arr = src;
++	int rv = 0;
++
++	arr = kmemdup(src_arr, sizeof(*arr), GFP_KERNEL);
++	if (!arr) {
++		rv = -ENOMEM;
++		goto err;
++	}
++
++	arr->arr = kmemdup(src_arr->arr, src_arr->len, GFP_KERNEL);
++	if (!arr->arr) {
++		rv = -ENOMEM;
++		goto err;
++	}
++
++	*dest = arr;
++	return rv;
++err:
++	if (arr)
++		kfree(arr->arr);
++	kfree(arr);
++
++	return rv;
++}
++
++static void free_val(void **value)
++{
++	struct counted_array *a = (struct counted_array *)*value;
++
++	if (a)
++		kfree(a->arr);
++	kfree(a);
++	*value = NULL;
++}
++
++static const struct ipe_property dmv_roothash = {
++	.property_name = PROPERTY_NAME,
++	.version = 1,
++	.eval = evaluate,
++	.parse = parse,
++	.rule_audit = audit_rule_value,
++	.ctx_audit = audit_ctx,
++	.dup = duplicate,
++	.free_val = free_val,
++};
++
++int ipe_init_dm_verity_rh(void)
++{
++	return ipe_register_property(&dmv_roothash);
++}
+diff --git a/security/ipe/properties/prop-entry.h b/security/ipe/properties/prop-entry.h
+index 85366366ff0d..86a360570f3b 100644
+--- a/security/ipe/properties/prop-entry.h
++++ b/security/ipe/properties/prop-entry.h
+@@ -26,4 +26,13 @@ static inline int __init ipe_init_dm_verity_signature(void)
+ int __init ipe_init_dm_verity_signature(void);
+ #endif /* CONFIG_IPE_DM_VERITY_SIGNATURE */
+ 
++#ifndef CONFIG_IPE_DM_VERITY_ROOTHASH
++static inline int __init ipe_init_dm_verity_rh(void)
++{
++	return 0;
++}
++#else
++int __init ipe_init_dm_verity_rh(void);
++#endif /* CONFIG_IPE_DM_VERITY_ROOTHASH */
++
+ #endif /* IPE_PROP_ENTRY_H */
 -- 
 2.27.0
 
