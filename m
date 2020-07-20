@@ -1,85 +1,66 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 0B561226F82
-	for <lists+dm-devel@lfdr.de>; Mon, 20 Jul 2020 22:13:57 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 7D923226FBD
+	for <lists+dm-devel@lfdr.de>; Mon, 20 Jul 2020 22:30:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1595277054;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=m2BLk6Cq/u/xT523rYdfEsQjWRmOiUPzVgbc5VZx+ks=;
+	b=As4C0WIVW8BcSWU40knfJ4HvxcULsdip0MOn7zUz7Lz3JTZAIfO6EFr3kuodP3h3z0hqiD
+	/rXRaO54MyJXxqdTQIp9SXzdHfuMVDqgQl0dmjHYhWZYvJBNQAyfjpeHgzkg9rPindAels
+	jetDxaX15gCkkFQ766b++5DzBv5bReA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-177-7Wc3012xPOC_Lxft2jpiZw-1; Mon, 20 Jul 2020 16:13:54 -0400
-X-MC-Unique: 7Wc3012xPOC_Lxft2jpiZw-1
+ us-mta-444-cgq0yIp3PY-dlpp2HieRMQ-1; Mon, 20 Jul 2020 16:30:52 -0400
+X-MC-Unique: cgq0yIp3PY-dlpp2HieRMQ-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 047E71DE4;
-	Mon, 20 Jul 2020 20:13:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9816419057A1;
+	Mon, 20 Jul 2020 20:30:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0AE7E5BAD5;
-	Mon, 20 Jul 2020 20:13:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DB0A073FCF;
+	Mon, 20 Jul 2020 20:30:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7C7621809554;
-	Mon, 20 Jul 2020 20:13:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DF9F61809554;
+	Mon, 20 Jul 2020 20:30:36 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06KHrEsK023916 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 20 Jul 2020 13:53:14 -0400
+	id 06KKUTEf010122 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 20 Jul 2020 16:30:29 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 820E72157F26; Mon, 20 Jul 2020 17:53:14 +0000 (UTC)
+	id 596B41002397; Mon, 20 Jul 2020 20:30:29 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7DFC42166B28
-	for <dm-devel@redhat.com>; Mon, 20 Jul 2020 17:53:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4270280CC2C
-	for <dm-devel@redhat.com>; Mon, 20 Jul 2020 17:53:12 +0000 (UTC)
-Received: from mail-lj1-f196.google.com (mail-lj1-f196.google.com
-	[209.85.208.196]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-192-kaqB3JJePOiConrhr4aEbQ-1; Mon, 20 Jul 2020 13:53:09 -0400
-X-MC-Unique: kaqB3JJePOiConrhr4aEbQ-1
-Received: by mail-lj1-f196.google.com with SMTP id s9so21181556ljm.11
-	for <dm-devel@redhat.com>; Mon, 20 Jul 2020 10:53:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=Kya9ou2H4xCIeg2jTugLQPDLPsUiSPAXkhjVJRHMDG8=;
-	b=E7icvdBB5p0K7BsWnDQ3x6SE1lkcD+z8d8eruFXQmWKYMHB4LgrbnUdikHGXjnBDmG
-	zjL0EM+DGqZSTywM9DpJIHpK4jGF7b5U4x762u0CTzx51rQMFa8pV6eHe/8K/In0V9Kk
-	ks8OlnxEXkkBg9R/3hk5YLcxwy3U4w3RUVZSp6SihmE/fJcF+BVLt5EWTOAXz99yzCyv
-	lwcRaoGN2FrLYLsPPVBMl2eDS2r2dBM6pOwGaEuQ6Vt1ZQZPGj+yn4TVDCBrHgQjQ/0M
-	vPAVBxA6NMEXyXGZ406AFqESjopwBjgNdGVEP9ZDoCueq60BMPRvececvPkbJwtJTs2d
-	cxzg==
-X-Gm-Message-State: AOAM531hkkBiTZfFYxqrkIttcg6FyMpCfLywKv1VaHZFm7VV3Yxi8lvs
-	SYrH6Yg1CZ2405qsdXT/syUmBF5/lyVrXB3m+vp66A==
-X-Google-Smtp-Source: ABdhPJxVEb/gDZEkvQ7LMo203fIZqznHvbPDVwx5Y0R9jHwZ6CsaSCd83ZH/mrB+5f45z4TkFHBNvGDSXrXZqTZC034=
-X-Received: by 2002:a2e:8e36:: with SMTP id r22mr10983662ljk.77.1595267587620; 
-	Mon, 20 Jul 2020 10:53:07 -0700 (PDT)
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5216A1002391;
+	Mon, 20 Jul 2020 20:30:26 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 06KKUOkU018622; 
+	Mon, 20 Jul 2020 15:30:24 -0500
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 06KKUOLH018621;
+	Mon, 20 Jul 2020 15:30:24 -0500
+Date: Mon, 20 Jul 2020 15:30:23 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: mwilck@suse.com
+Message-ID: <20200720203023.GC11089@octiron.msp.redhat.com>
+References: <20200709103513.8142-1-mwilck@suse.com>
 MIME-Version: 1.0
-References: <20200720075148.172156-1-hch@lst.de>
-	<20200720075148.172156-12-hch@lst.de>
-In-Reply-To: <20200720075148.172156-12-hch@lst.de>
-From: Shakeel Butt <shakeelb@google.com>
-Date: Mon, 20 Jul 2020 10:52:55 -0700
-Message-ID: <CALvZod7ACBnNX5W-gtTzheh8R-rxv1nB-5q7UcDUZ7BvtpakpA@mail.gmail.com>
-To: Christoph Hellwig <hch@lst.de>, Minchan Kim <minchan@kernel.org>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+In-Reply-To: <20200709103513.8142-1-mwilck@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Mon, 20 Jul 2020 16:13:03 -0400
-Cc: Jens Axboe <axboe@kernel.dk>, linux-raid@vger.kernel.org,
-	Hans de Goede <hdegoede@redhat.com>, Richard Weinberger <richard@nod.at>,
-	LKML <linux-kernel@vger.kernel.org>,
-	"open list:BLOCK LAYER" <linux-block@vger.kernel.org>,
-	Song Liu <song@kernel.org>, dm-devel@redhat.com,
-	linux-mtd@lists.infradead.org, Cgroups <cgroups@vger.kernel.org>,
-	drbd-dev@tron.linbit.com, linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	Linux MM <linux-mm@kvack.org>
-Subject: Re: [dm-devel] [PATCH 11/14] mm: use SWP_SYNCHRONOUS_IO more
-	intelligently
+Cc: dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH 00/42] multipath-tools series part III:
+	duplicate alias
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -98,44 +79,69 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-+Minchan Kim
+On Thu, Jul 09, 2020 at 12:35:10PM +0200, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
+> 
+> Hi Christophe, hi Ben,
+> 
+> This is part II of a larger patch series for multpath-tools I've been preparing.
+> It contains fixes for a customer issue where the same alias was set for
+> several maps with different WWIDs in the WWIDs file.
+> 
+> It's based on the previously submitted part II.
+> 
+> The full series will also be available here:
+> https://github.com/mwilck/multipath-tools/tree/ups/submit-2007
+> 
+> There are tags in that repo for each part of the series.
+> This part is tagged "submit-200709-3".
 
-On Mon, Jul 20, 2020 at 12:52 AM Christoph Hellwig <hch@lst.de> wrote:
->
-> There is no point in trying to call bdev_read_page if SWP_SYNCHRONOUS_IO
-> is not set, as the device won't support it.  Also there is no point in
-> trying a bio submission if bdev_read_page failed.
+With the first two of these patches applied , multipathd fails a
+real-world situation in different, arguably worse, way than it currently
+does, and I think it could do better.  If user_friendly_names is set,
+but two (or more) devices weren't in the initramfs bindings file, they
+will get random aliases during boot.  Assuming the devices are in the
+regular filesystem bindings file, it's not super uncommon for these
+devices to pick from the same alias as they use in the regular bindings
+file, but with different wwids matching to different aliases.
 
-This will at least break the failure path of zram_rw_page().
+Without these patches, multipath will rename them if possible, but if
+not, they will still exist, but with the wrong alias. Existing with the
+wrong alias isn't great, since things could be checking for the devices
+by name, which could cause corruption. But in reality, usually they are
+referenced by Labels, which will still work (since most things are
+designed to not expect persistent naming of devices).  However, with
+this patches, some of the devices will be deleted, which avoids the
+possiblity of corruption, but in practice usually is worse because
+referencing devices by label already avoids the corruption problem. 
 
->
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  mm/page_io.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/page_io.c b/mm/page_io.c
-> index ccda7679008851..63b44b8221af0f 100644
-> --- a/mm/page_io.c
-> +++ b/mm/page_io.c
-> @@ -403,8 +403,11 @@ int swap_readpage(struct page *page, bool synchronous)
->                 goto out;
->         }
->
-> -       ret = bdev_read_page(sis->bdev, swap_page_sector(page), page);
-> -       if (!ret) {
-> +       if (sis->flags & SWP_SYNCHRONOUS_IO) {
-> +               ret = bdev_read_page(sis->bdev, swap_page_sector(page), page);
-> +               if (ret)
-> +                       goto out;
-> +
->                 if (trylock_page(page)) {
->                         swap_slot_free_notify(page);
->                         unlock_page(page);
-> --
-> 2.27.0
->
+A better idea might simply be to fallback to using the WWID as an alias,
+on the offending map.  This should avoid corruption, since unless
+someone manually set the WWID as an alias in multipath.conf it should be
+unique. But it won't cause an existing, and possibly necessary, device
+to get deleted.
+
+-Ben
+ 
+> Regards,
+> Martin
+> 
+> Martin Wilck (3):
+>   libmultipath: refuse creating map with duplicate alias
+>   libmultipath: refuse reloading an existing map with different WWID
+>   libmultipath: dm_addmap(): refuse creating map with empty WWID
+> 
+>  libmultipath/configure.c   | 24 ++++++++++++++++++++----
+>  libmultipath/devmapper.c   | 26 +++++++++++++++-----------
+>  libmultipath/structs_vec.c | 13 +++++++++++++
+>  libmultipath/structs_vec.h |  1 +
+>  multipathd/main.c          |  6 +++++-
+>  5 files changed, 54 insertions(+), 16 deletions(-)
+> 
+> -- 
+> 2.26.2
 
 --
 dm-devel mailing list
