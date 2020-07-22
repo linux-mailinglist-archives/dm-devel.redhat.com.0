@@ -1,52 +1,53 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 7C63A2290FD
-	for <lists+dm-devel@lfdr.de>; Wed, 22 Jul 2020 08:37:00 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id EF9CE229117
+	for <lists+dm-devel@lfdr.de>; Wed, 22 Jul 2020 08:43:53 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-292-MzhjiaGwP2GPFw3k4gSzGA-1; Wed, 22 Jul 2020 02:36:57 -0400
-X-MC-Unique: MzhjiaGwP2GPFw3k4gSzGA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-303-ZYgZz5dXMPOZu5dXM4WYoQ-1; Wed, 22 Jul 2020 02:43:50 -0400
+X-MC-Unique: ZYgZz5dXMPOZu5dXM4WYoQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EBD7057;
-	Wed, 22 Jul 2020 06:36:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 976B161463;
-	Wed, 22 Jul 2020 06:36:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B5824800460;
+	Wed, 22 Jul 2020 06:43:45 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F64178551;
+	Wed, 22 Jul 2020 06:43:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 50B12730D1;
-	Wed, 22 Jul 2020 06:36:32 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 424C11809557;
+	Wed, 22 Jul 2020 06:43:27 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06M6ZbmM010367 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 22 Jul 2020 02:35:37 -0400
+	id 06M6ZX85010345 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 22 Jul 2020 02:35:33 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 455E52157F24; Wed, 22 Jul 2020 06:35:37 +0000 (UTC)
+	id 0A95B2157F25; Wed, 22 Jul 2020 06:35:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 323132157F23
-	for <dm-devel@redhat.com>; Wed, 22 Jul 2020 06:35:37 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D20062156A30
+	for <dm-devel@redhat.com>; Wed, 22 Jul 2020 06:35:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 19995924906
-	for <dm-devel@redhat.com>; Wed, 22 Jul 2020 06:35:37 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B90B4185A797
+	for <dm-devel@redhat.com>; Wed, 22 Jul 2020 06:35:32 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-436-0X6a-4BSN-WiZPH6WkDXZw-1; Wed, 22 Jul 2020 02:35:35 -0400
-X-MC-Unique: 0X6a-4BSN-WiZPH6WkDXZw-1
+	us-mta-465-hRKbu3vPNnaWYUpfp5Ny6g-1; Wed, 22 Jul 2020 02:35:30 -0400
+X-MC-Unique: hRKbu3vPNnaWYUpfp5Ny6g-1
 Received: from [2001:4bb8:18c:2acc:e75:d48f:65ef:e944] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1jy8Cw-0004mm-C7; Wed, 22 Jul 2020 06:26:29 +0000
+	id 1jy8DB-0004pJ-NU; Wed, 22 Jul 2020 06:26:43 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed, 22 Jul 2020 08:25:43 +0200
-Message-Id: <20200722062552.212200-6-hch@lst.de>
+Date: Wed, 22 Jul 2020 08:25:45 +0200
+Message-Id: <20200722062552.212200-8-hch@lst.de>
 In-Reply-To: <20200722062552.212200-1-hch@lst.de>
 References: <20200722062552.212200-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,7 +61,8 @@ Cc: linux-raid@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
 	Song Liu <song@kernel.org>, dm-devel@redhat.com,
 	linux-mtd@lists.infradead.org, cgroups@vger.kernel.org,
 	drbd-dev@tron.linbit.com, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
-Subject: [dm-devel] [PATCH 05/14] md: update the optimal I/O size on reshape
+Subject: [dm-devel] [PATCH 07/14] block: make QUEUE_SYSFS_BIT_FNS a little
+	more useful
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -74,113 +76,91 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The raid5 and raid10 drivers currently update the read-ahead size,
-but not the optimal I/O size on reshape.  To prepare for deriving the
-read-ahead size from the optimal I/O size make sure it is updated
-as well.
+Generate the queue_sysfs_entry given that we have all the required
+information for it, and rename the generated show and store methods
+to match the other ones in the file.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/md/raid10.c | 22 ++++++++++++++--------
- drivers/md/raid5.c  | 10 ++++++++--
- 2 files changed, 22 insertions(+), 10 deletions(-)
+ block/blk-sysfs.c | 31 +++++++++----------------------
+ 1 file changed, 9 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/md/raid10.c b/drivers/md/raid10.c
-index b1d0c9d4ef7757..9f88ff9bdee437 100644
---- a/drivers/md/raid10.c
-+++ b/drivers/md/raid10.c
-@@ -3695,10 +3695,20 @@ static struct r10conf *setup_conf(struct mddev *mddev)
- 	return ERR_PTR(err);
+diff --git a/block/blk-sysfs.c b/block/blk-sysfs.c
+index ce418d9128a0b2..cfbb039da8751f 100644
+--- a/block/blk-sysfs.c
++++ b/block/blk-sysfs.c
+@@ -257,16 +257,16 @@ static ssize_t queue_max_hw_sectors_show(struct request_queue *q, char *page)
+ 	return queue_var_show(max_hw_sectors_kb, (page));
  }
  
-+static void raid10_set_io_opt(struct r10conf *conf)
-+{
-+	int raid_disks = conf->geo.raid_disks;
-+
-+	if (!(conf->geo.raid_disks % conf->geo.near_copies))
-+		raid_disks /= conf->geo.near_copies;
-+	blk_queue_io_opt(conf->mddev->queue, (conf->mddev->chunk_sectors << 9) *
-+			 raid_disks);
-+}
-+
- static int raid10_run(struct mddev *mddev)
- {
- 	struct r10conf *conf;
--	int i, disk_idx, chunk_size;
-+	int i, disk_idx;
- 	struct raid10_info *disk;
- 	struct md_rdev *rdev;
- 	sector_t size;
-@@ -3734,18 +3744,13 @@ static int raid10_run(struct mddev *mddev)
- 	mddev->thread = conf->thread;
- 	conf->thread = NULL;
+-#define QUEUE_SYSFS_BIT_FNS(name, flag, neg)				\
++#define QUEUE_SYSFS_BIT_FNS(_name, flag, neg)				\
+ static ssize_t								\
+-queue_show_##name(struct request_queue *q, char *page)			\
++queue_##_name##_show(struct request_queue *q, char *page)		\
+ {									\
+ 	int bit;							\
+ 	bit = test_bit(QUEUE_FLAG_##flag, &q->queue_flags);		\
+ 	return queue_var_show(neg ? !bit : bit, page);			\
+ }									\
+ static ssize_t								\
+-queue_store_##name(struct request_queue *q, const char *page, size_t count) \
++queue_##_name##_store(struct request_queue *q, const char *page, size_t count) \
+ {									\
+ 	unsigned long val;						\
+ 	ssize_t ret;							\
+@@ -281,7 +281,12 @@ queue_store_##name(struct request_queue *q, const char *page, size_t count) \
+ 	else								\
+ 		blk_queue_flag_clear(QUEUE_FLAG_##flag, q);		\
+ 	return ret;							\
+-}
++}									\
++static struct queue_sysfs_entry queue_##_name##_entry = {		\
++	.attr	= { .name = __stringify(_name), .mode = 0644 },		\
++	.show	= queue_##_name##_show,					\
++	.store	= queue_##_name##_store,				\
++};
  
--	chunk_size = mddev->chunk_sectors << 9;
- 	if (mddev->queue) {
- 		blk_queue_max_discard_sectors(mddev->queue,
- 					      mddev->chunk_sectors);
- 		blk_queue_max_write_same_sectors(mddev->queue, 0);
- 		blk_queue_max_write_zeroes_sectors(mddev->queue, 0);
--		blk_queue_io_min(mddev->queue, chunk_size);
--		if (conf->geo.raid_disks % conf->geo.near_copies)
--			blk_queue_io_opt(mddev->queue, chunk_size * conf->geo.raid_disks);
--		else
--			blk_queue_io_opt(mddev->queue, chunk_size *
--					 (conf->geo.raid_disks / conf->geo.near_copies));
-+		blk_queue_io_min(mddev->queue, mddev->chunk_sectors << 9);
-+		raid10_set_io_opt(conf);
- 	}
+ QUEUE_SYSFS_BIT_FNS(nonrot, NONROT, 1);
+ QUEUE_SYSFS_BIT_FNS(random, ADD_RANDOM, 0);
+@@ -661,12 +666,6 @@ static struct queue_sysfs_entry queue_zone_append_max_entry = {
+ 	.show = queue_zone_append_max_show,
+ };
  
- 	rdev_for_each(rdev, mddev) {
-@@ -4719,6 +4724,7 @@ static void end_reshape(struct r10conf *conf)
- 		stripe /= conf->geo.near_copies;
- 		if (conf->mddev->queue->backing_dev_info->ra_pages < 2 * stripe)
- 			conf->mddev->queue->backing_dev_info->ra_pages = 2 * stripe;
-+		raid10_set_io_opt(conf);
- 	}
- 	conf->fullsync = 0;
- }
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-index d7780b1dd0c528..68e41ce3ca75cc 100644
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -7123,6 +7123,12 @@ static int only_parity(int raid_disk, int algo, int raid_disks, int max_degraded
- 	return 0;
- }
+-static struct queue_sysfs_entry queue_nonrot_entry = {
+-	.attr = {.name = "rotational", .mode = 0644 },
+-	.show = queue_show_nonrot,
+-	.store = queue_store_nonrot,
+-};
+-
+ static struct queue_sysfs_entry queue_zoned_entry = {
+ 	.attr = {.name = "zoned", .mode = 0444 },
+ 	.show = queue_zoned_show,
+@@ -699,18 +698,6 @@ static struct queue_sysfs_entry queue_rq_affinity_entry = {
+ 	.store = queue_rq_affinity_store,
+ };
  
-+static void raid5_set_io_opt(struct r5conf *conf)
-+{
-+	blk_queue_io_opt(conf->mddev->queue, (conf->chunk_sectors << 9) *
-+			 (conf->raid_disks - conf->max_degraded));
-+}
-+
- static int raid5_run(struct mddev *mddev)
- {
- 	struct r5conf *conf;
-@@ -7412,8 +7418,7 @@ static int raid5_run(struct mddev *mddev)
- 
- 		chunk_size = mddev->chunk_sectors << 9;
- 		blk_queue_io_min(mddev->queue, chunk_size);
--		blk_queue_io_opt(mddev->queue, chunk_size *
--				 (conf->raid_disks - conf->max_degraded));
-+		raid5_set_io_opt(conf);
- 		mddev->queue->limits.raid_partial_stripes_expensive = 1;
- 		/*
- 		 * We can only discard a whole stripe. It doesn't make sense to
-@@ -8006,6 +8011,7 @@ static void end_reshape(struct r5conf *conf)
- 						   / PAGE_SIZE);
- 			if (conf->mddev->queue->backing_dev_info->ra_pages < 2 * stripe)
- 				conf->mddev->queue->backing_dev_info->ra_pages = 2 * stripe;
-+			raid5_set_io_opt(conf);
- 		}
- 	}
- }
+-static struct queue_sysfs_entry queue_iostats_entry = {
+-	.attr = {.name = "iostats", .mode = 0644 },
+-	.show = queue_show_iostats,
+-	.store = queue_store_iostats,
+-};
+-
+-static struct queue_sysfs_entry queue_random_entry = {
+-	.attr = {.name = "add_random", .mode = 0644 },
+-	.show = queue_show_random,
+-	.store = queue_store_random,
+-};
+-
+ static struct queue_sysfs_entry queue_poll_entry = {
+ 	.attr = {.name = "io_poll", .mode = 0644 },
+ 	.show = queue_poll_show,
 -- 
 2.27.0
 
