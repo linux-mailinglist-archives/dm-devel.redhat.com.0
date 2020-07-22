@@ -1,69 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 318C2229477
-	for <lists+dm-devel@lfdr.de>; Wed, 22 Jul 2020 11:08:49 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 472B822947A
+	for <lists+dm-devel@lfdr.de>; Wed, 22 Jul 2020 11:09:10 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-502-Y-uIlUppPmKoxmnVgpTmZQ-1; Wed, 22 Jul 2020 05:08:45 -0400
-X-MC-Unique: Y-uIlUppPmKoxmnVgpTmZQ-1
+ us-mta-245-YIicNZ_QPKObrIDm_25PUA-1; Wed, 22 Jul 2020 05:09:04 -0400
+X-MC-Unique: YIicNZ_QPKObrIDm_25PUA-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A3359102C848;
-	Wed, 22 Jul 2020 09:08:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B3510102C84A;
+	Wed, 22 Jul 2020 09:08:58 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B5255C1C3;
-	Wed, 22 Jul 2020 09:08:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6AFB561463;
+	Wed, 22 Jul 2020 09:08:58 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B567D730D6;
-	Wed, 22 Jul 2020 09:08:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9A442730E6;
+	Wed, 22 Jul 2020 09:08:37 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06M8aRht024687 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 22 Jul 2020 04:36:28 -0400
+	id 06M8fqOX025394 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 22 Jul 2020 04:41:52 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 58B76F885D; Wed, 22 Jul 2020 08:36:27 +0000 (UTC)
+	id EC30A2166B28; Wed, 22 Jul 2020 08:41:51 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 548A2F8859
-	for <dm-devel@redhat.com>; Wed, 22 Jul 2020 08:36:25 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E84DF2157F24
+	for <dm-devel@redhat.com>; Wed, 22 Jul 2020 08:41:49 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0CDF78007CB
-	for <dm-devel@redhat.com>; Wed, 22 Jul 2020 08:36:25 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 247F1185A797
+	for <dm-devel@redhat.com>; Wed, 22 Jul 2020 08:41:49 +0000 (UTC)
 Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-328-GVBNMTCBPVqWw9-JZeWXiw-1; Wed, 22 Jul 2020 04:36:18 -0400
-X-MC-Unique: GVBNMTCBPVqWw9-JZeWXiw-1
-Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.59])
-	by Forcepoint Email with ESMTP id 94034109F8F93427FFF1;
-	Wed, 22 Jul 2020 16:36:13 +0800 (CST)
-Received: from [127.0.0.1] (10.174.179.249) by DGGEMS402-HUB.china.huawei.com
-	(10.3.19.202) with Microsoft SMTP Server id 14.3.487.0;
-	Wed, 22 Jul 2020 16:36:05 +0800
-To: Martin Wilck <mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, 
+	us-mta-241-SWL2CGm_MbyQj83V3UFTNg-1; Wed, 22 Jul 2020 04:41:44 -0400
+X-MC-Unique: SWL2CGm_MbyQj83V3UFTNg-1
+Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.59])
+	by Forcepoint Email with ESMTP id AF9AFBD7CFE1D478B024;
+	Wed, 22 Jul 2020 16:41:39 +0800 (CST)
+Received: from [127.0.0.1] (10.174.179.249) by DGGEMS413-HUB.china.huawei.com
+	(10.3.19.213) with Microsoft SMTP Server id 14.3.487.0;
+	Wed, 22 Jul 2020 16:41:28 +0800
+To: <mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>,
 	<christophe.varoqui@opensvc.com>, Zdenek Kabelac <zkabelac@redhat.com>
 From: Zhiqiang Liu <liuzhiqiang26@huawei.com>
-Message-ID: <e58b31e0-4f66-072f-b9c6-1047714cf3bf@huawei.com>
-Date: Wed, 22 Jul 2020 16:36:04 +0800
+Message-ID: <b1cccadd-955e-0341-879f-01659a04dbb4@huawei.com>
+Date: Wed, 22 Jul 2020 16:41:28 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
 	Thunderbird/68.2.2
 MIME-Version: 1.0
 Content-Language: en-US
 X-Originating-IP: [10.174.179.249]
 X-CFilter-Loop: Reflected
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: linfeilong <linfeilong@huawei.com>, Yanxiaodan <yanxiaodan@huawei.com>,
-	dm-devel@redhat.com, lixiaokeng <lixiaokeng@huawei.com>
-Subject: [dm-devel] [PATCH] libmultipath: free pgp if add_pathgroup fails in
- disassemble_map func
+Cc: linfeilong@huawei.com, yanxiaodan@huawei.com, dm-devel@redhat.com
+Subject: [dm-devel] [PATCH] libmultipath: free pp if store_path fails in
+ disassemble_map
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,43 +81,68 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-In disassemble_map func, pgp will be added to mpp->pg by calling
-add_pathgroup after allocing a pathgroup (pgp) successfully. However,
-if add_pathgroup fails, the pgp is actually not inserted into mpp->pg.
-So, calling free_pgvec(mpp->pg) cannot free the pgp, then memory leak
-problem occurs.
+In disassemble_map func, one pp will be allocated and stored in pathvec
+(only in client mode) and pgp->paths. However, if store_path fails, pp
+will not be freed, then memory leak problem occurs.
 
-disassemble_map:
--> pgp = alloc_pathgroup()
--> if add_pathgroup(mpp, pgp) fails
-	-> goto out
-out:
-free_pgvec(mpp->pg, KEEP_PATHS);
-
-Here, we will call free_pathgroup(pgp) before going to out tag.
+Here, we will call free_path to free pp when store_path fails.
 
 Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
 Signed-off-by: lixiaokeng <lixiaokeng@huawei.com>
 ---
- libmultipath/dmparser.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ libmultipath/dmparser.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
 diff --git a/libmultipath/dmparser.c b/libmultipath/dmparser.c
-index ac13ec06..6225838b 100644
+index 6225838b..3dc77242 100644
 --- a/libmultipath/dmparser.c
 +++ b/libmultipath/dmparser.c
-@@ -268,8 +268,10 @@ int disassemble_map(vector pathvec, char *params, struct multipath *mpp,
- 		if (!pgp)
- 			goto out;
+@@ -142,6 +142,7 @@ int disassemble_map(vector pathvec, char *params, struct multipath *mpp,
+ 	int def_minio = 0;
+ 	struct path * pp;
+ 	struct pathgroup * pgp;
++	int pp_need_free_flag = 0;
 
--		if (add_pathgroup(mpp, pgp))
-+		if (add_pathgroup(mpp, pgp)) {
-+			free_pathgroup(pgp, KEEP_PATHS);
- 			goto out;
-+		}
+ 	p = params;
 
- 		p += get_word(p, &word);
+@@ -293,6 +294,7 @@ int disassemble_map(vector pathvec, char *params, struct multipath *mpp,
+ 			char devname[FILE_NAME_SIZE];
 
+ 			pp = NULL;
++			pp_need_free_flag = 0;
+ 			p += get_word(p, &word);
+
+ 			if (!word)
+@@ -323,9 +325,15 @@ int disassemble_map(vector pathvec, char *params, struct multipath *mpp,
+ 					strncpy(pp->wwid, mpp->wwid,
+ 						WWID_SIZE - 1);
+ 				}
++
++				if (is_daemon)
++					pp_need_free_flag = 1;
++
+ 				/* Only call this in multipath client mode */
+-				if (!is_daemon && store_path(pathvec, pp))
++				if (!is_daemon && store_path(pathvec, pp)) {
++					free_path(pp);
+ 					goto out1;
++				}
+ 			} else {
+ 				if (!strlen(pp->wwid) &&
+ 				    strlen(mpp->wwid))
+@@ -334,8 +342,11 @@ int disassemble_map(vector pathvec, char *params, struct multipath *mpp,
+ 			}
+ 			FREE(word);
+
+-			if (store_path(pgp->paths, pp))
++			if (store_path(pgp->paths, pp)) {
++				if (pp_need_free_flag)
++					free_path(pp);
+ 				goto out;
++			}
+
+ 			/*
+ 			 * Update wwid for multipaths which are not setup
 -- 
 2.24.0.windows.2
 
