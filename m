@@ -1,59 +1,58 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id E99FD229118
-	for <lists+dm-devel@lfdr.de>; Wed, 22 Jul 2020 08:44:13 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 3602C2291BA
+	for <lists+dm-devel@lfdr.de>; Wed, 22 Jul 2020 09:09:54 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-466-skJQwAFOMBeMK6RauyBeow-1; Wed, 22 Jul 2020 02:44:11 -0400
-X-MC-Unique: skJQwAFOMBeMK6RauyBeow-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-322-IeGB1P2INPOx6mH_afWAHQ-1; Wed, 22 Jul 2020 03:09:51 -0400
+X-MC-Unique: IeGB1P2INPOx6mH_afWAHQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 753A9800474;
-	Wed, 22 Jul 2020 06:44:05 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3534880183C;
+	Wed, 22 Jul 2020 07:09:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5063910027AC;
-	Wed, 22 Jul 2020 06:44:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0EB2A6115F;
+	Wed, 22 Jul 2020 07:09:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 080CF730C6;
-	Wed, 22 Jul 2020 06:43:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 94E54730C6;
+	Wed, 22 Jul 2020 07:09:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06M6Zddv010384 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 22 Jul 2020 02:35:39 -0400
+	id 06M6Zq6K010456 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 22 Jul 2020 02:35:53 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 55B982026D67; Wed, 22 Jul 2020 06:35:39 +0000 (UTC)
+	id CD5F810144FA; Wed, 22 Jul 2020 06:35:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 43332208DD8E
-	for <dm-devel@redhat.com>; Wed, 22 Jul 2020 06:35:39 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C932710144F3
+	for <dm-devel@redhat.com>; Wed, 22 Jul 2020 06:35:50 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 28AC91012444
-	for <dm-devel@redhat.com>; Wed, 22 Jul 2020 06:35:39 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7F9878007CF
+	for <dm-devel@redhat.com>; Wed, 22 Jul 2020 06:35:50 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-224-Gpb6am69PoSTDiRAIh7CQA-1; Wed, 22 Jul 2020 02:35:37 -0400
-X-MC-Unique: Gpb6am69PoSTDiRAIh7CQA-1
+	us-mta-2-r-i5tUioPUSwhgobYidbYw-1; Wed, 22 Jul 2020 02:35:46 -0400
+X-MC-Unique: r-i5tUioPUSwhgobYidbYw-1
 Received: from [2001:4bb8:18c:2acc:e75:d48f:65ef:e944] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1jy8DS-0004sw-DL; Wed, 22 Jul 2020 06:27:00 +0000
+	id 1jy8Cp-0004m8-AG; Wed, 22 Jul 2020 06:26:20 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed, 22 Jul 2020 08:25:51 +0200
-Message-Id: <20200722062552.212200-14-hch@lst.de>
+Date: Wed, 22 Jul 2020 08:25:41 +0200
+Message-Id: <20200722062552.212200-4-hch@lst.de>
 In-Reply-To: <20200722062552.212200-1-hch@lst.de>
 References: <20200722062552.212200-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	casper.infradead.org. See http://www.infradead.org/rpr.html
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 Cc: linux-raid@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
 	Minchan Kim <minchan@kernel.org>, Richard Weinberger <richard@nod.at>,
@@ -61,7 +60,7 @@ Cc: linux-raid@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
 	Song Liu <song@kernel.org>, dm-devel@redhat.com,
 	linux-mtd@lists.infradead.org, cgroups@vger.kernel.org,
 	drbd-dev@tron.linbit.com, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
-Subject: [dm-devel] [PATCH 13/14] bdi: invert BDI_CAP_NO_ACCT_WB
+Subject: [dm-devel] [PATCH 03/14] drbd: remove RB_CONGESTED_REMOTE
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,111 +74,50 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Replace BDI_CAP_NO_ACCT_WB with a positive BDI_CAP_WRITEBACK_ACCT to
-make the checks more obvious.  Also remove the pointless
-bdi_cap_account_writeback wrapper that just obsfucates the check.
+This case isn't ever used.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- fs/fuse/inode.c             |  3 ++-
- include/linux/backing-dev.h | 13 +++----------
- mm/backing-dev.c            |  1 +
- mm/page-writeback.c         |  4 ++--
- 4 files changed, 8 insertions(+), 13 deletions(-)
+ drivers/block/drbd/drbd_req.c | 4 ----
+ include/linux/drbd.h          | 1 -
+ 2 files changed, 5 deletions(-)
 
-diff --git a/fs/fuse/inode.c b/fs/fuse/inode.c
-index 17b00670fb539e..581329203d6860 100644
---- a/fs/fuse/inode.c
-+++ b/fs/fuse/inode.c
-@@ -1050,7 +1050,8 @@ static int fuse_bdi_init(struct fuse_conn *fc, struct super_block *sb)
- 		return err;
- 
- 	/* fuse does it's own writeback accounting */
--	sb->s_bdi->capabilities = BDI_CAP_NO_ACCT_WB | BDI_CAP_STRICTLIMIT;
-+	sb->s_bdi->capabilities &= ~BDI_CAP_WRITEBACK_ACCT;
-+	sb->s_bdi->capabilities |= BDI_CAP_STRICTLIMIT;
- 
- 	/*
- 	 * For a single fuse filesystem use max 1% of dirty +
-diff --git a/include/linux/backing-dev.h b/include/linux/backing-dev.h
-index 5da4ea3dd0cc5c..b217344a2c63be 100644
---- a/include/linux/backing-dev.h
-+++ b/include/linux/backing-dev.h
-@@ -120,17 +120,17 @@ int bdi_set_max_ratio(struct backing_dev_info *bdi, unsigned int max_ratio);
-  *
-  * BDI_CAP_NO_ACCT_DIRTY:  Dirty pages shouldn't contribute to accounting
-  * BDI_CAP_NO_WRITEBACK:   Don't write pages back
-- * BDI_CAP_NO_ACCT_WB:     Don't automatically account writeback pages
-+ * BDI_CAP_WRITEBACK_ACCT: Automatically account writeback pages
-  * BDI_CAP_STRICTLIMIT:    Keep number of dirty pages below bdi threshold.
-  */
- #define BDI_CAP_NO_ACCT_DIRTY	0x00000001
- #define BDI_CAP_NO_WRITEBACK	0x00000002
--#define BDI_CAP_NO_ACCT_WB	0x00000004
-+#define BDI_CAP_WRITEBACK_ACCT	0x00000004
- #define BDI_CAP_STRICTLIMIT	0x00000010
- #define BDI_CAP_CGROUP_WRITEBACK 0x00000020
- 
- #define BDI_CAP_NO_ACCT_AND_WRITEBACK \
--	(BDI_CAP_NO_WRITEBACK | BDI_CAP_NO_ACCT_DIRTY | BDI_CAP_NO_ACCT_WB)
-+	(BDI_CAP_NO_WRITEBACK | BDI_CAP_NO_ACCT_DIRTY)
- 
- extern struct backing_dev_info noop_backing_dev_info;
- 
-@@ -179,13 +179,6 @@ static inline bool bdi_cap_account_dirty(struct backing_dev_info *bdi)
- 	return !(bdi->capabilities & BDI_CAP_NO_ACCT_DIRTY);
- }
- 
--static inline bool bdi_cap_account_writeback(struct backing_dev_info *bdi)
--{
--	/* Paranoia: BDI_CAP_NO_WRITEBACK implies BDI_CAP_NO_ACCT_WB */
--	return !(bdi->capabilities & (BDI_CAP_NO_ACCT_WB |
--				      BDI_CAP_NO_WRITEBACK));
--}
--
- static inline bool mapping_cap_writeback_dirty(struct address_space *mapping)
+diff --git a/drivers/block/drbd/drbd_req.c b/drivers/block/drbd/drbd_req.c
+index 674be09b2da94a..4d944f2eb56efa 100644
+--- a/drivers/block/drbd/drbd_req.c
++++ b/drivers/block/drbd/drbd_req.c
+@@ -901,13 +901,9 @@ static bool drbd_may_do_local_read(struct drbd_device *device, sector_t sector,
+ static bool remote_due_to_read_balancing(struct drbd_device *device, sector_t sector,
+ 		enum drbd_read_balancing rbm)
  {
- 	return bdi_cap_writeback_dirty(inode_to_bdi(mapping->host));
-diff --git a/mm/backing-dev.c b/mm/backing-dev.c
-index 41ec322090fca6..5f5958e1d39060 100644
---- a/mm/backing-dev.c
-+++ b/mm/backing-dev.c
-@@ -744,6 +744,7 @@ struct backing_dev_info *bdi_alloc(int node_id)
- 		kfree(bdi);
- 		return NULL;
- 	}
-+	bdi->capabilities = BDI_CAP_WRITEBACK_ACCT;
- 	bdi->ra_pages = VM_READAHEAD_PAGES;
- 	return bdi;
- }
-diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-index 27a10536adad30..44c4a588f48df5 100644
---- a/mm/page-writeback.c
-+++ b/mm/page-writeback.c
-@@ -2740,7 +2740,7 @@ int test_clear_page_writeback(struct page *page)
- 		if (ret) {
- 			__xa_clear_mark(&mapping->i_pages, page_index(page),
- 						PAGECACHE_TAG_WRITEBACK);
--			if (bdi_cap_account_writeback(bdi)) {
-+			if (bdi->capabilities & BDI_CAP_WRITEBACK_ACCT) {
- 				struct bdi_writeback *wb = inode_to_wb(inode);
+-	struct backing_dev_info *bdi;
+ 	int stripe_shift;
  
- 				dec_wb_stat(wb, WB_WRITEBACK);
-@@ -2793,7 +2793,7 @@ int __test_set_page_writeback(struct page *page, bool keep_write)
- 						   PAGECACHE_TAG_WRITEBACK);
- 
- 			xas_set_mark(&xas, PAGECACHE_TAG_WRITEBACK);
--			if (bdi_cap_account_writeback(bdi))
-+			if (bdi->capabilities & BDI_CAP_WRITEBACK_ACCT)
- 				inc_wb_stat(inode_to_wb(inode), WB_WRITEBACK);
- 
- 			/*
+ 	switch (rbm) {
+-	case RB_CONGESTED_REMOTE:
+-		bdi = device->ldev->backing_bdev->bd_disk->queue->backing_dev_info;
+-		return bdi_read_congested(bdi);
+ 	case RB_LEAST_PENDING:
+ 		return atomic_read(&device->local_cnt) >
+ 			atomic_read(&device->ap_pending_cnt) + atomic_read(&device->rs_pending_cnt);
+diff --git a/include/linux/drbd.h b/include/linux/drbd.h
+index 5755537b51b114..6a8286132751df 100644
+--- a/include/linux/drbd.h
++++ b/include/linux/drbd.h
+@@ -94,7 +94,6 @@ enum drbd_read_balancing {
+ 	RB_PREFER_REMOTE,
+ 	RB_ROUND_ROBIN,
+ 	RB_LEAST_PENDING,
+-	RB_CONGESTED_REMOTE,
+ 	RB_32K_STRIPING,
+ 	RB_64K_STRIPING,
+ 	RB_128K_STRIPING,
 -- 
 2.27.0
 
