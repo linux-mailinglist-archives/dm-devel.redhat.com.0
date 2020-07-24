@@ -2,67 +2,63 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id DAB2522BB9F
-	for <lists+dm-devel@lfdr.de>; Fri, 24 Jul 2020 03:40:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B335022BF6E
+	for <lists+dm-devel@lfdr.de>; Fri, 24 Jul 2020 09:36:05 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-426-4Q5BqDuLMNKZ-_bCdu-MbA-1; Thu, 23 Jul 2020 21:40:52 -0400
-X-MC-Unique: 4Q5BqDuLMNKZ-_bCdu-MbA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-439-6ULl9EmyMYGsnjwblPWpsg-1; Fri, 24 Jul 2020 03:35:55 -0400
+X-MC-Unique: 6ULl9EmyMYGsnjwblPWpsg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2E970100AA22;
-	Fri, 24 Jul 2020 01:40:46 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9709719D81;
-	Fri, 24 Jul 2020 01:40:45 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1C95819057A5;
+	Fri, 24 Jul 2020 07:35:50 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EA6055D9D7;
+	Fri, 24 Jul 2020 07:35:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 071BAA3581;
-	Fri, 24 Jul 2020 01:40:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8CE371809557;
+	Fri, 24 Jul 2020 07:35:49 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06O1eZVV026194 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 23 Jul 2020 21:40:35 -0400
+	id 06O7ZPcr032212 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 24 Jul 2020 03:35:27 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2A0A022080F; Fri, 24 Jul 2020 01:40:35 +0000 (UTC)
+	id A656C2166BA0; Fri, 24 Jul 2020 07:35:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 25E51298047
-	for <dm-devel@redhat.com>; Fri, 24 Jul 2020 01:40:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A1C592166B27
+	for <dm-devel@redhat.com>; Fri, 24 Jul 2020 07:35:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 20D0D8007C9
-	for <dm-devel@redhat.com>; Fri, 24 Jul 2020 01:40:33 +0000 (UTC)
-Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-177-Weh1l28WN7Sf-kVPfhltvQ-1; Thu, 23 Jul 2020 21:40:28 -0400
-X-MC-Unique: Weh1l28WN7Sf-kVPfhltvQ-1
-Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.59])
-	by Forcepoint Email with ESMTP id 6ED1D171E6A0BDEE2315;
-	Fri, 24 Jul 2020 09:40:25 +0800 (CST)
-Received: from [127.0.0.1] (10.174.179.249) by DGGEMS412-HUB.china.huawei.com
-	(10.3.19.212) with Microsoft SMTP Server id 14.3.487.0;
-	Fri, 24 Jul 2020 09:40:19 +0800
-To: Martin Wilck <mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, 
-	<christophe.varoqui@opensvc.com>, Zdenek Kabelac <zkabelac@redhat.com>
-From: Zhiqiang Liu <liuzhiqiang26@huawei.com>
-Message-ID: <40a7ea22-8897-363a-5821-99add9de6dc5@huawei.com>
-Date: Fri, 24 Jul 2020 09:40:18 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
-	Thunderbird/68.2.2
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A8D1E804046
+	for <dm-devel@redhat.com>; Fri, 24 Jul 2020 07:35:24 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-460-1bOEucPEOl-HihO4TtpZxg-1; Fri, 24 Jul 2020 03:35:22 -0400
+X-MC-Unique: 1bOEucPEOl-HihO4TtpZxg-1
+Received: from [2001:4bb8:18c:2acc:8dfe:be3c:592c:efc5] (helo=localhost)
+	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+	id 1jysCg-0006BT-C1; Fri, 24 Jul 2020 07:33:16 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Jens Axboe <axboe@kernel.dk>
+Date: Fri, 24 Jul 2020 09:32:59 +0200
+Message-Id: <20200724073313.138789-1-hch@lst.de>
 MIME-Version: 1.0
-Content-Language: en-US
-X-Originating-IP: [10.174.179.249]
-X-CFilter-Loop: Reflected
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	casper.infradead.org. See http://www.infradead.org/rpr.html
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: linfeilong@huawei.com, yanxiaodan@huawei.com, dm-devel@redhat.com
-Subject: [dm-devel] [PATCH V2] libmultipath: free pp if store_path fails in
- disassemble_map
+Cc: linux-raid@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
+	Minchan Kim <minchan@kernel.org>, Richard Weinberger <richard@nod.at>,
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
+	Song Liu <song@kernel.org>, dm-devel@redhat.com,
+	linux-mtd@lists.infradead.org, cgroups@vger.kernel.org,
+	drbd-dev@tron.linbit.com, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
+Subject: [dm-devel] bdi cleanups v3
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -76,68 +72,80 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-In disassemble_map func, one pp will be allocated and stored in
-pgp->paths. However, if store_path fails, pp will not be freed,
-then memory leak problem occurs.
+Hi Jens,
 
-Here, we will call free_path to free pp when store_path fails.
+this series contains a bunch of different BDI cleanups.  The biggest item
+is to isolate block drivers from the BDI in preparation of changing the
+lifetime of the block device BDI in a follow up series.
 
-Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
-Signed-off-by: lixiaokeng <lixiaokeng@huawei.com>
----
-V1->V2: update based on ups/submit-2007 branch.
 
- libmultipath/dmparser.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+Changes since v2:
+ - fix a rw_page return value check
+ - fix various changelogs
 
-diff --git a/libmultipath/dmparser.c b/libmultipath/dmparser.c
-index b9858fa5..8a0501ba 100644
---- a/libmultipath/dmparser.c
-+++ b/libmultipath/dmparser.c
-@@ -143,6 +143,7 @@ int disassemble_map(const struct _vector *pathvec,
- 	int def_minio = 0;
- 	struct path * pp;
- 	struct pathgroup * pgp;
-+	int pp_alloc_flag = 0;
+Changes since v1:
+ - rebased to the for-5.9/block-merge branch
+ - explicitly set the readahead to 0 for ubifs, vboxsf and mtd
+ - split the zram block_device operations
+ - let rw_page users fall back to bios in swap_readpage
 
- 	assert(pathvec != NULL);
- 	p = params;
-@@ -292,6 +293,7 @@ int disassemble_map(const struct _vector *pathvec,
 
- 		for (j = 0; j < num_paths; j++) {
- 			pp = NULL;
-+			pp_alloc_flag = 0;
- 			p += get_word(p, &word);
-
- 			if (!word)
-@@ -304,13 +306,16 @@ int disassemble_map(const struct _vector *pathvec,
-
- 				if (!pp)
- 					goto out1;
--
-+				pp_alloc_flag = 1;
- 				strlcpy(pp->dev_t, word, BLK_DEV_SIZE);
- 			}
- 			FREE(word);
-
--			if (store_path(pgp->paths, pp))
-+			if (store_path(pgp->paths, pp)) {
-+				if (pp_alloc_flag)
-+					free_path(pp);
- 				goto out;
-+			}
-
- 			pgp->id ^= (long)pp;
- 			pp->pgindex = i + 1;
--- 
-2.24.0.windows.2
-
+Diffstat:
+ block/blk-core.c              |    2 
+ block/blk-integrity.c         |    4 
+ block/blk-mq-debugfs.c        |    1 
+ block/blk-settings.c          |    5 
+ block/blk-sysfs.c             |  282 ++++++++++--------------------------------
+ block/genhd.c                 |   13 +
+ drivers/block/aoe/aoeblk.c    |    2 
+ drivers/block/brd.c           |    1 
+ drivers/block/drbd/drbd_nl.c  |   18 --
+ drivers/block/drbd/drbd_req.c |    4 
+ drivers/block/rbd.c           |    2 
+ drivers/block/zram/zram_drv.c |   19 +-
+ drivers/md/bcache/super.c     |    4 
+ drivers/md/dm-table.c         |    9 -
+ drivers/md/raid0.c            |   16 --
+ drivers/md/raid10.c           |   46 ++----
+ drivers/md/raid5.c            |   31 +---
+ drivers/mmc/core/queue.c      |    3 
+ drivers/mtd/mtdcore.c         |    1 
+ drivers/nvdimm/btt.c          |    2 
+ drivers/nvdimm/pmem.c         |    1 
+ drivers/nvme/host/core.c      |    3 
+ drivers/nvme/host/multipath.c |   10 -
+ drivers/scsi/iscsi_tcp.c      |    4 
+ fs/9p/vfs_file.c              |    2 
+ fs/9p/vfs_super.c             |    4 
+ fs/afs/super.c                |    1 
+ fs/btrfs/disk-io.c            |    2 
+ fs/fs-writeback.c             |    7 -
+ fs/fuse/inode.c               |    4 
+ fs/namei.c                    |    4 
+ fs/nfs/super.c                |    9 -
+ fs/super.c                    |    2 
+ fs/ubifs/super.c              |    1 
+ fs/vboxsf/super.c             |    1 
+ include/linux/backing-dev.h   |   78 +----------
+ include/linux/blkdev.h        |    3 
+ include/linux/drbd.h          |    1 
+ include/linux/fs.h            |    2 
+ mm/backing-dev.c              |   12 -
+ mm/filemap.c                  |    4 
+ mm/memcontrol.c               |    2 
+ mm/memory-failure.c           |    2 
+ mm/migrate.c                  |    2 
+ mm/mmap.c                     |    2 
+ mm/page-writeback.c           |   18 +-
+ mm/page_io.c                  |   18 +-
+ mm/swapfile.c                 |    4 
+ 48 files changed, 204 insertions(+), 464 deletions(-)
 
 --
 dm-devel mailing list
