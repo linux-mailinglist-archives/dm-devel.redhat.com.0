@@ -1,65 +1,70 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 12F5822F903
-	for <lists+dm-devel@lfdr.de>; Mon, 27 Jul 2020 21:26:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1595877964;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=erH5kpIygUkpFLj7Iq5gqbQaNLG11I3IXzXJd5LTQqI=;
-	b=icrRPLLRGUEMqnWSNh2i60prXFgwJ8LsEEtFe8efInUPrIiK6081vM5nWtL1duLXIu7h1s
-	mq1sEDgGiB7kDi2M+n0vimvCuMJ68wCzXNm3vrU6GgpDuRycsybOMQeXtaTnaegtnEIoIu
-	+X8rmijU9HUXoCrIX/+Wx3yNAg4o5Y4=
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 311AD230BDF
+	for <lists+dm-devel@lfdr.de>; Tue, 28 Jul 2020 15:57:12 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-368-KJ9Kq-sePTuaH5L0Xy-Zbg-1; Mon, 27 Jul 2020 15:25:01 -0400
-X-MC-Unique: KJ9Kq-sePTuaH5L0Xy-Zbg-1
+ us-mta-85-ozhnouctO566eYoZL7wnSg-1; Tue, 28 Jul 2020 09:57:08 -0400
+X-MC-Unique: ozhnouctO566eYoZL7wnSg-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4E7C780046C;
-	Mon, 27 Jul 2020 19:24:55 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CDD7190E6B;
-	Mon, 27 Jul 2020 19:24:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 72FD7100962A;
+	Tue, 28 Jul 2020 13:56:59 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E654F79251;
+	Tue, 28 Jul 2020 13:56:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 75DDD1809557;
-	Mon, 27 Jul 2020 19:24:54 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6120EA359F;
+	Tue, 28 Jul 2020 13:56:44 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06RJOgdd024731 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 27 Jul 2020 15:24:42 -0400
+	id 06SDuWu6011799 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 28 Jul 2020 09:56:32 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A16A760C87; Mon, 27 Jul 2020 19:24:42 +0000 (UTC)
+	id 4AC331009BBD; Tue, 28 Jul 2020 13:56:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B3F5660FC2;
-	Mon, 27 Jul 2020 19:24:39 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 06RJOcBX005655; 
-	Mon, 27 Jul 2020 14:24:38 -0500
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 06RJObl1005654;
-	Mon, 27 Jul 2020 14:24:37 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Mon, 27 Jul 2020 14:24:28 -0500
-Message-Id: <1595877868-5595-7-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1595877868-5595-1-git-send-email-bmarzins@redhat.com>
-References: <1595877868-5595-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Received: from mimecast-mx02.redhat.com
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4589A110E9BB
+	for <dm-devel@redhat.com>; Tue, 28 Jul 2020 13:56:28 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BD5AD8007A4
+	for <dm-devel@redhat.com>; Tue, 28 Jul 2020 13:56:28 +0000 (UTC)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-84-PDlpSNvSPoiwqAxXyG2Pbg-1; Tue, 28 Jul 2020 09:56:23 -0400
+X-MC-Unique: PDlpSNvSPoiwqAxXyG2Pbg-1
+Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.60])
+	by Forcepoint Email with ESMTP id 219114CFE4A314D65196;
+	Tue, 28 Jul 2020 21:56:14 +0800 (CST)
+Received: from [127.0.0.1] (10.174.179.62) by DGGEMS413-HUB.china.huawei.com
+	(10.3.19.213) with Microsoft SMTP Server id 14.3.487.0; Tue, 28 Jul 2020
+	21:56:05 +0800
+To: Benjamin Marzinski <bmarzins@redhat.com>
+References: <1694e42f-92e7-e380-bc8c-ac3ec47cafdc@huawei.com>
+	<20200727164530.GN11089@octiron.msp.redhat.com>
+From: lixiaokeng <lixiaokeng@huawei.com>
+Message-ID: <92b1653b-bf07-a79b-359a-635924102a84@huawei.com>
+Date: Tue, 28 Jul 2020 21:56:04 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <20200727164530.GN11089@octiron.msp.redhat.com>
+Content-Language: en-GB
+X-Originating-IP: [10.174.179.62]
+X-CFilter-Loop: Reflected
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: device-mapper development <dm-devel@redhat.com>,
-	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH 6/6] multipath: deal with delegation failures
-	correctly
+Cc: liuzhiqiang26@huawei.com, linfeilong@huawei.com, dm-devel@redhat.com,
+	Martin Wilck <mwilck@suse.com>, lutianxiong@huawei.com
+Subject: Re: [dm-devel] [dm-level] upstream-queue-libmultipath: fix memory
+ leak when iscsi login/out and "multipath -r" executed
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,48 +76,96 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-delegate_to_multipathd() was returning success, even if the multipathd
-command failed. Also, if the command was set to fail with NOT_DELEGATED,
-it shouldn't print any errors, since multipath will try to issue to
-command itself.
+Hi.
+    Thanks very much! I will try these patches.
+-Lixiaokeng
 
-Fixes: "multipath: delegate flushing maps to multipathd"
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
----
- multipath/main.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/multipath/main.c b/multipath/main.c
-index 4c43314e..3da692dc 100644
---- a/multipath/main.c
-+++ b/multipath/main.c
-@@ -861,9 +861,12 @@ int delegate_to_multipathd(enum mpath_cmds cmd,
- 		goto out;
- 	}
- 
--	if (reply != NULL && *reply != '\0' && strcmp(reply, "ok\n"))
--		printf("%s", reply);
--	r = DELEGATE_OK;
-+	if (reply != NULL && *reply != '\0') {
-+		if (strcmp(reply, "fail\n"))
-+			r = DELEGATE_OK;
-+		if (r != NOT_DELEGATED && strcmp(reply, "ok\n"))
-+			printf("%s", reply);
-+	}
- 
- out:
- 	FREE(reply);
--- 
-2.17.2
+On 2020/7/28 0:45, Benjamin Marzinski wrote:
+> On Sat, Jul 25, 2020 at 01:47:01PM +0800, lixiaokeng wrote:
+>> When one iscsi device logs in and logs out with the "multipath -r"
+>> executed at the same time, memory leak happens in multipathd
+>> process.
+>>
+>> The reason is following. When "multipath -r" is executed, the path
+>> will be free in configure function. Before path_discovery executed,
+>> iscsi device logs out. Then path_discovery will not find any path and
+>> there is no path in the gvecs->pathvec. When map_discovery function
+>> is executed, disassemble_map function will be called. Because
+>> gvecs->pathvec->slot is empty and is_deamon is 1, a path will be
+>> allocated and is not stored in gvecs->pathvec but store in
+>> mpp->pg. But when the mpp is removed and freed by remove_map
+>> function, the path will not be free and can't be find anymore.
+>>
+>> The procedure details given as follows,
+>> 1."multipath -r" is executed
+>> main
+>> 	->child
+>> 		->reconfigure
+>> 			->configure
+>> 				->path_discovery //after iscsi logout
+>> 				->map_discovery
+>> 					->update_multipath_table
+>> 						->disassemble_map
+>> 							->alloc_path
+>> 2.then "multipath -r" is executed again
+>> main
+>> main
+>> 	->child
+>> 		->reconfigure
+>> 			->remove_maps_and_stop_waiters
+>> 				->remove_maps
+>>
+>> Here, we delete checking is_deamon. Because whether the process is a
+>> daemon process or not, we think the path should be add to gvecs->pathvec.
+> 
+> There is more work that needs to be done to besides removing the is_daemon
+> check.  However, Martin already posted patches that deal with this as
+> part of the his large patchset.
+> 
+> https://www.redhat.com/archives/dm-devel/2020-July/msg00245.html
+> 
+> You should take a look at those, and at my comments on them, because they
+> should resolve your issue.
+> 
+> -Ben
+> 
+>>
+>> Reported-by: Tianxiong Li <lutianxiong@huawei.com>
+>> Signed-off-by: Lixiaokeng <lixiaokeng@huawei.com>
+>> Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
+>>
+>> ---
+>>  libmultipath/dmparser.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/libmultipath/dmparser.c b/libmultipath/dmparser.c
+>> index b856a07f..d556f642 100644
+>> --- a/libmultipath/dmparser.c
+>> +++ b/libmultipath/dmparser.c
+>> @@ -315,7 +315,7 @@ int disassemble_map(vector pathvec, char *params, struct multipath *mpp,
+>>  						WWID_SIZE);
+>>  				}
+>>  				/* Only call this in multipath client mode */
+>> -				if (!is_daemon && store_path(pathvec, pp))
+>> +				if (store_path(pathvec, pp))
+>>  					goto out1;
+>>  			} else {
+>>  				if (!strlen(pp->wwid) &&
+>> --
+> 
+> 
+> .
+> 
 
 --
 dm-devel mailing list
