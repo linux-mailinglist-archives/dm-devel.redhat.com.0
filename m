@@ -2,67 +2,66 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id AE878233264
-	for <lists+dm-devel@lfdr.de>; Thu, 30 Jul 2020 14:48:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3106823332A
+	for <lists+dm-devel@lfdr.de>; Thu, 30 Jul 2020 15:35:24 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-510-txmQr3FSOle2f0aqT8H2_g-1; Thu, 30 Jul 2020 08:48:24 -0400
-X-MC-Unique: txmQr3FSOle2f0aqT8H2_g-1
+ us-mta-394-1HfpyfuSN9-PW4F-jN1ghQ-1; Thu, 30 Jul 2020 09:35:20 -0400
+X-MC-Unique: 1HfpyfuSN9-PW4F-jN1ghQ-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 25CF8193248C;
-	Thu, 30 Jul 2020 12:48:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D9757E918;
+	Thu, 30 Jul 2020 13:35:13 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 103EA60C84;
-	Thu, 30 Jul 2020 12:48:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CE183619B5;
+	Thu, 30 Jul 2020 13:35:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AB6CE9A0E0;
-	Thu, 30 Jul 2020 12:48:00 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5A80C95A7B;
+	Thu, 30 Jul 2020 13:35:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06UCkBnd006281 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 30 Jul 2020 08:46:11 -0400
+	id 06UDRsVD010949 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 30 Jul 2020 09:27:54 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 341042026D67; Thu, 30 Jul 2020 12:46:11 +0000 (UTC)
+	id 1DB6EF49C8; Thu, 30 Jul 2020 13:27:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2D7BB20A053E
-	for <dm-devel@redhat.com>; Thu, 30 Jul 2020 12:46:08 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 19D707D293
+	for <dm-devel@redhat.com>; Thu, 30 Jul 2020 13:27:51 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AA13F108C267
-	for <dm-devel@redhat.com>; Thu, 30 Jul 2020 12:46:08 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5136D18A6664
+	for <dm-devel@redhat.com>; Thu, 30 Jul 2020 13:27:51 +0000 (UTC)
 Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-467-D8eSO-q_Pleya6V1kuxndg-1; Thu, 30 Jul 2020 08:46:03 -0400
-X-MC-Unique: D8eSO-q_Pleya6V1kuxndg-1
-Received: from DGGEMS404-HUB.china.huawei.com (unknown [172.30.72.59])
-	by Forcepoint Email with ESMTP id 22351D8A3D3F572629EA;
-	Thu, 30 Jul 2020 20:46:00 +0800 (CST)
-Received: from [127.0.0.1] (10.174.179.62) by DGGEMS404-HUB.china.huawei.com
-	(10.3.19.204) with Microsoft SMTP Server id 14.3.487.0; Thu, 30 Jul 2020
-	20:45:50 +0800
+	us-mta-408-dqxAFfqYMoulmzPJmURynA-1; Thu, 30 Jul 2020 09:27:44 -0400
+X-MC-Unique: dqxAFfqYMoulmzPJmURynA-1
+Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.58])
+	by Forcepoint Email with ESMTP id 4CD2B43AE14F5D6C58DC;
+	Thu, 30 Jul 2020 21:27:36 +0800 (CST)
+Received: from [127.0.0.1] (10.174.179.62) by DGGEMS410-HUB.china.huawei.com
+	(10.3.19.210) with Microsoft SMTP Server id 14.3.487.0; Thu, 30 Jul 2020
+	21:27:28 +0800
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>, Benjamin Marzinski
+	<bmarzins@redhat.com>,
+	Martin Wilck <mwilck@suse.com>, <dm-devel@redhat.com>
 From: lixiaokeng <lixiaokeng@huawei.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>, Martin Wilck
-	<mwilck@suse.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>, <dm-devel@redhat.com>
-Message-ID: <b5ae18b7-35b2-01ba-bb18-def6d86a7b99@huawei.com>
-Date: Thu, 30 Jul 2020 20:45:49 +0800
+Message-ID: <0c9f562c-9c2b-f18f-7399-79d0862a8843@huawei.com>
+Date: Thu, 30 Jul 2020 21:27:28 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
 	Thunderbird/68.10.0
 MIME-Version: 1.0
 Content-Language: en-GB
 X-Originating-IP: [10.174.179.62]
 X-CFilter-Loop: Reflected
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: linfeilong@huawei.com, liuzhiqiang26@huawei.com, lutianxiong@huawei.com
-Subject: Re: [dm-devel] [PATCH] libmultipath: fix a memory leak in
- set_ble_device
+Subject: [dm-devel] [PATCH] libmultipath: fix a memory leak in set_ble_device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -77,13 +76,16 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-Mimecast-Spam-Score: 1
+X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+Hi.
+  I'm very sorry for subject mistake in first mail.
+
 In set_ble_device func, if blist is NULL or ble is NULL,
-the vendor and product isn't freed. We think it is not
+the vendor and product isn't free. We think it is not
 reasonable that strdup(XXX) is used as set_ble_device
 and store_ble functions' parameter.
 
@@ -93,17 +95,23 @@ Because constant string like "sdb" will be their parameter,
 char * is changed to const char *. This is base on
 upstream-queue branch in openSUSE/multipath-tools.
 
+Here we have another question. We want to know which branch
+is mainline in https://github.com/openSUSE/multipath-tools.
+The master is not changed since two years ago. And we find
+the ups/submit-2007 branch in mwilck/multipath-tools have
+a great changes. Do you have a plan to merge it to openSUSE.
+
 Signed-off-by: Lixiaokeng <lixiaokeng@huawei.com>
 Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
 
 ---
- libmultipath/blacklist.c | 81 ++++++++++++++++++++++------------------
- libmultipath/blacklist.h |  4 +-
- tests/blacklist.c        | 31 +++++++--------
- 3 files changed, 59 insertions(+), 57 deletions(-)
+ libmultipath/blacklist.c | 74 +++++++++++++++++++++++-----------------
+ libmultipath/blacklist.h |  4 +--
+ tests/blacklist.c        | 31 +++++++----------
+ 3 files changed, 58 insertions(+), 51 deletions(-)
 
 diff --git a/libmultipath/blacklist.c b/libmultipath/blacklist.c
-index db58ccca..2ff7cd84 100644
+index db58ccca..04aeb426 100644
 --- a/libmultipath/blacklist.c
 +++ b/libmultipath/blacklist.c
 @@ -29,14 +29,19 @@ char *check_invert(char *str, bool *invert)
@@ -166,49 +174,45 @@ index db58ccca..2ff7cd84 100644
 
  	if (!blist)
  		return 1;
-@@ -93,31 +100,40 @@ int set_ble_device(vector blist, char * vendor, char * product, int origin)
+@@ -93,31 +100,42 @@ int set_ble_device(vector blist, char * vendor, char * product, int origin)
  		return 1;
 
  	if (vendor) {
 -		regex_str = check_invert(vendor, &ble->vendor_invert);
--		if (regcomp(&ble->vendor_reg, regex_str,
--			    REG_EXTENDED|REG_NOSUB)) {
--			FREE(vendor);
--			if (product)
--				FREE(product);
--			return 1;
--		}
--		ble->vendor = vendor;
 +		vendor_str = STRDUP(vendor);
 +		if (!vendor_str)
 +			goto out;
 +
 +		regex_str = check_invert(vendor_str, &ble->vendor_invert);
-+		if (regcomp(&ble->vendor_reg, regex_str, REG_EXTENDED|REG_NOSUB))
+ 		if (regcomp(&ble->vendor_reg, regex_str,
+ 			    REG_EXTENDED|REG_NOSUB)) {
+-			FREE(vendor);
+-			if (product)
+-				FREE(product);
+-			return 1;
 +			goto out;
-+
+ 		}
+-		ble->vendor = vendor;
 +		ble->vendor = vendor_str;
  	}
  	if (product) {
 -		regex_str = check_invert(product, &ble->product_invert);
--		if (regcomp(&ble->product_reg, regex_str,
--			    REG_EXTENDED|REG_NOSUB)) {
++		product_str = STRDUP(product);
++		if (!product_str)
++			goto out1;
++
++		regex_str = check_invert(product_str, &ble->product_invert);
+ 		if (regcomp(&ble->product_reg, regex_str,
+ 			    REG_EXTENDED|REG_NOSUB)) {
 -			FREE(product);
 -			if (vendor) {
 -				ble->vendor = NULL;
 -				FREE(vendor);
 -			}
 -			return 1;
--		}
++			goto out1;
+ 		}
 -		ble->product = product;
-+		product_str = STRDUP(product);
-+		if (!product_str)
-+			goto out1;
-+
-+		regex_str = check_invert(product_str, &ble->product_invert);
-+		if (regcomp(&ble->product_reg, regex_str, REG_EXTENDED|REG_NOSUB))
-+			goto out1;
-+
 +		ble->product = product_str;
  	}
  	ble->origin = origin;
@@ -227,7 +231,7 @@ index db58ccca..2ff7cd84 100644
  }
 
  static int
-@@ -178,19 +194,12 @@ setup_default_blist (struct config * conf)
+@@ -178,20 +196,16 @@ setup_default_blist (struct config * conf)
  {
  	struct blentry * ble;
  	struct hwentry *hwe;
@@ -238,25 +242,29 @@ index db58ccca..2ff7cd84 100644
 -	if (!str)
 -		return 1;
 -	if (store_ble(conf->blist_devnode, str, ORIGIN_DEFAULT))
-+	if (store_ble(conf->blist_devnode, "!^(sd[a-z]|dasd[a-z]|nvme[0-9])", ORIGIN_DEFAULT))
++	if (store_ble(conf->blist_devnode, "!^(sd[a-z]|dasd[a-z]|nvme[0-9])"
++		, ORIGIN_DEFAULT)) {
  		return 1;
++	}
 
 -	str = STRDUP("(SCSI_IDENT_|ID_WWN)");
 -	if (!str)
 -		return 1;
 -	if (store_ble(conf->elist_property, str, ORIGIN_DEFAULT))
-+	if (store_ble(conf->elist_property, "(SCSI_IDENT_|ID_WWN)", ORIGIN_DEFAULT))
++	if (store_ble(conf->elist_property, "(SCSI_IDENT_|ID_WWN)", ORIGIN_DEFAULT)) {
  		return 1;
++	}
 
  	vector_foreach_slot (conf->hwtable, hwe, i) {
-@@ -202,9 +211,7 @@ setup_default_blist (struct config * conf)
+ 		if (hwe->bl_product) {
+@@ -202,9 +216,7 @@ setup_default_blist (struct config * conf)
  				return 1;
  			ble = VECTOR_SLOT(conf->blist_device,
  					  VECTOR_SIZE(conf->blist_device) - 1);
 -			if (set_ble_device(conf->blist_device,
 -					   STRDUP(hwe->vendor),
 -					   STRDUP(hwe->bl_product),
-+			if (set_ble_device(conf->blist_device, hwe->vendor, hwe->bl_product,
++			if (set_ble_device(conf->blist_device,hwe->vendor,hwe->bl_product,
  					   ORIGIN_DEFAULT)) {
  				FREE(ble);
  				vector_del_slot(conf->blist_device, VECTOR_SIZE(conf->blist_device) - 1);
