@@ -1,71 +1,69 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 545372328D6
-	for <lists+dm-devel@lfdr.de>; Thu, 30 Jul 2020 02:32:08 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 6518A232AAC
+	for <lists+dm-devel@lfdr.de>; Thu, 30 Jul 2020 06:03:40 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-233-SDdOIktRMnaxoT-pSl86jg-1; Wed, 29 Jul 2020 20:32:04 -0400
-X-MC-Unique: SDdOIktRMnaxoT-pSl86jg-1
+ us-mta-225-3eQmJXDyOAG_fRCuhL9erA-1; Thu, 30 Jul 2020 00:03:37 -0400
+X-MC-Unique: 3eQmJXDyOAG_fRCuhL9erA-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 913798064AE;
-	Thu, 30 Jul 2020 00:31:59 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6A1831002382;
-	Thu, 30 Jul 2020 00:31:59 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CDC7558;
+	Thu, 30 Jul 2020 04:03:30 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E4F341002382;
+	Thu, 30 Jul 2020 04:03:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 24AB5180597C;
-	Thu, 30 Jul 2020 00:31:59 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0DF5B4EDB7;
+	Thu, 30 Jul 2020 04:03:13 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06U0VVNC010264 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 29 Jul 2020 20:31:31 -0400
+	id 06U41xUV003378 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 30 Jul 2020 00:01:59 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1F4BE2166B27; Thu, 30 Jul 2020 00:31:31 +0000 (UTC)
+	id 6F865D0B33; Thu, 30 Jul 2020 04:01:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1AE452156A30
-	for <dm-devel@redhat.com>; Thu, 30 Jul 2020 00:31:31 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6ACF2E77BE
+	for <dm-devel@redhat.com>; Thu, 30 Jul 2020 04:01:57 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 023838007CF
-	for <dm-devel@redhat.com>; Thu, 30 Jul 2020 00:31:31 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-468-FcinST4ENUiGn_oOt6YkKg-1;
-	Wed, 29 Jul 2020 20:31:23 -0400
-X-MC-Unique: FcinST4ENUiGn_oOt6YkKg-1
-Received: from dede-linux-virt.corp.microsoft.com (unknown [131.107.160.54])
-	by linux.microsoft.com (Postfix) with ESMTPSA id B1DD220B4916;
-	Wed, 29 Jul 2020 17:31:21 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B1DD220B4916
-From: Deven Bowers <deven.desai@linux.microsoft.com>
-To: agk@redhat.com, axboe@kernel.dk, snitzer@redhat.com, jmorris@namei.org,
-	serge@hallyn.com, zohar@linux.ibm.com, viro@zeniv.linux.org.uk,
-	paul@paul-moore.com, eparis@redhat.com, jannh@google.com,
-	dm-devel@redhat.com, linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-block@vger.kernel.org, linux-audit@redhat.com
-Date: Wed, 29 Jul 2020 17:31:13 -0700
-Message-Id: <20200730003113.2561644-12-deven.desai@linux.microsoft.com>
-In-Reply-To: <20200730003113.2561644-1-deven.desai@linux.microsoft.com>
-References: <20200730003113.2561644-1-deven.desai@linux.microsoft.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4F37A8007CD
+	for <dm-devel@redhat.com>; Thu, 30 Jul 2020 04:01:57 +0000 (UTC)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-95-YGj4ar8rMRuBF3QlJnp5QQ-1; Thu, 30 Jul 2020 00:01:52 -0400
+X-MC-Unique: YGj4ar8rMRuBF3QlJnp5QQ-1
+Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.59])
+	by Forcepoint Email with ESMTP id F1AAF2FC80355504992C;
+	Thu, 30 Jul 2020 12:01:47 +0800 (CST)
+Received: from [127.0.0.1] (10.174.179.62) by DGGEMS412-HUB.china.huawei.com
+	(10.3.19.212) with Microsoft SMTP Server id 14.3.487.0; Thu, 30 Jul 2020
+	12:01:37 +0800
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>, Martin Wilck
+	<mwilck@suse.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>, <dm-devel@redhat.com>
+From: lixiaokeng <lixiaokeng@huawei.com>
+Message-ID: <e2fb3241-6829-86e1-bc0c-5ba6b0e399c7@huawei.com>
+Date: Thu, 30 Jul 2020 12:01:36 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 06U0VVNC010264
+Content-Language: en-GB
+X-Originating-IP: [10.174.179.62]
+X-CFilter-Loop: Reflected
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: sashal@kernel.org, pasha.tatashin@soleen.com, mdsakib@microsoft.com,
-	corbet@lwn.net, linux-kernel@vger.kernel.org,
-	nramas@linux.microsoft.com, tyhicks@linux.microsoft.com,
-	jaskarankhurana@linux.microsoft.com
-Subject: [dm-devel] [RFC PATCH v6 11/11] cleanup: uapi/linux/audit.h
+Cc: linfeilong@huawei.com, liuzhiqiang26@huawei.com, lutianxiong@huawei.com
+Subject: [dm-devel] [dm- devel][PATCH] libmultipath: fix a memory leak in
+	dm_get_maps
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,74 +83,35 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Remove trailing whitespaces and align the integrity #defines in
-linux/uapi/audit.h
+In dm_get_maps func, if vector_alloc_slot(mp) fails, the
+mpp should be free.
 
-Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
+Here we call free_multipath(mpp, KEEP_PATHS) to free map.
+
+Signed-off-by: Lixiaokeng <lixiaokeng@huawei.com>
+Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
+
 ---
- include/uapi/linux/audit.h | 32 ++++++++++++++++----------------
- 1 file changed, 16 insertions(+), 16 deletions(-)
+ libmultipath/devmapper.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/include/uapi/linux/audit.h b/include/uapi/linux/audit.h
-index 5a634cca1d42..609b4a5e8a80 100644
---- a/include/uapi/linux/audit.h
-+++ b/include/uapi/linux/audit.h
-@@ -48,7 +48,7 @@
-  * 2500 - 2999 future user space (maybe integrity labels and related events)
-  *
-  * Messages from 1000-1199 are bi-directional. 1200-1299 & 2100 - 2999 are
-- * exclusively user space. 1300-2099 is kernel --> user space 
-+ * exclusively user space. 1300-2099 is kernel --> user space
-  * communication.
-  */
- #define AUDIT_GET		1000	/* Get status */
-@@ -78,7 +78,7 @@
- #define AUDIT_LAST_USER_MSG	1199
- #define AUDIT_FIRST_USER_MSG2	2100	/* More user space messages */
- #define AUDIT_LAST_USER_MSG2	2999
-- 
-+
- #define AUDIT_DAEMON_START      1200    /* Daemon startup record */
- #define AUDIT_DAEMON_END        1201    /* Daemon normal stop record */
- #define AUDIT_DAEMON_ABORT      1202    /* Daemon error stop record */
-@@ -140,20 +140,20 @@
- #define AUDIT_MAC_CALIPSO_ADD	1418	/* NetLabel: add CALIPSO DOI entry */
- #define AUDIT_MAC_CALIPSO_DEL	1419	/* NetLabel: del CALIPSO DOI entry */
- 
--#define AUDIT_FIRST_KERN_ANOM_MSG   1700
--#define AUDIT_LAST_KERN_ANOM_MSG    1799
--#define AUDIT_ANOM_PROMISCUOUS      1700 /* Device changed promiscuous mode */
--#define AUDIT_ANOM_ABEND            1701 /* Process ended abnormally */
--#define AUDIT_ANOM_LINK		    1702 /* Suspicious use of file links */
--#define AUDIT_ANOM_CREAT	    1703 /* Suspicious file creation */
--#define AUDIT_INTEGRITY_DATA	    1800 /* Data integrity verification */
--#define AUDIT_INTEGRITY_METADATA    1801 /* Metadata integrity verification */
--#define AUDIT_INTEGRITY_STATUS	    1802 /* Integrity enable status */
--#define AUDIT_INTEGRITY_HASH	    1803 /* Integrity HASH type */
--#define AUDIT_INTEGRITY_PCR	    1804 /* PCR invalidation msgs */
--#define AUDIT_INTEGRITY_RULE	    1805 /* policy rule */
--#define AUDIT_INTEGRITY_EVM_XATTR   1806 /* New EVM-covered xattr */
--#define AUDIT_INTEGRITY_POLICY_RULE 1807 /* IMA policy rules */
-+#define AUDIT_FIRST_KERN_ANOM_MSG	1700
-+#define AUDIT_LAST_KERN_ANOM_MSG	1799
-+#define AUDIT_ANOM_PROMISCUOUS		1700 /* Device changed promiscuous mode */
-+#define AUDIT_ANOM_ABEND		1701 /* Process ended abnormally */
-+#define AUDIT_ANOM_LINK			1702 /* Suspicious use of file links */
-+#define AUDIT_ANOM_CREAT		1703 /* Suspicious file creation */
-+#define AUDIT_INTEGRITY_DATA		1800 /* Data integrity verification */
-+#define AUDIT_INTEGRITY_METADATA	1801 /* Metadata integrity verification */
-+#define AUDIT_INTEGRITY_STATUS		1802 /* Integrity enable status */
-+#define AUDIT_INTEGRITY_HASH		1803 /* Integrity HASH type */
-+#define AUDIT_INTEGRITY_PCR		1804 /* PCR invalidation msgs */
-+#define AUDIT_INTEGRITY_RULE		1805 /* policy rule */
-+#define AUDIT_INTEGRITY_EVM_XATTR	1806 /* New EVM-covered xattr */
-+#define AUDIT_INTEGRITY_POLICY_RULE	1807 /* IMA policy rules */
- #define AUDIT_INTEGRITY_POLICY_LOAD	1808 /* IPE Policy Load */
- #define AUDIT_INTEGRITY_POLICY_ACTIVATE	1809 /* IPE Policy Activation */
- #define AUDIT_INTEGRITY_EVENT		1810 /* IPE Evaluation Event */
+diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
+index f597ff8b..92eef6f1 100644
+--- a/libmultipath/devmapper.c
++++ b/libmultipath/devmapper.c
+@@ -1198,8 +1198,10 @@ dm_get_maps (vector mp)
+ 		if (!mpp)
+ 			goto out;
+
+-		if (!vector_alloc_slot(mp))
++		if (!vector_alloc_slot(mp)) {
++			free_multipath(mpp, KEEP_PATHS);
+ 			goto out;
++		}
+
+ 		vector_set_slot(mp, mpp);
+ 		mpp = NULL;
 -- 
-2.27.0
-
 
 --
 dm-devel mailing list
