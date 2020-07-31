@@ -1,67 +1,68 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id B2A77233B33
-	for <lists+dm-devel@lfdr.de>; Fri, 31 Jul 2020 00:20:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1596147615;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=fqV08WgRxFGVS4YEQdJT0gqxjsgmueg4+rTyn6+cqwA=;
-	b=anDk25yTX37O6ePJq7FMDotvyHTdJYUyP/+u3lkoUpsS6M+ACCOE5x90JQSOuDTvTIzPue
-	PNfcb+88d+LN6Q81JXCR2CPmyo0aMGTHsJQkLGuv9RIAjXSVXwkLiQ0HghkNqf8Ej74aTZ
-	lJpQzfuSiSE6AC0Sh1oimmtDOvTy8Rc=
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 0C997234432
+	for <lists+dm-devel@lfdr.de>; Fri, 31 Jul 2020 12:43:06 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-53-4OjSDY_VNcW4AYfucaTzmQ-1; Thu, 30 Jul 2020 18:20:08 -0400
-X-MC-Unique: 4OjSDY_VNcW4AYfucaTzmQ-1
+ us-mta-263-UVirnvTJNNySbu4cDP7jBA-1; Fri, 31 Jul 2020 06:43:04 -0400
+X-MC-Unique: UVirnvTJNNySbu4cDP7jBA-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AB5E957;
-	Thu, 30 Jul 2020 22:19:59 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0657518839C0;
+	Fri, 31 Jul 2020 10:42:58 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 38D7987B1E;
-	Thu, 30 Jul 2020 22:19:57 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 569C487B16;
+	Fri, 31 Jul 2020 10:42:51 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E2DCF1809554;
-	Thu, 30 Jul 2020 22:19:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F2CEB1809554;
+	Fri, 31 Jul 2020 10:42:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06UMGQZT021236 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 30 Jul 2020 18:16:26 -0400
+	id 06VAgGb3024371 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 31 Jul 2020 06:42:17 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2DC4D19D7B; Thu, 30 Jul 2020 22:16:26 +0000 (UTC)
+	id 7C5D8F5AC1; Fri, 31 Jul 2020 10:42:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 31A671992D;
-	Thu, 30 Jul 2020 22:16:22 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 06UMGK7f028260; 
-	Thu, 30 Jul 2020 17:16:20 -0500
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 06UMGK0d028259;
-	Thu, 30 Jul 2020 17:16:20 -0500
-Date: Thu, 30 Jul 2020 17:16:20 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Zhiqiang Liu <liuzhiqiang26@huawei.com>
-Message-ID: <20200730221620.GC19233@octiron.msp.redhat.com>
-References: <0cbfeea7-5f30-a148-555b-19af2429c32c@huawei.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 77497F5AC2
+	for <dm-devel@redhat.com>; Fri, 31 Jul 2020 10:42:14 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5EAFE8008A5
+	for <dm-devel@redhat.com>; Fri, 31 Jul 2020 10:42:14 +0000 (UTC)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-328-e3TzsP83O-qelmUT_wFSGg-1; Fri, 31 Jul 2020 06:42:09 -0400
+X-MC-Unique: e3TzsP83O-qelmUT_wFSGg-1
+Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.60])
+	by Forcepoint Email with ESMTP id E3A88D384F893B4E6FC0;
+	Fri, 31 Jul 2020 18:42:04 +0800 (CST)
+Received: from [127.0.0.1] (10.174.179.249) by DGGEMS409-HUB.china.huawei.com
+	(10.3.19.209) with Microsoft SMTP Server id 14.3.487.0;
+	Fri, 31 Jul 2020 18:41:59 +0800
+To: <bmarzins@redhat.com>, Martin Wilck <mwilck@suse.com>,
+	<christophe.varoqui@opensvc.com>, <kabelac@redhat.com>
+From: Zhiqiang Liu <liuzhiqiang26@huawei.com>
+Message-ID: <a04e1267-0f1c-3a8b-c163-1697469ffeca@huawei.com>
+Date: Fri, 31 Jul 2020 18:41:57 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+	Thunderbird/68.2.2
 MIME-Version: 1.0
-In-Reply-To: <0cbfeea7-5f30-a148-555b-19af2429c32c@huawei.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Content-Language: en-US
+X-Originating-IP: [10.174.179.249]
+X-CFilter-Loop: Reflected
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: linfeilong <linfeilong@huawei.com>, dm-devel@redhat.com,
-	lixiaokeng <lixiaokeng@huawei.com>, Martin Wilck <mwilck@suse.com>
-Subject: Re: [dm-devel] [PATCH] devmapper: remove useless using of memset in
- dm_get_info func
+Cc: linfeilong@huawei.com, Yanxiaodan <yanxiaodan@huawei.com>,
+	dm-devel@redhat.com, lixiaokeng <lixiaokeng@huawei.com>
+Subject: [dm-devel] [dm- devel][PATCH] vector: return null when realloc
+ fails in vector_alloc_slot func
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -76,42 +77,51 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-On Thu, Jul 30, 2020 at 10:06:35PM +0800, Zhiqiang Liu wrote:
-> 
-> In dm_get_info func, if do_get_info fails, we donot need to
-> call memset to assign 0 to *dmi which will be freed.
-> 
-> Here, we remove the useless using of memset in dm_get_info func.
-> 
-> Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
-Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
-> ---
->  libmultipath/devmapper.c | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
-> index f597ff8b..00ee0dfc 100644
-> --- a/libmultipath/devmapper.c
-> +++ b/libmultipath/devmapper.c
-> @@ -1464,7 +1464,6 @@ dm_get_info (const char * mapname, struct dm_info ** dmi)
->  		return 1;
-> 
->  	if (do_get_info(mapname, *dmi) != 0) {
-> -		memset(*dmi, 0, sizeof(struct dm_info));
->  		FREE(*dmi);
->  		*dmi = NULL;
->  		return 1;
-> -- 
-> 2.24.0.windows.2
-> 
+
+In vector_alloc_slot func, if REALLOC fails, it means new slot
+allocation fails. However, it just update v->allocated and then
+return the old v->slot without new slot. So, the caller will take
+the last old slot as the new allocated slot, and use it by calling
+vector_set_slot func. Finally, the data of last slot is lost.
+
+Here, if REALLOC or MALLOC fails, we will return NULL.
+
+Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
+Signed-off-by: lixiaokeng <lixiaokeng@huawei.com>
+---
+ libmultipath/vector.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/libmultipath/vector.c b/libmultipath/vector.c
+index 501cf4c5..29dc9848 100644
+--- a/libmultipath/vector.c
++++ b/libmultipath/vector.c
+@@ -49,12 +49,14 @@ vector_alloc_slot(vector v)
+ 	else
+ 		new_slot = (void *) MALLOC(sizeof (void *) * v->allocated);
+
+-	if (!new_slot)
++	/* If REALLOC or MALLOC fails, it means new slot allocation fails, so return NULL. */
++	if (!new_slot) {
+ 		v->allocated -= VECTOR_DEFAULT_SIZE;
+-	else
+-		v->slot = new_slot;
++		return NULL;
++	}
+
+-	return v->slot;
++	v->slot = new_slot;
++	return v->slot[VECTOR_SIZE(v) - 1];
+ }
+
+ int
+-- 
+2.24.0.windows.2
 
 --
 dm-devel mailing list
