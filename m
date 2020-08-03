@@ -1,58 +1,76 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 435E123A1B5
-	for <lists+dm-devel@lfdr.de>; Mon,  3 Aug 2020 11:25:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1596446744;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=gVMjMI/DNQVVaRRts9Uo8EHlfKbA5MGCaAmhwol4TG4=;
-	b=VpnNWVAS7ZpXBZDKQDoH4LBHN947u8z65Rg9mJhpgFitlHcbwM5B0c5H5E7BvkotHqPvce
-	kbkM5S7ab6gz3KzotGFqIMdYzMcKF68H/It6skBvPubzxKF35FFu1/ej52uXe2KlY1mIWR
-	sr5U4rP+Ae3tDr7gy5OrXOD23UWbgjg=
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 4992A23A3B1
+	for <lists+dm-devel@lfdr.de>; Mon,  3 Aug 2020 13:57:56 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-223-0ZlRMWL7PiuLqZRQ-CgwAA-1; Mon, 03 Aug 2020 05:25:41 -0400
-X-MC-Unique: 0ZlRMWL7PiuLqZRQ-CgwAA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-476-cH5fE3-jOXiRyeGQiwU6Ww-1; Mon, 03 Aug 2020 07:57:53 -0400
+X-MC-Unique: cH5fE3-jOXiRyeGQiwU6Ww-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 23784100AA21;
-	Mon,  3 Aug 2020 09:25:34 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2FB6919C58;
-	Mon,  3 Aug 2020 09:25:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BF66D57;
+	Mon,  3 Aug 2020 11:57:45 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82B55177F9;
+	Mon,  3 Aug 2020 11:57:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EEDF11809554;
-	Mon,  3 Aug 2020 09:25:15 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E73479A117;
+	Mon,  3 Aug 2020 11:57:34 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 06VMkw0K031826 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 31 Jul 2020 18:46:58 -0400
+	id 073BvQHb030343 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 3 Aug 2020 07:57:26 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 31B6B1D3; Fri, 31 Jul 2020 22:46:58 +0000 (UTC)
+	id 28479217B436; Mon,  3 Aug 2020 11:57:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost.localdomain.com (ovpn-112-36.rdu2.redhat.com
-	[10.10.112.36])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1069D5C22A;
-	Fri, 31 Jul 2020 22:46:48 +0000 (UTC)
-From: John Dorminy <jdorminy@redhat.com>
-To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
-	dm-devel@redhat.com
-Date: Fri, 31 Jul 2020 18:46:45 -0400
-Message-Id: <20200731224645.89483-1-jdorminy@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 243DB217B435
+	for <dm-devel@redhat.com>; Mon,  3 Aug 2020 11:57:23 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 521258007D3
+	for <dm-devel@redhat.com>; Mon,  3 Aug 2020 11:57:23 +0000 (UTC)
+Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-469-_VjefNm0OCSTnSlJWynKvg-1; Mon, 03 Aug 2020 07:57:14 -0400
+X-MC-Unique: _VjefNm0OCSTnSlJWynKvg-1
+Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.60])
+	by Forcepoint Email with ESMTP id D8D9ADC32822F7803670;
+	Mon,  3 Aug 2020 19:57:10 +0800 (CST)
+Received: from [127.0.0.1] (10.174.179.62) by DGGEMS410-HUB.china.huawei.com
+	(10.3.19.210) with Microsoft SMTP Server id 14.3.487.0; Mon, 3 Aug 2020
+	19:57:01 +0800
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>, Martin Wilck
+	<mwilck@suse.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>, <dm-devel@redhat.com>
+From: lixiaokeng <lixiaokeng@huawei.com>
+Message-ID: <9f10e135-348d-d11a-85cb-797522ba5210@huawei.com>
+Date: Mon, 3 Aug 2020 19:57:01 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Content-Language: en-GB
+X-Originating-IP: [10.174.179.62]
+X-CFilter-Loop: Reflected
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Mon, 03 Aug 2020 05:22:05 -0400
-Cc: John Dorminy <jdorminy@redhat.com>
-Subject: [dm-devel] [PATCH] dm-ebs: Fix incorrect checking for REQ_OP_FLUSH.
+Cc: linfeilong@huawei.com, liuzhiqiang26@huawei.com, lutianxiong@huawei.com
+Subject: [dm-devel]  [PATCH] libmultipath: fix null dereference in add
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -66,37 +84,66 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-REQ_OP_FLUSH was being treated as a flag, but the operation
-part of bio->bi_opf must be treated as a whole. Change to
-accessing the operation part via bio_op(bio) and checking
-for equality.
+I got a multipath segfault while running iscsi login/logout and following scripts in parallel:
 
-Signed-off-by: John Dorminy <jdorminy@redhat.com>
+#!/bin/bash
+interval=1
+while true
+do
+              multipath -F &> /dev/null
+              multipath -r &> /dev/null
+              multipath -v2 &> /dev/null
+              multipath -ll &> /dev/null
+              sleep $interval
+done
+
+This is the debuginfo:
+#0  0x00007f3805e4df58 in add (ctx=0x55d1569e4a00, ud=0x55d1569bafd0) at nvme.c:801
+801              if (strcmp("disk", udev_device_get_devtype(ud)))
+(gdb) bt
+#0  0x00007f3805e4df58 in add (ctx=0x55d1569e4a00, ud=0x55d1569bafd0) at nvme.c:801
+#1  0x00007f3806687a44 in add_foreign (udev=0x55d1569bafd0) at foreign.c:299
+#2  0x00007f3806665abf in is_claimed_by_foreign (ud=<optimized out>) at foreign.h:316
+#3  pathinfo (pp=0x55d1569e9f50, conf=0x55d1569b92d0, mask=69) at discovery.c:2064
+#4  0x000055d154c91cbb in check_usable_paths (conf=0x55d1569b92d0, devpath=0x55d1569e3200 "dm-6", dev_type=<optimized out>) at main.c:368
+#5  0x000055d154c910a5 in main (argc=3, argv=<optimized out>) at main.c:1057
+In add() at libmultipath/foreign/nvme.c, udev_device_get_devtype(ud) return a NULL pointer then dereferenced.
+Here, NULL check is needed.
+Check if udev_device_get_devtype return NULL before dereferencing it.
+
+Signed-off-by: lutianxiong <lutianxiong huawei com>
+Signed-off-by: lixiaokeng <lixiaokeng@huawei.com>
 ---
- drivers/md/dm-ebs-target.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ libmultipath/foreign/nvme.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/md/dm-ebs-target.c b/drivers/md/dm-ebs-target.c
-index 44451276f128..cb85610527c2 100644
---- a/drivers/md/dm-ebs-target.c
-+++ b/drivers/md/dm-ebs-target.c
-@@ -363,7 +363,7 @@ static int ebs_map(struct dm_target *ti, struct bio *bio)
- 	bio_set_dev(bio, ec->dev->bdev);
- 	bio->bi_iter.bi_sector = ec->start + dm_target_offset(ti, bio->bi_iter.bi_sector);
- 
--	if (unlikely(bio->bi_opf & REQ_OP_FLUSH))
-+	if (unlikely(bio_op(bio) == REQ_OP_FLUSH))
- 		return DM_MAPIO_REMAPPED;
- 	/*
- 	 * Only queue for bufio processing in case of partial or overlapping buffers
+diff --git a/libmultipath/foreign/nvme.c b/libmultipath/foreign/nvme.c
+index 280b6bd..6061999 100644
+--- a/libmultipath/foreign/nvme.c
++++ b/libmultipath/foreign/nvme.c
+@@ -600,12 +600,14 @@ int add(struct context *ctx, struct udev_device *ud)
+ {
+ 	struct udev_device *subsys;
+ 	int rc;
++	const char *devtype;
+
+ 	condlog(5, "%s called for \"%s\"", __func__, THIS);
+
+ 	if (ud == NULL)
+ 		return FOREIGN_ERR;
+-	if (strcmp("disk", udev_device_get_devtype(ud)))
++	if ((devtype = udev_device_get_devtype(ud)) == NULL ||
++						strcmp("disk", devtype))
+ 		return FOREIGN_IGNORED;
+
+ 	subsys = udev_device_get_parent_with_subsystem_devtype(ud,
 -- 
-2.26.2
 
 --
 dm-devel mailing list
