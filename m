@@ -1,70 +1,69 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 56C7F23BE23
-	for <lists+dm-devel@lfdr.de>; Tue,  4 Aug 2020 18:29:21 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 09DCB23BEDE
+	for <lists+dm-devel@lfdr.de>; Tue,  4 Aug 2020 19:30:20 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1596558560;
+	s=mimecast20190719; t=1596562220;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=jOoqtp8be9T2LFtTU/EuoNncSTt+L5qRYNvZOwvl400=;
-	b=g4N2O+hkkWL0DLXXT3nkoa/oEe1gfCYRhNAys1motouWU3Ww6XpVOVpu5K/D0t9jPhX2CS
-	clDmTIZl+KmnOoDWlIpMeInOv7TTmXr0C3wYuts0JnFJ+FgZissB3VwoVS+NsArME/V1lc
-	vidOHW/29fQUEe0l+jLyhAy1+OCOj68=
+	bh=HsbMqx4ZJ+Eay1VYSYMZ3EYmwKIx6hxuLqMPWb1n/U8=;
+	b=aEJasFJPb2Xe/cZQolDh4UArPHKQJ5IprYnxzuJ4E/j8uhWW3g/4aGBfaxfuyQKz0c7aNb
+	g7TBgOUp4UKViJhZVSnN6s1OVvP++3BzPLJErZ/dF7PcrHmJQek2sdWcPBFRion5e2ekQF
+	XL9i1GOEeswjEvuGt74BObt8EtcUrZg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-180-KuTQw3KdMe-9Oj0h8ZAQOA-1; Tue, 04 Aug 2020 12:29:17 -0400
-X-MC-Unique: KuTQw3KdMe-9Oj0h8ZAQOA-1
+ us-mta-63-1AMAqfBAPQGe-zND5m3CJA-1; Tue, 04 Aug 2020 13:30:14 -0400
+X-MC-Unique: 1AMAqfBAPQGe-zND5m3CJA-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7DB0A1902EA0;
-	Tue,  4 Aug 2020 16:29:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E81D780BCA2;
+	Tue,  4 Aug 2020 17:30:07 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 51BD688D70;
-	Tue,  4 Aug 2020 16:29:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F44A88D63;
+	Tue,  4 Aug 2020 17:30:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7D917A35BF;
-	Tue,  4 Aug 2020 16:29:02 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E84CE9A117;
+	Tue,  4 Aug 2020 17:29:51 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 074GQfmV027877 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 4 Aug 2020 12:26:41 -0400
+	id 074HTfZa005946 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 4 Aug 2020 13:29:41 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 19B9A7B90A; Tue,  4 Aug 2020 16:26:41 +0000 (UTC)
+	id 7B82188D58; Tue,  4 Aug 2020 17:29:41 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E70A87B906;
-	Tue,  4 Aug 2020 16:26:37 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B060872E48;
+	Tue,  4 Aug 2020 17:29:38 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 074GQaPt028055; 
-	Tue, 4 Aug 2020 11:26:36 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 074HTbFF028296; 
+	Tue, 4 Aug 2020 12:29:37 -0500
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 074GQZ4c028054;
-	Tue, 4 Aug 2020 11:26:35 -0500
-Date: Tue, 4 Aug 2020 11:26:35 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 074HTaeb028295;
+	Tue, 4 Aug 2020 12:29:36 -0500
+Date: Tue, 4 Aug 2020 12:29:36 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Martin Wilck <mwilck@suse.com>
-Message-ID: <20200804162635.GJ19233@octiron.msp.redhat.com>
+Message-ID: <20200804172936.GK19233@octiron.msp.redhat.com>
 References: <20200709101620.6786-1-mwilck@suse.com>
-	<20200709101620.6786-9-mwilck@suse.com>
-	<20200716211708.GM11089@octiron.msp.redhat.com>
-	<2ae4b38b8f07eb1ac9be31099b5be091fa6e9617.camel@suse.com>
-	<bb9b9031513d4e806f0bb2f700a822ed25364e36.camel@suse.com>
+	<20200709101620.6786-13-mwilck@suse.com>
+	<20200716221848.GN11089@octiron.msp.redhat.com>
+	<246f58856cdc0c5d80046ca7d740ff92f91b0f87.camel@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <bb9b9031513d4e806f0bb2f700a822ed25364e36.camel@suse.com>
+In-Reply-To: <246f58856cdc0c5d80046ca7d740ff92f91b0f87.camel@suse.com>
 User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 08/35] libmultipath: create bitfield
-	abstraction
+Subject: Re: [dm-devel] [PATCH 12/35] libmultipath: strlcpy()/strlcat(): use
+ restrict qualifier
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,49 +78,115 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-On Tue, Aug 04, 2020 at 05:18:18PM +0200, Martin Wilck wrote:
-> On Tue, 2020-08-04 at 17:04 +0200, Martin Wilck wrote:
-> > On Thu, 2020-07-16 at 16:17 -0500, Benjamin Marzinski wrote:
-> > > On Thu, Jul 09, 2020 at 12:15:53PM +0200, mwilck@suse.com wrote:
-> > > > From: Martin Wilck <mwilck@suse.com>
-> > > > +struct bitfield *alloc_bitfield(unsigned int maxbit)
-> > > > +{
-> > > > +	unsigned int n;
-> > > > +	struct bitfield *bf;
-> > > > +
-> > > > +	n = maxbit > 0 ? (maxbit - 1) / bits_per_slot + 1 : 0;
+On Tue, Aug 04, 2020 at 05:36:31PM +0200, Martin Wilck wrote:
+> On Thu, 2020-07-16 at 17:18 -0500, Benjamin Marzinski wrote:
+> > On Thu, Jul 09, 2020 at 12:15:57PM +0200, mwilck@suse.com wrote:
+> > > From: Martin Wilck <mwilck@suse.com>
 > > > 
-> > > What's the point in accepting 0? That's an empty bitmap.
+> > > Also remove the redundant local variables. It's not necessary to
+> > > make "restrict" work, but it makes the intention more clear.
 > > > 
-> > Thanks for spotting these, I will fix them.
+> > > Signed-off-by: Martin Wilck <mwilck@suse.com>
+> > > ---
+> > >  libmultipath/util.c | 28 ++++++++++++----------------
+> > >  libmultipath/util.h |  4 ++--
+> > >  2 files changed, 14 insertions(+), 18 deletions(-)
+> > > 
+> > > diff --git a/libmultipath/util.c b/libmultipath/util.c
+> > > index 957fb97..f965094 100644
+> > > --- a/libmultipath/util.c
+> > > +++ b/libmultipath/util.c
+> > > 
+> > > -size_t strlcat(char *dst, const char *src, size_t size)
+> > > +size_t strlcat(char * restrict dst, const char * restrict src,
+> > > size_t size)
+> > >  {
+> > >  	size_t bytes = 0;
+> > > -	char *q = dst;
+> > > -	const char *p = src;
+> > >  	char ch;
+> > >  
+> > > -	while (bytes < size && *q) {
+> > > -		q++;
+> > > +	while (bytes < size && *dst) {
+> > > +		dst++;
+> > >  		bytes++;
+> > >  	}
+> > >  	if (bytes == size)
+> > 
+> > this should return the strlen(dst) + strlen(src). It wouldn't in the
+> > admittedly weird case where size isn't large enough to fit dst.
 > 
-> Thinking about it once more, I believe that accepting 0 as the bitfield
-> length is actually the right thing. A bitfield of length 0 makes not
-> much less sense than one of length 1. The code makes sure that the bit
-> operations on the 0-length bitfield behave correctly (see
-> test_bitmask_len_0()). Thus callers can use bitfields without bothering
-> for extra NULL checks. That was the intention. Like we support 0-length 
-> vectors.
+> Are you sure?
+> 
 
-But the calloc call itself can return NULL, so deferencing bf (as in
-bf->len = maxbit), can crash.
+Nope. But I might be right.
 
-I'm also still fuzzy on why we want to support zero length bitfields.
-Since they can't be grown like vectors can, it seem like requesting a
-zero length bitfield will always be a sign of a coding error. We
-would get a more useful error by having the failure happen closer to
-the error in the code.  Or is there actually a use for a zero length
-bitfield that can't be grown?
+> https://linux.die.net/man/3/strlcat
+> 
+> "Note, however, that if strlcat() traverses size characters without
+> finding a NUL, the length of the string is considered to be size and
+> the destination string will not be NUL-terminated (since there was no
+> space for the NUL)."
+> 
+> The way I understand this is that the current code is actually correct
+> in returning bytes + strlen(src).
+> 
+> This is also consistent with what I see elsewhere
+> 
+> https://github.com/ffainelli/uClibc/blob/master/libc/string/strlcat.c
+
+This returns bytes + strlen(src) like you think is correct
+
+> https://github.com/freebsd/freebsd/blob/master/crypto/heimdal/lib/roken/strlcat.c
+
+This returns strlen(dst) + strlen(src) like I think is correct
+
+
+I would argue that the important lines from https://linux.die.net/man/3/strlcat
+are
+
+"The strlcpy() and strlcat() functions return the total length of the
+string they tried to create."
+
+and
+
+"For strlcat() that means the initial length of dst plus the length of
+src."
+
+
+The alternative to strlen(dst) + strlen(src) (which follows the snprintf
+convention, and I think makes the most sense) seems to be "the length of
+the string is considered to be size" which I assume means it should
+return bytes. According to the man page, the reason for this is to keep
+"strlcat() from running off the end of a string". I admit to being kinda
+confused about this. I suppose if you assume that you can't trust the
+strings enough to run strlen() this makes sense.  But if you can't trust
+strlen(dst), you shouldn't be able to trust strlen(src) either, which
+means that strlcat() should never return more than bytes, and that is
+clearly at odds with other statements in the man page.
+
+In my mind, there is value in returning strlen(dst) + strlen(src), since
+that is the size needed to hold the strings.  Returning bytes means you can
+write strlcat to avoid trusting strlen(). bytes + strlen(src) is a
+meaningless value, and getting that value doesn't protect you against
+src not being null terminated.
+
+Clearly this is a nitpicky corner case, and I don't think we need
+protection against src not being null terminated, so I'm not strongly
+against bytes + strlen(src), if you prefer that.
 
 -Ben
 
-> Regards,
+> Regards
 > Martin
 > 
 
