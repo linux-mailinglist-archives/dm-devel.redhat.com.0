@@ -1,70 +1,106 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 2C91D23C098
-	for <lists+dm-devel@lfdr.de>; Tue,  4 Aug 2020 22:13:59 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 8080823C096
+	for <lists+dm-devel@lfdr.de>; Tue,  4 Aug 2020 22:12:52 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-222-VlEaF61_PL6DLUheVcHy7A-1; Tue, 04 Aug 2020 16:13:54 -0400
-X-MC-Unique: VlEaF61_PL6DLUheVcHy7A-1
+ us-mta-153-7Gv3YjWQOsyApgpO7pd_2g-1; Tue, 04 Aug 2020 16:12:48 -0400
+X-MC-Unique: 7Gv3YjWQOsyApgpO7pd_2g-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BD3C61DE1;
-	Tue,  4 Aug 2020 20:13:47 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5276272E48;
-	Tue,  4 Aug 2020 20:13:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 14E46801A03;
+	Tue,  4 Aug 2020 20:12:43 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AF0EA88D68;
+	Tue,  4 Aug 2020 20:12:39 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9C09F1809554;
-	Tue,  4 Aug 2020 20:13:46 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2F8CE96903;
+	Tue,  4 Aug 2020 20:12:30 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0749PGul000871 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 4 Aug 2020 05:25:16 -0400
+	id 074BR5qb017139 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 4 Aug 2020 07:27:05 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0E43E2166BA4; Tue,  4 Aug 2020 09:25:16 +0000 (UTC)
+	id 7BF4D2166B28; Tue,  4 Aug 2020 11:27:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 09B2E2166B28
-	for <dm-devel@redhat.com>; Tue,  4 Aug 2020 09:25:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 75F672157F26
+	for <dm-devel@redhat.com>; Tue,  4 Aug 2020 11:27:03 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D33C8185A78B
-	for <dm-devel@redhat.com>; Tue,  4 Aug 2020 09:25:12 +0000 (UTC)
-Received: from esa3.hgst.iphmx.com (esa3.hgst.iphmx.com [216.71.153.141])
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0B64D89CD23
+	for <dm-devel@redhat.com>; Tue,  4 Aug 2020 11:27:03 +0000 (UTC)
+Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-83-nrV7h62ROPCHxb6FHovdFg-1; Tue, 04 Aug 2020 05:25:10 -0400
-X-MC-Unique: nrV7h62ROPCHxb6FHovdFg-1
-IronPort-SDR: W4R4MLbQGVJL2nTrtUrX1XWUgKyrp93jMl95C4juAOWcVkEyJUho3Qc+Zd779FeM515JyBttEs
-	ViF22+dSCSMy6YP064mDRi3iSBW4tZoLzCdnYgdsfBlCrZIe2v8lQip5pAaOQPFZZksBVKBpKE
-	JdQp5Ogf6jA8ORoaxwRYHdnlUE5TKSMBc4MeErafnMCQYkx9nG6dkddBBM+OyWtKmwaIDU6qXM
-	y/za8oTgLeFlvcRdMu77Cr7bOA2bHh4ZB8uKVVJC4WxSZ0EdzgCTlXDLIBewGX7MlgiMbcxG5H
-	mqo=
-X-IronPort-AV: E=Sophos;i="5.75,433,1589212800"; d="scan'208";a="148405995"
-Received: from h199-255-45-15.hgst.com (HELO uls-op-cesaep02.wdc.com)
-	([199.255.45.15])
-	by ob1.hgst.iphmx.com with ESMTP; 04 Aug 2020 17:25:09 +0800
-IronPort-SDR: gB5OYjT+pJeUxPfnGQ9w8wXDlqCsPcOrbMOMcRAaqll0ZidX0BXuCzZ/XJxJQ7GMyrnm0gnA5O
-	JJEfv81ED1TA==
-Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
-	by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	04 Aug 2020 02:12:30 -0700
-IronPort-SDR: msS9q4U6bq36kCs3sF3lj5wiBOYViz9U57vE+kNCqdCFGhItj7eeuMuVhcwyx6+llRjUPrEr/V
-	xapHunlDYeow==
-WDCIronportException: Internal
-Received: from unknown (HELO redsun60.ssa.fujisawa.hgst.com) ([10.149.66.36])
-	by uls-op-cesaip02.wdc.com with ESMTP; 04 Aug 2020 02:25:08 -0700
-From: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-To: Mike Snitzer <snitzer@redhat.com>
-Date: Tue,  4 Aug 2020 18:25:01 +0900
-Message-Id: <20200804092501.7938-1-johannes.thumshirn@wdc.com>
+	us-mta-490-33B0QkI7OymIKwNlT05sqg-1; Tue, 04 Aug 2020 07:27:00 -0400
+X-MC-Unique: 33B0QkI7OymIKwNlT05sqg-1
+IronPort-SDR: Regat6NZkolNvItYWV21IJzwRJ1Jmxf6c7jRMZzKwaJ+C2TxYJgMFh1sFdukyqf8sEbFjzLZE1
+	aMSixj5CDHpM9TwG771E4+inZT/2OrAVbVm2akFa8J8Ys39YlzoGlZiZEm4NY0LiloLztTyK/+
+	fx3U3N2EWZDR7MFKwm5vxwjERN61xGIHleRE+93zkbUDEM2/hSucQqTf1fW7gHGAwUQ7GG0TgB
+	KpxgNYT3379LTYfinmMwU5I75o13Hh4b9LRen/b8Aq2REsKzEAV79grYgs6b+B0JxK9nxf0Pol
+	Y8I=
+X-IronPort-AV: E=Sophos;i="5.75,433,1589212800"; d="scan'208";a="144101717"
+Received: from mail-co1nam11lp2168.outbound.protection.outlook.com (HELO
+	NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.168])
+	by ob1.hgst.iphmx.com with ESMTP; 04 Aug 2020 19:26:58 +0800
+Received: from SN4PR0401MB3598.namprd04.prod.outlook.com
+	(2603:10b6:803:47::21) by SN6PR04MB4783.namprd04.prod.outlook.com
+	(2603:10b6:805:a5::17) with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3239.20;
+	Tue, 4 Aug 2020 11:26:58 +0000
+Received: from SN4PR0401MB3598.namprd04.prod.outlook.com
+	([fe80::457e:5fe9:2ae3:e738]) by
+	SN4PR0401MB3598.namprd04.prod.outlook.com
+	([fe80::457e:5fe9:2ae3:e738%7]) with mapi id 15.20.3239.021;
+	Tue, 4 Aug 2020 11:26:58 +0000
+From: Johannes Thumshirn <Johannes.Thumshirn@wdc.com>
+To: Damien Le Moal <Damien.LeMoal@wdc.com>, Mike Snitzer <snitzer@redhat.com>
+Thread-Topic: [PATCH] dm: don't call report zones for more than the user
+	requested
+Thread-Index: AQHWakEnQ7EK6Gzd+EWB5zzIARuZYA==
+Date: Tue, 4 Aug 2020 11:26:57 +0000
+Message-ID: <SN4PR0401MB3598A9D49399D70697DCEC789B4A0@SN4PR0401MB3598.namprd04.prod.outlook.com>
+References: <20200804092501.7938-1-johannes.thumshirn@wdc.com>
+	<CY4PR04MB3751EB538B7F29FBDBB4EBA4E74A0@CY4PR04MB3751.namprd04.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [129.253.240.72]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 421107f8-bf52-49cb-72e8-08d838694ca7
+x-ms-traffictypediagnostic: SN6PR04MB4783:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <SN6PR04MB4783CA51A57E957D67372D509B4A0@SN6PR04MB4783.namprd04.prod.outlook.com>
+wdcipoutbound: EOP-TRUE
+x-ms-oob-tlc-oobclassifiers: OLM:1002;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: oDtbBh7TJcS/ol0er8KOAlTbjS6pju/jcSGTpxc3SEPeJYNqXL6rY64qIo8gn/9dJ8EGKgbEypMWua6SRasnYg74CVc/zM4R70oUGTjMgSSyYMm7FkrSIp+53fTqb7Hy1mBvUMQExV5J3Q4PDYFIuBVVRrxdJUmMg/PfCzEtLS+hPaiU2X78LNr7Fh64oeqML1li6OQ7EbbCev2/S2lZ+FWu9fOsAzAYhDEpOramH+ep7SSDXAct1wZ/dxHOrmA0QVU1g0o1ZYOvujL1ur+0WHJTcXhNEjTQiI+HyMadD+t730zcnYCUHeQLMwgysAoDUPEcDGMkQuXnynZXzXio+w==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:SN4PR0401MB3598.namprd04.prod.outlook.com;
+	PTR:; CAT:NONE; SFTY:;
+	SFS:(4636009)(136003)(396003)(39860400002)(346002)(366004)(376002)(52536014)(316002)(186003)(7696005)(66556008)(66446008)(4326008)(9686003)(66476007)(64756008)(91956017)(76116006)(66946007)(83380400001)(55016002)(26005)(53546011)(6506007)(2906002)(54906003)(110136005)(5660300002)(478600001)(86362001)(8676002)(33656002)(8936002)(558084003)(71200400001);
+	DIR:OUT; SFP:1102;
+x-ms-exchange-antispam-messagedata: 09QB86hFm4gw2hSTJBlRzniiGChQIa6+oHSAsrYmL7zgi9g2QuBRDsDKoG+vqji4ybaMbBNXeCRLl6qB4LInZGh9sGx9uzPk+DAiRTWZh+T65KrqX0CVDB5KbFhFPwyjWRW2A38sTHlAGrUgP6fr78OeodZ4zZJmaBo4WSx7p3jrlhqTFtwCt2DpWU2nELh2WKwNGg+LwVSGd0micVzX9MPei8OsPs9vMvT50mCgRgdlZHCEGOaDH31G1h8gPSPE1G/TPWsubTzMOXve1MUzwWi+A+jpKdRboBZLgb08kTzdfMqUOxeiJTccSmhD9EZsJVabF/88sbp9C0C33L1IU1cVMbaCixu+T5BagXRXOrkkfXGVH+75OxIIUQInEPFj832t+NcXAil2BpXkDEkjSc+MJWJc7hM+SFf6QEfxCTiZtzcY5t1dIlFSHKHIECvc4EoDV9aqZwqSDAFCrjECIAIDJgi00qpgxNNQCDmu6nI6w7LedYIjHNtK/9PSjBevvshi2VzrbyCXKXsqUOhZAwggFSyNmAXi532qT8d6FXvNtR6T8F4zWy82EGIAxwBnqdHqxt8SgVeDfQ5xWgJ56Ph8N32kkG6xO7NoS1ZBH65bq7tgu7V3z95z/uEvsr0m7nVorJAn4ptg1/bVGfOmJA==
 MIME-Version: 1.0
+X-OriginatorOrg: wdc.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN4PR0401MB3598.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 421107f8-bf52-49cb-72e8-08d838694ca7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2020 11:26:57.9990 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: bIRrFnym4PtvWpFxqnpNC5vzhd7S9xGcyhX/7TiLCGu0kUQDKIt79Mao/rBXmbHO57sx0m9GqMo+DBfB5xeD/7AuxO2WFA030de3Bv4k7dM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR04MB4783
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -74,13 +110,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 074BR5qb017139
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 04 Aug 2020 16:11:07 -0400
-Cc: linux-block@vger.kernel.org, Naohiro Aota <Naohiro.Aota@wdc.com>,
-	dm-devel@redhat.com, Damien Le Moal <Damien.LeMoal@wdc.com>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Subject: [dm-devel] [PATCH] dm: don't call report zones for more than the
-	user requested
+Cc: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	Naohiro Aota <Naohiro.Aota@wdc.com>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH] dm: don't call report zones for more than
+ the user requested
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,40 +138,16 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Don't call report zones for more zones than the user actually requested,
-otherwise this can lead to out-of-bounds accesses in the callback
-functions.
+On 04/08/2020 12:17, Damien Le Moal wrote:
+> 
+> Looks good. I think this needs a Cc: stable.
 
-Such a situation can happen if the target's ->report_zones() callback
-function returns 0 because we've reached the end of the target and then
-restart the report zones on the second target.
+Indeed, Mike can you add these two when applying or do you want me to resend?
 
-We're again calling into ->report_zones() and ultimately into the user
-supplied callback function but when we're not subtracting the number of
-zones already processed this may lead to out-of-bounds accesses in the
-user callbacks.
+Fixes: d41003513e61 ("block: rework zone reporting")
+Cc: stable@vger.kernel.org # v5.5+
 
-Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
----
- drivers/md/dm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 5b9de2f71bb0..88b391ff9bea 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -504,7 +504,8 @@ static int dm_blk_report_zones(struct gendisk *disk, sector_t sector,
- 		}
- 
- 		args.tgt = tgt;
--		ret = tgt->type->report_zones(tgt, &args, nr_zones);
-+		ret = tgt->type->report_zones(tgt, &args,
-+					      nr_zones - args.zone_idx);
- 		if (ret < 0)
- 			goto out;
- 	} while (args.zone_idx < nr_zones &&
--- 
-2.26.2
 
 --
 dm-devel mailing list
