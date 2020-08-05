@@ -1,58 +1,63 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 9FA4623D3A4
-	for <lists+dm-devel@lfdr.de>; Wed,  5 Aug 2020 23:37:08 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 2E6AD23D44C
+	for <lists+dm-devel@lfdr.de>; Thu,  6 Aug 2020 01:53:07 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-63-5JiiKOmNOiu1FzcLteQk3w-1; Wed, 05 Aug 2020 17:37:05 -0400
-X-MC-Unique: 5JiiKOmNOiu1FzcLteQk3w-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-117-EsePgcTHPr2s6rPTPA-elg-1; Wed, 05 Aug 2020 19:53:03 -0400
+X-MC-Unique: EsePgcTHPr2s6rPTPA-elg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 23B6358;
-	Wed,  5 Aug 2020 21:37:00 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C2FC45C1D2;
-	Wed,  5 Aug 2020 21:36:57 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 71C27106B242;
+	Wed,  5 Aug 2020 23:52:55 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 55EEA87A46;
+	Wed,  5 Aug 2020 23:52:50 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C5E9F96928;
-	Wed,  5 Aug 2020 21:36:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0B7F11809554;
+	Wed,  5 Aug 2020 23:52:40 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 075LajlH021456 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 5 Aug 2020 17:36:45 -0400
+	id 075NqOu3005699 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 5 Aug 2020 19:52:24 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 58A97217B43C; Wed,  5 Aug 2020 21:36:45 +0000 (UTC)
+	id 93B6110EE6CD; Wed,  5 Aug 2020 23:52:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B9E5217B439
-	for <dm-devel@redhat.com>; Wed,  5 Aug 2020 21:36:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F2DC10EE6CB
+	for <dm-devel@redhat.com>; Wed,  5 Aug 2020 23:52:21 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8EAB28007A4
-	for <dm-devel@redhat.com>; Wed,  5 Aug 2020 21:36:42 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-369-VromxdZHNs6O5aQfUw9Vtw-1;
-	Wed, 05 Aug 2020 17:36:40 -0400
-X-MC-Unique: VromxdZHNs6O5aQfUw9Vtw-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id E3D28AD1E;
-	Wed,  5 Aug 2020 21:36:55 +0000 (UTC)
-Message-ID: <7b6403a39da1a6fd6f2297884fed957414c4e55d.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Benjamin Marzinski <bmarzins@redhat.com>, lixiaokeng
-	<lixiaokeng@huawei.com>
-Date: Wed, 05 Aug 2020 23:36:38 +0200
-In-Reply-To: <20200803173535.GF19233@octiron.msp.redhat.com>
-References: <9f10e135-348d-d11a-85cb-797522ba5210@huawei.com>
-	<20200803173535.GF19233@octiron.msp.redhat.com>
-User-Agent: Evolution 3.36.4
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9CDA1101A525
+	for <dm-devel@redhat.com>; Wed,  5 Aug 2020 23:52:21 +0000 (UTC)
+Received: from namei.org (namei.org [65.99.196.166]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-419-i_Q_Rq2OO3SA9F9GHwfoew-1;
+	Wed, 05 Aug 2020 19:52:17 -0400
+X-MC-Unique: i_Q_Rq2OO3SA9F9GHwfoew-1
+Received: from localhost (localhost [127.0.0.1])
+	by namei.org (8.14.4/8.14.4) with ESMTP id 075Npvex020649;
+	Wed, 5 Aug 2020 23:51:57 GMT
+Date: Thu, 6 Aug 2020 09:51:57 +1000 (AEST)
+From: James Morris <jmorris@namei.org>
+To: Mimi Zohar <zohar@linux.ibm.com>
+In-Reply-To: <b08ae82102f35936427bf138085484f75532cff1.camel@linux.ibm.com>
+Message-ID: <alpine.LRH.2.21.2008060949410.20084@namei.org>
+References: <20200728213614.586312-1-deven.desai@linux.microsoft.com>
+	<20200802115545.GA1162@bug> <20200802140300.GA2975990@sasha-vm>
+	<20200802143143.GB20261@amd>
+	<1596386606.4087.20.camel@HansenPartnership.com>
+	<fb35a1f7-7633-a678-3f0f-17cf83032d2b@linux.microsoft.com>
+	<1596639689.3457.17.camel@HansenPartnership.com>
+	<alpine.LRH.2.21.2008050934060.28225@namei.org>
+	<b08ae82102f35936427bf138085484f75532cff1.camel@linux.ibm.com>
+User-Agent: Alpine 2.21 (LRH 202 2017-01-01)
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -62,11 +67,23 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: linfeilong@huawei.com, dm-devel@redhat.com, liuzhiqiang26@huawei.com,
-	lutianxiong@huawei.com
-Subject: Re: [dm-devel] [PATCH] libmultipath: fix null dereference in add
+Cc: snitzer@redhat.com, Deven Bowers <deven.desai@linux.microsoft.com>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	dm-devel@redhat.com, tyhicks@linux.microsoft.com,
+	Pavel Machek <pavel@ucw.cz>, agk@redhat.com,
+	Sasha Levin <sashal@kernel.org>, paul@paul-moore.com,
+	corbet@lwn.net, nramas@linux.microsoft.com, serge@hallyn.com,
+	pasha.tatashin@soleen.com, jannh@google.com,
+	linux-block@vger.kernel.org, viro@zeniv.linux.org.uk,
+	axboe@kernel.dk, mdsakib@microsoft.com,
+	linux-kernel@vger.kernel.org, eparis@redhat.com,
+	linux-security-module@vger.kernel.org, linux-audit@redhat.com,
+	linux-fsdevel@vger.kernel.org, linux-integrity@vger.kernel.org,
+	jaskarankhurana@linux.microsoft.com
+Subject: Re: [dm-devel] [RFC PATCH v5 00/11] Integrity Policy Enforcement
+ LSM (IPE)
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +97,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -88,67 +105,21 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, 2020-08-03 at 12:35 -0500, Benjamin Marzinski wrote:
-> On Mon, Aug 03, 2020 at 07:57:01PM +0800, lixiaokeng wrote:
-> > I got a multipath segfault while running iscsi login/logout and
-> > following scripts in parallel:
-> > 
-> > #!/bin/bash
-> > interval=1
-> > while true
-> > do
-> >               multipath -F &> /dev/null
-> >               multipath -r &> /dev/null
-> >               multipath -v2 &> /dev/null
-> >               multipath -ll &> /dev/null
-> >               sleep $interval
-> > done
-> > 
-> > This is the debuginfo:
-> > #0  0x00007f3805e4df58 in add (ctx=0x55d1569e4a00,
-> > ud=0x55d1569bafd0) at nvme.c:801
-> > 801              if (strcmp("disk", udev_device_get_devtype(ud)))
-> > (gdb) bt
-> > #0  0x00007f3805e4df58 in add (ctx=0x55d1569e4a00,
-> > ud=0x55d1569bafd0) at nvme.c:801
-> > #1  0x00007f3806687a44 in add_foreign (udev=0x55d1569bafd0) at
-> > foreign.c:299
-> > #2  0x00007f3806665abf in is_claimed_by_foreign (ud=<optimized
-> > out>) at foreign.h:316
-> > #3  pathinfo (pp=0x55d1569e9f50, conf=0x55d1569b92d0, mask=69) at
-> > discovery.c:2064
-> > #4  0x000055d154c91cbb in check_usable_paths (conf=0x55d1569b92d0,
-> > devpath=0x55d1569e3200 "dm-6", dev_type=<optimized out>) at
-> > main.c:368
-> > #5  0x000055d154c910a5 in main (argc=3, argv=<optimized out>) at
-> > main.c:1057
-> > In add() at libmultipath/foreign/nvme.c,
-> > udev_device_get_devtype(ud) return a NULL pointer then
-> > dereferenced.
-> > Here, NULL check is needed.
-> > Check if udev_device_get_devtype return NULL before dereferencing
-> > it.
+On Wed, 5 Aug 2020, Mimi Zohar wrote:
+
+> If block layer integrity was enough, there wouldn't have been a need
+> for fs-verity.   Even fs-verity is limited to read only filesystems,
+> which makes validating file integrity so much easier.  From the
+> beginning, we've said that fs-verity signatures should be included in
+> the measurement list.  (I thought someone signed on to add that support
+> to IMA, but have not yet seen anything.)
 > 
-> This patch looks fine. However, it has pointed out a larger problem
-> with
-> the udev_device_get_* functions. This is not the only instance where
-> we
-> aren't checking the return value of these functions before
-> dereferencing
-> it.
+> Going forward I see a lot of what we've accomplished being incorporated
+> into the filesystems.  When IMA will be limited to defining a system
+> wide policy, I'll have completed my job.
 
-Right. libudev/libsystemd seem to follow a "lazy" approach for certain 
-properties, fetching them only when requested. If such a function call
-returns NULL, I guess we have to assume that fetching the respective
-property from sysfs failed, and thus the udev_device has become non-
-existent / invalid. OTOH, this is probably "better" than libudev
-fetching other properties from the cache and NOT making us realize that
-the device is long gone.
-
-Next pending code audit :-/
-
-Martin
-
+What are your thoughts on IPE being a standalone LSM? Would you prefer to 
+see its functionality integrated into IMA?
 
 --
 dm-devel mailing list
