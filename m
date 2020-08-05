@@ -1,85 +1,66 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0225723CDC3
-	for <lists+dm-devel@lfdr.de>; Wed,  5 Aug 2020 19:50:52 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 5817423D031
+	for <lists+dm-devel@lfdr.de>; Wed,  5 Aug 2020 21:34:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1596656094;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=huMdW6azISqW5YvuYaa3Q7Bh7+rYkFHODPUK8LPCGgY=;
+	b=YRHr6Eyx+WHI9A+K07ny8Am91co4xhQuZFVWMiKLKvYscyY1xQ6DcC8RXhPlYdOLjfPQFG
+	xWojHC9EKv+4BcGOytYKOwbQ/iGLpYux7MbkTNs4//TuE5s+zx2xErjjLRf/6KEqWutU6N
+	GJ3B1bxFU3bjxjHHsIXKRXMN5CwjVIw=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-210-I4UwgDS8N5CVMwZgb9E_cw-1; Wed, 05 Aug 2020 13:50:48 -0400
-X-MC-Unique: I4UwgDS8N5CVMwZgb9E_cw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-249-u9Mjej45MzG5Kq1hQz40BQ-1; Wed, 05 Aug 2020 15:34:51 -0400
+X-MC-Unique: u9Mjej45MzG5Kq1hQz40BQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 193D41923763;
-	Wed,  5 Aug 2020 17:50:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 907B28015FB;
+	Wed,  5 Aug 2020 19:34:43 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B590D87A47;
-	Wed,  5 Aug 2020 17:50:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EA2EF19936;
+	Wed,  5 Aug 2020 19:34:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 10C961809554;
-	Wed,  5 Aug 2020 17:50:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2FCE91809554;
+	Wed,  5 Aug 2020 19:34:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 075HoCx2026269 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 5 Aug 2020 13:50:12 -0400
+	id 075JYDvB006982 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 5 Aug 2020 15:34:13 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7EC1D3325D; Wed,  5 Aug 2020 17:50:12 +0000 (UTC)
+	id 6B2405DA6B; Wed,  5 Aug 2020 19:34:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A7D3F49C9
-	for <dm-devel@redhat.com>; Wed,  5 Aug 2020 17:50:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 61C131859163
-	for <dm-devel@redhat.com>; Wed,  5 Aug 2020 17:50:10 +0000 (UTC)
-Received: from namei.org (namei.org [65.99.196.166]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-357-Lfm_SC8VOtiJRAqIfEkA2g-1;
-	Wed, 05 Aug 2020 13:50:05 -0400
-X-MC-Unique: Lfm_SC8VOtiJRAqIfEkA2g-1
-Received: from localhost (localhost [127.0.0.1])
-	by namei.org (8.14.4/8.14.4) with ESMTP id 075Gxe6x030131;
-	Wed, 5 Aug 2020 16:59:42 GMT
-Date: Wed, 5 Aug 2020 09:59:40 -0700 (PDT)
-From: James Morris <jmorris@namei.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-In-Reply-To: <1596639689.3457.17.camel@HansenPartnership.com>
-Message-ID: <alpine.LRH.2.21.2008050934060.28225@namei.org>
-References: <20200728213614.586312-1-deven.desai@linux.microsoft.com>
-	<20200802115545.GA1162@bug> <20200802140300.GA2975990@sasha-vm>
-	<20200802143143.GB20261@amd>
-	<1596386606.4087.20.camel@HansenPartnership.com>
-	<fb35a1f7-7633-a678-3f0f-17cf83032d2b@linux.microsoft.com>
-	<1596639689.3457.17.camel@HansenPartnership.com>
-User-Agent: Alpine 2.21 (LRH 202 2017-01-01)
+Received: from localhost (unknown [10.18.25.174])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5D64D5DA6A;
+	Wed,  5 Aug 2020 19:34:10 +0000 (UTC)
+Date: Wed, 5 Aug 2020 15:34:09 -0400
+From: Mike Snitzer <snitzer@redhat.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Message-ID: <20200805193409.GA21824@redhat.com>
+References: <8CFF8DA9-C105-461C-8F5A-DA2BF448A135@oracle.com>
+	<20200804124735.GA219143@kroah.com>
+	<20200804182037.GA15453@redhat.com>
+	<20200805143242.GC2154236@kroah.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+In-Reply-To: <20200805143242.GC2154236@kroah.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
-Cc: snitzer@redhat.com, Deven Bowers <deven.desai@linux.microsoft.com>,
-	zohar@linux.ibm.com, dm-devel@redhat.com,
-	tyhicks@linux.microsoft.com, Pavel Machek <pavel@ucw.cz>,
-	agk@redhat.com, Sasha Levin <sashal@kernel.org>,
-	paul@paul-moore.com, corbet@lwn.net, nramas@linux.microsoft.com,
-	serge@hallyn.com, pasha.tatashin@soleen.com, jannh@google.com,
-	linux-block@vger.kernel.org, viro@zeniv.linux.org.uk,
-	axboe@kernel.dk, mdsakib@microsoft.com,
-	linux-kernel@vger.kernel.org, eparis@redhat.com,
-	linux-security-module@vger.kernel.org, linux-audit@redhat.com,
-	linux-fsdevel@vger.kernel.org, linux-integrity@vger.kernel.org,
-	jaskarankhurana@linux.microsoft.com
-Subject: Re: [dm-devel] [RFC PATCH v5 00/11] Integrity Policy Enforcement
- LSM (IPE)
+Cc: John Donnelly <john.p.donnelly@oracle.com>, dm-devel@redhat.com,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	stable@vger.kernel.org
+Subject: [dm-devel] fixing 4.14-stable's broken DM cache writethrough
+ support [was: Re: [(resend) PATCH v3: {linux-4.14.y} ] dm cache: submit
+ writethrough writes in parallel to origin and cache]
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,69 +74,116 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-On Wed, 5 Aug 2020, James Bottomley wrote:
+On Wed, Aug 05 2020 at 10:32am -0400,
+Greg KH <gregkh@linuxfoundation.org> wrote:
 
-> I'll leave Mimi to answer, but really this is exactly the question that
-> should have been asked before writing IPE.  However, since we have the
-> cart before the horse, let me break the above down into two specific
-> questions.
+> On Tue, Aug 04, 2020 at 02:20:38PM -0400, Mike Snitzer wrote:
+> > On Tue, Aug 04 2020 at  8:47am -0400,
+> > Greg KH <gregkh@linuxfoundation.org> wrote:
+> > 
+> > > On Tue, Aug 04, 2020 at 07:33:05AM -0500, John Donnelly wrote:
+> > > > From: Mike Snitzer <snitzer@redhat.com>
+> > > > 
+> > > > Discontinue issuing writethrough write IO in series to the origin and
+> > > > then cache.
+> > > > 
+> > > > Use bio_clone_fast() to create a new origin clone bio that will be
+> > > > mapped to the origin device and then bio_chain() it to the bio that gets
+> > > > remapped to the cache device.  The origin clone bio does _not_ have a
+> > > > copy of the per_bio_data -- as such check_if_tick_bio_needed() will not
+> > > > be called.
+> > > > 
+> > > > The cache bio (parent bio) will not complete until the origin bio has
+> > > > completed -- this fulfills bio_clone_fast()'s requirements as well as
+> > > > the requirement to not complete the original IO until the write IO has
+> > > > completed to both the origin and cache device.
+> > > > 
+> > > > Signed-off-by: Mike Snitzer <snitzer@redhat.com>
+> > > > 
+> > > > (cherry picked from commit 2df3bae9a6543e90042291707b8db0cbfbae9ee9)
+> > > > 
+> > > > Fixes: 4ec34f2196d125ff781170ddc6c3058c08ec5e73 (dm bio record:
+> > > > save/restore bi_end_io and bi_integrity )
+> > > > 
+> > > > 4ec34f21 introduced a mkfs.ext4 hang on a LVM device that has been
+> > > > modified with lvconvert --cachemode=writethrough.
+> > > > 
+> > > > CC:stable@vger.kernel.org for 4.14.y
+> > > > 
+> > > > Signed-off-by: John Donnelly <john.p.donnelly@oracle.com>
+> > > > Reviewed-by: Somasundaram Krishnasamy <somasundaram.krishnasamy@oracle.com>
+> > > > 
+> > > > conflicts:
+> > > > 	drivers/md/dm-cache-target.c. -  Corrected usage of
+> > > > 	writethrough_mode(&cache->feature) that was caught by
+> > > > 	compiler, and removed unused static functions : writethrough_endio(),
+> > > > 	defer_writethrough_bio(), wake_deferred_writethrough_worker()
+> > > > 	that generated warnings.
+> > > 
+> > > What is this "conflicts nonsense"?  You don't see that in any other
+> > > kernel patch changelog, do you?
+> > > 
+> > > > ---
+> > > > drivers/md/dm-cache-target.c | 92 ++++++++++++++++++--------------------------
+> > > > 1 file changed, 37 insertions(+), 55 deletions(-)
+> > > 
+> > > Please fix your email client up, it's totally broken and this does not
+> > > work at all and is getting frustrating from my side here.
+> > > 
+> > > Try sending emails to yourself and see if you can apply the patches, as
+> > > the one you sent here does not work, again:
+> > 
+> > John's inability to submit a patch that can apply aside: I do not like
+> > how this patch header is constructed (yet attributed "From" me).  It is
+> > devoid of detail as it relates to stable@.
+> > 
+> > Greg, please don't apply the v4 of this patch either.  I'll craft a
+> > proper stable@ patch that explains the reason for change and why we're
+> > left having to resolve conflicts in stable@.
+> > 
+> > But first I need to focus on sending DM changes to Linus for v5.9 merge.
+> 
+> Ok, no worries, I'll drop all of these from my review queue and wait for
+> something from you sometime in the future.
 
-The question is valid and it was asked. We decided to first prototype what 
-we needed and then evaluate if it should be integrated with IMA. We 
-discussed this plan in person with Mimi (at LSS-NA in 2019), and presented 
-a more mature version of IPE to LSS-NA in 2020, with the expectation that 
-such a discussion may come up (it did not).
+Hey Greg,
 
-These patches are still part of this process and 'RFC' status.
+SO I've looked this required 4.14 stable@ backport over. Because 4.14
+already has these commits (to fix a dm integrity issue):
+1b17159e52b dm bio record: save/restore bi_end_io and bi_integrity
+248aa2645aa dm integrity: use dm_bio_record and dm_bio_restore
 
->    1. Could we implement IPE in IMA (as in would extensions to IMA cover
->       everything).  I think the answers above indicate this is a "yes".
+DM-cache's 4.14 writethrough mode got broken because its implementation
+(ab)used dm_hook_bio+dm_bio_record and predates 4.15's switch to using
+bio_chain() via commit 2df3bae9a654.  Without commit 2df3bae9a654 the
+dm_hook_bio+dm_bio_record changes from commit 1b17159e52b break
+dm-cache's writethrough support.
 
-It could be done, if needed.
+So 4.14-stable now needs these 3 upstream 4.15 commits:
+8e3c3827776f dm cache: pass cache structure to mode functions
+2df3bae9a654 dm cache: submit writethrough writes in parallel to origin and cache
+9958f1d9a04e dm cache: remove all obsolete writethrough-specific code
 
->    2. Should we extend IMA to implement it?  This is really whether from a
->       usability standpoint two seperate LSMs would make sense to cover the
->       different use cases.
+Applying those commits to v4.14.190 with:
+git cherry-pick -x 8e3c3827776f^..9958f1d9a04e
 
-One issue here is that IMA is fundamentally a measurement & appraisal 
-scheme which has been extended to include integrity enforcement. IPE was 
-designed from scratch to only perform integrity enforcement. As such, it 
-is a cleaner design -- "do one thing and do it well" is a good design 
-pattern.
+results in a kernel that successfully builds and should fix
+4.14-stable's broken dm-cache writethrough support.
 
-In our use-case, we utilize _both_ IMA and IPE, for attestation and code 
-integrity respectively. It is useful to be able to separate these 
-concepts. They really are different:
+Are you ok with queueing up applying these 3 upstream commits to
+4.14-stable or do you need me to send a patchset?
 
-- Code integrity enforcement ensures that code running locally is of known 
-provenance and has not been modified prior to execution.
-
-- Attestation is about measuring the health of a system and having that 
-measurement validated by a remote system. (Local attestation is useless).
-
-I'm not sure there is value in continuing to shoe-horn both of these into 
-IMA.
-
-
->  I've got to say the least attractive thing
->       about separation is the fact that you now both have a policy parser.
->        You've tried to differentiate yours by making it more Kconfig
->       based, but policy has a way of becoming user space supplied because
->       the distros hate config options, so I think you're going to end up
->       with a policy parser very like IMAs.
-
-
--- 
-James Morris
-<jmorris@namei.org>
+Thanks,
+Mike
 
 --
 dm-devel mailing list
