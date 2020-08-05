@@ -1,58 +1,58 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id E049923D34E
-	for <lists+dm-devel@lfdr.de>; Wed,  5 Aug 2020 22:55:02 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 4ADD623D37D
+	for <lists+dm-devel@lfdr.de>; Wed,  5 Aug 2020 23:13:26 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-148-HM8RktwpOoKW6CdNmvZ8Qg-1; Wed, 05 Aug 2020 16:54:59 -0400
-X-MC-Unique: HM8RktwpOoKW6CdNmvZ8Qg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-150-upnnZcLXMv-eAR5NqlaIpQ-1; Wed, 05 Aug 2020 17:13:22 -0400
+X-MC-Unique: upnnZcLXMv-eAR5NqlaIpQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DAE0B101C8A0;
-	Wed,  5 Aug 2020 20:54:43 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E7CDF5DA60;
-	Wed,  5 Aug 2020 20:54:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D5762106B243;
+	Wed,  5 Aug 2020 21:13:16 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8CDF91A7C8;
+	Wed,  5 Aug 2020 21:13:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B663F1809554;
-	Wed,  5 Aug 2020 20:54:34 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0E26B96926;
+	Wed,  5 Aug 2020 21:13:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 075KsPqr016281 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 5 Aug 2020 16:54:25 -0400
+	id 075LCuLI017745 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 5 Aug 2020 17:12:56 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 83F4A1004173; Wed,  5 Aug 2020 20:54:25 +0000 (UTC)
+	id 86CEF202B16E; Wed,  5 Aug 2020 21:12:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7EDBF1004157
-	for <dm-devel@redhat.com>; Wed,  5 Aug 2020 20:54:19 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82CAC202B171
+	for <dm-devel@redhat.com>; Wed,  5 Aug 2020 21:12:53 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 877828007D8
-	for <dm-devel@redhat.com>; Wed,  5 Aug 2020 20:54:19 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 95BE1185A797
+	for <dm-devel@redhat.com>; Wed,  5 Aug 2020 21:12:53 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-359-0aGG4CiCNPG1_8XBDgK07A-1;
-	Wed, 05 Aug 2020 16:54:17 -0400
-X-MC-Unique: 0aGG4CiCNPG1_8XBDgK07A-1
+	relay.mimecast.com with ESMTP id us-mta-508-RqMLaDEFN_KGCmSHc7M7hg-1;
+	Wed, 05 Aug 2020 17:12:51 -0400
+X-MC-Unique: RqMLaDEFN_KGCmSHc7M7hg-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 0100CAEB2;
-	Wed,  5 Aug 2020 20:54:32 +0000 (UTC)
-Message-ID: <6b9ca2954255216cb78b76bd63b1086fdaeefd7e.camel@suse.com>
+	by mx2.suse.de (Postfix) with ESMTP id 1E32FB57F;
+	Wed,  5 Aug 2020 21:13:07 +0000 (UTC)
+Message-ID: <db83c4595e4e494d95c80825b1a66dfb77e14690.camel@suse.com>
 From: Martin Wilck <mwilck@suse.com>
-To: Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed, 05 Aug 2020 22:54:15 +0200
-In-Reply-To: <20200720034455.GA11089@octiron.msp.redhat.com>
-References: <20200709110330.9917-1-mwilck@suse.com>
-	<20200709110330.9917-3-mwilck@suse.com>
-	<20200720034455.GA11089@octiron.msp.redhat.com>
+To: Xose Vazquez Perez <xose.vazquez@gmail.com>, Benjamin Marzinski
+	<bmarzins@redhat.com>, Hannes Reinecke <hare@suse.de>, DM-DEVEL ML
+	<dm-devel@redhat.com>
+Date: Wed, 05 Aug 2020 23:12:49 +0200
+In-Reply-To: <acc2f009-c4b8-0c09-c77c-9400aac38cb1@gmail.com>
+References: <acc2f009-c4b8-0c09-c77c-9400aac38cb1@gmail.com>
 User-Agent: Evolution 3.36.4
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -63,11 +63,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 76/80] libmultipath: select_action(): force
- udev reload for uninitialized maps
+Cc: "Schremmer, Steven" <Steve.Schremmer@netapp.com>
+Subject: Re: [dm-devel] [PATCH RFC] multipath-tools: *untested* use sysfs
+ prio also for arrays with dual implicit/explicit alua support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +81,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -89,76 +89,63 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sun, 2020-07-19 at 22:44 -0500, Benjamin Marzinski wrote:
-> On Thu, Jul 09, 2020 at 01:03:26PM +0200, mwilck@suse.com wrote:
-> > From: Martin Wilck <mwilck@suse.com>
-> > 
-> > If we are in the reconfigure() code path, and we encounter maps to
-> > be reloaded, we usually set the DM_SUBSYSTEM_UDEV_FLAG0 flag to
-> > tell
-> > udev not to repeat device detection steps above the multipath
-> > layer.
-> > However, if the map was previously uninitialized, we have to force
-> > udev to reload.
-> > 
-> > Signed-off-by: Martin Wilck <mwilck@suse.com>
-> > ---
-> >  libmultipath/configure.c | 61 ++++++++++++++++++++++++----------
-> > ------
-> >  1 file changed, 37 insertions(+), 24 deletions(-)
-> > 
-> > diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-> > index 2509053..efb5808 100644
-> > --- a/libmultipath/configure.c
-> > +++ b/libmultipath/configure.c
-> > @@ -660,6 +660,32 @@ sysfs_set_max_sectors_kb(struct multipath
-> > *mpp, int is_reload)
-> >  	return err;
-> >  }
-> >  
-> > +static void
-> > +select_reload_action(struct multipath *mpp, const char *reason)
-> > +{
-> > +	struct udev_device *mpp_ud;
-> > +	const char *env;
-> > +
-> > +	/*
-> > +	 * MPATH_DEVICE_READY != 1 can mean two things:
-> > +	 *  (a) no usable paths
-> > +	 *  (b) device was never fully processed (e.g. udev killed)
-> > +	 * If we are in this code path (startup or forced reconfigure),
-> > +	 * (b) can mean that upper layers like kpartx have never been
-> > +	 * run for this map. Thus force udev reload.
-> > +	 */
-> > +
-> 
-> This looks like it wants multipath to check if there are valid
-> devices
-> before setting force reload.  But looking at the udev rules, I'm
-> pretty
-> sure it's safe. If we have no valid paths, then we will have
-> 
-> ENV{DM_NOSCAN}="1 and ENV{DM_UDEV_DISABLE_OTHER_RULES_FLAG}="1"
-> 
-> which means it doesn't matter that force_udev_reload will cause
-> 
-> ENV{DM_ACTIVATION}="1" and ENV{MPATH_UNCHANGED}=""
-> 
-> It does get sort of confusing with the number of udev properties that
-> can
-> effect things.  So nothing really needs to get done for this to be
-> correct, but perhaps this code should only set force reload is there
-> are
-> valid paths, just to be clear.
+Hi Xose,
 
-Will do. Full ack wrt the confusing udev rules (patches welcome :D)
+do you have a specific use case where this helps / changes matters?
 
-Note btw that multipathd triggers a synthetic change event in
-reconfigure if no changes were applied; but that code is hardly ever
-executed because we normally set queue_if_no_path, and during startup
-multipathd will never encounter a queueing map.
+The idea of the current code is to use PRIO_SYSFS always, except for
+RDAC arrays with implicit ALUA, where periodic RTPGs are necessary (see
+7e2f46d). This patch would change matters only for RDAC arrays which
+advertise both explicit and implicit ALUA support.
+
+Maybe Steven can clarify if such RDAC arrays exist, and whether we
+should use PRIO_SYSFS or PRIO_ALUA for them.
 
 Martin
+
+
+On Sat, 2020-07-25 at 00:34 +0200, Xose Vazquez Perez wrote:
+> Cc: Martin Wilck <mwilck@suse.com>
+> Cc: Benjamin Marzinski <bmarzins@redhat.com>
+> Cc: Hannes Reinecke <hare@suse.de>
+> Cc: DM-DEVEL ML <dm-devel@redhat.com>
+> Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
+> ---
+> diff --git a/libmultipath/propsel.c b/libmultipath/propsel.c
+> index 897e48ca..5a82234f 100644
+> --- a/libmultipath/propsel.c
+> +++ b/libmultipath/propsel.c
+> @@ -595,7 +595,7 @@ detect_prio(struct config *conf, struct path *
+> pp)
+>   		tpgs = path_get_tpgs(pp);
+>   		if (tpgs == TPGS_NONE)
+>   			return;
+> -		if ((tpgs == TPGS_EXPLICIT || !check_rdac(pp)) &&
+> +		if ((tpgs == TPGS_EXPLICIT || tpgs == TPGS_BOTH ||
+> !check_rdac(pp)) &&
+>   		    sysfs_get_asymmetric_access_state(pp, buff, 512) >=
+> 0)
+>   			default_prio = PRIO_SYSFS;
+>   		else
+> 
+> In short:
+> 
+> diff --git a/libmultipath/propsel.c b/libmultipath/propsel.c
+> index 897e48ca..a9609a01 100644
+> --- a/libmultipath/propsel.c
+> +++ b/libmultipath/propsel.c
+> @@ -595,7 +595,7 @@ detect_prio(struct config *conf, struct path *
+> pp)
+>   		tpgs = path_get_tpgs(pp);
+>   		if (tpgs == TPGS_NONE)
+>   			return;
+> -		if ((tpgs == TPGS_EXPLICIT || !check_rdac(pp)) &&
+> +		if ((tpgs != TPGS_IMPLICIT || !check_rdac(pp)) &&
+>   		    sysfs_get_asymmetric_access_state(pp, buff, 512) >=
+> 0)
+>   			default_prio = PRIO_SYSFS;
+>   		else
+> 
 
 
 --
