@@ -1,58 +1,60 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id E706D23CC52
-	for <lists+dm-devel@lfdr.de>; Wed,  5 Aug 2020 18:38:21 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 0225723CDC3
+	for <lists+dm-devel@lfdr.de>; Wed,  5 Aug 2020 19:50:52 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-272-shc7JJIPMfiT3s4mTocvuQ-1; Wed, 05 Aug 2020 12:38:18 -0400
-X-MC-Unique: shc7JJIPMfiT3s4mTocvuQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-210-I4UwgDS8N5CVMwZgb9E_cw-1; Wed, 05 Aug 2020 13:50:48 -0400
+X-MC-Unique: I4UwgDS8N5CVMwZgb9E_cw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 529CA1932484;
-	Wed,  5 Aug 2020 16:38:11 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A575A5D9DC;
-	Wed,  5 Aug 2020 16:38:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 193D41923763;
+	Wed,  5 Aug 2020 17:50:42 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B590D87A47;
+	Wed,  5 Aug 2020 17:50:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AA18396916;
-	Wed,  5 Aug 2020 16:37:56 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 10C961809554;
+	Wed,  5 Aug 2020 17:50:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 075GbibJ016973 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 5 Aug 2020 12:37:44 -0400
+	id 075HoCx2026269 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 5 Aug 2020 13:50:12 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5F0051112843; Wed,  5 Aug 2020 16:37:44 +0000 (UTC)
+	id 7EC1D3325D; Wed,  5 Aug 2020 17:50:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 596A21112840
-	for <dm-devel@redhat.com>; Wed,  5 Aug 2020 16:37:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A7D3F49C9
+	for <dm-devel@redhat.com>; Wed,  5 Aug 2020 17:50:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 302B889CD14
-	for <dm-devel@redhat.com>; Wed,  5 Aug 2020 16:37:42 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-24-_Fcy9tlfMFmawSOi8l8VOA-1;
-	Wed, 05 Aug 2020 12:37:38 -0400
-X-MC-Unique: _Fcy9tlfMFmawSOi8l8VOA-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 3A877ABD2;
-	Wed,  5 Aug 2020 16:37:53 +0000 (UTC)
-Message-ID: <95eabfa37f3da63b27f9a68a693a9e44bba9b0d8.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed, 05 Aug 2020 18:37:35 +0200
-In-Reply-To: <20200719050716.GW11089@octiron.msp.redhat.com>
-References: <20200709105145.9211-1-mwilck@suse.com>
-	<20200709105145.9211-12-mwilck@suse.com>
-	<20200719050716.GW11089@octiron.msp.redhat.com>
-User-Agent: Evolution 3.36.4
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 61C131859163
+	for <dm-devel@redhat.com>; Wed,  5 Aug 2020 17:50:10 +0000 (UTC)
+Received: from namei.org (namei.org [65.99.196.166]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-357-Lfm_SC8VOtiJRAqIfEkA2g-1;
+	Wed, 05 Aug 2020 13:50:05 -0400
+X-MC-Unique: Lfm_SC8VOtiJRAqIfEkA2g-1
+Received: from localhost (localhost [127.0.0.1])
+	by namei.org (8.14.4/8.14.4) with ESMTP id 075Gxe6x030131;
+	Wed, 5 Aug 2020 16:59:42 GMT
+Date: Wed, 5 Aug 2020 09:59:40 -0700 (PDT)
+From: James Morris <jmorris@namei.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+In-Reply-To: <1596639689.3457.17.camel@HansenPartnership.com>
+Message-ID: <alpine.LRH.2.21.2008050934060.28225@namei.org>
+References: <20200728213614.586312-1-deven.desai@linux.microsoft.com>
+	<20200802115545.GA1162@bug> <20200802140300.GA2975990@sasha-vm>
+	<20200802143143.GB20261@amd>
+	<1596386606.4087.20.camel@HansenPartnership.com>
+	<fb35a1f7-7633-a678-3f0f-17cf83032d2b@linux.microsoft.com>
+	<1596639689.3457.17.camel@HansenPartnership.com>
+User-Agent: Alpine 2.21 (LRH 202 2017-01-01)
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -62,11 +64,22 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 64/74] multipathd: check_path(): set
- retrigger_delay if necessary
+Cc: snitzer@redhat.com, Deven Bowers <deven.desai@linux.microsoft.com>,
+	zohar@linux.ibm.com, dm-devel@redhat.com,
+	tyhicks@linux.microsoft.com, Pavel Machek <pavel@ucw.cz>,
+	agk@redhat.com, Sasha Levin <sashal@kernel.org>,
+	paul@paul-moore.com, corbet@lwn.net, nramas@linux.microsoft.com,
+	serge@hallyn.com, pasha.tatashin@soleen.com, jannh@google.com,
+	linux-block@vger.kernel.org, viro@zeniv.linux.org.uk,
+	axboe@kernel.dk, mdsakib@microsoft.com,
+	linux-kernel@vger.kernel.org, eparis@redhat.com,
+	linux-security-module@vger.kernel.org, linux-audit@redhat.com,
+	linux-fsdevel@vger.kernel.org, linux-integrity@vger.kernel.org,
+	jaskarankhurana@linux.microsoft.com
+Subject: Re: [dm-devel] [RFC PATCH v5 00/11] Integrity Policy Enforcement
+ LSM (IPE)
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +93,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -88,38 +101,61 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sun, 2020-07-19 at 00:07 -0500, Benjamin Marzinski wrote:
-> On Thu, Jul 09, 2020 at 12:51:35PM +0200, mwilck@suse.com wrote:
-> > From: Martin Wilck <mwilck@suse.com>
-> > 
-> > In a follow up patch, we will set INIT_MISSING_UDEV and set tick=1
-> > (minimal) at the same time. In this case, which is new,
-> > check_path()
-> > must reset the delay when it first triggers an uevent.
-> 
-> Maybe I'm just being obtuse here, but I don't get what this does.
-> pp->tick will always be 0 for any path that makes it to the check
-> 
-> if (!pp->mpp && pp->initialized == INIT_MISSING_UDEV) {
-> 
-> And then if it's not out of retries, the path will get set to
-> INIT_REQUESTED_UDEV, and pathinfo() will take care of resetting pp-
-> >tick
-> when it gets called by the new uevent.
-> 
-> If it is out of retries, the path won't get pp->tick reset, which
-> seems
-> wrong, but it that case it should probably be set to max_checkint,
-> like
-> happens when the "add missing paths" code fails.
-> 
-> Or like I said, maybe I'm just missing something.
+On Wed, 5 Aug 2020, James Bottomley wrote:
 
-You're not. This was just plain stupid.
+> I'll leave Mimi to answer, but really this is exactly the question that
+> should have been asked before writing IPE.  However, since we have the
+> cart before the horse, let me break the above down into two specific
+> questions.
 
-Thanks
-Martin
+The question is valid and it was asked. We decided to first prototype what 
+we needed and then evaluate if it should be integrated with IMA. We 
+discussed this plan in person with Mimi (at LSS-NA in 2019), and presented 
+a more mature version of IPE to LSS-NA in 2020, with the expectation that 
+such a discussion may come up (it did not).
 
+These patches are still part of this process and 'RFC' status.
+
+>    1. Could we implement IPE in IMA (as in would extensions to IMA cover
+>       everything).  I think the answers above indicate this is a "yes".
+
+It could be done, if needed.
+
+>    2. Should we extend IMA to implement it?  This is really whether from a
+>       usability standpoint two seperate LSMs would make sense to cover the
+>       different use cases.
+
+One issue here is that IMA is fundamentally a measurement & appraisal 
+scheme which has been extended to include integrity enforcement. IPE was 
+designed from scratch to only perform integrity enforcement. As such, it 
+is a cleaner design -- "do one thing and do it well" is a good design 
+pattern.
+
+In our use-case, we utilize _both_ IMA and IPE, for attestation and code 
+integrity respectively. It is useful to be able to separate these 
+concepts. They really are different:
+
+- Code integrity enforcement ensures that code running locally is of known 
+provenance and has not been modified prior to execution.
+
+- Attestation is about measuring the health of a system and having that 
+measurement validated by a remote system. (Local attestation is useless).
+
+I'm not sure there is value in continuing to shoe-horn both of these into 
+IMA.
+
+
+>  I've got to say the least attractive thing
+>       about separation is the fact that you now both have a policy parser.
+>        You've tried to differentiate yours by making it more Kconfig
+>       based, but policy has a way of becoming user space supplied because
+>       the distros hate config options, so I think you're going to end up
+>       with a policy parser very like IMAs.
+
+
+-- 
+James Morris
+<jmorris@namei.org>
 
 --
 dm-devel mailing list
