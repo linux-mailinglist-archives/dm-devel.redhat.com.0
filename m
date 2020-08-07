@@ -1,74 +1,72 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A6FF423DB7E
-	for <lists+dm-devel@lfdr.de>; Thu,  6 Aug 2020 18:06:00 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id E977723E4F5
+	for <lists+dm-devel@lfdr.de>; Fri,  7 Aug 2020 02:10:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1596759014;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=3Z4dN4TwY4sZ0HfnaZoNpRaJA0TkOkPvtZ6L+nLDgmQ=;
+	b=XNQVCNyBN00CBxlQZYysOQEYi+/98gAmKLQOGBittBZIyea+pSnnOCpB6A96DGnBJ9B0JQ
+	ladDLa+KleFcZtWocDPWFskWMsWoFacgmd3KNBRgxiOTRczKxJyUBCHmBhsVRnwyMTWf9J
+	ys4iX7mEzoxapXjSAByQQReuH5SSQJw=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-463-qFTubSRAOAO77YodcsPxGA-1; Thu, 06 Aug 2020 12:05:56 -0400
-X-MC-Unique: qFTubSRAOAO77YodcsPxGA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-150-PctYiHPNMH-RYf9iuc-U1w-1; Thu, 06 Aug 2020 20:10:11 -0400
+X-MC-Unique: PctYiHPNMH-RYf9iuc-U1w-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4BC4F58;
-	Thu,  6 Aug 2020 16:05:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C5D151005504;
+	Fri,  7 Aug 2020 00:10:03 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5BE4A5C6D9;
-	Thu,  6 Aug 2020 16:05:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6CC806111F;
+	Fri,  7 Aug 2020 00:10:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8BE869A0EF;
-	Thu,  6 Aug 2020 16:05:32 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4750496921;
+	Fri,  7 Aug 2020 00:09:49 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 076G1Gx2018553 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 6 Aug 2020 12:01:17 -0400
+	id 07707x2j019884 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 6 Aug 2020 20:07:59 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B258DF5CD2; Thu,  6 Aug 2020 16:01:16 +0000 (UTC)
+	id E42447C0F6; Fri,  7 Aug 2020 00:07:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 99AFBF5CDA
-	for <dm-devel@redhat.com>; Thu,  6 Aug 2020 16:01:14 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4C9C48007D9
-	for <dm-devel@redhat.com>; Thu,  6 Aug 2020 16:01:14 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-491-Fa27X4DUOoKXLd2CAtVvng-1;
-	Thu, 06 Aug 2020 12:01:10 -0400
-X-MC-Unique: Fa27X4DUOoKXLd2CAtVvng-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 91CB9AE0D;
-	Thu,  6 Aug 2020 16:01:25 +0000 (UTC)
-Message-ID: <f6e1f272856631d9904a6b3fa069bfbbfa53cf07.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Benjamin Marzinski <bmarzins@redhat.com>, Zhiqiang Liu
-	<liuzhiqiang26@huawei.com>
-Date: Thu, 06 Aug 2020 18:01:05 +0200
-In-Reply-To: <20200728162000.GP11089@octiron.msp.redhat.com>
-References: <9bc76686-747f-e85b-d25f-db5a056cf869@huawei.com>
-	<20200728162000.GP11089@octiron.msp.redhat.com>
-User-Agent: Evolution 3.36.4
+Received: from localhost (unknown [10.18.25.174])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 78AD579CE3;
+	Fri,  7 Aug 2020 00:07:56 +0000 (UTC)
+Date: Thu, 6 Aug 2020 20:07:55 -0400
+From: Mike Snitzer <snitzer@redhat.com>
+To: "Meneghini, John" <John.Meneghini@netapp.com>
+Message-ID: <20200807000755.GA28957@redhat.com>
+References: <43e5dee8-1a91-4d8b-fdb5-91f9679ddeb3@huawei.com>
+	<8d01b123-478f-f057-1598-8283dd099b03@huawei.com>
+	<20200805152905.GB1982647@dhcp-10-100-145-180.wdl.wdc.com>
+	<255d55e3-f824-a968-e478-3efeda095696@huawei.com>
+	<20200806142625.GA3075319@dhcp-10-100-145-180.wdl.wdc.com>
+	<729820BC-5F38-4E22-A83A-862E57BAE201@netapp.com>
+	<E3390A8E-D582-47BA-A085-21663D883365@netapp.com>
+	<20200806184057.GA27858@redhat.com>
+	<20200806191943.GA27868@redhat.com>
+	<6B826235-C504-4621-B8F7-34475B200979@netapp.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+In-Reply-To: <6B826235-C504-4621-B8F7-34475B200979@netapp.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-Cc: Yanxiaodan <yanxiaodan@huawei.com>, linfeilong@huawei.com,
-	dm-devel@redhat.com, Zdenek Kabelac <zkabelac@redhat.com>
-Subject: Re: [dm-devel] [PATCH] libmultipath: fix a memory leak in
- disassemble_status func
+Cc: Ewan Milne <emilne@redhat.com>, Christoph Hellwig <hch@infradead.org>,
+	dm-devel@redhat.com,
+	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
+	Chao Leng <lengchao@huawei.com>, Keith Busch <kbusch@kernel.org>
+Subject: Re: [dm-devel] nvme: restore use of blk_path_error() in
+	nvme_complete_rq()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,40 +80,147 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-Hi Ben,
+On Thu, Aug 06 2020 at  6:42pm -0400,
+Meneghini, John <John.Meneghini@netapp.com> wrote:
 
-On Tue, 2020-07-28 at 11:20 -0500, Benjamin Marzinski wrote:
-> On Tue, Jul 28, 2020 at 09:48:06PM +0800, Zhiqiang Liu wrote:
-> > In disassemble_status func, for dealing with selector args,
-> > word is allocated by get_word func. However, word is not freed.
-> > Then a memory leak occurs.
-> > 
-> > Here, we call FREE(word) to free word.
+> On 8/6/20, 3:20 PM, "Mike Snitzer" <snitzer@redhat.com> wrote:
 > 
-> Err... At the risk of sounding stupid, There is a least-pending
-> selector?  Hannes, you added this code (commit 35ad40b4 "leastpending
-> IO
-> loadbalancing is not displayed properly"). Was this a Suse thing?  Is
-> it
-> still a Suse thing, or have queue-length and service-time replaced
-> it?
+>     From: Mike Snitzer <snitzer@redhat.com>
+>     Date: Thu, 2 Jul 2020 01:43:27 -0400
+>     Subject: [PATCH] nvme: restore use of blk_path_error() in nvme_complete_rq()
+> 
+>     Commit 764e9332098c0 ("nvme-multipath: do not reset on unknown
+>     status") removed NVMe's use blk_path_error() -- presummably because
+>     nvme_failover_req() was modified to return whether a command should be
+>     retried or not.
+> 
+> Yes, that was a major part of this patch.  nvme_failover_req() was completely 
+> reworked and fixed because it was badly broken. 
 
-Yes, it's a "SUSE thing" (originally developed by HP). SLE15 still
-supports it; I don't know if it's actually used. 
-It was discussed here last year, see:
-https://patchwork.kernel.org/patch/10878905/
+Sure, and I didn't change any of that.  Still all in place.
 
-Regards,
-Martin
+>     By not using blk_path_error() there is serious potential for
+>     regression for how upper layers (e.g. DM multipath) respond to NVMe's
+>     error conditions.  This has played out now due to commit 35038bffa87
+>     ("nvme: Translate more status codes to blk_status_t").  Had NVMe
+>     continued to use blk_path_error() it too would not have retried an
+>     NVMe command that got NVME_SC_CMD_INTERRUPTED.
+> 
+> I'm not sure others would consider it broken.  The idea was to get the blk_path_error()
+> logic out of the core nvme driver completion routine. 
+> 
+>     Fix this potential for NVMe error handling regression, possibly
+>     outside NVMe, by restoring NVMe's use of blk_path_error().
+> 
+> The point is: blk_path_error() has nothing to do with NVMe errors.
+> This is dm-multipath logic stuck in the middle of the NVMe error 
+> handling code.
 
+No, it is a means to have multiple subsystems (to this point both SCSI
+and NVMe) doing the correct thing when translating subsystem specific
+error codes to BLK_STS codes.
+
+If you, or others you name drop below, understood the point we wouldn't
+be having this conversation.  You'd accept the point of blk_path_error()
+to be valid and required codification of what constitutes a retryable
+path error for the Linux block layer.
+
+Any BLK_STS mapping of NVMe specific error codes would need to not screw
+up by categorizing a retryable error as non-retryable (and vice-versa).
+
+Again, assuming proper testing, commit 35038bffa87 wouldn't have made it
+upstream if NVMe still used blk_path_error().
+
+> C symbol: blk_path_error
+> 
+>   File        Function             Line
+> 0 dm-mpath.c  multipath_end_io     1606 if (error && blk_path_error(error)) {
+> 1 dm-mpath.c  multipath_end_io_bio 1646 if (!*error || !blk_path_error(*error))
+> 2 blk_types.h blk_path_error        118 static inline bool blk_path_error(blk_status_t error)
+
+Yes, your commit 764e9332098c0 needlessly removed NVMe's use of
+blk_path_error().  If you're saying it wasn't needless please explain
+why.
+
+>     Fixes: 764e9332098c0 ("nvme-multipath: do not reset on unknown status")
+>     Cc: stable@vger.kerneel.org
+>     Signed-off-by: Mike Snitzer <snitzer@redhat.com>
+>     ---
+>     drivers/nvme/host/core.c | 9 +++++++--
+>     1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+>     diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+>     index 6585d57112ad..072f629da4d8 100644
+>     --- a/drivers/nvme/host/core.c
+>     +++ b/drivers/nvme/host/core.c
+>     @@ -290,8 +290,13 @@ void nvme_complete_rq(struct request *req)
+>                     nvme_req(req)->ctrl->comp_seen = true;
+> 
+>             if (unlikely(status != BLK_STS_OK && nvme_req_needs_retry(req))) {
+>     -               if ((req->cmd_flags & REQ_NVME_MPATH) && nvme_failover_req(req))
+>     -                       return;
+>     +               if (blk_path_error(status)) {
+>     +                       if (req->cmd_flags & REQ_NVME_MPATH) {
+>     +                               if (nvme_failover_req(req))
+>     +                                       return;
+>     +                               /* fallthru to normal error handling */
+>     +                       }
+>     +               }
+> 
+> This would basically undo the patch Hannes, Christoph, and I put together in
+> commit 764e9332098c0.  This patch greatly simplified and improved the
+> whole nvme_complete_rq() code path, and I don't support undoing that change.
+
+Please elaborate on how I've undone anything?
+
+The only thing I may have done is forced NVMe to take more care about
+properly translating its NVME_SC to BLK_STS in nvme_error_status().
+Which is a good thing.
+
+> If you want blk_path_error() to handle any new NVMe error status differently,  I would suggest creating a new 
+> BLK_STS code to translate that NVMe status and add it to the one place in nvme_complete_rq() designed to
+> do the NVMe status to BLK_STS translation:  nvme_error_status().  Then you can change  your application specific 
+> error handling code to handle the new BLK_STS code appropriately, further up the stack.  Don't stick your
+> application specific error handling logic into the middle of the nvme driver's nvme_complete_rq routine.
+
+Removing NVMe as a primary user of blk_path_error() was a pretty serious
+mistake.  One you clearly aren't willing to own.  Yet the associated
+breakage still exists as well as the potential for further regressions.
+
+This really isn't some vantage point holy war.  Please don't continue to
+make this something it isn't.  Would be cool if you could see what a
+disservice this hostility is causing.  Otherwise you'll continue to
+taint and/or avoid fixing NVMe with misplaced anti-DM-multipath
+tribalism.
+
+Maybe (re?)read these commit headers:
+
+e96fef2c3fa3 nvme: Add more command status translation
+908e45643d64 nvme/multipath: Consult blk_status_t for failover
+9111e5686c8c block: Provide blk_status_t decoding for path errors
+e1f425e770d2 nvme/multipath: Use blk_path_error
+a1275677f8cd dm mpath: Use blk_path_error
+
+with: git log e96fef2c3fa3^..a1275677f8cd
+
+Anyway, no new BLK_STS is needed at this point.  More discipline with
+how NVMe's error handling is changed is.  If NVMe wants to ensure its
+interface isn't broken regularly it _should_ use blk_path_error() to
+validate future nvme_error_status() changes.  Miscategorizing NVMe
+errors to upper layers is a bug -- not open for debate.  Nor should be
+using block core infrastructure we put in place to help stabilize how
+Linux block drivers convey retryable errors.
+
+Mike
 
 --
 dm-devel mailing list
