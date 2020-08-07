@@ -1,62 +1,108 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id A049E2400A7
-	for <lists+dm-devel@lfdr.de>; Mon, 10 Aug 2020 03:16:07 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 3DA16240210
+	for <lists+dm-devel@lfdr.de>; Mon, 10 Aug 2020 08:47:56 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-380-T7XTQCz5ObOGjnqsKRiPnw-1; Sun, 09 Aug 2020 21:16:04 -0400
-X-MC-Unique: T7XTQCz5ObOGjnqsKRiPnw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-199-JdK74AjUN5OFYu9wxwiyjA-1; Mon, 10 Aug 2020 02:47:52 -0400
+X-MC-Unique: JdK74AjUN5OFYu9wxwiyjA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6489F8064A9;
-	Mon, 10 Aug 2020 01:15:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 451B319057A1;
+	Mon, 10 Aug 2020 06:47:47 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 593386931A;
-	Mon, 10 Aug 2020 01:15:46 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8D959100238E;
+	Mon, 10 Aug 2020 06:47:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8E5A59693C;
-	Mon, 10 Aug 2020 01:15:29 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3B51F95467;
+	Mon, 10 Aug 2020 06:47:39 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07A1F8LO027726 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 9 Aug 2020 21:15:09 -0400
+	id 077HWK24016146 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 7 Aug 2020 13:32:20 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 90566117DB0C; Mon, 10 Aug 2020 01:15:08 +0000 (UTC)
+	id E937710CD918; Fri,  7 Aug 2020 17:32:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8C464117DB0A
-	for <dm-devel@redhat.com>; Mon, 10 Aug 2020 01:15:06 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E460510CD911
+	for <dm-devel@redhat.com>; Fri,  7 Aug 2020 17:32:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2EA46185A78B
-	for <dm-devel@redhat.com>; Mon, 10 Aug 2020 01:15:06 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-233-Y1843ftiP3GL_odmmjc_8g-1; Sun, 09 Aug 2020 21:14:53 -0400
-X-MC-Unique: Y1843ftiP3GL_odmmjc_8g-1
-Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.58])
-	by Forcepoint Email with ESMTP id 9F56FA58850E64BD220E;
-	Mon, 10 Aug 2020 09:14:48 +0800 (CST)
-Received: from [127.0.0.1] (10.174.179.249) by DGGEMS413-HUB.china.huawei.com
-	(10.3.19.213) with Microsoft SMTP Server id 14.3.487.0;
-	Mon, 10 Aug 2020 09:14:40 +0800
-To: Benjamin Marzinski <bmarzins@redhat.com>, Martin Wilck <mwilck@suse.com>, 
-	<christophe.varoqui@opensvc.com>, <zkabelac@redhat.com>
-From: Zhiqiang Liu <liuzhiqiang26@huawei.com>
-Message-ID: <9c67963b-477f-b3f5-8c8c-048de9357ff9@huawei.com>
-Date: Mon, 10 Aug 2020 09:14:39 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
-	Thunderbird/68.2.2
-MIME-Version: 1.0
-Content-Language: en-US
-X-Originating-IP: [10.174.179.249]
-X-CFilter-Loop: Reflected
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C539800296
+	for <dm-devel@redhat.com>; Fri,  7 Aug 2020 17:32:15 +0000 (UTC)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+	[148.163.158.5]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-104-8wZ2FwElNdOCchj52lohLw-1; Fri, 07 Aug 2020 13:32:08 -0400
+X-MC-Unique: 8wZ2FwElNdOCchj52lohLw-1
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+	077HW49j185777; Fri, 7 Aug 2020 13:32:07 -0400
+Received: from pps.reinject (localhost [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 32repj1ges-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Fri, 07 Aug 2020 13:32:07 -0400
+Received: from m0098421.ppops.net (m0098421.ppops.net [127.0.0.1])
+	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 077HW4kk185730;
+	Fri, 7 Aug 2020 13:32:06 -0400
+Received: from ppma03fra.de.ibm.com (6b.4a.5195.ip4.static.sl-reverse.com
+	[149.81.74.107])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 32repj1g73-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Fri, 07 Aug 2020 13:32:06 -0400
+Received: from pps.filterd (ppma03fra.de.ibm.com [127.0.0.1])
+	by ppma03fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id
+	077HVYj4008226; Fri, 7 Aug 2020 17:31:34 GMT
+Received: from b06cxnps4074.portsmouth.uk.ibm.com
+	(d06relay11.portsmouth.uk.ibm.com [9.149.109.196])
+	by ppma03fra.de.ibm.com with ESMTP id 32nyyd3e91-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Fri, 07 Aug 2020 17:31:34 +0000
+Received: from d06av21.portsmouth.uk.ibm.com (d06av21.portsmouth.uk.ibm.com
+	[9.149.105.232])
+	by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+	ESMTP id 077HVVF530343660
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=OK); Fri, 7 Aug 2020 17:31:31 GMT
+Received: from d06av21.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BFFE252050;
+	Fri,  7 Aug 2020 17:31:31 +0000 (GMT)
+Received: from li-f45666cc-3089-11b2-a85c-c57d1a57929f.ibm.com (unknown
+	[9.160.122.187])
+	by d06av21.portsmouth.uk.ibm.com (Postfix) with ESMTP id 004F55204F;
+	Fri,  7 Aug 2020 17:31:27 +0000 (GMT)
+Message-ID: <4a764c86a824a4b931dd7f130ce7afce7df140e4.camel@linux.ibm.com>
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: James Morris <jmorris@namei.org>
+Date: Fri, 07 Aug 2020 13:31:27 -0400
+In-Reply-To: <alpine.LRH.2.21.2008080240350.13040@namei.org>
+References: <20200728213614.586312-1-deven.desai@linux.microsoft.com>
+	<20200802115545.GA1162@bug> <20200802140300.GA2975990@sasha-vm>
+	<20200802143143.GB20261@amd>
+	<1596386606.4087.20.camel@HansenPartnership.com>
+	<fb35a1f7-7633-a678-3f0f-17cf83032d2b@linux.microsoft.com>
+	<1596639689.3457.17.camel@HansenPartnership.com>
+	<alpine.LRH.2.21.2008050934060.28225@namei.org>
+	<b08ae82102f35936427bf138085484f75532cff1.camel@linux.ibm.com>
+	<alpine.LRH.2.21.2008060949410.20084@namei.org>
+	<eb7a2f5b5cd22cf9231aa0fd8fdb77c729a83428.camel@linux.ibm.com>
+	<alpine.LRH.2.21.2008080240350.13040@namei.org>
+Mime-Version: 1.0
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+	definitions=2020-08-07_15:2020-08-06,
+	2020-08-07 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+	bulkscore=0 malwarescore=0
+	priorityscore=1501 mlxscore=0 lowpriorityscore=0 suspectscore=0
+	adultscore=0 mlxlogscore=999 clxscore=1015 phishscore=0 spamscore=0
+	impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2006250000 definitions=main-2008070120
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -67,11 +113,22 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: linfeilong <linfeilong@huawei.com>, Yanxiaodan <yanxiaodan@huawei.com>,
-	dm-devel@redhat.com, lixiaokeng <lixiaokeng@huawei.com>,
-	liuzhiqiang26@huawei.com
-Subject: [dm-devel] [dm- devel][PATCH] checker: add input check of state in
- checker_state_name func
+X-Mailman-Approved-At: Mon, 10 Aug 2020 02:47:26 -0400
+Cc: snitzer@redhat.com, Deven Bowers <deven.desai@linux.microsoft.com>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	dm-devel@redhat.com, tyhicks@linux.microsoft.com,
+	Pavel Machek <pavel@ucw.cz>, agk@redhat.com,
+	Sasha Levin <sashal@kernel.org>, paul@paul-moore.com,
+	corbet@lwn.net, nramas@linux.microsoft.com, serge@hallyn.com,
+	pasha.tatashin@soleen.com, jannh@google.com,
+	linux-block@vger.kernel.org, viro@zeniv.linux.org.uk,
+	axboe@kernel.dk, mdsakib@microsoft.com,
+	linux-kernel@vger.kernel.org, eparis@redhat.com,
+	linux-security-module@vger.kernel.org, linux-audit@redhat.com,
+	linux-fsdevel@vger.kernel.org, linux-integrity@vger.kernel.org,
+	jaskarankhurana@linux.microsoft.com
+Subject: Re: [dm-devel] [RFC PATCH v5 00/11] Integrity Policy Enforcement
+ LSM (IPE)
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,7 +142,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -93,82 +150,35 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+On Sat, 2020-08-08 at 02:41 +1000, James Morris wrote:
+> On Thu, 6 Aug 2020, Mimi Zohar wrote:
+> 
+> > On Thu, 2020-08-06 at 09:51 +1000, James Morris wrote:
+> > > On Wed, 5 Aug 2020, Mimi Zohar wrote:
+> > > 
+> > > > If block layer integrity was enough, there wouldn't have been a need
+> > > > for fs-verity.   Even fs-verity is limited to read only filesystems,
+> > > > which makes validating file integrity so much easier.  From the
+> > > > beginning, we've said that fs-verity signatures should be included in
+> > > > the measurement list.  (I thought someone signed on to add that support
+> > > > to IMA, but have not yet seen anything.)
+> > > > 
+> > > > Going forward I see a lot of what we've accomplished being incorporated
+> > > > into the filesystems.  When IMA will be limited to defining a system
+> > > > wide policy, I'll have completed my job.
+> > > 
+> > > What are your thoughts on IPE being a standalone LSM? Would you prefer to 
+> > > see its functionality integrated into IMA?
+> > 
+> > Improving the integrity subsystem would be preferred.
+> > 
+> 
+> Are you planning to attend Plumbers? Perhaps we could propose a BoF 
+> session on this topic.
 
-In checker_state_name func, we donot check whether input i
-is valid. It may cause array access violation problem.
+That sounds like a good idea.
 
-Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
----
- libmultipath/checkers.c | 26 +++++++++++++++-----------
- libmultipath/checkers.h |  3 ++-
- 2 files changed, 17 insertions(+), 12 deletions(-)
-
-diff --git a/libmultipath/checkers.c b/libmultipath/checkers.c
-index c3cf53db..c91e1686 100644
---- a/libmultipath/checkers.c
-+++ b/libmultipath/checkers.c
-@@ -22,23 +22,27 @@ struct checker_class {
- 	short msgtable_size;
- };
-
--char *checker_state_names[] = {
--	"wild",
--	"unchecked",
--	"down",
--	"up",
--	"shaky",
--	"ghost",
--	"pending",
--	"timeout",
--	"removed",
--	"delayed",
-+static const char *checker_state_names[PATH_MAX_STATE] = {
-+	[PATH_WILD] = "wild",
-+	[PATH_UNCHECKED] = "unchecked",
-+	[PATH_DOWN] = "down",
-+	[PATH_UP] = "up",
-+	[PATH_SHAKY] = "shaky",
-+	[PATH_GHOST] = "ghost",
-+	[PATH_PENDING] = "pending",
-+	[PATH_TIMEOUT] = "timeout",
-+	[PATH_REMOVED] = "removed",
-+	[PATH_DELAYED] = "delayed",
- };
-
- static LIST_HEAD(checkers);
-
- const char *checker_state_name(int i)
- {
-+	if (i < 0 || i >= PATH_MAX_STATE) {
-+		condlog (2, "invalid state index = %d", i);
-+		return INVALID;
-+	}
- 	return checker_state_names[i];
- }
-
-diff --git a/libmultipath/checkers.h b/libmultipath/checkers.h
-index 5237e7ec..93052b72 100644
---- a/libmultipath/checkers.h
-+++ b/libmultipath/checkers.h
-@@ -67,7 +67,7 @@
-  *   During this time, it is marked as "delayed"
-  */
- enum path_check_state {
--	PATH_WILD,
-+	PATH_WILD = 0,
- 	PATH_UNCHECKED,
- 	PATH_DOWN,
- 	PATH_UP,
-@@ -88,6 +88,7 @@ enum path_check_state {
- #define READSECTOR0  "readsector0"
- #define CCISS_TUR    "cciss_tur"
- #define NONE         "none"
-+#define INVALID      "invalid"
-
- #define ASYNC_TIMEOUT_SEC	30
-
--- 
-2.24.0.windows.2
+Mimi
 
 
 --
