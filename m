@@ -1,69 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id C037C2407A6
-	for <lists+dm-devel@lfdr.de>; Mon, 10 Aug 2020 16:35:20 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id AEC002407AE
+	for <lists+dm-devel@lfdr.de>; Mon, 10 Aug 2020 16:36:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1597070200;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=9apetKjd9Bn7X3jrxMAvUL+GXYrp6Z6L38HjwhUMFvE=;
+	b=SyJha20444PLen72Wh8ZINeABkgPQgVhAPSHOQDUUFxXIurIni/IOnFwysdZ78U5KvQ6Eg
+	sUQfdssJRJMeXMjXWCqoU7LxfMqdg0Q1mUeWg5slx53UqGP5TGvVJi63pXOR3j1LYlWzek
+	xkicl58vOIhL4vh+A4OwFUrYmqiC1+U=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-213-43kTolYWOu6Q5SIiEfdRkg-1; Mon, 10 Aug 2020 10:35:17 -0400
-X-MC-Unique: 43kTolYWOu6Q5SIiEfdRkg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-55-VEBw5EBwPluzkjj542xVnQ-1; Mon, 10 Aug 2020 10:36:37 -0400
+X-MC-Unique: VEBw5EBwPluzkjj542xVnQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DFB948014D7;
-	Mon, 10 Aug 2020 14:35:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 592F7800465;
+	Mon, 10 Aug 2020 14:36:32 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E8CBA5F1E4;
-	Mon, 10 Aug 2020 14:35:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 193538AC2D;
+	Mon, 10 Aug 2020 14:36:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C37AD1809554;
-	Mon, 10 Aug 2020 14:35:01 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CEE4C1809554;
+	Mon, 10 Aug 2020 14:36:29 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07AEYpOA000814 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 10 Aug 2020 10:34:51 -0400
+	id 07AEaOSZ000991 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 10 Aug 2020 10:36:24 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 21E43208DD86; Mon, 10 Aug 2020 14:34:51 +0000 (UTC)
+	id EA80719C71; Mon, 10 Aug 2020 14:36:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D7E9208DD83
-	for <dm-devel@redhat.com>; Mon, 10 Aug 2020 14:34:49 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 04D38803888
-	for <dm-devel@redhat.com>; Mon, 10 Aug 2020 14:34:49 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-548-2-t506C1Mtal6HjDwDusqg-1;
-	Mon, 10 Aug 2020 10:34:45 -0400
-X-MC-Unique: 2-t506C1Mtal6HjDwDusqg-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id AAADDB5D4;
-	Mon, 10 Aug 2020 14:35:03 +0000 (UTC)
-Message-ID: <140e431094a118a5276f6964921cc120bda2dc49.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Zhiqiang Liu <liuzhiqiang26@huawei.com>, linfeilong@huawei.com,
-	Yanxiaodan <yanxiaodan@huawei.com>, lixiaokeng <lixiaokeng@huawei.com>
-Date: Mon, 10 Aug 2020 16:34:42 +0200
-User-Agent: Evolution 3.36.4
+Received: from localhost (unknown [10.18.25.174])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9199619C4F;
+	Mon, 10 Aug 2020 14:36:21 +0000 (UTC)
+Date: Mon, 10 Aug 2020 10:36:20 -0400
+From: Mike Snitzer <snitzer@redhat.com>
+To: Sagi Grimberg <sagi@grimberg.me>
+Message-ID: <20200810143620.GA19127@redhat.com>
+References: <20200806142625.GA3075319@dhcp-10-100-145-180.wdl.wdc.com>
+	<729820BC-5F38-4E22-A83A-862E57BAE201@netapp.com>
+	<E3390A8E-D582-47BA-A085-21663D883365@netapp.com>
+	<20200806184057.GA27858@redhat.com>
+	<20200806191943.GA27868@redhat.com>
+	<6B826235-C504-4621-B8F7-34475B200979@netapp.com>
+	<20200807000755.GA28957@redhat.com>
+	<510f5aff-0437-b1ce-f7ab-c812edbea880@grimberg.me>
+	<20200807045015.GA29737@redhat.com>
+	<fec745aa-0091-ee1f-cb0f-da9e18cf0aa2@grimberg.me>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+In-Reply-To: <fec745aa-0091-ee1f-cb0f-da9e18cf0aa2@grimberg.me>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com
-Subject: [dm-devel] Recent multipath-tools patches from Huawei
+Cc: "linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
+	Christoph Hellwig <hch@infradead.org>, dm-devel@redhat.com,
+	Ewan Milne <emilne@redhat.com>, Chao Leng <lengchao@huawei.com>,
+	Keith Busch <kbusch@kernel.org>, "Meneghini,
+	John" <John.Meneghini@netapp.com>
+Subject: Re: [dm-devel] nvme: restore use of blk_path_error() in
+	nvme_complete_rq()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -77,41 +81,201 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-Hi Liu,
+On Fri, Aug 07 2020 at  7:35pm -0400,
+Sagi Grimberg <sagi@grimberg.me> wrote:
 
-thanks again for your valuable contributions and meticulous code
-review. I've added your patches in my upstream-queue branch now:
+> 
+> >>Hey Mike,
+> >>
+> >>>>The point is: blk_path_error() has nothing to do with NVMe errors.
+> >>>>This is dm-multipath logic stuck in the middle of the NVMe error
+> >>>>handling code.
+> >>>
+> >>>No, it is a means to have multiple subsystems (to this point both SCSI
+> >>>and NVMe) doing the correct thing when translating subsystem specific
+> >>>error codes to BLK_STS codes.
+> >>
+> >>Not exactly, don't find any use of this in scsi. The purpose is to make
+> >>sure that nvme and dm speak the same language.
+> >
+> >SCSI doesn't need to do additional work to train a multipath layer
+> >because dm-multipath _is_ SCSI's multipathing in Linux.
+> 
+> Agree.
+> 
+> >So ensuring SCSI properly classifies its error codes happens as a
+> >side-effect of ensuring continued multipath functionality.
+> >
+> >Hannes introduced all these differentiated error codes in block core
+> >because of SCSI.  NVMe is meant to build on the infrastructure that was
+> >established.
+> 
+> Yes, exactly my point. blk_path_error is designed to make nvme and
+> dm-multipath speak the same language.
 
-https://github.com/openSUSE/multipath-tools/commits/upstream-queue
+Yes, code was lifted from dm-multipath to block core for that purpose.
 
-Not applied yet: 
+> >But AFAICT the patch I provided doesn't compromise proper local retry --
+> >as long as we first fix nvme_error_status() to return a retryable
+> >BLK_STS for NVME_SC_CMD_INTERRUPTED -- which I assumed as a prereq.
+> >
+> >Think of blk_path_error() as a more coarse-grained "is this retryable or
+> >a hard failure?" check.  So for NVME_SC_CMD_INTERRUPTED,
+> >nvme_error_status() _should_ respond with something retryable (I'd
+> >prefer BLK_STS_RESOURCE to be honest).
+> 
+> But blk_path_error semantically mean "is this a pathing error", or at
+> least that what its name suggest.
 
- - libmultipath: free pp if store_path fails in disassemble_map:
-   As noted before, this will be merged with my series for
-   disassemble_map().
- - libmultipath: fix a memory leak in set_ble_device:
-   Please fix minor issues I mentioned
- - vector: return null when realloc fails in vector_alloc_slot func
-   Needs improvement
+As you can see here:
+https://www.redhat.com/archives/dm-devel/2018-January/msg00001.html
 
-Please double-check if I've missed anything. 
+Keith's first pass lifted dm-mpath.c:noretry_error to
+blk_type.h:blk_path_failure and I think Jens preferred the name
+blk_path_error that his how it has stayed.
 
-Next time, please send your patches as a series. That makes it
-much easier for others to make sure they don't miss any.
-And please, don't add "[dm-devel]" explicitly in your email
-subject, mailman will take care of that.
+In any case, blk_path_error is really a distraction for the problems I
+now see more clearly.
 
-Regards
-Martin
+> >And then nvme_failover_req() is finer-grained; by returning false it now
+> >allows short-circuiting failover and reverting back to NVMe's normal
+> >controller based error recovery -- which it does for
+> >NVME_SC_CMD_INTERRUPTED due to "default" case in nvme_failover_req().
+> >
+> >And then the previous nvme_error_status() classification of retryable
+> >BLK_STS obviously never gets returned up the IO stack; it gets thrown
+> >away.
+> 
+> I see what you are saying. The issue is that the code becomes
+> convoluted (it's a pathing error, oh wait, no its not a pathing error).
 
+Yeah, I don't care for it either.  And I don't think we need to get
+bogged down with that nastiness.  Really not a fan of NVMe's code that
+lazily routes non-path related error handling through
+nvme_failover_req() only to return false back to nvme_complete_rq().
+
+Its too cute, too convoluted.  I concede that it is worthwhile to trap
+errors that should be dealt with by NVMe's normal error handling and
+punt back.. but when it does so it should be treated as a WARN_ON() or
+at least pr_warn() worthy event.  And an earlier negative check in
+nvme_failover_req() be updated to latch on that class of error that is
+dealt with by NVMe's normal error handling.
+ 
+> >>>Any BLK_STS mapping of NVMe specific error codes would need to not screw
+> >>>up by categorizing a retryable error as non-retryable (and vice-versa).
+> >>
+> >>But it is a special type of retryable. There is nothing that fits the
+> >>semantics of the current behavior.
+> >
+> >I agree.  But that's fine actually.
+> >
+> >And this issue is the poster-child for why properly supporting a duality
+> >of driver-level vs upper level multipathing capabilities is pretty much
+> >impossible unless a clean design factors out the different error classes
+> >-- and local error retry is handled before punting to higher level
+> >failover retry.  Think if NVMe were to adopt a bit more disciplined
+> >"local then failover" error handling it all gets easier.
+> 
+> I don't think punting before is easier, because we do a local retry if:
+> - no multipathing sw on top
+> - request needs retry (e.g. no DNR, notretry is off etc..)
+> - nvme error is not pathing related (nvme_failover_req returned false)
+> 
+> >This local retry _is_ NVMe specific.  NVMe should just own retrying on
+> >the same controller no matter what (I'll hope that such retry has
+> >awareness to not retry indefinitely though!).
+> 
+> it will retry until the retry limit.
+
+Yes.
+ 
+> > And this has nothing to
+> >do with multipathing, so the logic to handle it shouldn't be trapped in
+> >nvme_failover_req().
+> 
+> Well given that nvme_failover_req already may not actually failover this
+> makes some sense to me (although I did have some resistance to make it
+> that way in the first place, but was convinced otherwise).
+> 
+> >I think NVMe can easily fix this by having an earlier stage of checking,
+> >e.g. nvme_local_retry_req(), that shortcircuits ever getting to
+> >higher-level multipathing consideration (be it native NVMe or DM
+> >multipathing) for cases like NVME_SC_CMD_INTERRUPTED.
+> >To be clear: the "default" case of nvme_failover_req() that returns
+> >false to fallback to NVMe's "local" normal NVMe error handling -- that
+> >can stay.. but a more explicit handling of cases like
+> >NVME_SC_CMD_INTERRUPTED should be added to a nvme_local_retry_req()
+> >check that happens before nvme_failover_req() in nvme_complete_rq().
+> 
+> I don't necessarily agree with having a dedicated nvme_local_retry_req().
+> a request that isn't failed over, goes to local error handling (retry or
+> not). I actually think that just adding the condition to
+> nvme_complete_req and having nvme_failover_req reject it would work.
+> 
+> Keith?
+
+I think that is basically what I'm thinking too.
+
+But looking at NVMe's core.c: I do not think nvme_complete_rq() allows
+local error handling _unless_ nvme_req_needs_retry() returns true.
+
+> >>>Anyway, no new BLK_STS is needed at this point.  More discipline with
+> >>>how NVMe's error handling is changed is.
+> >>
+> >>Please read the above.
+> >
+> >I agree we'd need a new BLK_STS only if NVMe cannot be made to trap
+> >NVME_SC_CMD_INTERRUPTED for local retry _before_ considering path
+> >failover.
+> 
+> Not sure that is better, but we can see a patch first to determine.
+> 
+> >>>If NVMe wants to ensure its
+> >>>interface isn't broken regularly it _should_ use blk_path_error() to
+> >>>validate future nvme_error_status() changes.  Miscategorizing NVMe
+> >>>errors to upper layers is a bug -- not open for debate.
+> >>
+> >>Again, don't agree is a Miscategorization nor a bug, its just something
+> >>that is NVMe specific.
+> >
+> >Right I understand.
+> >
+> >Think it safe to assume these types of details are why Christoph wanted
+> >to avoid the notion of native NVMe and DM multipathing having
+> >compatible error handling.  There was some wisdom with that position
+> >(especially with native NVMe goals in mind).  But if things are tweaked
+> >slightly then both camps _can_ be made happy.
+> >
+> >There just needs to be a willingness to work through the details,
+> >defensiveness needs to be shed on both sides, so constructive
+> >review/consideration of problems can happen.
+> 
+> Agreed.
+> 
+> >Think that has already
+> >happened here with our exchange.  I'm open to investing effort here if
+> >others are up for humoring my attempt to explore fixing the issues in a
+> >mutually beneficial way.  What's the worst that can happen?  My simple
+> >patches might continue to be ignored? ;)
+> 
+> I won't ignore it, and I apologize of ignoring the original patch
+> posted, I guess it flew under the radar...
+
+No worries.  We all get pulled in many directions and get a lot of
+email.
+
+I'll be sending some nvme patch(es) shortly.  To refocus our discussion.
+
+Mike
 
 --
 dm-devel mailing list
