@@ -1,69 +1,103 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 1AA402415DF
-	for <lists+dm-devel@lfdr.de>; Tue, 11 Aug 2020 06:58:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1597121937;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=GVRDwxa8V9iBNpdZa0h2+nlyHW737RZtcuiWjaIFY/4=;
-	b=DZX42wym8nzhW8Fi0X6Sz2J2sqb2k6Ql2ElPX5y7ofCwqJvNqlRsrwwaOZSMrBYEiiEsNh
-	jNi4oh8lCMRAcciWMHqp2zNRqsaXY6N/yoQFKO/OlKnVnO0e0IVmgP3z3MsdAFiWaZ5xSI
-	+OP8f0JoB6UfeCBOyKgXFXuAhEm7nJg=
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 42A6124161C
+	for <lists+dm-devel@lfdr.de>; Tue, 11 Aug 2020 07:44:36 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-129-mEwaqIKmPsOv9g9NFRT7nQ-1; Tue, 11 Aug 2020 00:58:55 -0400
-X-MC-Unique: mEwaqIKmPsOv9g9NFRT7nQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-145-mai4Rl5KNJm4qh5qKehYIg-1; Tue, 11 Aug 2020 01:44:33 -0400
+X-MC-Unique: mai4Rl5KNJm4qh5qKehYIg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C68161005510;
-	Tue, 11 Aug 2020 04:58:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6F3C91800D41;
+	Tue, 11 Aug 2020 05:44:26 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EADAE5D9D7;
-	Tue, 11 Aug 2020 04:58:46 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 411FF65C6F;
+	Tue, 11 Aug 2020 05:44:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EC8014EDB6;
-	Tue, 11 Aug 2020 04:58:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1586BA5528;
+	Tue, 11 Aug 2020 05:44:12 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07B4ua0d011941 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 11 Aug 2020 00:56:36 -0400
+	id 07B5i0jp017108 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 11 Aug 2020 01:44:01 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4FB6410013D7; Tue, 11 Aug 2020 04:56:36 +0000 (UTC)
+	id AAEB32156A4A; Tue, 11 Aug 2020 05:44:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 011F510013C4;
-	Tue, 11 Aug 2020 04:56:32 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 07B4uVCQ005300; 
-	Mon, 10 Aug 2020 23:56:31 -0500
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 07B4uV3W005299;
-	Mon, 10 Aug 2020 23:56:31 -0500
-Date: Mon, 10 Aug 2020 23:56:30 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <mwilck@suse.com>
-Message-ID: <20200811045630.GR19233@octiron.msp.redhat.com>
-References: <20200709105145.9211-1-mwilck@suse.com>
-	<20200709105145.9211-17-mwilck@suse.com>
-	<20200719052617.GY11089@octiron.msp.redhat.com>
-	<a51ef1b268de27db37386ba05af009f513ecce84.camel@suse.com>
-MIME-Version: 1.0
-In-Reply-To: <a51ef1b268de27db37386ba05af009f513ecce84.camel@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A67702156A4B
+	for <dm-devel@redhat.com>; Tue, 11 Aug 2020 05:43:58 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 96BCB80067A
+	for <dm-devel@redhat.com>; Tue, 11 Aug 2020 05:43:58 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com
+	(bedivere.hansenpartnership.com [66.63.167.143]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-374-mbfb9O8sNnWmH06agjK3TA-1;
+	Tue, 11 Aug 2020 01:43:53 -0400
+X-MC-Unique: mbfb9O8sNnWmH06agjK3TA-1
+Received: from localhost (localhost [127.0.0.1])
+	by bedivere.hansenpartnership.com (Postfix) with ESMTP id 6E31D8EE1C8; 
+	Mon, 10 Aug 2020 22:43:47 -0700 (PDT)
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+	port 10024)
+	with ESMTP id BX1EFXHll9pB; Mon, 10 Aug 2020 22:43:47 -0700 (PDT)
+Received: from [153.66.254.174] (c-73-35-198-56.hsd1.wa.comcast.net
+	[73.35.198.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id EEC048EE12E;
+	Mon, 10 Aug 2020 22:43:45 -0700 (PDT)
+Message-ID: <1597124623.30793.14.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@hansenpartnership.com>
+To: Chuck Lever <chucklever@gmail.com>
+Date: Mon, 10 Aug 2020 22:43:43 -0700
+In-Reply-To: <6E907A22-02CC-42DD-B3CD-11D304F3A1A8@gmail.com>
+References: <20200728213614.586312-1-deven.desai@linux.microsoft.com>
+	<20200802115545.GA1162@bug> <20200802140300.GA2975990@sasha-vm>
+	<20200802143143.GB20261@amd>
+	<1596386606.4087.20.camel@HansenPartnership.com>
+	<fb35a1f7-7633-a678-3f0f-17cf83032d2b@linux.microsoft.com>
+	<1596639689.3457.17.camel@HansenPartnership.com>
+	<alpine.LRH.2.21.2008050934060.28225@namei.org>
+	<b08ae82102f35936427bf138085484f75532cff1.camel@linux.ibm.com>
+	<329E8DBA-049E-4959-AFD4-9D118DEB176E@gmail.com>
+	<da6f54d0438ee3d3903b2c75fcfbeb0afdf92dc2.camel@linux.ibm.com>
+	<1597073737.3966.12.camel@HansenPartnership.com>
+	<6E907A22-02CC-42DD-B3CD-11D304F3A1A8@gmail.com>
+Mime-Version: 1.0
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 69/74] libmultipath: disassemble_map(): get
- rid of "is_daemon" argument
+Cc: snitzer@redhat.com, Deven Bowers <deven.desai@linux.microsoft.com>,
+	Mimi Zohar <zohar@linux.ibm.com>, dm-devel@redhat.com,
+	tyhicks@linux.microsoft.com, Pavel Machek <pavel@ucw.cz>, Paul,
+	agk@redhat.com, Sasha Levin <sashal@kernel.org>,
+	Moore <paul@paul-moore.com>, Jonathan Corbet <corbet@lwn.net>,
+	James Morris <jmorris@namei.org>, nramas@linux.microsoft.com,
+	serge@hallyn.com, pasha.tatashin@soleen.com,
+	Jann Horn <jannh@google.com>, linux-block@vger.kernel.org,
+	Al Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>,
+	mdsakib@microsoft.com, open list <linux-kernel@vger.kernel.org>,
+	eparis@redhat.com, linux-security-module@vger.kernel.org,
+	linux-audit@redhat.com, linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+	linux-integrity@vger.kernel.org, jaskarankhurana@linux.microsoft.com
+Subject: Re: [dm-devel] [RFC PATCH v5 00/11] Integrity Policy Enforcement
+ LSM (IPE)
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -77,74 +111,135 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-On Wed, Aug 05, 2020 at 10:05:19PM +0200, Martin Wilck wrote:
-> On Sun, 2020-07-19 at 00:26 -0500, Benjamin Marzinski wrote:
-> > On Thu, Jul 09, 2020 at 12:51:40PM +0200, mwilck@suse.com wrote:
-> > > From: Martin Wilck <mwilck@suse.com>
+On Mon, 2020-08-10 at 19:36 -0400, Chuck Lever wrote:
+> > On Aug 10, 2020, at 11:35 AM, James Bottomley
+> > <James.Bottomley@HansenPartnership.com> wrote:
+> > On Sun, 2020-08-09 at 13:16 -0400, Mimi Zohar wrote:
+> > > On Sat, 2020-08-08 at 13:47 -0400, Chuck Lever wrote:
+[...]
+> > > > The first priority (for me, anyway) therefore is getting the
+> > > > ability to move IMA metadata between NFS clients and servers
+> > > > shoveled into the NFS protocol, but that's been blocked for
+> > > > various legal reasons.
 > > > 
-> > > The reason for the is_daemon parameter in disassemble_map() lies
-> > > deep in multipath-tools' past, in b96dead ("[multipathd] remove the
-> > > retry login in uev_remove_path()"): By not adding paths from
-> > > disassembled maps to the pathvec, we avoided to re-add removed
-> > > paths on
-> > > future map reloads (logic in update_mpp_paths()). As we can handle
-> > > this with
-> > > INIT_REMOVED now, we don't need to distinguish daemon and non-
-> > > daemon
-> > > mode any more. This fixes a memory leak, because only paths which
-> > > are in
-> > > pathvec will be freed on program exit.
+> > > Up to now, verifying remote filesystem file integrity has been
+> > > out of scope for IMA.   With fs-verity file signatures I can at
+> > > least grasp how remote file integrity could possibly work.  I
+> > > don't understand how remote file integrity with existing IMA
+> > > formats could be supported. You might want to consider writing a
+> > > whitepaper, which could later be used as the basis for a patch
+> > > set cover letter.
 > > 
-> > I don't have any problems with the code in this patch. I just want to
-> > reiterate that I don't think that multipathd should automatically be
-> > adding paths, just because they were in a multipath device.  In my
-> > opinion, multipathd should have the final decision as to what a
-> > multipath device should look like.  If it sees an unexpected path,
-> > and
-> > runs pathinfo on it, and finds that that path does belong, it's fine
-> > to
-> > add it. But if pathinfo says that the path doesn't belong, multipathd
-> > shouldn't add it to the pathvec. It should instead trigger a reload
-> > of
-> > the device to remove path.
+> > I think, before this, we can help with the basics (and perhaps we
+> > should sort them out before we start documenting what we'll do).
 > 
-> Got it. I commented in my reply to 65/74. I'll repost this part with
-> the minor issues you raised fixed (hopefully). Then let's review /
-> discuss this again. If we agree on your PoV, we can probably ditch the
-> whole INIT_REMOVED part of my series.
-
-Sure.
-
-> I hope you agree that "if (!is_daemon)" so deep in libmultipath
-> is ugly and should be replaced by something cleaner.
-
-That really never bothered me, but I see your point.
- 
-> We should take the opportunity to agree on a definition on the exact
-> semantics of pathvec, i.e. which devices should be members of pathvec,
-> and which ones shouldn't. I don't see a clear, consequent definition
-> currently.
-
-I think that you're correct that all paths that multipathd is dealing
-with should be on the pathvec. Obviously paths that are only accessable
-via a local variable are fine, but code shouldn't be dropping the vecs
-lock with a path that is accessable globally (for instance from
-mpp->paths) but not on the pathvec. What disassemble_map() has been
-doing is definitely wrong.
-
--Ben
-
-> Martin
+> Thanks for the help! I just want to emphasize that documentation
+> (eg, a specification) will be critical for remote filesystems.
 > 
+> If any of this is to be supported by a remote filesystem, then we
+> need an unencumbered description of the new metadata format rather
+> than code. GPL-encumbered formats cannot be contributed to the NFS
+> standard, and are probably difficult for other filesystems that are
+> not Linux-native, like SMB, as well.
+
+I don't understand what you mean by GPL encumbered formats.  The GPL is
+a code licence not a data or document licence.  The way the spec
+process works in Linux is that we implement or evolve a data format
+under a GPL implementaiton, but that implementation doesn't implicate
+the later standardisation of the data format and people are free to
+reimplement under any licence they choose.
+
+> > The first basic is that a merkle tree allows unit at a time
+> > verification. First of all we should agree on the unit.  Since we
+> > always fault a page at a time, I think our merkle tree unit should
+> > be a page not a block.
+> 
+> Remote filesystems will need to agree that the size of that unit is
+> the same everywhere, or the unit size could be stored in the per-file
+> metadata.
+> 
+> 
+> > Next, we should agree where the check gates for the per page
+> > accesses should be ... definitely somewhere in readpage, I suspect
+> > and finally we should agree how the merkle tree is presented at the
+> > gate.  I think there are three ways:
+> > 
+> >   1. Ahead of time transfer:  The merkle tree is transferred and
+> > verified
+> >      at some time before the accesses begin, so we already have a
+> >      verified copy and can compare against the lower leaf.
+> >   2. Async transfer:  We provide an async mechanism to transfer the
+> >      necessary components, so when presented with a unit, we check
+> > the
+> >      log n components required to get to the root
+> >   3. The protocol actually provides the capability of 2 (like the
+> > SCSI
+> >      DIF/DIX), so to IMA all the pieces get presented instead of
+> > IMA
+> >      having to manage the tree
+> 
+> A Merkle tree is potentially large enough that it cannot be stored in
+> an extended attribute. In addition, an extended attribute is not a
+> byte stream that you can seek into or read small parts of, it is
+> retrieved in a single shot.
+
+Well you wouldn't store the tree would you, just the head hash.  The
+rest of the tree can be derived from the data.  You need to distinguish
+between what you *must* have to verify integrity (the head hash,
+possibly signed) and what is nice to have to speed up the verification
+process.  The choice for the latter is cache or reconstruct depending
+on the resources available.  If the tree gets cached on the server,
+that would be a server implementation detail invisible to the client.
+
+> For this reason, the idea was to save only the signature of the
+> tree's root on durable storage. The client would retrieve that
+> signature possibly at open time, and reconstruct the tree at that
+> time.
+
+Right that's the integrity data you must have.
+
+> Or the tree could be partially constructed on-demand at the time each
+> unit is to be checked (say, as part of 2. above).
+
+Whether it's reconstructed or cached can be an implementation detail. 
+You clearly have to reconstruct once, but whether you have to do it
+again depends on the memory available for caching and all the other
+resource calls in the system.
+
+> The client would have to reconstruct that tree again if memory
+> pressure caused some or all of the tree to be evicted, so perhaps an
+> on-demand mechanism is preferable.
+
+Right, but I think that's implementation detail.  Probably what we need
+is a way to get the log(N) verification hashes from the server and it's
+up to the client whether it caches them or not.
+
+> > There are also a load of minor things like how we get the head
+> > hash, which must be presented and verified ahead of time for each
+> > of the above 3.
+> 
+> Also, changes to a file's content and its tree signature are not
+> atomic. If a file is mutable, then there is the period between when
+> the file content has changed and when the signature is updated.
+> Some discussion of how a client is to behave in those situations will
+> be necessary.
+
+For IMA, if you write to a checked file, it gets rechecked the next
+time the gate (open/exec/mmap) is triggered.  This means you must
+complete the update and have the new integrity data in-place before
+triggering the check.  I think this could apply equally to a merkel
+tree based system.  It's a sort of Doctor, Doctor it hurts when I do
+this situation.
+
+James
 
 --
 dm-devel mailing list
