@@ -1,89 +1,90 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E03E6244517
-	for <lists+dm-devel@lfdr.de>; Fri, 14 Aug 2020 08:54:12 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 94BC5244532
+	for <lists+dm-devel@lfdr.de>; Fri, 14 Aug 2020 09:06:17 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-183-TMOqQIB2O7-6iD8Uqrb38A-1; Fri, 14 Aug 2020 02:54:09 -0400
-X-MC-Unique: TMOqQIB2O7-6iD8Uqrb38A-1
+ us-mta-441-A7hpwPCEN5Sdgsi5isGqVA-1; Fri, 14 Aug 2020 03:06:14 -0400
+X-MC-Unique: A7hpwPCEN5Sdgsi5isGqVA-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E670C1DDE4;
-	Fri, 14 Aug 2020 06:54:01 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 331E26715F;
-	Fri, 14 Aug 2020 06:53:57 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DF9E110082E8;
+	Fri, 14 Aug 2020 07:06:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B83C560C87;
+	Fri, 14 Aug 2020 07:06:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9C979180B655;
-	Fri, 14 Aug 2020 06:53:45 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 41FCB4EE15;
+	Fri, 14 Aug 2020 07:06:07 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07E6rUVH005519 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 14 Aug 2020 02:53:30 -0400
+	id 07CDuURV021081 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 12 Aug 2020 09:56:30 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0F8FA2017F06; Fri, 14 Aug 2020 06:53:30 +0000 (UTC)
+	id 59207217B43B; Wed, 12 Aug 2020 13:56:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F32342017E93
-	for <dm-devel@redhat.com>; Fri, 14 Aug 2020 06:53:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 468882144B35
+	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 13:56:26 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A423680088F
-	for <dm-devel@redhat.com>; Fri, 14 Aug 2020 06:53:27 +0000 (UTC)
-Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
-	[209.85.128.66]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-156-Ze-6iZebMZGLniyhwEyItw-1; Fri, 14 Aug 2020 02:53:21 -0400
-X-MC-Unique: Ze-6iZebMZGLniyhwEyItw-1
-Received: by mail-wm1-f66.google.com with SMTP id f18so7773675wmc.0;
-	Thu, 13 Aug 2020 23:53:20 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CC27B805B0E
+	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 13:56:26 +0000 (UTC)
+Received: from mail-il1-f193.google.com (mail-il1-f193.google.com
+	[209.85.166.193]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-126-h5CaweuUPa2uYxFVJAzt1g-1; Wed, 12 Aug 2020 09:56:21 -0400
+X-MC-Unique: h5CaweuUPa2uYxFVJAzt1g-1
+Received: by mail-il1-f193.google.com with SMTP id y18so1652844ilp.10;
+	Wed, 12 Aug 2020 06:56:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=R98QDB24e1f/EyNvzbPCtJM2RLHYWMk5nZRYsMJ6+Vw=;
-	b=otc1nG2lIavW6qGcGqDXSoJgqHXvXjnxvOfsmJT42iuCGLFd3rAwpHIf9qxnt0xeqs
-	WT6FA4sB8QwGSYx0Tp3JJQW0H45ow4pduDuKc7aUVpNZ/WJ83euNbSFfqIUZUiXujkTG
-	fm7pwjp+qE5MrOo9aeAM5YT0wTiE5Pv5G9IGn/2tPJmBzu4KUxpb4L88p2vLIhK51dfq
-	zP5VnBw+Z2QBiIcXLdMiAZM/GpWJcRTN7foG2PElYTuS6ZxLQ4SQXbM+9qVt4KVli1u0
-	5oTyjQTR/jicJZUn/8UVwXkMEn5y4J50kiuRm2eXx8S2GZVbDDP149ULyG8/AgVNTMQ7
-	zQHQ==
-X-Gm-Message-State: AOAM532OPg9rqAfPXGtYTwHXY8oYJh/EDqpTDJyAFWnSWzGOup95UyED
-	EyNlCZ/BTYUh+OIOdGzXZ56ISAJCh5oPag==
-X-Google-Smtp-Source: ABdhPJyblIiEL1uyaEoCxwaA/L+BxzNnfLA00lQmpNzqeruB2N+ne1qge8Ibhvf74hOyrQiw+FIhJg==
-X-Received: by 2002:a1c:540c:: with SMTP id i12mr1123763wmb.96.1597387999953; 
-	Thu, 13 Aug 2020 23:53:19 -0700 (PDT)
-Received: from ?IPv6:2601:647:4802:9070:51f:3472:bc7:2f4f?
-	([2601:647:4802:9070:51f:3472:bc7:2f4f])
+	h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+	:content-transfer-encoding:message-id:references:to;
+	bh=L10aSxHQCG16LTPX2VDKvrZoq6RMS4QxZCBViQUa0lE=;
+	b=Bc2sAhMEL6kZ8UijkoUD5UDUZfF6jQd6JI5oAF97pLskLEsNveFJ/hJEgguz4E/dDx
+	TPv3Gl4UUyFeV1o3YA3T259nOHeTjK7h51pqFoRvQYkc+KRwM9YFjUU528U/5SLU7ndM
+	zy+lfUNnukCvVEsF7XbyXzC0WcIYG6IUUdjX4rs7Cg1CK+NYB9Fl31urrfZi6v4HwJ2P
+	vybLPXAOwnT4Fp4RTB+6yCMeBr7ky8DNtgGpbirRt4NvwRHlnGWvARqNkLCqXRqMSBCt
+	y1/UAF/VXbisTkpkBGltz8tax94pP0+vcBf40Jxhswh9coVlNG/g0xVRgHftOHbWdk88
+	bRjQ==
+X-Gm-Message-State: AOAM531CjMjaDAslp59r8JYml2qEsMAszUmfsy9YD8QLKydc2PhJ/zeR
+	wwRDgPTHxoMb0EMgKheQvqw=
+X-Google-Smtp-Source: ABdhPJx/cW3b6ZCypx93XUp2fbLhIViYbxQNo1qPh97cr/CWUQguPl3jz7RLGcshibVycc8x8OWdVg==
+X-Received: by 2002:a92:9adc:: with SMTP id c89mr6878133ill.272.1597240580818; 
+	Wed, 12 Aug 2020 06:56:20 -0700 (PDT)
+Received: from anon-dhcp-152.1015granger.net
+	(c-68-61-232-219.hsd1.mi.comcast.net. [68.61.232.219])
 	by smtp.gmail.com with ESMTPSA id
-	a10sm13359599wro.35.2020.08.13.23.53.16
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Thu, 13 Aug 2020 23:53:19 -0700 (PDT)
-To: Christoph Hellwig <hch@infradead.org>, Mike Snitzer <snitzer@redhat.com>
-References: <6B826235-C504-4621-B8F7-34475B200979@netapp.com>
-	<20200807000755.GA28957@redhat.com>
-	<510f5aff-0437-b1ce-f7ab-c812edbea880@grimberg.me>
-	<20200807045015.GA29737@redhat.com>
-	<fec745aa-0091-ee1f-cb0f-da9e18cf0aa2@grimberg.me>
-	<20200810143620.GA19127@redhat.com> <20200810172209.GA19535@redhat.com>
-	<20200813144811.GA5452@redhat.com>
-	<20200813153623.GA30905@infradead.org>
-	<20200813174704.GA6137@redhat.com>
-	<20200813184349.GA8191@infradead.org>
-From: Sagi Grimberg <sagi@grimberg.me>
-Message-ID: <96aff2d0-5907-f5c9-9164-8fea0d030d95@grimberg.me>
-Date: Thu, 13 Aug 2020 23:53:14 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20200813184349.GA8191@infradead.org>
-Content-Language: en-US
+	u62sm1117047ilc.87.2020.08.12.06.56.18
+	(version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+	Wed, 12 Aug 2020 06:56:19 -0700 (PDT)
+Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.80.23.2.2\))
+From: Chuck Lever <chucklever@gmail.com>
+In-Reply-To: <1597170509.4325.55.camel@HansenPartnership.com>
+Date: Wed, 12 Aug 2020 09:56:17 -0400
+Message-Id: <2CA41152-6445-4716-B5EE-2D14E5C59368@gmail.com>
+References: <20200728213614.586312-1-deven.desai@linux.microsoft.com>
+	<20200802115545.GA1162@bug> <20200802140300.GA2975990@sasha-vm>
+	<20200802143143.GB20261@amd>
+	<1596386606.4087.20.camel@HansenPartnership.com>
+	<fb35a1f7-7633-a678-3f0f-17cf83032d2b@linux.microsoft.com>
+	<1596639689.3457.17.camel@HansenPartnership.com>
+	<alpine.LRH.2.21.2008050934060.28225@namei.org>
+	<b08ae82102f35936427bf138085484f75532cff1.camel@linux.ibm.com>
+	<329E8DBA-049E-4959-AFD4-9D118DEB176E@gmail.com>
+	<da6f54d0438ee3d3903b2c75fcfbeb0afdf92dc2.camel@linux.ibm.com>
+	<1597073737.3966.12.camel@HansenPartnership.com>
+	<6E907A22-02CC-42DD-B3CD-11D304F3A1A8@gmail.com>
+	<1597124623.30793.14.camel@HansenPartnership.com>
+	<16C3BF97-A7D3-488A-9D26-7C9B18AD2084@gmail.com>
+	<1597170509.4325.55.camel@HansenPartnership.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -92,14 +93,26 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 07CDuURV021081
 X-loop: dm-devel@redhat.com
-Cc: linux-nvme@lists.infradead.org, dm-devel@redhat.com,
-	Ewan Milne <emilne@redhat.com>, Chao Leng <lengchao@huawei.com>,
-	Keith Busch <kbusch@kernel.org>, "Meneghini,
-	John" <John.Meneghini@netapp.com>
-Subject: Re: [dm-devel] [RESEND PATCH] nvme: explicitly use normal NVMe
- error handling when appropriate
+X-Mailman-Approved-At: Fri, 14 Aug 2020 03:04:01 -0400
+Cc: snitzer@redhat.com, Deven Bowers <deven.desai@linux.microsoft.com>,
+	Mimi Zohar <zohar@linux.ibm.com>, dm-devel@redhat.com,
+	tyhicks@linux.microsoft.com, Pavel Machek <pavel@ucw.cz>,
+	agk@redhat.com, Sasha Levin <sashal@kernel.org>,
+	Paul Moore <paul@paul-moore.com>, Jonathan Corbet <corbet@lwn.net>,
+	James Morris <jmorris@namei.org>, nramas@linux.microsoft.com,
+	serge@hallyn.com, pasha.tatashin@soleen.com,
+	Jann Horn <jannh@google.com>, linux-block@vger.kernel.org,
+	Al Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>,
+	mdsakib@microsoft.com, open list <linux-kernel@vger.kernel.org>,
+	eparis@redhat.com, linux-security-module@vger.kernel.org,
+	linux-audit@redhat.com, linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+	linux-integrity@vger.kernel.org, jaskarankhurana@linux.microsoft.com
+Subject: Re: [dm-devel] [RFC PATCH v5 00/11] Integrity Policy Enforcement
+ LSM (IPE)
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -116,158 +129,84 @@ Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0.003
+X-Mimecast-Spam-Score: 0.501
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 
-> +static inline enum nvme_disposition nvme_req_disposition(struct request *req)
-> +{
-> +	if (likely(nvme_req(req)->status == 0))
-> +		return COMPLETE;
-> +
-> +	if (blk_noretry_request(req) ||
-> +	    (nvme_req(req)->status & NVME_SC_DNR) ||
-> +	    nvme_req(req)->retries >= nvme_max_retries)
-> +		return COMPLETE;
-> +
-> +	if (req->cmd_flags & REQ_NVME_MPATH) {
-> +		switch (nvme_req(req)->status & 0x7ff) {
-> +		case NVME_SC_ANA_TRANSITION:
-> +		case NVME_SC_ANA_INACCESSIBLE:
-> +		case NVME_SC_ANA_PERSISTENT_LOSS:
-> +			return REDIRECT_ANA;
-> +		case NVME_SC_HOST_PATH_ERROR:
-> +		case NVME_SC_HOST_ABORTED_CMD:
-> +			return REDIRECT_TMP;
-> +		}
-> +	}
-> +
-> +	if (blk_queue_dying(req->q))
-> +		return COMPLETE;
-> +	return RETRY;
-> +}
-> +
-> +static inline void nvme_complete_req(struct request *req)
->   {
->   	blk_status_t status = nvme_error_status(nvme_req(req)->status);
->   
-> -	trace_nvme_complete_rq(req);
-> +	if (IS_ENABLED(CONFIG_BLK_DEV_ZONED) &&
-> +	    req_op(req) == REQ_OP_ZONE_APPEND)
-> +		req->__sector = nvme_lba_to_sect(req->q->queuedata,
-> +			le64_to_cpu(nvme_req(req)->result.u64));
-> +
-> +	nvme_trace_bio_complete(req, status);
-> +	blk_mq_end_request(req, status);
-> +}
->   
-> +void nvme_complete_rq(struct request *req)
-> +{
-> +	trace_nvme_complete_rq(req);
->   	nvme_cleanup_cmd(req);
->   
->   	if (nvme_req(req)->ctrl->kas)
->   		nvme_req(req)->ctrl->comp_seen = true;
->   
-> -	if (unlikely(status != BLK_STS_OK && nvme_req_needs_retry(req))) {
-> -		if ((req->cmd_flags & REQ_NVME_MPATH) && nvme_failover_req(req))
-> -			return;
-> -
-> -		if (!blk_queue_dying(req->q)) {
-> -			nvme_retry_req(req);
-> -			return;
-> -		}
-> -	} else if (IS_ENABLED(CONFIG_BLK_DEV_ZONED) &&
-> -		   req_op(req) == REQ_OP_ZONE_APPEND) {
-> -		req->__sector = nvme_lba_to_sect(req->q->queuedata,
-> -			le64_to_cpu(nvme_req(req)->result.u64));
-> +	switch (nvme_req_disposition(req)) {
-> +	case COMPLETE:
-> +		nvme_complete_req(req);
 
-nvme_complete_rq calling nvme_complete_req... Maybe call it
-__nvme_complete_rq instead?
+> On Aug 11, 2020, at 2:28 PM, James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+> 
+> On Tue, 2020-08-11 at 10:48 -0400, Chuck Lever wrote:
+>> Mimi's earlier point is that any IMA metadata format that involves
+>> unsigned digests is exposed to an alteration attack at rest or in
+>> transit, thus will not provide a robust end-to-end integrity
+>> guarantee.
+> 
+> I don't believe that is Mimi's point, because it's mostly not correct:
+> the xattr mechanism does provide this today.  The point is the
+> mechanism we use for storing IMA hashes and signatures today is xattrs
+> because they have robust security properties for local filesystems that
+> the kernel enforces.  This use goes beyond IMA, selinux labels for
+> instance use this property as well.
 
-> +		return;
-> +	case RETRY:
-> +		nvme_retry_req(req);
-> +		return;
-> +	case REDIRECT_ANA:
-> +		nvme_failover_req(req, true);
-> +		return;
-> +	case REDIRECT_TMP:
-> +		nvme_failover_req(req, false);
-> +		return;
->   	}
-> -
-> -	nvme_trace_bio_complete(req, status);
-> -	blk_mq_end_request(req, status);
->   }
->   EXPORT_SYMBOL_GPL(nvme_complete_rq);
->   
-> diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
-> index 3ded54d2c9c6ad..0c22b2c88687a2 100644
-> --- a/drivers/nvme/host/multipath.c
-> +++ b/drivers/nvme/host/multipath.c
-> @@ -65,51 +65,32 @@ void nvme_set_disk_name(char *disk_name, struct nvme_ns *ns,
->   	}
->   }
->   
-> -bool nvme_failover_req(struct request *req)
-> +void nvme_failover_req(struct request *req, bool is_ana_status)
->   {
->   	struct nvme_ns *ns = req->q->queuedata;
-> -	u16 status = nvme_req(req)->status;
->   	unsigned long flags;
->   
-> -	switch (status & 0x7ff) {
-> -	case NVME_SC_ANA_TRANSITION:
-> -	case NVME_SC_ANA_INACCESSIBLE:
-> -	case NVME_SC_ANA_PERSISTENT_LOSS:
-> -		/*
-> -		 * If we got back an ANA error we know the controller is alive,
-> -		 * but not ready to serve this namespaces.  The spec suggests
-> -		 * we should update our general state here, but due to the fact
-> -		 * that the admin and I/O queues are not serialized that is
-> -		 * fundamentally racy.  So instead just clear the current path,
-> -		 * mark the the path as pending and kick of a re-read of the ANA
-> -		 * log page ASAP.
-> -		 */
-> -		nvme_mpath_clear_current_path(ns);
-> -		if (ns->ctrl->ana_log_buf) {
-> -			set_bit(NVME_NS_ANA_PENDING, &ns->flags);
-> -			queue_work(nvme_wq, &ns->ctrl->ana_work);
-> -		}
-> -		break;
-> -	case NVME_SC_HOST_PATH_ERROR:
-> -	case NVME_SC_HOST_ABORTED_CMD:
-> -		/*
-> -		 * Temporary transport disruption in talking to the controller.
-> -		 * Try to send on a new path.
-> -		 */
-> -		nvme_mpath_clear_current_path(ns);
-> -		break;
-> -	default:
-> -		/* This was a non-ANA error so follow the normal error path. */
-> -		return false;
-> +	nvme_mpath_clear_current_path(ns);
-> +
-> +	/*
-> +	 * If we got back an ANA error we know the controller is alive, but not
-> +	 * ready to serve this namespaces.  The spec suggests we should update
-> +	 * our general state here, but due to the fact that the admin and I/O
-> +	 * queues are not serialized that is fundamentally racy.  So instead
-> +	 * just clear the current path, mark the the path as pending and kick
-> +	 * of a re-read of the ANA log page ASAP.
-> +	 */
-> +	if (is_ana_status && ns->ctrl->ana_log_buf) {
+I don't buy this for a second. If storing a security label in a
+local xattr is so secure, we wouldn't have any need for EVM.
 
-Maybe call nvme_req_disposition again locally here to not carry
-the is_ana_status. But not a biggy..
 
-Overall this looks good I think.
+> What I think you're saying is that NFS can't provide the robust
+> security for xattrs we've been relying on, so you need some other
+> mechanism for storing them.
+
+For NFS, there's a network traversal which is an attack surface.
+
+A local xattr can be attacked as well: a device or bus malfunction
+can corrupt the content of an xattr, or a privileged user can modify
+it.
+
+How does that metadata get from the software provider to the end
+user? It's got to go over a network, stored in various ways, some
+of which will not be trusted. To attain an unbroken chain of
+provenance, that metadata has to be signed.
+
+I don't think the question is the storage mechanism, but rather the
+protection mechanism. Signing the metadata protects it in all of
+these cases.
+
+
+> I think Mimi's other point is actually that IMA uses a flat hash which
+> we derive by reading the entire file and then watching for mutations. 
+> Since you cannot guarantee we get notice of mutation with NFS, the
+> entire IMA mechanism can't really be applied in its current form and we
+> have to resort to chunk at a time verifications that a Merkel tree
+> would provide.
+
+I'm not sure what you mean by this. An NFS client relies on notification
+of mutation to maintain the integrity of its cache of NFS file content,
+and it's done that since the 1980s.
+
+In addition to examining a file's mtime and ctime as maintained by
+the NFS server, a client can rely on the file's NFSv4 change attribute
+or an NFSv4 delegation.
+
+
+> Doesn't this make moot any thinking about
+> standardisation in NFS for the current IMA flat hash mechanism because
+> we simply can't use it ... If I were to construct a prototype I'd have
+> to work out and securely cache the hash of ever chunk when verifying
+> the flat hash so I could recheck on every chunk read.  I think that's
+> infeasible for large files.
+> 
+> James
+> 
+
+--
+Chuck Lever
+chucklever@gmail.com
+
+
+
 
 --
 dm-devel mailing list
