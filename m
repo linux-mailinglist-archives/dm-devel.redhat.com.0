@@ -2,57 +2,80 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 65A732428D2
-	for <lists+dm-devel@lfdr.de>; Wed, 12 Aug 2020 13:36:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CC341242C43
+	for <lists+dm-devel@lfdr.de>; Wed, 12 Aug 2020 17:43:21 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-334-nukGGEuBMyuFZoAfF8IvUA-1; Wed, 12 Aug 2020 07:36:27 -0400
-X-MC-Unique: nukGGEuBMyuFZoAfF8IvUA-1
+ us-mta-10-F4uZo8zXOUGWUjlgGGMV8A-1; Wed, 12 Aug 2020 11:43:18 -0400
+X-MC-Unique: F4uZo8zXOUGWUjlgGGMV8A-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EC4B6E91E;
-	Wed, 12 Aug 2020 11:36:21 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CC16A5D9D7;
-	Wed, 12 Aug 2020 11:36:21 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 01B3D85B684;
+	Wed, 12 Aug 2020 15:43:11 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F8555DA7B;
+	Wed, 12 Aug 2020 15:43:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 82C9B181A270;
-	Wed, 12 Aug 2020 11:36:21 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E9E809A025;
+	Wed, 12 Aug 2020 15:42:58 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07CBaIRd029013 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 12 Aug 2020 07:36:18 -0400
+	id 07CFgldB000619 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 12 Aug 2020 11:42:47 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 26FCD2018284; Wed, 12 Aug 2020 11:36:18 +0000 (UTC)
+	id 2458694641; Wed, 12 Aug 2020 15:42:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2264C2026D5D
-	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 11:36:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1169B9463A
+	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 15:42:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0832E800CAF
-	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 11:36:18 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-3-hRA4GOD4OES166rlA21C9w-1;
-	Wed, 12 Aug 2020 07:36:13 -0400
-X-MC-Unique: hRA4GOD4OES166rlA21C9w-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 92951B713;
-	Wed, 12 Aug 2020 11:36:33 +0000 (UTC)
-From: mwilck@suse.com
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed, 12 Aug 2020 13:36:01 +0200
-Message-Id: <20200812113601.26658-5-mwilck@suse.com>
-In-Reply-To: <20200812113601.26658-1-mwilck@suse.com>
-References: <20200812113601.26658-1-mwilck@suse.com>
-MIME-Version: 1.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 58C4C101A525
+	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 15:42:44 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com
+	(bedivere.hansenpartnership.com [66.63.167.143]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-457-Jri5R_rVORaldSTuz5YQHA-1;
+	Wed, 12 Aug 2020 11:42:35 -0400
+X-MC-Unique: Jri5R_rVORaldSTuz5YQHA-1
+Received: from localhost (localhost [127.0.0.1])
+	by bedivere.hansenpartnership.com (Postfix) with ESMTP id 7E6238EE1DD; 
+	Wed, 12 Aug 2020 08:42:29 -0700 (PDT)
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+	port 10024)
+	with ESMTP id AHFsU6pG-8oB; Wed, 12 Aug 2020 08:42:29 -0700 (PDT)
+Received: from [153.66.254.174] (c-73-35-198-56.hsd1.wa.comcast.net
+	[73.35.198.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id 11FF68EE0C7;
+	Wed, 12 Aug 2020 08:42:28 -0700 (PDT)
+Message-ID: <1597246946.7293.9.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@hansenpartnership.com>
+To: Chuck Lever <chucklever@gmail.com>
+Date: Wed, 12 Aug 2020 08:42:26 -0700
+In-Reply-To: <2CA41152-6445-4716-B5EE-2D14E5C59368@gmail.com>
+References: <20200728213614.586312-1-deven.desai@linux.microsoft.com>
+	<20200802115545.GA1162@bug> <20200802140300.GA2975990@sasha-vm>
+	<20200802143143.GB20261@amd>
+	<1596386606.4087.20.camel@HansenPartnership.com>
+	<fb35a1f7-7633-a678-3f0f-17cf83032d2b@linux.microsoft.com>
+	<1596639689.3457.17.camel@HansenPartnership.com>
+	<alpine.LRH.2.21.2008050934060.28225@namei.org>
+	<b08ae82102f35936427bf138085484f75532cff1.camel@linux.ibm.com>
+	<329E8DBA-049E-4959-AFD4-9D118DEB176E@gmail.com>
+	<da6f54d0438ee3d3903b2c75fcfbeb0afdf92dc2.camel@linux.ibm.com>
+	<1597073737.3966.12.camel@HansenPartnership.com>
+	<6E907A22-02CC-42DD-B3CD-11D304F3A1A8@gmail.com>
+	<1597124623.30793.14.camel@HansenPartnership.com>
+	<16C3BF97-A7D3-488A-9D26-7C9B18AD2084@gmail.com>
+	<1597170509.4325.55.camel@HansenPartnership.com>
+	<2CA41152-6445-4716-B5EE-2D14E5C59368@gmail.com>
+Mime-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,13 +84,23 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 07CBaIRd029013
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 84/84] libmultipath: add consistency check for
-	alias settings
+Cc: snitzer@redhat.com, Deven Bowers <deven.desai@linux.microsoft.com>,
+	Mimi Zohar <zohar@linux.ibm.com>, dm-devel@redhat.com,
+	tyhicks@linux.microsoft.com, Pavel Machek <pavel@ucw.cz>, Paul,
+	agk@redhat.com, Sasha Levin <sashal@kernel.org>,
+	Moore <paul@paul-moore.com>, Jonathan Corbet <corbet@lwn.net>,
+	James Morris <jmorris@namei.org>, nramas@linux.microsoft.com,
+	serge@hallyn.com, pasha.tatashin@soleen.com,
+	Jann Horn <jannh@google.com>, linux-block@vger.kernel.org,
+	Al Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>,
+	mdsakib@microsoft.com, open list <linux-kernel@vger.kernel.org>,
+	eparis@redhat.com, linux-security-module@vger.kernel.org,
+	linux-audit@redhat.com, linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+	linux-integrity@vger.kernel.org, jaskarankhurana@linux.microsoft.com
+Subject: Re: [dm-devel] [RFC PATCH v5 00/11] Integrity Policy Enforcement
+ LSM (IPE)
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,361 +117,90 @@ Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0
+X-Mimecast-Spam-Score: 0.501
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Martin Wilck <mwilck@suse.com>
+On Wed, 2020-08-12 at 09:56 -0400, Chuck Lever wrote:
+> > On Aug 11, 2020, at 2:28 PM, James Bottomley <James.Bottomley@Hanse
+> > nPartnership.com> wrote:
+> > 
+> > On Tue, 2020-08-11 at 10:48 -0400, Chuck Lever wrote:
+> > > Mimi's earlier point is that any IMA metadata format that
+> > > involves unsigned digests is exposed to an alteration attack at
+> > > rest or in transit, thus will not provide a robust end-to-end
+> > > integrity guarantee.
+> > 
+> > I don't believe that is Mimi's point, because it's mostly not
+> > correct: the xattr mechanism does provide this today.  The point is
+> > the mechanism we use for storing IMA hashes and signatures today is
+> > xattrs because they have robust security properties for local
+> > filesystems that the kernel enforces.  This use goes beyond IMA,
+> > selinux labels for instance use this property as well.
+> 
+> I don't buy this for a second. If storing a security label in a
+> local xattr is so secure, we wouldn't have any need for EVM.
 
-A typo in a config file, assigning the same alias to multiple WWIDs,
-can cause massive confusion and even data corruption. Check and
-if possible fix the bindings file in such cases.
+What don't you buy?  Security xattrs can only be updated by local root.
+ If you trust local root, the xattr mechanism is fine ... it's the only
+one a lot of LSMs use, for instance.  If you don't trust local root or
+worry about offline backups, you use EVM.  A thing isn't secure or
+insecure, it depends on the threat model.  However, if you don't trust
+the NFS server it doesn't matter whether you do or don't trust local
+root, you can't believe the contents of the xattr.
 
-Signed-off-by: Martin Wilck <mwilck@suse.com>
----
- libmultipath/alias.c | 257 +++++++++++++++++++++++++++++++++++++++++++
- libmultipath/alias.h |   3 +
- multipath/main.c     |   3 +
- multipathd/main.c    |   3 +
- 4 files changed, 266 insertions(+)
+> > What I think you're saying is that NFS can't provide the robust
+> > security for xattrs we've been relying on, so you need some other
+> > mechanism for storing them.
+> 
+> For NFS, there's a network traversal which is an attack surface.
+> 
+> A local xattr can be attacked as well: a device or bus malfunction
+> can corrupt the content of an xattr, or a privileged user can modify
+> it.
+> 
+> How does that metadata get from the software provider to the end
+> user? It's got to go over a network, stored in various ways, some
+> of which will not be trusted. To attain an unbroken chain of
+> provenance, that metadata has to be signed.
+> 
+> I don't think the question is the storage mechanism, but rather the
+> protection mechanism. Signing the metadata protects it in all of
+> these cases.
 
-diff --git a/libmultipath/alias.c b/libmultipath/alias.c
-index 0759c4e..d328f77 100644
---- a/libmultipath/alias.c
-+++ b/libmultipath/alias.c
-@@ -4,6 +4,7 @@
-  */
- #include <stdlib.h>
- #include <errno.h>
-+#include <stdlib.h>
- #include <unistd.h>
- #include <string.h>
- #include <limits.h>
-@@ -17,6 +18,9 @@
- #include "vector.h"
- #include "checkers.h"
- #include "structs.h"
-+#include "config.h"
-+#include "util.h"
-+#include "errno.h"
- 
- 
- /*
-@@ -438,3 +442,256 @@ get_user_friendly_wwid(const char *alias, char *buff, const char *file)
- 	fclose(f);
- 	return 0;
- }
-+
-+struct binding {
-+	char *alias;
-+	char *wwid;
-+};
-+
-+static void _free_binding(struct binding *bdg)
-+{
-+	free(bdg->wwid);
-+	free(bdg->alias);
-+	free(bdg);
-+}
-+
-+/*
-+ * Perhaps one day we'll implement this more efficiently, thus use
-+ * an abstract type.
-+ */
-+typedef struct _vector Bindings;
-+
-+static void free_bindings(Bindings *bindings)
-+{
-+	struct binding *bdg;
-+	int i;
-+
-+	vector_foreach_slot(bindings, bdg, i)
-+		_free_binding(bdg);
-+	vector_reset(bindings);
-+}
-+
-+enum {
-+	BINDING_EXISTS,
-+	BINDING_CONFLICT,
-+	BINDING_ADDED,
-+	BINDING_DELETED,
-+	BINDING_NOTFOUND,
-+	BINDING_ERROR,
-+};
-+
-+static int add_binding(Bindings *bindings, const char *alias, const char *wwid)
-+{
-+	struct binding *bdg;
-+	int i, cmp = 0;
-+
-+	/* Keep the bindings array sorted by alias */
-+	vector_foreach_slot(bindings, bdg, i) {
-+		if ((cmp = strcmp(bdg->alias, alias)) >= 0)
-+			break;
-+	}
-+
-+	/* Check for exact match */
-+	if (i < VECTOR_SIZE(bindings) && cmp == 0)
-+		return strcmp(bdg->wwid, wwid) ?
-+			BINDING_CONFLICT : BINDING_EXISTS;
-+
-+	bdg = calloc(1, sizeof(*bdg));
-+	if (bdg) {
-+		bdg->wwid = strdup(wwid);
-+		bdg->alias = strdup(alias);
-+		if (bdg->wwid && bdg->alias &&
-+		    vector_insert_slot(bindings, i, bdg))
-+			return BINDING_ADDED;
-+	}
-+
-+	_free_binding(bdg);
-+	return BINDING_ERROR;
-+}
-+
-+static int write_bindings_file(const Bindings *bindings, int fd)
-+{
-+	struct binding *bnd;
-+	char line[LINE_MAX];
-+	int i;
-+
-+	if (write(fd, BINDINGS_FILE_HEADER, sizeof(BINDINGS_FILE_HEADER) - 1)
-+	    != sizeof(BINDINGS_FILE_HEADER) - 1)
-+		return -1;
-+
-+	vector_foreach_slot(bindings, bnd, i) {
-+		int len;
-+
-+		len = snprintf(line, sizeof(line), "%s %s\n",
-+			       bnd->alias, bnd->wwid);
-+
-+		if (len < 0 || (size_t)len >= sizeof(line)) {
-+			condlog(1, "%s: line overflow", __func__);
-+			return -1;
-+		}
-+
-+		if (write(fd, line, len) != len)
-+			return -1;
-+	}
-+	return 0;
-+}
-+
-+static int fix_bindings_file(const struct config *conf,
-+			     const Bindings *bindings)
-+{
-+	int rc;
-+	long fd;
-+	char tempname[PATH_MAX];
-+
-+	if (safe_sprintf(tempname, "%s.XXXXXX", conf->bindings_file))
-+		return -1;
-+	if ((fd = mkstemp(tempname)) == -1) {
-+		condlog(1, "%s: mkstemp: %m", __func__);
-+		return -1;
-+	}
-+	pthread_cleanup_push(close_fd, (void*)fd);
-+	rc = write_bindings_file(bindings, fd);
-+	pthread_cleanup_pop(1);
-+	if (rc == -1) {
-+		condlog(1, "failed to write new bindings file %s",
-+			tempname);
-+		unlink(tempname);
-+		return rc;
-+	}
-+	if ((rc = rename(tempname, conf->bindings_file)) == -1)
-+		condlog(0, "%s: rename: %m", __func__);
-+	else
-+		condlog(1, "updated bindings file %s", conf->bindings_file);
-+	return rc;
-+}
-+
-+static int _check_bindings_file(const struct config *conf, FILE *file,
-+				 Bindings *bindings)
-+{
-+	int rc = 0;
-+	unsigned int linenr = 0;
-+	char *line = NULL;
-+	size_t line_len = 0;
-+	ssize_t n;
-+
-+	pthread_cleanup_push(free, line);
-+	while ((n = getline(&line, &line_len, file)) >= 0) {
-+		char *c, *alias, *wwid;
-+		const char *mpe_wwid;
-+
-+		linenr++;
-+		c = strpbrk(line, "#\n\r");
-+		if (c)
-+			*c = '\0';
-+		alias = strtok(line, " \t");
-+		if (!alias) /* blank line */
-+			continue;
-+		wwid = strtok(NULL, " \t");
-+		if (!wwid) {
-+			condlog(1, "invalid line %d in bindings file, missing WWID",
-+				linenr);
-+			continue;
-+		}
-+		c = strtok(NULL, " \t");
-+		if (c)
-+			/* This is non-fatal */
-+			condlog(1, "invalid line %d in bindings file, extra args \"%s\"",
-+				linenr, c);
-+
-+		mpe_wwid = get_mpe_wwid(conf->mptable, alias);
-+		if (mpe_wwid && strcmp(mpe_wwid, wwid)) {
-+			condlog(0, "ERROR: alias \"%s\" for WWID %s in bindings file "
-+				"on line %u conflicts with multipath.conf entry for %s",
-+				alias, wwid, linenr, mpe_wwid);
-+			rc = -1;
-+			continue;
-+		}
-+
-+		switch (add_binding(bindings, alias, wwid)) {
-+		case BINDING_CONFLICT:
-+			condlog(0, "ERROR: multiple bindings for alias \"%s\" in "
-+				"bindings file on line %u, discarding binding to WWID %s",
-+				alias, linenr, wwid);
-+			rc = -1;
-+			break;
-+		case BINDING_EXISTS:
-+			condlog(2, "duplicate line for alias %s in bindings file on line %u",
-+				alias, linenr);
-+			break;
-+		case BINDING_ERROR:
-+			condlog(2, "error adding binding %s -> %s",
-+				alias, wwid);
-+			break;
-+		default:
-+			break;
-+		}
-+	}
-+	pthread_cleanup_pop(1);
-+	return rc;
-+}
-+
-+static void cleanup_fclose(void *p)
-+{
-+	fclose(p);
-+}
-+
-+/*
-+ * check_alias_settings(): test for inconsistent alias configuration
-+ *
-+ * It's a fatal configuration error if the same alias is assigned to
-+ * multiple WWIDs. In the worst case, it can cause data corruption
-+ * by mangling devices with different WWIDs into the same multipath map.
-+ * This function tests the configuration from multipath.conf and the
-+ * bindings file for consistency, drops inconsistent multipath.conf
-+ * alias settings, and rewrites the bindings file if necessary, dropping
-+ * conflicting lines (if user_friendly_names is on, multipathd will
-+ * fill in the deleted lines with a newly generated alias later).
-+ * Note that multipath.conf is not rewritten. Use "multipath -T" for that.
-+ *
-+ * Returns: 0 in case of success, -1 if the configuration was bad
-+ * and couldn't be fixed.
-+ */
-+int check_alias_settings(const struct config *conf)
-+{
-+	FILE *file;
-+	int can_write;
-+	int rc = 0, i;
-+	Bindings bindings = {.allocated = 0, };
-+	struct mpentry *mpe;
-+
-+	pthread_cleanup_push_cast(free_bindings, &bindings);
-+	vector_foreach_slot(conf->mptable, mpe, i) {
-+		if (!mpe->wwid || !mpe->alias)
-+			continue;
-+		if (add_binding(&bindings, mpe->alias, mpe->wwid) ==
-+		    BINDING_CONFLICT) {
-+			condlog(0, "ERROR: alias \"%s\" bound to multiple wwids in multipath.conf, "
-+				"discarding binding to %s",
-+				mpe->alias, mpe->wwid);
-+			free(mpe->alias);
-+			mpe->alias = NULL;
-+		}
-+	}
-+	/* This clears the bindings */
-+	pthread_cleanup_pop(1);
-+
-+	pthread_cleanup_push_cast(free_bindings, &bindings);
-+	file = fdopen(open_file(conf->bindings_file, &can_write,
-+				BINDINGS_FILE_HEADER), "r");
-+	if (file == NULL) {
-+		if (errno != ENOENT)
-+			condlog(1, "failed to fdopen %s: %m",
-+				conf->bindings_file);
-+	} else {
-+		pthread_cleanup_push(cleanup_fclose, file);
-+		rc = _check_bindings_file(conf, file, &bindings);
-+		pthread_cleanup_pop(1);
-+		if (rc == -1 && can_write && !conf->bindings_read_only)
-+			rc = fix_bindings_file(conf, &bindings);
-+		else if (rc == -1)
-+			condlog(0, "ERROR: bad settings in read-only in bindings file %s",
-+				conf->bindings_file);
-+	}
-+	pthread_cleanup_pop(1);
-+	return rc;
-+}
-diff --git a/libmultipath/alias.h b/libmultipath/alias.h
-index 236b3ba..dbc950c 100644
---- a/libmultipath/alias.h
-+++ b/libmultipath/alias.h
-@@ -10,4 +10,7 @@ char *use_existing_alias (const char *wwid, const char *file,
- 			  const char *alias_old,
- 			  const char *prefix, int bindings_read_only);
- 
-+struct config;
-+int check_alias_settings(const struct config *);
-+
- #endif /* _ALIAS_H */
-diff --git a/multipath/main.c b/multipath/main.c
-index 9e65070..80bc4b5 100644
---- a/multipath/main.c
-+++ b/multipath/main.c
-@@ -64,6 +64,7 @@
- #include "time-util.h"
- #include "file.h"
- #include "valid.h"
-+#include "alias.h"
- 
- int logsink;
- struct udev *udev;
-@@ -958,6 +959,8 @@ main (int argc, char *argv[])
- 		exit(RTVL_FAIL);
- 	}
- 
-+	check_alias_settings(conf);
-+
- 	if (optind < argc) {
- 		dev = MALLOC(FILE_NAME_SIZE);
- 
-diff --git a/multipathd/main.c b/multipathd/main.c
-index 7f95d46..1b89909 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -63,6 +63,7 @@
- #include "uevent.h"
- #include "log.h"
- #include "uxsock.h"
-+#include "alias.h"
- 
- #include "mpath_cmd.h"
- #include "mpath_persist.h"
-@@ -2716,6 +2717,8 @@ reconfigure (struct vectors * vecs)
- 		conf->verbosity = verbosity;
- 	if (bindings_read_only)
- 		conf->bindings_read_only = bindings_read_only;
-+	check_alias_settings(conf);
-+
- 	uxsock_timeout = conf->uxsock_timeout;
- 
- 	old = rcu_dereference(multipath_conf);
--- 
-2.28.0
+I think we're saying about the same thing.  For most people the
+security mechanism of local xattrs is sufficient.  If you're paranoid,
+you don't believe it is and you use EVM.
 
+> > I think Mimi's other point is actually that IMA uses a flat hash
+> > which we derive by reading the entire file and then watching for
+> > mutations. Since you cannot guarantee we get notice of mutation
+> > with NFS, the entire IMA mechanism can't really be applied in its
+> > current form and we have to resort to chunk at a time verifications
+> > that a Merkel tree would provide.
+> 
+> I'm not sure what you mean by this. An NFS client relies on
+> notification of mutation to maintain the integrity of its cache of
+> NFS file content, and it's done that since the 1980s.
+
+Mutation detection is part of the current IMA security model.  If IMA
+sees a file mutate it has to be rehashed the next time it passes the
+gate.  If we can't trust the NFS server, we can't trust the NFS
+mutation notification and we have to have a different mechanism to
+check the file.
+
+> In addition to examining a file's mtime and ctime as maintained by
+> the NFS server, a client can rely on the file's NFSv4 change
+> attribute or an NFSv4 delegation.
+
+And that's secure in the face of a malicious or compromised server?
+
+The bottom line is still, I think we can't use linear hashes with an
+open/exec/mmap gate with NFS and we have to move to chunk at a time
+verification like that provided by a merkel tree.
+
+James
 
 --
 dm-devel mailing list
