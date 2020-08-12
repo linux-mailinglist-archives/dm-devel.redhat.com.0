@@ -1,54 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 8B68B2428C7
-	for <lists+dm-devel@lfdr.de>; Wed, 12 Aug 2020 13:36:05 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 5D8EB2428C5
+	for <lists+dm-devel@lfdr.de>; Wed, 12 Aug 2020 13:36:04 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-375-YzcRnPB3NfeaUiuu6LUNgw-1; Wed, 12 Aug 2020 07:36:01 -0400
-X-MC-Unique: YzcRnPB3NfeaUiuu6LUNgw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-239-RZwboXPfMOygE3fYtaY6iQ-1; Wed, 12 Aug 2020 07:36:01 -0400
+X-MC-Unique: RZwboXPfMOygE3fYtaY6iQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 87B8E1005E76;
-	Wed, 12 Aug 2020 11:35:45 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A1430100A8E1;
+	Wed, 12 Aug 2020 11:35:51 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 62E405D6C4;
-	Wed, 12 Aug 2020 11:35:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A5BD600C5;
+	Wed, 12 Aug 2020 11:35:51 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1636E181A06C;
-	Wed, 12 Aug 2020 11:35:45 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1469F181A06E;
+	Wed, 12 Aug 2020 11:35:51 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07CBZf7c028768 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 12 Aug 2020 07:35:41 -0400
+	id 07CBZg8k028780 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 12 Aug 2020 07:35:42 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2C0BE10EE999; Wed, 12 Aug 2020 11:35:41 +0000 (UTC)
+	id 036A32156A3B; Wed, 12 Aug 2020 11:35:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 283BC10EE991
-	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 11:35:41 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F186F2156A3A
+	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 11:35:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 106A0800580
-	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 11:35:41 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0DD5080096B
+	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 11:35:39 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-461-CXC4fYCfMjaLkT0C-lRvtQ-1;
+	relay.mimecast.com with ESMTP id us-mta-130-rVy7PLMROJ-U03T4ylB9cQ-1;
 	Wed, 12 Aug 2020 07:35:36 -0400
-X-MC-Unique: CXC4fYCfMjaLkT0C-lRvtQ-1
+X-MC-Unique: rVy7PLMROJ-U03T4ylB9cQ-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 76454B6FE;
+	by mx2.suse.de (Postfix) with ESMTP id B7F7FB705;
 	Wed, 12 Aug 2020 11:35:56 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed, 12 Aug 2020 13:35:04 +0200
-Message-Id: <20200812113511.26469-2-mwilck@suse.com>
+Date: Wed, 12 Aug 2020 13:35:05 +0200
+Message-Id: <20200812113511.26469-3-mwilck@suse.com>
 In-Reply-To: <20200812113511.26469-1-mwilck@suse.com>
 References: <20200812113511.26469-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -60,12 +61,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 07CBZf7c028768
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 07CBZg8k028780
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 55/74] libmultipath: add uninitialize_path()
+Subject: [dm-devel] [PATCH v2 58/74] libmultipath: verify_paths(): don't
+	delete paths from pathvec
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,7 +81,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -89,90 +91,113 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-This helper clears all fields of struct path (except pp->udev) that must be
-re-ininitialized if the path ever is to be used again.
+If we encounter a non-existing device verify_paths(), just set
+it to INIT_REMOVED state. Actual path deletion is postponed until
+we don't see that path in the kernel map any more.
+
+This allows us to get rid of the "pathvec" argument to this function.
 
 Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/structs.c     | 19 +++++++++++++++++--
- libmultipath/structs.h     |  1 +
- libmultipath/structs_vec.c |  9 +--------
- 3 files changed, 19 insertions(+), 10 deletions(-)
+ libmultipath/configure.c   |  2 +-
+ libmultipath/structs_vec.c | 16 +++++++++-------
+ libmultipath/structs_vec.h |  2 +-
+ multipathd/main.c          |  4 ++--
+ 4 files changed, 13 insertions(+), 11 deletions(-)
 
-diff --git a/libmultipath/structs.c b/libmultipath/structs.c
-index d227ec0..28bf8eb 100644
---- a/libmultipath/structs.c
-+++ b/libmultipath/structs.c
-@@ -114,19 +114,34 @@ alloc_path (void)
- }
+diff --git a/libmultipath/configure.c b/libmultipath/configure.c
+index 5ecfae8..cc54818 100644
+--- a/libmultipath/configure.c
++++ b/libmultipath/configure.c
+@@ -1196,7 +1196,7 @@ int coalesce_paths (struct vectors * vecs, vector newmp, char * refwwid,
+ 				set_bit_in_bitfield(i, size_mismatch_seen);
+ 			}
+ 		}
+-		verify_paths(mpp, vecs);
++		verify_paths(mpp);
  
- void
--free_path (struct path * pp)
-+uninitialize_path(struct path *pp)
- {
- 	if (!pp)
- 		return;
- 
-+	pp->dmstate = PSTATE_UNDEF;
-+	pp->uid_attribute = NULL;
-+	pp->getuid = NULL;
-+
- 	if (checker_selected(&pp->checker))
- 		checker_put(&pp->checker);
- 
- 	if (prio_selected(&pp->prio))
- 		prio_put(&pp->prio);
- 
--	if (pp->fd >= 0)
-+	if (pp->fd >= 0) {
- 		close(pp->fd);
-+		pp->fd = -1;
-+	}
-+}
-+
-+void
-+free_path (struct path * pp)
-+{
-+	if (!pp)
-+		return;
-+
-+	uninitialize_path(pp);
- 
- 	if (pp->udev) {
- 		udev_device_unref(pp->udev);
-diff --git a/libmultipath/structs.h b/libmultipath/structs.h
-index 917e408..5f45f21 100644
---- a/libmultipath/structs.h
-+++ b/libmultipath/structs.h
-@@ -416,6 +416,7 @@ struct host_group {
- struct path * alloc_path (void);
- struct pathgroup * alloc_pathgroup (void);
- struct multipath * alloc_multipath (void);
-+void uninitialize_path(struct path *pp);
- void free_path (struct path *);
- void free_pathvec (vector vec, enum free_path_mode free_paths);
- void free_pathgroup (struct pathgroup * pgp, enum free_path_mode free_paths);
+ 		params[0] = '\0';
+ 		if (setup_map(mpp, params, PARAMS_SIZE, vecs)) {
 diff --git a/libmultipath/structs_vec.c b/libmultipath/structs_vec.c
-index 2b7c154..ea84a20 100644
+index ee1004d..e0a84d4 100644
 --- a/libmultipath/structs_vec.c
 +++ b/libmultipath/structs_vec.c
-@@ -103,14 +103,7 @@ void orphan_path(struct path *pp, const char *reason)
- 		pp->mpp->hwe = NULL;
- 	}
- 	pp->mpp = NULL;
--	pp->dmstate = PSTATE_UNDEF;
--	pp->uid_attribute = NULL;
--	pp->getuid = NULL;
--	prio_put(&pp->prio);
--	checker_put(&pp->checker);
--	if (pp->fd >= 0)
--		close(pp->fd);
--	pp->fd = -1;
-+	uninitialize_path(pp);
+@@ -499,11 +499,11 @@ out:
+ 	return NULL;
  }
  
- void orphan_paths(vector pathvec, struct multipath *mpp, const char *reason)
+-int verify_paths(struct multipath *mpp, struct vectors *vecs)
++int verify_paths(struct multipath *mpp)
+ {
+ 	struct path * pp;
+ 	int count = 0;
+-	int i, j;
++	int i;
+ 
+ 	if (!mpp)
+ 		return 0;
+@@ -518,7 +518,7 @@ int verify_paths(struct multipath *mpp, struct vectors *vecs)
+ 				condlog(1, "%s: removing valid path %s in state %d",
+ 					mpp->alias, pp->dev, pp->state);
+ 			} else {
+-				condlog(3, "%s: failed to access path %s",
++				condlog(2, "%s: failed to access path %s",
+ 					mpp->alias, pp->dev);
+ 			}
+ 			count++;
+@@ -531,10 +531,12 @@ int verify_paths(struct multipath *mpp, struct vectors *vecs)
+ 			 */
+ 			if (mpp->hwe == pp->hwe)
+ 				mpp->hwe = NULL;
+-			if ((j = find_slot(vecs->pathvec,
+-					   (void *)pp)) != -1)
+-				vector_del_slot(vecs->pathvec, j);
+-			free_path(pp);
++			/*
++			 * Don't delete path from pathvec yet. We'll do this
++			 * after the path has been removed from the map, in
++			 * sync_paths().
++			 */
++			set_path_removed(pp);
+ 		} else {
+ 			condlog(4, "%s: verified path %s dev_t %s",
+ 				mpp->alias, pp->dev, pp->dev_t);
+diff --git a/libmultipath/structs_vec.h b/libmultipath/structs_vec.h
+index 7f6dece..d7dfe32 100644
+--- a/libmultipath/structs_vec.h
++++ b/libmultipath/structs_vec.h
+@@ -20,7 +20,7 @@ void orphan_paths(vector pathvec, struct multipath *mpp,
+ void orphan_path (struct path * pp, const char *reason);
+ void set_path_removed(struct path *pp);
+ 
+-int verify_paths(struct multipath * mpp, struct vectors * vecs);
++int verify_paths(struct multipath *mpp);
+ int update_mpp_paths(struct multipath * mpp, vector pathvec);
+ int update_multipath_strings (struct multipath *mpp, vector pathvec,
+ 			      int is_daemon);
+diff --git a/multipathd/main.c b/multipathd/main.c
+index 2c5b982..0209db4 100644
+--- a/multipathd/main.c
++++ b/multipathd/main.c
+@@ -492,7 +492,7 @@ retry:
+ 		retries = -1;
+ 		goto fail;
+ 	}
+-	verify_paths(mpp, vecs);
++	verify_paths(mpp);
+ 	mpp->action = ACT_RELOAD;
+ 
+ 	if (setup_map(mpp, params, PARAMS_SIZE, vecs)) {
+@@ -960,7 +960,7 @@ rescan:
+ 		    find_slot(vecs->pathvec, pp) == -1)
+ 			goto fail; /* leave path added to pathvec */
+ 
+-		verify_paths(mpp, vecs);
++		verify_paths(mpp);
+ 		mpp->action = ACT_RELOAD;
+ 	} else {
+ 		if (!should_multipath(pp, vecs->pathvec, vecs->mpvec)) {
 -- 
 2.28.0
 
