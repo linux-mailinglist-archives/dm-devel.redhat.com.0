@@ -1,57 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 4803C2428CF
-	for <lists+dm-devel@lfdr.de>; Wed, 12 Aug 2020 13:36:27 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 08BD62428D5
+	for <lists+dm-devel@lfdr.de>; Wed, 12 Aug 2020 13:36:36 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-564-nyaztsmrOjelV0dFhrDhLA-1; Wed, 12 Aug 2020 07:36:24 -0400
-X-MC-Unique: nyaztsmrOjelV0dFhrDhLA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-223-B4P4BRzoMoauM8tfHbbPog-1; Wed, 12 Aug 2020 07:36:33 -0400
+X-MC-Unique: B4P4BRzoMoauM8tfHbbPog-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F36FC18B9EEA;
-	Wed, 12 Aug 2020 11:36:07 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D096B5D9FC;
-	Wed, 12 Aug 2020 11:36:07 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C70E91902EA7;
+	Wed, 12 Aug 2020 11:36:25 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A281E600DD;
+	Wed, 12 Aug 2020 11:36:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 85137A555E;
-	Wed, 12 Aug 2020 11:36:07 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5664F181A271;
+	Wed, 12 Aug 2020 11:36:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07CBa4PO028915 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 12 Aug 2020 07:36:04 -0400
+	id 07CBaKYp029033 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 12 Aug 2020 07:36:20 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3C575201828D; Wed, 12 Aug 2020 11:36:04 +0000 (UTC)
+	id 101E6D0161; Wed, 12 Aug 2020 11:36:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 381C42018283
-	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 11:36:01 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0C55BD0187
+	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 11:36:15 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0D23085A5A5
-	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 11:36:01 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 32A17800969
+	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 11:36:15 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-178-Pn8r7TCyO06YlHcKxMxjzQ-1;
-	Wed, 12 Aug 2020 07:35:58 -0400
-X-MC-Unique: Pn8r7TCyO06YlHcKxMxjzQ-1
+	relay.mimecast.com with ESMTP id us-mta-538-Zh8i02kGN26hcJTdNd_BNA-1;
+	Wed, 12 Aug 2020 07:36:12 -0400
+X-MC-Unique: Zh8i02kGN26hcJTdNd_BNA-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 830EFB70E;
-	Wed, 12 Aug 2020 11:36:18 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id 85CBAB70B;
+	Wed, 12 Aug 2020 11:36:32 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed, 12 Aug 2020 13:35:43 +0200
-Message-Id: <20200812113543.26576-5-mwilck@suse.com>
-In-Reply-To: <20200812113543.26576-1-mwilck@suse.com>
-References: <20200812113543.26576-1-mwilck@suse.com>
+Date: Wed, 12 Aug 2020 13:35:57 +0200
+Message-Id: <20200812113601.26658-1-mwilck@suse.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -61,13 +59,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 07CBa4PO028915
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 07CBaKYp029033
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 80/80] libmultipath: select_action(): don't
-	drop map if alias clashes
+Subject: [dm-devel] [PATCH v2 00/84] multipath-tools series part VII:
+	addional patches
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +79,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,68 +89,36 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-If for a given map, if we find that the requested alias is already
-used by a map with different WWID, while the map's own WWID is
-not used yet, give up the alias and use the WWID instead. This
-is safer than trying to destroy the existing map, which is likely
-to fail.
+This is part VI of a larger patch series for multipath-tools I've been preparing.
+It's based on the previously submitted part VI.
 
-This allows us to make use const for the "curmp" parameter.
+The full series will also be available here:
+https://github.com/mwilck/multipath-tools/tree/ups/submit-2008
+This part is tagged "submit-200812-7".
 
-Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
-Signed-off-by: Martin Wilck <mwilck@suse.com>
----
- libmultipath/configure.c | 14 ++++++++------
- libmultipath/configure.h |  3 ++-
- 2 files changed, 10 insertions(+), 7 deletions(-)
+This part contains patches added since the v1 submission of the series. One
+is Liu's fix for disassemble_map(), rebased on top of my previous changes
+to that function.
 
-diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-index b9cb26a..5fb5767 100644
---- a/libmultipath/configure.c
-+++ b/libmultipath/configure.c
-@@ -687,7 +687,8 @@ select_reload_action(struct multipath *mpp, const struct multipath *cmpp,
- 		reason);
- }
- 
--void select_action (struct multipath *mpp, vector curmp, int force_reload)
-+void select_action (struct multipath *mpp, const struct _vector *curmp,
-+		    int force_reload)
- {
- 	struct multipath * cmpp;
- 	struct multipath * cmpp_by_name;
-@@ -715,12 +716,13 @@ void select_action (struct multipath *mpp, vector curmp, int force_reload)
- 	}
- 
- 	if (!cmpp) {
--		condlog(2, "%s: remove (wwid changed)", mpp->alias);
--		dm_flush_map(mpp->alias);
--		strlcpy(cmpp_by_name->wwid, mpp->wwid, WWID_SIZE);
--		drop_multipath(curmp, cmpp_by_name->wwid, KEEP_PATHS);
-+		condlog(1, "%s: can't use alias \"%s\" used by %s, falling back to WWID",
-+			mpp->wwid, mpp->alias, cmpp_by_name->wwid);
-+		/* We can do this because wwid wasn't found */
-+		free(mpp->alias);
-+		mpp->alias = strdup(mpp->wwid);
- 		mpp->action = ACT_CREATE;
--		condlog(3, "%s: set ACT_CREATE (map wwid change)",
-+		condlog(3, "%s: set ACT_CREATE (map does not exist, name changed)",
- 			mpp->alias);
- 		return;
- 	}
-diff --git a/libmultipath/configure.h b/libmultipath/configure.h
-index 9907775..6b23ccb 100644
---- a/libmultipath/configure.h
-+++ b/libmultipath/configure.h
-@@ -49,7 +49,8 @@ struct vectors;
- 
- int setup_map (struct multipath * mpp, char * params, int params_size,
- 	       struct vectors *vecs );
--void select_action (struct multipath *mpp, vector curmp, int force_reload);
-+void select_action (struct multipath *mpp, const struct _vector *curmp,
-+		    int force_reload);
- int domap (struct multipath * mpp, char * params, int is_daemon);
- int reinstate_paths (struct multipath *mpp);
- int coalesce_paths (struct vectors *vecs, vector curmp, char * refwwid, int force_reload, enum mpath_cmds cmd);
+84/84, related to inconsistent alias settings, belongs logically to part III.
+I couldn't add it there because it would have changed the numbering in the
+series wrt v1, which I wanted to avoid.
+
+Martin Wilck (3):
+  multipath: check_path_valid(): eliminate some failure modes
+  libmultipath: alias: static const variable for BINDINGS_FILE_HEADER
+  libmultipath: add consistency check for alias settings
+
+Zhiqiang Liu (1):
+  libmultipath: free pp if store_path fails in disassemble_map
+
+ libmultipath/alias.c    | 274 +++++++++++++++++++++++++++++++++++++++-
+ libmultipath/alias.h    |  15 +--
+ libmultipath/dmparser.c |  12 +-
+ multipath/main.c        |  21 +--
+ multipathd/main.c       |   3 +
+ 5 files changed, 301 insertions(+), 24 deletions(-)
+
 -- 
 2.28.0
 
