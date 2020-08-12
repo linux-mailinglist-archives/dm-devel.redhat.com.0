@@ -1,75 +1,75 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id DF04A244528
-	for <lists+dm-devel@lfdr.de>; Fri, 14 Aug 2020 09:04:41 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 23EB8244534
+	for <lists+dm-devel@lfdr.de>; Fri, 14 Aug 2020 09:06:21 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-12-SW7xeq7tPS-3Dr6ydbpBgg-1; Fri, 14 Aug 2020 03:04:38 -0400
-X-MC-Unique: SW7xeq7tPS-3Dr6ydbpBgg-1
+ us-mta-453-RNE934FOPS66dyx848Knvw-1; Fri, 14 Aug 2020 03:06:16 -0400
+X-MC-Unique: RNE934FOPS66dyx848Knvw-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 58A3984635B;
-	Fri, 14 Aug 2020 07:04:30 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B8230600E4;
-	Fri, 14 Aug 2020 07:04:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7F6341835883;
+	Fri, 14 Aug 2020 07:06:11 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5BF6D600E4;
+	Fri, 14 Aug 2020 07:06:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C23C04EE14;
-	Fri, 14 Aug 2020 07:04:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1727118199F7;
+	Fri, 14 Aug 2020 07:06:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07CEItXZ023178 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 12 Aug 2020 10:18:55 -0400
+	id 07CEkCac027458 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 12 Aug 2020 10:46:12 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 941BE2156A2E; Wed, 12 Aug 2020 14:18:55 +0000 (UTC)
+	id BD77A11918E8; Wed, 12 Aug 2020 14:46:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A00C2156709
-	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 14:18:50 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B848B119190C
+	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 14:46:07 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 78EB718A6663
-	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 14:18:50 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3BAC6857024
+	for <dm-devel@redhat.com>; Wed, 12 Aug 2020 14:46:07 +0000 (UTC)
 Received: from mail-il1-f195.google.com (mail-il1-f195.google.com
 	[209.85.166.195]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-321-Nc5fMAbSOfuSTyIvLDMGNQ-1; Wed, 12 Aug 2020 10:18:45 -0400
-X-MC-Unique: Nc5fMAbSOfuSTyIvLDMGNQ-1
-Received: by mail-il1-f195.google.com with SMTP id c6so1730287ilo.13;
-	Wed, 12 Aug 2020 07:18:44 -0700 (PDT)
+	us-mta-152-YT8_bUNjOSKskT-JC_DIWQ-1; Wed, 12 Aug 2020 10:46:01 -0400
+X-MC-Unique: YT8_bUNjOSKskT-JC_DIWQ-1
+Received: by mail-il1-f195.google.com with SMTP id l7so1864960ils.2;
+	Wed, 12 Aug 2020 07:46:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
 	:content-transfer-encoding:message-id:references:to;
-	bh=48IsAeauuq9BcWaKpHbdNQ/tldBG5RElnWagtcAUqV4=;
-	b=DqWoP014kmbxikDIgYh438d7j4x18/iggHqkR6rbtM27we1YD1t6dNI70plgc/SGSu
-	/AaGhjUgY0fpujwgqq19Mfsu2Ex5YAKc8qnfwv/JgYLFuX68oBIa7ut346m58UKlRE4s
-	WFunxKZfd7PsGGTGctIGPnsLgitge56DHqN3WJnIqgsbVea2Jn8tvPunuCGQSvudjMzh
-	08Pn/Yk+VObXSpGiaOboxZG0tVSYfkccrwKFngcZ0GavMX2DCrAJ6mNPh0EY4kdQFZC2
-	+Ec4erwuC41ZPxG+6ZUDRELc99VZ8g3LljrHybDwPsk6im52ehuN0gzKmM5sobhbuVx2
-	G8zA==
-X-Gm-Message-State: AOAM531FHxWsS+h0JZixIgJQCjxDN5w67Ju/KkSBYSAwDwa2nUSc18Ny
-	IFC6bsev+ONDuwkOALRSRWc=
-X-Google-Smtp-Source: ABdhPJzf/jasvT0zc9p1+CGDgqywSS+wUi9D5ewUAR1wjx5vZ+7v7igbj00P+ikLT5qiFiGJ2YZ2iA==
-X-Received: by 2002:a92:418b:: with SMTP id
-	o133mr14743047ila.277.1597241924157; 
-	Wed, 12 Aug 2020 07:18:44 -0700 (PDT)
+	bh=kQOJV8hQKKWi1Q4IBwonjxI4nlnYdAyxL48CghY2b34=;
+	b=b+BykxfZZy/GfxG3ZsY89aLaC7crjoKmrrh7Zy3E0QF77E9rszX2VQPGD/TBRIlYLR
+	34Gy8YSv/EdVQPNJmUDqOdWtCCb+fHlytViJZBppRKT1ahuK2sCdlnGkPmiyh21OE+8A
+	B+uDaOcBZGFVErTk+m+BmahPtFmKk5pQ25BPHBTYaDS9rSu/azN1Zxt8roQrlWXFJ5ri
+	lAX3xW6do4NLZJBpLKCzaoRyGGH/Cwno7LwLx4N0L0j5zgF6XFIpTsNMoDnKNypoymC/
+	6CUDgtsP3I9Gkc5iGFiFoxnLwd9AoljSrIjtZ2Me0dM/8cSIuQKlENLg1EZYIGR/VhpM
+	p/uA==
+X-Gm-Message-State: AOAM530y7PNw6yy7sUlaluAsqwfSjRzJ3EbNOKjSR9ijedxqnq2bZMQP
+	Vq/2phhCLkMMpKcXsrfKhkc=
+X-Google-Smtp-Source: ABdhPJwhgRbaRRSqe0vcGsrFV97VYVYstE/PFYHOorVWwg7UGiBOlCHPQtwmMYxo8Rf89OCc3e2t5w==
+X-Received: by 2002:a92:6d0c:: with SMTP id i12mr8272ilc.37.1597243558796;
+	Wed, 12 Aug 2020 07:45:58 -0700 (PDT)
 Received: from anon-dhcp-152.1015granger.net
 	(c-68-61-232-219.hsd1.mi.comcast.net. [68.61.232.219])
-	by smtp.gmail.com with ESMTPSA id r8sm1129252ilt.54.2020.08.12.07.18.41
+	by smtp.gmail.com with ESMTPSA id
+	k14sm1089731ion.17.2020.08.12.07.45.56
 	(version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-	Wed, 12 Aug 2020 07:18:42 -0700 (PDT)
+	Wed, 12 Aug 2020 07:45:57 -0700 (PDT)
 Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.80.23.2.2\))
 From: Chuck Lever <chucklever@gmail.com>
-In-Reply-To: <alpine.LRH.2.21.2008120643370.10591@namei.org>
-Date: Wed, 12 Aug 2020 10:18:41 -0400
-Message-Id: <70603A4E-A548-4ECB-97D4-D3102CE77701@gmail.com>
+In-Reply-To: <1597159969.4325.21.camel@HansenPartnership.com>
+Date: Wed, 12 Aug 2020 10:45:56 -0400
+Message-Id: <20F82AFA-D0AC-479B-AB1D-0D354AE19498@gmail.com>
 References: <20200728213614.586312-1-deven.desai@linux.microsoft.com>
 	<20200802115545.GA1162@bug> <20200802140300.GA2975990@sasha-vm>
 	<20200802143143.GB20261@amd>
@@ -79,8 +79,13 @@ References: <20200728213614.586312-1-deven.desai@linux.microsoft.com>
 	<alpine.LRH.2.21.2008050934060.28225@namei.org>
 	<b08ae82102f35936427bf138085484f75532cff1.camel@linux.ibm.com>
 	<329E8DBA-049E-4959-AFD4-9D118DEB176E@gmail.com>
-	<alpine.LRH.2.21.2008120643370.10591@namei.org>
-To: James Morris <jmorris@namei.org>
+	<da6f54d0438ee3d3903b2c75fcfbeb0afdf92dc2.camel@linux.ibm.com>
+	<1597073737.3966.12.camel@HansenPartnership.com>
+	<6E907A22-02CC-42DD-B3CD-11D304F3A1A8@gmail.com>
+	<1597124623.30793.14.camel@HansenPartnership.com>
+	<16C3BF97-A7D3-488A-9D26-7C9B18AD2084@gmail.com>
+	<1597159969.4325.21.camel@HansenPartnership.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -89,16 +94,17 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 07CEkCac027458
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 14 Aug 2020 03:04:01 -0400
 Cc: snitzer@redhat.com, Deven Bowers <deven.desai@linux.microsoft.com>,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	dm-devel@redhat.com, tyhicks@linux.microsoft.com,
-	Pavel Machek <pavel@ucw.cz>, agk@redhat.com,
-	Sasha Levin <sashal@kernel.org>, Paul Moore <paul@paul-moore.com>,
-	Jonathan Corbet <corbet@lwn.net>, nramas@linux.microsoft.com,
+	Mimi Zohar <zohar@linux.ibm.com>, dm-devel@redhat.com,
+	tyhicks@linux.microsoft.com, Pavel Machek <pavel@ucw.cz>,
+	agk@redhat.com, Sasha Levin <sashal@kernel.org>,
+	Paul Moore <paul@paul-moore.com>, Jonathan Corbet <corbet@lwn.net>,
+	James Morris <jmorris@namei.org>, nramas@linux.microsoft.com,
 	serge@hallyn.com, pasha.tatashin@soleen.com,
 	Jann Horn <jannh@google.com>, linux-block@vger.kernel.org,
 	Al Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>,
@@ -131,36 +137,79 @@ Content-Transfer-Encoding: 7bit
 
 
 
-> On Aug 11, 2020, at 5:03 PM, James Morris <jmorris@namei.org> wrote:
+> On Aug 11, 2020, at 11:32 AM, James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
 > 
-> On Sat, 8 Aug 2020, Chuck Lever wrote:
-> 
->> My interest is in code integrity enforcement for executables stored
->> in NFS files.
+> On Tue, 2020-08-11 at 10:48 -0400, Chuck Lever wrote:
+>>> On Aug 11, 2020, at 1:43 AM, James Bottomley
+>>> <James.Bottomley@HansenPartnership.com> wrote:
+>>> On Mon, 2020-08-10 at 19:36 -0400, Chuck Lever wrote:
+> [...]
+>>>> Thanks for the help! I just want to emphasize that documentation
+>>>> (eg, a specification) will be critical for remote filesystems.
+>>>> 
+>>>> If any of this is to be supported by a remote filesystem, then we
+>>>> need an unencumbered description of the new metadata format
+>>>> rather than code. GPL-encumbered formats cannot be contributed to
+>>>> the NFS standard, and are probably difficult for other
+>>>> filesystems that are not Linux-native, like SMB, as well.
+>>> 
+>>> I don't understand what you mean by GPL encumbered formats.  The
+>>> GPL is a code licence not a data or document licence.
 >> 
->> My struggle with IPE is that due to its dependence on dm-verity, it
->> does not seem to able to protect content that is stored separately
->> from its execution environment and accessed via a file access
->> protocol (FUSE, SMB, NFS, etc).
+>> IETF contributions occur under a BSD-style license incompatible
+>> with the GPL.
+>> 
+>> https://trustee.ietf.org/trust-legal-provisions.html
+>> 
+>> Non-Linux implementers (of OEM storage devices) rely on such
+>> standards processes to indemnify them against licensing claims.
 > 
-> It's not dependent on DM-Verity, that's just one possible integrity 
-> verification mechanism, and one of two supported in this initial 
-> version. The other is 'boot_verified' for a verified or otherwise trusted 
-> rootfs. Future versions will support FS-Verity, at least.
-> 
-> IPE was designed to be extensible in this way, with a strong separation of 
-> mechanism and policy.
+> Well, that simply means we won't be contributing the Linux
+> implementation, right?
 
-I got that, but it looked to me like the whole system relied on having
-access to the block device under the filesystem. That's not possible
-for a remote filesystem like Ceph or NFS.
+At the present time, there is nothing but the Linux implementation.
+There's no English description, there's no specification of the
+formats, the format is described only by source code.
 
-I'm happy to take a closer look if someone can point me the right way.
+The only way to contribute current IMA metadata formats to an open
+standards body like the IETF is to look at encumbered code first.
+We would effectively be contributing an implementation in this case.
+
+(I'm not saying the current formats should or should not be
+contributed; merely that there is a legal stumbling block to doing
+so that can be avoided for newly defined formats).
+
+
+> Well, let me put the counterpoint: I can write a book about how linux
+> device drivers work (which includes describing the data formats)
+
+
+Our position is that someone who reads that book and implements those
+formats under a non-GPL-compatible license would be in breach of the
+GPL.
+
+The point of the standards process is to indemnify implementing
+and distributing under _any_ license what has been published by the
+standards body. That legally enables everyone to use the published
+protocol/format in their own code no matter how it happens to be
+licensed.
+
+
+> Fine, good grief, people who take a sensible view of this can write the
+> data format down and publish it under any licence you like then you can
+> pick it up again safely.
+
+
+That's what I proposed. Write it down under the IETF Trust legal
+provisions license. And I volunteered to do that.
+
+All I'm saying is that description needs to come before code.
 
 
 --
 Chuck Lever
 chucklever@gmail.com
+
 
 
 
