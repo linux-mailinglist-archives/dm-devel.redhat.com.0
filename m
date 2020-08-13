@@ -1,72 +1,88 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0EAD4243F22
-	for <lists+dm-devel@lfdr.de>; Thu, 13 Aug 2020 21:05:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1597345499;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=PiQn1xzy7TAHlkWteXvd9+JtyRUnjSB0WjmW/FfeRI0=;
-	b=EYJJOF5W4lRpUWiWkbsPs8g4mZD/fX+C5W1MZOkxeCu4fYLMoNapoqx91SQaLqGbBIHdBN
-	dYenj6KwtUERmdYBysc0T6QuMUIdnDgPjbFB36i35T34wEw6z/eTrqdWdFl61qH2e9eMmc
-	ZaepW2Bl3akrRA8icUu/odH+wXHyHTY=
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 32BAA243FA4
+	for <lists+dm-devel@lfdr.de>; Thu, 13 Aug 2020 22:08:40 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-146-VjjZ48UzOrOVWOIrh7yptQ-1; Thu, 13 Aug 2020 15:04:54 -0400
-X-MC-Unique: VjjZ48UzOrOVWOIrh7yptQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-337-niTTk3oiM0egidHKWhyJog-1; Thu, 13 Aug 2020 16:08:37 -0400
+X-MC-Unique: niTTk3oiM0egidHKWhyJog-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 503521005504;
-	Thu, 13 Aug 2020 19:04:48 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E0046FDB3;
-	Thu, 13 Aug 2020 19:04:46 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9BF62801AAF;
+	Thu, 13 Aug 2020 20:08:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B4595D759;
+	Thu, 13 Aug 2020 20:08:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 601884EE14;
-	Thu, 13 Aug 2020 19:04:42 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B59281826D2A;
+	Thu, 13 Aug 2020 20:08:13 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07DJ3jE3017719 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 13 Aug 2020 15:03:45 -0400
+	id 07DK7xgi025567 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 13 Aug 2020 16:07:59 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DBD6D62A37; Thu, 13 Aug 2020 19:03:45 +0000 (UTC)
+	id 097B31111C6B; Thu, 13 Aug 2020 20:07:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CD61F6F9C9;
-	Thu, 13 Aug 2020 19:03:42 +0000 (UTC)
-Date: Thu, 13 Aug 2020 15:03:42 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: Christoph Hellwig <hch@infradead.org>
-Message-ID: <20200813190342.GA6607@redhat.com>
-References: <20200807000755.GA28957@redhat.com>
-	<510f5aff-0437-b1ce-f7ab-c812edbea880@grimberg.me>
-	<20200807045015.GA29737@redhat.com>
-	<fec745aa-0091-ee1f-cb0f-da9e18cf0aa2@grimberg.me>
-	<20200810143620.GA19127@redhat.com>
-	<20200810172209.GA19535@redhat.com>
-	<20200813144811.GA5452@redhat.com>
-	<20200813153623.GA30905@infradead.org>
-	<20200813174704.GA6137@redhat.com>
-	<20200813184349.GA8191@infradead.org>
+Received: from mimecast-mx02.redhat.com
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 053541111C6A
+	for <dm-devel@redhat.com>; Thu, 13 Aug 2020 20:07:56 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED3E7185A78B
+	for <dm-devel@redhat.com>; Thu, 13 Aug 2020 20:07:55 +0000 (UTC)
+Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
+	[209.85.221.66]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-97-l895evPFMwOObP5__waWcQ-1; Thu, 13 Aug 2020 16:07:52 -0400
+X-MC-Unique: l895evPFMwOObP5__waWcQ-1
+Received: by mail-wr1-f66.google.com with SMTP id 88so6415918wrh.3
+	for <dm-devel@redhat.com>; Thu, 13 Aug 2020 13:07:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:from:subject:to:references:message-id:date
+	:mime-version:in-reply-to:content-language:content-transfer-encoding;
+	bh=fLfFBXQVPO9OhJHclJIm+QA4dGMhsFc+WqPozwy0vqs=;
+	b=PL5p6IW67DL7aCOObL7VxYaoB3YrC1O07wVxwsBSLKtahP9h2S5U0re9KXBVYSPNiT
+	ZpMTzwWvRGCJl2oUeqTZH9m84ztkRic0Y3Y//i+mGq1DNUtizePAT3t3+MDRjcwy+Jst
+	mQ2D76VmFp+Ecoakp2Pd/nReOEqBGuYDjqmiD17+lucNT/MadpJbt0tNmOlPfvNxUC3P
+	SghfHFjFLIHp5puoxE39kF8jdhMJzLQrxYZqApf1sOeRT78vXqoHiATU4fhXw8/Q24+N
+	BxvDSacih1wQQvEA2rvlbb6ittF4pywyJwS/2fJ/MMPEEJ79galQn8uBfiG7rAy9TUmB
+	vibw==
+X-Gm-Message-State: AOAM530mjxXoZZREigZd2BxFGtJISOmZELpA/E8GeB6kqp6kNxLJsHPg
+	YhB9q8IQAlwc0JxErUq5vCVQRks=
+X-Google-Smtp-Source: ABdhPJxKg3+BA9R8jxZF6DF4ZKOAIb42y6nAGqCO+WxrJUcr6fOtBrUa1fs3Wy6NuRlYY2uHE0k2XQ==
+X-Received: by 2002:adf:b302:: with SMTP id j2mr5487225wrd.294.1597349271392; 
+	Thu, 13 Aug 2020 13:07:51 -0700 (PDT)
+Received: from localhost (201.red-83-37-180.dynamicip.rima-tde.net.
+	[83.37.180.201]) by smtp.gmail.com with ESMTPSA id
+	i82sm11215776wmi.10.2020.08.13.13.07.50
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Thu, 13 Aug 2020 13:07:51 -0700 (PDT)
+From: Xose Vazquez Perez <xose.vazquez@gmail.com>
+To: "McIntyre, Vincent (CASS, Marsfield)" <Vincent.Mcintyre@csiro.au>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>
+References: <20200810043316.GH21810@mayhem.atnf.CSIRO.AU>
+Message-ID: <8c910ecb-ddf8-0a91-4310-4daedb85cd89@gmail.com>
+Date: Thu, 13 Aug 2020 22:07:49 +0200
 MIME-Version: 1.0
-In-Reply-To: <20200813184349.GA8191@infradead.org>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+In-Reply-To: <20200810043316.GH21810@mayhem.atnf.CSIRO.AU>
+Content-Language: en-US
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: Sagi Grimberg <sagi@grimberg.me>, linux-nvme@lists.infradead.org,
-	dm-devel@redhat.com, Ewan Milne <emilne@redhat.com>,
-	Chao Leng <lengchao@huawei.com>, Keith Busch <kbusch@kernel.org>,
-	"Meneghini, John" <John.Meneghini@netapp.com>
-Subject: Re: [dm-devel] [RESEND PATCH] nvme: explicitly use normal NVMe
- error handling when appropriate
+Subject: Re: [dm-devel] Promise and ALUA
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,41 +96,54 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0.001
+X-Mimecast-Spam-Score: 0.002
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-On Thu, Aug 13 2020 at  2:43pm -0400,
-Christoph Hellwig <hch@infradead.org> wrote:
+On 8/10/20 6:33 AM, McIntyre, Vincent (CASS, Marsfield) wrote:
 
-> On Thu, Aug 13, 2020 at 01:47:04PM -0400, Mike Snitzer wrote:
-> > This is just a tweak to improve the high-level fault tree of core NVMe
-> > error handling.  No functional change, but for such basic errors,
-> > avoiding entering nvme_failover_req is meaningful on a code flow level.
-> > Makes code to handle errors that need local retry clearer by being more
-> > structured, less circuitous.
-> > 
-> > Allows NVMe core's handling of such errors to be more explicit and live
-> > in core.c rather than multipath.c -- so things like ACRE handling can be
-> > made explicitly part of core and not nested under nvme_failover_req's
-> > relatively obscure failsafe that returns false for anything it doesn't
-> > care about.
+> for many years we have been operating some Promise VTrak arrays
+> without any use of the ALUA feature (largely so we don't have to
+> specify LUN affinities as well, which seems to be required).
 > 
-> If we're going that way I'd rather do something like the (untested)
-> patch below that adds a dispostion function with a function that
-> decides it and then just switches on it:
+> In the process of upgrading to Debian Buster
+> (multipath-tools 0.7.9 and kernel 4.19)
+> I find that I can no longer connect to our Promise arrays.
+> They are detected but the only useful output I get is
+> 
+>   multipathd[986]: reconfigure (operator)
+>   multipathd[986]: sdc: alua not supported
+>   multipathd[986]: sdd: alua not supported
+>   multipathd[986]: sdr: alua not supported
+>   multipathd[986]: sde: alua not supported
+>   multipathd[986]: sdf: alua not supported
+>   multipathd[986]: sdg: alua not supported
+>   multipathd[986]: sdh: alua not supported
+>   multipathd[986]: sdi: alua not supported
+> 
+> 
+> I found the note in the manpage about alua being selected by
+> default for these arrays[1], but I'm taken aback that I'm not
+> allowed to override this.
+> 
+> Is there really no support any more for choosing whether to use
+> ALUA or not?
+> 
+> I have tried messing about with detect_prio, dectect_checker
+> and whatnot, to no avail.
 
-YES!  That is such a huge improvement (certainly on a code clarity
-level).  I haven't reviewed or tested the relative performance or
-function of before vs after (will do) but I really like this approach.
+> [1] 9b5ea2eda85ae072cb697310807611c693713c2b
+>      libmultipath: retain_attached_hw_handler obsolete with 4.3+
 
-Thanks,
-Mike
+With the next array config and an empty /etc/multipath.conf,
+reboot the linux host and put the output of "multipath -ll"
+Redundancy Type: Active-Active
+LUN Affinity: Enable
+ALUA: Enable
 
 --
 dm-devel mailing list
