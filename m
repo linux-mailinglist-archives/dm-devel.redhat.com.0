@@ -1,60 +1,84 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 95E3B243970
-	for <lists+dm-devel@lfdr.de>; Thu, 13 Aug 2020 13:41:21 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 368AE243BC3
+	for <lists+dm-devel@lfdr.de>; Thu, 13 Aug 2020 16:43:59 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-29-T76RD8pWMLuGtIiE65mWiw-1; Thu, 13 Aug 2020 07:41:18 -0400
-X-MC-Unique: T76RD8pWMLuGtIiE65mWiw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-191-HzidMjUaPdGwpAVSZ9cXEg-1; Thu, 13 Aug 2020 10:43:56 -0400
+X-MC-Unique: HzidMjUaPdGwpAVSZ9cXEg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6E995807320;
-	Thu, 13 Aug 2020 11:41:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 982C4800D53;
+	Thu, 13 Aug 2020 14:43:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 639B2100238C;
-	Thu, 13 Aug 2020 11:41:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7C29E614F6;
+	Thu, 13 Aug 2020 14:43:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A8AE54EE14;
-	Thu, 13 Aug 2020 11:40:48 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9A5FC4EE16;
+	Thu, 13 Aug 2020 14:43:29 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07DBeXkH002171 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 13 Aug 2020 07:40:33 -0400
+	id 07DEgx6Z020263 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 13 Aug 2020 10:42:59 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6DF4744061; Thu, 13 Aug 2020 11:40:33 +0000 (UTC)
+	id 1BF7E47CD8; Thu, 13 Aug 2020 14:42:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 69E954405F
-	for <dm-devel@redhat.com>; Thu, 13 Aug 2020 11:40:30 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 16ED847CE8
+	for <dm-devel@redhat.com>; Thu, 13 Aug 2020 14:42:56 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 47D5A8007D1
-	for <dm-devel@redhat.com>; Thu, 13 Aug 2020 11:40:30 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-298-CygG6vBCOwKDJ7rJY88lbg-1;
-	Thu, 13 Aug 2020 07:40:25 -0400
-X-MC-Unique: CygG6vBCOwKDJ7rJY88lbg-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id C0C3FB73C;
-	Thu, 13 Aug 2020 11:40:46 +0000 (UTC)
-Message-ID: <d543c9405fe1292b87616f110a5fc9069891f8b1.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: lixiaokeng <lixiaokeng@huawei.com>, Christophe Varoqui
-	<christophe.varoqui@opensvc.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@redhat.com
-Date: Thu, 13 Aug 2020 13:40:23 +0200
-In-Reply-To: <3ef7d87d-1682-459a-16e9-82a01555ef29@huawei.com>
-References: <3ef7d87d-1682-459a-16e9-82a01555ef29@huawei.com>
-User-Agent: Evolution 3.36.4
-MIME-Version: 1.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A4C2E805C0E
+	for <dm-devel@redhat.com>; Thu, 13 Aug 2020 14:42:56 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com
+	(bedivere.hansenpartnership.com [66.63.167.143]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-464-VhzQAAnaN8OoiC9AMEIvFQ-1;
+	Thu, 13 Aug 2020 10:42:53 -0400
+X-MC-Unique: VhzQAAnaN8OoiC9AMEIvFQ-1
+Received: from localhost (localhost [127.0.0.1])
+	by bedivere.hansenpartnership.com (Postfix) with ESMTP id C45B78EE1E5; 
+	Thu, 13 Aug 2020 07:42:45 -0700 (PDT)
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+	port 10024)
+	with ESMTP id TBsBb6x-NfcO; Thu, 13 Aug 2020 07:42:45 -0700 (PDT)
+Received: from [153.66.254.174] (c-73-35-198-56.hsd1.wa.comcast.net
+	[73.35.198.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id 3D9208EE0F8;
+	Thu, 13 Aug 2020 07:42:44 -0700 (PDT)
+Message-ID: <1597329763.3708.13.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@hansenpartnership.com>
+To: Chuck Lever <chucklever@gmail.com>
+Date: Thu, 13 Aug 2020 07:42:43 -0700
+In-Reply-To: <3F328A12-25DD-418B-A7D0-64DA09236E1C@gmail.com>
+References: <20200728213614.586312-1-deven.desai@linux.microsoft.com>
+	<20200802115545.GA1162@bug> <20200802140300.GA2975990@sasha-vm>
+	<20200802143143.GB20261@amd>
+	<1596386606.4087.20.camel@HansenPartnership.com>
+	<fb35a1f7-7633-a678-3f0f-17cf83032d2b@linux.microsoft.com>
+	<1596639689.3457.17.camel@HansenPartnership.com>
+	<alpine.LRH.2.21.2008050934060.28225@namei.org>
+	<b08ae82102f35936427bf138085484f75532cff1.camel@linux.ibm.com>
+	<329E8DBA-049E-4959-AFD4-9D118DEB176E@gmail.com>
+	<da6f54d0438ee3d3903b2c75fcfbeb0afdf92dc2.camel@linux.ibm.com>
+	<1597073737.3966.12.camel@HansenPartnership.com>
+	<6E907A22-02CC-42DD-B3CD-11D304F3A1A8@gmail.com>
+	<1597124623.30793.14.camel@HansenPartnership.com>
+	<16C3BF97-A7D3-488A-9D26-7C9B18AD2084@gmail.com>
+	<1597170509.4325.55.camel@HansenPartnership.com>
+	<2CA41152-6445-4716-B5EE-2D14E5C59368@gmail.com>
+	<1597246946.7293.9.camel@HansenPartnership.com>
+	<3F328A12-25DD-418B-A7D0-64DA09236E1C@gmail.com>
+Mime-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -65,9 +89,21 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: linfeilong@huawei.com, liuzhiqiang26@huawei.com, lutianxiong@huawei.com
-Subject: Re: [dm-devel] [PATCH V3] libmultipath: fix a memory leak in
-	set_ble_device
+Cc: snitzer@redhat.com, Deven Bowers <deven.desai@linux.microsoft.com>,
+	Mimi Zohar <zohar@linux.ibm.com>, dm-devel@redhat.com,
+	tyhicks@linux.microsoft.com, Pavel Machek <pavel@ucw.cz>, Paul,
+	agk@redhat.com, Sasha Levin <sashal@kernel.org>,
+	Moore <paul@paul-moore.com>, Jonathan Corbet <corbet@lwn.net>,
+	James Morris <jmorris@namei.org>, nramas@linux.microsoft.com,
+	serge@hallyn.com, pasha.tatashin@soleen.com,
+	Jann Horn <jannh@google.com>, linux-block@vger.kernel.org,
+	Al Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>,
+	mdsakib@microsoft.com, open list <linux-kernel@vger.kernel.org>,
+	eparis@redhat.com, linux-security-module@vger.kernel.org,
+	linux-audit@redhat.com, linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+	linux-integrity@vger.kernel.org, jaskarankhurana@linux.microsoft.com
+Subject: Re: [dm-devel] [RFC PATCH v5 00/11] Integrity Policy Enforcement
+ LSM (IPE)
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,34 +117,103 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0.001
+X-Mimecast-Spam-Score: 0.501
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, 2020-08-13 at 14:40 +0800, lixiaokeng wrote:
-> In set_ble_device func, if blist is NULL or ble is NULL,
-> the vendor and product isn't freed. We think it is not
-> reasonable that strdup(XXX) is used as set_ble_device
-> and store_ble functions' parameter.
+On Thu, 2020-08-13 at 10:21 -0400, Chuck Lever wrote:
+> > On Aug 12, 2020, at 11:42 AM, James Bottomley <James.Bottomley@Hans
+> > enPartnership.com> wrote:
+[...]
+> > For most people the security mechanism of local xattrs is
+> > sufficient.  If you're paranoid, you don't believe it is and you
+> > use EVM.
 > 
-> Here we call strdup() in store_ble and set_ble_device
-> functions and the string will be free if functions fail.
-> Because constant string like "sdb" will be their parameter,
-> char * is changed to const char *. This is base on
-> upstream-queue branch in openSUSE/multipath-tools.
+> When IMA metadata happens to be stored in local filesystems in
+> a trusted xattr, it's going to enjoy the protection you describe
+> without needing the addition of a cryptographic signature.
 > 
-> Signed-off-by: Lixiaokeng <lixiaokeng@huawei.com>
-> Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
+> However, that metadata doesn't live its whole life there. It
+> can reside in a tar file, it can cross a network, it can live
+> on a back-up tape. I think we agree that any time that metadata
+> is in transit or at rest outside of a Linux local filesystem, it
+> is exposed.
+> 
+> Thus I'm interested in a metadata protection mechanism that does
+> not rely on the security characteristics of a particular storage
+> container. For me, a cryptographic signature fits that bill
+> nicely.
 
-Thank you.
+Sure, but one of the points about IMA is a separation of mechanism from
+policy.  Signed hashes (called appraisal in IMA terms) is just one
+policy you can decide to require or not or even make it conditional on
+other things.
 
-Reviewed-by: Martin Wilck <mwilck@suse.com>
+> > > > I think Mimi's other point is actually that IMA uses a flat
+> > > > hash which we derive by reading the entire file and then
+> > > > watching for mutations. Since you cannot guarantee we get
+> > > > notice of mutation with NFS, the entire IMA mechanism can't
+> > > > really be applied in its current form and we have to resort to
+> > > > chunk at a time verifications that a Merkel tree would provide.
+> > > 
+> > > I'm not sure what you mean by this. An NFS client relies on
+> > > notification of mutation to maintain the integrity of its cache
+> > > of NFS file content, and it's done that since the 1980s.
+> > 
+> > Mutation detection is part of the current IMA security model.  If
+> > IMA sees a file mutate it has to be rehashed the next time it
+> > passes the gate.  If we can't trust the NFS server, we can't trust
+> > the NFS mutation notification and we have to have a different
+> > mechanism to check the file.
+> 
+> When an NFS server lies about mtime and ctime, then NFS is completely
+> broken. Untrusted NFS server doesn't mean "broken behavior" -- I
+> would think that local filesystems will have the same problem if
+> they can't trust a local block device to store filesystem metadata
+> like indirect blocks and timestamps.
+> 
+> It's not clear to me that IMA as currently implemented can protect
+> against broken storage devices or incorrect filesystem behavior.
 
+IMA doesn't really care about the storage.  The gate check will fail if
+the storage corrupts the file because the hashes won't match.  The
+mechanism for modification notification is the province of the
+filesystem and there are definitely some which don't do it (or other fs
+features) correctly and thus can't use IMA.
 
+> > > In addition to examining a file's mtime and ctime as maintained
+> > > by the NFS server, a client can rely on the file's NFSv4 change
+> > > attribute or an NFSv4 delegation.
+> > 
+> > And that's secure in the face of a malicious or compromised server?
+> > 
+> > The bottom line is still, I think we can't use linear hashes with
+> > an open/exec/mmap gate with NFS and we have to move to chunk at a
+> > time verification like that provided by a merkel tree.
+> 
+> That's fine until we claim that remote filesystems require one form
+> of metadata and local filesystems use some other form.
+> 
+> To guarantee an unbroken chain of provenance, everyone has to use the
+> same portable metadata format that is signed once by the content
+> creator. That's essentially why I believe the Merkle-based metadata
+> format must require that the tree root is signed.
+
+Well, no, that would be optional policy.  We should certainly support
+signed head hashes and require it if the policy said so, but we
+shouldn't enforce it without the policy.
+
+Suppose I'm a cloud service provider exporting files over NFS on the
+control (private) network.  I use IMA to measure untrusted tenants to
+get a feel for what they're doing, but since I control the NFS server,
+the client and the private network, I wouldn't feel the requirement to
+have signed hashes because I trust other mechanisms for the security.
+
+James
 
 --
 dm-devel mailing list
