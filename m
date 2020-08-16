@@ -1,60 +1,62 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 752C424552F
-	for <lists+dm-devel@lfdr.de>; Sun, 16 Aug 2020 03:42:25 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id B6BE5245530
+	for <lists+dm-devel@lfdr.de>; Sun, 16 Aug 2020 03:42:46 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-247-4KhagLQjP2aEyrYF5-7HoA-1; Sat, 15 Aug 2020 21:42:21 -0400
-X-MC-Unique: 4KhagLQjP2aEyrYF5-7HoA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-102-wQuV0TkzM_K6TGKjnUIsRw-1; Sat, 15 Aug 2020 21:42:43 -0400
+X-MC-Unique: wQuV0TkzM_K6TGKjnUIsRw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 287E9801A9D;
-	Sun, 16 Aug 2020 01:42:12 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A1E6C10013C1;
-	Sun, 16 Aug 2020 01:42:06 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 03E401DDE3;
+	Sun, 16 Aug 2020 01:42:38 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D68B7757E1;
+	Sun, 16 Aug 2020 01:42:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1718A4EE19;
-	Sun, 16 Aug 2020 01:41:52 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C9A7C18408A1;
+	Sun, 16 Aug 2020 01:42:36 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07G1fW2L023913 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 15 Aug 2020 21:41:32 -0400
+	id 07G1gWc8023996 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 15 Aug 2020 21:42:32 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 87106202278E; Sun, 16 Aug 2020 01:41:32 +0000 (UTC)
+	id 445E22166BB3; Sun, 16 Aug 2020 01:42:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8246C202278B
-	for <dm-devel@redhat.com>; Sun, 16 Aug 2020 01:41:29 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3FBF52166BA4
+	for <dm-devel@redhat.com>; Sun, 16 Aug 2020 01:42:29 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BA68985A5A7
-	for <dm-devel@redhat.com>; Sun, 16 Aug 2020 01:41:29 +0000 (UTC)
-Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190]) (Using
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D9C71185A78B
+	for <dm-devel@redhat.com>; Sun, 16 Aug 2020 01:42:29 +0000 (UTC)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-10-pxN6gWVvOACIvf1fSSx68A-1; Sat, 15 Aug 2020 21:41:27 -0400
-X-MC-Unique: pxN6gWVvOACIvf1fSSx68A-1
-Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.60])
-	by Forcepoint Email with ESMTP id CCC1BD69E964C2A622EC;
-	Sun, 16 Aug 2020 09:41:22 +0800 (CST)
-Received: from [127.0.0.1] (10.174.179.249) by DGGEMS410-HUB.china.huawei.com
-	(10.3.19.210) with Microsoft SMTP Server id 14.3.487.0;
-	Sun, 16 Aug 2020 09:41:12 +0800
+	us-mta-487-K9sB96MjMZOicf5znwI1qw-1; Sat, 15 Aug 2020 21:42:22 -0400
+X-MC-Unique: K9sB96MjMZOicf5znwI1qw-1
+Received: from DGGEMS404-HUB.china.huawei.com (unknown [172.30.72.58])
+	by Forcepoint Email with ESMTP id 92C0480B46C61329F744;
+	Sun, 16 Aug 2020 09:42:15 +0800 (CST)
+Received: from [127.0.0.1] (10.174.179.249) by DGGEMS404-HUB.china.huawei.com
+	(10.3.19.204) with Microsoft SMTP Server id 14.3.487.0;
+	Sun, 16 Aug 2020 09:42:07 +0800
 To: <bmarzins@redhat.com>, Martin Wilck <mwilck@suse.com>, Christophe Varoqui
 	<christophe.varoqui@opensvc.com>, Zdenek Kabelac <zkabelac@redhat.com>
+References: <351fa23b-b730-ce22-7e89-24f26a693a6a@huawei.com>
 From: Zhiqiang Liu <liuzhiqiang26@huawei.com>
-Message-ID: <351fa23b-b730-ce22-7e89-24f26a693a6a@huawei.com>
-Date: Sun, 16 Aug 2020 09:41:11 +0800
+Message-ID: <2d9db95b-bb88-0d22-1c2d-df459415ee3d@huawei.com>
+Date: Sun, 16 Aug 2020 09:42:05 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
 	Thunderbird/68.2.2
 MIME-Version: 1.0
+In-Reply-To: <351fa23b-b730-ce22-7e89-24f26a693a6a@huawei.com>
 Content-Language: en-US
 X-Originating-IP: [10.174.179.249]
 X-CFilter-Loop: Reflected
@@ -66,13 +68,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: linfeilong <linfeilong@huawei.com>, Yanxiaodan <yanxiaodan@huawei.com>,
-	dm-devel@redhat.com, lixiaokeng <lixiaokeng@huawei.com>,
-	liuzhiqiang26@huawei.com
-Subject: [dm-devel] [PATCH 0/6] multipath-tools series: some cleanups and
-	fixes
+	dm-devel@redhat.com, lixiaokeng <lixiaokeng@huawei.com>
+Subject: [dm-devel] [PATCH 1/6] checker: remove useless name check in
+	checker_get func
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,7 +87,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.002
@@ -95,32 +96,41 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 
-When I learn and review the multipath-tools source code, I find
-some cleanups and fixes.
+In checker_get func, input name will be checked before
+calling checker_class_lookup func, in which name will
+also be checked.
 
-repo: openSUSE/multipath-tools
-repo link: https://github.com/openSUSE/multipath-tools
-branch: upstream-queue
+Here, we just remove useless input name check in checker_get func.
 
-ZhiqiangLiu (6):
-  checker: remove useless name check in checker_get func
-  multipathd: adopt static char* arr in daemon_status
-  multipathd: adopt static char* arr in sd_notify_status func
-  libmultipath: check blist before calling MALLOC in alloc_ble_device
-    func
-  vector: add lower boundary check in vector_foreach_slot_after
-  multipathd: return NULL if MALLOC fails in alloc_waiteri func
+Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
+Signed-off-by: lixiaokeng <lixiaokeng@huawei.com>
+---
+ libmultipath/checkers.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
- libmultipath/blacklist.c |  8 +++++--
- libmultipath/checkers.c  |  9 ++++----
- libmultipath/vector.h    |  6 +++---
- multipathd/main.c        | 56 +++++++++++++++++++++++-------------------------
- multipathd/main.h        |  3 ++-
- multipathd/waiter.c      |  4 +++-
- 6 files changed, 45 insertions(+), 41 deletions(-)
+diff --git a/libmultipath/checkers.c b/libmultipath/checkers.c
+index f7ddd53..ac41d64 100644
+--- a/libmultipath/checkers.c
++++ b/libmultipath/checkers.c
+@@ -361,11 +361,10 @@ void checker_get(const char *multipath_dir, struct checker *dst,
+ 	if (!dst)
+ 		return;
 
+-	if (name && strlen(name)) {
+-		src = checker_class_lookup(name);
+-		if (!src)
+-			src = add_checker_class(multipath_dir, name);
+-	}
++	src = checker_class_lookup(name);
++	if (!src)
++		src = add_checker_class(multipath_dir, name);
++
+ 	dst->cls = src;
+ 	if (!src)
+ 		return;
 -- 
 1.8.3.1
+
 
 
 --
