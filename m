@@ -1,58 +1,61 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id A3EB0245CD1
-	for <lists+dm-devel@lfdr.de>; Mon, 17 Aug 2020 09:02:05 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id C645C245ECC
+	for <lists+dm-devel@lfdr.de>; Mon, 17 Aug 2020 10:06:42 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-38-4t1_NKt6MaGbsWrf8BzoFw-1; Mon, 17 Aug 2020 03:01:11 -0400
-X-MC-Unique: 4t1_NKt6MaGbsWrf8BzoFw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-316-jPhT3MmFM2yqAeTGZ3QbTw-1; Mon, 17 Aug 2020 04:06:39 -0400
+X-MC-Unique: jPhT3MmFM2yqAeTGZ3QbTw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B0750801AC8;
-	Mon, 17 Aug 2020 07:01:05 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 236D381F00D;
+	Mon, 17 Aug 2020 08:06:33 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8EF637A4C9;
-	Mon, 17 Aug 2020 07:01:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DA5CB5C3E1;
+	Mon, 17 Aug 2020 08:06:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3F001181A050;
-	Mon, 17 Aug 2020 07:01:05 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4399B181A869;
+	Mon, 17 Aug 2020 08:06:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07GL36vL000603 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 16 Aug 2020 17:03:06 -0400
+	id 07H8627Y011273 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 17 Aug 2020 04:06:02 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 50C6F110F0AB; Sun, 16 Aug 2020 21:03:06 +0000 (UTC)
+	id B7E9F2EFA7; Mon, 17 Aug 2020 08:06:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3DF81110F0A9
-	for <dm-devel@redhat.com>; Sun, 16 Aug 2020 21:03:02 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B42292EFBE
+	for <dm-devel@redhat.com>; Mon, 17 Aug 2020 08:06:00 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CA071858EE7
-	for <dm-devel@redhat.com>; Sun, 16 Aug 2020 21:03:02 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-480-lrKHnKLzND22AYMCxCV7qA-1;
-	Sun, 16 Aug 2020 17:03:00 -0400
-X-MC-Unique: lrKHnKLzND22AYMCxCV7qA-1
-Received: from tusharsu-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
-	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 078F220B490D;
-	Sun, 16 Aug 2020 14:02:59 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 078F220B490D
-From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-To: zohar@linux.ibm.com, agk@redhat.com, snitzer@redhat.com,
-	gmazyland@gmail.com
-Date: Sun, 16 Aug 2020 14:02:50 -0700
-Message-Id: <20200816210250.11506-3-tusharsu@linux.microsoft.com>
-In-Reply-To: <20200816210250.11506-1-tusharsu@linux.microsoft.com>
-References: <20200816210250.11506-1-tusharsu@linux.microsoft.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 90565811E8D
+	for <dm-devel@redhat.com>; Mon, 17 Aug 2020 08:06:00 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-137-g_wJ6M2IPK6GkSCuW0NzYg-1;
+	Mon, 17 Aug 2020 04:05:53 -0400
+X-MC-Unique: g_wJ6M2IPK6GkSCuW0NzYg-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 4C54BAC1C;
+	Mon, 17 Aug 2020 08:06:17 +0000 (UTC)
+Message-ID: <71d49c03470fbb70cc37f757e4804380566fba12.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Zhiqiang Liu <liuzhiqiang26@huawei.com>, bmarzins@redhat.com, Christophe
+	Varoqui <christophe.varoqui@opensvc.com>, Zdenek Kabelac
+	<zkabelac@redhat.com>
+Date: Mon, 17 Aug 2020 10:05:51 +0200
+In-Reply-To: <2d9db95b-bb88-0d22-1c2d-df459415ee3d@huawei.com>
+References: <351fa23b-b730-ce22-7e89-24f26a693a6a@huawei.com>
+	<2d9db95b-bb88-0d22-1c2d-df459415ee3d@huawei.com>
+User-Agent: Evolution 3.36.4
+MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,14 +64,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Mon, 17 Aug 2020 03:00:28 -0400
-Cc: sashal@kernel.org, jmorris@namei.org, linux-kernel@vger.kernel.org,
-	nramas@linux.microsoft.com, dm-devel@redhat.com,
-	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: [dm-devel] [PATCH 2/2] dm-crypt: collect data and submit to DM to
-	measure
+Cc: linfeilong <linfeilong@huawei.com>, Yanxiaodan <yanxiaodan@huawei.com>,
+	dm-devel@redhat.com, lixiaokeng <lixiaokeng@huawei.com>
+Subject: Re: [dm-devel] [PATCH 1/6] checker: remove useless name check in
+ checker_get func
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,312 +81,70 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0.003
+X-Mimecast-Spam-Score: 0.002
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Currently, dm-crypt does not take advantage of IMA measuring
-capabilities, and ultimately the benefits of remote attestation.
+On Sun, 2020-08-16 at 09:42 +0800, Zhiqiang Liu wrote:
+> In checker_get func, input name will be checked before
+> calling checker_class_lookup func, in which name will
+> also be checked.
+> 
+> Here, we just remove useless input name check in checker_get func.
+> 
+> Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
+> Signed-off-by: lixiaokeng <lixiaokeng@huawei.com>
+> ---
+>  libmultipath/checkers.c | 9 ++++-----
+>  1 file changed, 4 insertions(+), 5 deletions(-)
 
-Measure various dm-crypt constructs by calling various device-mapper
-functions - dm_ima_*() that use IMA measuring capabilities. Implement
-ima_measure_dm_crypt_data() to measure various dm-crypt constructs.
+Nack. Better safe than sorry. If you look at the generated assembly,
+you'll see that the compiler optimizes this double check away, so
+doesn't inflict runtime overhead, while it makes it easier to verify
+the code.
 
-Ensure that ima_measure_dm_crypt_data() is non intrusive, i.e. failures
-in this function and the call-stack below should not affect the core
-functionality of dm-crypt.
+I'd ack this if we had a solid convention in the multipath-tools code
+to check parameters always (only) in the callee. But so far we don't.
+I guess if we want to do that, we'd first need to agree on and
+implement a common convention for return values, too.
 
-A demonstrative usage of above functionality on a system:
+If checker_class_lookup() was non-static and/or the code was executed
+very often, things would also look different to me. But both is not the
+case.
 
-If the IMA policy contains the following rule:
+Regards,
+Martin
 
-    measure func=CRITICAL_DATA data_sources=dm-crypt template=ima-buf
 
-and, the following commands are used to setup a crypt target:
 
- #key="faf453b4ee938cff2f0d2c869a0b743f59125c0a37f5bcd8f1dbbd911a78abaa"
- #arg="'0 1953125 crypt aes-xts-plain64 "
- #arg="$arg $key 0 "
- #arg="$arg /dev/loop0 0 1 allow_discards'"
- #tgt_name="test-crypt"
- #cmd="dmsetup create $tgt_name --table $arg"
- #eval $cmd
-
-then, the IMA log at
-/sys/kernel/security/integrity/ima/ascii_runtime_measurements should
-contain the dm-crypt measurements. And, the following IMA log entry
-should be added in the IMA log,
-
- ima-buf sha1:4cbca71967d6b48e13ff5283d8e657899b005f70 
- 1597518359:539244018:dm-crypt:add_target
- 74695f6e756d5f646973636172645f62696f733d313b7065725f62696f5f646
- 174615f73697a653d3830383b646d7265715f73746172743d3136383b74666d
- 735f636f756e743d313b6f6e5f6469736b5f7461675f73697a653d303b696e7
- 46567726974795f69765f73697a653d303b696e746567726974795f7461675f
- 73697a653d303b69765f73697a653d31363b69765f6f66667365743d303b736
- 563746f725f73686966743d303b736563746f725f73697a653d3531323b666c
- 6167733d323b6369706865725f666c6167733d303b73746172743d303b6b657
- 95f6d61635f73697a653d303b6b65795f65787472615f73697a653d303b6b65
- 795f70617274733d313b6b65795f73697a653d33323b6369706865725f73747
- 2696e673d6165732d7874732d706c61696e36343b6465766963655f6e616d65
- 3d3235333a303b
-
-where, the ascii representation of the above data is:
-
- ti_num_discard_bios=1;per_bio_data_size=808;dmreq_start=168;
- tfms_count=1;on_disk_tag_size=0;integrity_iv_size=0;
- integrity_tag_size=0;iv_size=16;iv_offset=0;sector_shift=0;
- sector_size=512;flags=2;cipher_flags=0;start=0;key_mac_size=0;
- key_extra_size=0;key_parts=1;key_size=32;
- cipher_string=aes-xts-plain64;device_name=253:0;
-
-Some of the above values can be verified using:
-
- #dmsetup table --showkeys
-
-where, the output of the command should be similar to:
-
- test-crypt: 0 1953125 crypt aes-xts-plain64
- faf453b4ee938cff2f0d2c869a0b743f59125c0a37f5bcd8f1dbbd911a78abaa
- 0 7:0 0 1 allow_discards
-
-Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
----
- drivers/md/dm-crypt.c          | 170 +++++++++++++++++++++++++++++++++
- security/integrity/ima/Kconfig |   2 +-
- 2 files changed, 171 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 000ddfab5ba0..cf78628c984b 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -2465,6 +2465,8 @@ static void crypt_dtr(struct dm_target *ti)
- 
- 	ti->private = NULL;
- 
-+	dm_ima_exit_measurements(ti->type);
-+
- 	if (!cc)
- 		return;
- 
-@@ -2908,6 +2910,166 @@ static int crypt_ctr_optional(struct dm_target *ti, unsigned int argc, char **ar
- 	return 0;
- }
- 
-+#ifdef CONFIG_IMA
-+/*
-+ * append integer values to dm-crypt specific data
-+ * to be measured through IMA
-+ */
-+static int ima_append_num_values(struct dm_target *ti,
-+				 const char *key,
-+				 long long num_val)
-+{
-+	char *num_str = NULL;
-+	int length = 0;
-+	int r = 0;
-+
-+	if (!ti || !key) {
-+		r = -EINVAL;
-+		goto error;
-+	}
-+
-+	length = snprintf(NULL, 0, "%lld", num_val);
-+	num_str = kzalloc(length + 1, GFP_KERNEL);
-+	if (!num_str) {
-+		r = -ENOMEM;
-+		goto error;
-+	}
-+	snprintf(num_str, length + 1, "%lld", num_val);
-+	dm_ima_append_measurement_list(ti->type,
-+				       key,
-+				       (const void *)num_str,
-+				       length);
-+	kzfree(num_str);
-+	return r;
-+error:
-+	DMERR("appending num values to IMA measurement list failed %d", r);
-+	return r;
-+}
-+/*
-+ * Measure dm-crypt specific data through IMA.
-+ * It appends all the needed data to the list as a key-val pair using
-+ * dm_ima_append_measurement_list() and internal ima_append_num_values(),
-+ * and finally measures the list using dm_ima_finalize_and_measure().
-+ */
-+static void ima_measure_dm_crypt_data(struct dm_target *ti, const char *desc)
-+{
-+	int r = 0;
-+	struct crypt_config *cc = NULL;
-+	const char *devname = dm_table_device_name(ti->table);
-+
-+	if (!ti) {
-+		r = -EINVAL;
-+		goto out;
-+	}
-+
-+	cc = ti->private;
-+
-+	if (devname) {
-+		dm_ima_append_measurement_list(ti->type,
-+					       "device_name",
-+					       (const void *)devname,
-+					       strlen(devname));
-+	}
-+
-+	if (cc->cipher_string) {
-+		dm_ima_append_measurement_list(ti->type,
-+					       "cipher_string",
-+					       (const void *)cc->cipher_string,
-+					       strlen(cc->cipher_string));
-+	}
-+
-+	if (cc->cipher_auth) {
-+		dm_ima_append_measurement_list(ti->type,
-+					       "cipher_auth",
-+					       (const void *)cc->cipher_auth,
-+					       strlen(cc->cipher_auth));
-+	}
-+
-+	r = ima_append_num_values(ti, "key_size", cc->key_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "key_parts", cc->key_parts);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "key_extra_size", cc->key_extra_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "key_mac_size", cc->key_mac_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "start", cc->start);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "cipher_flags", cc->cipher_flags);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "flags", cc->flags);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "sector_size", cc->sector_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "sector_shift", cc->sector_shift);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "iv_offset", cc->iv_offset);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "iv_size", cc->iv_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "integrity_tag_size", cc->integrity_tag_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "integrity_iv_size", cc->integrity_iv_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "on_disk_tag_size", cc->on_disk_tag_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "tfms_count", cc->tfms_count);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "dmreq_start", cc->dmreq_start);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "per_bio_data_size", cc->per_bio_data_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "ti_num_discard_bios",
-+			      ti->num_discard_bios);
-+	if (r)
-+		goto out;
-+
-+	dm_ima_finalize_and_measure(ti->type, desc);
-+	return;
-+
-+out:
-+	DMERR("IMA measurement of dm-crypt data failed %d", r);
-+
-+}
-+#else
-+static inline void ima_measure_dm_crypt_data(struct dm_target *ti,
-+					     const char *desc) {}
-+#endif /* CONFIG_IMA */
-+
- /*
-  * Construct an encryption mapping:
-  * <cipher> [<key>|:<key_size>:<user|logon>:<key_description>] <iv_offset> <dev_path> <start>
-@@ -3093,6 +3255,10 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 
- 	ti->num_flush_bios = 1;
- 
-+	dm_ima_init_measurements(ti->type);
-+
-+	ima_measure_dm_crypt_data(ti, "add_target");
-+
- 	return 0;
- 
- bad:
-@@ -3225,6 +3391,8 @@ static void crypt_postsuspend(struct dm_target *ti)
- 	struct crypt_config *cc = ti->private;
- 
- 	set_bit(DM_CRYPT_SUSPENDED, &cc->flags);
-+
-+	ima_measure_dm_crypt_data(ti, "post_suspend");
- }
- 
- static int crypt_preresume(struct dm_target *ti)
-@@ -3244,6 +3412,8 @@ static void crypt_resume(struct dm_target *ti)
- 	struct crypt_config *cc = ti->private;
- 
- 	clear_bit(DM_CRYPT_SUSPENDED, &cc->flags);
-+
-+	ima_measure_dm_crypt_data(ti, "resume");
- }
- 
- /* Message interface
-diff --git a/security/integrity/ima/Kconfig b/security/integrity/ima/Kconfig
-index e4fb1761d64a..ac6708daeaac 100644
---- a/security/integrity/ima/Kconfig
-+++ b/security/integrity/ima/Kconfig
-@@ -324,7 +324,7 @@ config IMA_MEASURE_ASYMMETRIC_KEYS
- 
- config IMA_QUEUE_EARLY_BOOT_DATA
- 	bool
--	depends on SECURITY_SELINUX || (IMA_MEASURE_ASYMMETRIC_KEYS && SYSTEM_TRUSTED_KEYRING)
-+	depends on SECURITY_SELINUX || (IMA_MEASURE_ASYMMETRIC_KEYS && SYSTEM_TRUSTED_KEYRING) || DM_CRYPT
- 	default y
- 
- config IMA_SECURE_AND_OR_TRUSTED_BOOT
--- 
-2.17.1
+> 
+> diff --git a/libmultipath/checkers.c b/libmultipath/checkers.c
+> index f7ddd53..ac41d64 100644
+> --- a/libmultipath/checkers.c
+> +++ b/libmultipath/checkers.c
+> @@ -361,11 +361,10 @@ void checker_get(const char *multipath_dir,
+> struct checker *dst,
+>  	if (!dst)
+>  		return;
+> 
+> -	if (name && strlen(name)) {
+> -		src = checker_class_lookup(name);
+> -		if (!src)
+> -			src = add_checker_class(multipath_dir, name);
+> -	}
+> +	src = checker_class_lookup(name);
+> +	if (!src)
+> +		src = add_checker_class(multipath_dir, name);
+> +
+>  	dst->cls = src;
+>  	if (!src)
+>  		return;
 
 --
 dm-devel mailing list
