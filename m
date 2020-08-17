@@ -1,81 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 23884246B9C
-	for <lists+dm-devel@lfdr.de>; Mon, 17 Aug 2020 17:59:14 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 0202624786F
+	for <lists+dm-devel@lfdr.de>; Mon, 17 Aug 2020 23:00:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1597698056;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=aytEN0mvgVfAX67lTiNihYmj2mw92vQe4DSQY6U6GWk=;
+	b=AbyJV/NkIJctyEUZWvepoY0U5szDLdu2yJl8UdhOMwT85Srm4/D2vSOexXAbEYOxt0B989
+	/eDtGr9UJGfkqlhnW9iL8s8p11J0kchhvH4DUysATy67M+TlmQySHvlO5OuX2eaF5UZbey
+	WCXAEqU2OUqssYY/Z48fKlYeBSOXPmI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-105-3Ij5V8MdOkSNLfqQzqhVAQ-1; Mon, 17 Aug 2020 11:59:10 -0400
-X-MC-Unique: 3Ij5V8MdOkSNLfqQzqhVAQ-1
+ us-mta-1-uAmkoDQuMceaaSAXrGg0iA-1; Mon, 17 Aug 2020 17:00:52 -0400
+X-MC-Unique: uAmkoDQuMceaaSAXrGg0iA-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8994E100CECA;
-	Mon, 17 Aug 2020 15:59:03 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B0706756AB;
-	Mon, 17 Aug 2020 15:59:02 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1FF74801AB1;
+	Mon, 17 Aug 2020 21:00:46 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E61AE60BF3;
+	Mon, 17 Aug 2020 21:00:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 530BA60343;
-	Mon, 17 Aug 2020 15:59:00 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 592D51826D2D;
+	Mon, 17 Aug 2020 21:00:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07HFwr8Q006034 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 17 Aug 2020 11:58:53 -0400
+	id 07HL0AvE007027 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 17 Aug 2020 17:00:10 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 705CA2166BCC; Mon, 17 Aug 2020 15:58:53 +0000 (UTC)
+	id 0878E7D64A; Mon, 17 Aug 2020 21:00:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 699582166BB3
-	for <dm-devel@redhat.com>; Mon, 17 Aug 2020 15:58:51 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5497518AE955
-	for <dm-devel@redhat.com>; Mon, 17 Aug 2020 15:58:51 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-90-n97MJrw9NvmGnriSIknlmg-1; Mon, 17 Aug 2020 11:58:46 -0400
-X-MC-Unique: n97MJrw9NvmGnriSIknlmg-1
-Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.60])
-	by Forcepoint Email with ESMTP id B1143CBFD1CAAFB0CF7F;
-	Mon, 17 Aug 2020 23:58:41 +0800 (CST)
-Received: from [127.0.0.1] (10.174.179.249) by DGGEMS402-HUB.china.huawei.com
-	(10.3.19.202) with Microsoft SMTP Server id 14.3.487.0;
-	Mon, 17 Aug 2020 23:58:34 +0800
-To: Martin Wilck <mwilck@suse.com>, <bmarzins@redhat.com>, Christophe Varoqui
-	<christophe.varoqui@opensvc.com>, Zdenek Kabelac <zkabelac@redhat.com>
-References: <351fa23b-b730-ce22-7e89-24f26a693a6a@huawei.com>
-	<df68c7c3-2b86-ce72-62e9-c43ef80a2bc8@huawei.com>
-	<13e2afb835ace628a990ffc6de03fab195833c3a.camel@suse.com>
-From: Zhiqiang Liu <liuzhiqiang26@huawei.com>
-Message-ID: <a745e588-748e-c5d2-3396-d1d57c6ebc7f@huawei.com>
-Date: Mon, 17 Aug 2020 23:58:32 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
-	Thunderbird/68.2.2
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B3A67D920;
+	Mon, 17 Aug 2020 21:00:06 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 07HL04ql023014; 
+	Mon, 17 Aug 2020 16:00:04 -0500
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 07HL030s023013;
+	Mon, 17 Aug 2020 16:00:03 -0500
+Date: Mon, 17 Aug 2020 16:00:03 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: mwilck@suse.com
+Message-ID: <20200817210003.GG19233@octiron.msp.redhat.com>
+References: <20200812113511.26469-1-mwilck@suse.com>
+	<20200812113511.26469-9-mwilck@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <13e2afb835ace628a990ffc6de03fab195833c3a.camel@suse.com>
-Content-Language: en-US
-X-Originating-IP: [10.174.179.249]
-X-CFilter-Loop: Reflected
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+In-Reply-To: <20200812113511.26469-9-mwilck@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-Cc: linfeilong <linfeilong@huawei.com>, Yanxiaodan <yanxiaodan@huawei.com>,
-	dm-devel@redhat.com, lixiaokeng <lixiaokeng@huawei.com>
-Subject: Re: [dm-devel] [PATCH 5/6] vector: add lower boundary check in
- vector_foreach_slot_after
+Cc: dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH v2 71/74] multipath: use
+	update_pathvec_from_dm()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,77 +78,133 @@ Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0.002
+X-Mimecast-Spam-Score: 0.003
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-
-
-On 2020/8/17 17:11, Martin Wilck wrote:
-> On Sun, 2020-08-16 at 09:45 +0800, Zhiqiang Liu wrote:
->> In vector_foreach_slot_after macro, i is the input var, which
->> may have a illegal value (i < 0). So we should add lower boundary
->> check in vector_foreach_slot_after macro.
->>
->> Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
->> Signed-off-by: lixiaokeng <lixiaokeng@huawei.com>
->> ---
->>  libmultipath/vector.h | 6 +++---
->>  1 file changed, 3 insertions(+), 3 deletions(-)
+On Wed, Aug 12, 2020 at 01:35:11PM +0200, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
 > 
-> Perhaps we should write this instead? I'm unsure if compilers can
-> optimize away the repeated extra check in all cases.
+> The multipath-specific function update_paths() can now be replaced with
+> a call to update_pathvec_from_dm().
 > 
-> #define vector_foreach_slot_after(v,p,i) \
-> 	if ((v) && (int)(i) >= 0)        \
-> 		for (; (int)(i) < VECTOR_SIZE(v) && ((p) = (v)->slot[i]); (i)++)
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
+> Signed-off-by: Martin Wilck <mwilck@suse.com>
+> ---
+>  libmultipath/structs_vec.c |  2 +-
+>  multipath/main.c           | 68 +++-----------------------------------
+>  2 files changed, 5 insertions(+), 65 deletions(-)
 > 
-> Regards,
-> Martin
-> 
-Thanks for your advice.
-When I modified the vector_foreach_slot_after func, I just focused
-on the basic functionality, and the performance is totally not considered.
-I learn a lesson from your advice.
-
-Thanks again.
-
-Regards
-Zhiqiang Liu
-
->>
->> diff --git a/libmultipath/vector.h b/libmultipath/vector.h
->> index 2862dc2..45dbfc1 100644
->> --- a/libmultipath/vector.h
->> +++ b/libmultipath/vector.h
->> @@ -38,11 +38,11 @@ typedef struct _vector *vector;
->>  #define VECTOR_LAST_SLOT(V)   (((V) && VECTOR_SIZE(V) > 0) ? (V)-
->>> slot[(VECTOR_SIZE(V) - 1)] : NULL)
->>
->>  #define vector_foreach_slot(v,p,i) \
->> -	for (i = 0; (v) && (int)i < VECTOR_SIZE(v) && ((p) = (v)-
->>> slot[i]); i++)
->> +	for ((i) = 0; (v) && (int)(i) < VECTOR_SIZE(v) && ((p) = (v)-
->>> slot[i]); (i)++)
->>  #define vector_foreach_slot_after(v,p,i) \
->> -	for (; (v) && (int)i < VECTOR_SIZE(v) && ((p) = (v)->slot[i]);
->> i++)
->> +	for (; (v) && (int)(i) < VECTOR_SIZE(v) && (int)(i) >= 0 &&
->> ((p) = (v)->slot[i]); (i)++)
->>  #define vector_foreach_slot_backwards(v,p,i) \
->> -	for (i = VECTOR_SIZE(v) - 1; (int)i >= 0 && ((p) = (v)-
->>> slot[i]); i--)
->> +	for ((i) = VECTOR_SIZE(v) - 1; (int)(i) >= 0 && ((p) = (v)-
->>> slot[i]); (i)--)
->>
->>  #define identity(x) (x)
->>  /*
-> 
-> 
-> 
-> .
-> 
+> diff --git a/libmultipath/structs_vec.c b/libmultipath/structs_vec.c
+> index 07027f5..2d85df9 100644
+> --- a/libmultipath/structs_vec.c
+> +++ b/libmultipath/structs_vec.c
+> @@ -150,7 +150,7 @@ bool update_pathvec_from_dm(vector pathvec, struct multipath *mpp,
+>  			 * we know that the path is in pathvec already.
+>  			 */
+>  			if (pp->udev) {
+> -				if (pathinfo_flags) {
+> +				if (pathinfo_flags & ~DI_NOIO) {
+>  					conf = get_multipath_config();
+>  					pthread_cleanup_push(put_multipath_config,
+>  							     conf);
+> diff --git a/multipath/main.c b/multipath/main.c
+> index a144bc3..9d6b482 100644
+> --- a/multipath/main.c
+> +++ b/multipath/main.c
+> @@ -187,63 +187,6 @@ usage (char * progname)
+>  
+>  }
+>  
+> -static int
+> -update_paths (struct multipath * mpp, int quick)
+> -{
+> -	int i, j;
+> -	struct pathgroup * pgp;
+> -	struct path * pp;
+> -	struct config *conf;
+> -
+> -	if (!mpp->pg)
+> -		return 0;
+> -
+> -	vector_foreach_slot (mpp->pg, pgp, i) {
+> -		if (!pgp->paths)
+> -			continue;
+> -
+> -		vector_foreach_slot (pgp->paths, pp, j) {
+> -			if (!strlen(pp->dev)) {
+> -				if (devt2devname(pp->dev, FILE_NAME_SIZE,
+> -						 pp->dev_t)) {
+> -					/*
+> -					 * path is not in sysfs anymore
+> -					 */
+> -					pp->chkrstate = pp->state = PATH_DOWN;
+> -					pp->offline = 1;
+> -					continue;
+> -				}
+> -				pp->mpp = mpp;
+> -				if (quick)
+> -					continue;
+> -				conf = get_multipath_config();
+> -				if (pathinfo(pp, conf, DI_ALL))
+> -					pp->state = PATH_UNCHECKED;
+> -				put_multipath_config(conf);
+> -				continue;
+> -			}
+> -			pp->mpp = mpp;
+> -			if (quick)
+> -				continue;
+> -			if (pp->state == PATH_UNCHECKED ||
+> -			    pp->state == PATH_WILD) {
+> -				conf = get_multipath_config();
+> -				if (pathinfo(pp, conf, DI_CHECKER))
+> -					pp->state = PATH_UNCHECKED;
+> -				put_multipath_config(conf);
+> -			}
+> -
+> -			if (pp->priority == PRIO_UNDEF) {
+> -				conf = get_multipath_config();
+> -				if (pathinfo(pp, conf, DI_PRIO))
+> -					pp->priority = PRIO_UNDEF;
+> -				put_multipath_config(conf);
+> -			}
+> -		}
+> -	}
+> -	return 0;
+> -}
+> -
+>  static int
+>  get_dm_mpvec (enum mpath_cmds cmd, vector curmp, vector pathvec, char * refwwid)
+>  {
+> @@ -273,13 +216,9 @@ get_dm_mpvec (enum mpath_cmds cmd, vector curmp, vector pathvec, char * refwwid)
+>  		condlog(3, "status = %s", status);
+>  
+>  		disassemble_map(pathvec, params, mpp);
+> -
+> -		/*
+> -		 * disassemble_map() can add new paths to pathvec.
+> -		 * If not in "fast list mode", we need to fetch information
+> -		 * about them
+> -		 */
+> -		update_paths(mpp, (cmd == CMD_LIST_SHORT));
+> +		update_pathvec_from_dm(pathvec, mpp,
+> +				       (cmd == CMD_LIST_SHORT ?
+> +					DI_NOIO : DI_ALL));
+>  
+>  		if (cmd == CMD_LIST_LONG)
+>  			mpp->bestpg = select_path_group(mpp);
+> @@ -353,6 +292,7 @@ static int check_usable_paths(struct config *conf,
+>  	dm_get_map(mpp->alias, &mpp->size, params);
+>  	dm_get_status(mpp->alias, status);
+>  	disassemble_map(pathvec, params, mpp);
+> +	update_pathvec_from_dm(pathvec, mpp, 0);
+>  	disassemble_status(status, mpp);
+>  
+>  	vector_foreach_slot (mpp->pg, pg, i) {
+> -- 
+> 2.28.0
 
 --
 dm-devel mailing list
