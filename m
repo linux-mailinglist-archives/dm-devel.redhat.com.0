@@ -1,62 +1,74 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 62D252489A0
-	for <lists+dm-devel@lfdr.de>; Tue, 18 Aug 2020 17:23:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1597764193;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=+EU5FbgjkrFyWgTsOakgStTw8TjjuxRXmCsDYecmV/8=;
-	b=ZRd6RB1d42Bi1iIlossE6gFVcV8oXYQ0ILYgue42GhJgSSWrEf6YeyGL7SN7BULEHfcD9P
-	TU+2NKM39aI2ydqszle82RH8aWX5mAJoLGvUbU9Nsx3UHXtSlPSMu4D/INdvbjcJZmjGJ6
-	Hsi+k0gszgIAhFrwFpptc2OEh4ZeUqk=
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id B3D3A248AD9
+	for <lists+dm-devel@lfdr.de>; Tue, 18 Aug 2020 17:58:58 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-113-4opz4UdvP567HiECItns5A-1; Tue, 18 Aug 2020 11:23:09 -0400
-X-MC-Unique: 4opz4UdvP567HiECItns5A-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-133--KJ-mWqYMP-FlITb9SiEcg-1; Tue, 18 Aug 2020 11:58:54 -0400
+X-MC-Unique: -KJ-mWqYMP-FlITb9SiEcg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 822AF81F01B;
-	Tue, 18 Aug 2020 15:23:02 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 25A4A186A561;
+	Tue, 18 Aug 2020 15:58:40 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D76FB5C1DC;
-	Tue, 18 Aug 2020 15:22:57 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ABF3A5D9DC;
+	Tue, 18 Aug 2020 15:58:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 58A1C6036A;
-	Tue, 18 Aug 2020 15:22:45 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2912D24AB8;
+	Tue, 18 Aug 2020 15:58:06 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07IFKT6u005774 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 18 Aug 2020 11:20:29 -0400
+	id 07IFvabm010294 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 18 Aug 2020 11:57:36 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7F7F539A75; Tue, 18 Aug 2020 15:20:29 +0000 (UTC)
+	id 6AD819E95; Tue, 18 Aug 2020 15:57:36 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9379D7C0AC;
-	Tue, 18 Aug 2020 15:20:23 +0000 (UTC)
-Date: Tue, 18 Aug 2020 11:20:22 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: Jens Axboe <axboe@kernel.dk>, Ming Lei <ming.lei@redhat.com>
-Message-ID: <20200818152022.GB6842@redhat.com>
-References: <20200818090728.2696802-1-ming.lei@redhat.com>
-	<92162ee6-0fa0-dafd-69b1-af285ee61044@kernel.dk>
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 65F5F9E6D
+	for <dm-devel@redhat.com>; Tue, 18 Aug 2020 15:57:34 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E0C26101AA41
+	for <dm-devel@redhat.com>; Tue, 18 Aug 2020 15:57:33 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-132-BEr6idv5NfexUPEqBYbUMQ-1;
+	Tue, 18 Aug 2020 11:57:29 -0400
+X-MC-Unique: BEr6idv5NfexUPEqBYbUMQ-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 157C7AE38;
+	Tue, 18 Aug 2020 15:57:54 +0000 (UTC)
+Message-ID: <3d99bd1341a4bded6785a8c67fe0907e8260a871.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: lixiaokeng <lixiaokeng@huawei.com>, Benjamin Marzinski
+	<bmarzins@redhat.com>, Christophe Varoqui <christophe.varoqui@opensvc.com>,
+	dm-devel@redhat.com
+Date: Tue, 18 Aug 2020 17:57:27 +0200
+In-Reply-To: <a3e11ab6-c81c-d136-68ea-3d36fc59c810@huawei.com>
+References: <5ef5f58e-3a27-8959-3abb-4b4c401cc309@huawei.com>
+	<a3e11ab6-c81c-d136-68ea-3d36fc59c810@huawei.com>
+User-Agent: Evolution 3.36.5
 MIME-Version: 1.0
-In-Reply-To: <92162ee6-0fa0-dafd-69b1-af285ee61044@kernel.dk>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
-	Christoph Hellwig <hch@lst.de>, Bart Van Assche <bvanassche@acm.org>
-Subject: Re: [dm-devel] [PATCH RESEND] blk-mq: insert request not through
- ->queue_rq into sw/scheduler queue
+Cc: linfeilong@huawei.com, liuzhiqiang26@huawei.com
+Subject: Re: [dm-devel] [PATCH 1/5 v4] libmultipath fix a memory leak in
+	set_ble_device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -70,50 +82,37 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0.002
+X-Mimecast-Spam-Score: 0.001
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-On Tue, Aug 18 2020 at 10:50am -0400,
-Jens Axboe <axboe@kernel.dk> wrote:
-
-> On 8/18/20 2:07 AM, Ming Lei wrote:
-> > c616cbee97ae ("blk-mq: punt failed direct issue to dispatch list") supposed
-> > to add request which has been through ->queue_rq() to the hw queue dispatch
-> > list, however it adds request running out of budget or driver tag to hw queue
-> > too. This way basically bypasses request merge, and causes too many request
-> > dispatched to LLD, and system% is unnecessary increased.
-> > 
-> > Fixes this issue by adding request not through ->queue_rq into sw/scheduler
-> > queue, and this way is safe because no ->queue_rq is called on this request
-> > yet.
-> > 
-> > High %system can be observed on Azure storvsc device, and even soft lock
-> > is observed. This patch reduces %system during heavy sequential IO,
-> > meantime decreases soft lockup risk.
+On Tue, 2020-08-18 at 21:02 +0800, lixiaokeng wrote:
+> In set_ble_device func, if blist is NULL or ble is NULL,
+> the vendor and product isn't freed. We think it is not
+> reasonable that strdup(XXX) is used as set_ble_device
+> and store_ble functions' parameter.
 > 
-> Applied, thanks Ming.
+> Here we call strdup() in store_ble and set_ble_device
+> functions and the string will be free if functions fail.
+> Because constant string like "sdb" will be their parameter,
+> char * is changed to const char *. This is base on
+> upstream-queue branch in openSUSE/multipath-tools.
+> 
+> The type of ble->vendor_reg is regex_t struct but not a
+> pointer, so it can not be set NULL.
 
-Hmm, strikes me as strange that this is occurring given the direct
-insertion into blk-mq queue (bypassing scheduler) is meant to avoid 2
-layers of IO merging when dm-mulipath is stacked on blk-mq path(s).  The
-dm-mpath IO scheduler does all merging and underlying paths' blk-mq
-request_queues are meant to just dispatch the top-level's requests.
+Ups. Right. Thanks for correcting me.
 
-So this change concerns me.  Feels like this design has broken down.
+> 
+> Signed-off-by: Lixiaokeng <lixiaokeng@huawei.com>
+> Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
 
-Could be that some other entry point was added for the
-__blk_mq_try_issue_directly() code?  And it needs to be untangled away
-from the dm-multipath use-case?
+Reviewed-by: Martin Wilck <mwilck@suse.com>
 
-Apologies for not responding to this patch until now.
-
-Mike
 
 --
 dm-devel mailing list
