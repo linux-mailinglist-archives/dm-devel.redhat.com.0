@@ -1,71 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 26F83247EBD
-	for <lists+dm-devel@lfdr.de>; Tue, 18 Aug 2020 08:54:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1597733653;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=sIThlfD/Zn8NDnIZbz1QhQ7mLc2NVFcdWEEUnzF1rIQ=;
-	b=NzEe691hH/NzrP+yr2qh3uT+uMdybGvEB8LLB9++lJcwsiAKggwGKAq5yd7zfoCgTuUJbq
-	+KcUOtTec/Frw/hBzrxdu72kRMTePcQYlA7IhaRVEV0CMl69nzJtnIR53e01+zan8CfNRj
-	TQf1RGv5j9IGoE8JwCeKasX6XaGeUQc=
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 199F6247F98
+	for <lists+dm-devel@lfdr.de>; Tue, 18 Aug 2020 09:37:38 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-257-p2cxAHfQO2KVMDGkxiMH6A-1; Tue, 18 Aug 2020 02:54:10 -0400
-X-MC-Unique: p2cxAHfQO2KVMDGkxiMH6A-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-111-6U9j7flfPLCJM7sfh7vOrw-1; Tue, 18 Aug 2020 03:37:35 -0400
+X-MC-Unique: 6U9j7flfPLCJM7sfh7vOrw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7B2A91DDEF;
-	Tue, 18 Aug 2020 06:54:00 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DB2D51084C84;
+	Tue, 18 Aug 2020 07:37:28 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E355F10027A6;
-	Tue, 18 Aug 2020 06:53:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 669B27A1CB;
+	Tue, 18 Aug 2020 07:37:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 642D424AB8;
-	Tue, 18 Aug 2020 06:53:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E9CA96035D;
+	Tue, 18 Aug 2020 07:37:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07I6plil018121 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 18 Aug 2020 02:51:47 -0400
+	id 07I7bAEO022560 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 18 Aug 2020 03:37:10 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6C1C87D92C; Tue, 18 Aug 2020 06:51:47 +0000 (UTC)
+	id 07A49202279B; Tue, 18 Aug 2020 07:37:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1CDA37D939;
-	Tue, 18 Aug 2020 06:51:43 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 07I6pfZQ025749; 
-	Tue, 18 Aug 2020 01:51:41 -0500
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 07I6peYa025748;
-	Tue, 18 Aug 2020 01:51:40 -0500
-Date: Tue, 18 Aug 2020 01:51:40 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <mwilck@suse.com>
-Message-ID: <20200818065140.GN19233@octiron.msp.redhat.com>
-References: <351fa23b-b730-ce22-7e89-24f26a693a6a@huawei.com>
-	<4127cfc2-413f-32d9-cf76-0c0453524aeb@huawei.com>
-	<dbe521bcacbc746969437612d639387663898f88.camel@suse.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DE6D7205EB17
+	for <dm-devel@redhat.com>; Tue, 18 Aug 2020 07:37:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8F60F811E93
+	for <dm-devel@redhat.com>; Tue, 18 Aug 2020 07:37:06 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-512-RxSyl8IQNHalfanbvYGSxQ-1;
+	Tue, 18 Aug 2020 03:37:02 -0400
+X-MC-Unique: RxSyl8IQNHalfanbvYGSxQ-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id AA724ACC8;
+	Tue, 18 Aug 2020 07:37:26 +0000 (UTC)
+Message-ID: <3f3a9bf677107e868f8935db7e82fc39b916a272.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Benjamin Marzinski <bmarzins@redhat.com>
+Date: Tue, 18 Aug 2020 09:37:00 +0200
+In-Reply-To: <20200817213105.GH19233@octiron.msp.redhat.com>
+References: <20200812113543.26576-1-mwilck@suse.com>
+	<20200812113543.26576-2-mwilck@suse.com>
+	<20200817213105.GH19233@octiron.msp.redhat.com>
+User-Agent: Evolution 3.36.5
 MIME-Version: 1.0
-In-Reply-To: <dbe521bcacbc746969437612d639387663898f88.camel@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: lixiaokeng <lixiaokeng@huawei.com>, Yanxiaodan <yanxiaodan@huawei.com>,
-	linfeilong <linfeilong@huawei.com>, dm-devel@redhat.com,
-	Zdenek Kabelac <zkabelac@redhat.com>,
-	Zhiqiang Liu <liuzhiqiang26@huawei.com>
-Subject: Re: [dm-devel] [PATCH 4/6] libmultipath: check blist before calling
- MALLOC in alloc_ble_device func
+Cc: dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH v2 76/80] libmultipath: select_action():
+ force udev reload for uninitialized maps
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,76 +81,40 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0.001
+X-Mimecast-Spam-Score: 0.002
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-On Mon, Aug 17, 2020 at 10:51:49AM +0200, Martin Wilck wrote:
-> On Sun, 2020-08-16 at 09:45 +0800, Zhiqiang Liu wrote:
-> > In alloc_ble_device func, ble is firstly allocated by calling MALLOC,
-> > and then input blist is checked whether it is valid. If blist is not
-> > valid, ble will be freed without using.
+On Mon, 2020-08-17 at 16:31 -0500, Benjamin Marzinski wrote:
+> On Wed, Aug 12, 2020 at 01:35:40PM +0200, mwilck@suse.com wrote:
+> > From: Martin Wilck <mwilck@suse.com>
 > > 
-> > Here, we should check blist firstly.
-> > 
-> > Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
-> > Signed-off-by: lixiaokeng <lixiaokeng@huawei.com>
-> > ---
-> >  libmultipath/blacklist.c | 8 ++++++--
-> >  1 file changed, 6 insertions(+), 2 deletions(-)
+> > If we are in the reconfigure() code path, and we encounter maps to
+> > be reloaded, we usually set the DM_SUBSYSTEM_UDEV_FLAG0 flag to
+> > tell
+> > udev not to repeat device detection steps above the multipath
+> > layer.
+> > However, if the map was previously uninitialized, we have to force
+> > udev to reload.
 > 
-> This patch isn't wrong, but it fixes code which isn't buggy. It's
-> rather a style thing, an optimization for an extremely unlikely error
-> case. I agree with you in the sense that I prefer the "new" style over
-> the old (I generally dislike expressions that can fail, like malloc()
-> calls, being used as variable initializers), but I'm not sure if we
-> should start applying patches for cases like this. So far we've been
-> rather conservative with "style" patches, because they tend to make it
-> unnecessarily hard to track code history.
+> Actually, this patch looks all broken now. select_reload_action()
+> doesn't have a cmpp argument, but still has
 > 
-> Ben, Christophe, what's your take on this matter?
+> mpp_ud = get_udev_for_mpp(cmpp);
+> 
+> Also, it's setting the action on cmpp from select_action, not mpp.
+> I'm
+> pretty sure that the next patch makes everything work o.k. again.
 
-While I'm not really a fan of whitespace tweaking patches, I'm fine with
-this. All things being equal, I really do prefer it when functions check
-their arguments first, instead of doing possibly unnecessary work.
+Right. Thank you for reviewing and spotting it, and apologies for the
+mistake.
 
-Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
- 
-> Regards,
-> Martin
-> 
-> 
-> > 
-> > diff --git a/libmultipath/blacklist.c b/libmultipath/blacklist.c
-> > index db58ccc..bedcc7e 100644
-> > --- a/libmultipath/blacklist.c
-> > +++ b/libmultipath/blacklist.c
-> > @@ -66,12 +66,16 @@ out:
-> > 
-> >  int alloc_ble_device(vector blist)
-> >  {
-> > -	struct blentry_device * ble = MALLOC(sizeof(struct
-> > blentry_device));
-> > +	struct blentry_device *ble;
-> > 
-> > +	if (!blist)
-> > +		return 1;
-> > +
-> > +	ble = MALLOC(sizeof(struct blentry_device));
-> >  	if (!ble)
-> >  		return 1;
-> > 
-> > -	if (!blist || !vector_alloc_slot(blist)) {
-> > +	if (!vector_alloc_slot(blist)) {
-> >  		FREE(ble);
-> >  		return 1;
-> >  	}
-> 
+Martin
+
 
 --
 dm-devel mailing list
