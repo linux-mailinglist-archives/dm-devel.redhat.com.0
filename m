@@ -1,57 +1,58 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 74A4C2485A6
-	for <lists+dm-devel@lfdr.de>; Tue, 18 Aug 2020 15:07:59 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id EC3142485AA
+	for <lists+dm-devel@lfdr.de>; Tue, 18 Aug 2020 15:09:07 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-355-707bosoUM7WXSSqh2KUWGg-1; Tue, 18 Aug 2020 09:07:55 -0400
-X-MC-Unique: 707bosoUM7WXSSqh2KUWGg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-407-Z9J8zQHOMrOB0fTeEOl3XA-1; Tue, 18 Aug 2020 09:08:59 -0400
+X-MC-Unique: Z9J8zQHOMrOB0fTeEOl3XA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 86E1381F01F;
-	Tue, 18 Aug 2020 13:07:49 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8C9A510021AA;
-	Tue, 18 Aug 2020 13:07:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 041C681F022;
+	Tue, 18 Aug 2020 13:08:54 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C01357BE6B;
+	Tue, 18 Aug 2020 13:08:53 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7533960367;
-	Tue, 18 Aug 2020 13:07:45 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2F602181A06B;
+	Tue, 18 Aug 2020 13:08:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07ID6vfu023957 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 18 Aug 2020 09:06:57 -0400
+	id 07ID8nKh024110 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 18 Aug 2020 09:08:49 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 494582166BCC; Tue, 18 Aug 2020 13:06:57 +0000 (UTC)
+	id 5D92B33247; Tue, 18 Aug 2020 13:08:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 451052166BB3
-	for <dm-devel@redhat.com>; Tue, 18 Aug 2020 13:06:55 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 58F2630B84
+	for <dm-devel@redhat.com>; Tue, 18 Aug 2020 13:08:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2800918AE956
-	for <dm-devel@redhat.com>; Tue, 18 Aug 2020 13:06:55 +0000 (UTC)
-Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191]) (Using
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 457F9101A56A
+	for <dm-devel@redhat.com>; Tue, 18 Aug 2020 13:08:47 +0000 (UTC)
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-216-m1xoGFqAP8Gx66WqQNQc9w-1; Tue, 18 Aug 2020 09:06:50 -0400
-X-MC-Unique: m1xoGFqAP8Gx66WqQNQc9w-1
-Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.59])
-	by Forcepoint Email with ESMTP id 2E4DBCB8B2AE6BEFDC8C;
-	Tue, 18 Aug 2020 21:06:44 +0800 (CST)
-Received: from [127.0.0.1] (10.174.179.62) by DGGEMS410-HUB.china.huawei.com
-	(10.3.19.210) with Microsoft SMTP Server id 14.3.487.0; Tue, 18 Aug 2020
-	21:06:37 +0800
+	us-mta-33-GNzKsu_lNnKFkBgwwftaOg-1; Tue, 18 Aug 2020 09:08:40 -0400
+X-MC-Unique: GNzKsu_lNnKFkBgwwftaOg-1
+Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.60])
+	by Forcepoint Email with ESMTP id BEA1FD7825AC4FFFF9B0;
+	Tue, 18 Aug 2020 21:08:34 +0800 (CST)
+Received: from [127.0.0.1] (10.174.179.62) by DGGEMS405-HUB.china.huawei.com
+	(10.3.19.205) with Microsoft SMTP Server id 14.3.487.0; Tue, 18 Aug 2020
+	21:08:28 +0800
 From: lixiaokeng <lixiaokeng@huawei.com>
 To: Benjamin Marzinski <bmarzins@redhat.com>, Martin Wilck <mwilck@suse.com>, 
 	Christophe Varoqui <christophe.varoqui@opensvc.com>, <dm-devel@redhat.com>
 References: <5ef5f58e-3a27-8959-3abb-4b4c401cc309@huawei.com>
-Message-ID: <285a42f1-69c2-ce2e-e30c-d12fb6edc859@huawei.com>
-Date: Tue, 18 Aug 2020 21:06:36 +0800
+Message-ID: <8fd64929-cb4b-5267-1899-15a82e2ff678@huawei.com>
+Date: Tue, 18 Aug 2020 21:08:27 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
 	Thunderbird/68.10.0
 MIME-Version: 1.0
@@ -67,11 +68,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: linfeilong@huawei.com, liuzhiqiang26@huawei.com
-Subject: [dm-devel] [PATCH 2/5] libmultipath fix NULL dereference in
-	select_action
+Subject: [dm-devel] [PATCH 3/5] multipathd: add reclear_pp_from_mpp in
+	ev_remove_path
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,7 +86,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.002
@@ -93,129 +94,104 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-I got a multipath segfault while running iscsi login/logout and following scripts in parallel:
+Add reclear_pp_from_mpp in ev_remove_path to make sure that pp is cleared in mpp.
 
-#!/bin/bash
-interval=1
-while true
-do
-              multipath -F &> /dev/null
-              multipath -r &> /dev/null
-              multipath -v2 &> /dev/null
-              multipath -ll &> /dev/null
-              sleep $interval
-done
+When multipathd del path xxx, multipathd -v2, multipathd add path xxx and multipath -U
+dm-x are executed simultaneously, multipath -U dm-x will case coredump.
 
-This is the debuginfo:
-Core was generated by `multipath -v2'.
-Program terminated with signal SIGSEGV, Segmentation fault.
-#0  0x00007fc5c5c8dedf in select_action (mpp=0x55a94f1f8980, curmp=<optimized out>,
-    force_reload=<optimized out>) at configure.c:709
-709		if (!cmpp->pg || VECTOR_SIZE(cmpp->pg) != VECTOR_SIZE(mpp->pg)) { {
+The reason is that there are two paths with same dev_t in dm_table. The process
+is as follows:
 
-(gdb) bt
-#0  0x00007fc5c5c8dedf in select_action (mpp=0x55a94f1f8980, curmp=<optimized out>,
-    force_reload=<optimized out>) at configure.c:709
-#1  0x00007fc5c5c8fd0f in coalesce_paths (vecs=0x7ffff1c1c220, newmp=0x0, refwwid=0x0,
-    force_reload=0, cmd=CMD_CREATE) at configure.c:1090
-#2  0x000055a94e9f524d in configure (devpath=<optimized out>, dev_type=DEV_NONE,
-    cmd=CMD_CREATE, conf=0x55a94f1b92d0) at main.c:757
-#3  main (argc=<optimized out>, argv=<optimized out>) at main.c:1100
-(gdb) p *cmpp
-$1 = {
-  wwid = "3600140566411a6d4873434fba988066f\000\070\060\066\066f", '\000' <repeats 88 times>,
-  ...
-  paths = 0x0, pg = 0x0, dmi = 0x55a94f22c3f0, alias = 0x55a94f205fb0 "mpathc",
-  alias_prefix = 0x0, selector = 0x0, features = 0x0, hwhandler = 0x0, mpe = 0x0,
-  hwe = 0x0, waiter = 0, stat_switchgroup = 0, stat_path_failures = 0, stat_map_loads = 0,
-  ...
-  generic_mp = {ops = 0x7fc5c5cada40 <dm_gen_multipath_ops>}}
+multipathd del path xxx(such as sde whose dev_t is 8:64):
 
-There are many NULL pointers in cmpp such as selector, features, hwhandler and so on.
-Here these on mpp is not NULL  but we can not be sure that won't be in mpp, so we
-add checking pointers of both mpp and cmpp before using them.
+cli_del_path
+	->ev_remove_path
+		->domap //dm_table in kernel will be reloaded and doesn't contain 8:64.
+		        //Then multipath -v2 is executed, and the dm_table in kernel
+		        //will be reloaded and contains 8:64.
+		->setup_multipath
+			->update_multipath_strings
+				->update_multipath_table
+					->dm_get_map //get params with 8:64
+					->disassemble_map //pp1 will be saved mpp->pg
+		->delete pp1 in pathvec
+		->clear_ref_from_mpp //pp is cleared in mpp->paths but still saved in
+		                     //mpp->pg
+		->free_paths //pp1 is freed but still exist in mpp->pg
 
-The changes like "mpp->features != cmpp->features" make sure that mpp->action is not
-set to ACT_RELOAD when they both equal NULL. Other changes check pointers don't equal
-NULL. When only one is NULL, we think there is some difference between mpp and cmpp,
-so mpp->action should be set to ACT_RELOAD.
+multipathd add path sde
+cli_add_path
+	->store_pathinfo //alloc pp2 (dev_t is 8:64), and store it to gvecs->pathvec
+	->ev_add_path
+		->adopt_paths
+			->update_mpp_paths //pp1 is found in mpp->pg and its dev_t is
+			                   //8:64 and dev is not sde (cased by free).
+			                   //it will be stored in mpp->paths.
+			->pp2 is stored to mpp->paths
+		->setup_map //params with two 8:64
+		->domap //dm_table is reloaded and contains two 8:64
 
-Signed-off-by: Lixiaokeng <lixiaokeng@huawei.com>
+multipath -U dm-x(sde is one path of dm-x)
+main
+	->check_usable_paths
+		->dm_get_maps //get params with two 8:64
+		->disassemble_map //alloc pp3, and pp3 is saved twice in mpp->pg
+		->free_multipath(mpp, FREE_PATHS) //double free
+
+Here, we add that pp1 in mpp->pg is cleared in clear_ref_from_mpp.
+
+Reported-by: Tianxiong Lu <lutianxiong@huawei.com>
+Signed-off-by: lixiaokeng <lixiaokeng@huawei.com>
 Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
 ---
- libmultipath/configure.c | 30 ++++++++++++++++++++++--------
- 1 file changed, 22 insertions(+), 8 deletions(-)
+ multipathd/main.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-index 96c79610..e02e7ef4 100644
---- a/libmultipath/configure.c
-+++ b/libmultipath/configure.c
-@@ -726,16 +726,20 @@ select_action (struct multipath * mpp, vector curmp, int force_reload)
- 	}
+diff --git a/multipathd/main.c b/multipathd/main.c
+index 9ec65856..a1db17a0 100644
+--- a/multipathd/main.c
++++ b/multipathd/main.c
+@@ -1059,6 +1059,32 @@ fail:
+ 	return 1;
+ }
 
- 	if (mpp->no_path_retry != NO_PATH_RETRY_UNDEF &&
-+	    mpp->features != cmpp->features &&
-+	    (!mpp->features || !cmpp->features ||
- 	    !!strstr(mpp->features, "queue_if_no_path") !=
--	    !!strstr(cmpp->features, "queue_if_no_path")) {
-+	    !!strstr(cmpp->features, "queue_if_no_path"))) {
- 		mpp->action =  ACT_RELOAD;
- 		condlog(3, "%s: set ACT_RELOAD (no_path_retry change)",
- 			mpp->alias);
- 		return;
- 	}
--	if ((mpp->retain_hwhandler != RETAIN_HWHANDLER_ON ||
-+	if ((mpp->retain_hwhandler != RETAIN_HWHANDLER_ON || !cmpp->hwhandler ||
- 	     strcmp(cmpp->hwhandler, "0") == 0) &&
--	    (strlen(cmpp->hwhandler) != strlen(mpp->hwhandler) ||
-+	     mpp->hwhandler != cmpp->hwhandler &&
-+	     (!mpp->hwhandler || !cmpp->hwhandler||
-+	     strlen(cmpp->hwhandler) != strlen(mpp->hwhandler) ||
- 	     strncmp(cmpp->hwhandler, mpp->hwhandler,
- 		    strlen(mpp->hwhandler)))) {
- 		mpp->action = ACT_RELOAD;
-@@ -745,8 +749,10 @@ select_action (struct multipath * mpp, vector curmp, int force_reload)
- 	}
-
- 	if (mpp->retain_hwhandler != RETAIN_HWHANDLER_UNDEF &&
-+	    mpp->features != cmpp->features &&
-+	    (!mpp->features || !cmpp->features ||
- 	    !!strstr(mpp->features, "retain_attached_hw_handler") !=
--	    !!strstr(cmpp->features, "retain_attached_hw_handler") &&
-+	    !!strstr(cmpp->features, "retain_attached_hw_handler")) &&
- 	    get_linux_version_code() < KERNEL_VERSION(4, 3, 0)) {
- 		mpp->action = ACT_RELOAD;
- 		condlog(3, "%s: set ACT_RELOAD (retain_hwhandler change)",
-@@ -754,8 +760,16 @@ select_action (struct multipath * mpp, vector curmp, int force_reload)
- 		return;
- 	}
-
--	cmpp_feat = STRDUP(cmpp->features);
--	mpp_feat = STRDUP(mpp->features);
-+	if (!cmpp->features ) {
-+		cmpp_feat = NULL;
-+	} else {
-+		cmpp_feat = STRDUP(cmpp->features);
++static
++void reclear_pp_from_mpp(struct path * pp, struct vectors * vecs)
++{
++	struct multipath * mpp = NULL;
++	struct pathgroup * pgp;
++	int i = -1;
++	int j = 0;
++	int is_log = 0;
++
++	mpp = find_mp_by_wwid(vecs->mpvec, pp->wwid);
++	if(!!mpp) {
++		if ((i = find_slot(mpp->paths, (void *)pp)) != -1) {
++			vector_del_slot(mpp->paths, i);
++			is_log = 1;
++		}
++		vector_foreach_slot (mpp->pg, pgp, j) {
++			if ((i = find_slot(pgp->paths, (void *)pp)) != -1) {
++				vector_del_slot(pgp->paths, i);
++				is_log = 1;
++			}
++		}
++		if (is_log)
++			condlog(2, "%s: reclear path from mpp %s", pp->dev, mpp->alias);
 +	}
-+	if (!mpp->features ) {
-+		mpp_feat = NULL;
-+	} else {
-+		mpp_feat = STRDUP(mpp->features);
-+	}
- 	if (cmpp_feat && mpp_feat) {
- 		remove_feature(&mpp_feat, "queue_if_no_path");
- 		remove_feature(&mpp_feat, "retain_attached_hw_handler");
-@@ -770,8 +784,8 @@ select_action (struct multipath * mpp, vector curmp, int force_reload)
- 	FREE(cmpp_feat);
- 	FREE(mpp_feat);
++}
++
+ static int
+ uev_remove_path (struct uevent *uev, struct vectors * vecs, int need_do_map)
+ {
+@@ -1186,6 +1212,7 @@ out:
+ 	if ((i = find_slot(vecs->pathvec, (void *)pp)) != -1)
+ 		vector_del_slot(vecs->pathvec, i);
 
--	if (!cmpp->selector || strncmp(cmpp->selector, mpp->selector,
--		    strlen(mpp->selector))) {
-+	if (mpp->selector != cmpp->selector && (!cmpp->selector || !mpp->selector ||
-+		    strncmp(cmpp->selector, mpp->selector,strlen(mpp->selector)))) {
- 		mpp->action = ACT_RELOAD;
- 		condlog(3, "%s: set ACT_RELOAD (selector change)",
- 			mpp->alias);
++	reclear_pp_from_mpp(pp, vecs);
+ 	free_path(pp);
+
+ 	return retval;
 -- 
 
 --
