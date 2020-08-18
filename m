@@ -1,58 +1,58 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id EC3142485AA
-	for <lists+dm-devel@lfdr.de>; Tue, 18 Aug 2020 15:09:07 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id F36C32485AF
+	for <lists+dm-devel@lfdr.de>; Tue, 18 Aug 2020 15:10:38 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-407-Z9J8zQHOMrOB0fTeEOl3XA-1; Tue, 18 Aug 2020 09:08:59 -0400
-X-MC-Unique: Z9J8zQHOMrOB0fTeEOl3XA-1
+ us-mta-472-mN8twgjhNqKgRVE5blTDCQ-1; Tue, 18 Aug 2020 09:10:34 -0400
+X-MC-Unique: mN8twgjhNqKgRVE5blTDCQ-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 041C681F022;
-	Tue, 18 Aug 2020 13:08:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8C851894B6F;
+	Tue, 18 Aug 2020 13:10:15 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C01357BE6B;
-	Tue, 18 Aug 2020 13:08:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EE3C139A75;
+	Tue, 18 Aug 2020 13:10:14 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2F602181A06B;
-	Tue, 18 Aug 2020 13:08:53 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AAEE3181A06B;
+	Tue, 18 Aug 2020 13:10:13 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07ID8nKh024110 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 18 Aug 2020 09:08:49 -0400
+	id 07IDA8aG024192 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 18 Aug 2020 09:10:08 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5D92B33247; Tue, 18 Aug 2020 13:08:49 +0000 (UTC)
+	id 71BC330B84; Tue, 18 Aug 2020 13:10:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 58F2630B84
-	for <dm-devel@redhat.com>; Tue, 18 Aug 2020 13:08:47 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6D7C38A4D2
+	for <dm-devel@redhat.com>; Tue, 18 Aug 2020 13:10:03 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 457F9101A56A
-	for <dm-devel@redhat.com>; Tue, 18 Aug 2020 13:08:47 +0000 (UTC)
-Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190]) (Using
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 273B681163A
+	for <dm-devel@redhat.com>; Tue, 18 Aug 2020 13:10:03 +0000 (UTC)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-33-GNzKsu_lNnKFkBgwwftaOg-1; Tue, 18 Aug 2020 09:08:40 -0400
-X-MC-Unique: GNzKsu_lNnKFkBgwwftaOg-1
-Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.60])
-	by Forcepoint Email with ESMTP id BEA1FD7825AC4FFFF9B0;
-	Tue, 18 Aug 2020 21:08:34 +0800 (CST)
+	us-mta-485-WAauB1gvPoaPbMYus8etaQ-1; Tue, 18 Aug 2020 09:09:57 -0400
+X-MC-Unique: WAauB1gvPoaPbMYus8etaQ-1
+Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.58])
+	by Forcepoint Email with ESMTP id C2DBAB7908B846D9293E;
+	Tue, 18 Aug 2020 21:09:45 +0800 (CST)
 Received: from [127.0.0.1] (10.174.179.62) by DGGEMS405-HUB.china.huawei.com
 	(10.3.19.205) with Microsoft SMTP Server id 14.3.487.0; Tue, 18 Aug 2020
-	21:08:28 +0800
+	21:09:35 +0800
 From: lixiaokeng <lixiaokeng@huawei.com>
 To: Benjamin Marzinski <bmarzins@redhat.com>, Martin Wilck <mwilck@suse.com>, 
 	Christophe Varoqui <christophe.varoqui@opensvc.com>, <dm-devel@redhat.com>
 References: <5ef5f58e-3a27-8959-3abb-4b4c401cc309@huawei.com>
-Message-ID: <8fd64929-cb4b-5267-1899-15a82e2ff678@huawei.com>
-Date: Tue, 18 Aug 2020 21:08:27 +0800
+Message-ID: <178ce8f8-cf74-bb32-1e5c-41674f493a24@huawei.com>
+Date: Tue, 18 Aug 2020 21:09:35 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
 	Thunderbird/68.10.0
 MIME-Version: 1.0
@@ -71,8 +71,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: linfeilong@huawei.com, liuzhiqiang26@huawei.com
-Subject: [dm-devel] [PATCH 3/5] multipathd: add reclear_pp_from_mpp in
-	ev_remove_path
+Subject: [dm-devel] [PATCH 4/5] multipathd: disable queueing for recreated
+ map in uev_remove_map
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,104 +94,40 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Add reclear_pp_from_mpp in ev_remove_path to make sure that pp is cleared in mpp.
+There may be a race window here:
+1. all paths gone, causing map flushed both from multipathd and kernel
+2. paths regenerated, causing multipathd creating the map again.
 
-When multipathd del path xxx, multipathd -v2, multipathd add path xxx and multipath -U
-dm-x are executed simultaneously, multipath -U dm-x will case coredump.
+1 will generate a remove uevent which can be handled after 2, so we can
+disable queueing for the map created by 2 here temporarily and let the
+change uevent (generated by 2) calling uev_add_map->setup_multipath
+to set queueing again. This can prevent the deadlock in this race window.
 
-The reason is that there are two paths with same dev_t in dm_table. The process
-is as follows:
+The possible deadlock is: all udevd workers hangs in devices because of
+queue_if_no_path, so no udevd workers can handle new event and since
+multipathd will remove the map, the checkerloop cannot check this map's
+retry tick timeout and cancel the io hang which makes the udevd worker
+hang forever. multipathd cannot receive any uevent from udevd because
+all udevd workers hang there so the map cannot be recreated again which
+makes a deadlock.
 
-multipathd del path xxx(such as sde whose dev_t is 8:64):
-
-cli_del_path
-	->ev_remove_path
-		->domap //dm_table in kernel will be reloaded and doesn't contain 8:64.
-		        //Then multipath -v2 is executed, and the dm_table in kernel
-		        //will be reloaded and contains 8:64.
-		->setup_multipath
-			->update_multipath_strings
-				->update_multipath_table
-					->dm_get_map //get params with 8:64
-					->disassemble_map //pp1 will be saved mpp->pg
-		->delete pp1 in pathvec
-		->clear_ref_from_mpp //pp is cleared in mpp->paths but still saved in
-		                     //mpp->pg
-		->free_paths //pp1 is freed but still exist in mpp->pg
-
-multipathd add path sde
-cli_add_path
-	->store_pathinfo //alloc pp2 (dev_t is 8:64), and store it to gvecs->pathvec
-	->ev_add_path
-		->adopt_paths
-			->update_mpp_paths //pp1 is found in mpp->pg and its dev_t is
-			                   //8:64 and dev is not sde (cased by free).
-			                   //it will be stored in mpp->paths.
-			->pp2 is stored to mpp->paths
-		->setup_map //params with two 8:64
-		->domap //dm_table is reloaded and contains two 8:64
-
-multipath -U dm-x(sde is one path of dm-x)
-main
-	->check_usable_paths
-		->dm_get_maps //get params with two 8:64
-		->disassemble_map //alloc pp3, and pp3 is saved twice in mpp->pg
-		->free_multipath(mpp, FREE_PATHS) //double free
-
-Here, we add that pp1 in mpp->pg is cleared in clear_ref_from_mpp.
-
-Reported-by: Tianxiong Lu <lutianxiong@huawei.com>
-Signed-off-by: lixiaokeng <lixiaokeng@huawei.com>
-Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
+Signed-off-by: Lixiaokeng@huawei.com
 ---
- multipathd/main.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ multipathd/main.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/multipathd/main.c b/multipathd/main.c
-index 9ec65856..a1db17a0 100644
+index baa18183..d7e20a10 100644
 --- a/multipathd/main.c
 +++ b/multipathd/main.c
-@@ -1059,6 +1059,32 @@ fail:
- 	return 1;
- }
+@@ -798,6 +798,7 @@ uev_remove_map (struct uevent * uev, struct vectors * vecs)
+ 		goto out;
+ 	}
 
-+static
-+void reclear_pp_from_mpp(struct path * pp, struct vectors * vecs)
-+{
-+	struct multipath * mpp = NULL;
-+	struct pathgroup * pgp;
-+	int i = -1;
-+	int j = 0;
-+	int is_log = 0;
-+
-+	mpp = find_mp_by_wwid(vecs->mpvec, pp->wwid);
-+	if(!!mpp) {
-+		if ((i = find_slot(mpp->paths, (void *)pp)) != -1) {
-+			vector_del_slot(mpp->paths, i);
-+			is_log = 1;
-+		}
-+		vector_foreach_slot (mpp->pg, pgp, j) {
-+			if ((i = find_slot(pgp->paths, (void *)pp)) != -1) {
-+				vector_del_slot(pgp->paths, i);
-+				is_log = 1;
-+			}
-+		}
-+		if (is_log)
-+			condlog(2, "%s: reclear path from mpp %s", pp->dev, mpp->alias);
-+	}
-+}
-+
- static int
- uev_remove_path (struct uevent *uev, struct vectors * vecs, int need_do_map)
- {
-@@ -1186,6 +1212,7 @@ out:
- 	if ((i = find_slot(vecs->pathvec, (void *)pp)) != -1)
- 		vector_del_slot(vecs->pathvec, i);
-
-+	reclear_pp_from_mpp(pp, vecs);
- 	free_path(pp);
-
- 	return retval;
++	dm_queue_if_no_path(alias, 0);
+ 	remove_map_and_stop_waiter(mpp, vecs);
+ out:
+ 	lock_cleanup_pop(vecs->lock);
 -- 
 
 --
