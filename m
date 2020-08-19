@@ -1,55 +1,57 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id BE145249F61
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 3F2DB249F60
 	for <lists+dm-devel@lfdr.de>; Wed, 19 Aug 2020 15:18:13 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-248-2nNRhcbHP6qz89y2dVkXiQ-1; Wed, 19 Aug 2020 09:18:09 -0400
-X-MC-Unique: 2nNRhcbHP6qz89y2dVkXiQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-192-QouzIjeOPNCYo8pOYr0uDw-1; Wed, 19 Aug 2020 09:18:09 -0400
+X-MC-Unique: QouzIjeOPNCYo8pOYr0uDw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2E2931009473;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 22D4D1009472;
 	Wed, 19 Aug 2020 13:18:04 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4008B5D993;
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3F39A10013C2;
 	Wed, 19 Aug 2020 13:18:03 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4D8E81832FC2;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4D976662AE;
 	Wed, 19 Aug 2020 13:17:55 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07JDHjUZ020794 for <dm-devel@listman.util.phx.redhat.com>;
+	id 07JDHjvt020799 for <dm-devel@listman.util.phx.redhat.com>;
 	Wed, 19 Aug 2020 09:17:45 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2415C2166BDD; Wed, 19 Aug 2020 13:17:45 +0000 (UTC)
+	id 9B7712017E80; Wed, 19 Aug 2020 13:17:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0E3A12166BB3
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 827ED2022789
 	for <dm-devel@redhat.com>; Wed, 19 Aug 2020 13:17:42 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 032FE9B448A
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 81174801224
 	for <dm-devel@redhat.com>; Wed, 19 Aug 2020 13:17:42 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-533-Fy73vWW8MFq2F2YynkC2zw-1;
+	relay.mimecast.com with ESMTP id us-mta-551-XyvQngdzNlip5owCyDGw1A-1;
 	Wed, 19 Aug 2020 09:17:39 -0400
-X-MC-Unique: Fy73vWW8MFq2F2YynkC2zw-1
+X-MC-Unique: XyvQngdzNlip5owCyDGw1A-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 62A0DAC79;
+	by mx2.suse.de (Postfix) with ESMTP id A041BACC6;
 	Wed, 19 Aug 2020 13:18:04 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed, 19 Aug 2020 15:17:19 +0200
-Message-Id: <20200819131720.13290-1-mwilck@suse.com>
+Date: Wed, 19 Aug 2020 15:17:20 +0200
+Message-Id: <20200819131720.13290-2-mwilck@suse.com>
+In-Reply-To: <20200819131720.13290-1-mwilck@suse.com>
+References: <20200819131720.13290-1-mwilck@suse.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -59,13 +61,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 07JDHjUZ020794
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 07JDHjvt020799
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v3 00/35] multipath-tools series part I: minor
-	changes
+Subject: [dm-devel] [PATCH v3 13/35] libmultipath: constify blacklist code
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,170 +80,161 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0.003
+X-Mimecast-Spam-Score: 0.002
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Hi Christophe, hi Ben,
+Add "const" qualifiers where appropriate.
 
-This is part I of a larger patch series for multpath-tools I've been preparing.
-It contains self-contained fixes and cleanups, and unit test additions.
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
+Signed-off-by: Martin Wilck <mwilck@suse.com>
+---
+ libmultipath/blacklist.c | 34 +++++++++++++++++++---------------
+ libmultipath/blacklist.h | 17 +++++++++++------
+ 2 files changed, 30 insertions(+), 21 deletions(-)
 
-This is v3 of the series I posted on 2020-07-09 and 2020-08-12.
-To avoid spamming, I will resend only the patches that have changed wrt v2
-(including context changes). There are changes only in part 1, 6, and 7.
-I took care to make sure the numbering is preserved. 
-
-The full series will be available here:
-https://github.com/mwilck/multipath-tools/tree/ups/submit-200819
-There are tags in that repo for each part of the series.
-This part is tagged "submit-200819-1".
-
-The series is based on 0.8.4, plus the following set of previously
-submitted and reviewed patches (latest first):
-
- - [PATCH 4/5] multipathd: disable queueing for recreated map in uev_remove_map
-   (lixiaokeng)
- - [PATCH 4/6] libmultipath: check blist before calling MALLOC in alloc_ble_device func
-   (Zihiqiang)
- - [PATCH 1/5 v4] libmultipath fix a memory leak in set_ble_device (From:
-   (lixiaokeng)
- - [PATCH v2 0/8] multipath cleanups (v2 8-part series from Ben,
-       without 7/8 "multipathd: unset mpp->hwe when removing map")
- - [PATCH v3] vector: return false if realloc fails in vector_alloc_slot func (Zhiqiang Liu)
- - libmultipath: free pgp if add_pathgroup fails in disassemble_map func (Zhiqiang Liu)
- - checker: add input check of state in checker_state_name func (Zhiqiang Liu)
- - libmultipath: fix null dereference in add (lixiaokeng)
- - tests/hwtable: fix a memory free in replicate_config (Zhiqiang Liu)
- - vector: fix upper boundary check of vector size in vector_del_slot (Zhiqiang Liu)
- - vector: add lower bound check of E in VECTOR_SLOT (Zhiqiang Liu)
- - devmapper: remove useless using of memset in dm_get_info func (Zhiqiang Liu)
- - libmultipath: fix a memory leak in dm_get_maps (lixiaokeng)
- - libmultipath: fix a memory leak in disassemble_status func (Zhiqiang Liu)
- - [PATCH 0/4] Fix segfault on access to mpp->hwe (4-part series, me)
-
-(below is where the v1 series was based on)
-
- - libmultipath: add device to hwtable.c (Steve Schremmer)
- - [PATCH v3 0/7] Fix muitpath/multipathd flush issue (v3 7-part series, Ben)
- - [PATCH v2 0/4] misc patches (v2 4-part series, Ben)
- - multipath: Fix compiler warnings when built without systemd. (Marius Bakke)
- - [PATCH v2 0/3] multipath: change default devnode blacklist
-   (v2 3-part series, Ben)
- - multipath: add "-e" option to enable foreign libraries (me)
- - libmultipath: set "enable_foreign" to NONE by default (me)
- - libmultipath: fix condlog NULL argument in uevent_get_env_var (Ben)
- - fix boolean value with json-c 0.14 (Christian Hesse) 
- - [PATCH v3 0/6] multipath: path validation library prep work
-   (v3 6-part series, me)
- - [PATCH 0/2] More minor libmultipath fixes (2-part series, me)
- - [PATCH 00/11] Minor fixes for multipath-tools (11-part series, me)
- - libmpathpersist: depend on libmultipath (Christian Hesse)
- - [PATCH v2 0/2] multipath-tools: fixes for kpartx.rules and skip_kpartx
-   (v2 2-part series, me)
- - libmultipath: allow force reload with no active paths (Ben)
- - libmutipath: don't close fd on dm_lib_release (Ben)-
- - libmultipath: assign variable to make gcc happy (Ben)
- - [PATCH v2 0/4] libmpathpersist allocation size fixes (v2 4-part series, me)
-
-You can find a full tree of the code this is based on here:
-https://github.com/openSUSE/multipath-tools/tree/upstream-queue
-
-Regards, Martin
-
-Changes v2 -> v3:
-
- * 13/35 "libmultipath: constify blacklist code"
-    - rebased
-
-Changes v1 -> v2, as suggested by Ben Marzinski:
-
- *  8/35 "libmultipath: create bitfield abstraction"
-    - return NULL for 0 bitfield size
-    - fixed error handling for bf == NULL
-    - removed unused find_first_set() and related tests
- * 12/35 "libmultipath: strlcpy()/strlcat(): use restrict qualifier"
-    - unchanged, but resubmitting as it has no Reviewed-by: tag yet
-      (corner case of unterminated "dst" still unresolved, but if at
-       all, it should be changed in a separate patch).
-
-Martin Wilck (35):
-  multipath-tools tests/util: separate group for bitmask tests
-  multipath-tools tests/directio: fix missing initializers
-  tests: __wrap_dlog: use check_expected()
-  multipath tools tests: add strchop() test
-  libmultipath: improve strchop()
-  multipath-tools tests: add test for devt2devname
-  libmultipath: devt2devname(): simplify using libudev
-  libmultipath: create bitfield abstraction
-  libmultipath: use bitfields in group_by_match()
-  libmultipath: util: constify function arguments
-  multipath-tools tests: add unit tests for strlcat
-  libmultipath: strlcpy()/strlcat(): use restrict qualifier
-  libmultipath: constify blacklist code
-  libmultipath: rlookup_binding(): remove newline in log message
-  libmultipath: fix missing initializer warning from clang 3.9
-  libmultipath: fix gcc -Wstringop-overflow warning
-  libmultipath: remove uevent listener failback
-  libmultipath: uevent: use static linkage where possible
-  libmultipath: uevent: inline trivial functions
-  libmultipath: decrease log level of "SCSI target" log message
-  libmultipath: get_udev_uid(): more appropriate error code
-  libmultipath: get_uid(): improve log message on udev failure
-  libmultipath: make sysfs_pathinfo() static and use const
-  libmultipath: pathinfo(): improve a log message
-  libmultipath: pathinfo(): don't filter emtpy devnode names
-  libmultipath: io_err_stat_handle_pathfail(): less error conditions
-  libmultipath: improve libdm logging
-  libmultipath: snprint_devices(): use udev_enumerate
-  libmultipath: snprint_devices(): print hidden/foreign status
-  libmultipath: alloc_path(): initialize pp->initialized
-  libmultipath: alloc_path_with_pathinfo(): treat devname overflow as
-    error
-  libmultipath: log table params in addmap()
-  multipathd: remove set_multipath_wwid()
-  kpartx: print an error message if removing a partition fails
-  kpartx: add missing newline
-
- kpartx/devmapper.c               |   2 +-
- kpartx/kpartx.c                  |   2 +
- libmultipath/alias.c             |   2 +-
- libmultipath/blacklist.c         |  34 +-
- libmultipath/blacklist.h         |  17 +-
- libmultipath/checkers/directio.c |   2 +-
- libmultipath/configure.c         |  11 +-
- libmultipath/defaults.h          |   2 +
- libmultipath/devmapper.c         |  27 +-
- libmultipath/discovery.c         |  30 +-
- libmultipath/dmparser.c          |   2 +-
- libmultipath/io_err_stat.c       |  25 +-
- libmultipath/parser.c            |   2 +-
- libmultipath/pgpolicies.c        |  12 +-
- libmultipath/print.c             |  90 ++---
- libmultipath/print.h             |   2 +-
- libmultipath/propsel.c           |   6 +
- libmultipath/structs.c           |   1 +
- libmultipath/uevent.c            | 324 ++----------------
- libmultipath/uevent.h            |  47 ++-
- libmultipath/util.c              | 155 +++------
- libmultipath/util.h              |  72 +++-
- multipathd/main.c                |  14 +-
- tests/Makefile                   |   3 +-
- tests/alias.c                    |   4 +-
- tests/devt.c                     | 192 +++++++++++
- tests/directio.c                 |  28 +-
- tests/test-log.c                 |   5 +-
- tests/uevent.c                   |   4 -
- tests/util.c                     | 554 ++++++++++++++++++++++++++++---
- 30 files changed, 1035 insertions(+), 636 deletions(-)
- create mode 100644 tests/devt.c
-
+diff --git a/libmultipath/blacklist.c b/libmultipath/blacklist.c
+index e39a7f8..6c6a597 100644
+--- a/libmultipath/blacklist.c
++++ b/libmultipath/blacklist.c
+@@ -139,7 +139,7 @@ out:
+ }
+ 
+ static int
+-match_reglist (vector blist, const char * str)
++match_reglist (const struct _vector *blist, const char *str)
+ {
+ 	int i;
+ 	struct blentry * ble;
+@@ -152,8 +152,8 @@ match_reglist (vector blist, const char * str)
+ }
+ 
+ static int
+-match_reglist_device (const struct _vector *blist, const char * vendor,
+-		    const char * product)
++match_reglist_device (const struct _vector *blist, const char *vendor,
++		      const char * product)
+ {
+ 	int i;
+ 	struct blentry_device * ble;
+@@ -173,8 +173,8 @@ match_reglist_device (const struct _vector *blist, const char * vendor,
+ }
+ 
+ static int
+-find_blacklist_device (const struct _vector *blist, const char * vendor,
+-		       const char * product)
++find_blacklist_device (const struct _vector *blist, const char *vendor,
++		       const char *product)
+ {
+ 	int i;
+ 	struct blentry_device * ble;
+@@ -240,8 +240,9 @@ setup_default_blist (struct config * conf)
+ 		condlog(lvl, "%s: %s %s", dev, (M), (S))
+ 
+ static void
+-log_filter (const char *dev, char *vendor, char *product, char *wwid,
+-	    const char *env, const char *protocol, int r, int lvl)
++log_filter (const char *dev, const char *vendor, const char *product,
++	    const char *wwid, const char *env, const char *protocol,
++	    int r, int lvl)
+ {
+ 	/*
+ 	 * Try to sort from most likely to least.
+@@ -286,8 +287,8 @@ log_filter (const char *dev, char *vendor, char *product, char *wwid,
+ }
+ 
+ int
+-filter_device (vector blist, vector elist, char * vendor, char * product,
+-	       char * dev)
++filter_device (const struct _vector *blist, const struct _vector *elist,
++	       const char *vendor, const char * product, const char *dev)
+ {
+ 	int r = MATCH_NOTHING;
+ 
+@@ -303,7 +304,8 @@ filter_device (vector blist, vector elist, char * vendor, char * product,
+ }
+ 
+ int
+-filter_devnode (vector blist, vector elist, char * dev)
++filter_devnode (const struct _vector *blist, const struct _vector *elist,
++		const char *dev)
+ {
+ 	int r = MATCH_NOTHING;
+ 
+@@ -319,7 +321,8 @@ filter_devnode (vector blist, vector elist, char * dev)
+ }
+ 
+ int
+-filter_wwid (vector blist, vector elist, char * wwid, char * dev)
++filter_wwid (const struct _vector *blist, const struct _vector *elist,
++	     const char *wwid, const char *dev)
+ {
+ 	int r = MATCH_NOTHING;
+ 
+@@ -335,7 +338,8 @@ filter_wwid (vector blist, vector elist, char * wwid, char * dev)
+ }
+ 
+ int
+-filter_protocol(vector blist, vector elist, struct path * pp)
++filter_protocol(const struct _vector *blist, const struct _vector *elist,
++		const struct path *pp)
+ {
+ 	char buf[PROTOCOL_BUF_SIZE];
+ 	int r = MATCH_NOTHING;
+@@ -354,7 +358,7 @@ filter_protocol(vector blist, vector elist, struct path * pp)
+ }
+ 
+ int
+-filter_path (struct config * conf, struct path * pp)
++filter_path (const struct config *conf, const struct path *pp)
+ {
+ 	int r;
+ 
+@@ -376,8 +380,8 @@ filter_path (struct config * conf, struct path * pp)
+ }
+ 
+ int
+-filter_property(struct config *conf, struct udev_device *udev, int lvl,
+-		const char *uid_attribute)
++filter_property(const struct config *conf, struct udev_device *udev,
++		int lvl, const char *uid_attribute)
+ {
+ 	const char *devname = udev_device_get_sysname(udev);
+ 	struct udev_list_entry *list_entry;
+diff --git a/libmultipath/blacklist.h b/libmultipath/blacklist.h
+index b08e097..dde5cea 100644
+--- a/libmultipath/blacklist.h
++++ b/libmultipath/blacklist.h
+@@ -36,12 +36,17 @@ struct blentry_device {
+ 
+ int setup_default_blist (struct config *);
+ int alloc_ble_device (vector);
+-int filter_devnode (vector, vector, char *);
+-int filter_wwid (vector, vector, char *, char *);
+-int filter_device (vector, vector, char *, char *, char *);
+-int filter_path (struct config *, struct path *);
+-int filter_property(struct config *, struct udev_device *, int, const char*);
+-int filter_protocol(vector, vector, struct path *);
++int filter_devnode (const struct _vector *, const struct _vector *,
++		    const char *);
++int filter_wwid (const struct _vector *, const struct _vector *,
++		 const char *, const char *);
++int filter_device (const struct _vector *, const struct _vector *,
++		   const char *, const char *, const char *);
++int filter_path (const struct config *, const struct path *);
++int filter_property(const struct config *, struct udev_device *,
++		    int, const char*);
++int filter_protocol(const struct _vector *, const struct _vector *,
++		    const struct path *);
+ int store_ble (vector, const char *, int);
+ int set_ble_device (vector, const char *, const char *, int);
+ void free_blacklist (vector);
 -- 
 2.28.0
 
