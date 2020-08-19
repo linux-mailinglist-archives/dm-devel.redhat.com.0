@@ -1,65 +1,78 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id D0C212491C5
-	for <lists+dm-devel@lfdr.de>; Wed, 19 Aug 2020 02:24:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1597796669;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=KiP4ywbB6RYXiz70H/Ea832dq3f4tYcCVPAmqW6pC0U=;
-	b=UdF0nzLkXOqpreXBN/z2JXo1mxEspJGfBO5lkPR65fbHxK1dP33Qcqtkk/d+JA7St+6V+C
-	F47hX57FMYTJbn0FJnTru9MZR9TBJyHeKX4YERfG1LK7ggSAD1YpnwptkjkyVTIQWXTD0I
-	QpsVcTmvy0ppXlyEqfn/7EPWp/fr1k4=
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 21341249281
+	for <lists+dm-devel@lfdr.de>; Wed, 19 Aug 2020 03:43:58 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-120-AYgfDCPTODqESgskByj63w-1; Tue, 18 Aug 2020 20:24:26 -0400
-X-MC-Unique: AYgfDCPTODqESgskByj63w-1
+ us-mta-11-7jB7flc2Pk6Ks64T2U-pCA-1; Tue, 18 Aug 2020 21:43:54 -0400
+X-MC-Unique: 7jB7flc2Pk6Ks64T2U-pCA-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 610BF801ADD;
-	Wed, 19 Aug 2020 00:24:16 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AF8FD186A561;
+	Wed, 19 Aug 2020 01:43:48 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7AD927BE74;
-	Wed, 19 Aug 2020 00:24:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0F3027BE86;
+	Wed, 19 Aug 2020 01:43:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0345E1832FC2;
-	Wed, 19 Aug 2020 00:24:06 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 065441832FC2;
+	Wed, 19 Aug 2020 01:43:31 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07J0KfpA001437 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 18 Aug 2020 20:20:41 -0400
+	id 07J1hFPc010396 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 18 Aug 2020 21:43:15 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id BA1D01002382; Wed, 19 Aug 2020 00:20:41 +0000 (UTC)
+	id E61C3110F723; Wed, 19 Aug 2020 01:43:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C751110021AA;
-	Wed, 19 Aug 2020 00:20:36 +0000 (UTC)
-Date: Tue, 18 Aug 2020 20:20:35 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: Ming Lei <ming.lei@redhat.com>
-Message-ID: <20200819002035.GA9292@redhat.com>
-References: <20200818090728.2696802-1-ming.lei@redhat.com>
-	<92162ee6-0fa0-dafd-69b1-af285ee61044@kernel.dk>
-	<20200818152022.GB6842@redhat.com> <20200818235220.GA2712797@T590>
+Received: from mimecast-mx02.redhat.com
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E0D431004145
+	for <dm-devel@redhat.com>; Wed, 19 Aug 2020 01:43:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 20ECE8785C4
+	for <dm-devel@redhat.com>; Wed, 19 Aug 2020 01:43:12 +0000 (UTC)
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-51-1SXytCErNCuXkkPWOuIfQQ-1; Tue, 18 Aug 2020 21:43:07 -0400
+X-MC-Unique: 1SXytCErNCuXkkPWOuIfQQ-1
+Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.60])
+	by Forcepoint Email with ESMTP id 53B5D82F46464E0C69FF;
+	Wed, 19 Aug 2020 09:43:04 +0800 (CST)
+Received: from [127.0.0.1] (10.174.179.62) by DGGEMS405-HUB.china.huawei.com
+	(10.3.19.205) with Microsoft SMTP Server id 14.3.487.0; Wed, 19 Aug 2020
+	09:42:56 +0800
+From: lixiaokeng <lixiaokeng@huawei.com>
+To: Benjamin Marzinski <bmarzins@redhat.com>, Martin Wilck <mwilck@suse.com>, 
+	Christophe Varoqui <christophe.varoqui@opensvc.com>, <dm-devel@redhat.com>
+References: <5ef5f58e-3a27-8959-3abb-4b4c401cc309@huawei.com>
+	<61f78db1-c481-292f-eb6f-bce69d66b8ab@huawei.com>
+Message-ID: <1c0d627e-3d7b-8971-04b5-f3815f142621@huawei.com>
+Date: Wed, 19 Aug 2020 09:42:55 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200818235220.GA2712797@T590>
-eFrom: Mike Snitzer <snitzer@redhat.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+In-Reply-To: <61f78db1-c481-292f-eb6f-bce69d66b8ab@huawei.com>
+Content-Language: en-GB
+X-Originating-IP: [10.174.179.62]
+X-CFilter-Loop: Reflected
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
-	dm-devel@redhat.com, Christoph Hellwig <hch@lst.de>,
-	Bart Van Assche <bvanassche@acm.org>
-Subject: Re: [dm-devel] [PATCH RESEND] blk-mq: insert request not through
- ->queue_rq into sw/scheduler queue
+Cc: linfeilong@huawei.com, liuzhiqiang26@huawei.com
+Subject: Re: [dm-devel] [PATCH 5/5] libmultipath fix daemon memory leak in
+ disassemble_map
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,61 +93,93 @@ X-Mimecast-Spam-Score: 0.002
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-On Tue, Aug 18 2020 at  7:52pm -0400,
-Ming Lei <ming.lei@redhat.com> wrote:
+Hi
+  I'm sorry for subject with Re. I will send it  again.
 
-> On Tue, Aug 18, 2020 at 11:20:22AM -0400, Mike Snitzer wrote:
-> > On Tue, Aug 18 2020 at 10:50am -0400,
-> > Jens Axboe <axboe@kernel.dk> wrote:
-> > 
-> > > On 8/18/20 2:07 AM, Ming Lei wrote:
-> > > > c616cbee97ae ("blk-mq: punt failed direct issue to dispatch list") supposed
-> > > > to add request which has been through ->queue_rq() to the hw queue dispatch
-> > > > list, however it adds request running out of budget or driver tag to hw queue
-> > > > too. This way basically bypasses request merge, and causes too many request
-> > > > dispatched to LLD, and system% is unnecessary increased.
-> > > > 
-> > > > Fixes this issue by adding request not through ->queue_rq into sw/scheduler
-> > > > queue, and this way is safe because no ->queue_rq is called on this request
-> > > > yet.
-> > > > 
-> > > > High %system can be observed on Azure storvsc device, and even soft lock
-> > > > is observed. This patch reduces %system during heavy sequential IO,
-> > > > meantime decreases soft lockup risk.
-> > > 
-> > > Applied, thanks Ming.
-> > 
-> > Hmm, strikes me as strange that this is occurring given the direct
-> > insertion into blk-mq queue (bypassing scheduler) is meant to avoid 2
-> > layers of IO merging when dm-mulipath is stacked on blk-mq path(s).  The
-> > dm-mpath IO scheduler does all merging and underlying paths' blk-mq
-> > request_queues are meant to just dispatch the top-level's requests.
-> > 
-> > So this change concerns me.  Feels like this design has broken down.
-> > 
+On 2020/8/18 21:11, lixiaokeng wrote:
+> When one iscsi device logs in and logs out with the "multipath -r"
+> executed at the same time, memory leak happens in multipathd
+> process.
 > 
-> 'bypass_insert' is 'true' when blk_insert_cloned_request() is
-> called from device mapper code, so this patch doesn't affect dm.
-
-Great.
- 
-> > Could be that some other entry point was added for the
-> > __blk_mq_try_issue_directly() code?  And it needs to be untangled away
-> > from the dm-multipath use-case?
+> The reason is following. When "multipath -r" is executed, the path
+> will be free in configure function. Before path_discovery executed,
+> iscsi device logs out. Then path_discovery will not find any path and
+> there is no path in the gvecs->pathvec. When map_discovery function
+> is executed, disassemble_map function will be called. Because
+> gvecs->pathvec->slot is empty and is_deamon is 1, a path will be
+> allocated and is not stored in gvecs->pathvec but store in
+> mpp->pg. But when the mpp is removed and freed by remove_map
+> function, the path will not be free and can't be find anymore.
 > 
-> __blk_mq_try_issue_directly() can be called from blk-mq directly, that
-> is the case this patch is addressing, if one request can't be queued to
-> LLD because of running out of budget or driver tag, it should be added to
-> scheduler queue for improving io merge, meantime we can avoid too many
-> requests dispatched to hardware.
-
-I see, so if retry is needed best to attempt merge again.
-
-Thanks for the explanation.
-
-Mike
+> The procedure details given as follows,
+> 1."multipath -r" is executed
+> main
+> 	->child
+> 		->reconfigure
+> 			->configure
+> 				->path_discovery //after iscsi logout
+> 				->map_discovery
+> 					->update_multipath_table
+> 						->disassemble_map
+> 							->alloc_path
+> 2.then "multipath -r" is executed again
+> main
+> main
+> 	->child
+> 		->reconfigure
+> 			->remove_maps_and_stop_waiters
+> 				->remove_maps
+> 
+> If checking is_deamon is deleted, there are many other things need be done like in
+> https://www.redhat.com/archives/dm-devel/2020-July/msg00245.html. And this
+> branch develops from 0.8.3 but upstream_queue is mainline which develops from
+> 0.8.4.
+> Here, we skip alloc_path if pp isn't find in pathvec and process is daemon.  In
+> daemon, we should not store path with incomplete information to pathvec.  The
+> pathvec stores all paths in daemon, so it is reasonable keep same with pathvec.
+> 
+> Reported-by: Tianxiong Li <lutianxiong@huawei.com>
+> Signed-off-by: Lixiaokeng <lixiaokeng@huawei.com>
+> Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
+> ---
+>  libmultipath/dmparser.c | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
+> 
+> diff --git a/libmultipath/dmparser.c b/libmultipath/dmparser.c
+> index f02c551..0f370e9 100644
+> --- a/libmultipath/dmparser.c
+> +++ b/libmultipath/dmparser.c
+> @@ -314,6 +314,16 @@ int disassemble_map(vector pathvec, char *params, struct multipath *mpp,
+>  			}
+> 
+>  			if (!pp) {
+> +				/* daemon should keep same with pathvec */
+> +				/* pp is not find in pathvec, skip it */
+> +				if (is_daemon) {
+> +					FREE(word);
+> +					for (k = 0; k < num_paths_args; k++) {
+> +						p += get_word(p, NULL);
+> +					}
+> +					continue;
+> +				}
+> +
+>  				pp_unfound = 1;
+>  				pp = alloc_path();
+> 
+> @@ -326,8 +336,8 @@ int disassemble_map(vector pathvec, char *params, struct multipath *mpp,
+>  					strncpy(pp->wwid, mpp->wwid,
+>  						WWID_SIZE - 1);
+>  				}
+> -				/* Only call this in multipath client mode */
+> -				if (!is_daemon && store_path(pathvec, pp)) {
+> +
+> +				if (store_path(pathvec, pp)) {
+>  					free_path(pp);
+>  					goto out1;
+>  				}
+> --
+> 
 
 --
 dm-devel mailing list
