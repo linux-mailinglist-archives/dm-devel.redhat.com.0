@@ -1,55 +1,57 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 62CD3249F67
-	for <lists+dm-devel@lfdr.de>; Wed, 19 Aug 2020 15:18:57 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 3EC55249F69
+	for <lists+dm-devel@lfdr.de>; Wed, 19 Aug 2020 15:19:01 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-528-CIIzjWBsMfW8kgjh-LzU_w-1; Wed, 19 Aug 2020 09:18:53 -0400
-X-MC-Unique: CIIzjWBsMfW8kgjh-LzU_w-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-189-d29WH1cMN6KtTYY8nSsA1g-1; Wed, 19 Aug 2020 09:18:57 -0400
+X-MC-Unique: d29WH1cMN6KtTYY8nSsA1g-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 224161019629;
-	Wed, 19 Aug 2020 13:18:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ED57D101962A;
+	Wed, 19 Aug 2020 13:18:49 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 010715C3E0;
-	Wed, 19 Aug 2020 13:18:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CD7757BE92;
+	Wed, 19 Aug 2020 13:18:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AD70E1832FC3;
-	Wed, 19 Aug 2020 13:18:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 850DB1832FC4;
+	Wed, 19 Aug 2020 13:18:49 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07JDIjjv020924 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 19 Aug 2020 09:18:45 -0400
+	id 07JDIkiB020936 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 19 Aug 2020 09:18:46 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 056512166B28; Wed, 19 Aug 2020 13:18:45 +0000 (UTC)
+	id 3F55F1111A7A; Wed, 19 Aug 2020 13:18:46 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 015182166BCC
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A7F91007A26
 	for <dm-devel@redhat.com>; Wed, 19 Aug 2020 13:18:43 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 79AA1984BA9
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BF1B7801181
 	for <dm-devel@redhat.com>; Wed, 19 Aug 2020 13:18:43 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-20-xI68i4vfOQ2fPBQuq-nXQA-1;
+	relay.mimecast.com with ESMTP id us-mta-246-TEpDwtxRMeewNSD0_oKVqw-1;
 	Wed, 19 Aug 2020 09:18:38 -0400
-X-MC-Unique: xI68i4vfOQ2fPBQuq-nXQA-1
+X-MC-Unique: TEpDwtxRMeewNSD0_oKVqw-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 03837AC79;
+	by mx2.suse.de (Postfix) with ESMTP id 29CC6ACC6;
 	Wed, 19 Aug 2020 13:19:04 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed, 19 Aug 2020 15:18:15 +0200
-Message-Id: <20200819131819.13493-1-mwilck@suse.com>
+Date: Wed, 19 Aug 2020 15:18:16 +0200
+Message-Id: <20200819131819.13493-2-mwilck@suse.com>
+In-Reply-To: <20200819131819.13493-1-mwilck@suse.com>
+References: <20200819131819.13493-1-mwilck@suse.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -59,13 +61,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 07JDIjjv020924
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 07JDIkiB020936
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v3 00/87] multipath-tools series part VII:
-	addional patches
+Subject: [dm-devel] [PATCH v3 84/87] libmultipath: add consistency check for
+	alias settings
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,7 +81,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.002
@@ -89,58 +91,359 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-This is v3 of part VII of a larger patch series for multipath-tools I've
-been preparing. It's based on the previously submitted part VI.
+A typo in a config file, assigning the same alias to multiple WWIDs,
+can cause massive confusion and even data corruption. Check and
+if possible fix the bindings file in such cases.
 
-The full series will also be available here:
-https://github.com/mwilck/multipath-tools/tree/ups/submit-200819
-This part is tagged "submit-200819-7".
+Signed-off-by: Martin Wilck <mwilck@suse.com>
+---
+ libmultipath/alias.c | 265 +++++++++++++++++++++++++++++++++++++++++++
+ libmultipath/alias.h |   3 +
+ multipath/main.c     |   3 +
+ multipathd/main.c    |   3 +
+ 4 files changed, 274 insertions(+)
 
-This part contains patches added since the v1 and v2 submissions of the series.
-One is Liu's fix for disassemble_map(), rebased on top of my previous changes
-to that function.
-
-84/87, related to inconsistent alias settings, belongs logically to part III.
-I couldn't add it there because it would have changed the numbering in the
-series wrt v1, which I wanted to avoid.
-
-Changes v2 -> v3, as suggested by Ben Marzinski:
-
- 84/87 "libmultipath: add consistency check for alias settings"
-   - fixed possible freeing of NULL pointer
-   - search vector backwards in add_binding()
-   - avoid fd leak in check_alias_settings()
-
- 85/87 "libmultipath: alias.c: use strtok_r() instead of strtok()"
-   - new, provide thread safety in alias.c
-
- 86/87 "libmultipath: adopt_paths(): set pp->mpp only on success"
-   - new, implement Ben's suggestion in his review of patch 54 in the
-     v2 series ("[PATCH v2 44/54] libmultipath: adopt_paths(): don't 
-     bail out on single path failure")
-
-Besides, a trivial warning fix was added (87/87).
-
-Martin Wilck (6):
-  multipath: check_path_valid(): eliminate some failure modes
-  libmultipath: alias: static const variable for BINDINGS_FILE_HEADER
-  libmultipath: add consistency check for alias settings
-  libmultipath: alias.c: use strtok_r() instead of strtok()
-  libmultipath: adopt_paths(): set pp->mpp only on success
-  libmultipath: fix a -Wformat-truncation warning from gcc 10
-
-Zhiqiang Liu (1):
-  libmultipath: free pp if store_path fails in disassemble_map
-
- libmultipath/alias.c       | 294 +++++++++++++++++++++++++++++++++++--
- libmultipath/alias.h       |  15 +-
- libmultipath/dmparser.c    |  12 +-
- libmultipath/structs_vec.c |  15 +-
- libmultipath/util.c        |   6 +-
- multipath/main.c           |  21 +--
- multipathd/main.c          |   3 +
- 7 files changed, 327 insertions(+), 39 deletions(-)
-
+diff --git a/libmultipath/alias.c b/libmultipath/alias.c
+index 0759c4e..df44bdc 100644
+--- a/libmultipath/alias.c
++++ b/libmultipath/alias.c
+@@ -4,6 +4,7 @@
+  */
+ #include <stdlib.h>
+ #include <errno.h>
++#include <stdlib.h>
+ #include <unistd.h>
+ #include <string.h>
+ #include <limits.h>
+@@ -17,6 +18,9 @@
+ #include "vector.h"
+ #include "checkers.h"
+ #include "structs.h"
++#include "config.h"
++#include "util.h"
++#include "errno.h"
+ 
+ 
+ /*
+@@ -438,3 +442,264 @@ get_user_friendly_wwid(const char *alias, char *buff, const char *file)
+ 	fclose(f);
+ 	return 0;
+ }
++
++struct binding {
++	char *alias;
++	char *wwid;
++};
++
++static void _free_binding(struct binding *bdg)
++{
++	free(bdg->wwid);
++	free(bdg->alias);
++	free(bdg);
++}
++
++/*
++ * Perhaps one day we'll implement this more efficiently, thus use
++ * an abstract type.
++ */
++typedef struct _vector Bindings;
++
++static void free_bindings(Bindings *bindings)
++{
++	struct binding *bdg;
++	int i;
++
++	vector_foreach_slot(bindings, bdg, i)
++		_free_binding(bdg);
++	vector_reset(bindings);
++}
++
++enum {
++	BINDING_EXISTS,
++	BINDING_CONFLICT,
++	BINDING_ADDED,
++	BINDING_DELETED,
++	BINDING_NOTFOUND,
++	BINDING_ERROR,
++};
++
++static int add_binding(Bindings *bindings, const char *alias, const char *wwid)
++{
++	struct binding *bdg;
++	int i, cmp = 0;
++
++	/*
++	 * Keep the bindings array sorted by alias.
++	 * Optimization: Search backwards, assuming that the bindings file is
++	 * sorted already.
++	 */
++	vector_foreach_slot_backwards(bindings, bdg, i) {
++		if ((cmp = strcmp(bdg->alias, alias)) <= 0)
++			break;
++	}
++
++	/* Check for exact match */
++	if (i >= 0 && cmp == 0)
++		return strcmp(bdg->wwid, wwid) ?
++			BINDING_CONFLICT : BINDING_EXISTS;
++
++	i++;
++	bdg = calloc(1, sizeof(*bdg));
++	if (bdg) {
++		bdg->wwid = strdup(wwid);
++		bdg->alias = strdup(alias);
++		if (bdg->wwid && bdg->alias &&
++		    vector_insert_slot(bindings, i, bdg))
++			return BINDING_ADDED;
++		else
++			_free_binding(bdg);
++	}
++
++	return BINDING_ERROR;
++}
++
++static int write_bindings_file(const Bindings *bindings, int fd)
++{
++	struct binding *bnd;
++	char line[LINE_MAX];
++	int i;
++
++	if (write(fd, BINDINGS_FILE_HEADER, sizeof(BINDINGS_FILE_HEADER) - 1)
++	    != sizeof(BINDINGS_FILE_HEADER) - 1)
++		return -1;
++
++	vector_foreach_slot(bindings, bnd, i) {
++		int len;
++
++		len = snprintf(line, sizeof(line), "%s %s\n",
++			       bnd->alias, bnd->wwid);
++
++		if (len < 0 || (size_t)len >= sizeof(line)) {
++			condlog(1, "%s: line overflow", __func__);
++			return -1;
++		}
++
++		if (write(fd, line, len) != len)
++			return -1;
++	}
++	return 0;
++}
++
++static int fix_bindings_file(const struct config *conf,
++			     const Bindings *bindings)
++{
++	int rc;
++	long fd;
++	char tempname[PATH_MAX];
++
++	if (safe_sprintf(tempname, "%s.XXXXXX", conf->bindings_file))
++		return -1;
++	if ((fd = mkstemp(tempname)) == -1) {
++		condlog(1, "%s: mkstemp: %m", __func__);
++		return -1;
++	}
++	pthread_cleanup_push(close_fd, (void*)fd);
++	rc = write_bindings_file(bindings, fd);
++	pthread_cleanup_pop(1);
++	if (rc == -1) {
++		condlog(1, "failed to write new bindings file %s",
++			tempname);
++		unlink(tempname);
++		return rc;
++	}
++	if ((rc = rename(tempname, conf->bindings_file)) == -1)
++		condlog(0, "%s: rename: %m", __func__);
++	else
++		condlog(1, "updated bindings file %s", conf->bindings_file);
++	return rc;
++}
++
++static int _check_bindings_file(const struct config *conf, FILE *file,
++				 Bindings *bindings)
++{
++	int rc = 0;
++	unsigned int linenr = 0;
++	char *line = NULL;
++	size_t line_len = 0;
++	ssize_t n;
++
++	pthread_cleanup_push(free, line);
++	while ((n = getline(&line, &line_len, file)) >= 0) {
++		char *c, *alias, *wwid;
++		const char *mpe_wwid;
++
++		linenr++;
++		c = strpbrk(line, "#\n\r");
++		if (c)
++			*c = '\0';
++		alias = strtok(line, " \t");
++		if (!alias) /* blank line */
++			continue;
++		wwid = strtok(NULL, " \t");
++		if (!wwid) {
++			condlog(1, "invalid line %d in bindings file, missing WWID",
++				linenr);
++			continue;
++		}
++		c = strtok(NULL, " \t");
++		if (c)
++			/* This is non-fatal */
++			condlog(1, "invalid line %d in bindings file, extra args \"%s\"",
++				linenr, c);
++
++		mpe_wwid = get_mpe_wwid(conf->mptable, alias);
++		if (mpe_wwid && strcmp(mpe_wwid, wwid)) {
++			condlog(0, "ERROR: alias \"%s\" for WWID %s in bindings file "
++				"on line %u conflicts with multipath.conf entry for %s",
++				alias, wwid, linenr, mpe_wwid);
++			rc = -1;
++			continue;
++		}
++
++		switch (add_binding(bindings, alias, wwid)) {
++		case BINDING_CONFLICT:
++			condlog(0, "ERROR: multiple bindings for alias \"%s\" in "
++				"bindings file on line %u, discarding binding to WWID %s",
++				alias, linenr, wwid);
++			rc = -1;
++			break;
++		case BINDING_EXISTS:
++			condlog(2, "duplicate line for alias %s in bindings file on line %u",
++				alias, linenr);
++			break;
++		case BINDING_ERROR:
++			condlog(2, "error adding binding %s -> %s",
++				alias, wwid);
++			break;
++		default:
++			break;
++		}
++	}
++	pthread_cleanup_pop(1);
++	return rc;
++}
++
++static void cleanup_fclose(void *p)
++{
++	fclose(p);
++}
++
++/*
++ * check_alias_settings(): test for inconsistent alias configuration
++ *
++ * It's a fatal configuration error if the same alias is assigned to
++ * multiple WWIDs. In the worst case, it can cause data corruption
++ * by mangling devices with different WWIDs into the same multipath map.
++ * This function tests the configuration from multipath.conf and the
++ * bindings file for consistency, drops inconsistent multipath.conf
++ * alias settings, and rewrites the bindings file if necessary, dropping
++ * conflicting lines (if user_friendly_names is on, multipathd will
++ * fill in the deleted lines with a newly generated alias later).
++ * Note that multipath.conf is not rewritten. Use "multipath -T" for that.
++ *
++ * Returns: 0 in case of success, -1 if the configuration was bad
++ * and couldn't be fixed.
++ */
++int check_alias_settings(const struct config *conf)
++{
++	int can_write;
++	int rc = 0, i, fd;
++	Bindings bindings = {.allocated = 0, };
++	struct mpentry *mpe;
++
++	pthread_cleanup_push_cast(free_bindings, &bindings);
++	vector_foreach_slot(conf->mptable, mpe, i) {
++		if (!mpe->wwid || !mpe->alias)
++			continue;
++		if (add_binding(&bindings, mpe->alias, mpe->wwid) ==
++		    BINDING_CONFLICT) {
++			condlog(0, "ERROR: alias \"%s\" bound to multiple wwids in multipath.conf, "
++				"discarding binding to %s",
++				mpe->alias, mpe->wwid);
++			free(mpe->alias);
++			mpe->alias = NULL;
++		}
++	}
++	/* This clears the bindings */
++	pthread_cleanup_pop(1);
++
++	pthread_cleanup_push_cast(free_bindings, &bindings);
++	fd = open_file(conf->bindings_file, &can_write, BINDINGS_FILE_HEADER);
++	if (fd != -1) {
++		FILE *file = fdopen(fd, "r");
++
++		if (file != NULL) {
++			pthread_cleanup_push(cleanup_fclose, file);
++			rc = _check_bindings_file(conf, file, &bindings);
++			pthread_cleanup_pop(1);
++			if (rc == -1 && can_write && !conf->bindings_read_only)
++				rc = fix_bindings_file(conf, &bindings);
++			else if (rc == -1)
++				condlog(0, "ERROR: bad settings in read-only bindings file %s",
++					conf->bindings_file);
++		} else {
++			condlog(1, "failed to fdopen %s: %m",
++				conf->bindings_file);
++			close(fd);
++		}
++	}
++	pthread_cleanup_pop(1);
++	return rc;
++}
+diff --git a/libmultipath/alias.h b/libmultipath/alias.h
+index 236b3ba..dbc950c 100644
+--- a/libmultipath/alias.h
++++ b/libmultipath/alias.h
+@@ -10,4 +10,7 @@ char *use_existing_alias (const char *wwid, const char *file,
+ 			  const char *alias_old,
+ 			  const char *prefix, int bindings_read_only);
+ 
++struct config;
++int check_alias_settings(const struct config *);
++
+ #endif /* _ALIAS_H */
+diff --git a/multipath/main.c b/multipath/main.c
+index 9e65070..80bc4b5 100644
+--- a/multipath/main.c
++++ b/multipath/main.c
+@@ -64,6 +64,7 @@
+ #include "time-util.h"
+ #include "file.h"
+ #include "valid.h"
++#include "alias.h"
+ 
+ int logsink;
+ struct udev *udev;
+@@ -958,6 +959,8 @@ main (int argc, char *argv[])
+ 		exit(RTVL_FAIL);
+ 	}
+ 
++	check_alias_settings(conf);
++
+ 	if (optind < argc) {
+ 		dev = MALLOC(FILE_NAME_SIZE);
+ 
+diff --git a/multipathd/main.c b/multipathd/main.c
+index 343ee95..9f12a57 100644
+--- a/multipathd/main.c
++++ b/multipathd/main.c
+@@ -63,6 +63,7 @@
+ #include "uevent.h"
+ #include "log.h"
+ #include "uxsock.h"
++#include "alias.h"
+ 
+ #include "mpath_cmd.h"
+ #include "mpath_persist.h"
+@@ -2717,6 +2718,8 @@ reconfigure (struct vectors * vecs)
+ 		conf->verbosity = verbosity;
+ 	if (bindings_read_only)
+ 		conf->bindings_read_only = bindings_read_only;
++	check_alias_settings(conf);
++
+ 	uxsock_timeout = conf->uxsock_timeout;
+ 
+ 	old = rcu_dereference(multipath_conf);
 -- 
 2.28.0
 
