@@ -1,53 +1,53 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 6B6DA24D156
-	for <lists+dm-devel@lfdr.de>; Fri, 21 Aug 2020 11:21:27 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 809F624D155
+	for <lists+dm-devel@lfdr.de>; Fri, 21 Aug 2020 11:21:26 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-299-duCF5xprPimdbFOypSAdiA-1; Fri, 21 Aug 2020 05:21:23 -0400
-X-MC-Unique: duCF5xprPimdbFOypSAdiA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-197-aGdAviI5PBGRGbRSqx5a7Q-1; Fri, 21 Aug 2020 05:21:23 -0400
+X-MC-Unique: aGdAviI5PBGRGbRSqx5a7Q-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 25925AE640;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EB989AE643;
 	Fri, 21 Aug 2020 09:21:17 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9C8845F9C3;
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9CB4F19931;
 	Fri, 21 Aug 2020 09:21:16 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7BB3218184AE;
-	Fri, 21 Aug 2020 09:21:04 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1054D662B0;
+	Fri, 21 Aug 2020 09:21:06 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07L9Kero000312 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 21 Aug 2020 05:20:41 -0400
+	id 07L9KwkD000395 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 21 Aug 2020 05:20:59 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 31B022016F2C; Fri, 21 Aug 2020 09:20:40 +0000 (UTC)
+	id 97C67F5587; Fri, 21 Aug 2020 09:20:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2C5DC2026F94
-	for <dm-devel@redhat.com>; Fri, 21 Aug 2020 09:20:37 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 935FCF5666
+	for <dm-devel@redhat.com>; Fri, 21 Aug 2020 09:20:56 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED357811E94
-	for <dm-devel@redhat.com>; Fri, 21 Aug 2020 09:20:36 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 16835811E97
+	for <dm-devel@redhat.com>; Fri, 21 Aug 2020 09:20:56 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-258-wdUEEavXORaw1u1eAhC6vA-1; Fri, 21 Aug 2020 05:20:34 -0400
-X-MC-Unique: wdUEEavXORaw1u1eAhC6vA-1
+	us-mta-406-uIewxltaPm-MZ38VvE0F4g-1; Fri, 21 Aug 2020 05:20:54 -0400
+X-MC-Unique: uIewxltaPm-MZ38VvE0F4g-1
 Received: from [2001:4bb8:198:f3b2:a2b:85ba:fb78:c253] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1k92qM-0007g0-RC; Fri, 21 Aug 2020 08:56:16 +0000
+	id 1k92qV-0007hN-AY; Fri, 21 Aug 2020 08:56:25 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Fri, 21 Aug 2020 10:55:59 +0200
-Message-Id: <20200821085600.2395666-2-hch@lst.de>
+Date: Fri, 21 Aug 2020 10:56:00 +0200
+Message-Id: <20200821085600.2395666-3-hch@lst.de>
 In-Reply-To: <20200821085600.2395666-1-hch@lst.de>
 References: <20200821085600.2395666-1-hch@lst.de>
 MIME-Version: 1.0
@@ -61,7 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: linux-s390@vger.kernel.org, Jan Hoeppner <hoeppner@linux.ibm.com>,
 	Justin Sanders <justin@coraid.com>, linux-nvme@lists.infradead.org,
@@ -69,8 +69,8 @@ Cc: linux-s390@vger.kernel.org, Jan Hoeppner <hoeppner@linux.ibm.com>,
 	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
 	dm-devel@redhat.com, Stefan Haberland <sth@linux.ibm.com>,
 	nbd@other.debian.org
-Subject: [dm-devel] [PATCH 1/2] block: replace bd_set_size with
-	bd_set_nr_sectors
+Subject: [dm-devel] [PATCH 2/2] block: fix locking for struct block_device
+	size updates
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,166 +84,120 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.003
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Replace bd_set_size with a version that takes the number of sectors
-instead, as that fits most of the current and future callers much better.
-
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- drivers/block/loop.c     |  4 ++--
- drivers/block/nbd.c      |  7 ++++---
- drivers/block/pktcdvd.c  |  2 +-
- drivers/nvme/host/nvme.h |  2 +-
- fs/block_dev.c           | 10 +++++-----
- include/linux/genhd.h    |  2 +-
- 6 files changed, 14 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index 2f137d6ce169d5..7069899a94903e 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -253,7 +253,7 @@ static void loop_set_size(struct loop_device *lo, loff_t size)
- {
- 	struct block_device *bdev = lo->lo_device;
- 
--	bd_set_size(bdev, size << SECTOR_SHIFT);
-+	bd_set_nr_sectors(bdev, size);
- 
- 	set_capacity_revalidate_and_notify(lo->lo_disk, size, false);
- }
-@@ -1248,7 +1248,7 @@ static int __loop_clr_fd(struct loop_device *lo, bool release)
- 	set_capacity(lo->lo_disk, 0);
- 	loop_sysfs_exit(lo);
- 	if (bdev) {
--		bd_set_size(bdev, 0);
-+		bd_set_nr_sectors(bdev, 0);
- 		/* let user-space know about this change */
- 		kobject_uevent(&disk_to_dev(bdev->bd_disk)->kobj, KOBJ_CHANGE);
- 	}
-diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-index 3ff4054d6834d2..f07243335472a4 100644
---- a/drivers/block/nbd.c
-+++ b/drivers/block/nbd.c
-@@ -300,6 +300,7 @@ static void nbd_size_update(struct nbd_device *nbd)
- {
- 	struct nbd_config *config = nbd->config;
- 	struct block_device *bdev = bdget_disk(nbd->disk, 0);
-+	sector_t nr_sectors = config->bytesize >> 9;
- 
- 	if (config->flags & NBD_FLAG_SEND_TRIM) {
- 		nbd->disk->queue->limits.discard_granularity = config->blksize;
-@@ -308,10 +309,10 @@ static void nbd_size_update(struct nbd_device *nbd)
- 	}
- 	blk_queue_logical_block_size(nbd->disk->queue, config->blksize);
- 	blk_queue_physical_block_size(nbd->disk->queue, config->blksize);
--	set_capacity(nbd->disk, config->bytesize >> 9);
-+	set_capacity(nbd->disk, nr_sectors);
- 	if (bdev) {
- 		if (bdev->bd_disk) {
--			bd_set_size(bdev, config->bytesize);
-+			bd_set_nr_sectors(bdev, nr_sectors);
- 			set_blocksize(bdev, config->blksize);
- 		} else
- 			bdev->bd_invalidated = 1;
-@@ -1138,7 +1139,7 @@ static void nbd_bdev_reset(struct block_device *bdev)
- {
- 	if (bdev->bd_openers > 1)
- 		return;
--	bd_set_size(bdev, 0);
-+	bd_set_nr_sectors(bdev, 0);
- }
- 
- static void nbd_parse_flags(struct nbd_device *nbd)
-diff --git a/drivers/block/pktcdvd.c b/drivers/block/pktcdvd.c
-index 4becc1efe775fc..015fe128fa8a35 100644
---- a/drivers/block/pktcdvd.c
-+++ b/drivers/block/pktcdvd.c
-@@ -2192,7 +2192,7 @@ static int pkt_open_dev(struct pktcdvd_device *pd, fmode_t write)
- 
- 	set_capacity(pd->disk, lba << 2);
- 	set_capacity(pd->bdev->bd_disk, lba << 2);
--	bd_set_size(pd->bdev, (loff_t)lba << 11);
-+	bd_set_nr_sectors(pd->bdev, lba << 2);
- 
- 	q = bdev_get_queue(pd->bdev);
- 	if (write) {
-diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
-index ebb8c3ed388554..ae5cad5a08f411 100644
---- a/drivers/nvme/host/nvme.h
-+++ b/drivers/nvme/host/nvme.h
-@@ -664,7 +664,7 @@ static inline void nvme_mpath_update_disk_size(struct gendisk *disk)
- 	struct block_device *bdev = bdget_disk(disk, 0);
- 
- 	if (bdev) {
--		bd_set_size(bdev, get_capacity(disk) << SECTOR_SHIFT);
-+		bd_set_nr_sectors(bdev, get_capacity(disk));
- 		bdput(bdev);
- 	}
- }
-diff --git a/fs/block_dev.c b/fs/block_dev.c
-index 8ae833e004439b..f52597172c8b79 100644
---- a/fs/block_dev.c
-+++ b/fs/block_dev.c
-@@ -1371,13 +1371,13 @@ int check_disk_change(struct block_device *bdev)
- 
- EXPORT_SYMBOL(check_disk_change);
- 
--void bd_set_size(struct block_device *bdev, loff_t size)
-+void bd_set_nr_sectors(struct block_device *bdev, sector_t sectors)
- {
- 	inode_lock(bdev->bd_inode);
--	i_size_write(bdev->bd_inode, size);
-+	i_size_write(bdev->bd_inode, (loff_t)sectors << SECTOR_SHIFT);
- 	inode_unlock(bdev->bd_inode);
- }
--EXPORT_SYMBOL(bd_set_size);
-+EXPORT_SYMBOL(bd_set_nr_sectors);
- 
- static void __blkdev_put(struct block_device *bdev, fmode_t mode, int for_part);
- 
-@@ -1514,7 +1514,7 @@ static int __blkdev_get(struct block_device *bdev, fmode_t mode, void *holder,
- 			}
- 
- 			if (!ret) {
--				bd_set_size(bdev,(loff_t)get_capacity(disk)<<9);
-+				bd_set_nr_sectors(bdev, get_capacity(disk));
- 				set_init_blocksize(bdev);
- 			}
- 
-@@ -1542,7 +1542,7 @@ static int __blkdev_get(struct block_device *bdev, fmode_t mode, void *holder,
- 				ret = -ENXIO;
- 				goto out_clear;
- 			}
--			bd_set_size(bdev, (loff_t)bdev->bd_part->nr_sects << 9);
-+			bd_set_nr_sectors(bdev, bdev->bd_part->nr_sects);
- 			set_init_blocksize(bdev);
- 		}
- 
-diff --git a/include/linux/genhd.h b/include/linux/genhd.h
-index 4ab853461dff25..39025dc0397c04 100644
---- a/include/linux/genhd.h
-+++ b/include/linux/genhd.h
-@@ -375,7 +375,7 @@ void unregister_blkdev(unsigned int major, const char *name);
- int revalidate_disk(struct gendisk *disk);
- int check_disk_change(struct block_device *bdev);
- int __invalidate_device(struct block_device *bdev, bool kill_dirty);
--void bd_set_size(struct block_device *bdev, loff_t size);
-+void bd_set_nr_sectors(struct block_device *bdev, sector_t sectors);
- 
- /* for drivers/char/raw.c: */
- int blkdev_ioctl(struct block_device *, fmode_t, unsigned, unsigned long);
--- 
-2.28.0
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+VHdvIGRpZmZlcmVudCBjYWxsZXJzIHVzZSB0d28gZGlmZmVyZW50IG11dGV4ZXMgZm9yIHVwZGF0
+aW5nIHRoZQpibG9jayBkZXZpY2Ugc2l6ZSwgd2hpY2ggb2J2aW91c2x5IGRvZXNuJ3QgaGVscCB0
+byBhY3R1YWxseSBwcm90ZWN0CmFnYWluc3QgY29uY3VycmVudCB1cGRhdGVzIGZyb20gdGhlIGRp
+ZmZlcmVudCBjYWxsZXJzLiAgSW4gYWRkaXRpb24Kb25lIG9mIHRoZSBsb2NrcywgYmRfbXV0ZXgg
+aXMgcmF0aGVyIHByb25lIHRvIGRlYWRsb2NrcyB3aXRoIG90aGVyCnBhcnRzIG9mIHRoZSBibG9j
+ayBzdGFjayB0aGF0IHVzZSBpdCBmb3IgaGlnaCBsZXZlbCBzeW5jaHJvbml6YXRpb24uCgpTd2l0
+Y2ggdG8gdXNpbmcgYSBuZXcgc3BpbmxvY2sgcHJvdGVjdGluZyBqdXN0IHRoZSBzaXplIHVwZGF0
+ZXMsIGFzCnRoYXQgaXMgYWxsIHdlIG5lZWQsIGFuZCBtYWtlIHN1cmUgZXZlcnlvbmUgZG9lcyB0
+aGUgdXBkYXRlIHRocm91Z2gKdGhlIHByb3BlciBoZWxwZXIuCgpUaGlzIGZpeGXRlSBhIGJ1ZyBy
+ZXBvcnRlZCB3aXRoIHRoZSBudm1lIHJldmFsaWRhdGluZyBkaXNrcyBkdXJpbmcgYQpob3QgcmVt
+b3ZhbCBvcGVyYXRpb24uCgpSZXBvcnRlZC1ieTogWGlhbnRpbmcgVGlhbiA8eGlhbnRpbmdfdGlh
+bkAxMjYuY29tPgpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5kZT4K
+LS0tCiBibG9jay9wYXJ0aXRpb25zL2NvcmUuYyAgICAgICAgIHwgIDQgKystLQogZHJpdmVycy9i
+bG9jay9hb2UvYW9lY21kLmMgICAgICB8ICA0ICstLS0KIGRyaXZlcnMvbWQvZG0uYyAgICAgICAg
+ICAgICAgICAgfCAxNSArKy0tLS0tLS0tLS0tLS0KIGRyaXZlcnMvczM5MC9ibG9jay9kYXNkX2lv
+Y3RsLmMgfCAgOSArKy0tLS0tLS0KIGZzL2Jsb2NrX2Rldi5jICAgICAgICAgICAgICAgICAgfCAx
+OCArKysrKysrKystLS0tLS0tLS0KIGluY2x1ZGUvbGludXgvYmxrX3R5cGVzLmggICAgICAgfCAg
+MSArCiA2IGZpbGVzIGNoYW5nZWQsIDE3IGluc2VydGlvbnMoKyksIDM0IGRlbGV0aW9ucygtKQoK
+ZGlmZiAtLWdpdCBhL2Jsb2NrL3BhcnRpdGlvbnMvY29yZS5jIGIvYmxvY2svcGFydGl0aW9ucy9j
+b3JlLmMKaW5kZXggZTYyYTk4YThlZWI3NTAuLjMyOGEyY2I3ODc1YmExIDEwMDY0NAotLS0gYS9i
+bG9jay9wYXJ0aXRpb25zL2NvcmUuYworKysgYi9ibG9jay9wYXJ0aXRpb25zL2NvcmUuYwpAQCAt
+NTg1LDggKzU4NSw4IEBAIGludCBiZGV2X3Jlc2l6ZV9wYXJ0aXRpb24oc3RydWN0IGJsb2NrX2Rl
+dmljZSAqYmRldiwgaW50IHBhcnRubywKIAlpZiAocGFydGl0aW9uX292ZXJsYXBzKGJkZXYtPmJk
+X2Rpc2ssIHN0YXJ0LCBsZW5ndGgsIHBhcnRubykpCiAJCWdvdG8gb3V0X3VubG9jazsKIAotCXBh
+cnRfbnJfc2VjdHNfd3JpdGUocGFydCwgKHNlY3Rvcl90KWxlbmd0aCk7Ci0JaV9zaXplX3dyaXRl
+KGJkZXZwLT5iZF9pbm9kZSwgbGVuZ3RoIDw8IFNFQ1RPUl9TSElGVCk7CisJcGFydF9ucl9zZWN0
+c193cml0ZShwYXJ0LCBsZW5ndGgpOworCWJkX3NldF9ucl9zZWN0b3JzKGJkZXZwLCBsZW5ndGgp
+OwogCiAJcmV0ID0gMDsKIG91dF91bmxvY2s6CmRpZmYgLS1naXQgYS9kcml2ZXJzL2Jsb2NrL2Fv
+ZS9hb2VjbWQuYyBiL2RyaXZlcnMvYmxvY2svYW9lL2FvZWNtZC5jCmluZGV4IDNjZjliYzVkOGQ5
+NTk5Li42YWQ3M2ZlNzMwYmVkZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ibG9jay9hb2UvYW9lY21k
+LmMKKysrIGIvZHJpdmVycy9ibG9jay9hb2UvYW9lY21kLmMKQEAgLTkwMCw5ICs5MDAsNyBAQCBh
+b2VjbWRfc2xlZXB3b3JrKHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykKIAkJc3NpemUgPSBnZXRf
+Y2FwYWNpdHkoZC0+Z2QpOwogCQliZCA9IGJkZ2V0X2Rpc2soZC0+Z2QsIDApOwogCQlpZiAoYmQp
+IHsKLQkJCWlub2RlX2xvY2soYmQtPmJkX2lub2RlKTsKLQkJCWlfc2l6ZV93cml0ZShiZC0+YmRf
+aW5vZGUsIChsb2ZmX3Qpc3NpemU8PDkpOwotCQkJaW5vZGVfdW5sb2NrKGJkLT5iZF9pbm9kZSk7
+CisJCQliZF9zZXRfbnJfc2VjdG9ycyhiZCwgc3NpemUpOwogCQkJYmRwdXQoYmQpOwogCQl9CiAJ
+CXNwaW5fbG9ja19pcnEoJmQtPmxvY2spOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZC9kbS5jIGIv
+ZHJpdmVycy9tZC9kbS5jCmluZGV4IDMyZmE2NDk5NzM5ZmI5Li42YjIxZTUxMDRlM2UwOCAxMDA2
+NDQKLS0tIGEvZHJpdmVycy9tZC9kbS5jCisrKyBiL2RyaXZlcnMvbWQvZG0uYwpAQCAtMjA5Nywx
+OCArMjA5Nyw2IEBAIHN0YXRpYyB2b2lkIGV2ZW50X2NhbGxiYWNrKHZvaWQgKmNvbnRleHQpCiAJ
+ZG1faXNzdWVfZ2xvYmFsX2V2ZW50KCk7CiB9CiAKLS8qCi0gKiBQcm90ZWN0ZWQgYnkgbWQtPnN1
+c3BlbmRfbG9jayBvYnRhaW5lZCBieSBkbV9zd2FwX3RhYmxlKCkuCi0gKi8KLXN0YXRpYyB2b2lk
+IF9fc2V0X3NpemUoc3RydWN0IG1hcHBlZF9kZXZpY2UgKm1kLCBzZWN0b3JfdCBzaXplKQotewot
+CWxvY2tkZXBfYXNzZXJ0X2hlbGQoJm1kLT5zdXNwZW5kX2xvY2spOwotCi0Jc2V0X2NhcGFjaXR5
+KG1kLT5kaXNrLCBzaXplKTsKLQotCWlfc2l6ZV93cml0ZShtZC0+YmRldi0+YmRfaW5vZGUsIChs
+b2ZmX3Qpc2l6ZSA8PCBTRUNUT1JfU0hJRlQpOwotfQotCiAvKgogICogUmV0dXJucyBvbGQgbWFw
+LCB3aGljaCBjYWxsZXIgbXVzdCBkZXN0cm95LgogICovCkBAIC0yMTMxLDcgKzIxMTksOCBAQCBz
+dGF0aWMgc3RydWN0IGRtX3RhYmxlICpfX2JpbmQoc3RydWN0IG1hcHBlZF9kZXZpY2UgKm1kLCBz
+dHJ1Y3QgZG1fdGFibGUgKnQsCiAJaWYgKHNpemUgIT0gZG1fZ2V0X3NpemUobWQpKQogCQltZW1z
+ZXQoJm1kLT5nZW9tZXRyeSwgMCwgc2l6ZW9mKG1kLT5nZW9tZXRyeSkpOwogCi0JX19zZXRfc2l6
+ZShtZCwgc2l6ZSk7CisJc2V0X2NhcGFjaXR5KG1kLT5kaXNrLCBzaXplKTsKKwliZF9zZXRfbnJf
+c2VjdG9ycyhtZC0+YmRldiwgc2l6ZSk7CiAKIAlkbV90YWJsZV9ldmVudF9jYWxsYmFjayh0LCBl
+dmVudF9jYWxsYmFjaywgbWQpOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL3MzOTAvYmxvY2svZGFz
+ZF9pb2N0bC5jIGIvZHJpdmVycy9zMzkwL2Jsb2NrL2Rhc2RfaW9jdGwuYwppbmRleCA3Nzc3MzRk
+MWI0ZTU4Yy4uZmFhZjU1OTZlMzFjMTIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvczM5MC9ibG9jay9k
+YXNkX2lvY3RsLmMKKysrIGIvZHJpdmVycy9zMzkwL2Jsb2NrL2Rhc2RfaW9jdGwuYwpAQCAtNTUs
+MTAgKzU1LDcgQEAgZGFzZF9pb2N0bF9lbmFibGUoc3RydWN0IGJsb2NrX2RldmljZSAqYmRldikK
+IAogCWRhc2RfZW5hYmxlX2RldmljZShiYXNlKTsKIAkvKiBGb3JtYXR0aW5nIHRoZSBkYXNkIGRl
+dmljZSBjYW4gY2hhbmdlIHRoZSBjYXBhY2l0eS4gKi8KLQltdXRleF9sb2NrKCZiZGV2LT5iZF9t
+dXRleCk7Ci0JaV9zaXplX3dyaXRlKGJkZXYtPmJkX2lub2RlLAotCQkgICAgIChsb2ZmX3QpZ2V0
+X2NhcGFjaXR5KGJhc2UtPmJsb2NrLT5nZHApIDw8IDkpOwotCW11dGV4X3VubG9jaygmYmRldi0+
+YmRfbXV0ZXgpOworCWJkX3NldF9ucl9zZWN0b3JzKGJkZXYsIGdldF9jYXBhY2l0eShiYXNlLT5i
+bG9jay0+Z2RwKSk7CiAJZGFzZF9wdXRfZGV2aWNlKGJhc2UpOwogCXJldHVybiAwOwogfQpAQCAt
+OTEsOSArODgsNyBAQCBkYXNkX2lvY3RsX2Rpc2FibGUoc3RydWN0IGJsb2NrX2RldmljZSAqYmRl
+dikKIAkgKiBTZXQgaV9zaXplIHRvIHplcm8sIHNpbmNlIHJlYWQsIHdyaXRlLCBldGMuIGNoZWNr
+IGFnYWluc3QgdGhpcwogCSAqIHZhbHVlLgogCSAqLwotCW11dGV4X2xvY2soJmJkZXYtPmJkX211
+dGV4KTsKLQlpX3NpemVfd3JpdGUoYmRldi0+YmRfaW5vZGUsIDApOwotCW11dGV4X3VubG9jaygm
+YmRldi0+YmRfbXV0ZXgpOworCWJkX3NldF9ucl9zZWN0b3JzKGJkZXYsIDApOwogCWRhc2RfcHV0
+X2RldmljZShiYXNlKTsKIAlyZXR1cm4gMDsKIH0KZGlmZiAtLWdpdCBhL2ZzL2Jsb2NrX2Rldi5j
+IGIvZnMvYmxvY2tfZGV2LmMKaW5kZXggZjUyNTk3MTcyYzhiNzkuLmFhNTU5ZjFmMDg4MDBlIDEw
+MDY0NAotLS0gYS9mcy9ibG9ja19kZXYuYworKysgYi9mcy9ibG9ja19kZXYuYwpAQCAtODc2LDYg
+Kzg3Niw3IEBAIHN0cnVjdCBibG9ja19kZXZpY2UgKmJkZ2V0KGRldl90IGRldikKIAliZGV2ID0g
+JkJERVZfSShpbm9kZSktPmJkZXY7CiAKIAlpZiAoaW5vZGUtPmlfc3RhdGUgJiBJX05FVykgewor
+CQlzcGluX2xvY2tfaW5pdCgmYmRldi0+YmRfc2l6ZV9sb2NrKTsKIAkJYmRldi0+YmRfY29udGFp
+bnMgPSBOVUxMOwogCQliZGV2LT5iZF9zdXBlciA9IE5VTEw7CiAJCWJkZXYtPmJkX2lub2RlID0g
+aW5vZGU7CkBAIC0xMjkwLDYgKzEyOTEsNyBAQCBzdGF0aWMgdm9pZCBjaGVja19kaXNrX3NpemVf
+Y2hhbmdlKHN0cnVjdCBnZW5kaXNrICpkaXNrLAogewogCWxvZmZfdCBkaXNrX3NpemUsIGJkZXZf
+c2l6ZTsKIAorCXNwaW5fbG9jaygmYmRldi0+YmRfc2l6ZV9sb2NrKTsKIAlkaXNrX3NpemUgPSAo
+bG9mZl90KWdldF9jYXBhY2l0eShkaXNrKSA8PCA5OwogCWJkZXZfc2l6ZSA9IGlfc2l6ZV9yZWFk
+KGJkZXYtPmJkX2lub2RlKTsKIAlpZiAoZGlza19zaXplICE9IGJkZXZfc2l6ZSkgewpAQCAtMTMw
+NCw2ICsxMzA2LDcgQEAgc3RhdGljIHZvaWQgY2hlY2tfZGlza19zaXplX2NoYW5nZShzdHJ1Y3Qg
+Z2VuZGlzayAqZGlzaywKIAkJCQlkaXNrLT5kaXNrX25hbWUpOwogCX0KIAliZGV2LT5iZF9pbnZh
+bGlkYXRlZCA9IDA7CisJc3Bpbl91bmxvY2soJmJkZXYtPmJkX3NpemVfbG9jayk7CiB9CiAKIC8q
+KgpAQCAtMTMyOCwxMyArMTMzMSwxMCBAQCBpbnQgcmV2YWxpZGF0ZV9kaXNrKHN0cnVjdCBnZW5k
+aXNrICpkaXNrKQogCWlmICghKGRpc2stPmZsYWdzICYgR0VOSERfRkxfSElEREVOKSkgewogCQlz
+dHJ1Y3QgYmxvY2tfZGV2aWNlICpiZGV2ID0gYmRnZXRfZGlzayhkaXNrLCAwKTsKIAotCQlpZiAo
+IWJkZXYpCi0JCQlyZXR1cm4gcmV0OwotCi0JCW11dGV4X2xvY2soJmJkZXYtPmJkX211dGV4KTsK
+LQkJY2hlY2tfZGlza19zaXplX2NoYW5nZShkaXNrLCBiZGV2LCByZXQgPT0gMCk7Ci0JCW11dGV4
+X3VubG9jaygmYmRldi0+YmRfbXV0ZXgpOwotCQliZHB1dChiZGV2KTsKKwkJaWYgKGJkZXYpIHsK
+KwkJCWNoZWNrX2Rpc2tfc2l6ZV9jaGFuZ2UoZGlzaywgYmRldiwgcmV0ID09IDApOworCQkJYmRw
+dXQoYmRldik7CisJCX0KIAl9CiAJcmV0dXJuIHJldDsKIH0KQEAgLTEzNzMsOSArMTM3Myw5IEBA
+IEVYUE9SVF9TWU1CT0woY2hlY2tfZGlza19jaGFuZ2UpOwogCiB2b2lkIGJkX3NldF9ucl9zZWN0
+b3JzKHN0cnVjdCBibG9ja19kZXZpY2UgKmJkZXYsIHNlY3Rvcl90IHNlY3RvcnMpCiB7Ci0JaW5v
+ZGVfbG9jayhiZGV2LT5iZF9pbm9kZSk7CisJc3Bpbl9sb2NrKCZiZGV2LT5iZF9zaXplX2xvY2sp
+OwogCWlfc2l6ZV93cml0ZShiZGV2LT5iZF9pbm9kZSwgKGxvZmZfdClzZWN0b3JzIDw8IFNFQ1RP
+Ul9TSElGVCk7Ci0JaW5vZGVfdW5sb2NrKGJkZXYtPmJkX2lub2RlKTsKKwlzcGluX3VubG9jaygm
+YmRldi0+YmRfc2l6ZV9sb2NrKTsKIH0KIEVYUE9SVF9TWU1CT0woYmRfc2V0X25yX3NlY3RvcnMp
+OwogCmRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L2Jsa190eXBlcy5oIGIvaW5jbHVkZS9saW51
+eC9ibGtfdHlwZXMuaAppbmRleCA0ZWNmNGZlZDE3MWYwZC4uNWFjY2MyNTQ5ZDIyNTkgMTAwNjQ0
+Ci0tLSBhL2luY2x1ZGUvbGludXgvYmxrX3R5cGVzLmgKKysrIGIvaW5jbHVkZS9saW51eC9ibGtf
+dHlwZXMuaApAQCAtMzgsNiArMzgsNyBAQCBzdHJ1Y3QgYmxvY2tfZGV2aWNlIHsKIAkvKiBudW1i
+ZXIgb2YgdGltZXMgcGFydGl0aW9ucyB3aXRoaW4gdGhpcyBkZXZpY2UgaGF2ZSBiZWVuIG9wZW5l
+ZC4gKi8KIAl1bnNpZ25lZAkJYmRfcGFydF9jb3VudDsKIAlpbnQJCQliZF9pbnZhbGlkYXRlZDsK
+KwlzcGlubG9ja190CQliZF9zaXplX2xvY2s7IC8qIGZvciBiZF9pbm9kZS0+aV9zaXplIHVwZGF0
+ZXMgKi8KIAlzdHJ1Y3QgZ2VuZGlzayAqCWJkX2Rpc2s7CiAJc3RydWN0IGJhY2tpbmdfZGV2X2lu
+Zm8gKmJkX2JkaTsKIAotLSAKMi4yOC4wCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2
+ZWxAcmVkaGF0LmNvbQpodHRwczovL3d3dy5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0t
+ZGV2ZWw=
 
