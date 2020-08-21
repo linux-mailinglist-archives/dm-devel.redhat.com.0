@@ -1,60 +1,107 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 09CFB24C6D1
-	for <lists+dm-devel@lfdr.de>; Thu, 20 Aug 2020 22:42:16 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 8C96124CC9C
+	for <lists+dm-devel@lfdr.de>; Fri, 21 Aug 2020 06:24:37 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-103-MB4lyRl-OgyDj2J_58nVnw-1; Thu, 20 Aug 2020 16:42:13 -0400
-X-MC-Unique: MB4lyRl-OgyDj2J_58nVnw-1
+ us-mta-431-1jaLAlmxNnicrjAMbyaaPA-1; Fri, 21 Aug 2020 00:24:34 -0400
+X-MC-Unique: 1jaLAlmxNnicrjAMbyaaPA-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E8AFE801AB2;
-	Thu, 20 Aug 2020 20:42:05 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0B93881F02C;
+	Fri, 21 Aug 2020 04:24:26 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F4D1756D9;
-	Thu, 20 Aug 2020 20:42:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 16D0E60CD0;
+	Fri, 21 Aug 2020 04:24:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B05A685CD;
-	Thu, 20 Aug 2020 20:41:51 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BAA9760346;
+	Fri, 21 Aug 2020 04:24:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07KKdSLw017156 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 20 Aug 2020 16:39:29 -0400
+	id 07L4NnJd029638 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 21 Aug 2020 00:23:49 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B932A115D7B6; Thu, 20 Aug 2020 20:39:28 +0000 (UTC)
+	id 110A72157F26; Fri, 21 Aug 2020 04:23:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B5AFA1009B95
-	for <dm-devel@redhat.com>; Thu, 20 Aug 2020 20:39:26 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EB3AF2166BDD
+	for <dm-devel@redhat.com>; Fri, 21 Aug 2020 04:23:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 54C9518AE956
-	for <dm-devel@redhat.com>; Thu, 20 Aug 2020 20:39:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2A577857CF8
+	for <dm-devel@redhat.com>; Fri, 21 Aug 2020 04:23:46 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-463-j9tgtJgqMFyKITFADHOCJg-1;
-	Thu, 20 Aug 2020 16:39:21 -0400
-X-MC-Unique: j9tgtJgqMFyKITFADHOCJg-1
+	relay.mimecast.com with ESMTP id us-mta-439-zmomrwMkMpecIh_bOp1axA-1;
+	Fri, 21 Aug 2020 00:23:43 -0400
+X-MC-Unique: zmomrwMkMpecIh_bOp1axA-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id DDEE1AEAB;
-	Thu, 20 Aug 2020 20:39:47 +0000 (UTC)
-Message-ID: <9b5a6c4fd5790f4662cf70d23578f86e90bbe37f.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu, 20 Aug 2020 22:39:19 +0200
-In-Reply-To: <ac0f4fc202cf40b1c12dd7484468a162d757b4e0.camel@suse.com>
-References: <20190104175914.22784-1-mwilck@suse.com>
-	<20190104175914.22784-5-mwilck@suse.com>
-	<20190116234056.GT11315@octiron.msp.redhat.com>
-	<ac0f4fc202cf40b1c12dd7484468a162d757b4e0.camel@suse.com>
-User-Agent: Evolution 3.36.5
+	by mx2.suse.de (Postfix) with ESMTP id 8B960B7E9;
+	Fri, 21 Aug 2020 04:11:47 +0000 (UTC)
+To: Zhen Lei <thunder.leizhen@huawei.com>, Jens Axboe <axboe@kernel.dk>,
+	Kent Overstreet <kent.overstreet@gmail.com>, Alasdair Kergon
+	<agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
+	dm-devel <dm-devel@redhat.com>, linux-block <linux-block@vger.kernel.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	linux-bcache <linux-bcache@vger.kernel.org>
+References: <20200821020345.3358-1-thunder.leizhen@huawei.com>
+From: Coly Li <colyli@suse.de>
+Autocrypt: addr=colyli@suse.de; keydata=
+	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
+Message-ID: <b4643e74-aad9-385f-01f2-f8e48ba4dbef@suse.de>
+Date: Fri, 21 Aug 2020 12:11:13 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+	Gecko/20100101 Thunderbird/68.11.0
 MIME-Version: 1.0
+In-Reply-To: <20200821020345.3358-1-thunder.leizhen@huawei.com>
+Content-Language: en-US
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -63,11 +110,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: Chongyun Wu <wu.chongyun@h3c.com>, dm-devel@redhat.com
-Subject: Re: [dm-devel] [RFC PATCH 4/6] multipathd: cancel threads early
-	during shutdown
+Subject: Re: [dm-devel] [PATCH 1/1] block: move the PAGE_SECTORS definition
+ into <linux/blkdev.h>
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,164 +130,72 @@ Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0.002
+X-Mimecast-Spam-Score: 0.001
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Ben,
-
-I need to get back to this old discussion. I didn't resend this patch
-last year, because I tried to figure out how to solve the memory leaks
-you mentioned.
-
-On Thu, 2019-01-17 at 10:59 +0100, Martin Wilck wrote:
-> On Wed, 2019-01-16 at 17:40 -0600, Benjamin Marzinski wrote:
-> > On Fri, Jan 04, 2019 at 06:59:12PM +0100, Martin Wilck wrote:
-> > > Cancel the other threads before taking vecs->lock. This avoids
-> > > delays during shutdown caused e.g. by the checker thread holding
-> > > the vecs lock.
-> > 
-> > Before this change, multipathd was guaranteed that once a thread
-> > had
-> > locked the vecs lock, and checked if it had been cancelled, it
-> > could
-> > not
-> > be cancelled after that until it unlocked the vecs lock.  Undoing
-> > this
-> > guarantee will likely make it possible for multipathd to leak
-> > memory
-> > where it wasn't possible before. 
+On 2020/8/21 10:03, Zhen Lei wrote:
+> There are too many PAGE_SECTORS definitions, and all of them are the
+> same. It looks a bit of a mess. So why not move it into <linux/blkdev.h>,
+> to achieve a basic and unique definition.
 > 
-> Thanks for pointing that out.
+> Signed-off-by: Zhen Lei <thunder.leizhen@huawei.com>
+
+
+A lazy question about page size > 4KB: currently in bcache code the
+sector size is assumed to be 512 sectors, if kernel page > 4KB, it is
+possible that PAGE_SECTORS in bcache will be a number > 8 ?
+
+Thanks.
+
+Coly Li
+
+
+> ---
+>  drivers/block/brd.c           | 1 -
+>  drivers/block/null_blk_main.c | 1 -
+>  drivers/md/bcache/util.h      | 2 --
+>  include/linux/blkdev.h        | 5 +++--
+>  include/linux/device-mapper.h | 1 -
+>  5 files changed, 3 insertions(+), 7 deletions(-)
 > 
-> I wasn't aware of this guarantee. In my latest valgrind tests,
-> valgrind
-> reported no leaks, but multipathd was also not "clean" in the sense
-> that every chunk of memory malloc()d had been explicitly free()d at
-> exit. IIRC that hadn't been caused by any patches added recently.
-> I haven't had time to look at that further, I was satisfied with no
-> real leaks being reported.
-> 
-> We do free the global data structures in "vecs" when we exit. So any
-> possible leaks caused by this patch must be cases where temporary
-> memory is allocated without proper pthread_cleanup_push(), or where a
-> thread was cancelled between allocation of memory and setting a
-> reference to it in the global data structures - e.g. between
-> allocation
-> of a path and adding it to vecs->pathvec.
-> 
-> I haven't audited either class of leaks. I believe the first class
-> should have been eliminated by earlier phthread_cancel audits. Fixing
-> the second class would require designing some really clever helpers,
-> I
-> guess. But as argued above, I really don't think it matters much if
-> it
-> concerns only leaks-at-shutdown.
-> 
-> I'll put this on my todo list, but not at the highest prio.
-> For this RFC, we need to decide whether it's more important to be
-> leak-
-> free on shutdown, or to react quickly on shutdown requests.
 
-Last year, I had started looking into this, and produced a first patch,
-bca3729 ("libmultipath: alias.c: prepare for cancel-safe allocation").
-I've just revisited this. I think what I did back then was broken.
+[snipped]
 
- out:
-+       pthread_cleanup_push(free, alias);
-        fclose(f);
-+       pthread_cleanup_pop(0);
-
-
-is confusing and hard to read. When I just saw it, several months after
-having written it myself, I thought it was a bug. Actually, it *is*
-broken, as you pointed out already in 
-https://www.redhat.com/archives/dm-devel/2019-October/msg00211.html,
-because we need to avoid leaking the fd, too.
-
-How would code look like that would protect both from the memory and fd
-leak due to cancellation? Maybe like this:
-
-char *get_user_friendly_alias(...)
-{
-        char *alias = NULL;
-        ...
-
-        /* simplified, we need a wrapper for fclose */
-	pthread_cleanup_push(fclose, f);
-
-	id = lookup_binding(f, wwid, &alias, prefix);
-	if (id < 0)
-                goto out_fclose;
-
-	pthread_cleanup_push(free, alias);
-	if (fflush(f) != 0) {
-		condlog(0, "cannot fflush bindings file stream : %s",
-			strerror(errno));
-		free(alias);
-		alias = NULL;
-                goto out_free;
-	} else if (can_write && !bindings_read_only && !alias)
-		alias = allocate_binding(fd, wwid, id, prefix);
-
-out_free:
-        /* This is necessary to preserve nesting */
-	pthread_cleanup_pop(0); /* free */
-out_fclose:
-	pthread_cleanup_pop(0); /* fclose */
-        /* This is necessary because fclose() is a cancellation point */
-	pthread_cleanup_push(free, alias);
-	fclose(f);
-	pthread_cleanup_pop(0); /* free */
-
-        return alias;
-}
-
-I hope you concur that this is awfully ugly. Everyone is invited to
-find a solution that doesn't require 3x pthread_cleanup_push()/pop(),
-without completely rewriting the code.
-
-IMO avoiding the fd leak is more important than avoiding the memory 
-leak of "alias". I'm going to submit a patch that does exactly that.
-
-In general: I think completely avoiding memory leaks in multithreaded
-code that allows almost arbitrary cancellation is not a worthwhile
-goal. After all, except for the waiter and checker threads,
-all other threads are only cancelled when multipathd exits. Yes, this
-makes it harder to assess potential memory leaks with valgrind, because
-we can't easily distinguish real memory leaks from leaks caused by
-cancellation. But that's about it, and I think the distinction is
-actually not that hard, because the leaks caused by cancellation would
-be sporadic, and wouldn't pile up during longer runs.
-
-So, I propose not to go further in this direction. IOW, we shouldn't
-write code like bca3729 any more. We don't have to avoid it at all cost
-(for example, it's always good to link allocated memory to some global
-data structure as soon as it makes sense to do so). But I think that
-"pthread_cleanup_push(free, xyz)" is often not worth the code
-uglification it causes. If it conflicts with other cleanup actions, and
-can't be cleanly nested like above, we should definitely not do it.
-
-Moreover, I believe that reacting quickly on cancellation / exit
-requests is more important than avoiding cancellation-caused memory
-leaks. Therefore I plan to resend the "cancel threads early" patch,
-unless you come up with more strong reasons not to do so.
-
-Another possibility to "fix" cancellation issues and get rid of ugly
-pthread_cleanup_push() calls would be changing our cancellation policy
-to PTHREAD_CANCEL_DISABLE, and check for cancellation only at certain
-points during runtime (basically, before and after blocking / waiting
-on something). But I don't think that's going to work well, for the
-same reason - we'd run high risk to get those multipathd shutdown
-issues back which we've overcome only recently.
-
-Thoughts?
-
-Martin
-
-
-
+> diff --git a/drivers/md/bcache/util.h b/drivers/md/bcache/util.h
+> index c029f7443190805..55196e0f37c32c6 100644
+> --- a/drivers/md/bcache/util.h
+> +++ b/drivers/md/bcache/util.h
+> @@ -15,8 +15,6 @@
+>  
+>  #include "closure.h"
+>  
+> -#define PAGE_SECTORS		(PAGE_SIZE / 512)
+> -
+>  struct closure;
+>  
+>  #ifdef CONFIG_BCACHE_DEBUG
+> diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+> index bb5636cc17b91a7..b068dfc5f2ef0ab 100644
+> --- a/include/linux/blkdev.h
+> +++ b/include/linux/blkdev.h
+> @@ -949,11 +949,12 @@ static inline struct request_queue *bdev_get_queue(struct block_device *bdev)
+>   * multiple of 512 bytes. Hence these two constants.
+>   */
+>  #ifndef SECTOR_SHIFT
+> -#define SECTOR_SHIFT 9
+> +#define SECTOR_SHIFT		9
+>  #endif
+>  #ifndef SECTOR_SIZE
+> -#define SECTOR_SIZE (1 << SECTOR_SHIFT)
+> +#define SECTOR_SIZE		(1 << SECTOR_SHIFT)
+>  #endif
+> +#define PAGE_SECTORS		(PAGE_SIZE / SECTOR_SIZE)
+>  
+>  /*
+>   * blk_rq_pos()			: the current sector
+[snipped]
 
 --
 dm-devel mailing list
