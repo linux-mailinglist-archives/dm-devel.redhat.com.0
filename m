@@ -1,58 +1,58 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id DB87F24D361
-	for <lists+dm-devel@lfdr.de>; Fri, 21 Aug 2020 12:59:17 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 0AFFD24D369
+	for <lists+dm-devel@lfdr.de>; Fri, 21 Aug 2020 13:00:44 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-217-S9OrrbG8N5eYJFQfiS0SAA-1; Fri, 21 Aug 2020 06:59:14 -0400
-X-MC-Unique: S9OrrbG8N5eYJFQfiS0SAA-1
+ us-mta-306-Binh1ojIPF2-xQaROClbDw-1; Fri, 21 Aug 2020 07:00:41 -0400
+X-MC-Unique: Binh1ojIPF2-xQaROClbDw-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6218B1007469;
-	Fri, 21 Aug 2020 10:59:07 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 20D135C89C;
-	Fri, 21 Aug 2020 10:59:04 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 975481074657;
+	Fri, 21 Aug 2020 11:00:35 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6FCFB5C1D7;
+	Fri, 21 Aug 2020 11:00:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0C659181A06B;
-	Fri, 21 Aug 2020 10:58:54 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F04B6662B1;
+	Fri, 21 Aug 2020 11:00:32 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07LAwiUk012684 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 21 Aug 2020 06:58:44 -0400
+	id 07LB0SP5012874 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 21 Aug 2020 07:00:29 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 898E8EE84D; Fri, 21 Aug 2020 10:58:44 +0000 (UTC)
+	id C3868F559B; Fri, 21 Aug 2020 11:00:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 859ABF5598
-	for <dm-devel@redhat.com>; Fri, 21 Aug 2020 10:58:42 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BDE14F5695
+	for <dm-devel@redhat.com>; Fri, 21 Aug 2020 11:00:26 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 241DA811E7A
-	for <dm-devel@redhat.com>; Fri, 21 Aug 2020 10:58:42 +0000 (UTC)
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35]) (Using
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5DFC2101A571
+	for <dm-devel@redhat.com>; Fri, 21 Aug 2020 11:00:26 +0000 (UTC)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-563-Fzd7QobsPoSEWznNyuJbdA-1; Fri, 21 Aug 2020 06:58:38 -0400
-X-MC-Unique: Fzd7QobsPoSEWznNyuJbdA-1
-Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.58])
-	by Forcepoint Email with ESMTP id 2F3D4C07D719994DB57F;
-	Fri, 21 Aug 2020 18:58:31 +0800 (CST)
-Received: from [127.0.0.1] (10.174.179.249) by DGGEMS405-HUB.china.huawei.com
-	(10.3.19.205) with Microsoft SMTP Server id 14.3.487.0;
-	Fri, 21 Aug 2020 18:58:20 +0800
+	us-mta-245-WePZTxaFP1mjDsa2GQKr2w-1; Fri, 21 Aug 2020 07:00:22 -0400
+X-MC-Unique: WePZTxaFP1mjDsa2GQKr2w-1
+Received: from DGGEMS411-HUB.china.huawei.com (unknown [172.30.72.58])
+	by Forcepoint Email with ESMTP id 9AB44574682AAA9AAD3D;
+	Fri, 21 Aug 2020 19:00:15 +0800 (CST)
+Received: from [127.0.0.1] (10.174.179.249) by DGGEMS411-HUB.china.huawei.com
+	(10.3.19.211) with Microsoft SMTP Server id 14.3.487.0;
+	Fri, 21 Aug 2020 19:00:09 +0800
 To: <mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, "Christophe
 	Varoqui" <christophe.varoqui@opensvc.com>, Zdenek Kabelac
 	<zkabelac@redhat.com>
 References: <52b3b834-6da6-99c1-a2d1-95c2387c47e3@huawei.com>
 From: Zhiqiang Liu <liuzhiqiang26@huawei.com>
-Message-ID: <b2c96dc6-1e01-beb2-0ccb-22e1d0d980a6@huawei.com>
-Date: Fri, 21 Aug 2020 18:58:20 +0800
+Message-ID: <9fbd5246-ff4f-0486-d33a-c77ccd334a4d@huawei.com>
+Date: Fri, 21 Aug 2020 19:00:08 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
 	Thunderbird/68.2.2
 MIME-Version: 1.0
@@ -73,8 +73,8 @@ X-loop: dm-devel@redhat.com
 Cc: linfeilong <linfeilong@huawei.com>, Yanxiaodan <yanxiaodan@huawei.com>,
 	dm-devel@redhat.com, lixiaokeng <lixiaokeng@huawei.com>,
 	liuzhiqiang26@huawei.com
-Subject: [dm-devel] [PATCH V2 1/5] multipathd: adopt static char* arr in
-	daemon_status
+Subject: [dm-devel] [PATCH V2 3/5] libmultipath: check blist before calling
+ MALLOC in alloc_ble_device func
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,88 +91,48 @@ Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0.002
+X-Mimecast-Spam-Score: 0.001
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 
-We adopt static char* array (demon_status_msg) in daemon_status func,
-so it looks more simpler and easier to expand.
+In alloc_ble_device func, ble is firstly allocated by calling MALLOC,
+and then input blist is checked whether it is valid. If blist is not
+valid, ble will be freed without using.
 
-V1->V2:
-- use "int" as the type of "status" (suggested by Martin)
+Here, we should check blist firstly.
 
 Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
 Signed-off-by: lixiaokeng <lixiaokeng@huawei.com>
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- multipathd/main.c | 30 +++++++++++++++---------------
- multipathd/main.h |  3 ++-
- 2 files changed, 17 insertions(+), 16 deletions(-)
+ libmultipath/blacklist.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/multipathd/main.c b/multipathd/main.c
-index 9ec65856..62cf4ff4 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -153,24 +153,24 @@ static volatile sig_atomic_t exit_sig;
- static volatile sig_atomic_t reconfig_sig;
- static volatile sig_atomic_t log_reset_sig;
+diff --git a/libmultipath/blacklist.c b/libmultipath/blacklist.c
+index db58ccca..bedcc7e4 100644
+--- a/libmultipath/blacklist.c
++++ b/libmultipath/blacklist.c
+@@ -66,12 +66,16 @@ out:
 
-+static const char *daemon_status_msg[DAEMON_STATUS_SIZE] = {
-+	[DAEMON_INIT] = "init",
-+	[DAEMON_START] = "startup",
-+	[DAEMON_CONFIGURE] = "configure",
-+	[DAEMON_IDLE] = "idle",
-+	[DAEMON_RUNNING] = "running",
-+	[DAEMON_SHUTDOWN] = "shutdown",
-+};
-+
- const char *
- daemon_status(void)
+ int alloc_ble_device(vector blist)
  {
--	switch (get_running_state()) {
--	case DAEMON_INIT:
--		return "init";
--	case DAEMON_START:
--		return "startup";
--	case DAEMON_CONFIGURE:
--		return "configure";
--	case DAEMON_IDLE:
--		return "idle";
--	case DAEMON_RUNNING:
--		return "running";
--	case DAEMON_SHUTDOWN:
--		return "shutdown";
--	}
--	return NULL;
-+	int status = get_running_state();
+-	struct blentry_device * ble = MALLOC(sizeof(struct blentry_device));
++	struct blentry_device *ble;
+
++	if (!blist)
++		return 1;
 +
-+	if (status < DAEMON_INIT || status >= DAEMON_STATUS_SIZE)
-+		return NULL;
-+
-+	return daemon_status_msg[status];
- }
++	ble = MALLOC(sizeof(struct blentry_device));
+ 	if (!ble)
+ 		return 1;
 
- /*
-diff --git a/multipathd/main.h b/multipathd/main.h
-index 5dff17e5..6a5592c0 100644
---- a/multipathd/main.h
-+++ b/multipathd/main.h
-@@ -4,12 +4,13 @@
- #define MAPGCINT 5
-
- enum daemon_status {
--	DAEMON_INIT,
-+	DAEMON_INIT = 0,
- 	DAEMON_START,
- 	DAEMON_CONFIGURE,
- 	DAEMON_IDLE,
- 	DAEMON_RUNNING,
- 	DAEMON_SHUTDOWN,
-+	DAEMON_STATUS_SIZE,
- };
-
- struct prout_param_descriptor;
+-	if (!blist || !vector_alloc_slot(blist)) {
++	if (!vector_alloc_slot(blist)) {
+ 		FREE(ble);
+ 		return 1;
+ 	}
 -- 
 2.24.0.windows.2
 
