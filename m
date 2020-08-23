@@ -1,53 +1,54 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D740124EC73
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 7108424EC72
 	for <lists+dm-devel@lfdr.de>; Sun, 23 Aug 2020 11:31:08 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-315-S8NOeU4aNiytJejqCUVuEw-1; Sun, 23 Aug 2020 05:31:05 -0400
-X-MC-Unique: S8NOeU4aNiytJejqCUVuEw-1
+ us-mta-389-OsX22VfsPVyG6FgK6APh7A-1; Sun, 23 Aug 2020 05:31:05 -0400
+X-MC-Unique: OsX22VfsPVyG6FgK6APh7A-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 96B4E1084C8F;
-	Sun, 23 Aug 2020 09:30:58 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EF4C880EFBF;
+	Sun, 23 Aug 2020 09:30:57 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 016845C1D7;
-	Sun, 23 Aug 2020 09:30:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 60E105F9D6;
+	Sun, 23 Aug 2020 09:30:56 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 27271180B658;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 34E23180B65D;
 	Sun, 23 Aug 2020 09:30:51 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07N9UlZ4024642 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 23 Aug 2020 05:30:47 -0400
+	id 07N9UiNj024617 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 23 Aug 2020 05:30:44 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3213E2166BA3; Sun, 23 Aug 2020 09:30:47 +0000 (UTC)
+	id 00E859C049; Sun, 23 Aug 2020 09:30:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2DC012166BA2
-	for <dm-devel@redhat.com>; Sun, 23 Aug 2020 09:30:44 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F05F9A9E7C
+	for <dm-devel@redhat.com>; Sun, 23 Aug 2020 09:30:40 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E965D101A540
-	for <dm-devel@redhat.com>; Sun, 23 Aug 2020 09:30:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3C104888BE0
+	for <dm-devel@redhat.com>; Sun, 23 Aug 2020 09:30:40 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-462-4fXTkE2DMiyPu-Bf5IZO1A-1; Sun, 23 Aug 2020 05:30:42 -0400
-X-MC-Unique: 4fXTkE2DMiyPu-Bf5IZO1A-1
+	us-mta-481-FqF6j3qQPoqk_aHVuDncpA-1; Sun, 23 Aug 2020 05:30:37 -0400
+X-MC-Unique: FqF6j3qQPoqk_aHVuDncpA-1
 Received: from 171.168.43.195.cust.ip.kpnqwest.it ([195.43.168.171]
 	helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1k9m1Z-0003L8-Bx; Sun, 23 Aug 2020 09:10:49 +0000
+	id 1k9m1a-0003LF-G4; Sun, 23 Aug 2020 09:10:50 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Sun, 23 Aug 2020 11:10:42 +0200
-Message-Id: <20200823091043.2600261-3-hch@lst.de>
+Date: Sun, 23 Aug 2020 11:10:43 +0200
+Message-Id: <20200823091043.2600261-4-hch@lst.de>
 In-Reply-To: <20200823091043.2600261-1-hch@lst.de>
 References: <20200823091043.2600261-1-hch@lst.de>
 MIME-Version: 1.0
@@ -61,7 +62,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: linux-s390@vger.kernel.org, Jan Hoeppner <hoeppner@linux.ibm.com>,
 	Justin Sanders <justin@coraid.com>, linux-nvme@lists.infradead.org,
@@ -69,8 +70,8 @@ Cc: linux-s390@vger.kernel.org, Jan Hoeppner <hoeppner@linux.ibm.com>,
 	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
 	dm-devel@redhat.com, Stefan Haberland <sth@linux.ibm.com>,
 	nbd@other.debian.org
-Subject: [dm-devel] [PATCH 2/3] block: fix locking for struct block_device
-	size updates
+Subject: [dm-devel] [PATCH 3/3] nvme: don't call revalidate_disk from
+	nvme_set_queue_dying
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,200 +93,108 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Two different callers use two different mutexes for updating the
-block device size, which obviously doesn't help to actually protect
-against concurrent updates from the different callers.  In addition
-one of the locks, bd_mutex is rather prone to deadlocks with other
-parts of the block stack that use it for high level synchronization.
+In nvme_set_queue_dying we really just want to ensure the disk and bdev
+sizes are set to zero.  Going through revalidate_disk leads to a somewhat
+arcance and complex callchain relying on special behavior in a few
+places.  Instead just lift the set_capacity directly to
+nvme_set_queue_dying, and rename and move the nvme_mpath_update_disk_size
+helper so that we can use it in nvme_set_queue_dying to propagate the
+size to the bdev without detours.
 
-Switch to using a new spinlock protecting just the size updates, as
-that is all we need, and make sure everyone does the update through
-the proper helper.
-
-This fixes a bug reported with the nvme revalidating disks during a
-hot removal operation, which can currently deadlock on bd_mutex.
-
-Reported-by: Xianting Tian <xianting_tian@126.com>
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- block/partitions/core.c         |  4 ++--
- drivers/block/aoe/aoecmd.c      |  4 +---
- drivers/md/dm.c                 | 15 ++-------------
- drivers/s390/block/dasd_ioctl.c |  9 ++-------
- fs/block_dev.c                  | 25 ++++++++++++++-----------
- include/linux/blk_types.h       |  1 +
- 6 files changed, 22 insertions(+), 36 deletions(-)
+ drivers/nvme/host/core.c | 33 +++++++++++++++++++++++----------
+ drivers/nvme/host/nvme.h | 13 -------------
+ 2 files changed, 23 insertions(+), 23 deletions(-)
 
-diff --git a/block/partitions/core.c b/block/partitions/core.c
-index e62a98a8eeb750..328a2cb7875ba1 100644
---- a/block/partitions/core.c
-+++ b/block/partitions/core.c
-@@ -585,8 +585,8 @@ int bdev_resize_partition(struct block_device *bdev, int partno,
- 	if (partition_overlaps(bdev->bd_disk, start, length, partno))
- 		goto out_unlock;
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index 88cff309d8e4f0..12dea15527f61a 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -94,21 +94,34 @@ static void nvme_put_subsystem(struct nvme_subsystem *subsys);
+ static void nvme_remove_invalid_namespaces(struct nvme_ctrl *ctrl,
+ 					   unsigned nsid);
  
--	part_nr_sects_write(part, (sector_t)length);
--	i_size_write(bdevp->bd_inode, length << SECTOR_SHIFT);
-+	part_nr_sects_write(part, length);
-+	bd_set_nr_sectors(bdevp, length);
- 
- 	ret = 0;
- out_unlock:
-diff --git a/drivers/block/aoe/aoecmd.c b/drivers/block/aoe/aoecmd.c
-index 3cf9bc5d8d9599..6ad73fe730bede 100644
---- a/drivers/block/aoe/aoecmd.c
-+++ b/drivers/block/aoe/aoecmd.c
-@@ -900,9 +900,7 @@ aoecmd_sleepwork(struct work_struct *work)
- 		ssize = get_capacity(d->gd);
- 		bd = bdget_disk(d->gd, 0);
- 		if (bd) {
--			inode_lock(bd->bd_inode);
--			i_size_write(bd->bd_inode, (loff_t)ssize<<9);
--			inode_unlock(bd->bd_inode);
-+			bd_set_nr_sectors(bd, ssize);
- 			bdput(bd);
- 		}
- 		spin_lock_irq(&d->lock);
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 32fa6499739fb9..6b21e5104e3e08 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -2097,18 +2097,6 @@ static void event_callback(void *context)
- 	dm_issue_global_event();
++static void nvme_update_bdev_size(struct gendisk *disk)
++{
++	struct block_device *bdev = bdget_disk(disk, 0);
++
++	if (bdev) {
++		bd_set_nr_sectors(bdev, get_capacity(disk));
++		bdput(bdev);
++	}
++}
++
++/*
++ * Prepare a queue for teardown.
++ *
++ * This must forcibly unquiesce queues to avoid blocking dispatch, and only set
++ * the capacity to 0 after that to avoid blocking dispatchers that may be
++ * holding bd_butex.  This will end buffered writers dirtying pages that can't
++ * be synced.
++ */
+ static void nvme_set_queue_dying(struct nvme_ns *ns)
+ {
+-	/*
+-	 * Revalidating a dead namespace sets capacity to 0. This will end
+-	 * buffered writers dirtying pages that can't be synced.
+-	 */
+ 	if (test_and_set_bit(NVME_NS_DEAD, &ns->flags))
+ 		return;
++
+ 	blk_set_queue_dying(ns->queue);
+-	/* Forcibly unquiesce queues to avoid blocking dispatch */
+ 	blk_mq_unquiesce_queue(ns->queue);
+-	/*
+-	 * Revalidate after unblocking dispatchers that may be holding bd_butex
+-	 */
+-	revalidate_disk(ns->disk);
++
++	set_capacity(ns->disk, 0);
++	nvme_update_bdev_size(ns->disk);
  }
  
--/*
-- * Protected by md->suspend_lock obtained by dm_swap_table().
-- */
--static void __set_size(struct mapped_device *md, sector_t size)
+ static void nvme_queue_scan(struct nvme_ctrl *ctrl)
+@@ -2083,7 +2096,7 @@ static int __nvme_revalidate_disk(struct gendisk *disk, struct nvme_id_ns *id)
+ 		nvme_update_disk_info(ns->head->disk, ns, id);
+ 		blk_stack_limits(&ns->head->disk->queue->limits,
+ 				 &ns->queue->limits, 0);
+-		nvme_mpath_update_disk_size(ns->head->disk);
++		nvme_update_bdev_size(ns->head->disk);
+ 	}
+ #endif
+ 	return 0;
+diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
+index ae5cad5a08f411..4cadaea9034ae4 100644
+--- a/drivers/nvme/host/nvme.h
++++ b/drivers/nvme/host/nvme.h
+@@ -659,16 +659,6 @@ static inline void nvme_trace_bio_complete(struct request *req,
+ 		trace_block_bio_complete(ns->head->disk->queue, req->bio);
+ }
+ 
+-static inline void nvme_mpath_update_disk_size(struct gendisk *disk)
 -{
--	lockdep_assert_held(&md->suspend_lock);
+-	struct block_device *bdev = bdget_disk(disk, 0);
 -
--	set_capacity(md->disk, size);
--
--	i_size_write(md->bdev->bd_inode, (loff_t)size << SECTOR_SHIFT);
+-	if (bdev) {
+-		bd_set_nr_sectors(bdev, get_capacity(disk));
+-		bdput(bdev);
+-	}
 -}
 -
- /*
-  * Returns old map, which caller must destroy.
-  */
-@@ -2131,7 +2119,8 @@ static struct dm_table *__bind(struct mapped_device *md, struct dm_table *t,
- 	if (size != dm_get_size(md))
- 		memset(&md->geometry, 0, sizeof(md->geometry));
- 
--	__set_size(md, size);
-+	set_capacity(md->disk, size);
-+	bd_set_nr_sectors(md->bdev, size);
- 
- 	dm_table_event_callback(t, event_callback, md);
- 
-diff --git a/drivers/s390/block/dasd_ioctl.c b/drivers/s390/block/dasd_ioctl.c
-index 777734d1b4e58c..faaf5596e31c12 100644
---- a/drivers/s390/block/dasd_ioctl.c
-+++ b/drivers/s390/block/dasd_ioctl.c
-@@ -55,10 +55,7 @@ dasd_ioctl_enable(struct block_device *bdev)
- 
- 	dasd_enable_device(base);
- 	/* Formatting the dasd device can change the capacity. */
--	mutex_lock(&bdev->bd_mutex);
--	i_size_write(bdev->bd_inode,
--		     (loff_t)get_capacity(base->block->gdp) << 9);
--	mutex_unlock(&bdev->bd_mutex);
-+	bd_set_nr_sectors(bdev, get_capacity(base->block->gdp));
- 	dasd_put_device(base);
- 	return 0;
- }
-@@ -91,9 +88,7 @@ dasd_ioctl_disable(struct block_device *bdev)
- 	 * Set i_size to zero, since read, write, etc. check against this
- 	 * value.
- 	 */
--	mutex_lock(&bdev->bd_mutex);
--	i_size_write(bdev->bd_inode, 0);
--	mutex_unlock(&bdev->bd_mutex);
-+	bd_set_nr_sectors(bdev, 0);
- 	dasd_put_device(base);
- 	return 0;
- }
-diff --git a/fs/block_dev.c b/fs/block_dev.c
-index f52597172c8b79..08158bb2e76c85 100644
---- a/fs/block_dev.c
-+++ b/fs/block_dev.c
-@@ -876,6 +876,7 @@ struct block_device *bdget(dev_t dev)
- 	bdev = &BDEV_I(inode)->bdev;
- 
- 	if (inode->i_state & I_NEW) {
-+		spin_lock_init(&bdev->bd_size_lock);
- 		bdev->bd_contains = NULL;
- 		bdev->bd_super = NULL;
- 		bdev->bd_inode = inode;
-@@ -1290,6 +1291,7 @@ static void check_disk_size_change(struct gendisk *disk,
+ extern struct device_attribute dev_attr_ana_grpid;
+ extern struct device_attribute dev_attr_ana_state;
+ extern struct device_attribute subsys_attr_iopolicy;
+@@ -744,9 +734,6 @@ static inline void nvme_mpath_wait_freeze(struct nvme_subsystem *subsys)
+ static inline void nvme_mpath_start_freeze(struct nvme_subsystem *subsys)
  {
- 	loff_t disk_size, bdev_size;
- 
-+	spin_lock(&bdev->bd_size_lock);
- 	disk_size = (loff_t)get_capacity(disk) << 9;
- 	bdev_size = i_size_read(bdev->bd_inode);
- 	if (disk_size != bdev_size) {
-@@ -1299,11 +1301,15 @@ static void check_disk_size_change(struct gendisk *disk,
- 			       disk->disk_name, bdev_size, disk_size);
- 		}
- 		i_size_write(bdev->bd_inode, disk_size);
--		if (bdev_size > disk_size && __invalidate_device(bdev, false))
-+	}
-+	bdev->bd_invalidated = 0;
-+	spin_unlock(&bdev->bd_size_lock);
-+
-+	if (bdev_size > disk_size) {
-+		if (__invalidate_device(bdev, false))
- 			pr_warn("VFS: busy inodes on resized disk %s\n",
- 				disk->disk_name);
- 	}
--	bdev->bd_invalidated = 0;
  }
+-static inline void nvme_mpath_update_disk_size(struct gendisk *disk)
+-{
+-}
+ #endif /* CONFIG_NVME_MULTIPATH */
  
- /**
-@@ -1328,13 +1334,10 @@ int revalidate_disk(struct gendisk *disk)
- 	if (!(disk->flags & GENHD_FL_HIDDEN)) {
- 		struct block_device *bdev = bdget_disk(disk, 0);
- 
--		if (!bdev)
--			return ret;
--
--		mutex_lock(&bdev->bd_mutex);
--		check_disk_size_change(disk, bdev, ret == 0);
--		mutex_unlock(&bdev->bd_mutex);
--		bdput(bdev);
-+		if (bdev) {
-+			check_disk_size_change(disk, bdev, ret == 0);
-+			bdput(bdev);
-+		}
- 	}
- 	return ret;
- }
-@@ -1373,9 +1376,9 @@ EXPORT_SYMBOL(check_disk_change);
- 
- void bd_set_nr_sectors(struct block_device *bdev, sector_t sectors)
- {
--	inode_lock(bdev->bd_inode);
-+	spin_lock(&bdev->bd_size_lock);
- 	i_size_write(bdev->bd_inode, (loff_t)sectors << SECTOR_SHIFT);
--	inode_unlock(bdev->bd_inode);
-+	spin_unlock(&bdev->bd_size_lock);
- }
- EXPORT_SYMBOL(bd_set_nr_sectors);
- 
-diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-index 4ecf4fed171f0d..5accc2549d2259 100644
---- a/include/linux/blk_types.h
-+++ b/include/linux/blk_types.h
-@@ -38,6 +38,7 @@ struct block_device {
- 	/* number of times partitions within this device have been opened. */
- 	unsigned		bd_part_count;
- 	int			bd_invalidated;
-+	spinlock_t		bd_size_lock; /* for bd_inode->i_size updates */
- 	struct gendisk *	bd_disk;
- 	struct backing_dev_info *bd_bdi;
- 
+ #ifdef CONFIG_BLK_DEV_ZONED
 -- 
 2.28.0
 
