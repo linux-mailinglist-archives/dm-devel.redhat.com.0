@@ -1,82 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 03B2124FE9A
-	for <lists+dm-devel@lfdr.de>; Mon, 24 Aug 2020 15:13:37 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id 114D62500AF
+	for <lists+dm-devel@lfdr.de>; Mon, 24 Aug 2020 17:15:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1598282154;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=FCa73I/GJRQe7RG8fjurMPVMrqnRV1ITeQtUOf1pjL4=;
+	b=EJmA51tFFkmJK6/1TY85G8aYDkJc6175K8cKPLVDDYxW/dxp6iH1OcM5Z6mW7WBYlcC8zG
+	MEDUHLQ/+0ElMP5XKigUehTDpcja3h84n/hTLu3yamDvCW0y6Ls/uLKdF4g4xJEAiih13s
+	ghS7M6pVPk01eLHczsz860Uzkbei+aw=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-130-eVVen43XPSSw-bZEefE3Cg-1; Mon, 24 Aug 2020 09:13:34 -0400
-X-MC-Unique: eVVen43XPSSw-bZEefE3Cg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-454-zLn_GldBNXSvsnfOkwuYwg-1; Mon, 24 Aug 2020 11:15:50 -0400
+X-MC-Unique: zLn_GldBNXSvsnfOkwuYwg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 760F1801AB5;
-	Mon, 24 Aug 2020 13:13:26 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BE76380923;
-	Mon, 24 Aug 2020 13:13:18 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E817F81F010;
+	Mon, 24 Aug 2020 15:15:43 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CFA435C1C4;
+	Mon, 24 Aug 2020 15:15:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 51710668F7;
-	Mon, 24 Aug 2020 13:13:03 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 97CE718A0B64;
+	Mon, 24 Aug 2020 15:15:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07OD7lZU007263 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 24 Aug 2020 09:07:48 -0400
+	id 07OF9rPG023860 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 24 Aug 2020 11:09:53 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D7C322166BA4; Mon, 24 Aug 2020 13:07:47 +0000 (UTC)
+	id 2DE7969294; Mon, 24 Aug 2020 15:09:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D31E22166BA3
-	for <dm-devel@redhat.com>; Mon, 24 Aug 2020 13:07:45 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5F1BC901845
-	for <dm-devel@redhat.com>; Mon, 24 Aug 2020 13:07:45 +0000 (UTC)
-Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-406-syf5bzirPUCJAw8NTju0hw-1; Mon, 24 Aug 2020 09:07:42 -0400
-X-MC-Unique: syf5bzirPUCJAw8NTju0hw-1
-Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.59])
-	by Forcepoint Email with ESMTP id 57BC676E16F451520DEE;
-	Mon, 24 Aug 2020 21:07:36 +0800 (CST)
-Received: from [127.0.0.1] (10.174.179.62) by DGGEMS407-HUB.china.huawei.com
-	(10.3.19.207) with Microsoft SMTP Server id 14.3.487.0; Mon, 24 Aug 2020
-	21:07:28 +0800
-To: Martin Wilck <mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, 
-	Christophe Varoqui <christophe.varoqui@opensvc.com>, <dm-devel@redhat.com>
-References: <5ef5f58e-3a27-8959-3abb-4b4c401cc309@huawei.com>
-	<8fd64929-cb4b-5267-1899-15a82e2ff678@huawei.com>
-	<fb04916036613edb59dfd470c449a1a199cd03ff.camel@suse.com>
-	<905553fd-8c51-2898-8015-3795c6affc9f@huawei.com>
-	<352109cf9e0b3f1fbd1851e86bc12fef12c40dec.camel@suse.com>
-From: lixiaokeng <lixiaokeng@huawei.com>
-Message-ID: <cb7990df-6c84-7fc9-78ef-bf4c8600010f@huawei.com>
-Date: Mon, 24 Aug 2020 21:07:27 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8CCCD5FC18;
+	Mon, 24 Aug 2020 15:09:47 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 07OF9lp7026538; Mon, 24 Aug 2020 11:09:47 -0400
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 07OF9liJ026534; Mon, 24 Aug 2020 11:09:47 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Mon, 24 Aug 2020 11:09:47 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Mike Snitzer <msnitzer@redhat.com>
+Message-ID: <alpine.LRH.2.02.2008241106190.26379@file01.intranet.prod.int.rdu2.redhat.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-In-Reply-To: <352109cf9e0b3f1fbd1851e86bc12fef12c40dec.camel@suse.com>
-Content-Language: en-GB
-X-Originating-IP: [10.174.179.62]
-X-CFilter-Loop: Reflected
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-Cc: linfeilong@huawei.com, liuzhiqiang26@huawei.com
-Subject: Re: [dm-devel] [PATCH 3/5] multipathd: add reclear_pp_from_mpp in
- ev_remove_path
+Cc: dm-devel@redhat.com
+Subject: [dm-devel] [PATCH] dm-writecache: handle partitions on persistent
+ memory correctly
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,81 +75,67 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0.003
+X-Mimecast-Spam-Score: 0.002
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Martin:
-  Thanks for your detailed explanation. I understand it  well.
+This patch fixes handling partitions in the dm-writecache target. The
+function dax_direct_access doesn't take partitions into account, it always
+maps pages from the beginning of the device. Therefore, we must get the
+partition offset using the function get_start_sect and add it to the page
+offsets passed to dax_direct_access.
 
-Regards
-Lixiaokeng
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Cc: stable@vger.kernel.org	# 4.18+
+Fixes: 48debafe4f2f ("dm: add writecache target")
 
-On 2020/8/20 23:22, Martin Wilck wrote:
-> On Thu, 2020-08-20 at 22:51 +0800, lixiaokeng wrote:
->> Hi Martin:
->>    I test this in 0.8.4 without your patch series . I have review the
->> code with your patch series and I think this problem will be solved.
->> But I have another question.
->> ev_remove_path
->> 	->__setup_multipath
->> 		->update_multipath_strings
->> 			->update_multipath_table
->> 				->update_pathvec_from_dm
->> 					->store_path
->> When multipathd del path xxx(such as sde) and multipath -v2 are
->> executed simultaneously, will the path(sde) deleted be stored to
->> pathvec
->> again? In my opinion, sde is't delete in pathvec and in
->> disassembel_map
->> sde will be stored to mpp->pg. When update_pathvec_from_dm, sde will
->> be
->> stored again.
-> 
-> in ev_remove_path(), we set INIT_REMOVED state. That means this path
-> won't be used in the RELOAD ioctl. If the ioctl is successful, it will
-> be gone from the kernel (for the time being). Later, sync_map_state()
-> will figure this out, and remove the path. If the parallel "multipath"
-> command reloads the map after multipathd's RELOAD operation, and before
-> update_multipath_table() called, re-adding the path, the path will be
-> read back from the kernel, and sync_map_state() will not delete the it.
->>From multipathd's point of view it will remain in INIT_REMOVED state,
-> though. multipathd will not try to reload the map again unless it's
-> asked to do so with another "add path" or "del path" command. This
-> results in an inconsistent internal state between multipathd and the
-> kernel (multipathd considers the path as REMOVED even though it's still
-> present in the map). I don't think this can be generally avoided if we
-> allow multipath to make changes to kernel maps while multipathd is
-> running. (*)
-> 
-> We could avoid this by delegating these commands from multipath to
-> multipathd, as we already do for some other commands. "multipath"
-> without any arguments would map to a "multipathd reconfigure" command,
-> while "multipath $DEVICE" would be translated to "multipathd add map"
-> or "multipathd add path".
-> 
-> Does this make sense?
-> 
-> Regards,
-> Martin
-> 
-> (*) Well: we *could* try to analyze incoming uevents, and distinguish
-> those that multipathd has initiated itself from other, externally-
-> triggered ones. Then if an external event arrives, adding a path which
-> we had previously removed, and this external event arrives after the
-> remove event we initiated, we could in theory infer that an external
-> program had reverted the change we just made. But this would result in
-> complex and pretty fragile logic. I'm not sure if it's worth it. The
-> "delegating" approach is safer and cleaner IMO.
-> 
-> 
-> 
-> .
-> 
+---
+ drivers/md/dm-writecache.c |   12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+Index: linux-2.6/drivers/md/dm-writecache.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-writecache.c	2020-08-19 15:04:21.499999000 +0200
++++ linux-2.6/drivers/md/dm-writecache.c	2020-08-24 17:07:54.169999000 +0200
+@@ -231,6 +231,7 @@ static int persistent_memory_claim(struc
+ 	pfn_t pfn;
+ 	int id;
+ 	struct page **pages;
++	sector_t offset;
+ 
+ 	wc->memory_vmapped = false;
+ 
+@@ -245,9 +246,16 @@ static int persistent_memory_claim(struc
+ 		goto err1;
+ 	}
+ 
++	offset = get_start_sect(wc->ssd_dev->bdev);
++	if (offset & (PAGE_SIZE / 512 - 1)) {
++		r = -EINVAL;
++		goto err1;
++	}
++	offset >>= PAGE_SHIFT - 9;
++
+ 	id = dax_read_lock();
+ 
+-	da = dax_direct_access(wc->ssd_dev->dax_dev, 0, p, &wc->memory_map, &pfn);
++	da = dax_direct_access(wc->ssd_dev->dax_dev, offset, p, &wc->memory_map, &pfn);
+ 	if (da < 0) {
+ 		wc->memory_map = NULL;
+ 		r = da;
+@@ -269,7 +277,7 @@ static int persistent_memory_claim(struc
+ 		i = 0;
+ 		do {
+ 			long daa;
+-			daa = dax_direct_access(wc->ssd_dev->dax_dev, i, p - i,
++			daa = dax_direct_access(wc->ssd_dev->dax_dev, offset + i, p - i,
+ 						NULL, &pfn);
+ 			if (daa <= 0) {
+ 				r = daa ? daa : -EINVAL;
 
 --
 dm-devel mailing list
