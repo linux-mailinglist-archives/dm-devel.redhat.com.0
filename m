@@ -1,54 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 9903E252AF5
-	for <lists+dm-devel@lfdr.de>; Wed, 26 Aug 2020 12:00:31 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id E2EB0252AF9
+	for <lists+dm-devel@lfdr.de>; Wed, 26 Aug 2020 12:00:32 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-355-gmyDICp5Og6DTpsrUY7Xhg-1; Wed, 26 Aug 2020 06:00:28 -0400
-X-MC-Unique: gmyDICp5Og6DTpsrUY7Xhg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-520-x1YeHOZWNHKsdhWpeWuj1Q-1; Wed, 26 Aug 2020 06:00:29 -0400
+X-MC-Unique: x1YeHOZWNHKsdhWpeWuj1Q-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F133A18B9F51;
-	Wed, 26 Aug 2020 10:00:21 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8D27A10ABDBA;
+	Wed, 26 Aug 2020 10:00:23 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3C98160BFA;
-	Wed, 26 Aug 2020 10:00:21 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E7617D87D;
+	Wed, 26 Aug 2020 10:00:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C8922668E7;
-	Wed, 26 Aug 2020 10:00:10 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CB73E668E7;
+	Wed, 26 Aug 2020 10:00:22 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07QA00eI032463 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 26 Aug 2020 06:00:00 -0400
+	id 07QA01ED032483 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 26 Aug 2020 06:00:01 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C0D13110C59E; Wed, 26 Aug 2020 09:59:58 +0000 (UTC)
+	id CEFDA10064FD; Wed, 26 Aug 2020 09:59:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0BBFF1005E59
-	for <dm-devel@redhat.com>; Wed, 26 Aug 2020 09:59:55 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 30119114B9AC
+	for <dm-devel@redhat.com>; Wed, 26 Aug 2020 09:59:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B1E9281163A
-	for <dm-devel@redhat.com>; Wed, 26 Aug 2020 09:59:55 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 77EBC805F5A
+	for <dm-devel@redhat.com>; Wed, 26 Aug 2020 09:59:53 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-171-2D3fIqO2NF29WHw6FCj3GQ-1;
+	relay.mimecast.com with ESMTP id us-mta-510-7QHjraHONoKpDxPPKhCmeg-1;
 	Wed, 26 Aug 2020 05:59:51 -0400
-X-MC-Unique: 2D3fIqO2NF29WHw6FCj3GQ-1
+X-MC-Unique: 7QHjraHONoKpDxPPKhCmeg-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id DA8E8AD49;
-	Wed, 26 Aug 2020 10:00:19 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id 32B39AD6F;
+	Wed, 26 Aug 2020 10:00:20 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed, 26 Aug 2020 11:59:02 +0200
-Message-Id: <20200826095907.5576-6-mwilck@suse.com>
+Date: Wed, 26 Aug 2020 11:59:03 +0200
+Message-Id: <20200826095907.5576-7-mwilck@suse.com>
 In-Reply-To: <20200826095907.5576-1-mwilck@suse.com>
 References: <20200826095907.5576-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -62,11 +63,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 07QA00eI032463
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 07QA01ED032483
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 05/10] multipath-tools tests: fix memory leak
-	in vpd test
+Cc: lixiaokeng <lixiaokeng@huawei.com>, dm-devel@redhat.com,
+	Martin Wilck <mwilck@suse.com>
+Subject: [dm-devel] [PATCH v2 06/10] libmultipath: fix memory leak in ble
+	handlers
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +82,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.002
@@ -90,68 +92,61 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-regfree() wasn't called on the re used in subst_spaces().
+Since patch "libmultipath fix a memory leak in set_ble_device",
+strings are strdup'd in set_ble_device() and store_ble(). The
+passed string must therefore be freed in the handlers in dict.c.
 
+Fixes: ("libmultipath fix a memory leak in set_ble_device")
+Cc: lixiaokeng <lixiaokeng@huawei.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- tests/vpd.c | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+ libmultipath/dict.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/tests/vpd.c b/tests/vpd.c
-index 3cbad81..e2ec65e 100644
---- a/tests/vpd.c
-+++ b/tests/vpd.c
-@@ -28,13 +28,17 @@ struct vpdtest {
- 	char wwid[WWID_SIZE];
- };
- 
-+static regex_t space_re;
- static int setup(void **state)
- {
- 	struct vpdtest *vt = malloc(sizeof(*vt));
-+	int rc;
- 
- 	if (vt == NULL)
- 		return -1;
- 	*state = vt;
-+	rc = regcomp(&space_re, " +", REG_EXTENDED);
-+	assert_int_equal(rc, 0);
- 	return 0;
+diff --git a/libmultipath/dict.c b/libmultipath/dict.c
+index be3029c..feabae5 100644
+--- a/libmultipath/dict.c
++++ b/libmultipath/dict.c
+@@ -1499,7 +1499,8 @@ blacklist_exceptions_handler(struct config *conf, vector strvec)
+ static int								\
+ ble_ ## option ## _handler (struct config *conf, vector strvec)		\
+ {									\
+-	char * buff;							\
++	char *buff;							\
++	int rc;								\
+ 									\
+ 	if (!conf->option)						\
+ 		return 1;						\
+@@ -1508,7 +1509,9 @@ ble_ ## option ## _handler (struct config *conf, vector strvec)		\
+ 	if (!buff)							\
+ 		return 1;						\
+ 									\
+-	return store_ble(conf->option, buff, ORIGIN_CONFIG);		\
++	rc = store_ble(conf->option, buff, ORIGIN_CONFIG);		\
++	free(buff);							\
++	return rc;							\
  }
  
-@@ -44,6 +48,7 @@ static int teardown(void **state)
- 
- 	free(vt);
- 	*state = NULL;
-+	regfree(&space_re);
- 	return 0;
+ #define declare_ble_device_handler(name, option, vend, prod)		\
+@@ -1516,6 +1519,7 @@ static int								\
+ ble_ ## option ## _ ## name ## _handler (struct config *conf, vector strvec) \
+ {									\
+ 	char * buff;							\
++	int rc;								\
+ 									\
+ 	if (!conf->option)						\
+ 		return 1;						\
+@@ -1524,7 +1528,9 @@ ble_ ## option ## _ ## name ## _handler (struct config *conf, vector strvec) \
+ 	if (!buff)							\
+ 		return 1;						\
+ 									\
+-	return set_ble_device(conf->option, vend, prod, ORIGIN_CONFIG);	\
++	rc = set_ble_device(conf->option, vend, prod, ORIGIN_CONFIG);	\
++	free(buff);							\
++	return rc;							\
  }
  
-@@ -360,21 +365,14 @@ static char *subst_spaces(const char *src)
- {
- 	char *dst = calloc(1, strlen(src) + 1);
- 	char *p;
--	static regex_t *re;
- 	regmatch_t match;
--	int rc;
-+	int rc = 0;
- 
- 	assert_non_null(dst);
--	if (re == NULL) {
--		re = calloc(1, sizeof(*re));
--		assert_non_null(re);
--		rc = regcomp(re, " +", REG_EXTENDED);
--		assert_int_equal(rc, 0);
--	}
- 
--	for (rc = regexec(re, src, 1, &match, 0), p = dst;
-+	for (rc = regexec(&space_re, src, 1, &match, 0), p = dst;
- 	    rc == 0;
--	    src += match.rm_eo, rc = regexec(re, src, 1, &match, 0)) {
-+	    src += match.rm_eo, rc = regexec(&space_re, src, 1, &match, 0)) {
- 		memcpy(p, src, match.rm_so);
- 		p += match.rm_so;
- 		*p = '_';
+ declare_ble_handler(blist_devnode)
 -- 
 2.28.0
 
