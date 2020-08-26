@@ -1,54 +1,54 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 6C102252AFB
-	for <lists+dm-devel@lfdr.de>; Wed, 26 Aug 2020 12:00:37 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 9903E252AF5
+	for <lists+dm-devel@lfdr.de>; Wed, 26 Aug 2020 12:00:31 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-547-6toufn2MPYGtUCmhm-sslA-1; Wed, 26 Aug 2020 06:00:33 -0400
-X-MC-Unique: 6toufn2MPYGtUCmhm-sslA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-355-gmyDICp5Og6DTpsrUY7Xhg-1; Wed, 26 Aug 2020 06:00:28 -0400
+X-MC-Unique: gmyDICp5Og6DTpsrUY7Xhg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3C5F481CBF1;
-	Wed, 26 Aug 2020 10:00:25 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 164235C1BB;
-	Wed, 26 Aug 2020 10:00:25 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F133A18B9F51;
+	Wed, 26 Aug 2020 10:00:21 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3C98160BFA;
+	Wed, 26 Aug 2020 10:00:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BA379181A06C;
-	Wed, 26 Aug 2020 10:00:24 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C8922668E7;
+	Wed, 26 Aug 2020 10:00:10 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07QA02X8032504 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 26 Aug 2020 06:00:02 -0400
+	id 07QA00eI032463 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 26 Aug 2020 06:00:00 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 378D41111428; Wed, 26 Aug 2020 10:00:01 +0000 (UTC)
+	id C0D13110C59E; Wed, 26 Aug 2020 09:59:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 301D6114B9BA
-	for <dm-devel@redhat.com>; Wed, 26 Aug 2020 09:59:52 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0BBFF1005E59
+	for <dm-devel@redhat.com>; Wed, 26 Aug 2020 09:59:55 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A3762803CBA
-	for <dm-devel@redhat.com>; Wed, 26 Aug 2020 09:59:51 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B1E9281163A
+	for <dm-devel@redhat.com>; Wed, 26 Aug 2020 09:59:55 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-558-Vnex_UTFNV-u6byMalxiVA-1;
-	Wed, 26 Aug 2020 05:59:49 -0400
-X-MC-Unique: Vnex_UTFNV-u6byMalxiVA-1
+	relay.mimecast.com with ESMTP id us-mta-171-2D3fIqO2NF29WHw6FCj3GQ-1;
+	Wed, 26 Aug 2020 05:59:51 -0400
+X-MC-Unique: 2D3fIqO2NF29WHw6FCj3GQ-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 17484AC98;
+	by mx2.suse.de (Postfix) with ESMTP id DA8E8AD49;
 	Wed, 26 Aug 2020 10:00:19 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed, 26 Aug 2020 11:58:59 +0200
-Message-Id: <20200826095907.5576-3-mwilck@suse.com>
+Date: Wed, 26 Aug 2020 11:59:02 +0200
+Message-Id: <20200826095907.5576-6-mwilck@suse.com>
 In-Reply-To: <20200826095907.5576-1-mwilck@suse.com>
 References: <20200826095907.5576-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -62,11 +62,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 07QA02X8032504
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 07QA00eI032463
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 02/10] multipath-tools: Makefile: add
-	"valgrind-test" target
+Subject: [dm-devel] [PATCH v2 05/10] multipath-tools tests: fix memory leak
+	in vpd test
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,94 +80,78 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0.001
+X-Mimecast-Spam-Score: 0.002
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-The new target "valgrind-test" (or "valgrind" in the tests/
-subdirectory) allows running the unit tests under valgrind.
+regfree() wasn't called on the re used in subst_spaces().
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- Makefile        |  3 +++
- tests/Makefile  | 13 +++++++++++--
- tests/README.md |  8 ++++++++
- 3 files changed, 22 insertions(+), 2 deletions(-)
+ tests/vpd.c | 18 ++++++++----------
+ 1 file changed, 8 insertions(+), 10 deletions(-)
 
-diff --git a/Makefile b/Makefile
-index 8bcaba6..4a3491d 100644
---- a/Makefile
-+++ b/Makefile
-@@ -52,6 +52,9 @@ uninstall: $(BUILDDIRS:=.uninstall)
- test:	all
- 	$(MAKE) -C tests
+diff --git a/tests/vpd.c b/tests/vpd.c
+index 3cbad81..e2ec65e 100644
+--- a/tests/vpd.c
++++ b/tests/vpd.c
+@@ -28,13 +28,17 @@ struct vpdtest {
+ 	char wwid[WWID_SIZE];
+ };
  
-+valgrind-test:	all
-+	$(MAKE) -C tests valgrind
-+
- .PHONY:	TAGS
- TAGS:
- 	etags -a libmultipath/*.c
-diff --git a/tests/Makefile b/tests/Makefile
-index 5f00a3a..502377f 100644
---- a/tests/Makefile
-+++ b/tests/Makefile
-@@ -19,6 +19,7 @@ TESTS := uevent parser util dmevents hwtable blacklist unaligned vpd pgpolicy \
- .PRECIOUS: $(TESTS:%=%-test)
++static regex_t space_re;
+ static int setup(void **state)
+ {
+ 	struct vpdtest *vt = malloc(sizeof(*vt));
++	int rc;
  
- all:	$(TESTS:%=%.out)
-+valgrind:	$(TESTS:%=%.vgr)
+ 	if (vt == NULL)
+ 		return -1;
+ 	*state = vt;
++	rc = regcomp(&space_re, " +", REG_EXTENDED);
++	assert_int_equal(rc, 0);
+ 	return 0;
+ }
  
- # test-specific compiler flags
- # XYZ-test_FLAGS: Additional compiler flags for this test
-@@ -68,12 +69,20 @@ lib/libchecktur.so:
- 	@echo == running $< ==
- 	@LD_LIBRARY_PATH=$(multipathdir):$(mpathcmddir) ./$< >$@
+@@ -44,6 +48,7 @@ static int teardown(void **state)
  
-+%.vgr:  %-test lib/libchecktur.so
-+	@echo == running valgrind for $< ==
-+	@LD_LIBRARY_PATH=$(multipathdir):$(mpathcmddir) \
-+		valgrind --leak-check=full --error-exitcode=128 ./$< >$@ 2>&1
-+
- OBJS = $(TESTS:%=%.o) test-lib.o
+ 	free(vt);
+ 	*state = NULL;
++	regfree(&space_re);
+ 	return 0;
+ }
  
- test_clean:
--	$(RM) $(TESTS:%=%.out)
-+	$(RM) $(TESTS:%=%.out) $(TESTS:%=%.vgr)
-+
-+valgrind_clean:
-+	$(RM) $(TESTS:%=%.vgr)
+@@ -360,21 +365,14 @@ static char *subst_spaces(const char *src)
+ {
+ 	char *dst = calloc(1, strlen(src) + 1);
+ 	char *p;
+-	static regex_t *re;
+ 	regmatch_t match;
+-	int rc;
++	int rc = 0;
  
--clean: test_clean dep_clean
-+clean: test_clean valgrind_clean dep_clean
- 	$(RM) $(TESTS:%=%-test) $(OBJS) *.o.wrap
- 	$(RM) -rf lib
+ 	assert_non_null(dst);
+-	if (re == NULL) {
+-		re = calloc(1, sizeof(*re));
+-		assert_non_null(re);
+-		rc = regcomp(re, " +", REG_EXTENDED);
+-		assert_int_equal(rc, 0);
+-	}
  
-diff --git a/tests/README.md b/tests/README.md
-index 6438a82..6e7ad40 100644
---- a/tests/README.md
-+++ b/tests/README.md
-@@ -5,6 +5,14 @@ or simply `make` in the `tests` subdirectory. The test output is saved as
- `<testname>.out`. The test programs are called `<testname>-test`, and can
- be run standalone e.g. for debugging purposes.
- 
-+## Running tests under valgrind
-+
-+The unit tests can be run under the valgrind debugger with `make valgrind`
-+in the `tests` directory, or `make valgrind-test` in the top directory.
-+If valgrind detects a bad memory access or leak, the test will fail. The
-+output of the test run, including valgrind output, is stored as
-+`<testname>.vgr`.
-+
- ## Notes on individual tests
- 
- ### Tests that require root permissions
+-	for (rc = regexec(re, src, 1, &match, 0), p = dst;
++	for (rc = regexec(&space_re, src, 1, &match, 0), p = dst;
+ 	    rc == 0;
+-	    src += match.rm_eo, rc = regexec(re, src, 1, &match, 0)) {
++	    src += match.rm_eo, rc = regexec(&space_re, src, 1, &match, 0)) {
+ 		memcpy(p, src, match.rm_so);
+ 		p += match.rm_so;
+ 		*p = '_';
 -- 
 2.28.0
 
