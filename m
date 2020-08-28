@@ -1,57 +1,57 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id A6326255631
-	for <lists+dm-devel@lfdr.de>; Fri, 28 Aug 2020 10:16:03 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 19D9125562D
+	for <lists+dm-devel@lfdr.de>; Fri, 28 Aug 2020 10:15:25 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-219-wkSjTEfUN-SDbM-sEVwCfQ-1; Fri, 28 Aug 2020 04:15:18 -0400
-X-MC-Unique: wkSjTEfUN-SDbM-sEVwCfQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-283-7hHDVjdMOG-4gs6-lctMmA-1; Fri, 28 Aug 2020 04:15:22 -0400
+X-MC-Unique: 7hHDVjdMOG-4gs6-lctMmA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5411C801FDB;
-	Fri, 28 Aug 2020 08:15:12 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CAB085D9FC;
-	Fri, 28 Aug 2020 08:15:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A02C01074663;
+	Fri, 28 Aug 2020 08:15:15 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F27C5C1DA;
+	Fri, 28 Aug 2020 08:15:15 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 66C03180C5A2;
-	Fri, 28 Aug 2020 08:14:59 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3C431A220D;
+	Fri, 28 Aug 2020 08:15:15 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07S1vPFl008292 for <dm-devel@listman.util.phx.redhat.com>;
+	id 07S1vPjm008299 for <dm-devel@listman.util.phx.redhat.com>;
 	Thu, 27 Aug 2020 21:57:25 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1B49C2022792; Fri, 28 Aug 2020 01:57:25 +0000 (UTC)
+	id 73986203B866; Fri, 28 Aug 2020 01:57:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 15D8D205EB19
-	for <dm-devel@redhat.com>; Fri, 28 Aug 2020 01:57:22 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F49D205EB12
+	for <dm-devel@redhat.com>; Fri, 28 Aug 2020 01:57:25 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5EA5580019A
-	for <dm-devel@redhat.com>; Fri, 28 Aug 2020 01:57:22 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 565CE101A56B
+	for <dm-devel@redhat.com>; Fri, 28 Aug 2020 01:57:25 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-315-BY6RVW5oOe2ljf9XMfwSPw-1;
+	relay.mimecast.com with ESMTP id us-mta-51-FveVj__zM22iST0mCwa8Og-1;
 	Thu, 27 Aug 2020 21:57:19 -0400
-X-MC-Unique: BY6RVW5oOe2ljf9XMfwSPw-1
+X-MC-Unique: FveVj__zM22iST0mCwa8Og-1
 Received: from tusharsu-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
 	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 9790320B7179;
-	Thu, 27 Aug 2020 18:57:17 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9790320B7179
+	by linux.microsoft.com (Postfix) with ESMTPSA id 261DF2021532;
+	Thu, 27 Aug 2020 18:57:18 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 261DF2021532
 From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
 To: zohar@linux.ibm.com, stephen.smalley.work@gmail.com,
 	casey@schaufler-ca.com, agk@redhat.com, snitzer@redhat.com,
 	gmazyland@gmail.com
-Date: Thu, 27 Aug 2020 18:56:59 -0700
-Message-Id: <20200828015704.6629-2-tusharsu@linux.microsoft.com>
+Date: Thu, 27 Aug 2020 18:57:00 -0700
+Message-Id: <20200828015704.6629-3-tusharsu@linux.microsoft.com>
 In-Reply-To: <20200828015704.6629-1-tusharsu@linux.microsoft.com>
 References: <20200828015704.6629-1-tusharsu@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -69,8 +69,8 @@ Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
 	jmorris@namei.org, linux-kernel@vger.kernel.org,
 	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
 	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: [dm-devel] [PATCH v3 1/6] IMA: generalize keyring specific
-	measurement constructs
+Subject: [dm-devel] [PATCH v3 2/6] IMA: change process_buffer_measurement
+	return type from void to int
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,7 +85,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.002
@@ -93,217 +93,87 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-IMA functions such as ima_match_keyring(), process_buffer_measurement(),
-ima_match_policy() etc. handle data specific to keyrings. Currently,
-these constructs are not generic to handle any func specific data.
-This makes it harder to extend without code duplication.
+process_buffer_measurement() does not return the result of the operation.
+Therefore, the consumers of this function cannot act on it, if needed.
 
-Refactor the keyring specific measurement constructs to be generic and
-reusable in other measurement scenarios.
+Update return type of process_buffer_measurement() from void to int.
 
 Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
 ---
- security/integrity/ima/ima.h        |  6 ++---
- security/integrity/ima/ima_api.c    |  6 ++---
- security/integrity/ima/ima_main.c   |  6 ++---
- security/integrity/ima/ima_policy.c | 42 ++++++++++++++++-------------
- 4 files changed, 33 insertions(+), 27 deletions(-)
+ security/integrity/ima/ima.h      |  6 +++---
+ security/integrity/ima/ima_main.c | 14 +++++++-------
+ 2 files changed, 10 insertions(+), 10 deletions(-)
 
 diff --git a/security/integrity/ima/ima.h b/security/integrity/ima/ima.h
-index 38043074ce5e..8875085db689 100644
+index 8875085db689..83ed57147e68 100644
 --- a/security/integrity/ima/ima.h
 +++ b/security/integrity/ima/ima.h
-@@ -255,7 +255,7 @@ static inline void ima_process_queued_keys(void) {}
- int ima_get_action(struct inode *inode, const struct cred *cred, u32 secid,
- 		   int mask, enum ima_hooks func, int *pcr,
- 		   struct ima_template_desc **template_desc,
--		   const char *keyring);
-+		   const char *func_data);
- int ima_must_measure(struct inode *inode, int mask, enum ima_hooks func);
- int ima_collect_measurement(struct integrity_iint_cache *iint,
- 			    struct file *file, void *buf, loff_t size,
-@@ -267,7 +267,7 @@ void ima_store_measurement(struct integrity_iint_cache *iint, struct file *file,
+@@ -265,9 +265,9 @@ void ima_store_measurement(struct integrity_iint_cache *iint, struct file *file,
+ 			   struct evm_ima_xattr_data *xattr_value,
+ 			   int xattr_len, const struct modsig *modsig, int pcr,
  			   struct ima_template_desc *template_desc);
- void process_buffer_measurement(struct inode *inode, const void *buf, int size,
- 				const char *eventname, enum ima_hooks func,
--				int pcr, const char *keyring);
-+				int pcr, const char *func_data);
+-void process_buffer_measurement(struct inode *inode, const void *buf, int size,
+-				const char *eventname, enum ima_hooks func,
+-				int pcr, const char *func_data);
++int process_buffer_measurement(struct inode *inode, const void *buf, int size,
++			       const char *eventname, enum ima_hooks func,
++			       int pcr, const char *func_data);
  void ima_audit_measurement(struct integrity_iint_cache *iint,
  			   const unsigned char *filename);
  int ima_alloc_init_template(struct ima_event_data *event_data,
-@@ -283,7 +283,7 @@ const char *ima_d_path(const struct path *path, char **pathbuf, char *filename);
- int ima_match_policy(struct inode *inode, const struct cred *cred, u32 secid,
- 		     enum ima_hooks func, int mask, int flags, int *pcr,
- 		     struct ima_template_desc **template_desc,
--		     const char *keyring);
-+		     const char *func_data);
- void ima_init_policy(void);
- void ima_update_policy(void);
- void ima_update_policy_flag(void);
-diff --git a/security/integrity/ima/ima_api.c b/security/integrity/ima/ima_api.c
-index 4f39fb93f278..af218babd198 100644
---- a/security/integrity/ima/ima_api.c
-+++ b/security/integrity/ima/ima_api.c
-@@ -170,7 +170,7 @@ void ima_add_violation(struct file *file, const unsigned char *filename,
-  * @func: caller identifier
-  * @pcr: pointer filled in if matched measure policy sets pcr=
-  * @template_desc: pointer filled in if matched measure policy sets template=
-- * @keyring: keyring name used to determine the action
-+ * @func_data: private data specific to @func, can be NULL.
-  *
-  * The policy is defined in terms of keypairs:
-  *		subj=, obj=, type=, func=, mask=, fsmagic=
-@@ -186,14 +186,14 @@ void ima_add_violation(struct file *file, const unsigned char *filename,
- int ima_get_action(struct inode *inode, const struct cred *cred, u32 secid,
- 		   int mask, enum ima_hooks func, int *pcr,
- 		   struct ima_template_desc **template_desc,
--		   const char *keyring)
-+		   const char *func_data)
- {
- 	int flags = IMA_MEASURE | IMA_AUDIT | IMA_APPRAISE | IMA_HASH;
- 
- 	flags &= ima_policy_flag;
- 
- 	return ima_match_policy(inode, cred, secid, func, mask, flags, pcr,
--				template_desc, keyring);
-+				template_desc, func_data);
- }
- 
- /*
 diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
-index 8a91711ca79b..c870fd6d2f83 100644
+index c870fd6d2f83..0979a62a9257 100644
 --- a/security/integrity/ima/ima_main.c
 +++ b/security/integrity/ima/ima_main.c
-@@ -732,13 +732,13 @@ int ima_load_data(enum kernel_load_data_id id)
-  * @eventname: event name to be used for the buffer entry.
-  * @func: IMA hook
-  * @pcr: pcr to extend the measurement
-- * @keyring: keyring name to determine the action to be performed
-+ * @func_data: private data specific to @func, can be NULL.
+@@ -736,9 +736,9 @@ int ima_load_data(enum kernel_load_data_id id)
   *
   * Based on policy, the buffer is measured into the ima log.
   */
- void process_buffer_measurement(struct inode *inode, const void *buf, int size,
- 				const char *eventname, enum ima_hooks func,
--				int pcr, const char *keyring)
-+				int pcr, const char *func_data)
+-void process_buffer_measurement(struct inode *inode, const void *buf, int size,
+-				const char *eventname, enum ima_hooks func,
+-				int pcr, const char *func_data)
++int process_buffer_measurement(struct inode *inode, const void *buf, int size,
++			       const char *eventname, enum ima_hooks func,
++			       int pcr, const char *func_data)
  {
  	int ret = 0;
  	const char *audit_cause = "ENOMEM";
-@@ -770,7 +770,7 @@ void process_buffer_measurement(struct inode *inode, const void *buf, int size,
- 	if (func) {
- 		security_task_getsecid(current, &secid);
+@@ -758,7 +758,7 @@ void process_buffer_measurement(struct inode *inode, const void *buf, int size,
+ 	u32 secid;
+ 
+ 	if (!ima_policy_flag)
+-		return;
++		return 0;
+ 
+ 	/*
+ 	 * Both LSM hooks and auxilary based buffer measurements are
+@@ -772,7 +772,7 @@ void process_buffer_measurement(struct inode *inode, const void *buf, int size,
  		action = ima_get_action(inode, current_cred(), secid, 0, func,
--					&pcr, &template, keyring);
-+					&pcr, &template, func_data);
+ 					&pcr, &template, func_data);
  		if (!(action & IMA_MEASURE))
- 			return;
+-			return;
++			return 0;
  	}
-diff --git a/security/integrity/ima/ima_policy.c b/security/integrity/ima/ima_policy.c
-index fe1df373c113..8866e84d0062 100644
---- a/security/integrity/ima/ima_policy.c
-+++ b/security/integrity/ima/ima_policy.c
-@@ -451,15 +451,21 @@ int ima_lsm_policy_change(struct notifier_block *nb, unsigned long event,
+ 
+ 	if (!pcr)
+@@ -787,7 +787,7 @@ void process_buffer_measurement(struct inode *inode, const void *buf, int size,
+ 			pr_err("template %s init failed, result: %d\n",
+ 			       (strlen(template->name) ?
+ 				template->name : template->fmt), ret);
+-			return;
++			return ret;
+ 		}
+ 	}
+ 
+@@ -819,7 +819,7 @@ void process_buffer_measurement(struct inode *inode, const void *buf, int size,
+ 					func_measure_str(func),
+ 					audit_cause, ret, 0, ret);
+ 
+-	return;
++	return ret;
  }
  
  /**
-- * ima_match_keyring - determine whether the keyring matches the measure rule
-- * @rule: a pointer to a rule
-- * @keyring: name of the keyring to match against the measure rule
-+ * ima_match_rule_data - determine whether the given func_data matches
-+ *			 the measure rule data
-+ * @rule: IMA policy rule
-+ * @opt_list: rule data to match func_data against
-+ * @func_data: data to match against the measure rule data
-+ * @allow_empty_opt_list: If true matches all func_data
-  * @cred: a pointer to a credentials structure for user validation
-  *
-- * Returns true if keyring matches one in the rule, false otherwise.
-+ * Returns true if func_data matches one in the rule, false otherwise.
-  */
--static bool ima_match_keyring(struct ima_rule_entry *rule,
--			      const char *keyring, const struct cred *cred)
-+static bool ima_match_rule_data(struct ima_rule_entry *rule,
-+				const struct ima_rule_opt_list *opt_list,
-+				const char *func_data,
-+				bool allow_empty_opt_list,
-+				const struct cred *cred)
- {
- 	bool matched = false;
- 	size_t i;
-@@ -467,14 +473,14 @@ static bool ima_match_keyring(struct ima_rule_entry *rule,
- 	if ((rule->flags & IMA_UID) && !rule->uid_op(cred->uid, rule->uid))
- 		return false;
- 
--	if (!rule->keyrings)
--		return true;
-+	if (!opt_list)
-+		return allow_empty_opt_list;
- 
--	if (!keyring)
-+	if (!func_data)
- 		return false;
- 
--	for (i = 0; i < rule->keyrings->count; i++) {
--		if (!strcmp(rule->keyrings->items[i], keyring)) {
-+	for (i = 0; i < opt_list->count; i++) {
-+		if (!strcmp(opt_list->items[i], func_data)) {
- 			matched = true;
- 			break;
- 		}
-@@ -491,20 +497,21 @@ static bool ima_match_keyring(struct ima_rule_entry *rule,
-  * @secid: the secid of the task to be validated
-  * @func: LIM hook identifier
-  * @mask: requested action (MAY_READ | MAY_WRITE | MAY_APPEND | MAY_EXEC)
-- * @keyring: keyring name to check in policy for KEY_CHECK func
-+ * @func_data: private data specific to @func, can be NULL.
-  *
-  * Returns true on rule match, false on failure.
-  */
- static bool ima_match_rules(struct ima_rule_entry *rule, struct inode *inode,
- 			    const struct cred *cred, u32 secid,
- 			    enum ima_hooks func, int mask,
--			    const char *keyring)
-+			    const char *func_data)
- {
- 	int i;
- 
- 	if (func == KEY_CHECK) {
- 		return (rule->flags & IMA_FUNC) && (rule->func == func) &&
--		       ima_match_keyring(rule, keyring, cred);
-+		       ima_match_rule_data(rule, rule->keyrings, func_data,
-+					   true, cred);
- 	}
- 	if ((rule->flags & IMA_FUNC) &&
- 	    (rule->func != func && func != POST_SETATTR))
-@@ -608,8 +615,7 @@ static int get_subaction(struct ima_rule_entry *rule, enum ima_hooks func)
-  * @mask: requested action (MAY_READ | MAY_WRITE | MAY_APPEND | MAY_EXEC)
-  * @pcr: set the pcr to extend
-  * @template_desc: the template that should be used for this rule
-- * @keyring: the keyring name, if given, to be used to check in the policy.
-- *           keyring can be NULL if func is anything other than KEY_CHECK.
-+ * @func_data: private data specific to @func, can be NULL.
-  *
-  * Measure decision based on func/mask/fsmagic and LSM(subj/obj/type)
-  * conditions.
-@@ -621,7 +627,7 @@ static int get_subaction(struct ima_rule_entry *rule, enum ima_hooks func)
- int ima_match_policy(struct inode *inode, const struct cred *cred, u32 secid,
- 		     enum ima_hooks func, int mask, int flags, int *pcr,
- 		     struct ima_template_desc **template_desc,
--		     const char *keyring)
-+		     const char *func_data)
- {
- 	struct ima_rule_entry *entry;
- 	int action = 0, actmask = flags | (flags << 1);
-@@ -636,7 +642,7 @@ int ima_match_policy(struct inode *inode, const struct cred *cred, u32 secid,
- 			continue;
- 
- 		if (!ima_match_rules(entry, inode, cred, secid, func, mask,
--				     keyring))
-+				     func_data))
- 			continue;
- 
- 		action |= entry->flags & IMA_ACTION_FLAGS;
 -- 
 2.17.1
 
