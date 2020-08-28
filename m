@@ -2,68 +2,55 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 9BDD525736F
-	for <lists+dm-devel@lfdr.de>; Mon, 31 Aug 2020 07:58:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 09FAA2574CF
+	for <lists+dm-devel@lfdr.de>; Mon, 31 Aug 2020 09:57:25 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-263-Jb6BjWDaNxqP6KBlx26Wfg-1; Mon, 31 Aug 2020 01:58:00 -0400
-X-MC-Unique: Jb6BjWDaNxqP6KBlx26Wfg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-515-CkPc4ZLgNI6Gd27Eo9FPTg-1; Mon, 31 Aug 2020 03:57:23 -0400
+X-MC-Unique: CkPc4ZLgNI6Gd27Eo9FPTg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E2F0718B9F01;
-	Mon, 31 Aug 2020 05:57:52 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3C4595C22A;
-	Mon, 31 Aug 2020 05:57:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 88D251DDEC;
+	Mon, 31 Aug 2020 07:57:17 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 664415D9D5;
+	Mon, 31 Aug 2020 07:57:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 00F24A2215;
-	Mon, 31 Aug 2020 05:57:27 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1D62D181A869;
+	Mon, 31 Aug 2020 07:57:17 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07V5vDMx003362 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 31 Aug 2020 01:57:13 -0400
+	id 07SKRI3F008897 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 28 Aug 2020 16:27:19 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0D44680546; Mon, 31 Aug 2020 05:57:13 +0000 (UTC)
+	id DB1FA1140F8; Fri, 28 Aug 2020 20:27:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0846E7D296
-	for <dm-devel@redhat.com>; Mon, 31 Aug 2020 05:57:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D5E471140F6
+	for <dm-devel@redhat.com>; Fri, 28 Aug 2020 20:27:16 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 14900811E7F
-	for <dm-devel@redhat.com>; Mon, 31 Aug 2020 05:57:07 +0000 (UTC)
-Received: from esa5.hgst.iphmx.com (esa5.hgst.iphmx.com [216.71.153.144])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-262-1WOtBBwwMiOwU7JErDGdqw-1; Mon, 31 Aug 2020 01:57:00 -0400
-X-MC-Unique: 1WOtBBwwMiOwU7JErDGdqw-1
-IronPort-SDR: hJ3j+YYcP/jcriFQdfLvfW6XdXHCUSC4j179umHMMAv8HdqR3W5FnXhhyvPPFe7pvkt08zCnBP
-	CrWMfHAZVPStfw3zw8nlNRyJ1Ytm58pA8GTGcn5OtQS/be4buyH+4dUGNgVNawGcFlbJVngXq8
-	4dsmI3zVbaWqcy8j5nb0GXx9TkQ1bwEn2LqhxGnz+vixWQ2Asgo8aZTg8YaBziVubWkZZEy1g8
-	wo++KkZ+BkGj+4NoPb8A/+3wflqNFfIvwavT/32WkyJWLNIckSAimkbMFK4jcMHwM10S69Q1bE
-	G4c=
-X-IronPort-AV: E=Sophos;i="5.76,374,1592841600"; d="scan'208";a="146195401"
-Received: from uls-op-cesaip01.wdc.com (HELO uls-op-cesaep01.wdc.com)
-	([199.255.45.14])
-	by ob1.hgst.iphmx.com with ESMTP; 31 Aug 2020 13:55:57 +0800
-IronPort-SDR: oPfE7QDmCE8v3b4j7JRfYiNilzerbAcoRHl19QzvQ35x5Ol7L/fTMzb1WyufDvNN6kfwagruAi
-	EI+UEdBVZnqA==
-Received: from uls-op-cesaip01.wdc.com ([10.248.3.36])
-	by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	30 Aug 2020 22:43:26 -0700
-IronPort-SDR: E/xZainLOI7Q6mU36tLl0Sd/tBQ9pyKcWLbkKqQD2vmA+sg9HjqFRvBa5GEvWwkZC3iPMGjwqj
-	hqUJJC0AXKow==
-WDCIronportException: Internal
-Received: from washi.fujisawa.hgst.com ([10.149.53.254])
-	by uls-op-cesaip01.wdc.com with ESMTP; 30 Aug 2020 22:55:55 -0700
-From: Damien Le Moal <damien.lemoal@wdc.com>
-To: dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>
-Date: Mon, 31 Aug 2020 14:55:55 +0900
-Message-Id: <20200831055555.471935-1-damien.lemoal@wdc.com>
-MIME-Version: 1.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9793D89D492
+	for <dm-devel@redhat.com>; Fri, 28 Aug 2020 20:27:16 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
+	relay.mimecast.com with ESMTP id us-mta-355-i9V7fJMMNb6tk7Z-mk8MLQ-1;
+	Fri, 28 Aug 2020 16:27:13 -0400
+X-MC-Unique: i9V7fJMMNb6tk7Z-mk8MLQ-1
+Received: from tusharsu-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
+	[71.197.163.6])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 5C72520B7178;
+	Fri, 28 Aug 2020 13:27:11 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5C72520B7178
+From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+To: zohar@linux.ibm.com, agk@redhat.com, snitzer@redhat.com,
+	gmazyland@gmail.com
+Date: Fri, 28 Aug 2020 13:26:58 -0700
+Message-Id: <20200828202700.23086-1-tusharsu@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -74,7 +61,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Subject: [dm-devel] [PATCH] dm crypt: Initialize crypto wait structures
+X-Mailman-Approved-At: Mon, 31 Aug 2020 03:56:57 -0400
+Cc: sashal@kernel.org, jmorris@namei.org, linux-kernel@vger.kernel.org,
+	nramas@linux.microsoft.com, dm-devel@redhat.com,
+	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
+Subject: [dm-devel] [PATCH v3 0/2] dm-devel:dm-crypt: infrastructure for
+	measurement of DM target data using IMA
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,9 +78,10 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.002
@@ -96,42 +89,70 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use the DECLARE_CRYPTO_WAIT() macro to properly initialize the crypto
-wait structures declared on stack before their use with
-crypto_wait_req().
+There are several device-mapper targets which contribute to verify
+the integrity of the mapped devices e.g. dm-integrity, dm-verity,
+dm-crypt etc.
 
-Fixes: 39d13a1ac41d ("dm crypt: reuse eboiv skcipher for IV generation")
-Fixes: bbb1658461ac ("dm crypt: Implement Elephant diffuser for Bitlocker compatibility")
-Cc: stable@vger.kernel.org
-Signed-off-by: Damien Le Moal <damien.lemoal@wdc.com>
----
- drivers/md/dm-crypt.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+But they do not use the capabilities provided by kernel integrity
+subsystem (IMA). For instance, the IMA capability that measures several
+in-memory constructs and files to detect if they have been accidentally
+or maliciously altered. IMA also has the capability to include these
+measurements in the IMA measurement list and use them to extend a TPM
+PCR so that they can be quoted. These TPM PCR extend operations ensure
+that the tampering with the order of constructs being measured, and
+tampering with the measured constructs themselves - doesn't go
+undetected. In general, this capability is used for remote attestation
+of in-memory constructs and files of interest. As of today,device-mapper
+targets don't use the benefits of extended TPM PCR quotes and ultimately
+the benefits of remote attestation.
 
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 238cd80826a6..380386c36921 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -739,7 +739,7 @@ static int crypt_iv_eboiv_gen(struct crypt_config *cc, u8 *iv,
- 	u8 buf[MAX_CIPHER_BLOCKSIZE] __aligned(__alignof__(__le64));
- 	struct skcipher_request *req;
- 	struct scatterlist src, dst;
--	struct crypto_wait wait;
-+	DECLARE_CRYPTO_WAIT(wait);
- 	int err;
- 
- 	req = skcipher_request_alloc(any_tfm(cc), GFP_NOIO);
-@@ -936,7 +936,7 @@ static int crypt_iv_elephant(struct crypt_config *cc, struct dm_crypt_request *d
- 	u8 *es, *ks, *data, *data2, *data_offset;
- 	struct skcipher_request *req;
- 	struct scatterlist *sg, *sg2, src, dst;
--	struct crypto_wait wait;
-+	DECLARE_CRYPTO_WAIT(wait);
- 	int i, r;
- 
- 	req = skcipher_request_alloc(elephant->tfm, GFP_NOIO);
+This series bridges this gap, so that all device-mapper targets
+could take advantage of IMA's measuring and quoting abilities - thus
+ultimately enabling remote attestation for device-mapper targets.
+
+This series is based on the following repo/branch:
+ repo: https://git.kernel.org/pub/scm/linux/kernel/git/zohar/linux-integrity.git
+ branch: next-integrity
+ commit d012a7190fc1 ("Linux 5.9-rc2") 
+
+This series also has a dependency on the following patch series and
+should be applied in the following order:
+ 1. https://patchwork.kernel.org/patch/11709527/
+ 2. https://patchwork.kernel.org/patch/11742047/
+ 3. https://patchwork.kernel.org/patch/11743265/
+
+Change Log v3:
+ - add dm-crypt as a supported data source to measure in ima.h.
+ - Taken dependency on the updated base series v3 (2. above)
+ - Taken dependency on the updated early boot measurement series v2
+   (3. above).
+
+Change Log v2:
+ - Removed the references to "local" measurement from the description -
+   as this series only support remote attestation, and not local
+   integrity enforcement.
+ - Taken dependency on the updated base series (2. above), which 
+   introduced a boolean parameter measure_buf_hash as per community
+   feedback to support measuring hash of the buffer, instead of the
+   buffer itself.
+ - Taken dependency on the updated early boot measurement series
+   (3. above).
+
+Tushar Sugandhi (2):
+  dm-devel: collect target data and submit to IMA to measure
+  dm-crypt: collect data and submit to DM to measure
+
+ drivers/md/Makefile            |   1 +
+ drivers/md/dm-crypt.c          | 171 +++++++++++++++++++
+ drivers/md/dm-ima.c            | 298 +++++++++++++++++++++++++++++++++
+ include/linux/device-mapper.h  |  60 +++++++
+ security/integrity/ima/Kconfig |   3 +-
+ security/integrity/ima/ima.h   |   1 +
+ 6 files changed, 532 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/md/dm-ima.c
+
 -- 
-2.26.2
+2.17.1
 
 --
 dm-devel mailing list
