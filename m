@@ -1,58 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id CFC002574CD
-	for <lists+dm-devel@lfdr.de>; Mon, 31 Aug 2020 09:57:25 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 51E1B2574D2
+	for <lists+dm-devel@lfdr.de>; Mon, 31 Aug 2020 09:58:06 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-334-fL2ntxNvPpiN2jHhL6VMPw-1; Mon, 31 Aug 2020 03:57:22 -0400
-X-MC-Unique: fL2ntxNvPpiN2jHhL6VMPw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-138-Nk_ciz6VO2SE46BK8TYypA-1; Mon, 31 Aug 2020 03:57:24 -0400
+X-MC-Unique: Nk_ciz6VO2SE46BK8TYypA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 25CC418A2252;
-	Mon, 31 Aug 2020 07:57:16 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 41C7B1084C96;
+	Mon, 31 Aug 2020 07:57:19 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 64DE35C22B;
-	Mon, 31 Aug 2020 07:57:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2164487E2A;
+	Mon, 31 Aug 2020 07:57:19 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EF5287A31B;
-	Mon, 31 Aug 2020 07:57:05 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D75DD85CD;
+	Mon, 31 Aug 2020 07:57:18 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07SKRIss008890 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 28 Aug 2020 16:27:18 -0400
+	id 07T1Eifi009766 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 28 Aug 2020 21:14:44 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6DFAD2024508; Fri, 28 Aug 2020 20:27:18 +0000 (UTC)
+	id 569F611921A5; Sat, 29 Aug 2020 01:14:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 69643200A7DC
-	for <dm-devel@redhat.com>; Fri, 28 Aug 2020 20:27:16 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5243511921A3
+	for <dm-devel@redhat.com>; Sat, 29 Aug 2020 01:14:41 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 17C6A102F1E0
-	for <dm-devel@redhat.com>; Fri, 28 Aug 2020 20:27:16 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DC78718AE947
+	for <dm-devel@redhat.com>; Sat, 29 Aug 2020 01:14:40 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-459-0aw4zTLeMpi8kIRsBmBMLQ-1;
-	Fri, 28 Aug 2020 16:27:13 -0400
-X-MC-Unique: 0aw4zTLeMpi8kIRsBmBMLQ-1
+	relay.mimecast.com with ESMTP id us-mta-318-Q9ZglfVgP-yyqclHvThJZw-1;
+	Fri, 28 Aug 2020 21:14:36 -0400
+X-MC-Unique: Q9ZglfVgP-yyqclHvThJZw-1
 Received: from tusharsu-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
 	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 65DB32056D2B;
-	Fri, 28 Aug 2020 13:27:12 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 65DB32056D2B
+	by linux.microsoft.com (Postfix) with ESMTPSA id 910DC20B7178;
+	Fri, 28 Aug 2020 18:14:34 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 910DC20B7178
 From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
 To: zohar@linux.ibm.com, agk@redhat.com, snitzer@redhat.com,
-	gmazyland@gmail.com
-Date: Fri, 28 Aug 2020 13:27:00 -0700
-Message-Id: <20200828202700.23086-3-tusharsu@linux.microsoft.com>
-In-Reply-To: <20200828202700.23086-1-tusharsu@linux.microsoft.com>
-References: <20200828202700.23086-1-tusharsu@linux.microsoft.com>
+	gmazyland@gmail.com, pvorel@suse.cz
+Date: Fri, 28 Aug 2020 18:14:27 -0700
+Message-Id: <20200829011427.12893-1-tusharsu@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,14 +58,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 31 Aug 2020 03:56:57 -0400
-Cc: sashal@kernel.org, jmorris@namei.org, linux-kernel@vger.kernel.org,
-	nramas@linux.microsoft.com, dm-devel@redhat.com,
-	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: [dm-devel] [PATCH v3 2/2] dm-crypt: collect data and submit to DM
-	to measure
+Cc: nramas@linux.microsoft.com, linux-integrity@vger.kernel.org,
+	dm-devel@redhat.com
+Subject: [dm-devel] [PATCH] IMA: Add test for dm-crypt measurement
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,7 +78,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.003
@@ -91,316 +86,205 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Currently, dm-crypt does not take advantage of IMA measuring
-capabilities, and ultimately the benefits of remote attestation.
+IMA subsystem supports measuring data from other kernel components
+through func=CRITICAL_DATA policy 'critical_kernel_data_sources'. 
+This IMA policy can be set to measure the data coming from device-mapper
+targets. This scenario needs test coverage.
 
-Measure various dm-crypt constructs by calling various device-mapper
-functions - dm_ima_*() that use IMA measuring capabilities. Implement
-ima_measure_dm_crypt_data() to measure various dm-crypt constructs.
+Add a testcase which verifies that the IMA subsystem correctly measures
+the data provided by one such DM target - dm-crypt.
 
-Ensure that ima_measure_dm_crypt_data() is non intrusive, i.e. failures
-in this function and the call-stack below should not affect the core
-functionality of dm-crypt.
+This series needs a kernel built on the following repo/branch/patches:
+ repo: https://git.kernel.org/pub/scm/linux/kernel/git/zohar/linux-integrity.git
+ branch: next-integrity
+ commit d012a7190fc1 ("Linux 5.9-rc2") 
 
-Register dm-crypt as supported data source for IMA measurement in ima.h.
+And the following patch series should be applied in the order below:
+ 1. https://patchwork.kernel.org/patch/11709527/
+ 2. https://patchwork.kernel.org/patch/11742047/
+ 3. https://patchwork.kernel.org/patch/11743265/
+ 4. https://patchwork.kernel.org/patch/11743715/
 
-A demonstrative usage of above functionality on a system:
+The kernel code required for this series (the patches above)
+is still under review. This series will be ready to merge in LTP only
+after the above patches are merged.
 
-If the IMA policy contains the following rule:
-
-    measure func=CRITICAL_DATA critical_kernel_data_sources=dm-crypt template=ima-buf
-
-and, the following commands are used to setup a crypt target:
-
- #key="faf453b4ee938cff2f0d2c869a0b743f59125c0a37f5bcd8f1dbbd911a78abaa"
- #arg="'0 1953125 crypt aes-xts-plain64 "
- #arg="$arg $key 0 "
- #arg="$arg /dev/loop0 0 1 allow_discards'"
- #tgt_name="test-crypt"
- #cmd="dmsetup create $tgt_name --table $arg"
- #eval $cmd
-
-then, the IMA log at
-/sys/kernel/security/integrity/ima/ascii_runtime_measurements should
-contain the dm-crypt measurements. And, the following IMA log entry
-should be added in the IMA log,
-
- ima-buf sha1:039d8ff71918608d585adca3e5aab2e3f41f84d6 
- 1598637500:520585536:dm-crypt:add_target 
- 74695f6e756d5f646973636172645f62696f733d313b7065725f62696f5f646
- 174615f73697a653d3834383b646d7265715f73746172743d3136383b74666d
- 735f636f756e743d313b6f6e5f6469736b5f7461675f73697a653d303b696e7
- 46567726974795f69765f73697a653d303b696e746567726974795f7461675f
- 73697a653d303b69765f73697a653d31363b69765f6f66667365743d303b736
- 563746f725f73686966743d303b736563746f725f73697a653d3531323b666c
- 6167733d323b6369706865725f666c6167733d303b73746172743d303b6b657
- 95f6d61635f73697a653d303b6b65795f65787472615f73697a653d303b6b65
- 795f70617274733d313b6b65795f73697a653d33323b6369706865725f73747
- 2696e673d6165732d7874732d706c61696e36343b6465766963655f6e616d65
- 3d3235333a303b
-
-where, the ascii representation of the above data is:
-
- ti_num_discard_bios=1;per_bio_data_size=848;dmreq_start=168;
- tfms_count=1;on_disk_tag_size=0;integrity_iv_size=0;
- integrity_tag_size=0;iv_size=16;iv_offset=0;sector_shift=0;
- sector_size=512;flags=2;cipher_flags=0;start=0;key_mac_size=0;
- key_extra_size=0;key_parts=1;key_size=32;
- cipher_string=aes-xts-plain64;device_name=253:0;
-
-Some of the above values can be verified using:
-
- #dmsetup table --showkeys
-
-where, the output of the command should be similar to:
-
- test-crypt: 0 1953125 crypt aes-xts-plain64
- faf453b4ee938cff2f0d2c869a0b743f59125c0a37f5bcd8f1dbbd911a78abaa
- 0 7:0 0 1 allow_discards
-
+This series is based on the following commit in LTP branch:
+ commit a277498c08a7 ("IMA/ima_keys.sh: Enhance policy checks") 
+        
 Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
 ---
- drivers/md/dm-crypt.c          | 171 +++++++++++++++++++++++++++++++++
- security/integrity/ima/Kconfig |   3 +-
- security/integrity/ima/ima.h   |   1 +
- 3 files changed, 173 insertions(+), 2 deletions(-)
+ runtest/ima                                   |   1 +
+ .../kernel/security/integrity/ima/README.md   |  20 +++
+ .../integrity/ima/tests/ima_dm_crypt.sh       | 118 ++++++++++++++++++
+ 3 files changed, 139 insertions(+)
+ create mode 100755 testcases/kernel/security/integrity/ima/tests/ima_dm_crypt.sh
 
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 148960721254..47fb2ce15211 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -2529,6 +2529,8 @@ static void crypt_dtr(struct dm_target *ti)
+diff --git a/runtest/ima b/runtest/ima
+index 5f4b4a7a1..123b6c8b0 100644
+--- a/runtest/ima
++++ b/runtest/ima
+@@ -5,4 +5,5 @@ ima_tpm ima_tpm.sh
+ ima_violations ima_violations.sh
+ ima_keys ima_keys.sh
+ ima_kexec ima_kexec.sh
++ima_dm_crypt ima_dm_crypt.sh
+ evm_overlay evm_overlay.sh
+diff --git a/testcases/kernel/security/integrity/ima/README.md b/testcases/kernel/security/integrity/ima/README.md
+index 68d046678..663c0b624 100644
+--- a/testcases/kernel/security/integrity/ima/README.md
++++ b/testcases/kernel/security/integrity/ima/README.md
+@@ -37,6 +37,26 @@ see example in `kexec.policy`.
+ The test attempts to kexec the existing running kernel image.
+ To kexec a different kernel image export `IMA_KEXEC_IMAGE=<pathname>`.
  
- 	ti->private = NULL;
- 
-+	dm_ima_exit_measurements(ti->type);
++### IMA DM target (dm-crypt) measurement test
 +
- 	if (!cc)
- 		return;
++To enable IMA to measure device-mapper target - dm-crypt,
++`ima_dm_crypt.sh` requires a readable IMA policy, as well as 
++a loaded measure policy with 
++`func=CRITICAL_DATA critical_kernel_data_sources=dm-crypt`
++
++As well as what's required for the IMA tests, dm-crypt measurement test require
++reading the IMA policy allowed in the kernel configuration:
++```
++CONFIG_IMA_READ_POLICY=y
++```
++
++The following kernel configuration is also required. It enables compiling
++the device-mapper target module dm-crypt, which allows to create a device
++that transparently encrypts the data on it.
++```
++CONFIG_DM_CRYPT
++```
++
+ ## EVM tests
  
-@@ -2991,6 +2993,167 @@ static int crypt_report_zones(struct dm_target *ti,
- 
- #endif
- 
-+#ifdef CONFIG_IMA
-+/*
-+ * append integer values to dm-crypt specific data
-+ * to be measured through IMA
-+ */
-+static int ima_append_num_values(struct dm_target *ti,
-+				 const char *key,
-+				 long long num_val)
+ `evm_overlay.sh` requires a builtin IMA appraise tcb policy (e.g. `ima_policy=appraise_tcb`
+diff --git a/testcases/kernel/security/integrity/ima/tests/ima_dm_crypt.sh b/testcases/kernel/security/integrity/ima/tests/ima_dm_crypt.sh
+new file mode 100755
+index 000000000..ee572ed01
+--- /dev/null
++++ b/testcases/kernel/security/integrity/ima/tests/ima_dm_crypt.sh
+@@ -0,0 +1,118 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2020 Microsoft Corporation
++# Author: Tushar Sugandhi <tusharsu@linux.microsoft.com>
++#
++# Verify that DM target dm-crypt is measured correctly based on policy.
++
++TST_NEEDS_CMDS="grep cut sed tr dmsetup"
++TST_CNT=1
++TST_NEEDS_DEVICE=1
++TST_SETUP=setup
++
++. ima_setup.sh
++
++FUNC_CRIT_DATA='func=CRITICAL_DATA'
++TEMPLATE_BUF='template=ima-buf'
++REQUIRED_POLICY="^measure.*($FUNC_CRIT_DATA.*$TEMPLATE_BUF|$TEMPLATE_BUF.*$FUNC_CRIT_DATA)"
++
++setup()
 +{
-+	char *num_str = NULL;
-+	int length = 0;
-+	int r = 0;
-+
-+	if (!ti || !key) {
-+		r = -EINVAL;
-+		goto error;
-+	}
-+
-+	length = snprintf(NULL, 0, "%lld", num_val);
-+	num_str = kzalloc(length + 1, GFP_KERNEL);
-+	if (!num_str) {
-+		r = -ENOMEM;
-+		goto error;
-+	}
-+	snprintf(num_str, length + 1, "%lld", num_val);
-+	dm_ima_append_measurement_list(ti->type,
-+				       key,
-+				       (const void *)num_str,
-+				       length);
-+	kzfree(num_str);
-+	return r;
-+error:
-+	DMERR("appending num values to IMA measurement list failed %d", r);
-+	return r;
++	tst_res TINFO "inside setup"
++	require_ima_policy_content "$REQUIRED_POLICY" '-E' > policy.txt
 +}
-+/*
-+ * Measure dm-crypt specific data through IMA.
-+ * It appends all the needed data to the list as a key-val pair using
-+ * dm_ima_append_measurement_list() and internal ima_append_num_values(),
-+ * and finally measures the list using dm_ima_finalize_and_measure().
-+ */
-+static void ima_measure_dm_crypt_data(struct dm_target *ti, const char *desc)
++
++check_dm_crypt_policy()
 +{
-+	int r = 0;
-+	struct crypt_config *cc = NULL;
-+	const char *devname = dm_table_device_name(ti->table);
++	local pattern="$1"
 +
-+	if (!ti) {
-+		r = -EINVAL;
-+		goto out;
-+	}
-+
-+	cc = ti->private;
-+
-+	if (devname) {
-+		dm_ima_append_measurement_list(ti->type,
-+					       "device_name",
-+					       (const void *)devname,
-+					       strlen(devname));
-+	}
-+
-+	if (cc->cipher_string) {
-+		dm_ima_append_measurement_list(ti->type,
-+					       "cipher_string",
-+					       (const void *)cc->cipher_string,
-+					       strlen(cc->cipher_string));
-+	}
-+
-+	if (cc->cipher_auth) {
-+		dm_ima_append_measurement_list(ti->type,
-+					       "cipher_auth",
-+					       (const void *)cc->cipher_auth,
-+					       strlen(cc->cipher_auth));
-+	}
-+
-+	r = ima_append_num_values(ti, "key_size", cc->key_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "key_parts", cc->key_parts);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "key_extra_size", cc->key_extra_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "key_mac_size", cc->key_mac_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "start", cc->start);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "cipher_flags", cc->cipher_flags);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "flags", cc->flags);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "sector_size", cc->sector_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "sector_shift", cc->sector_shift);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "iv_offset", cc->iv_offset);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "iv_size", cc->iv_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "integrity_tag_size", cc->integrity_tag_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "integrity_iv_size", cc->integrity_iv_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "on_disk_tag_size", cc->on_disk_tag_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "tfms_count", cc->tfms_count);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "dmreq_start", cc->dmreq_start);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "per_bio_data_size", cc->per_bio_data_size);
-+	if (r)
-+		goto out;
-+
-+	r = ima_append_num_values(ti, "ti_num_discard_bios",
-+			      ti->num_discard_bios);
-+	if (r)
-+		goto out;
-+
-+	dm_ima_finalize_and_measure(ti->type, desc, false);
-+	return;
-+
-+out:
-+	DMERR("IMA measurement of dm-crypt data failed %d", r);
-+
++	if ! grep -E "$pattern" policy.txt; then
++		tst_res TCONF "IMA policy must specify $pattern, $FUNC_CRIT_DATA, $TEMPLATE_BUF"
++		return 1
++	fi
++	return 0
 +}
-+#else
-+static inline void ima_measure_dm_crypt_data(struct dm_target *ti,
-+					     const char *desc) {}
-+#endif /* CONFIG_IMA */
 +
++test1()
++{
++	local dmcheck_lines i dm_targets templates
++	local policy="critical_kernel_data_sources"
++	local pattern='critical_kernel_data_sources=[^[:space:]]+'
++	local tmp_file="tmp.txt"
++	local tokens_file="tokens_file.txt" grep_file="grep_file.txt"
++	local arg cmd key tgt_name
++	local res=0
 +
- /*
-  * Construct an encryption mapping:
-  * <cipher> [<key>|:<key_size>:<user|logon>:<key_description>] <iv_offset> <dev_path> <start>
-@@ -3186,6 +3349,10 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 
- 	ti->num_flush_bios = 1;
- 
-+	dm_ima_init_measurements(ti->type);
++	tst_res TINFO "verifying dm target - dmcrypt gets measured correctly."
 +
-+	ima_measure_dm_crypt_data(ti, "add_target");
++	check_dm_crypt_policy "$pattern" > $tmp_file || return
 +
- 	return 0;
- 
- bad:
-@@ -3324,6 +3491,8 @@ static void crypt_postsuspend(struct dm_target *ti)
- 	struct crypt_config *cc = ti->private;
- 
- 	set_bit(DM_CRYPT_SUSPENDED, &cc->flags);
++	dmcheck_lines=$(cat $tmp_file)
++	dm_targets=$(for i in $dmcheck_lines; do echo "$i" | grep "$policy" | \
++		sed "s/\./\\\./g" | cut -d'=' -f2; done | sed ':a;N;$!ba;s/\n/|/g')
++	if [ -z "$dm_targets" ]; then
++		tst_res TCONF "IMA policy has a $policy key-value specifier, but no specified sources."
++		return
++	fi
 +
-+	ima_measure_dm_crypt_data(ti, "post_suspend");
- }
- 
- static int crypt_preresume(struct dm_target *ti)
-@@ -3343,6 +3512,8 @@ static void crypt_resume(struct dm_target *ti)
- 	struct crypt_config *cc = ti->private;
- 
- 	clear_bit(DM_CRYPT_SUSPENDED, &cc->flags);
++	templates=$(for i in $dmcheck_lines; do echo "$i" | grep "template" | \
++		cut -d'=' -f2; done | sed ':a;N;$!ba;s/\n/|/g')
 +
-+	ima_measure_dm_crypt_data(ti, "resume");
- }
- 
- /* Message interface
-diff --git a/security/integrity/ima/Kconfig b/security/integrity/ima/Kconfig
-index 953314d145bb..ad643cc5aad4 100644
---- a/security/integrity/ima/Kconfig
-+++ b/security/integrity/ima/Kconfig
-@@ -324,8 +324,7 @@ config IMA_MEASURE_ASYMMETRIC_KEYS
- 
- config IMA_QUEUE_EARLY_BOOT_DATA
- 	bool
--	depends on IMA_MEASURE_ASYMMETRIC_KEYS
--	depends on SYSTEM_TRUSTED_KEYRING
-+        depends on (IMA_MEASURE_ASYMMETRIC_KEYS && SYSTEM_TRUSTED_KEYRING) || DM_CRYPT
- 	default y
- 
- config IMA_SECURE_AND_OR_TRUSTED_BOOT
-diff --git a/security/integrity/ima/ima.h b/security/integrity/ima/ima.h
-index 422fe833037d..bc922aa2ff92 100644
---- a/security/integrity/ima/ima.h
-+++ b/security/integrity/ima/ima.h
-@@ -230,6 +230,7 @@ struct modsig;
- 
- #define __ima_supported_kernel_data_sources(source)	\
- 	source(MIN_SOURCE, min_source)			\
-+	source(DM_CRYPT, dm-crypt)			\
- 	source(MAX_SOURCE, max_source)
- 
- #define __ima_enum_stringify(ENUM, str) (#str),
++	tst_res TINFO "dm_targets: '$dm_targets'"
++	tst_res TINFO "templates: '$templates'"
++
++	tgt="crypt"
++	key="faf453b4ee938cff2f0d2c869a0b743f59125c0a37f5bcd8f1dbbd911a78abaa"
++
++	arg="'0 1953125 crypt aes-xts-plain64 "
++	arg="$arg $key 0 "
++	arg="$arg /dev/loop0 0 1 allow_discards'"
++	tgt_name="test-crypt"
++	cmd="dmsetup create $tgt_name --table $arg"
++
++	tst_res TINFO "Executing: $cmd"
++	eval $cmd
++
++	grep -E "($templates)*($dm_targets)" $ASCII_MEASUREMENTS > $grep_file
++
++	while read line
++	do
++		local act_digest exp_digest comp_digest algorithm
++
++		act_digest=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f2)
++		algorithm=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f1)
++		dmtgt_evtname=$(echo "$line" | cut -d' ' -f5)
++
++		echo "$line" | cut -d' ' -f6 | xxd -r -p > $tokens_file
++		plain_text=$(echo "$line" | cut -d' ' -f6 | xxd -r -p)
++
++		#expected digest for $cmd
++		exp_digest="039d8ff71918608d585adca3e5aab2e3f41f84d6"
++		comp_digest="$(compute_digest $algorithm $tokens_file)" || \
++			tst_brk TCONF "cannot compute digest for $algorithm"
++
++		if [ "$act_digest" != "$comp_digest" ]; then
++			tst_res TFAIL "Incorrect digest for ($dmtgt_evtname)."
++			tst_res TFAIL "Expected digest:($comp_digest)."
++			tst_res TFAIL "Actual digest:($act_digest)."
++			tst_res TINFO "Removing DM target $tgt_name."
++			dmsetup remove $tgt_name
++			return
++		fi
++
++		if [ "$act_digest" = "$exp_digest" ]; then
++			res=1
++		fi
++
++	done < $grep_file
++
++	if [ $res -eq 1 ]; then
++		tst_res TPASS "dm-crypt target verification passed."
++	else
++		tst_res TFAIL "dm-crypt target verification failed."
++	fi
++	tst_res TINFO "Removing DM target $tgt_name."
++	dmsetup remove $tgt_name
++}
++
++tst_run
 -- 
 2.17.1
 
