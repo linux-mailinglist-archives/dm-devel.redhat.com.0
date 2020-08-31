@@ -1,103 +1,107 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D1BB625897D
-	for <lists+dm-devel@lfdr.de>; Tue,  1 Sep 2020 09:44:16 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 20AAC25897F
+	for <lists+dm-devel@lfdr.de>; Tue,  1 Sep 2020 09:44:18 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-3-pRsSQvT2MXe-w90mbh9b5Q-1; Tue, 01 Sep 2020 03:44:09 -0400
-X-MC-Unique: pRsSQvT2MXe-w90mbh9b5Q-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-579-fRgOWVpqNluYBNLaUtnDYg-1; Tue, 01 Sep 2020 03:44:15 -0400
+X-MC-Unique: fRgOWVpqNluYBNLaUtnDYg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BDD805705A;
-	Tue,  1 Sep 2020 07:44:03 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 73A8376E01;
-	Tue,  1 Sep 2020 07:44:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8DCC41007473;
+	Tue,  1 Sep 2020 07:44:06 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6AB2D78B49;
+	Tue,  1 Sep 2020 07:44:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2E48379A2C;
-	Tue,  1 Sep 2020 07:44:03 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 201A1181A870;
+	Tue,  1 Sep 2020 07:44:06 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 07VH3BK1021588 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 31 Aug 2020 13:03:11 -0400
+	id 07VIFN4t031019 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 31 Aug 2020 14:15:23 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3B58E30BB2; Mon, 31 Aug 2020 17:03:11 +0000 (UTC)
+	id 6CB111111424; Mon, 31 Aug 2020 18:15:23 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 36B9E33231
-	for <dm-devel@redhat.com>; Mon, 31 Aug 2020 17:03:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6753B1004036
+	for <dm-devel@redhat.com>; Mon, 31 Aug 2020 18:15:21 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2488787EF7E
-	for <dm-devel@redhat.com>; Mon, 31 Aug 2020 17:03:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 14D69811E79
+	for <dm-devel@redhat.com>; Mon, 31 Aug 2020 18:15:21 +0000 (UTC)
 Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
 	[148.163.158.5]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-100-YUTCXQFSM9aCowvNzRcqHw-1; Mon, 31 Aug 2020 13:03:06 -0400
-X-MC-Unique: YUTCXQFSM9aCowvNzRcqHw-1
+	us-mta-81-sz-_AUd8P3mF-3Z_DYceiA-1; Mon, 31 Aug 2020 14:15:16 -0400
+X-MC-Unique: sz-_AUd8P3mF-3Z_DYceiA-1
 Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
 	by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
-	07VH1v9c017870; Mon, 31 Aug 2020 13:03:06 -0400
+	07VICRja010823; Mon, 31 Aug 2020 14:15:15 -0400
 Received: from pps.reinject (localhost [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 3393sutn1c-1
+	by mx0a-001b2d01.pphosted.com with ESMTP id 33969br22s-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Mon, 31 Aug 2020 13:03:05 -0400
+	verify=NOT); Mon, 31 Aug 2020 14:15:15 -0400
 Received: from m0098417.ppops.net (m0098417.ppops.net [127.0.0.1])
-	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 07VH2SDO023355;
-	Mon, 31 Aug 2020 13:03:05 -0400
-Received: from ppma03ams.nl.ibm.com (62.31.33a9.ip4.static.sl-reverse.com
-	[169.51.49.98])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 3393sutmyp-1
+	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 07VIE72t013986;
+	Mon, 31 Aug 2020 14:15:15 -0400
+Received: from ppma06ams.nl.ibm.com (66.31.33a9.ip4.static.sl-reverse.com
+	[169.51.49.102])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 33969br21a-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Mon, 31 Aug 2020 13:03:05 -0400
-Received: from pps.filterd (ppma03ams.nl.ibm.com [127.0.0.1])
-	by ppma03ams.nl.ibm.com (8.16.0.42/8.16.0.42) with SMTP id
-	07VGxDRK021536; Mon, 31 Aug 2020 17:03:03 GMT
-Received: from b06cxnps3074.portsmouth.uk.ibm.com
-	(d06relay09.portsmouth.uk.ibm.com [9.149.109.194])
-	by ppma03ams.nl.ibm.com with ESMTP id 337en8ac3r-1
+	verify=NOT); Mon, 31 Aug 2020 14:15:15 -0400
+Received: from pps.filterd (ppma06ams.nl.ibm.com [127.0.0.1])
+	by ppma06ams.nl.ibm.com (8.16.0.42/8.16.0.42) with SMTP id
+	07VICxFc004273; Mon, 31 Aug 2020 18:15:13 GMT
+Received: from b06cxnps4075.portsmouth.uk.ibm.com
+	(d06relay12.portsmouth.uk.ibm.com [9.149.109.197])
+	by ppma06ams.nl.ibm.com with ESMTP id 337e9gten0-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Mon, 31 Aug 2020 17:03:03 +0000
-Received: from d06av25.portsmouth.uk.ibm.com (d06av25.portsmouth.uk.ibm.com
-	[9.149.105.61])
-	by b06cxnps3074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
-	ESMTP id 07VH30Uq12058924
+	verify=NOT); Mon, 31 Aug 2020 18:15:13 +0000
+Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
+	[9.149.105.59])
+	by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+	ESMTP id 07VIFB4A15860132
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=OK); Mon, 31 Aug 2020 17:03:01 GMT
-Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C950311C058;
-	Mon, 31 Aug 2020 17:03:00 +0000 (GMT)
-Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CD72511C05B;
-	Mon, 31 Aug 2020 17:02:57 +0000 (GMT)
+	verify=OK); Mon, 31 Aug 2020 18:15:11 GMT
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D9A50A4072;
+	Mon, 31 Aug 2020 18:15:09 +0000 (GMT)
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 85E9EA4069;
+	Mon, 31 Aug 2020 18:15:06 +0000 (GMT)
 Received: from li-f45666cc-3089-11b2-a85c-c57d1a57929f.ibm.com (unknown
-	[9.160.2.129]) by d06av25.portsmouth.uk.ibm.com (Postfix) with ESMTP;
-	Mon, 31 Aug 2020 17:02:57 +0000 (GMT)
-Message-ID: <f11dbfc1382e60c04fdd519ce5122239fa0cab8b.camel@linux.ibm.com>
+	[9.160.2.129]) by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+	Mon, 31 Aug 2020 18:15:06 +0000 (GMT)
+Message-ID: <652406e1a08d855a5d9a3e3815835653a12df411.camel@linux.ibm.com>
 From: Mimi Zohar <zohar@linux.ibm.com>
 To: Tushar Sugandhi <tusharsu@linux.microsoft.com>,
 	stephen.smalley.work@gmail.com, casey@schaufler-ca.com, agk@redhat.com, 
 	snitzer@redhat.com, gmazyland@gmail.com
-Date: Mon, 31 Aug 2020 13:02:56 -0400
-In-Reply-To: <20200828015704.6629-4-tusharsu@linux.microsoft.com>
+Date: Mon, 31 Aug 2020 14:15:05 -0400
+In-Reply-To: <20200828015704.6629-5-tusharsu@linux.microsoft.com>
 References: <20200828015704.6629-1-tusharsu@linux.microsoft.com>
-	<20200828015704.6629-4-tusharsu@linux.microsoft.com>
+	<20200828015704.6629-5-tusharsu@linux.microsoft.com>
 Mime-Version: 1.0
 X-TM-AS-GCONF: 00
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
 	definitions=2020-08-31_08:2020-08-31,
 	2020-08-31 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
-	mlxlogscore=999 clxscore=1015
-	priorityscore=1501 bulkscore=0 lowpriorityscore=0 suspectscore=0
-	impostorscore=0 phishscore=0 adultscore=0 spamscore=0 mlxscore=0
-	malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2006250000 definitions=main-2008310099
+	malwarescore=0
+	impostorscore=0 mlxscore=0 lowpriorityscore=0 clxscore=1015
+	adultscore=0
+	phishscore=0 bulkscore=0 priorityscore=1501 mlxlogscore=999 spamscore=0
+	suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2006250000 definitions=main-2008310104
+X-MIME-Autoconverted: from 8bit to quoted-printable by
+	mx0a-001b2d01.pphosted.com id 07VICRja010823
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -106,15 +110,17 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 07VIFN4t031019
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 01 Sep 2020 03:43:47 -0400
 Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
 	jmorris@namei.org, linux-kernel@vger.kernel.org,
 	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
 	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v3 3/6] IMA: update
- process_buffer_measurement to measure buffer hash
+Subject: Re: [dm-devel] [PATCH v3 4/6] IMA: add policy to measure critical
+ data from kernel components
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -128,111 +134,64 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.502
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Thu, 2020-08-27 at 18:57 -0700, Tushar Sugandhi wrote:
-> process_buffer_measurement() currently only measures the input buffer.
-> When the buffer being measured is too large, it may result in bloated
-> IMA logs.
-
-The subject of  this sentence refers to an individual record, while
-"bloated" refers to the measurement list.  A "bloated" measurement list
-would contain too many or unnecessary records.  Your concern seems to
-be with the size of the individual record, not the number of
-measurement list entries.
-
-Measuring the hash of the buffer data is similar to measuring the file
-data.  In the case of the file data, however, the attestation server
-may rely on a white list manifest/DB or the file signature to verify
-the file data hash.  For buffer measurements, how will the attestation
-server ascertain what is a valid buffer hash?
-
-Hint:  I assume, correct me if I'm wrong, the measurement list record
-template data is not meant to be verified, but used to detect if the "critical data" changed.
-
-Please update the patch description accordingly.
-
-> 
-> Introduce a boolean parameter measure_buf_hash to support measuring
-> hash of a buffer, which would be much smaller, instead of the buffer
-> itself.
-> Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-> ---
-
-<snip>
-
-> +++ b/security/integrity/ima/ima_main.c
-> @@ -733,17 +733,21 @@ int ima_load_data(enum kernel_load_data_id id)
->   * @func: IMA hook
->   * @pcr: pcr to extend the measurement
->   * @func_data: private data specific to @func, can be NULL.
-> + * @measure_buf_hash: if set to true - will measure hash of the buf,
-> + *                    instead of buf
->   *
->   * Based on policy, the buffer is measured into the ima log.
->   */
->  int process_buffer_measurement(struct inode *inode, const void *buf, int size,
->  			       const char *eventname, enum ima_hooks func,
-> -			       int pcr, const char *func_data)
-> +			       int pcr, const char *func_data,
-> +			       bool measure_buf_hash)
->  {
->  	int ret = 0;
->  	const char *audit_cause = "ENOMEM";
->  	struct ima_template_entry *entry = NULL;
->  	struct integrity_iint_cache iint = {};
-> +	struct integrity_iint_cache digest_iint = {};
->  	struct ima_event_data event_data = {.iint = &iint,
->  					    .filename = eventname,
->  					    .buf = buf,
-> @@ -752,7 +756,7 @@ int process_buffer_measurement(struct inode *inode, const void *buf, int size,
->  	struct {
->  		struct ima_digest_data hdr;
->  		char digest[IMA_MAX_DIGEST_SIZE];
-> -	} hash = {};
-> +	} hash = {}, digest_hash = {};
->  	int violation = 0;
->  	int action = 0;
->  	u32 secid;
-> @@ -801,6 +805,24 @@ int process_buffer_measurement(struct inode *inode, const void *buf, int size,
->  		goto out;
->  	}
->  
-> +	if (measure_buf_hash) {
-> +		digest_iint.ima_hash = &digest_hash.hdr;
-> +		digest_iint.ima_hash->algo = ima_hash_algo;
-> +		digest_iint.ima_hash->length = hash_digest_size[ima_hash_algo];
-> +
-> +		ret = ima_calc_buffer_hash(hash.hdr.digest,
-> +					   iint.ima_hash->length,
-> +					   digest_iint.ima_hash);
-> +		if (ret < 0) {
-> +			audit_cause = "digest_hashing_error";
-> +			goto out;
-> +		}
-> +
-> +		event_data.iint = &digest_iint;
-> +		event_data.buf = hash.hdr.digest;
-> +		event_data.buf_len = iint.ima_hash->length;
-> +	}
-> +
-
-There seems to be some code and variable duplication by doing it this
-way.  Copying the caluclated buffer data hash to a temporary buffer
-might eliminate it.
-
->  	ret = ima_alloc_init_template(&event_data, &entry, template);
->  	if (ret < 0) {
->  		audit_cause = "alloc_entry";
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+T24gVGh1LCAyMDIwLTA4LTI3IGF0IDE4OjU3IC0wNzAwLCBUdXNoYXIgU3VnYW5kaGkgd3JvdGU6
+Cj4gVGhlcmUgd291bGQgYmUgc2V2ZXJhbCBjYW5kaWRhdGUga2VybmVsIGNvbXBvbmVudHMgc3Vp
+dGFibGUgZm9yIElNQQo+IG1lYXN1cmVtZW50LiBOb3QgYWxsIG9mIHRoZW0gd291bGQgaGF2ZSBz
+dXBwb3J0IGZvciBJTUEgbWVhc3VyZW1lbnQuCj4gQWxzbywgc3lzdGVtIGFkbWluaXN0cmF0b3Jz
+IG1heSBub3Qgd2FudCB0byBtZWFzdXJlIGRhdGEgZm9yIGFsbCBvZgo+IHRoZW0sIGV2ZW4gd2hl
+biB0aGV5IHN1cHBvcnQgSU1BIG1lYXN1cmVtZW50LiBBbiBJTUEgcG9saWN5IHNwZWNpZmljCj4g
+dG8gdmFyaW91cyBrZXJuZWwgY29tcG9uZW50cyBpcyBuZWVkZWQgdG8gbWVhc3VyZSB0aGVpciBy
+ZXNwZWN0aXZlCj4gY3JpdGljYWwgZGF0YS4KClRoZSBiYXNlIHBvbGljeSBydWxlcyBhcmUgd2lk
+ZSwgYnV0IG1heSBiZSBjb25zdHJhaW5lZCBieSBzcGVjaWZ5aW5nCmRpZmZlcmVudCBvcHRpb25z
+LiAgRm9yIGV4YW1wbGUgdGhlIGJ1aWx0aW4gcG9saWN5IHJ1bGVzIGNhbm5vdCBiZQp3cml0dGVu
+IGluIHRlcm1zIExTTSBsYWJlbHMsIHdoaWNoIHdvdWxkIGNvbnN0cmFpbiB0aGVtLiAgQSBwb2xp
+Y3kgcnVsZQptYXkgbWVhc3VyZSBhbGwga2V5cmluZ3Mgb3IgbWF5IGNvbnN0cmFpbiB3aGljaCBr
+ZXlyaW5ncyBuZWVkIHRvIGJlCm1lYXN1cmVkLiAgTWVhc3VyaW5nIGNyaXRpY2FsIGRhdGEgaXMg
+bm90IGFueSBkaWZmZXJlbnQuCgpQbGVhc2UgcmV3cml0ZSB0aGUgYWJvdmUgcGFyYWdyYXBoIGFj
+Y29yZGluZ2x5LgoKPiAKPiBBZGQgYSBuZXcgSU1BIHBvbGljeSAiY3JpdGljYWxfa2VybmVsX2Rh
+dGFfc291cmNlcyIgdG8gc3VwcG9ydCBtZWFzdXJpbmcKPiB2YXJpb3VzIGNyaXRpY2FsIGtlcm5l
+bCBjb21wb25lbnRzLiBUaGlzIHBvbGljeSB3b3VsZCBlbmFibGUgdGhlCj4gc3lzdGVtIGFkbWlu
+aXN0cmF0b3JzIHRvIGxpbWl0IHRoZSBtZWFzdXJlbWVudCB0byB0aGUgY29tcG9uZW50cywKPiBp
+ZiB0aGUgY29tcG9uZW50cyBzdXBwb3J0IElNQSBtZWFzdXJlbWVudC4KCiJjcml0aWNhbF9rZXJu
+ZWxfZGF0YV9zb3VyY2VzIiBpcyByZWFsbHkgd29yZHkuICAgRmluZCBhIGJldHRlciwgc2VsZgpk
+ZWZpbmluZyB0ZXJtIGZvciBkZXNjcmliaW5nIHRoZSB0eXBlIG9mIGRhdGEsIG9uZSB0aGF0IGlz
+bid0IHNvIHdvcmR5LAphbmQgcmVmbGVjdCBpdCBpbiB0aGUgY29kZS4KCj4gCj4gU2lnbmVkLW9m
+Zi1ieTogVHVzaGFyIFN1Z2FuZGhpIDx0dXNoYXJzdUBsaW51eC5taWNyb3NvZnQuY29tPgo+IC0t
+LQo+ICBEb2N1bWVudGF0aW9uL0FCSS90ZXN0aW5nL2ltYV9wb2xpY3kgfCAgMyArKysKPiAgc2Vj
+dXJpdHkvaW50ZWdyaXR5L2ltYS9pbWFfcG9saWN5LmMgIHwgMjkgKysrKysrKysrKysrKysrKysr
+KysrKysrKysrLQo+ICAyIGZpbGVzIGNoYW5nZWQsIDMxIGluc2VydGlvbnMoKyksIDEgZGVsZXRp
+b24oLSkKPiAKPiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9BQkkvdGVzdGluZy9pbWFfcG9s
+aWN5IGIvRG9jdW1lbnRhdGlvbi9BQkkvdGVzdGluZy9pbWFfcG9saWN5Cj4gaW5kZXggY2Q1NzI5
+MTJjNTkzLi43Y2NkYzE5NjRlMjkgMTAwNjQ0Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9BQkkvdGVz
+dGluZy9pbWFfcG9saWN5Cj4gKysrIGIvRG9jdW1lbnRhdGlvbi9BQkkvdGVzdGluZy9pbWFfcG9s
+aWN5Cj4gQEAgLTQ4LDYgKzQ4LDkgQEAgRGVzY3JpcHRpb246Cj4gIAkJCXRlbXBsYXRlOj0gbmFt
+ZSBvZiBhIGRlZmluZWQgSU1BIHRlbXBsYXRlIHR5cGUKPiAgCQkJKGVnLCBpbWEtbmcpLiBPbmx5
+IHZhbGlkIHdoZW4gYWN0aW9uIGlzICJtZWFzdXJlIi4KPiAgCQkJcGNyOj0gZGVjaW1hbCB2YWx1
+ZQo+ICsJCQljcml0aWNhbF9rZXJuZWxfZGF0YV9zb3VyY2VzOj0gbGlzdCBvZiBrZXJuZWwKPiAr
+CQkJY29tcG9uZW50cyAoZWcsIHNlbGludXh8YXBwYXJtb3J8ZG0tY3J5cHQpIHRoYXQKPiArCQkJ
+Y29udGFpbiBkYXRhIGNyaXRpY2FsIHRvIHRoZSBzZWN1cml0eSBvZiB0aGUga2VybmVsLgoKVGhp
+cyBvcmlnaW5hbCBwb2xpY3kgZGVmaW5pdGlvbiwgZm9yIHRoZSBtb3N0IHBhcnQsIGlzIGluIEJh
+Y2t1c+KAk05hdXIKZm9ybWF0LiAgIFRoZSBrZXlyaW5nIG5hbWVzIGlzIGFuIGV4Y2VwdGlvbiwg
+YmVjYXVzZSBpdCBpcyBub3QgbGltaXRlZAp0byBwcmUtZGVmaW5lZCBrZXJuZWwgb2JqZWN0cy4g
+IFRoZSBjcml0aWNhbCBkYXRhIGhvb2sgaXMgbWVhc3VyaW5nCnRoaW5ncyBpbiBrZXJuZWwgbWVt
+b3J5LiAgQXMgbmV3IGNhbGxzIHRvIG1lYXN1cmUgY3JpdGljYWwgZGF0YSBhcmUKYWRkZWQsIG5l
+dyBpZGVudGlmaWVycyB3b3VsZCBiZSBhZGRlZCBoZXJlLgoKRm9yIGV4YW1wbGUsIGlmIFNFTGlu
+dXggaXMgdGhlIGZpcnN0IGV4YW1wbGUgb2YgbWVhc3VyaW5nIGNyaXRpY2FsCmRhdGEsIHRoZW4g
+dGhlIFNFTGludXggY3JpdGljYWwgZGF0YSBwYXRjaCB3b3VsZCBpbmNsdWRlCiJjcml0aWNhbF9k
+YXRhOj0gW3NlbGludXhdIi4gIEVhY2ggc3Vic2VxdWVudCBjcml0aWNhbCBkYXRhIGJlaW5nCm1l
+YXN1cmVkIHdvdWxkIGV4dGVuZCB0aGlzIGxpc3QuICBBdCB0aGUgc2FtZSB0aW1lLCB0aGUgbGlz
+dCBvZiBrbm93bgoiY3JpdGljYWwgZGF0YSIgZGVmaW5lZCBpbiBwYXRjaCA2LzYgd291bGQgYmUg
+dXBkYXRlZC4KCk5vcm1hbGx5IGEgbmV3IGZlYXR1cmUgYW5kIHRoZSBmaXJzdCB1c2FnZSBvZiB0
+aGF0IGZlYXR1cmUgYXJlIGluY2x1ZGVkCmluIHRoZSBzYW1lIHBhdGNoIHNldC4gIFNlcGFyYXRp
+bmcgdGhlbSBsaWtlIHRoaXMgbWFrZXMgaXQgZGlmZmljdWx0IHRvCndyaXRlLCByZXZpZXcgYW5k
+IHVwc3RyZWFtLgoKTWltaQoKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRo
+YXQuY29tCmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
 
