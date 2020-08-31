@@ -1,60 +1,58 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 1107C258826
-	for <lists+dm-devel@lfdr.de>; Tue,  1 Sep 2020 08:26:50 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id F080F25897E
+	for <lists+dm-devel@lfdr.de>; Tue,  1 Sep 2020 09:44:17 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-320-nUmCMWGyNf-NWDgs5fSBaw-1; Tue, 01 Sep 2020 02:26:47 -0400
-X-MC-Unique: nUmCMWGyNf-NWDgs5fSBaw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-25-pRHNGSMqPFKZ7myul_JHow-1; Tue, 01 Sep 2020 03:44:13 -0400
+X-MC-Unique: pRHNGSMqPFKZ7myul_JHow-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 448F21888A23;
-	Tue,  1 Sep 2020 06:26:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3F73F1002D4E;
-	Tue,  1 Sep 2020 06:26:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F18FD100746D;
+	Tue,  1 Sep 2020 07:44:03 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 932237DA44;
+	Tue,  1 Sep 2020 07:44:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E4A2379A31;
-	Tue,  1 Sep 2020 06:26:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 19E59181A71E;
+	Tue,  1 Sep 2020 07:43:55 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0816QZrF015872 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 1 Sep 2020 02:26:35 -0400
+	id 07V9u12u032430 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 31 Aug 2020 05:56:01 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1AB13A37AB; Tue,  1 Sep 2020 06:26:35 +0000 (UTC)
+	id 770E3110F73E; Mon, 31 Aug 2020 09:56:01 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 14CF5946BB
-	for <dm-devel@redhat.com>; Tue,  1 Sep 2020 06:26:28 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 70325110F73D
+	for <dm-devel@redhat.com>; Mon, 31 Aug 2020 09:55:56 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D4FE8101A53F
-	for <dm-devel@redhat.com>; Tue,  1 Sep 2020 06:26:28 +0000 (UTC)
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-19-s-_c5p-BMeu3Ju2z9jjAeQ-1; Tue, 01 Sep 2020 02:26:24 -0400
-X-MC-Unique: s-_c5p-BMeu3Ju2z9jjAeQ-1
-Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.59])
-	by Forcepoint Email with ESMTP id BAC81A02C9E54C595104;
-	Tue,  1 Sep 2020 14:26:18 +0800 (CST)
-Received: from huawei.com (10.175.127.227) by DGGEMS413-HUB.china.huawei.com
-	(10.3.19.213) with Microsoft SMTP Server id 14.3.487.0; Tue, 1 Sep 2020
-	14:26:12 +0800
-From: Ye Bin <yebin10@huawei.com>
-To: <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>
-Date: Tue, 1 Sep 2020 14:25:44 +0800
-Message-ID: <20200901062544.827277-4-yebin10@huawei.com>
-In-Reply-To: <20200901062544.827277-1-yebin10@huawei.com>
-References: <20200901062544.827277-1-yebin10@huawei.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3927280029D
+	for <dm-devel@redhat.com>; Mon, 31 Aug 2020 09:55:56 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-79-2oBS9zqyNGGdyfpxGyo_tg-1;
+	Mon, 31 Aug 2020 05:55:51 -0400
+X-MC-Unique: 2oBS9zqyNGGdyfpxGyo_tg-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 98776ABF4;
+	Mon, 31 Aug 2020 09:56:24 +0000 (UTC)
+Message-ID: <cb97dfa97281bf9fe6738ffbf6abb20b5e2991ae.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Zhiqiang Liu <liuzhiqiang26@huawei.com>
+Date: Mon, 31 Aug 2020 11:55:48 +0200
+In-Reply-To: <8e24c49b-6f56-e7ea-7f2a-e7bd9d266e23@huawei.com>
+References: <dc4f5730-157f-8a27-247c-628f38bb6cb5@huawei.com>
+	<8e24c49b-6f56-e7ea-7f2a-e7bd9d266e23@huawei.com>
+User-Agent: Evolution 3.36.5
 MIME-Version: 1.0
-X-Originating-IP: [10.175.127.227]
-X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -63,13 +61,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0816QZrF015872
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: Ye Bin <yebin10@huawei.com>
-Subject: [dm-devel] [PATCH v2 3/3] dm thin metadata: Fix use-after-free in
-	dm_bm_set_read_only
+X-Mailman-Approved-At: Tue, 01 Sep 2020 03:43:47 -0400
+Cc: lixiaokeng <lixiaokeng@huawei.com>, yanxiaodan@huawei.com,
+	linfeilong@huawei.com, dm-devel@redhat.com,
+	Zdenek Kabelac <zkabelac@redhat.com>
+Subject: Re: [dm-devel] [PATCH V3 2/5] multipathd: use daemon_status_msg to
+ construct sd notify msg in do_sd_notify func
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,269 +82,88 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.003
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/mixed; boundary="=-Mb/0r6fdD7qL3QWJTAR8"
+
+--=-Mb/0r6fdD7qL3QWJTAR8
+Content-Type: text/plain; charset="ISO-8859-15"
 Content-Transfer-Encoding: 7bit
 
-We got follow error when test disk online/offline:
-[  301.798344] device-mapper: thin: 253:5: aborting current metadata transaction
-[  301.848441] device-mapper: thin: 253:5: failed to abort metadata transaction
-[  301.849206] Aborting journal on device dm-26-8.
-[  301.850489] EXT4-fs error (device dm-26) in __ext4_new_inode:943: Journal has aborted
-[  301.851095] EXT4-fs (dm-26): Delayed block allocation failed for inode 398742 at logical offset 181 with max blocks 19 with error 30
-[  301.854476] BUG: KASAN: use-after-free in dm_bm_set_read_only+0x3a/0x40 [dm_persistent_data]
-[  301.854483] Write of size 1 at addr ffff88802d3c9688 by task dockerd/2201
-[  301.854491]
-[  301.855766] EXT4-fs error (device dm-26) in ext4_writepages:2934: Journal has aborted
-[  301.857018] CPU: 2 PID: 2201 Comm: dockerd Kdump: loaded Not tainted 4.18.0-147.5.0.5.h126.eulerosv2r9.x86_64-debug #3
-[  301.857025] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.9.1-0-gb3ef39f-20170502_104147-build9a64a246a203 04/01/2014
-[  301.857031] Call Trace:
-[  301.859617]  dump_stack+0xdd/0x18e
-[  301.859624]  ? show_regs_print_info+0x12/0x12
-[  301.859634]  ? __rwsem_mark_wake+0xa40/0xa40
-[  301.859641]  print_address_description+0x6a/0x270
-[  301.859647]  kasan_report+0x1a4/0x2f0
-[  301.859658]  ? dm_bm_set_read_only+0x3a/0x40 [dm_persistent_data]
-[  301.859668]  ? dm_bm_set_read_only+0x3a/0x40 [dm_persistent_data]
-[  301.859677]  dm_bm_set_read_only+0x3a/0x40 [dm_persistent_data]
-[  301.859687]  dm_pool_metadata_read_only+0x42/0x60 [dm_thin_pool]
-[  301.859695]  set_pool_mode+0x606/0xd80 [dm_thin_pool]
-[  301.859701]  ? up_read+0x40/0x40
-[  301.859709]  ? process_prepared_discard_fail+0x80/0x80 [dm_thin_pool]
-[  301.859717]  ? metadata_operation_failed+0x16b/0x1e0 [dm_thin_pool]
-[  301.859725]  metadata_operation_failed+0x187/0x1e0 [dm_thin_pool]
-[  301.859733]  commit+0x257/0x370 [dm_thin_pool]
-[  301.859741]  ? metadata_operation_failed+0x1e0/0x1e0 [dm_thin_pool]
-[  301.859750]  ? _parse_integer+0x130/0x130
-[  301.859757]  ? memcpy+0x34/0x50
-[  301.859765]  pool_message+0x24f/0xc70 [dm_thin_pool]
-[  301.859782]  ? realloc_argv+0x73/0x110 [dm_mod]
-[  301.859789]  ? commit+0x370/0x370 [dm_thin_pool]
-[  301.859796]  ? kasan_unpoison_shadow+0x30/0x40
-[  301.859803]  ? __kasan_slab_free+0x145/0x180
-[  301.859813]  ? realloc_argv+0xcb/0x110 [dm_mod]
-[  301.859818]  ? kfree+0x90/0x1a0
-[  301.859824]  ? rcu_sync_dtor+0x160/0x160
-[  301.859834]  ? dm_split_args+0x447/0x5c0 [dm_mod]
-[  301.859844]  ? dm_get_live_table+0x76/0x140 [dm_mod]
-[  301.859854]  ? dm_get_stats+0x20/0x20 [dm_mod]
-[  301.859864]  ? dm_table_find_target+0x242/0x2b0 [dm_mod]
-[  301.859872]  ? commit+0x370/0x370 [dm_thin_pool]
-[  301.859881]  target_message+0x759/0xb80 [dm_mod]
-[  301.859893]  ? __dev_status+0x6c0/0x6c0 [dm_mod]
-[  301.859898]  ? selinux_inode_copy_up+0x180/0x180
-[  301.859905]  ? __virt_addr_valid+0x17f/0x220
-[  301.859911]  ? usercopy_abort+0xd0/0xd0
-[  301.859916]  ? kasan_kmalloc_large+0x71/0xe0
-[  301.859922]  ? kmalloc_large_node+0x68/0x80
-[  301.859933]  ? __dev_status+0x6c0/0x6c0 [dm_mod]
-[  301.859942]  ctl_ioctl+0x5b7/0xe40 [dm_mod]
-[  301.859953]  ? free_params+0x50/0x50 [dm_mod]
-[  301.859960]  ? avc_has_extended_perms+0x6d8/0x1030
-[  301.859971]  ? mem_cgroup_throttle_swaprate+0x92/0x520
-[  301.859980]  ? lru_cache_add_active_or_unevictable+0x12e/0x330
-[  301.859991]  ? rcu_barrier+0x5f0/0x5f0
-[  301.860001]  dm_ctl_ioctl+0x23/0x30 [dm_mod]
-[  301.860016]  ? ctl_ioctl+0xe40/0xe40 [dm_mod]
-[  301.860027]  do_vfs_ioctl+0x1a6/0x13c0
-[  301.860038]  ? selinux_file_ioctl+0x418/0x6d0
-[  301.860047]  ? ioctl_preallocate+0x2a0/0x2a0
-[  301.860054]  ? selinux_file_mprotect+0x590/0x590
-[  301.860064]  ? iterate_fd+0x2c0/0x2c0
-[  301.860075]  ? trace_event_raw_event_sys_enter+0x670/0x670
-[  301.860083]  ? handle_mm_fault+0x292/0x7a0
-[  301.860089]  ? security_file_ioctl+0x5d/0xb0
-[  301.860094]  ? selinux_file_mprotect+0x590/0x590
-[  301.860100]  ksys_ioctl+0x89/0xa0
-[  301.860107]  __x64_sys_ioctl+0x74/0xb0
-[  301.860113]  do_syscall_64+0x172/0x590
-[  301.860120]  ? syscall_return_slowpath+0x3c0/0x3c0
-[  301.860128]  ? __do_page_fault+0xa80/0xa80
-[  301.860135]  ? prepare_exit_to_usermode+0x1bb/0x290
-[  301.860141]  ? enter_from_user_mode+0x70/0x70
-[  301.860149]  ? __switch_to_asm+0x35/0x70
-[  301.860155]  ? __switch_to_asm+0x41/0x70
-[  301.860163]  entry_SYSCALL_64_after_hwframe+0x65/0xca
-[  301.860169] RIP: 0033:0x7f7246f028a7
-[  301.860179] Code: b3 66 90 48 8b 05 f9 15 0c 00 64 c7 00 26 00 00 00 48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 b8 10 00 00 00 0f 05 <48> 3d 01 f0 ff ff
-8 64 89 01 48
-[  301.860182] RSP: 002b:00007f71e3ffeaf8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-[  301.860189] RAX: ffffffffffffffda RBX: 0000564d3473cb30 RCX: 00007f7246f028a7
-[  301.860193] RDX: 00007f71d4059c80 RSI: 00000000c138fd0e RDI: 000000000000000a
-[  301.860196] RBP: 00007f7247013513 R08: 0000000000000000 R09: 0000000000000001
-[  301.860200] R10: 000000c000eb44c0 R11: 0000000000000246 R12: 0000000000000000
-[  301.860204] R13: 00007f71d4059cb0 R14: 00007f71d4059c80 R15: 00007f71d4006f20
-[  301.860208]
-[  301.860438] Allocated by task 2201:
-[  301.860848]  kasan_kmalloc+0xa0/0xd0
-[  301.860854]  kmem_cache_alloc_trace+0xf3/0x1e0
-[  301.860864]  dm_block_manager_create+0x55/0x130 [dm_persistent_data]
-[  301.860872]  __create_persistent_data_objects+0xbe/0x1820 [dm_thin_pool]
-[  301.860879]  dm_pool_abort_metadata+0x136/0x1e0 [dm_thin_pool]
-[  301.860886]  metadata_operation_failed+0xac/0x1e0 [dm_thin_pool]
-[  301.860892]  commit+0x257/0x370 [dm_thin_pool]
-[  301.860901]  pool_message+0x24f/0xc70 [dm_thin_pool]
-[  301.860916]  target_message+0x759/0xb80 [dm_mod]
-[  301.860930]  ctl_ioctl+0x5b7/0xe40 [dm_mod]
-[  301.860943]  dm_ctl_ioctl+0x23/0x30 [dm_mod]
-[  301.860949]  do_vfs_ioctl+0x1a6/0x13c0
-[  301.860954]  ksys_ioctl+0x89/0xa0
-[  301.860959]  __x64_sys_ioctl+0x74/0xb0
-[  301.860964]  do_syscall_64+0x172/0x590
-[  301.860970]  entry_SYSCALL_64_after_hwframe+0x65/0xca
-[  301.860972]
-[  301.861192] Freed by task 2201:
-[  301.861642]  __kasan_slab_free+0x130/0x180
-[  301.861649]  kfree+0x90/0x1a0
-[  301.861657]  __create_persistent_data_objects+0x163/0x1820 [dm_thin_pool]
-[  301.861665]  dm_pool_abort_metadata+0x136/0x1e0 [dm_thin_pool]
-[  301.861672]  metadata_operation_failed+0xac/0x1e0 [dm_thin_pool]
-[  301.861678]  commit+0x257/0x370 [dm_thin_pool]
-[  301.861685]  pool_message+0x24f/0xc70 [dm_thin_pool]
-[  301.860916]  target_message+0x759/0xb80 [dm_mod]
-[  301.860930]  ctl_ioctl+0x5b7/0xe40 [dm_mod]
-[  301.860943]  dm_ctl_ioctl+0x23/0x30 [dm_mod]
-[  301.860949]  do_vfs_ioctl+0x1a6/0x13c0
-[  301.860954]  ksys_ioctl+0x89/0xa0
-[  301.860959]  __x64_sys_ioctl+0x74/0xb0
-[  301.860964]  do_syscall_64+0x172/0x590
-[  301.860970]  entry_SYSCALL_64_after_hwframe+0x65/0xca
-[  301.860972]
-[  301.861192] Freed by task 2201:
-[  301.861642]  __kasan_slab_free+0x130/0x180
-[  301.861649]  kfree+0x90/0x1a0
-[  301.861657]  __create_persistent_data_objects+0x163/0x1820 [dm_thin_pool]
-[  301.861665]  dm_pool_abort_metadata+0x136/0x1e0 [dm_thin_pool]
-[  301.861672]  metadata_operation_failed+0xac/0x1e0 [dm_thin_pool]
-[  301.861678]  commit+0x257/0x370 [dm_thin_pool]
-[  301.861685]  pool_message+0x24f/0xc70 [dm_thin_pool]
-[  301.861698]  target_message+0x759/0xb80 [dm_mod]
-[  301.861708]  ctl_ioctl+0x5b7/0xe40 [dm_mod]
-[  301.861717]  dm_ctl_ioctl+0x23/0x30 [dm_mod]
-[  301.861722]  do_vfs_ioctl+0x1a6/0x13c0
-[  301.861727]  ksys_ioctl+0x89/0xa0
-[  301.861732]  __x64_sys_ioctl+0x74/0xb0
-[  301.861737]  do_syscall_64+0x172/0x590
-[  301.861743]  entry_SYSCALL_64_after_hwframe+0x65/0xca
-[  301.861744]
-[  301.862034] The buggy address belongs to the object at ffff88802d3c9680#012 which belongs to the cache kmalloc-16 of size 16
-[  301.863534] The buggy address is located 8 bytes inside of#012 16-byte region [ffff88802d3c9680, ffff88802d3c9690)
-[  301.864847] The buggy address belongs to the page:
-[  301.865475] page:ffffea0000b4f240 count:1 mapcount:0 mapping:ffff888107c0f980 index:0xffff88802d3c9200
-[  301.866815] flags: 0xfffffc0000100(slab)
-[  301.867302] raw: 000fffffc0000100 ffffea00042b9bc8 ffff888107c00110 ffff888107c0f980
-[  301.868192] raw: ffff88802d3c97c0 000000000080007d 00000001ffffffff 0000000000000000
-[  301.869084] page dumped because: kasan: bad access detected
-[  301.869729]
-[  301.869916] Memory state around the buggy address:
-[  301.870475]  ffff88802d3c9580: 00 00 fc fc fb fb fc fc fb fb fc fc fb fb fc fc
-[  301.871290]  ffff88802d3c9600: fb fb fc fc fb fb fc fc fb fb fc fc fb fb fc fc
-[  301.872114] >ffff88802d3c9680: fb fb fc fc fb fb fc fc fb fb fc fc fb fb fc fc
-[  301.872944]                       ^
-[  301.873362]  ffff88802d3c9700: fb fb fc fc fb fb fc fc fb fb fc fc 00 00 fc fc
-[  301.874174]  ffff88802d3c9780: fb fb fc fc fb fb fc fc 00 00 fc fc fb fb fc fc
-[  301.875000] ==================================================================
+Hello Zhiqiang,
 
-reason:
-imetadata_operation_failed
-    abort_transaction
-        dm_pool_abort_metadata
-	    __create_persistent_data_objects
-	        r = __open_or_format_metadata
-	        if (r)--> If failed will free pmd->bm but pmd->bm not set NULL
-		    dm_block_manager_destroy(pmd->bm);
-    set_pool_mode
-	dm_pool_metadata_read_only(pool->pmd);
-	dm_bm_set_read_only(pmd->bm);  --> use-after-free
+On Sat, 2020-08-29 at 11:03 +0800, Zhiqiang Liu wrote:
+> sd_notify_status() is very similar with daemon_status(), except
+> DAEMON_IDLE and DAEMON_RUNNING state. As suggested by Martin,
+> we can create the sd notification string in a dynamic buffer,
+> and treat DAEMON_IDLE and DAEMON_RUNNING cases first. Then,
+> we can use daemon_status_msg[state] for other cases.
+> 
+> V2->V3:
+> - set MSG_SIZE to 32 and use safe_sprintf as suggested by Martin.
+> 
+> Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
+> Signed-off-by: lixiaokeng <lixiaokeng@huawei.com>
+> ---
+>  multipathd/main.c | 34 ++++++++++++----------------------
+>  1 file changed, 12 insertions(+), 22 deletions(-)
 
-Add judge pmd->dm if NULL in dm_bm_set_read_only and dm_bm_set_read_write function.
-If bm is NULL means create bm failed then dm_bm_is_read_only must return true.
+Thanks again. I'd like to modify the patch slightly as attached. 
+I'm sorry that I didn't mention these minor issues in my previous
+reviews. I'm sending you the fixup patch in order to short-circuit 
+the procedure a bit and save both of us some work.
 
-Signed-off-by: Ye Bin <yebin10@huawei.com>
----
- drivers/md/dm-thin-metadata.c                 |  2 +-
- drivers/md/persistent-data/dm-block-manager.c | 14 ++++++++------
- 2 files changed, 9 insertions(+), 7 deletions(-)
+Would this be ok for you?
+If yes, please resubmit this as v4.
 
-diff --git a/drivers/md/dm-thin-metadata.c b/drivers/md/dm-thin-metadata.c
-index ddb7f1f0bc48..b461836b6d26 100644
---- a/drivers/md/dm-thin-metadata.c
-+++ b/drivers/md/dm-thin-metadata.c
-@@ -958,7 +958,7 @@ int dm_pool_metadata_close(struct dm_pool_metadata *pmd)
- 	}
- 
- 	pmd_write_lock_in_core(pmd);
--	if (!dm_bm_is_read_only(pmd->bm) && !pmd->fail_io) {
-+	if (!pmd->fail_io && !dm_bm_is_read_only(pmd->bm)) {
- 		r = __commit_transaction(pmd);
- 		if (r < 0)
- 			DMWARN("%s: __commit_transaction() failed, error = %d",
-diff --git a/drivers/md/persistent-data/dm-block-manager.c b/drivers/md/persistent-data/dm-block-manager.c
-index 749ec268d957..54c089a50b15 100644
---- a/drivers/md/persistent-data/dm-block-manager.c
-+++ b/drivers/md/persistent-data/dm-block-manager.c
-@@ -493,7 +493,7 @@ int dm_bm_write_lock(struct dm_block_manager *bm,
- 	void *p;
- 	int r;
- 
--	if (bm->read_only)
-+	if (dm_bm_is_read_only(bm))
- 		return -EPERM;
- 
- 	p = dm_bufio_read(bm->bufio, b, (struct dm_buffer **) result);
-@@ -562,7 +562,7 @@ int dm_bm_write_lock_zero(struct dm_block_manager *bm,
- 	struct buffer_aux *aux;
- 	void *p;
- 
--	if (bm->read_only)
-+	if (dm_bm_is_read_only(bm))
- 		return -EPERM;
- 
- 	p = dm_bufio_new(bm->bufio, b, (struct dm_buffer **) result);
-@@ -602,7 +602,7 @@ EXPORT_SYMBOL_GPL(dm_bm_unlock);
- 
- int dm_bm_flush(struct dm_block_manager *bm)
- {
--	if (bm->read_only)
-+	if (dm_bm_is_read_only(bm))
- 		return -EPERM;
- 
- 	return dm_bufio_write_dirty_buffers(bm->bufio);
-@@ -616,19 +616,21 @@ void dm_bm_prefetch(struct dm_block_manager *bm, dm_block_t b)
- 
- bool dm_bm_is_read_only(struct dm_block_manager *bm)
- {
--	return bm->read_only;
-+	return (bm ? bm->read_only : true);
- }
- EXPORT_SYMBOL_GPL(dm_bm_is_read_only);
- 
- void dm_bm_set_read_only(struct dm_block_manager *bm)
- {
--	bm->read_only = true;
-+	if (bm)
-+		bm->read_only = true;
- }
- EXPORT_SYMBOL_GPL(dm_bm_set_read_only);
- 
- void dm_bm_set_read_write(struct dm_block_manager *bm)
- {
--	bm->read_only = false;
-+	if (bm)
-+		bm->read_only = false;
- }
- EXPORT_SYMBOL_GPL(dm_bm_set_read_write);
- 
--- 
-2.25.4
+Regards,
+Martin
 
+
+--=-Mb/0r6fdD7qL3QWJTAR8
+Content-Disposition: attachment;
+	filename*0=0001-fixup-multipathd-use-daemon_status_msg-to-construct-.pat;
+	filename*1=ch
+Content-Type: text/x-patch;
+	name="0001-fixup-multipathd-use-daemon_status_msg-to-construct-.patch"; 
+	charset="ISO-8859-15"
+Content-Transfer-Encoding: base64
+
+RnJvbSA3MzkxNWZiMzJiMmIwZDIzM2VlOTA4YTQ3ODk2MTNjMDNjMjcyODVlIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBNYXJ0aW4gV2lsY2sgPG13aWxja0BzdXNlLmNvbT4KRGF0ZTog
+TW9uLCAzMSBBdWcgMjAyMCAxMTo0Mzo1NiArMDIwMApTdWJqZWN0OiBbUEFUQ0hdIGZpeHVwISBt
+dWx0aXBhdGhkOiB1c2UgZGFlbW9uX3N0YXR1c19tc2cgdG8gY29uc3RydWN0IHNkCiBub3RpZnkg
+bXNnIGluIGRvX3NkX25vdGlmeSBmdW5jCgogLSBubyBuZWVkIHRvIGluaXRpYWxpemUgbXNnLCBp
+dCdzIGFsd2F5cyBzZXQKIC0gbXNnIGNvdWxkIGJlIE5VTEwsIGF0IGxlYXN0IGluIHRoZW9yeSwg
+c28gY2hlY2sgcmV0dXJuIHZhbHVlIGJlZm9yZSBwYXNzaW5nCiBpdCB0byBzbnByaW50ZigpCiAt
+IGF2b2lkICJwcmVmaXgiIHZhcmlhYmxlOyByYXRoZXIgcHV0IHRoZSBwcmVmaXggaW4gZm9ybWF0
+IHN0cmluZwotLS0KIG11bHRpcGF0aGQvbWFpbi5jIHwgNSArKy0tLQogMSBmaWxlIGNoYW5nZWQs
+IDIgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9tdWx0aXBhdGhk
+L21haW4uYyBiL211bHRpcGF0aGQvbWFpbi5jCmluZGV4IDVkZjAwNGEuLmY3MjI5YTcgMTAwNjQ0
+Ci0tLSBhL211bHRpcGF0aGQvbWFpbi5jCisrKyBiL211bHRpcGF0aGQvbWFpbi5jCkBAIC0xODMs
+OCArMTgzLDcgQEAgc3RhdGljIHZvaWQgZG9fc2Rfbm90aWZ5KGVudW0gZGFlbW9uX3N0YXR1cyBv
+bGRfc3RhdGUsCiAJCQkgZW51bSBkYWVtb25fc3RhdHVzIG5ld19zdGF0ZSkKIHsKIAljaGFyIG5v
+dGlmeV9tc2dbTVNHX1NJWkVdOwotCWNvbnN0IGNoYXIgcHJlZml4W10gPSAiU1RBVFVTPSI7Ci0J
+Y29uc3QgY2hhciAqbXNnID0gTlVMTDsKKwljb25zdCBjaGFyICptc2c7CiAJLyoKIAkgKiBDaGVj
+a2VybG9vcCBzd2l0Y2hlcyBiYWNrIGFuZCBmb3J0aCBiZXR3ZWVuIGlkbGUgYW5kIHJ1bm5pbmcg
+c3RhdGUuCiAJICogTm8gbmVlZCB0byB0ZWxsIHN5c3RlbWQgZWFjaCB0aW1lLgpAQCAtMTk5LDcg
+KzE5OCw3IEBAIHN0YXRpYyB2b2lkIGRvX3NkX25vdGlmeShlbnVtIGRhZW1vbl9zdGF0dXMgb2xk
+X3N0YXRlLAogCWVsc2UKIAkJbXNnID0gZGFlbW9uX3N0YXR1c19tc2dbbmV3X3N0YXRlXTsKIAot
+CWlmICghc2FmZV9zcHJpbnRmKG5vdGlmeV9tc2csICIlcyVzIiwgcHJlZml4LCBtc2cpKQorCWlm
+IChtc2cgJiYgIXNhZmVfc3ByaW50Zihub3RpZnlfbXNnLCAiU1RBVFVTPSVzIiwgbXNnKSkKIAkJ
+c2Rfbm90aWZ5KDAsIG5vdGlmeV9tc2cpOwogfQogI2VuZGlmCi0tIAoyLjI4LjAKCg==
+--=-Mb/0r6fdD7qL3QWJTAR8
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
+--=-Mb/0r6fdD7qL3QWJTAR8--
 
