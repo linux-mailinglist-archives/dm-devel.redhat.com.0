@@ -1,105 +1,130 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id 7CDA525BB3B
-	for <lists+dm-devel@lfdr.de>; Thu,  3 Sep 2020 08:48:59 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 25D6825BB37
+	for <lists+dm-devel@lfdr.de>; Thu,  3 Sep 2020 08:48:53 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-326-Hx9wZqC9MqWhC-2HRMKYuw-1; Thu, 03 Sep 2020 02:48:56 -0400
-X-MC-Unique: Hx9wZqC9MqWhC-2HRMKYuw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-424-uhGbsACdPnaPf-vhtlBI2Q-1; Thu, 03 Sep 2020 02:48:49 -0400
+X-MC-Unique: uhGbsACdPnaPf-vhtlBI2Q-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3BE5C81F010;
-	Thu,  3 Sep 2020 06:48:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 14F8281184;
-	Thu,  3 Sep 2020 06:48:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 15E3D1091065;
+	Thu,  3 Sep 2020 06:48:43 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AFF5B19C71;
+	Thu,  3 Sep 2020 06:48:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C26DA181A06D;
-	Thu,  3 Sep 2020 06:48:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4DC4679DC2;
+	Thu,  3 Sep 2020 06:48:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0827OifS028011 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Sep 2020 03:24:44 -0400
+	id 082N6UB8021582 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Sep 2020 19:06:31 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4C2072157F45; Wed,  2 Sep 2020 07:24:44 +0000 (UTC)
+	id A8611F1014; Wed,  2 Sep 2020 23:06:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 465FF2156A36
-	for <dm-devel@redhat.com>; Wed,  2 Sep 2020 07:24:44 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A1FB8F1010
+	for <dm-devel@redhat.com>; Wed,  2 Sep 2020 23:06:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2CD8918AE947
-	for <dm-devel@redhat.com>; Wed,  2 Sep 2020 07:24:44 +0000 (UTC)
-Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-300-PWPUazjgOliWnXZvyh7oSA-1; Wed, 02 Sep 2020 03:24:42 -0400
-X-MC-Unique: PWPUazjgOliWnXZvyh7oSA-1
-IronPort-SDR: Cwx4g1CTg2IeQchW+p8iZspbzLam5Ls2gDQoq+b33eWNErJBjSVJv+pYAz+JVNykTvC4gg5wcW
-	QMS8zVPI6HP+C6s49YTpnAeWdnSD3/eM/AUFmdAmXCEP8lqmbYW2H5ckgX/hSYPiXyEWsaFviG
-	+bjCbx2dYdpZpjZ3ms2pzKHY+0Y6fYm2lQ9No8N6ZNIKKOdFxiML0t4jBlGOuRXk08yQhK7K26
-	FufD9jW2kiXPk7/DvrzWg/3vXKD4brLSHNXXEww+BDURGs2u1SMo4LqBfBH2fulBI3qesyLps6
-	OYI=
-X-IronPort-AV: E=Sophos;i="5.76,381,1592841600"; d="scan'208";a="255918296"
-Received: from mail-co1nam11lp2173.outbound.protection.outlook.com (HELO
-	NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.173])
-	by ob1.hgst.iphmx.com with ESMTP; 02 Sep 2020 15:23:37 +0800
-Received: from SN4PR0401MB3598.namprd04.prod.outlook.com
-	(2603:10b6:803:47::21) by SN6PR04MB3966.namprd04.prod.outlook.com
-	(2603:10b6:805:48::24) with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3348.15;
-	Wed, 2 Sep 2020 07:23:36 +0000
-Received: from SN4PR0401MB3598.namprd04.prod.outlook.com
-	([fe80::457e:5fe9:2ae3:e738]) by
-	SN4PR0401MB3598.namprd04.prod.outlook.com
-	([fe80::457e:5fe9:2ae3:e738%7]) with mapi id 15.20.3326.023;
-	Wed, 2 Sep 2020 07:23:36 +0000
-From: Johannes Thumshirn <Johannes.Thumshirn@wdc.com>
-To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
-Thread-Topic: [PATCH 5/9] block: use revalidate_disk_size in
-	set_capacity_revalidate_and_notify
-Thread-Index: AQHWgHjE05l6FVr+70GNhORFziJQhA==
-Date: Wed, 2 Sep 2020 07:23:36 +0000
-Message-ID: <SN4PR0401MB35987F80C36AB409503DC0059B2F0@SN4PR0401MB3598.namprd04.prod.outlook.com>
-References: <20200901155748.2884-1-hch@lst.de>
-	<20200901155748.2884-6-hch@lst.de>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B913A89D4B7
+	for <dm-devel@redhat.com>; Wed,  2 Sep 2020 23:06:27 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-334-dzOJbBTgNheXjxHVNAa-EA-1; Wed, 02 Sep 2020 19:06:23 -0400
+X-MC-Unique: dzOJbBTgNheXjxHVNAa-EA-1
+IronPort-SDR: QL4wctpMTmT23oLNFnardApHd+jcKMH5arTC/JUF12k3p/Aaj4y+sQP3uFCZNE8t5cgINKrg/C
+	4RQZb8UL27og==
+X-IronPort-AV: E=McAfee;i="6000,8403,9732"; a="219045800"
+X-IronPort-AV: E=Sophos;i="5.76,384,1592895600"; d="scan'208";a="219045800"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+	by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	02 Sep 2020 16:05:18 -0700
+IronPort-SDR: 91n1Sav+cmz3ob2P7eod0AoCIV48/akeASBjVemQL95L2yVd1PyebYV0agSNiZaUv7SgZ+1vD/
+	kFyfL/oj2zfA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.76,384,1592895600"; d="scan'208";a="334266928"
+Received: from fmsmsx605.amr.corp.intel.com ([10.18.126.85])
+	by fmsmga002.fm.intel.com with ESMTP; 02 Sep 2020 16:05:18 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+	fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+	15.1.1713.5; Wed, 2 Sep 2020 16:05:18 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+	fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+	(version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
+	via Frontend Transport; Wed, 2 Sep 2020 16:05:18 -0700
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.175)
+	by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	15.1.1713.5; Wed, 2 Sep 2020 16:05:18 -0700
+Received: from BYAPR11MB3448.namprd11.prod.outlook.com (2603:10b6:a03:76::21)
+	by BYAPR11MB3672.namprd11.prod.outlook.com (2603:10b6:a03:fa::30)
+	with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3326.22;
+	Wed, 2 Sep 2020 23:05:15 +0000
+Received: from BYAPR11MB3448.namprd11.prod.outlook.com
+	([fe80::1084:a79c:5a4f:f115]) by
+	BYAPR11MB3448.namprd11.prod.outlook.com
+	([fe80::1084:a79c:5a4f:f115%5]) with mapi id 15.20.3326.025;
+	Wed, 2 Sep 2020 23:05:15 +0000
+From: "Verma, Vishal L" <vishal.l.verma@intel.com>
+To: "pankaj.gupta.linux@gmail.com" <pankaj.gupta.linux@gmail.com>,
+	"snitzer@redhat.com" <snitzer@redhat.com>,
+	"colyli@suse.de" <colyli@suse.de>, "jack@suse.com" <jack@suse.com>,
+	"Weiny, Ira" <ira.weiny@intel.com>
+Thread-Topic: flood of "dm-X: error: dax access failed" due to 5.9 commit
+	231609785cbfb
+Thread-Index: AQHWgULPosL8puOqlEOttLUmKO0Ls6lVjRcAgABrawA=
+Date: Wed, 2 Sep 2020 23:05:15 +0000
+Message-ID: <8dc419e607ffa0e2baa6bd5795b4956fb945ebad.camel@intel.com>
+References: <20200902160432.GA5513@redhat.com>
+	<df0203fa-7f75-53ac-8bf1-79a1c861918e@suse.de>
+In-Reply-To: <df0203fa-7f75-53ac-8bf1-79a1c861918e@suse.de>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [2001:a62:1590:f101:bd07:d1f9:7e6b:2014]
+user-agent: Evolution 3.36.5 (3.36.5-1.fc32)
+x-originating-ip: [134.134.139.74]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 6de1b2e0-f78c-452f-b4a5-08d84f111b69
-x-ms-traffictypediagnostic: SN6PR04MB3966:
-x-microsoft-antispam-prvs: <SN6PR04MB39668F869286235937E9DE549B2F0@SN6PR04MB3966.namprd04.prod.outlook.com>
-wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:1728;
+x-ms-office365-filtering-correlation-id: ccf70fa2-7c2b-435f-5bfc-08d84f94a768
+x-ms-traffictypediagnostic: BYAPR11MB3672:
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <BYAPR11MB36728A6D52815B07D38C9414C72F0@BYAPR11MB3672.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5516;
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Lu4rznRnSXAWn/mRhvJdRylBVYy9k6gJLexdA2XG7czJBvRnncbiLSge2QR7Iw8nMyTzDthReYZBSyOiLKqK3CBLqn+YeUxZVg0UGM4pKJ/sKj9UQbwdYKajzH0fuYIet3fQRgP9CqqRonpkHi64nDnQGHdH+AQ7Jf8JArva3ApNf2HPLcehsQoy5FsmaJKdzCDQpsClP5m0WbC0sLQsCDOAVJ7s2V2WFiMcflJYSDXzARtU8wbvwO0DQBuCbViaPQK1B0Q8q6kXw+l2drbeahJtTzGPkLPNnnZ9bzBNJTRNSJUYiGk8mJTe3CovNBrQQVNx+n6LHzbiLOKzgBWKxA==
+x-microsoft-antispam-message-info: NIsk3oLMQJl+HkOqzL5kdjPD/v7HbGi6hr95eUDz2R679CmyeCb9ItO9nqjDMDWtpongIgfZVrVHRph2K8HaxA2poc5qzheiJvUTKfxlgt+xJBsPwn5Zk42iXWfv76CIYsRvFduwsTQVgtcaLvykrauTH8EDtVmcww4FYBb5ehihN2aNKCTq3mKfH5d8+W3b1KxeD+Ipkv4/97JGdXcIdZlreI658EC7HNFY4EJGHuhK5Mp9Vcne+fz8aenJShLrd1NG6qCvpJOTVVKKggnFRgkqiNK+CTSgElfD2pulAYPuH/+RB39Uzs8JWQpGdPeuww2b3C9FKn1htH98sNX3zA==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:SN4PR0401MB3598.namprd04.prod.outlook.com;
+	IPV:NLI; SFV:NSPM; H:BYAPR11MB3448.namprd11.prod.outlook.com;
 	PTR:; CAT:NONE;
-	SFS:(4636009)(346002)(396003)(376002)(39860400002)(366004)(136003)(55016002)(4270600006)(8676002)(110136005)(54906003)(86362001)(8936002)(186003)(478600001)(2906002)(6506007)(19618925003)(7696005)(52536014)(316002)(558084003)(71200400001)(33656002)(66476007)(7416002)(66946007)(5660300002)(76116006)(9686003)(4326008)(66446008)(91956017)(66556008)(64756008);
+	SFS:(4636009)(39860400002)(346002)(136003)(376002)(396003)(366004)(2616005)(5660300002)(6486002)(71200400001)(186003)(53546011)(6506007)(26005)(4326008)(66446008)(64756008)(2906002)(8936002)(36756003)(66946007)(66476007)(316002)(478600001)(6636002)(110136005)(54906003)(76116006)(6512007)(86362001)(8676002)(66556008)(83380400001)(91956017);
 	DIR:OUT; SFP:1102;
-x-ms-exchange-antispam-messagedata: 4+yMaX1z5FtIl8wxSD4U0mvnRUN8c3FW/o+aDrLkW+NY5j4rucRJ9VHZx72B/AVP0x5TanHtAVxI+lJkBsUdfX/EHKg2hyFaVEd9e3MQmsCRuwpXALo5/BvHzJ0ng+OnQ0iHcNkXxNVDfzGhnez0WoDF/NFVhk+hTfoF+eeehY0eZwaWl3awGYM4c6O+k9iQjJ0z+3lDlQJlJiEfP211c5XGdTskHdLzyLNxYeu580OGy2sYfH3ksK1hLXTxk8rbWdGusun3VtrwJBVwkJ6jr/KReNYVkiViQqPHvu/bsGJ6uKTkqab+CHsw//uHuQJcRLL6fBIIutY6TMjy7YB/27DGNNz25mb/O7hDU5zYqgL6fmGjJyIxAoPCPGrKPwSqYFyJxjnO4Iw4pVo05nGnCzP5r3B9c1x97wUtFdUVq8vp6Oo9rmkrJUzLh+rjGtK2rRpuGPUMIcfCFu9SfbJ1v02Vhmwmjjo9eXEFt93ildNGrc5PzmCR4IVGS72sCRem66g3JZpBuMlQfUZLv2okM34Pz313BYpb/DIU9fOKws7WZfpos3tci136D3hjpbq9kOZWONIaop8J4gQIW4MtFdT9XLudZY9NOKH0ck1+SDqALn1Qq74Ele9dBqbupIMBQVRRvBRoMjYprPW5HSDG0kTcIOsnHUsBovWyUip5XnGS1IIniOuaPZ2bADQYr7n8s2ZYv78qpRLxJXSIniNBnQ==
-x-ms-exchange-transport-forked: True
+x-ms-exchange-antispam-messagedata: BStsDV5h6/WxEvRRYUMrqmtAN7yJ3ro/k0UyQYmIjeHVcy9SnWPUgiYgQnrrgSXFoV/KWet+CChWKORRAA7YA/4TFmvGSWx0hHlJw/CuQWmTmwO1xHNg2Sz5/VAF5NfTmlLNJCfZptViuKRB+mCKY2hlDjeE2wZi7RzfaxO8v4u05Cl1IlXd1StJa09LkUc70tvY5FZ7z944SQ+D2h5/BRq9EOiyvnxAhX8637x3BfA+zCT3Yu9j2um3xCu1RieY8mEgGgjCujAIIU0UGjJrKdpH34dZZeOPwdLHrJOob6lwxeFranLAB51YtloK02SYGlCD9ucZGN+rjsMIbaFtz7ea/bIjZDkIRnysOesJyhNDwy+XZiw5QEKyISfJMo0ZMIZKXgckvLO8Xbeb5Ta+G5NlcyjdbZeEUwL4snPiKiZNFoPZ1GX1MtE18yw+L2m/kUzgyAIR0iGEvToXnQKSmTc/LWQsADoLtS1ZXqT1vzGkXdodRLBuYLXvbSvGBA3Ss69rpsyDwjYEp8YTx+i0D9RGjJRsZ+bQPMFUaeM4/cE1ke05aCE38IYNQAF5z+r6v818vw05U9Pw1ms9GOlYVi/A4ynTPqqpjCXFxOWBchE7Qmx2D3UQ/byLZW1ZoU84oi2hbaP3Q1DL7Tzd297kwA==
+Content-ID: <DA97FB514C8ECD42BA421E213FBFF734@namprd11.prod.outlook.com>
 MIME-Version: 1.0
-X-OriginatorOrg: wdc.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN4PR0401MB3598.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6de1b2e0-f78c-452f-b4a5-08d84f111b69
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2020 07:23:36.4386 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR11MB3448.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ccf70fa2-7c2b-435f-5bfc-08d84f94a768
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2020 23:05:15.4524 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: w1q8Bz+9jP6wkq7Rp1bTVJgrygj3CR45cOjuSlB7UWuFZC8p4T6RoR/BtLuEdd1cqIWUzyStoPvVm/saG9xrLhnutI9A4To9YD5ib2HncMo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR04MB3966
+X-MS-Exchange-CrossTenant-userprincipalname: BhccGMtay0R2NsQpkCksK8+MOeYj0IdDBdJFhDdO+0NUW9Y1F96EimbwlIfr9VBR/qIXZwEZO8ITlGHygujzRSxXMHOpwYNwxu+XRZzZ0r4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR11MB3672
+X-OriginatorOrg: intel.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -108,28 +133,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0827OifS028011
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from base64 to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 082N6UB8021582
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 03 Sep 2020 02:48:19 -0400
-Cc: "linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	"linux-nvdimm@lists.01.org" <linux-nvdimm@lists.01.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-	Dan Williams <dan.j.williams@intel.com>,
-	"nbd@other.debian.org" <nbd@other.debian.org>,
-	"virtualization@lists.linux-foundation.org"
-	<virtualization@lists.linux-foundation.org>,
-	"ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>
-Subject: Re: [dm-devel] [PATCH 5/9] block: use revalidate_disk_size in
- set_capacity_revalidate_and_notify
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"linux-nvdimm@lists.01.org" <linux-nvdimm@lists.01.org>
+Subject: Re: [dm-devel] flood of "dm-X: error: dax access failed" due to 5.9
+ commit 231609785cbfb
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -143,7 +155,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.003
@@ -152,10 +164,46 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Language: en-US
 
-Looks good,
-Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+On Thu, 2020-09-03 at 00:40 +0800, Coly Li wrote:
+> On 2020/9/3 00:04, Mike Snitzer wrote:
+> > 5.9 commit 231609785cbfb ("dax: print error message by pr_info() in
+> > __generic_fsdax_supported()") switched from pr_debug() to pr_info().
+> > 
+> > The justification in the commit header is really inadequate.  If there
+> > is a problem that you need to drill in on, repeat the testing after
+> > enabling the dynamic debugging.
+> > 
+> > Otherwise, now all DM devices that aren't layered on DAX capable devices
+> > spew really confusing noise to users when they simply activate their
+> > non-DAX DM devices:
+> > 
+> > [66567.129798] dm-6: error: dax access failed (-5)
+> > [66567.134400] dm-6: error: dax access failed (-5)
+> > [66567.139152] dm-6: error: dax access failed (-5)
+> > [66567.314546] dm-2: error: dax access failed (-95)
+> > [66567.319380] dm-2: error: dax access failed (-95)
+> > [66567.324254] dm-2: error: dax access failed (-95)
+> > [66567.479025] dm-2: error: dax access failed (-95)
+> > [66567.483713] dm-2: error: dax access failed (-95)
+> > [66567.488722] dm-2: error: dax access failed (-95)
+> > [66567.494061] dm-2: error: dax access failed (-95)
+> > [66567.498823] dm-2: error: dax access failed (-95)
+> > [66567.503693] dm-2: error: dax access failed (-95)
+> > 
+> > commit 231609785cbfb must be reverted.
+> > 
+> > Please advise, thanks.
+> 
+> Adrian Huang from Lenovo posted a patch, which titled: dax: do not print
+> error message for non-persistent memory block device
+> 
+> It fixes the issue, but no response for now. Maybe we should take this fix.
+> 
 
+Mike, Coly,
 
+I applied Adrians patch, and submitted it - it is already in v5.9-rc3 -
+c2affe920b0e dax: do not print error message for non-persistent memory block device
 
 --
 dm-devel mailing list
