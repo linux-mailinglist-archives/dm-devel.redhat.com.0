@@ -1,58 +1,63 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 422002641C6
-	for <lists+dm-devel@lfdr.de>; Thu, 10 Sep 2020 11:28:44 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id DEBAD26447B
+	for <lists+dm-devel@lfdr.de>; Thu, 10 Sep 2020 12:46:42 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-351-wDf2EdLfPWuPd_I4NsBOzw-1; Thu, 10 Sep 2020 05:28:40 -0400
-X-MC-Unique: wDf2EdLfPWuPd_I4NsBOzw-1
+ us-mta-53-UxvRf2LJPTePdBTzM_w0Kw-1; Thu, 10 Sep 2020 06:46:39 -0400
+X-MC-Unique: UxvRf2LJPTePdBTzM_w0Kw-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2E4A71882FB6;
-	Thu, 10 Sep 2020 09:28:35 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ED88C801AB8;
+	Thu, 10 Sep 2020 10:46:32 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3CCC71002D5C;
-	Thu, 10 Sep 2020 09:28:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EE6A210027A4;
+	Thu, 10 Sep 2020 10:46:29 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A882B922E0;
-	Thu, 10 Sep 2020 09:28:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 44F3A922E8;
+	Thu, 10 Sep 2020 10:46:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08A9SPU6015384 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 10 Sep 2020 05:28:26 -0400
+	id 08AAjkJe022888 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 10 Sep 2020 06:45:46 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B715E20110CE; Thu, 10 Sep 2020 09:28:25 +0000 (UTC)
+	id 44F5D2156A2D; Thu, 10 Sep 2020 10:45:46 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B308C2028DC0
-	for <dm-devel@redhat.com>; Thu, 10 Sep 2020 09:28:23 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 409842156A23
+	for <dm-devel@redhat.com>; Thu, 10 Sep 2020 10:45:43 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 55343101AA42
-	for <dm-devel@redhat.com>; Thu, 10 Sep 2020 09:28:23 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-530-t7z8uhFIMxyqb2cspi9j9Q-1;
-	Thu, 10 Sep 2020 05:28:17 -0400
-X-MC-Unique: t7z8uhFIMxyqb2cspi9j9Q-1
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id C27726736F; Thu, 10 Sep 2020 11:28:13 +0200 (CEST)
-Date: Thu, 10 Sep 2020 11:28:13 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Mike Snitzer <snitzer@redhat.com>
-Message-ID: <20200910092813.GA27229@lst.de>
-References: <20200726150333.305527-1-hch@lst.de>
-	<20200726150333.305527-7-hch@lst.de>
-	<20200826220737.GA25613@redhat.com> <20200902151144.GA1738@lst.de>
-	<20200902162007.GB5513@redhat.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DB368906389
+	for <dm-devel@redhat.com>; Thu, 10 Sep 2020 10:45:43 +0000 (UTC)
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-373-HZNA2o-5M6m2mK_HbdO5FQ-1; Thu, 10 Sep 2020 06:45:37 -0400
+X-MC-Unique: HZNA2o-5M6m2mK_HbdO5FQ-1
+Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.60])
+	by Forcepoint Email with ESMTP id 8547CD38DCA895B33CE1;
+	Thu, 10 Sep 2020 18:45:28 +0800 (CST)
+Received: from [127.0.0.1] (10.174.178.208) by DGGEMS410-HUB.china.huawei.com
+	(10.3.19.210) with Microsoft SMTP Server id 14.3.487.0;
+	Thu, 10 Sep 2020 18:45:18 +0800
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>, Martin Wilck
+	<mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, "dm-devel
+	mailing list" <dm-devel@redhat.com>
+From: lixiaokeng <lixiaokeng@huawei.com>
+Message-ID: <f8c2133b-6c02-4cc4-59cd-162828154689@huawei.com>
+Date: Thu, 10 Sep 2020 18:45:17 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200902162007.GB5513@redhat.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+X-Originating-IP: [10.174.178.208]
+X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,19 +66,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>, linux-raid@vger.kernel.org,
-	martin.petersen@oracle.com, Hans de Goede <hdegoede@redhat.com>,
-	Richard Weinberger <richard@nod.at>,
-	Minchan Kim <minchan@kernel.org>, drbd-dev@tron.linbit.com,
-	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
-	Song Liu <song@kernel.org>, dm-devel@redhat.com,
-	linux-mtd@lists.infradead.org, linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org, cgroups@vger.kernel.org,
-	Christoph Hellwig <hch@lst.de>
-Subject: Re: [dm-devel] [PATCH 06/14] block: lift setting the readahead size
- into the block layer
+Cc: linfeilong <linfeilong@huawei.com>,
+	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
+Subject: [dm-devel] [PATCH V4 00/14] multipath-tools series: some cleanups
+ and fixes checked by codedex tool
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,66 +92,50 @@ X-Mimecast-Spam-Score: 0.002
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Content-Language: en-GB
 
-On Wed, Sep 02, 2020 at 12:20:07PM -0400, Mike Snitzer wrote:
-> On Wed, Sep 02 2020 at 11:11am -0400,
-> Christoph Hellwig <hch@lst.de> wrote:
-> 
-> > On Wed, Aug 26, 2020 at 06:07:38PM -0400, Mike Snitzer wrote:
-> > > On Sun, Jul 26 2020 at 11:03am -0400,
-> > > Christoph Hellwig <hch@lst.de> wrote:
-> > > 
-> > > > Drivers shouldn't really mess with the readahead size, as that is a VM
-> > > > concept.  Instead set it based on the optimal I/O size by lifting the
-> > > > algorithm from the md driver when registering the disk.  Also set
-> > > > bdi->io_pages there as well by applying the same scheme based on
-> > > > max_sectors.
-> > > > 
-> > > > Signed-off-by: Christoph Hellwig <hch@lst.de>
-> > > > ---
-> > > >  block/blk-settings.c         |  5 ++---
-> > > >  block/blk-sysfs.c            |  1 -
-> > > >  block/genhd.c                | 13 +++++++++++--
-> > > >  drivers/block/aoe/aoeblk.c   |  2 --
-> > > >  drivers/block/drbd/drbd_nl.c | 12 +-----------
-> > > >  drivers/md/bcache/super.c    |  4 ----
-> > > >  drivers/md/dm-table.c        |  3 ---
-> > > >  drivers/md/raid0.c           | 16 ----------------
-> > > >  drivers/md/raid10.c          | 24 +-----------------------
-> > > >  drivers/md/raid5.c           | 13 +------------
-> > > >  10 files changed, 16 insertions(+), 77 deletions(-)
-> > > 
-> > > 
-> > > In general these changes need a solid audit relative to stacking
-> > > drivers.  That is, the limits stacking methods (blk_stack_limits)
-> > > vs lower level allocation methods (__device_add_disk).
-> > > 
-> > > You optimized for lowlevel __device_add_disk establishing the bdi's
-> > > ra_pages and io_pages.  That is at the beginning of disk allocation,
-> > > well before any build up of stacking driver's queue_io_opt() -- which
-> > > was previously done in disk_stack_limits or driver specific methods
-> > > (e.g. dm_table_set_restrictions) that are called _after_ all the limits
-> > > stacking occurs.
-> > > 
-> > > By inverting the setting of the bdi's ra_pages and io_pages to be done
-> > > so early in __device_add_disk it'll break properly setting these values
-> > > for at least DM afaict.
-> > 
-> > ra_pages never got inherited by stacking drivers, check it by modifying
-> > it on an underlying device and then creating a trivial dm or md one.
-> 
-> Sure, not saying that it did.  But if the goal is to set ra_pages based
-> on io_opt then to do that correctly on stacking drivers it must be done
-> in terms of limits stacking right?  Or at least done at a location that
-> is after the limits stacking has occurred?  So should DM just open-code
-> setting ra_pages like it did for io_pages?
-> 
-> Because setting ra_pages in __device_add_disk() is way too early for DM
-> -- given it uses device_add_disk_no_queue_reg via add_disk_no_queue_reg
-> at DM device creation (before stacking all underlying devices' limits).
+Patches 01, 02, 04, 05, 06, 09, 11, 12, 14 have some changes
 
-I'll move it to blk_register_queue, which should work just fine.
+Patches 01, 02, 04, 05, 11, 12, 14: change commit message
+Patches 06: move xmalloc before main
+Patches 09: check strdup result in setup_map, add message
+"mp->features must not be NULL" in assemble_map
+
+Zhiqiang Liu (7):
+  multipathd: check return value of malloc in cli_getprkey func
+  kpartx: use xmalloc to instead of malloc in main func
+  libmultipath: check return value of dm_mapname in sysfs_check_holders
+  libmultipath: donot free *dst if REALLOC fails in merge_words
+  libmultipath: check whether mpp->features is NUll in setup_map
+  util/tests: use assert_non_null to ensure malloc returns non-null
+    pointer
+  mpathpersist: check whether malloc paramp->trnptid_list fails in
+    handle_args func
+
+lixiaokeng (7):
+  multipathd: initialize major and minor in cli_add_map
+  libmultipath: change malloc to calloc in print_foreign_topology
+  libmultipath: use map instead of dm_task_get_name
+  multipathd: check MALLOC return value in mpath_pr_event_handler_fn
+  libmultipathpersist: use update_multipath_table/status in get_mpvec
+  multipath: use update_multipath_table/status in check_useable_paths
+  multipathpersist: delete unused variable in handle_args
+
+ kpartx/kpartx.c                 | 36 +++++++++---------
+ libmpathpersist/mpath_persist.c | 15 +++-----
+ libmultipath/configure.c        |  5 +++
+ libmultipath/devmapper.c        |  2 +-
+ libmultipath/dmparser.c         | 18 ++++-----
+ libmultipath/foreign.c          |  4 +-
+ libmultipath/sysfs.c            |  6 ++-
+ mpathpersist/main.c             | 66 +++++++++++++++++++++++++--------
+ multipath/main.c                |  9 ++---
+ multipathd/cli_handlers.c       |  4 +-
+ multipathd/main.c               |  8 ++--
+ tests/util.c                    |  2 +
+ 12 files changed, 106 insertions(+), 69 deletions(-)
+
+--
 
 --
 dm-devel mailing list
