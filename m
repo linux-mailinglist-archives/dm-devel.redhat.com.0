@@ -1,67 +1,72 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id B9E2A2656B5
-	for <lists+dm-devel@lfdr.de>; Fri, 11 Sep 2020 03:35:31 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 92AE326581D
+	for <lists+dm-devel@lfdr.de>; Fri, 11 Sep 2020 06:21:39 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-289-uPKFqI48PciUg5NSxocy4A-1; Thu, 10 Sep 2020 21:35:28 -0400
-X-MC-Unique: uPKFqI48PciUg5NSxocy4A-1
+ us-mta-495-HDzX6aI0M_KiOi3__joeeA-1; Fri, 11 Sep 2020 00:21:35 -0400
+X-MC-Unique: HDzX6aI0M_KiOi3__joeeA-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 865F280572E;
-	Fri, 11 Sep 2020 01:35:22 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 97CD181C46;
-	Fri, 11 Sep 2020 01:35:19 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5F9971074640;
+	Fri, 11 Sep 2020 04:21:29 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A96DC7E73E;
+	Fri, 11 Sep 2020 04:21:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1FCFB183D021;
-	Fri, 11 Sep 2020 01:35:13 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6ACE579FF7;
+	Fri, 11 Sep 2020 04:21:13 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08B1Z27D001327 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 10 Sep 2020 21:35:03 -0400
+	id 08B4JnGt019383 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 11 Sep 2020 00:19:49 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D14A7108BCE; Fri, 11 Sep 2020 01:35:02 +0000 (UTC)
+	id E6BB12166B27; Fri, 11 Sep 2020 04:19:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CCF84104843
-	for <dm-devel@redhat.com>; Fri, 11 Sep 2020 01:35:00 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E23582166BA0
+	for <dm-devel@redhat.com>; Fri, 11 Sep 2020 04:19:46 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 73C9F800BED
-	for <dm-devel@redhat.com>; Fri, 11 Sep 2020 01:35:00 +0000 (UTC)
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-593-Hez0IaE3OU6qgAJ5k2pR5A-1; Thu, 10 Sep 2020 21:34:57 -0400
-X-MC-Unique: Hez0IaE3OU6qgAJ5k2pR5A-1
-Received: from DGGEMS404-HUB.china.huawei.com (unknown [172.30.72.59])
-	by Forcepoint Email with ESMTP id AA515F6A7F318C0A76CA;
-	Fri, 11 Sep 2020 09:34:49 +0800 (CST)
-Received: from [127.0.0.1] (10.174.178.208) by DGGEMS404-HUB.china.huawei.com
-	(10.3.19.204) with Microsoft SMTP Server id 14.3.487.0;
-	Fri, 11 Sep 2020 09:34:43 +0800
-To: Martin Wilck <mwilck@suse.com>, Christophe Varoqui
-	<christophe.varoqui@opensvc.com>, Benjamin Marzinski <bmarzins@redhat.com>,
-	dm-devel mailing list <dm-devel@redhat.com>
-References: <f8c2133b-6c02-4cc4-59cd-162828154689@huawei.com>
-	<3f34cd14-17a0-f7a4-6cdb-7a37aa5c31b4@huawei.com>
-	<8ecf7f972b83be7fba3797327046c7cedf1179c8.camel@suse.com>
-From: lixiaokeng <lixiaokeng@huawei.com>
-Message-ID: <aceb50c7-ddf5-b00e-1d05-4294c5650127@huawei.com>
-Date: Fri, 11 Sep 2020 09:34:42 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B81BF858280
+	for <dm-devel@redhat.com>; Fri, 11 Sep 2020 04:19:46 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0060.hostedemail.com
+	[216.40.44.60]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-426-7jslgqkHOiWwwEWGlZWtEw-1; Fri, 11 Sep 2020 00:19:43 -0400
+X-MC-Unique: 7jslgqkHOiWwwEWGlZWtEw-1
+Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
+	[216.40.38.60])
+	by smtprelay03.hostedemail.com (Postfix) with ESMTP id 12942837F24A;
+	Fri, 11 Sep 2020 04:19:43 +0000 (UTC)
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Spam-Summary: 2, 0, 0, , d41d8cd98f00b204, joe@perches.com, ,
+	RULES_HIT:41:355:379:599:800:960:973:988:989:1260:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1542:1593:1594:1711:1730:1747:1777:1792:2198:2199:2393:2559:2562:2828:3138:3139:3140:3141:3142:3354:3622:3865:3866:3867:3868:3870:3871:3872:3874:4321:5007:6742:6743:10004:10400:10848:11026:11232:11473:11657:11658:11914:12043:12297:12438:12555:12740:12760:12895:13153:13161:13228:13229:13439:14096:14097:14181:14659:14721:21080:21433:21627:30054:30070:30091,
+	0, RBL:none, CacheIP:none, Bayesian:0.5, 0.5, 0.5, Netcheck:none,
+	DomainCache:0, MSF:not bulk, SPF:, MSBL:0, DNSBL:none,
+	Custom_rules:0:0:0, LFtime:1, LUA_SUMMARY:none
+X-HE-Tag: seat91_4d0f80d270eb
+X-Filterd-Recvd-Size: 4376
+Received: from XPS-9350.home (unknown [47.151.133.149])
+	(Authenticated sender: joe@perches.com)
+	by omf19.hostedemail.com (Postfix) with ESMTPA;
+	Fri, 11 Sep 2020 04:19:36 +0000 (UTC)
+Message-ID: <f4ad706519917d493a0af32ea2da8565227cc74a.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Robin Murphy <robin.murphy@arm.com>, LKML <linux-kernel@vger.kernel.org>,
+	Jiri Kosina <trivial@kernel.org>
+Date: Thu, 10 Sep 2020 21:19:35 -0700
+In-Reply-To: <9372456a-8dcf-2735-57a4-e126aa5df3a6@arm.com>
+References: <e6387578c75736d61b2fe70d9783d91329a97eb4.camel@perches.com>
+	<9372456a-8dcf-2735-57a4-e126aa5df3a6@arm.com>
+User-Agent: Evolution 3.36.4-0ubuntu1
 MIME-Version: 1.0
-In-Reply-To: <8ecf7f972b83be7fba3797327046c7cedf1179c8.camel@suse.com>
-X-Originating-IP: [10.174.178.208]
-X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -70,14 +75,35 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 08B1Z27D001327
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: linfeilong <linfeilong@huawei.com>,
-	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
-Subject: Re: [dm-devel] [PATCH V4 11/14] mpathpersist: check whether malloc
- paramp->trnptid_list fails in handle_args func
+Cc: linux-fbdev@vger.kernel.org, oss-drivers@netronome.com,
+	nouveau@lists.freedesktop.org, alsa-devel <alsa-devel@alsa-project.org>,
+	dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org,
+	linux-ide@vger.kernel.org, dm-devel@redhat.com,
+	linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
+	sparclinux@vger.kernel.org, Will Deacon <will@kernel.org>,
+	linux-afs@lists.infradead.org, linux-rtc@vger.kernel.org,
+	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+	dccp@vger.kernel.org, linux-rdma@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	kvmarm@lists.cs.columbia.edu, coreteam@netfilter.org,
+	intel-wired-lan@lists.osuosl.org, linux-serial@vger.kernel.org,
+	linux-input@vger.kernel.org, linux-mmc@vger.kernel.org,
+	Kees Cook <kees.cook@canonical.com>, linux-media@vger.kernel.org,
+	linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	linux-nvme@lists.infradead.org, storagedev@microchip.com,
+	ceph-devel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	linux-nfs@vger.kernel.org, linux-parisc@vger.kernel.org,
+	netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-wireless@vger.kernel.org, linux-sctp@vger.kernel.org,
+	iommu@lists.linux-foundation.org,
+	netfilter-devel@vger.kernel.org, linux-crypto@vger.kernel.org,
+	bpf@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [dm-devel] [trivial PATCH] treewide: Convert switch/case
+ fallthrough; to break;
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,55 +122,69 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.002
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Content-Language: en-GB
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-CgpPbiAyMDIwLzkvMTEgMjo0OCwgTWFydGluIFdpbGNrIHdyb3RlOgo+IE9uIFRodSwgMjAyMC0w
-OS0xMCBhdCAxODo1MiArMDgwMCwgbGl4aWFva2VuZyB3cm90ZToKPj4gSW4gaGFuZGxlX2FyZ3Mg
-ZnVuYywgd2UgZG9ub3QgY2hlY2sgd2hldGhlciBtYWxsb2MgcGFyYW1wIGFuZAo+PiBlYWNoIHBh
-cmFtcC0+dHJucHRpZF9saXN0W2pdIGZhaWxzIGJlZm9yZSB1c2luZyB0aGVtLCBpdCBtYXkKPj4g
-Y2F1c2UgYWNjZXNzIE5VTEwgcG9pbnRlci4KPj4KPj4gSGVyZSwgd2UgYWRkIGFsbG9jX3Byb3V0
-X3BhcmFtX2Rlc2NyaXB0b3IgdG8gYWxsb2NhdGUgYW5kIGluaXQKPj4gcGFyYW1wLCBhbmQgd2Ug
-YWRkIGZyZWVfcHJvdXRfcGFyYW1fZGVzY3JpcHRvciB0byBmcmVlIHBhcmFtcAo+PiBhbmQgZWFj
-aCBwYXJhbXAtPnRybnB0aWRfbGlzdFtqXS4KPj4KPj4gV2UgY2hhbmdlIG51bV90cmFuc3BvcnQg
-dG8gbnVtX3RyYW5zcG9ydGlkcyB0byBjb21iaW5lIHRoZW0uCj4+Cj4+IFNpZ25lZC1vZmYtYnk6
-IFpoaXFpYW5nIExpdSA8bGl1emhpcWlhbmcyNkBodWF3ZWkuY29tPgo+PiBTaWduZWQtb2ZmLWJ5
-OiBsaXhpYW9rZW5nIDxsaXhpYW9rZW5nQGh1YXdlaS5jb20+Cj4+IC0tLQo+PiAgbXBhdGhwZXJz
-aXN0L21haW4uYyB8IDY1ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0t
-LS0KPj4gLS0KPj4gIDEgZmlsZSBjaGFuZ2VkLCA1MCBpbnNlcnRpb25zKCspLCAxNSBkZWxldGlv
-bnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL21wYXRocGVyc2lzdC9tYWluLmMgYi9tcGF0aHBlcnNp
-c3QvbWFpbi5jCj4+IGluZGV4IDI4YmZlNDEwLi5kYTY3YzE1YyAxMDA2NDQKPj4gLS0tIGEvbXBh
-dGhwZXJzaXN0L21haW4uYwo+PiArKysgYi9tcGF0aHBlcnNpc3QvbWFpbi5jCj4+IEBAIC0xNTMs
-NiArMTUzLDM4IEBAIHN0YXRpYyBpbnQgZG9fYmF0Y2hfZmlsZShjb25zdCBjaGFyICpiYXRjaF9m
-bikKPj4gIAlyZXR1cm4gcmV0Owo+PiAgfQo+Pgo+PiArc3RhdGljIHN0cnVjdCBwcm91dF9wYXJh
-bV9kZXNjcmlwdG9yICoKPj4gK2FsbG9jX3Byb3V0X3BhcmFtX2Rlc2NyaXB0b3IoaW50IG51bV90
-cmFuc3BvcnRpZCkKPj4gK3sKPj4gKwlzdHJ1Y3QgcHJvdXRfcGFyYW1fZGVzY3JpcHRvciAqcGFy
-YW1wOwo+PiArCj4+ICsJaWYgKG51bV90cmFuc3BvcnRpZCA8IDAgfHwgbnVtX3RyYW5zcG9ydGlk
-ID4gTVBBVEhfTVhfVElEUykKPj4gKwkJcmV0dXJuIE5VTEw7Cj4+ICsKPj4gKwlwYXJhbXA9IG1h
-bGxvYyhzaXplb2Yoc3RydWN0IHByb3V0X3BhcmFtX2Rlc2NyaXB0b3IpICsKPj4gKwkJCQkoc2l6
-ZW9mKHN0cnVjdCB0cmFuc3BvcnRpZCAqKSAqCj4+IG51bV90cmFuc3BvcnRpZCkpOwo+PiArCj4+
-ICsJaWYgKCFwYXJhbXApCj4+ICsJCXJldHVybiBOVUxMOwo+PiArCj4+ICsJcGFyYW1wLT5udW1f
-dHJhbnNwb3J0aWQgPSBudW1fdHJhbnNwb3J0aWQ7Cj4+ICsJbWVtc2V0KHBhcmFtcCwgMCwgc2l6
-ZW9mKHN0cnVjdCBwcm91dF9wYXJhbV9kZXNjcmlwdG9yKSArCj4+ICsJCQkoc2l6ZW9mKHN0cnVj
-dCB0cmFuc3BvcnRpZCAqKSAqCj4+IG51bV90cmFuc3BvcnRpZCkpOwo+PiArCXJldHVybiBwYXJh
-bXA7Cj4+ICt9Cj4+ICsKPj4gK3N0YXRpYyB2b2lkIGZyZWVfcHJvdXRfcGFyYW1fZGVzY3JpcHRv
-cihzdHJ1Y3QKPj4gcHJvdXRfcGFyYW1fZGVzY3JpcHRvciAqcGFyYW1wKQo+PiArewo+PiArCWlu
-dCBpOwo+PiArCWlmICghcGFyYW1wKQo+PiArCQlyZXR1cm47Cj4+ICsKPj4gKwlmb3IgKGkgPSAw
-OyBpIDwgcGFyYW1wLT5udW1fdHJhbnNwb3J0aWQ7IGkrKykKPj4gKwkJZnJlZShwYXJhbXAtPnRy
-bnB0aWRfbGlzdFtpXSk7Cj4gCj4gVGhpcyBjYXVzZXMgYSBjb21waWxhdGlvbiBlcnJvci4gRGlk
-bid0IHlvdSBjb21waWxlLXRlc3Q/Cj4gCj4gbWFpbi5jOiBJbiBmdW5jdGlvbiDigJhmcmVlX3By
-b3V0X3BhcmFtX2Rlc2NyaXB0b3LigJk6Cj4gbWFpbi5jOjE4MjoxNjogZXJyb3I6IGNvbXBhcmlz
-b24gb2YgaW50ZWdlciBleHByZXNzaW9ucyBvZiBkaWZmZXJlbnQKPiBzaWduZWRuZXNzOiDigJhp
-bnTigJkgYW5kIOKAmHVpbnQzMl904oCZIHtha2Eg4oCYdW5zaWduZWQgaW504oCZfSBbLVdlcnJv
-cj1zaV0KPiAgIDE4MiB8ICBmb3IgKGkgPSAwOyBpIDwgcGFyYW1wLT5udW1fdHJhbnNwb3J0aWQ7
-IGkrKykKPiAgICAgICB8ICAgICAgICAgICAgICAgIF4KPiBjYzE6IGFsbCB3YXJuaW5ncyBiZWlu
-ZyB0cmVhdGVkIGFzIGVycm9ycwo+IAo+IFJlZ2FyZHMsCj4gTWFydGluCj4gCkhpIE1hcnRpbiwK
-ICBXaGVuIEkgY29tcGlsZSBpdCwgSSBhZGQgYSBwYXRjaCB0aGF0cyBjaGFuZ2VzIGludCB0byB1
-bnNpZ25lZCBpbnQuCkJ1dCBJIGRvbid0IHRoaW5rIGl0IGlzIGFuIGVycm9yLiBJdCBpcyAganVz
-dCBhIHdhcm5pbmcgYW5kIGJlY29tZXMgYW4KZXJyb3Igd2l0aCBbLVdlcnJvcl0uIEFueXdheSwg
-SSB3aWxsIGNoYW5nZSBpbnQgdG8gdW5zaWduZWQgaXQgYW5kIHNlbmQKaXQgYWdhaW4uIFRoYW5r
-cy4KClJlZ2FyZHMKTGl4aWFva2VuZwoKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZl
-bEByZWRoYXQuY29tCmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1k
-ZXZlbA==
+On Thu, 2020-09-10 at 15:21 +0100, Robin Murphy wrote:
+> On 2020-09-09 21:06, Joe Perches wrote:
+> > fallthrough to a separate case/default label break; isn't very readable.
+> > 
+> > Convert pseudo-keyword fallthrough; statements to a simple break; when
+> > the next label is case or default and the only statement in the next
+> > label block is break;
+> > 
+> > Found using:
+> > 
+> > $ grep-2.5.4 -rP --include=*.[ch] -n "fallthrough;(\s*(case\s+\w+|default)\s*:\s*){1,7}break;" *
+> > 
+> > Miscellanea:
+> > 
+> > o Move or coalesce a couple label blocks above a default: block.
+> > 
+> > Signed-off-by: Joe Perches <joe@perches.com>
+> > ---
+> > 
+> > Compiled allyesconfig x86-64 only.
+> > A few files for other arches were not compiled.
+> > 
+> 
+> [...]
+> > diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> > index c192544e874b..743db1abec40 100644
+> > --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> > +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> > @@ -3777,7 +3777,7 @@ static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
+> >   	switch (FIELD_GET(IDR0_TTF, reg)) {
+> >   	case IDR0_TTF_AARCH32_64:
+> >   		smmu->ias = 40;
+> > -		fallthrough;
+> > +		break;
+> >   	case IDR0_TTF_AARCH64:
+> >   		break;
+> >   	default:
+> 
+> I have to say I don't really agree with the readability argument for 
+> this one - a fallthrough is semantically correct here, since the first 
+> case is a superset of the second. It just happens that anything we would 
+> do for the common subset is implicitly assumed (there are other 
+> potential cases we simply haven't added support for at the moment), thus 
+> the second case is currently empty.
+> This change actively obfuscates that distinction.
+
+Then perhaps comments should be added to usefully
+describe the mechanisms.
+
+	case IDR0_TTF_AARCH32_64:
+		smmu->ias = 40;
+		fallthrough;	/* and still do the 64 bit processing */
+	case IDR0_TTF_AARCH64:
+		/* Nothing specific yet */
+		break;
+
+> Robin.
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
