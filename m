@@ -1,63 +1,103 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	by mail.lfdr.de (Postfix) with ESMTP id 7A8442685CF
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 16C122685D0
 	for <lists+dm-devel@lfdr.de>; Mon, 14 Sep 2020 09:26:52 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-445-vDWeLwUYOmGACw6xyZTCBw-1; Mon, 14 Sep 2020 03:26:48 -0400
-X-MC-Unique: vDWeLwUYOmGACw6xyZTCBw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-350-wr_jHrI5OFqkeGdvb_HzUA-1; Mon, 14 Sep 2020 03:26:49 -0400
+X-MC-Unique: wr_jHrI5OFqkeGdvb_HzUA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E9C9E81CAF8;
-	Mon, 14 Sep 2020 07:26:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C8A607839F;
-	Mon, 14 Sep 2020 07:26:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D72C51007B22;
+	Mon, 14 Sep 2020 07:26:44 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B31A660F96;
+	Mon, 14 Sep 2020 07:26:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4EAE61832FDB;
-	Mon, 14 Sep 2020 07:26:42 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5E7788C7BF;
+	Mon, 14 Sep 2020 07:26:44 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08BGj63H018421 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 11 Sep 2020 12:45:07 -0400
+	id 08BGkS0p018552 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 11 Sep 2020 12:46:28 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id ADD42110E98; Fri, 11 Sep 2020 16:45:06 +0000 (UTC)
+	id 54E0C201828C; Fri, 11 Sep 2020 16:46:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A8AF7110EA3
-	for <dm-devel@redhat.com>; Fri, 11 Sep 2020 16:45:03 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4EDCD2026F94
+	for <dm-devel@redhat.com>; Fri, 11 Sep 2020 16:46:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C990C18AE956
-	for <dm-devel@redhat.com>; Fri, 11 Sep 2020 16:45:03 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-591-Pl3wuZpKNG-LkU5DWczP2g-1;
-	Fri, 11 Sep 2020 12:44:59 -0400
-X-MC-Unique: Pl3wuZpKNG-LkU5DWczP2g-1
-Received: from [192.168.86.21] (c-71-197-163-6.hsd1.wa.comcast.net
-	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 955D820716FC;
-	Fri, 11 Sep 2020 09:44:57 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 955D820716FC
-To: Mimi Zohar <zohar@linux.ibm.com>, stephen.smalley.work@gmail.com,
-	casey@schaufler-ca.com, agk@redhat.com, snitzer@redhat.com,
-	gmazyland@gmail.com
-References: <20200828015704.6629-1-tusharsu@linux.microsoft.com>
-	<20200828015704.6629-4-tusharsu@linux.microsoft.com>
-	<f11dbfc1382e60c04fdd519ce5122239fa0cab8b.camel@linux.ibm.com>
-From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-Message-ID: <c932ae94-d7c3-5d23-2bb4-95517f712ceb@linux.microsoft.com>
-Date: Fri, 11 Sep 2020 09:44:57 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0E64490638F
+	for <dm-devel@redhat.com>; Fri, 11 Sep 2020 16:46:26 +0000 (UTC)
+Received: from us-smtp-delivery-148.mimecast.com
+	(us-smtp-delivery-215.mimecast.com [216.205.24.215]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-443-_MG8jBE_M4e2Oa4xliQmCA-1;
+	Fri, 11 Sep 2020 12:46:22 -0400
+X-MC-Unique: _MG8jBE_M4e2Oa4xliQmCA-1
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+	(mail-bn8nam12lp2174.outbound.protection.outlook.com [104.47.55.174])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-117-6DmqudOPMoK4OQCqA19uVw-1; Fri, 11 Sep 2020 12:46:21 -0400
+X-MC-Unique: 6DmqudOPMoK4OQCqA19uVw-1
+Received: from CY4PR0401MB3652.namprd04.prod.outlook.com
+	(2603:10b6:910:8a::27) by CY4PR04MB0903.namprd04.prod.outlook.com
+	(2603:10b6:910:57::18) with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3348.15;
+	Fri, 11 Sep 2020 16:46:18 +0000
+Received: from CY4PR0401MB3652.namprd04.prod.outlook.com
+	([fe80::bd2c:886:bd40:f40d]) by
+	CY4PR0401MB3652.namprd04.prod.outlook.com
+	([fe80::bd2c:886:bd40:f40d%5]) with mapi id 15.20.3370.017;
+	Fri, 11 Sep 2020 16:46:18 +0000
+From: "Van Leeuwen, Pascal" <pvanleeuwen@rambus.com>
+To: Ard Biesheuvel <ardb@kernel.org>, "dm-devel@redhat.com"
+	<dm-devel@redhat.com>, Milan Broz <gmazyland@gmail.com>
+Thread-Topic: [PATCH] crypto: mark unused ciphers as obsolete
+Thread-Index: AQHWiFRjVQhCDl0wBUmciifAeSWwvaljnRFwgAAD9ACAAASTgA==
+Date: Fri, 11 Sep 2020 16:46:18 +0000
+Message-ID: <CY4PR0401MB36522379F8C5AB02D848AAADC3240@CY4PR0401MB3652.namprd04.prod.outlook.com>
+References: <20200911141103.14832-1-ardb@kernel.org>
+	<CY4PR0401MB3652AD749C06D0ACD9F085F3C3240@CY4PR0401MB3652.namprd04.prod.outlook.com>
+	<CAMj1kXHOrGoGv6Tse9Vju9mTV_+ks8cUMqx_iSQHPfc+2DVkmw@mail.gmail.com>
+In-Reply-To: <CAMj1kXHOrGoGv6Tse9Vju9mTV_+ks8cUMqx_iSQHPfc+2DVkmw@mail.gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [159.100.118.162]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 8a279390-c94e-40a5-b18b-08d8567234e1
+x-ms-traffictypediagnostic: CY4PR04MB0903:
+x-microsoft-antispam-prvs: <CY4PR04MB0903CF3AA48C84B2982CD2A6C3240@CY4PR04MB0903.namprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: aUxj+vnPu4T5/qvO4sVNOk6lopFj1sFprxyiczPYk5arnVV/6O3r+3zkIAtbIUxl9tlA+cjxB/0d1Z1PRPrdAaQ325cGyc4p7TdIGypjfAKeR2xqzQbWdJKkmhAQP9A4+z9ZMVwjO2O9cxor1qcU5kOxMQRcqsIVo+oGqkrRKO5xSS1ogUk+dFN8W0K4EQyWkl0J1tCDWHcS0y1nY04sAIMdM8XrMAKy5Elc7xFfQLxKNuSVQ/Lem+g9f7yy2opZiHx7lAtI+rO4vppcU2EKdOV9wWhK5dJYGAhmbxAps41ryyW5yjsRlH3iOa8tuWuE31Xx6FqS/FnFAeDG3iqJhklU8B0cnTW43fiDyiRYYDI8tzfDNUAKw83lozxQfBQivuph2hKwEXcOiAURcSI13Q==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:CY4PR0401MB3652.namprd04.prod.outlook.com;
+	PTR:; CAT:NONE;
+	SFS:(136003)(396003)(346002)(376002)(39850400004)(366004)(64756008)(55016002)(5660300002)(66946007)(76116006)(66476007)(110136005)(66556008)(66446008)(9686003)(54906003)(186003)(83380400001)(316002)(86362001)(33656002)(8936002)(52536014)(71200400001)(26005)(53546011)(7696005)(478600001)(6506007)(4326008)(8676002)(2906002);
+	DIR:OUT; SFP:1101;
+x-ms-exchange-antispam-messagedata: gbF1y3fsIi3WLudkA+AUbzLwcki10/Ic9R8q0eTZo0z4inNHD7XJTHI11h9l3qvdce+I3AbibFokQJsK/lKJxzxto1DYEEVUp/A5RSi9KwyU9tIsG7hO8lCKLvq3df2hUkPa8YBfpuMTSqxAKU9nDjDTqHR6Ax7Xis1IsR13TFqUPCp7a2FRCGsoHovUAFLHe21cUfE1TrK3g7PwoT889k/WeL7+c6HyIaL50ZnauJpc87jzRfZGAcWFgzIXlLjkt8aWed0Wsxh8D4hs8PobIrKOhFoT3ybSREFKN1DnR5/3gXjAcRhWojK0ckr3C7MaTcD+Dkcu19FM69YQLdUiHi46/WofYlYNAV/AORjfE7hteMfnORa11ow/lTx7X0XoLZZQieZUmpZ7ocnp9zXcB1dofpn01iMz+VGIaCi7ZcSNCqCitdhJ150R3WIn7aMRPaBidF/StnfM05WamwmrKRFqlAeUjzBrh5lacNFY7DotXJeWUo9eyI/aH127ou18APWa058uZWKc8zAglvadWtakaoqI0Fxbg5LMmyWOEc8aUvuz3nBpSKQE0XS2KUHpgHG+qZ6WP4ljfaCiIqzGk1i6h+E9XYRYKZVqpTgQanmvYQbf+mQ1HVRYZeq5v6+gEmTSrEUZOop9+3zy17yAsw==
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-In-Reply-To: <f11dbfc1382e60c04fdd519ce5122239fa0cab8b.camel@linux.ibm.com>
+X-OriginatorOrg: rambus.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY4PR0401MB3652.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a279390-c94e-40a5-b18b-08d8567234e1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2020 16:46:18.4722 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KVVUZboGy2UxvT1NAW/r3PohkBflgzbqZsIZQTvij7TcGW2B1eolUF65gxm2v2twtpN+Vrg1FZsNYnAFcY3yqg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR04MB0903
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -66,17 +106,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 08BGj63H018421
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from base64 to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 08BGkS0p018552
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 14 Sep 2020 03:23:33 -0400
-Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
-	jmorris@namei.org, linux-kernel@vger.kernel.org,
-	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
-	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v3 3/6] IMA: update
- process_buffer_measurement to measure buffer hash
+Cc: "ebiggers@kernel.org" <ebiggers@kernel.org>,
+	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
+	"herbert@gondor.apana.org.au" <herbert@gondor.apana.org.au>
+Subject: Re: [dm-devel] [PATCH] crypto: mark unused ciphers as obsolete
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,112 +128,166 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0.003
+X-Mimecast-Spam-Score: 0.004
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Content-Language: en-US
 
-CgpPbiAyMDIwLTA4LTMxIDEwOjAyIGEubS4sIE1pbWkgWm9oYXIgd3JvdGU6Cj4gT24gVGh1LCAy
-MDIwLTA4LTI3IGF0IDE4OjU3IC0wNzAwLCBUdXNoYXIgU3VnYW5kaGkgd3JvdGU6Cj4+IHByb2Nl
-c3NfYnVmZmVyX21lYXN1cmVtZW50KCkgY3VycmVudGx5IG9ubHkgbWVhc3VyZXMgdGhlIGlucHV0
-IGJ1ZmZlci4KPj4gV2hlbiB0aGUgYnVmZmVyIGJlaW5nIG1lYXN1cmVkIGlzIHRvbyBsYXJnZSwg
-aXQgbWF5IHJlc3VsdCBpbiBibG9hdGVkCj4+IElNQSBsb2dzLgo+IAo+IFRoZSBzdWJqZWN0IG9m
-ICB0aGlzIHNlbnRlbmNlIHJlZmVycyB0byBhbiBpbmRpdmlkdWFsIHJlY29yZCwgd2hpbGUKPiAi
-YmxvYXRlZCIgcmVmZXJzIHRvIHRoZSBtZWFzdXJlbWVudCBsaXN0LiAgQSAiYmxvYXRlZCIgbWVh
-c3VyZW1lbnQgbGlzdAo+IHdvdWxkIGNvbnRhaW4gdG9vIG1hbnkgb3IgdW5uZWNlc3NhcnkgcmVj
-b3Jkcy4gIFlvdXIgY29uY2VybiBzZWVtcyB0bwo+IGJlIHdpdGggdGhlIHNpemUgb2YgdGhlIGlu
-ZGl2aWR1YWwgcmVjb3JkLCBub3QgdGhlIG51bWJlciBvZgo+IG1lYXN1cmVtZW50IGxpc3QgZW50
-cmllcy4KPiAKVGhlIGludGVudCBiZWhpbmQgdGhhdCBkZXNjcmlwdGlvbiB3YXMgdHdvZm9sZC4g
-T25lLCBhcyB5b3UgbWVudGlvbmVkLAp0aGUgaW5kaXZpZHVhbCByZWNvcmQgc2l6ZSBiZWluZyBs
-YXJnZTsgYW5kIHR3bywgbXVsdGlwbGUgbGFyZ2Utc2l6ZWQKaW5kaXZpZHVhbCByZWNvcmRzIHdp
-bGwgZXZlbnR1YWxseSBibG9hdCB0aGUgbWVhc3VyZW1lbnQgbGlzdCB0b28uCgpJdCBjYW4gaGFw
-cGVuIGluIFNlTGludXggY2FzZSBhcyB3ZSBkaXNjb3ZlcmVkLiBUaGUgU2VMaW51eCBwb2xpY3kK
-KHdoaWNoIGNhbiBiZSBhIGZldyBNQnMpIGNhbiBjaGFuZ2UgZnJvbSAnZm9vJywgdG8gJ2Jhcics
-IGJhY2sgdG8gJ2ZvbycuCkFuZCB0aGUgcmVxdWlyZW1lbnQgZnJvbSBTZUxpbnV4IGlzIHRoYXQg
-J2Zvbycgc2hvdWxkIGJlIG1lYXN1cmVkIHRoZQpzZWNvbmQgdGltZSB0b28uIFdoZW4gJ2Zvbycg
-YW5kICdiYXInIGFyZSBsYXJnZSwgdGhlIGluZGl2aWR1YWwgcmVjb3JkcwppbiB0aGUgaW1hIGxv
-ZyB3aWxsIGJlIGxhcmdlLCB3aGljaCB3aWxsIGFsc28gcmVzdWx0IGluIG1lYXN1cmVtZW50IGxp
-c3QKYmVpbmcgYmxvYXRlZC4KCkJ1dCBJIHVuZGVyc3RhbmQgeW91ciBjb25jZXJuIHdpdGggdGhl
-IGN1cnJlbnQgd29yZGluZy4gSSB3aWxsIHVwZGF0ZSAKdGhlIHBhdGNoIGRlc2NyaXB0aW9uIGFj
-Y29yZGluZ2x5LgoKPiBNZWFzdXJpbmcgdGhlIGhhc2ggb2YgdGhlIGJ1ZmZlciBkYXRhIGlzIHNp
-bWlsYXIgdG8gbWVhc3VyaW5nIHRoZSBmaWxlCj4gZGF0YS4gIEluIHRoZSBjYXNlIG9mIHRoZSBm
-aWxlIGRhdGEsIGhvd2V2ZXIsIHRoZSBhdHRlc3RhdGlvbiBzZXJ2ZXIKPiBtYXkgcmVseSBvbiBh
-IHdoaXRlIGxpc3QgbWFuaWZlc3QvREIgb3IgdGhlIGZpbGUgc2lnbmF0dXJlIHRvIHZlcmlmeQo+
-IHRoZSBmaWxlIGRhdGEgaGFzaC4gIEZvciBidWZmZXIgbWVhc3VyZW1lbnRzLCBob3cgd2lsbCB0
-aGUgYXR0ZXN0YXRpb24KPiBzZXJ2ZXIgYXNjZXJ0YWluIHdoYXQgaXMgYSB2YWxpZCBidWZmZXIg
-aGFzaD8KVGhlIGNsaWVudCBhbmQgdGhlIHNlcnZlciBpbXBsZW1lbnRhdGlvbiB3aWxsIGdvIGhh
-bmQgaW4gaGFuZC4gVGhlCmNsaWVudC9rZXJuZWwgd291bGQga25vdyB3aGF0IGRhdGEgaXMgbWVh
-c3VyZWQgYXMtaXMKKGUuZy4gS0VYRUNfQ01ETElORSksIGFuZCB3aGF0IGRhdGEgaGFzIGl04oCZ
-cyBoYXNoIG1lYXN1cmVkCihlLmcuIFNlTGludXggUG9saWN5KS4gQW5kIHRoZSBhdHRlc3RhdGlv
-biBzZXJ2ZXIgd291bGQgdmVyaWZ5IGRhdGEvaGFzaAphY2NvcmRpbmdseS4KCkp1c3QgbGlrZSB0
-aGUgZGF0YSBiZWluZyBtZWFzdXJlZCBpbiBvdGhlciBjYXNlcywgdGhlIGF0dGVzdGF0aW9uIHNl
-cnZlciAKd2lsbCBrbm93IHdoYXQgYXJlIHBvc3NpYmxlIHZhbHVlcyBvZiB0aGUgbGFyZ2UgYnVm
-ZmVycyBiZWluZyBtZWFzdXJlZC4gCkl0IHdpbGwgaGF2ZSB0byBtYWludGFpbiB0aGUgaGFzaCBv
-ZiB0aG9zZSBidWZmZXIgdmFsdWVzLgo+IAo+IEhpbnQ6ICBJIGFzc3VtZSwgY29ycmVjdCBtZSBp
-ZiBJJ20gd3JvbmcsIHRoZSBtZWFzdXJlbWVudCBsaXN0IHJlY29yZAo+IHRlbXBsYXRlIGRhdGEg
-aXMgbm90IG1lYW50IHRvIGJlIHZlcmlmaWVkLCBidXQgdXNlZCB0byBkZXRlY3QgaWYgdGhlICJj
-cml0aWNhbCBkYXRhIiBjaGFuZ2VkLgo+IApBcyBtZW50aW9uZWQgYWJvdmUsIHRoZSB1c2UgY2Fz
-ZSBmb3IgdGhpcyBmZWF0dXJlIGlzIGluLW1lbW9yeSBsb2FkZWQgClNlTGludXggcG9saWN5LCB3
-aGljaCBjYW4gYmUgcXVpdGUgbGFyZ2UgKHNldmVyYWwgTUJzKSDigJMgdGhhdCdzIHdoeSB0aGlz
-IApmdW5jdGlvbmFsaXR5LiBUaGUgZGF0YSBpcyBtZWFudCB0byBiZSB2ZXJpZmllZCBieSB0aGUg
-YXR0ZXN0YXRpb24gc2VydmVyLgoKPiBQbGVhc2UgdXBkYXRlIHRoZSBwYXRjaCBkZXNjcmlwdGlv
-biBhY2NvcmRpbmdseS4KSSB3aWxsIHVwZGF0ZSB0aGUgcGF0Y2ggZGVzY3JpcHRpb24gdG8gY2xh
-cmlmeSBhbGwgdGhpcy4KPiAKPj4KPj4gSW50cm9kdWNlIGEgYm9vbGVhbiBwYXJhbWV0ZXIgbWVh
-c3VyZV9idWZfaGFzaCB0byBzdXBwb3J0IG1lYXN1cmluZwo+PiBoYXNoIG9mIGEgYnVmZmVyLCB3
-aGljaCB3b3VsZCBiZSBtdWNoIHNtYWxsZXIsIGluc3RlYWQgb2YgdGhlIGJ1ZmZlcgo+PiBpdHNl
-bGYuCj4+IFNpZ25lZC1vZmYtYnk6IFR1c2hhciBTdWdhbmRoaSA8dHVzaGFyc3VAbGludXgubWlj
-cm9zb2Z0LmNvbT4KPj4gLS0tCj4gCj4gPHNuaXA+Cj4gCj4+ICsrKyBiL3NlY3VyaXR5L2ludGVn
-cml0eS9pbWEvaW1hX21haW4uYwo+PiBAQCAtNzMzLDE3ICs3MzMsMjEgQEAgaW50IGltYV9sb2Fk
-X2RhdGEoZW51bSBrZXJuZWxfbG9hZF9kYXRhX2lkIGlkKQo+PiAgICAqIEBmdW5jOiBJTUEgaG9v
-awo+PiAgICAqIEBwY3I6IHBjciB0byBleHRlbmQgdGhlIG1lYXN1cmVtZW50Cj4+ICAgICogQGZ1
-bmNfZGF0YTogcHJpdmF0ZSBkYXRhIHNwZWNpZmljIHRvIEBmdW5jLCBjYW4gYmUgTlVMTC4KPj4g
-KyAqIEBtZWFzdXJlX2J1Zl9oYXNoOiBpZiBzZXQgdG8gdHJ1ZSAtIHdpbGwgbWVhc3VyZSBoYXNo
-IG9mIHRoZSBidWYsCj4+ICsgKiAgICAgICAgICAgICAgICAgICAgaW5zdGVhZCBvZiBidWYKPj4g
-ICAgKgo+PiAgICAqIEJhc2VkIG9uIHBvbGljeSwgdGhlIGJ1ZmZlciBpcyBtZWFzdXJlZCBpbnRv
-IHRoZSBpbWEgbG9nLgo+PiAgICAqLwo+PiAgIGludCBwcm9jZXNzX2J1ZmZlcl9tZWFzdXJlbWVu
-dChzdHJ1Y3QgaW5vZGUgKmlub2RlLCBjb25zdCB2b2lkICpidWYsIGludCBzaXplLAo+PiAgIAkJ
-CSAgICAgICBjb25zdCBjaGFyICpldmVudG5hbWUsIGVudW0gaW1hX2hvb2tzIGZ1bmMsCj4+IC0J
-CQkgICAgICAgaW50IHBjciwgY29uc3QgY2hhciAqZnVuY19kYXRhKQo+PiArCQkJICAgICAgIGlu
-dCBwY3IsIGNvbnN0IGNoYXIgKmZ1bmNfZGF0YSwKPj4gKwkJCSAgICAgICBib29sIG1lYXN1cmVf
-YnVmX2hhc2gpCj4+ICAgewo+PiAgIAlpbnQgcmV0ID0gMDsKPj4gICAJY29uc3QgY2hhciAqYXVk
-aXRfY2F1c2UgPSAiRU5PTUVNIjsKPj4gICAJc3RydWN0IGltYV90ZW1wbGF0ZV9lbnRyeSAqZW50
-cnkgPSBOVUxMOwo+PiAgIAlzdHJ1Y3QgaW50ZWdyaXR5X2lpbnRfY2FjaGUgaWludCA9IHt9Owo+
-PiArCXN0cnVjdCBpbnRlZ3JpdHlfaWludF9jYWNoZSBkaWdlc3RfaWludCA9IHt9Owo+PiAgIAlz
-dHJ1Y3QgaW1hX2V2ZW50X2RhdGEgZXZlbnRfZGF0YSA9IHsuaWludCA9ICZpaW50LAo+PiAgIAkJ
-CQkJICAgIC5maWxlbmFtZSA9IGV2ZW50bmFtZSwKPj4gICAJCQkJCSAgICAuYnVmID0gYnVmLAo+
-PiBAQCAtNzUyLDcgKzc1Niw3IEBAIGludCBwcm9jZXNzX2J1ZmZlcl9tZWFzdXJlbWVudChzdHJ1
-Y3QgaW5vZGUgKmlub2RlLCBjb25zdCB2b2lkICpidWYsIGludCBzaXplLAo+PiAgIAlzdHJ1Y3Qg
-ewo+PiAgIAkJc3RydWN0IGltYV9kaWdlc3RfZGF0YSBoZHI7Cj4+ICAgCQljaGFyIGRpZ2VzdFtJ
-TUFfTUFYX0RJR0VTVF9TSVpFXTsKPj4gLQl9IGhhc2ggPSB7fTsKPj4gKwl9IGhhc2ggPSB7fSwg
-ZGlnZXN0X2hhc2ggPSB7fTsKPj4gICAJaW50IHZpb2xhdGlvbiA9IDA7Cj4+ICAgCWludCBhY3Rp
-b24gPSAwOwo+PiAgIAl1MzIgc2VjaWQ7Cj4+IEBAIC04MDEsNiArODA1LDI0IEBAIGludCBwcm9j
-ZXNzX2J1ZmZlcl9tZWFzdXJlbWVudChzdHJ1Y3QgaW5vZGUgKmlub2RlLCBjb25zdCB2b2lkICpi
-dWYsIGludCBzaXplLAo+PiAgIAkJZ290byBvdXQ7Cj4+ICAgCX0KPj4gICAKPj4gKwlpZiAobWVh
-c3VyZV9idWZfaGFzaCkgewo+PiArCQlkaWdlc3RfaWludC5pbWFfaGFzaCA9ICZkaWdlc3RfaGFz
-aC5oZHI7Cj4+ICsJCWRpZ2VzdF9paW50LmltYV9oYXNoLT5hbGdvID0gaW1hX2hhc2hfYWxnbzsK
-Pj4gKwkJZGlnZXN0X2lpbnQuaW1hX2hhc2gtPmxlbmd0aCA9IGhhc2hfZGlnZXN0X3NpemVbaW1h
-X2hhc2hfYWxnb107Cj4+ICsKPj4gKwkJcmV0ID0gaW1hX2NhbGNfYnVmZmVyX2hhc2goaGFzaC5o
-ZHIuZGlnZXN0LAo+PiArCQkJCQkgICBpaW50LmltYV9oYXNoLT5sZW5ndGgsCj4+ICsJCQkJCSAg
-IGRpZ2VzdF9paW50LmltYV9oYXNoKTsKPj4gKwkJaWYgKHJldCA8IDApIHsKPj4gKwkJCWF1ZGl0
-X2NhdXNlID0gImRpZ2VzdF9oYXNoaW5nX2Vycm9yIjsKPj4gKwkJCWdvdG8gb3V0Owo+PiArCQl9
-Cj4+ICsKPj4gKwkJZXZlbnRfZGF0YS5paW50ID0gJmRpZ2VzdF9paW50Owo+PiArCQlldmVudF9k
-YXRhLmJ1ZiA9IGhhc2guaGRyLmRpZ2VzdDsKPj4gKwkJZXZlbnRfZGF0YS5idWZfbGVuID0gaWlu
-dC5pbWFfaGFzaC0+bGVuZ3RoOwo+PiArCX0KPj4gKwo+IAo+IFRoZXJlIHNlZW1zIHRvIGJlIHNv
-bWUgY29kZSBhbmQgdmFyaWFibGUgZHVwbGljYXRpb24gYnkgZG9pbmcgaXQgdGhpcwo+IHdheS4g
-IENvcHlpbmcgdGhlIGNhbHVjbGF0ZWQgYnVmZmVyIGRhdGEgaGFzaCB0byBhIHRlbXBvcmFyeSBi
-dWZmZXIKPiBtaWdodCBlbGltaW5hdGUgaXQuCj4gCldpdGggdGhlIHdheSBpbWFfY2FsY19idWZm
-ZXJfaGFzaCgpIGlzIGltcGxlbWVudGVkLCBJIHdhcyBjb252aW5jZWQgdGhhdAp0aGUgdmFyaWFi
-bGUgZHVwbGljYXRpb24gd2FzIG5lZWRlZC4gSSBkaWRuJ3Qgd2FudCB0byB3cml0ZSBhIGhlbHBl
-ciAKZnVuY3Rpb24gaW4gb3JkZXIgdG8gbWluaW1pemUgdGhlIHVubmVjZXNzYXJ5IGNvZGUgY2h1
-cm4gaW4gcF9iX20oKS4KQnV0IEkgd2lsbCByZXZpc2l0IHRoaXMgdG8gc2VlIGhvdyBJIGNhbiBy
-ZWR1Y2UgdGhlIGNvZGUgYW5kIHZhcmlhYmxlIApkdXBsaWNhdGlvbi4KClRoYW5rcyBmb3IgdGhl
-IGZlZWRiYWNrLgo+PiAgIAlyZXQgPSBpbWFfYWxsb2NfaW5pdF90ZW1wbGF0ZSgmZXZlbnRfZGF0
-YSwgJmVudHJ5LCB0ZW1wbGF0ZSk7Cj4+ICAgCWlmIChyZXQgPCAwKSB7Cj4+ICAgCQlhdWRpdF9j
-YXVzZSA9ICJhbGxvY19lbnRyeSI7CgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVs
-QHJlZGhhdC5jb20KaHR0cHM6Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRl
-dmVs
+> -----Original Message-----
+> From: Ard Biesheuvel <ardb@kernel.org>
+> Sent: Friday, September 11, 2020 6:30 PM
+> To: Van Leeuwen, Pascal <pvanleeuwen@rambus.com>; dm-devel@redhat.com; Milan Broz <gmazyland@gmail.com>
+> Cc: linux-crypto@vger.kernel.org; herbert@gondor.apana.org.au; ebiggers@kernel.org
+> Subject: Re: [PATCH] crypto: mark unused ciphers as obsolete
+>
+> <<< External Email >>>
+> (cc Milan and dm-devel)
+>
+> On Fri, 11 Sep 2020 at 19:24, Van Leeuwen, Pascal
+> <pvanleeuwen@rambus.com> wrote:
+> >
+> > > -----Original Message-----
+> > > From: linux-crypto-owner@vger.kernel.org <linux-crypto-owner@vger.kernel.org> On Behalf Of Ard Biesheuvel
+> > > Sent: Friday, September 11, 2020 4:11 PM
+> > > To: linux-crypto@vger.kernel.org
+> > > Cc: herbert@gondor.apana.org.au; ebiggers@kernel.org; Ard Biesheuvel <ardb@kernel.org>
+> > > Subject: [PATCH] crypto: mark unused ciphers as obsolete
+> > >
+> > > <<< External Email >>>
+> > > We have a few interesting pieces in our cipher museum, which are never
+> > > used internally, and were only ever provided as generic C implementations.
+> > >
+> > > Unfortunately, we cannot simply remove this code, as we cannot be sure
+> > > that it is not being used via the AF_ALG socket API, however unlikely.
+> > > So let's mark the Anubis, Khazad, SEED and TEA algorithms as obsolete,
+> > >
+> > Wouldn't the IKE deamon be able to utilize these algorithms through the XFRM API?
+> > I'm by no means an expert on the subject, but it looks like the cipher template is
+> > provided there directly via XFRM, so it does not need to live in the kernel source.
+> > And I know for a fact that SEED is being used for IPsec (and TLS) in Korea.
+> >
+>
+> I have been staring at net/xfrm/xfrm_algo.c, and as far as I can tell,
+> algorithms have to be mentioned there in order to be usable. None of
+> the ciphers that this patch touches are listed there or anywhere else
+> in the kernel.
+>
+Hmmm ... good point. Wasn't aware XFRM was actively allowing only a subset.
+Actually found this commented out code in my Pluto source (kernel_netlink.c):
+
+/*
+ * Not yet implemented in Linux kernel xfrm_algo.c
+{ SADB_X_EALG_SEEDCBC, "cbc(seed)" },
+ */
+
+Go figure.
+
+> > The point being, there are more users to consider beyond "internal" (meaning hard
+> > coded in the kernel source in this context?) and AF_ALG.
+> >
+>
+> That is a good point, actually, since dm-crypt could be affected here
+> as well, hence the CCs.
+>
+> Milan (or others): are you aware of any of these ciphers being used
+> for dm-crypt?
+>
+>
+> > I'm not aware of any real use cases for Anubis, Khazad and TEA though.
+> >
+>
+> OK, thanks for confirming. Removing those would be a good start.
+>
+> > > which means they can only be enabled in the build if the socket API is
+> > > enabled in the first place.
+> > >
+> > > Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> > > ---
+> > > Hopefully, I will be able to convince the distro kernel maintainers to
+> > > disable CRYPTO_USER_API_ENABLE_OBSOLETE in their v5.10+ builds once the
+> > > iwd changes for arc4 make it downstream (Debian already has an updated
+> > > version in its unstable distro). With the joint coverage of their QA,
+> > > we should be able to confirm that these algos are never used, and
+> > > actually remove them altogether.
+> > >
+> > >  crypto/Kconfig | 4 ++++
+> > >  1 file changed, 4 insertions(+)
+> > >
+> > > diff --git a/crypto/Kconfig b/crypto/Kconfig
+> > > index e85d8a059489..fac10143d23f 100644
+> > > --- a/crypto/Kconfig
+> > > +++ b/crypto/Kconfig
+> > > @@ -1185,6 +1185,7 @@ config CRYPTO_AES_PPC_SPE
+> > >
+> > >  config CRYPTO_ANUBIS
+> > >  tristate "Anubis cipher algorithm"
+> > > +depends on CRYPTO_USER_API_ENABLE_OBSOLETE
+> > >  select CRYPTO_ALGAPI
+> > >  help
+> > >    Anubis cipher algorithm.
+> > > @@ -1424,6 +1425,7 @@ config CRYPTO_FCRYPT
+> > >
+> > >  config CRYPTO_KHAZAD
+> > >  tristate "Khazad cipher algorithm"
+> > > +depends on CRYPTO_USER_API_ENABLE_OBSOLETE
+> > >  select CRYPTO_ALGAPI
+> > >  help
+> > >    Khazad cipher algorithm.
+> > > @@ -1487,6 +1489,7 @@ config CRYPTO_CHACHA_MIPS
+> > >
+> > >  config CRYPTO_SEED
+> > >  tristate "SEED cipher algorithm"
+> > > +depends on CRYPTO_USER_API_ENABLE_OBSOLETE
+> > >  select CRYPTO_ALGAPI
+> > >  help
+> > >    SEED cipher algorithm (RFC4269).
+> > > @@ -1613,6 +1616,7 @@ config CRYPTO_SM4
+> > >
+> > >  config CRYPTO_TEA
+> > >  tristate "TEA, XTEA and XETA cipher algorithms"
+> > > +depends on CRYPTO_USER_API_ENABLE_OBSOLETE
+> > >  select CRYPTO_ALGAPI
+> > >  help
+> > >    TEA cipher algorithm.
+> > > --
+> > > 2.17.1
+> >
+> > Regards,
+> > Pascal van Leeuwen
+> > Silicon IP Architect Multi-Protocol Engines, Rambus Security
+> > Rambus ROTW Holding BV
+> > +31-73 6581953
+> >
+> > Note: The Inside Secure/Verimatrix Silicon IP team was recently acquired by Rambus.
+> > Please be so kind to update your e-mail address book with my new e-mail address.
+> >
+> >
+> > ** This message and any attachments are for the sole use of the intended recipient(s). It may contain information that is
+> confidential and privileged. If you are not the intended recipient of this message, you are prohibited from printing, copying,
+> forwarding or saving it. Please delete the message and attachments and notify the sender immediately. **
+> >
+> > Rambus Inc.<http://www.rambus.com>
+
+Regards,
+Pascal van Leeuwen
+Silicon IP Architect Multi-Protocol Engines, Rambus Security
+Rambus ROTW Holding BV
++31-73 6581953
+
+Note: The Inside Secure/Verimatrix Silicon IP team was recently acquired by Rambus.
+Please be so kind to update your e-mail address book with my new e-mail address.
+
+
+** This message and any attachments are for the sole use of the intended recipient(s). It may contain information that is confidential and privileged. If you are not the intended recipient of this message, you are prohibited from printing, copying, forwarding or saving it. Please delete the message and attachments and notify the sender immediately. **
+
+Rambus Inc.<http://www.rambus.com>
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
