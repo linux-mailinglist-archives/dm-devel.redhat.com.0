@@ -2,90 +2,63 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id CD8932685BD
-	for <lists+dm-devel@lfdr.de>; Mon, 14 Sep 2020 09:24:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 45ED72685C3
+	for <lists+dm-devel@lfdr.de>; Mon, 14 Sep 2020 09:25:03 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-215-KDVj9PoGOHa_wTqZKSMf-w-1; Mon, 14 Sep 2020 03:24:23 -0400
-X-MC-Unique: KDVj9PoGOHa_wTqZKSMf-w-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-581-bVUbTPkYNBWxE1yq2dnZzA-1; Mon, 14 Sep 2020 03:24:25 -0400
+X-MC-Unique: bVUbTPkYNBWxE1yq2dnZzA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2799F1882FB5;
-	Mon, 14 Sep 2020 07:24:18 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 02AF960F96;
-	Mon, 14 Sep 2020 07:24:18 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 08ADD1074656;
+	Mon, 14 Sep 2020 07:24:20 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D60E91A8EC;
+	Mon, 14 Sep 2020 07:24:19 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A19D21832FDC;
-	Mon, 14 Sep 2020 07:24:15 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8BDBE8C7C1;
+	Mon, 14 Sep 2020 07:24:19 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08AMGOh5009808 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 10 Sep 2020 18:16:24 -0400
+	id 08BGJElf016028 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 11 Sep 2020 12:19:14 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8433B1006186; Thu, 10 Sep 2020 22:16:24 +0000 (UTC)
+	id 5550810ABCA6; Fri, 11 Sep 2020 16:19:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F5F81121330
-	for <dm-devel@redhat.com>; Thu, 10 Sep 2020 22:16:22 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 50ABC10ABCA2
+	for <dm-devel@redhat.com>; Fri, 11 Sep 2020 16:19:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2C069811E76
-	for <dm-devel@redhat.com>; Thu, 10 Sep 2020 22:16:22 +0000 (UTC)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-223-K-u5FfbhO628jLfiwgJdVg-1; Thu, 10 Sep 2020 18:16:20 -0400
-X-MC-Unique: K-u5FfbhO628jLfiwgJdVg-1
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
-	by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	08AJO3dK188331; Thu, 10 Sep 2020 19:29:51 GMT
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
-	by userp2120.oracle.com with ESMTP id 33c3ana368-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=FAIL); Thu, 10 Sep 2020 19:29:51 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
-	by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	08AJP9oH135955; Thu, 10 Sep 2020 19:29:50 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
-	by aserp3020.oracle.com with ESMTP id 33cmkajt7a-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 10 Sep 2020 19:29:50 +0000
-Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
-	by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 08AJTnSN018042;
-	Thu, 10 Sep 2020 19:29:49 GMT
-Received: from [10.191.236.131] (/10.191.236.131)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Thu, 10 Sep 2020 12:29:48 -0700
-To: Mike Snitzer <snitzer@redhat.com>
-References: <529c2394-1b58-b9d8-d462-1f3de1b78ac8@oracle.com>
-	<20200910142438.GA21919@redhat.com>
-From: Vijayendra Suman <vijayendra.suman@oracle.com>
-Organization: Oracle Corporation
-Message-ID: <5261af10-bf5c-f768-dbeb-2e784a5823f9@oracle.com>
-Date: Fri, 11 Sep 2020 00:59:43 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
-	Thunderbird/68.11.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E899A18AE947
+	for <dm-devel@redhat.com>; Fri, 11 Sep 2020 16:19:09 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
+	relay.mimecast.com with ESMTP id us-mta-467-ZaJJpxXSP72IzQtJ_iuYSA-1;
+	Fri, 11 Sep 2020 12:19:04 -0400
+X-MC-Unique: ZaJJpxXSP72IzQtJ_iuYSA-1
+Received: from [192.168.86.21] (c-71-197-163-6.hsd1.wa.comcast.net
+	[71.197.163.6])
+	by linux.microsoft.com (Postfix) with ESMTPSA id BADE820716FA;
+	Fri, 11 Sep 2020 09:19:02 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com BADE820716FA
+To: Mimi Zohar <zohar@linux.ibm.com>, stephen.smalley.work@gmail.com,
+	casey@schaufler-ca.com, agk@redhat.com, snitzer@redhat.com,
+	gmazyland@gmail.com
+References: <20200828015704.6629-1-tusharsu@linux.microsoft.com>
+	<20200828015704.6629-2-tusharsu@linux.microsoft.com>
+	<4802c73c2ed22c64ea4f315d3115ead919c3205e.camel@linux.ibm.com>
+From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+Message-ID: <1a456a10-bb49-206b-9fb9-cc996eea6e29@linux.microsoft.com>
+Date: Fri, 11 Sep 2020 09:19:01 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200910142438.GA21919@redhat.com>
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9740
-	signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
-	malwarescore=0 phishscore=0
-	mlxlogscore=999 bulkscore=0 adultscore=0 mlxscore=0 suspectscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2006250000 definitions=main-2009100177
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9740
-	signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
-	priorityscore=1501
-	clxscore=1011 bulkscore=0 malwarescore=0 lowpriorityscore=0
-	mlxlogscore=999 suspectscore=0 adultscore=0 mlxscore=0 impostorscore=0
-	spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2006250000 definitions=main-2009100177
+In-Reply-To: <4802c73c2ed22c64ea4f315d3115ead919c3205e.camel@linux.ibm.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -95,13 +68,16 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 08BGJElf016028
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 14 Sep 2020 03:23:33 -0400
-Cc: linux-block@vger.kernel.org,
-	Somu Krishnasamy <somasundaram.krishnasamy@oracle.com>,
-	dm-devel@redhat.com, RAMANAN_GOVINDARAJAN <ramanan.govindarajan@oracle.com>
-Subject: Re: [dm-devel] Revert "dm: always call blk_queue_split() in
-	dm_process_bio()"
+Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
+	jmorris@namei.org, linux-kernel@vger.kernel.org,
+	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
+	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH v3 1/6] IMA: generalize keyring specific
+ measurement constructs
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -115,104 +91,73 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.002
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Content-Language: en-US
 
-Hello Mike,
-
-I checked with upstream, performance measurement is similar and shows 
-performance improvement when 120c9257f5f19e5d1e87efcbb5531b7cd81b7d74 is 
-reverted.
-
-On 9/10/2020 7:54 PM, Mike Snitzer wrote:
-> [cc'ing dm-devel and linux-block because this is upstream concern too]
->
-> On Wed, Sep 09 2020 at  1:00pm -0400,
-> Vijayendra Suman <vijayendra.suman@oracle.com> wrote:
->
->>     Hello Mike,
->>
->>     While Running pgbench tool with  5.4.17 kernel build
->>
->>     Following performance degrade is found out
->>
->>     buffer read/write metric : -17.2%
->>     cache read/write metric : -18.7%
->>     disk read/write metric : -19%
->>
->>     buffer
->>     number of transactions actually processed: 840972
->>     latency average = 24.013 ms
->>     tps = 4664.153934 (including connections establishing)
->>     tps = 4664.421492 (excluding connections establishing)
->>
->>     cache
->>     number of transactions actually processed: 551345
->>     latency average = 36.949 ms
->>     tps = 3031.223905 (including connections establishing)
->>     tps = 3031.402581 (excluding connections establishing)
->>
->>     After revert of Commit
->>     2892100bc85ae446088cebe0c00ba9b194c0ac9d ( Revert "dm: always call
->>     blk_queue_split() in dm_process_bio()")
-> I assume 2892100bc85ae446088cebe0c00ba9b194c0ac9d is 5.4-stable's
-> backport of upstream commit 120c9257f5f19e5d1e87efcbb5531b7cd81b7d74 ?
-Yes
->>     Performance is Counter measurement
->>
->>     buffer ->
->>     number of transactions actually processed: 1135735
->>     latency average = 17.799 ms
->>     tps = 6292.586749 (including connections establishing)
->>     tps = 6292.875089 (excluding connections establishing)
->>
->>     cache ->
->>     number of transactions actually processed: 648177
->>     latency average = 31.217 ms
->>     tps = 3587.755975 (including connections establishing)
->>     tps = 3587.966359 (excluding connections establishing)
->>
->>     Following is your commit
->>
->>     diff --git a/drivers/md/dm.c b/drivers/md/dm.c
->>     index cf71a2277d60..1e6e0c970e19 100644
->>     --- a/drivers/md/dm.c
->>     +++ b/drivers/md/dm.c
->>     @@ -1760,8 +1760,9 @@ static blk_qc_t dm_process_bio(struct mapped_device
->>     *md,
->>              * won't be imposed.
->>              */
->>             if (current->bio_list) {
->>     -               blk_queue_split(md->queue, &bio);
->>     -               if (!is_abnormal_io(bio))
->>     +               if (is_abnormal_io(bio))
->>     +                       blk_queue_split(md->queue, &bio);
->>     +               else
->>                             dm_queue_split(md, ti, &bio);
->>             }
->>
->>     Could you have a look if it is safe to revert this commit.
-> No, it really isn't a good idea given what was documented in the commit
-> header for commit 120c9257f5f19e5d1e87efcbb5531b7cd81b7d74 -- the
-> excessive splitting is not conducive to performance either.
->
-> So I think we need to identify _why_ reverting this commit is causing
-> such a performance improvement.  Why is calling blk_queue_split() before
-> dm_queue_split() benefiting your pgbench workload?
-Let me know if you want to check some patch.
->
-> Thanks,
-> Mike
->
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+CgpPbiAyMDIwLTA4LTMxIDQ6NTUgYS5tLiwgTWltaSBab2hhciB3cm90ZToKPiBPbiBUaHUsIDIw
+MjAtMDgtMjcgYXQgMTg6NTYgLTA3MDAsIFR1c2hhciBTdWdhbmRoaSB3cm90ZToKPj4gSU1BIGZ1
+bmN0aW9ucyBzdWNoIGFzIGltYV9tYXRjaF9rZXlyaW5nKCksIHByb2Nlc3NfYnVmZmVyX21lYXN1
+cmVtZW50KCksCj4+IGltYV9tYXRjaF9wb2xpY3koKSBldGMuIGhhbmRsZSBkYXRhIHNwZWNpZmlj
+IHRvIGtleXJpbmdzLiBDdXJyZW50bHksCj4+IHRoZXNlIGNvbnN0cnVjdHMgYXJlIG5vdCBnZW5l
+cmljIHRvIGhhbmRsZSBhbnkgZnVuYyBzcGVjaWZpYyBkYXRhLgo+PiBUaGlzIG1ha2VzIGl0IGhh
+cmRlciB0byBleHRlbmQgd2l0aG91dCBjb2RlIGR1cGxpY2F0aW9uLgo+Pgo+PiBSZWZhY3RvciB0
+aGUga2V5cmluZyBzcGVjaWZpYyBtZWFzdXJlbWVudCBjb25zdHJ1Y3RzIHRvIGJlIGdlbmVyaWMg
+YW5kCj4+IHJldXNhYmxlIGluIG90aGVyIG1lYXN1cmVtZW50IHNjZW5hcmlvcy4KPiAKPiBNb3N0
+bHkgdGhpcyBwYXRjaCBjaGFuZ2VzIHRoZSB2YXJpYWJsZSBuYW1lIGZyb20ga2V5cmluZyB0byBm
+dW5jX2RhdGEsCj4gd2hpY2ggaXMgZ29vZC4gIE90aGVyIGNoYW5nZXMgc2hvdWxkIGJlIG1pbmlt
+aXplZC4KPiAKVGhlIG9ubHkgb3RoZXIgY2hhbmdlIGluIHRoaXMgcGF0Y2ggaXMgaW50cm9kdWN0
+aW9uIG9mCmJvb2wgYWxsb3dfZW1wdHlfb3B0X2xpc3QsIHdoaWNoIGlzIG5lZWRlZCBhcyBwZXIg
+bXkgY29tbWVudCBiZWxvdy4KCk1heWJlIEkgY2FuIG1vdmUgImFsbG93X2VtcHR5X29wdF9saXN0
+IiB0byBhIG5ldyBwYXRjaCBhZnRlciB0aGlzIG9uZSBpbgp0aGlzIHNlcmllcy4KCj4+Cj4+IFNp
+Z25lZC1vZmYtYnk6IFR1c2hhciBTdWdhbmRoaSA8dHVzaGFyc3VAbGludXgubWljcm9zb2Z0LmNv
+bT4KPj4gLS0tCj4gCj4gPHNuaXA+Cj4gCj4+IGRpZmYgLS1naXQgYS9zZWN1cml0eS9pbnRlZ3Jp
+dHkvaW1hL2ltYV9wb2xpY3kuYyBiL3NlY3VyaXR5L2ludGVncml0eS9pbWEvaW1hX3BvbGljeS5j
+Cj4+IGluZGV4IGZlMWRmMzczYzExMy4uODg2NmU4NGQwMDYyIDEwMDY0NAo+PiAtLS0gYS9zZWN1
+cml0eS9pbnRlZ3JpdHkvaW1hL2ltYV9wb2xpY3kuYwo+PiArKysgYi9zZWN1cml0eS9pbnRlZ3Jp
+dHkvaW1hL2ltYV9wb2xpY3kuYwo+PiBAQCAtNDUxLDE1ICs0NTEsMjEgQEAgaW50IGltYV9sc21f
+cG9saWN5X2NoYW5nZShzdHJ1Y3Qgbm90aWZpZXJfYmxvY2sgKm5iLCB1bnNpZ25lZCBsb25nIGV2
+ZW50LAo+PiAgIH0KPj4gICAKPj4gICAvKioKPj4gLSAqIGltYV9tYXRjaF9rZXlyaW5nIC0gZGV0
+ZXJtaW5lIHdoZXRoZXIgdGhlIGtleXJpbmcgbWF0Y2hlcyB0aGUgbWVhc3VyZSBydWxlCj4+IC0g
+KiBAcnVsZTogYSBwb2ludGVyIHRvIGEgcnVsZQo+PiAtICogQGtleXJpbmc6IG5hbWUgb2YgdGhl
+IGtleXJpbmcgdG8gbWF0Y2ggYWdhaW5zdCB0aGUgbWVhc3VyZSBydWxlCj4+ICsgKiBpbWFfbWF0
+Y2hfcnVsZV9kYXRhIC0gZGV0ZXJtaW5lIHdoZXRoZXIgdGhlIGdpdmVuIGZ1bmNfZGF0YSBtYXRj
+aGVzCj4+ICsgKgkJCSB0aGUgbWVhc3VyZSBydWxlIGRhdGEKPj4gKyAqIEBydWxlOiBJTUEgcG9s
+aWN5IHJ1bGUKPj4gKyAqIEBvcHRfbGlzdDogcnVsZSBkYXRhIHRvIG1hdGNoIGZ1bmNfZGF0YSBh
+Z2FpbnN0Cj4+ICsgKiBAZnVuY19kYXRhOiBkYXRhIHRvIG1hdGNoIGFnYWluc3QgdGhlIG1lYXN1
+cmUgcnVsZSBkYXRhCj4+ICsgKiBAYWxsb3dfZW1wdHlfb3B0X2xpc3Q6IElmIHRydWUgbWF0Y2hl
+cyBhbGwgZnVuY19kYXRhCj4+ICAgICogQGNyZWQ6IGEgcG9pbnRlciB0byBhIGNyZWRlbnRpYWxz
+IHN0cnVjdHVyZSBmb3IgdXNlciB2YWxpZGF0aW9uCj4+ICAgICoKPj4gLSAqIFJldHVybnMgdHJ1
+ZSBpZiBrZXlyaW5nIG1hdGNoZXMgb25lIGluIHRoZSBydWxlLCBmYWxzZSBvdGhlcndpc2UuCj4+
+ICsgKiBSZXR1cm5zIHRydWUgaWYgZnVuY19kYXRhIG1hdGNoZXMgb25lIGluIHRoZSBydWxlLCBm
+YWxzZSBvdGhlcndpc2UuCj4+ICAgICovCj4+IC1zdGF0aWMgYm9vbCBpbWFfbWF0Y2hfa2V5cmlu
+ZyhzdHJ1Y3QgaW1hX3J1bGVfZW50cnkgKnJ1bGUsCj4+IC0JCQkgICAgICBjb25zdCBjaGFyICpr
+ZXlyaW5nLCBjb25zdCBzdHJ1Y3QgY3JlZCAqY3JlZCkKPj4gK3N0YXRpYyBib29sIGltYV9tYXRj
+aF9ydWxlX2RhdGEoc3RydWN0IGltYV9ydWxlX2VudHJ5ICpydWxlLAo+PiArCQkJCWNvbnN0IHN0
+cnVjdCBpbWFfcnVsZV9vcHRfbGlzdCAqb3B0X2xpc3QsCj4gCj4gT2sKPiAKPj4gKwkJCQljb25z
+dCBjaGFyICpmdW5jX2RhdGEsCj4+ICsJCQkJYm9vbCBhbGxvd19lbXB0eV9vcHRfbGlzdCwKPiAK
+PiBBcyB0aGUgcG9saWN5IGlzIGxvYWRlZCwgc2hvdWxkbid0IHRoZSBydWxlcyBzaG91bGQgYmUg
+Y2hlY2tlZCwgbm90Cj4gaGVyZSBvbiB1c2FnZT8KPiAKPiBNaW1pCgpTaW5jZSAia2V5cmluZ3M9
+IiBpcyBvcHRpb25hbCwgSSBjYW5ub3QgY2hlY2sgdGhlIHJ1bGUgYXQgbG9hZCB0aW1lIGZvcgpr
+ZXlyaW5ncy4gZnVuYz1LRVlfQ0hFQ0sgbWF5IG9yIG1heSBub3QgaGF2ZSAia2V5cmluZ3M9Iiwg
+YW5kIGJvdGggYXJlCnZhbGlkIHNjZW5hcmlvcy4KCkhvd2V2ZXIgImNyaXRpY2FsX2tlcm5lbF9k
+YXRhX3NvdXJjZXM9IiBpcyBtYW5kYXRvcnkgZm9yIApmdW5jPUNSSVRJQ0FMX0RBVEEuCgpTbyBJ
+IGFtIGFscmVhZHkgbWFraW5nIHRoYXQgY2hlY2sgYXQgcG9saWN5IGxvYWQgdGltZS4KClNlZSBw
+YXRjaCA1LzYg4oCTIGZ1bmN0aW9uIGltYV9tYXRjaF9ydWxlcygpLCB3aGVyZSBJIGNoZWNrIGZv
+cgpJTUFfREFUQV9TT1VSQ0VTLgoKKyAgICAgICBjYXNlIENSSVRJQ0FMX0RBVEE6CjxzbmlwPgor
+ICAgICAgICAgICAgICAgaWYgKCEoZW50cnktPmZsYWdzICYgSU1BX0RBVEFfU09VUkNFUykgfHwK
+PHNuaXA+CisgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBmYWxzZTsKKwoKU2luY2UgaW1h
+X21hdGNoX3J1bGVfZGF0YSAodGhpcyBmdW5jdGlvbikgaGFuZGxlcyBib3RoIGZ1bmM9S0VZX0NI
+RUNLIAphbmQgZnVuYz1DUklUSUNBTF9EQVRBLCB3ZSBoYXZlIHRvIHVzZSB0aGUgYm9vbCAiYWxs
+b3dfZW1wdHlfb3B0X2xpc3QiCnRvIGRpZmZlcmVudGlhdGUgYmV0d2VlbiB0aGUgdHdvIHNjZW5h
+cmlvcyDigJMgd2hldGhlciB0aGUgcnVsZSBpcwpvcHRpb25hbCBvciBub3QgZm9yIGEgZ2l2ZW4g
+ZnVuYy4KCj4gCj4+ICsJCQkJY29uc3Qgc3RydWN0IGNyZWQgKmNyZWQpCj4+ICAgewo+PiAgIAli
+b29sIG1hdGNoZWQgPSBmYWxzZTsKPj4gICAJc2l6ZV90IGk7Cj4+CgoKLS0KZG0tZGV2ZWwgbWFp
+bGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly93d3cucmVkaGF0LmNvbS9tYWls
+bWFuL2xpc3RpbmZvL2RtLWRldmVs
 
