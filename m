@@ -2,56 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 18B5626D49D
-	for <lists+dm-devel@lfdr.de>; Thu, 17 Sep 2020 09:25:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6481B26D4A4
+	for <lists+dm-devel@lfdr.de>; Thu, 17 Sep 2020 09:26:04 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-570-JKr0xB8dP8ezVAd9KG1IJw-1; Thu, 17 Sep 2020 03:25:49 -0400
-X-MC-Unique: JKr0xB8dP8ezVAd9KG1IJw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-205-NoUnBujXO3aDAvDyKYdfjw-1; Thu, 17 Sep 2020 03:25:52 -0400
+X-MC-Unique: NoUnBujXO3aDAvDyKYdfjw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 69C2264142;
-	Thu, 17 Sep 2020 07:25:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D8B9E84E241;
+	Thu, 17 Sep 2020 07:25:46 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1C69B19D6C;
-	Thu, 17 Sep 2020 07:25:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B154668874;
+	Thu, 17 Sep 2020 07:25:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7489F183D03D;
-	Thu, 17 Sep 2020 07:25:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3B73A183D041;
+	Thu, 17 Sep 2020 07:25:46 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08F9Bn1c029797 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 15 Sep 2020 05:11:49 -0400
+	id 08F97d6E029340 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 15 Sep 2020 05:07:39 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 43CBF2166B44; Tue, 15 Sep 2020 09:11:49 +0000 (UTC)
+	id 620011102E00; Tue, 15 Sep 2020 09:07:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3F46E2166B28
-	for <dm-devel@redhat.com>; Tue, 15 Sep 2020 09:11:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5CD471104E6E
+	for <dm-devel@redhat.com>; Tue, 15 Sep 2020 09:07:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 543BD801213
-	for <dm-devel@redhat.com>; Tue, 15 Sep 2020 09:11:46 +0000 (UTC)
-Received: from sender4-pp-o92.zoho.com (sender4-pp-o92.zoho.com
-	[136.143.188.92]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-201-c_GOzYApPW-p0mlrYuQDzg-1; Tue, 15 Sep 2020 05:11:44 -0400
-X-MC-Unique: c_GOzYApPW-p0mlrYuQDzg-1
-DomainKey-Signature: a=rsa-sha1; q=dns; c=nofws; s=zapps768; d=zoho.com; 
-	h=from:to:cc:subject:date:message-id; 
-	b=DvdrCa2LwGY4Hi7SqqGeqrpgUEhl0KpS+MRLlHqcdfTYtZl6IEwCGvuFR1PGw3xFEUF0ukUTwDb5
-	XgANupyT7OMG2MwRxgQmaCJesfVcXjIBQJ5fraQPhGbbVUV2XSip
-Received: from YEHS1XPF1D05WL.lenovo.com (60.247.104.78 [60.247.104.78]) by
-	mx.zohomail.com with SMTPS id 1600160188862947.0236886693741;
-	Tue, 15 Sep 2020 01:56:28 -0700 (PDT)
-From: Huaisheng Ye <yehs2007@zoho.com>
-To: snitzer@redhat.com, agk@redhat.com
-Date: Tue, 15 Sep 2020 16:56:08 +0800
-Message-Id: <20200915085608.13776-1-yehs2007@zoho.com>
-X-ZohoMailClient: External
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 00CE9800800
+	for <dm-devel@redhat.com>; Tue, 15 Sep 2020 09:07:37 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-156-UsUGW9gvOb6dToHnHn2E9Q-1;
+	Tue, 15 Sep 2020 05:07:35 -0400
+X-MC-Unique: UsUGW9gvOb6dToHnHn2E9Q-1
+IronPort-SDR: WHz/tBLXFnRhNcDkolLApY5mGuufBMRRrUU68LBnNeTfzEk4gQjvjC9FNgmFBj7Eg6ytGsqFsX
+	lxwU28RcgO3w==
+X-IronPort-AV: E=McAfee;i="6000,8403,9744"; a="139235592"
+X-IronPort-AV: E=Sophos;i="5.76,429,1592895600"; d="scan'208";a="139235592"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+	by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	15 Sep 2020 02:06:31 -0700
+IronPort-SDR: JN6muYTQqB3wm3kCXqk1xsORqKL94poqyPOQLwwV9SSOFBG1M/RLedvNq9ruyR1KSefDfAWvPJ
+	brvH/uTc728w==
+X-IronPort-AV: E=Sophos;i="5.76,429,1592895600"; d="scan'208";a="482690707"
+Received: from emoriart-mobl.ger.corp.intel.com (HELO localhost)
+	([10.252.7.208]) by orsmga005-auth.jf.intel.com with
+	ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2020 02:06:16 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Joe Perches <joe@perches.com>, LKML <linux-kernel@vger.kernel.org>,
+	Jiri Kosina <trivial@kernel.org>
+In-Reply-To: <e6387578c75736d61b2fe70d9783d91329a97eb4.camel@perches.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <e6387578c75736d61b2fe70d9783d91329a97eb4.camel@perches.com>
+Date: Tue, 15 Sep 2020 12:06:21 +0300
+Message-ID: <87d02nxvci.fsf@intel.com>
+MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -60,13 +73,35 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 17 Sep 2020 03:25:18 -0400
-Cc: dm-devel@redhat.com, linux-kernel@vger.kernel.org, tyu1@lenovo.com,
-	Huaisheng Ye <yehs1@lenovo.com>
-Subject: [dm-devel] [PATCH] dm thin metadata: Remove unused local variable
-	when create thin and snap
+Cc: linux-fbdev@vger.kernel.org, oss-drivers@netronome.com,
+	nouveau@lists.freedesktop.org, alsa-devel <alsa-devel@alsa-project.org>,
+	dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org,
+	linux-ide@vger.kernel.org, dm-devel@redhat.com,
+	linux-mtd@lists.infradead.org, linux-i2c@vger.kernel.org,
+	sparclinux@vger.kernel.org, linux-afs@lists.infradead.org,
+	linux-rtc@vger.kernel.org, linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org, dccp@vger.kernel.org,
+	linux-rdma@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
+	kvmarm@lists.cs.columbia.edu, coreteam@netfilter.org,
+	intel-wired-lan@lists.osuosl.org, linux-serial@vger.kernel.org,
+	linux-input@vger.kernel.org, linux-mmc@vger.kernel.org,
+	Kees Cook <kees.cook@canonical.com>, linux-media@vger.kernel.org,
+	linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	linux-nvme@lists.infradead.org, storagedev@microchip.com,
+	ceph-devel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	linux-nfs@vger.kernel.org, linux-parisc@vger.kernel.org,
+	netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-wireless@vger.kernel.org, linux-sctp@vger.kernel.org,
+	iommu@lists.linux-foundation.org,
+	netfilter-devel@vger.kernel.org, linux-crypto@vger.kernel.org,
+	bpf@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [dm-devel] [Intel-gfx] [trivial PATCH] treewide: Convert
+	switch/case fallthrough; to break;
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,78 +113,41 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0.001
+X-Mimecast-Spam-Score: 0.002
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Huaisheng Ye <yehs1@lenovo.com>
+On Wed, 09 Sep 2020, Joe Perches <joe@perches.com> wrote:
+> diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
+> index 5ac0dbf0e03d..35ac539cc2b1 100644
+> --- a/drivers/gpu/drm/i915/display/intel_sprite.c
+> +++ b/drivers/gpu/drm/i915/display/intel_sprite.c
+> @@ -2861,7 +2861,7 @@ static bool gen12_plane_format_mod_supported(struct drm_plane *_plane,
+>  	case I915_FORMAT_MOD_Y_TILED_GEN12_MC_CCS:
+>  		if (!gen12_plane_supports_mc_ccs(dev_priv, plane->id))
+>  			return false;
+> -		fallthrough;
+> +		break;
+>  	case DRM_FORMAT_MOD_LINEAR:
+>  	case I915_FORMAT_MOD_X_TILED:
+>  	case I915_FORMAT_MOD_Y_TILED:
 
-The local variable disk details is not used during the creating of thin & snap
-devices. Remove them from dm-thin-metadata, and add pointer validity check for
-pointer value in btree_lookup_raw. Skip memory copy when the caller doesn't need
-the value.
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 
-Signed-off-by: Huaisheng Ye <yehs1@lenovo.com>
----
- drivers/md/dm-thin-metadata.c         | 6 ++----
- drivers/md/persistent-data/dm-btree.c | 3 ++-
- 2 files changed, 4 insertions(+), 5 deletions(-)
+for merging via whichever tree seems best.
 
-diff --git a/drivers/md/dm-thin-metadata.c b/drivers/md/dm-thin-metadata.c
-index b461836..6ebb212 100644
---- a/drivers/md/dm-thin-metadata.c
-+++ b/drivers/md/dm-thin-metadata.c
-@@ -1051,12 +1051,11 @@ static int __create_thin(struct dm_pool_metadata *pmd,
- 	int r;
- 	dm_block_t dev_root;
- 	uint64_t key = dev;
--	struct disk_device_details details_le;
- 	struct dm_thin_device *td;
- 	__le64 value;
- 
- 	r = dm_btree_lookup(&pmd->details_info, pmd->details_root,
--			    &key, &details_le);
-+			    &key, NULL);
- 	if (!r)
- 		return -EEXIST;
- 
-@@ -1129,12 +1128,11 @@ static int __create_snap(struct dm_pool_metadata *pmd,
- 	dm_block_t origin_root;
- 	uint64_t key = origin, dev_key = dev;
- 	struct dm_thin_device *td;
--	struct disk_device_details details_le;
- 	__le64 value;
- 
- 	/* check this device is unused */
- 	r = dm_btree_lookup(&pmd->details_info, pmd->details_root,
--			    &dev_key, &details_le);
-+			    &dev_key, NULL);
- 	if (!r)
- 		return -EEXIST;
- 
-diff --git a/drivers/md/persistent-data/dm-btree.c b/drivers/md/persistent-data/dm-btree.c
-index 8aae062..ef6e78d 100644
---- a/drivers/md/persistent-data/dm-btree.c
-+++ b/drivers/md/persistent-data/dm-btree.c
-@@ -366,7 +366,8 @@ static int btree_lookup_raw(struct ro_spine *s, dm_block_t block, uint64_t key,
- 	} while (!(flags & LEAF_NODE));
- 
- 	*result_key = le64_to_cpu(ro_node(s)->keys[i]);
--	memcpy(v, value_ptr(ro_node(s), i), value_size);
-+	if (v)
-+		memcpy(v, value_ptr(ro_node(s), i), value_size);
- 
- 	return 0;
- }
+BR,
+Jani.
+
+
 -- 
-1.8.3.1
+Jani Nikula, Intel Open Source Graphics Center
 
 --
 dm-devel mailing list
