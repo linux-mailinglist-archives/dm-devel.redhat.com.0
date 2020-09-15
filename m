@@ -2,57 +2,57 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 6CE85269D82
-	for <lists+dm-devel@lfdr.de>; Tue, 15 Sep 2020 06:40:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B1D61269D83
+	for <lists+dm-devel@lfdr.de>; Tue, 15 Sep 2020 06:41:10 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-193-ZDUf0sp6PXuTvdBAeLvC-A-1; Tue, 15 Sep 2020 00:40:48 -0400
-X-MC-Unique: ZDUf0sp6PXuTvdBAeLvC-A-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-219-SdNG9vh8MnyVksJ0ZUulVg-1; Tue, 15 Sep 2020 00:41:07 -0400
+X-MC-Unique: SdNG9vh8MnyVksJ0ZUulVg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 90C131882FCB;
-	Tue, 15 Sep 2020 04:40:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A45A78030CD;
+	Tue, 15 Sep 2020 04:41:01 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 728F27B7AC;
-	Tue, 15 Sep 2020 04:40:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8272B60BE5;
+	Tue, 15 Sep 2020 04:41:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 24CBE1833001;
-	Tue, 15 Sep 2020 04:40:42 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3773E1833002;
+	Tue, 15 Sep 2020 04:41:01 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08F4eLUS032352 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 15 Sep 2020 00:40:21 -0400
+	id 08F4evKK032426 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 15 Sep 2020 00:40:57 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9A201200BC6D; Tue, 15 Sep 2020 04:40:21 +0000 (UTC)
+	id 8C26F110C583; Tue, 15 Sep 2020 04:40:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 93D7C2024508
-	for <dm-devel@redhat.com>; Tue, 15 Sep 2020 04:40:14 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 86CB5110C582
+	for <dm-devel@redhat.com>; Tue, 15 Sep 2020 04:40:55 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C051D858283
-	for <dm-devel@redhat.com>; Tue, 15 Sep 2020 04:40:14 +0000 (UTC)
-Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190]) (Using
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1076C101A53F
+	for <dm-devel@redhat.com>; Tue, 15 Sep 2020 04:40:55 +0000 (UTC)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-199-Gt0Ys1NDNb-BZAhDKldhPg-1; Tue, 15 Sep 2020 00:40:11 -0400
-X-MC-Unique: Gt0Ys1NDNb-BZAhDKldhPg-1
-Received: from DGGEMS406-HUB.china.huawei.com (unknown [172.30.72.59])
-	by Forcepoint Email with ESMTP id 10BC6C75A9350D05E859;
-	Tue, 15 Sep 2020 12:40:08 +0800 (CST)
+	us-mta-35-ynsqclKTMkSB_FGWfBqgfw-1; Tue, 15 Sep 2020 00:40:49 -0400
+X-MC-Unique: ynsqclKTMkSB_FGWfBqgfw-1
+Received: from DGGEMS403-HUB.china.huawei.com (unknown [172.30.72.59])
+	by Forcepoint Email with ESMTP id 137048E9A82A9317E766;
+	Tue, 15 Sep 2020 12:40:46 +0800 (CST)
 Received: from [10.174.178.208] (10.174.178.208) by
-	DGGEMS406-HUB.china.huawei.com (10.3.19.206) with Microsoft SMTP Server
-	id 14.3.487.0; Tue, 15 Sep 2020 12:39:59 +0800
+	DGGEMS403-HUB.china.huawei.com (10.3.19.203) with Microsoft SMTP Server
+	id 14.3.487.0; Tue, 15 Sep 2020 12:40:39 +0800
 From: lixiaokeng <lixiaokeng@huawei.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>, Martin Wilck
 	<mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, "dm-devel
 	mailing list" <dm-devel@redhat.com>
 References: <d89bc33d-8e5d-d194-3b26-83ff4d170c5c@huawei.com>
-Message-ID: <cf6ba543-dd8d-cbc9-b69d-a4e9efd0c7f9@huawei.com>
-Date: Tue, 15 Sep 2020 12:39:59 +0800
+Message-ID: <a47d7089-02c4-320b-9710-bc8cfd2fd14b@huawei.com>
+Date: Tue, 15 Sep 2020 12:40:39 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
 	Thunderbird/68.10.0
 MIME-Version: 1.0
@@ -67,12 +67,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 Cc: linfeilong <linfeilong@huawei.com>,
 	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
-Subject: [dm-devel] [PATCH 2/6] libmultipath: check udev* return value in
- ccw_sysfs_pathinfo
+Subject: [dm-devel] [PATCH 3/6] libmultipath: check udev* return value in
+ sysfs_get_tgt_nodename
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,7 +86,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.002
@@ -95,28 +95,38 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Language: en-GB
 
-We check the return value of udev_device_get_sysname.
+We check the return value of udev_device_get_parent and
+udev_device_get_sysname.
 
-Signed-off-by:Lixiaokeng<lixiaokeng@huawei.com>
+Signed-off-by:lixiaokeng<lixiaokeng@huawei.com>
 Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
 Signed-off-by: Linfeilong <linfeilong@huawei.com>
 ---
- libmultipath/discovery.c | 2 ++
- 1 file changed, 2 insertions(+)
+ libmultipath/discovery.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
-index 4264b0da..27cb67f8 100644
+index 27cb67f8..c490dddb 100644
 --- a/libmultipath/discovery.c
 +++ b/libmultipath/discovery.c
-@@ -1471,6 +1471,8 @@ ccw_sysfs_pathinfo (struct path *pp, const struct _vector *hwtable)
- 	 * host / bus / target / lun
- 	 */
- 	attr_path = udev_device_get_sysname(parent);
-+	if (attr_path)
-+		return PATHINFO_FAILED;
- 	pp->sg_id.lun = 0;
- 	if (sscanf(attr_path, "%i.%i.%x",
- 		   &pp->sg_id.host_no,
+@@ -356,7 +356,7 @@ sysfs_get_tgt_nodename(struct path *pp, char *node)
+ 		tgtdev = udev_device_get_parent(parent);
+ 		while (tgtdev) {
+ 			tgtname = udev_device_get_sysname(tgtdev);
+-			if (sscanf(tgtname, "end_device-%d:%d",
++			if (tgtname && sscanf(tgtname, "end_device-%d:%d",
+ 				   &host, &tgtid) == 2)
+ 				break;
+ 			tgtdev = udev_device_get_parent(tgtdev);
+@@ -389,7 +389,7 @@ sysfs_get_tgt_nodename(struct path *pp, char *node)
+ 	/* Check for FibreChannel */
+ 	tgtdev = udev_device_get_parent(parent);
+ 	value = udev_device_get_sysname(tgtdev);
+-	if (sscanf(value, "rport-%d:%d-%d",
++	if (value && sscanf(value, "rport-%d:%d-%d",
+ 		   &host, &channel, &tgtid) == 3) {
+ 		tgtdev = udev_device_new_from_subsystem_sysname(udev,
+ 				"fc_remote_ports", value);
 -- 
 
 --
