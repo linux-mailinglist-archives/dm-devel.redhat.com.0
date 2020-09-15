@@ -2,63 +2,61 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id BFB21269B38
-	for <lists+dm-devel@lfdr.de>; Tue, 15 Sep 2020 03:33:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A8142269B9A
+	for <lists+dm-devel@lfdr.de>; Tue, 15 Sep 2020 03:51:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1600133619;
+	s=mimecast20190719; t=1600134659;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vaKkhfMlaBPoXScfmh4a00v7NC2cL6W5KYg+bJKdp5w=;
-	b=h/16xgd5LMHOJqKkT2AgUUcqxllkhIf0ZfVQzUHpQ9affP1gQDR7fkD8uP+RIkjtLzElHl
-	xVN0zljwlFWgUOPqSDEAy6ZrcXvJGUB/x9QqZMHMYaKz2J6qTo8nFYKvEDAKqh1yVTofh6
-	c2xGgCtsBZwfdGTZIqUQ7AsFCyfXg+8=
+	bh=ZDv2NWV7BsDqtGtfFbTnCzB3qTGCIJUuLBA0ExGiJ8o=;
+	b=Mq5b3byajxS9XlzGL3VZues7oYs4/KIrJfFZThgDfU3RlbK9s/IZdzzRxj/QBMh1jL7op2
+	uIuh3nfXvxTevsoPoGbJHpJiHm+6vjtZ+OAtKS33lyLYwjuBfE3x6G5rDsvXbCMURUzgTC
+	xGmNNOKz55xo/uQMK5RJWwh2Pb/9MKY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-512-TADqAEW4MFmFkdYtjPI0og-1; Mon, 14 Sep 2020 21:33:37 -0400
-X-MC-Unique: TADqAEW4MFmFkdYtjPI0og-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-242-nFs5wUYROyOiRkBbDqufnA-1; Mon, 14 Sep 2020 21:50:57 -0400
+X-MC-Unique: nFs5wUYROyOiRkBbDqufnA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 33AF61007468;
-	Tue, 15 Sep 2020 01:33:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AE8C7801AAC;
+	Tue, 15 Sep 2020 01:50:51 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A2735F9D4;
-	Tue, 15 Sep 2020 01:33:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 961197B7AC;
+	Tue, 15 Sep 2020 01:50:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 505FB1832FF5;
-	Tue, 15 Sep 2020 01:33:21 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 98C3F1832FF6;
+	Tue, 15 Sep 2020 01:50:42 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08F1XCqo011223 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 14 Sep 2020 21:33:12 -0400
+	id 08F1oUPh012951 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 14 Sep 2020 21:50:30 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 887987848B; Tue, 15 Sep 2020 01:33:12 +0000 (UTC)
+	id A78AE5F9DF; Tue, 15 Sep 2020 01:50:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 59CD278482;
-	Tue, 15 Sep 2020 01:33:09 +0000 (UTC)
-Date: Mon, 14 Sep 2020 21:33:08 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: Vijayendra Suman <vijayendra.suman@oracle.com>
-Message-ID: <20200915013308.GA14877@redhat.com>
-References: <529c2394-1b58-b9d8-d462-1f3de1b78ac8@oracle.com>
-	<20200910142438.GA21919@redhat.com>
-	<5261af10-bf5c-f768-dbeb-2e784a5823f9@oracle.com>
+Received: from T590 (ovpn-12-38.pek2.redhat.com [10.72.12.38])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6612E5C3E0;
+	Tue, 15 Sep 2020 01:50:17 +0000 (UTC)
+Date: Tue, 15 Sep 2020 09:50:13 +0800
+From: Ming Lei <ming.lei@redhat.com>
+To: Mike Snitzer <snitzer@redhat.com>
+Message-ID: <20200915015013.GA738570@T590>
+References: <20200911215338.44805-1-snitzer@redhat.com>
+	<20200911215338.44805-2-snitzer@redhat.com>
+	<20200912135252.GA210077@T590> <20200914144928.GA14410@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <5261af10-bf5c-f768-dbeb-2e784a5823f9@oracle.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+In-Reply-To: <20200914144928.GA14410@redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-Cc: linux-block@vger.kernel.org,
-	Somu Krishnasamy <somasundaram.krishnasamy@oracle.com>,
-	dm-devel@redhat.com, RAMANAN_GOVINDARAJAN <ramanan.govindarajan@oracle.com>
-Subject: Re: [dm-devel] Revert "dm: always call blk_queue_split() in
-	dm_process_bio()"
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
+	Vijayendra Suman <vijayendra.suman@oracle.com>
+Subject: Re: [dm-devel] [PATCH 1/3] block: fix blk_rq_get_max_sectors() to
+ flow more carefully
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -72,7 +70,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.002
@@ -81,112 +79,122 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-On Thu, Sep 10 2020 at  3:29pm -0400,
-Vijayendra Suman <vijayendra.suman@oracle.com> wrote:
-
-> Hello Mike,
+On Mon, Sep 14, 2020 at 10:49:28AM -0400, Mike Snitzer wrote:
+> On Sat, Sep 12 2020 at  9:52am -0400,
+> Ming Lei <ming.lei@redhat.com> wrote:
 > 
-> I checked with upstream, performance measurement is similar and
-> shows performance improvement when
-> 120c9257f5f19e5d1e87efcbb5531b7cd81b7d74 is reverted.
+> > On Fri, Sep 11, 2020 at 05:53:36PM -0400, Mike Snitzer wrote:
+> > > blk_queue_get_max_sectors() has been trained for REQ_OP_WRITE_SAME and
+> > > REQ_OP_WRITE_ZEROES yet blk_rq_get_max_sectors() didn't call it for
+> > > those operations.
+> > 
+> > Actually WRITE_SAME & WRITE_ZEROS are handled by the following if
+> > chunk_sectors is set:
+> > 
+> >         return min(blk_max_size_offset(q, offset),
+> >                         blk_queue_get_max_sectors(q, req_op(rq)));
 > 
-> On 9/10/2020 7:54 PM, Mike Snitzer wrote:
-> >[cc'ing dm-devel and linux-block because this is upstream concern too]
-> >
-> >On Wed, Sep 09 2020 at  1:00pm -0400,
-> >Vijayendra Suman <vijayendra.suman@oracle.com> wrote:
-> >
-> >>    Hello Mike,
-> >>
-> >>    While Running pgbench tool with  5.4.17 kernel build
-> >>
-> >>    Following performance degrade is found out
-> >>
-> >>    buffer read/write metric : -17.2%
-> >>    cache read/write metric : -18.7%
-> >>    disk read/write metric : -19%
-> >>
-> >>    buffer
-> >>    number of transactions actually processed: 840972
-> >>    latency average = 24.013 ms
-> >>    tps = 4664.153934 (including connections establishing)
-> >>    tps = 4664.421492 (excluding connections establishing)
-> >>
-> >>    cache
-> >>    number of transactions actually processed: 551345
-> >>    latency average = 36.949 ms
-> >>    tps = 3031.223905 (including connections establishing)
-> >>    tps = 3031.402581 (excluding connections establishing)
-> >>
-> >>    After revert of Commit
-> >>    2892100bc85ae446088cebe0c00ba9b194c0ac9d ( Revert "dm: always call
-> >>    blk_queue_split() in dm_process_bio()")
-> >
-> >I assume 2892100bc85ae446088cebe0c00ba9b194c0ac9d is 5.4-stable's
-> >backport of upstream commit 120c9257f5f19e5d1e87efcbb5531b7cd81b7d74 ?
->
-> Yes
->
-> >>    Performance is Counter measurement
-> >>
-> >>    buffer ->
-> >>    number of transactions actually processed: 1135735
-> >>    latency average = 17.799 ms
-> >>    tps = 6292.586749 (including connections establishing)
-> >>    tps = 6292.875089 (excluding connections establishing)
-> >>
-> >>    cache ->
-> >>    number of transactions actually processed: 648177
-> >>    latency average = 31.217 ms
-> >>    tps = 3587.755975 (including connections establishing)
-> >>    tps = 3587.966359 (excluding connections establishing)
-> >>
-> >>    Following is your commit
-> >>
-> >>    diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-> >>    index cf71a2277d60..1e6e0c970e19 100644
-> >>    --- a/drivers/md/dm.c
-> >>    +++ b/drivers/md/dm.c
-> >>    @@ -1760,8 +1760,9 @@ static blk_qc_t dm_process_bio(struct mapped_device
-> >>    *md,
-> >>             * won't be imposed.
-> >>             */
-> >>            if (current->bio_list) {
-> >>    -               blk_queue_split(md->queue, &bio);
-> >>    -               if (!is_abnormal_io(bio))
-> >>    +               if (is_abnormal_io(bio))
-> >>    +                       blk_queue_split(md->queue, &bio);
-> >>    +               else
-> >>                            dm_queue_split(md, ti, &bio);
-> >>            }
-> >>
-> >>    Could you have a look if it is safe to revert this commit.
-> >No, it really isn't a good idea given what was documented in the commit
-> >header for commit 120c9257f5f19e5d1e87efcbb5531b7cd81b7d74 -- the
-> >excessive splitting is not conducive to performance either.
-> >
-> >So I think we need to identify _why_ reverting this commit is causing
-> >such a performance improvement.  Why is calling blk_queue_split() before
-> >dm_queue_split() benefiting your pgbench workload?
->
-> Let me know if you want to check some patch.
+> Yes, but blk_rq_get_max_sectors() is a bit of a mess structurally.  he
+> duality of imposing chunk_sectors and/or considering offset when
+> calculating the return is very confused.
+> 
+> > > Also, there is no need to avoid blk_max_size_offset() if
+> > > 'chunk_sectors' isn't set because it falls back to 'max_sectors'.
+> > > 
+> > > Signed-off-by: Mike Snitzer <snitzer@redhat.com>
+> > > ---
+> > >  include/linux/blkdev.h | 19 +++++++++++++------
+> > >  1 file changed, 13 insertions(+), 6 deletions(-)
+> > > 
+> > > diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+> > > index bb5636cc17b9..453a3d735d66 100644
+> > > --- a/include/linux/blkdev.h
+> > > +++ b/include/linux/blkdev.h
+> > > @@ -1070,17 +1070,24 @@ static inline unsigned int blk_rq_get_max_sectors(struct request *rq,
+> > >  						  sector_t offset)
+> > >  {
+> > >  	struct request_queue *q = rq->q;
+> > > +	int op;
+> > > +	unsigned int max_sectors;
+> > >  
+> > >  	if (blk_rq_is_passthrough(rq))
+> > >  		return q->limits.max_hw_sectors;
+> > >  
+> > > -	if (!q->limits.chunk_sectors ||
+> > > -	    req_op(rq) == REQ_OP_DISCARD ||
+> > > -	    req_op(rq) == REQ_OP_SECURE_ERASE)
+> > > -		return blk_queue_get_max_sectors(q, req_op(rq));
+> > > +	op = req_op(rq);
+> > > +	max_sectors = blk_queue_get_max_sectors(q, op);
+> > >  
+> > > -	return min(blk_max_size_offset(q, offset),
+> > > -			blk_queue_get_max_sectors(q, req_op(rq)));
+> > > +	switch (op) {
+> > > +	case REQ_OP_DISCARD:
+> > > +	case REQ_OP_SECURE_ERASE:
+> > > +	case REQ_OP_WRITE_SAME:
+> > > +	case REQ_OP_WRITE_ZEROES:
+> > > +		return max_sectors;
+> > > +	}
+> > > +
+> > > +	return min(blk_max_size_offset(q, offset), max_sectors);
+> > >  }
+> > 
+> > It depends if offset & chunk_sectors limit for WRITE_SAME & WRITE_ZEROS
+> > needs to be considered.
+> 
+> Yes, I see that now.  But why don't they need to be considered for
+> REQ_OP_DISCARD and REQ_OP_SECURE_ERASE?
 
-Hi,
+This behavior is introduced int the following commit, and I guess it is
+because we support multi-range discard request, maybe Jens can explain more.
 
-Could you please test this branch?:
-https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/log/?h=dm-5.10
-(or apply at least the first 4 patches, commit 63f85d97be69^..b6a80963621fa)
+commit e548ca4ee4595f65b262661d166310ad8a149bec
+Author: Jens Axboe <axboe@fb.com>
+Date:   Fri May 29 13:11:32 2015 -0600
 
-So far I've done various DM regression testing.  But I haven't tested
-with pgbench or with the misaaligned IO scenario documented in the
-header for commit 120c9257f5f19e5d1e87efcbb5531b7cd81b7d74.  But I'll
-test that scenario tomorrow.
+    block: don't honor chunk sizes for data-less IO
 
-Any chance you could provide some hints on how you're running pgbench
-just so I can try to test/reproduce/verify locally?
+    We don't need to honor chunk sizes for IO that doesn't carry any
+    data.
+
+    Signed-off-by: Jens Axboe <axboe@fb.com>
+
+> Is it because the intent of the
+> block core is to offer late splitting of bios?
+
+block layer doesn't have late bio splitting, and bio is only splitted
+via __blk_queue_split() before allocating request.
+
+blk_rq_get_max_sectors() is only called by rq merge code, actually it
+should have been defined in block/blk.h instead of public header.
+
+> If so, then why impose
+> chunk_sectors so early?
+
+Not sure I understand your question. 'chunk_sectors' is firstly used
+during bio split(get_max_io_size() from blk_bio_segment_split()), 
+
+> 
+> Obviously this patch 1/3 should be dropped.  I didn't treat
+> chunk_sectors with proper priority.
+> 
+> But like I said above, blk_rq_get_max_sectors() vs blk_max_size_offset()
+> is not at all straight-forward.  And the code looks prone to imposing
+> limits that shouldn't be (or vice-versa).
+> 
+> Also, when falling back to max_sectors, why not consider offset to treat
+> max_sectors like a granularity?  Would allow for much more consistent IO
+> patterns.
+
+blk_rq_get_max_sectors() is called when one bio or rq can be merged to
+current request, and we have already considered all kinds of queue limits
+when doing bio splitting, so not necessary to consider it again here during
+merging rq.
+
 
 Thanks,
-Mike
+Ming
 
 --
 dm-devel mailing list
