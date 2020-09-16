@@ -1,75 +1,63 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id AEAC726BB2C
-	for <lists+dm-devel@lfdr.de>; Wed, 16 Sep 2020 05:54:37 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 4E29926BE84
+	for <lists+dm-devel@lfdr.de>; Wed, 16 Sep 2020 09:52:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1600242724;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=EIc6W2s3KR80LmyKHfTTFhTlLu7hfoRxBKvui88d5bk=;
+	b=iLe8WBpnNT6IGqHuMeGuRMlMHlZPPoWoBCWNL/GRA14m4RF/IrjKOnHx0ErwiALfzW30xV
+	dGiPFDP4IDbwO4FODV9U7gQATXvRbj0SW2BJijgfSs7JzFp7zsoN5lDauWKFAxS/bgRbBd
+	nC8g+ys1mfd3xm/yJODAmIrIEL7nMn0=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-529-xyWK7mzoNg6wKwBOpwjKsQ-1; Tue, 15 Sep 2020 23:54:33 -0400
-X-MC-Unique: xyWK7mzoNg6wKwBOpwjKsQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-314-1Mctu1JBNq-MFLCW0uvenA-1; Wed, 16 Sep 2020 03:52:02 -0400
+X-MC-Unique: 1Mctu1JBNq-MFLCW0uvenA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 022F81868423;
-	Wed, 16 Sep 2020 03:54:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9474F1868420;
+	Wed, 16 Sep 2020 07:51:53 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D4F56171F9;
-	Wed, 16 Sep 2020 03:54:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8C58219C71;
+	Wed, 16 Sep 2020 07:51:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8F210183D024;
-	Wed, 16 Sep 2020 03:54:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8E8FB183D029;
+	Wed, 16 Sep 2020 07:51:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08G3sDtJ001357 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 15 Sep 2020 23:54:13 -0400
+	id 08G7pJER027446 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 16 Sep 2020 03:51:19 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1ABF1AB40A; Wed, 16 Sep 2020 03:54:13 +0000 (UTC)
+	id 27AD267CF0; Wed, 16 Sep 2020 07:51:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 164B6B2791
-	for <dm-devel@redhat.com>; Wed, 16 Sep 2020 03:54:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9BA31858280
-	for <dm-devel@redhat.com>; Wed, 16 Sep 2020 03:54:10 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-541-gRVvx-hWMP6Wkvbkvh5-9Q-1;
-	Tue, 15 Sep 2020 23:54:08 -0400
-X-MC-Unique: gRVvx-hWMP6Wkvbkvh5-9Q-1
-Received: from sol.attlocal.net (172-10-235-113.lightspeed.sntcca.sbcglobal.net
-	[172.10.235.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id EC4FA221E7;
-	Wed, 16 Sep 2020 03:54:06 +0000 (UTC)
-From: Eric Biggers <ebiggers@kernel.org>
-To: linux-block@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
-Date: Tue, 15 Sep 2020 20:53:15 -0700
-Message-Id: <20200916035315.34046-4-ebiggers@kernel.org>
-In-Reply-To: <20200916035315.34046-1-ebiggers@kernel.org>
-References: <20200916035315.34046-1-ebiggers@kernel.org>
+Received: from T590 (ovpn-12-18.pek2.redhat.com [10.72.12.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C53F767CFF;
+	Wed, 16 Sep 2020 07:51:06 +0000 (UTC)
+Date: Wed, 16 Sep 2020 15:51:02 +0800
+From: Ming Lei <ming.lei@redhat.com>
+To: Mike Snitzer <snitzer@redhat.com>
+Message-ID: <20200916075102.GD791425@T590>
+References: <20200915172357.83215-1-snitzer@redhat.com>
+	<20200915172357.83215-5-snitzer@redhat.com>
+	<20200916010817.GB791425@T590> <20200916012813.GA23236@redhat.com>
+	<20200916014802.GC791425@T590> <20200916033946.GB23236@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 08G3sDtJ001357
+In-Reply-To: <20200916033946.GB23236@redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-Cc: Miaohe Lin <linmiaohe@huawei.com>, dm-devel@redhat.com,
-	Satya Tangirala <satyat@google.com>
-Subject: [dm-devel] [PATCH v2 3/3] block: warn if !__GFP_DIRECT_RECLAIM in
-	bio_crypt_set_ctx()
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+	dm-devel@redhat.com, Vijayendra Suman <vijayendra.suman@oracle.com>
+Subject: Re: [dm-devel] [PATCH v2 4/4] dm: unconditionally call
+ blk_queue_split() in dm_process_bio()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,56 +71,155 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0.002
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-From: Eric Biggers <ebiggers@google.com>
+On Tue, Sep 15, 2020 at 11:39:46PM -0400, Mike Snitzer wrote:
+> On Tue, Sep 15 2020 at  9:48pm -0400,
+> Ming Lei <ming.lei@redhat.com> wrote:
+> 
+> > On Tue, Sep 15, 2020 at 09:28:14PM -0400, Mike Snitzer wrote:
+> > > On Tue, Sep 15 2020 at  9:08pm -0400,
+> > > Ming Lei <ming.lei@redhat.com> wrote:
+> > > 
+> > > > On Tue, Sep 15, 2020 at 01:23:57PM -0400, Mike Snitzer wrote:
+> > > > > blk_queue_split() has become compulsory from .submit_bio -- regardless
+> > > > > of whether it is recursing.  Update DM core to always call
+> > > > > blk_queue_split().
+> > > > > 
+> > > > > dm_queue_split() is removed because __split_and_process_bio() handles
+> > > > > splitting as needed.
+> > > > > 
+> > > > > Signed-off-by: Mike Snitzer <snitzer@redhat.com>
+> > > > > ---
+> > > > >  drivers/md/dm.c | 45 +--------------------------------------------
+> > > > >  1 file changed, 1 insertion(+), 44 deletions(-)
+> > > > > 
+> > > > > diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+> > > > > index fb0255d25e4b..0bae9f26dc8e 100644
+> > > > > --- a/drivers/md/dm.c
+> > > > > +++ b/drivers/md/dm.c
+> > > > > @@ -1530,22 +1530,6 @@ static int __send_write_zeroes(struct clone_info *ci, struct dm_target *ti)
+> > > > >  	return __send_changing_extent_only(ci, ti, get_num_write_zeroes_bios(ti));
+> > > > >  }
+> > > > >  
+> > > > > -static bool is_abnormal_io(struct bio *bio)
+> > > > > -{
+> > > > > -	bool r = false;
+> > > > > -
+> > > > > -	switch (bio_op(bio)) {
+> > > > > -	case REQ_OP_DISCARD:
+> > > > > -	case REQ_OP_SECURE_ERASE:
+> > > > > -	case REQ_OP_WRITE_SAME:
+> > > > > -	case REQ_OP_WRITE_ZEROES:
+> > > > > -		r = true;
+> > > > > -		break;
+> > > > > -	}
+> > > > > -
+> > > > > -	return r;
+> > > > > -}
+> > > > > -
+> > > > >  static bool __process_abnormal_io(struct clone_info *ci, struct dm_target *ti,
+> > > > >  				  int *result)
+> > > > >  {
+> > > > > @@ -1723,23 +1707,6 @@ static blk_qc_t __process_bio(struct mapped_device *md, struct dm_table *map,
+> > > > >  	return ret;
+> > > > >  }
+> > > > >  
+> > > > > -static void dm_queue_split(struct mapped_device *md, struct dm_target *ti, struct bio **bio)
+> > > > > -{
+> > > > > -	unsigned len, sector_count;
+> > > > > -
+> > > > > -	sector_count = bio_sectors(*bio);
+> > > > > -	len = min_t(sector_t, max_io_len((*bio)->bi_iter.bi_sector, ti), sector_count);
+> > > > > -
+> > > > > -	if (sector_count > len) {
+> > > > > -		struct bio *split = bio_split(*bio, len, GFP_NOIO, &md->queue->bio_split);
+> > > > > -
+> > > > > -		bio_chain(split, *bio);
+> > > > > -		trace_block_split(md->queue, split, (*bio)->bi_iter.bi_sector);
+> > > > > -		submit_bio_noacct(*bio);
+> > > > > -		*bio = split;
+> > > > > -	}
+> > > > > -}
+> > > > > -
+> > > > >  static blk_qc_t dm_process_bio(struct mapped_device *md,
+> > > > >  			       struct dm_table *map, struct bio *bio)
+> > > > >  {
+> > > > > @@ -1759,17 +1726,7 @@ static blk_qc_t dm_process_bio(struct mapped_device *md,
+> > > > >  		}
+> > > > >  	}
+> > > > >  
+> > > > > -	/*
+> > > > > -	 * If in ->queue_bio we need to use blk_queue_split(), otherwise
+> > > > > -	 * queue_limits for abnormal requests (e.g. discard, writesame, etc)
+> > > > > -	 * won't be imposed.
+> > > > > -	 */
+> > > > > -	if (current->bio_list) {
+> > > > > -		if (is_abnormal_io(bio))
+> > > > > -			blk_queue_split(&bio);
+> > > > > -		else
+> > > > > -			dm_queue_split(md, ti, &bio);
+> > > > > -	}
+> > > > > +	blk_queue_split(&bio);
+> > > > 
+> > > > In max_io_len(), target boundary is taken into account when figuring out
+> > > > the max io len. However, this info won't be used any more after
+> > > > switching to blk_queue_split(). Is that one potential problem?
+> > > 
+> > > Thanks for your review.  But no, as the patch header says:
+> > > "dm_queue_split() is removed because __split_and_process_bio() handles
+> > > splitting as needed."
+> > > 
+> > > (__split_and_process_non_flush calls max_io_len, as does
+> > > __process_abnormal_io by calling __send_changing_extent_only)
+> > > 
+> > > SO the blk_queue_split() bio will be further split if needed (due to
+> > > DM target boundary, etc).
+> > 
+> > Thanks for your explanation.
+> > 
+> > Then looks there is double split issue since both blk_queue_split()
+> > and __split_and_process_non_flush() may split bio from same bioset(md->queue->bio_split),
+> > and this way may cause deadlock, see comment of bio_alloc_bioset(), especially
+> > the paragraph of 'callers must never allocate more than 1 bio at a time
+> > from this pool.'
+> 
+> Next sentence is:
+> "Callers that need to allocate more than 1 bio must always submit the
+> previously allocated bio for IO before attempting to allocate a new
+> one."
 
-bio_crypt_set_ctx() assumes its gfp_mask argument always includes
-__GFP_DIRECT_RECLAIM, so that the mempool_alloc() will always succeed.
+Yeah, I know that. This sentence actually means that the previous
+submission should make forward progress, then the bio may be completed &
+freed, so that new allocation can move on.
 
-For now this assumption is still fine, since no callers violate it.
-Making bio_crypt_set_ctx() able to fail would add unneeded complexity.
+However, in this situation, __split_and_process_non_flush() doesn't
+provide such forward progress, see below.
 
-However, if a caller didn't use __GFP_DIRECT_RECLAIM, it would be very
-hard to notice the bug.  Make it easier by adding a WARN_ON_ONCE().
+> 
+> __split_and_process_non_flush -> __map_bio -> submit_bio_noacct
+> bio_split
+> submit_bio_noacct
 
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Satya Tangirala <satyat@google.com>
-Signed-off-by: Eric Biggers <ebiggers@google.com>
----
- block/blk-crypto.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Yeah, the above submission is done on clone bio & underlying queue. What
+matters is if the submission can make forward progress. After
+__split_and_process_non_flush() returns, the splitted 'bio'(original bio)
+can't be done by previous submission because this bio won't be freed until
+dec_pending() from __split_and_process_bio() returns.
 
-diff --git a/block/blk-crypto.c b/block/blk-crypto.c
-index bbe7974fd74f0..5da43f0973b46 100644
---- a/block/blk-crypto.c
-+++ b/block/blk-crypto.c
-@@ -81,7 +81,15 @@ subsys_initcall(bio_crypt_ctx_init);
- void bio_crypt_set_ctx(struct bio *bio, const struct blk_crypto_key *key,
- 		       const u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE], gfp_t gfp_mask)
- {
--	struct bio_crypt_ctx *bc = mempool_alloc(bio_crypt_ctx_pool, gfp_mask);
-+	struct bio_crypt_ctx *bc;
-+
-+	/*
-+	 * The caller must use a gfp_mask that contains __GFP_DIRECT_RECLAIM so
-+	 * that the mempool_alloc() can't fail.
-+	 */
-+	WARN_ON_ONCE(!(gfp_mask & __GFP_DIRECT_RECLAIM));
-+
-+	bc = mempool_alloc(bio_crypt_ctx_pool, gfp_mask);
- 
- 	bc->bc_key = key;
- 	memcpy(bc->bc_dun, dun, sizeof(bc->bc_dun));
--- 
-2.28.0
+So when ci.sector_count doesn't become zero, bio_split() is called again from
+the same bio_set for allocating new bio, the allocation may never be made because
+the original bio allocated from the same bio_set can't be freed during bio_split().
 
+Thanks, 
+Ming
 
 --
 dm-devel mailing list
