@@ -1,54 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [207.211.31.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 6213526C465
-	for <lists+dm-devel@lfdr.de>; Wed, 16 Sep 2020 17:40:07 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 5628B26C46B
+	for <lists+dm-devel@lfdr.de>; Wed, 16 Sep 2020 17:40:12 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-409-xYSx0TxvMB2-NiJbZSKjkA-1; Wed, 16 Sep 2020 11:40:03 -0400
-X-MC-Unique: xYSx0TxvMB2-NiJbZSKjkA-1
+ us-mta-297-uX5mmEKhMR-Z7mUfP0cdOA-1; Wed, 16 Sep 2020 11:40:08 -0400
+X-MC-Unique: uX5mmEKhMR-Z7mUfP0cdOA-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5700E88EF07;
-	Wed, 16 Sep 2020 15:39:53 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0A87A84E245;
+	Wed, 16 Sep 2020 15:40:01 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 360CB60CC0;
-	Wed, 16 Sep 2020 15:39:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D512C60E1C;
+	Wed, 16 Sep 2020 15:40:00 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E0CE1183D035;
-	Wed, 16 Sep 2020 15:39:52 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 87826183D036;
+	Wed, 16 Sep 2020 15:40:00 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08GFdWwp024209 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 16 Sep 2020 11:39:32 -0400
+	id 08GFdZnV024293 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 16 Sep 2020 11:39:35 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7E9C42157F25; Wed, 16 Sep 2020 15:39:32 +0000 (UTC)
+	id DFDB52016F2C; Wed, 16 Sep 2020 15:39:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 79E442166B27
-	for <dm-devel@redhat.com>; Wed, 16 Sep 2020 15:39:32 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DBB702026F94
+	for <dm-devel@redhat.com>; Wed, 16 Sep 2020 15:39:34 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5F535101AA43
-	for <dm-devel@redhat.com>; Wed, 16 Sep 2020 15:39:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C2939101AA45
+	for <dm-devel@redhat.com>; Wed, 16 Sep 2020 15:39:34 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-190-ochw2dMvMIqsjluv10oI2A-1;
-	Wed, 16 Sep 2020 11:39:29 -0400
-X-MC-Unique: ochw2dMvMIqsjluv10oI2A-1
+	relay.mimecast.com with ESMTP id us-mta-411-jCu8YrJ4PmKp8k5PbluEPA-1;
+	Wed, 16 Sep 2020 11:39:30 -0400
+X-MC-Unique: jCu8YrJ4PmKp8k5PbluEPA-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 5C660B3CA;
+	by mx2.suse.de (Postfix) with ESMTP id 95A23B3D5;
 	Wed, 16 Sep 2020 15:39:42 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed, 16 Sep 2020 17:37:17 +0200
-Message-Id: <20200916153718.582-19-mwilck@suse.com>
+Date: Wed, 16 Sep 2020 17:37:18 +0200
+Message-Id: <20200916153718.582-20-mwilck@suse.com>
 In-Reply-To: <20200916153718.582-1-mwilck@suse.com>
 References: <20200916153718.582-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -60,12 +61,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 08GFdWwp024209
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 08GFdZnV024293
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 18/19] multipath: remove logsink and udev
+Subject: [dm-devel] [PATCH 19/19] mpathpersist: remove logsink and udev
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,45 +90,52 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-We can use libmultipath's symbols now.
+We can use libmultipath's internal symbols now.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipath/main.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ mpathpersist/main.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/multipath/main.c b/multipath/main.c
-index 2f5ddd9..6a2a188 100644
---- a/multipath/main.c
-+++ b/multipath/main.c
-@@ -66,9 +66,6 @@
- #include "valid.h"
- #include "alias.h"
+diff --git a/mpathpersist/main.c b/mpathpersist/main.c
+index 0f0db4b..729857f 100644
+--- a/mpathpersist/main.c
++++ b/mpathpersist/main.c
+@@ -42,13 +42,10 @@ void * mpath_alloc_prin_response(int prin_sa);
+ void mpath_print_transport_id(struct prin_fulldescr *fdesc);
+ int construct_transportid(const char * inp, struct transportid transid[], int num_transportids);
  
 -int logsink;
--struct udev *udev;
 -
- /*
-  * Return values of configure(), check_path_valid(), and main().
-  */
-@@ -813,7 +810,7 @@ main (int argc, char *argv[])
- 	int retries = -1;
- 	bool enable_foreign = false;
+ void rcu_register_thread_memb(void) {}
+ 
+ void rcu_unregister_thread_memb(void) {}
+ 
+-struct udev *udev;
+ 
+ static int verbose, loglevel, noisy;
+ 
+@@ -608,16 +605,17 @@ int main(int argc, char *argv[])
+ 		exit (1);
+ 	}
  
 -	udev = udev_new();
-+	libmultipath_init();
- 	logsink = 0;
- 	if (init_config(DEFAULT_CONFIGFILE))
- 		exit(RTVL_FAIL);
-@@ -1071,7 +1068,7 @@ out_free_config:
- 	 */
- 	put_multipath_config(conf);
- 	uninit_config();
++	if (libmultipath_init())
++		exit(1);
+ 	if (libmpathpersist_init()) {
+-		udev_unref(udev);
++		libmultipath_exit();
+ 		exit(1);
+ 	}
+ 
+ 	ret = handle_args(argc, argv, 0);
+ 
+ 	libmpathpersist_exit();
 -	udev_unref(udev);
 +	libmultipath_exit();
- 	if (dev)
- 		FREE(dev);
- #ifdef _DEBUG_
+ 
+ 	return (ret >= 0) ? ret : MPATH_PR_OTHER;
+ }
 -- 
 2.28.0
 
