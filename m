@@ -2,77 +2,76 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 799E426FB4F
-	for <lists+dm-devel@lfdr.de>; Fri, 18 Sep 2020 13:21:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 518B926FB4D
+	for <lists+dm-devel@lfdr.de>; Fri, 18 Sep 2020 13:21:27 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-537-T7lVwEaKNqeleC8V23sIQQ-1; Fri, 18 Sep 2020 07:21:24 -0400
-X-MC-Unique: T7lVwEaKNqeleC8V23sIQQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-587-ssNlfa37PAOJ4vBdKY_dbw-1; Fri, 18 Sep 2020 07:21:24 -0400
+X-MC-Unique: ssNlfa37PAOJ4vBdKY_dbw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C7230100A448;
-	Fri, 18 Sep 2020 11:21:00 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9FC0C108872D;
+	Fri, 18 Sep 2020 11:21:01 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EB3233782;
-	Fri, 18 Sep 2020 11:20:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7DFED73672;
+	Fri, 18 Sep 2020 11:21:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E035E44A7F;
-	Fri, 18 Sep 2020 11:20:55 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B1F9E8C7AA;
+	Fri, 18 Sep 2020 11:21:00 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08HMI3qf026452 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 17 Sep 2020 18:18:03 -0400
+	id 08HMJfV8026605 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 17 Sep 2020 18:19:41 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2B87E115DA6; Thu, 17 Sep 2020 22:18:03 +0000 (UTC)
+	id 179B62156A30; Thu, 17 Sep 2020 22:19:41 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 270E1115DA2
-	for <dm-devel@redhat.com>; Thu, 17 Sep 2020 22:18:01 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1158D2156A2D
+	for <dm-devel@redhat.com>; Thu, 17 Sep 2020 22:19:37 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1B8F98007A4
-	for <dm-devel@redhat.com>; Thu, 17 Sep 2020 22:18:01 +0000 (UTC)
-Received: from mail-pl1-f194.google.com (mail-pl1-f194.google.com
-	[209.85.214.194]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-132-XC224IUlO2mwOgo2ayIYIg-1; Thu, 17 Sep 2020 18:17:58 -0400
-X-MC-Unique: XC224IUlO2mwOgo2ayIYIg-1
-Received: by mail-pl1-f194.google.com with SMTP id d19so1892139pld.0
-	for <dm-devel@redhat.com>; Thu, 17 Sep 2020 15:17:58 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5BC6018AE949
+	for <dm-devel@redhat.com>; Thu, 17 Sep 2020 22:19:37 +0000 (UTC)
+Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
+	[209.85.215.196]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-185-zU9mVsTMM4uzyd42cs6wqw-1; Thu, 17 Sep 2020 18:19:35 -0400
+X-MC-Unique: zU9mVsTMM4uzyd42cs6wqw-1
+Received: by mail-pg1-f196.google.com with SMTP id d13so2187553pgl.6
+	for <dm-devel@redhat.com>; Thu, 17 Sep 2020 15:19:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
 	:mime-version:content-disposition:in-reply-to;
-	bh=c+4ph0tZxAltz1VN10j3r0ou5+B9luLqkBN/ND6jA8Y=;
-	b=Gf1AAUGkRTqxhiz22LFg5Zv/AS/BzSygC59UQNGwoZ1hZuzxISAyzrywIt6aEiqqNg
-	7BTfXNszPfzjiheFwVVEPxtK5QDP9rUf5qvhWUXtJre4ai4ECxXez/EjBm9UK+gadYfN
-	RdL+tnAd+Keb6Zac28Xn4+f4lCHel6IXucv1JYOXVxDTBUvmewpdd+Zmy234aj89muME
-	92F+P7fJtsdPs2QrsVmf7xGiIjOXiDpcI22y+cxcPGt+Crs2mQRaFfMmE7p3gDHJksKO
-	c7IYL4MaIkUufxS9sJZkOyTGL0IB5NKhfpwywvnk+uzsD7u/uagD9yvmGt7UpqDYnd/l
-	kv0w==
-X-Gm-Message-State: AOAM531mtdAa3y4rJKsvwPoqMK3O32ij5HNfNwzuHRLo8tlbJr/G0P7b
-	CSX7hfosfmUBgQ0s42ec4DGSNA==
-X-Google-Smtp-Source: ABdhPJzQ5LC5wQL53AW0SgR+ExyQHxB64LONHJn9M9xZqnDVikgKGqlol6lu/mS5yJ1tMTIXE5N0KQ==
-X-Received: by 2002:a17:90a:fe07:: with SMTP id
-	ck7mr10274476pjb.20.1600381077417; 
-	Thu, 17 Sep 2020 15:17:57 -0700 (PDT)
+	bh=OYY9tIc9xfhOWrpXdHXfLce1m2xJL6GRbyCPd8OZlow=;
+	b=n7NaUuaezU1lQf/hNuz1mY5CNdm1o7QJePwE92tGLkTcNNPN4+egtR5Z09pgDez/7i
+	lvFFL+rUftjn7HDdsG5BSxHnuzQ7eESncZZFxyVPTn29/5XDpnReIebHDzmWkuxYmlyn
+	orsP8mALjIvZHeUiV5zCo4DkAqWEvT1CSdB+MkNBu+HVAy5T9NrHnHxD16hu/J7erLGI
+	RTZgSjD6tx31MXEZ4aavIrMWX6IFkSbytj8Owc3ZwVdobvAiTaLWc8877q8gOPPTadp/
+	lgWHOHr4uPFPc3Qu6LZUkiPxFSFlmGjz/lhB1DyC5BDSNwlz9jxTlqZ3MpW3LvuU0Kgg
+	/wLw==
+X-Gm-Message-State: AOAM532Ial4ILDJPDTJSBSU6oX2AEdzPDPfSlBTLf7PgDK5Js31zc7m1
+	AibziAOWhdYCJaot7pOICnaIfA==
+X-Google-Smtp-Source: ABdhPJwalTHkX//endIf1ifjkPFrtGZZIq50ErBqLzyNrlwAewdAv9az3kJqdJS8SBSV6gXwxC0n3w==
+X-Received: by 2002:a63:4a19:: with SMTP id x25mr23535695pga.56.1600381173884; 
+	Thu, 17 Sep 2020 15:19:33 -0700 (PDT)
 Received: from google.com (124.190.199.35.bc.googleusercontent.com.
-	[35.199.190.124]) by smtp.gmail.com with ESMTPSA id
-	br22sm603711pjb.35.2020.09.17.15.17.56
+	[35.199.190.124])
+	by smtp.gmail.com with ESMTPSA id d8sm627085pgt.19.2020.09.17.15.19.33
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 17 Sep 2020 15:17:56 -0700 (PDT)
-Date: Thu, 17 Sep 2020 22:17:52 +0000
+	Thu, 17 Sep 2020 15:19:33 -0700 (PDT)
+Date: Thu, 17 Sep 2020 22:19:29 +0000
 From: Satya Tangirala <satyat@google.com>
 To: Eric Biggers <ebiggers@kernel.org>
-Message-ID: <20200917221752.GA421296@google.com>
+Message-ID: <20200917221929.GB421296@google.com>
 References: <20200916035315.34046-1-ebiggers@kernel.org>
-	<20200916035315.34046-2-ebiggers@kernel.org>
+	<20200916035315.34046-3-ebiggers@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20200916035315.34046-2-ebiggers@kernel.org>
+In-Reply-To: <20200916035315.34046-3-ebiggers@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -81,13 +80,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 18 Sep 2020 07:20:50 -0400
 Cc: linux-block@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
 	dm-devel@redhat.com, Miaohe Lin <linmiaohe@huawei.com>
-Subject: Re: [dm-devel] [PATCH v2 1/3] block: make bio_crypt_clone() able to
-	fail
+Subject: Re: [dm-devel] [PATCH v2 2/3] block: make blk_crypto_rq_bio_prep()
+	able to fail
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -101,7 +100,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -110,177 +109,147 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-On Tue, Sep 15, 2020 at 08:53:13PM -0700, Eric Biggers wrote:
+On Tue, Sep 15, 2020 at 08:53:14PM -0700, Eric Biggers wrote:
 > From: Eric Biggers <ebiggers@google.com>
 > 
-> bio_crypt_clone() assumes its gfp_mask argument always includes
+> blk_crypto_rq_bio_prep() assumes its gfp_mask argument always includes
 > __GFP_DIRECT_RECLAIM, so that the mempool_alloc() will always succeed.
 > 
-> However, bio_crypt_clone() might be called with GFP_ATOMIC via
-> setup_clone() in drivers/md/dm-rq.c, or with GFP_NOWAIT via
-> kcryptd_io_read() in drivers/md/dm-crypt.c.
+> However, blk_crypto_rq_bio_prep() might be called with GFP_ATOMIC via
+> setup_clone() in drivers/md/dm-rq.c.
 > 
-> Neither case is currently reachable with a bio that actually has an
+> This case isn't currently reachable with a bio that actually has an
 > encryption context.  However, it's fragile to rely on this.  Just make
-> bio_crypt_clone() able to fail, analogous to bio_integrity_clone().
+> blk_crypto_rq_bio_prep() able to fail.
 > 
-> Reported-by: Miaohe Lin <linmiaohe@huawei.com>
-> Cc: Satya Tangirala <satyat@google.com>
+> Cc: Miaohe Lin <linmiaohe@huawei.com>
+> Suggested-by: Satya Tangirala <satyat@google.com>
 > Signed-off-by: Eric Biggers <ebiggers@google.com>
 > ---
->  block/bio.c                | 20 +++++++++-----------
->  block/blk-crypto.c         |  5 ++++-
->  block/bounce.c             | 19 +++++++++----------
->  drivers/md/dm.c            |  7 ++++---
->  include/linux/blk-crypto.h | 20 ++++++++++++++++----
->  5 files changed, 42 insertions(+), 29 deletions(-)
+>  block/blk-core.c            |  8 +++++---
+>  block/blk-crypto-internal.h | 21 ++++++++++++++++-----
+>  block/blk-crypto.c          | 18 +++++++-----------
+>  block/blk-mq.c              |  7 ++++++-
+>  4 files changed, 34 insertions(+), 20 deletions(-)
 > 
-> diff --git a/block/bio.c b/block/bio.c
-> index a9931f23d9332..b42e046b12eb3 100644
-> --- a/block/bio.c
-> +++ b/block/bio.c
-> @@ -713,20 +713,18 @@ struct bio *bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
->  
->  	__bio_clone_fast(b, bio);
->  
-> -	bio_crypt_clone(b, bio, gfp_mask);
-> +	if (bio_crypt_clone(b, bio, gfp_mask) < 0)
-> +		goto err_put;
->  
-> -	if (bio_integrity(bio)) {
-> -		int ret;
-> -
-> -		ret = bio_integrity_clone(b, bio, gfp_mask);
-> -
-> -		if (ret < 0) {
-> -			bio_put(b);
-> -			return NULL;
-> -		}
-> -	}
-> +	if (bio_integrity(bio) &&
-> +	    bio_integrity_clone(b, bio, gfp_mask) < 0)
-> +		goto err_put;
->  
->  	return b;
-> +
-> +err_put:
-> +	bio_put(b);
-> +	return NULL;
->  }
->  EXPORT_SYMBOL(bio_clone_fast);
->  
-> diff --git a/block/blk-crypto.c b/block/blk-crypto.c
-> index 2d5e60023b08b..a3f27a19067c9 100644
-> --- a/block/blk-crypto.c
-> +++ b/block/blk-crypto.c
-> @@ -95,10 +95,13 @@ void __bio_crypt_free_ctx(struct bio *bio)
->  	bio->bi_crypt_context = NULL;
->  }
->  
-> -void __bio_crypt_clone(struct bio *dst, struct bio *src, gfp_t gfp_mask)
-> +int __bio_crypt_clone(struct bio *dst, struct bio *src, gfp_t gfp_mask)
->  {
->  	dst->bi_crypt_context = mempool_alloc(bio_crypt_ctx_pool, gfp_mask);
-> +	if (!dst->bi_crypt_context)
-> +		return -ENOMEM;
->  	*dst->bi_crypt_context = *src->bi_crypt_context;
-> +	return 0;
->  }
->  EXPORT_SYMBOL_GPL(__bio_crypt_clone);
->  
-> diff --git a/block/bounce.c b/block/bounce.c
-> index 431be88a02405..162a6eee89996 100644
-> --- a/block/bounce.c
-> +++ b/block/bounce.c
-> @@ -267,22 +267,21 @@ static struct bio *bounce_clone_bio(struct bio *bio_src, gfp_t gfp_mask,
->  		break;
+> diff --git a/block/blk-core.c b/block/blk-core.c
+> index ca3f0f00c9435..fbeaa49f6fe2c 100644
+> --- a/block/blk-core.c
+> +++ b/block/blk-core.c
+> @@ -1620,8 +1620,10 @@ int blk_rq_prep_clone(struct request *rq, struct request *rq_src,
+>  		if (rq->bio) {
+>  			rq->biotail->bi_next = bio;
+>  			rq->biotail = bio;
+> -		} else
+> +		} else {
+>  			rq->bio = rq->biotail = bio;
+> +		}
+> +		bio = NULL;
 >  	}
 >  
-> -	bio_crypt_clone(bio, bio_src, gfp_mask);
-> +	if (bio_crypt_clone(bio, bio_src, gfp_mask) < 0)
-> +		goto err_put;
+>  	/* Copy attributes of the original request to the clone request. */
+> @@ -1634,8 +1636,8 @@ int blk_rq_prep_clone(struct request *rq, struct request *rq_src,
+>  	rq->nr_phys_segments = rq_src->nr_phys_segments;
+>  	rq->ioprio = rq_src->ioprio;
 >  
-> -	if (bio_integrity(bio_src)) {
-> -		int ret;
-> -
-> -		ret = bio_integrity_clone(bio, bio_src, gfp_mask);
-> -		if (ret < 0) {
-> -			bio_put(bio);
-> -			return NULL;
-> -		}
-> -	}
-> +	if (bio_integrity(bio_src) &&
-> +	    bio_integrity_clone(bio, bio_src, gfp_mask) < 0)
-> +		goto err_put;
+> -	if (rq->bio)
+> -		blk_crypto_rq_bio_prep(rq, rq->bio, gfp_mask);
+> +	if (rq->bio && blk_crypto_rq_bio_prep(rq, rq->bio, gfp_mask) < 0)
+> +		goto free_and_out;
 >  
->  	bio_clone_blkg_association(bio, bio_src);
->  	blkcg_bio_issue_init(bio);
+>  	return 0;
 >  
->  	return bio;
-> +
-> +err_put:
-> +	bio_put(bio);
-> +	return NULL;
+> diff --git a/block/blk-crypto-internal.h b/block/blk-crypto-internal.h
+> index d2b0f565d83cb..0d36aae538d7b 100644
+> --- a/block/blk-crypto-internal.h
+> +++ b/block/blk-crypto-internal.h
+> @@ -142,13 +142,24 @@ static inline void blk_crypto_free_request(struct request *rq)
+>  		__blk_crypto_free_request(rq);
 >  }
 >  
->  static void __blk_queue_bounce(struct request_queue *q, struct bio **bio_orig,
-> diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-> index 3dedd9cc4fb65..5487c3ff74b51 100644
-> --- a/drivers/md/dm.c
-> +++ b/drivers/md/dm.c
-> @@ -1326,14 +1326,15 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
->  		     sector_t sector, unsigned len)
->  {
->  	struct bio *clone = &tio->clone;
-> +	int r;
->  
->  	__bio_clone_fast(clone, bio);
->  
-> -	bio_crypt_clone(clone, bio, GFP_NOIO);
-> +	r = bio_crypt_clone(clone, bio, GFP_NOIO);
-> +	if (r < 0)
-> +		return r;
->  
->  	if (bio_integrity(bio)) {
-> -		int r;
-> -
->  		if (unlikely(!dm_target_has_integrity(tio->ti->type) &&
->  			     !dm_target_passes_integrity(tio->ti->type))) {
->  			DMWARN("%s: the target %s doesn't support integrity data.",
-> diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
-> index e82342907f2b1..69b24fe92cbf1 100644
-> --- a/include/linux/blk-crypto.h
-> +++ b/include/linux/blk-crypto.h
-> @@ -112,12 +112,24 @@ static inline bool bio_has_crypt_ctx(struct bio *bio)
->  
->  #endif /* CONFIG_BLK_INLINE_ENCRYPTION */
->  
-> -void __bio_crypt_clone(struct bio *dst, struct bio *src, gfp_t gfp_mask);
-> -static inline void bio_crypt_clone(struct bio *dst, struct bio *src,
-> -				   gfp_t gfp_mask)
-> +int __bio_crypt_clone(struct bio *dst, struct bio *src, gfp_t gfp_mask);
+> -void __blk_crypto_rq_bio_prep(struct request *rq, struct bio *bio,
+> -			      gfp_t gfp_mask);
+> -static inline void blk_crypto_rq_bio_prep(struct request *rq, struct bio *bio,
+> -					  gfp_t gfp_mask)
+> +int __blk_crypto_rq_bio_prep(struct request *rq, struct bio *bio,
+> +			     gfp_t gfp_mask);
 > +/**
-> + * bio_crypt_clone - clone bio encryption context
-> + * @dst: destination bio
-> + * @src: source bio
-> + * @gfp_mask: memory allocation flags
-> + *
-> + * If @src has an encryption context, clone it to @dst.
+> + * blk_crypto_rq_bio_prep - Prepare a request's crypt_ctx when its first bio
+> + *			    is inserted
+> + * @rq: The request to prepare
+> + * @bio: The first bio being inserted into the request
+> + * @gfp_mask: Memory allocation flags
 > + *
 > + * Return: 0 on success, -ENOMEM if out of memory.  -ENOMEM is only possible if
 > + *	   @gfp_mask doesn't include %__GFP_DIRECT_RECLAIM.
 > + */
-> +static inline int bio_crypt_clone(struct bio *dst, struct bio *src,
-> +				  gfp_t gfp_mask)
+> +static inline int blk_crypto_rq_bio_prep(struct request *rq, struct bio *bio,
+> +					 gfp_t gfp_mask)
 >  {
->  	if (bio_has_crypt_ctx(src))
-> -		__bio_crypt_clone(dst, src, gfp_mask);
-> +		return __bio_crypt_clone(dst, src, gfp_mask);
+>  	if (bio_has_crypt_ctx(bio))
+> -		__blk_crypto_rq_bio_prep(rq, bio, gfp_mask);
+> +		return __blk_crypto_rq_bio_prep(rq, bio, gfp_mask);
 > +	return 0;
 >  }
 >  
->  #endif /* __LINUX_BLK_CRYPTO_H */
-Looks good to me :). Please feel free to add
+>  /**
+> diff --git a/block/blk-crypto.c b/block/blk-crypto.c
+> index a3f27a19067c9..bbe7974fd74f0 100644
+> --- a/block/blk-crypto.c
+> +++ b/block/blk-crypto.c
+> @@ -283,20 +283,16 @@ bool __blk_crypto_bio_prep(struct bio **bio_ptr)
+>  	return false;
+>  }
+>  
+> -/**
+> - * __blk_crypto_rq_bio_prep - Prepare a request's crypt_ctx when its first bio
+> - *			      is inserted
+> - *
+> - * @rq: The request to prepare
+> - * @bio: The first bio being inserted into the request
+> - * @gfp_mask: gfp mask
+> - */
+> -void __blk_crypto_rq_bio_prep(struct request *rq, struct bio *bio,
+> -			      gfp_t gfp_mask)
+> +int __blk_crypto_rq_bio_prep(struct request *rq, struct bio *bio,
+> +			     gfp_t gfp_mask)
+>  {
+> -	if (!rq->crypt_ctx)
+> +	if (!rq->crypt_ctx) {
+>  		rq->crypt_ctx = mempool_alloc(bio_crypt_ctx_pool, gfp_mask);
+> +		if (!rq->crypt_ctx)
+> +			return -ENOMEM;
+> +	}
+>  	*rq->crypt_ctx = *bio->bi_crypt_context;
+> +	return 0;
+>  }
+>  
+>  /**
+> diff --git a/block/blk-mq.c b/block/blk-mq.c
+> index e04b759add758..9ec0e7149ae69 100644
+> --- a/block/blk-mq.c
+> +++ b/block/blk-mq.c
+> @@ -1940,13 +1940,18 @@ void blk_mq_flush_plug_list(struct blk_plug *plug, bool from_schedule)
+>  static void blk_mq_bio_to_request(struct request *rq, struct bio *bio,
+>  		unsigned int nr_segs)
+>  {
+> +	int err;
+> +
+>  	if (bio->bi_opf & REQ_RAHEAD)
+>  		rq->cmd_flags |= REQ_FAILFAST_MASK;
+>  
+>  	rq->__sector = bio->bi_iter.bi_sector;
+>  	rq->write_hint = bio->bi_write_hint;
+>  	blk_rq_bio_prep(rq, bio, nr_segs);
+> -	blk_crypto_rq_bio_prep(rq, bio, GFP_NOIO);
+> +
+> +	/* This can't fail, since GFP_NOIO includes __GFP_DIRECT_RECLAIM. */
+> +	err = blk_crypto_rq_bio_prep(rq, bio, GFP_NOIO);
+> +	WARN_ON_ONCE(err);
+>  
+>  	blk_account_io_start(rq);
+>  }
+Looks good!
 
 Reviewed-by: Satya Tangirala <satyat@google.com>
 
