@@ -1,76 +1,61 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id C272F26FB54
-	for <lists+dm-devel@lfdr.de>; Fri, 18 Sep 2020 13:22:21 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id A32F526FB34
+	for <lists+dm-devel@lfdr.de>; Fri, 18 Sep 2020 13:16:08 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-42-5mRSL6x3NFitydeBCXmC1w-1; Fri, 18 Sep 2020 07:22:18 -0400
-X-MC-Unique: 5mRSL6x3NFitydeBCXmC1w-1
+ us-mta-489-p_tKIpglNcGy6EHJ823tfQ-1; Fri, 18 Sep 2020 07:16:05 -0400
+X-MC-Unique: p_tKIpglNcGy6EHJ823tfQ-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9B0C488EF20;
-	Fri, 18 Sep 2020 11:22:12 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4D6251882FC7;
+	Fri, 18 Sep 2020 11:15:57 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7957073679;
-	Fri, 18 Sep 2020 11:22:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A17173675;
+	Fri, 18 Sep 2020 11:15:53 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3701B8C7AA;
-	Fri, 18 Sep 2020 11:22:12 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B723644A7F;
+	Fri, 18 Sep 2020 11:15:40 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08HMQHVc027270 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 17 Sep 2020 18:26:17 -0400
+	id 08IBFRGY012916 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 18 Sep 2020 07:15:28 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id EC28C2026F94; Thu, 17 Sep 2020 22:26:16 +0000 (UTC)
+	id BEA3E117C00; Fri, 18 Sep 2020 11:15:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E638E2028CCE
-	for <dm-devel@redhat.com>; Thu, 17 Sep 2020 22:26:14 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA1C8115E1F
+	for <dm-devel@redhat.com>; Fri, 18 Sep 2020 11:15:25 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 89136185A78B
-	for <dm-devel@redhat.com>; Thu, 17 Sep 2020 22:26:14 +0000 (UTC)
-Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
-	[209.85.210.194]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-260-rtc36xc7NcC9mQ-ajNt44w-1; Thu, 17 Sep 2020 18:26:11 -0400
-X-MC-Unique: rtc36xc7NcC9mQ-ajNt44w-1
-Received: by mail-pf1-f194.google.com with SMTP id z19so2120927pfn.8
-	for <dm-devel@redhat.com>; Thu, 17 Sep 2020 15:26:11 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-	:mime-version:content-disposition:in-reply-to;
-	bh=Q77gUSamNF92wlJ+lR4GPQtw23AEZMyMYEOoR6N4qAA=;
-	b=P33XBL3KYrZxA6vjKhos+mmqshWC6Zm+yIeAyny9mBjHqFxNVK1cK7w/T3+RaCGIHl
-	y5f29sAMbj1Is37bgsv+Xbb81c4ZwCCghCZl12qMgLJadf4wO0nSWD6dVtk/tuEs3VDR
-	DL+jWNTzFNrRsDE0kasLScyWzcdU48fsnrqdF0byMnmybQh3L+grKrasLLazm2x5uYft
-	Mv23HAr6Nfq7E+SFk0CtkxaOdHgi5MG7hQTtuD2FO+ByHMlzBUK7thbdabWHDIK71Tev
-	UU20xtsyUNONK57O2XAPCiTR090QrM5HI6vPjoTb3kOzOsBfKHqDT3xflhNDYUgBAkiV
-	kaSw==
-X-Gm-Message-State: AOAM533kqdviGLu4uW8I5LzJEgYb/ZoIfXdYy3K5OxrDNl/BnU+uUWVa
-	izZi2UMXCmA0xZjKXZDWX2AjpA==
-X-Google-Smtp-Source: ABdhPJydTfNwtlMrd82NIkSVsPt/owVM7ehmZAjCmZBjvbBuEggXWuRHybUb74uWQNjYQwGD4UeW5Q==
-X-Received: by 2002:a63:5952:: with SMTP id j18mr25156407pgm.317.1600381570500;
-	Thu, 17 Sep 2020 15:26:10 -0700 (PDT)
-Received: from google.com (124.190.199.35.bc.googleusercontent.com.
-	[35.199.190.124])
-	by smtp.gmail.com with ESMTPSA id b10sm616516pgm.64.2020.09.17.15.26.09
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 17 Sep 2020 15:26:10 -0700 (PDT)
-Date: Thu, 17 Sep 2020 22:26:06 +0000
-From: Satya Tangirala <satyat@google.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Message-ID: <20200917222606.GC421296@google.com>
-References: <20200916035315.34046-1-ebiggers@kernel.org>
-	<20200916035315.34046-4-ebiggers@kernel.org>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 984B585828F
+	for <dm-devel@redhat.com>; Fri, 18 Sep 2020 11:15:25 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-73-42-y4VosNq60A5_H275hZQ-1;
+	Fri, 18 Sep 2020 07:15:22 -0400
+X-MC-Unique: 42-y4VosNq60A5_H275hZQ-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id F3A93ABF4;
+	Fri, 18 Sep 2020 11:15:54 +0000 (UTC)
+Message-ID: <473373836362e808c1d856048ce06a27487b31bb.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: lixiaokeng <lixiaokeng@huawei.com>, Benjamin Marzinski
+	<bmarzins@redhat.com>
+Date: Fri, 18 Sep 2020 13:15:19 +0200
+In-Reply-To: <3735c20d-a0fd-ca41-be9a-0df679022668@huawei.com>
+References: <d89bc33d-8e5d-d194-3b26-83ff4d170c5c@huawei.com>
+	<20200918022626.GU11108@octiron.msp.redhat.com>
+	<011310221c816f3c3573d96d91aca3e0a48fb80d.camel@suse.com>
+	<3735c20d-a0fd-ca41-be9a-0df679022668@huawei.com>
+User-Agent: Evolution 3.36.5
 MIME-Version: 1.0
-In-Reply-To: <20200916035315.34046-4-ebiggers@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -79,13 +64,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Fri, 18 Sep 2020 07:20:50 -0400
-Cc: linux-block@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	dm-devel@redhat.com, Miaohe Lin <linmiaohe@huawei.com>
-Subject: Re: [dm-devel] [PATCH v2 3/3] block: warn if !__GFP_DIRECT_RECLAIM
- in bio_crypt_set_ctx()
+Cc: dm-devel, list <dm-devel@redhat.com>, linfeilong <linfeilong@huawei.com>,
+	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
+Subject: Re: [dm-devel] [PATCH 0/6] libmultipath: check udev* func return
+	value
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -106,55 +90,33 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-On Tue, Sep 15, 2020 at 08:53:15PM -0700, Eric Biggers wrote:
-> From: Eric Biggers <ebiggers@google.com>
+On Fri, 2020-09-18 at 16:39 +0800, lixiaokeng wrote:
 > 
-> bio_crypt_set_ctx() assumes its gfp_mask argument always includes
-> __GFP_DIRECT_RECLAIM, so that the mempool_alloc() will always succeed.
-> 
-> For now this assumption is still fine, since no callers violate it.
-> Making bio_crypt_set_ctx() able to fail would add unneeded complexity.
-> 
-> However, if a caller didn't use __GFP_DIRECT_RECLAIM, it would be very
-> hard to notice the bug.  Make it easier by adding a WARN_ON_ONCE().
-> 
-> Cc: Miaohe Lin <linmiaohe@huawei.com>
-> Cc: Satya Tangirala <satyat@google.com>
-> Signed-off-by: Eric Biggers <ebiggers@google.com>
-> ---
->  block/blk-crypto.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/block/blk-crypto.c b/block/blk-crypto.c
-> index bbe7974fd74f0..5da43f0973b46 100644
-> --- a/block/blk-crypto.c
-> +++ b/block/blk-crypto.c
-> @@ -81,7 +81,15 @@ subsys_initcall(bio_crypt_ctx_init);
->  void bio_crypt_set_ctx(struct bio *bio, const struct blk_crypto_key *key,
->  		       const u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE], gfp_t gfp_mask)
->  {
-> -	struct bio_crypt_ctx *bc = mempool_alloc(bio_crypt_ctx_pool, gfp_mask);
-> +	struct bio_crypt_ctx *bc;
-> +
-> +	/*
-> +	 * The caller must use a gfp_mask that contains __GFP_DIRECT_RECLAIM so
-> +	 * that the mempool_alloc() can't fail.
-> +	 */
-> +	WARN_ON_ONCE(!(gfp_mask & __GFP_DIRECT_RECLAIM));
-> +
-> +	bc = mempool_alloc(bio_crypt_ctx_pool, gfp_mask);
->  
->  	bc->bc_key = key;
->  	memcpy(bc->bc_dun, dun, sizeof(bc->bc_dun));
-> -- 
-Looks good!
+>    Here we use multipath-tools basing on iscsi. When iscsi logout,
+> the path
+> will disappear in sysfs and a uevent will cause. Before uevent
+> processed,
+> some coredump will happen but if coredump is solved the multipathd
+> will
+> deal with the disappeared path latter.
+>   In this set, the funcs will not be processed when multipath-tools
+> bases
+> on iscsi. However, I think multipathd will deal with the disappeared
+> path
+> like basing on iscsi. So I just check them. Anyway, if you have any
+> better
+> idea, please tell me.
 
-Reviewed-by: Satya Tangirala <satyat@google.com>
+Of course we need to avoid the segfaults. As I said, please fix your
+patches and resend. It's good to know that just avoiding the NULL
+dereferences fixes the issues you were seeing.
 
-> 2.28.0
-> 
+Perhaps it would be sufficient to set INIT_REMOVED on a path device
+when something like this happens. But I need to think it through.
+
+Martin
+
 
 --
 dm-devel mailing list
