@@ -1,61 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A32F526FB34
-	for <lists+dm-devel@lfdr.de>; Fri, 18 Sep 2020 13:16:08 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 29C942702B0
+	for <lists+dm-devel@lfdr.de>; Fri, 18 Sep 2020 18:55:49 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-489-p_tKIpglNcGy6EHJ823tfQ-1; Fri, 18 Sep 2020 07:16:05 -0400
-X-MC-Unique: p_tKIpglNcGy6EHJ823tfQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-126-0EiLOk_yMg2PQcGGbJ_oSg-1; Fri, 18 Sep 2020 12:55:45 -0400
+X-MC-Unique: 0EiLOk_yMg2PQcGGbJ_oSg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4D6251882FC7;
-	Fri, 18 Sep 2020 11:15:57 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A17173675;
-	Fri, 18 Sep 2020 11:15:53 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A7004801AC8;
+	Fri, 18 Sep 2020 16:55:39 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5013419D6C;
+	Fri, 18 Sep 2020 16:55:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B723644A7F;
-	Fri, 18 Sep 2020 11:15:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 702B8183D041;
+	Fri, 18 Sep 2020 16:55:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08IBFRGY012916 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 18 Sep 2020 07:15:28 -0400
+	id 08IGt9eZ019903 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 18 Sep 2020 12:55:09 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id BEA3E117C00; Fri, 18 Sep 2020 11:15:27 +0000 (UTC)
+	id 8428D109EF86; Fri, 18 Sep 2020 16:55:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA1C8115E1F
-	for <dm-devel@redhat.com>; Fri, 18 Sep 2020 11:15:25 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F6AB109EF88
+	for <dm-devel@redhat.com>; Fri, 18 Sep 2020 16:55:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 984B585828F
-	for <dm-devel@redhat.com>; Fri, 18 Sep 2020 11:15:25 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-73-42-y4VosNq60A5_H275hZQ-1;
-	Fri, 18 Sep 2020 07:15:22 -0400
-X-MC-Unique: 42-y4VosNq60A5_H275hZQ-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id F3A93ABF4;
-	Fri, 18 Sep 2020 11:15:54 +0000 (UTC)
-Message-ID: <473373836362e808c1d856048ce06a27487b31bb.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: lixiaokeng <lixiaokeng@huawei.com>, Benjamin Marzinski
-	<bmarzins@redhat.com>
-Date: Fri, 18 Sep 2020 13:15:19 +0200
-In-Reply-To: <3735c20d-a0fd-ca41-be9a-0df679022668@huawei.com>
-References: <d89bc33d-8e5d-d194-3b26-83ff4d170c5c@huawei.com>
-	<20200918022626.GU11108@octiron.msp.redhat.com>
-	<011310221c816f3c3573d96d91aca3e0a48fb80d.camel@suse.com>
-	<3735c20d-a0fd-ca41-be9a-0df679022668@huawei.com>
-User-Agent: Evolution 3.36.5
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BF49C900C68
+	for <dm-devel@redhat.com>; Fri, 18 Sep 2020 16:55:06 +0000 (UTC)
+Received: from mail-ed1-f65.google.com (mail-ed1-f65.google.com
+	[209.85.208.65]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-423-ov2mctWsPVSFLea0_jnL7Q-1; Fri, 18 Sep 2020 12:55:04 -0400
+X-MC-Unique: ov2mctWsPVSFLea0_jnL7Q-1
+Received: by mail-ed1-f65.google.com with SMTP id t16so6739126edw.7
+	for <dm-devel@redhat.com>; Fri, 18 Sep 2020 09:55:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=yxwRMmZAvscI9qLISrOKxKWDWXBsK0Qiq++otHhpMpM=;
+	b=QXEXwG0bQTeYoSYKnHYpEhH/9ym3Ls8hEriA3cp7rmSrIbpHIyAOcdc81PsdTV6xNK
+	8N6hhyllJHtARbaec2tw1M6jEGiB7GbBI1SAJxYF+cwaxpLxYHvOMDoX0uf2PfGD2sPs
+	AS5A8rmkuV+hMPKkiroWbmhTfcGzIOcGEZaWIta1OLGqkidMNGkdn6wF3TpZhpjH4lHf
+	hkTN9uGJcJBtRWo4Okj2du5CBr0iQxHI2jPOqHgDkSp3OnwqYA9CCU5qCHEQjYecZZuN
+	C+ZtzmKR7fdalhqPtHsgv/Tb94n6OXra1BM2gdFPjNPKTeXYP3YwHFKM/FcgeVcRMAFb
+	Bxtg==
+X-Gm-Message-State: AOAM530vSqC6cZvX1w4xY22WBD7X1BbBdbHFP497msqSUYy8xGIrwyEs
+	vDQen/Ucr3FSEmPanm+1K44T1zx1mLjdlJUpZEnkIA==
+X-Google-Smtp-Source: ABdhPJxcLHTp2HmWlgI7Su041TxmNFgVD/jngcdBcxMjvp5IOfJeNJy8OR2y4k4Bfa6ELWveIGOQjFysEqiHQiktakY=
+X-Received: by 2002:aa7:c511:: with SMTP id o17mr40445469edq.300.1600448103080;
+	Fri, 18 Sep 2020 09:55:03 -0700 (PDT)
 MIME-Version: 1.0
+References: <160040692945.25320.13233625491405115889.stgit@dwillia2-desk3.amr.corp.intel.com>
+	<20200918153041.GN7954@magnolia>
+In-Reply-To: <20200918153041.GN7954@magnolia>
+From: Dan Williams <dan.j.williams@intel.com>
+Date: Fri, 18 Sep 2020 09:54:51 -0700
+Message-ID: <CAPcyv4ii+NWnJhLWwz=Z+2aAJ=DdjwQoqPC+hO88CsM2ub5FEw@mail.gmail.com>
+To: "Darrick J. Wong" <darrick.wong@oracle.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -64,12 +74,17 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: dm-devel, list <dm-devel@redhat.com>, linfeilong <linfeilong@huawei.com>,
-	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
-Subject: Re: [dm-devel] [PATCH 0/6] libmultipath: check udev* func return
-	value
+Cc: Jan Kara <jack@suse.cz>, Mike Snitzer <snitzer@redhat.com>,
+	linux-nvdimm <linux-nvdimm@lists.01.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	stable <stable@vger.kernel.org>,
+	device-mapper development <dm-devel@redhat.com>,
+	Adrian Huang <ahuang12@lenovo.com>,
+	Mikulas Patocka <mpatocka@redhat.com>, "Weiny, Ira" <ira.weiny@intel.com>
+Subject: Re: [dm-devel] [PATCH v2] dm: Call proper helper to determine dax
+	support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,7 +98,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,32 +106,42 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2020-09-18 at 16:39 +0800, lixiaokeng wrote:
-> 
->    Here we use multipath-tools basing on iscsi. When iscsi logout,
-> the path
-> will disappear in sysfs and a uevent will cause. Before uevent
-> processed,
-> some coredump will happen but if coredump is solved the multipathd
-> will
-> deal with the disappeared path latter.
->   In this set, the funcs will not be processed when multipath-tools
-> bases
-> on iscsi. However, I think multipathd will deal with the disappeared
-> path
-> like basing on iscsi. So I just check them. Anyway, if you have any
-> better
-> idea, please tell me.
+On Fri, Sep 18, 2020 at 8:31 AM Darrick J. Wong <darrick.wong@oracle.com> wrote:
+>
+> On Thu, Sep 17, 2020 at 10:30:03PM -0700, Dan Williams wrote:
+> > From: Jan Kara <jack@suse.cz>
+> >
+> > DM was calling generic_fsdax_supported() to determine whether a device
+> > referenced in the DM table supports DAX. However this is a helper for "leaf" device drivers so that
+> > they don't have to duplicate common generic checks. High level code
+> > should call dax_supported() helper which that calls into appropriate
+> > helper for the particular device. This problem manifested itself as
+> > kernel messages:
+> >
+> > dm-3: error: dax access failed (-95)
+> >
+> > when lvm2-testsuite run in cases where a DM device was stacked on top of
+> > another DM device.
+>
+> Is there somewhere where it is documented which of:
+>
+> bdev_dax_supported, generic_fsdax_supported, and dax_supported
+>
+> one is supposed to use for a given circumstance?
 
-Of course we need to avoid the segfaults. As I said, please fix your
-patches and resend. It's good to know that just avoiding the NULL
-dereferences fixes the issues you were seeing.
+generic_fsdax_supported should be private to device drivers populating
+their dax_operations. I think it deserves a rename at this point.
+dax_supported() knows how to route through multiple layers of stacked
+block-devices to ask the "is dax supported" question at each level.
 
-Perhaps it would be sufficient to set INIT_REMOVED on a path device
-when something like this happens. But I need to think it through.
+> I guess the last two can test a given range w/ blocksize; the first one
+> only does blocksize; and the middle one also checks with whatever fs
+> might be mounted? <shrug>
+>
+> (I ask because it took me a while to figure out how to revert correctly
+> the brokenness in rc3-5 that broke my nightly dax fstesting.)
 
-Martin
-
+Again, apologies for that.
 
 --
 dm-devel mailing list
