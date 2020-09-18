@@ -2,58 +2,57 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 1209E26F677
-	for <lists+dm-devel@lfdr.de>; Fri, 18 Sep 2020 09:04:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9381C26F71A
+	for <lists+dm-devel@lfdr.de>; Fri, 18 Sep 2020 09:35:27 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-166-zuxzj3SYPlGrnnuy6Xy3Vw-1; Fri, 18 Sep 2020 03:04:05 -0400
-X-MC-Unique: zuxzj3SYPlGrnnuy6Xy3Vw-1
+ us-mta-158-SDD9JJFpNeC7te9NNHBHLg-1; Fri, 18 Sep 2020 03:35:24 -0400
+X-MC-Unique: SDD9JJFpNeC7te9NNHBHLg-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A131E56BE7;
-	Fri, 18 Sep 2020 07:03:58 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 810E573660;
-	Fri, 18 Sep 2020 07:03:58 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3B5291882FB5;
+	Fri, 18 Sep 2020 07:35:19 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D59F573660;
+	Fri, 18 Sep 2020 07:35:16 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CC8AD18408AB;
-	Fri, 18 Sep 2020 07:03:57 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 569938C7C9;
+	Fri, 18 Sep 2020 07:35:08 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08I71oTx016337 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 18 Sep 2020 03:01:50 -0400
+	id 08I7Yw46022002 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 18 Sep 2020 03:34:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A4D442028CCE; Fri, 18 Sep 2020 07:01:50 +0000 (UTC)
+	id 3ADCC2017E9B; Fri, 18 Sep 2020 07:34:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9A62C200BC6D
-	for <dm-devel@redhat.com>; Fri, 18 Sep 2020 07:01:44 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 35E162026F94
+	for <dm-devel@redhat.com>; Fri, 18 Sep 2020 07:34:56 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 395CD800800
-	for <dm-devel@redhat.com>; Fri, 18 Sep 2020 07:01:44 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 13109101A53F
+	for <dm-devel@redhat.com>; Fri, 18 Sep 2020 07:34:56 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-315-IxPBQcaiNmC4x55ztExVzA-1;
-	Fri, 18 Sep 2020 03:01:39 -0400
-X-MC-Unique: IxPBQcaiNmC4x55ztExVzA-1
+	relay.mimecast.com with ESMTP id us-mta-118-k32yyRyDM6qWXNvhZ_yagA-1;
+	Fri, 18 Sep 2020 03:34:21 -0400
+X-MC-Unique: k32yyRyDM6qWXNvhZ_yagA-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 40AE2AC65;
-	Fri, 18 Sep 2020 07:02:12 +0000 (UTC)
-Message-ID: <77b6ffa33ad720f9a43c4d9677346023865db955.camel@suse.com>
+	by mx2.suse.de (Postfix) with ESMTP id 2DE05AF49;
+	Fri, 18 Sep 2020 07:34:54 +0000 (UTC)
+Message-ID: <168f8b0cb8444dfb8bc94516e8583013957e6a89.camel@suse.com>
 From: Martin Wilck <mwilck@suse.com>
 To: lixiaokeng <lixiaokeng@huawei.com>, Christophe Varoqui
 	<christophe.varoqui@opensvc.com>, Benjamin Marzinski <bmarzins@redhat.com>,
 	dm-devel mailing list <dm-devel@redhat.com>
-Date: Fri, 18 Sep 2020 09:01:37 +0200
-In-Reply-To: <cf6ba543-dd8d-cbc9-b69d-a4e9efd0c7f9@huawei.com>
+Date: Fri, 18 Sep 2020 09:34:19 +0200
+In-Reply-To: <965e9cd1-f0dc-b94a-4314-0e8f6cb50bf5@huawei.com>
 References: <d89bc33d-8e5d-d194-3b26-83ff4d170c5c@huawei.com>
-	<cf6ba543-dd8d-cbc9-b69d-a4e9efd0c7f9@huawei.com>
+	<965e9cd1-f0dc-b94a-4314-0e8f6cb50bf5@huawei.com>
 User-Agent: Evolution 3.36.5
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -68,8 +67,8 @@ X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 Cc: linfeilong <linfeilong@huawei.com>,
 	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
-Subject: Re: [dm-devel] [PATCH 2/6] libmultipath: check udev* return value
- in ccw_sysfs_pathinfo
+Subject: Re: [dm-devel] [PATCH 1/6] libmultipath: check uedv* return value
+ in sysfs_get_host_pci_name
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,31 +91,20 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 On Tue, 2020-09-15 at 12:39 +0800, lixiaokeng wrote:
-> We check the return value of udev_device_get_sysname.
+> udev_device_get_sysname may return NULL. We check the return value.
 > 
-> Signed-off-by:Lixiaokeng<lixiaokeng@huawei.com>
+> Signed-off-by:Lixiaokeng<Lixiaokeng@huawei.com>
 > Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
 > Signed-off-by: Linfeilong <linfeilong@huawei.com>
 > ---
->  libmultipath/discovery.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
-> index 4264b0da..27cb67f8 100644
-> --- a/libmultipath/discovery.c
-> +++ b/libmultipath/discovery.c
-> @@ -1471,6 +1471,8 @@ ccw_sysfs_pathinfo (struct path *pp, const
-> struct _vector *hwtable)
->  	 * host / bus / target / lun
->  	 */
->  	attr_path = udev_device_get_sysname(parent);
-> +	if (attr_path)
-> +		return PATHINFO_FAILED;
->  	pp->sg_id.lun = 0;
->  	if (sscanf(attr_path, "%i.%i.%x",
->  		   &pp->sg_id.host_no,
+>  libmultipath/discovery.c | 3 +++
+>  1 file changed, 3 insertions(+)
 
-This looks wrong.
+The patch is correct, but please watch out for spelling mistakes,
+in particular in the subject.
+
+Martin
+
 
 
 --
