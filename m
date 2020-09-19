@@ -1,68 +1,146 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 7BF96271C6C
-	for <lists+dm-devel@lfdr.de>; Mon, 21 Sep 2020 09:58:01 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id D1EF8271C6B
+	for <lists+dm-devel@lfdr.de>; Mon, 21 Sep 2020 09:57:59 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-246-cSHRUvItMiGy8WR-B6heOw-1; Mon, 21 Sep 2020 03:57:58 -0400
-X-MC-Unique: cSHRUvItMiGy8WR-B6heOw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-482-pssP0CcuMze4iia2CepFBg-1; Mon, 21 Sep 2020 03:57:56 -0400
+X-MC-Unique: pssP0CcuMze4iia2CepFBg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8B4CF884DD5;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8B68A884DDA;
 	Mon, 21 Sep 2020 07:57:48 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D905B19D6C;
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D84576F540;
 	Mon, 21 Sep 2020 07:57:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 11A16183D041;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1B89A8C7CA;
 	Mon, 21 Sep 2020 07:57:43 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08IKOi4a009957 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 18 Sep 2020 16:24:44 -0400
+	id 08J3ja8i023396 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 18 Sep 2020 23:45:36 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 20CA52156A34; Fri, 18 Sep 2020 20:24:44 +0000 (UTC)
+	id 2852F11CC23C; Sat, 19 Sep 2020 03:45:36 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1BC0F2156A30
-	for <dm-devel@redhat.com>; Fri, 18 Sep 2020 20:24:41 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 207C511CC23F
+	for <dm-devel@redhat.com>; Sat, 19 Sep 2020 03:45:33 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ADA9A18AE948
-	for <dm-devel@redhat.com>; Fri, 18 Sep 2020 20:24:41 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-367-NgEjuskcNHa6q8GdrCQskA-1;
-	Fri, 18 Sep 2020 16:24:39 -0400
-X-MC-Unique: NgEjuskcNHa6q8GdrCQskA-1
-IronPort-SDR: GtjCsgz/0YKPyT8jdIeXRASKQpMR3Q4d3wrRCFel2U4Z4aDPZugz51nBbm1pOhTi0PF+2+UXrg
-	d0eqYCVZDaVA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9748"; a="178115088"
-X-IronPort-AV: E=Sophos;i="5.77,274,1596524400"; d="scan'208";a="178115088"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
-	by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	18 Sep 2020 13:23:26 -0700
-IronPort-SDR: juwBc6KyoAHzehehZe3ddvi6QBHz3lSczwM2mLOQX/j+FZulSTgAk1lDQ+l5a15RtLoCIJdpwC
-	AUJLkA9mUqlw==
-X-IronPort-AV: E=Sophos;i="5.77,274,1596524400"; d="scan'208";a="509028963"
-Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
-	by fmsmga005-auth.fm.intel.com with
-	ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2020 13:23:24 -0700
-Date: Fri, 18 Sep 2020 13:23:23 -0700
-From: Ira Weiny <ira.weiny@intel.com>
-To: Dan Williams <dan.j.williams@intel.com>
-Message-ID: <20200918202323.GL2540965@iweiny-DESK2.sc.intel.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B0202186E120
+	for <dm-devel@redhat.com>; Sat, 19 Sep 2020 03:45:33 +0000 (UTC)
+Received: from mail1.bemta24.messagelabs.com (mail1.bemta24.messagelabs.com
+	[67.219.250.5]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-348-3UnESYnGPQ2BJZSGyUdgAQ-1; Fri, 18 Sep 2020 23:45:31 -0400
+X-MC-Unique: 3UnESYnGPQ2BJZSGyUdgAQ-1
+Received: from [100.112.129.197] (using TLSv1.2 with cipher
+	DHE-RSA-AES256-GCM-SHA384 (256 bits))
+	by server-5.bemta.az-a.us-west-2.aws.symcld.net id 2E/A8-53750-E3D756F5;
+	Sat, 19 Sep 2020 03:38:38 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrEJsWRWlGSWpSXmKPExsWSLveKVdeuNjX
+	e4Nl9Tov1p44xW0yfeoHRYu+72awWs6c3M1lc3jWHzaJ54m12i7aNXxktFmx8xOjA4bF4z0sm
+	j+7Z/1g83u+7yuZxZsERdo/Pm+QCWKNYM/OS8isSWDNuvvvNVHBboaLh63fWBsYlCl2MXBxCA
+	g1MEn8PLGKGcF4xSnza8JwRLvN/6gQghxPI+c0ocXa6CEiCUWAps8SThx9YIJxjLBJNd6awQj
+	gbGCW6f30Ga2ER2M0s0fbHGmLWPCaJi39amSCcx4wS72buAFrJwcEmoCVxdlMiSIOIQKTEjlV
+	LwJYzC/QzSfQ9WwI2SVjAWeLQkQYWiCIXifYrm9khbCOJrY/msEFsU5XY9eU0WA2vQILEg+Pr
+	2CEOj5F4sukvM4jNKRArcezNIrCZjAJiEt9PrWECsZkFxCVuPZkPZksICEgs2XOeGcIWlXj5+
+	B/Ua12MEi9On2OFSChIPDv+nR3ClpW4NL+bEcL2lXh9exvUIC2JZbtvQMWzJSbeaWKBsNUkmg
+	/sgbLlJFb1PmSZwGg0C8kds4DhwiygKbF+lz5EWFFiSvdD9llgrwlKnJz5hGUBI8sqRoukosz
+	0jJLcxMwcXUMDA11DQyNdQ2MDXSNDS73EKt1EvdJi3fLU4hJdI73E8mK94src5JwUvbzUkk2M
+	wISWUtB0ewfjv9cf9A4xSnIwKYnyPqlMjRfiS8pPqcxILM6ILyrNSS0+xCjDwaEkwTunGignW
+	JSanlqRlpkDTK4waQkOHiURXrUaoDRvcUFibnFmOkTqFKMxx4SXcxcxcxyZu3QRsxBLXn5eqp
+	Q4ryhIqQBIaUZpHtwgWNK/xCgrJczLyMDAIMRTkFqUm1mCKv+KUZyDUUmY9wfIPTyZeSVw+4B
+	JF+gLEd7vf1NATilJREhJNTDN+GEleeX4jSdhapvd2Vn3OL4udAkwmBYSFsu8bI695sQsb9GA
+	ZXabt8sUX+xMn3lhUr2xCLc6t6hz+Gv27Hq/27K6fd/c1j5WONKU09J5Pjd51sd8gVCNtopjr
+	Bf+zNzyqyb8QoGNzBaTJQ09VXPXMc7+e22W3xsVvZv2e98znVipIvqp41Ui08JJFRJKR4VPT/
+	8ZlLbvHkvsa68D676kbbCIMZU/t/Hn4aOr7k4U1f+0YhrvS+mnl/64J5ktT59gsqrtVWEXzyH
+	PbWq577g155bX+0z361ONTfGs5TrLIL9ySuumrxpOYfrn1qdpBXh869YU3Nj83FU8MV9UTYF1
+	knALn/6DZ9pe4UkeF5RYijMSDbWYi4oTAfyDYgl1BAAA
+X-Env-Sender: ahuang12@lenovo.com
+X-Msg-Ref: server-18.tower-335.messagelabs.com!1600486716!31260!1
+X-Originating-IP: [103.30.234.5]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.60.3; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 7200 invoked from network); 19 Sep 2020 03:38:37 -0000
+Received: from unknown (HELO lenovo.com) (103.30.234.5)
+	by server-18.tower-335.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+	encrypted SMTP; 19 Sep 2020 03:38:37 -0000
+Received: from HKGWPEMAIL02.lenovo.com (unknown [10.128.3.70])
+	(using TLSv1.2 with cipher AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by Forcepoint Email with ESMTPS id 9A0265CB35CCC630C22E;
+	Sat, 19 Sep 2020 11:38:35 +0800 (CST)
+Received: from HKGWPEMAIL01.lenovo.com (10.128.3.69) by
+	HKGWPEMAIL02.lenovo.com (10.128.3.70) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	15.1.2044.4; Sat, 19 Sep 2020 11:38:35 +0800
+Received: from HKEXEDGE02.lenovo.com (10.128.62.72) by HKGWPEMAIL01.lenovo.com
+	(10.128.3.69) with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2044.4 via
+	Frontend Transport; Sat, 19 Sep 2020 11:38:35 +0800
+Received: from APC01-HK2-obe.outbound.protection.outlook.com (104.47.124.56)
+	by mail.lenovo.com (10.128.62.72) with Microsoft SMTP Server
+	(version=TLS1_2, 
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2044.4;
+	Sat, 19 Sep 2020 11:38:23 +0800
+Received: from HK2PR0302MB2594.apcprd03.prod.outlook.com (2603:1096:202:c::8)
+	by HK2PR03MB4449.apcprd03.prod.outlook.com (2603:1096:202:1f::11)
+	with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.5;
+	Sat, 19 Sep 2020 03:38:21 +0000
+Received: from HK2PR0302MB2594.apcprd03.prod.outlook.com
+	([fe80::dc8d:b50c:1dfa:b164]) by
+	HK2PR0302MB2594.apcprd03.prod.outlook.com
+	([fe80::dc8d:b50c:1dfa:b164%7]) with mapi id 15.20.3391.009;
+	Sat, 19 Sep 2020 03:38:21 +0000
+From: Adrian Huang12 <ahuang12@lenovo.com>
+To: Dan Williams <dan.j.williams@intel.com>, "dm-devel@redhat.com"
+	<dm-devel@redhat.com>
+Thread-Topic: [External]  [PATCH] dm/dax: Fix table reference counts
+Thread-Index: AQHWjfe11ZIxZN3pikmRBt5326cygqlvT5EA
+Date: Sat, 19 Sep 2020 03:38:20 +0000
+Message-ID: <HK2PR0302MB25949288D7E87B5C9CDD60A9B33C0@HK2PR0302MB2594.apcprd03.prod.outlook.com>
 References: <160045867590.25663.7548541079217827340.stgit@dwillia2-desk3.amr.corp.intel.com>
-MIME-Version: 1.0
 In-Reply-To: <160045867590.25663.7548541079217827340.stgit@dwillia2-desk3.amr.corp.intel.com>
-User-Agent: Mutt/1.11.1 (2018-12-01)
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [1.174.62.240]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 91b8524d-5de6-4af7-dcbc-08d85c4d7495
+x-ms-traffictypediagnostic: HK2PR03MB4449:
+x-microsoft-antispam-prvs: <HK2PR03MB44497664BD87A395E14A4EB4B33C0@HK2PR03MB4449.apcprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1923;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: JCrWxhTizKKDAOk7ivv9s+zgB51QtgqegDxa6FeczzGfiijcf7oRX4fzAeQIQR8GLKXdUzuP59p96EjbXivL2o8uSAqXbFZ5RX1TBpC5qtYHGSDjs7gYP4sjFVD89mo4AtVUkBHUsIFTAeLF5WZn0qPsbbBM38hYe30iMZ6LgnxuAjkrbCtsQjjh273nk9y8bM+Q1YCLT0Od/YEPSVOzwSVwnhyDBdszhggJbh74zFsUfTeuip+HZZCQ+CdBbLHiMExfCWu4RokqkPEwu/zJ1HC7OnqsA4EkSkL/DPr6TwnWcqZog8eCRBL94UGbtOhgLJTLwC333Xn3eLU13J9ys4Gv37oc/omQwHsoqDldqgMNBcWXswMVxqpHGDY9u8aO
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:HK2PR0302MB2594.apcprd03.prod.outlook.com;
+	PTR:; CAT:NONE;
+	SFS:(4636009)(366004)(39860400002)(136003)(396003)(376002)(346002)(6506007)(110136005)(316002)(26005)(186003)(8936002)(4326008)(66476007)(83380400001)(2906002)(66556008)(7696005)(8676002)(478600001)(64756008)(66446008)(9686003)(66946007)(54906003)(53546011)(71200400001)(86362001)(52536014)(5660300002)(33656002)(76116006)(55016002);
+	DIR:OUT; SFP:1102;
+x-ms-exchange-antispam-messagedata: Tgzkw+00OkDqehMuVqoAR2p/kYsz0kAAWocWJOZOzshVOpiRJlT6MoGdOogpeZDUDaozbQSmg7XWC7Xdf3TizhsP+gkiKtPWcyvl1A0jhHMBWE+n5UwWdKNbJwHKLZIa9SI7Wszpros84bS9YIS+dhms8GcHoz5Or3YWPDRANDaQ8yWStcgC94m43QAUeYxwLU9z7zqnMrUZPPqG0n3WTXvWXiqI6Jdzz5dcYZelPwHVqjyog2PiJvwuDQ2sEgGmsA2SykLic+aSEFucFR+UQdF3dTmvhKmHd5Y4llklaKXWggPeZCBzvEm838RswtmsvMqmeWDNngYK1om4U0882HXexYibHPFk2Co8y0BQMUUFtVOc2Tf3kEPA3EBDLZ2g4FTgt4ExeCIdXZoQ2S7EejosXmMcbA0AcMgHA7uNFTsSFWUC8pFEdUFwByXy2zWEb1UQr8w0vP7/Awg2oFUQpiKdD+RcpDeAk9Rg1KhrDZFHn+pQVk8eXGSIDHkL+A5T004d7Hze86Q4eZwIWjDQzSdECqKxC1NicZ+JV1gDaCBgtfcIv0krG06vStg8KzBNHoZB3p4b1111ljUxH6whufNL/tfih3yykk07LShK+XMV/dx8E2GiSE4vnMd9210tkXTtDQ26SdnQGFJtvQbbAw==
+x-ms-exchange-transport-forked: True
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: HK2PR0302MB2594.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91b8524d-5de6-4af7-dcbc-08d85c4d7495
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Sep 2020 03:38:21.0111 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 5c7d0b28-bdf8-410c-aa93-4df372b16203
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7nHoXS4G7bZb1BvioEKy2KuSvK89UpjEbjHdjy1oxJpJ6pjspAyHFtMfEEnbjaJRyfBqy9p/UO9XfrbDzZZTKw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK2PR03MB4449
+X-OriginatorOrg: lenovo.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -71,14 +149,17 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from base64 to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 08J3ja8i023396
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 21 Sep 2020 03:57:37 -0400
 Cc: Jan Kara <jack@suse.cz>, Mike Snitzer <snitzer@redhat.com>,
-	linux-nvdimm@lists.01.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, dm-devel@redhat.com,
-	Adrian Huang <ahuang12@lenovo.com>, Alasdair Kergon <agk@redhat.com>
-Subject: Re: [dm-devel] [PATCH] dm/dax: Fix table reference counts
+	"linux-nvdimm@lists.01.org" <linux-nvdimm@lists.01.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>,
+	Alasdair Kergon <agk@redhat.com>
+Subject: Re: [dm-devel] [External] [PATCH] dm/dax: Fix table reference counts
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,19 +173,28 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Content-Language: en-US
 
-On Fri, Sep 18, 2020 at 12:51:15PM -0700, Dan Williams wrote:
+> -----Original Message-----
+> From: Dan Williams <dan.j.williams@intel.com>
+> Sent: Saturday, September 19, 2020 3:51 AM
+> To: dm-devel@redhat.com
+> Cc: stable@vger.kernel.org; Jan Kara <jack@suse.cz>; Alasdair Kergon
+> <agk@redhat.com>; Mike Snitzer <snitzer@redhat.com>; Adrian Huang12
+> <ahuang12@lenovo.com>; linux-nvdimm@lists.01.org; linux-
+> kernel@vger.kernel.org
+> Subject: [External] [PATCH] dm/dax: Fix table reference counts
+> 
 > A recent fix to the dm_dax_supported() flow uncovered a latent bug. When
-> dm_get_live_table() fails it is still required to drop the
-> srcu_read_lock(). Without this change the lvm2 test-suite triggers this
+> dm_get_live_table() fails it is still required to drop the srcu_read_lock(). Without
+> this change the lvm2 test-suite triggers this
 > warning:
 > 
 >     # lvm2-testsuite --only pvmove-abort-all.sh
@@ -114,7 +204,8 @@ On Fri, Sep 18, 2020 at 12:51:15PM -0700, Dan Williams wrote:
 >     ------------------------------------------------
 >     lvm/1318 is leaving the kernel with locks still held!
 >     1 lock held by lvm/1318:
->      #0: ffff9372abb5a340 (&md->io_barrier){....}-{0:0}, at: dm_get_live_table+0x5/0xb0 [dm_mod]
+>      #0: ffff9372abb5a340 (&md->io_barrier){....}-{0:0}, at:
+> dm_get_live_table+0x5/0xb0 [dm_mod]
 > 
 > ...and later on this hang signature:
 > 
@@ -136,47 +227,47 @@ On Fri, Sep 18, 2020 at 12:51:15PM -0700, Dan Williams wrote:
 >      __dm_suspend+0x6d/0x210 [dm_mod]
 >      dm_suspend+0xf6/0x140 [dm_mod]
 > 
-> Fixes: 7bf7eac8d648 ("dax: Arrange for dax_supported check to span multiple devices")
+> Fixes: 7bf7eac8d648 ("dax: Arrange for dax_supported check to span multiple
+> devices")
 > Cc: <stable@vger.kernel.org>
 > Cc: Jan Kara <jack@suse.cz>
 > Cc: Alasdair Kergon <agk@redhat.com>
 > Cc: Mike Snitzer <snitzer@redhat.com>
 > Reported-by: Adrian Huang <ahuang12@lenovo.com>
 > Signed-off-by: Dan Williams <dan.j.williams@intel.com>
+
+Cool, thanks for the fix. This solves the issue.
+
+Tested-by: Adrian Huang <ahuang12@lenovo.com>
+
 > ---
 >  drivers/md/dm.c |    5 +++--
 >  1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-> index fb0255d25e4b..4a40df8af7d3 100644
+> diff --git a/drivers/md/dm.c b/drivers/md/dm.c index
+> fb0255d25e4b..4a40df8af7d3 100644
 > --- a/drivers/md/dm.c
 > +++ b/drivers/md/dm.c
-> @@ -1136,15 +1136,16 @@ static bool dm_dax_supported(struct dax_device *dax_dev, struct block_device *bd
->  {
+> @@ -1136,15 +1136,16 @@ static bool dm_dax_supported(struct dax_device
+> *dax_dev, struct block_device *bd  {
 >  	struct mapped_device *md = dax_get_private(dax_dev);
 >  	struct dm_table *map;
 > +	bool ret = false;
 >  	int srcu_idx;
 > -	bool ret;
->  
+> 
 >  	map = dm_get_live_table(md, &srcu_idx);
 >  	if (!map)
 > -		return false;
 > +		goto out;
->  
+> 
 >  	ret = dm_table_supports_dax(map, device_supports_dax, &blocksize);
->  
+> 
 > +out:
 >  	dm_put_live_table(md, srcu_idx);
-
-Wow that is an odd interface for the kernel.  Especially since map is not
-passed back in.  But yea looks correct.
-
-Reviewed-by: Ira Weiny <ira.weiny@intel.com>
-
->  
->  	return ret;
 > 
+>  	return ret;
+
 
 --
 dm-devel mailing list
