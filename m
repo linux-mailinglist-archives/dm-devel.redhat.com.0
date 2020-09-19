@@ -1,61 +1,63 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id BB40E270D00
-	for <lists+dm-devel@lfdr.de>; Sat, 19 Sep 2020 12:28:17 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+	by mail.lfdr.de (Postfix) with ESMTP id 9C020270D01
+	for <lists+dm-devel@lfdr.de>; Sat, 19 Sep 2020 12:29:13 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-336-MMH48Ck1NsO04C45WhamTQ-1; Sat, 19 Sep 2020 06:28:14 -0400
-X-MC-Unique: MMH48Ck1NsO04C45WhamTQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-468-69MxRj2hMxarBuufylpb-Q-1; Sat, 19 Sep 2020 06:29:10 -0400
+X-MC-Unique: 69MxRj2hMxarBuufylpb-Q-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 65A3257058;
-	Sat, 19 Sep 2020 10:28:07 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 30BBA100747E;
+	Sat, 19 Sep 2020 10:29:05 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9C10F19746;
-	Sat, 19 Sep 2020 10:28:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C7F6D73660;
+	Sat, 19 Sep 2020 10:29:04 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B146544A47;
-	Sat, 19 Sep 2020 10:27:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E591644A47;
+	Sat, 19 Sep 2020 10:29:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08JARZce029570 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 19 Sep 2020 06:27:36 -0400
+	id 08JASwiM029677 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 19 Sep 2020 06:28:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A7FFA200BCF0; Sat, 19 Sep 2020 10:27:35 +0000 (UTC)
+	id 7B0EC100C2B2; Sat, 19 Sep 2020 10:28:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A1E632028E91
-	for <dm-devel@redhat.com>; Sat, 19 Sep 2020 10:27:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7667D100C2AE
+	for <dm-devel@redhat.com>; Sat, 19 Sep 2020 10:28:56 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3D1FE8007DF
-	for <dm-devel@redhat.com>; Sat, 19 Sep 2020 10:27:33 +0000 (UTC)
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35]) (Using
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 071FB8007DF
+	for <dm-devel@redhat.com>; Sat, 19 Sep 2020 10:28:56 +0000 (UTC)
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-331-adfYNSW8MdC77W9COayNmQ-1; Sat, 19 Sep 2020 06:27:30 -0400
-X-MC-Unique: adfYNSW8MdC77W9COayNmQ-1
-Received: from DGGEMS406-HUB.china.huawei.com (unknown [172.30.72.58])
-	by Forcepoint Email with ESMTP id 1F32C135C7274D1F0EDE;
-	Sat, 19 Sep 2020 18:27:26 +0800 (CST)
+	us-mta-397-dod0UxNJOxSsJnincUJ4Pw-1; Sat, 19 Sep 2020 06:28:51 -0400
+X-MC-Unique: dod0UxNJOxSsJnincUJ4Pw-1
+Received: from DGGEMS406-HUB.china.huawei.com (unknown [172.30.72.60])
+	by Forcepoint Email with ESMTP id 035B4498979300F1AA0B;
+	Sat, 19 Sep 2020 18:28:47 +0800 (CST)
 Received: from [10.174.178.208] (10.174.178.208) by
 	DGGEMS406-HUB.china.huawei.com (10.3.19.206) with Microsoft SMTP Server
-	id 14.3.487.0; Sat, 19 Sep 2020 18:27:16 +0800
+	id 14.3.487.0; Sat, 19 Sep 2020 18:28:36 +0800
+From: lixiaokeng <lixiaokeng@huawei.com>
 To: Martin Wilck <mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, 
 	Christophe Varoqui <christophe.varoqui@opensvc.com>, dm-devel mailing list
 	<dm-devel@redhat.com>
-From: lixiaokeng <lixiaokeng@huawei.com>
-Message-ID: <ae709d8f-64f7-30bc-bd08-fc2398c0c093@huawei.com>
-Date: Sat, 19 Sep 2020 18:27:15 +0800
+References: <ae709d8f-64f7-30bc-bd08-fc2398c0c093@huawei.com>
+Message-ID: <39c4b48b-4cc8-062e-c6c8-1207b38f576a@huawei.com>
+Date: Sat, 19 Sep 2020 18:28:36 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
 	Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <ae709d8f-64f7-30bc-bd08-fc2398c0c093@huawei.com>
 X-Originating-IP: [10.174.178.208]
 X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -66,12 +68,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 Cc: linfeilong <linfeilong@huawei.com>,
 	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
-Subject: [dm-devel] [PATCH V6 00/14] multipath-tools series: some cleanups
- and fixes checked by codedex tool
+Subject: [dm-devel] [PATCH V6 11/14] mpathpersist: check whether malloc
+ paramp->trnptid_list fails in handle_args func
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,7 +87,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -94,46 +96,142 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Language: en-GB
 
-Patch 11 is changed.
-V5->V6 "paramp->num_transportid = num_transportid" is deleted
-in alloc_prout_param_descriptor because paramp->num_transportid
-will be set after if (num_transportids) in handle_args.
+In handle_args func, we donot check whether malloc paramp and
+each paramp->trnptid_list[j] fails before using them, it may
+cause access NULL pointer.
 
-Zhiqiang Liu (7):
-  multipathd: check return value of malloc in cli_getprkey func
-  kpartx: use xmalloc to instead of malloc in main func
-  libmultipath: check return value of dm_mapname in sysfs_check_holders
-  libmultipath: donot free *dst if REALLOC fails in merge_words
-  libmultipath: check whether mpp->features is NUll in setup_map
-  util/tests: use assert_non_null to ensure malloc returns non-null
-    pointer
-  mpathpersist: check whether malloc paramp->trnptid_list fails in
-    handle_args func
+Here, we add alloc_prout_param_descriptor to allocate and init
+paramp, and we add free_prout_param_descriptor to free paramp
+and each paramp->trnptid_list[j].
 
-lixiaokeng (7):
-  multipathd: initialize major and minor in cli_add_map
-  libmultipath: change malloc to calloc in print_foreign_topology
-  libmultipath: use map instead of dm_task_get_name
-  multipathd: check MALLOC return value in mpath_pr_event_handler_fn
-  libmultipathpersist: use update_multipath_table/status in get_mpvec
-  multipath: use update_multipath_table/status in check_useable_paths
-  multipathpersist: delete unused variable in handle_args
+We change num_transport to num_transportids to combine them.
 
- kpartx/kpartx.c                 | 36 +++++++++---------
- libmpathpersist/mpath_persist.c | 15 +++-----
- libmultipath/configure.c        |  5 +++
- libmultipath/devmapper.c        |  2 +-
- libmultipath/dmparser.c         | 18 ++++-----
- libmultipath/foreign.c          |  4 +-
- libmultipath/sysfs.c            |  6 ++-
- mpathpersist/main.c             | 66 +++++++++++++++++++++++++--------
- multipath/main.c                |  9 ++---
- multipathd/cli_handlers.c       |  4 +-
- multipathd/main.c               |  8 ++--
- tests/util.c                    |  2 +
- 12 files changed, 106 insertions(+), 69 deletions(-)
+Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
+Signed-off-by: lixiaokeng <lixiaokeng@huawei.com>
+---
+ mpathpersist/main.c | 64 ++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 49 insertions(+), 15 deletions(-)
 
---
+diff --git a/mpathpersist/main.c b/mpathpersist/main.c
+index 28bfe410..f6a8b38c 100644
+--- a/mpathpersist/main.c
++++ b/mpathpersist/main.c
+@@ -153,6 +153,37 @@ static int do_batch_file(const char *batch_fn)
+ 	return ret;
+ }
+
++static struct prout_param_descriptor *
++alloc_prout_param_descriptor(int num_transportid)
++{
++	struct prout_param_descriptor *paramp;
++
++	if (num_transportid < 0 || num_transportid > MPATH_MX_TIDS)
++		return NULL;
++
++	paramp= malloc(sizeof(struct prout_param_descriptor) +
++				(sizeof(struct transportid *) * num_transportid));
++
++	if (!paramp)
++		return NULL;
++
++	memset(paramp, 0, sizeof(struct prout_param_descriptor) +
++			(sizeof(struct transportid *) * num_transportid));
++	return paramp;
++}
++
++static void free_prout_param_descriptor(struct prout_param_descriptor *paramp)
++{
++	unsigned int i;
++	if (!paramp)
++		return;
++
++	for (i = 0; i < paramp->num_transportid; i++)
++		free(paramp->trnptid_list[i]);
++
++	free(paramp);
++}
++
+ static int handle_args(int argc, char * argv[], int nline)
+ {
+ 	int c;
+@@ -177,7 +208,6 @@ static int handle_args(int argc, char * argv[], int nline)
+ 	int prin = 1;
+ 	int prin_sa = -1;
+ 	int prout_sa = -1;
+-	int num_transport =0;
+ 	char *batch_fn = NULL;
+ 	void *resp = NULL;
+ 	struct transportid * tmp;
+@@ -334,13 +364,13 @@ static int handle_args(int argc, char * argv[], int nline)
+ 				break;
+
+ 			case 'X':
+-				if (0 != construct_transportid(optarg, transportids, num_transport)) {
++				if (0 != construct_transportid(optarg, transportids, num_transportids)) {
+ 					fprintf(stderr, "bad argument to '--transport-id'\n");
+ 					ret = MPATH_PR_SYNTAX_ERROR;
+ 					goto out;
+ 				}
+
+-				++num_transport;
++				++num_transportids;
+ 				break;
+
+ 			case 'l':
+@@ -525,9 +555,12 @@ static int handle_args(int argc, char * argv[], int nline)
+ 		int j;
+ 		struct prout_param_descriptor *paramp;
+
+-		paramp= malloc(sizeof(struct prout_param_descriptor) + (sizeof(struct transportid *)*(MPATH_MX_TIDS )));
+-
+-		memset(paramp, 0, sizeof(struct prout_param_descriptor) + (sizeof(struct transportid *)*(MPATH_MX_TIDS)));
++		paramp = alloc_prout_param_descriptor(num_transportids);
++		if (!paramp) {
++			fprintf(stderr, "malloc paramp failed\n");
++			ret = MPATH_PR_OTHER;
++			goto out_fd;
++		}
+
+ 		for (j = 7; j >= 0; --j) {
+ 			paramp->key[j] = (param_rk & 0xff);
+@@ -544,13 +577,19 @@ static int handle_args(int argc, char * argv[], int nline)
+ 		if (param_aptpl)
+ 			paramp->sa_flags |= MPATH_F_APTPL_MASK;
+
+-		if (num_transport)
++		if (num_transportids)
+ 		{
+ 			paramp->sa_flags |= MPATH_F_SPEC_I_PT_MASK;
+-			paramp->num_transportid = num_transport;
+-			for (j = 0 ; j < num_transport; j++)
++			paramp->num_transportid = num_transportids;
++			for (j = 0 ; j < num_transportids; j++)
+ 			{
+ 				paramp->trnptid_list[j] = (struct transportid *)malloc(sizeof(struct transportid));
++				if (!paramp->trnptid_list[j]) {
++					fprintf(stderr, "malloc paramp->trnptid_list[%d] failed.\n", j);
++					ret = MPATH_PR_OTHER;
++					free_prout_param_descriptor(paramp);
++					goto out_fd;
++				}
+ 				memcpy(paramp->trnptid_list[j], &transportids[j],sizeof(struct transportid));
+ 			}
+ 		}
+@@ -558,12 +597,7 @@ static int handle_args(int argc, char * argv[], int nline)
+ 		/* PROUT commands other than 'register and move' */
+ 		ret = __mpath_persistent_reserve_out (fd, prout_sa, 0, prout_type,
+ 				paramp, noisy);
+-		for (j = 0 ; j < num_transport; j++)
+-		{
+-			tmp = paramp->trnptid_list[j];
+-			free(tmp);
+-		}
+-		free(paramp);
++		free_prout_param_descriptor(paramp);
+ 	}
+
+ 	if (ret != MPATH_PR_SUCCESS)
+-- 
 
 --
 dm-devel mailing list
