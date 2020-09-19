@@ -1,87 +1,57 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-delivery-1.mimecast.com [205.139.110.120])
-	by mail.lfdr.de (Postfix) with ESMTP id 242CF270874
-	for <lists+dm-devel@lfdr.de>; Fri, 18 Sep 2020 23:40:56 +0200 (CEST)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by mail.lfdr.de (Postfix) with ESMTP id CED03270B47
+	for <lists+dm-devel@lfdr.de>; Sat, 19 Sep 2020 08:53:58 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-102-kZAI7Y5-Pji7RjFyY_8Qtg-1; Fri, 18 Sep 2020 17:40:52 -0400
-X-MC-Unique: kZAI7Y5-Pji7RjFyY_8Qtg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-330-kHWXqh-gPyOFWmHdyXgLYQ-1; Sat, 19 Sep 2020 02:53:55 -0400
+X-MC-Unique: kHWXqh-gPyOFWmHdyXgLYQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EA9131084D78;
-	Fri, 18 Sep 2020 21:40:45 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 47E1C55765;
-	Fri, 18 Sep 2020 21:40:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3928C1074651;
+	Sat, 19 Sep 2020 06:53:48 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 31AF210023A5;
+	Sat, 19 Sep 2020 06:53:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 147118C7C9;
-	Fri, 18 Sep 2020 21:40:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 75F2C183D041;
+	Sat, 19 Sep 2020 06:53:20 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08ILeIYO021313 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 18 Sep 2020 17:40:18 -0400
+	id 08J6pbCS007241 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 19 Sep 2020 02:51:37 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 667D8113F9E; Fri, 18 Sep 2020 21:40:18 +0000 (UTC)
+	id 541FB200BCF0; Sat, 19 Sep 2020 06:51:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 61D6811E5D3
-	for <dm-devel@redhat.com>; Fri, 18 Sep 2020 21:40:16 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4E7102028DCC
+	for <dm-devel@redhat.com>; Sat, 19 Sep 2020 06:51:34 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 58BC3805B97
-	for <dm-devel@redhat.com>; Fri, 18 Sep 2020 21:40:16 +0000 (UTC)
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-527-Zks_gW83Pa2T2pmUtVs7Nw-1; Fri, 18 Sep 2020 17:40:12 -0400
-X-MC-Unique: Zks_gW83Pa2T2pmUtVs7Nw-1
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
-	by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	08IFPkTY152993; Fri, 18 Sep 2020 15:30:48 GMT
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
-	by userp2130.oracle.com with ESMTP id 33gnrrfwp2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=FAIL); Fri, 18 Sep 2020 15:30:48 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
-	by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	08IFQ4BM109038; Fri, 18 Sep 2020 15:30:47 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
-	by userp3020.oracle.com with ESMTP id 33hm371cuc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 18 Sep 2020 15:30:47 +0000
-Received: from abhmp0015.oracle.com (abhmp0015.oracle.com [141.146.116.21])
-	by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 08IFUhOE005759;
-	Fri, 18 Sep 2020 15:30:44 GMT
-Received: from localhost (/67.169.218.210)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Fri, 18 Sep 2020 15:30:43 +0000
-Date: Fri, 18 Sep 2020 08:30:41 -0700
-From: "Darrick J. Wong" <darrick.wong@oracle.com>
-To: Dan Williams <dan.j.williams@intel.com>
-Message-ID: <20200918153041.GN7954@magnolia>
-References: <160040692945.25320.13233625491405115889.stgit@dwillia2-desk3.amr.corp.intel.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5722580351B
+	for <dm-devel@redhat.com>; Sat, 19 Sep 2020 06:51:34 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-125-Uti2jo-7NHOJlVg_Sqpraw-1;
+	Sat, 19 Sep 2020 02:51:31 -0400
+X-MC-Unique: Uti2jo-7NHOJlVg_Sqpraw-1
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 2740768BFE; Sat, 19 Sep 2020 08:51:27 +0200 (CEST)
+Date: Sat, 19 Sep 2020 08:51:26 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Jan Kara <jack@suse.cz>
+Message-ID: <20200919065126.GA8048@lst.de>
+References: <20200910144833.742260-1-hch@lst.de>
+	<20200910144833.742260-11-hch@lst.de>
+	<20200917092524.GC7347@quack2.suse.cz>
 MIME-Version: 1.0
-In-Reply-To: <160040692945.25320.13233625491405115889.stgit@dwillia2-desk3.amr.corp.intel.com>
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9748
-	signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
-	bulkscore=0 mlxlogscore=999
-	malwarescore=0 mlxscore=0 phishscore=0 adultscore=0 suspectscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2006250000 definitions=main-2009180126
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9748
-	signatures=668679
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
-	spamscore=0
-	lowpriorityscore=0 malwarescore=0 mlxscore=0 bulkscore=0 suspectscore=0
-	clxscore=1011 mlxlogscore=999 adultscore=0 priorityscore=1501
-	impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2006250000 definitions=main-2009180126
+In-Reply-To: <20200917092524.GC7347@quack2.suse.cz>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -90,14 +60,18 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: Jan Kara <jack@suse.cz>, snitzer@redhat.com, linux-nvdimm@lists.01.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	dm-devel@redhat.com, Adrian Huang <ahuang12@lenovo.com>,
-	mpatocka@redhat.com, ira.weiny@intel.com
-Subject: Re: [dm-devel] [PATCH v2] dm: Call proper helper to determine dax
- support
+Cc: Jens Axboe <axboe@kernel.dk>, linux-raid@vger.kernel.org,
+	Hans de Goede <hdegoede@redhat.com>, Minchan Kim <minchan@kernel.org>,
+	Richard Weinberger <richard@nod.at>,
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
+	Song Liu <song@kernel.org>, dm-devel@redhat.com,
+	linux-mtd@lists.infradead.org, linux-mm@kvack.org,
+	cgroups@vger.kernel.org, drbd-dev@tron.linbit.com,
+	linux-fsdevel@vger.kernel.org, Christoph Hellwig <hch@lst.de>
+Subject: Re: [dm-devel] [PATCH 10/12] bdi: replace BDI_CAP_STABLE_WRITES
+ with a queue and a sb flag
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -111,7 +85,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -120,138 +94,36 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-On Thu, Sep 17, 2020 at 10:30:03PM -0700, Dan Williams wrote:
-> From: Jan Kara <jack@suse.cz>
+On Thu, Sep 17, 2020 at 11:25:24AM +0200, Jan Kara wrote:
+> On Thu 10-09-20 16:48:30, Christoph Hellwig wrote:
+> > The BDI_CAP_STABLE_WRITES is one of the few bits of information in the
+> > backing_dev_info shared between the block drivers and the writeback code.
+> > To help untangling the dependency replace it with a queue flag and a
+> > superblock flag derived from it.  This also helps with the case of e.g.
+> > a file system requiring stable writes due to its own checksumming, but
+> > not forcing it on other users of the block device like the swap code.
+> > 
+> > One downside is that we can't support the stable_pages_required bdi
+> > attribute in sysfs anymore.  It is replaced with a queue attribute, that
+> > can also be made writable for easier testing.
+>   ^^^^^^^^^^^^^^^^
+>   is also made
 > 
-> DM was calling generic_fsdax_supported() to determine whether a device
-> referenced in the DM table supports DAX. However this is a helper for "leaf" device drivers so that
-> they don't have to duplicate common generic checks. High level code
-> should call dax_supported() helper which that calls into appropriate
-> helper for the particular device. This problem manifested itself as
-> kernel messages:
+> For a while I was confused thinking that the new attribute is not writeable
+> but when I checked the code I saw that it is.
 > 
-> dm-3: error: dax access failed (-95)
+> Not supporting stable_pages_required attribute is not nice but probably it
+> isn't widely used. Maybe the deprecation message can even mention to use
+> the queue attribute? Otherwise the patch looks good to me so feel free to
+> add:
 > 
-> when lvm2-testsuite run in cases where a DM device was stacked on top of
-> another DM device.
+> Reviewed-by: Jan Kara <jack@suse.cz>
 
-Is there somewhere where it is documented which of:
+Thanks.  I've fixed the commit log and changed the warning to:
 
-bdev_dax_supported, generic_fsdax_supported, and dax_supported
-
-one is supposed to use for a given circumstance?
-
-I guess the last two can test a given range w/ blocksize; the first one
-only does blocksize; and the middle one also checks with whatever fs
-might be mounted? <shrug>
-
-(I ask because it took me a while to figure out how to revert correctly
-the brokenness in rc3-5 that broke my nightly dax fstesting.)
-
---D
-
-> 
-> Fixes: 7bf7eac8d648 ("dax: Arrange for dax_supported check to span multiple devices")
-> Cc: <stable@vger.kernel.org>
-> Tested-by: Adrian Huang <ahuang12@lenovo.com>
-> Signed-off-by: Jan Kara <jack@suse.cz>
-> Acked-by: Mike Snitzer <snitzer@redhat.com>
-> Signed-off-by: Dan Williams <dan.j.williams@intel.com>
-> ---
-> Changes since v1 [1]:
-> - Add missing dax_read_lock() around dax_supported()
-> 
-> [1]: http://lore.kernel.org/r/20200916151445.450-1-jack@suse.cz
-> 
->  drivers/dax/super.c   |    4 ++++
->  drivers/md/dm-table.c |   10 +++++++---
->  include/linux/dax.h   |   11 +++++++++--
->  3 files changed, 20 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/dax/super.c b/drivers/dax/super.c
-> index e5767c83ea23..b6284c5cae0a 100644
-> --- a/drivers/dax/super.c
-> +++ b/drivers/dax/super.c
-> @@ -325,11 +325,15 @@ EXPORT_SYMBOL_GPL(dax_direct_access);
->  bool dax_supported(struct dax_device *dax_dev, struct block_device *bdev,
->  		int blocksize, sector_t start, sector_t len)
->  {
-> +	if (!dax_dev)
-> +		return false;
-> +
->  	if (!dax_alive(dax_dev))
->  		return false;
->  
->  	return dax_dev->ops->dax_supported(dax_dev, bdev, blocksize, start, len);
->  }
-> +EXPORT_SYMBOL_GPL(dax_supported);
->  
->  size_t dax_copy_from_iter(struct dax_device *dax_dev, pgoff_t pgoff, void *addr,
->  		size_t bytes, struct iov_iter *i)
-> diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-> index 5edc3079e7c1..229f461e7def 100644
-> --- a/drivers/md/dm-table.c
-> +++ b/drivers/md/dm-table.c
-> @@ -860,10 +860,14 @@ EXPORT_SYMBOL_GPL(dm_table_set_type);
->  int device_supports_dax(struct dm_target *ti, struct dm_dev *dev,
->  			sector_t start, sector_t len, void *data)
->  {
-> -	int blocksize = *(int *) data;
-> +	int blocksize = *(int *) data, id;
-> +	bool rc;
->  
-> -	return generic_fsdax_supported(dev->dax_dev, dev->bdev, blocksize,
-> -				       start, len);
-> +	id = dax_read_lock();
-> +	rc = dax_supported(dev->dax_dev, dev->bdev, blocksize, start, len);
-> +	dax_read_unlock(id);
-> +
-> +	return rc;
->  }
->  
->  /* Check devices support synchronous DAX */
-> diff --git a/include/linux/dax.h b/include/linux/dax.h
-> index 6904d4e0b2e0..9f916326814a 100644
-> --- a/include/linux/dax.h
-> +++ b/include/linux/dax.h
-> @@ -130,6 +130,8 @@ static inline bool generic_fsdax_supported(struct dax_device *dax_dev,
->  	return __generic_fsdax_supported(dax_dev, bdev, blocksize, start,
->  			sectors);
->  }
-> +bool dax_supported(struct dax_device *dax_dev, struct block_device *bdev,
-> +		int blocksize, sector_t start, sector_t len);
->  
->  static inline void fs_put_dax(struct dax_device *dax_dev)
->  {
-> @@ -157,6 +159,13 @@ static inline bool generic_fsdax_supported(struct dax_device *dax_dev,
->  	return false;
->  }
->  
-> +static inline bool dax_supported(struct dax_device *dax_dev,
-> +		struct block_device *bdev, int blocksize, sector_t start,
-> +		sector_t len)
-> +{
-> +	return false;
-> +}
-> +
->  static inline void fs_put_dax(struct dax_device *dax_dev)
->  {
->  }
-> @@ -195,8 +204,6 @@ bool dax_alive(struct dax_device *dax_dev);
->  void *dax_get_private(struct dax_device *dax_dev);
->  long dax_direct_access(struct dax_device *dax_dev, pgoff_t pgoff, long nr_pages,
->  		void **kaddr, pfn_t *pfn);
-> -bool dax_supported(struct dax_device *dax_dev, struct block_device *bdev,
-> -		int blocksize, sector_t start, sector_t len);
->  size_t dax_copy_from_iter(struct dax_device *dax_dev, pgoff_t pgoff, void *addr,
->  		size_t bytes, struct iov_iter *i);
->  size_t dax_copy_to_iter(struct dax_device *dax_dev, pgoff_t pgoff, void *addr,
-> 
-> --
-> dm-devel mailing list
-> dm-devel@redhat.com
-> https://www.redhat.com/mailman/listinfo/dm-devel
-> 
+	dev_warn_once(dev, 
+                 "the stable_pages_required attribute has been removed. Use the
+		 stable_writes queue attribute instead.\n");
 
 --
 dm-devel mailing list
