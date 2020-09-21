@@ -2,73 +2,61 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 399C8271FB8
-	for <lists+dm-devel@lfdr.de>; Mon, 21 Sep 2020 12:09:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9011F2721D4
+	for <lists+dm-devel@lfdr.de>; Mon, 21 Sep 2020 13:08:34 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-38-QiYWyMRYPaGgi7uwVesfAw-1; Mon, 21 Sep 2020 06:09:24 -0400
-X-MC-Unique: QiYWyMRYPaGgi7uwVesfAw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-134-Qy1BuaX_OvyGXLO5jwshhw-1; Mon, 21 Sep 2020 07:08:31 -0400
+X-MC-Unique: Qy1BuaX_OvyGXLO5jwshhw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AC139107464D;
-	Mon, 21 Sep 2020 10:09:17 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B00E160C11;
-	Mon, 21 Sep 2020 10:09:16 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C248656ADE;
+	Mon, 21 Sep 2020 11:08:24 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ADF8978824;
+	Mon, 21 Sep 2020 11:08:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 41EF3183D041;
-	Mon, 21 Sep 2020 10:09:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 566D08C7AC;
+	Mon, 21 Sep 2020 11:08:12 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08LA92Pn031750 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 21 Sep 2020 06:09:02 -0400
+	id 08LB52An006035 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 21 Sep 2020 07:05:03 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 31042202450A; Mon, 21 Sep 2020 10:09:02 +0000 (UTC)
+	id D896D8A4D5; Mon, 21 Sep 2020 11:05:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2BD5E2024508
-	for <dm-devel@redhat.com>; Mon, 21 Sep 2020 10:09:00 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D43748A4CF
+	for <dm-devel@redhat.com>; Mon, 21 Sep 2020 11:04:58 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DF8968007DF
-	for <dm-devel@redhat.com>; Mon, 21 Sep 2020 10:08:59 +0000 (UTC)
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
-	[209.85.210.67]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-358-h74IZdwcOhKFKoPAnaEz3Q-1; Mon, 21 Sep 2020 06:08:55 -0400
-X-MC-Unique: h74IZdwcOhKFKoPAnaEz3Q-1
-Received: by mail-ot1-f67.google.com with SMTP id e23so11801607otk.7;
-	Mon, 21 Sep 2020 03:08:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=C2U9zgdNA+W5z39mxrnSClctTCx07o8njSeYRiDkxUQ=;
-	b=oWCTKW18bKDB75HMUd+eVo36C/iKZpIH1F/1cMvkwoz2woAtK0Ylz4+lCtGcd6UUWy
-	a9fAR+AOYpAT2YFmIQyiJTmwmaOGK80lX5lM1/7ZqhirWmBDq1KVm+4Ufpl55ewDzetL
-	ntIFf8dRDmKFT2RwKas5QCyWRLDs86i+AUJAC53NhS6dg4gKyFuL0Chq7O+IAmWMdZvC
-	srQO2yZNNBzIIrlEJykf9WFNNgVePZczMAIQseOyDwKD0EHPaGqc1vU18clrJr+PVWOu
-	MNu5MQ95nj6nUVLIAxcT/DINtT1DZyP7tmST6rlHYGokrN5/ne3F0XtY3IMs3QYELQeG
-	aMsg==
-X-Gm-Message-State: AOAM531DSdnpaWkJFG02i8+QAq89Pdg1Sc2tIQRCHqx3Ceb2OoR5+6nZ
-	mS8N1RQhSiTAX1u2ptPlMzGRB8FvZI8mFPqmOcA=
-X-Google-Smtp-Source: ABdhPJx0z6nJuof9O9shP/JtBfaIqTwWgK7RVeG7KPf2KNQd6Y85WoyMiJQvHvcs+fN+TsY5UDMK5YpXqSLo0OHyosg=
-X-Received: by 2002:a9d:3b76:: with SMTP id
-	z109mr31653937otb.250.1600682934646; 
-	Mon, 21 Sep 2020 03:08:54 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C618B101A53F
+	for <dm-devel@redhat.com>; Mon, 21 Sep 2020 11:04:58 +0000 (UTC)
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-102-_8TTQ0OdMoGt_UFbXU9MHg-1; Mon, 21 Sep 2020 07:04:56 -0400
+X-MC-Unique: _8TTQ0OdMoGt_UFbXU9MHg-1
+Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.60])
+	by Forcepoint Email with ESMTP id 7C9A44E82BC7919ECE36;
+	Mon, 21 Sep 2020 19:04:52 +0800 (CST)
+Received: from [10.174.178.208] (10.174.178.208) by
+	DGGEMS407-HUB.china.huawei.com (10.3.19.207) with Microsoft SMTP Server
+	id 14.3.487.0; Mon, 21 Sep 2020 19:04:42 +0800
+To: Martin Wilck <mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, 
+	Christophe Varoqui <christophe.varoqui@opensvc.com>, dm-devel mailing list
+	<dm-devel@redhat.com>
+From: lixiaokeng <lixiaokeng@huawei.com>
+Message-ID: <339cc79b-a7f1-62f0-5bb6-f07f436e9725@huawei.com>
+Date: Mon, 21 Sep 2020 19:04:41 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20200921010359.GO3027113@arch-chirva.localdomain>
-	<CA+G9fYtCg2KjdB2oBUDJ2DKAzUxq3u8ZnMY9Et-RG9Pnrmuf9w@mail.gmail.com>
-	<20200921073218.GA3142611@kroah.com>
-	<20200921095035.GC5862@quack2.suse.cz>
-In-Reply-To: <20200921095035.GC5862@quack2.suse.cz>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 21 Sep 2020 12:08:43 +0200
-Message-ID: <CAMuHMdX871H5zqgb877Tw3N6PczpXTvnbCGRt++4udNpf8Oftg@mail.gmail.com>
-To: Jan Kara <jack@suse.cz>
+X-Originating-IP: [10.174.178.208]
+X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -77,22 +65,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: Dave Jiang <dave.jiang@intel.com>, Mike Snitzer <snitzer@redhat.com>,
-	"linux-nvdimm@lists.01.org" <linux-nvdimm@lists.01.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Naresh Kamboju <naresh.kamboju@linaro.org>,
-	kernel list <linux-kernel@vger.kernel.org>,
-	linux- stable <stable@vger.kernel.org>, dm-devel@redhat.com,
-	Stuart Little <achirvasub@gmail.com>,
-	Adrian Huang <ahuang12@lenovo.com>, lkft-triage@lists.linaro.org,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Dan Williams <dan.j.williams@intel.com>, Ira Weiny <ira.weiny@intel.com>
-Subject: Re: [dm-devel]
-	=?utf-8?q?PROBLEM=3A_5=2E9=2E0-rc6_fails_to_compile_du?=
-	=?utf-8?b?ZSB0byAncmVkZWZpbml0aW9uIG9mIOKAmGRheF9zdXBwb3J0ZWTigJkn?=
+Cc: linfeilong <linfeilong@huawei.com>,
+	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>, lutianxiong@huawei.com
+Subject: [dm-devel] [PATCH] libmultipath: set mpp->hwe NULL when free_path
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -106,48 +83,62 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
 
-Hi Honza,
+Here the segfault causes in select_pgfailback again. As show:
 
-On Mon, Sep 21, 2020 at 11:54 AM Jan Kara <jack@suse.cz> wrote:
-> On Mon 21-09-20 09:32:18, Greg KH wrote:
-> > On Mon, Sep 21, 2020 at 11:34:17AM +0530, Naresh Kamboju wrote:
-> > > On Mon, 21 Sep 2020 at 06:34, Stuart Little <achirvasub@gmail.com> wrote:
-> > > > I am trying to compile for an x86_64 machine (Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz). The config file I am currently using is at
-> > > >
-> > > > https://termbin.com/xin7
-> > > >
-> > > > The build for 5.9.0-rc6 fails with the following errors:
-> > > >
-> > >
-> > > arm and mips allmodconfig build breaks due to this error.
-> >
-> > all my local builds are breaking now too with this :(
-> >
-> > Was there a proposed patch anywhere for this?
->
-> Attached patch should fix the build breakage. I'm sorry for that.
+Core was generated by `/sbin/multipathd -d -s'.
+Program terminated with signal SIGSEGV, Segmentation fault.
+#0 0x0000ffffa2eb4a20 in select_pgfailback (conf=conf@entry=0xaaaaf89d0dd0, mp=mp@entry=0xffff88006be0) at propsel.c:199
+199 mp_set_hwe(pgfailback);
 
-Thanks, this fixes my m68k build issues:
-Tested-by: Geert Uytterhoeven <geert@linux-m68k.org>
+0 0x0000ffffa2eb4a20 in select_pgfailback (conf=conf@entry=0xaaaaf89d0dd0, mp=mp@entry=0xffff88006be0) at propsel.c:199
+1 0x0000ffffa2ec97bc in setup_map (mpp=0xaaaae4ff5000, params=0x1 <error: Cannot access memory at address 0x1>, params_size=65535, vecs=0xaaaae4fdc0a8) at configure.c:294
+2 0x0000aaaae4fd0830 in ev_add_path (pp=0xffff880190b0, vecs=0xaaaaf89d0630, need_do_map=1) at main.c:1017
+3 0x0000aaaae4fd0d04 in uev_add_path (uev=0xffffa24adf40, vecs=0xffffa24ad000, need_do_map=-278187383) at main.c:916
+4 0x0000aaaae4fd1790 in uev_trigger (uev=0xffffa24adf40, trigger_data=0xffffa24ad410) at main.c:1490
+5 0x0000ffffa2ec00cc in service_uevq (tmpq=tmpq@entry=0xffffa24ad618) at uevent.c:390
+6 0x0000ffffa2ec01d4 in uevent_dispatch (uev_trigger=<optimized out>, trigger_data=<optimized out>) at uevent.c:446
+7 0x0000aaaae4fce56c in uevqloop (ap=0xffffe42a5d50) at main.c:1523
+8 0x0000ffffa2d9e7ac in start_thread (arg=0xffffa2595380) at pthread_create.c:486
+9 0x0000ffffa2b577dc in thread_start () at ../sysdeps/unix/sysv/linux/aarch64/clone.S:78
 
-Gr{oetje,eeting}s,
+(gdb) bt
+(gdb) p *mp->hwe
+$2 = {allocated = 1937339183, slot = 0x616c702f73656369}
 
-                        Geert
+Here we set mpp->hwe NULL in free_path if mpp->hwe == pp->hwe.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Reported-by: Tianxiong Lu <lutianxiong@huawei.com>
+Signed-off-by:lixiaokeng <lixiaokeng@huawei.com>
+---
+ libmultipath/structs.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+diff --git a/libmultipath/structs.c b/libmultipath/structs.c
+index 464596fc..35dbaac1 100644
+--- a/libmultipath/structs.c
++++ b/libmultipath/structs.c
+@@ -150,6 +150,11 @@ free_path (struct path * pp)
+ 	if (pp->vpd_data)
+ 		free(pp->vpd_data);
+
++	if (pp->mpp && (pp->hwe == pp->mpp->hwe)) {
++		condlog(0, "BUG: free path %s that holds hwe of %s",
++		        pp->dev, pp->mpp->alias);
++		pp->mpp->hwe = NULL;
++	}
+ 	vector_free(pp->hwe);
+
+ 	FREE(pp);
+--
 
 --
 dm-devel mailing list
