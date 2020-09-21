@@ -1,72 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	by mail.lfdr.de (Postfix) with ESMTP id B4B7827330B
-	for <lists+dm-devel@lfdr.de>; Mon, 21 Sep 2020 21:43:01 +0200 (CEST)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by mail.lfdr.de (Postfix) with ESMTP id 985FE273383
+	for <lists+dm-devel@lfdr.de>; Mon, 21 Sep 2020 22:11:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1600719082;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=Zjvorf+Yp1+tAraw9m2Qi+jU4ZbXVeXrs9nKBL1hL48=;
+	b=VekE5sL2Gza7yeO2IjBsOPl6fJiZwGZ6RWq5rDfDySqGgGkgmAhpVvIBZ63ufHxT7fjF9I
+	i6ChkpiN2xpLAIQE4UInCyFI5c44IVeJM5YByPN050N9aWqctCu+gO4kONSxBo+iWTGWSk
+	vIZuDQaGClkj6GD5pQdt6MKcwPRuGmk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-180-7JuIqC1tOuyC_lsJ9PuTbQ-1; Mon, 21 Sep 2020 15:42:58 -0400
-X-MC-Unique: 7JuIqC1tOuyC_lsJ9PuTbQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-53-a06c7lBjPmS9eCb6nq6h_w-1; Mon, 21 Sep 2020 16:11:19 -0400
+X-MC-Unique: a06c7lBjPmS9eCb6nq6h_w-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 031111091067;
-	Mon, 21 Sep 2020 19:42:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2E8DC10BBEC1;
+	Mon, 21 Sep 2020 20:11:12 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BC64F9CBA;
-	Mon, 21 Sep 2020 19:42:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D0C15277B7;
+	Mon, 21 Sep 2020 20:11:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1633E44A6A;
-	Mon, 21 Sep 2020 19:42:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E7B218C7AA;
+	Mon, 21 Sep 2020 20:11:04 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08LJgRC4003997 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 21 Sep 2020 15:42:27 -0400
+	id 08LKAwGM007551 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 21 Sep 2020 16:10:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 804E42166B28; Mon, 21 Sep 2020 19:42:27 +0000 (UTC)
+	id 43B2A19744; Mon, 21 Sep 2020 20:10:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A27C2156A36
-	for <dm-devel@redhat.com>; Mon, 21 Sep 2020 19:42:25 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 252DD858289
-	for <dm-devel@redhat.com>; Mon, 21 Sep 2020 19:42:25 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-269-Q7C4qIsBO3m0ti83j2e62g-1;
-	Mon, 21 Sep 2020 15:42:22 -0400
-X-MC-Unique: Q7C4qIsBO3m0ti83j2e62g-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 402E3B028;
-	Mon, 21 Sep 2020 19:42:57 +0000 (UTC)
-Message-ID: <791d9ff29703d66d31669dedb233d082724bf2fd.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Benjamin Marzinski <bmarzins@redhat.com>
-Date: Mon, 21 Sep 2020 21:42:20 +0200
-In-Reply-To: <20200921190859.GX11108@octiron.msp.redhat.com>
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 40C1919C4F;
+	Mon, 21 Sep 2020 20:10:55 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 08LKAr9w000469; 
+	Mon, 21 Sep 2020 15:10:53 -0500
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 08LKArVn000468;
+	Mon, 21 Sep 2020 15:10:53 -0500
+Date: Mon, 21 Sep 2020 15:10:52 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: mwilck@suse.com
+Message-ID: <20200921201052.GY11108@octiron.msp.redhat.com>
 References: <20200916153718.582-1-mwilck@suse.com>
-	<20200916153718.582-14-mwilck@suse.com>
-	<20200921190859.GX11108@octiron.msp.redhat.com>
-User-Agent: Evolution 3.36.5
+	<20200916153718.582-18-mwilck@suse.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+In-Reply-To: <20200916153718.582-18-mwilck@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 13/19] libmultipath: provide defaults for
- {get, put}_multipath_config
+Subject: Re: [dm-devel] [PATCH 17/19] libmultipath: add udev and logsink
+	symbols
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,27 +75,111 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-On Mon, 2020-09-21 at 14:08 -0500, Benjamin Marzinski wrote:
+On Wed, Sep 16, 2020 at 05:37:16PM +0200, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
 > 
-> free_config() doesn't actually work for configs that are initialized
-> by
-> init_config(). That's fine, but the commit message is wrong. Also, I
-> wonder if uninit_config() should zero out __internal_config, so that
-> it's in the same state as it was before init_config() is called.
+> With these symbols added, applications using libmultipath don't
+> need to define global variables "udev" and "logsink" any more.
+> This comes at the cost of having to call an init function.
+> Currently, libmultipath_init() does nothing but initialize
+> "udev".
+> 
+> The linker's symbol lookup order still allows applications to use
+> their own "logsink" and "udev" variables, which will take precendence
+> over libmultipath's internal ones. In this case, calling
+> libmultipath_init() can be skipped, but like before,
+> udev should be initialized (using udev_new()) before making any
+> libmultipath calls.
+> 
+> Signed-off-by: Martin Wilck <mwilck@suse.com>
+> ---
+>  libmultipath/config.c | 22 ++++++++++++++++++++++
+>  libmultipath/config.h |  4 +++-
+>  libmultipath/debug.c  |  2 ++
+>  3 files changed, 27 insertions(+), 1 deletion(-)
+> 
+> diff --git a/libmultipath/config.c b/libmultipath/config.c
+> index b83e5cd..4b48b27 100644
+> --- a/libmultipath/config.c
+> +++ b/libmultipath/config.c
+> @@ -27,6 +27,28 @@
+>  #include "mpath_cmd.h"
+>  #include "propsel.h"
+>  
+> +static pthread_once_t _udev_once = PTHREAD_ONCE_INIT;
+> +struct udev *udev;
+> +
+> +void _udev_init(void)
+> +{
+> +	udev = udev_new();
+> +	if (!udev)
+> +		condlog(0, "%s: failed to initialize udev", __func__);
+> +}
+> +
+> +int libmultipath_init(void)
+> +{
+> +	if (!udev)
+> +		pthread_once(&_udev_once, _udev_init);
+> +	return udev ? 0 : 1;
+> +}
+> +
+> +void libmultipath_exit(void)
+> +{
+> +	udev_unref(udev);
+> +}
 
-argh, did it that way first, then changed my mind, and forgot to fix
-the commit message .... sorry. Good point about zeroing it out.
+After calling libmultipath_exit(), you can never reinitialized the udev
+device.  That seems fine, but it should probably set udev to null, so
+that future calls to libmultipath_init() don't return success. Either
+that or multipath_init() should use a mutex instead of pthread_once() to
+avoid races, so that you can reinitialize udev after a call to
+libmultipath_exit().
 
-Martin
+-Ben
 
+> +
+>  static struct config __internal_config;
+>  struct config *libmp_get_multipath_config(void)
+>  {
+> diff --git a/libmultipath/config.h b/libmultipath/config.h
+> index 5997b71..541b2e4 100644
+> --- a/libmultipath/config.h
+> +++ b/libmultipath/config.h
+> @@ -232,7 +232,9 @@ struct config {
+>  	char *enable_foreign;
+>  };
+>  
+> -extern struct udev * udev;
+> +extern struct udev *udev;
+> +int libmultipath_init(void);
+> +void libmultipath_exit(void);
+>  
+>  int find_hwe (const struct _vector *hwtable,
+>  	      const char * vendor, const char * product, const char *revision,
+> diff --git a/libmultipath/debug.c b/libmultipath/debug.c
+> index 4128cb9..b3a1de9 100644
+> --- a/libmultipath/debug.c
+> +++ b/libmultipath/debug.c
+> @@ -15,6 +15,8 @@
+>  #include "defaults.h"
+>  #include "debug.h"
+>  
+> +int logsink;
+> +
+>  void dlog (int sink, int prio, const char * fmt, ...)
+>  {
+>  	va_list ap;
+> -- 
+> 2.28.0
 
 --
 dm-devel mailing list
