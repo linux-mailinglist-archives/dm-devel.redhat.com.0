@@ -2,59 +2,58 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 91562276BF6
-	for <lists+dm-devel@lfdr.de>; Thu, 24 Sep 2020 10:31:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 071FE276C03
+	for <lists+dm-devel@lfdr.de>; Thu, 24 Sep 2020 10:33:19 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-485-CVH204VnMmKOdpGFx8ZOSw-1; Thu, 24 Sep 2020 04:31:28 -0400
-X-MC-Unique: CVH204VnMmKOdpGFx8ZOSw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-433-_JXS7p4VP6Kreb92yp2ucg-1; Thu, 24 Sep 2020 04:33:17 -0400
+X-MC-Unique: _JXS7p4VP6Kreb92yp2ucg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2B93B81CAFB;
-	Thu, 24 Sep 2020 08:31:22 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 04A4B60CCC;
-	Thu, 24 Sep 2020 08:31:22 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 39D6481CAFB;
+	Thu, 24 Sep 2020 08:33:11 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 13F94100238E;
+	Thu, 24 Sep 2020 08:33:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B4D258C7A5;
-	Thu, 24 Sep 2020 08:31:21 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7D81B181A271;
+	Thu, 24 Sep 2020 08:33:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08NJKQsW024872 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 23 Sep 2020 15:20:26 -0400
+	id 08NJKPu8024845 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 23 Sep 2020 15:20:25 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7736F2166B27; Wed, 23 Sep 2020 19:20:26 +0000 (UTC)
+	id 0DC092B4D37; Wed, 23 Sep 2020 19:20:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 727852166B28
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 07B2BCF624
 	for <dm-devel@redhat.com>; Wed, 23 Sep 2020 19:20:24 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 21DD485828A
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A042E811E80
 	for <dm-devel@redhat.com>; Wed, 23 Sep 2020 19:20:24 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-2-c57EcDIqN12VuVDaZHiuFQ-1;
-	Wed, 23 Sep 2020 15:20:21 -0400
-X-MC-Unique: c57EcDIqN12VuVDaZHiuFQ-1
+	relay.mimecast.com with ESMTP id us-mta-508-Ccgdx1EzMVutxRwMAGgGng-1;
+	Wed, 23 Sep 2020 15:20:22 -0400
+X-MC-Unique: Ccgdx1EzMVutxRwMAGgGng-1
 Received: from tusharsu-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
 	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 450352089E57;
+	by linux.microsoft.com (Postfix) with ESMTPSA id C73252089E58;
 	Wed, 23 Sep 2020 12:20:20 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 450352089E57
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C73252089E58
 From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
 To: zohar@linux.ibm.com, stephen.smalley.work@gmail.com,
 	casey@schaufler-ca.com, agk@redhat.com, snitzer@redhat.com,
 	gmazyland@gmail.com
-Date: Wed, 23 Sep 2020 12:20:08 -0700
-Message-Id: <20200923192011.5293-4-tusharsu@linux.microsoft.com>
+Date: Wed, 23 Sep 2020 12:20:09 -0700
+Message-Id: <20200923192011.5293-5-tusharsu@linux.microsoft.com>
 In-Reply-To: <20200923192011.5293-1-tusharsu@linux.microsoft.com>
 References: <20200923192011.5293-1-tusharsu@linux.microsoft.com>
-MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -62,18 +61,16 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Newly Observed Domain=false; Internal User Name=false;
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 08NJKQsW024872
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 24 Sep 2020 04:31:06 -0400
 Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
 	jmorris@namei.org, linux-kernel@vger.kernel.org,
 	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
 	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: [dm-devel] [PATCH v4 3/6] IMA: update process_buffer_measurement to
-	measure buffer hash
+Subject: [dm-devel] [PATCH v4 4/6] IMA: add policy to measure critical data
+	from kernel components
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,117 +82,154 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-cHJvY2Vzc19idWZmZXJfbWVhc3VyZW1lbnQoKSBjdXJyZW50bHkgb25seSBtZWFzdXJlcyB0aGUg
-aW5wdXQgYnVmZmVyLgpJbiBjYXNlIG9mIFNlTGludXggcG9saWN5IG1lYXN1cmVtZW50LCB0aGUg
-cG9saWN5IGJlaW5nIG1lYXN1cmVkIGNvdWxkCmJlIGxhcmdlIChzZXZlcmFsIE1CKS4gVGhpcyBt
-YXkgcmVzdWx0IGluIGEgbGFyZ2UgZW50cnkgaW4gSU1BCm1lYXN1cmVtZW50IGxvZy4KCkludHJv
-ZHVjZSBhIGJvb2xlYW4gcGFyYW1ldGVyIG1lYXN1cmVfYnVmX2hhc2ggdG8gc3VwcG9ydCBtZWFz
-dXJpbmcKaGFzaCBvZiBhIGJ1ZmZlciwgd2hpY2ggd291bGQgYmUgbXVjaCBzbWFsbGVyLCBpbnN0
-ZWFkIG9mIHRoZSBidWZmZXIKaXRzZWxmLgoKVG8gdXNlIHRoZSBmdW5jdGlvbmFsaXR5IGludHJv
-ZHVjZWQgaW4gdGhpcyBwYXRjaCwgdGhlIGF0dGVzdGF0aW9uCmNsaWVudCBhbmQgdGhlIHNlcnZl
-ciBjaGFuZ2VzIG5lZWQgdG8gZ28gaGFuZCBpbiBoYW5kLiBUaGUKY2xpZW50L2tlcm5lbCB3b3Vs
-ZCBrbm93IHdoYXQgZGF0YSBpcyBiZWluZyBtZWFzdXJlZCBhcy1pcwooZS5nLiBLRVhFQ19DTURM
-SU5FKSwgYW5kIHdoYXQgZGF0YSBoYXMgaXTigJlzIGhhc2ggbWVhc3VyZWQgKGUuZy4gU2VMaW51
-eApQb2xpY3kpLiBBbmQgdGhlIGF0dGVzdGF0aW9uIHNlcnZlciBzaG91bGQgdmVyaWZ5IGRhdGEv
-aGFzaCBhY2NvcmRpbmdseS4KCkp1c3QgbGlrZSB0aGUgZGF0YSBiZWluZyBtZWFzdXJlZCBpbiBv
-dGhlciBjYXNlcywgdGhlIGF0dGVzdGF0aW9uIHNlcnZlcgp3aWxsIGtub3cgd2hhdCBhcmUgcG9z
-c2libGUgdmFsdWVzIG9mIHRoZSBsYXJnZSBidWZmZXJzIGJlaW5nIG1lYXN1cmVkLgplLmcuIHRo
-ZSBwb3NzaWJsZSB2YWxpZCBTZUxpbnV4IHBvbGljeSB2YWx1ZXMgdGhhdCBhcmUgYmVpbmcgcHVz
-aGVkIHRvCnRoZSBjbGllbnQuIFRoZSBhdHRlc3RhdGlvbiBzZXJ2ZXIgd2lsbCBoYXZlIHRvIG1h
-aW50YWluIHRoZSBoYXNoIG9mCnRob3NlIGJ1ZmZlciB2YWx1ZXMuCgpTaWduZWQtb2ZmLWJ5OiBU
-dXNoYXIgU3VnYW5kaGkgPHR1c2hhcnN1QGxpbnV4Lm1pY3Jvc29mdC5jb20+Ci0tLQogc2VjdXJp
-dHkvaW50ZWdyaXR5L2ltYS9pbWEuaCAgICAgICAgICAgICAgICAgfCAgMyArKy0KIHNlY3VyaXR5
-L2ludGVncml0eS9pbWEvaW1hX2FwcHJhaXNlLmMgICAgICAgIHwgIDIgKy0KIHNlY3VyaXR5L2lu
-dGVncml0eS9pbWEvaW1hX2FzeW1tZXRyaWNfa2V5cy5jIHwgIDIgKy0KIHNlY3VyaXR5L2ludGVn
-cml0eS9pbWEvaW1hX21haW4uYyAgICAgICAgICAgIHwgMjUgKysrKysrKysrKysrKysrKysrLS0K
-IHNlY3VyaXR5L2ludGVncml0eS9pbWEvaW1hX3F1ZXVlX2tleXMuYyAgICAgIHwgIDMgKystCiA1
-IGZpbGVzIGNoYW5nZWQsIDI5IGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCgpkaWZmIC0t
-Z2l0IGEvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9pbWEuaCBiL3NlY3VyaXR5L2ludGVncml0eS9p
-bWEvaW1hLmgKaW5kZXggODg3NTA4NWRiNjg5Li4wZjc3ZTBiNjk3YTMgMTAwNjQ0Ci0tLSBhL3Nl
-Y3VyaXR5L2ludGVncml0eS9pbWEvaW1hLmgKKysrIGIvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9p
-bWEuaApAQCAtMjY3LDcgKzI2Nyw4IEBAIHZvaWQgaW1hX3N0b3JlX21lYXN1cmVtZW50KHN0cnVj
-dCBpbnRlZ3JpdHlfaWludF9jYWNoZSAqaWludCwgc3RydWN0IGZpbGUgKmZpbGUsCiAJCQkgICBz
-dHJ1Y3QgaW1hX3RlbXBsYXRlX2Rlc2MgKnRlbXBsYXRlX2Rlc2MpOwogdm9pZCBwcm9jZXNzX2J1
-ZmZlcl9tZWFzdXJlbWVudChzdHJ1Y3QgaW5vZGUgKmlub2RlLCBjb25zdCB2b2lkICpidWYsIGlu
-dCBzaXplLAogCQkJCWNvbnN0IGNoYXIgKmV2ZW50bmFtZSwgZW51bSBpbWFfaG9va3MgZnVuYywK
-LQkJCQlpbnQgcGNyLCBjb25zdCBjaGFyICpmdW5jX2RhdGEpOworCQkJCWludCBwY3IsIGNvbnN0
-IGNoYXIgKmZ1bmNfZGF0YSwKKwkJCQlib29sIG1lYXN1cmVfYnVmX2hhc2gpOwogdm9pZCBpbWFf
-YXVkaXRfbWVhc3VyZW1lbnQoc3RydWN0IGludGVncml0eV9paW50X2NhY2hlICppaW50LAogCQkJ
-ICAgY29uc3QgdW5zaWduZWQgY2hhciAqZmlsZW5hbWUpOwogaW50IGltYV9hbGxvY19pbml0X3Rl
-bXBsYXRlKHN0cnVjdCBpbWFfZXZlbnRfZGF0YSAqZXZlbnRfZGF0YSwKZGlmZiAtLWdpdCBhL3Nl
-Y3VyaXR5L2ludGVncml0eS9pbWEvaW1hX2FwcHJhaXNlLmMgYi9zZWN1cml0eS9pbnRlZ3JpdHkv
-aW1hL2ltYV9hcHByYWlzZS5jCmluZGV4IDM3MmQxNjM4Mjk2MC4uMjBhZGZmZTViZjU4IDEwMDY0
-NAotLS0gYS9zZWN1cml0eS9pbnRlZ3JpdHkvaW1hL2ltYV9hcHByYWlzZS5jCisrKyBiL3NlY3Vy
-aXR5L2ludGVncml0eS9pbWEvaW1hX2FwcHJhaXNlLmMKQEAgLTMzNiw3ICszMzYsNyBAQCBpbnQg
-aW1hX2NoZWNrX2JsYWNrbGlzdChzdHJ1Y3QgaW50ZWdyaXR5X2lpbnRfY2FjaGUgKmlpbnQsCiAJ
-CWlmICgocmMgPT0gLUVQRVJNKSAmJiAoaWludC0+ZmxhZ3MgJiBJTUFfTUVBU1VSRSkpCiAJCQlw
-cm9jZXNzX2J1ZmZlcl9tZWFzdXJlbWVudChOVUxMLCBkaWdlc3QsIGRpZ2VzdHNpemUsCiAJCQkJ
-CQkgICAiYmxhY2tsaXN0ZWQtaGFzaCIsIE5PTkUsCi0JCQkJCQkgICBwY3IsIE5VTEwpOworCQkJ
-CQkJICAgcGNyLCBOVUxMLCBmYWxzZSk7CiAJfQogCiAJcmV0dXJuIHJjOwpkaWZmIC0tZ2l0IGEv
-c2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9pbWFfYXN5bW1ldHJpY19rZXlzLmMgYi9zZWN1cml0eS9p
-bnRlZ3JpdHkvaW1hL2ltYV9hc3ltbWV0cmljX2tleXMuYwppbmRleCAxYzY4YzUwMGMyNmYuLmE3
-NDA5NTc5MzkzNiAxMDA2NDQKLS0tIGEvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9pbWFfYXN5bW1l
-dHJpY19rZXlzLmMKKysrIGIvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9pbWFfYXN5bW1ldHJpY19r
-ZXlzLmMKQEAgLTYwLDUgKzYwLDUgQEAgdm9pZCBpbWFfcG9zdF9rZXlfY3JlYXRlX29yX3VwZGF0
-ZShzdHJ1Y3Qga2V5ICprZXlyaW5nLCBzdHJ1Y3Qga2V5ICprZXksCiAJICovCiAJcHJvY2Vzc19i
-dWZmZXJfbWVhc3VyZW1lbnQoTlVMTCwgcGF5bG9hZCwgcGF5bG9hZF9sZW4sCiAJCQkJICAga2V5
-cmluZy0+ZGVzY3JpcHRpb24sIEtFWV9DSEVDSywgMCwKLQkJCQkgICBrZXlyaW5nLT5kZXNjcmlw
-dGlvbik7CisJCQkJICAga2V5cmluZy0+ZGVzY3JpcHRpb24sIGZhbHNlKTsKIH0KZGlmZiAtLWdp
-dCBhL3NlY3VyaXR5L2ludGVncml0eS9pbWEvaW1hX21haW4uYyBiL3NlY3VyaXR5L2ludGVncml0
-eS9pbWEvaW1hX21haW4uYwppbmRleCBjODcwZmQ2ZDJmODMuLjY4ODhmYzM3MmFiZiAxMDA2NDQK
-LS0tIGEvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9pbWFfbWFpbi5jCisrKyBiL3NlY3VyaXR5L2lu
-dGVncml0eS9pbWEvaW1hX21haW4uYwpAQCAtNzMzLDEyICs3MzMsMTUgQEAgaW50IGltYV9sb2Fk
-X2RhdGEoZW51bSBrZXJuZWxfbG9hZF9kYXRhX2lkIGlkKQogICogQGZ1bmM6IElNQSBob29rCiAg
-KiBAcGNyOiBwY3IgdG8gZXh0ZW5kIHRoZSBtZWFzdXJlbWVudAogICogQGZ1bmNfZGF0YTogcHJp
-dmF0ZSBkYXRhIHNwZWNpZmljIHRvIEBmdW5jLCBjYW4gYmUgTlVMTC4KKyAqIEBtZWFzdXJlX2J1
-Zl9oYXNoOiBpZiBzZXQgdG8gdHJ1ZSAtIHdpbGwgbWVhc3VyZSBoYXNoIG9mIHRoZSBidWYsCisg
-KiAgICAgICAgICAgICAgICAgICAgaW5zdGVhZCBvZiBidWYKICAqCiAgKiBCYXNlZCBvbiBwb2xp
-Y3ksIHRoZSBidWZmZXIgaXMgbWVhc3VyZWQgaW50byB0aGUgaW1hIGxvZy4KICAqLwogdm9pZCBw
-cm9jZXNzX2J1ZmZlcl9tZWFzdXJlbWVudChzdHJ1Y3QgaW5vZGUgKmlub2RlLCBjb25zdCB2b2lk
-ICpidWYsIGludCBzaXplLAogCQkJCWNvbnN0IGNoYXIgKmV2ZW50bmFtZSwgZW51bSBpbWFfaG9v
-a3MgZnVuYywKLQkJCQlpbnQgcGNyLCBjb25zdCBjaGFyICpmdW5jX2RhdGEpCisJCQkJaW50IHBj
-ciwgY29uc3QgY2hhciAqZnVuY19kYXRhLAorCQkJCWJvb2wgbWVhc3VyZV9idWZfaGFzaCkKIHsK
-IAlpbnQgcmV0ID0gMDsKIAljb25zdCBjaGFyICphdWRpdF9jYXVzZSA9ICJFTk9NRU0iOwpAQCAt
-NzUzLDYgKzc1Niw4IEBAIHZvaWQgcHJvY2Vzc19idWZmZXJfbWVhc3VyZW1lbnQoc3RydWN0IGlu
-b2RlICppbm9kZSwgY29uc3Qgdm9pZCAqYnVmLCBpbnQgc2l6ZSwKIAkJc3RydWN0IGltYV9kaWdl
-c3RfZGF0YSBoZHI7CiAJCWNoYXIgZGlnZXN0W0lNQV9NQVhfRElHRVNUX1NJWkVdOwogCX0gaGFz
-aCA9IHt9OworCWNoYXIgZGlnZXN0X2hhc2hbSU1BX01BWF9ESUdFU1RfU0laRV07CisJaW50IGhh
-c2hfbGVuID0gaGFzaF9kaWdlc3Rfc2l6ZVtpbWFfaGFzaF9hbGdvXTsKIAlpbnQgdmlvbGF0aW9u
-ID0gMDsKIAlpbnQgYWN0aW9uID0gMDsKIAl1MzIgc2VjaWQ7CkBAIC04MDEsNiArODA2LDIxIEBA
-IHZvaWQgcHJvY2Vzc19idWZmZXJfbWVhc3VyZW1lbnQoc3RydWN0IGlub2RlICppbm9kZSwgY29u
-c3Qgdm9pZCAqYnVmLCBpbnQgc2l6ZSwKIAkJZ290byBvdXQ7CiAJfQogCisJaWYgKG1lYXN1cmVf
-YnVmX2hhc2gpIHsKKwkJbWVtY3B5KGRpZ2VzdF9oYXNoLCBoYXNoLmhkci5kaWdlc3QsIGhhc2hf
-bGVuKTsKKworCQlyZXQgPSBpbWFfY2FsY19idWZmZXJfaGFzaChkaWdlc3RfaGFzaCwKKwkJCQkJ
-ICAgaGFzaF9sZW4sCisJCQkJCSAgIGlpbnQuaW1hX2hhc2gpOworCQlpZiAocmV0IDwgMCkgewor
-CQkJYXVkaXRfY2F1c2UgPSAibWVhc3VyZV9idWZfaGFzaF9lcnJvciI7CisJCQlnb3RvIG91dDsK
-KwkJfQorCisJCWV2ZW50X2RhdGEuYnVmID0gZGlnZXN0X2hhc2g7CisJCWV2ZW50X2RhdGEuYnVm
-X2xlbiA9IGhhc2hfbGVuOworCX0KKwogCXJldCA9IGltYV9hbGxvY19pbml0X3RlbXBsYXRlKCZl
-dmVudF9kYXRhLCAmZW50cnksIHRlbXBsYXRlKTsKIAlpZiAocmV0IDwgMCkgewogCQlhdWRpdF9j
-YXVzZSA9ICJhbGxvY19lbnRyeSI7CkBAIC04NDIsNyArODYyLDggQEAgdm9pZCBpbWFfa2V4ZWNf
-Y21kbGluZShpbnQga2VybmVsX2ZkLCBjb25zdCB2b2lkICpidWYsIGludCBzaXplKQogCQlyZXR1
-cm47CiAKIAlwcm9jZXNzX2J1ZmZlcl9tZWFzdXJlbWVudChmaWxlX2lub2RlKGYuZmlsZSksIGJ1
-Ziwgc2l6ZSwKLQkJCQkgICAia2V4ZWMtY21kbGluZSIsIEtFWEVDX0NNRExJTkUsIDAsIE5VTEwp
-OworCQkJCSAgICJrZXhlYy1jbWRsaW5lIiwgS0VYRUNfQ01ETElORSwgMCwgTlVMTCwKKwkJCQkg
-ICBmYWxzZSk7CiAJZmRwdXQoZik7CiB9CiAKZGlmZiAtLWdpdCBhL3NlY3VyaXR5L2ludGVncml0
-eS9pbWEvaW1hX3F1ZXVlX2tleXMuYyBiL3NlY3VyaXR5L2ludGVncml0eS9pbWEvaW1hX3F1ZXVl
-X2tleXMuYwppbmRleCA2OWE4NjI2YTM1YzAuLmMyZjJhZDM0ZjliNyAxMDA2NDQKLS0tIGEvc2Vj
-dXJpdHkvaW50ZWdyaXR5L2ltYS9pbWFfcXVldWVfa2V5cy5jCisrKyBiL3NlY3VyaXR5L2ludGVn
-cml0eS9pbWEvaW1hX3F1ZXVlX2tleXMuYwpAQCAtMTYyLDcgKzE2Miw4IEBAIHZvaWQgaW1hX3By
-b2Nlc3NfcXVldWVkX2tleXModm9pZCkKIAkJCQkJCSAgIGVudHJ5LT5wYXlsb2FkX2xlbiwKIAkJ
-CQkJCSAgIGVudHJ5LT5rZXlyaW5nX25hbWUsCiAJCQkJCQkgICBLRVlfQ0hFQ0ssIDAsCi0JCQkJ
-CQkgICBlbnRyeS0+a2V5cmluZ19uYW1lKTsKKwkJCQkJCSAgIGVudHJ5LT5rZXlyaW5nX25hbWUs
-CisJCQkJCQkgICBmYWxzZSk7CiAJCWxpc3RfZGVsKCZlbnRyeS0+bGlzdCk7CiAJCWltYV9mcmVl
-X2tleV9lbnRyeShlbnRyeSk7CiAJfQotLSAKMi4xNy4xCgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBs
-aXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2RtLWRldmVs
+There would be several candidate kernel components suitable for IMA
+measurement. Not all of them would have support for IMA measurement.
+Also, system administrators may not want to measure data for all of
+them, even when they support IMA measurement. An IMA policy option 
+specific to various kernel components is needed to measure their
+respective critical data.
+
+This policy option needs to be constrained to measure data for
+specific kernel components that are specified as input values to the
+policy option.
+
+Add a new IMA policy option - "data_sources:=" to allow measuring
+various critical kernel components. This policy option would enable the
+system administrators to limit the measurement to the components
+listed in "data_sources:=", if the components support IMA measurement.
+
+The new policy option "data_sources:=" is different from the existing
+policy option "keyrings:=". 
+
+In case of "keyrings:=", a policy may measure all keyrings (when
+"keyrings:=" option is not provided for func KEY_CHECK), or may
+constrain which keyrings need to be measured (when "keyrings:=" option
+is provided for func KEY_CHECK).
+
+But unlike "keyrings:=", the entries in "data_sources:=" would have
+different data format. Further, the components listed in
+"data_sources:=" need to be modified to call IMA to measure their
+data. Therefore, unlike "keyrings:=", IMA shouldn't measure all of the
+components by default, when "data_sources:=" is not specified. Because
+measuring non-vetted components just by specifying them as a policy
+option value may impact the overall reliability of the system.
+
+To address this, "data_sources:=" should be a mandatory policy option
+for func=CRITICAL_DATA. This func is introduced in the 5th patch in this
+series). And the compile-time vetting functionality described above is
+introduced in the 6th patch in this series.
+
+Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+---
+ Documentation/ABI/testing/ima_policy |  3 +++
+ security/integrity/ima/ima_policy.c  | 29 +++++++++++++++++++++++++++-
+ 2 files changed, 31 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/ABI/testing/ima_policy b/Documentation/ABI/testing/ima_policy
+index cd572912c593..a81cf79fb255 100644
+--- a/Documentation/ABI/testing/ima_policy
++++ b/Documentation/ABI/testing/ima_policy
+@@ -48,6 +48,9 @@ Description:
+ 			template:= name of a defined IMA template type
+ 			(eg, ima-ng). Only valid when action is "measure".
+ 			pcr:= decimal value
++			data_sources:= list of kernel components
++			(eg, selinux|apparmor|dm-crypt) that contain data critical
++			to the security of the kernel.
+ 
+ 		default policy:
+ 			# PROC_SUPER_MAGIC
+diff --git a/security/integrity/ima/ima_policy.c b/security/integrity/ima/ima_policy.c
+index 8866e84d0062..89452245f54a 100644
+--- a/security/integrity/ima/ima_policy.c
++++ b/security/integrity/ima/ima_policy.c
+@@ -33,6 +33,7 @@
+ #define IMA_PCR		0x0100
+ #define IMA_FSNAME	0x0200
+ #define IMA_KEYRINGS	0x0400
++#define IMA_DATA_SOURCES	0x0800
+ 
+ #define UNKNOWN		0
+ #define MEASURE		0x0001	/* same as IMA_MEASURE */
+@@ -84,6 +85,7 @@ struct ima_rule_entry {
+ 	} lsm[MAX_LSM_RULES];
+ 	char *fsname;
+ 	struct ima_rule_opt_list *keyrings; /* Measure keys added to these keyrings */
++	struct ima_rule_opt_list *data_sources; /* Measure data from these sources */
+ 	struct ima_template_desc *template;
+ };
+ 
+@@ -911,7 +913,7 @@ enum {
+ 	Opt_uid_lt, Opt_euid_lt, Opt_fowner_lt,
+ 	Opt_appraise_type, Opt_appraise_flag,
+ 	Opt_permit_directio, Opt_pcr, Opt_template, Opt_keyrings,
+-	Opt_err
++	Opt_data_sources, Opt_err
+ };
+ 
+ static const match_table_t policy_tokens = {
+@@ -948,6 +950,7 @@ static const match_table_t policy_tokens = {
+ 	{Opt_pcr, "pcr=%s"},
+ 	{Opt_template, "template=%s"},
+ 	{Opt_keyrings, "keyrings=%s"},
++	{Opt_data_sources, "data_sources=%s"},
+ 	{Opt_err, NULL}
+ };
+ 
+@@ -1312,6 +1315,24 @@ static int ima_parse_rule(char *rule, struct ima_rule_entry *entry)
+ 
+ 			entry->flags |= IMA_KEYRINGS;
+ 			break;
++		case Opt_data_sources:
++			ima_log_string(ab, "data_sources",
++				       args[0].from);
++
++			if (entry->data_sources) {
++				result = -EINVAL;
++				break;
++			}
++
++			entry->data_sources = ima_alloc_rule_opt_list(args);
++			if (IS_ERR(entry->data_sources)) {
++				result = PTR_ERR(entry->data_sources);
++				entry->data_sources = NULL;
++				break;
++			}
++
++			entry->flags |= IMA_DATA_SOURCES;
++			break;
+ 		case Opt_fsuuid:
+ 			ima_log_string(ab, "fsuuid", args[0].from);
+ 
+@@ -1692,6 +1713,12 @@ int ima_policy_show(struct seq_file *m, void *v)
+ 		seq_puts(m, " ");
+ 	}
+ 
++	if (entry->flags & IMA_DATA_SOURCES) {
++		seq_puts(m, "data_sources=");
++		ima_show_rule_opt_list(m, entry->data_sources);
++		seq_puts(m, " ");
++	}
++
+ 	if (entry->flags & IMA_PCR) {
+ 		snprintf(tbuf, sizeof(tbuf), "%d", entry->pcr);
+ 		seq_printf(m, pt(Opt_pcr), tbuf);
+-- 
+2.17.1
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
