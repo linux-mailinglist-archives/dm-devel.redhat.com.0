@@ -1,102 +1,59 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0E24A27532A
-	for <lists+dm-devel@lfdr.de>; Wed, 23 Sep 2020 10:23:00 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id B67AD275314
+	for <lists+dm-devel@lfdr.de>; Wed, 23 Sep 2020 10:17:43 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-316--4FTnA4SMs6uwFmEj64Upw-1; Wed, 23 Sep 2020 04:22:57 -0400
-X-MC-Unique: -4FTnA4SMs6uwFmEj64Upw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-215-b5yCRm4OMVm2cmxsng1JOA-1; Wed, 23 Sep 2020 04:17:39 -0400
+X-MC-Unique: b5yCRm4OMVm2cmxsng1JOA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D381D85C706;
-	Wed, 23 Sep 2020 08:22:51 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2D1E655764;
-	Wed, 23 Sep 2020 08:22:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 276321007B01;
+	Wed, 23 Sep 2020 08:17:31 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BFDF5190AE;
+	Wed, 23 Sep 2020 08:17:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B04308C7AA;
-	Wed, 23 Sep 2020 08:22:46 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E84F6181A050;
+	Wed, 23 Sep 2020 08:17:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08MIZYBd030331 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 22 Sep 2020 14:35:34 -0400
+	id 08N8Gtps003100 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 23 Sep 2020 04:16:55 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 362202156A30; Tue, 22 Sep 2020 18:35:34 +0000 (UTC)
+	id 004B5115D341; Wed, 23 Sep 2020 08:16:55 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2FF4C2156A23
-	for <dm-devel@redhat.com>; Tue, 22 Sep 2020 18:35:32 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EF0ED115D340
+	for <dm-devel@redhat.com>; Wed, 23 Sep 2020 08:16:52 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0EA01811E8F
-	for <dm-devel@redhat.com>; Tue, 22 Sep 2020 18:35:32 +0000 (UTC)
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
-	(mail-oln040092070054.outbound.protection.outlook.com [40.92.70.54])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-499-g1JaCD_2NEGhWU3IrecVCw-1; Tue, 22 Sep 2020 14:35:29 -0400
-X-MC-Unique: g1JaCD_2NEGhWU3IrecVCw-1
-Received: from AM5EUR03FT062.eop-EUR03.prod.protection.outlook.com
-	(2a01:111:e400:7e08::4a) by
-	AM5EUR03HT241.eop-EUR03.prod.protection.outlook.com
-	(2a01:111:e400:7e08::188) with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.15;
-	Tue, 22 Sep 2020 18:35:28 +0000
-Received: from AM0PR09MB2897.eurprd09.prod.outlook.com
-	(2a01:111:e400:7e08::48) by AM5EUR03FT062.mail.protection.outlook.com
-	(2a01:111:e400:7e08::376) with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3391.15 via
-	Frontend Transport; Tue, 22 Sep 2020 18:35:28 +0000
-X-IncomingTopHeaderMarker: OriginalChecksum:D17EA8C772780EE16F33FCB4645BCC87209C8D4165A7701930C49BD33CDEC8F1;
-	UpperCasedChecksum:5917EECAE923699500D744893A1B59E9CDFCD6DA2FF5F30A2D64F153027FD746;
-	SizeAsReceived:7532; Count:47
-Received: from AM0PR09MB2897.eurprd09.prod.outlook.com
-	([fe80::5599:5bc3:3b28:d3c0]) by
-	AM0PR09MB2897.eurprd09.prod.outlook.com
-	([fe80::5599:5bc3:3b28:d3c0%4]) with mapi id 15.20.3412.020;
-	Tue, 22 Sep 2020 18:35:27 +0000
-From: Frank Meinl <frank.meinl@live.de>
-To: dm-devel@redhat.com
-Date: Tue, 22 Sep 2020 20:34:30 +0200
-Message-ID: <AM0PR09MB289726B5423506E7A0CBFA47FE3B0@AM0PR09MB2897.eurprd09.prod.outlook.com>
-X-ClientProxiedBy: FR2P281CA0029.DEUP281.PROD.OUTLOOK.COM
-	(2603:10a6:d10:14::16) To AM0PR09MB2897.eurprd09.prod.outlook.com
-	(2603:10a6:208:131::33)
-X-Microsoft-Original-Message-ID: <20200922183430.27895-1-frank.meinl@live.de>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 99A3F101A540
+	for <dm-devel@redhat.com>; Wed, 23 Sep 2020 08:16:52 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-55-7h2kPUMyNiSfi4BFjlyteA-1;
+	Wed, 23 Sep 2020 04:16:50 -0400
+X-MC-Unique: 7h2kPUMyNiSfi4BFjlyteA-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 0F49CAF34;
+	Wed, 23 Sep 2020 08:17:26 +0000 (UTC)
+Message-ID: <3c33e8dc3355a444d58bff8d5ccc24515931c523.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Benjamin Marzinski <bmarzins@redhat.com>
+Date: Wed, 23 Sep 2020 10:16:48 +0200
+In-Reply-To: <20200921201052.GY11108@octiron.msp.redhat.com>
+References: <20200916153718.582-1-mwilck@suse.com>
+	<20200916153718.582-18-mwilck@suse.com>
+	<20200921201052.GY11108@octiron.msp.redhat.com>
+User-Agent: Evolution 3.36.5
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost.localdomain (2a02:8070:a196:3b00:dc3c:ad29:d9fd:8a26)
-	by FR2P281CA0029.DEUP281.PROD.OUTLOOK.COM
-	(2603:10a6:d10:14::16) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)
-	id 15.20.3412.20 via Frontend Transport;
-	Tue, 22 Sep 2020 18:35:27 +0000
-X-Microsoft-Original-Message-ID: <20200922183430.27895-1-frank.meinl@live.de>
-X-TMN: [sTftblE5eM6leN739Y17YwnzTmjBx2qYShUbHEv2WZ4o6m8dJCUdK9r1uT4Z8xJ+07pNAjTLr00=]
-X-MS-PublicTrafficType: Email
-X-IncomingHeaderCount: 47
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-Correlation-Id: 724bfaff-5a0e-422e-1bc9-08d85f2646b7
-X-MS-TrafficTypeDiagnostic: AM5EUR03HT241:
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jwbDkXbk3gfDOlz2EcwCYQXg4KSoGPRUZaW2a7S6t5Sh+XDvKvNuTt3NUTsMl5dF3QqYwdiO1VUWHXffU9pD4WeK+d8MJh9vMd9RAp6wknMZRGz2XVQvpG/gOFaKUwk10tdmy2cu8tK34JLFnu7U+BG94W43c5q6HZZLHrpFXb/rCoXThP66NQlwED0GLHCOI3DHzw673AvmvsNW9vRYSA==
-X-MS-Exchange-AntiSpam-MessageData: 7fAs4n+u6NYnl77s4yKSKpiYDdnrOtepaQwV2y6r7elJHvUxrH2Y9kmRyUmEi7AMBbJX4D1PBi6krqbykOwxsVJkn0qTE2rd/tzVDHDmk8qwrCmrNqmUkroOBKpeJckZlkd/MHT+8cG7Z6iHWz8aj2vlBktRnLL+sfYfdL/pHEPMeZkOVuWLDLWya3PUKga9gbRfb3nohpY1o109R1d+ag==
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 724bfaff-5a0e-422e-1bc9-08d85f2646b7
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2020 18:35:27.8812 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-AuthSource: AM5EUR03FT062.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5EUR03HT241
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -104,14 +61,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Newly Observed Domain=false; Internal User Name=false;
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false;
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 08MIZYBd030331
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Wed, 23 Sep 2020 04:22:39 -0400
-Cc: Frank Meinl <frank.meinl@live.de>, mwilck@suse.com
-Subject: [dm-devel] [PATCH] libmultipath: Allow discovery of USB devices
+Cc: dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH 17/19] libmultipath: add udev and logsink
+	symbols
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -125,7 +80,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -133,135 +88,63 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This change adds a new configuration option allow_usb_devices. It is
-disabled by default, so that the behavior of existing setups is not
-changed. If enabled (via multipath.conf), USB devices will be found
-during device discovery and can be used for multipath setups.
+On Mon, 2020-09-21 at 15:10 -0500, Benjamin Marzinski wrote:
+> 
+> After calling libmultipath_exit(), you can never reinitialized the
+> udev
+> device.  That seems fine, but it should probably set udev to null, so
+> that future calls to libmultipath_init() don't return success. Either
+> that or multipath_init() should use a mutex instead of pthread_once()
+> to
+> avoid races, so that you can reinitialize udev after a call to
+> libmultipath_exit().
 
-Without this option, multipath currently ignores all USB drives, which
-is convenient for most users. (refer also to commit 51957eb)
+I've been thinking about this some more. It makes a lot of sense to
+move more cleanup code into libmultipath_exit() in the future; thus
+this function will do more than just clean up "udev". I believe calling
+libmultipath_exit() will become the only supported way to clean up
+libmultipath, and basically mandatory, rather sooner than later. 
 
-However, it can be beneficial to use the multipath dm-module even if
-there is only a single path to an USB attached storage. In combination
-with the option 'queue_if_no_path', such a setup survives a temporary
-device disconnect without any severe consequences for the running
-applications. All I/O is queued until the device reappears.
+The handling of "udev" is the main cause of headache, because we don't
+know whether the application wants to continue to use the variable
+after libmultipath_exit(). In libmultipath_exit(), we can't determine
+if "udev" is the symbol from libmultipath or from some other object
+file. It's also impossible to tell by the return value of udev_unref()
+whether or not it destroyed the variable. Setting udev to NULL is
+dangerous if the uevent listener thread is still running, or if the
+application needs to use the variable further.
 
-Signed-off-by: Frank Meinl <frank.meinl@live.de>
----
- libmultipath/config.h      |  1 +
- libmultipath/dict.c        |  4 ++++
- libmultipath/discovery.c   | 13 ++++++++++---
- libmultipath/structs.h     |  1 +
- multipath/multipath.conf.5 | 14 ++++++++++++++
- 5 files changed, 30 insertions(+), 3 deletions(-)
+So this is my current idea for a "robust" design:
 
-diff --git a/libmultipath/config.h b/libmultipath/config.h
-index 2bb7153b..290aea58 100644
---- a/libmultipath/config.h
-+++ b/libmultipath/config.h
-@@ -158,6 +158,7 @@ struct config {
- 	unsigned int dev_loss;
- 	int log_checker_err;
- 	int allow_queueing;
-+	int allow_usb_devices;
- 	int find_multipaths;
- 	uid_t uid;
- 	gid_t gid;
-diff --git a/libmultipath/dict.c b/libmultipath/dict.c
-index feabae56..f12c2e5c 100644
---- a/libmultipath/dict.c
-+++ b/libmultipath/dict.c
-@@ -543,6 +543,9 @@ snprint_def_queue_without_daemon (struct config *conf,
- declare_def_handler(checker_timeout, set_int)
- declare_def_snprint(checker_timeout, print_nonzero)
- 
-+declare_def_handler(allow_usb_devices, set_yes_no)
-+declare_def_snprint(allow_usb_devices, print_yes_no)
-+
- declare_def_handler(flush_on_last_del, set_yes_no_undef)
- declare_def_snprint_defint(flush_on_last_del, print_yes_no_undef, DEFAULT_FLUSH)
- declare_ovr_handler(flush_on_last_del, set_yes_no_undef)
-@@ -1759,6 +1762,7 @@ init_keywords(vector keywords)
- 	install_keyword("no_path_retry", &def_no_path_retry_handler, &snprint_def_no_path_retry);
- 	install_keyword("queue_without_daemon", &def_queue_without_daemon_handler, &snprint_def_queue_without_daemon);
- 	install_keyword("checker_timeout", &def_checker_timeout_handler, &snprint_def_checker_timeout);
-+	install_keyword("allow_usb_devices", &def_allow_usb_devices_handler, &snprint_def_allow_usb_devices);
- 	install_keyword("pg_timeout", &deprecated_handler, &snprint_deprecated);
- 	install_keyword("flush_on_last_del", &def_flush_on_last_del_handler, &snprint_def_flush_on_last_del);
- 	install_keyword("user_friendly_names", &def_user_friendly_names_handler, &snprint_def_user_friendly_names);
-diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
-index 2f301ac4..4b615caa 100644
---- a/libmultipath/discovery.c
-+++ b/libmultipath/discovery.c
-@@ -375,11 +375,10 @@ sysfs_get_tgt_nodename(struct path *pp, char *node)
- 	while (tgtdev) {
- 		value = udev_device_get_subsystem(tgtdev);
- 		if (value && !strcmp(value, "usb")) {
--			pp->sg_id.proto_id = SCSI_PROTOCOL_UNSPEC;
-+			pp->sg_id.proto_id = SCSI_PROTOCOL_UAS;
- 			tgtname = udev_device_get_sysname(tgtdev);
- 			strlcpy(node, tgtname, NODE_NAME_SIZE);
--			condlog(3, "%s: skip USB device %s", pp->dev, node);
--			return 1;
-+			return 0;
- 		}
- 		tgtdev = udev_device_get_parent(tgtdev);
- 	}
-@@ -2136,6 +2135,14 @@ int pathinfo(struct path *pp, struct config *conf, int mask)
- 
- 		if (rc != PATHINFO_OK)
- 			return rc;
-+
-+		if (pp->bus == SYSFS_BUS_SCSI &&
-+		    pp->sg_id.proto_id == SCSI_PROTOCOL_UAS &&
-+		    !conf->allow_usb_devices) {
-+			condlog(3, "%s: skip USB device %s", pp->dev,
-+				pp->tgt_node_name);
-+			return PATHINFO_SKIPPED;
-+		}
- 	}
- 
- 	if (mask & DI_BLACKLIST && mask & DI_SYSFS) {
-diff --git a/libmultipath/structs.h b/libmultipath/structs.h
-index 4afd3e88..284c1e45 100644
---- a/libmultipath/structs.h
-+++ b/libmultipath/structs.h
-@@ -174,6 +174,7 @@ enum scsi_protocol {
- 	SCSI_PROTOCOL_SAS = 6,
- 	SCSI_PROTOCOL_ADT = 7,	/* Media Changers */
- 	SCSI_PROTOCOL_ATA = 8,
-+	SCSI_PROTOCOL_UAS = 9,  /* USB Attached SCSI */
- 	SCSI_PROTOCOL_UNSPEC = 0xf, /* No specific protocol */
- };
- 
-diff --git a/multipath/multipath.conf.5 b/multipath/multipath.conf.5
-index 5adaced6..21b3bfb6 100644
---- a/multipath/multipath.conf.5
-+++ b/multipath/multipath.conf.5
-@@ -643,6 +643,20 @@ The default is: in \fB/sys/block/sd<x>/device/timeout\fR
- .
- .
- .TP
-+.B allow_usb_devices
-+If set to
-+.I no
-+, all USB devices will be skipped during path discovery. This is convenient
-+for most users, as it effectively hides all attached USB disks and flash
-+drives from the multipath application. However, if you intend to use multipath
-+on USB attached devices, set this to \fIyes\fR.
-+.RS
-+.TP
-+The default is: \fBno\fR
-+.RE
-+.
-+.
-+.TP
- .B flush_on_last_del
- If set to
- .I yes
--- 
-2.25.1
+1. libmultipath_init() initializes udev if it's NULL; otherwise, it
+   simply takes an additional ref. IOW, applications may (but
+   don't have to) initialize and use udev before calling
+   libmultipath_init().
+2. libmultipath_exit() calls udev_unref(udev), without nullifying it.
+   Thus applications may continue using udev afterwards, if they own an
+   additional reference.
+3. libmultipath_init() always fails after calling libmultipath_exit().
+4. Other libmultipath calls after libmultipath_exit() may cause
+   undefined behavior.
+5. Normal usage would be to call libmultipath_exit() at program exit.
+6. Calling libmultipath_init() is currently only mandatory for
+   programs that don't initialize "udev" themselves. This may change
+   in the future.
+7. Calling libmultipath_exit() will be mandatory for programs that
+   wish to avoid memory leaks.
+
+The only downside that I see is that the application can't test whether
+"udev" is valid by checking if it's NULL. But that's by design of
+udev_unref(). The application needs to track its own references.
+
+There is no rigorous reason for (3.). In principle, we could just
+handle re-initialization like (1.). But I don't think it's worth the
+effort of figuring out all possible ways in which re-initialization
+could go wrong, in particular if we want to initialize more stuff
+later.
+
+Does this make sense? 
+Martin
 
 
 --
