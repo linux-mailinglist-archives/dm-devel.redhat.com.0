@@ -2,75 +2,68 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 81591277170
-	for <lists+dm-devel@lfdr.de>; Thu, 24 Sep 2020 14:47:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1600951675;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=4vA3xYdSB8jSXzOJz46IaKO/bZnFU3UI4re55o48Pkg=;
-	b=Bhl6uskdFeqcy5iJLOxwW4YfDCtkTvi4Rtozo4pNR+zjV0ltHOLLlOOctX14oOUhlTetsE
-	NsVz7YrUKfaBw3EJoI8yjT/hDkXFdS66ZBfOAsqhgp/Szud/9i0oeVtvUe+seu28qyAhrw
-	Vb22nWe61wl+aVRfxFSTx+ixd9spG2A=
+	by mail.lfdr.de (Postfix) with ESMTP id 2C32127728B
+	for <lists+dm-devel@lfdr.de>; Thu, 24 Sep 2020 15:37:37 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-426-gtLJ34wbMf2tFJaSCGVrwg-1; Thu, 24 Sep 2020 08:47:53 -0400
-X-MC-Unique: gtLJ34wbMf2tFJaSCGVrwg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-196-jV3ebHQRPjec2DnYGGrfmg-1; Thu, 24 Sep 2020 09:37:32 -0400
+X-MC-Unique: jV3ebHQRPjec2DnYGGrfmg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BF74356BE6;
-	Thu, 24 Sep 2020 12:47:47 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82BA51002397;
-	Thu, 24 Sep 2020 12:47:45 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3655681F03D;
+	Thu, 24 Sep 2020 13:37:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1191373695;
+	Thu, 24 Sep 2020 13:37:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6CD67181A71E;
-	Thu, 24 Sep 2020 12:47:43 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AF0F48C7A3;
+	Thu, 24 Sep 2020 13:37:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08OClbFQ018623 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 24 Sep 2020 08:47:37 -0400
+	id 08ODbDZe025462 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 24 Sep 2020 09:37:14 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3F3005D9F3; Thu, 24 Sep 2020 12:47:37 +0000 (UTC)
+	id B45922156A34; Thu, 24 Sep 2020 13:37:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F0AAF5D9D2;
-	Thu, 24 Sep 2020 12:47:30 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id 08OClUKu003471; Thu, 24 Sep 2020 08:47:30 -0400
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id 08OClUn8003467; Thu, 24 Sep 2020 08:47:30 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Thu, 24 Sep 2020 08:47:30 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Mike Snitzer <snitzer@redhat.com>
-In-Reply-To: <20200924012732.GA10766@redhat.com>
-Message-ID: <alpine.LRH.2.02.2009240845330.11084@file01.intranet.prod.int.rdu2.redhat.com>
-References: <1600281606-1446-1-git-send-email-sudhakar.panneerselvam@oracle.com>
-	<3be1ea32-b6a8-41ef-a9ba-ed691434d068@default>
-	<20200924012732.GA10766@redhat.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AF8C12156A23
+	for <dm-devel@redhat.com>; Thu, 24 Sep 2020 13:37:09 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 68FB6811E78
+	for <dm-devel@redhat.com>; Thu, 24 Sep 2020 13:37:09 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-137-UkMofHR6M5CSIYpbMrk9WA-1;
+	Thu, 24 Sep 2020 09:37:06 -0400
+X-MC-Unique: UkMofHR6M5CSIYpbMrk9WA-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id E558BB083;
+	Thu, 24 Sep 2020 13:37:04 +0000 (UTC)
+From: mwilck@suse.com
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>
+Date: Thu, 24 Sep 2020 15:36:33 +0200
+Message-Id: <20200924133644.14034-1-mwilck@suse.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 08ODbDZe025462
 X-loop: dm-devel@redhat.com
-Cc: Damien.LeMoal@wdc.com, ssudhakarp@gmail.com,
-	Martin Petersen <martin.petersen@oracle.com>, dm-crypt@saout.de,
-	Sudhakar Panneerselvam <sudhakar.panneerselvam@oracle.com>,
-	dm-devel@redhat.com, Shirley Ma <shirley.ma@oracle.com>,
-	Milan Broz <gmazyland@gmail.com>, agk@redhat.com
-Subject: Re: [dm-devel] [RFC PATCH 0/2] dm crypt: Allow unaligned buffer
- lengths for skcipher devices
+Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Subject: [dm-devel] [PATCH 00/11] multipath-tools: add linker version scripts
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,7 +77,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -92,31 +85,75 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+From: Martin Wilck <mwilck@suse.com>
 
+Hi Christophe, hi Ben,
 
-On Wed, 23 Sep 2020, Mike Snitzer wrote:
+Patch 1-5 are small fixes, the first two resent from an earlier
+submission. Patch 6ff. add version scripts for the linker to
+libmultipath, libmpathpersist, and libmpathcmd.
 
-> You've clearly done a nice job with these changes.  Looks clean.
-> 
-> BUT, I'm struggling to just accept that dm-crypt needs to go to these
-> extra lengths purely because of one bad apple usecase.
-> 
-> These alignment constraints aren't new.  Are there other portions of
-> Linux's crypto subsystem that needed comparable fixes in order to work
-> with Microsfot OS initiated IO through a guest?
-> 
-> You forecast that these same kinds of changes are needed for AEAD and
-> dm-integrity... that's alarming.
+Is it useful to do this for libmultipath? We have always said that this is
+not a public, stable ABI. However, I still believe it has merits. First of
+all, it's a description of the ABI we use. It turns out that it cuts the
+size of the exported symbol list of libmultipath roughly in half, which is
+better than I'd expected. It leads to ld.so-time failure rather than weird
+crashes in the unlikely case that non-matching binaries are used
+together. It allows packaging scripts to check compatibility of binaries
+and libraries without resorting to version and release. It will help us
+stabilize the ABI, albeit only in the long run. Finally, it's a step
+towards modernizing our code base in general.
 
-... and dm-writecache also expects that the bio is aligned ...
+To avoid misunderstanding, my intention is not to provide a stable or even
+backward-compatible ABI in libmultipath.so.0. We're still allowed to make
+changes to globally visible data structures like "struct config", and to
+remove symbols from the ABI, like no serious shared library would do.
+We just need to bump the ABI version when we do so.
 
-Mikulas
+Regards,
+Martin
 
-> Are we _certain_ there is no other way forward?
-> (Sorry I don't have suggestions.. I'm in "fact finding mode" ;)
-> 
-> Thanks,
-> Mike
+Martin Wilck (11):
+  libmultipath: find_mpe(): don't match with empty WWID
+  libmultipath: copy mpp->hwe from pp->hwe
+  libmultipath: dm_map_present_by_uuid(): fix dm_task_create() call
+  libdmmp tests: fix compilation
+  libmultipath: prio: constify some function parameters
+  libmultipath: checkers/prio: allow non-lazy .so loading
+  multipath-tools Makefiles: separate rules for .so and man pages
+  libmultipath: create separate .so for unit tests
+  libmultipath: add linker version script
+  libmpathpersist: add linker version script
+  libmpathcmd: add linker version script
+
+ libdmmp/test/libdmmp_speed_test.c       |   2 +-
+ libdmmp/test/libdmmp_test.c             |   2 +-
+ libmpathcmd/Makefile                    |  14 +-
+ libmpathcmd/libmpathcmd.version         |  13 ++
+ libmpathpersist/Makefile                |  16 +-
+ libmpathpersist/libmpathpersist.version |  20 +++
+ libmultipath/Makefile                   |  22 ++-
+ libmultipath/checkers.c                 |  17 ++
+ libmultipath/config.c                   |   2 +-
+ libmultipath/configure.c                |   7 +
+ libmultipath/devmapper.c                |   2 +-
+ libmultipath/libmultipath.version       | 215 ++++++++++++++++++++++++
+ libmultipath/prio.c                     |  26 ++-
+ libmultipath/prio.h                     |   4 +-
+ libmultipath/propsel.c                  |   4 +-
+ libmultipath/structs.c                  |  15 ++
+ libmultipath/structs.h                  |   1 +
+ libmultipath/structs_vec.c              |  54 +++---
+ multipathd/main.c                       |  10 --
+ tests/Makefile                          |  10 +-
+ 20 files changed, 384 insertions(+), 72 deletions(-)
+ create mode 100644 libmpathcmd/libmpathcmd.version
+ create mode 100644 libmpathpersist/libmpathpersist.version
+ create mode 100644 libmultipath/libmultipath.version
+
+-- 
+2.28.0
+
 
 --
 dm-devel mailing list
