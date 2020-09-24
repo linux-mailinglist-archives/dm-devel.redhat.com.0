@@ -2,53 +2,53 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A900F2772F9
-	for <lists+dm-devel@lfdr.de>; Thu, 24 Sep 2020 15:46:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D51462772D9
+	for <lists+dm-devel@lfdr.de>; Thu, 24 Sep 2020 15:44:53 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-166-llGg3InYOASnKxpS4_sHEA-1; Thu, 24 Sep 2020 09:46:11 -0400
-X-MC-Unique: llGg3InYOASnKxpS4_sHEA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-268-8nmgDlVZMZ2BTA8mnrQ3LA-1; Thu, 24 Sep 2020 09:44:50 -0400
+X-MC-Unique: 8nmgDlVZMZ2BTA8mnrQ3LA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 356D2ACE30;
-	Thu, 24 Sep 2020 13:46:05 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F3DFA5C1D7;
-	Thu, 24 Sep 2020 13:46:04 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 621E7100855C;
+	Thu, 24 Sep 2020 13:44:42 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4113F9CBA;
+	Thu, 24 Sep 2020 13:44:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 18A578C7A3;
-	Thu, 24 Sep 2020 13:46:03 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EB7331826D2C;
+	Thu, 24 Sep 2020 13:44:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08ODfjiO026811 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 24 Sep 2020 09:41:45 -0400
+	id 08ODfjrK026815 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 24 Sep 2020 09:41:46 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A16022166BD9; Thu, 24 Sep 2020 13:41:45 +0000 (UTC)
+	id CC89C110E8C; Thu, 24 Sep 2020 13:41:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9A7F62166BA3
-	for <dm-devel@redhat.com>; Thu, 24 Sep 2020 13:41:44 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C7D391140F7
+	for <dm-devel@redhat.com>; Thu, 24 Sep 2020 13:41:45 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EFF67811E83
-	for <dm-devel@redhat.com>; Thu, 24 Sep 2020 13:41:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AF5C7801184
+	for <dm-devel@redhat.com>; Thu, 24 Sep 2020 13:41:45 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-5-t40eFgyDPfqD1FgV8tIrNg-1;
+	relay.mimecast.com with ESMTP id us-mta-437-OmvDQjyrPQOAqu8tYrMR-g-1;
 	Thu, 24 Sep 2020 09:41:40 -0400
-X-MC-Unique: t40eFgyDPfqD1FgV8tIrNg-1
+X-MC-Unique: OmvDQjyrPQOAqu8tYrMR-g-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id B6509B118;
-	Thu, 24 Sep 2020 13:41:37 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id 0821EB119;
+	Thu, 24 Sep 2020 13:41:38 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu, 24 Sep 2020 15:40:35 +0200
-Message-Id: <20200924134054.14632-5-mwilck@suse.com>
+Date: Thu, 24 Sep 2020 15:40:36 +0200
+Message-Id: <20200924134054.14632-6-mwilck@suse.com>
 In-Reply-To: <20200924134054.14632-1-mwilck@suse.com>
 References: <20200924134054.14632-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -60,13 +60,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 08ODfjiO026811
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 08ODfjrK026815
 X-loop: dm-devel@redhat.com
 Cc: lixiaokeng@huawei.com, dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 04/23] multipathd: move vecs desctruction into
-	cleanup function
+Subject: [dm-devel] [PATCH 05/23] multipathd: make some globals static
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +79,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -90,122 +89,42 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-This will make it easer to move the stuff around later.
-The only functional change is that map destuction now happens after
-joining all threads, which should actually improve robustness.
-
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipathd/main.c | 64 +++++++++++++++++++++++++++++------------------
- 1 file changed, 40 insertions(+), 24 deletions(-)
+ multipathd/main.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/multipathd/main.c b/multipathd/main.c
-index 4d714e8..2642570 100644
+index 2642570..1cdbff1 100644
 --- a/multipathd/main.c
 +++ b/multipathd/main.c
-@@ -148,7 +148,7 @@ int should_exit(void)
- /*
-  * global copy of vecs for use in sig handlers
-  */
--struct vectors * gvecs;
-+static struct vectors * gvecs;
+@@ -116,19 +116,19 @@ struct mpath_event_param
+ };
  
- struct config *multipath_conf;
+ int uxsock_timeout;
+-int verbosity;
+-int bindings_read_only;
++static int verbosity;
++static int bindings_read_only;
+ int ignore_new_devs;
+ #ifdef NO_DMEVENTS_POLL
+-int poll_dmevents = 0;
++static int poll_dmevents = 0;
+ #else
+-int poll_dmevents = 1;
++static int poll_dmevents = 1;
+ #endif
+ /* Don't access this variable without holding config_lock */
+-volatile enum daemon_status running_state = DAEMON_INIT;
++static volatile enum daemon_status running_state = DAEMON_INIT;
+ pid_t daemon_pid;
+-pthread_mutex_t config_lock = PTHREAD_MUTEX_INITIALIZER;
+-pthread_cond_t config_cond;
++static pthread_mutex_t config_lock = PTHREAD_MUTEX_INITIALIZER;
++static pthread_cond_t config_cond;
  
-@@ -2889,6 +2889,44 @@ set_oom_adj (void)
- 	condlog(0, "couldn't adjust oom score");
- }
- 
-+static void cleanup_maps(struct vectors *vecs)
-+{
-+	int queue_without_daemon, i;
-+	struct multipath *mpp;
-+	struct config *conf;
-+
-+	conf = get_multipath_config();
-+	queue_without_daemon = conf->queue_without_daemon;
-+	put_multipath_config(conf);
-+	if (queue_without_daemon == QUE_NO_DAEMON_OFF)
-+		vector_foreach_slot(vecs->mpvec, mpp, i)
-+			dm_queue_if_no_path(mpp->alias, 0);
-+	remove_maps_and_stop_waiters(vecs);
-+	vecs->mpvec = NULL;
-+}
-+
-+static void cleanup_paths(struct vectors *vecs)
-+{
-+	free_pathvec(vecs->pathvec, FREE_PATHS);
-+	vecs->pathvec = NULL;
-+}
-+
-+static void cleanup_vecs(void)
-+{
-+	if (!gvecs)
-+		return;
-+	/*
-+	 * We can't take the vecs lock here, because exit() may
-+	 * have been called from the child() thread, holding the lock already.
-+	 * Anyway, by the time we get here, all threads that might access
-+	 * vecs should have been joined already (in cleanup_threads).
-+	 */
-+	cleanup_maps(gvecs);
-+	cleanup_paths(gvecs);
-+	pthread_mutex_destroy(&gvecs->lock.mutex);
-+	FREE(gvecs);
-+}
-+
- /*
-  * Use a non-default call_rcu_data for child().
-  *
-@@ -2936,13 +2974,10 @@ child (__attribute__((unused)) void *param)
- 	pthread_t check_thr, uevent_thr, uxlsnr_thr, uevq_thr, dmevent_thr;
- 	pthread_attr_t log_attr, misc_attr, uevent_attr;
- 	struct vectors * vecs;
--	struct multipath * mpp;
--	int i;
- 	int rc;
- 	int pid_fd = -1;
- 	struct config *conf;
- 	char *envp;
--	int queue_without_daemon;
- 	enum daemon_status state;
- 	struct call_rcu_data *crdp;
- 
-@@ -3108,17 +3143,6 @@ child (__attribute__((unused)) void *param)
- 	if (poll_dmevents)
- 		pthread_cancel(dmevent_thr);
- 
--	conf = get_multipath_config();
--	queue_without_daemon = conf->queue_without_daemon;
--	put_multipath_config(conf);
--
--	lock(&vecs->lock);
--	if (queue_without_daemon == QUE_NO_DAEMON_OFF)
--		vector_foreach_slot(vecs->mpvec, mpp, i)
--			dm_queue_if_no_path(mpp->alias, 0);
--	remove_maps_and_stop_waiters(vecs);
--	unlock(&vecs->lock);
--
- 	pthread_join(check_thr, NULL);
- 	pthread_join(uevent_thr, NULL);
- 	pthread_join(uxlsnr_thr, NULL);
-@@ -3128,15 +3152,7 @@ child (__attribute__((unused)) void *param)
- 
- 	stop_io_err_stat_thread();
- 
--	lock(&vecs->lock);
--	free_pathvec(vecs->pathvec, FREE_PATHS);
--	vecs->pathvec = NULL;
--	unlock(&vecs->lock);
--
--	pthread_mutex_destroy(&vecs->lock.mutex);
--	FREE(vecs);
--	vecs = NULL;
--
-+	cleanup_vecs();
- 	cleanup_foreign();
- 	cleanup_checkers();
- 	cleanup_prio();
+ static inline enum daemon_status get_running_state(void)
+ {
 -- 
 2.28.0
 
