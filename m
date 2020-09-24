@@ -2,91 +2,108 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 5144327771B
-	for <lists+dm-devel@lfdr.de>; Thu, 24 Sep 2020 18:46:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1600965985;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=/3yeH5SlN2KUeXvEp1a0RYDxu9zrCUxXnIR3KMbuTGs=;
-	b=dOYx046tqLgrUXt2IKQUyhtE/QWZWm0lhD0JNw+yIM8MUZdaseLLw+koMH7bOZ8i7pjy/v
-	p3X7tMBsOnc3lmEqjhWDlz1a1EWCnbO1iV5HJ5lFmL7IrnL2Ehgn91OqS21L2Q9zXuIPEA
-	spYA74Pk+xqwmS/Cx4BKtcJdtH7lPlw=
+	by mail.lfdr.de (Postfix) with ESMTP id E83F5277744
+	for <lists+dm-devel@lfdr.de>; Thu, 24 Sep 2020 18:56:06 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-481-MDVD3v02M-OG_Vbto3bJRA-1; Thu, 24 Sep 2020 12:46:21 -0400
-X-MC-Unique: MDVD3v02M-OG_Vbto3bJRA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-296-2Lbxyd3_PMaZ6_CA0dlFKA-1; Thu, 24 Sep 2020 12:55:33 -0400
+X-MC-Unique: 2Lbxyd3_PMaZ6_CA0dlFKA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AFA4C1022E1B;
-	Thu, 24 Sep 2020 16:46:13 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9F039AD52D;
+	Thu, 24 Sep 2020 16:55:27 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B25577368C;
-	Thu, 24 Sep 2020 16:46:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 96582702E7;
+	Thu, 24 Sep 2020 16:55:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5D06B8C7A2;
-	Thu, 24 Sep 2020 16:46:06 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AECA38C7A1;
+	Thu, 24 Sep 2020 16:55:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08OGjxx8019081 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 24 Sep 2020 12:45:59 -0400
+	id 08OGtHfT020352 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 24 Sep 2020 12:55:17 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id F373510A143B; Thu, 24 Sep 2020 16:45:58 +0000 (UTC)
+	id 8DFD92028E91; Thu, 24 Sep 2020 16:55:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EEE8110A1437
-	for <dm-devel@redhat.com>; Thu, 24 Sep 2020 16:45:56 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 885B12024508
+	for <dm-devel@redhat.com>; Thu, 24 Sep 2020 16:55:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B225D858294
-	for <dm-devel@redhat.com>; Thu, 24 Sep 2020 16:45:56 +0000 (UTC)
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
-	[209.85.217.72]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-595-4btEP8UAPDGyD84ZU4ZxPw-1; Thu, 24 Sep 2020 12:45:55 -0400
-X-MC-Unique: 4btEP8UAPDGyD84ZU4ZxPw-1
-Received: by mail-vs1-f72.google.com with SMTP id s68so2667vss.3
-	for <dm-devel@redhat.com>; Thu, 24 Sep 2020 09:45:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=z2ZxJLEzKDTd/kNj2NTHKUnqtet7FBJnNzDhitOCcP8=;
-	b=QZ4PkTMGF77nZ2Rm0ygKsE4ly8S5/LBauSADRsZzmOcQXeR/mC5FZMrtLD4nsAANVQ
-	1iMGMHLVvRg6/rUrNH/bmux0WARGb/98AOGvlMivDJ1rg6s8grePwBpRV0glHlCgUqLV
-	q5a4ywieqMYX0/NbFJGOYeEHclTh+p6Gt7i/Z8VaDYwHr1fEij+hs2TdsiZAtLOpX37a
-	SmhAUtcbl4XbeZ0YltrOdVlURdYIaq0icdz8y8/o5VTbf9Xyu8QkWDFzey6fH2AnBNr/
-	QVzFwYxdRV0wNbnBkuOYsJfwUxgbZLnj/iyzvGA5eNGRhFZx5PiCiRb2ef3VL4kRFK+0
-	eVdA==
-X-Gm-Message-State: AOAM530b+4AqbGDt9xJILKXCD3hq8NKwLY9HlHjyzksJ7Zhbe8ZoUK7Y
-	mJLq9fNTa0TUWsuVRhxXzmieE6xxytyx4DKIfR6n/tDPApiYouYoir50ymlgRoFVFmh3lDP55ou
-	Tde1vMulpBxvmHgdiPn6lOByeyxHfhI8=
-X-Received: by 2002:a67:f698:: with SMTP id n24mr5051774vso.19.1600965954216; 
-	Thu, 24 Sep 2020 09:45:54 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJy4AoEE5PjUS1kJ8HHH02GC91LHJdmqhb5fJmnqK7Nv+H1t/olHqAmfhI/Kitwi0skVD3F/8No8oZf01FZtqUA=
-X-Received: by 2002:a67:f698:: with SMTP id n24mr5051748vso.19.1600965953944; 
-	Thu, 24 Sep 2020 09:45:53 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D5529102F1E3
+	for <dm-devel@redhat.com>; Thu, 24 Sep 2020 16:55:12 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-350-n1XJnCBrPIi-7oIHtfz8og-1; Thu, 24 Sep 2020 12:55:09 -0400
+X-MC-Unique: n1XJnCBrPIi-7oIHtfz8og-1
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+	by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
+	08OGcv9m086702; Thu, 24 Sep 2020 16:55:05 GMT
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+	by userp2120.oracle.com with ESMTP id 33ndnusgq9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=FAIL); Thu, 24 Sep 2020 16:55:04 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+	by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
+	08OGaUTS147953; Thu, 24 Sep 2020 16:55:04 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+	by userp3020.oracle.com with ESMTP id 33nurwe7mr-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 24 Sep 2020 16:55:04 +0000
+Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
+	by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 08OGt2Vn000582;
+	Thu, 24 Sep 2020 16:55:03 GMT
 MIME-Version: 1.0
-References: <alpine.LRH.2.02.2009241225310.22728@file01.intranet.prod.int.rdu2.redhat.com>
-In-Reply-To: <alpine.LRH.2.02.2009241225310.22728@file01.intranet.prod.int.rdu2.redhat.com>
-From: John Dorminy <jdorminy@redhat.com>
-Date: Thu, 24 Sep 2020 12:45:43 -0400
-Message-ID: <CAMeeMh87GLea=7_4qGuPhMj0WKnB-596HzkKQDafLirHiBpSzQ@mail.gmail.com>
-To: Mikulas Patocka <mpatocka@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+Message-ID: <378f445c-2136-4d17-ac2f-355b7850d28a@default>
+Date: Thu, 24 Sep 2020 09:55:01 -0700 (PDT)
+From: Sudhakar Panneerselvam <sudhakar.panneerselvam@oracle.com>
+To: Milan Broz <gmazyland@gmail.com>, Eric Biggers <ebiggers@kernel.org>, Mike
+	Snitzer <snitzer@redhat.com>
+References: <1600281606-1446-1-git-send-email-sudhakar.panneerselvam@oracle.com>
+	<3be1ea32-b6a8-41ef-a9ba-ed691434d068@default>
+	<20200924012732.GA10766@redhat.com>
+	<20200924051419.GA16103@sol.localdomain>
+	<1c44946e-9661-16f7-1c38-32d666b55fb2@gmail.com>
+In-Reply-To: <1c44946e-9661-16f7-1c38-32d666b55fb2@gmail.com>
+X-Priority: 3
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9754
+	signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+	malwarescore=0
+	phishscore=0 mlxlogscore=999 bulkscore=0 mlxscore=0 suspectscore=0
+	spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2006250000 definitions=main-2009240124
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9754
+	signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+	priorityscore=1501 malwarescore=0
+	lowpriorityscore=0 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+	clxscore=1015 impostorscore=0 mlxlogscore=999 mlxscore=0 spamscore=0
+	classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2006250000 definitions=main-2009240124
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 08OGtHfT020352
 X-loop: dm-devel@redhat.com
-Cc: Mike Snitzer <msnitzer@redhat.com>,
-	device-mapper development <dm-devel@redhat.com>,
-	Zdenek Kabelac <zkabelac@redhat.com>
-Subject: Re: [dm-devel] [PATCH] dm-raid: stack limits instead of overwriting
-	them.
+Cc: Damien.LeMoal@wdc.com, ssudhakarp@gmail.com,
+	Martin Petersen <martin.petersen@oracle.com>, dm-crypt@saout.de,
+	mpatocka@redhat.com, dm-devel@redhat.com,
+	Ma <shirley.ma@oracle.com>, Shirley, agk@redhat.com
+Subject: Re: [dm-devel] [RFC PATCH 0/2] dm crypt: Allow unaligned buffer
+ lengths for skcipher devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,7 +117,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -108,58 +125,63 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-I don't understand how this works...
+Hello Milan,
 
-Can chunk_size_bytes be 0? If not, how is discard_granularity being set to 0?
+> -----Original Message-----
+> From: Milan Broz [mailto:gmazyland@gmail.com]
+> Sent: Thursday, September 24, 2020 2:16 AM
+> To: Eric Biggers <ebiggers@kernel.org>; Mike Snitzer <snitzer@redhat.com>
+> Cc: Sudhakar Panneerselvam <sudhakar.panneerselvam@oracle.com>;
+> Damien.LeMoal@wdc.com; ssudhakarp@gmail.com; Martin Petersen
+> <martin.petersen@oracle.com>; dm-crypt@saout.de; dm-devel@redhat.com;
+> Shirley Ma <shirley.ma@oracle.com>; mpatocka@redhat.com;
+> agk@redhat.com
+> Subject: Re: [dm-devel] [RFC PATCH 0/2] dm crypt: Allow unaligned buffer
+> lengths for skcipher devices
+> 
+> On 24/09/2020 07:14, Eric Biggers wrote:
+> > On Wed, Sep 23, 2020 at 09:27:32PM -0400, Mike Snitzer wrote:
+> >> You've clearly done a nice job with these changes.  Looks clean.
+> >>
+> >> BUT, I'm struggling to just accept that dm-crypt needs to go to these
+> >> extra lengths purely because of one bad apple usecase.
+> >>
+> >> These alignment constraints aren't new.  Are there other portions of
+> >> Linux's crypto subsystem that needed comparable fixes in order to work
+> >> with Microsfot OS initiated IO through a guest?
+> >>
+> >> You forecast that these same kinds of changes are needed for AEAD and
+> >> dm-integrity... that's alarming.
+> >>
+> >> Are we _certain_ there is no other way forward?
+> >> (Sorry I don't have suggestions.. I'm in "fact finding mode" ;)
+> >>
+> >
+> > I don't understand why this is needed, since dm-crypt already sets its
+> > logical_block_size to its crypto sector_size.  Isn't it expected that I/O that
+> > isn't aligned to logical_block_size fails?  It's the I/O submitter's
+> > responsibility to ensure logical_block_size alignment of all I/O segments.
+> > Exactly how is the misaligned I/O actually being submitted here?
+> 
+> Thanks for mentioning it - exactly that I asked when reading this patch...
+> It seems that we are here fixing a problem that is just caused when someone
+> ignores clearly set restrictions.
+> 
+> Who is submitting these bioses? Why can it not be fixed there?
+> 
+> What happens with writes to fs journals, etc., is it still safe if we are
+> processing such unaligned bios?
 
-I think also limits is local to the ti in question here, initialized
-by blk_set_stacking_limits() via dm-table.c, and therefore has only
-default values and not anything to do with the underlying queue. So
-setting discard_granularity=max(discard_granularity, chunk_size_bytes)
-doesn't seem like it should be working, unless I'm not understanding
-what it's there for...
+I don't follow your question regarding fs journals. I am not sure why it is not safe to process unaligned bio segment lengths of fs journals writes. Could you explain with some example on why that would be a problem?
 
-And shouldn't melding in the target's desired io_hints into the
-existing queue limits be happening in blk_stack_limits() instead?
-(Also, it does lcm_not_zero() for stacking granularity, instead of
-max()...)
+Please see my reply to Eric's/Mike's email, in that, I explained why this issue needs to be fixed in dm-crypt. I hope I have answered to your questions there. If not, let me know, I will try to answer.
 
+Thanks
+Sudhakar
 
-On Thu, Sep 24, 2020 at 12:29 PM Mikulas Patocka <mpatocka@redhat.com> wrote:
->
-> This patch fixes a warning WARN_ON_ONCE(!q->limits.discard_granularity).
-> The reason is that the function raid_io_hints overwrote
-> limits->discard_granularity with zero. We need to properly stack the
-> limits instead of overwriting them.
->
-> Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-> Cc: stable@vger.kernel.org
->
-> ---
->  drivers/md/dm-raid.c |    4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> Index: linux-2.6/drivers/md/dm-raid.c
-> ===================================================================
-> --- linux-2.6.orig/drivers/md/dm-raid.c 2020-09-24 18:16:45.000000000 +0200
-> +++ linux-2.6/drivers/md/dm-raid.c      2020-09-24 18:16:45.000000000 +0200
-> @@ -3734,8 +3734,8 @@ static void raid_io_hints(struct dm_targ
->          * RAID0/4/5/6 don't and process large discard bios properly.
->          */
->         if (rs_is_raid1(rs) || rs_is_raid10(rs)) {
-> -               limits->discard_granularity = chunk_size_bytes;
-> -               limits->max_discard_sectors = rs->md.chunk_sectors;
-> +               limits->discard_granularity = max(limits->discard_granularity, chunk_size_bytes);
-> +               limits->max_discard_sectors = min_not_zero(limits->max_discard_sectors, (unsigned)rs->md.chunk_sectors);
->         }
->  }
->
->
-> --
-> dm-devel mailing list
-> dm-devel@redhat.com
-> https://www.redhat.com/mailman/listinfo/dm-devel
->
+> 
+> Milan
+
 
 --
 dm-devel mailing list
