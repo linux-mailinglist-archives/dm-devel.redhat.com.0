@@ -2,53 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C19952772AB
-	for <lists+dm-devel@lfdr.de>; Thu, 24 Sep 2020 15:39:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5287F2772AF
+	for <lists+dm-devel@lfdr.de>; Thu, 24 Sep 2020 15:40:00 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-159-Ynqe5TKgNiulnA_0d9tgmw-1; Thu, 24 Sep 2020 09:39:51 -0400
-X-MC-Unique: Ynqe5TKgNiulnA_0d9tgmw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-541-6IrnP3_aO-mYRolXzHYJiA-1; Thu, 24 Sep 2020 09:39:55 -0400
+X-MC-Unique: 6IrnP3_aO-mYRolXzHYJiA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 880BF807341;
-	Thu, 24 Sep 2020 13:39:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8A3F488127C;
+	Thu, 24 Sep 2020 13:39:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6598B5C1C7;
-	Thu, 24 Sep 2020 13:39:40 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 64EFE60BF3;
+	Thu, 24 Sep 2020 13:39:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 15859181A88C;
-	Thu, 24 Sep 2020 13:39:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 19A3E181A899;
+	Thu, 24 Sep 2020 13:39:45 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08ODdW8o026040 for <dm-devel@listman.util.phx.redhat.com>;
+	id 08ODdWJl026048 for <dm-devel@listman.util.phx.redhat.com>;
 	Thu, 24 Sep 2020 09:39:32 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2442E202450A; Thu, 24 Sep 2020 13:39:32 +0000 (UTC)
+	id 47E4A2156A34; Thu, 24 Sep 2020 13:39:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 204D92024508
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 432952156A2D
 	for <dm-devel@redhat.com>; Thu, 24 Sep 2020 13:39:32 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07026900C67
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 254C485829C
 	for <dm-devel@redhat.com>; Thu, 24 Sep 2020 13:39:32 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-370-ciKdyxv_PJS5qwtdAmx2GQ-1;
+	relay.mimecast.com with ESMTP id us-mta-315-Z3HEBnUnPs-XtLtCS1Uuog-1;
 	Thu, 24 Sep 2020 09:39:27 -0400
-X-MC-Unique: ciKdyxv_PJS5qwtdAmx2GQ-1
+X-MC-Unique: Z3HEBnUnPs-XtLtCS1Uuog-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id D819EB126;
-	Thu, 24 Sep 2020 13:39:24 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id 25E13B127;
+	Thu, 24 Sep 2020 13:39:25 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu, 24 Sep 2020 15:37:04 +0200
-Message-Id: <20200924133716.14120-10-mwilck@suse.com>
+Date: Thu, 24 Sep 2020 15:37:05 +0200
+Message-Id: <20200924133716.14120-11-mwilck@suse.com>
 In-Reply-To: <20200924133716.14120-1-mwilck@suse.com>
 References: <20200924133716.14120-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -60,13 +61,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 08ODdW8o026040
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 08ODdWJl026048
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 09/21] multipath-tools: don't call
-	dm_lib_release() any more
+Subject: [dm-devel] [PATCH v2 10/21] libmultipath: devmapper: refactor libdm
+	version determination
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +81,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -90,163 +91,502 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-The purpose of dm_lib_release() is to release stacked device node
-operations in libdevmapper. This is functionality we don't need and
-use any more, as we rely on udev to set up device nodes and symlinks.
+As one step towards bundling all possibly racy libdm init calls into a single
+function, split the code for determining and checking versions of
+libdm and kernel components. Provide a generic helper
+libmp_get_version() that makes sure the versions are "lazily" initialized.
+Note that retrieving the versions requires libdm calls, thus the
+version initialization calls libdm initialization, which might call
+version initialization recursively. But that's not an issue, as
+the initialization is protected by pthread_once().
 
-We always set DM_UDEV_DISABLE_LIBRARY_FALLBACK when we run dm tasks.
-In the standard CREATE and REMOVE cases, libdevmapper doesn't
-stack any operations if this flag is set. The only exceptions are
+External callers may use dm_prereq(), like before.
+Minor API change: dm_prereq() does not nullify the argument any more
+if an error is encountered.
 
- a) RESUME operations with DM_ADD_NODE_ON_RESUME set. This happens
-implicity when we create new maps
- b) RENAME operations
+Remove the conf->version field, which isn't needed any more after this
+change. This makes it necessary to fixup the hwtable test. Also, it
+represents an ABI change as offsets in "struct config" are changed.
+Bump the ABI version.
 
-In both cases, we call dm_udev_wait() after the libdm operation, which
-calls update_devs() and thus has the same effect as dm_lib_release(),
-cleaning out stacked operations.
-
-OTOH, dm_lib_releases() accesses static variables in libdevmapper, so
-calling it might be racy.
-
-Drop the calls to dm_lib_release().
-
-Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- kpartx/kpartx.c                 |  1 -
- libmpathpersist/mpath_persist.c |  1 -
- multipath/main.c                |  1 -
- multipathd/cli_handlers.c       |  2 --
- multipathd/main.c               | 15 ++-------------
- 5 files changed, 2 insertions(+), 18 deletions(-)
+ libmultipath/config.h             |   1 -
+ libmultipath/devmapper.c          | 160 ++++++++++++++++++++----------
+ libmultipath/devmapper.h          |  11 +-
+ libmultipath/libmultipath.version |   5 +-
+ libmultipath/propsel.c            |  10 +-
+ multipathd/dmevents.c             |   2 +-
+ multipathd/main.c                 |   1 -
+ tests/Makefile                    |   2 +-
+ tests/hwtable.c                   |   3 -
+ tests/test-lib.c                  |  13 +++
+ 10 files changed, 141 insertions(+), 67 deletions(-)
 
-diff --git a/kpartx/kpartx.c b/kpartx/kpartx.c
-index 4a0aae9..6a7933f 100644
---- a/kpartx/kpartx.c
-+++ b/kpartx/kpartx.c
-@@ -681,7 +681,6 @@ main(int argc, char **argv){
+diff --git a/libmultipath/config.h b/libmultipath/config.h
+index 2bb7153..8e13ae9 100644
+--- a/libmultipath/config.h
++++ b/libmultipath/config.h
+@@ -191,7 +191,6 @@ struct config {
+ 	int find_multipaths_timeout;
+ 	int marginal_pathgroups;
+ 	int skip_delegate;
+-	unsigned int version[3];
+ 	unsigned int sequence_nr;
+ 
+ 	char * multipath_dir;
+diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
+index 7394796..08aa09f 100644
+--- a/libmultipath/devmapper.c
++++ b/libmultipath/devmapper.c
+@@ -26,6 +26,7 @@
+ #include "sysfs.h"
+ #include "config.h"
+ #include "wwids.h"
++#include "version.h"
+ 
+ #include "log_pthread.h"
+ #include <sys/types.h>
+@@ -34,7 +35,13 @@
+ #define MAX_WAIT 5
+ #define LOOPS_PER_SEC 5
+ 
++#define INVALID_VERSION ~0U
++static unsigned int dm_library_version[3] = { INVALID_VERSION, };
++static unsigned int dm_kernel_version[3] = { INVALID_VERSION, };
++static unsigned int dm_mpath_target_version[3] = { INVALID_VERSION, };
++
+ static pthread_once_t dm_initialized = PTHREAD_ONCE_INIT;
++static pthread_once_t versions_initialized = PTHREAD_ONCE_INIT;
+ 
+ static int dm_conf_verbosity;
+ 
+@@ -102,7 +109,7 @@ dm_write_log (int level, const char *file, int line, const char *f, ...)
+ 	return;
+ }
+ 
+-void dm_init(int v)
++static void dm_init(int v)
+ {
+ 	/*
+ 	 * This maps libdm's standard loglevel _LOG_WARN (= 4), which is rather
+@@ -112,59 +119,66 @@ void dm_init(int v)
+ 	dm_log_init(&dm_write_log);
+ }
+ 
++static void init_dm_library_version(void)
++{
++	char version[64];
++	unsigned int v[3];
++
++	dm_get_library_version(version, sizeof(version));
++	if (sscanf(version, "%u.%u.%u ", &v[0], &v[1], &v[2]) != 3) {
++		condlog(0, "invalid libdevmapper version %s", version);
++		return;
++	}
++	memcpy(dm_library_version, v, sizeof(dm_library_version));
++	condlog(3, "libdevmapper version %u.%.2u.%.2u",
++		dm_library_version[0], dm_library_version[1],
++		dm_library_version[2]);
++}
++
+ static int
+ dm_lib_prereq (void)
+ {
+-	char version[64];
+-	int v[3];
++
+ #if defined(LIBDM_API_HOLD_CONTROL)
+-	int minv[3] = {1, 2, 111};
++	unsigned int minv[3] = {1, 2, 111};
+ #elif defined(LIBDM_API_DEFERRED)
+-	int minv[3] = {1, 2, 89};
++	unsigned int minv[3] = {1, 2, 89};
+ #elif defined(DM_SUBSYSTEM_UDEV_FLAG0)
+-	int minv[3] = {1, 2, 82};
++	unsigned int minv[3] = {1, 2, 82};
+ #elif defined(LIBDM_API_COOKIE)
+-	int minv[3] = {1, 2, 38};
++	unsigned int minv[3] = {1, 2, 38};
+ #else
+-	int minv[3] = {1, 2, 8};
++	unsigned int minv[3] = {1, 2, 8};
+ #endif
+ 
+-	dm_get_library_version(version, sizeof(version));
+-	condlog(3, "libdevmapper version %s", version);
+-	if (sscanf(version, "%d.%d.%d ", &v[0], &v[1], &v[2]) != 3) {
+-		condlog(0, "invalid libdevmapper version %s", version);
+-		return 1;
+-	}
+-
+-	if VERSION_GE(v, minv)
++	if (VERSION_GE(dm_library_version, minv))
+ 		return 0;
+-	condlog(0, "libdevmapper version must be >= %d.%.2d.%.2d",
++	condlog(0, "libdevmapper version must be >= %u.%.2u.%.2u",
+ 		minv[0], minv[1], minv[2]);
+ 	return 1;
+ }
+ 
+-int
+-dm_drv_version(unsigned int *v)
++static void init_dm_drv_version(void)
+ {
+ 	char buff[64];
+-
+-	v[0] = 0;
+-	v[1] = 0;
+-	v[2] = 0;
++	unsigned int v[3];
+ 
+ 	if (!dm_driver_version(buff, sizeof(buff))) {
+ 		condlog(0, "cannot get kernel dm version");
+-		return 1;
++		return;
+ 	}
+ 	if (sscanf(buff, "%u.%u.%u ", &v[0], &v[1], &v[2]) != 3) {
+ 		condlog(0, "invalid kernel dm version '%s'", buff);
+-		return 1;
++		return;
+ 	}
+-	return 0;
++	memcpy(dm_kernel_version, v, sizeof(dm_library_version));
++	condlog(3, "kernel device mapper v%u.%u.%u",
++		dm_kernel_version[0],
++		dm_kernel_version[1],
++		dm_kernel_version[2]);
+ }
+ 
+-int
+-dm_tgt_version (unsigned int * version, char * str)
++static int dm_tgt_version (unsigned int *version, char *str)
+ {
+ 	int r = 2;
+ 	struct dm_task *dmt;
+@@ -172,10 +186,11 @@ dm_tgt_version (unsigned int * version, char * str)
+ 	struct dm_versions *last_target;
+ 	unsigned int *v;
+ 
+-	version[0] = 0;
+-	version[1] = 0;
+-	version[2] = 0;
+-
++	/*
++	 * We have to call dm_task_create() and not libmp_dm_task_create()
++	 * here to avoid a recursive invocation of
++	 * pthread_once(&dm_initialized), which would cause a deadlock.
++	 */
+ 	if (!(dmt = dm_task_create(DM_DEVICE_LIST_VERSIONS)))
+ 		return 1;
+ 
+@@ -211,26 +226,25 @@ out:
+ 	return r;
+ }
+ 
+-static int
+-dm_tgt_prereq (unsigned int *ver)
++static void init_dm_mpath_version(void)
+ {
+-	unsigned int minv[3] = {1, 0, 3};
+-	unsigned int version[3] = {0, 0, 0};
+-	unsigned int * v = version;
+-
+-	if (dm_tgt_version(v, TGT_MPATH)) {
+-		/* in doubt return not capable */
+-		return 1;
+-	}
++	if (!dm_tgt_version(dm_mpath_target_version, TGT_MPATH))
++		condlog(3, "DM multipath kernel driver v%u.%u.%u",
++			dm_mpath_target_version[0],
++			dm_mpath_target_version[1],
++			dm_mpath_target_version[2]);
++}
+ 
+-	/* test request based multipath capability */
+-	condlog(3, "DM multipath kernel driver v%u.%u.%u",
+-		v[0], v[1], v[2]);
++static int dm_tgt_prereq (unsigned int *ver)
++{
++	unsigned int minv[3] = {1, 0, 3};
+ 
+-	if (VERSION_GE(v, minv)) {
+-		ver[0] = v[0];
+-		ver[1] = v[1];
+-		ver[2] = v[2];
++	if (VERSION_GE(dm_mpath_target_version, minv)) {
++		if (ver) {
++			ver[0] = dm_mpath_target_version[0];
++			ver[1] = dm_mpath_target_version[1];
++			ver[2] = dm_mpath_target_version[2];
++		}
+ 		return 0;
  	}
  
- end:
--	dm_lib_release();
- 	dm_lib_exit();
+@@ -239,13 +253,60 @@ dm_tgt_prereq (unsigned int *ver)
+ 	return 1;
+ }
  
- 	return r;
-diff --git a/libmpathpersist/mpath_persist.c b/libmpathpersist/mpath_persist.c
-index 1f9817e..39055ed 100644
---- a/libmpathpersist/mpath_persist.c
-+++ b/libmpathpersist/mpath_persist.c
-@@ -56,7 +56,6 @@ mpath_lib_init (void)
- int
- mpath_lib_exit (struct config *conf)
++static void _init_versions(void)
++{
++	dlog(logsink, 3, VERSION_STRING);
++	init_dm_library_version();
++	init_dm_drv_version();
++	init_dm_mpath_version();
++}
++
++static int init_versions(void) {
++	pthread_once(&versions_initialized, _init_versions);
++	return (dm_library_version[0] == INVALID_VERSION ||
++		dm_kernel_version[0] == INVALID_VERSION ||
++		dm_mpath_target_version[0] == INVALID_VERSION);
++}
++
+ int dm_prereq(unsigned int *v)
  {
--	dm_lib_release();
- 	dm_lib_exit();
- 	cleanup_prio();
- 	cleanup_checkers();
-diff --git a/multipath/main.c b/multipath/main.c
-index 9e920d8..dc4974b 100644
---- a/multipath/main.c
-+++ b/multipath/main.c
-@@ -1063,7 +1063,6 @@ main (int argc, char *argv[])
- 		condlog(3, "restart multipath configuration process");
- 
- out:
--	dm_lib_release();
- 	dm_lib_exit();
- 
- 	cleanup_foreign();
-diff --git a/multipathd/cli_handlers.c b/multipathd/cli_handlers.c
-index 235e2a2..5463573 100644
---- a/multipathd/cli_handlers.c
-+++ b/multipathd/cli_handlers.c
-@@ -860,7 +860,6 @@ cli_add_map (void * v, char ** reply, int * len, void * data)
- 				    != CP_OK)
- 					condlog(2, "%s: coalesce_paths failed",
- 									param);
--				dm_lib_release();
- 				FREE(refwwid);
- 			}
- 		} /*we attempt to create device only once*/
-@@ -1032,7 +1031,6 @@ cli_resize(void *v, char **reply, int *len, void *data)
- 	if (resize_map(mpp, size, vecs) != 0)
++	if (init_versions())
++		return 1;
+ 	if (dm_lib_prereq())
  		return 1;
+ 	return dm_tgt_prereq(v);
+ }
  
--	dm_lib_release();
- 	if (setup_multipath(vecs, mpp) != 0)
- 		return 1;
- 	sync_map_state(mpp);
++int libmp_get_version(int which, unsigned int version[3])
++{
++	unsigned int *src_version;
++
++	init_versions();
++	switch (which) {
++	case DM_LIBRARY_VERSION:
++		src_version = dm_library_version;
++		break;
++	case DM_KERNEL_VERSION:
++		src_version = dm_kernel_version;
++		break;
++	case DM_MPATH_TARGET_VERSION:
++		src_version = dm_mpath_target_version;
++		break;
++	case MULTIPATH_VERSION:
++		version[0] = (VERSION_CODE >> 16) & 0xff;
++		version[1] = (VERSION_CODE >> 8) & 0xff;
++		version[2] = VERSION_CODE & 0xff;
++		return 0;
++	default:
++		condlog(0, "%s: invalid value for 'which'", __func__);
++		return 1;
++	}
++	if (src_version[0] == INVALID_VERSION)
++		return 1;
++	memcpy(version, src_version, 3 * sizeof(*version));
++	return 0;
++}
++
+ static int libmp_dm_udev_sync = 0;
+ 
+ void libmp_udev_set_sync_support(int on)
+@@ -263,7 +324,6 @@ static void libmp_dm_init(void)
+ 		exit(1);
+ 	conf = get_multipath_config();
+ 	verbosity = conf->verbosity;
+-	memcpy(conf->version, version, sizeof(version));
+ 	put_multipath_config(conf);
+ 	dm_init(verbosity);
+ #ifdef LIBDM_API_HOLD_CONTROL
+diff --git a/libmultipath/devmapper.h b/libmultipath/devmapper.h
+index f568ab5..c8b37e1 100644
+--- a/libmultipath/devmapper.h
++++ b/libmultipath/devmapper.h
+@@ -33,13 +33,10 @@ enum {
+ 	DMP_NOT_FOUND,
+ };
+ 
+-void dm_init(int verbosity);
+ int dm_prereq(unsigned int *v);
+ void skip_libmp_dm_init(void);
+ void libmp_udev_set_sync_support(int on);
+ struct dm_task *libmp_dm_task_create(int task);
+-int dm_drv_version (unsigned int * version);
+-int dm_tgt_version (unsigned int * version, char * str);
+ int dm_simplecmd_flush (int, const char *, uint16_t);
+ int dm_simplecmd_noflush (int, const char *, uint16_t);
+ int dm_addmap_create (struct multipath *mpp, char *params);
+@@ -85,6 +82,14 @@ struct multipath *dm_get_multipath(const char *name);
+ 	((v[0] == minv[0]) && (v[1] == minv[1]) && (v[2] >= minv[2])) \
+ )
+ 
++enum {
++	DM_LIBRARY_VERSION,
++	DM_KERNEL_VERSION,
++	DM_MPATH_TARGET_VERSION,
++	MULTIPATH_VERSION
++};
++int libmp_get_version(int which, unsigned int version[3]);
++
+ #define dm_log_error(lvl, cmd, dmt)			      \
+ 	condlog(lvl, "%s: libdm task=%d error: %s", __func__, \
+ 		cmd, strerror(dm_task_get_errno(dmt)))	      \
+diff --git a/libmultipath/libmultipath.version b/libmultipath/libmultipath.version
+index d6ac0e1..5699a0b 100644
+--- a/libmultipath/libmultipath.version
++++ b/libmultipath/libmultipath.version
+@@ -1,4 +1,4 @@
+-LIBMULTIPATH_0.8.4.0 {
++LIBMULTIPATH_0.8.4.1 {
+ global:
+ 	/* symbols referenced by multipath and multipathd */
+ 	add_foreign;
+@@ -32,7 +32,6 @@ global:
+ 	disassemble_status;
+ 	dlog;
+ 	dm_cancel_deferred_remove;
+-	dm_drv_version;
+ 	dm_enablegroup;
+ 	dm_fail_path;
+ 	_dm_flush_map;
+@@ -54,7 +53,6 @@ global:
+ 	dm_reinstate_path;
+ 	dm_simplecmd_noflush;
+ 	dm_switchgroup;
+-	dm_tgt_version;
+ 	domap;
+ 	ensure_directories_exist;
+ 	extract_hwe_from_path;
+@@ -95,6 +93,7 @@ global:
+ 	is_path_valid;
+ 	is_quote;
+ 	libmp_dm_task_create;
++	libmp_get_version;
+ 	libmp_udev_set_sync_support;
+ 	load_config;
+ 	log_thread_reset;
+diff --git a/libmultipath/propsel.c b/libmultipath/propsel.c
+index 4020134..3f2c2cf 100644
+--- a/libmultipath/propsel.c
++++ b/libmultipath/propsel.c
+@@ -735,9 +735,10 @@ out:
+ 
+ int select_minio(struct config *conf, struct multipath *mp)
+ {
+-	unsigned int minv_dmrq[3] = {1, 1, 0};
++	unsigned int minv_dmrq[3] = {1, 1, 0}, version[3];
+ 
+-	if (VERSION_GE(conf->version, minv_dmrq))
++	if (!libmp_get_version(DM_MPATH_TARGET_VERSION, version)
++	    && VERSION_GE(version, minv_dmrq))
+ 		return select_minio_rq(conf, mp);
+ 	else
+ 		return select_minio_bio(conf, mp);
+@@ -820,9 +821,10 @@ out:
+ int select_retain_hwhandler(struct config *conf, struct multipath *mp)
+ {
+ 	const char *origin;
+-	unsigned int minv_dm_retain[3] = {1, 5, 0};
++	unsigned int minv_dm_retain[3] = {1, 5, 0}, version[3];
+ 
+-	if (!VERSION_GE(conf->version, minv_dm_retain)) {
++	if (!libmp_get_version(DM_MPATH_TARGET_VERSION, version) &&
++	    !VERSION_GE(version, minv_dm_retain)) {
+ 		mp->retain_hwhandler = RETAIN_HWHANDLER_OFF;
+ 		origin = "(setting: WARNING, requires kernel dm-mpath version >= 1.5.0)";
+ 		goto out;
+diff --git a/multipathd/dmevents.c b/multipathd/dmevents.c
+index 5f2d210..fc97c8a 100644
+--- a/multipathd/dmevents.c
++++ b/multipathd/dmevents.c
+@@ -60,7 +60,7 @@ int dmevent_poll_supported(void)
+ {
+ 	unsigned int v[3];
+ 
+-	if (dm_drv_version(v))
++	if (libmp_get_version(DM_KERNEL_VERSION, v))
+ 		return 0;
+ 
+ 	if (VERSION_GE(v, DM_VERSION_FOR_ARM_POLL))
 diff --git a/multipathd/main.c b/multipathd/main.c
-index d1f8cc1..5cc3435 100644
+index 5cc3435..00b66ba 100644
 --- a/multipathd/main.c
 +++ b/multipathd/main.c
-@@ -510,7 +510,6 @@ retry:
- 		sleep(1);
- 		goto retry;
- 	}
--	dm_lib_release();
+@@ -2709,7 +2709,6 @@ reconfigure (struct vectors * vecs)
+ 	/* Re-read any timezone changes */
+ 	tzset();
  
- fail:
- 	if (new_map && (retries < 0 || wait_for_events(mpp, vecs))) {
-@@ -611,10 +610,8 @@ coalesce_maps(struct vectors *vecs, vector nmpv)
- 				vector_del_slot(ompv, i);
- 				i--;
- 			}
--			else {
--				dm_lib_release();
-+			else
- 				condlog(2, "%s devmap removed", ompp->alias);
--			}
- 		} else if (reassign_maps) {
- 			condlog(3, "%s: Reassign existing device-mapper"
- 				" devices", ompp->alias);
-@@ -660,10 +657,8 @@ flush_map(struct multipath * mpp, struct vectors * vecs, int nopaths)
- 		}
- 		return r;
- 	}
--	else {
--		dm_lib_release();
-+	else
- 		condlog(2, "%s: map flushed", mpp->alias);
--	}
+-	dm_tgt_version(conf->version, TGT_MPATH);
+ 	if (verbosity)
+ 		conf->verbosity = verbosity;
+ 	if (bindings_read_only)
+diff --git a/tests/Makefile b/tests/Makefile
+index 47e6b86..a681c11 100644
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -42,7 +42,7 @@ endif
+ dmevents-test_LIBDEPS = -lpthread -ldevmapper -lurcu
+ hwtable-test_TESTDEPS := test-lib.o
+ hwtable-test_OBJDEPS := ../libmultipath/discovery.o ../libmultipath/blacklist.o \
+-	../libmultipath/structs.o
++	../libmultipath/structs.o ../libmultipath/propsel.o
+ hwtable-test_LIBDEPS := -ludev -lpthread -ldl
+ blacklist-test_TESTDEPS := test-log.o
+ blacklist-test_OBJDEPS := ../libmultipath/blacklist.o
+diff --git a/tests/hwtable.c b/tests/hwtable.c
+index 12660da..57f832b 100644
+--- a/tests/hwtable.c
++++ b/tests/hwtable.c
+@@ -30,8 +30,6 @@
+ #define N_CONF_FILES 2
  
- 	orphan_paths(vecs->pathvec, mpp, "map flushed");
- 	remove_map_and_stop_waiter(mpp, vecs);
-@@ -1080,7 +1075,6 @@ rescan:
- 		else
- 			goto fail_map;
- 	}
--	dm_lib_release();
+ static const char tmplate[] = "/tmp/hwtable-XXXXXX";
+-/* pretend new dm, use minio_rq */
+-static const unsigned int dm_tgt_version[3] = { 1, 1, 1 };
  
- 	if ((mpp->action == ACT_CREATE ||
- 	     (mpp->action == ACT_NOTHING && start_waiter && !mpp->waiter)) &&
-@@ -1947,8 +1941,6 @@ int reload_and_sync_map(struct multipath *mpp,
+ struct key_value {
+ 	const char *key;
+@@ -360,7 +358,6 @@ static void write_device(FILE *ff, int nkv, const struct key_value *kv)
+ 	assert_ptr_not_equal(__cf, NULL);				\
+ 	assert_ptr_not_equal(__cf->hwtable, NULL);			\
+ 	__cf->verbosity = VERBOSITY;					\
+-	memcpy(&__cf->version, dm_tgt_version, sizeof(__cf->version));	\
+ 	__cf; })
+ 
+ #define FREE_CONFIG(conf) do {			\
+diff --git a/tests/test-lib.c b/tests/test-lib.c
+index b7c09cc..e7663f9 100644
+--- a/tests/test-lib.c
++++ b/tests/test-lib.c
+@@ -56,6 +56,15 @@ int __wrap_execute_program(char *path, char *value, int len)
+ 	return 0;
+ }
+ 
++int __wrap_libmp_get_version(int which, unsigned int version[3])
++{
++	unsigned int *vers = mock_ptr_type(unsigned int *);
++
++	condlog(4, "%s: %d", __func__, which);
++	memcpy(version, vers, 3 * sizeof(unsigned int));
++	return 0;
++}
++
+ struct udev_list_entry
+ *__wrap_udev_device_get_properties_list_entry(struct udev_device *ud)
  {
- 	if (reload_map(vecs, mpp, refresh, 1))
- 		return 1;
--
--	dm_lib_release();
- 	if (setup_multipath(vecs, mpp) != 0)
- 		return 2;
- 	sync_map_state(mpp);
-@@ -2631,8 +2623,6 @@ configure (struct vectors * vecs)
- 		goto fail;
- 	}
+@@ -339,6 +348,8 @@ struct multipath *__mock_multipath(struct vectors *vecs, struct path *pp)
+ 	struct multipath *mp;
+ 	struct config *conf;
+ 	struct mocked_path mop;
++	/* pretend new dm, use minio_rq,  */
++	static const unsigned int fake_dm_tgt_version[3] = { 1, 1, 1 };
  
--	dm_lib_release();
--
- 	if (should_exit())
- 		goto fail;
+ 	mocked_path_from_path(&mop, pp);
+ 	/* pathinfo() call in adopt_paths */
+@@ -351,7 +362,9 @@ struct multipath *__mock_multipath(struct vectors *vecs, struct path *pp)
+ 	conf = get_multipath_config();
+ 	select_pgpolicy(conf, mp);
+ 	select_no_path_retry(conf, mp);
++	will_return(__wrap_libmp_get_version, fake_dm_tgt_version);
+ 	select_retain_hwhandler(conf, mp);
++	will_return(__wrap_libmp_get_version, fake_dm_tgt_version);
+ 	select_minio(conf, mp);
+ 	put_multipath_config(conf);
  
-@@ -3115,7 +3105,6 @@ child (__attribute__((unused)) void *param)
- 	if (poll_dmevents)
- 		cleanup_dmevent_waiter();
- 
--	dm_lib_release();
- 	dm_lib_exit();
- 
- 	/* We're done here */
 -- 
 2.28.0
 
