@@ -1,78 +1,78 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 54C38278AC2
-	for <lists+dm-devel@lfdr.de>; Fri, 25 Sep 2020 16:19:48 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 079D9278AC6
+	for <lists+dm-devel@lfdr.de>; Fri, 25 Sep 2020 16:20:42 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-536-O9H-Tg2yP7-Mmf8__4WAlA-1; Fri, 25 Sep 2020 10:19:45 -0400
-X-MC-Unique: O9H-Tg2yP7-Mmf8__4WAlA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-197-2iIh0RSKMXuqUE33YXMKUg-1; Fri, 25 Sep 2020 10:20:39 -0400
+X-MC-Unique: 2iIh0RSKMXuqUE33YXMKUg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 53C3A1DDEB;
-	Fri, 25 Sep 2020 14:19:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1434310BBEDC;
+	Fri, 25 Sep 2020 14:20:33 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3CA665D9DC;
-	Fri, 25 Sep 2020 14:19:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E23875578B;
+	Fri, 25 Sep 2020 14:20:32 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3D75144A5E;
-	Fri, 25 Sep 2020 14:19:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7864244A47;
+	Fri, 25 Sep 2020 14:20:31 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08PEJGRd014462 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 25 Sep 2020 10:19:17 -0400
+	id 08PEKQ5t014703 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 25 Sep 2020 10:20:26 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B48FA1010248; Fri, 25 Sep 2020 14:19:16 +0000 (UTC)
+	id 4FD512028E91; Fri, 25 Sep 2020 14:20:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B014B109EF6C
-	for <dm-devel@redhat.com>; Fri, 25 Sep 2020 14:19:14 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4A59E2026F94
+	for <dm-devel@redhat.com>; Fri, 25 Sep 2020 14:20:23 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4D04718AE94A
-	for <dm-devel@redhat.com>; Fri, 25 Sep 2020 14:19:14 +0000 (UTC)
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
-	[209.85.215.181]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-442-hIFjJ1TuN5yskLgorOOPtw-1; Fri, 25 Sep 2020 10:19:11 -0400
-X-MC-Unique: hIFjJ1TuN5yskLgorOOPtw-1
-Received: by mail-pg1-f181.google.com with SMTP id l71so2711732pge.4
-	for <dm-devel@redhat.com>; Fri, 25 Sep 2020 07:19:11 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC33380351E
+	for <dm-devel@redhat.com>; Fri, 25 Sep 2020 14:20:23 +0000 (UTC)
+Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com
+	[209.85.210.193]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-343-onswEbqtPe6f_R947vlG-A-1; Fri, 25 Sep 2020 10:20:21 -0400
+X-MC-Unique: onswEbqtPe6f_R947vlG-A-1
+Received: by mail-pf1-f193.google.com with SMTP id d6so3321421pfn.9
+	for <dm-devel@redhat.com>; Fri, 25 Sep 2020 07:20:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
 	:user-agent:mime-version:in-reply-to:content-language
 	:content-transfer-encoding;
-	bh=Izvn14aXCOd8rlHi8gt8/prckjwG/92/E8+p6vMMqzM=;
-	b=uhBLXjEErK53ioxyBbS5eurG82HStblayuTnRdlINFvpWqMkLcHBlV1eWyLCm71fkG
-	TrzvRuXmM141rt6dnLly2fakWgYl2Mh6G+1K8MO85EESiLCp1265gfzpcWkxUj4M0YBa
-	Z9FdjkfZZcw7dx7gSj0GBNd3jimyKeaNDwHtOfJY7/XFQvNoqElDMSMhC2MDGU5zsk2p
-	zgZZL2PwiE4zQXO5+/itdV3K8a5k9WmVFtg8WwWGm5ObWdJSosy4a9C/4i8mo4t1EQ1y
-	NOia9iACQXiKX/uAFMLv+rQcqmOUTLt1fOZC0+YD07mPjhGPQLq/QyQsLU+sOA7+qXNC
-	E4Lg==
-X-Gm-Message-State: AOAM533nb+fwy1C/gk+m4ckJuG6djRaKG59WRfaTac+Hxj4T89YKfCtS
-	gTDL3WvdxolS9Et0PDELjGqYCA==
-X-Google-Smtp-Source: ABdhPJwRr/FwQpe7dKk8pmg8H/cUjDmWIFuRPHGSosKhPuxMlj+z/HBIhpQTLB9cSGSc+hfMahv5og==
-X-Received: by 2002:a63:e057:: with SMTP id n23mr213338pgj.87.1601043550492;
-	Fri, 25 Sep 2020 07:19:10 -0700 (PDT)
+	bh=E/Cgz17cLyD0MSQK14hl7iUyBkqVrB5po7hyqcxRBDo=;
+	b=dD2t0L+6nVIRd3QZywizP5H3TUZTEzEpUZG5QZTX+MQrNVry3dO7S/zVT+H9zGbR/A
+	bHcCTB+GMlqnpti7ROEepGebh+H8WOYbalD0d1h4IeZUtZ26QbYjkBT5oCkVcMJkokb3
+	JVGkowPjDk4+5u9UzxpkpMof7G+kNJnMTMX7bjcij6eu3MdvkVcRpFV0DDrOWixlVfcy
+	xDTN9pMfY7RN7mSxlEENJSTUYmXn74mw15cqG6HvksIrvHf3sGfu3587vEoqKS+0TJUP
+	iFgAeNNufKxhWde0BCDIla2qCqJjDWrdykLCjh59MC64dfIm5BLkbdYEj1BXH2nJs5Jv
+	MjZQ==
+X-Gm-Message-State: AOAM532I7AGw3CDsF176ul/ZLS+rzucjYzE13W0zEFovb9etSf97r5S4
+	xlz8sn/gKkNSCArkz8FROCMjx8tJBeEY9w==
+X-Google-Smtp-Source: ABdhPJzjLyrDphzZGw97pOcptA6NpA+iljbIgqNxU7CuI0SsW4LbOTMxXHN1kVGXgDjpbNBZ6QOn0Q==
+X-Received: by 2002:a62:d456:0:b029:13c:1611:66c2 with SMTP id
+	u22-20020a62d4560000b029013c161166c2mr4213234pfl.13.1601043620286;
+	Fri, 25 Sep 2020 07:20:20 -0700 (PDT)
 Received: from [192.168.1.30] ([65.144.74.34])
-	by smtp.gmail.com with ESMTPSA id
-	j19sm2930829pfe.108.2020.09.25.07.19.08
+	by smtp.gmail.com with ESMTPSA id t6sm2430962pgj.86.2020.09.25.07.20.19
 	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Fri, 25 Sep 2020 07:19:09 -0700 (PDT)
-To: Christoph Hellwig <hch@lst.de>
-References: <20200903054104.228829-1-hch@lst.de>
+	Fri, 25 Sep 2020 07:20:19 -0700 (PDT)
+To: Mike Snitzer <snitzer@redhat.com>
+References: <20200923200652.11082-1-snitzer@redhat.com>
 From: Jens Axboe <axboe@kernel.dk>
-Message-ID: <7a0600d8-d886-c546-378c-5298a16e979c@kernel.dk>
-Date: Fri, 25 Sep 2020 08:19:08 -0600
+Message-ID: <1a406078-7652-f8eb-e29c-bc4851b23dde@kernel.dk>
+Date: Fri, 25 Sep 2020 08:20:18 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
 	Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20200903054104.228829-1-hch@lst.de>
+In-Reply-To: <20200923200652.11082-1-snitzer@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -81,14 +81,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: linux-raid@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-s390@vger.kernel.org,
-	linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org, linux-ide@vger.kernel.org,
-	dm-devel@redhat.com, target-devel@vger.kernel.org, drbd-dev@tron.linbit.com
-Subject: Re: [dm-devel] clean up is partition checks
+Cc: Konstantin Khlebnikov <khlebnikov@yandex-team.ru>,
+	linux-block@vger.kernel.org, dm-devel@redhat.com, hch@lst.de
+Subject: Re: [dm-devel] [PATCH 0/2] block/dm: add REQ_NOWAIT support for
+	bio-based
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -102,7 +100,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -111,14 +109,30 @@ Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 9/2/20 11:40 PM, Christoph Hellwig wrote:
-> Hi Jens,
+On 9/23/20 2:06 PM, Mike Snitzer wrote:
+> Hi,
 > 
-> this series add a new helepr to check if a struct block_device represents
-> a parition, and removes most direct access to ->bd_contained from
-> drivers.
+> I got guilted into this by this Twitter exchange:
+> https://twitter.com/axboe/status/1308778488011337728
+> 
+> Started with this patchset from June and revised it:
+> https://patchwork.kernel.org/project/dm-devel/list/?series=297693
+> (dropped MD patch while doing so_.
+> 
+> Tested these changes with this test Jens provided:
+> 
+> [mikes-test-job]
+> filename=/dev/dm-0
+> rw=randread
+> buffered=1
+> ioengine=io_uring
+> iodepth=16
+> norandommap
+> 
+> Jens, please feel free to pickup both patches, I don't have any
+> conflicting DM changes for 5.10.
 
-Applied, thanks.
+Thanks Mike! Applied.
 
 -- 
 Jens Axboe
