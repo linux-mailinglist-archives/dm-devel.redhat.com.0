@@ -2,104 +2,100 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 7131E27BE73
-	for <lists+dm-devel@lfdr.de>; Tue, 29 Sep 2020 09:55:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8CA3927BE74
+	for <lists+dm-devel@lfdr.de>; Tue, 29 Sep 2020 09:55:30 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-310-QlNtLmPjPuCiYVQ_XbmBsg-1; Tue, 29 Sep 2020 03:55:26 -0400
-X-MC-Unique: QlNtLmPjPuCiYVQ_XbmBsg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-18-tvJurVulPJ-phnxbRJgmqw-1; Tue, 29 Sep 2020 03:55:26 -0400
+X-MC-Unique: tvJurVulPJ-phnxbRJgmqw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B85EA186DD23;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D00561084C8D;
 	Tue, 29 Sep 2020 07:55:20 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A249619D61;
-	Tue, 29 Sep 2020 07:55:19 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A71345D9E8;
+	Tue, 29 Sep 2020 07:55:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A459A44A56;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9ECE6180BA96;
 	Tue, 29 Sep 2020 07:55:09 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08PEEIIH013173 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 25 Sep 2020 10:14:18 -0400
+	id 08QGSlhK015197 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 26 Sep 2020 12:28:47 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1B1672142F4A; Fri, 25 Sep 2020 14:14:18 +0000 (UTC)
+	id 740161084498; Sat, 26 Sep 2020 16:28:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 154A62142F4B
-	for <dm-devel@redhat.com>; Fri, 25 Sep 2020 14:14:14 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F6EA1084494
+	for <dm-devel@redhat.com>; Sat, 26 Sep 2020 16:28:43 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DAC52101AA41
-	for <dm-devel@redhat.com>; Fri, 25 Sep 2020 14:14:14 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
-	[148.163.158.5]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-149-d-nTa7ywO_qQqSURwAmeSQ-1; Fri, 25 Sep 2020 10:14:12 -0400
-X-MC-Unique: d-nTa7ywO_qQqSURwAmeSQ-1
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
-	by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
-	08PE1aPG037046
-	for <dm-devel@redhat.com>; Fri, 25 Sep 2020 10:14:12 -0400
-Received: from pps.reinject (localhost [127.0.0.1])
-	by mx0b-001b2d01.pphosted.com with ESMTP id 33shap1m50-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT)
-	for <dm-devel@redhat.com>; Fri, 25 Sep 2020 10:14:11 -0400
-Received: from m0098419.ppops.net (m0098419.ppops.net [127.0.0.1])
-	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 08PE5FAb049371
-	for <dm-devel@redhat.com>; Fri, 25 Sep 2020 10:14:11 -0400
-Received: from ppma01fra.de.ibm.com (46.49.7a9f.ip4.static.sl-reverse.com
-	[159.122.73.70])
-	by mx0b-001b2d01.pphosted.com with ESMTP id 33shap1m47-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Fri, 25 Sep 2020 10:14:11 -0400
-Received: from pps.filterd (ppma01fra.de.ibm.com [127.0.0.1])
-	by ppma01fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id
-	08PEDiZJ013520; Fri, 25 Sep 2020 14:14:09 GMT
-Received: from b06cxnps4074.portsmouth.uk.ibm.com
-	(d06relay11.portsmouth.uk.ibm.com [9.149.109.196])
-	by ppma01fra.de.ibm.com with ESMTP id 33n9m7ua94-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Fri, 25 Sep 2020 14:14:09 +0000
-Received: from d06av21.portsmouth.uk.ibm.com (d06av21.portsmouth.uk.ibm.com
-	[9.149.105.232])
-	by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
-	ESMTP id 08PEE7Eh23658758
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=OK); Fri, 25 Sep 2020 14:14:07 GMT
-Received: from d06av21.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 101C55204F;
-	Fri, 25 Sep 2020 14:14:07 +0000 (GMT)
-Received: from oc4120165700.ibm.com (unknown [9.145.148.62])
-	by d06av21.portsmouth.uk.ibm.com (Postfix) with ESMTP id D6C4D52050;
-	Fri, 25 Sep 2020 14:14:06 +0000 (GMT)
-To: Brian Bunker <brian@purestorage.com>,
-	device-mapper development <dm-devel@redhat.com>
-References: <04F146B1-3EB2-42C0-87EA-E0EABC3D8020@purestorage.com>
-From: Steffen Maier <maier@linux.ibm.com>
-Message-ID: <495bf574-1f2f-a281-96e5-c7631b0f07f0@linux.ibm.com>
-Date: Fri, 25 Sep 2020 16:14:06 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.12.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 985018008A5
+	for <dm-devel@redhat.com>; Sat, 26 Sep 2020 16:28:43 +0000 (UTC)
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+	(mail-oln040092069108.outbound.protection.outlook.com [40.92.69.108])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-206-m5zPy_0fOTOu6eVNiR56qw-1; Sat, 26 Sep 2020 12:28:40 -0400
+X-MC-Unique: m5zPy_0fOTOu6eVNiR56qw-1
+Received: from VE1EUR02FT039.eop-EUR02.prod.protection.outlook.com
+	(2a01:111:e400:7e1e::48) by
+	VE1EUR02HT217.eop-EUR02.prod.protection.outlook.com
+	(2a01:111:e400:7e1e::372) with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.21;
+	Sat, 26 Sep 2020 16:28:38 +0000
+Received: from AM0PR09MB2897.eurprd09.prod.outlook.com
+	(2a01:111:e400:7e1e::45) by VE1EUR02FT039.mail.protection.outlook.com
+	(2a01:111:e400:7e1e::394) with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3412.21 via
+	Frontend Transport; Sat, 26 Sep 2020 16:28:38 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:C580F16D8DD68F4C08A83136A4ABE4699BE66A22A43B3748685914C7DC55A59C;
+	UpperCasedChecksum:F4ED908AC1DACD6AD3CCADC22EE5E9A4D643782FC3F1EDA9A1C0AB9CF6DA5514;
+	SizeAsReceived:7534; Count:47
+Received: from AM0PR09MB2897.eurprd09.prod.outlook.com
+	([fe80::5599:5bc3:3b28:d3c0]) by
+	AM0PR09MB2897.eurprd09.prod.outlook.com
+	([fe80::5599:5bc3:3b28:d3c0%4]) with mapi id 15.20.3412.025;
+	Sat, 26 Sep 2020 16:28:38 +0000
+From: Frank Meinl <frank.meinl@live.de>
+To: dm-devel@redhat.com
+Date: Sat, 26 Sep 2020 18:26:21 +0200
+Message-ID: <AM0PR09MB289702395C44596866E4B9C3FE370@AM0PR09MB2897.eurprd09.prod.outlook.com>
+X-ClientProxiedBy: AM4PR0701CA0029.eurprd07.prod.outlook.com
+	(2603:10a6:200:42::39) To AM0PR09MB2897.eurprd09.prod.outlook.com
+	(2603:10a6:208:131::33)
+X-Microsoft-Original-Message-ID: <20200926162621.12630-1-frank.meinl@live.de>
 MIME-Version: 1.0
-In-Reply-To: <04F146B1-3EB2-42C0-87EA-E0EABC3D8020@purestorage.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
-	definitions=2020-09-25_11:2020-09-24,
-	2020-09-25 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
-	mlxscore=0 spamscore=0
-	bulkscore=0 mlxlogscore=999 clxscore=1015 suspectscore=0 adultscore=0
-	malwarescore=0 phishscore=0 priorityscore=1501 impostorscore=0
-	lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2006250000 definitions=main-2009250095
-X-MIME-Autoconverted: from 8bit to quoted-printable by
-	mx0b-001b2d01.pphosted.com id 08PE1aPG037046
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from t7-ubuntu.fritz.box (2003:cb:f725:c400:118a:1cbb:61a9:a186) by
+	AM4PR0701CA0029.eurprd07.prod.outlook.com
+	(2603:10a6:200:42::39) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)
+	id 15.20.3433.14 via Frontend Transport;
+	Sat, 26 Sep 2020 16:26:40 +0000
+X-Microsoft-Original-Message-ID: <20200926162621.12630-1-frank.meinl@live.de>
+X-TMN: [lrCvYy8Ix/O693UH4v0umb5V/ZIabEkujwycbSN4rC9nGE9/FHoB7Ht82onaXqHh]
+X-MS-PublicTrafficType: Email
+X-IncomingHeaderCount: 47
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-Correlation-Id: c222cae7-8862-4f5d-7d1d-08d86238f2f7
+X-MS-TrafficTypeDiagnostic: VE1EUR02HT217:
+X-Microsoft-Antispam: BCL:0
+X-Microsoft-Antispam-Message-Info: pCEVeLyZju/jCAdjlYLq2+sZm/tTGfgIviLWMHv2jxwxW9M0kxBtHsXegqwsOkJXFJEbYyV5eeqOJ3GQGUkuL78Ja1REPTBSjprXs+0PHX7lERLzpzQ5785MwJbGF2YibFuR0pOAg/AFML4Zr/3qNKIJBcGgeaIisR6NSxL9G+anyilk2HX92drhjai0NpKAoE1+DOKSeQwnK22vSDUwAA==
+X-MS-Exchange-AntiSpam-MessageData: 2eJnTxqsHXNAEVKGdn+ifApU/eOBnyl2/i4MSk47MF9TGrSZPtDYfeUsjSY7M7RpKpwsJj3piGiyB3olLR5RIQqm97KMwsKlsSAFI3JaJ5EV/YiEfTAcFophUcycRupc2kA/TawVuR42Nu9hydX4zCS65ATByNCTaJvYXbLm5f4kEMOsdD/juLGvqrZAsbdKvwv0hWp/3wAPchAUUmnTZg==
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c222cae7-8862-4f5d-7d1d-08d86238f2f7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2020 16:28:38.6893 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: VE1EUR02FT039.eop-EUR02.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1EUR02HT217
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -108,12 +104,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 08PEEIIH013173
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 08QGSlhK015197
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 29 Sep 2020 03:54:59 -0400
-Subject: Re: [dm-devel] Make LUNs higher than 255 more friendly to look at
+Cc: Frank Meinl <frank.meinl@live.de>, mwilck@suse.com
+Subject: [dm-devel] [PATCH v2 1/2] libmultipath: Allow discovery of USB
+	devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -127,66 +125,145 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-SGkgQnJpYW4sCgpPbiA5LzI0LzIwIDExOjEwIFBNLCBCcmlhbiBCdW5rZXIgd3JvdGU6Cj4gRm9y
-IExVTnMgYmV0d2VlbiAwIGFuZCAyNTUgcGVyaXBoZXJhbCBhZGRyZXNzaW5nIGlzIHVzZWQuIEZv
-ciBMVU5zIGhpZ2hlciB0aGFuIDI1NSB0aGUgTFVOIGFkZHJlc3NpbmcKPiBzaG91bGQgc3dpdGNo
-IHRvIGZsYXQgYWNjb3JkaW5nIHRvIHRoZSBzcGVjaWZpY2F0aW9uLiBJbnN0ZWFkIG9mIHByaW50
-aW5nIG91dCB0aGUgTFVOIG51bWJlciB3aXRob3V0IHJlZ2FyZCB0bwo+IHRoZSBzaGlmdGluZyBv
-ZiBhZGRyZXNzIG1ldGhvZCwgZGlzcGxheSB0aGUgTFVOIGFzIGl0IHdhcyBpbnRlbmRlZCB0byBi
-ZSB0aGUgdXNlciBjb25uZWN0aW5nIHRoZSBMVU4uIFRoZQo+IGN1cnJlbnQgZGlzcGxheSBsZWF2
-ZXMgYSBub24tb2J2aW91cyAxNjM4NCBvZmZzZXQuCj4gCj4gSW4gc2hvcnQsIGEgTFVOIGNvbm5l
-Y3RlZCBhcyAyNTggd2lsbCBzaG93IHVwIGluIG11bHRpcGF0aCBvdXRwdXQgYXMgMTY2NDIuIElu
-c3RlYWQgZGlzcGxheSBpdCBhcyB0aGUKPiBleHBlY3RlZCAyNTguIFRoaXMgaXMgZm9yIGRpc3Bs
-YXkgb25seSBhbmQgZG9lc27igJl0IGNoYW5nZSB0aGUgYWN0dWFsIGNvbnRlbnRzIG9mIHRoZSBM
-VU4gdmFyaWFibGUuCj4gCj4gU2lnbmVkLW9mZi1ieTogQnJpYW4gQnVua2VyIDxicmlhbkBwdXJl
-c3RvcmFnZS5jb20+Cj4gX19fCj4gLS0tIGEvbGlibXVsdGlwYXRoL3ByaW50LmMgICAgICAyMDIw
-LTA5LTI0IDEzOjUyOjE4LjY2MTgyODAxMSAtMDYwMAo+ICsrKyBiL2xpYm11bHRpcGF0aC9wcmlu
-dC5jICAgICAgMjAyMC0wOS0yNCAxNDoyODoyNy42MDM1NDIzMDMgLTA2MDAKPiBAQCAtMzk0LDcg
-KzM5NCw3IEBACj4gICAgICAgICAgICAgICAgICAgICAgICAgIHBwLT5zZ19pZC5ob3N0X25vLAo+
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwcC0+c2dfaWQuY2hhbm5lbCwKPiAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcHAtPnNnX2lkLnNjc2lfaWQsCj4gLSAgICAgICAgICAgICAgICAgICAg
-ICAgcHAtPnNnX2lkLmx1bik7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgKHBwLT5zZ19pZC5s
-dW4gJiAweDQwMDApID8gcHAtPnNnX2lkLmx1biAtIDB4NDAwMCA6IHBwLT5zZ19pZC5sdW4pOwo+
-ICAgfQo+IAo+ICAgc3RhdGljIGludAoKRm9yIExpbnV4IFNDU0kgZGV2aWNlcywgYW5kIGlmIEkg
-dW5kZXJzdG9vZCB0aGUgY29kZSBjb3JyZWN0bHkgCltsaWJtdWx0aXBhdGgvZGlzY292ZXJ5LmM6
-c2NzaV9zeXNmc19wYXRoaW5mbygpXSwgdGhpcyBzZWVtcyB0aGUgU0NTSSBMVU4gdmFsdWUgCmJl
-aW5nIHBhcnQgb2YgdGhlIFNDU0kgZGV2aWNlIG5hbWUgaW4gaXRzIEg6QzpUOkwgZm9ybWF0LiBB
-RkFJSywgTGludXggCmludGVudGlvbmFsbHkgdHJlYXRzIHRoaXMgYXMgYW4gb3BhcXVlIDY0LWJp
-dCB2YWx1ZSB0byByZWZsZWN0IGEgVDEwIFNBTSBMVU4gClthcyBkZWNpbWFsIG51bWJlciB3aXRo
-IHJldmVyc2VkIExVTiBsZXZlbHMsIHRob3VnaCwgc28gYSBwZXJpcGhlcmFsIGFkZHJlc3Npbmcg
-CkxVTiBoYXBwZW5zIHRvIGxvb2sgbGlrZSBhIHNtYWxsIGludGVnZXIgdmFsdWVdLiBUaGlzIHdh
-eSwgaXQgYWx3YXlzIHdvcmtzIHdpdGggCmFueSAoY3VycmVudCBvciBmdXR1cmUpIExVTiBmb3Jt
-YXQgYW5kIGl0cyBwb3RlbnRpYWxseSBkaWZmZXJlbnQgTFVOIGZvcm1hdCAKZmllbGRzL3BhcnRz
-LgoKVXNlcnMgbWF5IHVzZSB0aGUgaGNpbCBvdXRwdXQgdG8gZmluZCB0aGUgY29ycmVzcG9uZGlu
-ZyBMaW51eCBTQ1NJIGRldmljZSBieSAKaXRzIG5hbWUuIFdvdWxkIHRoaXMgc3RpbGwgd29yayBp
-ZiB0aGUgb3V0cHV0IHZhbHVlIHdhcyBtb2RpZmllZD8KCkFsc28sIHNvbWUgKEZDUC1hdHRhY2hl
-ZCBTQ1NJKSBzdG9yYWdlcyBpbiBwYXJ0aWN1bGFyIGNhc2VzIHVzZSBMVU4gZm9ybWF0IApmaWVs
-ZHMgaW4gYWRkaXRpb24gdG8gIi4uLiBMVU4iIHRvIGNvZGUgYSBsYXJnZXIgc29tZXdoYXQgb3Bh
-cXVlIDY0LWJpdCBUMTAgU0FNIApMVU4gdmFsdWUuIEZvciBpbnN0YW5jZSAiQlVTIElERU5USUZJ
-RVIiIHdpdGggcGVyaXBoZXJhbCBhZGRyZXNzaW5nLCBvciBhIApub24temVybyAybmQgbGV2ZWwg
-d2l0aCBmbGF0IHNwYWNlIGFkZHJlc3NpbmcuIEFib3ZlIGNvbnZlcnNpb24gc2VlbXMgdG8gYXQg
-CmxlYXN0IHJlc3VsdCBpbiB1bmV4cGVjdGVkIHZhbHVlcy4KCigoTm90IHN1cmUgZm9yIHRoaXMg
-Y2FzZSwgYXMgTlZNZSBtaWdodCB1c2UgaXRzIG93biBwcmludCBvdXRwdXQgY29kZSBpbiAKbGli
-bXVsdGlwYXRoL2ZvcmVpZ24vbnZtZS5jOiBudm1lX3N5c2ZzX3BhdGhpbmZvKCkgc2VlbXMgdG8g
-YmUgYW5vdGhlciB1c2VyIAphc3NpZ25pbmcgYSBub24temVybyB2YWx1ZSB0byBzZ19pZC5sdW4g
-W29yaWdpbmF0aW5nIGluIHRoZSBuc2lkIAoobmFtZXNwYWNlLUlEPyldLiBBbiB1bmNvbmRpdGlv
-bmFsIHZhbHVlIGNvbnZlcnNpb24gaW4gdGhlIG91dHB1dCBwcmludGluZyBjb2RlIApwYXRoIGJh
-c2VkIG9uIFNDU0kga25vd2xlZGdlIG1pZ2h0IGJyZWFrIG91dHB1dCBvZiB2YWx1ZXMgYmVsb25n
-aW5nIHRvIE5WTWUgCnBhdGhzLikpCgotLSAKTWl0IGZyZXVuZGxpY2hlbiBHcnVlc3NlbiAvIEtp
-bmQgcmVnYXJkcwpTdGVmZmVuIE1haWVyCgpMaW51eCBvbiBJQk0gWiBEZXZlbG9wbWVudAoKaHR0
-cHM6Ly93d3cuaWJtLmNvbS9wcml2YWN5L3VzL2VuLwpJQk0gRGV1dHNjaGxhbmQgUmVzZWFyY2gg
-JiBEZXZlbG9wbWVudCBHbWJIClZvcnNpdHplbmRlciBkZXMgQXVmc2ljaHRzcmF0czogTWF0dGhp
-YXMgSGFydG1hbm4KR2VzY2hhZWZ0c2Z1ZWhydW5nOiBEaXJrIFdpdHRrb3BwClNpdHogZGVyIEdl
-c2VsbHNjaGFmdDogQm9lYmxpbmdlbgpSZWdpc3RlcmdlcmljaHQ6IEFtdHNnZXJpY2h0IFN0dXR0
-Z2FydCwgSFJCIDI0MzI5NAoKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRo
-YXQuY29tCmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
+This change adds a new configuration option allow_usb_devices. It is
+disabled by default, so that the behavior of existing setups is not
+changed. If enabled (via multipath.conf), USB devices will be found
+during device discovery and can be used for multipath setups.
+
+Without this option, multipath currently ignores all USB drives, which
+is convenient for most users. (refer also to commit 51957eb)
+
+However, it can be beneficial to use the multipath dm-module even if
+there is only a single path to an USB attached storage. In combination
+with the option 'queue_if_no_path', such a setup survives a temporary
+device disconnect without any severe consequences for the running
+applications. All I/O is queued until the device reappears.
+
+Signed-off-by: Frank Meinl <frank.meinl@live.de>
+---
+ libmultipath/config.h      |  1 +
+ libmultipath/dict.c        |  4 ++++
+ libmultipath/discovery.c   | 13 ++++++++++---
+ libmultipath/structs.h     |  1 +
+ multipath/multipath.conf.5 | 12 ++++++++++++
+ 5 files changed, 28 insertions(+), 3 deletions(-)
+
+diff --git a/libmultipath/config.h b/libmultipath/config.h
+index 2bb7153b..290aea58 100644
+--- a/libmultipath/config.h
++++ b/libmultipath/config.h
+@@ -158,6 +158,7 @@ struct config {
+ 	unsigned int dev_loss;
+ 	int log_checker_err;
+ 	int allow_queueing;
++	int allow_usb_devices;
+ 	int find_multipaths;
+ 	uid_t uid;
+ 	gid_t gid;
+diff --git a/libmultipath/dict.c b/libmultipath/dict.c
+index feabae56..f12c2e5c 100644
+--- a/libmultipath/dict.c
++++ b/libmultipath/dict.c
+@@ -543,6 +543,9 @@ snprint_def_queue_without_daemon (struct config *conf,
+ declare_def_handler(checker_timeout, set_int)
+ declare_def_snprint(checker_timeout, print_nonzero)
+ 
++declare_def_handler(allow_usb_devices, set_yes_no)
++declare_def_snprint(allow_usb_devices, print_yes_no)
++
+ declare_def_handler(flush_on_last_del, set_yes_no_undef)
+ declare_def_snprint_defint(flush_on_last_del, print_yes_no_undef, DEFAULT_FLUSH)
+ declare_ovr_handler(flush_on_last_del, set_yes_no_undef)
+@@ -1759,6 +1762,7 @@ init_keywords(vector keywords)
+ 	install_keyword("no_path_retry", &def_no_path_retry_handler, &snprint_def_no_path_retry);
+ 	install_keyword("queue_without_daemon", &def_queue_without_daemon_handler, &snprint_def_queue_without_daemon);
+ 	install_keyword("checker_timeout", &def_checker_timeout_handler, &snprint_def_checker_timeout);
++	install_keyword("allow_usb_devices", &def_allow_usb_devices_handler, &snprint_def_allow_usb_devices);
+ 	install_keyword("pg_timeout", &deprecated_handler, &snprint_deprecated);
+ 	install_keyword("flush_on_last_del", &def_flush_on_last_del_handler, &snprint_def_flush_on_last_del);
+ 	install_keyword("user_friendly_names", &def_user_friendly_names_handler, &snprint_def_user_friendly_names);
+diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
+index 2f301ac4..193d7127 100644
+--- a/libmultipath/discovery.c
++++ b/libmultipath/discovery.c
+@@ -375,11 +375,10 @@ sysfs_get_tgt_nodename(struct path *pp, char *node)
+ 	while (tgtdev) {
+ 		value = udev_device_get_subsystem(tgtdev);
+ 		if (value && !strcmp(value, "usb")) {
+-			pp->sg_id.proto_id = SCSI_PROTOCOL_UNSPEC;
++			pp->sg_id.proto_id = SCSI_PROTOCOL_USB;
+ 			tgtname = udev_device_get_sysname(tgtdev);
+ 			strlcpy(node, tgtname, NODE_NAME_SIZE);
+-			condlog(3, "%s: skip USB device %s", pp->dev, node);
+-			return 1;
++			return 0;
+ 		}
+ 		tgtdev = udev_device_get_parent(tgtdev);
+ 	}
+@@ -2136,6 +2135,14 @@ int pathinfo(struct path *pp, struct config *conf, int mask)
+ 
+ 		if (rc != PATHINFO_OK)
+ 			return rc;
++
++		if (pp->bus == SYSFS_BUS_SCSI &&
++		    pp->sg_id.proto_id == SCSI_PROTOCOL_USB &&
++		    !conf->allow_usb_devices) {
++			condlog(3, "%s: skip USB device %s", pp->dev,
++				pp->tgt_node_name);
++			return PATHINFO_SKIPPED;
++		}
+ 	}
+ 
+ 	if (mask & DI_BLACKLIST && mask & DI_SYSFS) {
+diff --git a/libmultipath/structs.h b/libmultipath/structs.h
+index 4afd3e88..7de93d6c 100644
+--- a/libmultipath/structs.h
++++ b/libmultipath/structs.h
+@@ -174,6 +174,7 @@ enum scsi_protocol {
+ 	SCSI_PROTOCOL_SAS = 6,
+ 	SCSI_PROTOCOL_ADT = 7,	/* Media Changers */
+ 	SCSI_PROTOCOL_ATA = 8,
++	SCSI_PROTOCOL_USB = 9,  /* USB Attached SCSI (UAS), and others */
+ 	SCSI_PROTOCOL_UNSPEC = 0xf, /* No specific protocol */
+ };
+ 
+diff --git a/multipath/multipath.conf.5 b/multipath/multipath.conf.5
+index 5adaced6..60fa12a2 100644
+--- a/multipath/multipath.conf.5
++++ b/multipath/multipath.conf.5
+@@ -643,6 +643,18 @@ The default is: in \fB/sys/block/sd<x>/device/timeout\fR
+ .
+ .
+ .TP
++.B allow_usb_devices
++If set to
++.I no
++, all USB devices will be skipped during path discovery. If you intend to use
++multipath on USB attached devices, set this to \fIyes\fR.
++.RS
++.TP
++The default is: \fBno\fR
++.RE
++.
++.
++.TP
+ .B flush_on_last_del
+ If set to
+ .I yes
+-- 
+2.25.1
+
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
