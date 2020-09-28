@@ -2,55 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8007527BE78
-	for <lists+dm-devel@lfdr.de>; Tue, 29 Sep 2020 09:55:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4E9A327BE7A
+	for <lists+dm-devel@lfdr.de>; Tue, 29 Sep 2020 09:55:39 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-453-KFyZ4N-8OMqLPWIiwYyMTw-1; Tue, 29 Sep 2020 03:55:31 -0400
-X-MC-Unique: KFyZ4N-8OMqLPWIiwYyMTw-1
+ us-mta-401-XnIqG3LTO4KT24QXSXEr4A-1; Tue, 29 Sep 2020 03:55:35 -0400
+X-MC-Unique: XnIqG3LTO4KT24QXSXEr4A-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BC8F0186DD2D;
-	Tue, 29 Sep 2020 07:55:24 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 921A77E73E;
-	Tue, 29 Sep 2020 07:55:24 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AA9BA425EA;
+	Tue, 29 Sep 2020 07:55:26 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 88C087EB74;
+	Tue, 29 Sep 2020 07:55:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4AB1D44A59;
-	Tue, 29 Sep 2020 07:55:24 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4367018199F7;
+	Tue, 29 Sep 2020 07:55:26 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08S3uP2c004543 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 27 Sep 2020 23:56:25 -0400
+	id 08S3uRQ0004555 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 27 Sep 2020 23:56:27 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 984A64400D; Mon, 28 Sep 2020 03:56:25 +0000 (UTC)
+	id 9809E4E3C4; Mon, 28 Sep 2020 03:56:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 940C84400C
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9283549C1A
 	for <dm-devel@redhat.com>; Mon, 28 Sep 2020 03:56:23 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6CAE58007D9
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C2284858295
 	for <dm-devel@redhat.com>; Mon, 28 Sep 2020 03:56:23 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-469-_QXq8yNYM6aCasZAHKwF-w-1;
+	relay.mimecast.com with ESMTP id us-mta-229-Qj9th3TQPwSlZW2gbeoCNQ-1;
 	Sun, 27 Sep 2020 23:56:20 -0400
-X-MC-Unique: _QXq8yNYM6aCasZAHKwF-w-1
+X-MC-Unique: Qj9th3TQPwSlZW2gbeoCNQ-1
 Received: from tusharsu-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
 	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 1F3FD20B7179;
+	by linux.microsoft.com (Postfix) with ESMTPSA id 73DD9208ABC7;
 	Sun, 27 Sep 2020 20:56:19 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 1F3FD20B7179
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 73DD9208ABC7
 From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
 To: zohar@linux.ibm.com, agk@redhat.com, snitzer@redhat.com,
 	gmazyland@gmail.com, pvorel@suse.cz
-Date: Sun, 27 Sep 2020 20:56:04 -0700
-Message-Id: <20200928035605.22701-2-tusharsu@linux.microsoft.com>
+Date: Sun, 27 Sep 2020 20:56:05 -0700
+Message-Id: <20200928035605.22701-3-tusharsu@linux.microsoft.com>
 In-Reply-To: <20200928035605.22701-1-tusharsu@linux.microsoft.com>
 References: <20200928035605.22701-1-tusharsu@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -66,7 +65,7 @@ X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 29 Sep 2020 03:54:59 -0400
 Cc: nramas@linux.microsoft.com, linux-integrity@vger.kernel.org,
 	dm-devel@redhat.com, ltp@lists.linux.it
-Subject: [dm-devel] [PATCH v2 1/2] IMA: generalize key measurement tests
+Subject: [dm-devel] [PATCH v2 2/2] IMA: Add test for dm-crypt measurement
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,213 +88,130 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-New functionality is being added in IMA to measure data provided by
-kernel components. Tests have to be added in LTP to validate this new
-feature. The functionality in ima_keys.sh can be reused to test this new
-feature if it is made generic.
+New functionality is being added to IMA to measure data provided by
+kernel components. With this feature, IMA policy can be set to enable
+measuring data provided by device-mapper targets. Currently one such
+device-mapper target - dm-crypt, is being updated to use this
+functionality. This new functionality needs test automation in LTP.
 
-Refactor check_keys_policy() and test1() implemented in ima_keys.sh to
-make it generic, and move the functionality to ima_setup.sh as new
-functions - check_policy_pattern() and check_ima_ascii_log_for_policy().
+Add a testcase which verifies that the IMA subsystem correctly measures
+the data coming from a device-mapper target - dm-crypt.
 
 Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
 ---
- .../security/integrity/ima/tests/ima_keys.sh  | 62 +++------------
- .../security/integrity/ima/tests/ima_setup.sh | 79 +++++++++++++++++++
- 2 files changed, 92 insertions(+), 49 deletions(-)
+ runtest/ima                                   |  1 +
+ .../kernel/security/integrity/ima/README.md   | 20 +++++++
+ .../integrity/ima/tests/ima_dm_crypt.sh       | 60 +++++++++++++++++++
+ 3 files changed, 81 insertions(+)
+ create mode 100755 testcases/kernel/security/integrity/ima/tests/ima_dm_crypt.sh
 
-diff --git a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-index c9eef4b68..c2120358a 100755
---- a/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-+++ b/testcases/kernel/security/integrity/ima/tests/ima_keys.sh
-@@ -6,7 +6,7 @@
- #
- # Verify that keys are measured correctly based on policy.
+diff --git a/runtest/ima b/runtest/ima
+index 5f4b4a7a1..123b6c8b0 100644
+--- a/runtest/ima
++++ b/runtest/ima
+@@ -5,4 +5,5 @@ ima_tpm ima_tpm.sh
+ ima_violations ima_violations.sh
+ ima_keys ima_keys.sh
+ ima_kexec ima_kexec.sh
++ima_dm_crypt ima_dm_crypt.sh
+ evm_overlay evm_overlay.sh
+diff --git a/testcases/kernel/security/integrity/ima/README.md b/testcases/kernel/security/integrity/ima/README.md
+index 68d046678..007662fae 100644
+--- a/testcases/kernel/security/integrity/ima/README.md
++++ b/testcases/kernel/security/integrity/ima/README.md
+@@ -37,6 +37,26 @@ see example in `kexec.policy`.
+ The test attempts to kexec the existing running kernel image.
+ To kexec a different kernel image export `IMA_KEXEC_IMAGE=<pathname>`.
  
--TST_NEEDS_CMDS="cmp cut grep sed xxd"
-+TST_NEEDS_CMDS="cmp cut grep xxd"
- TST_CNT=2
- TST_NEEDS_DEVICE=1
- TST_SETUP=setup
-@@ -28,64 +28,28 @@ cleanup()
- 	tst_is_num $KEYRING_ID && keyctl clear $KEYRING_ID
- }
- 
--check_keys_policy()
--{
--	local pattern="$1"
--
--	if ! grep -E "$pattern" $TST_TMPDIR/policy.txt; then
--		tst_res TCONF "IMA policy must specify $pattern, $FUNC_KEYCHECK, $TEMPLATE_BUF"
--		return 1
--	fi
--	return 0
--}
--
- # Based on https://lkml.org/lkml/2019/12/13/564.
- # (450d0fd51564 - "IMA: Call workqueue functions to measure queued keys")
- test1()
- {
- 	local keycheck_lines i keyrings templates
- 	local pattern='keyrings=[^[:space:]]+'
--	local test_file="file.txt" tmp_file="file2.txt"
-+	local policy="keyrings"
-+	local tmp_file="$TST_TMPDIR/keycheck_tmp_file.txt"
-+	local res
- 
- 	tst_res TINFO "verify key measurement for keyrings and templates specified in IMA policy"
- 
--	check_keys_policy "$pattern" > $tmp_file || return
--	keycheck_lines=$(cat $tmp_file)
--	keyrings=$(for i in $keycheck_lines; do echo "$i" | grep "keyrings" | \
--		sed "s/\./\\\./g" | cut -d'=' -f2; done | sed ':a;N;$!ba;s/\n/|/g')
--	if [ -z "$keyrings" ]; then
--		tst_res TCONF "IMA policy has a keyring key-value specifier, but no specified keyrings"
--		return
--	fi
--
--	templates=$(for i in $keycheck_lines; do echo "$i" | grep "template" | \
--		cut -d'=' -f2; done | sed ':a;N;$!ba;s/\n/|/g')
--
--	tst_res TINFO "keyrings: '$keyrings'"
--	tst_res TINFO "templates: '$templates'"
--
--	grep -E "($templates).*($keyrings)" $ASCII_MEASUREMENTS | while read line
--	do
--		local digest expected_digest algorithm
--
--		digest=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f2)
--		algorithm=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f1)
--		keyring=$(echo "$line" | cut -d' ' -f5)
-+	check_policy_pattern "$pattern" $FUNC_KEYCHECK $TEMPLATE_BUF > $tmp_file || return
- 
--		echo "$line" | cut -d' ' -f6 | xxd -r -p > $test_file
-+	res="$(check_ima_ascii_log_for_policy $policy $tmp_file)"
- 
--		if ! expected_digest="$(compute_digest $algorithm $test_file)"; then
--			tst_res TCONF "cannot compute digest for $algorithm"
--			return
--		fi
--
--		if [ "$digest" != "$expected_digest" ]; then
--			tst_res TFAIL "incorrect digest was found for $keyring keyring"
--			return
--		fi
--	done
-+	if [ "$res" = "0" ]; then
-+		tst_res TPASS "specified keyrings were measured correctly"
-+	else
-+		tst_res TFAIL "failed to measure specified keyrings"
-+	fi
- 
--	tst_res TPASS "specified keyrings were measured correctly"
- }
- 
- # Create a new keyring, import a certificate into it, and verify
-@@ -97,11 +61,11 @@ test2()
- 	local cert_file="$TST_DATAROOT/x509_ima.der"
- 	local keyring_name="key_import_test"
- 	local pattern="keyrings=[^[:space:]]*$keyring_name"
--	local temp_file="file.txt"
-+	local temp_file="$TST_TMPDIR/key_import_test_file.txt"
- 
- 	tst_res TINFO "verify measurement of certificate imported into a keyring"
- 
--	check_keys_policy "$pattern" >/dev/null || return
-+	check_policy_pattern "$pattern" $FUNC_KEYCHECK $TEMPLATE_BUF >/dev/null || return
- 
- 	KEYRING_ID=$(keyctl newring $keyring_name @s) || \
- 		tst_brk TBROK "unable to create a new keyring"
-diff --git a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
-index 1f17aa707..2841d7df5 100644
---- a/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
-+++ b/testcases/kernel/security/integrity/ima/tests/ima_setup.sh
-@@ -54,6 +54,85 @@ compute_digest()
- 	return 1
- }
- 
-+check_policy_pattern()
-+{
-+	local pattern="$1"
-+	local func="$2"
-+	local template="$3"
++### IMA DM target (dm-crypt) measurement test
 +
-+	if ! grep -E "$pattern" $TST_TMPDIR/policy.txt; then
-+		tst_res TCONF "IMA policy must specify $pattern, $func, $template"
-+		return 1
-+	fi
-+	return 0
++To enable IMA to measure device-mapper target - dm-crypt,
++`ima_dm_crypt.sh` requires a readable IMA policy, as well as
++a loaded measure policy with
++`func=CRITICAL_DATA data_sources=dm-crypt`
++
++As well as what's required for the IMA tests, dm-crypt measurement test require
++reading the IMA policy allowed in the kernel configuration:
++```
++CONFIG_IMA_READ_POLICY=y
++```
++
++The following kernel configuration is also required. It enables compiling
++the device-mapper target module dm-crypt, which allows to create a device
++that transparently encrypts the data on it.
++```
++CONFIG_DM_CRYPT
++```
++
+ ## EVM tests
+ 
+ `evm_overlay.sh` requires a builtin IMA appraise tcb policy (e.g. `ima_policy=appraise_tcb`
+diff --git a/testcases/kernel/security/integrity/ima/tests/ima_dm_crypt.sh b/testcases/kernel/security/integrity/ima/tests/ima_dm_crypt.sh
+new file mode 100755
+index 000000000..396033f8d
+--- /dev/null
++++ b/testcases/kernel/security/integrity/ima/tests/ima_dm_crypt.sh
+@@ -0,0 +1,60 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0-or-later
++# Copyright (c) 2020 Microsoft Corporation
++# Author: Tushar Sugandhi <tusharsu@linux.microsoft.com>
++#
++# Verify that DM target dm-crypt are measured correctly based on policy.
++
++TST_NEEDS_CMDS="dmsetup"
++TST_CNT=1
++TST_NEEDS_DEVICE=1
++TST_SETUP=setup
++TST_CLEANUP=cleanup
++
++. ima_setup.sh
++
++FUNC_CRIT_DATA='func=CRITICAL_DATA'
++TEMPLATE_BUF='template=ima-buf'
++REQUIRED_POLICY="^measure.*($FUNC_CRIT_DATA.*$TEMPLATE_BUF|$TEMPLATE_BUF.*$FUNC_CRIT_DATA)"
++
++setup()
++{
++	require_ima_policy_content "$REQUIRED_POLICY" '-E' > $TST_TMPDIR/policy.txt
 +}
 +
-+check_ima_ascii_log_for_policy()
++cleanup()
 +{
-+	local test_file="$TST_TMPDIR/ascii_log_test_file.txt"
-+	local grep_file="$TST_TMPDIR/ascii_log_grep_file.txt"
-+	local func_lines sources templates i src 
-+	local input_digest_res=1
-+	local policy_option="$1"
-+	local input_digest="$3"
++	ROD "dmsetup remove test-crypt"
++}
 +
-+	func_lines=$(cat $2)
++test1()
++{
++	local input_digest="039d8ff71918608d585adca3e5aab2e3f41f84d6"
++	local pattern='data_sources=[^[:space:]]+'
++	local tmp_file="$TST_TMPDIR/dm_crypt_tmp.txt"
++	local policy="data_sources"
++	local arg key res
 +
-+	sources=$(for i in $func_lines; do echo "$i" | grep "$policy_option" | \
-+		sed "s/\./\\\./g" | cut -d'=' -f2; done | sed ':a;N;$!ba;s/\n/|/g')
-+	if [ -z "$sources" ]; then
-+		tst_res TCONF "IMA policy $policy_option is a key-value specifier, but no values specified"
-+		echo "1"
-+		return
-+	fi
++	tst_res TINFO "verifying dm target - dmcrypt gets measured correctly"
 +
-+	templates=$(for i in $func_lines; do echo "$i" | grep "template" | \
-+		cut -d'=' -f2; done | sed ':a;N;$!ba;s/\n/|/g')
++	check_policy_pattern "$pattern" $FUNC_CRIT_DATA $TEMPLATE_BUF > $tmp_file || return
 +
-+	tst_res TINFO "policy sources: '$sources'"
-+	tst_res TINFO "templates: '$templates'"
++	tgt="crypt"
++	key="faf453b4ee938cff2f0d2c869a0b743f59125c0a37f5bcd8f1dbbd911a78abaa"
 +
-+	grep -E "($templates).*($sources)" $ASCII_MEASUREMENTS > $grep_file
++	arg="'0 1953125 crypt aes-xts-plain64 "
++	arg="$arg $key 0 "
++	arg="$arg /dev/loop0 0 1 allow_discards'"
 +
-+	while read line
-+	do
-+		local digest expected_digest algorithm
++	ROD "dmsetup create test-crypt --table $arg"
 +
-+		digest=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f2)
-+		algorithm=$(echo "$line" | cut -d' ' -f4 | cut -d':' -f1)
-+		src_line=$(echo "$line" | cut -d' ' -f5)
++	res="$(check_ima_ascii_log_for_policy $policy $tmp_file $input_digest)"
 +
-+		echo "$line" | cut -d' ' -f6 | xxd -r -p > $test_file
-+
-+		if ! expected_digest="$(compute_digest $algorithm $test_file)"; then
-+			tst_res TCONF "cannot compute digest for $algorithm"
-+			echo "1"
-+			return
-+		fi
-+
-+		if [ "$digest" != "$expected_digest" ]; then
-+			tst_res TINFO "incorrect digest was found for $src_line $policy_option"
-+			echo "1"	
-+			return
-+		fi
-+
-+		if [ "$input_digest" ]; then
-+			if [ "$digest" = "$input_digest" ]; then
-+				input_digest_res=0
-+			fi
-+		fi
-+
-+	done < $grep_file
-+
-+	if [ "$input_digest" ]; then
-+		echo "$input_digest_res"
-+		return
++	if [ $res = "0" ]; then
++		tst_res TPASS "dm-crypt target verification passed"
 +	else
-+		echo "0"
-+		return
++		tst_res TFAIL "dm-crypt target verification failed"
 +	fi
 +}
 +
- check_policy_readable()
- {
- 	if [ ! -f $IMA_POLICY ]; then
++tst_run
 -- 
 2.17.1
 
