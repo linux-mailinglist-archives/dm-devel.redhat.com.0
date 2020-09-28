@@ -1,58 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 5C61027BE7C
-	for <lists+dm-devel@lfdr.de>; Tue, 29 Sep 2020 09:56:07 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 1A04527BE75
+	for <lists+dm-devel@lfdr.de>; Tue, 29 Sep 2020 09:55:31 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-79-q9u0MfZsM_W7jLwd1_G1XA-1; Tue, 29 Sep 2020 03:55:28 -0400
-X-MC-Unique: q9u0MfZsM_W7jLwd1_G1XA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-481-0KqeNeipOg-XDC6b2sX7IA-1; Tue, 29 Sep 2020 03:55:27 -0400
+X-MC-Unique: 0KqeNeipOg-XDC6b2sX7IA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C2E911018F64;
-	Tue, 29 Sep 2020 07:55:22 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A00E65D9E8;
-	Tue, 29 Sep 2020 07:55:22 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 14607425D7;
+	Tue, 29 Sep 2020 07:55:21 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 91F8660BF1;
+	Tue, 29 Sep 2020 07:55:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 574511826D29;
-	Tue, 29 Sep 2020 07:55:22 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 870A744A58;
+	Tue, 29 Sep 2020 07:55:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08RCABd5014093 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 27 Sep 2020 08:10:12 -0400
+	id 08S3uQF8004548 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 27 Sep 2020 23:56:26 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 19D34200A7CD; Sun, 27 Sep 2020 12:10:11 +0000 (UTC)
+	id 78A822166BA4; Mon, 28 Sep 2020 03:56:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 14B60202B169
-	for <dm-devel@redhat.com>; Sun, 27 Sep 2020 12:10:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 73B7B2166B44
+	for <dm-devel@redhat.com>; Mon, 28 Sep 2020 03:56:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0D8468582A2
-	for <dm-devel@redhat.com>; Sun, 27 Sep 2020 12:10:09 +0000 (UTC)
-Received: from out30-56.freemail.mail.aliyun.com
-	(out30-56.freemail.mail.aliyun.com [115.124.30.56]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-23-CGXJxwVNO5e6ohAj_LmRQQ-1;
-	Sun, 27 Sep 2020 08:10:03 -0400
-X-MC-Unique: CGXJxwVNO5e6ohAj_LmRQQ-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R741e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
-	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=3; SR=0;
-	TI=SMTPD_---0UAD-.cp_1601208275
-Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0UAD-.cp_1601208275) by smtp.aliyun-inc.com(127.0.0.1);
-	Sun, 27 Sep 2020 20:04:35 +0800
-From: Jeffle Xu <jefflexu@linux.alibaba.com>
-To: snitzer@redhat.com
-Date: Sun, 27 Sep 2020 20:04:35 +0800
-Message-Id: <20200927120435.44118-1-jefflexu@linux.alibaba.com>
-MIME-Version: 1.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 42FD4811E78
+	for <dm-devel@redhat.com>; Mon, 28 Sep 2020 03:56:24 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
+	relay.mimecast.com with ESMTP id us-mta-377-f4q25FL9PTap-u6pWqnqAQ-1;
+	Sun, 27 Sep 2020 23:56:20 -0400
+X-MC-Unique: f4q25FL9PTap-u6pWqnqAQ-1
+Received: from tusharsu-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
+	[71.197.163.6])
+	by linux.microsoft.com (Postfix) with ESMTPSA id BCECB20B7178;
+	Sun, 27 Sep 2020 20:56:18 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com BCECB20B7178
+From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+To: zohar@linux.ibm.com, agk@redhat.com, snitzer@redhat.com,
+	gmazyland@gmail.com, pvorel@suse.cz
+Date: Sun, 27 Sep 2020 20:56:03 -0700
+Message-Id: <20200928035605.22701-1-tusharsu@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,12 +59,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 29 Sep 2020 03:54:59 -0400
-Cc: joseph.qi@linux.alibaba.com, dm-devel@redhat.com
-Subject: [dm-devel] [RFC] dm: fix imposition of queue_limits in dm_wq_work()
-	thread
+Cc: nramas@linux.microsoft.com, linux-integrity@vger.kernel.org,
+	dm-devel@redhat.com, ltp@lists.linux.it
+Subject: [dm-devel] [PATCH v2 0/2] IMA: Add test for dm-crypt measurement
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,9 +76,10 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -88,65 +87,58 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Mike, would you mind further expalin why bio processed by dm_wq_work()
-always gets a previous ->submit_bio. Considering the following call graph:
+New functionality is being added to IMA to measure data provided by
+kernel components. With this feature, IMA policy can be set to enable
+measuring data provided by device-mapper targets. Currently one such
+device-mapper target - dm-crypt, is being updated to use this
+functionality. This new functionality needs test automation in LTP.
 
-->submit_bio, that is, dm_submit_bio
-  DMF_BLOCK_IO_FOR_SUSPEND set, thus queue_io()
+Some of the existing functionality in ima_keys.sh can be reused for
+this, but it needs to be refactored into generic functions first.
 
-then worker thread dm_wq_work()
-  dm_process_bio  // at this point. the input bio is the original bio
-                     submitted to dm device
+Add a testcase which verifies that the IMA subsystem correctly measures
+the data coming from a device-mapper target - dm-crypt.
+Refactor common functionality in ima_keys.sh for this, and move the
+generic functions to ima_setup.sh.
 
-Please let me know if I missed something.
+This series needs a kernel built on the following repo/branch/patches:
+ repo: https://git.kernel.org/pub/scm/linux/kernel/git/zohar/linux-integrity.git
+ branch: next-integrity
+ commit aa662fc04f5b ("ima: Fix NULL pointer dereference in ima_file_hash")
 
-Thanks.
-Jeffle
+And the following patch series should be applied in the following order:
+ 1. https://patchwork.kernel.org/patch/11795559/
+ 2. https://patchwork.kernel.org/patch/11801525/
+ 3. https://patchwork.kernel.org/patch/11743715/
 
+Change Log v2:
+Incorporated feedback from Petr Vorel on v1.
+ - Updated TST_NEEDS_CMDS to correctly reflects commands used in tests.
+ - Removed unnecessary debugging info.
+ - Refactored common functionality in ima_keys.sh, and moved the generic
+   functions to ima_setup.sh.
+ - Removed the use of eval, and replaced it with the recommended ROD()
+   function.
+ - All temporary files now get created under $TST_TMPDIR, instead of
+   current directory.
+ - Removed unnecessary TFAIL, to avoid double counting failures.
+ - Updated log messages to be consistent.
+ - Moved code to cleanup() to avoid code duplication.
 
-Original commit log:
-dm_process_bio() can be called by dm_wq_work(), and if the currently
-processing bio is the very beginning bio submitted to the dm device,
-that is it has not been handled by previous ->submit_bio, then we also
-need to impose the queue_limits when it's in thread (dm_wq_work()).
+Tushar Sugandhi (2):
+  IMA: generalize key measurement tests
+  IMA: Add test for dm-crypt measurement
 
-Fixes: cf9c37865557 ("dm: fix comment in dm_process_bio()")
-Fixes: 568c73a355e0 ("dm: update dm_process_bio() to split bio if in ->make_request_fn()")
-Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
----
- drivers/md/dm.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+ runtest/ima                                   |  1 +
+ .../kernel/security/integrity/ima/README.md   | 20 +++++
+ .../integrity/ima/tests/ima_dm_crypt.sh       | 60 ++++++++++++++
+ .../security/integrity/ima/tests/ima_keys.sh  | 62 +++------------
+ .../security/integrity/ima/tests/ima_setup.sh | 79 +++++++++++++++++++
+ 5 files changed, 173 insertions(+), 49 deletions(-)
+ create mode 100755 testcases/kernel/security/integrity/ima/tests/ima_dm_crypt.sh
 
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 6ed05ca65a0f..54471c75ddef 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -1744,17 +1744,13 @@ static blk_qc_t dm_process_bio(struct mapped_device *md,
- 	}
- 
- 	/*
--	 * If in ->submit_bio we need to use blk_queue_split(), otherwise
--	 * queue_limits for abnormal requests (e.g. discard, writesame, etc)
--	 * won't be imposed.
--	 * If called from dm_wq_work() for deferred bio processing, bio
--	 * was already handled by following code with previous ->submit_bio.
-+	 * Call blk_queue_split() so that queue_limits for abnormal requests
-+	 * (e.g. discard, writesame, etc) are ensured to be imposed, while
-+	 * it's not needed for regular IO, since regular IO will be split by
-+	 * following __split_and_process_bio.
- 	 */
--	if (current->bio_list) {
--		if (is_abnormal_io(bio))
--			blk_queue_split(&bio);
--		/* regular IO is split by __split_and_process_bio */
--	}
-+	if (is_abnormal_io(bio))
-+		blk_queue_split(&bio);
- 
- 	if (dm_get_md_type(md) == DM_TYPE_NVME_BIO_BASED)
- 		return __process_bio(md, map, bio, ti);
 -- 
-2.27.0
+2.17.1
 
 --
 dm-devel mailing list
