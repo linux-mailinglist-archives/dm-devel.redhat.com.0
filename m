@@ -2,64 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 47E7027B6AE
-	for <lists+dm-devel@lfdr.de>; Mon, 28 Sep 2020 22:51:37 +0200 (CEST)
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1601326296;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=l88YjYYAsJe2jhToe7iz3PL44cMlAv0DWH/lU07Dx68=;
-	b=evb7shB2cph05l+pasSjjLOTUGZXHudibvjRiHnaD3XKzkp3QTdxYZDqpBPFrC8ci5IZEF
-	rF2GLdGhKhENsUJCNWor5oohWmkPgvzzW7VkDvlcEsOuR7WLyjlWSwNvhuqspVhjz49hBZ
-	ZxQm/JB/73Vz2S6dDfsUaE2ipHTVb/U=
+	by mail.lfdr.de (Postfix) with ESMTP id 7BC8727B6C6
+	for <lists+dm-devel@lfdr.de>; Mon, 28 Sep 2020 23:00:07 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-414-Hw2Lo8faN2itaj5CISXqkA-1; Mon, 28 Sep 2020 16:51:33 -0400
-X-MC-Unique: Hw2Lo8faN2itaj5CISXqkA-1
+ us-mta-336-w-Jn7uUaPNWskhn92p6ByQ-1; Mon, 28 Sep 2020 16:59:59 -0400
+X-MC-Unique: w-Jn7uUaPNWskhn92p6ByQ-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B972DE75F;
-	Mon, 28 Sep 2020 20:51:27 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E2C57800683;
+	Mon, 28 Sep 2020 20:59:53 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 699DD10013C0;
-	Mon, 28 Sep 2020 20:51:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CC31D10013C0;
+	Mon, 28 Sep 2020 20:59:51 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D5D171826D2A;
-	Mon, 28 Sep 2020 20:51:15 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A0E081826D2A;
+	Mon, 28 Sep 2020 20:59:48 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08SKp8f4023455 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 28 Sep 2020 16:51:08 -0400
+	id 08SKxgHG024224 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 28 Sep 2020 16:59:42 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 272A278807; Mon, 28 Sep 2020 20:51:08 +0000 (UTC)
+	id 71B6E2156A30; Mon, 28 Sep 2020 20:59:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B3A5778822;
-	Mon, 28 Sep 2020 20:51:04 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 08SKp39T024509; 
-	Mon, 28 Sep 2020 15:51:03 -0500
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 08SKp2pe024508;
-	Mon, 28 Sep 2020 15:51:02 -0500
-Date: Mon, 28 Sep 2020 15:51:02 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: mwilck@suse.com
-Message-ID: <20200928205102.GQ3384@octiron.msp.redhat.com>
-References: <20200924134054.14632-1-mwilck@suse.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6CC972156A2D
+	for <dm-devel@redhat.com>; Mon, 28 Sep 2020 20:59:40 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1A90918AE948
+	for <dm-devel@redhat.com>; Mon, 28 Sep 2020 20:59:40 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-527-UVw_-5DFO3CCWBQiuKHBlA-1;
+	Mon, 28 Sep 2020 16:59:37 -0400
+X-MC-Unique: UVw_-5DFO3CCWBQiuKHBlA-1
+Received: from sol.localdomain (172-10-235-113.lightspeed.sntcca.sbcglobal.net
+	[172.10.235.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id DF42B2080A;
+	Mon, 28 Sep 2020 20:59:35 +0000 (UTC)
+Date: Mon, 28 Sep 2020 13:59:34 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Jens Axboe <axboe@kernel.dk>
+Message-ID: <20200928205934.GA1340@sol.localdomain>
+References: <20200916035315.34046-1-ebiggers@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20200924134054.14632-1-mwilck@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+In-Reply-To: <20200916035315.34046-1-ebiggers@kernel.org>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: lixiaokeng@huawei.com, dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 00/23] libmultipath: improve cleanup on exit
+Cc: linux-block@vger.kernel.org, Miaohe Lin <linmiaohe@huawei.com>,
+	dm-devel@redhat.com, Satya Tangirala <satyat@google.com>
+Subject: Re: [dm-devel] [PATCH v2 0/3] block: fix up bio_crypt_ctx allocation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,71 +88,25 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2020 at 03:40:31PM +0200, mwilck@suse.com wrote:
-> From: Martin Wilck <mwilck@suse.com>
+On Tue, Sep 15, 2020 at 08:53:12PM -0700, Eric Biggers wrote:
+> This series makes allocation of encryption contexts either able to fail,
+> or explicitly require __GFP_DIRECT_RECLAIM (via WARN_ON_ONCE).
 > 
-> Hi Christophe, hi Ben, hi lixiaokeng,
+> This applies to linux-block/for-next.
 > 
-> this series was inspired by lixiaokeng's recent posting "[QUESTION] memory
-> leak in main (multipath)". It implements my first idea, registering
-> cleanup handlers with atexit(). However it turned out to be quite
-> complex. In particular multipathd has a lot of things to clean up.
+> Changed since v1 (https://lkml.kernel.org/r/20200902051511.79821-1-ebiggers@kernel.org):
+>     - Added patches 2 and 3.
+>     - Added kerneldoc for bio_crypt_clone().
+>     - Adjusted commit message.
 > 
-> This series is based on the previous series "multipath-tools: shutdown, 
-> libdevmapper races, globals".
-> 
-> While the bulk of the series is the cleanup handling, it also contains
-> some bug fixes for issues that I found while working on this.
-> 
-> Regards
-> Martin
-> 
-Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
-For all patches except 1, 7, 14, 18, & 23
-> Martin Wilck (23):
->   multipathd: uxlsnr: avoid deadlock on exit
->   multipathd: Fix liburcu memory leak
->   multipathd: move handling of io_err_stat_attr into libmultipath
->   multipathd: move vecs desctruction into cleanup function
->   multipathd: make some globals static
->   multipathd: move threads destruction into separate function
->   multipathd: move conf destruction into separate function
->   multipathd: move pid destruction into separate function
->   multipathd: close pidfile on exit
->   multipathd: add helper for systemd notification at exit
->   multipathd: child(): call cleanups in failure case, too
->   multipathd: unwatch_all_dmevents: check if waiter is initialized
->   multipathd: print error message if config can't be loaded
->   libmultipath: add libmp_dm_exit()
->   multipathd: fixup libdm deinitialization
->   libmultipath: log_thread_stop(): check if logarea is initialized
->   multipathd: add cleanup_child() exit handler
->   libmultipath: fix log_thread startup and teardown
->   multipathd: move cleanup_{prio,checkers,foreign} to libmultipath_exit
->   multipath: use atexit() for cleanup handlers
->   mpathpersist: use atexit() for cleanup handlers
->   multipath: fix leaks in check_path_valid()
->   multipath-tools: mpath-tools.supp: file with valgrind suppressions
-> 
->  libmpathpersist/mpath_persist.c       |   2 -
->  libmultipath/config.c                 |   5 +
->  libmultipath/config.h                 |   2 +
->  libmultipath/devmapper.c              |  10 +
->  libmultipath/devmapper.h              |   1 +
->  libmultipath/io_err_stat.c            |   7 +-
->  libmultipath/libmultipath.version     |  26 +--
->  libmultipath/log_pthread.c            |  60 +++--
->  mpathpersist/main.c                   |   5 +-
->  multipath/main.c                      |  94 +++++---
->  multipathd/dmevents.c                 |   2 +
->  multipathd/main.c                     | 305 +++++++++++++++++---------
->  multipathd/uxlsnr.c                   |  17 +-
->  third-party/valgrind/mpath-tools.supp |  33 +++
->  14 files changed, 389 insertions(+), 180 deletions(-)
->  create mode 100644 third-party/valgrind/mpath-tools.supp
-> 
-> -- 
-> 2.28.0
+> Eric Biggers (3):
+>   block: make bio_crypt_clone() able to fail
+>   block: make blk_crypto_rq_bio_prep() able to fail
+>   block: warn if !__GFP_DIRECT_RECLAIM in bio_crypt_set_ctx()
+
+Jens, any interest in applying these patches for 5.10?
+
+- Eric
 
 --
 dm-devel mailing list
