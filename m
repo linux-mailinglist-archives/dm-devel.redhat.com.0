@@ -1,69 +1,103 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 52BB627D4F5
-	for <lists+dm-devel@lfdr.de>; Tue, 29 Sep 2020 19:52:16 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id AC33627D90D
+	for <lists+dm-devel@lfdr.de>; Tue, 29 Sep 2020 22:41:00 +0200 (CEST)
 Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1601401935;
+	s=mimecast20190719; t=1601412059;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=z/0HgJNs3cNooYDS9PtREjqG4HVw2jFHoEpWamTZ4tY=;
-	b=Q7iXSb6ajMOIV4uHZk8Qh7+MM5ISA2NE+7IuKL1RRL1ljojvXvc6/BuCp1+V4VoLX3T94E
-	cxewefH/AYRDBSuPRXJWRW7PNHCNizVQOyEdEIttfMGRRB72B53x5mk9LSF1JCunB1WUEh
-	IE8hs4VwadEkiY/kgh2nx48zcE0O7Zk=
+	bh=WIzCjvhZT99aK/O9Y5CAzqAcPMGKHz1PopCTXRY3tOc=;
+	b=VqirZbe1vk40h+f9d5GpSIUqfiLrRKg/UPDheQupuQ/y9la7iKfKHIPKxiF8YkVvteAFpb
+	7BqUNcId6OQR/ARAd1XZRTpuO/EWM8WJ4Y1KedNHAVovMUHvi/tZsVcyazNe6yM79t4ymv
+	YUSbBnU8gskJKerhLsEI1Mh/MDqTklA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-490-gdxkZ5uuPwak7XQQM5JLDQ-1; Tue, 29 Sep 2020 13:52:12 -0400
-X-MC-Unique: gdxkZ5uuPwak7XQQM5JLDQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-471-_ub6Bs1QMJOGvT8wa6oZtA-1; Tue, 29 Sep 2020 16:40:56 -0400
+X-MC-Unique: _ub6Bs1QMJOGvT8wa6oZtA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5FD24803F5B;
-	Tue, 29 Sep 2020 17:51:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8000F56C31;
+	Tue, 29 Sep 2020 20:40:49 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9C72B5C1C4;
-	Tue, 29 Sep 2020 17:51:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0DC6F7A431;
+	Tue, 29 Sep 2020 20:40:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AF87B44A5B;
-	Tue, 29 Sep 2020 17:51:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DFFAB44A4C;
+	Tue, 29 Sep 2020 20:40:39 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 08THp8wb016116 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 29 Sep 2020 13:51:08 -0400
+	id 08TKdxWT005928 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 29 Sep 2020 16:39:59 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id EBD177367B; Tue, 29 Sep 2020 17:51:07 +0000 (UTC)
+	id 6B28A2156A3B; Tue, 29 Sep 2020 20:39:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A44181C58;
-	Tue, 29 Sep 2020 17:50:58 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 08THouYF031609; 
-	Tue, 29 Sep 2020 12:50:56 -0500
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 08THou6l031608;
-	Tue, 29 Sep 2020 12:50:56 -0500
-Date: Tue, 29 Sep 2020 12:50:55 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <mwilck@suse.com>
-Message-ID: <20200929175055.GS3384@octiron.msp.redhat.com>
-References: <20200924134054.14632-1-mwilck@suse.com>
-	<20200924134054.14632-20-mwilck@suse.com>
-	<20200928202624.GP3384@octiron.msp.redhat.com>
-	<3ebea94ffd3be1a24c1f3a3159a337a7e878ce99.camel@suse.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 666932156A3A
+	for <dm-devel@redhat.com>; Tue, 29 Sep 2020 20:39:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 056AE80121D
+	for <dm-devel@redhat.com>; Tue, 29 Sep 2020 20:39:57 +0000 (UTC)
+Received: from mail-qk1-f195.google.com (mail-qk1-f195.google.com
+	[209.85.222.195]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-472-VXRiHBdCO5KGvNOl6PuKHQ-1; Tue, 29 Sep 2020 16:39:54 -0400
+X-MC-Unique: VXRiHBdCO5KGvNOl6PuKHQ-1
+Received: by mail-qk1-f195.google.com with SMTP id f142so5811816qke.13;
+	Tue, 29 Sep 2020 13:39:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+	:references:mime-version:content-disposition:in-reply-to;
+	bh=sMTUhRtCxJUsKQa8lWSMtjMRe19Fo8nho/L0Qwh7iyo=;
+	b=BoTGHyhAfNASkjC/bbuntABPbhJhAXmHi87t8zPN0dyCIyBNh0pNxnR74elQE5Pi0h
+	hf7Fp2pW/gGaLuCLXWnGjy//mjfr5n7dUr5wP08zazRxdcsSkTcinh4UE+Zr1RQSZhzD
+	LIalro4qvdAbl3o6ENSD67/rxXkqY2FBr1TZCaSfWa0v2PcVafi0/HLEkBHYUaxc+Poe
+	Pdb1w4+Pde5aV5AhFx9BwYrJ3VjDJkC94zZcumUnq0v7I2rks5OQwMEL/Hwg/dRm1h60
+	ymYPjO5tSo2sllTgvaTZ8FYZxb0gX6z3oeJnzboX1xFJ6ZljQZgJAtTLH3Mk+lrkWXdp
+	f1Kw==
+X-Gm-Message-State: AOAM533DLqG8xjocFeIxAP6OpI1/7yTWhvuDQLyPv2jeXnlwO05HWyc/
+	hYjdvlPXNq7IG/uBBlnxXC8=
+X-Google-Smtp-Source: ABdhPJw6/0w3PjPmwfjKAedASq1Q1IPvzg5LFAs40kuAwjsyHSs8b1oYGcpeCJ4D+icBI79osgAznQ==
+X-Received: by 2002:a37:e218:: with SMTP id g24mr6151311qki.496.1601411994170; 
+	Tue, 29 Sep 2020 13:39:54 -0700 (PDT)
+Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
+	[68.160.176.52]) by smtp.gmail.com with ESMTPSA id
+	y29sm7015653qtj.20.2020.09.29.13.39.53
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Tue, 29 Sep 2020 13:39:53 -0700 (PDT)
+Date: Tue, 29 Sep 2020 16:39:52 -0400
+From: Mike Snitzer <snitzer@redhat.com>
+To: Jeffle Xu <jefflexu@linux.alibaba.com>
+Message-ID: <20200929203952.GA19218@lobo>
+References: <20200927120435.44118-1-jefflexu@linux.alibaba.com>
+	<20200928160322.GA23320@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <3ebea94ffd3be1a24c1f3a3159a337a7e878ce99.camel@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+In-Reply-To: <20200928160322.GA23320@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: lixiaokeng@huawei.com, dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 19/23] multipathd: move cleanup_{prio,
- checkers, foreign} to libmultipath_exit
+Cc: linux-block@vger.kernel.org, joseph.qi@linux.alibaba.com,
+	dm-devel@redhat.com, ming.lei@redhat.com
+Subject: [dm-devel] [PATCH] dm: fix missing imposition of queue_limits from
+ dm_wq_work() thread
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -77,7 +111,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -86,53 +120,186 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 29, 2020 at 11:31:06AM +0200, Martin Wilck wrote:
-> On Mon, 2020-09-28 at 15:26 -0500, Benjamin Marzinski wrote:
-> > On Thu, Sep 24, 2020 at 03:40:50PM +0200, mwilck@suse.com wrote:
-> > > 
-> > >  /*
-> > >   * We don't support re-initialization after
-> > > @@ -65,6 +66,9 @@ int libmultipath_init(void)
-> > >  static void _libmultipath_exit(void)
-> > >  {
-> > >  	libmultipath_exit_called = true;
-> > > +	cleanup_foreign();
+On Mon, Sep 28 2020 at 12:03P -0400,
+Mike Snitzer <snitzer@redhat.com> wrote:
+
+> On Sun, Sep 27 2020 at  8:04am -0400,
+> Jeffle Xu <jefflexu@linux.alibaba.com> wrote:
+> 
+> > Hi Mike, would you mind further expalin why bio processed by dm_wq_work()
+> > always gets a previous ->submit_bio. Considering the following call graph:
 > > 
-> > I don't really feel too strongly about this, but it seems to me that
-> > there is a difference between the checkers and prioritizers, which
-> > it seems like most users of libmultipath would want, and the foreign
-> > code, which doesn't seem that way. libmpathpersist, for instance,
-> > will use the checkers and prioritizers, but not the foreign code.
-> > On the other hand, if the caller isn't using the foreign code,
-> > then grabbing the lock and checking the foreign pointer shouldn't
-> > take much time.
+> > ->submit_bio, that is, dm_submit_bio
+> >   DMF_BLOCK_IO_FOR_SUSPEND set, thus queue_io()
+> > 
+> > then worker thread dm_wq_work()
+> >   dm_process_bio  // at this point. the input bio is the original bio
+> >                      submitted to dm device
+> > 
+> > Please let me know if I missed something.
+> > 
+> > Thanks.
+> > Jeffle
 > 
-> It would just be a few cycles. I want callers to have to worry about
-> cleanup as little as possible. All else is error-prone IMO, and
-> although I agree that the foreign functions are less important than
-> checkers and prio, I thought it made sense to treat all our "plug-ins"
-> the same way.
+> In general you have a valid point, that blk_queue_split() won't have
+> been done for the suspended device case, but blk_queue_split() cannot be
+> used if not in ->submit_bio -- IIUC you cannot just do it from a worker
+> thread and hope to have proper submission order (depth first) as
+> provided by __submit_bio_noacct().  Because this IO will be submitted
+> from worker you could have multiple threads allocating from the
+> q->bio_split mempool at the same time.
 > 
-> Ideally I'd like to do checker/prio/foreign initialization completely
-> lazily too, in the sense that callers don't need to worry about calling
-> init_checkers() etc., either. But this series had to stop at some
-> point.
-> 
-> Either way, it's not a big issue, so please tell me if you feel
-> strongly enough about it to ask me to revert the change.
+> All said, I'm not quite sure how to address this report.  But I'll keep
+> at it and see what I can come up with.
 
-I already ACKed this bug in my reply to:
+Here is what I've staged for 5.10:
 
-[PATCH 00/23] libmultipath: improve cleanup on exit
+From: Mike Snitzer <snitzer@redhat.com>
+Date: Mon, 28 Sep 2020 13:41:36 -0400
+Subject: [PATCH] dm: fix missing imposition of queue_limits from dm_wq_work() thread
 
-https://www.redhat.com/archives/dm-devel/2020-September/msg00635.html
+If a DM device was suspended when bios were issued to it, those bios
+would be deferred using queue_io(). Once the DM device was resumed
+dm_process_bio() could be called by dm_wq_work() for original bio that
+still needs splitting. dm_process_bio()'s check for current->bio_list
+(meaning call chain is within ->submit_bio) as a prerequisite for
+calling blk_queue_split() for "abnormal IO" would result in
+dm_process_bio() never imposing corresponding queue_limits
+(e.g. discard_granularity, discard_max_bytes, etc).
 
-Sorry for the confusion.
--Ben
+Fix this by folding dm_process_bio() into dm_submit_bio() and
+always have dm_wq_work() resubmit deferred bios using
+submit_bio_noacct().
+
+Side-effect is blk_queue_split() is always called for "abnormal IO" from
+->submit_bio, be it from application thread or dm_wq_work() workqueue,
+so proper bio splitting and depth-first bio submission is performed.
+
+While at it, cleanup dm_submit_bio()'s DMF_BLOCK_IO_FOR_SUSPEND related
+branching and expand scope of dm_get_live_table() rcu reference on map
+via common 'out' label to dm_put_live_table(). Also, rename bio variable
+in dm_wq_work() from 'c' to 'bio'.
+
+Fixes: cf9c37865557 ("dm: fix comment in dm_process_bio()")
+Reported-by: Jeffle Xu <jefflexu@linux.alibaba.com>
+Signed-off-by: Mike Snitzer <snitzer@redhat.com>
+---
+ drivers/md/dm.c | 67 +++++++++++++++++++++------------------------------------
+ 1 file changed, 24 insertions(+), 43 deletions(-)
+
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index a1adcf0ab821..1813201d772a 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -1665,34 +1665,6 @@ static blk_qc_t __process_bio(struct mapped_device *md, struct dm_table *map,
+ 	return ret;
+ }
  
-> Regards,
-> Martin
-> 
+-static blk_qc_t dm_process_bio(struct mapped_device *md,
+-			       struct dm_table *map, struct bio *bio)
+-{
+-	blk_qc_t ret = BLK_QC_T_NONE;
+-
+-	if (unlikely(!map)) {
+-		bio_io_error(bio);
+-		return ret;
+-	}
+-
+-	/*
+-	 * If in ->submit_bio we need to use blk_queue_split(), otherwise
+-	 * queue_limits for abnormal requests (e.g. discard, writesame, etc)
+-	 * won't be imposed.
+-	 * If called from dm_wq_work() for deferred bio processing, bio
+-	 * was already handled by following code with previous ->submit_bio.
+-	 */
+-	if (current->bio_list) {
+-		if (is_abnormal_io(bio))
+-			blk_queue_split(&bio);
+-		/* regular IO is split by __split_and_process_bio */
+-	}
+-
+-	if (dm_get_md_type(md) == DM_TYPE_NVME_BIO_BASED)
+-		return __process_bio(md, map, bio);
+-	return __split_and_process_bio(md, map, bio);
+-}
+-
+ static blk_qc_t dm_submit_bio(struct bio *bio)
+ {
+ 	struct mapped_device *md = bio->bi_disk->private_data;
+@@ -1713,22 +1685,34 @@ static blk_qc_t dm_submit_bio(struct bio *bio)
+ 	}
+ 
+ 	map = dm_get_live_table(md, &srcu_idx);
++	if (unlikely(!map)) {
++		bio_io_error(bio);
++		goto out;
++	}
+ 
+-	/* if we're suspended, we have to queue this io for later */
++	/* If suspended, queue this IO for later */
+ 	if (unlikely(test_bit(DMF_BLOCK_IO_FOR_SUSPEND, &md->flags))) {
+-		dm_put_live_table(md, srcu_idx);
+-
+ 		if (bio->bi_opf & REQ_NOWAIT)
+ 			bio_wouldblock_error(bio);
+-		else if (!(bio->bi_opf & REQ_RAHEAD))
+-			queue_io(md, bio);
+-		else
++		else if (bio->bi_opf & REQ_RAHEAD)
+ 			bio_io_error(bio);
+-		return ret;
++		else
++			queue_io(md, bio);
++		goto out;
+ 	}
+ 
+-	ret = dm_process_bio(md, map, bio);
++	/*
++	 * Use blk_queue_split() for abnormal IO (e.g. discard, writesame, etc)
++	 * otherwise associated queue_limits won't be imposed.
++	 */
++	if (is_abnormal_io(bio))
++		blk_queue_split(&bio);
+ 
++	if (dm_get_md_type(md) == DM_TYPE_NVME_BIO_BASED)
++		ret = __process_bio(md, map, bio);
++	else
++		ret = __split_and_process_bio(md, map, bio);
++out:
+ 	dm_put_live_table(md, srcu_idx);
+ 	return ret;
+ }
+@@ -2385,7 +2369,7 @@ static void dm_wq_work(struct work_struct *work)
+ {
+ 	struct mapped_device *md = container_of(work, struct mapped_device,
+ 						work);
+-	struct bio *c;
++	struct bio *bio;
+ 	int srcu_idx;
+ 	struct dm_table *map;
+ 
+@@ -2393,16 +2377,13 @@ static void dm_wq_work(struct work_struct *work)
+ 
+ 	while (!test_bit(DMF_BLOCK_IO_FOR_SUSPEND, &md->flags)) {
+ 		spin_lock_irq(&md->deferred_lock);
+-		c = bio_list_pop(&md->deferred);
++		bio = bio_list_pop(&md->deferred);
+ 		spin_unlock_irq(&md->deferred_lock);
+ 
+-		if (!c)
++		if (!bio)
+ 			break;
+ 
+-		if (dm_request_based(md))
+-			(void) submit_bio_noacct(c);
+-		else
+-			(void) dm_process_bio(md, map, c);
++		submit_bio_noacct(bio);
+ 	}
+ 
+ 	dm_put_live_table(md, srcu_idx);
+-- 
+2.15.0
 
 --
 dm-devel mailing list
