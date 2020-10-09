@@ -2,92 +2,59 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 91DD0287D4E
-	for <lists+dm-devel@lfdr.de>; Thu,  8 Oct 2020 22:41:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F2F2D28AFA5
+	for <lists+dm-devel@lfdr.de>; Mon, 12 Oct 2020 10:09:05 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-93-74vYnJvMOb-22nTAaRsGkA-1; Thu, 08 Oct 2020 16:41:14 -0400
-X-MC-Unique: 74vYnJvMOb-22nTAaRsGkA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-37-iywr5o9dPO-miDVNMQBMMg-1; Mon, 12 Oct 2020 04:09:02 -0400
+X-MC-Unique: iywr5o9dPO-miDVNMQBMMg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 913741074647;
-	Thu,  8 Oct 2020 20:41:07 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9EB2718A8220;
+	Mon, 12 Oct 2020 08:08:56 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D0B819D7C;
-	Thu,  8 Oct 2020 20:41:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3845D10013C4;
+	Mon, 12 Oct 2020 08:08:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D37408C7C1;
-	Thu,  8 Oct 2020 20:41:00 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 421AA9231D;
+	Mon, 12 Oct 2020 08:08:41 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 098KeqmZ024644 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 8 Oct 2020 16:40:52 -0400
+	id 0999xgLH011925 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 9 Oct 2020 05:59:43 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 138B1207A644; Thu,  8 Oct 2020 20:40:52 +0000 (UTC)
+	id 35955207A80F; Fri,  9 Oct 2020 09:59:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0E36A2049CB7
-	for <dm-devel@redhat.com>; Thu,  8 Oct 2020 20:40:49 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 31024207A80D
+	for <dm-devel@redhat.com>; Fri,  9 Oct 2020 09:59:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B65CD1021F60
-	for <dm-devel@redhat.com>; Thu,  8 Oct 2020 20:40:49 +0000 (UTC)
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-519-Z-Ou3GrTMyKiGmDJClXQ0g-1; Thu, 08 Oct 2020 16:40:47 -0400
-X-MC-Unique: Z-Ou3GrTMyKiGmDJClXQ0g-1
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
-	by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	098Kdfkl057454; Thu, 8 Oct 2020 20:40:30 GMT
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
-	by userp2120.oracle.com with ESMTP id 3429jmg5ab-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=FAIL); Thu, 08 Oct 2020 20:40:30 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
-	by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	098KYtwb087014; Thu, 8 Oct 2020 20:40:30 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
-	by aserp3020.oracle.com with ESMTP id 3429kagsre-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 08 Oct 2020 20:40:29 +0000
-Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
-	by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 098KeMso009103;
-	Thu, 8 Oct 2020 20:40:22 GMT
-Received: from ca-mkp.ca.oracle.com (/10.159.214.123)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Thu, 08 Oct 2020 13:40:21 -0700
-To: Christoph Hellwig <hch@lst.de>
-From: "Martin K. Petersen" <martin.petersen@oracle.com>
-Organization: Oracle Corporation
-Message-ID: <yq1zh4w1mrq.fsf@ca-mkp.ca.oracle.com>
-References: <CA+G9fYtwisRJtN4ht=ApeWc1jWssDok-7y2wee6Z0kzMP-atKg@mail.gmail.com>
-	<CA+G9fYseTYRWoHUNZ=j4mjFs9dDJ-KOD8hDy+RnyDPx75HcVWw@mail.gmail.com>
-	<24c8ee4d-d5f7-e49f-cd0c-7cf50a5fd885@kernel.dk>
-	<20201008203058.GA27821@lst.de>
-Date: Thu, 08 Oct 2020 16:40:18 -0400
-In-Reply-To: <20201008203058.GA27821@lst.de> (Christoph Hellwig's message of
-	"Thu, 8 Oct 2020 22:30:58 +0200")
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 508D8858294
+	for <dm-devel@redhat.com>; Fri,  9 Oct 2020 09:59:39 +0000 (UTC)
+Received: from smtp-8fab.mail.infomaniak.ch (smtp-8fab.mail.infomaniak.ch
+	[83.166.143.171]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-284-CdKKccEDPb28c-SomanB0w-1; Fri, 09 Oct 2020 05:59:36 -0400
+X-MC-Unique: CdKKccEDPb28c-SomanB0w-1
+Received: from smtp-3-0000.mail.infomaniak.ch (unknown [10.4.36.107])
+	by smtp-2-3000.mail.infomaniak.ch (Postfix) with ESMTPS id
+	4C73G20ms8zlhJG2; Fri,  9 Oct 2020 11:50:02 +0200 (CEST)
+Received: from ns3096276.ip-94-23-54.eu (unknown [94.23.54.103])
+	by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id
+	4C73G12Gytzllmh6; Fri,  9 Oct 2020 11:50:01 +0200 (CEST)
+To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>
+References: <20201002071802.535023-1-mic@digikod.net>
+From: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
+Message-ID: <bda2ffd7-3b7c-33a4-667f-a3435e112fc1@digikod.net>
+Date: Fri, 9 Oct 2020 11:50:03 +0200
+User-Agent: 
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9768
-	signatures=668681
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=1
-	adultscore=0
-	phishscore=0 spamscore=0 mlxscore=0 malwarescore=0 bulkscore=0
-	mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2009150000 definitions=main-2010080145
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9768
-	signatures=668681
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
-	spamscore=0 suspectscore=1
-	clxscore=1011 phishscore=0 lowpriorityscore=0 impostorscore=0
-	malwarescore=0 mlxlogscore=999 priorityscore=1501 mlxscore=0
-	bulkscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2009150000 definitions=main-2010080146
+In-Reply-To: <20201002071802.535023-1-mic@digikod.net>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -97,21 +64,18 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0999xgLH011925
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>, linux-raid@vger.kernel.org,
-	Ulf Hansson <ulf.hansson@linaro.org>, Stephen,
-	martin.petersen@oracle.com, Song Liu <song@kernel.org>,
-	Naresh Kamboju <naresh.kamboju@linaro.org>, Hannes,
-	linux-mmc <linux-mmc@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>, lkft-triage@lists.linaro.org,
-	linux-block <linux-block@vger.kernel.org>, "open
-	list:LIBATA SUBSYSTEM \(Serial and Parallel ATA drivers\)"
-	<linux-ide@vger.kernel.org>, dm-devel@redhat.com,
-	Linux-Next Mailing List <linux-next@vger.kernel.org>,
-	drbd-dev@tron.linbit.com, Rothwell <sfr@canb.auug.org.au>
-Subject: Re: [dm-devel] [ Regressions ] linux next 20201008:
- blk_update_request: I/O error, dev sda,
- sector 0 op 0x1:(WRITE) flags 0x800 phys_seg 0 prio class 0
+X-Mailman-Approved-At: Mon, 12 Oct 2020 04:08:26 -0400
+Cc: Deven Bowers <deven.desai@linux.microsoft.com>,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@linux.microsoft.com>,
+	dm-devel@redhat.com, linux-integrity@vger.kernel.org,
+	Milan Broz <gmazyland@gmail.com>,
+	Jaskaran Khurana <jaskarankhurana@linux.microsoft.com>
+Subject: Re: [dm-devel] [PATCH v1] dm verity: Add support for signature
+ verification with 2nd keyring
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -125,38 +89,60 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-
-Christoph,
-
-> On Thu, Oct 08, 2020 at 02:17:41PM -0600, Jens Axboe wrote:
->> Just for everyones edification, that would be these 9 patches from the
->> SCSI tree:
->
-> I sent the fixes out a bit ago and Cced the reporters..
-
-I do not have any libata-connected devices in the SCSI test setup so
-things worked fine for me yesterday. I have a retired Nehalem server in
-the rack which has a couple of ATA 500GB disk drives in it. I'll try to
-see if I can add that to my test pool. Just for good measure.
-
-In any case the fixes are now in my for-next branch:
-
-b6ba9b0e201a scsi: core: Set sc_data_direction to DMA_NONE for no-transfer commands
-9120ac54cce6 scsi: sr: Initialize ->cmd_len
-
--- 
-Martin K. Petersen	Oracle Linux Engineering
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+SGksCgpXaGF0IGRvIHlvdSB0aGluayBhYm91dCB0aGlzIHBhdGNoPwoKUmVnYXJkcywKIE1pY2th
+w6tsCgpPbiAwMi8xMC8yMDIwIDA5OjE4LCBNaWNrYcOrbCBTYWxhw7xuIHdyb3RlOgo+IEZyb206
+IE1pY2thw6tsIFNhbGHDvG4gPG1pY0BsaW51eC5taWNyb3NvZnQuY29tPgo+IAo+IEFkZCBhIG5l
+dyBETV9WRVJJVFlfVkVSSUZZX1JPT1RIQVNIX1NJR19TRUNPTkRBUllfS0VZUklORyBjb25maWd1
+cmF0aW9uCj4gdG8gZW5hYmxlIGRtLXZlcml0eSBzaWduYXR1cmVzIHRvIGJlIHZlcmlmaWVkIGFn
+YWluc3QgdGhlIHNlY29uZGFyeQo+IHRydXN0ZWQga2V5cmluZy4gIFRoaXMgYWxsb3dzIGNlcnRp
+ZmljYXRlIHVwZGF0ZXMgd2l0aG91dCBrZXJuZWwgdXBkYXRlCj4gYW5kIHJlYm9vdCwgYWxpZ25p
+bmcgd2l0aCBtb2R1bGUgYW5kIGtlcm5lbCAoa2V4ZWMpIHNpZ25hdHVyZQo+IHZlcmlmaWNhdGlv
+bnMuCj4gCj4gU2lnbmVkLW9mZi1ieTogTWlja2HDq2wgU2FsYcO8biA8bWljQGxpbnV4Lm1pY3Jv
+c29mdC5jb20+Cj4gQ2M6IEphc2thcmFuIEtodXJhbmEgPGphc2thcmFua2h1cmFuYUBsaW51eC5t
+aWNyb3NvZnQuY29tPgo+IENjOiBNaWtlIFNuaXR6ZXIgPHNuaXR6ZXJAcmVkaGF0LmNvbT4KPiBD
+YzogTWlsYW4gQnJveiA8Z21henlsYW5kQGdtYWlsLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9tZC9L
+Y29uZmlnICAgICAgICAgICAgICAgIHwgMTMgKysrKysrKysrKysrLQo+ICBkcml2ZXJzL21kL2Rt
+LXZlcml0eS12ZXJpZnktc2lnLmMgfCAgOSArKysrKysrLS0KPiAgMiBmaWxlcyBjaGFuZ2VkLCAx
+OSBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L21kL0tjb25maWcgYi9kcml2ZXJzL21kL0tjb25maWcKPiBpbmRleCAzMGJhMzU3MzYyNmMuLjYz
+ODcwZmRmZThjZSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL21kL0tjb25maWcKPiArKysgYi9kcml2
+ZXJzL21kL0tjb25maWcKPiBAQCAtNTMwLDExICs1MzAsMjIgQEAgY29uZmlnIERNX1ZFUklUWV9W
+RVJJRllfUk9PVEhBU0hfU0lHCj4gIAlib29sICJWZXJpdHkgZGF0YSBkZXZpY2Ugcm9vdCBoYXNo
+IHNpZ25hdHVyZSB2ZXJpZmljYXRpb24gc3VwcG9ydCIKPiAgCWRlcGVuZHMgb24gRE1fVkVSSVRZ
+Cj4gIAlzZWxlY3QgU1lTVEVNX0RBVEFfVkVSSUZJQ0FUSU9OCj4gLQkgIGhlbHAKPiArCS0tLWhl
+bHAtLS0KPiAgCSAgQWRkIGFiaWxpdHkgZm9yIGRtLXZlcml0eSBkZXZpY2UgdG8gYmUgdmFsaWRh
+dGVkIGlmIHRoZQo+ICAJICBwcmUtZ2VuZXJhdGVkIHRyZWUgb2YgY3J5cHRvZ3JhcGhpYyBjaGVj
+a3N1bXMgcGFzc2VkIGhhcyBhIHBrY3MjNwo+ICAJICBzaWduYXR1cmUgZmlsZSB0aGF0IGNhbiB2
+YWxpZGF0ZSB0aGUgcm9vdGhhc2ggb2YgdGhlIHRyZWUuCj4gIAo+ICsJICBCeSBkZWZhdWx0LCBy
+ZWx5IG9uIHRoZSBidWlsdGluIHRydXN0ZWQga2V5cmluZy4KPiArCj4gKwkgIElmIHVuc3VyZSwg
+c2F5IE4uCj4gKwo+ICtjb25maWcgRE1fVkVSSVRZX1ZFUklGWV9ST09USEFTSF9TSUdfU0VDT05E
+QVJZX0tFWVJJTkcKPiArCWJvb2wgIlZlcml0eSBkYXRhIGRldmljZSByb290IGhhc2ggc2lnbmF0
+dXJlIHZlcmlmaWNhdGlvbiB3aXRoIHNlY29uZGFyeSBrZXlyaW5nIgo+ICsJZGVwZW5kcyBvbiBE
+TV9WRVJJVFlfVkVSSUZZX1JPT1RIQVNIX1NJRwo+ICsJZGVwZW5kcyBvbiBTRUNPTkRBUllfVFJV
+U1RFRF9LRVlSSU5HCj4gKwktLS1oZWxwLS0tCj4gKwkgIFJlbHkgb24gdGhlIHNlY29uZGFyeSB0
+cnVzdGVkIGtleXJpbmcgdG8gdmVyaWZ5IGRtLXZlcml0eSBzaWduYXR1cmVzLgo+ICsKPiAgCSAg
+SWYgdW5zdXJlLCBzYXkgTi4KPiAgCj4gIGNvbmZpZyBETV9WRVJJVFlfRkVDCj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvbWQvZG0tdmVyaXR5LXZlcmlmeS1zaWcuYyBiL2RyaXZlcnMvbWQvZG0tdmVy
+aXR5LXZlcmlmeS1zaWcuYwo+IGluZGV4IDYxNGU0M2RiOTNhYS4uMjkzODVkYzQ3MGQ1IDEwMDY0
+NAo+IC0tLSBhL2RyaXZlcnMvbWQvZG0tdmVyaXR5LXZlcmlmeS1zaWcuYwo+ICsrKyBiL2RyaXZl
+cnMvbWQvZG0tdmVyaXR5LXZlcmlmeS1zaWcuYwo+IEBAIC0xMTksOCArMTE5LDEzIEBAIGludCB2
+ZXJpdHlfdmVyaWZ5X3Jvb3RfaGFzaChjb25zdCB2b2lkICpyb290X2hhc2gsIHNpemVfdCByb290
+X2hhc2hfbGVuLAo+ICAJfQo+ICAKPiAgCXJldCA9IHZlcmlmeV9wa2NzN19zaWduYXR1cmUocm9v
+dF9oYXNoLCByb290X2hhc2hfbGVuLCBzaWdfZGF0YSwKPiAtCQkJCXNpZ19sZW4sIE5VTEwsIFZF
+UklGWUlOR19VTlNQRUNJRklFRF9TSUdOQVRVUkUsCj4gLQkJCQlOVUxMLCBOVUxMKTsKPiArCQkJ
+CXNpZ19sZW4sCj4gKyNpZmRlZiBDT05GSUdfRE1fVkVSSVRZX1ZFUklGWV9ST09USEFTSF9TSUdf
+U0VDT05EQVJZX0tFWVJJTkcKPiArCQkJCVZFUklGWV9VU0VfU0VDT05EQVJZX0tFWVJJTkcsCj4g
+KyNlbHNlCj4gKwkJCQlOVUxMLAo+ICsjZW5kaWYKPiArCQkJCVZFUklGWUlOR19VTlNQRUNJRklF
+RF9TSUdOQVRVUkUsIE5VTEwsIE5VTEwpOwo+ICAKPiAgCXJldHVybiByZXQ7Cj4gIH0KPiAKCgot
+LQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL3d3dy5y
+ZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWw=
 
