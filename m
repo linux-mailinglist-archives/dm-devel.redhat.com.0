@@ -1,71 +1,61 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 01BA42902AE
-	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:20:23 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 329852902AB
+	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:19:47 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-293-yFlp_GAaPj634vVU_smskA-1; Fri, 16 Oct 2020 06:20:20 -0400
-X-MC-Unique: yFlp_GAaPj634vVU_smskA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-156-KUjxvbZwNp-BHfA2wNha0w-1; Fri, 16 Oct 2020 06:19:43 -0400
+X-MC-Unique: KUjxvbZwNp-BHfA2wNha0w-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A362D803657;
-	Fri, 16 Oct 2020 10:20:13 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B7F93186841A;
+	Fri, 16 Oct 2020 10:19:36 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8244A76673;
-	Fri, 16 Oct 2020 10:20:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D248C5578B;
+	Fri, 16 Oct 2020 10:19:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3EE3444A60;
-	Fri, 16 Oct 2020 10:20:13 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 54BFC44A60;
+	Fri, 16 Oct 2020 10:19:34 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09G8NJfS002961 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 16 Oct 2020 04:23:19 -0400
+	id 09G8Torp003493 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 16 Oct 2020 04:29:51 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 953B72156A37; Fri, 16 Oct 2020 08:23:19 +0000 (UTC)
+	id 88CA92157F23; Fri, 16 Oct 2020 08:29:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 901BC2156A36
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 08:23:17 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 820DD2166B28
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 08:29:48 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 523E1182360B
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 08:23:17 +0000 (UTC)
-Received: from mail-il1-f174.google.com (mail-il1-f174.google.com
-	[209.85.166.174]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-278-5RUc4ZOeNkut3yv0N0IIwA-1; Fri, 16 Oct 2020 04:23:14 -0400
-X-MC-Unique: 5RUc4ZOeNkut3yv0N0IIwA-1
-Received: by mail-il1-f174.google.com with SMTP id t18so1641580ilo.12
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 01:23:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to;
-	bh=SpTOuXliwXJxpSTzhwTM4Ei7E7FDPQod5ub1sh3nucw=;
-	b=daSqZvKpqWsjrlywh5RIgpCyvwPKVaweAdB9BAMoczyF9yPL13TMwXzAQJzQmQKV7x
-	IzJKvPhl0aGujCXc8TZFNGb3KDRAF9s2lEbeRPQ0pEbOfY2e+vTjD8M1d8u+5BDA+QOQ
-	0BSeV6zS6BJF+kwCtgOrWrIrm91Fq1pZ+U7OXqjQNaChKJ10CJnMy7mtoblJUDUsF3VT
-	n+0Y2y8Q20m4XXWCiSsze/ivgUmPlxKO0FVF+rQ+3s9WnAi+pU9I/oIO0gFpD8WwKT2S
-	xcVEAva/Qd2GuOSlG4i3Z1MW6jYoH7rKb+YzLkiK6fbnzzWkBiu0369TbJ2ZaUBGEkHZ
-	jAog==
-X-Gm-Message-State: AOAM531EzgMmYyjgNCzqDK9Sy4QSc0r58HFo+UWOz5Jy9KBuENoReqf6
-	V2K5PHW5amE0IU+ZKzwumJdCNOOyyNaJ8zFhEObX5hjrrcU=
-X-Google-Smtp-Source: ABdhPJxMaGl/zXyxCVLsdWZh66cF9m211v+8Yg8CHMVZnWYbJcbZ+eCpOLPl+UHuFWRco5xh3rSwDzDg/6XIFhLK5Ek=
-X-Received: by 2002:a92:ccc5:: with SMTP id u5mr1928369ilq.178.1602836593321; 
-	Fri, 16 Oct 2020 01:23:13 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 48DA2800969
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 08:29:48 +0000 (UTC)
+Received: from smtp-8fae.mail.infomaniak.ch (smtp-8fae.mail.infomaniak.ch
+	[83.166.143.174]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-443-GG__08dEMXyFbZgG_gcEVw-1; Fri, 16 Oct 2020 04:29:46 -0400
+X-MC-Unique: GG__08dEMXyFbZgG_gcEVw-1
+Received: from smtp-2-0000.mail.infomaniak.ch (unknown [10.5.36.107])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id
+	4CCK881ZphzlhX5w; Fri, 16 Oct 2020 10:29:44 +0200 (CEST)
+Received: from ns3096276.ip-94-23-54.eu (unknown [94.23.54.103])
+	by smtp-2-0000.mail.infomaniak.ch (Postfix) with ESMTPA id
+	4CCK864nJFzlh8T9; Fri, 16 Oct 2020 10:29:42 +0200 (CEST)
+To: Mike Snitzer <snitzer@redhat.com>
+References: <20201015150504.1319098-1-mic@digikod.net>
+	<20201015165229.GA5513@redhat.com>
+From: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
+Message-ID: <022e949e-00c4-d98a-b536-1c5f9e05c09c@digikod.net>
+Date: Fri, 16 Oct 2020 10:29:42 +0200
+User-Agent: 
 MIME-Version: 1.0
-References: <CACc6y5s7JYDq24fHvtbEsV1Gjhqbbunw8iGhgdK5VNh8JVo_Sw@mail.gmail.com>
-In-Reply-To: <CACc6y5s7JYDq24fHvtbEsV1Gjhqbbunw8iGhgdK5VNh8JVo_Sw@mail.gmail.com>
-From: "Shawn D. Henry" <mrshawndhenry@gmail.com>
-Date: Fri, 16 Oct 2020 04:23:02 -0400
-Message-ID: <CACc6y5v82wgM5WnjYGAZ4QvhVq=uK4Xaf_+KhPMbtfuCDx5iBg@mail.gmail.com>
-To: "dm-devel@redhat.com" <dm-devel@redhat.com>
+In-Reply-To: <20201015165229.GA5513@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -75,9 +65,20 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 09G8Torp003493
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 16 Oct 2020 06:18:44 -0400
-Subject: [dm-devel] Fwd: SDHCID Information
+Cc: Deven Bowers <deven.desai@linux.microsoft.com>,
+	linux-kernel@vger.kernel.org,
+	Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>,
+	=?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@linux.microsoft.com>,
+	dm-devel@redhat.com, linux-integrity@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Milan Broz <gmazyland@gmail.com>, Alasdair Kergon <agk@redhat.com>,
+	Jaskaran Khurana <jaskarankhurana@linux.microsoft.com>
+Subject: Re: [dm-devel] [PATCH v2] dm verity: Add support for signature
+ verification with 2nd keyring
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,40 +92,96 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="===============5640422338205666650=="
+Content-Language: en-US
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
---===============5640422338205666650==
-Content-Type: multipart/alternative; boundary="000000000000c72f8905b1c57918"
 
---000000000000c72f8905b1c57918
-Content-Type: text/plain; charset="UTF-8"
+On 15/10/2020 18:52, Mike Snitzer wrote:
+> On Thu, Oct 15 2020 at 11:05am -0400,
+> Micka=EBl Sala=FCn <mic@digikod.net> wrote:
+>=20
+>> From: Micka=EBl Sala=FCn <mic@linux.microsoft.com>
+>>
+>> Add a new configuration DM_VERITY_VERIFY_ROOTHASH_SIG_SECONDARY_KEYRING
+>> to enable dm-verity signatures to be verified against the secondary
+>> trusted keyring.  Instead of relying on the builtin trusted keyring
+>> (with hard-coded certificates), the second trusted keyring can include
+>> certificate authorities from the builtin trusted keyring and child
+>> certificates loaded at run time.  Using the secondary trusted keyring
+>> enables to use dm-verity disks (e.g. loop devices) signed by keys which
+>> did not exist at kernel build time, leveraging the certificate chain of
+>> trust model.  In practice, this makes it possible to update certificates
+>> without kernel update and reboot, aligning with module and kernel
+>> (kexec) signature verification which already use the secondary trusted
+>> keyring.
+>>
+>> Cc: Alasdair Kergon <agk@redhat.com>
+>> Cc: Andrew Morton <akpm@linux-foundation.org>
+>> Cc: Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>
+>> Cc: Jaskaran Khurana <jaskarankhurana@linux.microsoft.com>
+>> Cc: Mike Snitzer <snitzer@redhat.com>
+>> Cc: Milan Broz <gmazyland@gmail.com>
+>> Signed-off-by: Micka=EBl Sala=FCn <mic@linux.microsoft.com>
+>> ---
+>>
+>> Previous version:
+>> https://lore.kernel.org/lkml/20201002071802.535023-1-mic@digikod.net/
+>>
+>> Changes since v1:
+>> * Extend the commit message (asked by Jarkko Sakkinen).
+>> * Rename the Kconfig "help" keyword according to commit 84af7a6194e4
+>>   ("checkpatch: kconfig: prefer 'help' over '---help---'").
+>=20
+> Can you please explain why you've decided to make this a Kconfig CONFIG
+> knob?  Why not either add: a dm-verity table argument? A dm-verity
+> kernel module parameter? or both (to allow a particular default but then
+> per-device override)?
 
-I am User data -16384 mmcblk1pl
+The purpose of signed dm-verity images is to authenticate files, or said
+in another way, to enable the kernel to trust disk images in a flexible
+way (i.e. thanks to certificate's chain of trust). Being able to update
+such chain at run time requires to use the second trusted keyring. This
+keyring automatically includes the certificate authorities from the
+builtin trusted keyring, which are required to dynamically populate the
+secondary trusted keyring with certificates signed by an already trusted
+authority. The roots of trust must then be included at build time in the
+builtin trusted keyring.
 
-Can you tell me about your device mapper protocols?
+To be meaningful, using dm-verity signatures implies to have a
+restricted user space, i.e. even the root user has limited power over
+the kernel and the rest of the system. Blindly trusting data provided by
+user space (e.g. dm-verity table argument, kernel module parameter)
+defeat the purpose of (mandatory) authenticated images.
 
---000000000000c72f8905b1c57918
-Content-Type: text/html; charset="UTF-8"
+>=20
+> Otherwise, _all_ DM verity devices will be configured to use secondary
+> keyring fallback.  Is that really desirable?
 
-<div><br></div><div><div class="gmail_quote"><div dir="auto">I am User data -16384 mmcblk1pl</div><div dir="auto"><br></div><div dir="auto">Can you tell me about your device mapper protocols?</div>
-</div></div>
+That is already the current state (on purpose).
 
---000000000000c72f8905b1c57918--
+>=20
+> Regardless, I really don't see why a Kconfig knob is appropriate.
 
---===============5640422338205666650==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Moreover, a Kconfig knob makes sense as much as
+DM_VERITY_VERIFY_ROOTHASH_SIG,
+IMA_KEYRINGS_PERMIT_SIGNED_BY_BUILTIN_OR_SECONDARY, MODULE_SIG_FORCE and
+other similar authentication mechanisms. Indeed, when using these
+configurations, we want the kernel to enforce a specific policy.
+
+Obviously, we can't make the DM_VERITY_VERIFY_ROOTHASH_SIG relies on the
+secondary trusted keyring without important security implications for
+systems already using this configuration (and then the builtin trusted
+keyring as the unique source of trust).
+
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
---===============5640422338205666650==--
 
