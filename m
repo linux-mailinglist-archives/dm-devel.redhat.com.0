@@ -2,53 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id AD8E0290301
+	by mail.lfdr.de (Postfix) with ESMTP id A76BC290300
 	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:44:03 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-322-3JXxsoQBPC2598v3lxBADw-1; Fri, 16 Oct 2020 06:43:37 -0400
-X-MC-Unique: 3JXxsoQBPC2598v3lxBADw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-322-4_8a1ffiN7i98zgu4sOoyA-1; Fri, 16 Oct 2020 06:43:36 -0400
+X-MC-Unique: 4_8a1ffiN7i98zgu4sOoyA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2D8D01074664;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 49F358030B2;
 	Fri, 16 Oct 2020 10:43:30 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0AE0976679;
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2722E6198B;
 	Fri, 16 Oct 2020 10:43:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BBB1B181A71E;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D68D844A62;
 	Fri, 16 Oct 2020 10:43:29 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09GAhEDE019970 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 16 Oct 2020 06:43:14 -0400
+	id 09GAhD79019950 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 16 Oct 2020 06:43:13 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4F2D52011559; Fri, 16 Oct 2020 10:43:14 +0000 (UTC)
+	id 3E96611CC25B; Fri, 16 Oct 2020 10:43:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4A62B2011557
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:14 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A7AF11CC237
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 30AAF805BD6
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:14 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 14DB1182360B
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:13 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-529-cQnCJpRGPCyKAz2f8P06LQ-1;
+	relay.mimecast.com with ESMTP id us-mta-288-NuConzf2P5CTj44FIy_tFw-1;
 	Fri, 16 Oct 2020 06:43:08 -0400
-X-MC-Unique: cQnCJpRGPCyKAz2f8P06LQ-1
+X-MC-Unique: NuConzf2P5CTj44FIy_tFw-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 48C87B2B2;
+	by mx2.suse.de (Postfix) with ESMTP id 8571FB2B3;
 	Fri, 16 Oct 2020 10:43:05 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 16 Oct 2020 12:42:33 +0200
-Message-Id: <20201016104239.8217-7-mwilck@suse.com>
+Date: Fri, 16 Oct 2020 12:42:34 +0200
+Message-Id: <20201016104239.8217-8-mwilck@suse.com>
 In-Reply-To: <20201016104239.8217-1-mwilck@suse.com>
 References: <20201016104239.8217-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -60,13 +61,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 09GAhEDE019970
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 09GAhD79019950
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 06/12] libmultipath: checkers/prio: allow
-	non-lazy .so loading
+Subject: [dm-devel] [PATCH v2 07/12] multipath-tools Makefiles: separate
+	rules for .so and man pages
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +81,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -90,88 +91,93 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-If compiled with -DLOAD_ALL_SHARED_LIBS, all known prioritizers
-and checkers will be loaded immediately on startup. This is useful
-for determining symbol usage (start executables with LD_BIND_NOW=1).
+Rely more on "make" functionality than on sequential command execution.
 
 Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/checkers.c | 17 +++++++++++++++++
- libmultipath/prio.c     | 22 ++++++++++++++++++++++
- 2 files changed, 39 insertions(+)
+ libmpathcmd/Makefile     |  8 +++++---
+ libmpathpersist/Makefile | 10 +++++++---
+ libmultipath/Makefile    |  8 +++++---
+ 3 files changed, 17 insertions(+), 9 deletions(-)
 
-diff --git a/libmultipath/checkers.c b/libmultipath/checkers.c
-index f7ddd53..18b1f5e 100644
---- a/libmultipath/checkers.c
-+++ b/libmultipath/checkers.c
-@@ -7,6 +7,7 @@
- #include "debug.h"
- #include "checkers.h"
- #include "vector.h"
-+#include "util.h"
+diff --git a/libmpathcmd/Makefile b/libmpathcmd/Makefile
+index 0f6b816..08ccb81 100644
+--- a/libmpathcmd/Makefile
++++ b/libmpathcmd/Makefile
+@@ -8,13 +8,15 @@ CFLAGS += $(LIB_CFLAGS)
  
- struct checker_class {
- 	struct list_head node;
-@@ -375,7 +376,23 @@ void checker_get(const char *multipath_dir, struct checker *dst,
+ OBJS = mpath_cmd.o
  
- int init_checkers(const char *multipath_dir)
- {
-+#ifdef LOAD_ALL_SHARED_LIBS
-+	static const char *const all_checkers[] = {
-+		DIRECTIO,
-+		TUR,
-+		HP_SW,
-+		RDAC,
-+		EMC_CLARIION,
-+		READSECTOR0,
-+		CCISS_TUR,
-+	};
-+	unsigned int i;
+-all: $(LIBS)
++all:	$(DEVLIB)
+ 
+ $(LIBS): $(OBJS)
+ 	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=$@ -o $@ $(OBJS) $(LIBDEPS)
+-	$(LN) $@ $(DEVLIB)
+ 
+-install: $(LIBS)
++$(DEVLIB): $(LIBS)
++	$(LN) $(LIBS) $@
 +
-+	for (i = 0; i < ARRAY_SIZE(all_checkers); i++)
-+		add_checker_class(multipath_dir, all_checkers[i]);
-+#else
- 	if (!add_checker_class(multipath_dir, DEFAULT_CHECKER))
- 		return 1;
-+#endif
- 	return 0;
- }
-diff --git a/libmultipath/prio.c b/libmultipath/prio.c
-index 3a718ba..c92bde7 100644
---- a/libmultipath/prio.c
-+++ b/libmultipath/prio.c
-@@ -20,8 +20,30 @@ unsigned int get_prio_timeout(unsigned int timeout_ms,
++install: all
+ 	$(INSTALL_PROGRAM) -d $(DESTDIR)$(syslibdir)
+ 	$(INSTALL_PROGRAM) -m 755 $(LIBS) $(DESTDIR)$(syslibdir)/$(LIBS)
+ 	$(LN) $(LIBS) $(DESTDIR)$(syslibdir)/$(DEVLIB)
+diff --git a/libmpathpersist/Makefile b/libmpathpersist/Makefile
+index 21fdad8..9e869fd 100644
+--- a/libmpathpersist/Makefile
++++ b/libmpathpersist/Makefile
+@@ -11,15 +11,19 @@ LIBDEPS += -lpthread -ldevmapper -ldl -L$(multipathdir) -lmultipath \
  
- int init_prio (const char *multipath_dir)
- {
-+#ifdef LOAD_ALL_SHARED_LIBS
-+	static const char *const all_prios[] = {
-+		PRIO_ALUA,
-+		PRIO_CONST,
-+		PRIO_DATACORE,
-+		PRIO_EMC,
-+		PRIO_HDS,
-+		PRIO_HP_SW,
-+		PRIO_ONTAP,
-+		PRIO_RANDOM,
-+		PRIO_RDAC,
-+		PRIO_WEIGHTED_PATH,
-+		PRIO_SYSFS,
-+		PRIO_PATH_LATENCY,
-+		PRIO_ANA,
-+	};
-+	unsigned int i;
+ OBJS = mpath_persist.o mpath_updatepr.o mpath_pr_ioctl.o
+ 
+-all: $(LIBS)
++all: $(DEVLIB) man
+ 
+ $(LIBS): $(OBJS)
+ 	$(CC) $(LDFLAGS) $(SHARED_FLAGS) $(LIBDEPS) -Wl,-soname=$@ -o $@ $(OBJS)
+-	$(LN) $(LIBS) $(DEVLIB)
 +
-+	for  (i = 0; i < ARRAY_SIZE(all_prios); i++)
-+		add_prio(multipath_dir, all_prios[i]);
-+#else
- 	if (!add_prio(multipath_dir, DEFAULT_PRIO))
- 		return 1;
-+#endif
- 	return 0;
- }
++$(DEVLIB): $(LIBS)
++	$(LN) $(LIBS) $@
++
++man:
+ 	$(GZIP) mpath_persistent_reserve_in.3 > mpath_persistent_reserve_in.3.gz
+ 	$(GZIP) mpath_persistent_reserve_out.3 > mpath_persistent_reserve_out.3.gz
  
+-install: $(LIBS)
++install: all
+ 	$(INSTALL_PROGRAM) -d $(DESTDIR)$(syslibdir)
+ 	$(INSTALL_PROGRAM) -m 755 $(LIBS) $(DESTDIR)$(syslibdir)/$(LIBS)
+ 	$(INSTALL_PROGRAM) -m 755 -d $(DESTDIR)$(syslibdir)
+diff --git a/libmultipath/Makefile b/libmultipath/Makefile
+index e5dac5e..af5bb77 100644
+--- a/libmultipath/Makefile
++++ b/libmultipath/Makefile
+@@ -50,7 +50,7 @@ OBJS = memory.o parser.o vector.o devmapper.o callout.o \
+ 	io_err_stat.o dm-generic.o generic.o foreign.o nvme-lib.o \
+ 	libsg.o valid.o
+ 
+-all: $(LIBS)
++all:	$(DEVLIB)
+ 
+ nvme-lib.o: nvme-lib.c nvme-ioctl.c nvme-ioctl.h
+ 	$(CC) $(CFLAGS) -Wno-unused-function -c -o $@ $<
+@@ -70,9 +70,11 @@ nvme-ioctl.h: nvme/nvme-ioctl.h
+ 
+ $(LIBS): $(OBJS)
+ 	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=$@ -o $@ $(OBJS) $(LIBDEPS)
+-	$(LN) $@ $(DEVLIB)
+ 
+-install:
++$(DEVLIB): $(LIBS)
++	$(LN) $(LIBS) $@
++
++install: all
+ 	$(INSTALL_PROGRAM) -d $(DESTDIR)$(syslibdir)
+ 	$(INSTALL_PROGRAM) -m 755 $(LIBS) $(DESTDIR)$(syslibdir)/$(LIBS)
+ 	$(INSTALL_PROGRAM) -m 755 -d $(DESTDIR)$(libdir)
 -- 
 2.28.0
 
