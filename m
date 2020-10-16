@@ -2,53 +2,53 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8BEA22902FB
-	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:43:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AD8E0290301
+	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:44:03 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-365-D-HsZ4vJNliSTdHVYJV5iA-1; Fri, 16 Oct 2020 06:43:32 -0400
-X-MC-Unique: D-HsZ4vJNliSTdHVYJV5iA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-322-3JXxsoQBPC2598v3lxBADw-1; Fri, 16 Oct 2020 06:43:37 -0400
+X-MC-Unique: 3JXxsoQBPC2598v3lxBADw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BB499873112;
-	Fri, 16 Oct 2020 10:43:26 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2D8D01074664;
+	Fri, 16 Oct 2020 10:43:30 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 525A31992F;
-	Fri, 16 Oct 2020 10:43:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0AE0976679;
+	Fri, 16 Oct 2020 10:43:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CCB36181A270;
-	Fri, 16 Oct 2020 10:43:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BBB1B181A71E;
+	Fri, 16 Oct 2020 10:43:29 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09GAhCoP019932 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 16 Oct 2020 06:43:13 -0400
+	id 09GAhEDE019970 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 16 Oct 2020 06:43:14 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C437C16C2DE; Fri, 16 Oct 2020 10:43:12 +0000 (UTC)
+	id 4F2D52011559; Fri, 16 Oct 2020 10:43:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BCD5A16C2E0
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:10 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4A62B2011557
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:14 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A6EAC182360B
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:10 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 30AAF805BD6
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:14 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-529-VSGJV1h_PeGgK6qWe9i5og-1;
+	relay.mimecast.com with ESMTP id us-mta-529-cQnCJpRGPCyKAz2f8P06LQ-1;
 	Fri, 16 Oct 2020 06:43:08 -0400
-X-MC-Unique: VSGJV1h_PeGgK6qWe9i5og-1
+X-MC-Unique: cQnCJpRGPCyKAz2f8P06LQ-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 10ADAB2B1;
+	by mx2.suse.de (Postfix) with ESMTP id 48C87B2B2;
 	Fri, 16 Oct 2020 10:43:05 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 16 Oct 2020 12:42:32 +0200
-Message-Id: <20201016104239.8217-6-mwilck@suse.com>
+Date: Fri, 16 Oct 2020 12:42:33 +0200
+Message-Id: <20201016104239.8217-7-mwilck@suse.com>
 In-Reply-To: <20201016104239.8217-1-mwilck@suse.com>
 References: <20201016104239.8217-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -60,13 +60,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 09GAhCoP019932
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 09GAhEDE019970
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 05/12] libmultipath: prio: constify some
-	function parameters
+Subject: [dm-devel] [PATCH v2 06/12] libmultipath: checkers/prio: allow
+	non-lazy .so loading
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +80,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -90,51 +90,88 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
+If compiled with -DLOAD_ALL_SHARED_LIBS, all known prioritizers
+and checkers will be loaded immediately on startup. This is useful
+for determining symbol usage (start executables with LD_BIND_NOW=1).
+
 Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/prio.c | 4 ++--
- libmultipath/prio.h | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ libmultipath/checkers.c | 17 +++++++++++++++++
+ libmultipath/prio.c     | 22 ++++++++++++++++++++++
+ 2 files changed, 39 insertions(+)
 
+diff --git a/libmultipath/checkers.c b/libmultipath/checkers.c
+index f7ddd53..18b1f5e 100644
+--- a/libmultipath/checkers.c
++++ b/libmultipath/checkers.c
+@@ -7,6 +7,7 @@
+ #include "debug.h"
+ #include "checkers.h"
+ #include "vector.h"
++#include "util.h"
+ 
+ struct checker_class {
+ 	struct list_head node;
+@@ -375,7 +376,23 @@ void checker_get(const char *multipath_dir, struct checker *dst,
+ 
+ int init_checkers(const char *multipath_dir)
+ {
++#ifdef LOAD_ALL_SHARED_LIBS
++	static const char *const all_checkers[] = {
++		DIRECTIO,
++		TUR,
++		HP_SW,
++		RDAC,
++		EMC_CLARIION,
++		READSECTOR0,
++		CCISS_TUR,
++	};
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(all_checkers); i++)
++		add_checker_class(multipath_dir, all_checkers[i]);
++#else
+ 	if (!add_checker_class(multipath_dir, DEFAULT_CHECKER))
+ 		return 1;
++#endif
+ 	return 0;
+ }
 diff --git a/libmultipath/prio.c b/libmultipath/prio.c
-index 194563c..3a718ba 100644
+index 3a718ba..c92bde7 100644
 --- a/libmultipath/prio.c
 +++ b/libmultipath/prio.c
-@@ -18,7 +18,7 @@ unsigned int get_prio_timeout(unsigned int timeout_ms,
- 	return default_timeout;
- }
+@@ -20,8 +20,30 @@ unsigned int get_prio_timeout(unsigned int timeout_ms,
  
--int init_prio (char *multipath_dir)
-+int init_prio (const char *multipath_dir)
+ int init_prio (const char *multipath_dir)
  {
++#ifdef LOAD_ALL_SHARED_LIBS
++	static const char *const all_prios[] = {
++		PRIO_ALUA,
++		PRIO_CONST,
++		PRIO_DATACORE,
++		PRIO_EMC,
++		PRIO_HDS,
++		PRIO_HP_SW,
++		PRIO_ONTAP,
++		PRIO_RANDOM,
++		PRIO_RDAC,
++		PRIO_WEIGHTED_PATH,
++		PRIO_SYSFS,
++		PRIO_PATH_LATENCY,
++		PRIO_ANA,
++	};
++	unsigned int i;
++
++	for  (i = 0; i < ARRAY_SIZE(all_prios); i++)
++		add_prio(multipath_dir, all_prios[i]);
++#else
  	if (!add_prio(multipath_dir, DEFAULT_PRIO))
  		return 1;
-@@ -87,7 +87,7 @@ int prio_set_args (struct prio * p, const char * args)
- 	return snprintf(p->args, PRIO_ARGS_LEN, "%s", args);
++#endif
+ 	return 0;
  }
  
--struct prio * add_prio (char *multipath_dir, char * name)
-+struct prio * add_prio (const char *multipath_dir, const char * name)
- {
- 	char libname[LIB_PRIO_NAMELEN];
- 	struct stat stbuf;
-diff --git a/libmultipath/prio.h b/libmultipath/prio.h
-index 599d1d8..26754f7 100644
---- a/libmultipath/prio.h
-+++ b/libmultipath/prio.h
-@@ -55,9 +55,9 @@ struct prio {
- 
- unsigned int get_prio_timeout(unsigned int checker_timeout,
- 			      unsigned int default_timeout);
--int init_prio (char *);
-+int init_prio (const char *);
- void cleanup_prio (void);
--struct prio * add_prio (char *, char *);
-+struct prio * add_prio (const char *, const char *);
- int prio_getprio (struct prio *, struct path *, unsigned int);
- void prio_get (char *, struct prio *, char *, char *);
- void prio_put (struct prio *);
 -- 
 2.28.0
 
