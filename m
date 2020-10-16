@@ -1,55 +1,54 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A76BC290300
-	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:44:03 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 68F8A2902FC
+	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:43:38 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-322-4_8a1ffiN7i98zgu4sOoyA-1; Fri, 16 Oct 2020 06:43:36 -0400
-X-MC-Unique: 4_8a1ffiN7i98zgu4sOoyA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-58-uxeYdlqvNmqBnPVDEOOGpg-1; Fri, 16 Oct 2020 06:43:33 -0400
+X-MC-Unique: uxeYdlqvNmqBnPVDEOOGpg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 49F358030B2;
-	Fri, 16 Oct 2020 10:43:30 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2722E6198B;
-	Fri, 16 Oct 2020 10:43:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 48319803F59;
+	Fri, 16 Oct 2020 10:43:28 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 20C7C5C22D;
+	Fri, 16 Oct 2020 10:43:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D68D844A62;
-	Fri, 16 Oct 2020 10:43:29 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CE7D7181A2E5;
+	Fri, 16 Oct 2020 10:43:27 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09GAhD79019950 for <dm-devel@listman.util.phx.redhat.com>;
+	id 09GAhCC3019931 for <dm-devel@listman.util.phx.redhat.com>;
 	Fri, 16 Oct 2020 06:43:13 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3E96611CC25B; Fri, 16 Oct 2020 10:43:13 +0000 (UTC)
+	id C09EC16C2DD; Fri, 16 Oct 2020 10:43:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A7AF11CC237
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:13 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B870416C2DE
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:11 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 14DB1182360B
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 03314182360F
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:11 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-288-NuConzf2P5CTj44FIy_tFw-1;
+	relay.mimecast.com with ESMTP id us-mta-523-lK4qnxt1NsasIIPnLr9Iww-1;
 	Fri, 16 Oct 2020 06:43:08 -0400
-X-MC-Unique: NuConzf2P5CTj44FIy_tFw-1
+X-MC-Unique: lK4qnxt1NsasIIPnLr9Iww-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 8571FB2B3;
+	by mx2.suse.de (Postfix) with ESMTP id BF5C0B2B4;
 	Fri, 16 Oct 2020 10:43:05 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 16 Oct 2020 12:42:34 +0200
-Message-Id: <20201016104239.8217-8-mwilck@suse.com>
+Date: Fri, 16 Oct 2020 12:42:35 +0200
+Message-Id: <20201016104239.8217-9-mwilck@suse.com>
 In-Reply-To: <20201016104239.8217-1-mwilck@suse.com>
 References: <20201016104239.8217-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -61,13 +60,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 09GAhD79019950
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 09GAhCC3019931
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 07/12] multipath-tools Makefiles: separate
-	rules for .so and man pages
+Subject: [dm-devel] [PATCH v2 08/12] libmultipath: create separate .so for
+	unit tests
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +80,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,93 +90,84 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Rely more on "make" functionality than on sequential command execution.
+The unit tests use a lot of internal symbols that we don't want
+to add to the ABI if we don't have to. As long as we don't
+have to make incompatible changes to functions, we can work around
+that by simply using a non-versioned library for the unit tests.
+Therefore we add a seperate rule here. Do this before actually
+adding a version script, to avoid breakage during bisection.
 
-Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmpathcmd/Makefile     |  8 +++++---
- libmpathpersist/Makefile | 10 +++++++---
- libmultipath/Makefile    |  8 +++++---
- 3 files changed, 17 insertions(+), 9 deletions(-)
+ libmultipath/Makefile |  7 +++++++
+ tests/Makefile        | 10 ++++++----
+ 2 files changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/libmpathcmd/Makefile b/libmpathcmd/Makefile
-index 0f6b816..08ccb81 100644
---- a/libmpathcmd/Makefile
-+++ b/libmpathcmd/Makefile
-@@ -8,13 +8,15 @@ CFLAGS += $(LIB_CFLAGS)
- 
- OBJS = mpath_cmd.o
- 
--all: $(LIBS)
-+all:	$(DEVLIB)
- 
- $(LIBS): $(OBJS)
- 	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=$@ -o $@ $(OBJS) $(LIBDEPS)
--	$(LN) $@ $(DEVLIB)
- 
--install: $(LIBS)
-+$(DEVLIB): $(LIBS)
-+	$(LN) $(LIBS) $@
-+
-+install: all
- 	$(INSTALL_PROGRAM) -d $(DESTDIR)$(syslibdir)
- 	$(INSTALL_PROGRAM) -m 755 $(LIBS) $(DESTDIR)$(syslibdir)/$(LIBS)
- 	$(LN) $(LIBS) $(DESTDIR)$(syslibdir)/$(DEVLIB)
-diff --git a/libmpathpersist/Makefile b/libmpathpersist/Makefile
-index 21fdad8..9e869fd 100644
---- a/libmpathpersist/Makefile
-+++ b/libmpathpersist/Makefile
-@@ -11,15 +11,19 @@ LIBDEPS += -lpthread -ldevmapper -ldl -L$(multipathdir) -lmultipath \
- 
- OBJS = mpath_persist.o mpath_updatepr.o mpath_pr_ioctl.o
- 
--all: $(LIBS)
-+all: $(DEVLIB) man
- 
- $(LIBS): $(OBJS)
- 	$(CC) $(LDFLAGS) $(SHARED_FLAGS) $(LIBDEPS) -Wl,-soname=$@ -o $@ $(OBJS)
--	$(LN) $(LIBS) $(DEVLIB)
-+
-+$(DEVLIB): $(LIBS)
-+	$(LN) $(LIBS) $@
-+
-+man:
- 	$(GZIP) mpath_persistent_reserve_in.3 > mpath_persistent_reserve_in.3.gz
- 	$(GZIP) mpath_persistent_reserve_out.3 > mpath_persistent_reserve_out.3.gz
- 
--install: $(LIBS)
-+install: all
- 	$(INSTALL_PROGRAM) -d $(DESTDIR)$(syslibdir)
- 	$(INSTALL_PROGRAM) -m 755 $(LIBS) $(DESTDIR)$(syslibdir)/$(LIBS)
- 	$(INSTALL_PROGRAM) -m 755 -d $(DESTDIR)$(syslibdir)
 diff --git a/libmultipath/Makefile b/libmultipath/Makefile
-index e5dac5e..af5bb77 100644
+index af5bb77..cf13561 100644
 --- a/libmultipath/Makefile
 +++ b/libmultipath/Makefile
-@@ -50,7 +50,7 @@ OBJS = memory.o parser.o vector.o devmapper.o callout.o \
- 	io_err_stat.o dm-generic.o generic.o foreign.o nvme-lib.o \
- 	libsg.o valid.o
+@@ -74,6 +74,13 @@ $(LIBS): $(OBJS)
+ $(DEVLIB): $(LIBS)
+ 	$(LN) $(LIBS) $@
  
--all: $(LIBS)
-+all:	$(DEVLIB)
- 
- nvme-lib.o: nvme-lib.c nvme-ioctl.c nvme-ioctl.h
- 	$(CC) $(CFLAGS) -Wno-unused-function -c -o $@ $<
-@@ -70,9 +70,11 @@ nvme-ioctl.h: nvme/nvme-ioctl.h
- 
- $(LIBS): $(OBJS)
- 	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=$@ -o $@ $(OBJS) $(LIBDEPS)
--	$(LN) $@ $(DEVLIB)
- 
--install:
-+$(DEVLIB): $(LIBS)
-+	$(LN) $(LIBS) $@
++../tests/$(LIBS): $(OBJS) $(VERSION_SCRIPT)
++	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=`basename $@` \
++		-o $@ $(OBJS) $(LIBDEPS)
++	$(LN) $@ ${@:.so.0=.so}
 +
-+install: all
++test-lib:	../tests/$(LIBS)
++
+ install: all
  	$(INSTALL_PROGRAM) -d $(DESTDIR)$(syslibdir)
  	$(INSTALL_PROGRAM) -m 755 $(LIBS) $(DESTDIR)$(syslibdir)/$(LIBS)
- 	$(INSTALL_PROGRAM) -m 755 -d $(DESTDIR)$(libdir)
+diff --git a/tests/Makefile b/tests/Makefile
+index 502377f..f6ef16a 100644
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -10,7 +10,7 @@ W_MISSING_INITIALIZERS := $(call TEST_MISSING_INITIALIZERS)
+ 
+ CFLAGS += $(BIN_CFLAGS) -I$(multipathdir) -I$(mpathcmddir) \
+ 	-Wno-unused-parameter $(W_MISSING_INITIALIZERS)
+-LIBDEPS += -L$(multipathdir) -L$(mpathcmddir) -lmultipath -lmpathcmd -lcmocka
++LIBDEPS += -L. -L$(mpathcmddir) -lmultipath -lmpathcmd -lcmocka
+ 
+ TESTS := uevent parser util dmevents hwtable blacklist unaligned vpd pgpolicy \
+ 	 alias directio valid devt
+@@ -67,7 +67,7 @@ lib/libchecktur.so:
+ 
+ %.out:	%-test lib/libchecktur.so
+ 	@echo == running $< ==
+-	@LD_LIBRARY_PATH=$(multipathdir):$(mpathcmddir) ./$< >$@
++	@LD_LIBRARY_PATH=.:$(mpathcmddir) ./$< >$@
+ 
+ %.vgr:  %-test lib/libchecktur.so
+ 	@echo == running valgrind for $< ==
+@@ -77,7 +77,7 @@ lib/libchecktur.so:
+ OBJS = $(TESTS:%=%.o) test-lib.o
+ 
+ test_clean:
+-	$(RM) $(TESTS:%=%.out) $(TESTS:%=%.vgr)
++	$(RM) $(TESTS:%=%.out) $(TESTS:%=%.vgr) *.so*
+ 
+ valgrind_clean:
+ 	$(RM) $(TESTS:%=%.vgr)
+@@ -97,12 +97,14 @@ dep_clean:
+ 	@sed -n 's/^.*__wrap_\([a-zA-Z0-9_]*\).*$$/-Wl,--wrap=\1/p' $< | \
+ 		sort -u | tr '\n' ' ' >$@
+ 
++libmultipath.so.0:
++	$(MAKE) -C $(multipathdir) test-lib
+ 
+ # COLON will get expanded during second expansion below
+ COLON:=:
+ .SECONDEXPANSION:
+ %-test:	%.o %.o.wrap $$($$@_OBJDEPS) $$($$@_TESTDEPS) $$($$@_TESTDEPS$$(COLON).o=.o.wrap) \
+-		$(multipathdir)/libmultipath.so Makefile
++		libmultipath.so.0 Makefile
+ 	$(CC) $(CFLAGS) -o $@ $(LDFLAGS) $< $($@_TESTDEPS) $($@_OBJDEPS) \
+ 		$(LIBDEPS) $($@_LIBDEPS) \
+ 		$(shell cat $<.wrap) $(foreach dep,$($@_TESTDEPS),$(shell cat $(dep).wrap))
 -- 
 2.28.0
 
