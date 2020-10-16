@@ -2,53 +2,53 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 720C8290370
-	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:46:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8660729036C
+	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:45:57 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-306-RKkihfADO16ekFdzUVrDbA-1; Fri, 16 Oct 2020 06:45:46 -0400
-X-MC-Unique: RKkihfADO16ekFdzUVrDbA-1
+ us-mta-166-jPubwZGTP7qk1aZsWCSwkQ-1; Fri, 16 Oct 2020 06:45:54 -0400
+X-MC-Unique: jPubwZGTP7qk1aZsWCSwkQ-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 95B4A873112;
-	Fri, 16 Oct 2020 10:45:37 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 73CFB7667A;
-	Fri, 16 Oct 2020 10:45:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 05A3918A823F;
+	Fri, 16 Oct 2020 10:45:48 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D614D7667A;
+	Fri, 16 Oct 2020 10:45:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3146758134;
-	Fri, 16 Oct 2020 10:45:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 933391832FC2;
+	Fri, 16 Oct 2020 10:45:47 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09GAjYMO020979 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 16 Oct 2020 06:45:34 -0400
+	id 09GAjMJX020836 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 16 Oct 2020 06:45:22 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 85F1B11DBD59; Fri, 16 Oct 2020 10:45:34 +0000 (UTC)
+	id AD54E12D8B8; Fri, 16 Oct 2020 10:45:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 81EEF11DBD71
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:45:34 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A8C5416C2E0
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:45:22 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5B155811E82
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:45:34 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 82A36801184
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:45:22 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-94-z0c-NI2vNZycU7x4tk2-Og-1;
+	relay.mimecast.com with ESMTP id us-mta-112-38dmOTL1Op67BzXIIsvkKw-1;
 	Fri, 16 Oct 2020 06:45:19 -0400
-X-MC-Unique: z0c-NI2vNZycU7x4tk2-Og-1
+X-MC-Unique: 38dmOTL1Op67BzXIIsvkKw-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id D9B5CB2AE;
-	Fri, 16 Oct 2020 10:45:17 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id 20DC0AF68;
+	Fri, 16 Oct 2020 10:45:18 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 16 Oct 2020 12:44:58 +0200
-Message-Id: <20201016104501.8700-27-mwilck@suse.com>
+Date: Fri, 16 Oct 2020 12:44:59 +0200
+Message-Id: <20201016104501.8700-28-mwilck@suse.com>
 In-Reply-To: <20201016104501.8700-1-mwilck@suse.com>
 References: <20201016104501.8700-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -60,12 +60,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 09GAjYMO020979
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 09GAjMJX020836
 X-loop: dm-devel@redhat.com
 Cc: lixiaokeng@huawei.com, dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 26/29] libmultipath: simplify dlog()
+Subject: [dm-devel] [PATCH v2 27/29] multipathd: common code for "-k" and
+	command args
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,149 +90,84 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-By checking the log level in condlog() directly, we can simplify
-dlog(). Also, it's now possible to limit the log level at compile
-time by setting MAX_VERBOSITY, enabling the compiler to optimize
-away log messages with higher loglevel.
+'multipathd -k"cmd"' and 'multipath cmd' are the same thing.
+Treat it with common code.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/debug.c     | 30 +++++++++++++-----------------
- libmultipath/debug.h     | 19 +++++++++++++++----
- libmultipath/devmapper.c |  4 +++-
- tests/test-log.c         |  4 ++--
- tests/test-log.h         |  3 ++-
- 5 files changed, 35 insertions(+), 25 deletions(-)
+ multipathd/main.c | 37 +++++++++++++++++++------------------
+ 1 file changed, 19 insertions(+), 18 deletions(-)
 
-diff --git a/libmultipath/debug.c b/libmultipath/debug.c
-index f9b7755..429f269 100644
---- a/libmultipath/debug.c
-+++ b/libmultipath/debug.c
-@@ -18,29 +18,25 @@
- int logsink;
- int libmp_verbosity = DEFAULT_VERBOSITY;
+diff --git a/multipathd/main.c b/multipathd/main.c
+index 725a10b..0cf8a26 100644
+--- a/multipathd/main.c
++++ b/multipathd/main.c
+@@ -3303,6 +3303,8 @@ main (int argc, char *argv[])
+ 	int err;
+ 	int foreground = 0;
+ 	struct config *conf;
++	char *opt_k_arg = NULL;
++	bool opt_k = false;
  
--void dlog (int sink, int prio, const char * fmt, ...)
-+void dlog(int prio, const char * fmt, ...)
- {
- 	va_list ap;
- 
- 	va_start(ap, fmt);
-+	if (logsink != LOGSINK_SYSLOG) {
-+		if (logsink == LOGSINK_STDERR_WITH_TIME) {
-+			time_t t = time(NULL);
-+			struct tm *tb = localtime(&t);
-+			char buff[16];
- 
--	if (prio <= libmp_verbosity) {
--		if (sink != LOGSINK_SYSLOG) {
--			if (sink == LOGSINK_STDERR_WITH_TIME) {
--				time_t t = time(NULL);
--				struct tm *tb = localtime(&t);
--				char buff[16];
--
--				strftime(buff, sizeof(buff),
--					 "%b %d %H:%M:%S", tb);
--				buff[sizeof(buff)-1] = '\0';
--
--				fprintf(stderr, "%s | ", buff);
--			}
--			vfprintf(stderr, fmt, ap);
-+			strftime(buff, sizeof(buff),
-+				 "%b %d %H:%M:%S", tb);
-+			buff[sizeof(buff)-1] = '\0';
-+			fprintf(stderr, "%s | ", buff);
+ 	ANNOTATE_BENIGN_RACE_SIZED(&multipath_conf, sizeof(multipath_conf),
+ 				   "Manipulated through RCU");
+@@ -3350,16 +3352,9 @@ main (int argc, char *argv[])
+ 			logsink = LOGSINK_STDERR_WITHOUT_TIME;
+ 			break;
+ 		case 'k':
+-			logsink = 0;
+-			conf = load_config(DEFAULT_CONFIGFILE);
+-			if (!conf)
+-				exit(1);
+-			if (verbosity)
+-				libmp_verbosity = verbosity;
+-			uxsock_timeout = conf->uxsock_timeout;
+-			err = uxclnt(optarg, uxsock_timeout + 100);
+-			free_config(conf);
+-			return err;
++			opt_k = true;
++			opt_k_arg = optarg;
++			break;
+ 		case 'B':
+ 			bindings_read_only = 1;
+ 			break;
+@@ -3375,7 +3370,7 @@ main (int argc, char *argv[])
+ 			exit(1);
  		}
--		else
--			log_safe(prio + 3, fmt, ap);
-+		vfprintf(stderr, fmt, ap);
  	}
-+	else
-+		log_safe(prio + 3, fmt, ap);
- 	va_end(ap);
- }
-diff --git a/libmultipath/debug.h b/libmultipath/debug.h
-index 91ba02b..705a5d7 100644
---- a/libmultipath/debug.h
-+++ b/libmultipath/debug.h
-@@ -1,5 +1,7 @@
--void dlog (int sink, int prio, const char * fmt, ...)
--	__attribute__((format(printf, 3, 4)));
-+#ifndef _DEBUG_H
-+#define _DEBUG_H
-+void dlog (int prio, const char *fmt, ...)
-+	__attribute__((format(printf, 2, 3)));
- 
- 
- #include <pthread.h>
-@@ -10,8 +12,9 @@ void dlog (int sink, int prio, const char * fmt, ...)
- extern int logsink;
- extern int libmp_verbosity;
- 
--#define condlog(prio, fmt, args...) \
--	dlog(logsink, prio, fmt "\n", ##args)
-+#ifndef MAX_VERBOSITY
-+#define MAX_VERBOSITY 4
-+#endif
- 
- enum {
- 	LOGSINK_STDERR_WITH_TIME = 0,
-@@ -19,3 +22,11 @@ enum {
- 	LOGSINK_SYSLOG = 1,
- };
- 
-+#define condlog(prio, fmt, args...)					\
-+	do {								\
-+		int __p = (prio);					\
-+									\
-+		if (__p <= MAX_VERBOSITY && __p <= libmp_verbosity)	\
-+			dlog(__p, fmt "\n", ##args);			\
-+	} while (0)
-+#endif /* _DEBUG_H */
-diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
-index 78112a9..cf2f27c 100644
---- a/libmultipath/devmapper.c
-+++ b/libmultipath/devmapper.c
-@@ -274,7 +274,9 @@ static int dm_tgt_prereq (unsigned int *ver)
- 
- static void _init_versions(void)
- {
--	dlog(logsink, 3, VERSION_STRING);
-+	/* Can't use condlog here because of how VERSION_STRING is defined */
-+	if (3 <= libmp_verbosity)
-+		dlog(3, VERSION_STRING);
- 	init_dm_library_version();
- 	init_dm_drv_version();
- 	init_dm_mpath_version();
-diff --git a/tests/test-log.c b/tests/test-log.c
-index 051491e..42ebad0 100644
---- a/tests/test-log.c
-+++ b/tests/test-log.c
-@@ -6,8 +6,8 @@
- #include "log.h"
- #include "test-log.h"
- 
--__attribute__((format(printf, 3, 0)))
--void __wrap_dlog (int sink, int prio, const char * fmt, ...)
-+__attribute__((format(printf, 2, 0)))
-+void __wrap_dlog (int prio, const char * fmt, ...)
- {
- 	char buff[MAX_MSG_SIZE];
- 	va_list ap;
-diff --git a/tests/test-log.h b/tests/test-log.h
-index 2c878c6..6d22cd2 100644
---- a/tests/test-log.h
-+++ b/tests/test-log.h
-@@ -1,7 +1,8 @@
- #ifndef _TEST_LOG_H
- #define _TEST_LOG_H
- 
--void __wrap_dlog (int sink, int prio, const char * fmt, ...);
-+__attribute__((format(printf, 2, 0)))
-+void __wrap_dlog (int prio, const char * fmt, ...);
- void expect_condlog(int prio, char *string);
- 
- #endif
+-	if (optind < argc) {
++	if (opt_k || optind < argc) {
+ 		char cmd[CMDSIZE];
+ 		char * s = cmd;
+ 		char * c = s;
+@@ -3390,14 +3385,20 @@ main (int argc, char *argv[])
+ 			libmp_verbosity = verbosity;
+ 		uxsock_timeout = conf->uxsock_timeout;
+ 		memset(cmd, 0x0, CMDSIZE);
+-		while (optind < argc) {
+-			if (strchr(argv[optind], ' '))
+-				c += snprintf(c, s + CMDSIZE - c, "\"%s\" ", argv[optind]);
+-			else
+-				c += snprintf(c, s + CMDSIZE - c, "%s ", argv[optind]);
+-			optind++;
++		if (opt_k)
++			s = opt_k_arg;
++		else {
++			while (optind < argc) {
++				if (strchr(argv[optind], ' '))
++					c += snprintf(c, s + CMDSIZE - c,
++						      "\"%s\" ", argv[optind]);
++				else
++					c += snprintf(c, s + CMDSIZE - c,
++						      "%s ", argv[optind]);
++				optind++;
++			}
++			c += snprintf(c, s + CMDSIZE - c, "\n");
+ 		}
+-		c += snprintf(c, s + CMDSIZE - c, "\n");
+ 		err = uxclnt(s, uxsock_timeout + 100);
+ 		free_config(conf);
+ 		return err;
 -- 
 2.28.0
 
