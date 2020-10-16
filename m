@@ -1,55 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C9EAA2902FA
-	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:43:35 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id D09962902FD
+	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:43:42 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-576-zjrzhBEoNB6sPAXi2sCjsA-1; Fri, 16 Oct 2020 06:43:32 -0400
-X-MC-Unique: zjrzhBEoNB6sPAXi2sCjsA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-285-_8x7BkuMN6aTQCsJ9Y_7iQ-1; Fri, 16 Oct 2020 06:43:39 -0400
+X-MC-Unique: _8x7BkuMN6aTQCsJ9Y_7iQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7B0AB100830E;
-	Fri, 16 Oct 2020 10:43:26 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 19DC71074669;
+	Fri, 16 Oct 2020 10:43:32 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0B705672CF;
-	Fri, 16 Oct 2020 10:43:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EC6295D9CC;
+	Fri, 16 Oct 2020 10:43:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BAC9F44A47;
-	Fri, 16 Oct 2020 10:43:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A980644A66;
+	Fri, 16 Oct 2020 10:43:31 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09GAhBKt019912 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 16 Oct 2020 06:43:11 -0400
+	id 09GAhDmJ019957 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 16 Oct 2020 06:43:14 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 525E12011559; Fri, 16 Oct 2020 10:43:11 +0000 (UTC)
+	id B92EF2156A37; Fri, 16 Oct 2020 10:43:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4D8A5201155F
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:10 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B37832156A39
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:11 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D0D28102F1E1
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:10 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 71CFD811E79
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:11 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-568-9vxHJ2zpMAut4T6l6rZjLw-1;
+	relay.mimecast.com with ESMTP id us-mta-300-b8iQWN5iN9S09pdLuwhSkg-1;
 	Fri, 16 Oct 2020 06:43:06 -0400
-X-MC-Unique: 9vxHJ2zpMAut4T6l6rZjLw-1
+X-MC-Unique: b8iQWN5iN9S09pdLuwhSkg-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 8AAC8B2AF;
+	by mx2.suse.de (Postfix) with ESMTP id C5360B2B0;
 	Fri, 16 Oct 2020 10:43:04 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 16 Oct 2020 12:42:30 +0200
-Message-Id: <20201016104239.8217-4-mwilck@suse.com>
+Date: Fri, 16 Oct 2020 12:42:31 +0200
+Message-Id: <20201016104239.8217-5-mwilck@suse.com>
 In-Reply-To: <20201016104239.8217-1-mwilck@suse.com>
 References: <20201016104239.8217-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -61,13 +61,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 09GAhBKt019912
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 09GAhDmJ019957
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 03/12] libmultipath: dm_map_present_by_uuid():
-	fix dm_task_create() call
+Subject: [dm-devel] [PATCH v2 04/12] libdmmp tests: fix compilation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +80,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,28 +90,41 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-libmultipath shouldn't call dm_task_create() directly any more.
-
-Fixes: 90535a3 ("multipath: centralize validation code")
+These tests don't compile with -Werror=unused-parameter. Fix it.
 Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
+
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/devmapper.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ libdmmp/test/libdmmp_speed_test.c | 2 +-
+ libdmmp/test/libdmmp_test.c       | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
-index b4d77cb..7394796 100644
---- a/libmultipath/devmapper.c
-+++ b/libmultipath/devmapper.c
-@@ -834,7 +834,7 @@ dm_map_present_by_uuid(const char *uuid)
- 	if (safe_sprintf(prefixed_uuid, UUID_PREFIX "%s", uuid))
- 		goto out;
+diff --git a/libdmmp/test/libdmmp_speed_test.c b/libdmmp/test/libdmmp_speed_test.c
+index 372cd39..d91ba50 100644
+--- a/libdmmp/test/libdmmp_speed_test.c
++++ b/libdmmp/test/libdmmp_speed_test.c
+@@ -27,7 +27,7 @@
  
--	if (!(dmt = dm_task_create(DM_DEVICE_INFO)))
-+	if (!(dmt = libmp_dm_task_create(DM_DEVICE_INFO)))
- 		goto out;
+ #include <libdmmp/libdmmp.h>
  
- 	dm_task_no_open_count(dmt);
+-int main(int argc, char *argv[])
++int main(void)
+ {
+ 	struct dmmp_context *ctx = NULL;
+ 	struct dmmp_mpath **dmmp_mps = NULL;
+diff --git a/libdmmp/test/libdmmp_test.c b/libdmmp/test/libdmmp_test.c
+index d944e1e..a940b57 100644
+--- a/libdmmp/test/libdmmp_test.c
++++ b/libdmmp/test/libdmmp_test.c
+@@ -102,7 +102,7 @@ out:
+ 	return rc;
+ }
+ 
+-int main(int argc, char *argv[])
++int main(void)
+ {
+ 	struct dmmp_context *ctx = NULL;
+ 	struct dmmp_mpath **dmmp_mps = NULL;
 -- 
 2.28.0
 
