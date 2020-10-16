@@ -1,54 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 556DE2902FE
-	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:43:44 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 539D9290303
+	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:44:04 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-257-VvDdlL4WMYiwdY87Dqbu4Q-1; Fri, 16 Oct 2020 06:43:41 -0400
-X-MC-Unique: VvDdlL4WMYiwdY87Dqbu4Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-596-I0AbOg-5OmmGyIik9TBydQ-1; Fri, 16 Oct 2020 06:43:33 -0400
+X-MC-Unique: I0AbOg-5OmmGyIik9TBydQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EA2DA1015ED3;
-	Fri, 16 Oct 2020 10:43:33 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1C2D764166;
+	Fri, 16 Oct 2020 10:43:28 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C081C60C11;
-	Fri, 16 Oct 2020 10:43:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ED12E5D9DD;
+	Fri, 16 Oct 2020 10:43:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7ABB192F4F;
-	Fri, 16 Oct 2020 10:43:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AB9E644A47;
+	Fri, 16 Oct 2020 10:43:27 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09GAhDIr019956 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 16 Oct 2020 06:43:14 -0400
+	id 09GAhCbL019930 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 16 Oct 2020 06:43:13 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B7B4A2166B28; Fri, 16 Oct 2020 10:43:13 +0000 (UTC)
+	id C3DDE16C2DB; Fri, 16 Oct 2020 10:43:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B01CF2156A38
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:13 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BC97A16C2DA
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4ED15182360B
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C8C1858298
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:12 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-482-6Xjagoy1NamVHFZqRQKxaQ-1;
+	relay.mimecast.com with ESMTP id us-mta-161-MebyecXqOlaEGL75dJKviQ-1;
 	Fri, 16 Oct 2020 06:43:08 -0400
-X-MC-Unique: 6Xjagoy1NamVHFZqRQKxaQ-1
+X-MC-Unique: MebyecXqOlaEGL75dJKviQ-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 4166FAB5C;
+	by mx2.suse.de (Postfix) with ESMTP id 7CDBBB2B6;
 	Fri, 16 Oct 2020 10:43:06 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 16 Oct 2020 12:42:37 +0200
-Message-Id: <20201016104239.8217-11-mwilck@suse.com>
+Date: Fri, 16 Oct 2020 12:42:38 +0200
+Message-Id: <20201016104239.8217-12-mwilck@suse.com>
 In-Reply-To: <20201016104239.8217-1-mwilck@suse.com>
 References: <20201016104239.8217-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -60,13 +61,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 09GAhDIr019956
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 09GAhCbL019930
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 10/12] libmpathpersist: add linker version
-	script
+Subject: [dm-devel] [PATCH v2 11/12] libmpathcmd: add linker version script
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +80,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -90,78 +90,71 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-This defines the ABI of libmpathpersist in the current state.
-The initial version is set to "LIBMPATHPERSIST_1.0.0".
+For completeness, this isn't really necessary.
+The version string is set to "LIBMPATHCMD_1.0.0".
 
 Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmpathpersist/Makefile                |  6 +++--
- libmpathpersist/libmpathpersist.version | 32 +++++++++++++++++++++++++
- 2 files changed, 36 insertions(+), 2 deletions(-)
- create mode 100644 libmpathpersist/libmpathpersist.version
+ libmpathcmd/Makefile            |  6 ++++--
+ libmpathcmd/libmpathcmd.version | 25 +++++++++++++++++++++++++
+ 2 files changed, 29 insertions(+), 2 deletions(-)
+ create mode 100644 libmpathcmd/libmpathcmd.version
 
-diff --git a/libmpathpersist/Makefile b/libmpathpersist/Makefile
-index 9e869fd..456ce4c 100644
---- a/libmpathpersist/Makefile
-+++ b/libmpathpersist/Makefile
+diff --git a/libmpathcmd/Makefile b/libmpathcmd/Makefile
+index 08ccb81..2591019 100644
+--- a/libmpathcmd/Makefile
++++ b/libmpathcmd/Makefile
 @@ -3,6 +3,7 @@ include ../Makefile.inc
  SONAME = 0
- DEVLIB = libmpathpersist.so
+ DEVLIB = libmpathcmd.so
  LIBS = $(DEVLIB).$(SONAME)
-+VERSION_SCRIPT := libmpathpersist.version
++VERSION_SCRIPT := libmpathcmd.version
  
- CFLAGS += $(LIB_CFLAGS) -I$(multipathdir) -I$(mpathpersistdir) -I$(mpathcmddir)
+ CFLAGS += $(LIB_CFLAGS)
  
-@@ -13,8 +14,9 @@ OBJS = mpath_persist.o mpath_updatepr.o mpath_pr_ioctl.o
+@@ -10,8 +11,9 @@ OBJS = mpath_cmd.o
  
- all: $(DEVLIB) man
+ all:	$(DEVLIB)
  
 -$(LIBS): $(OBJS)
--	$(CC) $(LDFLAGS) $(SHARED_FLAGS) $(LIBDEPS) -Wl,-soname=$@ -o $@ $(OBJS)
+-	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=$@ -o $@ $(OBJS) $(LIBDEPS)
 +$(LIBS): $(OBJS) $(VERSION_SCRIPT)
-+	$(CC) $(LDFLAGS) $(SHARED_FLAGS) $(LIBDEPS) -Wl,-soname=$@ \
-+		-Wl,--version-script=$(VERSION_SCRIPT) -o $@ $(OBJS)
++	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=$@ \
++		-Wl,--version-script=$(VERSION_SCRIPT) -o $@ $(OBJS) $(LIBDEPS)
  
  $(DEVLIB): $(LIBS)
  	$(LN) $(LIBS) $@
-diff --git a/libmpathpersist/libmpathpersist.version b/libmpathpersist/libmpathpersist.version
+diff --git a/libmpathcmd/libmpathcmd.version b/libmpathcmd/libmpathcmd.version
 new file mode 100644
-index 0000000..dc648ce
+index 0000000..f100628
 --- /dev/null
-+++ b/libmpathpersist/libmpathpersist.version
-@@ -0,0 +1,32 @@
++++ b/libmpathcmd/libmpathcmd.version
+@@ -0,0 +1,25 @@
 +/*
 + * Copyright (c) 2020 SUSE LLC
 + * SPDX-License-Identifier: GPL-2.0-or-later
 + *
-+ * libmpathpersist ABI
++ * libmpathcmd ABI
 + *
-+ * The ABI of libmpathpersist is supposed to remain stable. Removing symbols
++ * The ABI of libmpathcmd is supposed to remain stable. Removing symbols
 + * or altering existing symbols' semantics is not allowed. When changing a
 + * a symbol, either use a new name, or explicit symver directives.
 + *
 + * See libmultipath.version for general policy about version numbers.
 + */
-+LIBMPATHPERSIST_1.0.0 {
++LIBMPATHCMD_1.0.0 {
 +global:
-+
-+	__mpath_persistent_reserve_in;
-+	__mpath_persistent_reserve_out;
-+	dumpHex;
-+	mpath_alloc_prin_response;
-+	mpath_lib_exit;
-+	mpath_lib_init;
-+	mpath_mx_alloc_len;
-+	mpath_persistent_reserve_in;
-+	mpath_persistent_reserve_init_vecs;
-+	mpath_persistent_reserve_out;
-+	mpath_persistent_reserve_free_vecs;
-+	prin_do_scsi_ioctl;
-+	prout_do_scsi_ioctl;
-+	update_map_pr;
-+
-+local: *;
++	__mpath_connect;
++	mpath_connect;
++	mpath_disconnect;
++	mpath_process_cmd;
++	mpath_recv_reply;
++	mpath_recv_reply_len;
++	mpath_recv_reply_data;
++	mpath_send_cmd;
++local:
++	*;
 +};
 -- 
 2.28.0
