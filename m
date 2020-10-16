@@ -1,55 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 539D9290303
-	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:44:04 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 7ABFF2902FF
+	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:43:45 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-596-I0AbOg-5OmmGyIik9TBydQ-1; Fri, 16 Oct 2020 06:43:33 -0400
-X-MC-Unique: I0AbOg-5OmmGyIik9TBydQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-461-SOo3b7ioO8eiprcpnwagUw-1; Fri, 16 Oct 2020 06:43:42 -0400
+X-MC-Unique: SOo3b7ioO8eiprcpnwagUw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1C2D764166;
-	Fri, 16 Oct 2020 10:43:28 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ED12E5D9DD;
-	Fri, 16 Oct 2020 10:43:27 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ADAEB57054;
+	Fri, 16 Oct 2020 10:43:35 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8BA101007601;
+	Fri, 16 Oct 2020 10:43:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AB9E644A47;
-	Fri, 16 Oct 2020 10:43:27 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 49BA1181A71F;
+	Fri, 16 Oct 2020 10:43:35 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09GAhCbL019930 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 16 Oct 2020 06:43:13 -0400
+	id 09GAhJFK020036 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 16 Oct 2020 06:43:20 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C3DDE16C2DB; Fri, 16 Oct 2020 10:43:12 +0000 (UTC)
+	id D397916C2DD; Fri, 16 Oct 2020 10:43:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BC97A16C2DA
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:12 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CD53E16C2DB
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:19 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C8C1858298
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:12 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A474F811E76
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:19 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-161-MebyecXqOlaEGL75dJKviQ-1;
+	relay.mimecast.com with ESMTP id us-mta-458-wG96p4DyMTSUeW3pgRfTVQ-1;
 	Fri, 16 Oct 2020 06:43:08 -0400
-X-MC-Unique: MebyecXqOlaEGL75dJKviQ-1
+X-MC-Unique: wG96p4DyMTSUeW3pgRfTVQ-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 7CDBBB2B6;
+	by mx2.suse.de (Postfix) with ESMTP id B72ABB2AA;
 	Fri, 16 Oct 2020 10:43:06 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 16 Oct 2020 12:42:38 +0200
-Message-Id: <20201016104239.8217-12-mwilck@suse.com>
+Date: Fri, 16 Oct 2020 12:42:39 +0200
+Message-Id: <20201016104239.8217-13-mwilck@suse.com>
 In-Reply-To: <20201016104239.8217-1-mwilck@suse.com>
 References: <20201016104239.8217-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -63,10 +63,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 09GAhCbL019930
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 09GAhJFK020036
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 11/12] libmpathcmd: add linker version script
+Subject: [dm-devel] [PATCH v2 12/12] libmpathpersist: initialize mpp->hwe in
+	get_mpvec()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +81,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -90,72 +91,35 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-For completeness, this isn't really necessary.
-The version string is set to "LIBMPATHCMD_1.0.0".
+In __mpath_persistent_reserve_out, we call select_all_tg_pt(),
+which requires mpp->hwe to be set. Initialize it in get_mpvec().
 
-Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
+Fixes: 5b54e77 ("mpathpersist: add all_tg_pt option")
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmpathcmd/Makefile            |  6 ++++--
- libmpathcmd/libmpathcmd.version | 25 +++++++++++++++++++++++++
- 2 files changed, 29 insertions(+), 2 deletions(-)
- create mode 100644 libmpathcmd/libmpathcmd.version
+ libmpathpersist/mpath_persist.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/libmpathcmd/Makefile b/libmpathcmd/Makefile
-index 08ccb81..2591019 100644
---- a/libmpathcmd/Makefile
-+++ b/libmpathcmd/Makefile
-@@ -3,6 +3,7 @@ include ../Makefile.inc
- SONAME = 0
- DEVLIB = libmpathcmd.so
- LIBS = $(DEVLIB).$(SONAME)
-+VERSION_SCRIPT := libmpathcmd.version
+diff --git a/libmpathpersist/mpath_persist.c b/libmpathpersist/mpath_persist.c
+index 1f9817e..4b3f3e0 100644
+--- a/libmpathpersist/mpath_persist.c
++++ b/libmpathpersist/mpath_persist.c
+@@ -341,11 +341,13 @@ get_mpvec (vector curmp, vector pathvec, char * refwwid)
+ 			continue;
  
- CFLAGS += $(LIB_CFLAGS)
- 
-@@ -10,8 +11,9 @@ OBJS = mpath_cmd.o
- 
- all:	$(DEVLIB)
- 
--$(LIBS): $(OBJS)
--	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=$@ -o $@ $(OBJS) $(LIBDEPS)
-+$(LIBS): $(OBJS) $(VERSION_SCRIPT)
-+	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=$@ \
-+		-Wl,--version-script=$(VERSION_SCRIPT) -o $@ $(OBJS) $(LIBDEPS)
- 
- $(DEVLIB): $(LIBS)
- 	$(LN) $(LIBS) $@
-diff --git a/libmpathcmd/libmpathcmd.version b/libmpathcmd/libmpathcmd.version
-new file mode 100644
-index 0000000..f100628
---- /dev/null
-+++ b/libmpathcmd/libmpathcmd.version
-@@ -0,0 +1,25 @@
-+/*
-+ * Copyright (c) 2020 SUSE LLC
-+ * SPDX-License-Identifier: GPL-2.0-or-later
-+ *
-+ * libmpathcmd ABI
-+ *
-+ * The ABI of libmpathcmd is supposed to remain stable. Removing symbols
-+ * or altering existing symbols' semantics is not allowed. When changing a
-+ * a symbol, either use a new name, or explicit symver directives.
-+ *
-+ * See libmultipath.version for general policy about version numbers.
-+ */
-+LIBMPATHCMD_1.0.0 {
-+global:
-+	__mpath_connect;
-+	mpath_connect;
-+	mpath_disconnect;
-+	mpath_process_cmd;
-+	mpath_recv_reply;
-+	mpath_recv_reply_len;
-+	mpath_recv_reply_data;
-+	mpath_send_cmd;
-+local:
-+	*;
-+};
+ 		if (update_multipath_table(mpp, pathvec, DI_CHECKER) != DMP_OK ||
+-		    update_multipath_status(mpp) != DMP_OK) {
++		    update_multipath_status(mpp) != DMP_OK ||
++		    update_mpp_paths(mpp, pathvec)) {
+ 			condlog(1, "error parsing map %s", mpp->wwid);
+ 			remove_map(mpp, pathvec, curmp, PURGE_VEC);
+ 			i--;
+-		}
++		} else
++			extract_hwe_from_path(mpp);
+ 	}
+ 	return MPATH_PR_SUCCESS ;
+ }
 -- 
 2.28.0
 
