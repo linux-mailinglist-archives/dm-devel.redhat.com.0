@@ -1,55 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D6A39290315
-	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:44:24 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 35CD0290320
+	for <lists+dm-devel@lfdr.de>; Fri, 16 Oct 2020 12:45:07 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-467-ogGrDdDENEife-qGiz1goA-1; Fri, 16 Oct 2020 06:44:21 -0400
-X-MC-Unique: ogGrDdDENEife-qGiz1goA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-381-3YUlXzU0Oryj5tn-FJoLag-1; Fri, 16 Oct 2020 06:44:20 -0400
+X-MC-Unique: 3YUlXzU0Oryj5tn-FJoLag-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8FC5A9CC12;
-	Fri, 16 Oct 2020 10:44:11 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DF6E764161;
+	Fri, 16 Oct 2020 10:44:04 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2584E50B44;
-	Fri, 16 Oct 2020 10:44:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BCB8B5C269;
+	Fri, 16 Oct 2020 10:44:04 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D40755812B;
-	Fri, 16 Oct 2020 10:44:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 793D858118;
+	Fri, 16 Oct 2020 10:44:04 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09GAhtpK020243 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 16 Oct 2020 06:43:55 -0400
+	id 09GAhsvu020213 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 16 Oct 2020 06:43:54 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 522022011557; Fri, 16 Oct 2020 10:43:55 +0000 (UTC)
+	id A6D532156A37; Fri, 16 Oct 2020 10:43:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4D4792011559
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:55 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A1B972166B28
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:54 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 24FC9182360F
-	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:55 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 79A10101A568
+	for <dm-devel@redhat.com>; Fri, 16 Oct 2020 10:43:54 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-592-RpEYVGdjM7ujjs8Q75tIeg-1;
-	Fri, 16 Oct 2020 06:43:50 -0400
-X-MC-Unique: RpEYVGdjM7ujjs8Q75tIeg-1
+	relay.mimecast.com with ESMTP id us-mta-430-aTIURrNUM1asrvT_FIEFwA-1;
+	Fri, 16 Oct 2020 06:43:51 -0400
+X-MC-Unique: aTIURrNUM1asrvT_FIEFwA-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 9A28EAF48;
+	by mx2.suse.de (Postfix) with ESMTP id C48DAAF2F;
 	Fri, 16 Oct 2020 10:43:48 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 16 Oct 2020 12:43:22 +0200
-Message-Id: <20201016104329.8337-15-mwilck@suse.com>
+Date: Fri, 16 Oct 2020 12:43:23 +0200
+Message-Id: <20201016104329.8337-16-mwilck@suse.com>
 In-Reply-To: <20201016104329.8337-1-mwilck@suse.com>
 References: <20201016104329.8337-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -61,13 +61,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 09GAhtpK020243
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 09GAhsvu020213
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v3 14/21] libmpathpersist: allow using
-	libmultipath {get, put}_multipath_config
+Subject: [dm-devel] [PATCH v3 15/21] multipath: use
+	{get_put}_multipath_config from libmultipath
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +81,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,153 +91,65 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Provide an alternative init function libmpathpersist_init() which
-avoids allocating a new struct config, simply using libmultipath's
-internal implementation. This causes a minor version bump for
-libmpathpersist.
-
 Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmpathpersist/libmpathpersist.version |  6 ++++
- libmpathpersist/mpath_persist.c         | 42 +++++++++++++++++++++----
- libmpathpersist/mpath_persist.h         | 28 +++++++++++++++++
- 3 files changed, 70 insertions(+), 6 deletions(-)
+ multipath/main.c | 20 ++++----------------
+ 1 file changed, 4 insertions(+), 16 deletions(-)
 
-diff --git a/libmpathpersist/libmpathpersist.version b/libmpathpersist/libmpathpersist.version
-index dc648ce..e074813 100644
---- a/libmpathpersist/libmpathpersist.version
-+++ b/libmpathpersist/libmpathpersist.version
-@@ -30,3 +30,9 @@ global:
+diff --git a/multipath/main.c b/multipath/main.c
+index dc4974b..4bbfce9 100644
+--- a/multipath/main.c
++++ b/multipath/main.c
+@@ -68,7 +68,6 @@
  
- local: *;
- };
-+
-+LIBMPATHPERSIST_1.1.0 {
-+global:
-+	libmpathpersist_init;
-+	libmpathpersist_exit;
-+} LIBMPATHPERSIST_1.0.0;
-diff --git a/libmpathpersist/mpath_persist.c b/libmpathpersist/mpath_persist.c
-index cc4a088..febf475 100644
---- a/libmpathpersist/mpath_persist.c
-+++ b/libmpathpersist/mpath_persist.c
-@@ -37,6 +37,27 @@
- 
- extern struct udev *udev;
- 
-+static void adapt_config(struct config *conf)
-+{
-+	conf->force_sync = 1;
-+	set_max_fds(conf->max_fds);
-+}
-+
-+int libmpathpersist_init(void)
-+{
-+	struct config *conf;
-+	int rc = 0;
-+
-+	if (init_config(DEFAULT_CONFIGFILE)) {
-+		condlog(0, "Failed to initialize multipath config.");
-+		return 1;
-+	}
-+	conf = libmp_get_multipath_config();
-+	adapt_config(conf);
-+	libmp_put_multipath_config(conf);
-+	return rc;
-+}
-+
- struct config *
- mpath_lib_init (void)
- {
-@@ -47,20 +68,29 @@ mpath_lib_init (void)
- 		condlog(0, "Failed to initialize multipath config.");
- 		return NULL;
- 	}
--	conf->force_sync = 1;
--	set_max_fds(conf->max_fds);
--
-+	adapt_config(conf);
- 	return conf;
- }
- 
--int
--mpath_lib_exit (struct config *conf)
-+static void libmpathpersist_cleanup(void)
- {
- 	dm_lib_exit();
- 	cleanup_prio();
- 	cleanup_checkers();
-+}
-+
-+int
-+mpath_lib_exit (struct config *conf)
-+{
-+	libmpathpersist_cleanup();
- 	free_config(conf);
--	conf = NULL;
-+	return 0;
-+}
-+
-+int libmpathpersist_exit(void)
-+{
-+	libmpathpersist_cleanup();
-+	uninit_config();
- 	return 0;
- }
- 
-diff --git a/libmpathpersist/mpath_persist.h b/libmpathpersist/mpath_persist.h
-index 7cf4faf..91606ef 100644
---- a/libmpathpersist/mpath_persist.h
-+++ b/libmpathpersist/mpath_persist.h
-@@ -175,6 +175,22 @@ struct prout_param_descriptor {		/* PROUT parameter descriptor */
-  * DESCRIPTION :
-  *	Initialize device mapper multipath configuration. This function must be invoked first
-  *	before performing reservation management functions.
-+ *	Either this function or mpath_lib_init() may be used.
-+ *	Use this function to work with libmultipath's internal "struct config".
-+ *	Call libmpathpersist_exit() for cleanup.
-+ * RESTRICTIONS:
-+ *
-+ * RETURNS: 0->Success, 1->Failed.
-+ */
-+extern int libmpathpersist_init (void);
-+
-+/*
-+ * DESCRIPTION :
-+ *	Initialize device mapper multipath configuration. This function must be invoked first
-+ *	before performing reservation management functions.
-+ *	Either this function or libmpathpersist_init() may be used.
-+ *	Use this function to work with an application-specific "struct config".
-+ *	Call mpath_lib_exit() for cleanup.
-  * RESTRICTIONS:
-  *
-  * RETURNS: struct config ->Success, NULL->Failed.
-@@ -186,12 +202,24 @@ extern struct config * mpath_lib_init (void);
-  * DESCRIPTION :
-  *	Release device mapper multipath configuration. This function must be invoked after
-  *	performing reservation management functions.
-+ *	Use this after initialization with mpath_lib_init().
-  * RESTRICTIONS:
-  *
-  * RETURNS: 0->Success, 1->Failed.
-  */
- extern int mpath_lib_exit (struct config *conf);
- 
-+/*
-+ * DESCRIPTION :
-+ *	Release device mapper multipath configuration. This function must be invoked after
-+ *	performing reservation management functions.
-+ *	Use this after initialization with libmpathpersist_init().
-+ * RESTRICTIONS:
-+ *
-+ * RETURNS: 0->Success, 1->Failed.
-+ */
-+extern int libmpathpersist_exit (void);
-+
+ int logsink;
+ struct udev *udev;
+-struct config *multipath_conf;
  
  /*
-  * DESCRIPTION :
+  * Return values of configure(), check_path_valid(), and main().
+@@ -79,16 +78,6 @@ enum {
+ 	RTVL_RETRY, /* returned by configure(), not by main() */
+ };
+ 
+-struct config *get_multipath_config(void)
+-{
+-	return multipath_conf;
+-}
+-
+-void put_multipath_config(__attribute__((unused)) void *arg)
+-{
+-	/* Noop for now */
+-}
+-
+ static int
+ dump_config (struct config *conf, vector hwes, vector mpvec)
+ {
+@@ -823,10 +812,9 @@ main (int argc, char *argv[])
+ 
+ 	udev = udev_new();
+ 	logsink = 0;
+-	conf = load_config(DEFAULT_CONFIGFILE);
+-	if (!conf)
++	if (init_config(DEFAULT_CONFIGFILE))
+ 		exit(RTVL_FAIL);
+-	multipath_conf = conf;
++	conf = get_multipath_config();
+ 	conf->retrigger_tries = 0;
+ 	conf->force_sync = 1;
+ 	while ((arg = getopt(argc, argv, ":adDcChl::eFfM:v:p:b:BrR:itTquUwW")) != EOF ) {
+@@ -1078,8 +1066,8 @@ out_free_config:
+ 	 * the logging function (dm_write_log()), which is called there,
+ 	 * references the config.
+ 	 */
+-	free_config(conf);
+-	conf = NULL;
++	put_multipath_config(conf);
++	uninit_config();
+ 	udev_unref(udev);
+ 	if (dev)
+ 		FREE(dev);
 -- 
 2.28.0
 
