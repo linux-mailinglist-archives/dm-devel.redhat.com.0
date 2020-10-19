@@ -2,72 +2,66 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0E7562936B5
-	for <lists+dm-devel@lfdr.de>; Tue, 20 Oct 2020 10:23:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 974EC292BB3
+	for <lists+dm-devel@lfdr.de>; Mon, 19 Oct 2020 18:47:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1603126054;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=VepCY5fOslx5zPZEkbQJJZAbRdXsA0LWfbDX8csRTRU=;
+	b=TiwyIX/em/iKBOayt6fP2O9iZGQuDWAxYeJeC1aJJakfQyiBYWL8CPIBi5EQPRCMmXAcLL
+	oRSi8xRSG8pTeIgDCijXPnm8N1xwtPadSERC6GecWE6BFIWIf2OkxpOMIquL+WVv0HGP89
+	uujKlYNdHz5Y1ZQxVAY1sRJNLz+OtZA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-410-_eSJqyqmOWqYzak7WGDiDg-1; Tue, 20 Oct 2020 04:22:49 -0400
-X-MC-Unique: _eSJqyqmOWqYzak7WGDiDg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-30-hqAB0vggNZGoe_T9Uro1eA-1; Mon, 19 Oct 2020 12:47:31 -0400
+X-MC-Unique: hqAB0vggNZGoe_T9Uro1eA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3D1011087D6A;
-	Tue, 20 Oct 2020 08:22:44 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 15486100239A;
-	Tue, 20 Oct 2020 08:22:44 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4A8181084CBF;
+	Mon, 19 Oct 2020 16:47:24 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0061A55770;
+	Mon, 19 Oct 2020 16:47:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A1AEC8C7BD;
-	Tue, 20 Oct 2020 08:22:43 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E501E181A86E;
+	Mon, 19 Oct 2020 16:47:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09JBK7L5022425 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 19 Oct 2020 07:20:07 -0400
+	id 09JGkR8E006163 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 19 Oct 2020 12:46:27 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 44E8612EC0F; Mon, 19 Oct 2020 11:20:07 +0000 (UTC)
+	id 7006E5C225; Mon, 19 Oct 2020 16:46:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3E6D712EC05
-	for <dm-devel@redhat.com>; Mon, 19 Oct 2020 11:20:06 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BB7F8800883
-	for <dm-devel@redhat.com>; Mon, 19 Oct 2020 11:20:06 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-396-kt-7LDV8NDu0PNo2szNJ0g-1;
-	Mon, 19 Oct 2020 07:20:04 -0400
-X-MC-Unique: kt-7LDV8NDu0PNo2szNJ0g-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 29359B2E6;
-	Mon, 19 Oct 2020 11:20:03 +0000 (UTC)
-From: Anthony Iliopoulos <ailiop@suse.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Mon, 19 Oct 2020 13:20:17 +0200
-Message-Id: <20201019112017.18544-4-ailiop@suse.com>
-In-Reply-To: <20201019112017.18544-1-ailiop@suse.com>
-References: <20201019112017.18544-1-ailiop@suse.com>
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A44B5C22A;
+	Mon, 19 Oct 2020 16:46:23 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 09JGkL24013102; 
+	Mon, 19 Oct 2020 11:46:22 -0500
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 09JGkKdO013101;
+	Mon, 19 Oct 2020 11:46:20 -0500
+Date: Mon, 19 Oct 2020 11:46:20 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: mwilck@suse.com
+Message-ID: <20201019164620.GZ3384@octiron.msp.redhat.com>
+References: <20201016104329.8337-1-mwilck@suse.com>
+	<20201016104329.8337-12-mwilck@suse.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 09JBK7L5022425
+In-Reply-To: <20201016104329.8337-12-mwilck@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Tue, 20 Oct 2020 04:22:10 -0400
-Cc: dm-devel@redhat.com
-Subject: [dm-devel] [PATCH 3/3] multipathd: fix compilation on systems
-	without systemd
+Cc: lixiaokeng@huawei.com, dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH v3 11/21] libmultipath: protect racy
+ libdevmapper calls with a mutex
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,90 +75,448 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hide sd_notify_status as well as a bunch of variables that are specific
-to systemd notifications behind ifdefs. This fixes compilation on
-non-systemd environments due to -Werror and gcc detecting unused
-variables and functions.
-
-Signed-off-by: Anthony Iliopoulos <ailiop@suse.com>
----
- multipathd/main.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/multipathd/main.c b/multipathd/main.c
-index 8baf9abe30a6..5dd256284f61 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -173,6 +173,7 @@ daemon_status(void)
- 	return NULL;
- }
- 
-+#ifdef USE_SYSTEMD
- /*
-  * I love you too, systemd ...
-  */
-@@ -195,7 +196,6 @@ sd_notify_status(enum daemon_status state)
- 	return NULL;
- }
- 
--#ifdef USE_SYSTEMD
- static void do_sd_notify(enum daemon_status old_state,
- 			 enum daemon_status new_state)
- {
-@@ -247,7 +247,9 @@ enum daemon_status wait_for_state_change_if(enum daemon_status oldstate,
- static void __post_config_state(enum daemon_status state)
- {
- 	if (state != running_state && running_state != DAEMON_SHUTDOWN) {
-+#ifdef USE_SYSTEMD
- 		enum daemon_status old_state = running_state;
-+#endif
- 
- 		running_state = state;
- 		pthread_cond_broadcast(&config_cond);
-@@ -272,7 +274,9 @@ int set_config_state(enum daemon_status state)
- 	pthread_cleanup_push(config_cleanup, NULL);
- 	pthread_mutex_lock(&config_lock);
- 	if (running_state != state) {
-+#ifdef USE_SYSTEMD
- 		enum daemon_status old_state = running_state;
-+#endif
- 
- 		if (running_state == DAEMON_SHUTDOWN)
- 			rc = EINVAL;
-@@ -2280,7 +2284,9 @@ checkerloop (void *ap)
- 	struct timespec last_time;
- 	struct config *conf;
- 	int foreign_tick = 0;
-+#ifdef USE_SYSTEMD
- 	bool use_watchdog;
-+#endif
- 
- 	pthread_cleanup_push(rcu_unregister, NULL);
- 	rcu_register_thread();
-@@ -2292,10 +2298,12 @@ checkerloop (void *ap)
- 	get_monotonic_time(&last_time);
- 	last_time.tv_sec -= 1;
- 
-+#ifdef USE_SYSTEMD
- 	/* use_watchdog is set from process environment and never changes */
- 	conf = get_multipath_config();
- 	use_watchdog = conf->use_watchdog;
- 	put_multipath_config(conf);
-+#endif
- 
- 	while (1) {
- 		struct timespec diff_time, start_time, end_time;
--- 
-2.28.0
-
+On Fri, Oct 16, 2020 at 12:43:19PM +0200, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
+> 
+> dm_udev_wait() and dm_task_run() may access global / static state
+> in libdevmapper. They need to be protected by a lock in in our
+> multithreaded library.
+> 
+> The modified call sequence requires fixing the dmevents test:
+> devmapper.c must be added to dmevents-test_OBJDEPS to catch calls
+> to dm_task_run(). Also, the call to dmevent_poll_supported() in
+> setup() will cause init_versions() to be called, which requires
+> bypassing the wrappers in the test setup phase.
+> 
+> Cc: lixiaokeng@huawei.com
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
+> Signed-off-by: Martin Wilck <mwilck@suse.com>
+> ---
+>  libmultipath/devmapper.c          | 73 +++++++++++++++++++------------
+>  libmultipath/devmapper.h          |  2 +
+>  libmultipath/libmultipath.version |  6 +++
+>  libmultipath/util.c               |  5 +++
+>  libmultipath/util.h               |  1 +
+>  multipathd/dmevents.c             |  2 +-
+>  multipathd/waiter.c               |  2 +-
+>  tests/Makefile                    |  1 +
+>  tests/dmevents.c                  | 12 +++++
+>  9 files changed, 75 insertions(+), 29 deletions(-)
+> 
+> diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
+> index 08aa09f..2e3ae8a 100644
+> --- a/libmultipath/devmapper.c
+> +++ b/libmultipath/devmapper.c
+> @@ -42,6 +42,7 @@ static unsigned int dm_mpath_target_version[3] = { INVALID_VERSION, };
+>  
+>  static pthread_once_t dm_initialized = PTHREAD_ONCE_INIT;
+>  static pthread_once_t versions_initialized = PTHREAD_ONCE_INIT;
+> +static pthread_mutex_t libmp_dm_lock = PTHREAD_MUTEX_INITIALIZER;
+>  
+>  static int dm_conf_verbosity;
+>  
+> @@ -59,16 +60,34 @@ static inline int dm_task_set_cookie(struct dm_task *dmt, uint32_t *c, int a)
+>  	return 1;
+>  }
+>  
+> -void dm_udev_wait(unsigned int c)
+> +static void libmp_udev_wait(unsigned int c)
+>  {
+>  }
+>  
+> -void dm_udev_set_sync_support(int c)
+> +static void dm_udev_set_sync_support(int c)
+>  {
+>  }
+> -
+> +#else
+> +static void libmp_udev_wait(unsigned int c)
+> +{
+> +	pthread_mutex_lock(&libmp_dm_lock);
+> +	pthread_cleanup_push(cleanup_mutex, &libmp_dm_lock);
+> +	dm_udev_wait(c);
+> +	pthread_cleanup_pop(1);
+> +}
+>  #endif
+>  
+> +int libmp_dm_task_run(struct dm_task *dmt)
+> +{
+> +	int r;
+> +
+> +	pthread_mutex_lock(&libmp_dm_lock);
+> +	pthread_cleanup_push(cleanup_mutex, &libmp_dm_lock);
+> +	r = dm_task_run(dmt);
+> +	pthread_cleanup_pop(1);
+> +	return r;
+> +}
+> +
+>  __attribute__((format(printf, 4, 5))) static void
+>  dm_write_log (int level, const char *file, int line, const char *f, ...)
+>  {
+> @@ -196,7 +215,7 @@ static int dm_tgt_version (unsigned int *version, char *str)
+>  
+>  	dm_task_no_open_count(dmt);
+>  
+> -	if (!dm_task_run(dmt)) {
+> +	if (!libmp_dm_task_run(dmt)) {
+>  		dm_log_error(2, DM_DEVICE_LIST_VERSIONS, dmt);
+>  		condlog(0, "Can not communicate with kernel DM");
+>  		goto out;
+> @@ -380,12 +399,12 @@ dm_simplecmd (int task, const char *name, int no_flush, int need_sync, uint16_t
+>  				DM_UDEV_DISABLE_LIBRARY_FALLBACK | udev_flags))
+>  		goto out;
+>  
+> -	r = dm_task_run (dmt);
+> +	r = libmp_dm_task_run (dmt);
+>  	if (!r)
+>  		dm_log_error(2, task, dmt);
+>  
+>  	if (udev_wait_flag)
+> -			dm_udev_wait(cookie);
+> +			libmp_udev_wait(cookie);
+>  out:
+>  	dm_task_destroy (dmt);
+>  	return r;
+> @@ -472,12 +491,12 @@ dm_addmap (int task, const char *target, struct multipath *mpp,
+>  	    !dm_task_set_cookie(dmt, &cookie, udev_flags))
+>  		goto freeout;
+>  
+> -	r = dm_task_run (dmt);
+> +	r = libmp_dm_task_run (dmt);
+>  	if (!r)
+>  		dm_log_error(2, task, dmt);
+>  
+>  	if (task == DM_DEVICE_CREATE)
+> -			dm_udev_wait(cookie);
+> +			libmp_udev_wait(cookie);
+>  freeout:
+>  	if (prefixed_uuid)
+>  		FREE(prefixed_uuid);
+> @@ -587,7 +606,7 @@ do_get_info(const char *name, struct dm_info *info)
+>  
+>  	dm_task_no_open_count(dmt);
+>  
+> -	if (!dm_task_run(dmt)) {
+> +	if (!libmp_dm_task_run(dmt)) {
+>  		dm_log_error(3, DM_DEVICE_INFO, dmt);
+>  		goto out;
+>  	}
+> @@ -628,7 +647,7 @@ int dm_get_map(const char *name, unsigned long long *size, char *outparams)
+>  	dm_task_no_open_count(dmt);
+>  
+>  	errno = 0;
+> -	if (!dm_task_run(dmt)) {
+> +	if (!libmp_dm_task_run(dmt)) {
+>  		dm_log_error(3, DM_DEVICE_TABLE, dmt);
+>  		if (dm_task_get_errno(dmt) == ENXIO)
+>  			r = DMP_NOT_FOUND;
+> @@ -670,7 +689,7 @@ dm_get_prefixed_uuid(const char *name, char *uuid, int uuid_len)
+>  	if (!dm_task_set_name (dmt, name))
+>  		goto uuidout;
+>  
+> -	if (!dm_task_run(dmt)) {
+> +	if (!libmp_dm_task_run(dmt)) {
+>  		dm_log_error(3, DM_DEVICE_INFO, dmt);
+>  		goto uuidout;
+>  	}
+> @@ -741,7 +760,7 @@ int dm_get_status(const char *name, char *outstatus)
+>  	dm_task_no_open_count(dmt);
+>  
+>  	errno = 0;
+> -	if (!dm_task_run(dmt)) {
+> +	if (!libmp_dm_task_run(dmt)) {
+>  		dm_log_error(3, DM_DEVICE_STATUS, dmt);
+>  		if (dm_task_get_errno(dmt) == ENXIO)
+>  			r = DMP_NOT_FOUND;
+> @@ -794,7 +813,7 @@ int dm_type(const char *name, char *type)
+>  
+>  	dm_task_no_open_count(dmt);
+>  
+> -	if (!dm_task_run(dmt)) {
+> +	if (!libmp_dm_task_run(dmt)) {
+>  		dm_log_error(3, DM_DEVICE_TABLE, dmt);
+>  		goto out;
+>  	}
+> @@ -838,7 +857,7 @@ int dm_is_mpath(const char *name)
+>  
+>  	dm_task_no_open_count(dmt);
+>  
+> -	if (!dm_task_run(dmt)) {
+> +	if (!libmp_dm_task_run(dmt)) {
+>  		dm_log_error(3, DM_DEVICE_TABLE, dmt);
+>  		goto out_task;
+>  	}
+> @@ -902,7 +921,7 @@ dm_map_present_by_uuid(const char *uuid)
+>  	if (!dm_task_set_uuid(dmt, prefixed_uuid))
+>  		goto out_task;
+>  
+> -	if (!dm_task_run(dmt)) {
+> +	if (!libmp_dm_task_run(dmt)) {
+>  		dm_log_error(3, DM_DEVICE_INFO, dmt);
+>  		goto out_task;
+>  	}
+> @@ -948,7 +967,7 @@ dm_get_opencount (const char * mapname)
+>  	if (!dm_task_set_name(dmt, mapname))
+>  		goto out;
+>  
+> -	if (!dm_task_run(dmt)) {
+> +	if (!libmp_dm_task_run(dmt)) {
+>  		dm_log_error(3, DM_DEVICE_INFO, dmt);
+>  		goto out;
+>  	}
+> @@ -1108,7 +1127,7 @@ int dm_flush_maps (int need_suspend, int retries)
+>  
+>  	dm_task_no_open_count(dmt);
+>  
+> -	if (!dm_task_run (dmt)) {
+> +	if (!libmp_dm_task_run (dmt)) {
+>  		dm_log_error(3, DM_DEVICE_LIST, dmt);
+>  		goto out;
+>  	}
+> @@ -1154,7 +1173,7 @@ dm_message(const char * mapname, char * message)
+>  
+>  	dm_task_no_open_count(dmt);
+>  
+> -	if (!dm_task_run(dmt)) {
+> +	if (!libmp_dm_task_run(dmt)) {
+>  		dm_log_error(2, DM_DEVICE_TARGET_MSG, dmt);
+>  		goto out;
+>  	}
+> @@ -1274,7 +1293,7 @@ dm_get_maps (vector mp)
+>  
+>  	dm_task_no_open_count(dmt);
+>  
+> -	if (!dm_task_run(dmt)) {
+> +	if (!libmp_dm_task_run(dmt)) {
+>  		dm_log_error(3, DM_DEVICE_LIST, dmt);
+>  		goto out;
+>  	}
+> @@ -1359,7 +1378,7 @@ dm_mapname(int major, int minor)
+>  	 * daemon uev_trigger -> uev_add_map
+>  	 */
+>  	while (--loop) {
+> -		r = dm_task_run(dmt);
+> +		r = libmp_dm_task_run(dmt);
+>  
+>  		if (r)
+>  			break;
+> @@ -1404,7 +1423,7 @@ do_foreach_partmaps (const char * mapname,
+>  
+>  	dm_task_no_open_count(dmt);
+>  
+> -	if (!dm_task_run(dmt)) {
+> +	if (!libmp_dm_task_run(dmt)) {
+>  		dm_log_error(3, DM_DEVICE_LIST, dmt);
+>  		goto out;
+>  	}
+> @@ -1639,11 +1658,11 @@ dm_rename (const char * old, char * new, char *delim, int skip_kpartx)
+>  
+>  	if (!dm_task_set_cookie(dmt, &cookie, udev_flags))
+>  		goto out;
+> -	r = dm_task_run(dmt);
+> +	r = libmp_dm_task_run(dmt);
+>  	if (!r)
+>  		dm_log_error(2, DM_DEVICE_RENAME, dmt);
+>  
+> -	dm_udev_wait(cookie);
+> +	libmp_udev_wait(cookie);
+>  
+>  out:
+>  	dm_task_destroy(dmt);
+> @@ -1685,7 +1704,7 @@ int dm_reassign_table(const char *name, char *old, char *new)
+>  
+>  	dm_task_no_open_count(dmt);
+>  
+> -	if (!dm_task_run(dmt)) {
+> +	if (!libmp_dm_task_run(dmt)) {
+>  		dm_log_error(3, DM_DEVICE_TABLE, dmt);
+>  		goto out;
+>  	}
+> @@ -1718,7 +1737,7 @@ int dm_reassign_table(const char *name, char *old, char *new)
+>  	if (modified) {
+>  		dm_task_no_open_count(reload_dmt);
+>  
+> -		if (!dm_task_run(reload_dmt)) {
+> +		if (!libmp_dm_task_run(reload_dmt)) {
+>  			dm_log_error(3, DM_DEVICE_RELOAD, reload_dmt);
+>  			condlog(3, "%s: failed to reassign targets", name);
+>  			goto out_reload;
+> @@ -1765,7 +1784,7 @@ int dm_reassign(const char *mapname)
+>  
+>  	dm_task_no_open_count(dmt);
+>  
+> -	if (!dm_task_run(dmt)) {
+> +	if (!libmp_dm_task_run(dmt)) {
+>  		dm_log_error(3, DM_DEVICE_DEPS, dmt);
+>  		goto out;
+>  	}
+> @@ -1833,7 +1852,7 @@ int dm_setgeometry(struct multipath *mpp)
+>  		goto out;
+>  	}
+>  
+> -	r = dm_task_run(dmt);
+> +	r = libmp_dm_task_run(dmt);
+>  	if (!r)
+>  		dm_log_error(3, DM_DEVICE_SET_GEOMETRY, dmt);
+>  out:
+> diff --git a/libmultipath/devmapper.h b/libmultipath/devmapper.h
+> index c8b37e1..158057e 100644
+> --- a/libmultipath/devmapper.h
+> +++ b/libmultipath/devmapper.h
+> @@ -89,6 +89,8 @@ enum {
+>  	MULTIPATH_VERSION
+>  };
+>  int libmp_get_version(int which, unsigned int version[3]);
+> +struct dm_task;
+> +int libmp_dm_task_run(struct dm_task *dmt);
+>  
+>  #define dm_log_error(lvl, cmd, dmt)			      \
+>  	condlog(lvl, "%s: libdm task=%d error: %s", __func__, \
+> diff --git a/libmultipath/libmultipath.version b/libmultipath/libmultipath.version
+> index ab5bb0a..97acdbb 100644
+> --- a/libmultipath/libmultipath.version
+> +++ b/libmultipath/libmultipath.version
+> @@ -245,3 +245,9 @@ global:
+>  local:
+>  	*;
+>  };
+> +
+> +LIBMULTIPATH_2.1.0 {
+> +global:
+> +	libmp_dm_task_run;
+> +	cleanup_mutex;
+> +} LIBMULTIPATH_2.0.0;
+> diff --git a/libmultipath/util.c b/libmultipath/util.c
+> index 66cd721..41da6ce 100644
+> --- a/libmultipath/util.c
+> +++ b/libmultipath/util.c
+> @@ -409,6 +409,11 @@ void cleanup_free_ptr(void *arg)
+>  		free(*p);
+>  }
+>  
+> +void cleanup_mutex(void *arg)
+> +{
+> +	pthread_mutex_unlock(arg);
+> +}
+> +
+>  struct bitfield *alloc_bitfield(unsigned int maxbit)
+>  {
+>  	unsigned int n;
+> diff --git a/libmultipath/util.h b/libmultipath/util.h
+> index c1ae878..b8481af 100644
+> --- a/libmultipath/util.h
+> +++ b/libmultipath/util.h
+> @@ -49,6 +49,7 @@ int should_exit(void);
+>  
+>  void close_fd(void *arg);
+>  void cleanup_free_ptr(void *arg);
+> +void cleanup_mutex(void *arg);
+>  
+>  struct scandir_result {
+>  	struct dirent **di;
+> diff --git a/multipathd/dmevents.c b/multipathd/dmevents.c
+> index fc97c8a..b561cbf 100644
+> --- a/multipathd/dmevents.c
+> +++ b/multipathd/dmevents.c
+> @@ -156,7 +156,7 @@ static int dm_get_events(void)
+>  
+>  	dm_task_no_open_count(dmt);
+>  
+> -	if (!dm_task_run(dmt)) {
+> +	if (!libmp_dm_task_run(dmt)) {
+>  		dm_log_error(3, DM_DEVICE_LIST, dmt);
+>  		goto fail;
+>  	}
+> diff --git a/multipathd/waiter.c b/multipathd/waiter.c
+> index 16fbdc8..620bfa7 100644
+> --- a/multipathd/waiter.c
+> +++ b/multipathd/waiter.c
+> @@ -118,7 +118,7 @@ static int waiteventloop (struct event_thread *waiter)
+>  	pthread_sigmask(SIG_UNBLOCK, &set, &oldset);
+>  
+>  	pthread_testcancel();
+> -	r = dm_task_run(waiter->dmt);
+> +	r = libmp_dm_task_run(waiter->dmt);
+>  	if (!r)
+>  		dm_log_error(2, DM_DEVICE_WAITEVENT, waiter->dmt);
+>  	pthread_testcancel();
+> diff --git a/tests/Makefile b/tests/Makefile
+> index 7a73869..73ff0f5 100644
+> --- a/tests/Makefile
+> +++ b/tests/Makefile
+> @@ -39,6 +39,7 @@ endif
+>  #    linker input file).
+>  # XYZ-test_LIBDEPS: Additional libs to link for this test
+>  
+> +dmevents-test_OBJDEPS = ../libmultipath/devmapper.o
+>  dmevents-test_LIBDEPS = -lpthread -ldevmapper -lurcu
+>  hwtable-test_TESTDEPS := test-lib.o
+>  hwtable-test_OBJDEPS := ../libmultipath/discovery.o ../libmultipath/blacklist.o \
+> diff --git a/tests/dmevents.c b/tests/dmevents.c
+> index bee117a..b7c5122 100644
+> --- a/tests/dmevents.c
+> +++ b/tests/dmevents.c
+> @@ -179,6 +179,8 @@ struct dm_names *build_dm_names(void)
+>  	return names;
+>  }
+>  
+> +static bool setup_done;
+> +
+>  static int setup(void **state)
+>  {
+>  	if (dmevent_poll_supported()) {
+> @@ -186,6 +188,7 @@ static int setup(void **state)
+>  		*state = &data;
+>  	} else
+>  		*state = NULL;
+> +	setup_done = true;
+>  	return 0;
+>  }
+>  
+> @@ -262,14 +265,20 @@ struct dm_task *__wrap_libmp_dm_task_create(int task)
+>  	return mock_type(struct dm_task *);
+>  }
+>  
+> +int __real_dm_task_no_open_count(struct dm_task *dmt);
+>  int __wrap_dm_task_no_open_count(struct dm_task *dmt)
+>  {
+> +	if (!setup_done)
+> +		return __real_dm_task_no_open_count(dmt);
+>  	assert_ptr_equal((struct test_data *)dmt, &data);
+>  	return mock_type(int);
+>  }
+>  
+> +int __real_dm_task_run(struct dm_task *dmt);
+>  int __wrap_dm_task_run(struct dm_task *dmt)
+>  {
+> +	if (!setup_done)
+> +		return __real_dm_task_run(dmt);
+>  	assert_ptr_equal((struct test_data *)dmt, &data);
+>  	return mock_type(int);
+>  }
+> @@ -291,8 +300,11 @@ struct dm_names * __wrap_dm_task_get_names(struct dm_task *dmt)
+>  	return data.names;
+>  }
+>  
+> +void __real_dm_task_destroy(struct dm_task *dmt);
+>  void __wrap_dm_task_destroy(struct dm_task *dmt)
+>  {
+> +	if (!setup_done)
+> +		return __real_dm_task_destroy(dmt);
+>  	assert_ptr_equal((struct test_data *)dmt, &data);
+>  
+>  	if (data.names) {
+> -- 
+> 2.28.0
 
 --
 dm-devel mailing list
