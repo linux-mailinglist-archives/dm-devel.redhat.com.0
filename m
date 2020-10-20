@@ -2,66 +2,72 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C93DC293307
-	for <lists+dm-devel@lfdr.de>; Tue, 20 Oct 2020 04:20:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1603160441;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=18nxkIdkCYdooQEUH2zVMHzu82YM3Ok+6+xoVNZH+C0=;
-	b=AgLJjNCyY23vkjjsKnw4m144LNBIwok5RtpE7juZp0YaMn/QjwAD75vlthJv4asj4R+rgf
-	Kb+4Jj08J/G/9zXa6jl5d4VT5Gu4r+ms3ACP1NVrzm6NAUnZCPkpJ/C7H/OWnjkTVID1B1
-	03uKwA4pYLPFynsYRZXZW5vQ5NAsjW4=
+	by mail.lfdr.de (Postfix) with ESMTP id E5A112936B1
+	for <lists+dm-devel@lfdr.de>; Tue, 20 Oct 2020 10:22:58 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-105-xy1Jj5WZOP6SDyWJeSL3GA-1; Mon, 19 Oct 2020 22:20:39 -0400
-X-MC-Unique: xy1Jj5WZOP6SDyWJeSL3GA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-257-S0Rn6J6oP8u07Xj8Ll9p6w-1; Tue, 20 Oct 2020 04:22:55 -0400
+X-MC-Unique: S0Rn6J6oP8u07Xj8Ll9p6w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 22366107B473;
-	Tue, 20 Oct 2020 02:20:32 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B900E55798;
-	Tue, 20 Oct 2020 02:20:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8EF655708B;
+	Tue, 20 Oct 2020 08:22:49 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 42A016EF7C;
+	Tue, 20 Oct 2020 08:22:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9B06644A74;
-	Tue, 20 Oct 2020 02:20:24 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A709E181A050;
+	Tue, 20 Oct 2020 08:22:48 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09K2KE4W004342 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 19 Oct 2020 22:20:14 -0400
+	id 09K6xkXR003364 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 20 Oct 2020 02:59:47 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1AF856EF44; Tue, 20 Oct 2020 02:20:14 +0000 (UTC)
+	id 14F8D2011578; Tue, 20 Oct 2020 06:59:46 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E53076EF5B;
-	Tue, 20 Oct 2020 02:20:10 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 09K2K9Kb015683; 
-	Mon, 19 Oct 2020 21:20:09 -0500
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 09K2K8ck015682;
-	Mon, 19 Oct 2020 21:20:08 -0500
-Date: Mon, 19 Oct 2020 21:20:08 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: mwilck@suse.com
-Message-ID: <20201020022008.GK3384@octiron.msp.redhat.com>
-References: <20201016104501.8700-1-mwilck@suse.com>
-	<20201016104501.8700-30-mwilck@suse.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0E888201157D
+	for <dm-devel@redhat.com>; Tue, 20 Oct 2020 06:59:43 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B1D16805B00
+	for <dm-devel@redhat.com>; Tue, 20 Oct 2020 06:59:43 +0000 (UTC)
+Received: from out30-43.freemail.mail.aliyun.com
+	(out30-43.freemail.mail.aliyun.com [115.124.30.43]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-92-YkPauUsgMxmt3LSVikRR1w-1;
+	Tue, 20 Oct 2020 02:59:39 -0400
+X-MC-Unique: YkPauUsgMxmt3LSVikRR1w-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R171e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
+	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=7; SR=0;
+	TI=SMTPD_---0UCckCtY_1603176860
+Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
+	fp:SMTPD_---0UCckCtY_1603176860) by smtp.aliyun-inc.com(127.0.0.1);
+	Tue, 20 Oct 2020 14:54:20 +0800
+From: Jeffle Xu <jefflexu@linux.alibaba.com>
+To: snitzer@redhat.com, axboe@kernel.dk
+Date: Tue, 20 Oct 2020 14:54:17 +0800
+Message-Id: <20201020065420.124885-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
-In-Reply-To: <20201016104501.8700-30-mwilck@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: lixiaokeng@huawei.com, dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH v2 29/29] libmultipath: fix race between
- log_safe and log_thread_stop()
+X-Mailman-Approved-At: Tue, 20 Oct 2020 04:22:10 -0400
+Cc: linux-block@vger.kernel.org, joseph.qi@linux.alibaba.com,
+	dm-devel@redhat.com, haoxu@linux.alibaba.com,
+	xiaoguang.wang@linux.alibaba.com
+Subject: [dm-devel] [RFC 0/3] Add support of iopoll for dm device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,114 +81,156 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 16, 2020 at 12:45:01PM +0200, mwilck@suse.com wrote:
-> From: Martin Wilck <mwilck@suse.com>
-> 
-> log_safe() could race with log_thread_stop(); simply
-> checking the value of log_thr has never been safe. By converting the
-> mutexes to static initializers, we avoid having to destroy them, and thus
-> possibly accessing a destroyed mutex in log_safe(). Furthermore, taking
-> both the logev_lock and the logq_lock makes sure the logarea isn't freed
-> while we are writing to it.
-> 
+This patch set adds support of iopoll for dm device.
 
-I don't see any problems with this, but I also don't think it's necssary
-to hold the log thread lock (logev_lock), just to add a message to the
-queue. It seems like protecting the log queue is the job of logq_lock.
-As long as log_safe() enqueues the message before flush_logqueue() is
-called in log_thread_stop(), it should be fine. This could be solved by
-simply having a static variable in log_pthread.c named something like
-log_area_enabled, that always accessed while holding the logq_lock, and
-is set to true when the log_area is created, and set to false just
-before calling the flush_logqueue() in log_thread_stop(). Then log_safe
-just needs to check this before calling log_enqueue(). If it's true,
-then logged messages will get flushed, so it can safely enqueue the
-message. If it's false, then log_safe should call vsyslog() directly. 
+This is only an RFC patch. I'm really looking forward getting your
+feedbacks on if you're interested in supporting iopoll for dm device,
+or if there's a better design to implement that.
 
-In fairness, if the argument is that we should try to only lock what's
-absolutely necessary, then multipath has far worse offenders than
-logev_lock. So I don't feel super strongly about this, if there's a
-reason why you like your way better.
+Thanks.
 
--Ben
 
-> Signed-off-by: Martin Wilck <mwilck@suse.com>
-> ---
->  libmultipath/log_pthread.c | 39 ++++++++++++++++++++++++--------------
->  1 file changed, 25 insertions(+), 14 deletions(-)
-> 
-> diff --git a/libmultipath/log_pthread.c b/libmultipath/log_pthread.c
-> index 3c73941..91c9c19 100644
-> --- a/libmultipath/log_pthread.c
-> +++ b/libmultipath/log_pthread.c
-> @@ -17,31 +17,42 @@
->  
->  static pthread_t log_thr;
->  
-> -static pthread_mutex_t logq_lock;
-> -static pthread_mutex_t logev_lock;
-> -static pthread_cond_t logev_cond;
-> +/* logev_lock must not be taken with logq_lock held */
-> +static pthread_mutex_t logq_lock = PTHREAD_MUTEX_INITIALIZER;
-> +static pthread_mutex_t logev_lock = PTHREAD_MUTEX_INITIALIZER;
-> +static pthread_cond_t logev_cond = PTHREAD_COND_INITIALIZER;
->  
->  static int logq_running;
->  static int log_messages_pending;
->  
->  void log_safe (int prio, const char * fmt, va_list ap)
->  {
-> +	bool running;
-> +
->  	if (prio > LOG_DEBUG)
->  		prio = LOG_DEBUG;
->  
-> -	if (log_thr == (pthread_t)0) {
-> -		vsyslog(prio, fmt, ap);
-> -		return;
-> -	}
-> +	/*
-> +	 * logev_lock protects logq_running. By holding it, we avoid a race
-> +	 * with log_thread_stop() -> log_close(), which would free the logarea.
-> +	 */
-> +	pthread_mutex_lock(&logev_lock);
-> +	pthread_cleanup_push(cleanup_mutex, &logev_lock);
-> +	running = logq_running;
->  
-> -	pthread_mutex_lock(&logq_lock);
-> -	log_enqueue(prio, fmt, ap);
-> -	pthread_mutex_unlock(&logq_lock);
-> +	if (running) {
-> +		pthread_mutex_lock(&logq_lock);
-> +		pthread_cleanup_push(cleanup_mutex, &logq_lock);
-> +		log_enqueue(prio, fmt, ap);
-> +		pthread_cleanup_pop(1);
->  
-> -	pthread_mutex_lock(&logev_lock);
-> -	log_messages_pending = 1;
-> -	pthread_cond_signal(&logev_cond);
-> -	pthread_mutex_unlock(&logev_lock);
-> +		log_messages_pending = 1;
-> +		pthread_cond_signal(&logev_cond);
-> +	}
-> +	pthread_cleanup_pop(1);
-> +
-> +	if (!running)
-> +		vsyslog(prio, fmt, ap);
->  }
->  
->  static void flush_logqueue (void)
-> -- 
-> 2.28.0
+[Purpose]
+IO polling is an important mode of io_uring. Currently only mq devices
+support iopoll. As for dm devices, only dm-multipath is request-base,
+while others are all bio-based and have no support for iopoll.
+Supporting iopoll for dm devices can be of great meaning when the
+device seen by application is dm device such as dm-linear/dm-stripe,
+in which case iopoll is not usable for io_uring.
+
+
+[Design Notes]
+
+cookie
+------
+Let's start from cookie. Cookie is one important concept in iopoll. It
+is used to identify one specific request in one specific hardware queue.
+The concept of cookie is initially designed as a per-bio concept, and
+thus it doesn't work well when bio-split involved. When bio is split,
+the returned cookie is indeed the cookie of one of the split bio, and
+the following polling on this returned cookie can only guarantee the
+completion of this specific split bio, while the other split bios may
+be still uncompleted. Bio-split is also resolved for dm device, though
+in another form, in which case the original bio submitted to the dm
+device may be split into multiple bios submitted to the underlying
+devices.
+
+In previous discussion, Lei Ming has suggested that iopoll should be
+disabled for bio-split. This works for the normal bio-split (done in
+blk_mq_submit_bio->__blk_queue_split), while iopoll will never be
+usable for dm devices if this also applies for dm device.
+
+So come back to the design of the cookie for dm devices. At the very
+beginning I want to refactor the design of cookie, from 'unsigned int'
+type to the pointer type for dm device, so that cookie can point to
+something, e.g. a list containing all cookies of one original bio,
+something like this:
+
+struct dm_io { // the returned cookie points to dm_io
+	...
+	struct list_head cookies; 
+};
+
+In this design, we can fetch all cookies of one original bio, but the
+implementation can be difficult and buggy. For example, the
+'struct dm_io' structure may be already freed when the returned cookie
+is used in blk_poll(). Then what if maintain a refcount in struct dm_io
+so that 'struct dm_io' structure can not be freed until blk_poll()
+called? Then the 'struct dm_io' structure will never be freed if the
+IO polling is not used at all.
+
+So finally I gived up refactoring the design of cookie and maintain all
+cookies of one original bio. The initial design of cookie gets retained.
+The returned cookie is still the cookie of one of the split bio, and thus
+it is not used at all when polling dm devices. The polling of dm device,
+is indeed iterating and polling on all hardware queues (in polling mode)
+of all underlying target devices.
+
+This design is simple and easy to implement. But I'm not sure if the
+performance can be an issue if one dm device mapped to too many target
+devices or the dm stack depth grows.
+
+REQ_NOWAIT
+----------
+The polling bio will set REQ_NOWAIT in bio->bi_flags, and the device
+need to be capable of handling REQ_NOWAIT. Commit 021a24460dc2
+("block: add QUEUE_FLAG_NOWAIT") and commit 6abc49468eea ("dm: add
+support for REQ_NOWAIT and enable it for linear target") add this
+support for dm device, and currently only dm-linear supports that.
+
+hybrid polling
+--------------
+When execute hybrid polling, cookie is used to fetch the request,
+and check if the request has completed or not. In the design for
+dm device described above, the returned cookie is still the cookie
+of one of the split bios, and thus we have no way checking if all
+the split bios have completed or not. Thus in the current
+implementation, hybrid polling is not supported for dm device.
+
+
+[Performance]
+I test 4k-randread on a dm-linear mapped to only one nvme device.
+
+SSD: INTEL SSDPEDME800G4
+dm-linear:dmsetup create testdev --table "0 209715200 linear /dev/nvme0n1 0"
+
+fio configs:
+```
+ioengine=io_uring
+iodepth=128
+numjobs=1
+thread
+rw=randread
+direct=1
+registerfiles=1
+#hipri=1 with iopoll enabled, hipri=0 with iopoll disabled
+bs=4k
+size=100G
+runtime=60
+time_based
+group_reporting
+randrepeat=0
+
+[device]
+filename=/dev/mapper/testdev
+```
+
+The test result shows that there's ~40% performance growth when iopoll
+enabled.
+
+test | iops | bw | avg lat
+---- | ---- | ---- | ----
+iopoll-disabled | 244k | 953MiB/s  | 524us
+iopoll-enabled  | 345k | 1349MiB/s | 370us
+
+[TODO]
+The store method of "io_poll"/"io_poll_delay" has not been adapted
+for dm device.
+
+
+Jeffle Xu (3):
+  block/mq: add iterator for polling hw queues
+  block: add back ->poll_fn in request queue
+  dm: add support for IO polling
+
+ block/blk-mq.c         | 30 ++++++++++++++++++++++++------
+ drivers/md/dm-core.h   |  1 +
+ drivers/md/dm-table.c  | 30 ++++++++++++++++++++++++++++++
+ drivers/md/dm.c        | 40 ++++++++++++++++++++++++++++++++++++++++
+ include/linux/blk-mq.h |  6 ++++++
+ include/linux/blkdev.h |  3 +++
+ 6 files changed, 104 insertions(+), 6 deletions(-)
+
+-- 
+2.27.0
 
 --
 dm-devel mailing list
