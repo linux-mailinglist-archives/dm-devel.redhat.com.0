@@ -1,75 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 09B5B2936B7
-	for <lists+dm-devel@lfdr.de>; Tue, 20 Oct 2020 10:23:06 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id C53C82942B6
+	for <lists+dm-devel@lfdr.de>; Tue, 20 Oct 2020 21:05:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1603220742;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=yJ+aUpqVFUmed1balb6yvh6nvDFnoUcmk7zEI0tIemc=;
+	b=jNI90yxX91yY8kpC0j880JB3awZD90zVgkCKhK/oh4Ssugj+i4uwvk+VJjNdp9Q637I/pb
+	GFMma/II9KGbmsHNqQWE5tmfONRdvTAQt8Vv3XUF7oj5uSTrK3o2oYvS9GfV3Sya7x6EtV
+	dVDGGlwMcYmRsZqfFjFKkJv54gEzmY8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-193-lIQrLV_yNE-xRiSZh046fQ-1; Tue, 20 Oct 2020 04:22:57 -0400
-X-MC-Unique: lIQrLV_yNE-xRiSZh046fQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-70-n52co9csMp-RrdWgbcuACQ-1; Tue, 20 Oct 2020 15:05:40 -0400
+X-MC-Unique: n52co9csMp-RrdWgbcuACQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 403641087D6C;
-	Tue, 20 Oct 2020 08:22:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 780006408B;
+	Tue, 20 Oct 2020 19:05:33 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1DB246EF79;
-	Tue, 20 Oct 2020 08:22:47 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4849927BD2;
+	Tue, 20 Oct 2020 19:05:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B7E18181A050;
-	Tue, 20 Oct 2020 08:22:46 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4C1C7180B657;
+	Tue, 20 Oct 2020 19:05:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09K6sVSj002598 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 20 Oct 2020 02:54:31 -0400
+	id 09KJ51l4023517 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 20 Oct 2020 15:05:01 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2DFFE2166B44; Tue, 20 Oct 2020 06:54:31 +0000 (UTC)
+	id 452B45B4C5; Tue, 20 Oct 2020 19:05:01 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 291F22166B28
-	for <dm-devel@redhat.com>; Tue, 20 Oct 2020 06:54:28 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C7F00100B165
-	for <dm-devel@redhat.com>; Tue, 20 Oct 2020 06:54:28 +0000 (UTC)
-Received: from out30-54.freemail.mail.aliyun.com
-	(out30-54.freemail.mail.aliyun.com [115.124.30.54]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-131-Hf1Z4D3zNSeW2e0lzfGP1A-1;
-	Tue, 20 Oct 2020 02:54:26 -0400
-X-MC-Unique: Hf1Z4D3zNSeW2e0lzfGP1A-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357;
-	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=7; SR=0;
-	TI=SMTPD_---0UCd5jTt_1603176861
-Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0UCd5jTt_1603176861) by smtp.aliyun-inc.com(127.0.0.1);
-	Tue, 20 Oct 2020 14:54:22 +0800
-From: Jeffle Xu <jefflexu@linux.alibaba.com>
-To: snitzer@redhat.com, axboe@kernel.dk
-Date: Tue, 20 Oct 2020 14:54:20 +0800
-Message-Id: <20201020065420.124885-4-jefflexu@linux.alibaba.com>
-In-Reply-To: <20201020065420.124885-1-jefflexu@linux.alibaba.com>
-References: <20201020065420.124885-1-jefflexu@linux.alibaba.com>
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 05E7E5B4B8;
+	Tue, 20 Oct 2020 19:04:57 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 09KJ4usq020855; 
+	Tue, 20 Oct 2020 14:04:56 -0500
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 09KJ4t8i020854;
+	Tue, 20 Oct 2020 14:04:55 -0500
+Date: Tue, 20 Oct 2020 14:04:55 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: mwilck@suse.com
+Message-ID: <20201020190455.GO3384@octiron.msp.redhat.com>
+References: <20201016104501.8700-1-mwilck@suse.com>
+	<20201016104501.8700-2-mwilck@suse.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+In-Reply-To: <20201016104501.8700-2-mwilck@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Tue, 20 Oct 2020 04:22:10 -0400
-Cc: linux-block@vger.kernel.org, joseph.qi@linux.alibaba.com,
-	dm-devel@redhat.com, haoxu@linux.alibaba.com,
-	xiaoguang.wang@linux.alibaba.com
-Subject: [dm-devel] [RFC 3/3] dm: add support for IO polling
+Cc: lixiaokeng@huawei.com, dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH v2 01/29] multipathd: uxlsnr: avoid deadlock
+	on exit
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,140 +75,120 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Design of cookie is initially constrained as a per-bio concept. It
-dosn't work well when bio-split needed, and it is really an issue when
-adding support of iopoll for dm devices.
+On Fri, Oct 16, 2020 at 12:44:33PM +0200, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
+> 
+> The uxlsnr wouldn't always release the client lock when cancelled,
+> causing a deadlock in uxsock_cleanup(). While this hasn't been
+> caused by commit 3d611a2, the deadlock seems to have become much
+> more likely after that patch. Solving this means that we have to
+> treat reallocation failure of the pollfd array differently.
+> We will now just ignore any clients above the last valid pfd index.
+> That's a minor problem, as we're in an OOM situation anyway.
+> 
+> Moreover, client_lock is not a "struct lock", but a plain
+> pthread_mutex_t.
+> 
+> Fixes: 3d611a2 ("multipathd: cancel threads early during shutdown")
 
-The current algorithm implementation is simple. The returned cookie of
-dm device is actually not used since it is just the cookie of one of
-the cloned bios. Polling of dm device is actually polling on all
-hardware queues (in poll mode) of all underlying target devices.
+Oops. Forgot to send this one.
 
-Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
----
- drivers/md/dm-core.h  |  1 +
- drivers/md/dm-table.c | 30 ++++++++++++++++++++++++++++++
- drivers/md/dm.c       | 39 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 70 insertions(+)
-
-diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
-index d522093cb39d..f18e066beffe 100644
---- a/drivers/md/dm-core.h
-+++ b/drivers/md/dm-core.h
-@@ -187,4 +187,5 @@ extern atomic_t dm_global_event_nr;
- extern wait_queue_head_t dm_global_eventq;
- void dm_issue_global_event(void);
- 
-+int dm_io_poll(struct request_queue *q, blk_qc_t cookie);
- #endif
-diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-index ce543b761be7..634b79842519 100644
---- a/drivers/md/dm-table.c
-+++ b/drivers/md/dm-table.c
-@@ -1809,6 +1809,31 @@ static bool dm_table_requires_stable_pages(struct dm_table *t)
- 	return false;
- }
- 
-+static int device_not_support_poll(struct dm_target *ti, struct dm_dev *dev,
-+					   sector_t start, sector_t len, void *data)
-+{
-+	struct request_queue *q = bdev_get_queue(dev->bdev);
-+
-+	return q && !(q->queue_flags & QUEUE_FLAG_POLL);
-+}
-+
-+bool dm_table_supports_poll(struct dm_table *t)
-+{
-+	struct dm_target *ti;
-+	unsigned int i;
-+
-+	/* Ensure that all targets support DAX. */
-+	for (i = 0; i < dm_table_get_num_targets(t); i++) {
-+		ti = dm_table_get_target(t, i);
-+
-+		if (!ti->type->iterate_devices ||
-+		    ti->type->iterate_devices(ti, device_not_support_poll, NULL))
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
- void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
- 			       struct queue_limits *limits)
- {
-@@ -1901,6 +1926,11 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
- #endif
- 
- 	blk_queue_update_readahead(q);
-+
-+	if (dm_table_supports_poll(t)) {
-+		q->poll_fn = dm_io_poll;
-+		blk_queue_flag_set(QUEUE_FLAG_POLL, q);
-+	}
- }
- 
- unsigned int dm_table_get_num_targets(struct dm_table *t)
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index c18fc2548518..4eceaf87ffd4 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -1666,6 +1666,45 @@ static blk_qc_t dm_submit_bio(struct bio *bio)
- 	return ret;
- }
- 
-+static int dm_poll_one_dev(struct request_queue *q, blk_qc_t cookie)
-+{
-+	/* Iterate polling on all polling queues for mq device */
-+	if (queue_is_mq(q)) {
-+		struct blk_mq_hw_ctx *hctx;
-+		int i, ret = 0;
-+
-+		if (!percpu_ref_tryget(&q->q_usage_counter))
-+			return 0;
-+
-+		queue_for_each_poll_hw_ctx(q, hctx, i) {
-+			ret += q->mq_ops->poll(hctx);
-+		}
-+
-+		percpu_ref_put(&q->q_usage_counter);
-+		return ret;
-+	} else
-+		return q->poll_fn(q, cookie);
-+}
-+
-+int dm_io_poll(struct request_queue *q, blk_qc_t cookie)
-+{
-+	struct mapped_device *md = q->queuedata;
-+	struct dm_table *table;
-+	struct dm_dev_internal *dd;
-+	int srcu_idx;
-+	int ret = 0;
-+
-+	table = dm_get_live_table(md, &srcu_idx);
-+	if (!table)
-+		goto out;
-+
-+	list_for_each_entry(dd, dm_table_get_devices(table), list)
-+		ret += dm_poll_one_dev(bdev_get_queue(dd->dm_dev->bdev), cookie);
-+out:
-+	dm_put_live_table(md, srcu_idx);
-+	return ret;
-+}
-+
- /*-----------------------------------------------------------------
-  * An IDR is used to keep track of allocated minor numbers.
-  *---------------------------------------------------------------*/
--- 
-2.27.0
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
+> Signed-off-by: Martin Wilck <mwilck@suse.com>
+> ---
+>  multipathd/uxlsnr.c | 24 ++++++++++++++----------
+>  1 file changed, 14 insertions(+), 10 deletions(-)
+> 
+> diff --git a/multipathd/uxlsnr.c b/multipathd/uxlsnr.c
+> index 1c5ce9d..ce2b680 100644
+> --- a/multipathd/uxlsnr.c
+> +++ b/multipathd/uxlsnr.c
+> @@ -35,6 +35,7 @@
+>  #include "config.h"
+>  #include "mpath_cmd.h"
+>  #include "time-util.h"
+> +#include "util.h"
+>  
+>  #include "main.h"
+>  #include "cli.h"
+> @@ -116,7 +117,7 @@ static void _dead_client(struct client *c)
+>  
+>  static void dead_client(struct client *c)
+>  {
+> -	pthread_cleanup_push(cleanup_lock, &client_lock);
+> +	pthread_cleanup_push(cleanup_mutex, &client_lock);
+>  	pthread_mutex_lock(&client_lock);
+>  	_dead_client(c);
+>  	pthread_cleanup_pop(1);
+> @@ -302,10 +303,11 @@ void * uxsock_listen(uxsock_trigger_fn uxsock_trigger, long ux_sock,
+>  	sigdelset(&mask, SIGUSR1);
+>  	while (1) {
+>  		struct client *c, *tmp;
+> -		int i, poll_count, num_clients;
+> +		int i, n_pfds, poll_count, num_clients;
+>  
+>  		/* setup for a poll */
+>  		pthread_mutex_lock(&client_lock);
+> +		pthread_cleanup_push(cleanup_mutex, &client_lock);
+>  		num_clients = 0;
+>  		list_for_each_entry(c, &clients, node) {
+>  			num_clients++;
+> @@ -322,14 +324,13 @@ void * uxsock_listen(uxsock_trigger_fn uxsock_trigger, long ux_sock,
+>  						sizeof(struct pollfd));
+>  			}
+>  			if (!new) {
+> -				pthread_mutex_unlock(&client_lock);
+>  				condlog(0, "%s: failed to realloc %d poll fds",
+>  					"uxsock", 2 + num_clients);
+> -				sched_yield();
+> -				continue;
+> +				num_clients = old_clients;
+> +			} else {
+> +				old_clients = num_clients;
+> +				polls = new;
+>  			}
+> -			old_clients = num_clients;
+> -			polls = new;
+>  		}
+>  		polls[0].fd = ux_sock;
+>  		polls[0].events = POLLIN;
+> @@ -347,11 +348,14 @@ void * uxsock_listen(uxsock_trigger_fn uxsock_trigger, long ux_sock,
+>  			polls[i].fd = c->fd;
+>  			polls[i].events = POLLIN;
+>  			i++;
+> +			if (i >= 2 + num_clients)
+> +				break;
+>  		}
+> -		pthread_mutex_unlock(&client_lock);
+> +		n_pfds = i;
+> +		pthread_cleanup_pop(1);
+>  
+>  		/* most of our life is spent in this call */
+> -		poll_count = ppoll(polls, i, &sleep_time, &mask);
+> +		poll_count = ppoll(polls, n_pfds, &sleep_time, &mask);
+>  
+>  		handle_signals(false);
+>  		if (poll_count == -1) {
+> @@ -384,7 +388,7 @@ void * uxsock_listen(uxsock_trigger_fn uxsock_trigger, long ux_sock,
+>  		}
+>  
+>  		/* see if a client wants to speak to us */
+> -		for (i = 2; i < num_clients + 2; i++) {
+> +		for (i = 2; i < n_pfds; i++) {
+>  			if (polls[i].revents & POLLIN) {
+>  				struct timespec start_time;
+>  
+> -- 
+> 2.28.0
 
 --
 dm-devel mailing list
