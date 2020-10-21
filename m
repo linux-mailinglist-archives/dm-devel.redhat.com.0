@@ -1,65 +1,65 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id CADA6295469
-	for <lists+dm-devel@lfdr.de>; Wed, 21 Oct 2020 23:43:07 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 6593C295453
+	for <lists+dm-devel@lfdr.de>; Wed, 21 Oct 2020 23:40:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1603316586;
+	s=mimecast20190719; t=1603316405;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=pzE7Pbz9R0GieuLg8kIpL9qO8JpgfDMZYDvDfAIufnM=;
-	b=TGxcKB4yK+NZKFyOZorwhow6og/YZL1i3Jeg0LqqcLLtub+tZJlcwc8WUWXawEdzIFfr+a
-	84V13kB28F+sK2c10CB2BbjvkxzLX5vhrS/ZLXDXbUPfa9UbBFiZUoRtV/qTBhAI1DCwr6
-	EPRlUdSpacS6gvzimNUbwU2xQ6+UGzc=
+	bh=THfIMiT5t6+9ciFii9BYp/Wjwu/q1Q0pXDIHVdjQskU=;
+	b=dqyxM6+O8dqTvq51TYyD6odpo4a47ezV/RsbNIw206kvL/xRG3+FJ795l7tx0CwopZFu4S
+	Jtnui7wa0jNl9FSx1jZvEubqYS5/PdNPsqJwQmNeQk6ReZkhNKssZs35ix9FqNgj2MlNmg
+	OrMCodYvm9s2rkgf6jJ5lmBex9lhUdU=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-319-vweZ6-8eNrSPiJb0GKjbTw-1; Wed, 21 Oct 2020 17:42:02 -0400
-X-MC-Unique: vweZ6-8eNrSPiJb0GKjbTw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-95-hMauZbzHOOGlbkMQuEDA3g-1; Wed, 21 Oct 2020 17:40:02 -0400
+X-MC-Unique: hMauZbzHOOGlbkMQuEDA3g-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7E6971005E77;
-	Wed, 21 Oct 2020 21:41:56 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 671C21087D69;
+	Wed, 21 Oct 2020 21:39:55 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5ACA41002C03;
-	Wed, 21 Oct 2020 21:41:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 78D625B4BC;
+	Wed, 21 Oct 2020 21:39:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D8A89922E2;
-	Wed, 21 Oct 2020 21:41:55 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9FDD98C7DE;
+	Wed, 21 Oct 2020 21:39:43 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09LLdXq0008770 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 21 Oct 2020 17:39:33 -0400
+	id 09LLdYJq008781 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 21 Oct 2020 17:39:34 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5525E5C225; Wed, 21 Oct 2020 21:39:33 +0000 (UTC)
+	id BDF1019D7C; Wed, 21 Oct 2020 21:39:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 47F415C1C7;
-	Wed, 21 Oct 2020 21:39:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3020A19C78;
+	Wed, 21 Oct 2020 21:39:31 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 09LLdTDw028783; 
-	Wed, 21 Oct 2020 16:39:29 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 09LLdTda028787; 
+	Wed, 21 Oct 2020 16:39:30 -0500
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 09LLdSpS028782;
-	Wed, 21 Oct 2020 16:39:28 -0500
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 09LLdTtY028786;
+	Wed, 21 Oct 2020 16:39:29 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Wed, 21 Oct 2020 16:39:24 -0500
-Message-Id: <1603316366-28735-3-git-send-email-bmarzins@redhat.com>
+Date: Wed, 21 Oct 2020 16:39:25 -0500
+Message-Id: <1603316366-28735-4-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1603316366-28735-1-git-send-email-bmarzins@redhat.com>
 References: <1603316366-28735-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
 Cc: device-mapper development <dm-devel@redhat.com>,
 	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH v3 2/4] multipath-tools tests: and unit tests for
-	libmpathvalid
+Subject: [dm-devel] [PATCH v3 3/4] libmultipath: add uid failback for dasd
+	devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -74,7 +74,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -82,529 +82,88 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+Add failback code to get the uid for dasd devices from sysfs. Copied
+from dasdinfo
+
+Reviewed-by: Martin Wilck <mwilck@suse.com>
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- Makefile.inc       |   1 +
- tests/Makefile     |   5 +-
- tests/mpathvalid.c | 467 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 472 insertions(+), 1 deletion(-)
- create mode 100644 tests/mpathvalid.c
+ libmultipath/defaults.h  |  1 +
+ libmultipath/discovery.c | 37 ++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 37 insertions(+), 1 deletion(-)
 
-diff --git a/Makefile.inc b/Makefile.inc
-index e05f3a91..13587a9f 100644
---- a/Makefile.inc
-+++ b/Makefile.inc
-@@ -66,6 +66,7 @@ libdir		= $(prefix)/$(LIB)/multipath
- unitdir		= $(prefix)/$(SYSTEMDPATH)/systemd/system
- mpathpersistdir	= $(TOPDIR)/libmpathpersist
- mpathcmddir	= $(TOPDIR)/libmpathcmd
-+mpathvaliddir	= $(TOPDIR)/libmpathvalid
- thirdpartydir	= $(TOPDIR)/third-party
- libdmmpdir	= $(TOPDIR)/libdmmp
- nvmedir		= $(TOPDIR)/libmultipath/nvme
-diff --git a/tests/Makefile b/tests/Makefile
-index 73ff0f5c..73ec0702 100644
---- a/tests/Makefile
-+++ b/tests/Makefile
-@@ -13,7 +13,7 @@ CFLAGS += $(BIN_CFLAGS) -I$(multipathdir) -I$(mpathcmddir) \
- LIBDEPS += -L. -L$(mpathcmddir) -lmultipath -lmpathcmd -lcmocka
+diff --git a/libmultipath/defaults.h b/libmultipath/defaults.h
+index 39a5e415..947ba467 100644
+--- a/libmultipath/defaults.h
++++ b/libmultipath/defaults.h
+@@ -8,6 +8,7 @@
+  */
+ #define DEFAULT_UID_ATTRIBUTE	"ID_SERIAL"
+ #define DEFAULT_NVME_UID_ATTRIBUTE	"ID_WWN"
++#define DEFAULT_DASD_UID_ATTRIBUTE	"ID_UID"
+ #define DEFAULT_UDEVDIR		"/dev"
+ #define DEFAULT_MULTIPATHDIR	"/" LIB_STRING "/multipath"
+ #define DEFAULT_SELECTOR	"service-time 0"
+diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
+index cbde3585..d7e8577f 100644
+--- a/libmultipath/discovery.c
++++ b/libmultipath/discovery.c
+@@ -1957,12 +1957,44 @@ get_vpd_uid(struct path * pp)
+ 	return get_vpd_sysfs(parent, 0x83, pp->wwid, WWID_SIZE);
+ }
  
- TESTS := uevent parser util dmevents hwtable blacklist unaligned vpd pgpolicy \
--	 alias directio valid devt
-+	 alias directio valid devt mpathvalid
- 
- .SILENT: $(TESTS:%=%.o)
- .PRECIOUS: $(TESTS:%=%-test)
-@@ -30,6 +30,7 @@ endif
- ifneq ($(DIO_TEST_DEV),)
- directio-test_FLAGS := -DDIO_TEST_DEV=\"$(DIO_TEST_DEV)\"
- endif
-+mpathvalid-test_FLAGS := -I$(mpathvaliddir)
- 
- # test-specific linker flags
- # XYZ-test_TESTDEPS: test libraries containing __wrap_xyz functions
-@@ -55,6 +56,8 @@ alias-test_LIBDEPS := -lpthread -ldl
- valid-test_OBJDEPS := ../libmultipath/valid.o
- valid-test_LIBDEPS := -ludev -lpthread -ldl
- devt-test_LIBDEPS := -ludev
-+mpathvalid-test_LIBDEPS := -ludev -lpthread -ldl
-+mpathvalid-test_OBJDEPS := ../libmpathvalid/mpath_valid.o
- ifneq ($(DIO_TEST_DEV),)
- directio-test_LIBDEPS := -laio
- endif
-diff --git a/tests/mpathvalid.c b/tests/mpathvalid.c
-new file mode 100644
-index 00000000..5ffabb9d
---- /dev/null
-+++ b/tests/mpathvalid.c
-@@ -0,0 +1,467 @@
-+/*
-+ * Copyright (c) 2020 Benjamin Marzinski, Red Hat
-+ *
-+ * SPDX-License-Identifier: GPL-2.0-or-later
-+ */
-+#include <stdbool.h>
-+#include <stdarg.h>
-+#include <stddef.h>
-+#include <setjmp.h>
-+#include <stdlib.h>
-+#include <unistd.h>
-+#include <libudev.h>
-+#include <cmocka.h>
-+#include "structs.h"
-+#include "config.h"
-+#include "mpath_valid.h"
-+#include "util.h"
-+#include "debug.h"
-+
-+const char *test_dev = "test_name";
-+#define TEST_WWID "WWID_123"
-+#define CONF_TEMPLATE "mpathvalid-testconf-XXXXXXXX"
-+char conf_name[] = CONF_TEMPLATE;
-+bool initialized;
-+
-+#if 0
-+static int mode_to_findmp(unsigned int mode)
++/* based on code from s390-tools/dasdinfo/dasdinfo.c */
++static ssize_t dasd_get_uid(struct path *pp)
 +{
-+	switch (mode) {
-+	case MPATH_SMART:
-+		return FIND_MULTIPATHS_SMART;
-+	case MPATH_GREEDY:
-+		return FIND_MULTIPATHS_GREEDY;
-+	case MPATH_STRICT:
-+		return FIND_MULTIPATHS_STRICT;
-+	}
-+	fail_msg("invalid mode: %u", mode);
-+	return FIND_MULTIPATHS_UNDEF;
-+}
-+#endif
++	struct udev_device *parent;
++	char value[80];
++	char *p;
++	int i;
 +
-+static unsigned int findmp_to_mode(int findmp)
-+{
-+	switch (findmp) {
-+	case FIND_MULTIPATHS_SMART:
-+		return MPATH_SMART;
-+	case FIND_MULTIPATHS_GREEDY:
-+		return MPATH_GREEDY;
-+	case FIND_MULTIPATHS_STRICT:
-+	case FIND_MULTIPATHS_OFF:
-+	case FIND_MULTIPATHS_ON:
-+		return MPATH_STRICT;
-+	}
-+	fail_msg("invalid find_multipaths value: %d", findmp);
-+	return MPATH_DEFAULT;
-+}
-+
-+int __wrap_is_path_valid(const char *name, struct config *conf, struct path *pp,
-+			 bool check_multipathd)
-+{
-+	int r = mock_type(int);
-+	int findmp = mock_type(int);
-+
-+	assert_ptr_equal(name, test_dev);
-+	assert_ptr_not_equal(conf, NULL);
-+	assert_ptr_not_equal(pp, NULL);
-+	assert_true(check_multipathd);
-+
-+	assert_int_equal(findmp, conf->find_multipaths);	
-+	if (r == MPATH_IS_ERROR || r == MPATH_IS_NOT_VALID)
-+		return r;
-+	
-+	strlcpy(pp->wwid, mock_ptr_type(char *), WWID_SIZE);
-+	return r;
-+}
-+
-+int __wrap_libmultipath_init(void)
-+{
-+	int r = mock_type(int);
-+
-+	assert_false(initialized);
-+	if (r != 0)
-+		return r;
-+	initialized = true;
-+	return 0;
-+}
-+
-+void __wrap_libmultipath_exit(void)
-+{
-+	assert_true(initialized);
-+	initialized = false;
-+}
-+
-+int __wrap_dm_prereq(unsigned int *v)
-+{
-+	assert_ptr_not_equal(v, NULL);
-+	return mock_type(int);
-+}
-+
-+int __real_init_config(const char *file);
-+
-+int __wrap_init_config(const char *file)
-+{
-+	int r = mock_type(int);
-+	struct config *conf;
-+
-+	assert_ptr_equal(file, DEFAULT_CONFIGFILE);
-+	if (r != 0)
-+		return r;
-+
-+	assert_string_not_equal(conf_name, CONF_TEMPLATE);
-+	r = __real_init_config(conf_name);
-+	conf = get_multipath_config();
-+	assert_ptr_not_equal(conf, NULL);
-+	assert_int_equal(conf->find_multipaths, mock_type(int));
-+	return 0;
-+}
-+
-+static const char * const find_multipaths_optvals[] = {
-+        [FIND_MULTIPATHS_OFF] = "off",
-+        [FIND_MULTIPATHS_ON] = "on",
-+        [FIND_MULTIPATHS_STRICT] = "strict",
-+        [FIND_MULTIPATHS_GREEDY] = "greedy",
-+        [FIND_MULTIPATHS_SMART] = "smart",
-+};
-+
-+void make_config_file(int findmp)
-+{
-+	int r, fd;
-+	char buf[64];
-+
-+	assert_true(findmp > FIND_MULTIPATHS_UNDEF &&
-+		    findmp < __FIND_MULTIPATHS_LAST);
-+
-+	r = snprintf(buf, sizeof(buf), "defaults {\nfind_multipaths %s\n}\n",
-+		     find_multipaths_optvals[findmp]);
-+	assert_true(r > 0 && (long unsigned int)r < sizeof(buf));
-+
-+	memcpy(conf_name, CONF_TEMPLATE, sizeof(conf_name));
-+	fd = mkstemp(conf_name);
-+	assert_true(fd >= 0);
-+	assert_int_equal(safe_write(fd, buf, r), 0);
-+	assert_int_equal(close(fd), 0);
-+}
-+
-+int setup(void **state)
-+{
-+	initialized = false;
-+	udev = udev_new();
-+	if (udev == NULL)
++	parent = udev_device_get_parent_with_subsystem_devtype(pp->udev, "ccw",
++							       NULL);
++	if (!parent)
 +		return -1;
-+	return 0;
++
++	if (sysfs_attr_get_value(parent, "uid", value, 80) < 0)
++		return -1;
++
++	p = value - 1;
++	/* look for the 4th '.' and cut there */
++	for (i = 0; i < 4; i++) {
++		p = index(p + 1, '.');
++		if (!p)
++			break;
++	}
++	if (p)
++		*p = '\0';
++
++	return strlcpy(pp->wwid, value, WWID_SIZE);
 +}
 +
-+int teardown(void **state)
-+{
-+	struct config *conf;
-+	conf = get_multipath_config();
-+	put_multipath_config(conf);
-+	if (conf)
-+		uninit_config();
-+	if (strcmp(conf_name, CONF_TEMPLATE) != 0)
-+		unlink(conf_name);
-+	udev_unref(udev);
-+	udev = NULL;
-+	return 0;
-+}
-+
-+static void check_config(bool valid_config)
-+{
-+	struct config *conf;
-+
-+	conf = get_multipath_config();
-+	put_multipath_config(conf);
-+	if (valid_config)
-+		assert_ptr_not_equal(conf, NULL);
-+}
-+
-+/* libmultipath_init fails */
-+static void test_mpathvalid_init_bad1(void **state)
-+{
-+	will_return(__wrap_libmultipath_init, 1);
-+	assert_int_equal(mpathvalid_init(MPATH_LOG_PRIO_DEBUG,
-+					 MPATH_LOG_STDERR), -1);
-+	assert_false(initialized);
-+	check_config(false);
-+}
-+
-+/* init_config fails */
-+static void test_mpathvalid_init_bad2(void **state)
-+{
-+	will_return(__wrap_libmultipath_init, 0);
-+	will_return(__wrap_init_config, 1);
-+	assert_int_equal(mpathvalid_init(MPATH_LOG_PRIO_ERR,
-+					 MPATH_LOG_STDERR_TIMESTAMP), -1);
-+	assert_false(initialized);
-+	check_config(false);
-+}
-+
-+/* dm_prereq fails */
-+static void test_mpathvalid_init_bad3(void **state)
-+{
-+	make_config_file(FIND_MULTIPATHS_STRICT);
-+	will_return(__wrap_libmultipath_init, 0);
-+	will_return(__wrap_init_config, 0);
-+	will_return(__wrap_init_config, FIND_MULTIPATHS_STRICT);
-+	will_return(__wrap_dm_prereq, 1);
-+	assert_int_equal(mpathvalid_init(MPATH_LOG_STDERR, MPATH_LOG_PRIO_ERR),
-+			 -1);
-+	assert_false(initialized);
-+	check_config(false);
-+}
-+
-+static void check_mpathvalid_init(int findmp, int prio, int log_style)
-+{
-+	make_config_file(findmp);
-+	will_return(__wrap_libmultipath_init, 0);
-+	will_return(__wrap_init_config, 0);
-+	will_return(__wrap_init_config, findmp);
-+	will_return(__wrap_dm_prereq, 0);
-+	assert_int_equal(mpathvalid_init(prio, log_style), 0);	
-+	assert_true(initialized);
-+	check_config(true);
-+	assert_int_equal(logsink, log_style);
-+	assert_int_equal(libmp_verbosity, prio);
-+	assert_int_equal(findmp_to_mode(findmp), mpathvalid_get_mode());
-+}
-+
-+static void check_mpathvalid_exit(void)
-+{
-+	assert_int_equal(mpathvalid_exit(), 0);
-+	assert_false(initialized);
-+	check_config(false);
-+}
-+
-+static void test_mpathvalid_init_good1(void **state)
-+{
-+	check_mpathvalid_init(FIND_MULTIPATHS_OFF, MPATH_LOG_PRIO_ERR,
-+			      MPATH_LOG_STDERR_TIMESTAMP);
-+}
-+
-+static void test_mpathvalid_init_good2(void **state)
-+{
-+	check_mpathvalid_init(FIND_MULTIPATHS_STRICT, MPATH_LOG_PRIO_DEBUG,
-+			      MPATH_LOG_STDERR);
-+}
-+
-+static void test_mpathvalid_init_good3(void **state)
-+{
-+	check_mpathvalid_init(FIND_MULTIPATHS_ON, MPATH_LOG_PRIO_NOLOG,
-+			      MPATH_LOG_SYSLOG);
-+}
-+
-+static void test_mpathvalid_exit(void **state)
-+{
-+	check_mpathvalid_init(FIND_MULTIPATHS_ON, MPATH_LOG_PRIO_ERR,
-+			      MPATH_LOG_STDERR);
-+	check_mpathvalid_exit();
-+}
-+
-+/* fails if config hasn't been set */
-+static void test_mpathvalid_get_mode_bad(void **state)
-+{
-+#if 1
-+	assert_int_equal(mpathvalid_get_mode(), MPATH_MODE_ERROR);
-+#else
-+	assert_int_equal(mpathvalid_get_mode(), 1);
-+#endif
-+}
-+
-+/*fails if config hasn't been set */
-+static void test_mpathvalid_reload_config_bad1(void **state)
-+{
-+#if 1
-+	will_return(__wrap_init_config, 1);
-+#endif
-+	assert_int_equal(mpathvalid_reload_config(), -1);
-+	check_config(false);
-+}
-+
-+/* init_config fails */
-+static void test_mpathvalid_reload_config_bad2(void **state)
-+{
-+	check_mpathvalid_init(FIND_MULTIPATHS_ON, MPATH_LOG_PRIO_ERR,
-+			      MPATH_LOG_STDERR);
-+	will_return(__wrap_init_config, 1);
-+	assert_int_equal(mpathvalid_reload_config(), -1);
-+	check_config(false);
-+	check_mpathvalid_exit();
-+}
-+
-+static void check_mpathvalid_reload_config(int findmp)
-+{
-+	assert_string_not_equal(conf_name, CONF_TEMPLATE);
-+	unlink(conf_name);
-+	make_config_file(findmp);
-+	will_return(__wrap_init_config, 0);
-+	will_return(__wrap_init_config, findmp);
-+	assert_int_equal(mpathvalid_reload_config(), 0);
-+	check_config(true);
-+	assert_int_equal(findmp_to_mode(findmp), mpathvalid_get_mode());
-+}
-+
-+static void test_mpathvalid_reload_config_good(void **state)
-+{
-+	check_mpathvalid_init(FIND_MULTIPATHS_OFF, MPATH_LOG_PRIO_ERR,
-+			      MPATH_LOG_STDERR);
-+	check_mpathvalid_reload_config(FIND_MULTIPATHS_ON);
-+	check_mpathvalid_reload_config(FIND_MULTIPATHS_GREEDY);
-+	check_mpathvalid_reload_config(FIND_MULTIPATHS_SMART);
-+	check_mpathvalid_reload_config(FIND_MULTIPATHS_STRICT);
-+	check_mpathvalid_exit();
-+}
-+
-+/* NULL name */
-+static void test_mpathvalid_is_path_bad1(void **state)
-+{
-+	assert_int_equal(mpathvalid_is_path(NULL, MPATH_STRICT, NULL, NULL, 0),
-+			 MPATH_IS_ERROR);
-+}
-+
-+/* bad mode */
-+static void test_mpathvalid_is_path_bad2(void **state)
-+{
-+	assert_int_equal(mpathvalid_is_path(test_dev, MPATH_MODE_ERROR, NULL,
-+					    NULL, 0), MPATH_IS_ERROR);
-+}
-+
-+/* NULL path_wwids and non-zero nr_paths */
-+static void test_mpathvalid_is_path_bad3(void **state)
-+{
-+	assert_int_equal(mpathvalid_is_path(test_dev, MPATH_MODE_ERROR, NULL,
-+			 		    NULL, 1), MPATH_IS_ERROR);
-+}
-+
-+/*fails if config hasn't been set */
-+static void test_mpathvalid_is_path_bad4(void **state)
-+{
-+#if 0
-+	will_return(__wrap_is_path_valid, MPATH_IS_ERROR);
-+	will_return(__wrap_is_path_valid, FIND_MULTIPATHS_STRICT);
-+#endif
-+	assert_int_equal(mpathvalid_is_path(test_dev, MPATH_STRICT, NULL,
-+					    NULL, 0), MPATH_IS_ERROR);
-+}
-+
-+/* is_path_valid fails */
-+static void test_mpathvalid_is_path_bad5(void **state)
-+{
-+	check_mpathvalid_init(FIND_MULTIPATHS_OFF, MPATH_LOG_PRIO_ERR,
-+			      MPATH_LOG_STDERR);
-+	will_return(__wrap_is_path_valid, MPATH_IS_ERROR);
-+	will_return(__wrap_is_path_valid, FIND_MULTIPATHS_GREEDY);
-+	assert_int_equal(mpathvalid_is_path(test_dev, MPATH_GREEDY, NULL,
-+					    NULL, 0), MPATH_IS_ERROR);
-+	check_mpathvalid_exit();
-+}
-+
-+static void test_mpathvalid_is_path_good1(void **state)
-+{
-+	char *wwid;
-+	check_mpathvalid_init(FIND_MULTIPATHS_STRICT, MPATH_LOG_PRIO_ERR,
-+			      MPATH_LOG_STDERR);
-+	will_return(__wrap_is_path_valid, MPATH_IS_NOT_VALID);
-+	will_return(__wrap_is_path_valid, FIND_MULTIPATHS_STRICT);
-+	assert_int_equal(mpathvalid_is_path(test_dev, MPATH_DEFAULT, &wwid,
-+			 		    NULL, 0), MPATH_IS_NOT_VALID);
-+	assert_ptr_equal(wwid, NULL);
-+	check_mpathvalid_exit();
-+}
-+
-+static void test_mpathvalid_is_path_good2(void **state)
-+{
-+	const char *wwids[] = { "WWID_A", "WWID_B", "WWID_C", "WWID_D" };
-+	char *wwid;
-+	check_mpathvalid_init(FIND_MULTIPATHS_ON, MPATH_LOG_PRIO_ERR,
-+			      MPATH_LOG_STDERR);
-+	will_return(__wrap_is_path_valid, MPATH_IS_VALID);
-+	will_return(__wrap_is_path_valid, FIND_MULTIPATHS_ON);
-+	will_return(__wrap_is_path_valid, TEST_WWID);
-+	assert_int_equal(mpathvalid_is_path(test_dev, MPATH_DEFAULT, &wwid,
-+					    wwids, 4), MPATH_IS_VALID);
-+	assert_string_equal(wwid, TEST_WWID);
-+}
-+
-+static void test_mpathvalid_is_path_good3(void **state)
-+{
-+	const char *wwids[] = { "WWID_A", "WWID_B", "WWID_C", "WWID_D" };
-+	char *wwid;
-+	check_mpathvalid_init(FIND_MULTIPATHS_OFF, MPATH_LOG_PRIO_ERR,
-+			      MPATH_LOG_STDERR);
-+	will_return(__wrap_is_path_valid, MPATH_IS_VALID);
-+	will_return(__wrap_is_path_valid, FIND_MULTIPATHS_SMART);
-+	will_return(__wrap_is_path_valid, TEST_WWID);
-+	assert_int_equal(mpathvalid_is_path(test_dev, MPATH_SMART, &wwid,
-+					    wwids, 4), MPATH_IS_VALID);
-+	assert_string_equal(wwid, TEST_WWID);
-+}
-+
-+/* mabybe valid with no matching paths */
-+static void test_mpathvalid_is_path_good4(void **state)
-+{
-+	const char *wwids[] = { "WWID_A", "WWID_B", "WWID_C", "WWID_D" };
-+	char *wwid;
-+	check_mpathvalid_init(FIND_MULTIPATHS_SMART, MPATH_LOG_PRIO_ERR,
-+			      MPATH_LOG_STDERR);
-+	will_return(__wrap_is_path_valid, MPATH_IS_MAYBE_VALID);
-+	will_return(__wrap_is_path_valid, FIND_MULTIPATHS_SMART);
-+	will_return(__wrap_is_path_valid, TEST_WWID);
-+	assert_int_equal(mpathvalid_is_path(test_dev, MPATH_DEFAULT, &wwid,
-+					    wwids, 4), MPATH_IS_MAYBE_VALID);
-+	assert_string_equal(wwid, TEST_WWID);
-+}
-+
-+/* maybe valid with matching paths */
-+static void test_mpathvalid_is_path_good5(void **state)
-+{
-+	const char *wwids[] = { "WWID_A", "WWID_B", TEST_WWID, "WWID_D" };
-+	char *wwid;
-+	check_mpathvalid_init(FIND_MULTIPATHS_SMART, MPATH_LOG_PRIO_ERR,
-+			      MPATH_LOG_STDERR);
-+	will_return(__wrap_is_path_valid, MPATH_IS_MAYBE_VALID);
-+	will_return(__wrap_is_path_valid, FIND_MULTIPATHS_SMART);
-+	will_return(__wrap_is_path_valid, TEST_WWID);
-+	assert_int_equal(mpathvalid_is_path(test_dev, MPATH_DEFAULT, &wwid,
-+					    wwids, 4), MPATH_IS_VALID);
-+	assert_string_equal(wwid, TEST_WWID);
-+}
-+
-+#define setup_test(name) \
-+	cmocka_unit_test_setup_teardown(name, setup, teardown)
-+
-+int test_mpathvalid(void)
-+{
-+	const struct CMUnitTest tests[] = {
-+		setup_test(test_mpathvalid_init_bad1),
-+		setup_test(test_mpathvalid_init_bad2),
-+		setup_test(test_mpathvalid_init_bad3),
-+		setup_test(test_mpathvalid_init_good1),
-+		setup_test(test_mpathvalid_init_good2),
-+		setup_test(test_mpathvalid_init_good3),
-+		setup_test(test_mpathvalid_exit),
-+		setup_test(test_mpathvalid_get_mode_bad),
-+		setup_test(test_mpathvalid_reload_config_bad1),
-+		setup_test(test_mpathvalid_reload_config_bad2),
-+		setup_test(test_mpathvalid_reload_config_good),
-+		setup_test(test_mpathvalid_is_path_bad1),
-+		setup_test(test_mpathvalid_is_path_bad2),
-+		setup_test(test_mpathvalid_is_path_bad3),
-+		setup_test(test_mpathvalid_is_path_bad4),
-+		setup_test(test_mpathvalid_is_path_bad5),
-+		setup_test(test_mpathvalid_is_path_good1),
-+		setup_test(test_mpathvalid_is_path_good2),
-+		setup_test(test_mpathvalid_is_path_good3),
-+		setup_test(test_mpathvalid_is_path_good4),
-+		setup_test(test_mpathvalid_is_path_good5),
-+	};
-+	return cmocka_run_group_tests(tests, NULL, NULL);
-+}
-+
-+int main(void)
-+{
-+	int r = 0;
-+
-+	r += test_mpathvalid();
-+	return r;
-+}
+ static ssize_t uid_fallback(struct path *pp, int path_state,
+ 			    const char **origin)
+ {
+ 	ssize_t len = -1;
+ 
+-	if (pp->bus == SYSFS_BUS_SCSI) {
++	if (pp->bus == SYSFS_BUS_CCW) {
++		len = dasd_get_uid(pp);
++		*origin = "sysfs";
++	} else if (pp->bus == SYSFS_BUS_SCSI) {
+ 		len = get_vpd_uid(pp);
+ 		*origin = "sysfs";
+ 		if (len < 0 && path_state == PATH_UP) {
+@@ -2010,6 +2042,9 @@ static bool has_uid_fallback(struct path *pp)
+ 		  !strcmp(pp->uid_attribute, ""))) ||
+ 		(pp->bus == SYSFS_BUS_NVME &&
+ 		 (!strcmp(pp->uid_attribute, DEFAULT_NVME_UID_ATTRIBUTE) ||
++		  !strcmp(pp->uid_attribute, ""))) ||
++		(pp->bus == SYSFS_BUS_CCW &&
++		 (!strcmp(pp->uid_attribute, DEFAULT_DASD_UID_ATTRIBUTE) ||
+ 		  !strcmp(pp->uid_attribute, ""))));
+ }
+ 
 -- 
 2.17.2
 
