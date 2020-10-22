@@ -2,72 +2,74 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 586AB296549
-	for <lists+dm-devel@lfdr.de>; Thu, 22 Oct 2020 21:25:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CC33D296566
+	for <lists+dm-devel@lfdr.de>; Thu, 22 Oct 2020 21:31:22 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-296-dbujErEpN-eAlkhquv5msA-1; Thu, 22 Oct 2020 15:25:49 -0400
-X-MC-Unique: dbujErEpN-eAlkhquv5msA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-46-xUC4HsUmMa2S09qMo0OjMg-1; Thu, 22 Oct 2020 15:31:19 -0400
+X-MC-Unique: xUC4HsUmMa2S09qMo0OjMg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BDBD3188C133;
-	Thu, 22 Oct 2020 19:25:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0220A1009E22;
+	Thu, 22 Oct 2020 19:31:14 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 58B435D9CC;
-	Thu, 22 Oct 2020 19:25:40 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EA36E60BFA;
+	Thu, 22 Oct 2020 19:31:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 823E6922F8;
-	Thu, 22 Oct 2020 19:25:00 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 56338922F8;
+	Thu, 22 Oct 2020 19:30:46 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09MJOrxr004096 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 22 Oct 2020 15:24:53 -0400
+	id 09MJOtYK004109 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 22 Oct 2020 15:24:55 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 302112144B32; Thu, 22 Oct 2020 19:24:53 +0000 (UTC)
+	id 15DA9AFD45; Thu, 22 Oct 2020 19:24:55 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B5F82144B30
-	for <dm-devel@redhat.com>; Thu, 22 Oct 2020 19:24:51 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0FE23E5B19
+	for <dm-devel@redhat.com>; Thu, 22 Oct 2020 19:24:52 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D931B1078506
-	for <dm-devel@redhat.com>; Thu, 22 Oct 2020 19:24:50 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
-	[209.85.221.47]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-176-QxZLJUi8M_OZCS7LykWnTg-1; Thu, 22 Oct 2020 15:24:43 -0400
-X-MC-Unique: QxZLJUi8M_OZCS7LykWnTg-1
-Received: by mail-wr1-f47.google.com with SMTP id i1so4380528wro.1;
-	Thu, 22 Oct 2020 12:24:43 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BE550811E95
+	for <dm-devel@redhat.com>; Thu, 22 Oct 2020 19:24:52 +0000 (UTC)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+	[209.85.221.52]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-5-vY97diOROUWyQLN_2dSkmQ-1; Thu, 22 Oct 2020 15:24:46 -0400
+X-MC-Unique: vY97diOROUWyQLN_2dSkmQ-1
+Received: by mail-wr1-f52.google.com with SMTP id h7so4380538wre.4;
+	Thu, 22 Oct 2020 12:24:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=Ff+OIAQ2OmRYBRoIu9xLBDRXFc1/lEJBQpc6a6yA2Us=;
-	b=nlvisFiT2WO7/9Q3E07qo4oRs25lYAxAKhnm+3AvZ3fqvyfiF/hgt0IfStA4hCfo/w
-	p+27jRgrT0Rz6NvinLUP1rjO9B6ZOm8nsJvIRaEr82Kv/OryE6nNIZ/FWE4tm7Et2gLQ
-	Aqsv8IEDBuHtGrIQJRQ4HoWU5cCqYDNqKCsDQyBkdVoa9P7A//sPfnZBR5/TiQtxJieH
-	L0Vc91496JuIJxCmP+Vtgd/7Nkv4gsN+XwNcnhde3xQ7gPwDygBFro4L5L1/Ji3rh1PD
-	gdsHZkh+U7DQ6+fA412M6lguMhbDklBGxzQpwBukSJTAlnU54ySFQvFb51WIyM/SK7JB
-	BTBg==
-X-Gm-Message-State: AOAM532XRNS4JCeyTxZQTEMtuEmR5dDMj+Sx9Da7Tm94PUp01tUvf+H0
-	28vskQsvdU9a92RyDqBgFQ==
-X-Google-Smtp-Source: ABdhPJzzzEqFbL6UQBUhp8GF0qoN6TcSDKmMDhFqrfXlPMSZ7T2V3toi9bfIXcwdNy7tRLUt6rAcFQ==
-X-Received: by 2002:adf:fd09:: with SMTP id e9mr4389160wrr.241.1603394682259; 
-	Thu, 22 Oct 2020 12:24:42 -0700 (PDT)
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+	:references:mime-version:content-transfer-encoding;
+	bh=yGV9tArgPYV278pbG+lGzLKJJhqX2TSNT0nwwIiWoLg=;
+	b=KgRp3RacvXcWTrvezfHe30xjHyLKXM1ui+jK/MgipxmV0Sao0BB0xYHhrwO1rj6W6L
+	1SGAGa+iAszNRxCjMQjyOpp/AY9399RRDFLKWD1PCBanrs+hv97vUEUdOdrkN5ccSbVY
+	Xvmf2BMT/JAJ6VYko3Y4OLipsP0s6LrK6BTVNOydMvy/SpokGtThc1/oMZ6rjftSWr7B
+	dwK1MfxTic5iay/QETOtJc0W+m6kPy+0XvzO9iBtA3x3uVo3sxW/m8C8jrPoalvXZ6D1
+	F9MfCQgatGrut6mM7gKlEx9TR3B/XSsSdx3EpT2SkFHewHBV8NsP9pElfX9l/K33GWLX
+	PypA==
+X-Gm-Message-State: AOAM532XVTw6JIZhy/4jDqURqyZO5hyFf6+1rqRobZaayRsbLG54JzCi
+	o+ADHYfFD7Se1g5Rr7rEHA==
+X-Google-Smtp-Source: ABdhPJzrIu+bUCn+sldm/iy/LA2AYcj4miNXVIuP0BZILcmnKINHH8MvfM3vq72SvhJBvU1y2z4GPw==
+X-Received: by 2002:a5d:4c4b:: with SMTP id n11mr4204727wrt.171.1603394684644; 
+	Thu, 22 Oct 2020 12:24:44 -0700 (PDT)
 Received: from localhost (100.red-176-87-1.dynamicip.rima-tde.net.
 	[176.87.1.100])
-	by smtp.gmail.com with ESMTPSA id r3sm5707877wrm.51.2020.10.22.12.24.40
+	by smtp.gmail.com with ESMTPSA id x3sm4904764wmi.45.2020.10.22.12.24.43
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 22 Oct 2020 12:24:41 -0700 (PDT)
+	Thu, 22 Oct 2020 12:24:44 -0700 (PDT)
 From: Xose Vazquez Perez <xose.vazquez@gmail.com>
 To: 
-Date: Thu, 22 Oct 2020 21:24:38 +0200
-Message-Id: <20201022192439.5527-1-xose.vazquez@gmail.com>
+Date: Thu, 22 Oct 2020 21:24:39 +0200
+Message-Id: <20201022192439.5527-2-xose.vazquez@gmail.com>
+In-Reply-To: <20201022192439.5527-1-xose.vazquez@gmail.com>
+References: <20201022192439.5527-1-xose.vazquez@gmail.com>
 MIME-Version: 1.0
 X-Patchwork-Bot: notify
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -78,12 +80,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: Xose Vazquez Perez <xose.vazquez@gmail.com>, Martin Wilck <mwilck@suse.com>,
 	DM-DEVEL ML <dm-devel@redhat.com>
-Subject: [dm-devel] [PATCH 1/2] multipath-tools: add MacroSAN arrays to
-	hwtable
+Subject: [dm-devel] [PATCH 2/2] multipath-tools: replace leading spaces with
+	tabs at LENOVO/DE_Series
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,7 +99,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -105,43 +107,61 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Based on:
-http://case.macrosan.com/webdoc/view/Pub40288112616a02f101617abd864a0fe9.html
-http://case.macrosan.com/webdoc/view/Pub402881126078307e0160c15456491369.html
-http://case.macrosan.com/webdoc/view/Pub4028811263cdeeb40165d7150dce19e6.html
-http://case.macrosan.com/webdoc/view/Pub40288112661f1dee016a95cb58f5504c.html
-
 Cc: Martin Wilck <mwilck@suse.com>
 Cc: Benjamin Marzinski <bmarzins@redhat.com>
 Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
 Cc: DM-DEVEL ML <dm-devel@redhat.com>
 Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
 ---
- libmultipath/hwtable.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ libmultipath/hwtable.c | 32 ++++++++++++++++----------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
 
 diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c
-index d1fcfdb3..43154dd0 100644
+index 43154dd0..f2778b71 100644
 --- a/libmultipath/hwtable.c
 +++ b/libmultipath/hwtable.c
-@@ -1262,6 +1262,18 @@ static struct hwentry default_hw[] = {
- 		.pgfailback    = -FAILBACK_IMMEDIATE,
+@@ -729,26 +729,26 @@ static struct hwentry default_hw[] = {
+ 		.no_path_retry = (300 / DEFAULT_CHECKINT),
  		.prio_name     = PRIO_ALUA,
  	},
+-        /*
+-         * Lenovo
+-         */
+-        {
+-                /*
 +	/*
-+	 * MacroSAN Technologies
++	 * Lenovo
 +	 */
 +	{
-+		/* MS family */
-+		.vendor        = "MacroSAN",
-+		.product       = "LU",
++		/*
+ 		 * DE Series
+ 		 *
+ 		 * Maintainer: NetApp RDAC team <ng-eseries-upstream-maintainers@netapp.com>
+ 		 */
+-                .vendor        = "LENOVO",
+-                .product       = "DE_Series",
+-                .bl_product    = "Universal Xport",
+-                .pgpolicy      = GROUP_BY_PRIO,
+-                .checker_name  = RDAC,
+-                .features      = "2 pg_init_retries 50",
+-                .hwhandler     = "1 rdac",
+-                .prio_name     = PRIO_RDAC,
+-                .pgfailback    = -FAILBACK_IMMEDIATE,
+-                .no_path_retry = 30,
+-        },
++		.vendor        = "LENOVO",
++		.product       = "DE_Series",
++		.bl_product    = "Universal Xport",
 +		.pgpolicy      = GROUP_BY_PRIO,
++		.checker_name  = RDAC,
++		.features      = "2 pg_init_retries 50",
++		.hwhandler     = "1 rdac",
++		.prio_name     = PRIO_RDAC,
 +		.pgfailback    = -FAILBACK_IMMEDIATE,
-+		.prio_name     = PRIO_ALUA,
 +		.no_path_retry = 30,
 +	},
  	/*
- 	 * EOL
+ 	 * NetApp
  	 */
 -- 
 2.28.0
