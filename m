@@ -2,63 +2,74 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D868D298753
-	for <lists+dm-devel@lfdr.de>; Mon, 26 Oct 2020 08:21:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 212F129875A
+	for <lists+dm-devel@lfdr.de>; Mon, 26 Oct 2020 08:23:06 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-408-0a_8EpzGNJCnSlw1u146aw-1; Mon, 26 Oct 2020 03:20:34 -0400
-X-MC-Unique: 0a_8EpzGNJCnSlw1u146aw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-246-NQudYGCIObqgXAcjtI8nHQ-1; Mon, 26 Oct 2020 03:22:28 -0400
+X-MC-Unique: NQudYGCIObqgXAcjtI8nHQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 92D10803F4E;
-	Mon, 26 Oct 2020 07:20:28 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6BA261992F;
-	Mon, 26 Oct 2020 07:20:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 88C3B1006C93;
+	Mon, 26 Oct 2020 07:22:22 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 172BB5D9E4;
+	Mon, 26 Oct 2020 07:22:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CECD192F28;
-	Mon, 26 Oct 2020 07:20:27 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C5F581832FC3;
+	Mon, 26 Oct 2020 07:22:21 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09NAKkEx012063 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 23 Oct 2020 06:20:47 -0400
+	id 09NBDQZ7017904 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 23 Oct 2020 07:13:26 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8B03A110F2FB; Fri, 23 Oct 2020 10:20:46 +0000 (UTC)
+	id A464E1003202; Fri, 23 Oct 2020 11:13:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8761C110F2FA
-	for <dm-devel@redhat.com>; Fri, 23 Oct 2020 10:20:44 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9FCDF1004041
+	for <dm-devel@redhat.com>; Fri, 23 Oct 2020 11:13:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3BFFA185A794
-	for <dm-devel@redhat.com>; Fri, 23 Oct 2020 10:20:44 +0000 (UTC)
-Received: from smtp-8fa9.mail.infomaniak.ch (smtp-8fa9.mail.infomaniak.ch
-	[83.166.143.169]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-20-Ski-1LyWMu22FO-ti-PVkA-1; Fri, 23 Oct 2020 06:20:41 -0400
-X-MC-Unique: Ski-1LyWMu22FO-ti-PVkA-1
-Received: from smtp-3-0000.mail.infomaniak.ch (unknown [10.4.36.107])
-	by smtp-2-3000.mail.infomaniak.ch (Postfix) with ESMTPS id
-	4CHgGw2QllzlhsQB; Fri, 23 Oct 2020 12:20:40 +0200 (CEST)
-Received: from ns3096276.ip-94-23-54.eu (unknown [94.23.54.103])
-	by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id
-	4CHgGv2Yhbzlh8TB; Fri, 23 Oct 2020 12:20:39 +0200 (CEST)
-From: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-To: Mike Snitzer <snitzer@redhat.com>, Alasdair Kergon <agk@redhat.com>
-References: <20201015150504.1319098-1-mic@digikod.net>
-	<20201015165229.GA5513@redhat.com>
-	<022e949e-00c4-d98a-b536-1c5f9e05c09c@digikod.net>
-	<b7ba2ff9-5f5f-8c1e-dfaa-33da56d3d8de@digikod.net>
-	<b7ccaa01-0398-f108-a70d-c67753d9fa6d@gmail.com>
-	<55389f91-60a5-05db-b3e1-8f24aa356893@digikod.net>
-Message-ID: <54e98aa6-0e52-1147-b9ce-a640e2317b00@digikod.net>
-Date: Fri, 23 Oct 2020 12:20:09 +0200
-User-Agent: 
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 73EBD800161
+	for <dm-devel@redhat.com>; Fri, 23 Oct 2020 11:13:24 +0000 (UTC)
+Received: from mx4.veeam.com (mx4.veeam.com [104.41.138.86]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-349-1abs8aX3MouHAi7Wi99NCg-1;
+	Fri, 23 Oct 2020 07:13:20 -0400
+X-MC-Unique: 1abs8aX3MouHAi7Wi99NCg-1
+Received: from mail.veeam.com (prgmbx01.amust.local [172.24.0.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx4.veeam.com (Postfix) with ESMTPS id 6D9A8887F2;
+	Fri, 23 Oct 2020 14:03:22 +0300 (MSK)
+Received: from veeam.com (172.24.14.5) by prgmbx01.amust.local (172.24.0.171)
+	with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.721.2;
+	Fri, 23 Oct 2020 13:03:20 +0200
+Date: Fri, 23 Oct 2020 14:04:07 +0300
+From: Sergei Shtepa <sergei.shtepa@veeam.com>
+To: Hannes Reinecke <hare@suse.de>
+Message-ID: <20201023110407.GA23020@veeam.com>
+References: <71926887-5707-04a5-78a2-ffa2ee32bd68@suse.de>
+	<20201021141044.GF20749@veeam.com>
+	<ca8eaa40-b422-2272-1fd9-1d0a354c42bf@suse.de>
+	<20201022094402.GA21466@veeam.com>
+	<BL0PR04MB6514AC1B1FF313E6A14D122CE71D0@BL0PR04MB6514.namprd04.prod.outlook.com>
+	<20201022135213.GB21466@veeam.com> <20201022151418.GR9832@magnolia>
+	<CAMM=eLfO_L-ZzcGmpPpHroznnSOq_KEWignFoM09h7Am9yE83g@mail.gmail.com>
+	<20201023091346.GA25115@infradead.org>
+	<d50062cd-929d-c8ff-5851-4e1d517dc4cb@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <55389f91-60a5-05db-b3e1-8f24aa356893@digikod.net>
+In-Reply-To: <d50062cd-929d-c8ff-5851-4e1d517dc4cb@suse.de>
+X-Originating-IP: [172.24.14.5]
+X-ClientProxiedBy: prgmbx02.amust.local (172.24.0.172) To prgmbx01.amust.local
+	(172.24.0.171)
+X-EsetResult: clean, is OK
+X-EsetId: 37303A29C604D26A677764
+X-Veeam-MMEX: True
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -68,19 +79,34 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 09NAKkEx012063
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 26 Oct 2020 03:19:18 -0400
-Cc: Deven Bowers <deven.desai@linux.microsoft.com>,
-	linux-kernel@vger.kernel.org,
-	Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>,
-	=?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@linux.microsoft.com>,
-	Milan Broz <gmazyland@gmail.com>, dm-devel@redhat.com,
-	linux-integrity@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
-	Jaskaran Khurana <jaskarankhurana@linux.microsoft.com>
-Subject: Re: [dm-devel] [PATCH v2] dm verity: Add support for signature
- verification with 2nd keyring
+Cc: "jack@suse.cz" <jack@suse.cz>, Mike Snitzer <snitzer@redhat.com>,
+	"gustavo@embeddedor.com" <gustavo@embeddedor.com>,
+	"linux-mm@kvack.org" <linux-mm@kvack.org>,
+	device-mapper development <dm-devel@redhat.com>,
+	"pavel@ucw.cz" <pavel@ucw.cz>, "steve@sk2.org" <steve@sk2.org>,
+	"osandov@fb.com" <osandov@fb.com>, Alasdair G Kergon <agk@redhat.com>,
+	"bvanassche@acm.org" <bvanassche@acm.org>,
+	"Darrick J. Wong" <darrick.wong@oracle.com>,
+	"hch@infradead.org" <hch@infradead.org>,
+	"len.brown@intel.com" <len.brown@intel.com>,
+	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+	"ming.lei@redhat.com" <ming.lei@redhat.com>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+	"viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
+	"koct9i@gmail.com" <koct9i@gmail.com>,
+	"axboe@kernel.dk" <axboe@kernel.dk>, Damien Le
+	Moal <Damien.LeMoal@wdc.com>,
+	Johannes Thumshirn <Johannes.Thumshirn@wdc.com>,
+	"rjw@rjwysocki.net" <rjw@rjwysocki.net>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
+	"tj@kernel.org" <tj@kernel.org>,
+	"akpm@linux-foundation.org" <akpm@linux-foundation.org>
+Subject: Re: [dm-devel] [PATCH 0/2] block layer filter and block device
+	snapshot module
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,112 +120,63 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-It seems that there is no more question. Mike, Alasdair, could you
-please consider to merge this into the tree?
+The 10/23/2020 13:31, Hannes Reinecke wrote:
+> On 10/23/20 11:13 AM, hch@infradead.org wrote:
+> > On Thu, Oct 22, 2020 at 01:54:16PM -0400, Mike Snitzer wrote:
+> >> On Thu, Oct 22, 2020 at 11:14 AM Darrick J. Wong
+> >>> Stupid question: Why don't you change the block layer to make it
+> >>> possible to insert device mapper devices after the blockdev has been set
+> >>> up?
+> >>
+> >> Not a stupid question.  Definitely something that us DM developers
+> >> have wanted to do for a while.  Devil is in the details but it is the
+> >> right way forward.
+> >>
+> > 
+> > Yes, I think that is the right thing to do.  And I don't think it should
+> > be all that hard.  All we'd need in the I/O path is something like the
+> > pseudo-patch below, which will allow the interposer driver to resubmit
+> > bios using submit_bio_noacct as long as the driver sets BIO_INTERPOSED.
+> > 
+> > diff --git a/block/blk-core.c b/block/blk-core.c
+> > index ac00d2fa4eb48d..3f6f1eb565e0a8 100644
+> > --- a/block/blk-core.c
+> > +++ b/block/blk-core.c
+> > @@ -1051,6 +1051,9 @@ blk_qc_t submit_bio_noacct(struct bio *bio)
+> >   		return BLK_QC_T_NONE;
+> >   	}
+> >   
+> > +	if (blk_has_interposer(bio->bi_disk) &&
+> > +	    !(bio->bi_flags & BIO_INTERPOSED))
+> > +		return __submit_bio_interposed(bio);
+> >   	if (!bio->bi_disk->fops->submit_bio)
+> >   		return __submit_bio_noacct_mq(bio);
+> >   	return __submit_bio_noacct(bio);
+> > 
 
-On 16/10/2020 14:19, Micka=EBl Sala=FCn wrote:
->=20
-> On 16/10/2020 13:08, Milan Broz wrote:
->> On 16/10/2020 10:49, Micka=EBl Sala=FCn wrote:
->>> On 16/10/2020 10:29, Micka=EBl Sala=FCn wrote:
->>>>
->>>> On 15/10/2020 18:52, Mike Snitzer wrote:
->>>>> Can you please explain why you've decided to make this a Kconfig CONF=
-IG
->>>>> knob?=A0 Why not either add: a dm-verity table argument? A dm-verity
->>>>> kernel module parameter? or both (to allow a particular default but
->>>>> then
->>>>> per-device override)?
->>>>
->>>> The purpose of signed dm-verity images is to authenticate files, or sa=
-id
->>>> in another way, to enable the kernel to trust disk images in a flexibl=
-e
->>>> way (i.e. thanks to certificate's chain of trust). Being able to updat=
-e
->>>> such chain at run time requires to use the second trusted keyring. Thi=
-s
->>>> keyring automatically includes the certificate authorities from the
->>>> builtin trusted keyring, which are required to dynamically populate th=
-e
->>>> secondary trusted keyring with certificates signed by an already trust=
-ed
->>>> authority. The roots of trust must then be included at build time in t=
-he
->>>> builtin trusted keyring.
->>>>
->>>> To be meaningful, using dm-verity signatures implies to have a
->>>> restricted user space, i.e. even the root user has limited power over
->>>> the kernel and the rest of the system. Blindly trusting data provided =
-by
->>>> user space (e.g. dm-verity table argument, kernel module parameter)
->>>> defeat the purpose of (mandatory) authenticated images.
->>>>
->>>>>
->>>>> Otherwise, _all_ DM verity devices will be configured to use secondar=
-y
->>>>> keyring fallback.=A0 Is that really desirable?
->>>>
->>>> That is already the current state (on purpose).
->>>
->>> I meant that when DM_VERITY_VERIFY_ROOTHASH_SIG is set, dm-verity
->>> signature becomes mandatory. This new configuration
->>> DM_VERITY_VERIFY_ROOTHASH_SIG_SECONDARY_KEYRING extend this trust to th=
-e
->>> secondary trusted keyring, which contains certificates signed (directly
->>> or indirectly) by CA from the builtin trusted keyring.
->>>
->>> So yes, this new (optional) configuration *extends* the source of trust
->>> for all dm-verity devices, and yes, it is desirable. I think it should
->>> have been this way from the beginning (as for other authentication
->>> mechanisms) but it wasn't necessary at that time.
->>
->> Well, I understand why you need a config option here.
->> And using the secondary keyring actually makes much more sense to me tha=
-n
->> the original approach.
->>
->> But please do not forget that dm-verity is sometimes used in different
->> contexts where such strict in-kernel certificate trust is unnecessary.
->> With your configure options set, you deliberately remove the possibility
->> to configure such devices.
-> It doesn't make sense to set DM_VERITY_VERIFY_ROOTHASH_SIG in generic
-> distro because such policy is configured at build time in the kernel
-> with hardcoded CAs. If the new option is not set then nothing change. I
-> don't see why it could be an issue for use cases we previously defined
-> (with DM_VERITY_VERIFY_ROOTHASH_SIG).
->=20
->> I understand that it is needed for "trusted" systems, but we should be
->> clear
->> in the documentation.
->> Maybe also add note to
->> /Documentation/admin-guide/device-mapper/verity.rst ?
->> We already mention DM_VERITY_VERIFY_ROOTHASH_SIG there.
->=20
-> The current documentation remains true.
-> DM_VERITY_VERIFY_ROOTHASH_SIG_SECONDARY_KEYRING depends on
-> DM_VERITY_VERIFY_ROOTHASH_SIG.
->=20
->>
->> The current userspace configuration through veritysetup does not need
->> any patches for your patch, correct?
->=20
-> Right, it's only different from the kernel point of view.
->=20
->>
->> Thanks,
->> Milan
->>
+It`s will be great! Approximately this interception capability is not
+enough now.
 
+> My thoughts went more into the direction of hooking into ->submit_bio, 
+> seeing that it's a NULL pointer for most (all?) block drivers.
+> 
+> But sure, I'll check how the interposer approach would turn out.
+
+If anyone will do the patch blk-interposer, please add me to CC.
+I will try to offer my module that will use blk-interposer.
+
+-- 
+Sergei Shtepa
+Veeam Software developer.
 
 --
 dm-devel mailing list
