@@ -2,76 +2,63 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id CC33D296566
-	for <lists+dm-devel@lfdr.de>; Thu, 22 Oct 2020 21:31:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8E585296C23
+	for <lists+dm-devel@lfdr.de>; Fri, 23 Oct 2020 11:32:03 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-46-xUC4HsUmMa2S09qMo0OjMg-1; Thu, 22 Oct 2020 15:31:19 -0400
-X-MC-Unique: xUC4HsUmMa2S09qMo0OjMg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-302-ho3vImReORiPk1RYARSgOA-1; Fri, 23 Oct 2020 05:32:00 -0400
+X-MC-Unique: ho3vImReORiPk1RYARSgOA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0220A1009E22;
-	Thu, 22 Oct 2020 19:31:14 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 796AD804B7C;
+	Fri, 23 Oct 2020 09:31:53 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EA36E60BFA;
-	Thu, 22 Oct 2020 19:31:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 832A955794;
+	Fri, 23 Oct 2020 09:31:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 56338922F8;
-	Thu, 22 Oct 2020 19:30:46 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 52386922FE;
+	Fri, 23 Oct 2020 09:31:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09MJOtYK004109 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 22 Oct 2020 15:24:55 -0400
+	id 09N9UMXY007012 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 23 Oct 2020 05:30:23 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 15DA9AFD45; Thu, 22 Oct 2020 19:24:55 +0000 (UTC)
+	id 53DD2110F2F6; Fri, 23 Oct 2020 09:30:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0FE23E5B19
-	for <dm-devel@redhat.com>; Thu, 22 Oct 2020 19:24:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4F542110F2F4
+	for <dm-devel@redhat.com>; Fri, 23 Oct 2020 09:30:20 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BE550811E95
-	for <dm-devel@redhat.com>; Thu, 22 Oct 2020 19:24:52 +0000 (UTC)
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
-	[209.85.221.52]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-5-vY97diOROUWyQLN_2dSkmQ-1; Thu, 22 Oct 2020 15:24:46 -0400
-X-MC-Unique: vY97diOROUWyQLN_2dSkmQ-1
-Received: by mail-wr1-f52.google.com with SMTP id h7so4380538wre.4;
-	Thu, 22 Oct 2020 12:24:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-	:references:mime-version:content-transfer-encoding;
-	bh=yGV9tArgPYV278pbG+lGzLKJJhqX2TSNT0nwwIiWoLg=;
-	b=KgRp3RacvXcWTrvezfHe30xjHyLKXM1ui+jK/MgipxmV0Sao0BB0xYHhrwO1rj6W6L
-	1SGAGa+iAszNRxCjMQjyOpp/AY9399RRDFLKWD1PCBanrs+hv97vUEUdOdrkN5ccSbVY
-	Xvmf2BMT/JAJ6VYko3Y4OLipsP0s6LrK6BTVNOydMvy/SpokGtThc1/oMZ6rjftSWr7B
-	dwK1MfxTic5iay/QETOtJc0W+m6kPy+0XvzO9iBtA3x3uVo3sxW/m8C8jrPoalvXZ6D1
-	F9MfCQgatGrut6mM7gKlEx9TR3B/XSsSdx3EpT2SkFHewHBV8NsP9pElfX9l/K33GWLX
-	PypA==
-X-Gm-Message-State: AOAM532XVTw6JIZhy/4jDqURqyZO5hyFf6+1rqRobZaayRsbLG54JzCi
-	o+ADHYfFD7Se1g5Rr7rEHA==
-X-Google-Smtp-Source: ABdhPJzrIu+bUCn+sldm/iy/LA2AYcj4miNXVIuP0BZILcmnKINHH8MvfM3vq72SvhJBvU1y2z4GPw==
-X-Received: by 2002:a5d:4c4b:: with SMTP id n11mr4204727wrt.171.1603394684644; 
-	Thu, 22 Oct 2020 12:24:44 -0700 (PDT)
-Received: from localhost (100.red-176-87-1.dynamicip.rima-tde.net.
-	[176.87.1.100])
-	by smtp.gmail.com with ESMTPSA id x3sm4904764wmi.45.2020.10.22.12.24.43
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 22 Oct 2020 12:24:44 -0700 (PDT)
-From: Xose Vazquez Perez <xose.vazquez@gmail.com>
-To: 
-Date: Thu, 22 Oct 2020 21:24:39 +0200
-Message-Id: <20201022192439.5527-2-xose.vazquez@gmail.com>
-In-Reply-To: <20201022192439.5527-1-xose.vazquez@gmail.com>
-References: <20201022192439.5527-1-xose.vazquez@gmail.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1C54D811E82
+	for <dm-devel@redhat.com>; Fri, 23 Oct 2020 09:30:20 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-493-EYnCz2N2PgSquWC2DejuwA-1; Fri, 23 Oct 2020 05:30:15 -0400
+X-MC-Unique: EYnCz2N2PgSquWC2DejuwA-1
+Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
+	Linux)) id 1kVt8s-0006xU-8j; Fri, 23 Oct 2020 09:13:46 +0000
+Date: Fri, 23 Oct 2020 10:13:46 +0100
+From: "hch@infradead.org" <hch@infradead.org>
+To: Mike Snitzer <snitzer@redhat.com>
+Message-ID: <20201023091346.GA25115@infradead.org>
+References: <1603271049-20681-1-git-send-email-sergei.shtepa@veeam.com>
+	<71926887-5707-04a5-78a2-ffa2ee32bd68@suse.de>
+	<20201021141044.GF20749@veeam.com>
+	<ca8eaa40-b422-2272-1fd9-1d0a354c42bf@suse.de>
+	<20201022094402.GA21466@veeam.com>
+	<BL0PR04MB6514AC1B1FF313E6A14D122CE71D0@BL0PR04MB6514.namprd04.prod.outlook.com>
+	<20201022135213.GB21466@veeam.com> <20201022151418.GR9832@magnolia>
+	<CAMM=eLfO_L-ZzcGmpPpHroznnSOq_KEWignFoM09h7Am9yE83g@mail.gmail.com>
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
+In-Reply-To: <CAMM=eLfO_L-ZzcGmpPpHroznnSOq_KEWignFoM09h7Am9yE83g@mail.gmail.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -80,12 +67,34 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: Xose Vazquez Perez <xose.vazquez@gmail.com>, Martin Wilck <mwilck@suse.com>,
-	DM-DEVEL ML <dm-devel@redhat.com>
-Subject: [dm-devel] [PATCH 2/2] multipath-tools: replace leading spaces with
-	tabs at LENOVO/DE_Series
+Cc: "jack@suse.cz" <jack@suse.cz>,
+	"gustavo@embeddedor.com" <gustavo@embeddedor.com>,
+	"linux-mm@kvack.org" <linux-mm@kvack.org>,
+	device-mapper development <dm-devel@redhat.com>,
+	"pavel@ucw.cz" <pavel@ucw.cz>, "steve@sk2.org" <steve@sk2.org>,
+	"osandov@fb.com" <osandov@fb.com>, Alasdair G Kergon <agk@redhat.com>,
+	"bvanassche@acm.org" <bvanassche@acm.org>,
+	"Darrick J. Wong" <darrick.wong@oracle.com>,
+	"hch@infradead.org" <hch@infradead.org>,
+	"len.brown@intel.com" <len.brown@intel.com>,
+	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+	"ming.lei@redhat.com" <ming.lei@redhat.com>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+	"viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
+	Sergei Shtepa <sergei.shtepa@veeam.com>,
+	"koct9i@gmail.com" <koct9i@gmail.com>, "axboe@kernel.dk" <axboe@kernel.dk>,
+	Damien Le Moal <Damien.LeMoal@wdc.com>,
+	Johannes Thumshirn <Johannes.Thumshirn@wdc.com>,
+	"rjw@rjwysocki.net" <rjw@rjwysocki.net>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
+	"tj@kernel.org" <tj@kernel.org>,
+	"akpm@linux-foundation.org" <akpm@linux-foundation.org>
+Subject: Re: [dm-devel] [PATCH 0/2] block layer filter and block device
+	snapshot module
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -99,72 +108,45 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Cc: Martin Wilck <mwilck@suse.com>
-Cc: Benjamin Marzinski <bmarzins@redhat.com>
-Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Cc: DM-DEVEL ML <dm-devel@redhat.com>
-Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
----
- libmultipath/hwtable.c | 32 ++++++++++++++++----------------
- 1 file changed, 16 insertions(+), 16 deletions(-)
+On Thu, Oct 22, 2020 at 01:54:16PM -0400, Mike Snitzer wrote:
+> On Thu, Oct 22, 2020 at 11:14 AM Darrick J. Wong
+> > Stupid question: Why don't you change the block layer to make it
+> > possible to insert device mapper devices after the blockdev has been set
+> > up?
+> 
+> Not a stupid question.  Definitely something that us DM developers
+> have wanted to do for a while.  Devil is in the details but it is the
+> right way forward.
+> 
 
-diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c
-index 43154dd0..f2778b71 100644
---- a/libmultipath/hwtable.c
-+++ b/libmultipath/hwtable.c
-@@ -729,26 +729,26 @@ static struct hwentry default_hw[] = {
- 		.no_path_retry = (300 / DEFAULT_CHECKINT),
- 		.prio_name     = PRIO_ALUA,
- 	},
--        /*
--         * Lenovo
--         */
--        {
--                /*
-+	/*
-+	 * Lenovo
-+	 */
-+	{
-+		/*
- 		 * DE Series
- 		 *
- 		 * Maintainer: NetApp RDAC team <ng-eseries-upstream-maintainers@netapp.com>
- 		 */
--                .vendor        = "LENOVO",
--                .product       = "DE_Series",
--                .bl_product    = "Universal Xport",
--                .pgpolicy      = GROUP_BY_PRIO,
--                .checker_name  = RDAC,
--                .features      = "2 pg_init_retries 50",
--                .hwhandler     = "1 rdac",
--                .prio_name     = PRIO_RDAC,
--                .pgfailback    = -FAILBACK_IMMEDIATE,
--                .no_path_retry = 30,
--        },
-+		.vendor        = "LENOVO",
-+		.product       = "DE_Series",
-+		.bl_product    = "Universal Xport",
-+		.pgpolicy      = GROUP_BY_PRIO,
-+		.checker_name  = RDAC,
-+		.features      = "2 pg_init_retries 50",
-+		.hwhandler     = "1 rdac",
-+		.prio_name     = PRIO_RDAC,
-+		.pgfailback    = -FAILBACK_IMMEDIATE,
-+		.no_path_retry = 30,
-+	},
- 	/*
- 	 * NetApp
- 	 */
--- 
-2.28.0
+Yes, I think that is the right thing to do.  And I don't think it should
+be all that hard.  All we'd need in the I/O path is something like the
+pseudo-patch below, which will allow the interposer driver to resubmit
+bios using submit_bio_noacct as long as the driver sets BIO_INTERPOSED.
+
+diff --git a/block/blk-core.c b/block/blk-core.c
+index ac00d2fa4eb48d..3f6f1eb565e0a8 100644
+--- a/block/blk-core.c
++++ b/block/blk-core.c
+@@ -1051,6 +1051,9 @@ blk_qc_t submit_bio_noacct(struct bio *bio)
+ 		return BLK_QC_T_NONE;
+ 	}
+ 
++	if (blk_has_interposer(bio->bi_disk) &&
++	    !(bio->bi_flags & BIO_INTERPOSED))
++		return __submit_bio_interposed(bio);
+ 	if (!bio->bi_disk->fops->submit_bio)
+ 		return __submit_bio_noacct_mq(bio);
+ 	return __submit_bio_noacct(bio);
 
 --
 dm-devel mailing list
