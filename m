@@ -1,56 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A0E7129CC30
-	for <lists+dm-devel@lfdr.de>; Tue, 27 Oct 2020 23:51:45 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 60F0D29CC2C
+	for <lists+dm-devel@lfdr.de>; Tue, 27 Oct 2020 23:46:46 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-512-ODAk0_8SM0q4v_JaihGkTg-1; Tue, 27 Oct 2020 18:51:41 -0400
-X-MC-Unique: ODAk0_8SM0q4v_JaihGkTg-1
+ us-mta-521-h5tCvNDZOcOn9dp8J3vOGw-1; Tue, 27 Oct 2020 18:46:42 -0400
+X-MC-Unique: h5tCvNDZOcOn9dp8J3vOGw-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 90D33107B477;
-	Tue, 27 Oct 2020 22:51:35 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4711C10013C1;
-	Tue, 27 Oct 2020 22:51:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4408A186DD2B;
+	Tue, 27 Oct 2020 22:46:32 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6543510013DB;
+	Tue, 27 Oct 2020 22:46:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 55A375810D;
-	Tue, 27 Oct 2020 22:51:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0DFFF181A872;
+	Tue, 27 Oct 2020 22:46:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09RMk2t4008959 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 27 Oct 2020 18:46:02 -0400
+	id 09RMk3T2008989 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 27 Oct 2020 18:46:03 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 01632AB595; Tue, 27 Oct 2020 22:46:02 +0000 (UTC)
+	id 6EFF51016D85; Tue, 27 Oct 2020 22:46:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ED037AB5B5
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6ACEB1134CD6
 	for <dm-devel@redhat.com>; Tue, 27 Oct 2020 22:46:01 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7240D1021E15
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9236E185A794
 	for <dm-devel@redhat.com>; Tue, 27 Oct 2020 22:46:01 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-37-3372PKC-PZ-rtlrEnEJCzg-1;
+	relay.mimecast.com with ESMTP id us-mta-181-VC9WNx3BM3OU64FmI9RYew-1;
 	Tue, 27 Oct 2020 18:45:56 -0400
-X-MC-Unique: 3372PKC-PZ-rtlrEnEJCzg-1
+X-MC-Unique: VC9WNx3BM3OU64FmI9RYew-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 0A791B266;
+	by mx2.suse.de (Postfix) with ESMTP id 4CE20B2A7;
 	Tue, 27 Oct 2020 22:45:55 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>,
 	Xose Vazquez Perez <xose.vazquez@gmail.com>
-Date: Tue, 27 Oct 2020 23:45:34 +0100
-Message-Id: <20201027224536.11662-4-mwilck@suse.com>
+Date: Tue, 27 Oct 2020 23:45:35 +0100
+Message-Id: <20201027224536.11662-5-mwilck@suse.com>
 In-Reply-To: <20201027224536.11662-1-mwilck@suse.com>
 References: <20201027224536.11662-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -62,13 +62,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 09RMk2t4008959
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 09RMk3T2008989
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>,
 	Leonardo Arena <rnalrd@alpinelinux.org>
-Subject: [dm-devel] [PATCH 3/5] libmultipath: always use glibc basename()
+Subject: [dm-devel] [PATCH 4/5] libmultipath tests: fix strerror()
+	difference between musl and glibc
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,39 +93,56 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Our code relies on the non-destructive behavior of glibc's basename().
-Fortunately that function is very simple, and our unit test makes
-it easy to verify its functionality.
+If an error occurs with errno=0, strerror() on musl returns a different
+string than "Success". Make sure the test doesn't fail for that reason.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/util.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ tests/alias.c    | 2 +-
+ tests/test-log.c | 5 ++++-
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/libmultipath/util.c b/libmultipath/util.c
-index 39ccace..1748eaf 100644
---- a/libmultipath/util.c
-+++ b/libmultipath/util.c
-@@ -34,6 +34,19 @@ strchop(char *str)
- 	return i;
+diff --git a/tests/alias.c b/tests/alias.c
+index 5624138..7fda679 100644
+--- a/tests/alias.c
++++ b/tests/alias.c
+@@ -712,7 +712,7 @@ static void al_write_err(void **state)
+ 	will_return(__wrap_write, strlen(ln) - 1);
+ 	expect_value(__wrap_ftruncate, length, offset);
+ 	will_return(__wrap_ftruncate, 0);
+-	expect_condlog(0, "Cannot write binding to bindings file : Success\n");
++	expect_condlog(0, "Cannot write binding to bindings file :");
+ 
+ 	alias = allocate_binding(0, "WWIDa", 1, "MPATH");
+ 	assert_ptr_equal(alias, NULL);
+diff --git a/tests/test-log.c b/tests/test-log.c
+index 051491e..1c901cb 100644
+--- a/tests/test-log.c
++++ b/tests/test-log.c
+@@ -2,6 +2,7 @@
+ #include <stddef.h>
+ #include <stdarg.h>
+ #include <stdio.h>
++#include <string.h>
+ #include <cmocka.h>
+ #include "log.h"
+ #include "test-log.h"
+@@ -11,12 +12,14 @@ void __wrap_dlog (int sink, int prio, const char * fmt, ...)
+ {
+ 	char buff[MAX_MSG_SIZE];
+ 	va_list ap;
++	char *expected;
+ 
+ 	check_expected(prio);
+ 	va_start(ap, fmt);
+ 	vsnprintf(buff, MAX_MSG_SIZE, fmt, ap);
+ 	va_end(ap);
+-	assert_string_equal(buff, mock_ptr_type(char *));
++	expected = mock_ptr_type(char *);
++	assert_memory_equal(buff, expected, strlen(expected));
  }
  
-+#ifndef __GLIBC__
-+/*
-+ * glibc's non-destructive version of basename()
-+ * License: LGPL-2.1-or-later
-+ */
-+static const char *__basename(const char *filename)
-+{
-+	char *p = strrchr(filename, '/');
-+	return p ? p + 1 : filename;
-+}
-+#define basename(x) __basename(x)
-+#endif
-+
- int
- basenamecpy (const char *src, char *dst, size_t size)
- {
+ void expect_condlog(int prio, char *string)
 -- 
 2.29.0
 
