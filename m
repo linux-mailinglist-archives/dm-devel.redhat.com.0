@@ -1,76 +1,59 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 6FBDD29E6E8
-	for <lists+dm-devel@lfdr.de>; Thu, 29 Oct 2020 10:08:07 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 9E2B429E6EE
+	for <lists+dm-devel@lfdr.de>; Thu, 29 Oct 2020 10:08:13 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-42-QRX8VVcMMMatuUv7s7koIg-1; Thu, 29 Oct 2020 05:08:03 -0400
-X-MC-Unique: QRX8VVcMMMatuUv7s7koIg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-143-kr3JqjklPQW_3gGncCt6hw-1; Thu, 29 Oct 2020 05:08:10 -0400
+X-MC-Unique: kr3JqjklPQW_3gGncCt6hw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D30D71009E34;
-	Thu, 29 Oct 2020 09:07:57 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 41ECE1009E46;
+	Thu, 29 Oct 2020 09:08:01 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2FA052C31E;
-	Thu, 29 Oct 2020 09:07:57 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E5DD6198B;
+	Thu, 29 Oct 2020 09:08:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 089FC5810D;
-	Thu, 29 Oct 2020 09:07:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C96675810F;
+	Thu, 29 Oct 2020 09:08:00 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 09SBfeuu007163 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 28 Oct 2020 07:41:40 -0400
+	id 09SCYUYs015933 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 28 Oct 2020 08:34:30 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id EB79E1111A75; Wed, 28 Oct 2020 11:41:39 +0000 (UTC)
+	id 00A14A37A1; Wed, 28 Oct 2020 12:34:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E78331016D76
-	for <dm-devel@redhat.com>; Wed, 28 Oct 2020 11:41:36 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EF5D19F016
+	for <dm-devel@redhat.com>; Wed, 28 Oct 2020 12:34:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8630D101A540
-	for <dm-devel@redhat.com>; Wed, 28 Oct 2020 11:41:36 +0000 (UTC)
-Received: from mail-yb1-f195.google.com (mail-yb1-f195.google.com
-	[209.85.219.195]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-559-G9DVHx5eOMC36Wr01IxB-Q-1; Wed, 28 Oct 2020 07:41:34 -0400
-X-MC-Unique: G9DVHx5eOMC36Wr01IxB-Q-1
-Received: by mail-yb1-f195.google.com with SMTP id s89so3977182ybi.12
-	for <dm-devel@redhat.com>; Wed, 28 Oct 2020 04:41:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc:content-transfer-encoding;
-	bh=9ZlXToatDcyQe4UfooUu3JrhisJTqzWvPk9UeTaykHI=;
-	b=a/+rw33qtlaz0O7i+4lj9I7smeJjSzIPYA4kryIC57WjoRPtvywUJltyt4lpErn4j0
-	fxr9GAZep5cOZjTe4ONRLwnzP1e5hbPrLEcsqEBiJzcR4GoNkpe4cRn6pkGcbDUfn99b
-	kY6jiuhWOxxkygOD7eo77hzkZSg2bH4YqNzc4KIJ59ApNxANzlGVpgieGjo5Sq8vXgmW
-	MEqbEzhNOXxJNHBqzzEQZh+1MxOsnEvAKQWOUsyvm5GyLRECHZDnFiZ8yEhKSwqamuYt
-	bzmul+cT9VUryTID+GVG0n/cEy0zmPKl9R6UxfYISx/y0nxZhk5UNbRtDerGEckESJ/H
-	YVbA==
-X-Gm-Message-State: AOAM533bzOI21Z58kLzhpa4oOZl1ITeURG2lqj4yVceBxnrwxhCKfPjI
-	hDs+MInSOepTpylNg/JaaIKhv/dI4tC5YJiBxiJ6sQ==
-X-Google-Smtp-Source: ABdhPJwPEPpN0dIcKBfaGDgutMYF3sOkE6KoP9i1uddB1epbqqtMw2qCiW/gFeatIzJ1+Wk2li1pZyaWC1wQlcX+ghA=
-X-Received: by 2002:a25:41d0:: with SMTP id o199mr9520447yba.276.1603885293714;
-	Wed, 28 Oct 2020 04:41:33 -0700 (PDT)
-MIME-Version: 1.0
-References: <20201026130450.6947-1-gilad@benyossef.com>
-	<20201026130450.6947-4-gilad@benyossef.com>
-	<20201026175231.GG858@sol.localdomain>
-	<d07b062c-1405-4d72-b907-1c4dfa97aecb@gmail.com>
-	<20201026183936.GJ858@sol.localdomain>
-	<20201026184155.GA6863@gondor.apana.org.au>
-	<20201026184402.GA6908@gondor.apana.org.au>
-In-Reply-To: <20201026184402.GA6908@gondor.apana.org.au>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B2CE28D632F
+	for <dm-devel@redhat.com>; Wed, 28 Oct 2020 12:34:27 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172]) by
+	relay.mimecast.com with ESMTP id us-mta-113-i1a5570NOLaZ34I5j7sl0A-1;
+	Wed, 28 Oct 2020 08:34:25 -0400
+X-MC-Unique: i1a5570NOLaZ34I5j7sl0A-1
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CCC741762;
+	Wed, 28 Oct 2020 05:34:23 -0700 (PDT)
+Received: from e110176-lin.kfn.arm.com (unknown [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 787853F719;
+	Wed, 28 Oct 2020 05:34:21 -0700 (PDT)
 From: Gilad Ben-Yossef <gilad@benyossef.com>
-Date: Wed, 28 Oct 2020 13:41:28 +0200
-Message-ID: <CAOtvUMf-xv5cHTjExW2Ffx6soLavFztow6DwE6Qo5pffF0N5uw@mail.gmail.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
+	dm-devel@redhat.com
+Date: Wed, 28 Oct 2020 14:34:15 +0200
+Message-Id: <20201028123420.30623-1-gilad@benyossef.com>
+MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -79,21 +62,16 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 09SBfeuu007163
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 09SCYUYs015933
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 29 Oct 2020 05:07:35 -0400
-Cc: linux-raid@vger.kernel.org, Mike Snitzer <snitzer@redhat.com>,
-	Linux kernel mailing list <linux-kernel@vger.kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Biggers <ebiggers@kernel.org>, Song Liu <song@kernel.org>,
-	device-mapper development <dm-devel@redhat.com>,
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
-	Milan Broz <gmazyland@gmail.com>, Alasdair Kergon <agk@redhat.com>,
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-crypto@vger.kernel.org, Milan Broz <gmazyland@gmail.com>,
 	Ofir Drang <ofir.drang@arm.com>
-Subject: Re: [dm-devel] [PATCH 3/4] dm crypt: switch to EBOIV crypto API
-	template
+Subject: [dm-devel] [PATCH v2 0/4] crypto: switch to crypto API for EBOIV
+	generation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -107,28 +85,75 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gTW9uLCBPY3QgMjYsIDIwMjAgYXQgODo0NCBQTSBIZXJiZXJ0IFh1IDxoZXJiZXJ0QGdvbmRv
-ci5hcGFuYS5vcmcuYXU+IHdyb3RlOgo+Cj4gT24gVHVlLCBPY3QgMjcsIDIwMjAgYXQgMDU6NDE6
-NTVBTSArMTEwMCwgSGVyYmVydCBYdSB3cm90ZToKPiA+Cj4gPiBUaGUgcG9pbnQgaXMgdGhhdCBw
-ZW9wbGUgcmVidWlsZGluZyB0aGVpciBrZXJuZWwgY2FuIGVuZCB1cCB3aXRoIGEKPiA+IGJyb2tl
-biBzeXN0ZW0uICBKdXN0IHNldCBhIGRlZmF1bHQgb24gRUJPSVYgaWYgZG0tY3J5cHQgaXMgb24u
-Cj4KPiBUaGF0J3Mgbm90IGVub3VnaCBhcyBpdCdzIGFuIGV4aXN0aW5nIG9wdGlvbi4gIFNvIHdl
-IG5lZWQgdG8KPiBhZGQgYSBuZXcgS2NvbmZpZyBvcHRpb24gd2l0aCBhIGRlZmF1bHQgZXF1YWwg
-dG8gZG0tY3J5cHQuCgpTb3JyeSBpZiBJJ20gYmVpbmcgZGFmdCwgYnV0IHdoYXQgZGlkIHlvdSBy
-ZWZlciB0byBiZSAiYW4gZXhpc3RpbmcKb3B0aW9uIj8gdGhlcmUgd2FzIG5vIENPTkZJR19FQk9J
-ViBiZWZvcmUgbXkgcGF0Y2hzZXQsIGl0IHdhcyBzaW1wbHkKYnVpbHQgYXMgcGFydCBvZiBkbS1j
-cnlwdCBzbyBpdCBzZWVtcyB0aGF0IHNldHRpbmcgQ09ORklHX0VCT0lWCmRlZmF1bHQgdG8gZG0t
-Y3J5cHRvIEtjb25maWcgb3B0aW9uIHZhbHVlIGRvZXMgc29sdmVzIHRoZSBwcm9ibGVtLCBvcgpo
-YXZlIEkgbWlzc2VkIHNvbWV0aGluZz8KClRoYW5rcywKR2lsYWQKCi0tIApHaWxhZCBCZW4tWW9z
-c2VmCkNoaWVmIENvZmZlZSBEcmlua2VyCgp2YWx1ZXMgb2YgzrIgd2lsbCBnaXZlIHJpc2UgdG8g
-ZG9tIQoKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBz
-Oi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
+This series creates an EBOIV template that produces a skcipher
+transform which passes through all operations to the skcipher, while
+using the same skcipher and key to encrypt the input IV, which is
+assumed to be a sector offset, although this is not enforced.
+
+This matches dm-crypt use of EBOIV to provide BitLocker support,
+and so it is proposed as a replacement in patch #3.
+
+Replacing the dm-crypt specific EBOIV implementation to a Crypto
+API based one allows us to save a memory allocation per
+each request, as well as opening the way for use of compatible
+alternative transform providers, one of which, based on the
+Arm TrustZone CryptoCell hardware, is proposed as patch #4.
+
+Future potential work to allow encapsulating the handling of
+multiple subsequent blocks by the Crypto API may also
+benefit from this work.
+
+The code has been tested on both x86_64 virtual machine
+with the dm-crypt test suite and on an arm 32 bit board
+with the CryptoCell hardware.
+
+Since no offical source for eboiv test vectors is known,
+the test vectors supplied as patch #2 are derived from
+sectors which are part of the dm-crypt test suite.
+
+Signed-off-by: Gilad Ben-Yossef <gilad@benyossef.com>
+Cc: Eric Biggers <ebiggers@kernel.org>
+Cc: Milan Broz <gmazyland@gmail.com> 
+
+
+Changes from v1:
+- Incorporated feedback from Eric Biggers regarding eboiv template code.
+- Incorporated fixes for issues found by kernel test robot.
+- Moved from a Kconfig dependency of DM_CRYPT to EBOIV to
+  EBOIV default of DM_CRYPT as suggested by Herbert Xu.
+
+Gilad Ben-Yossef (4):
+  crypto: add eboiv as a crypto API template
+  crypto: add eboiv(cbc(aes)) test vectors
+  dm crypt: switch to EBOIV crypto API template
+  crypto: ccree: re-introduce ccree eboiv support
+
+ crypto/Kconfig                       |  23 +++
+ crypto/Makefile                      |   1 +
+ crypto/eboiv.c                       | 271 ++++++++++++++++++++++++++
+ crypto/tcrypt.c                      |   9 +
+ crypto/testmgr.c                     |   6 +
+ crypto/testmgr.h                     | 279 +++++++++++++++++++++++++++
+ drivers/crypto/ccree/cc_cipher.c     | 132 +++++++++----
+ drivers/crypto/ccree/cc_crypto_ctx.h |   1 +
+ drivers/md/dm-crypt.c                |  61 ++----
+ 9 files changed, 704 insertions(+), 79 deletions(-)
+ create mode 100644 crypto/eboiv.c
+
+-- 
+2.28.0
+
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
