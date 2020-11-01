@@ -1,56 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 82F2F2A25BA
-	for <lists+dm-devel@lfdr.de>; Mon,  2 Nov 2020 08:58:42 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id F0D872A25B6
+	for <lists+dm-devel@lfdr.de>; Mon,  2 Nov 2020 08:58:36 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-61-Acl36A_NPdeTDjGG51o9Pw-1; Mon, 02 Nov 2020 02:58:39 -0500
-X-MC-Unique: Acl36A_NPdeTDjGG51o9Pw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-304-o_ar67dSPaqxGXuGSvS9zQ-1; Mon, 02 Nov 2020 02:58:33 -0500
+X-MC-Unique: o_ar67dSPaqxGXuGSvS9zQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F000D1006C97;
-	Mon,  2 Nov 2020 07:58:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4FA3957084;
+	Mon,  2 Nov 2020 07:58:28 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CA2E010013BD;
-	Mon,  2 Nov 2020 07:58:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2887F5C1C7;
+	Mon,  2 Nov 2020 07:58:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 846C0181A050;
-	Mon,  2 Nov 2020 07:58:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6370118199F7;
+	Mon,  2 Nov 2020 07:58:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0A1MQhxX029355 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 1 Nov 2020 17:26:43 -0500
+	id 0A1MQjRu029369 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 1 Nov 2020 17:26:45 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4BE83202348A; Sun,  1 Nov 2020 22:26:43 +0000 (UTC)
+	id 066842166B44; Sun,  1 Nov 2020 22:26:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 477F420235B7
-	for <dm-devel@redhat.com>; Sun,  1 Nov 2020 22:26:43 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0049E2166B27
+	for <dm-devel@redhat.com>; Sun,  1 Nov 2020 22:26:41 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1F81C8D632D
-	for <dm-devel@redhat.com>; Sun,  1 Nov 2020 22:26:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8E948801224
+	for <dm-devel@redhat.com>; Sun,  1 Nov 2020 22:26:41 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-284-1a1dvGTmMKeO9oHg6Vr8SA-1;
-	Sun, 01 Nov 2020 17:26:38 -0500
-X-MC-Unique: 1a1dvGTmMKeO9oHg6Vr8SA-1
+	relay.mimecast.com with ESMTP id us-mta-536-oM7irKBxMni_yl6NBzbFRA-1;
+	Sun, 01 Nov 2020 17:26:39 -0500
+X-MC-Unique: oM7irKBxMni_yl6NBzbFRA-1
 Received: from tusharsu-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
 	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 743722089EFD;
-	Sun,  1 Nov 2020 14:26:37 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 743722089EFD
+	by linux.microsoft.com (Postfix) with ESMTPSA id 127BC20BE4BC;
+	Sun,  1 Nov 2020 14:26:38 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 127BC20BE4BC
 From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
 To: zohar@linux.ibm.com, stephen.smalley.work@gmail.com,
 	casey@schaufler-ca.com, agk@redhat.com, snitzer@redhat.com,
 	gmazyland@gmail.com, paul@paul-moore.com
-Date: Sun,  1 Nov 2020 14:26:23 -0800
-Message-Id: <20201101222626.6111-5-tusharsu@linux.microsoft.com>
+Date: Sun,  1 Nov 2020 14:26:24 -0800
+Message-Id: <20201101222626.6111-6-tusharsu@linux.microsoft.com>
 In-Reply-To: <20201101222626.6111-1-tusharsu@linux.microsoft.com>
 References: <20201101222626.6111-1-tusharsu@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -61,14 +61,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 02 Nov 2020 02:58:01 -0500
 Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
 	jmorris@namei.org, linux-kernel@vger.kernel.org,
 	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
 	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: [dm-devel] [PATCH v5 4/7] IMA: add policy to measure critical data
+Subject: [dm-devel] [PATCH v5 5/7] IMA: validate supported kernel data
+	sources before measurement
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,7 +84,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,176 +92,101 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-System administrators should be able to choose which kernel subsystems
-they want to measure the critical data for. To enable that, an IMA policy
-option to choose specific kernel subsystems is needed. This policy option
-would constrain the measurement of the critical data to the given kernel
-subsystems.
+Currently, IMA does not restrict random data sources from measuring
+their data using ima_measure_critical_data(). Any kernel data source can
+call the function, and it's data will get measured as long as the input
+event_data_source is part of the IMA policy - CRITICAL_DATA+data_sources.
 
-Add a new IMA policy option - "data_sources:=" to the IMA func 
-CRITICAL_DATA to allow measurement of various kernel subsystems. This
-policy option would enable the system administrators to limit the
-measurement to the subsystems listed in "data_sources:=", if the 
-subsystem measures its data by calling ima_measure_critical_data().
+To ensure that only data from supported sources are measured, the kernel
+subsystem name needs to be added to a compile-time list of supported
+sources (an "allowed list of components"). IMA then validates the input
+parameter - "event_data_source" passed to ima_measure_critical_data()
+against this allowed list at run-time.
 
-Limit the measurement to the subsystems that are specified in the IMA
-policy - CRITICAL_DATA+"data_sources:=". If "data_sources:=" is not
-provided with the func CRITICAL_DATA, measure the data from all the
-supported kernel subsystems.
+This compile-time list must be updated when kernel subsystems are
+updated to measure their data using IMA.
+
+Provide an infrastructure for kernel data sources to be added to
+IMA's supported data sources list at compile-time. Update
+ima_measure_critical_data() to validate, at run-time, that the data
+source is supported before measuring the data coming from that source.
 
 Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
 ---
- Documentation/ABI/testing/ima_policy |  4 ++
- security/integrity/ima/ima_policy.c  | 62 +++++++++++++++++++++++++---
- 2 files changed, 61 insertions(+), 5 deletions(-)
+ security/integrity/ima/ima.h      | 29 +++++++++++++++++++++++++++++
+ security/integrity/ima/ima_main.c | 12 ++++++++++++
+ 2 files changed, 41 insertions(+)
 
-diff --git a/Documentation/ABI/testing/ima_policy b/Documentation/ABI/testing/ima_policy
-index 3de6c774c37e..15be8b16f6f3 100644
---- a/Documentation/ABI/testing/ima_policy
-+++ b/Documentation/ABI/testing/ima_policy
-@@ -48,6 +48,10 @@ Description:
- 			template:= name of a defined IMA template type
- 			(eg, ima-ng). Only valid when action is "measure".
- 			pcr:= decimal value
-+			data_sources:= list of kernel subsystems that contain
-+			kernel in-memory data critical to the integrity of the kernel.
-+			Only valid when action is "measure" and func is
-+			CRITICAL_DATA.
+diff --git a/security/integrity/ima/ima.h b/security/integrity/ima/ima.h
+index c1acf88e1b5d..4a35db010d91 100644
+--- a/security/integrity/ima/ima.h
++++ b/security/integrity/ima/ima.h
+@@ -228,6 +228,35 @@ extern const char *const func_tokens[];
  
- 		default policy:
- 			# PROC_SUPER_MAGIC
-diff --git a/security/integrity/ima/ima_policy.c b/security/integrity/ima/ima_policy.c
-index f48e82450fe1..ec99e0bb6c6f 100644
---- a/security/integrity/ima/ima_policy.c
-+++ b/security/integrity/ima/ima_policy.c
-@@ -34,6 +34,7 @@
- #define IMA_PCR		0x0100
- #define IMA_FSNAME	0x0200
- #define IMA_KEYRINGS	0x0400
-+#define IMA_DATA_SOURCES	0x0800
+ struct modsig;
  
- #define UNKNOWN		0
- #define MEASURE		0x0001	/* same as IMA_MEASURE */
-@@ -85,6 +86,7 @@ struct ima_rule_entry {
- 	} lsm[MAX_LSM_RULES];
- 	char *fsname;
- 	struct ima_rule_opt_list *keyrings; /* Measure keys added to these keyrings */
-+	struct ima_rule_opt_list *data_sources; /* Measure data from these sources */
- 	struct ima_template_desc *template;
- };
- 
-@@ -479,6 +481,12 @@ static bool ima_match_rule_data(struct ima_rule_entry *rule,
- 		else
- 			opt_list = rule->keyrings;
- 		break;
-+	case CRITICAL_DATA:
-+		if (!rule->data_sources)
++#define __ima_supported_kernel_data_sources(source)	\
++	source(MIN_SOURCE, min_source)			\
++	source(MAX_SOURCE, max_source)
++
++#define __ima_enum_stringify(ENUM, str) (#str),
++
++enum ima_supported_kernel_data_sources {
++	__ima_supported_kernel_data_sources(__ima_hook_enumify)
++};
++
++static const char * const ima_supported_kernel_data_sources_str[] = {
++	__ima_supported_kernel_data_sources(__ima_enum_stringify)
++};
++
++static inline bool ima_kernel_data_source_is_supported(const char *source)
++{
++	int i;
++
++	if (!source)
++		return false;
++
++	for (i = MIN_SOURCE + 1; i < MAX_SOURCE; i++) {
++		if (!strcmp(ima_supported_kernel_data_sources_str[i], source))
 +			return true;
-+		else
-+			opt_list = rule->data_sources;
-+		break;
- 	default:
- 		break;
- 	}
-@@ -518,13 +526,19 @@ static bool ima_match_rules(struct ima_rule_entry *rule, struct inode *inode,
- {
- 	int i;
- 
--	if (func == KEY_CHECK) {
--		return (rule->flags & IMA_FUNC) && (rule->func == func) &&
--			ima_match_rule_data(rule, func_data, cred);
--	}
- 	if ((rule->flags & IMA_FUNC) &&
- 	    (rule->func != func && func != POST_SETATTR))
- 		return false;
-+
-+	switch (func) {
-+	case KEY_CHECK:
-+	case CRITICAL_DATA:
-+		return ((rule->func == func) &&
-+			ima_match_rule_data(rule, func_data, cred));
-+	default:
-+		break;
 +	}
 +
- 	if ((rule->flags & IMA_MASK) &&
- 	    (rule->mask != mask && func != POST_SETATTR))
- 		return false;
-@@ -920,7 +934,7 @@ enum {
- 	Opt_uid_lt, Opt_euid_lt, Opt_fowner_lt,
- 	Opt_appraise_type, Opt_appraise_flag,
- 	Opt_permit_directio, Opt_pcr, Opt_template, Opt_keyrings,
--	Opt_err
-+	Opt_data_sources, Opt_err
- };
- 
- static const match_table_t policy_tokens = {
-@@ -957,6 +971,7 @@ static const match_table_t policy_tokens = {
- 	{Opt_pcr, "pcr=%s"},
- 	{Opt_template, "template=%s"},
- 	{Opt_keyrings, "keyrings=%s"},
-+	{Opt_data_sources, "data_sources=%s"},
- 	{Opt_err, NULL}
- };
- 
-@@ -1119,6 +1134,19 @@ static bool ima_validate_rule(struct ima_rule_entry *entry)
- 		if (ima_rule_contains_lsm_cond(entry))
- 			return false;
- 
-+		break;
-+	case CRITICAL_DATA:
-+		if (entry->action & ~(MEASURE | DONT_MEASURE))
-+			return false;
++	return false;
++}
 +
-+		if (!(entry->flags & IMA_DATA_SOURCES) ||
-+		    (entry->flags & ~(IMA_FUNC | IMA_UID | IMA_PCR |
-+		    IMA_DATA_SOURCES)))
-+			return false;
-+
-+		if (ima_rule_contains_lsm_cond(entry))
-+			return false;
-+
- 		break;
- 	default:
- 		return false;
-@@ -1323,6 +1351,24 @@ static int ima_parse_rule(char *rule, struct ima_rule_entry *entry)
- 
- 			entry->flags |= IMA_KEYRINGS;
- 			break;
-+		case Opt_data_sources:
-+			ima_log_string(ab, "data_sources",
-+				       args[0].from);
-+
-+			if (entry->data_sources) {
-+				result = -EINVAL;
-+				break;
-+			}
-+
-+			entry->data_sources = ima_alloc_rule_opt_list(args);
-+			if (IS_ERR(entry->data_sources)) {
-+				result = PTR_ERR(entry->data_sources);
-+				entry->data_sources = NULL;
-+				break;
-+			}
-+
-+			entry->flags |= IMA_DATA_SOURCES;
-+			break;
- 		case Opt_fsuuid:
- 			ima_log_string(ab, "fsuuid", args[0].from);
- 
-@@ -1703,6 +1749,12 @@ int ima_policy_show(struct seq_file *m, void *v)
- 		seq_puts(m, " ");
+ #ifdef CONFIG_IMA_QUEUE_EARLY_BOOT_KEYS
+ /*
+  * To track keys that need to be measured.
+diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
+index 6e1b11dcba53..091c2e58f3c7 100644
+--- a/security/integrity/ima/ima_main.c
++++ b/security/integrity/ima/ima_main.c
+@@ -937,6 +937,12 @@ void ima_kexec_cmdline(int kernel_fd, const void *buf, int size)
+  * A given kernel subsystem (event_data_source) may send
+  * data (buf) to be measured when the data or the subsystem state changes.
+  * The state/data change can be described by event_name.
++ * Before the first use of this function by a given kernel subsystem,
++ * the subsystem name (event_data_source) must be added to the
++ * compile-time list of data sources being measured -
++ * i.e. __ima_supported_kernel_data_sources.
++ * Otherwise, IMA will not measure any data for that event_data_source
++ * at run-time.
+  * Examples of critical data (buf) could be kernel in-memory r/o structures,
+  * hash of the memory structures, or data that represents subsystem
+  * state change.
+@@ -954,6 +960,12 @@ void ima_measure_critical_data(const char *event_data_source,
+ 		return;
  	}
  
-+	if (entry->flags & IMA_DATA_SOURCES) {
-+		seq_puts(m, "data_sources=");
-+		ima_show_rule_opt_list(m, entry->data_sources);
-+		seq_puts(m, " ");
++	if (!ima_kernel_data_source_is_supported(event_data_source)) {
++		pr_err("measuring data source %s is not permitted",
++		       event_data_source);
++		return;
 +	}
 +
- 	if (entry->flags & IMA_PCR) {
- 		snprintf(tbuf, sizeof(tbuf), "%d", entry->pcr);
- 		seq_printf(m, pt(Opt_pcr), tbuf);
+ 	process_buffer_measurement(NULL, buf, buf_len, event_name,
+ 				   CRITICAL_DATA, 0, event_data_source,
+ 				   measure_buf_hash);
 -- 
 2.17.1
 
