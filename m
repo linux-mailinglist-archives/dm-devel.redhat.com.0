@@ -2,68 +2,64 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0C0D02A2A90
-	for <lists+dm-devel@lfdr.de>; Mon,  2 Nov 2020 13:17:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6C16F2A2FCE
+	for <lists+dm-devel@lfdr.de>; Mon,  2 Nov 2020 17:29:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1604334578;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=X5rUOsT/TChTA3ANYsb5c0paZQDK1+3l+VqvD41QYmM=;
+	b=aJQTJ6qtzZlck4qUshsz3mA13Gt/FHxdYNNdVAnoBqbevCZ7/hJHMXwAvicf9+PLQQL52U
+	O5o828k2DREl4RsvIbt5X8N6G5m9CUtbMsNZ94MvSzqz32TO7sx1z6b5YkNoy48zKmMfM5
+	O+Axpoz+Pg/wcZxe4Soqzd4uAWc08Tg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-413-wOPYZQ7tMeCNKIotvNu8HQ-1; Mon, 02 Nov 2020 07:17:55 -0500
-X-MC-Unique: wOPYZQ7tMeCNKIotvNu8HQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-381-0WpnP6mcPkSKfpmfpje0wQ-1; Mon, 02 Nov 2020 11:29:35 -0500
+X-MC-Unique: 0WpnP6mcPkSKfpmfpje0wQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EA59B101962F;
-	Mon,  2 Nov 2020 12:17:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ACD24186840A;
+	Mon,  2 Nov 2020 16:29:26 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 086AC5DA6B;
-	Mon,  2 Nov 2020 12:17:47 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 61B9D73669;
+	Mon,  2 Nov 2020 16:29:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 75FCC8C7B3;
-	Mon,  2 Nov 2020 12:17:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BACC88C7AD;
+	Mon,  2 Nov 2020 16:29:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0A2CHb1c020917 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 2 Nov 2020 07:17:37 -0500
+	id 0A2GSp9h012266 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 2 Nov 2020 11:28:51 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 44D64215671F; Mon,  2 Nov 2020 12:17:37 +0000 (UTC)
+	id C3B1E5576E; Mon,  2 Nov 2020 16:28:51 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 406CF2156728
-	for <dm-devel@redhat.com>; Mon,  2 Nov 2020 12:17:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A05F18007A4
-	for <dm-devel@redhat.com>; Mon,  2 Nov 2020 12:17:34 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) by
-	relay.mimecast.com with ESMTP id us-mta-468-hNPzYkMDNIu5zAOBVcyEAw-1;
-	Mon, 02 Nov 2020 07:17:30 -0500
-X-MC-Unique: hNPzYkMDNIu5zAOBVcyEAw-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 83304AE35;
-	Mon,  2 Nov 2020 12:17:29 +0000 (UTC)
-Message-ID: <e77c4409175db94f97543991632c323a78ab3ef9.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Benjamin Marzinski <bmarzins@redhat.com>, Christophe Varoqui
-	<christophe.varoqui@opensvc.com>
-Date: Mon, 02 Nov 2020 13:17:28 +0100
-User-Agent: Evolution 3.36.5
+Received: from localhost (unknown [10.18.25.174])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A8AA55766;
+	Mon,  2 Nov 2020 16:28:48 +0000 (UTC)
+Date: Mon, 2 Nov 2020 10:28:23 -0500
+From: Mike Snitzer <snitzer@redhat.com>
+To: JeffleXu <jefflexu@linux.alibaba.com>
+Message-ID: <20201102152822.GA20466@redhat.com>
+References: <20201020065420.124885-1-jefflexu@linux.alibaba.com>
+	<20201021203906.GA10896@redhat.com>
+	<da936cfa-93a8-d6ec-bd88-c0fad6c67c8b@linux.alibaba.com>
+	<20201026185334.GA8463@redhat.com>
+	<33c32cd1-5116-9a42-7fe2-b2a383f1c7a0@linux.alibaba.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+In-Reply-To: <33c32cd1-5116-9a42-7fe2-b2a383f1c7a0@linux.alibaba.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-Cc: Hannes Reinecke <hare@suse.com>,
-	dm-devel mailing list <dm-devel@redhat.com>
-Subject: [dm-devel] Thoughts about multipathd's log thread
+Cc: axboe@kernel.dk, xiaoguang.wang@linux.alibaba.com,
+	linux-block@vger.kernel.org, joseph.qi@linux.alibaba.com,
+	dm-devel@redhat.com, haoxu@linux.alibaba.com, io-uring@vger.kernel.org
+Subject: Re: [dm-devel] [RFC 0/3] Add support of iopoll for dm device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -77,39 +73,73 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-(sending again, with dm-devel on cc. Sorry!)
+On Sun, Nov 01 2020 at 10:14pm -0500,
+JeffleXu <jefflexu@linux.alibaba.com> wrote:
 
-Hi Ben, hi Christophe,
+> 
+> On 10/27/20 2:53 AM, Mike Snitzer wrote:
+> >What you detailed there isn't properly modeling what it needs to.
+> >A given dm_target_io could result in quite a few bios (e.g. for
+> >dm-striped we clone each bio for each of N stripes).  So the fan-out,
+> >especially if then stacked on N layers of stacked devices, to all the
+> >various hctx at the lowest layers is like herding cats.
+> >
+> >But the recursion in block core's submit_bio path makes that challenging
+> >to say the least.  So much so that any solution related to enabling
+> >proper bio-based IO polling is going to need a pretty significant
+> >investment in fixing block core (storing __submit_bio()'s cookie during
+> >recursion, possibly storing to driver provided memory location,
+> >e.g. DM initialized bio->submit_cookie pointer to a blk_qc_t within a DM
+> >clone bio's per-bio-data).
+> >
+> >SO __submit_bio_noacct would become:
+> >
+> >    retp = &ret;
+> >    if (bio->submit_cookie)
+> >           retp = bio->submit_cookie;
+> >    *retp = __submit_bio(bio);
+> 
+> Sorry for the late reply. Exactly I missed this point before. IF you
+> have not started working on this, I'd like to try to implement this as
+> an RFC.
 
-AFAIU, the purpose of the log thread is to avoid blocking while writing
-log messages to the syslog socket. The thread has been in place for a
-long time. However, the large majority of multipath installations today
-runs on systemd-enabled systems, where we don't use the log thread.
-Rather, we write to stderr (which is actually a journald socket)
-directly.
+I did start on this line of development but it needs quite a bit more
+work.  Even the pseudo code I provided above isn't useful in the context
+of DM clone bios that have their own per-bio-data to assist with this
+implementation.  Because the __submit_bio_noacct() recursive call
+drivers/md/dm.c:__split_and_process_bio() makes is supplying the
+original bio (modified to only point to remaining work).
 
-That makes me wonder: if the problem of blocking while writing to the
-log socket is real, it should happen with journald as well (possibly
-more so than with syslogd; journald doesn't exactly have the reputation
-of being highly efficient). Thus, we should be using the log thread
-also for the systemd case. OTOH, I'm not aware of any bug reports
-saying that multipathd wasn't able to handle events because of blocking
-log calls. So perhaps the issue is rather theoretical? In that case, we
-could do away with all the complexity the log thread involves.
+But sure, I'm not opposed to you carrying this line of work forward.  I
+can always lend a hand if you need help later or if you need to hand it
+off to me.
 
-What do you think?
+> >I think you probably just got caught out by the recursive nature of the bio
+> >submission path -- makes creating a graph of submitted bios and their
+> >associated per-bio-data and generated cookies a mess to track (again,
+> >like herding cats).
+> >
+> >Could also be you didn't quite understand the DM code's various
+> >structures.
+> >
+> >In any case, the block core changes needed to make bio-based IO polling
+> >work is the main limiting factor right now.
+>
+> Yes the logic is kind of subtle and maybe what I'm concerned here is
+> really should be concerned at the coding phase.
 
-Martin
+Definitely, lots of little details and associations.
 
-
+Mike
 
 --
 dm-devel mailing list
