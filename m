@@ -2,67 +2,60 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 3DA972A4F55
-	for <lists+dm-devel@lfdr.de>; Tue,  3 Nov 2020 19:49:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id F239A2A5E6A
+	for <lists+dm-devel@lfdr.de>; Wed,  4 Nov 2020 07:57:40 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1604429367;
+	s=mimecast20190719; t=1604473060;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=jcIqE4crss77D+7ZBJ//s7Qg0Uji7DCunNrbO8V5QwI=;
-	b=LqvJdUTUBezHRyupY2gAqqEhc517GDSU7ruZ5oU0GxHJIxpDLcX8cHmBBr28Oel9oQZjJY
-	S58sDzMhRqqYZ6E1wP9RSrmhn3I/wx6gFvF/mxvPmLq2bZeHSENZazz7Q0lkIe9ZaVZqRk
-	tc1HvFsgbM7cH18QwoYisIF7xdRk9gE=
+	bh=50yp2CsdKIwSkocpOSTyu1DO8/MppyIQ2HjUet3G2HI=;
+	b=jQT84FWDRsB0E49ghlz8K4bY4i/oUkCIjo7GgrgzcA+RclpI2Y5W57FvXaM5a4SAitIzKu
+	oZBUG1WkDJLiZhGi9leq6KaoShyTnCE9eZa4ZPLGzZzCn/w11cQwPq/k7eennU0TnHRW02
+	OCKR4yLVf3sQJLdOWZxgNpWi/Co7j80=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-168-lryoTPjhM_Wrm4njUgBY-Q-1; Tue, 03 Nov 2020 13:49:24 -0500
-X-MC-Unique: lryoTPjhM_Wrm4njUgBY-Q-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-520-8sC1fFagMtmM49G0MShZBQ-1; Wed, 04 Nov 2020 01:57:37 -0500
+X-MC-Unique: 8sC1fFagMtmM49G0MShZBQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 56EF51868412;
-	Tue,  3 Nov 2020 18:49:18 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5B5435B4D7;
-	Tue,  3 Nov 2020 18:49:11 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9BAF887951C;
+	Wed,  4 Nov 2020 06:57:26 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 05B071007506;
+	Wed,  4 Nov 2020 06:57:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B656B85CD;
-	Tue,  3 Nov 2020 18:48:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AFA47180B658;
+	Wed,  4 Nov 2020 06:57:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0A3Imilj030364 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 3 Nov 2020 13:48:44 -0500
+	id 0A46sFkd017282 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 4 Nov 2020 01:54:15 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7BE4A6EF6E; Tue,  3 Nov 2020 18:48:44 +0000 (UTC)
+	id A22935C26C; Wed,  4 Nov 2020 06:54:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D11C16EF58;
-	Tue,  3 Nov 2020 18:48:40 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 984E25C1D0;
+	Wed,  4 Nov 2020 06:54:12 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 0A3ImdGB019167; 
-	Tue, 3 Nov 2020 12:48:39 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 0A46sBKu022460; 
+	Wed, 4 Nov 2020 00:54:11 -0600
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 0A3Imct0019166;
-	Tue, 3 Nov 2020 12:48:38 -0600
-Date: Tue, 3 Nov 2020 12:48:36 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 0A46sA4M022459;
+	Wed, 4 Nov 2020 00:54:10 -0600
 From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <martin.wilck@suse.com>
-Message-ID: <20201103184836.GB3384@octiron.msp.redhat.com>
-References: <1603487708-12547-1-git-send-email-bmarzins@redhat.com>
-	<1603487708-12547-6-git-send-email-bmarzins@redhat.com>
-	<095833a0bcbc5f1bb792555b43ebf526553d0c99.camel@suse.com>
-MIME-Version: 1.0
-In-Reply-To: <095833a0bcbc5f1bb792555b43ebf526553d0c99.camel@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>
+Date: Wed,  4 Nov 2020 00:54:03 -0600
+Message-Id: <1604472849-22422-1-git-send-email-bmarzins@redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH 5/5] libmultipath: don't dlclose tur checker
-	DSO
+Cc: device-mapper development <dm-devel@redhat.com>,
+	Martin Wilck <Martin.Wilck@suse.com>
+Subject: [dm-devel] [PATCH v2 0/6] Misc Multipath patches
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -74,48 +67,80 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 30, 2020 at 09:15:39PM +0000, Martin Wilck wrote:
-> On Fri, 2020-10-23 at 16:15 -0500, Benjamin Marzinski wrote:
-> > The multipathd tur checker thread is designed to be able to finish at
-> > any time, even after the tur checker itself has been freed. The
-> > multipathd shutdown code makes sure all the checkers have been freed
-> > before freeing the checker_class and calling dlclose() to unload the
-> > DSO, but this doesn't guarantee that the checker threads have
-> > finished.
-> > If one hasn't, the DSO will get unloaded while the thread still
-> > running
-> > code from it, causing a segfault. Unfortunately, it's not possible to
-> > be
-> > sure that all tur checker threads have ended during shutdown, without
-> > making them joinable.
-> > 
-> > However, since libmultipath will never be reinitialized after it has
-> > been uninitialzed, not dlclosing the tur checker DSO once a thread is
-> > started has minimal cost (keeping the DSO code around until the
-> > program
-> > exits, which usually happens right after freeing the checkers).
-> 
-> I'm not against this, but have you considered using an atomic  refcount
-> for the DSO? With every tur thread starting, we could increase it, and
-> decrease it in the cleanup function of the thread when it exits. That
-> should be safe. If the refcount was positive when we exit, we could
-> refrain from unloading the DSO.
-> 
-> Regards,
-> Martin
+This is a set of unrelated patches, based on top of my previous "add
+library to check if device is a valid path" patchset. The first two
+patches add a new config option, eh_deadline, that sets the scsi sysfs
+value of the same name for scsi path devices. This has been requested by
+multiple customers. Patch 0004 is a change to detecting rdac support
+requested by Netapp.
 
-NAK. I apparently forgot to commit the version file changes.
+Patch 0005 fixes a rare segfault during shutdown, that happens when the
+tur DSO is unloaded while the tur thread is still running. The issue is
+that unless we make the tur_checker thread joinable, there is no way to
+be sure that it isn't still running when the DSO is unloaded. I tried to
+fix this in a way that allowed the DSO to get cleaned up. But without
+redoing the tur_thread, that was impossible. Even if the cleanup
+happened when the tur_thread was running a cleanup handler function from
+libmultipath (not the DSO), while in pthread_exit(), which doesn't
+return back to the calling fuction, it would segfault.
+
+I realize that there has just been a lot of work done to make sure that
+multipathd is cleaning up before exitting that this code is going
+against that, but I'm not sure that the cost of redoing the tur_thread
+is worth the benefit of being able to unload the DSO. If people feel
+strongly that we should always unload the DSO, I can redo this and make
+the tur_thread joinable with pthread_tryjoin_np(), and add code to the
+checkerloop or uxlsnrloop to join with orphaned tur_threads.  That
+should work.
+
+Changes from v1 to v2:
+0002: multiple small fixes suggested by Martin
+0004: New patch to setup for checking vpd page 0x00. Just refactoring code,
+      with not functional changes.
+0005 (was 0004): added checking for vpd page 0xc9 in vpd page 0x00, as
+                 suggested by Martin
+0006 (was 0005): Added version script update
+
+
+Benjamin Marzinski (6):
+  libmultipath: move fast_io_fail defines to structs.h
+  libmultipath: add eh_deadline multipath.conf parameter
+  multipathd: remove redundant vector_free() int configure
+  libmultipath: factor out code to get vpd page data
+  libmultipath: limit reading 0xc9 vpd page
+  libmultipath: don't dlclose tur checker DSO
+
+ libmultipath/checkers.c           |  10 ++-
+ libmultipath/checkers.h           |   1 +
+ libmultipath/checkers/tur.c       |   1 +
+ libmultipath/config.c             |   2 +
+ libmultipath/config.h             |  10 +--
+ libmultipath/configure.c          |   1 +
+ libmultipath/dict.c               |  40 +++++++-----
+ libmultipath/dict.h               |   2 +-
+ libmultipath/discovery.c          | 104 ++++++++++++++++++++++++++----
+ libmultipath/discovery.h          |   1 +
+ libmultipath/libmultipath.version |   5 ++
+ libmultipath/propsel.c            |  29 +++++++--
+ libmultipath/propsel.h            |   1 +
+ libmultipath/structs.h            |  24 +++++++
+ multipath/multipath.conf.5        |  16 +++++
+ multipathd/main.c                 |   8 +--
+ 16 files changed, 208 insertions(+), 47 deletions(-)
+
+-- 
+2.17.2
 
 --
 dm-devel mailing list
