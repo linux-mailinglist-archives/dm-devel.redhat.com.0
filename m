@@ -1,65 +1,65 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 1C0D92A5E6E
-	for <lists+dm-devel@lfdr.de>; Wed,  4 Nov 2020 07:59:44 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 31C7B2A5E69
+	for <lists+dm-devel@lfdr.de>; Wed,  4 Nov 2020 07:57:40 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1604473183;
+	s=mimecast20190719; t=1604473059;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=IXjInUDfIDkWL9SBl6Dhpncoj7xXmqnZ37b8RKQLo2U=;
-	b=MIay7aVnwFFU4QkUz1kMNDLhcsyv6ZCEC481ip6wiTZltIfTDA1gbCyRXC3GHCBewH12GJ
-	4b1aE7r+cQHD4U8A3ZwC9flwqbJqpgqisba0EtIYP9RRynfJSybfRTnShxSrugTEywfMRK
-	hnqcijKhEk6V1fD5Cf0NG+HXQnYYBbQ=
+	bh=/vXYEmAAtAhEWfArK/sz3OdUTJ2mtA/7o5otyyu7sCU=;
+	b=bi94Z3Yx33RttuUhmdYFW+QEt5jG57nj2g/NHUPP3b3wybu6wHsJVSAcDdLaqD54qRC20x
+	a9Ppkj/rcHm8jCX9yQKbQHoudLbkYUygUYcn2E+vUa/aFPdECeDoSzhAlOcFL/GiHPz/Ma
+	fQZSWF78eIesOYk49I5x82VACsVFJMw=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-549-O_DcWpoGP-qrgE0dO2IMJQ-1; Wed, 04 Nov 2020 01:59:41 -0500
-X-MC-Unique: O_DcWpoGP-qrgE0dO2IMJQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-216-ZOt46i7pOLmyp4-IeSEvfw-1; Wed, 04 Nov 2020 01:57:37 -0500
+X-MC-Unique: ZOt46i7pOLmyp4-IeSEvfw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D2CB664096;
-	Wed,  4 Nov 2020 06:59:34 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AFB325C1D0;
-	Wed,  4 Nov 2020 06:59:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6CE49804742;
+	Wed,  4 Nov 2020 06:57:31 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0E1DD5D9D3;
+	Wed,  4 Nov 2020 06:57:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3749058115;
-	Wed,  4 Nov 2020 06:59:34 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 975EE180C5A2;
+	Wed,  4 Nov 2020 06:57:25 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
 	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0A46sFME017287 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 4 Nov 2020 01:54:15 -0500
+	id 0A46sH3N017304 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 4 Nov 2020 01:54:17 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id AFD265C26C; Wed,  4 Nov 2020 06:54:15 +0000 (UTC)
+	id 8E5C85C22E; Wed,  4 Nov 2020 06:54:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AEAF95C22E;
-	Wed,  4 Nov 2020 06:54:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 778B55C1D0;
+	Wed,  4 Nov 2020 06:54:17 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 0A46sCZ5022464; 
-	Wed, 4 Nov 2020 00:54:12 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 0A46sGTR022476; 
+	Wed, 4 Nov 2020 00:54:16 -0600
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 0A46sB4O022463;
-	Wed, 4 Nov 2020 00:54:11 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 0A46sFwn022475;
+	Wed, 4 Nov 2020 00:54:15 -0600
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Wed,  4 Nov 2020 00:54:04 -0600
-Message-Id: <1604472849-22422-2-git-send-email-bmarzins@redhat.com>
+Date: Wed,  4 Nov 2020 00:54:07 -0600
+Message-Id: <1604472849-22422-5-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1604472849-22422-1-git-send-email-bmarzins@redhat.com>
 References: <1604472849-22422-1-git-send-email-bmarzins@redhat.com>
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
 Cc: device-mapper development <dm-devel@redhat.com>,
 	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH v2 1/6] libmultipath: move fast_io_fail defines
-	to structs.h
+Subject: [dm-devel] [PATCH v2 4/6] libmultipath: factor out code to get vpd
+	page data
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -74,7 +74,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -82,158 +82,52 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Since fast_io_fail is part of the multipath struct, its symbolic values
-belong in structs.h. Also, make it an instance of a general enum, which
-will be used again in future patches, and change the set/print functions
-which use it to use the general enum instead.
+A future patch will reuse the code to get the vpd page data, so factor
+it out from get_vpd_sgio().
 
-Reviewed-by: Martin Wilck <mwilck@suse.com>
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/config.h  |  8 --------
- libmultipath/dict.c    | 30 +++++++++++++++---------------
- libmultipath/dict.h    |  2 +-
- libmultipath/propsel.c |  2 +-
- libmultipath/structs.h | 17 +++++++++++++++++
- 5 files changed, 34 insertions(+), 25 deletions(-)
+ libmultipath/discovery.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
-diff --git a/libmultipath/config.h b/libmultipath/config.h
-index 5d460359..661dd586 100644
---- a/libmultipath/config.h
-+++ b/libmultipath/config.h
-@@ -10,14 +10,6 @@
- #define ORIGIN_DEFAULT 0
- #define ORIGIN_CONFIG  1
+diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
+index a97d2998..95ddbbbd 100644
+--- a/libmultipath/discovery.c
++++ b/libmultipath/discovery.c
+@@ -1319,11 +1319,10 @@ get_vpd_sysfs (struct udev_device *parent, int pg, char * str, int maxlen)
+ 	return len;
+ }
  
--/*
-- * In kernel, fast_io_fail == 0 means immediate failure on rport delete.
-- * OTOH '0' means not-configured in various places in multipath-tools.
-- */
--#define MP_FAST_IO_FAIL_UNSET (0)
--#define MP_FAST_IO_FAIL_OFF (-1)
--#define MP_FAST_IO_FAIL_ZERO (-2)
--
- enum devtypes {
- 	DEV_NONE,
- 	DEV_DEVT,
-diff --git a/libmultipath/dict.c b/libmultipath/dict.c
-index f12c2e5c..f4357da1 100644
---- a/libmultipath/dict.c
-+++ b/libmultipath/dict.c
-@@ -822,7 +822,7 @@ declare_mp_attr_handler(gid, set_gid)
- declare_mp_attr_snprint(gid, print_gid)
- 
- static int
--set_fast_io_fail(vector strvec, void *ptr)
-+set_undef_off_zero(vector strvec, void *ptr)
+-int
+-get_vpd_sgio (int fd, int pg, int vend_id, char * str, int maxlen)
++static int
++fetch_vpd_page(int fd, int pg, unsigned char *buff)
  {
- 	char * buff;
- 	int *int_ptr = (int *)ptr;
-@@ -832,36 +832,36 @@ set_fast_io_fail(vector strvec, void *ptr)
- 		return 1;
+-	int len, buff_len;
+-	unsigned char buff[4096];
++	int buff_len;
  
- 	if (strcmp(buff, "off") == 0)
--		*int_ptr = MP_FAST_IO_FAIL_OFF;
-+		*int_ptr = UOZ_OFF;
- 	else if (sscanf(buff, "%d", int_ptr) != 1 ||
--		 *int_ptr < MP_FAST_IO_FAIL_ZERO)
--		*int_ptr = MP_FAST_IO_FAIL_UNSET;
-+		 *int_ptr < UOZ_ZERO)
-+		*int_ptr = UOZ_UNDEF;
- 	else if (*int_ptr == 0)
--		*int_ptr = MP_FAST_IO_FAIL_ZERO;
-+		*int_ptr = UOZ_ZERO;
- 
- 	FREE(buff);
- 	return 0;
- }
- 
- int
--print_fast_io_fail(char * buff, int len, long v)
-+print_undef_off_zero(char * buff, int len, long v)
- {
--	if (v == MP_FAST_IO_FAIL_UNSET)
-+	if (v == UOZ_UNDEF)
- 		return 0;
--	if (v == MP_FAST_IO_FAIL_OFF)
-+	if (v == UOZ_OFF)
- 		return snprintf(buff, len, "\"off\"");
--	if (v == MP_FAST_IO_FAIL_ZERO)
-+	if (v == UOZ_ZERO)
- 		return snprintf(buff, len, "0");
- 	return snprintf(buff, len, "%ld", v);
- }
- 
--declare_def_handler(fast_io_fail, set_fast_io_fail)
--declare_def_snprint_defint(fast_io_fail, print_fast_io_fail,
-+declare_def_handler(fast_io_fail, set_undef_off_zero)
-+declare_def_snprint_defint(fast_io_fail, print_undef_off_zero,
- 			   DEFAULT_FAST_IO_FAIL)
--declare_ovr_handler(fast_io_fail, set_fast_io_fail)
--declare_ovr_snprint(fast_io_fail, print_fast_io_fail)
--declare_hw_handler(fast_io_fail, set_fast_io_fail)
--declare_hw_snprint(fast_io_fail, print_fast_io_fail)
-+declare_ovr_handler(fast_io_fail, set_undef_off_zero)
-+declare_ovr_snprint(fast_io_fail, print_undef_off_zero)
-+declare_hw_handler(fast_io_fail, set_undef_off_zero)
-+declare_hw_snprint(fast_io_fail, print_undef_off_zero)
- 
- static int
- set_dev_loss(vector strvec, void *ptr)
-diff --git a/libmultipath/dict.h b/libmultipath/dict.h
-index a40ac66f..a917e1ca 100644
---- a/libmultipath/dict.h
-+++ b/libmultipath/dict.h
-@@ -13,7 +13,7 @@ int print_rr_weight(char *buff, int len, long v);
- int print_pgfailback(char *buff, int len, long v);
- int print_pgpolicy(char *buff, int len, long v);
- int print_no_path_retry(char *buff, int len, long v);
--int print_fast_io_fail(char *buff, int len, long v);
-+int print_undef_off_zero(char *buff, int len, long v);
- int print_dev_loss(char *buff, int len, unsigned long v);
- int print_reservation_key(char * buff, int len, struct be64 key, uint8_t
- 			  flags, int source);
-diff --git a/libmultipath/propsel.c b/libmultipath/propsel.c
-index 3f2c2cfa..67d025cf 100644
---- a/libmultipath/propsel.c
-+++ b/libmultipath/propsel.c
-@@ -754,7 +754,7 @@ int select_fast_io_fail(struct config *conf, struct multipath *mp)
- 	mp_set_conf(fast_io_fail);
- 	mp_set_default(fast_io_fail, DEFAULT_FAST_IO_FAIL);
- out:
--	print_fast_io_fail(buff, 12, mp->fast_io_fail);
-+	print_undef_off_zero(buff, 12, mp->fast_io_fail);
- 	condlog(3, "%s: fast_io_fail_tmo = %s %s", mp->alias, buff, origin);
- 	return 0;
- }
-diff --git a/libmultipath/structs.h b/libmultipath/structs.h
-index 4ce30551..cfa7b649 100644
---- a/libmultipath/structs.h
-+++ b/libmultipath/structs.h
-@@ -219,6 +219,23 @@ enum vpd_vendor_ids {
- 	VPD_VP_ARRAY_SIZE, /* This must remain the last entry */
- };
- 
-+/*
-+ * Multipath treats 0 as undefined for optional config parameters.
-+ * Use this for cases where 0 is a valid option for systems multipath
-+ * is communicating with
-+ */
-+enum undefined_off_zero {
-+	UOZ_UNDEF = 0,
-+	UOZ_OFF = -1,
-+	UOZ_ZERO = -2,
-+};
+ 	memset(buff, 0x0, 4096);
+ 	if (sgio_get_vpd(buff, 4096, fd, pg) < 0) {
+@@ -1344,6 +1343,18 @@ get_vpd_sgio (int fd, int pg, int vend_id, char * str, int maxlen)
+ 		condlog(3, "vpd pg%02x page truncated", pg);
+ 		buff_len = 4096;
+ 	}
++	return buff_len;
++}
 +
-+enum fast_io_fail_states {
-+	MP_FAST_IO_FAIL_UNSET = UOZ_UNDEF,
-+	MP_FAST_IO_FAIL_OFF = UOZ_OFF,
-+	MP_FAST_IO_FAIL_ZERO = UOZ_ZERO,
-+};
++int
++get_vpd_sgio (int fd, int pg, int vend_id, char * str, int maxlen)
++{
++	int len, buff_len;
++	unsigned char buff[4096];
 +
- struct vpd_vendor_page {
- 	int pg;
- 	const char *name;
++	buff_len = fetch_vpd_page(fd, pg, buff);
++	if (buff_len < 0)
++		return buff_len;
+ 	if (pg == 0x80)
+ 		len = parse_vpd_pg80(buff, str, maxlen);
+ 	else if (pg == 0x83)
 -- 
 2.17.2
 
