@@ -1,57 +1,54 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B03E72A7B85
-	for <lists+dm-devel@lfdr.de>; Thu,  5 Nov 2020 11:21:23 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 35D8A2A7D86
+	for <lists+dm-devel@lfdr.de>; Thu,  5 Nov 2020 12:51:09 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-312-JW91gNQGPLumhm_6nX00cA-1; Thu, 05 Nov 2020 05:21:20 -0500
-X-MC-Unique: JW91gNQGPLumhm_6nX00cA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-429-8UY8dJyYOQm5qQU6lSwCqA-1; Thu, 05 Nov 2020 06:51:05 -0500
+X-MC-Unique: 8UY8dJyYOQm5qQU6lSwCqA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2F67B80474D;
-	Thu,  5 Nov 2020 10:21:14 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E5D135D98F;
-	Thu,  5 Nov 2020 10:21:13 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5E82B935A1C;
+	Thu,  5 Nov 2020 11:50:54 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3EF531002C3C;
+	Thu,  5 Nov 2020 11:50:51 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9A647183D021;
-	Thu,  5 Nov 2020 10:21:04 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1427344A43;
+	Thu,  5 Nov 2020 11:50:42 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0A5AKtBZ029237 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 5 Nov 2020 05:20:56 -0500
+	id 0A5BoBlg005441 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 5 Nov 2020 06:50:11 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BA282215672D; Thu,  5 Nov 2020 10:20:55 +0000 (UTC)
+	id 9A9A8217B43E; Thu,  5 Nov 2020 11:50:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B39712156729
-	for <dm-devel@redhat.com>; Thu,  5 Nov 2020 10:20:53 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9192F217B432
+	for <dm-devel@redhat.com>; Thu,  5 Nov 2020 11:50:07 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7ED47811E82
-	for <dm-devel@redhat.com>; Thu,  5 Nov 2020 10:20:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BEB8D90E424
+	for <dm-devel@redhat.com>; Thu,  5 Nov 2020 11:50:07 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-386-FVbQfKlLOkyKWa6XPCBjkw-1;
-	Thu, 05 Nov 2020 05:20:48 -0500
-X-MC-Unique: FVbQfKlLOkyKWa6XPCBjkw-1
+	relay.mimecast.com with ESMTP id us-mta-393-bjaVSgbxMm6DJFXv3tYTdw-1;
+	Thu, 05 Nov 2020 06:50:04 -0500
+X-MC-Unique: bjaVSgbxMm6DJFXv3tYTdw-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 45F1EAC55;
-	Thu,  5 Nov 2020 10:20:47 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id 5AAB4ABE3;
+	Thu,  5 Nov 2020 11:50:03 +0000 (UTC)
 From: mwilck@suse.com
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu,  5 Nov 2020 11:20:33 +0100
-Message-Id: <20201105102033.18411-3-mwilck@suse.com>
-In-Reply-To: <20201105102033.18411-1-mwilck@suse.com>
-References: <20201105102033.18411-1-mwilck@suse.com>
+To: Benjamin Marzinski <bmarzins@redhat.com>
+Date: Thu,  5 Nov 2020 12:49:52 +0100
+Message-Id: <20201105114952.1059-1-mwilck@suse.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -63,12 +60,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0A5AKtBZ029237
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0A5BoBlg005441
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Xose Vazquez Perez <xose.vazquez@gmail.com>,
-	Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 2/2] libmultipath: dm_task_get_errno() is not
-	always available
+Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Subject: [dm-devel] [RFC PATCH] libmultipath: prevent DSO unloading with
+	astray checker threads
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,7 +78,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -92,75 +88,213 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-The function was added in LVM2 2.02.122. The DM version is
-1.02.99. Fall back to errno if dm_task_get_errno() doesn't exist.
+The multipathd tur checker thread is designed to be able to finish at
+any time, even after the tur checker itself has been freed. The
+multipathd shutdown code makes sure all the checkers have been freed
+before freeing the checker_class and calling dlclose() to unload the
+DSO, but this doesn't guarantee that the checker threads have finished.
+If one hasn't, the DSO will get unloaded while the thread still running
+code from it, causing a segfault.
 
+This patch fixes the issue by further incrementing the DSO's refcount
+for every running thread. To avoid race conditions leading to segfaults,
+the thread's entrypoint must be in libmultipath, not in the DSO itself.
+Therefore we add a new optional checker method, libcheck_thread().
+Checkers defining this method may create a detached thread with
+entrypoint checker_thread_entry(), which will call the DSO's
+libcheck_thread and take care of the refcount handling.
+
+Reported-by: Benjamin Marzinski <bmarzins@redhat.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/Makefile    | 4 ++++
- libmultipath/devmapper.c | 2 ++
- libmultipath/devmapper.h | 5 +++++
- multipathd/Makefile      | 4 ++++
- 4 files changed, 15 insertions(+)
+ libmultipath/checkers.c     | 55 ++++++++++++++++++++++++++++++++-----
+ libmultipath/checkers.h     | 17 ++++++++++++
+ libmultipath/checkers/tur.c |  7 ++---
+ 3 files changed, 67 insertions(+), 12 deletions(-)
 
-diff --git a/libmultipath/Makefile b/libmultipath/Makefile
-index e5dac5e..62ba16e 100644
---- a/libmultipath/Makefile
-+++ b/libmultipath/Makefile
-@@ -24,6 +24,10 @@ ifneq ($(call check_func,dm_task_no_flush,/usr/include/libdevmapper.h),0)
- 	CFLAGS += -DLIBDM_API_FLUSH -D_GNU_SOURCE
- endif
+diff --git a/libmultipath/checkers.c b/libmultipath/checkers.c
+index f7ddd53..7d10f2a 100644
+--- a/libmultipath/checkers.c
++++ b/libmultipath/checkers.c
+@@ -3,6 +3,9 @@
+ #include <stddef.h>
+ #include <dlfcn.h>
+ #include <sys/stat.h>
++#include <pthread.h>
++#include <urcu.h>
++#include <urcu/uatomic.h>
  
-+ifneq ($(call check_func,dm_task_get_errno,/usr/include/libdevmapper.h),0)
-+	CFLAGS += -DLIBDM_API_GET_ERRNO
-+endif
-+
- ifneq ($(call check_func,dm_task_set_cookie,/usr/include/libdevmapper.h),0)
- 	CFLAGS += -DLIBDM_API_COOKIE
- endif
-diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
-index b4d77cb..7f09361 100644
---- a/libmultipath/devmapper.c
-+++ b/libmultipath/devmapper.c
-@@ -119,6 +119,8 @@ dm_lib_prereq (void)
- 	int v[3];
- #if defined(LIBDM_API_HOLD_CONTROL)
- 	int minv[3] = {1, 2, 111};
-+#elif defined(LIBDM_API_GET_ERRNO)
-+	int minv[3] = {1, 2, 99};
- #elif defined(LIBDM_API_DEFERRED)
- 	int minv[3] = {1, 2, 89};
- #elif defined(DM_SUBSYSTEM_UDEV_FLAG0)
-diff --git a/libmultipath/devmapper.h b/libmultipath/devmapper.h
-index f568ab5..f469c98 100644
---- a/libmultipath/devmapper.h
-+++ b/libmultipath/devmapper.h
-@@ -85,6 +85,11 @@ struct multipath *dm_get_multipath(const char *name);
- 	((v[0] == minv[0]) && (v[1] == minv[1]) && (v[2] >= minv[2])) \
- )
+ #include "debug.h"
+ #include "checkers.h"
+@@ -19,6 +22,7 @@ struct checker_class {
+ 	int (*mp_init)(struct checker *);    /* to allocate the mpcontext */
+ 	void (*free)(struct checker *);      /* to free the context */
+ 	void (*reset)(void);		     /* to reset the global variables */
++	void *(*thread)(void *);	     /* async thread entry point */
+ 	const char **msgtable;
+ 	short msgtable_size;
+ };
+@@ -54,19 +58,32 @@ static struct checker_class *alloc_checker_class(void)
+ 	c = MALLOC(sizeof(struct checker_class));
+ 	if (c) {
+ 		INIT_LIST_HEAD(&c->node);
+-		c->refcount = 1;
++		uatomic_set(&c->refcount, 1);
+ 	}
+ 	return c;
+ }
  
-+#ifndef LIBDM_API_GET_ERRNO
-+#include <errno.h>
-+#define dm_task_get_errno(x) errno
-+#endif
++/* Use uatomic_{sub,add}_return() to ensure proper memory barriers */
++static int checker_class_ref(struct checker_class *cls)
++{
++	return uatomic_add_return(&cls->refcount, 1);
++}
 +
- #define dm_log_error(lvl, cmd, dmt)			      \
- 	condlog(lvl, "%s: libdm task=%d error: %s", __func__, \
- 		cmd, strerror(dm_task_get_errno(dmt)))	      \
-diff --git a/multipathd/Makefile b/multipathd/Makefile
-index 8d90117..632b82b 100644
---- a/multipathd/Makefile
-+++ b/multipathd/Makefile
-@@ -1,5 +1,9 @@
- include ../Makefile.inc
++static int checker_class_unref(struct checker_class *cls)
++{
++	return uatomic_sub_return(&cls->refcount, 1);
++}
++
+ void free_checker_class(struct checker_class *c)
+ {
++	int cnt;
++
+ 	if (!c)
+ 		return;
+-	c->refcount--;
+-	if (c->refcount) {
+-		condlog(4, "%s checker refcount %d",
+-			c->name, c->refcount);
++	cnt = checker_class_unref(c);
++	if (cnt != 0) {
++		condlog(cnt < 0 ? 1 : 4, "%s checker refcount %d",
++			c->name, cnt);
+ 		return;
+ 	}
+ 	condlog(3, "unloading %s checker", c->name);
+@@ -160,7 +177,8 @@ static struct checker_class *add_checker_class(const char *multipath_dir,
  
-+ifneq ($(call check_func,dm_task_get_errno,/usr/include/libdevmapper.h),0)
-+	CFLAGS += -DLIBDM_API_GET_ERRNO
-+endif
+ 	c->mp_init = (int (*)(struct checker *)) dlsym(c->handle, "libcheck_mp_init");
+ 	c->reset = (void (*)(void)) dlsym(c->handle, "libcheck_reset");
+-	/* These 2 functions can be NULL. call dlerror() to clear out any
++	c->thread = (void *(*)(void*)) dlsym(c->handle, "libcheck_thread");
++	/* These 3 functions can be NULL. call dlerror() to clear out any
+ 	 * error string */
+ 	dlerror();
+ 
+@@ -346,6 +364,29 @@ bad_id:
+ 	return generic_msg[CHECKER_MSGID_NONE];
+ }
+ 
++static void checker_cleanup_thread(void *arg)
++{
++	struct checker_class *cls = arg;
 +
- #
- # debugging stuff
- #
++	(void)checker_class_unref(cls);
++	rcu_unregister_thread();
++}
++
++void *checker_thread_entry(void *arg)
++{
++	struct checker *chk = arg;
++	void *rv;
++
++	assert(chk && chk->cls && chk->cls->thread);
++
++	rcu_register_thread();
++	(void)checker_class_ref(chk->cls);
++	pthread_cleanup_push(checker_cleanup_thread, chk->cls);
++	rv = chk->cls->thread(chk->context);
++	pthread_cleanup_pop(1);
++	return rv;
++}
++
+ void checker_clear_message (struct checker *c)
+ {
+ 	if (!c)
+@@ -370,7 +411,7 @@ void checker_get(const char *multipath_dir, struct checker *dst,
+ 	if (!src)
+ 		return;
+ 
+-	src->refcount++;
++	(void)checker_class_ref(dst->cls);
+ }
+ 
+ int init_checkers(const char *multipath_dir)
+diff --git a/libmultipath/checkers.h b/libmultipath/checkers.h
+index 9d5f90b..01af02d 100644
+--- a/libmultipath/checkers.h
++++ b/libmultipath/checkers.h
+@@ -148,6 +148,23 @@ void checker_set_async (struct checker *);
+ void checker_set_fd (struct checker *, int);
+ void checker_enable (struct checker *);
+ void checker_disable (struct checker *);
++/*
++ * checker_thread_entry(): entry point for async path checker thread
++ *
++ * Path checkers that do I/O may hang forever. To avoid blocking, some
++ * checkers therefore use asyncronous, detached threads for checking
++ * the paths. These threads may continue hanging if multipathd is stopped.
++ * In this case, we can't unload the checker DSO at exit. In order to
++ * avoid race conditions and crashes, the entry point of the thread
++ * needs to be in libmultipath, not in the DSO itself.
++ * Checker threads must use this function as entry point. It will call
++ * the DSO's "libcheck_thread" function with the checker context as
++ * argument. When libcheck_thread() returns, it will clean up and
++ * decrement the DSO's refcount. See the tur checker for a usage example.
++ *
++ * @param arg: pointer to struct checker, must have non-NULL cls->thread
++ */
++void *checker_thread_entry (void *);
+ int checker_check (struct checker *, int);
+ int checker_is_sync(const struct checker *);
+ const char *checker_name (const struct checker *);
+diff --git a/libmultipath/checkers/tur.c b/libmultipath/checkers/tur.c
+index e886fcf..063c419 100644
+--- a/libmultipath/checkers/tur.c
++++ b/libmultipath/checkers/tur.c
+@@ -15,7 +15,6 @@
+ #include <errno.h>
+ #include <sys/time.h>
+ #include <pthread.h>
+-#include <urcu.h>
+ #include <urcu/uatomic.h>
+ 
+ #include "checkers.h"
+@@ -204,7 +203,6 @@ static void cleanup_func(void *data)
+ 	holders = uatomic_sub_return(&ct->holders, 1);
+ 	if (!holders)
+ 		cleanup_context(ct);
+-	rcu_unregister_thread();
+ }
+ 
+ /*
+@@ -251,7 +249,7 @@ static void tur_deep_sleep(const struct tur_checker_context *ct)
+ #define tur_deep_sleep(x) do {} while (0)
+ #endif /* TUR_TEST_MAJOR */
+ 
+-static void *tur_thread(void *ctx)
++void *libcheck_thread(void *ctx)
+ {
+ 	struct tur_checker_context *ct = ctx;
+ 	int state, running;
+@@ -259,7 +257,6 @@ static void *tur_thread(void *ctx)
+ 
+ 	/* This thread can be canceled, so setup clean up */
+ 	tur_thread_cleanup_push(ct);
+-	rcu_register_thread();
+ 
+ 	condlog(4, "%d:%d : tur checker starting up", major(ct->devt),
+ 		minor(ct->devt));
+@@ -394,7 +391,7 @@ int libcheck_check(struct checker * c)
+ 		uatomic_set(&ct->running, 1);
+ 		tur_set_async_timeout(c);
+ 		setup_thread_attr(&attr, 32 * 1024, 1);
+-		r = pthread_create(&ct->thread, &attr, tur_thread, ct);
++		r = pthread_create(&ct->thread, &attr, checker_thread_entry, c);
+ 		pthread_attr_destroy(&attr);
+ 		if (r) {
+ 			uatomic_sub(&ct->holders, 1);
 -- 
 2.29.0
 
