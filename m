@@ -2,53 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 1395F2A7B87
-	for <lists+dm-devel@lfdr.de>; Thu,  5 Nov 2020 11:21:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B03E72A7B85
+	for <lists+dm-devel@lfdr.de>; Thu,  5 Nov 2020 11:21:23 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-584-MGNHc-UFNeCmUZnvlQM_aQ-1; Thu, 05 Nov 2020 05:21:22 -0500
-X-MC-Unique: MGNHc-UFNeCmUZnvlQM_aQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-312-JW91gNQGPLumhm_6nX00cA-1; Thu, 05 Nov 2020 05:21:20 -0500
+X-MC-Unique: JW91gNQGPLumhm_6nX00cA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6FF80802B4B;
-	Thu,  5 Nov 2020 10:21:17 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F23025B4CD;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2F67B80474D;
+	Thu,  5 Nov 2020 10:21:14 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E5D135D98F;
 	Thu,  5 Nov 2020 10:21:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AEA175812C;
-	Thu,  5 Nov 2020 10:21:03 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9A647183D021;
+	Thu,  5 Nov 2020 10:21:04 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0A5AKrm8029217 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 5 Nov 2020 05:20:53 -0500
+	id 0A5AKtBZ029237 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 5 Nov 2020 05:20:56 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8ABD5200E1F7; Thu,  5 Nov 2020 10:20:53 +0000 (UTC)
+	id BA282215672D; Thu,  5 Nov 2020 10:20:55 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 858E720235B9
-	for <dm-devel@redhat.com>; Thu,  5 Nov 2020 10:20:51 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B39712156729
+	for <dm-devel@redhat.com>; Thu,  5 Nov 2020 10:20:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 651CE1021F7C
-	for <dm-devel@redhat.com>; Thu,  5 Nov 2020 10:20:51 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7ED47811E82
+	for <dm-devel@redhat.com>; Thu,  5 Nov 2020 10:20:53 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-451-9KXvnmdKOy-LMLnTmhAlRg-1;
+	relay.mimecast.com with ESMTP id us-mta-386-FVbQfKlLOkyKWa6XPCBjkw-1;
 	Thu, 05 Nov 2020 05:20:48 -0500
-X-MC-Unique: 9KXvnmdKOy-LMLnTmhAlRg-1
+X-MC-Unique: FVbQfKlLOkyKWa6XPCBjkw-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 01DB9AC2E;
+	by mx2.suse.de (Postfix) with ESMTP id 45F1EAC55;
 	Thu,  5 Nov 2020 10:20:47 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu,  5 Nov 2020 11:20:32 +0100
-Message-Id: <20201105102033.18411-2-mwilck@suse.com>
+Date: Thu,  5 Nov 2020 11:20:33 +0100
+Message-Id: <20201105102033.18411-3-mwilck@suse.com>
 In-Reply-To: <20201105102033.18411-1-mwilck@suse.com>
 References: <20201105102033.18411-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -60,14 +61,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0A5AKrm8029217
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0A5AKtBZ029237
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Xose Vazquez Perez <xose.vazquez@gmail.com>,
 	Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 1/2] libmultipath tests: delete test-log.d during
-	"make clean"
+Subject: [dm-devel] [PATCH 2/2] libmultipath: dm_task_get_errno() is not
+	always available
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +82,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,36 +92,75 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-test-log.d was not cleaned out. Fix it.
+The function was added in LVM2 2.02.122. The DM version is
+1.02.99. Fall back to errno if dm_task_get_errno() doesn't exist.
 
-Reported-by: Xose Vasquez Perez <xose.vazquez@gmail.com>
-Tested-by: Xose Vasquez Perez <xose.vazquez@gmail.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- tests/Makefile | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ libmultipath/Makefile    | 4 ++++
+ libmultipath/devmapper.c | 2 ++
+ libmultipath/devmapper.h | 5 +++++
+ multipathd/Makefile      | 4 ++++
+ 4 files changed, 15 insertions(+)
 
-diff --git a/tests/Makefile b/tests/Makefile
-index 3bacabd..d26b3ce 100644
---- a/tests/Makefile
-+++ b/tests/Makefile
-@@ -14,6 +14,7 @@ LIBDEPS += -L$(multipathdir) -L$(mpathcmddir) -lmultipath -lmpathcmd -lcmocka
+diff --git a/libmultipath/Makefile b/libmultipath/Makefile
+index e5dac5e..62ba16e 100644
+--- a/libmultipath/Makefile
++++ b/libmultipath/Makefile
+@@ -24,6 +24,10 @@ ifneq ($(call check_func,dm_task_no_flush,/usr/include/libdevmapper.h),0)
+ 	CFLAGS += -DLIBDM_API_FLUSH -D_GNU_SOURCE
+ endif
  
- TESTS := uevent parser util dmevents hwtable blacklist unaligned vpd pgpolicy \
- 	 alias directio valid devt
-+HELPERS := test-lib.o test-log.o
++ifneq ($(call check_func,dm_task_get_errno,/usr/include/libdevmapper.h),0)
++	CFLAGS += -DLIBDM_API_GET_ERRNO
++endif
++
+ ifneq ($(call check_func,dm_task_set_cookie,/usr/include/libdevmapper.h),0)
+ 	CFLAGS += -DLIBDM_API_COOKIE
+ endif
+diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
+index b4d77cb..7f09361 100644
+--- a/libmultipath/devmapper.c
++++ b/libmultipath/devmapper.c
+@@ -119,6 +119,8 @@ dm_lib_prereq (void)
+ 	int v[3];
+ #if defined(LIBDM_API_HOLD_CONTROL)
+ 	int minv[3] = {1, 2, 111};
++#elif defined(LIBDM_API_GET_ERRNO)
++	int minv[3] = {1, 2, 99};
+ #elif defined(LIBDM_API_DEFERRED)
+ 	int minv[3] = {1, 2, 89};
+ #elif defined(DM_SUBSYSTEM_UDEV_FLAG0)
+diff --git a/libmultipath/devmapper.h b/libmultipath/devmapper.h
+index f568ab5..f469c98 100644
+--- a/libmultipath/devmapper.h
++++ b/libmultipath/devmapper.h
+@@ -85,6 +85,11 @@ struct multipath *dm_get_multipath(const char *name);
+ 	((v[0] == minv[0]) && (v[1] == minv[1]) && (v[2] >= minv[2])) \
+ )
  
- .SILENT: $(TESTS:%=%.o)
- .PRECIOUS: $(TESTS:%=%-test)
-@@ -74,7 +75,7 @@ lib/libchecktur.so:
- 	@LD_LIBRARY_PATH=$(multipathdir):$(mpathcmddir) \
- 		valgrind --leak-check=full --error-exitcode=128 ./$< >$@ 2>&1
++#ifndef LIBDM_API_GET_ERRNO
++#include <errno.h>
++#define dm_task_get_errno(x) errno
++#endif
++
+ #define dm_log_error(lvl, cmd, dmt)			      \
+ 	condlog(lvl, "%s: libdm task=%d error: %s", __func__, \
+ 		cmd, strerror(dm_task_get_errno(dmt)))	      \
+diff --git a/multipathd/Makefile b/multipathd/Makefile
+index 8d90117..632b82b 100644
+--- a/multipathd/Makefile
++++ b/multipathd/Makefile
+@@ -1,5 +1,9 @@
+ include ../Makefile.inc
  
--OBJS = $(TESTS:%=%.o) test-lib.o
-+OBJS = $(TESTS:%=%.o) $(HELPERS)
- 
- test_clean:
- 	$(RM) $(TESTS:%=%.out) $(TESTS:%=%.vgr)
++ifneq ($(call check_func,dm_task_get_errno,/usr/include/libdevmapper.h),0)
++	CFLAGS += -DLIBDM_API_GET_ERRNO
++endif
++
+ #
+ # debugging stuff
+ #
 -- 
 2.29.0
 
