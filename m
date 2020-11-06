@@ -2,103 +2,105 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 27AC22AAC6F
-	for <lists+dm-devel@lfdr.de>; Sun,  8 Nov 2020 18:05:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5AFFB2AAC6A
+	for <lists+dm-devel@lfdr.de>; Sun,  8 Nov 2020 18:05:14 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-106-EeEq0jXIPR-pVMnpf7kGNg-1; Sun, 08 Nov 2020 12:05:16 -0500
-X-MC-Unique: EeEq0jXIPR-pVMnpf7kGNg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-560-0zHWyBC5O4mMoiCVDBhUsg-1; Sun, 08 Nov 2020 12:05:11 -0500
+X-MC-Unique: 0zHWyBC5O4mMoiCVDBhUsg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A326C805F16;
-	Sun,  8 Nov 2020 17:05:10 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 79DD210002A6;
-	Sun,  8 Nov 2020 17:05:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 76B021006C9B;
+	Sun,  8 Nov 2020 17:05:06 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4E0F46EF67;
+	Sun,  8 Nov 2020 17:05:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 22CCE922F8;
-	Sun,  8 Nov 2020 17:05:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C153D1800BB2;
+	Sun,  8 Nov 2020 17:05:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0A6E2snf024266 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 6 Nov 2020 09:02:54 -0500
+	id 0A6FOeah001839 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 6 Nov 2020 10:24:40 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4A6752033A49; Fri,  6 Nov 2020 14:02:54 +0000 (UTC)
+	id 121BB2142F4A; Fri,  6 Nov 2020 15:24:40 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3FF522093CFA
-	for <dm-devel@redhat.com>; Fri,  6 Nov 2020 14:02:51 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0CC342142F48
+	for <dm-devel@redhat.com>; Fri,  6 Nov 2020 15:24:36 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D75FA8007D9
-	for <dm-devel@redhat.com>; Fri,  6 Nov 2020 14:02:51 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C2FCC102F1E1
+	for <dm-devel@redhat.com>; Fri,  6 Nov 2020 15:24:36 +0000 (UTC)
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
 	[148.163.156.1]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-197-BVy8E9gUN2WTfpfuNAyXQg-1; Fri, 06 Nov 2020 09:02:48 -0500
-X-MC-Unique: BVy8E9gUN2WTfpfuNAyXQg-1
-Received: from pps.filterd (m0187473.ppops.net [127.0.0.1])
+	us-mta-401-f5nX2zQOPkqtfsPyukn3Ag-1; Fri, 06 Nov 2020 10:24:34 -0500
+X-MC-Unique: f5nX2zQOPkqtfsPyukn3Ag-1
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
 	by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
-	0A6E1Lpo076369; Fri, 6 Nov 2020 09:02:47 -0500
+	0A6F3N9L056192; Fri, 6 Nov 2020 10:24:33 -0500
 Received: from pps.reinject (localhost [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 34m7rev8ed-1
+	by mx0a-001b2d01.pphosted.com with ESMTP id 34n0vygnhw-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Fri, 06 Nov 2020 09:02:45 -0500
-Received: from m0187473.ppops.net (m0187473.ppops.net [127.0.0.1])
-	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0A6E1kOf077657;
-	Fri, 6 Nov 2020 09:02:13 -0500
-Received: from ppma03ams.nl.ibm.com (62.31.33a9.ip4.static.sl-reverse.com
-	[169.51.49.98])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 34m7rev81f-1
+	verify=NOT); Fri, 06 Nov 2020 10:24:33 -0500
+Received: from m0098396.ppops.net (m0098396.ppops.net [127.0.0.1])
+	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0A6F3Sk7056743;
+	Fri, 6 Nov 2020 10:24:32 -0500
+Received: from ppma05fra.de.ibm.com (6c.4a.5195.ip4.static.sl-reverse.com
+	[149.81.74.108])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 34n0vygngs-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Fri, 06 Nov 2020 09:02:13 -0500
-Received: from pps.filterd (ppma03ams.nl.ibm.com [127.0.0.1])
-	by ppma03ams.nl.ibm.com (8.16.0.42/8.16.0.42) with SMTP id
-	0A6E1qbs015211; Fri, 6 Nov 2020 14:01:52 GMT
-Received: from b06cxnps4076.portsmouth.uk.ibm.com
-	(d06relay13.portsmouth.uk.ibm.com [9.149.109.198])
-	by ppma03ams.nl.ibm.com with ESMTP id 34hm6hdtqj-1
+	verify=NOT); Fri, 06 Nov 2020 10:24:32 -0500
+Received: from pps.filterd (ppma05fra.de.ibm.com [127.0.0.1])
+	by ppma05fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id
+	0A6FCigg013609; Fri, 6 Nov 2020 15:24:29 GMT
+Received: from b06cxnps3075.portsmouth.uk.ibm.com
+	(d06relay10.portsmouth.uk.ibm.com [9.149.109.195])
+	by ppma05fra.de.ibm.com with ESMTP id 34h01quduh-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Fri, 06 Nov 2020 14:01:51 +0000
+	verify=NOT); Fri, 06 Nov 2020 15:24:29 +0000
 Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
 	[9.149.105.62])
-	by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
-	ESMTP id 0A6E1n8b65339700
+	by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+	ESMTP id 0A6FORP05505684
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=OK); Fri, 6 Nov 2020 14:01:49 GMT
+	verify=OK); Fri, 6 Nov 2020 15:24:27 GMT
 Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A4355AE04D;
-	Fri,  6 Nov 2020 14:01:49 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 6F92DAE051;
+	Fri,  6 Nov 2020 15:24:27 +0000 (GMT)
 Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8C2B5AE045;
-	Fri,  6 Nov 2020 14:01:46 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 2B4A4AE045;
+	Fri,  6 Nov 2020 15:24:24 +0000 (GMT)
 Received: from li-f45666cc-3089-11b2-a85c-c57d1a57929f.ibm.com (unknown
 	[9.160.77.67]) by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTP;
-	Fri,  6 Nov 2020 14:01:46 +0000 (GMT)
-Message-ID: <bef97a69db37d358db21668b179fd8821430b1b4.camel@linux.ibm.com>
+	Fri,  6 Nov 2020 15:24:23 +0000 (GMT)
+Message-ID: <7219f4404bc1bed6eb090b94363c283ec3266a17.camel@linux.ibm.com>
 From: Mimi Zohar <zohar@linux.ibm.com>
 To: Tushar Sugandhi <tusharsu@linux.microsoft.com>,
 	stephen.smalley.work@gmail.com, casey@schaufler-ca.com, agk@redhat.com, 
 	snitzer@redhat.com, gmazyland@gmail.com, paul@paul-moore.com
-Date: Fri, 06 Nov 2020 09:01:45 -0500
-In-Reply-To: <20201101222626.6111-6-tusharsu@linux.microsoft.com>
+Date: Fri, 06 Nov 2020 10:24:23 -0500
+In-Reply-To: <20201101222626.6111-7-tusharsu@linux.microsoft.com>
 References: <20201101222626.6111-1-tusharsu@linux.microsoft.com>
-	<20201101222626.6111-6-tusharsu@linux.microsoft.com>
+	<20201101222626.6111-7-tusharsu@linux.microsoft.com>
 Mime-Version: 1.0
 X-TM-AS-GCONF: 00
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
-	definitions=2020-11-06_04:2020-11-05,
+	definitions=2020-11-06_06:2020-11-05,
 	2020-11-06 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
-	mlxlogscore=999 spamscore=0
-	malwarescore=0 adultscore=0 lowpriorityscore=0 clxscore=1015 mlxscore=0
-	impostorscore=0 priorityscore=1501 phishscore=0 suspectscore=0
-	bulkscore=0
+	mlxscore=0 impostorscore=0
+	mlxlogscore=999 adultscore=0 lowpriorityscore=0 bulkscore=0
+	phishscore=0
+	priorityscore=1501 spamscore=0 suspectscore=0 malwarescore=0
+	clxscore=1015
 	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2009150000 definitions=main-2011060101
+	engine=8.12.0-2009150000 definitions=main-2011060109
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -107,15 +109,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Sun, 08 Nov 2020 12:04:49 -0500
 Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
 	jmorris@namei.org, linux-kernel@vger.kernel.org,
 	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
 	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v5 5/7] IMA: validate supported kernel data
- sources before measurement
+Subject: Re: [dm-devel] [PATCH v5 6/7] IMA: add critical_data to the
+ built-in policy rules
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -129,7 +131,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -137,35 +139,84 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Tushar,
+Hi Lakshmi, Tushar,
+
+This patch defines a new critical_data builtin policy.  Please update
+the Subject line.
 
 On Sun, 2020-11-01 at 14:26 -0800, Tushar Sugandhi wrote:
-> Currently, IMA does not restrict random data sources from measuring
-> their data using ima_measure_critical_data(). Any kernel data source can
-> call the function, and it's data will get measured as long as the input
-> event_data_source is part of the IMA policy - CRITICAL_DATA+data_sources.
+> From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
 > 
-> To ensure that only data from supported sources are measured, the kernel
-> subsystem name needs to be added to a compile-time list of supported
-> sources (an "allowed list of components"). IMA then validates the input
-> parameter - "event_data_source" passed to ima_measure_critical_data()
-> against this allowed list at run-time.
-> 
-> This compile-time list must be updated when kernel subsystems are
-> updated to measure their data using IMA.
-> 
-> Provide an infrastructure for kernel data sources to be added to
-> IMA's supported data sources list at compile-time. Update
-> ima_measure_critical_data() to validate, at run-time, that the data
-> source is supported before measuring the data coming from that source.
+> The IMA hook to measure kernel critical data, namely
+> ima_measure_critical_data(), could be called before a custom IMA policy
+> is loaded. For example, SELinux calls ima_measure_critical_data() to
+> measure its state and policy when they are initialized. This occurs
+> before a custom IMA policy is loaded, and hence IMA hook will not
+> measure the data. A built-in policy is therefore needed to measure
+> critical data provided by callers before a custom IMA policy is loaded.
 
-For those interested in limiting which critical data to measure, the
-"data sources" IMA policy rule option already does that.   Why is this
-needed?
+^Define a new critical data builtin policy to allow measuring early
+kernel integrity critical data before a custom IMA policy is loaded.
+
+Either remove the references to SELinux or move this patch after the
+subsequent patch which measures SELinux critical data.
+
+> 
+> Add CRITICAL_DATA to built-in IMA rules if the kernel command line
+> contains "ima_policy=critical_data". Set the IMA template for this rule
+> to "ima-buf" since ima_measure_critical_data() measures a buffer.
+> 
+> Signed-off-by: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+
+> ---
+>  security/integrity/ima/ima_policy.c | 32 +++++++++++++++++++++++++++++
+>  1 file changed, 32 insertions(+)
+> 
+> diff --git a/security/integrity/ima/ima_policy.c b/security/integrity/ima/ima_policy.c
+> index ec99e0bb6c6f..dc8fe969d3fe 100644
+> --- a/security/integrity/ima/ima_policy.c
+> +++ b/security/integrity/ima/ima_policy.c
+
+> @@ -875,6 +884,29 @@ void __init ima_init_policy(void)
+>  			  ARRAY_SIZE(default_appraise_rules),
+>  			  IMA_DEFAULT_POLICY);
+>  
+> +	if (ima_use_critical_data) {
+> +		template = lookup_template_desc("ima-buf");
+> +		if (!template) {
+> +			ret = -EINVAL;
+> +			goto out;
+> +		}
+> +
+> +		ret = template_desc_init_fields(template->fmt,
+> +						&(template->fields),
+> +						&(template->num_fields));
+
+The default IMA template when measuring buffer data is "ima_buf".   Is
+there a reason for allocating and initializing it here and not
+deferring it until process_buffer_measurement()?
 
 thanks,
 
 Mimi
+
+> +		if (ret)
+> +			goto out;
+> +
+> +		critical_data_rules[0].template = template;
+> +		add_rules(critical_data_rules,
+> +			  ARRAY_SIZE(critical_data_rules),
+> +			  IMA_DEFAULT_POLICY);
+> +	}
+> +
+> +out:
+> +	if (ret)
+> +		pr_err("%s failed, result: %d\n", __func__, ret);
+> +
+>  	ima_update_policy_flag();
+>  }
+>  
+
 
 --
 dm-devel mailing list
