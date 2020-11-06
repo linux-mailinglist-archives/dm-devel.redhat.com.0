@@ -2,103 +2,104 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C4A222AAC6C
-	for <lists+dm-devel@lfdr.de>; Sun,  8 Nov 2020 18:05:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3AD0C2AAC73
+	for <lists+dm-devel@lfdr.de>; Sun,  8 Nov 2020 18:05:27 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-511-0Bq9PX_vMJujRCc16N8Udw-1; Sun, 08 Nov 2020 12:05:14 -0500
-X-MC-Unique: 0Bq9PX_vMJujRCc16N8Udw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-297-50O6Ukx6NXuNaZnUXfHECg-1; Sun, 08 Nov 2020 12:05:24 -0500
+X-MC-Unique: 50O6Ukx6NXuNaZnUXfHECg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 81CB156C37;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EA8EC186840E;
 	Sun,  8 Nov 2020 17:05:08 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 551BE10002A4;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C21371A886;
 	Sun,  8 Nov 2020 17:05:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0D31F922F7;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 79E6B922F8;
 	Sun,  8 Nov 2020 17:05:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0A6CBJCb010295 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 6 Nov 2020 07:11:20 -0500
+	id 0A6DOX4i019610 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 6 Nov 2020 08:24:33 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BEA8B1175414; Fri,  6 Nov 2020 12:11:19 +0000 (UTC)
+	id 172D12144B54; Fri,  6 Nov 2020 13:24:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA42111753F4
-	for <dm-devel@redhat.com>; Fri,  6 Nov 2020 12:11:17 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0DDCE2166B28
+	for <dm-devel@redhat.com>; Fri,  6 Nov 2020 13:24:30 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5837B1021F7F
-	for <dm-devel@redhat.com>; Fri,  6 Nov 2020 12:11:17 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
-	[148.163.156.1]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-243-qEwqDgboNxqDb3_a4UmeBQ-1; Fri, 06 Nov 2020 07:11:13 -0500
-X-MC-Unique: qEwqDgboNxqDb3_a4UmeBQ-1
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
-	0A6C1tuV058442; Fri, 6 Nov 2020 07:11:11 -0500
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 93C2B803523
+	for <dm-devel@redhat.com>; Fri,  6 Nov 2020 13:24:30 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+	[148.163.158.5]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-350-h6HJhJwePPyePOGLLKWLAg-1; Fri, 06 Nov 2020 08:24:28 -0500
+X-MC-Unique: h6HJhJwePPyePOGLLKWLAg-1
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+	by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+	0A6D3CWg045101; Fri, 6 Nov 2020 08:24:28 -0500
 Received: from pps.reinject (localhost [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 34mnucbv2q-1
+	by mx0b-001b2d01.pphosted.com with ESMTP id 34n3qr7m4h-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Fri, 06 Nov 2020 07:11:11 -0500
-Received: from m0098394.ppops.net (m0098394.ppops.net [127.0.0.1])
-	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0A6C21YZ059071;
-	Fri, 6 Nov 2020 07:11:11 -0500
-Received: from ppma04fra.de.ibm.com (6a.4a.5195.ip4.static.sl-reverse.com
-	[149.81.74.106])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 34mnucbv1f-1
+	verify=NOT); Fri, 06 Nov 2020 08:24:27 -0500
+Received: from m0098416.ppops.net (m0098416.ppops.net [127.0.0.1])
+	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0A6DFnwT106475;
+	Fri, 6 Nov 2020 08:24:27 -0500
+Received: from ppma03ams.nl.ibm.com (62.31.33a9.ip4.static.sl-reverse.com
+	[169.51.49.98])
+	by mx0b-001b2d01.pphosted.com with ESMTP id 34n3qr7m3m-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Fri, 06 Nov 2020 07:11:10 -0500
-Received: from pps.filterd (ppma04fra.de.ibm.com [127.0.0.1])
-	by ppma04fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id
-	0A6Bx4hM015466; Fri, 6 Nov 2020 12:11:08 GMT
-Received: from b06avi18626390.portsmouth.uk.ibm.com
-	(b06avi18626390.portsmouth.uk.ibm.com [9.149.26.192])
-	by ppma04fra.de.ibm.com with ESMTP id 34h0f6uart-1
+	verify=NOT); Fri, 06 Nov 2020 08:24:27 -0500
+Received: from pps.filterd (ppma03ams.nl.ibm.com [127.0.0.1])
+	by ppma03ams.nl.ibm.com (8.16.0.42/8.16.0.42) with SMTP id
+	0A6DLxKn004773; Fri, 6 Nov 2020 13:24:25 GMT
+Received: from b06avi18878370.portsmouth.uk.ibm.com
+	(b06avi18878370.portsmouth.uk.ibm.com [9.149.26.194])
+	by ppma03ams.nl.ibm.com with ESMTP id 34hm6hdskk-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Fri, 06 Nov 2020 12:11:08 +0000
-Received: from d06av24.portsmouth.uk.ibm.com (mk.ibm.com [9.149.105.60])
-	by b06avi18626390.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
-	ESMTP id 0A6CB61H59441418
+	verify=NOT); Fri, 06 Nov 2020 13:24:25 +0000
+Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
+	[9.149.105.62])
+	by b06avi18878370.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+	ESMTP id 0A6DONFB64553234
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=OK); Fri, 6 Nov 2020 12:11:06 GMT
-Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 05B3642041;
-	Fri,  6 Nov 2020 12:11:06 +0000 (GMT)
-Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 515B142045;
-	Fri,  6 Nov 2020 12:11:02 +0000 (GMT)
+	verify=OK); Fri, 6 Nov 2020 13:24:23 GMT
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 36A63AE056;
+	Fri,  6 Nov 2020 13:24:23 +0000 (GMT)
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C6192AE051;
+	Fri,  6 Nov 2020 13:24:19 +0000 (GMT)
 Received: from li-f45666cc-3089-11b2-a85c-c57d1a57929f.ibm.com (unknown
-	[9.160.77.67]) by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTP;
-	Fri,  6 Nov 2020 12:11:02 +0000 (GMT)
-Message-ID: <811fbc4a6f4bd02c77518bd4196d354071145f3e.camel@linux.ibm.com>
+	[9.160.77.67]) by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+	Fri,  6 Nov 2020 13:24:19 +0000 (GMT)
+Message-ID: <1f83ec246cb6356c340b379ab00e43f0b5bba0ae.camel@linux.ibm.com>
 From: Mimi Zohar <zohar@linux.ibm.com>
 To: Tushar Sugandhi <tusharsu@linux.microsoft.com>,
 	stephen.smalley.work@gmail.com, casey@schaufler-ca.com, agk@redhat.com, 
 	snitzer@redhat.com, gmazyland@gmail.com, paul@paul-moore.com
-Date: Fri, 06 Nov 2020 07:11:01 -0500
-In-Reply-To: <20201101222626.6111-3-tusharsu@linux.microsoft.com>
+Date: Fri, 06 Nov 2020 08:24:18 -0500
+In-Reply-To: <20201101222626.6111-4-tusharsu@linux.microsoft.com>
 References: <20201101222626.6111-1-tusharsu@linux.microsoft.com>
-	<20201101222626.6111-3-tusharsu@linux.microsoft.com>
+	<20201101222626.6111-4-tusharsu@linux.microsoft.com>
 Mime-Version: 1.0
 X-TM-AS-GCONF: 00
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
-	definitions=2020-11-06_03:2020-11-05,
+	definitions=2020-11-06_04:2020-11-05,
 	2020-11-06 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
-	phishscore=0 impostorscore=0
-	lowpriorityscore=0 malwarescore=0 spamscore=0 adultscore=0
-	mlxlogscore=999
-	priorityscore=1501 clxscore=1015 bulkscore=0 mlxscore=0 suspectscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2009150000 definitions=main-2011060085
+	bulkscore=0
+	lowpriorityscore=0 priorityscore=1501 spamscore=0 suspectscore=0
+	impostorscore=0 adultscore=0 phishscore=0 malwarescore=0 clxscore=1015
+	mlxscore=0 mlxlogscore=999 classifier=spam adjust=0 reason=mlx
+	scancount=1
+	engine=8.12.0-2009150000 definitions=main-2011060090
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -107,15 +108,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Sun, 08 Nov 2020 12:04:49 -0500
 Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
 	jmorris@namei.org, linux-kernel@vger.kernel.org,
 	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
 	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v5 2/7] IMA: update
- process_buffer_measurement to measure buffer hash
+Subject: Re: [dm-devel] [PATCH v5 3/7] IMA: add hook to measure critical data
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -129,7 +129,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -139,84 +139,118 @@ Content-Transfer-Encoding: 7bit
 
 Hi Tushar,
 
-Below inline are a few additional comments.
+On Sun, 2020-11-01 at 14:26 -0800, Tushar Sugandhi wrote:
+> Currently, IMA does not provide a generic function for kernel subsystems
+> to measure their critical data. Examples of critical data in this context
+> could be kernel in-memory r/o structures, hash of the memory structures,
+> or data that represents a linux kernel subsystem state change. The 
+> critical data, if accidentally or maliciously altered, can compromise
+> the integrity of the system.
 
+Start out with what IMA does do (e.g. measures files and more recently
+buffer data).  Afterwards continue with kernel integrity critical data
+should also be measured.  Please include a definition of kernel
+integrity critical data here, as well as in the cover letter.
+
+> 
+> A generic function provided by IMA to measure critical data would enable
+> various subsystems with easier and faster on-boarding to use IMA
+> infrastructure and would also avoid code duplication.
+
+By definition LSM and IMA hooks are generic with callers in appropriate
+places in the kernel.   This paragraph is redundant.
+
+> 
+> Add a new IMA func CRITICAL_DATA and a corresponding IMA hook
+> ima_measure_critical_data() to support measuring critical data for 
+> various kernel subsystems. 
+
+Instead of using the word "add", it would be more appropriate to use
+the word "define".   Define a new IMA hook named
+ima_measure_critical_data to measure kernel integrity critical data.  
+Please also update the Subject line as well.  "ima: define an IMA hook
+to measure kernel integrity critical data".
+
+> 
+> Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+> ---
+> 
 > diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
-> index ae5da9f3339d..4485d87c0aa5 100644
+> index 4485d87c0aa5..6e1b11dcba53 100644
 > --- a/security/integrity/ima/ima_main.c
 > +++ b/security/integrity/ima/ima_main.c
-> @@ -787,12 +787,15 @@ int ima_post_load_data(char *buf, loff_t size,
->   * @func: IMA hook
->   * @pcr: pcr to extend the measurement
->   * @func_data: private data specific to @func, can be NULL.
+> @@ -921,6 +921,44 @@ void ima_kexec_cmdline(int kernel_fd, const void *buf, int size)
+>  	fdput(f);
+>  }
+>  
+> +/**
+> + * ima_measure_critical_data - measure kernel subsystem data
+> + * critical to integrity of the kernel
+
+Please change this to "measure kernel integrity critical data".
+
+> + * @event_data_source: name of the data source being measured;
+> + * typically it should be the name of the kernel subsystem that is sending
+> + * the data for measurement
+
+Including "data_source" here isn't quite right.  "data source" should
+only be added in the first patch which uses it, not here.   When adding
+it please shorten the field description to "kernel data source".   The
+longer explanation can be included in the longer function description.
+
+> + * @event_name: name of an event from the kernel subsystem that is sending
+> + * the data for measurement
+
+As this is being passed to process_buffer_measurement(), this should be
+the same or similar to the existing definition.
+
+> + * @buf: pointer to buffer containing data to measure
+> + * @buf_len: length of buffer(in bytes)
 > + * @measure_buf_hash: if set to true - will measure hash of the buf,
 > + *                    instead of buf
->   *
->   * Based on policy, the buffer is measured into the ima log.
 
-Both the brief and longer function descriptions need to be updated, as
-well as the last argument description.  The last argument should be
-limited to "measure buffer hash".  How it is used could be included in
-the longer function description.  The longer function description would
-include adding the buffer data or the buffer data hash to the IMA
-measurement list and extending the PCR.  
+ kernel doc requires a single line.  In this case, please shorten the
+argument definition to "measure buffer data or buffer data hash".   The
+details can be included in the longer function description.
 
-For example, 
-process_buffer_measurement - measure the buffer data or the buffer data
-hash
+> + *
+> + * A given kernel subsystem (event_data_source) may send
+> + * data (buf) to be measured when the data or the subsystem state changes.
+> + * The state/data change can be described by event_name.
+> + * Examples of critical data (buf) could be kernel in-memory r/o structures,
+> + * hash of the memory structures, or data that represents subsystem
+> + * state change.
+> + * measure_buf_hash can be used to save space, if the data being measured
+> + * is too large.
+> + * The data (buf) can only be measured, not appraised.
+> + */
 
-
->   */
->  void process_buffer_measurement(struct inode *inode, const void *buf, int size,
->  				const char *eventname, enum ima_hooks func,
-> -				int pcr, const char *func_data)
-> +				int pcr, const char *func_data,
-> +				bool measure_buf_hash)
->  {
->  	int ret = 0;
->  	const char *audit_cause = "ENOMEM";
-> @@ -807,6 +810,8 @@ void process_buffer_measurement(struct inode *inode, const void *buf, int size,
->  		struct ima_digest_data hdr;
->  		char digest[IMA_MAX_DIGEST_SIZE];
->  	} hash = {};
-> +	char digest_hash[IMA_MAX_DIGEST_SIZE];
-> +	int hash_len = hash_digest_size[ima_hash_algo];
->  	int violation = 0;
->  	int action = 0;
->  	u32 secid;
-> @@ -855,6 +860,21 @@ void process_buffer_measurement(struct inode *inode, const void *buf, int size,
->  		goto out;
->  	}
->  
-> +	if (measure_buf_hash) {
-> +		memcpy(digest_hash, hash.hdr.digest, hash_len);
-
-Instead of digest_hash and hash_len, consider naming the variables
-buf_hash and buf_hashlen.
-
-> +
-> +		ret = ima_calc_buffer_hash(digest_hash,
-> +					   hash_len,
-> +					   iint.ima_hash);
-
-There's no need for each variable to be on a separate line.
+Please remove this longer function description, replacing it something
+more appropriate.  The subsequent patch that introduces the "data
+source" parameter would expand the description.
 
 thanks,
 
 Mimi
 
-> +		if (ret < 0) {
-> +			audit_cause = "measure_buf_hash_error";
-> +			goto out;
-> +		}
-> +
-> +		event_data.buf = digest_hash;
-> +		event_data.buf_len = hash_len;
+> +void ima_measure_critical_data(const char *event_data_source,
+> +			       const char *event_name,
+> +			       const void *buf, int buf_len,
+> +			       bool measure_buf_hash)
+> +{
+> +	if (!event_name || !event_data_source || !buf || !buf_len) {
+> +		pr_err("Invalid arguments passed to %s().\n", __func__);
+> +		return;
 > +	}
 > +
->  	ret = ima_alloc_init_template(&event_data, &entry, template);
->  	if (ret < 0) {
->  		audit_cause = "alloc_entry";
+> +	process_buffer_measurement(NULL, buf, buf_len, event_name,
+> +				   CRITICAL_DATA, 0, event_data_source,
+> +				   measure_buf_hash);
+> +}
+> +
+>  static int __init init_ima(void)
+>  {
+>  	int error;
 
 --
 dm-devel mailing list
