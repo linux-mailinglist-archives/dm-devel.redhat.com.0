@@ -2,52 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id DFDED2A9DA2
-	for <lists+dm-devel@lfdr.de>; Fri,  6 Nov 2020 20:12:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1E7D82A9DB2
+	for <lists+dm-devel@lfdr.de>; Fri,  6 Nov 2020 20:13:34 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-168-X46glEcAMMaIy1bdsLljxg-1; Fri, 06 Nov 2020 14:12:41 -0500
-X-MC-Unique: X46glEcAMMaIy1bdsLljxg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-28-0Ozp8AObO4Cxetwh1BK4Tg-1; Fri, 06 Nov 2020 14:13:31 -0500
+X-MC-Unique: 0Ozp8AObO4Cxetwh1BK4Tg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5E0E5805EFC;
-	Fri,  6 Nov 2020 19:12:36 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 51400186DD21;
+	Fri,  6 Nov 2020 19:13:25 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A9405D9CD;
-	Fri,  6 Nov 2020 19:12:36 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 29DB526185;
+	Fri,  6 Nov 2020 19:13:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B9417180B658;
-	Fri,  6 Nov 2020 19:12:35 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DA88D180610F;
+	Fri,  6 Nov 2020 19:13:24 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0A6JCWIx028810 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 6 Nov 2020 14:12:32 -0500
+	id 0A6JDLSm028985 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 6 Nov 2020 14:13:21 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 997501007A3F; Fri,  6 Nov 2020 19:12:32 +0000 (UTC)
+	id 64157207A808; Fri,  6 Nov 2020 19:13:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9552510075C5
-	for <dm-devel@redhat.com>; Fri,  6 Nov 2020 19:12:30 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5F9D1207ABFC
+	for <dm-devel@redhat.com>; Fri,  6 Nov 2020 19:13:18 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 744B58007DF
-	for <dm-devel@redhat.com>; Fri,  6 Nov 2020 19:12:30 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DD442185A78B
+	for <dm-devel@redhat.com>; Fri,  6 Nov 2020 19:13:18 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-337--hK7tCfxOiyCY50Eplyp_w-1; Fri, 06 Nov 2020 14:12:26 -0500
-X-MC-Unique: -hK7tCfxOiyCY50Eplyp_w-1
+	us-mta-377-F9NLzdrtMna9fINHEFvCbQ-1; Fri, 06 Nov 2020 14:13:13 -0500
+X-MC-Unique: F9NLzdrtMna9fINHEFvCbQ-1
 Received: from [2001:4bb8:184:9a8d:9e34:f7f4:e59e:ad6f] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kb71P-0000t7-34; Fri, 06 Nov 2020 19:03:47 +0000
+	id 1kb71X-0000tW-UC; Fri, 06 Nov 2020 19:03:50 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Fri,  6 Nov 2020 20:03:12 +0100
-Message-Id: <20201106190337.1973127-1-hch@lst.de>
+Date: Fri,  6 Nov 2020 20:03:13 +0100
+Message-Id: <20201106190337.1973127-2-hch@lst.de>
+In-Reply-To: <20201106190337.1973127-1-hch@lst.de>
+References: <20201106190337.1973127-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	casper.infradead.org. See http://www.infradead.org/rpr.html
@@ -59,7 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
@@ -76,7 +78,8 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] cleanup updating the size of block devices
+Subject: [dm-devel] [PATCH 01/24] block: remove the call to
+	__invalidate_device in check_disk_size_change
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,7 +93,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -98,34 +101,37 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Jens,
+__invalidate_device without the kill_dirty parameter just invalidates
+various clean entries in caches, which doesn't really help us with
+anything, but can cause all kinds of horrible lock orders due to how
+it calls into the file system.  The only reason this hasn't been a
+major issue is because so many people use partitions, for which no
+invalidation was performed anyway.
 
-this series builds on top of the work that went into the last merge window,
-and make sure we have a single coherent interfac for updating the size of a
-block device.
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ fs/block_dev.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-Diffstat:
- block/genhd.c                  |   16 +++----
- drivers/block/aoe/aoecmd.c     |   15 +-----
- drivers/block/drbd/drbd_main.c |    6 --
- drivers/block/loop.c           |   36 ++--------------
- drivers/block/nbd.c            |   88 +++++++++++++----------------------------
- drivers/block/pktcdvd.c        |    3 -
- drivers/block/rbd.c            |    3 -
- drivers/block/rnbd/rnbd-clt.c  |    3 -
- drivers/block/virtio_blk.c     |    3 -
- drivers/block/xen-blkfront.c   |    2 
- drivers/block/zram/zram_drv.c  |    7 ---
- drivers/md/dm-raid.c           |    3 -
- drivers/md/dm.c                |    3 -
- drivers/md/md-cluster.c        |    8 ---
- drivers/md/md-linear.c         |    3 -
- drivers/md/md.c                |   24 ++++-------
- drivers/nvme/host/core.c       |   18 --------
- drivers/scsi/sd.c              |    9 +---
- fs/block_dev.c                 |    7 ---
- include/linux/genhd.h          |    3 -
- 20 files changed, 76 insertions(+), 184 deletions(-)
+diff --git a/fs/block_dev.c b/fs/block_dev.c
+index 9e84b1928b9401..66ebf594c97f47 100644
+--- a/fs/block_dev.c
++++ b/fs/block_dev.c
+@@ -1334,12 +1334,6 @@ static void check_disk_size_change(struct gendisk *disk,
+ 		i_size_write(bdev->bd_inode, disk_size);
+ 	}
+ 	spin_unlock(&bdev->bd_size_lock);
+-
+-	if (bdev_size > disk_size) {
+-		if (__invalidate_device(bdev, false))
+-			pr_warn("VFS: busy inodes on resized disk %s\n",
+-				disk->disk_name);
+-	}
+ }
+ 
+ /**
+-- 
+2.28.0
 
 --
 dm-devel mailing list
