@@ -2,70 +2,64 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8CF442AAC7D
-	for <lists+dm-devel@lfdr.de>; Sun,  8 Nov 2020 18:05:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 059882AAC7A
+	for <lists+dm-devel@lfdr.de>; Sun,  8 Nov 2020 18:05:31 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-430-U-l5mFrcMiyhplKystDXFQ-1; Sun, 08 Nov 2020 12:05:31 -0500
-X-MC-Unique: U-l5mFrcMiyhplKystDXFQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-24-uGIClNReNzGHMthNyDrDJw-1; Sun, 08 Nov 2020 12:05:28 -0500
+X-MC-Unique: uGIClNReNzGHMthNyDrDJw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 37CA110082EC;
-	Sun,  8 Nov 2020 17:05:24 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9888B107465B;
+	Sun,  8 Nov 2020 17:05:18 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 131ED7366D;
-	Sun,  8 Nov 2020 17:05:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6FED0277B6;
+	Sun,  8 Nov 2020 17:05:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B9CE092306;
-	Sun,  8 Nov 2020 17:05:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 285AA92302;
+	Sun,  8 Nov 2020 17:05:18 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0A74hbFJ024639 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 6 Nov 2020 23:43:37 -0500
+	id 0A78CjAF011806 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 7 Nov 2020 03:12:46 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id A731FF5AC5; Sat,  7 Nov 2020 04:43:37 +0000 (UTC)
+	id D12E5205EB12; Sat,  7 Nov 2020 08:12:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A15D5F568D
-	for <dm-devel@redhat.com>; Sat,  7 Nov 2020 04:43:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CBD072049CBC
+	for <dm-devel@redhat.com>; Sat,  7 Nov 2020 08:12:43 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 507F390E424
-	for <dm-devel@redhat.com>; Sat,  7 Nov 2020 04:43:35 +0000 (UTC)
-Received: from mail-lf1-f65.google.com (mail-lf1-f65.google.com
-	[209.85.167.65]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-65-3bGig_2lPVu5QRDD-jMc0A-1; Fri, 06 Nov 2020 23:43:28 -0500
-X-MC-Unique: 3bGig_2lPVu5QRDD-jMc0A-1
-Received: by mail-lf1-f65.google.com with SMTP id z21so3502590lfe.12;
-	Fri, 06 Nov 2020 20:43:26 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=3jS9MbGtA3iifbgEcp45wxTOB4OKIZiUtDbS0BnZQ1E=;
-	b=sgnRuGOgt3I52y4zelPq0wmJKIF0Y/FRROmdw5EXJSPvgW+GHN0s5mCb25K9jvDEVC
-	SfqMGx+j2yDkF5Bbif8n56rAMeAE+L3JmvR/E3l4C9BzknSN7ZTFQcKHRy2955rVwr6j
-	mBSFE+QHyT0K0ZG2CamJiSS37Xs3QENnqyYfsM+U+h7f1f0KzNBhzjhQywGX8wush2G+
-	cHy6Q/B5Sz3z6QWt1pWyMRt/8DH5fJvpz5RCjfqXC+AKx3h6wJeuAeQH2Eyc8jvVYk0m
-	IYepqvPGYVzrQsx/9j8d/9vBPEs/lgrMrl9pdfspPepqLHxfRduU/VrkSoFoMmvEfQ8t
-	JDbA==
-X-Gm-Message-State: AOAM5337sZDEVRSBkrPzZ5Tc8ZzMWSOh1qNWr0TCnm+AqoSvvPEdwFV1
-	cuGlhH0fQj5I7wr43g3O5JOL1Qme2Lbjza68C2Q=
-X-Google-Smtp-Source: ABdhPJzn/pNC05U4kPURn4luKn+squhbFoU/xCSDcnlGrkwpRVWPCp6PcYhGp25nUSiML9AX1uojvU9jJs5PJTDaJxo=
-X-Received: by 2002:ac2:5209:: with SMTP id a9mr1446563lfl.86.1604724205658;
-	Fri, 06 Nov 2020 20:43:25 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7EA0A800296
+	for <dm-devel@redhat.com>; Sat,  7 Nov 2020 08:12:43 +0000 (UTC)
+Received: from out30-131.freemail.mail.aliyun.com
+	(out30-131.freemail.mail.aliyun.com [115.124.30.131]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-429-XNoyzjnGOqyTQIyCAn_Z_g-1;
+	Sat, 07 Nov 2020 03:12:38 -0500
+X-MC-Unique: XNoyzjnGOqyTQIyCAn_Z_g-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R611e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426;
+	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=3; SR=0;
+	TI=SMTPD_---0UEUaDCf_1604736751
+Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
+	fp:SMTPD_---0UEUaDCf_1604736751) by smtp.aliyun-inc.com(127.0.0.1);
+	Sat, 07 Nov 2020 16:12:32 +0800
+To: Mike Snitzer <snitzer@redhat.com>
+References: <20201103092329.17694-1-jefflexu@linux.alibaba.com>
+	<b042e052-fa66-6542-f382-8bf33c4ffc24@linux.alibaba.com>
+	<20201106152132.GA12366@redhat.com>
+From: JeffleXu <jefflexu@linux.alibaba.com>
+Message-ID: <ab909100-fcd0-5b27-2014-076d7a72df12@linux.alibaba.com>
+Date: Sat, 7 Nov 2020 16:12:31 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+	Gecko/20100101 Thunderbird/68.12.1
 MIME-Version: 1.0
-References: <20201106190337.1973127-1-hch@lst.de>
-	<20201106190337.1973127-25-hch@lst.de>
-In-Reply-To: <20201106190337.1973127-25-hch@lst.de>
-From: Jack Wang <xjtuwjp@gmail.com>
-Date: Sat, 7 Nov 2020 05:43:14 +0100
-Message-ID: <CAD+HZHUaPLB0T2A3vAPq6gSr5gEGK3XLMSAmO0FLhkWaLzPBpg@mail.gmail.com>
-To: Christoph Hellwig <hch@lst.de>
+In-Reply-To: <20201106152132.GA12366@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -74,26 +68,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Sun, 08 Nov 2020 12:04:49 -0500
-Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>, linux-nvme@lists.infradead.org,
-	Song Liu <song@kernel.org>, dm-devel@redhat.com,
-	linux-scsi@vger.kernel.org, xen-devel@lists.xenproject.org,
-	Ilya Dryomov <idryomov@gmail.com>, Jack Wang <jinpu.wang@cloud.ionos.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Josef Bacik <josef@toxicpanda.com>, nbd@other.debian.org,
-	linux-raid@vger.kernel.org,
-	Stefan Hajnoczi <stefanha@redhat.com>, drbd-dev@tron.linbit.com,
-	ceph-devel@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	linux-block@vger.kernel.org,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [dm-devel] [PATCH 24/24] block: unexport revalidate_disk_size
+Cc: joseph.qi@linux.alibaba.com, dm-devel@redhat.com
+Subject: Re: [dm-devel] Why queue_work unneeded for REQUEUE bio
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -107,127 +86,62 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="===============6150643606095609838=="
+Content-Language: en-US
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
---===============6150643606095609838==
-Content-Type: multipart/alternative; boundary="0000000000003da75005b37cf8d6"
-
---0000000000003da75005b37cf8d6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Christoph Hellwig <hch@lst.de>=E4=BA=8E2020=E5=B9=B411=E6=9C=886=E6=97=A5 =
-=E5=91=A8=E4=BA=9420:15=E5=86=99=E9=81=93=EF=BC=9A
-
-> revalidate_disk_size is not only called from set_capacity_and_notify,
-> so drop the export.
-
-s/not/now
-
->
->
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-
-Thanks!
-Jack Wang
-
->
-> ---
->  fs/block_dev.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/fs/block_dev.c b/fs/block_dev.c
-> index 66ebf594c97f47..d8664f5c1ff669 100644
-> --- a/fs/block_dev.c
-> +++ b/fs/block_dev.c
-> @@ -1362,7 +1362,6 @@ void revalidate_disk_size(struct gendisk *disk, boo=
-l
-> verbose)
->                 bdput(bdev);
->         }
->  }
-> -EXPORT_SYMBOL(revalidate_disk_size);
->
->  void bd_set_nr_sectors(struct block_device *bdev, sector_t sectors)
->  {
-> --
-> 2.28.0
->
->
-> _______________________________________________
-> Linux-nvme mailing list
-> Linux-nvme@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-nvme
->
-
---0000000000003da75005b37cf8d6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div><br></div><div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
-=3D"gmail_attr">Christoph Hellwig &lt;<a href=3D"mailto:hch@lst.de">hch@lst=
-.de</a>&gt;=E4=BA=8E2020=E5=B9=B411=E6=9C=886=E6=97=A5 =E5=91=A8=E4=BA=9420=
-:15=E5=86=99=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" s=
-tyle=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-style:so=
-lid;padding-left:1ex;border-left-color:rgb(204,204,204)">revalidate_disk_si=
-ze is not only called from set_capacity_and_notify,<br>
-so drop the export.</blockquote><div dir=3D"auto">s/not/now</div><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width=
-:1px;border-left-style:solid;padding-left:1ex;border-left-color:rgb(204,204=
-,204)" dir=3D"auto"><br>
-<br>
-Signed-off-by: Christoph Hellwig &lt;<a href=3D"mailto:hch@lst.de" target=
-=3D"_blank">hch@lst.de</a>&gt;</blockquote><div dir=3D"auto">Thanks!</div><=
-div dir=3D"auto">Jack Wang</div><blockquote class=3D"gmail_quote" style=3D"=
-margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-style:solid;padd=
-ing-left:1ex;border-left-color:rgb(204,204,204)" dir=3D"auto"><br>
----<br>
-=C2=A0fs/block_dev.c | 1 -<br>
-=C2=A01 file changed, 1 deletion(-)<br>
-<br>
-diff --git a/fs/block_dev.c b/fs/block_dev.c<br>
-index 66ebf594c97f47..d8664f5c1ff669 100644<br>
---- a/fs/block_dev.c<br>
-+++ b/fs/block_dev.c<br>
-@@ -1362,7 +1362,6 @@ void revalidate_disk_size(struct gendisk *disk, bool =
-verbose)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bdput(bdev);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-=C2=A0}<br>
--EXPORT_SYMBOL(revalidate_disk_size);<br>
-<br>
-=C2=A0void bd_set_nr_sectors(struct block_device *bdev, sector_t sectors)<b=
-r>
-=C2=A0{<br>
--- <br>
-2.28.0<br>
-<br>
-<br>
-_______________________________________________<br>
-Linux-nvme mailing list<br>
-<a href=3D"mailto:Linux-nvme@lists.infradead.org" target=3D"_blank">Linux-n=
-vme@lists.infradead.org</a><br>
-<a href=3D"http://lists.infradead.org/mailman/listinfo/linux-nvme" rel=3D"n=
-oreferrer" target=3D"_blank">http://lists.infradead.org/mailman/listinfo/li=
-nux-nvme</a><br>
-</blockquote></div></div>
-
---0000000000003da75005b37cf8d6--
-
---===============6150643606095609838==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
---===============6150643606095609838==--
+Ck9uIDExLzYvMjAgMTE6MjEgUE0sIE1pa2UgU25pdHplciB3cm90ZToKPiBPbiBUaHUsIE5vdiAw
+NSAyMDIwIGF0IDEwOjQ5cG0gLTA1MDAsCj4gSmVmZmxlWHUgPGplZmZsZXh1QGxpbnV4LmFsaWJh
+YmEuY29tPiB3cm90ZToKPgo+PiBIaSBNaWtlLAo+Pgo+Pgo+PiBJIGhhdmUgYW5vdGhlciBxdWVz
+dGlvbiBhYm91dCBkbSwgdGhvdWdoIGl0J3MgaXJyZWxldmFudCB0byB0aGlzIG9yaWdpbmFsCj4+
+Cj4+IG1haWwuCj4+Cj4+Cj4+IEN1cnJlbnRseSBhYm5vcm1hbCBJTyB3aWxsIGNhbGwgYmxrX3F1
+ZXVlX3NwbGl0KCkgYW5kIG5vcm1hbCBJTyB3aWxsCj4+Cj4+IGJlIHNwbGl0IGNvbnNpZGVyaW5n
+IEBtYXhfc2VjdG9ycy9AY2h1bmtfc2VjdG9zIChpbiBtYXhfaW9fbGVuKCkpLgo+Pgo+Pgo+PiBR
+dWVzdGlvbiAxOiBXaHkgYmlvIHNob3VsZCBiZSBzcGxpdCBjb25zaWRlcmluZyBxdWV1ZV9saW1p
+dHMgaW4gZG0gbGF5ZXI/Cj4+Cj4+IEFmdGVyIGFsbCB0aGUgdW5kZXJseWluZyBkZXZpY2Ugd2ls
+bCBzcGxpdCB0aGVtc2VsdmVzIGJ5IHF1ZXVlX2xpbWl0cyBpZgo+Pgo+PiB0aGUgZG0gbGF5ZXIg
+ZG9lc24ndCBzcGxpdCBieSBxdWV1ZV9saW1pdHMuCj4gU29tZSB0YXJnZXRzIGhhdmUgImFibm9y
+bWFsIElPIiBjb25zdHJhaW50cyBpbiB0aGVpciBpbXBsZW1lbnRhdGlvbiB0aGF0Cj4gaXMgcmVm
+bGVjdGVkIGluIHRoZSBxdWV1ZV9saW1pdHMgLS0gZGlzY2FyZHMgaW4gcGFydGljdWxhci4KPgo+
+PiBUaGVuIFF1ZXN0aW9uIDI6IEN1cnJlbnRseSBvbmx5IEBtYXhfc2VjdG9ycyBpcyBjb25zaWRl
+cmVkIHdoZW4gc3BsaXR0aW5nCj4+Cj4+IG5vcm1hbCBJTyBpbiBkbSBsYXllci4gU2hvdWxkIHdl
+IGFsc28gY29uc2lkZXIKPj4gQG1heF9zZWdtZW50cy9AbWF4X3NlZ21lbnRfc2l6ZQo+Pgo+PiBh
+cyBibGtfcXVldWVfc3BsaXQoKSBkb2VzPwo+IEdyZWF0IHF1ZXN0aW9uLCBpdCBkb2VzIGFwcGVh
+ciB0aGUgb25lIGdhcCBpbiBETSdzIHNwbGl0dGluZyBmb3IKPiAibm9ybWFsIiBJTy4gSSdtIGxl
+c3MgZmFtaWxpYXIgd2l0aCBAbWF4X3NlZ21lbnRzL0BtYXhfc2VnbWVudF9zaXplLgo+Cj4gU2lu
+Y2UgY29tbWl0IDUwOTFjZGVjNTZmYSAoImRtOiBjaGFuZ2UgbWF4X2lvX2xlbigpIHRvIHVzZQo+
+IGJsa19tYXhfc2l6ZV9vZmZzZXQoKSIpIERNIGlzIG1ha2luZyB1c2Ugb2YgbW9yZSBibG9jayBj
+b3JlIGNvZGUgdG8KPiBjYWxjdWxhdGUgaXRzIHNwbGl0cyAtLSB0aGUgb2Zmc2V0IGJhc2VkIHNw
+bGl0dGluZyBpcyBtdWNoIG1vcmUgbmF0dXJhbAo+IGZvciBETSB0byBwZXJmb3JtIGdpdmVuIHRo
+YXQgcG90ZW50aWFsIGZvciBzcGFubmluZyBtdWx0aXBsZSB0YXJnZXRzLAo+IGV0Yy4gIEJ1dCBE
+TSB0YXJnZXRzIHJlYWxseSBkb24ndCBnZXQgaW52b2x2ZWQgd2l0aCBjb25jZXJuIGZvcgo+IEBt
+YXhfc2VnbWVudHMvQG1heF9zZWdtZW50X3NpemUKPgo+IGRtLWNyeXB0LmM6Y3J5cHRfaW9faGlu
+dHMgaXMgdGhlIG9ubHkgRE0gdGFyZ2V0IGNvZGUgdGhhdCBjb25jZXJucwo+IGl0c2VsZiB3aXRo
+IEBtYXhfc2VnbWVudF9zaXplIC0tIGFuZCBpdCBpcyBwdW5pdGl2ZSBieSBzZXR0aW5nIGl0IHRv
+Cj4gUEFHRV9TSVpFLCBwbGVhc2Ugc2VlIGNvbW1pdCA1ODZiMjg2YjExMGU5NGUgKCJkbSBjcnlw
+dDogY29uc3RyYWluIGNyeXB0Cj4gZGV2aWNlJ3MgbWF4X3NlZ21lbnRfc2l6ZSB0byBQQUdFX1NJ
+WkUiKSBmb3IgbW9yZSBjb250ZXh0LgoKVGhhbmtzLiBTbyB0aGUgcHJpbmNpcGxlIG9mIGhhbmRs
+aW5nIHF1ZXVlX2xpbWl0cyBvZiBkbSBsYXllciBpcyB0aGF0LMKgIApvbmx5IHdoZW4gZG0tdGFy
+Z2V0CgpzcGVjaWZpYyBxdWV1ZV9saW1pdHMgaXMgc2V0LCBzaGFsbCB3ZSBjb25zaWRlciBxdWV1
+ZV9saW1pdHN3aGVuIApzcGxpdHRpbmcgYmlvIGluIGRtLCBpbgoKd2hpY2ggY2FzZSB0aGVzZSBx
+dWV1ZV9saW1pdHMgKGZyb20gdW5kZXJseWluZyBkZXZpY2VzKSBhcmUgbGVmdCBmb3IgdGhlIAp1
+bmRlcmx5aW5nIGRldmljZXMKCnRvIGJlIGhhbmRsZWQgYXBwcm9wcmlhdGVseS4KCgooSW4gdGhp
+cyBjYXNlIHRoZXJlJ3Mgbm8gZG0tdGFyZ2V0IHNldCBpdHMgb3duIApAbWF4X3NlZ21lbnRzL0Bt
+YXhfc2VnbWVudF9zaXplLCB0aGVuCgp0aGVzZSB0d28gcGFyYW1ldGVycyBhcmUgbm90IGNvbnNp
+ZGVyZWQgd2hlbiBkbSBzcGxpdHRpbmcuKQoKCklmIHRoYXQncyB0aGUgY2FzZSwgdGhlbiB3aHkg
+Ym90aGVyIHN0YWNraW5nIHF1ZXVlX2xpbWl0cyBpbiAKYmxrX3N0YWNrX2xpbWl0cygpPyBTdWNo
+IGFzCgpgYGAKCmJsa19zdGFja19saW1pdHMKCiDCoMKgwqAgdC0+bWF4X3NlZ21lbnRzID0gbWlu
+X25vdF96ZXJvKHQtPm1heF9zZWdtZW50cywgYi0+bWF4X3NlZ21lbnRzKTsKIMKgwqDCoCB0LT5t
+YXhfc2VnbWVudF9zaXplID0gbWluX25vdF96ZXJvKHQtPm1heF9zZWdtZW50X3NpemUsCiDCoMKg
+wqAgwqDCoMKgIMKgwqDCoCDCoMKgwqAgwqDCoMKgIMKgwqAgYi0+bWF4X3NlZ21lbnRfc2l6ZSk7
+CgpgYGAKCgpJJ20gbm90IGNoYWxsZW5naW5nIHRoZSBpbXBsZW1lbnRhdGlvbi4gT2YgY291cnNl
+IGl0IHdvcmtzIGZpbmUgCmN1cnJlbnRseS4gSSdtIGp1c3QgY3VyaW91cwoKYWJvdXQgdGhlIGRl
+c2lnbiBjb25zaWRlcmF0aW9uIGJlbmVhdGggdGhlIGltcGxlbWVudGF0aW9uLiA6LSkKCgotLSAK
+VGhhbmtzLApKZWZmbGUKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQu
+Y29tCmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
 
