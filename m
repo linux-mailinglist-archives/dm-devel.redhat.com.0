@@ -2,71 +2,83 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E3F3B2AD0B1
-	for <lists+dm-devel@lfdr.de>; Tue, 10 Nov 2020 08:55:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 525EE2AD0B6
+	for <lists+dm-devel@lfdr.de>; Tue, 10 Nov 2020 08:56:08 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-444-oUL-7wC8P_-ShUPbdBkNhw-1; Tue, 10 Nov 2020 02:55:38 -0500
-X-MC-Unique: oUL-7wC8P_-ShUPbdBkNhw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-151-rZfoHpj3O0qXfdOfEQ-zmg-1; Tue, 10 Nov 2020 02:55:33 -0500
+X-MC-Unique: rZfoHpj3O0qXfdOfEQ-zmg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B7B15804771;
-	Tue, 10 Nov 2020 07:55:32 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3EA016198C;
-	Tue, 10 Nov 2020 07:55:32 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 09709186DD3A;
+	Tue, 10 Nov 2020 07:55:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5575D75121;
+	Tue, 10 Nov 2020 07:55:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EAE5118199F6;
-	Tue, 10 Nov 2020 07:55:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D2258CF72;
+	Tue, 10 Nov 2020 07:55:16 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0A9DqGFL029082 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 9 Nov 2020 08:52:16 -0500
+	id 0A9NT5nK004595 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 9 Nov 2020 18:29:05 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3848F6FA5A; Mon,  9 Nov 2020 13:52:16 +0000 (UTC)
+	id 0BF9A110F75B; Mon,  9 Nov 2020 23:29:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 32BCE6FA59
-	for <dm-devel@redhat.com>; Mon,  9 Nov 2020 13:52:13 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 05CDB1004058
+	for <dm-devel@redhat.com>; Mon,  9 Nov 2020 23:28:58 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D62A1802704
-	for <dm-devel@redhat.com>; Mon,  9 Nov 2020 13:52:13 +0000 (UTC)
-Received: from mail-il1-f195.google.com (mail-il1-f195.google.com
-	[209.85.166.195]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-450-VWupeJ0KMa6rD6B6fUA6dg-1; Mon, 09 Nov 2020 08:52:08 -0500
-X-MC-Unique: VWupeJ0KMa6rD6B6fUA6dg-1
-Received: by mail-il1-f195.google.com with SMTP id q1so8337723ilt.6;
-	Mon, 09 Nov 2020 05:52:08 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A9797801184
+	for <dm-devel@redhat.com>; Mon,  9 Nov 2020 23:28:58 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+	[209.85.128.52]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-263-SvoTo4CpPOW-EO--ihcWjQ-1; Mon, 09 Nov 2020 18:28:54 -0500
+X-MC-Unique: SvoTo4CpPOW-EO--ihcWjQ-1
+Received: by mail-wm1-f52.google.com with SMTP id t67so1193899wmt.5;
+	Mon, 09 Nov 2020 15:28:53 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=kU2Lz6FCVrZiuEoHabGbCYI8mZi4aQygf2Kr0fLfGG4=;
-	b=DrZUBL4RpCZlr/4KmlifTEla9sJdbWCq/PpR0slLmDCTZmGLeiduXxApr3ksEnvw9s
-	9c1tmipzE591NICKsFgOuqQWh4LjpY5IryfNdUyuCCKHoqMbx8mxZ0uxOnjpvs26IW35
-	dS+JqLEUxFF/YLXhgZImCh25/JhMOs1gRHSOdwhrMXhgEOYKjo+k3zBiaP3hr9WjZ1ax
-	7lJhEv2BilrXX1WXp88PIs+RgJzS2mC32pDHX7OSRQ+37Pqe9b7ze05FieNKqANKjeOn
-	e/bJnbfWSYTqXdPtE3PLNTQrtT5AD9UXHkuOukUI3+u0EntpC+2eZR7qdQgnq2iIyvpn
-	oQsg==
-X-Gm-Message-State: AOAM531aOSmJisWlS3YdEOUbNcSgvfyZOyYiPWBv4MQYPa/DgMFy2x0S
-	HeLC94bfOwVGK5bwFFS01kPecydBMPTVFIRebhg=
-X-Google-Smtp-Source: ABdhPJyXm5ijaiShQDd7Xj0k0fsOvCm3U5j3JctcQpIY73kNN30YAUsNc9VfJ5DemzskInCCw4oOffcooZ/r5dSiKD8=
-X-Received: by 2002:a05:6e02:c:: with SMTP id
-	h12mr10623495ilr.177.1604929927708; 
-	Mon, 09 Nov 2020 05:52:07 -0800 (PST)
-MIME-Version: 1.0
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=uVd85Bl4q22td+3jSMit0FtxZJ1sJtChRiPRn7GLPMw=;
+	b=o7r7nGx6jwmMvFFQ975DWd9RwCb9/9elWzCRVmcyOMlGcPNxZHFc/8YCi00bsdBh4P
+	A+boaSKnIZ0K1+iXxFhNwoYB7N4qlVVqTUELP05LYh+pXdpfE6J76UoCog/E1MQ2K6Lc
+	b7t5w4G/T1LgawgIAvy418foOBaHAx7nsqNB2r7+gZKmL/UHgS050MQ5hfDScL+v+nXe
+	cNIiV3ndJnXclaYOE8mltqRfBp6iv2xKVWowzyHZu9pvCIl+iNsxukeNDD+GoHtAyz5U
+	EIKlSiCN6K+iTWf4BRaNB0NyWEV5vdntZYHJ7SD7Bqmr5FM5cNYIvmjqVhJwoSb4ba/n
+	q18Q==
+X-Gm-Message-State: AOAM531AxbeBGHPYm0A0wx8hsf+jvunwtSdrJs7PAAhPmaT79YIn2YIQ
+	L0jexqK1aXq4gEU7c0DujgI=
+X-Google-Smtp-Source: ABdhPJyLfZWJAVtXVvWavay6Dkz/YKClz0bIC5QMERvUePaULd58OWlCLidmjNr2cN/ZVx4HfgINbw==
+X-Received: by 2002:a7b:c2f7:: with SMTP id e23mr1575766wmk.100.1604964532362; 
+	Mon, 09 Nov 2020 15:28:52 -0800 (PST)
+Received: from ?IPv6:2601:647:4802:9070:f26a:270b:f54c:37eb?
+	([2601:647:4802:9070:f26a:270b:f54c:37eb])
+	by smtp.gmail.com with ESMTPSA id
+	c17sm6900728wro.19.2020.11.09.15.28.46
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Mon, 09 Nov 2020 15:28:51 -0800 (PST)
+To: Hannes Reinecke <hare@suse.de>, Christoph Hellwig <hch@lst.de>
 References: <20201106190337.1973127-1-hch@lst.de>
-	<20201106190337.1973127-18-hch@lst.de>
-In-Reply-To: <20201106190337.1973127-18-hch@lst.de>
-From: Ilya Dryomov <idryomov@gmail.com>
-Date: Mon, 9 Nov 2020 14:52:08 +0100
-Message-ID: <CAOi1vP83cOt_FOFLXQmgBpDgmaq8o8OQcUYWOb97jzkgOw6r4A@mail.gmail.com>
-To: Christoph Hellwig <hch@lst.de>
+	<20201106190337.1973127-4-hch@lst.de>
+	<1d06cdfa-a904-30be-f3ec-08ae2fa85cbd@suse.de>
+	<20201109085340.GB27483@lst.de>
+	<e79f9a96-ef53-d6ea-f6e7-e141bdd2e2d2@suse.de>
+From: Sagi Grimberg <sagi@grimberg.me>
+Message-ID: <d28042e3-3123-5dfc-d0a2-aab0012150c8@grimberg.me>
+Date: Mon, 9 Nov 2020 15:28:44 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <e79f9a96-ef53-d6ea-f6e7-e141bdd2e2d2@suse.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -75,7 +87,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 10 Nov 2020 02:55:04 -0500
 Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
@@ -83,19 +95,19 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Jason Wang <jasowang@redhat.com>, linux-nvme@lists.infradead.org,
 	Song Liu <song@kernel.org>, dm-devel@redhat.com,
 	linux-scsi@vger.kernel.org, xen-devel@lists.xenproject.org,
-	Jack Wang <jinpu.wang@cloud.ionos.com>,
+	Ilya Dryomov <idryomov@gmail.com>, Jack Wang <jinpu.wang@cloud.ionos.com>,
 	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
 	Josef Bacik <josef@toxicpanda.com>, nbd@other.debian.org,
-	linux-raid@vger.kernel.org, Stefan Hajnoczi <stefanha@redhat.com>,
-	Lars Ellenberg <drbd-dev@tron.linbit.com>,
-	Ceph Development <ceph-devel@vger.kernel.org>,
-	Jens Axboe <axboe@kernel.dk>, linux-block <linux-block@vger.kernel.org>,
+	linux-raid@vger.kernel.org,
+	Stefan Hajnoczi <stefanha@redhat.com>, drbd-dev@tron.linbit.com,
+	ceph-devel@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	linux-block@vger.kernel.org,
 	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Minchan Kim <minchan@kernel.org>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [dm-devel] [PATCH 17/24] rbd: use set_capacity_and_notify
+	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Subject: Re: [dm-devel] [PATCH 03/24] nvme: let
+ set_capacity_revalidate_and_notify update the bdev size
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -109,50 +121,41 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-On Fri, Nov 6, 2020 at 8:04 PM Christoph Hellwig <hch@lst.de> wrote:
->
-> Use set_capacity_and_notify to set the size of both the disk and block
-> device.  This also gets the uevent notifications for the resize for free.
->
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  drivers/block/rbd.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/drivers/block/rbd.c b/drivers/block/rbd.c
-> index f84128abade319..b7a194ffda55b4 100644
-> --- a/drivers/block/rbd.c
-> +++ b/drivers/block/rbd.c
-> @@ -4920,8 +4920,7 @@ static void rbd_dev_update_size(struct rbd_device *rbd_dev)
->             !test_bit(RBD_DEV_FLAG_REMOVING, &rbd_dev->flags)) {
->                 size = (sector_t)rbd_dev->mapping.size / SECTOR_SIZE;
->                 dout("setting size to %llu sectors", (unsigned long long)size);
-> -               set_capacity(rbd_dev->disk, size);
-> -               revalidate_disk_size(rbd_dev->disk, true);
-> +               set_capacity_and_notify(rbd_dev->disk, size);
->         }
->  }
->
-> --
-> 2.28.0
->
-
-Acked-by: Ilya Dryomov <idryomov@gmail.com>
-
-Thanks,
-
-                Ilya
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+Cj4gWyAuLiBdCj4+PiBPcmlnaW5hbGx5IG52bWUgbXVsdGlwYXRoIHdvdWxkIHVwZGF0ZS9jaGFu
+Z2UgdGhlIHNpemUgb2YgdGhlIG11bHRpcGF0aAo+Pj4gZGV2aWNlIGFjY29yZGluZyB0byB0aGUg
+dW5kZXJseWluZyBwYXRoIGRldmljZXMuCj4+PiBXaXRoIHRoaXMgcGF0Y2ggdGhlIHNpemUgb2Yg
+dGhlIG11bHRpcGF0aCBkZXZpY2Ugd2lsbCBfbm90XyBjaGFuZ2UgaWYgCj4+PiB0aGVyZQo+Pj4g
+aXMgYSBjaGFuZ2Ugb24gdGhlIHVuZGVybHlpbmcgZGV2aWNlcy4KPj4KPj4gWWVzLCBpdCB3aWxs
+LsKgIFRha2UgYSBjbG9zZSBsb29rIGF0IG52bWVfdXBkYXRlX2Rpc2tfaW5mbyBhbmQgaG93IGl0
+IGlzCj4+IGNhbGxlZC4KPj4KPiBPa2F5LCB0aGVuOiBXaGF0IHdvdWxkIGJlIHRoZSBjb3JyZWN0
+IHdheSBvZiBoYW5kbGluZyBhIHNpemUgdXBkYXRlIGZvciAKPiBOVk1lIG11bHRpcGF0aD8KPiBB
+c3N1bWluZyB3ZSdyZSBnZXR0aW5nIGFuIEFFTiBmb3IgZWFjaCBwYXRoIHNpZ25hbGxpbmcgdGhl
+IHNpemUgY2hhbmdlCj4gKG9yIGEgY29udHJvbGxlciByZXNldCBsZWFkaW5nIHRvIGEgc2l6ZSBj
+aGFuZ2UpLgo+IFNvIGlmIHdlJ3JlIHVwZGF0aW5nIHRoZSBzaXplIG9mIHRoZSBtdWx0aXBhdGgg
+ZGV2aWNlIHRvZ2V0aGVyIHdpdGggdGhlIAo+IHBhdGggZGV2aWNlIGF0IHRoZSBmaXJzdCBBRU4v
+cmVzZXQgd2UnbGwgZW5kIHVwIHdpdGggdGhlIG90aGVyIHBhdGhzIAo+IGhhdmluZyBhIGRpZmZl
+cmVudCBzaXplIHRoYW4gdGhlIG11bHRpcGF0aCBkZXZpY2UgKGFuZCB0aGUgcGF0aCB3ZSd2ZSAK
+PiBqdXN0IGJlZW4gdXBkYXRpbmcpLgo+IC0gRG8gd2UgY2FyZSwgb3IgY3Jvc3MgZmluZ2VycyBh
+bmQgaG9wZSBmb3IgdGhlIGJlc3Q/Cj4gLSBTaG91bGRuJ3Qgd2UgZGV0ZWN0IHRoZSBjYXNlIHdo
+ZXJlIHdlIHdvbid0IGdldCBhIHNpemUgdXBkYXRlIGZvciB0aGUgCj4gb3RoZXIgcGF0aHMsIG9y
+LCBpbmRlZWQsIHdlIGhhdmUgYSBnZW51aW5lIGRldmljZSBzaXplIG1pc21hdGNoIGR1ZSB0byBh
+IAo+IG1pc2NvbmZpZ3VyYXRpb24gb24gdGhlIHRhcmdldD8KPiAKPiBJRSBzaG91bGRuJ3Qgd2Ug
+aGF2ZSBhIGZsYWcgJ3NpemUgdXBkYXRlIHBlbmRpbmcnIGZvciB0aGUgb3RoZXIgcGF0aHMsLCAK
+PiB0byB0YWtlIHRoZW0gb3V0IG91ZiB1c2UgdGVtcG9yYXJpbHkgdW50aWwgdGhlIG90aGVyIEFF
+TnMvcmVzZXRzIGhhdmUgCj4gYmVlbiBwcm9jZXNzZWQ/Cgp0aGUgbXBhdGggZGV2aWNlIHdpbGwg
+dGFrZSB0aGUgbWluaW11bSBzaXplIGZyb20gYWxsIHRoZSBwYXRocywgdGhhdCBpcwp3aGF0IGJs
+a19zdGFja19saW1pdHMgZG9lcy4gV2hlbiB0aGUgQUVOIGZvciBhbGwgdGhlIHBhdGhzIHdpbGwg
+YXJyaXZlCnRoZSBtcGF0aCBzaXplIHdpbGwgdXBkYXRlLgoKTm90IHN1cmUgaG93IHRoaXMgaXMg
+ZGlmZmVyZW50IHRoYW4gd2hhdCB3ZSBoYXZlIHRvZGF5Li4uCgotLQpkbS1kZXZlbCBtYWlsaW5n
+IGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL3d3dy5yZWRoYXQuY29tL21haWxtYW4v
+bGlzdGluZm8vZG0tZGV2ZWw=
 
