@@ -2,70 +2,57 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 3829B2AEFA8
-	for <lists+dm-devel@lfdr.de>; Wed, 11 Nov 2020 12:34:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2590C2AEFB4
+	for <lists+dm-devel@lfdr.de>; Wed, 11 Nov 2020 12:34:45 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-492-H9dxAaPONEelEKpSWexqFw-1; Wed, 11 Nov 2020 06:34:14 -0500
-X-MC-Unique: H9dxAaPONEelEKpSWexqFw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-442-dtDv8zxsN6eKPqteuTP3qA-1; Wed, 11 Nov 2020 06:34:42 -0500
+X-MC-Unique: dtDv8zxsN6eKPqteuTP3qA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 74A80807329;
-	Wed, 11 Nov 2020 11:34:08 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EE9AD709E1;
-	Wed, 11 Nov 2020 11:34:06 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 415CD8C4700;
+	Wed, 11 Nov 2020 11:34:20 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D26D67881E;
+	Wed, 11 Nov 2020 11:34:19 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 155E5180B658;
-	Wed, 11 Nov 2020 11:34:01 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1F5EA58100;
+	Wed, 11 Nov 2020 11:34:19 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AB2g3k7015322 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 10 Nov 2020 21:42:03 -0500
+	id 0AB8Wh6X026725 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 11 Nov 2020 03:32:44 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 799F8200A7DC; Wed, 11 Nov 2020 02:42:03 +0000 (UTC)
+	id E16B6207A6FC; Wed, 11 Nov 2020 08:32:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 74A77200E213
-	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 02:42:01 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DC7CF2068FE8
+	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:32:43 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 13522102F1E0
-	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 02:42:01 +0000 (UTC)
-Received: from mail-yb1-f202.google.com (mail-yb1-f202.google.com
-	[209.85.219.202]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-259-1kJ6L1TuMiuucIViL0gajg-1; Tue, 10 Nov 2020 21:41:59 -0500
-X-MC-Unique: 1kJ6L1TuMiuucIViL0gajg-1
-Received: by mail-yb1-f202.google.com with SMTP id t71so880720ybi.3
-	for <dm-devel@redhat.com>; Tue, 10 Nov 2020 18:41:58 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:sender:date:message-id:mime-version:subject:from
-	:to:cc;
-	bh=OUUVYD1R785BEy2RCsP0C8sEZy7udFaGjiORPSK5eA4=;
-	b=aszEI6NQbL/fpaeLSra56HEgoi9Fy/Dv7VGoJKeMk9mnYSUFo0L0h0bvQ8cZ5y7V4g
-	V6ZxNunEPptXrbE1iQmCBO50yeslIpHW8LolpzHo3sDNRRBwuCMiw8Olo4rpdHUTzCsS
-	TH6G0YZ4TZWkbzJHVKgzq8JhDyFkNj3G8HCVjpIP+IgRXXySaXG8LYwPlojgf58pmDPT
-	i6WT3LB9QIlf/z0djepAfr8S+uR8cqLAkz1fk5WN3U8YBiuVbM3I54ApJaLAsv+EfTSk
-	Nqr/rsH457gR8haVy9/qHAFFz1fLa8I1YdIyhUrduCIKlr8M/YErrrVK6/pAbCVfznDg
-	nFGA==
-X-Gm-Message-State: AOAM530JzI4SPMa/4HBThd18wzAdEByLZ1HlKXwxhJEReQgnKcFyp/Uf
-	15vLOMZnHcM4UINmLtJ1ebP+gvCzQ6RFfX9ut1A=
-X-Google-Smtp-Source: ABdhPJwPg4i8FsskSCpJr28arcLUIKNAAIxC1mde4fbI6yBQbYaURLDP3XHyTL2hLmSLv+hmkyMSeZn/bUQxuAxxMPg=
-X-Received: from ndesaulniers1.mtv.corp.google.com
-	([2620:15c:211:202:f693:9fff:fef4:4d25])
-	(user=ndesaulniers job=sendgmr) by 2002:a25:b445:: with SMTP id
-	c5mr29391620ybg.355.1605062518302; Tue, 10 Nov 2020 18:41:58 -0800 (PST)
-Date: Tue, 10 Nov 2020 18:41:40 -0800
-Message-Id: <20201111024140.1483879-1-ndesaulniers@google.com>
-Mime-Version: 1.0
-From: Nick Desaulniers <ndesaulniers@google.com>
-To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B4063811E83
+	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:32:43 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-560-oHTVbf1gObKwYrdb7Ka9rA-1; Wed, 11 Nov 2020 03:32:41 -0500
+X-MC-Unique: oHTVbf1gObKwYrdb7Ka9rA-1
+Received: from [2001:4bb8:180:6600:bcde:334f:863c:27b8] (helo=localhost)
+	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+	id 1kclT5-0007Zq-BZ; Wed, 11 Nov 2020 08:27:03 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Jens Axboe <axboe@kernel.dk>
+Date: Wed, 11 Nov 2020 09:26:37 +0100
+Message-Id: <20201111082658.3401686-4-hch@lst.de>
+In-Reply-To: <20201111082658.3401686-1-hch@lst.de>
+References: <20201111082658.3401686-1-hch@lst.de>
+MIME-Version: 1.0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -77,11 +64,23 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 11 Nov 2020 06:33:51 -0500
-Cc: Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
-	clang-built-linux@googlegroups.com, dm-devel@redhat.com,
-	Mikulas Patocka <mpatocka@redhat.com>, Rob Herring <robherring2@gmail.com>
-Subject: [dm-devel] [PATCH] Revert "dm cache: fix arm link errors with
-	inline"
+Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>, linux-nvme@lists.infradead.org,
+	Song Liu <song@kernel.org>, dm-devel@redhat.com,
+	linux-scsi@vger.kernel.org, xen-devel@lists.xenproject.org,
+	Ilya Dryomov <idryomov@gmail.com>, Jack Wang <jinpu.wang@cloud.ionos.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Josef Bacik <josef@toxicpanda.com>, nbd@other.debian.org,
+	linux-raid@vger.kernel.org,
+	Stefan Hajnoczi <stefanha@redhat.com>, drbd-dev@tron.linbit.com,
+	ceph-devel@vger.kernel.org, linux-block@vger.kernel.org,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [dm-devel] [PATCH 03/24] nvme: let
+	set_capacity_revalidate_and_notify update the bdev size
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,7 +94,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -103,36 +102,45 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This reverts commit 43aeaa29573924df76f44eda2bbd94ca36e407b5.
+There is no good reason to call revalidate_disk_size separately.
 
-Since
-commit 0bddd227f3dc ("Documentation: update for gcc 4.9 requirement")
-the minimum supported version of GCC is gcc-4.9. It's now safe to remove
-this code.
-
-Link: https://github.com/ClangBuiltLinux/linux/issues/427
-Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/md/dm-cache-target.c | 4 ----
- 1 file changed, 4 deletions(-)
+ drivers/nvme/host/core.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
-index 9644424591da..4bc453f5bbaa 100644
---- a/drivers/md/dm-cache-target.c
-+++ b/drivers/md/dm-cache-target.c
-@@ -712,10 +712,6 @@ static bool block_size_is_power_of_two(struct cache *cache)
- 	return cache->sectors_per_block_shift >= 0;
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index 40ca71b29bb91a..66129b86e97bed 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -2053,7 +2053,7 @@ static void nvme_update_disk_info(struct gendisk *disk,
+ 			capacity = 0;
+ 	}
+ 
+-	set_capacity_revalidate_and_notify(disk, capacity, false);
++	set_capacity_revalidate_and_notify(disk, capacity, true);
+ 
+ 	nvme_config_discard(disk, ns);
+ 	nvme_config_write_zeroes(disk, ns);
+@@ -2136,7 +2136,6 @@ static int nvme_update_ns_info(struct nvme_ns *ns, struct nvme_id_ns *id)
+ 		blk_stack_limits(&ns->head->disk->queue->limits,
+ 				 &ns->queue->limits, 0);
+ 		blk_queue_update_readahead(ns->head->disk->queue);
+-		nvme_update_bdev_size(ns->head->disk);
+ 		blk_mq_unfreeze_queue(ns->head->disk->queue);
+ 	}
+ #endif
+@@ -3965,8 +3964,6 @@ static void nvme_validate_ns(struct nvme_ns *ns, struct nvme_ns_ids *ids)
+ 	 */
+ 	if (ret && ret != -ENOMEM && !(ret > 0 && !(ret & NVME_SC_DNR)))
+ 		nvme_ns_remove(ns);
+-	else
+-		revalidate_disk_size(ns->disk, true);
  }
  
--/* gcc on ARM generates spurious references to __udivdi3 and __umoddi3 */
--#if defined(CONFIG_ARM) && __GNUC__ == 4 && __GNUC_MINOR__ <= 6
--__always_inline
--#endif
- static dm_block_t block_div(dm_block_t b, uint32_t n)
- {
- 	do_div(b, n);
+ static void nvme_validate_or_alloc_ns(struct nvme_ctrl *ctrl, unsigned nsid)
 -- 
-2.29.2.222.g5d2a92d10f8-goog
+2.28.0
 
 --
 dm-devel mailing list
