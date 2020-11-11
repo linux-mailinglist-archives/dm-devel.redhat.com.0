@@ -1,73 +1,59 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 431B22AEFAB
-	for <lists+dm-devel@lfdr.de>; Wed, 11 Nov 2020 12:34:23 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 2331B2AF14A
+	for <lists+dm-devel@lfdr.de>; Wed, 11 Nov 2020 13:54:21 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-560-hS8-z3HoNb-voRk0oyJj_A-1; Wed, 11 Nov 2020 06:34:19 -0500
-X-MC-Unique: hS8-z3HoNb-voRk0oyJj_A-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-227-1ODAB6lfMvSvZGtz4K_YZg-1; Wed, 11 Nov 2020 07:54:17 -0500
+X-MC-Unique: 1ODAB6lfMvSvZGtz4K_YZg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8E30F106B276;
-	Wed, 11 Nov 2020 11:34:11 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E4F4A1018729;
+	Wed, 11 Nov 2020 12:54:09 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 61E9E811B2;
-	Wed, 11 Nov 2020 11:34:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 70CE019C66;
+	Wed, 11 Nov 2020 12:54:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E9444180B658;
-	Wed, 11 Nov 2020 11:34:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6527C180B657;
+	Wed, 11 Nov 2020 12:53:58 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0ABA70mF005535 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 11 Nov 2020 05:07:00 -0500
+	id 0ABCkbrA031150 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 11 Nov 2020 07:46:37 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0A8C82011567; Wed, 11 Nov 2020 10:07:00 +0000 (UTC)
+	id E6DF3C6106; Wed, 11 Nov 2020 12:46:36 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 05AAA20110C9
-	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 10:06:57 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E209EC6123
+	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 12:46:34 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9136990E420
-	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 10:06:57 +0000 (UTC)
-Received: from mail-ej1-f68.google.com (mail-ej1-f68.google.com
-	[209.85.218.68]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-422-GWYGSS79OqiDnCiOAPb9JQ-1; Wed, 11 Nov 2020 05:06:55 -0500
-X-MC-Unique: GWYGSS79OqiDnCiOAPb9JQ-1
-Received: by mail-ej1-f68.google.com with SMTP id i19so1947745ejx.9
-	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 02:06:54 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=8BVYeCUTuKi3mlr+D1JejV3WQ4DReZqKao2un+osJdI=;
-	b=FviYv7+o8r5M70vOrY1CZ9N31vrDDGlBJ5Z3er7yOqqL9gkqWdoZJfcO0ssnvIoyCo
-	ha/QBh7Z71nrQ+HicOJtpBCgNCImR19PTMOR19ewwEmIaqSPcfrHlkYZ0yQAs5Y8ubgl
-	xEsGq1Bcbos3hN/UfBxCJFZeHLilMQ8CIEqZBGrgV8R0LvQWBvw0uLH67Jrmx5zLJ7Hf
-	iCubIKgWWHaE9TywFCWnWNTRH7xIsy5e35wyU2cmi3V74z3922PvY5QdCYKJ4iRJxMUo
-	7wnfKEDRBKJTD6osvIjWqlc3d3pqf5Ekhlz96ALvJz2NUblDCC9X6UOOLnnuLHkHp1ji
-	q5/Q==
-X-Gm-Message-State: AOAM530eyKfNI3aqIuhqBebxDMIrXuc2Zjf9sbsRvZyw945PxrhBAPt0
-	NoGbz5O9CghBRmUUEom5/Pdb01877xeDRKXKMVg+Bg==
-X-Google-Smtp-Source: ABdhPJzsSG4n+ejxAi7LIm+JtRF2XZ0Zmfdo/Dim1Bn2zjoT1vntwc6k1ciTHUd7GwTXoyYPdOeDF7UWMmfnel/IKPk=
-X-Received: by 2002:a17:907:c05:: with SMTP id
-	ga5mr19170455ejc.212.1605089213881; 
-	Wed, 11 Nov 2020 02:06:53 -0800 (PST)
-MIME-Version: 1.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8BBDD811E76
+	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 12:46:34 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-198-vNeFFVQbMtqRHGvmqPOIKQ-1;
+	Wed, 11 Nov 2020 07:46:30 -0500
+X-MC-Unique: vNeFFVQbMtqRHGvmqPOIKQ-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 45EACABD6;
+	Wed, 11 Nov 2020 12:46:28 +0000 (UTC)
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
 References: <20201111082658.3401686-1-hch@lst.de>
-	<20201111082658.3401686-18-hch@lst.de>
-	<CAOi1vP-JjnNdAUqd9Gy6YdFgi8Ev4_Jt3zcB9DhAmdAvQhG7Eg@mail.gmail.com>
-In-Reply-To: <CAOi1vP-JjnNdAUqd9Gy6YdFgi8Ev4_Jt3zcB9DhAmdAvQhG7Eg@mail.gmail.com>
-From: Jinpu Wang <jinpu.wang@cloud.ionos.com>
-Date: Wed, 11 Nov 2020 11:06:43 +0100
-Message-ID: <CAMGffEmU1ezUo68zF8DS4CRZZMosqhmDw3h7uiWzh2nL8tUs9g@mail.gmail.com>
-To: Ilya Dryomov <idryomov@gmail.com>
+	<20201111082658.3401686-2-hch@lst.de>
+From: Hannes Reinecke <hare@suse.de>
+Message-ID: <1e4539ab-199f-1d15-863d-052b0b2d3946@suse.de>
+Date: Wed, 11 Nov 2020 13:46:24 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+	Thunderbird/78.4.0
+MIME-Version: 1.0
+In-Reply-To: <20201111082658.3401686-2-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -76,30 +62,27 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0ABCkbrA031150
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Wed, 11 Nov 2020 06:33:51 -0500
 Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
 	Jason Wang <jasowang@redhat.com>, linux-nvme@lists.infradead.org,
-	Song Liu <song@kernel.org>,
-	device-mapper development <dm-devel@redhat.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Linux SCSI Mailinglist <linux-scsi@vger.kernel.org>,
-	xen-devel@lists.xenproject.org,
+	Song Liu <song@kernel.org>, dm-devel@redhat.com,
+	linux-scsi@vger.kernel.org, xen-devel@lists.xenproject.org,
+	Ilya Dryomov <idryomov@gmail.com>, Jack Wang <jinpu.wang@cloud.ionos.com>,
 	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
 	Josef Bacik <josef@toxicpanda.com>, nbd@other.debian.org,
-	linux-raid <linux-raid@vger.kernel.org>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Lars Ellenberg <drbd-dev@tron.linbit.com>,
-	Ceph Development <ceph-devel@vger.kernel.org>,
-	Jens Axboe <axboe@kernel.dk>, linux-block <linux-block@vger.kernel.org>,
+	linux-raid@vger.kernel.org,
+	Stefan Hajnoczi <stefanha@redhat.com>, drbd-dev@tron.linbit.com,
+	ceph-devel@vger.kernel.org, linux-block@vger.kernel.org,
 	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Minchan Kim <minchan@kernel.org>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [dm-devel] [PATCH 17/24] rbd: use set_capacity_and_notify
+	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Subject: Re: [dm-devel] [PATCH 01/24] block: remove the call to
+ __invalidate_device in check_disk_size_change
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -113,57 +96,30 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-On Wed, Nov 11, 2020 at 10:55 AM Ilya Dryomov <idryomov@gmail.com> wrote:
->
-> On Wed, Nov 11, 2020 at 9:27 AM Christoph Hellwig <hch@lst.de> wrote:
-> >
-> > Use set_capacity_and_notify to set the size of both the disk and block
-> > device.  This also gets the uevent notifications for the resize for free.
-> >
-> > Signed-off-by: Christoph Hellwig <hch@lst.de>
-> > Acked-by: Jack Wang <jinpu.wang@cloud.ionos.com>
-> > ---
-> >  drivers/block/rbd.c | 3 +--
-> >  1 file changed, 1 insertion(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/block/rbd.c b/drivers/block/rbd.c
-> > index f84128abade319..b7a194ffda55b4 100644
-> > --- a/drivers/block/rbd.c
-> > +++ b/drivers/block/rbd.c
-> > @@ -4920,8 +4920,7 @@ static void rbd_dev_update_size(struct rbd_device *rbd_dev)
-> >             !test_bit(RBD_DEV_FLAG_REMOVING, &rbd_dev->flags)) {
-> >                 size = (sector_t)rbd_dev->mapping.size / SECTOR_SIZE;
-> >                 dout("setting size to %llu sectors", (unsigned long long)size);
-> > -               set_capacity(rbd_dev->disk, size);
-> > -               revalidate_disk_size(rbd_dev->disk, true);
-> > +               set_capacity_and_notify(rbd_dev->disk, size);
-> >         }
-> >  }
-> >
-> > --
-> > 2.28.0
-> >
->
-> Hi Christoph,
->
-> The Acked-by is wrong here.  I acked this patch (17/24, rbd), and Jack
-> acked the next one (18/24, rnbd).
-right. :)
->
-> Thanks,
->
->                 Ilya
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+T24gMTEvMTEvMjAgOToyNiBBTSwgQ2hyaXN0b3BoIEhlbGx3aWcgd3JvdGU6Cj4gX19pbnZhbGlk
+YXRlX2RldmljZSB3aXRob3V0IHRoZSBraWxsX2RpcnR5IHBhcmFtZXRlciBqdXN0IGludmFsaWRh
+dGVzCj4gdmFyaW91cyBjbGVhbiBlbnRyaWVzIGluIGNhY2hlcywgd2hpY2ggZG9lc24ndCByZWFs
+bHkgaGVscCB1cyB3aXRoCj4gYW55dGhpbmcsIGJ1dCBjYW4gY2F1c2UgYWxsIGtpbmRzIG9mIGhv
+cnJpYmxlIGxvY2sgb3JkZXJzIGR1ZSB0byBob3cKPiBpdCBjYWxscyBpbnRvIHRoZSBmaWxlIHN5
+c3RlbS4gIFRoZSBvbmx5IHJlYXNvbiB0aGlzIGhhc24ndCBiZWVuIGEKPiBtYWpvciBpc3N1ZSBp
+cyBiZWNhdXNlIHNvIG1hbnkgcGVvcGxlIHVzZSBwYXJ0aXRpb25zLCBmb3Igd2hpY2ggbm8KPiBp
+bnZhbGlkYXRpb24gd2FzIHBlcmZvcm1lZCBhbnl3YXkuCj4gCj4gU2lnbmVkLW9mZi1ieTogQ2hy
+aXN0b3BoIEhlbGx3aWcgPGhjaEBsc3QuZGU+Cj4gLS0tCj4gICBmcy9ibG9ja19kZXYuYyB8IDYg
+LS0tLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgNiBkZWxldGlvbnMoLSkKPiAKUmV2aWV3ZWQtYnk6
+IEhhbm5lcyBSZWluZWNrZSA8aGFyZUBzdXNlLmRlPgoKQ2hlZXJzLAoKSGFubmVzCi0tIApEci4g
+SGFubmVzIFJlaW5lY2tlICAgICAgICAgICAgICAgIEtlcm5lbCBTdG9yYWdlIEFyY2hpdGVjdApo
+YXJlQHN1c2UuZGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICArNDkgOTExIDc0MDUzIDY4
+OApTVVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHbWJILCBNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xy
+bmJlcmcKSFJCIDM2ODA5IChBRyBOw7xybmJlcmcpLCBHZXNjaMOkZnRzZsO8aHJlcjogRmVsaXgg
+SW1lbmTDtnJmZmVyCgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5j
+b20KaHR0cHM6Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
 
