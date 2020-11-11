@@ -1,53 +1,52 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B68282AEFAA
-	for <lists+dm-devel@lfdr.de>; Wed, 11 Nov 2020 12:34:20 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 995512AEFAC
+	for <lists+dm-devel@lfdr.de>; Wed, 11 Nov 2020 12:34:23 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-542-PVIDyN5HMkOhJU1OJQlirg-1; Wed, 11 Nov 2020 06:34:16 -0500
-X-MC-Unique: PVIDyN5HMkOhJU1OJQlirg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-587-bk8AkWq6M4mLjwxORpuYHA-1; Wed, 11 Nov 2020 06:34:17 -0500
+X-MC-Unique: bk8AkWq6M4mLjwxORpuYHA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 91F98100A27E;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 340D0188C12F;
 	Wed, 11 Nov 2020 11:34:09 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A5B181187;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 04DFD282D7;
 	Wed, 11 Nov 2020 11:34:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9B6585810F;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8971B5810D;
 	Wed, 11 Nov 2020 11:34:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AB8WnIv026749 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 11 Nov 2020 03:32:49 -0500
+	id 0AB8Vrjg026479 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 11 Nov 2020 03:31:53 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 277B52156A49; Wed, 11 Nov 2020 08:32:49 +0000 (UTC)
+	id 8C668207A77B; Wed, 11 Nov 2020 08:31:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2288F2156A3A
-	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:32:49 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 885A7207A506
+	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:31:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EE921102F222
-	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:32:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6EB5A865460
+	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:31:53 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-88-7_uol4UbO8ufTPwU2a_usA-1; Wed, 11 Nov 2020 03:32:44 -0500
-X-MC-Unique: 7_uol4UbO8ufTPwU2a_usA-1
+	us-mta-557-uH7r4puTNmm-CfjGBEj3rQ-1; Wed, 11 Nov 2020 03:31:49 -0500
+X-MC-Unique: uH7r4puTNmm-CfjGBEj3rQ-1
 Received: from [2001:4bb8:180:6600:bcde:334f:863c:27b8] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kclTP-0007dc-EI; Wed, 11 Nov 2020 08:27:23 +0000
+	id 1kclTQ-0007du-T4; Wed, 11 Nov 2020 08:27:25 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed, 11 Nov 2020 09:26:52 +0100
-Message-Id: <20201111082658.3401686-19-hch@lst.de>
+Date: Wed, 11 Nov 2020 09:26:53 +0100
+Message-Id: <20201111082658.3401686-20-hch@lst.de>
 In-Reply-To: <20201111082658.3401686-1-hch@lst.de>
 References: <20201111082658.3401686-1-hch@lst.de>
 MIME-Version: 1.0
@@ -61,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 11 Nov 2020 06:33:51 -0500
 Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
@@ -79,7 +78,7 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 18/24] rnbd: use set_capacity_and_notify
+Subject: [dm-devel] [PATCH 19/24] zram: use set_capacity_and_notify
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,7 +92,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -106,23 +105,41 @@ device.  This also gets the uevent notifications for the resize for free.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/block/rnbd/rnbd-clt.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/block/zram/zram_drv.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/block/rnbd/rnbd-clt.c b/drivers/block/rnbd/rnbd-clt.c
-index 8b2411ccbda97c..bb13d7dd195a08 100644
---- a/drivers/block/rnbd/rnbd-clt.c
-+++ b/drivers/block/rnbd/rnbd-clt.c
-@@ -100,8 +100,7 @@ static int rnbd_clt_change_capacity(struct rnbd_clt_dev *dev,
- 	rnbd_clt_info(dev, "Device size changed from %zu to %zu sectors\n",
- 		       dev->nsectors, new_nsectors);
- 	dev->nsectors = new_nsectors;
--	set_capacity(dev->gd, dev->nsectors);
--	revalidate_disk_size(dev->gd, true);
-+	set_capacity_and_notify(dev->gd, dev->nsectors);
- 	return 0;
- }
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index 1b697208d66157..6d15d51cee2b7e 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -1695,7 +1695,7 @@ static void zram_reset_device(struct zram *zram)
+ 	disksize = zram->disksize;
+ 	zram->disksize = 0;
  
+-	set_capacity(zram->disk, 0);
++	set_capacity_and_notify(zram->disk, 0);
+ 	part_stat_set_all(&zram->disk->part0, 0);
+ 
+ 	up_write(&zram->init_lock);
+@@ -1741,9 +1741,7 @@ static ssize_t disksize_store(struct device *dev,
+ 
+ 	zram->comp = comp;
+ 	zram->disksize = disksize;
+-	set_capacity(zram->disk, zram->disksize >> SECTOR_SHIFT);
+-
+-	revalidate_disk_size(zram->disk, true);
++	set_capacity_and_notify(zram->disk, zram->disksize >> SECTOR_SHIFT);
+ 	up_write(&zram->init_lock);
+ 
+ 	return len;
+@@ -1790,7 +1788,6 @@ static ssize_t reset_store(struct device *dev,
+ 	/* Make sure all the pending I/O are finished */
+ 	fsync_bdev(bdev);
+ 	zram_reset_device(zram);
+-	revalidate_disk_size(zram->disk, true);
+ 	bdput(bdev);
+ 
+ 	mutex_lock(&bdev->bd_mutex);
 -- 
 2.28.0
 
