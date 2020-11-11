@@ -2,52 +2,52 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 6A3742AEC05
-	for <lists+dm-devel@lfdr.de>; Wed, 11 Nov 2020 09:32:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 201D02AEC0F
+	for <lists+dm-devel@lfdr.de>; Wed, 11 Nov 2020 09:33:09 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-389-mNa9yWtBNTW3hVwYYB0S9A-1; Wed, 11 Nov 2020 03:32:30 -0500
-X-MC-Unique: mNa9yWtBNTW3hVwYYB0S9A-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-585-0dTR1bO-N_GLAiL0h24HRg-1; Wed, 11 Nov 2020 03:32:53 -0500
+X-MC-Unique: 0dTR1bO-N_GLAiL0h24HRg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 77509802B72;
-	Wed, 11 Nov 2020 08:32:24 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 557916115F;
-	Wed, 11 Nov 2020 08:32:24 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9CC2E10866AD;
+	Wed, 11 Nov 2020 08:32:47 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6D9FF1002C36;
+	Wed, 11 Nov 2020 08:32:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0F34658103;
-	Wed, 11 Nov 2020 08:32:24 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 25558181A06B;
+	Wed, 11 Nov 2020 08:32:47 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AB8WL0A026594 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 11 Nov 2020 03:32:21 -0500
+	id 0AB8Whhx026717 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 11 Nov 2020 03:32:43 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0F41DB350B; Wed, 11 Nov 2020 08:32:21 +0000 (UTC)
+	id 3C619207A506; Wed, 11 Nov 2020 08:32:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 07396B5531
-	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:32:17 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 37A272068FE8
+	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:32:43 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07B5E102F227
-	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:32:17 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0ED898582A9
+	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:32:43 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-245-hbn78n4TPXGgDOOuuR0IAg-1; Wed, 11 Nov 2020 03:32:15 -0500
-X-MC-Unique: hbn78n4TPXGgDOOuuR0IAg-1
+	us-mta-288-hlqfF0PsPMKCN_-zKOIROw-1; Wed, 11 Nov 2020 03:32:39 -0500
+X-MC-Unique: hlqfF0PsPMKCN_-zKOIROw-1
 Received: from [2001:4bb8:180:6600:bcde:334f:863c:27b8] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kclTD-0007b7-Eu; Wed, 11 Nov 2020 08:27:11 +0000
+	id 1kclTG-0007bi-W8; Wed, 11 Nov 2020 08:27:15 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed, 11 Nov 2020 09:26:44 +0100
-Message-Id: <20201111082658.3401686-11-hch@lst.de>
+Date: Wed, 11 Nov 2020 09:26:46 +0100
+Message-Id: <20201111082658.3401686-13-hch@lst.de>
 In-Reply-To: <20201111082658.3401686-1-hch@lst.de>
 References: <20201111082658.3401686-1-hch@lst.de>
 MIME-Version: 1.0
@@ -61,7 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
@@ -78,8 +78,8 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 10/24] nbd: validate the block size in
-	nbd_set_size
+Subject: [dm-devel] [PATCH 12/24] aoe: don't call set_capacity from irq
+	context
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,7 +93,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -101,120 +101,58 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Move the validation of the block from the callers into nbd_set_size.
+Updating the block device size from irq context can lead to torn
+writes of the 64-bit value, and prevents us from using normal
+process context locking primitives to serialize access to the 64-bit
+nr_sectors value.  Defer the set_capacity to the already existing
+workqueue handler, where it can be merged with the update of the
+block device size by using set_capacity_and_notify.  As an extra
+bonus this also adds proper uevent notifications for the resize.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Josef Bacik <josef@toxicpanda.com>
 ---
- drivers/block/nbd.c | 47 +++++++++++++++------------------------------
- 1 file changed, 15 insertions(+), 32 deletions(-)
+ drivers/block/aoe/aoecmd.c | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-index eb8a5da48ad75a..327060e01ad58e 100644
---- a/drivers/block/nbd.c
-+++ b/drivers/block/nbd.c
-@@ -296,16 +296,21 @@ static void nbd_size_clear(struct nbd_device *nbd)
- 	}
- }
- 
--static void nbd_set_size(struct nbd_device *nbd, loff_t bytesize,
-+static int nbd_set_size(struct nbd_device *nbd, loff_t bytesize,
- 		loff_t blksize)
+diff --git a/drivers/block/aoe/aoecmd.c b/drivers/block/aoe/aoecmd.c
+index 313f0b946fe2b3..ac720bdcd983e7 100644
+--- a/drivers/block/aoe/aoecmd.c
++++ b/drivers/block/aoe/aoecmd.c
+@@ -890,19 +890,13 @@ void
+ aoecmd_sleepwork(struct work_struct *work)
  {
- 	struct block_device *bdev;
+ 	struct aoedev *d = container_of(work, struct aoedev, work);
+-	struct block_device *bd;
+-	u64 ssize;
  
-+	if (!blksize)
-+		blksize = NBD_DEF_BLKSIZE;
-+	if (blksize < 512 || blksize > PAGE_SIZE || !is_power_of_2(blksize))
-+		return -EINVAL;
-+
- 	nbd->config->bytesize = bytesize;
- 	nbd->config->blksize = blksize;
+ 	if (d->flags & DEVFL_GDALLOC)
+ 		aoeblk_gdalloc(d);
  
- 	if (!nbd->task_recv)
--		return;
-+		return 0;
- 
- 	if (nbd->config->flags & NBD_FLAG_SEND_TRIM) {
- 		nbd->disk->queue->limits.discard_granularity = blksize;
-@@ -325,6 +330,7 @@ static void nbd_set_size(struct nbd_device *nbd, loff_t bytesize,
- 		bdput(bdev);
- 	}
- 	kobject_uevent(&nbd_to_dev(nbd)->kobj, KOBJ_CHANGE);
-+	return 0;
- }
- 
- static void nbd_complete_rq(struct request *req)
-@@ -1304,8 +1310,7 @@ static int nbd_start_device(struct nbd_device *nbd)
- 		args->index = i;
- 		queue_work(nbd->recv_workq, &args->work);
- 	}
--	nbd_set_size(nbd, config->bytesize, config->blksize);
--	return error;
-+	return nbd_set_size(nbd, config->bytesize, config->blksize);
- }
- 
- static int nbd_start_device_ioctl(struct nbd_device *nbd, struct block_device *bdev)
-@@ -1347,14 +1352,6 @@ static void nbd_clear_sock_ioctl(struct nbd_device *nbd,
- 		nbd_config_put(nbd);
- }
- 
--static bool nbd_is_valid_blksize(unsigned long blksize)
--{
--	if (!blksize || !is_power_of_2(blksize) || blksize < 512 ||
--	    blksize > PAGE_SIZE)
--		return false;
--	return true;
--}
--
- static void nbd_set_cmd_timeout(struct nbd_device *nbd, u64 timeout)
- {
- 	nbd->tag_set.timeout = timeout * HZ;
-@@ -1379,19 +1376,12 @@ static int __nbd_ioctl(struct block_device *bdev, struct nbd_device *nbd,
- 	case NBD_SET_SOCK:
- 		return nbd_add_socket(nbd, arg, false);
- 	case NBD_SET_BLKSIZE:
--		if (!arg)
--			arg = NBD_DEF_BLKSIZE;
--		if (!nbd_is_valid_blksize(arg))
--			return -EINVAL;
--		nbd_set_size(nbd, config->bytesize, arg);
--		return 0;
-+		return nbd_set_size(nbd, config->bytesize, arg);
- 	case NBD_SET_SIZE:
--		nbd_set_size(nbd, arg, config->blksize);
--		return 0;
-+		return nbd_set_size(nbd, arg, config->blksize);
- 	case NBD_SET_SIZE_BLOCKS:
--		nbd_set_size(nbd, arg * config->blksize,
--			     config->blksize);
--		return 0;
-+		return nbd_set_size(nbd, arg * config->blksize,
-+				    config->blksize);
- 	case NBD_SET_TIMEOUT:
- 		nbd_set_cmd_timeout(nbd, arg);
- 		return 0;
-@@ -1808,18 +1798,11 @@ static int nbd_genl_size_set(struct genl_info *info, struct nbd_device *nbd)
- 	if (info->attrs[NBD_ATTR_SIZE_BYTES])
- 		bytes = nla_get_u64(info->attrs[NBD_ATTR_SIZE_BYTES]);
- 
--	if (info->attrs[NBD_ATTR_BLOCK_SIZE_BYTES]) {
-+	if (info->attrs[NBD_ATTR_BLOCK_SIZE_BYTES])
- 		bsize = nla_get_u64(info->attrs[NBD_ATTR_BLOCK_SIZE_BYTES]);
--		if (!bsize)
--			bsize = NBD_DEF_BLKSIZE;
--		if (!nbd_is_valid_blksize(bsize)) {
--			printk(KERN_ERR "Invalid block size %llu\n", bsize);
--			return -EINVAL;
+ 	if (d->flags & DEVFL_NEWSIZE) {
+-		ssize = get_capacity(d->gd);
+-		bd = bdget_disk(d->gd, 0);
+-		if (bd) {
+-			bd_set_nr_sectors(bd, ssize);
+-			bdput(bd);
 -		}
--	}
- 
- 	if (bytes != config->bytesize || bsize != config->blksize)
--		nbd_set_size(nbd, bytes, bsize);
-+		return nbd_set_size(nbd, bytes, bsize);
- 	return 0;
++		set_capacity_and_notify(d->gd, d->ssize);
++
+ 		spin_lock_irq(&d->lock);
+ 		d->flags |= DEVFL_UP;
+ 		d->flags &= ~DEVFL_NEWSIZE;
+@@ -971,10 +965,9 @@ ataid_complete(struct aoedev *d, struct aoetgt *t, unsigned char *id)
+ 	d->geo.start = 0;
+ 	if (d->flags & (DEVFL_GDALLOC|DEVFL_NEWSIZE))
+ 		return;
+-	if (d->gd != NULL) {
+-		set_capacity(d->gd, ssize);
++	if (d->gd != NULL)
+ 		d->flags |= DEVFL_NEWSIZE;
+-	} else
++	else
+ 		d->flags |= DEVFL_GDALLOC;
+ 	schedule_work(&d->work);
  }
- 
 -- 
 2.28.0
 
