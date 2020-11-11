@@ -1,52 +1,53 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 7D54D2AEC01
-	for <lists+dm-devel@lfdr.de>; Wed, 11 Nov 2020 09:32:27 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id C70E32AEBFB
+	for <lists+dm-devel@lfdr.de>; Wed, 11 Nov 2020 09:32:13 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-61-tWleALvaMoSgn7_Xonw_Ww-1; Wed, 11 Nov 2020 03:32:24 -0500
-X-MC-Unique: tWleALvaMoSgn7_Xonw_Ww-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-462-CZ2RVxVGPYyO5EHnbmq0JA-1; Wed, 11 Nov 2020 03:32:10 -0500
+X-MC-Unique: CZ2RVxVGPYyO5EHnbmq0JA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 925B4804741;
-	Wed, 11 Nov 2020 08:32:18 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 653608C3893;
+	Wed, 11 Nov 2020 08:32:04 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6CE806115F;
-	Wed, 11 Nov 2020 08:32:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 290665B4A8;
+	Wed, 11 Nov 2020 08:32:04 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 26EC1181A06C;
-	Wed, 11 Nov 2020 08:32:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CFF5C181A050;
+	Wed, 11 Nov 2020 08:32:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AB8WFmE026559 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 11 Nov 2020 03:32:15 -0500
+	id 0AB8Vxf9026495 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 11 Nov 2020 03:31:59 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 757E7207A80F; Wed, 11 Nov 2020 08:32:15 +0000 (UTC)
+	id 877B010F1CA2; Wed, 11 Nov 2020 08:31:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6E677207A77B
-	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:32:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82BBA10F1CA1
+	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:31:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1AE98185A7A2
-	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:32:12 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 59F6E85829F
+	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:31:59 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-456-rpcDlUGTPZ6ORJvS93K2Nw-1; Wed, 11 Nov 2020 03:32:09 -0500
-X-MC-Unique: rpcDlUGTPZ6ORJvS93K2Nw-1
+	us-mta-470--zEmix-3OQKtYKuYUYGRCw-1; Wed, 11 Nov 2020 03:31:55 -0500
+X-MC-Unique: -zEmix-3OQKtYKuYUYGRCw-1
 Received: from [2001:4bb8:180:6600:bcde:334f:863c:27b8] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kclTB-0007aj-13; Wed, 11 Nov 2020 08:27:09 +0000
+	id 1kclTC-0007ay-Br; Wed, 11 Nov 2020 08:27:10 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed, 11 Nov 2020 09:26:42 +0100
-Message-Id: <20201111082658.3401686-9-hch@lst.de>
+Date: Wed, 11 Nov 2020 09:26:43 +0100
+Message-Id: <20201111082658.3401686-10-hch@lst.de>
 In-Reply-To: <20201111082658.3401686-1-hch@lst.de>
 References: <20201111082658.3401686-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,7 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
@@ -77,8 +78,7 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 08/24] nbd: move the task_recv check into
-	nbd_size_update
+Subject: [dm-devel] [PATCH 09/24] nbd: refactor size updates
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,7 +92,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -100,52 +100,116 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-nbd_size_update is about to acquire a few more callers, so lift the check
-into the function.
+Merge nbd_size_set and nbd_size_update into a single function that also
+updates the nbd_config fields.  This new function takes the device size
+in bytes as the first argument, and the blocksize as the second argument,
+simplifying the calculations required in most callers.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Josef Bacik <josef@toxicpanda.com>
 ---
- drivers/block/nbd.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/block/nbd.c | 44 ++++++++++++++++++--------------------------
+ 1 file changed, 18 insertions(+), 26 deletions(-)
 
 diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-index f618688a196654..58b7090dcbd832 100644
+index 58b7090dcbd832..eb8a5da48ad75a 100644
 --- a/drivers/block/nbd.c
 +++ b/drivers/block/nbd.c
-@@ -299,8 +299,11 @@ static void nbd_size_clear(struct nbd_device *nbd)
- static void nbd_size_update(struct nbd_device *nbd)
- {
- 	struct nbd_config *config = nbd->config;
--	struct block_device *bdev = bdget_disk(nbd->disk, 0);
- 	sector_t nr_sectors = config->bytesize >> 9;
-+	struct block_device *bdev;
-+
-+	if (!nbd->task_recv)
-+		return;
- 
- 	if (config->flags & NBD_FLAG_SEND_TRIM) {
- 		nbd->disk->queue->limits.discard_granularity = config->blksize;
-@@ -309,7 +312,9 @@ static void nbd_size_update(struct nbd_device *nbd)
+@@ -296,28 +296,30 @@ static void nbd_size_clear(struct nbd_device *nbd)
  	}
- 	blk_queue_logical_block_size(nbd->disk->queue, config->blksize);
- 	blk_queue_physical_block_size(nbd->disk->queue, config->blksize);
-+
- 	set_capacity(nbd->disk, nr_sectors);
-+	bdev = bdget_disk(nbd->disk, 0);
- 	if (bdev) {
- 		if (bdev->bd_disk)
- 			bd_set_nr_sectors(bdev, nr_sectors);
-@@ -326,8 +331,7 @@ static void nbd_size_set(struct nbd_device *nbd, loff_t blocksize,
- 	struct nbd_config *config = nbd->config;
- 	config->blksize = blocksize;
- 	config->bytesize = blocksize * nr_blocks;
--	if (nbd->task_recv != NULL)
--		nbd_size_update(nbd);
-+	nbd_size_update(nbd);
  }
  
+-static void nbd_size_update(struct nbd_device *nbd)
++static void nbd_set_size(struct nbd_device *nbd, loff_t bytesize,
++		loff_t blksize)
+ {
+-	struct nbd_config *config = nbd->config;
+-	sector_t nr_sectors = config->bytesize >> 9;
+ 	struct block_device *bdev;
+ 
++	nbd->config->bytesize = bytesize;
++	nbd->config->blksize = blksize;
++
+ 	if (!nbd->task_recv)
+ 		return;
+ 
+-	if (config->flags & NBD_FLAG_SEND_TRIM) {
+-		nbd->disk->queue->limits.discard_granularity = config->blksize;
+-		nbd->disk->queue->limits.discard_alignment = config->blksize;
++	if (nbd->config->flags & NBD_FLAG_SEND_TRIM) {
++		nbd->disk->queue->limits.discard_granularity = blksize;
++		nbd->disk->queue->limits.discard_alignment = blksize;
+ 		blk_queue_max_discard_sectors(nbd->disk->queue, UINT_MAX);
+ 	}
+-	blk_queue_logical_block_size(nbd->disk->queue, config->blksize);
+-	blk_queue_physical_block_size(nbd->disk->queue, config->blksize);
++	blk_queue_logical_block_size(nbd->disk->queue, blksize);
++	blk_queue_physical_block_size(nbd->disk->queue, blksize);
+ 
+-	set_capacity(nbd->disk, nr_sectors);
++	set_capacity(nbd->disk, bytesize >> 9);
+ 	bdev = bdget_disk(nbd->disk, 0);
+ 	if (bdev) {
+ 		if (bdev->bd_disk)
+-			bd_set_nr_sectors(bdev, nr_sectors);
++			bd_set_nr_sectors(bdev, bytesize >> 9);
+ 		else
+ 			set_bit(GD_NEED_PART_SCAN, &nbd->disk->state);
+ 		bdput(bdev);
+@@ -325,15 +327,6 @@ static void nbd_size_update(struct nbd_device *nbd)
+ 	kobject_uevent(&nbd_to_dev(nbd)->kobj, KOBJ_CHANGE);
+ }
+ 
+-static void nbd_size_set(struct nbd_device *nbd, loff_t blocksize,
+-			 loff_t nr_blocks)
+-{
+-	struct nbd_config *config = nbd->config;
+-	config->blksize = blocksize;
+-	config->bytesize = blocksize * nr_blocks;
+-	nbd_size_update(nbd);
+-}
+-
  static void nbd_complete_rq(struct request *req)
+ {
+ 	struct nbd_cmd *cmd = blk_mq_rq_to_pdu(req);
+@@ -1311,7 +1304,7 @@ static int nbd_start_device(struct nbd_device *nbd)
+ 		args->index = i;
+ 		queue_work(nbd->recv_workq, &args->work);
+ 	}
+-	nbd_size_update(nbd);
++	nbd_set_size(nbd, config->bytesize, config->blksize);
+ 	return error;
+ }
+ 
+@@ -1390,15 +1383,14 @@ static int __nbd_ioctl(struct block_device *bdev, struct nbd_device *nbd,
+ 			arg = NBD_DEF_BLKSIZE;
+ 		if (!nbd_is_valid_blksize(arg))
+ 			return -EINVAL;
+-		nbd_size_set(nbd, arg,
+-			     div_s64(config->bytesize, arg));
++		nbd_set_size(nbd, config->bytesize, arg);
+ 		return 0;
+ 	case NBD_SET_SIZE:
+-		nbd_size_set(nbd, config->blksize,
+-			     div_s64(arg, config->blksize));
++		nbd_set_size(nbd, arg, config->blksize);
+ 		return 0;
+ 	case NBD_SET_SIZE_BLOCKS:
+-		nbd_size_set(nbd, config->blksize, arg);
++		nbd_set_size(nbd, arg * config->blksize,
++			     config->blksize);
+ 		return 0;
+ 	case NBD_SET_TIMEOUT:
+ 		nbd_set_cmd_timeout(nbd, arg);
+@@ -1827,7 +1819,7 @@ static int nbd_genl_size_set(struct genl_info *info, struct nbd_device *nbd)
+ 	}
+ 
+ 	if (bytes != config->bytesize || bsize != config->blksize)
+-		nbd_size_set(nbd, bsize, div64_u64(bytes, bsize));
++		nbd_set_size(nbd, bytes, bsize);
+ 	return 0;
+ }
+ 
 -- 
 2.28.0
 
