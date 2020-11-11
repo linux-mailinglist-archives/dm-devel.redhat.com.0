@@ -2,51 +2,51 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id DA3E72AEC07
-	for <lists+dm-devel@lfdr.de>; Wed, 11 Nov 2020 09:32:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 82FFB2AEC02
+	for <lists+dm-devel@lfdr.de>; Wed, 11 Nov 2020 09:32:30 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-507-hDheFldAMlCQYnzvs8LtWQ-1; Wed, 11 Nov 2020 03:32:37 -0500
-X-MC-Unique: hDheFldAMlCQYnzvs8LtWQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-303-uhCzrMGHM6yZzy08wGinHA-1; Wed, 11 Nov 2020 03:32:27 -0500
+X-MC-Unique: uhCzrMGHM6yZzy08wGinHA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8CE648C3888;
-	Wed, 11 Nov 2020 08:32:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C501E1017DD1;
+	Wed, 11 Nov 2020 08:32:21 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 672C15B4A8;
-	Wed, 11 Nov 2020 08:32:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A38FC6EF7F;
+	Wed, 11 Nov 2020 08:32:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 208A6181A06E;
-	Wed, 11 Nov 2020 08:32:31 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5DD52181A06C;
+	Wed, 11 Nov 2020 08:32:21 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AB8WR5C026651 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 11 Nov 2020 03:32:27 -0500
+	id 0AB8WIgJ026574 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 11 Nov 2020 03:32:18 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id A792EB3509; Wed, 11 Nov 2020 08:32:27 +0000 (UTC)
+	id 95AE6B5525; Wed, 11 Nov 2020 08:32:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A236DB551A
-	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:32:27 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8D934B552B
+	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:32:16 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8A342181E3E1
-	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:32:27 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 43616811E99
+	for <dm-devel@redhat.com>; Wed, 11 Nov 2020 08:32:16 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-153--raD-K5KO76izt_qe9sWNg-1; Wed, 11 Nov 2020 03:32:23 -0500
-X-MC-Unique: -raD-K5KO76izt_qe9sWNg-1
+	us-mta-556-F_TEhPWNPTG8CFUuZESGlg-1; Wed, 11 Nov 2020 03:32:12 -0500
+X-MC-Unique: F_TEhPWNPTG8CFUuZESGlg-1
 Received: from [2001:4bb8:180:6600:bcde:334f:863c:27b8] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kclT3-0007Ze-1h; Wed, 11 Nov 2020 08:27:01 +0000
+	id 1kclT4-0007Zh-93; Wed, 11 Nov 2020 08:27:02 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed, 11 Nov 2020 09:26:35 +0100
-Message-Id: <20201111082658.3401686-2-hch@lst.de>
+Date: Wed, 11 Nov 2020 09:26:36 +0100
+Message-Id: <20201111082658.3401686-3-hch@lst.de>
 In-Reply-To: <20201111082658.3401686-1-hch@lst.de>
 References: <20201111082658.3401686-1-hch@lst.de>
 MIME-Version: 1.0
@@ -77,8 +77,7 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 01/24] block: remove the call to
-	__invalidate_device in check_disk_size_change
+Subject: [dm-devel] [PATCH 02/24] loop: remove loop_set_size
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,7 +91,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -100,35 +99,93 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-__invalidate_device without the kill_dirty parameter just invalidates
-various clean entries in caches, which doesn't really help us with
-anything, but can cause all kinds of horrible lock orders due to how
-it calls into the file system.  The only reason this hasn't been a
-major issue is because so many people use partitions, for which no
-invalidation was performed anyway.
+Just use set_capacity_revalidate_and_notify directly, as this function
+can update the block device size as well when the last parameter is set
+to true.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- fs/block_dev.c | 6 ------
- 1 file changed, 6 deletions(-)
+ drivers/block/loop.c | 37 +++++++------------------------------
+ 1 file changed, 7 insertions(+), 30 deletions(-)
 
-diff --git a/fs/block_dev.c b/fs/block_dev.c
-index 9e84b1928b9401..66ebf594c97f47 100644
---- a/fs/block_dev.c
-+++ b/fs/block_dev.c
-@@ -1334,12 +1334,6 @@ static void check_disk_size_change(struct gendisk *disk,
- 		i_size_write(bdev->bd_inode, disk_size);
- 	}
- 	spin_unlock(&bdev->bd_size_lock);
--
--	if (bdev_size > disk_size) {
--		if (__invalidate_device(bdev, false))
--			pr_warn("VFS: busy inodes on resized disk %s\n",
--				disk->disk_name);
--	}
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index cb1191d6e945f2..86eb7e0691eef5 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -241,23 +241,6 @@ loop_validate_block_size(unsigned short bsize)
+ 	return 0;
  }
  
- /**
+-/**
+- * loop_set_size() - sets device size and notifies userspace
+- * @lo: struct loop_device to set the size for
+- * @size: new size of the loop device
+- *
+- * Callers must validate that the size passed into this function fits into
+- * a sector_t, eg using loop_validate_size()
+- */
+-static void loop_set_size(struct loop_device *lo, loff_t size)
+-{
+-	struct block_device *bdev = lo->lo_device;
+-
+-	bd_set_nr_sectors(bdev, size);
+-
+-	set_capacity_revalidate_and_notify(lo->lo_disk, size, false);
+-}
+-
+ static inline int
+ lo_do_transfer(struct loop_device *lo, int cmd,
+ 	       struct page *rpage, unsigned roffs,
+@@ -1076,7 +1059,6 @@ static int loop_configure(struct loop_device *lo, fmode_t mode,
+ 	struct address_space *mapping;
+ 	struct block_device *claimed_bdev = NULL;
+ 	int		error;
+-	loff_t		size;
+ 	bool		partscan;
+ 	unsigned short  bsize;
+ 
+@@ -1164,9 +1146,8 @@ static int loop_configure(struct loop_device *lo, fmode_t mode,
+ 	loop_update_dio(lo);
+ 	loop_sysfs_init(lo);
+ 
+-	size = get_loop_size(lo, file);
+-	loop_set_size(lo, size);
+-
++	set_capacity_revalidate_and_notify(lo->lo_disk, get_loop_size(lo, file),
++			true);
+ 	set_blocksize(bdev, S_ISBLK(inode->i_mode) ?
+ 		      block_size(inode->i_bdev) : PAGE_SIZE);
+ 
+@@ -1402,9 +1383,9 @@ loop_set_status(struct loop_device *lo, const struct loop_info64 *info)
+ 	lo->lo_flags |= prev_lo_flags & ~LOOP_SET_STATUS_CLEARABLE_FLAGS;
+ 
+ 	if (size_changed) {
+-		loff_t new_size = get_size(lo->lo_offset, lo->lo_sizelimit,
+-					   lo->lo_backing_file);
+-		loop_set_size(lo, new_size);
++		set_capacity_revalidate_and_notify(lo->lo_disk,
++				get_size(lo->lo_offset, lo->lo_sizelimit,
++					 lo->lo_backing_file), true);
+ 	}
+ 
+ 	loop_config_discard(lo);
+@@ -1580,14 +1561,10 @@ loop_get_status64(struct loop_device *lo, struct loop_info64 __user *arg) {
+ 
+ static int loop_set_capacity(struct loop_device *lo)
+ {
+-	loff_t size;
+-
+ 	if (unlikely(lo->lo_state != Lo_bound))
+ 		return -ENXIO;
+-
+-	size = get_loop_size(lo, lo->lo_backing_file);
+-	loop_set_size(lo, size);
+-
++	set_capacity_revalidate_and_notify(lo->lo_disk,
++			get_loop_size(lo, lo->lo_backing_file), true);
+ 	return 0;
+ }
+ 
 -- 
 2.28.0
 
