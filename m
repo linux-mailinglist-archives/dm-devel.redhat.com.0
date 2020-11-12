@@ -1,64 +1,63 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D7C5A2B16DD
-	for <lists+dm-devel@lfdr.de>; Fri, 13 Nov 2020 09:02:50 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id E90A72B16EC
+	for <lists+dm-devel@lfdr.de>; Fri, 13 Nov 2020 09:03:40 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-554-088GX8cMMpiUukrRJB-YfA-1; Fri, 13 Nov 2020 03:02:48 -0500
-X-MC-Unique: 088GX8cMMpiUukrRJB-YfA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-105-XKZ7E2bBPyGNPoJDTHuAPA-1; Fri, 13 Nov 2020 03:03:37 -0500
+X-MC-Unique: XKZ7E2bBPyGNPoJDTHuAPA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5B040804B85;
-	Fri, 13 Nov 2020 08:02:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 45FF96D247;
+	Fri, 13 Nov 2020 08:03:31 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3324575135;
-	Fri, 13 Nov 2020 08:02:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1AAB21002C11;
+	Fri, 13 Nov 2020 08:03:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DE6175810C;
-	Fri, 13 Nov 2020 08:02:41 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CA6FF58103;
+	Fri, 13 Nov 2020 08:03:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0ACLlbp2005306 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 12 Nov 2020 16:47:37 -0500
+	id 0ACLn43v005490 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 12 Nov 2020 16:49:04 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 394731006512; Thu, 12 Nov 2020 21:47:37 +0000 (UTC)
+	id 2351E202348E; Thu, 12 Nov 2020 21:49:04 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 354581007A27
-	for <dm-devel@redhat.com>; Thu, 12 Nov 2020 21:47:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1DEE9202450E
+	for <dm-devel@redhat.com>; Thu, 12 Nov 2020 21:49:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E7F76800183
-	for <dm-devel@redhat.com>; Thu, 12 Nov 2020 21:47:34 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BE0FB811E79
+	for <dm-devel@redhat.com>; Thu, 12 Nov 2020 21:49:00 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-43-ky-tUznpPMmZIN8KgDVJAA-1;
-	Thu, 12 Nov 2020 16:47:30 -0500
-X-MC-Unique: ky-tUznpPMmZIN8KgDVJAA-1
+	relay.mimecast.com with ESMTP id us-mta-453-Ha6nM2TmOQyrysHATchXSQ-1;
+	Thu, 12 Nov 2020 16:48:56 -0500
+X-MC-Unique: Ha6nM2TmOQyrysHATchXSQ-1
 Received: from [192.168.86.31] (c-71-197-163-6.hsd1.wa.comcast.net
 	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id C6CEE20C2872;
-	Thu, 12 Nov 2020 13:47:27 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C6CEE20C2872
+	by linux.microsoft.com (Postfix) with ESMTPSA id 4CDCA20C2872;
+	Thu, 12 Nov 2020 13:48:54 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4CDCA20C2872
 To: Mimi Zohar <zohar@linux.ibm.com>, stephen.smalley.work@gmail.com,
 	casey@schaufler-ca.com, agk@redhat.com, snitzer@redhat.com,
 	gmazyland@gmail.com, paul@paul-moore.com
 References: <20201101222626.6111-1-tusharsu@linux.microsoft.com>
 	<20201101222626.6111-3-tusharsu@linux.microsoft.com>
-	<d0e96ccc49590c5ff11675661592b70b0f021636.camel@linux.ibm.com>
+	<811fbc4a6f4bd02c77518bd4196d354071145f3e.camel@linux.ibm.com>
 From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-Message-ID: <7034a775-cde6-1eae-132a-4cb84f310bca@linux.microsoft.com>
-Date: Thu, 12 Nov 2020 13:47:27 -0800
+Message-ID: <702e7d17-27f0-30e7-b5ce-affecb0c8de7@linux.microsoft.com>
+Date: Thu, 12 Nov 2020 13:48:53 -0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
 	Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <d0e96ccc49590c5ff11675661592b70b0f021636.camel@linux.ibm.com>
+In-Reply-To: <811fbc4a6f4bd02c77518bd4196d354071145f3e.camel@linux.ibm.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -67,9 +66,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0ACLlbp2005306
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 13 Nov 2020 03:02:15 -0500
 Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
@@ -91,70 +88,106 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-SGVsbG8gTWltaSwKCk9uIDIwMjAtMTEtMDUgNjozMCBhLm0uLCBNaW1pIFpvaGFyIHdyb3RlOgo+
-IEhpIFR1c2hhciwKPiAKPiBQbGVhc2UgZG9uJ3QgaW5jbHVkZSB0aGUgZmlsZW5hbWUgaW4gdGhl
-IFN1YmplY3QgbGluZVsxXS4gICBUaGUgU3ViamVjdAo+IGxpbmUgc2hvdWxkIGJlIGEgc3VtbWFy
-eSBwaHJhc2UgZGVzY3JpYmluZyB0aGUgcGF0Y2guICAgSW4gdGhpcyBjYXNlLAo+IGl0IGlzIGFk
-ZGluZyBzdXBwb3J0IGZvciBtZWFzdXJpbmcgdGhlIGJ1ZmZlciBkYXRhIGhhc2guCj4gClRoYW5r
-cy4gV2lsbCB1cGRhdGUgdGhlIHN1YmplY3QgbGluZSBhY2NvcmRpbmdseS4KCj4gT24gU3VuLCAy
-MDIwLTExLTAxIGF0IDE0OjI2IC0wODAwLCBUdXNoYXIgU3VnYW5kaGkgd3JvdGU6Cj4+IHByb2Nl
-c3NfYnVmZmVyX21lYXN1cmVtZW50KCkgY3VycmVudGx5IG9ubHkgbWVhc3VyZXMgdGhlIGlucHV0
-IGJ1ZmZlci4KPj4gSW4gY2FzZSBvZiBTZUxpbnV4IHBvbGljeSBtZWFzdXJlbWVudCwgdGhlIHBv
-bGljeSBiZWluZyBtZWFzdXJlZCBjb3VsZAo+PiBiZSBsYXJnZSAoc2V2ZXJhbCBNQikuIFRoaXMg
-bWF5IHJlc3VsdCBpbiBhIGxhcmdlIGVudHJ5IGluIElNQQo+PiBtZWFzdXJlbWVudCBsb2cuCj4g
-Cj4gU0VMaW51eCBpcyBhbiBleGFtcGxlIG9mIG1lYXN1cmluZyBsYXJnZSBidWZmZXIgZGF0YS4g
-IFBsZWFzZSByZXdyaXRlCj4gdGhpcyBwYXRjaCBkZXNjcmlwdGlvbiAoYW5kIHRoZSBvdGhlciBw
-YXRjaCBkZXNjcmlwdGlvbnMgaW4gdGhpcyBwYXRjaAo+IHNldCkgd2l0aG91dCB1c2luZyB0aGUg
-ZXhhbXBsZSB0byBkZXNjcmliZSBpdHMgcHVycG9zZSBbMV0uCj4gCj4gSW4gdGhpcyBjYXNlLCB5
-b3UgbWlnaHQgc2F5LAo+IAo+IFRoZSBvcmlnaW5hbCBJTUEgYnVmZmVyIGRhdGEgbWVhc3VyZW1l
-bnQgc2l6ZXMgd2VyZSBzbWFsbCAoZS5nLiBib290Cj4gY29tbWFuZCBsaW5lKSwgYnV0IG5ldyBi
-dWZmZXIgZGF0YSBtZWFzdXJlbWVudCB1c2UgY2FzZXMgYXJlIGEgbG90Cj4gbGFyZ2VyLiAgSnVz
-dCBhcyBJTUEgbWVhc3VyZXMgdGhlIGZpbGUgZGF0YSBoYXNoLCBub3QgdGhlIGZpbGUgZGF0YSwK
-PiBJTUEgc2hvdWxkIHNpbWlsYXJseSBzdXBwb3J0IG1lYXN1cmluZyB0aGUgYnVmZmVyIGRhdGEg
-aGFzaC4KPiAKU3VyZS4gVGhhbmtzIGEgbG90IGZvciBnaXZpbmcgYW4gZXhhbXBsZSB3b3JkaW5n
-IGZvciB1cy4gV2lsbCB1cGRhdGUuCj4+Cj4+IEludHJvZHVjZSBhIGJvb2xlYW4gcGFyYW1ldGVy
-IG1lYXN1cmVfYnVmX2hhc2ggdG8gc3VwcG9ydCBtZWFzdXJpbmcKPj4gaGFzaCBvZiBhIGJ1ZmZl
-ciwgd2hpY2ggd291bGQgYmUgbXVjaCBzbWFsbGVyLCBpbnN0ZWFkIG9mIHRoZSBidWZmZXIKPj4g
-aXRzZWxmLgo+IAo+PiBUbyB1c2UgdGhlIGZ1bmN0aW9uYWxpdHkgaW50cm9kdWNlZCBpbiB0aGlz
-IHBhdGNoLCB0aGUgYXR0ZXN0YXRpb24KPj4gY2xpZW50IGFuZCB0aGUgc2VydmVyIGNoYW5nZXMg
-bmVlZCB0byBnbyBoYW5kIGluIGhhbmQuIFRoZQo+PiBjbGllbnQva2VybmVsIHdvdWxkIGtub3cg
-d2hhdCBkYXRhIGlzIGJlaW5nIG1lYXN1cmVkIGFzLWlzCj4+IChlLmcuIEtFWEVDX0NNRExJTkUp
-LCBhbmQgd2hhdCBkYXRhIGhhcyBpdOKAmXMgaGFzaCBtZWFzdXJlZCAoZS5nLiBTZUxpbnV4Cj4+
-IFBvbGljeSkuIEFuZCB0aGUgYXR0ZXN0YXRpb24gc2VydmVyIHNob3VsZCB2ZXJpZnkgZGF0YS9o
-YXNoIGFjY29yZGluZ2x5Lgo+Pgo+PiBKdXN0IGxpa2UgdGhlIGRhdGEgYmVpbmcgbWVhc3VyZWQg
-aW4gb3RoZXIgY2FzZXMsIHRoZSBhdHRlc3RhdGlvbiBzZXJ2ZXIKPj4gd2lsbCBrbm93IHdoYXQg
-YXJlIHBvc3NpYmxlIHZhbHVlcyBvZiB0aGUgbGFyZ2UgYnVmZmVycyBiZWluZyBtZWFzdXJlZC4K
-Pj4gZS5nLiB0aGUgcG9zc2libGUgdmFsaWQgU2VMaW51eCBwb2xpY3kgdmFsdWVzIHRoYXQgYXJl
-IGJlaW5nIHB1c2hlZCB0bwo+PiB0aGUgY2xpZW50LiBUaGUgYXR0ZXN0YXRpb24gc2VydmVyIHdp
-bGwgaGF2ZSB0byBtYWludGFpbiB0aGUgaGFzaCBvZgo+PiB0aG9zZSBidWZmZXIgdmFsdWVzLgo+
-IAo+IEVhY2ggcGF0Y2ggaW4gdGhlIHBhdGNoIHNldCBidWlsZHMgdXBvbiB0aGUgcHJldmlvdXMg
-b25lLiAgIChUaGluayBvZgo+IGl0IGFzIGEgc3RvcnksIHdoZXJlIGVhY2ggY2hhcHRlciBidWls
-ZHMgdXBvbiB0aGUgcHJldmlvdXMgb25lcy4pCj4gV2l0aCByYXJlIGV4Y2VwdGlvbnMsIHNob3Vs
-ZCBwYXRjaGVzIHJlZmVyZW5jZSBzdWJzZXF1ZW50IHBhdGNoZXMuIFsyXQo+IAo+IFsxXSBSZWZl
-ciB0byBEb2N1bWVudGF0aW9uL3Byb2Nlc3Mvc3VibWl0dGluZy1wYXRjaGVzLnJzdAo+IFsyXSBS
-ZWZlciB0byB0aGUgc2VjdGlvbiAiOCkgQ29tbWVudGluZyIgaW4KPiBEb2N1bWVudGF0aW9uL3By
-b2Nlc3MvY29kaW5nLXN0eWxlLnJzdAo+IAo+IHRoYW5rcywKPiAKPiBNaW1pCj4gCkkgYW0gbm90
-IHN1cmUgaWYgeW91IGhhdmUgYW55IGNvbmNlcm5zIGFib3V0IHRoZSBsYXN0IHR3byBwYXJhZ3Jh
-cGhzLgpUaGUgZGVzY3JpcHRpb24gYWJvdXQgdGhlIGF0dGVzdGF0aW9uIGNsaWVudCBhbmQgc2Vy
-dmVyICh0aGUgbGFzdCB0d28KcGFyYWdyYXBocykgd2FzIGFkZGVkIGZvciBpbmZvcm1hdGlvbi9j
-bGFyaWZpY2F0aW9uIHB1cnBvc2Ugb25seSwgYXMgcGVyCnlvdXIgZmVlZGJhY2sgb24gcHJldmlv
-dXMgaXRlcmF0aW9ucy4gVGhlIHN1YnNlcXVlbnQgcGF0Y2hlcyBkb27igJl0IGhhdmUKYW55IGNv
-ZGUgcGVydGFpbmluZyB0byBhdHRlc3RhdGlvbiBjbGllbnQvc2VydmVyLgoKKlF1ZXN0aW9uKgpN
-YXliZSB0aGUgbGFzdCB0d28gcGFyYWdyYXBocyBhcmUgY29uZnVzaW5nL3JlZHVuZGFudC4gQ291
-bGQgeW91IHBsZWFzZQpsZXQgbWUga25vdyBpZiBJIHNob3VsZCByZW1vdmUgdGhlIGFib3ZlIHR3
-byBwYXJhZ3JhcGhzIGFsdG9nZXRoZXI/IAooc3RhcnRpbmcgd2l0aCDigJxUbyB1c2UgdGhlIGZ1
-bmN0aW9uYWxpdHkgaW50cm9kdWNlZCBpbiB0aGlzIHBhdGNoIC4uLuKAnSkKCklmIHdlIGRlY2lk
-ZSB0byBrZWVwIHRoZSBwYXJhZ3JhcGhzLCBJIHdpbGwgcmVtb3ZlIHRoZSBzcGVjaWZpYyBleGFt
-cGxlcwooS0VYRUNfQ01ETElORSwgU2VMaW51eCBldGMuKSBhcyB5b3UgbWVudGlvbmVkIGVsc2V3
-aGVyZS4KCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRw
-czovL3d3dy5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWw=
+
+
+On 2020-11-06 4:11 a.m., Mimi Zohar wrote:
+> Hi Tushar,
+> 
+> Below inline are a few additional comments.
+> 
+>> diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
+>> index ae5da9f3339d..4485d87c0aa5 100644
+>> --- a/security/integrity/ima/ima_main.c
+>> +++ b/security/integrity/ima/ima_main.c
+>> @@ -787,12 +787,15 @@ int ima_post_load_data(char *buf, loff_t size,
+>>    * @func: IMA hook
+>>    * @pcr: pcr to extend the measurement
+>>    * @func_data: private data specific to @func, can be NULL.
+>> + * @measure_buf_hash: if set to true - will measure hash of the buf,
+>> + *                    instead of buf
+>>    *
+>>    * Based on policy, the buffer is measured into the ima log.
+> 
+> Both the brief and longer function descriptions need to be updated, as
+> well as the last argument description.  The last argument should be
+> limited to "measure buffer hash".  How it is used could be included in
+> the longer function description.  The longer function description would
+> include adding the buffer data or the buffer data hash to the IMA
+> measurement list and extending the PCR.
+> 
+> For example,
+> process_buffer_measurement - measure the buffer data or the buffer data
+> hash
+> 
+Thanks Mimi. Will update the brief and longer descriptions accordingly.
+> 
+>>    */
+>>   void process_buffer_measurement(struct inode *inode, const void *buf, int size,
+>>   				const char *eventname, enum ima_hooks func,
+>> -				int pcr, const char *func_data)
+>> +				int pcr, const char *func_data,
+>> +				bool measure_buf_hash)
+>>   {
+>>   	int ret = 0;
+>>   	const char *audit_cause = "ENOMEM";
+>> @@ -807,6 +810,8 @@ void process_buffer_measurement(struct inode *inode, const void *buf, int size,
+>>   		struct ima_digest_data hdr;
+>>   		char digest[IMA_MAX_DIGEST_SIZE];
+>>   	} hash = {};
+>> +	char digest_hash[IMA_MAX_DIGEST_SIZE];
+>> +	int hash_len = hash_digest_size[ima_hash_algo];
+>>   	int violation = 0;
+>>   	int action = 0;
+>>   	u32 secid;
+>> @@ -855,6 +860,21 @@ void process_buffer_measurement(struct inode *inode, const void *buf, int size,
+>>   		goto out;
+>>   	}
+>>   
+>> +	if (measure_buf_hash) {
+>> +		memcpy(digest_hash, hash.hdr.digest, hash_len);
+> 
+> Instead of digest_hash and hash_len, consider naming the variables
+> buf_hash and buf_hashlen.
+> 
+Thanks. Will do.
+>> +
+>> +		ret = ima_calc_buffer_hash(digest_hash,
+>> +					   hash_len,
+>> +					   iint.ima_hash);
+> 
+> There's no need for each variable to be on a separate line.
+> 
+Thanks, will fix.
+~Tushar
+
+> thanks,
+> 
+> Mimi
+> 
+>> +		if (ret < 0) {
+>> +			audit_cause = "measure_buf_hash_error";
+>> +			goto out;
+>> +		}
+>> +
+>> +		event_data.buf = digest_hash;
+>> +		event_data.buf_len = hash_len;
+>> +	}
+>> +
+>>   	ret = ima_alloc_init_template(&event_data, &entry, template);
+>>   	if (ret < 0) {
+>>   		audit_cause = "alloc_entry";
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
