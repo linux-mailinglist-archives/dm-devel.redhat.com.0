@@ -2,62 +2,62 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 721952B16DC
-	for <lists+dm-devel@lfdr.de>; Fri, 13 Nov 2020 09:02:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 78C182B16ED
+	for <lists+dm-devel@lfdr.de>; Fri, 13 Nov 2020 09:03:42 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-211-Ookcx2vaMh6V4ilcb_Gqmg-1; Fri, 13 Nov 2020 03:02:46 -0500
-X-MC-Unique: Ookcx2vaMh6V4ilcb_Gqmg-1
+ us-mta-71-QWqT3vCVNpyvi1ErSzR-Cg-1; Fri, 13 Nov 2020 03:03:39 -0500
+X-MC-Unique: QWqT3vCVNpyvi1ErSzR-Cg-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6B7196D24B;
-	Fri, 13 Nov 2020 08:02:40 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4602310016DA;
-	Fri, 13 Nov 2020 08:02:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 30F8C101962A;
+	Fri, 13 Nov 2020 08:03:33 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 090D610013BD;
+	Fri, 13 Nov 2020 08:03:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CBEE758100;
-	Fri, 13 Nov 2020 08:02:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B6165181A06C;
+	Fri, 13 Nov 2020 08:03:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0ACM9b54008502 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 12 Nov 2020 17:09:37 -0500
+	id 0ACMJ0rY010337 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 12 Nov 2020 17:19:01 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id AEFC82156A53; Thu, 12 Nov 2020 22:09:37 +0000 (UTC)
+	id A8156103CD7; Thu, 12 Nov 2020 22:19:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A941F2156A50
-	for <dm-devel@redhat.com>; Thu, 12 Nov 2020 22:09:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A27051032A5
+	for <dm-devel@redhat.com>; Thu, 12 Nov 2020 22:18:58 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9446A8582BA
-	for <dm-devel@redhat.com>; Thu, 12 Nov 2020 22:09:34 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 52592181E3E3
+	for <dm-devel@redhat.com>; Thu, 12 Nov 2020 22:18:58 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-3--jmeYcDxMN-7F32fLn-IoQ-1;
-	Thu, 12 Nov 2020 17:09:32 -0500
-X-MC-Unique: -jmeYcDxMN-7F32fLn-IoQ-1
+	relay.mimecast.com with ESMTP id us-mta-271-mbWPRe0KNQWBEIACa5FY4A-1;
+	Thu, 12 Nov 2020 17:18:56 -0500
+X-MC-Unique: mbWPRe0KNQWBEIACa5FY4A-1
 Received: from [192.168.86.31] (c-71-197-163-6.hsd1.wa.comcast.net
 	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id F2E2220C2877;
-	Thu, 12 Nov 2020 14:09:28 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com F2E2220C2877
+	by linux.microsoft.com (Postfix) with ESMTPSA id 1615F20C2877;
+	Thu, 12 Nov 2020 14:18:54 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 1615F20C2877
 To: Mimi Zohar <zohar@linux.ibm.com>, stephen.smalley.work@gmail.com,
 	casey@schaufler-ca.com, agk@redhat.com, snitzer@redhat.com,
 	gmazyland@gmail.com, paul@paul-moore.com
 References: <20201101222626.6111-1-tusharsu@linux.microsoft.com>
-	<20201101222626.6111-6-tusharsu@linux.microsoft.com>
-	<bef97a69db37d358db21668b179fd8821430b1b4.camel@linux.ibm.com>
+	<c840953db2937296c8d77d5d3b4e1274bf990e46.camel@linux.ibm.com>
 From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-Message-ID: <5826d3df-c263-f6c8-cac0-094b3c5a9395@linux.microsoft.com>
-Date: Thu, 12 Nov 2020 14:09:28 -0800
+Message-ID: <a554b2d0-c59a-4ed8-12b8-5a1735cae9a4@linux.microsoft.com>
+Date: Thu, 12 Nov 2020 14:18:53 -0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
 	Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <bef97a69db37d358db21668b179fd8821430b1b4.camel@linux.ibm.com>
+In-Reply-To: <c840953db2937296c8d77d5d3b4e1274bf990e46.camel@linux.ibm.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -66,17 +66,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0ACM9b54008502
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 13 Nov 2020 03:02:15 -0500
 Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
 	jmorris@namei.org, linux-kernel@vger.kernel.org,
 	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
 	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v5 5/7] IMA: validate supported kernel data
- sources before measurement
+Subject: Re: [dm-devel] [PATCH v5 0/7] IMA: Infrastructure for measurement
+ of critical kernel data
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,62 +94,100 @@ Authentication-Results: relay.mimecast.com;
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-CgpPbiAyMDIwLTExLTA2IDY6MDEgYS5tLiwgTWltaSBab2hhciB3cm90ZToKPiBIaSBUdXNoYXIs
-Cj4gCj4gT24gU3VuLCAyMDIwLTExLTAxIGF0IDE0OjI2IC0wODAwLCBUdXNoYXIgU3VnYW5kaGkg
-d3JvdGU6Cj4+IEN1cnJlbnRseSwgSU1BIGRvZXMgbm90IHJlc3RyaWN0IHJhbmRvbSBkYXRhIHNv
-dXJjZXMgZnJvbSBtZWFzdXJpbmcKPj4gdGhlaXIgZGF0YSB1c2luZyBpbWFfbWVhc3VyZV9jcml0
-aWNhbF9kYXRhKCkuIEFueSBrZXJuZWwgZGF0YSBzb3VyY2UgY2FuCj4+IGNhbGwgdGhlIGZ1bmN0
-aW9uLCBhbmQgaXQncyBkYXRhIHdpbGwgZ2V0IG1lYXN1cmVkIGFzIGxvbmcgYXMgdGhlIGlucHV0
-Cj4+IGV2ZW50X2RhdGFfc291cmNlIGlzIHBhcnQgb2YgdGhlIElNQSBwb2xpY3kgLSBDUklUSUNB
-TF9EQVRBK2RhdGFfc291cmNlcy4KPj4KPj4gVG8gZW5zdXJlIHRoYXQgb25seSBkYXRhIGZyb20g
-c3VwcG9ydGVkIHNvdXJjZXMgYXJlIG1lYXN1cmVkLCB0aGUga2VybmVsCj4+IHN1YnN5c3RlbSBu
-YW1lIG5lZWRzIHRvIGJlIGFkZGVkIHRvIGEgY29tcGlsZS10aW1lIGxpc3Qgb2Ygc3VwcG9ydGVk
-Cj4+IHNvdXJjZXMgKGFuICJhbGxvd2VkIGxpc3Qgb2YgY29tcG9uZW50cyIpLiBJTUEgdGhlbiB2
-YWxpZGF0ZXMgdGhlIGlucHV0Cj4+IHBhcmFtZXRlciAtICJldmVudF9kYXRhX3NvdXJjZSIgcGFz
-c2VkIHRvIGltYV9tZWFzdXJlX2NyaXRpY2FsX2RhdGEoKQo+PiBhZ2FpbnN0IHRoaXMgYWxsb3dl
-ZCBsaXN0IGF0IHJ1bi10aW1lLgo+Pgo+PiBUaGlzIGNvbXBpbGUtdGltZSBsaXN0IG11c3QgYmUg
-dXBkYXRlZCB3aGVuIGtlcm5lbCBzdWJzeXN0ZW1zIGFyZQo+PiB1cGRhdGVkIHRvIG1lYXN1cmUg
-dGhlaXIgZGF0YSB1c2luZyBJTUEuCj4+Cj4+IFByb3ZpZGUgYW4gaW5mcmFzdHJ1Y3R1cmUgZm9y
-IGtlcm5lbCBkYXRhIHNvdXJjZXMgdG8gYmUgYWRkZWQgdG8KPj4gSU1BJ3Mgc3VwcG9ydGVkIGRh
-dGEgc291cmNlcyBsaXN0IGF0IGNvbXBpbGUtdGltZS4gVXBkYXRlCj4+IGltYV9tZWFzdXJlX2Ny
-aXRpY2FsX2RhdGEoKSB0byB2YWxpZGF0ZSwgYXQgcnVuLXRpbWUsIHRoYXQgdGhlIGRhdGEKPj4g
-c291cmNlIGlzIHN1cHBvcnRlZCBiZWZvcmUgbWVhc3VyaW5nIHRoZSBkYXRhIGNvbWluZyBmcm9t
-IHRoYXQgc291cmNlLgo+IAo+IEZvciB0aG9zZSBpbnRlcmVzdGVkIGluIGxpbWl0aW5nIHdoaWNo
-IGNyaXRpY2FsIGRhdGEgdG8gbWVhc3VyZSwgdGhlCj4gImRhdGEgc291cmNlcyIgSU1BIHBvbGlj
-eSBydWxlIG9wdGlvbiBhbHJlYWR5IGRvZXMgdGhhdC4gICBXaHkgaXMgdGhpcwo+IG5lZWRlZD8K
-PiAKPiB0aGFua3MsCj4gCj4gTWltaQo+IAoKVGhpcyB3YXNu4oCZdCBwYXJ0IG9mIHRoZSBpbml0
-aWFsIHNlcmllcy4gQW5kIEkgd2FzbuKAmXQgY29udmluY2VkIGlmIGl0IHdhcwpyZWFsbHkgbmVl
-ZGVkLiA6KSBJIGFkZGVkIGl0IGJhc2VkIG9uIHRoZSBmZWVkYmFjayBpbiB2MiBvZiB0aGlzCnNl
-cmllcy4gKHBhc3RlZCBiZWxvdyBmb3IgcmVmZXJlbmNlWzFdKS4KCk1heWJlIEkgbWlzdW5kZXJz
-dG9vZCB5b3VyIGZlZWRiYWNrIGF0IHRoYXQgdGltZS4KCipRdWVzdGlvbioKQ291bGQgeW91IHBs
-ZWFzZSBsZXQgbWUga25vdyBpZiB5b3Ugd2FudCB1cyB0byByZW1vdmUgdGhpcyBwYXRjaD8KCgpb
-MV0gRnJvbSB2MiBvZiB0aGlzIHNlcmllczoKaHR0cHM6Ly9wYXRjaHdvcmsua2VybmVsLm9yZy9w
-cm9qZWN0L2xpbnV4LWludGVncml0eS9wYXRjaC8yMDIwMDgyMTE4MjEwNy41MzI4LTMtdHVzaGFy
-c3VAbGludXgubWljcm9zb2Z0LmNvbS8gCgoKID4+Pj4gImtleXJpbmdzPSIgaXNuJ3QgYm91bmRl
-ZCBiZWNhdXNlIGtleXJpbmdzIGNhbiBiZSBjcmVhdGVkIGJ5IAp1c2Vyc3BhY2UuCiA+Pj4+IFBl
-cmhhcHMga2V5cmluZyBuYW1lcyBoYXMgYSBtaW5pbXVtL21heGltdW0gbGVuZ3RoLiAgSU1BIGlz
-bid0CiA+Pj4+IG1lYXN1cmluZyB1c2Vyc3BhY2UgY29uc3RydXN0cy4gIFNob3VsZG4ndCB0aGUg
-bGlzdCBvZiBjcml0aWNhbCBkYXRhCiA+Pj4+IGJlaW5nIG1lYXN1cmVkIGJlIGJvdW5kZWQgYW5k
-IHZlcmlmaWVkPwogPj4+IFRoZSBjb21tZW50IGlzIG5vdCBlbnRpcmVseSBjbGVhci4KID4+PiBE
-byB5b3UgbWVhbiB0aGVyZSBzaG91bGQgYmUgc29tZSBzb3J0IG9mIGFsbG93X2xpc3QgaW4gSU1B
-LCBhZ2FpbnN0CiA+Pj4gd2hpY2ggdGhlIHZhbHVlcyBpbiAiZGF0YV9zb3VyY2VzPSIgc2hvdWxk
-IGJlIHZldHRlZD8gQW5kIGlmIHRoZQogPj4+IHZhbHVlIGlzIHByZXNlbnQgaW4gdGhlIElNQSBh
-bGxvd19saXN0LCB0aGVuIG9ubHkgdGhlIG1lYXN1cmVtZW50cyBmb3IKID4+PiB0aGF0IGRhdGEg
-c291cmNlIGFyZSBhbGxvd2VkPwogPj4+CiA+Pj4gT3IgZG8geW91IG1lYW4gc29tZXRoaW5nIGVs
-c2U/CiA+PgogPj4gWWVzLCBzb21ldGhpbmcgYWxvbmcgdGhvc2UgbGluZXMuICBEb2VzIHRoZSBs
-aXN0IG9mIGNyaXRpY2FsIGRhdGEgbmVlZAogPj4gdG8gYmUgdmV0dGVkPyAgQW5kIGlmIHNvLCBh
-Z2FpbnN0IHdoYXQ/CiA+IEkgYW0gdGhpbmtpbmcgb2YgaGF2aW5nIGFuIGVudW0gYW5kIHN0cmlu
-ZyBhcnJheSAtIGp1c3QgbGlrZSBpbWFfaG9va3MKID4gYW5kIGltYV9ob29rc19tZWFzdXJlX3N0
-ciBpbiBpbWEuaC4KID4gQW5kIGFueSBuZXcga2VybmVsIGNvbXBvbmVudCB0aGF0IHdvdWxkIHN1
-cHBvcnQgZ2VuZXJpYyBJTUEgbWVhc3VyZW1lbnRzCiA+IGluIGZ1dHVyZSB3b3VsZCBoYXZlIHRv
-IGFkZCBpdHNlbGYgdG8gdGhlIGVudW0vYXJyYXkuCiA+IEFuZCB0aGUgcGFyYW0gKmV2ZW50X2Rh
-dGFfc291cmNlIGluIGltYV9tZWFzdXJlX2NyaXRpY2FsX2RhdGEoKSB3aWxsIGJlCiA+IHZldHRl
-ZCBhZ2FpbnN0IHRoZSBhYm92ZSBlbnVtL3N0cmluZyBhcnJheS4KID4KID4gSSB3aWxsIGltcGxl
-bWVudCBpdCBpbiB0aGUgbmV4dCBpdGVyYXRpb24sIGFuZCBob3BlZnVsbHkgdGhlIHZldHRpbmcK
-ID4gd29ya2Zsb3cgd2lsbCBiZSBtb3JlIGNsZWFyLgogPgogPiB+VHVzaGFyCiA+PgogPj4gTWlt
-aQoKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8v
-d3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
+
+
+On 2020-11-04 4:31 p.m., Mimi Zohar wrote:
+> Hi Tushar,
+> 
+> Measuring "critical kernel data" is not a new infrastructure, simply a
+> new IMA hook.   Please update the above Subject line to "support for
+> measuring critical kernel data".
+> 
+Thanks a lot. Will update.
+> On Sun, 2020-11-01 at 14:26 -0800, Tushar Sugandhi wrote:
+>> There are several kernel subsystems that contain critical data which if
+>> accidentally or maliciously altered, can compromise the integrity of the
+>> system. Examples of such subsystems would include LSMs like SELinux, or
+>> AppArmor; or device-mapper targets like dm-crypt, dm-verity etc.
+>> "critical data" in this context is kernel subsystem specific information
+>> that is stored in kernel memory. Examples of critical data could be
+>> kernel in-memory r/o structures, hash of the memory structures, or
+>> data that represents a linux kernel subsystem state.
+> 
+> This is a bit better, but needs to be much clearer.  Please define
+> "critical data", not by example, but by describing "what" critical
+> kernel data is.  "There are several kernel subsystems ...."  is an
+> example of "how" it would be used, not a definition.  Without a clear
+> definition it will become a dumping ground for measuring anything
+> anyone wants to measure.  As a result, it may be abused.
+> 
+Good point. I will come up with a better definition.
+>>
+>> This patch set defines a new IMA hook namely CRITICAL_DATA, and a
+>> function ima_measure_critical_data() - to measure the critical data.
+> 
+> The name of the IMA hook is ima_measure_critical_data.  This is similar
+> to the LSM hooks, which are prefixed with "security_".  (For a full
+> list of LSM hooks, refer to lsm_hook_defs.h.)
+> 
+Thanks for the clarification. I will update this description.
+>> Kernel subsystems can use this functionality, to take advantage of IMA's
+>> measuring and quoting abilities - thus ultimately enabling remote
+>> attestation for the subsystem specific information stored in the kernel
+>> memory.
+>>
+>> The functionality is generic enough to measure the data of any kernel
+>> subsystem at run-time. To ensure that only data from supported sources
+>> are measured, the kernel subsystem needs to be added to a compile-time
+>> list of supported sources (an "allowed list of components"). IMA
+>> validates the source passed to ima_measure_critical_data() against this
+>> allowed list at run-time.
+> 
+> Yes, this new feature is generic, but one of the main goals of IMA is
+> to measure and attest to the integrity of the system, not to measure
+> and attest to random things.
+> 
+Ok. I will update the above paragraph accordingly.
+>>
+>> System administrators may want to pick and choose which kernel
+>> subsystem information they would want to enable for measurements,
+>> quoting, and remote attestation. To enable that, a new IMA policy is
+>> introduced.
+> 
+> ^may want to limit the critical data being measured, quoted and
+> attested.
+> ^ a new IMA policy condition is defined.
+> 
+Sounds good. Will update.
+>>
+>> This patch set also addresses the need for the kernel subsystems to
+>> measure their data before a custom IMA policy is loaded - by providing
+>> a builtin IMA policy.
+> 
+> ^for measuring kernel critical data early, before a custom IMA policy
+> ...
+> 
+Sounds good. Will update.
+>>
+>> And lastly, the use of the overall functionality is demonstrated by
+>> measuring the kernel in-memory data for one such subsystem - SeLinux.
+> 
+> The purpose isn't to demonstrate the "overall functionality", but to
+> provide an initial caller of the new IMA hook.
+> 
+Fair point. Will change the description accordingly.
+~Tushar
+
+> thanks,
+> 
+> Mimi
+> 
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
