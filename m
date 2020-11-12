@@ -2,62 +2,107 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 78C182B16ED
-	for <lists+dm-devel@lfdr.de>; Fri, 13 Nov 2020 09:03:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4AFA32B16DE
+	for <lists+dm-devel@lfdr.de>; Fri, 13 Nov 2020 09:02:53 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-71-QWqT3vCVNpyvi1ErSzR-Cg-1; Fri, 13 Nov 2020 03:03:39 -0500
-X-MC-Unique: QWqT3vCVNpyvi1ErSzR-Cg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-119-hTTqT484Niu5PAD6rP5cKg-1; Fri, 13 Nov 2020 03:02:49 -0500
+X-MC-Unique: hTTqT484Niu5PAD6rP5cKg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 30F8C101962A;
-	Fri, 13 Nov 2020 08:03:33 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 090D610013BD;
-	Fri, 13 Nov 2020 08:03:33 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 651956D240;
+	Fri, 13 Nov 2020 08:02:42 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 433025B4C3;
+	Fri, 13 Nov 2020 08:02:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B6165181A06C;
-	Fri, 13 Nov 2020 08:03:32 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EA23F5810D;
+	Fri, 13 Nov 2020 08:02:41 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0ACMJ0rY010337 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 12 Nov 2020 17:19:01 -0500
+	id 0ACMQJuD010994 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 12 Nov 2020 17:26:19 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id A8156103CD7; Thu, 12 Nov 2020 22:19:00 +0000 (UTC)
+	id 2AB4D107124; Thu, 12 Nov 2020 22:26:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A27051032A5
-	for <dm-devel@redhat.com>; Thu, 12 Nov 2020 22:18:58 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 248D710711D
+	for <dm-devel@redhat.com>; Thu, 12 Nov 2020 22:26:16 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 52592181E3E3
-	for <dm-devel@redhat.com>; Thu, 12 Nov 2020 22:18:58 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-271-mbWPRe0KNQWBEIACa5FY4A-1;
-	Thu, 12 Nov 2020 17:18:56 -0500
-X-MC-Unique: mbWPRe0KNQWBEIACa5FY4A-1
-Received: from [192.168.86.31] (c-71-197-163-6.hsd1.wa.comcast.net
-	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 1615F20C2877;
-	Thu, 12 Nov 2020 14:18:54 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 1615F20C2877
-To: Mimi Zohar <zohar@linux.ibm.com>, stephen.smalley.work@gmail.com,
-	casey@schaufler-ca.com, agk@redhat.com, snitzer@redhat.com,
-	gmazyland@gmail.com, paul@paul-moore.com
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D14CD85829F
+	for <dm-devel@redhat.com>; Thu, 12 Nov 2020 22:26:16 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+	[148.163.156.1]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-521-OC5D8DrjPwOKpg3Z5dSI_g-1; Thu, 12 Nov 2020 17:26:12 -0500
+X-MC-Unique: OC5D8DrjPwOKpg3Z5dSI_g-1
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+	0ACMLe6H075500; Thu, 12 Nov 2020 17:26:10 -0500
+Received: from pps.reinject (localhost [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 34sc39tkxv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Thu, 12 Nov 2020 17:26:10 -0500
+Received: from m0098396.ppops.net (m0098396.ppops.net [127.0.0.1])
+	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0ACMLfUi075596;
+	Thu, 12 Nov 2020 17:26:10 -0500
+Received: from ppma06ams.nl.ibm.com (66.31.33a9.ip4.static.sl-reverse.com
+	[169.51.49.102])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 34sc39tkx5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Thu, 12 Nov 2020 17:26:10 -0500
+Received: from pps.filterd (ppma06ams.nl.ibm.com [127.0.0.1])
+	by ppma06ams.nl.ibm.com (8.16.0.42/8.16.0.42) with SMTP id
+	0ACMEMM8027040; Thu, 12 Nov 2020 22:19:36 GMT
+Received: from b06avi18626390.portsmouth.uk.ibm.com
+	(b06avi18626390.portsmouth.uk.ibm.com [9.149.26.192])
+	by ppma06ams.nl.ibm.com with ESMTP id 34njuh63rg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Thu, 12 Nov 2020 22:19:35 +0000
+Received: from d06av25.portsmouth.uk.ibm.com (d06av25.portsmouth.uk.ibm.com
+	[9.149.105.61])
+	by b06avi18626390.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+	ESMTP id 0ACMJX1V57540880
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=OK); Thu, 12 Nov 2020 22:19:33 GMT
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B1C8B11C04C;
+	Thu, 12 Nov 2020 22:19:33 +0000 (GMT)
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 862A411C050;
+	Thu, 12 Nov 2020 22:19:30 +0000 (GMT)
+Received: from li-f45666cc-3089-11b2-a85c-c57d1a57929f.ibm.com (unknown
+	[9.160.105.204])
+	by d06av25.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+	Thu, 12 Nov 2020 22:19:30 +0000 (GMT)
+Message-ID: <0fa1a12388681b49167b58e349cb7c9e996dcd05.camel@linux.ibm.com>
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Tushar Sugandhi <tusharsu@linux.microsoft.com>,
+	stephen.smalley.work@gmail.com, casey@schaufler-ca.com, agk@redhat.com, 
+	snitzer@redhat.com, gmazyland@gmail.com, paul@paul-moore.com
+Date: Thu, 12 Nov 2020 17:19:29 -0500
+In-Reply-To: <7034a775-cde6-1eae-132a-4cb84f310bca@linux.microsoft.com>
 References: <20201101222626.6111-1-tusharsu@linux.microsoft.com>
-	<c840953db2937296c8d77d5d3b4e1274bf990e46.camel@linux.ibm.com>
-From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-Message-ID: <a554b2d0-c59a-4ed8-12b8-5a1735cae9a4@linux.microsoft.com>
-Date: Thu, 12 Nov 2020 14:18:53 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <c840953db2937296c8d77d5d3b4e1274bf990e46.camel@linux.ibm.com>
+	<20201101222626.6111-3-tusharsu@linux.microsoft.com>
+	<d0e96ccc49590c5ff11675661592b70b0f021636.camel@linux.ibm.com>
+	<7034a775-cde6-1eae-132a-4cb84f310bca@linux.microsoft.com>
+Mime-Version: 1.0
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+	definitions=2020-11-12_13:2020-11-12,
+	2020-11-12 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+	mlxscore=0 malwarescore=0
+	adultscore=0 lowpriorityscore=0 mlxlogscore=999 phishscore=0
+	suspectscore=0 bulkscore=0 clxscore=1015 spamscore=0 priorityscore=1501
+	impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2009150000 definitions=main-2011120124
+X-MIME-Autoconverted: from 8bit to quoted-printable by
+	mx0a-001b2d01.pphosted.com id 0ACMLe6H075500
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -67,14 +112,16 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0ACMQJuD010994
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 13 Nov 2020 03:02:15 -0500
 Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
 	jmorris@namei.org, linux-kernel@vger.kernel.org,
 	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
 	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v5 0/7] IMA: Infrastructure for measurement
- of critical kernel data
+Subject: Re: [dm-devel] [PATCH v5 2/7] IMA: update
+ process_buffer_measurement to measure buffer hash
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -88,106 +135,69 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-
-
-On 2020-11-04 4:31 p.m., Mimi Zohar wrote:
-> Hi Tushar,
-> 
-> Measuring "critical kernel data" is not a new infrastructure, simply a
-> new IMA hook.   Please update the above Subject line to "support for
-> measuring critical kernel data".
-> 
-Thanks a lot. Will update.
-> On Sun, 2020-11-01 at 14:26 -0800, Tushar Sugandhi wrote:
->> There are several kernel subsystems that contain critical data which if
->> accidentally or maliciously altered, can compromise the integrity of the
->> system. Examples of such subsystems would include LSMs like SELinux, or
->> AppArmor; or device-mapper targets like dm-crypt, dm-verity etc.
->> "critical data" in this context is kernel subsystem specific information
->> that is stored in kernel memory. Examples of critical data could be
->> kernel in-memory r/o structures, hash of the memory structures, or
->> data that represents a linux kernel subsystem state.
-> 
-> This is a bit better, but needs to be much clearer.  Please define
-> "critical data", not by example, but by describing "what" critical
-> kernel data is.  "There are several kernel subsystems ...."  is an
-> example of "how" it would be used, not a definition.  Without a clear
-> definition it will become a dumping ground for measuring anything
-> anyone wants to measure.  As a result, it may be abused.
-> 
-Good point. I will come up with a better definition.
->>
->> This patch set defines a new IMA hook namely CRITICAL_DATA, and a
->> function ima_measure_critical_data() - to measure the critical data.
-> 
-> The name of the IMA hook is ima_measure_critical_data.  This is similar
-> to the LSM hooks, which are prefixed with "security_".  (For a full
-> list of LSM hooks, refer to lsm_hook_defs.h.)
-> 
-Thanks for the clarification. I will update this description.
->> Kernel subsystems can use this functionality, to take advantage of IMA's
->> measuring and quoting abilities - thus ultimately enabling remote
->> attestation for the subsystem specific information stored in the kernel
->> memory.
->>
->> The functionality is generic enough to measure the data of any kernel
->> subsystem at run-time. To ensure that only data from supported sources
->> are measured, the kernel subsystem needs to be added to a compile-time
->> list of supported sources (an "allowed list of components"). IMA
->> validates the source passed to ima_measure_critical_data() against this
->> allowed list at run-time.
-> 
-> Yes, this new feature is generic, but one of the main goals of IMA is
-> to measure and attest to the integrity of the system, not to measure
-> and attest to random things.
-> 
-Ok. I will update the above paragraph accordingly.
->>
->> System administrators may want to pick and choose which kernel
->> subsystem information they would want to enable for measurements,
->> quoting, and remote attestation. To enable that, a new IMA policy is
->> introduced.
-> 
-> ^may want to limit the critical data being measured, quoted and
-> attested.
-> ^ a new IMA policy condition is defined.
-> 
-Sounds good. Will update.
->>
->> This patch set also addresses the need for the kernel subsystems to
->> measure their data before a custom IMA policy is loaded - by providing
->> a builtin IMA policy.
-> 
-> ^for measuring kernel critical data early, before a custom IMA policy
-> ...
-> 
-Sounds good. Will update.
->>
->> And lastly, the use of the overall functionality is demonstrated by
->> measuring the kernel in-memory data for one such subsystem - SeLinux.
-> 
-> The purpose isn't to demonstrate the "overall functionality", but to
-> provide an initial caller of the new IMA hook.
-> 
-Fair point. Will change the description accordingly.
-~Tushar
-
-> thanks,
-> 
-> Mimi
-> 
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+T24gVGh1LCAyMDIwLTExLTEyIGF0IDEzOjQ3IC0wODAwLCBUdXNoYXIgU3VnYW5kaGkgd3JvdGU6
+Cj4gPiBPbiBTdW4sIDIwMjAtMTEtMDEgYXQgMTQ6MjYgLTA4MDAsIFR1c2hhciBTdWdhbmRoaSB3
+cm90ZToKPiA+PiBwcm9jZXNzX2J1ZmZlcl9tZWFzdXJlbWVudCgpIGN1cnJlbnRseSBvbmx5IG1l
+YXN1cmVzIHRoZSBpbnB1dCBidWZmZXIuCj4gPj4gSW4gY2FzZSBvZiBTZUxpbnV4IHBvbGljeSBt
+ZWFzdXJlbWVudCwgdGhlIHBvbGljeSBiZWluZyBtZWFzdXJlZCBjb3VsZAo+ID4+IGJlIGxhcmdl
+IChzZXZlcmFsIE1CKS4gVGhpcyBtYXkgcmVzdWx0IGluIGEgbGFyZ2UgZW50cnkgaW4gSU1BCj4g
+Pj4gbWVhc3VyZW1lbnQgbG9nLgo+ID4gCj4gPiBTRUxpbnV4IGlzIGFuIGV4YW1wbGUgb2YgbWVh
+c3VyaW5nIGxhcmdlIGJ1ZmZlciBkYXRhLiAgUGxlYXNlIHJld3JpdGUKPiA+IHRoaXMgcGF0Y2gg
+ZGVzY3JpcHRpb24gKGFuZCB0aGUgb3RoZXIgcGF0Y2ggZGVzY3JpcHRpb25zIGluIHRoaXMgcGF0
+Y2gKPiA+IHNldCkgd2l0aG91dCB1c2luZyB0aGUgZXhhbXBsZSB0byBkZXNjcmliZSBpdHMgcHVy
+cG9zZSBbMV0uCj4gPiAKPiA+IEluIHRoaXMgY2FzZSwgeW91IG1pZ2h0IHNheSwKPiA+IAo+ID4g
+VGhlIG9yaWdpbmFsIElNQSBidWZmZXIgZGF0YSBtZWFzdXJlbWVudCBzaXplcyB3ZXJlIHNtYWxs
+IChlLmcuIGJvb3QKPiA+IGNvbW1hbmQgbGluZSksIGJ1dCBuZXcgYnVmZmVyIGRhdGEgbWVhc3Vy
+ZW1lbnQgdXNlIGNhc2VzIGFyZSBhIGxvdAo+ID4gbGFyZ2VyLiAgSnVzdCBhcyBJTUEgbWVhc3Vy
+ZXMgdGhlIGZpbGUgZGF0YSBoYXNoLCBub3QgdGhlIGZpbGUgZGF0YSwKPiA+IElNQSBzaG91bGQg
+c2ltaWxhcmx5IHN1cHBvcnQgbWVhc3VyaW5nIHRoZSBidWZmZXIgZGF0YSBoYXNoLgo+ID4gCj4g
+U3VyZS4gVGhhbmtzIGEgbG90IGZvciBnaXZpbmcgYW4gZXhhbXBsZSB3b3JkaW5nIGZvciB1cy4g
+V2lsbCB1cGRhdGUuCj4gPj4KPiA+PiBJbnRyb2R1Y2UgYSBib29sZWFuIHBhcmFtZXRlciBtZWFz
+dXJlX2J1Zl9oYXNoIHRvIHN1cHBvcnQgbWVhc3VyaW5nCj4gPj4gaGFzaCBvZiBhIGJ1ZmZlciwg
+d2hpY2ggd291bGQgYmUgbXVjaCBzbWFsbGVyLCBpbnN0ZWFkIG9mIHRoZSBidWZmZXIKPiA+PiBp
+dHNlbGYuCj4gPiAKPiA+PiBUbyB1c2UgdGhlIGZ1bmN0aW9uYWxpdHkgaW50cm9kdWNlZCBpbiB0
+aGlzIHBhdGNoLCB0aGUgYXR0ZXN0YXRpb24KPiA+PiBjbGllbnQgYW5kIHRoZSBzZXJ2ZXIgY2hh
+bmdlcyBuZWVkIHRvIGdvIGhhbmQgaW4gaGFuZC4gVGhlCj4gPj4gY2xpZW50L2tlcm5lbCB3b3Vs
+ZCBrbm93IHdoYXQgZGF0YSBpcyBiZWluZyBtZWFzdXJlZCBhcy1pcwo+ID4+IChlLmcuIEtFWEVD
+X0NNRExJTkUpLCBhbmQgd2hhdCBkYXRhIGhhcyBpdOKAmXMgaGFzaCBtZWFzdXJlZCAoZS5nLiBT
+ZUxpbnV4Cj4gPj4gUG9saWN5KS4gQW5kIHRoZSBhdHRlc3RhdGlvbiBzZXJ2ZXIgc2hvdWxkIHZl
+cmlmeSBkYXRhL2hhc2ggYWNjb3JkaW5nbHkuCj4gPj4KPiA+PiBKdXN0IGxpa2UgdGhlIGRhdGEg
+YmVpbmcgbWVhc3VyZWQgaW4gb3RoZXIgY2FzZXMsIHRoZSBhdHRlc3RhdGlvbiBzZXJ2ZXIKPiA+
+PiB3aWxsIGtub3cgd2hhdCBhcmUgcG9zc2libGUgdmFsdWVzIG9mIHRoZSBsYXJnZSBidWZmZXJz
+IGJlaW5nIG1lYXN1cmVkLgo+ID4+IGUuZy4gdGhlIHBvc3NpYmxlIHZhbGlkIFNlTGludXggcG9s
+aWN5IHZhbHVlcyB0aGF0IGFyZSBiZWluZyBwdXNoZWQgdG8KPiA+PiB0aGUgY2xpZW50LiBUaGUg
+YXR0ZXN0YXRpb24gc2VydmVyIHdpbGwgaGF2ZSB0byBtYWludGFpbiB0aGUgaGFzaCBvZgo+ID4+
+IHRob3NlIGJ1ZmZlciB2YWx1ZXMuCj4gPiAKPiA+IEVhY2ggcGF0Y2ggaW4gdGhlIHBhdGNoIHNl
+dCBidWlsZHMgdXBvbiB0aGUgcHJldmlvdXMgb25lLiAgIChUaGluayBvZgo+ID4gaXQgYXMgYSBz
+dG9yeSwgd2hlcmUgZWFjaCBjaGFwdGVyIGJ1aWxkcyB1cG9uIHRoZSBwcmV2aW91cyBvbmVzLikK
+PiA+IFdpdGggcmFyZSBleGNlcHRpb25zLCBzaG91bGQgcGF0Y2hlcyByZWZlcmVuY2Ugc3Vic2Vx
+dWVudCBwYXRjaGVzLiBbMl0KPiA+IAo+ID4gWzFdIFJlZmVyIHRvIERvY3VtZW50YXRpb24vcHJv
+Y2Vzcy9zdWJtaXR0aW5nLXBhdGNoZXMucnN0Cj4gPiBbMl0gUmVmZXIgdG8gdGhlIHNlY3Rpb24g
+IjgpIENvbW1lbnRpbmciIGluCj4gPiBEb2N1bWVudGF0aW9uL3Byb2Nlc3MvY29kaW5nLXN0eWxl
+LnJzdAo+ID4gCj4gSSBhbSBub3Qgc3VyZSBpZiB5b3UgaGF2ZSBhbnkgY29uY2VybnMgYWJvdXQg
+dGhlIGxhc3QgdHdvIHBhcmFncmFwaHMuCj4gVGhlIGRlc2NyaXB0aW9uIGFib3V0IHRoZSBhdHRl
+c3RhdGlvbiBjbGllbnQgYW5kIHNlcnZlciAodGhlIGxhc3QgdHdvCj4gcGFyYWdyYXBocykgd2Fz
+IGFkZGVkIGZvciBpbmZvcm1hdGlvbi9jbGFyaWZpY2F0aW9uIHB1cnBvc2Ugb25seSwgYXMgcGVy
+Cj4geW91ciBmZWVkYmFjayBvbiBwcmV2aW91cyBpdGVyYXRpb25zLiBUaGUgc3Vic2VxdWVudCBw
+YXRjaGVzIGRvbuKAmXQgaGF2ZQo+IGFueSBjb2RlIHBlcnRhaW5pbmcgdG8gYXR0ZXN0YXRpb24g
+Y2xpZW50L3NlcnZlci4KPiAKPiAqUXVlc3Rpb24qCj4gTWF5YmUgdGhlIGxhc3QgdHdvIHBhcmFn
+cmFwaHMgYXJlIGNvbmZ1c2luZy9yZWR1bmRhbnQuIENvdWxkIHlvdSBwbGVhc2UKPiBsZXQgbWUg
+a25vdyBpZiBJIHNob3VsZCByZW1vdmUgdGhlIGFib3ZlIHR3byBwYXJhZ3JhcGhzIGFsdG9nZXRo
+ZXI/IAo+IChzdGFydGluZyB3aXRoIOKAnFRvIHVzZSB0aGUgZnVuY3Rpb25hbGl0eSBpbnRyb2R1
+Y2VkIGluIHRoaXMgcGF0Y2ggLi4u4oCdKQo+IAo+IElmIHdlIGRlY2lkZSB0byBrZWVwIHRoZSBw
+YXJhZ3JhcGhzLCBJIHdpbGwgcmVtb3ZlIHRoZSBzcGVjaWZpYyBleGFtcGxlcwo+IChLRVhFQ19D
+TURMSU5FLCBTZUxpbnV4IGV0Yy4pIGFzIHlvdSBtZW50aW9uZWQgZWxzZXdoZXJlLgoKSW5zdGVh
+ZCBvZiB0aGUgYWJvdmUgdHdvIHBhcmFncmFwaHMsIHBlcmhhcHMgZXhwbGFpbiBob3cgbWVhc3Vy
+aW5nIHRoZQpmaWxlIGRhdGEgaGFzaCBkaWZmZXJzIGZyb20gbWVhc3VyaW5nIHRoZSBidWZmZXIg
+ZGF0YSBoYXNoLiAgS2VlcCB0aGUKZXhwbGFuYXRpb24gZ2VuZXJpYywgc2hvcnQgYW5kIHNpbXBs
+ZS4KCk1pbWkKCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpo
+dHRwczovL3d3dy5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWw=
 
