@@ -2,106 +2,59 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id DA6FD2B16DF
-	for <lists+dm-devel@lfdr.de>; Fri, 13 Nov 2020 09:02:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3CE4D2B16E3
+	for <lists+dm-devel@lfdr.de>; Fri, 13 Nov 2020 09:02:59 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-295-liiQL4knM1KIatDL28PL4A-1; Fri, 13 Nov 2020 03:02:51 -0500
-X-MC-Unique: liiQL4knM1KIatDL28PL4A-1
+ us-mta-475-fUxZdVm7OPey0J28btycAw-1; Fri, 13 Nov 2020 03:02:56 -0500
+X-MC-Unique: fUxZdVm7OPey0J28btycAw-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5488A1085958;
-	Fri, 13 Nov 2020 08:02:44 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 622BF80B713;
+	Fri, 13 Nov 2020 08:02:50 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F5CF5B4DC;
-	Fri, 13 Nov 2020 08:02:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3F9345B4DF;
+	Fri, 13 Nov 2020 08:02:50 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D9E22181A06D;
-	Fri, 13 Nov 2020 08:02:43 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EB073181A07B;
+	Fri, 13 Nov 2020 08:02:49 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AD06OA8020812 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 12 Nov 2020 19:06:25 -0500
+	id 0AD263Wp001551 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 12 Nov 2020 21:06:04 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D196210F8E22; Fri, 13 Nov 2020 00:06:24 +0000 (UTC)
+	id 297B2202450A; Fri, 13 Nov 2020 02:06:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CBD2910F8E1D
-	for <dm-devel@redhat.com>; Fri, 13 Nov 2020 00:06:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 248052011551
+	for <dm-devel@redhat.com>; Fri, 13 Nov 2020 02:06:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BFBCB90E42B
-	for <dm-devel@redhat.com>; Fri, 13 Nov 2020 00:06:19 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
-	[148.163.156.1]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-382-6GSS0rXSM6CEP1LEjKntSQ-1; Thu, 12 Nov 2020 19:06:15 -0500
-X-MC-Unique: 6GSS0rXSM6CEP1LEjKntSQ-1
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
-	0AD03mTp113421; Thu, 12 Nov 2020 19:06:14 -0500
-Received: from pps.reinject (localhost [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 34sdrejfkk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Thu, 12 Nov 2020 19:06:13 -0500
-Received: from m0098410.ppops.net (m0098410.ppops.net [127.0.0.1])
-	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0AD03rlo113627;
-	Thu, 12 Nov 2020 19:06:13 -0500
-Received: from ppma06fra.de.ibm.com (48.49.7a9f.ip4.static.sl-reverse.com
-	[159.122.73.72])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 34sdrejfje-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Thu, 12 Nov 2020 19:06:13 -0500
-Received: from pps.filterd (ppma06fra.de.ibm.com [127.0.0.1])
-	by ppma06fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id
-	0ACNvdgB024333; Fri, 13 Nov 2020 00:06:10 GMT
-Received: from b06cxnps3075.portsmouth.uk.ibm.com
-	(d06relay10.portsmouth.uk.ibm.com [9.149.109.195])
-	by ppma06fra.de.ibm.com with ESMTP id 34njuh354q-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Fri, 13 Nov 2020 00:06:10 +0000
-Received: from d06av25.portsmouth.uk.ibm.com (d06av25.portsmouth.uk.ibm.com
-	[9.149.105.61])
-	by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
-	ESMTP id 0AD068EB5898830
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=OK); Fri, 13 Nov 2020 00:06:08 GMT
-Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3545411C050;
-	Fri, 13 Nov 2020 00:06:08 +0000 (GMT)
-Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B371911C069;
-	Fri, 13 Nov 2020 00:06:04 +0000 (GMT)
-Received: from li-f45666cc-3089-11b2-a85c-c57d1a57929f.ibm.com (unknown
-	[9.160.105.204])
-	by d06av25.portsmouth.uk.ibm.com (Postfix) with ESMTP;
-	Fri, 13 Nov 2020 00:06:04 +0000 (GMT)
-Message-ID: <5d8f83824f44cc3dd3963c83f70121b18c1ab3ca.camel@linux.ibm.com>
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Tushar Sugandhi <tusharsu@linux.microsoft.com>,
-	stephen.smalley.work@gmail.com, casey@schaufler-ca.com, agk@redhat.com, 
-	snitzer@redhat.com, gmazyland@gmail.com, paul@paul-moore.com
-Date: Thu, 12 Nov 2020 19:06:03 -0500
-In-Reply-To: <5826d3df-c263-f6c8-cac0-094b3c5a9395@linux.microsoft.com>
-References: <20201101222626.6111-1-tusharsu@linux.microsoft.com>
-	<20201101222626.6111-6-tusharsu@linux.microsoft.com>
-	<bef97a69db37d358db21668b179fd8821430b1b4.camel@linux.ibm.com>
-	<5826d3df-c263-f6c8-cac0-094b3c5a9395@linux.microsoft.com>
-Mime-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
-	definitions=2020-11-12_16:2020-11-12,
-	2020-11-12 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
-	clxscore=1015 impostorscore=0
-	bulkscore=0 mlxscore=0 priorityscore=1501 lowpriorityscore=0
-	malwarescore=0 spamscore=0 suspectscore=0 mlxlogscore=999 adultscore=0
-	phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2009150000 definitions=main-2011120132
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9EFCC185A7A2
+	for <dm-devel@redhat.com>; Fri, 13 Nov 2020 02:06:00 +0000 (UTC)
+Received: from out30-130.freemail.mail.aliyun.com
+	(out30-130.freemail.mail.aliyun.com [115.124.30.130]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-503-KoIoXusLMjOw0cNmn0X6cQ-1;
+	Thu, 12 Nov 2020 21:05:55 -0500
+X-MC-Unique: KoIoXusLMjOw0cNmn0X6cQ-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R181e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357;
+	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=4; SR=0;
+	TI=SMTPD_---0UF8jl1T_1605233151
+Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
+	fp:SMTPD_---0UF8jl1T_1605233151) by smtp.aliyun-inc.com(127.0.0.1);
+	Fri, 13 Nov 2020 10:05:52 +0800
+From: Jeffle Xu <jefflexu@linux.alibaba.com>
+To: snitzer@redhat.com
+Date: Fri, 13 Nov 2020 10:05:51 +0800
+Message-Id: <20201113020551.55716-1-jefflexu@linux.alibaba.com>
+In-Reply-To: <20201110065558.22694-1-jefflexu@linux.alibaba.com>
+References: <20201110065558.22694-1-jefflexu@linux.alibaba.com>
+MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -110,15 +63,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 13 Nov 2020 03:02:15 -0500
-Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
-	jmorris@namei.org, linux-kernel@vger.kernel.org,
-	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
-	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v5 5/7] IMA: validate supported kernel data
- sources before measurement
+Cc: joseph.qi@linux.alibaba.com, dm-devel@redhat.com, koct9i@gmail.com
+Subject: [dm-devel] [PATCH v2] dm: add support for DM_TARGET_NOWAIT for
+	various targets
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -140,14 +90,74 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Tushar,
+commit 021a24460dc2 ("block: add QUEUE_FLAG_NOWAIT") adds a new queue
+flag QUEUE_FLAG_NOWAIT to advertise if the bdev supports handling of
+REQ_NOWAIT or not. DM core supports this in commit 6abc49468eea ("dm:
+add support for REQ_NOWAIT and enable it for linear target"), in which
+only dm-linear is enabled.
 
-On Thu, 2020-11-12 at 14:09 -0800, Tushar Sugandhi wrote:
-> Could you please let me know if you want us to remove this patch?
+This patch also enables several dm-linear likely dm targets, the mapping
+algorithm of which is just simple remapping.
 
-As neither of us are convinced this is necessary, please drop it.
+Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
+---
+ drivers/md/dm-stripe.c   | 2 +-
+ drivers/md/dm-switch.c   | 1 +
+ drivers/md/dm-unstripe.c | 1 +
+ drivers/md/dm-zero.c     | 1 +
+ 4 files changed, 4 insertions(+), 1 deletion(-)
 
-Mimi
+diff --git a/drivers/md/dm-stripe.c b/drivers/md/dm-stripe.c
+index 151d022b032d..df359d33cda8 100644
+--- a/drivers/md/dm-stripe.c
++++ b/drivers/md/dm-stripe.c
+@@ -496,7 +496,7 @@ static void stripe_io_hints(struct dm_target *ti,
+ static struct target_type stripe_target = {
+ 	.name   = "striped",
+ 	.version = {1, 6, 0},
+-	.features = DM_TARGET_PASSES_INTEGRITY,
++	.features = DM_TARGET_PASSES_INTEGRITY | DM_TARGET_NOWAIT,
+ 	.module = THIS_MODULE,
+ 	.ctr    = stripe_ctr,
+ 	.dtr    = stripe_dtr,
+diff --git a/drivers/md/dm-switch.c b/drivers/md/dm-switch.c
+index bff4c7fa1cd2..262e2b0fd975 100644
+--- a/drivers/md/dm-switch.c
++++ b/drivers/md/dm-switch.c
+@@ -550,6 +550,7 @@ static int switch_iterate_devices(struct dm_target *ti,
+ static struct target_type switch_target = {
+ 	.name = "switch",
+ 	.version = {1, 1, 0},
++	.features = DM_TARGET_NOWAIT,
+ 	.module = THIS_MODULE,
+ 	.ctr = switch_ctr,
+ 	.dtr = switch_dtr,
+diff --git a/drivers/md/dm-unstripe.c b/drivers/md/dm-unstripe.c
+index e673dacf6418..7357c1bd5863 100644
+--- a/drivers/md/dm-unstripe.c
++++ b/drivers/md/dm-unstripe.c
+@@ -178,6 +178,7 @@ static void unstripe_io_hints(struct dm_target *ti,
+ static struct target_type unstripe_target = {
+ 	.name = "unstriped",
+ 	.version = {1, 1, 0},
++	.features = DM_TARGET_NOWAIT,
+ 	.module = THIS_MODULE,
+ 	.ctr = unstripe_ctr,
+ 	.dtr = unstripe_dtr,
+diff --git a/drivers/md/dm-zero.c b/drivers/md/dm-zero.c
+index b65ca8dcfbdc..faa1dbffc8b4 100644
+--- a/drivers/md/dm-zero.c
++++ b/drivers/md/dm-zero.c
+@@ -59,6 +59,7 @@ static int zero_map(struct dm_target *ti, struct bio *bio)
+ static struct target_type zero_target = {
+ 	.name   = "zero",
+ 	.version = {1, 1, 0},
++	.features = DM_TARGET_NOWAIT,
+ 	.module = THIS_MODULE,
+ 	.ctr    = zero_ctr,
+ 	.map    = zero_map,
+-- 
+2.27.0
 
 --
 dm-devel mailing list
