@@ -1,52 +1,52 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8795E2B4717
-	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:00:31 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 3F2052B471A
+	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:00:36 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-277-QhurlcpPNJezABBSEkYA9A-1; Mon, 16 Nov 2020 10:00:27 -0500
-X-MC-Unique: QhurlcpPNJezABBSEkYA9A-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-90-rDWLz0BGOAaht1osUmF32g-1; Mon, 16 Nov 2020 10:00:31 -0500
+X-MC-Unique: rDWLz0BGOAaht1osUmF32g-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 17387884DF3;
-	Mon, 16 Nov 2020 14:59:51 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DD28C6EF46;
-	Mon, 16 Nov 2020 14:59:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 155F980EFA4;
+	Mon, 16 Nov 2020 14:59:53 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E41D45D9CC;
+	Mon, 16 Nov 2020 14:59:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 85983183D024;
-	Mon, 16 Nov 2020 14:59:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 991605812B;
+	Mon, 16 Nov 2020 14:59:52 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AGExXHm015558 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 16 Nov 2020 09:59:34 -0500
+	id 0AGExZkM015570 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 16 Nov 2020 09:59:35 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D4EFF110F726; Mon, 16 Nov 2020 14:59:33 +0000 (UTC)
+	id 2A7E32011553; Mon, 16 Nov 2020 14:59:35 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D071210031FE
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 14:59:33 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 259E1205F3B0
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 14:59:35 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B97D6102F1E4
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 14:59:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 08FC690E426
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 14:59:35 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-1-ROQHetEqMr21859Zx0qMoA-1; Mon, 16 Nov 2020 09:59:29 -0500
-X-MC-Unique: ROQHetEqMr21859Zx0qMoA-1
+	us-mta-293-7gkVXo1yP8OgkGYc0vAwAQ-1; Mon, 16 Nov 2020 09:59:29 -0500
+X-MC-Unique: 7gkVXo1yP8OgkGYc0vAwAQ-1
 Received: from [2001:4bb8:180:6600:255b:7def:a93:4a09] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kefyU-00043H-JC; Mon, 16 Nov 2020 14:59:23 +0000
+	id 1kefyW-00043h-2j; Mon, 16 Nov 2020 14:59:24 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 16 Nov 2020 15:57:42 +0100
-Message-Id: <20201116145809.410558-52-hch@lst.de>
+Date: Mon, 16 Nov 2020 15:57:43 +0100
+Message-Id: <20201116145809.410558-53-hch@lst.de>
 In-Reply-To: <20201116145809.410558-1-hch@lst.de>
 References: <20201116145809.410558-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
@@ -74,11 +74,12 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Stefan Hajnoczi <stefanha@redhat.com>, drbd-dev@tron.linbit.com,
 	ceph-devel@vger.kernel.org, linux-block@vger.kernel.org,
 	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 51/78] z2ram: use separate gendisk for the
-	different modes
+Subject: [dm-devel] [PATCH 52/78] block: switch gendisk lookup to a simple
+	xarray
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,7 +93,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -100,167 +101,334 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use separate gendisks (which share a tag_set) for the different operating
-modes instead of redirecting the gendisk lookup using a probe callback.
-This avoids potential problems with aliased block_device instances and
-will eventually allow for removing the blk_register_region framework.
+Now that bdev_map is only used for finding gendisks, we can use
+a simple xarray instead of the regions tracking structure for it.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Hannes Reinecke <hare@suse.de>
+Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/block/z2ram.c | 100 ++++++++++++++++++++++++------------------
- 1 file changed, 58 insertions(+), 42 deletions(-)
+ block/genhd.c         | 208 ++++++++----------------------------------
+ include/linux/genhd.h |   7 --
+ 2 files changed, 37 insertions(+), 178 deletions(-)
 
-diff --git a/drivers/block/z2ram.c b/drivers/block/z2ram.c
-index eafecc9a72b38d..c1d20818e64920 100644
---- a/drivers/block/z2ram.c
-+++ b/drivers/block/z2ram.c
-@@ -63,7 +63,7 @@ static int current_device = -1;
+diff --git a/block/genhd.c b/block/genhd.c
+index dc8690bc281c16..4a224a3c8e1071 100644
+--- a/block/genhd.c
++++ b/block/genhd.c
+@@ -27,15 +27,7 @@
  
- static DEFINE_SPINLOCK(z2ram_lock);
+ static struct kobject *block_depr;
  
--static struct gendisk *z2ram_gendisk;
-+static struct gendisk *z2ram_gendisk[Z2MINOR_COUNT];
+-struct bdev_map {
+-	struct bdev_map *next;
+-	dev_t dev;
+-	unsigned long range;
+-	struct module *owner;
+-	struct kobject *(*probe)(dev_t, int *, void *);
+-	int (*lock)(dev_t, void *);
+-	void *data;
+-} *bdev_map[255];
++static DEFINE_XARRAY(bdev_map);
+ static DEFINE_MUTEX(bdev_map_lock);
  
- static blk_status_t z2_queue_rq(struct blk_mq_hw_ctx *hctx,
- 				const struct blk_mq_queue_data *bd)
-@@ -283,7 +283,7 @@ static int z2_open(struct block_device *bdev, fmode_t mode)
- 
- 		current_device = device;
- 		z2ram_size <<= Z2RAM_CHUNKSHIFT;
--		set_capacity(z2ram_gendisk, z2ram_size >> 9);
-+		set_capacity(z2ram_gendisk[device], z2ram_size >> 9);
- 	}
- 
- 	mutex_unlock(&z2ram_mutex);
-@@ -315,71 +315,87 @@ static const struct block_device_operations z2_fops = {
- 	.release = z2_release,
- };
- 
--static struct kobject *z2_find(dev_t dev, int *part, void *data)
--{
--	*part = 0;
--	return get_disk_and_module(z2ram_gendisk);
--}
--
--static struct request_queue *z2_queue;
- static struct blk_mq_tag_set tag_set;
- 
- static const struct blk_mq_ops z2_mq_ops = {
- 	.queue_rq = z2_queue_rq,
- };
- 
-+static int z2ram_register_disk(int minor)
-+{
-+	struct request_queue *q;
-+	struct gendisk *disk;
-+
-+	disk = alloc_disk(1);
-+	if (!disk)
-+		return -ENOMEM;
-+
-+	q = blk_mq_init_queue(&tag_set);
-+	if (IS_ERR(q)) {
-+		put_disk(disk);
-+		return PTR_ERR(q);
-+	}
-+
-+	disk->major = Z2RAM_MAJOR;
-+	disk->first_minor = minor;
-+	disk->fops = &z2_fops;
-+	if (minor)
-+		sprintf(disk->disk_name, "z2ram%d", minor);
-+	else
-+		sprintf(disk->disk_name, "z2ram");
-+	disk->queue = q;
-+
-+	z2ram_gendisk[minor] = disk;
-+	add_disk(disk);
-+	return 0;
-+}
-+
- static int __init z2_init(void)
- {
--	int ret;
-+	int ret, i;
- 
- 	if (!MACH_IS_AMIGA)
- 		return -ENODEV;
- 
--	ret = -EBUSY;
- 	if (register_blkdev(Z2RAM_MAJOR, DEVICE_NAME))
--		goto err;
--
--	ret = -ENOMEM;
--	z2ram_gendisk = alloc_disk(1);
--	if (!z2ram_gendisk)
--		goto out_disk;
--
--	z2_queue = blk_mq_init_sq_queue(&tag_set, &z2_mq_ops, 16,
--					BLK_MQ_F_SHOULD_MERGE);
--	if (IS_ERR(z2_queue)) {
--		ret = PTR_ERR(z2_queue);
--		z2_queue = NULL;
--		goto out_queue;
-+		return -EBUSY;
-+
-+	tag_set.ops = &z2_mq_ops;
-+	tag_set.nr_hw_queues = 1;
-+	tag_set.nr_maps = 1;
-+	tag_set.queue_depth = 16;
-+	tag_set.numa_node = NUMA_NO_NODE;
-+	tag_set.flags = BLK_MQ_F_SHOULD_MERGE;
-+	ret = blk_mq_alloc_tag_set(&tag_set);
-+	if (ret)
-+		goto out_unregister_blkdev;
-+
-+	for (i = 0; i < Z2MINOR_COUNT; i++) {
-+		ret = z2ram_register_disk(i);
-+		if (ret && i == 0)
-+			goto out_free_tagset;
- 	}
- 
--	z2ram_gendisk->major = Z2RAM_MAJOR;
--	z2ram_gendisk->first_minor = 0;
--	z2ram_gendisk->fops = &z2_fops;
--	sprintf(z2ram_gendisk->disk_name, "z2ram");
--
--	z2ram_gendisk->queue = z2_queue;
--	add_disk(z2ram_gendisk);
--	blk_register_region(MKDEV(Z2RAM_MAJOR, 0), Z2MINOR_COUNT, THIS_MODULE,
--			    z2_find, NULL, NULL);
--
- 	return 0;
- 
--out_queue:
--	put_disk(z2ram_gendisk);
--out_disk:
-+out_free_tagset:
-+	blk_mq_free_tag_set(&tag_set);
-+out_unregister_blkdev:
- 	unregister_blkdev(Z2RAM_MAJOR, DEVICE_NAME);
--err:
- 	return ret;
+ /* for extended dynamic devt allocation, currently only one major is used */
+@@ -646,85 +638,26 @@ static char *bdevt_str(dev_t devt, char *buf)
+ 	return buf;
  }
  
- static void __exit z2_exit(void)
- {
- 	int i, j;
--	blk_unregister_region(MKDEV(Z2RAM_MAJOR, 0), Z2MINOR_COUNT);
-+
- 	unregister_blkdev(Z2RAM_MAJOR, DEVICE_NAME);
--	del_gendisk(z2ram_gendisk);
--	put_disk(z2ram_gendisk);
--	blk_cleanup_queue(z2_queue);
-+
-+	for (i = 0; i < Z2MINOR_COUNT; i++) {
-+		del_gendisk(z2ram_gendisk[i]);
-+		blk_cleanup_queue(z2ram_gendisk[i]->queue);
-+		put_disk(z2ram_gendisk[i]);
-+	}
- 	blk_mq_free_tag_set(&tag_set);
+-/*
+- * Register device numbers dev..(dev+range-1)
+- * range must be nonzero
+- * The hash chain is sorted on range, so that subranges can override.
+- */
+-void blk_register_region(dev_t devt, unsigned long range, struct module *module,
+-			 struct kobject *(*probe)(dev_t, int *, void *),
+-			 int (*lock)(dev_t, void *), void *data)
+-{
+-	unsigned n = MAJOR(devt + range - 1) - MAJOR(devt) + 1;
+-	unsigned index = MAJOR(devt);
+-	unsigned i;
+-	struct bdev_map *p;
+-
+-	n = min(n, 255u);
+-	p = kmalloc_array(n, sizeof(struct bdev_map), GFP_KERNEL);
+-	if (p == NULL)
+-		return;
+-
+-	for (i = 0; i < n; i++, p++) {
+-		p->owner = module;
+-		p->probe = probe;
+-		p->lock = lock;
+-		p->dev = devt;
+-		p->range = range;
+-		p->data = data;
+-	}
++static void blk_register_region(struct gendisk *disk)
++{
++	int i;
  
- 	if (current_device != -1) {
+ 	mutex_lock(&bdev_map_lock);
+-	for (i = 0, p -= n; i < n; i++, p++, index++) {
+-		struct bdev_map **s = &bdev_map[index % 255];
+-		while (*s && (*s)->range < range)
+-			s = &(*s)->next;
+-		p->next = *s;
+-		*s = p;
++	for (i = 0; i < disk->minors; i++) {
++		if (xa_insert(&bdev_map, disk_devt(disk) + i, disk, GFP_KERNEL))
++			WARN_ON_ONCE(1);
+ 	}
+ 	mutex_unlock(&bdev_map_lock);
+ }
+-EXPORT_SYMBOL(blk_register_region);
+ 
+-void blk_unregister_region(dev_t devt, unsigned long range)
++static void blk_unregister_region(struct gendisk *disk)
+ {
+-	unsigned n = MAJOR(devt + range - 1) - MAJOR(devt) + 1;
+-	unsigned index = MAJOR(devt);
+-	unsigned i;
+-	struct bdev_map *found = NULL;
++	int i;
+ 
+ 	mutex_lock(&bdev_map_lock);
+-	for (i = 0; i < min(n, 255u); i++, index++) {
+-		struct bdev_map **s;
+-		for (s = &bdev_map[index % 255]; *s; s = &(*s)->next) {
+-			struct bdev_map *p = *s;
+-			if (p->dev == devt && p->range == range) {
+-				*s = p->next;
+-				if (!found)
+-					found = p;
+-				break;
+-			}
+-		}
+-	}
++	for (i = 0; i < disk->minors; i++)
++		xa_erase(&bdev_map, disk_devt(disk) + i);
+ 	mutex_unlock(&bdev_map_lock);
+-	kfree(found);
+-}
+-EXPORT_SYMBOL(blk_unregister_region);
+-
+-static struct kobject *exact_match(dev_t devt, int *partno, void *data)
+-{
+-	struct gendisk *p = data;
+-
+-	return &disk_to_dev(p)->kobj;
+-}
+-
+-static int exact_lock(dev_t devt, void *data)
+-{
+-	struct gendisk *p = data;
+-
+-	if (!get_disk_and_module(p))
+-		return -1;
+-	return 0;
+ }
+ 
+ static void disk_scan_partitions(struct gendisk *disk)
+@@ -870,8 +803,7 @@ static void __device_add_disk(struct device *parent, struct gendisk *disk,
+ 		ret = bdi_register(bdi, "%u:%u", MAJOR(devt), MINOR(devt));
+ 		WARN_ON(ret);
+ 		bdi_set_owner(bdi, dev);
+-		blk_register_region(disk_devt(disk), disk->minors, NULL,
+-				    exact_match, exact_lock, disk);
++		blk_register_region(disk);
+ 	}
+ 	register_disk(parent, disk, groups);
+ 	if (register_queue)
+@@ -984,7 +916,7 @@ void del_gendisk(struct gendisk *disk)
+ 	blk_unregister_queue(disk);
+ 	
+ 	if (!(disk->flags & GENHD_FL_HIDDEN))
+-		blk_unregister_region(disk_devt(disk), disk->minors);
++		blk_unregister_region(disk);
+ 	/*
+ 	 * Remove gendisk pointer from idr so that it cannot be looked up
+ 	 * while RCU period before freeing gendisk is running to prevent
+@@ -1050,54 +982,22 @@ static void request_gendisk_module(dev_t devt)
+ 		request_module("block-major-%d", MAJOR(devt));
+ }
+ 
+-static struct gendisk *lookup_gendisk(dev_t dev, int *partno)
++static bool get_disk_and_module(struct gendisk *disk)
+ {
+-	struct kobject *kobj;
+-	struct bdev_map *p;
+-	unsigned long best = ~0UL;
+-
+-retry:
+-	mutex_lock(&bdev_map_lock);
+-	for (p = bdev_map[MAJOR(dev) % 255]; p; p = p->next) {
+-		struct kobject *(*probe)(dev_t, int *, void *);
+-		struct module *owner;
+-		void *data;
+-
+-		if (p->dev > dev || p->dev + p->range - 1 < dev)
+-			continue;
+-		if (p->range - 1 >= best)
+-			break;
+-		if (!try_module_get(p->owner))
+-			continue;
+-		owner = p->owner;
+-		data = p->data;
+-		probe = p->probe;
+-		best = p->range - 1;
+-		*partno = dev - p->dev;
+-
+-		if (!probe) {
+-			mutex_unlock(&bdev_map_lock);
+-			module_put(owner);
+-			request_gendisk_module(dev);
+-			goto retry;
+-		}
++	struct module *owner;
+ 
+-		if (p->lock && p->lock(dev, data) < 0) {
+-			module_put(owner);
+-			continue;
+-		}
+-		mutex_unlock(&bdev_map_lock);
+-		kobj = probe(dev, partno, data);
+-		/* Currently ->owner protects _only_ ->probe() itself. */
++	if (!disk->fops)
++		return false;
++	owner = disk->fops->owner;
++	if (owner && !try_module_get(owner))
++		return false;
++	if (!kobject_get_unless_zero(&disk_to_dev(disk)->kobj)) {
+ 		module_put(owner);
+-		if (kobj)
+-			return dev_to_disk(kobj_to_dev(kobj));
+-		goto retry;
++		return false;
+ 	}
+-	mutex_unlock(&bdev_map_lock);
+-	return NULL;
+-}
++	return true;
+ 
++}
+ 
+ /**
+  * get_gendisk - get partitioning information for a given device
+@@ -1116,7 +1016,19 @@ struct gendisk *get_gendisk(dev_t devt, int *partno)
+ 	might_sleep();
+ 
+ 	if (MAJOR(devt) != BLOCK_EXT_MAJOR) {
+-		disk = lookup_gendisk(devt, partno);
++		mutex_lock(&bdev_map_lock);
++		disk = xa_load(&bdev_map, devt);
++		if (!disk) {
++			mutex_unlock(&bdev_map_lock);
++			request_gendisk_module(devt);
++			mutex_lock(&bdev_map_lock);
++			disk = xa_load(&bdev_map, devt);
++		}
++		if (disk && !get_disk_and_module(disk))
++			disk = NULL;
++		if (disk)
++			*partno = devt - disk_devt(disk);
++		mutex_unlock(&bdev_map_lock);
+ 	} else {
+ 		struct hd_struct *part;
+ 
+@@ -1320,21 +1232,6 @@ static const struct seq_operations partitions_op = {
+ };
+ #endif
+ 
+-static void bdev_map_init(void)
+-{
+-	struct bdev_map *base;
+-	int i;
+-
+-	base = kzalloc(sizeof(*base), GFP_KERNEL);
+-	if (!base)
+-		panic("cannot allocate bdev_map");
+-
+-	base->dev = 1;
+-	base->range = ~0 ;
+-	for (i = 0; i < 255; i++)
+-		bdev_map[i] = base;
+-}
+-
+ static int __init genhd_device_init(void)
+ {
+ 	int error;
+@@ -1343,7 +1240,6 @@ static int __init genhd_device_init(void)
+ 	error = class_register(&block_class);
+ 	if (unlikely(error))
+ 		return error;
+-	bdev_map_init();
+ 	blk_dev_init();
+ 
+ 	register_blkdev(BLOCK_EXT_MAJOR, "blkext");
+@@ -1892,35 +1788,6 @@ struct gendisk *__alloc_disk_node(int minors, int node_id)
+ }
+ EXPORT_SYMBOL(__alloc_disk_node);
+ 
+-/**
+- * get_disk_and_module - increments the gendisk and gendisk fops module refcount
+- * @disk: the struct gendisk to increment the refcount for
+- *
+- * This increments the refcount for the struct gendisk, and the gendisk's
+- * fops module owner.
+- *
+- * Context: Any context.
+- */
+-struct kobject *get_disk_and_module(struct gendisk *disk)
+-{
+-	struct module *owner;
+-	struct kobject *kobj;
+-
+-	if (!disk->fops)
+-		return NULL;
+-	owner = disk->fops->owner;
+-	if (owner && !try_module_get(owner))
+-		return NULL;
+-	kobj = kobject_get_unless_zero(&disk_to_dev(disk)->kobj);
+-	if (kobj == NULL) {
+-		module_put(owner);
+-		return NULL;
+-	}
+-	return kobj;
+-
+-}
+-EXPORT_SYMBOL(get_disk_and_module);
+-
+ /**
+  * put_disk - decrements the gendisk refcount
+  * @disk: the struct gendisk to decrement the refcount for
+@@ -1957,7 +1824,6 @@ void put_disk_and_module(struct gendisk *disk)
+ 		module_put(owner);
+ 	}
+ }
+-EXPORT_SYMBOL(put_disk_and_module);
+ 
+ static void set_disk_ro_uevent(struct gendisk *gd, int ro)
+ {
+diff --git a/include/linux/genhd.h b/include/linux/genhd.h
+index 04f6a6bf577a90..46553d6d602563 100644
+--- a/include/linux/genhd.h
++++ b/include/linux/genhd.h
+@@ -338,15 +338,8 @@ int blk_add_partitions(struct gendisk *disk, struct block_device *bdev);
+ int blk_drop_partitions(struct block_device *bdev);
+ 
+ extern struct gendisk *__alloc_disk_node(int minors, int node_id);
+-extern struct kobject *get_disk_and_module(struct gendisk *disk);
+ extern void put_disk(struct gendisk *disk);
+ extern void put_disk_and_module(struct gendisk *disk);
+-extern void blk_register_region(dev_t devt, unsigned long range,
+-			struct module *module,
+-			struct kobject *(*probe)(dev_t, int *, void *),
+-			int (*lock)(dev_t, void *),
+-			void *data);
+-extern void blk_unregister_region(dev_t devt, unsigned long range);
+ 
+ #define alloc_disk_node(minors, node_id)				\
+ ({									\
 -- 
 2.29.2
 
