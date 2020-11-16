@@ -1,55 +1,78 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2E6312B474C
-	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:05:52 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id A4E8C2B4992
+	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:40:39 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-582-PWWnpjWXMnaUmc8iT4uLbg-1; Mon, 16 Nov 2020 10:05:45 -0500
-X-MC-Unique: PWWnpjWXMnaUmc8iT4uLbg-1
+ us-mta-555-BQ8ZUCk2MWybszuixfet0w-1; Mon, 16 Nov 2020 10:40:36 -0500
+X-MC-Unique: BQ8ZUCk2MWybszuixfet0w-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 25321873183;
-	Mon, 16 Nov 2020 15:05:38 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EF5726EF43;
-	Mon, 16 Nov 2020 15:05:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A3C0A803F50;
+	Mon, 16 Nov 2020 15:40:28 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8933E6EF5E;
+	Mon, 16 Nov 2020 15:40:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6965F58122;
-	Mon, 16 Nov 2020 15:05:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0729C183D024;
+	Mon, 16 Nov 2020 15:40:24 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AGF5YW8017907 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 16 Nov 2020 10:05:34 -0500
+	id 0AGFeIpH022988 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 16 Nov 2020 10:40:18 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 320A32157F4A; Mon, 16 Nov 2020 15:05:34 +0000 (UTC)
+	id 59CB3200E1E0; Mon, 16 Nov 2020 15:40:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2DB9A2157F26
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:05:34 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 54C862023598
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:40:16 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 18EFF8015A6
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:05:34 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-448-2HTvxd_yMKizzgWAHk5Utg-1;
-	Mon, 16 Nov 2020 10:05:28 -0500
-X-MC-Unique: 2HTvxd_yMKizzgWAHk5Utg-1
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id C42D56736F; Mon, 16 Nov 2020 16:05:24 +0100 (CET)
-Date: Mon, 16 Nov 2020 16:05:24 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Jens Axboe <axboe@kernel.dk>
-Message-ID: <20201116150524.GA13367@lst.de>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EFC52811E78
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:40:15 +0000 (UTC)
+Received: from mail-io1-f42.google.com (mail-io1-f42.google.com
+	[209.85.166.42]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-494-cSLYsr1FPFekmXxa6PQEwg-1; Mon, 16 Nov 2020 10:40:13 -0500
+X-MC-Unique: cSLYsr1FPFekmXxa6PQEwg-1
+Received: by mail-io1-f42.google.com with SMTP id o11so17822186ioo.11
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 07:40:12 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=tp0p5PHbr2FkOYp8vx6enMy9SJ7npMGO8ToOlTZAVD0=;
+	b=QYCcmW10iy0qcf19svS3h6oEV/I6Rc9SvStP0DgOFoPL52LX7GlB4HwzI4qcB5UXqb
+	+j6tVTceqFPTQEdi+k63V2uMO/VdCFtcG+iTELSz5pr2EX+P0RA+3WpkjYUQGPDdl9Sz
+	utmc4Z+guiY+tOJ59F/6ISUSkgx3lG7IERq0BcCkWOM/JC3BJPKp/50Urg5b4h7OHemN
+	EIinjp5RSiFyU0GviOUJDjdcPI8jUjkjzavw7+VEqF0K0CPDMiROtbCCnqQOF5rrzKVC
+	DOfxbstJ4Mc1ZQN7z3oEkAjmjFK4H8j2xLLnxSW6wscswV4g4wW+Nh5Wi5Ij+ezv17pX
+	p5/g==
+X-Gm-Message-State: AOAM532p0mmi3aMYYfAB0axykLmTeetdDpvYaq8Iwnyme1bDLaHuby5a
+	YjOsPQLfYOF6iSC0JyC9flVNDg==
+X-Google-Smtp-Source: ABdhPJzORiPywjBgXN2NzytHbmvXHQyepXDfzUWSZfRzXJXzcmliMaw8xrhzAaFsEhdxvHHHShuK7g==
+X-Received: by 2002:a5e:9e0b:: with SMTP id i11mr3534187ioq.33.1605541212314; 
+	Mon, 16 Nov 2020 07:40:12 -0800 (PST)
+Received: from [192.168.1.30] ([65.144.74.34])
+	by smtp.gmail.com with ESMTPSA id
+	i82sm10491839ill.84.2020.11.16.07.40.10
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Mon, 16 Nov 2020 07:40:11 -0800 (PST)
+To: Christoph Hellwig <hch@lst.de>
 References: <20201116145809.410558-1-hch@lst.de>
+From: Jens Axboe <axboe@kernel.dk>
+Message-ID: <506876ff-65b0-7610-6f9e-8228fcd201c8@kernel.dk>
+Date: Mon, 16 Nov 2020 08:40:10 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
 MIME-Version: 1.0
 In-Reply-To: <20201116145809.410558-1-hch@lst.de>
-User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -58,7 +81,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
@@ -68,13 +91,13 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Ilya Dryomov <idryomov@gmail.com>, Jack Wang <jinpu.wang@cloud.ionos.com>,
 	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
 	Josef Bacik <josef@toxicpanda.com>, nbd@other.debian.org,
-	linux-block@vger.kernel.org,
+	linux-raid@vger.kernel.org,
 	Stefan Hajnoczi <stefanha@redhat.com>, drbd-dev@tron.linbit.com,
-	ceph-devel@vger.kernel.org, linux-raid@vger.kernel.org,
+	ceph-devel@vger.kernel.org, linux-block@vger.kernel.org,
 	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Subject: Re: [dm-devel] cleanup updating the size of block devices v3
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -94,18 +117,26 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Oops,
+On 11/16/20 7:56 AM, Christoph Hellwig wrote:
+> Hi Jens,
+> 
+> this series builds on top of the work that went into the last merge window,
+> and make sure we have a single coherent interfac for updating the size of a
+> block device.
+> 
+> Changes since v2:
+>  - rebased to the set_capacity_revalidate_and_notify in mainline
+>  - keep the loop_set_size function
+>  - fix two mixed up acks
 
-this is a bigger patch bomb than intended.  Only patches 1-23 are this
-series which should be ready to be applied once for-5.11/block pulles in
-5.10-rc4.
+Applied 1-23 for 5.11, thanks.
 
-After that follow patches already in for-5.11/block and my current hot
-off the press development branch.
+-- 
+Jens Axboe
 
 --
 dm-devel mailing list
