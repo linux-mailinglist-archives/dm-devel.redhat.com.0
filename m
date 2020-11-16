@@ -2,51 +2,51 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0026C2B4711
-	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:00:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 137D82B4712
+	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:00:20 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-564-Sgh6l4s6OjW-VyIdSWT5ow-1; Mon, 16 Nov 2020 10:00:07 -0500
-X-MC-Unique: Sgh6l4s6OjW-VyIdSWT5ow-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-278-O4pYgBWgMHqgBuszTaJ1QQ-1; Mon, 16 Nov 2020 10:00:17 -0500
+X-MC-Unique: O4pYgBWgMHqgBuszTaJ1QQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AADDF100E441;
-	Mon, 16 Nov 2020 14:59:44 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CD3AC11BD34E;
+	Mon, 16 Nov 2020 14:59:48 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6CC4C60BF1;
-	Mon, 16 Nov 2020 14:59:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A5EDB5576C;
+	Mon, 16 Nov 2020 14:59:48 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2C527183D021;
-	Mon, 16 Nov 2020 14:59:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 57508183D022;
+	Mon, 16 Nov 2020 14:59:48 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AGExPpd015458 for <dm-devel@listman.util.phx.redhat.com>;
+	id 0AGExPBx015462 for <dm-devel@listman.util.phx.redhat.com>;
 	Mon, 16 Nov 2020 09:59:25 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 495952157F5D; Mon, 16 Nov 2020 14:59:25 +0000 (UTC)
+	id 638D66FA71; Mon, 16 Nov 2020 14:59:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 442FF2157F4B
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5B3C86FA73
 	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 14:59:22 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D63DA102F1E0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 83249858298
 	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 14:59:22 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-451-R-XEleRbN-CFb7IzYliiDg-1; Mon, 16 Nov 2020 09:59:20 -0500
-X-MC-Unique: R-XEleRbN-CFb7IzYliiDg-1
+	us-mta-297-4wbawPp8OYuEiOggLU7jeQ-1; Mon, 16 Nov 2020 09:59:20 -0500
+X-MC-Unique: 4wbawPp8OYuEiOggLU7jeQ-1
 Received: from [2001:4bb8:180:6600:255b:7def:a93:4a09] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kefyI-0003z4-LX; Mon, 16 Nov 2020 14:59:11 +0000
+	id 1kefyK-0003zL-Gc; Mon, 16 Nov 2020 14:59:12 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 16 Nov 2020 15:57:34 +0100
-Message-Id: <20201116145809.410558-44-hch@lst.de>
+Date: Mon, 16 Nov 2020 15:57:35 +0100
+Message-Id: <20201116145809.410558-45-hch@lst.de>
 In-Reply-To: <20201116145809.410558-1-hch@lst.de>
 References: <20201116145809.410558-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
@@ -77,7 +77,7 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 43/78] brd: use __register_blkdev to allocate
+Subject: [dm-devel] [PATCH 44/78] loop: use __register_blkdev to allocate
 	devices on demand
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -92,7 +92,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -106,110 +106,78 @@ when a currently unregistered minor is accessed.
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Hannes Reinecke <hare@suse.de>
 ---
- drivers/block/brd.c | 39 +++++++++++----------------------------
- 1 file changed, 11 insertions(+), 28 deletions(-)
+ drivers/block/loop.c | 30 ++++++++----------------------
+ 1 file changed, 8 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/block/brd.c b/drivers/block/brd.c
-index cc49a921339f77..c43a6ab4b1f39f 100644
---- a/drivers/block/brd.c
-+++ b/drivers/block/brd.c
-@@ -426,14 +426,15 @@ static void brd_free(struct brd_device *brd)
- 	kfree(brd);
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index 41caf799df721f..9a27d4f1c08aac 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -2231,24 +2231,18 @@ static int loop_lookup(struct loop_device **l, int i)
+ 	return ret;
  }
  
--static struct brd_device *brd_init_one(int i, bool *new)
-+static void brd_probe(dev_t dev)
+-static struct kobject *loop_probe(dev_t dev, int *part, void *data)
++static void loop_probe(dev_t dev)
  {
- 	struct brd_device *brd;
-+	int i = MINOR(dev) / max_part;
- 
--	*new = false;
-+	mutex_lock(&brd_devices_mutex);
- 	list_for_each_entry(brd, &brd_devices, brd_list) {
- 		if (brd->brd_number == i)
--			goto out;
-+			goto out_unlock;
- 	}
- 
- 	brd = brd_alloc(i);
-@@ -442,9 +443,9 @@ static struct brd_device *brd_init_one(int i, bool *new)
- 		add_disk(brd->brd_disk);
- 		list_add_tail(&brd->brd_list, &brd_devices);
- 	}
--	*new = true;
--out:
--	return brd;
-+
-+out_unlock:
-+	mutex_unlock(&brd_devices_mutex);
- }
- 
- static void brd_del_one(struct brd_device *brd)
-@@ -454,23 +455,6 @@ static void brd_del_one(struct brd_device *brd)
- 	brd_free(brd);
- }
- 
--static struct kobject *brd_probe(dev_t dev, int *part, void *data)
--{
--	struct brd_device *brd;
++	int idx = MINOR(dev) >> part_shift;
+ 	struct loop_device *lo;
 -	struct kobject *kobj;
--	bool new;
+-	int err;
++
++	if (max_loop && idx >= max_loop)
++		return;
+ 
+ 	mutex_lock(&loop_ctl_mutex);
+-	err = loop_lookup(&lo, MINOR(dev) >> part_shift);
+-	if (err < 0)
+-		err = loop_add(&lo, MINOR(dev) >> part_shift);
+-	if (err < 0)
+-		kobj = NULL;
+-	else
+-		kobj = get_disk_and_module(lo->lo_disk);
++	if (loop_lookup(&lo, idx) < 0)
++		loop_add(&lo, idx);
+ 	mutex_unlock(&loop_ctl_mutex);
 -
--	mutex_lock(&brd_devices_mutex);
--	brd = brd_init_one(MINOR(dev) / max_part, &new);
--	kobj = brd ? get_disk_and_module(brd->brd_disk) : NULL;
--	mutex_unlock(&brd_devices_mutex);
--
--	if (new)
--		*part = 0;
--
+-	*part = 0;
 -	return kobj;
--}
+ }
+ 
+ static long loop_control_ioctl(struct file *file, unsigned int cmd,
+@@ -2368,14 +2362,11 @@ static int __init loop_init(void)
+ 		goto err_out;
+ 
+ 
+-	if (register_blkdev(LOOP_MAJOR, "loop")) {
++	if (__register_blkdev(LOOP_MAJOR, "loop", loop_probe)) {
+ 		err = -EIO;
+ 		goto misc_out;
+ 	}
+ 
+-	blk_register_region(MKDEV(LOOP_MAJOR, 0), range,
+-				  THIS_MODULE, loop_probe, NULL, NULL);
 -
- static inline void brd_check_and_reset_par(void)
+ 	/* pre-create number of devices given by config or max_loop */
+ 	mutex_lock(&loop_ctl_mutex);
+ 	for (i = 0; i < nr; i++)
+@@ -2401,16 +2392,11 @@ static int loop_exit_cb(int id, void *ptr, void *data)
+ 
+ static void __exit loop_exit(void)
  {
- 	if (unlikely(!max_part))
-@@ -510,11 +494,12 @@ static int __init brd_init(void)
- 	 *	dynamically.
- 	 */
- 
--	if (register_blkdev(RAMDISK_MAJOR, "ramdisk"))
-+	if (__register_blkdev(RAMDISK_MAJOR, "ramdisk", brd_probe))
- 		return -EIO;
- 
- 	brd_check_and_reset_par();
- 
-+	mutex_lock(&brd_devices_mutex);
- 	for (i = 0; i < rd_nr; i++) {
- 		brd = brd_alloc(i);
- 		if (!brd)
-@@ -532,9 +517,7 @@ static int __init brd_init(void)
- 		brd->brd_disk->queue = brd->brd_queue;
- 		add_disk(brd->brd_disk);
- 	}
+-	unsigned long range;
 -
--	blk_register_region(MKDEV(RAMDISK_MAJOR, 0), 1UL << MINORBITS,
--				  THIS_MODULE, brd_probe, NULL, NULL);
-+	mutex_unlock(&brd_devices_mutex);
+-	range = max_loop ? max_loop << part_shift : 1UL << MINORBITS;
+-
+ 	mutex_lock(&loop_ctl_mutex);
  
- 	pr_info("brd: module loaded\n");
- 	return 0;
-@@ -544,6 +527,7 @@ static int __init brd_init(void)
- 		list_del(&brd->brd_list);
- 		brd_free(brd);
- 	}
-+	mutex_unlock(&brd_devices_mutex);
- 	unregister_blkdev(RAMDISK_MAJOR, "ramdisk");
+ 	idr_for_each(&loop_index_idr, &loop_exit_cb, NULL);
+ 	idr_destroy(&loop_index_idr);
  
- 	pr_info("brd: module NOT loaded !!!\n");
-@@ -557,7 +541,6 @@ static void __exit brd_exit(void)
- 	list_for_each_entry_safe(brd, next, &brd_devices, brd_list)
- 		brd_del_one(brd);
+-	blk_unregister_region(MKDEV(LOOP_MAJOR, 0), range);
+ 	unregister_blkdev(LOOP_MAJOR, "loop");
  
--	blk_unregister_region(MKDEV(RAMDISK_MAJOR, 0), 1UL << MINORBITS);
- 	unregister_blkdev(RAMDISK_MAJOR, "ramdisk");
- 
- 	pr_info("brd: module unloaded\n");
+ 	misc_deregister(&loop_misc);
 -- 
 2.29.2
 
