@@ -1,52 +1,52 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 7301B2B471B
-	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:00:36 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id DEEC52B472A
+	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:00:50 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-577-FTyNltujNE6CgGUs-wKSpA-1; Mon, 16 Nov 2020 10:00:32 -0500
-X-MC-Unique: FTyNltujNE6CgGUs-wKSpA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-596-wFpu4D0kOraa8CN4QibZ2w-1; Mon, 16 Nov 2020 10:00:29 -0500
+X-MC-Unique: wFpu4D0kOraa8CN4QibZ2w-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1147211BD376;
-	Mon, 16 Nov 2020 14:59:53 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F349211CC7E5;
+	Mon, 16 Nov 2020 14:59:54 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D4E095B4B6;
-	Mon, 16 Nov 2020 14:59:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CC01455774;
+	Mon, 16 Nov 2020 14:59:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8720758128;
-	Mon, 16 Nov 2020 14:59:52 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8246758122;
+	Mon, 16 Nov 2020 14:59:54 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AGExZdf015571 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 16 Nov 2020 09:59:35 -0500
+	id 0AGExapa015590 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 16 Nov 2020 09:59:36 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4DFA9110F726; Mon, 16 Nov 2020 14:59:35 +0000 (UTC)
+	id 6FC961002976; Mon, 16 Nov 2020 14:59:36 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4909E110F725
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 14:59:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6B831110F725
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 14:59:36 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 32604858296
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 14:59:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 53E3E858298
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 14:59:36 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-548-vY-jQP4lPi-otBFAJJ6OHA-1; Mon, 16 Nov 2020 09:59:32 -0500
-X-MC-Unique: vY-jQP4lPi-otBFAJJ6OHA-1
+	us-mta-456-Sv9XH1ZUOTmcwfNzFe8Zlw-1; Mon, 16 Nov 2020 09:59:34 -0500
+X-MC-Unique: Sv9XH1ZUOTmcwfNzFe8Zlw-1
 Received: from [2001:4bb8:180:6600:255b:7def:a93:4a09] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kefyY-00044s-Tr; Mon, 16 Nov 2020 14:59:27 +0000
+	id 1kefya-00045V-AA; Mon, 16 Nov 2020 14:59:28 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 16 Nov 2020 15:57:45 +0100
-Message-Id: <20201116145809.410558-55-hch@lst.de>
+Date: Mon, 16 Nov 2020 15:57:46 +0100
+Message-Id: <20201116145809.410558-56-hch@lst.de>
 In-Reply-To: <20201116145809.410558-1-hch@lst.de>
 References: <20201116145809.410558-1-hch@lst.de>
 MIME-Version: 1.0
@@ -77,8 +77,8 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 54/78] block: remove a duplicate __disk_get_part
-	prototype
+Subject: [dm-devel] [PATCH 55/78] block: change the hash used for looking up
+	block devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,7 +92,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -100,23 +100,64 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+Adding the minor to the major creates tons of pointless conflicts. Just
+use the dev_t itself, which is 32-bits and thus is guaranteed to fit
+into ino_t.
+
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- include/linux/genhd.h | 1 -
- 1 file changed, 1 deletion(-)
+ fs/block_dev.c | 26 ++------------------------
+ 1 file changed, 2 insertions(+), 24 deletions(-)
 
-diff --git a/include/linux/genhd.h b/include/linux/genhd.h
-index 46553d6d602563..22f5b9fd96f8bf 100644
---- a/include/linux/genhd.h
-+++ b/include/linux/genhd.h
-@@ -250,7 +250,6 @@ static inline dev_t part_devt(struct hd_struct *part)
- 	return part_to_dev(part)->devt;
+diff --git a/fs/block_dev.c b/fs/block_dev.c
+index d8664f5c1ff669..29db12c3bb501c 100644
+--- a/fs/block_dev.c
++++ b/fs/block_dev.c
+@@ -870,35 +870,12 @@ void __init bdev_cache_init(void)
+ 	blockdev_superblock = bd_mnt->mnt_sb;   /* For writeback */
  }
  
--extern struct hd_struct *__disk_get_part(struct gendisk *disk, int partno);
- extern struct hd_struct *disk_get_part(struct gendisk *disk, int partno);
+-/*
+- * Most likely _very_ bad one - but then it's hardly critical for small
+- * /dev and can be fixed when somebody will need really large one.
+- * Keep in mind that it will be fed through icache hash function too.
+- */
+-static inline unsigned long hash(dev_t dev)
+-{
+-	return MAJOR(dev)+MINOR(dev);
+-}
+-
+-static int bdev_test(struct inode *inode, void *data)
+-{
+-	return BDEV_I(inode)->bdev.bd_dev == *(dev_t *)data;
+-}
+-
+-static int bdev_set(struct inode *inode, void *data)
+-{
+-	BDEV_I(inode)->bdev.bd_dev = *(dev_t *)data;
+-	return 0;
+-}
+-
+ static struct block_device *bdget(dev_t dev)
+ {
+ 	struct block_device *bdev;
+ 	struct inode *inode;
  
- static inline void disk_put_part(struct hd_struct *part)
+-	inode = iget5_locked(blockdev_superblock, hash(dev),
+-			bdev_test, bdev_set, &dev);
+-
++	inode = iget_locked(blockdev_superblock, dev);
+ 	if (!inode)
+ 		return NULL;
+ 
+@@ -910,6 +887,7 @@ static struct block_device *bdget(dev_t dev)
+ 		bdev->bd_super = NULL;
+ 		bdev->bd_inode = inode;
+ 		bdev->bd_part_count = 0;
++		bdev->bd_dev = dev;
+ 		inode->i_mode = S_IFBLK;
+ 		inode->i_rdev = dev;
+ 		inode->i_bdev = bdev;
 -- 
 2.29.2
 
