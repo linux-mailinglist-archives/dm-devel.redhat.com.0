@@ -2,51 +2,51 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2F0F42B4716
-	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:00:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3C0252B471D
+	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:00:37 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-219-_K4zCGM9O3GvEC2kCMtFsw-1; Mon, 16 Nov 2020 10:00:15 -0500
-X-MC-Unique: _K4zCGM9O3GvEC2kCMtFsw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-151-crZLtOJFMsiQpuAMrKLC2g-1; Mon, 16 Nov 2020 10:00:25 -0500
+X-MC-Unique: crZLtOJFMsiQpuAMrKLC2g-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D3C29AE5F4;
-	Mon, 16 Nov 2020 14:59:46 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 23FC2884DEF;
+	Mon, 16 Nov 2020 14:59:51 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A84F81A3D6;
-	Mon, 16 Nov 2020 14:59:46 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F01AD1002D59;
+	Mon, 16 Nov 2020 14:59:50 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4CF6F183D021;
-	Mon, 16 Nov 2020 14:59:46 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9CD3A183D026;
+	Mon, 16 Nov 2020 14:59:50 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AGExU8K015528 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 16 Nov 2020 09:59:30 -0500
+	id 0AGExY99015559 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 16 Nov 2020 09:59:34 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8342C20182A5; Mon, 16 Nov 2020 14:59:30 +0000 (UTC)
+	id 03CCA2156A36; Mon, 16 Nov 2020 14:59:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7E8882011553
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 14:59:28 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F29D32156A34
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 14:59:33 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2043C90E428
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 14:59:28 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D4400185A7A2
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 14:59:33 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-304-FmNwdndiMD-x7ap3YTVw0w-1; Mon, 16 Nov 2020 09:59:25 -0500
-X-MC-Unique: FmNwdndiMD-x7ap3YTVw0w-1
+	us-mta-192-fZ_LJCz4NoiHftbqTHxqig-1; Mon, 16 Nov 2020 09:59:31 -0500
+X-MC-Unique: fZ_LJCz4NoiHftbqTHxqig-1
 Received: from [2001:4bb8:180:6600:255b:7def:a93:4a09] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kefyR-00041m-OS; Mon, 16 Nov 2020 14:59:20 +0000
+	id 1kefyS-00042Q-Vn; Mon, 16 Nov 2020 14:59:21 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 16 Nov 2020 15:57:40 +0100
-Message-Id: <20201116145809.410558-50-hch@lst.de>
+Date: Mon, 16 Nov 2020 15:57:41 +0100
+Message-Id: <20201116145809.410558-51-hch@lst.de>
 In-Reply-To: <20201116145809.410558-1-hch@lst.de>
 References: <20201116145809.410558-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
@@ -77,8 +77,7 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 49/78] ataflop: use a separate gendisk for each
-	media format
+Subject: [dm-devel] [PATCH 50/78] z2ram: reindent
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,7 +91,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -100,287 +99,616 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The Atari floppy driver usually autodetects the media when used with the
-ormal /dev/fd? devices, which also are the only nodes created by udev.
-But it also supports various aliases that force a given media format.
-That is currently supported using the blk_register_region framework
-which finds the floppy gendisk even for a 'mismatched' dev_t.  The
-problem with this (besides the code complexity) is that it creates
-multiple struct block_device instances for the whole device of a
-single gendisk, which can lead to interesting issues in code not
-aware of that fact.
-
-To fix this just create a separate gendisk for each of the aliases
-if they are accessed.
+reindent the driver using Lident as the code style was far away from
+normal Linux code.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Hannes Reinecke <hare@suse.de>
 ---
- drivers/block/ataflop.c | 135 +++++++++++++++++++++++++---------------
- 1 file changed, 86 insertions(+), 49 deletions(-)
+ drivers/block/z2ram.c | 493 ++++++++++++++++++++----------------------
+ 1 file changed, 236 insertions(+), 257 deletions(-)
 
-diff --git a/drivers/block/ataflop.c b/drivers/block/ataflop.c
-index 3e881fdb06e0ad..104b713f4055af 100644
---- a/drivers/block/ataflop.c
-+++ b/drivers/block/ataflop.c
-@@ -297,7 +297,7 @@ static struct atari_floppy_struct {
- 	unsigned int wpstat;	/* current state of WP signal (for
- 				   disk change detection) */
- 	int flags;		/* flags */
--	struct gendisk *disk;
-+	struct gendisk *disk[NUM_DISK_MINORS];
- 	int ref;
- 	int type;
- 	struct blk_mq_tag_set tag_set;
-@@ -723,12 +723,16 @@ static void fd_error( void )
+diff --git a/drivers/block/z2ram.c b/drivers/block/z2ram.c
+index 0e734802ee7cc6..eafecc9a72b38d 100644
+--- a/drivers/block/z2ram.c
++++ b/drivers/block/z2ram.c
+@@ -42,7 +42,6 @@
  
- static int do_format(int drive, int type, struct atari_format_descr *desc)
+ #include <linux/zorro.h>
+ 
+-
+ #define Z2MINOR_COMBINED      (0)
+ #define Z2MINOR_Z2ONLY        (1)
+ #define Z2MINOR_CHIPONLY      (2)
+@@ -50,17 +49,17 @@
+ #define Z2MINOR_MEMLIST2      (5)
+ #define Z2MINOR_MEMLIST3      (6)
+ #define Z2MINOR_MEMLIST4      (7)
+-#define Z2MINOR_COUNT         (8) /* Move this down when adding a new minor */
++#define Z2MINOR_COUNT         (8)	/* Move this down when adding a new minor */
+ 
+ #define Z2RAM_CHUNK1024       ( Z2RAM_CHUNKSIZE >> 10 )
+ 
+ static DEFINE_MUTEX(z2ram_mutex);
+-static u_long *z2ram_map    = NULL;
+-static u_long z2ram_size    = 0;
+-static int z2_count         = 0;
+-static int chip_count       = 0;
+-static int list_count       = 0;
+-static int current_device   = -1;
++static u_long *z2ram_map = NULL;
++static u_long z2ram_size = 0;
++static int z2_count = 0;
++static int chip_count = 0;
++static int list_count = 0;
++static int current_device = -1;
+ 
+ static DEFINE_SPINLOCK(z2ram_lock);
+ 
+@@ -71,7 +70,7 @@ static blk_status_t z2_queue_rq(struct blk_mq_hw_ctx *hctx,
  {
--	struct request_queue *q = unit[drive].disk->queue;
-+	struct request_queue *q;
- 	unsigned char	*p;
- 	int sect, nsect;
- 	unsigned long	flags;
- 	int ret;
+ 	struct request *req = bd->rq;
+ 	unsigned long start = blk_rq_pos(req) << 9;
+-	unsigned long len  = blk_rq_cur_bytes(req);
++	unsigned long len = blk_rq_cur_bytes(req);
  
-+	if (type)
-+		type--;
+ 	blk_mq_start_request(req);
+ 
+@@ -92,7 +91,7 @@ static blk_status_t z2_queue_rq(struct blk_mq_hw_ctx *hctx,
+ 
+ 		if (len < size)
+ 			size = len;
+-		addr += z2ram_map[ start >> Z2RAM_CHUNKSHIFT ];
++		addr += z2ram_map[start >> Z2RAM_CHUNKSHIFT];
+ 		if (rq_data_dir(req) == READ)
+ 			memcpy(buffer, (char *)addr, size);
+ 		else
+@@ -106,228 +105,214 @@ static blk_status_t z2_queue_rq(struct blk_mq_hw_ctx *hctx,
+ 	return BLK_STS_OK;
+ }
+ 
+-static void
+-get_z2ram( void )
++static void get_z2ram(void)
+ {
+-    int i;
+-
+-    for ( i = 0; i < Z2RAM_SIZE / Z2RAM_CHUNKSIZE; i++ )
+-    {
+-	if ( test_bit( i, zorro_unused_z2ram ) )
+-	{
+-	    z2_count++;
+-	    z2ram_map[z2ram_size++] = (unsigned long)ZTWO_VADDR(Z2RAM_START) +
+-				      (i << Z2RAM_CHUNKSHIFT);
+-	    clear_bit( i, zorro_unused_z2ram );
++	int i;
 +
-+	q = unit[drive].disk[type]->queue;
- 	blk_mq_freeze_queue(q);
- 	blk_mq_quiesce_queue(q);
++	for (i = 0; i < Z2RAM_SIZE / Z2RAM_CHUNKSIZE; i++) {
++		if (test_bit(i, zorro_unused_z2ram)) {
++			z2_count++;
++			z2ram_map[z2ram_size++] =
++			    (unsigned long)ZTWO_VADDR(Z2RAM_START) +
++			    (i << Z2RAM_CHUNKSHIFT);
++			clear_bit(i, zorro_unused_z2ram);
++		}
+ 	}
+-    }
  
-@@ -738,7 +742,7 @@ static int do_format(int drive, int type, struct atari_format_descr *desc)
- 	local_irq_restore(flags);
+-    return;
++	return;
+ }
  
- 	if (type) {
--		if (--type >= NUM_DISK_MINORS ||
-+		if (type >= NUM_DISK_MINORS ||
- 		    minor2disktype[type].drive_types > DriveType) {
- 			ret = -EINVAL;
- 			goto out;
-@@ -1154,7 +1158,7 @@ static void fd_rwsec_done1(int status)
- 			    if (SUDT[-1].blocks > ReqBlock) {
- 				/* try another disk type */
- 				SUDT--;
--				set_capacity(unit[SelectedDrive].disk,
-+				set_capacity(unit[SelectedDrive].disk[0],
- 							SUDT->blocks);
- 			    } else
- 				Probing = 0;
-@@ -1169,7 +1173,7 @@ static void fd_rwsec_done1(int status)
- /* record not found, but not probing. Maybe stretch wrong ? Restart probing */
- 			if (SUD.autoprobe) {
- 				SUDT = atari_disk_type + StartDiskType[DriveType];
--				set_capacity(unit[SelectedDrive].disk,
-+				set_capacity(unit[SelectedDrive].disk[0],
- 							SUDT->blocks);
- 				Probing = 1;
- 			}
-@@ -1515,7 +1519,7 @@ static blk_status_t ataflop_queue_rq(struct blk_mq_hw_ctx *hctx,
- 		if (!UDT) {
- 			Probing = 1;
- 			UDT = atari_disk_type + StartDiskType[DriveType];
--			set_capacity(floppy->disk, UDT->blocks);
-+			set_capacity(bd->rq->rq_disk, UDT->blocks);
- 			UD.autoprobe = 1;
- 		}
- 	} 
-@@ -1533,7 +1537,7 @@ static blk_status_t ataflop_queue_rq(struct blk_mq_hw_ctx *hctx,
- 		}
- 		type = minor2disktype[type].index;
- 		UDT = &atari_disk_type[type];
--		set_capacity(floppy->disk, UDT->blocks);
-+		set_capacity(bd->rq->rq_disk, UDT->blocks);
- 		UD.autoprobe = 0;
+-static void
+-get_chipram( void )
++static void get_chipram(void)
+ {
+ 
+-    while ( amiga_chip_avail() > ( Z2RAM_CHUNKSIZE * 4 ) )
+-    {
+-	chip_count++;
+-	z2ram_map[ z2ram_size ] =
+-	    (u_long)amiga_chip_alloc( Z2RAM_CHUNKSIZE, "z2ram" );
++	while (amiga_chip_avail() > (Z2RAM_CHUNKSIZE * 4)) {
++		chip_count++;
++		z2ram_map[z2ram_size] =
++		    (u_long) amiga_chip_alloc(Z2RAM_CHUNKSIZE, "z2ram");
+ 
+-	if ( z2ram_map[ z2ram_size ] == 0 )
+-	{
+-	    break;
++		if (z2ram_map[z2ram_size] == 0) {
++			break;
++		}
++
++		z2ram_size++;
  	}
  
-@@ -1658,7 +1662,7 @@ static int fd_locked_ioctl(struct block_device *bdev, fmode_t mode,
- 				    printk (KERN_INFO "floppy%d: setting %s %p!\n",
- 				        drive, dtp->name, dtp);
- 				UDT = dtp;
--				set_capacity(floppy->disk, UDT->blocks);
-+				set_capacity(disk, UDT->blocks);
+-	z2ram_size++;
+-    }
+-	
+-    return;
++	return;
+ }
  
- 				if (cmd == FDDEFPRM) {
- 				  /* save settings as permanent default type */
-@@ -1702,7 +1706,7 @@ static int fd_locked_ioctl(struct block_device *bdev, fmode_t mode,
- 			return -EINVAL;
+ static int z2_open(struct block_device *bdev, fmode_t mode)
+ {
+-    int device;
+-    int max_z2_map = ( Z2RAM_SIZE / Z2RAM_CHUNKSIZE ) *
+-	sizeof( z2ram_map[0] );
+-    int max_chip_map = ( amiga_chip_size / Z2RAM_CHUNKSIZE ) *
+-	sizeof( z2ram_map[0] );
+-    int rc = -ENOMEM;
+-
+-    device = MINOR(bdev->bd_dev);
+-
+-    mutex_lock(&z2ram_mutex);
+-    if ( current_device != -1 && current_device != device )
+-    {
+-	rc = -EBUSY;
+-	goto err_out;
+-    }
+-
+-    if ( current_device == -1 )
+-    {
+-	z2_count   = 0;
+-	chip_count = 0;
+-	list_count = 0;
+-	z2ram_size = 0;
+-
+-	/* Use a specific list entry. */
+-	if (device >= Z2MINOR_MEMLIST1 && device <= Z2MINOR_MEMLIST4) {
+-		int index = device - Z2MINOR_MEMLIST1 + 1;
+-		unsigned long size, paddr, vaddr;
+-
+-		if (index >= m68k_realnum_memory) {
+-			printk( KERN_ERR DEVICE_NAME
+-				": no such entry in z2ram_map\n" );
+-		        goto err_out;
+-		}
+-
+-		paddr = m68k_memory[index].addr;
+-		size = m68k_memory[index].size & ~(Z2RAM_CHUNKSIZE-1);
+-
+-#ifdef __powerpc__
+-		/* FIXME: ioremap doesn't build correct memory tables. */
+-		{
+-			vfree(vmalloc (size));
+-		}
++	int device;
++	int max_z2_map = (Z2RAM_SIZE / Z2RAM_CHUNKSIZE) * sizeof(z2ram_map[0]);
++	int max_chip_map = (amiga_chip_size / Z2RAM_CHUNKSIZE) *
++	    sizeof(z2ram_map[0]);
++	int rc = -ENOMEM;
  
- 		UDT = dtp;
--		set_capacity(floppy->disk, UDT->blocks);
-+		set_capacity(disk, UDT->blocks);
+-		vaddr = (unsigned long)ioremap_wt(paddr, size);
++	device = MINOR(bdev->bd_dev);
  
- 		return 0;
- 	case FDMSGON:
-@@ -1725,7 +1729,7 @@ static int fd_locked_ioctl(struct block_device *bdev, fmode_t mode,
- 		UDT = NULL;
- 		/* MSch: invalidate default_params */
- 		default_params[drive].blocks  = 0;
--		set_capacity(floppy->disk, MAX_DISK_SIZE * 2);
-+		set_capacity(disk, MAX_DISK_SIZE * 2);
- 		fallthrough;
- 	case FDFMTEND:
- 	case FDFLUSH:
-@@ -1962,14 +1966,50 @@ static const struct blk_mq_ops ataflop_mq_ops = {
- 	.commit_rqs = ataflop_commit_rqs,
+-#else
+-		vaddr = (unsigned long)z_remap_nocache_nonser(paddr, size);
+-#endif
+-		z2ram_map = 
+-			kmalloc_array(size / Z2RAM_CHUNKSIZE,
+-                                      sizeof(z2ram_map[0]),
+-                                      GFP_KERNEL);
+-		if ( z2ram_map == NULL )
+-		{
+-		    printk( KERN_ERR DEVICE_NAME
+-			": cannot get mem for z2ram_map\n" );
+-		    goto err_out;
+-		}
++	mutex_lock(&z2ram_mutex);
++	if (current_device != -1 && current_device != device) {
++		rc = -EBUSY;
++		goto err_out;
++	}
+ 
+-		while (size) {
+-			z2ram_map[ z2ram_size++ ] = vaddr;
+-			size -= Z2RAM_CHUNKSIZE;
+-			vaddr += Z2RAM_CHUNKSIZE;
+-			list_count++;
+-		}
++	if (current_device == -1) {
++		z2_count = 0;
++		chip_count = 0;
++		list_count = 0;
++		z2ram_size = 0;
+ 
+-		if ( z2ram_size != 0 )
+-		    printk( KERN_INFO DEVICE_NAME
+-			": using %iK List Entry %d Memory\n",
+-			list_count * Z2RAM_CHUNK1024, index );
+-	} else
+-
+-	switch ( device )
+-	{
+-	    case Z2MINOR_COMBINED:
+-
+-		z2ram_map = kmalloc( max_z2_map + max_chip_map, GFP_KERNEL );
+-		if ( z2ram_map == NULL )
+-		{
+-		    printk( KERN_ERR DEVICE_NAME
+-			": cannot get mem for z2ram_map\n" );
+-		    goto err_out;
+-		}
++		/* Use a specific list entry. */
++		if (device >= Z2MINOR_MEMLIST1 && device <= Z2MINOR_MEMLIST4) {
++			int index = device - Z2MINOR_MEMLIST1 + 1;
++			unsigned long size, paddr, vaddr;
+ 
+-		get_z2ram();
+-		get_chipram();
+-
+-		if ( z2ram_size != 0 )
+-		    printk( KERN_INFO DEVICE_NAME 
+-			": using %iK Zorro II RAM and %iK Chip RAM (Total %dK)\n",
+-			z2_count * Z2RAM_CHUNK1024,
+-			chip_count * Z2RAM_CHUNK1024,
+-			( z2_count + chip_count ) * Z2RAM_CHUNK1024 );
+-
+-	    break;
+-
+-    	    case Z2MINOR_Z2ONLY:
+-		z2ram_map = kmalloc( max_z2_map, GFP_KERNEL );
+-		if ( z2ram_map == NULL )
+-		{
+-		    printk( KERN_ERR DEVICE_NAME
+-			": cannot get mem for z2ram_map\n" );
+-		    goto err_out;
+-		}
++			if (index >= m68k_realnum_memory) {
++				printk(KERN_ERR DEVICE_NAME
++				       ": no such entry in z2ram_map\n");
++				goto err_out;
++			}
+ 
+-		get_z2ram();
++			paddr = m68k_memory[index].addr;
++			size = m68k_memory[index].size & ~(Z2RAM_CHUNKSIZE - 1);
+ 
+-		if ( z2ram_size != 0 )
+-		    printk( KERN_INFO DEVICE_NAME 
+-			": using %iK of Zorro II RAM\n",
+-			z2_count * Z2RAM_CHUNK1024 );
++#ifdef __powerpc__
++			/* FIXME: ioremap doesn't build correct memory tables. */
++			{
++				vfree(vmalloc(size));
++			}
+ 
+-	    break;
++			vaddr = (unsigned long)ioremap_wt(paddr, size);
+ 
+-	    case Z2MINOR_CHIPONLY:
+-		z2ram_map = kmalloc( max_chip_map, GFP_KERNEL );
+-		if ( z2ram_map == NULL )
+-		{
+-		    printk( KERN_ERR DEVICE_NAME
+-			": cannot get mem for z2ram_map\n" );
+-		    goto err_out;
++#else
++			vaddr =
++			    (unsigned long)z_remap_nocache_nonser(paddr, size);
++#endif
++			z2ram_map =
++			    kmalloc_array(size / Z2RAM_CHUNKSIZE,
++					  sizeof(z2ram_map[0]), GFP_KERNEL);
++			if (z2ram_map == NULL) {
++				printk(KERN_ERR DEVICE_NAME
++				       ": cannot get mem for z2ram_map\n");
++				goto err_out;
++			}
++
++			while (size) {
++				z2ram_map[z2ram_size++] = vaddr;
++				size -= Z2RAM_CHUNKSIZE;
++				vaddr += Z2RAM_CHUNKSIZE;
++				list_count++;
++			}
++
++			if (z2ram_size != 0)
++				printk(KERN_INFO DEVICE_NAME
++				       ": using %iK List Entry %d Memory\n",
++				       list_count * Z2RAM_CHUNK1024, index);
++		} else
++			switch (device) {
++			case Z2MINOR_COMBINED:
++
++				z2ram_map =
++				    kmalloc(max_z2_map + max_chip_map,
++					    GFP_KERNEL);
++				if (z2ram_map == NULL) {
++					printk(KERN_ERR DEVICE_NAME
++					       ": cannot get mem for z2ram_map\n");
++					goto err_out;
++				}
++
++				get_z2ram();
++				get_chipram();
++
++				if (z2ram_size != 0)
++					printk(KERN_INFO DEVICE_NAME
++					       ": using %iK Zorro II RAM and %iK Chip RAM (Total %dK)\n",
++					       z2_count * Z2RAM_CHUNK1024,
++					       chip_count * Z2RAM_CHUNK1024,
++					       (z2_count +
++						chip_count) * Z2RAM_CHUNK1024);
++
++				break;
++
++			case Z2MINOR_Z2ONLY:
++				z2ram_map = kmalloc(max_z2_map, GFP_KERNEL);
++				if (z2ram_map == NULL) {
++					printk(KERN_ERR DEVICE_NAME
++					       ": cannot get mem for z2ram_map\n");
++					goto err_out;
++				}
++
++				get_z2ram();
++
++				if (z2ram_size != 0)
++					printk(KERN_INFO DEVICE_NAME
++					       ": using %iK of Zorro II RAM\n",
++					       z2_count * Z2RAM_CHUNK1024);
++
++				break;
++
++			case Z2MINOR_CHIPONLY:
++				z2ram_map = kmalloc(max_chip_map, GFP_KERNEL);
++				if (z2ram_map == NULL) {
++					printk(KERN_ERR DEVICE_NAME
++					       ": cannot get mem for z2ram_map\n");
++					goto err_out;
++				}
++
++				get_chipram();
++
++				if (z2ram_size != 0)
++					printk(KERN_INFO DEVICE_NAME
++					       ": using %iK Chip RAM\n",
++					       chip_count * Z2RAM_CHUNK1024);
++
++				break;
++
++			default:
++				rc = -ENODEV;
++				goto err_out;
++
++				break;
++			}
++
++		if (z2ram_size == 0) {
++			printk(KERN_NOTICE DEVICE_NAME
++			       ": no unused ZII/Chip RAM found\n");
++			goto err_out_kfree;
+ 		}
+ 
+-		get_chipram();
+-
+-		if ( z2ram_size != 0 )
+-		    printk( KERN_INFO DEVICE_NAME 
+-			": using %iK Chip RAM\n",
+-			chip_count * Z2RAM_CHUNK1024 );
+-		    
+-	    break;
+-
+-	    default:
+-		rc = -ENODEV;
+-		goto err_out;
+-	
+-	    break;
++		current_device = device;
++		z2ram_size <<= Z2RAM_CHUNKSHIFT;
++		set_capacity(z2ram_gendisk, z2ram_size >> 9);
+ 	}
+ 
+-	if ( z2ram_size == 0 )
+-	{
+-	    printk( KERN_NOTICE DEVICE_NAME
+-		": no unused ZII/Chip RAM found\n" );
+-	    goto err_out_kfree;
+-	}
+-
+-	current_device = device;
+-	z2ram_size <<= Z2RAM_CHUNKSHIFT;
+-	set_capacity(z2ram_gendisk, z2ram_size >> 9);
+-    }
+-
+-    mutex_unlock(&z2ram_mutex);
+-    return 0;
++	mutex_unlock(&z2ram_mutex);
++	return 0;
+ 
+ err_out_kfree:
+-    kfree(z2ram_map);
++	kfree(z2ram_map);
+ err_out:
+-    mutex_unlock(&z2ram_mutex);
+-    return rc;
++	mutex_unlock(&z2ram_mutex);
++	return rc;
+ }
+ 
+-static void
+-z2_release(struct gendisk *disk, fmode_t mode)
++static void z2_release(struct gendisk *disk, fmode_t mode)
+ {
+-    mutex_lock(&z2ram_mutex);
+-    if ( current_device == -1 ) {
+-    	mutex_unlock(&z2ram_mutex);
+-    	return;
+-    }
+-    mutex_unlock(&z2ram_mutex);
+-    /*
+-     * FIXME: unmap memory
+-     */
++	mutex_lock(&z2ram_mutex);
++	if (current_device == -1) {
++		mutex_unlock(&z2ram_mutex);
++		return;
++	}
++	mutex_unlock(&z2ram_mutex);
++	/*
++	 * FIXME: unmap memory
++	 */
+ }
+ 
+-static const struct block_device_operations z2_fops =
+-{
+-	.owner		= THIS_MODULE,
+-	.open		= z2_open,
+-	.release	= z2_release,
++static const struct block_device_operations z2_fops = {
++	.owner = THIS_MODULE,
++	.open = z2_open,
++	.release = z2_release,
  };
  
--static struct kobject *floppy_find(dev_t dev, int *part, void *data)
-+static int ataflop_alloc_disk(unsigned int drive, unsigned int type)
+ static struct kobject *z2_find(dev_t dev, int *part, void *data)
+@@ -340,89 +325,83 @@ static struct request_queue *z2_queue;
+ static struct blk_mq_tag_set tag_set;
+ 
+ static const struct blk_mq_ops z2_mq_ops = {
+-	.queue_rq	= z2_queue_rq,
++	.queue_rq = z2_queue_rq,
+ };
+ 
+-static int __init 
+-z2_init(void)
++static int __init z2_init(void)
  {
--	int drive = *part & 3;
--	int type  = *part >> 2;
-+	struct gendisk *disk;
+-    int ret;
 +	int ret;
-+
-+	disk = alloc_disk(1);
-+	if (!disk)
-+		return -ENOMEM;
-+
-+	disk->queue = blk_mq_init_queue(&unit[drive].tag_set);
-+	if (IS_ERR(disk->queue)) {
-+		ret = PTR_ERR(disk->queue);
-+		disk->queue = NULL;
-+		put_disk(disk);
-+		return ret;
+ 
+-    if (!MACH_IS_AMIGA)
+-	return -ENODEV;
++	if (!MACH_IS_AMIGA)
++		return -ENODEV;
+ 
+-    ret = -EBUSY;
+-    if (register_blkdev(Z2RAM_MAJOR, DEVICE_NAME))
+-	goto err;
++	ret = -EBUSY;
++	if (register_blkdev(Z2RAM_MAJOR, DEVICE_NAME))
++		goto err;
+ 
+-    ret = -ENOMEM;
+-    z2ram_gendisk = alloc_disk(1);
+-    if (!z2ram_gendisk)
+-	goto out_disk;
++	ret = -ENOMEM;
++	z2ram_gendisk = alloc_disk(1);
++	if (!z2ram_gendisk)
++		goto out_disk;
+ 
+-    z2_queue = blk_mq_init_sq_queue(&tag_set, &z2_mq_ops, 16,
++	z2_queue = blk_mq_init_sq_queue(&tag_set, &z2_mq_ops, 16,
+ 					BLK_MQ_F_SHOULD_MERGE);
+-    if (IS_ERR(z2_queue)) {
+-	ret = PTR_ERR(z2_queue);
+-	z2_queue = NULL;
+-	goto out_queue;
+-    }
++	if (IS_ERR(z2_queue)) {
++		ret = PTR_ERR(z2_queue);
++		z2_queue = NULL;
++		goto out_queue;
 +	}
-+
-+	disk->major = FLOPPY_MAJOR;
-+	disk->first_minor = drive + (type << 2);
-+	sprintf(disk->disk_name, "fd%d", drive);
-+	disk->fops = &floppy_fops;
-+	disk->events = DISK_EVENT_MEDIA_CHANGE;
-+	disk->private_data = &unit[drive];
-+	set_capacity(disk, MAX_DISK_SIZE * 2);
-+
-+	unit[drive].disk[type] = disk;
+ 
+-    z2ram_gendisk->major = Z2RAM_MAJOR;
+-    z2ram_gendisk->first_minor = 0;
+-    z2ram_gendisk->fops = &z2_fops;
+-    sprintf(z2ram_gendisk->disk_name, "z2ram");
++	z2ram_gendisk->major = Z2RAM_MAJOR;
++	z2ram_gendisk->first_minor = 0;
++	z2ram_gendisk->fops = &z2_fops;
++	sprintf(z2ram_gendisk->disk_name, "z2ram");
+ 
+-    z2ram_gendisk->queue = z2_queue;
+-    add_disk(z2ram_gendisk);
+-    blk_register_region(MKDEV(Z2RAM_MAJOR, 0), Z2MINOR_COUNT, THIS_MODULE,
+-				z2_find, NULL, NULL);
++	z2ram_gendisk->queue = z2_queue;
++	add_disk(z2ram_gendisk);
++	blk_register_region(MKDEV(Z2RAM_MAJOR, 0), Z2MINOR_COUNT, THIS_MODULE,
++			    z2_find, NULL, NULL);
+ 
+-    return 0;
 +	return 0;
-+}
-+
-+static DEFINE_MUTEX(ataflop_probe_lock);
-+
-+static void ataflop_probe(dev_t dev)
-+{
-+	int drive = MINOR(dev) & 3;
-+	int type  = MINOR(dev) >> 2;
-+
- 	if (drive >= FD_MAX_UNITS || type > NUM_DISK_MINORS)
--		return NULL;
--	*part = 0;
--	return get_disk_and_module(unit[drive].disk);
-+		return;
-+	mutex_lock(&ataflop_probe_lock);
-+	if (!unit[drive].disk[type]) {
-+		if (ataflop_alloc_disk(drive, type) == 0)
-+			add_disk(unit[drive].disk[type]);
-+	}
-+	mutex_unlock(&ataflop_probe_lock);
- }
  
- static int __init atari_floppy_init (void)
-@@ -1981,23 +2021,26 @@ static int __init atari_floppy_init (void)
- 		/* Amiga, Mac, ... don't have Atari-compatible floppy :-) */
- 		return -ENODEV;
- 
--	if (register_blkdev(FLOPPY_MAJOR,"fd"))
--		return -EBUSY;
-+	mutex_lock(&ataflop_probe_lock);
-+	ret = __register_blkdev(FLOPPY_MAJOR, "fd", ataflop_probe);
-+	if (ret)
-+		goto out_unlock;
- 
- 	for (i = 0; i < FD_MAX_UNITS; i++) {
--		unit[i].disk = alloc_disk(1);
--		if (!unit[i].disk) {
--			ret = -ENOMEM;
-+		memset(&unit[i].tag_set, 0, sizeof(unit[i].tag_set));
-+		unit[i].tag_set.ops = &ataflop_mq_ops;
-+		unit[i].tag_set.nr_hw_queues = 1;
-+		unit[i].tag_set.nr_maps = 1;
-+		unit[i].tag_set.queue_depth = 2;
-+		unit[i].tag_set.numa_node = NUMA_NO_NODE;
-+		unit[i].tag_set.flags = BLK_MQ_F_SHOULD_MERGE;
-+		ret = blk_mq_alloc_tag_set(&unit[i].tag_set);
-+		if (ret)
- 			goto err;
--		}
- 
--		unit[i].disk->queue = blk_mq_init_sq_queue(&unit[i].tag_set,
--							   &ataflop_mq_ops, 2,
--							   BLK_MQ_F_SHOULD_MERGE);
--		if (IS_ERR(unit[i].disk->queue)) {
--			put_disk(unit[i].disk);
--			ret = PTR_ERR(unit[i].disk->queue);
--			unit[i].disk->queue = NULL;
-+		ret = ataflop_alloc_disk(i, 0);
-+		if (ret) {
-+			blk_mq_free_tag_set(&unit[i].tag_set);
- 			goto err;
- 		}
- 	}
-@@ -2027,19 +2070,9 @@ static int __init atari_floppy_init (void)
- 	for (i = 0; i < FD_MAX_UNITS; i++) {
- 		unit[i].track = -1;
- 		unit[i].flags = 0;
--		unit[i].disk->major = FLOPPY_MAJOR;
--		unit[i].disk->first_minor = i;
--		sprintf(unit[i].disk->disk_name, "fd%d", i);
--		unit[i].disk->fops = &floppy_fops;
--		unit[i].disk->events = DISK_EVENT_MEDIA_CHANGE;
--		unit[i].disk->private_data = &unit[i];
--		set_capacity(unit[i].disk, MAX_DISK_SIZE * 2);
--		add_disk(unit[i].disk);
-+		add_disk(unit[i].disk[0]);
- 	}
- 
--	blk_register_region(MKDEV(FLOPPY_MAJOR, 0), 256, THIS_MODULE,
--				floppy_find, NULL, NULL);
--
- 	printk(KERN_INFO "Atari floppy driver: max. %cD, %strack buffering\n",
- 	       DriveType == 0 ? 'D' : DriveType == 1 ? 'H' : 'E',
- 	       UseTrackbuffer ? "" : "no ");
-@@ -2049,14 +2082,14 @@ static int __init atari_floppy_init (void)
- 
+ out_queue:
+-    put_disk(z2ram_gendisk);
++	put_disk(z2ram_gendisk);
+ out_disk:
+-    unregister_blkdev(Z2RAM_MAJOR, DEVICE_NAME);
++	unregister_blkdev(Z2RAM_MAJOR, DEVICE_NAME);
  err:
- 	while (--i >= 0) {
--		struct gendisk *disk = unit[i].disk;
--
--		blk_cleanup_queue(disk->queue);
-+		blk_cleanup_queue(unit[i].disk[0]->queue);
-+		put_disk(unit[i].disk[0]);
- 		blk_mq_free_tag_set(&unit[i].tag_set);
--		put_disk(unit[i].disk);
- 	}
- 
- 	unregister_blkdev(FLOPPY_MAJOR, "fd");
-+out_unlock:
-+	mutex_unlock(&ataflop_probe_lock);
- 	return ret;
+-    return ret;
++	return ret;
  }
  
-@@ -2101,13 +2134,17 @@ __setup("floppy=", atari_floppy_setup);
- 
- static void __exit atari_floppy_exit(void)
+ static void __exit z2_exit(void)
  {
--	int i;
--	blk_unregister_region(MKDEV(FLOPPY_MAJOR, 0), 256);
-+	int i, type;
+-    int i, j;
+-    blk_unregister_region(MKDEV(Z2RAM_MAJOR, 0), Z2MINOR_COUNT);
+-    unregister_blkdev(Z2RAM_MAJOR, DEVICE_NAME);
+-    del_gendisk(z2ram_gendisk);
+-    put_disk(z2ram_gendisk);
+-    blk_cleanup_queue(z2_queue);
+-    blk_mq_free_tag_set(&tag_set);
+-
+-    if ( current_device != -1 )
+-    {
+-	i = 0;
+-
+-	for ( j = 0 ; j < z2_count; j++ )
+-	{
+-	    set_bit( i++, zorro_unused_z2ram ); 
+-	}
++	int i, j;
++	blk_unregister_region(MKDEV(Z2RAM_MAJOR, 0), Z2MINOR_COUNT);
++	unregister_blkdev(Z2RAM_MAJOR, DEVICE_NAME);
++	del_gendisk(z2ram_gendisk);
++	put_disk(z2ram_gendisk);
++	blk_cleanup_queue(z2_queue);
++	blk_mq_free_tag_set(&tag_set);
 +
- 	for (i = 0; i < FD_MAX_UNITS; i++) {
--		del_gendisk(unit[i].disk);
--		blk_cleanup_queue(unit[i].disk->queue);
-+		for (type = 0; type < NUM_DISK_MINORS; type++) {
-+			if (!unit[i].disk[type])
-+				continue;
-+			del_gendisk(unit[i].disk[type]);
-+			blk_cleanup_queue(unit[i].disk[type]->queue);
-+			put_disk(unit[i].disk[type]);
++	if (current_device != -1) {
++		i = 0;
++
++		for (j = 0; j < z2_count; j++) {
++			set_bit(i++, zorro_unused_z2ram);
 +		}
- 		blk_mq_free_tag_set(&unit[i].tag_set);
--		put_disk(unit[i].disk);
- 	}
- 	unregister_blkdev(FLOPPY_MAJOR, "fd");
  
+-	for ( j = 0 ; j < chip_count; j++ )
+-	{
+-	    if ( z2ram_map[ i ] )
+-	    {
+-		amiga_chip_free( (void *) z2ram_map[ i++ ] );
+-	    }
+-	}
++		for (j = 0; j < chip_count; j++) {
++			if (z2ram_map[i]) {
++				amiga_chip_free((void *)z2ram_map[i++]);
++			}
++		}
+ 
+-	if ( z2ram_map != NULL )
+-	{
+-	    kfree( z2ram_map );
++		if (z2ram_map != NULL) {
++			kfree(z2ram_map);
++		}
+ 	}
+-    }
+ 
+-    return;
+-} 
++	return;
++}
+ 
+ module_init(z2_init);
+ module_exit(z2_exit);
 -- 
 2.29.2
 
