@@ -2,51 +2,52 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 71A492B76E7
-	for <lists+dm-devel@lfdr.de>; Wed, 18 Nov 2020 08:29:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A441E2B76F1
+	for <lists+dm-devel@lfdr.de>; Wed, 18 Nov 2020 08:30:09 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-153-zoOMvhpJPuyn_27AsIXu4w-1; Wed, 18 Nov 2020 02:29:40 -0500
-X-MC-Unique: zoOMvhpJPuyn_27AsIXu4w-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-284-_YJeFswXP5Sml15Jo-96mg-1; Wed, 18 Nov 2020 02:29:50 -0500
+X-MC-Unique: _YJeFswXP5Sml15Jo-96mg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 314295F9D1;
-	Wed, 18 Nov 2020 07:29:35 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 41C935F9EB;
+	Wed, 18 Nov 2020 07:29:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 099B35D707;
-	Wed, 18 Nov 2020 07:29:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D75A1002C00;
+	Wed, 18 Nov 2020 07:29:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3F9719977;
-	Wed, 18 Nov 2020 07:29:34 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CDF5C5813D;
+	Wed, 18 Nov 2020 07:29:44 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AGF6D3G018084 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 16 Nov 2020 10:06:13 -0500
+	id 0AGF7t4e018555 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 16 Nov 2020 10:07:55 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 55E206FA7A; Mon, 16 Nov 2020 15:06:13 +0000 (UTC)
+	id 305ED2156A37; Mon, 16 Nov 2020 15:07:55 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 50A796FA78
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:06:13 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B3D62156A36
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:07:55 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 375A7102F1EC
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:06:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 125D9858298
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:07:55 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-374-gmlQHtu_MWeQlyxOlRDrZg-1; Mon, 16 Nov 2020 10:06:08 -0500
-X-MC-Unique: gmlQHtu_MWeQlyxOlRDrZg-1
+	us-mta-562-muIfiC5aOvWc0qY2u_hmZQ-1; Mon, 16 Nov 2020 10:07:14 -0500
+X-MC-Unique: muIfiC5aOvWc0qY2u_hmZQ-1
 Received: from [2001:4bb8:180:6600:255b:7def:a93:4a09] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kefxQ-0003jM-O4; Mon, 16 Nov 2020 14:58:17 +0000
+	id 1kefxX-0003lT-Gv; Mon, 16 Nov 2020 14:58:23 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 16 Nov 2020 15:56:56 +0100
-Message-Id: <20201116145809.410558-6-hch@lst.de>
+Date: Mon, 16 Nov 2020 15:57:01 +0100
+Message-Id: <20201116145809.410558-11-hch@lst.de>
 In-Reply-To: <20201116145809.410558-1-hch@lst.de>
 References: <20201116145809.410558-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,7 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 18 Nov 2020 02:29:13 -0500
 Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
@@ -71,15 +72,14 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Ilya Dryomov <idryomov@gmail.com>, Jack Wang <jinpu.wang@cloud.ionos.com>,
 	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
 	Josef Bacik <josef@toxicpanda.com>, nbd@other.debian.org,
-	linux-raid@vger.kernel.org, Petr Vorel <pvorel@suse.cz>,
+	linux-raid@vger.kernel.org,
 	Stefan Hajnoczi <stefanha@redhat.com>, drbd-dev@tron.linbit.com,
 	ceph-devel@vger.kernel.org, linux-block@vger.kernel.org,
 	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 05/78] block: remove the update_bdev parameter to
-	set_capacity_revalidate_and_notify
+Subject: [dm-devel] [PATCH 10/78] nbd: use set_capacity_and_notify
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,7 +93,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -101,149 +101,50 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The update_bdev argument is always set to true, so remove it.  Also
-rename the function to the slighly less verbose set_capacity_and_notify,
-as propagating the disk size to the block device isn't really
-revalidation.
+Use set_capacity_and_notify to update the disk and block device sizes and
+send a RESIZE uevent to userspace.  Note that blktests relies on uevents
+being sent also for updates that did not change the device size, so the
+explicit kobject_uevent remains for that case.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Hannes Reinecke <hare@suse.de>
-Reviewed-by: Petr Vorel <pvorel@suse.cz>
+Reviewed-by: Josef Bacik <josef@toxicpanda.com>
 ---
- block/genhd.c                | 13 +++++--------
- drivers/block/loop.c         |  2 +-
- drivers/block/virtio_blk.c   |  2 +-
- drivers/block/xen-blkfront.c |  2 +-
- drivers/nvme/host/core.c     |  2 +-
- drivers/scsi/sd.c            |  5 ++---
- include/linux/genhd.h        |  3 +--
- 7 files changed, 12 insertions(+), 17 deletions(-)
+ drivers/block/nbd.c | 15 +++------------
+ 1 file changed, 3 insertions(+), 12 deletions(-)
 
-diff --git a/block/genhd.c b/block/genhd.c
-index 9387f050c248a7..8c350fecfe8bfe 100644
---- a/block/genhd.c
-+++ b/block/genhd.c
-@@ -46,17 +46,15 @@ static void disk_del_events(struct gendisk *disk);
- static void disk_release_events(struct gendisk *disk);
- 
- /*
-- * Set disk capacity and notify if the size is not currently
-- * zero and will not be set to zero
-+ * Set disk capacity and notify if the size is not currently zero and will not
-+ * be set to zero.  Returns true if a uevent was sent, otherwise false.
-  */
--bool set_capacity_revalidate_and_notify(struct gendisk *disk, sector_t size,
--					bool update_bdev)
-+bool set_capacity_and_notify(struct gendisk *disk, sector_t size)
+diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
+index 7478a5e02bc1ed..45b0423ef2c53d 100644
+--- a/drivers/block/nbd.c
++++ b/drivers/block/nbd.c
+@@ -299,8 +299,6 @@ static void nbd_size_clear(struct nbd_device *nbd)
+ static int nbd_set_size(struct nbd_device *nbd, loff_t bytesize,
+ 		loff_t blksize)
  {
- 	sector_t capacity = get_capacity(disk);
- 
- 	set_capacity(disk, size);
--	if (update_bdev)
--		revalidate_disk_size(disk, true);
-+	revalidate_disk_size(disk, true);
- 
- 	if (capacity != size && capacity != 0 && size != 0) {
- 		char *envp[] = { "RESIZE=1", NULL };
-@@ -67,8 +65,7 @@ bool set_capacity_revalidate_and_notify(struct gendisk *disk, sector_t size,
- 
- 	return false;
- }
+-	struct block_device *bdev;
 -
--EXPORT_SYMBOL_GPL(set_capacity_revalidate_and_notify);
-+EXPORT_SYMBOL_GPL(set_capacity_and_notify);
+ 	if (!blksize)
+ 		blksize = NBD_DEF_BLKSIZE;
+ 	if (blksize < 512 || blksize > PAGE_SIZE || !is_power_of_2(blksize))
+@@ -320,16 +318,9 @@ static int nbd_set_size(struct nbd_device *nbd, loff_t bytesize,
+ 	blk_queue_logical_block_size(nbd->disk->queue, blksize);
+ 	blk_queue_physical_block_size(nbd->disk->queue, blksize);
  
- /*
-  * Format the device name of the indicated disk into the supplied buffer and
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index 0a0c0c3a68ec4c..84a36c242e5550 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -251,7 +251,7 @@ loop_validate_block_size(unsigned short bsize)
-  */
- static void loop_set_size(struct loop_device *lo, loff_t size)
- {
--	if (!set_capacity_revalidate_and_notify(lo->lo_disk, size, true))
-+	if (!set_capacity_and_notify(lo->lo_disk, size))
- 		kobject_uevent(&disk_to_dev(lo->lo_disk)->kobj, KOBJ_CHANGE);
- }
- 
-diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
-index a314b9382442b6..3e812b4c32e669 100644
---- a/drivers/block/virtio_blk.c
-+++ b/drivers/block/virtio_blk.c
-@@ -470,7 +470,7 @@ static void virtblk_update_capacity(struct virtio_blk *vblk, bool resize)
- 		   cap_str_10,
- 		   cap_str_2);
- 
--	set_capacity_revalidate_and_notify(vblk->disk, capacity, true);
-+	set_capacity_and_notify(vblk->disk, capacity);
- }
- 
- static void virtblk_config_changed_work(struct work_struct *work)
-diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-index 48629d3433b4c3..79521e33d30ed5 100644
---- a/drivers/block/xen-blkfront.c
-+++ b/drivers/block/xen-blkfront.c
-@@ -2370,7 +2370,7 @@ static void blkfront_connect(struct blkfront_info *info)
- 			return;
- 		printk(KERN_INFO "Setting capacity to %Lu\n",
- 		       sectors);
--		set_capacity_revalidate_and_notify(info->gd, sectors, true);
-+		set_capacity_and_notify(info->gd, sectors);
- 
- 		return;
- 	case BLKIF_STATE_SUSPENDED:
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index f6c6479da0e9ec..6c144e748f8cae 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -2053,7 +2053,7 @@ static void nvme_update_disk_info(struct gendisk *disk,
- 			capacity = 0;
- 	}
- 
--	set_capacity_revalidate_and_notify(disk, capacity, true);
-+	set_capacity_and_notify(disk, capacity);
- 
- 	nvme_config_discard(disk, ns);
- 	nvme_config_write_zeroes(disk, ns);
-diff --git a/drivers/scsi/sd.c b/drivers/scsi/sd.c
-index 4a34dd5b153196..a2a4f385833d6c 100644
---- a/drivers/scsi/sd.c
-+++ b/drivers/scsi/sd.c
-@@ -3263,8 +3263,7 @@ static int sd_revalidate_disk(struct gendisk *disk)
- 
- 	sdkp->first_scan = 0;
- 
--	set_capacity_revalidate_and_notify(disk,
--		logical_to_sectors(sdp, sdkp->capacity), true);
-+	set_capacity_and_notify(disk, logical_to_sectors(sdp, sdkp->capacity));
- 	sd_config_write_same(sdkp);
- 	kfree(buffer);
- 
-@@ -3274,7 +3273,7 @@ static int sd_revalidate_disk(struct gendisk *disk)
- 	 * capacity to 0.
- 	 */
- 	if (sd_zbc_revalidate_zones(sdkp))
--		set_capacity_revalidate_and_notify(disk, 0, true);
-+		set_capacity_and_notify(disk, 0);
- 
-  out:
+-	set_capacity(nbd->disk, bytesize >> 9);
+-	bdev = bdget_disk(nbd->disk, 0);
+-	if (bdev) {
+-		if (bdev->bd_disk)
+-			bd_set_nr_sectors(bdev, bytesize >> 9);
+-		else
+-			set_bit(GD_NEED_PART_SCAN, &nbd->disk->state);
+-		bdput(bdev);
+-	}
+-	kobject_uevent(&nbd_to_dev(nbd)->kobj, KOBJ_CHANGE);
++	set_bit(GD_NEED_PART_SCAN, &nbd->disk->state);
++	if (!set_capacity_and_notify(nbd->disk, bytesize >> 9))
++		kobject_uevent(&nbd_to_dev(nbd)->kobj, KOBJ_CHANGE);
  	return 0;
-diff --git a/include/linux/genhd.h b/include/linux/genhd.h
-index 03da3f603d309c..4b22bfd9336e1a 100644
---- a/include/linux/genhd.h
-+++ b/include/linux/genhd.h
-@@ -315,8 +315,7 @@ static inline int get_disk_ro(struct gendisk *disk)
- extern void disk_block_events(struct gendisk *disk);
- extern void disk_unblock_events(struct gendisk *disk);
- extern void disk_flush_events(struct gendisk *disk, unsigned int mask);
--bool set_capacity_revalidate_and_notify(struct gendisk *disk, sector_t size,
--		bool update_bdev);
-+bool set_capacity_and_notify(struct gendisk *disk, sector_t size);
+ }
  
- /* drivers/char/random.c */
- extern void add_disk_randomness(struct gendisk *disk) __latent_entropy;
 -- 
 2.29.2
 
