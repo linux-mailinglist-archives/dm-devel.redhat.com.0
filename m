@@ -1,52 +1,52 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C0ABB2B4733
-	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:01:20 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 08A982B4740
+	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:03:34 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-393-ZOZc12r0MnqjqOZgOHwL9w-1; Mon, 16 Nov 2020 10:00:44 -0500
-X-MC-Unique: ZOZc12r0MnqjqOZgOHwL9w-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-213-rIkWjfeVPsauJa-ve2h7aQ-1; Mon, 16 Nov 2020 10:00:46 -0500
+X-MC-Unique: rIkWjfeVPsauJa-ve2h7aQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F238F19080C7;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7CAD219080C2;
 	Mon, 16 Nov 2020 15:00:16 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C0E595C5AF;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 52473101E66C;
 	Mon, 16 Nov 2020 15:00:16 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6B80C5812D;
-	Mon, 16 Nov 2020 15:00:16 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B7C2958118;
+	Mon, 16 Nov 2020 15:00:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AGF0BTi015866 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 16 Nov 2020 10:00:11 -0500
+	id 0AGF09ZV015842 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 16 Nov 2020 10:00:09 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 54D4020182A5; Mon, 16 Nov 2020 15:00:11 +0000 (UTC)
+	id A8F1E2156A37; Mon, 16 Nov 2020 15:00:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 507222011553
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:00:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A42622156A34
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:00:09 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 388CB801184
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:00:11 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8A75D90E431
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:00:09 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-203-UY_82t0wO5eoWa9PwaaZ-Q-1; Mon, 16 Nov 2020 10:00:03 -0500
-X-MC-Unique: UY_82t0wO5eoWa9PwaaZ-Q-1
+	us-mta-490-R31bqHIWNvm8ndVsV37a8w-1; Mon, 16 Nov 2020 10:00:06 -0500
+X-MC-Unique: R31bqHIWNvm8ndVsV37a8w-1
 Received: from [2001:4bb8:180:6600:255b:7def:a93:4a09] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kefz4-0004J1-6I; Mon, 16 Nov 2020 14:59:58 +0000
+	id 1kefz6-0004Ja-4t; Mon, 16 Nov 2020 15:00:00 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 16 Nov 2020 15:58:06 +0100
-Message-Id: <20201116145809.410558-76-hch@lst.de>
+Date: Mon, 16 Nov 2020 15:58:07 +0100
+Message-Id: <20201116145809.410558-77-hch@lst.de>
 In-Reply-To: <20201116145809.410558-1-hch@lst.de>
 References: <20201116145809.410558-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
@@ -77,8 +77,8 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 75/78] block: stop using bdget_disk for partition
-	0
+Subject: [dm-devel] [PATCH 76/78] filemap: use ->f_mapping over ->i_mapping
+	consistently
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,7 +92,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -100,229 +100,56 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-We can just dereference the point in struct gendisk instead.  Also
-remove the now unused export.
+Use file->f_mapping in all functions that have a struct file available
+to properly handle the case where file_inode(file)->i_mapping !=
+inode->i_mapping.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- block/genhd.c                   |  1 -
- drivers/block/nbd.c             |  4 +---
- drivers/block/xen-blkfront.c    | 20 +++++---------------
- drivers/block/zram/zram_drv.c   | 25 ++-----------------------
- drivers/md/dm.c                 | 13 ++-----------
- drivers/s390/block/dasd_ioctl.c |  5 ++---
- 6 files changed, 12 insertions(+), 56 deletions(-)
+ mm/filemap.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/block/genhd.c b/block/genhd.c
-index 5dcb8b8902daae..b2a4e68171519a 100644
---- a/block/genhd.c
-+++ b/block/genhd.c
-@@ -904,7 +904,6 @@ struct block_device *bdget_disk(struct gendisk *disk, int partno)
- 
- 	return bdev;
- }
--EXPORT_SYMBOL(bdget_disk);
- 
- /*
-  * print a full list of all partitions - intended for places where the root
-diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-index 014683968ce174..92f84ed0ba9eb6 100644
---- a/drivers/block/nbd.c
-+++ b/drivers/block/nbd.c
-@@ -1488,12 +1488,10 @@ static int nbd_open(struct block_device *bdev, fmode_t mode)
- static void nbd_release(struct gendisk *disk, fmode_t mode)
+diff --git a/mm/filemap.c b/mm/filemap.c
+index d5e7c2029d16b4..3e3531a757f8db 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -2887,13 +2887,13 @@ EXPORT_SYMBOL(filemap_map_pages);
+ vm_fault_t filemap_page_mkwrite(struct vm_fault *vmf)
  {
- 	struct nbd_device *nbd = disk->private_data;
--	struct block_device *bdev = bdget_disk(disk, 0);
+ 	struct page *page = vmf->page;
+-	struct inode *inode = file_inode(vmf->vma->vm_file);
++	struct inode *inode = vmf->vma->vm_file->f_mapping->host;
+ 	vm_fault_t ret = VM_FAULT_LOCKED;
  
- 	if (test_bit(NBD_RT_DISCONNECT_ON_CLOSE, &nbd->config->runtime_flags) &&
--			bdev->bd_openers == 0)
-+			disk->part0->bd_openers == 0)
- 		nbd_disconnect_and_put(nbd);
--	bdput(bdev);
- 
- 	nbd_config_put(nbd);
- 	nbd_put(nbd);
-diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-index 5b1f99ca77b734..c2721ec73d7291 100644
---- a/drivers/block/xen-blkfront.c
-+++ b/drivers/block/xen-blkfront.c
-@@ -2153,7 +2153,7 @@ static void blkfront_closing(struct blkfront_info *info)
- 	}
- 
- 	if (info->gd)
--		bdev = bdget_disk(info->gd, 0);
-+		bdev = bdgrab(info->gd->part0);
- 
- 	mutex_unlock(&info->mutex);
- 
-@@ -2518,7 +2518,7 @@ static int blkfront_remove(struct xenbus_device *xbdev)
- 
- 	disk = info->gd;
- 	if (disk)
--		bdev = bdget_disk(disk, 0);
-+		bdev = bdgrab(disk->part0);
- 
- 	info->xbdev = NULL;
- 	mutex_unlock(&info->mutex);
-@@ -2595,19 +2595,11 @@ static int blkif_open(struct block_device *bdev, fmode_t mode)
- static void blkif_release(struct gendisk *disk, fmode_t mode)
+ 	sb_start_pagefault(inode->i_sb);
+ 	file_update_time(vmf->vma->vm_file);
+ 	lock_page(page);
+-	if (page->mapping != inode->i_mapping) {
++	if (page->mapping != vmf->vma->vm_file->f_mapping) {
+ 		unlock_page(page);
+ 		ret = VM_FAULT_NOPAGE;
+ 		goto out;
+@@ -3149,10 +3149,9 @@ void dio_warn_stale_pagecache(struct file *filp)
  {
- 	struct blkfront_info *info = disk->private_data;
--	struct block_device *bdev;
- 	struct xenbus_device *xbdev;
+ 	static DEFINE_RATELIMIT_STATE(_rs, 86400 * HZ, DEFAULT_RATELIMIT_BURST);
+ 	char pathname[128];
+-	struct inode *inode = file_inode(filp);
+ 	char *path;
  
- 	mutex_lock(&blkfront_mutex);
--
--	bdev = bdget_disk(disk, 0);
--
--	if (!bdev) {
--		WARN(1, "Block device %s yanked out from us!\n", disk->disk_name);
-+	if (disk->part0->bd_openers)
- 		goto out_mutex;
--	}
--	if (bdev->bd_openers)
--		goto out;
+-	errseq_set(&inode->i_mapping->wb_err, -EIO);
++	errseq_set(&filp->f_mapping->wb_err, -EIO);
+ 	if (__ratelimit(&_rs)) {
+ 		path = file_path(filp, pathname, sizeof(pathname));
+ 		if (IS_ERR(path))
+@@ -3179,7 +3178,7 @@ generic_file_direct_write(struct kiocb *iocb, struct iov_iter *from)
  
- 	/*
- 	 * Check if we have been instructed to close. We will have
-@@ -2619,7 +2611,7 @@ static void blkif_release(struct gendisk *disk, fmode_t mode)
- 
- 	if (xbdev && xbdev->state == XenbusStateClosing) {
- 		/* pending switch to state closed */
--		dev_info(disk_to_dev(bdev->bd_disk), "releasing disk\n");
-+		dev_info(disk_to_dev(disk), "releasing disk\n");
- 		xlvbd_release_gendisk(info);
- 		xenbus_frontend_closed(info->xbdev);
-  	}
-@@ -2628,14 +2620,12 @@ static void blkif_release(struct gendisk *disk, fmode_t mode)
- 
- 	if (!xbdev) {
- 		/* sudden device removal */
--		dev_info(disk_to_dev(bdev->bd_disk), "releasing disk\n");
-+		dev_info(disk_to_dev(disk), "releasing disk\n");
- 		xlvbd_release_gendisk(info);
- 		disk->private_data = NULL;
- 		free_info(info);
- 	}
- 
--out:
--	bdput(bdev);
- out_mutex:
- 	mutex_unlock(&blkfront_mutex);
- }
-diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index e765765263495f..e7a23638e2f181 100644
---- a/drivers/block/zram/zram_drv.c
-+++ b/drivers/block/zram/zram_drv.c
-@@ -1748,7 +1748,6 @@ static ssize_t reset_store(struct device *dev,
- 		struct device_attribute *attr, const char *buf, size_t len)
- {
- 	struct zram *zram = dev_to_zram(dev);
--	struct block_device *bdev;
- 	unsigned short do_reset;
- 	int ret = 0;
- 
-@@ -1758,17 +1757,12 @@ static ssize_t reset_store(struct device *dev,
- 	if (!do_reset)
- 		return -EINVAL;
- 
--	bdev = bdget_disk(zram->disk, 0);
--	if (!bdev)
--		return -ENOMEM;
--
- 	mutex_lock(&zram->disk->mutex);
--	if (bdev->bd_openers)
-+	if (zram->disk->part0->bd_openers)
- 		ret = -EBUSY;
- 	else
- 		zram_reset_device(zram);
- 	mutex_unlock(&zram->disk->mutex);
--	bdput(bdev);
- 
- 	return ret ? ret : len;
- }
-@@ -1931,24 +1925,9 @@ static int zram_add(void)
- 	return ret;
- }
- 
--static bool zram_busy(struct zram *zram)
--{
--	struct block_device *bdev;
--	bool busy = false;
--
--	bdev = bdget_disk(zram->disk, 0);
--	if (bdev) {
--		if (bdev->bd_openers)
--			busy = true;
--		bdput(bdev);
--	}
--
--	return busy;
--}
--
- static int zram_remove(struct zram *zram)
- {
--	if (zram_busy(zram))
-+	if (zram->disk->part0->bd_openers)
- 		return -EBUSY;
- 
- 	del_gendisk(zram->disk);
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index ac46f6e41279cc..ec48ccae50dd53 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -2375,17 +2375,12 @@ struct dm_table *dm_swap_table(struct mapped_device *md, struct dm_table *table)
-  */
- static int lock_fs(struct mapped_device *md)
- {
--	struct block_device *bdev;
- 	int r;
- 
- 	WARN_ON(md->frozen_sb);
- 
--	bdev = bdget_disk(md->disk, 0);
--	if (!bdev)
--		return -ENOMEM;
--	md->frozen_sb = freeze_bdev(bdev);
-+	md->frozen_sb = freeze_bdev(md->disk->part0);
- 	if (IS_ERR(md->frozen_sb)) {
--		bdput(bdev);
- 		r = PTR_ERR(md->frozen_sb);
- 		md->frozen_sb = NULL;
- 		return r;
-@@ -2398,14 +2393,10 @@ static int lock_fs(struct mapped_device *md)
- 
- static void unlock_fs(struct mapped_device *md)
- {
--	struct block_device *bdev;
--
- 	if (!test_bit(DMF_FROZEN, &md->flags))
- 		return;
- 
--	bdev = md->frozen_sb->s_bdev;
--	thaw_bdev(bdev, md->frozen_sb);
--	bdput(bdev);
-+	thaw_bdev(md->frozen_sb->s_bdev, md->frozen_sb);
- 	md->frozen_sb = NULL;
- 	clear_bit(DMF_FROZEN, &md->flags);
- }
-diff --git a/drivers/s390/block/dasd_ioctl.c b/drivers/s390/block/dasd_ioctl.c
-index 304eba1acf163c..9f642440894655 100644
---- a/drivers/s390/block/dasd_ioctl.c
-+++ b/drivers/s390/block/dasd_ioctl.c
-@@ -220,9 +220,8 @@ dasd_format(struct dasd_block *block, struct format_data_t *fdata)
- 	 * enabling the device later.
- 	 */
- 	if (fdata->start_unit == 0) {
--		struct block_device *bdev = bdget_disk(block->gdp, 0);
--		bdev->bd_inode->i_blkbits = blksize_bits(fdata->blksize);
--		bdput(bdev);
-+		block->gdp->part0->bd_inode->i_blkbits =
-+			blksize_bits(fdata->blksize);
- 	}
- 
- 	rc = base->discipline->format_device(base, fdata, 1);
+ 	if (iocb->ki_flags & IOCB_NOWAIT) {
+ 		/* If there are pages to writeback, return */
+-		if (filemap_range_has_page(inode->i_mapping, pos,
++		if (filemap_range_has_page(file->f_mapping, pos,
+ 					   pos + write_len - 1))
+ 			return -EAGAIN;
+ 	} else {
 -- 
 2.29.2
 
