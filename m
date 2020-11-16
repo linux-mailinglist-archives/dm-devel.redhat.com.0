@@ -2,51 +2,52 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 803D72B47E1
-	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:06:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 06B992B4743
+	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:05:23 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-104-cV36GSxWOP2C3dmfEaRw_A-1; Mon, 16 Nov 2020 10:06:53 -0500
-X-MC-Unique: cV36GSxWOP2C3dmfEaRw_A-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-300-E29J-5iXNtGzJkReYE4U2g-1; Mon, 16 Nov 2020 10:05:19 -0500
+X-MC-Unique: E29J-5iXNtGzJkReYE4U2g-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6AFC0AF061;
-	Mon, 16 Nov 2020 15:06:45 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7B9D080363A;
+	Mon, 16 Nov 2020 15:05:12 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 39DEA27CC5;
-	Mon, 16 Nov 2020 15:06:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C988B51DCB;
+	Mon, 16 Nov 2020 15:05:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D809258132;
-	Mon, 16 Nov 2020 15:06:44 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4278458118;
+	Mon, 16 Nov 2020 15:05:10 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AGF6ghU018193 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 16 Nov 2020 10:06:42 -0500
+	id 0AGF56ui017382 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 16 Nov 2020 10:05:06 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 99A902023598; Mon, 16 Nov 2020 15:06:42 +0000 (UTC)
+	id 15F2E2023598; Mon, 16 Nov 2020 15:05:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9530C200E1E0
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:06:40 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1151020182A5
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:05:03 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1AF8A90E43C
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:06:40 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BA76180353C
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:05:03 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-408-hKTiB0ZAPFy2JTUzy7DP5w-1; Mon, 16 Nov 2020 10:06:34 -0500
-X-MC-Unique: hKTiB0ZAPFy2JTUzy7DP5w-1
+	us-mta-33-dSq4h6ggOdy60QhelEkbSQ-1; Mon, 16 Nov 2020 10:04:56 -0500
+X-MC-Unique: dSq4h6ggOdy60QhelEkbSQ-1
 Received: from [2001:4bb8:180:6600:255b:7def:a93:4a09] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kefy3-0003uy-0n; Mon, 16 Nov 2020 14:58:55 +0000
+	id 1kefy4-0003vL-Dh; Mon, 16 Nov 2020 14:58:56 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 16 Nov 2020 15:57:23 +0100
-Message-Id: <20201116145809.410558-33-hch@lst.de>
+Date: Mon, 16 Nov 2020 15:57:24 +0100
+Message-Id: <20201116145809.410558-34-hch@lst.de>
 In-Reply-To: <20201116145809.410558-1-hch@lst.de>
 References: <20201116145809.410558-1-hch@lst.de>
 MIME-Version: 1.0
@@ -77,7 +78,7 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 32/78] block: remove set_device_ro
+Subject: [dm-devel] [PATCH 33/78] block: remove __blkdev_driver_ioctl
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,7 +92,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -99,58 +100,124 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Fold set_device_ro into its only remaining caller.
+Just open code it in the few callers.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- block/genhd.c         | 7 -------
- block/ioctl.c         | 2 +-
- include/linux/genhd.h | 1 -
- 3 files changed, 1 insertion(+), 9 deletions(-)
+ block/ioctl.c               | 25 +++++--------------------
+ drivers/block/pktcdvd.c     |  6 ++++--
+ drivers/md/bcache/request.c |  5 +++--
+ drivers/md/dm.c             |  5 ++++-
+ include/linux/blkdev.h      |  2 --
+ 5 files changed, 16 insertions(+), 27 deletions(-)
 
-diff --git a/block/genhd.c b/block/genhd.c
-index 8c350fecfe8bfe..b0f0b0cac9aa7f 100644
---- a/block/genhd.c
-+++ b/block/genhd.c
-@@ -1843,13 +1843,6 @@ static void set_disk_ro_uevent(struct gendisk *gd, int ro)
- 	kobject_uevent_env(&disk_to_dev(gd)->kobj, KOBJ_CHANGE, envp);
- }
- 
--void set_device_ro(struct block_device *bdev, int flag)
--{
--	bdev->bd_part->policy = flag;
--}
--
--EXPORT_SYMBOL(set_device_ro);
--
- void set_disk_ro(struct gendisk *disk, int flag)
- {
- 	struct disk_part_iter piter;
 diff --git a/block/ioctl.c b/block/ioctl.c
-index 96cb4544736468..04255dc5f3bff3 100644
+index 04255dc5f3bff3..6b785181344fe1 100644
 --- a/block/ioctl.c
 +++ b/block/ioctl.c
-@@ -371,7 +371,7 @@ static int blkdev_roset(struct block_device *bdev, fmode_t mode,
- 		if (ret)
- 			return ret;
+@@ -219,23 +219,6 @@ static int compat_put_ulong(compat_ulong_t __user *argp, compat_ulong_t val)
+ }
+ #endif
+ 
+-int __blkdev_driver_ioctl(struct block_device *bdev, fmode_t mode,
+-			unsigned cmd, unsigned long arg)
+-{
+-	struct gendisk *disk = bdev->bd_disk;
+-
+-	if (disk->fops->ioctl)
+-		return disk->fops->ioctl(bdev, mode, cmd, arg);
+-
+-	return -ENOTTY;
+-}
+-/*
+- * For the record: _GPL here is only because somebody decided to slap it
+- * on the previous export.  Sheer idiocy, since it wasn't copyrightable
+- * at all and could be open-coded without any exports by anybody who cares.
+- */
+-EXPORT_SYMBOL_GPL(__blkdev_driver_ioctl);
+-
+ #ifdef CONFIG_COMPAT
+ /*
+  * This is the equivalent of compat_ptr_ioctl(), to be used by block
+@@ -594,10 +577,12 @@ int blkdev_ioctl(struct block_device *bdev, fmode_t mode, unsigned cmd,
  	}
--	set_device_ro(bdev, n);
-+	bdev->bd_part->policy = n;
- 	return 0;
+ 
+ 	ret = blkdev_common_ioctl(bdev, mode, cmd, arg, argp);
+-	if (ret == -ENOIOCTLCMD)
+-		return __blkdev_driver_ioctl(bdev, mode, cmd, arg);
++	if (ret != -ENOIOCTLCMD)
++		return ret;
+ 
+-	return ret;
++	if (!bdev->bd_disk->fops->ioctl)
++		return -ENOTTY;
++	return bdev->bd_disk->fops->ioctl(bdev, mode, cmd, arg);
+ }
+ EXPORT_SYMBOL_GPL(blkdev_ioctl); /* for /dev/raw */
+ 
+diff --git a/drivers/block/pktcdvd.c b/drivers/block/pktcdvd.c
+index 4326401cede445..b8bb8ec7538d9b 100644
+--- a/drivers/block/pktcdvd.c
++++ b/drivers/block/pktcdvd.c
+@@ -2583,9 +2583,11 @@ static int pkt_ioctl(struct block_device *bdev, fmode_t mode, unsigned int cmd,
+ 	case CDROM_LAST_WRITTEN:
+ 	case CDROM_SEND_PACKET:
+ 	case SCSI_IOCTL_SEND_COMMAND:
+-		ret = __blkdev_driver_ioctl(pd->bdev, mode, cmd, arg);
++		if (!bdev->bd_disk->fops->ioctl)
++			ret = -ENOTTY;
++		else
++			ret = bdev->bd_disk->fops->ioctl(bdev, mode, cmd, arg);
+ 		break;
+-
+ 	default:
+ 		pkt_dbg(2, pd, "Unknown ioctl (%x)\n", cmd);
+ 		ret = -ENOTTY;
+diff --git a/drivers/md/bcache/request.c b/drivers/md/bcache/request.c
+index 21432638314562..afac8d07c1bd00 100644
+--- a/drivers/md/bcache/request.c
++++ b/drivers/md/bcache/request.c
+@@ -1230,8 +1230,9 @@ static int cached_dev_ioctl(struct bcache_device *d, fmode_t mode,
+ 
+ 	if (dc->io_disable)
+ 		return -EIO;
+-
+-	return __blkdev_driver_ioctl(dc->bdev, mode, cmd, arg);
++	if (!dc->bdev->bd_disk->fops->ioctl)
++		return -ENOTTY;
++	return dc->bdev->bd_disk->fops->ioctl(dc->bdev, mode, cmd, arg);
  }
  
-diff --git a/include/linux/genhd.h b/include/linux/genhd.h
-index 4b22bfd9336e1a..8427ad8bef520d 100644
---- a/include/linux/genhd.h
-+++ b/include/linux/genhd.h
-@@ -304,7 +304,6 @@ extern void del_gendisk(struct gendisk *gp);
- extern struct gendisk *get_gendisk(dev_t dev, int *partno);
- extern struct block_device *bdget_disk(struct gendisk *disk, int partno);
+ void bch_cached_dev_request_init(struct cached_dev *dc)
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index 62ad44925e73ec..54739f1b579bc8 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -570,7 +570,10 @@ static int dm_blk_ioctl(struct block_device *bdev, fmode_t mode,
+ 		}
+ 	}
  
--extern void set_device_ro(struct block_device *bdev, int flag);
- extern void set_disk_ro(struct gendisk *disk, int flag);
+-	r =  __blkdev_driver_ioctl(bdev, mode, cmd, arg);
++	if (!bdev->bd_disk->fops->ioctl)
++		r = -ENOTTY;
++	else
++		r = bdev->bd_disk->fops->ioctl(bdev, mode, cmd, arg);
+ out:
+ 	dm_unprepare_ioctl(md, srcu_idx);
+ 	return r;
+diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+index 5c1ba8a8d2bc7e..05b346a68c2eee 100644
+--- a/include/linux/blkdev.h
++++ b/include/linux/blkdev.h
+@@ -1867,8 +1867,6 @@ extern int blkdev_compat_ptr_ioctl(struct block_device *, fmode_t,
+ #define blkdev_compat_ptr_ioctl NULL
+ #endif
  
- static inline int get_disk_ro(struct gendisk *disk)
+-extern int __blkdev_driver_ioctl(struct block_device *, fmode_t, unsigned int,
+-				 unsigned long);
+ extern int bdev_read_page(struct block_device *, sector_t, struct page *);
+ extern int bdev_write_page(struct block_device *, sector_t, struct page *,
+ 						struct writeback_control *);
 -- 
 2.29.2
 
