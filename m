@@ -1,52 +1,53 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 3F4DE2B488A
-	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:09:40 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 06A1F2B4742
+	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:05:03 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-99-ADDkWE84PIiAnXfngdLiug-1; Mon, 16 Nov 2020 10:09:35 -0500
-X-MC-Unique: ADDkWE84PIiAnXfngdLiug-1
+ us-mta-48-L0D3667APByqh7nZZvrYsA-1; Mon, 16 Nov 2020 10:04:41 -0500
+X-MC-Unique: L0D3667APByqh7nZZvrYsA-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8FBD6AF06B;
-	Mon, 16 Nov 2020 15:09:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ECF318C48E9;
+	Mon, 16 Nov 2020 15:04:29 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 68BA85B4C1;
-	Mon, 16 Nov 2020 15:09:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C7B465B4A9;
+	Mon, 16 Nov 2020 15:04:29 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 23E6B5812B;
-	Mon, 16 Nov 2020 15:09:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7DC9158118;
+	Mon, 16 Nov 2020 15:04:29 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AGF7I56018423 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 16 Nov 2020 10:07:18 -0500
+	id 0AGF4PDf017072 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 16 Nov 2020 10:04:26 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 367C52157F4B; Mon, 16 Nov 2020 15:07:18 +0000 (UTC)
+	id D2F952011553; Mon, 16 Nov 2020 15:04:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 31C9C2157F26
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:07:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CCF532023598
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:04:23 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1971490E426
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:07:18 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8421E1823612
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:04:23 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-553-sZRNmDwaN9uZ4MbjPD2qng-1; Mon, 16 Nov 2020 10:07:10 -0500
-X-MC-Unique: sZRNmDwaN9uZ4MbjPD2qng-1
+	us-mta-502-B6jeRzsuN1uL8nf9VFAVNA-1; Mon, 16 Nov 2020 10:03:09 -0500
+X-MC-Unique: B6jeRzsuN1uL8nf9VFAVNA-1
 Received: from [2001:4bb8:180:6600:255b:7def:a93:4a09] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kefxv-0003t5-MO; Mon, 16 Nov 2020 14:58:48 +0000
+	id 1kefxx-0003tO-1m; Mon, 16 Nov 2020 14:58:49 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 16 Nov 2020 15:57:18 +0100
-Message-Id: <20201116145809.410558-28-hch@lst.de>
+Date: Mon, 16 Nov 2020 15:57:19 +0100
+Message-Id: <20201116145809.410558-29-hch@lst.de>
 In-Reply-To: <20201116145809.410558-1-hch@lst.de>
 References: <20201116145809.410558-1-hch@lst.de>
 MIME-Version: 1.0
@@ -61,7 +62,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Mimecast-Spam-Signature: yes
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
@@ -78,8 +79,8 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 27/78] rbd: implement ->set_read_only to hook
-	into BLKROSET processing
+Subject: [dm-devel] [PATCH 28/78] md: implement ->set_read_only to hook into
+	BLKROSET processing
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -105,76 +106,111 @@ Implement the ->set_read_only method instead of parsing the actual
 ioctl command.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Acked-by: Ilya Dryomov <idryomov@gmail.com>
 ---
- drivers/block/rbd.c | 40 ++++------------------------------------
- 1 file changed, 4 insertions(+), 36 deletions(-)
+ drivers/md/md.c | 62 ++++++++++++++++++++++++-------------------------
+ 1 file changed, 31 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/block/rbd.c b/drivers/block/rbd.c
-index b7a194ffda55b4..2ed79b09439a82 100644
---- a/drivers/block/rbd.c
-+++ b/drivers/block/rbd.c
-@@ -692,12 +692,9 @@ static void rbd_release(struct gendisk *disk, fmode_t mode)
- 	put_device(&rbd_dev->dev);
- }
- 
--static int rbd_ioctl_set_ro(struct rbd_device *rbd_dev, unsigned long arg)
-+static int rbd_set_read_only(struct block_device *bdev, bool ro)
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 32e375d50fee17..fa31b71a72a35d 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -7477,7 +7477,6 @@ static inline bool md_ioctl_valid(unsigned int cmd)
  {
+ 	switch (cmd) {
+ 	case ADD_NEW_DISK:
+-	case BLKROSET:
+ 	case GET_ARRAY_INFO:
+ 	case GET_BITMAP_FILE:
+ 	case GET_DISK_INFO:
+@@ -7504,7 +7503,6 @@ static int md_ioctl(struct block_device *bdev, fmode_t mode,
+ 	int err = 0;
+ 	void __user *argp = (void __user *)arg;
+ 	struct mddev *mddev = NULL;
 -	int ro;
--
--	if (get_user(ro, (int __user *)arg))
--		return -EFAULT;
-+	struct rbd_device *rbd_dev = bdev->bd_disk->private_data;
+ 	bool did_set_md_closing = false;
  
- 	/*
- 	 * Both images mapped read-only and snapshots can't be marked
-@@ -710,43 +707,14 @@ static int rbd_ioctl_set_ro(struct rbd_device *rbd_dev, unsigned long arg)
- 		rbd_assert(!rbd_is_snap(rbd_dev));
+ 	if (!md_ioctl_valid(cmd))
+@@ -7684,35 +7682,6 @@ static int md_ioctl(struct block_device *bdev, fmode_t mode,
+ 			goto unlock;
+ 		}
+ 		break;
+-
+-	case BLKROSET:
+-		if (get_user(ro, (int __user *)(arg))) {
+-			err = -EFAULT;
+-			goto unlock;
+-		}
+-		err = -EINVAL;
+-
+-		/* if the bdev is going readonly the value of mddev->ro
+-		 * does not matter, no writes are coming
+-		 */
+-		if (ro)
+-			goto unlock;
+-
+-		/* are we are already prepared for writes? */
+-		if (mddev->ro != 1)
+-			goto unlock;
+-
+-		/* transitioning to readauto need only happen for
+-		 * arrays that call md_write_start
+-		 */
+-		if (mddev->pers) {
+-			err = restart_array(mddev);
+-			if (err == 0) {
+-				mddev->ro = 2;
+-				set_disk_ro(mddev->gendisk, 0);
+-			}
+-		}
+-		goto unlock;
  	}
  
--	/* Let blkdev_roset() handle it */
--	return -ENOTTY;
--}
--
--static int rbd_ioctl(struct block_device *bdev, fmode_t mode,
--			unsigned int cmd, unsigned long arg)
--{
--	struct rbd_device *rbd_dev = bdev->bd_disk->private_data;
--	int ret;
--
--	switch (cmd) {
--	case BLKROSET:
--		ret = rbd_ioctl_set_ro(rbd_dev, arg);
--		break;
--	default:
--		ret = -ENOTTY;
--	}
--
--	return ret;
--}
--
--#ifdef CONFIG_COMPAT
--static int rbd_compat_ioctl(struct block_device *bdev, fmode_t mode,
--				unsigned int cmd, unsigned long arg)
--{
--	return rbd_ioctl(bdev, mode, cmd, arg);
-+	return 0;
+ 	/*
+@@ -7806,6 +7775,36 @@ static int md_compat_ioctl(struct block_device *bdev, fmode_t mode,
  }
--#endif /* CONFIG_COMPAT */
+ #endif /* CONFIG_COMPAT */
  
- static const struct block_device_operations rbd_bd_ops = {
- 	.owner			= THIS_MODULE,
- 	.open			= rbd_open,
- 	.release		= rbd_release,
--	.ioctl			= rbd_ioctl,
--#ifdef CONFIG_COMPAT
--	.compat_ioctl		= rbd_compat_ioctl,
--#endif
-+	.set_read_only		= rbd_set_read_only,
++static int md_set_read_only(struct block_device *bdev, bool ro)
++{
++	struct mddev *mddev = bdev->bd_disk->private_data;
++	int err;
++
++	err = mddev_lock(mddev);
++	if (err)
++		return err;
++
++	if (!mddev->raid_disks && !mddev->external) {
++		err = -ENODEV;
++		goto out_unlock;
++	}
++
++	/*
++	 * Transitioning to read-auto need only happen for arrays that call
++	 * md_write_start and which are not ready for writes yet.
++	 */
++	if (!ro && mddev->ro == 1 && mddev->pers) {
++		err = restart_array(mddev);
++		if (err)
++			goto out_unlock;
++		mddev->ro = 2;
++	}
++
++out_unlock:
++	mddev_unlock(mddev);
++	return err;
++}
++
+ static int md_open(struct block_device *bdev, fmode_t mode)
+ {
+ 	/*
+@@ -7883,6 +7882,7 @@ const struct block_device_operations md_fops =
+ #endif
+ 	.getgeo		= md_getgeo,
+ 	.check_events	= md_check_events,
++	.set_read_only	= md_set_read_only,
  };
  
- /*
+ static int md_thread(void *arg)
 -- 
 2.29.2
 
