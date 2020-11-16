@@ -1,53 +1,53 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 06A1F2B4742
-	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:05:03 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 62A532B47B8
+	for <lists+dm-devel@lfdr.de>; Mon, 16 Nov 2020 16:06:39 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-48-L0D3667APByqh7nZZvrYsA-1; Mon, 16 Nov 2020 10:04:41 -0500
-X-MC-Unique: L0D3667APByqh7nZZvrYsA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-517-R4WjppkXM3uDgSn0F1K_og-1; Mon, 16 Nov 2020 10:06:36 -0500
+X-MC-Unique: R4WjppkXM3uDgSn0F1K_og-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ECF318C48E9;
-	Mon, 16 Nov 2020 15:04:29 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 940788CD11E;
+	Mon, 16 Nov 2020 15:06:28 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C7B465B4A9;
-	Mon, 16 Nov 2020 15:04:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6B6591002D64;
+	Mon, 16 Nov 2020 15:06:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7DC9158118;
-	Mon, 16 Nov 2020 15:04:29 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 267495812B;
+	Mon, 16 Nov 2020 15:06:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AGF4PDf017072 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 16 Nov 2020 10:04:26 -0500
+	id 0AGF6Mwp018121 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 16 Nov 2020 10:06:22 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D2F952011553; Mon, 16 Nov 2020 15:04:25 +0000 (UTC)
+	id 791522157F4A; Mon, 16 Nov 2020 15:06:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CCF532023598
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:04:23 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 740792157F26
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:06:19 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8421E1823612
-	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:04:23 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 13D7780159F
+	for <dm-devel@redhat.com>; Mon, 16 Nov 2020 15:06:19 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-502-B6jeRzsuN1uL8nf9VFAVNA-1; Mon, 16 Nov 2020 10:03:09 -0500
-X-MC-Unique: B6jeRzsuN1uL8nf9VFAVNA-1
+	us-mta-591-XQq53fCLOsKKN7Ru3DDb5w-1; Mon, 16 Nov 2020 10:05:58 -0500
+X-MC-Unique: XQq53fCLOsKKN7Ru3DDb5w-1
 Received: from [2001:4bb8:180:6600:255b:7def:a93:4a09] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kefxx-0003tO-1m; Mon, 16 Nov 2020 14:58:49 +0000
+	id 1kefxy-0003tn-LS; Mon, 16 Nov 2020 14:58:51 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 16 Nov 2020 15:57:19 +0100
-Message-Id: <20201116145809.410558-29-hch@lst.de>
+Date: Mon, 16 Nov 2020 15:57:20 +0100
+Message-Id: <20201116145809.410558-30-hch@lst.de>
 In-Reply-To: <20201116145809.410558-1-hch@lst.de>
 References: <20201116145809.410558-1-hch@lst.de>
 MIME-Version: 1.0
@@ -62,7 +62,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Mimecast-Spam-Signature: yes
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
@@ -79,8 +79,8 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 28/78] md: implement ->set_read_only to hook into
-	BLKROSET processing
+Subject: [dm-devel] [PATCH 29/78] dasd: implement ->set_read_only to hook
+	into BLKROSET processing
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,7 +94,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -107,110 +107,89 @@ ioctl command.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/md/md.c | 62 ++++++++++++++++++++++++-------------------------
- 1 file changed, 31 insertions(+), 31 deletions(-)
+ drivers/s390/block/dasd.c       |  1 +
+ drivers/s390/block/dasd_int.h   |  3 ++-
+ drivers/s390/block/dasd_ioctl.c | 27 +++++++++------------------
+ 3 files changed, 12 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 32e375d50fee17..fa31b71a72a35d 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -7477,7 +7477,6 @@ static inline bool md_ioctl_valid(unsigned int cmd)
- {
- 	switch (cmd) {
- 	case ADD_NEW_DISK:
--	case BLKROSET:
- 	case GET_ARRAY_INFO:
- 	case GET_BITMAP_FILE:
- 	case GET_DISK_INFO:
-@@ -7504,7 +7503,6 @@ static int md_ioctl(struct block_device *bdev, fmode_t mode,
- 	int err = 0;
- 	void __user *argp = (void __user *)arg;
- 	struct mddev *mddev = NULL;
--	int ro;
- 	bool did_set_md_closing = false;
- 
- 	if (!md_ioctl_valid(cmd))
-@@ -7684,35 +7682,6 @@ static int md_ioctl(struct block_device *bdev, fmode_t mode,
- 			goto unlock;
- 		}
- 		break;
--
--	case BLKROSET:
--		if (get_user(ro, (int __user *)(arg))) {
--			err = -EFAULT;
--			goto unlock;
--		}
--		err = -EINVAL;
--
--		/* if the bdev is going readonly the value of mddev->ro
--		 * does not matter, no writes are coming
--		 */
--		if (ro)
--			goto unlock;
--
--		/* are we are already prepared for writes? */
--		if (mddev->ro != 1)
--			goto unlock;
--
--		/* transitioning to readauto need only happen for
--		 * arrays that call md_write_start
--		 */
--		if (mddev->pers) {
--			err = restart_array(mddev);
--			if (err == 0) {
--				mddev->ro = 2;
--				set_disk_ro(mddev->gendisk, 0);
--			}
--		}
--		goto unlock;
- 	}
- 
- 	/*
-@@ -7806,6 +7775,36 @@ static int md_compat_ioctl(struct block_device *bdev, fmode_t mode,
- }
- #endif /* CONFIG_COMPAT */
- 
-+static int md_set_read_only(struct block_device *bdev, bool ro)
-+{
-+	struct mddev *mddev = bdev->bd_disk->private_data;
-+	int err;
-+
-+	err = mddev_lock(mddev);
-+	if (err)
-+		return err;
-+
-+	if (!mddev->raid_disks && !mddev->external) {
-+		err = -ENODEV;
-+		goto out_unlock;
-+	}
-+
-+	/*
-+	 * Transitioning to read-auto need only happen for arrays that call
-+	 * md_write_start and which are not ready for writes yet.
-+	 */
-+	if (!ro && mddev->ro == 1 && mddev->pers) {
-+		err = restart_array(mddev);
-+		if (err)
-+			goto out_unlock;
-+		mddev->ro = 2;
-+	}
-+
-+out_unlock:
-+	mddev_unlock(mddev);
-+	return err;
-+}
-+
- static int md_open(struct block_device *bdev, fmode_t mode)
- {
- 	/*
-@@ -7883,6 +7882,7 @@ const struct block_device_operations md_fops =
- #endif
- 	.getgeo		= md_getgeo,
- 	.check_events	= md_check_events,
-+	.set_read_only	= md_set_read_only,
+diff --git a/drivers/s390/block/dasd.c b/drivers/s390/block/dasd.c
+index eb17fea8075c6f..db24e04ee9781e 100644
+--- a/drivers/s390/block/dasd.c
++++ b/drivers/s390/block/dasd.c
+@@ -3394,6 +3394,7 @@ dasd_device_operations = {
+ 	.ioctl		= dasd_ioctl,
+ 	.compat_ioctl	= dasd_ioctl,
+ 	.getgeo		= dasd_getgeo,
++	.set_read_only	= dasd_set_read_only,
  };
  
- static int md_thread(void *arg)
+ /*******************************************************************************
+diff --git a/drivers/s390/block/dasd_int.h b/drivers/s390/block/dasd_int.h
+index fa552f9f166671..c59a0d63b506e6 100644
+--- a/drivers/s390/block/dasd_int.h
++++ b/drivers/s390/block/dasd_int.h
+@@ -844,7 +844,8 @@ int dasd_scan_partitions(struct dasd_block *);
+ void dasd_destroy_partitions(struct dasd_block *);
+ 
+ /* externals in dasd_ioctl.c */
+-int  dasd_ioctl(struct block_device *, fmode_t, unsigned int, unsigned long);
++int dasd_ioctl(struct block_device *, fmode_t, unsigned int, unsigned long);
++int dasd_set_read_only(struct block_device *bdev, bool ro);
+ 
+ /* externals in dasd_proc.c */
+ int dasd_proc_init(void);
+diff --git a/drivers/s390/block/dasd_ioctl.c b/drivers/s390/block/dasd_ioctl.c
+index cb6427fb9f3d16..3359559517bfcf 100644
+--- a/drivers/s390/block/dasd_ioctl.c
++++ b/drivers/s390/block/dasd_ioctl.c
+@@ -532,28 +532,22 @@ static int dasd_ioctl_information(struct dasd_block *block, void __user *argp,
+ /*
+  * Set read only
+  */
+-static int
+-dasd_ioctl_set_ro(struct block_device *bdev, void __user *argp)
++int dasd_set_read_only(struct block_device *bdev, bool ro)
+ {
+ 	struct dasd_device *base;
+-	int intval, rc;
++	int rc;
+ 
+-	if (!capable(CAP_SYS_ADMIN))
+-		return -EACCES;
++	/* do not manipulate hardware state for partitions */
+ 	if (bdev_is_partition(bdev))
+-		// ro setting is not allowed for partitions
+-		return -EINVAL;
+-	if (get_user(intval, (int __user *)argp))
+-		return -EFAULT;
++		return 0;
++
+ 	base = dasd_device_from_gendisk(bdev->bd_disk);
+ 	if (!base)
+ 		return -ENODEV;
+-	if (!intval && test_bit(DASD_FLAG_DEVICE_RO, &base->flags)) {
+-		dasd_put_device(base);
+-		return -EROFS;
+-	}
+-	set_disk_ro(bdev->bd_disk, intval);
+-	rc = dasd_set_feature(base->cdev, DASD_FEATURE_READONLY, intval);
++	if (!ro && test_bit(DASD_FLAG_DEVICE_RO, &base->flags))
++		rc = -EROFS;
++	else
++		rc = dasd_set_feature(base->cdev, DASD_FEATURE_READONLY, ro);
+ 	dasd_put_device(base);
+ 	return rc;
+ }
+@@ -633,9 +627,6 @@ int dasd_ioctl(struct block_device *bdev, fmode_t mode,
+ 	case BIODASDPRRST:
+ 		rc = dasd_ioctl_reset_profile(block);
+ 		break;
+-	case BLKROSET:
+-		rc = dasd_ioctl_set_ro(bdev, argp);
+-		break;
+ 	case DASDAPIVER:
+ 		rc = dasd_ioctl_api_version(argp);
+ 		break;
 -- 
 2.29.2
 
