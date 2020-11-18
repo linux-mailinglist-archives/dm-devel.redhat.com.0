@@ -1,63 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 75F1A2B76F3
-	for <lists+dm-devel@lfdr.de>; Wed, 18 Nov 2020 08:30:10 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 91E872B7972
+	for <lists+dm-devel@lfdr.de>; Wed, 18 Nov 2020 09:52:18 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-528-uu6Xpy6kOLu8rsx0nqbuNQ-1; Wed, 18 Nov 2020 02:29:54 -0500
-X-MC-Unique: uu6Xpy6kOLu8rsx0nqbuNQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-249-BivBhLtQPb2cthlUIGcYAQ-1; Wed, 18 Nov 2020 03:52:14 -0500
+X-MC-Unique: BivBhLtQPb2cthlUIGcYAQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 45C9A1008311;
-	Wed, 18 Nov 2020 07:29:49 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 225365B4BA;
-	Wed, 18 Nov 2020 07:29:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 11E4B100945F;
+	Wed, 18 Nov 2020 08:52:09 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BCA371759F;
+	Wed, 18 Nov 2020 08:52:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D0E63181A06D;
-	Wed, 18 Nov 2020 07:29:48 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EEFAB58127;
+	Wed, 18 Nov 2020 08:51:58 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AI21tGh003419 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 17 Nov 2020 21:01:55 -0500
+	id 0AI8pj1p019032 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 18 Nov 2020 03:51:47 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 00CEA2024508; Wed, 18 Nov 2020 02:01:55 +0000 (UTC)
+	id 143B72166BCC; Wed, 18 Nov 2020 08:51:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F014320244F7
-	for <dm-devel@redhat.com>; Wed, 18 Nov 2020 02:01:52 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0F23D2166BA2
+	for <dm-devel@redhat.com>; Wed, 18 Nov 2020 08:51:43 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 82119811E79
-	for <dm-devel@redhat.com>; Wed, 18 Nov 2020 02:01:52 +0000 (UTC)
-Received: from out30-133.freemail.mail.aliyun.com
-	(out30-133.freemail.mail.aliyun.com [115.124.30.133]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-533-RCdlMIdRPlWVBnlOgCkttg-1;
-	Tue, 17 Nov 2020 21:01:49 -0500
-X-MC-Unique: RCdlMIdRPlWVBnlOgCkttg-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R191e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04394;
-	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=4; SR=0;
-	TI=SMTPD_---0UFkXjRL_1605664904
-Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0UFkXjRL_1605664904) by smtp.aliyun-inc.com(127.0.0.1);
-	Wed, 18 Nov 2020 10:01:45 +0800
-From: JeffleXu <jefflexu@linux.alibaba.com>
-To: snitzer@redhat.com
-References: <20201110065558.22694-1-jefflexu@linux.alibaba.com>
-	<20201113020551.55716-1-jefflexu@linux.alibaba.com>
-Message-ID: <7f63a06c-137f-bb6a-92da-bcf477dc8ffe@linux.alibaba.com>
-Date: Wed, 18 Nov 2020 10:01:44 +0800
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
-	Gecko/20100101 Thunderbird/68.12.1
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E47C4858298
+	for <dm-devel@redhat.com>; Wed, 18 Nov 2020 08:51:42 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-20-h1vW4aiAMIS60e3Ohj3CSw-1; Wed, 18 Nov 2020 03:51:39 -0500
+X-MC-Unique: h1vW4aiAMIS60e3Ohj3CSw-1
+Received: from [2001:4bb8:18c:31ba:32b1:ec66:5459:36a] (helo=localhost)
+	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+	id 1kfJ8E-0007kG-NB; Wed, 18 Nov 2020 08:48:03 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Jens Axboe <axboe@kernel.dk>
+Date: Wed, 18 Nov 2020 09:47:40 +0100
+Message-Id: <20201118084800.2339180-1-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20201113020551.55716-1-jefflexu@linux.alibaba.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -66,12 +58,17 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Wed, 18 Nov 2020 02:29:13 -0500
-Cc: joseph.qi@linux.alibaba.com, dm-devel@redhat.com, koct9i@gmail.com
-Subject: Re: [dm-devel] [PATCH v2] dm: add support for DM_TARGET_NOWAIT for
- various targets
+Cc: linux-bcache@vger.kernel.org, Mike Snitzer <snitzer@redhat.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Richard Weinberger <richard@nod.at>,
+	Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
+	linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	dm-devel@redhat.com, linux-mtd@lists.infradead.org,
+	Jan Kara <jack@suse.com>, Tejun Heo <tj@kernel.org>,
+	xen-devel@lists.xenproject.org, linux-mm@kvack.org
+Subject: [dm-devel] merge struct block_device and struct hd_struct
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,99 +82,93 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-Hi Mike,
+Hi Jens,
 
-How about this patch? I just tweaks the commit message in this v2 patch 
-to make
+this series cleans up our main per-device node data structure by merging
+the block_device and hd_struct data structures that have the same scope,
+but different life times.  The main effect (besides removing lots of
+code) is that instead of having two device sizes that need complex
+synchronization there is just one now.
 
-the purpose clearer, while keep the code unstained.
+Note that it depends on the previous "misc cleanups" series.
 
+A git tree is available here:
 
-Thanks,
+    git://git.infradead.org/users/hch/block.git bdev-lookup
 
-Jeffle
+Gitweb:
 
+    http://git.infradead.org/users/hch/block.git/shortlog/refs/heads/bdev-lookup
 
-On 11/13/20 10:05 AM, Jeffle Xu wrote:
-> commit 021a24460dc2 ("block: add QUEUE_FLAG_NOWAIT") adds a new queue
-> flag QUEUE_FLAG_NOWAIT to advertise if the bdev supports handling of
-> REQ_NOWAIT or not. DM core supports this in commit 6abc49468eea ("dm:
-> add support for REQ_NOWAIT and enable it for linear target"), in which
-> only dm-linear is enabled.
->
-> This patch also enables several dm-linear likely dm targets, the mapping
-> algorithm of which is just simple remapping.
->
-> Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
-> ---
->   drivers/md/dm-stripe.c   | 2 +-
->   drivers/md/dm-switch.c   | 1 +
->   drivers/md/dm-unstripe.c | 1 +
->   drivers/md/dm-zero.c     | 1 +
->   4 files changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/md/dm-stripe.c b/drivers/md/dm-stripe.c
-> index 151d022b032d..df359d33cda8 100644
-> --- a/drivers/md/dm-stripe.c
-> +++ b/drivers/md/dm-stripe.c
-> @@ -496,7 +496,7 @@ static void stripe_io_hints(struct dm_target *ti,
->   static struct target_type stripe_target = {
->   	.name   = "striped",
->   	.version = {1, 6, 0},
-> -	.features = DM_TARGET_PASSES_INTEGRITY,
-> +	.features = DM_TARGET_PASSES_INTEGRITY | DM_TARGET_NOWAIT,
->   	.module = THIS_MODULE,
->   	.ctr    = stripe_ctr,
->   	.dtr    = stripe_dtr,
-> diff --git a/drivers/md/dm-switch.c b/drivers/md/dm-switch.c
-> index bff4c7fa1cd2..262e2b0fd975 100644
-> --- a/drivers/md/dm-switch.c
-> +++ b/drivers/md/dm-switch.c
-> @@ -550,6 +550,7 @@ static int switch_iterate_devices(struct dm_target *ti,
->   static struct target_type switch_target = {
->   	.name = "switch",
->   	.version = {1, 1, 0},
-> +	.features = DM_TARGET_NOWAIT,
->   	.module = THIS_MODULE,
->   	.ctr = switch_ctr,
->   	.dtr = switch_dtr,
-> diff --git a/drivers/md/dm-unstripe.c b/drivers/md/dm-unstripe.c
-> index e673dacf6418..7357c1bd5863 100644
-> --- a/drivers/md/dm-unstripe.c
-> +++ b/drivers/md/dm-unstripe.c
-> @@ -178,6 +178,7 @@ static void unstripe_io_hints(struct dm_target *ti,
->   static struct target_type unstripe_target = {
->   	.name = "unstriped",
->   	.version = {1, 1, 0},
-> +	.features = DM_TARGET_NOWAIT,
->   	.module = THIS_MODULE,
->   	.ctr = unstripe_ctr,
->   	.dtr = unstripe_dtr,
-> diff --git a/drivers/md/dm-zero.c b/drivers/md/dm-zero.c
-> index b65ca8dcfbdc..faa1dbffc8b4 100644
-> --- a/drivers/md/dm-zero.c
-> +++ b/drivers/md/dm-zero.c
-> @@ -59,6 +59,7 @@ static int zero_map(struct dm_target *ti, struct bio *bio)
->   static struct target_type zero_target = {
->   	.name   = "zero",
->   	.version = {1, 1, 0},
-> +	.features = DM_TARGET_NOWAIT,
->   	.module = THIS_MODULE,
->   	.ctr    = zero_ctr,
->   	.map    = zero_map,
-
--- 
-Thanks,
-Jeffle
+Diffstat:
+ block/bio.c                                  |    6 
+ block/blk-cgroup.c                           |   50 +-
+ block/blk-core.c                             |   85 +--
+ block/blk-flush.c                            |    2 
+ block/blk-iocost.c                           |   36 -
+ block/blk-lib.c                              |    2 
+ block/blk-merge.c                            |    6 
+ block/blk-mq.c                               |   11 
+ block/blk-mq.h                               |    5 
+ block/blk.h                                  |   92 ----
+ block/genhd.c                                |  444 +++++---------------
+ block/ioctl.c                                |    7 
+ block/partitions/core.c                      |  238 +++--------
+ drivers/block/drbd/drbd_receiver.c           |    2 
+ drivers/block/drbd/drbd_worker.c             |    2 
+ drivers/block/loop.c                         |   21 
+ drivers/block/nbd.c                          |    6 
+ drivers/block/xen-blkback/common.h           |    4 
+ drivers/block/xen-blkfront.c                 |   20 
+ drivers/block/zram/zram_drv.c                |   20 
+ drivers/md/bcache/request.c                  |    4 
+ drivers/md/bcache/super.c                    |   53 --
+ drivers/md/dm-table.c                        |    9 
+ drivers/md/dm.c                              |   16 
+ drivers/md/md.c                              |    8 
+ drivers/mtd/mtdsuper.c                       |   17 
+ drivers/nvme/target/admin-cmd.c              |   20 
+ drivers/s390/block/dasd.c                    |    8 
+ drivers/s390/block/dasd_ioctl.c              |    9 
+ drivers/scsi/scsicam.c                       |    2 
+ drivers/target/target_core_file.c            |    6 
+ drivers/target/target_core_pscsi.c           |    7 
+ drivers/usb/gadget/function/storage_common.c |    8 
+ fs/block_dev.c                               |  578 ++++++++-------------------
+ fs/btrfs/sysfs.c                             |   15 
+ fs/btrfs/volumes.c                           |   13 
+ fs/ext4/super.c                              |   18 
+ fs/ext4/sysfs.c                              |   10 
+ fs/f2fs/checkpoint.c                         |    5 
+ fs/f2fs/f2fs.h                               |    2 
+ fs/f2fs/super.c                              |    8 
+ fs/f2fs/sysfs.c                              |    9 
+ fs/inode.c                                   |    3 
+ fs/internal.h                                |    7 
+ fs/io_uring.c                                |   10 
+ fs/pipe.c                                    |    5 
+ fs/pstore/blk.c                              |    2 
+ fs/quota/quota.c                             |   40 +
+ fs/statfs.c                                  |    2 
+ fs/super.c                                   |   86 ----
+ include/linux/blk-cgroup.h                   |    4 
+ include/linux/blk_types.h                    |   26 +
+ include/linux/blkdev.h                       |   24 -
+ include/linux/fs.h                           |    5 
+ include/linux/genhd.h                        |  104 ----
+ include/linux/part_stat.h                    |   17 
+ init/do_mounts.c                             |  271 +++++-------
+ kernel/trace/blktrace.c                      |   54 --
+ mm/filemap.c                                 |    9 
+ 59 files changed, 837 insertions(+), 1716 deletions(-)
 
 --
 dm-devel mailing list
