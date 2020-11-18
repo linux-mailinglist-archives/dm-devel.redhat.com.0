@@ -2,76 +2,81 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 966562B8690
-	for <lists+dm-devel@lfdr.de>; Wed, 18 Nov 2020 22:25:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1605734724;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=jDbbzROGVsnZGnk7ul/XPSID2XifFQYS+lDy8q6LIMA=;
-	b=TgFu2vi3RNYKIEQh98DjVnk35E/QqXptnDYKnkU8VlRhMLXKlFGnR8TH/JVnuGD7IPF0gz
-	BiaJVn4ax/mKQNLpo1zBjY5Aj/i+PTuYwOEZpoitW0cmpAZnoQAvRT6wR1f4HVLUi6GpHO
-	DgbKkeazznBTXp7ZvfEpU/DSGmYvCLQ=
+	by mail.lfdr.de (Postfix) with ESMTP id BCD5F2B86C6
+	for <lists+dm-devel@lfdr.de>; Wed, 18 Nov 2020 22:34:56 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-342-qYfAVwJ1Mm2zSafxm1izOA-1; Wed, 18 Nov 2020 16:25:22 -0500
-X-MC-Unique: qYfAVwJ1Mm2zSafxm1izOA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-186-WVXhE5-4Pn29XnvBvleH5g-1; Wed, 18 Nov 2020 16:34:53 -0500
+X-MC-Unique: WVXhE5-4Pn29XnvBvleH5g-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3B10B108E1A8;
-	Wed, 18 Nov 2020 21:25:13 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9154C1346E;
-	Wed, 18 Nov 2020 21:25:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D594D84A5E7;
+	Wed, 18 Nov 2020 21:34:46 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A6F5119728;
+	Wed, 18 Nov 2020 21:34:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 32C5518095C9;
-	Wed, 18 Nov 2020 21:25:01 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 61E5D86BE8;
+	Wed, 18 Nov 2020 21:34:46 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AILOl68031838 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 18 Nov 2020 16:24:47 -0500
+	id 0AILYWT5000549 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 18 Nov 2020 16:34:32 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B91446064B; Wed, 18 Nov 2020 21:24:47 +0000 (UTC)
+	id 8724D2166BA2; Wed, 18 Nov 2020 21:34:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 16ACF1346F;
-	Wed, 18 Nov 2020 21:24:40 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id 0AILOeFo017597; Wed, 18 Nov 2020 16:24:40 -0500
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id 0AILOcWa017593; Wed, 18 Nov 2020 16:24:38 -0500
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Wed, 18 Nov 2020 16:24:38 -0500 (EST)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Mike Snitzer <snitzer@redhat.com>
-In-Reply-To: <20201118160748.GA754@redhat.com>
-Message-ID: <alpine.LRH.2.02.2011181611470.16933@file01.intranet.prod.int.rdu2.redhat.com>
-References: <20201113225228.20563-1-rdunlap@infradead.org>
-	<344abf76-9405-58ba-2dc4-27cab88c974d@de.ibm.com>
-	<c29eeb5d-0683-49eb-f729-38b14fac7745@infradead.org>
-	<20201117163147.GA27243@redhat.com>
-	<20201118154944.GB545@redhat.com> <20201118160748.GA754@redhat.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 823E62166B44
+	for <dm-devel@redhat.com>; Wed, 18 Nov 2020 21:34:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 71D74811E85
+	for <dm-devel@redhat.com>; Wed, 18 Nov 2020 21:34:32 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-248-VmIDcgf1NxSv9OEMGyt4nQ-1;
+	Wed, 18 Nov 2020 16:34:26 -0500
+X-MC-Unique: VmIDcgf1NxSv9OEMGyt4nQ-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 35A12B011;
+	Wed, 18 Nov 2020 21:34:24 +0000 (UTC)
+Received: by quack2.suse.cz (Postfix, from userid 1000)
+	id A0C1D1E130B; Wed, 18 Nov 2020 15:10:24 +0100 (CET)
+Date: Wed, 18 Nov 2020 15:10:24 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20201118141024.GG1981@quack2.suse.cz>
+References: <20201118084800.2339180-1-hch@lst.de>
+	<20201118084800.2339180-3-hch@lst.de>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+In-Reply-To: <20201118084800.2339180-3-hch@lst.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: linux-s390@vger.kernel.org, Vasily Gorbik <gor@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>, Randy Dunlap <rdunlap@infradead.org>,
-	linux-kernel@vger.kernel.org,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	dm-devel@redhat.com, Alasdair Kergon <agk@redhat.com>
-Subject: Re: [dm-devel] md: dm-writeback: add __noreturn to BUG-ging function
+Cc: Jens Axboe <axboe@kernel.dk>, Mike Snitzer <snitzer@redhat.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Richard Weinberger <richard@nod.at>,
+	Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
+	linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	dm-devel@redhat.com, linux-mtd@lists.infradead.org,
+	Jan Kara <jack@suse.com>, Tejun Heo <tj@kernel.org>,
+	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [dm-devel] [PATCH 02/20] block: remove a duplicate
+	__disk_get_part prototype
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,75 +90,46 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+On Wed 18-11-20 09:47:42, Christoph Hellwig wrote:
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
+Looks good. You can add:
 
-On Wed, 18 Nov 2020, Mike Snitzer wrote:
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-> On Wed, Nov 18 2020 at 10:49am -0500,
-> Mike Snitzer <snitzer@redhat.com> wrote:
+								Honza
+
+> ---
+>  include/linux/genhd.h | 1 -
+>  1 file changed, 1 deletion(-)
 > 
-> > I don't think my suggestion will help.. given it'd still leave
-> > persistent_memory_claim() without a return statement.
-> > 
-> > Think it worthwhile to just add a dummy 'return 0;' after the BUG().
+> diff --git a/include/linux/genhd.h b/include/linux/genhd.h
+> index 46553d6d602563..22f5b9fd96f8bf 100644
+> --- a/include/linux/genhd.h
+> +++ b/include/linux/genhd.h
+> @@ -250,7 +250,6 @@ static inline dev_t part_devt(struct hd_struct *part)
+>  	return part_to_dev(part)->devt;
+>  }
+>  
+> -extern struct hd_struct *__disk_get_part(struct gendisk *disk, int partno);
+>  extern struct hd_struct *disk_get_part(struct gendisk *disk, int partno);
+>  
+>  static inline void disk_put_part(struct hd_struct *part)
+> -- 
+> 2.29.2
 > 
-> Decided to go with this, now staged for 5.11:
-> https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/commit/?h=dm-5.11&id=a1e4865b4dda7071f3707f7e551289ead66e38b1
-
-Hi
-
-I would just use "return -EOPNOTSUPP;" and drop the "#ifdef 
-DM_WRITECACHE_HAS_PMEM" that you added.
-
-That BUG/return -EOPNOTSUPP code can't happen at all - if 
-DM_WRITECACHE_HAS_PMEM is not defined, WC_MODE_PMEM(wc) always returns 
-false - so persistent_memory_claim and BUG() can't ever be called. And if 
-it can't be called, you don't need to add a code that prints an error in 
-that case.
-
-If we don't have DM_WRITECACHE_HAS_PMEM, the compiler optimizer will 
-remove all the code guarded with if (WC_MODE_PMEM(wc)) as unreachable.
-
-Mikulas
-
-
-From: Mikulas Patocka <mpatocka@redhat.com>
-Subject: [PATCH] dm writecache: remove BUG() and fail gracefully insteadfor-nextdm-5.11
-
-Building on arch/s390/ results in this build error:
-
-cc1: some warnings being treated as errors
-../drivers/md/dm-writecache.c: In function 'persistent_memory_claim':
-../drivers/md/dm-writecache.c:323:1: error: no return statement in function returning non-void [-Werror=return-type]
-
-Fix this by replacing the BUG() with a -EOPNOTSUPP return.
-
-Fixes: 48debafe4f2f ("dm: add writecache target")
-Cc: stable@vger.kernel.org	# v4.18+
-Reported-by: Randy Dunlap <rdunlap@infradead.org>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-
-Index: linux-2.6/drivers/md/dm-writecache.c
-===================================================================
---- linux-2.6.orig/drivers/md/dm-writecache.c
-+++ linux-2.6/drivers/md/dm-writecache.c
-@@ -319,7 +319,7 @@ err1:
- #else
- static int persistent_memory_claim(struct dm_writecache *wc)
- {
--	BUG();
-+	return -EOPNOTSUPP;
- }
- #endif
- 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
 --
 dm-devel mailing list
