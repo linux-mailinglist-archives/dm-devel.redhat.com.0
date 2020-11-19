@@ -2,102 +2,102 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 01CBA2B8DB9
-	for <lists+dm-devel@lfdr.de>; Thu, 19 Nov 2020 09:40:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 43DFA2B8D87
+	for <lists+dm-devel@lfdr.de>; Thu, 19 Nov 2020 09:39:35 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-489-ymo0FIsnMKS_aBQ-FAKwMg-1; Thu, 19 Nov 2020 03:40:29 -0500
-X-MC-Unique: ymo0FIsnMKS_aBQ-FAKwMg-1
+ us-mta-461-ZyfTc0NBOiKQIj-FpxVfbg-1; Thu, 19 Nov 2020 03:39:32 -0500
+X-MC-Unique: ZyfTc0NBOiKQIj-FpxVfbg-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2B12264092;
-	Thu, 19 Nov 2020 08:40:23 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 06EA860854;
-	Thu, 19 Nov 2020 08:40:23 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A90831876546;
+	Thu, 19 Nov 2020 08:39:23 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8522D60843;
+	Thu, 19 Nov 2020 08:39:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8E20C180954D;
-	Thu, 19 Nov 2020 08:40:22 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 159A186C09;
+	Thu, 19 Nov 2020 08:39:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AJ8eIBG016719 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 19 Nov 2020 03:40:18 -0500
+	id 0AJ8dJLY016442 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 19 Nov 2020 03:39:19 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B65258A4C2; Thu, 19 Nov 2020 08:40:18 +0000 (UTC)
+	id 85271200E21F; Thu, 19 Nov 2020 08:39:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AF9D9C54D0
-	for <dm-devel@redhat.com>; Thu, 19 Nov 2020 08:40:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F8372064011
+	for <dm-devel@redhat.com>; Thu, 19 Nov 2020 08:39:17 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 977FC85828C
-	for <dm-devel@redhat.com>; Thu, 19 Nov 2020 08:40:18 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1EAE080351B
+	for <dm-devel@redhat.com>; Thu, 19 Nov 2020 08:39:17 +0000 (UTC)
 Received: from esa2.hgst.iphmx.com (esa2.hgst.iphmx.com [68.232.143.124])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-582-qXq-BWo5NSqxSlf3M_dhmg-1; Thu, 19 Nov 2020 03:40:16 -0500
-X-MC-Unique: qXq-BWo5NSqxSlf3M_dhmg-1
-IronPort-SDR: STrC28aPaitQo1E7sxRiqmb6GNJBmBQGnQiachRmpdfsFJGfkwSpLiOX3TjtF143VMo+SCCKhw
-	+8ltkfjcLgCi9MignoCLoWJ7uRTKMjxK0UAcRorZALJIRRtOVZ8iTuyteQPCiKhf59C1CjOq36
-	POBIcljs/LOOsRWxhLJUcgF5HjwiUjV6wfKPMtBa6rYZN8ygp+RI9zaCzhJQhBAVYNbt1wXYeS
-	1w8pNSZT6i9l16GrdE6otQX6/O/qYPVsed/uU9gBly4m8dKdu+Hm9SlGAhCTUXLnWhhzc3KPiD
-	VM0=
-X-IronPort-AV: E=Sophos;i="5.77,490,1596470400"; d="scan'208";a="256563179"
-Received: from mail-bn7nam10lp2100.outbound.protection.outlook.com (HELO
-	NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.100])
-	by ob1.hgst.iphmx.com with ESMTP; 19 Nov 2020 16:46:24 +0800
+	us-mta-389-YUcu5aF4M36V0p0yz7g00g-1; Thu, 19 Nov 2020 03:39:12 -0500
+X-MC-Unique: YUcu5aF4M36V0p0yz7g00g-1
+IronPort-SDR: 7kpecrLv1R+8Tn0CZmRF0yo+J7M5rxF63VVhvXMSVXhy0xPzBwLW9bRZ41RPQuFsLSPhrVgW2p
+	Ynmljzaf5ROHMcakCa4XZ803Oubb8Irxuh0L0eAU6Q3z9Iwc6As0Dl5TYLU6rbLuzPURdwfoA9
+	NBgF12olrN1laUNt5lJ46l/dLw+0nysf5AujmAWQE82XSaJMG8kn4XSl2u4WsXgxhx/Nq370hC
+	DitD+xK1g8tiQSf/o/AMAAeHvZSa61iucXxhtjNy7psFUfQ8rmros+lKLLePsDMOIFyMc5QpEv
+	Lp0=
+X-IronPort-AV: E=Sophos;i="5.77,490,1596470400"; d="scan'208";a="256563203"
+Received: from mail-bn7nam10lp2109.outbound.protection.outlook.com (HELO
+	NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.109])
+	by ob1.hgst.iphmx.com with ESMTP; 19 Nov 2020 16:46:49 +0800
 Received: from SN4PR0401MB3598.namprd04.prod.outlook.com
 	(2603:10b6:803:47::21) by SN6PR04MB4862.namprd04.prod.outlook.com
 	(2603:10b6:805:90::27) with Microsoft SMTP Server (version=TLS1_2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.22;
-	Thu, 19 Nov 2020 08:38:10 +0000
+	Thu, 19 Nov 2020 08:38:26 +0000
 Received: from SN4PR0401MB3598.namprd04.prod.outlook.com
 	([fe80::65d7:592a:32d4:9f98]) by
 	SN4PR0401MB3598.namprd04.prod.outlook.com
 	([fe80::65d7:592a:32d4:9f98%7]) with mapi id 15.20.3589.022;
-	Thu, 19 Nov 2020 08:38:10 +0000
+	Thu, 19 Nov 2020 08:38:26 +0000
 From: Johannes Thumshirn <Johannes.Thumshirn@wdc.com>
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
-Thread-Topic: [PATCH 05/20] block: use put_device in put_disk
-Thread-Index: AQHWvYfygihSbkAO3EqJycs/+eV+qA==
-Date: Thu, 19 Nov 2020 08:38:09 +0000
-Message-ID: <SN4PR0401MB35985F6360E32F28890703BE9BE00@SN4PR0401MB3598.namprd04.prod.outlook.com>
+Thread-Topic: [PATCH 07/20] init: refactor name_to_dev_t
+Thread-Index: AQHWvYgrYc1Qp0WgLEOTR53TfvPOSQ==
+Date: Thu, 19 Nov 2020 08:38:26 +0000
+Message-ID: <SN4PR0401MB35988935BAEBEC04C143EE759BE00@SN4PR0401MB3598.namprd04.prod.outlook.com>
 References: <20201118084800.2339180-1-hch@lst.de>
-	<20201118084800.2339180-6-hch@lst.de>
+	<20201118084800.2339180-8-hch@lst.de>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-originating-ip: [2001:a62:157d:bf01:851e:5636:4e29:3e2e]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 92c3f2e3-cc64-499d-51ba-08d88c667205
+x-ms-office365-filtering-correlation-id: b730e505-bdff-4d92-45ab-08d88c667bb5
 x-ms-traffictypediagnostic: SN6PR04MB4862:
-x-microsoft-antispam-prvs: <SN6PR04MB4862CB19B47022438805E7B79BE00@SN6PR04MB4862.namprd04.prod.outlook.com>
+x-microsoft-antispam-prvs: <SN6PR04MB4862C4EF0AEAA7A94CCC4D829BE00@SN6PR04MB4862.namprd04.prod.outlook.com>
 wdcipoutbound: EOP-TRUE
 x-ms-oob-tlc-oobclassifiers: OLM:1728
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: g42yADA20zKfT09YVXuquvxGh0iZXmsRDe9bklMiBrFQthaK28s1yf2EjTv1uoB0v6pKXfQCrEQVKqstUKmCpAt+rzV4LFtnPPrytVFPPjrsUsT1NY3vw96pHhMN4RK1582QV7b7eUxFSPToG8D+dIGtqOaZcHriUkTB/p55+rWo3EWMFtY3A12CPlhoEOaQ/+o71LMRPBCMrxVsqPjYcyrAdcAM1YTGLz9AdAxyjW4hEirLDTpfYU93z1QYWovqJncjaAhVvgJFG4jATu94xNJ42VcFduKC2UAQ6ZFdsGTs9oxiNNnabE5ylyI0dZwNUyEaT7Y+NUIVmBN/UdjTKA==
+x-microsoft-antispam-message-info: AYG6BnQlsuGA/acLvLJgD7cGr5/O+puH6AbW6Ju3ilicmeE2aoZVRwEBcJL8W8aHpanaHc8PRJyDum4B+H0jOgvDGD/rMvmlvtImEIktxVkuLuNFT4HUZNSHcSRjPusPZ2bo2XYdTh67fWzZvTAifSG9aOSwEKW9qAqJ5Y9aZZakuYlci1SV9LfPN05lKXRvygjeF/dKLfMFLrF3VwM3p4NNFkQwm6nLHd7nkqQtdj6Bq6P0EiGGhjJNs6jSXIUm+1kPjv2Euhf1k1OC92gcVCDrIY/6DjeLROMeEDlDPTIhaI8sR+zJZNo4tIxjgPes0DLo2qwiUKhorvU5EmOKrg==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
 	IPV:NLI; SFV:NSPM; H:SN4PR0401MB3598.namprd04.prod.outlook.com;
 	PTR:; CAT:NONE;
 	SFS:(4636009)(376002)(136003)(39860400002)(346002)(396003)(366004)(8936002)(71200400001)(19618925003)(4326008)(33656002)(7416002)(9686003)(55016002)(66946007)(76116006)(478600001)(66476007)(66446008)(64756008)(86362001)(54906003)(66556008)(91956017)(52536014)(558084003)(2906002)(186003)(8676002)(4270600006)(7696005)(316002)(6506007)(110136005)(5660300002);
 	DIR:OUT; SFP:1102
-x-ms-exchange-antispam-messagedata: /akJuE1o1z04hMhHtY8YfzGcCbUKkscN5Mk/ueb8x/1TSn28wXiiO/Uv/GeWQNoedJbudgJRSqr7s1xxUx4VG03KSLCLuNolrhv2cujAFucV4dcggqQKcNMDMvkCpIy/aue5UXHRQywDh1svaqswB+/H8Tn34pS51hr06VmgM9H2JkpsMwabvSeLo4NWzKfzxo24o9bEuEuLJP1Bhnjmh5sjWfYZdJrMCuc1ZPQY45j9hGoEL2xM98JsJlBFSP3qSNRMZa1dAUGcVgXSciVoTriuTumU3lkYPebUUQdSoqxkc9Nt+qtM+u+IcrzJI7+uVnfsfeMpUn4vsHbkn7pN8CVThtTjjSwe+9wqtRzHuh0bW8HKVWIlhs572lHA9Jx61ROnvD1OHWSCOTqI1yntTvV2rcaD79UJuQNREfG6mEbzmw80keiyBT9Q4aleLVtMxL/wsfBY6vOkS2MoMDh4xoh2+E6jQcwgea9GQABAp9leTw3iolDV+eo7LwZQs8XKQkvLAu4egy+aBGJ850FhTuZxrYUeCm1ITygSTGy04jvPEjG8rHPCj8KttrDjmB5vRYElkn7kVNjF90IsehoQjFEttUFlH0jZRgEqOZCJHQtFejZHQPQYhiPbyvQDJ4kRvYk0AqcrdpnGhC0cj4/vm17IkTi9xSqtdiafgvsYM+H8NbgWE6KIpyX38rR/Gw59D7VgN6EPBxkg422mROdckg==
+x-ms-exchange-antispam-messagedata: hA8+VzTCyu88zqp8ByagDd0VV9gn8kSx4RCMDL80KLf+qsSjq+JJ+bxL7h9DgMh0ZwH1/Hhzz24dfWQK6FvSCu2N2pODdFcZpmexlWvb43BEP7St9yobdcngjk3Lx23YjM1HMbAHTeBb0P7l1ZVhUM0+3BzwYQ3epRmAQhV+fdYJtfD4FNERaTCynw7pFA5B0GmOG2LWvsgbGA+FQ28CWZwmZ8HSz2yVlxB7oMiEt4oyfqDxdbDak+pMRivWO9tR1DX1RHpX1/lRr/ItsnPk2dguWy4anHW7zaImw/O6IIZT4sv3HbDpyH8j3bFI+Pi48foAdx8OazbcByGmP7l8WbieradKMX+tM+ZGCCqcwEW50guJ1Vnjpz+t7iXwUcvB3nW6FTXSjv+ERovMxV50QWObbeA6ZNDNMaucAYyMMejfC1z6KRC2TbfwNvBkfeynbCLY7kQj9a7md0DpP6tNT7E25J72eXrv6hhVxYOqxhvsNZnxZg1FpUlbkL5GRDCxaFgFofYR3IdLVebcBnr50AAiTO/o9WggMNLecfIc+ppyFZbur8YLgkersC1lMcL9QSzbG213UNIp6RuVTy/+FJlzDX9Gi27/XvknejmLj8VqY07T9dFYVsQZPclrWxlG0L889mu5DAIedBfF3TaUy2uAMoLTbmL2OsDxEH7c0w+XTm9Hqpv7dBhgiDMriKT2BXIVJXnQfgXxZHOaHgeBAw==
 x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
 X-OriginatorOrg: wdc.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: SN4PR0401MB3598.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92c3f2e3-cc64-499d-51ba-08d88c667205
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Nov 2020 08:38:09.9609 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b730e505-bdff-4d92-45ab-08d88c667bb5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Nov 2020 08:38:26.2255 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /A+nGOFGHVgtcuTmOCVgRAAjJNv7win23VbADbkAEy0+10HCHizCBKfCvlNVPY6m9rus8x3oWitEqAHBqzMgL65YOdUAeLxVGcm7bjyLto8=
+X-MS-Exchange-CrossTenant-userprincipalname: CUJKjc+O7Uc5n1gkeDg58OBnuesd0SrFF3yd4avvUfbb7H6fsgi8DwfU5idErUdSk0MYdyD7R2wm2ECOP3+WegiNVulxDiOK0nUj9qsmyKo=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR04MB4862
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -107,9 +107,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AJ8eIBG016719
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AJ8dJLY016442
 X-loop: dm-devel@redhat.com
 Cc: "linux-bcache@vger.kernel.org" <linux-bcache@vger.kernel.org>, Mike,
 	Snitzer <snitzer@redhat.com>, Rzeszutek Wilk <konrad.wilk@oracle.com>,
@@ -122,7 +122,7 @@ Cc: "linux-bcache@vger.kernel.org" <linux-bcache@vger.kernel.org>, Mike,
 	Jan Kara <jack@suse.com>, Tejun Heo <tj@kernel.org>,
 	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
 	"linux-mm@kvack.org" <linux-mm@kvack.org>
-Subject: Re: [dm-devel] [PATCH 05/20] block: use put_device in put_disk
+Subject: Re: [dm-devel] [PATCH 07/20] init: refactor name_to_dev_t
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
