@@ -1,105 +1,60 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 21BB82B8D9A
-	for <lists+dm-devel@lfdr.de>; Thu, 19 Nov 2020 09:39:46 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 34F402B8F2A
+	for <lists+dm-devel@lfdr.de>; Thu, 19 Nov 2020 10:42:39 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-139-p1gKmmMKPmWbX8HzNGKUJg-1; Thu, 19 Nov 2020 03:39:42 -0500
-X-MC-Unique: p1gKmmMKPmWbX8HzNGKUJg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-54-wRAikj71NQaOVF6NYozjZw-1; Thu, 19 Nov 2020 04:42:35 -0500
+X-MC-Unique: wRAikj71NQaOVF6NYozjZw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 04F4810919C8;
-	Thu, 19 Nov 2020 08:39:36 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D0A601001B2C;
-	Thu, 19 Nov 2020 08:39:35 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DB9A6187668E;
+	Thu, 19 Nov 2020 09:42:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ADA8019C48;
+	Thu, 19 Nov 2020 09:42:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 874FB180954D;
-	Thu, 19 Nov 2020 08:39:35 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4DA254BB7B;
+	Thu, 19 Nov 2020 09:42:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AJ8dWfq016505 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 19 Nov 2020 03:39:32 -0500
+	id 0AJ9g5iL028781 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 19 Nov 2020 04:42:05 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id F182D218DA50; Thu, 19 Nov 2020 08:39:31 +0000 (UTC)
+	id 29C7D1004151; Thu, 19 Nov 2020 09:42:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EBC54218DA36
-	for <dm-devel@redhat.com>; Thu, 19 Nov 2020 08:39:31 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2493810FD28C
+	for <dm-devel@redhat.com>; Thu, 19 Nov 2020 09:42:01 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D7238185A790
-	for <dm-devel@redhat.com>; Thu, 19 Nov 2020 08:39:31 +0000 (UTC)
-Received: from esa2.hgst.iphmx.com (esa2.hgst.iphmx.com [68.232.143.124])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-289-WRNZzmvTN6aPVuOuMhNUBA-1; Thu, 19 Nov 2020 03:39:28 -0500
-X-MC-Unique: WRNZzmvTN6aPVuOuMhNUBA-1
-IronPort-SDR: vAoAVeJm1/5MEtcMU/kFHtNBbrm5JShpR7BiZqP78Dha/TKDLv3ZCyYmdM+YVahaE7+p4jGq6D
-	irSWb7OFiFT0ng9oh8j5mY4+80e3SIWSdTjOOvxPHG9dU8+bqaFoNAU7P8QoNyetXzhr3mdsKa
-	SbHZIrsBDMNPmMKym3v9RujfhSvVjfv+oBT9BOmxe2QJgx7aS1OAsySwZ/QxLrFDCdkKoBdYdl
-	i03cjz70h+etnh0VznvYAmwNo+yAj+susaHipAF3iyZu6pUiZ8MjAAqTLx3QJn9V03RUCZLns5
-	/Oo=
-X-IronPort-AV: E=Sophos;i="5.77,490,1596470400"; d="scan'208";a="256563234"
-Received: from mail-bn7nam10lp2102.outbound.protection.outlook.com (HELO
-	NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.102])
-	by ob1.hgst.iphmx.com with ESMTP; 19 Nov 2020 16:47:15 +0800
-Received: from SN4PR0401MB3598.namprd04.prod.outlook.com
-	(2603:10b6:803:47::21) by SN6PR04MB4862.namprd04.prod.outlook.com
-	(2603:10b6:805:90::27) with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.22;
-	Thu, 19 Nov 2020 08:38:43 +0000
-Received: from SN4PR0401MB3598.namprd04.prod.outlook.com
-	([fe80::65d7:592a:32d4:9f98]) by
-	SN4PR0401MB3598.namprd04.prod.outlook.com
-	([fe80::65d7:592a:32d4:9f98%7]) with mapi id 15.20.3589.022;
-	Thu, 19 Nov 2020 08:38:43 +0000
-From: Johannes Thumshirn <Johannes.Thumshirn@wdc.com>
-To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
-Thread-Topic: [PATCH 09/20] init: cleanup match_dev_by_uuid and
-	match_dev_by_label
-Thread-Index: AQHWvYhocOE/KFj+qU6m8HXUxgOagg==
-Date: Thu, 19 Nov 2020 08:38:43 +0000
-Message-ID: <SN4PR0401MB3598D6B584FD73A97E3681AE9BE00@SN4PR0401MB3598.namprd04.prod.outlook.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DB842800B3A
+	for <dm-devel@redhat.com>; Thu, 19 Nov 2020 09:42:01 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-255-Z7wmE6W8PHew0ntrzPN7XA-1;
+	Thu, 19 Nov 2020 04:41:59 -0500
+X-MC-Unique: Z7wmE6W8PHew0ntrzPN7XA-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id A3791AC98;
+	Thu, 19 Nov 2020 09:41:57 +0000 (UTC)
+Received: by quack2.suse.cz (Postfix, from userid 1000)
+	id 286A51E1303; Thu, 19 Nov 2020 10:41:57 +0100 (CET)
+Date: Thu, 19 Nov 2020 10:41:57 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20201119094157.GT1981@quack2.suse.cz>
 References: <20201118084800.2339180-1-hch@lst.de>
-	<20201118084800.2339180-10-hch@lst.de>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2001:a62:157d:bf01:851e:5636:4e29:3e2e]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: d44d37f7-3e46-48b6-5716-08d88c668629
-x-ms-traffictypediagnostic: SN6PR04MB4862:
-x-microsoft-antispam-prvs: <SN6PR04MB4862D36B009D3979BBCC93EC9BE00@SN6PR04MB4862.namprd04.prod.outlook.com>
-wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:1728
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: vhLfugirm/LBJVDQVEhG83CPym6FDM00kZxCXB0hqndJRE48vo97PGXQ0wPUx9XAR9SJuLVJkqdGd3lL8YCK8RsFy5SnF83vRnxC/BPusxZAymKlBel38EcuEHJd6QjR4Kz31sEMe8qcVSd+0pGApw2l9m3HbURdau7tZ5I+8kmOr7uz6LrzBSsU32UcSnrjD8NPYG4r3AjYWMwzhhnF9CWFdXCDOa75pHsYFCwWhQEiEghykYxLd31FfmTFusr5YAVD1qlZC+QwYG5Jzk/vfrdT6lyEsy02HCuPQIF0NisRD3YdoFcIqgD52iCiY6dIBwy7cq8NPlBxGYslflnbMQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:SN4PR0401MB3598.namprd04.prod.outlook.com;
-	PTR:; CAT:NONE;
-	SFS:(4636009)(376002)(136003)(39860400002)(346002)(396003)(366004)(8936002)(71200400001)(19618925003)(4326008)(33656002)(7416002)(9686003)(55016002)(66946007)(76116006)(478600001)(66476007)(66446008)(64756008)(86362001)(54906003)(66556008)(91956017)(52536014)(558084003)(2906002)(186003)(8676002)(4270600006)(7696005)(316002)(6506007)(110136005)(5660300002);
-	DIR:OUT; SFP:1102
-x-ms-exchange-antispam-messagedata: 88nmOM5+EWcTP4MQ2A3An3tXN9wV0en98gGW/l7Mp26Nsg1CXZRXzntWhvD3UXdE2DUij2u+4u4xFcuRndUlxAcOr35K9aUPDmlpPNQa7Za++EWjmdrRWHK2XrtEDCBpLQ8L6IkVMFT0AMwdYTEZr9A5gDSg8RUWyranfcCvVniTCysKqWaaHxJQRK96f4bI47cNE5YSp8IRdG/MULgFkl3KmRpfZ8Xvixx+/KHvI5xqfppbc4Pntr+1RfwPW2m+xfgowibFPyX1IZcq5keRVL0Hz7kE/WYlLs4qSUhy8ftZSG8weuwSfm1XO6Biyn42XDb0QFRJOe0dMlqMQXHZUIQzFgRE4SzU2b4s1dgk+XZVZN6RryjfGOY7IcoNjR3ixggU6a4UEoMsoUyqh1dau7WWKWe0LiCziU3FfcvHXbI5U4hz2DSW751XQLOstKdXGhXGIVccGAL5wkmHvgBJ7PHjk0ucQ5ldk7kR2+HgOiVgffBl5cvXm2pHFHMINAtpOjP/Lj2oVE9To6fFpcn4F5xfNU1Bcy7VOiNoYphQXJOmzNc8qwkCRXYCmwZCUNG9WmuTMP2O+yDKDPtQ1r86gNh2p/1ADkfFWZJAS4BUFZqZL5gmi8uCA9K+hA4AHLCPQ/ieJtv35QDTih9HjWJ6uMm6CONTCswAkdnbbRo2SRl17wCd65388Ojf3tAmnrBHZ517A38ZiACklU367LG6iQ==
-x-ms-exchange-transport-forked: True
+	<20201118084800.2339180-12-hch@lst.de>
 MIME-Version: 1.0
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN4PR0401MB3598.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d44d37f7-3e46-48b6-5716-08d88c668629
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Nov 2020 08:38:43.6815 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +lLmbh3EUsXFC6D744TZ/ixltcXZZdJdq/76z3I//Re4QhH9XcIZeGLJayetrzTUbYsWZPdAf1w6xEJPAXVxQz9sQiR9y892Xuadh57IlW8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR04MB4862
+In-Reply-To: <20201118084800.2339180-12-hch@lst.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -108,23 +63,19 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AJ8dWfq016505
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: "linux-bcache@vger.kernel.org" <linux-bcache@vger.kernel.org>, Mike,
-	Snitzer <snitzer@redhat.com>, Rzeszutek Wilk <konrad.wilk@oracle.com>,
+Cc: Jens Axboe <axboe@kernel.dk>, Mike Snitzer <snitzer@redhat.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
 	Richard Weinberger <richard@nod.at>,
 	Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>, Konrad,
-	"linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
+	linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	dm-devel@redhat.com, linux-mtd@lists.infradead.org,
 	Jan Kara <jack@suse.com>, Tejun Heo <tj@kernel.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"linux-mm@kvack.org" <linux-mm@kvack.org>
-Subject: Re: [dm-devel] [PATCH 09/20] init: cleanup match_dev_by_uuid and
- match_dev_by_label
+	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [dm-devel] [PATCH 11/20] block: reference struct block_device
+ from struct hd_struct
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -138,19 +89,87 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Looks good,
-Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+On Wed 18-11-20 09:47:51, Christoph Hellwig wrote:
+> To simplify block device lookup and a few other upcomdin areas, make sure
+> that we always have a struct block_device available for each disk and
+> each partition.  The only downside of this is that each device and
+> partition uses a little more memories.  The upside will be that a lot of
+				^^^ memory
 
+> code can be simplified.
+> 
+> With that all we need to look up the block device is to lookup the inode
+> and do a few sanity checks on the gendisk, instead of the separate lookup
+> for the gendisk.
+> 
+> As part of the change switch bdget() to only find existing block devices,
+> given that we know that the block_device structure must be allocated at
+> probe / partition scan time.
+> 
+> blk-cgroup needed a bit of a special treatment as the only place that
+> wanted to lookup a gendisk outside of the normal blkdev_get path.  It is
+> switched to lookup using the block device hash now that this is the
+> primary lookup path.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
+The patch looks good to me and I like the simplifications! I've found just
+one small issue below.
+
+> @@ -1748,16 +1600,18 @@ struct gendisk *__alloc_disk_node(int minors, int node_id)
+>  	if (!disk)
+>  		return NULL;
+>  
+> +	disk->part0.bdev = bdev_alloc(disk, 0);
+> +	if (!disk->part0.bdev)
+> +		goto out_free_disk;
+> +
+>  	disk->part0.dkstats = alloc_percpu(struct disk_stats);
+>  	if (!disk->part0.dkstats)
+> -		goto out_free_disk;
+> +		goto out_bdput;
+>  
+>  	init_rwsem(&disk->lookup_sem);
+>  	disk->node_id = node_id;
+> -	if (disk_expand_part_tbl(disk, 0)) {
+> -		free_percpu(disk->part0.dkstats);
+> -		goto out_free_disk;
+> -	}
+> +	if (disk_expand_part_tbl(disk, 0))
+> +		goto out_free_bdstats;
+>  
+>  	ptbl = rcu_dereference_protected(disk->part_tbl, 1);
+>  	rcu_assign_pointer(ptbl->part[0], &disk->part0);
+> @@ -1772,8 +1626,10 @@ struct gendisk *__alloc_disk_node(int minors, int node_id)
+>  	 * converted to make use of bd_mutex and sequence counters.
+>  	 */
+>  	hd_sects_seq_init(&disk->part0);
+> -	if (hd_ref_init(&disk->part0))
+> -		goto out_free_part0;
+> +	if (hd_ref_init(&disk->part0)) {
+> +		hd_free_part(&disk->part0);
+
+Aren't you missing kfree(disk) here?
+
+> +		return NULL;
+> +	}
+>  
+>  	disk->minors = minors;
+>  	rand_initialize_disk(disk);
+
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
 --
 dm-devel mailing list
