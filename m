@@ -1,59 +1,59 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 6F49F2BA309
-	for <lists+dm-devel@lfdr.de>; Fri, 20 Nov 2020 08:23:43 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id C5F7D2BA314
+	for <lists+dm-devel@lfdr.de>; Fri, 20 Nov 2020 08:25:29 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-259-wQnJtBONPAKAFY4qDOPN0A-1; Fri, 20 Nov 2020 02:23:40 -0500
-X-MC-Unique: wQnJtBONPAKAFY4qDOPN0A-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-578-0rgILrN3P7icZcyCydOSBg-1; Fri, 20 Nov 2020 02:25:26 -0500
+X-MC-Unique: 0rgILrN3P7icZcyCydOSBg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 41FAA107ACFC;
-	Fri, 20 Nov 2020 07:23:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 513891005D5C;
+	Fri, 20 Nov 2020 07:25:21 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A6F919725;
-	Fri, 20 Nov 2020 07:23:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 21C1360853;
+	Fri, 20 Nov 2020 07:25:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 13713180954D;
-	Fri, 20 Nov 2020 07:23:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 95FA6180954D;
+	Fri, 20 Nov 2020 07:25:20 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AK7NT7Q003638 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 20 Nov 2020 02:23:29 -0500
+	id 0AK7PG60003909 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 20 Nov 2020 02:25:16 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2A094E7783; Fri, 20 Nov 2020 07:23:29 +0000 (UTC)
+	id 15E5410EB291; Fri, 20 Nov 2020 07:25:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 24B8DE7795
-	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 07:23:26 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1165E10EB292
+	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 07:25:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 068288007D9
-	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 07:23:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B8318811E76
+	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 07:25:13 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-323-3xnF9a1xPzKI6EFyRzutDg-1;
-	Fri, 20 Nov 2020 02:23:19 -0500
-X-MC-Unique: 3xnF9a1xPzKI6EFyRzutDg-1
+	relay.mimecast.com with ESMTP id us-mta-448-7wW_55MxNP6bHvUhfrinjg-1;
+	Fri, 20 Nov 2020 02:25:06 -0500
+X-MC-Unique: 7wW_55MxNP6bHvUhfrinjg-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id EDB7EAC0C;
-	Fri, 20 Nov 2020 07:23:16 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id 0A558AD29;
+	Fri, 20 Nov 2020 07:25:05 +0000 (UTC)
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
 References: <20201116145809.410558-1-hch@lst.de>
-	<20201116145809.410558-35-hch@lst.de>
+	<20201116145809.410558-54-hch@lst.de>
 From: Hannes Reinecke <hare@suse.de>
-Message-ID: <11ea0b89-d8e6-2d5d-59e4-90e928d54042@suse.de>
-Date: Fri, 20 Nov 2020 08:23:15 +0100
+Message-ID: <b7e7dd80-b46b-afaf-9117-8dade0e2420e@suse.de>
+Date: Fri, 20 Nov 2020 08:25:03 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
 	Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <20201116145809.410558-35-hch@lst.de>
+In-Reply-To: <20201116145809.410558-54-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -62,9 +62,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AK7NT7Q003638
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AK7PG60003909
 X-loop: dm-devel@redhat.com
 Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
@@ -81,8 +81,8 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Subject: Re: [dm-devel] [PATCH 34/78] block: propagate BLKROSET to all
-	partitions
+Subject: Re: [dm-devel] [PATCH 53/78] blk-cgroup: fix a hd_struct leak in
+ blkcg_fill_root_iostats
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,7 +96,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -105,26 +105,24 @@ Content-Language: en-US
 Content-Transfer-Encoding: base64
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-T24gMTEvMTYvMjAgMzo1NyBQTSwgQ2hyaXN0b3BoIEhlbGx3aWcgd3JvdGU6Cj4gV2hlbiBzZXR0
-aW5nIHRoZSB3aG9sZSBkZXZpY2UgcmVhZC1vbmx5IChvciBjbGVhcmluZyB0aGUgcmVhZC1vbmx5
-Cj4gc3RhdGUpLCBhbHNvIHVwZGF0ZSB0aGUgcG9saWN5IGZvciBhbGwgcGFydGl0aW9ucy4gIFRo
-ZSBzMzkwIGRhc2QKPiBkcml2ZXIgaGFzIGF3bHdheXMgYmVlbiBkb2luZyB0aGlzIGFuZCBpdCBt
-YWtlcyBhIGxvdCBvZiBzZW5zZS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGggSGVsbHdp
-ZyA8aGNoQGxzdC5kZT4KPiAtLS0KPiAgIGJsb2NrL2lvY3RsLmMgfCA1ICsrKystCj4gICAxIGZp
-bGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4gCj4gZGlmZiAtLWdp
-dCBhL2Jsb2NrL2lvY3RsLmMgYi9ibG9jay9pb2N0bC5jCj4gaW5kZXggNmI3ODUxODEzNDRmZTEu
-LjIyZjM5NGQxMThjMzAyIDEwMDY0NAo+IC0tLSBhL2Jsb2NrL2lvY3RsLmMKPiArKysgYi9ibG9j
-ay9pb2N0bC5jCj4gQEAgLTM1NCw3ICszNTQsMTAgQEAgc3RhdGljIGludCBibGtkZXZfcm9zZXQo
-c3RydWN0IGJsb2NrX2RldmljZSAqYmRldiwgZm1vZGVfdCBtb2RlLAo+ICAgCQlpZiAocmV0KQo+
-ICAgCQkJcmV0dXJuIHJldDsKPiAgIAl9Cj4gLQliZGV2LT5iZF9wYXJ0LT5wb2xpY3kgPSBuOwo+
-ICsJaWYgKGJkZXZfaXNfcGFydGl0aW9uKGJkZXYpKQo+ICsJCWJkZXYtPmJkX3BhcnQtPnBvbGlj
-eSA9IG47Cj4gKwllbHNlCj4gKwkJc2V0X2Rpc2tfcm8oYmRldi0+YmRfZGlzaywgbik7Cj4gICAJ
-cmV0dXJuIDA7Cj4gICB9Cj4gICAKPiAKUmV2aWV3ZWQtYnk6IEhhbm5lcyBSZWluZWNrZSA8aGFy
-ZUBzdXNlLmRlPgoKQ2hlZXJzLAoKSGFubmVzCi0tIApEci4gSGFubmVzIFJlaW5lY2tlICAgICAg
-ICAgICAgICAgIEtlcm5lbCBTdG9yYWdlIEFyY2hpdGVjdApoYXJlQHN1c2UuZGUgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICArNDkgOTExIDc0MDUzIDY4OApTVVNFIFNvZnR3YXJlIFNvbHV0
-aW9ucyBHbWJILCBNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJlcmcKSFJCIDM2ODA5IChBRyBO
-w7xybmJlcmcpLCBHZXNjaMOkZnRzZsO8aHJlcjogRmVsaXggSW1lbmTDtnJmZmVyCgoKLS0KZG0t
-ZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly93d3cucmVkaGF0
-LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
+T24gMTEvMTYvMjAgMzo1NyBQTSwgQ2hyaXN0b3BoIEhlbGx3aWcgd3JvdGU6Cj4gZGlza19nZXRf
+cGFydCBuZWVkcyB0byBiZSBwYWlyZWQgd2l0aCBhIGRpc2tfcHV0X3BhcnQuCj4gCj4gRml4ZXM6
+IGVmNDVmZTQ3MGUxICgiYmxrLWNncm91cDogc2hvdyBnbG9iYWwgZGlzayBzdGF0cyBpbiByb290
+IGNncm91cCBpby5zdGF0IikKPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNo
+QGxzdC5kZT4KPiAtLS0KPiAgIGJsb2NrL2Jsay1jZ3JvdXAuYyB8IDEgKwo+ICAgMSBmaWxlIGNo
+YW5nZWQsIDEgaW5zZXJ0aW9uKCspCj4gCj4gZGlmZiAtLWdpdCBhL2Jsb2NrL2Jsay1jZ3JvdXAu
+YyBiL2Jsb2NrL2Jsay1jZ3JvdXAuYwo+IGluZGV4IGM2OGJkZjU4YzlhNmUxLi41NGZiZTFlODBj
+YzQxYSAxMDA2NDQKPiAtLS0gYS9ibG9jay9ibGstY2dyb3VwLmMKPiArKysgYi9ibG9jay9ibGst
+Y2dyb3VwLmMKPiBAQCAtODQ5LDYgKzg0OSw3IEBAIHN0YXRpYyB2b2lkIGJsa2NnX2ZpbGxfcm9v
+dF9pb3N0YXRzKHZvaWQpCj4gICAJCQlibGtnX2lvc3RhdF9zZXQoJmJsa2ctPmlvc3RhdC5jdXIs
+ICZ0bXApOwo+ICAgCQkJdTY0X3N0YXRzX3VwZGF0ZV9lbmQoJmJsa2ctPmlvc3RhdC5zeW5jKTsK
+PiAgIAkJfQo+ICsJCWRpc2tfcHV0X3BhcnQocGFydCk7Cj4gICAJfQo+ICAgfQo+ICAgCj4gClJl
+dmlld2VkLWJ5OiBIYW5uZXMgUmVpbmVja2UgPGhhcmVAc3VzZS5kZT4KCkNoZWVycywKCkhhbm5l
+cwotLSAKRHIuIEhhbm5lcyBSZWluZWNrZSAgICAgICAgICAgICAgICBLZXJuZWwgU3RvcmFnZSBB
+cmNoaXRlY3QKaGFyZUBzdXNlLmRlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKzQ5IDkx
+MSA3NDA1MyA2ODgKU1VTRSBTb2Z0d2FyZSBTb2x1dGlvbnMgR21iSCwgTWF4ZmVsZHN0ci4gNSwg
+OTA0MDkgTsO8cm5iZXJnCkhSQiAzNjgwOSAoQUcgTsO8cm5iZXJnKSwgR2VzY2jDpGZ0c2bDvGhy
+ZXI6IEZlbGl4IEltZW5kw7ZyZmZlcgoKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZl
+bEByZWRoYXQuY29tCmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1k
+ZXZlbA==
 
