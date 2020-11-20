@@ -2,70 +2,63 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id CAF942C0189
-	for <lists+dm-devel@lfdr.de>; Mon, 23 Nov 2020 09:40:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BC50B2C018B
+	for <lists+dm-devel@lfdr.de>; Mon, 23 Nov 2020 09:40:41 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-408-hyUeHqB5PyuZTsYI0so-Fg-1; Mon, 23 Nov 2020 03:40:34 -0500
-X-MC-Unique: hyUeHqB5PyuZTsYI0so-Fg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-458-7IoaSa1EPiSzJ7dKEqy2rQ-1; Mon, 23 Nov 2020 03:40:36 -0500
+X-MC-Unique: 7IoaSa1EPiSzJ7dKEqy2rQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 961BA10766BA;
-	Mon, 23 Nov 2020 08:40:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CEE0D10766CE;
+	Mon, 23 Nov 2020 08:40:30 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 708995B4A0;
-	Mon, 23 Nov 2020 08:40:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A76F719C78;
+	Mon, 23 Nov 2020 08:40:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 311E05002E;
-	Mon, 23 Nov 2020 08:40:28 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 68EF550033;
+	Mon, 23 Nov 2020 08:40:30 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AKMLava016548 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 20 Nov 2020 17:21:36 -0500
+	id 0AKNXn0m025185 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 20 Nov 2020 18:33:50 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id F0C1FF103B; Fri, 20 Nov 2020 22:21:35 +0000 (UTC)
+	id B6253DAF03; Fri, 20 Nov 2020 23:33:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EAE44F102D
-	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 22:21:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AF6F3F1033
+	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 23:33:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C7CC0800B3B
-	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 22:21:33 +0000 (UTC)
-Received: from mail-yb1-f195.google.com (mail-yb1-f195.google.com
-	[209.85.219.195]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-429-JOgfl8I4O_mXhLCIFVx-_Q-1; Fri, 20 Nov 2020 17:21:29 -0500
-X-MC-Unique: JOgfl8I4O_mXhLCIFVx-_Q-1
-Received: by mail-yb1-f195.google.com with SMTP id r127so6220844yba.10;
-	Fri, 20 Nov 2020 14:21:29 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=29/AaAKKWIjlxKBDiu42mXe16/c3LUzQvTdn0Wctw9g=;
-	b=JdPBhFUZRBjVSf1zt+Rhv7FwuPwHWqj6AHgW9905eurLe5+yvP0zA9aDeTnpaxqdsz
-	b75gf57HNc5ijIFs4x06+EXe6HwpgUQ+VQxLDS/dZU9yuwXbex1jis8TXAoihKm4+54b
-	cbQEGuH2fqeqvbPDTTg8nHouggaZR1U7TiwaWU43SOAJ7U017CC3FKwph4eLb/cCa0cC
-	AYdda20Xu+1sJ5Fe3erkJQ7ERnpT8Pb/boW0MSvmnwQYqW/Y57f53HIHdiey+sgc2o6G
-	TqCCO0qD+deUQXEU3dqkmh8J4uyswF6lmP/FCwk8fwKlvlswe1emVqWOKofNeZpNKX2b
-	xxxw==
-X-Gm-Message-State: AOAM530nkUcx0955SRLacnXYnGEsoMVi3Dt6aZVL09cIlU8FOq2Y3ubz
-	vWzL3wr0OR+expG3w+wj5X8hZvHoyUy5ozZrGK0=
-X-Google-Smtp-Source: ABdhPJzYUhkcjTyH5GIcOV5fWMsl+OUdzem471zLY9usW3RhV8izQIRbyESMTmZwFikqgbfOQQqVvSSQCZzBPJX4q90=
-X-Received: by 2002:a5b:40e:: with SMTP id m14mr22113400ybp.33.1605910888617; 
-	Fri, 20 Nov 2020 14:21:28 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 86D6A103B801
+	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 23:33:47 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
+	relay.mimecast.com with ESMTP id us-mta-25-Fa_kFuIcOjirCbqRu6u_yg-1;
+	Fri, 20 Nov 2020 18:33:43 -0500
+X-MC-Unique: Fa_kFuIcOjirCbqRu6u_yg-1
+Received: from [192.168.0.104] (c-73-42-176-67.hsd1.wa.comcast.net
+	[73.42.176.67])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 89BC420B717A;
+	Fri, 20 Nov 2020 15:33:41 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 89BC420B717A
+To: Mimi Zohar <zohar@linux.ibm.com>,
+	Tushar Sugandhi <tusharsu@linux.microsoft.com>,
+	stephen.smalley.work@gmail.com, casey@schaufler-ca.com, agk@redhat.com, 
+	snitzer@redhat.com, gmazyland@gmail.com, paul@paul-moore.com
+References: <20201119232611.30114-1-tusharsu@linux.microsoft.com>
+	<20201119232611.30114-8-tusharsu@linux.microsoft.com>
+	<e151e67e0749766c1b501ecc54dbeb0450c0cea2.camel@linux.ibm.com>
+From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+Message-ID: <58607cc2-2a20-03d7-9f38-9c3bebb1c494@linux.microsoft.com>
+Date: Fri, 20 Nov 2020 15:33:36 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <cover.1605896059.git.gustavoars@kernel.org>
-In-Reply-To: <cover.1605896059.git.gustavoars@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 20 Nov 2020 23:21:17 +0100
-Message-ID: <CANiq72=E_gEVvqUUTSqU4zegC2=yZSTM4b=4G-iofp6d3=UgWQ@mail.gmail.com>
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+In-Reply-To: <e151e67e0749766c1b501ecc54dbeb0450c0cea2.camel@linux.ibm.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -77,52 +70,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 23 Nov 2020 03:39:39 -0500
-Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
-	reiserfs-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
-	linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
-	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	virtualization@lists.linux-foundation.org,
-	Nathan Chancellor <natechancellor@gmail.com>,
-	linux-ide@vger.kernel.org, dm-devel@redhat.com,
-	keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
-	GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
-	samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
-	linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
-	usb-storage@lists.one-eyed-alien.net,
-	target-devel@vger.kernel.org, devel@driverdev.osuosl.org,
-	linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
-	oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
-	linux-security-module@vger.kernel.org, amd-gfx@lists.freedesktop.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	cluster-devel@redhat.com, linux-acpi@vger.kernel.org,
-	coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
-	linux-input <linux-input@vger.kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	tipc-discussion@lists.sourceforge.net,
-	Ext4 Developers List <linux-ext4@vger.kernel.org>,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	linux-watchdog@vger.kernel.org, selinux@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
-	linux-geode@lists.infradead.org, linux-can@vger.kernel.org,
-	linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
-	op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
-	xen-devel@lists.xenproject.org, drbd-dev@tron.linbit.com,
-	linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
-	Linux ARM <linux-arm-kernel@lists.infradead.org>,
-	linux-hwmon@vger.kernel.org,
-	"maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
-	linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
-	Kees Cook <keescook@chromium.org>, Linux-MM <linux-mm@kvack.org>,
-	Network Development <netdev@vger.kernel.org>,
-	linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	linux-renesas-soc@vger.kernel.org, linux-sctp@vger.kernel.org,
-	linux-usb@vger.kernel.org, netfilter-devel@vger.kernel.org,
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
-	patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
-	linux-integrity@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH 000/141] Fix fall-through warnings for Clang
+Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
+	jmorris@namei.org, linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH v6 7/8] IMA: add a built-in policy rule for
+ critical data measurement
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -136,32 +89,109 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-Hi Gustavo,
+On 11/20/20 6:30 AM, Mimi Zohar wrote:
 
-On Fri, Nov 20, 2020 at 7:21 PM Gustavo A. R. Silva
-<gustavoars@kernel.org> wrote:
->
-> Hi all,
->
-> This series aims to fix almost all remaining fall-through warnings in
-> order to enable -Wimplicit-fallthrough for Clang.
+Hi Mimi,
 
-Thanks for this.
+> 
+> On Thu, 2020-11-19 at 15:26 -0800, Tushar Sugandhi wrote:
+>> From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+>>
+>> The IMA hook to measure kernel critical data, namely
+>> ima_measure_critical_data(), could be called before a custom IMA policy
+>> is loaded.
+>> Define a new critical data builtin policy to allow measuring
+>> early kernel integrity critical data before a custom IMA policy is
+>> loaded.
+> 
+> Everything needing to be said seems to be included in the second
+> sentence.  Does the first sentence add anything?  "Define a new
+> critical data builtin policy" makes for a good Subject line.
 
-Since this warning is reliable in both/all compilers and we are
-eventually getting rid of all the cases, what about going even further
-and making it an error right after?
+Agreed - will update.
 
-Cheers,
-Miguel
+> 
+>>
+>> Add critical data to built-in IMA rules if the kernel command line
+>> contains "ima_policy=critical_data".
+> 
+> The boot command line parameters are defined in Documentation/admin-
+> guide/kernel-parameters.txt.  Please update "ima_policy".
+
+Will do.
+
+> 
+>>
+>> Signed-off-by: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+>> ---
+>>   security/integrity/ima/ima_policy.c | 12 ++++++++++++
+>>   1 file changed, 12 insertions(+)
+>>
+>> diff --git a/security/integrity/ima/ima_policy.c b/security/integrity/ima/ima_policy.c
+>> index c9e52dab0638..119604a3efa0 100644
+>> --- a/security/integrity/ima/ima_policy.c
+>> +++ b/security/integrity/ima/ima_policy.c
+>> @@ -206,6 +206,10 @@ static struct ima_rule_entry secure_boot_rules[] __ro_after_init = {
+>>   	 .flags = IMA_FUNC | IMA_DIGSIG_REQUIRED},
+>>   };
+>>
+>> +static struct ima_rule_entry critical_data_rules[] __ro_after_init = {
+>> +	{.action = MEASURE, .func = CRITICAL_DATA, .flags = IMA_FUNC},
+>> +};
+>> +
+>>   /* An array of architecture specific rules */
+>>   static struct ima_rule_entry *arch_policy_entry __ro_after_init;
+>>   
+>> @@ -228,6 +232,7 @@ __setup("ima_tcb", default_measure_policy_setup);
+>>   
+>>   static bool ima_use_appraise_tcb __initdata;
+>>   static bool ima_use_secure_boot __initdata;
+>> +static bool ima_use_critical_data __ro_after_init;
+> 
+> Unlike ima_fail_unverifiable_sigs, ima_use_critical_data is only used
+> during __init.  Please change "__ro_after_init" to "__initdata".  (The
+> critical data policy itself is defined properly as __ro_after_init.)
+
+Will do.
+
+> 
+>>   static bool ima_fail_unverifiable_sigs __ro_after_init;
+>>   static int __init policy_setup(char *str)
+>>   {
+>> @@ -242,6 +247,8 @@ static int __init policy_setup(char *str)
+>>   			ima_use_appraise_tcb = true;
+>>   		else if (strcmp(p, "secure_boot") == 0)
+>>   			ima_use_secure_boot = true;
+>> +		else if (strcmp(p, "critical_data") == 0)
+>> +			ima_use_critical_data = true;
+>>   		else if (strcmp(p, "fail_securely") == 0)
+>>   			ima_fail_unverifiable_sigs = true;
+>>   		else
+>> @@ -875,6 +882,11 @@ void __init ima_init_policy(void)
+>>   			  ARRAY_SIZE(default_appraise_rules),
+>>   			  IMA_DEFAULT_POLICY);
+>>   
+>> +	if (ima_use_critical_data)
+>> +		add_rules(critical_data_rules,
+>> +			  ARRAY_SIZE(critical_data_rules),
+>> +			  IMA_DEFAULT_POLICY);
+>> +
+>>   	ima_update_policy_flag();
+>>   }
+>>   
+> 
+
+thanks,
+  -lakshmi
 
 --
 dm-devel mailing list
