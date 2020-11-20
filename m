@@ -2,75 +2,60 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 90FE32C018F
-	for <lists+dm-devel@lfdr.de>; Mon, 23 Nov 2020 09:40:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 903032C0188
+	for <lists+dm-devel@lfdr.de>; Mon, 23 Nov 2020 09:40:37 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-543-kRzZTdmUMBuZ2OII9os0PA-1; Mon, 23 Nov 2020 03:40:42 -0500
-X-MC-Unique: kRzZTdmUMBuZ2OII9os0PA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-383-MzDSjY-pO7ygGbmGRkXnuQ-1; Mon, 23 Nov 2020 03:40:33 -0500
+X-MC-Unique: MzDSjY-pO7ygGbmGRkXnuQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E079FDF8CD;
-	Mon, 23 Nov 2020 08:40:28 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B6EC91A3D8;
-	Mon, 23 Nov 2020 08:40:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AA89180365F;
+	Mon, 23 Nov 2020 08:40:24 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 81BD01001281;
+	Mon, 23 Nov 2020 08:40:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5EC151809CA6;
-	Mon, 23 Nov 2020 08:40:28 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 425444BB7B;
+	Mon, 23 Nov 2020 08:40:24 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AKJUn7a022462 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 20 Nov 2020 14:30:49 -0500
+	id 0AKJpwOJ025064 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 20 Nov 2020 14:51:58 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E43542026D47; Fri, 20 Nov 2020 19:30:48 +0000 (UTC)
+	id 0B97D2026D13; Fri, 20 Nov 2020 19:51:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DF6882026D49
-	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 19:30:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 068E42026D11
+	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 19:51:55 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7E676800157
-	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 19:30:46 +0000 (UTC)
-Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
-	[209.85.210.194]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-416-eIzhDGTzNNma_STA2jthqg-1; Fri, 20 Nov 2020 14:30:44 -0500
-X-MC-Unique: eIzhDGTzNNma_STA2jthqg-1
-Received: by mail-pf1-f194.google.com with SMTP id a18so8832049pfl.3
-	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 11:30:44 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-	:mime-version:content-disposition:in-reply-to;
-	bh=3bv50j9tOMZCSWAChUvUk5K6TgooTRt3SRcQZBJ9fcA=;
-	b=ax8LK5gl7muKJq4bNgoxmvdHS6/oTEjmJbQLdzsK5pFksLwoH2fdA3wIHu42fllYT3
-	0xNQSPk4sV7KmmpWWfcZeB6O2SMvMPplxEhG2BklDB99kZNqqZKClmvVUSwde/EpNsP4
-	tRtPFhg4HO5nvKeUvhb5gIXPYILCVQHhHLqYyuxqW4eXhmGDJeXhNKMlue2otQ5RDwN2
-	6RRgqUX2p/t/S+Iccw0HsgIhQWGP1Vf+sN/4Fka/ICxXfetMKKEx43tLhD/tC+nFetnC
-	HlcK1R64IBPEtMN+lV1Em50w5WIlnKoKv1MZGCcoKkv2PaJTycrYMaVN5e47ryzKmO7m
-	XqPA==
-X-Gm-Message-State: AOAM5327lHfKPq1qws6jODPglP7akEpcJDpWLyPSy2f7c2Y0HDGOVMGa
-	O7XxgJKN9t3FuKbJ1S6xhtdVDA==
-X-Google-Smtp-Source: ABdhPJwl3VgOHP/MWhG5DtpaEL0Yyt6dBbRzpe/94BRgWnGkgcq6AJ5JXkZmDK0TJqDkyAhq9Y3Q+Q==
-X-Received: by 2002:a63:5043:: with SMTP id q3mr17907345pgl.137.1605900643099; 
-	Fri, 20 Nov 2020 11:30:43 -0800 (PST)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
-	by smtp.gmail.com with ESMTPSA id
-	d10sm4785681pjj.38.2020.11.20.11.30.41
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Fri, 20 Nov 2020 11:30:41 -0800 (PST)
-Date: Fri, 20 Nov 2020 11:30:40 -0800
-From: Kees Cook <keescook@chromium.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Message-ID: <202011201129.B13FDB3C@keescook>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3ADE8800C00
+	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 19:51:55 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-220-znoRCHCnO6Gd_ClbfnY6mw-1;
+	Fri, 20 Nov 2020 14:51:49 -0500
+X-MC-Unique: znoRCHCnO6Gd_ClbfnY6mw-1
+Received: from kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com (unknown
+	[163.114.132.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id ADA4D206B6;
+	Fri, 20 Nov 2020 19:51:43 +0000 (UTC)
+Date: Fri, 20 Nov 2020 11:51:42 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Kees Cook <keescook@chromium.org>
+Message-ID: <20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <202011201129.B13FDB3C@keescook>
 References: <cover.1605896059.git.gustavoars@kernel.org>
 	<20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+	<202011201129.B13FDB3C@keescook>
 MIME-Version: 1.0
-In-Reply-To: <20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -138,49 +123,51 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 20, 2020 at 10:53:44AM -0800, Jakub Kicinski wrote:
-> On Fri, 20 Nov 2020 12:21:39 -0600 Gustavo A. R. Silva wrote:
-> > This series aims to fix almost all remaining fall-through warnings in
-> > order to enable -Wimplicit-fallthrough for Clang.
+On Fri, 20 Nov 2020 11:30:40 -0800 Kees Cook wrote:
+> On Fri, Nov 20, 2020 at 10:53:44AM -0800, Jakub Kicinski wrote:
+> > On Fri, 20 Nov 2020 12:21:39 -0600 Gustavo A. R. Silva wrote:  
+> > > This series aims to fix almost all remaining fall-through warnings in
+> > > order to enable -Wimplicit-fallthrough for Clang.
+> > > 
+> > > In preparation to enable -Wimplicit-fallthrough for Clang, explicitly
+> > > add multiple break/goto/return/fallthrough statements instead of just
+> > > letting the code fall through to the next case.
+> > > 
+> > > Notice that in order to enable -Wimplicit-fallthrough for Clang, this
+> > > change[1] is meant to be reverted at some point. So, this patch helps
+> > > to move in that direction.
+> > > 
+> > > Something important to mention is that there is currently a discrepancy
+> > > between GCC and Clang when dealing with switch fall-through to empty case
+> > > statements or to cases that only contain a break/continue/return
+> > > statement[2][3][4].  
 > > 
-> > In preparation to enable -Wimplicit-fallthrough for Clang, explicitly
-> > add multiple break/goto/return/fallthrough statements instead of just
-> > letting the code fall through to the next case.
+> > Are we sure we want to make this change? Was it discussed before?
 > > 
-> > Notice that in order to enable -Wimplicit-fallthrough for Clang, this
-> > change[1] is meant to be reverted at some point. So, this patch helps
-> > to move in that direction.
+> > Are there any bugs Clangs puritanical definition of fallthrough helped
+> > find?
 > > 
-> > Something important to mention is that there is currently a discrepancy
-> > between GCC and Clang when dealing with switch fall-through to empty case
-> > statements or to cases that only contain a break/continue/return
-> > statement[2][3][4].
+> > IMVHO compiler warnings are supposed to warn about issues that could
+> > be bugs. Falling through to default: break; can hardly be a bug?!  
 > 
-> Are we sure we want to make this change? Was it discussed before?
-> 
-> Are there any bugs Clangs puritanical definition of fallthrough helped
-> find?
-> 
-> IMVHO compiler warnings are supposed to warn about issues that could
-> be bugs. Falling through to default: break; can hardly be a bug?!
+> It's certainly a place where the intent is not always clear. I think
+> this makes all the cases unambiguous, and doesn't impact the machine
+> code, since the compiler will happily optimize away any behavioral
+> redundancy.
 
-It's certainly a place where the intent is not always clear. I think
-this makes all the cases unambiguous, and doesn't impact the machine
-code, since the compiler will happily optimize away any behavioral
-redundancy.
+If none of the 140 patches here fix a real bug, and there is no change
+to machine code then it sounds to me like a W=2 kind of a warning.
 
-
--- 
-Kees Cook
+I think clang is just being annoying here, but if I'm the only one who
+feels this way chances are I'm wrong :)
 
 --
 dm-devel mailing list
