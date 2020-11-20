@@ -1,82 +1,106 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 308472BC973
-	for <lists+dm-devel@lfdr.de>; Sun, 22 Nov 2020 22:01:38 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 8CDAC2C0187
+	for <lists+dm-devel@lfdr.de>; Mon, 23 Nov 2020 09:40:37 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-194-7tMjqFXIPRqQrM9nGJ0vtA-1; Sun, 22 Nov 2020 16:01:33 -0500
-X-MC-Unique: 7tMjqFXIPRqQrM9nGJ0vtA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-215-6q03g7AoPe6Tfzu7-vuDvw-1; Mon, 23 Nov 2020 03:40:32 -0500
+X-MC-Unique: 6q03g7AoPe6Tfzu7-vuDvw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2465E1005D6B;
-	Sun, 22 Nov 2020 21:01:25 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ABE1A60C13;
-	Sun, 22 Nov 2020 21:01:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F29F41007323;
+	Mon, 23 Nov 2020 08:40:20 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 75D305D6D3;
+	Mon, 23 Nov 2020 08:40:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DA5D6180954D;
-	Sun, 22 Nov 2020 21:00:59 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CE6104EE80;
+	Mon, 23 Nov 2020 08:40:14 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AML0hrw012138 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 22 Nov 2020 16:00:44 -0500
+	id 0AKEUJ6x005573 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 20 Nov 2020 09:30:20 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9D3371000DB2; Sun, 22 Nov 2020 21:00:43 +0000 (UTC)
+	id C60D310EB2A5; Fri, 20 Nov 2020 14:30:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 988711111A6F
-	for <dm-devel@redhat.com>; Sun, 22 Nov 2020 21:00:41 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BFFED10EB2AA
+	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 14:30:17 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 34C22185A794
-	for <dm-devel@redhat.com>; Sun, 22 Nov 2020 21:00:41 +0000 (UTC)
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=dkim.mimecast.com; s=201903; t=1606078841;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	in-reply-to:in-reply-to:references:references;
-	bh=iDQH8jIk8Cfoc2+2ua5loBf9gKtMorxlR3JdI6qnzPY=;
-	b=pxD1cZMbK72EZjAfVD2F4xNeCG+cmMbqCtTYXUFusUtEfC3NT4QdNqwDodvs/YxTdkyqqO
-	NE4Z/iaV+oYe6EW9/bA17ytgjl6izZtp2zcNJyaXlLuIrEtanky2NGLSKj1wG3ohR/sy0T
-	QRVB5OVqihZk5HZ3vmn2ww1hphqAZxSilWG5NHYambtF9g2qfFlGXjQYsCF4NMfhYH08yJ
-	hPt/CzRH28QXoKfjVKIdRzRDaxXtbMVK3K25rQhkhRBiRtQsJOTUx9epIY4HZMpPxRTxOC
-	8oSWztsm9knHhSR81oVazNjV6gZtfJfFSZVzTyWk5qr1Gl99BSCgSfad3sXzMQ==
-ARC-Seal: i=1; s=201903; d=dkim.mimecast.com; t=1606078841; a=rsa-sha256;
-	cv=none;
-	b=rSXZFJDXEgZZ7yff/L+B+303C9P0IiyiPLomyn3I7M387u/DqglxflAXKBA2Lg7G+SvEsE
-	u1jknyYlckc4kqrY38Vy30huungpIKgTuOh7oDUhiWdxFbiGD3UxXmoPOdIO1HdwB4p/fc
-	2L9/wNwKJlbrXcvFADvXurldq0kuUUGhtSsssHbYlN8zM3h4RnCT8QuV52Bf7AWgAbVvEM
-	5B4JBkZwVj1LA1x8nbOZFMkAWU6FxhUZf6Z+XTc8vhX7l23UHb41U/T3M5h6W0USIvkm1f
-	3/1snXumpoEGGC4h4dnDgGRAXvnwhwKQCZZlOz7Rrn1X76AP1vL2NNvG/TgNHg==
-ARC-Authentication-Results: i=1; relay.mimecast.com; dkim=none; dmarc=none;
-	spf=none (relay.mimecast.com: domain of pavel@ucw.cz has no SPF policy
-	when checking 46.255.230.98) smtp.mailfrom=pavel@ucw.cz
-Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-504-fWcvRZcGPACGlBiXucnlvg-1; Sun, 22 Nov 2020 16:00:35 -0500
-X-MC-Unique: fWcvRZcGPACGlBiXucnlvg-1
-Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
-	id 46B251C0BA9; Sun, 22 Nov 2020 22:00:32 +0100 (CET)
-Date: Sun, 22 Nov 2020 22:00:31 +0100
-From: Pavel Machek <pavel@ucw.cz>
-To: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-Message-ID: <20201122210031.GA26756@amd>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 48EC5858EEC
+	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 14:30:17 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+	[148.163.156.1]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-534-MlgR6zZjMG6RjJP4yXyWuw-1; Fri, 20 Nov 2020 09:30:12 -0500
+X-MC-Unique: MlgR6zZjMG6RjJP4yXyWuw-1
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+	0AKE3U9A040412; Fri, 20 Nov 2020 09:30:11 -0500
+Received: from pps.reinject (localhost [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 34xe6b37f8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Fri, 20 Nov 2020 09:30:11 -0500
+Received: from m0098409.ppops.net (m0098409.ppops.net [127.0.0.1])
+	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0AKE3mQt045247;
+	Fri, 20 Nov 2020 09:30:11 -0500
+Received: from ppma06fra.de.ibm.com (48.49.7a9f.ip4.static.sl-reverse.com
+	[159.122.73.72])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 34xe6b37dc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Fri, 20 Nov 2020 09:30:11 -0500
+Received: from pps.filterd (ppma06fra.de.ibm.com [127.0.0.1])
+	by ppma06fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id
+	0AKESVLD021127; Fri, 20 Nov 2020 14:30:08 GMT
+Received: from b06avi18626390.portsmouth.uk.ibm.com
+	(b06avi18626390.portsmouth.uk.ibm.com [9.149.26.192])
+	by ppma06fra.de.ibm.com with ESMTP id 34t6ghba1b-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Fri, 20 Nov 2020 14:30:08 +0000
+Received: from d06av24.portsmouth.uk.ibm.com (d06av24.portsmouth.uk.ibm.com
+	[9.149.105.60])
+	by b06avi18626390.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+	ESMTP id 0AKEU6sv44368354
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=OK); Fri, 20 Nov 2020 14:30:06 GMT
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3414A42049;
+	Fri, 20 Nov 2020 14:30:06 +0000 (GMT)
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8D55F4204C;
+	Fri, 20 Nov 2020 14:30:03 +0000 (GMT)
+Received: from li-f45666cc-3089-11b2-a85c-c57d1a57929f.ibm.com (unknown
+	[9.160.96.125])
+	by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+	Fri, 20 Nov 2020 14:30:03 +0000 (GMT)
+Message-ID: <e151e67e0749766c1b501ecc54dbeb0450c0cea2.camel@linux.ibm.com>
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Tushar Sugandhi <tusharsu@linux.microsoft.com>,
+	stephen.smalley.work@gmail.com, casey@schaufler-ca.com, agk@redhat.com, 
+	snitzer@redhat.com, gmazyland@gmail.com, paul@paul-moore.com
+Date: Fri, 20 Nov 2020 09:30:02 -0500
+In-Reply-To: <20201119232611.30114-8-tusharsu@linux.microsoft.com>
 References: <20201119232611.30114-1-tusharsu@linux.microsoft.com>
-	<20201120124657.GA31468@duo.ucw.cz>
-	<aadf6e35-39bc-74d4-6ca3-d708860738a5@linux.microsoft.com>
-MIME-Version: 1.0
-In-Reply-To: <aadf6e35-39bc-74d4-6ca3-d708860738a5@linux.microsoft.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-Authentication-Results: relay.mimecast.com; dkim=none; dmarc=none;
-	spf=none (relay.mimecast.com: domain of pavel@ucw.cz has no SPF policy
-	when checking 46.255.230.98) smtp.mailfrom=pavel@ucw.cz
-X-Mimecast-Spam-Score: -1
+	<20201119232611.30114-8-tusharsu@linux.microsoft.com>
+Mime-Version: 1.0
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+	definitions=2020-11-20_07:2020-11-20,
+	2020-11-20 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+	mlxscore=0 mlxlogscore=999
+	adultscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+	bulkscore=0
+	suspectscore=0 clxscore=1015 malwarescore=0 impostorscore=0
+	phishscore=0
+	classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2009150000 definitions=main-2011200096
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -87,16 +111,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: sashal@kernel.org, paul@paul-moore.com, snitzer@redhat.com,
-	selinux@vger.kernel.org, stephen.smalley.work@gmail.com,
-	jmorris@namei.org, zohar@linux.ibm.com,
-	linux-kernel@vger.kernel.org, nramas@linux.microsoft.com,
-	linux-security-module@vger.kernel.org,
-	tyhicks@linux.microsoft.com, casey@schaufler-ca.com,
-	linux-integrity@vger.kernel.org, dm-devel@redhat.com,
-	gmazyland@gmail.com, agk@redhat.com
-Subject: Re: [dm-devel] [PATCH v6 0/8] IMA: support for measuring kernel
- integrity critical data
+X-Mailman-Approved-At: Mon, 23 Nov 2020 03:39:39 -0500
+Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
+	jmorris@namei.org, linux-kernel@vger.kernel.org,
+	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
+	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH v6 7/8] IMA: add a built-in policy rule for
+ critical data measurement
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -108,73 +129,98 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3776978264229862536=="
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-
---===============3776978264229862536==
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="PEIAKu/WMn1b1Hv9"
-Content-Disposition: inline
-
---PEIAKu/WMn1b1Hv9
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi!
-
-> >How is it supposed to be useful?
-> >
-> >I'm pretty sure there are critical data that are not measured by
-> >proposed module... and that are written under normal circumstances.
-> >
-> The goal of this series is to introduce the IMA hook
-> measure_critical_data() and the necessary policies to use it; and
-> illustrate that use with one example (SELinux). It is not scalable to
-> identify and update all the critical data sources to use the proposed
-> module at once.
->=20
-> A piecemeal approach to add more critical data measurement in subsequent
-> patches would be easy to implement and review.
-
-Basically every other data structure in kernel is "critical" by your
-definition, and you can't really measure them all; some of them change
-rather often. Going piecemeal does not really help here.
-
-Example of critical data structure: page table entries for process I
-own.
-
-Best regards,
-=09=09=09=09=09=09=09=09Pavel
---=20
-http://www.livejournal.com/~pavelmachek
-
---PEIAKu/WMn1b1Hv9
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iEYEARECAAYFAl+60W8ACgkQMOfwapXb+vIcigCeMzGk7j6mjC+lCez6JgfwCYJI
-Z1YAnihbhsor2KAe3Vx6iXF3suE279VG
-=O8SH
------END PGP SIGNATURE-----
-
---PEIAKu/WMn1b1Hv9--
-
-
---===============3776978264229862536==
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+Hi Lakshmi,
+
+On Thu, 2020-11-19 at 15:26 -0800, Tushar Sugandhi wrote:
+> From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+> 
+> The IMA hook to measure kernel critical data, namely
+> ima_measure_critical_data(), could be called before a custom IMA policy
+> is loaded.
+> Define a new critical data builtin policy to allow measuring
+> early kernel integrity critical data before a custom IMA policy is
+> loaded.
+
+Everything needing to be said seems to be included in the second
+sentence.  Does the first sentence add anything?  "Define a new
+critical data builtin policy" makes for a good Subject line.
+
+> 
+> Add critical data to built-in IMA rules if the kernel command line
+> contains "ima_policy=critical_data".
+
+The boot command line parameters are defined in Documentation/admin-
+guide/kernel-parameters.txt.  Please update "ima_policy".
+
+> 
+> Signed-off-by: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+> ---
+>  security/integrity/ima/ima_policy.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/security/integrity/ima/ima_policy.c b/security/integrity/ima/ima_policy.c
+> index c9e52dab0638..119604a3efa0 100644
+> --- a/security/integrity/ima/ima_policy.c
+> +++ b/security/integrity/ima/ima_policy.c
+> @@ -206,6 +206,10 @@ static struct ima_rule_entry secure_boot_rules[] __ro_after_init = {
+>  	 .flags = IMA_FUNC | IMA_DIGSIG_REQUIRED},
+>  };
+> 
+> +static struct ima_rule_entry critical_data_rules[] __ro_after_init = {
+> +	{.action = MEASURE, .func = CRITICAL_DATA, .flags = IMA_FUNC},
+> +};
+> +
+>  /* An array of architecture specific rules */
+>  static struct ima_rule_entry *arch_policy_entry __ro_after_init;
+>  
+> @@ -228,6 +232,7 @@ __setup("ima_tcb", default_measure_policy_setup);
+>  
+>  static bool ima_use_appraise_tcb __initdata;
+>  static bool ima_use_secure_boot __initdata;
+> +static bool ima_use_critical_data __ro_after_init;
+
+Unlike ima_fail_unverifiable_sigs, ima_use_critical_data is only used
+during __init.  Please change "__ro_after_init" to "__initdata".  (The
+critical data policy itself is defined properly as __ro_after_init.)
+
+>  static bool ima_fail_unverifiable_sigs __ro_after_init;
+>  static int __init policy_setup(char *str)
+>  {
+> @@ -242,6 +247,8 @@ static int __init policy_setup(char *str)
+>  			ima_use_appraise_tcb = true;
+>  		else if (strcmp(p, "secure_boot") == 0)
+>  			ima_use_secure_boot = true;
+> +		else if (strcmp(p, "critical_data") == 0)
+> +			ima_use_critical_data = true;
+>  		else if (strcmp(p, "fail_securely") == 0)
+>  			ima_fail_unverifiable_sigs = true;
+>  		else
+> @@ -875,6 +882,11 @@ void __init ima_init_policy(void)
+>  			  ARRAY_SIZE(default_appraise_rules),
+>  			  IMA_DEFAULT_POLICY);
+>  
+> +	if (ima_use_critical_data)
+> +		add_rules(critical_data_rules,
+> +			  ARRAY_SIZE(critical_data_rules),
+> +			  IMA_DEFAULT_POLICY);
+> +
+>  	ima_update_policy_flag();
+>  }
+>  
+
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
---===============3776978264229862536==--
 
