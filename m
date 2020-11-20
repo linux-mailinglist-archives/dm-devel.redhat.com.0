@@ -1,57 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0D7C22BA55E
-	for <lists+dm-devel@lfdr.de>; Fri, 20 Nov 2020 10:02:14 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id BFEAB2BA580
+	for <lists+dm-devel@lfdr.de>; Fri, 20 Nov 2020 10:08:48 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-277--Qow2P7_Na6_OlUSBYNARg-1; Fri, 20 Nov 2020 04:02:11 -0500
-X-MC-Unique: -Qow2P7_Na6_OlUSBYNARg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-138-maFhIvBDOTSOE45roDkvBA-1; Fri, 20 Nov 2020 04:08:45 -0500
+X-MC-Unique: maFhIvBDOTSOE45roDkvBA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A46CB187653A;
-	Fri, 20 Nov 2020 09:02:05 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E5F0D803F49;
+	Fri, 20 Nov 2020 09:08:39 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 536F25D6BA;
-	Fri, 20 Nov 2020 09:02:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9C68B5C1D5;
+	Fri, 20 Nov 2020 09:08:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 58F354BB7B;
-	Fri, 20 Nov 2020 09:02:03 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B966F4BB7B;
+	Fri, 20 Nov 2020 09:08:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AK91tQO018670 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 20 Nov 2020 04:01:55 -0500
+	id 0AK98TlT020791 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 20 Nov 2020 04:08:29 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id A66272166B2C; Fri, 20 Nov 2020 09:01:55 +0000 (UTC)
+	id 3E4C8E77A1; Fri, 20 Nov 2020 09:08:29 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A188A2166B2B
-	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 09:01:50 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 36B08E7795
+	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 09:08:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0D533103B802
-	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 09:01:50 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 13DA7800B3B
+	for <dm-devel@redhat.com>; Fri, 20 Nov 2020 09:08:27 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-487-vMGHz0cLN6SfSoFQteU9dw-1;
-	Fri, 20 Nov 2020 04:01:45 -0500
-X-MC-Unique: vMGHz0cLN6SfSoFQteU9dw-1
+	relay.mimecast.com with ESMTP id us-mta-191-_shOM7jxMTqHOsNDKXmpww-1;
+	Fri, 20 Nov 2020 04:08:24 -0500
+X-MC-Unique: _shOM7jxMTqHOsNDKXmpww-1
 Received: by verein.lst.de (Postfix, from userid 2407)
-	id 4C98067373; Fri, 20 Nov 2020 10:01:42 +0100 (CET)
-Date: Fri, 20 Nov 2020 10:01:42 +0100
+	id 0DA3867373; Fri, 20 Nov 2020 10:08:21 +0100 (CET)
+Date: Fri, 20 Nov 2020 10:08:20 +0100
 From: Christoph Hellwig <hch@lst.de>
 To: Jan Kara <jack@suse.cz>
-Message-ID: <20201120090142.GC21715@lst.de>
+Message-ID: <20201120090820.GD21715@lst.de>
 References: <20201118084800.2339180-1-hch@lst.de>
-	<20201118084800.2339180-14-hch@lst.de>
-	<20201119103253.GV1981@quack2.suse.cz>
+	<20201118084800.2339180-15-hch@lst.de>
+	<20201119120525.GW1981@quack2.suse.cz>
 MIME-Version: 1.0
-In-Reply-To: <20201119103253.GV1981@quack2.suse.cz>
+In-Reply-To: <20201119120525.GW1981@quack2.suse.cz>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -61,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: Jens Axboe <axboe@kernel.dk>, Mike Snitzer <snitzer@redhat.com>,
 	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
@@ -72,7 +71,8 @@ Cc: Jens Axboe <axboe@kernel.dk>, Mike Snitzer <snitzer@redhat.com>,
 	linux-mm@kvack.org, Jan Kara <jack@suse.com>,
 	Tejun Heo <tj@kernel.org>, xen-devel@lists.xenproject.org,
 	linux-bcache@vger.kernel.org, Christoph Hellwig <hch@lst.de>
-Subject: Re: [dm-devel] [PATCH 13/20] block: remove ->bd_contains
+Subject: Re: [dm-devel] [PATCH 14/20] block: remove the nr_sects field in
+ struct hd_struct
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,7 +86,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -95,36 +95,85 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 19, 2020 at 11:32:53AM +0100, Jan Kara wrote:
-> > @@ -1521,7 +1510,7 @@ static int __blkdev_get(struct block_device *bdev, fmode_t mode, void *holder,
-> >  		if (bdev->bd_bdi == &noop_backing_dev_info)
-> >  			bdev->bd_bdi = bdi_get(disk->queue->backing_dev_info);
-> >  	} else {
-> > -		if (bdev->bd_contains == bdev) {
-> > +		if (!bdev->bd_partno) {
+On Thu, Nov 19, 2020 at 01:05:25PM +0100, Jan Kara wrote:
+> > @@ -613,7 +613,7 @@ void guard_bio_eod(struct bio *bio)
+> >  	rcu_read_lock();
+> >  	part = __disk_get_part(bio->bi_disk, bio->bi_partno);
+> >  	if (part)
+> > -		maxsector = part_nr_sects_read(part);
+> > +		maxsector = bdev_nr_sectors(part->bdev);
+> >  	else
+> >  		maxsector = get_capacity(bio->bi_disk);
 > 
-> This should be !bdev_is_partition(bdev) for consistency, right?
+> I have to say that after these changes I find it a bit confusing that we
+> have get/set_capacity() and bdev_nr_sectors() / bdev_set_nr_sectors() and
+> they are all the same thing (i_size of the bdev). Is there a reason for the
+> distinction?
 
-Yes.  Same for the same check further up for the !bdev->bd_openers
-case.
+get_capacity/set_capacity are the existing unchanged interfaces that
+work on struct gendisk, and unchanged from what we had before.  They also
+have lots of users which makes them kinda awkward to touch.
 
-> > +#define bdev_whole(_bdev) \
-> > +	((_bdev)->bd_disk->part0.bdev)
+bdev_nr_sectors is the public interface to query the size for any
+kind of struct block device, to be used by consumers of the block
+device interface.
+
+bdev_set_nr_sectors is a private helper for the partitions core that
+avoids duplicating a bit of code, and works on partitions.
+
+
+
+> > @@ -38,6 +38,16 @@ static void disk_add_events(struct gendisk *disk);
+> >  static void disk_del_events(struct gendisk *disk);
+> >  static void disk_release_events(struct gendisk *disk);
+> >  
+> > +void set_capacity(struct gendisk *disk, sector_t sectors)
+> > +{
+> > +	struct block_device *bdev = disk->part0.bdev;
 > > +
-> >  #define bdev_kobj(_bdev) \
-> >  	(&part_to_dev((_bdev)->bd_part)->kobj)
+> > +	spin_lock(&bdev->bd_size_lock);
+> > +	i_size_write(bdev->bd_inode, (loff_t)sectors << SECTOR_SHIFT);
+> > +	spin_unlock(&bdev->bd_size_lock);
 > 
-> I'd somewhat prefer if these helpers could actually be inline functions and
-> not macros. I guess they are macros because hd_struct isn't in blk_types.h.
-> But if we moved helpers to blkdev.h, we'd have all definitions we need...
-> Is that a problem for some users?
+> AFAICT bd_size_lock is pointless after these changes so we can just remove
+> it?
 
-As you pointed out the reason these are macros is that the obvious
-placement doesn't work.  My plan was to look into cleaning up the block
-headers, which are a complete mess between blk_types.h, bio.h, blkdev.h
-and genhd.h after I'm done making sense of the data structures, so for
-now I didn't want to move too much around.  Hopefully we'll be able to
-convert these helpers to inlines once I'm done.
+I don't think it is, as reuqiring bd_mutex for size updates leads to
+rather awkward lock ordering problems.
+
+> >  	if (capacity != size && capacity != 0 && size != 0) {
+> >  		char *envp[] = { "RESIZE=1", NULL };
+> >  
+> > +		pr_info("%s: detected capacity change from %lld to %lld\n",
+> > +		       disk->disk_name, size, capacity);
+> 
+> So we are now missing above message for transitions from / to 0 capacity?
+> Is there any other notification in the kernel log when e.g. media is
+> inserted into a CD-ROM drive? I remember using these messages for detecting
+> that...
+
+True, I guess we should keep the messages for that case at least under
+some circumstances.  Let me take a closer look at what could make sense.
+
+> Also what about GENHD_FL_HIDDEN devices? Are we sure we never set capacity
+> for them?
+
+We absolutely set the capacity for them, as we have to.  And even use
+this interface.  But yes, I think we should skip sending the uevent for
+them.
+
+> > @@ -1158,8 +1169,7 @@ ssize_t part_size_show(struct device *dev,
+> >  {
+> >  	struct hd_struct *p = dev_to_part(dev);
+> >  
+> > -	return sprintf(buf, "%llu\n",
+> > -		(unsigned long long)part_nr_sects_read(p));
+> > +	return sprintf(buf, "%llu\n", bdev_nr_sectors(p->bdev));
+> 
+> Is sector_t really guaranteed to be unsigned long long?
+
+Yes, it is these days, ever since I removed the option to have a 32-bit
+one on 32-bit platforms a while ago.
 
 --
 dm-devel mailing list
