@@ -2,65 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id CAA5C2C019B
-	for <lists+dm-devel@lfdr.de>; Mon, 23 Nov 2020 09:41:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4C7F22C0198
+	for <lists+dm-devel@lfdr.de>; Mon, 23 Nov 2020 09:41:03 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-493--ReEuGsgMneWMWt_FYxlqA-1; Mon, 23 Nov 2020 03:40:42 -0500
-X-MC-Unique: -ReEuGsgMneWMWt_FYxlqA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-254-is98rOOmOVyFd3sj0BSo9w-1; Mon, 23 Nov 2020 03:40:37 -0500
+X-MC-Unique: is98rOOmOVyFd3sj0BSo9w-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C44E980476B;
-	Mon, 23 Nov 2020 08:40:34 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9F41310016FE;
-	Mon, 23 Nov 2020 08:40:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6CC3F87309F;
+	Mon, 23 Nov 2020 08:40:32 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4761A5C1BD;
+	Mon, 23 Nov 2020 08:40:32 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 53B0F1809CA8;
-	Mon, 23 Nov 2020 08:40:34 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 030AD50032;
+	Mon, 23 Nov 2020 08:40:32 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AMJCf3w001681 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 22 Nov 2020 14:12:41 -0500
+	id 0AMJN5B3002409 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 22 Nov 2020 14:23:05 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8059A2166B2B; Sun, 22 Nov 2020 19:12:41 +0000 (UTC)
+	id 936DB2166B2B; Sun, 22 Nov 2020 19:23:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B39D2166B27
-	for <dm-devel@redhat.com>; Sun, 22 Nov 2020 19:12:39 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E14C2166B27
+	for <dm-devel@redhat.com>; Sun, 22 Nov 2020 19:23:03 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2E470858EEC
-	for <dm-devel@redhat.com>; Sun, 22 Nov 2020 19:12:39 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com
-	(bedivere.hansenpartnership.com [96.44.175.130]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-538-vWg3Z-5rMG-HtVwnRjRG6g-1;
-	Sun, 22 Nov 2020 14:12:36 -0500
-X-MC-Unique: vWg3Z-5rMG-HtVwnRjRG6g-1
-Received: from localhost (localhost [127.0.0.1])
-	by bedivere.hansenpartnership.com (Postfix) with ESMTP id 96EF41280181; 
-	Sun, 22 Nov 2020 11:12:34 -0800 (PST)
-Received: from bedivere.hansenpartnership.com ([127.0.0.1])
-	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
-	port 10024)
-	with ESMTP id T_J7YGNeXPBb; Sun, 22 Nov 2020 11:12:34 -0800 (PST)
-Received: from jarvis.int.hansenpartnership.com (unknown
-	[IPv6:2601:600:8280:66d1::527])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id
-	D7CFF128010B; Sun, 22 Nov 2020 11:12:30 -0800 (PST)
-Message-ID: <0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@hansenpartnership.com>
-To: Joe Perches <joe@perches.com>, Kees Cook <keescook@chromium.org>, Jakub
-	Kicinski <kuba@kernel.org>
-Date: Sun, 22 Nov 2020 11:12:30 -0800
-In-Reply-To: <ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3DEF9800157
+	for <dm-devel@redhat.com>; Sun, 22 Nov 2020 19:23:03 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0154.hostedemail.com
+	[216.40.44.154]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-194-6bOjZLDcNSCKMxpSYFv8lQ-1; Sun, 22 Nov 2020 14:23:00 -0500
+X-MC-Unique: 6bOjZLDcNSCKMxpSYFv8lQ-1
+Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
+	[216.40.38.60])
+	by smtprelay06.hostedemail.com (Postfix) with ESMTP id 8A2DD18221869;
+	Sun, 22 Nov 2020 19:22:59 +0000 (UTC)
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Spam-Summary: 50, 0, 0, , d41d8cd98f00b204, joe@perches.com, ,
+	RULES_HIT:41:355:379:599:967:973:988:989:1260:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1539:1593:1594:1711:1730:1747:1777:1792:2194:2199:2393:2525:2560:2563:2682:2685:2828:2859:2933:2937:2939:2942:2945:2947:2951:2954:3022:3138:3139:3140:3141:3142:3352:3622:3865:3866:3871:3873:3934:3936:3938:3941:3944:3947:3950:3953:3956:3959:4250:4321:5007:6742:6743:7903:8985:9025:9108:10004:10400:10848:11232:11658:11914:12043:12297:12555:12740:12760:12895:13069:13311:13357:13439:14181:14659:14721:21080:21450:21499:21627:30054:30091,
+	0, RBL:none, CacheIP:none, Bayesian:0.5, 0.5, 0.5, Netcheck:none,
+	DomainCache:0, MSF:not bulk, SPF:, MSBL:0, DNSBL:none,
+	Custom_rules:0:0:0, LFtime:2, LUA_SUMMARY:none
+X-HE-Tag: curve68_4013d692735f
+X-Filterd-Recvd-Size: 4350
+Received: from XPS-9350.home (unknown [47.151.128.180])
+	(Authenticated sender: joe@perches.com)
+	by omf17.hostedemail.com (Postfix) with ESMTPA;
+	Sun, 22 Nov 2020 19:22:48 +0000 (UTC)
+Message-ID: <d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>, Kees Cook
+	<keescook@chromium.org>, Jakub Kicinski <kuba@kernel.org>
+Date: Sun, 22 Nov 2020 11:22:47 -0800
+In-Reply-To: <0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
 References: <cover.1605896059.git.gustavoars@kernel.org>
 	<20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 	<202011201129.B13FDB3C@keescook>
@@ -68,7 +70,8 @@ References: <cover.1605896059.git.gustavoars@kernel.org>
 	<202011220816.8B6591A@keescook>
 	<9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
 	<ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
-User-Agent: Evolution 3.34.4
+	<0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
+User-Agent: Evolution 3.38.1-1
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -136,7 +139,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -144,18 +147,21 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sun, 2020-11-22 at 10:25 -0800, Joe Perches wrote:
-> On Sun, 2020-11-22 at 10:21 -0800, James Bottomley wrote:
-> > Please tell me our reward for all this effort isn't a single
-> > missing error print.
+On Sun, 2020-11-22 at 11:12 -0800, James Bottomley wrote:
+> On Sun, 2020-11-22 at 10:25 -0800, Joe Perches wrote:
+> > On Sun, 2020-11-22 at 10:21 -0800, James Bottomley wrote:
+> > > Please tell me our reward for all this effort isn't a single
+> > > missing error print.
+> > 
+> > There were quite literally dozens of logical defects found
+> > by the fallthrough additions.  Very few were logging only.
 > 
-> There were quite literally dozens of logical defects found
-> by the fallthrough additions.  Very few were logging only.
+> So can you give us the best examples (or indeed all of them if someone
+> is keeping score)?  hopefully this isn't a US election situation ...
 
-So can you give us the best examples (or indeed all of them if someone
-is keeping score)?  hopefully this isn't a US election situation ...
+Gustavo?  Are you running for congress now?
 
-James
+https://lwn.net/Articles/794944/
 
 
 --
