@@ -1,77 +1,77 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C96D92C2ED8
-	for <lists+dm-devel@lfdr.de>; Tue, 24 Nov 2020 18:39:10 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 7C8B92C2EDA
+	for <lists+dm-devel@lfdr.de>; Tue, 24 Nov 2020 18:39:27 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-474-X4m4KaNNOJSjDnfVku3o8A-1; Tue, 24 Nov 2020 12:39:06 -0500
-X-MC-Unique: X4m4KaNNOJSjDnfVku3o8A-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-59-Jd35bRCVM8yNYKiJTFJpqA-1; Tue, 24 Nov 2020 12:39:18 -0500
+X-MC-Unique: Jd35bRCVM8yNYKiJTFJpqA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A9C56100C663;
-	Tue, 24 Nov 2020 17:38:59 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 882734D;
-	Tue, 24 Nov 2020 17:38:59 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0D1BC94DCF;
+	Tue, 24 Nov 2020 17:39:11 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D4B5B1992D;
+	Tue, 24 Nov 2020 17:39:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A8B8B4BB7B;
-	Tue, 24 Nov 2020 17:38:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8883B180954D;
+	Tue, 24 Nov 2020 17:39:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AOHcsCA022028 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 24 Nov 2020 12:38:54 -0500
+	id 0AOHd76a022062 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 24 Nov 2020 12:39:07 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id A2159112D177; Tue, 24 Nov 2020 17:38:54 +0000 (UTC)
+	id 300F82026D3C; Tue, 24 Nov 2020 17:39:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9D6F3112C093
-	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 17:38:52 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2AA8C2026D38
+	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 17:39:02 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 657298015A3
-	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 17:38:52 +0000 (UTC)
-Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com
-	[209.85.222.196]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-47-qPkTvbmDNFe4jBomLLby-w-1; Tue, 24 Nov 2020 12:38:39 -0500
-X-MC-Unique: qPkTvbmDNFe4jBomLLby-w-1
-Received: by mail-qk1-f196.google.com with SMTP id u184so6904763qkf.3;
-	Tue, 24 Nov 2020 09:38:39 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 24099805C3F
+	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 17:39:02 +0000 (UTC)
+Received: from mail-qv1-f65.google.com (mail-qv1-f65.google.com
+	[209.85.219.65]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-19-RurSDaVrM1amiTGYSm-Qog-1; Tue, 24 Nov 2020 12:38:57 -0500
+X-MC-Unique: RurSDaVrM1amiTGYSm-Qog-1
+Received: by mail-qv1-f65.google.com with SMTP id q7so10970102qvt.12;
+	Tue, 24 Nov 2020 09:38:57 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
 	:references:mime-version:content-disposition:in-reply-to;
-	bh=g4LY6zleEye3uEtWn8BHkQWiPOUg2vGvLOmcGW0MhEo=;
-	b=eT8sLWG2TR/S8gEl5pRlNdzSqalg0F4d2D+ov3PdiBaGs4Vr7UIObUjbGwsag+ue5y
-	ixpABgh7GXXRcJyuT3KTw+UE+sYOp3vhsLU608aZakSMpB0V5X/Y0VfixCmOMV5wD104
-	Ltb2v5GS2e3E2cfbIoEK65v5ezLl7GA8HvaXfAhVYzFWczFeOjMXIaMZwdUBcp6Csr61
-	SHYPObysF9GhmdJbq9wXMI5I4ZQvd9RDYLIbnL6m6AhDZfbkol8g0cs0X6aSGRFKmt+n
-	KhR5yNvhbb8a+MvmGoU/VD9GQg+pQiyErw/CJK+MA2Fz5PUq2mRQyHtUBwLsogqablmf
-	TFzw==
-X-Gm-Message-State: AOAM533wvEkcU/p9moQWrlv0/lN+4QxvtN3wyuoBtauOhuEjckoZJ8xV
-	sYu8veOVuaC4nVVyvDi5j34=
-X-Google-Smtp-Source: ABdhPJw43+aOSAPykQeYdeX4DmgWRqK+CIO4uPy4u98lyqJL8LkKiYWD+c6leseDOSmCa64pRPr2xg==
-X-Received: by 2002:a37:e40b:: with SMTP id y11mr5925723qkf.29.1606239519064; 
-	Tue, 24 Nov 2020 09:38:39 -0800 (PST)
+	bh=Km12pVmBeWPgkRcOQAU5l84XavjRPJ4jqz28aKaNPFE=;
+	b=KTz/rAV4FbuXhqQIz+Z7FRRy4AHJKYigAzzZsx/H+zd2lS0/F8VHRwpRSSJQCrQ8P7
+	8SSj8/DflDLXnkd1vUwiy1cbPhFQCAewoAqTawrn2Iix3mP+bvApa795Gma1S92/h2x/
+	674TKFcYQ7mbhb06sZetTf6npf4PWZQn4badkmHauZrxBcgpefG+JIRW0ZFynY3CYJt8
+	p4UqFPra3VXVgMbMqWb8Dk13GYgjp58ZKoFG7ilDFQpan/MNtN+akPxmmkGMq+gMBe4T
+	4GaDFN8ni+17jwLM2n+mQDhQ0uLuUiaE5g7eLOc6ZDc7JKhjoq7DIQCtqbGSBH6SHVNQ
+	t/wA==
+X-Gm-Message-State: AOAM530xAZE/Szwz2ySk9eZblqtr5BLmiZyu7usg1NvM9vg4iTbaFput
+	Zr+GDet24MREBYGfVQkp9PTAAdl7/E+g1A==
+X-Google-Smtp-Source: ABdhPJx2viG2YUIcT9pxnUmh9SMKJ+iaGPuLa9sp1d1smXeKSZjMmg4Jo+Hs7YyRPHzhOtS6yXj/uA==
+X-Received: by 2002:a0c:f7cc:: with SMTP id f12mr5949753qvo.0.1606239537123;
+	Tue, 24 Nov 2020 09:38:57 -0800 (PST)
 Received: from localhost (dhcp-6c-ae-f6-dc-d8-61.cpe.echoes.net. [72.28.8.195])
 	by smtp.gmail.com with ESMTPSA id
-	s7sm13183950qkm.124.2020.11.24.09.38.38
+	b3sm13138042qte.85.2020.11.24.09.38.56
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Tue, 24 Nov 2020 09:38:38 -0800 (PST)
-Date: Tue, 24 Nov 2020 12:38:16 -0500
+	Tue, 24 Nov 2020 09:38:56 -0800 (PST)
+Date: Tue, 24 Nov 2020 12:38:34 -0500
 From: Tejun Heo <tj@kernel.org>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <X71FCKpLZLywTTT8@mtj.duckdns.org>
+Message-ID: <X71FGgQtvXHTHU0V@mtj.duckdns.org>
 References: <20201124132751.3747337-1-hch@lst.de>
-	<20201124132751.3747337-17-hch@lst.de>
+	<20201124132751.3747337-18-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20201124132751.3747337-17-hch@lst.de>
+In-Reply-To: <20201124132751.3747337-18-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -80,7 +80,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 Cc: Jens Axboe <axboe@kernel.dk>, Jan Kara <jack@suse.cz>,
 	Mike Snitzer <snitzer@redhat.com>,
@@ -93,8 +93,7 @@ Cc: Jens Axboe <axboe@kernel.dk>, Jan Kara <jack@suse.cz>,
 	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
 	linux-fsdevel@vger.kernel.org, xen-devel@lists.xenproject.org,
 	linux-bcache@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [dm-devel] [PATCH 16/45] block: change the hash used for
- looking up block devices
+Subject: Re: [dm-devel] [PATCH 17/45] init: refactor name_to_dev_t
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -108,7 +107,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -117,14 +116,15 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 24, 2020 at 02:27:22PM +0100, Christoph Hellwig wrote:
-> Adding the minor to the major creates tons of pointless conflicts. Just
-> use the dev_t itself, which is 32-bits and thus is guaranteed to fit
-> into ino_t.
+On Tue, Nov 24, 2020 at 02:27:23PM +0100, Christoph Hellwig wrote:
+> Split each case into a self-contained helper, and move the block
+> dependent code entirely under the pre-existing #ifdef CONFIG_BLOCK.
+> This allows to remove the blk_lookup_devt stub in genhd.h.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 > Reviewed-by: Jan Kara <jack@suse.cz>
+> Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 
 Acked-by: Tejun Heo <tj@kernel.org>
 
