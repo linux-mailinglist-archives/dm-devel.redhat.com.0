@@ -2,58 +2,58 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 050BB2C27DC
-	for <lists+dm-devel@lfdr.de>; Tue, 24 Nov 2020 14:32:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 324422C281B
+	for <lists+dm-devel@lfdr.de>; Tue, 24 Nov 2020 14:34:54 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-335-TT7JvBs1PG6rG94te2QarA-1; Tue, 24 Nov 2020 08:32:47 -0500
-X-MC-Unique: TT7JvBs1PG6rG94te2QarA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-295-maJdDeIePnW5mxUqzybuow-1; Tue, 24 Nov 2020 08:34:51 -0500
+X-MC-Unique: maJdDeIePnW5mxUqzybuow-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A0DA9873116;
-	Tue, 24 Nov 2020 13:32:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1BDA3100C668;
+	Tue, 24 Nov 2020 13:34:41 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 793771F0;
-	Tue, 24 Nov 2020 13:32:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6DF73100164C;
+	Tue, 24 Nov 2020 13:34:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3006A1809C9F;
-	Tue, 24 Nov 2020 13:32:41 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 73802180954D;
+	Tue, 24 Nov 2020 13:34:38 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AODWb2x018920 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 24 Nov 2020 08:32:37 -0500
+	id 0AODYWGg019525 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 24 Nov 2020 08:34:32 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B36C3111286D; Tue, 24 Nov 2020 13:32:37 +0000 (UTC)
+	id 4055F7D2A7; Tue, 24 Nov 2020 13:34:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AFEEE1112869
-	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:32:36 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3AECC80546
+	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:34:29 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 862CA800B3B
-	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:32:36 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 43120108C1CC
+	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:34:29 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-344--d8v6hj-NG68CqL9ADGirQ-1;
-	Tue, 24 Nov 2020 08:32:32 -0500
-X-MC-Unique: -d8v6hj-NG68CqL9ADGirQ-1
+	relay.mimecast.com with ESMTP id us-mta-18-7O_iZ9sFO3G2161VXgCUcA-1;
+	Tue, 24 Nov 2020 08:34:24 -0500
+X-MC-Unique: 7O_iZ9sFO3G2161VXgCUcA-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id A52D5AC66;
-	Tue, 24 Nov 2020 13:32:30 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id 61EB5AF33;
+	Tue, 24 Nov 2020 13:34:22 +0000 (UTC)
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
 References: <20201124132751.3747337-1-hch@lst.de>
-	<20201124132751.3747337-39-hch@lst.de>
+	<20201124132751.3747337-31-hch@lst.de>
 From: Coly Li <colyli@suse.de>
-Message-ID: <4cdd6877-f4fd-8022-4a4f-3eabb86af2b9@suse.de>
-Date: Tue, 24 Nov 2020 21:32:19 +0800
+Message-ID: <044dd4ec-c64d-3c5d-cf54-a4ca665b8912@suse.de>
+Date: Tue, 24 Nov 2020 21:34:11 +0800
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:78.0)
 	Gecko/20100101 Thunderbird/78.4.3
 MIME-Version: 1.0
-In-Reply-To: <20201124132751.3747337-39-hch@lst.de>
+In-Reply-To: <20201124132751.3747337-31-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -62,7 +62,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
 	linux-fsdevel@vger.kernel.org, Mike Snitzer <snitzer@redhat.com>,
@@ -74,8 +74,8 @@ Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
 	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
 	Tejun Heo <tj@kernel.org>, xen-devel@lists.xenproject.org,
 	linux-mm@kvack.org
-Subject: Re: [dm-devel] [PATCH 38/45] block: switch partition lookup to use
- struct block_device
+Subject: Re: [dm-devel] [PATCH 30/45] block: remove the nr_sects field in
+ struct hd_struct
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,7 +89,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -99,61 +99,56 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 On 11/24/20 9:27 PM, Christoph Hellwig wrote:
-> Use struct block_device to lookup partitions on a disk.  This removes
-> all usage of struct hd_struct from the I/O path, and this allows removing
-> the percpu refcount in struct hd_struct.
+> Now that the hd_struct always has a block device attached to it, there is
+> no need for having two size field that just get out of sync.
+> 
+> Additional the field in hd_struct did not use proper serializiation,
+> possibly allowing for torn writes.  By only using the block_device field
+> this problem also gets fixed.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
-
+> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 For the bcache part, Acked-by: Coly Li <colyli@suse.de>
 
+Thanks.
+
+Coly Li
+
 > ---
 >  block/bio.c                        |  4 +-
->  block/blk-core.c                   | 66 ++++++++++++++----------------
->  block/blk-flush.c                  |  2 +-
->  block/blk-mq.c                     |  9 ++--
->  block/blk-mq.h                     |  7 ++--
->  block/blk.h                        |  4 +-
->  block/genhd.c                      | 56 +++++++++++++------------
->  block/partitions/core.c            |  7 +---
->  drivers/block/drbd/drbd_receiver.c |  2 +-
->  drivers/block/drbd/drbd_worker.c   |  2 +-
->  drivers/block/zram/zram_drv.c      |  2 +-
->  drivers/md/bcache/request.c        |  4 +-
->  drivers/md/dm.c                    |  4 +-
->  drivers/md/md.c                    |  4 +-
->  drivers/nvme/target/admin-cmd.c    | 20 ++++-----
->  fs/ext4/super.c                    | 18 +++-----
->  fs/ext4/sysfs.c                    | 10 +----
->  fs/f2fs/f2fs.h                     |  2 +-
->  fs/f2fs/super.c                    |  6 +--
->  include/linux/blkdev.h             |  8 ++--
->  include/linux/genhd.h              |  4 +-
->  include/linux/part_stat.h          | 17 ++++----
->  22 files changed, 120 insertions(+), 138 deletions(-)
+>  block/blk-core.c                   |  2 +-
+>  block/blk.h                        | 53 ----------------------
+>  block/genhd.c                      | 55 +++++++++++-----------
+>  block/partitions/core.c            | 17 ++++---
+>  drivers/block/loop.c               |  1 -
+>  drivers/block/nbd.c                |  2 +-
+>  drivers/block/xen-blkback/common.h |  4 +-
+>  drivers/md/bcache/super.c          |  2 +-
+>  drivers/s390/block/dasd_ioctl.c    |  4 +-
+>  drivers/target/target_core_pscsi.c |  7 +--
+>  fs/block_dev.c                     | 73 +-----------------------------
+>  fs/f2fs/super.c                    |  2 +-
+>  fs/pstore/blk.c                    |  2 +-
+>  include/linux/genhd.h              | 29 +++---------
+>  kernel/trace/blktrace.c            |  2 +-
+>  16 files changed, 60 insertions(+), 199 deletions(-)
+> 
 [snipped]
 
-> diff --git a/drivers/md/bcache/request.c b/drivers/md/bcache/request.c
-> index afac8d07c1bd00..85b1f2a9b72d68 100644
-> --- a/drivers/md/bcache/request.c
-> +++ b/drivers/md/bcache/request.c
-> @@ -475,7 +475,7 @@ struct search {
->  	unsigned int		read_dirty_data:1;
->  	unsigned int		cache_missed:1;
+> diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
+> index c55d3c58a7ef55..04fa40868fbe10 100644
+> --- a/drivers/md/bcache/super.c
+> +++ b/drivers/md/bcache/super.c
+> @@ -1408,7 +1408,7 @@ static int cached_dev_init(struct cached_dev *dc, unsigned int block_size)
+>  			q->limits.raid_partial_stripes_expensive;
 >  
-> -	struct hd_struct	*part;
-> +	struct block_device	*part;
->  	unsigned long		start_time;
->  
->  	struct btree_op		op;
-> @@ -1073,7 +1073,7 @@ struct detached_dev_io_private {
->  	unsigned long		start_time;
->  	bio_end_io_t		*bi_end_io;
->  	void			*bi_private;
-> -	struct hd_struct	*part;
-> +	struct block_device	*part;
->  };
+>  	ret = bcache_device_init(&dc->disk, block_size,
+> -			 dc->bdev->bd_part->nr_sects - dc->sb.data_offset,
+> +			 bdev_nr_sectors(dc->bdev) - dc->sb.data_offset,
+>  			 dc->bdev, &bcache_cached_ops);
+>  	if (ret)
+>  		return ret;
 [snipped]
 
 --
