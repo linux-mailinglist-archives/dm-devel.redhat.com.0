@@ -2,51 +2,52 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C730F2C27D5
-	for <lists+dm-devel@lfdr.de>; Tue, 24 Nov 2020 14:32:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 363DF2C27CF
+	for <lists+dm-devel@lfdr.de>; Tue, 24 Nov 2020 14:32:07 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-573-nJY41QRgOc6m4l8xDtGGoA-1; Tue, 24 Nov 2020 08:32:27 -0500
-X-MC-Unique: nJY41QRgOc6m4l8xDtGGoA-1
+ us-mta-59-MQ0ce5T2MwWC96eq9Vcjsg-1; Tue, 24 Nov 2020 08:31:59 -0500
+X-MC-Unique: MQ0ce5T2MwWC96eq9Vcjsg-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AA31710151FC;
-	Tue, 24 Nov 2020 13:32:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5FD4A8030D9;
+	Tue, 24 Nov 2020 13:31:53 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A51E100164C;
-	Tue, 24 Nov 2020 13:32:20 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 36D521002391;
+	Tue, 24 Nov 2020 13:31:53 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 203C350030;
-	Tue, 24 Nov 2020 13:32:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E30255002C;
+	Tue, 24 Nov 2020 13:31:52 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AODWFdI018755 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 24 Nov 2020 08:32:15 -0500
+	id 0AODVmhR018626 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 24 Nov 2020 08:31:48 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1A4392026D16; Tue, 24 Nov 2020 13:32:15 +0000 (UTC)
+	id 1940D111286C; Tue, 24 Nov 2020 13:31:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 15E5D2026D13
-	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:32:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 14141100414F
+	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:31:45 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F11E0185A794
-	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:32:14 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CFAFD8007D9
+	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:31:45 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-369-K0v0xB_lMsCA5TqGren0TQ-1; Tue, 24 Nov 2020 08:32:11 -0500
-X-MC-Unique: K0v0xB_lMsCA5TqGren0TQ-1
+	us-mta-82-pSZZ-Ay9O0KOhreSOxUeKQ-1; Tue, 24 Nov 2020 08:31:41 -0500
+X-MC-Unique: pSZZ-Ay9O0KOhreSOxUeKQ-1
 Received: from [2001:4bb8:180:5443:c70:4a89:bc61:3] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1khYMh-0006Ww-C9; Tue, 24 Nov 2020 13:28:16 +0000
+	id 1khYMj-0006XN-5i; Tue, 24 Nov 2020 13:28:17 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Tue, 24 Nov 2020 14:27:20 +0100
-Message-Id: <20201124132751.3747337-15-hch@lst.de>
+Date: Tue, 24 Nov 2020 14:27:21 +0100
+Message-Id: <20201124132751.3747337-16-hch@lst.de>
 In-Reply-To: <20201124132751.3747337-1-hch@lst.de>
 References: <20201124132751.3747337-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,7 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
 	linux-fsdevel@vger.kernel.org, Mike Snitzer <snitzer@redhat.com>,
@@ -73,8 +74,7 @@ Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
 	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
 	Tejun Heo <tj@kernel.org>, xen-devel@lists.xenproject.org,
 	linux-mm@kvack.org
-Subject: [dm-devel] [PATCH 14/45] block: use disk_part_iter_exit in
-	disk_part_iter_next
+Subject: [dm-devel] [PATCH 15/45] block: use put_device in put_disk
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,31 +96,30 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Call disk_part_iter_exit in disk_part_iter_next instead of duplicating
-the functionality.
+Use put_device to put the device instead of poking into the internals
+and using kobject_put.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Reviewed-by: Jan Kara <jack@suse.cz>
 Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 ---
- block/genhd.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ block/genhd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/block/genhd.c b/block/genhd.c
-index 4e039524f92b8f..0bd9c41dd4cb69 100644
+index 0bd9c41dd4cb69..f46e89226fdf91 100644
 --- a/block/genhd.c
 +++ b/block/genhd.c
-@@ -227,8 +227,7 @@ struct hd_struct *disk_part_iter_next(struct disk_part_iter *piter)
- 	int inc, end;
+@@ -1803,7 +1803,7 @@ EXPORT_SYMBOL(__alloc_disk_node);
+ void put_disk(struct gendisk *disk)
+ {
+ 	if (disk)
+-		kobject_put(&disk_to_dev(disk)->kobj);
++		put_device(disk_to_dev(disk));
+ }
+ EXPORT_SYMBOL(put_disk);
  
- 	/* put the last partition */
--	disk_put_part(piter->part);
--	piter->part = NULL;
-+	disk_part_iter_exit(piter);
- 
- 	/* get part_tbl */
- 	rcu_read_lock();
 -- 
 2.29.2
 
