@@ -1,75 +1,64 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 58FD72C207E
-	for <lists+dm-devel@lfdr.de>; Tue, 24 Nov 2020 09:54:41 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 310CF2C2081
+	for <lists+dm-devel@lfdr.de>; Tue, 24 Nov 2020 09:54:44 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-250-nxUMF0UsMQGZK6qDALx0Vg-1; Tue, 24 Nov 2020 03:54:38 -0500
-X-MC-Unique: nxUMF0UsMQGZK6qDALx0Vg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-119-aIE_p2RxOgOTrn1e_8BiqA-1; Tue, 24 Nov 2020 03:54:40 -0500
+X-MC-Unique: aIE_p2RxOgOTrn1e_8BiqA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0467481CB06;
-	Tue, 24 Nov 2020 08:54:33 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D225D10021AA;
-	Tue, 24 Nov 2020 08:54:32 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D406C18C43D6;
+	Tue, 24 Nov 2020 08:54:34 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AF7411F0;
+	Tue, 24 Nov 2020 08:54:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8C0551809CA4;
-	Tue, 24 Nov 2020 08:54:32 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6D3C65002E;
+	Tue, 24 Nov 2020 08:54:34 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AO1XALT023983 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 23 Nov 2020 20:33:10 -0500
+	id 0AO1l2fT026595 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 23 Nov 2020 20:47:02 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4195B6D9F4; Tue, 24 Nov 2020 01:33:10 +0000 (UTC)
+	id 4296D2026D25; Tue, 24 Nov 2020 01:47:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3C0BB6D9D8
-	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 01:33:07 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3DB652026D14
+	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 01:47:00 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D8D95811E78
-	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 01:33:07 +0000 (UTC)
-Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
-	[209.85.215.193]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-25-9cWKd8YUOdmU1i046Vf6_g-1; Mon, 23 Nov 2020 20:33:05 -0500
-X-MC-Unique: 9cWKd8YUOdmU1i046Vf6_g-1
-Received: by mail-pg1-f193.google.com with SMTP id f17so7439824pge.6
-	for <dm-devel@redhat.com>; Mon, 23 Nov 2020 17:33:05 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=1Fpt+3NGNjcuXPoKd+YKzvfWCCI+i2QS11ln4xb/K2c=;
-	b=dfAbTZAU+vH07FIetNdzAaka3UKbS3JF9K8fsnml3+v7jj74ABOl2Vp8aFKEpkOZMv
-	qUtQuB0rrSouE/XSao+wWkwX7LAHGhfWEite+CMKSRes9q7+j+vyEwbbdHHejuuFNiTN
-	d9983FYR3GsGZYrBiCgSArmODJ4+OShTz8r7oBGbVAaQB9qb9fWpkQlORkI68kEQVuxD
-	rl/WBtQfgBmuxVCAwJ6vpQ87SkZktz1rYYTBNEEguoufZxb6+RSDsHwSTIxydPGCGE0D
-	J6zvLWUfCfDVL5I1Q9E4VTie33wrYwgS3+cQSS9bcEeeLaTc+zlERdTldHUgCHdjxWJ3
-	XSxQ==
-X-Gm-Message-State: AOAM5300i6OBm6UKembPqrR++d8tvZ519Ee4p5feI4N1b/+KJChsADIY
-	wz4cdF6OJvVSPeAs35AxnHusnGS/CAvWm2v1ZwZCpw==
-X-Google-Smtp-Source: ABdhPJwQDF2vxX46wbajF4ioOOwzM/J33jC4qlEIQ0nX0CJ8Ae2/iYNAtfiNkgC6UbM9BT3sKlieSNPFWrTquhIIwSk=
-X-Received: by 2002:a65:6a4e:: with SMTP id o14mr1859973pgu.263.1606181584110; 
-	Mon, 23 Nov 2020 17:33:04 -0800 (PST)
-MIME-Version: 1.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E34A8800B3A
+	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 01:46:59 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-567-svopod3xNXeB2KrBpKJYhA-1;
+	Mon, 23 Nov 2020 20:46:55 -0500
+X-MC-Unique: svopod3xNXeB2KrBpKJYhA-1
+Received: from kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com (unknown
+	[163.114.132.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id D0FEE206FA;
+	Tue, 24 Nov 2020 01:46:49 +0000 (UTC)
+Date: Mon, 23 Nov 2020 17:46:48 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Nick Desaulniers <ndesaulniers@google.com>
+Message-ID: <20201123174648.6a22575b@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <CAKwvOdntVfXj2WRR5n6Kw7BfG7FdKpTeHeh5nPu5AzwVMhOHTg@mail.gmail.com>
 References: <cover.1605896059.git.gustavoars@kernel.org>
 	<20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 	<202011201129.B13FDB3C@keescook>
 	<20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 	<202011220816.8B6591A@keescook>
-In-Reply-To: <202011220816.8B6591A@keescook>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Mon, 23 Nov 2020 17:32:51 -0800
-Message-ID: <CAKwvOdntVfXj2WRR5n6Kw7BfG7FdKpTeHeh5nPu5AzwVMhOHTg@mail.gmail.com>
-To: Kees Cook <keescook@chromium.org>
+	<CAKwvOdntVfXj2WRR5n6Kw7BfG7FdKpTeHeh5nPu5AzwVMhOHTg@mail.gmail.com>
+MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -78,57 +67,41 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AO1l2fT026595
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 24 Nov 2020 03:53:49 -0500
 Cc: alsa-devel@alsa-project.org, linux-atm-general@lists.sourceforge.net,
-	reiserfs-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
-	linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
-	linux-fbdev@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Nathan Chancellor <natechancellor@gmail.com>,
-	linux-ide@vger.kernel.org, dm-devel@redhat.com,
-	keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
-	GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
-	samba-technical@lists.samba.org, linux-i3c@lists.infradead.org,
-	linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
-	usb-storage@lists.one-eyed-alien.net,
-	target-devel@vger.kernel.org, devel@driverdev.osuosl.org,
-	linux-cifs@vger.kernel.org, rds-devel@oss.oracle.com,
-	linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org,
-	oss-drivers@netronome.com, bridge@lists.linux-foundation.org,
-	linux-security-module@vger.kernel.org,
+	X86.ARCHITECTURE" <x86@kernel.org>, 
+	xen-devel@lists.xenproject.org, linux-hardening@vger.kernel.org, Nathan
+	Chancellor <natechancellor@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Joe
+	Perches <joe@perches.com>"@redhat.c,
+	dri-devel <dri-devel@lists.freedesktop.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	dm-devel@redhat.com, keyrings@vger.kernel.org,
+	GR-everest-linux-l2@marvell.com, linux1394-devel@lists.sourceforge.net,
+	linux-afs@lists.infradead.org, devel@driverdev.osuosl.org,
+	linux-cifs@vger.kernel.org, bridge@lists.linux-foundation.org,
 	amd-gfx list <amd-gfx@lists.freedesktop.org>,
-	linux-stm32@st-md-mailman.stormreply.com,
 	cluster-devel@redhat.com, linux-acpi@vger.kernel.org,
 	coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
-	linux-input@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, linux-ext4@vger.kernel.org,
-	linux-media@vger.kernel.org, linux-watchdog@vger.kernel.org,
-	selinux@vger.kernel.org, linux-arm-msm <linux-arm-msm@vger.kernel.org>,
-	intel-gfx@lists.freedesktop.org, linux-geode@lists.infradead.org,
-	linux-can@vger.kernel.org, linux-block@vger.kernel.org,
-	linux-gpio@vger.kernel.org, op-tee@lists.trustedfirmware.org,
-	linux-mediatek@lists.infradead.org,
-	xen-devel@lists.xenproject.org, drbd-dev@tron.linbit.com,
-	linux-hams@vger.kernel.org, ceph-devel@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
+	Kees Cook <keescook@chromium.org>,
+	linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+	intel-gfx@lists.freedesktop.org, linux-can@vger.kernel.org,
+	linux-block@vger.kernel.org, drbd-dev@tron.linbit.com,
+	ceph-devel@vger.kernel.org,
 	Linux ARM <linux-arm-kernel@lists.infradead.org>,
-	linux-hwmon@vger.kernel.org,
-	"maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
-	linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
-	tipc-discussion@lists.sourceforge.net,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Network Development <netdev@vger.kernel.org>,
-	linux-decnet-user@lists.sourceforge.net, linux-mmc@vger.kernel.org,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
-	linux-sctp@vger.kernel.org, linux-usb@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	"open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
-	<linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com,
-	Joe Perches <joe@perches.com>, linux-integrity@vger.kernel.org,
-	linux-hardening@vger.kernel.org
+	GR-Linux-NIC-Dev@marvell.com, open list:HARDWARE RANDOM NUMBER GENERATOR
+	CORE"         <linux-crypto@vger.kernel.org>,
+	linux-decnet-user@lists.sourceforge.net, linux-ext4@vger.kernel.org,
+	linux-fbdev@vger.kernel.org, linux-geode@lists.infradead.org,
+	linux-gpio@vger.kernel.org, li,
+	el.org, samba-technical@lists.samba.org, selinux@vger.kernel.org,
+	target-devel@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
+	usb-storage@lists.one-eyed-alien.net,
+	virtualization@lists.linux-foundation.org, wcn36xx@lists.infradead.org, 
+	, LKML <linux-kernel@vger.kernel.org>
 Subject: Re: [dm-devel] [PATCH 000/141] Fix fall-through warnings for Clang
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -143,69 +116,27 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Sun, Nov 22, 2020 at 8:17 AM Kees Cook <keescook@chromium.org> wrote:
->
-> On Fri, Nov 20, 2020 at 11:51:42AM -0800, Jakub Kicinski wrote:
-> > If none of the 140 patches here fix a real bug, and there is no change
-> > to machine code then it sounds to me like a W=2 kind of a warning.
->
-> FWIW, this series has found at least one bug so far:
-> https://lore.kernel.org/lkml/CAFCwf11izHF=g1mGry1fE5kvFFFrxzhPSM6qKAO8gxSp=Kr_CQ@mail.gmail.com/
-
-So looks like the bulk of these are:
-switch (x) {
-  case 0:
-    ++x;
-  default:
-    break;
-}
-
-I have a patch that fixes those up for clang:
-https://reviews.llvm.org/D91895
-
-There's 3 other cases that don't quite match between GCC and Clang I
-observe in the kernel:
-switch (x) {
-  case 0:
-    ++x;
-  default:
-    goto y;
-}
-y:;
-
-switch (x) {
-  case 0:
-    ++x;
-  default:
-    return;
-}
-
-switch (x) {
-  case 0:
-    ++x;
-  default:
-    ;
-}
-
-Based on your link, and Nathan's comment on my patch, maybe Clang
-should continue to warn for the above (at least the `default: return;`
-case) and GCC should change?  While the last case looks harmless,
-there were only 1 or 2 across the tree in my limited configuration
-testing; I really think we should just add `break`s for those.
--- 
-Thanks,
-~Nick Desaulniers
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+T24gTW9uLCAyMyBOb3YgMjAyMCAxNzozMjo1MSAtMDgwMCBOaWNrIERlc2F1bG5pZXJzIHdyb3Rl
+Ogo+IE9uIFN1biwgTm92IDIyLCAyMDIwIGF0IDg6MTcgQU0gS2VlcyBDb29rIDxrZWVzY29va0Bj
+aHJvbWl1bS5vcmc+IHdyb3RlOgo+ID4gT24gRnJpLCBOb3YgMjAsIDIwMjAgYXQgMTE6NTE6NDJB
+TSAtMDgwMCwgSmFrdWIgS2ljaW5za2kgd3JvdGU6ICAKPiA+ID4gSWYgbm9uZSBvZiB0aGUgMTQw
+IHBhdGNoZXMgaGVyZSBmaXggYSByZWFsIGJ1ZywgYW5kIHRoZXJlIGlzIG5vIGNoYW5nZQo+ID4g
+PiB0byBtYWNoaW5lIGNvZGUgdGhlbiBpdCBzb3VuZHMgdG8gbWUgbGlrZSBhIFc9MiBraW5kIG9m
+IGEgd2FybmluZy4gIAo+ID4KPiA+IEZXSVcsIHRoaXMgc2VyaWVzIGhhcyBmb3VuZCBhdCBsZWFz
+dCBvbmUgYnVnIHNvIGZhcjoKPiA+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xrbWwvQ0FGQ3dm
+MTFpekhGPWcxbUdyeTFmRTVrdkZGRnJ4emhQU002cUtBTzhneFNwPUtyX0NRQG1haWwuZ21haWwu
+Y29tLyAgCj4gCj4gU28gbG9va3MgbGlrZSB0aGUgYnVsayBvZiB0aGVzZSBhcmU6Cj4gc3dpdGNo
+ICh4KSB7Cj4gICBjYXNlIDA6Cj4gICAgICsreDsKPiAgIGRlZmF1bHQ6Cj4gICAgIGJyZWFrOwo+
+IH0KPiAKPiBJIGhhdmUgYSBwYXRjaCB0aGF0IGZpeGVzIHRob3NlIHVwIGZvciBjbGFuZzoKPiBo
+dHRwczovL3Jldmlld3MubGx2bS5vcmcvRDkxODk1Cgrwn5iNCgoKLS0KZG0tZGV2ZWwgbWFpbGlu
+ZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFu
+L2xpc3RpbmZvL2RtLWRldmVs
 
