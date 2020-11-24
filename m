@@ -1,53 +1,53 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4D8DD2C27D6
-	for <lists+dm-devel@lfdr.de>; Tue, 24 Nov 2020 14:32:32 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 13C1D2C27E2
+	for <lists+dm-devel@lfdr.de>; Tue, 24 Nov 2020 14:32:59 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-128-OJZSW2QQPxKD_ZEa5R4pfQ-1; Tue, 24 Nov 2020 08:32:28 -0500
-X-MC-Unique: OJZSW2QQPxKD_ZEa5R4pfQ-1
+ us-mta-163-9zCXLcpbOEKCte7rgxSTIA-1; Tue, 24 Nov 2020 08:32:56 -0500
+X-MC-Unique: 9zCXLcpbOEKCte7rgxSTIA-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 58D131009469;
-	Tue, 24 Nov 2020 13:32:23 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AA13564156;
+	Tue, 24 Nov 2020 13:32:47 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 315C6100238C;
-	Tue, 24 Nov 2020 13:32:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 816FF10016FA;
+	Tue, 24 Nov 2020 13:32:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D48901809CA6;
-	Tue, 24 Nov 2020 13:32:22 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 243071809CA8;
+	Tue, 24 Nov 2020 13:32:47 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AODWJ6G018796 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 24 Nov 2020 08:32:19 -0500
+	id 0AODWgPa018963 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 24 Nov 2020 08:32:42 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 17AF4111286D; Tue, 24 Nov 2020 13:32:19 +0000 (UTC)
+	id 01C772026D16; Tue, 24 Nov 2020 13:32:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 13D671112869
-	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:32:19 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F13992026D13
+	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:32:41 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0184A800B3A
-	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:32:19 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DDB5B803DD8
+	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:32:41 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-176-1-ADtAyPOFyf8XK4lwq_9g-1; Tue, 24 Nov 2020 08:32:16 -0500
-X-MC-Unique: 1-ADtAyPOFyf8XK4lwq_9g-1
+	us-mta-177-PFr-QcgHOKqfx7Q3Z8sxPg-1; Tue, 24 Nov 2020 08:32:39 -0500
+X-MC-Unique: PFr-QcgHOKqfx7Q3Z8sxPg-1
 Received: from [2001:4bb8:180:5443:c70:4a89:bc61:3] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1khYMU-0006Uj-4z; Tue, 24 Nov 2020 13:28:02 +0000
+	id 1khYMV-0006Ut-HC; Tue, 24 Nov 2020 13:28:03 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Tue, 24 Nov 2020 14:27:11 +0100
-Message-Id: <20201124132751.3747337-6-hch@lst.de>
+Date: Tue, 24 Nov 2020 14:27:12 +0100
+Message-Id: <20201124132751.3747337-7-hch@lst.de>
 In-Reply-To: <20201124132751.3747337-1-hch@lst.de>
 References: <20201124132751.3747337-1-hch@lst.de>
 MIME-Version: 1.0
@@ -61,7 +61,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Mimecast-Bulk-Signature: yes
+X-Mimecast-Spam-Signature: bulk
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
 	linux-fsdevel@vger.kernel.org, Mike Snitzer <snitzer@redhat.com>,
@@ -74,8 +76,7 @@ Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
 	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
 	Tejun Heo <tj@kernel.org>, xen-devel@lists.xenproject.org,
 	linux-mm@kvack.org
-Subject: [dm-devel] [PATCH 05/45] mtip32xx: remove the call to fsync_bdev on
-	removal
+Subject: [dm-devel] [PATCH 06/45] zram: remove the claim mechanism
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,75 +98,142 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-del_gendisk already calls fsync_bdev for every partition, no need
-to do this twice.
+The zram claim mechanism was added to ensure no new opens come in
+during teardown.  But the proper way to archive that is to call
+del_gendisk first, which takes care of all that.  Once del_gendisk
+is called in the right place, the reset side can also be simplified
+as no I/O can be outstanding on a block device that is not open.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/block/mtip32xx/mtip32xx.c | 15 ---------------
- drivers/block/mtip32xx/mtip32xx.h |  2 --
- 2 files changed, 17 deletions(-)
+ drivers/block/zram/zram_drv.c | 72 ++++++++---------------------------
+ 1 file changed, 15 insertions(+), 57 deletions(-)
 
-diff --git a/drivers/block/mtip32xx/mtip32xx.c b/drivers/block/mtip32xx/mtip32xx.c
-index 153e2cdecb4d40..53ac59d19ae530 100644
---- a/drivers/block/mtip32xx/mtip32xx.c
-+++ b/drivers/block/mtip32xx/mtip32xx.c
-@@ -3687,7 +3687,6 @@ static int mtip_block_initialize(struct driver_data *dd)
- 	/* Enable the block device and add it to /dev */
- 	device_add_disk(&dd->pdev->dev, dd->disk, NULL);
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index 6d15d51cee2b7e..2e6d75ec1afddb 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -1756,64 +1756,33 @@ static ssize_t disksize_store(struct device *dev,
+ static ssize_t reset_store(struct device *dev,
+ 		struct device_attribute *attr, const char *buf, size_t len)
+ {
+-	int ret;
+-	unsigned short do_reset;
+-	struct zram *zram;
++	struct zram *zram = dev_to_zram(dev);
+ 	struct block_device *bdev;
++	unsigned short do_reset;
++	int ret = 0;
  
--	dd->bdev = bdget_disk(dd->disk, 0);
- 	/*
- 	 * Now that the disk is active, initialize any sysfs attributes
- 	 * managed by the protocol layer.
-@@ -3721,9 +3720,6 @@ static int mtip_block_initialize(struct driver_data *dd)
- 	return rv;
- 
- kthread_run_error:
--	bdput(dd->bdev);
--	dd->bdev = NULL;
+ 	ret = kstrtou16(buf, 10, &do_reset);
+ 	if (ret)
+ 		return ret;
 -
- 	/* Delete our gendisk. This also removes the device from /dev */
- 	del_gendisk(dd->disk);
+ 	if (!do_reset)
+ 		return -EINVAL;
  
-@@ -3804,14 +3800,6 @@ static int mtip_block_remove(struct driver_data *dd)
- 	blk_mq_tagset_busy_iter(&dd->tags, mtip_no_dev_cleanup, dd);
- 	blk_mq_unquiesce_queue(dd->queue);
+-	zram = dev_to_zram(dev);
+ 	bdev = bdget_disk(zram->disk, 0);
+ 	if (!bdev)
+ 		return -ENOMEM;
  
--	/*
--	 * Delete our gendisk structure. This also removes the device
--	 * from /dev
--	 */
--	if (dd->bdev) {
--		bdput(dd->bdev);
--		dd->bdev = NULL;
+ 	mutex_lock(&bdev->bd_mutex);
+-	/* Do not reset an active device or claimed device */
+-	if (bdev->bd_openers || zram->claim) {
+-		mutex_unlock(&bdev->bd_mutex);
+-		bdput(bdev);
+-		return -EBUSY;
 -	}
- 	if (dd->disk) {
- 		if (test_bit(MTIP_DDF_INIT_DONE_BIT, &dd->dd_flag))
- 			del_gendisk(dd->disk);
-@@ -4206,9 +4194,6 @@ static void mtip_pci_remove(struct pci_dev *pdev)
- 	} while (atomic_read(&dd->irq_workers_active) != 0 &&
- 		time_before(jiffies, to));
- 
--	if (!dd->sr)
--		fsync_bdev(dd->bdev);
 -
- 	if (atomic_read(&dd->irq_workers_active) != 0) {
- 		dev_warn(&dd->pdev->dev,
- 			"Completion workers still active!\n");
-diff --git a/drivers/block/mtip32xx/mtip32xx.h b/drivers/block/mtip32xx/mtip32xx.h
-index e22a7f0523bf30..88f4206310e4c8 100644
---- a/drivers/block/mtip32xx/mtip32xx.h
-+++ b/drivers/block/mtip32xx/mtip32xx.h
-@@ -463,8 +463,6 @@ struct driver_data {
+-	/* From now on, anyone can't open /dev/zram[0-9] */
+-	zram->claim = true;
++	if (bdev->bd_openers)
++		ret = -EBUSY;
++	else
++		zram_reset_device(zram);
+ 	mutex_unlock(&bdev->bd_mutex);
+-
+-	/* Make sure all the pending I/O are finished */
+-	fsync_bdev(bdev);
+-	zram_reset_device(zram);
+ 	bdput(bdev);
  
- 	int isr_binding;
+-	mutex_lock(&bdev->bd_mutex);
+-	zram->claim = false;
+-	mutex_unlock(&bdev->bd_mutex);
+-
+-	return len;
+-}
+-
+-static int zram_open(struct block_device *bdev, fmode_t mode)
+-{
+-	int ret = 0;
+-	struct zram *zram;
+-
+-	WARN_ON(!mutex_is_locked(&bdev->bd_mutex));
+-
+-	zram = bdev->bd_disk->private_data;
+-	/* zram was claimed to reset so open request fails */
+-	if (zram->claim)
+-		ret = -EBUSY;
+-
+-	return ret;
++	return ret ? ret : len;
+ }
  
+ static const struct block_device_operations zram_devops = {
+-	.open = zram_open,
+ 	.submit_bio = zram_submit_bio,
+ 	.swap_slot_free_notify = zram_slot_free_notify,
+ 	.rw_page = zram_rw_page,
+@@ -1821,7 +1790,6 @@ static const struct block_device_operations zram_devops = {
+ };
+ 
+ static const struct block_device_operations zram_wb_devops = {
+-	.open = zram_open,
+ 	.submit_bio = zram_submit_bio,
+ 	.swap_slot_free_notify = zram_slot_free_notify,
+ 	.owner = THIS_MODULE
+@@ -1974,32 +1942,22 @@ static int zram_add(void)
+ 
+ static int zram_remove(struct zram *zram)
+ {
 -	struct block_device *bdev;
 -
- 	struct list_head online_list; /* linkage for online list */
+-	bdev = bdget_disk(zram->disk, 0);
+-	if (!bdev)
+-		return -ENOMEM;
++	struct block_device *bdev = bdget_disk(zram->disk, 0);
  
- 	struct list_head remove_list; /* linkage for removing list */
+-	mutex_lock(&bdev->bd_mutex);
+-	if (bdev->bd_openers || zram->claim) {
+-		mutex_unlock(&bdev->bd_mutex);
++	if (bdev) {
++		if (bdev->bd_openers) {
++			bdput(bdev);
++			return -EBUSY;
++		}
+ 		bdput(bdev);
+-		return -EBUSY;
+ 	}
+ 
+-	zram->claim = true;
+-	mutex_unlock(&bdev->bd_mutex);
+-
++	del_gendisk(zram->disk);
+ 	zram_debugfs_unregister(zram);
+-
+-	/* Make sure all the pending I/O are finished */
+-	fsync_bdev(bdev);
+ 	zram_reset_device(zram);
+-	bdput(bdev);
+ 
+ 	pr_info("Removed device: %s\n", zram->disk->disk_name);
+ 
+-	del_gendisk(zram->disk);
+ 	blk_cleanup_queue(zram->disk->queue);
+ 	put_disk(zram->disk);
+ 	kfree(zram);
 -- 
 2.29.2
 
