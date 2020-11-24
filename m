@@ -2,52 +2,53 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id EF0732C27E6
-	for <lists+dm-devel@lfdr.de>; Tue, 24 Nov 2020 14:33:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id F2CC82C27D7
+	for <lists+dm-devel@lfdr.de>; Tue, 24 Nov 2020 14:32:35 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-43-zEMiQdCsNsOv4duLX13rHA-1; Tue, 24 Nov 2020 08:32:28 -0500
-X-MC-Unique: zEMiQdCsNsOv4duLX13rHA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-208-vR37CrnvOvO0EEYGMUmrPw-1; Tue, 24 Nov 2020 08:32:31 -0500
+X-MC-Unique: vR37CrnvOvO0EEYGMUmrPw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B026A804761;
-	Tue, 24 Nov 2020 13:32:22 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 87F5219C46;
-	Tue, 24 Nov 2020 13:32:22 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C163B10151FB;
+	Tue, 24 Nov 2020 13:32:24 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 99DDC60877;
+	Tue, 24 Nov 2020 13:32:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3F17950031;
-	Tue, 24 Nov 2020 13:32:22 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 46F4C1809CA4;
+	Tue, 24 Nov 2020 13:32:24 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AODWGSA018766 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 24 Nov 2020 08:32:16 -0500
+	id 0AODWG8N018775 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 24 Nov 2020 08:32:17 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 412222166B27; Tue, 24 Nov 2020 13:32:16 +0000 (UTC)
+	id CDB797D2A5; Tue, 24 Nov 2020 13:32:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A3832166B2B
-	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:32:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C8A8230B9D
+	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:32:16 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AE86C108C1CC
-	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:32:11 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B183985828A
+	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:32:16 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-573-h3irwj2qN3CWjfpGAzuBxw-1; Tue, 24 Nov 2020 08:32:09 -0500
-X-MC-Unique: h3irwj2qN3CWjfpGAzuBxw-1
+	us-mta-549-b-GVJWnmPFWaFYfi_LManQ-1; Tue, 24 Nov 2020 08:32:13 -0500
+X-MC-Unique: b-GVJWnmPFWaFYfi_LManQ-1
 Received: from [2001:4bb8:180:5443:c70:4a89:bc61:3] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1khYML-0006U2-TO; Tue, 24 Nov 2020 13:27:54 +0000
+	id 1khYMN-0006U7-DO; Tue, 24 Nov 2020 13:27:55 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Tue, 24 Nov 2020 14:27:06 +0100
-Message-Id: <20201124132751.3747337-1-hch@lst.de>
+Date: Tue, 24 Nov 2020 14:27:07 +0100
+Message-Id: <20201124132751.3747337-2-hch@lst.de>
+In-Reply-To: <20201124132751.3747337-1-hch@lst.de>
+References: <20201124132751.3747337-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	casper.infradead.org. See http://www.infradead.org/rpr.html
@@ -59,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
 	linux-fsdevel@vger.kernel.org, Mike Snitzer <snitzer@redhat.com>,
@@ -72,7 +73,8 @@ Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
 	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
 	Tejun Heo <tj@kernel.org>, xen-devel@lists.xenproject.org,
 	linux-mm@kvack.org
-Subject: [dm-devel] merge struct block_device and struct hd_struct v2
+Subject: [dm-devel] [PATCH 01/45] blk-cgroup: fix a hd_struct leak in
+	blkcg_fill_root_iostats
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,7 +88,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -94,110 +96,32 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Jens,
+disk_get_part needs to be paired with a disk_put_part.
 
-this series cleans up our main per-device node data structure by merging
-the block_device and hd_struct data structures that have the same scope,
-but different life times.  The main effect (besides removing lots of
-code) is that instead of having two device sizes that need complex
-synchronization there is just one now.
+Fixes: ef45fe470e1 ("blk-cgroup: show global disk stats in root cgroup io.stat")
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+Acked-by: Tejun Heo <tj@kernel.org>
+---
+ block/blk-cgroup.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Note that this now includes the previous "misc cleanups" series as I had
-to fix up a thing in there with the changed patch ordering.
-
-The first patch already is in 5.10-rc, but not in for-5.11/block
-
-A git tree is available here:
-
-    git://git.infradead.org/users/hch/block.git bdev-lookup
-
-Gitweb:
-
-    http://git.infradead.org/users/hch/block.git/shortlog/refs/heads/bdev-lookup
-
-Changes since v1:
- - spelling fixes
- - fix error unwinding in __alloc_disk_node
- - use bdev_is_partition in a few more places
- - don't send the RESIZE=1 uevent for hidden gendisks
- - rename __bdget_disk to disk_find_part
- - drop a bcache patch
- - some patch reordering
- - add more refactoring
- - use rcu protection to prevent racing with a disk going away
-   in blkdev_get
- - split up some of the big patches into many small ones
- - clean up the freeze_bdev interface
-
-Diffstat:
- block/bio.c                                  |    6 
- block/blk-cgroup.c                           |   50 -
- block/blk-core.c                             |   68 +-
- block/blk-flush.c                            |    2 
- block/blk-iocost.c                           |   36 -
- block/blk-lib.c                              |    2 
- block/blk-merge.c                            |    2 
- block/blk-mq.c                               |    9 
- block/blk-mq.h                               |    7 
- block/blk.h                                  |   84 ---
- block/genhd.c                                |  467 ++++-------------
- block/ioctl.c                                |   14 
- block/partitions/core.c                      |  252 +++------
- drivers/block/drbd/drbd_receiver.c           |    2 
- drivers/block/drbd/drbd_worker.c             |    3 
- drivers/block/loop.c                         |   24 
- drivers/block/mtip32xx/mtip32xx.c            |   15 
- drivers/block/mtip32xx/mtip32xx.h            |    2 
- drivers/block/nbd.c                          |    6 
- drivers/block/xen-blkback/common.h           |    4 
- drivers/block/xen-blkfront.c                 |   20 
- drivers/block/zram/zram_drv.c                |   87 ---
- drivers/block/zram/zram_drv.h                |    1 
- drivers/md/bcache/request.c                  |    4 
- drivers/md/bcache/super.c                    |   29 -
- drivers/md/dm-core.h                         |    7 
- drivers/md/dm-table.c                        |    9 
- drivers/md/dm.c                              |   45 -
- drivers/md/md.c                              |    8 
- drivers/mtd/mtdsuper.c                       |   17 
- drivers/nvme/target/admin-cmd.c              |   20 
- drivers/s390/block/dasd.c                    |    8 
- drivers/s390/block/dasd_ioctl.c              |    9 
- drivers/scsi/scsicam.c                       |    2 
- drivers/target/target_core_file.c            |    6 
- drivers/target/target_core_pscsi.c           |    7 
- drivers/usb/gadget/function/storage_common.c |    8 
- fs/block_dev.c                               |  730 +++++++++------------------
- fs/btrfs/sysfs.c                             |   15 
- fs/btrfs/volumes.c                           |   13 
- fs/buffer.c                                  |    2 
- fs/ext4/ioctl.c                              |    2 
- fs/ext4/super.c                              |   18 
- fs/ext4/sysfs.c                              |   10 
- fs/f2fs/checkpoint.c                         |    5 
- fs/f2fs/f2fs.h                               |    2 
- fs/f2fs/file.c                               |   14 
- fs/f2fs/super.c                              |    8 
- fs/f2fs/sysfs.c                              |    9 
- fs/inode.c                                   |    3 
- fs/internal.h                                |    7 
- fs/io_uring.c                                |   10 
- fs/pipe.c                                    |    5 
- fs/pstore/blk.c                              |    2 
- fs/quota/quota.c                             |   40 +
- fs/statfs.c                                  |    2 
- fs/super.c                                   |   86 ---
- fs/xfs/xfs_fsops.c                           |    7 
- include/linux/blk-cgroup.h                   |    4 
- include/linux/blk_types.h                    |   24 
- include/linux/blkdev.h                       |   27 
- include/linux/fs.h                           |    5 
- include/linux/genhd.h                        |  110 ----
- include/linux/part_stat.h                    |   45 -
- init/do_mounts.c                             |  271 ++++------
- kernel/trace/blktrace.c                      |   54 -
- mm/filemap.c                                 |   13 
- 67 files changed, 957 insertions(+), 1928 deletions(-)
+diff --git a/block/blk-cgroup.c b/block/blk-cgroup.c
+index c68bdf58c9a6e1..54fbe1e80cc41a 100644
+--- a/block/blk-cgroup.c
++++ b/block/blk-cgroup.c
+@@ -849,6 +849,7 @@ static void blkcg_fill_root_iostats(void)
+ 			blkg_iostat_set(&blkg->iostat.cur, &tmp);
+ 			u64_stats_update_end(&blkg->iostat.sync);
+ 		}
++		disk_put_part(part);
+ 	}
+ }
+ 
+-- 
+2.29.2
 
 --
 dm-devel mailing list
