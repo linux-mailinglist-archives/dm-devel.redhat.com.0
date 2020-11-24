@@ -2,59 +2,58 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2EC992C282E
-	for <lists+dm-devel@lfdr.de>; Tue, 24 Nov 2020 14:38:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7688A2C286A
+	for <lists+dm-devel@lfdr.de>; Tue, 24 Nov 2020 14:42:32 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-480-UfhyC6naPqm4ZLwl3rMJRw-1; Tue, 24 Nov 2020 08:38:56 -0500
-X-MC-Unique: UfhyC6naPqm4ZLwl3rMJRw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-448-j8PBCv-_M6GALmyY0TNOmQ-1; Tue, 24 Nov 2020 08:42:29 -0500
+X-MC-Unique: j8PBCv-_M6GALmyY0TNOmQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7236F1007463;
-	Tue, 24 Nov 2020 13:38:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BCDB318C43D0;
+	Tue, 24 Nov 2020 13:42:23 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 471965D9CC;
-	Tue, 24 Nov 2020 13:38:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1CDE919C46;
+	Tue, 24 Nov 2020 13:42:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 092AA1809C9F;
-	Tue, 24 Nov 2020 13:38:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C722118095C7;
+	Tue, 24 Nov 2020 13:42:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AODcik7019944 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 24 Nov 2020 08:38:44 -0500
+	id 0AODg5vl021109 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 24 Nov 2020 08:42:05 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3C01B1112873; Tue, 24 Nov 2020 13:38:44 +0000 (UTC)
+	id 5669F2026D37; Tue, 24 Nov 2020 13:42:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 37F4C1004159
-	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:38:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 505A92026D16
+	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:42:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED924185A7BC
-	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:38:41 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9CA0885829F
+	for <dm-devel@redhat.com>; Tue, 24 Nov 2020 13:42:00 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-399-Ie7VcGoDPjm_Inx0ngms0g-1;
-	Tue, 24 Nov 2020 08:38:39 -0500
-X-MC-Unique: Ie7VcGoDPjm_Inx0ngms0g-1
+	relay.mimecast.com with ESMTP id us-mta-155-B5nUDStLM02zQ6hz5eS84Q-1;
+	Tue, 24 Nov 2020 08:41:55 -0500
+X-MC-Unique: B5nUDStLM02zQ6hz5eS84Q-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id E8E43AC2D;
-	Tue, 24 Nov 2020 13:38:37 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id EE837AC2D;
+	Tue, 24 Nov 2020 13:41:53 +0000 (UTC)
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
 References: <20201124132751.3747337-1-hch@lst.de>
-	<20201124132751.3747337-24-hch@lst.de>
+	<20201124132751.3747337-14-hch@lst.de>
 From: Coly Li <colyli@suse.de>
-Message-ID: <bbb4130b-6848-f2ed-b7e0-c86b68c2663a@suse.de>
-Date: Tue, 24 Nov 2020 21:38:27 +0800
+Message-ID: <cb689e01-60dc-9df8-3a94-006bc3c39367@suse.de>
+Date: Tue, 24 Nov 2020 21:41:47 +0800
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:78.0)
 	Gecko/20100101 Thunderbird/78.4.3
 MIME-Version: 1.0
-In-Reply-To: <20201124132751.3747337-24-hch@lst.de>
+In-Reply-To: <20201124132751.3747337-14-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -63,7 +62,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
 	linux-fsdevel@vger.kernel.org, Mike Snitzer <snitzer@redhat.com>,
@@ -75,7 +74,7 @@ Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
 	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
 	Tejun Heo <tj@kernel.org>, xen-devel@lists.xenproject.org,
 	linux-mm@kvack.org
-Subject: Re: [dm-devel] [PATCH 23/45] block: remove i_bdev
+Subject: Re: [dm-devel] [PATCH 13/45] block: add a bdev_kobj helper
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,7 +88,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -99,14 +98,12 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 On 11/24/20 9:27 PM, Christoph Hellwig wrote:
-> Switch the block device lookup interfaces to directly work with a dev_t
-> so that struct block_device references are only acquired by the
-> blkdev_get variants (and the blk-cgroup special case).  This means that
-> we not don't need an extra reference in the inode and can generally
-> simplify handling of struct block_device to keep the lookups contained
-> in the core block layer code.
+> Add a little helper to find the kobject for a struct block_device.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
+> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Reviewed-by: Jan Kara <jack@suse.cz>
+> Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 
 For the bcache part, Acked-by: Coly Li <colyli@suse.de>
 
@@ -115,93 +112,39 @@ Thanks.
 Coly Li
 
 > ---
->  block/ioctl.c                                |   3 +-
->  drivers/block/loop.c                         |   8 +-
->  drivers/md/bcache/super.c                    |  20 +-
->  drivers/md/dm-table.c                        |   9 +-
->  drivers/mtd/mtdsuper.c                       |  17 +-
->  drivers/target/target_core_file.c            |   6 +-
->  drivers/usb/gadget/function/storage_common.c |   8 +-
->  fs/block_dev.c                               | 195 +++++--------------
->  fs/btrfs/volumes.c                           |  13 +-
->  fs/inode.c                                   |   3 -
->  fs/internal.h                                |   7 +-
->  fs/io_uring.c                                |  10 +-
->  fs/pipe.c                                    |   5 +-
->  fs/quota/quota.c                             |  19 +-
->  fs/statfs.c                                  |   2 +-
->  fs/super.c                                   |  37 ++--
->  include/linux/blkdev.h                       |   2 +-
->  include/linux/fs.h                           |   1 -
->  18 files changed, 114 insertions(+), 251 deletions(-)
+>  drivers/md/bcache/super.c |  7 ++-----
+>  drivers/md/md.c           |  4 +---
+>  fs/block_dev.c            |  6 +++---
+>  fs/btrfs/sysfs.c          | 15 +++------------
+>  include/linux/blk_types.h |  3 +++
+>  5 files changed, 12 insertions(+), 23 deletions(-)
 > 
-
-[snipped]
-
 > diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
-> index a6a5e21e4fd136..c55d3c58a7ef55 100644
+> index 46a00134a36ae1..a6a5e21e4fd136 100644
 > --- a/drivers/md/bcache/super.c
 > +++ b/drivers/md/bcache/super.c
-> @@ -2380,38 +2380,38 @@ kobj_attribute_write(register,		register_bcache);
->  kobj_attribute_write(register_quiet,	register_bcache);
->  kobj_attribute_write(pendings_cleanup,	bch_pending_bdevs_cleanup);
+> @@ -1447,8 +1447,7 @@ static int register_bdev(struct cache_sb *sb, struct cache_sb_disk *sb_disk,
+>  		goto err;
 >  
-> -static bool bch_is_open_backing(struct block_device *bdev)
-> +static bool bch_is_open_backing(dev_t dev)
->  {
->  	struct cache_set *c, *tc;
->  	struct cached_dev *dc, *t;
->  
->  	list_for_each_entry_safe(c, tc, &bch_cache_sets, list)
->  		list_for_each_entry_safe(dc, t, &c->cached_devs, list)
-> -			if (dc->bdev == bdev)
-> +			if (dc->bdev->bd_dev == dev)
->  				return true;
->  	list_for_each_entry_safe(dc, t, &uncached_devices, list)
-> -		if (dc->bdev == bdev)
-> +		if (dc->bdev->bd_dev == dev)
->  			return true;
->  	return false;
->  }
->  
-> -static bool bch_is_open_cache(struct block_device *bdev)
-> +static bool bch_is_open_cache(dev_t dev)
->  {
->  	struct cache_set *c, *tc;
->  
->  	list_for_each_entry_safe(c, tc, &bch_cache_sets, list) {
->  		struct cache *ca = c->cache;
->  
-> -		if (ca->bdev == bdev)
-> +		if (ca->bdev->bd_dev == dev)
->  			return true;
+>  	err = "error creating kobject";
+> -	if (kobject_add(&dc->disk.kobj, &part_to_dev(bdev->bd_part)->kobj,
+> -			"bcache"))
+> +	if (kobject_add(&dc->disk.kobj, bdev_kobj(bdev), "bcache"))
+>  		goto err;
+>  	if (bch_cache_accounting_add_kobjs(&dc->accounting, &dc->disk.kobj))
+>  		goto err;
+> @@ -2342,9 +2341,7 @@ static int register_cache(struct cache_sb *sb, struct cache_sb_disk *sb_disk,
+>  		goto err;
 >  	}
 >  
->  	return false;
->  }
->  
-> -static bool bch_is_open(struct block_device *bdev)
-> +static bool bch_is_open(dev_t dev)
->  {
-> -	return bch_is_open_cache(bdev) || bch_is_open_backing(bdev);
-> +	return bch_is_open_cache(dev) || bch_is_open_backing(dev);
->  }
->  
->  struct async_reg_args {
-> @@ -2535,9 +2535,11 @@ static ssize_t register_bcache(struct kobject *k, struct kobj_attribute *attr,
->  				  sb);
->  	if (IS_ERR(bdev)) {
->  		if (bdev == ERR_PTR(-EBUSY)) {
-> -			bdev = lookup_bdev(strim(path));
-> +			dev_t dev;
-> +
->  			mutex_lock(&bch_register_lock);
-> -			if (!IS_ERR(bdev) && bch_is_open(bdev))
-> +			if (lookup_bdev(strim(path), &dev) == 0 &&
-> +			    bch_is_open(dev))
->  				err = "device already registered";
->  			else
->  				err = "device busy";
+> -	if (kobject_add(&ca->kobj,
+> -			&part_to_dev(bdev->bd_part)->kobj,
+> -			"bcache")) {
+> +	if (kobject_add(&ca->kobj, bdev_kobj(bdev), "bcache")) {
+>  		err = "error calling kobject_add";
+>  		ret = -ENOMEM;
+>  		goto out;
+
 [snipped]
 
 --
