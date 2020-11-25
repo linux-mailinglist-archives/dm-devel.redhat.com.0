@@ -1,56 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C28222C4538
-	for <lists+dm-devel@lfdr.de>; Wed, 25 Nov 2020 17:31:07 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id E23A22C45A8
+	for <lists+dm-devel@lfdr.de>; Wed, 25 Nov 2020 17:46:42 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-472-UaW3ksm-PSyTLKPpk_TNOg-1; Wed, 25 Nov 2020 11:31:04 -0500
-X-MC-Unique: UaW3ksm-PSyTLKPpk_TNOg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-321-bQZhTwdEOmaX_58lccKLwg-1; Wed, 25 Nov 2020 11:46:39 -0500
+X-MC-Unique: bQZhTwdEOmaX_58lccKLwg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 486051006C94;
-	Wed, 25 Nov 2020 16:30:58 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7589A1E7D2;
+	Wed, 25 Nov 2020 16:46:32 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C8B225D9C6;
-	Wed, 25 Nov 2020 16:30:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7441760854;
+	Wed, 25 Nov 2020 16:46:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 55DE9180954D;
-	Wed, 25 Nov 2020 16:30:52 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D2C0D180954D;
+	Wed, 25 Nov 2020 16:46:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0APGTags006249 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 25 Nov 2020 11:29:37 -0500
+	id 0APGjSH8009228 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 25 Nov 2020 11:45:28 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9C20E2026D3B; Wed, 25 Nov 2020 16:29:36 +0000 (UTC)
+	id 21689AB40E; Wed, 25 Nov 2020 16:45:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 973952026D37
-	for <dm-devel@redhat.com>; Wed, 25 Nov 2020 16:29:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1C174AB40A
+	for <dm-devel@redhat.com>; Wed, 25 Nov 2020 16:45:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 600F7811E78
-	for <dm-devel@redhat.com>; Wed, 25 Nov 2020 16:29:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 038ED811E76
+	for <dm-devel@redhat.com>; Wed, 25 Nov 2020 16:45:26 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-594-R0B7p41qNvSaoO_OjBx5bA-1;
-	Wed, 25 Nov 2020 11:29:30 -0500
-X-MC-Unique: R0B7p41qNvSaoO_OjBx5bA-1
+	relay.mimecast.com with ESMTP id us-mta-587-5JyHE8CzMIukVk0S95TDWw-1;
+	Wed, 25 Nov 2020 11:45:20 -0500
+X-MC-Unique: 5JyHE8CzMIukVk0S95TDWw-1
 Received: by verein.lst.de (Postfix, from userid 2407)
-	id 948AB68B02; Wed, 25 Nov 2020 17:29:26 +0100 (CET)
-Date: Wed, 25 Nov 2020 17:29:26 +0100
+	id 05B8968B02; Wed, 25 Nov 2020 17:45:16 +0100 (CET)
+Date: Wed, 25 Nov 2020 17:45:15 +0100
 From: Christoph Hellwig <hch@lst.de>
 To: Tejun Heo <tj@kernel.org>
-Message-ID: <20201125162926.GA1024@lst.de>
+Message-ID: <20201125164515.GB1975@lst.de>
 References: <20201124132751.3747337-1-hch@lst.de>
-	<20201124132751.3747337-24-hch@lst.de>
-	<X71g4Tm+3RiRg4Gf@mtj.duckdns.org>
+	<20201124132751.3747337-26-hch@lst.de>
+	<X714udEyPuGarVYp@mtj.duckdns.org>
 MIME-Version: 1.0
-In-Reply-To: <X71g4Tm+3RiRg4Gf@mtj.duckdns.org>
+In-Reply-To: <X714udEyPuGarVYp@mtj.duckdns.org>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -60,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: Jens Axboe <axboe@kernel.dk>, Jan Kara <jack@suse.cz>,
 	Mike Snitzer <snitzer@redhat.com>,
@@ -73,7 +73,8 @@ Cc: Jens Axboe <axboe@kernel.dk>, Jan Kara <jack@suse.cz>,
 	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
 	linux-fsdevel@vger.kernel.org, xen-devel@lists.xenproject.org,
 	linux-bcache@vger.kernel.org, Christoph Hellwig <hch@lst.de>
-Subject: Re: [dm-devel] [PATCH 23/45] block: remove i_bdev
+Subject: Re: [dm-devel] [PATCH 25/45] block: reference struct block_device
+ from struct hd_struct
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,7 +88,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -96,47 +97,37 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 24, 2020 at 02:37:05PM -0500, Tejun Heo wrote:
-> On Tue, Nov 24, 2020 at 02:27:29PM +0100, Christoph Hellwig wrote:
-> > Switch the block device lookup interfaces to directly work with a dev_t
-> > so that struct block_device references are only acquired by the
-> > blkdev_get variants (and the blk-cgroup special case).  This means that
-> > we not don't need an extra reference in the inode and can generally
->      ^
->      now
-> > simplify handling of struct block_device to keep the lookups contained
-> > in the core block layer code.
-> > 
-> > Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ...
-> > @@ -1689,14 +1599,12 @@ static int blkdev_open(struct inode * inode, struct file * filp)
-> >  	if ((filp->f_flags & O_ACCMODE) == 3)
-> >  		filp->f_mode |= FMODE_WRITE_IOCTL;
-> >  
-> > -	bdev = bd_acquire(inode);
-> > -	if (bdev == NULL)
-> > -		return -ENOMEM;
-> > -
-> > +	bdev = blkdev_get_by_dev(inode->i_rdev, filp->f_mode, filp);
-> > +	if (IS_ERR(bdev))
-> > +		return PTR_ERR(bdev);
-> >  	filp->f_mapping = bdev->bd_inode->i_mapping;
-> >  	filp->f_wb_err = filemap_sample_wb_err(filp->f_mapping);
-> > -
-> > -	return blkdev_get(bdev, filp->f_mode, filp);
-> > +	return 0;
-> >  }
+On Tue, Nov 24, 2020 at 04:18:49PM -0500, Tejun Heo wrote:
+> Hello,
 > 
-> I was wondering whether losing the stale bdev flushing in bd_acquire() would
-> cause user-visible behavior changes but can't see how it would given that
-> userland has no way of holding onto a specific instance of block inode.
-> Maybe it's something worth mentioning in the commit message?
+> Please see lkml.kernel.org/r/X708BTJ5njtbC2z1@mtj.duckdns.org for a few nits
+> on the previous version.
 
-With stale bdev flushing do you mean the call to bd_forget if
-i_bdev exists but is unhashed?  It doesn't actually flush anything but
-just detaches the old bdev from the inode so that the new one can be
-attached.  That problem goes away by definition if we don't attach
-the bdev to the inode.
+Thanks, I've addressed the mapping_set_gfp mask nit and updated the
+commit log.  As Jan pointed also pointed out I think we do need the
+remove_inode_hash.
+
+> I might be confused but am wondering whether RCU is needed. It's currently
+> used to ensure that gendisk is accessible in the blkdev_get path but
+> wouldn't it be possible to simply pin gendisk from block_devices? The
+> gendisk and hd_structs hold the base refs of the block_devices and in turn
+> the block_devices pin the gendisk. When the gendisk gets deleted, it puts
+> the base refs of the block devices but stays around while the block devices
+> are being accessed.
+
+Yes, that sounds sensible.  I'll take a look.
+
+> Also, would it make sense to separate out lookup_sem removal? I *think* it's
+> there to ensure that the same bdev doesn't get associated with old and new
+> gendisks at the same time but can't wrap my head around how it works
+> exactly. I can see that this may not be needed once the lifetimes of gendisk
+> and block_devices are tied together but that may warrant a bit more
+> explanation.
+
+Jan added lookup_sem in commit 56c0908c855afbb to prevent a three way
+race between del_gendisk and blkdev_open due to the weird bdev vs
+gendisk lifetime rules.  None of that can happen with the new lookup
+scheme.
 
 --
 dm-devel mailing list
