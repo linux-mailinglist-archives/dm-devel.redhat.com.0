@@ -1,65 +1,65 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8E4672C5096
-	for <lists+dm-devel@lfdr.de>; Thu, 26 Nov 2020 09:36:50 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 3D2612C5093
+	for <lists+dm-devel@lfdr.de>; Thu, 26 Nov 2020 09:36:48 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-243-SgwVaNu6OO6ztS2sBp_DVA-1; Thu, 26 Nov 2020 03:36:46 -0500
-X-MC-Unique: SgwVaNu6OO6ztS2sBp_DVA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-434-uk667ChbPPmIMDUYn-vKBQ-1; Thu, 26 Nov 2020 03:36:44 -0500
+X-MC-Unique: uk667ChbPPmIMDUYn-vKBQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1DD8784639D;
-	Thu, 26 Nov 2020 08:36:40 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E74EF10023B3;
-	Thu, 26 Nov 2020 08:36:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A9B2818C89F4;
+	Thu, 26 Nov 2020 08:36:35 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8116C60636;
+	Thu, 26 Nov 2020 08:36:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A19861809CA5;
-	Thu, 26 Nov 2020 08:36:39 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3D64D5002E;
+	Thu, 26 Nov 2020 08:36:35 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0APM9QfW011354 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 25 Nov 2020 17:09:26 -0500
+	id 0APM9mSP011411 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 25 Nov 2020 17:09:48 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9370F2166B29; Wed, 25 Nov 2020 22:09:26 +0000 (UTC)
+	id 937DF2166B2A; Wed, 25 Nov 2020 22:09:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E4F02166B27
-	for <dm-devel@redhat.com>; Wed, 25 Nov 2020 22:09:24 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8EBB82166B29
+	for <dm-devel@redhat.com>; Wed, 25 Nov 2020 22:09:46 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 35E9A802A5D
-	for <dm-devel@redhat.com>; Wed, 25 Nov 2020 22:09:24 +0000 (UTC)
-Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com
-	[209.85.215.196]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-158-Rr6ikOoNMCiK7LpZGNsWkA-1; Wed, 25 Nov 2020 17:09:20 -0500
-X-MC-Unique: Rr6ikOoNMCiK7LpZGNsWkA-1
-Received: by mail-pg1-f196.google.com with SMTP id f17so3623850pge.6
-	for <dm-devel@redhat.com>; Wed, 25 Nov 2020 14:09:20 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2682A10580C0
+	for <dm-devel@redhat.com>; Wed, 25 Nov 2020 22:09:46 +0000 (UTC)
+Received: from mail-pl1-f193.google.com (mail-pl1-f193.google.com
+	[209.85.214.193]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-13-s8uUtWimMOaYx7h3VeNdgA-1; Wed, 25 Nov 2020 17:09:42 -0500
+X-MC-Unique: s8uUtWimMOaYx7h3VeNdgA-1
+Received: by mail-pl1-f193.google.com with SMTP id f5so73220plj.13
+	for <dm-devel@redhat.com>; Wed, 25 Nov 2020 14:09:41 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=u18D3LcbSYuoMMQXGcZuOSSHQ97aqFAj6PSwZPKzyfI=;
-	b=jnuuo0Bp+of1o1MTPB9uZZ+cEBYq2CdGyPy8ynqnQprlaxcspkiydOi5PfSdOFLOGT
-	T8jINMw8U+qV9TqfCHNtBo0DjSv5PeLVPG4Rm719jrBI7g1Pmk9hSA2zJRmdN5X35Tlz
-	Npl7Lok4NfkWoKm9yblYWOutotOa/dDM4w71HwC9nsq7j1i6izUh2GfSN89c8qZkM0U1
-	SrN0SwkNK3qt8RKPBAxqUShe15x63RQQuTjshppz7NPKGI+7ccwWsv/ZVpEwmEe9uv8t
-	Ymzml6KNmJuyvWoCT+ZwlsMnd2BzOqw9Li14fPPHrGGKIVkUHMUNTpMm0x7aR2eTppGY
-	XsTg==
-X-Gm-Message-State: AOAM532Zn8cU7lchLd+NXLfg0cVEWM/BpBnBr8NT5GKXQNru5NsTBdLc
-	hG/n6ZGd39ldNJz6JOv5lcrsr0M671sLlL/TSNy+Zg==
-X-Google-Smtp-Source: ABdhPJxX4YdX/dgPSH4qNW13nZ+NPFnsWrpBgteZRS2UfRF2x25a9zmwdzqZA/h0sTtapVP+ZBS7Enbowp+5Zxn/Mxo=
-X-Received: by 2002:a17:90a:d250:: with SMTP id
-	o16mr6463569pjw.25.1606342159332; 
-	Wed, 25 Nov 2020 14:09:19 -0800 (PST)
+	bh=/ob3FEJdYP5qhdHPeLajEb6PUDm9frxLF1mdXzRdH3M=;
+	b=gVZQ8hXS9/nSHamyZLAfeKPyuj5gIwALYXoYL4I7jjRrgASxjPq6BzY5Rf7U4B3zFO
+	QjXYycYH5DKIWthjHJAjVS9F56b/hJqv0HVACbTpYzrsRSEdpGB0m7zQ1VcRglmCY2mW
+	+xSzjsR7qLqUJ6euMPtDEy2fL8twa+vwld6zrjB2BS0lqQJiqPqQ8ytgvEOidYinIylQ
+	p1sELIUWdnH/s7sx06fhwqtgQh4SjeI18OmG830slRTfFZWB26tXrZsjQV35S8csB8x7
+	ssI4PZd85ZAas54hlC9LarkLYIkJS5esBM5VHDrehQQlPR2IUsLS7QGC9TjgvIigQij5
+	osQA==
+X-Gm-Message-State: AOAM533b4eyXHp5Ctf3cpyrBW8VFPjsgYbkTOW++0dGqYaa0zsIkY8KV
+	k4jhGMvx2DiaTaHr2vs1yr/OwJVLTYcDrVsZGYsy6Q==
+X-Google-Smtp-Source: ABdhPJz8lLt/1COGEMpWkFDfyIK6h7HwbxIAa+xtHaAqLUfnjsVh22wexUgkVgdtXLczfRnuDI51yr8PXCWqKuZKul4=
+X-Received: by 2002:a17:902:c14a:b029:d8:dc05:d7ef with SMTP id
+	10-20020a170902c14ab02900d8dc05d7efmr4885886plj.83.1606342180784;
+	Wed, 25 Nov 2020 14:09:40 -0800 (PST)
 MIME-Version: 1.0
 References: <202011201129.B13FDB3C@keescook>
 	<20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
@@ -74,12 +74,12 @@ References: <202011201129.B13FDB3C@keescook>
 	<202011241327.BB28F12F6@keescook>
 	<a841536fe65bb33f1c72ce2455a6eb47a0107565.camel@HansenPartnership.com>
 	<CAKwvOdkGBn7nuWTAqrORMeN1G+w3YwBfCqqaRD2nwvoAXKi=Aw@mail.gmail.com>
-	<20201125082405.1d8c23dc@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20201125082405.1d8c23dc@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+	<alpine.LNX.2.23.453.2011260750300.6@nippy.intranet>
+In-Reply-To: <alpine.LNX.2.23.453.2011260750300.6@nippy.intranet>
 From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Wed, 25 Nov 2020 14:09:08 -0800
-Message-ID: <CAKwvOdkWGE5qdFZUuMzcL63LDOu_iZQJOGbeBNjcPi8sJPMkag@mail.gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
+Date: Wed, 25 Nov 2020 14:09:29 -0800
+Message-ID: <CAKwvOdna5Zj_O=sB7Q0jHZX0BJSaakX=ZyftwQ_3=L3-ZB54XQ@mail.gmail.com>
+To: Finn Thain <fthain@telegraphics.com.au>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -92,7 +92,9 @@ X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 26 Nov 2020 03:35:50 -0500
 Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
-	linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
+	target-devel@vger.kernel.org,
+	Greg KH <gregkh@linuxfoundation.org>, linux-iio@vger.kernel.org,
+	linux-wireless <linux-wireless@vger.kernel.org>,
 	linux-mmc@vger.kernel.org, linux-fbdev@vger.kernel.org,
 	dri-devel <dri-devel@lists.freedesktop.org>,
 	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
@@ -111,7 +113,7 @@ Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
 	cluster-devel@redhat.com, usb-storage@lists.one-eyed-alien.net,
 	coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
 	linux-input@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
-	xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
+	Jakub Kicinski <kuba@kernel.org>, linux-ext4@vger.kernel.org,
 	virtualization@lists.linux-foundation.org,
 	Linux Memory Management List <linux-mm@kvack.org>,
 	linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>,
@@ -119,8 +121,8 @@ Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
 	intel-gfx@lists.freedesktop.org, linux-sctp@vger.kernel.org,
 	reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org,
 	linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
-	op-tee@lists.trustedfirmware.org,
-	linux-mediatek@lists.infradead.org, drbd-dev@tron.linbit.com,
+	op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
+	xen-devel@lists.xenproject.org, drbd-dev@tron.linbit.com,
 	linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
 	linux-can@vger.kernel.org,
 	Linux ARM <linux-arm-kernel@lists.infradead.org>,
@@ -134,8 +136,12 @@ Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
 	Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
 	linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,
 	tipc-discussion@lists.sourceforge.net,
-	gregkh@linuxfoundation.org, Joe Perches <joe@perches.com>,
-	netfilter-devel@vger.kernel.org
+	"open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
+	<linux-crypto@vger.kernel.org>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	patches@opensource.cirrus.com, Joe Perches <joe@perches.com>,
+	netfilter-devel@vger.kernel.org, linux-integrity@vger.kernel.org,
+	linux-hardening@vger.kernel.org
 Subject: Re: [dm-devel] [Intel-wired-lan] [PATCH 000/141] Fix fall-through
 	warnings for Clang
 X-BeenThere: dm-devel@redhat.com
@@ -151,7 +157,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -159,23 +165,33 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 25, 2020 at 8:24 AM Jakub Kicinski <kuba@kernel.org> wrote:
+On Wed, Nov 25, 2020 at 1:33 PM Finn Thain <fthain@telegraphics.com.au> wrote:
 >
-> Applying a real patch set and then getting a few follow ups the next day
-> for trivial coding things like fallthrough missing or static missing,
-> just because I didn't have the full range of compilers to check with
-> before applying makes me feel pretty shitty, like I'm not doing a good
-> job. YMMV.
+> Or do you think that a codebase can somehow satisfy multiple checkers and
+> their divergent interpretations of the language spec?
 
-I understand. Everyone feels that way, except maybe Bond villains and
-robots.  My advice in that case is don't take it personally.  We're
-working with a language that's more error prone relative to others.
-While one would like to believe they are flawless, over time they
-can't beat the aggregate statistics.  A balance between Imposter
-Syndrome and Dunning Kruger is walked by all software developers, and
-the fear of making mistakes in public is one of the number one reasons
-folks don't take the plunge contributing to open source software or
-even the kernel.  My advice to them is "don't sweat the small stuff."
+Have we found any cases yet that are divergent? I don't think so.  It
+sounds to me like GCC's cases it warns for is a subset of Clang's.
+Having additional coverage with Clang then should ensure coverage for
+both.
+
+> > This is not a shiny new warning; it's already on for GCC and has existed
+> > in both compilers for multiple releases.
+> >
+>
+> Perhaps you're referring to the compiler feature that lead to the
+> ill-fated, tree-wide /* fallthrough */ patch series.
+>
+> When the ink dries on the C23 language spec and the implementations figure
+> out how to interpret it then sure, enforce the warning for new code -- the
+> cost/benefit analysis is straight forward. However, the case for patching
+> existing mature code is another story.
+
+I don't think we need to wait for the ink to dry on the C23 language
+spec to understand that implicit fallthrough is an obvious defect of
+the C language.  While the kernel is a mature codebase, it's not
+immune to bugs.  And its maturity has yet to slow its rapid pace of
+development.
 -- 
 Thanks,
 ~Nick Desaulniers
