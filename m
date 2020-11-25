@@ -1,84 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 229DD2C5095
-	for <lists+dm-devel@lfdr.de>; Thu, 26 Nov 2020 09:36:50 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 382852C5099
+	for <lists+dm-devel@lfdr.de>; Thu, 26 Nov 2020 09:36:53 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-581--jTi4-m5PIKJ2vUH8UXwVg-1; Thu, 26 Nov 2020 03:36:43 -0500
-X-MC-Unique: -jTi4-m5PIKJ2vUH8UXwVg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-80-8wP1qstDOiuX_FhvYuymAQ-1; Thu, 26 Nov 2020 03:36:49 -0500
+X-MC-Unique: 8wP1qstDOiuX_FhvYuymAQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1AC42107B463;
-	Thu, 26 Nov 2020 08:36:34 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 92B7819C66;
-	Thu, 26 Nov 2020 08:36:33 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 73AA49A248;
+	Thu, 26 Nov 2020 08:36:40 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4E2BE1002393;
+	Thu, 26 Nov 2020 08:36:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8772B1809CA3;
-	Thu, 26 Nov 2020 08:36:32 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 09D9550033;
+	Thu, 26 Nov 2020 08:36:40 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0APH4Wlo010728 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 25 Nov 2020 12:04:32 -0500
+	id 0APLuirt009606 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 25 Nov 2020 16:56:45 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BC8EC2026D3B; Wed, 25 Nov 2020 17:04:32 +0000 (UTC)
+	id 674A31148B65; Wed, 25 Nov 2020 21:56:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B7D9D2026D36
-	for <dm-devel@redhat.com>; Wed, 25 Nov 2020 17:04:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 638C51148B63
+	for <dm-devel@redhat.com>; Wed, 25 Nov 2020 21:56:42 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 74DC585828C
-	for <dm-devel@redhat.com>; Wed, 25 Nov 2020 17:04:30 +0000 (UTC)
-Received: from mail-yb1-f195.google.com (mail-yb1-f195.google.com
-	[209.85.219.195]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-64-oL2RPYp3NgOie0X8cIPHyA-1; Wed, 25 Nov 2020 12:04:27 -0500
-X-MC-Unique: oL2RPYp3NgOie0X8cIPHyA-1
-Received: by mail-yb1-f195.google.com with SMTP id v92so372838ybi.4;
-	Wed, 25 Nov 2020 09:04:26 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=U7yONu+GErpj3wVA3mUEvd1gZrZu1iMtuB4J5cc4iYs=;
-	b=hNOqJaoBoZTZ3SSNC1BY2UR5eoV0ccZ1hLGZsvpEglwqs2cvrZZFLUVcH2xrosRdOP
-	RfIR3FmcuzcaVrBiEjdIv6e+Q+snHAeuHSJR7VVga1DQWR4CrEuq1Tyg6RCfar9Lacnj
-	6O7UyObOxGps93yrlcYjn6L3vZXumQb1RQF+GHFSsez1zaGKHHzkjxnj3JQHVe5V2q1l
-	HbHJIzSa6NztkUSGDB7jaJCeSCICjfUJde6lZxlJpMPZJ0TOEJDwJnm6W4tt3mNKdVE8
-	o7m2es8COq0UT61IC4rzX4bix1dynwWWDYy+wdwYa0t+ArpOHOJr7BDLBT0RaAx0E8Pt
-	3vMg==
-X-Gm-Message-State: AOAM533TkmebWqaDNFBMUu7BnJEjkAyZF6zSS6eyEAl4HzRy1ga6588e
-	bh43rUsLBHSJKQBMoowyCUNMuDdohS3kk4l1xm4=
-X-Google-Smtp-Source: ABdhPJwRDTWwRnnt/vVfXeVU3lUNCXdaAf9CCrzUJdkBRbFdtXrCpJBbeymEiGhAam+E5oqqQjDTbAdkVQMGwErIDPw=
-X-Received: by 2002:a25:aac5:: with SMTP id t63mr6307293ybi.22.1606323866493; 
-	Wed, 25 Nov 2020 09:04:26 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 02A40800BFF
+	for <dm-devel@redhat.com>; Wed, 25 Nov 2020 21:56:42 +0000 (UTC)
+Received: from relay3.sw.ru (relay.sw.ru [185.231.240.75]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-425-uQIWp1ypNheaLh5-7AwNtQ-1;
+	Wed, 25 Nov 2020 16:56:36 -0500
+X-MC-Unique: uQIWp1ypNheaLh5-7AwNtQ-1
+Received: from [192.168.15.51] (helo=localhost.localdomain)
+	by relay3.sw.ru with esmtp (Exim 4.94)
+	(envelope-from <ktkhai@virtuozzo.com>)
+	id 1ki1iz-00ALc3-Qs; Wed, 25 Nov 2020 23:49:14 +0300
+From: Kirill Tkhai <ktkhai@virtuozzo.com>
+To: agk@redhat.com, snitzer@redhat.com, dm-devel@redhat.com,
+	ktkhai@virtuozzo.com
+Date: Wed, 25 Nov 2020 23:49:25 +0300
+Message-ID: <160633733483.339234.11951322983778059158.stgit@localhost.localdomain>
+User-Agent: StGit/0.19
 MIME-Version: 1.0
-References: <202011201129.B13FDB3C@keescook>
-	<20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-	<202011220816.8B6591A@keescook>
-	<9b57fd4914b46f38d54087d75e072d6e947cb56d.camel@HansenPartnership.com>
-	<ca071decb87cc7e905411423c05a48f9fd2f58d7.camel@perches.com>
-	<0147972a72bc13f3629de8a32dee6f1f308994b5.camel@HansenPartnership.com>
-	<d8d1e9add08cdd4158405e77762d4946037208f8.camel@perches.com>
-	<dbd2cb703ed9eefa7dde9281ea26ab0f7acc8afe.camel@HansenPartnership.com>
-	<20201123130348.GA3119@embeddedor>
-	<8f5611bb015e044fa1c0a48147293923c2d904e4.camel@HansenPartnership.com>
-	<202011241327.BB28F12F6@keescook>
-	<a841536fe65bb33f1c72ce2455a6eb47a0107565.camel@HansenPartnership.com>
-	<CAKwvOdkGBn7nuWTAqrORMeN1G+w3YwBfCqqaRD2nwvoAXKi=Aw@mail.gmail.com>
-	<20201125082405.1d8c23dc@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20201125082405.1d8c23dc@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 25 Nov 2020 18:04:15 +0100
-Message-ID: <CANiq72=RuekXf1O6Fxrz2Eend0GtS6=E72P4T2=48SDqVcTChA@mail.gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -87,58 +59,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 26 Nov 2020 03:35:50 -0500
-Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
-	linux-iio@vger.kernel.org, linux-wireless <linux-wireless@vger.kernel.org>,
-	linux-mmc@vger.kernel.org, linux-fbdev@vger.kernel.org,
-	dri-devel <dri-devel@lists.freedesktop.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	linux-ide@vger.kernel.org, dm-devel@redhat.com,
-	keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
-	GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
-	linux-i3c@lists.infradead.org, linux1394-devel@lists.sourceforge.net,
-	linux-afs@lists.infradead.org, linux-watchdog@vger.kernel.org,
-	devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
-	rds-devel@oss.oracle.com, linux-scsi@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-rdma@vger.kernel.org,
-	oss-drivers@netronome.com, linux-atm-general@lists.sourceforge.net,
-	ceph-devel@vger.kernel.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
-	linux-stm32@st-md-mailman.stormreply.com,
-	cluster-devel@redhat.com, usb-storage@lists.one-eyed-alien.net,
-	coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
-	linux-input <linux-input@vger.kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>, xen-devel@lists.xenproject.org,
-	Ext4 Developers List <linux-ext4@vger.kernel.org>,
-	virtualization@lists.linux-foundation.org,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
-	linux-arm-msm <linux-arm-msm@vger.kernel.org>,
-	intel-gfx@lists.freedesktop.org, linux-sctp@vger.kernel.org,
-	reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org,
-	linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
-	op-tee@lists.trustedfirmware.org,
-	linux-mediatek@lists.infradead.org, drbd-dev@tron.linbit.com,
-	linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
-	linux-can@vger.kernel.org,
-	Linux ARM <linux-arm-kernel@lists.infradead.org>,
-	linux-hwmon@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
-	linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
-	nouveau@lists.freedesktop.org,
-	Network Development <netdev@vger.kernel.org>,
-	linux-decnet-user@lists.sourceforge.net, samba-technical@lists.samba.org,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
-	linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	gregkh@linuxfoundation.org, Joe Perches <joe@perches.com>,
-	netfilter-devel@vger.kernel.org,
-	"maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>
-Subject: Re: [dm-devel] [Intel-wired-lan] [PATCH 000/141] Fix fall-through
-	warnings for Clang
+Subject: [dm-devel] [PATCH] dm: Devices not having .iterate_devices may want
+ to set max_io_len
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -152,7 +77,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -160,48 +85,63 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 25, 2020 at 5:24 PM Jakub Kicinski <kuba@kernel.org> wrote:
->
-> And just to spell it out,
->
-> case ENUM_VALUE1:
->         bla();
->         break;
-> case ENUM_VALUE2:
->         bla();
-> default:
->         break;
->
-> is a fairly idiomatic way of indicating that not all values of the enum
-> are expected to be handled by the switch statement.
+After commit 5091cdec56fa "dm: change max_io_len() to use
+blk_max_size_offset()" my out-of-tree driver stopped to work.
+The reason is that now ti->max_io_len from such target is ignored:
+max_io_len() ignores ti->max_io_len, while
+dm_calculate_queue_limits() never stacks ti->chunk_sectors into
+ti_limits.chunk_sectors.
 
-It looks like a benign typo to me -- `ENUM_VALUE2` does not follow the
-same pattern like `ENUM_VALUE1`. To me, the presence of the `default`
-is what indicates (explicitly) that not everything is handled.
+Here I see two possible solutions, both are in dm_calculate_queue_limits():
 
-> Applying a real patch set and then getting a few follow ups the next day
-> for trivial coding things like fallthrough missing or static missing,
-> just because I didn't have the full range of compilers to check with
-> before applying makes me feel pretty shitty, like I'm not doing a good
-> job. YMMV.
+1)Move ti_limits.chunk_sectors assignment down, so it will be made
+right under combine_limits label. Thus, every time ti->max_io_len
+will transform into chunk_sectors, even in case of device
+has no .iterate_devices method;
 
-The number of compilers, checkers, static analyzers, tests, etc. we
-use keeps going up. That, indeed, means maintainers will miss more
-things (unless maintainers do more work than before). But catching
-bugs before they happen is *not* a bad thing.
+2)Move io_hints call under the label (like it's made in this patch),
+so one can set desired chunk_sectors there.
 
-Perhaps we could encourage more rebasing in -next (while still giving
-credit to bots and testers) to avoid having many fixing commits
-afterwards, but that is orthogonal.
+First solution looks less clear, since in two drivers chunk_sectors
+are assigned in io_hints (see unstripe_io_hints() and dmz_io_hints()),
+and this rewrites, and we should not rewrite it.
 
-I really don't think we should encourage the feeling that a maintainer
-is doing a bad job if they don't catch everything on their reviews.
-Any review is worth it. Maintainers, in the end, are just the
-"guaranteed" reviewers that decide when the code looks reasonable
-enough. They should definitely not feel pressured to be perfect.
+Second solution does not break anything since we change only
+order with ->iterate_devices(device_area_is_invalid), while
+device_area_is_invalid never touches chunk_sectors. So I choosed it.
 
-Cheers,
-Miguel
+Signed-off-by: Kirill Tkhai <ktkhai@virtuozzo.com>
+---
+ drivers/md/dm-table.c |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+index 2073ee8d18f4..9994c767dc82 100644
+--- a/drivers/md/dm-table.c
++++ b/drivers/md/dm-table.c
+@@ -1453,10 +1453,6 @@ int dm_calculate_queue_limits(struct dm_table *table,
+ 		if (ti->max_io_len)
+ 			ti_limits.chunk_sectors = lcm_not_zero(ti->max_io_len,
+ 							       ti_limits.chunk_sectors);
+-		/* Set I/O hints portion of queue limits */
+-		if (ti->type->io_hints)
+-			ti->type->io_hints(ti, &ti_limits);
+-
+ 		/*
+ 		 * Check each device area is consistent with the target's
+ 		 * overall queue limits.
+@@ -1466,6 +1462,10 @@ int dm_calculate_queue_limits(struct dm_table *table,
+ 			return -EINVAL;
+ 
+ combine_limits:
++		/* Set I/O hints portion of queue limits */
++		if (ti->type->io_hints)
++			ti->type->io_hints(ti, &ti_limits);
++
+ 		/*
+ 		 * Merge this target's queue limits into the overall limits
+ 		 * for the table.
+
 
 --
 dm-devel mailing list
