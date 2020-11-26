@@ -1,61 +1,58 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8685D2C5B0D
-	for <lists+dm-devel@lfdr.de>; Thu, 26 Nov 2020 18:49:23 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 6683D2C5B14
+	for <lists+dm-devel@lfdr.de>; Thu, 26 Nov 2020 18:52:32 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-26-bkphuqUKP1KP9CzxwefJCw-1; Thu, 26 Nov 2020 12:49:18 -0500
-X-MC-Unique: bkphuqUKP1KP9CzxwefJCw-1
+ us-mta-7-KwgUK8f3N0GOjO8IAGtSww-1; Thu, 26 Nov 2020 12:52:29 -0500
+X-MC-Unique: KwgUK8f3N0GOjO8IAGtSww-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 618701087D80;
-	Thu, 26 Nov 2020 17:49:13 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A06C5D9D0;
-	Thu, 26 Nov 2020 17:49:13 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8553F805BFC;
+	Thu, 26 Nov 2020 17:52:22 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EE1BD5D9C6;
+	Thu, 26 Nov 2020 17:52:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AF82A180954D;
-	Thu, 26 Nov 2020 17:49:11 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2A3354BB7B;
+	Thu, 26 Nov 2020 17:52:21 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AQHn8D1001480 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 26 Nov 2020 12:49:08 -0500
+	id 0AQHqGhn001949 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 26 Nov 2020 12:52:16 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EC58D2026D3D; Thu, 26 Nov 2020 17:49:07 +0000 (UTC)
+	id 512E12026D3B; Thu, 26 Nov 2020 17:52:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E608D2026D36
-	for <dm-devel@redhat.com>; Thu, 26 Nov 2020 17:49:04 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B57E2026D36
+	for <dm-devel@redhat.com>; Thu, 26 Nov 2020 17:52:14 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5A7A1103B805
-	for <dm-devel@redhat.com>; Thu, 26 Nov 2020 17:49:04 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-594-m9kzxtUpMZ-kEYgp7qm2MA-1;
-	Thu, 26 Nov 2020 12:49:01 -0500
-X-MC-Unique: m9kzxtUpMZ-kEYgp7qm2MA-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 6D7F9ACA9;
-	Thu, 26 Nov 2020 17:49:00 +0000 (UTC)
-Received: by quack2.suse.cz (Postfix, from userid 1000)
-	id 402A71E10D0; Thu, 26 Nov 2020 18:49:00 +0100 (CET)
-Date: Thu, 26 Nov 2020 18:49:00 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20201126174900.GZ422@quack2.suse.cz>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 346E0858287
+	for <dm-devel@redhat.com>; Thu, 26 Nov 2020 17:52:14 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-496-mlDuMw-XOuGYpL_cQrv27g-1;
+	Thu, 26 Nov 2020 12:52:11 -0500
+X-MC-Unique: mlDuMw-XOuGYpL_cQrv27g-1
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 7355A68B05; Thu, 26 Nov 2020 18:52:08 +0100 (CET)
+Date: Thu, 26 Nov 2020 18:52:08 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Jan Kara <jack@suse.cz>
+Message-ID: <20201126175208.GA24843@lst.de>
 References: <20201126130422.92945-1-hch@lst.de>
-	<20201126130422.92945-41-hch@lst.de>
+	<20201126130422.92945-30-hch@lst.de>
+	<20201126165036.GO422@quack2.suse.cz>
 MIME-Version: 1.0
-In-Reply-To: <20201126130422.92945-41-hch@lst.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20201126165036.GO422@quack2.suse.cz>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -66,7 +63,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>, Jan Kara <jack@suse.cz>,
+Cc: Jens Axboe <axboe@kernel.dk>, Chao Yu <yuchao0@huawei.com>,
 	Mike Snitzer <snitzer@redhat.com>, linux-mm@kvack.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jan Kara <jack@suse.com>, Josef Bacik <josef@toxicpanda.com>,
@@ -74,9 +71,10 @@ Cc: Jens Axboe <axboe@kernel.dk>, Jan Kara <jack@suse.cz>,
 	linux-fsdevel@vger.kernel.org, dm-devel@redhat.com,
 	linux-mtd@lists.infradead.org,
 	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-	Tejun Heo <tj@kernel.org>, linux-bcache@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH 40/44] block: pass a block_device to
-	invalidate_partition
+	Tejun Heo <tj@kernel.org>, linux-bcache@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>
+Subject: Re: [dm-devel] [PATCH 29/44] block: remove the nr_sects field in
+ struct hd_struct
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -99,71 +97,44 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu 26-11-20 14:04:18, Christoph Hellwig wrote:
-> Pass the block_device actually needed instead of looking it up using
-> bdget_disk.
+On Thu, Nov 26, 2020 at 05:50:36PM +0100, Jan Kara wrote:
+> > +	if (size == capacity ||
+> > +	    (disk->flags & (GENHD_FL_UP | GENHD_FL_HIDDEN)) != GENHD_FL_UP)
+> > +		return false;
+> > +	pr_info("%s: detected capacity change from %lld to %lld\n",
+> > +		disk->disk_name, size, capacity);
+> > +	kobject_uevent_env(&disk_to_dev(disk)->kobj, KOBJ_CHANGE, envp);
 > 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> I think we don't want to generate resize event for changes from / to 0...
 
-Looks good. You can add:
+Didn't you ask for that in the last round?
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+> Also the return value of this function is now different.
 
-								Honza
+It returns true if it did send an uevent, which is what the callers rely
+on.
 
-> ---
->  block/genhd.c | 13 +++----------
->  1 file changed, 3 insertions(+), 10 deletions(-)
+> > diff --git a/drivers/target/target_core_pscsi.c b/drivers/target/target_core_pscsi.c
+> > index 4e37fa9b409d52..a70c33c49f0960 100644
+> > --- a/drivers/target/target_core_pscsi.c
+> > +++ b/drivers/target/target_core_pscsi.c
+> > @@ -1027,12 +1027,7 @@ static u32 pscsi_get_device_type(struct se_device *dev)
+> >  
+> >  static sector_t pscsi_get_blocks(struct se_device *dev)
+> >  {
+> > -	struct pscsi_dev_virt *pdv = PSCSI_DEV(dev);
+> > -
+> > -	if (pdv->pdv_bd && pdv->pdv_bd->bd_part)
+> > -		return pdv->pdv_bd->bd_part->nr_sects;
+> > -
+> > -	return 0;
+> > +	return bdev_nr_sectors(PSCSI_DEV(dev)->pdv_bd);
 > 
-> diff --git a/block/genhd.c b/block/genhd.c
-> index 89cd0ba8e3b84a..28299b24173be1 100644
-> --- a/block/genhd.c
-> +++ b/block/genhd.c
-> @@ -792,14 +792,8 @@ void device_add_disk_no_queue_reg(struct device *parent, struct gendisk *disk)
->  }
->  EXPORT_SYMBOL(device_add_disk_no_queue_reg);
->  
-> -static void invalidate_partition(struct gendisk *disk, int partno)
-> +static void invalidate_partition(struct block_device *bdev)
->  {
-> -	struct block_device *bdev;
-> -
-> -	bdev = bdget_disk(disk, partno);
-> -	if (!bdev)
-> -		return;
-> -
->  	fsync_bdev(bdev);
->  	__invalidate_device(bdev, true);
->  
-> @@ -808,7 +802,6 @@ static void invalidate_partition(struct gendisk *disk, int partno)
->  	 * up any more even if openers still hold references to it.
->  	 */
->  	remove_inode_hash(bdev->bd_inode);
-> -	bdput(bdev);
->  }
->  
->  /**
-> @@ -853,12 +846,12 @@ void del_gendisk(struct gendisk *disk)
->  	disk_part_iter_init(&piter, disk,
->  			     DISK_PITER_INCL_EMPTY | DISK_PITER_REVERSE);
->  	while ((part = disk_part_iter_next(&piter))) {
-> -		invalidate_partition(disk, part->bdev->bd_partno);
-> +		invalidate_partition(part->bdev);
->  		delete_partition(part);
->  	}
->  	disk_part_iter_exit(&piter);
->  
-> -	invalidate_partition(disk, 0);
-> +	invalidate_partition(disk->part0);
->  	set_capacity(disk, 0);
->  	disk->flags &= ~GENHD_FL_UP;
->  	up_write(&bdev_lookup_sem);
-> -- 
-> 2.29.2
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> I pdv_bd guaranteed to be non-NULL in pscsi_dev_virt?
+
+Looking at the code - only for disk devices.  And while ->get_blocks
+should only be called for those I'd rather err on the safe side and will
+add the check back.
 
 --
 dm-devel mailing list
