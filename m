@@ -2,76 +2,77 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A04D12C50A5
-	for <lists+dm-devel@lfdr.de>; Thu, 26 Nov 2020 09:37:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id AE5AE2C509C
+	for <lists+dm-devel@lfdr.de>; Thu, 26 Nov 2020 09:36:58 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-78-Q-0RCDvsMOig7zuLMuJH_Q-1; Thu, 26 Nov 2020 03:36:50 -0500
-X-MC-Unique: Q-0RCDvsMOig7zuLMuJH_Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-79-X40f_6XkPluS143StTXRgQ-1; Thu, 26 Nov 2020 03:36:55 -0500
+X-MC-Unique: X40f_6XkPluS143StTXRgQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 51BDC100A5EE;
-	Thu, 26 Nov 2020 08:36:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2DE7E60C64;
-	Thu, 26 Nov 2020 08:36:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4B1A51074651;
+	Thu, 26 Nov 2020 08:36:44 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 27EC95D9CC;
+	Thu, 26 Nov 2020 08:36:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DBCC550034;
-	Thu, 26 Nov 2020 08:36:41 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C77BD1809CA8;
+	Thu, 26 Nov 2020 08:36:43 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AQ1BKYr028569 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 25 Nov 2020 20:11:20 -0500
+	id 0AQ1GYk5029517 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 25 Nov 2020 20:16:34 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 56AC4AE7C5; Thu, 26 Nov 2020 01:11:20 +0000 (UTC)
+	id DB6251009B91; Thu, 26 Nov 2020 01:16:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 51071AE7C6
-	for <dm-devel@redhat.com>; Thu, 26 Nov 2020 01:11:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D6FFC1009B86
+	for <dm-devel@redhat.com>; Thu, 26 Nov 2020 01:16:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07C77185A794
-	for <dm-devel@redhat.com>; Thu, 26 Nov 2020 01:11:18 +0000 (UTC)
-Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com
-	[209.85.210.196]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-447-bLk1jAatN72pC1PpDdKsIw-1; Wed, 25 Nov 2020 20:11:13 -0500
-X-MC-Unique: bLk1jAatN72pC1PpDdKsIw-1
-Received: by mail-pf1-f196.google.com with SMTP id n137so124788pfd.3;
-	Wed, 25 Nov 2020 17:11:12 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BEFBD858287
+	for <dm-devel@redhat.com>; Thu, 26 Nov 2020 01:16:27 +0000 (UTC)
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
+	[209.85.210.195]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-265-zS13lUymMiiPkKA3n1x_2Q-1; Wed, 25 Nov 2020 20:16:23 -0500
+X-MC-Unique: zS13lUymMiiPkKA3n1x_2Q-1
+Received: by mail-pf1-f195.google.com with SMTP id w6so143605pfu.1;
+	Wed, 25 Nov 2020 17:16:22 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
 	:references:mime-version:content-disposition:in-reply-to;
-	bh=f8bMvE80grJsQDxQbN+SXa4Ok4avPUhhCBLg+N5g7uE=;
-	b=rReVpNkrQsf7S1BRVvr3375g7ShCQc83wPMXjjhQwHWKXfdBdamewnXDeNjVqu2F/7
-	DV84vcoKyEXOR5aSxx8D+zxV/3Xez2AcEicsDkPgc4taLjMETGmKnERdmAfr2TNa2Y2z
-	8eR2bwyPJTAwdeDuIVxXMeScmiUNT9g/VY5nj18F9DY7cLMCMqf0R6OQ9ynkZJ5JExc5
-	woS24y0aTKR8IKCIiPQxS4cpvgMR3FOy39pOyc31scVJ1ihAH2Vrcoc6KelXc0bTuOST
-	K7flYJ8zrx1g7FgL9iL/YsNvzhjBF6QixKDS3UF74NqFPy8xVcgkLzaS9IpKd1ZY/J37
-	vrpg==
-X-Gm-Message-State: AOAM531Z9BmPu4pZM/FWqGJ1zDVeZxx9OBo3pbA8dMn5AEyuOPlbFHn8
-	kOWf8zXcVhUW1sLUwrHvc6c=
-X-Google-Smtp-Source: ABdhPJy2rvS54nam6WzB3Gos6rktAfztTZ/apost62cNhHmAqWfXtcE8/JRGjAG0GRNN0NDnAydY0Q==
-X-Received: by 2002:a17:90a:8909:: with SMTP id
-	u9mr643556pjn.100.1606353071628; 
-	Wed, 25 Nov 2020 17:11:11 -0800 (PST)
+	bh=ffbgfORDd1J1xm3xxXp8xWzEs5sXbivtuhWMZ6CRpX8=;
+	b=NLQ6DbAhGjQyeOmDq7rIELKw43JVlrnzWb+kY7QO1HdnKHtr5WGYSe4E0vts6PkAAB
+	vRZlEiDqbf1+8HEB3Aj5Rlr7lSidR6TOyqIbXU7fJ/t/fY/G01kTgSZFY+OgUVS6DhQo
+	r2M3fI5eJ37jQFoky3bedE/8wEJYAdEYjG8My1zIgqS7zbT3Mc0E7b+2m9vjhnA9QsQk
+	wT0ker4t07IdHZVYn0otMwp6t2f5q5kV+a6rwnlKqmY4nQ/RzRfpBkJHenaYWX/nVEt6
+	1jUuUFX2TqHulWLU3ma5hvdRO9RrEjseJUTp+YKR/o4o8KaifuPVmggyxFduNMofGia4
+	lolg==
+X-Gm-Message-State: AOAM532Nfyz7BExZsdS8DPYvy8jo3C/rWnnXNw7Pn8JORXCOhWh6iaoF
+	2x2So9RtXzCoie/u3ExKREg=
+X-Google-Smtp-Source: ABdhPJxuwzDVcKoe4o/wMgwyIQrHY+YPGkp4YxJA+sp/vPwpgqgEvxXOvnlOmZ0BtRJFwRde4WH8Zg==
+X-Received: by 2002:a62:8cc6:0:b029:19a:87b1:99bb with SMTP id
+	m189-20020a628cc60000b029019a87b199bbmr637857pfd.6.1606353381534;
+	Wed, 25 Nov 2020 17:16:21 -0800 (PST)
 Received: from google.com (c-67-188-94-199.hsd1.ca.comcast.net.
 	[67.188.94.199]) by smtp.gmail.com with ESMTPSA id
-	s10sm3915048pjn.35.2020.11.25.17.11.08
+	e128sm2978987pfe.154.2020.11.25.17.16.18
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Wed, 25 Nov 2020 17:11:10 -0800 (PST)
-Date: Wed, 25 Nov 2020 17:11:07 -0800
+	Wed, 25 Nov 2020 17:16:20 -0800 (PST)
+Date: Wed, 25 Nov 2020 17:16:16 -0800
 From: Minchan Kim <minchan@kernel.org>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20201126011107.GA57352@google.com>
+Message-ID: <20201126011616.GB57352@google.com>
 References: <20201116145809.410558-1-hch@lst.de>
-	<20201116145809.410558-61-hch@lst.de>
+	<20201116145809.410558-62-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20201116145809.410558-61-hch@lst.de>
+In-Reply-To: <20201116145809.410558-62-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -80,13 +81,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Mimecast-Bulk-Signature: yes
-X-Mimecast-Spam-Signature: bulk
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 26 Nov 2020 03:35:50 -0500
-Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
+Cc: Justin Sanders <justin@coraid.com>, sergey.senozhatsky.work@gmail.com,
+	Mike Snitzer <snitzer@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
 	Jason Wang <jasowang@redhat.com>, linux-nvme@lists.infradead.org,
 	Song Liu <song@kernel.org>, dm-devel@redhat.com,
 	linux-scsi@vger.kernel.org, xen-devel@lists.xenproject.org,
@@ -98,10 +97,9 @@ Cc: Justin Sanders <justin@coraid.com>, Mike Snitzer <snitzer@redhat.com>,
 	ceph-devel@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
 	linux-block@vger.kernel.org,
 	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Sergey Senozhatsky <sergey.senozhatsky@gmail.com>,
 	linux-fsdevel@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
 	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: [dm-devel] [PATCH 60/78] zram: remove the claim mechanism
+Subject: Re: [dm-devel] [PATCH 61/78] zram:  do not call set_blocksize
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -115,7 +113,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -124,170 +122,77 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 16, 2020 at 03:57:51PM +0100, Christoph Hellwig wrote:
-> The zram claim mechanism was added to ensure no new opens come in
-> during teardown.  But the proper way to archive that is to call
-> del_gendisk first, which takes care of all that.  Once del_gendisk
-> is called in the right place, the reset side can also be simplified
-> as no I/O can be outstanding on a block device that is not open.
-
-It would be great if it makes the mess simple. Let me have a question
-Please see below.
-
+On Mon, Nov 16, 2020 at 03:57:52PM +0100, Christoph Hellwig wrote:
+> set_blocksize is used by file systems to use their preferred buffer cache
+> block size.  Block drivers should not set it.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
+Acked-by: Minchan Kim <minchan@kernel.org>
+
+Thanks.
+
 > ---
->  drivers/block/zram/zram_drv.c | 76 ++++++++++-------------------------
->  1 file changed, 21 insertions(+), 55 deletions(-)
+>  drivers/block/zram/zram_drv.c | 11 +----------
+>  drivers/block/zram/zram_drv.h |  1 -
+>  2 files changed, 1 insertion(+), 11 deletions(-)
 > 
 > diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-> index 6d15d51cee2b7e..3641434a9b154d 100644
+> index 3641434a9b154d..d00b5761ec0b21 100644
 > --- a/drivers/block/zram/zram_drv.c
 > +++ b/drivers/block/zram/zram_drv.c
-> @@ -1756,64 +1756,33 @@ static ssize_t disksize_store(struct device *dev,
->  static ssize_t reset_store(struct device *dev,
->  		struct device_attribute *attr, const char *buf, size_t len)
->  {
-> -	int ret;
-> -	unsigned short do_reset;
-> -	struct zram *zram;
-> +	struct zram *zram = dev_to_zram(dev);
->  	struct block_device *bdev;
-> +	unsigned short do_reset;
-> +	int ret = 0;
+> @@ -403,13 +403,10 @@ static void reset_bdev(struct zram *zram)
+>  		return;
 >  
->  	ret = kstrtou16(buf, 10, &do_reset);
->  	if (ret)
->  		return ret;
-> -
->  	if (!do_reset)
->  		return -EINVAL;
->  
-> -	zram = dev_to_zram(dev);
->  	bdev = bdget_disk(zram->disk, 0);
->  	if (!bdev)
->  		return -ENOMEM;
->  
->  	mutex_lock(&bdev->bd_mutex);
-> -	/* Do not reset an active device or claimed device */
-> -	if (bdev->bd_openers || zram->claim) {
-> -		mutex_unlock(&bdev->bd_mutex);
-> -		bdput(bdev);
-> -		return -EBUSY;
-> -	}
-> -
-> -	/* From now on, anyone can't open /dev/zram[0-9] */
-> -	zram->claim = true;
-> +	if (bdev->bd_openers)
-> +		ret = -EBUSY;
-> +	else
-> +		zram_reset_device(zram);
->  	mutex_unlock(&bdev->bd_mutex);
-> -
-> -	/* Make sure all the pending I/O are finished */
-> -	fsync_bdev(bdev);
-> -	zram_reset_device(zram);
->  	bdput(bdev);
->  
-> -	mutex_lock(&bdev->bd_mutex);
-> -	zram->claim = false;
-> -	mutex_unlock(&bdev->bd_mutex);
-> -
-> -	return len;
-> -}
-> -
-> -static int zram_open(struct block_device *bdev, fmode_t mode)
-> -{
-> -	int ret = 0;
-> -	struct zram *zram;
-> -
-> -	WARN_ON(!mutex_is_locked(&bdev->bd_mutex));
-> -
-> -	zram = bdev->bd_disk->private_data;
-> -	/* zram was claimed to reset so open request fails */
-> -	if (zram->claim)
-> -		ret = -EBUSY;
-> -
-> -	return ret;
-> +	return ret ? ret : len;
->  }
->  
->  static const struct block_device_operations zram_devops = {
-> -	.open = zram_open,
->  	.submit_bio = zram_submit_bio,
->  	.swap_slot_free_notify = zram_slot_free_notify,
->  	.rw_page = zram_rw_page,
-> @@ -1821,7 +1790,6 @@ static const struct block_device_operations zram_devops = {
->  };
->  
->  static const struct block_device_operations zram_wb_devops = {
-> -	.open = zram_open,
->  	.submit_bio = zram_submit_bio,
->  	.swap_slot_free_notify = zram_slot_free_notify,
->  	.owner = THIS_MODULE
-> @@ -1972,34 +1940,32 @@ static int zram_add(void)
->  	return ret;
->  }
->  
-> -static int zram_remove(struct zram *zram)
-> +static bool zram_busy(struct zram *zram)
->  {
->  	struct block_device *bdev;
-> +	bool busy = false;
->  
->  	bdev = bdget_disk(zram->disk, 0);
-> -	if (!bdev)
-> -		return -ENOMEM;
-> -
-> -	mutex_lock(&bdev->bd_mutex);
-> -	if (bdev->bd_openers || zram->claim) {
-> -		mutex_unlock(&bdev->bd_mutex);
-> +	if (bdev) {
-> +		if (bdev->bd_openers)
-> +			busy = true;
->  		bdput(bdev);
-> -		return -EBUSY;
+>  	bdev = zram->bdev;
+> -	if (zram->old_block_size)
+> -		set_blocksize(bdev, zram->old_block_size);
+>  	blkdev_put(bdev, FMODE_READ|FMODE_WRITE|FMODE_EXCL);
+>  	/* hope filp_close flush all of IO */
+>  	filp_close(zram->backing_dev, NULL);
+>  	zram->backing_dev = NULL;
+> -	zram->old_block_size = 0;
+>  	zram->bdev = NULL;
+>  	zram->disk->fops = &zram_devops;
+>  	kvfree(zram->bitmap);
+> @@ -454,7 +451,7 @@ static ssize_t backing_dev_store(struct device *dev,
+>  	struct file *backing_dev = NULL;
+>  	struct inode *inode;
+>  	struct address_space *mapping;
+> -	unsigned int bitmap_sz, old_block_size = 0;
+> +	unsigned int bitmap_sz;
+>  	unsigned long nr_pages, *bitmap = NULL;
+>  	struct block_device *bdev = NULL;
+>  	int err;
+> @@ -509,14 +506,8 @@ static ssize_t backing_dev_store(struct device *dev,
+>  		goto out;
 >  	}
 >  
-> -	zram->claim = true;
-> -	mutex_unlock(&bdev->bd_mutex);
-> +	return busy;
-> +}
+> -	old_block_size = block_size(bdev);
+> -	err = set_blocksize(bdev, PAGE_SIZE);
+> -	if (err)
+> -		goto out;
+> -
+>  	reset_bdev(zram);
 >  
-> -	zram_debugfs_unregister(zram);
-> +static int zram_remove(struct zram *zram)
-> +{
-> +	if (zram_busy(zram))
-> +		return -EBUSY;
->  
-> -	/* Make sure all the pending I/O are finished */
-> -	fsync_bdev(bdev);
-> +	del_gendisk(zram->disk);
-> +	zram_debugfs_unregister(zram);
->  	zram_reset_device(zram);
-> -	bdput(bdev);
->  
->  	pr_info("Removed device: %s\n", zram->disk->disk_name);
->  
-> -	del_gendisk(zram->disk);
->  	blk_cleanup_queue(zram->disk->queue);
->  	put_disk(zram->disk);
->  	kfree(zram);
+> -	zram->old_block_size = old_block_size;
+>  	zram->bdev = bdev;
+>  	zram->backing_dev = backing_dev;
+>  	zram->bitmap = bitmap;
+> diff --git a/drivers/block/zram/zram_drv.h b/drivers/block/zram/zram_drv.h
+> index f2fd46daa76045..712354a4207c77 100644
+> --- a/drivers/block/zram/zram_drv.h
+> +++ b/drivers/block/zram/zram_drv.h
+> @@ -118,7 +118,6 @@ struct zram {
+>  	bool wb_limit_enable;
+>  	u64 bd_wb_limit;
+>  	struct block_device *bdev;
+> -	unsigned int old_block_size;
+>  	unsigned long *bitmap;
+>  	unsigned long nr_pages;
+>  #endif
 > -- 
 > 2.29.2
 > 
-
-With this patch, how deal with the race?
-
-CPU 1                                     CPU 2
-
-hot_remove_store
-  zram_remove
-    zram_busy
-      return -EBUSY
-                                         open /dev/zram0
-    del_gendisk
-    zram_reset and destroy
 
 --
 dm-devel mailing list
