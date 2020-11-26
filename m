@@ -1,53 +1,53 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id DB5012C5570
-	for <lists+dm-devel@lfdr.de>; Thu, 26 Nov 2020 14:32:58 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 211B12C5576
+	for <lists+dm-devel@lfdr.de>; Thu, 26 Nov 2020 14:33:06 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-32-oKm-VwX1NZuoq9i6EwD7wQ-1; Thu, 26 Nov 2020 08:32:55 -0500
-X-MC-Unique: oKm-VwX1NZuoq9i6EwD7wQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-277-XEq71OhCPKqMMZj5zH6E3g-1; Thu, 26 Nov 2020 08:32:54 -0500
+X-MC-Unique: XEq71OhCPKqMMZj5zH6E3g-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 309CF1006CAD;
-	Thu, 26 Nov 2020 13:32:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0ABEF5D71B;
-	Thu, 26 Nov 2020 13:32:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0A8E0185E49E;
+	Thu, 26 Nov 2020 13:32:48 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D7C295B4A0;
+	Thu, 26 Nov 2020 13:32:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B6C2E1809CA0;
-	Thu, 26 Nov 2020 13:32:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9272850031;
+	Thu, 26 Nov 2020 13:32:47 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AQDW1C0005642 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 26 Nov 2020 08:32:01 -0500
+	id 0AQDVxxW005634 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 26 Nov 2020 08:31:59 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id F06432026D38; Thu, 26 Nov 2020 13:32:00 +0000 (UTC)
+	id 9F1AC1018CBF; Thu, 26 Nov 2020 13:31:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EB8D52026D47
-	for <dm-devel@redhat.com>; Thu, 26 Nov 2020 13:31:58 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9B4F71018E59
+	for <dm-devel@redhat.com>; Thu, 26 Nov 2020 13:31:56 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8AAEB8039DD
-	for <dm-devel@redhat.com>; Thu, 26 Nov 2020 13:31:58 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7B644858284
+	for <dm-devel@redhat.com>; Thu, 26 Nov 2020 13:31:56 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-417-75TSNB1CMae17-xVkCu5cg-1; Thu, 26 Nov 2020 08:31:56 -0500
-X-MC-Unique: 75TSNB1CMae17-xVkCu5cg-1
+	us-mta-438-mrBMuJPMPsSz5NSmtznHeg-1; Thu, 26 Nov 2020 08:31:52 -0500
+X-MC-Unique: mrBMuJPMPsSz5NSmtznHeg-1
 Received: from [2001:4bb8:18c:1dd6:27b8:b8a1:c13e:ceb1] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kiGzS-00044x-4z; Thu, 26 Nov 2020 13:07:14 +0000
+	id 1kiGzT-00045T-P1; Thu, 26 Nov 2020 13:07:16 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Thu, 26 Nov 2020 14:04:07 +0100
-Message-Id: <20201126130422.92945-30-hch@lst.de>
+Date: Thu, 26 Nov 2020 14:04:08 +0100
+Message-Id: <20201126130422.92945-31-hch@lst.de>
 In-Reply-To: <20201126130422.92945-1-hch@lst.de>
 References: <20201126130422.92945-1-hch@lst.de>
 MIME-Version: 1.0
@@ -61,18 +61,18 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: linux-bcache@vger.kernel.org, Chao Yu <yuchao0@huawei.com>,
-	Jan Kara <jack@suse.cz>, Mike Snitzer <snitzer@redhat.com>,
-	linux-mm@kvack.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
+	Mike Snitzer <snitzer@redhat.com>, linux-mm@kvack.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jan Kara <jack@suse.com>, Josef Bacik <josef@toxicpanda.com>,
 	Coly Li <colyli@suse.de>, linux-block@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org, dm-devel@redhat.com,
 	linux-mtd@lists.infradead.org,
 	Johannes Thumshirn <johannes.thumshirn@wdc.com>, Tejun Heo <tj@kernel.org>
-Subject: [dm-devel] [PATCH 29/44] block: remove the nr_sects field in struct
-	hd_struct
+Subject: [dm-devel] [PATCH 30/44] block: move disk stat accounting to struct
+	block_device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,7 +86,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -94,614 +94,284 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Now that the hd_struct always has a block device attached to it, there is
-no need for having two size field that just get out of sync.
-
-Additional the field in hd_struct did not use proper serializiation,
-possibly allowing for torn writes.  By only using the block_device field
-this problem also gets fixed.
+Move the dkstats and stamp field to struct block_device in preparation
+of killing struct hd_struct.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Acked-by: Coly Li <colyli@suse.de>			[bcache]
-Acked-by: Chao Yu <yuchao0@huawei.com>			[f2fs]
 ---
- block/bio.c                        |  4 +-
- block/blk-core.c                   |  2 +-
- block/blk.h                        | 53 ----------------------
- block/genhd.c                      | 55 +++++++++++-----------
- block/partitions/core.c            | 17 ++++---
- drivers/block/loop.c               |  1 -
- drivers/block/nbd.c                |  2 +-
- drivers/block/xen-blkback/common.h |  4 +-
- drivers/md/bcache/super.c          |  2 +-
- drivers/s390/block/dasd_ioctl.c    |  4 +-
- drivers/target/target_core_pscsi.c |  7 +--
- fs/block_dev.c                     | 73 +-----------------------------
- fs/f2fs/super.c                    |  2 +-
- fs/pstore/blk.c                    |  2 +-
- include/linux/genhd.h              | 29 +++---------
- kernel/trace/blktrace.c            |  2 +-
- 16 files changed, 60 insertions(+), 199 deletions(-)
+ block/blk-cgroup.c        |  2 +-
+ block/blk-core.c          |  4 ++--
+ block/blk.h               |  1 -
+ block/genhd.c             | 14 ++++----------
+ block/partitions/core.c   |  9 +--------
+ fs/block_dev.c            | 10 ++++++++++
+ include/linux/blk_types.h |  2 ++
+ include/linux/genhd.h     |  2 --
+ include/linux/part_stat.h | 38 +++++++++++++++++++-------------------
+ 9 files changed, 39 insertions(+), 43 deletions(-)
 
-diff --git a/block/bio.c b/block/bio.c
-index fa01bef35bb1fe..669bb47a31988e 100644
---- a/block/bio.c
-+++ b/block/bio.c
-@@ -613,8 +613,8 @@ void guard_bio_eod(struct bio *bio)
- 	rcu_read_lock();
- 	part = __disk_get_part(bio->bi_disk, bio->bi_partno);
- 	if (part)
--		maxsector = part_nr_sects_read(part);
--	else
-+		maxsector = bdev_nr_sectors(part->bdev);
-+	else	
- 		maxsector = get_capacity(bio->bi_disk);
- 	rcu_read_unlock();
+diff --git a/block/blk-cgroup.c b/block/blk-cgroup.c
+index 19650eb42b9f00..5c0a9d588e6312 100644
+--- a/block/blk-cgroup.c
++++ b/block/blk-cgroup.c
+@@ -830,7 +830,7 @@ static void blkcg_fill_root_iostats(void)
+ 		for_each_possible_cpu(cpu) {
+ 			struct disk_stats *cpu_dkstats;
  
+-			cpu_dkstats = per_cpu_ptr(part->dkstats, cpu);
++			cpu_dkstats = per_cpu_ptr(part->bdev->bd_stats, cpu);
+ 			tmp.ios[BLKG_IOSTAT_READ] +=
+ 				cpu_dkstats->ios[STAT_READ];
+ 			tmp.ios[BLKG_IOSTAT_WRITE] +=
 diff --git a/block/blk-core.c b/block/blk-core.c
-index 2db8bda43b6e6d..988f45094a387b 100644
+index 988f45094a387b..d2c9cb24e087f3 100644
 --- a/block/blk-core.c
 +++ b/block/blk-core.c
-@@ -755,7 +755,7 @@ static inline int blk_partition_remap(struct bio *bio)
- 		goto out;
- 
- 	if (bio_sectors(bio)) {
--		if (bio_check_eod(bio, part_nr_sects_read(p)))
-+		if (bio_check_eod(bio, bdev_nr_sectors(p->bdev)))
- 			goto out;
- 		bio->bi_iter.bi_sector += p->start_sect;
- 		trace_block_bio_remap(bio->bi_disk->queue, bio, part_devt(p),
+@@ -1264,9 +1264,9 @@ static void update_io_ticks(struct hd_struct *part, unsigned long now, bool end)
+ {
+ 	unsigned long stamp;
+ again:
+-	stamp = READ_ONCE(part->stamp);
++	stamp = READ_ONCE(part->bdev->bd_stamp);
+ 	if (unlikely(stamp != now)) {
+-		if (likely(cmpxchg(&part->stamp, stamp, now) == stamp))
++		if (likely(cmpxchg(&part->bdev->bd_stamp, stamp, now) == stamp))
+ 			__part_stat_add(part, io_ticks, end ? now - stamp : 1);
+ 	}
+ 	if (part->partno) {
 diff --git a/block/blk.h b/block/blk.h
-index c4839abcfa27eb..09cee7024fb43e 100644
+index 09cee7024fb43e..3f801f6e86f8a1 100644
 --- a/block/blk.h
 +++ b/block/blk.h
-@@ -387,59 +387,6 @@ static inline void hd_free_part(struct hd_struct *part)
- 	percpu_ref_exit(&part->ref);
- }
+@@ -381,7 +381,6 @@ static inline void hd_struct_put(struct hd_struct *part)
  
--/*
-- * Any access of part->nr_sects which is not protected by partition
-- * bd_mutex or gendisk bdev bd_mutex, should be done using this
-- * accessor function.
-- *
-- * Code written along the lines of i_size_read() and i_size_write().
-- * CONFIG_PREEMPTION case optimizes the case of UP kernel with preemption
-- * on.
-- */
--static inline sector_t part_nr_sects_read(struct hd_struct *part)
--{
--#if BITS_PER_LONG==32 && defined(CONFIG_SMP)
--	sector_t nr_sects;
--	unsigned seq;
--	do {
--		seq = read_seqcount_begin(&part->nr_sects_seq);
--		nr_sects = part->nr_sects;
--	} while (read_seqcount_retry(&part->nr_sects_seq, seq));
--	return nr_sects;
--#elif BITS_PER_LONG==32 && defined(CONFIG_PREEMPTION)
--	sector_t nr_sects;
--
--	preempt_disable();
--	nr_sects = part->nr_sects;
--	preempt_enable();
--	return nr_sects;
--#else
--	return part->nr_sects;
--#endif
--}
--
--/*
-- * Should be called with mutex lock held (typically bd_mutex) of partition
-- * to provide mutual exlusion among writers otherwise seqcount might be
-- * left in wrong state leaving the readers spinning infinitely.
-- */
--static inline void part_nr_sects_write(struct hd_struct *part, sector_t size)
--{
--#if BITS_PER_LONG==32 && defined(CONFIG_SMP)
--	preempt_disable();
--	write_seqcount_begin(&part->nr_sects_seq);
--	part->nr_sects = size;
--	write_seqcount_end(&part->nr_sects_seq);
--	preempt_enable();
--#elif BITS_PER_LONG==32 && defined(CONFIG_PREEMPTION)
--	preempt_disable();
--	part->nr_sects = size;
--	preempt_enable();
--#else
--	part->nr_sects = size;
--#endif
--}
--
- int bio_add_hw_page(struct request_queue *q, struct bio *bio,
- 		struct page *page, unsigned int len, unsigned int offset,
- 		unsigned int max_sectors, bool *same_page);
+ static inline void hd_free_part(struct hd_struct *part)
+ {
+-	free_percpu(part->dkstats);
+ 	kfree(part->info);
+ 	bdput(part->bdev);
+ 	percpu_ref_exit(&part->ref);
 diff --git a/block/genhd.c b/block/genhd.c
-index bf8fa82f135f4e..c6016fde4725b0 100644
+index c6016fde4725b0..9eead2970cb3d4 100644
 --- a/block/genhd.c
 +++ b/block/genhd.c
-@@ -40,6 +40,16 @@ static void disk_add_events(struct gendisk *disk);
- static void disk_del_events(struct gendisk *disk);
- static void disk_release_events(struct gendisk *disk);
+@@ -104,7 +104,7 @@ static void part_stat_read_all(struct hd_struct *part, struct disk_stats *stat)
  
-+void set_capacity(struct gendisk *disk, sector_t sectors)
-+{
-+	struct block_device *bdev = disk->part0.bdev;
-+
-+	spin_lock(&bdev->bd_size_lock);
-+	i_size_write(bdev->bd_inode, (loff_t)sectors << SECTOR_SHIFT);
-+	spin_unlock(&bdev->bd_size_lock);
-+}
-+EXPORT_SYMBOL(set_capacity);
-+
- /*
-  * Set disk capacity and notify if the size is not currently zero and will not
-  * be set to zero.  Returns true if a uevent was sent, otherwise false.
-@@ -47,18 +57,22 @@ static void disk_release_events(struct gendisk *disk);
- bool set_capacity_and_notify(struct gendisk *disk, sector_t size)
- {
- 	sector_t capacity = get_capacity(disk);
-+	char *envp[] = { "RESIZE=1", NULL };
+ 	memset(stat, 0, sizeof(struct disk_stats));
+ 	for_each_possible_cpu(cpu) {
+-		struct disk_stats *ptr = per_cpu_ptr(part->dkstats, cpu);
++		struct disk_stats *ptr = per_cpu_ptr(part->bdev->bd_stats, cpu);
+ 		int group;
  
- 	set_capacity(disk, size);
--	revalidate_disk_size(disk, true);
+ 		for (group = 0; group < NR_STAT_GROUPS; group++) {
+@@ -883,7 +883,7 @@ void del_gendisk(struct gendisk *disk)
+ 	kobject_put(disk->slave_dir);
+ 
+ 	part_stat_set_all(&disk->part0, 0);
+-	disk->part0.stamp = 0;
++	disk->part0.bdev->bd_stamp = 0;
+ 	if (!sysfs_deprecated)
+ 		sysfs_remove_link(block_depr, dev_name(disk_to_dev(disk)));
+ 	pm_runtime_set_memalloc_noio(disk_to_dev(disk), false);
+@@ -1620,19 +1620,15 @@ struct gendisk *__alloc_disk_node(int minors, int node_id)
+ 	if (!disk->part0.bdev)
+ 		goto out_free_disk;
+ 
+-	disk->part0.dkstats = alloc_percpu(struct disk_stats);
+-	if (!disk->part0.dkstats)
+-		goto out_bdput;
 -
--	if (capacity != size && capacity != 0 && size != 0) {
--		char *envp[] = { "RESIZE=1", NULL };
--
--		kobject_uevent_env(&disk_to_dev(disk)->kobj, KOBJ_CHANGE, envp);
--		return true;
--	}
+ 	disk->node_id = node_id;
+ 	if (disk_expand_part_tbl(disk, 0))
+-		goto out_free_bdstats;
++		goto out_bdput;
  
--	return false;
-+	/*
-+	 * Only print a message and send a uevent if the gendisk is user visible
-+	 * and alive.  This avoids spamming the log and udev when setting the
-+	 * initial capacity during probing.
-+	 */
-+	if (size == capacity ||
-+	    (disk->flags & (GENHD_FL_UP | GENHD_FL_HIDDEN)) != GENHD_FL_UP)
-+		return false;
-+	pr_info("%s: detected capacity change from %lld to %lld\n",
-+		disk->disk_name, size, capacity);
-+	kobject_uevent_env(&disk_to_dev(disk)->kobj, KOBJ_CHANGE, envp);
-+	return true;
- }
- EXPORT_SYMBOL_GPL(set_capacity_and_notify);
- 
-@@ -247,7 +261,7 @@ struct hd_struct *disk_part_iter_next(struct disk_part_iter *piter)
- 		part = rcu_dereference(ptbl->part[piter->idx]);
- 		if (!part)
- 			continue;
--		if (!part_nr_sects_read(part) &&
-+		if (!bdev_nr_sectors(part->bdev) &&
- 		    !(piter->flags & DISK_PITER_INCL_EMPTY) &&
- 		    !(piter->flags & DISK_PITER_INCL_EMPTY_PART0 &&
- 		      piter->idx == 0))
-@@ -284,7 +298,7 @@ EXPORT_SYMBOL_GPL(disk_part_iter_exit);
- static inline int sector_in_part(struct hd_struct *part, sector_t sector)
- {
- 	return part->start_sect <= sector &&
--		sector < part->start_sect + part_nr_sects_read(part);
-+		sector < part->start_sect + bdev_nr_sectors(part->bdev);
- }
- 
- /**
-@@ -986,8 +1000,8 @@ void __init printk_all_partitions(void)
- 
- 			printk("%s%s %10llu %s %s", is_part0 ? "" : "  ",
- 			       bdevt_str(part_devt(part), devt_buf),
--			       (unsigned long long)part_nr_sects_read(part) >> 1
--			       , disk_name(disk, part->partno, name_buf),
-+			       bdev_nr_sectors(part->bdev) >> 1,
-+			       disk_name(disk, part->partno, name_buf),
- 			       part->info ? part->info->uuid : "");
- 			if (is_part0) {
- 				if (dev->parent && dev->parent->driver)
-@@ -1079,7 +1093,7 @@ static int show_partition(struct seq_file *seqf, void *v)
- 	while ((part = disk_part_iter_next(&piter)))
- 		seq_printf(seqf, "%4d  %7d %10llu %s\n",
- 			   MAJOR(part_devt(part)), MINOR(part_devt(part)),
--			   (unsigned long long)part_nr_sects_read(part) >> 1,
-+			   bdev_nr_sectors(part->bdev) >> 1,
- 			   disk_name(sgp, part->partno, buf));
- 	disk_part_iter_exit(&piter);
- 
-@@ -1161,8 +1175,7 @@ ssize_t part_size_show(struct device *dev,
- {
- 	struct hd_struct *p = dev_to_part(dev);
- 
--	return sprintf(buf, "%llu\n",
--		(unsigned long long)part_nr_sects_read(p));
-+	return sprintf(buf, "%llu\n", bdev_nr_sectors(p->bdev));
- }
- 
- ssize_t part_stat_show(struct device *dev,
-@@ -1618,16 +1631,6 @@ struct gendisk *__alloc_disk_node(int minors, int node_id)
  	ptbl = rcu_dereference_protected(disk->part_tbl, 1);
  	rcu_assign_pointer(ptbl->part[0], &disk->part0);
  
--	/*
--	 * set_capacity() and get_capacity() currently don't use
--	 * seqcounter to read/update the part0->nr_sects. Still init
--	 * the counter as we can read the sectors in IO submission
--	 * patch using seqence counters.
--	 *
--	 * TODO: Ideally set_capacity() and get_capacity() should be
--	 * converted to make use of bd_mutex and sequence counters.
--	 */
--	hd_sects_seq_init(&disk->part0);
  	if (hd_ref_init(&disk->part0))
- 		goto out_free_bdstats;
+-		goto out_free_bdstats;
++		goto out_bdput;
  
+ 	disk->minors = minors;
+ 	rand_initialize_disk(disk);
+@@ -1641,8 +1637,6 @@ struct gendisk *__alloc_disk_node(int minors, int node_id)
+ 	device_initialize(disk_to_dev(disk));
+ 	return disk;
+ 
+-out_free_bdstats:
+-	free_percpu(disk->part0.dkstats);
+ out_bdput:
+ 	bdput(disk->part0.bdev);
+ out_free_disk:
 diff --git a/block/partitions/core.c b/block/partitions/core.c
-index 696bd9ff63c64a..bcfa8215bd5ef3 100644
+index bcfa8215bd5ef3..8924e1ea8b2ad6 100644
 --- a/block/partitions/core.c
 +++ b/block/partitions/core.c
-@@ -85,6 +85,13 @@ static int (*check_part[])(struct parsed_partitions *) = {
- 	NULL
- };
+@@ -409,14 +409,9 @@ static struct hd_struct *add_partition(struct gendisk *disk, int partno,
+ 	if (!p)
+ 		return ERR_PTR(-EBUSY);
  
-+static void bdev_set_nr_sectors(struct block_device *bdev, sector_t sectors)
-+{
-+	spin_lock(&bdev->bd_size_lock);
-+	i_size_write(bdev->bd_inode, (loff_t)sectors << SECTOR_SHIFT);
-+	spin_unlock(&bdev->bd_size_lock);
-+}
-+
- static struct parsed_partitions *allocate_partitions(struct gendisk *hd)
- {
- 	struct parsed_partitions *state;
-@@ -295,7 +302,7 @@ static void hd_struct_free_work(struct work_struct *work)
- 	put_device(disk_to_dev(disk));
- 
- 	part->start_sect = 0;
--	part->nr_sects = 0;
-+	bdev_set_nr_sectors(part->bdev, 0);
- 	part_stat_set_all(part, 0);
- 	put_device(part_to_dev(part));
- }
-@@ -412,11 +419,10 @@ static struct hd_struct *add_partition(struct gendisk *disk, int partno,
- 		goto out_free_stats;
+-	err = -ENOMEM;
+-	p->dkstats = alloc_percpu(struct disk_stats);
+-	if (!p->dkstats)
+-		goto out_free;
+-
+ 	bdev = bdev_alloc(disk, partno);
+ 	if (!bdev)
+-		goto out_free_stats;
++		goto out_free;
  	p->bdev = bdev;
  
--	hd_sects_seq_init(p);
  	pdev = part_to_dev(p);
- 
- 	p->start_sect = start;
--	p->nr_sects = len;
-+	bdev_set_nr_sectors(bdev, len);
- 	p->partno = partno;
- 	p->policy = get_disk_ro(disk);
- 
-@@ -509,7 +515,7 @@ static bool partition_overlaps(struct gendisk *disk, sector_t start,
- 	disk_part_iter_init(&piter, disk, DISK_PITER_INCL_EMPTY);
- 	while ((part = disk_part_iter_next(&piter))) {
- 		if (part->partno == skip_partno ||
--		    start >= part->start_sect + part->nr_sects ||
-+		    start >= part->start_sect + bdev_nr_sectors(part->bdev) ||
- 		    start + length <= part->start_sect)
- 			continue;
- 		overlap = true;
-@@ -600,8 +606,7 @@ int bdev_resize_partition(struct block_device *bdev, int partno,
- 	if (partition_overlaps(bdev->bd_disk, start, length, partno))
- 		goto out_unlock;
- 
--	part_nr_sects_write(part, length);
--	bd_set_nr_sectors(bdevp, length);
-+	bdev_set_nr_sectors(bdevp, length);
- 
- 	ret = 0;
- out_unlock:
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index d643c67be6acea..d2ce1ddc192d78 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -1241,7 +1241,6 @@ static int __loop_clr_fd(struct loop_device *lo, bool release)
- 	set_capacity(lo->lo_disk, 0);
- 	loop_sysfs_exit(lo);
- 	if (bdev) {
--		bd_set_nr_sectors(bdev, 0);
- 		/* let user-space know about this change */
- 		kobject_uevent(&disk_to_dev(bdev->bd_disk)->kobj, KOBJ_CHANGE);
- 	}
-diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-index 45b0423ef2c53d..014683968ce174 100644
---- a/drivers/block/nbd.c
-+++ b/drivers/block/nbd.c
-@@ -1132,7 +1132,7 @@ static void nbd_bdev_reset(struct block_device *bdev)
- {
- 	if (bdev->bd_openers > 1)
- 		return;
--	bd_set_nr_sectors(bdev, 0);
-+	set_capacity(bdev->bd_disk, 0);
- }
- 
- static void nbd_parse_flags(struct nbd_device *nbd)
-diff --git a/drivers/block/xen-blkback/common.h b/drivers/block/xen-blkback/common.h
-index c6ea5d38c509a6..0762db247b41b3 100644
---- a/drivers/block/xen-blkback/common.h
-+++ b/drivers/block/xen-blkback/common.h
-@@ -358,9 +358,7 @@ struct pending_req {
- };
- 
- 
--#define vbd_sz(_v)	((_v)->bdev->bd_part ? \
--			 (_v)->bdev->bd_part->nr_sects : \
--			  get_capacity((_v)->bdev->bd_disk))
-+#define vbd_sz(_v)	bdev_nr_sectors((_v)->bdev)
- 
- #define xen_blkif_get(_b) (atomic_inc(&(_b)->refcnt))
- #define xen_blkif_put(_b)				\
-diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
-index c55d3c58a7ef55..04fa40868fbe10 100644
---- a/drivers/md/bcache/super.c
-+++ b/drivers/md/bcache/super.c
-@@ -1408,7 +1408,7 @@ static int cached_dev_init(struct cached_dev *dc, unsigned int block_size)
- 			q->limits.raid_partial_stripes_expensive;
- 
- 	ret = bcache_device_init(&dc->disk, block_size,
--			 dc->bdev->bd_part->nr_sects - dc->sb.data_offset,
-+			 bdev_nr_sectors(dc->bdev) - dc->sb.data_offset,
- 			 dc->bdev, &bcache_cached_ops);
- 	if (ret)
- 		return ret;
-diff --git a/drivers/s390/block/dasd_ioctl.c b/drivers/s390/block/dasd_ioctl.c
-index 3359559517bfcf..304eba1acf163c 100644
---- a/drivers/s390/block/dasd_ioctl.c
-+++ b/drivers/s390/block/dasd_ioctl.c
-@@ -54,8 +54,6 @@ dasd_ioctl_enable(struct block_device *bdev)
- 		return -ENODEV;
- 
- 	dasd_enable_device(base);
--	/* Formatting the dasd device can change the capacity. */
--	bd_set_nr_sectors(bdev, get_capacity(base->block->gdp));
- 	dasd_put_device(base);
- 	return 0;
- }
-@@ -88,7 +86,7 @@ dasd_ioctl_disable(struct block_device *bdev)
- 	 * Set i_size to zero, since read, write, etc. check against this
- 	 * value.
- 	 */
--	bd_set_nr_sectors(bdev, 0);
-+	set_capacity(bdev->bd_disk, 0);
- 	dasd_put_device(base);
- 	return 0;
- }
-diff --git a/drivers/target/target_core_pscsi.c b/drivers/target/target_core_pscsi.c
-index 4e37fa9b409d52..a70c33c49f0960 100644
---- a/drivers/target/target_core_pscsi.c
-+++ b/drivers/target/target_core_pscsi.c
-@@ -1027,12 +1027,7 @@ static u32 pscsi_get_device_type(struct se_device *dev)
- 
- static sector_t pscsi_get_blocks(struct se_device *dev)
- {
--	struct pscsi_dev_virt *pdv = PSCSI_DEV(dev);
--
--	if (pdv->pdv_bd && pdv->pdv_bd->bd_part)
--		return pdv->pdv_bd->bd_part->nr_sects;
--
--	return 0;
-+	return bdev_nr_sectors(PSCSI_DEV(dev)->pdv_bd);
- }
- 
- static void pscsi_req_done(struct request *req, blk_status_t status)
+@@ -490,8 +485,6 @@ static struct hd_struct *add_partition(struct gendisk *disk, int partno,
+ 	kfree(p->info);
+ out_bdput:
+ 	bdput(bdev);
+-out_free_stats:
+-	free_percpu(p->dkstats);
+ out_free:
+ 	kfree(p);
+ 	return ERR_PTR(err);
 diff --git a/fs/block_dev.c b/fs/block_dev.c
-index 58e8532d8580a1..b6ebfb7754d3b7 100644
+index b6ebfb7754d3b7..11e6a9a255845d 100644
 --- a/fs/block_dev.c
 +++ b/fs/block_dev.c
-@@ -1204,70 +1204,6 @@ void bd_unlink_disk_holder(struct block_device *bdev, struct gendisk *disk)
- EXPORT_SYMBOL_GPL(bd_unlink_disk_holder);
- #endif
+@@ -32,6 +32,7 @@
+ #include <linux/cleancache.h>
+ #include <linux/task_io_accounting_ops.h>
+ #include <linux/falloc.h>
++#include <linux/part_stat.h>
+ #include <linux/uaccess.h>
+ #include <linux/suspend.h>
+ #include "internal.h"
+@@ -781,6 +782,10 @@ static struct inode *bdev_alloc_inode(struct super_block *sb)
  
--/**
-- * check_disk_size_change - checks for disk size change and adjusts bdev size.
-- * @disk: struct gendisk to check
-- * @bdev: struct bdev to adjust.
-- * @verbose: if %true log a message about a size change if there is any
-- *
-- * This routine checks to see if the bdev size does not match the disk size
-- * and adjusts it if it differs. When shrinking the bdev size, its all caches
-- * are freed.
-- */
--static void check_disk_size_change(struct gendisk *disk,
--		struct block_device *bdev, bool verbose)
--{
--	loff_t disk_size, bdev_size;
--
--	spin_lock(&bdev->bd_size_lock);
--	disk_size = (loff_t)get_capacity(disk) << 9;
--	bdev_size = i_size_read(bdev->bd_inode);
--	if (disk_size != bdev_size) {
--		if (verbose) {
--			printk(KERN_INFO
--			       "%s: detected capacity change from %lld to %lld\n",
--			       disk->disk_name, bdev_size, disk_size);
--		}
--		i_size_write(bdev->bd_inode, disk_size);
--	}
--	spin_unlock(&bdev->bd_size_lock);
--}
--
--/**
-- * revalidate_disk_size - checks for disk size change and adjusts bdev size.
-- * @disk: struct gendisk to check
-- * @verbose: if %true log a message about a size change if there is any
-- *
-- * This routine checks to see if the bdev size does not match the disk size
-- * and adjusts it if it differs. When shrinking the bdev size, its all caches
-- * are freed.
-- */
--void revalidate_disk_size(struct gendisk *disk, bool verbose)
--{
--	struct block_device *bdev;
--
--	/*
--	 * Hidden disks don't have associated bdev so there's no point in
--	 * revalidating them.
--	 */
--	if (disk->flags & GENHD_FL_HIDDEN)
--		return;
--
--	bdev = bdget_disk(disk, 0);
--	if (bdev) {
--		check_disk_size_change(disk, bdev, verbose);
--		bdput(bdev);
--	}
--}
--
--void bd_set_nr_sectors(struct block_device *bdev, sector_t sectors)
--{
--	spin_lock(&bdev->bd_size_lock);
--	i_size_write(bdev->bd_inode, (loff_t)sectors << SECTOR_SHIFT);
--	spin_unlock(&bdev->bd_size_lock);
--}
--EXPORT_SYMBOL(bd_set_nr_sectors);
--
- static void __blkdev_put(struct block_device *bdev, fmode_t mode, int for_part);
- 
- int bdev_disk_changed(struct block_device *bdev, bool invalidate)
-@@ -1301,8 +1237,6 @@ int bdev_disk_changed(struct block_device *bdev, bool invalidate)
- 			disk->fops->revalidate_disk(disk);
- 	}
- 
--	check_disk_size_change(disk, bdev, !invalidate);
--
- 	if (get_capacity(disk)) {
- 		ret = blk_add_partitions(disk, bdev);
- 		if (ret == -EAGAIN)
-@@ -1345,10 +1279,8 @@ static int __blkdev_get(struct block_device *bdev, fmode_t mode)
- 			if (disk->fops->open)
- 				ret = disk->fops->open(bdev, mode);
- 
--			if (!ret) {
--				bd_set_nr_sectors(bdev, get_capacity(disk));
-+			if (!ret)
- 				set_init_blocksize(bdev);
--			}
- 
- 			/*
- 			 * If the device is invalidated, rescan partition
-@@ -1376,13 +1308,12 @@ static int __blkdev_get(struct block_device *bdev, fmode_t mode)
- 			mutex_unlock(&whole->bd_mutex);
- 
- 			bdev->bd_part = disk_get_part(disk, bdev->bd_partno);
--			if (!bdev->bd_part || !bdev->bd_part->nr_sects) {
-+			if (!bdev_nr_sectors(bdev)) {
- 				__blkdev_put(whole, mode, 1);
- 				bdput(whole);
- 				ret = -ENXIO;
- 				goto out_clear;
- 			}
--			bd_set_nr_sectors(bdev, bdev->bd_part->nr_sects);
- 			set_init_blocksize(bdev);
- 		}
- 
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 00eff2f5180790..d4e7fab352bacb 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -3151,7 +3151,7 @@ static int f2fs_report_zone_cb(struct blk_zone *zone, unsigned int idx,
- static int init_blkz_info(struct f2fs_sb_info *sbi, int devi)
+ static void bdev_free_inode(struct inode *inode)
  {
- 	struct block_device *bdev = FDEV(devi).bdev;
--	sector_t nr_sectors = bdev->bd_part->nr_sects;
-+	sector_t nr_sectors = bdev_nr_sectors(bdev);
- 	struct f2fs_report_zones_args rep_zone_arg;
- 	int ret;
++	struct block_device *bdev = I_BDEV(inode);
++
++	free_percpu(bdev->bd_stats);
++
+ 	kmem_cache_free(bdev_cachep, BDEV_I(inode));
+ }
  
-diff --git a/fs/pstore/blk.c b/fs/pstore/blk.c
-index fcd5563dde063c..777a26f7bbe2aa 100644
---- a/fs/pstore/blk.c
-+++ b/fs/pstore/blk.c
-@@ -245,7 +245,7 @@ static struct block_device *psblk_get_bdev(void *holder,
- 			return bdev;
- 	}
+@@ -875,6 +880,11 @@ struct block_device *bdev_alloc(struct gendisk *disk, u8 partno)
+ #ifdef CONFIG_SYSFS
+ 	INIT_LIST_HEAD(&bdev->bd_holder_disks);
+ #endif
++	bdev->bd_stats = alloc_percpu(struct disk_stats);
++	if (!bdev->bd_stats) {
++		iput(inode);
++		return NULL;
++	}
+ 	return bdev;
+ }
  
--	nr_sects = part_nr_sects_read(bdev->bd_part);
-+	nr_sects = bdev_nr_sectors(bdev);
- 	if (!nr_sects) {
- 		pr_err("not enough space for '%s'\n", blkdev);
- 		blkdev_put(bdev, mode);
+diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+index 2e0a9bd9688d28..520011b95276fb 100644
+--- a/include/linux/blk_types.h
++++ b/include/linux/blk_types.h
+@@ -20,6 +20,8 @@ typedef void (bio_end_io_t) (struct bio *);
+ struct bio_crypt_ctx;
+ 
+ struct block_device {
++	struct disk_stats __percpu *bd_stats;
++	unsigned long		bd_stamp;
+ 	dev_t			bd_dev;
+ 	int			bd_openers;
+ 	struct inode *		bd_inode;	/* will die */
 diff --git a/include/linux/genhd.h b/include/linux/genhd.h
-index 6ba91ee54cb2f6..30d4785b7df8bb 100644
+index 30d4785b7df8bb..804ac45fbfbc53 100644
 --- a/include/linux/genhd.h
 +++ b/include/linux/genhd.h
-@@ -52,15 +52,6 @@ struct partition_meta_info {
+@@ -52,8 +52,6 @@ struct partition_meta_info {
  
  struct hd_struct {
  	sector_t start_sect;
--	/*
--	 * nr_sects is protected by sequence counter. One might extend a
--	 * partition while IO is happening to it and update of nr_sects
--	 * can be non-atomic on 32bit machines with 64bit sector_t.
--	 */
--	sector_t nr_sects;
--#if BITS_PER_LONG==32 && defined(CONFIG_SMP)
--	seqcount_t nr_sects_seq;
--#endif
- 	unsigned long stamp;
- 	struct disk_stats __percpu *dkstats;
+-	unsigned long stamp;
+-	struct disk_stats __percpu *dkstats;
  	struct percpu_ref ref;
-@@ -254,13 +245,6 @@ static inline void disk_put_part(struct hd_struct *part)
- 		put_device(part_to_dev(part));
+ 
+ 	struct block_device *bdev;
+diff --git a/include/linux/part_stat.h b/include/linux/part_stat.h
+index 24125778ef3ec7..87ad60106e1db0 100644
+--- a/include/linux/part_stat.h
++++ b/include/linux/part_stat.h
+@@ -25,17 +25,17 @@ struct disk_stats {
+ #define part_stat_unlock()	preempt_enable()
+ 
+ #define part_stat_get_cpu(part, field, cpu)				\
+-	(per_cpu_ptr((part)->dkstats, (cpu))->field)
++	(per_cpu_ptr((part)->bdev->bd_stats, (cpu))->field)
+ 
+ #define part_stat_get(part, field)					\
+ 	part_stat_get_cpu(part, field, smp_processor_id())
+ 
+ #define part_stat_read(part, field)					\
+ ({									\
+-	typeof((part)->dkstats->field) res = 0;				\
++	typeof((part)->bdev->bd_stats->field) res = 0;			\
+ 	unsigned int _cpu;						\
+ 	for_each_possible_cpu(_cpu)					\
+-		res += per_cpu_ptr((part)->dkstats, _cpu)->field;	\
++		res += per_cpu_ptr((part)->bdev->bd_stats, _cpu)->field; \
+ 	res;								\
+ })
+ 
+@@ -44,7 +44,7 @@ static inline void part_stat_set_all(struct hd_struct *part, int value)
+ 	int i;
+ 
+ 	for_each_possible_cpu(i)
+-		memset(per_cpu_ptr(part->dkstats, i), value,
++		memset(per_cpu_ptr(part->bdev->bd_stats, i), value,
+ 				sizeof(struct disk_stats));
  }
  
--static inline void hd_sects_seq_init(struct hd_struct *p)
--{
--#if BITS_PER_LONG==32 && defined(CONFIG_SMP)
--	seqcount_init(&p->nr_sects_seq);
--#endif
--}
--
- /*
-  * Smarter partition iterator without context limits.
-  */
-@@ -318,13 +302,15 @@ static inline sector_t get_start_sect(struct block_device *bdev)
- {
- 	return bdev->bd_part->start_sect;
- }
--static inline sector_t get_capacity(struct gendisk *disk)
-+
-+static inline sector_t bdev_nr_sectors(struct block_device *bdev)
- {
--	return disk->part0.nr_sects;
-+	return i_size_read(bdev->bd_inode) >> 9;
- }
--static inline void set_capacity(struct gendisk *disk, sector_t size)
-+
-+static inline sector_t get_capacity(struct gendisk *disk)
- {
--	disk->part0.nr_sects = size;
-+	return bdev_nr_sectors(disk->part0.bdev);
- }
+@@ -54,7 +54,7 @@ static inline void part_stat_set_all(struct hd_struct *part, int value)
+ 	 part_stat_read(part, field[STAT_DISCARD]))
  
- int bdev_disk_changed(struct block_device *bdev, bool invalidate);
-@@ -358,10 +344,9 @@ int __register_blkdev(unsigned int major, const char *name,
- 	__register_blkdev(major, name, NULL)
- void unregister_blkdev(unsigned int major, const char *name);
+ #define __part_stat_add(part, field, addnd)				\
+-	__this_cpu_add((part)->dkstats->field, addnd)
++	__this_cpu_add((part)->bdev->bd_stats->field, addnd)
  
--void revalidate_disk_size(struct gendisk *disk, bool verbose);
- bool bdev_check_media_change(struct block_device *bdev);
- int __invalidate_device(struct block_device *bdev, bool kill_dirty);
--void bd_set_nr_sectors(struct block_device *bdev, sector_t sectors);
-+void set_capacity(struct gendisk *disk, sector_t size);
+ #define part_stat_add(part, field, addnd)	do {			\
+ 	__part_stat_add((part), field, addnd);				\
+@@ -63,20 +63,20 @@ static inline void part_stat_set_all(struct hd_struct *part, int value)
+ 				field, addnd);				\
+ } while (0)
  
- /* for drivers/char/raw.c: */
- int blkdev_ioctl(struct block_device *, fmode_t, unsigned, unsigned long);
-diff --git a/kernel/trace/blktrace.c b/kernel/trace/blktrace.c
-index f1022945e3460b..7076d588a50d69 100644
---- a/kernel/trace/blktrace.c
-+++ b/kernel/trace/blktrace.c
-@@ -465,7 +465,7 @@ static void blk_trace_setup_lba(struct blk_trace *bt,
+-#define part_stat_dec(gendiskp, field)					\
+-	part_stat_add(gendiskp, field, -1)
+-#define part_stat_inc(gendiskp, field)					\
+-	part_stat_add(gendiskp, field, 1)
+-#define part_stat_sub(gendiskp, field, subnd)				\
+-	part_stat_add(gendiskp, field, -subnd)
++#define part_stat_dec(part, field)					\
++	part_stat_add(part, field, -1)
++#define part_stat_inc(part, field)					\
++	part_stat_add(part, field, 1)
++#define part_stat_sub(part, field, subnd)				\
++	part_stat_add(part, field, -subnd)
  
- 	if (part) {
- 		bt->start_lba = part->start_sect;
--		bt->end_lba = part->start_sect + part->nr_sects;
-+		bt->end_lba = part->start_sect + bdev_nr_sectors(bdev);
- 	} else {
- 		bt->start_lba = 0;
- 		bt->end_lba = -1ULL;
+-#define part_stat_local_dec(gendiskp, field)				\
+-	local_dec(&(part_stat_get(gendiskp, field)))
+-#define part_stat_local_inc(gendiskp, field)				\
+-	local_inc(&(part_stat_get(gendiskp, field)))
+-#define part_stat_local_read(gendiskp, field)				\
+-	local_read(&(part_stat_get(gendiskp, field)))
+-#define part_stat_local_read_cpu(gendiskp, field, cpu)			\
+-	local_read(&(part_stat_get_cpu(gendiskp, field, cpu)))
++#define part_stat_local_dec(part, field)				\
++	local_dec(&(part_stat_get(part, field)))
++#define part_stat_local_inc(part, field)				\
++	local_inc(&(part_stat_get(part, field)))
++#define part_stat_local_read(part, field)				\
++	local_read(&(part_stat_get(part, field)))
++#define part_stat_local_read_cpu(part, field, cpu)			\
++	local_read(&(part_stat_get_cpu(part, field, cpu)))
+ 
+ #endif /* _LINUX_PART_STAT_H */
 -- 
 2.29.2
 
