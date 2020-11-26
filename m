@@ -1,57 +1,60 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B5D2E2C5571
-	for <lists+dm-devel@lfdr.de>; Thu, 26 Nov 2020 14:33:01 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 01EE12C56BB
+	for <lists+dm-devel@lfdr.de>; Thu, 26 Nov 2020 15:13:47 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-469-3G-CNaGVNaCr8Ma61zuGpw-1; Thu, 26 Nov 2020 08:32:58 -0500
-X-MC-Unique: 3G-CNaGVNaCr8Ma61zuGpw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-8-WMFP16qaO6OUS495X6XaYQ-1; Thu, 26 Nov 2020 09:13:44 -0500
+X-MC-Unique: WMFP16qaO6OUS495X6XaYQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 131901074643;
-	Thu, 26 Nov 2020 13:32:52 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7F2E51005E49;
+	Thu, 26 Nov 2020 14:13:37 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E04F61346F;
-	Thu, 26 Nov 2020 13:32:51 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B17519C71;
+	Thu, 26 Nov 2020 14:13:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9F9751809CA4;
-	Thu, 26 Nov 2020 13:32:51 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D3BA01809C9F;
+	Thu, 26 Nov 2020 14:13:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AQDWGg6005711 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 26 Nov 2020 08:32:16 -0500
+	id 0AQED82H009901 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 26 Nov 2020 09:13:08 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E72702166B27; Thu, 26 Nov 2020 13:32:15 +0000 (UTC)
+	id 7C82510F8E2A; Thu, 26 Nov 2020 14:13:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DE08D2166B29
-	for <dm-devel@redhat.com>; Thu, 26 Nov 2020 13:32:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 78A9710F8E19
+	for <dm-devel@redhat.com>; Thu, 26 Nov 2020 14:13:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C21E9800B3B
-	for <dm-devel@redhat.com>; Thu, 26 Nov 2020 13:32:12 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-193-G18XUfCLM8Gdp5FuY5RiDA-1; Thu, 26 Nov 2020 08:32:10 -0500
-X-MC-Unique: G18XUfCLM8Gdp5FuY5RiDA-1
-Received: from [2001:4bb8:18c:1dd6:27b8:b8a1:c13e:ceb1] (helo=localhost)
-	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kiGzl-0004C8-3U; Thu, 26 Nov 2020 13:07:33 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Jens Axboe <axboe@kernel.dk>
-Date: Thu, 26 Nov 2020 14:04:19 +0100
-Message-Id: <20201126130422.92945-42-hch@lst.de>
-In-Reply-To: <20201126130422.92945-1-hch@lst.de>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 233BF858EEC
+	for <dm-devel@redhat.com>; Thu, 26 Nov 2020 14:13:06 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-134-Rl0eD14tNPC1PCljKDO7rw-1;
+	Thu, 26 Nov 2020 09:13:03 -0500
+X-MC-Unique: Rl0eD14tNPC1PCljKDO7rw-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id B6622ADCF;
+	Thu, 26 Nov 2020 14:13:01 +0000 (UTC)
+Received: by quack2.suse.cz (Postfix, from userid 1000)
+	id 4DC0E1E10D0; Thu, 26 Nov 2020 15:13:01 +0100 (CET)
+Date: Thu, 26 Nov 2020 15:13:01 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20201126141301.GF422@quack2.suse.cz>
 References: <20201126130422.92945-1-hch@lst.de>
+	<20201126130422.92945-5-hch@lst.de>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	casper.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20201126130422.92945-5-hch@lst.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -60,18 +63,18 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
-	Mike Snitzer <snitzer@redhat.com>, linux-mm@kvack.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Jens Axboe <axboe@kernel.dk>, Chao Yu <yuchao0@huawei.com>,
+	Jan Kara <jack@suse.cz>, Mike Snitzer <snitzer@redhat.com>,
+	linux-mm@kvack.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Jan Kara <jack@suse.com>, Josef Bacik <josef@toxicpanda.com>,
 	Coly Li <colyli@suse.de>, linux-block@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org, dm-devel@redhat.com,
 	linux-mtd@lists.infradead.org,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>, Tejun Heo <tj@kernel.org>
-Subject: [dm-devel] [PATCH 41/44] block: switch disk_part_iter_* to use a
-	struct block_device
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+	Tejun Heo <tj@kernel.org>, linux-bcache@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH 04/44] fs: simplify freeze_bdev/thaw_bdev
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,315 +88,280 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Switch the partition iter infrastructure to iterate over block_device
-references instead of hd_struct ones mostly used to get at the
-block_device.
+On Thu 26-11-20 14:03:42, Christoph Hellwig wrote:
+> Store the frozen superblock in struct block_device to avoid the awkward
+> interface that can return a sb only used a cookie, an ERR_PTR or NULL.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> Acked-by: Chao Yu <yuchao0@huawei.com>		[f2fs]
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- block/genhd.c             | 57 +++++++++++++++++++--------------------
- block/partitions/core.c   | 13 +++++----
- drivers/s390/block/dasd.c |  8 +++---
- include/linux/genhd.h     |  4 +--
- 4 files changed, 40 insertions(+), 42 deletions(-)
+Looks good to me. You can add:
 
-diff --git a/block/genhd.c b/block/genhd.c
-index 28299b24173be1..b58595f2ca33b1 100644
---- a/block/genhd.c
-+++ b/block/genhd.c
-@@ -233,7 +233,7 @@ EXPORT_SYMBOL_GPL(disk_part_iter_init);
-  * CONTEXT:
-  * Don't care.
-  */
--struct hd_struct *disk_part_iter_next(struct disk_part_iter *piter)
-+struct block_device *disk_part_iter_next(struct disk_part_iter *piter)
- {
- 	struct disk_part_tbl *ptbl;
- 	int inc, end;
-@@ -271,8 +271,7 @@ struct hd_struct *disk_part_iter_next(struct disk_part_iter *piter)
- 		      piter->idx == 0))
- 			continue;
- 
--		get_device(part_to_dev(part->bd_part));
--		piter->part = part->bd_part;
-+		piter->part = bdgrab(part);
- 		piter->idx += inc;
- 		break;
- 	}
-@@ -294,7 +293,8 @@ EXPORT_SYMBOL_GPL(disk_part_iter_next);
-  */
- void disk_part_iter_exit(struct disk_part_iter *piter)
- {
--	disk_put_part(piter->part);
-+	if (piter->part)
-+		bdput(piter->part);
- 	piter->part = NULL;
- }
- EXPORT_SYMBOL_GPL(disk_part_iter_exit);
-@@ -335,7 +335,6 @@ struct block_device *disk_map_sector_rcu(struct gendisk *disk, sector_t sector)
- 
- 	for (i = 1; i < ptbl->len; i++) {
- 		part = rcu_dereference(ptbl->part[i]);
--
- 		if (part && sector_in_part(part, sector)) {
- 			rcu_assign_pointer(ptbl->last_lookup, part);
- 			goto out_unlock;
-@@ -636,7 +635,7 @@ static void register_disk(struct device *parent, struct gendisk *disk,
- {
- 	struct device *ddev = disk_to_dev(disk);
- 	struct disk_part_iter piter;
--	struct hd_struct *part;
-+	struct block_device *part;
- 	int err;
- 
- 	ddev->parent = parent;
-@@ -686,7 +685,7 @@ static void register_disk(struct device *parent, struct gendisk *disk,
- 	/* announce possible partitions */
- 	disk_part_iter_init(&piter, disk, 0);
- 	while ((part = disk_part_iter_next(&piter)))
--		kobject_uevent(&part_to_dev(part)->kobj, KOBJ_ADD);
-+		kobject_uevent(bdev_kobj(part), KOBJ_ADD);
- 	disk_part_iter_exit(&piter);
- 
- 	if (disk->queue->backing_dev_info->dev) {
-@@ -826,7 +825,7 @@ static void invalidate_partition(struct block_device *bdev)
- void del_gendisk(struct gendisk *disk)
- {
- 	struct disk_part_iter piter;
--	struct hd_struct *part;
-+	struct block_device *part;
- 
- 	might_sleep();
- 
-@@ -846,8 +845,8 @@ void del_gendisk(struct gendisk *disk)
- 	disk_part_iter_init(&piter, disk,
- 			     DISK_PITER_INCL_EMPTY | DISK_PITER_REVERSE);
- 	while ((part = disk_part_iter_next(&piter))) {
--		invalidate_partition(part->bdev);
--		delete_partition(part);
-+		invalidate_partition(part);
-+		delete_partition(part->bd_part);
- 	}
- 	disk_part_iter_exit(&piter);
- 
-@@ -966,7 +965,7 @@ void __init printk_all_partitions(void)
- 	while ((dev = class_dev_iter_next(&iter))) {
- 		struct gendisk *disk = dev_to_disk(dev);
- 		struct disk_part_iter piter;
--		struct hd_struct *part;
-+		struct block_device *part;
- 		char name_buf[BDEVNAME_SIZE];
- 		char devt_buf[BDEVT_SIZE];
- 
-@@ -985,14 +984,14 @@ void __init printk_all_partitions(void)
- 		 */
- 		disk_part_iter_init(&piter, disk, DISK_PITER_INCL_PART0);
- 		while ((part = disk_part_iter_next(&piter))) {
--			bool is_part0 = part == disk->part0->bd_part;
-+			bool is_part0 = part == disk->part0;
- 
- 			printk("%s%s %10llu %s %s", is_part0 ? "" : "  ",
--			       bdevt_str(part_devt(part), devt_buf),
--			       bdev_nr_sectors(part->bdev) >> 1,
--			       disk_name(disk, part->bdev->bd_partno, name_buf),
--			       part->bdev->bd_meta_info ?
--					part->bdev->bd_meta_info->uuid : "");
-+			       bdevt_str(part->bd_dev, devt_buf),
-+			       bdev_nr_sectors(part) >> 1,
-+			       disk_name(disk, part->bd_partno, name_buf),
-+			       part->bd_meta_info ?
-+					part->bd_meta_info->uuid : "");
- 			if (is_part0) {
- 				if (dev->parent && dev->parent->driver)
- 					printk(" driver: %s\n",
-@@ -1068,7 +1067,7 @@ static int show_partition(struct seq_file *seqf, void *v)
- {
- 	struct gendisk *sgp = v;
- 	struct disk_part_iter piter;
--	struct hd_struct *part;
-+	struct block_device *part;
- 	char buf[BDEVNAME_SIZE];
- 
- 	/* Don't show non-partitionable removeable devices or empty devices */
-@@ -1082,9 +1081,9 @@ static int show_partition(struct seq_file *seqf, void *v)
- 	disk_part_iter_init(&piter, sgp, DISK_PITER_INCL_PART0);
- 	while ((part = disk_part_iter_next(&piter)))
- 		seq_printf(seqf, "%4d  %7d %10llu %s\n",
--			   MAJOR(part_devt(part)), MINOR(part_devt(part)),
--			   bdev_nr_sectors(part->bdev) >> 1,
--			   disk_name(sgp, part->bdev->bd_partno, buf));
-+			   MAJOR(part->bd_dev), MINOR(part->bd_dev),
-+			   bdev_nr_sectors(part) >> 1,
-+			   disk_name(sgp, part->bd_partno, buf));
- 	disk_part_iter_exit(&piter);
- 
- 	return 0;
-@@ -1478,7 +1477,7 @@ static int diskstats_show(struct seq_file *seqf, void *v)
- {
- 	struct gendisk *gp = v;
- 	struct disk_part_iter piter;
--	struct hd_struct *hd;
-+	struct block_device *hd;
- 	char buf[BDEVNAME_SIZE];
- 	unsigned int inflight;
- 	struct disk_stats stat;
-@@ -1493,11 +1492,11 @@ static int diskstats_show(struct seq_file *seqf, void *v)
- 
- 	disk_part_iter_init(&piter, gp, DISK_PITER_INCL_EMPTY_PART0);
- 	while ((hd = disk_part_iter_next(&piter))) {
--		part_stat_read_all(hd, &stat);
-+		part_stat_read_all(hd->bd_part, &stat);
- 		if (queue_is_mq(gp->queue))
--			inflight = blk_mq_in_flight(gp->queue, hd->bdev);
-+			inflight = blk_mq_in_flight(gp->queue, hd);
- 		else
--			inflight = part_in_flight(hd->bdev);
-+			inflight = part_in_flight(hd);
- 
- 		seq_printf(seqf, "%4d %7d %s "
- 			   "%lu %lu %lu %u "
-@@ -1506,8 +1505,8 @@ static int diskstats_show(struct seq_file *seqf, void *v)
- 			   "%lu %lu %lu %u "
- 			   "%lu %u"
- 			   "\n",
--			   MAJOR(part_devt(hd)), MINOR(part_devt(hd)),
--			   disk_name(gp, hd->bdev->bd_partno, buf),
-+			   MAJOR(hd->bd_dev), MINOR(hd->bd_dev),
-+			   disk_name(gp, hd->bd_partno, buf),
- 			   stat.ios[STAT_READ],
- 			   stat.merges[STAT_READ],
- 			   stat.sectors[STAT_READ],
-@@ -1662,7 +1661,7 @@ static void set_disk_ro_uevent(struct gendisk *gd, int ro)
- void set_disk_ro(struct gendisk *disk, int flag)
- {
- 	struct disk_part_iter piter;
--	struct hd_struct *part;
-+	struct block_device *part;
- 
- 	if (disk->part0->bd_read_only != flag) {
- 		set_disk_ro_uevent(disk, flag);
-@@ -1671,7 +1670,7 @@ void set_disk_ro(struct gendisk *disk, int flag)
- 
- 	disk_part_iter_init(&piter, disk, DISK_PITER_INCL_EMPTY);
- 	while ((part = disk_part_iter_next(&piter)))
--		part->bdev->bd_read_only = flag;
-+		part->bd_read_only = flag;
- 	disk_part_iter_exit(&piter);
- }
- 
-diff --git a/block/partitions/core.c b/block/partitions/core.c
-index 4f823c4c733518..6cccb2f38adb24 100644
---- a/block/partitions/core.c
-+++ b/block/partitions/core.c
-@@ -439,15 +439,14 @@ static bool partition_overlaps(struct gendisk *disk, sector_t start,
- 		sector_t length, int skip_partno)
- {
- 	struct disk_part_iter piter;
--	struct hd_struct *part;
-+	struct block_device *part;
- 	bool overlap = false;
- 
- 	disk_part_iter_init(&piter, disk, DISK_PITER_INCL_EMPTY);
- 	while ((part = disk_part_iter_next(&piter))) {
--		if (part->bdev->bd_partno == skip_partno ||
--		    start >= part->bdev->bd_start_sect +
--			bdev_nr_sectors(part->bdev) ||
--		    start + length <= part->bdev->bd_start_sect)
-+		if (part->bd_partno == skip_partno ||
-+		    start >= part->bd_start_sect + bdev_nr_sectors(part) ||
-+		    start + length <= part->bd_start_sect)
- 			continue;
- 		overlap = true;
- 		break;
-@@ -568,7 +567,7 @@ static bool disk_unlock_native_capacity(struct gendisk *disk)
- int blk_drop_partitions(struct block_device *bdev)
- {
- 	struct disk_part_iter piter;
--	struct hd_struct *part;
-+	struct block_device *part;
- 
- 	if (bdev->bd_part_count)
- 		return -EBUSY;
-@@ -578,7 +577,7 @@ int blk_drop_partitions(struct block_device *bdev)
- 
- 	disk_part_iter_init(&piter, bdev->bd_disk, DISK_PITER_INCL_EMPTY);
- 	while ((part = disk_part_iter_next(&piter)))
--		delete_partition(part);
-+		delete_partition(part->bd_part);
- 	disk_part_iter_exit(&piter);
- 
- 	return 0;
-diff --git a/drivers/s390/block/dasd.c b/drivers/s390/block/dasd.c
-index db24e04ee9781e..1825fa8d05a780 100644
---- a/drivers/s390/block/dasd.c
-+++ b/drivers/s390/block/dasd.c
-@@ -432,7 +432,7 @@ dasd_state_ready_to_online(struct dasd_device * device)
- {
- 	struct gendisk *disk;
- 	struct disk_part_iter piter;
--	struct hd_struct *part;
-+	struct block_device *part;
- 
- 	device->state = DASD_STATE_ONLINE;
- 	if (device->block) {
-@@ -445,7 +445,7 @@ dasd_state_ready_to_online(struct dasd_device * device)
- 		disk = device->block->bdev->bd_disk;
- 		disk_part_iter_init(&piter, disk, DISK_PITER_INCL_PART0);
- 		while ((part = disk_part_iter_next(&piter)))
--			kobject_uevent(&part_to_dev(part)->kobj, KOBJ_CHANGE);
-+			kobject_uevent(bdev_kobj(part), KOBJ_CHANGE);
- 		disk_part_iter_exit(&piter);
- 	}
- 	return 0;
-@@ -459,7 +459,7 @@ static int dasd_state_online_to_ready(struct dasd_device *device)
- 	int rc;
- 	struct gendisk *disk;
- 	struct disk_part_iter piter;
--	struct hd_struct *part;
-+	struct block_device *part;
- 
- 	if (device->discipline->online_to_ready) {
- 		rc = device->discipline->online_to_ready(device);
-@@ -472,7 +472,7 @@ static int dasd_state_online_to_ready(struct dasd_device *device)
- 		disk = device->block->bdev->bd_disk;
- 		disk_part_iter_init(&piter, disk, DISK_PITER_INCL_PART0);
- 		while ((part = disk_part_iter_next(&piter)))
--			kobject_uevent(&part_to_dev(part)->kobj, KOBJ_CHANGE);
-+			kobject_uevent(bdev_kobj(part), KOBJ_CHANGE);
- 		disk_part_iter_exit(&piter);
- 	}
- 	return 0;
-diff --git a/include/linux/genhd.h b/include/linux/genhd.h
-index 3c13d4708e3f9d..cd23c80265b2b2 100644
---- a/include/linux/genhd.h
-+++ b/include/linux/genhd.h
-@@ -244,14 +244,14 @@ static inline void disk_put_part(struct hd_struct *part)
- 
- struct disk_part_iter {
- 	struct gendisk		*disk;
--	struct hd_struct	*part;
-+	struct block_device	*part;
- 	int			idx;
- 	unsigned int		flags;
- };
- 
- extern void disk_part_iter_init(struct disk_part_iter *piter,
- 				 struct gendisk *disk, unsigned int flags);
--extern struct hd_struct *disk_part_iter_next(struct disk_part_iter *piter);
-+struct block_device *disk_part_iter_next(struct disk_part_iter *piter);
- extern void disk_part_iter_exit(struct disk_part_iter *piter);
- extern bool disk_has_partitions(struct gendisk *disk);
- 
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
+> ---
+>  drivers/md/dm-core.h      |  5 -----
+>  drivers/md/dm.c           | 20 ++++++--------------
+>  fs/block_dev.c            | 37 +++++++++++++++----------------------
+>  fs/buffer.c               |  2 +-
+>  fs/ext4/ioctl.c           |  2 +-
+>  fs/f2fs/file.c            | 14 +++++---------
+>  fs/xfs/xfs_fsops.c        |  7 ++-----
+>  include/linux/blk_types.h |  1 +
+>  include/linux/blkdev.h    |  4 ++--
+>  9 files changed, 33 insertions(+), 59 deletions(-)
+> 
+> diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
+> index d522093cb39dda..aace147effcacb 100644
+> --- a/drivers/md/dm-core.h
+> +++ b/drivers/md/dm-core.h
+> @@ -96,11 +96,6 @@ struct mapped_device {
+>  	 */
+>  	struct workqueue_struct *wq;
+>  
+> -	/*
+> -	 * freeze/thaw support require holding onto a super block
+> -	 */
+> -	struct super_block *frozen_sb;
+> -
+>  	/* forced geometry settings */
+>  	struct hd_geometry geometry;
+>  
+> diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+> index 54739f1b579bc8..50541d336c719b 100644
+> --- a/drivers/md/dm.c
+> +++ b/drivers/md/dm.c
+> @@ -2392,27 +2392,19 @@ static int lock_fs(struct mapped_device *md)
+>  {
+>  	int r;
+>  
+> -	WARN_ON(md->frozen_sb);
+> +	WARN_ON(test_bit(DMF_FROZEN, &md->flags));
+>  
+> -	md->frozen_sb = freeze_bdev(md->bdev);
+> -	if (IS_ERR(md->frozen_sb)) {
+> -		r = PTR_ERR(md->frozen_sb);
+> -		md->frozen_sb = NULL;
+> -		return r;
+> -	}
+> -
+> -	set_bit(DMF_FROZEN, &md->flags);
+> -
+> -	return 0;
+> +	r = freeze_bdev(md->bdev);
+> +	if (!r)
+> +		set_bit(DMF_FROZEN, &md->flags);
+> +	return r;
+>  }
+>  
+>  static void unlock_fs(struct mapped_device *md)
+>  {
+>  	if (!test_bit(DMF_FROZEN, &md->flags))
+>  		return;
+> -
+> -	thaw_bdev(md->bdev, md->frozen_sb);
+> -	md->frozen_sb = NULL;
+> +	thaw_bdev(md->bdev);
+>  	clear_bit(DMF_FROZEN, &md->flags);
+>  }
+>  
+> diff --git a/fs/block_dev.c b/fs/block_dev.c
+> index d8664f5c1ff669..33c29106c98907 100644
+> --- a/fs/block_dev.c
+> +++ b/fs/block_dev.c
+> @@ -548,55 +548,47 @@ EXPORT_SYMBOL(fsync_bdev);
+>   * count down in thaw_bdev(). When it becomes 0, thaw_bdev() will unfreeze
+>   * actually.
+>   */
+> -struct super_block *freeze_bdev(struct block_device *bdev)
+> +int freeze_bdev(struct block_device *bdev)
+>  {
+>  	struct super_block *sb;
+>  	int error = 0;
+>  
+>  	mutex_lock(&bdev->bd_fsfreeze_mutex);
+> -	if (++bdev->bd_fsfreeze_count > 1) {
+> -		/*
+> -		 * We don't even need to grab a reference - the first call
+> -		 * to freeze_bdev grab an active reference and only the last
+> -		 * thaw_bdev drops it.
+> -		 */
+> -		sb = get_super(bdev);
+> -		if (sb)
+> -			drop_super(sb);
+> -		mutex_unlock(&bdev->bd_fsfreeze_mutex);
+> -		return sb;
+> -	}
+> +	if (++bdev->bd_fsfreeze_count > 1)
+> +		goto done;
+>  
+>  	sb = get_active_super(bdev);
+>  	if (!sb)
+> -		goto out;
+> +		goto sync;
+>  	if (sb->s_op->freeze_super)
+>  		error = sb->s_op->freeze_super(sb);
+>  	else
+>  		error = freeze_super(sb);
+> +	deactivate_super(sb);
+> +
+>  	if (error) {
+> -		deactivate_super(sb);
+>  		bdev->bd_fsfreeze_count--;
+> -		mutex_unlock(&bdev->bd_fsfreeze_mutex);
+> -		return ERR_PTR(error);
+> +		goto done;
+>  	}
+> -	deactivate_super(sb);
+> - out:
+> +	bdev->bd_fsfreeze_sb = sb;
+> +
+> +sync:
+>  	sync_blockdev(bdev);
+> +done:
+>  	mutex_unlock(&bdev->bd_fsfreeze_mutex);
+> -	return sb;	/* thaw_bdev releases s->s_umount */
+> +	return error;
+>  }
+>  EXPORT_SYMBOL(freeze_bdev);
+>  
+>  /**
+>   * thaw_bdev  -- unlock filesystem
+>   * @bdev:	blockdevice to unlock
+> - * @sb:		associated superblock
+>   *
+>   * Unlocks the filesystem and marks it writeable again after freeze_bdev().
+>   */
+> -int thaw_bdev(struct block_device *bdev, struct super_block *sb)
+> +int thaw_bdev(struct block_device *bdev)
+>  {
+> +	struct super_block *sb;
+>  	int error = -EINVAL;
+>  
+>  	mutex_lock(&bdev->bd_fsfreeze_mutex);
+> @@ -607,6 +599,7 @@ int thaw_bdev(struct block_device *bdev, struct super_block *sb)
+>  	if (--bdev->bd_fsfreeze_count > 0)
+>  		goto out;
+>  
+> +	sb = bdev->bd_fsfreeze_sb;
+>  	if (!sb)
+>  		goto out;
+>  
+> diff --git a/fs/buffer.c b/fs/buffer.c
+> index 23f645657488ba..a7595ada9400ff 100644
+> --- a/fs/buffer.c
+> +++ b/fs/buffer.c
+> @@ -523,7 +523,7 @@ static int osync_buffers_list(spinlock_t *lock, struct list_head *list)
+>  
+>  void emergency_thaw_bdev(struct super_block *sb)
+>  {
+> -	while (sb->s_bdev && !thaw_bdev(sb->s_bdev, sb))
+> +	while (sb->s_bdev && !thaw_bdev(sb->s_bdev))
+>  		printk(KERN_WARNING "Emergency Thaw on %pg\n", sb->s_bdev);
+>  }
+>  
+> diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
+> index f0381876a7e5b0..524e134324475e 100644
+> --- a/fs/ext4/ioctl.c
+> +++ b/fs/ext4/ioctl.c
+> @@ -624,7 +624,7 @@ static int ext4_shutdown(struct super_block *sb, unsigned long arg)
+>  	case EXT4_GOING_FLAGS_DEFAULT:
+>  		freeze_bdev(sb->s_bdev);
+>  		set_bit(EXT4_FLAGS_SHUTDOWN, &sbi->s_ext4_flags);
+> -		thaw_bdev(sb->s_bdev, sb);
+> +		thaw_bdev(sb->s_bdev);
+>  		break;
+>  	case EXT4_GOING_FLAGS_LOGFLUSH:
+>  		set_bit(EXT4_FLAGS_SHUTDOWN, &sbi->s_ext4_flags);
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index ee861c6d9ff026..a9fc482a0e60a5 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -2230,16 +2230,12 @@ static int f2fs_ioc_shutdown(struct file *filp, unsigned long arg)
+>  
+>  	switch (in) {
+>  	case F2FS_GOING_DOWN_FULLSYNC:
+> -		sb = freeze_bdev(sb->s_bdev);
+> -		if (IS_ERR(sb)) {
+> -			ret = PTR_ERR(sb);
+> +		ret = freeze_bdev(sb->s_bdev);
+> +		if (ret)
+>  			goto out;
+> -		}
+> -		if (sb) {
+> -			f2fs_stop_checkpoint(sbi, false);
+> -			set_sbi_flag(sbi, SBI_IS_SHUTDOWN);
+> -			thaw_bdev(sb->s_bdev, sb);
+> -		}
+> +		f2fs_stop_checkpoint(sbi, false);
+> +		set_sbi_flag(sbi, SBI_IS_SHUTDOWN);
+> +		thaw_bdev(sb->s_bdev);
+>  		break;
+>  	case F2FS_GOING_DOWN_METASYNC:
+>  		/* do checkpoint only */
+> diff --git a/fs/xfs/xfs_fsops.c b/fs/xfs/xfs_fsops.c
+> index ef1d5bb88b93ab..b7c5783a031c69 100644
+> --- a/fs/xfs/xfs_fsops.c
+> +++ b/fs/xfs/xfs_fsops.c
+> @@ -433,13 +433,10 @@ xfs_fs_goingdown(
+>  {
+>  	switch (inflags) {
+>  	case XFS_FSOP_GOING_FLAGS_DEFAULT: {
+> -		struct super_block *sb = freeze_bdev(mp->m_super->s_bdev);
+> -
+> -		if (sb && !IS_ERR(sb)) {
+> +		if (!freeze_bdev(mp->m_super->s_bdev)) {
+>  			xfs_force_shutdown(mp, SHUTDOWN_FORCE_UMOUNT);
+> -			thaw_bdev(sb->s_bdev, sb);
+> +			thaw_bdev(mp->m_super->s_bdev);
+>  		}
+> -
+>  		break;
+>  	}
+>  	case XFS_FSOP_GOING_FLAGS_LOGFLUSH:
+> diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+> index d9b69bbde5cc54..ebfb4e7c1fd125 100644
+> --- a/include/linux/blk_types.h
+> +++ b/include/linux/blk_types.h
+> @@ -46,6 +46,7 @@ struct block_device {
+>  	int			bd_fsfreeze_count;
+>  	/* Mutex for freeze */
+>  	struct mutex		bd_fsfreeze_mutex;
+> +	struct super_block	*bd_fsfreeze_sb;
+>  } __randomize_layout;
+>  
+>  /*
+> diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+> index 05b346a68c2eee..12810a19edebc4 100644
+> --- a/include/linux/blkdev.h
+> +++ b/include/linux/blkdev.h
+> @@ -2020,7 +2020,7 @@ static inline int sync_blockdev(struct block_device *bdev)
+>  #endif
+>  int fsync_bdev(struct block_device *bdev);
+>  
+> -struct super_block *freeze_bdev(struct block_device *bdev);
+> -int thaw_bdev(struct block_device *bdev, struct super_block *sb);
+> +int freeze_bdev(struct block_device *bdev);
+> +int thaw_bdev(struct block_device *bdev);
+>  
+>  #endif /* _LINUX_BLKDEV_H */
+> -- 
+> 2.29.2
+> 
 -- 
-2.29.2
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
 --
 dm-devel mailing list
