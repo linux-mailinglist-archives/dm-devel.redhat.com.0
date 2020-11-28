@@ -2,52 +2,51 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id ADFC22C6FFB
-	for <lists+dm-devel@lfdr.de>; Sat, 28 Nov 2020 17:24:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8DA022C6FF8
+	for <lists+dm-devel@lfdr.de>; Sat, 28 Nov 2020 17:23:19 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-329-q6Z5xy0HNY-5Dko5ItM37A-1; Sat, 28 Nov 2020 11:23:58 -0500
-X-MC-Unique: q6Z5xy0HNY-5Dko5ItM37A-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-295-0H6Unps-OjOOOxMS_nrVLw-1; Sat, 28 Nov 2020 11:23:16 -0500
+X-MC-Unique: 0H6Unps-OjOOOxMS_nrVLw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C42DF8030AE;
-	Sat, 28 Nov 2020 16:23:51 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 09D491842148;
+	Sat, 28 Nov 2020 16:23:10 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9F0EC1A88B;
-	Sat, 28 Nov 2020 16:23:51 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DB1DD60864;
+	Sat, 28 Nov 2020 16:23:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5F3491809C9F;
-	Sat, 28 Nov 2020 16:23:51 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9DDB51809CA2;
+	Sat, 28 Nov 2020 16:23:09 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0ASGLtwC023164 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 28 Nov 2020 11:21:55 -0500
+	id 0ASGN5ZK023651 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 28 Nov 2020 11:23:05 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1BC0D47CE1; Sat, 28 Nov 2020 16:21:55 +0000 (UTC)
+	id 05DC12166B2C; Sat, 28 Nov 2020 16:23:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1675F47CDC
-	for <dm-devel@redhat.com>; Sat, 28 Nov 2020 16:21:52 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0013C2166B28
+	for <dm-devel@redhat.com>; Sat, 28 Nov 2020 16:23:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BF0671010439
-	for <dm-devel@redhat.com>; Sat, 28 Nov 2020 16:21:52 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4B4AA858EEC
+	for <dm-devel@redhat.com>; Sat, 28 Nov 2020 16:23:00 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-221-MZdC6lCVPvKc6llgBAtOiA-1; Sat, 28 Nov 2020 11:21:47 -0500
-X-MC-Unique: MZdC6lCVPvKc6llgBAtOiA-1
+	us-mta-510-O5vapj9JMwK6b1aX8OrszA-1; Sat, 28 Nov 2020 11:22:55 -0500
+X-MC-Unique: O5vapj9JMwK6b1aX8OrszA-1
 Received: from [2001:4bb8:18c:1dd6:48f3:741a:602e:7fdd] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kj2si-0000EI-8V; Sat, 28 Nov 2020 16:15:28 +0000
+	id 1kj2sj-0000EZ-PR; Sat, 28 Nov 2020 16:15:30 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Sat, 28 Nov 2020 17:14:35 +0100
-Message-Id: <20201128161510.347752-11-hch@lst.de>
+Date: Sat, 28 Nov 2020 17:14:36 +0100
+Message-Id: <20201128161510.347752-12-hch@lst.de>
 In-Reply-To: <20201128161510.347752-1-hch@lst.de>
 References: <20201128161510.347752-1-hch@lst.de>
 MIME-Version: 1.0
@@ -61,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
 	Mike Snitzer <snitzer@redhat.com>, linux-mm@kvack.org,
@@ -71,8 +70,8 @@ Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
 	linux-fsdevel@vger.kernel.org, dm-devel@redhat.com,
 	linux-mtd@lists.infradead.org,
 	Johannes Thumshirn <johannes.thumshirn@wdc.com>, Tejun Heo <tj@kernel.org>
-Subject: [dm-devel] [PATCH 10/45] block: remove a duplicate __disk_get_part
-	prototype
+Subject: [dm-devel] [PATCH 11/45] block: remove a superflous check in
+	blkpg_do_ioctl
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,7 +85,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -94,28 +93,36 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Acked-by: Tejun Heo <tj@kernel.org>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Reviewed-by: Hannes Reinecke <hare@suse.de>
-Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
----
- include/linux/genhd.h | 1 -
- 1 file changed, 1 deletion(-)
+sector_t is now always a u64, so this check is not needed.
 
-diff --git a/include/linux/genhd.h b/include/linux/genhd.h
-index 46553d6d602563..22f5b9fd96f8bf 100644
---- a/include/linux/genhd.h
-+++ b/include/linux/genhd.h
-@@ -250,7 +250,6 @@ static inline dev_t part_devt(struct hd_struct *part)
- 	return part_to_dev(part)->devt;
- }
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Hannes Reinecke <hare@suse.de>
+Acked-by: Tejun Heo <tj@kernel.org>
+---
+ block/ioctl.c | 9 ---------
+ 1 file changed, 9 deletions(-)
+
+diff --git a/block/ioctl.c b/block/ioctl.c
+index 6b785181344fe1..0c09bb7a6ff35f 100644
+--- a/block/ioctl.c
++++ b/block/ioctl.c
+@@ -35,15 +35,6 @@ static int blkpg_do_ioctl(struct block_device *bdev,
+ 	start = p.start >> SECTOR_SHIFT;
+ 	length = p.length >> SECTOR_SHIFT;
  
--extern struct hd_struct *__disk_get_part(struct gendisk *disk, int partno);
- extern struct hd_struct *disk_get_part(struct gendisk *disk, int partno);
- 
- static inline void disk_put_part(struct hd_struct *part)
+-	/* check for fit in a hd_struct */
+-	if (sizeof(sector_t) < sizeof(long long)) {
+-		long pstart = start, plength = length;
+-
+-		if (pstart != start || plength != length || pstart < 0 ||
+-		    plength < 0 || p.pno > 65535)
+-			return -EINVAL;
+-	}
+-
+ 	switch (op) {
+ 	case BLKPG_ADD_PARTITION:
+ 		/* check if partition is aligned to blocksize */
 -- 
 2.29.2
 
