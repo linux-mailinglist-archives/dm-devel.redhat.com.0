@@ -1,53 +1,52 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 3C52A2C6FE9
-	for <lists+dm-devel@lfdr.de>; Sat, 28 Nov 2020 17:22:41 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 9898D2C6FF5
+	for <lists+dm-devel@lfdr.de>; Sat, 28 Nov 2020 17:23:09 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-487-IX0RmEfsMYyLYZ8dgObS_A-1; Sat, 28 Nov 2020 11:22:38 -0500
-X-MC-Unique: IX0RmEfsMYyLYZ8dgObS_A-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-142-0Y91V15PNfid0Z-6AUD15g-1; Sat, 28 Nov 2020 11:22:58 -0500
+X-MC-Unique: 0Y91V15PNfid0Z-6AUD15g-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CE72F1E7F0;
-	Sat, 28 Nov 2020 16:22:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5DEF78030B1;
+	Sat, 28 Nov 2020 16:22:53 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6447F60C62;
-	Sat, 28 Nov 2020 16:22:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3D36B620D7;
+	Sat, 28 Nov 2020 16:22:53 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 278B31809CA3;
-	Sat, 28 Nov 2020 16:22:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EFE0C1809C9F;
+	Sat, 28 Nov 2020 16:22:52 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0ASGMR5f023382 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 28 Nov 2020 11:22:27 -0500
+	id 0ASGMnjh023525 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 28 Nov 2020 11:22:49 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id AD319202717D; Sat, 28 Nov 2020 16:22:27 +0000 (UTC)
+	id BDBE3110FBEF; Sat, 28 Nov 2020 16:22:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A87F42027EAD
-	for <dm-devel@redhat.com>; Sat, 28 Nov 2020 16:22:27 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B9606110FBEE
+	for <dm-devel@redhat.com>; Sat, 28 Nov 2020 16:22:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9430F1010439
-	for <dm-devel@redhat.com>; Sat, 28 Nov 2020 16:22:27 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4DC378007D9
+	for <dm-devel@redhat.com>; Sat, 28 Nov 2020 16:22:46 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-395-3fIhafdiPFuS4OptPubfrQ-1; Sat, 28 Nov 2020 11:22:25 -0500
-X-MC-Unique: 3fIhafdiPFuS4OptPubfrQ-1
+	us-mta-312-vA695xBsMg2kGm4cEY41dg-1; Sat, 28 Nov 2020 11:22:41 -0500
+X-MC-Unique: vA695xBsMg2kGm4cEY41dg-1
 Received: from [2001:4bb8:18c:1dd6:48f3:741a:602e:7fdd] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kj2se-0000Dq-Ja; Sat, 28 Nov 2020 16:15:24 +0000
+	id 1kj2sf-0000E1-TK; Sat, 28 Nov 2020 16:15:26 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Sat, 28 Nov 2020 17:14:33 +0100
-Message-Id: <20201128161510.347752-9-hch@lst.de>
+Date: Sat, 28 Nov 2020 17:14:34 +0100
+Message-Id: <20201128161510.347752-10-hch@lst.de>
 In-Reply-To: <20201128161510.347752-1-hch@lst.de>
 References: <20201128161510.347752-1-hch@lst.de>
 MIME-Version: 1.0
@@ -61,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
 	Mike Snitzer <snitzer@redhat.com>, linux-mm@kvack.org,
@@ -71,8 +70,8 @@ Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
 	linux-fsdevel@vger.kernel.org, dm-devel@redhat.com,
 	linux-mtd@lists.infradead.org,
 	Johannes Thumshirn <johannes.thumshirn@wdc.com>, Tejun Heo <tj@kernel.org>
-Subject: [dm-devel] [PATCH 08/45] dm: simplify flush_bio initialization in
-	__send_empty_flush
+Subject: [dm-devel] [PATCH 09/45] dm: remove the block_device reference in
+	struct mapped_device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,7 +85,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -94,42 +93,95 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-We don't really need the struct block_device to initialize a bio.  So
-switch from using bio_set_dev to manually setting up bi_disk (bi_partno
-will always be zero and has been cleared by bio_init already).
+Get rid of the long-lasting struct block_device reference in
+struct mapped_device.  The only remaining user is the freeze code,
+where we can trivially look up the block device at freeze time
+and release the reference at thaw time.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Hannes Reinecke <hare@suse.de>
 Acked-by: Mike Snitzer <snitzer@redhat.com>
 ---
- drivers/md/dm.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ drivers/md/dm-core.h |  2 --
+ drivers/md/dm.c      | 25 ++++++++++++++-----------
+ 2 files changed, 14 insertions(+), 13 deletions(-)
 
+diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
+index aace147effcacb..086d293c2b036c 100644
+--- a/drivers/md/dm-core.h
++++ b/drivers/md/dm-core.h
+@@ -102,8 +102,6 @@ struct mapped_device {
+ 	/* kobject and completion */
+ 	struct dm_kobject_holder kobj_holder;
+ 
+-	struct block_device *bdev;
+-
+ 	struct dm_stats stats;
+ 
+ 	/* for blk-mq request-based DM support */
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 50541d336c719b..ab0a8335f098d9 100644
+index ab0a8335f098d9..48051db006f30c 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -1422,18 +1422,12 @@ static int __send_empty_flush(struct clone_info *ci)
- 	 */
- 	bio_init(&flush_bio, NULL, 0);
- 	flush_bio.bi_opf = REQ_OP_WRITE | REQ_PREFLUSH | REQ_SYNC;
-+	flush_bio.bi_disk = ci->io->md->disk;
-+	bio_associate_blkg(&flush_bio);
-+
- 	ci->bio = &flush_bio;
- 	ci->sector_count = 0;
+@@ -1744,11 +1744,6 @@ static void cleanup_mapped_device(struct mapped_device *md)
  
--	/*
--	 * Empty flush uses a statically initialized bio, as the base for
--	 * cloning.  However, blkg association requires that a bdev is
--	 * associated with a gendisk, which doesn't happen until the bdev is
--	 * opened.  So, blkg association is done at issue time of the flush
--	 * rather than when the device is created in alloc_dev().
--	 */
--	bio_set_dev(ci->bio, ci->io->md->bdev);
+ 	cleanup_srcu_struct(&md->io_barrier);
+ 
+-	if (md->bdev) {
+-		bdput(md->bdev);
+-		md->bdev = NULL;
+-	}
 -
- 	BUG_ON(bio_has_data(ci->bio));
- 	while ((ti = dm_table_get_target(ci->map, target_nr++)))
- 		__send_duplicate_bios(ci, ti, ti->num_flush_bios, NULL);
+ 	mutex_destroy(&md->suspend_lock);
+ 	mutex_destroy(&md->type_lock);
+ 	mutex_destroy(&md->table_devices_lock);
+@@ -1840,10 +1835,6 @@ static struct mapped_device *alloc_dev(int minor)
+ 	if (!md->wq)
+ 		goto bad;
+ 
+-	md->bdev = bdget_disk(md->disk, 0);
+-	if (!md->bdev)
+-		goto bad;
+-
+ 	dm_stats_init(&md->stats);
+ 
+ 	/* Populate the mapping, nobody knows we exist yet */
+@@ -2384,11 +2375,16 @@ struct dm_table *dm_swap_table(struct mapped_device *md, struct dm_table *table)
+  */
+ static int lock_fs(struct mapped_device *md)
+ {
++	struct block_device *bdev;
+ 	int r;
+ 
+ 	WARN_ON(test_bit(DMF_FROZEN, &md->flags));
+ 
+-	r = freeze_bdev(md->bdev);
++	bdev = bdget_disk(md->disk, 0);
++	if (!bdev)
++		return -ENOMEM;
++	r = freeze_bdev(bdev);
++	bdput(bdev);
+ 	if (!r)
+ 		set_bit(DMF_FROZEN, &md->flags);
+ 	return r;
+@@ -2396,9 +2392,16 @@ static int lock_fs(struct mapped_device *md)
+ 
+ static void unlock_fs(struct mapped_device *md)
+ {
++	struct block_device *bdev;
++
+ 	if (!test_bit(DMF_FROZEN, &md->flags))
+ 		return;
+-	thaw_bdev(md->bdev);
++
++	bdev = bdget_disk(md->disk, 0);
++	if (!bdev)
++		return;
++	thaw_bdev(bdev);
++	bdput(bdev);
+ 	clear_bit(DMF_FROZEN, &md->flags);
+ }
+ 
 -- 
 2.29.2
 
