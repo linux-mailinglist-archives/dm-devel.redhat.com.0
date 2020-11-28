@@ -2,51 +2,51 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 411B92C6FE5
-	for <lists+dm-devel@lfdr.de>; Sat, 28 Nov 2020 17:22:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A0EF42C6FEE
+	for <lists+dm-devel@lfdr.de>; Sat, 28 Nov 2020 17:23:03 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-40-yjpqax6LPb2tEStlT6pbPw-1; Sat, 28 Nov 2020 11:22:07 -0500
-X-MC-Unique: yjpqax6LPb2tEStlT6pbPw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-15-wqG5vlWmNaqDgV1kINGBLQ-1; Sat, 28 Nov 2020 11:22:18 -0500
+X-MC-Unique: wqG5vlWmNaqDgV1kINGBLQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DB7B65201;
-	Sat, 28 Nov 2020 16:22:02 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 996EC802B6A;
+	Sat, 28 Nov 2020 16:22:11 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B74405D9D3;
-	Sat, 28 Nov 2020 16:22:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 78FA860C62;
+	Sat, 28 Nov 2020 16:22:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6DE2C180954D;
-	Sat, 28 Nov 2020 16:22:02 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3BAB91809CA0;
+	Sat, 28 Nov 2020 16:22:11 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0ASGLwK1023187 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 28 Nov 2020 11:21:58 -0500
+	id 0ASGM72t023249 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 28 Nov 2020 11:22:07 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8A42447CE1; Sat, 28 Nov 2020 16:21:58 +0000 (UTC)
+	id 7FF3347CE1; Sat, 28 Nov 2020 16:22:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 84F1B47CDC
-	for <dm-devel@redhat.com>; Sat, 28 Nov 2020 16:21:58 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7ACF547CDC
+	for <dm-devel@redhat.com>; Sat, 28 Nov 2020 16:22:07 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 717B38007DF
-	for <dm-devel@redhat.com>; Sat, 28 Nov 2020 16:21:58 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6869E800969
+	for <dm-devel@redhat.com>; Sat, 28 Nov 2020 16:22:07 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-324-ZEkEvHZwNIS1JprFdUSaJw-1; Sat, 28 Nov 2020 11:21:55 -0500
-X-MC-Unique: ZEkEvHZwNIS1JprFdUSaJw-1
+	us-mta-25-NDD8z5QaMii7GMGYUDPxsA-1; Sat, 28 Nov 2020 11:22:02 -0500
+X-MC-Unique: NDD8z5QaMii7GMGYUDPxsA-1
 Received: from [2001:4bb8:18c:1dd6:48f3:741a:602e:7fdd] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kj2sq-0000Fn-8T; Sat, 28 Nov 2020 16:15:36 +0000
+	id 1kj2sr-0000G4-Tr; Sat, 28 Nov 2020 16:15:38 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Sat, 28 Nov 2020 17:14:40 +0100
-Message-Id: <20201128161510.347752-16-hch@lst.de>
+Date: Sat, 28 Nov 2020 17:14:41 +0100
+Message-Id: <20201128161510.347752-17-hch@lst.de>
 In-Reply-To: <20201128161510.347752-1-hch@lst.de>
 References: <20201128161510.347752-1-hch@lst.de>
 MIME-Version: 1.0
@@ -70,8 +70,7 @@ Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
 	linux-fsdevel@vger.kernel.org, dm-devel@redhat.com,
 	linux-mtd@lists.infradead.org,
 	Johannes Thumshirn <johannes.thumshirn@wdc.com>, Tejun Heo <tj@kernel.org>
-Subject: [dm-devel] [PATCH 15/45] block: change the hash used for looking up
-	block devices
+Subject: [dm-devel] [PATCH 16/45] block: switch bdgrab to use igrab
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,7 +84,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -93,67 +92,35 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Adding the minor to the major creates tons of pointless conflicts. Just
-use the dev_t itself, which is 32-bits and thus is guaranteed to fit
-into ino_t.
+All of the current callers already have a reference, but to prepare for
+additional users ensure bdgrab returns NULL if the block device is beeing
+freed.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Acked-by: Tejun Heo <tj@kernel.org>
 ---
- fs/block_dev.c | 26 ++------------------------
- 1 file changed, 2 insertions(+), 24 deletions(-)
+ fs/block_dev.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/fs/block_dev.c b/fs/block_dev.c
-index c5755150c6be62..d707ab376da86e 100644
+index d707ab376da86e..962fabe8a67b83 100644
 --- a/fs/block_dev.c
 +++ b/fs/block_dev.c
-@@ -863,35 +863,12 @@ void __init bdev_cache_init(void)
- 	blockdev_superblock = bd_mnt->mnt_sb;   /* For writeback */
- }
- 
--/*
-- * Most likely _very_ bad one - but then it's hardly critical for small
-- * /dev and can be fixed when somebody will need really large one.
-- * Keep in mind that it will be fed through icache hash function too.
-- */
--static inline unsigned long hash(dev_t dev)
--{
--	return MAJOR(dev)+MINOR(dev);
--}
--
--static int bdev_test(struct inode *inode, void *data)
--{
--	return BDEV_I(inode)->bdev.bd_dev == *(dev_t *)data;
--}
--
--static int bdev_set(struct inode *inode, void *data)
--{
--	BDEV_I(inode)->bdev.bd_dev = *(dev_t *)data;
--	return 0;
--}
--
- static struct block_device *bdget(dev_t dev)
+@@ -894,10 +894,14 @@ static struct block_device *bdget(dev_t dev)
+ /**
+  * bdgrab -- Grab a reference to an already referenced block device
+  * @bdev:	Block device to grab a reference to.
++ *
++ * Returns the block_device with an additional reference when successful,
++ * or NULL if the inode is already beeing freed.
+  */
+ struct block_device *bdgrab(struct block_device *bdev)
  {
- 	struct block_device *bdev;
- 	struct inode *inode;
- 
--	inode = iget5_locked(blockdev_superblock, hash(dev),
--			bdev_test, bdev_set, &dev);
--
-+	inode = iget_locked(blockdev_superblock, dev);
- 	if (!inode)
- 		return NULL;
- 
-@@ -903,6 +880,7 @@ static struct block_device *bdget(dev_t dev)
- 		bdev->bd_super = NULL;
- 		bdev->bd_inode = inode;
- 		bdev->bd_part_count = 0;
-+		bdev->bd_dev = dev;
- 		inode->i_mode = S_IFBLK;
- 		inode->i_rdev = dev;
- 		inode->i_bdev = bdev;
+-	ihold(bdev->bd_inode);
++	if (!igrab(bdev->bd_inode))
++		return NULL;
+ 	return bdev;
+ }
+ EXPORT_SYMBOL(bdgrab);
 -- 
 2.29.2
 
