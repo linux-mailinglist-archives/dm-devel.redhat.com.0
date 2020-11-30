@@ -1,79 +1,60 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 7210C2C7E56
-	for <lists+dm-devel@lfdr.de>; Mon, 30 Nov 2020 08:03:10 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id EA8782C7E68
+	for <lists+dm-devel@lfdr.de>; Mon, 30 Nov 2020 08:07:44 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-480-0tg0BdnKNXW5JenJ6DAFAQ-1; Mon, 30 Nov 2020 02:03:05 -0500
-X-MC-Unique: 0tg0BdnKNXW5JenJ6DAFAQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-189-Cn7VurhPMtutXV3SsKGKQQ-1; Mon, 30 Nov 2020 02:07:41 -0500
+X-MC-Unique: Cn7VurhPMtutXV3SsKGKQQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 080D880F04F;
-	Mon, 30 Nov 2020 07:02:59 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C988910919CE;
+	Mon, 30 Nov 2020 07:07:35 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CCEE91A882;
-	Mon, 30 Nov 2020 07:02:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4BB3C5D9D2;
+	Mon, 30 Nov 2020 07:07:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8216A180954D;
-	Mon, 30 Nov 2020 07:02:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 68D33180954D;
+	Mon, 30 Nov 2020 07:07:34 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AU1Nbdd013169 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 29 Nov 2020 20:23:37 -0500
+	id 0AU77S5G021184 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 30 Nov 2020 02:07:28 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 018C0112D433; Mon, 30 Nov 2020 01:23:37 +0000 (UTC)
+	id A846B2166B2E; Mon, 30 Nov 2020 07:07:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F1C0510031EC
-	for <dm-devel@redhat.com>; Mon, 30 Nov 2020 01:23:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A2A422166B2C
+	for <dm-devel@redhat.com>; Mon, 30 Nov 2020 07:07:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 67D07858284
-	for <dm-devel@redhat.com>; Mon, 30 Nov 2020 01:23:34 +0000 (UTC)
-Received: from mail-il1-f196.google.com (mail-il1-f196.google.com
-	[209.85.166.196]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-177-xjyZyd76MfKA2EdcDp91fw-1; Sun, 29 Nov 2020 20:23:31 -0500
-X-MC-Unique: xjyZyd76MfKA2EdcDp91fw-1
-Received: by mail-il1-f196.google.com with SMTP id x15so9810751ilq.1
-	for <dm-devel@redhat.com>; Sun, 29 Nov 2020 17:23:31 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=BZmTZBqdpz8QAbNwD292cR5AKXCzTrvi1V4QZo4ASiQ=;
-	b=ciUm+QzqBZvfgBDMfOJIEaeAIkce+RQw/2V47HyL6oGpCvx+0k2LTKJ80H1/ThT2ad
-	5YCh+ltxBFJ1KNhz7JqGhNPOnfPhzBklL07HKYrc+LdcL6igpQWUUtFo7i4dhH/2hG3g
-	/QLklzBJuGww52nFJiUi7RSLxaD9D9uNvJnqGGFwCvM0wfiOQSeiucVQ6m1dnINViZ6w
-	kij9ki+tLPoftSA/M6HP7hZmGh1z6eqg5DQjD+pLrmjUVbm3fHBFzL6guI3K33m0h4x4
-	PkEvbF7dFVRtRXzRivxDncoUDMggea4Cz3e2EO+9G1D2xcuGgJqhDKO6NrCjfP92WBlk
-	NvAA==
-X-Gm-Message-State: AOAM531Pk407VjDYgsJwgE5ZYzg/OCljWHo8pwwN1JUvq72WwqAKYpfu
-	a/xTLRCdKpcmVsQkwZ5/SWzx8g==
-X-Google-Smtp-Source: ABdhPJx6pfJfEezIuUrTQnLZt8wZNJbVHV799bmuRFAi7zQbwNigfx6jMUois48aZKI1igPQUl300Q==
-X-Received: by 2002:a92:84c1:: with SMTP id y62mr16165882ilk.191.1606699411252;
-	Sun, 29 Nov 2020 17:23:31 -0800 (PST)
-Received: from [172.22.22.26] (c-73-185-129-58.hsd1.mn.comcast.net.
-	[73.185.129.58]) by smtp.googlemail.com with ESMTPSA id
-	n10sm7216731iom.36.2020.11.29.17.23.29
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Sun, 29 Nov 2020 17:23:30 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 873DB186E123
+	for <dm-devel@redhat.com>; Mon, 30 Nov 2020 07:07:24 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-214-86wni-aSNc26PHB2MqF10w-1;
+	Mon, 30 Nov 2020 02:07:22 -0500
+X-MC-Unique: 86wni-aSNc26PHB2MqF10w-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id B385CAC6A;
+	Mon, 30 Nov 2020 07:07:20 +0000 (UTC)
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
-References: <20201129181926.897775-1-hch@lst.de>
-	<20201129181926.897775-2-hch@lst.de>
-From: Alex Elder <elder@ieee.org>
-Message-ID: <44c60506-059f-f272-208f-a39d94a8617d@ieee.org>
-Date: Sun, 29 Nov 2020 19:23:29 -0600
+References: <20201128161510.347752-1-hch@lst.de>
+	<20201128161510.347752-6-hch@lst.de>
+From: Hannes Reinecke <hare@suse.de>
+Message-ID: <d92adac0-10c9-3281-3697-6b2da4dbf73e@suse.de>
+Date: Mon, 30 Nov 2020 08:07:20 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.5.0
+	Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <20201129181926.897775-2-hch@lst.de>
+In-Reply-To: <20201128161510.347752-6-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -82,18 +63,20 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0AU77S5G021184
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Mon, 30 Nov 2020 02:02:38 -0500
-Cc: Sagi Grimberg <sagi@grimberg.me>, Mike Snitzer <snitzer@redhat.com>,
-	Oleksii Kurochko <olkuroch@cisco.com>,
-	Dongsheng Yang <dongsheng.yang@easystack.cn>,
-	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	linux-nvme@lists.infradead.org,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Ilya Dryomov <idryomov@gmail.com>, ceph-devel@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH 1/4] block: add a hard-readonly flag to
-	struct gendisk
+Cc: linux-bcache@vger.kernel.org, Jan Kara <jack@suse.cz>,
+	Mike Snitzer <snitzer@redhat.com>, linux-mm@kvack.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jan Kara <jack@suse.com>, Josef Bacik <josef@toxicpanda.com>,
+	Coly Li <colyli@suse.de>, linux-block@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, dm-devel@redhat.com,
+	linux-mtd@lists.infradead.org,
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>, Tejun Heo <tj@kernel.org>
+Subject: Re: [dm-devel] [PATCH 05/45] mtip32xx: remove the call to
+	fsync_bdev on removal
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -107,51 +90,27 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-On 11/29/20 12:19 PM, Christoph Hellwig wrote:
-> Commit 20bd1d026aac ("scsi: sd: Keep disk read-only when re-reading
-> partition") addressed a long-standing problem with user read-only
-
-Little nit I noticed below.	-Alex
-
-. . .
-
-> diff --git a/block/genhd.c b/block/genhd.c
-> index 565cf36a5f1864..5e746223b6fa0f 100644
-> --- a/block/genhd.c
-> +++ b/block/genhd.c
-> @@ -1625,31 +1625,35 @@ static void set_disk_ro_uevent(struct gendisk *gd, int ro)
->  	kobject_uevent_env(&disk_to_dev(gd)->kobj, KOBJ_CHANGE, envp);
->  }
->  
-> -void set_disk_ro(struct gendisk *disk, int flag)
-> +/**
-> + * set_disk_ro - set a gendisk read-only
-> + * @disk:	The disk device
-> + * @state:	true or false
-
-s/state/read_only/
-
-> + *
-> + * This function is used to indicate whether a given disk device should have its
-> + * read-only flag set. set_disk_ro() is typically used by device drivers to
-> + * indicate whether the underlying physical device is write-protected.
-> + */
-> +void set_disk_ro(struct gendisk *disk, bool read_only)
-
-. . .
-
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+T24gMTEvMjgvMjAgNToxNCBQTSwgQ2hyaXN0b3BoIEhlbGx3aWcgd3JvdGU6Cj4gZGVsX2dlbmRp
+c2sgYWxyZWFkeSBjYWxscyBmc3luY19iZGV2IGZvciBldmVyeSBwYXJ0aXRpb24sIG5vIG5lZWQK
+PiB0byBkbyB0aGlzIHR3aWNlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IENocmlzdG9waCBIZWxsd2ln
+IDxoY2hAbHN0LmRlPgo+IFJldmlld2VkLWJ5OiBKYW4gS2FyYSA8amFja0BzdXNlLmN6Pgo+IC0t
+LQo+ICAgZHJpdmVycy9ibG9jay9tdGlwMzJ4eC9tdGlwMzJ4eC5jIHwgMTUgLS0tLS0tLS0tLS0t
+LS0tCj4gICBkcml2ZXJzL2Jsb2NrL210aXAzMnh4L210aXAzMnh4LmggfCAgMiAtLQo+ICAgMiBm
+aWxlcyBjaGFuZ2VkLCAxNyBkZWxldGlvbnMoLSkKPiAKUmV2aWV3ZWQtYnk6IEhhbm5lcyBSZWlu
+ZWNrZSA8aGFyZUBzdXNlLmRlPgoKQ2hlZXJzLAoKSGFubmVzCi0tIApEci4gSGFubmVzIFJlaW5l
+Y2tlICAgICAgICAgICAgICAgIEtlcm5lbCBTdG9yYWdlIEFyY2hpdGVjdApoYXJlQHN1c2UuZGUg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICArNDkgOTExIDc0MDUzIDY4OApTVVNFIFNvZnR3
+YXJlIFNvbHV0aW9ucyBHbWJILCBNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJlcmcKSFJCIDM2
+ODA5IChBRyBOw7xybmJlcmcpLCBHZXNjaMOkZnRzZsO8aHJlcjogRmVsaXggSW1lbmTDtnJmZmVy
+CgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly93
+d3cucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
 
