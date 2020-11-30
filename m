@@ -2,71 +2,92 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id CE82F2C8C3E
-	for <lists+dm-devel@lfdr.de>; Mon, 30 Nov 2020 19:11:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 677192C8F71
+	for <lists+dm-devel@lfdr.de>; Mon, 30 Nov 2020 21:52:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1606769572;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=LUQalSQSUCRiWE6egcGkTlHYEgv89pVlvBrHhwLvShM=;
+	b=cEHVsZLrS4FnHgV4Ph09q7wmE+2F/rIY4M3kSgaQvnMJF/SwUDMpvEFgBVbmZn7WTWHVW9
+	D9xyBX414WSORKpJ+CBkhb+ufkN41OOli5OI3q8WXvF0ZehVwqvmkljcmcqjpqJKvxAKAd
+	JhmUYd+BgzFGP6fHOzS2W7kODgF0v5k=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-522-0Fk75QqgNeSw0nZ0v27TQA-1; Mon, 30 Nov 2020 13:11:17 -0500
-X-MC-Unique: 0Fk75QqgNeSw0nZ0v27TQA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-200-JjMwypPBMu-hz1N9SAHvDA-1; Mon, 30 Nov 2020 15:52:47 -0500
+X-MC-Unique: JjMwypPBMu-hz1N9SAHvDA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7C529805BE2;
-	Mon, 30 Nov 2020 18:11:11 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 537AA189C4;
-	Mon, 30 Nov 2020 18:11:11 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F3795858185;
+	Mon, 30 Nov 2020 20:52:39 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6629210013C1;
+	Mon, 30 Nov 2020 20:52:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1A20A4A7C6;
-	Mon, 30 Nov 2020 18:11:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7129F180954D;
+	Mon, 30 Nov 2020 20:52:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AUIB6bV010456 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 30 Nov 2020 13:11:06 -0500
+	id 0AUKq6c4028730 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 30 Nov 2020 15:52:06 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E9B6A2026D12; Mon, 30 Nov 2020 18:11:05 +0000 (UTC)
+	id B1FE22166B2C; Mon, 30 Nov 2020 20:52:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E41B42026D49
-	for <dm-devel@redhat.com>; Mon, 30 Nov 2020 18:11:03 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AD6232166B2B
+	for <dm-devel@redhat.com>; Mon, 30 Nov 2020 20:52:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8B946811E86
-	for <dm-devel@redhat.com>; Mon, 30 Nov 2020 18:11:03 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-501--8Fgo5KqPt-TT-aYsQUBTA-1; Mon, 30 Nov 2020 13:11:00 -0500
-X-MC-Unique: -8Fgo5KqPt-TT-aYsQUBTA-1
-Received: from 089144198196.atnat0007.highway.a1.net ([89.144.198.196]
-	helo=localhost)
-	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kjnda-00079A-78; Mon, 30 Nov 2020 18:10:59 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 30 Nov 2020 18:58:54 +0100
-Message-Id: <20201130175854.982460-6-hch@lst.de>
-In-Reply-To: <20201130175854.982460-1-hch@lst.de>
-References: <20201130175854.982460-1-hch@lst.de>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5BA2E185A7BC
+	for <dm-devel@redhat.com>; Mon, 30 Nov 2020 20:52:04 +0000 (UTC)
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com
+	[209.85.221.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-584-DBcKjpg4MEK6qqH2HGrTQA-1; Mon, 30 Nov 2020 15:52:02 -0500
+X-MC-Unique: DBcKjpg4MEK6qqH2HGrTQA-1
+Received: by mail-vk1-f199.google.com with SMTP id h22so4495311vkn.22
+	for <dm-devel@redhat.com>; Mon, 30 Nov 2020 12:52:02 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=+b2Pp0coGV9j/d9ySwXiIZFcFYYUG+hnak08L/oevVY=;
+	b=BQPZ2qzJcNup7itmD9IXRHz6SPm11wlQmXyPhdaeUaQvWZywtyf6NHGSxWP/E9E2+z
+	MzxWXsjt08M5cjekM7Kmh0JBjfTYplLdr/KKYnSifjYu2IX+uDyQv+nZhcs5VFKikVkL
+	em4RJGBbRiLNlvxiYr/3Szwg+IIaISVLJVBzR2Hn1YIOYHygta49KkJGKitwHumTJNO0
+	bU6jH9KyS2JCXIZEWQ5Zc9rt8M8c5A4eqRk3M4cb5RbrO08oeOzJHwHoqE59HAjCFRkd
+	JLAdijR/Bip7iitZrFycsOmTXBb7A/XN9TJBOP8AMURxH8hHkl2osb0I6Gi7MjxjNgRo
+	T4EQ==
+X-Gm-Message-State: AOAM531zkVIzXDgJVexIXEaTc+k9TASdKKkQAZg5ztQtUSpli3ZHhuFV
+	7KBdJYI4fvBuZ0MNZbTS7X9xC5yuv8Vj/uG4rKA465nJk8/9bwXV3PqXTiLFPlhP/Nj1i6HuwVP
+	D5HRYiIzIFaH15RSiX5g0BJDAxS0mplE=
+X-Received: by 2002:ab0:74d1:: with SMTP id f17mr17280793uaq.30.1606769521905; 
+	Mon, 30 Nov 2020 12:52:01 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzubma8STl3HCa0vJRhZbqsCE0aoJSMnrUX0e2pI7+Gruh20CEhyGGJL2n7aZ3aL+d5VLu/RCaAHOpASP6gnDQ=
+X-Received: by 2002:ab0:74d1:: with SMTP id f17mr17280758uaq.30.1606769521581; 
+	Mon, 30 Nov 2020 12:52:01 -0800 (PST)
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	casper.infradead.org. See http://www.infradead.org/rpr.html
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+References: <20201130171805.77712-1-snitzer@redhat.com>
+In-Reply-To: <20201130171805.77712-1-snitzer@redhat.com>
+From: John Dorminy <jdorminy@redhat.com>
+Date: Mon, 30 Nov 2020 15:51:50 -0500
+Message-ID: <CAMeeMh8fb2JEBmuSuTP8ys6Xr+GpFqcUr5Py73W4wCQb1MCuAw@mail.gmail.com>
+To: Mike Snitzer <snitzer@redhat.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: linux-block@vger.kernel.org, linux-raid@vger.kernel.org,
-	dm-devel@redhat.com, linux-s390@vger.kernel.org
-Subject: [dm-devel] [PATCH 5/5] block: remove the request_queue to argument
-	request based tracepoints
+Cc: linux-block <linux-block@vger.kernel.org>,
+	device-mapper development <dm-devel@redhat.com>,
+	Bruce Johnston <bjohnsto@redhat.com>
+Subject: Re: [dm-devel] [PATCH] block: revert to using min_not_zero() when
+	stacking chunk_sectors
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +101,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -88,378 +109,72 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The request_queue can trivially be derived from the request.
+I don't think this suffices, as it allows IOs that span max(a,b) chunk
+boundaries.
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- block/blk-merge.c            |  2 +-
- block/blk-mq-sched.c         |  2 +-
- block/blk-mq.c               |  8 +++----
- drivers/md/dm-rq.c           |  2 +-
- drivers/s390/scsi/zfcp_fsf.c |  3 +--
- include/linux/blktrace_api.h |  5 ++--
- include/trace/events/block.h | 30 ++++++++++--------------
- kernel/trace/blktrace.c      | 44 ++++++++++++++----------------------
- 8 files changed, 39 insertions(+), 57 deletions(-)
+Chunk sectors is defined as "if set, it will prevent merging across
+chunk boundaries". Pulling the example from the last change:
+It is possible, albeit more unlikely, for a block device to have a non
+power-of-2 for chunk_sectors (e.g. 10+2 RAID6 with 128K chunk_sectors,
+which results in a full-stripe size of 1280K. This causes the RAID6's
+io_opt to be advertised as 1280K, and a stacked device _could_ then be
+made to use a blocksize, aka chunk_sectors, that matches non power-of-2
+io_opt of underlying RAID6 -- resulting in stacked device's
+chunk_sectors being a non power-of-2).
 
-diff --git a/block/blk-merge.c b/block/blk-merge.c
-index 4071daa88a5eaf..7497d86fff3834 100644
---- a/block/blk-merge.c
-+++ b/block/blk-merge.c
-@@ -799,7 +799,7 @@ static struct request *attempt_merge(struct request_queue *q,
- 	 */
- 	blk_account_io_merge_request(next);
- 
--	trace_block_rq_merge(q, next);
-+	trace_block_rq_merge(next);
- 
- 	/*
- 	 * ownership of bio passed from next to req, return 'next' for
-diff --git a/block/blk-mq-sched.c b/block/blk-mq-sched.c
-index d1eafe2c045caa..deff4e826e234d 100644
---- a/block/blk-mq-sched.c
-+++ b/block/blk-mq-sched.c
-@@ -386,7 +386,7 @@ EXPORT_SYMBOL_GPL(blk_mq_sched_try_insert_merge);
- 
- void blk_mq_sched_request_inserted(struct request *rq)
- {
--	trace_block_rq_insert(rq->q, rq);
-+	trace_block_rq_insert(rq);
- }
- EXPORT_SYMBOL_GPL(blk_mq_sched_request_inserted);
- 
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index 13636458f32f1c..bb669b415a387e 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -732,7 +732,7 @@ void blk_mq_start_request(struct request *rq)
- {
- 	struct request_queue *q = rq->q;
- 
--	trace_block_rq_issue(q, rq);
-+	trace_block_rq_issue(rq);
- 
- 	if (test_bit(QUEUE_FLAG_STATS, &q->queue_flags)) {
- 		rq->io_start_time_ns = ktime_get_ns();
-@@ -759,7 +759,7 @@ static void __blk_mq_requeue_request(struct request *rq)
- 
- 	blk_mq_put_driver_tag(rq);
- 
--	trace_block_rq_requeue(q, rq);
-+	trace_block_rq_requeue(rq);
- 	rq_qos_requeue(q, rq);
- 
- 	if (blk_mq_request_started(rq)) {
-@@ -1820,7 +1820,7 @@ static inline void __blk_mq_insert_req_list(struct blk_mq_hw_ctx *hctx,
- 
- 	lockdep_assert_held(&ctx->lock);
- 
--	trace_block_rq_insert(hctx->queue, rq);
-+	trace_block_rq_insert(rq);
- 
- 	if (at_head)
- 		list_add(&rq->queuelist, &ctx->rq_lists[type]);
-@@ -1877,7 +1877,7 @@ void blk_mq_insert_requests(struct blk_mq_hw_ctx *hctx, struct blk_mq_ctx *ctx,
- 	 */
- 	list_for_each_entry(rq, list, queuelist) {
- 		BUG_ON(rq->mq_ctx != ctx);
--		trace_block_rq_insert(hctx->queue, rq);
-+		trace_block_rq_insert(rq);
- 	}
- 
- 	spin_lock(&ctx->lock);
-diff --git a/drivers/md/dm-rq.c b/drivers/md/dm-rq.c
-index 729a72ec30ccae..13b4385f4d5a92 100644
---- a/drivers/md/dm-rq.c
-+++ b/drivers/md/dm-rq.c
-@@ -397,7 +397,7 @@ static int map_request(struct dm_rq_target_io *tio)
- 		}
- 
- 		/* The target has remapped the I/O so dispatch it */
--		trace_block_rq_remap(clone->q, clone, disk_devt(dm_disk(md)),
-+		trace_block_rq_remap(clone, disk_devt(dm_disk(md)),
- 				     blk_rq_pos(rq));
- 		ret = dm_dispatch_clone_request(clone, rq);
- 		if (ret == BLK_STS_RESOURCE || ret == BLK_STS_DEV_RESOURCE) {
-diff --git a/drivers/s390/scsi/zfcp_fsf.c b/drivers/s390/scsi/zfcp_fsf.c
-index 6cb963a0677714..37d450f4695281 100644
---- a/drivers/s390/scsi/zfcp_fsf.c
-+++ b/drivers/s390/scsi/zfcp_fsf.c
-@@ -2359,8 +2359,7 @@ static void zfcp_fsf_req_trace(struct zfcp_fsf_req *req, struct scsi_cmnd *scsi)
- 		}
- 	}
- 
--	blk_add_driver_data(scsi->request->q, scsi->request, &blktrc,
--			    sizeof(blktrc));
-+	blk_add_driver_data(scsi->request, &blktrc, sizeof(blktrc));
- }
- 
- /**
-diff --git a/include/linux/blktrace_api.h b/include/linux/blktrace_api.h
-index 3b6ff5902edce6..05556573b896a2 100644
---- a/include/linux/blktrace_api.h
-+++ b/include/linux/blktrace_api.h
-@@ -75,8 +75,7 @@ static inline bool blk_trace_note_message_enabled(struct request_queue *q)
- 	return ret;
- }
- 
--extern void blk_add_driver_data(struct request_queue *q, struct request *rq,
--				void *data, size_t len);
-+extern void blk_add_driver_data(struct request *rq, void *data, size_t len);
- extern int blk_trace_setup(struct request_queue *q, char *name, dev_t dev,
- 			   struct block_device *bdev,
- 			   char __user *arg);
-@@ -90,7 +89,7 @@ extern struct attribute_group blk_trace_attr_group;
- #else /* !CONFIG_BLK_DEV_IO_TRACE */
- # define blk_trace_ioctl(bdev, cmd, arg)		(-ENOTTY)
- # define blk_trace_shutdown(q)				do { } while (0)
--# define blk_add_driver_data(q, rq, data, len)		do {} while (0)
-+# define blk_add_driver_data(rq, data, len)		do {} while (0)
- # define blk_trace_setup(q, name, dev, bdev, arg)	(-ENOTTY)
- # define blk_trace_startstop(q, start)			(-ENOTTY)
- # define blk_trace_remove(q)				(-ENOTTY)
-diff --git a/include/trace/events/block.h b/include/trace/events/block.h
-index 8fb89574d8677f..0d782663a005dc 100644
---- a/include/trace/events/block.h
-+++ b/include/trace/events/block.h
-@@ -64,7 +64,6 @@ DEFINE_EVENT(block_buffer, block_dirty_buffer,
- 
- /**
-  * block_rq_requeue - place block IO request back on a queue
-- * @q: queue holding operation
-  * @rq: block IO operation request
-  *
-  * The block operation request @rq is being placed back into queue
-@@ -73,9 +72,9 @@ DEFINE_EVENT(block_buffer, block_dirty_buffer,
-  */
- TRACE_EVENT(block_rq_requeue,
- 
--	TP_PROTO(struct request_queue *q, struct request *rq),
-+	TP_PROTO(struct request *rq),
- 
--	TP_ARGS(q, rq),
-+	TP_ARGS(rq),
- 
- 	TP_STRUCT__entry(
- 		__field(  dev_t,	dev			)
-@@ -147,9 +146,9 @@ TRACE_EVENT(block_rq_complete,
- 
- DECLARE_EVENT_CLASS(block_rq,
- 
--	TP_PROTO(struct request_queue *q, struct request *rq),
-+	TP_PROTO(struct request *rq),
- 
--	TP_ARGS(q, rq),
-+	TP_ARGS(rq),
- 
- 	TP_STRUCT__entry(
- 		__field(  dev_t,	dev			)
-@@ -181,7 +180,6 @@ DECLARE_EVENT_CLASS(block_rq,
- 
- /**
-  * block_rq_insert - insert block operation request into queue
-- * @q: target queue
-  * @rq: block IO operation request
-  *
-  * Called immediately before block operation request @rq is inserted
-@@ -191,14 +189,13 @@ DECLARE_EVENT_CLASS(block_rq,
-  */
- DEFINE_EVENT(block_rq, block_rq_insert,
- 
--	TP_PROTO(struct request_queue *q, struct request *rq),
-+	TP_PROTO(struct request *rq),
- 
--	TP_ARGS(q, rq)
-+	TP_ARGS(rq)
- );
- 
- /**
-  * block_rq_issue - issue pending block IO request operation to device driver
-- * @q: queue holding operation
-  * @rq: block IO operation operation request
-  *
-  * Called when block operation request @rq from queue @q is sent to a
-@@ -206,14 +203,13 @@ DEFINE_EVENT(block_rq, block_rq_insert,
-  */
- DEFINE_EVENT(block_rq, block_rq_issue,
- 
--	TP_PROTO(struct request_queue *q, struct request *rq),
-+	TP_PROTO(struct request *rq),
- 
--	TP_ARGS(q, rq)
-+	TP_ARGS(rq)
- );
- 
- /**
-  * block_rq_merge - merge request with another one in the elevator
-- * @q: queue holding operation
-  * @rq: block IO operation operation request
-  *
-  * Called when block operation request @rq from queue @q is merged to another
-@@ -221,9 +217,9 @@ DEFINE_EVENT(block_rq, block_rq_issue,
-  */
- DEFINE_EVENT(block_rq, block_rq_merge,
- 
--	TP_PROTO(struct request_queue *q, struct request *rq),
-+	TP_PROTO(struct request *rq),
- 
--	TP_ARGS(q, rq)
-+	TP_ARGS(rq)
- );
- 
- /**
-@@ -491,7 +487,6 @@ TRACE_EVENT(block_bio_remap,
- 
- /**
-  * block_rq_remap - map request for a block operation request
-- * @q: queue holding the operation
-  * @rq: block IO operation request
-  * @dev: device for the operation
-  * @from: original sector for the operation
-@@ -502,10 +497,9 @@ TRACE_EVENT(block_bio_remap,
-  */
- TRACE_EVENT(block_rq_remap,
- 
--	TP_PROTO(struct request_queue *q, struct request *rq, dev_t dev,
--		 sector_t from),
-+	TP_PROTO(struct request *rq, dev_t dev, sector_t from),
- 
--	TP_ARGS(q, rq, dev, from),
-+	TP_ARGS(rq, dev, from),
- 
- 	TP_STRUCT__entry(
- 		__field( dev_t,		dev		)
-diff --git a/kernel/trace/blktrace.c b/kernel/trace/blktrace.c
-index 405637144a0389..7839a78205c243 100644
---- a/kernel/trace/blktrace.c
-+++ b/kernel/trace/blktrace.c
-@@ -795,12 +795,12 @@ static u64 blk_trace_bio_get_cgid(struct request_queue *q, struct bio *bio)
- #endif
- 
- static u64
--blk_trace_request_get_cgid(struct request_queue *q, struct request *rq)
-+blk_trace_request_get_cgid(struct request *rq)
- {
- 	if (!rq->bio)
- 		return 0;
- 	/* Use the first bio */
--	return blk_trace_bio_get_cgid(q, rq->bio);
-+	return blk_trace_bio_get_cgid(rq->q, rq->bio);
- }
- 
- /*
-@@ -841,40 +841,35 @@ static void blk_add_trace_rq(struct request *rq, int error,
- 	rcu_read_unlock();
- }
- 
--static void blk_add_trace_rq_insert(void *ignore,
--				    struct request_queue *q, struct request *rq)
-+static void blk_add_trace_rq_insert(void *ignore, struct request *rq)
- {
- 	blk_add_trace_rq(rq, 0, blk_rq_bytes(rq), BLK_TA_INSERT,
--			 blk_trace_request_get_cgid(q, rq));
-+			 blk_trace_request_get_cgid(rq));
- }
- 
--static void blk_add_trace_rq_issue(void *ignore,
--				   struct request_queue *q, struct request *rq)
-+static void blk_add_trace_rq_issue(void *ignore, struct request *rq)
- {
- 	blk_add_trace_rq(rq, 0, blk_rq_bytes(rq), BLK_TA_ISSUE,
--			 blk_trace_request_get_cgid(q, rq));
-+			 blk_trace_request_get_cgid(rq));
- }
- 
--static void blk_add_trace_rq_merge(void *ignore,
--				   struct request_queue *q, struct request *rq)
-+static void blk_add_trace_rq_merge(void *ignore, struct request *rq)
- {
- 	blk_add_trace_rq(rq, 0, blk_rq_bytes(rq), BLK_TA_BACKMERGE,
--			 blk_trace_request_get_cgid(q, rq));
-+			 blk_trace_request_get_cgid(rq));
- }
- 
--static void blk_add_trace_rq_requeue(void *ignore,
--				     struct request_queue *q,
--				     struct request *rq)
-+static void blk_add_trace_rq_requeue(void *ignore, struct request *rq)
- {
- 	blk_add_trace_rq(rq, 0, blk_rq_bytes(rq), BLK_TA_REQUEUE,
--			 blk_trace_request_get_cgid(q, rq));
-+			 blk_trace_request_get_cgid(rq));
- }
- 
- static void blk_add_trace_rq_complete(void *ignore, struct request *rq,
- 			int error, unsigned int nr_bytes)
- {
- 	blk_add_trace_rq(rq, error, nr_bytes, BLK_TA_COMPLETE,
--			 blk_trace_request_get_cgid(rq->q, rq));
-+			 blk_trace_request_get_cgid(rq));
- }
- 
- /**
-@@ -1037,16 +1032,14 @@ static void blk_add_trace_bio_remap(void *ignore, struct bio *bio, dev_t dev,
-  *     Add a trace for that action.
-  *
-  **/
--static void blk_add_trace_rq_remap(void *ignore,
--				   struct request_queue *q,
--				   struct request *rq, dev_t dev,
-+static void blk_add_trace_rq_remap(void *ignore, struct request *rq, dev_t dev,
- 				   sector_t from)
- {
- 	struct blk_trace *bt;
- 	struct blk_io_trace_remap r;
- 
- 	rcu_read_lock();
--	bt = rcu_dereference(q->blk_trace);
-+	bt = rcu_dereference(rq->q->blk_trace);
- 	if (likely(!bt)) {
- 		rcu_read_unlock();
- 		return;
-@@ -1058,13 +1051,12 @@ static void blk_add_trace_rq_remap(void *ignore,
- 
- 	__blk_add_trace(bt, blk_rq_pos(rq), blk_rq_bytes(rq),
- 			rq_data_dir(rq), 0, BLK_TA_REMAP, 0,
--			sizeof(r), &r, blk_trace_request_get_cgid(q, rq));
-+			sizeof(r), &r, blk_trace_request_get_cgid(rq));
- 	rcu_read_unlock();
- }
- 
- /**
-  * blk_add_driver_data - Add binary message with driver-specific data
-- * @q:		queue the io is for
-  * @rq:		io request
-  * @data:	driver-specific data
-  * @len:	length of driver-specific data
-@@ -1073,14 +1065,12 @@ static void blk_add_trace_rq_remap(void *ignore,
-  *     Some drivers might want to write driver-specific data per request.
-  *
-  **/
--void blk_add_driver_data(struct request_queue *q,
--			 struct request *rq,
--			 void *data, size_t len)
-+void blk_add_driver_data(struct request *rq, void *data, size_t len)
- {
- 	struct blk_trace *bt;
- 
- 	rcu_read_lock();
--	bt = rcu_dereference(q->blk_trace);
-+	bt = rcu_dereference(rq->q->blk_trace);
- 	if (likely(!bt)) {
- 		rcu_read_unlock();
- 		return;
-@@ -1088,7 +1078,7 @@ void blk_add_driver_data(struct request_queue *q,
- 
- 	__blk_add_trace(bt, blk_rq_trace_sector(rq), blk_rq_bytes(rq), 0, 0,
- 				BLK_TA_DRV_DATA, 0, len, data,
--				blk_trace_request_get_cgid(q, rq));
-+				blk_trace_request_get_cgid(rq));
- 	rcu_read_unlock();
- }
- EXPORT_SYMBOL_GPL(blk_add_driver_data);
--- 
-2.29.2
+Suppose the stacked device had a block size/chunk_sectors of 256k.
+Then, with this change, some IOs issued by the stacked device to the
+RAID beneath could span 1280k sector boundaries, and require further
+splitting still. I think combining as the GCD is better, since any IO
+of size gcd(a,b) definitely spans neither a a-chunk nor a b-chunk
+boundary.
+
+But it's possible I'm misunderstanding the purpose of chunk_sectors,
+or there should be a check that the one of the two devices' chunk
+sizes divides the other.
+
+Thanks.
+
+-John
+
+On Mon, Nov 30, 2020 at 12:18 PM Mike Snitzer <snitzer@redhat.com> wrote:
+>
+> chunk_sectors must reflect the most limited of all devices in the IO
+> stack.
+>
+> Otherwise malformed IO may result. E.g.: prior to this fix,
+> ->chunk_sectors = lcm_not_zero(8, 128) would result in
+> blk_max_size_offset() splitting IO at 128 sectors rather than the
+> required more restrictive 8 sectors.
+>
+> Fixes: 22ada802ede8 ("block: use lcm_not_zero() when stacking chunk_sectors")
+> Cc: stable@vger.kernel.org
+> Reported-by: John Dorminy <jdorminy@redhat.com>
+> Reported-by: Bruce Johnston <bjohnsto@redhat.com>
+> Signed-off-by: Mike Snitzer <snitzer@redhat.com>
+> ---
+>  block/blk-settings.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/block/blk-settings.c b/block/blk-settings.c
+> index 9741d1d83e98..1d9decd4646e 100644
+> --- a/block/blk-settings.c
+> +++ b/block/blk-settings.c
+> @@ -547,7 +547,10 @@ int blk_stack_limits(struct queue_limits *t, struct queue_limits *b,
+>
+>         t->io_min = max(t->io_min, b->io_min);
+>         t->io_opt = lcm_not_zero(t->io_opt, b->io_opt);
+> -       t->chunk_sectors = lcm_not_zero(t->chunk_sectors, b->chunk_sectors);
+> +
+> +       if (b->chunk_sectors)
+> +               t->chunk_sectors = min_not_zero(t->chunk_sectors,
+> +                                               b->chunk_sectors);
+>
+>         /* Physical block size a multiple of the logical block size? */
+>         if (t->physical_block_size & (t->logical_block_size - 1)) {
+> --
+> 2.15.0
+>
 
 --
 dm-devel mailing list
