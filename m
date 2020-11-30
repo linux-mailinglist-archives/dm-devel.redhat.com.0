@@ -1,54 +1,54 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0324A2C8C15
-	for <lists+dm-devel@lfdr.de>; Mon, 30 Nov 2020 19:06:04 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id C62E62C8C34
+	for <lists+dm-devel@lfdr.de>; Mon, 30 Nov 2020 19:09:38 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-581-xLy531hpMY2PD2omxJOVJg-1; Mon, 30 Nov 2020 13:06:02 -0500
-X-MC-Unique: xLy531hpMY2PD2omxJOVJg-1
+ us-mta-336-5cicfYT-P_iK5VUY5wv1ig-1; Mon, 30 Nov 2020 13:09:35 -0500
+X-MC-Unique: 5cicfYT-P_iK5VUY5wv1ig-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2543A612A7;
-	Mon, 30 Nov 2020 18:05:54 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EE41119C71;
-	Mon, 30 Nov 2020 18:05:53 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 403378030C4;
+	Mon, 30 Nov 2020 18:09:30 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 09D9F19D80;
+	Mon, 30 Nov 2020 18:09:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B040B4A7C6;
-	Mon, 30 Nov 2020 18:05:52 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8B4511809C9F;
+	Mon, 30 Nov 2020 18:09:29 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0AUI5aQ2008838 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 30 Nov 2020 13:05:36 -0500
+	id 0AUI6mP0009352 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 30 Nov 2020 13:06:48 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7636C5D214; Mon, 30 Nov 2020 18:05:36 +0000 (UTC)
+	id 90FD22166B2C; Mon, 30 Nov 2020 18:06:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6D27F5D224
-	for <dm-devel@redhat.com>; Mon, 30 Nov 2020 18:05:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 84B662166B31
+	for <dm-devel@redhat.com>; Mon, 30 Nov 2020 18:06:44 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E9D3B800962
-	for <dm-devel@redhat.com>; Mon, 30 Nov 2020 18:05:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0F6CA803DCD
+	for <dm-devel@redhat.com>; Mon, 30 Nov 2020 18:06:44 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-123-_k_8BGFDPeSVndYcn5Ufdg-1; Mon, 30 Nov 2020 13:05:30 -0500
-X-MC-Unique: _k_8BGFDPeSVndYcn5Ufdg-1
+	us-mta-493-OgJMlrpaNzufPl6S_ryRkQ-1; Mon, 30 Nov 2020 13:06:38 -0500
+X-MC-Unique: OgJMlrpaNzufPl6S_ryRkQ-1
 Received: from 089144198196.atnat0007.highway.a1.net ([89.144.198.196]
 	helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kjnYG-0006pI-CE; Mon, 30 Nov 2020 18:05:29 +0000
+	id 1kjnZM-0006tA-B2; Mon, 30 Nov 2020 18:06:36 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 30 Nov 2020 18:58:51 +0100
-Message-Id: <20201130175854.982460-3-hch@lst.de>
+Date: Mon, 30 Nov 2020 18:58:52 +0100
+Message-Id: <20201130175854.982460-4-hch@lst.de>
 In-Reply-To: <20201130175854.982460-1-hch@lst.de>
 References: <20201130175854.982460-1-hch@lst.de>
 MIME-Version: 1.0
@@ -62,12 +62,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: linux-block@vger.kernel.org, linux-raid@vger.kernel.org,
 	dm-devel@redhat.com, linux-s390@vger.kernel.org
-Subject: [dm-devel] [PATCH 2/5] block: simplify and extended the
-	block_bio_merge tracepoint class
+Subject: [dm-devel] [PATCH 3/5] block: remove the request_queue argument to
+	the block_split tracepoint
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,363 +89,91 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The block_bio_merge tracepoint class can be reused for most bio-based
-tracepoints.  For that is just needs to lose the superflous and rq
-parameters.
+The request_queue can trivially be derived from the bio.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- block/blk-core.c             |   2 +-
- block/blk-merge.c            |   4 +-
- block/blk-mq.c               |   2 +-
- block/bounce.c               |   2 +-
- include/trace/events/block.h | 158 ++++++++---------------------------
- kernel/trace/blktrace.c      |  41 +++------
- 6 files changed, 48 insertions(+), 161 deletions(-)
+ block/blk-merge.c            |  2 +-
+ drivers/md/dm.c              |  2 +-
+ include/trace/events/block.h | 14 ++++++--------
+ kernel/trace/blktrace.c      |  5 ++---
+ 4 files changed, 10 insertions(+), 13 deletions(-)
 
-diff --git a/block/blk-core.c b/block/blk-core.c
-index cee568389b7e11..cb24654983e1e4 100644
---- a/block/blk-core.c
-+++ b/block/blk-core.c
-@@ -907,7 +907,7 @@ static noinline_for_stack bool submit_bio_checks(struct bio *bio)
- 	blkcg_bio_issue_init(bio);
- 
- 	if (!bio_flagged(bio, BIO_TRACE_COMPLETION)) {
--		trace_block_bio_queue(q, bio);
-+		trace_block_bio_queue(bio);
- 		/* Now that enqueuing has been traced, we need to trace
- 		 * completion as well.
- 		 */
 diff --git a/block/blk-merge.c b/block/blk-merge.c
-index cb351ab9b77dbd..1a46d5bbd399e3 100644
+index 1a46d5bbd399e3..4071daa88a5eaf 100644
 --- a/block/blk-merge.c
 +++ b/block/blk-merge.c
-@@ -922,7 +922,7 @@ static enum bio_merge_status bio_attempt_back_merge(struct request *req,
- 	if (!ll_back_merge_fn(req, bio, nr_segs))
- 		return BIO_MERGE_FAILED;
+@@ -338,7 +338,7 @@ void __blk_queue_split(struct bio **bio, unsigned int *nr_segs)
+ 		split->bi_opf |= REQ_NOMERGE;
  
--	trace_block_bio_backmerge(req->q, req, bio);
-+	trace_block_bio_backmerge(bio);
- 	rq_qos_merge(req->q, req, bio);
- 
- 	if ((req->cmd_flags & REQ_FAILFAST_MASK) != ff)
-@@ -946,7 +946,7 @@ static enum bio_merge_status bio_attempt_front_merge(struct request *req,
- 	if (!ll_front_merge_fn(req, bio, nr_segs))
- 		return BIO_MERGE_FAILED;
- 
--	trace_block_bio_frontmerge(req->q, req, bio);
-+	trace_block_bio_frontmerge(bio);
- 	rq_qos_merge(req->q, req, bio);
- 
- 	if ((req->cmd_flags & REQ_FAILFAST_MASK) != ff)
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index a2593748fa5342..13636458f32f1c 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -2183,7 +2183,7 @@ blk_qc_t blk_mq_submit_bio(struct bio *bio)
- 		goto queue_exit;
+ 		bio_chain(split, *bio);
+-		trace_block_split(q, split, (*bio)->bi_iter.bi_sector);
++		trace_block_split(split, (*bio)->bi_iter.bi_sector);
+ 		submit_bio_noacct(*bio);
+ 		*bio = split;
  	}
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index ed7e836efbcdbc..9a5bd90779c7c4 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -1612,7 +1612,7 @@ static blk_qc_t __split_and_process_bio(struct mapped_device *md,
+ 				part_stat_unlock();
  
--	trace_block_getrq(q, bio, bio->bi_opf);
-+	trace_block_getrq(bio);
- 
- 	rq_qos_track(q, rq, bio);
- 
-diff --git a/block/bounce.c b/block/bounce.c
-index 162a6eee89996a..d3f51acd6e3b51 100644
---- a/block/bounce.c
-+++ b/block/bounce.c
-@@ -340,7 +340,7 @@ static void __blk_queue_bounce(struct request_queue *q, struct bio **bio_orig,
- 		}
- 	}
- 
--	trace_block_bio_bounce(q, *bio_orig);
-+	trace_block_bio_bounce(*bio_orig);
- 
- 	bio->bi_flags |= (1 << BIO_BOUNCED);
- 
+ 				bio_chain(b, bio);
+-				trace_block_split(md->queue, b, bio->bi_iter.bi_sector);
++				trace_block_split(b, bio->bi_iter.bi_sector);
+ 				ret = submit_bio_noacct(bio);
+ 				break;
+ 			}
 diff --git a/include/trace/events/block.h b/include/trace/events/block.h
-index 76459cf750e14d..506c29dc7c76fd 100644
+index 506c29dc7c76fd..b415e4cba84304 100644
 --- a/include/trace/events/block.h
 +++ b/include/trace/events/block.h
-@@ -226,45 +226,6 @@ DEFINE_EVENT(block_rq, block_rq_merge,
- 	TP_ARGS(q, rq)
- );
+@@ -411,21 +411,19 @@ DEFINE_EVENT(block_unplug, block_unplug,
  
--/**
-- * block_bio_bounce - used bounce buffer when processing block operation
-- * @q: queue holding the block operation
-- * @bio: block operation
-- *
-- * A bounce buffer was used to handle the block operation @bio in @q.
-- * This occurs when hardware limitations prevent a direct transfer of
-- * data between the @bio data memory area and the IO device.  Use of a
-- * bounce buffer requires extra copying of data and decreases
-- * performance.
-- */
--TRACE_EVENT(block_bio_bounce,
--
--	TP_PROTO(struct request_queue *q, struct bio *bio),
--
--	TP_ARGS(q, bio),
--
--	TP_STRUCT__entry(
--		__field( dev_t,		dev			)
--		__field( sector_t,	sector			)
--		__field( unsigned int,	nr_sector		)
--		__array( char,		rwbs,	RWBS_LEN	)
--		__array( char,		comm,	TASK_COMM_LEN	)
--	),
--
--	TP_fast_assign(
--		__entry->dev		= bio_dev(bio);
--		__entry->sector		= bio->bi_iter.bi_sector;
--		__entry->nr_sector	= bio_sectors(bio);
--		blk_fill_rwbs(__entry->rwbs, bio->bi_opf, bio->bi_iter.bi_size);
--		memcpy(__entry->comm, current->comm, TASK_COMM_LEN);
--	),
--
--	TP_printk("%d,%d %s %llu + %u [%s]",
--		  MAJOR(__entry->dev), MINOR(__entry->dev), __entry->rwbs,
--		  (unsigned long long)__entry->sector,
--		  __entry->nr_sector, __entry->comm)
--);
--
  /**
-  * block_bio_complete - completed all work on the block operation
-  * @q: queue holding the block operation
-@@ -301,11 +262,11 @@ TRACE_EVENT(block_bio_complete,
- 		  __entry->nr_sector, __entry->error)
- );
+  * block_split - split a single bio struct into two bio structs
+- * @q: queue containing the bio
+  * @bio: block operation being split
+  * @new_sector: The starting sector for the new bio
+  *
+- * The bio request @bio in request queue @q needs to be split into two
+- * bio requests. The newly created @bio request starts at
+- * @new_sector. This split may be required due to hardware limitation
+- * such as operation crossing device boundaries in a RAID system.
++ * The bio request @bio needs to be split into two bio requests.  The newly
++ * created @bio request starts at @new_sector. This split may be required due to
++ * hardware limitations such as operation crossing device boundaries in a RAID
++ * system.
+  */
+ TRACE_EVENT(block_split,
  
--DECLARE_EVENT_CLASS(block_bio_merge,
-+DECLARE_EVENT_CLASS(block_bio,
+-	TP_PROTO(struct request_queue *q, struct bio *bio,
+-		 unsigned int new_sector),
++	TP_PROTO(struct bio *bio, unsigned int new_sector),
  
--	TP_PROTO(struct request_queue *q, struct request *rq, struct bio *bio),
-+	TP_PROTO(struct bio *bio),
- 
--	TP_ARGS(q, rq, bio),
-+	TP_ARGS(bio),
+-	TP_ARGS(q, bio, new_sector),
++	TP_ARGS(bio, new_sector),
  
  	TP_STRUCT__entry(
- 		__field( dev_t,		dev			)
-@@ -329,116 +290,63 @@ DECLARE_EVENT_CLASS(block_bio_merge,
- 		  __entry->nr_sector, __entry->comm)
- );
- 
-+/**
-+ * block_bio_bounce - used bounce buffer when processing block operation
-+ * @bio: block operation
-+ *
-+ * A bounce buffer was used to handle the block operation @bio in @q.
-+ * This occurs when hardware limitations prevent a direct transfer of
-+ * data between the @bio data memory area and the IO device.  Use of a
-+ * bounce buffer requires extra copying of data and decreases
-+ * performance.
-+ */
-+DEFINE_EVENT(block_bio, block_bio_bounce,
-+	TP_PROTO(struct bio *bio),
-+	TP_ARGS(bio)
-+);
-+
- /**
-  * block_bio_backmerge - merging block operation to the end of an existing operation
-- * @q: queue holding operation
-- * @rq: request bio is being merged into
-  * @bio: new block operation to merge
-  *
-- * Merging block request @bio to the end of an existing block request
-- * in queue @q.
-+ * Merging block request @bio to the end of an existing block request.
-  */
--DEFINE_EVENT(block_bio_merge, block_bio_backmerge,
--
--	TP_PROTO(struct request_queue *q, struct request *rq, struct bio *bio),
--
--	TP_ARGS(q, rq, bio)
-+DEFINE_EVENT(block_bio, block_bio_backmerge,
-+	TP_PROTO(struct bio *bio),
-+	TP_ARGS(bio)
- );
- 
- /**
-  * block_bio_frontmerge - merging block operation to the beginning of an existing operation
-- * @q: queue holding operation
-- * @rq: request bio is being merged into
-  * @bio: new block operation to merge
-  *
-- * Merging block IO operation @bio to the beginning of an existing block
-- * operation in queue @q.
-+ * Merging block IO operation @bio to the beginning of an existing block request.
-  */
--DEFINE_EVENT(block_bio_merge, block_bio_frontmerge,
--
--	TP_PROTO(struct request_queue *q, struct request *rq, struct bio *bio),
--
--	TP_ARGS(q, rq, bio)
-+DEFINE_EVENT(block_bio, block_bio_frontmerge,
-+	TP_PROTO(struct bio *bio),
-+	TP_ARGS(bio)
- );
- 
- /**
-  * block_bio_queue - putting new block IO operation in queue
-- * @q: queue holding operation
-  * @bio: new block operation
-  *
-  * About to place the block IO operation @bio into queue @q.
-  */
--TRACE_EVENT(block_bio_queue,
--
--	TP_PROTO(struct request_queue *q, struct bio *bio),
--
--	TP_ARGS(q, bio),
--
--	TP_STRUCT__entry(
--		__field( dev_t,		dev			)
--		__field( sector_t,	sector			)
--		__field( unsigned int,	nr_sector		)
--		__array( char,		rwbs,	RWBS_LEN	)
--		__array( char,		comm,	TASK_COMM_LEN	)
--	),
--
--	TP_fast_assign(
--		__entry->dev		= bio_dev(bio);
--		__entry->sector		= bio->bi_iter.bi_sector;
--		__entry->nr_sector	= bio_sectors(bio);
--		blk_fill_rwbs(__entry->rwbs, bio->bi_opf, bio->bi_iter.bi_size);
--		memcpy(__entry->comm, current->comm, TASK_COMM_LEN);
--	),
--
--	TP_printk("%d,%d %s %llu + %u [%s]",
--		  MAJOR(__entry->dev), MINOR(__entry->dev), __entry->rwbs,
--		  (unsigned long long)__entry->sector,
--		  __entry->nr_sector, __entry->comm)
--);
--
--DECLARE_EVENT_CLASS(block_get_rq,
--
--	TP_PROTO(struct request_queue *q, struct bio *bio, int rw),
--
--	TP_ARGS(q, bio, rw),
--
--	TP_STRUCT__entry(
--		__field( dev_t,		dev			)
--		__field( sector_t,	sector			)
--		__field( unsigned int,	nr_sector		)
--		__array( char,		rwbs,	RWBS_LEN	)
--		__array( char,		comm,	TASK_COMM_LEN	)
--        ),
--
--	TP_fast_assign(
--		__entry->dev		= bio ? bio_dev(bio) : 0;
--		__entry->sector		= bio ? bio->bi_iter.bi_sector : 0;
--		__entry->nr_sector	= bio ? bio_sectors(bio) : 0;
--		blk_fill_rwbs(__entry->rwbs,
--			      bio ? bio->bi_opf : 0, __entry->nr_sector);
--		memcpy(__entry->comm, current->comm, TASK_COMM_LEN);
--        ),
--
--	TP_printk("%d,%d %s %llu + %u [%s]",
--		  MAJOR(__entry->dev), MINOR(__entry->dev), __entry->rwbs,
--		  (unsigned long long)__entry->sector,
--		  __entry->nr_sector, __entry->comm)
-+DEFINE_EVENT(block_bio, block_bio_queue,
-+	TP_PROTO(struct bio *bio),
-+	TP_ARGS(bio)
- );
- 
- /**
-  * block_getrq - get a free request entry in queue for block IO operations
-- * @q: queue for operations
-  * @bio: pending block IO operation (can be %NULL)
-- * @rw: low bit indicates a read (%0) or a write (%1)
-  *
-- * A request struct for queue @q has been allocated to handle the
-- * block IO operation @bio.
-+ * A request struct has been allocated to handle the block IO operation @bio.
-  */
--DEFINE_EVENT(block_get_rq, block_getrq,
--
--	TP_PROTO(struct request_queue *q, struct bio *bio, int rw),
--
--	TP_ARGS(q, bio, rw)
-+DEFINE_EVENT(block_bio, block_getrq,
-+	TP_PROTO(struct bio *bio),
-+	TP_ARGS(bio)
- );
- 
- /**
+ 		__field( dev_t,		dev				)
 diff --git a/kernel/trace/blktrace.c b/kernel/trace/blktrace.c
-index ced589df304b57..7ab88e00c15765 100644
+index 7ab88e00c15765..3ca6d62114f461 100644
 --- a/kernel/trace/blktrace.c
 +++ b/kernel/trace/blktrace.c
-@@ -906,10 +906,9 @@ static void blk_add_trace_bio(struct request_queue *q, struct bio *bio,
+@@ -970,10 +970,9 @@ static void blk_add_trace_unplug(void *ignore, struct request_queue *q,
  	rcu_read_unlock();
  }
  
--static void blk_add_trace_bio_bounce(void *ignore,
--				     struct request_queue *q, struct bio *bio)
-+static void blk_add_trace_bio_bounce(void *ignore, struct bio *bio)
+-static void blk_add_trace_split(void *ignore,
+-				struct request_queue *q, struct bio *bio,
+-				unsigned int pdu)
++static void blk_add_trace_split(void *ignore, struct bio *bio, unsigned int pdu)
  {
--	blk_add_trace_bio(q, bio, BLK_TA_BOUNCE, 0);
-+	blk_add_trace_bio(bio->bi_disk->queue, bio, BLK_TA_BOUNCE, 0);
- }
++	struct request_queue *q = bio->bi_disk->queue;
+ 	struct blk_trace *bt;
  
- static void blk_add_trace_bio_complete(void *ignore,
-@@ -919,44 +918,24 @@ static void blk_add_trace_bio_complete(void *ignore,
- 			  blk_status_to_errno(bio->bi_status));
- }
- 
--static void blk_add_trace_bio_backmerge(void *ignore,
--					struct request_queue *q,
--					struct request *rq,
--					struct bio *bio)
-+static void blk_add_trace_bio_backmerge(void *ignore, struct bio *bio)
- {
--	blk_add_trace_bio(q, bio, BLK_TA_BACKMERGE, 0);
-+	blk_add_trace_bio(bio->bi_disk->queue, bio, BLK_TA_BACKMERGE, 0);
- }
- 
--static void blk_add_trace_bio_frontmerge(void *ignore,
--					 struct request_queue *q,
--					 struct request *rq,
--					 struct bio *bio)
-+static void blk_add_trace_bio_frontmerge(void *ignore, struct bio *bio)
- {
--	blk_add_trace_bio(q, bio, BLK_TA_FRONTMERGE, 0);
-+	blk_add_trace_bio(bio->bi_disk->queue, bio, BLK_TA_FRONTMERGE, 0);
- }
- 
--static void blk_add_trace_bio_queue(void *ignore,
--				    struct request_queue *q, struct bio *bio)
-+static void blk_add_trace_bio_queue(void *ignore, struct bio *bio)
- {
--	blk_add_trace_bio(q, bio, BLK_TA_QUEUE, 0);
-+	blk_add_trace_bio(bio->bi_disk->queue, bio, BLK_TA_QUEUE, 0);
- }
- 
--static void blk_add_trace_getrq(void *ignore,
--				struct request_queue *q,
--				struct bio *bio, int rw)
-+static void blk_add_trace_getrq(void *ignore, struct bio *bio)
- {
--	if (bio)
--		blk_add_trace_bio(q, bio, BLK_TA_GETRQ, 0);
--	else {
--		struct blk_trace *bt;
--
--		rcu_read_lock();
--		bt = rcu_dereference(q->blk_trace);
--		if (bt)
--			__blk_add_trace(bt, 0, 0, rw, 0, BLK_TA_GETRQ, 0, 0,
--					NULL, 0);
--		rcu_read_unlock();
--	}
-+	blk_add_trace_bio(bio->bi_disk->queue, bio, BLK_TA_GETRQ, 0);
- }
- 
- static void blk_add_trace_plug(void *ignore, struct request_queue *q)
+ 	rcu_read_lock();
 -- 
 2.29.2
 
