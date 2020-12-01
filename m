@@ -1,64 +1,102 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id AA6482CB43F
-	for <lists+dm-devel@lfdr.de>; Wed,  2 Dec 2020 06:15:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1606886105;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=bITD7fpxluM3HTPIq3yD2NPl5ebhtvMMA7Rp2i9DfwY=;
-	b=LCJYlDtPrSbr/lAIfDcsYvz2iklGq1FevGdi/nfoi7lyDt7KkWo/HKK1QI7P6+jUcC5aZ7
-	doKuFmGq3YTUeh371U+rQ++50qlXTTg56JpCFrTupTicKoQvZILnSgPhjmg3tzHaQRBbuk
-	+CEOFtRfVyyETgEzVozlddrJIbnOCSA=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id D38D62CB9BF
+	for <lists+dm-devel@lfdr.de>; Wed,  2 Dec 2020 10:55:33 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-541-21zKmU1CNg6NLqBzS5Bqdg-1; Wed, 02 Dec 2020 00:15:03 -0500
-X-MC-Unique: 21zKmU1CNg6NLqBzS5Bqdg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-94-cwmRqLNhM1mRZQULcwa0Cw-1; Wed, 02 Dec 2020 04:55:30 -0500
+X-MC-Unique: cwmRqLNhM1mRZQULcwa0Cw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 965BD1005E44;
-	Wed,  2 Dec 2020 05:14:56 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DF2D419C44;
-	Wed,  2 Dec 2020 05:14:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 293E78042C7;
+	Wed,  2 Dec 2020 09:55:24 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4712410013C1;
+	Wed,  2 Dec 2020 09:55:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 645DF180954D;
-	Wed,  2 Dec 2020 05:14:51 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4E3DE4EA6C;
+	Wed,  2 Dec 2020 09:55:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B25EgGn010869 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Dec 2020 00:14:42 -0500
+	id 0B1CKqnV030960 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 1 Dec 2020 07:20:53 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3547B5C1BD; Wed,  2 Dec 2020 05:14:42 +0000 (UTC)
+	id D81482166B2C; Tue,  1 Dec 2020 12:20:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 15AE15C1B4;
-	Wed,  2 Dec 2020 05:14:38 +0000 (UTC)
-Date: Wed, 2 Dec 2020 00:14:38 -0500
-From: Mike Snitzer <snitzer@redhat.com>
-To: JeffleXu <jefflexu@linux.alibaba.com>
-Message-ID: <20201202051438.GB20535@redhat.com>
-References: <20201201160709.31748-1-snitzer@redhat.com>
-	<20201202033855.60882-1-jefflexu@linux.alibaba.com>
-	<20201202033855.60882-2-jefflexu@linux.alibaba.com>
-	<feb19a02-5ece-505f-e905-86dc84cdb204@linux.alibaba.com>
-	<20201202050343.GA20535@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D31012166B2B
+	for <dm-devel@redhat.com>; Tue,  1 Dec 2020 12:20:49 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A0B39800183
+	for <dm-devel@redhat.com>; Tue,  1 Dec 2020 12:20:49 +0000 (UTC)
+Received: from mail-ej1-f65.google.com (mail-ej1-f65.google.com
+	[209.85.218.65]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-108-YvGGN-AeNeS3jOqLU9pFCA-1; Tue, 01 Dec 2020 07:20:47 -0500
+X-MC-Unique: YvGGN-AeNeS3jOqLU9pFCA-1
+Received: by mail-ej1-f65.google.com with SMTP id g20so3083201ejb.1
+	for <dm-devel@redhat.com>; Tue, 01 Dec 2020 04:20:47 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:from:date:to:cc:subject:message-id:references
+	:mime-version:content-disposition:in-reply-to;
+	bh=Fylyeg8K1HpI44gu+W/L892Ds6J+IK7AhpMNFOVv+J4=;
+	b=m+thvTZaPU/0BS/+Fjgda65Ybktu8hprC+kC2d5xMTgcWUOHb1J8ptLLw23hsBkRnC
+	YnrNNUl43ln5vMeAnkrL2vl9AcbsX2soYq04uSUIaciO47CvIY3eCc+wEVw/N5X7Lh3h
+	BTxeo8SWgXhGuougZyUWmmlawKnrgVPuTWrmpNiIfxFTaps14TTN+RiJj9c3RY6i6RKF
+	hyLbvuRzWRLL+iAlAvfFz6JLUFqfhs4g6x5VqIyoCmc0Lasy5iwLIICYuGTmWoQd3ZeD
+	SDd0krkbjRLO4tFl6EKHL3lBqJw9i3BJsagZQ3hy40rz2Awm6IsDDtfueJX+otaeMQhW
+	ePEQ==
+X-Gm-Message-State: AOAM5312QaghJ5lcmLxZI2WqfP35dRflelg3ddzxfh9HHXv8cWt6uu77
+	5zHOjUplg5RhxDxSzWcCybyrGw==
+X-Google-Smtp-Source: ABdhPJyA6bpW98mfTIiD5151P4PptIAHrybHgwuhzzmuU72gxHomFLdeJrIMEsjvEi8IuWtDJ6C0aA==
+X-Received: by 2002:a17:907:d1f:: with SMTP id
+	gn31mr2862738ejc.192.1606825244314; 
+	Tue, 01 Dec 2020 04:20:44 -0800 (PST)
+Received: from localhost (5.186.124.214.cgn.fibianet.dk. [5.186.124.214])
+	by smtp.gmail.com with ESMTPSA id d6sm746777ejy.114.2020.12.01.04.20.43
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Tue, 01 Dec 2020 04:20:43 -0800 (PST)
+From: "javier.gonz@samsung.com" <javier@javigon.com>
+X-Google-Original-From: "javier.gonz@samsung.com" <javier.gonz@samsung.com>
+Date: Tue, 1 Dec 2020 13:20:42 +0100
+To: Damien Le Moal <Damien.LeMoal@wdc.com>
+Message-ID: <20201201122042.xvkdtyjuhb76nntp@MacBook-Pro.localdomain>
+References: <CGME20201201054049epcas5p2e0118abda14aaf8d8bdcfb543bc330fc@epcas5p2.samsung.com>
+	<20201201053949.143175-1-selvakuma.s1@samsung.com>
+	<CH2PR04MB652240A4A23F89B26118FD66E7F40@CH2PR04MB6522.namprd04.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <20201202050343.GA20535@redhat.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+In-Reply-To: <CH2PR04MB652240A4A23F89B26118FD66E7F40@CH2PR04MB6522.namprd04.prod.outlook.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: linux-block@vger.kernel.org, joseph.qi@linux.alibaba.com,
-	dm-devel@redhat.com
-Subject: Re: [dm-devel] dm: use gcd() to fix chunk_sectors limit stacking
+X-Mailman-Approved-At: Wed, 02 Dec 2020 04:55:04 -0500
+Cc: "axboe@kernel.dk" <axboe@kernel.dk>,
+	SelvaKumar S <selvakuma.s1@samsung.com>,
+	"sagi@grimberg.me" <sagi@grimberg.me>,
+	"joshi.k@samsung.com" <joshi.k@samsung.com>,
+	"selvajove@gmail.com" <selvajove@gmail.com>,
+	Mike Snitzer <snitzer@redhat.com>,
+	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
+	"nj.shetty@samsung.com" <nj.shetty@samsung.com>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	device-mapper development <dm-devel@redhat.com>,
+	"kbusch@kernel.org" <kbusch@kernel.org>, "hch@lst.de" <hch@lst.de>
+Subject: Re: [dm-devel] [RFC PATCH 0/2] add simple copy support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -72,38 +110,86 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On Wed, Dec 02 2020 at 12:03am -0500,
-Mike Snitzer <snitzer@redhat.com> wrote:
+On 01.12.2020 11:22, Damien Le Moal wrote:
+>+ Mike and DM list
+>
+>On 2020/12/01 16:12, SelvaKumar S wrote:
+>> This patchset tries to add support for TP4065a ("Simple Copy Command"),
+>> v2020.05.04 ("Ratified")
+>>
+>> The Specification can be found in following link.
+>> https://nvmexpress.org/wp-content/uploads/NVM-Express-1.4-Ratified-TPs-1.zip
+>>
+>> This is an RFC. Looking forward for any feedbacks or other alternate
+>> designs for plumbing simple copy to IO stack.
+>>
+>> Simple copy command is a copy offloading operation and is  used to copy
+>> multiple contiguous ranges (source_ranges) of LBA's to a single destination
+>> LBA within the device reducing traffic between host and device.
+>>
+>> This implementation accepts destination, no of sources and arrays of
+>> source ranges from application and attach it as payload to the bio and
+>> submits to the device.
+>>
+>> Following limits are added to queue limits and are exposed in sysfs
+>> to userspace
+>> 	- *max_copy_sectors* limits the sum of all source_range length
+>> 	- *max_copy_nr_ranges* limits the number of source ranges
+>> 	- *max_copy_range_sectors* limit the maximum number of sectors
+>> 		that can constitute a single source range.
+>
+>This is interesting. I think there are several possible use in the kernel in
+>various components: FS (btrfs rebalance, f2fs GC, liklely others) and DM at the
+>very least.
 
-> What you've done here is fairly chaotic/disruptive:
-> 1) you emailed a patch out that isn't needed or ideal, I dealt already
->    staged a DM fix in linux-next for 5.10-rcX, see:
->    https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/commit/?h=dm-5.10-rcX&id=f28de262ddf09b635095bdeaf0e07ff507b3c41b
-> 2) you replied to your patch and started referencing snippets of this
->    other patch's header (now staged for 5.10-rcX via Jens' block tree):
->    https://git.kernel.dk/cgit/linux-block/commit/?h=block-5.10&id=7e7986f9d3ba69a7375a41080a1f8c8012cb0923
->    - why not reply to _that_ patch in response something stated in it?
+Totally agree. We have more patches for simple copy, among others work
+on F2FS that leverages for GC. We wanted to start with a simple patchset
+enabling IOCTL to be an easy to review start. The rest of the patches
+will come.
 
-I now see you did reply to the original v2 patch:
-https://www.redhat.com/archives/dm-devel/2020-December/msg00006.html
 
-but you changed the Subject to have a "dm" prefix for some reason.
-Strange but OK.. though it got really weird when you cut-and-paste your
-other DM patch in reply at the bottom of your email.  If you find
-yourself cross referencing emails and cutting and pasting like that, you
-probably shouldn't.  Makes it chaotic for others to follow along.
+>However, your patches add support only for NVMe devices that have native support
+>for simple copy, leaving all other block devices out. That seriously limits the
+>use cases and also does not make this solution attractive since any use of it
+>would need to be conditional on the underlying drive capabilities. That means
+>more code for the file systems or device mapper developers and maintainers, not
+>less.
 
-Thanks,
-Mike
+Makes sense.
+
+>
+>To avoid this, I would suggest that this code be extended to add emulation for
+>drives that do not implement simple copy natively. This would allow this
+>interface to work on any block device, including SAS & SATA HDDs and RAID arrays.
+>
+>The emulation part of this copy service could I think be based on dm-kcopyd. See
+>include/linux/dm-kcopyd.h for the interface. The current dm-kcopyd interface
+>takes one source and multiple destination, the reverse of simple copy. But it
+>would be fairly straightforward to also allow multiple sources and one
+>destination. Simple copy native support would accelerate this case, everything
+>else using the regular BIO read+write interface. Moving dm-kcopyd from DM
+>infrastructure into the block layer as a set a generic block device sector copy
+>service would allow its use in more places. And SCSI XCOPY could also be
+>integrated in there as a different drive native support command.
+
+Let us look into this. It makes sense.
+
+It seems fair to start support bottom up from NVMe and then extend to
+block layer and F2FS (potentially others). At this stage, we were
+assuming that all the work that people like Martin, Bart and other have
+been doing through the years on XCOPY could be integrated. Emulation can
+be a part of this.
+
+How can we move forward to do this in stages?
 
 --
 dm-devel mailing list
