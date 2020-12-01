@@ -2,85 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 104292CA7BC
-	for <lists+dm-devel@lfdr.de>; Tue,  1 Dec 2020 17:07:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1606838878;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=euJZQsT0Pd6Y3UtNEpvxArXJHilNKDG89W6+Zyv5xGs=;
-	b=CWktSzBZEG9RKYOHVpeZP85Fzv27/4fywtRT+6T5yvt9c4eEGCqXdy7yaj8C/oGqrL5ej2
-	hps/4YPwZKMbpJB3r39vmgzqMAiFgguXkDWnrdv19zEimhW9RcLy0ghnfV08x/Fp4ePo6v
-	six/06kD+YWkvNAWj5gn2YvcAiPhh48=
+	by mail.lfdr.de (Postfix) with ESMTP id 437042CA935
+	for <lists+dm-devel@lfdr.de>; Tue,  1 Dec 2020 18:02:22 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-482-d-ivCfOpMP-b2juyFKH9Lw-1; Tue, 01 Dec 2020 11:07:55 -0500
-X-MC-Unique: d-ivCfOpMP-b2juyFKH9Lw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-334-Mf2ymp4XO8CJLIIEsu7o-g-1; Tue, 01 Dec 2020 12:02:17 -0500
+X-MC-Unique: Mf2ymp4XO8CJLIIEsu7o-g-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 909C7100C660;
-	Tue,  1 Dec 2020 16:07:47 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 51F455D9C2;
-	Tue,  1 Dec 2020 16:07:45 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B38B81005E53;
+	Tue,  1 Dec 2020 17:02:10 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A2DB60873;
+	Tue,  1 Dec 2020 17:02:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A2BBB18095C9;
-	Tue,  1 Dec 2020 16:07:34 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 44B885002E;
+	Tue,  1 Dec 2020 17:02:10 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B1G7LMH026868 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 1 Dec 2020 11:07:21 -0500
+	id 0B1H1saP032188 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 1 Dec 2020 12:01:54 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E17872026D16; Tue,  1 Dec 2020 16:07:20 +0000 (UTC)
+	id 979962026D13; Tue,  1 Dec 2020 17:01:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DA99B2026D12
-	for <dm-devel@redhat.com>; Tue,  1 Dec 2020 16:07:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 929212026D12
+	for <dm-devel@redhat.com>; Tue,  1 Dec 2020 17:01:54 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 790D680120A
-	for <dm-devel@redhat.com>; Tue,  1 Dec 2020 16:07:18 +0000 (UTC)
-Received: from mail-qv1-f65.google.com (mail-qv1-f65.google.com
-	[209.85.219.65]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-491-N-sqjN9mNTm9cpOnW87QRA-1; Tue, 01 Dec 2020 11:07:12 -0500
-X-MC-Unique: N-sqjN9mNTm9cpOnW87QRA-1
-Received: by mail-qv1-f65.google.com with SMTP id 62so1031960qva.11;
-	Tue, 01 Dec 2020 08:07:12 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
-	:in-reply-to:references;
-	bh=HDs+wOaN7N1oAjDOJXdaryAzxarmO9q6Cf3R5Ld01fE=;
-	b=YfLQGmz2vGrRNSMJ+lDHxVvBgYaOSQst3uZraoX7RM8f7xP2FvJc6WIJLlhHXcUNL6
-	0GzGIx5JkUmYErnEgzvCWb9eGMwVI8JMy+65Nu7KaQ3nXUkSngj5oUB9Ve9YGESXHdC7
-	m3QVMOyr5WiOEtamk3Dcxr7benF8PHi0kGcOBO/i6sH9C+3I/ZT8NM/EI06eIwCGp/xc
-	1yXGTsWZYgtXO+c5Yiob2P3vhguGDsridvA/QpSgu5kzu5DU21wZOjFjzWwDVhIvJely
-	Aza9RdEhl5LVRFbQTYXSdJOmZZq9uXfT4uAmhZJHOC3d5MQHHhUhbbE2myYn5n6tlAxR
-	ck6g==
-X-Gm-Message-State: AOAM532pUTNSUG2VsKVTQVPA2d1Ge+fTXCOsy2RZOuqOqyj7N8F9xNS5
-	uJdFAQgEM59E3xmx5OktbwE=
-X-Google-Smtp-Source: ABdhPJwhC2uejtnz+5vT2sYN3igQEt6dMIe1e7vEZH7+ShhdQHDFCQvBWTHFB8LX9qWcDXHrU7i12w==
-X-Received: by 2002:ad4:5441:: with SMTP id h1mr3605049qvt.4.1606838831033;
-	Tue, 01 Dec 2020 08:07:11 -0800 (PST)
-Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
-	[68.160.176.52]) by smtp.gmail.com with ESMTPSA id
-	y3sm2061476qkl.110.2020.12.01.08.07.10
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Tue, 01 Dec 2020 08:07:10 -0800 (PST)
-From: Mike Snitzer <snitzer@redhat.com>
-To: axboe@kernel.dk
-Date: Tue,  1 Dec 2020 11:07:09 -0500
-Message-Id: <20201201160709.31748-1-snitzer@redhat.com>
-In-Reply-To: <20201130171805.77712-1-snitzer@redhat.com>
-References: <20201130171805.77712-1-snitzer@redhat.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E481E85828D
+	for <dm-devel@redhat.com>; Tue,  1 Dec 2020 17:01:53 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-418-5esk_hlTMxGj9VR70UBWRw-1; Tue, 01 Dec 2020 12:01:51 -0500
+X-MC-Unique: 5esk_hlTMxGj9VR70UBWRw-1
+Received: from [2001:4bb8:184:6389:bbd8:a1c2:99e0:f58a] (helo=localhost)
+	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+	id 1kk8v3-0005Yk-J4; Tue, 01 Dec 2020 16:54:25 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Jens Axboe <axboe@kernel.dk>
+Date: Tue,  1 Dec 2020 17:54:15 +0100
+Message-Id: <20201201165424.2030647-1-hch@lst.de>
+MIME-Version: 1.0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -91,10 +60,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: linux-block@vger.kernel.org, dm-devel@redhat.com, bjohnsto@redhat.com,
-	jdorminy@redhat.com, martin.petersen@oracle.com
-Subject: [dm-devel] [PATCH v2] block: use gcd() to fix chunk_sectors limit
-	stacking
+Cc: linux-s390@vger.kernel.org, linux-bcache@vger.kernel.org,
+	Coly Li <colyli@suse.de>, linux-raid@vger.kernel.org,
+	Song Liu <song@kernel.org>, dm-devel@redhat.com,
+	linux-block@vger.kernel.org, Tejun Heo <tj@kernel.org>
+Subject: [dm-devel] store a pointer to the block_device in struct bio (again)
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -106,10 +76,9 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -117,51 +86,87 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-commit 22ada802ede8 ("block: use lcm_not_zero() when stacking
-chunk_sectors") broke chunk_sectors limit stacking. chunk_sectors must
-reflect the most limited of all devices in the IO stack.
+Hi Jens,
 
-Otherwise malformed IO may result. E.g.: prior to this fix,
-->chunk_sectors = lcm_not_zero(8, 128) would result in
-blk_max_size_offset() splitting IO at 128 sectors rather than the
-required more restrictive 8 sectors.
+this series switches back from storing the gendisk + partno to storing
+a block_device pointer in struct bio.  The reason is two fold:  for one
+the new struct block_device actually is always available, removing the
+need to avoid originally.  Second the merge struct block_device is much
+more useful than the old one, as storing it avoids the need for looking
+up what used to be hd_struct during partition remapping and I/O
+accounting.
 
-And since commit 07d098e6bbad ("block: allow 'chunk_sectors' to be
-non-power-of-2") care must be taken to properly stack chunk_sectors to
-be compatible with the possibility that a non-power-of-2 chunk_sectors
-may be stacked. This is why gcd() is used instead of reverting back
-to using min_not_zero().
+Note that this series depends on the posted but not merged
+"block tracepoint cleanups" series.
 
-Fixes: 22ada802ede8 ("block: use lcm_not_zero() when stacking chunk_sectors")
-Fixes: 07d098e6bbad ("block: allow 'chunk_sectors' to be non-power-of-2")
-Cc: stable@vger.kernel.org
-Reported-by: John Dorminy <jdorminy@redhat.com>
-Reported-by: Bruce Johnston <bjohnsto@redhat.com>
-Signed-off-by: Mike Snitzer <snitzer@redhat.com>
----
- block/blk-settings.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+A git tree is also available:
 
-v2: use gcd(), instead of min_not_zero(), as suggested by John Dorminy
+    git://git.infradead.org/users/hch/block.git bi_bdev
 
-diff --git a/block/blk-settings.c b/block/blk-settings.c
-index 9741d1d83e98..659cdb8a07fe 100644
---- a/block/blk-settings.c
-+++ b/block/blk-settings.c
-@@ -547,7 +547,10 @@ int blk_stack_limits(struct queue_limits *t, struct queue_limits *b,
- 
- 	t->io_min = max(t->io_min, b->io_min);
- 	t->io_opt = lcm_not_zero(t->io_opt, b->io_opt);
--	t->chunk_sectors = lcm_not_zero(t->chunk_sectors, b->chunk_sectors);
-+
-+	/* Set non-power-of-2 compatible chunk_sectors boundary */
-+	if (b->chunk_sectors)
-+		t->chunk_sectors = gcd(t->chunk_sectors, b->chunk_sectors);
- 
- 	/* Physical block size a multiple of the logical block size? */
- 	if (t->physical_block_size & (t->logical_block_size - 1)) {
--- 
-2.15.0
+Gitweb:
+
+    http://git.infradead.org/users/hch/block.git/shortlog/refs/heads/bi_bdev
+
+Diffstat:
+ arch/m68k/emu/nfblock.c             |    2 
+ arch/xtensa/platforms/iss/simdisk.c |    2 
+ block/bio-integrity.c               |   18 +-
+ block/bio.c                         |   31 +---
+ block/blk-cgroup.c                  |    7 
+ block/blk-core.c                    |   99 ++++++-------
+ block/blk-crypto-fallback.c         |    2 
+ block/blk-crypto.c                  |    2 
+ block/blk-merge.c                   |   17 +-
+ block/blk-mq.c                      |    2 
+ block/blk-settings.c                |    2 
+ block/blk-throttle.c                |    2 
+ block/blk.h                         |    9 -
+ block/bounce.c                      |    2 
+ block/genhd.c                       |  261 +++---------------------------------
+ block/partitions/core.c             |   31 ----
+ drivers/block/brd.c                 |    8 -
+ drivers/block/drbd/drbd_int.h       |    4 
+ drivers/block/drbd/drbd_req.c       |    2 
+ drivers/block/null_blk_main.c       |    2 
+ drivers/block/pktcdvd.c             |    4 
+ drivers/block/ps3vram.c             |    2 
+ drivers/block/rsxx/dev.c            |    2 
+ drivers/block/umem.c                |    2 
+ drivers/block/zram/zram_drv.c       |    2 
+ drivers/lightnvm/pblk-init.c        |    2 
+ drivers/md/bcache/debug.c           |    2 
+ drivers/md/bcache/request.c         |   39 +++--
+ drivers/md/dm-bio-record.h          |    9 -
+ drivers/md/dm-raid1.c               |   10 -
+ drivers/md/dm.c                     |   14 -
+ drivers/md/md-linear.c              |    2 
+ drivers/md/md.c                     |   10 -
+ drivers/md/md.h                     |    6 
+ drivers/md/raid1.c                  |    6 
+ drivers/md/raid10.c                 |   12 -
+ drivers/md/raid5.c                  |    2 
+ drivers/nvdimm/blk.c                |    4 
+ drivers/nvdimm/btt.c                |    4 
+ drivers/nvdimm/pmem.c               |    4 
+ drivers/nvme/host/core.c            |    6 
+ drivers/nvme/host/lightnvm.c        |    3 
+ drivers/nvme/host/multipath.c       |    6 
+ drivers/nvme/host/rdma.c            |    2 
+ drivers/s390/block/dasd.c           |   26 ---
+ drivers/s390/block/dcssblk.c        |    6 
+ drivers/s390/block/xpram.c          |    2 
+ fs/btrfs/check-integrity.c          |   10 -
+ fs/btrfs/raid56.c                   |    7 
+ fs/btrfs/scrub.c                    |    2 
+ fs/direct-io.c                      |    2 
+ fs/f2fs/data.c                      |   12 -
+ include/linux/bio.h                 |   18 +-
+ include/linux/blk_types.h           |    3 
+ include/linux/blkdev.h              |   20 --
+ include/linux/genhd.h               |   21 --
+ kernel/trace/blktrace.c             |   16 +-
+ mm/page_io.c                        |    2 
+ 58 files changed, 251 insertions(+), 556 deletions(-)
 
 --
 dm-devel mailing list
