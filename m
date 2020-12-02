@@ -2,75 +2,76 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 09AF62CCA4B
-	for <lists+dm-devel@lfdr.de>; Thu,  3 Dec 2020 00:09:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D839C2CCA65
+	for <lists+dm-devel@lfdr.de>; Thu,  3 Dec 2020 00:16:58 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-535-hI2UKJs2OiKhcA8ueqW81A-1; Wed, 02 Dec 2020 18:09:39 -0500
-X-MC-Unique: hI2UKJs2OiKhcA8ueqW81A-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-321-JlhtT7ihOC-NyYF1kTkyTw-1; Wed, 02 Dec 2020 18:16:53 -0500
+X-MC-Unique: JlhtT7ihOC-NyYF1kTkyTw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E22D657244;
-	Wed,  2 Dec 2020 23:09:32 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B8F1A60855;
-	Wed,  2 Dec 2020 23:09:32 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8FA79185E489;
+	Wed,  2 Dec 2020 23:16:47 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9C3B41002391;
+	Wed,  2 Dec 2020 23:16:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 191BA180954D;
-	Wed,  2 Dec 2020 23:09:32 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D8B0F4BB7B;
+	Wed,  2 Dec 2020 23:16:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B2N9TZ8019680 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Dec 2020 18:09:29 -0500
+	id 0B2NGYg5020154 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Dec 2020 18:16:34 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E345F1016D92; Wed,  2 Dec 2020 23:09:28 +0000 (UTC)
+	id 9A3892166B2B; Wed,  2 Dec 2020 23:16:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DEFBF100C28A
-	for <dm-devel@redhat.com>; Wed,  2 Dec 2020 23:09:26 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 93B192166B29
+	for <dm-devel@redhat.com>; Wed,  2 Dec 2020 23:16:28 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7FC61185A794
-	for <dm-devel@redhat.com>; Wed,  2 Dec 2020 23:09:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DC269811E76
+	for <dm-devel@redhat.com>; Wed,  2 Dec 2020 23:16:28 +0000 (UTC)
 Received: from mail-qk1-f194.google.com (mail-qk1-f194.google.com
 	[209.85.222.194]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-201-KVoY61pvNl-1OMpqpZIVYg-1; Wed, 02 Dec 2020 18:09:24 -0500
-X-MC-Unique: KVoY61pvNl-1OMpqpZIVYg-1
-Received: by mail-qk1-f194.google.com with SMTP id v143so469211qkb.2
-	for <dm-devel@redhat.com>; Wed, 02 Dec 2020 15:09:23 -0800 (PST)
+	us-mta-328-R0PxhAVwMTWaYSDZJ-8cUQ-1; Wed, 02 Dec 2020 18:16:27 -0500
+X-MC-Unique: R0PxhAVwMTWaYSDZJ-8cUQ-1
+Received: by mail-qk1-f194.google.com with SMTP id y18so427010qki.11
+	for <dm-devel@redhat.com>; Wed, 02 Dec 2020 15:16:26 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
 	:references:mime-version:content-disposition:in-reply-to;
-	bh=UrdtiO/QrBY20Yi4TmEbqEfbQLVKUAJywZnSXTzypgw=;
-	b=hFQ1xa0cmo86FQJ3gJJefLIM6gF625vSsL7E7WcQcf6LC2dfcupIT4tGOflrwxwdLE
-	WXwDy1O3Eu1cYbaVByJf4/FNDr15i81cjpoclznxU/6fIqFzW7iPqCLq2vrYqiR46xx7
-	IYzuPC+Hkzigveyf+AH4kkkzDKcztkD8VcZL9fX6jkxtSpD5/nklrRmK0woXhidrXXcm
-	qRA9yZnw1neSM8ZXKf2puyqWyghV3VIrg2nutRsx+1PrNvKGRs37sCuuvkms2vhAzYhG
-	pxGE+POfZuusBL43Du6IgwQIRUMxjt5Zx11+axi4mPWxqtps9NxmgJNXQXrrGVN4mpND
-	3byA==
-X-Gm-Message-State: AOAM532ZTNPK+5bAu44ebEJkL9XAR2TojzyOwIrjSsArGjrXFsv7w5wr
-	Ih5Sf7pgFNijlHHeXu7Kres=
-X-Google-Smtp-Source: ABdhPJzqmlQiVDw6RKd2+jPOUsHCqhHzIKWhKxr7ZTfOl1seoWS7W/a/BZr7JZODJGPZBbBxPoV4zw==
-X-Received: by 2002:ae9:de03:: with SMTP id s3mr134212qkf.218.1606950563515;
-	Wed, 02 Dec 2020 15:09:23 -0800 (PST)
+	bh=EeuwLeoomrRX1U6jiimxDGdm+UmMVxu8rCoS4eNDoAg=;
+	b=tvmVLnpigu0+ymKYpf47OadiB9bHxmG/P8lm5g8D6DtJ4DVdII/cpY+zT1m7+n3VCM
+	rIAIbNY/LhOTHg6wU7ioIUDJ06AXpmbP6AsywORHO/zuUuAc2hKQxMK6eCZDJAImR606
+	tOFWp76w57hzP1/PnPWe0l2ZDSulb9dTzqAPeZ9fa9pNR+r4zep5CTY6ZrqV/dgrjxAx
+	wxoBHVUgw/A8gX5FybiWRimDtRpdHlgdiQg6nWwKHLywODgMzVr8lIQhbwObX3gRup/n
+	YBYcRF4l4ik8xr7bceR5NytX5htiXr6ndMnoiwSt9jEgBfSqgVSuiL8nQz5B6ZqglHFz
+	QjQA==
+X-Gm-Message-State: AOAM531Lm/NJvWQJz4wVUcWOzePL4Kfli+SAAy0PHcLhz+Vzs9XMCht+
+	oV35uDY23Gy0ensG5pWpjeY=
+X-Google-Smtp-Source: ABdhPJw74aI5NUv2CAvLU/CD9FKcox1VupQf9vmhaG7IqRQi0hDXcbQvftKzKEPArmc+kjavi+g65w==
+X-Received: by 2002:a05:620a:164b:: with SMTP id
+	c11mr135922qko.203.1606950986443; 
+	Wed, 02 Dec 2020 15:16:26 -0800 (PST)
 Received: from localhost ([2620:10d:c091:480::1:ec0f])
-	by smtp.gmail.com with ESMTPSA id v204sm155597qka.4.2020.12.02.15.09.22
+	by smtp.gmail.com with ESMTPSA id p62sm149702qkf.50.2020.12.02.15.16.25
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Wed, 02 Dec 2020 15:09:22 -0800 (PST)
-Date: Wed, 2 Dec 2020 18:08:54 -0500
+	Wed, 02 Dec 2020 15:16:25 -0800 (PST)
+Date: Wed, 2 Dec 2020 18:15:57 -0500
 From: Tejun Heo <tj@kernel.org>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <X8gehr+JRCz8w4xt@mtj.duckdns.org>
+Message-ID: <X8ggLXsNOCh6Mrj0@mtj.duckdns.org>
 References: <20201201165424.2030647-1-hch@lst.de>
-	<20201201165424.2030647-8-hch@lst.de>
+	<20201201165424.2030647-9-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20201201165424.2030647-8-hch@lst.de>
+In-Reply-To: <20201201165424.2030647-9-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -79,13 +80,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: Jens Axboe <axboe@kernel.dk>, linux-s390@vger.kernel.org,
 	linux-bcache@vger.kernel.org, Coly Li <colyli@suse.de>,
 	linux-raid@vger.kernel.org, Song Liu <song@kernel.org>,
 	dm-devel@redhat.com, linux-block@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH 7/9] block: add a disk_uevent helper
+Subject: Re: [dm-devel] [PATCH 8/9] block: remove DISK_PITER_REVERSE
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -99,7 +100,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -108,12 +109,16 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Dec 01, 2020 at 05:54:22PM +0100, Christoph Hellwig wrote:
-> Add a helper to call kobject_uevent for the disk and all partitions, and
-> unexport the disk_part_iter_* helpers that are now only used in the core
-> block code.
+On Tue, Dec 01, 2020 at 05:54:23PM +0100, Christoph Hellwig wrote:
+> There is good reason to iterate backwards when deleting all partitions in
+> del_gendisk, just like we don't in blk_drop_partitions.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
+
+Yeah, I was blindly keeping the iteration order. Can't find any explicit
+explanation why it was that way. The reverse iteration there goes back to
+the initial git import. But yeah, I can't think of any meaningful difference
+which can come out of it.
 
 Acked-by: Tejun Heo <tj@kernel.org>
 
