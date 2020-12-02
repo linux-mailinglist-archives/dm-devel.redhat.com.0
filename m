@@ -2,92 +2,60 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id EDEEE2CB9C0
-	for <lists+dm-devel@lfdr.de>; Wed,  2 Dec 2020 10:55:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6BC532CB9C2
+	for <lists+dm-devel@lfdr.de>; Wed,  2 Dec 2020 10:55:36 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-215-wTqOd3lCNUet6zsla8YOTg-1; Wed, 02 Dec 2020 04:55:30 -0500
-X-MC-Unique: wTqOd3lCNUet6zsla8YOTg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-585-tpX_aBo-M5ChqhaRi2VJdg-1; Wed, 02 Dec 2020 04:55:32 -0500
+X-MC-Unique: tpX_aBo-M5ChqhaRi2VJdg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E52BA8558EF;
-	Wed,  2 Dec 2020 09:55:23 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4629810013C0;
-	Wed,  2 Dec 2020 09:55:23 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D2BA1D1673;
+	Wed,  2 Dec 2020 09:55:25 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A00B65D731;
+	Wed,  2 Dec 2020 09:55:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2B93F4BB40;
-	Wed,  2 Dec 2020 09:55:15 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 20C041809CA2;
+	Wed,  2 Dec 2020 09:55:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B1ECW6h013325 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 1 Dec 2020 09:12:32 -0500
+	id 0B23dBVO001313 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 1 Dec 2020 22:39:11 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3B0C02026D46; Tue,  1 Dec 2020 14:12:32 +0000 (UTC)
+	id 8E2671134CA6; Wed,  2 Dec 2020 03:39:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 34F772026D13
-	for <dm-devel@redhat.com>; Tue,  1 Dec 2020 14:12:29 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 886BA1004C64
+	for <dm-devel@redhat.com>; Wed,  2 Dec 2020 03:39:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 037D3800B3B
-	for <dm-devel@redhat.com>; Tue,  1 Dec 2020 14:12:29 +0000 (UTC)
-Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-234-d_HhyTZyNP-Kq6FAj20K1w-1; Tue, 01 Dec 2020 09:12:25 -0500
-X-MC-Unique: d_HhyTZyNP-Kq6FAj20K1w-1
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
-	by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	0B1Dt8Jx186047; Tue, 1 Dec 2020 14:11:31 GMT
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
-	by aserp2130.oracle.com with ESMTP id 353c2attky-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=FAIL); Tue, 01 Dec 2020 14:11:31 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
-	by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	0B1Du5hA003823; Tue, 1 Dec 2020 14:09:31 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by aserp3020.oracle.com with ESMTP id 3540ey0nwv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=FAIL); Tue, 01 Dec 2020 14:09:31 +0000
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [127.0.0.1])
-	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0B1E8IaF039759;
-	Tue, 1 Dec 2020 14:09:29 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
-	by aserp3020.oracle.com with ESMTP id 3540ey0nvu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 01 Dec 2020 14:09:29 +0000
-Received: from abhmp0010.oracle.com (abhmp0010.oracle.com [141.146.116.16])
-	by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0B1E9NOp018011;
-	Tue, 1 Dec 2020 14:09:24 GMT
-Received: from kadam (/102.36.221.92) by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Tue, 01 Dec 2020 06:09:23 -0800
-Date: Tue, 1 Dec 2020 17:08:49 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Nick Desaulniers <ndesaulniers@google.com>
-Message-ID: <20201201140849.GH2767@kadam>
-References: <cover.1605896059.git.gustavoars@kernel.org>
-	<20201120105344.4345c14e@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-	<202011201129.B13FDB3C@keescook>
-	<20201120115142.292999b2@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-	<202011220816.8B6591A@keescook>
-	<CAKwvOdntVfXj2WRR5n6Kw7BfG7FdKpTeHeh5nPu5AzwVMhOHTg@mail.gmail.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 01883103B805
+	for <dm-devel@redhat.com>; Wed,  2 Dec 2020 03:39:06 +0000 (UTC)
+Received: from out30-57.freemail.mail.aliyun.com
+	(out30-57.freemail.mail.aliyun.com [115.124.30.57]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-15-96UQ5-E6ODqvEgRX4_zebA-1;
+	Tue, 01 Dec 2020 22:39:00 -0500
+X-MC-Unique: 96UQ5-E6ODqvEgRX4_zebA-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R141e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1;
+	HT=alimailimapcm10staff010182156082;
+	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=4; SR=0;
+	TI=SMTPD_---0UHHQxH._1606880335
+Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
+	fp:SMTPD_---0UHHQxH._1606880335) by smtp.aliyun-inc.com(127.0.0.1);
+	Wed, 02 Dec 2020 11:38:56 +0800
+From: Jeffle Xu <jefflexu@linux.alibaba.com>
+To: snitzer@redhat.com
+Date: Wed,  2 Dec 2020 11:38:54 +0800
+Message-Id: <20201202033855.60882-1-jefflexu@linux.alibaba.com>
+In-Reply-To: <20201201160709.31748-1-snitzer@redhat.com>
+References: <20201201160709.31748-1-snitzer@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <CAKwvOdntVfXj2WRR5n6Kw7BfG7FdKpTeHeh5nPu5AzwVMhOHTg@mail.gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9821
-	signatures=668682
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
-	lowpriorityscore=0
-	clxscore=1015 bulkscore=0 mlxlogscore=924 phishscore=0 malwarescore=0
-	spamscore=0 adultscore=0 mlxscore=0 priorityscore=1501 impostorscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2009150000 definitions=main-2012010090
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -96,58 +64,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 02 Dec 2020 04:55:04 -0500
-Cc: alsa-devel@alsa-project.org, bridge@lists.linux-foundation.org,
-	target-devel@vger.kernel.org, linux-iio@vger.kernel.org,
-	linux-wireless <linux-wireless@vger.kernel.org>,
-	linux-mmc@vger.kernel.org, linux-fbdev@vger.kernel.org,
-	dri-devel <dri-devel@lists.freedesktop.org>,
-	virtualization@lists.linux-foundation.org,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	linux-ide@vger.kernel.org, dm-devel@redhat.com,
-	keyrings@vger.kernel.org, linux-mtd@lists.infradead.org,
-	GR-everest-linux-l2@marvell.com, wcn36xx@lists.infradead.org,
-	linux-i3c@lists.infradead.org, linux1394-devel@lists.sourceforge.net,
-	linux-afs@lists.infradead.org, linux-watchdog@vger.kernel.org,
-	devel@driverdev.osuosl.org, linux-cifs@vger.kernel.org,
-	rds-devel@oss.oracle.com, linux-scsi@vger.kernel.org,
-	linux-acpi@vger.kernel.org, linux-rdma@vger.kernel.org,
-	oss-drivers@netronome.com, linux-atm-general@lists.sourceforge.net,
-	ceph-devel@vger.kernel.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
-	linux-stm32@st-md-mailman.stormreply.com,
-	cluster-devel@redhat.com, usb-storage@lists.one-eyed-alien.net,
-	coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-input@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, linux-ext4@vger.kernel.org,
-	netfilter-devel@vger.kernel.org, linux-media@vger.kernel.org,
-	Kees Cook <keescook@chromium.org>, selinux@vger.kernel.org,
-	linux-arm-msm <linux-arm-msm@vger.kernel.org>,
-	intel-gfx@lists.freedesktop.org, linux-sctp@vger.kernel.org,
-	reiserfs-devel@vger.kernel.org, linux-geode@lists.infradead.org,
-	linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
-	op-tee@lists.trustedfirmware.org, linux-mediatek@lists.infradead.org,
-	xen-devel@lists.xenproject.org, drbd-dev@tron.linbit.com,
-	linux-hams@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>,
-	linux-can@vger.kernel.org,
-	Linux ARM <linux-arm-kernel@lists.infradead.org>,
-	linux-hwmon@vger.kernel.org,
-	"maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
-	linux-nfs@vger.kernel.org, GR-Linux-NIC-Dev@marvell.com,
-	nouveau@lists.freedesktop.org,
-	Network Development <netdev@vger.kernel.org>,
-	linux-decnet-user@lists.sourceforge.net, samba-technical@lists.samba.org,
-	LKML <linux-kernel@vger.kernel.org>,
-	Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
-	linux-security-module@vger.kernel.org, linux-usb@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	"open list:HARDWARE RANDOM NUMBER GENERATOR CORE"
-	<linux-crypto@vger.kernel.org>, patches@opensource.cirrus.com,
-	Joe Perches <joe@perches.com>, linux-integrity@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH 000/141] Fix fall-through warnings for Clang
+Cc: linux-block@vger.kernel.org, joseph.qi@linux.alibaba.com,
+	dm-devel@redhat.com
+Subject: [dm-devel] [PATCH] dm: use gcd() to fix chunk_sectors limit stacking
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -161,78 +83,53 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 23, 2020 at 05:32:51PM -0800, Nick Desaulniers wrote:
-> On Sun, Nov 22, 2020 at 8:17 AM Kees Cook <keescook@chromium.org> wrote:
-> >
-> > On Fri, Nov 20, 2020 at 11:51:42AM -0800, Jakub Kicinski wrote:
-> > > If none of the 140 patches here fix a real bug, and there is no change
-> > > to machine code then it sounds to me like a W=2 kind of a warning.
-> >
-> > FWIW, this series has found at least one bug so far:
-> > https://lore.kernel.org/lkml/CAFCwf11izHF=g1mGry1fE5kvFFFrxzhPSM6qKAO8gxSp=Kr_CQ@mail.gmail.com/
-> 
-> So looks like the bulk of these are:
-> switch (x) {
->   case 0:
->     ++x;
->   default:
->     break;
-> }
+As it said in commit 7e7986f9d3ba ("block: use gcd() to fix
+chunk_sectors limit stacking"), chunk_sectors should reflect the most
+limited of all devices in the IO stack.
 
-This should not generate a warning.
+The previous commit only fixes block/blk-settings.c:blk_stack_limits(),
+while leaving dm.c:dm_calculate_queue_limits() unfixed.
 
-> 
-> I have a patch that fixes those up for clang:
-> https://reviews.llvm.org/D91895
-> 
-> There's 3 other cases that don't quite match between GCC and Clang I
-> observe in the kernel:
-> switch (x) {
->   case 0:
->     ++x;
->   default:
->     goto y;
-> }
-> y:;
+Fixes: 882ec4e609c1 ("dm table: stack 'chunk_sectors' limit to account for target-specific splitting")
+cc: stable@vger.kernel.org
+Reported-by: John Dorminy <jdorminy@redhat.com>
+Reported-by: Bruce Johnston <bjohnsto@redhat.com>
+Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
+---
+ drivers/md/dm-table.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-This should generate a warning.
-
-> 
-> switch (x) {
->   case 0:
->     ++x;
->   default:
->     return;
-> }
-
-Warn for this.
-
-
-> 
-> switch (x) {
->   case 0:
->     ++x;
->   default:
->     ;
-> }
-
-Don't warn for this.
-
-If adding a break statement changes the flow of the code then warn about
-potentially missing break statements, but if it doesn't change anything
-then don't warn about it.
-
-regards,
-dan carpenter
+diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+index ce543b761be7..dcc0a27355d7 100644
+--- a/drivers/md/dm-table.c
++++ b/drivers/md/dm-table.c
+@@ -22,6 +22,7 @@
+ #include <linux/blk-mq.h>
+ #include <linux/mount.h>
+ #include <linux/dax.h>
++#include <linux/gcd.h>
+ 
+ #define DM_MSG_PREFIX "table"
+ 
+@@ -1457,7 +1458,7 @@ int dm_calculate_queue_limits(struct dm_table *table,
+ 
+ 		/* Stack chunk_sectors if target-specific splitting is required */
+ 		if (ti->max_io_len)
+-			ti_limits.chunk_sectors = lcm_not_zero(ti->max_io_len,
++			ti_limits.chunk_sectors = gcd(ti->max_io_len,
+ 							       ti_limits.chunk_sectors);
+ 		/* Set I/O hints portion of queue limits */
+ 		if (ti->type->io_hints)
+-- 
+2.27.0
 
 --
 dm-devel mailing list
