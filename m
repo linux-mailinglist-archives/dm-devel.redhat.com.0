@@ -2,61 +2,63 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 54BC32CB9C8
-	for <lists+dm-devel@lfdr.de>; Wed,  2 Dec 2020 10:56:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9EAC72CB9C3
+	for <lists+dm-devel@lfdr.de>; Wed,  2 Dec 2020 10:55:38 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-46-l6qKzDB_OnqN2yAjxDEObg-1; Wed, 02 Dec 2020 04:55:31 -0500
-X-MC-Unique: l6qKzDB_OnqN2yAjxDEObg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-455-6rb8tRL-MGW6BP8WUlPlxA-1; Wed, 02 Dec 2020 04:55:35 -0500
+X-MC-Unique: 6rb8tRL-MGW6BP8WUlPlxA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C0331101AFC0;
-	Wed,  2 Dec 2020 09:55:25 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9A3B55C1D0;
-	Wed,  2 Dec 2020 09:55:25 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CC23B192D799;
+	Wed,  2 Dec 2020 09:55:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A80EB5D705;
+	Wed,  2 Dec 2020 09:55:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1BF6E1809CA0;
-	Wed,  2 Dec 2020 09:55:25 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5F11150030;
+	Wed,  2 Dec 2020 09:55:27 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B23d62r001304 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 1 Dec 2020 22:39:07 -0500
+	id 0B23vnm8002752 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 1 Dec 2020 22:57:51 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 532DD2166B29; Wed,  2 Dec 2020 03:39:06 +0000 (UTC)
+	id 598342166B29; Wed,  2 Dec 2020 03:57:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4DFFC2166B27
-	for <dm-devel@redhat.com>; Wed,  2 Dec 2020 03:39:04 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 549462166B27
+	for <dm-devel@redhat.com>; Wed,  2 Dec 2020 03:57:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EE97F80088F
-	for <dm-devel@redhat.com>; Wed,  2 Dec 2020 03:39:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D4286800296
+	for <dm-devel@redhat.com>; Wed,  2 Dec 2020 03:57:46 +0000 (UTC)
 Received: from out30-42.freemail.mail.aliyun.com
 	(out30-42.freemail.mail.aliyun.com [115.124.30.42]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-173-8igplLuXNaqXJkhpAkRz7g-1;
-	Tue, 01 Dec 2020 22:39:00 -0500
-X-MC-Unique: 8igplLuXNaqXJkhpAkRz7g-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R101e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04400;
+	relay.mimecast.com with ESMTP id us-mta-343-GugC1YmQPbKV4LOb4FZPvg-1;
+	Tue, 01 Dec 2020 22:57:42 -0500
+X-MC-Unique: GugC1YmQPbKV4LOb4FZPvg-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R201e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
 	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=4; SR=0;
-	TI=SMTPD_---0UHHIzwn_1606880336
-Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0UHHIzwn_1606880336) by smtp.aliyun-inc.com(127.0.0.1);
-	Wed, 02 Dec 2020 11:38:56 +0800
-From: Jeffle Xu <jefflexu@linux.alibaba.com>
+	TI=SMTPD_---0UHHiNul_1606881455
+Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
+	fp:SMTPD_---0UHHiNul_1606881455) by smtp.aliyun-inc.com(127.0.0.1);
+	Wed, 02 Dec 2020 11:57:36 +0800
+From: JeffleXu <jefflexu@linux.alibaba.com>
 To: snitzer@redhat.com
-Date: Wed,  2 Dec 2020 11:38:55 +0800
-Message-Id: <20201202033855.60882-2-jefflexu@linux.alibaba.com>
-In-Reply-To: <20201202033855.60882-1-jefflexu@linux.alibaba.com>
 References: <20201201160709.31748-1-snitzer@redhat.com>
 	<20201202033855.60882-1-jefflexu@linux.alibaba.com>
+	<20201202033855.60882-2-jefflexu@linux.alibaba.com>
+Message-ID: <feb19a02-5ece-505f-e905-86dc84cdb204@linux.alibaba.com>
+Date: Wed, 2 Dec 2020 11:57:35 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+	Gecko/20100101 Thunderbird/78.5.0
 MIME-Version: 1.0
+In-Reply-To: <20201202033855.60882-2-jefflexu@linux.alibaba.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -70,7 +72,8 @@ X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 02 Dec 2020 04:55:04 -0500
 Cc: linux-block@vger.kernel.org, joseph.qi@linux.alibaba.com,
 	dm-devel@redhat.com
-Subject: [dm-devel] [PATCH] dm: use gcd() to fix chunk_sectors limit stacking
+Subject: Re: [dm-devel] [PATCH] dm: use gcd() to fix chunk_sectors limit
+	stacking
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,56 +87,81 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-As it said in commit 7e7986f9d3ba ("block: use gcd() to fix
-chunk_sectors limit stacking"), chunk_sectors should reflect the most
-limited of all devices in the IO stack.
-
-The previous commit only fixes block/blk-settings.c:blk_stack_limits(),
-while leaving dm.c:dm_calculate_queue_limits() unfixed.
-
-Fixes: 882ec4e609c1 ("dm table: stack 'chunk_sectors' limit to account for target-specific splitting")
-cc: stable@vger.kernel.org
-Reported-by: John Dorminy <jdorminy@redhat.com>
-Reported-by: Bruce Johnston <bjohnsto@redhat.com>
-Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
----
- drivers/md/dm-table.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-index ce543b761be7..dcc0a27355d7 100644
---- a/drivers/md/dm-table.c
-+++ b/drivers/md/dm-table.c
-@@ -22,6 +22,7 @@
- #include <linux/blk-mq.h>
- #include <linux/mount.h>
- #include <linux/dax.h>
-+#include <linux/gcd.h>
- 
- #define DM_MSG_PREFIX "table"
- 
-@@ -1457,7 +1458,7 @@ int dm_calculate_queue_limits(struct dm_table *table,
- 
- 		/* Stack chunk_sectors if target-specific splitting is required */
- 		if (ti->max_io_len)
--			ti_limits.chunk_sectors = lcm_not_zero(ti->max_io_len,
-+			ti_limits.chunk_sectors = gcd(ti->max_io_len,
- 							       ti_limits.chunk_sectors);
- 		/* Set I/O hints portion of queue limits */
- 		if (ti->type->io_hints)
--- 
-2.27.0
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+QWN0dWFsbHkgaW4gdGVybXMgb2YgdGhpcyBpc3N1ZSwgSSB0aGluayB0aGUgZGlsZW1tYSBoZXJl
+IGlzIHRoYXQsCkBjaHVua19zZWN0b3JzIG9mIGRtIGRldmljZSBpcyBtYWlubHkgZnJvbSB0d28g
+c291cmNlLgoKT25lIGlzIHRoYXQgZnJvbSB0aGUgdW5kZXJseWluZyBkZXZpY2VzLCB3aGljaCBp
+cyBjYWxjdWxhdGVkIGludG8gb25lCmNvbXBvc2VkIG9uZSBpbiBibGtfc3RhY2tfbGltaXRzKCku
+Cgo+IGNvbW1pdCAyMmFkYTgwMmVkZTggKCJibG9jazogdXNlIGxjbV9ub3RfemVybygpIHdoZW4g
+c3RhY2tpbmcKPiBjaHVua19zZWN0b3JzIikgYnJva2UgY2h1bmtfc2VjdG9ycyBsaW1pdCBzdGFj
+a2luZy4gY2h1bmtfc2VjdG9ycyBtdXN0Cj4gcmVmbGVjdCB0aGUgbW9zdCBsaW1pdGVkIG9mIGFs
+bCBkZXZpY2VzIGluIHRoZSBJTyBzdGFjay4KPiAKPiBPdGhlcndpc2UgbWFsZm9ybWVkIElPIG1h
+eSByZXN1bHQuIEUuZy46IHByaW9yIHRvIHRoaXMgZml4LAo+IC0+Y2h1bmtfc2VjdG9ycyA9IGxj
+bV9ub3RfemVybyg4LCAxMjgpIHdvdWxkIHJlc3VsdCBpbgo+IGJsa19tYXhfc2l6ZV9vZmZzZXQo
+KSBzcGxpdHRpbmcgSU8gYXQgMTI4IHNlY3RvcnMgcmF0aGVyIHRoYW4gdGhlCj4gcmVxdWlyZWQg
+bW9yZSByZXN0cmljdGl2ZSA4IHNlY3RvcnMuCgpGb3IgdGhpcyBwYXJ0LCB0ZWNobmljYWxseSBJ
+IGNhbid0IGFncmVlIHRoYXQgJ2NodW5rX3NlY3RvcnMgbXVzdApyZWZsZWN0IHRoZSBtb3N0IGxp
+bWl0ZWQgb2YgYWxsIGRldmljZXMgaW4gdGhlIElPIHN0YWNrJy4gRXZlbiBpZiB0aGUgZG0KZGV2
+aWNlIGFkdmVydGlzZXMgY2h1bmtfc2VjdG9ycyBvZiAxMjhLIHdoZW4gdGhlIGxpbWl0cyBvZiB0
+d28KdW5kZXJseWluZyBkZXZpY2VzIGFyZSA4SyBhbmQgMTI4SywgYW5kIHRodXMgc3BsaXR0aW5n
+IGlzIG5vdCBkb25lIGluIGRtCmRldmljZSBwaGFzZSwgdGhlIHVuZGVybHlpbmcgZGV2aWNlcyB3
+aWxsIHNwbGl0IGJ5IHRoZW1zZWx2ZXMuCgo+IEBAIC01NDcsNyArNTQ3LDEwIEBAIGludCBibGtf
+c3RhY2tfbGltaXRzKHN0cnVjdCBxdWV1ZV9saW1pdHMgKnQsIHN0cnVjdCBxdWV1ZV9saW1pdHMg
+KmIsCj4gIAo+ICAJdC0+aW9fbWluID0gbWF4KHQtPmlvX21pbiwgYi0+aW9fbWluKTsKPiAgCXQt
+PmlvX29wdCA9IGxjbV9ub3RfemVybyh0LT5pb19vcHQsIGItPmlvX29wdCk7Cj4gLQl0LT5jaHVu
+a19zZWN0b3JzID0gbGNtX25vdF96ZXJvKHQtPmNodW5rX3NlY3RvcnMsIGItPmNodW5rX3NlY3Rv
+cnMpOwo+ICsKPiArCS8qIFNldCBub24tcG93ZXItb2YtMiBjb21wYXRpYmxlIGNodW5rX3NlY3Rv
+cnMgYm91bmRhcnkgKi8KPiArCWlmIChiLT5jaHVua19zZWN0b3JzKQo+ICsJCXQtPmNodW5rX3Nl
+Y3RvcnMgPSBnY2QodC0+Y2h1bmtfc2VjdG9ycywgYi0+Y2h1bmtfc2VjdG9ycyk7CgpUaGlzIG1h
+eSBpbnRyb2R1Y2VzIGEgcmVncmVzc2lvbi4gU3VwcG9zZSB0aGUgQGNodW5rX3NlY3RvcnMgbGlt
+aXRzIG9mCnR3byB1bmRlcmx5aW5nIGRldmljZXMgYXJlIDhLIGFuZCAxMjhLLCB0aGVuIEBjaHVu
+a19zZWN0b3JzIG9mIGRtIGRldmljZQppcyA4SyBhZnRlciB0aGUgZml4LiBTbyBldmVuIHdoZW4g
+YSAxMjhLIHNpemVkIGJpbyBpcyBhY3R1YWxseQpyZWRpcmVjdGluZyB0byB0aGUgdW5kZXJseWlu
+ZyBkZXZpY2Ugd2l0aCAxMjhLIEBjaHVua19zZWN0b3JzIGxpbWl0LAp0aGlzIDEyOEsgc2l6ZWQg
+YmlvIHdpbGwgYWN0dWFsbHkgc3BsaXQgaW50byAxNiBzcGxpdCBiaW9zLCBlYWNoIDhLCnNpemVk
+44CCT2J2aW91c2x5IGl0IGlzIGV4Y2Vzc2l2ZSBzcGxpdC4gQW5kIEkgdGhpbmsgdGhpcyBpcyBh
+Y3R1YWxseSB3aHkKbGNtX25vdF96ZXJvKGEsIGIpIGlzIHVzZWQgb3JpZ2luYWxseS4KCgpUaGUg
+b3RoZXIgb25lIHNvdXJjZSBpcyBkbSBkZXZpY2UgaXRzZWxmLiBETSBkZXZpY2UgY2FuIHNldCBA
+bWF4X2lvX2xlbgp0aHJvdWdoIC0+aW9faGludCgpLCBhbmQgdGhlbiBzZXQgQGNodW5rX3NlY3Rv
+cnMgZnJvbSBAbWF4X2lvX2xlbi4KClRoaXMgcGFydCBpcyBhY3R1YWxseSB3aGVyZSAnY2h1bmtf
+c2VjdG9ycyBtdXN0IHJlZmxlY3QgdGhlIG1vc3QgbGltaXRlZApvZiBhbGwgZGV2aWNlcyBpbiB0
+aGUgSU8gc3RhY2snIGlzIHRydWUsIGFuZCB3ZSBoYXZlIHRvIGFwcGx5IHRoZSBtb3N0CnN0cmlj
+dCBsaW1pdGF0aW9uIGhlcmUuIFRoaXMgaXMgYWN0dWFsbHkgd2hhdCB0aGUgZm9sbG93aW5nIHBh
+dGNoIGRvZXMuCgoKCk9uIDEyLzIvMjAgMTE6MzggQU0sIEplZmZsZSBYdSB3cm90ZToKPiBBcyBp
+dCBzYWlkIGluIGNvbW1pdCA3ZTc5ODZmOWQzYmEgKCJibG9jazogdXNlIGdjZCgpIHRvIGZpeAo+
+IGNodW5rX3NlY3RvcnMgbGltaXQgc3RhY2tpbmciKSwgY2h1bmtfc2VjdG9ycyBzaG91bGQgcmVm
+bGVjdCB0aGUgbW9zdAo+IGxpbWl0ZWQgb2YgYWxsIGRldmljZXMgaW4gdGhlIElPIHN0YWNrLgo+
+IAo+IFRoZSBwcmV2aW91cyBjb21taXQgb25seSBmaXhlcyBibG9jay9ibGstc2V0dGluZ3MuYzpi
+bGtfc3RhY2tfbGltaXRzKCksCj4gd2hpbGUgbGVhdmluZyBkbS5jOmRtX2NhbGN1bGF0ZV9xdWV1
+ZV9saW1pdHMoKSB1bmZpeGVkLgo+IAo+IEZpeGVzOiA4ODJlYzRlNjA5YzEgKCJkbSB0YWJsZTog
+c3RhY2sgJ2NodW5rX3NlY3RvcnMnIGxpbWl0IHRvIGFjY291bnQgZm9yIHRhcmdldC1zcGVjaWZp
+YyBzcGxpdHRpbmciKQo+IGNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCj4gUmVwb3J0ZWQtYnk6
+IEpvaG4gRG9ybWlueSA8amRvcm1pbnlAcmVkaGF0LmNvbT4KPiBSZXBvcnRlZC1ieTogQnJ1Y2Ug
+Sm9obnN0b24gPGJqb2huc3RvQHJlZGhhdC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogSmVmZmxlIFh1
+IDxqZWZmbGV4dUBsaW51eC5hbGliYWJhLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9tZC9kbS10YWJs
+ZS5jIHwgMyArKy0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlv
+bigtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21kL2RtLXRhYmxlLmMgYi9kcml2ZXJzL21k
+L2RtLXRhYmxlLmMKPiBpbmRleCBjZTU0M2I3NjFiZTcuLmRjYzBhMjczNTVkNyAxMDA2NDQKPiAt
+LS0gYS9kcml2ZXJzL21kL2RtLXRhYmxlLmMKPiArKysgYi9kcml2ZXJzL21kL2RtLXRhYmxlLmMK
+PiBAQCAtMjIsNiArMjIsNyBAQAo+ICAjaW5jbHVkZSA8bGludXgvYmxrLW1xLmg+Cj4gICNpbmNs
+dWRlIDxsaW51eC9tb3VudC5oPgo+ICAjaW5jbHVkZSA8bGludXgvZGF4Lmg+Cj4gKyNpbmNsdWRl
+IDxsaW51eC9nY2QuaD4KPiAgCj4gICNkZWZpbmUgRE1fTVNHX1BSRUZJWCAidGFibGUiCj4gIAo+
+IEBAIC0xNDU3LDcgKzE0NTgsNyBAQCBpbnQgZG1fY2FsY3VsYXRlX3F1ZXVlX2xpbWl0cyhzdHJ1
+Y3QgZG1fdGFibGUgKnRhYmxlLAo+ICAKPiAgCQkvKiBTdGFjayBjaHVua19zZWN0b3JzIGlmIHRh
+cmdldC1zcGVjaWZpYyBzcGxpdHRpbmcgaXMgcmVxdWlyZWQgKi8KPiAgCQlpZiAodGktPm1heF9p
+b19sZW4pCj4gLQkJCXRpX2xpbWl0cy5jaHVua19zZWN0b3JzID0gbGNtX25vdF96ZXJvKHRpLT5t
+YXhfaW9fbGVuLAo+ICsJCQl0aV9saW1pdHMuY2h1bmtfc2VjdG9ycyA9IGdjZCh0aS0+bWF4X2lv
+X2xlbiwKPiAgCQkJCQkJCSAgICAgICB0aV9saW1pdHMuY2h1bmtfc2VjdG9ycyk7Cj4gIAkJLyog
+U2V0IEkvTyBoaW50cyBwb3J0aW9uIG9mIHF1ZXVlIGxpbWl0cyAqLwo+ICAJCWlmICh0aS0+dHlw
+ZS0+aW9faGludHMpCj4gCgotLSAKVGhhbmtzLApKZWZmbGUKCi0tCmRtLWRldmVsIG1haWxpbmcg
+bGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9s
+aXN0aW5mby9kbS1kZXZlbA==
 
