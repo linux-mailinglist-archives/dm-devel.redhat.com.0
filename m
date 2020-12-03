@@ -2,69 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 978702CEADF
-	for <lists+dm-devel@lfdr.de>; Fri,  4 Dec 2020 10:28:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 001D82CEAD9
+	for <lists+dm-devel@lfdr.de>; Fri,  4 Dec 2020 10:27:51 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-126-OQjuHxh7PzeBDU1qpc_W-g-1; Fri, 04 Dec 2020 04:27:45 -0500
-X-MC-Unique: OQjuHxh7PzeBDU1qpc_W-g-1
+ us-mta-160-oVGdw4TaM4qfDbNTWWjG-Q-1; Fri, 04 Dec 2020 04:27:48 -0500
+X-MC-Unique: oVGdw4TaM4qfDbNTWWjG-Q-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B8547393B9;
-	Fri,  4 Dec 2020 09:27:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 91F42100C604;
+	Fri,  4 Dec 2020 09:27:41 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 91AB91349A;
-	Fri,  4 Dec 2020 09:27:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F0761349A;
+	Fri,  4 Dec 2020 09:27:41 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2274F4BB40;
-	Fri,  4 Dec 2020 09:27:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 296E75002C;
+	Fri,  4 Dec 2020 09:27:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B3MWWxB011133 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 3 Dec 2020 17:32:32 -0500
+	id 0B3MWZbF011146 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 3 Dec 2020 17:32:35 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 239BCF11C7; Thu,  3 Dec 2020 22:32:32 +0000 (UTC)
+	id B4B442026D12; Thu,  3 Dec 2020 22:32:35 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E327F00EE
-	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 22:32:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AFED82026D49
+	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 22:32:33 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E7E8C185A7BC
-	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 22:32:29 +0000 (UTC)
-Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com
-	[209.85.210.196]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-226-RKc_LKBUPveRuQ1ds2UzKg-1; Thu, 03 Dec 2020 17:32:27 -0500
-X-MC-Unique: RKc_LKBUPveRuQ1ds2UzKg-1
-Received: by mail-pf1-f196.google.com with SMTP id 131so2287501pfb.9
-	for <dm-devel@redhat.com>; Thu, 03 Dec 2020 14:32:27 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7470A10580C1
+	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 22:32:33 +0000 (UTC)
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
+	[209.85.210.195]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-288-BBLNt6aON4KOBGJZsrq7lw-1; Thu, 03 Dec 2020 17:32:29 -0500
+X-MC-Unique: BBLNt6aON4KOBGJZsrq7lw-1
+Received: by mail-pf1-f195.google.com with SMTP id b26so2313241pfi.3
+	for <dm-devel@redhat.com>; Thu, 03 Dec 2020 14:32:29 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:subject:date:message-id:in-reply-to:references
 	:mime-version:content-transfer-encoding:cc:from:to;
-	bh=isS72LcXXBRrXr0Ako/fe2G087FHJYFoOicsYh1AWO8=;
-	b=CrPrb7Eh7/A7b+3W6QWbGM8M4TH+Gy5ZIS6qO9QbKhE5b8eTSntSALcshhXqP80t3y
-	UlIgHaJhDIj5wMN52iBO/IA9DDdOwwRUYTusZLP7qg9fKXx+u7zn6f5H7fcSEA1DI/kp
-	1ZfAmqoMHwjlyd1/MpmyJE+WzDiQ0E733dugZ3nEmpTUOd8Hg2ryDrhEEc24MGpTbIkY
-	il9OaHYx5i5KKpkONfrwOieP6oJ3McUO8iTYx56tHEMHuVmW2V/SboIAooEq52ns+z9q
-	kcE8bPBiZiewc8vi20X+dkeyA2YEFrjwavqHCxYLQXqYSYRim9IXAPeuxs150EIIHW4h
-	UiVg==
-X-Gm-Message-State: AOAM532wWZJW4qI6VSaBmg6YuSDUvRdImXlxhjD0I/qLrOkPg8MFexIo
-	dWoav7g/jW+SdAjELiXSUKQtcA==
-X-Google-Smtp-Source: ABdhPJxyBjD8G9ISMJWXF9KC/iPnxZEl+jlMD7j47CrGjE+X5vfqNVKfzgCqsSq3L3yisx8iqaM2cQ==
-X-Received: by 2002:a65:679a:: with SMTP id e26mr4855403pgr.394.1607034746754; 
-	Thu, 03 Dec 2020 14:32:26 -0800 (PST)
+	bh=Fuz2jWCqrF9IAKxP8k6Nya5ZGJecRF+RgzAZtQ1aguQ=;
+	b=Qa2VVP+beu7/XjT1oWkqCUdgddVbcqBzgcHXzaA41FC7tCVMm5j7dfHEfdTuAhurek
+	bMLuRPEtMHf9HgULMqZiQYZL1amnejMWbaoe8QL6q1yA8Bwm0PsY1U+x/T185or4IVGs
+	oCUDq0CJl6OgI4fn86cqBikBf9redbmp6yPvI/JlayQt5wwUHj5Qa/vrbCbCLL6KNuDb
+	megU7SpagwkVEvDqkVhO5NlQlQ+kstZkuCni4Kp+QHRTfACsClHsNNi3ts//7Np7aT2G
+	2nVxmTh3vPT3Dz3IMeqZil25CZtY+L+UgwRhUAh3hnpRmy4xwUTmwYcfgQBaE9zOo03z
+	UEbw==
+X-Gm-Message-State: AOAM533oX9B74Vucl+vgct5edfYDqbwa/tQ/TnHf057CLA2u/spEeTQP
+	hwLz3iotJKs+BrpK7zbJ3bvUkQ==
+X-Google-Smtp-Source: ABdhPJx2WNV5k33+iBsSIbI9umTnQLWqfWRaWsln1Jxc6zjGtr+fhirdSbDdprGD/O3QhEedC5oQ8Q==
+X-Received: by 2002:a62:8f4e:0:b029:18b:bd18:75b7 with SMTP id
+	n75-20020a628f4e0000b029018bbd1875b7mr970569pfd.48.1607034748209;
+	Thu, 03 Dec 2020 14:32:28 -0800 (PST)
 Received: from localhost (76-210-143-223.lightspeed.sntcca.sbcglobal.net.
-	[76.210.143.223])
-	by smtp.gmail.com with ESMTPSA id gp14sm333425pjb.6.2020.12.03.14.32.26
+	[76.210.143.223]) by smtp.gmail.com with ESMTPSA id
+	cq15sm332045pjb.27.2020.12.03.14.32.27
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 03 Dec 2020 14:32:26 -0800 (PST)
-Date: Thu,  3 Dec 2020 13:58:55 -0800
-Message-Id: <20201203215859.2719888-2-palmer@dabbelt.com>
+	Thu, 03 Dec 2020 14:32:27 -0800 (PST)
+Date: Thu,  3 Dec 2020 13:58:56 -0800
+Message-Id: <20201203215859.2719888-3-palmer@dabbelt.com>
 In-Reply-To: <20201203215859.2719888-1-palmer@dabbelt.com>
 References: <20201203215859.2719888-1-palmer@dabbelt.com>
 MIME-Version: 1.0
@@ -78,14 +79,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Fri, 04 Dec 2020 04:27:20 -0500
+X-Mailman-Approved-At: Fri, 04 Dec 2020 04:27:21 -0500
 Cc: corbet@lwn.net, linux-doc@vger.kernel.org, kernel-team@android.com,
 	Palmer Dabbelt <palmerdabbelt@google.com>,
 	linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org,
 	song@kernel.org, linux-kselftest@vger.kernel.org, shuah@kernel.org
-Subject: [dm-devel] [PATCH v1 1/5] Documentation: Describe dm-user
+Subject: [dm-devel] [PATCH v1 2/5] uapi: Add dm-user structure definition
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -109,125 +110,96 @@ Content-Transfer-Encoding: 7bit
 
 From: Palmer Dabbelt <palmerdabbelt@google.com>
 
-I started by patterning this after the Fuse documentation, which is
-located at Documentation/fs/fuse.rst.  There's not a whole lot of that
-left, though.
+dm-user is a device mapper target that allows a userspace process to
+handle each incoming BIO.  Communication with userspace consists of a
+stream of messages proxied over a misc device, the structure of each
+message is defined in this header.
 
 Signed-off-by: Palmer Dabbelt <palmerdabbelt@google.com>
 
 ---
 
-This is a work in progress, but nothing in there should be incorrect.
+As it currently stands this isn't really sufficient to be a stable user
+ABI.  These are probably best discussed in the context of the dm-user
+implementation, though, where they're largely called out as FIXMEs.
 ---
- Documentation/block/dm-user.rst | 99 +++++++++++++++++++++++++++++++++
- 1 file changed, 99 insertions(+)
- create mode 100644 Documentation/block/dm-user.rst
+ include/uapi/linux/dm-user.h | 67 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 67 insertions(+)
+ create mode 100644 include/uapi/linux/dm-user.h
 
-diff --git a/Documentation/block/dm-user.rst b/Documentation/block/dm-user.rst
+diff --git a/include/uapi/linux/dm-user.h b/include/uapi/linux/dm-user.h
 new file mode 100644
-index 000000000000..5eb3120f3fd5
+index 000000000000..1806109518f4
 --- /dev/null
-+++ b/Documentation/block/dm-user.rst
-@@ -0,0 +1,99 @@
-+.. SPDX-License-Identifier: GPL-2.0
++++ b/include/uapi/linux/dm-user.h
+@@ -0,0 +1,67 @@
++/* SPDX-License-Identifier: LGPL-2.0+ WITH Linux-syscall-note */
++/*
++ * Copyright (C) 2020 Palmer Dabbelt <palmerdabbelt@google.com>
++ */
 +
-+=======
-+dm-user
-+=======
++#ifndef _LINUX_DM_USER_H
++#define _LINUX_DM_USER_H
 +
-+What is dm-user?
-+================
++#include <linux/types.h>
 +
-+dm-user is a device mapper target that allows block accesses to be satisfied by
-+an otherwise unprivileged daemon running in userspace.  Conceptually it is
-+FUSE, but for block devices as opposed to file systems.
++/*
++ * dm-user proxies device mapper ops between the kernel and userspace.  It's
++ * essentially just an RPC mechanism: all kernel calls create a request,
++ * userspace handles that with a response.  Userspace obtains requests via
++ * read() and provides responses via write().
++ *
++ * See Documentation/block/dm-user.rst for more information.
++ */
 +
-+Creating a dm-user Target
-+=========================
++#define DM_USER_REQ_MAP_READ 0
++#define DM_USER_REQ_MAP_WRITE 1
++#define DM_USER_REQ_MAP_FLUSH 2
++#define DM_USER_REQ_MAP_DISCARD 3
++#define DM_USER_REQ_MAP_SECURE_ERASE 4
++#define DM_USER_REQ_MAP_WRITE_SAME 5
++#define DM_USER_REQ_MAP_WRITE_ZEROES 6
++#define DM_USER_REQ_MAP_ZONE_OPEN 7
++#define DM_USER_REQ_MAP_ZONE_CLOSE 8
++#define DM_USER_REQ_MAP_ZONE_FINISH 9
++#define DM_USER_REQ_MAP_ZONE_APPEND 10
++#define DM_USER_REQ_MAP_ZONE_RESET 11
++#define DM_USER_REQ_MAP_ZONE_RESET_ALL 12
 +
-+dm-user is implemented as a Device Mapper target, which allows for various
-+device management tasks.  In general dm-user targets function in the same
-+fashion as other device-mapper targets, with the exception that dm-user targets
-+handle requests via a userspace daemon as opposed to one of various in-kernel
-+mechanisms.  As such there is little difference between creating a dm-user
-+target and any other device mapper target: the standard device mapper control
-+device and ioctl() calls are used to create a table with at least one target of
-+the "user" type.  Like all other targets this table entry needs a start/size
-+pair.  The additional required argument is the name of the control device that
-+will be associated with this target.  Specifically:
++#define DM_USER_REQ_MAP_FLAG_FAILFAST_DEV 0x00001
++#define DM_USER_REQ_MAP_FLAG_FAILFAST_TRANSPORT 0x00002
++#define DM_USER_REQ_MAP_FLAG_FAILFAST_DRIVER 0x00004
++#define DM_USER_REQ_MAP_FLAG_SYNC 0x00008
++#define DM_USER_REQ_MAP_FLAG_META 0x00010
++#define DM_USER_REQ_MAP_FLAG_PRIO 0x00020
++#define DM_USER_REQ_MAP_FLAG_NOMERGE 0x00040
++#define DM_USER_REQ_MAP_FLAG_IDLE 0x00080
++#define DM_USER_REQ_MAP_FLAG_INTEGRITY 0x00100
++#define DM_USER_REQ_MAP_FLAG_FUA 0x00200
++#define DM_USER_REQ_MAP_FLAG_PREFLUSH 0x00400
++#define DM_USER_REQ_MAP_FLAG_RAHEAD 0x00800
++#define DM_USER_REQ_MAP_FLAG_BACKGROUND 0x01000
++#define DM_USER_REQ_MAP_FLAG_NOWAIT 0x02000
++#define DM_USER_REQ_MAP_FLAG_CGROUP_PUNT 0x04000
++#define DM_USER_REQ_MAP_FLAG_NOUNMAP 0x08000
++#define DM_USER_REQ_MAP_FLAG_HIPRI 0x10000
++#define DM_USER_REQ_MAP_FLAG_DRV 0x20000
++#define DM_USER_REQ_MAP_FLAG_SWAP 0x40000
 +
-+````
-+user <start sector> <number of sectors> <path to control device>
-+````
++#define DM_USER_RESP_SUCCESS 0
++#define DM_USER_RESP_ERROR 1
++#define DM_USER_RESP_UNSUPPORTED 2
 +
-+As a concrete example, the following `dmsetup` invocation will create a new
-+device mapper block device available at `/dev/mapper/blk`, consisting entirely
-+of a single target which can be controlled via a stream of messages passed over
-+`/dev/dm-user/ctl`.
++struct dm_user_message {
++	__u64 seq;
++	__u64 type;
++	__u64 flags;
++	__u64 sector;
++	__u64 len;
++	__u8 buf[];
++};
 +
-+````
-+dmsetup create blk <<EOF
-+0 1024 user 0 1024 ctl
-+EOF
-+dmsetup resume blk
-+````
-+
-+Userspace is expected to spin up a daemon to handle those block requests, which
-+will block in the meantime.  The various Device Mapper operations should all
-+function as they do for other targets.  If the userspace daemon terminates (or
-+otherwise closes the control file descriptor) then the kernel will continue to
-+queue up BIOs until userspace either starts a new daemon or destroys the
-+target.
-+
-+Userspace may open each control device multiple times, in which case the kernel
-+will distribute messages among each file instance.
-+
-+Writing a dm-user Daemon
-+========================
-+
-+tools/testing/selftests/dm-user contains a handful of test daemons.
-+functional/simple-read-all.c is also suitable as an example.
-+
-+Kernel - userspace interface
-+****************************
-+
-+FIXME: A description of `struct dm_user_message`
-+
-+Kernel Implementation
-+=====================
-+
-+BIO Lifecycle
-+*************
-+
-+| "dd if=/dev/mapper/user ...             " | dm-user block server
-+|                                           |
-+|                                           | >sys_read()
-+|                                           |  >dev_read()
-+|                                           |   [sleep on c->wq]
-+|                                           |
-+| >sys_read()                               |
-+|  [... block and DM layer ... ]            |
-+|  >user_map()                              |
-+|   [enqueue message]                       |
-+|   [wake up c->wq]                         |
-+|  <user_map()                              |   [woken up]
-+| [sleep on BIO completion]                 |   [copy message to user]
-+|                                           |  <dev_read()
-+|                                           | <sys_read()
-+|                                           |
-+|                                           | [obtain request data]
-+|                                           |
-+|                                           | >sys_write()
-+|                                           |  >dev_write()
-+|                                           |   [copy message from user]
-+|                                           |   [complete BIO]
-+|  [woken up on BIO completion]             |  <dev_write()
-+| <sys_read()                               | <sys_write()
-+|                                           |
-+| [write and loop]                          | [loop for more messages]
-+
-+Locking Scheme
-+**************
++#endif
 -- 
 2.29.2.454.gaff20da3a2-goog
 
