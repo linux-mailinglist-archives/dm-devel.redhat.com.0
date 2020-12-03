@@ -2,70 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4239E2CEAD8
-	for <lists+dm-devel@lfdr.de>; Fri,  4 Dec 2020 10:27:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CC1742CEAD7
+	for <lists+dm-devel@lfdr.de>; Fri,  4 Dec 2020 10:27:50 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-150-Zqe-_hANM8C5meYngXNe2w-1; Fri, 04 Dec 2020 04:27:47 -0500
-X-MC-Unique: Zqe-_hANM8C5meYngXNe2w-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-16-ga3YxV2mPs-TKt8ax0lAuA-1; Fri, 04 Dec 2020 04:27:44 -0500
+X-MC-Unique: ga3YxV2mPs-TKt8ax0lAuA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A7427107ACF8;
-	Fri,  4 Dec 2020 09:27:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 147BA10054FF;
+	Fri,  4 Dec 2020 09:27:39 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F5901F44F;
-	Fri,  4 Dec 2020 09:27:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F3F360854;
+	Fri,  4 Dec 2020 09:27:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3B6C21809CA0;
-	Fri,  4 Dec 2020 09:27:41 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 09433180954D;
+	Fri,  4 Dec 2020 09:27:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B3MWamk011151 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 3 Dec 2020 17:32:36 -0500
+	id 0B3MWZo7011141 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 3 Dec 2020 17:32:35 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 68CB92166B27; Thu,  3 Dec 2020 22:32:36 +0000 (UTC)
+	id 2C05E110E9B2; Thu,  3 Dec 2020 22:32:35 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 61F632166B2C
-	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 22:32:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 275F2101F0C9
+	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 22:32:35 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 15248811E78
-	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 22:32:34 +0000 (UTC)
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
-	[209.85.215.182]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-226-pOkjuSDeNmi5k2dZD-W9NQ-1; Thu, 03 Dec 2020 17:32:31 -0500
-X-MC-Unique: pOkjuSDeNmi5k2dZD-W9NQ-1
-Received: by mail-pg1-f182.google.com with SMTP id t37so2296598pga.7
-	for <dm-devel@redhat.com>; Thu, 03 Dec 2020 14:32:31 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0AA7E10580C5
+	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 22:32:35 +0000 (UTC)
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
+	[209.85.210.174]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-339-7IS8owm4M9629hvRY3F0sQ-1; Thu, 03 Dec 2020 17:32:32 -0500
+X-MC-Unique: 7IS8owm4M9629hvRY3F0sQ-1
+Received: by mail-pf1-f174.google.com with SMTP id w6so2313574pfu.1
+	for <dm-devel@redhat.com>; Thu, 03 Dec 2020 14:32:32 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:subject:date:message-id:in-reply-to:references
 	:mime-version:content-transfer-encoding:cc:from:to;
-	bh=Os89FkyhgmDbmc7z66QjcsmYBeoW5VWe8k4lK/4sIT4=;
-	b=rLKutWnKlbZolj3uzDTdKr/5r91n95Rf41vqCJ9w08+VKNqe525T/l4Z30Es7+jncH
-	UsY5Go6BXJXA9xd9t+Z7tPzc/PAGqH0p7Vs67IXslv9CpejDD0luAu/KMbIUdwt3lCZj
-	gzHzDeX+jiAnn4IEipquqKB6YKqSgFiwC+NjX7czEMlzV4rZSGrEIf1k7cQvYbVVazlC
-	BpHWA2fU03pHvq/GlN5uofF9ArHUhugk0ioNJo4G2y1Lo30H8PiIOV4jIepqyGr6MBGZ
-	+0F1ktc5ZGI3Linv95Ij9AYm6mmCjfua2YxItzopyr/048w0qm6nValtTFHQF+UyWnKW
-	LnfQ==
-X-Gm-Message-State: AOAM533N2Tx7KjklfmYpM/vUzZfGF5lqcq4vrAA6spmwMccFgmI1lGzi
-	ZcyV392DPjCemdpZIcNqXlvxCg==
-X-Google-Smtp-Source: ABdhPJzuEMFPcvHRjadXMWC/EjU3Ibl7jwqeQXoS9BGPq/1VkDPsGQUy14oeqDzcRH29rgy5E0tmsg==
-X-Received: by 2002:a62:8608:0:b029:18b:a8e:ee9 with SMTP id
-	x8-20020a6286080000b029018b0a8e0ee9mr1050406pfd.65.1607034749870;
-	Thu, 03 Dec 2020 14:32:29 -0800 (PST)
+	bh=oIMlBnB15JVo5GvJtYOEjnoSMHizrpybMOv5lys41nw=;
+	b=cIz+rY7GrD5OHQ6Xw5E623rC1tgE/0eU3hWMD6rXjAP0HSMillvZV8q6i5AYlB78LG
+	PPl/hal53EEqjNVpZOPW/Uc5GIpYZg5WIc0FUQXvSaOGCwLxkpegNcKkr8ZFP3toTBzw
+	TimGgv8AnyU0NrVdOFVv/1wiDNlTTPp+9IZasMrDLmkkBefa/eLmBUwJkVET8YDYu2/j
+	WaTpKteNgM9cZSYGxbO4a1csi/zJ3iti6mimPIPYeNF5nRcNRPJDZJjkh0jisIHMDZQ5
+	69HnV91tc9bj4aX+/RVOM5qoIgZplOOz6NEMJNzeRSRMJPzkzUYMvMjbWlPt3GzljJFj
+	cfJQ==
+X-Gm-Message-State: AOAM533CICum7wBl4G7+gAhTLWCRJdRwXMfCKRPw61R9L8yz7PUDNYP1
+	6VV0MzKSGGhgf6S6ULNFlT8qiA==
+X-Google-Smtp-Source: ABdhPJza/ryMS859XzWd8bYQIWub0aqq0ai/rq1L5WfJpINiXZi0oBdW/6g/jNlcAIeujSn6Hsmvow==
+X-Received: by 2002:a05:6a00:1506:b029:18b:5a31:ed87 with SMTP id
+	q6-20020a056a001506b029018b5a31ed87mr951347pfu.55.1607034751382;
+	Thu, 03 Dec 2020 14:32:31 -0800 (PST)
 Received: from localhost (76-210-143-223.lightspeed.sntcca.sbcglobal.net.
-	[76.210.143.223]) by smtp.gmail.com with ESMTPSA id
-	u24sm3003590pfm.81.2020.12.03.14.32.28
+	[76.210.143.223])
+	by smtp.gmail.com with ESMTPSA id x4sm1879678pgg.94.2020.12.03.14.32.30
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 03 Dec 2020 14:32:29 -0800 (PST)
-Date: Thu,  3 Dec 2020 13:58:57 -0800
-Message-Id: <20201203215859.2719888-4-palmer@dabbelt.com>
+	Thu, 03 Dec 2020 14:32:30 -0800 (PST)
+Date: Thu,  3 Dec 2020 13:58:58 -0800
+Message-Id: <20201203215859.2719888-5-palmer@dabbelt.com>
 In-Reply-To: <20201203215859.2719888-1-palmer@dabbelt.com>
 References: <20201203215859.2719888-1-palmer@dabbelt.com>
 MIME-Version: 1.0
@@ -79,17 +79,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Mimecast-Bulk-Signature: yes
-X-Mimecast-Spam-Signature: yes
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Fri, 04 Dec 2020 04:27:21 -0500
+X-Mailman-Approved-At: Fri, 04 Dec 2020 04:27:20 -0500
 Cc: corbet@lwn.net, linux-doc@vger.kernel.org, kernel-team@android.com,
 	Palmer Dabbelt <palmerdabbelt@google.com>,
 	linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org,
 	song@kernel.org, linux-kselftest@vger.kernel.org, shuah@kernel.org
-Subject: [dm-devel] [PATCH v1 3/5] dm: dm-user: New target that proxies BIOs
-	to userspace
+Subject: [dm-devel] [PATCH v1 4/5] selftests/dm-user: A handful of tests for
+	dm-user
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -103,1322 +101,586 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-From: Palmer Dabbelt <palmerdabbelt@google.com>
-
-dm-user is a device mapper target that allows a userpsace process to
-handle each incoming BIO -- essentially it's Fuse, but for the block
-layer.
-
-Signed-off-by: Palmer Dabbelt <palmerdabbelt@google.com>
-
----
-
-This has numerous issues with this, which I've enumerated via FIXMEs
-scattered throughout the code.  While it's obviously in no shape to be
-merged, this does at least function at a basic level (the next patch has
-some tests).  Many of the FIXMEs are simply missing functionality, but I
-wanted to send this out earlier rather than later as I have some higher
-level questions:
-
-* Does it even make sense to have this within device mapper?  There's no
-  fundamental reason for this to be a device mapper target (ie, it could
-  just be its own block device), but being this does allow us to
-  piggyback on existing mechanisms to handle the device lifecycle.
-* Is dm-user (in cooperation with the userspace daemon) responsible for
-  ordering flush-related BIOs with any other BIOs, or is that handled
-  elsewhere within the kernel?
-* Is my shared target mutex legal?
-* Is there any benefit to returing DM_MAPIO_KILLED as opposed to later
-  terminating the BIO with an IO error after it has been submitted?
-
-Each of the above is discussed in more detail in the code.
----
- drivers/md/Kconfig   |   13 +
- drivers/md/Makefile  |    1 +
- drivers/md/dm-user.c | 1227 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 1241 insertions(+)
- create mode 100644 drivers/md/dm-user.c
-
-diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-index 30ba3573626c..bcafca0e571d 100644
---- a/drivers/md/Kconfig
-+++ b/drivers/md/Kconfig
-@@ -617,4 +617,17 @@ config DM_ZONED
- 
- 	  If unsure, say N.
- 
-+config DM_USER
-+	tristate "Block device in userspace"
-+	depends on BLK_DEV_DM
-+	help
-+	  This device-mapper target allows a userspace daemon to provide the
-+	  contents of a block device.  See
-+	  <file:Documentation/block/dm-user.rst> for more information.
-+
-+	  To compile this code as a module, choose M here: the module will be
-+	  called dm-user.
-+
-+	  If unsure, say N.
-+
- endif # MD
-diff --git a/drivers/md/Makefile b/drivers/md/Makefile
-index 6d3e234dc46a..82ae3d496a00 100644
---- a/drivers/md/Makefile
-+++ b/drivers/md/Makefile
-@@ -51,6 +51,7 @@ obj-$(CONFIG_BLK_DEV_DM_BUILTIN) += dm-builtin.o
- obj-$(CONFIG_DM_UNSTRIPED)	+= dm-unstripe.o
- obj-$(CONFIG_DM_BUFIO)		+= dm-bufio.o
- obj-$(CONFIG_DM_BIO_PRISON)	+= dm-bio-prison.o
-+obj-$(CONFIG_DM_USER)		+= dm-user.o
- obj-$(CONFIG_DM_CRYPT)		+= dm-crypt.o
- obj-$(CONFIG_DM_DELAY)		+= dm-delay.o
- obj-$(CONFIG_DM_DUST)		+= dm-dust.o
-diff --git a/drivers/md/dm-user.c b/drivers/md/dm-user.c
-new file mode 100644
-index 000000000000..0aaa8f39f18a
---- /dev/null
-+++ b/drivers/md/dm-user.c
-@@ -0,0 +1,1227 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (C) 2020 Palmer Dabbelt <palmerdabbelt@google.com>
-+ */
-+
-+#include <linux/device-mapper.h>
-+#include <uapi/linux/dm-user.h>
-+
-+#include <linux/bio.h>
-+#include <linux/init.h>
-+#include <linux/mempool.h>
-+#include <linux/miscdevice.h>
-+#include <linux/module.h>
-+#include <linux/poll.h>
-+#include <linux/uio.h>
-+#include <linux/wait.h>
-+
-+#define DM_MSG_PREFIX "user"
-+
-+#define MAX_OUTSTANDING_MESSAGES 128
-+
-+/*
-+ * dm-user uses four structures:
-+ *
-+ *  - "struct target", the outermost structure, corresponds to a single device
-+ *    mapper target.  This contains the set of outstanding BIOs that have been
-+ *    provided by DM and are not actively being processed by the user, along
-+ *    with a misc device that userspace can open to communicate with the
-+ *    kernel.  Each time userspaces opens the misc device a new channel is
-+ *    created.
-+ *  - "struct channel", which represents a single active communication channel
-+ *    with userspace.  Userspace may choose arbitrary read/write sizes to use
-+ *    when processing messages, channels form these into logical accesses.
-+ *    When userspace responds to a full message the channel completes the BIO
-+ *    and obtains a new message to process from the target.
-+ *  - "struct message", which wraps a BIO with the additional information
-+ *    required by the kernel to sort out what to do with BIOs when they return
-+ *    from userspace.
-+ *  - "struct dm_user_message", which is the exact message format that
-+ *    userspace sees.
-+ *
-+ * The hot path contains three distinct operations:
-+ *
-+ *  - user_map(), which is provided a BIO from device mapper that is queued
-+ *    into the target.  This allocates and enqueues a new message.
-+ *  - dev_read(), which dequeues a message, copies it to userspace.
-+ *  - dev_write(), which looks up a message (keyed by sequence number) and
-+ *    completes the corresponding BIO.
-+ *
-+ * Lock ordering (outer to inner)
-+ *
-+ * 1) miscdevice's global lock.  This is held around dev_open, so it has to be
-+ *    the outermost lock.
-+ * 2) target->lock
-+ * 3) channel->lock
-+ */
-+
-+struct message {
-+	/*
-+	 * Messages themselves do not need a lock, they're protected by either
-+	 * the target or channel's lock, depending on which can reference them
-+	 * directly.
-+	 */
-+	struct dm_user_message msg;
-+	struct bio *bio;
-+	size_t posn_to_user;
-+	size_t total_to_user;
-+	size_t posn_from_user;
-+	size_t total_from_user;
-+
-+	struct list_head from_user;
-+	struct list_head to_user;
-+
-+	/*
-+	 * These are written back from the user.  They live in the same spot in
-+	 * the message, but we need to either keep the old values around or
-+	 * call a bunch more BIO helpers.  These are only valid after write has
-+	 * adopted the message.
-+	 */
-+	u64 return_type;
-+	u64 return_flags;
-+};
-+
-+struct target {
-+	/*
-+	 * A target has a single lock, which protects everything in the target
-+	 * (but does not protect the channels associated with a target).
-+	 */
-+	struct mutex lock;
-+
-+	/*
-+	 * There is only one point at which anything blocks: userspace blocks
-+	 * reading a new message, which is woken up by device mapper providing
-+	 * a new BIO to process (or tearing down the target).  The
-+	 * corresponding write side doesn't block, instead we treat userspace's
-+	 * response containing a message that has yet to be mapped as an
-+	 * invalid operation.
-+	 */
-+	struct wait_queue_head wq;
-+
-+	/*
-+	 * Messages are delivered to userspace in order, but may be returned
-+	 * out of order.  This allows userspace to schedule IO if it wants to.
-+	 */
-+	mempool_t message_pool;
-+	u64 next_seq_to_map;
-+	u64 next_seq_to_user;
-+	struct list_head to_user;
-+
-+	/*
-+	 * There is a misc device per target.  The name is selected by
-+	 * userspace (via a DM create ioctl argument), and each ends up in
-+	 * /dev/dm-user/.  It looks like a better way to do this may be to have
-+	 * a filesystem to manage these, but this was more expedient.  The
-+	 * current mechanism is functional, but does result in an arbitrary
-+	 * number of dynamically created misc devices.
-+	 */
-+	struct miscdevice miscdev;
-+
-+	/*
-+	 * Device mapper's target destructor triggers tearing this all down,
-+	 * but we can't actually free until every channel associated with this
-+	 * target has been destroyed.  Channels each have a reference to their
-+	 * target, and there is an additional single reference that corresponds
-+	 * to both DM and the misc device (both of which are destroyed by DM).
-+	 *
-+	 * In the common case userspace will be asleep waiting for a new
-+	 * message when device mapper decides to destroy the target, which
-+	 * means no new messages will appear.  The destroyed flag triggers a
-+	 * wakeup, which will end up removing the reference.
-+	 */
-+	struct kref references;
-+	int dm_destroyed;
-+};
-+
-+struct channel {
-+	struct target *target;
-+
-+	/*
-+	 * A channel has a single lock, which prevents multiple reads (or
-+	 * multiple writes) from conflicting with each other.
-+	 */
-+	struct mutex lock;
-+
-+	struct message *cur_to_user;
-+	struct message *cur_from_user;
-+	ssize_t to_user_error;
-+	ssize_t from_user_error;
-+
-+	/*
-+	 * Once a message has been forwarded to userspace on a channel it must
-+	 * be responded to on the same channel.  This allows us to error out
-+	 * the messages that have not yet been responded to by a channel when
-+	 * that channel closes, which makes handling errors more reasonable for
-+	 * fault-tolerant userspace daemons.  It also happens to make avoiding
-+	 * shared locks between user_map() and dev_read() a lot easier.
-+	 *
-+	 * This does preclude a multi-threaded work stealing userspace
-+	 * implementation (or at least, force a degree of head-of-line blocking
-+	 * on the response path).
-+	 */
-+	struct list_head from_user;
-+
-+	/*
-+	 * Responses from userspace can arrive in arbitrarily small chunks.
-+	 * We need some place to buffer one up until we can find the
-+	 * corresponding kernel-side message to continue processing, so instead
-+	 * of allocating them we just keep one off to the side here.  This can
-+	 * only ever be pointed to by from_user_cur, and will never have a BIO.
-+	 */
-+	struct message scratch_message_from_user;
-+};
-+
-+static inline struct target *target_from_target(struct dm_target *target)
-+{
-+	WARN_ON(target->private == NULL);
-+	return target->private;
-+}
-+
-+static inline struct target *target_from_miscdev(struct miscdevice *miscdev)
-+{
-+	return container_of(miscdev, struct target, miscdev);
-+}
-+
-+static inline struct channel *channel_from_file(struct file *file)
-+{
-+	WARN_ON(file->private_data == NULL);
-+	return file->private_data;
-+}
-+
-+static inline struct target *target_from_channel(struct channel *c)
-+{
-+	WARN_ON(c->target == NULL);
-+	return c->target;
-+}
-+
-+static inline size_t bio_size(struct bio *bio)
-+{
-+	struct bio_vec bvec;
-+	struct bvec_iter iter;
-+	size_t out = 0;
-+
-+	bio_for_each_segment(bvec, bio, iter)
-+		out += bio_iter_len(bio, iter);
-+	return out;
-+}
-+
-+static inline size_t bio_bytes_needed_to_user(struct bio *bio)
-+{
-+	switch (bio_op(bio)) {
-+	case REQ_OP_WRITE:
-+		return sizeof(struct dm_user_message) + bio_size(bio);
-+	case REQ_OP_READ:
-+	case REQ_OP_FLUSH:
-+	case REQ_OP_DISCARD:
-+	case REQ_OP_SECURE_ERASE:
-+	case REQ_OP_WRITE_SAME:
-+	case REQ_OP_WRITE_ZEROES:
-+	case REQ_OP_ZONE_OPEN:
-+	case REQ_OP_ZONE_CLOSE:
-+	case REQ_OP_ZONE_FINISH:
-+	case REQ_OP_ZONE_APPEND:
-+	case REQ_OP_ZONE_RESET:
-+		return sizeof(struct dm_user_message);
-+
-+	/*
-+	 * These ops are not passed to userspace under the assumption that
-+	 * they're not going to be particularly useful in that context.
-+	 */
-+	case REQ_OP_SCSI_IN:
-+	case REQ_OP_SCSI_OUT:
-+	case REQ_OP_DRV_IN:
-+	case REQ_OP_DRV_OUT:
-+	/* Anything new isn't supported,at least not yet. */
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static inline size_t bio_bytes_needed_from_user(struct bio *bio)
-+{
-+	switch (bio_op(bio)) {
-+	case REQ_OP_READ:
-+		return sizeof(struct dm_user_message) + bio_size(bio);
-+	case REQ_OP_WRITE:
-+	case REQ_OP_FLUSH:
-+	case REQ_OP_DISCARD:
-+	case REQ_OP_SECURE_ERASE:
-+	case REQ_OP_WRITE_SAME:
-+	case REQ_OP_WRITE_ZEROES:
-+	case REQ_OP_ZONE_OPEN:
-+	case REQ_OP_ZONE_CLOSE:
-+	case REQ_OP_ZONE_FINISH:
-+	case REQ_OP_ZONE_APPEND:
-+	case REQ_OP_ZONE_RESET:
-+		return sizeof(struct dm_user_message);
-+
-+	/*
-+	 * These ops are not passed to userspace under the assumption that
-+	 * they're not going to be particularly useful in that context.
-+	 */
-+	case REQ_OP_SCSI_IN:
-+	case REQ_OP_SCSI_OUT:
-+	case REQ_OP_DRV_IN:
-+	case REQ_OP_DRV_OUT:
-+	/* Anything new isn't supported,at least not yet. */
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static inline long bio_type_to_user_type(struct bio *bio)
-+{
-+	switch (bio_op(bio)) {
-+	case REQ_OP_READ:
-+		return DM_USER_REQ_MAP_READ;
-+	case REQ_OP_WRITE:
-+		return DM_USER_REQ_MAP_WRITE;
-+	case REQ_OP_FLUSH:
-+		return DM_USER_REQ_MAP_FLUSH;
-+	case REQ_OP_DISCARD:
-+		return DM_USER_REQ_MAP_DISCARD;
-+	case REQ_OP_SECURE_ERASE:
-+		return DM_USER_REQ_MAP_SECURE_ERASE;
-+	case REQ_OP_WRITE_SAME:
-+		return DM_USER_REQ_MAP_WRITE_SAME;
-+	case REQ_OP_WRITE_ZEROES:
-+		return DM_USER_REQ_MAP_WRITE_ZEROES;
-+	case REQ_OP_ZONE_OPEN:
-+		return DM_USER_REQ_MAP_ZONE_OPEN;
-+	case REQ_OP_ZONE_CLOSE:
-+		return DM_USER_REQ_MAP_ZONE_CLOSE;
-+	case REQ_OP_ZONE_FINISH:
-+		return DM_USER_REQ_MAP_ZONE_FINISH;
-+	case REQ_OP_ZONE_APPEND:
-+		return DM_USER_REQ_MAP_ZONE_APPEND;
-+	case REQ_OP_ZONE_RESET:
-+		return DM_USER_REQ_MAP_ZONE_RESET;
-+
-+	/*
-+	 * These ops are not passed to userspace under the assumption that
-+	 * they're not going to be particularly useful in that context.
-+	 */
-+	case REQ_OP_SCSI_IN:
-+	case REQ_OP_SCSI_OUT:
-+	case REQ_OP_DRV_IN:
-+	case REQ_OP_DRV_OUT:
-+	/* Anything new isn't supported,at least not yet. */
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static inline long bio_flags_to_user_flags(struct bio *bio)
-+{
-+	u64 out = 0;
-+	typeof(bio->bi_opf) opf = bio->bi_opf & ~REQ_OP_MASK;
-+
-+	if (opf & REQ_FAILFAST_DEV) {
-+		opf &= ~REQ_FAILFAST_DEV;
-+		out |= DM_USER_REQ_MAP_FLAG_FAILFAST_DEV;
-+	}
-+
-+	if (opf & REQ_FAILFAST_TRANSPORT) {
-+		opf &= ~REQ_FAILFAST_TRANSPORT;
-+		out |= DM_USER_REQ_MAP_FLAG_FAILFAST_TRANSPORT;
-+	}
-+
-+	if (opf & REQ_FAILFAST_DRIVER) {
-+		opf &= ~REQ_FAILFAST_DRIVER;
-+		out |= DM_USER_REQ_MAP_FLAG_FAILFAST_DRIVER;
-+	}
-+
-+	if (opf & REQ_SYNC) {
-+		opf &= ~REQ_SYNC;
-+		out |= DM_USER_REQ_MAP_FLAG_SYNC;
-+	}
-+
-+	if (opf & REQ_META) {
-+		opf &= ~REQ_META;
-+		out |= DM_USER_REQ_MAP_FLAG_META;
-+	}
-+
-+	if (opf & REQ_PRIO) {
-+		opf &= ~REQ_PRIO;
-+		out |= DM_USER_REQ_MAP_FLAG_PRIO;
-+	}
-+
-+	if (opf & REQ_NOMERGE) {
-+		opf &= ~REQ_NOMERGE;
-+		out |= DM_USER_REQ_MAP_FLAG_NOMERGE;
-+	}
-+
-+	if (opf & REQ_IDLE) {
-+		opf &= ~REQ_IDLE;
-+		out |= DM_USER_REQ_MAP_FLAG_IDLE;
-+	}
-+
-+	if (opf & REQ_INTEGRITY) {
-+		opf &= ~REQ_INTEGRITY;
-+		out |= DM_USER_REQ_MAP_FLAG_INTEGRITY;
-+	}
-+
-+	if (opf & REQ_FUA) {
-+		opf &= ~REQ_FUA;
-+		out |= DM_USER_REQ_MAP_FLAG_FUA;
-+	}
-+
-+	if (opf & REQ_PREFLUSH) {
-+		opf &= ~REQ_PREFLUSH;
-+		out |= DM_USER_REQ_MAP_FLAG_PREFLUSH;
-+	}
-+
-+	if (opf & REQ_PREFLUSH) {
-+		opf &= ~REQ_PREFLUSH;
-+		out |= DM_USER_REQ_MAP_FLAG_PREFLUSH;
-+	}
-+
-+	if (opf & REQ_RAHEAD) {
-+		opf &= ~REQ_RAHEAD;
-+		out |= DM_USER_REQ_MAP_FLAG_RAHEAD;
-+	}
-+
-+	if (opf & REQ_BACKGROUND) {
-+		opf &= ~REQ_BACKGROUND;
-+		out |= DM_USER_REQ_MAP_FLAG_BACKGROUND;
-+	}
-+
-+	if (opf & REQ_BACKGROUND) {
-+		opf &= ~REQ_BACKGROUND;
-+		out |= DM_USER_REQ_MAP_FLAG_BACKGROUND;
-+	}
-+
-+	if (opf & REQ_NOWAIT) {
-+		opf &= ~REQ_NOWAIT;
-+		out |= DM_USER_REQ_MAP_FLAG_NOWAIT;
-+	}
-+
-+	if (opf & REQ_CGROUP_PUNT) {
-+		opf &= ~REQ_CGROUP_PUNT;
-+		out |= DM_USER_REQ_MAP_FLAG_CGROUP_PUNT;
-+	}
-+
-+	if (opf & REQ_NOUNMAP) {
-+		opf &= ~REQ_NOUNMAP;
-+		out |= DM_USER_REQ_MAP_FLAG_NOUNMAP;
-+	}
-+
-+	if (opf & REQ_HIPRI) {
-+		opf &= ~REQ_HIPRI;
-+		out |= DM_USER_REQ_MAP_FLAG_HIPRI;
-+	}
-+
-+	if (unlikely(opf)) {
-+		pr_warn("unsupported BIO type %x\n", opf);
-+		return -EOPNOTSUPP;
-+	}
-+	WARN_ON(out < 0);
-+	return out;
-+}
-+
-+/*
-+ * Not quite what's in blk-map.c, but instead what I thought the functions in
-+ * blk-map did.  This one seems more generally useful and I think we could
-+ * write the blk-map version in terms of this one.  The differences are that
-+ * this has a return value that counts, and blk-map uses the BIO _all iters.
-+ * Neither  advance the BIO iter but don't advance the IOV iter, which is a bit
-+ * odd here.
-+ */
-+static ssize_t bio_copy_from_iter(struct bio *bio, struct iov_iter *iter)
-+{
-+	struct bio_vec bvec;
-+	struct bvec_iter biter;
-+	ssize_t out = 0;
-+
-+	bio_for_each_segment(bvec, bio, biter) {
-+		ssize_t ret;
-+
-+		ret = copy_page_from_iter(bvec.bv_page, bvec.bv_offset,
-+					  bvec.bv_len, iter);
-+
-+		/*
-+		 * FIXME: I thought that IOV copies had a mechanism for
-+		 * terminating early, if for example a signal came in while
-+		 * sleeping waiting for a page to be mapped, but I don't see
-+		 * where that would happen.
-+		 */
-+		WARN_ON(ret < 0);
-+		out += ret;
-+
-+		if (!iov_iter_count(iter))
-+			break;
-+
-+		if (ret < bvec.bv_len)
-+			return ret;
-+	}
-+
-+	return out;
-+}
-+
-+static ssize_t bio_copy_to_iter(struct bio *bio, struct iov_iter *iter)
-+{
-+	struct bio_vec bvec;
-+	struct bvec_iter biter;
-+	ssize_t out = 0;
-+
-+	bio_for_each_segment(bvec, bio, biter) {
-+		ssize_t ret;
-+
-+		ret = copy_page_to_iter(bvec.bv_page, bvec.bv_offset,
-+					bvec.bv_len, iter);
-+
-+		/* as above */
-+		WARN_ON(ret < 0);
-+		out += ret;
-+
-+		if (!iov_iter_count(iter))
-+			break;
-+
-+		if (ret < bvec.bv_len)
-+			return ret;
-+	}
-+
-+	return out;
-+}
-+
-+static ssize_t msg_copy_to_iov(struct message *msg, struct iov_iter *to)
-+{
-+	ssize_t copied = 0;
-+
-+	if (!iov_iter_count(to))
-+		return 0;
-+
-+	if (msg->posn_to_user < sizeof(msg->msg)) {
-+		copied = copy_to_iter((char *)(&msg->msg) + msg->posn_to_user,
-+				      sizeof(msg->msg) - msg->posn_to_user, to);
-+	} else {
-+		copied = bio_copy_to_iter(msg->bio, to);
-+		if (copied > 0)
-+			bio_advance(msg->bio, copied);
-+	}
-+
-+	if (copied < 0)
-+		return copied;
-+
-+	msg->posn_to_user += copied;
-+	return copied;
-+}
-+
-+static ssize_t msg_copy_from_iov(struct message *msg, struct iov_iter *from)
-+{
-+	ssize_t copied = 0;
-+
-+	if (!iov_iter_count(from))
-+		return 0;
-+
-+	if (msg->posn_from_user < sizeof(msg->msg)) {
-+		copied = copy_from_iter(
-+			(char *)(&msg->msg) + msg->posn_from_user,
-+			sizeof(msg->msg) - msg->posn_from_user, from);
-+	} else {
-+		copied = bio_copy_from_iter(msg->bio, from);
-+		if (copied > 0)
-+			bio_advance(msg->bio, copied);
-+	}
-+
-+	if (copied < 0)
-+		return copied;
-+
-+	msg->posn_from_user += copied;
-+	return copied;
-+}
-+
-+static struct message *msg_get_map(struct target *t)
-+{
-+	struct message *m;
-+
-+	lockdep_assert_held(&t->lock);
-+
-+	m = mempool_alloc(&t->message_pool, GFP_NOIO);
-+	m->msg.seq = t->next_seq_to_map++;
-+	INIT_LIST_HEAD(&m->to_user);
-+	INIT_LIST_HEAD(&m->from_user);
-+	return m;
-+}
-+
-+static struct message *msg_get_to_user(struct target *t)
-+{
-+	struct message *m;
-+
-+	lockdep_assert_held(&t->lock);
-+
-+	if (list_empty(&t->to_user))
-+		return NULL;
-+
-+	m = list_first_entry(&t->to_user, struct message, to_user);
-+	list_del(&m->to_user);
-+	return m;
-+}
-+
-+static struct message *msg_get_from_user(struct channel *c, u64 seq)
-+{
-+	struct message *m;
-+	struct list_head *cur;
-+
-+	lockdep_assert_held(&c->lock);
-+
-+	list_for_each(cur, &c->from_user) {
-+		m = list_entry(cur, struct message, from_user);
-+		if (m->msg.seq == seq) {
-+			list_del(&m->from_user);
-+			return m;
-+		}
-+	}
-+
-+	return NULL;
-+}
-+
-+void message_kill(struct message *m, mempool_t *pool)
-+{
-+	m->bio->bi_status = BLK_STS_IOERR;
-+	bio_endio(m->bio);
-+	bio_put(m->bio);
-+	mempool_free(m, pool);
-+}
-+
-+/*
-+ * Returns 0 when there is no work left to do.  This must be callable without
-+ * holding the target lock, as it is part of the waitqueue's check expression.
-+ * When called without the lock it may spuriously indicate there is remaining
-+ * work, but when called with the lock it must be accurate.
-+ */
-+int target_poll(struct target *t)
-+{
-+	return !list_empty(&t->to_user) || t->dm_destroyed;
-+}
-+
-+void target_release(struct kref *ref)
-+{
-+	struct target *t = container_of(ref, struct target, references);
-+	struct list_head *cur;
-+
-+	/*
-+	 * There may be outstanding BIOs that have not yet been given to
-+	 * userspace.  At this point there's nothing we can do about them, as
-+	 * there are and will never be any channels.
-+	 */
-+	list_for_each (cur, &t->to_user) {
-+		message_kill(list_entry(cur, struct message, to_user),
-+			     &t->message_pool);
-+	}
-+
-+	mempool_exit(&t->message_pool);
-+	mutex_unlock(&t->lock);
-+	mutex_destroy(&t->lock);
-+	kfree(t);
-+}
-+
-+void target_put(struct target *t)
-+{
-+	/*
-+	 * This both releases a reference to the target and the lock.  We leave
-+	 * it up to the caller to hold the lock, as they probably needed it for
-+	 * something else.
-+	 */
-+	lockdep_assert_held(&t->lock);
-+
-+	if (!kref_put(&t->references, target_release))
-+		mutex_unlock(&t->lock);
-+}
-+
-+struct channel *channel_alloc(struct target *t)
-+{
-+	struct channel *c;
-+
-+	lockdep_assert_held(&t->lock);
-+
-+	c = kzalloc(sizeof(*c), GFP_KERNEL);
-+	if (c == NULL)
-+		return NULL;
-+
-+	kref_get(&t->references);
-+	c->target = t;
-+	c->cur_from_user = &c->scratch_message_from_user;
-+	mutex_init(&c->lock);
-+	INIT_LIST_HEAD(&c->from_user);
-+	return c;
-+}
-+
-+void channel_free(struct channel *c)
-+{
-+	struct list_head *cur;
-+
-+	lockdep_assert_held(&c->lock);
-+
-+	/*
-+	 * There may be outstanding BIOs that have been given to userspace but
-+	 * have not yet been completed.  The channel has been shut down so
-+	 * there's no way to process the rest of those messages, so we just go
-+	 * ahead and error out the BIOs.  Hopefully whatever's on the other end
-+	 * can handle the errors.  One could imagine splitting the BIOs and
-+	 * completing as much as we got, but that seems like overkill here.
-+	 *
-+	 * Our only other options would be to let the BIO hang around (which
-+	 * seems way worse) or to resubmit it to userspace in the hope there's
-+	 * another channel.  I don't really like the idea of submitting a
-+	 * message twice.
-+	 */
-+	if (c->cur_to_user != NULL)
-+		message_kill(c->cur_to_user, &c->target->message_pool);
-+	if (c->cur_from_user != &c->scratch_message_from_user)
-+		message_kill(c->cur_from_user, &c->target->message_pool);
-+	list_for_each(cur, &c->from_user)
-+		message_kill(list_entry(cur, struct message, to_user),
-+			     &c->target->message_pool);
-+
-+	mutex_lock(&c->target->lock);
-+	target_put(c->target);
-+	mutex_unlock(&c->lock);
-+	mutex_destroy(&c->lock);
-+	kfree(c);
-+}
-+
-+static int dev_open(struct inode *inode, struct file *file)
-+{
-+	struct channel *c;
-+	struct target *t;
-+
-+	/*
-+	 * This is called by miscdev, which sets private_data to point to the
-+	 * struct miscdevice that was opened.  The rest of our file operations
-+	 * want to refer to the channel that's been opened, so we swap that
-+	 * pointer out with a fresh channel.
-+	 *
-+	 * This is called with the miscdev lock held, which is also held while
-+	 * registering/unregistering the miscdev.  The miscdev must be
-+	 * registered for this to get called, which means there must be an
-+	 * outstanding reference to the target, which means it cannot be freed
-+	 * out from under us despite us not holding a reference yet.
-+	 */
-+	t = container_of(file->private_data, struct target, miscdev);
-+	mutex_lock(&t->lock);
-+	file->private_data = c = channel_alloc(t);
-+
-+	if (c == NULL) {
-+		mutex_unlock(&t->lock);
-+		return -ENOSPC;
-+	}
-+
-+	mutex_unlock(&t->lock);
-+	return 0;
-+}
-+
-+static ssize_t dev_read(struct kiocb *iocb, struct iov_iter *to)
-+{
-+	struct channel *c = channel_from_file(iocb->ki_filp);
-+	ssize_t total_processed = 0;
-+	ssize_t processed;
-+
-+	mutex_lock(&c->lock);
-+
-+	if (unlikely(c->to_user_error)) {
-+		total_processed = c->to_user_error;
-+		goto cleanup_unlock;
-+	}
-+
-+	if (c->cur_to_user == NULL) {
-+		struct target *t = target_from_channel(c);
-+
-+		mutex_lock(&t->lock);
-+
-+		while (!target_poll(t)) {
-+			int e;
-+
-+			mutex_unlock(&t->lock);
-+			mutex_unlock(&c->lock);
-+			e = wait_event_interruptible(t->wq, target_poll(t));
-+			mutex_lock(&c->lock);
-+			mutex_lock(&t->lock);
-+
-+			if (unlikely(e != 0)) {
-+				/*
-+				 * We haven't processed any bytes in either the
-+				 * BIO or the IOV, so we can just terminate
-+				 * right now.  Elsewhere in the kernel handles
-+				 * restarting the syscall when appropriate.
-+				 */
-+				total_processed = e;
-+				mutex_unlock(&t->lock);
-+				goto cleanup_unlock;
-+			}
-+		}
-+
-+		if (unlikely(t->dm_destroyed)) {
-+			/*
-+			 * DM has destroyed this target, so just lock
-+			 * the user out.  There's really nothing else
-+			 * we can do here.  Note that we don't actually
-+			 * tear any thing down until userspace has
-+			 * closed the FD, as there may still be
-+			 * outstanding BIOs.
-+			 *
-+			 * This is kind of a wacky error code to
-+			 * return.  My goal was really just to try and
-+			 * find something that wasn't likely to be
-+			 * returned by anything else in the miscdev
-+			 * path.  The message "block device required"
-+			 * seems like a somewhat reasonable thing to
-+			 * say when the target has disappeared out from
-+			 * under us, but "not block" isn't sensible.
-+			 */
-+			c->to_user_error = total_processed = -ENOTBLK;
-+			mutex_unlock(&t->lock);
-+			goto cleanup_unlock;
-+		}
-+
-+		/*
-+		 * Ensures that accesses to the message data are not ordered
-+		 * before the remote accesses that produce that message data.
-+		 *
-+		 * This pairs with the barrier in user_map(), via the
-+		 * conditional within the while loop above. Also see the lack
-+		 * of barrier in user_dtr(), which is why this can be after the
-+		 * destroyed check.
-+		 */
-+		smp_rmb();
-+
-+		c->cur_to_user = msg_get_to_user(t);
-+		WARN_ON(c->cur_to_user == NULL);
-+		mutex_unlock(&t->lock);
-+	}
-+
-+	processed = msg_copy_to_iov(c->cur_to_user, to);
-+	total_processed += processed;
-+
-+	WARN_ON(c->cur_to_user->posn_to_user > c->cur_to_user->total_to_user);
-+	if (c->cur_to_user->posn_to_user == c->cur_to_user->total_to_user) {
-+		struct message *m = c->cur_to_user;
-+
-+		c->cur_to_user = NULL;
-+		list_add_tail(&m->from_user, &c->from_user);
-+	}
-+
-+cleanup_unlock:
-+	mutex_unlock(&c->lock);
-+	return total_processed;
-+}
-+
-+static ssize_t dev_splice_read(struct file *in, loff_t *ppos,
-+			       struct pipe_inode_info *pipe, size_t len,
-+			       unsigned int flags)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+static ssize_t dev_write(struct kiocb *iocb, struct iov_iter *from)
-+{
-+	struct channel *c = channel_from_file(iocb->ki_filp);
-+	ssize_t total_processed = 0;
-+	ssize_t processed;
-+
-+	mutex_lock(&c->lock);
-+
-+	if (unlikely(c->from_user_error)) {
-+		total_processed = c->from_user_error;
-+		goto cleanup_unlock;
-+	}
-+
-+	/*
-+	 * cur_from_user can never be NULL.  If there's no real message it must
-+	 * point to the scratch space.
-+	 */
-+	WARN_ON(c->cur_from_user == NULL);
-+	if (c->cur_from_user->posn_from_user < sizeof(struct dm_user_message)) {
-+		struct message *msg, *old;
-+
-+		processed = msg_copy_from_iov(c->cur_from_user, from);
-+		if (processed <= 0) {
-+			pr_warn("msg_copy_from_iov() returned %zu\n",
-+				processed);
-+			c->from_user_error = -EINVAL;
-+			goto cleanup_unlock;
-+		}
-+		total_processed += processed;
-+
-+		/*
-+		 * In the unlikely event the user has provided us a very short
-+		 * write, not even big enough to fill a message, just succeed.
-+		 * We'll eventually build up enough bytes to do something.
-+		 */
-+		if (unlikely(c->cur_from_user->posn_from_user <
-+			     sizeof(struct dm_user_message)))
-+			goto cleanup_unlock;
-+
-+		old = c->cur_from_user;
-+		mutex_lock(&c->target->lock);
-+		msg = msg_get_from_user(c, c->cur_from_user->msg.seq);
-+		if (msg == NULL) {
-+			pr_info("user provided an invalid messag seq of %llx\n",
-+				old->msg.seq);
-+			mutex_unlock(&c->target->lock);
-+			c->from_user_error = -EINVAL;
-+			goto cleanup_unlock;
-+		}
-+		mutex_unlock(&c->target->lock);
-+
-+		WARN_ON(old->posn_from_user != sizeof(struct dm_user_message));
-+		msg->posn_from_user = sizeof(struct dm_user_message);
-+		msg->return_type = old->msg.type;
-+		msg->return_flags = old->msg.flags;
-+		WARN_ON(msg->posn_from_user > msg->total_from_user);
-+		c->cur_from_user = msg;
-+		WARN_ON(old != &c->scratch_message_from_user);
-+	}
-+
-+	/*
-+	 * Userspace can signal an error for single requests by overwriting the
-+	 * seq field.
-+	 */
-+	switch (c->cur_from_user->return_type) {
-+	case DM_USER_RESP_SUCCESS:
-+		c->cur_from_user->bio->bi_status = BLK_STS_OK;
-+		break;
-+	case DM_USER_RESP_ERROR:
-+	case DM_USER_RESP_UNSUPPORTED:
-+	default:
-+		c->cur_from_user->bio->bi_status = BLK_STS_IOERR;
-+		goto finish_bio;
-+	}
-+
-+	/*
-+	 * The op was a success as far as userspace is concerned, so process
-+	 * whatever data may come along with it.  The user may provide the BIO
-+	 * data in multiple chunks, in which case we don't need to finish the
-+	 * BIO.
-+	 */
-+	processed = msg_copy_from_iov(c->cur_from_user, from);
-+	total_processed += processed;
-+
-+	if (c->cur_from_user->posn_from_user <
-+	    c->cur_from_user->total_from_user)
-+		goto cleanup_unlock;
-+
-+finish_bio:
-+	/*
-+	 * When we set up this message the BIO's size matched the
-+	 * message size, if that's not still the case then something
-+	 * has gone off the rails.
-+	 */
-+	WARN_ON(bio_size(c->cur_from_user->bio) != 0);
-+	bio_endio(c->cur_from_user->bio);
-+	bio_put(c->cur_from_user->bio);
-+
-+	/*
-+	 * We don't actually need to take the target lock here, as all
-+	 * we're doing is freeing the message and mempools have their
-+	 * own lock.  Each channel has its ows scratch message.
-+	 */
-+	WARN_ON(c->cur_from_user == &c->scratch_message_from_user);
-+	mempool_free(c->cur_from_user, &c->target->message_pool);
-+	c->scratch_message_from_user.posn_from_user = 0;
-+	c->cur_from_user = &c->scratch_message_from_user;
-+
-+cleanup_unlock:
-+	mutex_unlock(&c->lock);
-+	return total_processed;
-+}
-+
-+static ssize_t dev_splice_write(struct pipe_inode_info *pipe, struct file *out,
-+				loff_t *ppos, size_t len, unsigned int flags)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+static __poll_t dev_poll(struct file *file, poll_table *wait)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+static int dev_release(struct inode *inode, struct file *file)
-+{
-+	struct channel *c;
-+
-+	c = channel_from_file(file);
-+	mutex_lock(&c->lock);
-+	channel_free(c);
-+
-+	return 0;
-+}
-+
-+static int dev_fasync(int fd, struct file *file, int on)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+static long dev_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+static const struct file_operations file_operations = {
-+	.owner = THIS_MODULE,
-+	.open = dev_open,
-+	.llseek = no_llseek,
-+	.read_iter = dev_read,
-+	.splice_read = dev_splice_read,
-+	.write_iter = dev_write,
-+	.splice_write = dev_splice_write,
-+	.poll = dev_poll,
-+	.release = dev_release,
-+	.fasync = dev_fasync,
-+	.unlocked_ioctl = dev_ioctl,
-+};
-+
-+static int user_ctr(struct dm_target *ti, unsigned int argc, char **argv)
-+{
-+	struct target *t;
-+	int r;
-+
-+	if (argc != 3) {
-+		ti->error = "Invalid argument count";
-+		r = -EINVAL;
-+		goto cleanup_none;
-+	}
-+
-+	t = kzalloc(sizeof(*t), GFP_KERNEL);
-+	if (t == NULL) {
-+		r = -ENOSPC;
-+		goto cleanup_none;
-+	}
-+	ti->private = t;
-+
-+	/*
-+	 * We begin with a single reference to the target, which is miscdev's
-+	 * reference.  This ensures that the target won't be freed
-+	 * until after the miscdev has been unregistered and all extant
-+	 * channels have been closed.
-+	 */
-+	kref_init(&t->references);
-+	kref_get(&t->references);
-+
-+	mutex_init(&t->lock);
-+	init_waitqueue_head(&t->wq);
-+	INIT_LIST_HEAD(&t->to_user);
-+	mempool_init_kmalloc_pool(&t->message_pool, MAX_OUTSTANDING_MESSAGES,
-+				  sizeof(struct message));
-+
-+	t->miscdev.minor = MISC_DYNAMIC_MINOR;
-+	t->miscdev.fops = &file_operations;
-+	t->miscdev.name = kasprintf(GFP_KERNEL, "dm-user/%s", argv[2]);
-+	if (t->miscdev.name == NULL) {
-+		r = -ENOSPC;
-+		goto cleanup_message_pool;
-+	}
-+
-+	/*
-+	 * Once the miscdev is registered it can be opened and therefor
-+	 * concurrent references to the channel can happen.  Holding the target
-+	 * lock during misc_register() could deadlock.  If registration
-+	 * succeeds then we will not access the target again so we just stick a
-+	 * barrier here, which pairs with taking the target lock everywhere
-+	 * else the target is accessed.
-+	 *
-+	 * I forgot where we ended up on the RCpc/RCsc locks.  IIU RCsc locks
-+	 * would mean that we could take the target lock earlier and release it
-+	 * here instead of the memory barrier.  I'm not sure that's any better,
-+	 * though, and this isn't on a hot path so it probably doesn't matter
-+	 * either way.
-+	 */
-+	smp_mb();
-+
-+	r = misc_register(&t->miscdev);
-+	if (r) {
-+		DMERR("Unable to register miscdev %s for dm-user",
-+		      t->miscdev.name);
-+		r = -ENOSPC;
-+		goto cleanup_misc_name;
-+	}
-+
-+	return 0;
-+
-+cleanup_misc_name:
-+	kfree(t->miscdev.name);
-+cleanup_message_pool:
-+	mempool_exit(&t->message_pool);
-+	kfree(t);
-+cleanup_none:
-+	return r;
-+}
-+
-+static void user_dtr(struct dm_target *ti)
-+{
-+	struct target *t = target_from_target(ti);
-+
-+	/*
-+	 * Removes the miscdev.  This must be called without the target lock
-+	 * held to avoid a possible deadlock because our open implementation is
-+	 * called holding the miscdev lock and must later take the target lock.
-+	 *
-+	 * There is no race here because only DM can register/unregister the
-+	 * miscdev, and DM ensures that doesn't happen twice.  The internal
-+	 * miscdev lock is sufficient to ensure there are no races between
-+	 * deregistering the miscdev and open.
-+	 */
-+	misc_deregister(&t->miscdev);
-+
-+	/*
-+	 * We are now free to take the target's lock and drop our reference to
-+	 * the target.  There are almost certainly tasks sleeping in read on at
-+	 * least one of the channels associated with this target, this
-+	 * explicitly wakes them up and terminates the read.
-+	 */
-+	mutex_lock(&t->lock);
-+	/*
-+	 * No barrier here, as wait/wake ensures that the flag visibility is
-+	 * correct WRT the wake/sleep state of the target tasks.
-+	 */
-+	t->dm_destroyed = true;
-+	wake_up_all(&t->wq);
-+	target_put(t);
-+}
-+
-+/*
-+ * Consumes a BIO from device mapper, queueing it up for userspace.
-+ */
-+static int user_map(struct dm_target *ti, struct bio *bio)
-+{
-+	struct target *t;
-+	struct message *entry;
-+
-+	t = target_from_target(ti);
-+	/*
-+	 * FIXME
-+	 *
-+	 * This seems like a bad idea.  Specifically, here we're
-+	 * directly on the IO path when we take the target lock, which may also
-+	 * be taken from a user context.  The user context doesn't actively
-+	 * trigger anything that may sleep while holding the lock, but this
-+	 * still seems like a bad idea.
-+	 *
-+	 * The obvious way to fix this would be to use a proper queue, which
-+	 * would result in no shared locks between the direct IO path and user
-+	 * tasks.  I had a version that did this, but the head-of-line blocking
-+	 * from the circular buffer resulted in us needing a fairly large
-+	 * allocation in order to avoid situations in which the queue fills up
-+	 * and everything goes off the rails.
-+	 *
-+	 * I could jump through a some hoops to avoid a shared lock while still
-+	 * allowing for a large queue, but I'm not actually sure that allowing
-+	 * for very large queues is the right thing to do here.  Intuitively it
-+	 * seems better to keep the queues small in here (essentially sized to
-+	 * the user latency for performance reasons only) and signal up the
-+	 * stack to start throttling IOs.  I don't see a way to do that
-+	 * (returning DM_MAPIO_REQUEUE seems like it'd work, but doesn't do
-+	 * that).
-+	 *
-+	 * The best way I could come up with to fix this would be to use a
-+	 * two-lock concurrent queue that's of infinite size (ie, linked list
-+	 * based), which would get rid of the explicit shared lock.  The
-+	 * mempool spinlock would still be shared, but I could just defer the
-+	 * free from dev_write to user_map (and probably a worker).
-+	 */
-+	mutex_lock(&t->lock);
-+
-+	/*
-+	 * FIXME
-+	 *
-+	 * The assumption here is that there's no benefit to returning
-+	 * DM_MAPIO_KILL as opposed to just erroring out the BIO, but I'm not
-+	 * sure that's actually true -- for example, I could imagine users
-+	 * expecting that submitted BIOs are unlikely to fail and therefor
-+	 * relying on submission failure to indicate an unsupported type.
-+	 *
-+	 * There's two ways I can think of to fix this:
-+	 *   - Add DM arguments that are parsed during the constructor that
-+	 *     allow various dm_target flags to be set that indicate the op
-+	 *     types supported by this target.  This may make sense for things
-+	 *     like discard, where DM can already transform the BIOs to a form
-+	 *     that's likely to be supported.
-+	 *   - Some sort of pre-filter that allows userspace to hook in here
-+	 *     and kill BIOs before marking them as submitted.  My guess would
-+	 *     be that a userspace round trip is a bad idea here, but a BPF
-+	 *     call seems resonable.
-+	 *
-+	 * My guess is that we'd likely want to do both.  The first one is easy
-+	 * and gives DM the proper info, so it seems better.  The BPF call
-+	 * seems overly complex for just this, but one could imagine wanting to
-+	 * sometimes return _MAPPED and a BPF filter would be the way to do
-+	 * that.
-+	 *
-+	 * For example, in Android we have an in-kernel DM device called
-+	 * "dm-bow" that takes advange of some portion of the space that has
-+	 * been discarded on a device to provide opportunistic block-level
-+	 * backups.  While one could imagine just implementing this entirely in
-+	 * userspace, that would come with an appreciable performance penalty.
-+	 * Instead one could keep a BPF program that forwards most accesses
-+	 * directly to the backing block device while informing a userspace
-+	 * daemon of any discarded space and on writes to blocks that are to be
-+	 * backed up.
-+	 */
-+	if (unlikely((bio_type_to_user_type(bio) < 0)
-+		     || (bio_flags_to_user_flags(bio) < 0))) {
-+		mutex_unlock(&t->lock);
-+		pr_warn("dm-user: unsupported bio_op() %d\n", bio_op(bio));
-+		return DM_MAPIO_KILL;
-+	}
-+
-+	entry = msg_get_map(t);
-+	if (unlikely(entry == NULL)) {
-+		mutex_unlock(&t->lock);
-+		pr_warn("dm-user: unable to allocate message\n");
-+		return DM_MAPIO_KILL;
-+	}
-+
-+	bio_get(bio);
-+	entry->msg.type = bio_type_to_user_type(bio);
-+	entry->msg.flags = bio_flags_to_user_flags(bio);
-+	entry->msg.sector = bio->bi_iter.bi_sector;
-+	entry->msg.len = bio_size(bio);
-+	entry->bio = bio;
-+	entry->posn_to_user = 0;
-+	entry->total_to_user = bio_bytes_needed_to_user(bio);
-+	entry->posn_from_user = 0;
-+	entry->total_from_user = bio_bytes_needed_from_user(bio);
-+	/* Pairs with the barrier in dev_read() */
-+	smp_wmb();
-+	list_add_tail(&entry->to_user, &t->to_user);
-+	wake_up_interruptible(&t->wq);
-+	mutex_unlock(&t->lock);
-+	return DM_MAPIO_SUBMITTED;
-+}
-+
-+static struct target_type user_target = {
-+	.name = "user",
-+	.version = { 1, 0, 0 },
-+	.module = THIS_MODULE,
-+	.ctr = user_ctr,
-+	.dtr = user_dtr,
-+	.map = user_map,
-+};
-+
-+static int __init dm_user_init(void)
-+{
-+	int r;
-+
-+	r = dm_register_target(&user_target);
-+	if (r) {
-+		DMERR("register failed %d", r);
-+		goto error;
-+	}
-+
-+	return 0;
-+
-+error:
-+	return r;
-+}
-+
-+static void __exit dm_user_exit(void)
-+{
-+	dm_unregister_target(&user_target);
-+}
-+
-+module_init(dm_user_init);
-+module_exit(dm_user_exit);
-+MODULE_AUTHOR("Palmer Dabbelt <palmerdabbelt@google.com>");
-+MODULE_DESCRIPTION(DM_NAME " target returning blocks from userspace");
-+MODULE_LICENSE("GPL");
--- 
-2.29.2.454.gaff20da3a2-goog
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+RnJvbTogUGFsbWVyIERhYmJlbHQgPHBhbG1lcmRhYmJlbHRAZ29vZ2xlLmNvbT4KClRoZXNlIHRl
+c3RzIHJ1bHkgb24gZnNzdHJlc3MgYW5kIGZpbyB0byBnZW5lcmF0ZSBhY2Nlc3NlcyB0byBhIGJs
+b2NrCmRldmljZSBiYWNrZWQgYnkgYSBkbS11c2VyIGRhZW1vbi4KClNpZ25lZC1vZmYtYnk6IFBh
+bG1lciBEYWJiZWx0IDxwYWxtZXJkYWJiZWx0QGdvb2dsZS5jb20+CgotLS0KCkkndmUgbHVtcGVk
+IHRoZXNlIGFsbCB0b2dldGhlciByYXRoZXIgdGhhbiBzcGxpdHRpbmcgdGhlbSB1cC4gIFRoZSB0
+ZXN0cwp0aGVtc2VsdmVzIGFyZSBpbmRlcGVuZGVudCwgYnV0IHRoZSBhc3NvY2lhdGVkIGJ1aWxk
+L3J1biBpbmZhc3RydWN0dXJlCmlzIHByZXR0eSBzaW1wbGUgYW5kIEkgZ290IHRpcmVkIG9mIGhh
+bmRsaW5nIGFsbCB0aGUgbWVyZ2UgY29uZmxpY3RzCnRoYXQgY2FtZSBmcm9tIGp1Z2dsaW5nIGVh
+Y2ggdGVzdCBhcyBpdHMgb3duIHBhdGNoLgoKVGhlIHRlc3RzIHRoZW1zZWx2ZXMgc2hvbHVkIGJl
+IHBvcnRhYmxlLCBidXQgdGhlIGhhcm5lc3Mgd2lsbCBvbmx5IHJ1bgppbiBteSBlbnZpcm9ubWVu
+dCAoaWUsIFFFTVUpLiAgVGhhdCdzIGtpbmQgb2YgdWdseSwgYnV0IEknbSBub3QgcmVhbGx5CnN1
+cmUgaG93IHRvIGRvIHRoaXMgaW4gYSBtb3JlIHJlYXNvbmFibGUgd2F5LiAgSSBydW4gdGhlIHRl
+c3RzIGFzCmZvbGxvd3M6CgogICAgJCBybSAtZiBzY3JhdGNoCiAgICAkIHRydW5jYXRlIHNjcmF0
+Y2ggLS1zaXplPTEwRwogICAgJCBxZW11LXN5c3RlbS14ODZfNjQgXAogICAgICAgICAgICAtbSA4
+RyAtc21wIDMyIC1jcHUgaG9zdCAtYWNjZWwga3ZtIFwKICAgICAgICAgICAgLWtlcm5lbCAiJHtU
+UkVFfSIvYXJjaC94ODZfNjQvYm9vdC9iekltYWdlIFwKICAgICAgICAgICAgLWluaXRyZCBidWls
+ZHJvb3Qvb3V0cHV0L2ltYWdlcy9yb290ZnMuY3BpbyBcCiAgICAgICAgICAgIC1hcHBlbmQgImNv
+bnNvbGU9dHR5UzAiIFwKICAgICAgICAgICAgLWRyaXZlCiAgICAgICAgICAgIGZpbGU9IiR7VFJF
+RX0iL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2tzZWxmdGVzdF9pbnN0YWxsL2tzZWxmdGVzdC1w
+YWNrYWdlcy9rc2VsZnRlc3Quc3F1YXNoZnMsaWY9dmlydGlvCiAgICAgICAgICAgIFwKICAgICAg
+ICAgICAgLWRyaXZlCiAgICAgICAgICAgIGZpbGU9c2NyYXRjaCxpZj12aXJ0aW8gXAogICAgICAg
+ICAgICAtbm9ncmFwaGljIHwmCiAgICAgICAgICAgIHRlZSBsb2cKLS0tCiB0b29scy90ZXN0aW5n
+L3NlbGZ0ZXN0cy8uZ2l0aWdub3JlICAgICAgICAgICAgfCAgIDMgKwogdG9vbHMvdGVzdGluZy9z
+ZWxmdGVzdHMvTWFrZWZpbGUgICAgICAgICAgICAgIHwgICAxICsKIHRvb2xzL3Rlc3Rpbmcvc2Vs
+ZnRlc3RzL2RtLXVzZXIvLmdpdGlnbm9yZSAgICB8ICAgMyArCiB0b29scy90ZXN0aW5nL3NlbGZ0
+ZXN0cy9kbS11c2VyL01ha2VmaWxlICAgICAgfCAgMjMgKysKIHRvb2xzL3Rlc3Rpbmcvc2VsZnRl
+c3RzL2RtLXVzZXIvUkVBRE1FICAgICAgICB8ICAyMCArKwogLi4uL3NlbGZ0ZXN0cy9kbS11c2Vy
+L2RhZW1vbi1leGFtcGxlLmMgICAgICAgIHwgMTg2ICsrKysrKysrKysrKysrCiAuLi4vc2VsZnRl
+c3RzL2RtLXVzZXIvZGFlbW9uLXBhcmFsbGVsLmMgICAgICAgfCAyNDAgKysrKysrKysrKysrKysr
+KysrCiAuLi4vdGVzdGluZy9zZWxmdGVzdHMvZG0tdXNlci9kYWVtb24tc2hvcnQuYyAgfCAxOTYg
+KysrKysrKysrKysrKysKIC4uLi9zZWxmdGVzdHMvZG0tdXNlci9maW8tcmFuZC1yZWFkLTFHLmZp
+byAgICB8ICAxNiArKwogLi4uL3NlbGZ0ZXN0cy9kbS11c2VyL2Zpby12ZXJpZnktMUcuZmlvICAg
+ICAgIHwgIDEwICsKIC4uLi90ZXN0aW5nL3NlbGZ0ZXN0cy9kbS11c2VyL2hhcm5lc3MtZmlvLnNo
+ICB8ICA0NSArKysrCiAuLi4vc2VsZnRlc3RzL2RtLXVzZXIvaGFybmVzcy1mc3N0cmVzcy5zaCAg
+ICAgfCAgNDQgKysrKwogLi4uL3NlbGZ0ZXN0cy9kbS11c2VyL2luY2x1ZGUvbG9nZ2luZy5oICAg
+ICAgIHwgMTQ4ICsrKysrKysrKysrCiB0b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9kbS11c2VyL3J1
+bi5zaCAgICAgICAgfCAgNzQgKysrKysrCiAxNCBmaWxlcyBjaGFuZ2VkLCAxMDA5IGluc2VydGlv
+bnMoKykKIGNyZWF0ZSBtb2RlIDEwMDY0NCB0b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9kbS11c2Vy
+Ly5naXRpZ25vcmUKIGNyZWF0ZSBtb2RlIDEwMDY0NCB0b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9k
+bS11c2VyL01ha2VmaWxlCiBjcmVhdGUgbW9kZSAxMDA2NDQgdG9vbHMvdGVzdGluZy9zZWxmdGVz
+dHMvZG0tdXNlci9SRUFETUUKIGNyZWF0ZSBtb2RlIDEwMDY0NCB0b29scy90ZXN0aW5nL3NlbGZ0
+ZXN0cy9kbS11c2VyL2RhZW1vbi1leGFtcGxlLmMKIGNyZWF0ZSBtb2RlIDEwMDY0NCB0b29scy90
+ZXN0aW5nL3NlbGZ0ZXN0cy9kbS11c2VyL2RhZW1vbi1wYXJhbGxlbC5jCiBjcmVhdGUgbW9kZSAx
+MDA2NDQgdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvZG0tdXNlci9kYWVtb24tc2hvcnQuYwogY3Jl
+YXRlIG1vZGUgMTAwNjQ0IHRvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2RtLXVzZXIvZmlvLXJhbmQt
+cmVhZC0xRy5maW8KIGNyZWF0ZSBtb2RlIDEwMDY0NCB0b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9k
+bS11c2VyL2Zpby12ZXJpZnktMUcuZmlvCiBjcmVhdGUgbW9kZSAxMDA3NTUgdG9vbHMvdGVzdGlu
+Zy9zZWxmdGVzdHMvZG0tdXNlci9oYXJuZXNzLWZpby5zaAogY3JlYXRlIG1vZGUgMTAwNzU1IHRv
+b2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2RtLXVzZXIvaGFybmVzcy1mc3N0cmVzcy5zaAogY3JlYXRl
+IG1vZGUgMTAwNjQ0IHRvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2RtLXVzZXIvaW5jbHVkZS9sb2dn
+aW5nLmgKIGNyZWF0ZSBtb2RlIDEwMDc1NSB0b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9kbS11c2Vy
+L3J1bi5zaAoKZGlmZiAtLWdpdCBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzLy5naXRpZ25vcmUg
+Yi90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy8uZ2l0aWdub3JlCmluZGV4IDA1NWE1MDE5YjEzYy4u
+ODhiMTkzOGVhNWU2IDEwMDY0NAotLS0gYS90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy8uZ2l0aWdu
+b3JlCisrKyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzLy5naXRpZ25vcmUKQEAgLTgsMyArOCw2
+IEBAIHRwbTIvU3BhY2VUZXN0LmxvZwogIyBQeXRob24gYnl0ZWNvZGUgYW5kIGNhY2hlCiBfX3B5
+Y2FjaGVfXy8KICoucHlbY29kXQorCisjIHNlbGZ0ZXN0IGluc3RhbGwgZGlyCisva3NlbGZ0ZXN0
+X2luc3RhbGwvCmRpZmYgLS1naXQgYS90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9NYWtlZmlsZSBi
+L3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL01ha2VmaWxlCmluZGV4IGQ5YzI4MzUwMzE1OS4uZjVl
+MGY2MWM0Mzg0IDEwMDY0NAotLS0gYS90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9NYWtlZmlsZQor
+KysgYi90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9NYWtlZmlsZQpAQCAtOSw2ICs5LDcgQEAgVEFS
+R0VUUyArPSBjbG9uZTMKIFRBUkdFVFMgKz0gY29yZQogVEFSR0VUUyArPSBjcHVmcmVxCiBUQVJH
+RVRTICs9IGNwdS1ob3RwbHVnCitUQVJHRVRTICs9IGRtLXVzZXIKIFRBUkdFVFMgKz0gZHJpdmVy
+cy9kbWEtYnVmCiBUQVJHRVRTICs9IGVmaXZhcmZzCiBUQVJHRVRTICs9IGV4ZWMKZGlmZiAtLWdp
+dCBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2RtLXVzZXIvLmdpdGlnbm9yZSBiL3Rvb2xzL3Rl
+c3Rpbmcvc2VsZnRlc3RzL2RtLXVzZXIvLmdpdGlnbm9yZQpuZXcgZmlsZSBtb2RlIDEwMDY0NApp
+bmRleCAwMDAwMDAwMDAwMDAuLjdiMGFhM2U0YTczOAotLS0gL2Rldi9udWxsCisrKyBiL3Rvb2xz
+L3Rlc3Rpbmcvc2VsZnRlc3RzL2RtLXVzZXIvLmdpdGlnbm9yZQpAQCAtMCwwICsxLDMgQEAKKy9k
+YWVtb24tZXhhbXBsZQorL2RhZW1vbi1wYXJhbGxlbAorL2RhZW1vbi1zaG9ydApkaWZmIC0tZ2l0
+IGEvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvZG0tdXNlci9NYWtlZmlsZSBiL3Rvb2xzL3Rlc3Rp
+bmcvc2VsZnRlc3RzL2RtLXVzZXIvTWFrZWZpbGUKbmV3IGZpbGUgbW9kZSAxMDA2NDQKaW5kZXgg
+MDAwMDAwMDAwMDAwLi45OGZmNGY1ZDBmYWQKLS0tIC9kZXYvbnVsbAorKysgYi90b29scy90ZXN0
+aW5nL3NlbGZ0ZXN0cy9kbS11c2VyL01ha2VmaWxlCkBAIC0wLDAgKzEsMjMgQEAKKyMgU1BEWC1M
+aWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAKKy5QSE9OWTogYWxsIGNsZWFuCisKK3RvcF9zcmNk
+aXIgPSAuLi8uLi8uLi8uLgorSU5DTFVERVMgOj0gLUkuLi8gLUlpbmNsdWRlLyAtSSQodG9wX3Ny
+Y2RpcikvdXNyL2luY2x1ZGUKK0NGTEFHUyA6PSAkKENGTEFHUykgLWcgLU8yIC1XYWxsIC1zdGF0
+aWMgLURfR05VX1NPVVJDRSAtcHRocmVhZCAkKElOQ0xVREVTKQorS1NGVF9LSERSX0lOU1RBTEwg
+Oj0gMQorCitURVNUX0dFTl9GSUxFUyA6PSBcCisJZGFlbW9uLWV4YW1wbGUgXAorCWRhZW1vbi1w
+YXJhbGxlbCBcCisJZGFlbW9uLXNob3J0CisKK1RFU1RfUFJPR1MgOj0gXAorCWZpby1yYW5kLXJl
+YWQtMUcuZmlvIFwKKwlmaW8tdmVyaWZ5LTFHLmZpbyBcCisJaGFybmVzcy1maW8uc2ggXAorCWhh
+cm5lc3MtZnNzdHJlc3Muc2ggXAorCXJ1bi5zaAorCiskKFRFU1RfR0VOX0ZJTEVTKToga2hkcgor
+CitpbmNsdWRlIC4uL2xpYi5tawpkaWZmIC0tZ2l0IGEvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMv
+ZG0tdXNlci9SRUFETUUgYi90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9kbS11c2VyL1JFQURNRQpu
+ZXcgZmlsZSBtb2RlIDEwMDY0NAppbmRleCAwMDAwMDAwMDAwMDAuLjIxM2RlMjdkYjM1ZAotLS0g
+L2Rldi9udWxsCisrKyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2RtLXVzZXIvUkVBRE1FCkBA
+IC0wLDAgKzEsMjAgQEAKK2RtLXVzZXIgVGVzdHMKKz09PT09PT09PT09PT0KK1Rlc3RzIGZvciBk
+bS11c2VyLgorCitRdWljayBTdGFydAorLS0tLS0tLS0tLS0KK0l0J3MgcHJvYmFibHkgYSBiYWQg
+aWRlYSB0byBqdXN0IHJ1biB0aGlzIGJsaW5kbHksIGJ1dCBhbGwgeW91IG5lZWQgdG8gZG8gaXM6
+CisKKyMgbWFrZQorIyAuL3J1bi5zaAorCitTbG93IFN0YXJ0CistLS0tLS0tLS0tCitUaGVzZSB0
+ZXN0cyB1c2UgYGRtc2V0dXBgIHRvIG1hbmFnZSBkZXZpY2UgbWFwcGVyIG5vZGVzLCB3aGljaCBp
+cyBwYXJ0IG9mIGx2bTIuCitTb21lIHVzZSBgZmlvYCwgYW5kIHNvbWUgdXNlIHRoZSBgZnNzdHJl
+c3NgIGZyb20geGZzdGVzdHMuICBTb21lIG9mIHRoZSB0ZXN0cworYWxzbyBleHBlY3QgIi9kZXYv
+dmRiIiB0byBleGlzdCBhbmQgdG8gYmUgYXQgbGVhc3QgMTBHLgorCitJIHVzZSBhIHNpbXBsZSBi
+dWlsZHJvb3QtYmFzZWQgaW5pdHJhbWZzIHRvIHJ1biB0aGUgdGVzdHMuICBJJ3ZlIGFkZGVkIGFu
+Cit4ZnN0ZXN0cyBwYWNrYWdlIHRvIGdldCBmc3N0cmVzcywgYnV0IEkgaGF2ZW4ndCBzZW50IG91
+dCB0aGUgcGF0Y2hlcyB5ZXQuICBJCitydW4gZXZlcnl0aGluZyBpbiBRRU1VLgpkaWZmIC0tZ2l0
+IGEvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvZG0tdXNlci9kYWVtb24tZXhhbXBsZS5jIGIvdG9v
+bHMvdGVzdGluZy9zZWxmdGVzdHMvZG0tdXNlci9kYWVtb24tZXhhbXBsZS5jCm5ldyBmaWxlIG1v
+ZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAwMDAwMC4uYjI0NWZhZDE5MmJmCi0tLSAvZGV2L251bGwK
+KysrIGIvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvZG0tdXNlci9kYWVtb24tZXhhbXBsZS5jCkBA
+IC0wLDAgKzEsMTg2IEBACisvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vci1s
+YXRlcgorLyoKKyAqIENvcHlyaWdodCAyMDIwIEdvb2dsZSwgSW5jCisgKi8KKworI2luY2x1ZGUg
+PGVycm5vLmg+CisjaW5jbHVkZSA8ZmNudGwuaD4KKyNpbmNsdWRlIDxnZXRvcHQuaD4KKyNpbmNs
+dWRlIDxzdGRpby5oPgorI2luY2x1ZGUgPHN0ZGxpYi5oPgorI2luY2x1ZGUgPHN0cmluZy5oPgor
+I2luY2x1ZGUgPHBvbGwuaD4KKyNpbmNsdWRlIDxwdGhyZWFkLmg+CisjaW5jbHVkZSA8bGludXgv
+ZG0tdXNlci5oPgorI2luY2x1ZGUgPHN5cy9wcmN0bC5oPgorI2luY2x1ZGUgImxvZ2dpbmcuaCIK
+KworI2RlZmluZSBTRUNUT1JfU0laRSA1MTIKKworI2RlZmluZSBNQVgoYSwgYikgKChhKSA+IChi
+KSA/IChhKSA6IChiKSkKKworaW50IHdyaXRlX2FsbChpbnQgZmQsIHZvaWQgKmJ1Ziwgc2l6ZV90
+IGxlbikKK3sKKwljaGFyICpidWZfYyA9IGJ1ZjsKKwlzc2l6ZV90IHRvdGFsID0gMDsKKwlzc2l6
+ZV90IG9uY2U7CisKKwl3aGlsZSAodG90YWwgPCBsZW4pIHsKKwkJb25jZSA9IHdyaXRlKGZkLCBi
+dWZfYyArIHRvdGFsLCBsZW4gLSB0b3RhbCk7CisJCWlmIChvbmNlIDw9IDApCisJCQlyZXR1cm4g
+b25jZTsKKwkJdG90YWwgKz0gb25jZTsKKwl9CisKKwlyZXR1cm4gdG90YWw7Cit9CisKK2ludCBy
+ZWFkX2FsbChpbnQgZmQsIHZvaWQgKmJ1Ziwgc2l6ZV90IGxlbikKK3sKKwljaGFyICpidWZfYyA9
+IGJ1ZjsKKwlzc2l6ZV90IHRvdGFsID0gMDsKKwlzc2l6ZV90IG9uY2U7CisKKwl3aGlsZSAodG90
+YWwgPCBsZW4pIHsKKwkJb25jZSA9IHJlYWQoZmQsIGJ1Zl9jICsgdG90YWwsIGxlbiAtIHRvdGFs
+KTsKKwkJaWYgKG9uY2UgPD0gMCkKKwkJCXJldHVybiBvbmNlOworCQl0b3RhbCArPSBvbmNlOwor
+CX0KKworCXJldHVybiB0b3RhbDsKK30KKworaW50IHNpbXBsZV9kYWVtb24oY2hhciAqY29udHJv
+bF9kZXYsCisJCSAgc2l6ZV90IGJsb2NrX2J5dGVzLAorCQkgIGNoYXIgKnN0b3JlKQorCit7CisJ
+aW50IGNvbnRyb2xfZmQgPSBvcGVuKGNvbnRyb2xfZGV2LCBPX1JEV1IpOworCisJaWYgKGNvbnRy
+b2xfZmQgPCAwKSB7CisJCWtzZnRfcHJpbnRfbXNnKCJVbmFibGUgdG8gb3BlbiBjb250cm9sIGRl
+dmljZSAlc1xuIiwgY29udHJvbF9kZXYpOworCQlyZXR1cm4gUkVUX0ZBSUw7CisJfQorCisJd2hp
+bGUgKDEpIHsKKwkJc3RydWN0IGRtX3VzZXJfbWVzc2FnZSBtc2c7CisJCV9fdTY0IHR5cGU7CisJ
+CWNoYXIgKmJhc2U7CisKKwkJaWYgKHJlYWRfYWxsKGNvbnRyb2xfZmQsICZtc2csIHNpemVvZiht
+c2cpKSA8IDApIHsKKwkJCWlmIChlcnJubyA9PSBFTk9UQkxLKQorCQkJCXJldHVybiBSRVRfUEFT
+UzsKKworCQkJcGVycm9yKCJ1bmFibGUgdG8gcmVhZCBtc2ciKTsKKwkJCXJldHVybiBSRVRfRkFJ
+TDsKKwkJfQorCisJCWJhc2UgPSBzdG9yZSArIG1zZy5zZWN0b3IgKiBTRUNUT1JfU0laRTsKKwkJ
+aWYgKGJhc2UgKyBtc2cubGVuID4gc3RvcmUgKyBibG9ja19ieXRlcykgeworCQkJZnByaW50Zihz
+dGRlcnIsICJhY2Nlc3Mgb3V0IG9mIGJvdW5kc1xuIik7CisJCQlyZXR1cm4gUkVUX0ZBSUw7CisJ
+CX0KKworCQl0eXBlID0gbXNnLnR5cGU7CisJCXN3aXRjaCAodHlwZSkgeworCQljYXNlIERNX1VT
+RVJfUkVRX01BUF9XUklURToKKwkJCW1zZy50eXBlID0gRE1fVVNFUl9SRVNQX1NVQ0NFU1M7CisJ
+CQlpZiAocmVhZF9hbGwoY29udHJvbF9mZCwgYmFzZSwgbXNnLmxlbikgPCAwKSB7CisJCQkJaWYg
+KGVycm5vID09IEVOT1RCTEspCisJCQkJCXJldHVybiBSRVRfUEFTUzsKKworCQkJCXBlcnJvcigi
+dW5hYmxlIHRvIHJlYWQgYnVmIik7CisJCQkJcmV0dXJuIFJFVF9GQUlMOworCQkJfQorCQkJYnJl
+YWs7CisJCWNhc2UgRE1fVVNFUl9SRVFfTUFQX0ZMVVNIOgorCQkJLyogTm90aGluZyBleHRyYSB0
+byBkbyBvbiBmbHVzaCwgd2UncmUgaW4gbWVtb3J5LiAqLworCQljYXNlIERNX1VTRVJfUkVRX01B
+UF9SRUFEOgorCQkJbXNnLnR5cGUgPSBETV9VU0VSX1JFU1BfU1VDQ0VTUzsKKwkJCWJyZWFrOwor
+CQlkZWZhdWx0OgorCQkJbXNnLnR5cGUgPSBETV9VU0VSX1JFU1BfVU5TVVBQT1JURUQ7CisJCQli
+cmVhazsKKwkJfQorCisJCWlmICh3cml0ZV9hbGwoY29udHJvbF9mZCwgJm1zZywgc2l6ZW9mKG1z
+ZykpIDwgMCkgeworCQkJaWYgKGVycm5vID09IEVOT1RCTEspCisJCQkJcmV0dXJuIFJFVF9QQVNT
+OworCisJCQlwZXJyb3IoInVuYWJsZSB0byB3cml0ZSBtc2ciKTsKKwkJCXJldHVybiBSRVRfRkFJ
+TDsKKwkJfQorCisJCWlmICh0eXBlID09IERNX1VTRVJfUkVRX01BUF9SRUFEKSB7CisJCQlpZiAo
+d3JpdGVfYWxsKGNvbnRyb2xfZmQsIGJhc2UsIG1zZy5sZW4pIDwgMCkgeworCQkJCWlmIChlcnJu
+byA9PSBFTk9UQkxLKQorCQkJCQlyZXR1cm4gUkVUX1BBU1M7CisKKwkJCQlwZXJyb3IoInVuYWJs
+ZSB0byB3cml0ZSBidWYiKTsKKwkJCQlyZXR1cm4gUkVUX0ZBSUw7CisJCQl9CisJCX0KKwl9CisK
+KwkvKiBUaGUgZGFlbW9uIGRvZXNuJ3QgYWN0dWxseSB0ZXJtaW5hdGUgZm9yIHRoaXMgdGVzdC4g
+Ki8KKwlwZXJyb3IoIlVuYWJsZSB0byByZWFkIGZyb20gY29udHJvbCBkZXZpY2UiKTsKKwlyZXR1
+cm4gUkVUX0ZBSUw7Cit9CisKK3ZvaWQgdXNhZ2UoY2hhciAqcHJvZykKK3sKKwlwcmludGYoIlVz
+YWdlOiAlc1xuIiwgcHJvZyk7CisJcHJpbnRmKCIgIC1oCQkJRGlzcGxheSB0aGlzIGhlbHAgbWVz
+c2FnZVxuIik7CisJcHJpbnRmKCIgIC12IEwJCQlWZXJib3NpdHkgbGV2ZWw6ICVkPVFVSUVUICVk
+PUNSSVRJQ0FMICVkPUlORk9cbiIsCisJICAgICAgIFZRVUlFVCwgVkNSSVRJQ0FMLCBWSU5GTyk7
+CisJcHJpbnRmKCIgIC1jIDxjb250cm9sIGRldj4JQ29udHJvbCBkZXZpY2UgdG8gdXNlIGZvciB0
+aGUgdGVzdFxuIik7CisJcHJpbnRmKCIgIC1zIDxzZWN0b3JzPgkJVGhlIG51bWJlciBvZiBzZWN0
+b3JzIGluIHRoZSBkZXZpY2VcbiIpOworfQorCitpbnQgbWFpbihpbnQgYXJnYywgY2hhciAqYXJn
+dltdKQoreworCWludCByZXQgPSBSRVRfUEFTUzsKKwlpbnQgYzsKKwljaGFyICpjb250cm9sX2Rl
+diA9IE5VTEw7CisJbG9uZyBibG9ja19ieXRlcyA9IDEwMjQ7CisJY2hhciAqc3RvcmU7CisKKwlw
+cmN0bChQUl9TRVRfSU9fRkxVU0hFUiwgMCwgMCwgMCwgMCk7CisKKwl3aGlsZSAoKGMgPSBnZXRv
+cHQoYXJnYywgYXJndiwgImg6djpjOnM6IikpICE9IC0xKSB7CisJCXN3aXRjaCAoYykgeworCQlj
+YXNlICdoJzoKKwkJCXVzYWdlKGJhc2VuYW1lKGFyZ3ZbMF0pKTsKKwkJCWV4aXQoMCk7CisJCWNh
+c2UgJ3YnOgorCQkJbG9nX3ZlcmJvc2l0eShhdG9pKG9wdGFyZykpOworCQkJYnJlYWs7CisJCWNh
+c2UgJ2MnOgorCQkJY29udHJvbF9kZXYgPSBzdHJkdXAob3B0YXJnKTsKKwkJCWJyZWFrOworCQlj
+YXNlICdzJzoKKwkJCWJsb2NrX2J5dGVzID0gYXRvaShvcHRhcmcpICogU0VDVE9SX1NJWkU7CisJ
+CQlicmVhazsKKwkJZGVmYXVsdDoKKwkJCXVzYWdlKGJhc2VuYW1lKGFyZ3ZbMF0pKTsKKwkJCWV4
+aXQoMSk7CisJCX0KKwl9CisKKwlrc2Z0X3ByaW50X2hlYWRlcigpOworCWtzZnRfc2V0X3BsYW4o
+MSk7CisJa3NmdF9wcmludF9tc2coIiVzOiBibG9ja19ieXRlcz0lenVcbiIsCisJCSAgICAgICBi
+YXNlbmFtZShhcmd2WzBdKSwKKwkJICAgICAgIGJsb2NrX2J5dGVzKTsKKworCXN0b3JlID0gbWFs
+bG9jKGJsb2NrX2J5dGVzKTsKKwlmb3IgKHNpemVfdCBpID0gMDsgaSA8IGJsb2NrX2J5dGVzL3Np
+emVvZihzaXplX3QpOyArK2kpCisJCSgoc2l6ZV90ICopKHN0b3JlKSlbaV0gPSBpOworCisJcmV0
+ID0gc2ltcGxlX2RhZW1vbihjb250cm9sX2RldiwgYmxvY2tfYnl0ZXMsIHN0b3JlKTsKKworCXBy
+aW50X3Jlc3VsdChiYXNlbmFtZShhcmd2WzBdKSwgcmV0KTsKKwlleGl0KHJldCk7CisJcmV0dXJu
+IHJldDsKK30KZGlmZiAtLWdpdCBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2RtLXVzZXIvZGFl
+bW9uLXBhcmFsbGVsLmMgYi90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9kbS11c2VyL2RhZW1vbi1w
+YXJhbGxlbC5jCm5ldyBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAwMDAwMC4uOWU1MzAz
+ZjAyMjQxCi0tLSAvZGV2L251bGwKKysrIGIvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvZG0tdXNl
+ci9kYWVtb24tcGFyYWxsZWwuYwpAQCAtMCwwICsxLDI0MCBAQAorLy8gU1BEWC1MaWNlbnNlLUlk
+ZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKKy8qCisgKiBDb3B5cmlnaHQgMjAyMCBHb29nbGUs
+IEluYworICovCisKKyNpbmNsdWRlIDxlcnJuby5oPgorI2luY2x1ZGUgPGZjbnRsLmg+CisjaW5j
+bHVkZSA8Z2V0b3B0Lmg+CisjaW5jbHVkZSA8c3RkaW8uaD4KKyNpbmNsdWRlIDxzdGRsaWIuaD4K
+KyNpbmNsdWRlIDxzdHJpbmcuaD4KKyNpbmNsdWRlIDxwb2xsLmg+CisjaW5jbHVkZSA8cHRocmVh
+ZC5oPgorI2luY2x1ZGUgPGxpbnV4L2RtLXVzZXIuaD4KKyNpbmNsdWRlIDxzeXMvcHJjdGwuaD4K
+KyNpbmNsdWRlIDxzeXMvbW1hbi5oPgorI2luY2x1ZGUgImxvZ2dpbmcuaCIKKworI2RlZmluZSBT
+RUNUT1JfU0laRSA1MTIKKyNkZWZpbmUgTUFYX1dPUktFUl9DT1VOVCAyNTYKKworI2RlZmluZSBN
+QVgoYSwgYikgKChhKSA+IChiKSA/IChhKSA6IChiKSkKKworc3RydWN0IHRlc3RfY29udGV4dCB7
+CisJY2hhciAqY29udHJvbF9kZXY7CisJc2l6ZV90IGJsb2NrX2J5dGVzOworCWNoYXIgKnN0b3Jl
+OworCWxvbmcgd29ya2VyX2NvdW50OworCWNoYXIgKmJhY2tpbmdfcGF0aDsKK307CisKK2ludCB3
+cml0ZV9hbGwoaW50IGZkLCB2b2lkICpidWYsIHNpemVfdCBsZW4pCit7CisJY2hhciAqYnVmX2Mg
+PSBidWY7CisJc3NpemVfdCB0b3RhbCA9IDA7CisJc3NpemVfdCBvbmNlOworCisJd2hpbGUgKHRv
+dGFsIDwgbGVuKSB7CisJCW9uY2UgPSB3cml0ZShmZCwgYnVmX2MgKyB0b3RhbCwgbGVuIC0gdG90
+YWwpOworCQlpZiAob25jZSA8PSAwKQorCQkJcmV0dXJuIG9uY2U7CisJCXRvdGFsICs9IG9uY2U7
+CisJfQorCisJcmV0dXJuIHRvdGFsOworfQorCitpbnQgcmVhZF9hbGwoaW50IGZkLCB2b2lkICpi
+dWYsIHNpemVfdCBsZW4pCit7CisJY2hhciAqYnVmX2MgPSBidWY7CisJc3NpemVfdCB0b3RhbCA9
+IDA7CisJc3NpemVfdCBvbmNlOworCisJd2hpbGUgKHRvdGFsIDwgbGVuKSB7CisJCW9uY2UgPSBy
+ZWFkKGZkLCBidWZfYyArIHRvdGFsLCBsZW4gLSB0b3RhbCk7CisJCWlmIChvbmNlIDw9IDApCisJ
+CQlyZXR1cm4gb25jZTsKKwkJdG90YWwgKz0gb25jZTsKKwl9CisKKwlyZXR1cm4gdG90YWw7Cit9
+CisKK3ZvaWQgKnNpbXBsZV9kYWVtb24odm9pZCAqY29udGV4dF91YykKK3sKKwlzdHJ1Y3QgdGVz
+dF9jb250ZXh0ICpjb250ZXh0ID0gY29udGV4dF91YzsKKwljaGFyICpzdG9yZSA9IGNvbnRleHQt
+PnN0b3JlOworCWludCBjb250cm9sX2ZkID0gb3Blbihjb250ZXh0LT5jb250cm9sX2RldiwgT19S
+RFdSKTsKKworCWlmIChjb250cm9sX2ZkIDwgMCkgeworCQlrc2Z0X3ByaW50X21zZygiVW5hYmxl
+IHRvIG9wZW4gY29udHJvbCBkZXZpY2UgJXNcbiIsIGNvbnRleHQtPmNvbnRyb2xfZGV2KTsKKwkJ
+cmV0dXJuICh2b2lkICopKFJFVF9GQUlMKTsKKwl9CisKKwl3aGlsZSAoMSkgeworCQlzdHJ1Y3Qg
+ZG1fdXNlcl9tZXNzYWdlIG1zZzsKKwkJX191NjQgdHlwZTsKKwkJY2hhciAqYmFzZTsKKworCQlp
+ZiAocmVhZF9hbGwoY29udHJvbF9mZCwgJm1zZywgc2l6ZW9mKG1zZykpIDwgMCkgeworCQkJaWYg
+KGVycm5vID09IEVOT1RCTEspCisJCQkJcmV0dXJuICh2b2lkICopKFJFVF9QQVNTKTsKKworCQkJ
+cGVycm9yKCJ1bmFibGUgdG8gcmVhZCBtc2ciKTsKKwkJCXJldHVybiAodm9pZCAqKShSRVRfRkFJ
+TCk7CisJCX0KKworCQliYXNlID0gc3RvcmUgKyBtc2cuc2VjdG9yICogU0VDVE9SX1NJWkU7CisJ
+CWlmIChiYXNlICsgbXNnLmxlbiA+IHN0b3JlICsgY29udGV4dC0+YmxvY2tfYnl0ZXMpIHsKKwkJ
+CWZwcmludGYoc3RkZXJyLCAiYWNjZXNzIG91dCBvZiBib3VuZHNcbiIpOworCQkJcmV0dXJuICh2
+b2lkICopKFJFVF9GQUlMKTsKKwkJfQorCisJCXR5cGUgPSBtc2cudHlwZTsKKwkJc3dpdGNoICh0
+eXBlKSB7CisJCWNhc2UgRE1fVVNFUl9SRVFfTUFQX1JFQUQ6CisJCQltc2cudHlwZSA9IERNX1VT
+RVJfUkVTUF9TVUNDRVNTOworCQkJYnJlYWs7CisJCWNhc2UgRE1fVVNFUl9SRVFfTUFQX1dSSVRF
+OgorCQkJbXNnLnR5cGUgPSBETV9VU0VSX1JFU1BfU1VDQ0VTUzsKKwkJCWlmIChyZWFkX2FsbChj
+b250cm9sX2ZkLCBiYXNlLCBtc2cubGVuKSA8IDApIHsKKwkJCQlpZiAoZXJybm8gPT0gRU5PVEJM
+SykKKwkJCQkJcmV0dXJuICh2b2lkICopKFJFVF9QQVNTKTsKKworCQkJCXBlcnJvcigidW5hYmxl
+IHRvIHJlYWQgYnVmIik7CisJCQkJcmV0dXJuICh2b2lkICopKFJFVF9GQUlMKTsKKwkJCX0KKwkJ
+CWJyZWFrOworCQljYXNlIERNX1VTRVJfUkVRX01BUF9GTFVTSDoKKwkJCW1zZy50eXBlID0gRE1f
+VVNFUl9SRVNQX1NVQ0NFU1M7CisJCQlzeW5jKCk7CisJCQlicmVhazsKKwkJZGVmYXVsdDoKKwkJ
+CW1zZy50eXBlID0gRE1fVVNFUl9SRVNQX1VOU1VQUE9SVEVEOworCQkJYnJlYWs7CisJCX0KKwor
+CQlpZiAod3JpdGVfYWxsKGNvbnRyb2xfZmQsICZtc2csIHNpemVvZihtc2cpKSA8IDApIHsKKwkJ
+CWlmIChlcnJubyA9PSBFTk9UQkxLKQorCQkJCXJldHVybiAodm9pZCAqKShSRVRfUEFTUyk7CisK
+KwkJCXBlcnJvcigidW5hYmxlIHRvIHdyaXRlIG1zZyIpOworCQkJcmV0dXJuICh2b2lkICopKFJF
+VF9GQUlMKTsKKwkJfQorCisJCWlmICh0eXBlID09IERNX1VTRVJfUkVRX01BUF9SRUFEKSB7CisJ
+CQlpZiAod3JpdGVfYWxsKGNvbnRyb2xfZmQsIGJhc2UsIG1zZy5sZW4pIDwgMCkgeworCQkJCWlm
+IChlcnJubyA9PSBFTk9UQkxLKQorCQkJCQlyZXR1cm4gKHZvaWQgKikoUkVUX1BBU1MpOworCisJ
+CQkJcGVycm9yKCJ1bmFibGUgdG8gd3JpdGUgYnVmIik7CisJCQkJcmV0dXJuICh2b2lkICopKFJF
+VF9GQUlMKTsKKwkJCX0KKwkJfQorCX0KKworCS8qIFRoZSBkYWVtb24gZG9lc24ndCBhY3R1bGx5
+IHRlcm1pbmF0ZSBmb3IgdGhpcyB0ZXN0LiAqLworCXBlcnJvcigiVW5hYmxlIHRvIHJlYWQgZnJv
+bSBjb250cm9sIGRldmljZSIpOworCXJldHVybiAodm9pZCAqKShSRVRfRkFJTCk7Cit9CisKK3Zv
+aWQgdXNhZ2UoY2hhciAqcHJvZykKK3sKKwlwcmludGYoIlVzYWdlOiAlc1xuIiwgcHJvZyk7CisJ
+cHJpbnRmKCIgIC1oCQkJRGlzcGxheSB0aGlzIGhlbHAgbWVzc2FnZVxuIik7CisJcHJpbnRmKCIg
+IC12IEwJCQlWZXJib3NpdHkgbGV2ZWw6ICVkPVFVSUVUICVkPUNSSVRJQ0FMICVkPUlORk9cbiIs
+CisJICAgICAgIFZRVUlFVCwgVkNSSVRJQ0FMLCBWSU5GTyk7CisJcHJpbnRmKCIgIC1jIDxjb250
+cm9sIGRldj4JQ29udHJvbCBkZXZpY2UgdG8gdXNlIGZvciB0aGUgdGVzdFxuIik7CisJcHJpbnRm
+KCIgIC1zIDxzZWN0b3JzPgkJVGhlIG51bWJlciBvZiBzZWN0b3JzIGluIHRoZSBkZXZpY2VcbiIp
+OworfQorCitpbnQgbWFpbihpbnQgYXJnYywgY2hhciAqYXJndltdKQoreworCWludCByZXQgPSBS
+RVRfUEFTUzsKKwlpbnQgZG9uZSA9IDA7CisJaW50IGM7CisJc3RydWN0IHRlc3RfY29udGV4dCBj
+b250ZXh0ID0geworCQkuY29udHJvbF9kZXYJPSBOVUxMLAorCQkuYmxvY2tfYnl0ZXMJPSAwLAor
+CQkud29ya2VyX2NvdW50ICAgPSAxLAorCQkuYmFja2luZ19wYXRoICAgPSBOVUxMLAorCX07CisJ
+cHRocmVhZF90IGRhZW1vbltNQVhfV09SS0VSX0NPVU5UXTsKKwl2b2lkICpwdGhyZWFkX3JldDsK
+KworCXByY3RsKFBSX1NFVF9JT19GTFVTSEVSLCAwLCAwLCAwLCAwKTsKKworCXdoaWxlICgoYyA9
+IGdldG9wdChhcmdjLCBhcmd2LCAiaDp2OmM6czp3OmI6IikpICE9IC0xKSB7CisJCXN3aXRjaCAo
+YykgeworCQljYXNlICdoJzoKKwkJCXVzYWdlKGJhc2VuYW1lKGFyZ3ZbMF0pKTsKKwkJCWV4aXQo
+MCk7CisJCWNhc2UgJ3YnOgorCQkJbG9nX3ZlcmJvc2l0eShhdG9pKG9wdGFyZykpOworCQkJYnJl
+YWs7CisJCWNhc2UgJ2MnOgorCQkJY29udGV4dC5jb250cm9sX2RldiA9IHN0cmR1cChvcHRhcmcp
+OworCQkJYnJlYWs7CisJCWNhc2UgJ3MnOgorCQkJY29udGV4dC5ibG9ja19ieXRlcyA9IGF0b2ko
+b3B0YXJnKSAqIFNFQ1RPUl9TSVpFOworCQkJYnJlYWs7CisJCWNhc2UgJ3cnOgorCQkJY29udGV4
+dC53b3JrZXJfY291bnQgPSBhdG9pKG9wdGFyZyk7CisJCQlicmVhazsKKwkJY2FzZSAnYic6CisJ
+CQljb250ZXh0LmJhY2tpbmdfcGF0aCA9IHN0cmR1cChvcHRhcmcpOworCQkJYnJlYWs7CisJCWRl
+ZmF1bHQ6CisJCQl1c2FnZShiYXNlbmFtZShhcmd2WzBdKSk7CisJCQlleGl0KDEpOworCQl9CisJ
+fQorCisJa3NmdF9wcmludF9oZWFkZXIoKTsKKwlrc2Z0X3NldF9wbGFuKDEpOworCWtzZnRfcHJp
+bnRfbXNnKCIlczogYmxvY2tfYnl0ZXM9JXp1XG4iLAorCQkgICAgICAgYmFzZW5hbWUoYXJndlsw
+XSksCisJCSAgICAgICBjb250ZXh0LmJsb2NrX2J5dGVzKTsKKworCXJldCA9IFJFVF9QQVNTOwor
+CisJaWYgKGNvbnRleHQuYmFja2luZ19wYXRoID09IE5VTEwpIHsKKwkJa3NmdF9wcmludF9tc2co
+IlVzaW5nIGFuIGluLW1lbW9yeSBiYWNraW5nIHN0b3JlXG4iKTsKKwkJY29udGV4dC5zdG9yZSA9
+IG1hbGxvYyhjb250ZXh0LmJsb2NrX2J5dGVzKTsKKwkJZm9yIChzaXplX3QgaSA9IDA7IGkgPCBj
+b250ZXh0LmJsb2NrX2J5dGVzL3NpemVvZihzaXplX3QpOyArK2kpCisJCQkoKHNpemVfdCAqKShj
+b250ZXh0LnN0b3JlKSlbaV0gPSBpOworCX0gZWxzZSB7CisJCWludCBiYWNraW5nX2ZkID0gb3Bl
+bihjb250ZXh0LmJhY2tpbmdfcGF0aCwgT19SRFdSKTsKKworCQlrc2Z0X3ByaW50X21zZygiVXNp
+bmcgJXMgYXMgYSBiYWNraW5nIHN0b3JlXG4iLCBjb250ZXh0LmJhY2tpbmdfcGF0aCk7CisJCWlm
+IChiYWNraW5nX2ZkIDwgMCkgeworCQkJcGVycm9yKCJVbmFibGUgdG8gb3BlbiBiYWNraW5nIHN0
+b3JlIik7CisJCQlrc2Z0X3ByaW50X21zZygiVW5hYmxlIHRvIG9wZW4gYmFja2luZyBzdG9yZSAl
+c1xuIiwgY29udGV4dC5iYWNraW5nX3BhdGgpOworCQkJcmV0dXJuIFJFVF9GQUlMOworCQl9CisK
+KwkJY29udGV4dC5zdG9yZSA9IG1tYXAoTlVMTCwgY29udGV4dC5ibG9ja19ieXRlcywKKwkJCQkg
+ICAgIFBST1RfUkVBRCB8IFBST1RfV1JJVEUsIE1BUF9TSEFSRUQsCisJCQkJICAgICBiYWNraW5n
+X2ZkLCAwKTsKKwl9CisKKwlmb3IgKHNpemVfdCBpID0gMDsgaSA8IGNvbnRleHQud29ya2VyX2Nv
+dW50OyArK2kpCisJCWlmIChwdGhyZWFkX2NyZWF0ZSgmZGFlbW9uW2ldLCBOVUxMLCAmc2ltcGxl
+X2RhZW1vbiwgJmNvbnRleHQpIDwgMCkKKwkJCXJldCA9IFJFVF9FUlJPUjsKKworCXdoaWxlICgh
+ZG9uZSkgIHsKKwkJZm9yIChzaXplX3QgaSA9IDA7IGkgPCBjb250ZXh0Lndvcmtlcl9jb3VudDsg
+KytpKSB7CisJCQlpZiAocHRocmVhZF90cnlqb2luX25wKGRhZW1vbltpXSwgJnB0aHJlYWRfcmV0
+KSA9PSAwKSB7CisJCQkJaWYgKHB0aHJlYWRfcmV0ICE9IFJFVF9QQVNTKQorCQkJCQlyZXQgPSBS
+RVRfRVJST1I7CisJCQkJZG9uZSA9IDE7CisJCQl9CisJCX0KKworCQlzbGVlcCgxKTsKKwl9CisK
+KwlwcmludF9yZXN1bHQoYmFzZW5hbWUoYXJndlswXSksIHJldCk7CisJZXhpdChyZXQpOworfQpk
+aWZmIC0tZ2l0IGEvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvZG0tdXNlci9kYWVtb24tc2hvcnQu
+YyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2RtLXVzZXIvZGFlbW9uLXNob3J0LmMKbmV3IGZp
+bGUgbW9kZSAxMDA2NDQKaW5kZXggMDAwMDAwMDAwMDAwLi40MGZkMTE0Y2IzOTAKLS0tIC9kZXYv
+bnVsbAorKysgYi90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9kbS11c2VyL2RhZW1vbi1zaG9ydC5j
+CkBAIC0wLDAgKzEsMTk2IEBACisvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1v
+ci1sYXRlcgorLyoKKyAqIENvcHlyaWdodCAyMDIwIEdvb2dsZSwgSW5jCisgKi8KKworI2luY2x1
+ZGUgPGVycm5vLmg+CisjaW5jbHVkZSA8ZmNudGwuaD4KKyNpbmNsdWRlIDxnZXRvcHQuaD4KKyNp
+bmNsdWRlIDxzdGRpby5oPgorI2luY2x1ZGUgPHN0ZGxpYi5oPgorI2luY2x1ZGUgPHN0cmluZy5o
+PgorI2luY2x1ZGUgPHBvbGwuaD4KKyNpbmNsdWRlIDxwdGhyZWFkLmg+CisjaW5jbHVkZSA8bGlu
+dXgvZG0tdXNlci5oPgorI2luY2x1ZGUgPHN5cy9wcmN0bC5oPgorI2luY2x1ZGUgImxvZ2dpbmcu
+aCIKKworI2RlZmluZSBTRUNUT1JfU0laRSA1MTIKKworI2RlZmluZSBNQVgoYSwgYikgKChhKSA+
+IChiKSA/IChhKSA6IChiKSkKKworaW50IHdyaXRlX2FsbChpbnQgZmQsIHZvaWQgKmJ1Ziwgc2l6
+ZV90IGxlbikKK3sKKwljaGFyICpidWZfYyA9IGJ1ZjsKKwlzc2l6ZV90IHRvdGFsID0gMDsKKwlz
+c2l6ZV90IG9uY2U7CisKKwl3aGlsZSAodG90YWwgPCBsZW4pIHsKKwkJc2l6ZV90IG1heCA9IGxl
+biAtIHRvdGFsOworCisJCWlmIChtYXggPiAzKQorCQkJbWF4ID0gbWF4IC8gMzsKKworCQlvbmNl
+ID0gd3JpdGUoZmQsIGJ1Zl9jICsgdG90YWwsIG1heCk7CisJCWlmIChvbmNlIDw9IDApCisJCQly
+ZXR1cm4gb25jZTsKKwkJdG90YWwgKz0gb25jZTsKKwl9CisKKwlyZXR1cm4gdG90YWw7Cit9CisK
+K2ludCByZWFkX2FsbChpbnQgZmQsIHZvaWQgKmJ1Ziwgc2l6ZV90IGxlbikKK3sKKwljaGFyICpi
+dWZfYyA9IGJ1ZjsKKwlzc2l6ZV90IHRvdGFsID0gMDsKKwlzc2l6ZV90IG9uY2U7CisKKwl3aGls
+ZSAodG90YWwgPCBsZW4pIHsKKwkJc2l6ZV90IG1heCA9IGxlbiAtIHRvdGFsOworCisJCWlmICht
+YXggPiAzKQorCQkJbWF4ID0gbWF4IC8gMzsKKworCQlvbmNlID0gcmVhZChmZCwgYnVmX2MgKyB0
+b3RhbCwgbWF4KTsKKwkJaWYgKG9uY2UgPD0gMCkKKwkJCXJldHVybiBvbmNlOworCQl0b3RhbCAr
+PSBvbmNlOworCX0KKworCXJldHVybiB0b3RhbDsKK30KKworaW50IHNpbXBsZV9kYWVtb24oY2hh
+ciAqY29udHJvbF9kZXYsCisJCSAgc2l6ZV90IGJsb2NrX2J5dGVzLAorCQkgIGNoYXIgKnN0b3Jl
+KQorCit7CisJaW50IGNvbnRyb2xfZmQgPSBvcGVuKGNvbnRyb2xfZGV2LCBPX1JEV1IpOworCisJ
+aWYgKGNvbnRyb2xfZmQgPCAwKSB7CisJCWtzZnRfcHJpbnRfbXNnKCJVbmFibGUgdG8gb3BlbiBj
+b250cm9sIGRldmljZSAlc1xuIiwgY29udHJvbF9kZXYpOworCQlyZXR1cm4gUkVUX0ZBSUw7CisJ
+fQorCisJd2hpbGUgKDEpIHsKKwkJc3RydWN0IGRtX3VzZXJfbWVzc2FnZSBtc2c7CisJCV9fdTY0
+IHR5cGU7CisJCWNoYXIgKmJhc2U7CisKKwkJaWYgKHJlYWRfYWxsKGNvbnRyb2xfZmQsICZtc2cs
+IHNpemVvZihtc2cpKSA8IDApIHsKKwkJCWlmIChlcnJubyA9PSBFTk9UQkxLKQorCQkJCXJldHVy
+biBSRVRfUEFTUzsKKworCQkJcGVycm9yKCJ1bmFibGUgdG8gcmVhZCBtc2ciKTsKKwkJCXJldHVy
+biBSRVRfRkFJTDsKKwkJfQorCisJCWJhc2UgPSBzdG9yZSArIG1zZy5zZWN0b3IgKiBTRUNUT1Jf
+U0laRTsKKwkJaWYgKGJhc2UgKyBtc2cubGVuID4gc3RvcmUgKyBibG9ja19ieXRlcykgeworCQkJ
+ZnByaW50ZihzdGRlcnIsICJhY2Nlc3Mgb3V0IG9mIGJvdW5kc1xuIik7CisJCQlyZXR1cm4gUkVU
+X0ZBSUw7CisJCX0KKworCQl0eXBlID0gbXNnLnR5cGU7CisJCXN3aXRjaCAodHlwZSkgeworCQlj
+YXNlIERNX1VTRVJfUkVRX01BUF9XUklURToKKwkJCW1zZy50eXBlID0gRE1fVVNFUl9SRVNQX1NV
+Q0NFU1M7CisJCQlpZiAocmVhZF9hbGwoY29udHJvbF9mZCwgYmFzZSwgbXNnLmxlbikgPCAwKSB7
+CisJCQkJaWYgKGVycm5vID09IEVOT1RCTEspCisJCQkJCXJldHVybiBSRVRfUEFTUzsKKworCQkJ
+CXBlcnJvcigidW5hYmxlIHRvIHJlYWQgYnVmIik7CisJCQkJcmV0dXJuIFJFVF9GQUlMOworCQkJ
+fQorCQkJYnJlYWs7CisJCWNhc2UgRE1fVVNFUl9SRVFfTUFQX0ZMVVNIOgorCQkJLyogTm90aGlu
+ZyBleHRyYSB0byBkbyBvbiBmbHVzaCwgd2UncmUgaW4gbWVtb3J5LiAqLworCQljYXNlIERNX1VT
+RVJfUkVRX01BUF9SRUFEOgorCQkJbXNnLnR5cGUgPSBETV9VU0VSX1JFU1BfU1VDQ0VTUzsKKwkJ
+CWJyZWFrOworCQlkZWZhdWx0OgorCQkJbXNnLnR5cGUgPSBETV9VU0VSX1JFU1BfVU5TVVBQT1JU
+RUQ7CisJCQlicmVhazsKKwkJfQorCisJCWlmICh3cml0ZV9hbGwoY29udHJvbF9mZCwgJm1zZywg
+c2l6ZW9mKG1zZykpIDwgMCkgeworCQkJaWYgKGVycm5vID09IEVOT1RCTEspCisJCQkJcmV0dXJu
+IFJFVF9QQVNTOworCisJCQlwZXJyb3IoInVuYWJsZSB0byB3cml0ZSBtc2ciKTsKKwkJCXJldHVy
+biBSRVRfRkFJTDsKKwkJfQorCisJCWlmICh0eXBlID09IERNX1VTRVJfUkVRX01BUF9SRUFEKSB7
+CisJCQlpZiAod3JpdGVfYWxsKGNvbnRyb2xfZmQsIGJhc2UsIG1zZy5sZW4pIDwgMCkgeworCQkJ
+CWlmIChlcnJubyA9PSBFTk9UQkxLKQorCQkJCQlyZXR1cm4gUkVUX1BBU1M7CisKKwkJCQlwZXJy
+b3IoInVuYWJsZSB0byB3cml0ZSBidWYiKTsKKwkJCQlyZXR1cm4gUkVUX0ZBSUw7CisJCQl9CisJ
+CX0KKwl9CisKKwkvKiBUaGUgZGFlbW9uIGRvZXNuJ3QgYWN0dWxseSB0ZXJtaW5hdGUgZm9yIHRo
+aXMgdGVzdC4gKi8KKwlwZXJyb3IoIlVuYWJsZSB0byByZWFkIGZyb20gY29udHJvbCBkZXZpY2Ui
+KTsKKwlyZXR1cm4gUkVUX0ZBSUw7Cit9CisKK3ZvaWQgdXNhZ2UoY2hhciAqcHJvZykKK3sKKwlw
+cmludGYoIlVzYWdlOiAlc1xuIiwgcHJvZyk7CisJcHJpbnRmKCIgIC1oCQkJRGlzcGxheSB0aGlz
+IGhlbHAgbWVzc2FnZVxuIik7CisJcHJpbnRmKCIgIC12IEwJCQlWZXJib3NpdHkgbGV2ZWw6ICVk
+PVFVSUVUICVkPUNSSVRJQ0FMICVkPUlORk9cbiIsCisJICAgICAgIFZRVUlFVCwgVkNSSVRJQ0FM
+LCBWSU5GTyk7CisJcHJpbnRmKCIgIC1jIDxjb250cm9sIGRldj4JQ29udHJvbCBkZXZpY2UgdG8g
+dXNlIGZvciB0aGUgdGVzdFxuIik7CisJcHJpbnRmKCIgIC1zIDxzZWN0b3JzPgkJVGhlIG51bWJl
+ciBvZiBzZWN0b3JzIGluIHRoZSBkZXZpY2VcbiIpOworfQorCitpbnQgbWFpbihpbnQgYXJnYywg
+Y2hhciAqYXJndltdKQoreworCWludCByZXQgPSBSRVRfUEFTUzsKKwlpbnQgYzsKKwljaGFyICpj
+b250cm9sX2RldiA9IE5VTEw7CisJbG9uZyBibG9ja19ieXRlcyA9IDEwMjQ7CisJY2hhciAqc3Rv
+cmU7CisKKwlwcmN0bChQUl9TRVRfSU9fRkxVU0hFUiwgMCwgMCwgMCwgMCk7CisKKwl3aGlsZSAo
+KGMgPSBnZXRvcHQoYXJnYywgYXJndiwgImg6djpjOnM6IikpICE9IC0xKSB7CisJCXN3aXRjaCAo
+YykgeworCQljYXNlICdoJzoKKwkJCXVzYWdlKGJhc2VuYW1lKGFyZ3ZbMF0pKTsKKwkJCWV4aXQo
+MCk7CisJCWNhc2UgJ3YnOgorCQkJbG9nX3ZlcmJvc2l0eShhdG9pKG9wdGFyZykpOworCQkJYnJl
+YWs7CisJCWNhc2UgJ2MnOgorCQkJY29udHJvbF9kZXYgPSBzdHJkdXAob3B0YXJnKTsKKwkJCWJy
+ZWFrOworCQljYXNlICdzJzoKKwkJCWJsb2NrX2J5dGVzID0gYXRvaShvcHRhcmcpICogU0VDVE9S
+X1NJWkU7CisJCQlicmVhazsKKwkJZGVmYXVsdDoKKwkJCXVzYWdlKGJhc2VuYW1lKGFyZ3ZbMF0p
+KTsKKwkJCWV4aXQoMSk7CisJCX0KKwl9CisKKwlrc2Z0X3ByaW50X2hlYWRlcigpOworCWtzZnRf
+c2V0X3BsYW4oMSk7CisJa3NmdF9wcmludF9tc2coIiVzOiBibG9ja19ieXRlcz0lenVcbiIsCisJ
+CSAgICAgICBiYXNlbmFtZShhcmd2WzBdKSwKKwkJICAgICAgIGJsb2NrX2J5dGVzKTsKKworCXN0
+b3JlID0gbWFsbG9jKGJsb2NrX2J5dGVzKTsKKwlmb3IgKHNpemVfdCBpID0gMDsgaSA8IGJsb2Nr
+X2J5dGVzL3NpemVvZihzaXplX3QpOyArK2kpCisJCSgoc2l6ZV90ICopKHN0b3JlKSlbaV0gPSBp
+OworCisJcmV0ID0gc2ltcGxlX2RhZW1vbihjb250cm9sX2RldiwgYmxvY2tfYnl0ZXMsIHN0b3Jl
+KTsKKworCXByaW50X3Jlc3VsdChiYXNlbmFtZShhcmd2WzBdKSwgcmV0KTsKKwlleGl0KHJldCk7
+CisJcmV0dXJuIHJldDsKK30KZGlmZiAtLWdpdCBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2Rt
+LXVzZXIvZmlvLXJhbmQtcmVhZC0xRy5maW8gYi90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9kbS11
+c2VyL2Zpby1yYW5kLXJlYWQtMUcuZmlvCm5ldyBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAw
+MDAwMDAwMC4uZjk3MTQ4M2UwZTI3Ci0tLSAvZGV2L251bGwKKysrIGIvdG9vbHMvdGVzdGluZy9z
+ZWxmdGVzdHMvZG0tdXNlci9maW8tcmFuZC1yZWFkLTFHLmZpbwpAQCAtMCwwICsxLDE2IEBACis7
+IGZpby1yYW5kLXJlYWQuam9iIGZvciBmaW90ZXN0CisKK1tnbG9iYWxdCituYW1lPWZpby1yYW5k
+LXJlYWQtMUcKK2ZpbGVuYW1lPWZpby1yYW5kLXJlYWQtMUcKK3J3PXJhbmRyZWFkCiticz00Swor
+ZGlyZWN0PTAKK251bWpvYnM9MQordGltZV9iYXNlZD0xCitydW50aW1lPTMwCisKK1tmaWxlMV0K
+K3NpemU9MUcKK2lvZW5naW5lPWlvX3VyaW5nCitpb2RlcHRoPTE2CmRpZmYgLS1naXQgYS90b29s
+cy90ZXN0aW5nL3NlbGZ0ZXN0cy9kbS11c2VyL2Zpby12ZXJpZnktMUcuZmlvIGIvdG9vbHMvdGVz
+dGluZy9zZWxmdGVzdHMvZG0tdXNlci9maW8tdmVyaWZ5LTFHLmZpbwpuZXcgZmlsZSBtb2RlIDEw
+MDY0NAppbmRleCAwMDAwMDAwMDAwMDAuLjRiNjI2MjcxY2U3YwotLS0gL2Rldi9udWxsCisrKyBi
+L3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2RtLXVzZXIvZmlvLXZlcmlmeS0xRy5maW8KQEAgLTAs
+MCArMSwxMCBAQAorIyBUaGUgbW9zdCBiYXNpYyBmb3JtIG9mIGRhdGEgdmVyaWZpY2F0aW9uLiBX
+cml0ZSB0aGUgZGV2aWNlIHJhbmRvbWx5CisjIGluIDRLIGNodW5rcywgdGhlbiByZWFkIGl0IGJh
+Y2sgYW5kIHZlcmlmeSB0aGUgY29udGVudHMuCitbd3JpdGUtYW5kLXZlcmlmeV0KK3J3PXJhbmR3
+cml0ZQorYnM9NGsKK2lvZW5naW5lPWxpYmFpbworaW9kZXB0aD0xNgorZGlyZWN0PTEKK3Zlcmlm
+eT1jcmMzMmMKK3NpemU9MUcKZGlmZiAtLWdpdCBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2Rt
+LXVzZXIvaGFybmVzcy1maW8uc2ggYi90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9kbS11c2VyL2hh
+cm5lc3MtZmlvLnNoCm5ldyBmaWxlIG1vZGUgMTAwNzU1CmluZGV4IDAwMDAwMDAwMDAwMC4uNGI5
+NWM5ZjVlZmQ4Ci0tLSAvZGV2L251bGwKKysrIGIvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvZG0t
+dXNlci9oYXJuZXNzLWZpby5zaApAQCAtMCwwICsxLDQ1IEBACisjIS9iaW4vc2gKKyMgU1BEWC1M
+aWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb3ItbGF0ZXIKKyMgQ29weXJpZ2h0IDIwMjAgR29v
+Z2xlLCBJbmMKKworIyBKdXN0IGEgZml4ZWQgc2l6ZSBmb3Igbm93LCBidXQgaXQncyBwYXNzZWQg
+dG8gdGhlIHRlc3RzIGFuZCB0aGV5J3JlIHN1cHBvc2VkCisjIHRvIHJlc3BlY3QgaXQuCitTSVpF
+PTEwMjQKK0JMT0NLPWtzZWxmdGVzdC1kbS11c2VyLWJsb2NrCitDT05UUk9MPWtzZWxmdGVzdC1k
+bS11c2VyLWNvbnRyb2wKK3Vuc2V0IEZJTworCit3aGlsZSBbIHgiJDEiICE9IHgiLS0iIF0KK2Rv
+CisgICAgY2FzZSAiJDEiIGluCisgICAgIi1zIikgICAgU0laRT0iJDIiOyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgc2hpZnQgMjs7CisgICAgIi1mIikgICAgRklPPSIkMiI7ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgc2hpZnQgMjs7CisgICAgKikgICAgICAgZWNobyAiJDA6IHVu
+a25vd24gYXJndW1lbnQgJDEiID4mMjsgICAgZXhpdCAgMTs7CisgICAgZXNhYworZG9uZQorc2hp
+ZnQKKworIyBSdW4gdGhlIGJlbmNobWFyayBhZ2FpbiB2aWEgZG0tdXNlciwgdG8gc2VlIHdoYXQg
+dGhlIG92ZXJoZWFkIGlzLgorZG1zZXR1cCBjcmVhdGUgJEJMT0NLIDw8IEVPRgorMCAkU0laRSB1
+c2VyIDAgJFNJWkUgJENPTlRST0wKK0VPRgorCitkbXNldHVwIHJlc3VtZSAkQkxPQ0sKKworIiRA
+IiAtcyAkU0laRSAtYyAvZGV2L2RtLXVzZXIvJENPTlRST0wgJgorCit5ZXMgfCBta2ZzLmV4dDIg
+L2Rldi9tYXBwZXIvJEJMT0NLCittb3VudCAvZGV2L21hcHBlci8kQkxPQ0sgL21udAorY3AgIiRG
+SU8iIC9tbnQvYmVuY2htYXJrLmZpbworKGNkIC9tbnQ7IGZpbyBiZW5jaG1hcmsuZmlvKQordW1v
+dW50IC9tbnQKKworIyBNb3VudCBhZ2FpbiBhbmQgcmVhZCB0aGUgd2hvbGUgdGhpbmcsIGp1c3Qg
+dG8gc2VlIGlmIHRoZXJlJ3MgYW55IGNvcnJ1cHRpb24uCittb3VudCAvZGV2L21hcHBlci8kQkxP
+Q0sgL21udAorZmluZCAvbW50IC10eXBlIGYgfCB4YXJncyBjYXQgPiAvZGV2L251bGwKK3Vtb3Vu
+dCAvbW50CisKK2Rtc2V0dXAgcmVtb3ZlICRCTE9DSworCisjIE1ha2Ugc3VyZSB0aGUgZGFlbW9u
+IGFjdHVhbGx5IHJlc3BvbmRzIHRvIERNIGNsb3NpbmcgaXQuCit3YWl0CmRpZmYgLS1naXQgYS90
+b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9kbS11c2VyL2hhcm5lc3MtZnNzdHJlc3Muc2ggYi90b29s
+cy90ZXN0aW5nL3NlbGZ0ZXN0cy9kbS11c2VyL2hhcm5lc3MtZnNzdHJlc3Muc2gKbmV3IGZpbGUg
+bW9kZSAxMDA3NTUKaW5kZXggMDAwMDAwMDAwMDAwLi4yNjVjMGZmNjM2Y2EKLS0tIC9kZXYvbnVs
+bAorKysgYi90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9kbS11c2VyL2hhcm5lc3MtZnNzdHJlc3Mu
+c2gKQEAgLTAsMCArMSw0NCBAQAorIyEvYmluL3NoCisjIFNQRFgtTGljZW5zZS1JZGVudGlmaWVy
+OiBHUEwtMi4wLW9yLWxhdGVyCisjIENvcHlyaWdodCAyMDIwIEdvb2dsZSwgSW5jCisKK0JMT0NL
+PWtzZWxmdGVzdC1kbS11c2VyLWJsb2NrCitDT05UUk9MPWtzZWxmdGVzdC1kbS11c2VyLWNvbnRy
+b2wKK3Vuc2V0IFNJWkUKK3Vuc2V0IE5QUk9DCit1bnNldCBOT1AKKword2hpbGUgWyB4IiQxIiAh
+PSB4Ii0tIiBdCitkbworICAgIGNhc2UgIiQxIiBpbgorICAgICItcyIpICAgIFNJWkU9IiQyIjsg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNoaWZ0IDI7OworICAgICItbiIpICAgIE5PUD0i
+JDIiOyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNoaWZ0IDI7OworICAgICItcCIpICAg
+IE5QUk9DPSIkMiI7ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNoaWZ0IDI7OworICAgICop
+ICAgICAgIGVjaG8gIiQwOiB1bmtub3duIGFyZ3VtZW50ICQxIiA+JjI7ICAgIGV4aXQgIDE7Owor
+ICAgIGVzYWMKK2RvbmUKK3NoaWZ0CisKKyMgUnVucyB0aGUgZnMgc3RyZXNzIHRlc3RzCitkbXNl
+dHVwIGNyZWF0ZSAkQkxPQ0sgPDwgRU9GCiswICRTSVpFIHVzZXIgMCAkU0laRSAkQ09OVFJPTAor
+RU9GCisKK2Rtc2V0dXAgcmVzdW1lICRCTE9DSworCisiJEAiIC1zICRTSVpFIC1jIC9kZXYvZG0t
+dXNlci8kQ09OVFJPTCAmCisKK3llcyB8IG1rZnMuZXh0MiAvZGV2L21hcHBlci8kQkxPQ0sKK21v
+dW50IC9kZXYvbWFwcGVyLyRCTE9DSyAvbW50CisvdXNyL3hmc3Rlc3RzL2x0cC9mc3N0cmVzcyAt
+ZCAvbW50LyAtbiAiJE5PUCIgLXAgIiROUFJPQyIKK3Vtb3VudCAvbW50CisKKyMgTW91bnQgYWdh
+aW4gYW5kIHJlYWQgdGhlIHdob2xlIHRoaW5nLCBqdXN0IHRvIHNlZSBpZiB0aGVyZSdzIGFueSBj
+b3JydXB0aW9uLgorbW91bnQgL2Rldi9tYXBwZXIvJEJMT0NLIC9tbnQKK2ZpbmQgL21udCAtdHlw
+ZSBmIHwgeGFyZ3MgY2F0ID4gL2Rldi9udWxsCit1bW91bnQgL21udAorCitkbXNldHVwIHJlbW92
+ZSAkQkxPQ0sKKworIyBNYWtlIHN1cmUgdGhlIGRhZW1vbiBhY3R1YWxseSByZXNwb25kcyB0byBE
+TSBjbG9zaW5nIGl0Lgord2FpdApkaWZmIC0tZ2l0IGEvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMv
+ZG0tdXNlci9pbmNsdWRlL2xvZ2dpbmcuaCBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2RtLXVz
+ZXIvaW5jbHVkZS9sb2dnaW5nLmgKbmV3IGZpbGUgbW9kZSAxMDA2NDQKaW5kZXggMDAwMDAwMDAw
+MDAwLi44NzRjNjljZTVjY2UKLS0tIC9kZXYvbnVsbAorKysgYi90b29scy90ZXN0aW5nL3NlbGZ0
+ZXN0cy9kbS11c2VyL2luY2x1ZGUvbG9nZ2luZy5oCkBAIC0wLDAgKzEsMTQ4IEBACisvKiBTUERY
+LUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vci1sYXRlciAqLworLyoqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKgorICoKKyAqICAgQ29weXJpZ2h0IMKpIEludGVybmF0aW9uYWwgQnVzaW5lc3MgTWFj
+aGluZXMgIENvcnAuLCAyMDA5CisgKgorICogREVTQ1JJUFRJT04KKyAqICAgICAgR2xpYmMgaW5k
+ZXBlbmRlbnQgZnV0ZXggbGlicmFyeSBmb3IgdGVzdGluZyBrZXJuZWwgZnVuY3Rpb25hbGl0eS4K
+KyAqCisgKiBBVVRIT1IKKyAqICAgICAgRGFycmVuIEhhcnQgPGR2aGFydEBsaW51eC5pbnRlbC5j
+b20+CisgKgorICogSElTVE9SWQorICogICAgICAyMDA5LU5vdi02OiBJbml0aWFsIHZlcnNpb24g
+YnkgRGFycmVuIEhhcnQgPGR2aGFydEBsaW51eC5pbnRlbC5jb20+CisgKgorICoqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqLworCisjaWZuZGVmIF9MT0dHSU5HX0gKKyNkZWZpbmUgX0xPR0dJTkdfSAorCisj
+aW5jbHVkZSA8c3RkaW8uaD4KKyNpbmNsdWRlIDxzdHJpbmcuaD4KKyNpbmNsdWRlIDx1bmlzdGQu
+aD4KKyNpbmNsdWRlIDxsaW51eC9mdXRleC5oPgorI2luY2x1ZGUgImtzZWxmdGVzdC5oIgorCisv
+KgorICogRGVmaW5lIFBBU1MsIEVSUk9SLCBhbmQgRkFJTCBzdHJpbmdzIHdpdGggYW5kIHdpdGhv
+dXQgY29sb3IgZXNjYXBlCisgKiBzZXF1ZW5jZXMsIGRlZmF1bHQgdG8gbm8gY29sb3IuCisgKi8K
+KyNkZWZpbmUgRVNDIDB4MUIsICdbJworI2RlZmluZSBCUklHSFQgJzEnCisjZGVmaW5lIEdSRUVO
+ICczJywgJzInCisjZGVmaW5lIFlFTExPVyAnMycsICczJworI2RlZmluZSBSRUQgJzMnLCAnMScK
+KyNkZWZpbmUgRVNDRU5EICdtJworI2RlZmluZSBCUklHSFRfR1JFRU4gRVNDLCBCUklHSFQsICc7
+JywgR1JFRU4sIEVTQ0VORAorI2RlZmluZSBCUklHSFRfWUVMTE9XIEVTQywgQlJJR0hULCAnOycs
+IFlFTExPVywgRVNDRU5ECisjZGVmaW5lIEJSSUdIVF9SRUQgRVNDLCBCUklHSFQsICc7JywgUkVE
+LCBFU0NFTkQKKyNkZWZpbmUgUkVTRVRfQ09MT1IgRVNDLCAnMCcsICdtJworc3RhdGljIGNvbnN0
+IGNoYXIgUEFTU19DT0xPUltdID0ge0JSSUdIVF9HUkVFTiwgJyAnLCAnUCcsICdBJywgJ1MnLCAn
+UycsCisJCQkJICBSRVNFVF9DT0xPUiwgMH07CitzdGF0aWMgY29uc3QgY2hhciBFUlJPUl9DT0xP
+UltdID0ge0JSSUdIVF9ZRUxMT1csICdFJywgJ1InLCAnUicsICdPJywgJ1InLAorCQkJCSAgIFJF
+U0VUX0NPTE9SLCAwfTsKK3N0YXRpYyBjb25zdCBjaGFyIEZBSUxfQ09MT1JbXSA9IHtCUklHSFRf
+UkVELCAnICcsICdGJywgJ0EnLCAnSScsICdMJywKKwkJCQkgIFJFU0VUX0NPTE9SLCAwfTsKK3N0
+YXRpYyBjb25zdCBjaGFyIElORk9fTk9STUFMW10gPSAiIElORk8iOworc3RhdGljIGNvbnN0IGNo
+YXIgUEFTU19OT1JNQUxbXSA9ICIgUEFTUyI7CitzdGF0aWMgY29uc3QgY2hhciBFUlJPUl9OT1JN
+QUxbXSA9ICJFUlJPUiI7CitzdGF0aWMgY29uc3QgY2hhciBGQUlMX05PUk1BTFtdID0gIiBGQUlM
+IjsKK2NvbnN0IGNoYXIgKklORk8gPSBJTkZPX05PUk1BTDsKK2NvbnN0IGNoYXIgKlBBU1MgPSBQ
+QVNTX05PUk1BTDsKK2NvbnN0IGNoYXIgKkVSUk9SID0gRVJST1JfTk9STUFMOworY29uc3QgY2hh
+ciAqRkFJTCA9IEZBSUxfTk9STUFMOworCisvKiBWZXJib3NpdHkgc2V0dGluZyBmb3IgSU5GTyBt
+ZXNzYWdlcyAqLworI2RlZmluZSBWUVVJRVQgICAgMAorI2RlZmluZSBWQ1JJVElDQUwgMQorI2Rl
+ZmluZSBWSU5GTyAgICAgMgorI2RlZmluZSBWTUFYICAgICAgVklORk8KK2ludCBfdmVyYm9zZSA9
+IFZDUklUSUNBTDsKKworLyogRnVuY3Rpb25hbCB0ZXN0IHJldHVybiBjb2RlcyAqLworI2RlZmlu
+ZSBSRVRfUEFTUyAgIDAKKyNkZWZpbmUgUkVUX0VSUk9SIC0xCisjZGVmaW5lIFJFVF9GQUlMICAt
+MgorCisvKioKKyAqIGxvZ19jb2xvcigpIC0gVXNlIGNvbG9yZWQgb3V0cHV0IGZvciBQQVNTLCBF
+UlJPUiwgYW5kIEZBSUwgc3RyaW5ncworICogQHVzZV9jb2xvcjoJdXNlIGNvbG9yICgxKSBvciBu
+b3QgKDApCisgKi8KK3ZvaWQgbG9nX2NvbG9yKGludCB1c2VfY29sb3IpCit7CisJaWYgKHVzZV9j
+b2xvcikgeworCQlQQVNTID0gUEFTU19DT0xPUjsKKwkJRVJST1IgPSBFUlJPUl9DT0xPUjsKKwkJ
+RkFJTCA9IEZBSUxfQ09MT1I7CisJfSBlbHNlIHsKKwkJUEFTUyA9IFBBU1NfTk9STUFMOworCQlF
+UlJPUiA9IEVSUk9SX05PUk1BTDsKKwkJRkFJTCA9IEZBSUxfTk9STUFMOworCX0KK30KKworLyoq
+CisgKiBsb2dfdmVyYm9zaXR5KCkgLSBTZXQgdmVyYm9zaXR5IG9mIHRlc3Qgb3V0cHV0CisgKiBA
+dmVyYm9zZToJRW5hYmxlICgxKSB2ZXJib3NlIG91dHB1dCBvciBub3QgKDApCisgKgorICogQ3Vy
+cmVudGx5IHNldHRpbmcgdmVyYm9zZT0xIHdpbGwgZW5hYmxlIElORk8gbWVzc2FnZXMgYW5kIDAg
+d2lsbCBkaXNhYmxlCisgKiB0aGVtLiBGQUlMIGFuZCBFUlJPUiBtZXNzYWdlcyBhcmUgYWx3YXlz
+IGRpc3BsYXllZC4KKyAqLwordm9pZCBsb2dfdmVyYm9zaXR5KGludCBsZXZlbCkKK3sKKwlpZiAo
+bGV2ZWwgPiBWTUFYKQorCQlsZXZlbCA9IFZNQVg7CisJZWxzZSBpZiAobGV2ZWwgPCAwKQorCQls
+ZXZlbCA9IDA7CisJX3ZlcmJvc2UgPSBsZXZlbDsKK30KKworLyoqCisgKiBwcmludF9yZXN1bHQo
+KSAtIFByaW50IHN0YW5kYXJkIFBBU1MgfCBFUlJPUiB8IEZBSUwgcmVzdWx0cworICogQHJldDoJ
+dGhlIHJldHVybiB2YWx1ZSB0byBiZSBjb25zaWRlcmVkOiAwIHwgUkVUX0VSUk9SIHwgUkVUX0ZB
+SUwKKyAqCisgKiBwcmludF9yZXN1bHQoKSBpcyBwcmltYXJpbHkgaW50ZW5kZWQgZm9yIGZ1bmN0
+aW9uYWwgdGVzdHMuCisgKi8KK3ZvaWQgcHJpbnRfcmVzdWx0KGNvbnN0IGNoYXIgKnRlc3RfbmFt
+ZSwgaW50IHJldCkKK3sKKwlzd2l0Y2ggKHJldCkgeworCWNhc2UgUkVUX1BBU1M6CisJCWtzZnRf
+dGVzdF9yZXN1bHRfcGFzcygiJXNcbiIsIHRlc3RfbmFtZSk7CisJCWtzZnRfcHJpbnRfY250cygp
+OworCQlyZXR1cm47CisJY2FzZSBSRVRfRVJST1I6CisJCWtzZnRfdGVzdF9yZXN1bHRfZXJyb3Io
+IiVzXG4iLCB0ZXN0X25hbWUpOworCQlrc2Z0X3ByaW50X2NudHMoKTsKKwkJcmV0dXJuOworCWNh
+c2UgUkVUX0ZBSUw6CisJCWtzZnRfdGVzdF9yZXN1bHRfZmFpbCgiJXNcbiIsIHRlc3RfbmFtZSk7
+CisJCWtzZnRfcHJpbnRfY250cygpOworCQlyZXR1cm47CisJfQorfQorCisvKiBsb2cgbGV2ZWwg
+bWFjcm9zICovCisjZGVmaW5lIGluZm8obWVzc2FnZSwgdmFyZ3MuLi4pIFwKK2RvIHsgXAorCWlm
+IChfdmVyYm9zZSA+PSBWSU5GTykgXAorCQlmcHJpbnRmKHN0ZGVyciwgIlx0JXM6ICJtZXNzYWdl
+LCBJTkZPLCAjI3ZhcmdzKTsgXAorfSB3aGlsZSAoMCkKKworI2RlZmluZSBlcnJvcihtZXNzYWdl
+LCBlcnIsIGFyZ3MuLi4pIFwKK2RvIHsgXAorCWlmIChfdmVyYm9zZSA+PSBWQ1JJVElDQUwpIHtc
+CisJCWlmIChlcnIpIFwKKwkJCWZwcmludGYoc3RkZXJyLCAiXHQlczogJXM6ICJtZXNzYWdlLCBc
+CisJCQkJRVJST1IsIHN0cmVycm9yKGVyciksICMjYXJncyk7IFwKKwkJZWxzZSBcCisJCQlmcHJp
+bnRmKHN0ZGVyciwgIlx0JXM6ICJtZXNzYWdlLCBFUlJPUiwgIyNhcmdzKTsgXAorCX0gXAorfSB3
+aGlsZSAoMCkKKworI2RlZmluZSBmYWlsKG1lc3NhZ2UsIGFyZ3MuLi4pIFwKK2RvIHsgXAorCWlm
+IChfdmVyYm9zZSA+PSBWQ1JJVElDQUwpIFwKKwkJZnByaW50ZihzdGRlcnIsICJcdCVzOiAibWVz
+c2FnZSwgRkFJTCwgIyNhcmdzKTsgXAorfSB3aGlsZSAoMCkKKworI2VuZGlmCmRpZmYgLS1naXQg
+YS90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9kbS11c2VyL3J1bi5zaCBiL3Rvb2xzL3Rlc3Rpbmcv
+c2VsZnRlc3RzL2RtLXVzZXIvcnVuLnNoCm5ldyBmaWxlIG1vZGUgMTAwNzU1CmluZGV4IDAwMDAw
+MDAwMDAwMC4uMmVkMjU4MWU0YTU3Ci0tLSAvZGV2L251bGwKKysrIGIvdG9vbHMvdGVzdGluZy9z
+ZWxmdGVzdHMvZG0tdXNlci9ydW4uc2gKQEAgLTAsMCArMSw3NCBAQAorIyBTUERYLUxpY2Vuc2Ut
+SWRlbnRpZmllcjogR1BMLTIuMAorIyBDb3B5cmlnaHQgMjAyMCBQYWxtZXIgRGFiYmVsdCA8cGFs
+bWVyZGFiYmVsdEBnb29nbGUuY29tPgorCisjIFRvcC1sZXZlbCBydW4gc2NyaXB0IGZvciBkbS11
+c2VyIGtlcm5lbCBzZWxmIHRlc3RzLiAgVGhpcyBqdXN0IHJ1bnMgYSBidW5jaAorIyBvZiBkaWZm
+ZXJlbnQgdGVzdHMgYmFjayB0byBiYWNrLCByZWx5aW5nIG9uIHRoZSBrZXJuZWwgc2VsZnRlc3Qg
+aW5mcmFzdHJ1Y3R1cmUKKyMgdG8gdGVhc2Ugb3V0IHRoZSBzdWNjZXNzL2ZhaWx1cmUgb2YgZWFj
+aC4gIFRoZSB0ZXN0cyBhbGwgdXNlIHRoZSBzYW1lIGdsb2JhbAorIyBkaXJlY3RvcmllcyBhbmQg
+c3VjaCwgc28gaXQncyBub3QgbGlrZSB0aGVyZSdzIGEgd2hvbGUgbG90CisjCisjIFRoZSBhY3R1
+YWwgdGVzdCBjb2RlIHNob3VsZCBiZSBmYWlybHkgcG9ydGFibGUsIGJ1dCB0aGUgc2NyaXB0cyB0
+aGF0IHJ1biBpdAorIyBhcmVuJ3QuICBTZWUgdGhlIFJFQURNRSBmb3IgbW9yZSBpbmZvcm1hdGlv
+bi4KKworIyBSdW5zIHZhcmlvdXMgRklPIHNjcmlwdHMgYWdhaW5zdCBhbiBleHQyLWJhc2VkIGZp
+bGVzeXN0ZW0gYmFja2VkIGJ5IGRtLXVzZXIuCitpZiB0ZXN0IC1lIC91c3IvYmluL2ZpbwordGhl
+bgorICAgIC4vaGFybmVzcy1maW8uc2ggICAgICAtcyAzMDAwMDAwIC1mIGZpby1yYW5kLXJlYWQt
+MUcuZmlvIC0tIC4vZGFlbW9uLWV4YW1wbGUKKyAgICAuL2hhcm5lc3MtZmlvLnNoICAgICAgLXMg
+MzAwMDAwMCAtZiBmaW8tcmFuZC1yZWFkLTFHLmZpbyAtLSAuL2RhZW1vbi1zaG9ydAorICAgIC4v
+aGFybmVzcy1maW8uc2ggICAgICAtcyAzMDAwMDAwIC1mIGZpby1yYW5kLXJlYWQtMUcuZmlvIC0t
+IC4vZGFlbW9uLXBhcmFsbGVsIC13ICAgMQorICAgIC4vaGFybmVzcy1maW8uc2ggICAgICAtcyAz
+MDAwMDAwIC1mIGZpby1yYW5kLXJlYWQtMUcuZmlvIC0tIC4vZGFlbW9uLXBhcmFsbGVsIC13ICAg
+NAorICAgIC4vaGFybmVzcy1maW8uc2ggICAgICAtcyAzMDAwMDAwIC1mIGZpby1yYW5kLXJlYWQt
+MUcuZmlvIC0tIC4vZGFlbW9uLXBhcmFsbGVsIC13ICAxNgorICAgIC4vaGFybmVzcy1maW8uc2gg
+ICAgICAtcyAzMDAwMDAwIC1mIGZpby1yYW5kLXJlYWQtMUcuZmlvIC0tIC4vZGFlbW9uLXBhcmFs
+bGVsIC13ICA2NAorICAgIC4vaGFybmVzcy1maW8uc2ggICAgICAtcyAzMDAwMDAwIC1mIGZpby1y
+YW5kLXJlYWQtMUcuZmlvIC0tIC4vZGFlbW9uLXBhcmFsbGVsIC13IDI1NgorICAgIC4vaGFybmVz
+cy1maW8uc2ggICAgICAtcyAzMDAwMDAwIC1mIGZpby1yYW5kLXJlYWQtMUcuZmlvIC0tIC4vZGFl
+bW9uLXBhcmFsbGVsIC13ICAgMSAtYiAvZGV2L3ZkYgorICAgIC4vaGFybmVzcy1maW8uc2ggICAg
+ICAtcyAzMDAwMDAwIC1mIGZpby1yYW5kLXJlYWQtMUcuZmlvIC0tIC4vZGFlbW9uLXBhcmFsbGVs
+IC13ICAgNCAtYiAvZGV2L3ZkYgorICAgIC4vaGFybmVzcy1maW8uc2ggICAgICAtcyAzMDAwMDAw
+IC1mIGZpby1yYW5kLXJlYWQtMUcuZmlvIC0tIC4vZGFlbW9uLXBhcmFsbGVsIC13ICAxNiAtYiAv
+ZGV2L3ZkYgorICAgIC4vaGFybmVzcy1maW8uc2ggICAgICAtcyAzMDAwMDAwIC1mIGZpby1yYW5k
+LXJlYWQtMUcuZmlvIC0tIC4vZGFlbW9uLXBhcmFsbGVsIC13ICA2NCAtYiAvZGV2L3ZkYgorICAg
+IC4vaGFybmVzcy1maW8uc2ggICAgICAtcyAzMDAwMDAwIC1mIGZpby1yYW5kLXJlYWQtMUcuZmlv
+IC0tIC4vZGFlbW9uLXBhcmFsbGVsIC13IDI1NiAtYiAvZGV2L3ZkYgorCisgICAgLi9oYXJuZXNz
+LWZpby5zaCAgICAgIC1zIDMwMDAwMDAgLWYgZmlvLXZlcmlmeS0xRy5maW8gICAgLS0gLi9kYWVt
+b24tZXhhbXBsZQorICAgIC4vaGFybmVzcy1maW8uc2ggICAgICAtcyAzMDAwMDAwIC1mIGZpby12
+ZXJpZnktMUcuZmlvICAgIC0tIC4vZGFlbW9uLXNob3J0CisgICAgLi9oYXJuZXNzLWZpby5zaCAg
+ICAgIC1zIDMwMDAwMDAgLWYgZmlvLXZlcmlmeS0xRy5maW8gICAgLS0gLi9kYWVtb24tcGFyYWxs
+ZWwgLXcgICAxCisgICAgLi9oYXJuZXNzLWZpby5zaCAgICAgIC1zIDMwMDAwMDAgLWYgZmlvLXZl
+cmlmeS0xRy5maW8gICAgLS0gLi9kYWVtb24tcGFyYWxsZWwgLXcgICA0CisgICAgLi9oYXJuZXNz
+LWZpby5zaCAgICAgIC1zIDMwMDAwMDAgLWYgZmlvLXZlcmlmeS0xRy5maW8gICAgLS0gLi9kYWVt
+b24tcGFyYWxsZWwgLXcgIDE2CisgICAgLi9oYXJuZXNzLWZpby5zaCAgICAgIC1zIDMwMDAwMDAg
+LWYgZmlvLXZlcmlmeS0xRy5maW8gICAgLS0gLi9kYWVtb24tcGFyYWxsZWwgLXcgIDY0CisgICAg
+Li9oYXJuZXNzLWZpby5zaCAgICAgIC1zIDMwMDAwMDAgLWYgZmlvLXZlcmlmeS0xRy5maW8gICAg
+LS0gLi9kYWVtb24tcGFyYWxsZWwgLXcgMjU2CisgICAgLi9oYXJuZXNzLWZpby5zaCAgICAgIC1z
+IDMwMDAwMDAgLWYgZmlvLXZlcmlmeS0xRy5maW8gICAgLS0gLi9kYWVtb24tcGFyYWxsZWwgLXcg
+ICAxIC1iIC9kZXYvdmRiCisgICAgLi9oYXJuZXNzLWZpby5zaCAgICAgIC1zIDMwMDAwMDAgLWYg
+ZmlvLXZlcmlmeS0xRy5maW8gICAgLS0gLi9kYWVtb24tcGFyYWxsZWwgLXcgICA0IC1iIC9kZXYv
+dmRiCisgICAgLi9oYXJuZXNzLWZpby5zaCAgICAgIC1zIDMwMDAwMDAgLWYgZmlvLXZlcmlmeS0x
+Ry5maW8gICAgLS0gLi9kYWVtb24tcGFyYWxsZWwgLXcgIDE2IC1iIC9kZXYvdmRiCisgICAgLi9o
+YXJuZXNzLWZpby5zaCAgICAgIC1zIDMwMDAwMDAgLWYgZmlvLXZlcmlmeS0xRy5maW8gICAgLS0g
+Li9kYWVtb24tcGFyYWxsZWwgLXcgIDY0IC1iIC9kZXYvdmRiCisgICAgLi9oYXJuZXNzLWZpby5z
+aCAgICAgIC1zIDMwMDAwMDAgLWYgZmlvLXZlcmlmeS0xRy5maW8gICAgLS0gLi9kYWVtb24tcGFy
+YWxsZWwgLXcgMjU2IC1iIC9kZXYvdmRiCitlbHNlCisgICAgZWNobyAiVW5hYmxlIHRvIGZpbmQg
+L3Vzci9iaW4vZmlvIgorZmkKKworIyBSdW5zIGZzc3RyZXNzIGZyb20geGZzdGVzdHMgYWdhaW5z
+dCBhbiBleHQyLWJhc2VkIGZpbGVzeXN0ZW0gYmFja2VkIGJ5CisjIGRtLXVzZXIuCitpZiB0ZXN0
+IC1lIC91c3IveGZzdGVzdHMvbHRwL2Zzc3RyZXNzCit0aGVuCisgICAgLi9oYXJuZXNzLWZzc3Ry
+ZXNzLnNoIC1zIDMwMDAwMDAgLXAgICAxIC1uIDEwMDAwIC0tIC4vZGFlbW9uLWV4YW1wbGUKKyAg
+ICAuL2hhcm5lc3MtZnNzdHJlc3Muc2ggLXMgMzAwMDAwMCAtcCAgIDQgLW4gMTAwMDAgLS0gLi9k
+YWVtb24tZXhhbXBsZQorICAgIC4vaGFybmVzcy1mc3N0cmVzcy5zaCAtcyAzMDAwMDAwIC1wICAx
+NiAtbiAxMDAwMCAtLSAuL2RhZW1vbi1leGFtcGxlCisgICAgLi9oYXJuZXNzLWZzc3RyZXNzLnNo
+IC1zIDMwMDAwMDAgLXAgIDY0IC1uIDEwMDAwIC0tIC4vZGFlbW9uLWV4YW1wbGUKKyAgICAuL2hh
+cm5lc3MtZnNzdHJlc3Muc2ggLXMgMzAwMDAwMCAtcCAyNTYgLW4gMTAwMDAgLS0gLi9kYWVtb24t
+ZXhhbXBsZQorCisgICAgLi9oYXJuZXNzLWZzc3RyZXNzLnNoIC1zIDMwMDAwMDAgLXAgICAxIC1u
+IDEwMDAwIC0tIC4vZGFlbW9uLXNob3J0CisgICAgLi9oYXJuZXNzLWZzc3RyZXNzLnNoIC1zIDMw
+MDAwMDAgLXAgICA0IC1uIDEwMDAwIC0tIC4vZGFlbW9uLXNob3J0CisgICAgLi9oYXJuZXNzLWZz
+c3RyZXNzLnNoIC1zIDMwMDAwMDAgLXAgIDE2IC1uIDEwMDAwIC0tIC4vZGFlbW9uLXNob3J0Cisg
+ICAgLi9oYXJuZXNzLWZzc3RyZXNzLnNoIC1zIDMwMDAwMDAgLXAgIDY0IC1uIDEwMDAwIC0tIC4v
+ZGFlbW9uLXNob3J0CisgICAgLi9oYXJuZXNzLWZzc3RyZXNzLnNoIC1zIDMwMDAwMDAgLXAgMjU2
+IC1uIDEwMDAwIC0tIC4vZGFlbW9uLXNob3J0CisKKyAgICAuL2hhcm5lc3MtZnNzdHJlc3Muc2gg
+LXMgMzAwMDAwMCAtcCA2NCAtbiAxMDAwMCAtLSAuL2RhZW1vbi1wYXJhbGxlbCAtdyAgICAxCisg
+ICAgLi9oYXJuZXNzLWZzc3RyZXNzLnNoIC1zIDMwMDAwMDAgLXAgNjQgLW4gMTAwMDAgLS0gLi9k
+YWVtb24tcGFyYWxsZWwgLXcgICAgNAorICAgIC4vaGFybmVzcy1mc3N0cmVzcy5zaCAtcyAzMDAw
+MDAwIC1wIDY0IC1uIDEwMDAwIC0tIC4vZGFlbW9uLXBhcmFsbGVsIC13ICAgMTYKKyAgICAuL2hh
+cm5lc3MtZnNzdHJlc3Muc2ggLXMgMzAwMDAwMCAtcCA2NCAtbiAxMDAwMCAtLSAuL2RhZW1vbi1w
+YXJhbGxlbCAtdyAgIDY0CisgICAgLi9oYXJuZXNzLWZzc3RyZXNzLnNoIC1zIDMwMDAwMDAgLXAg
+NjQgLW4gMTAwMDAgLS0gLi9kYWVtb24tcGFyYWxsZWwgLXcgIDI1NgorCisgICAgLi9oYXJuZXNz
+LWZzc3RyZXNzLnNoIC1zIDMwMDAwMDAgLXAgIDEgLW4gMTAwMDAgLS0gLi9kYWVtb24tcGFyYWxs
+ZWwgLXcgICAgMSAtYiAvZGV2L3ZkYgorICAgIC4vaGFybmVzcy1mc3N0cmVzcy5zaCAtcyAzMDAw
+MDAwIC1wIDY0IC1uIDEwMDAwIC0tIC4vZGFlbW9uLXBhcmFsbGVsIC13ICAgIDEgLWIgL2Rldi92
+ZGIKKyAgICAuL2hhcm5lc3MtZnNzdHJlc3Muc2ggLXMgMzAwMDAwMCAtcCA2NCAtbiAxMDAwMCAt
+LSAuL2RhZW1vbi1wYXJhbGxlbCAtdyAgICA0IC1iIC9kZXYvdmRiCisgICAgLi9oYXJuZXNzLWZz
+c3RyZXNzLnNoIC1zIDMwMDAwMDAgLXAgNjQgLW4gMTAwMDAgLS0gLi9kYWVtb24tcGFyYWxsZWwg
+LXcgICAxNiAtYiAvZGV2L3ZkYgorICAgIC4vaGFybmVzcy1mc3N0cmVzcy5zaCAtcyAzMDAwMDAw
+IC1wIDY0IC1uIDEwMDAwIC0tIC4vZGFlbW9uLXBhcmFsbGVsIC13ICAgNjQgLWIgL2Rldi92ZGIK
+KyAgICAuL2hhcm5lc3MtZnNzdHJlc3Muc2ggLXMgMzAwMDAwMCAtcCA2NCAtbiAxMDAwMCAtLSAu
+L2RhZW1vbi1wYXJhbGxlbCAtdyAgMjU2IC1iIC9kZXYvdmRiCitlbHNlCisgICAgZWNobyAiVW5h
+YmxlIHRvIGZpbmQgL3Vzci94ZnN0ZXN0cy9sdHAvZnNzdHJlc3MiCitmaQotLSAKMi4yOS4yLjQ1
+NC5nYWZmMjBkYTNhMi1nb29nCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVk
+aGF0LmNvbQpodHRwczovL3d3dy5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWw=
 
