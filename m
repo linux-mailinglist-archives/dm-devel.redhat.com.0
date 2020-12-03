@@ -1,74 +1,68 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 175A52CDB00
-	for <lists+dm-devel@lfdr.de>; Thu,  3 Dec 2020 17:18:24 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 53A5C2CDB01
+	for <lists+dm-devel@lfdr.de>; Thu,  3 Dec 2020 17:18:25 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-36-bkUVNberMiW7hbWJPBjegw-1; Thu, 03 Dec 2020 11:18:21 -0500
-X-MC-Unique: bkUVNberMiW7hbWJPBjegw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-159-aGZOqzZ1PPy00hSKrQ4gEg-1; Thu, 03 Dec 2020 11:18:21 -0500
+X-MC-Unique: aGZOqzZ1PPy00hSKrQ4gEg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BBE8C1005513;
-	Thu,  3 Dec 2020 16:18:14 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D6A85C1B4;
-	Thu,  3 Dec 2020 16:18:13 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2831481F02B;
+	Thu,  3 Dec 2020 16:18:15 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 031A41349A;
+	Thu,  3 Dec 2020 16:18:15 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 15A994BB40;
-	Thu,  3 Dec 2020 16:18:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B40B6180954D;
+	Thu,  3 Dec 2020 16:18:14 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B30mhq0027431 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Dec 2020 19:48:43 -0500
+	id 0B31merj001432 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Dec 2020 20:48:40 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 330F12026D47; Thu,  3 Dec 2020 00:48:43 +0000 (UTC)
+	id 50E2B2166B2C; Thu,  3 Dec 2020 01:48:40 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2DF302026D25
-	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 00:48:40 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4C0132166B29
+	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 01:48:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A7ECA185A794
-	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 00:48:40 +0000 (UTC)
-Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com
-	[209.85.214.195]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-309-B2BXc_zbNlqQD8UULwNNPw-1; Wed, 02 Dec 2020 19:48:36 -0500
-X-MC-Unique: B2BXc_zbNlqQD8UULwNNPw-1
-Received: by mail-pl1-f195.google.com with SMTP id f1so166299plt.12;
-	Wed, 02 Dec 2020 16:48:36 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=r1vhAw5KYK+A2HTHj95cD8WrBZBiV4qESvc7DBRN6Tk=;
-	b=krjzOtAcNjogAab8G1M9fO+f3hR0O19HqHIXdk0E8e38mZIqmtHftbtvsOCmn/KDHi
-	3SfUeCn2Y52QBBoP0tmXSdAaOcTJdDo8M4qb8JLVg25BJTqkE0Y/WY8LSBmqQzrsqeN7
-	zUyDn5Lf+yJejWysdke4yeKiVyC71uxsLBQY/aN3oaRFZKSmihiSXBk4BJSCl/TYC5fW
-	mUpO8Dn0ogjxbQxKEfGMuq29smOE9aizbfuzyqFMJ6YOyzA/nEKo/AW0Y7V5jYS+duiH
-	FX2//eRS0Hc7N7xQuPhdBDG84uFcKeweyfFR65jagWZ2hBL0gHxtIthwfHbSKjdgTobp
-	Eoew==
-X-Gm-Message-State: AOAM53031wLdlLoQDWbmQMxFOrsEQGi5o+OcEsRMRNRHRQkujxiV3b4x
-	Jh9fSel9hB4U75HWmLMYUNJlW6AOwjAeq0qm
-X-Google-Smtp-Source: ABdhPJyQ8piQnKQ4iYxll6utigDCPUh5mZSGvq4OuRNasqXf4Dn+/FW1ocu523juX23gKb94xR2FiQ==
-X-Received: by 2002:a17:902:b7c3:b029:da:74c3:427 with SMTP id
-	v3-20020a170902b7c3b02900da74c30427mr775860plz.38.1606956514876;
-	Wed, 02 Dec 2020 16:48:34 -0800 (PST)
-Received: from localhost.localdomain ([27.122.242.75])
-	by smtp.gmail.com with ESMTPSA id d68sm241314pfd.32.2020.12.02.16.48.32
-	(version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-	Wed, 02 Dec 2020 16:48:34 -0800 (PST)
-From: Hyeongseok Kim <hyeongseok@gmail.com>
-To: agk@redhat.com, snitzer@redhat.com
-Date: Thu,  3 Dec 2020 09:46:59 +0900
-Message-Id: <20201203004659.95708-1-hyeongseok@gmail.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D07B0103B808
+	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 01:48:37 +0000 (UTC)
+Received: from out30-42.freemail.mail.aliyun.com
+	(out30-42.freemail.mail.aliyun.com [115.124.30.42]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-79-Vtry7K2KPCCAVJGV2r_MjQ-1;
+	Wed, 02 Dec 2020 20:48:35 -0500
+X-MC-Unique: Vtry7K2KPCCAVJGV2r_MjQ-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R771e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04395;
+	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=4; SR=0;
+	TI=SMTPD_---0UHMcpTK_1606960110
+Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
+	fp:SMTPD_---0UHMcpTK_1606960110) by smtp.aliyun-inc.com(127.0.0.1);
+	Thu, 03 Dec 2020 09:48:31 +0800
+To: Mike Snitzer <snitzer@redhat.com>
+References: <20201201160709.31748-1-snitzer@redhat.com>
+	<20201202033855.60882-1-jefflexu@linux.alibaba.com>
+	<20201202033855.60882-2-jefflexu@linux.alibaba.com>
+	<feb19a02-5ece-505f-e905-86dc84cdb204@linux.alibaba.com>
+	<20201202050343.GA20535@redhat.com>
+	<7326607a-b687-3989-dee7-cf469ab37ac4@linux.alibaba.com>
+	<20201202151112.GD20535@redhat.com>
+From: JeffleXu <jefflexu@linux.alibaba.com>
+Message-ID: <353a132b-1430-60b0-3f17-979af1b8dd22@linux.alibaba.com>
+Date: Thu, 3 Dec 2020 09:48:30 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+	Gecko/20100101 Thunderbird/78.5.0
 MIME-Version: 1.0
+In-Reply-To: <20201202151112.GD20535@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -77,13 +71,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 03 Dec 2020 11:17:59 -0500
-Cc: Hyeongseok Kim <hyeongseok@gmail.com>, dm-devel@redhat.com,
-	samitolvanen@google.com, hyeongseok.kim@lge.com
-Subject: [dm-devel] [PATCH] dm verity: skip verity work on I/O errors when
-	system is shutting down
+Cc: linux-block@vger.kernel.org, joseph.qi@linux.alibaba.com,
+	dm-devel@redhat.com
+Subject: Re: [dm-devel] dm: use gcd() to fix chunk_sectors limit stacking
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,58 +90,44 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-If emergency system shutdown is called, like by thermal shutdown,
-dm device could be alive when the block device couldn't process
-I/O requests anymore. In this status, the handling of I/O errors
-by new dm I/O requests or by those already in-flight can lead to
-a verity corruption state, which is misjudgment.
-So, skip verity work for I/O error when system is shutting down.
 
-Signed-off-by: Hyeongseok Kim <hyeongseok@gmail.com>
----
- drivers/md/dm-verity-target.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index f74982dcbea0..ba62c537798b 100644
---- a/drivers/md/dm-verity-target.c
-+++ b/drivers/md/dm-verity-target.c
-@@ -64,6 +64,15 @@ struct buffer_aux {
- 	int hash_verified;
- };
- 
-+/*
-+ * While system shutdown, skip verity work for I/O error.
-+ */
-+static inline bool verity_is_system_shutting_down(void)
-+{
-+	return system_state == SYSTEM_HALT || system_state == SYSTEM_POWER_OFF
-+		|| system_state == SYSTEM_RESTART;
-+}
-+
- /*
-  * Initialize struct buffer_aux for a freshly created buffer.
-  */
-@@ -564,7 +573,8 @@ static void verity_end_io(struct bio *bio)
- {
- 	struct dm_verity_io *io = bio->bi_private;
- 
--	if (bio->bi_status && !verity_fec_is_enabled(io->v)) {
-+	if (bio->bi_status &&
-+		(!verity_fec_is_enabled(io->v) || verity_is_system_shutting_down())) {
- 		verity_finish_io(io, bio->bi_status);
- 		return;
- 	}
+On 12/2/20 11:11 PM, Mike Snitzer wrote:
+> On Wed, Dec 02 2020 at  2:10am -0500,
+> JeffleXu <jefflexu@linux.alibaba.com> wrote:
+> 
+>>
+>>
+>> On 12/2/20 1:03 PM, Mike Snitzer wrote:
+>>> What you've done here is fairly chaotic/disruptive:
+>>> 1) you emailed a patch out that isn't needed or ideal, I dealt already
+>>>    staged a DM fix in linux-next for 5.10-rcX, see:
+>>>    https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/commit/?h=dm-5.10-rcX&id=f28de262ddf09b635095bdeaf0e07ff507b3c41b
+>>
+>> Then ti->type->io_hints() is still bypassed when type->iterate_devices()
+>> not defined?
+> 
+> Yes, the stacking of limits really is tightly coupled to device-based
+> influence.  Hypothetically some DM target that doesn't remap to any data
+> devices may want to override limits... in practice there isn't a need
+> for this.  If that changes we can take action to accommodate it.. but I'm
+> definitely not interested in modifying DM core in this area when there
+> isn't a demonstrated need.
+
+Thanks.
+
 -- 
-2.27.0.83.g0313f36
+Thanks,
+Jeffle
 
 --
 dm-devel mailing list
