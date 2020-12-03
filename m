@@ -2,58 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 828642CDB4F
-	for <lists+dm-devel@lfdr.de>; Thu,  3 Dec 2020 17:34:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D55812CDC4A
+	for <lists+dm-devel@lfdr.de>; Thu,  3 Dec 2020 18:23:39 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-202-sOBd9DLHN5qNxiRtzAN9QA-1; Thu, 03 Dec 2020 11:34:05 -0500
-X-MC-Unique: sOBd9DLHN5qNxiRtzAN9QA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-518-S9PXYBpwOL6czWJRf0k4aA-1; Thu, 03 Dec 2020 12:23:37 -0500
+X-MC-Unique: S9PXYBpwOL6czWJRf0k4aA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9CA21EC1A7;
-	Thu,  3 Dec 2020 16:33:59 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 724AE5D9DB;
-	Thu,  3 Dec 2020 16:33:59 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 10AADAFA80;
+	Thu,  3 Dec 2020 17:23:31 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 311D05D6AC;
+	Thu,  3 Dec 2020 17:23:29 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F1A0D4BB40;
-	Thu,  3 Dec 2020 16:33:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CA6991809C9F;
+	Thu,  3 Dec 2020 17:23:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B3GW2tr031533 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 3 Dec 2020 11:32:02 -0500
+	id 0B3HNAH3005015 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 3 Dec 2020 12:23:10 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6E59310E51C4; Thu,  3 Dec 2020 16:32:02 +0000 (UTC)
+	id 7ACAF2028E91; Thu,  3 Dec 2020 17:23:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 693B810E51C5
-	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 16:32:00 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 73F6E2027179
+	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 17:23:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 09AB485828A
-	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 16:32:00 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-337-cPHIo3ILN1u_VH7F2WEtiQ-1; Thu, 03 Dec 2020 11:31:57 -0500
-X-MC-Unique: cPHIo3ILN1u_VH7F2WEtiQ-1
-Received: from 213-225-0-143.nat.highway.a1.net ([213.225.0.143]
-	helo=localhost)
-	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kkrMj-0005dp-F5; Thu, 03 Dec 2020 16:21:57 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Jens Axboe <axboe@kernel.dk>
-Date: Thu,  3 Dec 2020 17:21:39 +0100
-Message-Id: <20201203162139.2110977-6-hch@lst.de>
-In-Reply-To: <20201203162139.2110977-1-hch@lst.de>
-References: <20201203162139.2110977-1-hch@lst.de>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 72AD2803DDE
+	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 17:23:04 +0000 (UTC)
+Received: from mail-lf1-f68.google.com (mail-lf1-f68.google.com
+	[209.85.167.68]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-591-pkGn_UJ7MfSSIzHJ6B4DtQ-1; Thu, 03 Dec 2020 12:23:02 -0500
+X-MC-Unique: pkGn_UJ7MfSSIzHJ6B4DtQ-1
+Received: by mail-lf1-f68.google.com with SMTP id j205so3857495lfj.6
+	for <dm-devel@redhat.com>; Thu, 03 Dec 2020 09:23:01 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=MCo6dRdQYDIUbOIgel6fr+suiiVoJN9d04Uc6gUldrM=;
+	b=J4WK/j9S6/s3GUYXXbSwma9Y9Sdvgs9Zq2JsZq+rfvWkmZw3gbVwX1eZUzIijeBEcj
+	ZXxRzVKaVQBGIz6NpcB00DGJAFOyszC+uioZcCa1InHD1voTKLvDDJ8J8RFIXX4mYNdX
+	72+Id2hZw5T60n4mXpAg4aTqzfp3xIg6SI2nFJXrLL1xmR2WIS/VI42dRcrBhrooKoXE
+	wCUVNqv5IAquYxnEiJm4fP27tKN784vCjjkYohjFZNuzYwjwlGv4teMBJx7vm1oTaHqU
+	v95ozXe/KJhfAw6uHhBggJflCy9cZ81QOXIg5wF8nQ1RQ+ts6rHGYGc40kDk2+UP1kP8
+	OrpA==
+X-Gm-Message-State: AOAM5339ZTd0zjhlXAbRsmeQkhPfgtYZLj30m3munv0XwiOAFlCya3xG
+	J007YNcuvTyysaagjF3zDHKnlLrzqpIm/EeQCBEplg==
+X-Google-Smtp-Source: ABdhPJxv5uR5vCh2l95ohsZtqwXnbIkzb0P9kpEh0ONH2dhLDQDAI3yvqCgYytQQZyW3xQYx5MV7kH4Z5NvYat0JXv4=
+X-Received: by 2002:a19:8112:: with SMTP id c18mr1673014lfd.455.1607016180076; 
+	Thu, 03 Dec 2020 09:23:00 -0800 (PST)
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	casper.infradead.org. See http://www.infradead.org/rpr.html
+References: <20201203004659.95708-1-hyeongseok@gmail.com>
+In-Reply-To: <20201203004659.95708-1-hyeongseok@gmail.com>
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Thu, 3 Dec 2020 09:22:48 -0800
+Message-ID: <CABCJKufCS+hbXkGyO9uU3EBscfCpU1f7pi77uzR_+cjo97g=YQ@mail.gmail.com>
+To: Hyeongseok Kim <hyeongseok@gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -62,13 +73,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: linux-raid@vger.kernel.org, Damien Le Moal <damien.lemoal@wdc.com>,
-	linux-s390@vger.kernel.org, linux-block@vger.kernel.org,
-	dm-devel@redhat.com, Tejun Heo <tj@kernel.org>
-Subject: [dm-devel] [PATCH 5/5] block: remove the request_queue to argument
-	request based tracepoints
+Cc: device-mapper development <dm-devel@redhat.com>,
+	=?UTF-8?B?6rmA7ZiV7ISd?= <hyeongseok.kim@lge.com>,
+	Mike Snitzer <snitzer@redhat.com>, Alasdair Kergon <agk@redhat.com>
+Subject: Re: [dm-devel] [PATCH] dm verity: skip verity work on I/O errors
+ when system is shutting down
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,7 +93,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -90,380 +101,70 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The request_queue can trivially be derived from the request.
+Hi,
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Damien Le Moal <damien.lemoal@wdc.com>
-Reviewed-by: Hannes Reinecke <hare@suse.de>
----
- block/blk-merge.c            |  2 +-
- block/blk-mq-sched.c         |  2 +-
- block/blk-mq.c               |  8 +++----
- drivers/md/dm-rq.c           |  2 +-
- drivers/s390/scsi/zfcp_fsf.c |  3 +--
- include/linux/blktrace_api.h |  5 ++--
- include/trace/events/block.h | 30 ++++++++++--------------
- kernel/trace/blktrace.c      | 44 ++++++++++++++----------------------
- 8 files changed, 39 insertions(+), 57 deletions(-)
+On Wed, Dec 2, 2020 at 4:48 PM Hyeongseok Kim <hyeongseok@gmail.com> wrote:
+>
+> If emergency system shutdown is called, like by thermal shutdown,
+> dm device could be alive when the block device couldn't process
+> I/O requests anymore. In this status, the handling of I/O errors
+> by new dm I/O requests or by those already in-flight can lead to
+> a verity corruption state, which is misjudgment.
+> So, skip verity work for I/O error when system is shutting down.
 
-diff --git a/block/blk-merge.c b/block/blk-merge.c
-index 4071daa88a5eaf..7497d86fff3834 100644
---- a/block/blk-merge.c
-+++ b/block/blk-merge.c
-@@ -799,7 +799,7 @@ static struct request *attempt_merge(struct request_queue *q,
- 	 */
- 	blk_account_io_merge_request(next);
- 
--	trace_block_rq_merge(q, next);
-+	trace_block_rq_merge(next);
- 
- 	/*
- 	 * ownership of bio passed from next to req, return 'next' for
-diff --git a/block/blk-mq-sched.c b/block/blk-mq-sched.c
-index d1eafe2c045caa..deff4e826e234d 100644
---- a/block/blk-mq-sched.c
-+++ b/block/blk-mq-sched.c
-@@ -386,7 +386,7 @@ EXPORT_SYMBOL_GPL(blk_mq_sched_try_insert_merge);
- 
- void blk_mq_sched_request_inserted(struct request *rq)
- {
--	trace_block_rq_insert(rq->q, rq);
-+	trace_block_rq_insert(rq);
- }
- EXPORT_SYMBOL_GPL(blk_mq_sched_request_inserted);
- 
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index 26eaf476f1e12b..ed21218188da65 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -733,7 +733,7 @@ void blk_mq_start_request(struct request *rq)
- {
- 	struct request_queue *q = rq->q;
- 
--	trace_block_rq_issue(q, rq);
-+	trace_block_rq_issue(rq);
- 
- 	if (test_bit(QUEUE_FLAG_STATS, &q->queue_flags)) {
- 		rq->io_start_time_ns = ktime_get_ns();
-@@ -760,7 +760,7 @@ static void __blk_mq_requeue_request(struct request *rq)
- 
- 	blk_mq_put_driver_tag(rq);
- 
--	trace_block_rq_requeue(q, rq);
-+	trace_block_rq_requeue(rq);
- 	rq_qos_requeue(q, rq);
- 
- 	if (blk_mq_request_started(rq)) {
-@@ -1821,7 +1821,7 @@ static inline void __blk_mq_insert_req_list(struct blk_mq_hw_ctx *hctx,
- 
- 	lockdep_assert_held(&ctx->lock);
- 
--	trace_block_rq_insert(hctx->queue, rq);
-+	trace_block_rq_insert(rq);
- 
- 	if (at_head)
- 		list_add(&rq->queuelist, &ctx->rq_lists[type]);
-@@ -1878,7 +1878,7 @@ void blk_mq_insert_requests(struct blk_mq_hw_ctx *hctx, struct blk_mq_ctx *ctx,
- 	 */
- 	list_for_each_entry(rq, list, queuelist) {
- 		BUG_ON(rq->mq_ctx != ctx);
--		trace_block_rq_insert(hctx->queue, rq);
-+		trace_block_rq_insert(rq);
- 	}
- 
- 	spin_lock(&ctx->lock);
-diff --git a/drivers/md/dm-rq.c b/drivers/md/dm-rq.c
-index 729a72ec30ccae..13b4385f4d5a92 100644
---- a/drivers/md/dm-rq.c
-+++ b/drivers/md/dm-rq.c
-@@ -397,7 +397,7 @@ static int map_request(struct dm_rq_target_io *tio)
- 		}
- 
- 		/* The target has remapped the I/O so dispatch it */
--		trace_block_rq_remap(clone->q, clone, disk_devt(dm_disk(md)),
-+		trace_block_rq_remap(clone, disk_devt(dm_disk(md)),
- 				     blk_rq_pos(rq));
- 		ret = dm_dispatch_clone_request(clone, rq);
- 		if (ret == BLK_STS_RESOURCE || ret == BLK_STS_DEV_RESOURCE) {
-diff --git a/drivers/s390/scsi/zfcp_fsf.c b/drivers/s390/scsi/zfcp_fsf.c
-index 6cb963a0677714..37d450f4695281 100644
---- a/drivers/s390/scsi/zfcp_fsf.c
-+++ b/drivers/s390/scsi/zfcp_fsf.c
-@@ -2359,8 +2359,7 @@ static void zfcp_fsf_req_trace(struct zfcp_fsf_req *req, struct scsi_cmnd *scsi)
- 		}
- 	}
- 
--	blk_add_driver_data(scsi->request->q, scsi->request, &blktrc,
--			    sizeof(blktrc));
-+	blk_add_driver_data(scsi->request, &blktrc, sizeof(blktrc));
- }
- 
- /**
-diff --git a/include/linux/blktrace_api.h b/include/linux/blktrace_api.h
-index 3b6ff5902edce6..05556573b896a2 100644
---- a/include/linux/blktrace_api.h
-+++ b/include/linux/blktrace_api.h
-@@ -75,8 +75,7 @@ static inline bool blk_trace_note_message_enabled(struct request_queue *q)
- 	return ret;
- }
- 
--extern void blk_add_driver_data(struct request_queue *q, struct request *rq,
--				void *data, size_t len);
-+extern void blk_add_driver_data(struct request *rq, void *data, size_t len);
- extern int blk_trace_setup(struct request_queue *q, char *name, dev_t dev,
- 			   struct block_device *bdev,
- 			   char __user *arg);
-@@ -90,7 +89,7 @@ extern struct attribute_group blk_trace_attr_group;
- #else /* !CONFIG_BLK_DEV_IO_TRACE */
- # define blk_trace_ioctl(bdev, cmd, arg)		(-ENOTTY)
- # define blk_trace_shutdown(q)				do { } while (0)
--# define blk_add_driver_data(q, rq, data, len)		do {} while (0)
-+# define blk_add_driver_data(rq, data, len)		do {} while (0)
- # define blk_trace_setup(q, name, dev, bdev, arg)	(-ENOTTY)
- # define blk_trace_startstop(q, start)			(-ENOTTY)
- # define blk_trace_remove(q)				(-ENOTTY)
-diff --git a/include/trace/events/block.h b/include/trace/events/block.h
-index 8fb89574d8677f..0d782663a005dc 100644
---- a/include/trace/events/block.h
-+++ b/include/trace/events/block.h
-@@ -64,7 +64,6 @@ DEFINE_EVENT(block_buffer, block_dirty_buffer,
- 
- /**
-  * block_rq_requeue - place block IO request back on a queue
-- * @q: queue holding operation
-  * @rq: block IO operation request
-  *
-  * The block operation request @rq is being placed back into queue
-@@ -73,9 +72,9 @@ DEFINE_EVENT(block_buffer, block_dirty_buffer,
-  */
- TRACE_EVENT(block_rq_requeue,
- 
--	TP_PROTO(struct request_queue *q, struct request *rq),
-+	TP_PROTO(struct request *rq),
- 
--	TP_ARGS(q, rq),
-+	TP_ARGS(rq),
- 
- 	TP_STRUCT__entry(
- 		__field(  dev_t,	dev			)
-@@ -147,9 +146,9 @@ TRACE_EVENT(block_rq_complete,
- 
- DECLARE_EVENT_CLASS(block_rq,
- 
--	TP_PROTO(struct request_queue *q, struct request *rq),
-+	TP_PROTO(struct request *rq),
- 
--	TP_ARGS(q, rq),
-+	TP_ARGS(rq),
- 
- 	TP_STRUCT__entry(
- 		__field(  dev_t,	dev			)
-@@ -181,7 +180,6 @@ DECLARE_EVENT_CLASS(block_rq,
- 
- /**
-  * block_rq_insert - insert block operation request into queue
-- * @q: target queue
-  * @rq: block IO operation request
-  *
-  * Called immediately before block operation request @rq is inserted
-@@ -191,14 +189,13 @@ DECLARE_EVENT_CLASS(block_rq,
-  */
- DEFINE_EVENT(block_rq, block_rq_insert,
- 
--	TP_PROTO(struct request_queue *q, struct request *rq),
-+	TP_PROTO(struct request *rq),
- 
--	TP_ARGS(q, rq)
-+	TP_ARGS(rq)
- );
- 
- /**
-  * block_rq_issue - issue pending block IO request operation to device driver
-- * @q: queue holding operation
-  * @rq: block IO operation operation request
-  *
-  * Called when block operation request @rq from queue @q is sent to a
-@@ -206,14 +203,13 @@ DEFINE_EVENT(block_rq, block_rq_insert,
-  */
- DEFINE_EVENT(block_rq, block_rq_issue,
- 
--	TP_PROTO(struct request_queue *q, struct request *rq),
-+	TP_PROTO(struct request *rq),
- 
--	TP_ARGS(q, rq)
-+	TP_ARGS(rq)
- );
- 
- /**
-  * block_rq_merge - merge request with another one in the elevator
-- * @q: queue holding operation
-  * @rq: block IO operation operation request
-  *
-  * Called when block operation request @rq from queue @q is merged to another
-@@ -221,9 +217,9 @@ DEFINE_EVENT(block_rq, block_rq_issue,
-  */
- DEFINE_EVENT(block_rq, block_rq_merge,
- 
--	TP_PROTO(struct request_queue *q, struct request *rq),
-+	TP_PROTO(struct request *rq),
- 
--	TP_ARGS(q, rq)
-+	TP_ARGS(rq)
- );
- 
- /**
-@@ -491,7 +487,6 @@ TRACE_EVENT(block_bio_remap,
- 
- /**
-  * block_rq_remap - map request for a block operation request
-- * @q: queue holding the operation
-  * @rq: block IO operation request
-  * @dev: device for the operation
-  * @from: original sector for the operation
-@@ -502,10 +497,9 @@ TRACE_EVENT(block_bio_remap,
-  */
- TRACE_EVENT(block_rq_remap,
- 
--	TP_PROTO(struct request_queue *q, struct request *rq, dev_t dev,
--		 sector_t from),
-+	TP_PROTO(struct request *rq, dev_t dev, sector_t from),
- 
--	TP_ARGS(q, rq, dev, from),
-+	TP_ARGS(rq, dev, from),
- 
- 	TP_STRUCT__entry(
- 		__field( dev_t,		dev		)
-diff --git a/kernel/trace/blktrace.c b/kernel/trace/blktrace.c
-index 405637144a0389..7839a78205c243 100644
---- a/kernel/trace/blktrace.c
-+++ b/kernel/trace/blktrace.c
-@@ -795,12 +795,12 @@ static u64 blk_trace_bio_get_cgid(struct request_queue *q, struct bio *bio)
- #endif
- 
- static u64
--blk_trace_request_get_cgid(struct request_queue *q, struct request *rq)
-+blk_trace_request_get_cgid(struct request *rq)
- {
- 	if (!rq->bio)
- 		return 0;
- 	/* Use the first bio */
--	return blk_trace_bio_get_cgid(q, rq->bio);
-+	return blk_trace_bio_get_cgid(rq->q, rq->bio);
- }
- 
- /*
-@@ -841,40 +841,35 @@ static void blk_add_trace_rq(struct request *rq, int error,
- 	rcu_read_unlock();
- }
- 
--static void blk_add_trace_rq_insert(void *ignore,
--				    struct request_queue *q, struct request *rq)
-+static void blk_add_trace_rq_insert(void *ignore, struct request *rq)
- {
- 	blk_add_trace_rq(rq, 0, blk_rq_bytes(rq), BLK_TA_INSERT,
--			 blk_trace_request_get_cgid(q, rq));
-+			 blk_trace_request_get_cgid(rq));
- }
- 
--static void blk_add_trace_rq_issue(void *ignore,
--				   struct request_queue *q, struct request *rq)
-+static void blk_add_trace_rq_issue(void *ignore, struct request *rq)
- {
- 	blk_add_trace_rq(rq, 0, blk_rq_bytes(rq), BLK_TA_ISSUE,
--			 blk_trace_request_get_cgid(q, rq));
-+			 blk_trace_request_get_cgid(rq));
- }
- 
--static void blk_add_trace_rq_merge(void *ignore,
--				   struct request_queue *q, struct request *rq)
-+static void blk_add_trace_rq_merge(void *ignore, struct request *rq)
- {
- 	blk_add_trace_rq(rq, 0, blk_rq_bytes(rq), BLK_TA_BACKMERGE,
--			 blk_trace_request_get_cgid(q, rq));
-+			 blk_trace_request_get_cgid(rq));
- }
- 
--static void blk_add_trace_rq_requeue(void *ignore,
--				     struct request_queue *q,
--				     struct request *rq)
-+static void blk_add_trace_rq_requeue(void *ignore, struct request *rq)
- {
- 	blk_add_trace_rq(rq, 0, blk_rq_bytes(rq), BLK_TA_REQUEUE,
--			 blk_trace_request_get_cgid(q, rq));
-+			 blk_trace_request_get_cgid(rq));
- }
- 
- static void blk_add_trace_rq_complete(void *ignore, struct request *rq,
- 			int error, unsigned int nr_bytes)
- {
- 	blk_add_trace_rq(rq, error, nr_bytes, BLK_TA_COMPLETE,
--			 blk_trace_request_get_cgid(rq->q, rq));
-+			 blk_trace_request_get_cgid(rq));
- }
- 
- /**
-@@ -1037,16 +1032,14 @@ static void blk_add_trace_bio_remap(void *ignore, struct bio *bio, dev_t dev,
-  *     Add a trace for that action.
-  *
-  **/
--static void blk_add_trace_rq_remap(void *ignore,
--				   struct request_queue *q,
--				   struct request *rq, dev_t dev,
-+static void blk_add_trace_rq_remap(void *ignore, struct request *rq, dev_t dev,
- 				   sector_t from)
- {
- 	struct blk_trace *bt;
- 	struct blk_io_trace_remap r;
- 
- 	rcu_read_lock();
--	bt = rcu_dereference(q->blk_trace);
-+	bt = rcu_dereference(rq->q->blk_trace);
- 	if (likely(!bt)) {
- 		rcu_read_unlock();
- 		return;
-@@ -1058,13 +1051,12 @@ static void blk_add_trace_rq_remap(void *ignore,
- 
- 	__blk_add_trace(bt, blk_rq_pos(rq), blk_rq_bytes(rq),
- 			rq_data_dir(rq), 0, BLK_TA_REMAP, 0,
--			sizeof(r), &r, blk_trace_request_get_cgid(q, rq));
-+			sizeof(r), &r, blk_trace_request_get_cgid(rq));
- 	rcu_read_unlock();
- }
- 
- /**
-  * blk_add_driver_data - Add binary message with driver-specific data
-- * @q:		queue the io is for
-  * @rq:		io request
-  * @data:	driver-specific data
-  * @len:	length of driver-specific data
-@@ -1073,14 +1065,12 @@ static void blk_add_trace_rq_remap(void *ignore,
-  *     Some drivers might want to write driver-specific data per request.
-  *
-  **/
--void blk_add_driver_data(struct request_queue *q,
--			 struct request *rq,
--			 void *data, size_t len)
-+void blk_add_driver_data(struct request *rq, void *data, size_t len)
- {
- 	struct blk_trace *bt;
- 
- 	rcu_read_lock();
--	bt = rcu_dereference(q->blk_trace);
-+	bt = rcu_dereference(rq->q->blk_trace);
- 	if (likely(!bt)) {
- 		rcu_read_unlock();
- 		return;
-@@ -1088,7 +1078,7 @@ void blk_add_driver_data(struct request_queue *q,
- 
- 	__blk_add_trace(bt, blk_rq_trace_sector(rq), blk_rq_bytes(rq), 0, 0,
- 				BLK_TA_DRV_DATA, 0, len, data,
--				blk_trace_request_get_cgid(q, rq));
-+				blk_trace_request_get_cgid(rq));
- 	rcu_read_unlock();
- }
- EXPORT_SYMBOL_GPL(blk_add_driver_data);
--- 
-2.29.2
+Thank you for the patch. I agree that attempting to correct I/O errors
+when the system is shutting down, and thus generating more I/O that's
+likely going to fail, is not a good idea.
+
+>
+> Signed-off-by: Hyeongseok Kim <hyeongseok@gmail.com>
+> ---
+>  drivers/md/dm-verity-target.c | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
+> index f74982dcbea0..ba62c537798b 100644
+> --- a/drivers/md/dm-verity-target.c
+> +++ b/drivers/md/dm-verity-target.c
+> @@ -64,6 +64,15 @@ struct buffer_aux {
+>         int hash_verified;
+>  };
+>
+> +/*
+> + * While system shutdown, skip verity work for I/O error.
+> + */
+> +static inline bool verity_is_system_shutting_down(void)
+> +{
+> +       return system_state == SYSTEM_HALT || system_state == SYSTEM_POWER_OFF
+> +               || system_state == SYSTEM_RESTART;
+> +}
+
+Which of these states does the system get to during an emergency
+shutdown? Can we simplify this by changing the test to system_state >
+SYSTEM_RUNNING?
+
+> +
+>  /*
+>   * Initialize struct buffer_aux for a freshly created buffer.
+>   */
+> @@ -564,7 +573,8 @@ static void verity_end_io(struct bio *bio)
+>  {
+>         struct dm_verity_io *io = bio->bi_private;
+>
+> -       if (bio->bi_status && !verity_fec_is_enabled(io->v)) {
+> +       if (bio->bi_status &&
+> +               (!verity_fec_is_enabled(io->v) || verity_is_system_shutting_down())) {
+>                 verity_finish_io(io, bio->bi_status);
+>                 return;
+>         }
+
+Otherwise, this looks good to me. However, I'm now wondering if an I/O
+error should ever result in verity_handle_err() being called. Without
+FEC, dm-verity won't call verity_handle_err() when I/O fails, but with
+FEC enabled, it currently does, assuming error correction fails. Any
+thoughts?
+
+Sami
 
 --
 dm-devel mailing list
