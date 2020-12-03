@@ -2,67 +2,56 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 53A5C2CDB01
-	for <lists+dm-devel@lfdr.de>; Thu,  3 Dec 2020 17:18:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1109C2CDB52
+	for <lists+dm-devel@lfdr.de>; Thu,  3 Dec 2020 17:35:03 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-159-aGZOqzZ1PPy00hSKrQ4gEg-1; Thu, 03 Dec 2020 11:18:21 -0500
-X-MC-Unique: aGZOqzZ1PPy00hSKrQ4gEg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-218-fq0-YWkSNlSoKahYrsK4PA-1; Thu, 03 Dec 2020 11:34:41 -0500
+X-MC-Unique: fq0-YWkSNlSoKahYrsK4PA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2831481F02B;
-	Thu,  3 Dec 2020 16:18:15 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 031A41349A;
-	Thu,  3 Dec 2020 16:18:15 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A015610054FF;
+	Thu,  3 Dec 2020 16:34:35 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7CAE75D6BA;
+	Thu,  3 Dec 2020 16:34:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B40B6180954D;
-	Thu,  3 Dec 2020 16:18:14 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3A0744EA6C;
+	Thu,  3 Dec 2020 16:34:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B31merj001432 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Dec 2020 20:48:40 -0500
+	id 0B3GVsg4031483 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 3 Dec 2020 11:31:55 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 50E2B2166B2C; Thu,  3 Dec 2020 01:48:40 +0000 (UTC)
+	id AC0992026D3E; Thu,  3 Dec 2020 16:31:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4C0132166B29
-	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 01:48:37 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A75BD2026D49
+	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 16:31:51 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D07B0103B808
-	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 01:48:37 +0000 (UTC)
-Received: from out30-42.freemail.mail.aliyun.com
-	(out30-42.freemail.mail.aliyun.com [115.124.30.42]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-79-Vtry7K2KPCCAVJGV2r_MjQ-1;
-	Wed, 02 Dec 2020 20:48:35 -0500
-X-MC-Unique: Vtry7K2KPCCAVJGV2r_MjQ-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R771e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04395;
-	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=4; SR=0;
-	TI=SMTPD_---0UHMcpTK_1606960110
-Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0UHMcpTK_1606960110) by smtp.aliyun-inc.com(127.0.0.1);
-	Thu, 03 Dec 2020 09:48:31 +0800
-To: Mike Snitzer <snitzer@redhat.com>
-References: <20201201160709.31748-1-snitzer@redhat.com>
-	<20201202033855.60882-1-jefflexu@linux.alibaba.com>
-	<20201202033855.60882-2-jefflexu@linux.alibaba.com>
-	<feb19a02-5ece-505f-e905-86dc84cdb204@linux.alibaba.com>
-	<20201202050343.GA20535@redhat.com>
-	<7326607a-b687-3989-dee7-cf469ab37ac4@linux.alibaba.com>
-	<20201202151112.GD20535@redhat.com>
-From: JeffleXu <jefflexu@linux.alibaba.com>
-Message-ID: <353a132b-1430-60b0-3f17-979af1b8dd22@linux.alibaba.com>
-Date: Thu, 3 Dec 2020 09:48:30 +0800
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
-	Gecko/20100101 Thunderbird/78.5.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5C37210580C5
+	for <dm-devel@redhat.com>; Thu,  3 Dec 2020 16:31:51 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-547-eoVx-N-MMqCL5fPsj6fKqA-1; Thu, 03 Dec 2020 11:31:49 -0500
+X-MC-Unique: eoVx-N-MMqCL5fPsj6fKqA-1
+Received: from 213-225-0-143.nat.highway.a1.net ([213.225.0.143]
+	helo=localhost)
+	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+	id 1kkrMS-0005bN-Eo; Thu, 03 Dec 2020 16:21:41 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Jens Axboe <axboe@kernel.dk>
+Date: Thu,  3 Dec 2020 17:21:34 +0100
+Message-Id: <20201203162139.2110977-1-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20201202151112.GD20535@redhat.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -71,12 +60,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Thu, 03 Dec 2020 11:17:59 -0500
-Cc: linux-block@vger.kernel.org, joseph.qi@linux.alibaba.com,
-	dm-devel@redhat.com
-Subject: Re: [dm-devel] dm: use gcd() to fix chunk_sectors limit stacking
+Cc: Tejun Heo <tj@kernel.org>, linux-block@vger.kernel.org, dm-devel@redhat.com,
+	linux-raid@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: [dm-devel] block tracepoint cleanups v2
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,44 +78,44 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+Hi Jens,
+
+this series cleans up the block layer tracepoints by removing unused
+tracepoints or tracepoint arguments and consolidating the implementation
+of various bio based tracepoints.
+
+Changes since v1:
+ - a few commit log typo fixes and improvements
 
 
-On 12/2/20 11:11 PM, Mike Snitzer wrote:
-> On Wed, Dec 02 2020 at  2:10am -0500,
-> JeffleXu <jefflexu@linux.alibaba.com> wrote:
-> 
->>
->>
->> On 12/2/20 1:03 PM, Mike Snitzer wrote:
->>> What you've done here is fairly chaotic/disruptive:
->>> 1) you emailed a patch out that isn't needed or ideal, I dealt already
->>>    staged a DM fix in linux-next for 5.10-rcX, see:
->>>    https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/commit/?h=dm-5.10-rcX&id=f28de262ddf09b635095bdeaf0e07ff507b3c41b
->>
->> Then ti->type->io_hints() is still bypassed when type->iterate_devices()
->> not defined?
-> 
-> Yes, the stacking of limits really is tightly coupled to device-based
-> influence.  Hypothetically some DM target that doesn't remap to any data
-> devices may want to override limits... in practice there isn't a need
-> for this.  If that changes we can take action to accommodate it.. but I'm
-> definitely not interested in modifying DM core in this area when there
-> isn't a demonstrated need.
-
-Thanks.
-
--- 
-Thanks,
-Jeffle
+Diffstat:
+ block/blk-core.c              |    4 
+ block/blk-merge.c             |    8 -
+ block/blk-mq-sched.c          |    2 
+ block/blk-mq.c                |   10 -
+ block/bounce.c                |    2 
+ drivers/md/dm-rq.c            |    2 
+ drivers/md/dm.c               |    5 
+ drivers/md/md-linear.c        |    3 
+ drivers/md/md.c               |    5 
+ drivers/md/raid0.c            |    4 
+ drivers/md/raid1.c            |    7 -
+ drivers/md/raid10.c           |    6 -
+ drivers/md/raid5.c            |   15 +-
+ drivers/nvme/host/multipath.c |    3 
+ drivers/s390/scsi/zfcp_fsf.c  |    3 
+ include/linux/blktrace_api.h  |    5 
+ include/trace/events/block.h  |  228 +++++++++---------------------------------
+ kernel/trace/blktrace.c       |  126 ++++++-----------------
+ 18 files changed, 125 insertions(+), 313 deletions(-)
 
 --
 dm-devel mailing list
