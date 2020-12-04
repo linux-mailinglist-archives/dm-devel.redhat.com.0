@@ -2,54 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A70F02D0DA4
-	for <lists+dm-devel@lfdr.de>; Mon,  7 Dec 2020 11:00:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7EE0E2D0DA2
+	for <lists+dm-devel@lfdr.de>; Mon,  7 Dec 2020 11:00:23 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-228-BV1znuw-PHanf_CZVBXUuw-1; Mon, 07 Dec 2020 05:00:21 -0500
-X-MC-Unique: BV1znuw-PHanf_CZVBXUuw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-510-YqIAsbyxMaCiPYyTWUBnag-1; Mon, 07 Dec 2020 05:00:20 -0500
+X-MC-Unique: YqIAsbyxMaCiPYyTWUBnag-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 33CBE102CB7D;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 00364102CB76;
 	Mon,  7 Dec 2020 09:59:58 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E938E10023B0;
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C9F702BCC6;
 	Mon,  7 Dec 2020 09:59:57 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8C7B24BB7B;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7CB16180954D;
 	Mon,  7 Dec 2020 09:59:57 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B4EeHEh026909 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 4 Dec 2020 09:40:17 -0500
+	id 0B4HCBmJ014078 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 4 Dec 2020 12:12:11 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5A12B20296B6; Fri,  4 Dec 2020 14:40:17 +0000 (UTC)
+	id 11E5C2166B31; Fri,  4 Dec 2020 17:12:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 534B7200E21C
-	for <dm-devel@redhat.com>; Fri,  4 Dec 2020 14:40:14 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0CBF32166B2C
+	for <dm-devel@redhat.com>; Fri,  4 Dec 2020 17:12:08 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 23D56858287
-	for <dm-devel@redhat.com>; Fri,  4 Dec 2020 14:40:14 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-19-mUaH_0pZMd-73qw7Tthfug-1; 
-	Fri, 04 Dec 2020 09:40:11 -0500
-X-MC-Unique: mUaH_0pZMd-73qw7Tthfug-1
-Date: Fri, 4 Dec 2020 23:40:03 +0900
-From: Keith Busch <kbusch@kernel.org>
-To: Damien Le Moal <Damien.LeMoal@wdc.com>
-Message-ID: <20201204144003.GA8868@redsun51.ssa.fujisawa.hgst.com>
-References: <CGME20201204094719epcas5p23b3c41223897de3840f92ae3c229cda5@epcas5p2.samsung.com>
-	<20201204094659.12732-1-selvakuma.s1@samsung.com>
-	<CH2PR04MB6522F1188557C829285ED5E8E7F10@CH2PR04MB6522.namprd04.prod.outlook.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8926F108C0A1
+	for <dm-devel@redhat.com>; Fri,  4 Dec 2020 17:12:08 +0000 (UTC)
+Received: from latitanza.investici.org (latitanza.investici.org
+	[82.94.249.234]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-568-b5nMIGdHNhiV-nMLz9he-g-1; Fri, 04 Dec 2020 12:12:06 -0500
+X-MC-Unique: b5nMIGdHNhiV-nMLz9he-g-1
+Received: from mx3.investici.org (unknown [127.0.0.1])
+	by latitanza.investici.org (Postfix) with ESMTP id 4CnfF12X1nz8shk;
+	Fri,  4 Dec 2020 17:04:05 +0000 (UTC)
+Received: from [82.94.249.234] (mx3.investici.org [82.94.249.234])
+	(Authenticated sender: laniel_francis@privacyrequired.com) by
+	localhost (Postfix) with ESMTPSA id 4CnfDy1SRgz8sfb; 
+	Fri,  4 Dec 2020 17:04:02 +0000 (UTC)
+From: laniel_francis@privacyrequired.com
+To: Russell King <linux@armlinux.org.uk>, Hauke Mehrtens <hauke@hauke-m.de>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	bcm-kernel-feedback-list@broadcom.com,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>, Ard Biesheuvel <ardb@kernel.org>,
+	Tomi Valkeinen <tomi.valkeinen@ti.com>,
+	David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
+	dm-devel@redhat.com, Bin Liu <b-liu@ti.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jessica Yu <jeyu@kernel.org>
+Date: Fri,  4 Dec 2020 18:03:06 +0100
+Message-Id: <20201204170319.20383-1-laniel_francis@privacyrequired.com>
 MIME-Version: 1.0
-In-Reply-To: <CH2PR04MB6522F1188557C829285ED5E8E7F10@CH2PR04MB6522.namprd04.prod.outlook.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -58,23 +74,19 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0B4HCBmJ014078
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 07 Dec 2020 04:59:37 -0500
-Cc: "axboe@kernel.dk" <axboe@kernel.dk>,
-	SelvaKumar S <selvakuma.s1@samsung.com>,
-	"sagi@grimberg.me" <sagi@grimberg.me>,
-	"snitzer@redhat.com" <snitzer@redhat.com>,
-	"selvajove@gmail.com" <selvajove@gmail.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
-	"nj.shetty@samsung.com" <nj.shetty@samsung.com>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"joshi.k@samsung.com" <joshi.k@samsung.com>,
-	"javier.gonz@samsung.com" <javier.gonz@samsung.com>,
-	"hch@lst.de" <hch@lst.de>
-Subject: Re: [dm-devel] [RFC PATCH v2 0/2] add simple copy support
+Cc: linux-efi@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-ide@vger.kernel.org, linux-crypto@vger.kernel.org,
+	Francis Laniel <laniel_francis@privacyrequired.com>,
+	linux-arm-kernel@lists.infradead.org
+Subject: [dm-devel] [RFC PATCH v1 00/12] Replace strstarts() by
+	str_has_prefix()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -88,54 +100,96 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Dec 04, 2020 at 11:25:12AM +0000, Damien Le Moal wrote:
-> On 2020/12/04 20:02, SelvaKumar S wrote:
-> > This patchset tries to add support for TP4065a ("Simple Copy Command"),
-> > v2020.05.04 ("Ratified")
-> > 
-> > The Specification can be found in following link.
-> > https://nvmexpress.org/wp-content/uploads/NVM-Express-1.4-Ratified-TPs-1.zip
-> > 
-> > This is an RFC. Looking forward for any feedbacks or other alternate
-> > designs for plumbing simple copy to IO stack.
-> > 
-> > Simple copy command is a copy offloading operation and is  used to copy
-> > multiple contiguous ranges (source_ranges) of LBA's to a single destination
-> > LBA within the device reducing traffic between host and device.
-> > 
-> > This implementation accepts destination, no of sources and arrays of
-> > source ranges from application and attach it as payload to the bio and
-> > submits to the device.
-> > 
-> > Following limits are added to queue limits and are exposed in sysfs
-> > to userspace
-> > 	- *max_copy_sectors* limits the sum of all source_range length
-> > 	- *max_copy_nr_ranges* limits the number of source ranges
-> > 	- *max_copy_range_sectors* limit the maximum number of sectors
-> > 		that can constitute a single source range.
-> 
-> Same comment as before. I think this is a good start, but for this to be really
-> useful to users and kernel components alike, this really needs copy emulation
-> for drives that do not have a native copy feature, similarly to what write zeros
-> handling for instance: if the drive does not have a copy command (simple copy
-> for NVMe or XCOPY for scsi), then the block layer should issue read/write
-> commands to seamlessly execute the copy. Otherwise, this will only serve a small
-> niche for users and will not be optimal for FS and DM drivers that could be
-> simplified with a generic block layer copy functionality.
-> 
-> This is my 10 cents though, others may differ about this.
+From: Francis Laniel <laniel_francis@privacyrequired.com>
 
-Yes, I agree that copy emulation support should be included with the
-hardware enabled solution.
+Hi.
+
+
+First, I hope you are fine and the same for your relatives.
+
+In this patch set, I replaced all calls to strstarts() by calls to
+str_has_prefix().
+Indeed, the kernel has two functions to test if a string begins with an other:
+1. strstarts() which returns a bool, so 1 if the string begins with the prefix,
+0 otherwise.
+2. str_has_prefix() which returns the length of the prefix or 0.
+
+str_has_prefix() was introduced later than strstarts(), in commit 495d714ad140
+which also stated that str_has_prefix() should replace strstarts().
+This is what this patch set does.
+
+Concerning the patches, the modifications cover different areas of the kernel.
+I compiled all of them and they compile smoothly.
+Unfortunately, I did not test all of them, so here are the status of the patches
+regarding test:
+1. Tested with qemu-system-arm using insmod.
+2. I do not have access to a bcm47xx MIPS CPU an qemu-system-mips does not
+emulate this board.
+3. Tested with qemu-system-x86_64 calling
+crypto_alloc_skcipher("essiv(authenc(hmac(sha256),cbc(aes)),sha256)", 0, 0)
+through LKDTM.
+4. Tested with qemu-system-x86_64 using crypsetup.
+5. I do not have access to a renesas board and I lack some context to test it
+with qemu-system-arm.
+6. I do not have access to an OMAP board and I lack some context to test it with
+qemu-system-arm.
+7. I did not find how to boot from the EFI_STUB with qemu. If you know how to
+do, I would be happy to try running this code.
+8. I ran qemu-system-x86_64 with a floppy disk attached but impossible to go
+through this module code...
+9. I do not have access to a bcm63xx MIPS CPU an qemu-system-mips does not
+emulate this board.
+10. Tested with qemu-system-x86_64 using insmod.
+11. I do not have access to an AM335x or DA8xx platforms and I lack some context
+to test it with qemu-system-arm.
+
+If you see a way to improve the patches or if I did something wrong with the
+mail do not hesitate to ask.
+
+
+Best regards.
+
+Francis Laniel (12):
+  arm: Replace strstarts() by str_has_prefix().
+  mips: Replace strstarts() by str_has_prefix().
+  crypto: Replace strstarts() by str_has_prefix().
+  device-mapper: Replace strstarts() by str_has_prefix().
+  renesas: Replace strstarts() by str_has_prefix().
+  omap: Replace strstarts() by str_has_prefix().
+  efi: Replace strstarts() by str_has_prefix().
+  ide: Replace strstarts() by str_has_prefix().
+  mips: Replace strstarts() by str_has_prefix().
+  module: Replace strstarts() by str_has_prefix().
+  musb: Replace strstarts() by str_has_prefix().
+  string.h: Remove strstarts().
+
+ arch/arm/kernel/module.c                      | 12 +++++------
+ arch/mips/bcm47xx/board.c                     |  4 ++--
+ arch/mips/bcm63xx/boards/board_bcm963xx.c     |  2 +-
+ crypto/essiv.c                                |  2 +-
+ .../firmware/efi/libstub/efi-stub-helper.c    |  2 +-
+ drivers/firmware/efi/libstub/gop.c            | 10 +++++-----
+ drivers/gpu/drm/omapdrm/dss/base.c            |  2 +-
+ drivers/gpu/drm/rcar-du/rcar_du_crtc.c        |  2 +-
+ drivers/ide/ide-floppy.c                      |  4 ++--
+ drivers/md/dm-crypt.c                         |  4 ++--
+ drivers/usb/musb/musb_cppi41.c                |  4 ++--
+ drivers/usb/musb/musb_debugfs.c               | 20 +++++++++----------
+ include/linux/string.h                        | 10 ----------
+ kernel/module.c                               |  6 +++---
+ 14 files changed, 37 insertions(+), 47 deletions(-)
+
+-- 
+2.20.1
+
 
 --
 dm-devel mailing list
