@@ -1,93 +1,80 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B17B42CF35A
-	for <lists+dm-devel@lfdr.de>; Fri,  4 Dec 2020 18:50:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1607104235;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=rXNCqBorZIYwkDDgOzqLEURfUKc4HZRettV+cEn+A0w=;
-	b=GEhGnNDirSIoTS9xQzgnzSnjLEA5Mm6pxaU9BUq1NE/QTEsfmt5fVT51QOLO0b2h/l7fHk
-	rgwU2p4ab242+rESYPp0wDffCTVGM/a5Xz6cCrAB6erkoNlaGpx0SPSUh+OnLtBH0ChYkW
-	nj6J6/EA2dHIyPbIFfs26l1aGgs2FEI=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id E06E62CF36D
+	for <lists+dm-devel@lfdr.de>; Fri,  4 Dec 2020 18:57:34 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-384-e6F8dW0LP0yxjfa3B-vLXw-1; Fri, 04 Dec 2020 12:50:33 -0500
-X-MC-Unique: e6F8dW0LP0yxjfa3B-vLXw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-53-AvOrn9JEPWKWPhKM0D6HeQ-1; Fri, 04 Dec 2020 12:57:31 -0500
+X-MC-Unique: AvOrn9JEPWKWPhKM0D6HeQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 504CB57201;
-	Fri,  4 Dec 2020 17:50:27 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A0D5D180E46E;
+	Fri,  4 Dec 2020 17:57:24 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 57CC85D9CC;
-	Fri,  4 Dec 2020 17:50:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E29F560C04;
+	Fri,  4 Dec 2020 17:57:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7A9924BB7B;
-	Fri,  4 Dec 2020 17:50:17 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7AA904BB7B;
+	Fri,  4 Dec 2020 17:57:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B4Ho6uo017248 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 4 Dec 2020 12:50:06 -0500
+	id 0B4Hv8kE017703 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 4 Dec 2020 12:57:08 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4BCDE2166B32; Fri,  4 Dec 2020 17:50:06 +0000 (UTC)
+	id 83275108473; Fri,  4 Dec 2020 17:57:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 472652166B2F
-	for <dm-devel@redhat.com>; Fri,  4 Dec 2020 17:50:04 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7DDAA108479
+	for <dm-devel@redhat.com>; Fri,  4 Dec 2020 17:57:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0985310580C1
-	for <dm-devel@redhat.com>; Fri,  4 Dec 2020 17:50:04 +0000 (UTC)
-Received: from mail-qt1-f196.google.com (mail-qt1-f196.google.com
-	[209.85.160.196]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-288-eI06SyfDNOu-7eP6lOtZtQ-1; Fri, 04 Dec 2020 12:49:59 -0500
-X-MC-Unique: eI06SyfDNOu-7eP6lOtZtQ-1
-Received: by mail-qt1-f196.google.com with SMTP id z9so4531597qtn.4;
-	Fri, 04 Dec 2020 09:49:59 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
-	:references:mime-version:content-disposition:in-reply-to;
-	bh=oitHTfBdVphAOM+mbFAdZYptH/VPFC/0n1/PDOfj93Y=;
-	b=YnOrCq33m3nULLcs2gG93J+9AQapLq+xPEm7jyQPg4nmqxvrV1YTgULblhI9mz+grP
-	dCRtR7Bg0pWbLufQjlhzwt5euwUswehtYetg5L1wp/DX6V7jkVrv8uEvc1+8gmb0nXtn
-	2LuNXUCq38AJ93YQS3EmfUqPVNRpBQIZP2EPEnVMiM6DCP98oGg6+bf9Ay8Ac0V64GgP
-	0CNf1W6jzCopi2/FnB6xf99g8xSU0vvwwgfcSLZy3yDW85007EuoLDVj6ic6Quf1M7s/
-	JIK2nPUKY+kTxWe5z/IuCwiO45kwAyX4XJeFkcFMR+hiX3ORlPR5YgcC9hNxjttPDUab
-	fJhQ==
-X-Gm-Message-State: AOAM532lR4cTrGl8nRNuxbjOk02QZIJaQyUIdqDePiQtsNp1CQfCExNH
-	t2bIVcb5SUrc/pBNBYUuLfek7vgtKx0O3A==
-X-Google-Smtp-Source: ABdhPJyPbVuo1ABXSDkwor+v9nZkKMGg0Vz3OqeqMWB2otHrjLqpPIPjyf/Ul5xGTD7DxsuPvyJ5ig==
-X-Received: by 2002:ac8:7395:: with SMTP id t21mr10555669qtp.358.1607104198922;
-	Fri, 04 Dec 2020 09:49:58 -0800 (PST)
-Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
-	[68.160.176.52]) by smtp.gmail.com with ESMTPSA id
-	r18sm5554061qtp.89.2020.12.04.09.49.58
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Fri, 04 Dec 2020 09:49:58 -0800 (PST)
-Date: Fri, 4 Dec 2020 12:49:57 -0500
-From: Mike Snitzer <snitzer@redhat.com>
-To: Ming Lei <ming.lei@redhat.com>, axboe@kernel.dk
-Message-ID: <20201204174957.GA61818@lobo>
-References: <20201130171805.77712-1-snitzer@redhat.com>
-	<20201201160709.31748-1-snitzer@redhat.com>
-	<20201203032608.GD540033@T590> <20201203143359.GA29261@redhat.com>
-	<20201204011243.GB661914@T590> <20201204020343.GA32150@redhat.com>
-	<20201204035924.GD661914@T590> <20201204164759.GA2761@redhat.com>
-	<20201204173238.GA59222@lobo>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3D82F800B3B
+	for <dm-devel@redhat.com>; Fri,  4 Dec 2020 17:57:06 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com
+	(bedivere.hansenpartnership.com [96.44.175.130]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-515-k8b9gcf4Ni-7j96giNAYQw-1;
+	Fri, 04 Dec 2020 12:57:02 -0500
+X-MC-Unique: k8b9gcf4Ni-7j96giNAYQw-1
+Received: from localhost (localhost [127.0.0.1])
+	by bedivere.hansenpartnership.com (Postfix) with ESMTP id EFE5C12806D3; 
+	Fri,  4 Dec 2020 09:57:00 -0800 (PST)
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+	port 10024)
+	with ESMTP id INp-1Jb0T2J6; Fri,  4 Dec 2020 09:57:00 -0800 (PST)
+Received: from jarvis.int.hansenpartnership.com (unknown
+	[IPv6:2601:600:8280:66d1::527])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id
+	92AB012806D2; Fri,  4 Dec 2020 09:56:59 -0800 (PST)
+Message-ID: <d706cdbcc4eba3fb3fe17453017a6623f1ec80dc.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@hansenpartnership.com>
+To: laniel_francis@privacyrequired.com, Russell King <linux@armlinux.org.uk>,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	=?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, Thomas Bogendoerfer
+	<tsbogend@alpha.franken.de>, Florian Fainelli <f.fainelli@gmail.com>,
+	bcm-kernel-feedback-list@broadcom.com, Herbert Xu
+	<herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>,
+	Ard Biesheuvel <ardb@kernel.org>, Tomi Valkeinen <tomi.valkeinen@ti.com>,
+	David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Laurent
+	Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham
+	<kieran.bingham+renesas@ideasonboard.com>, Alasdair Kergon
+	<agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
+	dm-devel@redhat.com, Bin Liu <b-liu@ti.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jessica Yu <jeyu@kernel.org>
+Date: Fri, 04 Dec 2020 09:56:58 -0800
+In-Reply-To: <20201204170319.20383-1-laniel_francis@privacyrequired.com>
+References: <20201204170319.20383-1-laniel_francis@privacyrequired.com>
+User-Agent: Evolution 3.34.4
 MIME-Version: 1.0
-In-Reply-To: <20201204173238.GA59222@lobo>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -96,12 +83,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: linux-block@vger.kernel.org, dm-devel@redhat.com, bjohnsto@redhat.com,
-	jdorminy@redhat.com, martin.petersen@oracle.com
-Subject: Re: [dm-devel] [RFC PATCH] dm: fix IO splitting [was: Re: [PATCH
- v2] block: use gcd() to fix chunk_sectors limit stacking]
+Cc: linux-efi@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-ide@vger.kernel.org, linux-crypto@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [dm-devel] [RFC PATCH v1 00/12] Replace strstarts() by
+	str_has_prefix()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -115,165 +105,39 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Dec 04 2020 at 12:32P -0500,
-Mike Snitzer <snitzer@redhat.com> wrote:
+On Fri, 2020-12-04 at 18:03 +0100, laniel_francis@privacyrequired.com
+wrote:
+> In this patch set, I replaced all calls to strstarts() by calls to
+> str_has_prefix(). Indeed, the kernel has two functions to test if a
+> string begins with an other:
+> 1. strstarts() which returns a bool, so 1 if the string begins with
+> the prefix,0 otherwise.
+> 2. str_has_prefix() which returns the length of the prefix or 0.
+> 
+> str_has_prefix() was introduced later than strstarts(), in commit
+> 495d714ad140 which also stated that str_has_prefix() should replace
+> strstarts(). This is what this patch set does.
 
-> On Fri, Dec 04 2020 at 11:47P -0500,
-> Mike Snitzer <snitzer@redhat.com> wrote:
-> 
-> > On Thu, Dec 03 2020 at 10:59pm -0500,
-> > Ming Lei <ming.lei@redhat.com> wrote:
-> > 
-> > > On Thu, Dec 03, 2020 at 09:03:43PM -0500, Mike Snitzer wrote:
-> > > > Stacking chunk_sectors seems ill-conceived.  One size-fits-all splitting
-> > > > is too rigid.
-> > > 
-> > > DM/VDO knows exactly it is one hard chunk_sectors limit, and DM shouldn't play
-> > > the stacking trick on VDO's chunk_sectors limit, should it?
-> > 
-> > Feel like I already answered this in detail but... correct, DM cannot
-> > and should not use stacked chunk_sectors as basis for splitting.
-> > 
-> > Up until 5.9, where I changed DM core to set and then use chunk_sectors
-> > for splitting via blk_max_size_offset(), DM only used its own per-target
-> > ti->max_io_len in drivers/md/dm.c:max_io_len().
-> > 
-> > But I reverted back to DM's pre-5.9 splitting in this stable@ fix that
-> > I'll be sending to Linus today for 5.10-rcX:
-> > https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/commit/?h=dm-5.10-rcX&id=6bb38bcc33bf3093c08bd1b71e4f20c82bb60dd1
-> > 
-> > DM is now back to pre-5.9 behavior where it doesn't even consider
-> > chunk_sectors for splitting (NOTE: dm-zoned sets ti->max_io_len though
-> > so it is effectively achieves the same boundary splits via max_io_len).
-> 
-> Last question for all, I'd be fine with the following fix instead of
-> the above referenced commit 6bb38bcc33. It'd allow DM to continue to
-> use blk_max_size_offset(), any opinions?
-> 
-> From: Mike Snitzer <snitzer@redhat.com>
-> Date: Fri, 4 Dec 2020 12:03:25 -0500
-> Subject: [RFC PATCH] dm: fix IO splitting
-> 
-> FIXME: add proper header
-> Add chunk_sectors override to blk_max_size_offset().
-> 
-> Signed-off-by: Mike Snitzer <snitzer@redhat.com>
-> ---
->  block/blk-merge.c      |  2 +-
->  drivers/md/dm-table.c  |  5 -----
->  drivers/md/dm.c        | 19 +++++++++++--------
->  include/linux/blkdev.h |  9 +++++----
->  4 files changed, 17 insertions(+), 18 deletions(-)
-> 
-> diff --git a/block/blk-merge.c b/block/blk-merge.c
-> index bcf5e4580603..97b7c2821565 100644
-> --- a/block/blk-merge.c
-> +++ b/block/blk-merge.c
-> @@ -144,7 +144,7 @@ static struct bio *blk_bio_write_same_split(struct request_queue *q,
->  static inline unsigned get_max_io_size(struct request_queue *q,
->  				       struct bio *bio)
->  {
-> -	unsigned sectors = blk_max_size_offset(q, bio->bi_iter.bi_sector);
-> +	unsigned sectors = blk_max_size_offset(q, bio->bi_iter.bi_sector, 0);
->  	unsigned max_sectors = sectors;
->  	unsigned pbs = queue_physical_block_size(q) >> SECTOR_SHIFT;
->  	unsigned lbs = queue_logical_block_size(q) >> SECTOR_SHIFT;
-> diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-> index 2073ee8d18f4..7eeb7c4169c9 100644
-> --- a/drivers/md/dm-table.c
-> +++ b/drivers/md/dm-table.c
-> @@ -18,7 +18,6 @@
->  #include <linux/mutex.h>
->  #include <linux/delay.h>
->  #include <linux/atomic.h>
-> -#include <linux/lcm.h>
->  #include <linux/blk-mq.h>
->  #include <linux/mount.h>
->  #include <linux/dax.h>
-> @@ -1449,10 +1448,6 @@ int dm_calculate_queue_limits(struct dm_table *table,
->  			zone_sectors = ti_limits.chunk_sectors;
->  		}
->  
-> -		/* Stack chunk_sectors if target-specific splitting is required */
-> -		if (ti->max_io_len)
-> -			ti_limits.chunk_sectors = lcm_not_zero(ti->max_io_len,
-> -							       ti_limits.chunk_sectors);
->  		/* Set I/O hints portion of queue limits */
->  		if (ti->type->io_hints)
->  			ti->type->io_hints(ti, &ti_limits);
-> diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-> index 98866e725f25..f7eb3d2964f3 100644
-> --- a/drivers/md/dm.c
-> +++ b/drivers/md/dm.c
-> @@ -1039,15 +1039,18 @@ static sector_t max_io_len(struct dm_target *ti, sector_t sector)
->  	sector_t max_len;
->  
->  	/*
-> -	 * Does the target need to split even further?
-> -	 * - q->limits.chunk_sectors reflects ti->max_io_len so
-> -	 *   blk_max_size_offset() provides required splitting.
-> -	 * - blk_max_size_offset() also respects q->limits.max_sectors
-> +	 * Does the target need to split IO even further?
-> +	 * - varied (per target) IO splitting is a tenet of DM; this
-> +	 *   explains why stacked chunk_sectors based splitting via
-> +	 *   blk_max_size_offset() isn't possible here. So pass in
-> +	 *   ti->max_io_len to override stacked chunk_sectors.
->  	 */
-> -	max_len = blk_max_size_offset(ti->table->md->queue,
-> -				      target_offset);
-> -	if (len > max_len)
-> -		len = max_len;
-> +	if (ti->max_io_len) {
-> +		max_len = blk_max_size_offset(ti->table->md->queue,
-> +					      target_offset, ti->max_io_len);
-> +		if (len > max_len)
-> +			len = max_len;
-> +	}
->  
->  	return len;
->  }
-> diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-> index 639cae2c158b..f56dc5497e67 100644
-> --- a/include/linux/blkdev.h
-> +++ b/include/linux/blkdev.h
-> @@ -1073,11 +1073,12 @@ static inline unsigned int blk_queue_get_max_sectors(struct request_queue *q,
->   * file system requests.
->   */
->  static inline unsigned int blk_max_size_offset(struct request_queue *q,
-> -					       sector_t offset)
-> +					       sector_t offset,
-> +					       unsigned int chunk_sectors)
->  {
-> -	unsigned int chunk_sectors = q->limits.chunk_sectors;
-> -
-> -	if (!chunk_sectors)
-> +	if (!chunk_sectors && q->limits.chunk_sectors)
-> +		chunk_sectors = q->limits.chunk_sectors;
-> +	else
->  		return q->limits.max_sectors;
->  
->  	if (likely(is_power_of_2(chunk_sectors)))
+What's the reason why?  If you look at the use cases for the
+replacement of strstart()  they're all cases where we need to know the
+length we're skipping and this is hard coded, leading to potential
+errors later.  This is a classic example:  3d739c1f6156 ("tracing: Use
+the return of str_has_prefix() to remove open coded numbers").  However
+you're not doing this transformation in the conversion, so the
+conversion is pretty useless.  I also see no case for replacing
+strstart() where we're using it simply as a boolean without needing to
+know the length of the prefix.
 
-FYI, above blkdev.h diff missed this hunk:
+James
 
-@@ -1101,7 +1102,7 @@ static inline unsigned int blk_rq_get_max_sectors(struct request *rq,
- 	    req_op(rq) == REQ_OP_SECURE_ERASE)
- 		return blk_queue_get_max_sectors(q, req_op(rq));
- 
--	return min(blk_max_size_offset(q, offset),
-+	return min(blk_max_size_offset(q, offset, 0),
- 			blk_queue_get_max_sectors(q, req_op(rq)));
- }
- 
 
 --
 dm-devel mailing list
