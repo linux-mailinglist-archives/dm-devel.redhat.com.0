@@ -1,58 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4FEAA2D1256
-	for <lists+dm-devel@lfdr.de>; Mon,  7 Dec 2020 14:42:25 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 3BA8E2D132C
+	for <lists+dm-devel@lfdr.de>; Mon,  7 Dec 2020 15:12:02 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-39-inCO5fCAO_2qkpnh1e1eOA-1; Mon, 07 Dec 2020 08:42:22 -0500
-X-MC-Unique: inCO5fCAO_2qkpnh1e1eOA-1
+ us-mta-128-pcrKB-hEPnqp_fDKTo3pFA-1; Mon, 07 Dec 2020 09:11:58 -0500
+X-MC-Unique: pcrKB-hEPnqp_fDKTo3pFA-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D1827185E486;
-	Mon,  7 Dec 2020 13:42:15 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AB6715D9E2;
-	Mon,  7 Dec 2020 13:42:15 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 782979CC0D;
+	Mon,  7 Dec 2020 14:11:51 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4C3195D9E2;
+	Mon,  7 Dec 2020 14:11:50 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 350B81809CA2;
-	Mon,  7 Dec 2020 13:42:15 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4BD204BB7B;
+	Mon,  7 Dec 2020 14:11:42 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B7Dg2B1010170 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 7 Dec 2020 08:42:02 -0500
+	id 0B7EBYUq014962 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 7 Dec 2020 09:11:34 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id AA06342AC1; Mon,  7 Dec 2020 13:42:02 +0000 (UTC)
+	id 436322166B2D; Mon,  7 Dec 2020 14:11:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A4D206379C
-	for <dm-devel@redhat.com>; Mon,  7 Dec 2020 13:41:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3DF442166B2B
+	for <dm-devel@redhat.com>; Mon,  7 Dec 2020 14:11:31 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 836A9100B16C
-	for <dm-devel@redhat.com>; Mon,  7 Dec 2020 13:41:59 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-133-xJLY9by4P1iUpxOYtv44VA-1; Mon, 07 Dec 2020 08:41:55 -0500
-X-MC-Unique: xJLY9by4P1iUpxOYtv44VA-1
-Received: from [2001:4bb8:188:f36:4fd9:254f:b3b5:5284] (helo=localhost)
-	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-	id 1kmGSQ-0006Pe-By; Mon, 07 Dec 2020 13:21:38 +0000
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BA5E81875041
+	for <dm-devel@redhat.com>; Mon,  7 Dec 2020 14:11:31 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-227-9O_svM-7OKSn4tbWHpyrcw-1;
+	Mon, 07 Dec 2020 09:11:26 -0500
+X-MC-Unique: 9O_svM-7OKSn4tbWHpyrcw-1
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 7321567373; Mon,  7 Dec 2020 15:11:23 +0100 (CET)
+Date: Mon, 7 Dec 2020 15:11:23 +0100
 From: Christoph Hellwig <hch@lst.de>
-To: Jens Axboe <axboe@kernel.dk>
-Date: Mon,  7 Dec 2020 14:19:18 +0100
-Message-Id: <20201207131918.2252553-7-hch@lst.de>
-In-Reply-To: <20201207131918.2252553-1-hch@lst.de>
-References: <20201207131918.2252553-1-hch@lst.de>
+To: SelvaKumar S <selvakuma.s1@samsung.com>
+Message-ID: <20201207141123.GC31159@lst.de>
+References: <CGME20201204094719epcas5p23b3c41223897de3840f92ae3c229cda5@epcas5p2.samsung.com>
+	<20201204094659.12732-1-selvakuma.s1@samsung.com>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	casper.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20201204094659.12732-1-selvakuma.s1@samsung.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,17 +59,18 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: Sagi Grimberg <sagi@grimberg.me>, Mike Snitzer <snitzer@redhat.com>,
-	Oleksii Kurochko <olkuroch@cisco.com>,
-	Dongsheng Yang <dongsheng.yang@easystack.cn>,
-	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	linux-nvme@lists.infradead.org,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Ilya Dryomov <idryomov@gmail.com>, ceph-devel@vger.kernel.org
-Subject: [dm-devel] [PATCH 6/6] nvme: allow revalidate to set a namespace
-	read-only
+Cc: axboe@kernel.dk, damien.lemoal@wdc.com, sagi@grimberg.me,
+	snitzer@redhat.com, selvajove@gmail.com,
+	linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+	nj.shetty@samsung.com, linux-block@vger.kernel.org,
+	dm-devel@redhat.com, Mikulas Patocka <mpatocka@redhat.com>,
+	joshi.k@samsung.com, "Martin K. Petersen" <martin.petersen@oracle.com>,
+	kbusch@kernel.org, javier.gonz@samsung.com,
+	linux-scsi@vger.kernel.org, hch@lst.de,
+	Bart Van Assche <bvanassche@acm.org>
+Subject: Re: [dm-devel] [RFC PATCH v2 0/2] add simple copy support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,36 +89,85 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Unconditionally call set_disk_ro now that it only updates the hardware
-state.  This allows to properly set up the Linux devices read-only when
-the controller turns a previously writable namespace read-only.
+So, I'm really worried about:
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- drivers/nvme/host/core.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ a) a good use case.  GC in f2fs or btrfs seem like good use cases, as
+    does accelating dm-kcopyd.  I agree with Damien that lifting dm-kcopyd
+    to common code would also be really nice.  I'm not 100% sure it should
+    be a requirement, but it sure would be nice to have
+    I don't think just adding an ioctl is enough of a use case for complex
+    kernel infrastructure.
+ b) We had a bunch of different attempts at SCSI XCOPY support form IIRC
+    Martin, Bart and Mikulas.  I think we need to pull them into this
+    discussion, and make sure whatever we do covers the SCSI needs.
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 24d7f64f14cb15..18cbf92fc4f957 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -2114,9 +2114,8 @@ static void nvme_update_disk_info(struct gendisk *disk,
- 	nvme_config_discard(disk, ns);
- 	nvme_config_write_zeroes(disk, ns);
- 
--	if ((id->nsattr & NVME_NS_ATTR_RO) ||
--	    test_bit(NVME_NS_FORCE_RO, &ns->flags))
--		set_disk_ro(disk, true);
-+	set_disk_ro(disk, (id->nsattr & NVME_NS_ATTR_RO) ||
-+		test_bit(NVME_NS_FORCE_RO, &ns->flags));
- }
- 
- static inline bool nvme_first_scan(struct gendisk *disk)
--- 
-2.29.2
+On Fri, Dec 04, 2020 at 03:16:57PM +0530, SelvaKumar S wrote:
+> This patchset tries to add support for TP4065a ("Simple Copy Command"),
+> v2020.05.04 ("Ratified")
+> 
+> The Specification can be found in following link.
+> https://nvmexpress.org/wp-content/uploads/NVM-Express-1.4-Ratified-TPs-1.zip
+> 
+> This is an RFC. Looking forward for any feedbacks or other alternate
+> designs for plumbing simple copy to IO stack.
+> 
+> Simple copy command is a copy offloading operation and is  used to copy
+> multiple contiguous ranges (source_ranges) of LBA's to a single destination
+> LBA within the device reducing traffic between host and device.
+> 
+> This implementation accepts destination, no of sources and arrays of
+> source ranges from application and attach it as payload to the bio and
+> submits to the device.
+> 
+> Following limits are added to queue limits and are exposed in sysfs
+> to userspace
+> 	- *max_copy_sectors* limits the sum of all source_range length
+> 	- *max_copy_nr_ranges* limits the number of source ranges
+> 	- *max_copy_range_sectors* limit the maximum number of sectors
+> 		that can constitute a single source range.
+> 
+> Changes from v1:
+> 
+> 1. Fix memory leak in __blkdev_issue_copy
+> 2. Unmark blk_check_copy inline
+> 3. Fix line break in blk_check_copy_eod
+> 4. Remove p checks and made code more readable
+> 5. Don't use bio_set_op_attrs and remove op and set
+>    bi_opf directly
+> 6. Use struct_size to calculate total_size
+> 7. Fix partition remap of copy destination
+> 8. Remove mcl,mssrl,msrc from nvme_ns
+> 9. Initialize copy queue limits to 0 in nvme_config_copy
+> 10. Remove return in QUEUE_FLAG_COPY check
+> 11. Remove unused OCFS
+> 
+> SelvaKumar S (2):
+>   block: add simple copy support
+>   nvme: add simple copy support
+> 
+>  block/blk-core.c          |  94 ++++++++++++++++++++++++++---
+>  block/blk-lib.c           | 123 ++++++++++++++++++++++++++++++++++++++
+>  block/blk-merge.c         |   2 +
+>  block/blk-settings.c      |  11 ++++
+>  block/blk-sysfs.c         |  23 +++++++
+>  block/blk-zoned.c         |   1 +
+>  block/bounce.c            |   1 +
+>  block/ioctl.c             |  43 +++++++++++++
+>  drivers/nvme/host/core.c  |  87 +++++++++++++++++++++++++++
+>  include/linux/bio.h       |   1 +
+>  include/linux/blk_types.h |  15 +++++
+>  include/linux/blkdev.h    |  15 +++++
+>  include/linux/nvme.h      |  43 ++++++++++++-
+>  include/uapi/linux/fs.h   |  13 ++++
+>  14 files changed, 461 insertions(+), 11 deletions(-)
+> 
+> -- 
+> 2.25.1
+---end quoted text---
 
 --
 dm-devel mailing list
