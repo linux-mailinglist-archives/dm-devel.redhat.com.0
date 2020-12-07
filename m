@@ -1,81 +1,82 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 87E162D0D9D
-	for <lists+dm-devel@lfdr.de>; Mon,  7 Dec 2020 11:00:19 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 8D78B2D0DA0
+	for <lists+dm-devel@lfdr.de>; Mon,  7 Dec 2020 11:00:21 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-364-G7DOQCykOPmezmK18pisNA-1; Mon, 07 Dec 2020 05:00:15 -0500
-X-MC-Unique: G7DOQCykOPmezmK18pisNA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-359-KUreBIQvOimANTXdjw_hOw-1; Mon, 07 Dec 2020 05:00:18 -0500
+X-MC-Unique: KUreBIQvOimANTXdjw_hOw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8FDD9803F42;
-	Mon,  7 Dec 2020 10:00:02 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B20660C9A;
-	Mon,  7 Dec 2020 10:00:02 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EC14C1052085;
+	Mon,  7 Dec 2020 09:59:53 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9BE9A10016F5;
+	Mon,  7 Dec 2020 09:59:53 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DB7E64EE7F;
-	Mon,  7 Dec 2020 10:00:01 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8550D1809CA0;
+	Mon,  7 Dec 2020 09:59:46 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B77kNCb004527 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 7 Dec 2020 02:46:23 -0500
+	id 0B78GeHr006601 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 7 Dec 2020 03:16:41 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 991C344027; Mon,  7 Dec 2020 07:46:23 +0000 (UTC)
+	id BDFDF1111C93; Mon,  7 Dec 2020 08:16:40 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 92D4444007
-	for <dm-devel@redhat.com>; Mon,  7 Dec 2020 07:46:21 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B9E1D1000DBE
+	for <dm-devel@redhat.com>; Mon,  7 Dec 2020 08:16:38 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6978D858284
-	for <dm-devel@redhat.com>; Mon,  7 Dec 2020 07:46:21 +0000 (UTC)
-Received: from mail-ej1-f66.google.com (mail-ej1-f66.google.com
-	[209.85.218.66]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-132-75FZTRVDNSeMJryiUZAMng-1; Mon, 07 Dec 2020 02:46:18 -0500
-X-MC-Unique: 75FZTRVDNSeMJryiUZAMng-1
-Received: by mail-ej1-f66.google.com with SMTP id m19so18041702ejj.11
-	for <dm-devel@redhat.com>; Sun, 06 Dec 2020 23:46:18 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5664A800183
+	for <dm-devel@redhat.com>; Mon,  7 Dec 2020 08:16:38 +0000 (UTC)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+	[209.85.218.52]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-513-iumu4Dr_MpCkTUBSrWQX5w-1; Mon, 07 Dec 2020 03:16:33 -0500
+X-MC-Unique: iumu4Dr_MpCkTUBSrWQX5w-1
+Received: by mail-ej1-f52.google.com with SMTP id bo9so18121610ejb.13
+	for <dm-devel@redhat.com>; Mon, 07 Dec 2020 00:16:33 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:date:to:cc:subject:message-id:references
+	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
 	:mime-version:content-disposition:in-reply-to;
-	bh=H37Uk/40yzLuHJ510VKEIUp0RQ+PZefPT2yeqkErhUg=;
-	b=eyjLdqXFhC/ZGNyhqEJKC6vRmZO7t2I/GKv/dKdzNFPxrfZJnSMir7x1ZI5Vn5MAxC
-	0ejfo7n9qsSDflnOFMZ6APIftfyD6adIfEaZoku3t1gRlHPS/hG3LLbfHmVEcqVPl203
-	aow7Ay9yW0zSWBsnF/DO5qyFt7YCTP+Q5xrzJL9IK/GFVz+X2FpNrZa5kN1YMB78bDxC
-	JdHe2uGxXkZhqbufbT/qFqtEVUVZIphiY954UO21mUJn0T1EQzDe13BaQNa+n6QefIfN
-	KgC0NFG8GmnQwF2IZ65BRU5lKXKQeaDe4gy1ygRvwM3SNr7JK8rpymNORaJXIaNRjOyT
-	Cmhw==
-X-Gm-Message-State: AOAM530rcoL8dGGfhpd/ITw3bakET9ooM0HEkFNZOt5nOENumqT1CTJx
-	Bhy0Zpx87PLmk0KZP2z78NiNgA==
-X-Google-Smtp-Source: ABdhPJzIa5O3cMvuafw6M6JqsvV9/GygQAIh8T7eOMf7z+MaNcc/rzLLg6xADVx25y95wFRUKMw1cg==
-X-Received: by 2002:a17:906:12cf:: with SMTP id
-	l15mr17565338ejb.540.1607327177482; 
-	Sun, 06 Dec 2020 23:46:17 -0800 (PST)
+	bh=iYj4pUoj9o5PR+qG7Qn3L1SJKXMPS3+hvYYnqb4yHOw=;
+	b=dnIBUvEXpKoBpsOfSzYbrhJzOaMeGVUsp6AbI3xUJbZnPRms3kwEmILN+2hI+b8t02
+	G+emJBhj9LgajJq8bZZQdFJziNYkTdtgWT6ZvJXPI9VYzoFUGBpQGwySY2gEG8wj2SWk
+	qaRL+AzAujipLrzsqvSKMYf4z7BlLeDPWAgNepZ+lJ7xeXRc4GQPJcbJbDc8RAXmAOpo
+	3otnJD5xXayT9WZvTFJ9EwzyBl9MXj952tIleqAn9348zKk2PVHgrn1PBqtrVdO1MdsX
+	Hsr5FfBlHxPFFYZYw7O8j1xVgHbq2JsvVlCTOUIRdBGCAlE1w0pAMl1q+SlZ10hbxtXY
+	Ocwg==
+X-Gm-Message-State: AOAM531F1s/aP8MGEOC8vcneH5zDBHcwsYVrUHK/RJvV/7M2Rr3QDZwu
+	6fId0mfSZu/+f/W78Hb5bpaGiw==
+X-Google-Smtp-Source: ABdhPJwb4jRV2xylIOGlV+IbqS3THEEk1xv/TWj/PDOLR2zfUPpGUmwka3CjMKimmTAV6Dyou0TXtA==
+X-Received: by 2002:a17:906:7b8d:: with SMTP id
+	s13mr1630369ejo.479.1607328992695; 
+	Mon, 07 Dec 2020 00:16:32 -0800 (PST)
 Received: from localhost (5.186.124.214.cgn.fibianet.dk. [5.186.124.214])
 	by smtp.gmail.com with ESMTPSA id
-	z96sm5951767ede.81.2020.12.06.23.46.16
+	n22sm12100137edr.11.2020.12.07.00.16.31
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Sun, 06 Dec 2020 23:46:16 -0800 (PST)
+	Mon, 07 Dec 2020 00:16:32 -0800 (PST)
+Date: Mon, 7 Dec 2020 09:16:31 +0100
 From: "javier.gonz@samsung.com" <javier@javigon.com>
-X-Google-Original-From: "javier.gonz@samsung.com" <javier.gonz@samsung.com>
-Date: Mon, 7 Dec 2020 08:46:16 +0100
-To: Keith Busch <kbusch@kernel.org>
-Message-ID: <20201207074616.mocdy6m5qgsn6yqg@mpHalley>
+To: Damien Le Moal <Damien.LeMoal@wdc.com>
+Message-ID: <20201207081631.usapwn5jj35c5633@mpHalley>
 References: <CGME20201204094719epcas5p23b3c41223897de3840f92ae3c229cda5@epcas5p2.samsung.com>
 	<20201204094659.12732-1-selvakuma.s1@samsung.com>
 	<CH2PR04MB6522F1188557C829285ED5E8E7F10@CH2PR04MB6522.namprd04.prod.outlook.com>
 	<20201204144003.GA8868@redsun51.ssa.fujisawa.hgst.com>
+	<20201207074616.mocdy6m5qgsn6yqg@mpHalley>
+	<CH2PR04MB6522623991D84D67B13DDF66E7CE0@CH2PR04MB6522.namprd04.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <20201204144003.GA8868@redsun51.ssa.fujisawa.hgst.com>
+In-Reply-To: <CH2PR04MB6522623991D84D67B13DDF66E7CE0@CH2PR04MB6522.namprd04.prod.outlook.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -84,10 +85,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 07 Dec 2020 04:59:37 -0500
-Cc: "axboe@kernel.dk" <axboe@kernel.dk>, Damien Le Moal <Damien.LeMoal@wdc.com>,
+Cc: "axboe@kernel.dk" <axboe@kernel.dk>,
 	SelvaKumar S <selvakuma.s1@samsung.com>,
 	"sagi@grimberg.me" <sagi@grimberg.me>,
 	"snitzer@redhat.com" <snitzer@redhat.com>,
@@ -97,7 +98,9 @@ Cc: "axboe@kernel.dk" <axboe@kernel.dk>, Damien Le Moal <Damien.LeMoal@wdc.com>,
 	"nj.shetty@samsung.com" <nj.shetty@samsung.com>,
 	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
 	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"joshi.k@samsung.com" <joshi.k@samsung.com>, "hch@lst.de" <hch@lst.de>
+	"joshi.k@samsung.com" <joshi.k@samsung.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Keith Busch <kbusch@kernel.org>, "hch@lst.de" <hch@lst.de>
 Subject: Re: [dm-devel] [RFC PATCH v2 0/2] add simple copy support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -112,7 +115,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -121,55 +124,83 @@ Content-Disposition: inline
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On 04.12.2020 23:40, Keith Busch wrote:
->On Fri, Dec 04, 2020 at 11:25:12AM +0000, Damien Le Moal wrote:
->> On 2020/12/04 20:02, SelvaKumar S wrote:
->> > This patchset tries to add support for TP4065a ("Simple Copy Command"),
->> > v2020.05.04 ("Ratified")
->> >
->> > The Specification can be found in following link.
->> > https://nvmexpress.org/wp-content/uploads/NVM-Express-1.4-Ratified-TPs-1.zip
->> >
->> > This is an RFC. Looking forward for any feedbacks or other alternate
->> > designs for plumbing simple copy to IO stack.
->> >
->> > Simple copy command is a copy offloading operation and is  used to copy
->> > multiple contiguous ranges (source_ranges) of LBA's to a single destination
->> > LBA within the device reducing traffic between host and device.
->> >
->> > This implementation accepts destination, no of sources and arrays of
->> > source ranges from application and attach it as payload to the bio and
->> > submits to the device.
->> >
->> > Following limits are added to queue limits and are exposed in sysfs
->> > to userspace
->> > 	- *max_copy_sectors* limits the sum of all source_range length
->> > 	- *max_copy_nr_ranges* limits the number of source ranges
->> > 	- *max_copy_range_sectors* limit the maximum number of sectors
->> > 		that can constitute a single source range.
+On 07.12.2020 08:06, Damien Le Moal wrote:
+>On 2020/12/07 16:46, javier.gonz@samsung.com wrote:
+>> On 04.12.2020 23:40, Keith Busch wrote:
+>>> On Fri, Dec 04, 2020 at 11:25:12AM +0000, Damien Le Moal wrote:
+>>>> On 2020/12/04 20:02, SelvaKumar S wrote:
+>>>>> This patchset tries to add support for TP4065a ("Simple Copy Command"),
+>>>>> v2020.05.04 ("Ratified")
+>>>>>
+>>>>> The Specification can be found in following link.
+>>>>> https://nvmexpress.org/wp-content/uploads/NVM-Express-1.4-Ratified-TPs-1.zip
+>>>>>
+>>>>> This is an RFC. Looking forward for any feedbacks or other alternate
+>>>>> designs for plumbing simple copy to IO stack.
+>>>>>
+>>>>> Simple copy command is a copy offloading operation and is  used to copy
+>>>>> multiple contiguous ranges (source_ranges) of LBA's to a single destination
+>>>>> LBA within the device reducing traffic between host and device.
+>>>>>
+>>>>> This implementation accepts destination, no of sources and arrays of
+>>>>> source ranges from application and attach it as payload to the bio and
+>>>>> submits to the device.
+>>>>>
+>>>>> Following limits are added to queue limits and are exposed in sysfs
+>>>>> to userspace
+>>>>> 	- *max_copy_sectors* limits the sum of all source_range length
+>>>>> 	- *max_copy_nr_ranges* limits the number of source ranges
+>>>>> 	- *max_copy_range_sectors* limit the maximum number of sectors
+>>>>> 		that can constitute a single source range.
+>>>>
+>>>> Same comment as before. I think this is a good start, but for this to be really
+>>>> useful to users and kernel components alike, this really needs copy emulation
+>>>> for drives that do not have a native copy feature, similarly to what write zeros
+>>>> handling for instance: if the drive does not have a copy command (simple copy
+>>>> for NVMe or XCOPY for scsi), then the block layer should issue read/write
+>>>> commands to seamlessly execute the copy. Otherwise, this will only serve a small
+>>>> niche for users and will not be optimal for FS and DM drivers that could be
+>>>> simplified with a generic block layer copy functionality.
+>>>>
+>>>> This is my 10 cents though, others may differ about this.
+>>>
+>>> Yes, I agree that copy emulation support should be included with the
+>>> hardware enabled solution.
 >>
->> Same comment as before. I think this is a good start, but for this to be really
->> useful to users and kernel components alike, this really needs copy emulation
->> for drives that do not have a native copy feature, similarly to what write zeros
->> handling for instance: if the drive does not have a copy command (simple copy
->> for NVMe or XCOPY for scsi), then the block layer should issue read/write
->> commands to seamlessly execute the copy. Otherwise, this will only serve a small
->> niche for users and will not be optimal for FS and DM drivers that could be
->> simplified with a generic block layer copy functionality.
+>> Keith, Damien,
 >>
->> This is my 10 cents though, others may differ about this.
+>> Can we do the block layer emulation with this patchset and then work in
+>> follow-up patchses on (i) the FS interface with F2FS as a first user and
+>> (ii) other HW accelerations such as XCOPY?
 >
->Yes, I agree that copy emulation support should be included with the
->hardware enabled solution.
+>The initial patchset supporting NVMe simple copy and emulation copy, all under
+>an API that probably will be similar that of dm-kcopyd will cover all block
+>devices. Other hardware native support for copy functions such as scsi extended
+>copy can be added later under the hood without any API changes (or minimal changes).
 
-Keith, Damien,
+Sounds good. That we can do. We will add a new patch for this.
 
-Can we do the block layer emulation with this patchset and then work in
-follow-up patchses on (i) the FS interface with F2FS as a first user and
-(ii) other HW accelerations such as XCOPY?
+>
+>I am not sure what you mean by "FS interface for F2FS": the block layer API for
+>this copy functionality will be what F2FS (and other FSes) will call. That is
+>the interface, no ?
 
-For XCOPY, I believe we need to have a separate discussion as much works
-is already done that we should align to.
+Essentially yes.. I mean adding the F2FS logic and potentially some
+helpers to the block layer to aid GC.
+
+>
+>> For XCOPY, I believe we need to have a separate discussion as much works
+>> is already done that we should align to.
+>
+>I think Martin (added to this thread) and others have looked into it but I do
+>not think that anything made it into the kernel yet.
+
+Exactly. Looking at some of the code posted through time and recalling
+the discussions at LSF/MM, seems like there are a number of things we
+are not addressing here that could be incorporated down the road, such
+as dedicated syscalls / extensions, multi namespace / device support,
+etc.
+>
 
 --
 dm-devel mailing list
