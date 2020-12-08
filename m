@@ -1,66 +1,77 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 54BA02D28ED
-	for <lists+dm-devel@lfdr.de>; Tue,  8 Dec 2020 11:31:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1607423476;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=kOu4gOO7MTFzEWKTc/5qIUnC+tP9tkqkRHNJbDEzPYA=;
-	b=UCkunjD/mDaCCOcLyltI7PyR9ATiU6greUyteORp3kaNJNoUOQGfAtGb3oaYaezVdkbR7J
-	1KiPMgyzWYGcFLYBwidwCr9QgEQpP1/288rrPVvUkThB5usWP+DbY26liPMyEGC/1+VU+c
-	YcY0fipAINIs+oMQCmq9mydpFVUA87o=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 673772D2956
+	for <lists+dm-devel@lfdr.de>; Tue,  8 Dec 2020 11:58:31 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-527-ubf-qWzbN_275IIGjmtnrA-1; Tue, 08 Dec 2020 05:31:08 -0500
-X-MC-Unique: ubf-qWzbN_275IIGjmtnrA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-46-84fLJ9gHN-qtrhyd-oC2lw-1; Tue, 08 Dec 2020 05:58:28 -0500
+X-MC-Unique: 84fLJ9gHN-qtrhyd-oC2lw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A0E791075646;
-	Tue,  8 Dec 2020 10:29:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 28EBB80EF80;
+	Tue,  8 Dec 2020 10:58:22 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6015960BE2;
-	Tue,  8 Dec 2020 10:29:46 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EABDA1001B2C;
+	Tue,  8 Dec 2020 10:58:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2C688180954D;
-	Tue,  8 Dec 2020 10:29:41 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 53F84180954D;
+	Tue,  8 Dec 2020 10:58:14 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B8ATYK2032457 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 8 Dec 2020 05:29:34 -0500
+	id 0B8AvwUN004442 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 8 Dec 2020 05:57:58 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 500E35C1A3; Tue,  8 Dec 2020 10:29:34 +0000 (UTC)
+	id A3EF42166B2A; Tue,  8 Dec 2020 10:57:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from T590 (ovpn-12-237.pek2.redhat.com [10.72.12.237])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C59065C1A1;
-	Tue,  8 Dec 2020 10:29:28 +0000 (UTC)
-Date: Tue, 8 Dec 2020 18:29:23 +0800
-From: Ming Lei <ming.lei@redhat.com>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20201208102923.GD1202995@T590>
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9F03F2166B27
+	for <dm-devel@redhat.com>; Tue,  8 Dec 2020 10:57:56 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 43F3280088F
+	for <dm-devel@redhat.com>; Tue,  8 Dec 2020 10:57:56 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-98-EJ8AFppUNbe2TMJtPUJmgQ-1;
+	Tue, 08 Dec 2020 05:57:51 -0500
+X-MC-Unique: EJ8AFppUNbe2TMJtPUJmgQ-1
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 637ED6736F; Tue,  8 Dec 2020 11:57:47 +0100 (CET)
+Date: Tue, 8 Dec 2020 11:57:47 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Ming Lei <ming.lei@redhat.com>
+Message-ID: <20201208105747.GA21762@lst.de>
 References: <20201207131918.2252553-1-hch@lst.de>
-	<20201207131918.2252553-5-hch@lst.de>
+	<20201207131918.2252553-4-hch@lst.de>
+	<20201208102211.GC1202995@T590>
 MIME-Version: 1.0
-In-Reply-To: <20201207131918.2252553-5-hch@lst.de>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+In-Reply-To: <20201208102211.GC1202995@T590>
+User-Agent: Mutt/1.5.17 (2007-11-01)
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: Jens Axboe <axboe@kernel.dk>, Sagi Grimberg <sagi@grimberg.me>,
 	Mike Snitzer <snitzer@redhat.com>, Oleksii Kurochko <olkuroch@cisco.com>,
-	Dongsheng Yang <dongsheng.yang@easystack.cn>,
+	ceph-devel@vger.kernel.org, Dongsheng Yang <dongsheng.yang@easystack.cn>,
 	linux-block@vger.kernel.org, dm-devel@redhat.com,
 	linux-nvme@lists.infradead.org,
 	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Ilya Dryomov <idryomov@gmail.com>, ceph-devel@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH 4/6] block: propagate BLKROSET on the whole
- device to all partitions
+	Ilya Dryomov <idryomov@gmail.com>, Christoph Hellwig <hch@lst.de>
+Subject: Re: [dm-devel] [PATCH 3/6] block: add a hard-readonly flag to
+	struct gendisk
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -74,7 +85,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -83,73 +94,21 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Dec 07, 2020 at 02:19:16PM +0100, Christoph Hellwig wrote:
-> Change the policy so that a BLKROSET on the whole device also affects
-> partitions.  To quote Martin K. Petersen:
+On Tue, Dec 08, 2020 at 06:22:11PM +0800, Ming Lei wrote:
+> >  int bdev_read_only(struct block_device *bdev)
+> >  {
+> > -	return bdev->bd_read_only;
+> > +	return bdev->bd_read_only ||
+> > +		test_bit(GD_READ_ONLY, &bdev->bd_disk->state);
+> >  }
+> >  EXPORT_SYMBOL(bdev_read_only);
 > 
-> It's very common for database folks to twiddle the read-only state of
-> block devices and partitions. I know that our users will find it very
-> counter-intuitive that setting /dev/sda read-only won't prevent writes
-> to /dev/sda1.
-> 
-> The existing behavior is inconsistent in the sense that doing:
-> 
-> permits writes. But:
-> 
-> <something triggers revalidate>
-> 
-> doesn't.
-> 
-> And a subsequent:
-> 
-> doesn't work either since sda1's read-only policy has been inherited
-> from the whole-disk device.
-> 
-> You need to do:
-> 
-> after setting the whole-disk device rw to effectuate the same change on
-> the partitions, otherwise they are stuck being read-only indefinitely.
-> 
-> However, setting the read-only policy on a partition does *not* require
-> the revalidate step. As a matter of fact, doing the revalidate will blow
-> away the policy setting you just made.
-> 
-> So the user needs to take different actions depending on whether they
-> are trying to read-protect a whole-disk device or a partition. Despite
-> using the same ioctl. That is really confusing.
-> 
-> I have lost count how many times our customers have had data clobbered
-> because of ambiguity of the existing whole-disk device policy. The
-> current behavior violates the principle of least surprise by letting the
-> user think they write protected the whole disk when they actually
-> didn't.
-> 
-> Suggested-by: Martin K. Petersen <martin.petersen@oracle.com>
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  block/genhd.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/block/genhd.c b/block/genhd.c
-> index 878f94727aaa96..c214fcd25a05c9 100644
-> --- a/block/genhd.c
-> +++ b/block/genhd.c
-> @@ -1449,8 +1449,7 @@ EXPORT_SYMBOL(set_disk_ro);
->  
->  int bdev_read_only(struct block_device *bdev)
->  {
-> -	return bdev->bd_read_only ||
-> -		test_bit(GD_READ_ONLY, &bdev->bd_disk->state);
-> +	return bdev->bd_read_only || get_disk_ro(bdev->bd_disk);
->  }
->  EXPORT_SYMBOL(bdev_read_only);
+> Maybe one inline version can be added for fast path(bio_check_ro()), and the approach
+> is good:
 
-I think this patch should be folded into previous one, otherwise
-bdev_read_only(part) may return false even though ioctl(BLKROSET)
-has been done on the whole disk.
-
--- 
-Ming
+I thought of that, but our header mess means it would have to be a macro.
+I have a plan to reorganize the headers in the not too far future, at which
+point this should become an inline.
 
 --
 dm-devel mailing list
