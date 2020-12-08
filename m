@@ -2,81 +2,90 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 529742D1A6C
-	for <lists+dm-devel@lfdr.de>; Mon,  7 Dec 2020 21:21:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C56C32D2329
+	for <lists+dm-devel@lfdr.de>; Tue,  8 Dec 2020 06:26:55 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-436-0o0GtsNpPI-kIoQsYh6WFw-1; Mon, 07 Dec 2020 15:21:42 -0500
-X-MC-Unique: 0o0GtsNpPI-kIoQsYh6WFw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-426-yNwBgkynN9-pTp0r3Tj-kg-1; Tue, 08 Dec 2020 00:26:52 -0500
+X-MC-Unique: yNwBgkynN9-pTp0r3Tj-kg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 548F6180A092;
-	Mon,  7 Dec 2020 20:21:32 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 511BA1005513;
+	Tue,  8 Dec 2020 05:26:46 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 064F95C22A;
-	Mon,  7 Dec 2020 20:21:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F34B5D9DE;
+	Tue,  8 Dec 2020 05:26:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4284D4E58E;
-	Mon,  7 Dec 2020 20:21:17 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D13624A7C6;
+	Tue,  8 Dec 2020 05:26:24 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B7KL1iB019614 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 7 Dec 2020 15:21:02 -0500
+	id 0B85Q5JH002301 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 8 Dec 2020 00:26:05 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id C387F2166B2A; Mon,  7 Dec 2020 20:21:01 +0000 (UTC)
+	id 1912F2166B2C; Tue,  8 Dec 2020 05:26:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BE9622166B27
-	for <dm-devel@redhat.com>; Mon,  7 Dec 2020 20:20:59 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 134F02166B27
+	for <dm-devel@redhat.com>; Tue,  8 Dec 2020 05:26:00 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5B914800969
-	for <dm-devel@redhat.com>; Mon,  7 Dec 2020 20:20:59 +0000 (UTC)
-Received: from mail-il1-f181.google.com (mail-il1-f181.google.com
-	[209.85.166.181]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-477-KykhpZRJMguPW22_qtMD5A-1; Mon, 07 Dec 2020 15:20:57 -0500
-X-MC-Unique: KykhpZRJMguPW22_qtMD5A-1
-Received: by mail-il1-f181.google.com with SMTP id j12so6267985ilk.3
-	for <dm-devel@redhat.com>; Mon, 07 Dec 2020 12:20:56 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=Tej9GY05mZXgV9mNE704/sNm7beFt5nAhjB/8/aBReQ=;
-	b=W55GT01VwS1ILu01qmZl8b+IEDCDR1aTcZ/sAUj+8K6ir+RNG5rkkrUBaO9kPchypK
-	YxTbYMfSkobw0rdQaXaRebtZgapIzdvfOYfObqfTkmghwQ1lZUFEkQxU8O1IUYXxLe5E
-	7FjZ/GDBXw9AUu1atL89XZJrUSl2rO38ZZ5J6eoLU62B7W/NCnsOUfZGqt8je/Pr8V8P
-	/VtVuPu7n776XB0KWfB0usCO8BLBCATK7sSronKPIfUWQJhkoAxbnpuJSXAIiZNasgIz
-	aE4FmTUW3MKj/7HxL6p5piP8r+COqq7SctBYGCcXUEWQEvz4UJAk0HGuPdTMCPhjCXJy
-	20Dw==
-X-Gm-Message-State: AOAM533UgZ3XFOyICvdr7GN1FwFqT+hOf+vBmVr2Zf7XF8Z+sg3WqBWY
-	+VbcM4hLFInfqKn0jO/CbcZ5Qw==
-X-Google-Smtp-Source: ABdhPJy0Jnsr7/OtLB3lcu38tiaUnDGbRUb9mNjvFf3jY7wBcRk6npkyOfNJF05HCytsclSzwVrwaQ==
-X-Received: by 2002:a05:6e02:13cf:: with SMTP id
-	v15mr22654778ilj.222.1607372456254; 
-	Mon, 07 Dec 2020 12:20:56 -0800 (PST)
-Received: from [192.168.1.30] ([65.144.74.34])
-	by smtp.gmail.com with ESMTPSA id
-	s17sm7855074ilj.25.2020.12.07.12.20.55
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Mon, 07 Dec 2020 12:20:55 -0800 (PST)
-To: Christoph Hellwig <hch@lst.de>, Qian Cai <qcai@redhat.com>
-References: <20201201165424.2030647-1-hch@lst.de>
-	<920899710c9e8dcce16e561c6d832e4e9c03cd73.camel@redhat.com>
-	<20201207190149.GA22524@lst.de>
-From: Jens Axboe <axboe@kernel.dk>
-Message-ID: <ed7a484d-91d5-50fa-7927-2703b9426d65@kernel.dk>
-Date: Mon, 7 Dec 2020 13:20:53 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6E93080018D
+	for <dm-devel@redhat.com>; Tue,  8 Dec 2020 05:26:00 +0000 (UTC)
+Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-553-Yb_OMAXROPWTjC9fZ3Hcjg-1; Tue, 08 Dec 2020 00:25:55 -0500
+X-MC-Unique: Yb_OMAXROPWTjC9fZ3Hcjg-1
+Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
+	by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
+	0B85PWOn160216; Tue, 8 Dec 2020 05:25:32 GMT
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+	by aserp2130.oracle.com with ESMTP id 357yqbrymb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=FAIL); Tue, 08 Dec 2020 05:25:32 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+	by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
+	0B854kd4042910; Tue, 8 Dec 2020 05:23:32 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+	by aserp3030.oracle.com with ESMTP id 358ksn320r-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 08 Dec 2020 05:23:31 +0000
+Received: from abhmp0015.oracle.com (abhmp0015.oracle.com [141.146.116.21])
+	by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0B85NPbR001152;
+	Tue, 8 Dec 2020 05:23:25 GMT
+Received: from ca-mkp.ca.oracle.com (/10.159.214.123)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Mon, 07 Dec 2020 21:23:25 -0800
+To: Christoph Hellwig <hch@lst.de>
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+Organization: Oracle Corporation
+Message-ID: <yq1ft4gyipo.fsf@ca-mkp.ca.oracle.com>
+References: <20201207131918.2252553-1-hch@lst.de>
+	<20201207131918.2252553-2-hch@lst.de>
+Date: Tue, 08 Dec 2020 00:23:22 -0500
+In-Reply-To: <20201207131918.2252553-2-hch@lst.de> (Christoph Hellwig's
+	message of "Mon, 7 Dec 2020 14:19:13 +0100")
 MIME-Version: 1.0
-In-Reply-To: <20201207190149.GA22524@lst.de>
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9828
+	signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+	suspectscore=1
+	bulkscore=0 malwarescore=0 phishscore=0 mlxscore=0 spamscore=0
+	adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2009150000 definitions=main-2012080031
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9828
+	signatures=668682
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=1
+	mlxlogscore=999
+	clxscore=1015 malwarescore=0 bulkscore=0 phishscore=0 adultscore=0
+	spamscore=0 priorityscore=1501 mlxscore=0 lowpriorityscore=0
+	impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2009150000 definitions=main-2012080032
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -87,13 +96,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: linux-s390@vger.kernel.org, Stephen Rothwell <sfr@canb.auug.org.au>,
-	linux-bcache@vger.kernel.org, Coly Li <colyli@suse.de>,
-	linux-raid@vger.kernel.org, Song Liu <song@kernel.org>,
-	dm-devel@redhat.com, Linux Next Mailing List <linux-next@vger.kernel.org>,
-	linux-block@vger.kernel.org, Tejun Heo <tj@kernel.org>
-Subject: Re: [dm-devel] store a pointer to the block_device in struct bio
-	(again)
+Cc: Jens Axboe <axboe@kernel.dk>, Sagi Grimberg <sagi@grimberg.me>,
+	Mike Snitzer <snitzer@redhat.com>, Oleksii Kurochko <olkuroch@cisco.com>,
+	Dongsheng Yang <dongsheng.yang@easystack.cn>,
+	linux-block@vger.kernel.org, dm-devel@redhat.com,
+	linux-nvme@lists.infradead.org,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Ilya Dryomov <idryomov@gmail.com>, ceph-devel@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH 1/6] dm: use bdev_read_only to check if a
+ device is read-only
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -107,26 +118,24 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 12/7/20 12:01 PM, Christoph Hellwig wrote:
-> Thanks for the report.
-> 
-> Jens, can you revert the series for now?  I think waiting any longer
-> with a report like this is not helpful.  I'll look into it with
-> Qian in the meantime.
 
-Agree, I reverted it.
+Christoph,
+
+> dm-thin and dm-cache also work on partitions, so use the proper
+> interface to check if the device is read-only.
+
+Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
 
 -- 
-Jens Axboe
+Martin K. Petersen	Oracle Linux Engineering
 
 --
 dm-devel mailing list
