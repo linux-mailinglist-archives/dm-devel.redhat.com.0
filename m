@@ -2,79 +2,56 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 384BF2D2CE0
-	for <lists+dm-devel@lfdr.de>; Tue,  8 Dec 2020 15:16:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8DE522D2FFA
+	for <lists+dm-devel@lfdr.de>; Tue,  8 Dec 2020 17:42:19 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-561-VKXJpQ-0OJCojiU3USTlNA-1; Tue, 08 Dec 2020 09:16:29 -0500
-X-MC-Unique: VKXJpQ-0OJCojiU3USTlNA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-11-_g5-D9IBP1Ow00OdjkIe1g-1; Tue, 08 Dec 2020 11:42:15 -0500
+X-MC-Unique: _g5-D9IBP1Ow00OdjkIe1g-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B74EECC62E;
-	Tue,  8 Dec 2020 14:16:12 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4F2EF1F401;
-	Tue,  8 Dec 2020 14:16:11 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 46B47107ACE3;
+	Tue,  8 Dec 2020 16:42:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DDC165D6D5;
+	Tue,  8 Dec 2020 16:42:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7E98B4BB7B;
-	Tue,  8 Dec 2020 14:16:04 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0E9C0180954D;
+	Tue,  8 Dec 2020 16:42:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B8EFsJs022210 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 8 Dec 2020 09:15:54 -0500
+	id 0B8Gfwpg008806 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 8 Dec 2020 11:41:58 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1788F2026D48; Tue,  8 Dec 2020 14:15:54 +0000 (UTC)
+	id 0757130BAD; Tue,  8 Dec 2020 16:41:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 11C862026D11
-	for <dm-devel@redhat.com>; Tue,  8 Dec 2020 14:15:47 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 00AD1A9A11
+	for <dm-devel@redhat.com>; Tue,  8 Dec 2020 16:41:52 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8759B811E86
-	for <dm-devel@redhat.com>; Tue,  8 Dec 2020 14:15:47 +0000 (UTC)
-Received: from mail-io1-f52.google.com (mail-io1-f52.google.com
-	[209.85.166.52]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-525-EDQ5ZQp8MaCoGDrbreLkeA-1; Tue, 08 Dec 2020 09:15:43 -0500
-X-MC-Unique: EDQ5ZQp8MaCoGDrbreLkeA-1
-Received: by mail-io1-f52.google.com with SMTP id r9so17010655ioo.7
-	for <dm-devel@redhat.com>; Tue, 08 Dec 2020 06:15:43 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=aFEq0S7a57DGwr5Vv73yvEZmzOjbCOIiqXWdjglEIDM=;
-	b=qogbc9Mtg6UA8eiuXocOT5YCCZ6/p9AJpDBTjhVJJT/6LxrGRuGirGRG+YbL6A882g
-	16YVOast8nZ1LMIxFzzaNLk3CnLeA18sD4SLQVX3XhTHpqfgsQDV8qTyl9AkaJgOJz0B
-	Kg5icHB27N0jbySPNDIY8vVgeCZ10iIxkTLBD1vbkFsFcQkdxWRavrsuFO2MEE4MK8jU
-	kcOiXOEEyCeI/JcIU9m5LeNqZgQ3wYDkHqxFksxqntE8fbMel0Bn+eLyGm80S7fP/Adx
-	7zPH7KcX5h4N936MUtEdxZ14DxVzkEW6jcEjvK1ylCDMKhTvo4lA2FYh9ddFwZnr8r6x
-	1ZZA==
-X-Gm-Message-State: AOAM532lsnyVsGbkHXeFUFnFJfx9jIEA8sY3K30mVw1V6C+qHXiT+bFv
-	2HZgbZBFcW2u8ub/yL57nTWYZQ==
-X-Google-Smtp-Source: ABdhPJzD7k++Tng4C23t2AsnQOqZkMhInrVVHvjmUGn3gedrlrpTsFJu1dm1X/5LMt9jMiPy6Cba9Q==
-X-Received: by 2002:a02:b02:: with SMTP id 2mr16161804jad.15.1607436943117;
-	Tue, 08 Dec 2020 06:15:43 -0800 (PST)
-Received: from [192.168.1.30] ([65.144.74.34])
-	by smtp.gmail.com with ESMTPSA id
-	h70sm7716957iof.31.2020.12.08.06.15.42
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Tue, 08 Dec 2020 06:15:42 -0800 (PST)
-To: Christoph Hellwig <hch@lst.de>, Qian Cai <qcai@redhat.com>
-References: <20201201165424.2030647-1-hch@lst.de>
-	<920899710c9e8dcce16e561c6d832e4e9c03cd73.camel@redhat.com>
-	<20201208110403.GA22179@lst.de>
-From: Jens Axboe <axboe@kernel.dk>
-Message-ID: <cc95b9eb-6278-4b0d-6cf9-19c35714bfe7@kernel.dk>
-Date: Tue, 8 Dec 2020 07:15:43 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 45345100B167
+	for <dm-devel@redhat.com>; Tue,  8 Dec 2020 16:41:52 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-551-GejOIBAHMiu2pCplI3rhtg-1; Tue, 08 Dec 2020 11:41:48 -0500
+X-MC-Unique: GejOIBAHMiu2pCplI3rhtg-1
+Received: from 089144200046.atnat0009.highway.a1.net ([89.144.200.46]
+	helo=localhost)
+	by casper.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+	id 1kmfsw-0000wg-4R; Tue, 08 Dec 2020 16:30:42 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Jens Axboe <axboe@kernel.dk>
+Date: Tue,  8 Dec 2020 17:28:23 +0100
+Message-Id: <20201208162829.2424563-1-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20201208110403.GA22179@lst.de>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -83,15 +60,16 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: linux-s390@vger.kernel.org, Stephen Rothwell <sfr@canb.auug.org.au>,
-	linux-bcache@vger.kernel.org, Coly Li <colyli@suse.de>,
-	linux-raid@vger.kernel.org, Song Liu <song@kernel.org>,
-	dm-devel@redhat.com, Linux Next Mailing List <linux-next@vger.kernel.org>,
-	linux-block@vger.kernel.org, Tejun Heo <tj@kernel.org>
-Subject: Re: [dm-devel] store a pointer to the block_device in struct bio
-	(again)
+Cc: Sagi Grimberg <sagi@grimberg.me>, Mike Snitzer <snitzer@redhat.com>,
+	Oleksii Kurochko <olkuroch@cisco.com>,
+	Dongsheng Yang <dongsheng.yang@easystack.cn>,
+	linux-block@vger.kernel.org, dm-devel@redhat.com,
+	linux-nvme@lists.infradead.org,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Ilya Dryomov <idryomov@gmail.com>, ceph-devel@vger.kernel.org
+Subject: [dm-devel] split hard read-only vs read-only policy v3
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -105,31 +83,46 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 12/8/20 4:04 AM, Christoph Hellwig wrote:
-> Hi Qian,
-> 
-> can you send me details of your device mapper setup, e.g. which targets
-> are used, are they used on top of whole device or partitions.  Do you
-> use partitions on top of the dm devices?  Are any other stacking devices
-> involved?
+Hi Jens,
 
-Don't think this needs anything fancy at all - I know Pavel got his
-test box corrupted, and mine did as well. Looks like it pretty much
-affected everyone that got unlucky enough to try it, not great...
+this series resurrects a patch from Martin to properly split the flag
+indicating a disk has been set read-only by the hardware vs the userspace
+policy set through the BLKROSET ioctl.
 
-Mine is just ext4 root on nvme.
+Note that the last patch only applies to for-next and not to
+for-5.11/block.  I can hold it back for the first NVMe pull request after
+Linus pulled the block tree.
 
--- 
-Jens Axboe
+A git tree is available here:
+
+    git://git.infradead.org/users/hch/block.git block-hard-ro
+
+Gitweb:
+
+    http://git.infradead.org/users/hch/block.git/shortlog/refs/heads/block-hard-ro
+
+Changes since v3:
+ - rebased to the latest block tree
+ - indent commit log lines starting with a "#" to make sure git commit
+   doesn't eat them
+
+Changes since v2:
+ - fix a few typos
+ - add a patch to propagate the read-only status from the whole device to
+   partitions
+ - add a patch to remove a pointless check from bdev_read_only
+
+Changes since v1:
+ - don't propagate the policy flag from the whole disk to partitions
+ - rebased on top of the merge block_device and hd_struct series
 
 --
 dm-devel mailing list
