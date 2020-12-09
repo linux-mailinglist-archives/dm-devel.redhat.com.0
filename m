@@ -1,56 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 75F372D4E00
-	for <lists+dm-devel@lfdr.de>; Wed,  9 Dec 2020 23:37:35 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id EBDFC2D4E10
+	for <lists+dm-devel@lfdr.de>; Wed,  9 Dec 2020 23:38:41 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1607553454;
+	s=mimecast20190719; t=1607553521;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=5plCNkr3Tj+pqxc7SB76u6oKpEFawY5BcHtPwBobz5s=;
-	b=ezgtwCfXc1MF7pgYHWpBV4GtbZ9oQ136QqgAbT8ow0EsBo64NiUcN0UqgGmu+xjGwORugN
-	YpFuvuXlMJVnbmjBYxg88I7+617kBBiRbNNryja1EzuiS/N8WA3XUwyZEcMlhbthvhMymG
-	kQdBtwBakD4/3fdkH1zyrgejgreLt3Q=
+	bh=jWQEeQwooJ7Rfv0MFftOx4OnsJIKRU3GcNS1XjdjKag=;
+	b=dR3GnF+IoJ8btJj+CNjwAvOSJfX0S1aj0KZNVAKhgCsqt/ZoQmXs6w7JmW3jkFGMA4rMIm
+	YasCwA3EmO4s0UlzIJ+DO4EV00WXZfk9vvME3QFmAcps15HS+1pJkHa+Ync7ZqCoqywmbc
+	vy+MGquDlalSXy5sSqxY66VMyuFOLSo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-536-A55tj4utMwCPKVx6TReHBQ-1; Wed, 09 Dec 2020 17:37:31 -0500
-X-MC-Unique: A55tj4utMwCPKVx6TReHBQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-141-XaG7A_gwMuGmDFAMd36YaQ-1; Wed, 09 Dec 2020 17:38:38 -0500
+X-MC-Unique: XaG7A_gwMuGmDFAMd36YaQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CB6E31906815;
-	Wed,  9 Dec 2020 22:36:55 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 017BF5D9E2;
-	Wed,  9 Dec 2020 22:36:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DD47A10151FC;
+	Wed,  9 Dec 2020 22:38:23 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4FA4910016F5;
+	Wed,  9 Dec 2020 22:38:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A36864E58E;
-	Wed,  9 Dec 2020 22:36:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EADC91809C9F;
+	Wed,  9 Dec 2020 22:38:19 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B9MaG3u008361 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 9 Dec 2020 17:36:16 -0500
+	id 0B9McF15008527 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 9 Dec 2020 17:38:15 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 262D05D9E2; Wed,  9 Dec 2020 22:36:16 +0000 (UTC)
+	id 1F6087094A; Wed,  9 Dec 2020 22:38:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DA11D5D9CA;
-	Wed,  9 Dec 2020 22:36:15 +0000 (UTC)
-Date: Wed, 9 Dec 2020 17:36:15 -0500
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CA4216F990;
+	Wed,  9 Dec 2020 22:38:02 +0000 (UTC)
+Date: Wed, 9 Dec 2020 17:38:02 -0500
 From: Mike Snitzer <snitzer@redhat.com>
 To: Song Liu <songliubraving@fb.com>, axboe@kernel.dk
-Message-ID: <20201209223615.GA2752@redhat.com>
+Message-ID: <20201209223801.GB2752@redhat.com>
 References: <20201209215814.2623617-1-songliubraving@fb.com>
 MIME-Version: 1.0
 In-Reply-To: <20201209215814.2623617-1-songliubraving@fb.com>
 User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
 Cc: linux-raid@vger.kernel.org, dm-devel@redhat.com, Xiao Ni <xni@redhat.com>,
 	linux-kernel@vger.kernel.org,
@@ -70,7 +70,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -92,15 +92,6 @@ Song Liu <songliubraving@fb.com> wrote:
 > Cc: Xiao Ni <xni@redhat.com>
 > Cc: Mike Snitzer <snitzer@redhat.com>
 > Signed-off-by: Song Liu <songliubraving@fb.com>
-
-If you're reverting all the MD code that enabled this DM change, then
-obviously the DM change must be reverted too.  But please do _not_
-separate the DM revert from the MD reverts.
-
-Please include this in a v2 pull request to Jens.
-
-Mike
-
 > ---
 >  drivers/md/dm-raid.c | 11 +++++++++++
 >  1 file changed, 11 insertions(+)
@@ -130,6 +121,15 @@ Mike
 > -- 
 > 2.24.1
 > 
+
+Short of you sending a v2 pull request to Jens...
+
+Jens please pick this up once you pull Song's MD pull that reverts all
+the MD raid10 discard changes.
+
+Thanks!
+
+Acked-by: Mike Snitzer <snitzer@redhat.com>
 
 --
 dm-devel mailing list
