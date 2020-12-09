@@ -2,66 +2,112 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 3A3A32D390B
-	for <lists+dm-devel@lfdr.de>; Wed,  9 Dec 2020 03:55:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1607482530;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=AnPtIsen4ng4FOxa3VKDIUC7wcj0TgjIgUpuJ6cYRX4=;
-	b=cqDmNMS4HFvZtbfOVT0+PFx46EdUIPSWJnncUScrz7rHYVgV7JsrOIaDtrpVaUp/AJcIcB
-	FYXLQ+ZlWBvqFrlHOLPXz962h+skp6RHgikxmHcXtQpGox2autO3/M6hBje0ythwSpXd1v
-	2GVb4aEOWjJD83pCYbpYoXIaq/+KH/w=
+	by mail.lfdr.de (Postfix) with ESMTP id D0D672D3915
+	for <lists+dm-devel@lfdr.de>; Wed,  9 Dec 2020 04:05:14 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-332-_SUx9RVpPAGXDldvkZEa0A-1; Tue, 08 Dec 2020 21:55:27 -0500
-X-MC-Unique: _SUx9RVpPAGXDldvkZEa0A-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-76-5p_1jCrJNJ-NvRyv7-ereg-1; Tue, 08 Dec 2020 22:05:11 -0500
+X-MC-Unique: 5p_1jCrJNJ-NvRyv7-ereg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4C6EB1005D44;
-	Wed,  9 Dec 2020 02:55:22 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 09CF1107ACE3;
+	Wed,  9 Dec 2020 03:05:06 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 26EDB19725;
-	Wed,  9 Dec 2020 02:55:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 322145D9DD;
+	Wed,  9 Dec 2020 03:05:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9E488180954D;
-	Wed,  9 Dec 2020 02:55:21 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E0D12180954D;
+	Wed,  9 Dec 2020 03:05:01 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B92tHVX017133 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 8 Dec 2020 21:55:17 -0500
+	id 0B934qg9018127 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 8 Dec 2020 22:04:52 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4DF1C19C78; Wed,  9 Dec 2020 02:55:17 +0000 (UTC)
+	id 428782166B2A; Wed,  9 Dec 2020 03:04:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from T590 (ovpn-12-139.pek2.redhat.com [10.72.12.139])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B90D019725;
-	Wed,  9 Dec 2020 02:55:01 +0000 (UTC)
-Date: Wed, 9 Dec 2020 10:54:56 +0800
-From: Ming Lei <ming.lei@redhat.com>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20201209025456.GF1217988@T590>
-References: <20201208162829.2424563-1-hch@lst.de>
-	<20201208162829.2424563-7-hch@lst.de>
+Received: from mimecast-mx02.redhat.com
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3CF572166B27
+	for <dm-devel@redhat.com>; Wed,  9 Dec 2020 03:04:49 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E24D9186E123
+	for <dm-devel@redhat.com>; Wed,  9 Dec 2020 03:04:49 +0000 (UTC)
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-359-whxPoSZ6M2WnTkMEucB9Gg-1; Tue, 08 Dec 2020 22:04:45 -0500
+X-MC-Unique: whxPoSZ6M2WnTkMEucB9Gg-1
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+	by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
+	0B933vWE013387; Wed, 9 Dec 2020 03:04:27 GMT
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+	by userp2130.oracle.com with ESMTP id 3581mqwxu4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=FAIL); Wed, 09 Dec 2020 03:04:26 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+	by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
+	0B92tiw1007609; Wed, 9 Dec 2020 03:04:26 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+	by userp3030.oracle.com with ESMTP id 358m4yujv1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 09 Dec 2020 03:04:26 +0000
+Received: from abhmp0019.oracle.com (abhmp0019.oracle.com [141.146.116.25])
+	by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0B934MK3021556;
+	Wed, 9 Dec 2020 03:04:22 GMT
+Received: from ca-mkp.ca.oracle.com (/10.159.214.123)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Tue, 08 Dec 2020 19:04:20 -0800
+To: Hannes Reinecke <hare@suse.de>
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+In-Reply-To: <01fe46ac-16a5-d4db-f23d-07a03d3935f3@suse.de> (Hannes Reinecke's
+	message of "Mon, 7 Dec 2020 15:56:15 +0100")
+Organization: Oracle Corporation
+Message-ID: <yq1im9bsn0a.fsf@ca-mkp.ca.oracle.com>
+References: <CGME20201204094719epcas5p23b3c41223897de3840f92ae3c229cda5@epcas5p2.samsung.com>
+	<20201204094659.12732-1-selvakuma.s1@samsung.com>
+	<20201207141123.GC31159@lst.de>
+	<01fe46ac-16a5-d4db-f23d-07a03d3935f3@suse.de>
+Date: Tue, 08 Dec 2020 22:02:35 -0500
 MIME-Version: 1.0
-In-Reply-To: <20201208162829.2424563-7-hch@lst.de>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9829
+	signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+	spamscore=0 suspectscore=1
+	bulkscore=0 malwarescore=0 phishscore=0 adultscore=0 mlxlogscore=999
+	classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2009150000 definitions=main-2012090018
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9829
+	signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=1
+	mlxlogscore=999
+	clxscore=1011 malwarescore=0 priorityscore=1501 adultscore=0
+	lowpriorityscore=0 phishscore=0 spamscore=0 impostorscore=0 mlxscore=0
+	bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2009150000 definitions=main-2012090019
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>, Sagi Grimberg <sagi@grimberg.me>,
-	Mike Snitzer <snitzer@redhat.com>, Oleksii Kurochko <olkuroch@cisco.com>,
-	Dongsheng Yang <dongsheng.yang@easystack.cn>,
-	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	linux-nvme@lists.infradead.org,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Keith Busch <kbusch@kernel.org>,
-	Ilya Dryomov <idryomov@gmail.com>, ceph-devel@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH 6/6] nvme: allow revalidate to set a
-	namespace read-only
+Cc: axboe@kernel.dk, damien.lemoal@wdc.com,
+	SelvaKumar S <selvakuma.s1@samsung.com>, sagi@grimberg.me,
+	snitzer@redhat.com, selvajove@gmail.com,
+	linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+	nj.shetty@samsung.com, linux-block@vger.kernel.org,
+	dm-devel@redhat.com, Mikulas Patocka <mpatocka@redhat.com>,
+	joshi.k@samsung.com, "Martin K. Petersen" <martin.petersen@oracle.com>,
+	kbusch@kernel.org, javier.gonz@samsung.com,
+	linux-scsi@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+	Bart Van Assche <bvanassche@acm.org>
+Subject: Re: [dm-devel] [RFC PATCH v2 0/2] add simple copy support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,51 +121,31 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Dec 08, 2020 at 05:28:29PM +0100, Christoph Hellwig wrote:
-> Unconditionally call set_disk_ro now that it only updates the hardware
-> state.  This allows to properly set up the Linux devices read-only when
-> the controller turns a previously writable namespace read-only.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> Reviewed-by: Keith Busch <kbusch@kernel.org>
-> Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
-> ---
->  drivers/nvme/host/core.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-> index ce1b6151944131..3a0557ccc9fc5d 100644
-> --- a/drivers/nvme/host/core.c
-> +++ b/drivers/nvme/host/core.c
-> @@ -2114,9 +2114,8 @@ static void nvme_update_disk_info(struct gendisk *disk,
->  	nvme_config_discard(disk, ns);
->  	nvme_config_write_zeroes(disk, ns);
->  
-> -	if ((id->nsattr & NVME_NS_ATTR_RO) ||
-> -	    test_bit(NVME_NS_FORCE_RO, &ns->flags))
-> -		set_disk_ro(disk, true);
-> +	set_disk_ro(disk, (id->nsattr & NVME_NS_ATTR_RO) ||
-> +		test_bit(NVME_NS_FORCE_RO, &ns->flags));
->  }
->  
->  static inline bool nvme_first_scan(struct gendisk *disk)
-> -- 
-> 2.29.2
-> 
 
-Reviewed-by: Ming Lei <ming.lei@redhat.com>
+Hannes,
+
+[Sorry I'm late to the discussion here, had a few fires going in
+addition to the end of the kernel cycle]
+
+> And we shouldn't forget that the main issue which killed all previous
+> implementations was a missing QoS guarantee.
+
+That and the fact that our arbitrary stacking situation was hard to
+resolve.
+
+The QoS guarantee was somewhat addressed by Fred in T10. But I agree we
+need some sort of toggle.
 
 -- 
-Ming
+Martin K. Petersen	Oracle Linux Engineering
 
 --
 dm-devel mailing list
