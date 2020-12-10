@@ -1,84 +1,52 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 01E642D5E3C
-	for <lists+dm-devel@lfdr.de>; Thu, 10 Dec 2020 15:45:08 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 3EDCF2D5E45
+	for <lists+dm-devel@lfdr.de>; Thu, 10 Dec 2020 15:46:16 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-429-plRPVIziOv6iAvOq4vPcTA-1; Thu, 10 Dec 2020 09:45:02 -0500
-X-MC-Unique: plRPVIziOv6iAvOq4vPcTA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-524-GwaUUGrCN0GV0L8EWQE0Ew-1; Thu, 10 Dec 2020 09:46:13 -0500
+X-MC-Unique: GwaUUGrCN0GV0L8EWQE0Ew-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 54E97107ACFB;
-	Thu, 10 Dec 2020 14:44:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9A1898026AD;
+	Thu, 10 Dec 2020 14:46:03 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2EEFE5C6B8;
-	Thu, 10 Dec 2020 14:44:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6BCF519717;
+	Thu, 10 Dec 2020 14:46:03 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DADC35002D;
-	Thu, 10 Dec 2020 14:44:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 261D35002E;
+	Thu, 10 Dec 2020 14:46:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BA13XZe027131 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 9 Dec 2020 20:03:33 -0500
+	id 0BA9N1M0013044 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 10 Dec 2020 04:23:01 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4DF65100CBB2; Thu, 10 Dec 2020 01:03:33 +0000 (UTC)
+	id 4990C2026D5D; Thu, 10 Dec 2020 09:23:01 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 49B8A100CBA2
-	for <dm-devel@redhat.com>; Thu, 10 Dec 2020 01:03:31 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 449102026D37
+	for <dm-devel@redhat.com>; Thu, 10 Dec 2020 09:22:57 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F110F80088F
-	for <dm-devel@redhat.com>; Thu, 10 Dec 2020 01:03:30 +0000 (UTC)
-Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
-	[209.85.215.194]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-472-MNOfwTwHN-2oFqfvWl1RtA-1; Wed, 09 Dec 2020 20:03:25 -0500
-X-MC-Unique: MNOfwTwHN-2oFqfvWl1RtA-1
-Received: by mail-pg1-f194.google.com with SMTP id w5so1826652pgj.3;
-	Wed, 09 Dec 2020 17:03:24 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:from:to:cc:references:message-id:date
-	:user-agent:mime-version:in-reply-to:content-transfer-encoding
-	:content-language;
-	bh=73EtPaaOp1TANFS2/oJJIHj87LdKAP2A9J8wvXGyNCA=;
-	b=epxWZP+sf93arhe/5DbDkzccmfqZC3fRI6xkFUJVkLJp9NdfMvLuD84WqICtWdLVPd
-	KgO551qnRR1EshH4Ki8vfDoDEVX+t58aoevoKuLtCKYrX8BLeWcLqVbwQfry4gywIPEX
-	tikUeMUDngrvoDAZzq9KzRmIZmpyjcupQW/LRpUxi9UEysl6gd8luo0St7qk/dJPalaa
-	coNwZ3hfUO7la6w/1Yig85gOhvzvXtdJiQvVMbcWWfMUp2YZmiVO3pM4FzfeDie2ZPtg
-	MSj0ITFdeBPa49SSDPUCXRZ1m7wNQxjnonP0ZEXomtd1RrhkSMu2uyMHrSmj23slfE+E
-	Ktkw==
-X-Gm-Message-State: AOAM531vA8aPkzTsE/UhGYnjJNiI/CS+mRbqDCOHT/VZAm7f5EdaUXCu
-	ztnPRuRCWHc6/W5rtRbXCIMtF+BoulVeY5Zr
-X-Google-Smtp-Source: ABdhPJyH9dg81cj1A215OkUhdlKrFthaWPMtQ1AVU2nhzs+bXK14piRTn67cXjT9wyVl2YW0ICOumg==
-X-Received: by 2002:a17:90a:8508:: with SMTP id
-	l8mr1019306pjn.131.1607562203557; 
-	Wed, 09 Dec 2020 17:03:23 -0800 (PST)
-Received: from [192.168.0.12] ([125.186.151.199])
-	by smtp.googlemail.com with ESMTPSA id
-	v125sm1333415pgv.6.2020.12.09.17.03.21
-	(version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-	Wed, 09 Dec 2020 17:03:22 -0800 (PST)
-From: Hyeongseok Kim <hyeongseok@gmail.com>
-To: Mike Snitzer <snitzer@redhat.com>
-References: <20201203004659.95708-1-hyeongseok@gmail.com>
-	<CABCJKufCS+hbXkGyO9uU3EBscfCpU1f7pi77uzR_+cjo97g=YQ@mail.gmail.com>
-	<1939b1ec-b605-8a1a-8ff9-e50c36d60f66@gmail.com>
-	<CABCJKueAPHNqdq=k6AhhxDR-oQdNs8+=BhmY8wGdgNcwr_-KMQ@mail.gmail.com>
-	<7fda3da9-e0b1-abdd-4bde-3a46405536f5@gmail.com>
-Message-ID: <b004e7c7-f795-77ed-19b9-983785780e92@gmail.com>
-Date: Thu, 10 Dec 2020 10:03:19 +0900
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
-	Thunderbird/60.7.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C023811E78
+	for <dm-devel@redhat.com>; Thu, 10 Dec 2020 09:22:57 +0000 (UTC)
+Received: from s2.neomailbox.net (s2.neomailbox.net [5.148.176.60]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-560-wylAK2woPm2KfZxnh6rymw-1; Thu, 10 Dec 2020 04:22:54 -0500
+X-MC-Unique: wylAK2woPm2KfZxnh6rymw-1
+From: Antonio Quartulli <a@unstable.cc>
+To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
+	dm-devel@redhat.com, linux-kernel@vger.kernel.org
+Date: Thu, 10 Dec 2020 09:50:49 +0100
+Message-Id: <20201210085049.14528-1-a@unstable.cc>
 MIME-Version: 1.0
-In-Reply-To: <7fda3da9-e0b1-abdd-4bde-3a46405536f5@gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -87,14 +55,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Mimecast-Spam-Signature: yes
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 10 Dec 2020 09:44:21 -0500
-Cc: device-mapper development <dm-devel@redhat.com>,
-	=?UTF-8?B?6rmA7ZiV7ISd?= <hyeongseok.kim@lge.com>,
-	Alasdair Kergon <agk@redhat.com>, Sami Tolvanen <samitolvanen@google.com>
-Subject: Re: [dm-devel] [PATCH] dm verity: skip verity work on I/O errors
- when system is shutting down
+Cc: Antonio Quartulli <a@unstable.cc>
+Subject: [dm-devel] [PATCH] dm ebs: avoid double unlikely() notation when
+	using IS_ERR()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -108,75 +75,44 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: ko-KR
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-SGkgTWlrZSwKCkhvdyBkbyB5b3UgdGhpbmsgYWJvdXQgdGhpcyBwYXRjaD8KCgoKT24gMTIvNy8y
-MCA4OjE4IEFNLCBoeWVvbmdzZW9rIHdyb3RlOgo+IE9uIDEyLzUvMjAgODowMyBBTSwgU2FtaSBU
-b2x2YW5lbiB3cm90ZToKPj4gT24gVGh1LCBEZWMgMywgMjAyMCBhdCAzOjQ2IFBNIGh5ZW9uZ3Nl
-b2sgPGh5ZW9uZ3Nlb2tAZ21haWwuY29tPiB3cm90ZToKPj4+IE9uIDEyLzQvMjAgMjoyMiBBTSwg
-U2FtaSBUb2x2YW5lbiB3cm90ZToKPj4+PiBIaSwKPj4+Pgo+Pj4+IE9uIFdlZCwgRGVjIDIsIDIw
-MjAgYXQgNDo0OCBQTSBIeWVvbmdzZW9rIEtpbSAKPj4+PiA8aHllb25nc2Vva0BnbWFpbC5jb20+
-IHdyb3RlOgo+Pj4+PiBJZiBlbWVyZ2VuY3kgc3lzdGVtIHNodXRkb3duIGlzIGNhbGxlZCwgbGlr
-ZSBieSB0aGVybWFsIHNodXRkb3duLAo+Pj4+PiBkbSBkZXZpY2UgY291bGQgYmUgYWxpdmUgd2hl
-biB0aGUgYmxvY2sgZGV2aWNlIGNvdWxkbid0IHByb2Nlc3MKPj4+Pj4gSS9PIHJlcXVlc3RzIGFu
-eW1vcmUuIEluIHRoaXMgc3RhdHVzLCB0aGUgaGFuZGxpbmcgb2YgSS9PIGVycm9ycwo+Pj4+PiBi
-eSBuZXcgZG0gSS9PIHJlcXVlc3RzIG9yIGJ5IHRob3NlIGFscmVhZHkgaW4tZmxpZ2h0IGNhbiBs
-ZWFkIHRvCj4+Pj4+IGEgdmVyaXR5IGNvcnJ1cHRpb24gc3RhdGUsIHdoaWNoIGlzIG1pc2p1ZGdt
-ZW50Lgo+Pj4+PiBTbywgc2tpcCB2ZXJpdHkgd29yayBmb3IgSS9PIGVycm9yIHdoZW4gc3lzdGVt
-IGlzIHNodXR0aW5nIGRvd24uCj4+Pj4gVGhhbmsgeW91IGZvciB0aGUgcGF0Y2guIEkgYWdyZWUg
-dGhhdCBhdHRlbXB0aW5nIHRvIGNvcnJlY3QgSS9PIGVycm9ycwo+Pj4+IHdoZW4gdGhlIHN5c3Rl
-bSBpcyBzaHV0dGluZyBkb3duLCBhbmQgdGh1cyBnZW5lcmF0aW5nIG1vcmUgSS9PIHRoYXQncwo+
-Pj4+IGxpa2VseSBnb2luZyB0byBmYWlsLCBpcyBub3QgYSBnb29kIGlkZWEuCj4+Pj4KPj4+Pj4g
-U2lnbmVkLW9mZi1ieTogSHllb25nc2VvayBLaW0gPGh5ZW9uZ3Nlb2tAZ21haWwuY29tPgo+Pj4+
-PiAtLS0KPj4+Pj4gwqDCoCBkcml2ZXJzL21kL2RtLXZlcml0eS10YXJnZXQuYyB8IDEyICsrKysr
-KysrKysrLQo+Pj4+PiDCoMKgIDEgZmlsZSBjaGFuZ2VkLCAxMSBpbnNlcnRpb25zKCspLCAxIGRl
-bGV0aW9uKC0pCj4+Pj4+Cj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21kL2RtLXZlcml0eS10
-YXJnZXQuYyAKPj4+Pj4gYi9kcml2ZXJzL21kL2RtLXZlcml0eS10YXJnZXQuYwo+Pj4+PiBpbmRl
-eCBmNzQ5ODJkY2JlYTAuLmJhNjJjNTM3Nzk4YiAxMDA2NDQKPj4+Pj4gLS0tIGEvZHJpdmVycy9t
-ZC9kbS12ZXJpdHktdGFyZ2V0LmMKPj4+Pj4gKysrIGIvZHJpdmVycy9tZC9kbS12ZXJpdHktdGFy
-Z2V0LmMKPj4+Pj4gQEAgLTY0LDYgKzY0LDE1IEBAIHN0cnVjdCBidWZmZXJfYXV4IHsKPj4+Pj4g
-wqDCoMKgwqDCoMKgwqDCoMKgIGludCBoYXNoX3ZlcmlmaWVkOwo+Pj4+PiDCoMKgIH07Cj4+Pj4+
-Cj4+Pj4+ICsvKgo+Pj4+PiArICogV2hpbGUgc3lzdGVtIHNodXRkb3duLCBza2lwIHZlcml0eSB3
-b3JrIGZvciBJL08gZXJyb3IuCj4+Pj4+ICsgKi8KPj4+Pj4gK3N0YXRpYyBpbmxpbmUgYm9vbCB2
-ZXJpdHlfaXNfc3lzdGVtX3NodXR0aW5nX2Rvd24odm9pZCkKPj4+Pj4gK3sKPj4+Pj4gK8KgwqDC
-oMKgwqDCoCByZXR1cm4gc3lzdGVtX3N0YXRlID09IFNZU1RFTV9IQUxUIHx8IHN5c3RlbV9zdGF0
-ZSA9PSAKPj4+Pj4gU1lTVEVNX1BPV0VSX09GRgo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCB8fCBzeXN0ZW1fc3RhdGUgPT0gU1lTVEVNX1JFU1RBUlQ7Cj4+Pj4+ICt9Cj4+Pj4g
-V2hpY2ggb2YgdGhlc2Ugc3RhdGVzIGRvZXMgdGhlIHN5c3RlbSBnZXQgdG8gZHVyaW5nIGFuIGVt
-ZXJnZW5jeQo+Pj4+IHNodXRkb3duPyBDYW4gd2Ugc2ltcGxpZnkgdGhpcyBieSBjaGFuZ2luZyB0
-aGUgdGVzdCB0byBzeXN0ZW1fc3RhdGUgPgo+Pj4+IFNZU1RFTV9SVU5OSU5HPwo+Pj4gSSBvbmx5
-IHNhdyB0aGF0IGl0IHdhcyBTWVNURU1fUE9XRVJfT0ZGIG9yIFNZU1RFTV9SRVNUQVJULCBJIHdv
-bmRlciBpZgo+Pj4gSS9PIGVycm9yIGNhbiBvY2N1ciBpbiBTWVNURU1fU1VTUEVORCBzdGF0ZS4K
-Pj4gT0ssIHNvIHRoaW5rIHRoZSBjdXJyZW50IHZlcnNpb24gaXMgZmluZSB0aGVuLgo+Pgo+Pj4g
-QXMgZmFyIGFzIEkga25vdywgdGhpcyBjb3VsZCBiZSBoYXBwZW4gaW4gZW1lcmdlbmN5IHNodXRk
-b3duIGNhc2UsCj4+PiBjYW4geW91IGV4cGxhaW4gaWYgeW91IGhhdmUgYSBjYXNlIHdoZW4gSS9P
-IGVycm9yIGNhbiBvY2N1ciBieQo+Pj4gU1lTVEVNX1NVU1BFTkQ/Cj4+IE5vLCBJIGRvbid0IGhh
-dmUgYSBjYXNlIHdoZXJlIHRoYXQgd291bGQgaGFwcGVuLgo+Pgo+Pj4+IE90aGVyd2lzZSwgdGhp
-cyBsb29rcyBnb29kIHRvIG1lLiBIb3dldmVyLCBJJ20gbm93IHdvbmRlcmluZyBpZiBhbiBJL08K
-Pj4+PiBlcnJvciBzaG91bGQgZXZlciByZXN1bHQgaW4gdmVyaXR5X2hhbmRsZV9lcnIoKSBiZWlu
-ZyBjYWxsZWQuIFdpdGhvdXQKPj4+PiBGRUMsIGRtLXZlcml0eSB3b24ndCBjYWxsIHZlcml0eV9o
-YW5kbGVfZXJyKCkgd2hlbiBJL08gZmFpbHMsIGJ1dCB3aXRoCj4+Pj4gRkVDIGVuYWJsZWQsIGl0
-IGN1cnJlbnRseSBkb2VzLCBhc3N1bWluZyBlcnJvciBjb3JyZWN0aW9uIGZhaWxzLiBBbnkKPj4+
-PiB0aG91Z2h0cz8KPj4+IFllcywgSSBoYXZlIHRob3VnaHQgYWJvdXQgdGhpcywgYW5kIHRvIGJl
-IGhvbmVzdCwgSSB0aGluayB2ZXJpdHkgb3IgRkVDCj4+PiBzaG91bGQgbm90IGNhbGwgdmVyaXR5
-X2hhbmRsZV9lcnJvcigpIGluIGNhc2Ugb2YgSS9PIGVycm9ycy4KPj4gSSB0ZW5kIHRvIGFncmVl
-LiBXZSBjb3VsZCBzaW1wbHkgY2hlY2sgdGhlIG9yaWdpbmFsIGJpby0+Ymlfc3RhdHVzIGluCj4+
-IHZlcml0eV92ZXJpZnlfaW8oKSBhbmQgaWYgd2UgZmFpbGVkIHRvIGNvcnJlY3QgYW4gSS9PIGVy
-cm9yLCByZXR1cm4gYW4KPj4gZXJyb3IgaW5zdGVhZCBvZiBnb2luZyBpbnRvIHZlcml0eV9oYW5k
-bGVfZXJyKCkuIEFueSB0aG91Z2h0cz8KPj4KPj4+IEJ1dCwgYmVjYXVzZSBJIGNvdWxkbid0IGtu
-b3cgdGhlIGFiaWxpdHkgb2YgRkVDLCBJIG9ubHkgZm9jdXNlZCBvbiBub3QKPj4+IGJyZWFraW5n
-IGN1cmVudCBsb2dpY3Mgb3RoZXIgdGhhbiBzeXN0ZW0gc2h1dGRvd24gJiYgSS9PIGVycm9ycyBj
-YXNlLgo+PiBTdXJlLCBtYWtlcyBzZW5zZS4gV2UgY2FuIGFkZHJ3ZXNzIHRoYXQgc2VwYXJhdGVs
-eS4KPiBTb3VuZHMgcmVhc29uYWJsZS4gSSBob3BlIHRoZSBuZXh0IGltcHJvdmVtZW50cy4KPj4K
-Pj4gUmV2aWV3ZWQtYnk6IFNhbWkgVG9sdmFuZW4gPHNhbWl0b2x2YW5lbkBnb29nbGUuY29tPgo+
-Pgo+PiBTYW1pCj4+Cj4gVGhhbmsgeW91IGZvciB0aGUgcmV2aWV3Lgo+Cj4gSHllb25nc2Vvawo+
-Cj4KCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8v
-d3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
+The definition of IS_ERR() already applies the unlikely() notation
+when checking the error status of the passed pointer. For this
+reason there is no need to have the same notation outside of
+IS_ERR() itself.
+
+Clean up code by removing redundant notation.
+
+Signed-off-by: Antonio Quartulli <a@unstable.cc>
+---
+ drivers/md/dm-ebs-target.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/md/dm-ebs-target.c b/drivers/md/dm-ebs-target.c
+index cb85610527c2..55bcfb74f51f 100644
+--- a/drivers/md/dm-ebs-target.c
++++ b/drivers/md/dm-ebs-target.c
+@@ -86,7 +86,7 @@ static int __ebs_rw_bvec(struct ebs_c *ec, int rw, struct bio_vec *bv, struct bv
+ 		else
+ 			ba = dm_bufio_new(ec->bufio, block, &b);
+ 
+-		if (unlikely(IS_ERR(ba))) {
++		if (IS_ERR(ba)) {
+ 			/*
+ 			 * Carry on with next buffer, if any, to issue all possible
+ 			 * data but return error.
+-- 
+2.29.2
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
