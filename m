@@ -2,135 +2,83 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 83AE32D5E3A
-	for <lists+dm-devel@lfdr.de>; Thu, 10 Dec 2020 15:45:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 01E642D5E3C
+	for <lists+dm-devel@lfdr.de>; Thu, 10 Dec 2020 15:45:08 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-237-m9BCFg8xPNyjEGV3VTnBVg-1; Thu, 10 Dec 2020 09:45:01 -0500
-X-MC-Unique: m9BCFg8xPNyjEGV3VTnBVg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-429-plRPVIziOv6iAvOq4vPcTA-1; Thu, 10 Dec 2020 09:45:02 -0500
+X-MC-Unique: plRPVIziOv6iAvOq4vPcTA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 534E3190D34F;
-	Thu, 10 Dec 2020 14:44:52 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F3CB5D9DD;
-	Thu, 10 Dec 2020 14:44:52 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 54E97107ACFB;
+	Thu, 10 Dec 2020 14:44:54 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2EEFE5C6B8;
+	Thu, 10 Dec 2020 14:44:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DB0D1180954D;
-	Thu, 10 Dec 2020 14:44:51 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DADC35002D;
+	Thu, 10 Dec 2020 14:44:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0B9NEH08014959 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 9 Dec 2020 18:14:18 -0500
+	id 0BA13XZe027131 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 9 Dec 2020 20:03:33 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D1DF62026D48; Wed,  9 Dec 2020 23:14:17 +0000 (UTC)
+	id 4DF65100CBB2; Thu, 10 Dec 2020 01:03:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CAF1E2026D47
-	for <dm-devel@redhat.com>; Wed,  9 Dec 2020 23:14:15 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 49B8A100CBA2
+	for <dm-devel@redhat.com>; Thu, 10 Dec 2020 01:03:31 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A4368858EEC
-	for <dm-devel@redhat.com>; Wed,  9 Dec 2020 23:14:15 +0000 (UTC)
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
-	[67.231.153.30]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-18-Qg_XFNL0O0C5PH9n5YMOjw-1; Wed, 09 Dec 2020 18:14:11 -0500
-X-MC-Unique: Qg_XFNL0O0C5PH9n5YMOjw-1
-Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
-	0B9N4iqD026593; Wed, 9 Dec 2020 15:14:09 -0800
-Received: from maileast.thefacebook.com ([163.114.130.16])
-	by mx0a-00082601.pphosted.com with ESMTP id 35ak7a89mm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128
-	verify=NOT); Wed, 09 Dec 2020 15:14:09 -0800
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com (100.104.31.183)
-	by o365-in.thefacebook.com (100.104.35.172) with Microsoft SMTP
-	Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
-	15.1.1979.3; Wed, 9 Dec 2020 15:14:08 -0800
-Received: from BYAPR15MB2999.namprd15.prod.outlook.com (2603:10b6:a03:fa::12)
-	by BYAPR15MB3303.namprd15.prod.outlook.com (2603:10b6:a03:10e::32)
-	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3632.18;
-	Wed, 9 Dec 2020 23:14:08 +0000
-Received: from BYAPR15MB2999.namprd15.prod.outlook.com
-	([fe80::f49e:bdbb:8cd7:bf6b]) by
-	BYAPR15MB2999.namprd15.prod.outlook.com
-	([fe80::f49e:bdbb:8cd7:bf6b%7]) with mapi id 15.20.3654.012;
-	Wed, 9 Dec 2020 23:14:07 +0000
-From: Song Liu <songliubraving@fb.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F110F80088F
+	for <dm-devel@redhat.com>; Thu, 10 Dec 2020 01:03:30 +0000 (UTC)
+Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
+	[209.85.215.194]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-472-MNOfwTwHN-2oFqfvWl1RtA-1; Wed, 09 Dec 2020 20:03:25 -0500
+X-MC-Unique: MNOfwTwHN-2oFqfvWl1RtA-1
+Received: by mail-pg1-f194.google.com with SMTP id w5so1826652pgj.3;
+	Wed, 09 Dec 2020 17:03:24 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+	:user-agent:mime-version:in-reply-to:content-transfer-encoding
+	:content-language;
+	bh=73EtPaaOp1TANFS2/oJJIHj87LdKAP2A9J8wvXGyNCA=;
+	b=epxWZP+sf93arhe/5DbDkzccmfqZC3fRI6xkFUJVkLJp9NdfMvLuD84WqICtWdLVPd
+	KgO551qnRR1EshH4Ki8vfDoDEVX+t58aoevoKuLtCKYrX8BLeWcLqVbwQfry4gywIPEX
+	tikUeMUDngrvoDAZzq9KzRmIZmpyjcupQW/LRpUxi9UEysl6gd8luo0St7qk/dJPalaa
+	coNwZ3hfUO7la6w/1Yig85gOhvzvXtdJiQvVMbcWWfMUp2YZmiVO3pM4FzfeDie2ZPtg
+	MSj0ITFdeBPa49SSDPUCXRZ1m7wNQxjnonP0ZEXomtd1RrhkSMu2uyMHrSmj23slfE+E
+	Ktkw==
+X-Gm-Message-State: AOAM531vA8aPkzTsE/UhGYnjJNiI/CS+mRbqDCOHT/VZAm7f5EdaUXCu
+	ztnPRuRCWHc6/W5rtRbXCIMtF+BoulVeY5Zr
+X-Google-Smtp-Source: ABdhPJyH9dg81cj1A215OkUhdlKrFthaWPMtQ1AVU2nhzs+bXK14piRTn67cXjT9wyVl2YW0ICOumg==
+X-Received: by 2002:a17:90a:8508:: with SMTP id
+	l8mr1019306pjn.131.1607562203557; 
+	Wed, 09 Dec 2020 17:03:23 -0800 (PST)
+Received: from [192.168.0.12] ([125.186.151.199])
+	by smtp.googlemail.com with ESMTPSA id
+	v125sm1333415pgv.6.2020.12.09.17.03.21
+	(version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+	Wed, 09 Dec 2020 17:03:22 -0800 (PST)
+From: Hyeongseok Kim <hyeongseok@gmail.com>
 To: Mike Snitzer <snitzer@redhat.com>
-Thread-Topic: Revert "dm raid: remove unnecessary discard limits for raid10"
-Thread-Index: AQHWznvGWYeJlNK5kEy9X37Df/JOxKnvZQSA
-Date: Wed, 9 Dec 2020 23:14:07 +0000
-Message-ID: <03EC7F7D-DF6E-4962-BBA7-FA554509C2E5@fb.com>
-References: <20201209215814.2623617-1-songliubraving@fb.com>
-	<20201209223615.GA2752@redhat.com>
-In-Reply-To: <20201209223615.GA2752@redhat.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:400::5:d023]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: aebea487-bebb-4e59-3709-08d89c982142
-x-ms-traffictypediagnostic: BYAPR15MB3303:
-x-microsoft-antispam-prvs: <BYAPR15MB3303A59E93EAA3A05A5005F3B3CC0@BYAPR15MB3303.namprd15.prod.outlook.com>
-x-fb-source: Internal
-x-ms-oob-tlc-oobclassifiers: OLM:8273
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: OPlUyXQKAU8h5+9XHSSZbNjldsv980yP1m6bVd/sm8SqEBoO3JaVMl80IzUZ4/q4aVJ9DuCYCJcugerMJxnI9q1Sal2WTy3T/1TKiuC8Jgg+lwMNzRIL2qOfcYPmqDvM8lSkeJ7NCtJffbKBT8Z9KD9T8bqAS4cs9DHAEHgqbH0QvSEw3gSX3CubwrpVLmUBgvnYH6N41LNRiT/JiDzoqLzSltmGUXY9LDhWe2UmhBXZ7fHSTwH8n0CjzU07n9JQkUY829z/7x3AoAZiqfoGnuJoeHsaIRTeLcVdk90hrE8jouP45+9+KmMEENA55O0QmNlbJ0HQgQHoBO1p6aSzgLS8Tfg0kFfWhKX7nfOYdbeSwGwi5ArYJ6H0WGn0OwiLeqcT7p97YCOgBbL13ZukXUK2RNg33miJmlEY3V1ordXv+eIYC6VHgvqtqEuKrgG2/g0nmvflmTo17IZORkWlFA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:BYAPR15MB2999.namprd15.prod.outlook.com;
-	PTR:; CAT:NONE;
-	SFS:(136003)(366004)(376002)(346002)(6916009)(2616005)(2906002)(6512007)(5660300002)(508600001)(66446008)(8676002)(86362001)(64756008)(66556008)(53546011)(54906003)(71200400001)(6486002)(8936002)(76116006)(66946007)(966005)(4744005)(36756003)(4326008)(6506007)(186003)(66476007)(33656002)(45980500001);
-	DIR:OUT; SFP:1102
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?lf6F/SsHBi9ex73b0zNBRiNQODY5yFyURMZFGofbohTi5UB/K39twqvlIv4C?=
-	=?us-ascii?Q?uAtORMI1Bvmd9NERGZ6YWhzzhbIwU/1Qw8i5LgGEJ7zeKAPlS53TgxM2dMSG?=
-	=?us-ascii?Q?YU8Sknb5U2eEvve6PqEptGgDzHgdnttjoYjd4XXAzbM7WE9K9o0PDBjnkWeR?=
-	=?us-ascii?Q?3HiqScj/oV/hmTsIU55HjTJKvcUBm9zq3Yu35VwaEjFNJucg8/wafGKyM/v0?=
-	=?us-ascii?Q?yKB4jfugqveL4Ap3t6iQ1fnVk8HWuJ/YdDCyrLK4jcUzI/wtYLgmMTJbQloV?=
-	=?us-ascii?Q?uQN0FssO1M4rfaGCFqfJarCPGzQtDMopAYFA/vyAhEjeVX0TITbuToMMMfTi?=
-	=?us-ascii?Q?kJcHwMJa5QUPBLZzw6TzUAsBjM+zm8J/4cnPYFCHG8autGYPajuKbZAjG9w9?=
-	=?us-ascii?Q?l88v0BkFbCL/JZIN5R2sl6EaZ2j5gMJ2YKn+H6M/E5O2otSOP5YGm9LeySfg?=
-	=?us-ascii?Q?HTwbbcRl7edupTRsO1cVc7CNj9ttNHYPt1RkC1fspwuH4Y4CskIwD6qIANnq?=
-	=?us-ascii?Q?7PP/kBeT3fpiuB1q5sOQ7ln2XrFHa5gCB6A5W6WCgHn1nkswaMHPswMtHOpH?=
-	=?us-ascii?Q?WoNZmH3ZuiM3B91PkQ7kObV9Q/Gh48xqLI5K/Ksbwd3YnamPuXWkT4UEztPD?=
-	=?us-ascii?Q?OZHfXIzz4gfa7K4ARCIhE6Vv8YgA7VZ4L7eb9/UWGi7v8fvH4dqfiRLCU4w2?=
-	=?us-ascii?Q?YMylKh35+Fkkzyg+Y9AIIIsqqyHLx1y9NbxIys31+11GsSOb6kztB4BQc27n?=
-	=?us-ascii?Q?MhUJwCS2KTNb6/RhjD2VMUSKazqJp4cT+yru+aXPcNtvyRYY8Hi53rN6y6Oa?=
-	=?us-ascii?Q?d6ZTa02AiUsrsd2iZZYgntGUsps6Ib9wGhSyWkX9gQIrBG+nGRSu6jgIW8+/?=
-	=?us-ascii?Q?254CpKLqR80xLYc1wvrW4yv5S+9JUIK5OhGzrYeojDwx0B4NbRvxGms73CPp?=
-	=?us-ascii?Q?cosnVsXcQpfQHb8eJxpDuvYx07rY7m3WSFcdphg3NY9e7cL45taEKx31HUM8?=
-	=?us-ascii?Q?coHigf3IVeDfLLiR4NPF0D4rusj7RasE89ngBtC+7ZMCFRM=3D?=
-x-ms-exchange-transport-forked: True
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR15MB2999.namprd15.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aebea487-bebb-4e59-3709-08d89c982142
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Dec 2020 23:14:07.7995 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YCRtnlq/vmdBfoeZnxSiAVpOoPj9CiU3meOYL6wTaPIcZ64oZyzF7rwros4Wt2uFQH1JNV98aIejQ+hhfyWQsw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR15MB3303
-X-OriginatorOrg: fb.com
-X-Proofpoint-UnRewURL: 1 URL was un-rewritten
+References: <20201203004659.95708-1-hyeongseok@gmail.com>
+	<CABCJKufCS+hbXkGyO9uU3EBscfCpU1f7pi77uzR_+cjo97g=YQ@mail.gmail.com>
+	<1939b1ec-b605-8a1a-8ff9-e50c36d60f66@gmail.com>
+	<CABCJKueAPHNqdq=k6AhhxDR-oQdNs8+=BhmY8wGdgNcwr_-KMQ@mail.gmail.com>
+	<7fda3da9-e0b1-abdd-4bde-3a46405536f5@gmail.com>
+Message-ID: <b004e7c7-f795-77ed-19b9-983785780e92@gmail.com>
+Date: Thu, 10 Dec 2020 10:03:19 +0900
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+	Thunderbird/60.7.0
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
-	definitions=2020-12-09_18:2020-12-09,
-	2020-12-09 signatures=0
-X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
-	impostorscore=0
-	malwarescore=0 mlxscore=0 suspectscore=0 spamscore=0 adultscore=0
-	lowpriorityscore=0 bulkscore=0 phishscore=0 mlxlogscore=951
-	priorityscore=1501 clxscore=1015 classifier=spam adjust=0 reason=mlx
-	scancount=1 engine=8.12.0-2009150000 definitions=main-2012090159
-X-FB-Internal: deliver
+In-Reply-To: <7fda3da9-e0b1-abdd-4bde-3a46405536f5@gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -139,18 +87,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0B9NEH08014959
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 10 Dec 2020 09:44:21 -0500
-Cc: Jens Axboe <axboe@kernel.dk>, Xiao
-	Ni <xni@redhat.com>, Matthew Ruffell <matthew.ruffell@canonical.com>,
-	lkml <linux-kernel@vger.kernel.org>,
-	linux-raid <linux-raid@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] Revert "dm raid: remove unnecessary discard limits
-	for raid10"
+Cc: device-mapper development <dm-devel@redhat.com>,
+	=?UTF-8?B?6rmA7ZiV7ISd?= <hyeongseok.kim@lge.com>,
+	Alasdair Kergon <agk@redhat.com>, Sami Tolvanen <samitolvanen@google.com>
+Subject: Re: [dm-devel] [PATCH] dm verity: skip verity work on I/O errors
+ when system is shutting down
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -164,49 +108,75 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-ID: <69A71CAB8890E444B48DA3D937DD6248@namprd15.prod.outlook.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Language: ko-KR
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-
-
-> On Dec 9, 2020, at 2:36 PM, Mike Snitzer <snitzer@redhat.com> wrote:
-> 
-> On Wed, Dec 09 2020 at  4:58pm -0500,
-> Song Liu <songliubraving@fb.com> wrote:
-> 
->> This reverts commit f0e90b6c663a7e3b4736cb318c6c7c589f152c28.
->> 
->> Matthew Ruffell reported data corruption in raid10 due to the changes
->> in discard handling [1]. Revert these changes before we find a proper fix.
->> 
->> [1] https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1907262/ 
->> Cc: Matthew Ruffell <matthew.ruffell@canonical.com>
->> Cc: Xiao Ni <xni@redhat.com>
->> Cc: Mike Snitzer <snitzer@redhat.com>
->> Signed-off-by: Song Liu <songliubraving@fb.com>
-> 
-> If you're reverting all the MD code that enabled this DM change, then
-> obviously the DM change must be reverted too.  But please do _not_
-> separate the DM revert from the MD reverts.
-
-Good point! I should have thought about it through. 
-
-Thanks,
-Song
-
-[...]
-
-
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+SGkgTWlrZSwKCkhvdyBkbyB5b3UgdGhpbmsgYWJvdXQgdGhpcyBwYXRjaD8KCgoKT24gMTIvNy8y
+MCA4OjE4IEFNLCBoeWVvbmdzZW9rIHdyb3RlOgo+IE9uIDEyLzUvMjAgODowMyBBTSwgU2FtaSBU
+b2x2YW5lbiB3cm90ZToKPj4gT24gVGh1LCBEZWMgMywgMjAyMCBhdCAzOjQ2IFBNIGh5ZW9uZ3Nl
+b2sgPGh5ZW9uZ3Nlb2tAZ21haWwuY29tPiB3cm90ZToKPj4+IE9uIDEyLzQvMjAgMjoyMiBBTSwg
+U2FtaSBUb2x2YW5lbiB3cm90ZToKPj4+PiBIaSwKPj4+Pgo+Pj4+IE9uIFdlZCwgRGVjIDIsIDIw
+MjAgYXQgNDo0OCBQTSBIeWVvbmdzZW9rIEtpbSAKPj4+PiA8aHllb25nc2Vva0BnbWFpbC5jb20+
+IHdyb3RlOgo+Pj4+PiBJZiBlbWVyZ2VuY3kgc3lzdGVtIHNodXRkb3duIGlzIGNhbGxlZCwgbGlr
+ZSBieSB0aGVybWFsIHNodXRkb3duLAo+Pj4+PiBkbSBkZXZpY2UgY291bGQgYmUgYWxpdmUgd2hl
+biB0aGUgYmxvY2sgZGV2aWNlIGNvdWxkbid0IHByb2Nlc3MKPj4+Pj4gSS9PIHJlcXVlc3RzIGFu
+eW1vcmUuIEluIHRoaXMgc3RhdHVzLCB0aGUgaGFuZGxpbmcgb2YgSS9PIGVycm9ycwo+Pj4+PiBi
+eSBuZXcgZG0gSS9PIHJlcXVlc3RzIG9yIGJ5IHRob3NlIGFscmVhZHkgaW4tZmxpZ2h0IGNhbiBs
+ZWFkIHRvCj4+Pj4+IGEgdmVyaXR5IGNvcnJ1cHRpb24gc3RhdGUsIHdoaWNoIGlzIG1pc2p1ZGdt
+ZW50Lgo+Pj4+PiBTbywgc2tpcCB2ZXJpdHkgd29yayBmb3IgSS9PIGVycm9yIHdoZW4gc3lzdGVt
+IGlzIHNodXR0aW5nIGRvd24uCj4+Pj4gVGhhbmsgeW91IGZvciB0aGUgcGF0Y2guIEkgYWdyZWUg
+dGhhdCBhdHRlbXB0aW5nIHRvIGNvcnJlY3QgSS9PIGVycm9ycwo+Pj4+IHdoZW4gdGhlIHN5c3Rl
+bSBpcyBzaHV0dGluZyBkb3duLCBhbmQgdGh1cyBnZW5lcmF0aW5nIG1vcmUgSS9PIHRoYXQncwo+
+Pj4+IGxpa2VseSBnb2luZyB0byBmYWlsLCBpcyBub3QgYSBnb29kIGlkZWEuCj4+Pj4KPj4+Pj4g
+U2lnbmVkLW9mZi1ieTogSHllb25nc2VvayBLaW0gPGh5ZW9uZ3Nlb2tAZ21haWwuY29tPgo+Pj4+
+PiAtLS0KPj4+Pj4gwqDCoCBkcml2ZXJzL21kL2RtLXZlcml0eS10YXJnZXQuYyB8IDEyICsrKysr
+KysrKysrLQo+Pj4+PiDCoMKgIDEgZmlsZSBjaGFuZ2VkLCAxMSBpbnNlcnRpb25zKCspLCAxIGRl
+bGV0aW9uKC0pCj4+Pj4+Cj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21kL2RtLXZlcml0eS10
+YXJnZXQuYyAKPj4+Pj4gYi9kcml2ZXJzL21kL2RtLXZlcml0eS10YXJnZXQuYwo+Pj4+PiBpbmRl
+eCBmNzQ5ODJkY2JlYTAuLmJhNjJjNTM3Nzk4YiAxMDA2NDQKPj4+Pj4gLS0tIGEvZHJpdmVycy9t
+ZC9kbS12ZXJpdHktdGFyZ2V0LmMKPj4+Pj4gKysrIGIvZHJpdmVycy9tZC9kbS12ZXJpdHktdGFy
+Z2V0LmMKPj4+Pj4gQEAgLTY0LDYgKzY0LDE1IEBAIHN0cnVjdCBidWZmZXJfYXV4IHsKPj4+Pj4g
+wqDCoMKgwqDCoMKgwqDCoMKgIGludCBoYXNoX3ZlcmlmaWVkOwo+Pj4+PiDCoMKgIH07Cj4+Pj4+
+Cj4+Pj4+ICsvKgo+Pj4+PiArICogV2hpbGUgc3lzdGVtIHNodXRkb3duLCBza2lwIHZlcml0eSB3
+b3JrIGZvciBJL08gZXJyb3IuCj4+Pj4+ICsgKi8KPj4+Pj4gK3N0YXRpYyBpbmxpbmUgYm9vbCB2
+ZXJpdHlfaXNfc3lzdGVtX3NodXR0aW5nX2Rvd24odm9pZCkKPj4+Pj4gK3sKPj4+Pj4gK8KgwqDC
+oMKgwqDCoCByZXR1cm4gc3lzdGVtX3N0YXRlID09IFNZU1RFTV9IQUxUIHx8IHN5c3RlbV9zdGF0
+ZSA9PSAKPj4+Pj4gU1lTVEVNX1BPV0VSX09GRgo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCB8fCBzeXN0ZW1fc3RhdGUgPT0gU1lTVEVNX1JFU1RBUlQ7Cj4+Pj4+ICt9Cj4+Pj4g
+V2hpY2ggb2YgdGhlc2Ugc3RhdGVzIGRvZXMgdGhlIHN5c3RlbSBnZXQgdG8gZHVyaW5nIGFuIGVt
+ZXJnZW5jeQo+Pj4+IHNodXRkb3duPyBDYW4gd2Ugc2ltcGxpZnkgdGhpcyBieSBjaGFuZ2luZyB0
+aGUgdGVzdCB0byBzeXN0ZW1fc3RhdGUgPgo+Pj4+IFNZU1RFTV9SVU5OSU5HPwo+Pj4gSSBvbmx5
+IHNhdyB0aGF0IGl0IHdhcyBTWVNURU1fUE9XRVJfT0ZGIG9yIFNZU1RFTV9SRVNUQVJULCBJIHdv
+bmRlciBpZgo+Pj4gSS9PIGVycm9yIGNhbiBvY2N1ciBpbiBTWVNURU1fU1VTUEVORCBzdGF0ZS4K
+Pj4gT0ssIHNvIHRoaW5rIHRoZSBjdXJyZW50IHZlcnNpb24gaXMgZmluZSB0aGVuLgo+Pgo+Pj4g
+QXMgZmFyIGFzIEkga25vdywgdGhpcyBjb3VsZCBiZSBoYXBwZW4gaW4gZW1lcmdlbmN5IHNodXRk
+b3duIGNhc2UsCj4+PiBjYW4geW91IGV4cGxhaW4gaWYgeW91IGhhdmUgYSBjYXNlIHdoZW4gSS9P
+IGVycm9yIGNhbiBvY2N1ciBieQo+Pj4gU1lTVEVNX1NVU1BFTkQ/Cj4+IE5vLCBJIGRvbid0IGhh
+dmUgYSBjYXNlIHdoZXJlIHRoYXQgd291bGQgaGFwcGVuLgo+Pgo+Pj4+IE90aGVyd2lzZSwgdGhp
+cyBsb29rcyBnb29kIHRvIG1lLiBIb3dldmVyLCBJJ20gbm93IHdvbmRlcmluZyBpZiBhbiBJL08K
+Pj4+PiBlcnJvciBzaG91bGQgZXZlciByZXN1bHQgaW4gdmVyaXR5X2hhbmRsZV9lcnIoKSBiZWlu
+ZyBjYWxsZWQuIFdpdGhvdXQKPj4+PiBGRUMsIGRtLXZlcml0eSB3b24ndCBjYWxsIHZlcml0eV9o
+YW5kbGVfZXJyKCkgd2hlbiBJL08gZmFpbHMsIGJ1dCB3aXRoCj4+Pj4gRkVDIGVuYWJsZWQsIGl0
+IGN1cnJlbnRseSBkb2VzLCBhc3N1bWluZyBlcnJvciBjb3JyZWN0aW9uIGZhaWxzLiBBbnkKPj4+
+PiB0aG91Z2h0cz8KPj4+IFllcywgSSBoYXZlIHRob3VnaHQgYWJvdXQgdGhpcywgYW5kIHRvIGJl
+IGhvbmVzdCwgSSB0aGluayB2ZXJpdHkgb3IgRkVDCj4+PiBzaG91bGQgbm90IGNhbGwgdmVyaXR5
+X2hhbmRsZV9lcnJvcigpIGluIGNhc2Ugb2YgSS9PIGVycm9ycy4KPj4gSSB0ZW5kIHRvIGFncmVl
+LiBXZSBjb3VsZCBzaW1wbHkgY2hlY2sgdGhlIG9yaWdpbmFsIGJpby0+Ymlfc3RhdHVzIGluCj4+
+IHZlcml0eV92ZXJpZnlfaW8oKSBhbmQgaWYgd2UgZmFpbGVkIHRvIGNvcnJlY3QgYW4gSS9PIGVy
+cm9yLCByZXR1cm4gYW4KPj4gZXJyb3IgaW5zdGVhZCBvZiBnb2luZyBpbnRvIHZlcml0eV9oYW5k
+bGVfZXJyKCkuIEFueSB0aG91Z2h0cz8KPj4KPj4+IEJ1dCwgYmVjYXVzZSBJIGNvdWxkbid0IGtu
+b3cgdGhlIGFiaWxpdHkgb2YgRkVDLCBJIG9ubHkgZm9jdXNlZCBvbiBub3QKPj4+IGJyZWFraW5n
+IGN1cmVudCBsb2dpY3Mgb3RoZXIgdGhhbiBzeXN0ZW0gc2h1dGRvd24gJiYgSS9PIGVycm9ycyBj
+YXNlLgo+PiBTdXJlLCBtYWtlcyBzZW5zZS4gV2UgY2FuIGFkZHJ3ZXNzIHRoYXQgc2VwYXJhdGVs
+eS4KPiBTb3VuZHMgcmVhc29uYWJsZS4gSSBob3BlIHRoZSBuZXh0IGltcHJvdmVtZW50cy4KPj4K
+Pj4gUmV2aWV3ZWQtYnk6IFNhbWkgVG9sdmFuZW4gPHNhbWl0b2x2YW5lbkBnb29nbGUuY29tPgo+
+Pgo+PiBTYW1pCj4+Cj4gVGhhbmsgeW91IGZvciB0aGUgcmV2aWV3Lgo+Cj4gSHllb25nc2Vvawo+
+Cj4KCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8v
+d3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
 
