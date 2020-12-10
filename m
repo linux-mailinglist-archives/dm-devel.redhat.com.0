@@ -1,52 +1,60 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 3EDCF2D5E45
-	for <lists+dm-devel@lfdr.de>; Thu, 10 Dec 2020 15:46:16 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id D8DC52D5E46
+	for <lists+dm-devel@lfdr.de>; Thu, 10 Dec 2020 15:46:17 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-524-GwaUUGrCN0GV0L8EWQE0Ew-1; Thu, 10 Dec 2020 09:46:13 -0500
-X-MC-Unique: GwaUUGrCN0GV0L8EWQE0Ew-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-539-jLoPd2bXP12vuNTExLDHOg-1; Thu, 10 Dec 2020 09:46:14 -0500
+X-MC-Unique: jLoPd2bXP12vuNTExLDHOg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9A1898026AD;
-	Thu, 10 Dec 2020 14:46:03 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6BCF519717;
-	Thu, 10 Dec 2020 14:46:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E98FC1009466;
+	Thu, 10 Dec 2020 14:46:05 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B1F785D71D;
+	Thu, 10 Dec 2020 14:46:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 261D35002E;
-	Thu, 10 Dec 2020 14:46:03 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 61E051809C9F;
+	Thu, 10 Dec 2020 14:46:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BA9N1M0013044 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 10 Dec 2020 04:23:01 -0500
+	id 0BAEIHKa013159 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 10 Dec 2020 09:18:17 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4990C2026D5D; Thu, 10 Dec 2020 09:23:01 +0000 (UTC)
+	id 02AAD2166B29; Thu, 10 Dec 2020 14:18:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 449102026D37
-	for <dm-devel@redhat.com>; Thu, 10 Dec 2020 09:22:57 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EF2A42166B2C
+	for <dm-devel@redhat.com>; Thu, 10 Dec 2020 14:18:12 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C023811E78
-	for <dm-devel@redhat.com>; Thu, 10 Dec 2020 09:22:57 +0000 (UTC)
-Received: from s2.neomailbox.net (s2.neomailbox.net [5.148.176.60]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-560-wylAK2woPm2KfZxnh6rymw-1; Thu, 10 Dec 2020 04:22:54 -0500
-X-MC-Unique: wylAK2woPm2KfZxnh6rymw-1
-From: Antonio Quartulli <a@unstable.cc>
-To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
-	dm-devel@redhat.com, linux-kernel@vger.kernel.org
-Date: Thu, 10 Dec 2020 09:50:49 +0100
-Message-Id: <20201210085049.14528-1-a@unstable.cc>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BBF4E85829A
+	for <dm-devel@redhat.com>; Thu, 10 Dec 2020 14:18:12 +0000 (UTC)
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com
+	[45.249.212.190]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-21-igO0Cy2XNpmKKmoJTZev_A-1; Thu, 10 Dec 2020 09:18:08 -0500
+X-MC-Unique: igO0Cy2XNpmKKmoJTZev_A-1
+Received: from DGGEMS408-HUB.china.huawei.com (unknown [172.30.72.58])
+	by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4CsFt04LkMz15b8N;
+	Thu, 10 Dec 2020 22:00:08 +0800 (CST)
+Received: from ubuntu.network (10.175.138.68) by
+	DGGEMS408-HUB.china.huawei.com (10.3.19.208) with Microsoft SMTP Server
+	id 14.3.487.0; Thu, 10 Dec 2020 22:00:35 +0800
+From: Zheng Yongjun <zhengyongjun3@huawei.com>
+To: <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>,
+	<linux-kernel@vger.kernel.org>
+Date: Thu, 10 Dec 2020 22:01:03 +0800
+Message-ID: <20201210140103.1720-1-zhengyongjun3@huawei.com>
 MIME-Version: 1.0
+X-Originating-IP: [10.175.138.68]
+X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -55,13 +63,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Mimecast-Spam-Signature: yes
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BAEIHKa013159
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 10 Dec 2020 09:44:21 -0500
-Cc: Antonio Quartulli <a@unstable.cc>
-Subject: [dm-devel] [PATCH] dm ebs: avoid double unlikely() notation when
-	using IS_ERR()
+Cc: Zheng Yongjun <zhengyongjun3@huawei.com>
+Subject: [dm-devel] [PATCH -next] drivers: md: simplify the return
+	expression of load_mapping()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,7 +84,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -83,33 +92,41 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The definition of IS_ERR() already applies the unlikely() notation
-when checking the error status of the passed pointer. For this
-reason there is no need to have the same notation outside of
-IS_ERR() itself.
+Simplify the return expression.
 
-Clean up code by removing redundant notation.
-
-Signed-off-by: Antonio Quartulli <a@unstable.cc>
+Signed-off-by: Zheng Yongjun <zhengyongjun3@huawei.com>
 ---
- drivers/md/dm-ebs-target.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/md/dm-cache-target.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/drivers/md/dm-ebs-target.c b/drivers/md/dm-ebs-target.c
-index cb85610527c2..55bcfb74f51f 100644
---- a/drivers/md/dm-ebs-target.c
-+++ b/drivers/md/dm-ebs-target.c
-@@ -86,7 +86,7 @@ static int __ebs_rw_bvec(struct ebs_c *ec, int rw, struct bio_vec *bv, struct bv
- 		else
- 			ba = dm_bufio_new(ec->bufio, block, &b);
+diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
+index 4bc453f5bbaa..541c45027cc8 100644
+--- a/drivers/md/dm-cache-target.c
++++ b/drivers/md/dm-cache-target.c
+@@ -2840,7 +2840,6 @@ static void cache_postsuspend(struct dm_target *ti)
+ static int load_mapping(void *context, dm_oblock_t oblock, dm_cblock_t cblock,
+ 			bool dirty, uint32_t hint, bool hint_valid)
+ {
+-	int r;
+ 	struct cache *cache = context;
  
--		if (unlikely(IS_ERR(ba))) {
-+		if (IS_ERR(ba)) {
- 			/*
- 			 * Carry on with next buffer, if any, to issue all possible
- 			 * data but return error.
+ 	if (dirty) {
+@@ -2849,11 +2848,7 @@ static int load_mapping(void *context, dm_oblock_t oblock, dm_cblock_t cblock,
+ 	} else
+ 		clear_bit(from_cblock(cblock), cache->dirty_bitset);
+ 
+-	r = policy_load_mapping(cache->policy, oblock, cblock, dirty, hint, hint_valid);
+-	if (r)
+-		return r;
+-
+-	return 0;
++	return policy_load_mapping(cache->policy, oblock, cblock, dirty, hint, hint_valid);
+ }
+ 
+ /*
 -- 
-2.29.2
+2.22.0
+
 
 --
 dm-devel mailing list
