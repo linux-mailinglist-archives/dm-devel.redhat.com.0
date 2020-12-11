@@ -2,121 +2,58 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id CE7E62D96C3
-	for <lists+dm-devel@lfdr.de>; Mon, 14 Dec 2020 12:01:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0EB702D96C7
+	for <lists+dm-devel@lfdr.de>; Mon, 14 Dec 2020 12:01:08 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-220-hTKImXnSO4GHTRYtQqlYOw-1; Mon, 14 Dec 2020 06:00:59 -0500
-X-MC-Unique: hTKImXnSO4GHTRYtQqlYOw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-440-zp6VsIpQNUWqK0T8DOd5PQ-1; Mon, 14 Dec 2020 06:00:52 -0500
+X-MC-Unique: zp6VsIpQNUWqK0T8DOd5PQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7091387953D;
-	Mon, 14 Dec 2020 11:00:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A6DB672F8E;
-	Mon, 14 Dec 2020 11:00:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 38229800688;
+	Mon, 14 Dec 2020 11:00:47 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C8F5E2999A;
+	Mon, 14 Dec 2020 11:00:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8C81B1809CA1;
-	Mon, 14 Dec 2020 11:00:48 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A298F4EEF6;
+	Mon, 14 Dec 2020 11:00:37 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BBEvdbp008670 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 11 Dec 2020 09:57:40 -0500
+	id 0BBFab56011954 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 11 Dec 2020 10:36:37 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id C555D112C08B; Fri, 11 Dec 2020 14:57:39 +0000 (UTC)
+	id 63B532166B2A; Fri, 11 Dec 2020 15:36:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C0B3C1043982
-	for <dm-devel@redhat.com>; Fri, 11 Dec 2020 14:57:37 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5EB822166B29
+	for <dm-devel@redhat.com>; Fri, 11 Dec 2020 15:36:35 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 88617800157
-	for <dm-devel@redhat.com>; Fri, 11 Dec 2020 14:57:37 +0000 (UTC)
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-438-j_JgE9NaOwGy2qDFwHQEsg-1; Fri, 11 Dec 2020 09:57:33 -0500
-X-MC-Unique: j_JgE9NaOwGy2qDFwHQEsg-1
-Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id
-	20201211145730epoutp02a28346f97e0b759f2b637249c77e243f~PsWeex0c61723917239epoutp02M
-	for <dm-devel@redhat.com>; Fri, 11 Dec 2020 14:57:30 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com
-	20201211145730epoutp02a28346f97e0b759f2b637249c77e243f~PsWeex0c61723917239epoutp02M
-Received: from epsmges5p2new.samsung.com (unknown [182.195.42.74]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTP id
-	20201211145729epcas5p32c66a0996a1c53b24668c1be9d615611~PsWdpWNVp2218722187epcas5p35;
-	Fri, 11 Dec 2020 14:57:29 +0000 (GMT)
-Received: from epcas5p1.samsung.com ( [182.195.41.39]) by
-	epsmges5p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
-	0E.00.50652.9D883DF5; Fri, 11 Dec 2020 23:57:29 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20201211135205epcas5p1f1696075e1354f0f4c7af04b950d514c~PrdW6fQb60154201542epcas5p1m;
-	Fri, 11 Dec 2020 13:52:05 +0000 (GMT)
-Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
-	epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
-	20201211135205epsmtrp2fe2f38d12e5212d5f5464f91ae3d27ce~PrdW5WhCB0569205692epsmtrp2S;
-	Fri, 11 Dec 2020 13:52:05 +0000 (GMT)
-X-AuditID: b6c32a4a-6b3ff7000000c5dc-24-5fd388d96153
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
-	epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
-	D5.71.08745.58973DF5; Fri, 11 Dec 2020 22:52:05 +0900 (KST)
-Received: from localhost.localdomain (unknown [107.110.206.5]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20201211135202epsmtip26706456da2bdcb8021663f93a8476308~PrdTz_pmh2927029270epsmtip2H;
-	Fri, 11 Dec 2020 13:52:02 +0000 (GMT)
-From: SelvaKumar S <selvakuma.s1@samsung.com>
-To: linux-nvme@lists.infradead.org
-Date: Fri, 11 Dec 2020 19:21:39 +0530
-Message-Id: <20201211135139.49232-3-selvakuma.s1@samsung.com>
-In-Reply-To: <20201211135139.49232-1-selvakuma.s1@samsung.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 09709811E87
+	for <dm-devel@redhat.com>; Fri, 11 Dec 2020 15:36:35 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
+	relay.mimecast.com with ESMTP id us-mta-425-wWM0pTjcN4O92UAQ5epzHw-1;
+	Fri, 11 Dec 2020 10:36:30 -0500
+X-MC-Unique: wWM0pTjcN4O92UAQ5epzHw-1
+Received: from sequoia (162-237-133-238.lightspeed.rcsntx.sbcglobal.net
+	[162.237.133.238])
+	by linux.microsoft.com (Postfix) with ESMTPSA id BACDD20B717A;
+	Fri, 11 Dec 2020 07:36:27 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com BACDD20B717A
+Date: Fri, 11 Dec 2020 09:36:18 -0600
+From: Tyler Hicks <tyhicks@linux.microsoft.com>
+To: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+Message-ID: <20201211153618.GA4951@sequoia>
+References: <20201209194212.5131-1-tusharsu@linux.microsoft.com>
+	<20201209194212.5131-9-tusharsu@linux.microsoft.com>
 MIME-Version: 1.0
-X-Brightmail-Tracker: H4sIAAAAAAAAA02Sf0wTZxjH996dd9eykgORvaJzS5PpcLPIhtvLVFyyut00S7YRFkKywbme
-	hQmla+lQt2hxY0LZUJg/YpFhCMFRfzBKB11piSlzhbpftCCipYFAySbR8mM4tCvO9lj0v8/7
-	PJ8n3zxPXhqPLyOT6AJVCa9RcYVSUkx09CSv2zBc4c3deOymFJ0bOUKiE9N3cVR++A6GHLfr
-	liF7Yy2GWs5dxtC4b45CYYMfQ5fv3yJRrfMqQI7rzyGv7TSJGpoDFKoaspLorGsRQzUVgxjq
-	CDXgaOBYI44uTgUJNBocotDUQh+JvmybB68mst6BneyPxhGK/d3fRrDeX3Ws2VRJsu1NB9mu
-	YT3JzgSuE2ywe5Bkqy0mwLZf+ZSdM69hD1+qwt6W5Ii3KPjCgk94TUpGnjjfXbmIqQ9t3mua
-	byX0wC0zAJqGTBoc/y3HAER0PNMFYMD9sgGIH/AsgKNlnaTwmANw2GAgI1ZkwOlvXmrYACz/
-	ZuahZZjspiIWyWyAV5vMRIQTGCkMtx4iIhLODOPQc282Ki1n0qFvsR6PMME8Ayd/MkVZwmyF
-	s+FbQIh7Cp7y/BP1RUwGrLb4lpw42HdqIhqAP3A+/6EOjwRApkEEOxf6CGFYDmv1dbjAy+FN
-	l4USOAnO3XYs7VMKJytPYALrAawOlgq8Dfbbw1jkSDiTDFttKUL5SXjcfRETcmPh16GJpVEJ
-	tH47gQk3XQvdnS8J5dVwusdGCmUWmnoLhFvVADj4rx0/Cp42PrKN8ZFtjA+DzwDcBFbyam2R
-	ktduUr+g4ktlWq5Iq1MpZR8WF5lB9Jeu32EFY6PTMifAaOAEkMalCZLQQW9uvETB7dvPa4pz
-	NbpCXusEq2hC+oREuvDLB/GMkivh9/C8mtf838VoUZIe2+S50NC9RX1j+zrvAYVoJs19PDSz
-	2i2t/1g/mHbh2TWnA/tZlrixKvh44ldvDr2/dYe8y+/Clu1tst4L71LJUSoI5cWUvqYjuQRv
-	ieWkD1WfrTc2iRXZno78liMpoqy3qN7dhrt/1FzZXtlqk42hk4kqsrw/tJn++e8Vne8p+6mx
-	DCL9szvv6pMbXR5caS+OIb+fv1RxLfuv4lDewPl02XdDxt1fOP58TNdvHW/L0r1jtTp8r6S/
-	qK4508K8zuka07btS86QfzRlt1SF3jgwYnbZs+/74q4p4pozM4E1c8WkX5O6MqZ3Z1mKbuP5
-	57upnizPnp6OnAAXuyt2bbtcSmjzudT1uEbL/Qec0lPFFAQAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrDIsWRmVeSWpSXmKPExsWy7bCSvG5r5eV4g8UnhC1W3+1ns5j24Sez
-	RWv7NyaLve9ms1rsWTSJyWLl6qNMFo/vfGa3+Nt1j8ni6P+3bBaTDl1jtNh7S9vi8q45bBbz
-	lz1lt+i+voPNYvnxf0wWEzuuMlls+z2f2eLKlEXMFutev2exePD+OrvF6x8n2SzaNn5ldBDz
-	uHzF22PnrLvsHufvbWTxuHy21GPTqk42j81L6j1232xg8/j49BaLx/t9V9k8+rasYvTYfLra
-	4/MmOY/2A91MAbxRXDYpqTmZZalF+nYJXBmnOv8xFTRZV6z6up6lgfGUXhcjJ4eEgInEoXvL
-	2LoYuTiEBHYwSvyZ1cYOkZCRWHu3kw3CFpZY+e85O0TRR0aJuefPMYIk2AR0Ja4t2cQCYosI
-	KEn8Xd/EAlLELPCZWWL+rjawhLCApcSdf3OZQWwWAVWJZ0dWgdm8ArYSn/6+ZYTYIC8x89J3
-	sM2cAnYSfVvugNUIAdXcP9nPClEvKHFy5hOgmRxAC9Ql1s8TAgkzA7U2b53NPIFRcBaSqlkI
-	VbOQVC1gZF7FKJlaUJybnltsWGCUl1quV5yYW1yal66XnJ+7iREc4VpaOxj3rPqgd4iRiYPx
-	EKMEB7OSCK8sy6V4Id6UxMqq1KL8+KLSnNTiQ4zSHCxK4rwXuk7GCwmkJ5akZqemFqQWwWSZ
-	ODilGpiWNjy2vW/y8cV5nRVPNrSZ560yKDywskhy0uv/BYdXv0vUTr/6/K/CsUUu79lzE9v2
-	76nSXf3e6XjQXm8hqSMzpGofOoqG8yT0sj7/fP7W/RtTb16rduk/9sY8pmKzYC+znGKtHP+k
-	I3tjbKdZyb8Qvpyd86twxbO/OryTjXqzTNK2ur/YHx59OiLjg3+53T6LI/+uq+zOn+nrJDLJ
-	0b/Pndsp4vH0fcfLpu38dzPlzvb5DSqOW/57tKUXl9bon4/s5BBJvz9t/tHVna/1rt9Z+rvm
-	2KaPoTHaur3yP+urXBe/3ayyZP+7QIevHV+2trsttjeNuucs/lju4Z9/Qi4mb17vmnDbiedK
-	iyRL37I2JZbijERDLeai4kQAJ1oB6F8DAAA=
-X-CMS-MailID: 20201211135205epcas5p1f1696075e1354f0f4c7af04b950d514c
-X-Msg-Generator: CA
-X-Sendblock-Type: REQ_APPROVE
-CMS-TYPE: 105P
-X-CMS-RootMailID: 20201211135205epcas5p1f1696075e1354f0f4c7af04b950d514c
-References: <20201211135139.49232-1-selvakuma.s1@samsung.com>
-	<CGME20201211135205epcas5p1f1696075e1354f0f4c7af04b950d514c@epcas5p1.samsung.com>
+In-Reply-To: <20201209194212.5131-9-tusharsu@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -125,21 +62,18 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BBEvdbp008670
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 14 Dec 2020 06:00:28 -0500
-Cc: axboe@kernel.dk, damien.lemoal@wdc.com,
-	SelvaKumar S <selvakuma.s1@samsung.com>, sagi@grimberg.me,
-	linux-scsi@vger.kernel.org, selvajove@gmail.com,
-	Johannes.Thumshirn@wdc.com, snitzer@redhat.com,
-	linux-kernel@vger.kernel.org, nj.shetty@samsung.com,
-	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	mpatocka@redhat.com, joshi.k@samsung.com,
-	martin.petersen@oracle.com, kbusch@kernel.org,
-	javier.gonz@samsung.com, hch@lst.de, bvanassche@acm.org
-Subject: [dm-devel] [RFC PATCH v3 2/2] nvme: add simple copy support
+Cc: sashal@kernel.org, paul@paul-moore.com, snitzer@redhat.com,
+	selinux@vger.kernel.org, stephen.smalley.work@gmail.com,
+	jmorris@namei.org, zohar@linux.ibm.com,
+	linux-kernel@vger.kernel.org, nramas@linux.microsoft.com,
+	linux-security-module@vger.kernel.org, casey@schaufler-ca.com,
+	linux-integrity@vger.kernel.org, dm-devel@redhat.com,
+	gmazyland@gmail.com, agk@redhat.com
+Subject: Re: [dm-devel] [PATCH v7 8/8] selinux: include a consumer of the
+ new IMA critical data hook
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -153,142 +87,382 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-QWRkIHN1cHBvcnQgZm9yICBUUCA0MDY1YSAoIlNpbXBsZSBDb3B5IENvbW1hbmQiKSwgdjIwMjAu
-MDUuMDQKKCJSYXRpZmllZCIpCgpUaGUgaW1wbGVtZW50YXRpb24gdXNlcyB0aGUgcGF5bG9hZCBw
-YXNzZWQgZnJvbSB0aGUgYmxvY2sgbGF5ZXIKdG8gZm9ybSBzaW1wbGUgY29weSBjb21tYW5kLiBT
-ZXQgdGhlIGRldmljZSBjb3B5IGxpbWl0cyB0byBxdWV1ZQpsaW1pdHMuCgpTaWduZWQtb2ZmLWJ5
-OiBTZWx2YUt1bWFyIFMgPHNlbHZha3VtYS5zMUBzYW1zdW5nLmNvbT4KU2lnbmVkLW9mZi1ieTog
-S2FuY2hhbiBKb3NoaSA8am9zaGkua0BzYW1zdW5nLmNvbT4KU2lnbmVkLW9mZi1ieTogTml0ZXNo
-IFNoZXR0eSA8bmouc2hldHR5QHNhbXN1bmcuY29tPgpTaWduZWQtb2ZmLWJ5OiBKYXZpZXIgR29u
-esOhbGV6IDxqYXZpZXIuZ29uekBzYW1zdW5nLmNvbT4KLS0tCiBkcml2ZXJzL252bWUvaG9zdC9j
-b3JlLmMgfCA4OSArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCiBpbmNs
-dWRlL2xpbnV4L252bWUuaCAgICAgfCA0MyArKysrKysrKysrKysrKysrKy0tCiAyIGZpbGVzIGNo
-YW5nZWQsIDEyOSBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvbnZtZS9ob3N0L2NvcmUuYyBiL2RyaXZlcnMvbnZtZS9ob3N0L2NvcmUuYwppbmRleCA5
-YjZlYmViMjljY2EuLmQyMzUxNTZmZjU2NSAxMDA2NDQKLS0tIGEvZHJpdmVycy9udm1lL2hvc3Qv
-Y29yZS5jCisrKyBiL2RyaXZlcnMvbnZtZS9ob3N0L2NvcmUuYwpAQCAtNjQ3LDYgKzY0Nyw2NSBA
-QCBzdGF0aWMgaW5saW5lIHZvaWQgbnZtZV9zZXR1cF9mbHVzaChzdHJ1Y3QgbnZtZV9ucyAqbnMs
-CiAJY21uZC0+Y29tbW9uLm5zaWQgPSBjcHVfdG9fbGUzMihucy0+aGVhZC0+bnNfaWQpOwogfQog
-CitzdGF0aWMgaW5saW5lIGJsa19zdGF0dXNfdCBudm1lX3NldHVwX2NvcHkoc3RydWN0IG52bWVf
-bnMgKm5zLAorCSAgICAgICBzdHJ1Y3QgcmVxdWVzdCAqcmVxLCBzdHJ1Y3QgbnZtZV9jb21tYW5k
-ICpjbW5kKQoreworCXN0cnVjdCBudm1lX2N0cmwgKmN0cmwgPSBucy0+Y3RybDsKKwlzdHJ1Y3Qg
-bnZtZV9jb3B5X3JhbmdlICpyYW5nZSA9IE5VTEw7CisJc3RydWN0IGJsa19jb3B5X3BheWxvYWQg
-KnBheWxvYWQ7CisJdW5zaWduZWQgc2hvcnQgbnJfcmFuZ2UgPSAwOworCXUxNiBjb250cm9sID0g
-MCwgc3NybDsKKwl1MzIgZHNtZ210ID0gMDsKKwl1NjQgc2xiYTsKKwlpbnQgaTsKKworCXBheWxv
-YWQgPSBiaW9fZGF0YShyZXEtPmJpbyk7CisJbnJfcmFuZ2UgPSBwYXlsb2FkLT5jb3B5X3Jhbmdl
-OworCisJaWYgKHJlcS0+Y21kX2ZsYWdzICYgUkVRX0ZVQSkKKwkJY29udHJvbCB8PSBOVk1FX1JX
-X0ZVQTsKKworCWlmIChyZXEtPmNtZF9mbGFncyAmIFJFUV9GQUlMRkFTVF9ERVYpCisJCWNvbnRy
-b2wgfD0gTlZNRV9SV19MUjsKKworCWNtbmQtPmNvcHkub3Bjb2RlID0gbnZtZV9jbWRfY29weTsK
-KwljbW5kLT5jb3B5Lm5zaWQgPSBjcHVfdG9fbGUzMihucy0+aGVhZC0+bnNfaWQpOworCWNtbmQt
-PmNvcHkuc2RsYmEgPSBjcHVfdG9fbGU2NChibGtfcnFfcG9zKHJlcSkgPj4gKG5zLT5sYmFfc2hp
-ZnQgLSA5KSk7CisKKwlyYW5nZSA9IGttYWxsb2NfYXJyYXkobnJfcmFuZ2UsIHNpemVvZigqcmFu
-Z2UpLAorCQkJR0ZQX0FUT01JQyB8IF9fR0ZQX05PV0FSTik7CisJaWYgKCFyYW5nZSkKKwkJcmV0
-dXJuIEJMS19TVFNfUkVTT1VSQ0U7CisKKwlmb3IgKGkgPSAwOyBpIDwgbnJfcmFuZ2U7IGkrKykg
-eworCQlzbGJhID0gcGF5bG9hZC0+cmFuZ2VbaV0uc3JjOworCQlzbGJhID0gc2xiYSA+PiAobnMt
-PmxiYV9zaGlmdCAtIDkpOworCisJCXNzcmwgPSBwYXlsb2FkLT5yYW5nZVtpXS5sZW47CisJCXNz
-cmwgPSBzc3JsID4+IChucy0+bGJhX3NoaWZ0IC0gOSk7CisKKwkJcmFuZ2VbaV0uc2xiYSA9IGNw
-dV90b19sZTY0KHNsYmEpOworCQlyYW5nZVtpXS5ubGIgPSBjcHVfdG9fbGUxNihzc3JsIC0gMSk7
-CisJfQorCisJY21uZC0+Y29weS5ucl9yYW5nZSA9IG5yX3JhbmdlIC0gMTsKKworCXJlcS0+c3Bl
-Y2lhbF92ZWMuYnZfcGFnZSA9IHZpcnRfdG9fcGFnZShyYW5nZSk7CisJcmVxLT5zcGVjaWFsX3Zl
-Yy5idl9vZmZzZXQgPSBvZmZzZXRfaW5fcGFnZShyYW5nZSk7CisJcmVxLT5zcGVjaWFsX3ZlYy5i
-dl9sZW4gPSBzaXplb2YoKnJhbmdlKSAqIG5yX3JhbmdlOworCXJlcS0+cnFfZmxhZ3MgfD0gUlFG
-X1NQRUNJQUxfUEFZTE9BRDsKKworCWlmIChjdHJsLT5ucl9zdHJlYW1zKQorCQludm1lX2Fzc2ln
-bl93cml0ZV9zdHJlYW0oY3RybCwgcmVxLCAmY29udHJvbCwgJmRzbWdtdCk7CisKKwkvL1RCRCBl
-bmQtdG8tZW5kCisKKwljbW5kLT5ydy5jb250cm9sID0gY3B1X3RvX2xlMTYoY29udHJvbCk7CisJ
-Y21uZC0+cncuZHNtZ210ID0gY3B1X3RvX2xlMzIoZHNtZ210KTsKKworCXJldHVybiBCTEtfU1RT
-X09LOworfQorCiBzdGF0aWMgYmxrX3N0YXR1c190IG52bWVfc2V0dXBfZGlzY2FyZChzdHJ1Y3Qg
-bnZtZV9ucyAqbnMsIHN0cnVjdCByZXF1ZXN0ICpyZXEsCiAJCXN0cnVjdCBudm1lX2NvbW1hbmQg
-KmNtbmQpCiB7CkBAIC04MjksNiArODg4LDkgQEAgYmxrX3N0YXR1c190IG52bWVfc2V0dXBfY21k
-KHN0cnVjdCBudm1lX25zICpucywgc3RydWN0IHJlcXVlc3QgKnJlcSwKIAljYXNlIFJFUV9PUF9E
-SVNDQVJEOgogCQlyZXQgPSBudm1lX3NldHVwX2Rpc2NhcmQobnMsIHJlcSwgY21kKTsKIAkJYnJl
-YWs7CisJY2FzZSBSRVFfT1BfQ09QWToKKwkJcmV0ID0gbnZtZV9zZXR1cF9jb3B5KG5zLCByZXEs
-IGNtZCk7CisJCWJyZWFrOwogCWNhc2UgUkVRX09QX1JFQUQ6CiAJCXJldCA9IG52bWVfc2V0dXBf
-cncobnMsIHJlcSwgY21kLCBudm1lX2NtZF9yZWFkKTsKIAkJYnJlYWs7CkBAIC0xODUwLDYgKzE5
-MTIsMzEgQEAgc3RhdGljIHZvaWQgbnZtZV9jb25maWdfZGlzY2FyZChzdHJ1Y3QgZ2VuZGlzayAq
-ZGlzaywgc3RydWN0IG52bWVfbnMgKm5zKQogCQlibGtfcXVldWVfbWF4X3dyaXRlX3plcm9lc19z
-ZWN0b3JzKHF1ZXVlLCBVSU5UX01BWCk7CiB9CiAKK3N0YXRpYyB2b2lkIG52bWVfY29uZmlnX2Nv
-cHkoc3RydWN0IGdlbmRpc2sgKmRpc2ssIHN0cnVjdCBudm1lX25zICpucywKKwkJCQkgICAgICAg
-c3RydWN0IG52bWVfaWRfbnMgKmlkKQoreworCXN0cnVjdCBudm1lX2N0cmwgKmN0cmwgPSBucy0+
-Y3RybDsKKwlzdHJ1Y3QgcmVxdWVzdF9xdWV1ZSAqcXVldWUgPSBkaXNrLT5xdWV1ZTsKKworCWlm
-ICghKGN0cmwtPm9uY3MgJiBOVk1FX0NUUkxfT05DU19DT1BZKSkgeworCQlxdWV1ZS0+bGltaXRz
-LmNvcHlfb2ZmbG9hZCA9IDA7CisJCXF1ZXVlLT5saW1pdHMubWF4X2NvcHlfc2VjdG9ycyA9IDA7
-CisJCXF1ZXVlLT5saW1pdHMubWF4X2NvcHlfcmFuZ2Vfc2VjdG9ycyA9IDA7CisJCXF1ZXVlLT5s
-aW1pdHMubWF4X2NvcHlfbnJfcmFuZ2VzID0gMDsKKwkJYmxrX3F1ZXVlX2ZsYWdfY2xlYXIoUVVF
-VUVfRkxBR19DT1BZLCBxdWV1ZSk7CisJCXJldHVybjsKKwl9CisKKwkvKiBzZXR0aW5nIGNvcHkg
-bGltaXRzICovCisJYmxrX3F1ZXVlX2ZsYWdfdGVzdF9hbmRfc2V0KFFVRVVFX0ZMQUdfQ09QWSwg
-cXVldWUpOworCXF1ZXVlLT5saW1pdHMuY29weV9vZmZsb2FkID0gMDsKKwlxdWV1ZS0+bGltaXRz
-Lm1heF9jb3B5X3NlY3RvcnMgPSBsZTY0X3RvX2NwdShpZC0+bWNsKSAqCisJCSgxIDw8IChucy0+
-bGJhX3NoaWZ0IC0gOSkpOworCXF1ZXVlLT5saW1pdHMubWF4X2NvcHlfcmFuZ2Vfc2VjdG9ycyA9
-IGxlMzJfdG9fY3B1KGlkLT5tc3NybCkgKgorCQkoMSA8PCAobnMtPmxiYV9zaGlmdCAtIDkpKTsK
-KwlxdWV1ZS0+bGltaXRzLm1heF9jb3B5X25yX3JhbmdlcyA9IGlkLT5tc3JjICsgMTsKK30KKwog
-c3RhdGljIHZvaWQgbnZtZV9jb25maWdfd3JpdGVfemVyb2VzKHN0cnVjdCBnZW5kaXNrICpkaXNr
-LCBzdHJ1Y3QgbnZtZV9ucyAqbnMpCiB7CiAJdTY0IG1heF9ibG9ja3M7CkBAIC0yMDQ1LDYgKzIx
-MzIsNyBAQCBzdGF0aWMgdm9pZCBudm1lX3VwZGF0ZV9kaXNrX2luZm8oc3RydWN0IGdlbmRpc2sg
-KmRpc2ssCiAJc2V0X2NhcGFjaXR5X2FuZF9ub3RpZnkoZGlzaywgY2FwYWNpdHkpOwogCiAJbnZt
-ZV9jb25maWdfZGlzY2FyZChkaXNrLCBucyk7CisJbnZtZV9jb25maWdfY29weShkaXNrLCBucywg
-aWQpOwogCW52bWVfY29uZmlnX3dyaXRlX3plcm9lcyhkaXNrLCBucyk7CiAKIAlpZiAoaWQtPm5z
-YXR0ciAmIE5WTUVfTlNfQVRUUl9STykKQEAgLTQ2MTYsNiArNDcwNCw3IEBAIHN0YXRpYyBpbmxp
-bmUgdm9pZCBfbnZtZV9jaGVja19zaXplKHZvaWQpCiAJQlVJTERfQlVHX09OKHNpemVvZihzdHJ1
-Y3QgbnZtZV9kb3dubG9hZF9maXJtd2FyZSkgIT0gNjQpOwogCUJVSUxEX0JVR19PTihzaXplb2Yo
-c3RydWN0IG52bWVfZm9ybWF0X2NtZCkgIT0gNjQpOwogCUJVSUxEX0JVR19PTihzaXplb2Yoc3Ry
-dWN0IG52bWVfZHNtX2NtZCkgIT0gNjQpOworCUJVSUxEX0JVR19PTihzaXplb2Yoc3RydWN0IG52
-bWVfY29weV9jb21tYW5kKSAhPSA2NCk7CiAJQlVJTERfQlVHX09OKHNpemVvZihzdHJ1Y3QgbnZt
-ZV93cml0ZV96ZXJvZXNfY21kKSAhPSA2NCk7CiAJQlVJTERfQlVHX09OKHNpemVvZihzdHJ1Y3Qg
-bnZtZV9hYm9ydF9jbWQpICE9IDY0KTsKIAlCVUlMRF9CVUdfT04oc2l6ZW9mKHN0cnVjdCBudm1l
-X2dldF9sb2dfcGFnZV9jb21tYW5kKSAhPSA2NCk7CmRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4
-L252bWUuaCBiL2luY2x1ZGUvbGludXgvbnZtZS5oCmluZGV4IGQ5MjUzNTk5NzY4Ny4uMTFlZDcy
-YTIxNjRkIDEwMDY0NAotLS0gYS9pbmNsdWRlL2xpbnV4L252bWUuaAorKysgYi9pbmNsdWRlL2xp
-bnV4L252bWUuaApAQCAtMjg5LDcgKzI4OSw3IEBAIHN0cnVjdCBudm1lX2lkX2N0cmwgewogCV9f
-dTgJCQludnNjYzsKIAlfX3U4CQkJbndwYzsKIAlfX2xlMTYJCQlhY3d1OwotCV9fdTgJCQlyc3Zk
-NTM0WzJdOworCV9fbGUxNgkJCW9jZnM7CiAJX19sZTMyCQkJc2dsczsKIAlfX2xlMzIJCQltbmFu
-OwogCV9fdTgJCQlyc3ZkNTQ0WzIyNF07CkBAIC0zMTQsNiArMzE0LDcgQEAgZW51bSB7CiAJTlZN
-RV9DVFJMX09OQ1NfV1JJVEVfWkVST0VTCQk9IDEgPDwgMywKIAlOVk1FX0NUUkxfT05DU19SRVNF
-UlZBVElPTlMJCT0gMSA8PCA1LAogCU5WTUVfQ1RSTF9PTkNTX1RJTUVTVEFNUAkJPSAxIDw8IDYs
-CisJTlZNRV9DVFJMX09OQ1NfQ09QWQkJCT0gMSA8PCA4LAogCU5WTUVfQ1RSTF9WV0NfUFJFU0VO
-VAkJCT0gMSA8PCAwLAogCU5WTUVfQ1RSTF9PQUNTX1NFQ19TVVBQICAgICAgICAgICAgICAgICA9
-IDEgPDwgMCwKIAlOVk1FX0NUUkxfT0FDU19ESVJFQ1RJVkVTCQk9IDEgPDwgNSwKQEAgLTM2Miw3
-ICszNjMsMTAgQEAgc3RydWN0IG52bWVfaWRfbnMgewogCV9fbGUxNgkJCW5wZGc7CiAJX19sZTE2
-CQkJbnBkYTsKIAlfX2xlMTYJCQlub3dzOwotCV9fdTgJCQlyc3ZkNzRbMThdOworCV9fbGUxNgkJ
-CW1zc3JsOworCV9fbGUzMgkJCW1jbDsKKwlfX3U4CQkJbXNyYzsKKwlfX3U4CQkJcnN2ZDkxWzEx
-XTsKIAlfX2xlMzIJCQlhbmFncnBpZDsKIAlfX3U4CQkJcnN2ZDk2WzNdOwogCV9fdTgJCQluc2F0
-dHI7CkBAIC02NzMsNiArNjc3LDcgQEAgZW51bSBudm1lX29wY29kZSB7CiAJbnZtZV9jbWRfcmVz
-dl9yZXBvcnQJPSAweDBlLAogCW52bWVfY21kX3Jlc3ZfYWNxdWlyZQk9IDB4MTEsCiAJbnZtZV9j
-bWRfcmVzdl9yZWxlYXNlCT0gMHgxNSwKKwludm1lX2NtZF9jb3B5CQk9IDB4MTksCiAJbnZtZV9j
-bWRfem9uZV9tZ210X3NlbmQJPSAweDc5LAogCW52bWVfY21kX3pvbmVfbWdtdF9yZWN2CT0gMHg3
-YSwKIAludm1lX2NtZF96b25lX2FwcGVuZAk9IDB4N2QsCkBAIC02OTEsNyArNjk2LDggQEAgZW51
-bSBudm1lX29wY29kZSB7CiAJCW52bWVfb3Bjb2RlX25hbWUobnZtZV9jbWRfcmVzdl9yZWdpc3Rl
-ciksCVwKIAkJbnZtZV9vcGNvZGVfbmFtZShudm1lX2NtZF9yZXN2X3JlcG9ydCksCQlcCiAJCW52
-bWVfb3Bjb2RlX25hbWUobnZtZV9jbWRfcmVzdl9hY3F1aXJlKSwJXAotCQludm1lX29wY29kZV9u
-YW1lKG52bWVfY21kX3Jlc3ZfcmVsZWFzZSkpCisJCW52bWVfb3Bjb2RlX25hbWUobnZtZV9jbWRf
-cmVzdl9yZWxlYXNlKSwJXAorCQludm1lX29wY29kZV9uYW1lKG52bWVfY21kX2NvcHkpKQogCiAK
-IC8qCkBAIC04NjMsNiArODY5LDM2IEBAIHN0cnVjdCBudm1lX2RzbV9yYW5nZSB7CiAJX19sZTY0
-CQkJc2xiYTsKIH07CiAKK3N0cnVjdCBudm1lX2NvcHlfY29tbWFuZCB7CisJX191OCAgICAgICAg
-ICAgICAgICAgICAgb3Bjb2RlOworCV9fdTggICAgICAgICAgICAgICAgICAgIGZsYWdzOworCV9f
-dTE2ICAgICAgICAgICAgICAgICAgIGNvbW1hbmRfaWQ7CisJX19sZTMyICAgICAgICAgICAgICAg
-ICAgbnNpZDsKKwlfX3U2NCAgICAgICAgICAgICAgICAgICByc3ZkMjsKKwlfX2xlNjQgICAgICAg
-ICAgICAgICAgICBtZXRhZGF0YTsKKwl1bmlvbiBudm1lX2RhdGFfcHRyICAgICBkcHRyOworCV9f
-bGU2NCAgICAgICAgICAgICAgICAgIHNkbGJhOworCV9fdTgJCQlucl9yYW5nZTsKKwlfX3U4CQkJ
-cnN2ZDEyOworCV9fbGUxNiAgICAgICAgICAgICAgICAgIGNvbnRyb2w7CisJX19sZTE2ICAgICAg
-ICAgICAgICAgICAgcnN2ZDEzOworCV9fbGUxNgkJCWRzcGVjOworCV9fbGUzMiAgICAgICAgICAg
-ICAgICAgIGlsYnJ0OworCV9fbGUxNiAgICAgICAgICAgICAgICAgIGxiYXQ7CisJX19sZTE2ICAg
-ICAgICAgICAgICAgICAgbGJhdG07Cit9OworCitzdHJ1Y3QgbnZtZV9jb3B5X3JhbmdlIHsKKwlf
-X2xlNjQJCQlyc3ZkMDsKKwlfX2xlNjQJCQlzbGJhOworCV9fbGUxNgkJCW5sYjsKKwlfX2xlMTYJ
-CQlyc3ZkMTg7CisJX19sZTMyCQkJcnN2ZDIwOworCV9fbGUzMgkJCWVpbGJydDsKKwlfX2xlMTYJ
-CQllbGJhdDsKKwlfX2xlMTYJCQllbGJhdG07Cit9OworCiBzdHJ1Y3QgbnZtZV93cml0ZV96ZXJv
-ZXNfY21kIHsKIAlfX3U4CQkJb3Bjb2RlOwogCV9fdTgJCQlmbGFnczsKQEAgLTE0MDAsNiArMTQz
-Niw3IEBAIHN0cnVjdCBudm1lX2NvbW1hbmQgewogCQlzdHJ1Y3QgbnZtZV9kb3dubG9hZF9maXJt
-d2FyZSBkbGZ3OwogCQlzdHJ1Y3QgbnZtZV9mb3JtYXRfY21kIGZvcm1hdDsKIAkJc3RydWN0IG52
-bWVfZHNtX2NtZCBkc207CisJCXN0cnVjdCBudm1lX2NvcHlfY29tbWFuZCBjb3B5OwogCQlzdHJ1
-Y3QgbnZtZV93cml0ZV96ZXJvZXNfY21kIHdyaXRlX3plcm9lczsKIAkJc3RydWN0IG52bWVfem9u
-ZV9tZ210X3NlbmRfY21kIHptczsKIAkJc3RydWN0IG52bWVfem9uZV9tZ210X3JlY3ZfY21kIHpt
-cjsKLS0gCjIuMjUuMQoKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQu
-Y29tCmh0dHBzOi8vd3d3LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
+On 2020-12-09 11:42:12, Tushar Sugandhi wrote:
+> From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+> 
+> IMA measures files and buffer data such as keys, command line arguments
+> passed to the kernel on kexec system call, etc. While these measurements
+> enable monitoring and validating the integrity of the system, it is not
+> sufficient. Various data structures, policies and states stored in kernel
+> memory also impact the integrity of the system. Updates to these data
+> structures would have an impact on the security functionalities.
+
+This is repetitive when looking at the entire series. I think it can be
+dropped.
+
+> For example, SELinux stores the active policy in memory. Changes to this
+
+Start here and drop the "For example, ":
+
+ SELinux stores the active policy in memory and changes to this data ...
+
+> data at runtime would have an impact on the security guarantees provided
+> by SELinux. Measuring such in-memory data structures through IMA
+> subsystem provides a secure way for a remote attestation service to
+> know the state of the system and also the runtime changes in the state
+> of the system.
+> 
+> SELinux policy is a critical data for this security module that needs
+
+ SELinux policy is critical data and should be measured. This measurement ...
+
+> to be measured. This measurement can be used by an attestation service,
+> for instance, to verify if the policy has been setup correctly and that
+> it hasn't been tampered at run-time.
+> 
+> Measure the hash of the loaded policy by calling the IMA hook
+> ima_measure_critical_data(). Since the size of the loaded policy can
+> be large (several MB), measure the hash of the policy instead of
+> the entire policy to avoid bloating the IMA log entry.
+> 
+> Add "selinux" to the list of supported data sources maintained by IMA
+> to enable measuring SELinux data.
+> 
+> To enable SELinux data measurement, the following steps are required:
+> 
+> 1, Add "ima_policy=critical_data" to the kernel command line arguments
+>    to enable measuring SELinux data at boot time.
+> For example,
+>   BOOT_IMAGE=/boot/vmlinuz-5.10.0-rc1+ root=UUID=fd643309-a5d2-4ed3-b10d-3c579a5fab2f ro nomodeset security=selinux ima_policy=critical_data
+> 
+> 2, Add the following rule to /etc/ima/ima-policy
+>    measure func=CRITICAL_DATA data_source=selinux
+> 
+> Sample measurement of the hash of SELinux policy:
+> 
+> To verify the measured data with the current SELinux policy run
+> the following commands and verify the output hash values match.
+> 
+>   sha256sum /sys/fs/selinux/policy | cut -d' ' -f 1
+> 
+>   grep "selinux-policy-hash" /sys/kernel/security/integrity/ima/ascii_runtime_measurements | tail -1 | cut -d' ' -f 6
+> 
+> Note that the actual verification of SELinux policy would require loading
+> the expected policy into an identical kernel on a pristine/known-safe
+> system and run the sha256sum /sys/kernel/selinux/policy there to get
+> the expected hash.
+> 
+> Signed-off-by: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+> Suggested-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+> ---
+>  Documentation/ABI/testing/ima_policy |  3 +-
+>  security/selinux/Makefile            |  2 +
+>  security/selinux/include/security.h  | 11 +++-
+>  security/selinux/measure.c           | 86 ++++++++++++++++++++++++++++
+>  security/selinux/ss/services.c       | 71 ++++++++++++++++++++---
+>  5 files changed, 162 insertions(+), 11 deletions(-)
+>  create mode 100644 security/selinux/measure.c
+> 
+> diff --git a/Documentation/ABI/testing/ima_policy b/Documentation/ABI/testing/ima_policy
+> index 0f4ee9e0a455..7c7023f7986b 100644
+> --- a/Documentation/ABI/testing/ima_policy
+> +++ b/Documentation/ABI/testing/ima_policy
+> @@ -52,8 +52,9 @@ Description:
+>  			template:= name of a defined IMA template type
+>  			(eg, ima-ng). Only valid when action is "measure".
+>  			pcr:= decimal value
+> -			data_source:= [label]
+> +			data_source:= [selinux]|[label]
+>  			label:= a unique string used for grouping and limiting critical data.
+> +			For example, "selinux" to measure critical data for SELinux.
+>  
+>  		  default policy:
+>  			# PROC_SUPER_MAGIC
+> diff --git a/security/selinux/Makefile b/security/selinux/Makefile
+> index 4d8e0e8adf0b..83d512116341 100644
+> --- a/security/selinux/Makefile
+> +++ b/security/selinux/Makefile
+> @@ -16,6 +16,8 @@ selinux-$(CONFIG_NETLABEL) += netlabel.o
+>  
+>  selinux-$(CONFIG_SECURITY_INFINIBAND) += ibpkey.o
+>  
+> +selinux-$(CONFIG_IMA) += measure.o
+> +
+>  ccflags-y := -I$(srctree)/security/selinux -I$(srctree)/security/selinux/include
+>  
+>  $(addprefix $(obj)/,$(selinux-y)): $(obj)/flask.h
+> diff --git a/security/selinux/include/security.h b/security/selinux/include/security.h
+> index 3cc8bab31ea8..18ee65c98446 100644
+> --- a/security/selinux/include/security.h
+> +++ b/security/selinux/include/security.h
+> @@ -229,7 +229,8 @@ void selinux_policy_cancel(struct selinux_state *state,
+>  			struct selinux_policy *policy);
+>  int security_read_policy(struct selinux_state *state,
+>  			 void **data, size_t *len);
+> -
+> +int security_read_policy_kernel(struct selinux_state *state,
+> +				void **data, size_t *len);
+>  int security_policycap_supported(struct selinux_state *state,
+>  				 unsigned int req_cap);
+>  
+> @@ -446,4 +447,12 @@ extern void ebitmap_cache_init(void);
+>  extern void hashtab_cache_init(void);
+>  extern int security_sidtab_hash_stats(struct selinux_state *state, char *page);
+>  
+> +#ifdef CONFIG_IMA
+> +extern void selinux_measure_state(struct selinux_state *selinux_state);
+> +#else
+> +static inline void selinux_measure_state(struct selinux_state *selinux_state)
+> +{
+> +}
+> +#endif
+> +
+>  #endif /* _SELINUX_SECURITY_H_ */
+> diff --git a/security/selinux/measure.c b/security/selinux/measure.c
+> new file mode 100644
+> index 000000000000..c409ada6ea39
+> --- /dev/null
+> +++ b/security/selinux/measure.c
+> @@ -0,0 +1,86 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Measure SELinux state using IMA subsystem.
+> + */
+> +#include <linux/vmalloc.h>
+> +#include <linux/ktime.h>
+> +#include <linux/ima.h>
+> +#include "security.h"
+> +
+> +/*
+> + * This function creates a unique name by appending the timestamp to
+> + * the given string. This string is passed as "event_name" to the IMA
+> + * hook to measure the given SELinux data.
+> + *
+> + * The data provided by SELinux to the IMA subsystem for measuring may have
+> + * already been measured (for instance the same state existed earlier).
+> + * But for SELinux the current data represents a state change and hence
+> + * needs to be measured again. To enable this, pass a unique "event_name"
+> + * to the IMA hook so that IMA subsystem will always measure the given data.
+> + *
+> + * For example,
+> + * At time T0 SELinux data to be measured is "foo". IMA measures it.
+> + * At time T1 the data is changed to "bar". IMA measures it.
+> + * At time T2 the data is changed to "foo" again. IMA will not measure it
+> + * (since it was already measured) unless the event_name, for instance,
+> + * is different in this call.
+> + */
+> +static char *selinux_event_name(const char *name_prefix)
+> +{
+> +	char *event_name = NULL;
+> +	struct timespec64 cur_time;
+> +
+> +	ktime_get_real_ts64(&cur_time);
+> +	event_name = kasprintf(GFP_KERNEL, "%s-%lld:%09ld", name_prefix,
+> +			       cur_time.tv_sec, cur_time.tv_nsec);
+> +	if (!event_name) {
+> +		pr_err("%s: event name not allocated.\n", __func__);
+> +		return NULL;
+> +	}
+> +
+> +	return event_name;
+> +}
+> +
+> +/*
+> + * selinux_measure_state - Measure hash of the SELinux policy
+> + *
+> + * @state: selinux state struct
+> + *
+> + * NOTE: This function must be called with policy_mutex held.
+> + */
+> +void selinux_measure_state(struct selinux_state *state)
+> +{
+> +	void *policy = NULL;
+> +	char *policy_event_name = NULL;
+> +	size_t policy_len;
+> +	int rc = 0;
+> +	bool initialized = selinux_initialized(state);
+> +
+> +	/*
+> +	 * Measure SELinux policy only after initialization is completed.
+> +	 */
+> +	if (!initialized)
+> +		goto out;
+> +
+> +	policy_event_name = selinux_event_name("selinux-policy-hash");
+> +	if (!policy_event_name) {
+> +		pr_err("%s: Event name for policy not allocated.\n",
+> +		       __func__);
+
+If the kasprintf() in selinux_event_name() fails, we'll get two similar
+error messages saying that the event name could not be allocated. One of
+these error messages can be removed.
+
+> +		rc = -ENOMEM;
+> +		goto out;
+> +	}
+> +
+> +	rc = security_read_policy_kernel(state, &policy, &policy_len);
+> +	if (rc) {
+> +		pr_err("%s: Failed to read policy %d.\n", __func__, rc);
+
+The calls to pr_err() in this aren't quite following the style of the
+other error SELinux error messages.
+
+ $ git grep pr_err security/selinux
+ security/selinux/hooks.c:               pr_err("SELinux:  out of range capability %d\n", cap);
+ security/selinux/hooks.c:               pr_err("SELinux:  unable to map context to SID"
+ security/selinux/netlink.c:     pr_err("SELinux:  OOM in %s\n", __func__);
+ security/selinux/selinuxfs.c:   pr_err("SELinux:  Runtime disable is deprecated, use selinux=0 on the kernel cmdline.\n");
+ security/selinux/selinuxfs.c:           pr_err("SELinux: failed to load policy booleans\n");
+ security/selinux/selinuxfs.c:           pr_err("SELinux: failed to load policy classes\n");
+ ...
+ security/selinux/ss/services.c:         pr_err("SELinux: %s:  unrecognized SID %d\n",
+ security/selinux/ss/services.c:         pr_err("SELinux: %s:  unrecognized SID %d\n",
+ security/selinux/ss/services.c:         pr_err("SELinux: %s:  unrecognized SID %d\n",
+ security/selinux/ss/services.c:         pr_err("SELinux: %s:  unrecognized SID %d\n",
+ security/selinux/ss/services.c:         pr_err("SELinux: %s:  unrecognized class %s\n",
+
+Prepending your error message strings with "SELinux: " and lowercasing the
+first character after "%s: " ought to do it.
+
+
+All the other code changes in this patch look correct to me.
+
+Tyler
+
+
+> +		goto out;
+> +	}
+> +
+> +	ima_measure_critical_data("selinux", policy_event_name,
+> +				  policy, policy_len, true);
+> +
+> +	vfree(policy);
+> +
+> +out:
+> +	kfree(policy_event_name);
+> +}
+> diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
+> index 9704c8a32303..dfa2e00894ae 100644
+> --- a/security/selinux/ss/services.c
+> +++ b/security/selinux/ss/services.c
+> @@ -2180,6 +2180,7 @@ static void selinux_notify_policy_change(struct selinux_state *state,
+>  	selinux_status_update_policyload(state, seqno);
+>  	selinux_netlbl_cache_invalidate();
+>  	selinux_xfrm_notify_policyload();
+> +	selinux_measure_state(state);
+>  }
+>  
+>  void selinux_policy_commit(struct selinux_state *state,
+> @@ -3875,8 +3876,33 @@ int security_netlbl_sid_to_secattr(struct selinux_state *state,
+>  }
+>  #endif /* CONFIG_NETLABEL */
+>  
+> +/**
+> + * security_read_selinux_policy - read the policy.
+> + * @policy: SELinux policy
+> + * @data: binary policy data
+> + * @len: length of data in bytes
+> + *
+> + */
+> +static int security_read_selinux_policy(struct selinux_policy *policy,
+> +					void *data, size_t *len)
+> +{
+> +	int rc;
+> +	struct policy_file fp;
+> +
+> +	fp.data = data;
+> +	fp.len = *len;
+> +
+> +	rc = policydb_write(&policy->policydb, &fp);
+> +	if (rc)
+> +		return rc;
+> +
+> +	*len = (unsigned long)fp.data - (unsigned long)data;
+> +	return 0;
+> +}
+> +
+>  /**
+>   * security_read_policy - read the policy.
+> + * @state: selinux_state
+>   * @data: binary policy data
+>   * @len: length of data in bytes
+>   *
+> @@ -3885,8 +3911,6 @@ int security_read_policy(struct selinux_state *state,
+>  			 void **data, size_t *len)
+>  {
+>  	struct selinux_policy *policy;
+> -	int rc;
+> -	struct policy_file fp;
+>  
+>  	policy = rcu_dereference_protected(
+>  			state->policy, lockdep_is_held(&state->policy_mutex));
+> @@ -3898,14 +3922,43 @@ int security_read_policy(struct selinux_state *state,
+>  	if (!*data)
+>  		return -ENOMEM;
+>  
+> -	fp.data = *data;
+> -	fp.len = *len;
+> +	return security_read_selinux_policy(policy, *data, len);
+> +}
+>  
+> -	rc = policydb_write(&policy->policydb, &fp);
+> -	if (rc)
+> -		return rc;
+> +/**
+> + * security_read_policy_kernel - read the policy.
+> + * @state: selinux_state
+> + * @data: binary policy data
+> + * @len: length of data in bytes
+> + *
+> + * Allocates kernel memory for reading SELinux policy.
+> + * This function is for internal use only and should not
+> + * be used for returning data to user space.
+> + *
+> + * This function must be called with policy_mutex held.
+> + */
+> +int security_read_policy_kernel(struct selinux_state *state,
+> +				void **data, size_t *len)
+> +{
+> +	struct selinux_policy *policy;
+> +	int rc = 0;
+>  
+> -	*len = (unsigned long)fp.data - (unsigned long)*data;
+> -	return 0;
+> +	policy = rcu_dereference_protected(
+> +			state->policy, lockdep_is_held(&state->policy_mutex));
+> +	if (!policy) {
+> +		rc = -EINVAL;
+> +		goto out;
+> +	}
+> +
+> +	*len = policy->policydb.len;
+> +	*data = vmalloc(*len);
+> +	if (!*data) {
+> +		rc = -ENOMEM;
+> +		goto out;
+> +	}
+>  
+> +	rc = security_read_selinux_policy(policy, *data, len);
+> +
+> +out:
+> +	return rc;
+>  }
+> -- 
+> 2.17.1
+> 
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
