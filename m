@@ -1,56 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E9A0B2D88E0
-	for <lists+dm-devel@lfdr.de>; Sat, 12 Dec 2020 19:03:41 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 816702D88E7
+	for <lists+dm-devel@lfdr.de>; Sat, 12 Dec 2020 19:04:04 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-433-1o-X0J2LMRiEcMtyJW8izA-1; Sat, 12 Dec 2020 13:03:38 -0500
-X-MC-Unique: 1o-X0J2LMRiEcMtyJW8izA-1
+ us-mta-431-Gz1xSEtkMUe0Fky7KAXPAA-1; Sat, 12 Dec 2020 13:03:42 -0500
+X-MC-Unique: Gz1xSEtkMUe0Fky7KAXPAA-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B915ECE64D;
-	Sat, 12 Dec 2020 18:03:32 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6638D193410C;
+	Sat, 12 Dec 2020 18:03:36 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 46BF571C80;
-	Sat, 12 Dec 2020 18:03:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 10AD871C86;
+	Sat, 12 Dec 2020 18:03:36 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 651624A7C6;
-	Sat, 12 Dec 2020 18:03:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BC3555002D;
+	Sat, 12 Dec 2020 18:03:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BCI3MCl028768 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 12 Dec 2020 13:03:22 -0500
+	id 0BCI3Ol2028793 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 12 Dec 2020 13:03:24 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 56E68100BFD7; Sat, 12 Dec 2020 18:03:22 +0000 (UTC)
+	id B48B72166B2A; Sat, 12 Dec 2020 18:03:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 531651018E65
-	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 18:03:22 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AFEBE2166B29
+	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 18:03:21 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 405B5800883
-	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 18:03:22 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 26497800140
+	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 18:03:21 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-311-1_or-A8iPt6nXAS19nsOEw-1;
+	relay.mimecast.com with ESMTP id us-mta-272-Azq_jcJiODiHD_hiJBemZw-3;
 	Sat, 12 Dec 2020 13:03:18 -0500
-X-MC-Unique: 1_or-A8iPt6nXAS19nsOEw-1
+X-MC-Unique: Azq_jcJiODiHD_hiJBemZw-3
 Received: from tusharsu-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
 	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id B7ECD20B718B;
-	Sat, 12 Dec 2020 10:03:16 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B7ECD20B718B
+	by linux.microsoft.com (Postfix) with ESMTPSA id 4EE3D20B718C;
+	Sat, 12 Dec 2020 10:03:17 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4EE3D20B718C
 From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
 To: zohar@linux.ibm.com, stephen.smalley.work@gmail.com,
 	casey@schaufler-ca.com, agk@redhat.com, snitzer@redhat.com,
 	gmazyland@gmail.com, paul@paul-moore.com
-Date: Sat, 12 Dec 2020 10:02:49 -0800
-Message-Id: <20201212180251.9943-7-tusharsu@linux.microsoft.com>
+Date: Sat, 12 Dec 2020 10:02:50 -0800
+Message-Id: <20201212180251.9943-8-tusharsu@linux.microsoft.com>
 In-Reply-To: <20201212180251.9943-1-tusharsu@linux.microsoft.com>
 References: <20201212180251.9943-1-tusharsu@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -61,14 +61,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
 	jmorris@namei.org, linux-kernel@vger.kernel.org,
 	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
 	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: [dm-devel] [PATCH v9 6/8] IMA: extend critical data hook to limit
-	the measurement based on a label
+Subject: [dm-devel] [PATCH v9 7/8] IMA: define a builtin critical data
+	measurement policy
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,86 +91,90 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The IMA hook ima_measure_critical_data() does not support a way to
-specify the source of the critical data provider. Thus, the data
-measurement cannot be constrained based on the data source label
-in the IMA policy.
+From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
 
-Extend the IMA hook ima_measure_critical_data() to support passing 
-the data source label as an input parameter, so that the policy rule can
-be used to limit the measurements based on the label.
+Define a new critical data builtin policy to allow measuring
+early kernel integrity critical data before a custom IMA policy
+is loaded.
 
-Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+Add critical data to built-in IMA rules if the kernel command line
+contains "ima_policy=critical_data".
+
+Update the documentation on kernel parameters to document
+the new critical data builtin policy.
+
+Signed-off-by: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
 Reviewed-by: Tyler Hicks <tyhicks@linux.microsoft.com>
 ---
- include/linux/ima.h               |  6 ++++--
- security/integrity/ima/ima_main.c | 11 ++++++++---
- 2 files changed, 12 insertions(+), 5 deletions(-)
+ Documentation/admin-guide/kernel-parameters.txt |  5 ++++-
+ security/integrity/ima/ima_policy.c             | 12 ++++++++++++
+ 2 files changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/ima.h b/include/linux/ima.h
-index 675f54db6264..6434287a81cd 100644
---- a/include/linux/ima.h
-+++ b/include/linux/ima.h
-@@ -30,7 +30,8 @@ extern int ima_post_read_file(struct file *file, void *buf, loff_t size,
- extern void ima_post_path_mknod(struct dentry *dentry);
- extern int ima_file_hash(struct file *file, char *buf, size_t buf_size);
- extern void ima_kexec_cmdline(int kernel_fd, const void *buf, int size);
--extern void ima_measure_critical_data(const char *event_name,
-+extern void ima_measure_critical_data(const char *event_data_source,
-+				      const char *event_name,
- 				      const void *buf, int buf_len,
- 				      bool measure_buf_hash);
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 526d65d8573a..6034d75c3ca0 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -1746,7 +1746,7 @@
+ 	ima_policy=	[IMA]
+ 			The builtin policies to load during IMA setup.
+ 			Format: "tcb | appraise_tcb | secure_boot |
+-				 fail_securely"
++				 fail_securely | critical_data"
  
-@@ -125,7 +126,8 @@ static inline int ima_file_hash(struct file *file, char *buf, size_t buf_size)
- }
+ 			The "tcb" policy measures all programs exec'd, files
+ 			mmap'd for exec, and all files opened with the read
+@@ -1765,6 +1765,9 @@
+ 			filesystems with the SB_I_UNVERIFIABLE_SIGNATURE
+ 			flag.
  
- static inline void ima_kexec_cmdline(int kernel_fd, const void *buf, int size) {}
--static inline void ima_measure_critical_data(const char *event_name,
-+static inline void ima_measure_critical_data(const char *event_data_source,
-+					     const char *event_name,
- 					     const void *buf, int buf_len,
- 					     bool measure_buf_hash) {}
- #endif /* CONFIG_IMA */
-diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
-index dff4bce4fb09..cc828ba00790 100644
---- a/security/integrity/ima/ima_main.c
-+++ b/security/integrity/ima/ima_main.c
-@@ -924,6 +924,7 @@ void ima_kexec_cmdline(int kernel_fd, const void *buf, int size)
++			The "critical_data" policy measures kernel integrity
++			critical data.
++
+ 	ima_tcb		[IMA] Deprecated.  Use ima_policy= instead.
+ 			Load a policy which meets the needs of the Trusted
+ 			Computing Base.  This means IMA will measure all
+diff --git a/security/integrity/ima/ima_policy.c b/security/integrity/ima/ima_policy.c
+index fea996a9e26c..376b625acc72 100644
+--- a/security/integrity/ima/ima_policy.c
++++ b/security/integrity/ima/ima_policy.c
+@@ -206,6 +206,10 @@ static struct ima_rule_entry secure_boot_rules[] __ro_after_init = {
+ 	 .flags = IMA_FUNC | IMA_DIGSIG_REQUIRED},
+ };
  
- /**
-  * ima_measure_critical_data - measure kernel integrity critical data
-+ * @event_data_source: kernel data source being measured
-  * @event_name: event name to be used for the buffer entry
-  * @buf: pointer to buffer containing data to measure
-  * @buf_len: length of buffer(in bytes)
-@@ -932,6 +933,9 @@ void ima_kexec_cmdline(int kernel_fd, const void *buf, int size)
-  * Measure the kernel subsystem data, critical to the integrity of the kernel,
-  * into the IMA log and extend the @pcr.
-  *
-+ * Use @event_data_source to describe the kernel data source for the buffer
-+ * being measured.
-+ *
-  * Use @event_name to describe the state/buffer data change.
-  * Examples of critical data (@buf) could be various data structures,
-  * policies, and states stored in kernel memory that can impact the integrity
-@@ -944,15 +948,16 @@ void ima_kexec_cmdline(int kernel_fd, const void *buf, int size)
-  *
-  * The data (@buf) can only be measured, not appraised.
-  */
--void ima_measure_critical_data(const char *event_name,
-+void ima_measure_critical_data(const char *event_data_source,
-+			       const char *event_name,
- 			       const void *buf, int buf_len,
- 			       bool measure_buf_hash)
++static struct ima_rule_entry critical_data_rules[] __ro_after_init = {
++	{.action = MEASURE, .func = CRITICAL_DATA, .flags = IMA_FUNC},
++};
++
+ /* An array of architecture specific rules */
+ static struct ima_rule_entry *arch_policy_entry __ro_after_init;
+ 
+@@ -228,6 +232,7 @@ __setup("ima_tcb", default_measure_policy_setup);
+ 
+ static bool ima_use_appraise_tcb __initdata;
+ static bool ima_use_secure_boot __initdata;
++static bool ima_use_critical_data __initdata;
+ static bool ima_fail_unverifiable_sigs __ro_after_init;
+ static int __init policy_setup(char *str)
  {
--	if (!event_name || !buf || !buf_len)
-+	if (!event_name || !event_data_source || !buf || !buf_len)
- 		return;
+@@ -242,6 +247,8 @@ static int __init policy_setup(char *str)
+ 			ima_use_appraise_tcb = true;
+ 		else if (strcmp(p, "secure_boot") == 0)
+ 			ima_use_secure_boot = true;
++		else if (strcmp(p, "critical_data") == 0)
++			ima_use_critical_data = true;
+ 		else if (strcmp(p, "fail_securely") == 0)
+ 			ima_fail_unverifiable_sigs = true;
+ 		else
+@@ -872,6 +879,11 @@ void __init ima_init_policy(void)
+ 			  ARRAY_SIZE(default_appraise_rules),
+ 			  IMA_DEFAULT_POLICY);
  
- 	process_buffer_measurement(NULL, buf, buf_len, event_name,
--				   CRITICAL_DATA, 0, NULL,
-+				   CRITICAL_DATA, 0, event_data_source,
- 				   measure_buf_hash);
++	if (ima_use_critical_data)
++		add_rules(critical_data_rules,
++			  ARRAY_SIZE(critical_data_rules),
++			  IMA_DEFAULT_POLICY);
++
+ 	ima_update_policy_flag();
  }
  
 -- 
