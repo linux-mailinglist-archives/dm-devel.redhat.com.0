@@ -1,58 +1,58 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 243222D96D2
-	for <lists+dm-devel@lfdr.de>; Mon, 14 Dec 2020 12:02:05 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 7751C2D96D0
+	for <lists+dm-devel@lfdr.de>; Mon, 14 Dec 2020 12:01:16 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-1-BYqMBmplN--wUZ5gk-I1tw-1; Mon, 14 Dec 2020 06:01:10 -0500
-X-MC-Unique: BYqMBmplN--wUZ5gk-I1tw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-31-hLsbtOzMMdOcEPIiEcEtxw-1; Mon, 14 Dec 2020 06:01:13 -0500
+X-MC-Unique: hLsbtOzMMdOcEPIiEcEtxw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A0911801AC5;
-	Mon, 14 Dec 2020 11:00:53 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CF8BA801ADA;
+	Mon, 14 Dec 2020 11:00:57 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6FF1E71CBE;
-	Mon, 14 Dec 2020 11:00:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F3231C930;
+	Mon, 14 Dec 2020 11:00:57 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 165FD5002C;
-	Mon, 14 Dec 2020 11:00:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 25E214BB7B;
+	Mon, 14 Dec 2020 11:00:57 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BC096O6000571 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 11 Dec 2020 19:09:06 -0500
+	id 0BC0DsON000850 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 11 Dec 2020 19:13:55 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 38C812166B2A; Sat, 12 Dec 2020 00:09:06 +0000 (UTC)
+	id DFA5C1111A59; Sat, 12 Dec 2020 00:13:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 335212166B29
-	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 00:09:04 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DB7E51111A51
+	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 00:13:52 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0A1B81010426
-	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 00:09:04 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 823AB8007D9
+	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 00:13:52 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-548-8c8zYYeiO7SMoWsmcnZazw-1;
-	Fri, 11 Dec 2020 19:08:59 -0500
-X-MC-Unique: 8c8zYYeiO7SMoWsmcnZazw-1
+	relay.mimecast.com with ESMTP id us-mta-413-DZamhoLANGyRU5fHQG8XPQ-1;
+	Fri, 11 Dec 2020 19:13:50 -0500
+X-MC-Unique: DZamhoLANGyRU5fHQG8XPQ-1
 Received: from sequoia (162-237-133-238.lightspeed.rcsntx.sbcglobal.net
 	[162.237.133.238])
-	by linux.microsoft.com (Postfix) with ESMTPSA id AA20620B717A;
-	Fri, 11 Dec 2020 16:08:56 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com AA20620B717A
-Date: Fri, 11 Dec 2020 18:08:54 -0600
+	by linux.microsoft.com (Postfix) with ESMTPSA id 5BFD120B717B;
+	Fri, 11 Dec 2020 16:13:47 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5BFD120B717B
+Date: Fri, 11 Dec 2020 18:13:43 -0600
 From: Tyler Hicks <tyhicks@linux.microsoft.com>
 To: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-Message-ID: <20201212000854.GC4951@sequoia>
+Message-ID: <20201212001343.GE4951@sequoia>
 References: <20201211235807.30815-1-tusharsu@linux.microsoft.com>
-	<20201211235807.30815-2-tusharsu@linux.microsoft.com>
+	<20201211235807.30815-4-tusharsu@linux.microsoft.com>
 MIME-Version: 1.0
-In-Reply-To: <20201211235807.30815-2-tusharsu@linux.microsoft.com>
+In-Reply-To: <20201211235807.30815-4-tusharsu@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,7 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 14 Dec 2020 06:00:28 -0500
 Cc: sashal@kernel.org, paul@paul-moore.com, snitzer@redhat.com,
@@ -71,8 +71,8 @@ Cc: sashal@kernel.org, paul@paul-moore.com, snitzer@redhat.com,
 	linux-security-module@vger.kernel.org, casey@schaufler-ca.com,
 	linux-integrity@vger.kernel.org, dm-devel@redhat.com,
 	gmazyland@gmail.com, agk@redhat.com
-Subject: Re: [dm-devel] [PATCH v8 1/8] IMA: generalize keyring specific
- measurement constructs
+Subject: Re: [dm-devel] [PATCH v8 3/8] IMA: define a hook to measure kernel
+ integrity critical data
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,7 +86,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -95,228 +95,125 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 2020-12-11 15:58:00, Tushar Sugandhi wrote:
-> IMA functions such as ima_match_keyring(), process_buffer_measurement(),
-> ima_match_policy() etc. handle data specific to keyrings. Currently,
-> these constructs are not generic to handle any func specific data.
-> This makes it harder to extend them without code duplication.
-> 
-> Refactor the keyring specific measurement constructs to be generic and
-> reusable in other measurement scenarios.
+On 2020-12-11 15:58:02, Tushar Sugandhi wrote:
+> IMA provides capabilities to measure file data, and in-memory buffer
+> data. However, various data structures, policies, and states
+> stored in kernel memory also impact the integrity of the system.
+> Several kernel subsystems contain such integrity critical data. These
+> kernel subsystems help protect the integrity of a device. Currently,
+> IMA does not provide a generic function for kernel subsystems to measure
+> their integrity critical data.
+>  
+> Define a new IMA hook - ima_measure_critical_data to measure kernel
+> integrity critical data.
 > 
 > Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-> Reviewed-by: Tyler Hicks <tyhicks@linux.microsoft.com>
 
-This looks good to me. Thanks!
+Reviewed-by: Tyler Hicks <tyhicks@linux.microsoft.com>
 
 Tyler
 
 > ---
->  security/integrity/ima/ima.h        |  6 ++--
->  security/integrity/ima/ima_api.c    |  6 ++--
->  security/integrity/ima/ima_main.c   |  6 ++--
->  security/integrity/ima/ima_policy.c | 46 ++++++++++++++++++-----------
->  4 files changed, 37 insertions(+), 27 deletions(-)
+>  include/linux/ima.h               |  6 ++++++
+>  security/integrity/ima/ima.h      |  1 +
+>  security/integrity/ima/ima_api.c  |  2 +-
+>  security/integrity/ima/ima_main.c | 34 +++++++++++++++++++++++++++++++
+>  4 files changed, 42 insertions(+), 1 deletion(-)
 > 
+> diff --git a/include/linux/ima.h b/include/linux/ima.h
+> index ac3d82f962f2..675f54db6264 100644
+> --- a/include/linux/ima.h
+> +++ b/include/linux/ima.h
+> @@ -30,6 +30,9 @@ extern int ima_post_read_file(struct file *file, void *buf, loff_t size,
+>  extern void ima_post_path_mknod(struct dentry *dentry);
+>  extern int ima_file_hash(struct file *file, char *buf, size_t buf_size);
+>  extern void ima_kexec_cmdline(int kernel_fd, const void *buf, int size);
+> +extern void ima_measure_critical_data(const char *event_name,
+> +				      const void *buf, int buf_len,
+> +				      bool measure_buf_hash);
+>  
+>  #ifdef CONFIG_IMA_APPRAISE_BOOTPARAM
+>  extern void ima_appraise_parse_cmdline(void);
+> @@ -122,6 +125,9 @@ static inline int ima_file_hash(struct file *file, char *buf, size_t buf_size)
+>  }
+>  
+>  static inline void ima_kexec_cmdline(int kernel_fd, const void *buf, int size) {}
+> +static inline void ima_measure_critical_data(const char *event_name,
+> +					     const void *buf, int buf_len,
+> +					     bool measure_buf_hash) {}
+>  #endif /* CONFIG_IMA */
+>  
+>  #ifndef CONFIG_IMA_KEXEC
 > diff --git a/security/integrity/ima/ima.h b/security/integrity/ima/ima.h
-> index 8e8b1e3cb847..e5622ce8cbb1 100644
+> index fa3044a7539f..7d9deda6a8b3 100644
 > --- a/security/integrity/ima/ima.h
 > +++ b/security/integrity/ima/ima.h
-> @@ -256,7 +256,7 @@ static inline void ima_process_queued_keys(void) {}
->  int ima_get_action(struct inode *inode, const struct cred *cred, u32 secid,
->  		   int mask, enum ima_hooks func, int *pcr,
->  		   struct ima_template_desc **template_desc,
-> -		   const char *keyring);
-> +		   const char *func_data);
->  int ima_must_measure(struct inode *inode, int mask, enum ima_hooks func);
->  int ima_collect_measurement(struct integrity_iint_cache *iint,
->  			    struct file *file, void *buf, loff_t size,
-> @@ -268,7 +268,7 @@ void ima_store_measurement(struct integrity_iint_cache *iint, struct file *file,
->  			   struct ima_template_desc *template_desc);
->  void process_buffer_measurement(struct inode *inode, const void *buf, int size,
->  				const char *eventname, enum ima_hooks func,
-> -				int pcr, const char *keyring);
-> +				int pcr, const char *func_data);
->  void ima_audit_measurement(struct integrity_iint_cache *iint,
->  			   const unsigned char *filename);
->  int ima_alloc_init_template(struct ima_event_data *event_data,
-> @@ -284,7 +284,7 @@ const char *ima_d_path(const struct path *path, char **pathbuf, char *filename);
->  int ima_match_policy(struct inode *inode, const struct cred *cred, u32 secid,
->  		     enum ima_hooks func, int mask, int flags, int *pcr,
->  		     struct ima_template_desc **template_desc,
-> -		     const char *keyring);
-> +		     const char *func_data);
->  void ima_init_policy(void);
->  void ima_update_policy(void);
->  void ima_update_policy_flag(void);
+> @@ -201,6 +201,7 @@ static inline unsigned int ima_hash_key(u8 *digest)
+>  	hook(POLICY_CHECK, policy)			\
+>  	hook(KEXEC_CMDLINE, kexec_cmdline)		\
+>  	hook(KEY_CHECK, key)				\
+> +	hook(CRITICAL_DATA, critical_data)		\
+>  	hook(MAX_CHECK, none)
+>  
+>  #define __ima_hook_enumify(ENUM, str)	ENUM,
 > diff --git a/security/integrity/ima/ima_api.c b/security/integrity/ima/ima_api.c
-> index 4f39fb93f278..af218babd198 100644
+> index af218babd198..9917e1730cb6 100644
 > --- a/security/integrity/ima/ima_api.c
 > +++ b/security/integrity/ima/ima_api.c
-> @@ -170,7 +170,7 @@ void ima_add_violation(struct file *file, const unsigned char *filename,
->   * @func: caller identifier
->   * @pcr: pointer filled in if matched measure policy sets pcr=
->   * @template_desc: pointer filled in if matched measure policy sets template=
-> - * @keyring: keyring name used to determine the action
-> + * @func_data: private data specific to @func, can be NULL.
->   *
->   * The policy is defined in terms of keypairs:
+> @@ -176,7 +176,7 @@ void ima_add_violation(struct file *file, const unsigned char *filename,
 >   *		subj=, obj=, type=, func=, mask=, fsmagic=
-> @@ -186,14 +186,14 @@ void ima_add_violation(struct file *file, const unsigned char *filename,
->  int ima_get_action(struct inode *inode, const struct cred *cred, u32 secid,
->  		   int mask, enum ima_hooks func, int *pcr,
->  		   struct ima_template_desc **template_desc,
-> -		   const char *keyring)
-> +		   const char *func_data)
->  {
->  	int flags = IMA_MEASURE | IMA_AUDIT | IMA_APPRAISE | IMA_HASH;
->  
->  	flags &= ima_policy_flag;
->  
->  	return ima_match_policy(inode, cred, secid, func, mask, flags, pcr,
-> -				template_desc, keyring);
-> +				template_desc, func_data);
->  }
->  
->  /*
+>   *	subj,obj, and type: are LSM specific.
+>   *	func: FILE_CHECK | BPRM_CHECK | CREDS_CHECK | MMAP_CHECK | MODULE_CHECK
+> - *	| KEXEC_CMDLINE | KEY_CHECK
+> + *	| KEXEC_CMDLINE | KEY_CHECK | CRITICAL_DATA
+>   *	mask: contains the permission mask
+>   *	fsmagic: hex value
+>   *
 > diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
-> index 68956e884403..e76ef4bfd0f4 100644
+> index 0f8409d77602..dff4bce4fb09 100644
 > --- a/security/integrity/ima/ima_main.c
 > +++ b/security/integrity/ima/ima_main.c
-> @@ -786,13 +786,13 @@ int ima_post_load_data(char *buf, loff_t size,
->   * @eventname: event name to be used for the buffer entry.
->   * @func: IMA hook
->   * @pcr: pcr to extend the measurement
-> - * @keyring: keyring name to determine the action to be performed
-> + * @func_data: private data specific to @func, can be NULL.
->   *
->   * Based on policy, the buffer is measured into the ima log.
->   */
->  void process_buffer_measurement(struct inode *inode, const void *buf, int size,
->  				const char *eventname, enum ima_hooks func,
-> -				int pcr, const char *keyring)
-> +				int pcr, const char *func_data)
->  {
->  	int ret = 0;
->  	const char *audit_cause = "ENOMEM";
-> @@ -831,7 +831,7 @@ void process_buffer_measurement(struct inode *inode, const void *buf, int size,
->  	if (func) {
->  		security_task_getsecid(current, &secid);
->  		action = ima_get_action(inode, current_cred(), secid, 0, func,
-> -					&pcr, &template, keyring);
-> +					&pcr, &template, func_data);
->  		if (!(action & IMA_MEASURE))
->  			return;
->  	}
-> diff --git a/security/integrity/ima/ima_policy.c b/security/integrity/ima/ima_policy.c
-> index 823a0c1379cb..a09d1a41a290 100644
-> --- a/security/integrity/ima/ima_policy.c
-> +++ b/security/integrity/ima/ima_policy.c
-> @@ -453,30 +453,41 @@ int ima_lsm_policy_change(struct notifier_block *nb, unsigned long event,
+> @@ -922,6 +922,40 @@ void ima_kexec_cmdline(int kernel_fd, const void *buf, int size)
+>  	fdput(f);
 >  }
 >  
->  /**
-> - * ima_match_keyring - determine whether the keyring matches the measure rule
-> - * @rule: a pointer to a rule
-> - * @keyring: name of the keyring to match against the measure rule
-> + * ima_match_rule_data - determine whether the given func_data matches
-> + *			 the measure rule data
-> + * @rule: IMA policy rule
-> + * @func_data: data to match against the measure rule data
->   * @cred: a pointer to a credentials structure for user validation
->   *
-> - * Returns true if keyring matches one in the rule, false otherwise.
-> + * Returns true if func_data matches one in the rule, false otherwise.
->   */
-> -static bool ima_match_keyring(struct ima_rule_entry *rule,
-> -			      const char *keyring, const struct cred *cred)
-> +static bool ima_match_rule_data(struct ima_rule_entry *rule,
-> +				const char *func_data,
-> +				const struct cred *cred)
->  {
-> +	const struct ima_rule_opt_list *opt_list = NULL;
->  	bool matched = false;
->  	size_t i;
->  
->  	if ((rule->flags & IMA_UID) && !rule->uid_op(cred->uid, rule->uid))
->  		return false;
->  
-> -	if (!rule->keyrings)
-> -		return true;
-> +	switch (rule->func) {
-> +	case KEY_CHECK:
-> +		if (!rule->keyrings)
-> +			return true;
+> +/**
+> + * ima_measure_critical_data - measure kernel integrity critical data
+> + * @event_name: event name to be used for the buffer entry
+> + * @buf: pointer to buffer containing data to measure
+> + * @buf_len: length of buffer(in bytes)
+> + * @measure_buf_hash: measure buffer hash
+> + *
+> + * Measure the kernel subsystem data, critical to the integrity of the kernel,
+> + * into the IMA log and extend the @pcr.
+> + *
+> + * Use @event_name to describe the state/buffer data change.
+> + * Examples of critical data (@buf) could be various data structures,
+> + * policies, and states stored in kernel memory that can impact the integrity
+> + * of the system.
+> + *
+> + * If @measure_buf_hash is set to true - measure hash of the buffer data,
+> + * else measure the buffer data itself.
+> + * @measure_buf_hash can be used to save space, if the data being measured
+> + * is too large.
+> + *
+> + * The data (@buf) can only be measured, not appraised.
+> + */
+> +void ima_measure_critical_data(const char *event_name,
+> +			       const void *buf, int buf_len,
+> +			       bool measure_buf_hash)
+> +{
+> +	if (!event_name || !buf || !buf_len)
+> +		return;
 > +
-> +		opt_list = rule->keyrings;
-> +		break;
-> +	default:
-> +		return false;
-> +	}
->  
-> -	if (!keyring)
-> +	if (!func_data)
->  		return false;
->  
-> -	for (i = 0; i < rule->keyrings->count; i++) {
-> -		if (!strcmp(rule->keyrings->items[i], keyring)) {
-> +	for (i = 0; i < opt_list->count; i++) {
-> +		if (!strcmp(opt_list->items[i], func_data)) {
->  			matched = true;
->  			break;
->  		}
-> @@ -493,20 +504,20 @@ static bool ima_match_keyring(struct ima_rule_entry *rule,
->   * @secid: the secid of the task to be validated
->   * @func: LIM hook identifier
->   * @mask: requested action (MAY_READ | MAY_WRITE | MAY_APPEND | MAY_EXEC)
-> - * @keyring: keyring name to check in policy for KEY_CHECK func
-> + * @func_data: private data specific to @func, can be NULL.
->   *
->   * Returns true on rule match, false on failure.
->   */
->  static bool ima_match_rules(struct ima_rule_entry *rule, struct inode *inode,
->  			    const struct cred *cred, u32 secid,
->  			    enum ima_hooks func, int mask,
-> -			    const char *keyring)
-> +			    const char *func_data)
+> +	process_buffer_measurement(NULL, buf, buf_len, event_name,
+> +				   CRITICAL_DATA, 0, NULL,
+> +				   measure_buf_hash);
+> +}
+> +
+>  static int __init init_ima(void)
 >  {
->  	int i;
->  
->  	if (func == KEY_CHECK) {
->  		return (rule->flags & IMA_FUNC) && (rule->func == func) &&
-> -		       ima_match_keyring(rule, keyring, cred);
-> +			ima_match_rule_data(rule, func_data, cred);
->  	}
->  	if ((rule->flags & IMA_FUNC) &&
->  	    (rule->func != func && func != POST_SETATTR))
-> @@ -610,8 +621,7 @@ static int get_subaction(struct ima_rule_entry *rule, enum ima_hooks func)
->   * @mask: requested action (MAY_READ | MAY_WRITE | MAY_APPEND | MAY_EXEC)
->   * @pcr: set the pcr to extend
->   * @template_desc: the template that should be used for this rule
-> - * @keyring: the keyring name, if given, to be used to check in the policy.
-> - *           keyring can be NULL if func is anything other than KEY_CHECK.
-> + * @func_data: private data specific to @func, can be NULL.
->   *
->   * Measure decision based on func/mask/fsmagic and LSM(subj/obj/type)
->   * conditions.
-> @@ -623,7 +633,7 @@ static int get_subaction(struct ima_rule_entry *rule, enum ima_hooks func)
->  int ima_match_policy(struct inode *inode, const struct cred *cred, u32 secid,
->  		     enum ima_hooks func, int mask, int flags, int *pcr,
->  		     struct ima_template_desc **template_desc,
-> -		     const char *keyring)
-> +		     const char *func_data)
->  {
->  	struct ima_rule_entry *entry;
->  	int action = 0, actmask = flags | (flags << 1);
-> @@ -638,7 +648,7 @@ int ima_match_policy(struct inode *inode, const struct cred *cred, u32 secid,
->  			continue;
->  
->  		if (!ima_match_rules(entry, inode, cred, secid, func, mask,
-> -				     keyring))
-> +				     func_data))
->  			continue;
->  
->  		action |= entry->flags & IMA_ACTION_FLAGS;
+>  	int error;
 > -- 
 > 2.17.1
 > 
