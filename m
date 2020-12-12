@@ -1,58 +1,63 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 00E3A2D96C4
-	for <lists+dm-devel@lfdr.de>; Mon, 14 Dec 2020 12:01:05 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 992462D96CB
+	for <lists+dm-devel@lfdr.de>; Mon, 14 Dec 2020 12:01:12 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-75-fEIwgorIPLqQQdT6p02TnA-1; Mon, 14 Dec 2020 06:01:01 -0500
-X-MC-Unique: fEIwgorIPLqQQdT6p02TnA-1
+ us-mta-100-dfESlWYYNDukakR7di9Vpg-1; Mon, 14 Dec 2020 06:01:08 -0500
+X-MC-Unique: dfESlWYYNDukakR7di9Vpg-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 159528042C8;
-	Mon, 14 Dec 2020 11:00:51 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E08BC7047D;
-	Mon, 14 Dec 2020 11:00:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1677A101F7C4;
+	Mon, 14 Dec 2020 11:00:53 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E13FB70496;
+	Mon, 14 Dec 2020 11:00:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9E2A35002C;
-	Mon, 14 Dec 2020 11:00:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9872F18095FF;
+	Mon, 14 Dec 2020 11:00:52 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BC0P9pp001493 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 11 Dec 2020 19:25:09 -0500
+	id 0BC0Y4iQ002120 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 11 Dec 2020 19:34:05 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1DA9A2166B29; Sat, 12 Dec 2020 00:25:09 +0000 (UTC)
+	id C4E5D2026D11; Sat, 12 Dec 2020 00:34:04 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 172CC2166B2A
-	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 00:25:06 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BF8CB2026D48
+	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 00:34:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DA9C4811E76
-	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 00:25:06 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6450F186E121
+	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 00:34:02 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-438-L1AE1LyFN8C0-3ANM0VhjQ-1;
-	Fri, 11 Dec 2020 19:25:04 -0500
-X-MC-Unique: L1AE1LyFN8C0-3ANM0VhjQ-1
-Received: from sequoia (162-237-133-238.lightspeed.rcsntx.sbcglobal.net
-	[162.237.133.238])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 206A320B7185;
-	Fri, 11 Dec 2020 16:25:02 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 206A320B7185
-Date: Fri, 11 Dec 2020 18:25:00 -0600
-From: Tyler Hicks <tyhicks@linux.microsoft.com>
-To: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-Message-ID: <20201212002500.GF4951@sequoia>
+	relay.mimecast.com with ESMTP id us-mta-464-z7mok4ouOWSUn-s7AgRtvg-1;
+	Fri, 11 Dec 2020 19:33:58 -0500
+X-MC-Unique: z7mok4ouOWSUn-s7AgRtvg-1
+Received: from [192.168.0.104] (c-73-42-176-67.hsd1.wa.comcast.net
+	[73.42.176.67])
+	by linux.microsoft.com (Postfix) with ESMTPSA id B971820B7189;
+	Fri, 11 Dec 2020 16:33:56 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B971820B7189
+To: Tyler Hicks <tyhicks@linux.microsoft.com>,
+	Tushar Sugandhi <tusharsu@linux.microsoft.com>
 References: <20201211235807.30815-1-tusharsu@linux.microsoft.com>
-	<20201211235807.30815-5-tusharsu@linux.microsoft.com>
+	<20201211235807.30815-9-tusharsu@linux.microsoft.com>
+	<20201212003215.GG4951@sequoia>
+From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+Message-ID: <09c3b609-eacb-86e1-b130-cf1dbf4852b8@linux.microsoft.com>
+Date: Fri, 11 Dec 2020 16:33:56 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20201211235807.30815-5-tusharsu@linux.microsoft.com>
+In-Reply-To: <20201212003215.GG4951@sequoia>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,18 +66,17 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 14 Dec 2020 06:00:28 -0500
 Cc: sashal@kernel.org, paul@paul-moore.com, snitzer@redhat.com,
 	selinux@vger.kernel.org, stephen.smalley.work@gmail.com,
-	jmorris@namei.org, zohar@linux.ibm.com,
-	linux-kernel@vger.kernel.org, nramas@linux.microsoft.com,
+	jmorris@namei.org, zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
 	linux-security-module@vger.kernel.org, casey@schaufler-ca.com,
 	linux-integrity@vger.kernel.org, dm-devel@redhat.com,
 	gmazyland@gmail.com, agk@redhat.com
-Subject: Re: [dm-devel] [PATCH v8 4/8] IMA: add policy rule to measure
-	critical data
+Subject: Re: [dm-devel] [PATCH v8 8/8] selinux: include a consumer of the
+ new IMA critical data hook
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,131 +95,112 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On 2020-12-11 15:58:03, Tushar Sugandhi wrote:
-> A new IMA policy rule is needed for the IMA hook
-> ima_measure_critical_data() and the corresponding func CRITICAL_DATA for
-> measuring the input buffer. The policy rule should ensure the buffer
-> would get measured only when the policy rule allows the action. The
-> policy rule should also support the necessary constraints (flags etc.)
-> for integrity critical buffer data measurements.
+On 12/11/20 4:32 PM, Tyler Hicks wrote:
+> On 2020-12-11 15:58:07, Tushar Sugandhi wrote:
+>> From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+>>
+>> SELinux stores the active policy in memory, so the changes to this data
+>> at runtime would have an impact on the security guarantees provided
+>> by SELinux. Measuring in-memory SELinux policy through IMA subsystem
+>> provides a secure way for the attestation service to remotely validate
+>> the policy contents at runtime.
+>>
+>> Measure the hash of the loaded policy by calling the IMA hook
+>> ima_measure_critical_data(). Since the size of the loaded policy can
+>> be large (several MB), measure the hash of the policy instead of
+>> the entire policy to avoid bloating the IMA log entry.
+>>
+>> Add "selinux" to the list of supported data sources maintained by IMA
+>> to enable measuring SELinux data.
+>>
+>> To enable SELinux data measurement, the following steps are required:
+>>
+>> 1, Add "ima_policy=critical_data" to the kernel command line arguments
+>>     to enable measuring SELinux data at boot time.
+>> For example,
+>>    BOOT_IMAGE=/boot/vmlinuz-5.10.0-rc1+ root=UUID=fd643309-a5d2-4ed3-b10d-3c579a5fab2f ro nomodeset security=selinux ima_policy=critical_data
+>>
+>> 2, Add the following rule to /etc/ima/ima-policy
+>>     measure func=CRITICAL_DATA data_source=selinux
+>>
+>> Sample measurement of the hash of SELinux policy:
+>>
+>> To verify the measured data with the current SELinux policy run
+>> the following commands and verify the output hash values match.
+>>
+>>    sha256sum /sys/fs/selinux/policy | cut -d' ' -f 1
+>>
+>>    grep "selinux-policy-hash" /sys/kernel/security/integrity/ima/ascii_runtime_measurements | tail -1 | cut -d' ' -f 6
+>>
+>> Note that the actual verification of SELinux policy would require loading
+>> the expected policy into an identical kernel on a pristine/known-safe
+>> system and run the sha256sum /sys/kernel/selinux/policy there to get
+>> the expected hash.
+>>
+>> Signed-off-by: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+>> Suggested-by: Stephen Smalley <stephen.smalley.work@gmail.com>
 > 
-> Add a policy rule to define the constraints for restricting integrity
-> critical data measurements.
+> This looks good but I've got one small suggestion below if you roll a
+> v9. Feel free to add:
 > 
-> Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-> ---
->  Documentation/ABI/testing/ima_policy |  2 +-
->  security/integrity/ima/ima_policy.c  | 34 ++++++++++++++++++++++++----
->  2 files changed, 31 insertions(+), 5 deletions(-)
+> Reviewed-by: Tyler Hicks <tyhicks@linux.microsoft.com>
 > 
-> diff --git a/Documentation/ABI/testing/ima_policy b/Documentation/ABI/testing/ima_policy
-> index e35263f97fc1..6ec7daa87cba 100644
-> --- a/Documentation/ABI/testing/ima_policy
-> +++ b/Documentation/ABI/testing/ima_policy
-> @@ -32,7 +32,7 @@ Description:
->  			func:= [BPRM_CHECK][MMAP_CHECK][CREDS_CHECK][FILE_CHECK]MODULE_CHECK]
->  			        [FIRMWARE_CHECK]
->  				[KEXEC_KERNEL_CHECK] [KEXEC_INITRAMFS_CHECK]
-> -				[KEXEC_CMDLINE] [KEY_CHECK]
-> +				[KEXEC_CMDLINE] [KEY_CHECK] [CRITICAL_DATA]
->  			mask:= [[^]MAY_READ] [[^]MAY_WRITE] [[^]MAY_APPEND]
->  			       [[^]MAY_EXEC]
->  			fsmagic:= hex value
-> diff --git a/security/integrity/ima/ima_policy.c b/security/integrity/ima/ima_policy.c
-> index a09d1a41a290..07116ff35c25 100644
-> --- a/security/integrity/ima/ima_policy.c
-> +++ b/security/integrity/ima/ima_policy.c
-> @@ -85,6 +85,7 @@ struct ima_rule_entry {
->  	} lsm[MAX_LSM_RULES];
->  	char *fsname;
->  	struct ima_rule_opt_list *keyrings; /* Measure keys added to these keyrings */
-> +	struct ima_rule_opt_list *data_source; /* Measure data from this source */
-
-Argh, there are still some more instances of data_source sneaking into
-this patch too early instead of waiting until the next patch.
-
->  	struct ima_template_desc *template;
->  };
->  
-> @@ -479,6 +480,12 @@ static bool ima_match_rule_data(struct ima_rule_entry *rule,
->  
->  		opt_list = rule->keyrings;
->  		break;
-> +	case CRITICAL_DATA:
-> +		if (!rule->data_source)
-> +			return true;
-> +
-> +		opt_list = rule->data_source;
-> +		break;
-
-I guess this case should unconditionally return true in this patch and
-then the include this additional logic in the next patch.
-
-Sorry, I missed these on my last review.
-
-Tyler
-
->  	default:
->  		return false;
->  	}
-> @@ -515,13 +522,19 @@ static bool ima_match_rules(struct ima_rule_entry *rule, struct inode *inode,
->  {
->  	int i;
->  
-> -	if (func == KEY_CHECK) {
-> -		return (rule->flags & IMA_FUNC) && (rule->func == func) &&
-> -			ima_match_rule_data(rule, func_data, cred);
-> -	}
->  	if ((rule->flags & IMA_FUNC) &&
->  	    (rule->func != func && func != POST_SETATTR))
->  		return false;
-> +
-> +	switch (func) {
-> +	case KEY_CHECK:
-> +	case CRITICAL_DATA:
-> +		return ((rule->func == func) &&
-> +			ima_match_rule_data(rule, func_data, cred));
-> +	default:
-> +		break;
-> +	}
-> +
->  	if ((rule->flags & IMA_MASK) &&
->  	    (rule->mask != mask && func != POST_SETATTR))
->  		return false;
-> @@ -1116,6 +1129,17 @@ static bool ima_validate_rule(struct ima_rule_entry *entry)
->  		if (ima_rule_contains_lsm_cond(entry))
->  			return false;
->  
-> +		break;
-> +	case CRITICAL_DATA:
-> +		if (entry->action & ~(MEASURE | DONT_MEASURE))
-> +			return false;
-> +
-> +		if (entry->flags & ~(IMA_FUNC | IMA_UID | IMA_PCR))
-> +			return false;
-> +
-> +		if (ima_rule_contains_lsm_cond(entry))
-> +			return false;
-> +
->  		break;
->  	default:
->  		return false;
-> @@ -1248,6 +1272,8 @@ static int ima_parse_rule(char *rule, struct ima_rule_entry *entry)
->  			else if (IS_ENABLED(CONFIG_IMA_MEASURE_ASYMMETRIC_KEYS) &&
->  				 strcmp(args[0].from, "KEY_CHECK") == 0)
->  				entry->func = KEY_CHECK;
-> +			else if (strcmp(args[0].from, "CRITICAL_DATA") == 0)
-> +				entry->func = CRITICAL_DATA;
->  			else
->  				result = -EINVAL;
->  			if (!result)
-> -- 
-> 2.17.1
+>> diff --git a/security/selinux/measure.c b/security/selinux/measure.c
+>> new file mode 100644
+>> index 000000000000..a070d8dae403
+>> --- /dev/null
+>> +++ b/security/selinux/measure.c
+>> @@ -0,0 +1,81 @@
+>> +// SPDX-License-Identifier: GPL-2.0-or-later
+>> +/*
+>> + * Measure SELinux state using IMA subsystem.
+>> + */
+>> +#include <linux/vmalloc.h>
+>> +#include <linux/ktime.h>
+>> +#include <linux/ima.h>
+>> +#include "security.h"
+>> +
+>> +/*
+>> + * This function creates a unique name by appending the timestamp to
+>> + * the given string. This string is passed as "event_name" to the IMA
+>> + * hook to measure the given SELinux data.
+>> + *
+>> + * The data provided by SELinux to the IMA subsystem for measuring may have
+>> + * already been measured (for instance the same state existed earlier).
+>> + * But for SELinux the current data represents a state change and hence
+>> + * needs to be measured again. To enable this, pass a unique "event_name"
+>> + * to the IMA hook so that IMA subsystem will always measure the given data.
+>> + *
+>> + * For example,
+>> + * At time T0 SELinux data to be measured is "foo". IMA measures it.
+>> + * At time T1 the data is changed to "bar". IMA measures it.
+>> + * At time T2 the data is changed to "foo" again. IMA will not measure it
+>> + * (since it was already measured) unless the event_name, for instance,
+>> + * is different in this call.
+>> + */
+>> +static char *selinux_event_name(const char *name_prefix)
+>> +{
+>> +	char *event_name = NULL;
+>> +	struct timespec64 cur_time;
+>> +
+>> +	ktime_get_real_ts64(&cur_time);
+>> +	event_name = kasprintf(GFP_KERNEL, "%s-%lld:%09ld", name_prefix,
+>> +			       cur_time.tv_sec, cur_time.tv_nsec);
+>> +	return event_name;
 > 
+> There's no longer a need to store the return of kasprintf() in a
+> variable. Just 'return kasprint(...);' and get rid of the event_name
+> variable.
+> 
+
+Sure - I'll make the change.
+
+  -lakshmi
+
 
 --
 dm-devel mailing list
