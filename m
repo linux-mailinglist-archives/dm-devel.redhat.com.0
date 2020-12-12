@@ -2,74 +2,57 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 98A412D96CA
-	for <lists+dm-devel@lfdr.de>; Mon, 14 Dec 2020 12:01:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 243222D96D2
+	for <lists+dm-devel@lfdr.de>; Mon, 14 Dec 2020 12:02:05 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-344-vlsZC7rUO-m0vnRyIgdOcA-1; Mon, 14 Dec 2020 06:01:08 -0500
-X-MC-Unique: vlsZC7rUO-m0vnRyIgdOcA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-1-BYqMBmplN--wUZ5gk-I1tw-1; Mon, 14 Dec 2020 06:01:10 -0500
+X-MC-Unique: BYqMBmplN--wUZ5gk-I1tw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3BEDC1926DBE;
-	Mon, 14 Dec 2020 11:00:57 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0EDDC1971B;
-	Mon, 14 Dec 2020 11:00:57 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A0911801AC5;
+	Mon, 14 Dec 2020 11:00:53 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6FF1E71CBE;
+	Mon, 14 Dec 2020 11:00:53 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B79571809C9F;
-	Mon, 14 Dec 2020 11:00:56 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 165FD5002C;
+	Mon, 14 Dec 2020 11:00:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BE77Ves006929 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 14 Dec 2020 02:07:32 -0500
+	id 0BC096O6000571 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 11 Dec 2020 19:09:06 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D8A6944056; Mon, 14 Dec 2020 07:07:31 +0000 (UTC)
+	id 38C812166B2A; Sat, 12 Dec 2020 00:09:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D31BF44055
-	for <dm-devel@redhat.com>; Mon, 14 Dec 2020 07:07:29 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 335212166B29
+	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 00:09:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 89703858EEC
-	for <dm-devel@redhat.com>; Mon, 14 Dec 2020 07:07:29 +0000 (UTC)
-Received: from mail-ej1-f68.google.com (mail-ej1-f68.google.com
-	[209.85.218.68]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-155-qc7m9LAmO_mXML3h-r3iDQ-1; Mon, 14 Dec 2020 02:07:25 -0500
-X-MC-Unique: qc7m9LAmO_mXML3h-r3iDQ-1
-Received: by mail-ej1-f68.google.com with SMTP id jx16so21033320ejb.10;
-	Sun, 13 Dec 2020 23:07:24 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=QWzR/ajntQQ8OUu1eo9cHzjXBqYXTELyiik0EYAgp6c=;
-	b=s+i2DzC6Xsdks0C3BwyF/rb1BjZhKCJnpyzFPdk+eELr6Yk10U6LQwKpdagVIMbIDK
-	t6TRMsT4nFYy8DMRR0qBpEEDgfPzPoOL+aej+GUfjoF2NAYxvRDzJoQ6251KJRMjSChL
-	pcSZyfz2wYbemUo5DM1/o8Svuzj8c3qj3j3Vl+mWSXmqwqYfECrOFdXkowka8W+omZdD
-	sQdQdXiji5oBpRxMqQAaVRkjy4cRFSszUvAJWh7hK3PGvW48SWb+l5qPo5izviGNadWo
-	cUd6Ys8gE1d09lcUuKby5nZ9yFVmyRj0Ly/5qpeQizxL/NiwXkFiRlVOCHP6JrtKGWOz
-	V/+A==
-X-Gm-Message-State: AOAM5306Awq3UTphoL91pVqBVcgIAB2CNLjFY8gKzP3HKx+XV8KBoMTO
-	y3QpZpZmPFFFFATrfVrKf3P7T7KTE+VGQ+nNAdA=
-X-Google-Smtp-Source: ABdhPJznXbr+iFcyZQ0stzB05Z3JXUu6f2/PCyWYcbP3IUZ3HcqQL6yvr7ZEoaMx/h/x22bIeETtTTVWUHBtMe+z7b0=
-X-Received: by 2002:a17:906:68d1:: with SMTP id
-	y17mr21530318ejr.447.1607929643589; 
-	Sun, 13 Dec 2020 23:07:23 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0A1B81010426
+	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 00:09:04 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
+	relay.mimecast.com with ESMTP id us-mta-548-8c8zYYeiO7SMoWsmcnZazw-1;
+	Fri, 11 Dec 2020 19:08:59 -0500
+X-MC-Unique: 8c8zYYeiO7SMoWsmcnZazw-1
+Received: from sequoia (162-237-133-238.lightspeed.rcsntx.sbcglobal.net
+	[162.237.133.238])
+	by linux.microsoft.com (Postfix) with ESMTPSA id AA20620B717A;
+	Fri, 11 Dec 2020 16:08:56 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com AA20620B717A
+Date: Fri, 11 Dec 2020 18:08:54 -0600
+From: Tyler Hicks <tyhicks@linux.microsoft.com>
+To: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+Message-ID: <20201212000854.GC4951@sequoia>
+References: <20201211235807.30815-1-tusharsu@linux.microsoft.com>
+	<20201211235807.30815-2-tusharsu@linux.microsoft.com>
 MIME-Version: 1.0
-References: <20201211135139.49232-1-selvakuma.s1@samsung.com>
-	<CGME20201211135200epcas5p217eaa00b35a59b3468c198d85309fd7d@epcas5p2.samsung.com>
-	<20201211135139.49232-2-selvakuma.s1@samsung.com>
-	<SN4PR0401MB359867B95139ACD1ACFF0E709BCA0@SN4PR0401MB3598.namprd04.prod.outlook.com>
-In-Reply-To: <SN4PR0401MB359867B95139ACD1ACFF0E709BCA0@SN4PR0401MB3598.namprd04.prod.outlook.com>
-From: Selva Jove <selvajove@gmail.com>
-Date: Mon, 14 Dec 2020 12:37:08 +0530
-Message-ID: <CAHqX9vYfGONfavB1hLRtdeSwhU6VWrPLzXFfmgwkB6-pgB9o7g@mail.gmail.com>
-To: Johannes Thumshirn <Johannes.Thumshirn@wdc.com>
+In-Reply-To: <20201211235807.30815-2-tusharsu@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -78,26 +61,18 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 14 Dec 2020 06:00:28 -0500
-Cc: "axboe@kernel.dk" <axboe@kernel.dk>, Damien Le Moal <Damien.LeMoal@wdc.com>,
-	SelvaKumar S <selvakuma.s1@samsung.com>,
-	"sagi@grimberg.me" <sagi@grimberg.me>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	"snitzer@redhat.com" <snitzer@redhat.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
-	"nj.shetty@samsung.com" <nj.shetty@samsung.com>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"mpatocka@redhat.com" <mpatocka@redhat.com>,
-	"joshi.k@samsung.com" <joshi.k@samsung.com>,
-	"martin.petersen@oracle.com" <martin.petersen@oracle.com>,
-	"kbusch@kernel.org" <kbusch@kernel.org>,
-	"javier.gonz@samsung.com" <javier.gonz@samsung.com>,
-	"hch@lst.de" <hch@lst.de>, "bvanassche@acm.org" <bvanassche@acm.org>
-Subject: Re: [dm-devel] [RFC PATCH v3 1/2] block: add simple copy support
+Cc: sashal@kernel.org, paul@paul-moore.com, snitzer@redhat.com,
+	selinux@vger.kernel.org, stephen.smalley.work@gmail.com,
+	jmorris@namei.org, zohar@linux.ibm.com,
+	linux-kernel@vger.kernel.org, nramas@linux.microsoft.com,
+	linux-security-module@vger.kernel.org, casey@schaufler-ca.com,
+	linux-integrity@vger.kernel.org, dm-devel@redhat.com,
+	gmazyland@gmail.com, agk@redhat.com
+Subject: Re: [dm-devel] [PATCH v8 1/8] IMA: generalize keyring specific
+ measurement constructs
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -111,72 +86,240 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Dec 11, 2020 at 9:56 PM Johannes Thumshirn
-<Johannes.Thumshirn@wdc.com> wrote:
->
-> On 11/12/2020 15:57, SelvaKumar S wrote:
-> [...]
-> > +int blk_copy_emulate(struct block_device *bdev, struct blk_copy_payload *payload,
-> > +             gfp_t gfp_mask)
-> > +{
-> > +     struct request_queue *q = bdev_get_queue(bdev);
-> > +     struct bio *bio;
-> > +     void *buf = NULL;
-> > +     int i, nr_srcs, max_range_len, ret, cur_dest, cur_size;
-> > +
-> > +     nr_srcs = payload->copy_range;
-> > +     max_range_len = q->limits.max_copy_range_sectors << SECTOR_SHIFT;
-> > +     cur_dest = payload->dest;
-> > +     buf = kvmalloc(max_range_len, GFP_ATOMIC);
->
-> Why GFP_ATOMIC and not the passed in gfp_mask? Especially as this is a kvmalloc()
-> which has the potential to grow quite big.
->
-> > +int __blkdev_issue_copy(struct block_device *bdev, sector_t dest,
-> > +             sector_t nr_srcs, struct range_entry *rlist, gfp_t gfp_mask,
-> > +             int flags, struct bio **biop)
-> > +{
->
-> [...]
->
-> > +     total_size = struct_size(payload, range, nr_srcs);
-> > +     payload = kmalloc(total_size, GFP_ATOMIC | __GFP_NOWARN);
->
-> Same here.
->
->
-> > diff --git a/block/ioctl.c b/block/ioctl.c
-> > index 6b785181344f..a4a507d85e56 100644
-> > --- a/block/ioctl.c
-> > +++ b/block/ioctl.c
-> > @@ -142,6 +142,47 @@ static int blk_ioctl_discard(struct block_device *bdev, fmode_t mode,
-> >                                   GFP_KERNEL, flags);
-> >  }
-> >
-> > +static int blk_ioctl_copy(struct block_device *bdev, fmode_t mode,
-> > +             unsigned long arg, unsigned long flags)
-> > +{
->
-> [...]
->
-> > +
-> > +     rlist = kmalloc_array(crange.nr_range, sizeof(*rlist),
-> > +                     GFP_ATOMIC | __GFP_NOWARN);
->
-> And here. I think this one can even be GFP_KERNEL.
->
->
->
+On 2020-12-11 15:58:00, Tushar Sugandhi wrote:
+> IMA functions such as ima_match_keyring(), process_buffer_measurement(),
+> ima_match_policy() etc. handle data specific to keyrings. Currently,
+> these constructs are not generic to handle any func specific data.
+> This makes it harder to extend them without code duplication.
+> 
+> Refactor the keyring specific measurement constructs to be generic and
+> reusable in other measurement scenarios.
+> 
+> Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+> Reviewed-by: Tyler Hicks <tyhicks@linux.microsoft.com>
 
-Thanks. Will fix this.
+This looks good to me. Thanks!
+
+Tyler
+
+> ---
+>  security/integrity/ima/ima.h        |  6 ++--
+>  security/integrity/ima/ima_api.c    |  6 ++--
+>  security/integrity/ima/ima_main.c   |  6 ++--
+>  security/integrity/ima/ima_policy.c | 46 ++++++++++++++++++-----------
+>  4 files changed, 37 insertions(+), 27 deletions(-)
+> 
+> diff --git a/security/integrity/ima/ima.h b/security/integrity/ima/ima.h
+> index 8e8b1e3cb847..e5622ce8cbb1 100644
+> --- a/security/integrity/ima/ima.h
+> +++ b/security/integrity/ima/ima.h
+> @@ -256,7 +256,7 @@ static inline void ima_process_queued_keys(void) {}
+>  int ima_get_action(struct inode *inode, const struct cred *cred, u32 secid,
+>  		   int mask, enum ima_hooks func, int *pcr,
+>  		   struct ima_template_desc **template_desc,
+> -		   const char *keyring);
+> +		   const char *func_data);
+>  int ima_must_measure(struct inode *inode, int mask, enum ima_hooks func);
+>  int ima_collect_measurement(struct integrity_iint_cache *iint,
+>  			    struct file *file, void *buf, loff_t size,
+> @@ -268,7 +268,7 @@ void ima_store_measurement(struct integrity_iint_cache *iint, struct file *file,
+>  			   struct ima_template_desc *template_desc);
+>  void process_buffer_measurement(struct inode *inode, const void *buf, int size,
+>  				const char *eventname, enum ima_hooks func,
+> -				int pcr, const char *keyring);
+> +				int pcr, const char *func_data);
+>  void ima_audit_measurement(struct integrity_iint_cache *iint,
+>  			   const unsigned char *filename);
+>  int ima_alloc_init_template(struct ima_event_data *event_data,
+> @@ -284,7 +284,7 @@ const char *ima_d_path(const struct path *path, char **pathbuf, char *filename);
+>  int ima_match_policy(struct inode *inode, const struct cred *cred, u32 secid,
+>  		     enum ima_hooks func, int mask, int flags, int *pcr,
+>  		     struct ima_template_desc **template_desc,
+> -		     const char *keyring);
+> +		     const char *func_data);
+>  void ima_init_policy(void);
+>  void ima_update_policy(void);
+>  void ima_update_policy_flag(void);
+> diff --git a/security/integrity/ima/ima_api.c b/security/integrity/ima/ima_api.c
+> index 4f39fb93f278..af218babd198 100644
+> --- a/security/integrity/ima/ima_api.c
+> +++ b/security/integrity/ima/ima_api.c
+> @@ -170,7 +170,7 @@ void ima_add_violation(struct file *file, const unsigned char *filename,
+>   * @func: caller identifier
+>   * @pcr: pointer filled in if matched measure policy sets pcr=
+>   * @template_desc: pointer filled in if matched measure policy sets template=
+> - * @keyring: keyring name used to determine the action
+> + * @func_data: private data specific to @func, can be NULL.
+>   *
+>   * The policy is defined in terms of keypairs:
+>   *		subj=, obj=, type=, func=, mask=, fsmagic=
+> @@ -186,14 +186,14 @@ void ima_add_violation(struct file *file, const unsigned char *filename,
+>  int ima_get_action(struct inode *inode, const struct cred *cred, u32 secid,
+>  		   int mask, enum ima_hooks func, int *pcr,
+>  		   struct ima_template_desc **template_desc,
+> -		   const char *keyring)
+> +		   const char *func_data)
+>  {
+>  	int flags = IMA_MEASURE | IMA_AUDIT | IMA_APPRAISE | IMA_HASH;
+>  
+>  	flags &= ima_policy_flag;
+>  
+>  	return ima_match_policy(inode, cred, secid, func, mask, flags, pcr,
+> -				template_desc, keyring);
+> +				template_desc, func_data);
+>  }
+>  
+>  /*
+> diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
+> index 68956e884403..e76ef4bfd0f4 100644
+> --- a/security/integrity/ima/ima_main.c
+> +++ b/security/integrity/ima/ima_main.c
+> @@ -786,13 +786,13 @@ int ima_post_load_data(char *buf, loff_t size,
+>   * @eventname: event name to be used for the buffer entry.
+>   * @func: IMA hook
+>   * @pcr: pcr to extend the measurement
+> - * @keyring: keyring name to determine the action to be performed
+> + * @func_data: private data specific to @func, can be NULL.
+>   *
+>   * Based on policy, the buffer is measured into the ima log.
+>   */
+>  void process_buffer_measurement(struct inode *inode, const void *buf, int size,
+>  				const char *eventname, enum ima_hooks func,
+> -				int pcr, const char *keyring)
+> +				int pcr, const char *func_data)
+>  {
+>  	int ret = 0;
+>  	const char *audit_cause = "ENOMEM";
+> @@ -831,7 +831,7 @@ void process_buffer_measurement(struct inode *inode, const void *buf, int size,
+>  	if (func) {
+>  		security_task_getsecid(current, &secid);
+>  		action = ima_get_action(inode, current_cred(), secid, 0, func,
+> -					&pcr, &template, keyring);
+> +					&pcr, &template, func_data);
+>  		if (!(action & IMA_MEASURE))
+>  			return;
+>  	}
+> diff --git a/security/integrity/ima/ima_policy.c b/security/integrity/ima/ima_policy.c
+> index 823a0c1379cb..a09d1a41a290 100644
+> --- a/security/integrity/ima/ima_policy.c
+> +++ b/security/integrity/ima/ima_policy.c
+> @@ -453,30 +453,41 @@ int ima_lsm_policy_change(struct notifier_block *nb, unsigned long event,
+>  }
+>  
+>  /**
+> - * ima_match_keyring - determine whether the keyring matches the measure rule
+> - * @rule: a pointer to a rule
+> - * @keyring: name of the keyring to match against the measure rule
+> + * ima_match_rule_data - determine whether the given func_data matches
+> + *			 the measure rule data
+> + * @rule: IMA policy rule
+> + * @func_data: data to match against the measure rule data
+>   * @cred: a pointer to a credentials structure for user validation
+>   *
+> - * Returns true if keyring matches one in the rule, false otherwise.
+> + * Returns true if func_data matches one in the rule, false otherwise.
+>   */
+> -static bool ima_match_keyring(struct ima_rule_entry *rule,
+> -			      const char *keyring, const struct cred *cred)
+> +static bool ima_match_rule_data(struct ima_rule_entry *rule,
+> +				const char *func_data,
+> +				const struct cred *cred)
+>  {
+> +	const struct ima_rule_opt_list *opt_list = NULL;
+>  	bool matched = false;
+>  	size_t i;
+>  
+>  	if ((rule->flags & IMA_UID) && !rule->uid_op(cred->uid, rule->uid))
+>  		return false;
+>  
+> -	if (!rule->keyrings)
+> -		return true;
+> +	switch (rule->func) {
+> +	case KEY_CHECK:
+> +		if (!rule->keyrings)
+> +			return true;
+> +
+> +		opt_list = rule->keyrings;
+> +		break;
+> +	default:
+> +		return false;
+> +	}
+>  
+> -	if (!keyring)
+> +	if (!func_data)
+>  		return false;
+>  
+> -	for (i = 0; i < rule->keyrings->count; i++) {
+> -		if (!strcmp(rule->keyrings->items[i], keyring)) {
+> +	for (i = 0; i < opt_list->count; i++) {
+> +		if (!strcmp(opt_list->items[i], func_data)) {
+>  			matched = true;
+>  			break;
+>  		}
+> @@ -493,20 +504,20 @@ static bool ima_match_keyring(struct ima_rule_entry *rule,
+>   * @secid: the secid of the task to be validated
+>   * @func: LIM hook identifier
+>   * @mask: requested action (MAY_READ | MAY_WRITE | MAY_APPEND | MAY_EXEC)
+> - * @keyring: keyring name to check in policy for KEY_CHECK func
+> + * @func_data: private data specific to @func, can be NULL.
+>   *
+>   * Returns true on rule match, false on failure.
+>   */
+>  static bool ima_match_rules(struct ima_rule_entry *rule, struct inode *inode,
+>  			    const struct cred *cred, u32 secid,
+>  			    enum ima_hooks func, int mask,
+> -			    const char *keyring)
+> +			    const char *func_data)
+>  {
+>  	int i;
+>  
+>  	if (func == KEY_CHECK) {
+>  		return (rule->flags & IMA_FUNC) && (rule->func == func) &&
+> -		       ima_match_keyring(rule, keyring, cred);
+> +			ima_match_rule_data(rule, func_data, cred);
+>  	}
+>  	if ((rule->flags & IMA_FUNC) &&
+>  	    (rule->func != func && func != POST_SETATTR))
+> @@ -610,8 +621,7 @@ static int get_subaction(struct ima_rule_entry *rule, enum ima_hooks func)
+>   * @mask: requested action (MAY_READ | MAY_WRITE | MAY_APPEND | MAY_EXEC)
+>   * @pcr: set the pcr to extend
+>   * @template_desc: the template that should be used for this rule
+> - * @keyring: the keyring name, if given, to be used to check in the policy.
+> - *           keyring can be NULL if func is anything other than KEY_CHECK.
+> + * @func_data: private data specific to @func, can be NULL.
+>   *
+>   * Measure decision based on func/mask/fsmagic and LSM(subj/obj/type)
+>   * conditions.
+> @@ -623,7 +633,7 @@ static int get_subaction(struct ima_rule_entry *rule, enum ima_hooks func)
+>  int ima_match_policy(struct inode *inode, const struct cred *cred, u32 secid,
+>  		     enum ima_hooks func, int mask, int flags, int *pcr,
+>  		     struct ima_template_desc **template_desc,
+> -		     const char *keyring)
+> +		     const char *func_data)
+>  {
+>  	struct ima_rule_entry *entry;
+>  	int action = 0, actmask = flags | (flags << 1);
+> @@ -638,7 +648,7 @@ int ima_match_policy(struct inode *inode, const struct cred *cred, u32 secid,
+>  			continue;
+>  
+>  		if (!ima_match_rules(entry, inode, cred, secid, func, mask,
+> -				     keyring))
+> +				     func_data))
+>  			continue;
+>  
+>  		action |= entry->flags & IMA_ACTION_FLAGS;
+> -- 
+> 2.17.1
+> 
 
 --
 dm-devel mailing list
