@@ -2,57 +2,84 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E41EE2D88E5
-	for <lists+dm-devel@lfdr.de>; Sat, 12 Dec 2020 19:03:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 210092D8917
+	for <lists+dm-devel@lfdr.de>; Sat, 12 Dec 2020 19:15:15 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-316-mZPm0eW9Pji4v40fBta3hw-1; Sat, 12 Dec 2020 13:03:43 -0500
-X-MC-Unique: mZPm0eW9Pji4v40fBta3hw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-204-mWFCinjVPFemcQPRjfnvlg-1; Sat, 12 Dec 2020 13:15:12 -0500
+X-MC-Unique: mWFCinjVPFemcQPRjfnvlg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3D55A1934104;
-	Sat, 12 Dec 2020 18:03:38 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 19A675D9C2;
-	Sat, 12 Dec 2020 18:03:38 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D562A800D53;
+	Sat, 12 Dec 2020 18:15:05 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6DBC01F463;
+	Sat, 12 Dec 2020 18:15:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CAF985002E;
-	Sat, 12 Dec 2020 18:03:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 796A2180954D;
+	Sat, 12 Dec 2020 18:14:56 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BCI3OAe028795 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 12 Dec 2020 13:03:25 -0500
+	id 0BCIEgE6030118 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 12 Dec 2020 13:14:43 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id CDD9A1016D91; Sat, 12 Dec 2020 18:03:24 +0000 (UTC)
+	id BBCA02166B2A; Sat, 12 Dec 2020 18:14:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C9ECB100BFD7
-	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 18:03:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B66952166B29
+	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 18:14:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B24168007D9
-	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 18:03:24 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-188-mEKsLbsyMq2LQZEDX1hAnw-1;
-	Sat, 12 Dec 2020 13:03:19 -0500
-X-MC-Unique: mEKsLbsyMq2LQZEDX1hAnw-1
-Received: from tusharsu-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
-	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id DAFAF20B7194;
-	Sat, 12 Dec 2020 10:03:17 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com DAFAF20B7194
-From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-To: zohar@linux.ibm.com, stephen.smalley.work@gmail.com,
-	casey@schaufler-ca.com, agk@redhat.com, snitzer@redhat.com,
-	gmazyland@gmail.com, paul@paul-moore.com
-Date: Sat, 12 Dec 2020 10:02:51 -0800
-Message-Id: <20201212180251.9943-9-tusharsu@linux.microsoft.com>
-In-Reply-To: <20201212180251.9943-1-tusharsu@linux.microsoft.com>
-References: <20201212180251.9943-1-tusharsu@linux.microsoft.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2C95F8007D9
+	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 18:14:39 +0000 (UTC)
+Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
+	[209.85.216.68]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-338-YIYap28nPVSLHWP3OKnUYA-1; Sat, 12 Dec 2020 13:14:35 -0500
+X-MC-Unique: YIYap28nPVSLHWP3OKnUYA-1
+Received: by mail-pj1-f68.google.com with SMTP id f14so3981454pju.4
+	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 10:14:34 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=vPqkNEV8mHk/bP+lF6DmFa2iJcEPH5rRm6JP4KbBMo0=;
+	b=l3fc0VVS1ow1R+RFsESHDr+x1v2goPLQTHqsxKqJQs9WMDQa6u22EtKHAxefL+7lbH
+	N/JWMeOz5R7xaOqilA4MJGWTawxo9HIccfqckiiFCoWzVxymhS2u4Z31Qcpqqrgz0O6j
+	KjsUcjR/N65ROqrCTMHgfqaFYwONe5rw1rfi8ORCq0RDf4AyuRulFgjixufgrCCyw9bS
+	W3ejmlDtXKowqGPj2HunhMOG5qs04qNzGzr5yMBPmJZgcFqFg1vEe0fHposSu33eNBqa
+	AkfAPkaAFf8ty4pWsNhSxsPtkrz09f/rTM3zCzyhsfnAtCvxDbz0gU6D+K1hFL7zsO9p
+	xR3w==
+X-Gm-Message-State: AOAM530uLUu5yeMhmBu+nPcOZAopzuA402wY6FgZ95l46MNs6t2ibZ7O
+	Q7TFfnZ0LgAPj4uLByaPMN6uVmM1yMvx0A==
+X-Google-Smtp-Source: ABdhPJyzLfzuB0KUyKGFSNr6IYFEPAE0OXxmdsTO8gURDuRU0fhyabebg0ctlKQwB8lLEJ+t16aEuA==
+X-Received: by 2002:a17:90a:df12:: with SMTP id
+	gp18mr18051977pjb.43.1607796873727; 
+	Sat, 12 Dec 2020 10:14:33 -0800 (PST)
+Received: from [192.168.1.134] ([66.219.217.173])
+	by smtp.gmail.com with ESMTPSA id u24sm574816pjx.56.2020.12.12.10.14.32
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Sat, 12 Dec 2020 10:14:33 -0800 (PST)
+To: Hannes Reinecke <hare@suse.de>, Mike Snitzer <snitzer@redhat.com>,
+	Sergei Shtepa <sergei.shtepa@veeam.com>, hch@lst.de
+References: <1607518911-30692-1-git-send-email-sergei.shtepa@veeam.com>
+	<20201209135148.GA32720@redhat.com> <20201210145814.GA31521@veeam.com>
+	<20201210163222.GB10239@redhat.com> <20201211163049.GC16168@redhat.com>
+	<1ee7652e-b77f-6fa4-634c-ff6639037321@kernel.dk>
+	<208edf35-ecdc-2d73-4c48-0424943a78c0@suse.de>
+	<06b4a10d-5ea5-27e1-af0d-83d5c714996f@kernel.dk>
+	<b4f3ee74-58fd-52c8-ae60-f352758fb42a@suse.de>
+From: Jens Axboe <axboe@kernel.dk>
+Message-ID: <6bc5ff77-4977-a9bd-3fb8-ce35e1179b94@kernel.dk>
+Date: Sat, 12 Dec 2020 11:14:31 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
+MIME-Version: 1.0
+In-Reply-To: <b4f3ee74-58fd-52c8-ae60-f352758fb42a@suse.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,14 +88,18 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
-	jmorris@namei.org, linux-kernel@vger.kernel.org,
-	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
-	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: [dm-devel] [PATCH v9 8/8] selinux: include a consumer of the new
-	IMA critical data hook
+Cc: "steve@sk2.org" <steve@sk2.org>,
+	"johannes.thumshirn@wdc.com" <johannes.thumshirn@wdc.com>,
+	Pavel Tide <Pavel.TIde@veeam.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"josef@toxicpanda.com" <josef@toxicpanda.com>,
+	"ming.lei@redhat.com" <ming.lei@redhat.com>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	dm-devel@redhat.com, "koct9i@gmail.com" <koct9i@gmail.com>
+Subject: Re: [dm-devel] [PATCH 0/3] block: blk_interposer - Block Layer
+	Interposer
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,317 +111,55 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+On 12/11/20 11:03 AM, Hannes Reinecke wrote:
+> On 12/11/20 6:04 PM, Jens Axboe wrote:
+>> On 12/11/20 9:56 AM, Hannes Reinecke wrote:
+>>> On 12/11/20 5:33 PM, Jens Axboe wrote:
+>>>> On 12/11/20 9:30 AM, Mike Snitzer wrote:
+>>>>> While I still think there needs to be a proper _upstream_ consumer of
+>>>>> blk_interposer as a condition of it going in.. I'll let others make the
+>>>>> call.
+>>>>
+>>>> That's an unequivocal rule.
+>>>>
+>>>>> As such, I'll defer to Jens, Christoph and others on whether your
+>>>>> minimalist blk_interposer hook is acceptable in the near-term.
+>>>>
+>>>> I don't think so, we don't do short term bandaids just to plan on
+>>>> ripping that out when the real functionality is there. IMHO, the dm
+>>>> approach is the way to go - it provides exactly the functionality that
+>>>> is needed in an appropriate way, instead of hacking some "interposer"
+>>>> into the core block layer.
+>>>>
+>>> Which is my plan, too.
+>>>
+>>> I'll be working with the Veeam folks to present a joint patchset
+>>> (including the DM bits) for the next round.
+>>
+>> Just to be clear, core block additions for something that dm will
+>> consume is obviously fine. Adding this as block layer functionality than
+>> then exposes an application API for setting it up, tearing down, etc -
+>> that is definitely NOT
+>>
+> That was never my intention.
+> Any consumers of this thing would need to be in-kernel.
+> If that was your concern.
 
-SELinux stores the active policy in memory, so the changes to this data
-at runtime would have an impact on the security guarantees provided
-by SELinux. Measuring in-memory SELinux policy through IMA subsystem
-provides a secure way for the attestation service to remotely validate
-the policy contents at runtime.
+Yep, that is/was indeed my concern!
 
-Measure the hash of the loaded policy by calling the IMA hook
-ima_measure_critical_data(). Since the size of the loaded policy can
-be large (several MB), measure the hash of the policy instead of
-the entire policy to avoid bloating the IMA log entry.
-
-Add "selinux" to the list of supported data sources maintained by IMA
-to enable measuring SELinux data.
-
-To enable SELinux data measurement, the following steps are required:
-
-1, Add "ima_policy=critical_data" to the kernel command line arguments
-   to enable measuring SELinux data at boot time.
-For example,
-  BOOT_IMAGE=/boot/vmlinuz-5.10.0-rc1+ root=UUID=fd643309-a5d2-4ed3-b10d-3c579a5fab2f ro nomodeset security=selinux ima_policy=critical_data
-
-2, Add the following rule to /etc/ima/ima-policy
-   measure func=CRITICAL_DATA data_source=selinux
-
-Sample measurement of the hash of SELinux policy:
-
-To verify the measured data with the current SELinux policy run
-the following commands and verify the output hash values match.
-
-  sha256sum /sys/fs/selinux/policy | cut -d' ' -f 1
-
-  grep "selinux-policy-hash" /sys/kernel/security/integrity/ima/ascii_runtime_measurements | tail -1 | cut -d' ' -f 6
-
-Note that the actual verification of SELinux policy would require loading
-the expected policy into an identical kernel on a pristine/known-safe
-system and run the sha256sum /sys/kernel/selinux/policy there to get
-the expected hash.
-
-Signed-off-by: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
-Suggested-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-Reviewed-by: Tyler Hicks <tyhicks@linux.microsoft.com>
----
- Documentation/ABI/testing/ima_policy |  3 +-
- security/selinux/Makefile            |  2 +
- security/selinux/include/security.h  | 11 +++-
- security/selinux/measure.c           | 79 ++++++++++++++++++++++++++++
- security/selinux/ss/services.c       | 71 +++++++++++++++++++++----
- 5 files changed, 155 insertions(+), 11 deletions(-)
- create mode 100644 security/selinux/measure.c
-
-diff --git a/Documentation/ABI/testing/ima_policy b/Documentation/ABI/testing/ima_policy
-index 0f4ee9e0a455..7c7023f7986b 100644
---- a/Documentation/ABI/testing/ima_policy
-+++ b/Documentation/ABI/testing/ima_policy
-@@ -52,8 +52,9 @@ Description:
- 			template:= name of a defined IMA template type
- 			(eg, ima-ng). Only valid when action is "measure".
- 			pcr:= decimal value
--			data_source:= [label]
-+			data_source:= [selinux]|[label]
- 			label:= a unique string used for grouping and limiting critical data.
-+			For example, "selinux" to measure critical data for SELinux.
- 
- 		  default policy:
- 			# PROC_SUPER_MAGIC
-diff --git a/security/selinux/Makefile b/security/selinux/Makefile
-index 4d8e0e8adf0b..83d512116341 100644
---- a/security/selinux/Makefile
-+++ b/security/selinux/Makefile
-@@ -16,6 +16,8 @@ selinux-$(CONFIG_NETLABEL) += netlabel.o
- 
- selinux-$(CONFIG_SECURITY_INFINIBAND) += ibpkey.o
- 
-+selinux-$(CONFIG_IMA) += measure.o
-+
- ccflags-y := -I$(srctree)/security/selinux -I$(srctree)/security/selinux/include
- 
- $(addprefix $(obj)/,$(selinux-y)): $(obj)/flask.h
-diff --git a/security/selinux/include/security.h b/security/selinux/include/security.h
-index 3cc8bab31ea8..18ee65c98446 100644
---- a/security/selinux/include/security.h
-+++ b/security/selinux/include/security.h
-@@ -229,7 +229,8 @@ void selinux_policy_cancel(struct selinux_state *state,
- 			struct selinux_policy *policy);
- int security_read_policy(struct selinux_state *state,
- 			 void **data, size_t *len);
--
-+int security_read_policy_kernel(struct selinux_state *state,
-+				void **data, size_t *len);
- int security_policycap_supported(struct selinux_state *state,
- 				 unsigned int req_cap);
- 
-@@ -446,4 +447,12 @@ extern void ebitmap_cache_init(void);
- extern void hashtab_cache_init(void);
- extern int security_sidtab_hash_stats(struct selinux_state *state, char *page);
- 
-+#ifdef CONFIG_IMA
-+extern void selinux_measure_state(struct selinux_state *selinux_state);
-+#else
-+static inline void selinux_measure_state(struct selinux_state *selinux_state)
-+{
-+}
-+#endif
-+
- #endif /* _SELINUX_SECURITY_H_ */
-diff --git a/security/selinux/measure.c b/security/selinux/measure.c
-new file mode 100644
-index 000000000000..b7e24358e11d
---- /dev/null
-+++ b/security/selinux/measure.c
-@@ -0,0 +1,79 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Measure SELinux state using IMA subsystem.
-+ */
-+#include <linux/vmalloc.h>
-+#include <linux/ktime.h>
-+#include <linux/ima.h>
-+#include "security.h"
-+
-+/*
-+ * This function creates a unique name by appending the timestamp to
-+ * the given string. This string is passed as "event_name" to the IMA
-+ * hook to measure the given SELinux data.
-+ *
-+ * The data provided by SELinux to the IMA subsystem for measuring may have
-+ * already been measured (for instance the same state existed earlier).
-+ * But for SELinux the current data represents a state change and hence
-+ * needs to be measured again. To enable this, pass a unique "event_name"
-+ * to the IMA hook so that IMA subsystem will always measure the given data.
-+ *
-+ * For example,
-+ * At time T0 SELinux data to be measured is "foo". IMA measures it.
-+ * At time T1 the data is changed to "bar". IMA measures it.
-+ * At time T2 the data is changed to "foo" again. IMA will not measure it
-+ * (since it was already measured) unless the event_name, for instance,
-+ * is different in this call.
-+ */
-+static char *selinux_event_name(const char *name_prefix)
-+{
-+	struct timespec64 cur_time;
-+
-+	ktime_get_real_ts64(&cur_time);
-+	return kasprintf(GFP_KERNEL, "%s-%lld:%09ld", name_prefix,
-+			 cur_time.tv_sec, cur_time.tv_nsec);
-+}
-+
-+/*
-+ * selinux_measure_state - Measure hash of the SELinux policy
-+ *
-+ * @state: selinux state struct
-+ *
-+ * NOTE: This function must be called with policy_mutex held.
-+ */
-+void selinux_measure_state(struct selinux_state *state)
-+{
-+	void *policy = NULL;
-+	char *policy_event_name = NULL;
-+	size_t policy_len;
-+	int rc = 0;
-+	bool initialized = selinux_initialized(state);
-+
-+	/*
-+	 * Measure SELinux policy only after initialization is completed.
-+	 */
-+	if (!initialized)
-+		goto out;
-+
-+	policy_event_name = selinux_event_name("selinux-policy-hash");
-+	if (!policy_event_name) {
-+		pr_err("SELinux: %s: event name for policy not allocated.\n",
-+		       __func__);
-+		rc = -ENOMEM;
-+		goto out;
-+	}
-+
-+	rc = security_read_policy_kernel(state, &policy, &policy_len);
-+	if (rc) {
-+		pr_err("SELinux: %s: failed to read policy %d.\n", __func__, rc);
-+		goto out;
-+	}
-+
-+	ima_measure_critical_data("selinux", policy_event_name,
-+				  policy, policy_len, true);
-+
-+	vfree(policy);
-+
-+out:
-+	kfree(policy_event_name);
-+}
-diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
-index 9704c8a32303..dfa2e00894ae 100644
---- a/security/selinux/ss/services.c
-+++ b/security/selinux/ss/services.c
-@@ -2180,6 +2180,7 @@ static void selinux_notify_policy_change(struct selinux_state *state,
- 	selinux_status_update_policyload(state, seqno);
- 	selinux_netlbl_cache_invalidate();
- 	selinux_xfrm_notify_policyload();
-+	selinux_measure_state(state);
- }
- 
- void selinux_policy_commit(struct selinux_state *state,
-@@ -3875,8 +3876,33 @@ int security_netlbl_sid_to_secattr(struct selinux_state *state,
- }
- #endif /* CONFIG_NETLABEL */
- 
-+/**
-+ * security_read_selinux_policy - read the policy.
-+ * @policy: SELinux policy
-+ * @data: binary policy data
-+ * @len: length of data in bytes
-+ *
-+ */
-+static int security_read_selinux_policy(struct selinux_policy *policy,
-+					void *data, size_t *len)
-+{
-+	int rc;
-+	struct policy_file fp;
-+
-+	fp.data = data;
-+	fp.len = *len;
-+
-+	rc = policydb_write(&policy->policydb, &fp);
-+	if (rc)
-+		return rc;
-+
-+	*len = (unsigned long)fp.data - (unsigned long)data;
-+	return 0;
-+}
-+
- /**
-  * security_read_policy - read the policy.
-+ * @state: selinux_state
-  * @data: binary policy data
-  * @len: length of data in bytes
-  *
-@@ -3885,8 +3911,6 @@ int security_read_policy(struct selinux_state *state,
- 			 void **data, size_t *len)
- {
- 	struct selinux_policy *policy;
--	int rc;
--	struct policy_file fp;
- 
- 	policy = rcu_dereference_protected(
- 			state->policy, lockdep_is_held(&state->policy_mutex));
-@@ -3898,14 +3922,43 @@ int security_read_policy(struct selinux_state *state,
- 	if (!*data)
- 		return -ENOMEM;
- 
--	fp.data = *data;
--	fp.len = *len;
-+	return security_read_selinux_policy(policy, *data, len);
-+}
- 
--	rc = policydb_write(&policy->policydb, &fp);
--	if (rc)
--		return rc;
-+/**
-+ * security_read_policy_kernel - read the policy.
-+ * @state: selinux_state
-+ * @data: binary policy data
-+ * @len: length of data in bytes
-+ *
-+ * Allocates kernel memory for reading SELinux policy.
-+ * This function is for internal use only and should not
-+ * be used for returning data to user space.
-+ *
-+ * This function must be called with policy_mutex held.
-+ */
-+int security_read_policy_kernel(struct selinux_state *state,
-+				void **data, size_t *len)
-+{
-+	struct selinux_policy *policy;
-+	int rc = 0;
- 
--	*len = (unsigned long)fp.data - (unsigned long)*data;
--	return 0;
-+	policy = rcu_dereference_protected(
-+			state->policy, lockdep_is_held(&state->policy_mutex));
-+	if (!policy) {
-+		rc = -EINVAL;
-+		goto out;
-+	}
-+
-+	*len = policy->policydb.len;
-+	*data = vmalloc(*len);
-+	if (!*data) {
-+		rc = -ENOMEM;
-+		goto out;
-+	}
- 
-+	rc = security_read_selinux_policy(policy, *data, len);
-+
-+out:
-+	return rc;
- }
 -- 
-2.17.1
+Jens Axboe
 
 --
 dm-devel mailing list
