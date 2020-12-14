@@ -1,72 +1,64 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id AED702D9975
-	for <lists+dm-devel@lfdr.de>; Mon, 14 Dec 2020 15:10:43 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id A6D502D9C9D
+	for <lists+dm-devel@lfdr.de>; Mon, 14 Dec 2020 17:27:26 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1607963245;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=Dh2FZMFXCtRt+ooKKEE56HGoKr8mQWUzgiRy83YhHYA=;
+	b=SUptPuBPqc+grj1iViK3SprIY5MeYKeMGzV7yGM3MAJRnKcNX5RHxg5Yt/1LiYzFk7Bizs
+	Ldl399+eD7sZ4If/dObCywotoXEuvJCFU2FNj6N1pOj8IXPFy7V6smIO5wFlNL2KNnVUqn
+	UY3G5bPzmX2yC0Wt3VG4Z2G+xpQpUaY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-589-0Bmy4TupMTWbc0bwnTHurQ-1; Mon, 14 Dec 2020 09:10:40 -0500
-X-MC-Unique: 0Bmy4TupMTWbc0bwnTHurQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-540-fbiv7XfzOGiEXKica8Qeyw-1; Mon, 14 Dec 2020 11:27:22 -0500
+X-MC-Unique: fbiv7XfzOGiEXKica8Qeyw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EABBB192CC42;
-	Mon, 14 Dec 2020 14:10:31 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1570E1DB;
-	Mon, 14 Dec 2020 14:10:27 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D7A88801B34;
+	Mon, 14 Dec 2020 16:26:56 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D153FE700;
+	Mon, 14 Dec 2020 16:26:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4F94D4BB7B;
-	Mon, 14 Dec 2020 14:10:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 309C2180954D;
+	Mon, 14 Dec 2020 16:26:44 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BEEA8Rb018168 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 14 Dec 2020 09:10:09 -0500
+	id 0BEGQWb2000648 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 14 Dec 2020 11:26:32 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BAD635F262; Mon, 14 Dec 2020 14:10:08 +0000 (UTC)
+	id 62F267C5FE; Mon, 14 Dec 2020 16:26:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B5BFA5F253
-	for <dm-devel@redhat.com>; Mon, 14 Dec 2020 14:10:06 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 35B4F8007DF
-	for <dm-devel@redhat.com>; Mon, 14 Dec 2020 14:10:06 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-183-NgxTqtbwNLWx2Ljzv3bgdA-1;
-	Mon, 14 Dec 2020 09:10:04 -0500
-X-MC-Unique: NgxTqtbwNLWx2Ljzv3bgdA-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 94445AC10;
-	Mon, 14 Dec 2020 14:10:01 +0000 (UTC)
-Message-ID: <c60f83ab769989c400554ed98c89a8c8bb51d8c3.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Mon, 14 Dec 2020 15:10:00 +0100
-In-Reply-To: <CABr-GnfpHZ97dqD_XrgggjDVzK+_1g-sU-SHic_2jA2S=TDK0Q@mail.gmail.com>
-References: <CABr-GnfTqde6t2LFTHbrRkp1qMVbsRUEFBqU6tW1M_uR1svHFg@mail.gmail.com>
-	<d40f6d93d398a3bbb6b9a42d67f47521d35c4d65.camel@suse.com>
-	<CABr-GnfpHZ97dqD_XrgggjDVzK+_1g-sU-SHic_2jA2S=TDK0Q@mail.gmail.com>
-User-Agent: Evolution 3.36.5
+Received: from localhost (unknown [10.18.25.174])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ECEA87DDF8;
+	Mon, 14 Dec 2020 16:26:31 +0000 (UTC)
+Date: Mon, 14 Dec 2020 11:26:31 -0500
+From: Mike Snitzer <snitzer@redhat.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Message-ID: <20201214162631.GA2290@redhat.com>
+References: <CAHk-=whCKhxNyKn1Arut8xUDKTwp3fWcCj_jbL5dbzkUmo45gQ@mail.gmail.com>
+	<20201214053147.GA24093@codemonkey.org.uk>
+	<X9b9ujh5T6U5+aBY@kroah.com> <20201214160247.GA2090@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+In-Reply-To: <20201214160247.GA2090@redhat.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
-Cc: Xose Vazquez Perez <xose.vazquez@gmail.com>,
-	device-mapper development <dm-devel@redhat.com>
-Subject: Re: [dm-devel] uxsock_timeout default value in man page
+Cc: axboe@kernel.dk, Dave Jones <davej@codemonkey.org.uk>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-block@vger.kernel.org, dm-devel@redhat.com,
+	Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [dm-devel] Linux 5.10
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,46 +72,66 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, 2020-12-14 at 11:19 +0100, Christophe Varoqui wrote:
-> Thank you for the review, the commit is in.
-> 
-> the user reporting this, seems to face exactly the problem mentioned
-> in 7db0c44 :
-> 
-> commit 7db0c4466c0e5ed2179710f93d1d14a0bf92922a
-> ...
->     And the default timeout should be increased to 4 seconds to
-> ensure
->     multipath runs correctly on large installations.
-> 
-> He clearly qualifies as "large installation", and reach that timeout
-> when submitting a large number of mpathpersist registers in parallel
-> on boot.
-> Regardless, needing a uxsock_timeout greater than 4 seconds hints we
-> do something non-optimal there.
-> Have you already had a chance to investigate possible enhancements on
-> this ?
+On Mon, Dec 14 2020 at 11:02am -0500,
+Mike Snitzer <snitzer@redhat.com> wrote:
 
-Not yet. To solve this for good, I think we'd eventually need to tackle
-the BML (Big Multipathd Lock). Nobody has attempted to do this yet. Wrt
-to the special mpathpersist case, it would perhaps be possible to
-figure out some other optimization (first idea: rather than running
-dozens of mpathpersist processes during boot time, why not set the
-correct keys in the prkeys file right away?). We'd need to understand
-how they are using mpathpersist. That sounds like a case for the user's
-support team in the first place.
+> On Mon, Dec 14 2020 at 12:52am -0500,
+> Greg KH <gregkh@linuxfoundation.org> wrote:
+> 
+> > On Mon, Dec 14, 2020 at 12:31:47AM -0500, Dave Jones wrote:
+> > > On Sun, Dec 13, 2020 at 03:03:29PM -0800, Linus Torvalds wrote:
+> > >  > Ok, here it is - 5.10 is tagged and pushed out.
+> > >  > 
+> > >  > I pretty much always wish that the last week was even calmer than it
+> > >  > was, and that's true here too. There's a fair amount of fixes in here,
+> > >  > including a few last-minute reverts for things that didn't get fixed,
+> > >  > but nothing makes me go "we need another week".
+> > > 
+> > > ...
+> > > 
+> > >  > Mike Snitzer (1):
+> > >  >       md: change mddev 'chunk_sectors' from int to unsigned
+> > > 
+> > > Seems to be broken.  This breaks mounting my raid6 partition:
+> > > 
+> > > [   87.290698] attempt to access beyond end of device
+> > >                md0: rw=4096, want=13996467328, limit=6261202944
+> > > [   87.293371] attempt to access beyond end of device
+> > >                md0: rw=4096, want=13998564480, limit=6261202944
+> > > [   87.296045] BTRFS warning (device md0): couldn't read tree root
+> > > [   87.300056] BTRFS error (device md0): open_ctree failed
+> > > 
+> > > Reverting it goes back to the -rc7 behaviour where it mounts fine.
+> > 
+> > If the developer/maintainer(s) agree, I can revert this and push out a
+> > 5.10.1, just let me know.
+> 
+> Yes, these should be reverted from 5.10 via 5.10.1:
+> 
+> e0910c8e4f87 dm raid: fix discard limits for raid1 and raid10
+> f075cfb1dc59 md: change mddev 'chunk_sectors' from int to unsigned
 
-Regards,
-Martin
+Sorry, f075cfb1dc59 was my local commit id, the corresponding upstream
+commit as staged by Jens is:
 
+6ffeb1c3f82 md: change mddev 'chunk_sectors' from int to unsigned
+
+So please revert:
+6ffeb1c3f822 md: change mddev 'chunk_sectors' from int to unsigned
+and then revert:
+e0910c8e4f87 dm raid: fix discard limits for raid1 and raid10
+
+Thanks,
+Mike
 
 --
 dm-devel mailing list
