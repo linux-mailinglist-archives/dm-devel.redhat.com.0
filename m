@@ -2,57 +2,74 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id ACA862D96C8
-	for <lists+dm-devel@lfdr.de>; Mon, 14 Dec 2020 12:01:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id ECD202D96CC
+	for <lists+dm-devel@lfdr.de>; Mon, 14 Dec 2020 12:01:12 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-39-01jssQCpN5KGe11TVhG5Jw-1; Mon, 14 Dec 2020 06:01:06 -0500
-X-MC-Unique: 01jssQCpN5KGe11TVhG5Jw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-551-24i5dlhTMi24YF70oM7tIA-1; Mon, 14 Dec 2020 06:01:08 -0500
+X-MC-Unique: 24i5dlhTMi24YF70oM7tIA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 987FD6D532;
-	Mon, 14 Dec 2020 11:00:51 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 678EF2B6C4;
-	Mon, 14 Dec 2020 11:00:51 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0160659;
+	Mon, 14 Dec 2020 11:00:55 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CED1A71C94;
+	Mon, 14 Dec 2020 11:00:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1B42C18095FF;
-	Mon, 14 Dec 2020 11:00:51 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8D44E4BB7B;
+	Mon, 14 Dec 2020 11:00:54 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BCJKVw4004789 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 12 Dec 2020 14:20:32 -0500
+	id 0BE6vuFa006269 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 14 Dec 2020 01:57:57 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id A6D5A2026D48; Sat, 12 Dec 2020 19:20:31 +0000 (UTC)
+	id D79C31111C89; Mon, 14 Dec 2020 06:57:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A1BB22026D47
-	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 19:20:29 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D38331111C88
+	for <dm-devel@redhat.com>; Mon, 14 Dec 2020 06:57:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 48EF48007D9
-	for <dm-devel@redhat.com>; Sat, 12 Dec 2020 19:20:29 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-207-vFUVJa7nNlStOjgXAyK_0w-1;
-	Sat, 12 Dec 2020 14:20:26 -0500
-X-MC-Unique: vFUVJa7nNlStOjgXAyK_0w-1
-Received: from sequoia (162-237-133-238.lightspeed.rcsntx.sbcglobal.net
-	[162.237.133.238])
-	by linux.microsoft.com (Postfix) with ESMTPSA id E476820B717A;
-	Sat, 12 Dec 2020 11:20:24 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E476820B717A
-Date: Sat, 12 Dec 2020 13:20:22 -0600
-From: Tyler Hicks <tyhicks@linux.microsoft.com>
-To: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-Message-ID: <20201212192022.GI4951@sequoia>
-References: <20201212180251.9943-1-tusharsu@linux.microsoft.com>
-	<20201212180251.9943-5-tusharsu@linux.microsoft.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BCA708007D9
+	for <dm-devel@redhat.com>; Mon, 14 Dec 2020 06:57:53 +0000 (UTC)
+Received: from mail-ed1-f67.google.com (mail-ed1-f67.google.com
+	[209.85.208.67]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-473-Sr1PcYNyPjqonYkdAS2o7Q-1; Mon, 14 Dec 2020 01:57:49 -0500
+X-MC-Unique: Sr1PcYNyPjqonYkdAS2o7Q-1
+Received: by mail-ed1-f67.google.com with SMTP id cw27so15996199edb.5;
+	Sun, 13 Dec 2020 22:57:48 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=SBDQ/ozr1+cMGjDjwKraN3A/q+s0aVrfJg3tJsBwW/c=;
+	b=nGcqDd+LCrZvbyVGw1vYDp6YMfyRqChk+vakqfzc9BV9qBMRtb3AT6RZTMcaHEi/yN
+	9qMNQjej0/FInLrShP0MA2YFOnVo7ICvpWRRDov9m1qkHBS6+gDwwhde2eU8qGXgVZm7
+	zGJWpnR1/ahiQhc82cqIKnElWptvxKpB4/NxEcf3yjin+CyzJ/UDMKYpFXg0obQKm6qK
+	bxIrJq9fkf+6pTb1qFHKMBU3q20arDKlyvcH81fUEb3sAbH1hkqTNdvlPSBnUBgLCtg1
+	JjELuDuaue9ODIRsl7L6Cb21OfnCnofpcx4+LxUeI+XPCaavaOSf7TK/1CZ4OkZWOxtB
+	ApIQ==
+X-Gm-Message-State: AOAM5331sTbYoonHbpuGqD0atyYcpP+0VMLm+Sy0qHRF6Ybvq0n+7Wfu
+	sFL/zl8bE02sUDwp0WouWCd6XKqkzgfiKsByNcAiXG9peB0=
+X-Google-Smtp-Source: ABdhPJy9fRCeat4gb5XKvmqoE7tXBBH2nVrfV3qBRQb1jokU/DqVjpgFa/P//03AdoLMtwqozlQM7SSYPoT/nhq5KVs=
+X-Received: by 2002:a05:6402:17a3:: with SMTP id
+	j3mr23295833edy.333.1607929067913; 
+	Sun, 13 Dec 2020 22:57:47 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20201212180251.9943-5-tusharsu@linux.microsoft.com>
+References: <20201211135139.49232-1-selvakuma.s1@samsung.com>
+	<CGME20201211135200epcas5p217eaa00b35a59b3468c198d85309fd7d@epcas5p2.samsung.com>
+	<20201211135139.49232-2-selvakuma.s1@samsung.com>
+	<20201211180451.GA9103@redsun51.ssa.fujisawa.hgst.com>
+In-Reply-To: <20201211180451.GA9103@redsun51.ssa.fujisawa.hgst.com>
+From: Selva Jove <selvajove@gmail.com>
+Date: Mon, 14 Dec 2020 12:27:32 +0530
+Message-ID: <CAHqX9vYFudV1WX-R0oRBW7rKpCJzt_DgmW9FWZdDzOwMoCxfCw@mail.gmail.com>
+To: Keith Busch <kbusch@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,18 +78,20 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 14 Dec 2020 06:00:28 -0500
-Cc: sashal@kernel.org, paul@paul-moore.com, snitzer@redhat.com,
-	selinux@vger.kernel.org, stephen.smalley.work@gmail.com,
-	jmorris@namei.org, zohar@linux.ibm.com,
-	linux-kernel@vger.kernel.org, nramas@linux.microsoft.com,
-	linux-security-module@vger.kernel.org, casey@schaufler-ca.com,
-	linux-integrity@vger.kernel.org, dm-devel@redhat.com,
-	gmazyland@gmail.com, agk@redhat.com
-Subject: Re: [dm-devel] [PATCH v9 4/8] IMA: add policy rule to measure
-	critical data
+Cc: axboe@kernel.dk, Damien Le Moal <damien.lemoal@wdc.com>,
+	SelvaKumar S <selvakuma.s1@samsung.com>, sagi@grimberg.me,
+	linux-scsi@vger.kernel.org,
+	Johannes Thumshirn <Johannes.Thumshirn@wdc.com>,
+	snitzer@redhat.com, linux-kernel@vger.kernel.org,
+	linux-nvme@lists.infradead.org, nj.shetty@samsung.com,
+	linux-block@vger.kernel.org, dm-devel@redhat.com,
+	mpatocka@redhat.com, martin.petersen@oracle.com,
+	joshi.k@samsung.com, javier.gonz@samsung.com, hch@lst.de,
+	bvanassche@acm.org
+Subject: Re: [dm-devel] [RFC PATCH v3 1/2] block: add simple copy support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,119 +105,92 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 2020-12-12 10:02:47, Tushar Sugandhi wrote:
-> A new IMA policy rule is needed for the IMA hook
-> ima_measure_critical_data() and the corresponding func CRITICAL_DATA for
-> measuring the input buffer. The policy rule should ensure the buffer
-> would get measured only when the policy rule allows the action. The
-> policy rule should also support the necessary constraints (flags etc.)
-> for integrity critical buffer data measurements.
-> 
-> Add a policy rule to define the constraints for restricting integrity
-> critical data measurements.
-> 
-> Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+On Fri, Dec 11, 2020 at 11:35 PM Keith Busch <kbusch@kernel.org> wrote:
+>
+> On Fri, Dec 11, 2020 at 07:21:38PM +0530, SelvaKumar S wrote:
+> > +int blk_copy_emulate(struct block_device *bdev, struct blk_copy_payload *payload,
+> > +             gfp_t gfp_mask)
+> > +{
+> > +     struct request_queue *q = bdev_get_queue(bdev);
+> > +     struct bio *bio;
+> > +     void *buf = NULL;
+> > +     int i, nr_srcs, max_range_len, ret, cur_dest, cur_size;
+> > +
+> > +     nr_srcs = payload->copy_range;
+> > +     max_range_len = q->limits.max_copy_range_sectors << SECTOR_SHIFT;
+>
+> The default value for this limit is 0, and this is the function for when
+> the device doesn't support copy. Are we expecting drivers to set this
+> value to something else for that case?
 
-This looks nice. Thanks for the changes!
+Sorry. Missed that. Will add a fix.
 
-Reviewed-by: Tyler Hicks <tyhicks@linux.microsoft.com>
+>
+> > +     cur_dest = payload->dest;
+> > +     buf = kvmalloc(max_range_len, GFP_ATOMIC);
+> > +     if (!buf)
+> > +             return -ENOMEM;
+> > +
+> > +     for (i = 0; i < nr_srcs; i++) {
+> > +             bio = bio_alloc(gfp_mask, 1);
+> > +             bio->bi_iter.bi_sector = payload->range[i].src;
+> > +             bio->bi_opf = REQ_OP_READ;
+> > +             bio_set_dev(bio, bdev);
+> > +
+> > +             cur_size = payload->range[i].len << SECTOR_SHIFT;
+> > +             ret = bio_add_page(bio, virt_to_page(buf), cur_size,
+> > +                                                offset_in_page(payload));
+>
+> 'buf' is vmalloc'ed, so we don't necessarily have congituous pages. I
+> think you need to allocate the bio with bio_map_kern() or something like
+> that instead with that kind of memory.
+>
 
-Tyler
+Sure. Will use bio_map_kern().
 
-> ---
->  Documentation/ABI/testing/ima_policy |  2 +-
->  security/integrity/ima/ima_policy.c  | 29 ++++++++++++++++++++++++----
->  2 files changed, 26 insertions(+), 5 deletions(-)
-> 
-> diff --git a/Documentation/ABI/testing/ima_policy b/Documentation/ABI/testing/ima_policy
-> index e35263f97fc1..6ec7daa87cba 100644
-> --- a/Documentation/ABI/testing/ima_policy
-> +++ b/Documentation/ABI/testing/ima_policy
-> @@ -32,7 +32,7 @@ Description:
->  			func:= [BPRM_CHECK][MMAP_CHECK][CREDS_CHECK][FILE_CHECK]MODULE_CHECK]
->  			        [FIRMWARE_CHECK]
->  				[KEXEC_KERNEL_CHECK] [KEXEC_INITRAMFS_CHECK]
-> -				[KEXEC_CMDLINE] [KEY_CHECK]
-> +				[KEXEC_CMDLINE] [KEY_CHECK] [CRITICAL_DATA]
->  			mask:= [[^]MAY_READ] [[^]MAY_WRITE] [[^]MAY_APPEND]
->  			       [[^]MAY_EXEC]
->  			fsmagic:= hex value
-> diff --git a/security/integrity/ima/ima_policy.c b/security/integrity/ima/ima_policy.c
-> index a09d1a41a290..d45c2dbb6d45 100644
-> --- a/security/integrity/ima/ima_policy.c
-> +++ b/security/integrity/ima/ima_policy.c
-> @@ -479,6 +479,8 @@ static bool ima_match_rule_data(struct ima_rule_entry *rule,
->  
->  		opt_list = rule->keyrings;
->  		break;
-> +	case CRITICAL_DATA:
-> +		return true;
->  	default:
->  		return false;
->  	}
-> @@ -515,13 +517,19 @@ static bool ima_match_rules(struct ima_rule_entry *rule, struct inode *inode,
->  {
->  	int i;
->  
-> -	if (func == KEY_CHECK) {
-> -		return (rule->flags & IMA_FUNC) && (rule->func == func) &&
-> -			ima_match_rule_data(rule, func_data, cred);
-> -	}
->  	if ((rule->flags & IMA_FUNC) &&
->  	    (rule->func != func && func != POST_SETATTR))
->  		return false;
-> +
-> +	switch (func) {
-> +	case KEY_CHECK:
-> +	case CRITICAL_DATA:
-> +		return ((rule->func == func) &&
-> +			ima_match_rule_data(rule, func_data, cred));
-> +	default:
-> +		break;
-> +	}
-> +
->  	if ((rule->flags & IMA_MASK) &&
->  	    (rule->mask != mask && func != POST_SETATTR))
->  		return false;
-> @@ -1116,6 +1124,17 @@ static bool ima_validate_rule(struct ima_rule_entry *entry)
->  		if (ima_rule_contains_lsm_cond(entry))
->  			return false;
->  
-> +		break;
-> +	case CRITICAL_DATA:
-> +		if (entry->action & ~(MEASURE | DONT_MEASURE))
-> +			return false;
-> +
-> +		if (entry->flags & ~(IMA_FUNC | IMA_UID | IMA_PCR))
-> +			return false;
-> +
-> +		if (ima_rule_contains_lsm_cond(entry))
-> +			return false;
-> +
->  		break;
->  	default:
->  		return false;
-> @@ -1248,6 +1267,8 @@ static int ima_parse_rule(char *rule, struct ima_rule_entry *entry)
->  			else if (IS_ENABLED(CONFIG_IMA_MEASURE_ASYMMETRIC_KEYS) &&
->  				 strcmp(args[0].from, "KEY_CHECK") == 0)
->  				entry->func = KEY_CHECK;
-> +			else if (strcmp(args[0].from, "CRITICAL_DATA") == 0)
-> +				entry->func = CRITICAL_DATA;
->  			else
->  				result = -EINVAL;
->  			if (!result)
-> -- 
-> 2.17.1
-> 
+> > +             if (ret != cur_size) {
+> > +                     ret = -ENOMEM;
+> > +                     goto out;
+> > +             }
+> > +
+> > +             ret = submit_bio_wait(bio);
+> > +             bio_put(bio);
+> > +             if (ret)
+> > +                     goto out;
+> > +
+> > +             bio = bio_alloc(gfp_mask, 1);
+> > +             bio_set_dev(bio, bdev);
+> > +             bio->bi_opf = REQ_OP_WRITE;
+> > +             bio->bi_iter.bi_sector = cur_dest;
+> > +             ret = bio_add_page(bio, virt_to_page(buf), cur_size,
+> > +                                                offset_in_page(payload));
+> > +             if (ret != cur_size) {
+> > +                     ret = -ENOMEM;
+> > +                     goto out;
+> > +             }
+> > +
+> > +             ret = submit_bio_wait(bio);
+> > +             bio_put(bio);
+> > +             if (ret)
+> > +                     goto out;
+> > +
+> > +             cur_dest += payload->range[i].len;
+> > +     }
+>
+> I think this would be a faster implementation if the reads were
+> asynchronous with a payload buffer allocated specific to that read, and
+> the callback can enqueue the write part. This would allow you to
+> accumulate all the read data and write it in a single call.
+
+Sounds like a better approach. Will add this implementation in v4.
 
 --
 dm-devel mailing list
