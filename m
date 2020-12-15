@@ -2,66 +2,49 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id AA41B2DAA88
-	for <lists+dm-devel@lfdr.de>; Tue, 15 Dec 2020 11:00:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B220A2DA8AA
+	for <lists+dm-devel@lfdr.de>; Tue, 15 Dec 2020 08:41:57 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-77-yYUSTyd3P4GlTk12XINMsA-1; Tue, 15 Dec 2020 05:00:20 -0500
-X-MC-Unique: yYUSTyd3P4GlTk12XINMsA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-415-osvHgmeHPieguPvJebtG8w-1; Tue, 15 Dec 2020 02:41:54 -0500
+X-MC-Unique: osvHgmeHPieguPvJebtG8w-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C877EEC1A0;
-	Tue, 15 Dec 2020 10:00:13 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A303D5D9CA;
-	Tue, 15 Dec 2020 10:00:13 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EEB2559;
+	Tue, 15 Dec 2020 07:41:45 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 51A1A5C27C;
+	Tue, 15 Dec 2020 07:41:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 49D941809CA0;
-	Tue, 15 Dec 2020 10:00:13 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 674DD4BB7B;
+	Tue, 15 Dec 2020 07:41:31 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BF6xPZR022061 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 15 Dec 2020 01:59:26 -0500
+	id 0BF7fHNw026552 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 15 Dec 2020 02:41:17 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id DC7085D20B; Tue, 15 Dec 2020 06:59:25 +0000 (UTC)
+	id 948BA2166B2B; Tue, 15 Dec 2020 07:41:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D5A4730BA4
-	for <dm-devel@redhat.com>; Tue, 15 Dec 2020 06:59:23 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F7822166B27
+	for <dm-devel@redhat.com>; Tue, 15 Dec 2020 07:41:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AB416800969
-	for <dm-devel@redhat.com>; Tue, 15 Dec 2020 06:59:23 +0000 (UTC)
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-225-p7SW1ccmMDOVEhAOWNEWog-1; Tue, 15 Dec 2020 01:59:19 -0500
-X-MC-Unique: p7SW1ccmMDOVEhAOWNEWog-1
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
-	by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	0BF6is6M148114; Tue, 15 Dec 2020 06:51:31 GMT
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
-	by userp2130.oracle.com with ESMTP id 35cn9r8xk9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=FAIL); Tue, 15 Dec 2020 06:51:31 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
-	by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	0BF6e6Iq070502; Tue, 15 Dec 2020 06:51:31 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
-	by userp3030.oracle.com with ESMTP id 35d7svqjj4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 15 Dec 2020 06:51:30 +0000
-Received: from abhmp0013.oracle.com (abhmp0013.oracle.com [141.146.116.19])
-	by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0BF6pROv024807;
-	Tue, 15 Dec 2020 06:51:28 GMT
-Received: from [192.168.1.10] (/180.164.31.21)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Mon, 14 Dec 2020 22:51:27 -0800
-To: Hannes Reinecke <hare@suse.de>, Jens Axboe <axboe@kernel.dk>,
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5E415101A567
+	for <dm-devel@redhat.com>; Tue, 15 Dec 2020 07:41:15 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-235-zmAccwhEP4i6x0VXyho9Vg-1;
+	Tue, 15 Dec 2020 02:41:10 -0500
+X-MC-Unique: zmAccwhEP4i6x0VXyho9Vg-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id BA42AAD0E;
+	Tue, 15 Dec 2020 07:41:08 +0000 (UTC)
+To: Bob Liu <bob.liu@oracle.com>, Jens Axboe <axboe@kernel.dk>,
 	Mike Snitzer <snitzer@redhat.com>,
 	Sergei Shtepa <sergei.shtepa@veeam.com>, hch@lst.de
 References: <1607518911-30692-1-git-send-email-sergei.shtepa@veeam.com>
@@ -69,28 +52,14 @@ References: <1607518911-30692-1-git-send-email-sergei.shtepa@veeam.com>
 	<20201210163222.GB10239@redhat.com> <20201211163049.GC16168@redhat.com>
 	<1ee7652e-b77f-6fa4-634c-ff6639037321@kernel.dk>
 	<208edf35-ecdc-2d73-4c48-0424943a78c0@suse.de>
-From: Bob Liu <bob.liu@oracle.com>
-Message-ID: <cdc3c792-17ac-de61-12ae-74691769fc3c@oracle.com>
-Date: Tue, 15 Dec 2020 14:51:18 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
+	<cdc3c792-17ac-de61-12ae-74691769fc3c@oracle.com>
+From: Hannes Reinecke <hare@suse.de>
+Message-ID: <299962c3-c52b-a580-5b1f-a21b9021f9e6@suse.de>
+Date: Tue, 15 Dec 2020 08:41:07 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+	Thunderbird/78.4.0
 MIME-Version: 1.0
-In-Reply-To: <208edf35-ecdc-2d73-4c48-0424943a78c0@suse.de>
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9835
-	signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
-	bulkscore=0
-	mlxlogscore=999 spamscore=0 mlxscore=0 suspectscore=0 malwarescore=0
-	adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2009150000 definitions=main-2012150045
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9835
-	signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
-	mlxlogscore=999
-	impostorscore=0 lowpriorityscore=0 clxscore=1011 spamscore=0
-	malwarescore=0 priorityscore=1501 phishscore=0 mlxscore=0 bulkscore=0
-	suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2009150000 definitions=main-2012150045
+In-Reply-To: <cdc3c792-17ac-de61-12ae-74691769fc3c@oracle.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -99,9 +68,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BF7fHNw026552
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Tue, 15 Dec 2020 04:59:49 -0500
 Cc: "steve@sk2.org" <steve@sk2.org>,
 	"johannes.thumshirn@wdc.com" <johannes.thumshirn@wdc.com>,
 	Pavel Tide <Pavel.TIde@veeam.com>,
@@ -125,49 +95,45 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-Hi Folks,
-
-On 12/12/20 12:56 AM, Hannes Reinecke wrote:
-> On 12/11/20 5:33 PM, Jens Axboe wrote:
->> On 12/11/20 9:30 AM, Mike Snitzer wrote:
->>> While I still think there needs to be a proper _upstream_ consumer of
->>> blk_interposer as a condition of it going in.. I'll let others make the
->>> call.
->>
->> That's an unequivocal rule.
->>
->>> As such, I'll defer to Jens, Christoph and others on whether your
->>> minimalist blk_interposer hook is acceptable in the near-term.
->>
->> I don't think so, we don't do short term bandaids just to plan on
->> ripping that out when the real functionality is there. IMHO, the dm
->> approach is the way to go - it provides exactly the functionality that
->> is needed in an appropriate way, instead of hacking some "interposer"
->> into the core block layer.
->>
-> Which is my plan, too.
-> 
-> I'll be working with the Veeam folks to present a joint patchset (including the DM bits) for the next round.
-> 
-
-Besides the dm approach, do you think Veeam's original requirement is a good
-use case of "block/bpf: add eBPF based block layer IO filtering"?
-https://lwn.net/ml/bpf/20200812163305.545447-1-leah.rumancik@gmail.com/
-
-Thanks,
-Bob
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+T24gMTIvMTUvMjAgNzo1MSBBTSwgQm9iIExpdSB3cm90ZToKPiBIaSBGb2xrcywKPiAKPiBPbiAx
+Mi8xMi8yMCAxMjo1NiBBTSwgSGFubmVzIFJlaW5lY2tlIHdyb3RlOgo+PiBPbiAxMi8xMS8yMCA1
+OjMzIFBNLCBKZW5zIEF4Ym9lIHdyb3RlOgo+Pj4gT24gMTIvMTEvMjAgOTozMCBBTSwgTWlrZSBT
+bml0emVyIHdyb3RlOgo+Pj4+IFdoaWxlIEkgc3RpbGwgdGhpbmsgdGhlcmUgbmVlZHMgdG8gYmUg
+YSBwcm9wZXIgX3Vwc3RyZWFtXyBjb25zdW1lciBvZgo+Pj4+IGJsa19pbnRlcnBvc2VyIGFzIGEg
+Y29uZGl0aW9uIG9mIGl0IGdvaW5nIGluLi4gSSdsbCBsZXQgb3RoZXJzIG1ha2UgdGhlCj4+Pj4g
+Y2FsbC4KPj4+Cj4+PiBUaGF0J3MgYW4gdW5lcXVpdm9jYWwgcnVsZS4KPj4+Cj4+Pj4gQXMgc3Vj
+aCwgSSdsbCBkZWZlciB0byBKZW5zLCBDaHJpc3RvcGggYW5kIG90aGVycyBvbiB3aGV0aGVyIHlv
+dXIKPj4+PiBtaW5pbWFsaXN0IGJsa19pbnRlcnBvc2VyIGhvb2sgaXMgYWNjZXB0YWJsZSBpbiB0
+aGUgbmVhci10ZXJtLgo+Pj4KPj4+IEkgZG9uJ3QgdGhpbmsgc28sIHdlIGRvbid0IGRvIHNob3J0
+IHRlcm0gYmFuZGFpZHMganVzdCB0byBwbGFuIG9uCj4+PiByaXBwaW5nIHRoYXQgb3V0IHdoZW4g
+dGhlIHJlYWwgZnVuY3Rpb25hbGl0eSBpcyB0aGVyZS4gSU1ITywgdGhlIGRtCj4+PiBhcHByb2Fj
+aCBpcyB0aGUgd2F5IHRvIGdvIC0gaXQgcHJvdmlkZXMgZXhhY3RseSB0aGUgZnVuY3Rpb25hbGl0
+eSB0aGF0Cj4+PiBpcyBuZWVkZWQgaW4gYW4gYXBwcm9wcmlhdGUgd2F5LCBpbnN0ZWFkIG9mIGhh
+Y2tpbmcgc29tZSAiaW50ZXJwb3NlciIKPj4+IGludG8gdGhlIGNvcmUgYmxvY2sgbGF5ZXIuCj4+
+Pgo+PiBXaGljaCBpcyBteSBwbGFuLCB0b28uCj4+Cj4+IEknbGwgYmUgd29ya2luZyB3aXRoIHRo
+ZSBWZWVhbSBmb2xrcyB0byBwcmVzZW50IGEgam9pbnQgcGF0Y2hzZXQgKGluY2x1ZGluZyB0aGUg
+RE0gYml0cykgZm9yIHRoZSBuZXh0IHJvdW5kLgo+Pgo+IAo+IEJlc2lkZXMgdGhlIGRtIGFwcHJv
+YWNoLCBkbyB5b3UgdGhpbmsgVmVlYW0ncyBvcmlnaW5hbCByZXF1aXJlbWVudCBpcyBhIGdvb2QK
+PiB1c2UgY2FzZSBvZiAiYmxvY2svYnBmOiBhZGQgZUJQRiBiYXNlZCBibG9jayBsYXllciBJTyBm
+aWx0ZXJpbmciPwo+IGh0dHBzOi8vbHduLm5ldC9tbC9icGYvMjAyMDA4MTIxNjMzMDUuNTQ1NDQ3
+LTEtbGVhaC5ydW1hbmNpa0BnbWFpbC5jb20vCj4gClRoYXQgd291bGQgYWN0dWFsbHkgYSByZWFs
+bHkgY29vbCB1c2UtY2FzZS4KWW91IGNvdWxkIGFsc28gY29uc2lkZXIgYSBYRFAtbGlrZSBmdW5j
+dGlvbmFsaXR5IGZvciBlQlBGLCB0byBtb3ZlIAppbmRpdmlkdWFsIHJlcXVlc3RzIGZyb20gb25l
+IHF1ZXVlIHRvIHRoZSBvdGhlcjsgRE0gb24gc3Rlcm9pZHMgOi0pCgpTaG91bGQgSSB0cnkgdG8g
+aW5jbHVkZSB0aGF0IHBhdGNoc2V0PwoKQ2hlZXJzLAoKSGFubmVzCi0tIApEci4gSGFubmVzIFJl
+aW5lY2tlICAgICAgICAgICAgICAgIEtlcm5lbCBTdG9yYWdlIEFyY2hpdGVjdApoYXJlQHN1c2Uu
+ZGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICArNDkgOTExIDc0MDUzIDY4OApTVVNFIFNv
+ZnR3YXJlIFNvbHV0aW9ucyBHbWJILCBNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJlcmcKSFJC
+IDM2ODA5IChBRyBOw7xybmJlcmcpLCBHZXNjaMOkZnRzZsO8aHJlcjogRmVsaXggSW1lbmTDtnJm
+ZmVyCgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6
+Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
 
