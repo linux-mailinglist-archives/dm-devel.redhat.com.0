@@ -1,59 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id CC80A2DC569
-	for <lists+dm-devel@lfdr.de>; Wed, 16 Dec 2020 18:35:07 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 61EC82DC60A
+	for <lists+dm-devel@lfdr.de>; Wed, 16 Dec 2020 19:19:02 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-153-0DIbYsIYN5OQUUz1e2ZnWw-1; Wed, 16 Dec 2020 12:35:02 -0500
-X-MC-Unique: 0DIbYsIYN5OQUUz1e2ZnWw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-428-T4flvjuzMx6-a2pBupBy6Q-1; Wed, 16 Dec 2020 13:18:58 -0500
+X-MC-Unique: T4flvjuzMx6-a2pBupBy6Q-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3116B100F370;
-	Wed, 16 Dec 2020 17:34:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 909F517577;
-	Wed, 16 Dec 2020 17:34:44 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0660E8144E5;
+	Wed, 16 Dec 2020 18:18:53 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D0A0360843;
+	Wed, 16 Dec 2020 18:18:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B7E5718095C9;
-	Wed, 16 Dec 2020 17:34:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1A11F4E590;
+	Wed, 16 Dec 2020 18:18:45 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BGHYHbc013802 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 16 Dec 2020 12:34:17 -0500
+	id 0BGIIa7R017983 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 16 Dec 2020 13:18:36 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 465542026D13; Wed, 16 Dec 2020 17:34:17 +0000 (UTC)
+	id B4E8A1018E62; Wed, 16 Dec 2020 18:18:36 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4141E2026D11
-	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 17:34:14 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7D1D310F8E37
+	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 18:18:35 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BCAC5858287
-	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 17:34:14 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2873F101A563
+	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 18:18:35 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-199-NwdUxICxNKyn3jkS0otpNg-1;
-	Wed, 16 Dec 2020 12:34:08 -0500
-X-MC-Unique: NwdUxICxNKyn3jkS0otpNg-1
+	relay.mimecast.com with ESMTP id us-mta-44-mlt6NxG4NwudfJOjO8TALQ-1;
+	Wed, 16 Dec 2020 13:18:30 -0500
+X-MC-Unique: mlt6NxG4NwudfJOjO8TALQ-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 9D05DAC7B;
-	Wed, 16 Dec 2020 17:34:06 +0000 (UTC)
-Message-ID: <7af8e4c39c11eae413c92beef97c62b793a08aa6.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>, Benjamin Marzinski
-	<bmarzins@redhat.com>, lixiaokeng@huawei.com, dm-devel@redhat.com
-Date: Wed, 16 Dec 2020 18:34:05 +0100
-In-Reply-To: <20201016104501.8700-23-mwilck@suse.com>
-References: <20201016104501.8700-1-mwilck@suse.com>
-	<20201016104501.8700-23-mwilck@suse.com>
-User-Agent: Evolution 3.36.5
+	by mx2.suse.de (Postfix) with ESMTP id E1966AC7B;
+	Wed, 16 Dec 2020 18:18:27 +0000 (UTC)
+From: mwilck@suse.com
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>
+Date: Wed, 16 Dec 2020 19:16:39 +0100
+Message-Id: <20201216181708.22224-1-mwilck@suse.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -63,10 +59,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BGIIa7R017983
 X-loop: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH v2 22/29] multipath: fix leaks in
-	check_path_valid()
+Cc: lixiaokeng@huawei.com, dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Subject: [dm-devel] [PATCH v3 00/29] libmultipath: improve cleanup on exit
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +78,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -88,154 +86,136 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 2020-10-16 at 12:44 +0200, mwilck@suse.com wrote:
-> From: Martin Wilck <mwilck@suse.com>
-> 
-> There were two leaks in check_path_valid(): if path status was
-> successfully determined before calling store_pathvec(), free_path()
-> wasn't called. Also, if an error exit occured, neither cleanup
-> function was called.
-> 
-> This patch fixes both, at the cost of using "static" for the pp and
-> pathvec variables.
+From: Martin Wilck <mwilck@suse.com>
 
-Looking at this again after 2 months, I think the on_exit() part of
-this patch is wrong. First, we can't use on_exit() on every platform,
-as e.g. musl libc doesn't have it. To replace this by the more portable
-atexit(), we'd need to declare the two variables "pp" and "pathvec"
-with file scope, which is very ugly. But more importantly, using static
-variables here causes check_path_valid() to be non-reentrant. While it
-doesn't have to be, it's still a coding pattern we haven't been using
-anywhere else, just to avoid a "memory leak" for an irregular exit,
-which isn't a real memory leak, actually.
+Hi Christophe, hi Ben, hi lixiaokeng,
 
-One day we should remove the exit() calls somewhere deep down in our
-libraries, and deal with the respective errors cleanly.
+this series was inspired by lixiaokeng's recent posting "[QUESTION] memory
+leak in main (multipath)". It implements my first idea, registering
+cleanup handlers with atexit(). However it turned out to be quite
+complex. In particular multipathd has a lot of things to clean up.
 
-@lixiaokeng, I hope this is ok for you, as you brought the issue up
-originally ("[QUESTION] memory leak in main (multipath)").
+This series is based on the previous series "multipath-tools: shutdown, 
+libdevmapper races, globals" (v3).
+
+While the bulk of the series is the cleanup handling, it also contains
+some bug fixes for issues that I found while working on this.
+
+Changes v2 -> v3:
+
+Removed on_exit() calls, which break build on Alpine Linux (musl libc).
+
+  02/29 "multipathd: Fix liburcu memory leak":
+         use atexit() rather than on_exit()
+  18/29 "libmultipath: fix log_thread startup and teardown"
+         fixed rebase error pointed out by Ben
+  19/29 "multipath: use atexit() for cleanup handlers"
+         use atexit() rather than on_exit()
+  21/29 "multipath: fix leaks in check_path_valid()"
+         revert the on_exit() part of the previous version of this patch. As
+	 argued in a separate mail, avoiding this corner-case "memory leak"
+	 on an irregular exit isn't worth the ugliness of being non-reentrant
+	 and using file-scope static variables for things that would naturally
+	 be automatic variables.
+  24/29 "libmultipath: use libmp_verbosity to track verbosity":
+         Removed additional uses of conf->verbosity (Ben)
+  25/29 "libmultipath: introduce symbolic values for logsink":
+         removed blank line at end of libmultipath/debug.h (Ben)
+  28/29 "multipathd: sanitize uxsock_listen()"
+         unchanged, but modified commit message such that it doesn't suggest
+	 memory was allocated in pages (Ben)
+  29/29  "libmultipath: fix race between log_safe and log_thread_stop()":
+         Ben had accepted the previous version after some discussion.
+	 I moved the call to flush_logqueue() in log_thread_stop()
+	 after the pthread_join() call.
+
+Changes v1 -> v2:
+
+Patches 24..29 have been added; they are logging cleanups, 24/29
+and 29/29 are fixes to issues Ben had mentioned during his review.
+
+01/29 "multipathd: uxlsnr: avoid deadlock on exit"
+      Fix invalid array element reference (Ben)
+07/29 "multipathd: move conf destruction into separate function"
+      Don't reset logink when the log thread is stopped (Ben)
+      Logging via logsink after shutting down the log thread is racy
+      (no worse than before); the race will be fixed in 29/29.
+14/29 "libmultipath: add libmp_dm_exit()": Fixed the skip_libmp_dm_init()
+      case (Ben).
+18/29 "libmultipath: fix log_thread startup and teardown"
+      No need to wait before joining the log thread in log_thread_stop() (Ben)
+      -> "libmultipath: fix race between log_safe and log_thread_stop()"
+23/29: "multipath-tools: mpath-tools.supp: file with valgrind suppressions"
+       Remove empty line at end of file (Ben)
+24/29 "libmultipath: use libmp_verbosity to track verbosity"
+       This fixes 13/21 "libmultipath: provide defaults for {get,put}_multipath_config"
+       (from the previous patch series "multipath-tools: shutdown, libdevmapper races, globals";
+       control of verbosity during config file loading)
+29/29 "libmultipath: fix race between log_safe and log_thread_stop()"
+      (see 18/29)
 
 Regards
 Martin
 
-> 
-> Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
-> Signed-off-by: Martin Wilck <mwilck@suse.com>
-> ---
->  multipath/main.c | 55 +++++++++++++++++++++++++++++++++++++---------
-> --
->  1 file changed, 43 insertions(+), 12 deletions(-)
-> 
-> diff --git a/multipath/main.c b/multipath/main.c
-> index 049a36f..9974993 100644
-> --- a/multipath/main.c
-> +++ b/multipath/main.c
-> @@ -93,7 +93,7 @@ void rcu_register_thread_memb(void) {}
->  void rcu_unregister_thread_memb(void) {}
->  
->  static int
-> -filter_pathvec (vector pathvec, char * refwwid)
-> +filter_pathvec (vector pathvec, const char *refwwid)
->  {
->  	int i;
->  	struct path * pp;
-> @@ -592,12 +592,37 @@ out:
->  	return r;
->  }
->  
-> +static void cleanup_pathvec(__attribute__((unused)) int dummy, void
-> *arg)
-> +{
-> +	vector *ppv = arg;
-> +
-> +	if (ppv && *ppv) {
-> +		free_pathvec(*ppv, FREE_PATHS);
-> +		*ppv = NULL;
-> +	}
-> +}
-> +
-> +static void cleanup_path(__attribute__((unused)) int dummy, void
-> *arg)
-> +{
-> +	struct path **ppp = arg;
-> +
-> +	if (ppp && *ppp) {
-> +		free_path(*ppp);
-> +		*ppp = NULL;
-> +	}
-> +}
-> +
->  static int
->  check_path_valid(const char *name, struct config *conf, bool
-> is_uevent)
->  {
->  	int fd, r = PATH_IS_ERROR;
-> -	struct path *pp = NULL;
-> -	vector pathvec = NULL;
-> +	static struct path *pp = NULL;
-> +	static vector pathvec = NULL;
-> +	const char *wwid;
-> +
-> +	/* register these as exit handlers in case we exit irregularly
-> */
-> +	on_exit(cleanup_path, &pp);
-> +	on_exit(cleanup_pathvec, &pathvec);
->  
->  	pp = alloc_path();
->  	if (!pp)
-> @@ -667,13 +692,17 @@ check_path_valid(const char *name, struct
-> config *conf, bool is_uevent)
->  	if (store_path(pathvec, pp) != 0) {
->  		free_path(pp);
->  		goto fail;
-> +	} else {
-> +		/* make sure path isn't freed twice */
-> +		wwid = pp->wwid;
-> +		pp = NULL;
->  	}
->  
->  	/* For find_multipaths = SMART, if there is more than one path
->  	 * matching the refwwid, then the path is valid */
->  	if (path_discovery(pathvec, DI_SYSFS | DI_WWID) < 0)
->  		goto fail;
-> -	filter_pathvec(pathvec, pp->wwid);
-> +	filter_pathvec(pathvec, wwid);
->  	if (VECTOR_SIZE(pathvec) > 1)
->  		r = PATH_IS_VALID;
->  	else
-> @@ -681,21 +710,23 @@ check_path_valid(const char *name, struct
-> config *conf, bool is_uevent)
->  
->  out:
->  	r = print_cmd_valid(r, pathvec, conf);
-> -	free_pathvec(pathvec, FREE_PATHS);
->  	/*
->  	 * multipath -u must exit with status 0, otherwise udev won't
->  	 * import its output.
->  	 */
->  	if (!is_uevent && r == PATH_IS_NOT_VALID)
-> -		return RTVL_FAIL;
-> -	return RTVL_OK;
-> +		r = RTVL_FAIL;
-> +	else
-> +		r = RTVL_OK;
-> +	goto cleanup;
->  
->  fail:
-> -	if (pathvec)
-> -		free_pathvec(pathvec, FREE_PATHS);
-> -	else
-> -		free_path(pp);
-> -	return RTVL_FAIL;
-> +	r = RTVL_FAIL;
-> +
-> +cleanup:
-> +	cleanup_path(0, &pp);
-> +	cleanup_pathvec(0, &pathvec);
-> +	return r;
->  }
->  
->  static int
+Martin Wilck (29):
+  multipathd: uxlsnr: avoid deadlock on exit
+  multipathd: Fix liburcu memory leak
+  multipathd: move handling of io_err_stat_attr into libmultipath
+  multipathd: move vecs desctruction into cleanup function
+  multipathd: make some globals static
+  multipathd: move threads destruction into separate function
+  multipathd: move conf destruction into separate function
+  multipathd: move pid destruction into separate function
+  multipathd: close pidfile on exit
+  multipathd: add helper for systemd notification at exit
+  multipathd: child(): call cleanups in failure case, too
+  multipathd: unwatch_all_dmevents: check if waiter is initialized
+  multipathd: print error message if config can't be loaded
+  libmultipath: add libmp_dm_exit()
+  multipathd: fixup libdm deinitialization
+  libmultipath: log_thread_stop(): check if logarea is initialized
+  multipathd: add cleanup_child() exit handler
+  libmultipath: fix log_thread startup and teardown
+  multipathd: move cleanup_{prio,checkers,foreign} to libmultipath_exit
+  multipath: use atexit() for cleanup handlers
+  mpathpersist: use atexit() for cleanup handlers
+  multipath: fix leaks in check_path_valid()
+  multipath-tools: mpath-tools.supp: file with valgrind suppressions
+  libmultipath: use libmp_verbosity to track verbosity
+  libmultipath: introduce symbolic values for logsink
+  libmultipath: simplify dlog()
+  multipathd: common code for "-k" and command args
+  multipathd: sanitize uxsock_listen()
+  libmultipath: fix race between log_safe and log_thread_stop()
+
+ libmpathpersist/mpath_persist.c       |   7 +-
+ libmultipath/config.c                 |  14 +-
+ libmultipath/config.h                 |   2 +
+ libmultipath/configure.c              |  16 +-
+ libmultipath/debug.c                  |  38 +--
+ libmultipath/debug.h                  |  27 +-
+ libmultipath/devmapper.c              |  30 +-
+ libmultipath/devmapper.h              |   1 +
+ libmultipath/io_err_stat.c            |   7 +-
+ libmultipath/libmultipath.version     |  31 +-
+ libmultipath/log_pthread.c            | 111 +++++---
+ mpathpersist/main.c                   |   5 +-
+ multipath/main.c                      |  91 +++---
+ multipathd/dmevents.c                 |   2 +
+ multipathd/main.c                     | 394 ++++++++++++++++----------
+ multipathd/uxlsnr.c                   |  80 ++++--
+ tests/alias.c                         |   1 +
+ tests/blacklist.c                     |   2 +
+ tests/globals.c                       |   3 +-
+ tests/hwtable.c                       |   2 +-
+ tests/test-log.c                      |   4 +-
+ tests/test-log.h                      |   3 +-
+ third-party/valgrind/mpath-tools.supp |  32 +++
+ 23 files changed, 557 insertions(+), 346 deletions(-)
+ create mode 100644 third-party/valgrind/mpath-tools.supp
+
+-- 
+2.29.0
 
 
 --
