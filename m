@@ -1,55 +1,54 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 421242DC629
-	for <lists+dm-devel@lfdr.de>; Wed, 16 Dec 2020 19:20:10 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 354E92DC61F
+	for <lists+dm-devel@lfdr.de>; Wed, 16 Dec 2020 19:19:23 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-572-OsjJwZI2OeSCSdwOoESLeA-1; Wed, 16 Dec 2020 13:19:02 -0500
-X-MC-Unique: OsjJwZI2OeSCSdwOoESLeA-1
+ us-mta-10-Pm7uWJ8KNwaI0UazhpNyfA-1; Wed, 16 Dec 2020 13:19:19 -0500
+X-MC-Unique: Pm7uWJ8KNwaI0UazhpNyfA-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E534D100F340;
-	Wed, 16 Dec 2020 18:18:56 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BFCAB6294F;
-	Wed, 16 Dec 2020 18:18:56 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 47C008144FF;
+	Wed, 16 Dec 2020 18:19:11 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 254B46362B;
+	Wed, 16 Dec 2020 18:19:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 76E6B1809CA1;
-	Wed, 16 Dec 2020 18:18:56 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D962C50035;
+	Wed, 16 Dec 2020 18:19:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BGIIcis018038 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 16 Dec 2020 13:18:38 -0500
+	id 0BGIIeJi018095 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 16 Dec 2020 13:18:40 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E842294624; Wed, 16 Dec 2020 18:18:37 +0000 (UTC)
+	id DC7002166B2D; Wed, 16 Dec 2020 18:18:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E3455CF616
-	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 18:18:37 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D7CBC2166B27
+	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 18:18:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D092280088F
-	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 18:18:37 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C448582DFE3
+	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 18:18:39 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-44-lFeAmc3xO1ebnECoWuJaOg-1;
-	Wed, 16 Dec 2020 13:18:34 -0500
-X-MC-Unique: lFeAmc3xO1ebnECoWuJaOg-1
+	relay.mimecast.com with ESMTP id us-mta-321-35ectKEVPIiD0GY_3_JnRg-1;
+	Wed, 16 Dec 2020 13:18:35 -0500
+X-MC-Unique: 35ectKEVPIiD0GY_3_JnRg-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 2F4F7AF4C;
+	by mx2.suse.de (Postfix) with ESMTP id 739ECB19B;
 	Wed, 16 Dec 2020 18:18:33 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed, 16 Dec 2020 19:16:58 +0100
-Message-Id: <20201216181708.22224-20-mwilck@suse.com>
+Date: Wed, 16 Dec 2020 19:16:59 +0100
+Message-Id: <20201216181708.22224-21-mwilck@suse.com>
 In-Reply-To: <20201216181708.22224-1-mwilck@suse.com>
 References: <20201216181708.22224-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -61,13 +60,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BGIIcis018038
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BGIIeJi018095
 X-loop: dm-devel@redhat.com
 Cc: lixiaokeng@huawei.com, dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v3 19/29] multipathd: move cleanup_{prio, checkers,
-	foreign} to libmultipath_exit
+Subject: [dm-devel] [PATCH v3 20/29] multipath: use atexit() for cleanup
+	handlers
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,90 +90,107 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-This requires another major ABI bump.
-
-Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmpathpersist/mpath_persist.c   | 2 --
- libmultipath/config.c             | 4 ++++
- libmultipath/libmultipath.version | 5 +----
- multipathd/main.c                 | 3 ---
- 4 files changed, 5 insertions(+), 9 deletions(-)
+ multipath/main.c | 37 ++++++++++++++++---------------------
+ 1 file changed, 16 insertions(+), 21 deletions(-)
 
-diff --git a/libmpathpersist/mpath_persist.c b/libmpathpersist/mpath_persist.c
-index e1d1cb7..9ebf91d 100644
---- a/libmpathpersist/mpath_persist.c
-+++ b/libmpathpersist/mpath_persist.c
-@@ -78,8 +78,6 @@ mpath_lib_init (void)
- 
- static void libmpathpersist_cleanup(void)
- {
--	cleanup_prio();
--	cleanup_checkers();
- 	libmultipath_exit();
- 	dm_lib_exit();
+diff --git a/multipath/main.c b/multipath/main.c
+index 9ae46ed..1949a1c 100644
+--- a/multipath/main.c
++++ b/multipath/main.c
+@@ -452,13 +452,19 @@ static bool released_to_systemd(void)
+ 	return ret;
  }
-diff --git a/libmultipath/config.c b/libmultipath/config.c
-index b9cb413..52b1447 100644
---- a/libmultipath/config.c
-+++ b/libmultipath/config.c
-@@ -26,6 +26,7 @@
- #include "devmapper.h"
- #include "mpath_cmd.h"
- #include "propsel.h"
-+#include "foreign.h"
  
- /*
-  * We don't support re-initialization after
-@@ -60,6 +61,9 @@ int libmultipath_init(void)
- static void _libmultipath_exit(void)
++static struct vectors vecs;
++static void cleanup_vecs(void)
++{
++	free_multipathvec(vecs.mpvec, KEEP_PATHS);
++	free_pathvec(vecs.pathvec, FREE_PATHS);
++}
++
+ static int
+ configure (struct config *conf, enum mpath_cmds cmd,
+ 	   enum devtypes dev_type, char *devpath)
  {
- 	libmultipath_exit_called = true;
-+	cleanup_foreign();
-+	cleanup_checkers();
-+	cleanup_prio();
- 	libmp_dm_exit();
- 	udev_unref(udev);
+ 	vector curmp = NULL;
+ 	vector pathvec = NULL;
+-	struct vectors vecs;
+ 	int r = RTVL_FAIL, rc;
+ 	int di_flag = 0;
+ 	char * refwwid = NULL;
+@@ -469,6 +475,7 @@ configure (struct config *conf, enum mpath_cmds cmd,
+ 	 */
+ 	curmp = vector_alloc();
+ 	pathvec = vector_alloc();
++	atexit(cleanup_vecs);
+ 
+ 	if (!curmp || !pathvec) {
+ 		condlog(0, "can not allocate memory");
+@@ -580,9 +587,6 @@ out:
+ 	if (refwwid)
+ 		FREE(refwwid);
+ 
+-	free_multipathvec(curmp, KEEP_PATHS);
+-	free_pathvec(pathvec, FREE_PATHS);
+-
+ 	return r;
  }
-diff --git a/libmultipath/libmultipath.version b/libmultipath/libmultipath.version
-index 84beb7f..800cff2 100644
---- a/libmultipath/libmultipath.version
-+++ b/libmultipath/libmultipath.version
-@@ -31,7 +31,7 @@
-  *   The new version inherits the previous ones.
-  */
  
--LIBMULTIPATH_3.0.0 {
-+LIBMULTIPATH_4.0.0 {
- global:
- 	/* symbols referenced by multipath and multipathd */
- 	add_foreign;
-@@ -51,10 +51,7 @@ global:
- 	checker_name;
- 	checker_state_name;
- 	check_foreign;
--	cleanup_checkers;
--	cleanup_foreign;
- 	cleanup_lock;
--	cleanup_prio;
- 	close_fd;
- 	coalesce_paths;
- 	convert_dev;
-diff --git a/multipathd/main.c b/multipathd/main.c
-index 50cc335..4de0978 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -3028,9 +3028,6 @@ static void cleanup_child(void)
- {
- 	cleanup_threads();
- 	cleanup_vecs();
+@@ -808,9 +812,13 @@ main (int argc, char *argv[])
+ 	bool enable_foreign = false;
+ 
+ 	libmultipath_init();
++	if (atexit(dm_lib_exit) || atexit(libmultipath_exit))
++		condlog(1, "failed to register cleanup handler for libmultipath: %m");
+ 	logsink = 0;
+ 	if (init_config(DEFAULT_CONFIGFILE))
+ 		exit(RTVL_FAIL);
++	if (atexit(uninit_config))
++		condlog(1, "failed to register cleanup handler for config: %m");
+ 	conf = get_multipath_config();
+ 	conf->retrigger_tries = 0;
+ 	conf->force_sync = 1;
+@@ -887,7 +895,7 @@ main (int argc, char *argv[])
+ 			break;
+ 		case 't':
+ 			r = dump_config(conf, NULL, NULL) ? RTVL_FAIL : RTVL_OK;
+-			goto out_free_config;
++			goto out;
+ 		case 'T':
+ 			cmd = CMD_DUMP_CONFIG;
+ 			break;
+@@ -1048,26 +1056,13 @@ main (int argc, char *argv[])
+ 		condlog(3, "restart multipath configuration process");
+ 
+ out:
+-	dm_lib_exit();
+-
 -	cleanup_foreign();
--	cleanup_checkers();
 -	cleanup_prio();
- 	if (poll_dmevents)
- 		cleanup_dmevent_waiter();
+-	cleanup_checkers();
++	put_multipath_config(conf);
++	if (dev)
++		FREE(dev);
  
+ 	if (dev_type == DEV_UEVENT)
+ 		closelog();
+ 
+-out_free_config:
+-	/*
+-	 * Freeing config must be done after dm_lib_exit(), because
+-	 * the logging function (dm_write_log()), which is called there,
+-	 * references the config.
+-	 */
+-	put_multipath_config(conf);
+-	uninit_config();
+-	libmultipath_exit();
+-	if (dev)
+-		FREE(dev);
+ #ifdef _DEBUG_
+ 	dbg_free_final(NULL);
+ #endif
 -- 
 2.29.0
 
