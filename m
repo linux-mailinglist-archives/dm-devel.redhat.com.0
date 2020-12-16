@@ -1,55 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B9A832DC615
-	for <lists+dm-devel@lfdr.de>; Wed, 16 Dec 2020 19:19:15 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id C77BA2DC60C
+	for <lists+dm-devel@lfdr.de>; Wed, 16 Dec 2020 19:19:03 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-533-sCsH49EwPPWR612J89Vvxw-1; Wed, 16 Dec 2020 13:19:11 -0500
-X-MC-Unique: sCsH49EwPPWR612J89Vvxw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-556-zGL-SzJHP_mjK1qIRocUig-1; Wed, 16 Dec 2020 13:19:00 -0500
+X-MC-Unique: zGL-SzJHP_mjK1qIRocUig-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 39FB2107ACFE;
-	Wed, 16 Dec 2020 18:19:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7B53D6D520;
+	Wed, 16 Dec 2020 18:18:55 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0FF1B5D9D5;
-	Wed, 16 Dec 2020 18:19:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 513BFE716;
+	Wed, 16 Dec 2020 18:18:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B65361809CA8;
-	Wed, 16 Dec 2020 18:19:02 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 951511809CA4;
+	Wed, 16 Dec 2020 18:18:54 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BGIIaOH017981 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 16 Dec 2020 13:18:36 -0500
+	id 0BGIIbBc018014 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 16 Dec 2020 13:18:37 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7FDF7101925B; Wed, 16 Dec 2020 18:18:36 +0000 (UTC)
+	id 7666E2026D76; Wed, 16 Dec 2020 18:18:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A8611019256
-	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 18:18:33 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 704E22026D11
+	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 18:18:34 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0CC2080088F
-	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 18:18:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2CDB38007DF
+	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 18:18:34 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-504-tjFocs-lO7CQLEYKAAlJJA-1;
-	Wed, 16 Dec 2020 13:18:30 -0500
-X-MC-Unique: tjFocs-lO7CQLEYKAAlJJA-1
+	relay.mimecast.com with ESMTP id us-mta-310-8ntq4MFHN26FzhfSieWV0w-1;
+	Wed, 16 Dec 2020 13:18:29 -0500
+X-MC-Unique: 8ntq4MFHN26FzhfSieWV0w-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 04B11AF49;
+	by mx2.suse.de (Postfix) with ESMTP id 51187AF4C;
 	Wed, 16 Dec 2020 18:18:28 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed, 16 Dec 2020 19:16:40 +0100
-Message-Id: <20201216181708.22224-2-mwilck@suse.com>
+Date: Wed, 16 Dec 2020 19:16:41 +0100
+Message-Id: <20201216181708.22224-3-mwilck@suse.com>
 In-Reply-To: <20201216181708.22224-1-mwilck@suse.com>
 References: <20201216181708.22224-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -61,13 +61,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BGIIaOH017981
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BGIIbBc018014
 X-loop: dm-devel@redhat.com
 Cc: lixiaokeng@huawei.com, dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v3 01/29] multipathd: uxlsnr: avoid deadlock on
-	exit
+Subject: [dm-devel] [PATCH v3 02/29] multipathd: Fix liburcu memory leak
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +80,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,103 +90,95 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-The uxlsnr wouldn't always release the client lock when cancelled,
-causing a deadlock in uxsock_cleanup(). While this hasn't been
-caused by commit 3d611a2, the deadlock seems to have become much
-more likely after that patch. Solving this means that we have to
-treat reallocation failure of the pollfd array differently.
-We will now just ignore any clients above the last valid pfd index.
-That's a minor problem, as we're in an OOM situation anyway.
+Fix this leak in multipathd, reported by valgrind, that messes up
+multipathd's otherwise clean leak report:
 
-Moreover, client_lock is not a "struct lock", but a plain
-pthread_mutex_t.
+==23823== 336 bytes in 1 blocks are possibly lost in loss record 3 of 3
+==23823==    at 0x483AB65: calloc (in /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23823==    by 0x4012F16: _dl_allocate_tls (in /lib64/ld-2.31.so)
+==23823==    by 0x493BB8E: pthread_create@@GLIBC_2.2.5 (in /lib64/libpthread-2.31.so)
+==23823==    by 0x492A9A9: call_rcu_data_init (urcu-call-rcu-impl.h:437)
+==23823==    by 0x492AD2F: UnknownInlinedFun (urcu-call-rcu-impl.h:492)
+==23823==    by 0x492AD2F: create_call_rcu_data_memb (urcu-call-rcu-impl.h:504)
+==23823==    by 0x1164E3: child.constprop.0.isra.0 (main.c:2915)
+==23823==    by 0x10F50C: main (main.c:3335)
+==23823==
+==23823== LEAK SUMMARY:
+==23823==    definitely lost: 0 bytes in 0 blocks
+==23823==    indirectly lost: 0 bytes in 0 blocks
+==23823==      possibly lost: 336 bytes in 1 blocks
 
-Fixes: 3d611a2 ("multipathd: cancel threads early during shutdown")
-Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
+The problem is caused by using liburcu's default RCU call handler,
+which liburcu refuses to stop/join. See comments in the code.
+
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipathd/uxlsnr.c | 24 ++++++++++++++----------
- 1 file changed, 14 insertions(+), 10 deletions(-)
+ multipathd/main.c | 45 ++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 44 insertions(+), 1 deletion(-)
 
-diff --git a/multipathd/uxlsnr.c b/multipathd/uxlsnr.c
-index 1c5ce9d..ce2b680 100644
---- a/multipathd/uxlsnr.c
-+++ b/multipathd/uxlsnr.c
-@@ -35,6 +35,7 @@
- #include "config.h"
- #include "mpath_cmd.h"
- #include "time-util.h"
-+#include "util.h"
+diff --git a/multipathd/main.c b/multipathd/main.c
+index c5c374b..ce14bb6 100644
+--- a/multipathd/main.c
++++ b/multipathd/main.c
+@@ -2889,6 +2889,48 @@ set_oom_adj (void)
+ 	condlog(0, "couldn't adjust oom score");
+ }
  
- #include "main.h"
- #include "cli.h"
-@@ -116,7 +117,7 @@ static void _dead_client(struct client *c)
- 
- static void dead_client(struct client *c)
++/*
++ * Use a non-default call_rcu_data for child().
++ *
++ * We do this to avoid a memory leak from liburcu.
++ * liburcu never frees the default rcu handler (see comments on
++ * call_rcu_data_free() in urcu-call-rcu-impl.h), its thread
++ * can't be joined with pthread_join(), leaving a memory leak.
++ *
++ * Therefore we create our own, which can be destroyed and joined.
++ */
++static struct call_rcu_data *setup_rcu(void)
++{
++	struct call_rcu_data *crdp;
++
++	rcu_init();
++	rcu_register_thread();
++	crdp = create_call_rcu_data(0UL, -1);
++	if (crdp != NULL)
++		set_thread_call_rcu_data(crdp);
++	return crdp;
++}
++
++static struct call_rcu_data *mp_rcu_data;
++
++static void cleanup_rcu(void)
++{
++	pthread_t rcu_thread;
++
++	/* Wait for any pending RCU calls */
++	rcu_barrier();
++	if (mp_rcu_data != NULL) {
++		rcu_thread = get_call_rcu_thread(mp_rcu_data);
++		/* detach this thread from the RCU thread */
++		set_thread_call_rcu_data(NULL);
++		synchronize_rcu();
++		/* tell RCU thread to exit */
++		call_rcu_data_free(mp_rcu_data);
++		pthread_join(rcu_thread, NULL);
++	}
++	rcu_unregister_thread();
++}
++
+ static int
+ child (__attribute__((unused)) void *param)
  {
--	pthread_cleanup_push(cleanup_lock, &client_lock);
-+	pthread_cleanup_push(cleanup_mutex, &client_lock);
- 	pthread_mutex_lock(&client_lock);
- 	_dead_client(c);
- 	pthread_cleanup_pop(1);
-@@ -302,10 +303,11 @@ void * uxsock_listen(uxsock_trigger_fn uxsock_trigger, long ux_sock,
- 	sigdelset(&mask, SIGUSR1);
- 	while (1) {
- 		struct client *c, *tmp;
--		int i, poll_count, num_clients;
-+		int i, n_pfds, poll_count, num_clients;
+@@ -2906,7 +2948,8 @@ child (__attribute__((unused)) void *param)
  
- 		/* setup for a poll */
- 		pthread_mutex_lock(&client_lock);
-+		pthread_cleanup_push(cleanup_mutex, &client_lock);
- 		num_clients = 0;
- 		list_for_each_entry(c, &clients, node) {
- 			num_clients++;
-@@ -322,14 +324,13 @@ void * uxsock_listen(uxsock_trigger_fn uxsock_trigger, long ux_sock,
- 						sizeof(struct pollfd));
- 			}
- 			if (!new) {
--				pthread_mutex_unlock(&client_lock);
- 				condlog(0, "%s: failed to realloc %d poll fds",
- 					"uxsock", 2 + num_clients);
--				sched_yield();
--				continue;
-+				num_clients = old_clients;
-+			} else {
-+				old_clients = num_clients;
-+				polls = new;
- 			}
--			old_clients = num_clients;
--			polls = new;
- 		}
- 		polls[0].fd = ux_sock;
- 		polls[0].events = POLLIN;
-@@ -347,11 +348,14 @@ void * uxsock_listen(uxsock_trigger_fn uxsock_trigger, long ux_sock,
- 			polls[i].fd = c->fd;
- 			polls[i].events = POLLIN;
- 			i++;
-+			if (i >= 2 + num_clients)
-+				break;
- 		}
--		pthread_mutex_unlock(&client_lock);
-+		n_pfds = i;
-+		pthread_cleanup_pop(1);
+ 	mlockall(MCL_CURRENT | MCL_FUTURE);
+ 	signal_init();
+-	rcu_init();
++	mp_rcu_data = setup_rcu();
++	atexit(cleanup_rcu);
  
- 		/* most of our life is spent in this call */
--		poll_count = ppoll(polls, i, &sleep_time, &mask);
-+		poll_count = ppoll(polls, n_pfds, &sleep_time, &mask);
- 
- 		handle_signals(false);
- 		if (poll_count == -1) {
-@@ -384,7 +388,7 @@ void * uxsock_listen(uxsock_trigger_fn uxsock_trigger, long ux_sock,
- 		}
- 
- 		/* see if a client wants to speak to us */
--		for (i = 2; i < num_clients + 2; i++) {
-+		for (i = 2; i < n_pfds; i++) {
- 			if (polls[i].revents & POLLIN) {
- 				struct timespec start_time;
- 
+ 	setup_thread_attr(&misc_attr, 64 * 1024, 0);
+ 	setup_thread_attr(&uevent_attr, DEFAULT_UEVENT_STACKSIZE * 1024, 0);
 -- 
 2.29.0
 
