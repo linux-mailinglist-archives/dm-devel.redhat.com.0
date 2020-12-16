@@ -1,55 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 48FB82DC609
-	for <lists+dm-devel@lfdr.de>; Wed, 16 Dec 2020 19:19:02 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 2AC0B2DC60B
+	for <lists+dm-devel@lfdr.de>; Wed, 16 Dec 2020 19:19:03 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-372-tBy4VMOEP3yB7DKonRqd8A-1; Wed, 16 Dec 2020 13:18:58 -0500
-X-MC-Unique: tBy4VMOEP3yB7DKonRqd8A-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-385-aI0VEt5KNr--bLCifLr2gw-1; Wed, 16 Dec 2020 13:18:59 -0500
+X-MC-Unique: aI0VEt5KNr--bLCifLr2gw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BDDFA1005504;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CC10F107ACF6;
 	Wed, 16 Dec 2020 18:18:52 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 972BD72163;
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 966F160C15;
 	Wed, 16 Dec 2020 18:18:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E28D34BB7B;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0D14218095C9;
 	Wed, 16 Dec 2020 18:18:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BGIIbmW018013 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 16 Dec 2020 13:18:37 -0500
+	id 0BGIIabq017982 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 16 Dec 2020 13:18:36 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 745122026D15; Wed, 16 Dec 2020 18:18:37 +0000 (UTC)
+	id 877CE10F8E3C; Wed, 16 Dec 2020 18:18:36 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6CCA42026D5D
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82BAC1019241
 	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 18:18:35 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 414B880018D
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1307A801E6B
 	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 18:18:35 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-370-8lbATZVmM1esZOtwXJrisA-1;
+	relay.mimecast.com with ESMTP id us-mta-428-G90rs3mEMKO7EQrYgoTNgw-1;
 	Wed, 16 Dec 2020 13:18:32 -0500
-X-MC-Unique: 8lbATZVmM1esZOtwXJrisA-1
+X-MC-Unique: G90rs3mEMKO7EQrYgoTNgw-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 2020EAF62;
+	by mx2.suse.de (Postfix) with ESMTP id 70F93AFAC;
 	Wed, 16 Dec 2020 18:18:30 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed, 16 Dec 2020 19:16:47 +0100
-Message-Id: <20201216181708.22224-9-mwilck@suse.com>
+Date: Wed, 16 Dec 2020 19:16:48 +0100
+Message-Id: <20201216181708.22224-10-mwilck@suse.com>
 In-Reply-To: <20201216181708.22224-1-mwilck@suse.com>
 References: <20201216181708.22224-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -61,13 +61,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BGIIbmW018013
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BGIIabq017982
 X-loop: dm-devel@redhat.com
 Cc: lixiaokeng@huawei.com, dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v3 08/29] multipathd: move pid destruction into
-	separate function
+Subject: [dm-devel] [PATCH v3 09/29] multipathd: close pidfile on exit
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +80,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,40 +90,43 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
+It seems we've been doing this only in the failure case, for ages.
+
 Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipathd/main.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ multipathd/main.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/multipathd/main.c b/multipathd/main.c
-index 07973e8..fc1f8d7 100644
+index fc1f8d7..f6b8066 100644
 --- a/multipathd/main.c
 +++ b/multipathd/main.c
-@@ -2892,6 +2892,12 @@ set_oom_adj (void)
- 	condlog(0, "couldn't adjust oom score");
+@@ -132,6 +132,7 @@ static pthread_cond_t config_cond;
+ static pthread_t check_thr, uevent_thr, uxlsnr_thr, uevq_thr, dmevent_thr;
+ static bool check_thr_started, uevent_thr_started, uxlsnr_thr_started,
+ 	uevq_thr_started, dmevent_thr_started;
++static int pid_fd = -1;
+ 
+ static inline enum daemon_status get_running_state(void)
+ {
+@@ -2894,6 +2895,8 @@ set_oom_adj (void)
+ 
+ static void cleanup_pidfile(void)
+ {
++	if (pid_fd >= 0)
++		close(pid_fd);
+ 	condlog(3, "unlink pidfile");
+ 	unlink(DEFAULT_PIDFILE);
  }
- 
-+static void cleanup_pidfile(void)
-+{
-+	condlog(3, "unlink pidfile");
-+	unlink(DEFAULT_PIDFILE);
-+}
-+
- static void cleanup_conf(void) {
+@@ -3027,7 +3030,6 @@ child (__attribute__((unused)) void *param)
+ 	pthread_attr_t log_attr, misc_attr, uevent_attr;
+ 	struct vectors * vecs;
+ 	int rc;
+-	int pid_fd = -1;
  	struct config *conf;
- 
-@@ -3199,9 +3205,7 @@ child (__attribute__((unused)) void *param)
- 	dm_lib_exit();
- 
- 	/* We're done here */
--	condlog(3, "unlink pidfile");
--	unlink(DEFAULT_PIDFILE);
--
-+	cleanup_pidfile();
- 	condlog(2, "--------shut down-------");
- 
- 	if (logsink == 1)
+ 	char *envp;
+ 	enum daemon_status state;
 -- 
 2.29.0
 
