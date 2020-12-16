@@ -2,56 +2,57 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E54322DC61D
-	for <lists+dm-devel@lfdr.de>; Wed, 16 Dec 2020 19:19:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C53E32DC676
+	for <lists+dm-devel@lfdr.de>; Wed, 16 Dec 2020 19:28:36 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-447-9-KJ3Ht2M3OMzyYQp6zXnw-1; Wed, 16 Dec 2020 13:19:16 -0500
-X-MC-Unique: 9-KJ3Ht2M3OMzyYQp6zXnw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-329-nfkDv0fzM7ypQniw7DNb_Q-1; Wed, 16 Dec 2020 13:28:33 -0500
+X-MC-Unique: nfkDv0fzM7ypQniw7DNb_Q-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0E1F7107AD38;
-	Wed, 16 Dec 2020 18:19:09 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D23E318C8C00;
+	Wed, 16 Dec 2020 18:28:26 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D897B60CDF;
-	Wed, 16 Dec 2020 18:19:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D41DC10016FF;
+	Wed, 16 Dec 2020 18:28:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 92B8650034;
-	Wed, 16 Dec 2020 18:19:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A12834BB40;
+	Wed, 16 Dec 2020 18:28:21 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BGIIgkI018132 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 16 Dec 2020 13:18:42 -0500
+	id 0BGIOoNH019409 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 16 Dec 2020 13:24:50 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 927FF2166B2C; Wed, 16 Dec 2020 18:18:42 +0000 (UTC)
+	id 6497F10FFE67; Wed, 16 Dec 2020 18:24:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8DB3C2166B27
-	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 18:18:42 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6077E10FFE4B
+	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 18:24:45 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 79D80811E78
-	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 18:18:42 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B7685101A563
+	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 18:24:45 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-475-D46wdskJPO2eWf-oGB_DJQ-1;
-	Wed, 16 Dec 2020 13:18:37 -0500
-X-MC-Unique: D46wdskJPO2eWf-oGB_DJQ-1
+	relay.mimecast.com with ESMTP id us-mta-243-O2SOXuqtPbmQZUd0NF8bRw-1;
+	Wed, 16 Dec 2020 13:24:41 -0500
+X-MC-Unique: O2SOXuqtPbmQZUd0NF8bRw-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 0224BAF62;
-	Wed, 16 Dec 2020 18:18:36 +0000 (UTC)
-From: mwilck@suse.com
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed, 16 Dec 2020 19:17:08 +0100
-Message-Id: <20201216181708.22224-30-mwilck@suse.com>
+	by mx2.suse.de (Postfix) with ESMTP id 7FD31AC7B;
+	Wed, 16 Dec 2020 18:24:39 +0000 (UTC)
+Message-ID: <a47c7eba65f40d87711ad7f4c81ea5b947c1e0d0.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>, Benjamin Marzinski
+	<bmarzins@redhat.com>
+Date: Wed, 16 Dec 2020 19:24:38 +0100
 In-Reply-To: <20201216181708.22224-1-mwilck@suse.com>
 References: <20201216181708.22224-1-mwilck@suse.com>
+User-Agent: Evolution 3.36.5
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -61,13 +62,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BGIIgkI018132
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: lixiaokeng@huawei.com, dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v3 29/29] libmultipath: fix race between log_safe
-	and log_thread_stop()
+Cc: lixiaokeng@huawei.com, dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH v3 00/29] libmultipath: improve cleanup on
+	exit
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +80,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -89,108 +88,27 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Martin Wilck <mwilck@suse.com>
+On Wed, 2020-12-16 at 19:16 +0100, mwilck@suse.com wrote:
+> 
+> This series is based on the previous series "multipath-tools:
+> shutdown, 
+> libdevmapper races, globals" (v3).
+> 
 
-log_safe() could race with log_thread_stop(); simply
-checking the value of log_thr has never been safe. By converting the
-mutexes to static initializers, we avoid having to destroy them, and thus
-possibly accessing a destroyed mutex in log_safe(). Furthermore, taking
-both the logev_lock and the logq_lock makes sure the logarea isn't freed
-while we are writing to it.
+I forgot to mention: 
 
-Signed-off-by: Martin Wilck <mwilck@suse.com>
----
- libmultipath/log_pthread.c | 48 +++++++++++++++++++++-----------------
- 1 file changed, 26 insertions(+), 22 deletions(-)
+The previous 2 series
 
-diff --git a/libmultipath/log_pthread.c b/libmultipath/log_pthread.c
-index 3a2566a..0d48c52 100644
---- a/libmultipath/log_pthread.c
-+++ b/libmultipath/log_pthread.c
-@@ -17,31 +17,42 @@
- 
- static pthread_t log_thr;
- 
--static pthread_mutex_t logq_lock;
--static pthread_mutex_t logev_lock;
--static pthread_cond_t logev_cond;
-+/* logev_lock must not be taken with logq_lock held */
-+static pthread_mutex_t logq_lock = PTHREAD_MUTEX_INITIALIZER;
-+static pthread_mutex_t logev_lock = PTHREAD_MUTEX_INITIALIZER;
-+static pthread_cond_t logev_cond = PTHREAD_COND_INITIALIZER;
- 
- static int logq_running;
- static int log_messages_pending;
- 
- void log_safe (int prio, const char * fmt, va_list ap)
- {
-+	bool running;
-+
- 	if (prio > LOG_DEBUG)
- 		prio = LOG_DEBUG;
- 
--	if (log_thr == (pthread_t)0) {
--		vsyslog(prio, fmt, ap);
--		return;
--	}
-+	/*
-+	 * logev_lock protects logq_running. By holding it, we avoid a race
-+	 * with log_thread_stop() -> log_close(), which would free the logarea.
-+	 */
-+	pthread_mutex_lock(&logev_lock);
-+	pthread_cleanup_push(cleanup_mutex, &logev_lock);
-+	running = logq_running;
- 
--	pthread_mutex_lock(&logq_lock);
--	log_enqueue(prio, fmt, ap);
--	pthread_mutex_unlock(&logq_lock);
-+	if (running) {
-+		pthread_mutex_lock(&logq_lock);
-+		pthread_cleanup_push(cleanup_mutex, &logq_lock);
-+		log_enqueue(prio, fmt, ap);
-+		pthread_cleanup_pop(1);
- 
--	pthread_mutex_lock(&logev_lock);
--	log_messages_pending = 1;
--	pthread_cond_signal(&logev_cond);
--	pthread_mutex_unlock(&logev_lock);
-+		log_messages_pending = 1;
-+		pthread_cond_signal(&logev_cond);
-+	}
-+	pthread_cleanup_pop(1);
-+
-+	if (!running)
-+		vsyslog(prio, fmt, ap);
- }
- 
- static void flush_logqueue (void)
-@@ -103,9 +114,6 @@ void log_thread_start (pthread_attr_t *attr)
- 	int running = 0;
- 
- 	logdbg(stderr,"enter log_thread_start\n");
--	pthread_mutex_init(&logq_lock, NULL);
--	pthread_mutex_init(&logev_lock, NULL);
--	pthread_cond_init(&logev_cond, NULL);
- 
- 	if (log_init("multipathd", 0)) {
- 		fprintf(stderr,"can't initialize log buffer\n");
-@@ -154,13 +162,9 @@ void log_thread_stop (void)
- 	}
- 	pthread_cleanup_pop(1);
- 
--	flush_logqueue();
- 	if (running)
- 		pthread_join(log_thr, NULL);
- 
--	pthread_mutex_destroy(&logq_lock);
--	pthread_mutex_destroy(&logev_lock);
--	pthread_cond_destroy(&logev_cond);
--
-+	flush_logqueue();
- 	log_close();
- }
--- 
-2.29.0
+   "multipath-tools: shutdown,  libdevmapper races, globals" (v3)
+   "multipath-tools:add linker version scripts" (v2)
+
+got fully acked by Ben and have been pushed to my "upstream-queue"
+branch: https://github.com/openSUSE/multipath-tools/tree/upstream-queue
+
+The current series is based on these two.
+
+Regards,
+Martin
 
 
 --
