@@ -2,67 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B64A72DC932
-	for <lists+dm-devel@lfdr.de>; Wed, 16 Dec 2020 23:45:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E8D652DC98A
+	for <lists+dm-devel@lfdr.de>; Thu, 17 Dec 2020 00:20:42 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1608158746;
+	s=mimecast20190719; t=1608160842;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=fwZ57Qr9dd5iZPaxFOMsBTCzGasmf1iuqErBfX+gK+s=;
-	b=Pn/3gDC4WHmrHmYGPMOlzuntw121FfizlJCzWB12YKmNclmWgsrppgERDOvIAURR5YRdNt
-	UvlhkVy/SUblaW+8Ajdhg6MBZ65pLabcWU0eJNbhKOnxNhDaanjq0oXxiHIBQXdMAx2PJJ
-	Evck/tlLI34KzZWJYd200oN7UQ44pB8=
+	bh=kOS8esILzTq/GqGbH/WbLB6es9UrNZZajMzgrxV48Tc=;
+	b=HbNsvNEVNicCGWRwdSLFGf059qd8VqZZ7mqdnelm6nDei7uCFsb34hwA5RjoG9WWjv9r8O
+	ghmARKINaGtHLoKsOK6wKl70MfgPCu9qZ/hxhOpZ4e9rmlpXanNltQm8ryXROrpcLCOFT8
+	TscHS5rgS7k4PIluschcr2q6W7TK3j4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-577-JjWUaW_ONhKwfpEct2sjWA-1; Wed, 16 Dec 2020 17:45:44 -0500
-X-MC-Unique: JjWUaW_ONhKwfpEct2sjWA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-533-ORfsVYH4NwSXevgBmjfWQA-1; Wed, 16 Dec 2020 18:20:39 -0500
+X-MC-Unique: ORfsVYH4NwSXevgBmjfWQA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3D2508015C3;
-	Wed, 16 Dec 2020 22:45:35 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 79F9E1006C80;
+	Wed, 16 Dec 2020 23:20:29 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 287C160C47;
-	Wed, 16 Dec 2020 22:45:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5CD7C3A47;
+	Wed, 16 Dec 2020 23:20:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 79C9F4BB40;
-	Wed, 16 Dec 2020 22:45:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D3FA44A7C6;
+	Wed, 16 Dec 2020 23:20:14 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BGMfM4D015675 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 16 Dec 2020 17:41:22 -0500
+	id 0BGNK1gC019438 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 16 Dec 2020 18:20:01 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 18BAF1E5; Wed, 16 Dec 2020 22:41:22 +0000 (UTC)
+	id 3A3363A47; Wed, 16 Dec 2020 23:20:01 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5EC23722C0;
-	Wed, 16 Dec 2020 22:41:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2724F5D71B;
+	Wed, 16 Dec 2020 23:19:58 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 0BGMfHSa026923; 
-	Wed, 16 Dec 2020 16:41:17 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 0BGNJur8027184; 
+	Wed, 16 Dec 2020 17:19:57 -0600
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 0BGMfGLb026922;
-	Wed, 16 Dec 2020 16:41:16 -0600
-Date: Wed, 16 Dec 2020 16:41:15 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 0BGNJuV9027183;
+	Wed, 16 Dec 2020 17:19:56 -0600
+Date: Wed, 16 Dec 2020 17:19:56 -0600
 From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <mwilck@suse.com>
-Message-ID: <20201216224115.GP3103@octiron.msp.redhat.com>
-References: <20201016104501.8700-1-mwilck@suse.com>
-	<20201016104501.8700-23-mwilck@suse.com>
-	<7af8e4c39c11eae413c92beef97c62b793a08aa6.camel@suse.com>
+To: Martin Wilck <martin.wilck@suse.com>
+Message-ID: <20201216231956.GQ3103@octiron.msp.redhat.com>
+References: <1604472849-22422-1-git-send-email-bmarzins@redhat.com>
+	<1604472849-22422-5-git-send-email-bmarzins@redhat.com>
+	<73dd01fbb1141e0da4686d7ccb43110f14d56fc1.camel@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <7af8e4c39c11eae413c92beef97c62b793a08aa6.camel@suse.com>
+In-Reply-To: <73dd01fbb1141e0da4686d7ccb43110f14d56fc1.camel@suse.com>
 User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-Cc: lixiaokeng@huawei.com, dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH v2 22/29] multipath: fix leaks in
-	check_path_valid()
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH v2 4/6] libmultipath: factor out code to get
+	vpd page data
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -76,174 +76,83 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Dec 16, 2020 at 06:34:05PM +0100, Martin Wilck wrote:
-> On Fri, 2020-10-16 at 12:44 +0200, mwilck@suse.com wrote:
-> > From: Martin Wilck <mwilck@suse.com>
-> > 
-> > There were two leaks in check_path_valid(): if path status was
-> > successfully determined before calling store_pathvec(), free_path()
-> > wasn't called. Also, if an error exit occured, neither cleanup
-> > function was called.
-> > 
-> > This patch fixes both, at the cost of using "static" for the pp and
-> > pathvec variables.
-> 
-> Looking at this again after 2 months, I think the on_exit() part of
-> this patch is wrong. First, we can't use on_exit() on every platform,
-> as e.g. musl libc doesn't have it. To replace this by the more portable
-> atexit(), we'd need to declare the two variables "pp" and "pathvec"
-> with file scope, which is very ugly. But more importantly, using static
-> variables here causes check_path_valid() to be non-reentrant. While it
-> doesn't have to be, it's still a coding pattern we haven't been using
-> anywhere else, just to avoid a "memory leak" for an irregular exit,
-> which isn't a real memory leak, actually.
+On Wed, Dec 16, 2020 at 09:13:49PM +0000, Martin Wilck wrote:
+> On Wed, 2020-11-04 at 00:54 -0600, Benjamin Marzinski wrote:
+> > A future patch will reuse the code to get the vpd page data, so
+> > factor
+> > it out from get_vpd_sgio().
+> >=20
+> > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+> > ---
+> >  libmultipath/discovery.c | 19 +++++++++++++++----
+> >  1 file changed, 15 insertions(+), 4 deletions(-)
+> >=20
+> > diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
+> > index a97d2998..95ddbbbd 100644
+> > --- a/libmultipath/discovery.c
+> > +++ b/libmultipath/discovery.c
+> > @@ -1319,11 +1319,10 @@ get_vpd_sysfs (struct udev_device *parent,
+> > int pg, char * str, int maxlen)
+> >  =09return len;
+> >  }
+> > =20
+> > -int
+> > -get_vpd_sgio (int fd, int pg, int vend_id, char * str, int maxlen)
+> > +static int
+> > +fetch_vpd_page(int fd, int pg, unsigned char *buff)
+> >  {
+> > -=09int len, buff_len;
+> > -=09unsigned char buff[4096];
+> > +=09int buff_len;
+> > =20
+> >  =09memset(buff, 0x0, 4096);
+>=20
+> I don't know ... I think we shouldn't write any new functions making
+> assumptions about the size of buffers passed to them, even if the
+> caller is directly next to them in the code.
+>=20
 
-A while ago, we had a conversation where we talked about not adding too
-much complexity to deal with issues on shutdown, that will just go away
-when multipathd stops. I still think that we shouldn't worry too much
-about making sure we always free everything when it will automatically
-get freed by the system anyway.
+Fair enough. I'll change that.
 
 -Ben
 
-> 
-> One day we should remove the exit() calls somewhere deep down in our
-> libraries, and deal with the respective errors cleanly.
-> 
-> @lixiaokeng, I hope this is ok for you, as you brought the issue up
-> originally ("[QUESTION] memory leak in main (multipath)").
-> 
-> Regards
-> Martin
-> 
-> > 
-> > Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
-> > Signed-off-by: Martin Wilck <mwilck@suse.com>
-> > ---
-> >  multipath/main.c | 55 +++++++++++++++++++++++++++++++++++++---------
-> > --
-> >  1 file changed, 43 insertions(+), 12 deletions(-)
-> > 
-> > diff --git a/multipath/main.c b/multipath/main.c
-> > index 049a36f..9974993 100644
-> > --- a/multipath/main.c
-> > +++ b/multipath/main.c
-> > @@ -93,7 +93,7 @@ void rcu_register_thread_memb(void) {}
-> >  void rcu_unregister_thread_memb(void) {}
-> >  
-> >  static int
-> > -filter_pathvec (vector pathvec, char * refwwid)
-> > +filter_pathvec (vector pathvec, const char *refwwid)
-> >  {
-> >  	int i;
-> >  	struct path * pp;
-> > @@ -592,12 +592,37 @@ out:
-> >  	return r;
-> >  }
-> >  
-> > +static void cleanup_pathvec(__attribute__((unused)) int dummy, void
-> > *arg)
-> > +{
-> > +	vector *ppv = arg;
-> > +
-> > +	if (ppv && *ppv) {
-> > +		free_pathvec(*ppv, FREE_PATHS);
-> > +		*ppv = NULL;
-> > +	}
+> >  =09if (sgio_get_vpd(buff, 4096, fd, pg) < 0) {
+> > @@ -1344,6 +1343,18 @@ get_vpd_sgio (int fd, int pg, int vend_id,
+> > char * str, int maxlen)
+> >  =09=09condlog(3, "vpd pg%02x page truncated", pg);
+> >  =09=09buff_len =3D 4096;
+> >  =09}
+> > +=09return buff_len;
 > > +}
 > > +
-> > +static void cleanup_path(__attribute__((unused)) int dummy, void
-> > *arg)
+> > +int
+> > +get_vpd_sgio (int fd, int pg, int vend_id, char * str, int maxlen)
 > > +{
-> > +	struct path **ppp = arg;
+> > +=09int len, buff_len;
+> > +=09unsigned char buff[4096];
 > > +
-> > +	if (ppp && *ppp) {
-> > +		free_path(*ppp);
-> > +		*ppp = NULL;
-> > +	}
-> > +}
-> > +
-> >  static int
-> >  check_path_valid(const char *name, struct config *conf, bool
-> > is_uevent)
-> >  {
-> >  	int fd, r = PATH_IS_ERROR;
-> > -	struct path *pp = NULL;
-> > -	vector pathvec = NULL;
-> > +	static struct path *pp = NULL;
-> > +	static vector pathvec = NULL;
-> > +	const char *wwid;
-> > +
-> > +	/* register these as exit handlers in case we exit irregularly
-> > */
-> > +	on_exit(cleanup_path, &pp);
-> > +	on_exit(cleanup_pathvec, &pathvec);
-> >  
-> >  	pp = alloc_path();
-> >  	if (!pp)
-> > @@ -667,13 +692,17 @@ check_path_valid(const char *name, struct
-> > config *conf, bool is_uevent)
-> >  	if (store_path(pathvec, pp) != 0) {
-> >  		free_path(pp);
-> >  		goto fail;
-> > +	} else {
-> > +		/* make sure path isn't freed twice */
-> > +		wwid = pp->wwid;
-> > +		pp = NULL;
-> >  	}
-> >  
-> >  	/* For find_multipaths = SMART, if there is more than one path
-> >  	 * matching the refwwid, then the path is valid */
-> >  	if (path_discovery(pathvec, DI_SYSFS | DI_WWID) < 0)
-> >  		goto fail;
-> > -	filter_pathvec(pathvec, pp->wwid);
-> > +	filter_pathvec(pathvec, wwid);
-> >  	if (VECTOR_SIZE(pathvec) > 1)
-> >  		r = PATH_IS_VALID;
-> >  	else
-> > @@ -681,21 +710,23 @@ check_path_valid(const char *name, struct
-> > config *conf, bool is_uevent)
-> >  
-> >  out:
-> >  	r = print_cmd_valid(r, pathvec, conf);
-> > -	free_pathvec(pathvec, FREE_PATHS);
-> >  	/*
-> >  	 * multipath -u must exit with status 0, otherwise udev won't
-> >  	 * import its output.
-> >  	 */
-> >  	if (!is_uevent && r == PATH_IS_NOT_VALID)
-> > -		return RTVL_FAIL;
-> > -	return RTVL_OK;
-> > +		r = RTVL_FAIL;
-> > +	else
-> > +		r = RTVL_OK;
-> > +	goto cleanup;
-> >  
-> >  fail:
-> > -	if (pathvec)
-> > -		free_pathvec(pathvec, FREE_PATHS);
-> > -	else
-> > -		free_path(pp);
-> > -	return RTVL_FAIL;
-> > +	r = RTVL_FAIL;
-> > +
-> > +cleanup:
-> > +	cleanup_path(0, &pp);
-> > +	cleanup_pathvec(0, &pathvec);
-> > +	return r;
-> >  }
-> >  
-> >  static int
-> 
+> > +=09buff_len =3D fetch_vpd_page(fd, pg, buff);
+> > +=09if (buff_len < 0)
+> > +=09=09return buff_len;
+> >  =09if (pg =3D=3D 0x80)
+> >  =09=09len =3D parse_vpd_pg80(buff, str, maxlen);
+> >  =09else if (pg =3D=3D 0x83)
+>=20
+> --=20
+> Dr. Martin Wilck <mwilck@suse.com>, Tel. +49 (0)911 74053 2107
+> SUSE  Software Solutions Germany GmbH
+> HRB 36809, AG N=FCrnberg GF: Felix
+> Imend=F6rffer
+>=20
 
 --
 dm-devel mailing list
