@@ -2,118 +2,118 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id CF70E2DEC10
-	for <lists+dm-devel@lfdr.de>; Sat, 19 Dec 2020 00:33:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id AF6D62DEC0E
+	for <lists+dm-devel@lfdr.de>; Sat, 19 Dec 2020 00:32:25 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-481-hfFGx7tIO7qUnmM6eSOl6w-1; Fri, 18 Dec 2020 18:33:10 -0500
-X-MC-Unique: hfFGx7tIO7qUnmM6eSOl6w-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-547-3qAi-RkbMxWy0nh8XLx4oQ-1; Fri, 18 Dec 2020 18:32:22 -0500
+X-MC-Unique: 3qAi-RkbMxWy0nh8XLx4oQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CCAB01005504;
-	Fri, 18 Dec 2020 23:33:04 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D904D1005586;
+	Fri, 18 Dec 2020 23:32:15 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A6ED22C161;
-	Fri, 18 Dec 2020 23:33:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 095135D6DC;
+	Fri, 18 Dec 2020 23:32:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 467494E58E;
-	Fri, 18 Dec 2020 23:33:03 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B4FD54BB7B;
+	Fri, 18 Dec 2020 23:32:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BINT66T030693 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 18 Dec 2020 18:29:06 -0500
+	id 0BINUq3H030894 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 18 Dec 2020 18:30:52 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 261ED2166B28; Fri, 18 Dec 2020 23:29:06 +0000 (UTC)
+	id 3341510DCF52; Fri, 18 Dec 2020 23:30:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1FBEF2166B27
-	for <dm-devel@redhat.com>; Fri, 18 Dec 2020 23:29:03 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2E30010DCF5C
+	for <dm-devel@redhat.com>; Fri, 18 Dec 2020 23:30:49 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B2ADC185A7BC
-	for <dm-devel@redhat.com>; Fri, 18 Dec 2020 23:29:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BEC11811E78
+	for <dm-devel@redhat.com>; Fri, 18 Dec 2020 23:30:49 +0000 (UTC)
 Received: from de-smtp-delivery-102.mimecast.com
-	(de-smtp-delivery-102.mimecast.com [194.104.109.102]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-193-pjLzTnPmM5qORLm120XMxQ-1;
-	Fri, 18 Dec 2020 18:29:01 -0500
-X-MC-Unique: pjLzTnPmM5qORLm120XMxQ-1
+	(de-smtp-delivery-102.mimecast.com [62.140.7.102]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-451-MylyZvLAOF2xubTG2HOdAw-1;
+	Fri, 18 Dec 2020 18:30:45 -0500
+X-MC-Unique: MylyZvLAOF2xubTG2HOdAw-1
 Received: from EUR04-HE1-obe.outbound.protection.outlook.com
-	(mail-he1eur04lp2053.outbound.protection.outlook.com [104.47.13.53])
+	(mail-he1eur04lp2056.outbound.protection.outlook.com [104.47.13.56])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	de-mta-31-xovZEoorMEqReEl2vdw0iw-1; Sat, 19 Dec 2020 00:28:55 +0100
-X-MC-Unique: xovZEoorMEqReEl2vdw0iw-1
+	de-mta-30-7yfj45IyNbK26G_O29WCxQ-1; Sat, 19 Dec 2020 00:30:42 +0100
+X-MC-Unique: 7yfj45IyNbK26G_O29WCxQ-1
 Received: from DB8PR04MB6555.eurprd04.prod.outlook.com (2603:10a6:10:103::20)
 	by DB7PR04MB5387.eurprd04.prod.outlook.com (2603:10a6:10:8b::15) with
 	Microsoft SMTP Server (version=TLS1_2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.14;
-	Fri, 18 Dec 2020 23:28:53 +0000
+	Fri, 18 Dec 2020 23:30:41 +0000
 Received: from DB8PR04MB6555.eurprd04.prod.outlook.com
 	([fe80::c1ce:f675:7:30f6]) by DB8PR04MB6555.eurprd04.prod.outlook.com
 	([fe80::c1ce:f675:7:30f6%3]) with mapi id 15.20.3654.021;
-	Fri, 18 Dec 2020 23:28:53 +0000
+	Fri, 18 Dec 2020 23:30:41 +0000
 From: Martin Wilck <martin.wilck@suse.com>
 To: "bmarzins@redhat.com" <bmarzins@redhat.com>,
 	"christophe.varoqui@opensvc.com" <christophe.varoqui@opensvc.com>
-Thread-Topic: [PATCH 3/6] libmultipath: warn about missing braces at end of
-	multipath.conf
-Thread-Index: AQHW1ZJ7q2ArFe30j0SObCmb4cR566n9f/EA
-Date: Fri, 18 Dec 2020 23:28:53 +0000
-Message-ID: <f13f7c8da20d7ea8921e9629ebb3e6a1fbf22e50.camel@suse.com>
+Thread-Topic: [PATCH 4/6] libmultipath: ignore multipaths sections without
+	wwid option
+Thread-Index: AQHW1ZJ9ueQhvdNTtEKAc26q6YmCgan9gHIA
+Date: Fri, 18 Dec 2020 23:30:41 +0000
+Message-ID: <f85cd35716780e8e2dfe096bc7789762376efc18.camel@suse.com>
 References: <1608332802-9720-1-git-send-email-bmarzins@redhat.com>
-	<1608332802-9720-4-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1608332802-9720-4-git-send-email-bmarzins@redhat.com>
+	<1608332802-9720-5-git-send-email-bmarzins@redhat.com>
+In-Reply-To: <1608332802-9720-5-git-send-email-bmarzins@redhat.com>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 user-agent: Evolution 3.36.5
 x-originating-ip: [2.203.204.191]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 06399b65-d05e-4ff9-4875-08d8a3acaebb
+x-ms-office365-filtering-correlation-id: 06b1428b-379a-4eb1-e70d-08d8a3acef01
 x-ms-traffictypediagnostic: DB7PR04MB5387:
-x-microsoft-antispam-prvs: <DB7PR04MB5387E8C3050F9C363A78D4A8FCC30@DB7PR04MB5387.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1775
+x-microsoft-antispam-prvs: <DB7PR04MB5387C7F6B361BAA2DE5A520DFCC30@DB7PR04MB5387.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5516
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: wd8JUAla/GPIF5qe3AjGerjlWlVuRdAvIiXqpOCs1K8tbIZ9EJUdctkGfPMWvDyBRwfhs2aj1gxizo0QBFPkUdG+zwqyx7JUvtKIRN+6+HZlFNqqGdGAWjyVyjn8XLvflmNyIIvWr5qHpVrP0fgP/uGIR86WPkOUVmXUv9CzIcaEOPZOmjxDpZBbAloNBwQuAL4YBSjLbJI7+IyCcCVwATiBW3DNgpqR6yf14LlYwkt/15yBIF7Y0MHsfoJgps6L65hOT9nBELWvWR871fsBPiLHhQC8OG6/fsGhz1UxJuhEv2tj2ozVEbm3II1payaoK8+dHzwfvIZvcHWFuLO4cg==
+x-microsoft-antispam-message-info: sViL2F1KxhkuAt70SsASifzJQ82y0lbk1rd7byvXGCzJzLALNQoJ9GDBXtSDtImx74c06taQK8+VFlkftssIToTQNdCL+v+JAtYSPC43UXGKVH1vXVn27rJ7oQQkc0VpK5EX5X66qoRvmquluGJpZ4M73wJ+U7YNWHI9QE3Uy3nUvFRr7lA4LB2UjWpclxxInomyuY7mCD870ENKONQJCldRyPzK5E4MC8J3ik9lAWj0FZsLsVcV4wdQpheh0A1cLkSDWArr4Z1eQ6ebUZUqfl+igjv/OVT1b+IKKC6wufcLOyS0FgFD17MpJB4T5n+Pe3DEQZDs7QZoUXz3ORS47A==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
 	IPV:NLI; SFV:NSPM; H:DB8PR04MB6555.eurprd04.prod.outlook.com;
 	PTR:; CAT:NONE;
-	SFS:(136003)(376002)(366004)(396003)(39860400002)(346002)(316002)(110136005)(4326008)(71200400001)(36756003)(8936002)(186003)(86362001)(83380400001)(26005)(2906002)(4001150100001)(66946007)(66446008)(66476007)(64756008)(66556008)(91956017)(76116006)(6512007)(8676002)(6486002)(478600001)(6506007)(4744005)(66574015)(2616005)(5660300002)(44832011);
+	SFS:(136003)(376002)(366004)(396003)(39860400002)(346002)(316002)(110136005)(4326008)(71200400001)(36756003)(8936002)(186003)(86362001)(26005)(2906002)(4001150100001)(66946007)(66446008)(66476007)(64756008)(66556008)(91956017)(76116006)(6512007)(8676002)(6486002)(478600001)(6506007)(2616005)(5660300002)(44832011);
 	DIR:OUT; SFP:1101
-x-ms-exchange-antispam-messagedata: =?iso-8859-15?Q?qIz9rvW3u1DsGA/0/aKbDQie0Y1CpbiKByTPT4thY55nMi+jIFDn6rncA?=
-	=?iso-8859-15?Q?UKm+DhsJHXkyamIZPYocav1XNfy5rM/BKiSsMwkRjY/0fcmn1UL7L0pd2?=
-	=?iso-8859-15?Q?msFBQNidvKtmDkEj8x0ZqPkXEdj8WDcB4C+tMqvmcPVvs/BRWj6Bgz+7L?=
-	=?iso-8859-15?Q?YJ9GJ+1KLILVIim1u7ueinDxCl8VQVkhftjIOC0tcszXsaqbMHHm5rkb3?=
-	=?iso-8859-15?Q?vixM6Wyd7xouzm1h7V2FH22Er4Pu5B2iqmD7x51JnIzhurwKjSWVhOXiZ?=
-	=?iso-8859-15?Q?sc82R5VH6Re5zmOw7duSb+Q/d8FDSdVHHrCX7U/fxiUdUuYPyH4mdLyz4?=
-	=?iso-8859-15?Q?rdDIgCqMzqHEzGttfSOTAaDLBhZwZDXyB5EZht8Hdr3AQDzfrtdyLABVD?=
-	=?iso-8859-15?Q?6UovtDNUyAo1iEtnCmefDLka+vTRJfiZ9OkS8117mvEu7x0dMO+e17kA/?=
-	=?iso-8859-15?Q?2EnCws4yMB17v20936hZyymG6KetwC/+eAHOVkGAFMvqYbxn+vB5tAO1Y?=
-	=?iso-8859-15?Q?jywosYj0Pn9VK9a7GdQF4YZDgcOpx2DBODUHGlge7uv0HGxn3SKxzmZfU?=
-	=?iso-8859-15?Q?nz2Q5ltAIFcFI2rBXBgsG2gB1C0eNjZZhDKIodost9O2b5//SiWcVGp3D?=
-	=?iso-8859-15?Q?4PiZMIE/i8QdPTfFn/4T2NLdmejkZffD7sL+BPova89H9kxK1lRfBYOkC?=
-	=?iso-8859-15?Q?ym1EBhi35hqjJtg4cMfIvZBdVYAdDWuG6uH751D6UtGCz3XRuEzBLBUHZ?=
-	=?iso-8859-15?Q?q7SgrYg1cz4CO5WmJ0eSasiIzUFEhq1cjmWxGX4jJ4vjeeVf4L098KR+G?=
-	=?iso-8859-15?Q?8fogwyFYp34wZaCstxHZfLQqVNTo9i6nr5KEZyoxmIYQzqxCfS+3Kvv1I?=
-	=?iso-8859-15?Q?HW2VCjdDGQNtyJbizSpkjzFk3XMHSvHH8SszGRZcijfmrxpPw3tC26yIC?=
-	=?iso-8859-15?Q?qt2M9joklnldkTgmcBa499+TmXC0+qPOwm2AsiNOFtyk9yCOMi9vEvjtY?=
-	=?iso-8859-15?Q?sidDWjj0G5wr2ZQNUh09tGFvMRvtYhl/9PIVz6M7jHDXPXtJIqiqZxM?=
+x-ms-exchange-antispam-messagedata: =?iso-8859-15?Q?0WjirEIfRWaZzLy0OXP3/3OP/oafKdtr+Lxa6tI8gc4K1IDkzgUqLvXoK?=
+	=?iso-8859-15?Q?Ea1ZTmikhNgdPFfun+U6dF54rXNi3pi5n15Tg+8cd+uEzU+GERp+xllsR?=
+	=?iso-8859-15?Q?2QlvlUrOq6rPmYkArbGVs+Wvz7cnp2/fpBzN20Luhih9qKAGNuxdDjcsL?=
+	=?iso-8859-15?Q?vuZa+XF0FTgOa4MkX7/wkbkaUjor8vJeQrNKnIMt3HUR+EOKGYCurSbY+?=
+	=?iso-8859-15?Q?Y6US/QC9OARQshGBUjdM1INzZLTtnO3+jMNrZ19FVzbKhbadHrafPN11n?=
+	=?iso-8859-15?Q?Wo3GWfJJWWHuzRfTrrbBZz0xWASR0DQoGBwKOHoX0JyE3AiLW3Q7j+sPp?=
+	=?iso-8859-15?Q?wJLQjatBFkgytxyfD9BV3XvihTGHA1QrUoOo9f5MsEHrUd8KLVY+I1yCz?=
+	=?iso-8859-15?Q?qlnYevUNPFjGDYyc9+L8rRM/mgZWJFL/Td5/6W/K3CqlqkKzST7kWorwX?=
+	=?iso-8859-15?Q?lW8f8BGSANS138Zh4pvooTDh0+6xQp2iHyOXcSjPTh+ykQqox1xJhVmQA?=
+	=?iso-8859-15?Q?NoTRJs1UhKvofBwdZD5RI4U31OvYY5tqCPPkJPBY3ejYYZkr4F5ND/pW3?=
+	=?iso-8859-15?Q?Xtg/lT9HViBuDkh2DsG3gOXQ/byK3g0ppeIECE21wP7xEe+XllTzYXj1P?=
+	=?iso-8859-15?Q?T60ATh16HWDr7mTmfKqUKivREXplP0f3oMMBuGOe3akkJzoNRo9vR6MLl?=
+	=?iso-8859-15?Q?daCvp5hTJJkvirL3Ldsa19XKTihkyNsG8Rd7qZhO5iGDugIWfSA8wrO+P?=
+	=?iso-8859-15?Q?pkxrsN+a2B3vixOlLY2WsfRIjTCDLdh0ALLknCJU9m0Y+qXr/1zcs9wpP?=
+	=?iso-8859-15?Q?ZL7dNqitgmoFwjdnatYvQI17GrSzzR0+NIlPlsOO6WL3a3t2TnQafSIxX?=
+	=?iso-8859-15?Q?PhoL3xE9uD3FjVgD0c/h8HqR96Y+WfROLPSQD5R5NaMvXimUPk9EWxJsr?=
+	=?iso-8859-15?Q?r6grQ/dSNxeI8vWP6V6rVbS5XK4clhnxzLNhN6q02y0h5UkSVUlE2l6WB?=
+	=?iso-8859-15?Q?rXEyi53jzccf6KcBrIbDNWyZnDGJ2p+ZtOv/2ACGzeWpLg7Bdxvg2kr?=
 x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
 X-OriginatorOrg: suse.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6555.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 06399b65-d05e-4ff9-4875-08d8a3acaebb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Dec 2020 23:28:53.3677 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06b1428b-379a-4eb1-e70d-08d8a3acef01
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Dec 2020 23:30:41.1617 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: upZyrbVwTQhif91bfCbRhgbZGn3WwDMaPx8uqWR8/zsdgctOmgPDMETuHxmw+pm/ioHQPr3c308lFIxoVnSx7w==
+X-MS-Exchange-CrossTenant-userprincipalname: +T+qyJbFDw08Wy5Dk9RZx0+mbutS/CFUwOjauuyK7c9g8iAbMu2P5afhb2Ue0dJ7Njqz9bKuu3hm7CN1z86mmw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB5387
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -123,13 +123,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BINT66T030693
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BINUq3H030894
 X-loop: dm-devel@redhat.com
 Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH 3/6] libmultipath: warn about missing braces
- at end of multipath.conf
+Subject: Re: [dm-devel] [PATCH 4/6] libmultipath: ignore multipaths sections
+ without wwid option
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -143,26 +143,50 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-ID: <414654BF2562D045B4FDDD6EEFD922EB@eurprd04.prod.outlook.com>
+Content-ID: <4F67DB58782767418CDDD82A1E4C914D@eurprd04.prod.outlook.com>
 Content-Type: text/plain; charset="iso-8859-15"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, 2020-12-18 at 17:06 -0600, Benjamin Marzinski wrote:
-> Multipath doesn't warn when multipath.conf is missing closing braces
-> at
-> the end of the file. This has confused people about the correct
-> config
-> file syntax, so add a warning.
+> "multipathd show config local" was crashing in find_mp_by_wwid() if
+> the multipath configuration included a multipaths section that did
+> not set a wwid option. There is no reason to keep a mpentry that
+> didn't set its wwid. Remove it in merge_mptable().
 >=20
 > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+> ---
+>  libmultipath/config.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>=20
+> diff --git a/libmultipath/config.c b/libmultipath/config.c
+> index 9f3cb38d..a643703e 100644
+> --- a/libmultipath/config.c
+> +++ b/libmultipath/config.c
+> @@ -509,6 +509,13 @@ void merge_mptable(vector mptable)
+>  =09int i, j;
+> =20
+>  =09vector_foreach_slot(mptable, mp1, i) {
+> +=09=09/* drop invalid multipath configs */
+> +=09=09if (!mp1->wwid) {
+> +=09=09=09condlog(0, "multipaths config section missing
+> wwid");
+> +=09=09=09vector_del_slot(mptable, i--);
+> +=09=09=09free_mpe(mp1);
+> +=09=09=09continue;
+> +=09=09}
+>  =09=09j =3D i + 1;
+>  =09=09vector_foreach_slot_after(mptable, mp2, j) {
+>  =09=09=09if (strcmp(mp1->wwid, mp2->wwid))
 
-Reviewed-by: Martin Wilck <mwilck@suse.com>
+Wouldn't you need to check mp2->wwid, too?
+
+Martin
 
 --=20
 Dr. Martin Wilck <mwilck@suse.com>, Tel. +49 (0)911 74053 2107
