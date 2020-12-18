@@ -1,59 +1,77 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8F2622DEBAE
-	for <lists+dm-devel@lfdr.de>; Fri, 18 Dec 2020 23:40:41 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 1BE782DEBBE
+	for <lists+dm-devel@lfdr.de>; Fri, 18 Dec 2020 23:47:43 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-423-EpbRLIe8OyOVqGGHkNpTXg-1; Fri, 18 Dec 2020 17:40:38 -0500
-X-MC-Unique: EpbRLIe8OyOVqGGHkNpTXg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-98-iFo-hUmJOP6TC1udhQklSQ-1; Fri, 18 Dec 2020 17:47:39 -0500
+X-MC-Unique: iFo-hUmJOP6TC1udhQklSQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3C5A7800D55;
-	Fri, 18 Dec 2020 22:40:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A468710054FF;
+	Fri, 18 Dec 2020 22:47:33 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CCD436E510;
-	Fri, 18 Dec 2020 22:40:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 16C002BFF1;
+	Fri, 18 Dec 2020 22:47:32 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9CD664BB7B;
-	Fri, 18 Dec 2020 22:40:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A6B314BB7B;
+	Fri, 18 Dec 2020 22:47:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BIMeNq7024368 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 18 Dec 2020 17:40:23 -0500
+	id 0BIMhpc8024870 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 18 Dec 2020 17:43:52 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 406CE2166B2F; Fri, 18 Dec 2020 22:40:23 +0000 (UTC)
+	id C73B2F49D7; Fri, 18 Dec 2020 22:43:51 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B1A12166B27
-	for <dm-devel@redhat.com>; Fri, 18 Dec 2020 22:40:19 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C1E03F49BF
+	for <dm-devel@redhat.com>; Fri, 18 Dec 2020 22:43:49 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0513F811E78
-	for <dm-devel@redhat.com>; Fri, 18 Dec 2020 22:40:19 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-490-YbXdR5N_PL-k6XkxqgTlKA-1;
-	Fri, 18 Dec 2020 17:40:14 -0500
-X-MC-Unique: YbXdR5N_PL-k6XkxqgTlKA-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 61234AC1A;
-	Fri, 18 Dec 2020 22:40:13 +0000 (UTC)
-Message-ID: <06048346998e04399ae13191ca63075de1d8642f.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Xose Vazquez Perez <xose.vazquez@gmail.com>, DM-DEVEL ML
-	<dm-devel@redhat.com>, Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 18 Dec 2020 23:40:12 +0100
-In-Reply-To: <1dc19756-4639-5412-e44a-4472ab789c26@gmail.com>
-References: <1dc19756-4639-5412-e44a-4472ab789c26@gmail.com>
-User-Agent: Evolution 3.36.5
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4BEC0101A53F
+	for <dm-devel@redhat.com>; Fri, 18 Dec 2020 22:43:49 +0000 (UTC)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+	[209.85.221.44]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-409-3gbSm3-iPkC66BudzJDtPQ-1; Fri, 18 Dec 2020 17:43:45 -0500
+X-MC-Unique: 3gbSm3-iPkC66BudzJDtPQ-1
+Received: by mail-wr1-f44.google.com with SMTP id d26so3958199wrb.12;
+	Fri, 18 Dec 2020 14:43:44 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+	:mime-version:in-reply-to:content-language:content-transfer-encoding;
+	bh=MrGKmwqUEviRSkqehV1YzgXyN5b/wbbT2owGg4JJO5w=;
+	b=GSHEEmhvgdLvtLFqrlrOYMZRex4Ti++rby0doEW/8l4Qdb9Qd2Irw9+9HKlt3T3Ris
+	sA+xEEZ6ImU7byd9rxVYquJeGJv33zKeztDzoG2mRMvCmPW9+ww35KP1L7xBqfoS7aEH
+	wpja14ElEWF9Z70EKitEDVdMjo1nqV/asLCbtogC4rWnRyeArkLiKQEAjZU+A4vA7aTd
+	QHuU8Kgr5+dFSHOvy/dVCsnFyqJqxkGKClHotduntKxG1RoBd/sgpCNZQtIcM5B9CpTY
+	4RBsBo1deFpz1H7z+sSQI4SUazT1f1PVzA7wyF5NRD/N5NIH9WwAsAcxo4ai7afMbkvD
+	wbeA==
+X-Gm-Message-State: AOAM531yUMOPLLal1NGsuut7OJ/aLlZ2TkOnCdZmvCf1DQ0nchC05tb5
+	hOwBNZzR+vz8VC2r5O7tyQmoKJIaqY6W
+X-Google-Smtp-Source: ABdhPJyd24y0BmxgyqhAvoZzCaYdDEf9COeBy4/WQJjUZGq4fPf09UW5Gc51Oov7DHgvCLBJpVOQww==
+X-Received: by 2002:a5d:558a:: with SMTP id i10mr6779409wrv.363.1608331423728; 
+	Fri, 18 Dec 2020 14:43:43 -0800 (PST)
+Received: from localhost (242.red-95-127-155.staticip.rima-tde.net.
+	[95.127.155.242]) by smtp.gmail.com with ESMTPSA id
+	34sm15164935wrh.78.2020.12.18.14.43.42
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Fri, 18 Dec 2020 14:43:43 -0800 (PST)
+To: mwilck@suse.com, Christophe Varoqui <christophe.varoqui@opensvc.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>
+References: <20201218223753.24451-1-mwilck@suse.com>
+From: Xose Vazquez Perez <xose.vazquez@gmail.com>
+Message-ID: <bdf66e35-6d85-bb42-6b3e-2db2bbaf6053@gmail.com>
+Date: Fri, 18 Dec 2020 23:43:41 +0100
 MIME-Version: 1.0
+In-Reply-To: <20201218223753.24451-1-mwilck@suse.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -62,9 +80,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Subject: Re: [dm-devel] one warning in current upstream-queue branch
+Cc: dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH] libmultipath: fix format warning with clang
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,21 +97,39 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On Fri, 2020-12-18 at 23:23 +0100, Xose Vazquez Perez wrote:
-> With clang-11:
+On 12/18/20 11:37 PM, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
+> 
+> Reported-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
 
-Thanks. I've just sent a trivial patch to fix it.
+Tested-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
 
-Martin
-
+> ---
+>   libmultipath/log.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/libmultipath/log.c b/libmultipath/log.c
+> index 6498c88..10fa32c 100644
+> --- a/libmultipath/log.c
+> +++ b/libmultipath/log.c
+> @@ -125,6 +125,7 @@ void log_reset (char *program_name)
+>   	pthread_cleanup_pop(1);
+>   }
+>   
+> +__attribute__((format(printf, 2, 0)))
+>   static int _log_enqueue(int prio, const char * fmt, va_list ap)
+>   {
+>   	int len, fwd;
+> 
 
 --
 dm-devel mailing list
