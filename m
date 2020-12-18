@@ -2,117 +2,117 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0F3EC2DEC0F
-	for <lists+dm-devel@lfdr.de>; Sat, 19 Dec 2020 00:32:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 85F592DEC2E
+	for <lists+dm-devel@lfdr.de>; Sat, 19 Dec 2020 00:57:25 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-57-f15NQTdsPfePdxPCXPRMcA-1; Fri, 18 Dec 2020 18:32:48 -0500
-X-MC-Unique: f15NQTdsPfePdxPCXPRMcA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-481-s17E6dzbPCGv4JaExzg1kg-1; Fri, 18 Dec 2020 18:57:22 -0500
+X-MC-Unique: s17E6dzbPCGv4JaExzg1kg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EBC12107ACF6;
-	Fri, 18 Dec 2020 23:32:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F15F7180A089;
+	Fri, 18 Dec 2020 23:57:15 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C4C575D9D7;
-	Fri, 18 Dec 2020 23:32:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E420299A1;
+	Fri, 18 Dec 2020 23:57:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E08D24A7C6;
-	Fri, 18 Dec 2020 23:32:41 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E923A4BB7B;
+	Fri, 18 Dec 2020 23:57:06 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BINVcl4030974 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 18 Dec 2020 18:31:38 -0500
+	id 0BINuuCl032473 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 18 Dec 2020 18:56:56 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 96C2C10DCF5D; Fri, 18 Dec 2020 23:31:38 +0000 (UTC)
+	id F3B9F10439AC; Fri, 18 Dec 2020 23:56:55 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 91E8F10DCF52
-	for <dm-devel@redhat.com>; Fri, 18 Dec 2020 23:31:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EF1EC10DCF5F
+	for <dm-devel@redhat.com>; Fri, 18 Dec 2020 23:56:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CE0B4101A561
-	for <dm-devel@redhat.com>; Fri, 18 Dec 2020 23:31:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 811C1185A794
+	for <dm-devel@redhat.com>; Fri, 18 Dec 2020 23:56:53 +0000 (UTC)
 Received: from de-smtp-delivery-102.mimecast.com
-	(de-smtp-delivery-102.mimecast.com [62.140.7.102]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-265-2cBzHNSoOHO-qd4rS7qPlg-1;
-	Fri, 18 Dec 2020 18:31:29 -0500
-X-MC-Unique: 2cBzHNSoOHO-qd4rS7qPlg-1
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
-	(mail-he1eur04lp2052.outbound.protection.outlook.com [104.47.13.52])
+	(de-smtp-delivery-102.mimecast.com [194.104.109.102]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-314-cCH45j_lOH2kCm1oVahuNQ-1;
+	Fri, 18 Dec 2020 18:56:51 -0500
+X-MC-Unique: cCH45j_lOH2kCm1oVahuNQ-1
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+	(mail-vi1eur05lp2170.outbound.protection.outlook.com [104.47.17.170])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	de-mta-8-yWIe1jDjP_qp--VMVMTmpA-1; Sat, 19 Dec 2020 00:31:27 +0100
-X-MC-Unique: yWIe1jDjP_qp--VMVMTmpA-1
+	de-mta-19-phcPgc7HPwyQCGA6ZOh5Zw-1; Sat, 19 Dec 2020 00:56:48 +0100
+X-MC-Unique: phcPgc7HPwyQCGA6ZOh5Zw-1
 Received: from DB8PR04MB6555.eurprd04.prod.outlook.com (2603:10a6:10:103::20)
-	by DB7PR04MB5387.eurprd04.prod.outlook.com (2603:10a6:10:8b::15) with
+	by DBBPR04MB6268.eurprd04.prod.outlook.com (2603:10a6:10:cc::18) with
 	Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3654.14;
-	Fri, 18 Dec 2020 23:31:25 +0000
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3676.25;
+	Fri, 18 Dec 2020 23:56:47 +0000
 Received: from DB8PR04MB6555.eurprd04.prod.outlook.com
 	([fe80::c1ce:f675:7:30f6]) by DB8PR04MB6555.eurprd04.prod.outlook.com
 	([fe80::c1ce:f675:7:30f6%3]) with mapi id 15.20.3654.021;
-	Fri, 18 Dec 2020 23:31:25 +0000
+	Fri, 18 Dec 2020 23:56:47 +0000
 From: Martin Wilck <martin.wilck@suse.com>
 To: "bmarzins@redhat.com" <bmarzins@redhat.com>,
 	"christophe.varoqui@opensvc.com" <christophe.varoqui@opensvc.com>
-Thread-Topic: [PATCH 5/6] multipathd: Fix multipathd stopping on shutdown
-Thread-Index: AQHW1ZJ+SJOHFWrTD0++S0No5oFU9qn9gKcA
-Date: Fri, 18 Dec 2020 23:31:25 +0000
-Message-ID: <2bda2d5b184bf72cbd63ccdcd7d63404c5414ce5.camel@suse.com>
+Thread-Topic: [PATCH 6/6] multipath.conf.5: Improve checker_timeout description
+Thread-Index: AQHW1ZKB6X4Ojcg7Y0KOu2ExvyDMOKn9h70A
+Date: Fri, 18 Dec 2020 23:56:47 +0000
+Message-ID: <28b07148b5249f05e6509d5a34ed145a23975be4.camel@suse.com>
 References: <1608332802-9720-1-git-send-email-bmarzins@redhat.com>
-	<1608332802-9720-6-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1608332802-9720-6-git-send-email-bmarzins@redhat.com>
+	<1608332802-9720-7-git-send-email-bmarzins@redhat.com>
+In-Reply-To: <1608332802-9720-7-git-send-email-bmarzins@redhat.com>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 user-agent: Evolution 3.36.5
 x-originating-ip: [2.203.204.191]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: f8052ec3-e920-4685-5a24-08d8a3ad0998
-x-ms-traffictypediagnostic: DB7PR04MB5387:
-x-microsoft-antispam-prvs: <DB7PR04MB5387AE11CA7A167D5AB1622DFCC30@DB7PR04MB5387.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882
+x-ms-office365-filtering-correlation-id: f13b1293-b1c5-4a12-c245-08d8a3b0945d
+x-ms-traffictypediagnostic: DBBPR04MB6268:
+x-microsoft-antispam-prvs: <DBBPR04MB6268BEC3E79D18A5FD91E823FCC30@DBBPR04MB6268.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: ALAY+y34f7JhxZ8mzpjGPhz9wx8Ok7uHVhXcFWVitD+y1RQSKlT+Clsl9ml20FixCcfj6r4t+Rg94evnw2DiCKXRoU85abs4jCMh1Xewu+Q+0zUZhkJ0rPtIEXJ13ibV2x0wIcjVFxDUjTUWRFssFASd2L4n00lwEjF/9rbP0sHjydZ18hOwN5G9kbV2hyangEKCgD6TPBTBKgVhWmq6XWtnLukSxuQsE5XEmHQaB3FIiwY31n8yq1BQt8uXe7jr7cmK0t7v0KCjUusjrbX0/88ZcovLP53df0B7vx1SAwklrnSPQWq7uUOO94rRVdQqGO53iePeOwkxE6JZK0G7vQ==
+x-microsoft-antispam-message-info: va89ZMNBoTYCRVQ4DCC/PuyqxlX27gRB1HSznlJz+0AxntiNSeVLSotK26bid00SLjzuN+hO10NyBy9VtJtq56mnUjLKgx1uPSH1c99u3Jz3ACWTymjwokkCp3DflnIl462WZuKIilHnma6YrqSn3hnppv2GqQhnxw+DGSrFtLUhfp9/uLb3/WJVfLX5dNdpE1d1y75iDpTcMJ6s6wcbiCwm2ltp+SdNEbYgBbG9Xw5GHdUOHj76C1/W5OqDvR7ED8+bmqsL+z19Q4VlUhSHvc8bwdcMylihIOtsV4XHHP+90uGa8f+wiOGtOTGatlHE1wbcB4GTndW7abm7Ptx9ElCfN30cOJMjURn41H3LOOru3NwJfn0XQ9GjyBqSAe9zmkl3Rvl6n8ZjqWQd4Q4EWA==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
 	IPV:NLI; SFV:NSPM; H:DB8PR04MB6555.eurprd04.prod.outlook.com;
 	PTR:; CAT:NONE;
-	SFS:(376002)(346002)(39860400002)(366004)(396003)(136003)(8676002)(6512007)(478600001)(6486002)(66946007)(66446008)(66476007)(64756008)(4001150100001)(66556008)(91956017)(76116006)(5660300002)(44832011)(2616005)(6506007)(4744005)(36756003)(4326008)(71200400001)(110136005)(316002)(2906002)(83380400001)(26005)(8936002)(186003)(86362001);
+	SFS:(376002)(39860400002)(396003)(136003)(366004)(346002)(5660300002)(8676002)(66946007)(4326008)(110136005)(66574015)(91956017)(76116006)(26005)(6506007)(71200400001)(64756008)(4001150100001)(8936002)(2906002)(66556008)(66446008)(478600001)(6486002)(2616005)(6512007)(86362001)(44832011)(186003)(316002)(66476007)(83380400001)(36756003);
 	DIR:OUT; SFP:1101
-x-ms-exchange-antispam-messagedata: =?iso-8859-15?Q?xcEtnX64zJO80hhFZl8usU9iyAcjX1q5UoQ0y5WDkX6CpS/FQP2K8PFqv?=
-	=?iso-8859-15?Q?H4CHUcORpPFb9N6q9Fr7NP7v8yvL5S5yo46HvDzJvkOq2Bu53bDB/SUgT?=
-	=?iso-8859-15?Q?vFFITGzb68sq/loBrqnOtnBSqNSky/yK8hyNtCfCNOcd0TOeoRfeKSWcY?=
-	=?iso-8859-15?Q?mPAb7Mb3Kqu1RKNUwylpD+edBCvImmV/mNLZDNvMpcsJBNd2qzxDmpyah?=
-	=?iso-8859-15?Q?Ngikn5m/Ry8+TJ1i1DVN+BJ9t2lnodyq6rbs9hlVOcjL61CXU6mcZdEWE?=
-	=?iso-8859-15?Q?jqvOJK6/Vuc8VZppynekqAPdiqW+QeZnQOBtXAS8YBekpdS03x3N/owfD?=
-	=?iso-8859-15?Q?1YDRUGxSE95hBTmjkZuBDQt+ZNYEEjg5bAZDaAKUTtkNSxGrz/Tu19o44?=
-	=?iso-8859-15?Q?J6hhH8TZlVL8K1AH7hAYoSEldt2ekqoHx/LJ25+bCCYfP1nc5pXlEyvEz?=
-	=?iso-8859-15?Q?C7OASnket9Eh+Sm5478q+n0SLH5tGTr68rGe54qEHuj06oCP4+1UOHZRW?=
-	=?iso-8859-15?Q?xgkD3siIU28JbaVdRJ8r4A57muOHvcw1M+ItPVw4iP0O1jJKGVzIsArkS?=
-	=?iso-8859-15?Q?czN8WSDx5Lwva/HdM+rO79U01STObdEvVZsRHx47uCAs5U1ixJctuRtbX?=
-	=?iso-8859-15?Q?6V4S0Zg2Sr1N+BOUu17B1sINEgyIEacKJyZk4Q1nlWLn8uuasA4Hv5Wwl?=
-	=?iso-8859-15?Q?Kt7mlsW4n+dIhD2hT2VaSRuugQ0FBGB93p67biLfxGnrrCTKFepqJ4uTq?=
-	=?iso-8859-15?Q?Sh+wXKmbVeMUIskRfvVAsHlqPgvtZwqpJw2z5v48wjb4XtbWVl/Ia+9XB?=
-	=?iso-8859-15?Q?GpKNgXjAdAJ/yOgLZxjnNd3XBcmM2MvBeMudMhS4gIRbllEedx0Ilm5UR?=
-	=?iso-8859-15?Q?7nvWig9NIc0nMt0Nft7ytO4mXxFySciQXZZdP5oHPIjAUaVkq8Fcsys6E?=
-	=?iso-8859-15?Q?2oEgcKU9YnuMAtcvy0j+fLyDBKG7t0seb6c/hUWkIpjct0bmYsu5jguM/?=
-	=?iso-8859-15?Q?O/1YCvl2wAzMgE9mh8/7Gi/y3zS3xS8dX0Acxp2c+F3kU67GhEP2iNj?=
+x-ms-exchange-antispam-messagedata: =?iso-8859-15?Q?ZodCxrnAZxYgJR7fdY8kjZwUAp6cX0EzHiDoqO81SCQLj/GVkEDAW3cvi?=
+	=?iso-8859-15?Q?N/oICNbaFSHmn4Bmu441hzZZZ1diKIoAGonRsr2FBIu6hc6ryFCV5JubY?=
+	=?iso-8859-15?Q?atCTU+e0np1KAVOHeOH1ilJpT4zv0BI3GJAICW+1MYcBtJuOwEaWS8tpJ?=
+	=?iso-8859-15?Q?7bMa0edsK1oCuGPTgt+QR6B4KEsPU2088gSqsj1dRp+qA4oeRw1bX4GN8?=
+	=?iso-8859-15?Q?QrO+wv+t9Lw26uPnJ0991agQZ8CabOrUkcln9dkfjs/fL8xC9qgMX8ZK5?=
+	=?iso-8859-15?Q?PJ9TjcEBR6E9WobAhfLnocTMQLAGUCPKbOcBvEdoC0Tgpz17Ed3nZJKZb?=
+	=?iso-8859-15?Q?+nlIQUwiQVXsoO5O+gEwcYF6nRWr6DYFkigDOlKgiHqTZzaNCIQATk4t0?=
+	=?iso-8859-15?Q?vv8sHcfwPHTsnny9kdXS/EvzaPBvmUZ6ALpBzZAkX4i1/Z1QU3w3I4gdt?=
+	=?iso-8859-15?Q?ii/yvhEMb12tdAvLgSQM25X/18qgkg8swAEAtptCDcELGIgx5+6ggIqK3?=
+	=?iso-8859-15?Q?GWOf3jfSrz22fmBZSBwftuSeuYcCouSbOAWiq53cLQ24Pl5CBs/dCTLfO?=
+	=?iso-8859-15?Q?5NxHwwZXA5CzimQc5WUv+ABD68D/lWGZzV/Kzg5mLwzWnbrs6/eLxwfym?=
+	=?iso-8859-15?Q?pFWJ9IqkFO8zFef5qSw96ANzTWdyWDzFwhRGjZm+YS0j0aK+7GC1nNxpS?=
+	=?iso-8859-15?Q?Kr+A707lWxEhouv9a9f/kh/MQyasykqU2/33w2Hd9e0egUYLBV/DAUupV?=
+	=?iso-8859-15?Q?Z9LJyt5MudiHADC0Dyest5PDC4AYHJx2L8IhA9qIA7ypeSz+yLtTwhV5C?=
+	=?iso-8859-15?Q?2AOQ6ap7E2ZnnVOkbW8AFWD2r0ni+nivqyOL0TkbHOPMH+QMKx0sWxTBa?=
+	=?iso-8859-15?Q?w2RwU7EDrBj+od7o9oUylqOHZlSJmwXlhWUfpYfTbYAgY4QWoWXF3fs7l?=
+	=?iso-8859-15?Q?guElc0cou4CAHw6DDUUe59ag5Ls0ba64oJunuvegFnAoNq8IFC98+Y6eE?=
+	=?iso-8859-15?Q?n2VFEk7AUOGFgo52aPgj23noQrShyd7UEYzM/gMPKdIxm7re8TzeWC6?=
 x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
 X-OriginatorOrg: suse.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6555.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8052ec3-e920-4685-5a24-08d8a3ad0998
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Dec 2020 23:31:25.7574 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f13b1293-b1c5-4a12-c245-08d8a3b0945d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Dec 2020 23:56:47.0330 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qxj9zWegEiAAnRKltC2a7LnvhSVphMh7iAX5Jt2MgcAoyuue89zxCSmOEfjDkYCUzxNKv3QfngwwTmWhthXJ/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB5387
+X-MS-Exchange-CrossTenant-userprincipalname: 0CLvpNgbPvoOAUi5Jwh5tufl/AnbJa1C/uYgq0N0OC5SSrwd5zQScEMaOCXi+BId+ch2FBiuN9SSnytWOlhH4w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB6268
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -123,11 +123,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BINVcl4030974
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BINuuCl032473
 X-loop: dm-devel@redhat.com
 Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH 5/6] multipathd: Fix multipathd stopping on
-	shutdown
+Subject: Re: [dm-devel] [PATCH 6/6] multipath.conf.5: Improve
+	checker_timeout description
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -141,33 +141,64 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-ID: <90BA0402B9E3ED4DB2DA17E97ABB5CC1@eurprd04.prod.outlook.com>
+Content-ID: <B1010C58E624464DBA7C998208986441@eurprd04.prod.outlook.com>
 Content-Type: text/plain; charset="iso-8859-15"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, 2020-12-18 at 17:06 -0600, Benjamin Marzinski wrote:
-> According to man "systemd.special"
->=20
-> "shutdown.target: ... Services that shall be terminated on system
-> shutdown shall add Conflicts=3D and Before=3D dependencies to this unit
-> for
-> their service unit, which is implicitly done when
-> DefaultDependencies=3Dyes is set (the default)."
->=20
-> multipathd.service sets DefaultDependencies=3Dno and includes the
-> Conflits=3D dependency, but not the Before=3D one. This can cause
-> multipathd
-> to continue running past when it is supposed to during shutdown.
+> I was asked to explain how checker_timeout works for checkers like
+> directio, that don't issue scsi commands with an explicit timeout
 >=20
 > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+> ---
+>  multipath/multipath.conf.5 | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/multipath/multipath.conf.5 b/multipath/multipath.conf.5
+> index ea66a01e..c7c4184b 100644
+> --- a/multipath/multipath.conf.5
+> +++ b/multipath/multipath.conf.5
+> @@ -639,8 +639,13 @@ The default is: \fBno\fR
+>  .
+>  .TP
+>  .B checker_timeout
+> -Specify the timeout to use for path checkers and prioritizers that
+> issue SCSI
+> -commands with an explicit timeout, in seconds.
+> +Specify the timeout to use for path checkers and prioritizers, in
+> seconds.
+> +Only prioritizers that issue scsi commands use checker_timeout.=20
+> Checkers
+> +that support an asynchronous mode (\fItur\fR and \fIdirectio\fR),
+> will
+> +return shortly after being called by multipathd, regardless of
+> whether the
+> +storage array responds. If the storage array hasn't responded,
+> mulitpathd will
 
-Reviewed-by: Martin Wilck <mwilck@suse.com>
+typo
+
+> +check for a response every second, until \fIchecker_timeout\fR
+> seconds have
+> +elapsed.
+
+This is a bit confusing IMHO. Most importantly, checkers will consider
+a path down if it doesn't respond to the checker command after the
+given timeout. The async behavior doesn't fit too well into this
+section. Maybe we should mention and explain the async property in the
+path_checkers section, and only refer to that here.
+
+(Btw is the directio checker still deprecated after all the work you
+recently put into it? The man page still says so).
+
+Regards,
+Martin
 
 --=20
 Dr. Martin Wilck <mwilck@suse.com>, Tel. +49 (0)911 74053 2107
