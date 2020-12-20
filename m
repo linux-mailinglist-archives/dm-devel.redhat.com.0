@@ -2,75 +2,110 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 5448F2E9DBB
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:04:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D920D2E9DBA
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:04:01 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-460-zYhHic74PbyL-gNPJ-yWyQ-1; Mon, 04 Jan 2021 14:03:58 -0500
-X-MC-Unique: zYhHic74PbyL-gNPJ-yWyQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-150-nzezBczuMgunfrBh-8JE1A-1; Mon, 04 Jan 2021 14:03:57 -0500
+X-MC-Unique: nzezBczuMgunfrBh-8JE1A-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D960B100C612;
-	Mon,  4 Jan 2021 19:03:46 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B63AE6FEE2;
-	Mon,  4 Jan 2021 19:03:46 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CF331186840E;
+	Mon,  4 Jan 2021 19:03:48 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A06A371C8D;
+	Mon,  4 Jan 2021 19:03:48 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 602991809CAC;
-	Mon,  4 Jan 2021 19:03:46 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 471DA50038;
+	Mon,  4 Jan 2021 19:03:48 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BH6tUqF032551 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 17 Dec 2020 01:55:30 -0500
+	id 0BKDFLjo024019 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 20 Dec 2020 08:15:21 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8E7D81016D60; Thu, 17 Dec 2020 06:55:30 +0000 (UTC)
+	id 343352026D15; Sun, 20 Dec 2020 13:15:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 899ED101B86F
-	for <dm-devel@redhat.com>; Thu, 17 Dec 2020 06:55:23 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F0082026D49
+	for <dm-devel@redhat.com>; Sun, 20 Dec 2020 13:15:17 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7307E811E76
-	for <dm-devel@redhat.com>; Thu, 17 Dec 2020 06:55:23 +0000 (UTC)
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
-	[209.85.215.182]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-571-UyeAFv6uMymAwvzSIcYYow-1; Thu, 17 Dec 2020 01:55:21 -0500
-X-MC-Unique: UyeAFv6uMymAwvzSIcYYow-1
-Received: by mail-pg1-f182.google.com with SMTP id w16so19669243pga.9
-	for <dm-devel@redhat.com>; Wed, 16 Dec 2020 22:55:20 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:date:subject:in-reply-to:cc:from:to:message-id
-	:mime-version:content-transfer-encoding;
-	bh=BjnZ5s+jnI9mFnTZF3RJgIJMeukCqH/N1kppehfap7Y=;
-	b=pDFV4GKcpcqdAidKtkxS83r1Rs66qUH+4Go0YKX5tsiaurpBqSwxX+72L6XyL46DQG
-	YcboQyZbmIkMFX0XSLxJPQhNOTJUz59ZN8fmR2ycWcBP9LCE5O+FqMisE5gcYwMHvbqY
-	1TQWlBnKvdF6ci7lOTuSQpNy3APXS20AbJ/NxH/59apVXfhdZGc1I19GRBX1JVzSDCmq
-	vGcqdX998svzek7+Xdy77wvSLLatuxmHntlIA0fYtFxG32k8ISh67VP7Xx9BirJBhdZ9
-	R1pVhRPlvHaXOs50XwA0hONMcCiXnG/92WiItxk77PeMKQAYGefWzbyjUV9wHzHvXZaZ
-	xBwA==
-X-Gm-Message-State: AOAM5333wJsy7tKqimnfTkQhCV7rUH79hzg2aBMcb7SCFbquCwBRv8xh
-	+JaeBFN65+p0lVa+Fixvo7MfNg==
-X-Google-Smtp-Source: ABdhPJwOkX04PZM/hDkMwFByq3zRzuq27yaN/Sp6sDe9qMIhnlWHKH2jlrq5wuwjc8F2fNQ6gRsdzQ==
-X-Received: by 2002:aa7:8506:0:b029:19e:95:f75f with SMTP id
-	v6-20020aa785060000b029019e0095f75fmr35416013pfn.7.1608188119792;
-	Wed, 16 Dec 2020 22:55:19 -0800 (PST)
-Received: from localhost (76-210-143-223.lightspeed.sntcca.sbcglobal.net.
-	[76.210.143.223])
-	by smtp.gmail.com with ESMTPSA id l7sm3921765pjy.29.2020.12.16.22.55.18
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Wed, 16 Dec 2020 22:55:19 -0800 (PST)
-Date: Wed, 16 Dec 2020 22:55:19 -0800 (PST)
-X-Google-Original-Date: Wed, 16 Dec 2020 22:55:17 PST (-0800)
-In-Reply-To: <CAGF4SLgDvS7VOih4XZ+sqx6jVK3wBQZan+uZMVsdYdVEPZdrpw@mail.gmail.com>
-From: Palmer Dabbelt <palmer@dabbelt.com>
-To: v.mayatskih@gmail.com
-Message-ID: <mhng-7da80016-a7d7-4232-999d-6fea3196118d@palmerdabbelt-glaptop>
-Mime-Version: 1.0 (MHng)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6112C800B3B
+	for <dm-devel@redhat.com>; Sun, 20 Dec 2020 13:15:17 +0000 (UTC)
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=dkim.mimecast.com; s=201903; t=1608470117;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	dkim-signature; bh=9HU9z9Y7r3ZUwR0yt27B18xl9CsukwXhvZC0JP1u9Uw=;
+	b=CyDrAIOw+CDw3d+9EQ1cem7FJFnv2/lzv+ICy6/59b6/ba2SUcs7h0+Sh1ich1FNjDtSvb
+	POt9kYLG30zP0+M8VnqVPIycVpaAUOv8xll0v5jo75WH6lFN1zHGCgAVNBm++AIkZD8nnG
+	HrtmKO8GH4r5v5EKOK/JgSY69xp2FgLs2ayOH/5w6ZkP3MZN6nTHOzMxPZbiPPv4uUH2Wc
+	10HFjZDd699xGeJc368uG9EpCcRrtR1x0xEHlFPJf8t3sbxfyZYqyuVJB9jw0hhkJRXZsM
+	UZsHwM9YdVpMIDf+87RsHZPezmjiU02hPBGUCpG8icteI4qKDkCLF7mWvmx4AA==
+ARC-Seal: i=1; s=201903; d=dkim.mimecast.com; t=1608470117; a=rsa-sha256;
+	cv=none;
+	b=LrrBfj2gqyv/cssJvjidymQicsfZ8f9CdBZYKCgZb1oiUYjhnG3ash7fHJa/1GmjOzmq+i
+	UtjDBDEpEktnVW1tw4XNnA/ozOSnuqHIgSRuNxjxo9cBh8X3+JlRZtbP5ea3y+MGwQMJ46
+	n9iVg87aTdtkmYNFNXMoh4XBf5GLVlNCbaDSl/Vvd+HZOZzj6ukMjBldD5B/WupR1MG4dn
+	6vjiadybamW3ryRviGV/0QsYXi6sS9XCDiy1/D3NrJhk+m/0UhqH1FUnqkQbAaU2LL8FXr
+	5gJlfHMBQFsTFpAeo8LO6HmUFpQsqDxSmkN7Q9BQa6numtRgMKfcqUhdRZZcRA==
+ARC-Authentication-Results: i=1; relay.mimecast.com;
+	dkim=pass header.d=web.de header.s=dbaedf251592 header.b=mTAYb3ic;
+	dmarc=pass (policy=none) header.from=web.de;
+	spf=pass (relay.mimecast.com: domain of lukasstraub2@web.de designates
+	212.227.17.12 as permitted sender)
+	smtp.mailfrom=lukasstraub2@web.de
+Received: from mout.web.de (mout.web.de [212.227.17.12]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-253-gcd4se6nNHuFUh8BOAzTWQ-1;
+	Sun, 20 Dec 2020 08:15:12 -0500
+X-MC-Unique: gcd4se6nNHuFUh8BOAzTWQ-1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
+	s=dbaedf251592; t=1608470110;
+	bh=gvFT06xuZu102RzJsC1+KKOgg3n2umWs1voAz9Sh4uY=;
+	h=X-UI-Sender-Class:Date:From:To:Cc:Subject;
+	b=mTAYb3icIljk2LPNbfGBsJzFlZPlp5ra/T9PwJjXARSxVUy80NjeWovooODWeAaEO
+	1e/8LVmXWNygckEAbiG9AKFBYhFwqvW5gNjTNoF7lMA6R47YKybWlAUtShgP9dLgC4
+	7yfuveh9n1yMGMRd6+MXKYiey9p6kZxToNBO3m+E=
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from gecko.fritz.box ([88.130.61.172]) by smtp.web.de (mrweb106
+	[213.165.67.124]) with ESMTPSA (Nemesis) id 1M2ggX-1kmq9d0Eed-004A7C;
+	Sun, 20 Dec 2020 14:02:34 +0100
+Date: Sun, 20 Dec 2020 14:02:22 +0100
+From: Lukas Straub <lukasstraub2@web.de>
+To: dm-devel <dm-devel@redhat.com>
+Message-ID: <20201220140222.2f341344@gecko.fritz.box>
+MIME-Version: 1.0
+X-Provags-ID: V03:K1:YG0sfjgXUUabhIZAsw64543VMPSP10dUBkBRrZKJhUgsi1IuRgW
+	B7feyWPn6lnfsNoitvA/Zc5jiWJDDGmULHaWe7PNMsZvf4TGJoewMlEY3AAEzqarGbMWawf
+	2xO30r6OKgMQ20GjVgZPJDcUeoituVe0WBVpDpmautou9tOrbhW3RNUnjLfY8+2fFLv05Sj
+	ylTpiyPj+An7pJPwtx/FA==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:Id4hJNQzpGY=:eDZ+GHWs/mAFpX2k5+50+u
+	rhyYw86CfKp4i3kWsI2LxqywcjS75n5Qr84KUQFNKWNanlsvdotklBQMRKuh8tr3ZRBk5ZnMv
+	kAV9GuALv/7YOin3CDzY5GyMxrdiuFMzv84m+m1jfmyVG8KROGb6mv7mJf+/AcBZskPzuUaYV
+	PPoJHWnZGMu2Um8xDt84ikWA+4jNmibGdhA5WmBMQ9CGzRNgAo/jGEL0I4hl6vCg1P7V2s3VC
+	e0C6YfmGgh7oxzc4Bo0xUIYEEeNiKXlPLbuaK25sT8LGhBRTIDy56q0h13n/O1wd0GuucJtj8
+	9iAHVO/8iX8/Yy2PZh0G9NxS/FqfYQtyEJ2Ann3HsA1PyLWp0srUof/REEXA4x/Z4dMGEp8sy
+	u8eX1aaLlNDy3f6GPqcgUIjpS7dmpKbI50LFVr3CemEc4Md+74yAybK6Mup9NWqGkjhYvXvgS
+	XLIj/xulYLnWoINbGb9qy+hWCqJiXK/ItOd3MuTlKBadnDC/m1t3kAU0rr1vhtgfmqnF9TJIr
+	9yWh0dImnzawcSkF70dseJ/836o3OzhYhM5/XCfZoXQevtqsNrnVkeFvgL/ve1uA1OvdI7QPf
+	yYclzqOmojdYIfBaIwGh5L7/DWqo6RHeNb18iu2Qk+xqnZ+kieblldcDVhfwT7U4OMCtflr1K
+	NvbIDOAsOAm5j1+EszIyJIQwlHKKCmZg0ImogIFhGxH9yzgL+gN1Aiq80+UD9AvFnb8e/hWGB
+	KaQlU2Fdd/oPpZ7W46gUeRrfGf3HBznbcBpTwBCOtNkNz8bVaIxBfNpaoLxZyBG2hIXY/AphF
+	CIeYvEpEoCJLZnI4cc6Ps9LznVMehDe2quUXpDBVyB7u//ZZYYwUMSvzTC6F+kHlXVScWxJEg
+	P1pmUxXAXyCA4nUTZ3Kg==
+Authentication-Results: relay.mimecast.com;
+	dkim=pass header.d=web.de header.s=dbaedf251592 header.b=mTAYb3ic;
+	dmarc=pass (policy=none) header.from=web.de;
+	spf=pass (relay.mimecast.com: domain of lukasstraub2@web.de designates
+	212.227.17.12 as permitted sender)
+	smtp.mailfrom=lukasstraub2@web.de
+X-Mimecast-Spam-Score: -1
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -79,17 +114,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 04 Jan 2021 14:03:12 -0500
-Cc: linux-raid@vger.kernel.org, bvanassche@acm.org, snitzer@redhat.com,
-	corbet@lwn.net, shuah@kernel.org, linux-doc@vger.kernel.org,
-	josef@toxicpanda.com, linux-kernel@vger.kernel.org,
-	Christoph Hellwig <hch@infradead.org>, song@kernel.org,
-	dm-devel@redhat.com, michael.christie@oracle.com,
-	linux-kselftest@vger.kernel.org, kernel-team@android.com, agk@redhat.com
-Subject: Re: [dm-devel] [PATCH v1 0/5] dm: dm-user: New target that proxies
-	BIOs to userspace
+Cc: Mikulas Patocka <mpatocka@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
+	Alasdair Kergon <agk@redhat.com>
+Subject: [dm-devel] [PATCH] dm-integrity: Fix flush with external metadata
+	device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -101,87 +132,102 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+Content-Type: multipart/mixed; boundary="===============0457783469154905444=="
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+
+--===============0457783469154905444==
+Content-Type: multipart/signed; boundary="Sig_/yp.L9S+2r30U8pOFk7XwZtc";
+	protocol="application/pgp-signature"; micalg=pgp-sha256
+
+--Sig_/yp.L9S+2r30U8pOFk7XwZtc
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+With an external metadata device, flush requests aren't passed down
+to the data device.
+
+Fix this by issuing flush in the right places: In integrity_commit
+when not in journal mode, in do_journal_write after writing the
+contents of the journal to the disk and in dm_integrity_postsuspend.
+
+Signed-off-by: Lukas Straub <lukasstraub2@web.de>
+---
+ drivers/md/dm-integrity.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+index 5a7a1b90e671..a26ed65869f6 100644
+--- a/drivers/md/dm-integrity.c
++++ b/drivers/md/dm-integrity.c
+@@ -2196,6 +2196,8 @@ static void integrity_commit(struct work_struct *w)
+ =09if (unlikely(ic->mode !=3D 'J')) {
+ =09=09spin_unlock_irq(&ic->endio_wait.lock);
+ =09=09dm_integrity_flush_buffers(ic);
++=09=09if (ic->meta_dev)
++=09=09=09blkdev_issue_flush(ic->dev->bdev, GFP_NOIO);
+ =09=09goto release_flush_bios;
+ =09}
+=20
+@@ -2410,6 +2412,9 @@ static void do_journal_write(struct dm_integrity_c *i=
+c, unsigned write_start,
+ =09wait_for_completion_io(&comp.comp);
+=20
+ =09dm_integrity_flush_buffers(ic);
++=09if (ic->meta_dev)
++=09=09blkdev_issue_flush(ic->dev->bdev, GFP_NOIO);
++
+ }
+=20
+ static void integrity_writer(struct work_struct *w)
+@@ -2949,6 +2954,9 @@ static void dm_integrity_postsuspend(struct dm_target=
+ *ti)
+ #endif
+ =09}
+=20
++=09if (ic->meta_dev)
++=09=09blkdev_issue_flush(ic->dev->bdev, GFP_NOIO);
++
+ =09BUG_ON(!RB_EMPTY_ROOT(&ic->in_progress));
+=20
+ =09ic->journal_uptodate =3D true;
+--=20
+2.20.1
+
+--Sig_/yp.L9S+2r30U8pOFk7XwZtc
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEg/qxWKDZuPtyYo+kNasLKJxdslgFAl/fS14ACgkQNasLKJxd
+slh2ww/9Ela4bNfODXTPwtRXKqaZAjepKYsAN3yum0STlU+vt37gl+SQ+3PI9CWV
+KBwOwJbu/K3yhw9R0TZX2BpRQB6+vaclyc8/T6gvTpnsJq54Zz1vYxUYSarW2emd
+ISVAzz+LynFaxHrvpT8BO9H4krTHMO8gAYWp6dmq/9ORhJipLclVk+fInAAQyiBl
+aGragqj4Y/D4hTukbHfIMpTliqaPmVIWWCrCrBrCqwq39a7un3i8WbeuDg+vSQ2l
+eBmsJLH23/rTlVUAyatUVwuiMO2e0wWEHieBXapqUvQNzaJdGL+SKmeCivp5a44J
+LoZ58Hus70Dqj5ijFnuf3jZIHTA//22UNNi6u72eWJiz7FRyR3xihNOBTTDGohca
+90F4mwTTUFCctvzSY1ZXTrLMw8yDoQGINlQ9idmQtdJa/7NKMv3zFETD6SU9jfvF
+u6MbVsltc9bwfYtkxIAjOExKTQYO+xrhnjZxdt0JB1HJohJYr9DTssYnJz/u/KMl
+4dmqzAgYTSdSchVGWZkYqMUyTSob3YaeLAScKy0hF5cEF2Z9zMSTvZxVnQ+kEK7t
+AgEuK6Pj6iCuhHiuiEGlHU3lLDokwDzszgT5uMIpephg2WE8QSN+zAT9NZXQOowy
+9KDNevew6NG3GIXhuvHtvCxgXcr34eG1l858ZYdpaGsdzFKrhzM=
+=Sg7k
+-----END PGP SIGNATURE-----
+
+--Sig_/yp.L9S+2r30U8pOFk7XwZtc--
+
+
+--===============0457783469154905444==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
-
-On Wed, 16 Dec 2020 10:24:59 PST (-0800), v.mayatskih@gmail.com wrote:
-> On Mon, Dec 14, 2020 at 10:03 PM Palmer Dabbelt <palmer@dabbelt.com> wrote:
->
->> I was really experting someone to say that.  It does seem kind of silly to build
->> out the new interface, but not go all the way to a ring buffer.  We just didn't
->> really have any way to justify the extra complexity as our use cases aren't
->> that high performance.   I kind of like to have benchmarks for this sort of
->> thing, though, and I didn't have anyone who had bothered avoiding the last copy
->> to compare against.
->
-> I worked on something very similar, though performance was one of the
-> goals. The implementation was floating around lockless ring buffers,
-> shared memory for zerocopy, multiqueue and error handling. It could be
-> that every disk storage vendor has to implement something like that in
-> order to bridge Linux kernel to their own proprietary datapath running
-> in userspace.
-
-OK, good to know.  That's kind of the feeling I'd gotten from having chatted to
-a handful of people about this, but I don't remember people having actually
-gotten all the way to zero-copy.  That's how we managed to end up at this
-middle-ground ABI style: when I thought people were, in practice, punting on
-zero copy because the complexity just wasn't worth the performance benefit.
-Maybe I'd just been colored by how my projects ended up going, but I've ended
-up designing complicated interfaces in the past that allow for zero-copy only
-to never get around to actually making that work.  I don't know if that's just
-because I've had the good fortune to avoid working on anything that ended up
-with users, though :).
-
-For our use case I think we actually get better performance out of the
-copy-based (and probably more importantly kalloc-based, but that's an
-implementation thing not an ABI thing) approach: essentially we're very
-sensitive to memory pressure and expect this first dm-user daemon to mostly be
-idle, so we're really worried about avoiding excess memory usage while idle and
-less worried about throughput when active.  This stream-based interface means
-that userspace doesn't need much memory allocated to service a request, which
-helps with sleep/wake latencies and/or idle memory usage.  That's also why we
-have the simple locking scheme: no sense splitting locks if there's no
-contention, and we only need a single thread to saturate the storage bandwidth
-on these phones.
-
-That said, it does sound like people really do care about the sort of
-performance levels where zero copy is relevant in this space.  I'll take a shot
-at something along those lines, and while it will add a degree of userspace
-complexity I'm not sure it'll add much in the way of kernel complexity -- at
-least compared to a fast version of this, where we'd need most of that stuff
-anyway (obviously the malloc+single lock design is simple, but probably
-wouldn't stick around for long).  At a bare minimum it'll be interesting to
-play around with, but if people are doing it in practice then I'm more
-confident that I can put something together that at least serves as a starting
-point for further discussion.
-
-I haven't gotten around to writing any code yet, but I had spent a bit of time
-thinking about how to put this zero-copy version together and am leaning
-towards it being a standalone block device (as opposed to a DM target).  I'd
-avoided that before as I didn't want to mess around with my own device control
-scheme so I'll still try to do the DM thing, but I'm not sure it'll be viable.
-That's all speculation now, but it does bring up one interesting question:
-
-IIUC, this version of dm-user handles BIOs before they reach the block
-scheduler while a standalone driver would likely handle them after blk-mq.  I
-don't have direct experience with this, but the last time I ran into people who
-had these sorts of performance requirements for userspace drivers they weren't
-actually trying to write userspace drivers but were instead trying to write a
-userspace scheduler, with the userspace drivers just being the mechanism to
-implement that scheduler.  This was a decade ago and I'm not sure that's what
-people are trying to do in the new blk-mq world, but if it is then it's going
-to be a major design consideration.  I'm also not entirely sure that we're
-really solving the same problem at that point.
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
+--===============0457783469154905444==--
 
