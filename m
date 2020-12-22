@@ -2,75 +2,86 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4D8B12E0FA2
-	for <lists+dm-devel@lfdr.de>; Tue, 22 Dec 2020 22:07:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1608671271;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=1JAeAfTeyO4c3JjT/l/kNb6NLzRgGd2UHD+46n5J+ws=;
-	b=hcV853AND2rskSxcQ3xEocuFgUS4BExeIySdGohtPtcurNFs638XDZvBZl0cqom5+uhE1f
-	/u50AdYyZtckGzAuhTAUXEOX3b0aj9Hka/Cr5K2BlNEMZQ4eeiGrD6yDU0ctZsxSWmFeMy
-	e2IOm4/9y4eLnpubJD1GsHeUxwuNT5c=
+	by mail.lfdr.de (Postfix) with ESMTP id 6166E2E1017
+	for <lists+dm-devel@lfdr.de>; Tue, 22 Dec 2020 23:24:48 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-382-tUf9yiMIOQG6nC1QdenZvQ-1; Tue, 22 Dec 2020 16:07:49 -0500
-X-MC-Unique: tUf9yiMIOQG6nC1QdenZvQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-42-GxIae1QkM9q2QLxrfEpHWw-1; Tue, 22 Dec 2020 17:24:45 -0500
+X-MC-Unique: GxIae1QkM9q2QLxrfEpHWw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EB5DF10054FF;
-	Tue, 22 Dec 2020 21:07:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0F86A60BF1;
-	Tue, 22 Dec 2020 21:07:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 717BD10054FF;
+	Tue, 22 Dec 2020 22:24:38 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 840EA5F9A7;
+	Tue, 22 Dec 2020 22:24:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B9326180954D;
-	Tue, 22 Dec 2020 21:07:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D2DCF4A7C6;
+	Tue, 22 Dec 2020 22:24:27 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BML6FuN001656 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 22 Dec 2020 16:06:15 -0500
+	id 0BMMOGxf009260 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 22 Dec 2020 17:24:16 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4AE0E60C69; Tue, 22 Dec 2020 21:06:15 +0000 (UTC)
+	id 1FEE02026D49; Tue, 22 Dec 2020 22:24:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from agk.fab.redhat.com (agk-dp.fab.redhat.com [10.33.15.10])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 130E060BF1;
-	Tue, 22 Dec 2020 21:06:06 +0000 (UTC)
-Received: from agk by agk.fab.redhat.com with local (Exim 4.34)
-	id 1kror6-0008DP-Kd; Tue, 22 Dec 2020 21:06:04 +0000
-Date: Tue, 22 Dec 2020 21:06:04 +0000
-From: Alasdair G Kergon <agk@redhat.com>
-To: Hannes Reinecke <hare@suse.de>
-Message-ID: <20201222210604.GD29336@agk.fab.redhat.com>
-Mail-Followup-To: Hannes Reinecke <hare@suse.de>,
-	Mike Snitzer <snitzer@redhat.com>, Christoph Hellwig <hch@lst.de>,
-	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	Jens Axboe <axboe@kernel.dk>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Alasdair G Kergon <agk@redhat.com>
-References: <20201222095056.7a5ac0a0@canb.auug.org.au>
-	<20201222131528.GA29822@lst.de> <20201222145327.GC12885@redhat.com>
-	<288d1c58-c0e2-9d6f-4816-48c66536fe8b@suse.de>
-Mime-Version: 1.0
-In-Reply-To: <288d1c58-c0e2-9d6f-4816-48c66536fe8b@suse.de>
-User-Agent: Mutt/1.4.1i
-Organization: Red Hat UK Ltd. Registered in England and Wales,
-	number 03798903. Registered Office: Amberley Place,
-	107-111 Peascod Street, Windsor, Berkshire, SL4 1TE.
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B0B92026D3B
+	for <dm-devel@redhat.com>; Tue, 22 Dec 2020 22:24:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 49799101A53F
+	for <dm-devel@redhat.com>; Tue, 22 Dec 2020 22:24:12 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-399-EhCOPsfRNkmKtyPaEBPjkg-1;
+	Tue, 22 Dec 2020 17:24:08 -0500
+X-MC-Unique: EhCOPsfRNkmKtyPaEBPjkg-1
+Received: by mail.kernel.org (Postfix) with ESMTPS id 4843422AAF;
+	Tue, 22 Dec 2020 22:24:07 +0000 (UTC)
+Received: from pdx-korg-docbuild-1.ci.codeaurora.org (localhost.localdomain
+	[127.0.0.1])
+	by pdx-korg-docbuild-1.ci.codeaurora.org (Postfix) with ESMTP id
+	4210460113; Tue, 22 Dec 2020 22:24:07 +0000 (UTC)
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20201222151823.GA17999@redhat.com>
+References: <20201222151823.GA17999@redhat.com>
+X-PR-Tracked-List-Id: <linux-block.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20201222151823.GA17999@redhat.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git
+	tags/for-5.11/dm-changes
+X-PR-Tracked-Commit-Id: b77709237e72d6467fb27bfbad163f7221ecd648
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: d8355e740f419a081796e869bafdfc0756b0bf2a
+Message-Id: <160867584726.8550.13161305291113777694.pr-tracker-bot@kernel.org>
+Date: Tue, 22 Dec 2020 22:24:07 +0000
+To: Mike Snitzer <snitzer@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>, Mike Snitzer <snitzer@redhat.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	Christoph Hellwig <hch@lst.de>, Alasdair G Kergon <agk@redhat.com>
-Subject: Re: [dm-devel] DM's filesystem lookup in dm_get_dev_t() [was: Re:
-	linux-next: manual merge of the device-mapper tree with Linus' tree]
+Cc: Rikard Falkeborn <rikard.falkeborn@gmail.com>,
+	Antonio Quartulli <a@unstable.cc>, Qinglang Miao <miaoqinglang@huawei.com>,
+	=?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@linux.microsoft.com>,
+	linux-block@vger.kernel.org,
+	Zheng Yongjun <zhengyongjun3@huawei.com>, dm-devel@redhat.com,
+	Mike Christie <michael.christie@oracle.com>,
+	Jeffle Xu <jefflexu@linux.alibaba.com>,
+	Hyeongseok Kim <hyeongseok@gmail.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Alasdair G Kergon <agk@redhat.com>
+Subject: Re: [dm-devel] [git pull] device mapper changes for 5.11
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,33 +93,29 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Dec 22, 2020 at 06:24:09PM +0100, Hannes Reinecke wrote:
-> However, lookup_bdev() now always recurses into the filesystem, causing 
-> multipath to stall in an all-paths-down scenario.
- 
-I have not read the background about whatever the new problem is - I'm
-jumping in cold seeing this message - but from the very beginning of
-device-mapper we have strongly recommended that userspace supplies the
-block device in the form MAJOR:MINOR and all our own tools do that.  We
-guarantee not to deadlock in these places when this is done.
+The pull request you sent on Tue, 22 Dec 2020 10:18:24 -0500:
 
-We also accept the device in the form of a path name as we know there
-are times when this is safe and convenient, but then we offer no
-guarantees - we place the responsibility upon userspace only to do this
-when it knows it is safe to do so i.e. no race and no deadlock.
+> git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git tags/for-5.11/dm-changes
 
-Alasdair
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/d8355e740f419a081796e869bafdfc0756b0bf2a
+
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
 --
 dm-devel mailing list
