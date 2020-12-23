@@ -1,51 +1,54 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 9C0632E9DA9
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:03:47 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 144992E9DCD
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:04:14 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-150-pLUF0vyEM82DasbEyeKrQg-1; Mon, 04 Jan 2021 14:03:43 -0500
-X-MC-Unique: pLUF0vyEM82DasbEyeKrQg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-273-kl17xd4MPdyLDT6QnOOFPQ-1; Mon, 04 Jan 2021 14:04:10 -0500
+X-MC-Unique: kl17xd4MPdyLDT6QnOOFPQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 80B286416C;
-	Mon,  4 Jan 2021 19:03:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0231E100C61A;
+	Mon,  4 Jan 2021 19:03:57 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5B8025D9DC;
-	Mon,  4 Jan 2021 19:03:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D54A37086C;
+	Mon,  4 Jan 2021 19:03:56 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D5D8C1809CA4;
-	Mon,  4 Jan 2021 19:03:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8BA2F1809CB5;
+	Mon,  4 Jan 2021 19:03:56 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BNMm0eR014985 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 23 Dec 2020 17:48:00 -0500
+	id 0BNMlx1M014959 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 23 Dec 2020 17:47:59 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4C8282166B2D; Wed, 23 Dec 2020 22:48:00 +0000 (UTC)
+	id 29FBD2026D3B; Wed, 23 Dec 2020 22:47:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 459842166B29
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2520B2026D5D
 	for <dm-devel@redhat.com>; Wed, 23 Dec 2020 22:47:57 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8CC6D858281
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C11D8811E78
 	for <dm-devel@redhat.com>; Wed, 23 Dec 2020 22:47:57 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-406-gpqy7DFtMOCK7wLuq7Q8fw-1;
+	by relay.mimecast.com with ESMTP id us-mta-448-R48h6s5MNrCUJgnMECOqRQ-1;
 	Wed, 23 Dec 2020 17:47:55 -0500
-X-MC-Unique: gpqy7DFtMOCK7wLuq7Q8fw-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BB3A322273;
-	Wed, 23 Dec 2020 22:38:58 +0000 (UTC)
+X-MC-Unique: R48h6s5MNrCUJgnMECOqRQ-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4D0D9223E0;
+	Wed, 23 Dec 2020 22:39:01 +0000 (UTC)
 From: Ard Biesheuvel <ardb@kernel.org>
 To: linux-crypto@vger.kernel.org
-Date: Wed, 23 Dec 2020 23:38:31 +0100
-Message-Id: <20201223223841.11311-1-ardb@kernel.org>
+Date: Wed, 23 Dec 2020 23:38:32 +0100
+Message-Id: <20201223223841.11311-2-ardb@kernel.org>
+In-Reply-To: <20201223223841.11311-1-ardb@kernel.org>
+References: <20201223223841.11311-1-ardb@kernel.org>
+MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -54,15 +57,17 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BNMlx1M014959
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 04 Jan 2021 14:03:11 -0500
 Cc: Herbert Xu <herbert@gondor.apana.org.au>, Mike Snitzer <snitzer@redhat.com>,
 	Ard Biesheuvel <ardb@kernel.org>,
 	Eric Biggers <ebiggers@kernel.org>, dm-devel@redhat.com,
 	Milan Broz <gmazyland@gmail.com>, Megha Dey <megha.dey@intel.com>
-Subject: [dm-devel] [RFC PATCH 00/10] crypto: x86 - remove XTS and CTR glue
-	helper code
+Subject: [dm-devel] [RFC PATCH 01/10] crypto: x86/camellia - switch to XTS
+	template
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -74,221 +79,414 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-After applying my performance fixes for AES-NI in XTS mode, the only
-remaining users of the x86 glue helper module are the niche algorithms
-camellia, cast6, serpent and twofish.
-
-It is not clear from the history why all these different versions of these
-algorithms in XTS and CTR modes were added in the first place: the only
-in-kernel references that seem to exist are to cbc(serpent), cbc(camellia)
-and cbc(twofish) in the IPsec stack. The XTS spec only mentions AES, and
-CTR modes don't seem to be widely used either.
-
-Since the glue helper code relies heavily on indirect calls for small chunks
-of in/output, it needs some work to recover from the performance hit caused
-by the retpoline changes. However, it makes sense to only expend the effort
-for algorithms that are being used in the first place, and this does not
-seem to be the case for XTS and CTR.
-
-CTR mode can simply be removed: it is not used in the kernel, and it is
-highly unlikely that it is being relied upon via algif_skcipher. And even
-if it was, the generic CTR mode driver can still provide the CTR transforms
-if necessary.
-
-XTS mode may actually be in use by dm-crypt users, so we cannot simply drop
-this code entirely. However, as it turns out, the XTS template wrapped
-around the ECB mode skciphers perform roughly on par *, and so there is no
-need to retain all the complicated XTS helper logic. In the unlikely case
-that dm-crypt users are relying on xts(camellia) or xts(serpent) in the
-field, they should not be impacted by these changes at all.
-
-As a follow-up, it makes sense to rework the ECB and CBC mode implementations
-to get rid of the indirect calls. Or perhaps we could drop [some of] these
-algorithms entirely ...
-
-* tcrypt results for various XTS implementations below, captured on a
-  Intel(R) Core(TM) i7-8650U CPU @ 1.90GHz
-
-Cc: Megha Dey <megha.dey@intel.com>
-Cc: Eric Biggers <ebiggers@kernel.org>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Milan Broz <gmazyland@gmail.com>
-Cc: Mike Snitzer <snitzer@redhat.com>
-
-Ard Biesheuvel (10):
-  crypto: x86/camellia - switch to XTS template
-  crypto: x86/cast6 - switch to XTS template
-  crypto: x86/serpent- switch to XTS template
-  crypto: x86/twofish - switch to XTS template
-  crypto: x86/glue-helper - drop XTS helper routines
-  crypto: x86/camellia - drop CTR mode implementation
-  crypto: x86/cast6 - drop CTR mode implementation
-  crypto: x86/serpent - drop CTR mode implementation
-  crypto: x86/twofish - drop CTR mode implementation
-  crypto: x86/glue-helper - drop CTR helper routines
-
- arch/x86/crypto/camellia-aesni-avx-asm_64.S  | 297 ----------------
- arch/x86/crypto/camellia-aesni-avx2-asm_64.S | 350 -------------------
- arch/x86/crypto/camellia_aesni_avx2_glue.c   | 111 ------
- arch/x86/crypto/camellia_aesni_avx_glue.c    | 141 +-------
- arch/x86/crypto/camellia_glue.c              |  68 ----
- arch/x86/crypto/cast6-avx-x86_64-asm_64.S    |  84 -----
- arch/x86/crypto/cast6_avx_glue.c             | 146 --------
- arch/x86/crypto/glue_helper-asm-avx.S        | 104 ------
- arch/x86/crypto/glue_helper-asm-avx2.S       | 136 -------
- arch/x86/crypto/glue_helper.c                | 226 ------------
- arch/x86/crypto/serpent-avx-x86_64-asm_64.S  |  68 ----
- arch/x86/crypto/serpent-avx2-asm_64.S        |  87 -----
- arch/x86/crypto/serpent_avx2_glue.c          | 110 ------
- arch/x86/crypto/serpent_avx_glue.c           | 152 --------
- arch/x86/crypto/serpent_sse2_glue.c          |  67 ----
- arch/x86/crypto/twofish-avx-x86_64-asm_64.S  |  80 -----
- arch/x86/crypto/twofish_avx_glue.c           | 136 -------
- arch/x86/crypto/twofish_glue_3way.c          |  72 ----
- arch/x86/include/asm/crypto/camellia.h       |  24 --
- arch/x86/include/asm/crypto/glue_helper.h    |  44 ---
- arch/x86/include/asm/crypto/serpent-avx.h    |  21 --
- arch/x86/include/asm/crypto/twofish.h        |   4 -
- 22 files changed, 1 insertion(+), 2527 deletions(-)
-
--- 
-2.17.1
-
-
-
-testing speed of async xts(camellia) (xts-camellia-aesni-avx2) encryption
-tcrypt: test 0 (256 bit key, 16 byte blocks): 4295101 operations in 1 seconds (68721616 bytes)
-tcrypt: test 1 (256 bit key, 64 byte blocks): 2029490 operations in 1 seconds (129887360 bytes)
-tcrypt: test 2 (256 bit key, 256 byte blocks): 1626076 operations in 1 seconds (416275456 bytes)
-tcrypt: test 3 (256 bit key, 1024 byte blocks): 732878 operations in 1 seconds (750467072 bytes)
-tcrypt: test 4 (256 bit key, 1424 byte blocks): 366313 operations in 1 seconds (521629712 bytes)
-tcrypt: test 5 (256 bit key, 4096 byte blocks): 161737 operations in 1 seconds (662474752 bytes)
-tcrypt: test 6 (512 bit key, 16 byte blocks): 3876371 operations in 1 seconds (62021936 bytes)
-tcrypt: test 7 (512 bit key, 64 byte blocks): 1787813 operations in 1 seconds (114420032 bytes)
-tcrypt: test 8 (512 bit key, 256 byte blocks): 1578834 operations in 1 seconds (404181504 bytes)
-tcrypt: test 9 (512 bit key, 1024 byte blocks): 766805 operations in 1 seconds (785208320 bytes)
-tcrypt: test 10 (512 bit key, 1424 byte blocks): 366645 operations in 1 seconds (522102480 bytes)
-tcrypt: test 11 (512 bit key, 4096 byte blocks): 151122 operations in 1 seconds (618995712 bytes)
-tcrypt: 
-
-
-testing speed of async xts(camellia) (xts(ecb-camellia-aesni-avx2)) encryption
-tcrypt: test 0 (256 bit key, 16 byte blocks): 3981536 operations in 1 seconds (63704576 bytes)
-tcrypt: test 1 (256 bit key, 64 byte blocks): 2696005 operations in 1 seconds (172544320 bytes)
-tcrypt: test 2 (256 bit key, 256 byte blocks): 1048119 operations in 1 seconds (268318464 bytes)
-tcrypt: test 3 (256 bit key, 1024 byte blocks): 716732 operations in 1 seconds (733933568 bytes)
-tcrypt: test 4 (256 bit key, 1424 byte blocks): 440474 operations in 1 seconds (627234976 bytes)
-tcrypt: test 5 (256 bit key, 4096 byte blocks): 178906 operations in 1 seconds (732798976 bytes)
-tcrypt: test 6 (512 bit key, 16 byte blocks): 3119162 operations in 1 seconds (49906592 bytes)
-tcrypt: test 7 (512 bit key, 64 byte blocks): 2286596 operations in 1 seconds (146342144 bytes)
-tcrypt: test 8 (512 bit key, 256 byte blocks): 1408661 operations in 1 seconds (360617216 bytes)
-tcrypt: test 9 (512 bit key, 1024 byte blocks): 669226 operations in 1 seconds (685287424 bytes)
-tcrypt: test 10 (512 bit key, 1424 byte blocks): 380543 operations in 1 seconds (541893232 bytes)
-tcrypt: test 11 (512 bit key, 4096 byte blocks): 144126 operations in 1 seconds (590340096 bytes)
-
-
-testing speed of async xts(camellia) (xts-camellia-aesni) encryption
-tcrypt: test 0 (256 bit key, 16 byte blocks): 3901755 operations in 1 seconds (62428080 bytes)
-tcrypt: test 1 (256 bit key, 64 byte blocks): 1719855 operations in 1 seconds (110070720 bytes)
-tcrypt: test 2 (256 bit key, 256 byte blocks): 1416991 operations in 1 seconds (362749696 bytes)
-tcrypt: test 3 (256 bit key, 1024 byte blocks): 481186 operations in 1 seconds (492734464 bytes)
-tcrypt: test 4 (256 bit key, 1424 byte blocks): 298401 operations in 1 seconds (424923024 bytes)
-tcrypt: test 5 (256 bit key, 4096 byte blocks): 120284 operations in 1 seconds (492683264 bytes)
-tcrypt: test 6 (512 bit key, 16 byte blocks): 3326174 operations in 1 seconds (53218784 bytes)
-tcrypt: test 7 (512 bit key, 64 byte blocks): 1428259 operations in 1 seconds (91408576 bytes)
-tcrypt: test 8 (512 bit key, 256 byte blocks): 1175894 operations in 1 seconds (301028864 bytes)
-tcrypt: test 9 (512 bit key, 1024 byte blocks): 407066 operations in 1 seconds (416835584 bytes)
-tcrypt: test 10 (512 bit key, 1424 byte blocks): 242931 operations in 1 seconds (345933744 bytes)
-tcrypt: test 11 (512 bit key, 4096 byte blocks): 95871 operations in 1 seconds (392687616 bytes)
-
-
-testing speed of async xts(camellia) (xts(ecb-camellia-aesni)) encryption
-tcrypt: test 0 (256 bit key, 16 byte blocks): 4004035 operations in 1 seconds (64064560 bytes)
-tcrypt: test 1 (256 bit key, 64 byte blocks): 2757081 operations in 1 seconds (176453184 bytes)
-tcrypt: test 2 (256 bit key, 256 byte blocks): 1626720 operations in 1 seconds (416440320 bytes)
-tcrypt: test 3 (256 bit key, 1024 byte blocks): 577725 operations in 1 seconds (591590400 bytes)
-tcrypt: test 4 (256 bit key, 1424 byte blocks): 393937 operations in 1 seconds (560966288 bytes)
-tcrypt: test 5 (256 bit key, 4096 byte blocks): 150055 operations in 1 seconds (614625280 bytes)
-tcrypt: test 6 (512 bit key, 16 byte blocks): 3427619 operations in 1 seconds (54841904 bytes)
-tcrypt: test 7 (512 bit key, 64 byte blocks): 2335827 operations in 1 seconds (149492928 bytes)
-tcrypt: test 8 (512 bit key, 256 byte blocks): 1412725 operations in 1 seconds (361657600 bytes)
-tcrypt: test 9 (512 bit key, 1024 byte blocks): 466635 operations in 1 seconds (477834240 bytes)
-tcrypt: test 10 (512 bit key, 1424 byte blocks): 314378 operations in 1 seconds (447674272 bytes)
-tcrypt: test 11 (512 bit key, 4096 byte blocks): 119159 operations in 1 seconds (488075264 bytes)
-
-
-testing speed of async xts(serpent) (xts-serpent-avx2) encryption
-tcrypt: test 0 (256 bit key, 16 byte blocks): 2665863 operations in 1 seconds (42653808 bytes)
-tcrypt: test 1 (256 bit key, 64 byte blocks): 1151015 operations in 1 seconds (73664960 bytes)
-tcrypt: test 2 (256 bit key, 256 byte blocks): 1824753 operations in 1 seconds (467136768 bytes)
-tcrypt: test 3 (256 bit key, 1024 byte blocks): 674375 operations in 1 seconds (690560000 bytes)
-tcrypt: test 4 (256 bit key, 1424 byte blocks): 434324 operations in 1 seconds (618477376 bytes)
-tcrypt: test 5 (256 bit key, 4096 byte blocks): 143875 operations in 1 seconds (589312000 bytes)
-tcrypt: test 6 (512 bit key, 16 byte blocks): 2676467 operations in 1 seconds (42823472 bytes)
-tcrypt: test 7 (512 bit key, 64 byte blocks): 1161001 operations in 1 seconds (74304064 bytes)
-tcrypt: test 8 (512 bit key, 256 byte blocks): 1830401 operations in 1 seconds (468582656 bytes)
-tcrypt: test 9 (512 bit key, 1024 byte blocks): 675560 operations in 1 seconds (691773440 bytes)
-tcrypt: test 10 (512 bit key, 1424 byte blocks): 431292 operations in 1 seconds (614159808 bytes)
-tcrypt: test 11 (512 bit key, 4096 byte blocks): 135674 operations in 1 seconds (555720704 bytes)
-
-
-testing speed of async xts(serpent) (xts(ecb-serpent-avx2)) encryption
-tcrypt: test 0 (256 bit key, 16 byte blocks): 2327282 operations in 1 seconds (37236512 bytes)
-tcrypt: test 1 (256 bit key, 64 byte blocks): 1121913 operations in 1 seconds (71802432 bytes)
-tcrypt: test 2 (256 bit key, 256 byte blocks): 1549949 operations in 1 seconds (396786944 bytes)
-tcrypt: test 3 (256 bit key, 1024 byte blocks): 597772 operations in 1 seconds (612118528 bytes)
-tcrypt: test 4 (256 bit key, 1424 byte blocks): 397386 operations in 1 seconds (565877664 bytes)
-tcrypt: test 5 (256 bit key, 4096 byte blocks): 140785 operations in 1 seconds (576655360 bytes)
-tcrypt: test 6 (512 bit key, 16 byte blocks): 2335122 operations in 1 seconds (37361952 bytes)
-tcrypt: test 7 (512 bit key, 64 byte blocks): 1123595 operations in 1 seconds (71910080 bytes)
-tcrypt: test 8 (512 bit key, 256 byte blocks): 1557279 operations in 1 seconds (398663424 bytes)
-tcrypt: test 9 (512 bit key, 1024 byte blocks): 595629 operations in 1 seconds (609924096 bytes)
-tcrypt: test 10 (512 bit key, 1424 byte blocks): 396338 operations in 1 seconds (564385312 bytes)
-tcrypt: test 11 (512 bit key, 4096 byte blocks): 139501 operations in 1 seconds (571396096 bytes)
-
-
-testing speed of async xts(serpent) (xts-serpent-avx) encryption
-tcrypt: test 0 (256 bit key, 16 byte blocks): 2718471 operations in 1 seconds (43495536 bytes)
-tcrypt: test 1 (256 bit key, 64 byte blocks): 1164397 operations in 1 seconds (74521408 bytes)
-tcrypt: test 2 (256 bit key, 256 byte blocks): 1189326 operations in 1 seconds (304467456 bytes)
-tcrypt: test 3 (256 bit key, 1024 byte blocks): 375279 operations in 1 seconds (384285696 bytes)
-tcrypt: test 4 (256 bit key, 1424 byte blocks): 260853 operations in 1 seconds (371454672 bytes)
-tcrypt: test 5 (256 bit key, 4096 byte blocks): 91367 operations in 1 seconds (374239232 bytes)
-tcrypt: test 6 (512 bit key, 16 byte blocks): 2679109 operations in 1 seconds (42865744 bytes)
-tcrypt: test 7 (512 bit key, 64 byte blocks): 1149832 operations in 1 seconds (73589248 bytes)
-tcrypt: test 8 (512 bit key, 256 byte blocks): 1180177 operations in 1 seconds (302125312 bytes)
-tcrypt: test 9 (512 bit key, 1024 byte blocks): 363975 operations in 1 seconds (372710400 bytes)
-tcrypt: test 10 (512 bit key, 1424 byte blocks): 267386 operations in 1 seconds (380757664 bytes)
-tcrypt: test 11 (512 bit key, 4096 byte blocks): 86933 operations in 1 seconds (356077568 bytes)
-
-
-testing speed of async xts(serpent) (xts(ecb-serpent-avx)) encryption
-tcrypt: test 0 (256 bit key, 16 byte blocks): 2408371 operations in 1 seconds (38533936 bytes)
-tcrypt: test 1 (256 bit key, 64 byte blocks): 1141626 operations in 1 seconds (73064064 bytes)
-tcrypt: test 2 (256 bit key, 256 byte blocks): 1072850 operations in 1 seconds (274649600 bytes)
-tcrypt: test 3 (256 bit key, 1024 byte blocks): 348694 operations in 1 seconds (357062656 bytes)
-tcrypt: test 4 (256 bit key, 1424 byte blocks): 250621 operations in 1 seconds (356884304 bytes)
-tcrypt: test 5 (256 bit key, 4096 byte blocks): 86043 operations in 1 seconds (352432128 bytes)
-tcrypt: test 6 (512 bit key, 16 byte blocks): 2406501 operations in 1 seconds (38504016 bytes)
-tcrypt: test 7 (512 bit key, 64 byte blocks): 1146211 operations in 1 seconds (73357504 bytes)
-tcrypt: test 8 (512 bit key, 256 byte blocks): 1075147 operations in 1 seconds (275237632 bytes)
-tcrypt: test 9 (512 bit key, 1024 byte blocks): 348007 operations in 1 seconds (356359168 bytes)
-tcrypt: test 10 (512 bit key, 1424 byte blocks): 250311 operations in 1 seconds (356442864 bytes)
-tcrypt: test 11 (512 bit key, 4096 byte blocks): 86062 operations in 1 seconds (352509952 bytes
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+Tm93IHRoYXQgdGhlIFhUUyB0ZW1wbGF0ZSBjYW4gd3JhcCBhY2NlbGVyYXRlZCBFQ0IgbW9kZXMs
+IGl0IGNhbiBiZQp1c2VkIHRvIGltcGxlbWVudCBDYW1lbGxpYSBpbiBYVFMgbW9kZSBhcyB3ZWxs
+LCB3aGljaCB0dXJucyBvdXQgdG8KYmUgYXQgbGVhc3QgYXMgZmFzdCwgYW5kIHNvbWV0aW1lcyBl
+dmVuIGZhc3Rlci4KClNpZ25lZC1vZmYtYnk6IEFyZCBCaWVzaGV1dmVsIDxhcmRiQGtlcm5lbC5v
+cmc+Ci0tLQogYXJjaC94ODYvY3J5cHRvL2NhbWVsbGlhLWFlc25pLWF2eC1hc21fNjQuUyAgfCAx
+ODAgLS0tLS0tLS0tLS0tLS0tLS0KIGFyY2gveDg2L2NyeXB0by9jYW1lbGxpYS1hZXNuaS1hdngy
+LWFzbV82NC5TIHwgMjA2IC0tLS0tLS0tLS0tLS0tLS0tLS0tCiBhcmNoL3g4Ni9jcnlwdG8vY2Ft
+ZWxsaWFfYWVzbmlfYXZ4Ml9nbHVlLmMgICB8ICA3MCAtLS0tLS0tCiBhcmNoL3g4Ni9jcnlwdG8v
+Y2FtZWxsaWFfYWVzbmlfYXZ4X2dsdWUuYyAgICB8IDEwMSArLS0tLS0tLS0tCiBhcmNoL3g4Ni9p
+bmNsdWRlL2FzbS9jcnlwdG8vY2FtZWxsaWEuaCAgICAgICB8ICAxOCAtLQogNSBmaWxlcyBjaGFu
+Z2VkLCAxIGluc2VydGlvbigrKSwgNTc0IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2FyY2gv
+eDg2L2NyeXB0by9jYW1lbGxpYS1hZXNuaS1hdngtYXNtXzY0LlMgYi9hcmNoL3g4Ni9jcnlwdG8v
+Y2FtZWxsaWEtYWVzbmktYXZ4LWFzbV82NC5TCmluZGV4IGVjYzBhOWE5MDVjNC4uMWUwMzgzYTg0
+MjQ3IDEwMDY0NAotLS0gYS9hcmNoL3g4Ni9jcnlwdG8vY2FtZWxsaWEtYWVzbmktYXZ4LWFzbV82
+NC5TCisrKyBiL2FyY2gveDg2L2NyeXB0by9jYW1lbGxpYS1hZXNuaS1hdngtYXNtXzY0LlMKQEAg
+LTU5MywxMCArNTkzLDYgQEAgU1lNX0ZVTkNfRU5EKHJvdW5kc20xNl94NF94NV94Nl94N194MF94
+MV94Ml94M195NF95NV95Nl95N195MF95MV95Ml95M19hYikKIC5MYnN3YXAxMjhfbWFzazoKIAku
+Ynl0ZSAxNSwgMTQsIDEzLCAxMiwgMTEsIDEwLCA5LCA4LCA3LCA2LCA1LCA0LCAzLCAyLCAxLCAw
+CiAKLS8qIEZvciBYVFMgbW9kZSBJViBnZW5lcmF0aW9uICovCi0uTHh0c19nZjEyOG11bF9hbmRf
+c2hsMV9tYXNrOgotCS5ieXRlIDB4ODcsIDAsIDAsIDAsIDAsIDAsIDAsIDAsIDEsIDAsIDAsIDAs
+IDAsIDAsIDAsIDAKLQogLyoKICAqIHByZS1TdWJCeXRlIHRyYW5zZm9ybQogICoKQEAgLTExMTEs
+MTc5ICsxMTA3LDMgQEAgU1lNX0ZVTkNfU1RBUlQoY2FtZWxsaWFfY3RyXzE2d2F5KQogCUZSQU1F
+X0VORAogCXJldDsKIFNZTV9GVU5DX0VORChjYW1lbGxpYV9jdHJfMTZ3YXkpCi0KLSNkZWZpbmUg
+Z2YxMjhtdWxfeF9ibGUoaXYsIG1hc2ssIHRtcCkgXAotCXZwc3JhZCAkMzEsIGl2LCB0bXA7IFwK
+LQl2cGFkZHEgaXYsIGl2LCBpdjsgXAotCXZwc2h1ZmQgJDB4MTMsIHRtcCwgdG1wOyBcCi0JdnBh
+bmQgbWFzaywgdG1wLCB0bXA7IFwKLQl2cHhvciB0bXAsIGl2LCBpdjsKLQotLmFsaWduIDgKLVNZ
+TV9GVU5DX1NUQVJUX0xPQ0FMKGNhbWVsbGlhX3h0c19jcnlwdF8xNndheSkKLQkvKiBpbnB1dDoK
+LQkgKgklcmRpOiBjdHgsIENUWAotCSAqCSVyc2k6IGRzdCAoMTYgYmxvY2tzKQotCSAqCSVyZHg6
+IHNyYyAoMTYgYmxvY2tzKQotCSAqCSVyY3g6IGl2ICh0IOKKlSDOseKBvyDiiIggR0YoMsK5wrLi
+gbgpKQotCSAqCSVyODogaW5kZXggZm9yIGlucHV0IHdoaXRlbmluZyBrZXkKLQkgKgklcjk6IHBv
+aW50ZXIgdG8gIF9fY2FtZWxsaWFfZW5jX2JsazE2IG9yIF9fY2FtZWxsaWFfZGVjX2JsazE2Ci0J
+ICovCi0JRlJBTUVfQkVHSU4KLQotCXN1YnEgJCgxNiAqIDE2KSwgJXJzcDsKLQltb3ZxICVyc3As
+ICVyYXg7Ci0KLQl2bW92ZHFhIC5MeHRzX2dmMTI4bXVsX2FuZF9zaGwxX21hc2ssICV4bW0xNDsK
+LQotCS8qIGxvYWQgSVYgKi8KLQl2bW92ZHF1ICglcmN4KSwgJXhtbTA7Ci0JdnB4b3IgMCAqIDE2
+KCVyZHgpLCAleG1tMCwgJXhtbTE1OwotCXZtb3ZkcXUgJXhtbTE1LCAxNSAqIDE2KCVyYXgpOwot
+CXZtb3ZkcXUgJXhtbTAsIDAgKiAxNiglcnNpKTsKLQotCS8qIGNvbnN0cnVjdCBJVnMgKi8KLQln
+ZjEyOG11bF94X2JsZSgleG1tMCwgJXhtbTE0LCAleG1tMTUpOwotCXZweG9yIDEgKiAxNiglcmR4
+KSwgJXhtbTAsICV4bW0xNTsKLQl2bW92ZHF1ICV4bW0xNSwgMTQgKiAxNiglcmF4KTsKLQl2bW92
+ZHF1ICV4bW0wLCAxICogMTYoJXJzaSk7Ci0KLQlnZjEyOG11bF94X2JsZSgleG1tMCwgJXhtbTE0
+LCAleG1tMTUpOwotCXZweG9yIDIgKiAxNiglcmR4KSwgJXhtbTAsICV4bW0xMzsKLQl2bW92ZHF1
+ICV4bW0wLCAyICogMTYoJXJzaSk7Ci0KLQlnZjEyOG11bF94X2JsZSgleG1tMCwgJXhtbTE0LCAl
+eG1tMTUpOwotCXZweG9yIDMgKiAxNiglcmR4KSwgJXhtbTAsICV4bW0xMjsKLQl2bW92ZHF1ICV4
+bW0wLCAzICogMTYoJXJzaSk7Ci0KLQlnZjEyOG11bF94X2JsZSgleG1tMCwgJXhtbTE0LCAleG1t
+MTUpOwotCXZweG9yIDQgKiAxNiglcmR4KSwgJXhtbTAsICV4bW0xMTsKLQl2bW92ZHF1ICV4bW0w
+LCA0ICogMTYoJXJzaSk7Ci0KLQlnZjEyOG11bF94X2JsZSgleG1tMCwgJXhtbTE0LCAleG1tMTUp
+OwotCXZweG9yIDUgKiAxNiglcmR4KSwgJXhtbTAsICV4bW0xMDsKLQl2bW92ZHF1ICV4bW0wLCA1
+ICogMTYoJXJzaSk7Ci0KLQlnZjEyOG11bF94X2JsZSgleG1tMCwgJXhtbTE0LCAleG1tMTUpOwot
+CXZweG9yIDYgKiAxNiglcmR4KSwgJXhtbTAsICV4bW05OwotCXZtb3ZkcXUgJXhtbTAsIDYgKiAx
+NiglcnNpKTsKLQotCWdmMTI4bXVsX3hfYmxlKCV4bW0wLCAleG1tMTQsICV4bW0xNSk7Ci0JdnB4
+b3IgNyAqIDE2KCVyZHgpLCAleG1tMCwgJXhtbTg7Ci0Jdm1vdmRxdSAleG1tMCwgNyAqIDE2KCVy
+c2kpOwotCi0JZ2YxMjhtdWxfeF9ibGUoJXhtbTAsICV4bW0xNCwgJXhtbTE1KTsKLQl2cHhvciA4
+ICogMTYoJXJkeCksICV4bW0wLCAleG1tNzsKLQl2bW92ZHF1ICV4bW0wLCA4ICogMTYoJXJzaSk7
+Ci0KLQlnZjEyOG11bF94X2JsZSgleG1tMCwgJXhtbTE0LCAleG1tMTUpOwotCXZweG9yIDkgKiAx
+NiglcmR4KSwgJXhtbTAsICV4bW02OwotCXZtb3ZkcXUgJXhtbTAsIDkgKiAxNiglcnNpKTsKLQot
+CWdmMTI4bXVsX3hfYmxlKCV4bW0wLCAleG1tMTQsICV4bW0xNSk7Ci0JdnB4b3IgMTAgKiAxNigl
+cmR4KSwgJXhtbTAsICV4bW01OwotCXZtb3ZkcXUgJXhtbTAsIDEwICogMTYoJXJzaSk7Ci0KLQln
+ZjEyOG11bF94X2JsZSgleG1tMCwgJXhtbTE0LCAleG1tMTUpOwotCXZweG9yIDExICogMTYoJXJk
+eCksICV4bW0wLCAleG1tNDsKLQl2bW92ZHF1ICV4bW0wLCAxMSAqIDE2KCVyc2kpOwotCi0JZ2Yx
+MjhtdWxfeF9ibGUoJXhtbTAsICV4bW0xNCwgJXhtbTE1KTsKLQl2cHhvciAxMiAqIDE2KCVyZHgp
+LCAleG1tMCwgJXhtbTM7Ci0Jdm1vdmRxdSAleG1tMCwgMTIgKiAxNiglcnNpKTsKLQotCWdmMTI4
+bXVsX3hfYmxlKCV4bW0wLCAleG1tMTQsICV4bW0xNSk7Ci0JdnB4b3IgMTMgKiAxNiglcmR4KSwg
+JXhtbTAsICV4bW0yOwotCXZtb3ZkcXUgJXhtbTAsIDEzICogMTYoJXJzaSk7Ci0KLQlnZjEyOG11
+bF94X2JsZSgleG1tMCwgJXhtbTE0LCAleG1tMTUpOwotCXZweG9yIDE0ICogMTYoJXJkeCksICV4
+bW0wLCAleG1tMTsKLQl2bW92ZHF1ICV4bW0wLCAxNCAqIDE2KCVyc2kpOwotCi0JZ2YxMjhtdWxf
+eF9ibGUoJXhtbTAsICV4bW0xNCwgJXhtbTE1KTsKLQl2cHhvciAxNSAqIDE2KCVyZHgpLCAleG1t
+MCwgJXhtbTE1OwotCXZtb3ZkcXUgJXhtbTE1LCAwICogMTYoJXJheCk7Ci0Jdm1vdmRxdSAleG1t
+MCwgMTUgKiAxNiglcnNpKTsKLQotCWdmMTI4bXVsX3hfYmxlKCV4bW0wLCAleG1tMTQsICV4bW0x
+NSk7Ci0Jdm1vdmRxdSAleG1tMCwgKCVyY3gpOwotCi0JLyogaW5wYWNrMTZfcHJlOiAqLwotCXZt
+b3ZxIChrZXlfdGFibGUpKENUWCwgJXI4LCA4KSwgJXhtbTE1OwotCXZwc2h1ZmIgLkxwYWNrX2Jz
+d2FwLCAleG1tMTUsICV4bW0xNTsKLQl2cHhvciAwICogMTYoJXJheCksICV4bW0xNSwgJXhtbTA7
+Ci0JdnB4b3IgJXhtbTEsICV4bW0xNSwgJXhtbTE7Ci0JdnB4b3IgJXhtbTIsICV4bW0xNSwgJXht
+bTI7Ci0JdnB4b3IgJXhtbTMsICV4bW0xNSwgJXhtbTM7Ci0JdnB4b3IgJXhtbTQsICV4bW0xNSwg
+JXhtbTQ7Ci0JdnB4b3IgJXhtbTUsICV4bW0xNSwgJXhtbTU7Ci0JdnB4b3IgJXhtbTYsICV4bW0x
+NSwgJXhtbTY7Ci0JdnB4b3IgJXhtbTcsICV4bW0xNSwgJXhtbTc7Ci0JdnB4b3IgJXhtbTgsICV4
+bW0xNSwgJXhtbTg7Ci0JdnB4b3IgJXhtbTksICV4bW0xNSwgJXhtbTk7Ci0JdnB4b3IgJXhtbTEw
+LCAleG1tMTUsICV4bW0xMDsKLQl2cHhvciAleG1tMTEsICV4bW0xNSwgJXhtbTExOwotCXZweG9y
+ICV4bW0xMiwgJXhtbTE1LCAleG1tMTI7Ci0JdnB4b3IgJXhtbTEzLCAleG1tMTUsICV4bW0xMzsK
+LQl2cHhvciAxNCAqIDE2KCVyYXgpLCAleG1tMTUsICV4bW0xNDsKLQl2cHhvciAxNSAqIDE2KCVy
+YXgpLCAleG1tMTUsICV4bW0xNTsKLQotCUNBTExfTk9TUEVDIHI5OwotCi0JYWRkcSAkKDE2ICog
+MTYpLCAlcnNwOwotCi0JdnB4b3IgMCAqIDE2KCVyc2kpLCAleG1tNywgJXhtbTc7Ci0JdnB4b3Ig
+MSAqIDE2KCVyc2kpLCAleG1tNiwgJXhtbTY7Ci0JdnB4b3IgMiAqIDE2KCVyc2kpLCAleG1tNSwg
+JXhtbTU7Ci0JdnB4b3IgMyAqIDE2KCVyc2kpLCAleG1tNCwgJXhtbTQ7Ci0JdnB4b3IgNCAqIDE2
+KCVyc2kpLCAleG1tMywgJXhtbTM7Ci0JdnB4b3IgNSAqIDE2KCVyc2kpLCAleG1tMiwgJXhtbTI7
+Ci0JdnB4b3IgNiAqIDE2KCVyc2kpLCAleG1tMSwgJXhtbTE7Ci0JdnB4b3IgNyAqIDE2KCVyc2kp
+LCAleG1tMCwgJXhtbTA7Ci0JdnB4b3IgOCAqIDE2KCVyc2kpLCAleG1tMTUsICV4bW0xNTsKLQl2
+cHhvciA5ICogMTYoJXJzaSksICV4bW0xNCwgJXhtbTE0OwotCXZweG9yIDEwICogMTYoJXJzaSks
+ICV4bW0xMywgJXhtbTEzOwotCXZweG9yIDExICogMTYoJXJzaSksICV4bW0xMiwgJXhtbTEyOwot
+CXZweG9yIDEyICogMTYoJXJzaSksICV4bW0xMSwgJXhtbTExOwotCXZweG9yIDEzICogMTYoJXJz
+aSksICV4bW0xMCwgJXhtbTEwOwotCXZweG9yIDE0ICogMTYoJXJzaSksICV4bW05LCAleG1tOTsK
+LQl2cHhvciAxNSAqIDE2KCVyc2kpLCAleG1tOCwgJXhtbTg7Ci0Jd3JpdGVfb3V0cHV0KCV4bW03
+LCAleG1tNiwgJXhtbTUsICV4bW00LCAleG1tMywgJXhtbTIsICV4bW0xLCAleG1tMCwKLQkJICAg
+ICAleG1tMTUsICV4bW0xNCwgJXhtbTEzLCAleG1tMTIsICV4bW0xMSwgJXhtbTEwLCAleG1tOSwK
+LQkJICAgICAleG1tOCwgJXJzaSk7Ci0KLQlGUkFNRV9FTkQKLQlyZXQ7Ci1TWU1fRlVOQ19FTkQo
+Y2FtZWxsaWFfeHRzX2NyeXB0XzE2d2F5KQotCi1TWU1fRlVOQ19TVEFSVChjYW1lbGxpYV94dHNf
+ZW5jXzE2d2F5KQotCS8qIGlucHV0OgotCSAqCSVyZGk6IGN0eCwgQ1RYCi0JICoJJXJzaTogZHN0
+ICgxNiBibG9ja3MpCi0JICoJJXJkeDogc3JjICgxNiBibG9ja3MpCi0JICoJJXJjeDogaXYgKHQg
+4oqVIM6x4oG/IOKIiCBHRigywrnCsuKBuCkpCi0JICovCi0JeG9ybCAlcjhkLCAlcjhkOyAvKiBp
+bnB1dCB3aGl0ZW5pbmcga2V5LCAwIGZvciBlbmMgKi8KLQotCWxlYXEgX19jYW1lbGxpYV9lbmNf
+YmxrMTYsICVyOTsKLQotCWptcCBjYW1lbGxpYV94dHNfY3J5cHRfMTZ3YXk7Ci1TWU1fRlVOQ19F
+TkQoY2FtZWxsaWFfeHRzX2VuY18xNndheSkKLQotU1lNX0ZVTkNfU1RBUlQoY2FtZWxsaWFfeHRz
+X2RlY18xNndheSkKLQkvKiBpbnB1dDoKLQkgKgklcmRpOiBjdHgsIENUWAotCSAqCSVyc2k6IGRz
+dCAoMTYgYmxvY2tzKQotCSAqCSVyZHg6IHNyYyAoMTYgYmxvY2tzKQotCSAqCSVyY3g6IGl2ICh0
+IOKKlSDOseKBvyDiiIggR0YoMsK5wrLigbgpKQotCSAqLwotCi0JY21wbCAkMTYsIGtleV9sZW5n
+dGgoQ1RYKTsKLQltb3ZsICQzMiwgJXI4ZDsKLQltb3ZsICQyNCwgJWVheDsKLQljbW92ZWwgJWVh
+eCwgJXI4ZDsgIC8qIGlucHV0IHdoaXRlbmluZyBrZXksIGxhc3QgZm9yIGRlYyAqLwotCi0JbGVh
+cSBfX2NhbWVsbGlhX2RlY19ibGsxNiwgJXI5OwotCi0Jam1wIGNhbWVsbGlhX3h0c19jcnlwdF8x
+NndheTsKLVNZTV9GVU5DX0VORChjYW1lbGxpYV94dHNfZGVjXzE2d2F5KQpkaWZmIC0tZ2l0IGEv
+YXJjaC94ODYvY3J5cHRvL2NhbWVsbGlhLWFlc25pLWF2eDItYXNtXzY0LlMgYi9hcmNoL3g4Ni9j
+cnlwdG8vY2FtZWxsaWEtYWVzbmktYXZ4Mi1hc21fNjQuUwppbmRleCAwOTA3MjQzYzUwMWMuLjQz
+MmJmYWY1NGZmOSAxMDA2NDQKLS0tIGEvYXJjaC94ODYvY3J5cHRvL2NhbWVsbGlhLWFlc25pLWF2
+eDItYXNtXzY0LlMKKysrIGIvYXJjaC94ODYvY3J5cHRvL2NhbWVsbGlhLWFlc25pLWF2eDItYXNt
+XzY0LlMKQEAgLTYyOSwxMiArNjI5LDYgQEAgU1lNX0ZVTkNfRU5EKHJvdW5kc20zMl94NF94NV94
+Nl94N194MF94MV94Ml94M195NF95NV95Nl95N195MF95MV95Ml95M19hYikKIC5MYnN3YXAxMjhf
+bWFzazoKIAkuYnl0ZSAxNSwgMTQsIDEzLCAxMiwgMTEsIDEwLCA5LCA4LCA3LCA2LCA1LCA0LCAz
+LCAyLCAxLCAwCiAKLS8qIEZvciBYVFMgbW9kZSAqLwotLkx4dHNfZ2YxMjhtdWxfYW5kX3NobDFf
+bWFza18wOgotCS5ieXRlIDB4ODcsIDAsIDAsIDAsIDAsIDAsIDAsIDAsIDEsIDAsIDAsIDAsIDAs
+IDAsIDAsIDAKLS5MeHRzX2dmMTI4bXVsX2FuZF9zaGwxX21hc2tfMToKLQkuYnl0ZSAweDBlLCAx
+LCAwLCAwLCAwLCAwLCAwLCAwLCAyLCAwLCAwLCAwLCAwLCAwLCAwLCAwCi0KIC8qCiAgKiBwcmUt
+U3ViQnl0ZSB0cmFuc2Zvcm0KICAqCkBAIC0xMjAxLDIwMyArMTE5NSwzIEBAIFNZTV9GVU5DX1NU
+QVJUKGNhbWVsbGlhX2N0cl8zMndheSkKIAlGUkFNRV9FTkQKIAlyZXQ7CiBTWU1fRlVOQ19FTkQo
+Y2FtZWxsaWFfY3RyXzMyd2F5KQotCi0jZGVmaW5lIGdmMTI4bXVsX3hfYmxlKGl2LCBtYXNrLCB0
+bXApIFwKLQl2cHNyYWQgJDMxLCBpdiwgdG1wOyBcCi0JdnBhZGRxIGl2LCBpdiwgaXY7IFwKLQl2
+cHNodWZkICQweDEzLCB0bXAsIHRtcDsgXAotCXZwYW5kIG1hc2ssIHRtcCwgdG1wOyBcCi0JdnB4
+b3IgdG1wLCBpdiwgaXY7Ci0KLSNkZWZpbmUgZ2YxMjhtdWxfeDJfYmxlKGl2LCBtYXNrMSwgbWFz
+azIsIHRtcDAsIHRtcDEpIFwKLQl2cHNyYWQgJDMxLCBpdiwgdG1wMDsgXAotCXZwYWRkcSBpdiwg
+aXYsIHRtcDE7IFwKLQl2cHNsbHEgJDIsIGl2LCBpdjsgXAotCXZwc2h1ZmQgJDB4MTMsIHRtcDAs
+IHRtcDA7IFwKLQl2cHNyYWQgJDMxLCB0bXAxLCB0bXAxOyBcCi0JdnBhbmQgbWFzazIsIHRtcDAs
+IHRtcDA7IFwKLQl2cHNodWZkICQweDEzLCB0bXAxLCB0bXAxOyBcCi0JdnB4b3IgdG1wMCwgaXYs
+IGl2OyBcCi0JdnBhbmQgbWFzazEsIHRtcDEsIHRtcDE7IFwKLQl2cHhvciB0bXAxLCBpdiwgaXY7
+Ci0KLS5hbGlnbiA4Ci1TWU1fRlVOQ19TVEFSVF9MT0NBTChjYW1lbGxpYV94dHNfY3J5cHRfMzJ3
+YXkpCi0JLyogaW5wdXQ6Ci0JICoJJXJkaTogY3R4LCBDVFgKLQkgKgklcnNpOiBkc3QgKDMyIGJs
+b2NrcykKLQkgKgklcmR4OiBzcmMgKDMyIGJsb2NrcykKLQkgKgklcmN4OiBpdiAodCDiipUgzrHi
+gb8g4oiIIEdGKDLCucKy4oG4KSkKLQkgKgklcjg6IGluZGV4IGZvciBpbnB1dCB3aGl0ZW5pbmcg
+a2V5Ci0JICoJJXI5OiBwb2ludGVyIHRvICBfX2NhbWVsbGlhX2VuY19ibGszMiBvciBfX2NhbWVs
+bGlhX2RlY19ibGszMgotCSAqLwotCUZSQU1FX0JFR0lOCi0KLQl2emVyb3VwcGVyOwotCi0Jc3Vi
+cSAkKDE2ICogMzIpLCAlcnNwOwotCW1vdnEgJXJzcCwgJXJheDsKLQotCXZicm9hZGNhc3RpMTI4
+IC5MeHRzX2dmMTI4bXVsX2FuZF9zaGwxX21hc2tfMCwgJXltbTEyOwotCi0JLyogbG9hZCBJViBh
+bmQgY29uc3RydWN0IHNlY29uZCBJViAqLwotCXZtb3ZkcXUgKCVyY3gpLCAleG1tMDsKLQl2bW92
+ZHFhICV4bW0wLCAleG1tMTU7Ci0JZ2YxMjhtdWxfeF9ibGUoJXhtbTAsICV4bW0xMiwgJXhtbTEz
+KTsKLQl2YnJvYWRjYXN0aTEyOCAuTHh0c19nZjEyOG11bF9hbmRfc2hsMV9tYXNrXzEsICV5bW0x
+MzsKLQl2aW5zZXJ0aTEyOCAkMSwgJXhtbTAsICV5bW0xNSwgJXltbTA7Ci0JdnB4b3IgMCAqIDMy
+KCVyZHgpLCAleW1tMCwgJXltbTE1OwotCXZtb3ZkcXUgJXltbTE1LCAxNSAqIDMyKCVyYXgpOwot
+CXZtb3ZkcXUgJXltbTAsIDAgKiAzMiglcnNpKTsKLQotCS8qIGNvbnN0cnVjdCBJVnMgKi8KLQln
+ZjEyOG11bF94Ml9ibGUoJXltbTAsICV5bW0xMiwgJXltbTEzLCAleW1tMTQsICV5bW0xNSk7Ci0J
+dnB4b3IgMSAqIDMyKCVyZHgpLCAleW1tMCwgJXltbTE1OwotCXZtb3ZkcXUgJXltbTE1LCAxNCAq
+IDMyKCVyYXgpOwotCXZtb3ZkcXUgJXltbTAsIDEgKiAzMiglcnNpKTsKLQotCWdmMTI4bXVsX3gy
+X2JsZSgleW1tMCwgJXltbTEyLCAleW1tMTMsICV5bW0xNCwgJXltbTE1KTsKLQl2cHhvciAyICog
+MzIoJXJkeCksICV5bW0wLCAleW1tMTU7Ci0Jdm1vdmRxdSAleW1tMTUsIDEzICogMzIoJXJheCk7
+Ci0Jdm1vdmRxdSAleW1tMCwgMiAqIDMyKCVyc2kpOwotCi0JZ2YxMjhtdWxfeDJfYmxlKCV5bW0w
+LCAleW1tMTIsICV5bW0xMywgJXltbTE0LCAleW1tMTUpOwotCXZweG9yIDMgKiAzMiglcmR4KSwg
+JXltbTAsICV5bW0xNTsKLQl2bW92ZHF1ICV5bW0xNSwgMTIgKiAzMiglcmF4KTsKLQl2bW92ZHF1
+ICV5bW0wLCAzICogMzIoJXJzaSk7Ci0KLQlnZjEyOG11bF94Ml9ibGUoJXltbTAsICV5bW0xMiwg
+JXltbTEzLCAleW1tMTQsICV5bW0xNSk7Ci0JdnB4b3IgNCAqIDMyKCVyZHgpLCAleW1tMCwgJXlt
+bTExOwotCXZtb3ZkcXUgJXltbTAsIDQgKiAzMiglcnNpKTsKLQotCWdmMTI4bXVsX3gyX2JsZSgl
+eW1tMCwgJXltbTEyLCAleW1tMTMsICV5bW0xNCwgJXltbTE1KTsKLQl2cHhvciA1ICogMzIoJXJk
+eCksICV5bW0wLCAleW1tMTA7Ci0Jdm1vdmRxdSAleW1tMCwgNSAqIDMyKCVyc2kpOwotCi0JZ2Yx
+MjhtdWxfeDJfYmxlKCV5bW0wLCAleW1tMTIsICV5bW0xMywgJXltbTE0LCAleW1tMTUpOwotCXZw
+eG9yIDYgKiAzMiglcmR4KSwgJXltbTAsICV5bW05OwotCXZtb3ZkcXUgJXltbTAsIDYgKiAzMigl
+cnNpKTsKLQotCWdmMTI4bXVsX3gyX2JsZSgleW1tMCwgJXltbTEyLCAleW1tMTMsICV5bW0xNCwg
+JXltbTE1KTsKLQl2cHhvciA3ICogMzIoJXJkeCksICV5bW0wLCAleW1tODsKLQl2bW92ZHF1ICV5
+bW0wLCA3ICogMzIoJXJzaSk7Ci0KLQlnZjEyOG11bF94Ml9ibGUoJXltbTAsICV5bW0xMiwgJXlt
+bTEzLCAleW1tMTQsICV5bW0xNSk7Ci0JdnB4b3IgOCAqIDMyKCVyZHgpLCAleW1tMCwgJXltbTc7
+Ci0Jdm1vdmRxdSAleW1tMCwgOCAqIDMyKCVyc2kpOwotCi0JZ2YxMjhtdWxfeDJfYmxlKCV5bW0w
+LCAleW1tMTIsICV5bW0xMywgJXltbTE0LCAleW1tMTUpOwotCXZweG9yIDkgKiAzMiglcmR4KSwg
+JXltbTAsICV5bW02OwotCXZtb3ZkcXUgJXltbTAsIDkgKiAzMiglcnNpKTsKLQotCWdmMTI4bXVs
+X3gyX2JsZSgleW1tMCwgJXltbTEyLCAleW1tMTMsICV5bW0xNCwgJXltbTE1KTsKLQl2cHhvciAx
+MCAqIDMyKCVyZHgpLCAleW1tMCwgJXltbTU7Ci0Jdm1vdmRxdSAleW1tMCwgMTAgKiAzMiglcnNp
+KTsKLQotCWdmMTI4bXVsX3gyX2JsZSgleW1tMCwgJXltbTEyLCAleW1tMTMsICV5bW0xNCwgJXlt
+bTE1KTsKLQl2cHhvciAxMSAqIDMyKCVyZHgpLCAleW1tMCwgJXltbTQ7Ci0Jdm1vdmRxdSAleW1t
+MCwgMTEgKiAzMiglcnNpKTsKLQotCWdmMTI4bXVsX3gyX2JsZSgleW1tMCwgJXltbTEyLCAleW1t
+MTMsICV5bW0xNCwgJXltbTE1KTsKLQl2cHhvciAxMiAqIDMyKCVyZHgpLCAleW1tMCwgJXltbTM7
+Ci0Jdm1vdmRxdSAleW1tMCwgMTIgKiAzMiglcnNpKTsKLQotCWdmMTI4bXVsX3gyX2JsZSgleW1t
+MCwgJXltbTEyLCAleW1tMTMsICV5bW0xNCwgJXltbTE1KTsKLQl2cHhvciAxMyAqIDMyKCVyZHgp
+LCAleW1tMCwgJXltbTI7Ci0Jdm1vdmRxdSAleW1tMCwgMTMgKiAzMiglcnNpKTsKLQotCWdmMTI4
+bXVsX3gyX2JsZSgleW1tMCwgJXltbTEyLCAleW1tMTMsICV5bW0xNCwgJXltbTE1KTsKLQl2cHhv
+ciAxNCAqIDMyKCVyZHgpLCAleW1tMCwgJXltbTE7Ci0Jdm1vdmRxdSAleW1tMCwgMTQgKiAzMigl
+cnNpKTsKLQotCWdmMTI4bXVsX3gyX2JsZSgleW1tMCwgJXltbTEyLCAleW1tMTMsICV5bW0xNCwg
+JXltbTE1KTsKLQl2cHhvciAxNSAqIDMyKCVyZHgpLCAleW1tMCwgJXltbTE1OwotCXZtb3ZkcXUg
+JXltbTE1LCAwICogMzIoJXJheCk7Ci0Jdm1vdmRxdSAleW1tMCwgMTUgKiAzMiglcnNpKTsKLQot
+CXZleHRyYWN0aTEyOCAkMSwgJXltbTAsICV4bW0wOwotCWdmMTI4bXVsX3hfYmxlKCV4bW0wLCAl
+eG1tMTIsICV4bW0xNSk7Ci0Jdm1vdmRxdSAleG1tMCwgKCVyY3gpOwotCi0JLyogaW5wYWNrMzJf
+cHJlOiAqLwotCXZwYnJvYWRjYXN0cSAoa2V5X3RhYmxlKShDVFgsICVyOCwgOCksICV5bW0xNTsK
+LQl2cHNodWZiIC5McGFja19ic3dhcCwgJXltbTE1LCAleW1tMTU7Ci0JdnB4b3IgMCAqIDMyKCVy
+YXgpLCAleW1tMTUsICV5bW0wOwotCXZweG9yICV5bW0xLCAleW1tMTUsICV5bW0xOwotCXZweG9y
+ICV5bW0yLCAleW1tMTUsICV5bW0yOwotCXZweG9yICV5bW0zLCAleW1tMTUsICV5bW0zOwotCXZw
+eG9yICV5bW00LCAleW1tMTUsICV5bW00OwotCXZweG9yICV5bW01LCAleW1tMTUsICV5bW01Owot
+CXZweG9yICV5bW02LCAleW1tMTUsICV5bW02OwotCXZweG9yICV5bW03LCAleW1tMTUsICV5bW03
+OwotCXZweG9yICV5bW04LCAleW1tMTUsICV5bW04OwotCXZweG9yICV5bW05LCAleW1tMTUsICV5
+bW05OwotCXZweG9yICV5bW0xMCwgJXltbTE1LCAleW1tMTA7Ci0JdnB4b3IgJXltbTExLCAleW1t
+MTUsICV5bW0xMTsKLQl2cHhvciAxMiAqIDMyKCVyYXgpLCAleW1tMTUsICV5bW0xMjsKLQl2cHhv
+ciAxMyAqIDMyKCVyYXgpLCAleW1tMTUsICV5bW0xMzsKLQl2cHhvciAxNCAqIDMyKCVyYXgpLCAl
+eW1tMTUsICV5bW0xNDsKLQl2cHhvciAxNSAqIDMyKCVyYXgpLCAleW1tMTUsICV5bW0xNTsKLQot
+CUNBTExfTk9TUEVDIHI5OwotCi0JYWRkcSAkKDE2ICogMzIpLCAlcnNwOwotCi0JdnB4b3IgMCAq
+IDMyKCVyc2kpLCAleW1tNywgJXltbTc7Ci0JdnB4b3IgMSAqIDMyKCVyc2kpLCAleW1tNiwgJXlt
+bTY7Ci0JdnB4b3IgMiAqIDMyKCVyc2kpLCAleW1tNSwgJXltbTU7Ci0JdnB4b3IgMyAqIDMyKCVy
+c2kpLCAleW1tNCwgJXltbTQ7Ci0JdnB4b3IgNCAqIDMyKCVyc2kpLCAleW1tMywgJXltbTM7Ci0J
+dnB4b3IgNSAqIDMyKCVyc2kpLCAleW1tMiwgJXltbTI7Ci0JdnB4b3IgNiAqIDMyKCVyc2kpLCAl
+eW1tMSwgJXltbTE7Ci0JdnB4b3IgNyAqIDMyKCVyc2kpLCAleW1tMCwgJXltbTA7Ci0JdnB4b3Ig
+OCAqIDMyKCVyc2kpLCAleW1tMTUsICV5bW0xNTsKLQl2cHhvciA5ICogMzIoJXJzaSksICV5bW0x
+NCwgJXltbTE0OwotCXZweG9yIDEwICogMzIoJXJzaSksICV5bW0xMywgJXltbTEzOwotCXZweG9y
+IDExICogMzIoJXJzaSksICV5bW0xMiwgJXltbTEyOwotCXZweG9yIDEyICogMzIoJXJzaSksICV5
+bW0xMSwgJXltbTExOwotCXZweG9yIDEzICogMzIoJXJzaSksICV5bW0xMCwgJXltbTEwOwotCXZw
+eG9yIDE0ICogMzIoJXJzaSksICV5bW05LCAleW1tOTsKLQl2cHhvciAxNSAqIDMyKCVyc2kpLCAl
+eW1tOCwgJXltbTg7Ci0Jd3JpdGVfb3V0cHV0KCV5bW03LCAleW1tNiwgJXltbTUsICV5bW00LCAl
+eW1tMywgJXltbTIsICV5bW0xLCAleW1tMCwKLQkJICAgICAleW1tMTUsICV5bW0xNCwgJXltbTEz
+LCAleW1tMTIsICV5bW0xMSwgJXltbTEwLCAleW1tOSwKLQkJICAgICAleW1tOCwgJXJzaSk7Ci0K
+LQl2emVyb3VwcGVyOwotCi0JRlJBTUVfRU5ECi0JcmV0OwotU1lNX0ZVTkNfRU5EKGNhbWVsbGlh
+X3h0c19jcnlwdF8zMndheSkKLQotU1lNX0ZVTkNfU1RBUlQoY2FtZWxsaWFfeHRzX2VuY18zMndh
+eSkKLQkvKiBpbnB1dDoKLQkgKgklcmRpOiBjdHgsIENUWAotCSAqCSVyc2k6IGRzdCAoMzIgYmxv
+Y2tzKQotCSAqCSVyZHg6IHNyYyAoMzIgYmxvY2tzKQotCSAqCSVyY3g6IGl2ICh0IOKKlSDOseKB
+vyDiiIggR0YoMsK5wrLigbgpKQotCSAqLwotCi0JeG9ybCAlcjhkLCAlcjhkOyAvKiBpbnB1dCB3
+aGl0ZW5pbmcga2V5LCAwIGZvciBlbmMgKi8KLQotCWxlYXEgX19jYW1lbGxpYV9lbmNfYmxrMzIs
+ICVyOTsKLQotCWptcCBjYW1lbGxpYV94dHNfY3J5cHRfMzJ3YXk7Ci1TWU1fRlVOQ19FTkQoY2Ft
+ZWxsaWFfeHRzX2VuY18zMndheSkKLQotU1lNX0ZVTkNfU1RBUlQoY2FtZWxsaWFfeHRzX2RlY18z
+MndheSkKLQkvKiBpbnB1dDoKLQkgKgklcmRpOiBjdHgsIENUWAotCSAqCSVyc2k6IGRzdCAoMzIg
+YmxvY2tzKQotCSAqCSVyZHg6IHNyYyAoMzIgYmxvY2tzKQotCSAqCSVyY3g6IGl2ICh0IOKKlSDO
+seKBvyDiiIggR0YoMsK5wrLigbgpKQotCSAqLwotCi0JY21wbCAkMTYsIGtleV9sZW5ndGgoQ1RY
+KTsKLQltb3ZsICQzMiwgJXI4ZDsKLQltb3ZsICQyNCwgJWVheDsKLQljbW92ZWwgJWVheCwgJXI4
+ZDsgIC8qIGlucHV0IHdoaXRlbmluZyBrZXksIGxhc3QgZm9yIGRlYyAqLwotCi0JbGVhcSBfX2Nh
+bWVsbGlhX2RlY19ibGszMiwgJXI5OwotCi0Jam1wIGNhbWVsbGlhX3h0c19jcnlwdF8zMndheTsK
+LVNZTV9GVU5DX0VORChjYW1lbGxpYV94dHNfZGVjXzMyd2F5KQpkaWZmIC0tZ2l0IGEvYXJjaC94
+ODYvY3J5cHRvL2NhbWVsbGlhX2Flc25pX2F2eDJfZ2x1ZS5jIGIvYXJjaC94ODYvY3J5cHRvL2Nh
+bWVsbGlhX2Flc25pX2F2eDJfZ2x1ZS5jCmluZGV4IGNjZGE2NDc0MjJkNi4uZDk1NmQwNDczNjY4
+IDEwMDY0NAotLS0gYS9hcmNoL3g4Ni9jcnlwdG8vY2FtZWxsaWFfYWVzbmlfYXZ4Ml9nbHVlLmMK
+KysrIGIvYXJjaC94ODYvY3J5cHRvL2NhbWVsbGlhX2Flc25pX2F2eDJfZ2x1ZS5jCkBAIC05LDcg
+KzksNiBAQAogI2luY2x1ZGUgPGFzbS9jcnlwdG8vZ2x1ZV9oZWxwZXIuaD4KICNpbmNsdWRlIDxj
+cnlwdG8vYWxnYXBpLmg+CiAjaW5jbHVkZSA8Y3J5cHRvL2ludGVybmFsL3NpbWQuaD4KLSNpbmNs
+dWRlIDxjcnlwdG8veHRzLmg+CiAjaW5jbHVkZSA8bGludXgvY3J5cHRvLmg+CiAjaW5jbHVkZSA8
+bGludXgvZXJyLmg+CiAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+CkBAIC0yNiwxMSArMjUsNiBA
+QCBhc21saW5rYWdlIHZvaWQgY2FtZWxsaWFfY2JjX2RlY18zMndheShjb25zdCB2b2lkICpjdHgs
+IHU4ICpkc3QsIGNvbnN0IHU4ICpzcmMpOwogYXNtbGlua2FnZSB2b2lkIGNhbWVsbGlhX2N0cl8z
+MndheShjb25zdCB2b2lkICpjdHgsIHU4ICpkc3QsIGNvbnN0IHU4ICpzcmMsCiAJCQkJICAgbGUx
+MjggKml2KTsKIAotYXNtbGlua2FnZSB2b2lkIGNhbWVsbGlhX3h0c19lbmNfMzJ3YXkoY29uc3Qg
+dm9pZCAqY3R4LCB1OCAqZHN0LCBjb25zdCB1OCAqc3JjLAotCQkJCSAgICAgICBsZTEyOCAqaXYp
+OwotYXNtbGlua2FnZSB2b2lkIGNhbWVsbGlhX3h0c19kZWNfMzJ3YXkoY29uc3Qgdm9pZCAqY3R4
+LCB1OCAqZHN0LCBjb25zdCB1OCAqc3JjLAotCQkJCSAgICAgICBsZTEyOCAqaXYpOwotCiBzdGF0
+aWMgY29uc3Qgc3RydWN0IGNvbW1vbl9nbHVlX2N0eCBjYW1lbGxpYV9lbmMgPSB7CiAJLm51bV9m
+dW5jcyA9IDQsCiAJLmZwdV9ibG9ja3NfbGltaXQgPSBDQU1FTExJQV9BRVNOSV9QQVJBTExFTF9C
+TE9DS1MsCkBAIC02OSwyMiArNjMsNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGNvbW1vbl9nbHVl
+X2N0eCBjYW1lbGxpYV9jdHIgPSB7CiAJfSB9CiB9OwogCi1zdGF0aWMgY29uc3Qgc3RydWN0IGNv
+bW1vbl9nbHVlX2N0eCBjYW1lbGxpYV9lbmNfeHRzID0gewotCS5udW1fZnVuY3MgPSAzLAotCS5m
+cHVfYmxvY2tzX2xpbWl0ID0gQ0FNRUxMSUFfQUVTTklfUEFSQUxMRUxfQkxPQ0tTLAotCi0JLmZ1
+bmNzID0geyB7Ci0JCS5udW1fYmxvY2tzID0gQ0FNRUxMSUFfQUVTTklfQVZYMl9QQVJBTExFTF9C
+TE9DS1MsCi0JCS5mbl91ID0geyAueHRzID0gY2FtZWxsaWFfeHRzX2VuY18zMndheSB9Ci0JfSwg
+ewotCQkubnVtX2Jsb2NrcyA9IENBTUVMTElBX0FFU05JX1BBUkFMTEVMX0JMT0NLUywKLQkJLmZu
+X3UgPSB7IC54dHMgPSBjYW1lbGxpYV94dHNfZW5jXzE2d2F5IH0KLQl9LCB7Ci0JCS5udW1fYmxv
+Y2tzID0gMSwKLQkJLmZuX3UgPSB7IC54dHMgPSBjYW1lbGxpYV94dHNfZW5jIH0KLQl9IH0KLX07
+Ci0KIHN0YXRpYyBjb25zdCBzdHJ1Y3QgY29tbW9uX2dsdWVfY3R4IGNhbWVsbGlhX2RlYyA9IHsK
+IAkubnVtX2Z1bmNzID0gNCwKIAkuZnB1X2Jsb2Nrc19saW1pdCA9IENBTUVMTElBX0FFU05JX1BB
+UkFMTEVMX0JMT0NLUywKQEAgLTEyMywyMiArMTAxLDYgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBj
+b21tb25fZ2x1ZV9jdHggY2FtZWxsaWFfZGVjX2NiYyA9IHsKIAl9IH0KIH07CiAKLXN0YXRpYyBj
+b25zdCBzdHJ1Y3QgY29tbW9uX2dsdWVfY3R4IGNhbWVsbGlhX2RlY194dHMgPSB7Ci0JLm51bV9m
+dW5jcyA9IDMsCi0JLmZwdV9ibG9ja3NfbGltaXQgPSBDQU1FTExJQV9BRVNOSV9QQVJBTExFTF9C
+TE9DS1MsCi0KLQkuZnVuY3MgPSB7IHsKLQkJLm51bV9ibG9ja3MgPSBDQU1FTExJQV9BRVNOSV9B
+VlgyX1BBUkFMTEVMX0JMT0NLUywKLQkJLmZuX3UgPSB7IC54dHMgPSBjYW1lbGxpYV94dHNfZGVj
+XzMyd2F5IH0KLQl9LCB7Ci0JCS5udW1fYmxvY2tzID0gQ0FNRUxMSUFfQUVTTklfUEFSQUxMRUxf
+QkxPQ0tTLAotCQkuZm5fdSA9IHsgLnh0cyA9IGNhbWVsbGlhX3h0c19kZWNfMTZ3YXkgfQotCX0s
+IHsKLQkJLm51bV9ibG9ja3MgPSAxLAotCQkuZm5fdSA9IHsgLnh0cyA9IGNhbWVsbGlhX3h0c19k
+ZWMgfQotCX0gfQotfTsKLQogc3RhdGljIGludCBjYW1lbGxpYV9zZXRrZXkoc3RydWN0IGNyeXB0
+b19za2NpcGhlciAqdGZtLCBjb25zdCB1OCAqa2V5LAogCQkJICAgdW5zaWduZWQgaW50IGtleWxl
+bikKIHsKQEAgLTE3MCwyNCArMTMyLDYgQEAgc3RhdGljIGludCBjdHJfY3J5cHQoc3RydWN0IHNr
+Y2lwaGVyX3JlcXVlc3QgKnJlcSkKIAlyZXR1cm4gZ2x1ZV9jdHJfcmVxXzEyOGJpdCgmY2FtZWxs
+aWFfY3RyLCByZXEpOwogfQogCi1zdGF0aWMgaW50IHh0c19lbmNyeXB0KHN0cnVjdCBza2NpcGhl
+cl9yZXF1ZXN0ICpyZXEpCi17Ci0Jc3RydWN0IGNyeXB0b19za2NpcGhlciAqdGZtID0gY3J5cHRv
+X3NrY2lwaGVyX3JlcXRmbShyZXEpOwotCXN0cnVjdCBjYW1lbGxpYV94dHNfY3R4ICpjdHggPSBj
+cnlwdG9fc2tjaXBoZXJfY3R4KHRmbSk7Ci0KLQlyZXR1cm4gZ2x1ZV94dHNfcmVxXzEyOGJpdCgm
+Y2FtZWxsaWFfZW5jX3h0cywgcmVxLCBjYW1lbGxpYV9lbmNfYmxrLAotCQkJCSAgICZjdHgtPnR3
+ZWFrX2N0eCwgJmN0eC0+Y3J5cHRfY3R4LCBmYWxzZSk7Ci19Ci0KLXN0YXRpYyBpbnQgeHRzX2Rl
+Y3J5cHQoc3RydWN0IHNrY2lwaGVyX3JlcXVlc3QgKnJlcSkKLXsKLQlzdHJ1Y3QgY3J5cHRvX3Nr
+Y2lwaGVyICp0Zm0gPSBjcnlwdG9fc2tjaXBoZXJfcmVxdGZtKHJlcSk7Ci0Jc3RydWN0IGNhbWVs
+bGlhX3h0c19jdHggKmN0eCA9IGNyeXB0b19za2NpcGhlcl9jdHgodGZtKTsKLQotCXJldHVybiBn
+bHVlX3h0c19yZXFfMTI4Yml0KCZjYW1lbGxpYV9kZWNfeHRzLCByZXEsIGNhbWVsbGlhX2VuY19i
+bGssCi0JCQkJICAgJmN0eC0+dHdlYWtfY3R4LCAmY3R4LT5jcnlwdF9jdHgsIHRydWUpOwotfQot
+CiBzdGF0aWMgc3RydWN0IHNrY2lwaGVyX2FsZyBjYW1lbGxpYV9hbGdzW10gPSB7CiAJewogCQku
+YmFzZS5jcmFfbmFtZQkJPSAiX19lY2IoY2FtZWxsaWEpIiwKQEAgLTIzMSwyMCArMTc1LDYgQEAg
+c3RhdGljIHN0cnVjdCBza2NpcGhlcl9hbGcgY2FtZWxsaWFfYWxnc1tdID0gewogCQkuc2V0a2V5
+CQkJPSBjYW1lbGxpYV9zZXRrZXksCiAJCS5lbmNyeXB0CQk9IGN0cl9jcnlwdCwKIAkJLmRlY3J5
+cHQJCT0gY3RyX2NyeXB0LAotCX0sIHsKLQkJLmJhc2UuY3JhX25hbWUJCT0gIl9feHRzKGNhbWVs
+bGlhKSIsCi0JCS5iYXNlLmNyYV9kcml2ZXJfbmFtZQk9ICJfX3h0cy1jYW1lbGxpYS1hZXNuaS1h
+dngyIiwKLQkJLmJhc2UuY3JhX3ByaW9yaXR5CT0gNTAwLAotCQkuYmFzZS5jcmFfZmxhZ3MJCT0g
+Q1JZUFRPX0FMR19JTlRFUk5BTCwKLQkJLmJhc2UuY3JhX2Jsb2Nrc2l6ZQk9IENBTUVMTElBX0JM
+T0NLX1NJWkUsCi0JCS5iYXNlLmNyYV9jdHhzaXplCT0gc2l6ZW9mKHN0cnVjdCBjYW1lbGxpYV94
+dHNfY3R4KSwKLQkJLmJhc2UuY3JhX21vZHVsZQk9IFRISVNfTU9EVUxFLAotCQkubWluX2tleXNp
+emUJCT0gMiAqIENBTUVMTElBX01JTl9LRVlfU0laRSwKLQkJLm1heF9rZXlzaXplCQk9IDIgKiBD
+QU1FTExJQV9NQVhfS0VZX1NJWkUsCi0JCS5pdnNpemUJCQk9IENBTUVMTElBX0JMT0NLX1NJWkUs
+Ci0JCS5zZXRrZXkJCQk9IHh0c19jYW1lbGxpYV9zZXRrZXksCi0JCS5lbmNyeXB0CQk9IHh0c19l
+bmNyeXB0LAotCQkuZGVjcnlwdAkJPSB4dHNfZGVjcnlwdCwKIAl9LAogfTsKIApkaWZmIC0tZ2l0
+IGEvYXJjaC94ODYvY3J5cHRvL2NhbWVsbGlhX2Flc25pX2F2eF9nbHVlLmMgYi9hcmNoL3g4Ni9j
+cnlwdG8vY2FtZWxsaWFfYWVzbmlfYXZ4X2dsdWUuYwppbmRleCA0ZTVkZTZlZjIwNmUuLjQ0NjE0
+ZjhhNDUyYyAxMDA2NDQKLS0tIGEvYXJjaC94ODYvY3J5cHRvL2NhbWVsbGlhX2Flc25pX2F2eF9n
+bHVlLmMKKysrIGIvYXJjaC94ODYvY3J5cHRvL2NhbWVsbGlhX2Flc25pX2F2eF9nbHVlLmMKQEAg
+LTksNyArOSw2IEBACiAjaW5jbHVkZSA8YXNtL2NyeXB0by9nbHVlX2hlbHBlci5oPgogI2luY2x1
+ZGUgPGNyeXB0by9hbGdhcGkuaD4KICNpbmNsdWRlIDxjcnlwdG8vaW50ZXJuYWwvc2ltZC5oPgot
+I2luY2x1ZGUgPGNyeXB0by94dHMuaD4KICNpbmNsdWRlIDxsaW51eC9jcnlwdG8uaD4KICNpbmNs
+dWRlIDxsaW51eC9lcnIuaD4KICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KQEAgLTMxLDI2ICsz
+MCw2IEBAIGFzbWxpbmthZ2Ugdm9pZCBjYW1lbGxpYV9jdHJfMTZ3YXkoY29uc3Qgdm9pZCAqY3R4
+LCB1OCAqZHN0LCBjb25zdCB1OCAqc3JjLAogCQkJCSAgIGxlMTI4ICppdik7CiBFWFBPUlRfU1lN
+Qk9MX0dQTChjYW1lbGxpYV9jdHJfMTZ3YXkpOwogCi1hc21saW5rYWdlIHZvaWQgY2FtZWxsaWFf
+eHRzX2VuY18xNndheShjb25zdCB2b2lkICpjdHgsIHU4ICpkc3QsIGNvbnN0IHU4ICpzcmMsCi0J
+CQkJICAgICAgIGxlMTI4ICppdik7Ci1FWFBPUlRfU1lNQk9MX0dQTChjYW1lbGxpYV94dHNfZW5j
+XzE2d2F5KTsKLQotYXNtbGlua2FnZSB2b2lkIGNhbWVsbGlhX3h0c19kZWNfMTZ3YXkoY29uc3Qg
+dm9pZCAqY3R4LCB1OCAqZHN0LCBjb25zdCB1OCAqc3JjLAotCQkJCSAgICAgICBsZTEyOCAqaXYp
+OwotRVhQT1JUX1NZTUJPTF9HUEwoY2FtZWxsaWFfeHRzX2RlY18xNndheSk7Ci0KLXZvaWQgY2Ft
+ZWxsaWFfeHRzX2VuYyhjb25zdCB2b2lkICpjdHgsIHU4ICpkc3QsIGNvbnN0IHU4ICpzcmMsIGxl
+MTI4ICppdikKLXsKLQlnbHVlX3h0c19jcnlwdF8xMjhiaXRfb25lKGN0eCwgZHN0LCBzcmMsIGl2
+LCBjYW1lbGxpYV9lbmNfYmxrKTsKLX0KLUVYUE9SVF9TWU1CT0xfR1BMKGNhbWVsbGlhX3h0c19l
+bmMpOwotCi12b2lkIGNhbWVsbGlhX3h0c19kZWMoY29uc3Qgdm9pZCAqY3R4LCB1OCAqZHN0LCBj
+b25zdCB1OCAqc3JjLCBsZTEyOCAqaXYpCi17Ci0JZ2x1ZV94dHNfY3J5cHRfMTI4Yml0X29uZShj
+dHgsIGRzdCwgc3JjLCBpdiwgY2FtZWxsaWFfZGVjX2Jsayk7Ci19Ci1FWFBPUlRfU1lNQk9MX0dQ
+TChjYW1lbGxpYV94dHNfZGVjKTsKLQogc3RhdGljIGNvbnN0IHN0cnVjdCBjb21tb25fZ2x1ZV9j
+dHggY2FtZWxsaWFfZW5jID0gewogCS5udW1fZnVuY3MgPSAzLAogCS5mcHVfYmxvY2tzX2xpbWl0
+ID0gQ0FNRUxMSUFfQUVTTklfUEFSQUxMRUxfQkxPQ0tTLApAQCAtODMsMTkgKzYyLDYgQEAgc3Rh
+dGljIGNvbnN0IHN0cnVjdCBjb21tb25fZ2x1ZV9jdHggY2FtZWxsaWFfY3RyID0gewogCX0gfQog
+fTsKIAotc3RhdGljIGNvbnN0IHN0cnVjdCBjb21tb25fZ2x1ZV9jdHggY2FtZWxsaWFfZW5jX3h0
+cyA9IHsKLQkubnVtX2Z1bmNzID0gMiwKLQkuZnB1X2Jsb2Nrc19saW1pdCA9IENBTUVMTElBX0FF
+U05JX1BBUkFMTEVMX0JMT0NLUywKLQotCS5mdW5jcyA9IHsgewotCQkubnVtX2Jsb2NrcyA9IENB
+TUVMTElBX0FFU05JX1BBUkFMTEVMX0JMT0NLUywKLQkJLmZuX3UgPSB7IC54dHMgPSBjYW1lbGxp
+YV94dHNfZW5jXzE2d2F5IH0KLQl9LCB7Ci0JCS5udW1fYmxvY2tzID0gMSwKLQkJLmZuX3UgPSB7
+IC54dHMgPSBjYW1lbGxpYV94dHNfZW5jIH0KLQl9IH0KLX07Ci0KIHN0YXRpYyBjb25zdCBzdHJ1
+Y3QgY29tbW9uX2dsdWVfY3R4IGNhbWVsbGlhX2RlYyA9IHsKIAkubnVtX2Z1bmNzID0gMywKIAku
+ZnB1X2Jsb2Nrc19saW1pdCA9IENBTUVMTElBX0FFU05JX1BBUkFMTEVMX0JMT0NLUywKQEAgLTEy
+OCwxOSArOTQsNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGNvbW1vbl9nbHVlX2N0eCBjYW1lbGxp
+YV9kZWNfY2JjID0gewogCX0gfQogfTsKIAotc3RhdGljIGNvbnN0IHN0cnVjdCBjb21tb25fZ2x1
+ZV9jdHggY2FtZWxsaWFfZGVjX3h0cyA9IHsKLQkubnVtX2Z1bmNzID0gMiwKLQkuZnB1X2Jsb2Nr
+c19saW1pdCA9IENBTUVMTElBX0FFU05JX1BBUkFMTEVMX0JMT0NLUywKLQotCS5mdW5jcyA9IHsg
+ewotCQkubnVtX2Jsb2NrcyA9IENBTUVMTElBX0FFU05JX1BBUkFMTEVMX0JMT0NLUywKLQkJLmZu
+X3UgPSB7IC54dHMgPSBjYW1lbGxpYV94dHNfZGVjXzE2d2F5IH0KLQl9LCB7Ci0JCS5udW1fYmxv
+Y2tzID0gMSwKLQkJLmZuX3UgPSB7IC54dHMgPSBjYW1lbGxpYV94dHNfZGVjIH0KLQl9IH0KLX07
+Ci0KIHN0YXRpYyBpbnQgY2FtZWxsaWFfc2V0a2V5KHN0cnVjdCBjcnlwdG9fc2tjaXBoZXIgKnRm
+bSwgY29uc3QgdTggKmtleSwKIAkJCSAgIHVuc2lnbmVkIGludCBrZXlsZW4pCiB7CkBAIC0xNzIs
+NDQgKzEyNSw2IEBAIHN0YXRpYyBpbnQgY3RyX2NyeXB0KHN0cnVjdCBza2NpcGhlcl9yZXF1ZXN0
+ICpyZXEpCiAJcmV0dXJuIGdsdWVfY3RyX3JlcV8xMjhiaXQoJmNhbWVsbGlhX2N0ciwgcmVxKTsK
+IH0KIAotaW50IHh0c19jYW1lbGxpYV9zZXRrZXkoc3RydWN0IGNyeXB0b19za2NpcGhlciAqdGZt
+LCBjb25zdCB1OCAqa2V5LAotCQkJdW5zaWduZWQgaW50IGtleWxlbikKLXsKLQlzdHJ1Y3QgY2Ft
+ZWxsaWFfeHRzX2N0eCAqY3R4ID0gY3J5cHRvX3NrY2lwaGVyX2N0eCh0Zm0pOwotCWludCBlcnI7
+Ci0KLQllcnIgPSB4dHNfdmVyaWZ5X2tleSh0Zm0sIGtleSwga2V5bGVuKTsKLQlpZiAoZXJyKQot
+CQlyZXR1cm4gZXJyOwotCi0JLyogZmlyc3QgaGFsZiBvZiB4dHMta2V5IGlzIGZvciBjcnlwdCAq
+LwotCWVyciA9IF9fY2FtZWxsaWFfc2V0a2V5KCZjdHgtPmNyeXB0X2N0eCwga2V5LCBrZXlsZW4g
+LyAyKTsKLQlpZiAoZXJyKQotCQlyZXR1cm4gZXJyOwotCi0JLyogc2Vjb25kIGhhbGYgb2YgeHRz
+LWtleSBpcyBmb3IgdHdlYWsgKi8KLQlyZXR1cm4gX19jYW1lbGxpYV9zZXRrZXkoJmN0eC0+dHdl
+YWtfY3R4LCBrZXkgKyBrZXlsZW4gLyAyLCBrZXlsZW4gLyAyKTsKLX0KLUVYUE9SVF9TWU1CT0xf
+R1BMKHh0c19jYW1lbGxpYV9zZXRrZXkpOwotCi1zdGF0aWMgaW50IHh0c19lbmNyeXB0KHN0cnVj
+dCBza2NpcGhlcl9yZXF1ZXN0ICpyZXEpCi17Ci0Jc3RydWN0IGNyeXB0b19za2NpcGhlciAqdGZt
+ID0gY3J5cHRvX3NrY2lwaGVyX3JlcXRmbShyZXEpOwotCXN0cnVjdCBjYW1lbGxpYV94dHNfY3R4
+ICpjdHggPSBjcnlwdG9fc2tjaXBoZXJfY3R4KHRmbSk7Ci0KLQlyZXR1cm4gZ2x1ZV94dHNfcmVx
+XzEyOGJpdCgmY2FtZWxsaWFfZW5jX3h0cywgcmVxLCBjYW1lbGxpYV9lbmNfYmxrLAotCQkJCSAg
+ICZjdHgtPnR3ZWFrX2N0eCwgJmN0eC0+Y3J5cHRfY3R4LCBmYWxzZSk7Ci19Ci0KLXN0YXRpYyBp
+bnQgeHRzX2RlY3J5cHQoc3RydWN0IHNrY2lwaGVyX3JlcXVlc3QgKnJlcSkKLXsKLQlzdHJ1Y3Qg
+Y3J5cHRvX3NrY2lwaGVyICp0Zm0gPSBjcnlwdG9fc2tjaXBoZXJfcmVxdGZtKHJlcSk7Ci0Jc3Ry
+dWN0IGNhbWVsbGlhX3h0c19jdHggKmN0eCA9IGNyeXB0b19za2NpcGhlcl9jdHgodGZtKTsKLQot
+CXJldHVybiBnbHVlX3h0c19yZXFfMTI4Yml0KCZjYW1lbGxpYV9kZWNfeHRzLCByZXEsIGNhbWVs
+bGlhX2VuY19ibGssCi0JCQkJICAgJmN0eC0+dHdlYWtfY3R4LCAmY3R4LT5jcnlwdF9jdHgsIHRy
+dWUpOwotfQotCiBzdGF0aWMgc3RydWN0IHNrY2lwaGVyX2FsZyBjYW1lbGxpYV9hbGdzW10gPSB7
+CiAJewogCQkuYmFzZS5jcmFfbmFtZQkJPSAiX19lY2IoY2FtZWxsaWEpIiwKQEAgLTI1MywyMSAr
+MTY4LDcgQEAgc3RhdGljIHN0cnVjdCBza2NpcGhlcl9hbGcgY2FtZWxsaWFfYWxnc1tdID0gewog
+CQkuc2V0a2V5CQkJPSBjYW1lbGxpYV9zZXRrZXksCiAJCS5lbmNyeXB0CQk9IGN0cl9jcnlwdCwK
+IAkJLmRlY3J5cHQJCT0gY3RyX2NyeXB0LAotCX0sIHsKLQkJLmJhc2UuY3JhX25hbWUJCT0gIl9f
+eHRzKGNhbWVsbGlhKSIsCi0JCS5iYXNlLmNyYV9kcml2ZXJfbmFtZQk9ICJfX3h0cy1jYW1lbGxp
+YS1hZXNuaSIsCi0JCS5iYXNlLmNyYV9wcmlvcml0eQk9IDQwMCwKLQkJLmJhc2UuY3JhX2ZsYWdz
+CQk9IENSWVBUT19BTEdfSU5URVJOQUwsCi0JCS5iYXNlLmNyYV9ibG9ja3NpemUJPSBDQU1FTExJ
+QV9CTE9DS19TSVpFLAotCQkuYmFzZS5jcmFfY3R4c2l6ZQk9IHNpemVvZihzdHJ1Y3QgY2FtZWxs
+aWFfeHRzX2N0eCksCi0JCS5iYXNlLmNyYV9tb2R1bGUJPSBUSElTX01PRFVMRSwKLQkJLm1pbl9r
+ZXlzaXplCQk9IDIgKiBDQU1FTExJQV9NSU5fS0VZX1NJWkUsCi0JCS5tYXhfa2V5c2l6ZQkJPSAy
+ICogQ0FNRUxMSUFfTUFYX0tFWV9TSVpFLAotCQkuaXZzaXplCQkJPSBDQU1FTExJQV9CTE9DS19T
+SVpFLAotCQkuc2V0a2V5CQkJPSB4dHNfY2FtZWxsaWFfc2V0a2V5LAotCQkuZW5jcnlwdAkJPSB4
+dHNfZW5jcnlwdCwKLQkJLmRlY3J5cHQJCT0geHRzX2RlY3J5cHQsCi0JfSwKKwl9CiB9OwogCiBz
+dGF0aWMgc3RydWN0IHNpbWRfc2tjaXBoZXJfYWxnICpjYW1lbGxpYV9zaW1kX2FsZ3NbQVJSQVlf
+U0laRShjYW1lbGxpYV9hbGdzKV07CmRpZmYgLS1naXQgYS9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9j
+cnlwdG8vY2FtZWxsaWEuaCBiL2FyY2gveDg2L2luY2x1ZGUvYXNtL2NyeXB0by9jYW1lbGxpYS5o
+CmluZGV4IGY2ZDkxODYxY2IxNC4uMGU1ZjgyYWRiYWY5IDEwMDY0NAotLS0gYS9hcmNoL3g4Ni9p
+bmNsdWRlL2FzbS9jcnlwdG8vY2FtZWxsaWEuaAorKysgYi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9j
+cnlwdG8vY2FtZWxsaWEuaApAQCAtMTksMTggKzE5LDEwIEBAIHN0cnVjdCBjYW1lbGxpYV9jdHgg
+ewogCXUzMiBrZXlfbGVuZ3RoOwogfTsKIAotc3RydWN0IGNhbWVsbGlhX3h0c19jdHggewotCXN0
+cnVjdCBjYW1lbGxpYV9jdHggdHdlYWtfY3R4OwotCXN0cnVjdCBjYW1lbGxpYV9jdHggY3J5cHRf
+Y3R4OwotfTsKLQogZXh0ZXJuIGludCBfX2NhbWVsbGlhX3NldGtleShzdHJ1Y3QgY2FtZWxsaWFf
+Y3R4ICpjY3R4LAogCQkJICAgICBjb25zdCB1bnNpZ25lZCBjaGFyICprZXksCiAJCQkgICAgIHVu
+c2lnbmVkIGludCBrZXlfbGVuKTsKIAotZXh0ZXJuIGludCB4dHNfY2FtZWxsaWFfc2V0a2V5KHN0
+cnVjdCBjcnlwdG9fc2tjaXBoZXIgKnRmbSwgY29uc3QgdTggKmtleSwKLQkJCSAgICAgICB1bnNp
+Z25lZCBpbnQga2V5bGVuKTsKLQogLyogcmVndWxhciBibG9jayBjaXBoZXIgZnVuY3Rpb25zICov
+CiBhc21saW5rYWdlIHZvaWQgX19jYW1lbGxpYV9lbmNfYmxrKGNvbnN0IHZvaWQgKmN0eCwgdTgg
+KmRzdCwgY29uc3QgdTggKnNyYywKIAkJCQkgICBib29sIHhvcik7CkBAIC00OSwxMSArNDEsNiBA
+QCBhc21saW5rYWdlIHZvaWQgY2FtZWxsaWFfY2JjX2RlY18xNndheShjb25zdCB2b2lkICpjdHgs
+IHU4ICpkc3QsIGNvbnN0IHU4ICpzcmMpOwogYXNtbGlua2FnZSB2b2lkIGNhbWVsbGlhX2N0cl8x
+NndheShjb25zdCB2b2lkICpjdHgsIHU4ICpkc3QsIGNvbnN0IHU4ICpzcmMsCiAJCQkJICAgbGUx
+MjggKml2KTsKIAotYXNtbGlua2FnZSB2b2lkIGNhbWVsbGlhX3h0c19lbmNfMTZ3YXkoY29uc3Qg
+dm9pZCAqY3R4LCB1OCAqZHN0LCBjb25zdCB1OCAqc3JjLAotCQkJCSAgICAgICBsZTEyOCAqaXYp
+OwotYXNtbGlua2FnZSB2b2lkIGNhbWVsbGlhX3h0c19kZWNfMTZ3YXkoY29uc3Qgdm9pZCAqY3R4
+LCB1OCAqZHN0LCBjb25zdCB1OCAqc3JjLAotCQkJCSAgICAgICBsZTEyOCAqaXYpOwotCiBzdGF0
+aWMgaW5saW5lIHZvaWQgY2FtZWxsaWFfZW5jX2Jsayhjb25zdCB2b2lkICpjdHgsIHU4ICpkc3Qs
+IGNvbnN0IHU4ICpzcmMpCiB7CiAJX19jYW1lbGxpYV9lbmNfYmxrKGN0eCwgZHN0LCBzcmMsIGZh
+bHNlKTsKQEAgLTgzLDkgKzcwLDQgQEAgZXh0ZXJuIHZvaWQgY2FtZWxsaWFfY3J5cHRfY3RyKGNv
+bnN0IHZvaWQgKmN0eCwgdTggKmRzdCwgY29uc3QgdTggKnNyYywKIGV4dGVybiB2b2lkIGNhbWVs
+bGlhX2NyeXB0X2N0cl8yd2F5KGNvbnN0IHZvaWQgKmN0eCwgdTggKmRzdCwgY29uc3QgdTggKnNy
+YywKIAkJCQkgICAgbGUxMjggKml2KTsKIAotZXh0ZXJuIHZvaWQgY2FtZWxsaWFfeHRzX2VuYyhj
+b25zdCB2b2lkICpjdHgsIHU4ICpkc3QsIGNvbnN0IHU4ICpzcmMsCi0JCQkgICAgIGxlMTI4ICpp
+dik7Ci1leHRlcm4gdm9pZCBjYW1lbGxpYV94dHNfZGVjKGNvbnN0IHZvaWQgKmN0eCwgdTggKmRz
+dCwgY29uc3QgdTggKnNyYywKLQkJCSAgICAgbGUxMjggKml2KTsKLQogI2VuZGlmIC8qIEFTTV9Y
+ODZfQ0FNRUxMSUFfSCAqLwotLSAKMi4xNy4xCgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRt
+LWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly93d3cucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZv
+L2RtLWRldmVs
 
