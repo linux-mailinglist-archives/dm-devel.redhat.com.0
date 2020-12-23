@@ -2,57 +2,57 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 95BB52E19B4
-	for <lists+dm-devel@lfdr.de>; Wed, 23 Dec 2020 09:12:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 54FAB2E1998
+	for <lists+dm-devel@lfdr.de>; Wed, 23 Dec 2020 09:07:01 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-387-uL2D-YNGM-KGRcik3pOJCA-1; Wed, 23 Dec 2020 03:12:25 -0500
-X-MC-Unique: uL2D-YNGM-KGRcik3pOJCA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-257-L2tu8uazMsSWO3daNGD8LQ-1; Wed, 23 Dec 2020 03:06:58 -0500
+X-MC-Unique: L2tu8uazMsSWO3daNGD8LQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E347F8049C1;
-	Wed, 23 Dec 2020 08:12:18 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 951C55D739;
-	Wed, 23 Dec 2020 08:12:18 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D4AF81006C80;
+	Wed, 23 Dec 2020 08:06:49 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EC70810021B3;
+	Wed, 23 Dec 2020 08:06:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CB3EC180954D;
-	Wed, 23 Dec 2020 08:12:16 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AA3D64BB7B;
+	Wed, 23 Dec 2020 08:06:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BN8C5Nk000853 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 23 Dec 2020 03:12:06 -0500
+	id 0BN85mwE000425 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 23 Dec 2020 03:05:49 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id A8C192166B2B; Wed, 23 Dec 2020 08:12:05 +0000 (UTC)
+	id BD012110E982; Wed, 23 Dec 2020 08:05:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A38DE2166B29
-	for <dm-devel@redhat.com>; Wed, 23 Dec 2020 08:12:03 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B9A25110F0DE
+	for <dm-devel@redhat.com>; Wed, 23 Dec 2020 08:05:45 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 73291800B3B
-	for <dm-devel@redhat.com>; Wed, 23 Dec 2020 08:12:03 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-392-Dn3GYR6vOEeKVpZQNMLgXg-1; Wed, 23 Dec 2020 03:12:01 -0500
-X-MC-Unique: Dn3GYR6vOEeKVpZQNMLgXg-1
-Received: from hch by casper.infradead.org with local (Exim 4.92.3 #3 (Red Hat
-	Linux)) id 1kryt8-00046B-Vc; Wed, 23 Dec 2020 07:48:52 +0000
-Date: Wed, 23 Dec 2020 07:48:50 +0000
-From: Christoph Hellwig <hch@infradead.org>
-To: Palmer Dabbelt <palmer@dabbelt.com>
-Message-ID: <20201223074850.GA15369@infradead.org>
-References: <20201222143616.GB12885@redhat.com>
-	<mhng-26d96d8e-77aa-415b-a8ee-518a0e91b6ef@palmerdabbelt-glaptop>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 27592811E87
+	for <dm-devel@redhat.com>; Wed, 23 Dec 2020 08:05:45 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-571-2BLx_mv7MDWhhd63BmuOzg-1;
+	Wed, 23 Dec 2020 03:05:40 -0500
+X-MC-Unique: 2BLx_mv7MDWhhd63BmuOzg-1
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id CDCE467373; Wed, 23 Dec 2020 09:05:37 +0100 (CET)
+Date: Wed, 23 Dec 2020 09:05:37 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Hannes Reinecke <hare@suse.de>
+Message-ID: <20201223080537.GA4974@lst.de>
+References: <20201222095056.7a5ac0a0@canb.auug.org.au>
+	<20201222131528.GA29822@lst.de> <20201222145327.GC12885@redhat.com>
+	<288d1c58-c0e2-9d6f-4816-48c66536fe8b@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <mhng-26d96d8e-77aa-415b-a8ee-518a0e91b6ef@palmerdabbelt-glaptop>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	casper.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <288d1c58-c0e2-9d6f-4816-48c66536fe8b@suse.de>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,16 +61,16 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: linux-raid@vger.kernel.org, bvanassche@acm.org, snitzer@redhat.com,
-	corbet@lwn.net, shuah@kernel.org, linux-doc@vger.kernel.org,
-	josef@toxicpanda.com, linux-kernel@vger.kernel.org,
-	Christoph Hellwig <hch@infradead.org>, song@kernel.org,
-	dm-devel@redhat.com, michael.christie@oracle.com,
-	linux-kselftest@vger.kernel.org, kernel-team@android.com, agk@redhat.com
-Subject: Re: [dm-devel] [PATCH v1 0/5] dm: dm-user: New target that proxies
- BIOs to userspace
+Cc: Jens Axboe <axboe@kernel.dk>, Stephen Rothwell <sfr@canb.auug.org.au>,
+	Mike Snitzer <snitzer@redhat.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-block@vger.kernel.org, dm-devel@redhat.com,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Christoph Hellwig <hch@lst.de>, Alasdair G Kergon <agk@redhat.com>
+Subject: Re: [dm-devel] DM's filesystem lookup in dm_get_dev_t() [was: Re:
+ linux-next: manual merge of the device-mapper tree with Linus' tree]
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,7 +84,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -93,12 +93,39 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+On Tue, Dec 22, 2020 at 06:24:09PM +0100, Hannes Reinecke wrote:
+> Ok. The problem from my perspective is that device-mapper needs to
+> a) ensure that the arbitrary string passed in with the table definition 
+> refers to a valid block device
+> and
+> b) the block device can be opened with O_EXCL, so that device-mapper can 
+> then use it.
+>
+> Originally (ie prior to commit 644bda6f3460) dm_get_device() just converted 
+> the string to a 'dev_t' representation, and then the block device itself 
+> was checked and opened in dm_get_table_device().
+> 'lookup_bdev' was just being used to convert the path if the string was not 
+> in the canonical major:minor format, as then it was assumed that it 
+> referred to a block device node, and then lookup_bdev kinda makes sense.
 
-FYI, a few years ago I spent some time helping a customer to prepare
-their block device in userspace using fuse code for upstreaming, but
-at some point they abandoned the project.  But if for some reason we
-don't want to use nbd I think a driver using the fuse infrastructure
-would be the next logical choice.
+Yes, 644bda6f3460 is the cause of all evil, as it uses an API in a place
+where it should not be used.  It and the prep patch
+(e6e20a7a5f3f49bfee518d5c6849107398d83912) which did the grave mistake
+of making name_to_dev_t available outside of the early init code really
+need to be reverted.
+
+> However, lookup_bdev() now always recurses into the filesystem, causing 
+> multipath to stall in an all-paths-down scenario.
+
+lookup_bdev always did a file system lookup, and always only accepted
+a valid name in the file system.
+
+> Alternatively, if Mike says that only major:minor is the valid format for a 
+> table definition we can kill that code completely. But clearly _I_ cannot 
+> make the call here.
+
+Before 644bda6f3460 the table definitions only accepted a valid name in
+the file system.  Which is the proper interface.
 
 --
 dm-devel mailing list
