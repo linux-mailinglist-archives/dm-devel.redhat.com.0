@@ -2,53 +2,52 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id AF7072E9DA5
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:03:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 393652E9DDA
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:04:23 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-453-mIA5fg-sPTGTUftYNvkXvA-1; Mon, 04 Jan 2021 14:03:37 -0500
-X-MC-Unique: mIA5fg-sPTGTUftYNvkXvA-1
+ us-mta-459-cqMMDqMwMxWuOM-JW_el2w-1; Mon, 04 Jan 2021 14:04:19 -0500
+X-MC-Unique: cqMMDqMwMxWuOM-JW_el2w-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8DFBC879516;
-	Mon,  4 Jan 2021 19:03:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2BCB6801B16;
+	Mon,  4 Jan 2021 19:04:01 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 66A3C71C97;
-	Mon,  4 Jan 2021 19:03:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0506471C88;
+	Mon,  4 Jan 2021 19:04:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 03CA01809CA1;
-	Mon,  4 Jan 2021 19:03:30 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ADB201809CB9;
+	Mon,  4 Jan 2021 19:04:00 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BNMlwtW014942 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 23 Dec 2020 17:47:58 -0500
+	id 0BNMm0Uk014986 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 23 Dec 2020 17:48:00 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6F5D91134CC8; Wed, 23 Dec 2020 22:47:58 +0000 (UTC)
+	id 4D05D2166B2F; Wed, 23 Dec 2020 22:48:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3471D1134CCB
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 45D922166B2B
 	for <dm-devel@redhat.com>; Wed, 23 Dec 2020 22:47:57 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC0508008A5
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B6582858280
 	for <dm-devel@redhat.com>; Wed, 23 Dec 2020 22:47:57 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-63-YFXAbFmjPi6GLK5JKEFnEg-1; 
-	Wed, 23 Dec 2020 17:47:55 -0500
-X-MC-Unique: YFXAbFmjPi6GLK5JKEFnEg-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id A86EA224BE;
-	Wed, 23 Dec 2020 22:39:08 +0000 (UTC)
+	by relay.mimecast.com with ESMTP id us-mta-133-CWZyzHZyPUW8fTFxbnOFEA-1;
+	Wed, 23 Dec 2020 17:47:53 -0500
+X-MC-Unique: CWZyzHZyPUW8fTFxbnOFEA-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 0974C22510;
+	Wed, 23 Dec 2020 22:39:10 +0000 (UTC)
 From: Ard Biesheuvel <ardb@kernel.org>
 To: linux-crypto@vger.kernel.org
-Date: Wed, 23 Dec 2020 23:38:35 +0100
-Message-Id: <20201223223841.11311-5-ardb@kernel.org>
+Date: Wed, 23 Dec 2020 23:38:36 +0100
+Message-Id: <20201223223841.11311-6-ardb@kernel.org>
 In-Reply-To: <20201223223841.11311-1-ardb@kernel.org>
 References: <20201223223841.11311-1-ardb@kernel.org>
-MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -57,17 +56,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 0BNMlwtW014942
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 04 Jan 2021 14:03:11 -0500
 Cc: Herbert Xu <herbert@gondor.apana.org.au>, Mike Snitzer <snitzer@redhat.com>,
 	Ard Biesheuvel <ardb@kernel.org>,
 	Eric Biggers <ebiggers@kernel.org>, dm-devel@redhat.com,
 	Milan Broz <gmazyland@gmail.com>, Megha Dey <megha.dey@intel.com>
-Subject: [dm-devel] [RFC PATCH 04/10] crypto: x86/twofish - switch to XTS
-	template
+Subject: [dm-devel] [RFC PATCH 05/10] crypto: x86/glue-helper - drop XTS
+	helper routines
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,6 +76,7 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
@@ -86,128 +84,384 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-Tm93IHRoYXQgdGhlIFhUUyB0ZW1wbGF0ZSBjYW4gd3JhcCBhY2NlbGVyYXRlZCBFQ0IgbW9kZXMs
-IGl0IGNhbiBiZQp1c2VkIHRvIGltcGxlbWVudCBUd29maXNoIGluIFhUUyBtb2RlIGFzIHdlbGws
-IHdoaWNoIHR1cm5zIG91dCB0bwpiZSBhdCBsZWFzdCBhcyBmYXN0LCBhbmQgc29tZXRpbWVzIGV2
-ZW4gZmFzdGVyCgpTaWduZWQtb2ZmLWJ5OiBBcmQgQmllc2hldXZlbCA8YXJkYkBrZXJuZWwub3Jn
-PgotLS0KIGFyY2gveDg2L2NyeXB0by90d29maXNoLWF2eC14ODZfNjQtYXNtXzY0LlMgfCA1MyAt
-LS0tLS0tLS0tLQogYXJjaC94ODYvY3J5cHRvL3R3b2Zpc2hfYXZ4X2dsdWUuYyAgICAgICAgICB8
-IDk4IC0tLS0tLS0tLS0tLS0tLS0tLS0tCiAyIGZpbGVzIGNoYW5nZWQsIDE1MSBkZWxldGlvbnMo
-LSkKCmRpZmYgLS1naXQgYS9hcmNoL3g4Ni9jcnlwdG8vdHdvZmlzaC1hdngteDg2XzY0LWFzbV82
-NC5TIGIvYXJjaC94ODYvY3J5cHRvL3R3b2Zpc2gtYXZ4LXg4Nl82NC1hc21fNjQuUwppbmRleCBh
-NTE1MTM5M2JiMmYuLjg0ZTYxZWYwMzYzOCAxMDA2NDQKLS0tIGEvYXJjaC94ODYvY3J5cHRvL3R3
-b2Zpc2gtYXZ4LXg4Nl82NC1hc21fNjQuUworKysgYi9hcmNoL3g4Ni9jcnlwdG8vdHdvZmlzaC1h
-dngteDg2XzY0LWFzbV82NC5TCkBAIC0xOSwxMSArMTksNiBAQAogLkxic3dhcDEyOF9tYXNrOgog
-CS5ieXRlIDE1LCAxNCwgMTMsIDEyLCAxMSwgMTAsIDksIDgsIDcsIDYsIDUsIDQsIDMsIDIsIDEs
-IDAKIAotLnNlY3Rpb24JLnJvZGF0YS5jc3QxNi54dHNfZ2YxMjhtdWxfYW5kX3NobDFfbWFzaywg
-ImFNIiwgQHByb2diaXRzLCAxNgotLmFsaWduIDE2Ci0uTHh0c19nZjEyOG11bF9hbmRfc2hsMV9t
-YXNrOgotCS5ieXRlIDB4ODcsIDAsIDAsIDAsIDAsIDAsIDAsIDAsIDEsIDAsIDAsIDAsIDAsIDAs
-IDAsIDAKLQogLnRleHQKIAogLyogc3RydWN0dXJlIG9mIGNyeXB0byBjb250ZXh0ICovCkBAIC00
-MDYsNTEgKzQwMSwzIEBAIFNZTV9GVU5DX1NUQVJUKHR3b2Zpc2hfY3RyXzh3YXkpCiAJRlJBTUVf
-RU5ECiAJcmV0OwogU1lNX0ZVTkNfRU5EKHR3b2Zpc2hfY3RyXzh3YXkpCi0KLVNZTV9GVU5DX1NU
-QVJUKHR3b2Zpc2hfeHRzX2VuY184d2F5KQotCS8qIGlucHV0OgotCSAqCSVyZGk6IGN0eCwgQ1RY
-Ci0JICoJJXJzaTogZHN0Ci0JICoJJXJkeDogc3JjCi0JICoJJXJjeDogaXYgKHQg4oqVIM6x4oG/
-IOKIiCBHRigywrnCsuKBuCkpCi0JICovCi0JRlJBTUVfQkVHSU4KLQotCW1vdnEgJXJzaSwgJXIx
-MTsKLQotCS8qIHJlZ3MgPD0gc3JjLCBkc3QgPD0gSVZzLCByZWdzIDw9IHJlZ3MgeG9yIElWcyAq
-LwotCWxvYWRfeHRzXzh3YXkoJXJjeCwgJXJkeCwgJXJzaSwgUkExLCBSQjEsIFJDMSwgUkQxLCBS
-QTIsIFJCMiwgUkMyLCBSRDIsCi0JCSAgICAgIFJYMCwgUlgxLCBSWTAsIC5MeHRzX2dmMTI4bXVs
-X2FuZF9zaGwxX21hc2spOwotCi0JY2FsbCBfX3R3b2Zpc2hfZW5jX2Jsazg7Ci0KLQkvKiBkc3Qg
-PD0gcmVncyB4b3IgSVZzKGluIGRzdCkgKi8KLQlzdG9yZV94dHNfOHdheSglcjExLCBSQzEsIFJE
-MSwgUkExLCBSQjEsIFJDMiwgUkQyLCBSQTIsIFJCMik7Ci0KLQlGUkFNRV9FTkQKLQlyZXQ7Ci1T
-WU1fRlVOQ19FTkQodHdvZmlzaF94dHNfZW5jXzh3YXkpCi0KLVNZTV9GVU5DX1NUQVJUKHR3b2Zp
-c2hfeHRzX2RlY184d2F5KQotCS8qIGlucHV0OgotCSAqCSVyZGk6IGN0eCwgQ1RYCi0JICoJJXJz
-aTogZHN0Ci0JICoJJXJkeDogc3JjCi0JICoJJXJjeDogaXYgKHQg4oqVIM6x4oG/IOKIiCBHRigy
-wrnCsuKBuCkpCi0JICovCi0JRlJBTUVfQkVHSU4KLQotCW1vdnEgJXJzaSwgJXIxMTsKLQotCS8q
-IHJlZ3MgPD0gc3JjLCBkc3QgPD0gSVZzLCByZWdzIDw9IHJlZ3MgeG9yIElWcyAqLwotCWxvYWRf
-eHRzXzh3YXkoJXJjeCwgJXJkeCwgJXJzaSwgUkMxLCBSRDEsIFJBMSwgUkIxLCBSQzIsIFJEMiwg
-UkEyLCBSQjIsCi0JCSAgICAgIFJYMCwgUlgxLCBSWTAsIC5MeHRzX2dmMTI4bXVsX2FuZF9zaGwx
-X21hc2spOwotCi0JY2FsbCBfX3R3b2Zpc2hfZGVjX2Jsazg7Ci0KLQkvKiBkc3QgPD0gcmVncyB4
-b3IgSVZzKGluIGRzdCkgKi8KLQlzdG9yZV94dHNfOHdheSglcjExLCBSQTEsIFJCMSwgUkMxLCBS
-RDEsIFJBMiwgUkIyLCBSQzIsIFJEMik7Ci0KLQlGUkFNRV9FTkQKLQlyZXQ7Ci1TWU1fRlVOQ19F
-TkQodHdvZmlzaF94dHNfZGVjXzh3YXkpCmRpZmYgLS1naXQgYS9hcmNoL3g4Ni9jcnlwdG8vdHdv
-ZmlzaF9hdnhfZ2x1ZS5jIGIvYXJjaC94ODYvY3J5cHRvL3R3b2Zpc2hfYXZ4X2dsdWUuYwppbmRl
-eCAyZGJjOGNlMzczMGUuLjdiNTM5YmJiMTA4ZiAxMDA2NDQKLS0tIGEvYXJjaC94ODYvY3J5cHRv
-L3R3b2Zpc2hfYXZ4X2dsdWUuYworKysgYi9hcmNoL3g4Ni9jcnlwdG8vdHdvZmlzaF9hdnhfZ2x1
-ZS5jCkBAIC0xNSw3ICsxNSw2IEBACiAjaW5jbHVkZSA8Y3J5cHRvL2FsZ2FwaS5oPgogI2luY2x1
-ZGUgPGNyeXB0by9pbnRlcm5hbC9zaW1kLmg+CiAjaW5jbHVkZSA8Y3J5cHRvL3R3b2Zpc2guaD4K
-LSNpbmNsdWRlIDxjcnlwdG8veHRzLmg+CiAjaW5jbHVkZSA8YXNtL2NyeXB0by9nbHVlX2hlbHBl
-ci5oPgogI2luY2x1ZGUgPGFzbS9jcnlwdG8vdHdvZmlzaC5oPgogCkBAIC0yOSwxMSArMjgsNiBA
-QCBhc21saW5rYWdlIHZvaWQgdHdvZmlzaF9jYmNfZGVjXzh3YXkoY29uc3Qgdm9pZCAqY3R4LCB1
-OCAqZHN0LCBjb25zdCB1OCAqc3JjKTsKIGFzbWxpbmthZ2Ugdm9pZCB0d29maXNoX2N0cl84d2F5
-KGNvbnN0IHZvaWQgKmN0eCwgdTggKmRzdCwgY29uc3QgdTggKnNyYywKIAkJCQkgbGUxMjggKml2
-KTsKIAotYXNtbGlua2FnZSB2b2lkIHR3b2Zpc2hfeHRzX2VuY184d2F5KGNvbnN0IHZvaWQgKmN0
-eCwgdTggKmRzdCwgY29uc3QgdTggKnNyYywKLQkJCQkgICAgIGxlMTI4ICppdik7Ci1hc21saW5r
-YWdlIHZvaWQgdHdvZmlzaF94dHNfZGVjXzh3YXkoY29uc3Qgdm9pZCAqY3R4LCB1OCAqZHN0LCBj
-b25zdCB1OCAqc3JjLAotCQkJCSAgICAgbGUxMjggKml2KTsKLQogc3RhdGljIGludCB0d29maXNo
-X3NldGtleV9za2NpcGhlcihzdHJ1Y3QgY3J5cHRvX3NrY2lwaGVyICp0Zm0sCiAJCQkJICAgY29u
-c3QgdTggKmtleSwgdW5zaWduZWQgaW50IGtleWxlbikKIHsKQEAgLTQ1LDQwICszOSw2IEBAIHN0
-YXRpYyBpbmxpbmUgdm9pZCB0d29maXNoX2VuY19ibGtfM3dheShjb25zdCB2b2lkICpjdHgsIHU4
-ICpkc3QsIGNvbnN0IHU4ICpzcmMpCiAJX190d29maXNoX2VuY19ibGtfM3dheShjdHgsIGRzdCwg
-c3JjLCBmYWxzZSk7CiB9CiAKLXN0YXRpYyB2b2lkIHR3b2Zpc2hfeHRzX2VuYyhjb25zdCB2b2lk
-ICpjdHgsIHU4ICpkc3QsIGNvbnN0IHU4ICpzcmMsIGxlMTI4ICppdikKLXsKLQlnbHVlX3h0c19j
-cnlwdF8xMjhiaXRfb25lKGN0eCwgZHN0LCBzcmMsIGl2LCB0d29maXNoX2VuY19ibGspOwotfQot
-Ci1zdGF0aWMgdm9pZCB0d29maXNoX3h0c19kZWMoY29uc3Qgdm9pZCAqY3R4LCB1OCAqZHN0LCBj
-b25zdCB1OCAqc3JjLCBsZTEyOCAqaXYpCi17Ci0JZ2x1ZV94dHNfY3J5cHRfMTI4Yml0X29uZShj
-dHgsIGRzdCwgc3JjLCBpdiwgdHdvZmlzaF9kZWNfYmxrKTsKLX0KLQotc3RydWN0IHR3b2Zpc2hf
-eHRzX2N0eCB7Ci0Jc3RydWN0IHR3b2Zpc2hfY3R4IHR3ZWFrX2N0eDsKLQlzdHJ1Y3QgdHdvZmlz
-aF9jdHggY3J5cHRfY3R4OwotfTsKLQotc3RhdGljIGludCB4dHNfdHdvZmlzaF9zZXRrZXkoc3Ry
-dWN0IGNyeXB0b19za2NpcGhlciAqdGZtLCBjb25zdCB1OCAqa2V5LAotCQkJICAgICAgdW5zaWdu
-ZWQgaW50IGtleWxlbikKLXsKLQlzdHJ1Y3QgdHdvZmlzaF94dHNfY3R4ICpjdHggPSBjcnlwdG9f
-c2tjaXBoZXJfY3R4KHRmbSk7Ci0JaW50IGVycjsKLQotCWVyciA9IHh0c192ZXJpZnlfa2V5KHRm
-bSwga2V5LCBrZXlsZW4pOwotCWlmIChlcnIpCi0JCXJldHVybiBlcnI7Ci0KLQkvKiBmaXJzdCBo
-YWxmIG9mIHh0cy1rZXkgaXMgZm9yIGNyeXB0ICovCi0JZXJyID0gX190d29maXNoX3NldGtleSgm
-Y3R4LT5jcnlwdF9jdHgsIGtleSwga2V5bGVuIC8gMik7Ci0JaWYgKGVycikKLQkJcmV0dXJuIGVy
-cjsKLQotCS8qIHNlY29uZCBoYWxmIG9mIHh0cy1rZXkgaXMgZm9yIHR3ZWFrICovCi0JcmV0dXJu
-IF9fdHdvZmlzaF9zZXRrZXkoJmN0eC0+dHdlYWtfY3R4LCBrZXkgKyBrZXlsZW4gLyAyLCBrZXls
-ZW4gLyAyKTsKLX0KLQogc3RhdGljIGNvbnN0IHN0cnVjdCBjb21tb25fZ2x1ZV9jdHggdHdvZmlz
-aF9lbmMgPSB7CiAJLm51bV9mdW5jcyA9IDMsCiAJLmZwdV9ibG9ja3NfbGltaXQgPSBUV09GSVNI
-X1BBUkFMTEVMX0JMT0NLUywKQEAgLTExMSwxOSArNzEsNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0
-IGNvbW1vbl9nbHVlX2N0eCB0d29maXNoX2N0ciA9IHsKIAl9IH0KIH07CiAKLXN0YXRpYyBjb25z
-dCBzdHJ1Y3QgY29tbW9uX2dsdWVfY3R4IHR3b2Zpc2hfZW5jX3h0cyA9IHsKLQkubnVtX2Z1bmNz
-ID0gMiwKLQkuZnB1X2Jsb2Nrc19saW1pdCA9IFRXT0ZJU0hfUEFSQUxMRUxfQkxPQ0tTLAotCi0J
-LmZ1bmNzID0geyB7Ci0JCS5udW1fYmxvY2tzID0gVFdPRklTSF9QQVJBTExFTF9CTE9DS1MsCi0J
-CS5mbl91ID0geyAueHRzID0gdHdvZmlzaF94dHNfZW5jXzh3YXkgfQotCX0sIHsKLQkJLm51bV9i
-bG9ja3MgPSAxLAotCQkuZm5fdSA9IHsgLnh0cyA9IHR3b2Zpc2hfeHRzX2VuYyB9Ci0JfSB9Ci19
-OwotCiBzdGF0aWMgY29uc3Qgc3RydWN0IGNvbW1vbl9nbHVlX2N0eCB0d29maXNoX2RlYyA9IHsK
-IAkubnVtX2Z1bmNzID0gMywKIAkuZnB1X2Jsb2Nrc19saW1pdCA9IFRXT0ZJU0hfUEFSQUxMRUxf
-QkxPQ0tTLApAQCAtMTU2LDE5ICsxMDMsNiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGNvbW1vbl9n
-bHVlX2N0eCB0d29maXNoX2RlY19jYmMgPSB7CiAJfSB9CiB9OwogCi1zdGF0aWMgY29uc3Qgc3Ry
-dWN0IGNvbW1vbl9nbHVlX2N0eCB0d29maXNoX2RlY194dHMgPSB7Ci0JLm51bV9mdW5jcyA9IDIs
-Ci0JLmZwdV9ibG9ja3NfbGltaXQgPSBUV09GSVNIX1BBUkFMTEVMX0JMT0NLUywKLQotCS5mdW5j
-cyA9IHsgewotCQkubnVtX2Jsb2NrcyA9IFRXT0ZJU0hfUEFSQUxMRUxfQkxPQ0tTLAotCQkuZm5f
-dSA9IHsgLnh0cyA9IHR3b2Zpc2hfeHRzX2RlY184d2F5IH0KLQl9LCB7Ci0JCS5udW1fYmxvY2tz
-ID0gMSwKLQkJLmZuX3UgPSB7IC54dHMgPSB0d29maXNoX3h0c19kZWMgfQotCX0gfQotfTsKLQog
-c3RhdGljIGludCBlY2JfZW5jcnlwdChzdHJ1Y3Qgc2tjaXBoZXJfcmVxdWVzdCAqcmVxKQogewog
-CXJldHVybiBnbHVlX2VjYl9yZXFfMTI4Yml0KCZ0d29maXNoX2VuYywgcmVxKTsKQEAgLTE5NCwy
-NCArMTI4LDYgQEAgc3RhdGljIGludCBjdHJfY3J5cHQoc3RydWN0IHNrY2lwaGVyX3JlcXVlc3Qg
-KnJlcSkKIAlyZXR1cm4gZ2x1ZV9jdHJfcmVxXzEyOGJpdCgmdHdvZmlzaF9jdHIsIHJlcSk7CiB9
-CiAKLXN0YXRpYyBpbnQgeHRzX2VuY3J5cHQoc3RydWN0IHNrY2lwaGVyX3JlcXVlc3QgKnJlcSkK
-LXsKLQlzdHJ1Y3QgY3J5cHRvX3NrY2lwaGVyICp0Zm0gPSBjcnlwdG9fc2tjaXBoZXJfcmVxdGZt
-KHJlcSk7Ci0Jc3RydWN0IHR3b2Zpc2hfeHRzX2N0eCAqY3R4ID0gY3J5cHRvX3NrY2lwaGVyX2N0
-eCh0Zm0pOwotCi0JcmV0dXJuIGdsdWVfeHRzX3JlcV8xMjhiaXQoJnR3b2Zpc2hfZW5jX3h0cywg
-cmVxLCB0d29maXNoX2VuY19ibGssCi0JCQkJICAgJmN0eC0+dHdlYWtfY3R4LCAmY3R4LT5jcnlw
-dF9jdHgsIGZhbHNlKTsKLX0KLQotc3RhdGljIGludCB4dHNfZGVjcnlwdChzdHJ1Y3Qgc2tjaXBo
-ZXJfcmVxdWVzdCAqcmVxKQotewotCXN0cnVjdCBjcnlwdG9fc2tjaXBoZXIgKnRmbSA9IGNyeXB0
-b19za2NpcGhlcl9yZXF0Zm0ocmVxKTsKLQlzdHJ1Y3QgdHdvZmlzaF94dHNfY3R4ICpjdHggPSBj
-cnlwdG9fc2tjaXBoZXJfY3R4KHRmbSk7Ci0KLQlyZXR1cm4gZ2x1ZV94dHNfcmVxXzEyOGJpdCgm
-dHdvZmlzaF9kZWNfeHRzLCByZXEsIHR3b2Zpc2hfZW5jX2JsaywKLQkJCQkgICAmY3R4LT50d2Vh
-a19jdHgsICZjdHgtPmNyeXB0X2N0eCwgdHJ1ZSk7Ci19Ci0KIHN0YXRpYyBzdHJ1Y3Qgc2tjaXBo
-ZXJfYWxnIHR3b2Zpc2hfYWxnc1tdID0gewogCXsKIAkJLmJhc2UuY3JhX25hbWUJCT0gIl9fZWNi
-KHR3b2Zpc2gpIiwKQEAgLTI1NSwyMCArMTcxLDYgQEAgc3RhdGljIHN0cnVjdCBza2NpcGhlcl9h
-bGcgdHdvZmlzaF9hbGdzW10gPSB7CiAJCS5zZXRrZXkJCQk9IHR3b2Zpc2hfc2V0a2V5X3NrY2lw
-aGVyLAogCQkuZW5jcnlwdAkJPSBjdHJfY3J5cHQsCiAJCS5kZWNyeXB0CQk9IGN0cl9jcnlwdCwK
-LQl9LCB7Ci0JCS5iYXNlLmNyYV9uYW1lCQk9ICJfX3h0cyh0d29maXNoKSIsCi0JCS5iYXNlLmNy
-YV9kcml2ZXJfbmFtZQk9ICJfX3h0cy10d29maXNoLWF2eCIsCi0JCS5iYXNlLmNyYV9wcmlvcml0
-eQk9IDQwMCwKLQkJLmJhc2UuY3JhX2ZsYWdzCQk9IENSWVBUT19BTEdfSU5URVJOQUwsCi0JCS5i
-YXNlLmNyYV9ibG9ja3NpemUJPSBURl9CTE9DS19TSVpFLAotCQkuYmFzZS5jcmFfY3R4c2l6ZQk9
-IHNpemVvZihzdHJ1Y3QgdHdvZmlzaF94dHNfY3R4KSwKLQkJLmJhc2UuY3JhX21vZHVsZQk9IFRI
-SVNfTU9EVUxFLAotCQkubWluX2tleXNpemUJCT0gMiAqIFRGX01JTl9LRVlfU0laRSwKLQkJLm1h
-eF9rZXlzaXplCQk9IDIgKiBURl9NQVhfS0VZX1NJWkUsCi0JCS5pdnNpemUJCQk9IFRGX0JMT0NL
-X1NJWkUsCi0JCS5zZXRrZXkJCQk9IHh0c190d29maXNoX3NldGtleSwKLQkJLmVuY3J5cHQJCT0g
-eHRzX2VuY3J5cHQsCi0JCS5kZWNyeXB0CQk9IHh0c19kZWNyeXB0LAogCX0sCiB9OwogCi0tIAoy
-LjE3LjEKCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRw
-czovL3d3dy5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWw=
+The glue helper's XTS routines are no longer used, so drop them.
+
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+---
+ arch/x86/crypto/glue_helper-asm-avx.S     |  59 --------
+ arch/x86/crypto/glue_helper-asm-avx2.S    |  78 ----------
+ arch/x86/crypto/glue_helper.c             | 154 --------------------
+ arch/x86/include/asm/crypto/glue_helper.h |  12 --
+ 4 files changed, 303 deletions(-)
+
+diff --git a/arch/x86/crypto/glue_helper-asm-avx.S b/arch/x86/crypto/glue_helper-asm-avx.S
+index d08fc575ef7f..a94511432803 100644
+--- a/arch/x86/crypto/glue_helper-asm-avx.S
++++ b/arch/x86/crypto/glue_helper-asm-avx.S
+@@ -79,62 +79,3 @@
+ 	vpxor (6*16)(src), x6, x6; \
+ 	vpxor (7*16)(src), x7, x7; \
+ 	store_8way(dst, x0, x1, x2, x3, x4, x5, x6, x7);
+-
+-#define gf128mul_x_ble(iv, mask, tmp) \
+-	vpsrad $31, iv, tmp; \
+-	vpaddq iv, iv, iv; \
+-	vpshufd $0x13, tmp, tmp; \
+-	vpand mask, tmp, tmp; \
+-	vpxor tmp, iv, iv;
+-
+-#define load_xts_8way(iv, src, dst, x0, x1, x2, x3, x4, x5, x6, x7, tiv, t0, \
+-		      t1, xts_gf128mul_and_shl1_mask) \
+-	vmovdqa xts_gf128mul_and_shl1_mask, t0; \
+-	\
+-	/* load IV */ \
+-	vmovdqu (iv), tiv; \
+-	vpxor (0*16)(src), tiv, x0; \
+-	vmovdqu tiv, (0*16)(dst); \
+-	\
+-	/* construct and store IVs, also xor with source */ \
+-	gf128mul_x_ble(tiv, t0, t1); \
+-	vpxor (1*16)(src), tiv, x1; \
+-	vmovdqu tiv, (1*16)(dst); \
+-	\
+-	gf128mul_x_ble(tiv, t0, t1); \
+-	vpxor (2*16)(src), tiv, x2; \
+-	vmovdqu tiv, (2*16)(dst); \
+-	\
+-	gf128mul_x_ble(tiv, t0, t1); \
+-	vpxor (3*16)(src), tiv, x3; \
+-	vmovdqu tiv, (3*16)(dst); \
+-	\
+-	gf128mul_x_ble(tiv, t0, t1); \
+-	vpxor (4*16)(src), tiv, x4; \
+-	vmovdqu tiv, (4*16)(dst); \
+-	\
+-	gf128mul_x_ble(tiv, t0, t1); \
+-	vpxor (5*16)(src), tiv, x5; \
+-	vmovdqu tiv, (5*16)(dst); \
+-	\
+-	gf128mul_x_ble(tiv, t0, t1); \
+-	vpxor (6*16)(src), tiv, x6; \
+-	vmovdqu tiv, (6*16)(dst); \
+-	\
+-	gf128mul_x_ble(tiv, t0, t1); \
+-	vpxor (7*16)(src), tiv, x7; \
+-	vmovdqu tiv, (7*16)(dst); \
+-	\
+-	gf128mul_x_ble(tiv, t0, t1); \
+-	vmovdqu tiv, (iv);
+-
+-#define store_xts_8way(dst, x0, x1, x2, x3, x4, x5, x6, x7) \
+-	vpxor (0*16)(dst), x0, x0; \
+-	vpxor (1*16)(dst), x1, x1; \
+-	vpxor (2*16)(dst), x2, x2; \
+-	vpxor (3*16)(dst), x3, x3; \
+-	vpxor (4*16)(dst), x4, x4; \
+-	vpxor (5*16)(dst), x5, x5; \
+-	vpxor (6*16)(dst), x6, x6; \
+-	vpxor (7*16)(dst), x7, x7; \
+-	store_8way(dst, x0, x1, x2, x3, x4, x5, x6, x7);
+diff --git a/arch/x86/crypto/glue_helper-asm-avx2.S b/arch/x86/crypto/glue_helper-asm-avx2.S
+index d84508c85c13..456bface1e5d 100644
+--- a/arch/x86/crypto/glue_helper-asm-avx2.S
++++ b/arch/x86/crypto/glue_helper-asm-avx2.S
+@@ -95,81 +95,3 @@
+ 	vpxor (6*32)(src), x6, x6; \
+ 	vpxor (7*32)(src), x7, x7; \
+ 	store_16way(dst, x0, x1, x2, x3, x4, x5, x6, x7);
+-
+-#define gf128mul_x_ble(iv, mask, tmp) \
+-	vpsrad $31, iv, tmp; \
+-	vpaddq iv, iv, iv; \
+-	vpshufd $0x13, tmp, tmp; \
+-	vpand mask, tmp, tmp; \
+-	vpxor tmp, iv, iv;
+-
+-#define gf128mul_x2_ble(iv, mask1, mask2, tmp0, tmp1) \
+-	vpsrad $31, iv, tmp0; \
+-	vpaddq iv, iv, tmp1; \
+-	vpsllq $2, iv, iv; \
+-	vpshufd $0x13, tmp0, tmp0; \
+-	vpsrad $31, tmp1, tmp1; \
+-	vpand mask2, tmp0, tmp0; \
+-	vpshufd $0x13, tmp1, tmp1; \
+-	vpxor tmp0, iv, iv; \
+-	vpand mask1, tmp1, tmp1; \
+-	vpxor tmp1, iv, iv;
+-
+-#define load_xts_16way(iv, src, dst, x0, x1, x2, x3, x4, x5, x6, x7, tiv, \
+-		       tivx, t0, t0x, t1, t1x, t2, t2x, t3, \
+-		       xts_gf128mul_and_shl1_mask_0, \
+-		       xts_gf128mul_and_shl1_mask_1) \
+-	vbroadcasti128 xts_gf128mul_and_shl1_mask_0, t1; \
+-	\
+-	/* load IV and construct second IV */ \
+-	vmovdqu (iv), tivx; \
+-	vmovdqa tivx, t0x; \
+-	gf128mul_x_ble(tivx, t1x, t2x); \
+-	vbroadcasti128 xts_gf128mul_and_shl1_mask_1, t2; \
+-	vinserti128 $1, tivx, t0, tiv; \
+-	vpxor (0*32)(src), tiv, x0; \
+-	vmovdqu tiv, (0*32)(dst); \
+-	\
+-	/* construct and store IVs, also xor with source */ \
+-	gf128mul_x2_ble(tiv, t1, t2, t0, t3); \
+-	vpxor (1*32)(src), tiv, x1; \
+-	vmovdqu tiv, (1*32)(dst); \
+-	\
+-	gf128mul_x2_ble(tiv, t1, t2, t0, t3); \
+-	vpxor (2*32)(src), tiv, x2; \
+-	vmovdqu tiv, (2*32)(dst); \
+-	\
+-	gf128mul_x2_ble(tiv, t1, t2, t0, t3); \
+-	vpxor (3*32)(src), tiv, x3; \
+-	vmovdqu tiv, (3*32)(dst); \
+-	\
+-	gf128mul_x2_ble(tiv, t1, t2, t0, t3); \
+-	vpxor (4*32)(src), tiv, x4; \
+-	vmovdqu tiv, (4*32)(dst); \
+-	\
+-	gf128mul_x2_ble(tiv, t1, t2, t0, t3); \
+-	vpxor (5*32)(src), tiv, x5; \
+-	vmovdqu tiv, (5*32)(dst); \
+-	\
+-	gf128mul_x2_ble(tiv, t1, t2, t0, t3); \
+-	vpxor (6*32)(src), tiv, x6; \
+-	vmovdqu tiv, (6*32)(dst); \
+-	\
+-	gf128mul_x2_ble(tiv, t1, t2, t0, t3); \
+-	vpxor (7*32)(src), tiv, x7; \
+-	vmovdqu tiv, (7*32)(dst); \
+-	\
+-	vextracti128 $1, tiv, tivx; \
+-	gf128mul_x_ble(tivx, t1x, t2x); \
+-	vmovdqu tivx, (iv);
+-
+-#define store_xts_16way(dst, x0, x1, x2, x3, x4, x5, x6, x7) \
+-	vpxor (0*32)(dst), x0, x0; \
+-	vpxor (1*32)(dst), x1, x1; \
+-	vpxor (2*32)(dst), x2, x2; \
+-	vpxor (3*32)(dst), x3, x3; \
+-	vpxor (4*32)(dst), x4, x4; \
+-	vpxor (5*32)(dst), x5, x5; \
+-	vpxor (6*32)(dst), x6, x6; \
+-	vpxor (7*32)(dst), x7, x7; \
+-	store_16way(dst, x0, x1, x2, x3, x4, x5, x6, x7);
+diff --git a/arch/x86/crypto/glue_helper.c b/arch/x86/crypto/glue_helper.c
+index d3d91a0abf88..786ffda1caf4 100644
+--- a/arch/x86/crypto/glue_helper.c
++++ b/arch/x86/crypto/glue_helper.c
+@@ -12,10 +12,8 @@
+ 
+ #include <linux/module.h>
+ #include <crypto/b128ops.h>
+-#include <crypto/gf128mul.h>
+ #include <crypto/internal/skcipher.h>
+ #include <crypto/scatterwalk.h>
+-#include <crypto/xts.h>
+ #include <asm/crypto/glue_helper.h>
+ 
+ int glue_ecb_req_128bit(const struct common_glue_ctx *gctx,
+@@ -226,156 +224,4 @@ int glue_ctr_req_128bit(const struct common_glue_ctx *gctx,
+ }
+ EXPORT_SYMBOL_GPL(glue_ctr_req_128bit);
+ 
+-static unsigned int __glue_xts_req_128bit(const struct common_glue_ctx *gctx,
+-					  void *ctx,
+-					  struct skcipher_walk *walk)
+-{
+-	const unsigned int bsize = 128 / 8;
+-	unsigned int nbytes = walk->nbytes;
+-	u128 *src = walk->src.virt.addr;
+-	u128 *dst = walk->dst.virt.addr;
+-	unsigned int num_blocks, func_bytes;
+-	unsigned int i;
+-
+-	/* Process multi-block batch */
+-	for (i = 0; i < gctx->num_funcs; i++) {
+-		num_blocks = gctx->funcs[i].num_blocks;
+-		func_bytes = bsize * num_blocks;
+-
+-		if (nbytes >= func_bytes) {
+-			do {
+-				gctx->funcs[i].fn_u.xts(ctx, (u8 *)dst,
+-							(const u8 *)src,
+-							walk->iv);
+-
+-				src += num_blocks;
+-				dst += num_blocks;
+-				nbytes -= func_bytes;
+-			} while (nbytes >= func_bytes);
+-
+-			if (nbytes < bsize)
+-				goto done;
+-		}
+-	}
+-
+-done:
+-	return nbytes;
+-}
+-
+-int glue_xts_req_128bit(const struct common_glue_ctx *gctx,
+-			struct skcipher_request *req,
+-			common_glue_func_t tweak_fn, void *tweak_ctx,
+-			void *crypt_ctx, bool decrypt)
+-{
+-	const bool cts = (req->cryptlen % XTS_BLOCK_SIZE);
+-	const unsigned int bsize = 128 / 8;
+-	struct skcipher_request subreq;
+-	struct skcipher_walk walk;
+-	bool fpu_enabled = false;
+-	unsigned int nbytes, tail;
+-	int err;
+-
+-	if (req->cryptlen < XTS_BLOCK_SIZE)
+-		return -EINVAL;
+-
+-	if (unlikely(cts)) {
+-		struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
+-
+-		tail = req->cryptlen % XTS_BLOCK_SIZE + XTS_BLOCK_SIZE;
+-
+-		skcipher_request_set_tfm(&subreq, tfm);
+-		skcipher_request_set_callback(&subreq,
+-					      crypto_skcipher_get_flags(tfm),
+-					      NULL, NULL);
+-		skcipher_request_set_crypt(&subreq, req->src, req->dst,
+-					   req->cryptlen - tail, req->iv);
+-		req = &subreq;
+-	}
+-
+-	err = skcipher_walk_virt(&walk, req, false);
+-	nbytes = walk.nbytes;
+-	if (err)
+-		return err;
+-
+-	/* set minimum length to bsize, for tweak_fn */
+-	fpu_enabled = glue_fpu_begin(bsize, gctx->fpu_blocks_limit,
+-				     &walk, fpu_enabled,
+-				     nbytes < bsize ? bsize : nbytes);
+-
+-	/* calculate first value of T */
+-	tweak_fn(tweak_ctx, walk.iv, walk.iv);
+-
+-	while (nbytes) {
+-		nbytes = __glue_xts_req_128bit(gctx, crypt_ctx, &walk);
+-
+-		err = skcipher_walk_done(&walk, nbytes);
+-		nbytes = walk.nbytes;
+-	}
+-
+-	if (unlikely(cts)) {
+-		u8 *next_tweak, *final_tweak = req->iv;
+-		struct scatterlist *src, *dst;
+-		struct scatterlist s[2], d[2];
+-		le128 b[2];
+-
+-		dst = src = scatterwalk_ffwd(s, req->src, req->cryptlen);
+-		if (req->dst != req->src)
+-			dst = scatterwalk_ffwd(d, req->dst, req->cryptlen);
+-
+-		if (decrypt) {
+-			next_tweak = memcpy(b, req->iv, XTS_BLOCK_SIZE);
+-			gf128mul_x_ble(b, b);
+-		} else {
+-			next_tweak = req->iv;
+-		}
+-
+-		skcipher_request_set_crypt(&subreq, src, dst, XTS_BLOCK_SIZE,
+-					   next_tweak);
+-
+-		err = skcipher_walk_virt(&walk, req, false) ?:
+-		      skcipher_walk_done(&walk,
+-				__glue_xts_req_128bit(gctx, crypt_ctx, &walk));
+-		if (err)
+-			goto out;
+-
+-		scatterwalk_map_and_copy(b, dst, 0, XTS_BLOCK_SIZE, 0);
+-		memcpy(b + 1, b, tail - XTS_BLOCK_SIZE);
+-		scatterwalk_map_and_copy(b, src, XTS_BLOCK_SIZE,
+-					 tail - XTS_BLOCK_SIZE, 0);
+-		scatterwalk_map_and_copy(b, dst, 0, tail, 1);
+-
+-		skcipher_request_set_crypt(&subreq, dst, dst, XTS_BLOCK_SIZE,
+-					   final_tweak);
+-
+-		err = skcipher_walk_virt(&walk, req, false) ?:
+-		      skcipher_walk_done(&walk,
+-				__glue_xts_req_128bit(gctx, crypt_ctx, &walk));
+-	}
+-
+-out:
+-	glue_fpu_end(fpu_enabled);
+-
+-	return err;
+-}
+-EXPORT_SYMBOL_GPL(glue_xts_req_128bit);
+-
+-void glue_xts_crypt_128bit_one(const void *ctx, u8 *dst, const u8 *src,
+-			       le128 *iv, common_glue_func_t fn)
+-{
+-	le128 ivblk = *iv;
+-
+-	/* generate next IV */
+-	gf128mul_x_ble(iv, &ivblk);
+-
+-	/* CC <- T xor C */
+-	u128_xor((u128 *)dst, (const u128 *)src, (u128 *)&ivblk);
+-
+-	/* PP <- D(Key2,CC) */
+-	fn(ctx, dst, dst);
+-
+-	/* P <- T xor PP */
+-	u128_xor((u128 *)dst, (u128 *)dst, (u128 *)&ivblk);
+-}
+-EXPORT_SYMBOL_GPL(glue_xts_crypt_128bit_one);
+-
+ MODULE_LICENSE("GPL");
+diff --git a/arch/x86/include/asm/crypto/glue_helper.h b/arch/x86/include/asm/crypto/glue_helper.h
+index 777c0f63418c..62680775d189 100644
+--- a/arch/x86/include/asm/crypto/glue_helper.h
++++ b/arch/x86/include/asm/crypto/glue_helper.h
+@@ -15,8 +15,6 @@ typedef void (*common_glue_func_t)(const void *ctx, u8 *dst, const u8 *src);
+ typedef void (*common_glue_cbc_func_t)(const void *ctx, u8 *dst, const u8 *src);
+ typedef void (*common_glue_ctr_func_t)(const void *ctx, u8 *dst, const u8 *src,
+ 				       le128 *iv);
+-typedef void (*common_glue_xts_func_t)(const void *ctx, u8 *dst, const u8 *src,
+-				       le128 *iv);
+ 
+ struct common_glue_func_entry {
+ 	unsigned int num_blocks; /* number of blocks that @fn will process */
+@@ -24,7 +22,6 @@ struct common_glue_func_entry {
+ 		common_glue_func_t ecb;
+ 		common_glue_cbc_func_t cbc;
+ 		common_glue_ctr_func_t ctr;
+-		common_glue_xts_func_t xts;
+ 	} fn_u;
+ };
+ 
+@@ -106,13 +103,4 @@ extern int glue_cbc_decrypt_req_128bit(const struct common_glue_ctx *gctx,
+ extern int glue_ctr_req_128bit(const struct common_glue_ctx *gctx,
+ 			       struct skcipher_request *req);
+ 
+-extern int glue_xts_req_128bit(const struct common_glue_ctx *gctx,
+-			       struct skcipher_request *req,
+-			       common_glue_func_t tweak_fn, void *tweak_ctx,
+-			       void *crypt_ctx, bool decrypt);
+-
+-extern void glue_xts_crypt_128bit_one(const void *ctx, u8 *dst,
+-				      const u8 *src, le128 *iv,
+-				      common_glue_func_t fn);
+-
+ #endif /* _CRYPTO_GLUE_HELPER_H */
+-- 
+2.17.1
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
