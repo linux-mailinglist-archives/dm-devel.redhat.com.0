@@ -2,75 +2,58 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C00D02E9DC3
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:04:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 155772E9DC6
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:04:11 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-252-PisnaGl5PZ-pB-No4wP1wA-1; Mon, 04 Jan 2021 14:04:04 -0500
-X-MC-Unique: PisnaGl5PZ-pB-No4wP1wA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-40-RlnxY67NOGyfC-XucginDQ-1; Mon, 04 Jan 2021 14:04:07 -0500
+X-MC-Unique: RlnxY67NOGyfC-XucginDQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1E487801AEF;
-	Mon,  4 Jan 2021 19:03:51 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C991B9CC0F;
+	Mon,  4 Jan 2021 19:03:54 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EE8497092D;
-	Mon,  4 Jan 2021 19:03:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A2C5C62678;
+	Mon,  4 Jan 2021 19:03:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A192450038;
-	Mon,  4 Jan 2021 19:03:50 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5AF355003D;
+	Mon,  4 Jan 2021 19:03:54 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BMKcaP1030528 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 22 Dec 2020 15:38:36 -0500
+	id 0BNBQdNr019577 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 23 Dec 2020 06:26:40 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 35757110F0B3; Tue, 22 Dec 2020 20:38:36 +0000 (UTC)
+	id D098E110E98E; Wed, 23 Dec 2020 11:26:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 31BA0110F0AE
-	for <dm-devel@redhat.com>; Tue, 22 Dec 2020 20:38:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CC550110E98A
+	for <dm-devel@redhat.com>; Wed, 23 Dec 2020 11:26:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D0B1B800157
-	for <dm-devel@redhat.com>; Tue, 22 Dec 2020 20:38:33 +0000 (UTC)
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
-	[209.85.216.48]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-487-o1A4d1R7PAC4anpGV7O7gg-1; Tue, 22 Dec 2020 15:38:30 -0500
-X-MC-Unique: o1A4d1R7PAC4anpGV7O7gg-1
-Received: by mail-pj1-f48.google.com with SMTP id hk16so1974693pjb.4
-	for <dm-devel@redhat.com>; Tue, 22 Dec 2020 12:38:30 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:date:subject:in-reply-to:cc:from:to:message-id
-	:mime-version:content-transfer-encoding;
-	bh=w7wUorTulI1SLGLyUAtcsZM5JvELPWd2Jp06S7SjCVY=;
-	b=E/7LFneAHqJEFlf3hVMH9vWtapUPxFqhjYhLmWOoEPcNz8WzyLJDPh0y2zTmuxgbmc
-	/85CmDN/hrg4tvPKNMUsJTf1RS5hQ4GbnQRMO69n/wSKvZCuoNqpvSZhVERb4YQekL+s
-	VQc7iVrw7YtrIfGhULIn15keXYcw2ibYMw651XfxrsaFLxml2/dSCQ7FRtYM14lA47jU
-	WqlaYvY/qQ8vkhtgK0UgLGICPGkP6Wvo1rxtUD0tym+Fw9GQTxrbSO/tLRSRp4bloCC9
-	6PUQm/qSzQBpVFTBOjpJgcWSzR0Q+ABUQ1PzPlxyWRCbs2jXYkrHsD+jq0bStghEMe8C
-	iv0Q==
-X-Gm-Message-State: AOAM5333ffjEH/MeelOteJs7FMIsaCYIE+CY0/LWH5Kn4UN1EqZ76fU+
-	esFuUZiwt/uzg6nuAXyWl0XPAQ==
-X-Google-Smtp-Source: ABdhPJyrUEeQS+6tCykxcXi4wBUYC0ygmbARaXIsYIp63WsLg3f/qvwDb9rwYmvpLbj3fuqqf4mwnw==
-X-Received: by 2002:a17:90a:301:: with SMTP id
-	1mr23852780pje.195.1608669509537; 
-	Tue, 22 Dec 2020 12:38:29 -0800 (PST)
-Received: from localhost (76-210-143-223.lightspeed.sntcca.sbcglobal.net.
-	[76.210.143.223]) by smtp.gmail.com with ESMTPSA id
-	g30sm21624684pfr.152.2020.12.22.12.38.28
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Tue, 22 Dec 2020 12:38:28 -0800 (PST)
-Date: Tue, 22 Dec 2020 12:38:28 -0800 (PST)
-X-Google-Original-Date: Tue, 22 Dec 2020 12:38:26 PST (-0800)
-In-Reply-To: <20201222143616.GB12885@redhat.com>
-From: Palmer Dabbelt <palmer@dabbelt.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B9027101A560
+	for <dm-devel@redhat.com>; Wed, 23 Dec 2020 11:26:32 +0000 (UTC)
+Received: from out30-133.freemail.mail.aliyun.com
+	(out30-133.freemail.mail.aliyun.com [115.124.30.133]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-80-sJBw59FCPZ2gH4Zowa-jdA-1;
+	Wed, 23 Dec 2020 06:26:29 -0500
+X-MC-Unique: sJBw59FCPZ2gH4Zowa-jdA-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R141e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e01424;
+	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=4; SR=0;
+	TI=SMTPD_---0UJXl38r_1608722784
+Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
+	fp:SMTPD_---0UJXl38r_1608722784) by smtp.aliyun-inc.com(127.0.0.1);
+	Wed, 23 Dec 2020 19:26:24 +0800
+From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: snitzer@redhat.com
-Message-ID: <mhng-26d96d8e-77aa-415b-a8ee-518a0e91b6ef@palmerdabbelt-glaptop>
-Mime-Version: 1.0 (MHng)
+Date: Wed, 23 Dec 2020 19:26:17 +0800
+Message-Id: <20201223112624.78955-1-jefflexu@linux.alibaba.com>
+MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -82,14 +65,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 04 Jan 2021 14:03:12 -0500
-Cc: linux-raid@vger.kernel.org, bvanassche@acm.org, corbet@lwn.net,
-	shuah@kernel.org, linux-doc@vger.kernel.org,
-	josef@toxicpanda.com, linux-kernel@vger.kernel.org,
-	Christoph Hellwig <hch@infradead.org>, song@kernel.org,
-	dm-devel@redhat.com, michael.christie@oracle.com,
-	linux-kselftest@vger.kernel.org, kernel-team@android.com, agk@redhat.com
-Subject: Re: [dm-devel] [PATCH v1 0/5] dm: dm-user: New target that proxies
-	BIOs to userspace
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com, io-uring@vger.kernel.org
+Subject: [dm-devel] [PATCH RFC 0/7] dm: add support of iopoll
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -103,56 +80,134 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On Tue, 22 Dec 2020 06:36:16 PST (-0800), snitzer@redhat.com wrote:
-> On Tue, Dec 22 2020 at  8:32am -0500,
-> Christoph Hellwig <hch@infradead.org> wrote:
->
->> On Mon, Dec 14, 2020 at 07:00:57PM -0800, Palmer Dabbelt wrote:
->> > I haven't gotten a whole lot of feedback, so I'm inclined to at least have some
->> > reasonable performance numbers before bothering with a v2.
->>
->> FYI, my other main worry beside duplicating nbd is that device mapper
->> really is a stacked interface that sits on top of other block device.
->> Turning this into something else that just pipes data to userspace
->> seems very strange.
->
-> I agree.  Only way I'd be interested is if it somehow tackled enabling
-> much more efficient IO.  Earlier discussion in this thread mentioned
-> that zero-copy and low overhead wasn't a priority (because it is hard,
-> etc).  But the hard work has already been done with io_uring.  If
-> dm-user had a prereq of leaning heavily on io_uring and also enabled IO
-> polling for bio-based then there may be a win to supporting it.
->
-> But unless lower latency (or some other more significant win) is made
-> possible I just don't care to prop up an unnatural DM bolt-on.
+This patch set adds support of iopoll for dm devices.
 
-I don't remember if I mentioned this in the thread, but it was definately in
-the Plumbers talk, but I'd had the general idea bouncing around that it would
-be possible to write a high-performance version of this using an interface
-similar to the one provided here while relying on io_uring for the
-high-performance userspace.  That definately won't work with exactly the
-current interface, but my hope was to avoid writing my own high-performance
-ring buffer.  My worry was that it'll be too tricky to map this all to
-zero-copy, and I guess I forgot about it.
+Several months ago, I also sent a patch set adding support of iopoll
+for dm devices [1]. The old patch set implement this by polling all
+polling mode hardware queues of all underlying target devices
+unconditionally, no matter which hardware queue the bio is enqueued
+into.
 
-Now that you bring it up, it certainly seems worth taking a shot at.  We'd
-essentially have the best of both worlds: userspace implementations that want
-to be simple could just use read()/write(), while those that want to be higher
-performance could have their implicit ring buffer.
+Ming Lei pointed out that this implementation may have performance
+issue. Mike Snitzer also discussed and helpt a lot on the design
+issue. At that time, we agreed that this feature should be
+implemented on the basis of split-bio tracking, since the bio to the
+dm device could be split into multiple split bios to the underlying
+target devices.
 
-I'm currently trying to put together a benchmarking setup that is of sufficient
-fidelity that I would believe the numbers, which is really why I don't have any
-performance numbers yet (no sense posting numbers I would shoot down :)).  I'll
-try to remember to take a shot at an io_uring based userspace (probably with
-some dm-user interface modifications) to see how it feels.
+This patch set actually implement the split-bio tracking part.
+Regrettably this implementation is quite coarse and original. Quite
+code refactoring is introduced to the block core, since device mapper
+also calls methods provided by block core to split bios. The new
+fields are directly added into 'struct bio' structure. So this is
+just an RFC version and there may be quite a lot design issues be
+fronted on. I just implement a version quickly and would like to share
+with you my thoughts and problems at hand.
+
+This implementation works but has poor performance. Awkwardly the
+performance of direct 8k randread decreases ~20% on a 8k-striped
+dm-stripe device.
+
+The first 5 patches prepare the introduction of iopoll for dm device.
+Patch 6 is the core part and implements a mechanism of tracking split
+bios for bio-based device. Patch 7 just enables this feature.
+
+[1] https://patchwork.kernel.org/project/linux-block/cover/20201020065420.124885-1-jefflexu@linux.alibaba.com/
+
+
+[Design Notes]
+
+- recursive way or non-recursive way?
+
+The core of the split-bio tracking mechanism is that, a list is
+maintained in the top bio (the original bio submitted to the dm
+device), which is actually used to maintain all valid cookies of all
+split bios.
+
+This is actually a non-recursive way to implement the tracking
+mechanism. On the contrary, the recursive way is that, maintain the
+split bios at each dm layer. DM device can be build into a device
+stack. For example, considering the following device stack,
+
+```
+            dm0(bio 0)
+dm1(bio 1)             dm2(bio 2)
+nvme0(bio 3)           nvme1(bio 4)
+
+```
+
+The non-recursive way is that bio 3/4 are directly maintained as a
+list beneath bio 0. The recursive way is that, bio 3 is maintained
+as a list beneath bio 1 and bio 4 is maintained as a list beneath
+bio 2, while bio 1/2 are maintained as a list beneath bio 0.
+
+The reason why I choose the non-recursive way is that, we need call
+blk_bio_poll() or something recursively if it's implemented in the
+recursive way, and I worry this would consume up the stack space if
+the device stack is too deep. After all bio_list is used to prevent
+the dm device using up stack space when submitting bio. 
+
+
+- why embed new fields into struct bio directly?
+
+Mike Snitzer had ever suggested that the newly added fields could be
+integrated into the clone bio allocated by dm subsystem through
+bio_set. There're 3 reasons why I directly embed these fields into
+struct bio:
+
+1. The implementation difference of DM and MD
+DM subsystem indeed allocate clone bio itself, in which case we could
+allocate extra per-bio space for specific usage. However MD subsystem
+doesn't allocate extra clone bio, and just uses the bio structure
+originally submitted to MD device as the bio structure submitted to
+the underlying target device. (At least raid0 works in this way.)
+
+2. In the previously mentioned non-recursive way of iopoll, a list
+containing all valid cookies should be maintained. For convenience, I
+just put this list in the top bio (the original bio structure
+submitted to the dm device). This original bio structure is allocated
+by the upper layer, e.g. filesystem, and is out of control of DM
+subsystem. (Of course we could resolve this problem technically, e.g.,
+put these newlly added fields into the corresponding dm_io structure
+of the top bio.)
+
+3. As a quick implementation, I just put these fields into struct bio
+directly. Obviously more design issues need to be considered when it
+comes into the formal version.
+
+
+Jeffle Xu (7):
+  block: move definition of blk_qc_t to types.h
+  block: add helper function fetching gendisk from queue
+  block: add iopoll method for non-mq device
+  block: define blk_qc_t as uintptr_t
+  dm: always return BLK_QC_T_NONE for bio-based device
+  block: track cookies of split bios for bio-based device
+  dm: add support for IO polling
+
+ block/bio.c                  |   8 ++
+ block/blk-core.c             | 163 ++++++++++++++++++++++++++++++++++-
+ block/blk-mq.c               |  70 ++-------------
+ drivers/md/dm-table.c        |  28 ++++++
+ drivers/md/dm.c              |  27 +++---
+ include/linux/blk-mq.h       |   3 +
+ include/linux/blk_types.h    |  41 ++++++++-
+ include/linux/blkdev.h       |   3 +
+ include/linux/fs.h           |   2 +-
+ include/linux/types.h        |   3 +
+ include/trace/events/kyber.h |   6 +-
+ 11 files changed, 270 insertions(+), 84 deletions(-)
+
+-- 
+2.27.0
 
 --
 dm-devel mailing list
