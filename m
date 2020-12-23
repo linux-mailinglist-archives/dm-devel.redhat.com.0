@@ -2,51 +2,51 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4D9A52E9DA7
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:03:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 03DE92E9DD3
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:04:18 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-569-AxOhS2Y2OEW8NtkVloA7vA-1; Mon, 04 Jan 2021 14:03:38 -0500
-X-MC-Unique: AxOhS2Y2OEW8NtkVloA7vA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-523-pv8fLGblNQ-bpySUd-wiJA-1; Mon, 04 Jan 2021 14:04:15 -0500
+X-MC-Unique: pv8fLGblNQ-bpySUd-wiJA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 776871842148;
-	Mon,  4 Jan 2021 19:03:30 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 51D317086A;
-	Mon,  4 Jan 2021 19:03:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EDB4618B62A2;
+	Mon,  4 Jan 2021 19:03:58 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C813B60C61;
+	Mon,  4 Jan 2021 19:03:58 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 01A12180954D;
-	Mon,  4 Jan 2021 19:03:30 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7C26B5003F;
+	Mon,  4 Jan 2021 19:03:58 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BNMlwpZ014939 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 23 Dec 2020 17:47:58 -0500
+	id 0BNMm0wt014972 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 23 Dec 2020 17:48:00 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 39AF71134CD1; Wed, 23 Dec 2020 22:47:58 +0000 (UTC)
+	id F0247A34FB; Wed, 23 Dec 2020 22:47:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 33E121134CC8
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E99CF9D51
 	for <dm-devel@redhat.com>; Wed, 23 Dec 2020 22:47:57 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D6F38811E84
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8E538185A794
 	for <dm-devel@redhat.com>; Wed, 23 Dec 2020 22:47:57 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-158-VPwwyay_MnmVZ2uGDwx_6g-1;
+	by relay.mimecast.com with ESMTP id us-mta-128-3VEnpJhfO8OtdErdLCcFGQ-1;
 	Wed, 23 Dec 2020 17:47:55 -0500
-X-MC-Unique: VPwwyay_MnmVZ2uGDwx_6g-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 453E92253A;
-	Wed, 23 Dec 2020 22:39:20 +0000 (UTC)
+X-MC-Unique: 3VEnpJhfO8OtdErdLCcFGQ-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8543C2255F;
+	Wed, 23 Dec 2020 22:39:23 +0000 (UTC)
 From: Ard Biesheuvel <ardb@kernel.org>
 To: linux-crypto@vger.kernel.org
-Date: Wed, 23 Dec 2020 23:38:40 +0100
-Message-Id: <20201223223841.11311-10-ardb@kernel.org>
+Date: Wed, 23 Dec 2020 23:38:41 +0100
+Message-Id: <20201223223841.11311-11-ardb@kernel.org>
 In-Reply-To: <20201223223841.11311-1-ardb@kernel.org>
 References: <20201223223841.11311-1-ardb@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -57,15 +57,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 04 Jan 2021 14:03:11 -0500
 Cc: Herbert Xu <herbert@gondor.apana.org.au>, Mike Snitzer <snitzer@redhat.com>,
 	Ard Biesheuvel <ardb@kernel.org>,
 	Eric Biggers <ebiggers@kernel.org>, dm-devel@redhat.com,
 	Milan Broz <gmazyland@gmail.com>, Megha Dey <megha.dey@intel.com>
-Subject: [dm-devel] [RFC PATCH 09/10] crypto: x86/twofish - drop CTR mode
-	implementation
+Subject: [dm-devel] [RFC PATCH 10/10] crypto: x86/glue-helper - drop CTR
+	helper routines
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +80,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -88,242 +88,287 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Twofish in CTR mode is never used by the kernel directly, and is highly
-unlikely to be relied upon by dm-crypt or algif_skcipher. So let's drop
-the accelerated CTR mode implementation, and instead, rely on the CTR
-template and the bare cipher.
+The glue helper's CTR routines are no longer used, so drop them.
 
 Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 ---
- arch/x86/crypto/twofish-avx-x86_64-asm_64.S | 27 --------
- arch/x86/crypto/twofish_avx_glue.c          | 38 -----------
- arch/x86/crypto/twofish_glue_3way.c         | 72 --------------------
- arch/x86/include/asm/crypto/twofish.h       |  4 --
- 4 files changed, 141 deletions(-)
+ arch/x86/crypto/glue_helper-asm-avx.S     | 45 ------------
+ arch/x86/crypto/glue_helper-asm-avx2.S    | 58 ----------------
+ arch/x86/crypto/glue_helper.c             | 72 --------------------
+ arch/x86/include/asm/crypto/glue_helper.h | 32 ---------
+ 4 files changed, 207 deletions(-)
 
-diff --git a/arch/x86/crypto/twofish-avx-x86_64-asm_64.S b/arch/x86/crypto/twofish-avx-x86_64-asm_64.S
-index 84e61ef03638..37e63b3c664e 100644
---- a/arch/x86/crypto/twofish-avx-x86_64-asm_64.S
-+++ b/arch/x86/crypto/twofish-avx-x86_64-asm_64.S
-@@ -374,30 +374,3 @@ SYM_FUNC_START(twofish_cbc_dec_8way)
- 	FRAME_END
- 	ret;
- SYM_FUNC_END(twofish_cbc_dec_8way)
+diff --git a/arch/x86/crypto/glue_helper-asm-avx.S b/arch/x86/crypto/glue_helper-asm-avx.S
+index a94511432803..3da385271227 100644
+--- a/arch/x86/crypto/glue_helper-asm-avx.S
++++ b/arch/x86/crypto/glue_helper-asm-avx.S
+@@ -34,48 +34,3 @@
+ 	vpxor (5*16)(src), x6, x6; \
+ 	vpxor (6*16)(src), x7, x7; \
+ 	store_8way(dst, x0, x1, x2, x3, x4, x5, x6, x7);
 -
--SYM_FUNC_START(twofish_ctr_8way)
--	/* input:
--	 *	%rdi: ctx, CTX
--	 *	%rsi: dst
--	 *	%rdx: src
--	 *	%rcx: iv (little endian, 128bit)
--	 */
--	FRAME_BEGIN
+-#define inc_le128(x, minus_one, tmp) \
+-	vpcmpeqq minus_one, x, tmp; \
+-	vpsubq minus_one, x, x; \
+-	vpslldq $8, tmp, tmp; \
+-	vpsubq tmp, x, x;
 -
--	pushq %r12;
+-#define load_ctr_8way(iv, bswap, x0, x1, x2, x3, x4, x5, x6, x7, t0, t1, t2) \
+-	vpcmpeqd t0, t0, t0; \
+-	vpsrldq $8, t0, t0; /* low: -1, high: 0 */ \
+-	vmovdqa bswap, t1; \
+-	\
+-	/* load IV and byteswap */ \
+-	vmovdqu (iv), x7; \
+-	vpshufb t1, x7, x0; \
+-	\
+-	/* construct IVs */ \
+-	inc_le128(x7, t0, t2); \
+-	vpshufb t1, x7, x1; \
+-	inc_le128(x7, t0, t2); \
+-	vpshufb t1, x7, x2; \
+-	inc_le128(x7, t0, t2); \
+-	vpshufb t1, x7, x3; \
+-	inc_le128(x7, t0, t2); \
+-	vpshufb t1, x7, x4; \
+-	inc_le128(x7, t0, t2); \
+-	vpshufb t1, x7, x5; \
+-	inc_le128(x7, t0, t2); \
+-	vpshufb t1, x7, x6; \
+-	inc_le128(x7, t0, t2); \
+-	vmovdqa x7, t2; \
+-	vpshufb t1, x7, x7; \
+-	inc_le128(t2, t0, t1); \
+-	vmovdqu t2, (iv);
 -
--	movq %rsi, %r11;
--	movq %rdx, %r12;
+-#define store_ctr_8way(src, dst, x0, x1, x2, x3, x4, x5, x6, x7) \
+-	vpxor (0*16)(src), x0, x0; \
+-	vpxor (1*16)(src), x1, x1; \
+-	vpxor (2*16)(src), x2, x2; \
+-	vpxor (3*16)(src), x3, x3; \
+-	vpxor (4*16)(src), x4, x4; \
+-	vpxor (5*16)(src), x5, x5; \
+-	vpxor (6*16)(src), x6, x6; \
+-	vpxor (7*16)(src), x7, x7; \
+-	store_8way(dst, x0, x1, x2, x3, x4, x5, x6, x7);
+diff --git a/arch/x86/crypto/glue_helper-asm-avx2.S b/arch/x86/crypto/glue_helper-asm-avx2.S
+index 456bface1e5d..c77e9049431f 100644
+--- a/arch/x86/crypto/glue_helper-asm-avx2.S
++++ b/arch/x86/crypto/glue_helper-asm-avx2.S
+@@ -37,61 +37,3 @@
+ 	vpxor (5*32+16)(src), x6, x6; \
+ 	vpxor (6*32+16)(src), x7, x7; \
+ 	store_16way(dst, x0, x1, x2, x3, x4, x5, x6, x7);
 -
--	load_ctr_8way(%rcx, .Lbswap128_mask, RA1, RB1, RC1, RD1, RA2, RB2, RC2,
--		      RD2, RX0, RX1, RY0);
+-#define inc_le128(x, minus_one, tmp) \
+-	vpcmpeqq minus_one, x, tmp; \
+-	vpsubq minus_one, x, x; \
+-	vpslldq $8, tmp, tmp; \
+-	vpsubq tmp, x, x;
 -
--	call __twofish_enc_blk8;
+-#define add2_le128(x, minus_one, minus_two, tmp1, tmp2) \
+-	vpcmpeqq minus_one, x, tmp1; \
+-	vpcmpeqq minus_two, x, tmp2; \
+-	vpsubq minus_two, x, x; \
+-	vpor tmp2, tmp1, tmp1; \
+-	vpslldq $8, tmp1, tmp1; \
+-	vpsubq tmp1, x, x;
 -
--	store_ctr_8way(%r12, %r11, RC1, RD1, RA1, RB1, RC2, RD2, RA2, RB2);
+-#define load_ctr_16way(iv, bswap, x0, x1, x2, x3, x4, x5, x6, x7, t0, t0x, t1, \
+-		       t1x, t2, t2x, t3, t3x, t4, t5) \
+-	vpcmpeqd t0, t0, t0; \
+-	vpsrldq $8, t0, t0; /* ab: -1:0 ; cd: -1:0 */ \
+-	vpaddq t0, t0, t4; /* ab: -2:0 ; cd: -2:0 */\
+-	\
+-	/* load IV and byteswap */ \
+-	vmovdqu (iv), t2x; \
+-	vmovdqa t2x, t3x; \
+-	inc_le128(t2x, t0x, t1x); \
+-	vbroadcasti128 bswap, t1; \
+-	vinserti128 $1, t2x, t3, t2; /* ab: le0 ; cd: le1 */ \
+-	vpshufb t1, t2, x0; \
+-	\
+-	/* construct IVs */ \
+-	add2_le128(t2, t0, t4, t3, t5); /* ab: le2 ; cd: le3 */ \
+-	vpshufb t1, t2, x1; \
+-	add2_le128(t2, t0, t4, t3, t5); \
+-	vpshufb t1, t2, x2; \
+-	add2_le128(t2, t0, t4, t3, t5); \
+-	vpshufb t1, t2, x3; \
+-	add2_le128(t2, t0, t4, t3, t5); \
+-	vpshufb t1, t2, x4; \
+-	add2_le128(t2, t0, t4, t3, t5); \
+-	vpshufb t1, t2, x5; \
+-	add2_le128(t2, t0, t4, t3, t5); \
+-	vpshufb t1, t2, x6; \
+-	add2_le128(t2, t0, t4, t3, t5); \
+-	vpshufb t1, t2, x7; \
+-	vextracti128 $1, t2, t2x; \
+-	inc_le128(t2x, t0x, t3x); \
+-	vmovdqu t2x, (iv);
 -
--	popq %r12;
--
--	FRAME_END
--	ret;
--SYM_FUNC_END(twofish_ctr_8way)
-diff --git a/arch/x86/crypto/twofish_avx_glue.c b/arch/x86/crypto/twofish_avx_glue.c
-index 7b539bbb108f..13f810b61034 100644
---- a/arch/x86/crypto/twofish_avx_glue.c
-+++ b/arch/x86/crypto/twofish_avx_glue.c
-@@ -25,8 +25,6 @@ asmlinkage void twofish_ecb_enc_8way(const void *ctx, u8 *dst, const u8 *src);
- asmlinkage void twofish_ecb_dec_8way(const void *ctx, u8 *dst, const u8 *src);
+-#define store_ctr_16way(src, dst, x0, x1, x2, x3, x4, x5, x6, x7) \
+-	vpxor (0*32)(src), x0, x0; \
+-	vpxor (1*32)(src), x1, x1; \
+-	vpxor (2*32)(src), x2, x2; \
+-	vpxor (3*32)(src), x3, x3; \
+-	vpxor (4*32)(src), x4, x4; \
+-	vpxor (5*32)(src), x5, x5; \
+-	vpxor (6*32)(src), x6, x6; \
+-	vpxor (7*32)(src), x7, x7; \
+-	store_16way(dst, x0, x1, x2, x3, x4, x5, x6, x7);
+diff --git a/arch/x86/crypto/glue_helper.c b/arch/x86/crypto/glue_helper.c
+index 786ffda1caf4..895d34150c3f 100644
+--- a/arch/x86/crypto/glue_helper.c
++++ b/arch/x86/crypto/glue_helper.c
+@@ -6,8 +6,6 @@
+  *
+  * CBC & ECB parts based on code (crypto/cbc.c,ecb.c) by:
+  *   Copyright (c) 2006 Herbert Xu <herbert@gondor.apana.org.au>
+- * CTR part based on code (crypto/ctr.c) by:
+- *   (C) Copyright IBM Corp. 2007 - Joy Latten <latten@us.ibm.com>
+  */
  
- asmlinkage void twofish_cbc_dec_8way(const void *ctx, u8 *dst, const u8 *src);
--asmlinkage void twofish_ctr_8way(const void *ctx, u8 *dst, const u8 *src,
--				 le128 *iv);
- 
- static int twofish_setkey_skcipher(struct crypto_skcipher *tfm,
- 				   const u8 *key, unsigned int keylen)
-@@ -55,22 +53,6 @@ static const struct common_glue_ctx twofish_enc = {
- 	} }
- };
- 
--static const struct common_glue_ctx twofish_ctr = {
--	.num_funcs = 3,
--	.fpu_blocks_limit = TWOFISH_PARALLEL_BLOCKS,
--
--	.funcs = { {
--		.num_blocks = TWOFISH_PARALLEL_BLOCKS,
--		.fn_u = { .ctr = twofish_ctr_8way }
--	}, {
--		.num_blocks = 3,
--		.fn_u = { .ctr = twofish_enc_blk_ctr_3way }
--	}, {
--		.num_blocks = 1,
--		.fn_u = { .ctr = twofish_enc_blk_ctr }
--	} }
--};
--
- static const struct common_glue_ctx twofish_dec = {
- 	.num_funcs = 3,
- 	.fpu_blocks_limit = TWOFISH_PARALLEL_BLOCKS,
-@@ -123,11 +105,6 @@ static int cbc_decrypt(struct skcipher_request *req)
- 	return glue_cbc_decrypt_req_128bit(&twofish_dec_cbc, req);
+ #include <linux/module.h>
+@@ -154,74 +152,4 @@ int glue_cbc_decrypt_req_128bit(const struct common_glue_ctx *gctx,
  }
+ EXPORT_SYMBOL_GPL(glue_cbc_decrypt_req_128bit);
  
--static int ctr_crypt(struct skcipher_request *req)
+-int glue_ctr_req_128bit(const struct common_glue_ctx *gctx,
+-			struct skcipher_request *req)
 -{
--	return glue_ctr_req_128bit(&twofish_ctr, req);
--}
+-	void *ctx = crypto_skcipher_ctx(crypto_skcipher_reqtfm(req));
+-	const unsigned int bsize = 128 / 8;
+-	struct skcipher_walk walk;
+-	bool fpu_enabled = false;
+-	unsigned int nbytes;
+-	int err;
 -
- static struct skcipher_alg twofish_algs[] = {
- 	{
- 		.base.cra_name		= "__ecb(twofish)",
-@@ -156,21 +133,6 @@ static struct skcipher_alg twofish_algs[] = {
- 		.setkey			= twofish_setkey_skcipher,
- 		.encrypt		= cbc_encrypt,
- 		.decrypt		= cbc_decrypt,
--	}, {
--		.base.cra_name		= "__ctr(twofish)",
--		.base.cra_driver_name	= "__ctr-twofish-avx",
--		.base.cra_priority	= 400,
--		.base.cra_flags		= CRYPTO_ALG_INTERNAL,
--		.base.cra_blocksize	= 1,
--		.base.cra_ctxsize	= sizeof(struct twofish_ctx),
--		.base.cra_module	= THIS_MODULE,
--		.min_keysize		= TF_MIN_KEY_SIZE,
--		.max_keysize		= TF_MAX_KEY_SIZE,
--		.ivsize			= TF_BLOCK_SIZE,
--		.chunksize		= TF_BLOCK_SIZE,
--		.setkey			= twofish_setkey_skcipher,
--		.encrypt		= ctr_crypt,
--		.decrypt		= ctr_crypt,
- 	},
- };
- 
-diff --git a/arch/x86/crypto/twofish_glue_3way.c b/arch/x86/crypto/twofish_glue_3way.c
-index 768af6075479..b70f757403a3 100644
---- a/arch/x86/crypto/twofish_glue_3way.c
-+++ b/arch/x86/crypto/twofish_glue_3way.c
-@@ -52,46 +52,6 @@ void twofish_dec_blk_cbc_3way(const void *ctx, u8 *d, const u8 *s)
- }
- EXPORT_SYMBOL_GPL(twofish_dec_blk_cbc_3way);
- 
--void twofish_enc_blk_ctr(const void *ctx, u8 *d, const u8 *s, le128 *iv)
--{
--	be128 ctrblk;
--	u128 *dst = (u128 *)d;
--	const u128 *src = (const u128 *)s;
+-	err = skcipher_walk_virt(&walk, req, false);
 -
--	if (dst != src)
--		*dst = *src;
+-	while ((nbytes = walk.nbytes) >= bsize) {
+-		const u128 *src = walk.src.virt.addr;
+-		u128 *dst = walk.dst.virt.addr;
+-		unsigned int func_bytes, num_blocks;
+-		unsigned int i;
+-		le128 ctrblk;
 -
--	le128_to_be128(&ctrblk, iv);
--	le128_inc(iv);
+-		fpu_enabled = glue_fpu_begin(bsize, gctx->fpu_blocks_limit,
+-					     &walk, fpu_enabled, nbytes);
 -
--	twofish_enc_blk(ctx, (u8 *)&ctrblk, (u8 *)&ctrblk);
--	u128_xor(dst, dst, (u128 *)&ctrblk);
--}
--EXPORT_SYMBOL_GPL(twofish_enc_blk_ctr);
+-		be128_to_le128(&ctrblk, (be128 *)walk.iv);
 -
--void twofish_enc_blk_ctr_3way(const void *ctx, u8 *d, const u8 *s, le128 *iv)
--{
--	be128 ctrblks[3];
--	u128 *dst = (u128 *)d;
--	const u128 *src = (const u128 *)s;
+-		for (i = 0; i < gctx->num_funcs; i++) {
+-			num_blocks = gctx->funcs[i].num_blocks;
+-			func_bytes = bsize * num_blocks;
 -
--	if (dst != src) {
--		dst[0] = src[0];
--		dst[1] = src[1];
--		dst[2] = src[2];
+-			if (nbytes < func_bytes)
+-				continue;
+-
+-			/* Process multi-block batch */
+-			do {
+-				gctx->funcs[i].fn_u.ctr(ctx, (u8 *)dst,
+-							(const u8 *)src,
+-							&ctrblk);
+-				src += num_blocks;
+-				dst += num_blocks;
+-				nbytes -= func_bytes;
+-			} while (nbytes >= func_bytes);
+-
+-			if (nbytes < bsize)
+-				break;
+-		}
+-
+-		le128_to_be128((be128 *)walk.iv, &ctrblk);
+-		err = skcipher_walk_done(&walk, nbytes);
 -	}
 -
--	le128_to_be128(&ctrblks[0], iv);
--	le128_inc(iv);
--	le128_to_be128(&ctrblks[1], iv);
--	le128_inc(iv);
--	le128_to_be128(&ctrblks[2], iv);
--	le128_inc(iv);
+-	glue_fpu_end(fpu_enabled);
 -
--	twofish_enc_blk_xor_3way(ctx, (u8 *)dst, (u8 *)ctrblks);
+-	if (nbytes) {
+-		le128 ctrblk;
+-		u128 tmp;
+-
+-		be128_to_le128(&ctrblk, (be128 *)walk.iv);
+-		memcpy(&tmp, walk.src.virt.addr, nbytes);
+-		gctx->funcs[gctx->num_funcs - 1].fn_u.ctr(ctx, (u8 *)&tmp,
+-							  (const u8 *)&tmp,
+-							  &ctrblk);
+-		memcpy(walk.dst.virt.addr, &tmp, nbytes);
+-		le128_to_be128((be128 *)walk.iv, &ctrblk);
+-
+-		err = skcipher_walk_done(&walk, 0);
+-	}
+-
+-	return err;
 -}
--EXPORT_SYMBOL_GPL(twofish_enc_blk_ctr_3way);
+-EXPORT_SYMBOL_GPL(glue_ctr_req_128bit);
 -
- static const struct common_glue_ctx twofish_enc = {
- 	.num_funcs = 2,
- 	.fpu_blocks_limit = -1,
-@@ -105,19 +65,6 @@ static const struct common_glue_ctx twofish_enc = {
- 	} }
+ MODULE_LICENSE("GPL");
+diff --git a/arch/x86/include/asm/crypto/glue_helper.h b/arch/x86/include/asm/crypto/glue_helper.h
+index 62680775d189..23e09efd2aa6 100644
+--- a/arch/x86/include/asm/crypto/glue_helper.h
++++ b/arch/x86/include/asm/crypto/glue_helper.h
+@@ -9,19 +9,15 @@
+ #include <crypto/internal/skcipher.h>
+ #include <linux/kernel.h>
+ #include <asm/fpu/api.h>
+-#include <crypto/b128ops.h>
+ 
+ typedef void (*common_glue_func_t)(const void *ctx, u8 *dst, const u8 *src);
+ typedef void (*common_glue_cbc_func_t)(const void *ctx, u8 *dst, const u8 *src);
+-typedef void (*common_glue_ctr_func_t)(const void *ctx, u8 *dst, const u8 *src,
+-				       le128 *iv);
+ 
+ struct common_glue_func_entry {
+ 	unsigned int num_blocks; /* number of blocks that @fn will process */
+ 	union {
+ 		common_glue_func_t ecb;
+ 		common_glue_cbc_func_t cbc;
+-		common_glue_ctr_func_t ctr;
+ 	} fn_u;
  };
  
--static const struct common_glue_ctx twofish_ctr = {
--	.num_funcs = 2,
--	.fpu_blocks_limit = -1,
--
--	.funcs = { {
--		.num_blocks = 3,
--		.fn_u = { .ctr = twofish_enc_blk_ctr_3way }
--	}, {
--		.num_blocks = 1,
--		.fn_u = { .ctr = twofish_enc_blk_ctr }
--	} }
--};
--
- static const struct common_glue_ctx twofish_dec = {
- 	.num_funcs = 2,
- 	.fpu_blocks_limit = -1,
-@@ -164,11 +111,6 @@ static int cbc_decrypt(struct skcipher_request *req)
- 	return glue_cbc_decrypt_req_128bit(&twofish_dec_cbc, req);
+@@ -66,31 +62,6 @@ static inline void glue_fpu_end(bool fpu_enabled)
+ 		kernel_fpu_end();
  }
  
--static int ctr_crypt(struct skcipher_request *req)
+-static inline void le128_to_be128(be128 *dst, const le128 *src)
 -{
--	return glue_ctr_req_128bit(&twofish_ctr, req);
+-	dst->a = cpu_to_be64(le64_to_cpu(src->a));
+-	dst->b = cpu_to_be64(le64_to_cpu(src->b));
 -}
 -
- static struct skcipher_alg tf_skciphers[] = {
- 	{
- 		.base.cra_name		= "ecb(twofish)",
-@@ -195,20 +137,6 @@ static struct skcipher_alg tf_skciphers[] = {
- 		.setkey			= twofish_setkey_skcipher,
- 		.encrypt		= cbc_encrypt,
- 		.decrypt		= cbc_decrypt,
--	}, {
--		.base.cra_name		= "ctr(twofish)",
--		.base.cra_driver_name	= "ctr-twofish-3way",
--		.base.cra_priority	= 300,
--		.base.cra_blocksize	= 1,
--		.base.cra_ctxsize	= sizeof(struct twofish_ctx),
--		.base.cra_module	= THIS_MODULE,
--		.min_keysize		= TF_MIN_KEY_SIZE,
--		.max_keysize		= TF_MAX_KEY_SIZE,
--		.ivsize			= TF_BLOCK_SIZE,
--		.chunksize		= TF_BLOCK_SIZE,
--		.setkey			= twofish_setkey_skcipher,
--		.encrypt		= ctr_crypt,
--		.decrypt		= ctr_crypt,
- 	},
- };
+-static inline void be128_to_le128(le128 *dst, const be128 *src)
+-{
+-	dst->a = cpu_to_le64(be64_to_cpu(src->a));
+-	dst->b = cpu_to_le64(be64_to_cpu(src->b));
+-}
+-
+-static inline void le128_inc(le128 *i)
+-{
+-	u64 a = le64_to_cpu(i->a);
+-	u64 b = le64_to_cpu(i->b);
+-
+-	b++;
+-	if (!b)
+-		a++;
+-
+-	i->a = cpu_to_le64(a);
+-	i->b = cpu_to_le64(b);
+-}
+-
+ extern int glue_ecb_req_128bit(const struct common_glue_ctx *gctx,
+ 			       struct skcipher_request *req);
  
-diff --git a/arch/x86/include/asm/crypto/twofish.h b/arch/x86/include/asm/crypto/twofish.h
-index 2c377a8042e1..12df400e6d53 100644
---- a/arch/x86/include/asm/crypto/twofish.h
-+++ b/arch/x86/include/asm/crypto/twofish.h
-@@ -17,9 +17,5 @@ asmlinkage void twofish_dec_blk_3way(const void *ctx, u8 *dst, const u8 *src);
+@@ -100,7 +71,4 @@ extern int glue_cbc_encrypt_req_128bit(const common_glue_func_t fn,
+ extern int glue_cbc_decrypt_req_128bit(const struct common_glue_ctx *gctx,
+ 				       struct skcipher_request *req);
  
- /* helpers from twofish_x86_64-3way module */
- extern void twofish_dec_blk_cbc_3way(const void *ctx, u8 *dst, const u8 *src);
--extern void twofish_enc_blk_ctr(const void *ctx, u8 *dst, const u8 *src,
--				le128 *iv);
--extern void twofish_enc_blk_ctr_3way(const void *ctx, u8 *dst, const u8 *src,
--				     le128 *iv);
- 
- #endif /* ASM_X86_TWOFISH_H */
+-extern int glue_ctr_req_128bit(const struct common_glue_ctx *gctx,
+-			       struct skcipher_request *req);
+-
+ #endif /* _CRYPTO_GLUE_HELPER_H */
 -- 
 2.17.1
 
