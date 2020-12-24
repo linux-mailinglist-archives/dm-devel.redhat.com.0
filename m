@@ -1,104 +1,103 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8CABB2E9DDC
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:04:24 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 849132E9DAD
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:03:49 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-285-TvN7UJ9tNcmCE2mTiPYKmg-1; Mon, 04 Jan 2021 14:04:21 -0500
-X-MC-Unique: TvN7UJ9tNcmCE2mTiPYKmg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-528-yBHzcMlBP8-Oew9bF-BHrw-1; Mon, 04 Jan 2021 14:03:45 -0500
+X-MC-Unique: yBHzcMlBP8-Oew9bF-BHrw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 77F5418B9FE1;
-	Mon,  4 Jan 2021 19:04:09 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2021A1001E73;
-	Mon,  4 Jan 2021 19:04:09 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8E7C9107AD25;
+	Mon,  4 Jan 2021 19:03:38 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6747E71C91;
+	Mon,  4 Jan 2021 19:03:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C82FE1809CBB;
-	Mon,  4 Jan 2021 19:04:08 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 159295002E;
+	Mon,  4 Jan 2021 19:03:38 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BODmsZu003959 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 24 Dec 2020 08:48:54 -0500
+	id 0BOEU5xF007123 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 24 Dec 2020 09:30:05 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 49D642166B2B; Thu, 24 Dec 2020 13:48:54 +0000 (UTC)
+	id 1AB0E2166B2B; Thu, 24 Dec 2020 14:30:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 43E072166B29
-	for <dm-devel@redhat.com>; Thu, 24 Dec 2020 13:48:50 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 138402166B30
+	for <dm-devel@redhat.com>; Thu, 24 Dec 2020 14:30:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 950F3858EEC
-	for <dm-devel@redhat.com>; Thu, 24 Dec 2020 13:48:50 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
-	[148.163.156.1]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-581-n7F-OKV1ONSrdyy434JcQw-1; Thu, 24 Dec 2020 08:48:47 -0500
-X-MC-Unique: n7F-OKV1ONSrdyy434JcQw-1
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
-	0BODX3Tk144968; Thu, 24 Dec 2020 08:48:46 -0500
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DFD53101A53F
+	for <dm-devel@redhat.com>; Thu, 24 Dec 2020 14:30:02 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+	[148.163.158.5]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-78-Q3SO8LdbOz2EsZD27f6WyQ-1; Thu, 24 Dec 2020 09:30:00 -0500
+X-MC-Unique: Q3SO8LdbOz2EsZD27f6WyQ-1
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+	by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+	0BOEQVAb109904; Thu, 24 Dec 2020 09:29:59 -0500
 Received: from pps.reinject (localhost [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 35mu1a9gqy-1
+	by mx0b-001b2d01.pphosted.com with ESMTP id 35mvqy82d3-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Thu, 24 Dec 2020 08:48:45 -0500
-Received: from m0098394.ppops.net (m0098394.ppops.net [127.0.0.1])
-	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0BODkAUs010614;
-	Thu, 24 Dec 2020 08:48:45 -0500
-Received: from ppma03ams.nl.ibm.com (62.31.33a9.ip4.static.sl-reverse.com
-	[169.51.49.98])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 35mu1a9gq0-1
+	verify=NOT); Thu, 24 Dec 2020 09:29:59 -0500
+Received: from m0098419.ppops.net (m0098419.ppops.net [127.0.0.1])
+	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0BOEQVKx109853;
+	Thu, 24 Dec 2020 09:29:59 -0500
+Received: from ppma06fra.de.ibm.com (48.49.7a9f.ip4.static.sl-reverse.com
+	[159.122.73.72])
+	by mx0b-001b2d01.pphosted.com with ESMTP id 35mvqy82cm-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Thu, 24 Dec 2020 08:48:44 -0500
-Received: from pps.filterd (ppma03ams.nl.ibm.com [127.0.0.1])
-	by ppma03ams.nl.ibm.com (8.16.0.42/8.16.0.42) with SMTP id
-	0BODhWx3003445; Thu, 24 Dec 2020 13:48:42 GMT
-Received: from b06avi18626390.portsmouth.uk.ibm.com
-	(b06avi18626390.portsmouth.uk.ibm.com [9.149.26.192])
-	by ppma03ams.nl.ibm.com with ESMTP id 35k906tajv-1
+	verify=NOT); Thu, 24 Dec 2020 09:29:58 -0500
+Received: from pps.filterd (ppma06fra.de.ibm.com [127.0.0.1])
+	by ppma06fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id
+	0BOERHuf019926; Thu, 24 Dec 2020 14:29:57 GMT
+Received: from b06avi18878370.portsmouth.uk.ibm.com
+	(b06avi18878370.portsmouth.uk.ibm.com [9.149.26.194])
+	by ppma06fra.de.ibm.com with ESMTP id 35kefjh33d-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Thu, 24 Dec 2020 13:48:42 +0000
-Received: from b06wcsmtp001.portsmouth.uk.ibm.com
-	(b06wcsmtp001.portsmouth.uk.ibm.com [9.149.105.160])
-	by b06avi18626390.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
-	ESMTP id 0BODmdWf12583212
+	verify=NOT); Thu, 24 Dec 2020 14:29:56 +0000
+Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
+	[9.149.105.59])
+	by b06avi18878370.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+	ESMTP id 0BOETrVo25756090
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=OK); Thu, 24 Dec 2020 13:48:39 GMT
-Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 45332A4065;
-	Thu, 24 Dec 2020 13:48:40 +0000 (GMT)
-Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A7BD6A4066;
-	Thu, 24 Dec 2020 13:48:36 +0000 (GMT)
+	verify=OK); Thu, 24 Dec 2020 14:29:53 GMT
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8EBA3A4040;
+	Thu, 24 Dec 2020 14:29:54 +0000 (GMT)
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1E241A4059;
+	Thu, 24 Dec 2020 14:29:51 +0000 (GMT)
 Received: from li-f45666cc-3089-11b2-a85c-c57d1a57929f.ibm.com (unknown
-	[9.160.1.132])
-	by b06wcsmtp001.portsmouth.uk.ibm.com (Postfix) with ESMTP;
-	Thu, 24 Dec 2020 13:48:36 +0000 (GMT)
-Message-ID: <2e0baa1902b6f360e542f92906d077d44e53e59e.camel@linux.ibm.com>
+	[9.160.1.132]) by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+	Thu, 24 Dec 2020 14:29:50 +0000 (GMT)
+Message-ID: <56db41c08d625b8143454a2e0aaaef3ea2927442.camel@linux.ibm.com>
 From: Mimi Zohar <zohar@linux.ibm.com>
 To: Tushar Sugandhi <tusharsu@linux.microsoft.com>,
 	stephen.smalley.work@gmail.com, casey@schaufler-ca.com, agk@redhat.com, 
 	snitzer@redhat.com, gmazyland@gmail.com, paul@paul-moore.com
-Date: Thu, 24 Dec 2020 08:48:35 -0500
-In-Reply-To: <20201212180251.9943-5-tusharsu@linux.microsoft.com>
+Date: Thu, 24 Dec 2020 09:29:50 -0500
+In-Reply-To: <20201212180251.9943-6-tusharsu@linux.microsoft.com>
 References: <20201212180251.9943-1-tusharsu@linux.microsoft.com>
-	<20201212180251.9943-5-tusharsu@linux.microsoft.com>
+	<20201212180251.9943-6-tusharsu@linux.microsoft.com>
 Mime-Version: 1.0
 X-TM-AS-GCONF: 00
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
 	definitions=2020-12-24_08:2020-12-24,
 	2020-12-24 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
-	priorityscore=1501
-	mlxlogscore=999 malwarescore=0 spamscore=0 phishscore=0 clxscore=1015
-	suspectscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0
-	mlxscore=0
-	bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	suspectscore=0 bulkscore=0
+	adultscore=0 spamscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+	malwarescore=0 mlxscore=0 mlxlogscore=999 lowpriorityscore=0
+	impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
 	engine=8.12.0-2009150000 definitions=main-2012240085
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -115,8 +114,8 @@ Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
 	jmorris@namei.org, linux-kernel@vger.kernel.org,
 	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
 	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v9 4/8] IMA: add policy rule to measure
-	critical data
+Subject: Re: [dm-devel] [PATCH v9 5/8] IMA: limit critical data measurement
+ based on a label
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -130,7 +129,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -140,29 +139,47 @@ Content-Transfer-Encoding: 7bit
 
 Hi Tushar,
 
-Please update the Subject line as, "Add policy rule support for
-measuring critical data".
-
 On Sat, 2020-12-12 at 10:02 -0800, Tushar Sugandhi wrote:
-> A new IMA policy rule is needed for the IMA hook
-> ima_measure_critical_data() and the corresponding func CRITICAL_DATA for
-> measuring the input buffer. The policy rule should ensure the buffer
-> would get measured only when the policy rule allows the action. The
-> policy rule should also support the necessary constraints (flags etc.)
-> for integrity critical buffer data measurements.
+> System administrators should be able to limit which kernel subsystems
+> they want to measure the critical data for. To enable that, an IMA policy
+> condition to choose specific kernel subsystems is needed. This policy
+> condition would constrain the measurement of the critical data based on
+> a label for the given subsystems.
+
+Restricting which kernel integrity critical data is measured is not
+only of interest to system administrators.   Why single them out?
+
+Limiting which critical data is measured is based on a label, making it
+flexible.  In your use case scenario, you're grouping the label based
+on kernel subsystem, but is that really necessary?  In the broader
+picture, there could be cross subsystem critical data being measured
+based on a single label.
+
+Please think about the broader picture and re-write the patch
+descirption more generically.
+
 > 
-> Add a policy rule to define the constraints for restricting integrity
-> critical data measurements.
+> Add a new IMA policy condition - "data_source:=" to the IMA func
+
+What is with "add"?  You're "adding support for" or "defining" a new
+policy condition.  Remove the single hyphen, as explained in 3/8.
+
+Please replace "data_source" with something more generic (e.g. label).
+
+thanks,
+
+Mimi
+
+> CRITICAL_DATA to allow measurement of various kernel subsystems. This
+> policy condition would enable the system administrators to restrict the
+> measurement to the labels listed in "data_source:=".
+> 
+> Limit the measurement to the labels that are specified in the IMA
+> policy - CRITICAL_DATA+"data_source:=". If "data_sources:=" is not
+> provided with the func CRITICAL_DATA, the data from all the
+> supported kernel subsystems is measured.
 > 
 > Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-
-This patch does not restrict measuring critical data, but adds policy
-rule support for measuring critical data.  please update the patch
-description accordingly.
-
-Other than that,
-
-Reviewed-by: Mimi Zohar <zohar@linux.ibm.com>
 
 --
 dm-devel mailing list
