@@ -2,60 +2,103 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id DE6352E9DCC
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:04:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id DF7702E9DDB
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:04:23 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-444--PzxFhIuNVOTkJvZRlcMdg-1; Mon, 04 Jan 2021 14:04:11 -0500
-X-MC-Unique: -PzxFhIuNVOTkJvZRlcMdg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-98-gBui69AKOx-KXjHZsB0hbQ-1; Mon, 04 Jan 2021 14:04:19 -0500
+X-MC-Unique: gBui69AKOx-KXjHZsB0hbQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B2A0818B6148;
-	Mon,  4 Jan 2021 19:03:58 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3FEFB801B26;
+	Mon,  4 Jan 2021 19:04:05 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E4556A8E6;
-	Mon,  4 Jan 2021 19:03:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 125D071C9E;
+	Mon,  4 Jan 2021 19:04:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4885E1809CB5;
-	Mon,  4 Jan 2021 19:03:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B8C941809CB9;
+	Mon,  4 Jan 2021 19:04:04 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BOBkbpM022458 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 24 Dec 2020 06:46:37 -0500
+	id 0BOD6NBk032286 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 24 Dec 2020 08:06:23 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 020722166B2B; Thu, 24 Dec 2020 11:46:37 +0000 (UTC)
+	id 2B3871004C77; Thu, 24 Dec 2020 13:06:23 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F12172166B29
-	for <dm-devel@redhat.com>; Thu, 24 Dec 2020 11:46:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2752F10FFE7F
+	for <dm-devel@redhat.com>; Thu, 24 Dec 2020 13:06:20 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 758B4101A53F
-	for <dm-devel@redhat.com>; Thu, 24 Dec 2020 11:46:34 +0000 (UTC)
-Received: from out30-45.freemail.mail.aliyun.com
-	(out30-45.freemail.mail.aliyun.com [115.124.30.45]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-271-2wpbhELSOhmsGA6QHRVlgw-1;
-	Thu, 24 Dec 2020 06:46:29 -0500
-X-MC-Unique: 2wpbhELSOhmsGA6QHRVlgw-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R941e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426;
-	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=4; SR=0;
-	TI=SMTPD_---0UJdL5GS_1608810377
-Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0UJdL5GS_1608810377) by smtp.aliyun-inc.com(127.0.0.1);
-	Thu, 24 Dec 2020 19:46:17 +0800
-From: Jeffle Xu <jefflexu@linux.alibaba.com>
-To: snitzer@redhat.com
-Date: Thu, 24 Dec 2020 19:46:17 +0800
-Message-Id: <20201224114617.77530-1-jefflexu@linux.alibaba.com>
-In-Reply-To: <CALrw=nGkAgqPDCaYLKreD3+6MGZOW1krAfVfvV0mKH-rjHriFQ@mail.gmail.com>
-References: <CALrw=nGkAgqPDCaYLKreD3+6MGZOW1krAfVfvV0mKH-rjHriFQ@mail.gmail.com>
-MIME-Version: 1.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A6B958007DF
+	for <dm-devel@redhat.com>; Thu, 24 Dec 2020 13:06:20 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+	[148.163.156.1]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-432-uj18ynPXOtmhfOeaZzOCEw-1; Thu, 24 Dec 2020 08:06:18 -0500
+X-MC-Unique: uj18ynPXOtmhfOeaZzOCEw-1
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+	0BOD3DUa176948; Thu, 24 Dec 2020 08:06:17 -0500
+Received: from pps.reinject (localhost [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 35mu1a8psb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Thu, 24 Dec 2020 08:06:16 -0500
+Received: from m0098394.ppops.net (m0098394.ppops.net [127.0.0.1])
+	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0BOD3YCs179407;
+	Thu, 24 Dec 2020 08:06:16 -0500
+Received: from ppma06ams.nl.ibm.com (66.31.33a9.ip4.static.sl-reverse.com
+	[169.51.49.102])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 35mu1a8prh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Thu, 24 Dec 2020 08:06:16 -0500
+Received: from pps.filterd (ppma06ams.nl.ibm.com [127.0.0.1])
+	by ppma06ams.nl.ibm.com (8.16.0.42/8.16.0.42) with SMTP id
+	0BOD2jaa027488; Thu, 24 Dec 2020 13:06:13 GMT
+Received: from b06cxnps4074.portsmouth.uk.ibm.com
+	(d06relay11.portsmouth.uk.ibm.com [9.149.109.196])
+	by ppma06ams.nl.ibm.com with ESMTP id 35h8sh4xme-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Thu, 24 Dec 2020 13:06:13 +0000
+Received: from d06av24.portsmouth.uk.ibm.com (d06av24.portsmouth.uk.ibm.com
+	[9.149.105.60])
+	by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+	ESMTP id 0BOD6B8O43581744
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=OK); Thu, 24 Dec 2020 13:06:11 GMT
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3325342042;
+	Thu, 24 Dec 2020 13:06:11 +0000 (GMT)
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 07B7E4203F;
+	Thu, 24 Dec 2020 13:06:08 +0000 (GMT)
+Received: from li-f45666cc-3089-11b2-a85c-c57d1a57929f.ibm.com (unknown
+	[9.160.1.132]) by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+	Thu, 24 Dec 2020 13:06:07 +0000 (GMT)
+Message-ID: <5ae72a76664ce7011d3041689efbfe1a2c67d44f.camel@linux.ibm.com>
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Tushar Sugandhi <tusharsu@linux.microsoft.com>,
+	stephen.smalley.work@gmail.com, casey@schaufler-ca.com, agk@redhat.com, 
+	snitzer@redhat.com, gmazyland@gmail.com, paul@paul-moore.com
+Date: Thu, 24 Dec 2020 08:04:40 -0500
+In-Reply-To: <20201212180251.9943-4-tusharsu@linux.microsoft.com>
+References: <20201212180251.9943-1-tusharsu@linux.microsoft.com>
+	<20201212180251.9943-4-tusharsu@linux.microsoft.com>
+Mime-Version: 1.0
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
+	definitions=2020-12-24_08:2020-12-24,
+	2020-12-24 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+	priorityscore=1501
+	mlxlogscore=999 malwarescore=0 spamscore=0 phishscore=0 clxscore=1015
+	suspectscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0
+	mlxscore=0
+	bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2009150000 definitions=main-2012240081
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -64,12 +107,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 04 Jan 2021 14:03:12 -0500
-Cc: joseph.qi@linux.alibaba.com, dm-devel@redhat.com, ignat@cloudflare.com
-Subject: [dm-devel] [PATCH] dm crypt: fix sysfs name collision when
-	reloading table
+Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
+	jmorris@namei.org, linux-kernel@vger.kernel.org,
+	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
+	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH v9 3/8] IMA: define a hook to measure kernel
+ integrity critical data
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,7 +129,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,59 +137,131 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The table reload routine will create new table, with the old table
-preserved. In this case, the duplicate name collision will happen when
-creating the sysfs directory for the workqueue of the newly created
-table, since the old table has not been destroyed at that time.
+On Sat, 2020-12-12 at 10:02 -0800, Tushar Sugandhi wrote:
+> IMA provides capabilities to measure file data, and in-memory buffer
 
-One workaround for this issue is to add unique hash string to the name
-of the sysfs directory. The value of dm_target pointer is used to
-generate the hash.
+No need for the comma here.
 
-This commit also fixes one hidden bug. Prior to this commit, 'devname'
-is used to compensate the name of the workqueue. 'devname' represents
-the name of the mapped device, such as '253:0', so there will be name
-collision if one mapped device corresponds to multiple target devices.
-Since currently a string hashed from dm_target pointer is added to the
-name, different target device will have unique name now.
+Up to this patch set, all the patches refer to "buffer data", not "in-
+memory buffer data".  This patch introduces the concept of measuring
+"in-memory buffer data".   Please remove "in-memory" above.
 
-Since then, the exported sysfs directory will be named like
-'kcryptd-252:0-3a512302'.
+> data. However, various data structures, policies, and states
 
-It is worth noting that some details need to be handled specifically.
-The %p format of printk will print a hexadecimal string after hashing.
-In 64-bit architecture, the output will be 16 bytes long, with the
-previous 8 bytes zeroed, such as '00000000abcdef12'. Since the length
-of the name of workqueue is limited to WQ_NAME_LEN, i.e. 24 bytes, the
-previous 8 bytes zeroed need to be discarded.
+Here and everywhere else, there are two blanks after a period.
 
-Reported-by: Ignat Korchagin <ignat@cloudflare.com>
-Fixes: a2b8b2d97567 ("dm crypt: export sysfs of kcryptd workqueue")
-Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
----
- drivers/md/dm-crypt.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+> stored in kernel memory also impact the integrity of the system.
+> Several kernel subsystems contain such integrity critical data. These
+> kernel subsystems help protect the integrity of a device. Currently,
 
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 5f9f9b3a226d..31c153ca6f6c 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -3169,10 +3169,11 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 		cc->crypt_queue = alloc_workqueue("kcryptd-%s", WQ_CPU_INTENSIVE | WQ_MEM_RECLAIM,
- 						  1, devname);
- 	else
--		cc->crypt_queue = alloc_workqueue("kcryptd-%s",
-+		cc->crypt_queue = alloc_workqueue("kcryptd-%s-%8p",
- 						  WQ_CPU_INTENSIVE | WQ_MEM_RECLAIM |
- 						  WQ_UNBOUND | WQ_SYSFS,
--						  num_online_cpus(), devname);
-+						  num_online_cpus(), devname, ti);
-+
- 	if (!cc->crypt_queue) {
- 		ti->error = "Couldn't create kcryptd queue";
- 		goto bad;
--- 
-2.27.0
+^integrity of the system.
+
+> IMA does not provide a generic function for kernel subsystems to measure
+> their integrity critical data.
+
+The emphasis should not be on "kernel subsystems".  Simplify to "for
+measuring kernel integrity critical data".
+
+>  
+> Define a new IMA hook - ima_measure_critical_data to measure kernel
+> integrity critical data.
+
+Either "ima_measure_critical_data" is between hyphens or without any
+hyphens.  If not hyphenated, then you could say "named
+ima_measure_critical_data", but "named" isn't necessary.  Or reverse "a
+new IMA hook" and "ima_measure_critical_data", adding comma's like: 
+Define ima_measure_critical_data, a new IMA hook, to ...
+
+Any of the above options work, just not a single hyphen.
+
+> 
+> Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+> Reviewed-by: Tyler Hicks <tyhicks@linux.microsoft.com>
+> ---
+
+<snip>
+
+> diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
+> index 0f8409d77602..dff4bce4fb09 100644
+> --- a/security/integrity/ima/ima_main.c
+> +++ b/security/integrity/ima/ima_main.c
+> @@ -922,6 +922,40 @@ void ima_kexec_cmdline(int kernel_fd, const void *buf, int size)
+>  	fdput(f);
+>  }
+>  
+> +/**
+> + * ima_measure_critical_data - measure kernel integrity critical data
+> + * @event_name: event name to be used for the buffer entry
+
+Why future tense?   By "buffer entry" do you mean a record in the IMA
+measurement list?
+
+> + * @buf: pointer to buffer containing data to measure
+
+^pointer to buffer data
+
+> + * @buf_len: length of buffer(in bytes)
+
+^length of buffer data (in bytes)
+
+> + * @measure_buf_hash: measure buffer hash
+
+As requested in 2/8, please abbreviate the boolean name to "hash".  
+Refer to section "4) Naming" in Documentation/process/coding-style.rst
+for variable naming conventions.
+
+^@hash: measure buffer data hash
+
+> + *
+> + * Measure the kernel subsystem data, critical to the integrity of the kernel,
+> + * into the IMA log and extend the @pcr.
+> + *
+> + * Use @event_name to describe the state/buffer data change.
+> + * Examples of critical data (@buf) could be various data structures,
+> + * policies, and states stored in kernel memory that can impact the integrity
+> + * of the system.
+> + *
+> + * If @measure_buf_hash is set to true - measure hash of the buffer data,
+> + * else measure the buffer data itself.
+> + * @measure_buf_hash can be used to save space, if the data being measured
+> + * is too large.
+> + *
+> + * The data (@buf) can only be measured, not appraised.
+
+The "/**" is the start of kernel-doc.  Have you seen anywhere else in
+the kernel using the @<variable name> in the longer function
+description?  Have you seen this style of longer   function
+description?  Refer to Documentation/doc-guide/kernel-doc.rst and other
+code for examples.
+
+> + */
+> +void ima_measure_critical_data(const char *event_name,
+> +			       const void *buf, int buf_len,
+
+As "buf_len" should always be >= 0, it should not be defined as a
+signed variable.
+
+> +			       bool measure_buf_hash)
+> +{
+> +	if (!event_name || !buf || !buf_len)
+> +		return;
+> +
+> +	process_buffer_measurement(NULL, buf, buf_len, event_name,
+> +				   CRITICAL_DATA, 0, NULL,
+> +				   measure_buf_hash);
+
+^hash
+
+thanks,
+
+Mimi
+
+> +}
+> +
+>  static int __init init_ima(void)
+>  {
+>  	int error;
+
 
 --
 dm-devel mailing list
