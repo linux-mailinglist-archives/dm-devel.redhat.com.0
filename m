@@ -1,105 +1,62 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 3AE5C2E9DB1
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:03:54 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 4C9A92E9DB8
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:04:00 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-152-iYCY0XfxPLWb9mkNn6YhPg-1; Mon, 04 Jan 2021 14:03:48 -0500
-X-MC-Unique: iYCY0XfxPLWb9mkNn6YhPg-1
+ us-mta-585-34q4QVAqPbyPGNvtQnlKEA-1; Mon, 04 Jan 2021 14:03:55 -0500
+X-MC-Unique: 34q4QVAqPbyPGNvtQnlKEA-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C5E318015C7;
-	Mon,  4 Jan 2021 19:03:40 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8969210016F7;
-	Mon,  4 Jan 2021 19:03:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CE7369CC10;
+	Mon,  4 Jan 2021 19:03:42 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A06C41002393;
+	Mon,  4 Jan 2021 19:03:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3CE9450033;
-	Mon,  4 Jan 2021 19:03:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3B5571809CAC;
+	Mon,  4 Jan 2021 19:03:42 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BOEg7ni008849 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 24 Dec 2020 09:42:07 -0500
+	id 0BOIrmL9031922 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 24 Dec 2020 13:53:48 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id AB7B710060E0; Thu, 24 Dec 2020 14:42:07 +0000 (UTC)
+	id 1CE802166B2B; Thu, 24 Dec 2020 18:53:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A6BB410060FA
-	for <dm-devel@redhat.com>; Thu, 24 Dec 2020 14:42:03 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 181E22166B29
+	for <dm-devel@redhat.com>; Thu, 24 Dec 2020 18:53:45 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ECC8B185A7BC
-	for <dm-devel@redhat.com>; Thu, 24 Dec 2020 14:42:02 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
-	[148.163.156.1]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-457-vFCPIuORO9CNk_WQ8rbyow-1; Thu, 24 Dec 2020 09:41:58 -0500
-X-MC-Unique: vFCPIuORO9CNk_WQ8rbyow-1
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
-	0BOEWjsI064500; Thu, 24 Dec 2020 09:41:57 -0500
-Received: from pps.reinject (localhost [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 35mtka31tn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Thu, 24 Dec 2020 09:41:57 -0500
-Received: from m0098396.ppops.net (m0098396.ppops.net [127.0.0.1])
-	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0BOEfvbv097495;
-	Thu, 24 Dec 2020 09:41:57 -0500
-Received: from ppma03fra.de.ibm.com (6b.4a.5195.ip4.static.sl-reverse.com
-	[149.81.74.107])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 35mtka31ta-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Thu, 24 Dec 2020 09:41:56 -0500
-Received: from pps.filterd (ppma03fra.de.ibm.com [127.0.0.1])
-	by ppma03fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id
-	0BOEWkOn007779; Thu, 24 Dec 2020 14:41:54 GMT
-Received: from b06cxnps3074.portsmouth.uk.ibm.com
-	(d06relay09.portsmouth.uk.ibm.com [9.149.109.194])
-	by ppma03fra.de.ibm.com with ESMTP id 35ja5rsxmk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=NOT); Thu, 24 Dec 2020 14:41:54 +0000
-Received: from d06av24.portsmouth.uk.ibm.com (mk.ibm.com [9.149.105.60])
-	by b06cxnps3074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
-	ESMTP id 0BOEfqJc34800044
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=OK); Thu, 24 Dec 2020 14:41:52 GMT
-Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 50BF542047;
-	Thu, 24 Dec 2020 14:41:52 +0000 (GMT)
-Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 23FF342045;
-	Thu, 24 Dec 2020 14:41:49 +0000 (GMT)
-Received: from li-f45666cc-3089-11b2-a85c-c57d1a57929f.ibm.com (unknown
-	[9.160.1.132]) by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTP;
-	Thu, 24 Dec 2020 14:41:48 +0000 (GMT)
-Message-ID: <93dc6912192df78026f8f98c8f6ab67608c188f0.camel@linux.ibm.com>
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Tushar Sugandhi <tusharsu@linux.microsoft.com>,
-	stephen.smalley.work@gmail.com, casey@schaufler-ca.com, agk@redhat.com, 
-	snitzer@redhat.com, gmazyland@gmail.com, paul@paul-moore.com
-Date: Thu, 24 Dec 2020 09:41:48 -0500
-In-Reply-To: <20201212180251.9943-8-tusharsu@linux.microsoft.com>
-References: <20201212180251.9943-1-tusharsu@linux.microsoft.com>
-	<20201212180251.9943-8-tusharsu@linux.microsoft.com>
-Mime-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
-	definitions=2020-12-24_08:2020-12-24,
-	2020-12-24 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
-	suspectscore=0 mlxscore=0
-	malwarescore=0 adultscore=0 spamscore=0 impostorscore=0
-	lowpriorityscore=0
-	phishscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
-	mlxlogscore=999
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2009150000 definitions=main-2012240088
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A738D800B3B
+	for <dm-devel@redhat.com>; Thu, 24 Dec 2020 18:53:45 +0000 (UTC)
+Received: from vps-vb.mhejs.net (vps-vb.mhejs.net [37.28.154.113]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-498-x8INx1EpPFiqmlp7E_G8uQ-1; Thu, 24 Dec 2020 13:53:43 -0500
+X-MC-Unique: x8INx1EpPFiqmlp7E_G8uQ-1
+Received: from MUA by vps-vb.mhejs.net with esmtps
+	(TLS1.2:ECDHE-RSA-AES128-GCM-SHA256:128) (Exim 4.93.0.4)
+	(envelope-from <mail@maciej.szmigiero.name>)
+	id 1ksVjV-0003Ga-OE; Thu, 24 Dec 2020 19:53:05 +0100
+To: Ignat Korchagin <ignat@cloudflare.com>
+References: <16ffadab-42ba-f9c7-8203-87fda3dc9b44@maciej.szmigiero.name>
+	<74c7129b-a437-ebc4-1466-7fb9f034e006@maciej.szmigiero.name>
+	<20201223205642.GA19817@gondor.apana.org.au>
+	<CALrw=nFRLxpG+Qzy=wki1m6HnQUqPK9CQFGEEnB1tjSF0ex4UQ@mail.gmail.com>
+From: "Maciej S. Szmigiero" <mail@maciej.szmigiero.name>
+Message-ID: <f3b3c90e-90e6-9228-f2e5-172997eebf85@maciej.szmigiero.name>
+Date: Thu, 24 Dec 2020 19:52:58 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+	Thunderbird/78.6.0
+MIME-Version: 1.0
+In-Reply-To: <CALrw=nFRLxpG+Qzy=wki1m6HnQUqPK9CQFGEEnB1tjSF0ex4UQ@mail.gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -108,15 +65,23 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 04 Jan 2021 14:03:12 -0500
-Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
-	jmorris@namei.org, linux-kernel@vger.kernel.org,
-	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
-	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v9 7/8] IMA: define a builtin critical data
- measurement policy
+Cc: Damien Le Moal <Damien.LeMoal@wdc.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Mike Snitzer <snitzer@redhat.com>,
+	kernel-team <kernel-team@cloudflare.com>, dm-crypt@saout.de,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	Nobuto Murata <nobuto.murata@canonical.com>,
+	Eric Biggers <ebiggers@kernel.org>, Chris Mason <clm@fb.com>,
+	device-mapper development <dm-devel@redhat.com>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	linux-btrfs@vger.kernel.org, David Sterba <dsterba@suse.com>,
+	Josef Bacik <josef@toxicpanda.com>, Alasdair G Kergon <agk@redhat.com>,
+	linux-crypto <linux-crypto@vger.kernel.org>
+Subject: Re: [dm-devel] dm-crypt with no_read_workqueue and
+ no_write_workqueue + btrfs scrub = BUG()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -135,34 +100,43 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On Sat, 2020-12-12 at 10:02 -0800, Tushar Sugandhi wrote:
-> From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+On 24.12.2020 19:46, Ignat Korchagin wrote:
+> On Wed, Dec 23, 2020 at 8:57 PM Herbert Xu <herbert@gondor.apana.org.au> wrote:
+>>
+>> On Wed, Dec 23, 2020 at 04:37:34PM +0100, Maciej S. Szmigiero wrote:
+>>>
+>>> It looks like to me that the skcipher API might not be safe to
+>>> call from a softirq context, after all.
+>>
+>> skcipher is safe to use in a softirq.  The problem is only in
+>> dm-crypt where it tries to allocate memory with GFP_NOIO.
 > 
-> Define a new critical data builtin policy to allow measuring
-> early kernel integrity critical data before a custom IMA policy
-> is loaded.
-> 
-> Add critical data to built-in IMA rules if the kernel command line
-> contains "ima_policy=critical_data".
+> Hm.. After eliminating the GFP_NOIO (as well as some other sleeping
+> paths) from dm-crypt softirq code I still hit an occasional crash in
+> my extreme setup (QEMU with 1 CPU and cryptd_max_cpu_qlen set to 1)
+> (decoded with stacktrace_decode.sh):
+(..)
+> This happens when running dm-crypt with no_read_workqueues on top of
+> an emulated NVME in QEMU (NVME driver "completes" IO in IRQ context).
+> Somehow sending decryption requests to cryptd in some fashion in
+> softirq context corrupts the crypto queue it seems.
 
-This sentence isn't really necessary.
+You can try compiling your test kernel with KASAN, as it often
+immediately points out where the memory starts to get corrupted
+(if that's the bug).
 
-> 
-> Update the documentation on kernel parameters to document
-> the new critical data builtin policy.
-> 
-> Signed-off-by: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
-> Reviewed-by: Tyler Hicks <tyhicks@linux.microsoft.com>
+Enabling other "checking" kernel debug options might help debugging
+the root case of this, too.
 
-Otherwise,
-Reviewed-by:  Mimi Zohar <zohar@linux.ibm.com>
+> Regards,
+> Ignat
 
-thanks,
-
-Mimi
+Thanks,
+Maciej
 
 --
 dm-devel mailing list
