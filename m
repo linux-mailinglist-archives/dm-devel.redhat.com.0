@@ -2,69 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8BA222E9DC1
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:04:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id ACF762E9DD8
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:04:20 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-586--m2DDoGwP4S5Ga2hs3Xqqw-1; Mon, 04 Jan 2021 14:04:04 -0500
-X-MC-Unique: -m2DDoGwP4S5Ga2hs3Xqqw-1
+ us-mta-106-0XOkEQR_NAmfyFCqLrvV2A-1; Mon, 04 Jan 2021 14:04:16 -0500
+X-MC-Unique: 0XOkEQR_NAmfyFCqLrvV2A-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EA987801AF0;
-	Mon,  4 Jan 2021 19:03:53 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C704C6F95B;
-	Mon,  4 Jan 2021 19:03:53 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 515CD801B27;
+	Mon,  4 Jan 2021 19:04:05 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2AB546F95D;
+	Mon,  4 Jan 2021 19:04:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 803D55003C;
-	Mon,  4 Jan 2021 19:03:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CFCD81809CBA;
+	Mon,  4 Jan 2021 19:04:04 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 0BT8tiDH010797 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 29 Dec 2020 03:55:44 -0500
+	id 0BT8txSJ010842 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 29 Dec 2020 03:55:59 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5F23C2026D49; Tue, 29 Dec 2020 08:55:44 +0000 (UTC)
+	id AB6332166B2C; Tue, 29 Dec 2020 08:55:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A77D2026D47
-	for <dm-devel@redhat.com>; Tue, 29 Dec 2020 08:55:44 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A552E2166B2A
+	for <dm-devel@redhat.com>; Tue, 29 Dec 2020 08:55:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 465DB101A560
-	for <dm-devel@redhat.com>; Tue, 29 Dec 2020 08:55:44 +0000 (UTC)
-Received: from mail-pf1-f201.google.com (mail-pf1-f201.google.com
-	[209.85.210.201]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-456-NAkjc2XmPT2-DtPeFu8ULg-1; Tue, 29 Dec 2020 03:55:40 -0500
-X-MC-Unique: NAkjc2XmPT2-DtPeFu8ULg-1
-Received: by mail-pf1-f201.google.com with SMTP id 22so4274155pfv.22
-	for <dm-devel@redhat.com>; Tue, 29 Dec 2020 00:55:39 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3C366800198
+	for <dm-devel@redhat.com>; Tue, 29 Dec 2020 08:55:57 +0000 (UTC)
+Received: from mail-qt1-f202.google.com (mail-qt1-f202.google.com
+	[209.85.160.202]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-472-kRuP1EyKOO-2rH53JtCRAw-1; Tue, 29 Dec 2020 03:55:54 -0500
+X-MC-Unique: kRuP1EyKOO-2rH53JtCRAw-1
+Received: by mail-qt1-f202.google.com with SMTP id c14so7275525qtn.5
+	for <dm-devel@redhat.com>; Tue, 29 Dec 2020 00:55:54 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:sender:date:in-reply-to:message-id:mime-version
 	:references:subject:from:to:cc;
-	bh=2LL28w8HYDB56TY4Xorb2dz9gBz+2+A0z3a585XX/NA=;
-	b=bKf/3JEHItykqAvRN8stWPXZ11jUxJSgrrP3lP9KPsI5G9X/+U3JDRBPIOfuX1zUPb
-	2B8FeTRrbv+gTDvMYjSVS1aUlru10v9CLsE7RJfqTUKjuiuAmZLlpccb2q4NTsK0Gu5r
-	/Lka6Yb6hlD09vlZRMtJPFjLYGEWNl+BNOdN40hr3R++ZVzLMi96ngw+944X+Ic4UiiK
-	rFj5F6ZFBUmiq+rbfK9wus/Uo5kTy3ethvDuh9/SV3cfkHVi3ftsE7z3wKW6ya0xAyp2
-	bOH0+5ZDfzeAabQoofWhm7VhbKVug+mSdGQADYst06nUP2Re+yvX5mJ7DySxap0B4L88
-	3IAw==
-X-Gm-Message-State: AOAM533EwWti0kCrFguf+40VWS7boO3qAw1pGfouE2QgtgLk8lUkF1JD
-	pfXIXcNCmNaI+JdJAYNWt2CRP00A3iw=
-X-Google-Smtp-Source: ABdhPJy6RhyhTBX3auLabsBxWya+RNuNUROjMBZdQZOWghOMiLaEGenNF5fpXuLFLtCdUUfLnFSYw+uPxJE=
+	bh=3bO6YItz9vvTQJgokX465W6GGn8iDP/PMw/J2QDO/So=;
+	b=LvzdZjB+UnSzsnGQIXtk95goH2Haa98it42nbKlYzUsWgUmygizF7xtGi/lN4B30vv
+	6iGnLrxEoDVGt9x9ZoqCf1ZLmb+m/lMdhXYllXyWSBmZ4tJmBLEOfU6Wwey4nlEeLrTH
+	7Wkjf0p/xr21f9jg467mn6IumMrPv+3o43NwdegoLXW2foWQLBBzSTjaOST2gRf/Cb7x
+	UdR8sN2SA6AaMWxMAh63bcc4ognq97ZpNPFV7ebgAut7Vy1jkG48EDnxsSKodSYPhrkY
+	WtBErfagWQX0HlwxIg1yyWIM7hv53mf086Houum4fw1ZjqUDQdFFEoe4gyXKMkDTjK/J
+	Mb0Q==
+X-Gm-Message-State: AOAM530CPYN94KiGUrEvvw/l/0HMEVUEr33KWmpa3UdaVTBKd96OHHN8
+	TRay3Ym9zkrKnj0AZe9eFFflQpma+ks=
+X-Google-Smtp-Source: ABdhPJxhU4q7GN5C1Z1AyzKVyRUGN5znZ+v3G/MJUPuiA4RVAhWGOcFupFszWQEI8exuXS9BJFU+l6WmdIw=
 X-Received: from satyaprateek.c.googlers.com
 	([fda3:e722:ac3:10:24:72f4:c0a8:1092])
-	(user=satyat job=sendgmr) by 2002:a17:902:a585:b029:db:feae:425c with
-	SMTP id
-	az5-20020a170902a585b02900dbfeae425cmr48031963plb.25.1609232138954;
-	Tue, 29 Dec 2020 00:55:38 -0800 (PST)
-Date: Tue, 29 Dec 2020 08:55:23 +0000
+	(user=satyat job=sendgmr) by 2002:a0c:99c8:: with SMTP id
+	y8mr50020306qve.35.1609232154123; 
+	Tue, 29 Dec 2020 00:55:54 -0800 (PST)
+Date: Tue, 29 Dec 2020 08:55:24 +0000
 In-Reply-To: <20201229085524.2795331-1-satyat@google.com>
-Message-Id: <20201229085524.2795331-6-satyat@google.com>
+Message-Id: <20201229085524.2795331-7-satyat@google.com>
 Mime-Version: 1.0
 References: <20201229085524.2795331-1-satyat@google.com>
 From: Satya Tangirala <satyat@google.com>
@@ -78,14 +78,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 04 Jan 2021 14:03:12 -0500
 Cc: Jens Axboe <axboe@kernel.dk>, Satya Tangirala <satyat@google.com>,
 	Mike Snitzer <snitzer@redhat.com>, Alasdair Kergon <agk@redhat.com>,
 	Eric Biggers <ebiggers@google.com>
-Subject: [dm-devel] [PATCH v3 5/6] dm: Verify inline encryption capabilities
- of new table when it is loaded
+Subject: [dm-devel] [PATCH v3 6/6] dm: set DM_TARGET_PASSES_CRYPTO feature
+	for some targets
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -107,117 +107,50 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-DM only allows the table to be swapped if the new table's inline encryption
-capabilities are a superset of the old table's. We only check that this
-constraint is true when the table is actually swapped in (in
-dm_swap_table()). But this allows a user to load an unacceptable table
-without any complaint from DM, only for DM to throw an error when the
-device is resumed, and the table is swapped in.
+dm-linear and dm-flakey obviously can pass through inline crypto support.
 
-This patch makes DM verify the inline encryption capabilities of the new
-table when the table is loaded. DM continues to verify and use the
-capabilities at the time of table swap, since the capabilities of
-underlying child devices can expand during the time between the table load
-and table swap (which in turn can cause the capabilities of this parent
-device to expand as well).
-
+Co-developed-by: Eric Biggers <ebiggers@google.com>
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 Signed-off-by: Satya Tangirala <satyat@google.com>
 ---
- drivers/md/dm-ioctl.c |  8 ++++++++
- drivers/md/dm.c       | 25 +++++++++++++++++++++++++
- drivers/md/dm.h       | 19 +++++++++++++++++++
- 3 files changed, 52 insertions(+)
+ drivers/md/dm-flakey.c | 4 +++-
+ drivers/md/dm-linear.c | 5 +++--
+ 2 files changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index 5e306bba4375..055a3c745243 100644
---- a/drivers/md/dm-ioctl.c
-+++ b/drivers/md/dm-ioctl.c
-@@ -1358,6 +1358,10 @@ static int table_load(struct file *filp, struct dm_ioctl *param, size_t param_si
- 		goto err_unlock_md_type;
- 	}
- 
-+	r = dm_verify_inline_encryption(md, t);
-+	if (r)
-+		goto err_unlock_md_type;
-+
- 	if (dm_get_md_type(md) == DM_TYPE_NONE) {
- 		/* Initial table load: acquire type of table. */
- 		dm_set_md_type(md, dm_table_get_type(t));
-@@ -2115,6 +2119,10 @@ int __init dm_early_create(struct dm_ioctl *dmi,
- 	if (r)
- 		goto err_destroy_table;
- 
-+	r = dm_verify_inline_encryption(md, t);
-+	if (r)
-+		goto err_destroy_table;
-+
- 	md->type = dm_table_get_type(t);
- 	/* setup md->queue to reflect md's type (may block) */
- 	r = dm_setup_md_queue(md, t);
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index b8844171d8e4..04322de34d29 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -2094,6 +2094,31 @@ dm_construct_keyslot_manager(struct mapped_device *md, struct dm_table *t)
- 	return ksm;
- }
- 
-+/**
-+ * dm_verify_inline_encryption() - Verifies that the current keyslot manager of
-+ *				   the mapped_device can be replaced by the
-+ *				   keyslot manager of a given dm_table.
-+ * @md: The mapped_device
-+ * @t: The dm_table
-+ *
-+ * In particular, this function checks that the keyslot manager that will be
-+ * constructed for the dm_table will support a superset of the capabilities that
-+ * the current keyslot manager of the mapped_device supports.
-+ *
-+ * Return: 0 if the table's keyslot_manager can replace the current keyslot
-+ *	   manager of the mapped_device. Negative value otherwise.
-+ */
-+int dm_verify_inline_encryption(struct mapped_device *md, struct dm_table *t)
-+{
-+	struct blk_keyslot_manager *ksm = dm_construct_keyslot_manager(md, t);
-+
-+	if (IS_ERR(ksm))
-+		return PTR_ERR(ksm);
-+	dm_destroy_keyslot_manager(ksm);
-+
-+	return 0;
-+}
-+
- static void dm_update_keyslot_manager(struct request_queue *q,
- 				      struct blk_keyslot_manager *ksm)
- {
-diff --git a/drivers/md/dm.h b/drivers/md/dm.h
-index fffe1e289c53..eaf92e4cbe70 100644
---- a/drivers/md/dm.h
-+++ b/drivers/md/dm.h
-@@ -208,4 +208,23 @@ void dm_free_md_mempools(struct dm_md_mempools *pools);
-  */
- unsigned dm_get_reserved_bio_based_ios(void);
- 
-+/*
-+ *  Inline Encryption
-+ */
-+struct blk_keyslot_manager;
-+
-+#ifdef CONFIG_BLK_INLINE_ENCRYPTION
-+
-+int dm_verify_inline_encryption(struct mapped_device *md, struct dm_table *t);
-+
-+#else /* !CONFIG_BLK_INLINE_ENCRYPTION */
-+
-+static inline int dm_verify_inline_encryption(struct mapped_device *md,
-+					      struct dm_table *t)
-+{
-+	return 0;
-+}
-+
-+#endif /* !CONFIG_BLK_INLINE_ENCRYPTION */
-+
+diff --git a/drivers/md/dm-flakey.c b/drivers/md/dm-flakey.c
+index a2cc9e45cbba..30c6bc151213 100644
+--- a/drivers/md/dm-flakey.c
++++ b/drivers/md/dm-flakey.c
+@@ -482,8 +482,10 @@ static struct target_type flakey_target = {
+ 	.name   = "flakey",
+ 	.version = {1, 5, 0},
+ #ifdef CONFIG_BLK_DEV_ZONED
+-	.features = DM_TARGET_ZONED_HM,
++	.features = DM_TARGET_ZONED_HM | DM_TARGET_PASSES_CRYPTO,
+ 	.report_zones = flakey_report_zones,
++#else
++	.features = DM_TARGET_PASSES_CRYPTO,
  #endif
+ 	.module = THIS_MODULE,
+ 	.ctr    = flakey_ctr,
+diff --git a/drivers/md/dm-linear.c b/drivers/md/dm-linear.c
+index 00774b5d7668..fc9c4272c10d 100644
+--- a/drivers/md/dm-linear.c
++++ b/drivers/md/dm-linear.c
+@@ -229,10 +229,11 @@ static struct target_type linear_target = {
+ 	.version = {1, 4, 0},
+ #ifdef CONFIG_BLK_DEV_ZONED
+ 	.features = DM_TARGET_PASSES_INTEGRITY | DM_TARGET_NOWAIT |
+-		    DM_TARGET_ZONED_HM,
++		    DM_TARGET_ZONED_HM | DM_TARGET_PASSES_CRYPTO,
+ 	.report_zones = linear_report_zones,
+ #else
+-	.features = DM_TARGET_PASSES_INTEGRITY | DM_TARGET_NOWAIT,
++	.features = DM_TARGET_PASSES_INTEGRITY | DM_TARGET_NOWAIT |
++		    DM_TARGET_PASSES_CRYPTO,
+ #endif
+ 	.module = THIS_MODULE,
+ 	.ctr    = linear_ctr,
 -- 
 2.29.2.729.g45daf8777d-goog
 
