@@ -2,72 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 75A832E9DE7
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:05:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 302552E9DE1
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:04:46 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-577-fsIabR-KMoSSBerWRsaXGg-1; Mon, 04 Jan 2021 14:04:52 -0500
-X-MC-Unique: fsIabR-KMoSSBerWRsaXGg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-325-2RpiBwT6On-CynZx-GhSOg-1; Mon, 04 Jan 2021 14:04:42 -0500
+X-MC-Unique: 2RpiBwT6On-CynZx-GhSOg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DF1F4800050;
-	Mon,  4 Jan 2021 19:04:45 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BAE991002393;
-	Mon,  4 Jan 2021 19:04:45 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7EE56107ACF7;
+	Mon,  4 Jan 2021 19:04:36 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 58BEB5C8AA;
+	Mon,  4 Jan 2021 19:04:36 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 77AEB5002C;
-	Mon,  4 Jan 2021 19:04:45 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A16451809CA1;
+	Mon,  4 Jan 2021 19:04:35 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 101BiPhP013086 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 1 Jan 2021 06:44:25 -0500
+	id 103Lm0su025177 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 3 Jan 2021 16:48:01 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 70501110FC1A; Fri,  1 Jan 2021 11:44:25 +0000 (UTC)
+	id BCAEF112C084; Sun,  3 Jan 2021 21:48:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6C617112D40B
-	for <dm-devel@redhat.com>; Fri,  1 Jan 2021 11:44:22 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B8719112C082
+	for <dm-devel@redhat.com>; Sun,  3 Jan 2021 21:47:58 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D31E78007D9
-	for <dm-devel@redhat.com>; Fri,  1 Jan 2021 11:44:22 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.17.12]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-191-mqP2MOg_MU2La7TFypWxHg-1;
-	Fri, 01 Jan 2021 06:44:20 -0500
-X-MC-Unique: mqP2MOg_MU2La7TFypWxHg-1
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from gecko.fritz.box ([87.123.206.196]) by smtp.web.de (mrweb103
-	[213.165.67.124]) with ESMTPSA (Nemesis) id 0MNcMo-1kwxjy3KSQ-007AwB
-	for <dm-devel@redhat.com>; Fri, 01 Jan 2021 12:39:16 +0100
-Date: Fri, 1 Jan 2021 12:39:15 +0100
-From: Lukas Straub <lukasstraub2@web.de>
-To: dm-devel <dm-devel@redhat.com>
-Message-ID: <20210101123915.4aa06611@gecko.fritz.box>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9099D800296
+	for <dm-devel@redhat.com>; Sun,  3 Jan 2021 21:47:58 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-595-_WLJp5VEPzaksTEZTuQC7w-1;
+	Sun, 03 Jan 2021 16:47:56 -0500
+X-MC-Unique: _WLJp5VEPzaksTEZTuQC7w-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 8B4D2207C9;
+	Sun,  3 Jan 2021 21:41:31 +0000 (UTC)
+From: Arnd Bergmann <arnd@kernel.org>
+To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
+	dm-devel@redhat.com, Song Liu <song@kernel.org>,
+	Bart Van Assche <bvanassche@acm.org>, Hannes Reinecke <hare@suse.com>, 
+	Damien Le Moal <damien.lemoal@wdc.com>
+Date: Sun,  3 Jan 2021 22:40:51 +0100
+Message-Id: <20210103214129.1996037-1-arnd@kernel.org>
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:LehpLm4qICjt2CodzN2f63S6UpyUxDS/cTjjlJ0Vrbo8jQG+174
-	P2ChLkzoLxgy6DbU+RoU9eRrfA2ryaw0u9E5zZDxjhzC0ID6+46oC/2qgwYb8N3Sd465/uV
-	Y+PZ762pyWKqiFqJfmqqa0Gi5TCFD/erybagrFVSCASbbUvEIPQrBtMI10pPR32YEB7/nO7
-	8y9UjNeSgYvuBdR/m1Nsg==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:02HvA7Tnz/I=:iWE03ZZSFMN38EC2mLSlzW
-	Meuzr3MXYMCPcNn4o3YzIm7Ai5IJlw+H116biWxrESNoBFcUGtXzFnA7h+LRN15GoNczLHoSP
-	SN09MG0j75lESA9s25EDXuBES4ajVhweWdTn01/cCAJFlSjLb0WWoweTg99FmKEINrUrjPyGp
-	YILFQCtFNuCrTHx7ByS5GYy/sQJ2C63CSWpIXNPE83Qv4P1ZeM22sRuVq19Q2asObn/KyU3GS
-	LemdsFMikdqBNB+/0EbXA23HnrxjIq4Pf8xNoZcdtNG6RALc+geXveRrBz2WlJ43qFyeAFEZD
-	ObZXB1RHYbZ2joHPX15pxiUyd4/R1pEudkR7b3lhFvIdzvGqejuZ6KqWlo1TLjjMSSUH1Zv4n
-	rOYPZNd5RcpKVSCpDorvrIHRIPxCUABsLC7XRbH4Ovlzt5d1XFDQ9SxgTqXT8g9ddZWLYGby8
-	HQviiTHex50Vj7jF5aFJjkb4WmDMc8CFC5Iv+knDTDx5d1knyEATxHw4AaEMmBA/sYilI18Ck
-	BvUDMwgBPux1NmkCfiCnjFwHYIaG9H3Y2K9iJXMrflIakWtOvrtDbl3MMLWTr5mq7UzX9USaS
-	haZ325YaDU6FkqmisRsOxCdTChodhQNeYaYTGUYCDv+2Y1ULaNCsmvFJ59yzxSl82gTnnEd1F
-	TMv3JW35OMmw/Zom6c+gMJ8DAN83tdjYkKdNENfSMjK1Xw0X6tvJDUZJYRmiWdNp//SADs93a
-	O/UcVv77etz21ltuLiRmpieYHWEfjtV01Gj/vzxhIEJmD0UaIf2PVdT6sbHHT8J/OwSglJmrD
-	xICxiDlH+mZAJ+QP4vz39HLg6M1l1dDr3cySJMcV1UUxcw5j246ZZhxEdR1NodiiDjLgduKtI
-	xWMFtWMiNSbh360R/Uow==
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -78,10 +60,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 101BiPhP013086
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 103Lm0su025177
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 04 Jan 2021 14:03:12 -0500
-Subject: [dm-devel] Test
+Cc: linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Arnd Bergmann <arnd@arndb.de>
+Subject: [dm-devel] [PATCH] dm zoned: select CONFIG_CRC32
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,7 +79,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -103,9 +87,35 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This is a test. It seems that my mails don't reach the mailing-list.
+From: Arnd Bergmann <arnd@arndb.de>
 
---
+Without crc32 support, this driver fails to link:
+
+arm-linux-gnueabi-ld: drivers/md/dm-zoned-metadata.o: in function `dmz_write_sb':
+dm-zoned-metadata.c:(.text+0xe98): undefined reference to `crc32_le'
+arm-linux-gnueabi-ld: drivers/md/dm-zoned-metadata.o: in function `dmz_check_sb':
+dm-zoned-metadata.c:(.text+0x7978): undefined reference to `crc32_le'
+
+Fixes: 3b1a94c88b79 ("dm zoned: drive-managed zoned block device target")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/md/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
+index b7e2d9666614..a67b9ed3ca89 100644
+--- a/drivers/md/Kconfig
++++ b/drivers/md/Kconfig
+@@ -622,6 +622,7 @@ config DM_ZONED
+ 	tristate "Drive-managed zoned block device target support"
+ 	depends on BLK_DEV_DM
+ 	depends on BLK_DEV_ZONED
++	select CRC32
+ 	help
+ 	  This device-mapper target takes a host-managed or host-aware zoned
+ 	  block device and exposes most of its capacity as a regular block
+-- 
+2.29.2
 
 
 --
