@@ -2,122 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 1C69E2E9DEB
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:05:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1C0402E9E0E
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Jan 2021 20:24:36 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1609788275;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=XC411rUNsincmSTFY6o1VbNqlivzU3hQdhU6ix6wcnQ=;
+	b=T24t5FLhVJ0+i54n5cXImAF1ZocWA/JDjV7bbgGEPLnDZuj4x2PIrsoBWgMliVVnpFz29K
+	hIN1R2rkQXZS0+jtPGjTeqg9o8gKXEp6WMAB6Pdt7ynZWadTfo6UySmqkvPRDjEP7vOtM0
+	qj1F/AmPfzs7Zv4tDDov/34BMYeLqQk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-474-UtSYUV9pOc-QuZnGA1uClw-1; Mon, 04 Jan 2021 14:05:34 -0500
-X-MC-Unique: UtSYUV9pOc-QuZnGA1uClw-1
+ us-mta-220-Y1ZmhFwsNfCr0aW6cVbXAQ-1; Mon, 04 Jan 2021 14:24:33 -0500
+X-MC-Unique: Y1ZmhFwsNfCr0aW6cVbXAQ-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0E33E107ACE4;
-	Mon,  4 Jan 2021 19:05:29 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5F661800D53;
+	Mon,  4 Jan 2021 19:24:25 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D860C60C13;
-	Mon,  4 Jan 2021 19:05:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D016860C04;
+	Mon,  4 Jan 2021 19:24:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8265018087F4;
-	Mon,  4 Jan 2021 19:05:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B3E28180954D;
+	Mon,  4 Jan 2021 19:24:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 104J3OAJ021845 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 4 Jan 2021 14:03:24 -0500
+	id 104JOAIV025352 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 4 Jan 2021 14:24:10 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 700172026D47; Mon,  4 Jan 2021 19:03:24 +0000 (UTC)
+	id CA5755D9D5; Mon,  4 Jan 2021 19:24:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2EA312026D76
-	for <dm-devel@redhat.com>; Mon,  4 Jan 2021 19:03:22 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 06E988007D9
-	for <dm-devel@redhat.com>; Mon,  4 Jan 2021 19:03:22 +0000 (UTC)
-Received: from aserp2130.oracle.com (aserp2130.oracle.com [141.146.126.79])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-1-Sf2yRW_wNxuDs4ky0ZpSXA-1; Mon, 04 Jan 2021 14:03:17 -0500
-X-MC-Unique: Sf2yRW_wNxuDs4ky0ZpSXA-1
-Received: from pps.filterd (aserp2130.oracle.com [127.0.0.1])
-	by aserp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	104Iii5I048337; Mon, 4 Jan 2021 19:03:03 GMT
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
-	by aserp2130.oracle.com with ESMTP id 35tebanu3t-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=FAIL); Mon, 04 Jan 2021 19:03:02 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
-	by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	104IkLJE024624; Mon, 4 Jan 2021 19:03:02 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
-	by aserp3030.oracle.com with ESMTP id 35v4rah92q-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 04 Jan 2021 19:03:02 +0000
-Received: from abhmp0010.oracle.com (abhmp0010.oracle.com [141.146.116.16])
-	by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 104J2u4u021597;
-	Mon, 4 Jan 2021 19:02:57 GMT
-Received: from localhost (/67.169.218.210)
-	by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Mon, 04 Jan 2021 11:02:56 -0800
-Date: Mon, 4 Jan 2021 11:02:54 -0800
-From: "Darrick J. Wong" <darrick.wong@oracle.com>
-To: Damien Le Moal <Damien.LeMoal@wdc.com>
-Message-ID: <20210104190254.GB6919@magnolia>
-References: <20210104104159.74236-1-selvakuma.s1@samsung.com>
-	<CGME20210104104249epcas5p458d1b5c39b5acfad4e7786eca5dd5c49@epcas5p4.samsung.com>
-	<20210104104159.74236-3-selvakuma.s1@samsung.com>
-	<BL0PR04MB651402CFA75F72826AC8EE1CE7D20@BL0PR04MB6514.namprd04.prod.outlook.com>
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9F27B5D9C6;
+	Mon,  4 Jan 2021 19:24:07 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 104JO5Va016160; 
+	Mon, 4 Jan 2021 13:24:06 -0600
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 104JO5mi016159;
+	Mon, 4 Jan 2021 13:24:05 -0600
+Date: Mon, 4 Jan 2021 13:24:05 -0600
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Martin Wilck <martin.wilck@suse.com>
+Message-ID: <20210104192405.GS3103@octiron.msp.redhat.com>
+References: <1608332802-9720-1-git-send-email-bmarzins@redhat.com>
+	<1608332802-9720-5-git-send-email-bmarzins@redhat.com>
+	<f85cd35716780e8e2dfe096bc7789762376efc18.camel@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <BL0PR04MB651402CFA75F72826AC8EE1CE7D20@BL0PR04MB6514.namprd04.prod.outlook.com>
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9854
-	signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
-	mlxscore=0 bulkscore=0
-	suspectscore=0 spamscore=0 adultscore=0 malwarescore=0 phishscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2009150000 definitions=main-2101040120
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9854
-	signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
-	phishscore=0
-	priorityscore=1501 spamscore=0 mlxscore=0 clxscore=1011 bulkscore=0
-	lowpriorityscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
-	malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2009150000 definitions=main-2101040120
-X-MIME-Autoconverted: from 8bit to quoted-printable by aserp2130.oracle.com id
-	104Iii5I048337
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 104J3OAJ021845
+In-Reply-To: <f85cd35716780e8e2dfe096bc7789762376efc18.camel@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
-Cc: "axboe@kernel.dk" <axboe@kernel.dk>,
-	SelvaKumar S <selvakuma.s1@samsung.com>,
-	"sagi@grimberg.me" <sagi@grimberg.me>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	"selvajove@gmail.com" <selvajove@gmail.com>,
-	"snitzer@redhat.com" <snitzer@redhat.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
-	"martin.petersen@oracle.com" <martin.petersen@oracle.com>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"kbusch@kernel.org" <kbusch@kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"mpatocka@redhat.com" <mpatocka@redhat.com>,
-	Johannes Thumshirn <Johannes.Thumshirn@wdc.com>,
-	"joshi.k@samsung.com" <joshi.k@samsung.com>,
-	"javier.gonz@samsung.com" <javier.gonz@samsung.com>,
-	"hch@lst.de" <hch@lst.de>, "nj.shetty@samsung.com" <nj.shetty@samsung.com>,
-	"bvanassche@acm.org" <bvanassche@acm.org>
-Subject: Re: [dm-devel] [RFC PATCH v4 2/3] block: add simple copy support
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH 4/6] libmultipath: ignore multipaths sections
+ without wwid option
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -140,141 +85,59 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-SelvaKumar S: This didn't show up on dm-devel, sorry for the OT reply...
-
-On Mon, Jan 04, 2021 at 12:47:11PM +0000, Damien Le Moal wrote:
-> On 2021/01/04 19:48, SelvaKumar S wrote:
-> > Add new BLKCOPY ioctl that offloads copying of one or more sources
-> > ranges to a destination in the device. Accepts copy_ranges that contain=
-s
-> > destination, no of sources and pointer to the array of source
-> > ranges. Each range_entry contains start and length of source
-> > ranges (in bytes).
+On Fri, Dec 18, 2020 at 11:30:41PM +0000, Martin Wilck wrote:
+> On Fri, 2020-12-18 at 17:06 -0600, Benjamin Marzinski wrote:
+> > "multipathd show config local" was crashing in find_mp_by_wwid() if
+> > the multipath configuration included a multipaths section that did
+> > not set a wwid option. There is no reason to keep a mpentry that
+> > didn't set its wwid. Remove it in merge_mptable().
 > >=20
-> > Introduce REQ_OP_COPY, a no-merge copy offload operation. Create
-> > bio with control information as payload and submit to the device.
-> > REQ_OP_COPY(19) is a write op and takes zone_write_lock when submitted
-> > to zoned device.
-> >=20
-> > If the device doesn't support copy or copy offload is disabled, then
-> > copy is emulated by allocating memory of total copy size. The source
-> > ranges are read into memory by chaining bio for each source ranges and
-> > submitting them async and the last bio waits for completion. After data
-> > is read, it is written to the destination.
-> >=20
-> > bio_map_kern() is used to allocate bio and add pages of copy buffer to
-> > bio. As bio->bi_private and bio->bi_end_io is needed for chaining the
-> > bio and over written, invalidate_kernel_vmap_range() for read is called
-> > in the caller.
-> >=20
-> > Introduce queue limits for simple copy and other helper functions.
-> > Add device limits as sysfs entries.
-> > =09- copy_offload
-> > =09- max_copy_sectors
-> > =09- max_copy_ranges_sectors
-> > =09- max_copy_nr_ranges
-> >=20
-> > copy_offload(=3D 0) is disabled by default.
-> > max_copy_sectors =3D 0 indicates the device doesn't support native copy=
-.
-> >=20
-> > Native copy offload is not supported for stacked devices and is done vi=
-a
-> > copy emulation.
-> >=20
-> > Signed-off-by: SelvaKumar S <selvakuma.s1@samsung.com>
-> > Signed-off-by: Kanchan Joshi <joshi.k@samsung.com>
-> > Signed-off-by: Nitesh Shetty <nj.shetty@samsung.com>
-> > Signed-off-by: Javier Gonz=E1lez <javier.gonz@samsung.com>
+> > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 > > ---
-> >  block/blk-core.c          |  94 ++++++++++++++--
-> >  block/blk-lib.c           | 223 ++++++++++++++++++++++++++++++++++++++
-> >  block/blk-merge.c         |   2 +
-> >  block/blk-settings.c      |  10 ++
-> >  block/blk-sysfs.c         |  50 +++++++++
-> >  block/blk-zoned.c         |   1 +
-> >  block/bounce.c            |   1 +
-> >  block/ioctl.c             |  43 ++++++++
-> >  include/linux/bio.h       |   1 +
-> >  include/linux/blk_types.h |  15 +++
-> >  include/linux/blkdev.h    |  13 +++
-> >  include/uapi/linux/fs.h   |  13 +++
-
-This series should also be cc'd to linux-api since you're adding a new
-userspace api.
-
-Alternately, save yourself the trouble of passing userspace API review
-by hooking this up to the existing copy_file_range call in the vfs.  /me
-hopes you sent blktests to check the operation of this thing, since none
-of the original patches made it to this list.
-
-If you really /do/ need a new kernel call for this, then please send in
-a manpage documenting the fields of struct range_entry and copy_range,
-and how users are supposed to use this.
-
-<now jumping to the ioctl definition because Damien already reviewed the
-plumbing...>
-
-> > diff --git a/include/uapi/linux/fs.h b/include/uapi/linux/fs.h
-> > index f44eb0a04afd..5cadb176317a 100644
-> > --- a/include/uapi/linux/fs.h
-> > +++ b/include/uapi/linux/fs.h
-> > @@ -64,6 +64,18 @@ struct fstrim_range {
-> >  =09__u64 minlen;
-> >  };
-> > =20
-> > +struct range_entry {
-> > +=09__u64 src;
-
-Is this an offset?  Or the fd of an open bdev?
-
-> > +=09__u64 len;
-> > +};
-> > +
-> > +struct copy_range {
-> > +=09__u64 dest;
-> > +=09__u64 nr_range;
-> > +=09__u64 range_list;
-
-Hm, I think this is a pointer?  Why not just put the range_entry array
-at the end of struct copy_range?
-
-> > +=09__u64 rsvd;
-
-Also needs a flags argument so we don't have to add BLKCOPY2 in like 3
-months.
-
---D
-
-> > +};
-> > +
-> >  /* extent-same (dedupe) ioctls; these MUST match the btrfs ioctl defin=
-itions */
-> >  #define FILE_DEDUPE_RANGE_SAME=09=090
-> >  #define FILE_DEDUPE_RANGE_DIFFERS=091
-> > @@ -184,6 +196,7 @@ struct fsxattr {
-> >  #define BLKSECDISCARD _IO(0x12,125)
-> >  #define BLKROTATIONAL _IO(0x12,126)
-> >  #define BLKZEROOUT _IO(0x12,127)
-> > +#define BLKCOPY _IOWR(0x12, 128, struct copy_range)
-> >  /*
-> >   * A jump here: 130-131 are reserved for zoned block devices
-> >   * (see uapi/linux/blkzoned.h)
+> >  libmultipath/config.c | 7 +++++++
+> >  1 file changed, 7 insertions(+)
 > >=20
+> > diff --git a/libmultipath/config.c b/libmultipath/config.c
+> > index 9f3cb38d..a643703e 100644
+> > --- a/libmultipath/config.c
+> > +++ b/libmultipath/config.c
+> > @@ -509,6 +509,13 @@ void merge_mptable(vector mptable)
+> >  =09int i, j;
+> > =20
+> >  =09vector_foreach_slot(mptable, mp1, i) {
+> > +=09=09/* drop invalid multipath configs */
+> > +=09=09if (!mp1->wwid) {
+> > +=09=09=09condlog(0, "multipaths config section missing
+> > wwid");
+> > +=09=09=09vector_del_slot(mptable, i--);
+> > +=09=09=09free_mpe(mp1);
+> > +=09=09=09continue;
+> > +=09=09}
+> >  =09=09j =3D i + 1;
+> >  =09=09vector_foreach_slot_after(mptable, mp2, j) {
+> >  =09=09=09if (strcmp(mp1->wwid, mp2->wwid))
 >=20
+> Wouldn't you need to check mp2->wwid, too?
+
+Oops. Yeah, strcmp() is undefined with NULL, so that needs a check.
+BTW, I noticed that added this one to you upstream-queue branch, even
+though you didn't ack it, while not adding patch 5/6 (multipathd: Fix
+multipathd stopping on shutdown), even though you did ack it. Was this
+intentional?
+
+At any rate, since this is already in upstream-queue, I'll just post a
+follow-up that checks mp2->wwid, before calling strcmp()
+
+-Ben
+=20
+> Martin
 >=20
 > --=20
-> Damien Le Moal
-> Western Digital Research
+> Dr. Martin Wilck <mwilck@suse.com>, Tel. +49 (0)911 74053 2107
+> SUSE  Software Solutions Germany GmbH
+> HRB 36809, AG N=FCrnberg GF: Felix
+> Imend=F6rffer
 >=20
->=20
->=20
-> --
-> dm-devel mailing list
-> dm-devel@redhat.com
-> https://www.redhat.com/mailman/listinfo/dm-devel
->=20
-
 
 --
 dm-devel mailing list
