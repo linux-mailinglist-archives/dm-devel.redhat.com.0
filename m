@@ -1,114 +1,63 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id BDD662EB2DA
-	for <lists+dm-devel@lfdr.de>; Tue,  5 Jan 2021 19:56:52 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id A32B72EB2C9
+	for <lists+dm-devel@lfdr.de>; Tue,  5 Jan 2021 19:49:45 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-344-VUvh6HC5M2uAMEj9gXq-BQ-1; Tue, 05 Jan 2021 13:56:48 -0500
-X-MC-Unique: VUvh6HC5M2uAMEj9gXq-BQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-151-DF72OlFzNrel2qQCP9E4YA-1; Tue, 05 Jan 2021 13:49:41 -0500
+X-MC-Unique: DF72OlFzNrel2qQCP9E4YA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EE0D7107ACE8;
-	Tue,  5 Jan 2021 18:56:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CA86F1349A;
-	Tue,  5 Jan 2021 18:56:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7F93215720;
+	Tue,  5 Jan 2021 18:49:31 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7CD481002388;
+	Tue,  5 Jan 2021 18:49:29 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 85F30180954D;
-	Tue,  5 Jan 2021 18:56:42 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 451A94BB7B;
+	Tue,  5 Jan 2021 18:49:20 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 105GGY0p022716 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 5 Jan 2021 11:16:34 -0500
+	id 105In5YN009719 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 5 Jan 2021 13:49:05 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4F45C112C275; Tue,  5 Jan 2021 16:16:34 +0000 (UTC)
+	id 958582166B2A; Tue,  5 Jan 2021 18:49:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 458B81004050
-	for <dm-devel@redhat.com>; Tue,  5 Jan 2021 16:16:32 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8FF852166B29
+	for <dm-devel@redhat.com>; Tue,  5 Jan 2021 18:49:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 215DD811E86
-	for <dm-devel@redhat.com>; Tue,  5 Jan 2021 16:16:32 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
-	(mail-dm6nam12on2116.outbound.protection.outlook.com [40.107.243.116])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-452-teJ2_IJfN5Wbzz-dymEejQ-1; Tue, 05 Jan 2021 11:16:28 -0500
-X-MC-Unique: teJ2_IJfN5Wbzz-dymEejQ-1
-Received: from BL0PR06MB4468.namprd06.prod.outlook.com (2603:10b6:208:29::21)
-	by MN2PR06MB6638.namprd06.prod.outlook.com (2603:10b6:208:1f4::22)
-	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3721.21;
-	Tue, 5 Jan 2021 16:16:26 +0000
-Received: from BL0PR06MB4468.namprd06.prod.outlook.com
-	([fe80::f0f5:3e54:dbcf:3e59]) by
-	BL0PR06MB4468.namprd06.prod.outlook.com
-	([fe80::f0f5:3e54:dbcf:3e59%6]) with mapi id 15.20.3721.024;
-	Tue, 5 Jan 2021 16:16:26 +0000
-From: "Desnoyers, Peter" <P.Desnoyers@northeastern.edu>
-To: Bart Van Assche <bvanassche@acm.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Christoph Hellwig <hch@infradead.org>
-Thread-Topic: [dm-devel] [PATCH v1 0/5] dm: dm-user: New target that proxies
-	BIOs to userspace
-Thread-Index: AQHWzxb+zDFhaF7NmkqPy8x71otHxaoZWRew
-Date: Tue, 5 Jan 2021 16:16:26 +0000
-Message-ID: <BL0PR06MB4468B018111B0FAED922485D85D10@BL0PR06MB4468.namprd06.prod.outlook.com>
-References: <mhng-97fc5874-29d0-4d9e-8c92-d3704a482f28@palmerdabbelt-glaptop1>,
-	<6fb5be2d-c6ca-c21b-dddf-9b314973dcfe@acm.org>
-In-Reply-To: <6fb5be2d-c6ca-c21b-dddf-9b314973dcfe@acm.org>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [65.96.162.207]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: b79f730b-0df5-45c1-4a73-08d8b19540b0
-x-ms-traffictypediagnostic: MN2PR06MB6638:
-x-microsoft-antispam-prvs: <MN2PR06MB6638795E8B18733192307F3C85D10@MN2PR06MB6638.namprd06.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: zWO7cZ4NmTQNN5btCTWjnGj6lJIeRKkyXEH2IibOsIQo42LT9fOgH/fs2c+sRAiwEq+eYnJuVbF4lh9PR67JV77E1a96rHtms6+dkK5lsiHfGQX1mdD3WpA/YtoMOKHg3R2E3J/4gt8SnZVu62lR/ugeaC7R+pZboTMHZG6P2fj5bNaRBlyWM02OP0KfHtm/PmN+eESRf5XxzbcR6rAjhXawoos33wUW/Ii+EdVk/hXHqRO18FkPZbHN78f9zrJdT7LCtdYxsqjUFZ8ebw27xBQ4d2GMWk/sbxx7ObgVgInu5KMuNbV6wYyzvQUOtGJ0uONzQUvtu5zdU0oiZmM+2oJfCQL7T243BYDEuiDoeFwBmIBIU+BIYBYYXyCH/G2/UhsTRuTZyDsyMEtYP4idHg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:BL0PR06MB4468.namprd06.prod.outlook.com;
-	PTR:; CAT:NONE;
-	SFS:(4636009)(136003)(376002)(39860400002)(366004)(346002)(396003)(8936002)(7696005)(66946007)(5660300002)(71200400001)(76116006)(316002)(4326008)(66556008)(66476007)(66446008)(26005)(55016002)(7416002)(83380400001)(75432002)(64756008)(186003)(9686003)(19627405001)(478600001)(2906002)(33656002)(86362001)(6506007)(786003)(53546011)(54906003)(52536014)(110136005);
-	DIR:OUT; SFP:1102
-x-ms-exchange-antispam-messagedata: =?iso-8859-1?Q?r7mObrMw4HKoRgEP6yJfdlVDxjjSA+lQYYAwZfA/cKkvnCrsm1RqvG2ofu?=
-	=?iso-8859-1?Q?Y4ZvaDKeMmy/3DiW8OUx1qMM3jPnRVCLU86k4W0aOiIhgjloqBTkD2VxQD?=
-	=?iso-8859-1?Q?LS+9haCREEDiA0+Zo8fl28ps721ivzsNBIDa57elgPLU3LmpKOwNQzi7hD?=
-	=?iso-8859-1?Q?LfxyZ25GfxjwQvA/ePg+Ny6XLvMbLCRgCQRiEsAydQH//w3DtKeeGf/v1a?=
-	=?iso-8859-1?Q?2n/gNBGc/t1dneKzwqlyPxNvOlp6HoysmTRNAvluHkF+mGPJhnRSE0ipE6?=
-	=?iso-8859-1?Q?humRIHF5vnpMviAvToW8QH3ygN2XqJZgOQ0XKEk8eTEcNaMlZSyVfs4V0+?=
-	=?iso-8859-1?Q?PKCN5ZmZecd36iPrqeecWQgoCS0biI5eS/jEbpeIqKnOid3Z2ISXT8SGcj?=
-	=?iso-8859-1?Q?d4ub2nkonA4nGtYgbKvCVKe1dl1RkaFxrHiNhbwnNvR+9L/foZWZfvH1c6?=
-	=?iso-8859-1?Q?wf727PxL65vnyyP+RDgdM5jfIdjSVnum8oSxXWmmwRmLD7e2rEfCblEkn6?=
-	=?iso-8859-1?Q?RiYnUJgykxE4OkjA5qId8Bg2MQr5Lrd+dQ0gCPPqLH89alr/5V40dk3xUt?=
-	=?iso-8859-1?Q?h2Lf9y/prd6eVyA2b0qhFgJfPQ4nu4PAZc6ky133W15t3R5jYoO8dvrBlc?=
-	=?iso-8859-1?Q?6ee6Kh+l1bpjpsfYpw2299jmJXUiiDVMDhLbXQ+8nDMcf0KMVyGCzI8LW9?=
-	=?iso-8859-1?Q?sYfw1e8MdfwRCG7uVSCFx/D2JuxoBH+/1aE19yLx9rdMTntPH86rg/Og2U?=
-	=?iso-8859-1?Q?uG/SwfN9roPaYyP+TM5b0hPXMjYbI8K1kbjPL2d3ykUqINLmXYzCf+qEsa?=
-	=?iso-8859-1?Q?fs+YYAWVFsAZxSUBNsBMtd+BdAwaTJToh3AkZ+M9k98kdUB8mZyWcxVvr8?=
-	=?iso-8859-1?Q?3l4yKFX5tFZt1MARPkepThpo6Dsvq8H41/6pBqNtg1sPAO/lO6Xu5JW/Y3?=
-	=?iso-8859-1?Q?Lh9suO3/lnRPmyTKUcuikjf4pUwxH8mGab+rx3McgqXnIvZwVgvszOyBHA?=
-	=?iso-8859-1?Q?KNLWoyu6px3GIcVo0=3D?=
-x-ms-exchange-transport-forked: True
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AE7BE811E98
+	for <dm-devel@redhat.com>; Tue,  5 Jan 2021 18:49:02 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
+	relay.mimecast.com with ESMTP id us-mta-470--56XWt4yNVWo8R6T44jLFQ-1;
+	Tue, 05 Jan 2021 13:49:00 -0500
+X-MC-Unique: -56XWt4yNVWo8R6T44jLFQ-1
+Received: from [192.168.86.31] (c-71-197-163-6.hsd1.wa.comcast.net
+	[71.197.163.6])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 02E0720B7192;
+	Tue,  5 Jan 2021 10:48:57 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 02E0720B7192
+To: Mimi Zohar <zohar@linux.ibm.com>, stephen.smalley.work@gmail.com,
+	casey@schaufler-ca.com, agk@redhat.com, snitzer@redhat.com,
+	gmazyland@gmail.com, paul@paul-moore.com
+References: <20201212180251.9943-1-tusharsu@linux.microsoft.com>
+	<20201212180251.9943-2-tusharsu@linux.microsoft.com>
+	<acec2f96b5fa5ae8fb0e12e76f508cf6e7f7ec97.camel@linux.ibm.com>
+From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+Message-ID: <1f5354ba-e68d-6e3c-9b7e-3ac7b522182e@linux.microsoft.com>
+Date: Tue, 5 Jan 2021 10:48:57 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
 MIME-Version: 1.0
-X-OriginatorOrg: northeastern.edu
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR06MB4468.namprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b79f730b-0df5-45c1-4a73-08d8b19540b0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jan 2021 16:16:26.4854 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a8eec281-aaa3-4dae-ac9b-9a398b9215e7
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qif33IOHHtVJA0K9QOnR4ACpU5gW73Pld2IPNZcEXh04IHc+gORL69XyR9c/ib2UMME2cE9MUuV7Ah0zrLb9km/ScV1hVMyTCmrfwcsAvsI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR06MB6638
+In-Reply-To: <acec2f96b5fa5ae8fb0e12e76f508cf6e7f7ec97.camel@linux.ibm.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -117,24 +66,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Tue, 05 Jan 2021 13:56:30 -0500
-Cc: "snitzer@redhat.com" <snitzer@redhat.com>,
-	"corbet@lwn.net" <corbet@lwn.net>,
-	"kernel-team@android.com" <kernel-team@android.com>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>,
-	"song@kernel.org" <song@kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"agk@redhat.com" <agk@redhat.com>,
-	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
-	"shuah@kernel.org" <shuah@kernel.org>,
-	Mike Christie <michael.christie@oracle.com>
-Subject: Re: [dm-devel] [PATCH v1 0/5] dm: dm-user: New target that
-	proxies	BIOs to userspace
+Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
+	jmorris@namei.org, linux-kernel@vger.kernel.org,
+	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
+	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH v9 1/8] IMA: generalize keyring specific
+ measurement constructs
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -148,218 +87,176 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-Type: multipart/mixed; boundary="===============9082468260063687575=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
---===============9082468260063687575==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BL0PR06MB4468B018111B0FAED922485D85D10BL0PR06MB4468namp_"
+Hello Mimi,
+Sorry for the late response. I was on vacation last week.
 
---_000_BL0PR06MB4468B018111B0FAED922485D85D10BL0PR06MB4468namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+On 2020-12-24 5:06 a.m., Mimi Zohar wrote:
+> On Sat, 2020-12-12 at 10:02 -0800, Tushar Sugandhi wrote:
+>>
+>> diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
+>> index 68956e884403..e76ef4bfd0f4 100644
+>> --- a/security/integrity/ima/ima_main.c
+>> +++ b/security/integrity/ima/ima_main.c
+>> @@ -786,13 +786,13 @@ int ima_post_load_data(char *buf, loff_t size,
+>>    * @eventname: event name to be used for the buffer entry.
+>>    * @func: IMA hook
+>>    * @pcr: pcr to extend the measurement
+>> - * @keyring: keyring name to determine the action to be performed
+>> + * @func_data: private data specific to @func, can be NULL.
+> 
+> This can be simplified to "func specific data, may be NULL".   Please
+> update in all places.
+> 
+Ok, will do.
+>>    *
+>>    * Based on policy, the buffer is measured into the ima log.
+>>    */
+>>   void process_buffer_measurement(struct inode *inode, const void *buf, int size,
+>>   				const char *eventname, enum ima_hooks func,
+>> -				int pcr, const char *keyring)
+>> +				int pcr, const char *func_data)
+>>   {
+>>   	int ret = 0;
+>>   	const char *audit_cause = "ENOMEM";
+>> @@ -831,7 +831,7 @@ void process_buffer_measurement(struct inode *inode, const void *buf, int size,
+>>   	if (func) {
+>>   		security_task_getsecid(current, &secid);
+>>   		action = ima_get_action(inode, current_cred(), secid, 0, func,
+>> -					&pcr, &template, keyring);
+>> +					&pcr, &template, func_data);
+>>   		if (!(action & IMA_MEASURE))
+>>   			return;
+>>   	}
+>> diff --git a/security/integrity/ima/ima_policy.c b/security/integrity/ima/ima_policy.c
+>> index 823a0c1379cb..a09d1a41a290 100644
+>> --- a/security/integrity/ima/ima_policy.c
+>> +++ b/security/integrity/ima/ima_policy.c
+>> @@ -453,30 +453,41 @@ int ima_lsm_policy_change(struct notifier_block *nb, unsigned long event,
+>>   }
+>>   
+>>   /**
+>> - * ima_match_keyring - determine whether the keyring matches the measure rule
+>> - * @rule: a pointer to a rule
+>> - * @keyring: name of the keyring to match against the measure rule
+>> + * ima_match_rule_data - determine whether the given func_data matches
+>> + *			 the measure rule data
+> 
+> After the function_name is a brief description of the function, which
+> should not span multiple lines.  Refer to Documentation/doc-
+> guide/kernel-doc.rst for details.
+> 
+> Please trim the function description to:
+> determine whether func_data matches the policy rule
+> 
+Thanks, will do.
 
-I seemed to have missed this during the OSDI and end-of-term rush. I've imp=
-lemented a couple of user-space block device components for research projec=
-ts, so I thought I'd weigh in.
-
-In particular, does this offer significant advantages over TCMU? It uses th=
-e UIO framework for a ring of SCSI requests to user space, and seems to be =
-quite efficient. The differences seem to be:
-
-  *   dm-user is at bio level, while TCMU is a SCSI device, so like NBD you=
- get request merging. Depending on your purposes, that either does no harm =
-or is really useful.
-  *   TCMU requires either accepting the entire tcmu-runner architecture an=
-d philosophy, which may be a no-go, or writing your own SCSI implementation
-
-(I'm actually really bummed that I didn't discover TCMU until recently, as =
-I think we would have used it on a few research projects in the past.)
-
-I have no idea whether you can hand things off to another process - I don't=
- think the UIO framework would have any problems with that, so it probably =
-comes down to whether the target_core_user module would allow its memory re=
-gion to be mapped by multiple processes.
-
-
-I've got the world's quickest and dirtiest SCSI implementation that I've ha=
-cked up to use with TCMU, although the only real experimentation I've done =
-is by hacking tcmu-runner. I'd definitely be interested in talking to any p=
-eople who are interested in this, to develop a proper SCSI library that wou=
-ld allow you to use TCMU outside of tcmu-runner.
-
-________________________________
-From: Bart Van Assche <bvanassche@acm.org>
-Sent: Wednesday, December 9, 2020 10:38 PM
-To: Palmer Dabbelt <palmer@dabbelt.com>; Christoph Hellwig <hch@infradead.o=
-rg>
-Cc: snitzer@redhat.com <snitzer@redhat.com>; linux-doc@vger.kernel.org <lin=
-ux-doc@vger.kernel.org>; shuah@kernel.org <shuah@kernel.org>; corbet@lwn.ne=
-t <corbet@lwn.net>; linux-kernel@vger.kernel.org <linux-kernel@vger.kernel.=
-org>; Josef Bacik <josef@toxicpanda.com>; linux-raid@vger.kernel.org <linux=
--raid@vger.kernel.org>; song@kernel.org <song@kernel.org>; dm-devel@redhat.=
-com <dm-devel@redhat.com>; Mike Christie <michael.christie@oracle.com>; lin=
-ux-kselftest@vger.kernel.org <linux-kselftest@vger.kernel.org>; kernel-team=
-@android.com <kernel-team@android.com>; agk@redhat.com <agk@redhat.com>
-Subject: Re: [dm-devel] [PATCH v1 0/5] dm: dm-user: New target that proxies=
- BIOs to userspace
-
-On 12/7/20 10:55 AM, Palmer Dabbelt wrote:
-> All in all, I've found it a bit hard to figure out what sort of interest
-> people
-> have in dm-user: when I bring this up I seem to run into people who've do=
-ne
-> similar things before and are vaguely interested, but certainly nobody is
-> chomping at the bit.  I'm sending it out in this early state to try and
-> figure
-> out if it's interesting enough to keep going.
-
-Cc-ing Josef and Mike since their nbd contributions make me wonder
-whether this new driver could be useful to their use cases?
+>> + * @rule: IMA policy rule
+> 
+> This patch should be limited to renaming "keyring" to "func_data".   It
+> shouldn't make other changes, even simple ones like this.
+> 
+Agreed. I will revert the rule description to the old one.
+>> + * @func_data: data to match against the measure rule data
+>>    * @cred: a pointer to a credentials structure for user validation
+>>    *
+>> - * Returns true if keyring matches one in the rule, false otherwise.
+>> + * Returns true if func_data matches one in the rule, false otherwise.
+>>    */
+>> -static bool ima_match_keyring(struct ima_rule_entry *rule,
+>> -			      const char *keyring, const struct cred *cred)
+>> +static bool ima_match_rule_data(struct ima_rule_entry *rule,
+>> +				const char *func_data,
+>> +				const struct cred *cred)
+>>   {
+>> +	const struct ima_rule_opt_list *opt_list = NULL;
+>>   	bool matched = false;
+>>   	size_t i;
+>>   
+>>   	if ((rule->flags & IMA_UID) && !rule->uid_op(cred->uid, rule->uid))
+>>   		return false;
+>>   
+>> -	if (!rule->keyrings)
+>> -		return true;
+>> +	switch (rule->func) {
+>> +	case KEY_CHECK:
+>> +		if (!rule->keyrings)
+>> +			return true;
+>> +
+>> +		opt_list = rule->keyrings;
+>> +		break;
+>> +	default:
+>> +		return false;
+>> +	}
+>>   
+>> -	if (!keyring)
+>> +	if (!func_data)
+>>   		return false;
+>>   
+>> -	for (i = 0; i < rule->keyrings->count; i++) {
+>> -		if (!strcmp(rule->keyrings->items[i], keyring)) {
+>> +	for (i = 0; i < opt_list->count; i++) {
+>> +		if (!strcmp(opt_list->items[i], func_data)) {
+>>   			matched = true;
+>>   			break;
+>>   		}
+>> @@ -493,20 +504,20 @@ static bool ima_match_keyring(struct ima_rule_entry *rule,
+>>    * @secid: the secid of the task to be validated
+>>    * @func: LIM hook identifier
+>>    * @mask: requested action (MAY_READ | MAY_WRITE | MAY_APPEND | MAY_EXEC)
+>> - * @keyring: keyring name to check in policy for KEY_CHECK func
+>> + * @func_data: private data specific to @func, can be NULL.
+> 
+> Update as previously suggested.
+> 
+Yes.
+>>    *
+>>    * Returns true on rule match, false on failure.
+>>    */
+>>   static bool ima_match_rules(struct ima_rule_entry *rule, struct inode *inode,
+>>   			    const struct cred *cred, u32 secid,
+>>   			    enum ima_hooks func, int mask,
+>> -			    const char *keyring)
+>> +			    const char *func_data)
+>>   {
+>>   	int i;
+>>   
+>>   	if (func == KEY_CHECK) {
+>>   		return (rule->flags & IMA_FUNC) && (rule->func == func) &&
+>> -		       ima_match_keyring(rule, keyring, cred);
+>> +			ima_match_rule_data(rule, func_data, cred);
+>>   	}
+>>   	if ((rule->flags & IMA_FUNC) &&
+>>   	    (rule->func != func && func != POST_SETATTR))
+>> @@ -610,8 +621,7 @@ static int get_subaction(struct ima_rule_entry *rule, enum ima_hooks func)
+>>    * @mask: requested action (MAY_READ | MAY_WRITE | MAY_APPEND | MAY_EXEC)
+>>    * @pcr: set the pcr to extend
+>>    * @template_desc: the template that should be used for this rule
+>> - * @keyring: the keyring name, if given, to be used to check in the policy.
+>> - *           keyring can be NULL if func is anything other than KEY_CHECK.
+>> + * @func_data: private data specific to @func, can be NULL.
+> 
+> And again here.
+> 
+Yes.
+> thanks,
+> 
+> Mimi
+> 
 
 Thanks,
-
-Bart.
-
-
-
---_000_BL0PR06MB4468B018111B0FAED922485D85D10BL0PR06MB4468namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-I seemed to have missed this during the OSDI and end-of-term rush. I've imp=
-lemented a couple of user-space block device components for research projec=
-ts, so I thought I'd weigh in.</div>
-<div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-In particular, does this offer significant advantages over TCMU? It uses th=
-e UIO framework for a ring of SCSI requests to user space, and seems to be =
-quite efficient. The differences seem to be:</div>
-<div>
-<ul>
-<li><font color=3D"#000000" face=3D"Calibri, Arial, Helvetica, sans-serif">=
-<span style=3D"caret-color: rgb(0, 0, 0);">dm-user is at bio level, while T=
-CMU is a SCSI device, so like NBD you get request merging. Depending on you=
-r purposes, that either does no harm or
- is really useful.&nbsp;</span></font></li><li><font color=3D"#000000" face=
-=3D"Calibri, Arial, Helvetica, sans-serif"><span style=3D"caret-color: rgb(=
-0, 0, 0);">TCMU requires either accepting the entire tcmu-runner architectu=
-re and philosophy, which may be a no-go, or writing your own SCSI implement=
-ation<br>
-</span></font></li></ul>
-<div><font color=3D"#000000" face=3D"Calibri, Arial, Helvetica, sans-serif"=
-><span style=3D"caret-color: rgb(0, 0, 0);">(I'm actually really bummed tha=
-t I didn't discover TCMU until recently, as I think we would have used it o=
-n a few research projects in the past.)<br>
-<br>
-</span></font></div>
-<div><font color=3D"#000000" face=3D"Calibri, Arial, Helvetica, sans-serif"=
-><span style=3D"caret-color: rgb(0, 0, 0);">I have no idea whether you can =
-hand things off to another process - I don't think the UIO framework would =
-have any problems with that, so it probably
- comes down to whether the target_core_user module would allow its memory r=
-egion to be mapped by multiple processes.</span></font></div>
-<div><font color=3D"#000000" face=3D"Calibri, Arial, Helvetica, sans-serif"=
-><span style=3D"caret-color: rgb(0, 0, 0);"><br>
-</span></font></div>
-<div><font color=3D"#000000" face=3D"Calibri, Arial, Helvetica, sans-serif"=
-><span style=3D"caret-color: rgb(0, 0, 0);"><br>
-</span></font></div>
-<div><font color=3D"#000000" face=3D"Calibri, Arial, Helvetica, sans-serif"=
-><span style=3D"caret-color: rgb(0, 0, 0);">I've got the world's quickest a=
-nd dirtiest SCSI implementation that I've hacked up to use with TCMU, altho=
-ugh the only real experimentation I've
- done is by hacking tcmu-runner. I'd definitely be interested in talking to=
- any people who are interested in this, to develop a proper SCSI library th=
-at would allow you to use TCMU outside of tcmu-runner.</span></font></div>
-<div><font color=3D"#000000" face=3D"Calibri, Arial, Helvetica, sans-serif"=
-><span style=3D"caret-color: rgb(0, 0, 0);"><br>
-</span></font></div>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Bart Van Assche &lt;b=
-vanassche@acm.org&gt;<br>
-<b>Sent:</b> Wednesday, December 9, 2020 10:38 PM<br>
-<b>To:</b> Palmer Dabbelt &lt;palmer@dabbelt.com&gt;; Christoph Hellwig &lt=
-;hch@infradead.org&gt;<br>
-<b>Cc:</b> snitzer@redhat.com &lt;snitzer@redhat.com&gt;; linux-doc@vger.ke=
-rnel.org &lt;linux-doc@vger.kernel.org&gt;; shuah@kernel.org &lt;shuah@kern=
-el.org&gt;; corbet@lwn.net &lt;corbet@lwn.net&gt;; linux-kernel@vger.kernel=
-.org &lt;linux-kernel@vger.kernel.org&gt;; Josef Bacik &lt;josef@toxicpanda=
-.com&gt;;
- linux-raid@vger.kernel.org &lt;linux-raid@vger.kernel.org&gt;; song@kernel=
-.org &lt;song@kernel.org&gt;; dm-devel@redhat.com &lt;dm-devel@redhat.com&g=
-t;; Mike Christie &lt;michael.christie@oracle.com&gt;; linux-kselftest@vger=
-.kernel.org &lt;linux-kselftest@vger.kernel.org&gt;; kernel-team@android.co=
-m
- &lt;kernel-team@android.com&gt;; agk@redhat.com &lt;agk@redhat.com&gt;<br>
-<b>Subject:</b> Re: [dm-devel] [PATCH v1 0/5] dm: dm-user: New target that =
-proxies BIOs to userspace</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">On 12/7/20 10:55 AM, Palmer Dabbelt wrote:<br>
-&gt; All in all, I've found it a bit hard to figure out what sort of intere=
-st<br>
-&gt; people<br>
-&gt; have in dm-user: when I bring this up I seem to run into people who've=
- done<br>
-&gt; similar things before and are vaguely interested, but certainly nobody=
- is<br>
-&gt; chomping at the bit.&nbsp; I'm sending it out in this early state to t=
-ry and<br>
-&gt; figure<br>
-&gt; out if it's interesting enough to keep going.<br>
-<br>
-Cc-ing Josef and Mike since their nbd contributions make me wonder<br>
-whether this new driver could be useful to their use cases?<br>
-<br>
-Thanks,<br>
-<br>
-Bart.<br>
-<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL0PR06MB4468B018111B0FAED922485D85D10BL0PR06MB4468namp_--
-
---===============9082468260063687575==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Tushar
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
---===============9082468260063687575==--
 
