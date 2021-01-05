@@ -2,63 +2,63 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A48EA2EB2D3
-	for <lists+dm-devel@lfdr.de>; Tue,  5 Jan 2021 19:53:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 932812EB3DA
+	for <lists+dm-devel@lfdr.de>; Tue,  5 Jan 2021 21:02:21 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-496-5QRLuGOHPJ2AaJRTzDF7Bg-1; Tue, 05 Jan 2021 13:53:33 -0500
-X-MC-Unique: 5QRLuGOHPJ2AaJRTzDF7Bg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-458-RZCMtUFoM0mh9W0Lp4j0tw-1; Tue, 05 Jan 2021 15:02:17 -0500
+X-MC-Unique: RZCMtUFoM0mh9W0Lp4j0tw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E62F1190B2AA;
-	Tue,  5 Jan 2021 18:53:26 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A93B5E1B5;
-	Tue,  5 Jan 2021 18:53:26 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8869A10054FF;
+	Tue,  5 Jan 2021 20:02:10 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4DC0460C04;
+	Tue,  5 Jan 2021 20:02:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 116304BB7B;
-	Tue,  5 Jan 2021 18:53:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DE614180954D;
+	Tue,  5 Jan 2021 20:02:00 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 105IrJN0009964 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 5 Jan 2021 13:53:19 -0500
+	id 105K1nCM016823 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 5 Jan 2021 15:01:49 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 125658A4C9; Tue,  5 Jan 2021 18:53:19 +0000 (UTC)
+	id 08B132166B2B; Tue,  5 Jan 2021 20:01:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A7EA8A4C2
-	for <dm-devel@redhat.com>; Tue,  5 Jan 2021 18:53:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 02E892166B29
+	for <dm-devel@redhat.com>; Tue,  5 Jan 2021 20:01:46 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DA3D9811E84
-	for <dm-devel@redhat.com>; Tue,  5 Jan 2021 18:53:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CE211811E84
+	for <dm-devel@redhat.com>; Tue,  5 Jan 2021 20:01:46 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-551-R2mOKp-RP1Kk-rutUEqP3A-1;
-	Tue, 05 Jan 2021 13:53:07 -0500
-X-MC-Unique: R2mOKp-RP1Kk-rutUEqP3A-1
+	relay.mimecast.com with ESMTP id us-mta-125-YqOasD5hP9Ka14p38ko_cA-1;
+	Tue, 05 Jan 2021 15:01:44 -0500
+X-MC-Unique: YqOasD5hP9Ka14p38ko_cA-1
 Received: from [192.168.86.31] (c-71-197-163-6.hsd1.wa.comcast.net
 	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 167CF20B7192;
-	Tue,  5 Jan 2021 10:53:05 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 167CF20B7192
+	by linux.microsoft.com (Postfix) with ESMTPSA id 9F2CD20B7192;
+	Tue,  5 Jan 2021 12:01:41 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9F2CD20B7192
 To: Mimi Zohar <zohar@linux.ibm.com>, stephen.smalley.work@gmail.com,
 	casey@schaufler-ca.com, agk@redhat.com, snitzer@redhat.com,
 	gmazyland@gmail.com, paul@paul-moore.com
 References: <20201212180251.9943-1-tusharsu@linux.microsoft.com>
-	<20201212180251.9943-3-tusharsu@linux.microsoft.com>
-	<4e83480731b937cea479f688029560444b9cb66a.camel@linux.ibm.com>
+	<20201212180251.9943-4-tusharsu@linux.microsoft.com>
+	<5ae72a76664ce7011d3041689efbfe1a2c67d44f.camel@linux.ibm.com>
 From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-Message-ID: <3fdb72ae-f291-386b-e7b9-688dfe092dc5@linux.microsoft.com>
-Date: Tue, 5 Jan 2021 10:53:04 -0800
+Message-ID: <9afab02b-4b02-485d-cca2-bdf8b1cf87e7@linux.microsoft.com>
+Date: Tue, 5 Jan 2021 12:01:40 -0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
 	Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <4e83480731b937cea479f688029560444b9cb66a.camel@linux.ibm.com>
+In-Reply-To: <5ae72a76664ce7011d3041689efbfe1a2c67d44f.camel@linux.ibm.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -67,14 +67,16 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 105K1nCM016823
 X-loop: dm-devel@redhat.com
 Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
 	jmorris@namei.org, linux-kernel@vger.kernel.org,
 	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
 	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v9 2/8] IMA: add support to measure buffer
-	data hash
+Subject: Re: [dm-devel] [PATCH v9 3/8] IMA: define a hook to measure kernel
+ integrity critical data
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -88,242 +90,116 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-
-
-On 2020-12-23 4:03 p.m., Mimi Zohar wrote:
-> On Sat, 2020-12-12 at 10:02 -0800, Tushar Sugandhi wrote:
->> The original IMA buffer data measurement sizes were small (e.g. boot
->> command line), but the new buffer data measurement use cases have data
->> sizes that are a lot larger.  Just as IMA measures the file data hash,
->> not the file data, IMA should similarly support the option for measuring
->> the hash of the buffer data.
->>
->> Measuring in-memory buffer-data/buffer-data-hash is different than
->> measuring file-data/file-data-hash. For the file, IMA stores the
->> measurements in both measurement log and the file's extended attribute -
->> which can later be used for appraisal as well. For buffer, the
->> measurements are only stored in the IMA log, since the buffer has no
->> extended attributes associated with it.
-> 
-> By definition, buffer data is only measured.  Nothing new is added by
-> the above paragraph.  Please remove it.
-> 
-Sure. Will remove.
->>
->> Introduce a boolean parameter measure_buf_hash to support measuring
->> hash of a buffer, which would be much smaller, instead of the buffer
->> itself.
-> 
-> Like the patch Subject line use "the buffer data hash" instead of the
-> "hash of a buffer".
-> 
-Will do.
-> There's no need to include the boolean parameter name
-> "measure_buf_hash".  Please remove it.
-> 
-Will do.
->>
->> Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
->> Reviewed-by: Tyler Hicks <tyhicks@linux.microsoft.com>
->> ---
->>   security/integrity/ima/ima.h                 |  3 +-
->>   security/integrity/ima/ima_appraise.c        |  2 +-
->>   security/integrity/ima/ima_asymmetric_keys.c |  2 +-
->>   security/integrity/ima/ima_main.c            | 38 +++++++++++++++++---
->>   security/integrity/ima/ima_queue_keys.c      |  3 +-
->>   5 files changed, 39 insertions(+), 9 deletions(-)
->>
->> diff --git a/security/integrity/ima/ima.h b/security/integrity/ima/ima.h
->> index e5622ce8cbb1..fa3044a7539f 100644
->> --- a/security/integrity/ima/ima.h
->> +++ b/security/integrity/ima/ima.h
->> @@ -268,7 +268,8 @@ void ima_store_measurement(struct integrity_iint_cache *iint, struct file *file,
->>   			   struct ima_template_desc *template_desc);
->>   void process_buffer_measurement(struct inode *inode, const void *buf, int size,
->>   				const char *eventname, enum ima_hooks func,
->> -				int pcr, const char *func_data);
->> +				int pcr, const char *func_data,
->> +				bool measure_buf_hash);
-> 
-> Please abbreviate the boolean name to "hash".   The test would then be
-> "if (hash == true)" or "if (hash)".
-> 
-Will do.
->>   void ima_audit_measurement(struct integrity_iint_cache *iint,
->>   			   const unsigned char *filename);
->>   int ima_alloc_init_template(struct ima_event_data *event_data,
->> diff --git a/security/integrity/ima/ima_appraise.c b/security/integrity/ima/ima_appraise.c
->> index 8361941ee0a1..46ffa38bab12 100644
->> --- a/security/integrity/ima/ima_appraise.c
->> +++ b/security/integrity/ima/ima_appraise.c
->> @@ -352,7 +352,7 @@ int ima_check_blacklist(struct integrity_iint_cache *iint,
->>   		if ((rc == -EPERM) && (iint->flags & IMA_MEASURE))
->>   			process_buffer_measurement(NULL, digest, digestsize,
->>   						   "blacklisted-hash", NONE,
->> -						   pcr, NULL);
->> +						   pcr, NULL, false);
->>   	}
->>   
->>   	return rc;
->> diff --git a/security/integrity/ima/ima_asymmetric_keys.c b/security/integrity/ima/ima_asymmetric_keys.c
->> index 1c68c500c26f..a74095793936 100644
->> --- a/security/integrity/ima/ima_asymmetric_keys.c
->> +++ b/security/integrity/ima/ima_asymmetric_keys.c
->> @@ -60,5 +60,5 @@ void ima_post_key_create_or_update(struct key *keyring, struct key *key,
->>   	 */
->>   	process_buffer_measurement(NULL, payload, payload_len,
->>   				   keyring->description, KEY_CHECK, 0,
->> -				   keyring->description);
->> +				   keyring->description, false);
->>   }
->> diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
->> index e76ef4bfd0f4..0f8409d77602 100644
->> --- a/security/integrity/ima/ima_main.c
->> +++ b/security/integrity/ima/ima_main.c
->> @@ -779,7 +779,7 @@ int ima_post_load_data(char *buf, loff_t size,
->>   }
->>   
->>   /*
->> - * process_buffer_measurement - Measure the buffer to ima log.
->> + * process_buffer_measurement - Measure the buffer or the buffer data hash
->>    * @inode: inode associated with the object being measured (NULL for KEY_CHECK)
->>    * @buf: pointer to the buffer that needs to be added to the log.
->>    * @size: size of buffer(in bytes).
->> @@ -787,12 +787,23 @@ int ima_post_load_data(char *buf, loff_t size,
->>    * @func: IMA hook
->>    * @pcr: pcr to extend the measurement
->>    * @func_data: private data specific to @func, can be NULL.
->> + * @measure_buf_hash: measure buffer hash
-> 
-> ^@hash: measure buffer data hash
-> 
-Agreed. Will fix.
->>    *
->> - * Based on policy, the buffer is measured into the ima log.
->> + * Measure the buffer into the IMA log, and extend the @pcr.
-> 
-> IMA always measures/appraises files and measures buffer data based on
-> policy.  The above sentence succintly summarizes what
-> process_buffer_measurement() does.   This patch adds support for
-> measuring the "buffer data hash".   The following would be an
-> appropriate change.
-> 
-> * Based on policy, either the buffer data or buffer data hash is
-> measured
-> 
-Sounds good. Will update.
->> + *
->> + * Determine what buffers are allowed to be measured, based on the policy rules
->> + * and the IMA hook passed using @func.
->> + *
->> + * Use @func_data, if provided, to match against the measurement policy rule
->> + * data for @func.
->> + *
->> + * If @measure_buf_hash is set to true - measure hash of the buffer data,
->> + * else measure the buffer data itself.
-> 
-> This patch should be limited to adding "buffer data hash" support.
-> These changes don't belong in this patch.  Please remove.
-> 
-Agreed. Will remove.
->>    */
->>   void process_buffer_measurement(struct inode *inode, const void *buf, int size,
->>   				const char *eventname, enum ima_hooks func,
->> -				int pcr, const char *func_data)
->> +				int pcr, const char *func_data,
->> +				bool measure_buf_hash)
->>   {
->>   	int ret = 0;
->>   	const char *audit_cause = "ENOMEM";
->> @@ -807,6 +818,8 @@ void process_buffer_measurement(struct inode *inode, const void *buf, int size,
->>   		struct ima_digest_data hdr;
->>   		char digest[IMA_MAX_DIGEST_SIZE];
->>   	} hash = {};
->> +	char buf_hash[IMA_MAX_DIGEST_SIZE];
->> +	int buf_hash_len = hash_digest_size[ima_hash_algo];
->>   	int violation = 0;
->>   	int action = 0;
->>   	u32 secid;
->> @@ -849,13 +862,27 @@ void process_buffer_measurement(struct inode *inode, const void *buf, int size,
->>   		goto out;
->>   	}
->>   
->> +	if (measure_buf_hash) {
-> 
-> ^ if (hash) {
-Yes.
->> +		memcpy(buf_hash, hash.hdr.digest, buf_hash_len);
->> +
->> +		ret = ima_calc_buffer_hash(buf_hash, buf_hash_len,
->> +					   iint.ima_hash);
->> +		if (ret < 0) {
->> +			audit_cause = "measure_buf_hash_error";
-> 
-> I don't see a good no reason for defining a new audit cause.  Use the
-> existing "hashing_error".
-> 
-> thanks,
-> 
-> Mimi
-> 
-
-Thanks,
-Tushar
->> +			goto out;
->> +		}
->> +
->> +		event_data.buf = buf_hash;
->> +		event_data.buf_len = buf_hash_len;
->> +	}
->> +
->>   	ret = ima_alloc_init_template(&event_data, &entry, template);
->>   	if (ret < 0) {
->>   		audit_cause = "alloc_entry";
->>   		goto out;
->>   	}
->>   
->> -	ret = ima_store_template(entry, violation, NULL, buf, pcr);
->> +	ret = ima_store_template(entry, violation, NULL, event_data.buf, pcr);
->>   	if (ret < 0) {
->>   		audit_cause = "store_entry";
->>   		ima_free_template_entry(entry);
->> @@ -890,7 +917,8 @@ void ima_kexec_cmdline(int kernel_fd, const void *buf, int size)
->>   		return;
->>   
->>   	process_buffer_measurement(file_inode(f.file), buf, size,
->> -				   "kexec-cmdline", KEXEC_CMDLINE, 0, NULL);
->> +				   "kexec-cmdline", KEXEC_CMDLINE, 0, NULL,
->> +				   false);
->>   	fdput(f);
->>   }
->>   
->> diff --git a/security/integrity/ima/ima_queue_keys.c b/security/integrity/ima/ima_queue_keys.c
->> index 69a8626a35c0..c2f2ad34f9b7 100644
->> --- a/security/integrity/ima/ima_queue_keys.c
->> +++ b/security/integrity/ima/ima_queue_keys.c
->> @@ -162,7 +162,8 @@ void ima_process_queued_keys(void)
->>   						   entry->payload_len,
->>   						   entry->keyring_name,
->>   						   KEY_CHECK, 0,
->> -						   entry->keyring_name);
->> +						   entry->keyring_name,
->> +						   false);
->>   		list_del(&entry->list);
->>   		ima_free_key_entry(entry);
->>   	}
-> 
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+CgpPbiAyMDIwLTEyLTI0IDU6MDQgYS5tLiwgTWltaSBab2hhciB3cm90ZToKPiBPbiBTYXQsIDIw
+MjAtMTItMTIgYXQgMTA6MDIgLTA4MDAsIFR1c2hhciBTdWdhbmRoaSB3cm90ZToKPj4gSU1BIHBy
+b3ZpZGVzIGNhcGFiaWxpdGllcyB0byBtZWFzdXJlIGZpbGUgZGF0YSwgYW5kIGluLW1lbW9yeSBi
+dWZmZXIKPiAKPiBObyBuZWVkIGZvciB0aGUgY29tbWEgaGVyZS4KPiAKPiBVcCB0byB0aGlzIHBh
+dGNoIHNldCwgYWxsIHRoZSBwYXRjaGVzIHJlZmVyIHRvICJidWZmZXIgZGF0YSIsIG5vdCAiaW4t
+Cj4gbWVtb3J5IGJ1ZmZlciBkYXRhIi4gIFRoaXMgcGF0Y2ggaW50cm9kdWNlcyB0aGUgY29uY2Vw
+dCBvZiBtZWFzdXJpbmcKPiAiaW4tbWVtb3J5IGJ1ZmZlciBkYXRhIi4gICBQbGVhc2UgcmVtb3Zl
+ICJpbi1tZW1vcnkiIGFib3ZlLgo+IApXaWxsIHVwZGF0ZSB0aGUgZGVzY3JpcHRpb24gYWNjb3Jk
+aW5nbHkuCj4+IGRhdGEuIEhvd2V2ZXIsIHZhcmlvdXMgZGF0YSBzdHJ1Y3R1cmVzLCBwb2xpY2ll
+cywgYW5kIHN0YXRlcwo+IAo+IEhlcmUgYW5kIGV2ZXJ5d2hlcmUgZWxzZSwgdGhlcmUgYXJlIHR3
+byBibGFua3MgYWZ0ZXIgYSBwZXJpb2QuCj4gCkkgY2hlY2tlZCB0aGlzIHBhdGNoIGZpbGUgaW4g
+bXVsdGlwbGUgdGV4dCBlZGl0b3JzLCBidXQgY291bGRu4oCZdCBmaW5kCmFueSBpbnN0YW5jZSBv
+ZiBwZXJpb2QgZm9sbG93ZWQgYnkgdHdvIHNwYWNlcy4gSSB3aWxsIGRvdWJsZSBjaGVjayBhZ2Fp
+biAKYWxsIHRoZSBwYXRjaGVzIGZvciBtdWx0aXBsZSBzcGFjZXMsIGFuZCByZW1vdmUgdGhlbSBp
+ZiBhbnkuCgo+PiBzdG9yZWQgaW4ga2VybmVsIG1lbW9yeSBhbHNvIGltcGFjdCB0aGUgaW50ZWdy
+aXR5IG9mIHRoZSBzeXN0ZW0uCj4+IFNldmVyYWwga2VybmVsIHN1YnN5c3RlbXMgY29udGFpbiBz
+dWNoIGludGVncml0eSBjcml0aWNhbCBkYXRhLiBUaGVzZQo+PiBrZXJuZWwgc3Vic3lzdGVtcyBo
+ZWxwIHByb3RlY3QgdGhlIGludGVncml0eSBvZiBhIGRldmljZS4gQ3VycmVudGx5LAo+IAo+IF5p
+bnRlZ3JpdHkgb2YgdGhlIHN5c3RlbS4KPiAKV2lsbCBkby4KPj4gSU1BIGRvZXMgbm90IHByb3Zp
+ZGUgYSBnZW5lcmljIGZ1bmN0aW9uIGZvciBrZXJuZWwgc3Vic3lzdGVtcyB0byBtZWFzdXJlCj4+
+IHRoZWlyIGludGVncml0eSBjcml0aWNhbCBkYXRhLgo+IAo+IFRoZSBlbXBoYXNpcyBzaG91bGQg
+bm90IGJlIG9uICJrZXJuZWwgc3Vic3lzdGVtcyIuICBTaW1wbGlmeSB0byAiZm9yCj4gbWVhc3Vy
+aW5nIGtlcm5lbCBpbnRlZ3JpdHkgY3JpdGljYWwgZGF0YSIuCj4gCldpbGwgZG8uCj4+ICAgCj4+
+IERlZmluZSBhIG5ldyBJTUEgaG9vayAtIGltYV9tZWFzdXJlX2NyaXRpY2FsX2RhdGEgdG8gbWVh
+c3VyZSBrZXJuZWwKPj4gaW50ZWdyaXR5IGNyaXRpY2FsIGRhdGEuCj4gCj4gRWl0aGVyICJpbWFf
+bWVhc3VyZV9jcml0aWNhbF9kYXRhIiBpcyBiZXR3ZWVuIGh5cGhlbnMgb3Igd2l0aG91dCBhbnkK
+PiBoeXBoZW5zLiAgSWYgbm90IGh5cGhlbmF0ZWQsIHRoZW4geW91IGNvdWxkIHNheSAibmFtZWQK
+PiBpbWFfbWVhc3VyZV9jcml0aWNhbF9kYXRhIiwgYnV0ICJuYW1lZCIgaXNuJ3QgbmVjZXNzYXJ5
+LiAgT3IgcmV2ZXJzZSAiYQo+IG5ldyBJTUEgaG9vayIgYW5kICJpbWFfbWVhc3VyZV9jcml0aWNh
+bF9kYXRhIiwgYWRkaW5nIGNvbW1hJ3MgbGlrZToKPiBEZWZpbmUgaW1hX21lYXN1cmVfY3JpdGlj
+YWxfZGF0YSwgYSBuZXcgSU1BIGhvb2ssIHRvIC4uLgo+IAo+IEFueSBvZiB0aGUgYWJvdmUgb3B0
+aW9ucyB3b3JrLCBqdXN0IG5vdCBhIHNpbmdsZSBoeXBoZW4uCj4gClRoYW5rcyBmb3IgdGhlIHN1
+Z2dlc3Rpb24uCkkgd2lsbCB1c2Ug4oCcRGVmaW5lIGltYV9tZWFzdXJlX2NyaXRpY2FsX2RhdGEs
+IGEgbmV3IElNQSBob29rLCB0byAuLi7igJ0KCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IFR1c2hhciBT
+dWdhbmRoaSA8dHVzaGFyc3VAbGludXgubWljcm9zb2Z0LmNvbT4KPj4gUmV2aWV3ZWQtYnk6IFR5
+bGVyIEhpY2tzIDx0eWhpY2tzQGxpbnV4Lm1pY3Jvc29mdC5jb20+Cj4+IC0tLQo+IAo+IDxzbmlw
+Pgo+IAo+PiBkaWZmIC0tZ2l0IGEvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9pbWFfbWFpbi5jIGIv
+c2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9pbWFfbWFpbi5jCj4+IGluZGV4IDBmODQwOWQ3NzYwMi4u
+ZGZmNGJjZTRmYjA5IDEwMDY0NAo+PiAtLS0gYS9zZWN1cml0eS9pbnRlZ3JpdHkvaW1hL2ltYV9t
+YWluLmMKPj4gKysrIGIvc2VjdXJpdHkvaW50ZWdyaXR5L2ltYS9pbWFfbWFpbi5jCj4+IEBAIC05
+MjIsNiArOTIyLDQwIEBAIHZvaWQgaW1hX2tleGVjX2NtZGxpbmUoaW50IGtlcm5lbF9mZCwgY29u
+c3Qgdm9pZCAqYnVmLCBpbnQgc2l6ZSkKPj4gICAJZmRwdXQoZik7Cj4+ICAgfQo+PiAgIAo+PiAr
+LyoqCj4+ICsgKiBpbWFfbWVhc3VyZV9jcml0aWNhbF9kYXRhIC0gbWVhc3VyZSBrZXJuZWwgaW50
+ZWdyaXR5IGNyaXRpY2FsIGRhdGEKPj4gKyAqIEBldmVudF9uYW1lOiBldmVudCBuYW1lIHRvIGJl
+IHVzZWQgZm9yIHRoZSBidWZmZXIgZW50cnkKPiAKPiBXaHkgZnV0dXJlIHRlbnNlPyAgIApJIHNp
+bXBseSB1c2VkIHRoZSBkZXNjcmlwdGlvbiBmcm9tIHBfYl9tKCkKKiBAZXZlbnRuYW1lOiBldmVu
+dCBuYW1lIHRvIGJlIHVzZWQgZm9yIHRoZSBidWZmZXIgZW50cnkuCgpCeSAiYnVmZmVyIGVudHJ5
+IiBkbyB5b3UgbWVhbiBhIHJlY29yZCBpbiB0aGUgSU1BCj4gbWVhc3VyZW1lbnQgbGlzdD8KPiAK
+WWVzLCBhIHJlY29yZCBpbiB0aGUgSU1BIG1lYXN1cmVtZW50IGxpc3QuCldpbGwgcmVtb3ZlIHRo
+ZSBmdXR1cmUgdGVuc2UgYW5kIHJld29yZCBpdCB0byBzb21ldGhpbmcgbGlrZToKCiAgKiBAZXZl
+bnRfbmFtZTogZXZlbnQgbmFtZSBmb3IgdGhlIGJ1ZmZlciBtZWFzdXJlbWVudCBlbnRyeQotb3It
+CiAgKiBAZXZlbnRfbmFtZTogZXZlbnQgbmFtZSBmb3IgdGhlIHJlY29yZCBpbiB0aGUgSU1BIG1l
+YXN1cmVtZW50IGxpc3QKCj4+ICsgKiBAYnVmOiBwb2ludGVyIHRvIGJ1ZmZlciBjb250YWluaW5n
+IGRhdGEgdG8gbWVhc3VyZQo+IAo+IF5wb2ludGVyIHRvIGJ1ZmZlciBkYXRhCj4gCndpbGwgZG8u
+Cj4+ICsgKiBAYnVmX2xlbjogbGVuZ3RoIG9mIGJ1ZmZlcihpbiBieXRlcykKPiAKPiBebGVuZ3Ro
+IG9mIGJ1ZmZlciBkYXRhIChpbiBieXRlcykKPiAKd2lsbCBkby4KPj4gKyAqIEBtZWFzdXJlX2J1
+Zl9oYXNoOiBtZWFzdXJlIGJ1ZmZlciBoYXNoCj4gCj4gQXMgcmVxdWVzdGVkIGluIDIvOCwgcGxl
+YXNlIGFiYnJldmlhdGUgdGhlIGJvb2xlYW4gbmFtZSB0byAiaGFzaCIuCj4gUmVmZXIgdG8gc2Vj
+dGlvbiAiNCkgTmFtaW5nIiBpbiBEb2N1bWVudGF0aW9uL3Byb2Nlc3MvY29kaW5nLXN0eWxlLnJz
+dAo+IGZvciB2YXJpYWJsZSBuYW1pbmcgY29udmVudGlvbnMuCj4gCj4gXkBoYXNoOiBtZWFzdXJl
+IGJ1ZmZlciBkYXRhIGhhc2gKPiAKU291bmRzIGdvb2QuIFdpbGwgZG8uCj4+ICsgKgo+PiArICog
+TWVhc3VyZSB0aGUga2VybmVsIHN1YnN5c3RlbSBkYXRhLCBjcml0aWNhbCB0byB0aGUgaW50ZWdy
+aXR5IG9mIHRoZSBrZXJuZWwsCj4+ICsgKiBpbnRvIHRoZSBJTUEgbG9nIGFuZCBleHRlbmQgdGhl
+IEBwY3IuCj4+ICsgKgo+PiArICogVXNlIEBldmVudF9uYW1lIHRvIGRlc2NyaWJlIHRoZSBzdGF0
+ZS9idWZmZXIgZGF0YSBjaGFuZ2UuCj4+ICsgKiBFeGFtcGxlcyBvZiBjcml0aWNhbCBkYXRhIChA
+YnVmKSBjb3VsZCBiZSB2YXJpb3VzIGRhdGEgc3RydWN0dXJlcywKPj4gKyAqIHBvbGljaWVzLCBh
+bmQgc3RhdGVzIHN0b3JlZCBpbiBrZXJuZWwgbWVtb3J5IHRoYXQgY2FuIGltcGFjdCB0aGUgaW50
+ZWdyaXR5Cj4+ICsgKiBvZiB0aGUgc3lzdGVtLgo+PiArICoKPj4gKyAqIElmIEBtZWFzdXJlX2J1
+Zl9oYXNoIGlzIHNldCB0byB0cnVlIC0gbWVhc3VyZSBoYXNoIG9mIHRoZSBidWZmZXIgZGF0YSwK
+Pj4gKyAqIGVsc2UgbWVhc3VyZSB0aGUgYnVmZmVyIGRhdGEgaXRzZWxmLgo+PiArICogQG1lYXN1
+cmVfYnVmX2hhc2ggY2FuIGJlIHVzZWQgdG8gc2F2ZSBzcGFjZSwgaWYgdGhlIGRhdGEgYmVpbmcg
+bWVhc3VyZWQKPj4gKyAqIGlzIHRvbyBsYXJnZS4KPj4gKyAqCj4+ICsgKiBUaGUgZGF0YSAoQGJ1
+ZikgY2FuIG9ubHkgYmUgbWVhc3VyZWQsIG5vdCBhcHByYWlzZWQuCj4gCj4gVGhlICIvKioiIGlz
+IHRoZSBzdGFydCBvZiBrZXJuZWwtZG9jLiAgSGF2ZSB5b3Ugc2VlbiBhbnl3aGVyZSBlbHNlIGlu
+Ck15IGltcHJlc3Npb24gd2FzIHRoZSBob29rcyBpbiBpbWFfbWFpbi5jIGUuZy4gaW1hX2ZpbGVf
+ZnJlZSgpCmltYV9maWxlX21tYXAoKSByZXF1aXJlZCB0aGUgZG91YmxlLWFzdGVyaXNrICgiLyoq
+IiksIGFuZCBpbnRlcm5hbApmdW5jdGlvbnMgbGlrZSBpbWFfcmR3cl92aW9sYXRpb25fY2hlY2so
+KSByZXF1aXJlIGEgc2luZ2xlLWFzdGVyaXNrCigiLyoiKQoKa2VybmVsLWRvYy5yc3Qgc3VnZ2Vz
+dCB0aGUgZG91YmxlLWFzdGVyaXNrICgiLyoqIikgZm9yIGZ1bmN0aW9uIGNvbW1lbnQKYXMgd2Vs
+bC4KCkZ1bmN0aW9uIGRvY3VtZW50YXRpb24KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKVGhlIGdl
+bmVyYWwgZm9ybWF0IG9mIGEgZnVuY3Rpb24gYW5kIGZ1bmN0aW9uLWxpa2UgbWFjcm8ga2VybmVs
+LWRvYyAKY29tbWVudCBpczo6CgogICAvKioKICAgICogZnVuY3Rpb25fbmFtZSgpIC0gQnJpZWYg
+ZGVzY3JpcHRpb24gb2YgZnVuY3Rpb24uCgpQbGVhc2UgbGV0IG1lIGtub3cgaWYgeW91IHN0aWxs
+IHdhbnQgbWUgdG8gcmVtb3ZlIHRoZSBkb3VibGUtYXN0ZXJpc2sKKCIvKioiKSBoZXJlLgoKPiB0
+aGUga2VybmVsIHVzaW5nIHRoZSBAPHZhcmlhYmxlIG5hbWU+IGluIHRoZSBsb25nZXIgZnVuY3Rp
+b24KPiBkZXNjcmlwdGlvbj8gIEhhdmUgeW91IHNlZW4gdGhpcyBzdHlsZSBvZiBsb25nZXIgICBm
+dW5jdGlvbgo+IGRlc2NyaXB0aW9uPyAgUmVmZXIgdG8gRG9jdW1lbnRhdGlvbi9kb2MtZ3VpZGUv
+a2VybmVsLWRvYy5yc3QgYW5kIG90aGVyCj4gY29kZSBmb3IgZXhhbXBsZXMuCj4gClRoYW5rcy4g
+SSB3aWxsIHJlbW92ZSB0aGUgcHJlZml4ICJAIiBmcm9tIDx2YXJpYWJsZSBuYW1lPiBpbiB0aGUg
+bG9uZ2VyIApmdW5jdGlvbiBkZXNjcmlwdGlvbi4KCj4+ICsgKi8KPj4gK3ZvaWQgaW1hX21lYXN1
+cmVfY3JpdGljYWxfZGF0YShjb25zdCBjaGFyICpldmVudF9uYW1lLAo+PiArCQkJICAgICAgIGNv
+bnN0IHZvaWQgKmJ1ZiwgaW50IGJ1Zl9sZW4sCj4gCj4gQXMgImJ1Zl9sZW4iIHNob3VsZCBhbHdh
+eXMgYmUgPj0gMCwgaXQgc2hvdWxkIG5vdCBiZSBkZWZpbmVkIGFzIGEKPiBzaWduZWQgdmFyaWFi
+bGUuCj4gCkdvb2QgcG9pbnQuIEkgd2lsbCBzd2l0Y2ggdG8gZWl0aGVyIHNpemVfdCBvciB1bnNp
+Z25lZCBpbnQuCgo+PiArCQkJICAgICAgIGJvb2wgbWVhc3VyZV9idWZfaGFzaCkKPj4gK3sKPj4g
+KwlpZiAoIWV2ZW50X25hbWUgfHwgIWJ1ZiB8fCAhYnVmX2xlbikKPj4gKwkJcmV0dXJuOwo+PiAr
+Cj4+ICsJcHJvY2Vzc19idWZmZXJfbWVhc3VyZW1lbnQoTlVMTCwgYnVmLCBidWZfbGVuLCBldmVu
+dF9uYW1lLAo+PiArCQkJCSAgIENSSVRJQ0FMX0RBVEEsIDAsIE5VTEwsCj4+ICsJCQkJICAgbWVh
+c3VyZV9idWZfaGFzaCk7Cj4gCj4gXmhhc2gKPiAKV2lsbCBkby4KPiB0aGFua3MsCj4gCj4gTWlt
+aQo+IApUaGFua3MsClR1c2hhcgo+PiArfQo+PiArCj4+ICAgc3RhdGljIGludCBfX2luaXQgaW5p
+dF9pbWEodm9pZCkKPj4gICB7Cj4+ICAgCWludCBlcnJvcjsKPiAKCgotLQpkbS1kZXZlbCBtYWls
+aW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL3d3dy5yZWRoYXQuY29tL21haWxt
+YW4vbGlzdGluZm8vZG0tZGV2ZWw=
 
