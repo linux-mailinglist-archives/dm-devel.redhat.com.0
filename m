@@ -2,57 +2,64 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0EC2C2EEC27
-	for <lists+dm-devel@lfdr.de>; Fri,  8 Jan 2021 05:08:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E889B2EF0AE
+	for <lists+dm-devel@lfdr.de>; Fri,  8 Jan 2021 11:32:14 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-472-estnXUkUNO6TBdJTQZm0ZA-1; Thu, 07 Jan 2021 23:08:03 -0500
-X-MC-Unique: estnXUkUNO6TBdJTQZm0ZA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-204-pqw8cCCPNg-gPGbwWHfdtg-1; Fri, 08 Jan 2021 05:32:11 -0500
+X-MC-Unique: pqw8cCCPNg-gPGbwWHfdtg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C89781034B21;
-	Fri,  8 Jan 2021 04:07:53 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F3079800D62;
+	Fri,  8 Jan 2021 10:32:05 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A8F7C709B0;
-	Fri,  8 Jan 2021 04:07:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0B9CB5D9DE;
+	Fri,  8 Jan 2021 10:32:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 638F95002E;
-	Fri,  8 Jan 2021 04:07:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6E12B5002C;
+	Fri,  8 Jan 2021 10:31:55 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10847WiB008599 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 7 Jan 2021 23:07:32 -0500
+	id 108397Hi002006 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 7 Jan 2021 22:09:07 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3F023114B9B1; Fri,  8 Jan 2021 04:07:32 +0000 (UTC)
+	id E4ABFD7B3C; Fri,  8 Jan 2021 03:09:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B09E114B9AC
-	for <dm-devel@redhat.com>; Fri,  8 Jan 2021 04:07:32 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DEA35D7B3E
+	for <dm-devel@redhat.com>; Fri,  8 Jan 2021 03:09:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 24D55185A794
-	for <dm-devel@redhat.com>; Fri,  8 Jan 2021 04:07:32 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-109-IhyNMv5gN0aU-f9O_G4uFQ-3;
-	Thu, 07 Jan 2021 23:07:27 -0500
-X-MC-Unique: IhyNMv5gN0aU-f9O_G4uFQ-3
-Received: from tusharsu-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
-	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id B16DC20B6C47;
-	Thu,  7 Jan 2021 20:07:26 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B16DC20B6C47
-From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-To: zohar@linux.ibm.com, stephen.smalley.work@gmail.com,
-	casey@schaufler-ca.com, agk@redhat.com, snitzer@redhat.com,
-	gmazyland@gmail.com, paul@paul-moore.com
-Date: Thu,  7 Jan 2021 20:07:08 -0800
-Message-Id: <20210108040708.8389-9-tusharsu@linux.microsoft.com>
-In-Reply-To: <20210108040708.8389-1-tusharsu@linux.microsoft.com>
-References: <20210108040708.8389-1-tusharsu@linux.microsoft.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ACEFC858280
+	for <dm-devel@redhat.com>; Fri,  8 Jan 2021 03:09:04 +0000 (UTC)
+Received: from out30-131.freemail.mail.aliyun.com
+	(out30-131.freemail.mail.aliyun.com [115.124.30.131]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-338-pEA748nsNuarh1V6JlJj-A-1;
+	Thu, 07 Jan 2021 22:09:00 -0500
+X-MC-Unique: pEA748nsNuarh1V6JlJj-A-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R961e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04394;
+	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=4; SR=0;
+	TI=SMTPD_---0UL14HDq_1610075329
+Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
+	fp:SMTPD_---0UL14HDq_1610075329) by smtp.aliyun-inc.com(127.0.0.1);
+	Fri, 08 Jan 2021 11:08:50 +0800
+To: Mike Snitzer <snitzer@redhat.com>
+References: <20201223112624.78955-1-jefflexu@linux.alibaba.com>
+	<20201223112624.78955-7-jefflexu@linux.alibaba.com>
+	<20210107221825.GF21239@redhat.com>
+From: JeffleXu <jefflexu@linux.alibaba.com>
+Message-ID: <97ec2025-4937-b476-4f15-446cc304e799@linux.alibaba.com>
+Date: Fri, 8 Jan 2021 11:08:49 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+	Gecko/20100101 Thunderbird/78.6.0
+MIME-Version: 1.0
+In-Reply-To: <20210107221825.GF21239@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,14 +68,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
-	jmorris@namei.org, linux-kernel@vger.kernel.org,
-	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
-	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: [dm-devel] [PATCH v10 8/8] selinux: include a consumer of the new
-	IMA critical data hook
+X-Mailman-Approved-At: Fri, 08 Jan 2021 05:31:42 -0500
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com, io-uring@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH RFC 6/7] block: track cookies of split bios
+ for bio-based device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,318 +85,412 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
+Thanks for reviewing.
 
-SELinux stores the active policy in memory, so the changes to this data
-at runtime would have an impact on the security guarantees provided
-by SELinux.  Measuring in-memory SELinux policy through IMA subsystem
-provides a secure way for the attestation service to remotely validate
-the policy contents at runtime.
 
-Measure the hash of the loaded policy by calling the IMA hook
-ima_measure_critical_data().  Since the size of the loaded policy
-can be large (several MB), measure the hash of the policy instead of
-the entire policy to avoid bloating the IMA log entry.
+On 1/8/21 6:18 AM, Mike Snitzer wrote:
+> On Wed, Dec 23 2020 at  6:26am -0500,
+> Jeffle Xu <jefflexu@linux.alibaba.com> wrote:
+> 
+>> This is actuaaly the core when supporting iopoll for bio-based device.
+>>
+>> A list is maintained in the top bio (the original bio submitted to dm
+>> device), which is used to maintain all valid cookies of split bios. The
+>> IO polling routine will actually iterate this list and poll on
+>> corresponding hardware queues of the underlying mq devices.
+>>
+>> Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
+> 
+> Like I said in response to patch 4 in this series: please fold patch 4
+> into this patch and _really_ improve this patch header.
+> 
+> In particular, the (ab)use of bio_inc_remaining() needs be documented in
+> this patch header very well.
+> 
+> But its use could easily be why you're seeing a performance hit (coupled
+> with the extra spinlock locking and list management used).  Just added
+> latency and contention across CPUs.
 
-To enable SELinux data measurement, the following steps are required:
+Indeed bio_inc_remaining() is abused here and the code seems quite hacky
+here.
 
-1, Add "ima_policy=critical_data" to the kernel command line arguments
-   to enable measuring SELinux data at boot time.
-For example,
-  BOOT_IMAGE=/boot/vmlinuz-5.10.0-rc1+ root=UUID=fd643309-a5d2-4ed3-b10d-3c579a5fab2f ro nomodeset security=selinux ima_policy=critical_data
+Actually I'm regarding implementing the split bio tracking mechanism in
+a recursive way you had ever suggested. That is, the split bios could be
+maintained in an array, which is allocated with 'struct dm_io'. This way
+the overhead of spinlock protecting the &root->bi_plist may be omitted
+here. Also the lifetime management may be simplified somehow. But the
+block core needs to fetch the per-bio private data now, just like what
+you had ever suggested before.
 
-2, Add the following rule to /etc/ima/ima-policy
-   measure func=CRITICAL_DATA label=selinux
+How do you think, Mike?
 
-Sample measurement of the hash of SELinux policy:
 
-To verify the measured data with the current SELinux policy run
-the following commands and verify the output hash values match.
+Besides the lifetime management is quite annoying to me. As long as the
+tracking object representing a valid split bio) is dynamically
+allocated, no matter it's embedded directly in 'struct bio' (in this
+patch), or allocated with 'struct dm_io', the lifetime management of the
+tracking object comes in. Here the so called tracking object is
+something like
 
-  sha256sum /sys/fs/selinux/policy | cut -d' ' -f 1
+struct node {
+    struct blk_mq_hw_ctx *hctx;
+    blk_qc_t cookie;
+};
 
-  grep "selinux-policy-hash" /sys/kernel/security/integrity/ima/ascii_runtime_measurements | tail -1 | cut -d' ' -f 6
 
-Note that the actual verification of SELinux policy would require loading
-the expected policy into an identical kernel on a pristine/known-safe
-system and run the sha256sum /sys/kernel/selinux/policy there to get
-the expected hash.
+Actually currently the tracking objects are all allocated with 'struct
+bio', then the lifetime management of the tracking objects is actually
+equivalent to lifetime management of bio. Since the returned cookie is
+actually a pointer to the bio, the refcount of this bio must be
+incremented, since we release a reference to this bio through the
+returned cookie, in which case the abuse of the refcount trick seems
+unavoidable? Unless we allocate the tracking object individually, then
+the returned cookie is actually pointing to the tracking object, and the
+refcount is individually maintained for the tracking object.
 
-Signed-off-by: Lakshmi Ramasubramanian <nramas@linux.microsoft.com>
-Suggested-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-Reviewed-by: Tyler Hicks <tyhicks@linux.microsoft.com>
----
- Documentation/ABI/testing/ima_policy |  3 +-
- security/selinux/Makefile            |  2 +
- security/selinux/ima.c               | 64 ++++++++++++++++++++++++++++
- security/selinux/include/ima.h       | 24 +++++++++++
- security/selinux/include/security.h  |  3 +-
- security/selinux/ss/services.c       | 64 ++++++++++++++++++++++++----
- 6 files changed, 149 insertions(+), 11 deletions(-)
- create mode 100644 security/selinux/ima.c
- create mode 100644 security/selinux/include/ima.h
 
-diff --git a/Documentation/ABI/testing/ima_policy b/Documentation/ABI/testing/ima_policy
-index 54fe1c15ed50..8365596cb42b 100644
---- a/Documentation/ABI/testing/ima_policy
-+++ b/Documentation/ABI/testing/ima_policy
-@@ -52,8 +52,9 @@ Description:
- 			template:= name of a defined IMA template type
- 			(eg, ima-ng). Only valid when action is "measure".
- 			pcr:= decimal value
--			label:= [data_label]
-+			label:= [selinux]|[data_label]
- 			data_label:= a unique string used for grouping and limiting critical data.
-+			For example, "selinux" to measure critical data for SELinux.
- 
- 		  default policy:
- 			# PROC_SUPER_MAGIC
-diff --git a/security/selinux/Makefile b/security/selinux/Makefile
-index 4d8e0e8adf0b..776162444882 100644
---- a/security/selinux/Makefile
-+++ b/security/selinux/Makefile
-@@ -16,6 +16,8 @@ selinux-$(CONFIG_NETLABEL) += netlabel.o
- 
- selinux-$(CONFIG_SECURITY_INFINIBAND) += ibpkey.o
- 
-+selinux-$(CONFIG_IMA) += ima.o
-+
- ccflags-y := -I$(srctree)/security/selinux -I$(srctree)/security/selinux/include
- 
- $(addprefix $(obj)/,$(selinux-y)): $(obj)/flask.h
-diff --git a/security/selinux/ima.c b/security/selinux/ima.c
-new file mode 100644
-index 000000000000..0b835bdc3aa9
---- /dev/null
-+++ b/security/selinux/ima.c
-@@ -0,0 +1,64 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (C) 2021 Microsoft Corporation
-+ *
-+ * Author: Lakshmi Ramasubramanian (nramas@linux.microsoft.com)
-+ *
-+ * Measure critical data structures maintainted by SELinux
-+ * using IMA subsystem.
-+ */
-+#include <linux/vmalloc.h>
-+#include <linux/ktime.h>
-+#include <linux/ima.h>
-+#include "security.h"
-+#include "ima.h"
-+
-+/*
-+ * selinux_ima_measure_state - Measure hash of the SELinux policy
-+ *
-+ * @state: selinux state struct
-+ *
-+ * NOTE: This function must be called with policy_mutex held.
-+ */
-+void selinux_ima_measure_state(struct selinux_state *state)
-+{
-+	struct timespec64 cur_time;
-+	void *policy = NULL;
-+	char *policy_event_name = NULL;
-+	size_t policy_len;
-+	int rc = 0;
-+
-+	/*
-+	 * Measure SELinux policy only after initialization is completed.
-+	 */
-+	if (!selinux_initialized(state))
-+		return;
-+
-+	/*
-+	 * Pass a unique "event_name" to the IMA hook so that IMA subsystem
-+	 * will always measure the given data.
-+	 */
-+	ktime_get_real_ts64(&cur_time);
-+	policy_event_name = kasprintf(GFP_KERNEL, "%s-%lld:%09ld",
-+				      "selinux-policy-hash",
-+				      cur_time.tv_sec, cur_time.tv_nsec);
-+	if (!policy_event_name) {
-+		pr_err("SELinux: %s: event name for policy not allocated.\n",
-+		       __func__);
-+		goto out;
-+	}
-+
-+	rc = security_read_state_kernel(state, &policy, &policy_len);
-+	if (rc) {
-+		pr_err("SELinux: %s: failed to read policy %d.\n", __func__, rc);
-+		goto out;
-+	}
-+
-+	ima_measure_critical_data("selinux", policy_event_name,
-+				  policy, policy_len, true);
-+
-+	vfree(policy);
-+
-+out:
-+	kfree(policy_event_name);
-+}
-diff --git a/security/selinux/include/ima.h b/security/selinux/include/ima.h
-new file mode 100644
-index 000000000000..d69c36611423
---- /dev/null
-+++ b/security/selinux/include/ima.h
-@@ -0,0 +1,24 @@
-+/* SPDX-License-Identifier: GPL-2.0+ */
-+/*
-+ * Copyright (C) 2021 Microsoft Corporation
-+ *
-+ * Author: Lakshmi Ramasubramanian (nramas@linux.microsoft.com)
-+ *
-+ * Measure critical data structures maintainted by SELinux
-+ * using IMA subsystem.
-+ */
-+
-+#ifndef _SELINUX_IMA_H_
-+#define _SELINUX_IMA_H_
-+
-+#include "security.h"
-+
-+#ifdef CONFIG_IMA
-+extern void selinux_ima_measure_state(struct selinux_state *selinux_state);
-+#else
-+static inline void selinux_ima_measure_state(struct selinux_state *selinux_state)
-+{
-+}
-+#endif
-+
-+#endif	/* _SELINUX_IMA_H_ */
-diff --git a/security/selinux/include/security.h b/security/selinux/include/security.h
-index 3cc8bab31ea8..29cae32d3fc5 100644
---- a/security/selinux/include/security.h
-+++ b/security/selinux/include/security.h
-@@ -229,7 +229,8 @@ void selinux_policy_cancel(struct selinux_state *state,
- 			struct selinux_policy *policy);
- int security_read_policy(struct selinux_state *state,
- 			 void **data, size_t *len);
--
-+int security_read_state_kernel(struct selinux_state *state,
-+			       void **data, size_t *len);
- int security_policycap_supported(struct selinux_state *state,
- 				 unsigned int req_cap);
- 
-diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
-index 9704c8a32303..cc8dbc4ed8db 100644
---- a/security/selinux/ss/services.c
-+++ b/security/selinux/ss/services.c
-@@ -65,6 +65,7 @@
- #include "ebitmap.h"
- #include "audit.h"
- #include "policycap_names.h"
-+#include "ima.h"
- 
- /* Forward declaration. */
- static int context_struct_to_string(struct policydb *policydb,
-@@ -2180,6 +2181,7 @@ static void selinux_notify_policy_change(struct selinux_state *state,
- 	selinux_status_update_policyload(state, seqno);
- 	selinux_netlbl_cache_invalidate();
- 	selinux_xfrm_notify_policyload();
-+	selinux_ima_measure_state(state);
- }
- 
- void selinux_policy_commit(struct selinux_state *state,
-@@ -3875,8 +3877,33 @@ int security_netlbl_sid_to_secattr(struct selinux_state *state,
- }
- #endif /* CONFIG_NETLABEL */
- 
-+/**
-+ * __security_read_policy - read the policy.
-+ * @policy: SELinux policy
-+ * @data: binary policy data
-+ * @len: length of data in bytes
-+ *
-+ */
-+static int __security_read_policy(struct selinux_policy *policy,
-+				  void *data, size_t *len)
-+{
-+	int rc;
-+	struct policy_file fp;
-+
-+	fp.data = data;
-+	fp.len = *len;
-+
-+	rc = policydb_write(&policy->policydb, &fp);
-+	if (rc)
-+		return rc;
-+
-+	*len = (unsigned long)fp.data - (unsigned long)data;
-+	return 0;
-+}
-+
- /**
-  * security_read_policy - read the policy.
-+ * @state: selinux_state
-  * @data: binary policy data
-  * @len: length of data in bytes
-  *
-@@ -3885,8 +3912,6 @@ int security_read_policy(struct selinux_state *state,
- 			 void **data, size_t *len)
- {
- 	struct selinux_policy *policy;
--	int rc;
--	struct policy_file fp;
- 
- 	policy = rcu_dereference_protected(
- 			state->policy, lockdep_is_held(&state->policy_mutex));
-@@ -3898,14 +3923,35 @@ int security_read_policy(struct selinux_state *state,
- 	if (!*data)
- 		return -ENOMEM;
- 
--	fp.data = *data;
--	fp.len = *len;
-+	return __security_read_policy(policy, *data, len);
-+}
- 
--	rc = policydb_write(&policy->policydb, &fp);
--	if (rc)
--		return rc;
-+/**
-+ * security_read_state_kernel - read the policy.
-+ * @state: selinux_state
-+ * @data: binary policy data
-+ * @len: length of data in bytes
-+ *
-+ * Allocates kernel memory for reading SELinux policy.
-+ * This function is for internal use only and should not
-+ * be used for returning data to user space.
-+ *
-+ * This function must be called with policy_mutex held.
-+ */
-+int security_read_state_kernel(struct selinux_state *state,
-+			       void **data, size_t *len)
-+{
-+	struct selinux_policy *policy;
- 
--	*len = (unsigned long)fp.data - (unsigned long)*data;
--	return 0;
-+	policy = rcu_dereference_protected(
-+			state->policy, lockdep_is_held(&state->policy_mutex));
-+	if (!policy)
-+		return -EINVAL;
-+
-+	*len = policy->policydb.len;
-+	*data = vmalloc(*len);
-+	if (!*data)
-+		return -ENOMEM;
- 
-+	return __security_read_policy(policy, *data, len);
- }
+> 
+>> ---
+>>  block/bio.c               |  8 ++++
+>>  block/blk-core.c          | 84 ++++++++++++++++++++++++++++++++++++++-
+>>  include/linux/blk_types.h | 39 ++++++++++++++++++
+>>  3 files changed, 129 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/block/bio.c b/block/bio.c
+>> index 1f2cc1fbe283..ca6d1a7ee196 100644
+>> --- a/block/bio.c
+>> +++ b/block/bio.c
+>> @@ -284,6 +284,10 @@ void bio_init(struct bio *bio, struct bio_vec *table,
+>>  
+>>  	bio->bi_io_vec = table;
+>>  	bio->bi_max_vecs = max_vecs;
+>> +
+>> +	INIT_LIST_HEAD(&bio->bi_plist);
+>> +	INIT_LIST_HEAD(&bio->bi_pnode);
+>> +	spin_lock_init(&bio->bi_plock);
+>>  }
+>>  EXPORT_SYMBOL(bio_init);
+>>  
+>> @@ -689,6 +693,7 @@ void __bio_clone_fast(struct bio *bio, struct bio *bio_src)
+>>  	bio->bi_write_hint = bio_src->bi_write_hint;
+>>  	bio->bi_iter = bio_src->bi_iter;
+>>  	bio->bi_io_vec = bio_src->bi_io_vec;
+>> +	bio->bi_root = bio_src->bi_root;
+>>  
+>>  	bio_clone_blkg_association(bio, bio_src);
+>>  	blkcg_bio_issue_init(bio);
+>> @@ -1425,6 +1430,8 @@ void bio_endio(struct bio *bio)
+>>  	if (bio->bi_disk)
+>>  		rq_qos_done_bio(bio->bi_disk->queue, bio);
+>>  
+>> +	bio_del_poll_list(bio);
+>> +
+>>  	/*
+>>  	 * Need to have a real endio function for chained bios, otherwise
+>>  	 * various corner cases will break (like stacking block devices that
+>> @@ -1446,6 +1453,7 @@ void bio_endio(struct bio *bio)
+>>  	blk_throtl_bio_endio(bio);
+>>  	/* release cgroup info */
+>>  	bio_uninit(bio);
+>> +
+>>  	if (bio->bi_end_io)
+>>  		bio->bi_end_io(bio);
+>>  }
+>> diff --git a/block/blk-core.c b/block/blk-core.c
+>> index 2f5c51ce32e3..5a332af01939 100644
+>> --- a/block/blk-core.c
+>> +++ b/block/blk-core.c
+>> @@ -960,12 +960,31 @@ static blk_qc_t __submit_bio_noacct(struct bio *bio)
+>>  {
+>>  	struct bio_list bio_list_on_stack[2];
+>>  	blk_qc_t ret = BLK_QC_T_NONE;
+>> +	bool iopoll;
+>> +	struct bio *root;
+>>  
+>>  	BUG_ON(bio->bi_next);
+>>  
+>>  	bio_list_init(&bio_list_on_stack[0]);
+>>  	current->bio_list = bio_list_on_stack;
+>>  
+>> +	iopoll = test_bit(QUEUE_FLAG_POLL, &bio->bi_disk->queue->queue_flags);
+>> +	iopoll = iopoll && (bio->bi_opf & REQ_HIPRI);
+>> +
+>> +	if (iopoll) {
+>> +		bio->bi_root = root = bio;
+>> +		/*
+>> +		 * We need to pin root bio here since there's a reference from
+>> +		 * the returned cookie. bio_get() is not enough since the whole
+>> +		 * bio and the corresponding kiocb/dio may have already
+>> +		 * completed and thus won't call blk_poll() at all, in which
+>> +		 * case the pairing bio_put() in blk_bio_poll() won't be called.
+>> +		 * The side effect of bio_inc_remaining() is that, the whole bio
+>> +		 * won't complete until blk_poll() called.
+>> +		 */
+>> +		bio_inc_remaining(root);
+>> +	}
+>> +
+>>  	do {
+>>  		struct request_queue *q = bio->bi_disk->queue;
+>>  		struct bio_list lower, same;
+>> @@ -979,7 +998,18 @@ static blk_qc_t __submit_bio_noacct(struct bio *bio)
+>>  		bio_list_on_stack[1] = bio_list_on_stack[0];
+>>  		bio_list_init(&bio_list_on_stack[0]);
+>>  
+>> -		ret = __submit_bio(bio);
+>> +		if (iopoll) {
+>> +			/* See the comments of above bio_inc_remaining(). */
+>> +			bio_inc_remaining(bio);
+>> +			bio->bi_cookie = __submit_bio(bio);
+>> +
+>> +			if (blk_qc_t_valid(bio->bi_cookie))
+>> +				bio_add_poll_list(bio);
+>> +
+>> +			bio_endio(bio);
+>> +		} else {
+>> +			ret = __submit_bio(bio);
+>> +		}
+>>  
+>>  		/*
+>>  		 * Sort new bios into those for a lower level and those for the
+>> @@ -1002,7 +1032,11 @@ static blk_qc_t __submit_bio_noacct(struct bio *bio)
+>>  	} while ((bio = bio_list_pop(&bio_list_on_stack[0])));
+>>  
+>>  	current->bio_list = NULL;
+>> -	return ret;
+>> +
+>> +	if (iopoll)
+>> +		return (blk_qc_t)root;
+>> +
+>> +	return BLK_QC_T_NONE;
+>>  }
+>>  
+>>  static blk_qc_t __submit_bio_noacct_mq(struct bio *bio)
+>> @@ -1131,6 +1165,52 @@ blk_qc_t submit_bio(struct bio *bio)
+>>  }
+>>  EXPORT_SYMBOL(submit_bio);
+>>  
+>> +int blk_bio_poll(struct request_queue *q, blk_qc_t cookie)
+>> +{
+>> +	int ret = 0;
+>> +	struct bio *bio, *root = (struct bio*)cookie;
+>> +
+>> +	if (list_empty(&root->bi_plist)) {
+>> +		bio_endio(root);
+>> +		return 1;
+>> +	}
+>> +
+>> +	spin_lock(&root->bi_plock);
+>> +	bio = list_first_entry_or_null(&root->bi_plist, struct bio, bi_pnode);
+>> +
+>> +	while (bio) {
+>> +		struct request_queue *q = bio->bi_disk->queue;
+>> +		blk_qc_t cookie = bio->bi_cookie;
+>> +
+>> +		spin_unlock(&root->bi_plock);
+>> +		BUG_ON(!blk_qc_t_valid(cookie));
+>> +
+>> +		ret += blk_mq_poll(q, cookie);
+> 
+> Not yet clear to me how you _know_ this q is blk-mq...
+> What about a deep stack of bio-based DM devices?
+> 
+
+This design works in arbitrary bio-based DM stacking.
+
+
+> Or are you confining bio-based DM IO polling support to bio-based
+> stacked directly on blk-mq? (patch 7 likely shows that to be the case).
+> 
+
+patch 7 works in arbitrary bio-based DM stacking. Please see the reply
+for patch 7 for details.
+
+
+> If so, I'm not liking that at all.  So if your implementation doesn't
+> support arbitrary bio-based IO stacks then this bio-based IO polling
+> support really has limited utility still.
+> 
+> Helps explin how you got away with having bio-based DM always returning
+> BLK_QC_T_NONE in patch 5 though... feels far too simplistic.  Patch 5+6
+> together are implicitly ignoring the complexity that results from
+> arbitrary bio-based DM stacking.
+> 
+> Or am I missing something?
+
+The magic is in patch 5. Bios submitted directly to DM device won't be
+enqueue into this &root->bi_plist list, since all bios submitted
+directly to DM device will return BLK_QC_T_NONE since patch 5, and
+__submit_bio_noacct() only enqueues split bios with valid cookie into
+&root->bi_plist list. Thus only bios submitted to mq device will be
+enqueued into this &root->bi_plist list.
+
+Following is the related logic (the blk_qc_t_valid() part).
+
+
+>> -		ret = __submit_bio(bio);
+>> +		if (iopoll) {
+>> +			/* See the comments of above bio_inc_remaining(). */
+>> +			bio_inc_remaining(bio);
+>> +			bio->bi_cookie = __submit_bio(bio);
+>> +
+>> +			if (blk_qc_t_valid(bio->bi_cookie))
+>> +				bio_add_poll_list(bio);
+>> +
+>> +			bio_endio(bio);
+>> +		} else {
+>> +			ret = __submit_bio(bio);
+>> +		}
+
+
+
+Suppose we have the following device stack hierarchy, that is, dm0 is
+stacked on dm1, while dm1 is stacked on nvme0 and nvme1.
+
+    dm0
+    dm1
+nvme0  nvme1
+
+
+Then the bio graph is like:
+
+
+                                   +------------+
+                                   |bio0(to dm0)|
+                                   +------------+
+                                         ^
+                                         | orig_bio
+                                   +--------------------+
+                                   |struct dm_io of bio0|
++--------------------+ bi_private  ----------------------
+|bio3(to dm1)        |------------>|bio1(to dm1)        |
++--------------------+             +--------------------+
+        ^                                ^
+        | ->orig_bio                     | ->orig_bio
++--------------------+             +--------------------+
+|struct dm_io        |             |struct dm_io        |
+----------------------             ----------------------
+|bio2(to nvme0)      |             |bio4(to nvme1)      |
++--------------------+             +--------------------+
+
+In this way, bio 0/1/3 will return BLK_QC_T_NONE and won't be enqueued
+into &root->bi_plist list, while bio 2/4 will be enqueued if they return
+valid cookie.
+
+> 
+> 
+>> +
+>> +		spin_lock(&root->bi_plock);
+>> +		/*
+>> +		 * One blk_mq_poll() call could complete multiple bios, and
+>> +		 * thus multiple bios could be removed from root->bi_plock
+>> +		 * list.
+>> +		 */
+>> +		bio = list_first_entry_or_null(&root->bi_plist, struct bio, bi_pnode);
+>> +	}
+>> +
+>> +	spin_unlock(&root->bi_plock);
+>> +
+>> +	if (list_empty(&root->bi_plist)) {
+>> +		bio_endio(root);
+>> +		/*
+>> +		 * 'ret' may be 0 here. root->bi_plist may be empty once we
+>> +		 * acquire the list spinlock.
+>> +		 */
+>> +		ret = max(ret, 1);
+>> +	}
+>> +
+>> +	return ret;
+>> +}
+>> +EXPORT_SYMBOL(blk_bio_poll);
+>> +
+>>  static bool blk_poll_hybrid(struct request_queue *q, blk_qc_t cookie)
+>>  {
+>>  	struct blk_mq_hw_ctx *hctx;
+>> diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+>> index 2e05244fc16d..2cf5d8f0ea34 100644
+>> --- a/include/linux/blk_types.h
+>> +++ b/include/linux/blk_types.h
+>> @@ -277,6 +277,12 @@ struct bio {
+>>  
+>>  	struct bio_set		*bi_pool;
+>>  
+>> +	struct bio		*bi_root;	/* original bio of submit_bio() */
+>> +	struct list_head        bi_plist;
+>> +	struct list_head        bi_pnode;
+>> +	struct spinlock         bi_plock;
+>> +	blk_qc_t		bi_cookie;
+>> +
+>>  	/*
+>>  	 * We can inline a number of vecs at the end of the bio, to avoid
+>>  	 * double allocations for a small number of bio_vecs. This member
+>> @@ -557,6 +563,39 @@ static inline bool blk_qc_t_is_internal(blk_qc_t cookie)
+>>  	return (cookie & BLK_QC_T_INTERNAL) != 0;
+>>  }
+>>  
+>> +static inline void bio_add_poll_list(struct bio *bio)
+>> +{
+>> +	struct bio *root = bio->bi_root;
+>> +
+>> +	/*
+>> +	 * The spin_lock() variant is enough since bios in root->bi_plist are
+>> +	 * all enqueued into polling mode hardware queue, thus the list_del()
+>> +	 * operation is handled only in process context.
+>> +	 */
+>> +	spin_lock(&root->bi_plock);
+>> +	list_add_tail(&bio->bi_pnode, &root->bi_plist);
+>> +	spin_unlock(&root->bi_plock);
+>> +}
+>> +
+>> +static inline void bio_del_poll_list(struct bio *bio)
+>> +{
+>> +	struct bio *root = bio->bi_root;
+>> +
+>> +	/*
+>> +	 * bios in mq routine: @bi_root is NULL, @bi_cookie is 0;
+>> +	 * bios in bio-based routine: @bi_root is non-NULL, @bi_cookie is valid
+>> +	 * (including 0) for those in root->bi_plist, invalid for the
+>> +	 * remaining.
+>> +	 */
+>> +	if (bio->bi_root && blk_qc_t_valid(bio->bi_cookie)) {
+>> +		spin_lock(&root->bi_plock);
+>> +		list_del(&bio->bi_pnode);
+>> +		spin_unlock(&root->bi_plock);
+>> +	}
+>> +}
+>> +
+>> +int blk_bio_poll(struct request_queue *q, blk_qc_t cookie);
+>> +
+>>  struct blk_rq_stat {
+>>  	u64 mean;
+>>  	u64 min;
+>> -- 
+>> 2.27.0
+>>
+>> --
+>> dm-devel mailing list
+>> dm-devel@redhat.com
+>> https://www.redhat.com/mailman/listinfo/dm-devel
+> 
+> --
+> dm-devel mailing list
+> dm-devel@redhat.com
+> https://www.redhat.com/mailman/listinfo/dm-devel
+> 
+
 -- 
-2.17.1
+Thanks,
+Jeffle
 
 --
 dm-devel mailing list
