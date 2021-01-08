@@ -1,74 +1,57 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D46872EEBC5
-	for <lists+dm-devel@lfdr.de>; Fri,  8 Jan 2021 04:14:04 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 9DA442EEC20
+	for <lists+dm-devel@lfdr.de>; Fri,  8 Jan 2021 05:07:56 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-477-GiuGODh1OieiMegB0jCw1A-1; Thu, 07 Jan 2021 22:14:01 -0500
-X-MC-Unique: GiuGODh1OieiMegB0jCw1A-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-554-S_foLdPpPv2I4XTXLQNtZQ-1; Thu, 07 Jan 2021 23:07:53 -0500
+X-MC-Unique: S_foLdPpPv2I4XTXLQNtZQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1449F1800D42;
-	Fri,  8 Jan 2021 03:13:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 24392107ACE6;
+	Fri,  8 Jan 2021 04:07:48 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 742DF19CAD;
-	Fri,  8 Jan 2021 03:13:49 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 023CF60BF1;
+	Fri,  8 Jan 2021 04:07:48 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 73DB44BB7B;
-	Fri,  8 Jan 2021 03:13:34 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E063F4EEEE;
+	Fri,  8 Jan 2021 04:07:39 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1083DD8Y002290 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 7 Jan 2021 22:13:16 -0500
+	id 10847UMr008568 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 7 Jan 2021 23:07:31 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B8EF694655; Fri,  8 Jan 2021 03:13:13 +0000 (UTC)
+	id BFCCA2166B29; Fri,  8 Jan 2021 04:07:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B3567D7DE2
-	for <dm-devel@redhat.com>; Fri,  8 Jan 2021 03:13:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BAABC2166B28
+	for <dm-devel@redhat.com>; Fri,  8 Jan 2021 04:07:28 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8673B8007D9
-	for <dm-devel@redhat.com>; Fri,  8 Jan 2021 03:13:11 +0000 (UTC)
-Received: from chinatelecom.cn (prt-mail.chinatelecom.cn [42.123.76.220]) by
-	relay.mimecast.com with ESMTP id us-mta-403-Yz3rWMF8OH6P8VnJhyyORA-1;
-	Thu, 07 Jan 2021 22:13:08 -0500
-X-MC-Unique: Yz3rWMF8OH6P8VnJhyyORA-1
-HMM_SOURCE_IP: 172.18.0.48:2526.610695259
-HMM_ATTACHE_NUM: 0000
-HMM_SOURCE_TYPE: SMTP
-Received: from clientip-202.80.192.21?logid-0753db9c0e6e467a995a2978d078436c
-	(unknown [172.18.0.48])
-	by chinatelecom.cn (HERMES) with SMTP id 72D0B28009D;
-	Fri,  8 Jan 2021 11:13:03 +0800 (CST)
-X-189-SAVE-TO-SEND: wucy11@chinatelecom.cn
-Received: from  ([172.18.0.48])
-	by App0024 with ESMTP id 0753db9c0e6e467a995a2978d078436c for
-	zhangzijian@chinatelecom.cn; Fri Jan  8 11:13:05 2021
-X-Transaction-ID: 0753db9c0e6e467a995a2978d078436c
-X-filter-score: filter<0>
-X-Real-From: wucy11@chinatelecom.cn
-X-Receive-IP: 172.18.0.48
-X-MEDUSA-Status: 0
-To: Martin Wilck <mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, 
-	"dm-devel@redhat.com" <dm-devel@redhat.com>
-References: <4ca7da32-5777-9089-1e96-a5dbb46c585a@chinatelecom.cn>
-	<4c7286abbdd79fc0c726fd119fdda3b7a140e056.camel@suse.com>
-	<ffb39ebe-ab7e-f82a-f4cb-5b8353bfda2a@chinatelecom.cn>
-	<bdeb04efcac09880451505ca2970c6d322c48da5.camel@suse.com>
-From: Chongyun Wu <wucy11@chinatelecom.cn>
-Message-ID: <13b96493-5e48-8c56-9e56-b5d42f4a3b07@chinatelecom.cn>
-Date: Fri, 8 Jan 2021 11:13:01 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
-	Thunderbird/78.6.0
-MIME-Version: 1.0
-In-Reply-To: <bdeb04efcac09880451505ca2970c6d322c48da5.camel@suse.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5F166800962
+	for <dm-devel@redhat.com>; Fri,  8 Jan 2021 04:07:28 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
+	relay.mimecast.com with ESMTP id us-mta-526-fX7i0gnqOge3w2bdJ1zZ6w-1;
+	Thu, 07 Jan 2021 23:07:24 -0500
+X-MC-Unique: fX7i0gnqOge3w2bdJ1zZ6w-1
+Received: from tusharsu-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
+	[71.197.163.6])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 1D09E20B7192;
+	Thu,  7 Jan 2021 20:07:22 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 1D09E20B7192
+From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+To: zohar@linux.ibm.com, stephen.smalley.work@gmail.com,
+	casey@schaufler-ca.com, agk@redhat.com, snitzer@redhat.com,
+	gmazyland@gmail.com, paul@paul-moore.com
+Date: Thu,  7 Jan 2021 20:07:00 -0800
+Message-Id: <20210108040708.8389-1-tusharsu@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -77,13 +60,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1083DD8Y002290
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: yubin1@chinatelecom.cn, zhangzijian@chinatelecom.cn
-Subject: Re: [dm-devel] [PATCH] multipathd: LUN protection by checking
- path's wwid change status
+Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
+	jmorris@namei.org, linux-kernel@vger.kernel.org,
+	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
+	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
+Subject: [dm-devel] [PATCH v10 0/8] IMA: support for measuring kernel
+	integrity critical data
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,87 +79,184 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-15"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-Thanks Martin, I will try to reproduce this issue with the latest version w=
-hen=20
-the enviroments ready, if reproduce it again I will let you know, thanks ag=
-ain~
+IMA measures files and buffer data such as keys, command-line arguments
+passed to the kernel on kexec system call, etc.  While these measurements
+are necessary for monitoring and validating the integrity of the system,
+they are not sufficient.  Various data structures, policies, and states
+stored in kernel memory also impact the integrity of the system.
+Several kernel subsystems contain such integrity critical data -
+e.g.  LSMs like SELinux, AppArmor etc.  or device-mapper targets like
+dm-crypt, dm-verity, dm-integrity etc.  These kernel subsystems help
+protect the integrity of a system.  Their integrity critical data is not
+expected to change frequently during run-time.  Some of these structures
+cannot be defined as __ro_after_init, because they are initialized later.
 
-On 2021/1/7 19:27, Martin Wilck wrote:
-> On Thu, 2021-01-07 at 10:23 +0800, Chongyun Wu wrote:
->> Hello Martin,
->> Thanks for view this patch.
->>
->> On 2021/1/7 5:10, Martin Wilck wrote:
->>> Hello Chongyun,
->>>
->>> On Mon, 2020-12-28 at 11:34 +0800, Chongyun Wu wrote:
->>>>  =A0=A0From 37c74873acfc1587e79a6504ca3d42b8fa00d49e Mon Sep 17
->>>> 00:00:00
->>>> 2001
->>>>
->>>> From: Chongyun Wu <wucy11@chinatelecom.cn>
->>>> Date: Mon, 21 Dec 2020 09:51:20 +0800
->>>> Subject: [PATCH] multipathd: LUN data protection by checking
->>>> path's
->>>> wwid
->>>>  =A0=A0=A0change status
->>>>
->>>> Issue description:
->>>> A) Device sda and sdb correspend to LUN1 and LUN2 in storage
->>>> backend
->>>> and
->>>> the upper layer application uses those two devices.
->>>> B) Doing illegal operation: unmapping LUN1 and LUN2 in storage
->>>> backend,
->>>> and export LUN2 and LUN1 to host with exchanged assignment
->>>> relation
->>>> between sda and sdb.
->>>> C) The upper layer application run for a while and found that the
->>>> data
->>>> in both LUN1 and LUN2 has been corrupted.
->>>
->>> Can you please be explicit about which multipath-tools version you
->>> have
->>> tested? I thought we had the wwid change issues covered. Ben and I
->>> have
->>> been putting quite some effort into this recently. Of course we can
->>> be
->>> wrong, but I'd like to understand the issue fully.
->>>
->> The test version is 0.8.3.
->=20
-> A test with 0.8.5 would be in necessary, then. The INIT_REMOVED logic
-> has been added after 0.8.4.
->>>
->>> Please confirm that you've been using the latest version from
->>> Christophe's repo (or better even, from my upstream-queue), and
->>> provide
->>> -v3 logs showing what goes wrong.
->> Sorry Martin, I haven't save the logs and the enviroment is
->> unavailable now.
->=20
-> Well, please report back if you can reproduce the issue with current
-> upstream.
->=20
-> Regards,
-> Martin
->=20
->=20
+For a given system, various external services/infrastructure tools
+(including the attestation service) interact with it - both during the
+setup and during rest of the system run-time.  They share sensitive data
+and/or execute critical workload on that system.  The external services
+may want to verify the current run-time state of the relevant kernel
+subsystems before fully trusting the system with business critical
+data/workload.  For instance, verifying that SELinux is in "enforce" mode
+along with the expected policy, disks are encrypted with a certain
+configuration, secure boot is enabled etc.
 
---=20
-Best Regard,
-Chongyun Wu
+This series provides the necessary IMA functionality for kernel
+subsystems to ensure their configuration can be measured:
+  - by kernel subsystems themselves,
+  - in a tamper resistant way,
+  - and re-measured - triggered on state/configuration change.
 
+This patch set:
+  - defines a new IMA hook ima_measure_critical_data() to measure
+    integrity critical data,
+  - limits the critical data being measured based on a label,
+  - defines a builtin critical data measurement policy,
+  - and includes an SELinux consumer of the new IMA critical data hook.
+
+This series is based on the following repo/branch:
+
+ repo: https://git.kernel.org/pub/scm/linux/kernel/git/zohar/linux-integrity.git
+ branch: next-integrity
+ commit 207cdd565dfc ("ima: Don't modify file descriptor mode on the fly")
+
+Change Log v10:
+Incorporated feedback from Mimi on v9 of this series.
+ - Updated function description comments to simplify language and remove
+   unnecessary text.
+ - Changed references to variable names and policy documentation from
+   "data_source" to "label".
+ - Updated patch descriptions to simplify language and remove unnecessary
+   text.
+ - Updated function names and file name related to SELinux IMA
+   measurements per feedback from Paul Moore.
+ - Updated patch description for adding a built-in IMA policy for
+   measuring kernel critical data.
+
+Change Log v9:
+Incorporated feedback from Tyler on v8 of this series.
+ - Moved rule->data_source logic from Patch #4 to Patch #5.
+ - Removed unnecessary variable event_name from selinux_event_name()
+   in Patch #8.
+
+
+Change Log v8:
+Incorporated feedback from Tyler on v7 of this series.
+ - Removed unnecessary 'else' clauses in ima_match_rule_data().
+ - Fixed ima_store_template() to pass the buffer hash in case the
+   buffer is large.
+ - fixed function description for ima_measure_critical_data().
+ - Moved some usage of CRITICAL_DATA from Patch #3 to Patch #4.
+ - Moved IMA_DATA_SOURCE from Patch #4 to Patch #5.
+ - Removed unnecessary pr_err() from ima_measure_critical_data()
+   and selinux_event_name().
+ - Fixed log formatting in selinux_measure_state() to be consistent
+   with other messages in that file.
+
+Change Log v7:
+Incorporated feedback from Mimi on v6 of this series.
+ - Updated cover letter and patch descriptions as per Mimi's feedback.
+ - Changed references to variable names and policy documentation from
+   plural "data_sources" to singular "data_source".
+ - Updated SELinux patch to measure only policy, instead of policy and
+   state.  The state measurement will be upstreamed through a separate
+   patch.
+ - Updated admin-guide/kernel-parameters.txt to document support for
+   critical_data in builtin policy.
+
+Change Log v6:
+Incorporated feedback from Mimi on v5 of this series.
+ - Got rid of patch 5 from the v5 of the series.(the allow list for data
+   sources)
+ - Updated function descriptions, changed variable names etc.
+ - Moved the input param event_data_source in ima_measure_critical_data()
+   to a new patch.  (patch 6/8 of this series)
+ - Split patch 4 from v5 of the series into two patches (patch 4/8 and 
+   patch 5/8)
+ - Updated cover letter and patch descriptions as per feedback.
+
+Change Log v5:
+(1) Incorporated feedback from Stephen on the last SeLinux patch.
+ SeLinux Patch: https://patchwork.kernel.org/patch/11801585/
+ - Freed memory in the reverse order of allocation in 
+   selinux_measure_state().
+ - Used scnprintf() instead of snprintf() to create the string for
+   selinux state.
+ - Allocated event name passed to ima_measure_critical_data() before
+   gathering selinux state and policy information for measuring.
+
+(2) Incorporated feedback from Mimi on v4 of this series.
+ V4 of this Series: https://patchwork.kernel.org/project/linux-integrity/list/?series=354437
+
+ - Removed patch "[v4,2/6] IMA: conditionally allow empty rule data"
+ - Reversed the order of following patches.
+      [v4,4/6] IMA: add policy to measure critical data from kernel components
+      [v4,5/6] IMA: add hook to measure critical data from kernel components
+   and renamed them to remove "from kernel components"
+ - Added a new patch to this series - 
+       IMA: add critical_data to built-in policy rules
+
+ - Added the next version of SeLinux patch (mentioned above) to this
+   series 
+       selinux: measure state and hash of the policy using IMA
+
+ - Updated cover-letter description to give broader perspective of the
+   feature, rearranging paragraphs, removing unnecessary info, clarifying
+   terms etc.
+ - Got rid of opt_list param from ima_match_rule_data().
+ - Updated the documentation to remove sources that don't yet exist.
+ - detailed IMA hook description added to ima_measure_critical_data(),
+   as well as elaborating terms event_name, event_data_source.
+ - "data_sources:=" is not a mandatory policy option for 
+   func=CRITICAL_DATA anymore.  If not present, all the data sources
+   specified in __ima_supported_kernel_data_sources will be measured.
+
+
+Lakshmi Ramasubramanian (2):
+  IMA: define a builtin critical data measurement policy
+  selinux: include a consumer of the new IMA critical data hook
+
+Tushar Sugandhi (6):
+  IMA: generalize keyring specific measurement constructs
+  IMA: add support to measure buffer data hash
+  IMA: define a hook to measure kernel integrity critical data
+  IMA: add policy rule to measure critical data
+  IMA: limit critical data measurement based on a label
+  IMA: extend critical data hook to limit the measurement based on a
+    label
+
+ Documentation/ABI/testing/ima_policy          |   5 +-
+ .../admin-guide/kernel-parameters.txt         |   5 +-
+ include/linux/ima.h                           |  10 ++
+ security/integrity/ima/ima.h                  |   8 +-
+ security/integrity/ima/ima_api.c              |   8 +-
+ security/integrity/ima/ima_appraise.c         |   2 +-
+ security/integrity/ima/ima_asymmetric_keys.c  |   2 +-
+ security/integrity/ima/ima_main.c             |  59 +++++++--
+ security/integrity/ima/ima_policy.c           | 115 ++++++++++++++----
+ security/integrity/ima/ima_queue_keys.c       |   3 +-
+ security/selinux/Makefile                     |   2 +
+ security/selinux/ima.c                        |  64 ++++++++++
+ security/selinux/include/ima.h                |  24 ++++
+ security/selinux/include/security.h           |   3 +-
+ security/selinux/ss/services.c                |  64 ++++++++--
+ 15 files changed, 324 insertions(+), 50 deletions(-)
+ create mode 100644 security/selinux/ima.c
+ create mode 100644 security/selinux/include/ima.h
+
+-- 
+2.17.1
 
 --
 dm-devel mailing list
