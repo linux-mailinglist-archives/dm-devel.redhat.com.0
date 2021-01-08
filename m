@@ -2,55 +2,55 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8AF492EEC23
-	for <lists+dm-devel@lfdr.de>; Fri,  8 Jan 2021 05:07:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 415D12EEC21
+	for <lists+dm-devel@lfdr.de>; Fri,  8 Jan 2021 05:07:57 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-356-JJouum2COjCX5T2A8g_ynA-1; Thu, 07 Jan 2021 23:07:55 -0500
-X-MC-Unique: JJouum2COjCX5T2A8g_ynA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-304-ZQzS3QO1PAGR0CvxJDY96w-1; Thu, 07 Jan 2021 23:07:53 -0500
+X-MC-Unique: ZQzS3QO1PAGR0CvxJDY96w-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3BB66C73A7;
-	Fri,  8 Jan 2021 04:07:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1689460937;
-	Fri,  8 Jan 2021 04:07:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7F761801AA5;
+	Fri,  8 Jan 2021 04:07:48 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0261B10013C0;
+	Fri,  8 Jan 2021 04:07:48 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B56CE1809CA2;
-	Fri,  8 Jan 2021 04:07:49 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 484D45002C;
+	Fri,  8 Jan 2021 04:07:40 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10847U6m008566 for <dm-devel@listman.util.phx.redhat.com>;
+	id 10847UFR008567 for <dm-devel@listman.util.phx.redhat.com>;
 	Thu, 7 Jan 2021 23:07:30 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 65B63114B9B1; Fri,  8 Jan 2021 04:07:30 +0000 (UTC)
+	id 863C0114B9BC; Fri,  8 Jan 2021 04:07:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 61942114B9AC
-	for <dm-devel@redhat.com>; Fri,  8 Jan 2021 04:07:28 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82551114B9AC
+	for <dm-devel@redhat.com>; Fri,  8 Jan 2021 04:07:30 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 09D67811E78
-	for <dm-devel@redhat.com>; Fri,  8 Jan 2021 04:07:28 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 70305800889
+	for <dm-devel@redhat.com>; Fri,  8 Jan 2021 04:07:30 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-339-7CJ2VMOoNV6Lu8IcWIWSFw-1;
-	Thu, 07 Jan 2021 23:07:25 -0500
-X-MC-Unique: 7CJ2VMOoNV6Lu8IcWIWSFw-1
+	relay.mimecast.com with ESMTP id us-mta-109-OUCpxX4vOxmtERqFZIprEA-1;
+	Thu, 07 Jan 2021 23:07:26 -0500
+X-MC-Unique: OUCpxX4vOxmtERqFZIprEA-1
 Received: from tusharsu-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
 	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 6461120B6C43;
+	by linux.microsoft.com (Postfix) with ESMTPSA id F12E520B6C44;
 	Thu,  7 Jan 2021 20:07:24 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6461120B6C43
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com F12E520B6C44
 From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
 To: zohar@linux.ibm.com, stephen.smalley.work@gmail.com,
 	casey@schaufler-ca.com, agk@redhat.com, snitzer@redhat.com,
 	gmazyland@gmail.com, paul@paul-moore.com
-Date: Thu,  7 Jan 2021 20:07:04 -0800
-Message-Id: <20210108040708.8389-5-tusharsu@linux.microsoft.com>
+Date: Thu,  7 Jan 2021 20:07:05 -0800
+Message-Id: <20210108040708.8389-6-tusharsu@linux.microsoft.com>
 In-Reply-To: <20210108040708.8389-1-tusharsu@linux.microsoft.com>
 References: <20210108040708.8389-1-tusharsu@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -67,8 +67,8 @@ Cc: sashal@kernel.org, dm-devel@redhat.com, selinux@vger.kernel.org,
 	jmorris@namei.org, linux-kernel@vger.kernel.org,
 	nramas@linux.microsoft.com, linux-security-module@vger.kernel.org,
 	tyhicks@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: [dm-devel] [PATCH v10 4/8] IMA: add policy rule to measure critical
-	data
+Subject: [dm-devel] [PATCH v10 5/8] IMA: limit critical data measurement
+	based on a label
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,7 +83,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,100 +91,137 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-A new IMA policy rule is needed for the IMA hook
-ima_measure_critical_data() and the corresponding func CRITICAL_DATA for
-measuring the input buffer.  The policy rule should ensure the buffer
-would get measured only when the policy rule allows the action.  The
-policy rule should also support the necessary constraints (flags etc.)
-for integrity critical buffer data measurements.
+Integrity critical data may belong to a single subsystem or it may
+arise from cross subsystem interaction.  Currently there is no mechanism
+to group or limit the data based on certain label.  Limiting and
+grouping critical data based on a label would make it flexible and
+configurable to measure.
 
-Add policy rule support for measuring integrity critical data.
+Define "label:=", a new IMA policy condition, for the IMA func
+CRITICAL_DATA to allow grouping and limiting measurement of integrity
+critical data.
+
+Limit the measurement to the labels that are specified in the IMA
+policy - CRITICAL_DATA+"label:=".  If "label:=" is not provided with
+the func CRITICAL_DATA, measure all the input integrity critical data.
 
 Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
 Reviewed-by: Tyler Hicks <tyhicks@linux.microsoft.com>
-Reviewed-by: Mimi Zohar <zohar@linux.ibm.com>
 ---
- Documentation/ABI/testing/ima_policy |  2 +-
- security/integrity/ima/ima_policy.c  | 29 ++++++++++++++++++++++++----
- 2 files changed, 26 insertions(+), 5 deletions(-)
+ Documentation/ABI/testing/ima_policy |  2 ++
+ security/integrity/ima/ima_policy.c  | 37 +++++++++++++++++++++++++---
+ 2 files changed, 36 insertions(+), 3 deletions(-)
 
 diff --git a/Documentation/ABI/testing/ima_policy b/Documentation/ABI/testing/ima_policy
-index e35263f97fc1..6ec7daa87cba 100644
+index 6ec7daa87cba..54fe1c15ed50 100644
 --- a/Documentation/ABI/testing/ima_policy
 +++ b/Documentation/ABI/testing/ima_policy
-@@ -32,7 +32,7 @@ Description:
- 			func:= [BPRM_CHECK][MMAP_CHECK][CREDS_CHECK][FILE_CHECK]MODULE_CHECK]
- 			        [FIRMWARE_CHECK]
- 				[KEXEC_KERNEL_CHECK] [KEXEC_INITRAMFS_CHECK]
--				[KEXEC_CMDLINE] [KEY_CHECK]
-+				[KEXEC_CMDLINE] [KEY_CHECK] [CRITICAL_DATA]
- 			mask:= [[^]MAY_READ] [[^]MAY_WRITE] [[^]MAY_APPEND]
- 			       [[^]MAY_EXEC]
- 			fsmagic:= hex value
+@@ -52,6 +52,8 @@ Description:
+ 			template:= name of a defined IMA template type
+ 			(eg, ima-ng). Only valid when action is "measure".
+ 			pcr:= decimal value
++			label:= [data_label]
++			data_label:= a unique string used for grouping and limiting critical data.
+ 
+ 		  default policy:
+ 			# PROC_SUPER_MAGIC
 diff --git a/security/integrity/ima/ima_policy.c b/security/integrity/ima/ima_policy.c
-index b93966034368..96ba4273c4d0 100644
+index 96ba4273c4d0..2c9db2d0b434 100644
 --- a/security/integrity/ima/ima_policy.c
 +++ b/security/integrity/ima/ima_policy.c
-@@ -478,6 +478,8 @@ static bool ima_match_rule_data(struct ima_rule_entry *rule,
+@@ -34,6 +34,7 @@
+ #define IMA_PCR		0x0100
+ #define IMA_FSNAME	0x0200
+ #define IMA_KEYRINGS	0x0400
++#define IMA_LABEL	0x0800
  
+ #define UNKNOWN		0
+ #define MEASURE		0x0001	/* same as IMA_MEASURE */
+@@ -85,6 +86,7 @@ struct ima_rule_entry {
+ 	} lsm[MAX_LSM_RULES];
+ 	char *fsname;
+ 	struct ima_rule_opt_list *keyrings; /* Measure keys added to these keyrings */
++	struct ima_rule_opt_list *label; /* Measure data grouped under this label */
+ 	struct ima_template_desc *template;
+ };
+ 
+@@ -479,7 +481,11 @@ static bool ima_match_rule_data(struct ima_rule_entry *rule,
  		opt_list = rule->keyrings;
  		break;
-+	case CRITICAL_DATA:
-+		return true;
+ 	case CRITICAL_DATA:
+-		return true;
++		if (!rule->label)
++			return true;
++
++		opt_list = rule->label;
++		break;
  	default:
  		return false;
  	}
-@@ -514,13 +516,19 @@ static bool ima_match_rules(struct ima_rule_entry *rule, struct inode *inode,
- {
- 	int i;
+@@ -924,7 +930,7 @@ enum {
+ 	Opt_uid_lt, Opt_euid_lt, Opt_fowner_lt,
+ 	Opt_appraise_type, Opt_appraise_flag,
+ 	Opt_permit_directio, Opt_pcr, Opt_template, Opt_keyrings,
+-	Opt_err
++	Opt_label, Opt_err
+ };
  
--	if (func == KEY_CHECK) {
--		return (rule->flags & IMA_FUNC) && (rule->func == func) &&
--			ima_match_rule_data(rule, func_data, cred);
--	}
- 	if ((rule->flags & IMA_FUNC) &&
- 	    (rule->func != func && func != POST_SETATTR))
- 		return false;
-+
-+	switch (func) {
-+	case KEY_CHECK:
-+	case CRITICAL_DATA:
-+		return ((rule->func == func) &&
-+			ima_match_rule_data(rule, func_data, cred));
-+	default:
-+		break;
-+	}
-+
- 	if ((rule->flags & IMA_MASK) &&
- 	    (rule->mask != mask && func != POST_SETATTR))
- 		return false;
-@@ -1115,6 +1123,17 @@ static bool ima_validate_rule(struct ima_rule_entry *entry)
- 		if (ima_rule_contains_lsm_cond(entry))
+ static const match_table_t policy_tokens = {
+@@ -961,6 +967,7 @@ static const match_table_t policy_tokens = {
+ 	{Opt_pcr, "pcr=%s"},
+ 	{Opt_template, "template=%s"},
+ 	{Opt_keyrings, "keyrings=%s"},
++	{Opt_label, "label=%s"},
+ 	{Opt_err, NULL}
+ };
+ 
+@@ -1128,7 +1135,8 @@ static bool ima_validate_rule(struct ima_rule_entry *entry)
+ 		if (entry->action & ~(MEASURE | DONT_MEASURE))
  			return false;
  
-+		break;
-+	case CRITICAL_DATA:
-+		if (entry->action & ~(MEASURE | DONT_MEASURE))
-+			return false;
+-		if (entry->flags & ~(IMA_FUNC | IMA_UID | IMA_PCR))
++		if (entry->flags & ~(IMA_FUNC | IMA_UID | IMA_PCR |
++				     IMA_LABEL))
+ 			return false;
+ 
+ 		if (ima_rule_contains_lsm_cond(entry))
+@@ -1338,6 +1346,23 @@ static int ima_parse_rule(char *rule, struct ima_rule_entry *entry)
+ 
+ 			entry->flags |= IMA_KEYRINGS;
+ 			break;
++		case Opt_label:
++			ima_log_string(ab, "label", args[0].from);
 +
-+		if (entry->flags & ~(IMA_FUNC | IMA_UID | IMA_PCR))
-+			return false;
++			if (entry->label) {
++				result = -EINVAL;
++				break;
++			}
 +
-+		if (ima_rule_contains_lsm_cond(entry))
-+			return false;
++			entry->label = ima_alloc_rule_opt_list(args);
++			if (IS_ERR(entry->label)) {
++				result = PTR_ERR(entry->label);
++				entry->label = NULL;
++				break;
++			}
 +
- 		break;
- 	default:
- 		return false;
-@@ -1247,6 +1266,8 @@ static int ima_parse_rule(char *rule, struct ima_rule_entry *entry)
- 			else if (IS_ENABLED(CONFIG_IMA_MEASURE_ASYMMETRIC_KEYS) &&
- 				 strcmp(args[0].from, "KEY_CHECK") == 0)
- 				entry->func = KEY_CHECK;
-+			else if (strcmp(args[0].from, "CRITICAL_DATA") == 0)
-+				entry->func = CRITICAL_DATA;
- 			else
- 				result = -EINVAL;
- 			if (!result)
++			entry->flags |= IMA_LABEL;
++			break;
+ 		case Opt_fsuuid:
+ 			ima_log_string(ab, "fsuuid", args[0].from);
+ 
+@@ -1718,6 +1743,12 @@ int ima_policy_show(struct seq_file *m, void *v)
+ 		seq_puts(m, " ");
+ 	}
+ 
++	if (entry->flags & IMA_LABEL) {
++		seq_puts(m, "label=");
++		ima_show_rule_opt_list(m, entry->label);
++		seq_puts(m, " ");
++	}
++
+ 	if (entry->flags & IMA_PCR) {
+ 		snprintf(tbuf, sizeof(tbuf), "%d", entry->pcr);
+ 		seq_printf(m, pt(Opt_pcr), tbuf);
 -- 
 2.17.1
 
