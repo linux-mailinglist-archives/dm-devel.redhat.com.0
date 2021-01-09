@@ -2,71 +2,73 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id EA90B2EF7CD
-	for <lists+dm-devel@lfdr.de>; Fri,  8 Jan 2021 20:01:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1610132477;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=C9Baf0/CVTcGU+w9gLQpLeSUbDzWAOtPFUiGGxrB0pA=;
-	b=M9GWsxKQi0j4yyfw60IQdd8PFRWT22J1OdOv8FHPAqxqcf/r96SU9OdQXb0s5z/XrCrmbz
-	LgbBsE+sb8qWLcFiHGYEZJdjkvJWFYhbVdS6n6TaJ5s6Vb0wZKhb2mP8VPNIG+wEl2O8hl
-	2Ygzs5c+Uk56IGAXNIqUZvJITxOnGmI=
+	by mail.lfdr.de (Postfix) with ESMTP id A33A42EFF18
+	for <lists+dm-devel@lfdr.de>; Sat,  9 Jan 2021 11:53:48 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-424-cGET18qQPWmQubHSvXfeZQ-1; Fri, 08 Jan 2021 14:01:14 -0500
-X-MC-Unique: cGET18qQPWmQubHSvXfeZQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-24--77VgXRHMYePmrihsjasOA-1; Sat, 09 Jan 2021 05:53:45 -0500
+X-MC-Unique: -77VgXRHMYePmrihsjasOA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 772741006707;
-	Fri,  8 Jan 2021 19:01:09 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F3E2015722;
+	Sat,  9 Jan 2021 10:53:39 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 127FF19C71;
-	Fri,  8 Jan 2021 19:01:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C776A1001E73;
+	Sat,  9 Jan 2021 10:53:39 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E28B04E58E;
-	Fri,  8 Jan 2021 19:00:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F22394E58E;
+	Sat,  9 Jan 2021 10:53:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 108J0nGh000301 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 8 Jan 2021 14:00:49 -0500
+	id 109ArTIL026636 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 9 Jan 2021 05:53:29 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 746EB19809; Fri,  8 Jan 2021 19:00:49 +0000 (UTC)
+	id 8B5342026D3A; Sat,  9 Jan 2021 10:53:29 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 477D912D7E;
-	Fri,  8 Jan 2021 19:00:49 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id 108J0mhZ009987; Fri, 8 Jan 2021 14:00:48 -0500
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id 108J0mC1009980; Fri, 8 Jan 2021 14:00:48 -0500
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Fri, 8 Jan 2021 14:00:48 -0500 (EST)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Mike Snitzer <snitzer@redhat.com>
-In-Reply-To: <20210108183817.GA30360@redhat.com>
-Message-ID: <alpine.LRH.2.02.2101081349400.2554@file01.intranet.prod.int.rdu2.redhat.com>
-References: <20201220140222.2f341344@gecko.fritz.box>
-	<20210104203042.GB3721@redhat.com>
-	<alpine.LRH.2.02.2101081104490.17896@file01.intranet.prod.int.rdu2.redhat.com>
-	<20210108183817.GA30360@redhat.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 865502026D14
+	for <dm-devel@redhat.com>; Sat,  9 Jan 2021 10:53:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2D580800140
+	for <dm-devel@redhat.com>; Sat,  9 Jan 2021 10:53:26 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-538--Mn5bxY5NEGxzqQBICHXBA-1; Sat, 09 Jan 2021 05:53:22 -0500
+X-MC-Unique: -Mn5bxY5NEGxzqQBICHXBA-1
+Received: from [2001:4bb8:19b:e528:4197:a20:99de:e7b0] (helo=localhost)
+	by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
+	id 1kyBhv-000Sux-9b; Sat, 09 Jan 2021 10:43:12 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Jens Axboe <axboe@kernel.dk>
+Date: Sat,  9 Jan 2021 11:42:48 +0100
+Message-Id: <20210109104254.1077093-1-hch@lst.de>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	casper.infradead.org. See http://www.infradead.org/rpr.html
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: dm-devel <dm-devel@redhat.com>, Lukas Straub <lukasstraub2@web.de>
-Subject: Re: [dm-devel] dm-integrity: Fix flush with external metadata device
+Cc: Sagi Grimberg <sagi@grimberg.me>, Mike Snitzer <snitzer@redhat.com>,
+	Oleksii Kurochko <olkuroch@cisco.com>,
+	Dongsheng Yang <dongsheng.yang@easystack.cn>,
+	linux-block@vger.kernel.org, dm-devel@redhat.com,
+	linux-nvme@lists.infradead.org,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Ilya Dryomov <idryomov@gmail.com>, ceph-devel@vger.kernel.org
+Subject: [dm-devel] split hard read-only vs read-only policy v3 (resend)
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +82,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -88,56 +90,38 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+Hi Jens,
 
+this series resurrects a patch from Martin to properly split the flag
+indicating a disk has been set read-only by the hardware vs the userspace
+policy set through the BLKROSET ioctl.
 
-On Fri, 8 Jan 2021, Mike Snitzer wrote:
+Note that the last patch only applies to for-next and not to
+for-5.11/block.  I can hold it back for the first NVMe pull request after
+Linus pulled the block tree.
 
-> > > Seems like a pretty bad oversight... but shouldn't you also make sure to
-> > > flush the data device _before_ the metadata is flushed?
-> > > 
-> > > Mike
-> > 
-> > I think, ordering is not a problem.
-> > 
-> > A disk may flush its cache spontaneously anytime, so it doesn't matter in 
-> > which order do we flush them. Similarly a dm-bufio buffer may be flushed 
-> > anytime - if the machine is running out of memory and a dm-bufio shrinker 
-> > is called.
-> > 
-> > I'll send another patch for this - I've created a patch that flushes the 
-> > metadata device cache and data device cache in parallel, so that 
-> > performance degradation is reduced.
-> > 
-> > My patch also doesn't use GFP_NOIO allocation - which can in theory 
-> > deadlock if we are swapping on dm-integrity device.
-> 
-> OK, I see your patch, but my concern about ordering was more to do with
-> crash consistency.  What if metadata is updated but data isn't?
+A git tree is available here:
 
-In journal mode: do_journal_write will copy data from the journal to 
-appropriate places and then flushes both data and metadata device. If a 
-crash happens during flush, the journal will be replayed on next reboot - 
-the replay operation will overwrite both data and metadata from the 
-journal.
+    git://git.infradead.org/users/hch/block.git block-hard-ro
 
-In bitmap mode: bitmap_flush_work will first issue flush on both data and 
-metadata device, and then clear the dirty bits in a bitmap. If a crash 
-happens during the flush, the bits in the bitmap are still set and the 
-checksums will be recalculated on next reboot.
+Gitweb:
 
-> On the surface, your approach of issuing the flushes in parallel seems
-> to expose us to inconsistency upon recovery from a crash.
-> If that isn't the case please explain why not.
+    http://git.infradead.org/users/hch/block.git/shortlog/refs/heads/block-hard-ro
 
-The disk may flush its internal cache anytime. So, if you do 
-"blkdev_issue_flush(disk1); blkdev_issue_flush(disk2);" there is no 
-ordering guarantee at all. The firmware in disk2 may flush the cache 
-spontaneously, before you called blkdev_issue_flush(disk1).
+Changes since v3:
+ - rebased to the latest block tree
+ - indent commit log lines starting with a "#" to make sure git commit
+   doesn't eat them
 
-> Thanks,
-> Mike
+Changes since v2:
+ - fix a few typos
+ - add a patch to propagate the read-only status from the whole device to
+   partitions
+ - add a patch to remove a pointless check from bdev_read_only
 
-Mikulas
+Changes since v1:
+ - don't propagate the policy flag from the whole disk to partitions
+ - rebased on top of the merge block_device and hd_struct series
 
 --
 dm-devel mailing list
