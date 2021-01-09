@@ -2,52 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A33A42EFF18
-	for <lists+dm-devel@lfdr.de>; Sat,  9 Jan 2021 11:53:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C13392EFF01
+	for <lists+dm-devel@lfdr.de>; Sat,  9 Jan 2021 11:46:44 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-24--77VgXRHMYePmrihsjasOA-1; Sat, 09 Jan 2021 05:53:45 -0500
-X-MC-Unique: -77VgXRHMYePmrihsjasOA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-394-iItQJlmjM7uAIKjcajkbTw-1; Sat, 09 Jan 2021 05:46:41 -0500
+X-MC-Unique: iItQJlmjM7uAIKjcajkbTw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F3E2015722;
-	Sat,  9 Jan 2021 10:53:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 09A17180A086;
+	Sat,  9 Jan 2021 10:46:35 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C776A1001E73;
-	Sat,  9 Jan 2021 10:53:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4C7DA5D9C2;
+	Sat,  9 Jan 2021 10:46:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F22394E58E;
-	Sat,  9 Jan 2021 10:53:35 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C9CFC4A7C6;
+	Sat,  9 Jan 2021 10:46:08 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 109ArTIL026636 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 9 Jan 2021 05:53:29 -0500
+	id 109Ajj55025897 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 9 Jan 2021 05:45:47 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8B5342026D3A; Sat,  9 Jan 2021 10:53:29 +0000 (UTC)
+	id D1DEF2166B28; Sat,  9 Jan 2021 10:45:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 865502026D14
-	for <dm-devel@redhat.com>; Sat,  9 Jan 2021 10:53:26 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CCE9A2166B27
+	for <dm-devel@redhat.com>; Sat,  9 Jan 2021 10:45:43 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2D580800140
-	for <dm-devel@redhat.com>; Sat,  9 Jan 2021 10:53:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A2DFA101A53F
+	for <dm-devel@redhat.com>; Sat,  9 Jan 2021 10:45:43 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-538--Mn5bxY5NEGxzqQBICHXBA-1; Sat, 09 Jan 2021 05:53:22 -0500
-X-MC-Unique: -Mn5bxY5NEGxzqQBICHXBA-1
+	us-mta-577-tPdQ8RzdMvedQLIrYO8GFA-1; Sat, 09 Jan 2021 05:45:40 -0500
+X-MC-Unique: tPdQ8RzdMvedQLIrYO8GFA-1
 Received: from [2001:4bb8:19b:e528:4197:a20:99de:e7b0] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
-	id 1kyBhv-000Sux-9b; Sat, 09 Jan 2021 10:43:12 +0000
+	id 1kyBim-000SyX-HT; Sat, 09 Jan 2021 10:44:04 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Sat,  9 Jan 2021 11:42:48 +0100
-Message-Id: <20210109104254.1077093-1-hch@lst.de>
+Date: Sat,  9 Jan 2021 11:42:49 +0100
+Message-Id: <20210109104254.1077093-2-hch@lst.de>
+In-Reply-To: <20210109104254.1077093-1-hch@lst.de>
+References: <20210109104254.1077093-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	casper.infradead.org. See http://www.infradead.org/rpr.html
@@ -59,16 +61,17 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: Sagi Grimberg <sagi@grimberg.me>, Mike Snitzer <snitzer@redhat.com>,
 	Oleksii Kurochko <olkuroch@cisco.com>,
 	Dongsheng Yang <dongsheng.yang@easystack.cn>,
-	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	linux-nvme@lists.infradead.org,
+	Ming Lei <ming.lei@redhat.com>, linux-block@vger.kernel.org,
+	dm-devel@redhat.com, linux-nvme@lists.infradead.org,
 	"Martin K . Petersen" <martin.petersen@oracle.com>,
 	Ilya Dryomov <idryomov@gmail.com>, ceph-devel@vger.kernel.org
-Subject: [dm-devel] split hard read-only vs read-only policy v3 (resend)
+Subject: [dm-devel] [PATCH 1/6] dm: use bdev_read_only to check if a device
+	is read-only
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,7 +85,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -90,38 +93,46 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Jens,
+dm-thin and dm-cache also work on partitions, so use the proper
+interface to check if the device is read-only.
 
-this series resurrects a patch from Martin to properly split the flag
-indicating a disk has been set read-only by the hardware vs the userspace
-policy set through the BLKROSET ioctl.
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Ming Lei <ming.lei@redhat.com>
+Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
+Reviewed-by: Hannes Reinecke <hare@suse.de>
+---
+ drivers/md/dm-cache-metadata.c | 2 +-
+ drivers/md/dm-thin-metadata.c  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Note that the last patch only applies to for-next and not to
-for-5.11/block.  I can hold it back for the first NVMe pull request after
-Linus pulled the block tree.
-
-A git tree is available here:
-
-    git://git.infradead.org/users/hch/block.git block-hard-ro
-
-Gitweb:
-
-    http://git.infradead.org/users/hch/block.git/shortlog/refs/heads/block-hard-ro
-
-Changes since v3:
- - rebased to the latest block tree
- - indent commit log lines starting with a "#" to make sure git commit
-   doesn't eat them
-
-Changes since v2:
- - fix a few typos
- - add a patch to propagate the read-only status from the whole device to
-   partitions
- - add a patch to remove a pointless check from bdev_read_only
-
-Changes since v1:
- - don't propagate the policy flag from the whole disk to partitions
- - rebased on top of the merge block_device and hd_struct series
+diff --git a/drivers/md/dm-cache-metadata.c b/drivers/md/dm-cache-metadata.c
+index af6d4f898e4c1d..89a73204dbf47f 100644
+--- a/drivers/md/dm-cache-metadata.c
++++ b/drivers/md/dm-cache-metadata.c
+@@ -449,7 +449,7 @@ static int __check_incompat_features(struct cache_disk_superblock *disk_super,
+ 	/*
+ 	 * Check for read-only metadata to skip the following RDWR checks.
+ 	 */
+-	if (get_disk_ro(cmd->bdev->bd_disk))
++	if (bdev_read_only(cmd->bdev))
+ 		return 0;
+ 
+ 	features = le32_to_cpu(disk_super->compat_ro_flags) & ~DM_CACHE_FEATURE_COMPAT_RO_SUPP;
+diff --git a/drivers/md/dm-thin-metadata.c b/drivers/md/dm-thin-metadata.c
+index 6ebb2127f3e2e0..e75b20480e460e 100644
+--- a/drivers/md/dm-thin-metadata.c
++++ b/drivers/md/dm-thin-metadata.c
+@@ -636,7 +636,7 @@ static int __check_incompat_features(struct thin_disk_superblock *disk_super,
+ 	/*
+ 	 * Check for read-only metadata to skip the following RDWR checks.
+ 	 */
+-	if (get_disk_ro(pmd->bdev->bd_disk))
++	if (bdev_read_only(pmd->bdev))
+ 		return 0;
+ 
+ 	features = le32_to_cpu(disk_super->compat_ro_flags) & ~THIN_FEATURE_COMPAT_RO_SUPP;
+-- 
+2.29.2
 
 --
 dm-devel mailing list
