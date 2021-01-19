@@ -1,65 +1,106 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E86CD2FAF95
-	for <lists+dm-devel@lfdr.de>; Tue, 19 Jan 2021 05:46:40 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1611031599;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=k7r2GtOEnDa6k8XZzsFnpQQ+CtFyj728bzMQ/13VwqY=;
-	b=baga5+UcIpdBWtBEkrbGVpHcvD06ZMqqAZ0CnX2HFSQECc7CsDD1YNBBtBLw0vuWphGT9Y
-	NMqfXkKeS40goShUSfWWeO5l7j+gAk4YX5paCsx1y9fCH0unTKMQzP9Xs9tvV5/OXVUOC/
-	10aSJg+5tXCmxw58KWjm9OCrvTzOvU8=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 35F072FAFDE
+	for <lists+dm-devel@lfdr.de>; Tue, 19 Jan 2021 06:08:57 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-126-T5tRDIgRPzCkbhjZ1lwHuw-1; Mon, 18 Jan 2021 23:46:37 -0500
-X-MC-Unique: T5tRDIgRPzCkbhjZ1lwHuw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-599-qaTR8ZkvMl6JzO4SWXiusA-1; Tue, 19 Jan 2021 00:08:53 -0500
+X-MC-Unique: qaTR8ZkvMl6JzO4SWXiusA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 36A541934102;
-	Tue, 19 Jan 2021 04:46:32 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 42C3E7095A;
-	Tue, 19 Jan 2021 04:46:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CC084107ACF7;
+	Tue, 19 Jan 2021 05:08:47 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A48321821A;
+	Tue, 19 Jan 2021 05:08:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E6D2F4E58E;
-	Tue, 19 Jan 2021 04:46:21 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5D4971809CA0;
+	Tue, 19 Jan 2021 05:08:47 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10J4kACI017566 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 18 Jan 2021 23:46:10 -0500
+	id 10J58iAc020706 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 19 Jan 2021 00:08:44 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2E4605D9D3; Tue, 19 Jan 2021 04:46:10 +0000 (UTC)
+	id 528D32166B2B; Tue, 19 Jan 2021 05:08:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 425275D9CD;
-	Tue, 19 Jan 2021 04:46:07 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 10J4k58J018705; 
-	Mon, 18 Jan 2021 22:46:05 -0600
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 10J4k5Rn018704;
-	Mon, 18 Jan 2021 22:46:05 -0600
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Mon, 18 Jan 2021 22:46:04 -0600
-Message-Id: <1611031564-18663-2-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1611031564-18663-1-git-send-email-bmarzins@redhat.com>
-References: <1611031564-18663-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4D9642166B29
+	for <dm-devel@redhat.com>; Tue, 19 Jan 2021 05:08:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 38A89858280
+	for <dm-devel@redhat.com>; Tue, 19 Jan 2021 05:08:44 +0000 (UTC)
+Received: from esa2.hgst.iphmx.com (esa2.hgst.iphmx.com [68.232.143.124])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-362-kupwOWy9O--ngkBOi7q3ug-1; Tue, 19 Jan 2021 00:08:40 -0500
+X-MC-Unique: kupwOWy9O--ngkBOi7q3ug-1
+IronPort-SDR: zuv0Sic16TV+RSPgNZ0vx9ayFgchK67r1qyuGIO6bQN8y8Wj+tnBeZuumxS6bw+svOpgFj1fnY
+	PfvHcza1r4/PZgekEgLEjf46Yc0BSHv7U/Z5BJ8hiqCuAk2Ajd2jtfTK47qGUaKMM/mkcH1E5e
+	2uE8rKih1unKUJ4svlzZ0tcVnJORPkXRiN5CMtP3l4SEqH8zy5PJrYMtolejAh13NlgBPmxE0g
+	/lKwHGLsynuXfZ9pqNSmHcsgNCLHPCiUUNxLGywhKhJEftC53pA6W009xS0uiwnhWLeXHsuOO0
+	WPQ=
+X-IronPort-AV: E=Sophos;i="5.79,357,1602518400"; d="scan'208";a="261722074"
+Received: from uls-op-cesaip02.wdc.com (HELO uls-op-cesaep02.wdc.com)
+	([199.255.45.15])
+	by ob1.hgst.iphmx.com with ESMTP; 19 Jan 2021 13:16:17 +0800
+IronPort-SDR: kDAV98WrMKdWNsVd+kjt3Il7e/hxnmNytGvNVA2iyuTVuEJkQw/QWa4apW8MadUlzhbW5vQrdT
+	qQXdawUsByrsorTZCGWE0pchPWL1K6/YH3zxHRlL7DyPKrKsD4gFf3Y/4ovwTk/ni1Jovmpr9m
+	kIvKt5EUJmyK/zi7snulxlqmhPbrknvF8VDep+0rZUMJgxGz+vXOQ/MVF5ONz9LxPyUbqKzdy4
+	yjGUJsqjDYFRLinOKAiYQX/2mmaP2757ts+u6+1GeMrO9l3CnhA5xkANvQW6bUeHMW+Kq4FtWr
+	bL7OUBDn5B6XLAakDgF0hDRh
+Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
+	by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	18 Jan 2021 20:49:09 -0800
+IronPort-SDR: w8TQaHPmOf4afpFLhHFiHm4s9YBVvwz1nCheCJ4OBOH8yQ2UY0NC3Tt/JdFHF9KkeR+DlxZGUH
+	e7bQB+02ddXqKaR8b/7v1Y7wXKviC9dKqJTPF9aSTC9cHooTn06sxWBBnh6ybRkpJPiq1eaXml
+	Li9XSEIsEl1dTBAvxWyxQKBso9dBp+WZiRKxmJUsbAqs+G/qtiWTWXlVZWjYoZKV0OKSYwZfdM
+	WxDGvor0MhqHOPvWCUI9b0h4sFeSeNraJk/cdT+mEYZtqS1ubVV2lyl7ZqDz6u2Z/jCzzw/RkG
+	Jdo=
+WDCIronportException: Internal
+Received: from vm.labspan.wdc.com (HELO vm.sc.wdc.com) ([10.6.137.102])
+	by uls-op-cesaip02.wdc.com with ESMTP; 18 Jan 2021 21:06:34 -0800
+From: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
+To: linux-block@vger.kernel.org, linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	drbd-dev@tron.linbit.com, linux-bcache@vger.kernel.org,
+	linux-raid@vger.kernel.org, linux-nvme@lists.infradead.org,
+	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
+	linux-btrfs@vger.kernel.org, linux-ext4@vger.kernel.org,
+	cluster-devel@redhat.com
+Date: Mon, 18 Jan 2021 21:05:54 -0800
+Message-Id: <20210119050631.57073-1-chaitanya.kulkarni@wdc.com>
+MIME-Version: 1.0
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: device-mapper development <dm-devel@redhat.com>,
-	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH v3 1/1] multipathd: cleanup logging for marginal
-	paths
+Cc: shaggy@kernel.org, jfs-discussion@lists.sourceforge.net, snitzer@redhat.com,
+	gustavo@embeddedor.com, clm@fb.com, dm-devel@redhat.com,
+	adilger.kernel@dilger.ca, hch@lst.de, agk@redhat.com,
+	naohiro.aota@wdc.com, sagi@grimberg.me, darrick.wong@oracle.com,
+	osandov@fb.com, kent.overstreet@gmail.com,
+	Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>,
+	josef@toxicpanda.com, efremov@linux.com, colyli@suse.de,
+	tj@kernel.org, viro@zeniv.linux.org.uk, dsterba@suse.com,
+	bvanassche@acm.org, agruenba@redhat.com, axboe@kernel.dk,
+	damien.lemoal@wdc.com, tytso@mit.edu, martin.petersen@oracle.com,
+	song@kernel.org, philipp.reisner@linbit.com,
+	jefflexu@linux.alibaba.com, rpeterso@redhat.com,
+	lars.ellenberg@linbit.com, jth@kernel.org, asml.silence@gmail.com
+Subject: [dm-devel] [RFC PATCH 00/37] block: introduce bio_init_fields()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,136 +112,127 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2286876457411413387=="
 
-io_err_stat logged at level 2 whenever it enqueued a path to check,
-which could happen multiple times while a path was marginal.  On the
-other hand if marginal_pathgroups wasn't set, multipathd didn't log when
-paths were set to marginal. Now io_err_stat only logs at level 2 when
-something unexpected happens, but multipathd will always log when a
-path switches its marginal state.
+--===============2286876457411413387==
+Content-Type: text/plain; charset=y
+Content-Transfer-Encoding: 8bit
 
-This patch also fixes an issue where paths in the delayed state could
-get set to the pending state if they could not be checked in time.
-Aside from going against the idea the paths should not be set to pending
-if they already have a valid state, this caused multipathd to log a
-message whenever the path state switched to from delayed to pending and
-then back.
+Hi,
 
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
----
- libmultipath/io_err_stat.c |  7 +++----
- multipathd/main.c          | 25 ++++++++++++++-----------
- 2 files changed, 17 insertions(+), 15 deletions(-)
+This is a *compile only RFC* which adds a generic helper to initialize
+the various fields of the bio that is repeated all the places in
+file-systems, block layer, and drivers.
 
-diff --git a/libmultipath/io_err_stat.c b/libmultipath/io_err_stat.c
-index bf78a236..abdd0b4f 100644
---- a/libmultipath/io_err_stat.c
-+++ b/libmultipath/io_err_stat.c
-@@ -252,7 +252,7 @@ static int enqueue_io_err_stat_by_path(struct path *path)
- 	vector_set_slot(io_err_pathvec, p);
- 	pthread_mutex_unlock(&io_err_pathvec_lock);
- 
--	io_err_stat_log(2, "%s: enqueue path %s to check",
-+	io_err_stat_log(3, "%s: enqueue path %s to check",
- 			path->mpp->alias, path->dev);
- 	return 0;
- 
-@@ -343,7 +343,7 @@ int need_io_err_check(struct path *pp)
- 	if (uatomic_read(&io_err_thread_running) == 0)
- 		return 0;
- 	if (count_active_paths(pp->mpp) <= 0) {
--		io_err_stat_log(2, "%s: recover path early", pp->dev);
-+		io_err_stat_log(2, "%s: no paths. recovering early", pp->dev);
- 		goto recover;
- 	}
- 	if (pp->io_err_pathfail_cnt != PATH_IO_ERR_WAITING_TO_CHECK)
-@@ -361,8 +361,7 @@ int need_io_err_check(struct path *pp)
- 		 * Or else,  return 1 to set path state to PATH_SHAKY
- 		 */
- 		if (r == 1) {
--			io_err_stat_log(3, "%s: enqueue fails, to recover",
--					pp->dev);
-+			io_err_stat_log(2, "%s: enqueue failed. recovering early", pp->dev);
- 			goto recover;
- 		} else
- 			pp->io_err_pathfail_cnt = PATH_IO_ERR_IN_CHECKING;
-diff --git a/multipathd/main.c b/multipathd/main.c
-index 92c45d44..99a89a69 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -2132,8 +2132,8 @@ check_path (struct vectors * vecs, struct path * pp, unsigned int ticks)
- 		pathinfo(pp, conf, 0);
- 		pthread_cleanup_pop(1);
- 		return 1;
--	} else if ((newstate != PATH_UP && newstate != PATH_GHOST) &&
--			(pp->state == PATH_DELAYED)) {
-+	} else if ((newstate != PATH_UP && newstate != PATH_GHOST &&
-+		    newstate != PATH_PENDING) && (pp->state == PATH_DELAYED)) {
- 		/* If path state become failed again cancel path delay state */
- 		pp->state = newstate;
- 		/*
-@@ -2200,8 +2200,9 @@ check_path (struct vectors * vecs, struct path * pp, unsigned int ticks)
- 	if ((newstate == PATH_UP || newstate == PATH_GHOST) &&
- 	    (san_path_check_enabled(pp->mpp) ||
- 	     marginal_path_check_enabled(pp->mpp))) {
--		int was_marginal = pp->marginal;
- 		if (should_skip_path(pp)) {
-+			if (!pp->marginal && pp->state != PATH_DELAYED)
-+				condlog(2, "%s: path is now marginal", pp->dev);
- 			if (!marginal_pathgroups) {
- 				if (marginal_path_check_enabled(pp->mpp))
- 					/* to reschedule as soon as possible,
-@@ -2211,13 +2212,18 @@ check_path (struct vectors * vecs, struct path * pp, unsigned int ticks)
- 				pp->state = PATH_DELAYED;
- 				return 1;
- 			}
--			if (!was_marginal) {
-+			if (!pp->marginal) {
- 				pp->marginal = 1;
- 				marginal_changed = 1;
- 			}
--		} else if (marginal_pathgroups && was_marginal) {
--			pp->marginal = 0;
--			marginal_changed = 1;
-+		} else {
-+			if (pp->marginal || pp->state == PATH_DELAYED)
-+				condlog(2, "%s: path is no longer marginal",
-+					pp->dev);
-+			if (marginal_pathgroups && pp->marginal) {
-+				pp->marginal = 0;
-+				marginal_changed = 1;
-+			}
- 		}
- 	}
- 
-@@ -2343,11 +2349,8 @@ check_path (struct vectors * vecs, struct path * pp, unsigned int ticks)
- 	 */
- 	condlog(4, "path prio refresh");
- 
--	if (marginal_changed) {
--		condlog(2, "%s: path is %s marginal", pp->dev,
--			(pp->marginal)? "now" : "no longer");
-+	if (marginal_changed)
- 		reload_and_sync_map(pp->mpp, vecs, 1);
--	}
- 	else if (update_prio(pp, new_path_up) &&
- 	    (pp->mpp->pgpolicyfn == (pgpolicyfn *)group_by_prio) &&
- 	     pp->mpp->pgfailback == -FAILBACK_IMMEDIATE) {
+The new helper allows callers to initialize various members such as
+bdev, sector, private, end io callback, io priority, and write hints.
+
+The objective of this RFC is to only start a discussion, this it not 
+completely tested at all. Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â  Ã‚Â 
+Following diff shows code level benefits of this helper :-
+Ã‚Â 38 files changed, 124 insertions(+), 236 deletions(-)
+
+-ck
+
+Chaitanya Kulkarni (37):
+  block: introduce bio_init_fields() helper
+  fs: use bio_init_fields in block_dev
+  btrfs: use bio_init_fields in disk-io
+  btrfs: use bio_init_fields in volumes
+  ext4: use bio_init_fields in page_io
+  gfs2: use bio_init_fields in lops
+  gfs2: use bio_init_fields in meta_io
+  gfs2: use bio_init_fields in ops_fstype
+  iomap: use bio_init_fields in buffered-io
+  iomap: use bio_init_fields in direct-io
+  jfs: use bio_init_fields in logmgr
+  zonefs: use bio_init_fields in append
+  drdb: use bio_init_fields in actlog
+  drdb: use bio_init_fields in bitmap
+  drdb: use bio_init_fields in receiver
+  floppy: use bio_init_fields
+  pktcdvd: use bio_init_fields
+  bcache: use bio_init_fields in journal
+  bcache: use bio_init_fields in super
+  bcache: use bio_init_fields in writeback
+  dm-bufio: use bio_init_fields
+  dm-crypt: use bio_init_fields
+  dm-zoned: use bio_init_fields metadata
+  dm-zoned: use bio_init_fields target
+  dm-zoned: use bio_init_fields
+  dm log writes: use bio_init_fields
+  nvmet: use bio_init_fields in bdev-ns
+  target: use bio_init_fields in iblock
+  btrfs: use bio_init_fields in scrub
+  fs: use bio_init_fields in buffer
+  eros: use bio_init_fields in data
+  eros: use bio_init_fields in zdata
+  jfs: use bio_init_fields in metadata
+  nfs: use bio_init_fields in blocklayout
+  ocfs: use bio_init_fields in heartbeat
+  xfs: use bio_init_fields in xfs_buf
+  xfs: use bio_init_fields in xfs_log
+
+ block/blk-lib.c                     | 13 +++++--------
+ drivers/block/drbd/drbd_actlog.c    |  5 +----
+ drivers/block/drbd/drbd_bitmap.c    |  5 +----
+ drivers/block/drbd/drbd_receiver.c  | 11 +++--------
+ drivers/block/floppy.c              |  5 +----
+ drivers/block/pktcdvd.c             | 12 ++++--------
+ drivers/md/bcache/journal.c         | 21 ++++++++-------------
+ drivers/md/bcache/super.c           | 19 +++++--------------
+ drivers/md/bcache/writeback.c       | 14 ++++++--------
+ drivers/md/dm-bufio.c               |  5 +----
+ drivers/md/dm-crypt.c               |  4 +---
+ drivers/md/dm-log-writes.c          | 21 ++++++---------------
+ drivers/md/dm-zoned-metadata.c      | 15 +++++----------
+ drivers/md/dm-zoned-target.c        |  9 +++------
+ drivers/md/md.c                     |  6 ++----
+ drivers/nvme/target/io-cmd-bdev.c   |  4 +---
+ drivers/target/target_core_iblock.c | 11 +++--------
+ fs/block_dev.c                      | 17 +++++------------
+ fs/btrfs/disk-io.c                  | 11 ++++-------
+ fs/btrfs/scrub.c                    |  6 ++----
+ fs/btrfs/volumes.c                  |  4 +---
+ fs/buffer.c                         |  7 ++-----
+ fs/erofs/data.c                     |  6 ++----
+ fs/erofs/zdata.c                    |  9 +++------
+ fs/ext4/page-io.c                   |  6 ++----
+ fs/gfs2/lops.c                      |  6 ++----
+ fs/gfs2/meta_io.c                   |  5 ++---
+ fs/gfs2/ops_fstype.c                |  7 ++-----
+ fs/iomap/buffered-io.c              |  5 ++---
+ fs/iomap/direct-io.c                | 15 +++++----------
+ fs/jfs/jfs_logmgr.c                 | 16 ++++------------
+ fs/jfs/jfs_metapage.c               | 16 +++++++---------
+ fs/nfs/blocklayout/blocklayout.c    |  8 ++------
+ fs/ocfs2/cluster/heartbeat.c        |  4 +---
+ fs/xfs/xfs_buf.c                    |  6 ++----
+ fs/xfs/xfs_log.c                    |  6 ++----
+ fs/zonefs/super.c                   |  7 +++----
+ include/linux/bio.h                 | 13 +++++++++++++
+ 38 files changed, 124 insertions(+), 236 deletions(-)
+
 -- 
-2.17.2
+2.22.1
+
+
+--===============2286876457411413387==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
+--===============2286876457411413387==--
 
