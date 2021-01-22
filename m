@@ -1,73 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C498230073A
-	for <lists+dm-devel@lfdr.de>; Fri, 22 Jan 2021 16:29:32 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 2AD3F300747
+	for <lists+dm-devel@lfdr.de>; Fri, 22 Jan 2021 16:30:17 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-414-mWHR00OSMp2hxqqoFX4EEQ-1; Fri, 22 Jan 2021 10:29:29 -0500
-X-MC-Unique: mWHR00OSMp2hxqqoFX4EEQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-97-J5K8s0gcOLe-JtHKznG24g-1; Fri, 22 Jan 2021 10:30:13 -0500
+X-MC-Unique: J5K8s0gcOLe-JtHKznG24g-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 23BCAB8102;
-	Fri, 22 Jan 2021 15:29:24 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9ED87107ACE6;
+	Fri, 22 Jan 2021 15:30:07 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C076C5DA34;
-	Fri, 22 Jan 2021 15:29:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 793F460C66;
+	Fri, 22 Jan 2021 15:30:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 42EFC4E58E;
-	Fri, 22 Jan 2021 15:29:23 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 27E5F4BB7B;
+	Fri, 22 Jan 2021 15:30:07 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10MFQ9Wn028586 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 22 Jan 2021 10:26:10 -0500
+	id 10MFQ9kt028585 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 22 Jan 2021 10:26:09 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BEEA3EE847; Fri, 22 Jan 2021 15:26:09 +0000 (UTC)
+	id BC43AEE84E; Fri, 22 Jan 2021 15:26:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B7DD4EE84C
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B3CB5EE847
 	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 15:26:06 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CCB05811E76
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C8DD101A564
 	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 15:26:06 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
-	[209.85.221.47]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-452-L0I24-yvOwyAECaizP-fdQ-1; Fri, 22 Jan 2021 10:26:02 -0500
-X-MC-Unique: L0I24-yvOwyAECaizP-fdQ-1
-Received: by mail-wr1-f47.google.com with SMTP id m1so4760722wrq.12
-	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 07:26:01 -0800 (PST)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+	[209.85.128.50]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-247-dUf_8jAfM7Gwg0elE4IJPQ-1; Fri, 22 Jan 2021 10:26:03 -0500
+X-MC-Unique: dUf_8jAfM7Gwg0elE4IJPQ-1
+Received: by mail-wm1-f50.google.com with SMTP id o10so6880766wmc.1
+	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 07:26:03 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
 	:references;
-	bh=UgcTNWE/uk/KcXUXWdLFils+XT6RGm4GOt/51Vobw+c=;
-	b=LosoNa6pXojwHIPItMmQjCyvEU/PG61y5J00VEPZd67U4Cb+kzYnrq7E3X3bk9Ij71
-	EiZvhtAAO0Y+xZnYQe5Zkdurs2afjnpPVgWPjoGzXF7EW6RCDeKjU3wIlH6/sqS4XIb+
-	J4Uipcg3NydNVyp6C1Fr1ad6CxOf7KTiZMBj6SxI0iqpMmjox8kn/K4oTrK/tqeRZnim
-	Cu7JpAAS5I3F8MLAbBi8WnxHaOXZ0MpIlwtBwN8ut6TnMFQd6OYAlQCujxL9ZtMzs+5V
-	p8b6yi55AB/ZLs78WLPujcY/3CabrU4JbvY9bF9ZnC2ZY2LcHsVCEHNHBEGb+99FTl/W
-	6Smw==
-X-Gm-Message-State: AOAM531IoUuQrqW1q+BSIGk/07xTniJDf78Xg2FjjYs7Qkgy9mcHX38w
-	gC3oyB2dJ5+ZL0G2WEupGNTXHQ==
-X-Google-Smtp-Source: ABdhPJx+pMdt5El2L1nSbohq3kgqH1hx0SoFFhdFFKLmBED8Hj0k8SGGsWHPlfsDuJ1lPpug+cqlZg==
-X-Received: by 2002:a05:6000:1374:: with SMTP id
-	q20mr4913106wrz.44.1611329160966; 
-	Fri, 22 Jan 2021 07:26:00 -0800 (PST)
+	bh=d2K/uftEBOdNh1oU3xJTqBSBYuXel+NGzXuIYHjfeSw=;
+	b=B8RvEr+578dEPQGl9E/eHFlt4kAI3IQN7ATE/dzPZwPVY10gNf9K4a69swqhmJHp9y
+	Bfp6HaWlbTH3aGXmHvv2OE99FqtX72puQaqSHVIXQMtxVXwNf2UbC8VkmH2CE1Ip4iTu
+	3FNoDA19rFjOEr1UQQTbTAuB4Zq5INqfLt003Wj6B6h7reqZ/36G22LLByfy1nvxuwlJ
+	03wiT+mIciVp/TLiMXizHbADaoTkTF7YQq/hCOmyP2lGFhtVwRsYF5iWavAHNr6hl/RP
+	+PGeht3ev5CQezQLlxrSW574MC1EE6DRBlO1iIYpTuEgc1E+AfvhSlaGv/quI96/aknI
+	COBw==
+X-Gm-Message-State: AOAM533QjmmzDR7bbVlcPoTpDsmYGifbES1MswfKRlKjTBohgElxjdQA
+	BN11Uq9759smj24AMPSR+lxHJw==
+X-Google-Smtp-Source: ABdhPJwgdEiFuXsGFLtcyRd7rXwNT2D48qv4ZDbzRZwGyWTZ83whwjPJv8yCjHfxmTT7NXw4Qt8KRQ==
+X-Received: by 2002:a1c:7413:: with SMTP id p19mr4359391wmc.39.1611329162836; 
+	Fri, 22 Jan 2021 07:26:02 -0800 (PST)
 Received: from snf-864.vm.snf.arr ([31.177.62.212])
 	by smtp.gmail.com with ESMTPSA id
-	r1sm12685159wrl.95.2021.01.22.07.25.59
+	r1sm12685159wrl.95.2021.01.22.07.26.01
 	(version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-	Fri, 22 Jan 2021 07:26:00 -0800 (PST)
+	Fri, 22 Jan 2021 07:26:01 -0800 (PST)
 From: Nikos Tsironis <ntsironis@arrikto.com>
 To: snitzer@redhat.com, agk@redhat.com, dm-devel@redhat.com
-Date: Fri, 22 Jan 2021 17:25:53 +0200
-Message-Id: <20210122152556.24822-2-ntsironis@arrikto.com>
+Date: Fri, 22 Jan 2021 17:25:54 +0200
+Message-Id: <20210122152556.24822-3-ntsironis@arrikto.com>
 In-Reply-To: <20210122152556.24822-1-ntsironis@arrikto.com>
 References: <20210122152556.24822-1-ntsironis@arrikto.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -81,8 +81,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: ejt@redhat.com, ntsironis@arrikto.com
-Subject: [dm-devel] [PATCH 1/4] dm era: Verify the data block size hasn't
-	changed
+Subject: [dm-devel] [PATCH 2/4] dm era: Fix bitset memory leaks
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,7 +96,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -105,44 +104,53 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-dm-era doesn't support changing the data block size of existing devices,
-so check explicitly that the requested block size for a new target
-matches the one stored in the metadata.
+Deallocate the memory allocated for the in-core bitsets when destroying
+the target and in error paths.
 
 Fixes: eec40579d84873 ("dm: add era target")
 Cc: stable@vger.kernel.org # v3.15+
 Signed-off-by: Nikos Tsironis <ntsironis@arrikto.com>
 ---
- drivers/md/dm-era-target.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/md/dm-era-target.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/drivers/md/dm-era-target.c b/drivers/md/dm-era-target.c
-index b24e3839bb3a..52e3f63335d3 100644
+index 52e3f63335d3..ffbbd8740253 100644
 --- a/drivers/md/dm-era-target.c
 +++ b/drivers/md/dm-era-target.c
-@@ -564,6 +564,15 @@ static int open_metadata(struct era_metadata *md)
+@@ -47,6 +47,7 @@ struct writeset {
+ static void writeset_free(struct writeset *ws)
+ {
+ 	vfree(ws->bits);
++	ws->bits = NULL;
+ }
+ 
+ static int setup_on_disk_bitset(struct dm_disk_bitset *info,
+@@ -810,6 +811,8 @@ static struct era_metadata *metadata_open(struct block_device *bdev,
+ 
+ static void metadata_close(struct era_metadata *md)
+ {
++	writeset_free(&md->writesets[0]);
++	writeset_free(&md->writesets[1]);
+ 	destroy_persistent_data_objects(md);
+ 	kfree(md);
+ }
+@@ -847,6 +850,7 @@ static int metadata_resize(struct era_metadata *md, void *arg)
+ 	r = writeset_alloc(&md->writesets[1], *new_size);
+ 	if (r) {
+ 		DMERR("%s: writeset_alloc failed for writeset 1", __func__);
++		writeset_free(&md->writesets[0]);
+ 		return r;
  	}
  
- 	disk = dm_block_data(sblock);
-+
-+	/* Verify the data block size hasn't changed */
-+	if (le32_to_cpu(disk->data_block_size) != md->block_size) {
-+		DMERR("changing the data block size (from %u to %llu) is not supported",
-+		      le32_to_cpu(disk->data_block_size), md->block_size);
-+		r = -EINVAL;
-+		goto bad;
-+	}
-+
- 	r = dm_tm_open_with_sm(md->bm, SUPERBLOCK_LOCATION,
- 			       disk->metadata_space_map_root,
- 			       sizeof(disk->metadata_space_map_root),
-@@ -575,7 +584,6 @@ static int open_metadata(struct era_metadata *md)
- 
- 	setup_infos(md);
- 
--	md->block_size = le32_to_cpu(disk->data_block_size);
- 	md->nr_blocks = le32_to_cpu(disk->nr_blocks);
- 	md->current_era = le32_to_cpu(disk->current_era);
+@@ -857,6 +861,8 @@ static int metadata_resize(struct era_metadata *md, void *arg)
+ 			    &value, &md->era_array_root);
+ 	if (r) {
+ 		DMERR("%s: dm_array_resize failed", __func__);
++		writeset_free(&md->writesets[0]);
++		writeset_free(&md->writesets[1]);
+ 		return r;
+ 	}
  
 -- 
 2.11.0
