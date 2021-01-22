@@ -2,74 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 427B23006FB
-	for <lists+dm-devel@lfdr.de>; Fri, 22 Jan 2021 16:20:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 985DA30070C
+	for <lists+dm-devel@lfdr.de>; Fri, 22 Jan 2021 16:22:29 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-549-za25_TwgPLO74Lgj66GvaQ-1; Fri, 22 Jan 2021 10:20:31 -0500
-X-MC-Unique: za25_TwgPLO74Lgj66GvaQ-1
+ us-mta-485-1KK8L3_xMeuY2uhR13aJTg-1; Fri, 22 Jan 2021 10:22:26 -0500
+X-MC-Unique: 1KK8L3_xMeuY2uhR13aJTg-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A70B987950D;
-	Fri, 22 Jan 2021 15:20:24 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D065F60BF3;
-	Fri, 22 Jan 2021 15:20:23 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EB669800D55;
+	Fri, 22 Jan 2021 15:22:19 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9437560C13;
+	Fri, 22 Jan 2021 15:22:19 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DD4C3180954D;
-	Fri, 22 Jan 2021 15:20:06 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E546A4BB7B;
+	Fri, 22 Jan 2021 15:22:18 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10MFJtYP028012 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 22 Jan 2021 10:19:55 -0500
+	id 10MFMF74028262 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 22 Jan 2021 10:22:15 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 486DC2026D36; Fri, 22 Jan 2021 15:19:55 +0000 (UTC)
+	id 4B2D2EE84E; Fri, 22 Jan 2021 15:22:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 43E152026D13
-	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 15:19:53 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 431CCED143
+	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 15:22:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E97491875049
-	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 15:19:52 +0000 (UTC)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
-	[209.85.221.43]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-256-fKAbuwSPOAefDZPM1Au55w-1; Fri, 22 Jan 2021 10:19:49 -0500
-X-MC-Unique: fKAbuwSPOAefDZPM1Au55w-1
-Received: by mail-wr1-f43.google.com with SMTP id c12so5436925wrc.7
-	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 07:19:49 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E256E101A562
+	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 15:22:10 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+	[209.85.128.48]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-355-nfiiXSVDOHe8aEqgj1WK6w-1; Fri, 22 Jan 2021 10:22:08 -0500
+X-MC-Unique: nfiiXSVDOHe8aEqgj1WK6w-1
+Received: by mail-wm1-f48.google.com with SMTP id v184so4667749wma.1
+	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 07:22:08 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-	:references;
-	bh=Ulah0K7SrMNMKywK6lw8eGDPVXApitKEUnAzjXT2k40=;
-	b=WDc7zpo7Ou9iLGglF08U1GBJCcmcCwoQmb6cAAIm+H46kLdic9zDyUbhEdj4IgowX/
-	WZNGNQjJhhY5IFFRChg5Xwi3BwOio6hb9WvWoAKIPeWLXmLCoVZ7SqNu32VKMUhldxIC
-	bcYWjyVWACyLxfbYdBUHWOitTnfMCMfiZ6vGPtk8dgeOoIkTI8fXg37SorLgk4V7oc4z
-	9zzGDhULPiamoAwKef9GGvqyi1PUERD3Sjea23OSBjnoDXSteycZSHpVCOMnVun5POh5
-	t5uUO/NnJ5tF5ra54R9GAe5aEZI5gbgZJ13jRxuKN8joelUvvm0zaP5NwN3ETC9rR/f6
-	3wuQ==
-X-Gm-Message-State: AOAM531vkvFi4lLLxR1Pi/VWZJPaeJ5E4W6LENb/xUAPxVQXbgWO87rc
-	dm0fnV+Pby1Cc7nwyFYwXU/sR9mcmq/rbA==
-X-Google-Smtp-Source: ABdhPJxKaaAVlERPkD9agMPce2xxkgAt3tnYPmnLak8eiwG+S7RMkQ5md7wYQj78bkFs2pP3x3K2iQ==
-X-Received: by 2002:adf:9d48:: with SMTP id o8mr5069152wre.408.1611328787994; 
-	Fri, 22 Jan 2021 07:19:47 -0800 (PST)
+	h=x-gm-message-state:from:to:cc:subject:date:message-id;
+	bh=53SgvnLqoF7ix7pCD9rMyWD1exySStDsIK9JTw0Vm4s=;
+	b=CI8egBN0dT3rZge+iXMwDCQcv0rs9E8p9lOnAZ31xfpvAJ7b8lItcGP9olBrS10vYX
+	zbP10PbeEjoKYPjSFgHt9cNKJ7ggkKop9pQRX2HaWdQH4Ldx4sCofnyfTSosMP6wdtwT
+	gp1Qyvrlt7tlOxQFVM2pfJofYA+9jq+zag79A7wVRCOutEXUMg2ncedtvGIwz7eJC/aT
+	K7OECFUved30GbvR1zINgevN5BXJc2Skz7sVmGVT3aoB+TIcXRaDdDr9+Tevie/faRvB
+	p52Hkoe7ArwF/EOHTon4PXFgy85ePJk6ybY8OCQGuYgPqF2MWbGO/+0RfXOLkKPVV47w
+	+1LA==
+X-Gm-Message-State: AOAM531DD897mGQ5fJNaVPTmP/G18+Tbeb1zWLjsWb8M0r8msYWGDFsf
+	f0bCmGWM9keD6f6YyNHhN9RF9Q==
+X-Google-Smtp-Source: ABdhPJwNiu1wNgp6BnWDCdC7F6pVTfbCuoKwIaZtO/UsagsqiGOioWtnfhEhYRrog6qz7qqOtB1dDw==
+X-Received: by 2002:a7b:ca4d:: with SMTP id m13mr4625798wml.28.1611328927261; 
+	Fri, 22 Jan 2021 07:22:07 -0800 (PST)
 Received: from snf-864.vm.snf.arr ([31.177.62.212])
 	by smtp.gmail.com with ESMTPSA id
-	j13sm11526650wmi.24.2021.01.22.07.19.45
+	z1sm12660938wru.70.2021.01.22.07.22.05
 	(version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-	Fri, 22 Jan 2021 07:19:46 -0800 (PST)
+	Fri, 22 Jan 2021 07:22:06 -0800 (PST)
 From: Nikos Tsironis <ntsironis@arrikto.com>
 To: snitzer@redhat.com, agk@redhat.com, dm-devel@redhat.com
-Date: Fri, 22 Jan 2021 17:19:31 +0200
-Message-Id: <20210122151931.24645-3-ntsironis@arrikto.com>
-In-Reply-To: <20210122151931.24645-1-ntsironis@arrikto.com>
-References: <20210122151931.24645-1-ntsironis@arrikto.com>
+Date: Fri, 22 Jan 2021 17:22:03 +0200
+Message-Id: <20210122152204.24738-1-ntsironis@arrikto.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -78,11 +74,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: ejt@redhat.com, ntsironis@arrikto.com
-Subject: [dm-devel] [PATCH 2/2] dm era: Update in-core bitset after
-	committing the metadata
+Subject: [dm-devel] [PATCH 0/1] dm era: Fix digestion bug that can lead to
+	lost writes
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -105,115 +101,88 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-In case of a system crash, dm-era might fail to mark blocks as written
-in its metadata, although the corresponding writes to these blocks were
-passed down to the origin device and completed successfully.
+In case of devices with at most 64 blocks, the digestion of consecutive
+eras uses the writeset of the first era as the writeset of all eras to
+digest, leading to lost writes. That is, we lose the information about
+what blocks were written during the affected eras.
 
-Consider the following sequence of events:
+The root cause of the bug is a failure to reinitialize the on-disk
+bitset cache when the digestion code starts digesting a new writeset.
 
-1. We write to a block that has not been yet written in the current era
-2. era_map() checks the in-core bitmap for the current era and sees
-   that the block is not marked as written.
-3. The write is deferred for submission after the metadata have been
-   updated and committed.
-4. The worker thread processes the deferred write
-   (process_deferred_bios()) and marks the block as written in the
-   in-core bitmap, **before** committing the metadata.
-5. The worker thread starts committing the metadata.
-6. We do more writes that map to the same block as the write of step (1)
-7. era_map() checks the in-core bitmap and sees that the block is marked
-   as written, **although the metadata have not been committed yet**.
-8. These writes are passed down to the origin device immediately and the
-   device reports them as completed.
-9. The system crashes, e.g., power failure, before the commit from step
-   (5) finishes.
+Steps to reproduce
+------------------
 
-When the system recovers and we query the dm-era target for the list of
-written blocks it doesn't report the aforementioned block as written,
-although the writes of step (6) completed successfully.
+1. Create two LVs, one for data and one for metadata
 
-The issue is that era_map() decides whether to defer or not a write
-based on non committed information. The root cause of the bug is that we
-update the in-core bitmap, **before** committing the metadata.
+   # lvcreate -n eradata -L1G datavg
+   # lvcreate -n erameta -L64M datavg
 
-Fix this by updating the in-core bitmap **after** successfully
-committing the metadata.
+2. Fill the whole data device with zeroes
 
-Fixes: eec40579d84873 ("dm: add era target")
-Cc: stable@vger.kernel.org # v3.15+
-Signed-off-by: Nikos Tsironis <ntsironis@arrikto.com>
----
- drivers/md/dm-era-target.c | 25 +++++++++++++++++++------
- 1 file changed, 19 insertions(+), 6 deletions(-)
+   # dd if=/dev/zero of=/dev/datavg/eradata oflag=direct bs=1M
 
-diff --git a/drivers/md/dm-era-target.c b/drivers/md/dm-era-target.c
-index 854b1be8b452..62f679faf9e7 100644
---- a/drivers/md/dm-era-target.c
-+++ b/drivers/md/dm-era-target.c
-@@ -134,7 +134,7 @@ static int writeset_test_and_set(struct dm_disk_bitset *info,
- {
- 	int r;
- 
--	if (!test_and_set_bit(block, ws->bits)) {
-+	if (!test_bit(block, ws->bits)) {
- 		r = dm_bitset_set_bit(info, ws->md.root, block, &ws->md.root);
- 		if (r) {
- 			/* FIXME: fail mode */
-@@ -1226,8 +1226,10 @@ static void process_deferred_bios(struct era *era)
- 	int r;
- 	struct bio_list deferred_bios, marked_bios;
- 	struct bio *bio;
-+	struct blk_plug plug;
- 	bool commit_needed = false;
- 	bool failed = false;
-+	struct writeset *ws = era->md->current_writeset;
- 
- 	bio_list_init(&deferred_bios);
- 	bio_list_init(&marked_bios);
-@@ -1237,9 +1239,11 @@ static void process_deferred_bios(struct era *era)
- 	bio_list_init(&era->deferred_bios);
- 	spin_unlock(&era->deferred_lock);
- 
-+	if (bio_list_empty(&deferred_bios))
-+		return;
-+
- 	while ((bio = bio_list_pop(&deferred_bios))) {
--		r = writeset_test_and_set(&era->md->bitset_info,
--					  era->md->current_writeset,
-+		r = writeset_test_and_set(&era->md->bitset_info, ws,
- 					  get_block(era, bio));
- 		if (r < 0) {
- 			/*
-@@ -1247,7 +1251,6 @@ static void process_deferred_bios(struct era *era)
- 			 * FIXME: finish.
- 			 */
- 			failed = true;
--
- 		} else if (r == 0)
- 			commit_needed = true;
- 
-@@ -1263,9 +1266,19 @@ static void process_deferred_bios(struct era *era)
- 	if (failed)
- 		while ((bio = bio_list_pop(&marked_bios)))
- 			bio_io_error(bio);
--	else
--		while ((bio = bio_list_pop(&marked_bios)))
-+	else {
-+		blk_start_plug(&plug);
-+		while ((bio = bio_list_pop(&marked_bios))) {
-+			/*
-+			 * Only update the in-core writeset if the on-disk one
-+			 * was updated too.
-+			 */
-+			if (commit_needed)
-+				set_bit(get_block(era, bio), ws->bits);
- 			submit_bio_noacct(bio);
-+		}
-+		blk_finish_plug(&plug);
-+	}
- }
- 
- static void process_rpc_calls(struct era *era)
+3. Create a dm-delay device, which inserts a 500 msec delay to writes:
+
+   # dmsetup create delaymeta --table "0 `blockdev --getsz \
+     /dev/datavg/erameta` delay /dev/datavg/erameta 0 0 /dev/datavg/erameta 0 500"
+
+4. Create a 256MiB (64 4MiB blocks) dm-era device, using the data LV for
+   data and the dm-delay device for its metadata. We set the tracking
+   granularity to 4MiB.
+
+   # dmsetup create eradev --table "0 524288 era /dev/mapper/delaymeta \
+     /dev/datavg/eradata 8192"
+
+5. Run the following script:
+
+   #!/bin/bash
+
+   # Write to block #0 during era 1
+   dd if=/dev/urandom of=/dev/mapper/eradev oflag=direct bs=4K count=1
+
+   # Increase era to 2
+   dmsetup message eradev 0 checkpoint
+
+   # Write to block #1 during era 2
+   dd if=/dev/urandom of=/dev/mapper/eradev oflag=direct bs=4K count=1 seek=1024 &
+
+   # Increase era to 3
+   dmsetup message eradev 0 checkpoint
+
+   # Sync the device
+   sync /dev/mapper/eradev
+
+6. Remove the device, so we can examine its metadata
+
+   # dmsetup remove eradev
+
+7. Examine the device's metadata with `era_dump --logical /dev/mapper/delaymeta`
+
+   <superblock uuid="" block_size="8192" nr_blocks="64" current_era="3">
+       <era_array>
+           <era block="0" era="2"/>
+           <era block="1" era="0"/>
+           <era block="2" era="0"/>
+           ...
+           <era block="63" era="0"/>
+       </era_array>
+   </superblock>
+
+   We see that:
+    a. Block #0 is marked as last written during era 2, whereas we wrote
+       to it only during era 1
+    b. Block #1 is not marked as written at all, whereas we wrote to it
+       during era 2
+
+8. Examining the data device, e.g., with `hexdump /dev/datavg/eradata`,
+   we can see that both blocks #0 and #1 are written, as expected.
+
+Nikos Tsironis (1):
+  dm era: Reinitialize bitset cache before digesting a new writeset
+
+ drivers/md/dm-era-target.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
 -- 
 2.11.0
 
