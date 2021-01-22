@@ -2,71 +2,74 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E99113006FA
-	for <lists+dm-devel@lfdr.de>; Fri, 22 Jan 2021 16:20:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 11BC73006FC
+	for <lists+dm-devel@lfdr.de>; Fri, 22 Jan 2021 16:20:34 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-602-G4-KFQ6hPwa4vok2_Q4Nvg-1; Fri, 22 Jan 2021 10:20:29 -0500
-X-MC-Unique: G4-KFQ6hPwa4vok2_Q4Nvg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-38-JiVU6sXQPwSfPSaxpec44A-1; Fri, 22 Jan 2021 10:20:30 -0500
+X-MC-Unique: JiVU6sXQPwSfPSaxpec44A-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 342B6802B48;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A8C56107ACE4;
 	Fri, 22 Jan 2021 15:20:24 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 89E2F6EF51;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 89E791992D;
 	Fri, 22 Jan 2021 15:20:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C6CAE4BB7B;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D5ED94E58E;
 	Fri, 22 Jan 2021 15:20:06 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10MFJoEx027980 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 22 Jan 2021 10:19:51 -0500
+	id 10MFJrkf027997 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 22 Jan 2021 10:19:53 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7C39410E60E0; Fri, 22 Jan 2021 15:19:50 +0000 (UTC)
+	id 16C1FEE854; Fri, 22 Jan 2021 15:19:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 782CF10E60DC
-	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 15:19:48 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 107FDEE84C
+	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 15:19:49 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 234DF185A794
-	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 15:19:48 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
-	[209.85.128.47]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-48-zLXLOcQ_MPqYDl0FmOCWcA-1; Fri, 22 Jan 2021 10:19:45 -0500
-X-MC-Unique: zLXLOcQ_MPqYDl0FmOCWcA-1
-Received: by mail-wm1-f47.google.com with SMTP id i63so4634783wma.4
-	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 07:19:45 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AB57E858280
+	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 15:19:49 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+	[209.85.128.41]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-275-VLySmBdjOASum9HqC_5jvQ-1; Fri, 22 Jan 2021 10:19:47 -0500
+X-MC-Unique: VLySmBdjOASum9HqC_5jvQ-1
+Received: by mail-wm1-f41.google.com with SMTP id v184so4660290wma.1
+	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 07:19:46 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id;
-	bh=Aj2jG4Dx9flm0oPMuXc20vwUmjkNlqvwTt6EJJe8M0k=;
-	b=BNAczoz7rRgDSiw1o7Ev3ykYhm2qrnyenEjMCy3kyEHtJdd4inU/iGTNNmu38WduV+
-	O97kgYYIW0cAlyfDVzA/rmsw4M2S2ThlUnOPGc+sBaZAQ4X9g7Qz+CGavbvLAGDAqGqU
-	tsXcr9GwrdRhrdNN7xvk52ZZXR/Osq9wqKWv3APIZetfxPrPtEf4PXKztF7DqmZEyzCa
-	gu2PiJb23OQd0L40lq+iOYNxEH7+vd/T1m45513kB/I8t9KrAut8QnoC7fzSqPEwMKgM
-	joLy7DMaTzkvfgviSaRExViH9eRBbOHx/6xdjAJb2J5vuhWetfsb32y1yq0XBCUieNRV
-	MgAQ==
-X-Gm-Message-State: AOAM531Bweqz5rgy/VjoLXHf0UMf1yvKO3Gvi+MXTrallnUT/JAw23TC
-	h3F0ZLiwQ3cR/PdOq7pr0Tb6Jg==
-X-Google-Smtp-Source: ABdhPJwPNi9S1fGrMsX9QrN0kwqePOHzB7GWgjpLWmSb8RUt1npv+JdxJvuTLqeiXHaCLIw2Dt7mkg==
-X-Received: by 2002:a1c:c903:: with SMTP id f3mr4394786wmb.69.1611328783956;
-	Fri, 22 Jan 2021 07:19:43 -0800 (PST)
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+	:references;
+	bh=febDwTYPWvnuIz8Mt7aixV3uURSD/6AX0oqu2hVKJ3U=;
+	b=so1AtmIjj77EuQW2AQtLWHUsPZT/z2obXGnYxzCtjfKc7alrNusItpT7yd3EkPsKMC
+	P6JN5QNVJL2pzgdW9AoCfhisCFA+XvYUb+zUvPbrxo0EUYC4bHzFmbohS8NXmQqluD/7
+	Lfz7a5YmZUsxcjRlfM0IkqFO95eP/rDU3zvzEagKBTHVpRPngOnsLDTlYKGTcMoSfx9R
+	81LM/cVJOSI3IuPx5nHKdInw4nd8agTDRRIPTQRTiuwxKByV/Gk79J/sZav3sKS9l0ge
+	klqxkng4xpdg6n1EPNat6yqizSyxz4nBl3XS99AGYxiJsXey5JldmYrJXuBm7lnRWFIr
+	gZqg==
+X-Gm-Message-State: AOAM532KeUN8fhWn3cVHDALcata182oIun+DsW+iC+g3ysHUCKlHUXe/
+	LvLWjyuJokipWeinNL4FdKVAkw==
+X-Google-Smtp-Source: ABdhPJyrSgWgLgrydsedHy4GJANGM2zLAAB2SXC8mkTugu4+nmVmq9TwtDOQCHvmG8eSyBJuKtFrhA==
+X-Received: by 2002:a7b:c31a:: with SMTP id k26mr4400479wmj.72.1611328785877; 
+	Fri, 22 Jan 2021 07:19:45 -0800 (PST)
 Received: from snf-864.vm.snf.arr ([31.177.62.212])
 	by smtp.gmail.com with ESMTPSA id
-	j13sm11526650wmi.24.2021.01.22.07.19.41
+	j13sm11526650wmi.24.2021.01.22.07.19.44
 	(version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-	Fri, 22 Jan 2021 07:19:42 -0800 (PST)
+	Fri, 22 Jan 2021 07:19:44 -0800 (PST)
 From: Nikos Tsironis <ntsironis@arrikto.com>
 To: snitzer@redhat.com, agk@redhat.com, dm-devel@redhat.com
-Date: Fri, 22 Jan 2021 17:19:29 +0200
-Message-Id: <20210122151931.24645-1-ntsironis@arrikto.com>
+Date: Fri, 22 Jan 2021 17:19:30 +0200
+Message-Id: <20210122151931.24645-2-ntsironis@arrikto.com>
+In-Reply-To: <20210122151931.24645-1-ntsironis@arrikto.com>
+References: <20210122151931.24645-1-ntsironis@arrikto.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -75,11 +78,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: ejt@redhat.com, ntsironis@arrikto.com
-Subject: [dm-devel] [PATCH 0/2] dm era: Fix bugs that lead to lost writes
-	after crash
+Subject: [dm-devel] [PATCH 1/2] dm era: Recover committed writeset after
+	crash
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,7 +97,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -102,21 +105,17 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-In case of a system crash, dm-era might lose the information about
-blocks written during the current era, although the corresponding writes
-were passed down to the origin device and completed successfully.
-
-There are two major, distinct bugs that can lead to lost writes:
-  1. dm-era doesn't recover the committed writeset after a system crash
-  2. dm-era decides whether to defer or not a write based on non
-     committed information
-
-Failure to recover committed writeset
-=====================================
-
 Following a system crash, dm-era fails to recover the committed writeset
 for the current era, leading to lost writes. That is, we lose the
 information about what blocks were written during the affected era.
+
+dm-era assumes that the writeset of the current era is archived when the
+device is suspended. So, when resuming the device, it just moves on to
+the next era, ignoring the committed writeset.
+
+This assumption holds when the device is properly shut down. But, when
+the system crashes, the code that suspends the target never runs, so the
+writeset for the current era is not archived.
 
 There are three issues that cause the committed writeset to get lost:
 
@@ -126,157 +125,102 @@ There are three issues that cause the committed writeset to get lost:
 3. era_preresume() starts a new era, without taking into account that
    the current era might not have been archived, due to a system crash.
 
-Steps to reproduce
-------------------
+To fix this:
 
-1. Create two LVs, one for data and one for metadata
+1. Load the committed writeset when opening the metadata
+2. Fix the code that resizes the metadata to make sure it doesn't wipe
+   the loaded writeset
+3. Fix era_preresume() to check for a loaded writeset and archive it,
+   before starting a new era.
 
-   # lvcreate -n eradata -L1G datavg
-   # lvcreate -n erameta -L64M datavg
+Fixes: eec40579d84873 ("dm: add era target")
+Cc: stable@vger.kernel.org # v3.15+
+Signed-off-by: Nikos Tsironis <ntsironis@arrikto.com>
+---
+ drivers/md/dm-era-target.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-2. Fill the whole data device with zeroes
-
-   # dd if=/dev/zero of=/dev/datavg/eradata oflag=direct bs=1M
-
-3. Create the dm-era device. We set the tracking granularity to 4MiB.
-
-   # dmsetup create eradev --table "0 `blockdev --getsz \
-     /dev/datavg/eradata` era /dev/datavg/erameta /dev/datavg/eradata 8192"
-
-4. Write random data to the first block of the device
-
-   # dd if=/dev/urandom of=/dev/mapper/eradev oflag=direct bs=4M count=1
-
-5. Flush the device
-
-   # sync /dev/mapper/eradev
-
-6. Forcefully reboot the machine
-
-   # echo b > /proc/sysrq-trigger
-
-7. When the machine comes back up recreate the dm-era device and ask for
-   the list of blocks written since era 1, i.e., for all blocks ever
-   written to the device.
-
-   # dmsetup message eradev 0 take_metadata_snap
-   # era_invalidate --metadata-snapshot --written-since 1 /dev/datavg/erameta
-   <blocks>
-   </blocks>
-
-The list of written blocks reported by dm-era is empty, even though we
-wrote the first 4MiB block of the device successfully. Using, e.g.,
-`hexdump /dev/datavg/eradata`, one can verify that indeed the first 4MiB
-block of the device was written.
-
-Missed writes
-=============
-
-In case of a system crash, dm-era might fail to mark blocks as written
-in its metadata, although the corresponding writes to these blocks were
-passed down to the origin device and completed successfully.
-
-Suppose the following sequence of events:
-
-1. We write to a block that has not been yet written in the current era
-2. era_map() checks the in-core bitmap for the current era and sees that
-   the block is not marked as written.
-3. The write is deferred for submission after the metadata have been
-   updated and committed.
-4. The worker thread processes the deferred write
-   (process_deferred_bios()) and marks the block as written in the
-   in-core bitmap, **before** committing the metadata.
-5. The worker thread starts committing the metadata.
-6. We do more writes that map to the same block as the write of step (1)
-7. era_map() checks the in-core bitmap and sees that the block is marked
-   as written, **although the metadata have not been committed yet**.
-8. These writes are passed down to the origin device immediately and the
-   device reports them as completed.
-9. The system crashes, e.g., power failure, before the commit from step
-   (5) finishes.
-
-When the system recovers and we query the dm-era target for the list of
-written blocks it doesn't report the aforementioned block as written,
-although the writes of step (6) completed successfully.
-
-Steps to reproduce
-------------------
-
-1. Create two LVs, one for data and one for metadata
-
-   # lvcreate -n eradata -L1G datavg
-   # lvcreate -n erameta -L64M datavg
-
-2. Fill the whole data device with zeroes
-
-   # dd if=/dev/zero of=/dev/datavg/eradata oflag=direct bs=1M
-
-3. Create a dm-delay device, initially with no delay, that overlays the
-   metadata device. This allows us to delay the metadata commit so we
-   can reproduce the bug easier.
-
-   # dmsetup create delaymeta --table "0 `blockdev --getsz \
-     /dev/datavg/erameta` delay /dev/datavg/erameta 0 0 /dev/datavg/erameta 0 0"
-
-4. Create the dm-era device, using the data LV for data and the dm-delay
-   device for its metadata. We set the tracking granularity to 4MiB.
-
-   # dmsetup create eradev --table "0 `blockdev --getsz \
-     /dev/datavg/eradata` era /dev/mapper/delaymeta /dev/datavg/eradata 8192"
-
-5. Change the dm-delay device table and set the write delay to 10secs
-
-   # dmsetup suspend delaymeta; dmsetup load delaymeta --table "0 \
-     `blockdev --getsz /dev/datavg/erameta` delay /dev/datavg/erameta 0 0 \
-     /dev/datavg/erameta 0 10000"; dmsetup resume delaymeta
-
-6. Run the following script:
-
-   #!/bin/bash
-
-   # a. Write to the first 4KiB block of the device, which maps to era block #0
-   dd if=/dev/urandom of=/dev/mapper/eradev oflag=direct bs=4K count=1 &
-
-   # b. Write to the second 4KiB block of the device, which also maps to block #0
-   dd if=/dev/urandom of=/dev/mapper/eradev oflag=direct bs=4K seek=1 count=1
-
-   # c. Sync the device
-   sync /dev/mapper/eradev
-
-   # d. Forcefully reboot
-   echo b > /proc/sysrq-trigger
-
-   The command of step (6a) blocks as expected, waiting for the metadata
-   commit. Meanwhile dm-era has marked block #0 as written in the in-core
-   bitmap.
-
-   We would expect the command of step (6b) to also block waiting for
-   the metadata commit triggered by (6a), as they touch the same block.
-
-   But, it doesn't.
-
-7. After the system comes back up examine the data device, e.g., using
-   `hexdump /dev/datavg/eradata`. We can see that indeed the write from
-   (6a) never completed, but the write from (6b) hit the disk.
-
-8. Recreate the device stack and ask for the list of blocks written
-   since era 1, i.e., for all blocks ever written to the device.
-
-   # dmsetup message eradev 0 take_metadata_snap
-   # era_invalidate --metadata-snapshot --written-since 1 /dev/mapper/delaymeta
-   <blocks>
-   </blocks>
-
-The list of written blocks reported by dm-era is empty, even though
-block #0 was written and flushed to the device.
-
-Nikos Tsironis (2):
-  dm era: Recover committed writeset after crash
-  dm era: Update in-core bitset after committing the metadata
-
- drivers/md/dm-era-target.c | 42 ++++++++++++++++++++++++++++--------------
- 1 file changed, 28 insertions(+), 14 deletions(-)
-
+diff --git a/drivers/md/dm-era-target.c b/drivers/md/dm-era-target.c
+index b24e3839bb3a..854b1be8b452 100644
+--- a/drivers/md/dm-era-target.c
++++ b/drivers/md/dm-era-target.c
+@@ -71,8 +71,6 @@ static size_t bitset_size(unsigned nr_bits)
+  */
+ static int writeset_alloc(struct writeset *ws, dm_block_t nr_blocks)
+ {
+-	ws->md.nr_bits = nr_blocks;
+-	ws->md.root = INVALID_WRITESET_ROOT;
+ 	ws->bits = vzalloc(bitset_size(nr_blocks));
+ 	if (!ws->bits) {
+ 		DMERR("%s: couldn't allocate in memory bitset", __func__);
+@@ -85,12 +83,14 @@ static int writeset_alloc(struct writeset *ws, dm_block_t nr_blocks)
+ /*
+  * Wipes the in-core bitset, and creates a new on disk bitset.
+  */
+-static int writeset_init(struct dm_disk_bitset *info, struct writeset *ws)
++static int writeset_init(struct dm_disk_bitset *info, struct writeset *ws,
++			 dm_block_t nr_blocks)
+ {
+ 	int r;
+ 
+-	memset(ws->bits, 0, bitset_size(ws->md.nr_bits));
++	memset(ws->bits, 0, bitset_size(nr_blocks));
+ 
++	ws->md.nr_bits = nr_blocks;
+ 	r = setup_on_disk_bitset(info, ws->md.nr_bits, &ws->md.root);
+ 	if (r) {
+ 		DMERR("%s: setup_on_disk_bitset failed", __func__);
+@@ -579,6 +579,7 @@ static int open_metadata(struct era_metadata *md)
+ 	md->nr_blocks = le32_to_cpu(disk->nr_blocks);
+ 	md->current_era = le32_to_cpu(disk->current_era);
+ 
++	ws_unpack(&disk->current_writeset, &md->current_writeset->md);
+ 	md->writeset_tree_root = le64_to_cpu(disk->writeset_tree_root);
+ 	md->era_array_root = le64_to_cpu(disk->era_array_root);
+ 	md->metadata_snap = le64_to_cpu(disk->metadata_snap);
+@@ -870,7 +871,6 @@ static int metadata_era_archive(struct era_metadata *md)
+ 	}
+ 
+ 	ws_pack(&md->current_writeset->md, &value);
+-	md->current_writeset->md.root = INVALID_WRITESET_ROOT;
+ 
+ 	keys[0] = md->current_era;
+ 	__dm_bless_for_disk(&value);
+@@ -882,6 +882,7 @@ static int metadata_era_archive(struct era_metadata *md)
+ 		return r;
+ 	}
+ 
++	md->current_writeset->md.root = INVALID_WRITESET_ROOT;
+ 	md->archived_writesets = true;
+ 
+ 	return 0;
+@@ -898,7 +899,7 @@ static int metadata_new_era(struct era_metadata *md)
+ 	int r;
+ 	struct writeset *new_writeset = next_writeset(md);
+ 
+-	r = writeset_init(&md->bitset_info, new_writeset);
++	r = writeset_init(&md->bitset_info, new_writeset, md->nr_blocks);
+ 	if (r) {
+ 		DMERR("%s: writeset_init failed", __func__);
+ 		return r;
+@@ -951,7 +952,7 @@ static int metadata_commit(struct era_metadata *md)
+ 	int r;
+ 	struct dm_block *sblock;
+ 
+-	if (md->current_writeset->md.root != SUPERBLOCK_LOCATION) {
++	if (md->current_writeset->md.root != INVALID_WRITESET_ROOT) {
+ 		r = dm_bitset_flush(&md->bitset_info, md->current_writeset->md.root,
+ 				    &md->current_writeset->md.root);
+ 		if (r) {
+@@ -1565,7 +1566,7 @@ static int era_preresume(struct dm_target *ti)
+ 
+ 	start_worker(era);
+ 
+-	r = in_worker0(era, metadata_new_era);
++	r = in_worker0(era, metadata_era_rollover);
+ 	if (r) {
+ 		DMERR("%s: metadata_era_rollover failed", __func__);
+ 		return r;
 -- 
 2.11.0
 
