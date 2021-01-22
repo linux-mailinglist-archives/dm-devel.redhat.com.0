@@ -1,72 +1,75 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 1D768300743
-	for <lists+dm-devel@lfdr.de>; Fri, 22 Jan 2021 16:30:15 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id C498230073A
+	for <lists+dm-devel@lfdr.de>; Fri, 22 Jan 2021 16:29:32 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-20-zPIt2hiAO8qCVpe4mju5IQ-1; Fri, 22 Jan 2021 10:30:11 -0500
-X-MC-Unique: zPIt2hiAO8qCVpe4mju5IQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-414-mWHR00OSMp2hxqqoFX4EEQ-1; Fri, 22 Jan 2021 10:29:29 -0500
+X-MC-Unique: mWHR00OSMp2hxqqoFX4EEQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E6F8B801817;
-	Fri, 22 Jan 2021 15:30:05 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 23BCAB8102;
+	Fri, 22 Jan 2021 15:29:24 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 194745C237;
-	Fri, 22 Jan 2021 15:30:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C076C5DA34;
+	Fri, 22 Jan 2021 15:29:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A84A64E58E;
-	Fri, 22 Jan 2021 15:30:04 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 42EFC4E58E;
+	Fri, 22 Jan 2021 15:29:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10MFQ5MJ028573 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 22 Jan 2021 10:26:06 -0500
+	id 10MFQ9Wn028586 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 22 Jan 2021 10:26:10 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id AECDB10EB2A9; Fri, 22 Jan 2021 15:26:05 +0000 (UTC)
+	id BEEA3EE847; Fri, 22 Jan 2021 15:26:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AAC4210EB2A0
-	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 15:26:03 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B7DD4EE84C
+	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 15:26:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 444AA82DFE0
-	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 15:26:03 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
-	[209.85.128.42]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-172-TIR3Ehg8NPC7mamxEPaK1g-1; Fri, 22 Jan 2021 10:26:01 -0500
-X-MC-Unique: TIR3Ehg8NPC7mamxEPaK1g-1
-Received: by mail-wm1-f42.google.com with SMTP id y187so4673488wmd.3
-	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 07:26:00 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CCB05811E76
+	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 15:26:06 +0000 (UTC)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+	[209.85.221.47]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-452-L0I24-yvOwyAECaizP-fdQ-1; Fri, 22 Jan 2021 10:26:02 -0500
+X-MC-Unique: L0I24-yvOwyAECaizP-fdQ-1
+Received: by mail-wr1-f47.google.com with SMTP id m1so4760722wrq.12
+	for <dm-devel@redhat.com>; Fri, 22 Jan 2021 07:26:01 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id;
-	bh=TDSXVKSqCZu1eW5+oZwCSi3rshW8BWQgYDZe5PajAxM=;
-	b=Fe/fNjJiHIPkSVkC7Wat8fNHdWQJEw48djicR68rAq/lOqiw0pQtWFOTrps+IEA8H5
-	7IzD+muB6nQKs3UFBg4D7HLg5eGFojuQHFHzzDyzeGRvdDF4SyWUCJyOp7tRdAoZWrCR
-	sDQXOxtR2G4VLyWDcjXQLcEzB9rKJ+zxt2WS2jbSDgJpPOyiTnsFEj3UxqX0MOIge4Ph
-	uDh0hMh852i2xCsbPDfwdhZRFIwbAofkxlGg/bzXrILoVs9GVrtNnep7P8kO+HcpooX+
-	hoWJEgT44WSlC+XdaL0coWgjdfLOlYpZpE1DNEnfVzvpE+8Bzh5piJ72/L2s/SPC0/dK
-	tYqw==
-X-Gm-Message-State: AOAM530bnYKNhzaO8kU2ulap7n3V7nwNkNXQCFgq0kW04ZSprLMeyc9b
-	VMvSe6SoK0d6OKxDgSAzTeUm2w==
-X-Google-Smtp-Source: ABdhPJyY14vLXWiRDW01SszZ4j3wv8uSMzrTFHkm2ArQL/y30W1EI2s2dJfTHm5mUDS3FszheySwCA==
-X-Received: by 2002:a05:600c:214c:: with SMTP id
-	v12mr4465980wml.8.1611329159152; 
-	Fri, 22 Jan 2021 07:25:59 -0800 (PST)
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+	:references;
+	bh=UgcTNWE/uk/KcXUXWdLFils+XT6RGm4GOt/51Vobw+c=;
+	b=LosoNa6pXojwHIPItMmQjCyvEU/PG61y5J00VEPZd67U4Cb+kzYnrq7E3X3bk9Ij71
+	EiZvhtAAO0Y+xZnYQe5Zkdurs2afjnpPVgWPjoGzXF7EW6RCDeKjU3wIlH6/sqS4XIb+
+	J4Uipcg3NydNVyp6C1Fr1ad6CxOf7KTiZMBj6SxI0iqpMmjox8kn/K4oTrK/tqeRZnim
+	Cu7JpAAS5I3F8MLAbBi8WnxHaOXZ0MpIlwtBwN8ut6TnMFQd6OYAlQCujxL9ZtMzs+5V
+	p8b6yi55AB/ZLs78WLPujcY/3CabrU4JbvY9bF9ZnC2ZY2LcHsVCEHNHBEGb+99FTl/W
+	6Smw==
+X-Gm-Message-State: AOAM531IoUuQrqW1q+BSIGk/07xTniJDf78Xg2FjjYs7Qkgy9mcHX38w
+	gC3oyB2dJ5+ZL0G2WEupGNTXHQ==
+X-Google-Smtp-Source: ABdhPJx+pMdt5El2L1nSbohq3kgqH1hx0SoFFhdFFKLmBED8Hj0k8SGGsWHPlfsDuJ1lPpug+cqlZg==
+X-Received: by 2002:a05:6000:1374:: with SMTP id
+	q20mr4913106wrz.44.1611329160966; 
+	Fri, 22 Jan 2021 07:26:00 -0800 (PST)
 Received: from snf-864.vm.snf.arr ([31.177.62.212])
 	by smtp.gmail.com with ESMTPSA id
-	r1sm12685159wrl.95.2021.01.22.07.25.57
+	r1sm12685159wrl.95.2021.01.22.07.25.59
 	(version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-	Fri, 22 Jan 2021 07:25:58 -0800 (PST)
+	Fri, 22 Jan 2021 07:26:00 -0800 (PST)
 From: Nikos Tsironis <ntsironis@arrikto.com>
 To: snitzer@redhat.com, agk@redhat.com, dm-devel@redhat.com
-Date: Fri, 22 Jan 2021 17:25:52 +0200
-Message-Id: <20210122152556.24822-1-ntsironis@arrikto.com>
+Date: Fri, 22 Jan 2021 17:25:53 +0200
+Message-Id: <20210122152556.24822-2-ntsironis@arrikto.com>
+In-Reply-To: <20210122152556.24822-1-ntsironis@arrikto.com>
+References: <20210122152556.24822-1-ntsironis@arrikto.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -75,10 +78,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: ejt@redhat.com, ntsironis@arrikto.com
-Subject: [dm-devel] [PATCH 0/4] dm era: Various minor fixes
+Subject: [dm-devel] [PATCH 1/4] dm era: Verify the data block size hasn't
+	changed
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,7 +97,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -101,29 +105,45 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-While working on fixing the bugs that cause lost writes, for which I
-have sent separate emails, I bumped into several other minor issues that
-I fix in this patch set.
+dm-era doesn't support changing the data block size of existing devices,
+so check explicitly that the requested block size for a new target
+matches the one stored in the metadata.
 
-In particular, this series of commits introduces the following fixes:
+Fixes: eec40579d84873 ("dm: add era target")
+Cc: stable@vger.kernel.org # v3.15+
+Signed-off-by: Nikos Tsironis <ntsironis@arrikto.com>
+---
+ drivers/md/dm-era-target.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-1. Add explicit check that the data block size hasn't changed
-2. Fix bitset memory leaks. The in-core bitmaps were never freed.
-3. Fix the writeset tree equality test function to use the right value
-   size.
-4. Remove unreachable resize operation in pre-resume function.
-
-More information about the fixes can be found in their commit messages.
-
-Nikos Tsironis (4):
-  dm era: Verify the data block size hasn't changed
-  dm era: Fix bitset memory leaks
-  dm era: Use correct value size in equality function of writeset tree
-  dm era: Remove unreachable resize operation in pre-resume function
-
- drivers/md/dm-era-target.c | 27 ++++++++++++++++-----------
- 1 file changed, 16 insertions(+), 11 deletions(-)
-
+diff --git a/drivers/md/dm-era-target.c b/drivers/md/dm-era-target.c
+index b24e3839bb3a..52e3f63335d3 100644
+--- a/drivers/md/dm-era-target.c
++++ b/drivers/md/dm-era-target.c
+@@ -564,6 +564,15 @@ static int open_metadata(struct era_metadata *md)
+ 	}
+ 
+ 	disk = dm_block_data(sblock);
++
++	/* Verify the data block size hasn't changed */
++	if (le32_to_cpu(disk->data_block_size) != md->block_size) {
++		DMERR("changing the data block size (from %u to %llu) is not supported",
++		      le32_to_cpu(disk->data_block_size), md->block_size);
++		r = -EINVAL;
++		goto bad;
++	}
++
+ 	r = dm_tm_open_with_sm(md->bm, SUPERBLOCK_LOCATION,
+ 			       disk->metadata_space_map_root,
+ 			       sizeof(disk->metadata_space_map_root),
+@@ -575,7 +584,6 @@ static int open_metadata(struct era_metadata *md)
+ 
+ 	setup_infos(md);
+ 
+-	md->block_size = le32_to_cpu(disk->data_block_size);
+ 	md->nr_blocks = le32_to_cpu(disk->nr_blocks);
+ 	md->current_era = le32_to_cpu(disk->current_era);
+ 
 -- 
 2.11.0
 
