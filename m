@@ -2,76 +2,79 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 005A53013E5
-	for <lists+dm-devel@lfdr.de>; Sat, 23 Jan 2021 09:20:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 397E23015C3
+	for <lists+dm-devel@lfdr.de>; Sat, 23 Jan 2021 15:20:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1611411645;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=SaCSxn9ykEJNNmzipJclxQDMpPU3wG5kz0VDX5lG7mw=;
+	b=MdXVvjodE8IIMWqJNOWytih19T+M/b/8H8KtJ+MNdf9D0w/sUchF7CBbIvHA1hPhUPyC8i
+	YrNbni4PNPOy49XVHBjituMu8Fzb7B2QpyTCdH5mfmRV4+NmBzknltzhcQvvxBQ5eBT/Kk
+	g7TAMvvEQhlCjpxrR+AcJQukNUMmqDg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-344-ft8VfY5DP5-3qAv4zprJKQ-1; Sat, 23 Jan 2021 03:20:30 -0500
-X-MC-Unique: ft8VfY5DP5-3qAv4zprJKQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-186-FVvnRC-SPFeQh7sxDGMshg-1; Sat, 23 Jan 2021 09:20:43 -0500
+X-MC-Unique: FVvnRC-SPFeQh7sxDGMshg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 63049800D55;
-	Sat, 23 Jan 2021 08:20:23 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3B1E010054FF;
+	Sat, 23 Jan 2021 14:20:35 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9341B62463;
-	Sat, 23 Jan 2021 08:20:20 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 262E59CA0;
+	Sat, 23 Jan 2021 14:20:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B71D9180954D;
-	Sat, 23 Jan 2021 08:20:06 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 845A71809C9F;
+	Sat, 23 Jan 2021 14:20:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10N8Jm22013161 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 23 Jan 2021 03:19:49 -0500
+	id 10NEK0E0019435 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 23 Jan 2021 09:20:00 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B57E11019258; Sat, 23 Jan 2021 08:19:48 +0000 (UTC)
+	id 13EF360BFA; Sat, 23 Jan 2021 14:20:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B1E771019256
-	for <dm-devel@redhat.com>; Sat, 23 Jan 2021 08:19:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 409A61875049
-	for <dm-devel@redhat.com>; Sat, 23 Jan 2021 08:19:46 +0000 (UTC)
-Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-537-ePb0WH66P0aV3ftABVEpcA-1; Sat, 23 Jan 2021 03:19:41 -0500
-X-MC-Unique: ePb0WH66P0aV3ftABVEpcA-1
-Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.59])
-	by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4DN8Cg6RMxzj5sh;
-	Sat, 23 Jan 2021 16:18:39 +0800 (CST)
-Received: from [10.174.178.113] (10.174.178.113) by
-	DGGEMS413-HUB.china.huawei.com (10.3.19.213) with Microsoft SMTP Server
-	id 14.3.498.0; Sat, 23 Jan 2021 16:19:28 +0800
-To: Martin Wilck <mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, 
-	Christophe Varoqui <christophe.varoqui@opensvc.com>, dm-devel mailing list
-	<dm-devel@redhat.com>
-From: lixiaokeng <lixiaokeng@huawei.com>
-Message-ID: <a2693d7a-55f1-234e-74a1-f234c152a490@huawei.com>
-Date: Sat, 23 Jan 2021 16:19:28 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B75B060BE2;
+	Sat, 23 Jan 2021 14:19:56 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 10NEJumO005759; Sat, 23 Jan 2021 09:19:56 -0500
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 10NEJugM005755; Sat, 23 Jan 2021 09:19:56 -0500
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Sat, 23 Jan 2021 09:19:56 -0500 (EST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: "J. Bruce Fields" <bfields@redhat.com>, Mike Snitzer <msnitzer@redhat.com>
+In-Reply-To: <20210115224735.GD95264@pick.fieldses.org>
+Message-ID: <alpine.LRH.2.02.2101230917360.5678@file01.intranet.prod.int.rdu2.redhat.com>
+References: <alpine.LRH.2.02.2101131221260.5981@file01.intranet.prod.int.rdu2.redhat.com>
+	<20210113202018.GF9978@pick.fieldses.org>
+	<alpine.LRH.2.02.2101131540250.10680@file01.intranet.prod.int.rdu2.redhat.com>
+	<20210113213746.GH9978@pick.fieldses.org>
+	<20210113230849.GA42761@pick.fieldses.org>
+	<20210114224239.GA63697@pick.fieldses.org>
+	<20210115155840.GA95264@pick.fieldses.org>
+	<20210115164016.GB95264@pick.fieldses.org>
+	<alpine.LRH.2.02.2101151142550.30218@file01.intranet.prod.int.rdu2.redhat.com>
+	<20210115204319.GC95264@pick.fieldses.org>
+	<20210115224735.GD95264@pick.fieldses.org>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-X-Originating-IP: [10.174.178.113]
-X-CFilter-Loop: Reflected
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
-Cc: linfeilong <linfeilong@huawei.com>,
-	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
-Subject: [dm-devel] [PATCH] libmultipath: fix NULL dereference in
-	find_path_by_dev
+Cc: dm-devel@redhat.com, David Teigland <teigland@redhat.com>
+Subject: [dm-devel] [PATCH] dm writecache: fix performance degradation in
+	ssd mode
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,51 +88,56 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-GB
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-When I test the 0.8.5 code with iscsi login/out, multipathd command
-and multipath command concurrently, there is a multipathd coredump.
-The stack is shown:
 
-uxlsnrloop
-  ->cli_list_devices
-    ->show_devices
-      ->snprint_devices
-        ->find_path_by_dev
 
-The reason is that devname is NULL in snprint_devices, then it will
-be dereference. Here we check dev in find_path_by_dev.
+On Fri, 15 Jan 2021, J. Bruce Fields wrote:
+
+> Any recommendations?  I spent some time with blktrace/blkparse/btt and
+> can't make head or tails of them, I'm afraid.
+> 
+> --b.
+
+Hi
+
+Try this patch:
+
+
+From: Mikulas Patocka <mpatocka@redhat.com>
+
+Fix a thinko in ssd_commit_superblock. region.count is in sectors, not
+bytes. This bug doesn't corrupt data, but it causes performance
+degradation.
+
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Fixes: dc8a01ae1dbd ("dm writecache: optimize superblock write")
+Cc: stable@vger.kernel.org	# v5.7
+Reported-by: J. Bruce Fields <bfields@redhat.com>
+
 ---
- libmultipath/structs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/md/dm-writecache.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/libmultipath/structs.c b/libmultipath/structs.c
-index 464596f..a3f27fd 100644
---- a/libmultipath/structs.c
-+++ b/libmultipath/structs.c
-@@ -453,12 +453,12 @@ find_mp_by_str (const struct _vector *mpvec, const char * str)
- }
-
- struct path *
--find_path_by_dev (const struct _vector *pathvec, const char * dev)
-+find_path_by_dev (const struct _vector *pathvec, const char *dev)
- {
-    int i;
-    struct path * pp;
-
--   if (!pathvec)
-+   if (!pathvec || !dev)
-        return NULL;
-
-    vector_foreach_slot (pathvec, pp, i)
--- 
+Index: linux-2.6/drivers/md/dm-writecache.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-writecache.c	2021-01-23 10:51:31.000000000 +0100
++++ linux-2.6/drivers/md/dm-writecache.c	2021-01-23 15:16:53.000000000 +0100
+@@ -523,7 +523,7 @@ static void ssd_commit_superblock(struct
+ 
+ 	region.bdev = wc->ssd_dev->bdev;
+ 	region.sector = 0;
+-	region.count = PAGE_SIZE;
++	region.count = PAGE_SIZE >> SECTOR_SHIFT;
+ 
+ 	if (unlikely(region.sector + region.count > wc->metadata_sectors))
+ 		region.count = wc->metadata_sectors - region.sector;
 
 --
 dm-devel mailing list
