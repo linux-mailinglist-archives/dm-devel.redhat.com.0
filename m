@@ -1,52 +1,53 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 7DBE4301B31
-	for <lists+dm-devel@lfdr.de>; Sun, 24 Jan 2021 11:13:22 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 539DB301B37
+	for <lists+dm-devel@lfdr.de>; Sun, 24 Jan 2021 11:14:13 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-152-zi4v3Ku7OhC1qOSb6xqO7w-1; Sun, 24 Jan 2021 05:13:19 -0500
-X-MC-Unique: zi4v3Ku7OhC1qOSb6xqO7w-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-22-4nN5kpQ3MVyx_-TzkFommw-1; Sun, 24 Jan 2021 05:14:09 -0500
+X-MC-Unique: 4nN5kpQ3MVyx_-TzkFommw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 57FF980A5C8;
-	Sun, 24 Jan 2021 10:13:14 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2D7E160C6C;
-	Sun, 24 Jan 2021 10:13:14 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B2EB510054FF;
+	Sun, 24 Jan 2021 10:14:04 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8865010023AD;
+	Sun, 24 Jan 2021 10:14:04 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D111D1809CA0;
-	Sun, 24 Jan 2021 10:13:13 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 44D324E58E;
+	Sun, 24 Jan 2021 10:14:04 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10OAD6hR005581 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 24 Jan 2021 05:13:06 -0500
+	id 10OADx5t005764 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 24 Jan 2021 05:13:59 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 42F8847CD6; Sun, 24 Jan 2021 10:13:06 +0000 (UTC)
+	id B07C047CD4; Sun, 24 Jan 2021 10:13:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3BA2B47CD4
-	for <dm-devel@redhat.com>; Sun, 24 Jan 2021 10:13:06 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AB74E47CDC
+	for <dm-devel@redhat.com>; Sun, 24 Jan 2021 10:13:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 24706800889
-	for <dm-devel@redhat.com>; Sun, 24 Jan 2021 10:13:06 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 61AB9187504B
+	for <dm-devel@redhat.com>; Sun, 24 Jan 2021 10:13:57 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-565-YM9lkYu5MrCYWDrACbbNiA-1; Sun, 24 Jan 2021 05:13:04 -0500
-X-MC-Unique: YM9lkYu5MrCYWDrACbbNiA-1
+	us-mta-557-MMsOuBEmN6GjNboe0JTq-A-1; Sun, 24 Jan 2021 05:13:55 -0500
+X-MC-Unique: MMsOuBEmN6GjNboe0JTq-A-1
 Received: from [2001:4bb8:188:1954:a3b3:627f:702b:2136] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
-	id 1l3cH7-002q9r-Ll; Sun, 24 Jan 2021 10:05:44 +0000
+	id 1l3cHD-002qA0-TP; Sun, 24 Jan 2021 10:05:49 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Sun, 24 Jan 2021 11:02:37 +0100
-Message-Id: <20210124100241.1167849-7-hch@lst.de>
+Date: Sun, 24 Jan 2021 11:02:38 +0100
+Message-Id: <20210124100241.1167849-8-hch@lst.de>
 In-Reply-To: <20210124100241.1167849-1-hch@lst.de>
 References: <20210124100241.1167849-1-hch@lst.de>
 MIME-Version: 1.0
@@ -66,8 +67,7 @@ Cc: linux-s390@vger.kernel.org, linux-bcache@vger.kernel.org,
 	Coly Li <colyli@suse.de>, linux-raid@vger.kernel.org,
 	Song Liu <song@kernel.org>, dm-devel@redhat.com,
 	linux-block@vger.kernel.org, Tejun Heo <tj@kernel.org>
-Subject: [dm-devel] [PATCH 06/10] block: use ->bi_bdev for bio based I/O
-	accounting
+Subject: [dm-devel] [PATCH 07/10] blk-mq: use ->bi_bdev for I/O accounting
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +81,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -89,271 +89,106 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Rework the I/O accounting for bio based drivers to use ->bi_bdev.  This
-means all drivers can now simply use bio_start_io_acct to start
-accounting, and it will take partitions into account automatically.  To
-end I/O account either bio_end_io_acct can be used if the driver never
-remaps I/O to a different device, or bio_end_io_acct_remapped if the
-driver did remap the I/O.
+Remove the reverse map from a sector to a partition for I/O accounting by
+simply using ->bi_bdev.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Acked-by: Tejun Heo <tj@kernel.org>
 ---
- block/blk-core.c            | 23 +++++++++++++----------
- drivers/md/bcache/request.c | 34 +++++++++++++++++++++-------------
- drivers/md/md.c             |  8 ++++----
- include/linux/blkdev.h      | 21 ++++-----------------
- 4 files changed, 42 insertions(+), 44 deletions(-)
+ block/blk-core.c |  6 +++++-
+ block/blk.h      |  2 --
+ block/genhd.c    | 48 ------------------------------------------------
+ 3 files changed, 5 insertions(+), 51 deletions(-)
 
 diff --git a/block/blk-core.c b/block/blk-core.c
-index 1c1b97a82caa2e..9315311c27a913 100644
+index 9315311c27a913..6dfbdde6b9ff84 100644
 --- a/block/blk-core.c
 +++ b/block/blk-core.c
-@@ -1321,14 +1321,17 @@ static unsigned long __part_start_io_acct(struct block_device *part,
- 	return now;
- }
+@@ -1298,7 +1298,11 @@ void blk_account_io_start(struct request *rq)
+ 	if (!blk_do_io_stat(rq))
+ 		return;
  
--unsigned long part_start_io_acct(struct gendisk *disk, struct block_device **part,
--				 struct bio *bio)
-+/**
-+ * bio_start_io_acct - start I/O accounting for bio based drivers
-+ * @bio:	bio to start account for
-+ *
-+ * Returns the start time that should be passed back to bio_end_io_acct().
-+ */
-+unsigned long bio_start_io_acct(struct bio *bio)
- {
--	*part = disk_map_sector_rcu(disk, bio->bi_iter.bi_sector);
+-	rq->part = disk_map_sector_rcu(rq->rq_disk, blk_rq_pos(rq));
++	/* passthrough requests can hold bios that do not have ->bi_bdev set */
++	if (rq->bio && rq->bio->bi_bdev)
++		rq->part = rq->bio->bi_bdev;
++	else
++		rq->part = rq->rq_disk->part0;
+ 
+ 	part_stat_lock();
+ 	update_io_ticks(rq->part, jiffies, false);
+diff --git a/block/blk.h b/block/blk.h
+index 10ab7c0d0766f0..d965cacc5bdaa1 100644
+--- a/block/blk.h
++++ b/block/blk.h
+@@ -333,8 +333,6 @@ void blk_queue_free_zone_bitmaps(struct request_queue *q);
+ static inline void blk_queue_free_zone_bitmaps(struct request_queue *q) {}
+ #endif
+ 
+-struct block_device *disk_map_sector_rcu(struct gendisk *disk, sector_t sector);
 -
--	return __part_start_io_acct(*part, bio_sectors(bio), bio_op(bio));
-+	return __part_start_io_acct(bio->bi_bdev, bio_sectors(bio), bio_op(bio));
+ int blk_alloc_devt(struct block_device *part, dev_t *devt);
+ void blk_free_devt(dev_t devt);
+ char *disk_name(struct gendisk *hd, int partno, char *buf);
+diff --git a/block/genhd.c b/block/genhd.c
+index e536d0b4bbae34..e46de616a19e59 100644
+--- a/block/genhd.c
++++ b/block/genhd.c
+@@ -285,54 +285,6 @@ void disk_part_iter_exit(struct disk_part_iter *piter)
  }
--EXPORT_SYMBOL_GPL(part_start_io_acct);
-+EXPORT_SYMBOL_GPL(bio_start_io_acct);
+ EXPORT_SYMBOL_GPL(disk_part_iter_exit);
  
- unsigned long disk_start_io_acct(struct gendisk *disk, unsigned int sectors,
- 				 unsigned int op)
-@@ -1351,12 +1354,12 @@ static void __part_end_io_acct(struct block_device *part, unsigned int op,
- 	part_stat_unlock();
- }
- 
--void part_end_io_acct(struct block_device *part, struct bio *bio,
--		      unsigned long start_time)
-+void bio_end_io_acct_remapped(struct bio *bio, unsigned long start_time,
-+		struct block_device *orig_bdev)
- {
--	__part_end_io_acct(part, bio_op(bio), start_time);
-+	__part_end_io_acct(orig_bdev, bio_op(bio), start_time);
- }
--EXPORT_SYMBOL_GPL(part_end_io_acct);
-+EXPORT_SYMBOL_GPL(bio_end_io_acct_remapped);
- 
- void disk_end_io_acct(struct gendisk *disk, unsigned int op,
- 		      unsigned long start_time)
-diff --git a/drivers/md/bcache/request.c b/drivers/md/bcache/request.c
-index dfc35d6d05ed1c..29c231758293e2 100644
---- a/drivers/md/bcache/request.c
-+++ b/drivers/md/bcache/request.c
-@@ -475,7 +475,7 @@ struct search {
- 	unsigned int		read_dirty_data:1;
- 	unsigned int		cache_missed:1;
- 
--	struct block_device	*part;
-+	struct block_device	*orig_bdev;
- 	unsigned long		start_time;
- 
- 	struct btree_op		op;
-@@ -670,8 +670,8 @@ static void bio_complete(struct search *s)
- {
- 	if (s->orig_bio) {
- 		/* Count on bcache device */
--		part_end_io_acct(s->part, s->orig_bio, s->start_time);
--
-+		bio_end_io_acct_remapped(s->orig_bio, s->start_time,
-+					 s->orig_bdev);
- 		trace_bcache_request_end(s->d, s->orig_bio);
- 		s->orig_bio->bi_status = s->iop.status;
- 		bio_endio(s->orig_bio);
-@@ -714,7 +714,8 @@ static void search_free(struct closure *cl)
- }
- 
- static inline struct search *search_alloc(struct bio *bio,
--					  struct bcache_device *d)
-+		struct bcache_device *d, struct block_device *orig_bdev,
-+		unsigned long start_time)
- {
- 	struct search *s;
- 
-@@ -732,7 +733,8 @@ static inline struct search *search_alloc(struct bio *bio,
- 	s->write		= op_is_write(bio_op(bio));
- 	s->read_dirty_data	= 0;
- 	/* Count on the bcache device */
--	s->start_time		= part_start_io_acct(d->disk, &s->part, bio);
-+	s->orig_bdev		= orig_bdev;
-+	s->start_time		= start_time;
- 	s->iop.c		= d->c;
- 	s->iop.bio		= NULL;
- 	s->iop.inode		= d->id;
-@@ -1074,7 +1076,7 @@ struct detached_dev_io_private {
- 	unsigned long		start_time;
- 	bio_end_io_t		*bi_end_io;
- 	void			*bi_private;
--	struct block_device	*part;
-+	struct block_device	*orig_bdev;
- };
- 
- static void detached_dev_end_io(struct bio *bio)
-@@ -1086,7 +1088,7 @@ static void detached_dev_end_io(struct bio *bio)
- 	bio->bi_private = ddip->bi_private;
- 
- 	/* Count on the bcache device */
--	part_end_io_acct(ddip->part, bio, ddip->start_time);
-+	bio_end_io_acct_remapped(bio, ddip->start_time, ddip->orig_bdev);
- 
- 	if (bio->bi_status) {
- 		struct cached_dev *dc = container_of(ddip->d,
-@@ -1099,7 +1101,8 @@ static void detached_dev_end_io(struct bio *bio)
- 	bio->bi_end_io(bio);
- }
- 
--static void detached_dev_do_request(struct bcache_device *d, struct bio *bio)
-+static void detached_dev_do_request(struct bcache_device *d, struct bio *bio,
-+		struct block_device *orig_bdev, unsigned long start_time)
- {
- 	struct detached_dev_io_private *ddip;
- 	struct cached_dev *dc = container_of(d, struct cached_dev, disk);
-@@ -1112,7 +1115,8 @@ static void detached_dev_do_request(struct bcache_device *d, struct bio *bio)
- 	ddip = kzalloc(sizeof(struct detached_dev_io_private), GFP_NOIO);
- 	ddip->d = d;
- 	/* Count on the bcache device */
--	ddip->start_time = part_start_io_acct(d->disk, &ddip->part, bio);
-+	ddip->orig_bdev = orig_bdev;
-+	ddip->start_time = start_time;
- 	ddip->bi_end_io = bio->bi_end_io;
- 	ddip->bi_private = bio->bi_private;
- 	bio->bi_end_io = detached_dev_end_io;
-@@ -1168,8 +1172,10 @@ static void quit_max_writeback_rate(struct cache_set *c,
- blk_qc_t cached_dev_submit_bio(struct bio *bio)
- {
- 	struct search *s;
--	struct bcache_device *d = bio->bi_bdev->bd_disk->private_data;
-+	struct block_device *orig_bdev = bio->bi_bdev;
-+	struct bcache_device *d = orig_bdev->bd_disk->private_data;
- 	struct cached_dev *dc = container_of(d, struct cached_dev, disk);
-+	unsigned long start_time;
- 	int rw = bio_data_dir(bio);
- 
- 	if (unlikely((d->c && test_bit(CACHE_SET_IO_DISABLE, &d->c->flags)) ||
-@@ -1194,11 +1200,13 @@ blk_qc_t cached_dev_submit_bio(struct bio *bio)
- 		}
- 	}
- 
-+	start_time = bio_start_io_acct(bio);
-+
- 	bio_set_dev(bio, dc->bdev);
- 	bio->bi_iter.bi_sector += dc->sb.data_offset;
- 
- 	if (cached_dev_get(dc)) {
--		s = search_alloc(bio, d);
-+		s = search_alloc(bio, d, orig_bdev, start_time);
- 		trace_bcache_request_start(s->d, bio);
- 
- 		if (!bio->bi_iter.bi_size) {
-@@ -1219,7 +1227,7 @@ blk_qc_t cached_dev_submit_bio(struct bio *bio)
- 		}
- 	} else
- 		/* I/O request sent to backing device */
--		detached_dev_do_request(d, bio);
-+		detached_dev_do_request(d, bio, orig_bdev, start_time);
- 
- 	return BLK_QC_T_NONE;
- }
-@@ -1283,7 +1291,7 @@ blk_qc_t flash_dev_submit_bio(struct bio *bio)
- 		return BLK_QC_T_NONE;
- 	}
- 
--	s = search_alloc(bio, d);
-+	s = search_alloc(bio, d, bio->bi_bdev, bio_start_io_acct(bio));
- 	cl = &s->cl;
- 	bio = &s->bio.bio;
- 
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index ade2b99c51d390..5dd0c5e4c7632b 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -463,8 +463,8 @@ struct md_io {
- 	struct mddev *mddev;
- 	bio_end_io_t *orig_bi_end_io;
- 	void *orig_bi_private;
-+	struct block_device *orig_bi_bdev;
- 	unsigned long start_time;
--	struct block_device *part;
- };
- 
- static void md_end_io(struct bio *bio)
-@@ -472,7 +472,7 @@ static void md_end_io(struct bio *bio)
- 	struct md_io *md_io = bio->bi_private;
- 	struct mddev *mddev = md_io->mddev;
- 
--	part_end_io_acct(md_io->part, bio, md_io->start_time);
-+	bio_end_io_acct_remapped(bio, md_io->start_time, md_io->orig_bi_bdev);
- 
- 	bio->bi_end_io = md_io->orig_bi_end_io;
- 	bio->bi_private = md_io->orig_bi_private;
-@@ -514,12 +514,12 @@ static blk_qc_t md_submit_bio(struct bio *bio)
- 		md_io->mddev = mddev;
- 		md_io->orig_bi_end_io = bio->bi_end_io;
- 		md_io->orig_bi_private = bio->bi_private;
-+		md_io->orig_bi_bdev = bio->bi_bdev;
- 
- 		bio->bi_end_io = md_end_io;
- 		bio->bi_private = md_io;
- 
--		md_io->start_time = part_start_io_acct(mddev->gendisk,
--						       &md_io->part, bio);
-+		md_io->start_time = bio_start_io_acct(bio);
- 	}
- 
- 	/* bio could be mergeable after passing to underlayer */
-diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index b55bd534b2e1e2..4526b9ef8edbe3 100644
---- a/include/linux/blkdev.h
-+++ b/include/linux/blkdev.h
-@@ -1954,22 +1954,9 @@ unsigned long disk_start_io_acct(struct gendisk *disk, unsigned int sectors,
- void disk_end_io_acct(struct gendisk *disk, unsigned int op,
- 		unsigned long start_time);
- 
--unsigned long part_start_io_acct(struct gendisk *disk,
--		struct block_device **part, struct bio *bio);
--void part_end_io_acct(struct block_device *part, struct bio *bio,
--		      unsigned long start_time);
+-static inline int sector_in_part(struct block_device *part, sector_t sector)
+-{
+-	return part->bd_start_sect <= sector &&
+-		sector < part->bd_start_sect + bdev_nr_sectors(part);
+-}
 -
 -/**
-- * bio_start_io_acct - start I/O accounting for bio based drivers
-- * @bio:	bio to start account for
+- * disk_map_sector_rcu - map sector to partition
+- * @disk: gendisk of interest
+- * @sector: sector to map
 - *
-- * Returns the start time that should be passed back to bio_end_io_acct().
+- * Find out which partition @sector maps to on @disk.  This is
+- * primarily used for stats accounting.
+- *
+- * CONTEXT:
+- * RCU read locked.
+- *
+- * RETURNS:
+- * Found partition on success, part0 is returned if no partition matches
+- * or the matched partition is being deleted.
 - */
--static inline unsigned long bio_start_io_acct(struct bio *bio)
+-struct block_device *disk_map_sector_rcu(struct gendisk *disk, sector_t sector)
 -{
--	return disk_start_io_acct(bio->bi_bdev->bd_disk, bio_sectors(bio),
--				  bio_op(bio));
+-	struct disk_part_tbl *ptbl;
+-	struct block_device *part;
+-	int i;
+-
+-	rcu_read_lock();
+-	ptbl = rcu_dereference(disk->part_tbl);
+-
+-	part = rcu_dereference(ptbl->last_lookup);
+-	if (part && sector_in_part(part, sector))
+-		goto out_unlock;
+-
+-	for (i = 1; i < ptbl->len; i++) {
+-		part = rcu_dereference(ptbl->part[i]);
+-		if (part && sector_in_part(part, sector)) {
+-			rcu_assign_pointer(ptbl->last_lookup, part);
+-			goto out_unlock;
+-		}
+-	}
+-
+-	part = disk->part0;
+-out_unlock:
+-	rcu_read_unlock();
+-	return part;
 -}
-+unsigned long bio_start_io_acct(struct bio *bio);
-+void bio_end_io_acct_remapped(struct bio *bio, unsigned long start_time,
-+		struct block_device *orig_bdev);
- 
+-
  /**
-  * bio_end_io_acct - end I/O accounting for bio based drivers
-@@ -1978,7 +1965,7 @@ static inline unsigned long bio_start_io_acct(struct bio *bio)
-  */
- static inline void bio_end_io_acct(struct bio *bio, unsigned long start_time)
- {
--	return disk_end_io_acct(bio->bi_bdev->bd_disk, bio_op(bio), start_time);
-+	return bio_end_io_acct_remapped(bio, start_time, bio->bi_bdev);
- }
- 
- int bdev_read_only(struct block_device *bdev);
+  * disk_has_partitions
+  * @disk: gendisk of interest
 -- 
 2.29.2
 
