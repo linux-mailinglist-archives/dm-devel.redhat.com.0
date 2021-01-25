@@ -1,65 +1,75 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id DCC16302A18
-	for <lists+dm-devel@lfdr.de>; Mon, 25 Jan 2021 19:25:06 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 0BC76302AEC
+	for <lists+dm-devel@lfdr.de>; Mon, 25 Jan 2021 19:59:28 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-535-u8JuBvxDNFenc-5qIpcaAg-1; Mon, 25 Jan 2021 13:25:03 -0500
-X-MC-Unique: u8JuBvxDNFenc-5qIpcaAg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-568-0TXdTWUuN76A9C7xid-n8w-1; Mon, 25 Jan 2021 13:59:25 -0500
+X-MC-Unique: 0TXdTWUuN76A9C7xid-n8w-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7974FBBEEA;
-	Mon, 25 Jan 2021 18:24:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E5DDD10059A9;
+	Mon, 25 Jan 2021 18:59:14 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9C9876F965;
-	Mon, 25 Jan 2021 18:24:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1FA1E63BA7;
+	Mon, 25 Jan 2021 18:59:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 104DD180954D;
-	Mon, 25 Jan 2021 18:24:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D86B518095C7;
+	Mon, 25 Jan 2021 18:59:06 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10PILvKm005142 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 25 Jan 2021 13:21:57 -0500
+	id 10PItgQN009432 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 25 Jan 2021 13:55:42 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id C67DF2026D37; Mon, 25 Jan 2021 18:21:57 +0000 (UTC)
+	id 2C88F6B435; Mon, 25 Jan 2021 18:55:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C0C502026D38
-	for <dm-devel@redhat.com>; Mon, 25 Jan 2021 18:21:55 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 25E126D9D4
+	for <dm-devel@redhat.com>; Mon, 25 Jan 2021 18:55:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 59A6C811E76
-	for <dm-devel@redhat.com>; Mon, 25 Jan 2021 18:21:55 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-302-54X89W96PC2_QwKuCOUhPA-1;
-	Mon, 25 Jan 2021 13:21:53 -0500
-X-MC-Unique: 54X89W96PC2_QwKuCOUhPA-1
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id A43DB68B02; Mon, 25 Jan 2021 19:21:50 +0100 (CET)
-Date: Mon, 25 Jan 2021 19:21:50 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Jens Axboe <axboe@kernel.dk>
-Message-ID: <20210125182150.GA15367@lst.de>
-References: <20210124100241.1167849-1-hch@lst.de>
-	<20210124100241.1167849-6-hch@lst.de>
-	<dfdff48c-c263-8e7c-cb52-28e7bee00c45@kernel.dk>
-	<20210125175528.GA13451@lst.de>
-	<2b600368-96fa-7caf-f05b-321de616f7c9@kernel.dk>
-	<13667b22-029b-d7be-02da-96fce22cfd8f@kernel.dk>
-	<20210125181349.GA14432@lst.de>
-	<1c0fabdc-9b73-dfd7-f49d-c211d58cbf12@kernel.dk>
-	<20210125181826.GA14957@lst.de>
-	<22e0f687-3165-e9d1-e1bd-9769a11dc0ea@kernel.dk>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3E65E858EEC
+	for <dm-devel@redhat.com>; Mon, 25 Jan 2021 18:55:39 +0000 (UTC)
+Received: from mslow2.mail.gandi.net (mslow2.mail.gandi.net
+	[217.70.178.242]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-146-NpKPwt77Pb-nrh_mEeHaLA-1; Mon, 25 Jan 2021 13:55:36 -0500
+X-MC-Unique: NpKPwt77Pb-nrh_mEeHaLA-1
+Received: from relay9-d.mail.gandi.net (unknown [217.70.183.199])
+	by mslow2.mail.gandi.net (Postfix) with ESMTP id 059323B4650
+	for <dm-devel@redhat.com>; Mon, 25 Jan 2021 18:27:06 +0000 (UTC)
+X-Originating-IP: 209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com
+	[209.85.215.172]) (Authenticated sender: smtp@opensvc.com)
+	by relay9-d.mail.gandi.net (Postfix) with ESMTPSA id A2B42FF808;
+	Mon, 25 Jan 2021 18:26:59 +0000 (UTC)
+Received: by mail-pg1-f172.google.com with SMTP id p18so9477665pgm.11;
+	Mon, 25 Jan 2021 10:26:59 -0800 (PST)
+X-Gm-Message-State: AOAM530hmnbbosAAGtoCGqyYoP9hdEZ2ndvKp8Rqmma/vVG+/e1uvuxu
+	Ip7vqNErAUh+SJ7it4GhHR8m80S1gnjVf8y6Gpg=
+X-Google-Smtp-Source: ABdhPJz6kg1yXjeL8xYOaJSsYaDHJbhLYt3PKB5RcrwW7ootZdjx/qAFtby89Ds660t8/R0HfAd0lA8YrO4hI+yQc+k=
+X-Received: by 2002:a63:5c61:: with SMTP id n33mr1844394pgm.153.1611599218044; 
+	Mon, 25 Jan 2021 10:26:58 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <22e0f687-3165-e9d1-e1bd-9769a11dc0ea@kernel.dk>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+References: <3baec678cfdc3c8ed2024b2df2f316d1694fe699.camel@suse.com>
+	<CABr-Gnd1TJhd7QSge+vAwrJZSHuUjW7hbKd-sFwx=zdNotv_Eg@mail.gmail.com>
+	<85d7c08115fd50c413ddcd957f22f40db2215f19.camel@suse.com>
+	<f74cbc725ec8cb75016e8061c46eeb628d30bb25.camel@suse.com>
+	<eabe0f24-b32f-ff5f-b808-b2c501263d8f@suse.de>
+	<b40493f4316db496e80f2aca8215ac52f5acb99a.camel@suse.com>
+	<20210111184239.GV3103@octiron.msp.redhat.com>
+	<f9634efeb24fcfca360ab93169050c9eb276f9b7.camel@suse.com>
+In-Reply-To: <f9634efeb24fcfca360ab93169050c9eb276f9b7.camel@suse.com>
+From: Christophe Varoqui <christophe.varoqui@opensvc.com>
+Date: Mon, 25 Jan 2021 19:26:46 +0100
+X-Gmail-Original-Message-ID: <CABr-Gnd58Z5fqpepckE4sRRG5MEBpK39ee4=qjnyGvmGid_3fQ@mail.gmail.com>
+Message-ID: <CABr-Gnd58Z5fqpepckE4sRRG5MEBpK39ee4=qjnyGvmGid_3fQ@mail.gmail.com>
+To: Martin Wilck <mwilck@suse.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -68,17 +78,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: linux-s390 <linux-s390@vger.kernel.org>,
-	linux-bcache <linux-bcache@vger.kernel.org>, Coly Li <colyli@suse.de>,
-	"open list:SOFTWARE RAID \(Multiple Disks\) SUPPORT"
-	<linux-raid@vger.kernel.org>, Song Liu <song@kernel.org>,
-	device-mapper development <dm-devel@redhat.com>,
-	linux-block <linux-block@vger.kernel.org>,
-	Tejun Heo <tj@kernel.org>, Christoph Hellwig <hch@lst.de>
-Subject: Re: [dm-devel] [PATCH 05/10] block: do not reassig ->bi_bdev when
- partition remapping
+Cc: Xose Vazquez Perez <xose.vazquez@gmail.com>,
+	dm-devel mailing list <dm-devel@redhat.com>
+Subject: Re: [dm-devel] multipath-tools: NEW openSUSE github repo
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,72 +96,130 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-Type: multipart/mixed; boundary="===============0487213405018853778=="
+
+--===============0487213405018853778==
+Content-Type: multipart/alternative; boundary="000000000000e9726305b9bdae20"
+
+--000000000000e9726305b9bdae20
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+I like it very much.
+I pulled "fixes" today.
+
+Thank you for this reorganization of the SuSE repo.
+
+Best regards,
+Christophe.
+
+
+On Mon, Jan 25, 2021 at 4:04 PM Martin Wilck <mwilck@suse.com> wrote:
+
+> On Mon, 2021-01-11 at 12:42 -0600, Benjamin Marzinski wrote:
+> > On Mon, Jan 11, 2021 at 03:54:01PM +0100, Martin Wilck wrote:
+> > >
+> > > We should discuss the git workflow. Until now, I've always rebased
+> > > my
+> > > branches on Christophe's when pulling. I would like to switch to a
+> > > merge-based workflow for "queue" and "fixes". This would make it
+> > > easier
+> > > for third parties to pull from these branches.=C3=82 It would mean th=
+at
+> > > Christophe's repo won't keep a fully linear history. I'm not sure
+> > > if
+> > > that matters to anyone, but I wanted to ask anyway. The "tip"
+> > > branch
+> > > will continue to be rebased (onto "queue").
+> >
+> >
+> > Souds reasonable.
+>
+> I made a first merge between "queue" and "fixes" now
+>
+> Christophe, now would be the time to raise your voice if you dislike
+> this.
+>
+> https://github.com/openSUSE/multipath-tools/commits/queue
+> https://github.com/openSUSE/multipath-tools/commits/tip
+>
+> Regards,
+> Martin
+>
+>
+>
+
+--000000000000e9726305b9bdae20
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">I like it very much.<div>I pulled &quot;fixes&quot; today.=
+</div><div><br></div><div>Thank you for this reorganization of the SuSE rep=
+o.</div><div><br></div><div>Best regards,</div><div>Christophe.<br><div><br=
+></div></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D=
+"gmail_attr">On Mon, Jan 25, 2021 at 4:04 PM Martin Wilck &lt;<a href=3D"ma=
+ilto:mwilck@suse.com">mwilck@suse.com</a>&gt; wrote:<br></div><blockquote c=
+lass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px soli=
+d rgb(204,204,204);padding-left:1ex">On Mon, 2021-01-11 at 12:42 -0600, Ben=
+jamin Marzinski wrote:<br>
+&gt; On Mon, Jan 11, 2021 at 03:54:01PM +0100, Martin Wilck wrote:<br>
+&gt; &gt; <br>
+&gt; &gt; We should discuss the git workflow. Until now, I&#39;ve always re=
+based<br>
+&gt; &gt; my<br>
+&gt; &gt; branches on Christophe&#39;s when pulling. I would like to switch=
+ to a<br>
+&gt; &gt; merge-based workflow for &quot;queue&quot; and &quot;fixes&quot;.=
+ This would make it<br>
+&gt; &gt; easier<br>
+&gt; &gt; for third parties to pull from these branches.=C3=82=C2=A0It woul=
+d mean that<br>
+&gt; &gt; Christophe&#39;s repo won&#39;t keep a fully linear history. I&#3=
+9;m not sure<br>
+&gt; &gt; if<br>
+&gt; &gt; that matters to anyone, but I wanted to ask anyway. The &quot;tip=
+&quot;<br>
+&gt; &gt; branch<br>
+&gt; &gt; will continue to be rebased (onto &quot;queue&quot;).<br>
+&gt; <br>
+&gt; <br>
+&gt; Souds reasonable. <br>
+<br>
+I made a first merge between &quot;queue&quot; and &quot;fixes&quot; now<br=
+>
+<br>
+Christophe, now would be the time to raise your voice if you dislike<br>
+this.<br>
+<br>
+<a href=3D"https://github.com/openSUSE/multipath-tools/commits/queue" rel=
+=3D"noreferrer" target=3D"_blank">https://github.com/openSUSE/multipath-too=
+ls/commits/queue</a><br>
+<a href=3D"https://github.com/openSUSE/multipath-tools/commits/tip" rel=3D"=
+noreferrer" target=3D"_blank">https://github.com/openSUSE/multipath-tools/c=
+ommits/tip</a><br>
+<br>
+Regards,<br>
+Martin<br>
+<br>
+<br>
+</blockquote></div>
+
+--000000000000e9726305b9bdae20--
+
+--===============0487213405018853778==
 Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-
-On Mon, Jan 25, 2021 at 11:19:23AM -0700, Jens Axboe wrote:
-> On 1/25/21 11:18 AM, Christoph Hellwig wrote:
-> > On Mon, Jan 25, 2021 at 11:15:04AM -0700, Jens Axboe wrote:
-> >> On 1/25/21 11:13 AM, Christoph Hellwig wrote:
-> >>> On Mon, Jan 25, 2021 at 11:03:24AM -0700, Jens Axboe wrote:
-> >>>> Partition table entries are not in disk order.
-> >>>
-> >>> And the issue shows up with the series just up to the this patch,
-> >>> without any later patches?
-> >>
-> >> At that patch specifically. I bisected it, and then I double checked
-> >> by running the previous commit (boots fine), then apply this one, and
-> >> then I run into that error. So it should be 100% reliable.
-> > 
-> > Ok, I have an idea.  With EOD message you mean this printk, right:
-> > 
-> > 	pr_info_ratelimited("attempt to access beyond end of device\n"
-> >                             "%s: rw=%d, want=%llu, limit=%llu\n",
-> > 			    ...
-> > 
-> > right?
-> 
-> Yep
-
-Can you give this untested patch a spin?  This should fix the
-case where we check the eod for the original partition with the
-remapped bi_sectors.  Looking into a local reproducer now.
-
-diff --git a/block/blk-core.c b/block/blk-core.c
-index 88f60890443264..6253a2f9a1c08f 100644
---- a/block/blk-core.c
-+++ b/block/blk-core.c
-@@ -813,13 +813,16 @@ static noinline_for_stack bool submit_bio_checks(struct bio *bio)
- 
- 	if (should_fail_bio(bio))
- 		goto end_io;
-+
- 	if (unlikely(bio_check_ro(bio)))
- 		goto end_io;
--	if (unlikely(bio_check_eod(bio)))
--		goto end_io;
--	if (bio->bi_bdev->bd_partno && !bio_flagged(bio, BIO_REMAPPED) &&
--	    unlikely(blk_partition_remap(bio)))
--		goto end_io;
-+	if (!bio_flagged(bio, BIO_REMAPPED)) {
-+		if (unlikely(bio_check_eod(bio)))
-+			goto end_io;
-+		if (bio->bi_bdev->bd_partno &&
-+		    unlikely(blk_partition_remap(bio)))
-+			goto end_io;
-+	}
- 
- 	/*
- 	 * Filter flush bio's early so that bio based drivers without flush
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
+--===============0487213405018853778==--
 
