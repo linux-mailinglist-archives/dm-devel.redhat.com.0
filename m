@@ -2,56 +2,57 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 366993038BF
-	for <lists+dm-devel@lfdr.de>; Tue, 26 Jan 2021 10:14:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CD0F13038B3
+	for <lists+dm-devel@lfdr.de>; Tue, 26 Jan 2021 10:10:35 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-397-ABXNXm04M-CAubFe785JWg-1; Tue, 26 Jan 2021 04:14:37 -0500
-X-MC-Unique: ABXNXm04M-CAubFe785JWg-1
+ us-mta-225-nHFgyiSdNjqoZd54YV-Mwg-1; Tue, 26 Jan 2021 04:10:32 -0500
+X-MC-Unique: nHFgyiSdNjqoZd54YV-Mwg-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 573D11052A1B;
-	Tue, 26 Jan 2021 09:14:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 94D09107ACE3;
+	Tue, 26 Jan 2021 09:10:26 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3506170481;
-	Tue, 26 Jan 2021 09:14:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BB54D7216C;
+	Tue, 26 Jan 2021 09:10:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8CE7E4BB7B;
-	Tue, 26 Jan 2021 09:14:30 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 893284BB40;
+	Tue, 26 Jan 2021 09:10:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10PCDrln021878 for <dm-devel@listman.util.phx.redhat.com>;
+	id 10PCDrMc021880 for <dm-devel@listman.util.phx.redhat.com>;
 	Mon, 25 Jan 2021 07:13:54 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1C20E2026D35; Mon, 25 Jan 2021 12:13:53 +0000 (UTC)
+	id 22ADD1111A5B; Mon, 25 Jan 2021 12:13:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1765E2026D36
-	for <dm-devel@redhat.com>; Mon, 25 Jan 2021 12:13:50 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1DD2A111D7B7
+	for <dm-devel@redhat.com>; Mon, 25 Jan 2021 12:13:51 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B8C52858EEC
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EAA1E811E78
 	for <dm-devel@redhat.com>; Mon, 25 Jan 2021 12:13:50 +0000 (UTC)
 Received: from out30-132.freemail.mail.aliyun.com
 	(out30-132.freemail.mail.aliyun.com [115.124.30.132]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-346-pxC1uPClOHOLJ4VdbeCGSA-1;
-	Mon, 25 Jan 2021 07:13:46 -0500
-X-MC-Unique: pxC1uPClOHOLJ4VdbeCGSA-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
+	relay.mimecast.com with ESMTP id us-mta-378-bhE78NbROwmYzf4ugDogkg-1;
+	Mon, 25 Jan 2021 07:13:45 -0500
+X-MC-Unique: bhE78NbROwmYzf4ugDogkg-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R311e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426;
 	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=5; SR=0;
-	TI=SMTPD_---0UMqjSkl_1611576821
+	TI=SMTPD_---0UMqjSkp_1611576821
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0UMqjSkl_1611576821) by smtp.aliyun-inc.com(127.0.0.1);
+	fp:SMTPD_---0UMqjSkp_1611576821) by smtp.aliyun-inc.com(127.0.0.1);
 	Mon, 25 Jan 2021 20:13:41 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: snitzer@redhat.com
-Date: Mon, 25 Jan 2021 20:13:35 +0800
-Message-Id: <20210125121340.70459-2-jefflexu@linux.alibaba.com>
+Date: Mon, 25 Jan 2021 20:13:36 +0800
+Message-Id: <20210125121340.70459-3-jefflexu@linux.alibaba.com>
 In-Reply-To: <20210125121340.70459-1-jefflexu@linux.alibaba.com>
 References: <20210125121340.70459-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -63,13 +64,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 26 Jan 2021 04:10:04 -0500
 Cc: linux-block@vger.kernel.org, joseph.qi@linux.alibaba.com,
 	dm-devel@redhat.com, io-uring@vger.kernel.org
-Subject: [dm-devel] [PATCH v2 1/6] block: move definition of blk_qc_t to
-	types.h
+Subject: [dm-devel] [PATCH v2 2/6] block: add queue_to_disk() to get gendisk
+	from request_queue
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,58 +92,66 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-So that kiocb.ki_cookie can be defined as blk_qc_t, which will enforce
-the encapsulation.
+Sometimes we need to get the corresponding gendisk from request_queue.
+
+It is preferred that block drivers store private data in
+gendisk->private_data rather than request_queue->queuedata, e.g. see:
+commit c4a59c4e5db3 ("dm: stop using ->queuedata").
+
+So if only request_queue is given, we need to get its corresponding
+gendisk to get the private data stored in that gendisk.
 
 Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Mike Snitzer <snitzer@redhat.com>
+Review-by: Mike Snitzer <snitzer@redhat.com>
 ---
- include/linux/blk_types.h | 2 +-
- include/linux/fs.h        | 2 +-
- include/linux/types.h     | 3 +++
- 3 files changed, 5 insertions(+), 2 deletions(-)
+ include/linux/blkdev.h       | 2 ++
+ include/trace/events/kyber.h | 6 +++---
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-index 866f74261b3b..2e05244fc16d 100644
---- a/include/linux/blk_types.h
-+++ b/include/linux/blk_types.h
-@@ -532,7 +532,7 @@ static inline int op_stat_group(unsigned int op)
- 	return op_is_write(op);
- }
+diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+index f94ee3089e01..2a802e011a95 100644
+--- a/include/linux/blkdev.h
++++ b/include/linux/blkdev.h
+@@ -687,6 +687,8 @@ static inline bool blk_account_rq(struct request *rq)
+ 	dma_map_page_attrs(dev, (bv)->bv_page, (bv)->bv_offset, (bv)->bv_len, \
+ 	(dir), (attrs))
  
--typedef unsigned int blk_qc_t;
-+/* Macros for blk_qc_t */
- #define BLK_QC_T_NONE		-1U
- #define BLK_QC_T_SHIFT		16
- #define BLK_QC_T_INTERNAL	(1U << 31)
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index fd47deea7c17..04b687150736 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -330,7 +330,7 @@ struct kiocb {
- 	u16			ki_hint;
- 	u16			ki_ioprio; /* See linux/ioprio.h */
- 	union {
--		unsigned int		ki_cookie; /* for ->iopoll */
-+		blk_qc_t		ki_cookie; /* for ->iopoll */
- 		struct wait_page_queue	*ki_waitq; /* for async buffered IO */
- 	};
- 
-diff --git a/include/linux/types.h b/include/linux/types.h
-index a147977602b5..da5ca7e1bea9 100644
---- a/include/linux/types.h
-+++ b/include/linux/types.h
-@@ -125,6 +125,9 @@ typedef s64			int64_t;
- typedef u64 sector_t;
- typedef u64 blkcnt_t;
- 
-+/* cookie used for IO polling */
-+typedef unsigned int blk_qc_t;
++#define queue_to_disk(q)	(dev_to_disk(kobj_to_dev((q)->kobj.parent)))
 +
- /*
-  * The type of an index into the pagecache.
-  */
+ static inline bool queue_is_mq(struct request_queue *q)
+ {
+ 	return q->mq_ops;
+diff --git a/include/trace/events/kyber.h b/include/trace/events/kyber.h
+index c0e7d24ca256..f9802562edf6 100644
+--- a/include/trace/events/kyber.h
++++ b/include/trace/events/kyber.h
+@@ -30,7 +30,7 @@ TRACE_EVENT(kyber_latency,
+ 	),
+ 
+ 	TP_fast_assign(
+-		__entry->dev		= disk_devt(dev_to_disk(kobj_to_dev(q->kobj.parent)));
++		__entry->dev		= disk_devt(queue_to_disk(q));
+ 		strlcpy(__entry->domain, domain, sizeof(__entry->domain));
+ 		strlcpy(__entry->type, type, sizeof(__entry->type));
+ 		__entry->percentile	= percentile;
+@@ -59,7 +59,7 @@ TRACE_EVENT(kyber_adjust,
+ 	),
+ 
+ 	TP_fast_assign(
+-		__entry->dev		= disk_devt(dev_to_disk(kobj_to_dev(q->kobj.parent)));
++		__entry->dev		= disk_devt(queue_to_disk(q));
+ 		strlcpy(__entry->domain, domain, sizeof(__entry->domain));
+ 		__entry->depth		= depth;
+ 	),
+@@ -81,7 +81,7 @@ TRACE_EVENT(kyber_throttled,
+ 	),
+ 
+ 	TP_fast_assign(
+-		__entry->dev		= disk_devt(dev_to_disk(kobj_to_dev(q->kobj.parent)));
++		__entry->dev		= disk_devt(queue_to_disk(q));
+ 		strlcpy(__entry->domain, domain, sizeof(__entry->domain));
+ 	),
+ 
 -- 
 2.27.0
 
