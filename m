@@ -1,57 +1,59 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 6F48A3038B4
-	for <lists+dm-devel@lfdr.de>; Tue, 26 Jan 2021 10:10:37 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 366993038BF
+	for <lists+dm-devel@lfdr.de>; Tue, 26 Jan 2021 10:14:40 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-170-YxUyFFemMBOCqhxQI1piPA-1; Tue, 26 Jan 2021 04:10:32 -0500
-X-MC-Unique: YxUyFFemMBOCqhxQI1piPA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-397-ABXNXm04M-CAubFe785JWg-1; Tue, 26 Jan 2021 04:14:37 -0500
+X-MC-Unique: ABXNXm04M-CAubFe785JWg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ED9651005504;
-	Tue, 26 Jan 2021 09:10:26 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A7E2762AF6;
-	Tue, 26 Jan 2021 09:10:26 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 573D11052A1B;
+	Tue, 26 Jan 2021 09:14:31 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3506170481;
+	Tue, 26 Jan 2021 09:14:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BAB37180954D;
-	Tue, 26 Jan 2021 09:10:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8CE7E4BB7B;
+	Tue, 26 Jan 2021 09:14:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10PCDra5021879 for <dm-devel@listman.util.phx.redhat.com>;
+	id 10PCDrln021878 for <dm-devel@listman.util.phx.redhat.com>;
 	Mon, 25 Jan 2021 07:13:54 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 23ECA1111A5E; Mon, 25 Jan 2021 12:13:53 +0000 (UTC)
+	id 1C20E2026D35; Mon, 25 Jan 2021 12:13:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E7BF1000DBB
-	for <dm-devel@redhat.com>; Mon, 25 Jan 2021 12:13:51 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1765E2026D36
+	for <dm-devel@redhat.com>; Mon, 25 Jan 2021 12:13:50 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EAA89187504B
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B8C52858EEC
 	for <dm-devel@redhat.com>; Mon, 25 Jan 2021 12:13:50 +0000 (UTC)
-Received: from out30-42.freemail.mail.aliyun.com
-	(out30-42.freemail.mail.aliyun.com [115.124.30.42]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-356-52d8-K4EO5m_PmNAxkfryA-1;
-	Mon, 25 Jan 2021 07:13:48 -0500
-X-MC-Unique: 52d8-K4EO5m_PmNAxkfryA-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R711e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e01424;
+Received: from out30-132.freemail.mail.aliyun.com
+	(out30-132.freemail.mail.aliyun.com [115.124.30.132]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-346-pxC1uPClOHOLJ4VdbeCGSA-1;
+	Mon, 25 Jan 2021 07:13:46 -0500
+X-MC-Unique: pxC1uPClOHOLJ4VdbeCGSA-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
 	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=5; SR=0;
-	TI=SMTPD_---0UMpeZ6G_1611576820
+	TI=SMTPD_---0UMqjSkl_1611576821
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0UMpeZ6G_1611576820) by smtp.aliyun-inc.com(127.0.0.1);
+	fp:SMTPD_---0UMqjSkl_1611576821) by smtp.aliyun-inc.com(127.0.0.1);
 	Mon, 25 Jan 2021 20:13:41 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: snitzer@redhat.com
-Date: Mon, 25 Jan 2021 20:13:34 +0800
-Message-Id: <20210125121340.70459-1-jefflexu@linux.alibaba.com>
+Date: Mon, 25 Jan 2021 20:13:35 +0800
+Message-Id: <20210125121340.70459-2-jefflexu@linux.alibaba.com>
+In-Reply-To: <20210125121340.70459-1-jefflexu@linux.alibaba.com>
+References: <20210125121340.70459-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -61,13 +63,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 26 Jan 2021 04:10:04 -0500
 Cc: linux-block@vger.kernel.org, joseph.qi@linux.alibaba.com,
 	dm-devel@redhat.com, io-uring@vger.kernel.org
-Subject: [dm-devel] [PATCH v2 0/6] dm: support IO polling for bio-based dm
-	device
+Subject: [dm-devel] [PATCH v2 1/6] block: move definition of blk_qc_t to
+	types.h
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +83,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -89,84 +91,58 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Since currently we have no simple but efficient way to implement the
-bio-based IO polling in the split-bio tracking style, this patch set
-turns to the original implementation mechanism that iterates and
-polls all underlying hw queues in polling mode. One optimization is
-introduced to mitigate the race of one hw queue among multiple polling
-instances.
+So that kiocb.ki_cookie can be defined as blk_qc_t, which will enforce
+the encapsulation.
 
-I'm still open to the split bio tracking mechanism, if there's
-reasonable way to implement it.
+Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Mike Snitzer <snitzer@redhat.com>
+---
+ include/linux/blk_types.h | 2 +-
+ include/linux/fs.h        | 2 +-
+ include/linux/types.h     | 3 +++
+ 3 files changed, 5 insertions(+), 2 deletions(-)
 
-
-[Performance Test]
-The performance is tested by fio (engine=io_uring) 4k randread on
-dm-linear device. The dm-linear device is built upon nvme devices,
-and every nvme device has one polling hw queue (nvme.poll_queues=1).
-
-Test Case		    | IOPS in IRQ mode | IOPS in polling mode | Diff
-			    | (hipri=0)	       | (hipri=1)	      |
---------------------------- | ---------------- | -------------------- | ----
-3 target nvme, num_jobs = 1 | 198k 	       | 276k		      | ~40%
-3 target nvme, num_jobs = 3 | 608k 	       | 705k		      | ~16%
-6 target nvme, num_jobs = 6 | 1197k 	       | 1347k		      | ~13%
-3 target nvme, num_jobs = 6 | 1285k 	       | 1293k		      | ~0%
-
-As the number of polling instances (num_jobs) increases, the
-performance improvement decreases, though it's still positive
-compared to the IRQ mode.
-
-[Optimization]
-To mitigate the race when iterating all the underlying hw queues, one
-flag is maintained on a per-hw-queue basis. This flag is used to
-indicate whether this polling hw queue currently being polled on or
-not. Every polling hw queue is exclusive to one polling instance, i.e.,
-the polling instance will skip this polling hw queue if this hw queue
-currently is being polled by another polling instance, and start
-polling on the next hw queue.
-
-This per-hw-queue flag map is currently maintained in dm layer. In
-the table load phase, a table describing all underlying polling hw
-queues is built and stored in 'struct dm_table'. It is safe when
-reloading the mapping table.
-
-
-changes since v1:
-- patch 1,2,4 is the same as v1 and have already been reviewed
-- patch 3 is refactored a bit on the basis of suggestions from
-Mike Snitzer.
-- patch 5 is newly added and introduces one new queue flag
-representing if the queue is capable of IO polling. This mainly
-simplifies the logic in queue_poll_store().
-- patch 6 implements the core mechanism supporting IO polling.
-The sanity check checking if the dm device supports IO polling is
-also folded into this patch, and the queue flag will be cleared if
-it doesn't support, in case of table reloading.
-
-
-Jeffle Xu (6):
-  block: move definition of blk_qc_t to types.h
-  block: add queue_to_disk() to get gendisk from request_queue
-  block: add iopoll method to support bio-based IO polling
-  dm: always return BLK_QC_T_NONE for bio-based device
-  block: add QUEUE_FLAG_POLL_CAP flag
-  dm: support IO polling for bio-based dm device
-
- block/blk-core.c             |  76 +++++++++++++++++++++
- block/blk-mq.c               |  76 +++------------------
- block/blk-sysfs.c            |   3 +-
- drivers/md/dm-core.h         |  21 ++++++
- drivers/md/dm-table.c        | 127 +++++++++++++++++++++++++++++++++++
- drivers/md/dm.c              |  61 ++++++++++++-----
- include/linux/blk-mq.h       |   3 +
- include/linux/blk_types.h    |   2 +-
- include/linux/blkdev.h       |   9 +++
- include/linux/fs.h           |   2 +-
- include/linux/types.h        |   3 +
- include/trace/events/kyber.h |   6 +-
- 12 files changed, 302 insertions(+), 87 deletions(-)
-
+diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+index 866f74261b3b..2e05244fc16d 100644
+--- a/include/linux/blk_types.h
++++ b/include/linux/blk_types.h
+@@ -532,7 +532,7 @@ static inline int op_stat_group(unsigned int op)
+ 	return op_is_write(op);
+ }
+ 
+-typedef unsigned int blk_qc_t;
++/* Macros for blk_qc_t */
+ #define BLK_QC_T_NONE		-1U
+ #define BLK_QC_T_SHIFT		16
+ #define BLK_QC_T_INTERNAL	(1U << 31)
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index fd47deea7c17..04b687150736 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -330,7 +330,7 @@ struct kiocb {
+ 	u16			ki_hint;
+ 	u16			ki_ioprio; /* See linux/ioprio.h */
+ 	union {
+-		unsigned int		ki_cookie; /* for ->iopoll */
++		blk_qc_t		ki_cookie; /* for ->iopoll */
+ 		struct wait_page_queue	*ki_waitq; /* for async buffered IO */
+ 	};
+ 
+diff --git a/include/linux/types.h b/include/linux/types.h
+index a147977602b5..da5ca7e1bea9 100644
+--- a/include/linux/types.h
++++ b/include/linux/types.h
+@@ -125,6 +125,9 @@ typedef s64			int64_t;
+ typedef u64 sector_t;
+ typedef u64 blkcnt_t;
+ 
++/* cookie used for IO polling */
++typedef unsigned int blk_qc_t;
++
+ /*
+  * The type of an index into the pagecache.
+  */
 -- 
 2.27.0
 
