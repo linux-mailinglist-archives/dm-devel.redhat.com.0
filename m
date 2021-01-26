@@ -1,122 +1,60 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4EE29305727
-	for <lists+dm-devel@lfdr.de>; Wed, 27 Jan 2021 10:42:15 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id BDD013057C1
+	for <lists+dm-devel@lfdr.de>; Wed, 27 Jan 2021 11:05:53 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-397-T4GI7L_zPT2qqspZu6G4jw-1; Wed, 27 Jan 2021 04:42:11 -0500
-X-MC-Unique: T4GI7L_zPT2qqspZu6G4jw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-208-bON6bsTWNhuPoWcM9bGvJg-1; Wed, 27 Jan 2021 05:05:50 -0500
+X-MC-Unique: bON6bsTWNhuPoWcM9bGvJg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8ABA180205F;
-	Wed, 27 Jan 2021 09:42:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 10CB58145F4;
+	Wed, 27 Jan 2021 10:05:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 344BC5D766;
-	Wed, 27 Jan 2021 09:42:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A9CD21F41A;
+	Wed, 27 Jan 2021 10:05:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AA88D180954D;
-	Wed, 27 Jan 2021 09:41:46 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 309D2180954D;
+	Wed, 27 Jan 2021 10:05:44 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10R9fWtE020999 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 27 Jan 2021 04:41:32 -0500
+	id 10Q9cP00005024 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 26 Jan 2021 04:38:25 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7E8D81134CCC; Wed, 27 Jan 2021 09:41:32 +0000 (UTC)
+	id 8453A2166B29; Tue, 26 Jan 2021 09:38:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 799AC1134CCB
-	for <dm-devel@redhat.com>; Wed, 27 Jan 2021 09:41:30 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F3992166B28
+	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 09:38:22 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 17884811E76
-	for <dm-devel@redhat.com>; Wed, 27 Jan 2021 09:41:30 +0000 (UTC)
-Received: from de-smtp-delivery-102.mimecast.com
-	(de-smtp-delivery-102.mimecast.com [194.104.109.102]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-395-w7EDHH2IOt-AK3GqjL8hIA-1;
-	Wed, 27 Jan 2021 04:41:27 -0500
-X-MC-Unique: w7EDHH2IOt-AK3GqjL8hIA-1
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
-	(mail-vi1eur04lp2053.outbound.protection.outlook.com [104.47.14.53])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	de-mta-17-Yk9bwjwwOIGFCy6_fvEJow-1; Wed, 27 Jan 2021 10:41:25 +0100
-X-MC-Unique: Yk9bwjwwOIGFCy6_fvEJow-1
-Received: from DB8PR04MB6555.eurprd04.prod.outlook.com (2603:10a6:10:103::20)
-	by DB7PR04MB4473.eurprd04.prod.outlook.com (2603:10a6:5:34::26) with
-	Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3805.16;
-	Wed, 27 Jan 2021 09:41:23 +0000
-Received: from DB8PR04MB6555.eurprd04.prod.outlook.com
-	([fe80::c1ce:f675:7:30f6]) by DB8PR04MB6555.eurprd04.prod.outlook.com
-	([fe80::c1ce:f675:7:30f6%3]) with mapi id 15.20.3784.019;
-	Wed, 27 Jan 2021 09:41:23 +0000
-From: Martin Wilck <martin.wilck@suse.com>
-To: "bmarzins@redhat.com" <bmarzins@redhat.com>
-Thread-Topic: [PATCH 5/6] multipathd: Fix multipathd stopping on shutdown
-Thread-Index: AQHW1ZJ+SJOHFWrTD0++S0No5oFU9qn9gKcAgD1oYQCAAIz3AA==
-Date: Wed, 27 Jan 2021 09:41:22 +0000
-Message-ID: <98656b40618259b3fadd703742c0b98b0afc050c.camel@suse.com>
-References: <1608332802-9720-1-git-send-email-bmarzins@redhat.com>
-	<1608332802-9720-6-git-send-email-bmarzins@redhat.com>
-	<2bda2d5b184bf72cbd63ccdcd7d63404c5414ce5.camel@suse.com>
-	<20210127011650.GH15006@octiron.msp.redhat.com>
-In-Reply-To: <20210127011650.GH15006@octiron.msp.redhat.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.38.2
-x-originating-ip: [84.58.19.219]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 82ef22b7-ed5a-4b99-bb65-08d8c2a7b566
-x-ms-traffictypediagnostic: DB7PR04MB4473:
-x-microsoft-antispam-prvs: <DB7PR04MB447368D0D69DA3FBF175AEC2FCBB0@DB7PR04MB4473.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:240
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: u/sAiyPcmuoygvUXaxn/EXr+tANtInbOjSLBXZMe2y+QLRS5ktn//ic95736zvkgPx92mqI7+iqkXTaKsHybrrCNLrSBrVK5wiLlA28NMIDNRf0pVSJ2dhIyKXPfsYnlRzBca5vFJ1vf7AjzKUdcCK3HqrAFiixCKN0kNZhEqxN1LjNvjQyxRH8vbJTHzCGCEsPTV63BDHl24FPWxR/8pP/yCKOe8qnyxT0HzJiOZ66KLpioNJra4pcPYLtoaaY+OdbZZFL2phj6okTfNPvvDw8BWY8TFTl8M0rrk63SFdVgvG5ds3pfqtIwwUTL0sCEX6MFjGfDHB38oHJYxdJ6AeXIHuxTroGnGiPmtWxRJWHYm/XBv/ajPFdxJIc4Qp249q2CXYfeRTMu+xAeu1vyl6VY7XJlMZUkXNHR4Vgz9Ol54r9Q1IJvLdjfnvYyDMGOJyQhrOcJPrBI9ojM/mPU6rXe6wx0c+411ch3vnCssjqSpWMYLKQaQfn5hr3E/kBmthMckz3x/oZPu5qIv+6p3A==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:DB8PR04MB6555.eurprd04.prod.outlook.com;
-	PTR:; CAT:NONE;
-	SFS:(39860400002)(376002)(346002)(136003)(366004)(396003)(26005)(64756008)(66446008)(91956017)(6506007)(316002)(66476007)(66556008)(2616005)(66946007)(5660300002)(44832011)(54906003)(83380400001)(186003)(36756003)(76116006)(4744005)(6486002)(6916009)(6512007)(71200400001)(8936002)(86362001)(2906002)(478600001)(4326008)(8676002);
-	DIR:OUT; SFP:1101
-x-ms-exchange-antispam-messagedata: =?iso-8859-15?Q?WOxHt3rjj0wYpmyD2FG6iyonHJwHWDQI8rNqTE0/orv2JS0mliyhTa02p?=
-	=?iso-8859-15?Q?3vWX0PidjQ8sgPW5qF20igjQwAWIPgQ04Wo1vpl/SbC6MuNGoPctGe/ZB?=
-	=?iso-8859-15?Q?K9NDpelk/KqNyMPbacR7UR6uyAPB0uigg7p3qdmfvCeuUO9mWkf/m8vLH?=
-	=?iso-8859-15?Q?lD/x/b6x6Vqq07HPLbOGFaxHZEZhVrYZQewsJ6OZpQgg/wjVv1i4xM1aJ?=
-	=?iso-8859-15?Q?NKDlXFahy0xurPDTR8IZ45RwsC3EMch3TR2lc3WJBkGcPLSB8fSDX16mc?=
-	=?iso-8859-15?Q?MNrp3V+Q1W9olFm7OASCKfwpD37EqoK8MjrqZ106RqCLzaf7nULWD22Or?=
-	=?iso-8859-15?Q?0c6RKmAVzpwSWAQpsn0KlvqBOOQvQUKhubNctwVBdsRIhnNbg0lbSCbhw?=
-	=?iso-8859-15?Q?p4i575GaqJVa/7JVJT16sxPlIVMih+vF/sxGiUozQ5O/nOo6qulrpwgL/?=
-	=?iso-8859-15?Q?ywRFRdUZQWF1wfl9YiISMX+GSqJI2DgPKEPHvcE0WnC7XacBxyMsEtZgc?=
-	=?iso-8859-15?Q?olPwkgsfmrKzilxYY+9/yUmAQE7RQpSqJPIihyJ6r0317QwGXTcqDeIgK?=
-	=?iso-8859-15?Q?ntMFcNYF8tjPH73rSE5beCBH5m4toUagJYZJp9DOU0ew8yWfsHWw57wE4?=
-	=?iso-8859-15?Q?yr9uY7dCktX5VNNfxegA/RDZuw6BFW7Y62vE7YbMCHWiDNavgSgu7kawS?=
-	=?iso-8859-15?Q?gcxNfVss0+WeYxBF3eOkx2+V14vGRq29IydwzdTTJXXd7yRePd5NTH9sk?=
-	=?iso-8859-15?Q?roGT83dSIQO4SSsKYcvoXgrIbkdZiACsDzzlMb1OdE6EezVmq4w2PchUf?=
-	=?iso-8859-15?Q?RluxwSog//IOHwmhPqvfoxOb5BgsuRN8BaD6U7woLgY100Dm65ybE5b7Y?=
-	=?iso-8859-15?Q?4TYgCVW0BB3wpd+5dqVjACAEPnEfumvXWjixdAvZwXdV5rlmB7Mna/tVq?=
-	=?iso-8859-15?Q?XpwB8dm2pDLwuPTg9+FMSFAiCY3TT7gsS9Ii8BSwE57QELEoo9Rsd5osG?=
-	=?iso-8859-15?Q?EsbXljPfTwXfz9Bzc6D3K1WrUY7tdHfCPGJEC/iDaoLc5nHGQ7U7B37vF?=
-	=?iso-8859-15?Q?oYpv8vA65dO5jXdhYqXp78522SlSD/D10qlmMhUmsVxWwXGgqeM7HZOUN?=
-	=?iso-8859-15?Q?xg6ej?=
-x-ms-exchange-transport-forked: True
-MIME-Version: 1.0
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6555.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82ef22b7-ed5a-4b99-bb65-08d8c2a7b566
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jan 2021 09:41:22.9741 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GNEZYAplPsMFGHHu62y4C2OLgNJ3flSTjBbWs7HmZJ1uM/QeoKVwMuJ+GswDH7lnxYetnQI/93Ru4lqK8OsVQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB4473
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C680D1875049
+	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 09:38:22 +0000 (UTC)
+Received: from out30-132.freemail.mail.aliyun.com
+	(out30-132.freemail.mail.aliyun.com [115.124.30.132]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-504-JPQV9dedMOuvivjAxvOmVw-1;
+	Tue, 26 Jan 2021 04:38:20 -0500
+X-MC-Unique: JPQV9dedMOuvivjAxvOmVw-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R701e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1;
+	HT=alimailimapcm10staff010182156082;
+	MF=abaci-bugfix@linux.alibaba.com; NM=1; PH=DS; RN=5; SR=0;
+	TI=SMTPD_---0UMyJmYd_1611653554
+Received: from
+	j63c13417.sqa.eu95.tbsite.net(mailfrom:abaci-bugfix@linux.alibaba.com
+	fp:SMTPD_---0UMyJmYd_1611653554) by smtp.aliyun-inc.com(127.0.0.1);
+	Tue, 26 Jan 2021 17:32:51 +0800
+From: Jiapeng Zhong <abaci-bugfix@linux.alibaba.com>
+To: agk@redhat.com
+Date: Tue, 26 Jan 2021 17:32:32 +0800
+Message-Id: <1611653552-84056-1-git-send-email-abaci-bugfix@linux.alibaba.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -125,13 +63,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 10R9fWtE020999
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH 5/6] multipathd: Fix multipathd stopping on
-	shutdown
+X-Mailman-Approved-At: Wed, 27 Jan 2021 05:02:17 -0500
+Cc: dm-devel@redhat.com, linux-kernel@vger.kernel.org, snitzer@redhat.com,
+	Jiapeng Zhong <abaci-bugfix@linux.alibaba.com>
+Subject: [dm-devel] [PATCH] dm writecache: remove redundant NULL check
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -143,35 +80,55 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-ID: <657EDF1FC3987542BDE120D8B297405D@eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2021-01-26 at 19:16 -0600, Benjamin Marzinski wrote:
->=20
-> Martin, I noticed that this commit didn't make it into your queue
-> branch. I assume it's just an oversight. Right?
+Fix below warnings reported by coccicheck:
+./drivers/md/dm-writecache.c:2008:2-7: WARNING: NULL check before some
+freeing functions is not needed.
+./drivers/md/dm-writecache.c:2024:2-7: WARNING: NULL check before some
+freeing functions is not needed.
 
-Yes, I'm sorry. Fixed now.
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Signed-off-by: Jiapeng Zhong <abaci-bugfix@linux.alibaba.com>
+---
+ drivers/md/dm-writecache.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-
-Cheers,
-Martin
-
---=20
-Dr. Martin Wilck <mwilck@suse.com>, Tel.=A0+49 (0)911 74053 2107
-SUSE Software Solutions Germany GmbH
-HRB 36809, AG N=FCrnberg GF: Felix Imend=F6rffer
-
-
+diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
+index d5223a0..8abf185 100644
+--- a/drivers/md/dm-writecache.c
++++ b/drivers/md/dm-writecache.c
+@@ -2004,8 +2004,7 @@ static void writecache_dtr(struct dm_target *ti)
+ 	if (wc->ssd_dev)
+ 		dm_put_device(ti, wc->ssd_dev);
+ 
+-	if (wc->entries)
+-		vfree(wc->entries);
++	vfree(wc->entries);
+ 
+ 	if (wc->memory_map) {
+ 		if (WC_MODE_PMEM(wc))
+@@ -2020,8 +2019,7 @@ static void writecache_dtr(struct dm_target *ti)
+ 	if (wc->dm_io)
+ 		dm_io_client_destroy(wc->dm_io);
+ 
+-	if (wc->dirty_bitmap)
+-		vfree(wc->dirty_bitmap);
++	vfree(wc->dirty_bitmap);
+ 
+ 	kfree(wc);
+ }
+-- 
+1.8.3.1
 
 --
 dm-devel mailing list
