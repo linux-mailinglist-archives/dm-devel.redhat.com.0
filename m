@@ -2,52 +2,51 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 607E330421E
-	for <lists+dm-devel@lfdr.de>; Tue, 26 Jan 2021 16:18:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id ABFD8304230
+	for <lists+dm-devel@lfdr.de>; Tue, 26 Jan 2021 16:20:56 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-443-AAOiMmFEM6y9dcRlg-zjqw-1; Tue, 26 Jan 2021 10:18:43 -0500
-X-MC-Unique: AAOiMmFEM6y9dcRlg-zjqw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-447-177XCiXZMeue_AtmX6N1Qw-1; Tue, 26 Jan 2021 10:20:53 -0500
+X-MC-Unique: 177XCiXZMeue_AtmX6N1Qw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9CBD8107ACF6;
-	Tue, 26 Jan 2021 15:18:36 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 83E1719D6C;
-	Tue, 26 Jan 2021 15:18:35 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DABFA1936B61;
+	Tue, 26 Jan 2021 15:20:45 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2DB976091A;
+	Tue, 26 Jan 2021 15:20:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8A444180954D;
-	Tue, 26 Jan 2021 15:18:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 268B25002D;
+	Tue, 26 Jan 2021 15:20:44 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10QFISho014824 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 26 Jan 2021 10:18:28 -0500
+	id 10QFKdTG015061 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 26 Jan 2021 10:20:39 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2D54C110F0AD; Tue, 26 Jan 2021 15:18:28 +0000 (UTC)
+	id 8434E2166B28; Tue, 26 Jan 2021 15:20:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 292E5110F75F
-	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 15:18:25 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7C1AE2166B2F
+	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 15:20:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C5A168008A5
-	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 15:18:25 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0A258100B167
+	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 15:20:37 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-103-4nlIKxN7NIKGMYWs82qB8g-1; Tue, 26 Jan 2021 10:18:23 -0500
-X-MC-Unique: 4nlIKxN7NIKGMYWs82qB8g-1
+	us-mta-477-3MEr6MuePzCSEtWBjpnC7g-1; Tue, 26 Jan 2021 10:20:32 -0500
+X-MC-Unique: 3MEr6MuePzCSEtWBjpnC7g-1
 Received: from [2001:4bb8:191:e347:5918:ac86:61cb:8801] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
-	id 1l4Q39-005o7b-JG; Tue, 26 Jan 2021 15:15:32 +0000
+	id 1l4Q5i-005oNB-Sc; Tue, 26 Jan 2021 15:17:53 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>, Song Liu <song@kernel.org>
-Date: Tue, 26 Jan 2021 15:52:43 +0100
-Message-Id: <20210126145247.1964410-14-hch@lst.de>
+Date: Tue, 26 Jan 2021 15:52:44 +0100
+Message-Id: <20210126145247.1964410-15-hch@lst.de>
 In-Reply-To: <20210126145247.1964410-1-hch@lst.de>
 References: <20210126145247.1964410-1-hch@lst.de>
 MIME-Version: 1.0
@@ -61,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: Mike Snitzer <snitzer@redhat.com>, David Sterba <dsterba@suse.com>,
 	dm-devel@redhat.com, Naohiro Aota <naohiro.aota@wdc.com>,
@@ -76,7 +75,7 @@ Cc: Mike Snitzer <snitzer@redhat.com>, David Sterba <dsterba@suse.com>,
 	Philipp Reisner <philipp.reisner@linbit.com>,
 	linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
 	Lars Ellenberg <lars.ellenberg@linbit.com>, linux-btrfs@vger.kernel.org
-Subject: [dm-devel] [PATCH 13/17] md: remove md_bio_alloc_sync
+Subject: [dm-devel] [PATCH 14/17] md/raid6: refactor raid5_read_one_chunk
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,7 +89,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -98,43 +97,154 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-md_bio_alloc_sync is never called with a NULL mddev, and ->sync_set is
-initialized in md_run, so it always must be initialized as well.  Just
-open code the remaining call to bio_alloc_bioset.
+Refactor raid5_read_one_chunk so that all simple checks are done
+before allocating the bio.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/md/md.c | 10 +---------
- 1 file changed, 1 insertion(+), 9 deletions(-)
+ drivers/md/raid5.c | 108 +++++++++++++++++++--------------------------
+ 1 file changed, 45 insertions(+), 63 deletions(-)
 
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 6a27f52007c871..399c81bddc1ae1 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -340,14 +340,6 @@ static int start_readonly;
-  */
- static bool create_on_open = true;
+diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+index f411b9e5c332f4..a348b2adf2a9f9 100644
+--- a/drivers/md/raid5.c
++++ b/drivers/md/raid5.c
+@@ -5393,90 +5393,72 @@ static void raid5_align_endio(struct bio *bi)
+ static int raid5_read_one_chunk(struct mddev *mddev, struct bio *raid_bio)
+ {
+ 	struct r5conf *conf = mddev->private;
+-	int dd_idx;
+-	struct bio* align_bi;
++	struct bio *align_bio;
+ 	struct md_rdev *rdev;
+-	sector_t end_sector;
++	sector_t sector, end_sector, first_bad;
++	int bad_sectors, dd_idx;
  
--static struct bio *md_bio_alloc_sync(struct mddev *mddev)
--{
--	if (!mddev || !bioset_initialized(&mddev->sync_set))
--		return bio_alloc(GFP_NOIO, 1);
+ 	if (!in_chunk_boundary(mddev, raid_bio)) {
+ 		pr_debug("%s: non aligned\n", __func__);
+ 		return 0;
+ 	}
+-	/*
+-	 * use bio_clone_fast to make a copy of the bio
+-	 */
+-	align_bi = bio_clone_fast(raid_bio, GFP_NOIO, &mddev->bio_set);
+-	if (!align_bi)
+-		return 0;
+-	/*
+-	 *   set bi_end_io to a new function, and set bi_private to the
+-	 *     original bio.
+-	 */
+-	align_bi->bi_end_io  = raid5_align_endio;
+-	align_bi->bi_private = raid_bio;
+-	/*
+-	 *	compute position
+-	 */
+-	align_bi->bi_iter.bi_sector =
+-		raid5_compute_sector(conf, raid_bio->bi_iter.bi_sector,
+-				     0, &dd_idx, NULL);
+ 
+-	end_sector = bio_end_sector(align_bi);
++	sector = raid5_compute_sector(conf, raid_bio->bi_iter.bi_sector, 0,
++				      &dd_idx, NULL);
++	end_sector = bio_end_sector(raid_bio);
++
+ 	rcu_read_lock();
++	if (r5c_big_stripe_cached(conf, sector))
++		goto out_rcu_unlock;
++
+ 	rdev = rcu_dereference(conf->disks[dd_idx].replacement);
+ 	if (!rdev || test_bit(Faulty, &rdev->flags) ||
+ 	    rdev->recovery_offset < end_sector) {
+ 		rdev = rcu_dereference(conf->disks[dd_idx].rdev);
+-		if (rdev &&
+-		    (test_bit(Faulty, &rdev->flags) ||
++		if (!rdev)
++			goto out_rcu_unlock;
++		if (test_bit(Faulty, &rdev->flags) ||
+ 		    !(test_bit(In_sync, &rdev->flags) ||
+-		      rdev->recovery_offset >= end_sector)))
+-			rdev = NULL;
++		      rdev->recovery_offset >= end_sector))
++			goto out_rcu_unlock;
+ 	}
+ 
+-	if (r5c_big_stripe_cached(conf, align_bi->bi_iter.bi_sector)) {
+-		rcu_read_unlock();
+-		bio_put(align_bi);
++	atomic_inc(&rdev->nr_pending);
++	rcu_read_unlock();
++
++	align_bio = bio_clone_fast(raid_bio, GFP_NOIO, &mddev->bio_set);
++	bio_set_dev(align_bio, rdev->bdev);
++	align_bio->bi_end_io = raid5_align_endio;
++	align_bio->bi_private = raid_bio;
++	align_bio->bi_iter.bi_sector = sector;
++
++	raid_bio->bi_next = (void *)rdev;
++
++	if (is_badblock(rdev, sector, bio_sectors(align_bio), &first_bad,
++			&bad_sectors)) {
++		bio_put(align_bio);
++		rdev_dec_pending(rdev, mddev);
+ 		return 0;
+ 	}
+ 
+-	if (rdev) {
+-		sector_t first_bad;
+-		int bad_sectors;
 -
--	return bio_alloc_bioset(GFP_NOIO, 1, &mddev->sync_set);
--}
+-		atomic_inc(&rdev->nr_pending);
+-		rcu_read_unlock();
+-		raid_bio->bi_next = (void*)rdev;
+-		bio_set_dev(align_bi, rdev->bdev);
 -
- /*
-  * We have a system wide 'event count' that is incremented
-  * on any 'interesting' event, and readers of /proc/mdstat
-@@ -989,7 +981,7 @@ void md_super_write(struct mddev *mddev, struct md_rdev *rdev,
- 	if (test_bit(Faulty, &rdev->flags))
- 		return;
+-		if (is_badblock(rdev, align_bi->bi_iter.bi_sector,
+-				bio_sectors(align_bi),
+-				&first_bad, &bad_sectors)) {
+-			bio_put(align_bi);
+-			rdev_dec_pending(rdev, mddev);
+-			return 0;
+-		}
++	/* No reshape active, so we can trust rdev->data_offset */
++	align_bio->bi_iter.bi_sector += rdev->data_offset;
  
--	bio = md_bio_alloc_sync(mddev);
-+	bio = bio_alloc_bioset(GFP_NOIO, 1, &mddev->sync_set);
+-		/* No reshape active, so we can trust rdev->data_offset */
+-		align_bi->bi_iter.bi_sector += rdev->data_offset;
++	spin_lock_irq(&conf->device_lock);
++	wait_event_lock_irq(conf->wait_for_quiescent, conf->quiesce == 0,
++			    conf->device_lock);
++	atomic_inc(&conf->active_aligned_reads);
++	spin_unlock_irq(&conf->device_lock);
  
- 	atomic_inc(&rdev->nr_pending);
+-		spin_lock_irq(&conf->device_lock);
+-		wait_event_lock_irq(conf->wait_for_quiescent,
+-				    conf->quiesce == 0,
+-				    conf->device_lock);
+-		atomic_inc(&conf->active_aligned_reads);
+-		spin_unlock_irq(&conf->device_lock);
++	if (mddev->gendisk)
++		trace_block_bio_remap(align_bio, disk_devt(mddev->gendisk),
++				      raid_bio->bi_iter.bi_sector);
++	submit_bio_noacct(align_bio);
++	return 1;
  
+-		if (mddev->gendisk)
+-			trace_block_bio_remap(align_bi, disk_devt(mddev->gendisk),
+-					      raid_bio->bi_iter.bi_sector);
+-		submit_bio_noacct(align_bi);
+-		return 1;
+-	} else {
+-		rcu_read_unlock();
+-		bio_put(align_bi);
+-		return 0;
+-	}
++out_rcu_unlock:
++	rcu_read_unlock();
++	return 0;
+ }
+ 
+ static struct bio *chunk_aligned_read(struct mddev *mddev, struct bio *raid_bio)
 -- 
 2.29.2
 
