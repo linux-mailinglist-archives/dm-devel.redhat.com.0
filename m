@@ -2,51 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 01B8C304164
-	for <lists+dm-devel@lfdr.de>; Tue, 26 Jan 2021 16:05:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 71F82304136
+	for <lists+dm-devel@lfdr.de>; Tue, 26 Jan 2021 16:01:11 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-197-LmHkYT0qP5SK60JKOgcNHA-1; Tue, 26 Jan 2021 10:05:22 -0500
-X-MC-Unique: LmHkYT0qP5SK60JKOgcNHA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-539-jijgLSpIPkiejuWL0lZOzw-1; Tue, 26 Jan 2021 10:01:03 -0500
+X-MC-Unique: jijgLSpIPkiejuWL0lZOzw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4882D1007460;
-	Tue, 26 Jan 2021 15:05:16 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 453771005E45;
+	Tue, 26 Jan 2021 15:00:56 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 90DB919D6C;
-	Tue, 26 Jan 2021 15:05:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 074325D751;
+	Tue, 26 Jan 2021 15:00:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8E1785002C;
-	Tue, 26 Jan 2021 15:05:14 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 708934A7C6;
+	Tue, 26 Jan 2021 15:00:52 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10QF5At5012927 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 26 Jan 2021 10:05:10 -0500
+	id 10QExFHv012033 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 26 Jan 2021 09:59:16 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6789A110F0AF; Tue, 26 Jan 2021 15:05:10 +0000 (UTC)
+	id 687D82026D48; Tue, 26 Jan 2021 14:59:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6026E110F75E
-	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 15:05:08 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 60EE72026D76
+	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 14:59:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E9292811E97
-	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 15:05:07 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4538482DFE3
+	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 14:59:13 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-352-qxb7YbayMEmdmFoM_z1UkQ-1; Tue, 26 Jan 2021 10:05:06 -0500
-X-MC-Unique: qxb7YbayMEmdmFoM_z1UkQ-1
+	us-mta-457-fqEXCRU1MMCQUTlbadKumw-1; Tue, 26 Jan 2021 09:59:10 -0500
+X-MC-Unique: fqEXCRU1MMCQUTlbadKumw-1
 Received: from [2001:4bb8:191:e347:5918:ac86:61cb:8801] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
-	id 1l4Pi4-005luv-Pc; Tue, 26 Jan 2021 14:53:04 +0000
+	id 1l4Pl3-005mG9-Rr; Tue, 26 Jan 2021 14:56:33 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>, Song Liu <song@kernel.org>
-Date: Tue, 26 Jan 2021 15:52:30 +0100
-Message-Id: <20210126145247.1964410-1-hch@lst.de>
+Date: Tue, 26 Jan 2021 15:52:32 +0100
+Message-Id: <20210126145247.1964410-3-hch@lst.de>
+In-Reply-To: <20210126145247.1964410-1-hch@lst.de>
+References: <20210126145247.1964410-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	casper.infradead.org. See http://www.infradead.org/rpr.html
@@ -58,7 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 Cc: Mike Snitzer <snitzer@redhat.com>, David Sterba <dsterba@suse.com>,
 	dm-devel@redhat.com, Naohiro Aota <naohiro.aota@wdc.com>,
@@ -73,7 +76,7 @@ Cc: Mike Snitzer <snitzer@redhat.com>, David Sterba <dsterba@suse.com>,
 	Philipp Reisner <philipp.reisner@linbit.com>,
 	linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
 	Lars Ellenberg <lars.ellenberg@linbit.com>, linux-btrfs@vger.kernel.org
-Subject: [dm-devel] misc bio allocation cleanups
+Subject: [dm-devel] [PATCH 02/17] btrfs: use bio_kmalloc in __alloc_device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,7 +90,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -95,63 +98,28 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Jens,
+Use bio_kmalloc instead of open coding it.
 
-this series contains various cleanups for how bios are allocated or
-initialized plus related fallout.
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ fs/btrfs/volumes.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Diffstat:
- Documentation/filesystems/f2fs.rst |    1 
- block/bio.c                        |  167 ++++++++++++++++++-------------------
- block/blk-crypto-fallback.c        |    2 
- block/blk-flush.c                  |   17 +--
- drivers/block/drbd/drbd_actlog.c   |    2 
- drivers/block/drbd/drbd_bitmap.c   |    2 
- drivers/block/drbd/drbd_int.h      |    2 
- drivers/block/drbd/drbd_main.c     |   13 --
- drivers/block/drbd/drbd_req.c      |    5 -
- drivers/block/drbd/drbd_req.h      |   12 --
- drivers/block/drbd/drbd_worker.c   |    5 -
- drivers/md/dm-clone-target.c       |   14 ---
- drivers/md/dm-zoned-metadata.c     |    6 -
- drivers/md/md.c                    |   48 +++-------
- drivers/md/md.h                    |    2 
- drivers/md/raid1.c                 |    2 
- drivers/md/raid10.c                |    2 
- drivers/md/raid5-ppl.c             |    2 
- drivers/md/raid5.c                 |  108 +++++++++--------------
- drivers/nvme/target/io-cmd-bdev.c  |    2 
- fs/block_dev.c                     |    2 
- fs/btrfs/volumes.c                 |    2 
- fs/exfat/file.c                    |    2 
- fs/ext4/fast_commit.c              |    4 
- fs/ext4/fsync.c                    |    2 
- fs/ext4/ialloc.c                   |    2 
- fs/ext4/super.c                    |    2 
- fs/f2fs/data.c                     |   28 ------
- fs/f2fs/f2fs.h                     |    2 
- fs/f2fs/segment.c                  |   12 --
- fs/f2fs/super.c                    |    1 
- fs/fat/file.c                      |    2 
- fs/hfsplus/inode.c                 |    2 
- fs/hfsplus/super.c                 |    2 
- fs/jbd2/checkpoint.c               |    2 
- fs/jbd2/commit.c                   |    4 
- fs/jbd2/recovery.c                 |    2 
- fs/libfs.c                         |    2 
- fs/nfs/blocklayout/blocklayout.c   |    5 -
- fs/nilfs2/segbuf.c                 |    4 
- fs/nilfs2/the_nilfs.h              |    2 
- fs/ocfs2/file.c                    |    2 
- fs/reiserfs/file.c                 |    2 
- fs/xfs/xfs_super.c                 |    2 
- fs/zonefs/super.c                  |    4 
- include/linux/bio.h                |    6 -
- include/linux/blkdev.h             |    4 
- include/linux/swap.h               |    1 
- mm/page_io.c                       |   45 ++-------
- mm/swapfile.c                      |   10 --
- 50 files changed, 213 insertions(+), 363 deletions(-)
+diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
+index 0a6de859eb2226..584ba093cf4966 100644
+--- a/fs/btrfs/volumes.c
++++ b/fs/btrfs/volumes.c
+@@ -421,7 +421,7 @@ static struct btrfs_device *__alloc_device(struct btrfs_fs_info *fs_info)
+ 	 * Preallocate a bio that's always going to be used for flushing device
+ 	 * barriers and matches the device lifespan
+ 	 */
+-	dev->flush_bio = bio_alloc_bioset(GFP_KERNEL, 0, NULL);
++	dev->flush_bio = bio_kmalloc(GFP_KERNEL, 0);
+ 	if (!dev->flush_bio) {
+ 		kfree(dev);
+ 		return ERR_PTR(-ENOMEM);
+-- 
+2.29.2
 
 --
 dm-devel mailing list
