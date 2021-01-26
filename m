@@ -2,51 +2,51 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 7F98E3041E9
-	for <lists+dm-devel@lfdr.de>; Tue, 26 Jan 2021 16:14:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id ECE38304221
+	for <lists+dm-devel@lfdr.de>; Tue, 26 Jan 2021 16:19:37 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-279-IowmBoMsMNyYSubdc7XeIw-1; Tue, 26 Jan 2021 10:14:18 -0500
-X-MC-Unique: IowmBoMsMNyYSubdc7XeIw-1
+ us-mta-571-mbrVtLVWMxOWdHWM64NDSg-1; Tue, 26 Jan 2021 10:19:34 -0500
+X-MC-Unique: mbrVtLVWMxOWdHWM64NDSg-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CDAD3107ACF9;
-	Tue, 26 Jan 2021 15:14:11 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 73DB760CA7;
-	Tue, 26 Jan 2021 15:14:09 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3853F9CC03;
+	Tue, 26 Jan 2021 15:19:28 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C3B3C60C62;
+	Tue, 26 Jan 2021 15:19:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B837E5002D;
-	Tue, 26 Jan 2021 15:14:07 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B1C1F180954D;
+	Tue, 26 Jan 2021 15:19:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10QFE2xD014454 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 26 Jan 2021 10:14:02 -0500
+	id 10QFJML8014928 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 26 Jan 2021 10:19:22 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 49D6A1004C6C; Tue, 26 Jan 2021 15:14:02 +0000 (UTC)
+	id 057969C040; Tue, 26 Jan 2021 15:19:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 45909100415B
-	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 15:13:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EE198A34F6
+	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 15:19:17 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CED00800198
-	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 15:13:59 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7417F82DFE3
+	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 15:19:17 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-223-zXHVRcYpN3KcmCHdks4jfQ-1; Tue, 26 Jan 2021 10:13:54 -0500
-X-MC-Unique: zXHVRcYpN3KcmCHdks4jfQ-1
+	us-mta-253-AM3ab881O_KhqqhFMUHVWg-1; Tue, 26 Jan 2021 10:19:14 -0500
+X-MC-Unique: AM3ab881O_KhqqhFMUHVWg-1
 Received: from [2001:4bb8:191:e347:5918:ac86:61cb:8801] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
-	id 1l4Pzl-005nol-TW; Tue, 26 Jan 2021 15:11:23 +0000
+	id 1l4Q1A-005nvT-6a; Tue, 26 Jan 2021 15:13:04 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>, Song Liu <song@kernel.org>
-Date: Tue, 26 Jan 2021 15:52:41 +0100
-Message-Id: <20210126145247.1964410-12-hch@lst.de>
+Date: Tue, 26 Jan 2021 15:52:42 +0100
+Message-Id: <20210126145247.1964410-13-hch@lst.de>
 In-Reply-To: <20210126145247.1964410-1-hch@lst.de>
 References: <20210126145247.1964410-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: Mike Snitzer <snitzer@redhat.com>, David Sterba <dsterba@suse.com>,
 	dm-devel@redhat.com, Naohiro Aota <naohiro.aota@wdc.com>,
@@ -75,7 +75,7 @@ Cc: Mike Snitzer <snitzer@redhat.com>, David Sterba <dsterba@suse.com>,
 	Philipp Reisner <philipp.reisner@linbit.com>,
 	linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
 	Lars Ellenberg <lars.ellenberg@linbit.com>, linux-btrfs@vger.kernel.org
-Subject: [dm-devel] [PATCH 11/17] md: remove bio_alloc_mddev
+Subject: [dm-devel] [PATCH 12/17] md: simplify sync_page_io
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,87 +97,60 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-bio_alloc_mddev is never called with a NULL mddev, and ->bio_set is
-initialized in md_run, so it always must be initialized as well.  Just
-open code the remaining call to bio_alloc_bioset.
+Use an on-stack bio and biovec for the single page synchronous I/O.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/md/md.c     | 12 +-----------
- drivers/md/md.h     |  2 --
- drivers/md/raid1.c  |  2 +-
- drivers/md/raid10.c |  2 +-
- 4 files changed, 3 insertions(+), 15 deletions(-)
+ drivers/md/md.c | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 7d1bb24add3107..e2b9dbb6e888f6 100644
+index e2b9dbb6e888f6..6a27f52007c871 100644
 --- a/drivers/md/md.c
 +++ b/drivers/md/md.c
-@@ -340,16 +340,6 @@ static int start_readonly;
-  */
- static bool create_on_open = true;
- 
--struct bio *bio_alloc_mddev(gfp_t gfp_mask, int nr_iovecs,
--			    struct mddev *mddev)
--{
--	if (!mddev || !bioset_initialized(&mddev->bio_set))
--		return bio_alloc(gfp_mask, nr_iovecs);
--
--	return bio_alloc_bioset(gfp_mask, nr_iovecs, &mddev->bio_set);
--}
--EXPORT_SYMBOL_GPL(bio_alloc_mddev);
--
- static struct bio *md_bio_alloc_sync(struct mddev *mddev)
+@@ -1021,29 +1021,29 @@ int md_super_wait(struct mddev *mddev)
+ int sync_page_io(struct md_rdev *rdev, sector_t sector, int size,
+ 		 struct page *page, int op, int op_flags, bool metadata_op)
  {
- 	if (!mddev || !bioset_initialized(&mddev->sync_set))
-@@ -613,7 +603,7 @@ static void submit_flushes(struct work_struct *ws)
- 			atomic_inc(&rdev->nr_pending);
- 			atomic_inc(&rdev->nr_pending);
- 			rcu_read_unlock();
--			bi = bio_alloc_mddev(GFP_NOIO, 0, mddev);
-+			bi = bio_alloc_bioset(GFP_NOIO, 0, &mddev->bio_set);
- 			bi->bi_end_io = md_end_flush;
- 			bi->bi_private = rdev;
- 			bio_set_dev(bi, rdev->bdev);
-diff --git a/drivers/md/md.h b/drivers/md/md.h
-index f13290ccc1c248..bcbba1b5ec4a71 100644
---- a/drivers/md/md.h
-+++ b/drivers/md/md.h
-@@ -742,8 +742,6 @@ extern void md_rdev_clear(struct md_rdev *rdev);
- extern void md_handle_request(struct mddev *mddev, struct bio *bio);
- extern void mddev_suspend(struct mddev *mddev);
- extern void mddev_resume(struct mddev *mddev);
--extern struct bio *bio_alloc_mddev(gfp_t gfp_mask, int nr_iovecs,
--				   struct mddev *mddev);
+-	struct bio *bio = md_bio_alloc_sync(rdev->mddev);
+-	int ret;
++	struct bio bio;
++	struct bio_vec bvec;
++
++	bio_init(&bio, &bvec, 1);
  
- extern void md_reload_sb(struct mddev *mddev, int raid_disk);
- extern void md_update_sb(struct mddev *mddev, int force);
-diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
-index 3b19141cdb4bc2..d2378765dc154f 100644
---- a/drivers/md/raid1.c
-+++ b/drivers/md/raid1.c
-@@ -1104,7 +1104,7 @@ static void alloc_behind_master_bio(struct r1bio *r1_bio,
- 	int i = 0;
- 	struct bio *behind_bio = NULL;
+ 	if (metadata_op && rdev->meta_bdev)
+-		bio_set_dev(bio, rdev->meta_bdev);
++		bio_set_dev(&bio, rdev->meta_bdev);
+ 	else
+-		bio_set_dev(bio, rdev->bdev);
+-	bio_set_op_attrs(bio, op, op_flags);
++		bio_set_dev(&bio, rdev->bdev);
++	bio.bi_opf = op | op_flags;
+ 	if (metadata_op)
+-		bio->bi_iter.bi_sector = sector + rdev->sb_start;
++		bio.bi_iter.bi_sector = sector + rdev->sb_start;
+ 	else if (rdev->mddev->reshape_position != MaxSector &&
+ 		 (rdev->mddev->reshape_backwards ==
+ 		  (sector >= rdev->mddev->reshape_position)))
+-		bio->bi_iter.bi_sector = sector + rdev->new_data_offset;
++		bio.bi_iter.bi_sector = sector + rdev->new_data_offset;
+ 	else
+-		bio->bi_iter.bi_sector = sector + rdev->data_offset;
+-	bio_add_page(bio, page, size, 0);
++		bio.bi_iter.bi_sector = sector + rdev->data_offset;
++	bio_add_page(&bio, page, size, 0);
  
--	behind_bio = bio_alloc_mddev(GFP_NOIO, vcnt, r1_bio->mddev);
-+	behind_bio = bio_alloc_bioset(GFP_NOIO, vcnt, &r1_bio->mddev->bio_set);
- 	if (!behind_bio)
- 		return;
+-	submit_bio_wait(bio);
++	submit_bio_wait(&bio);
  
-diff --git a/drivers/md/raid10.c b/drivers/md/raid10.c
-index be8f14afb6d143..e1eefbec15d444 100644
---- a/drivers/md/raid10.c
-+++ b/drivers/md/raid10.c
-@@ -4531,7 +4531,7 @@ static sector_t reshape_request(struct mddev *mddev, sector_t sector_nr,
- 		return sectors_done;
- 	}
+-	ret = !bio->bi_status;
+-	bio_put(bio);
+-	return ret;
++	return !bio.bi_status;
+ }
+ EXPORT_SYMBOL_GPL(sync_page_io);
  
--	read_bio = bio_alloc_mddev(GFP_KERNEL, RESYNC_PAGES, mddev);
-+	read_bio = bio_alloc_bioset(GFP_KERNEL, RESYNC_PAGES, &mddev->bio_set);
- 
- 	bio_set_dev(read_bio, rdev->bdev);
- 	read_bio->bi_iter.bi_sector = (r10_bio->devs[r10_bio->read_slot].addr
 -- 
 2.29.2
 
