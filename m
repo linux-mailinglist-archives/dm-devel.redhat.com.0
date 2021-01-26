@@ -2,51 +2,52 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 9F1BA304135
-	for <lists+dm-devel@lfdr.de>; Tue, 26 Jan 2021 16:01:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 56B1730414D
+	for <lists+dm-devel@lfdr.de>; Tue, 26 Jan 2021 16:03:38 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-516-wiXNdhRHMO2xW-fqwcAR0g-1; Tue, 26 Jan 2021 10:01:02 -0500
-X-MC-Unique: wiXNdhRHMO2xW-fqwcAR0g-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-276-aIBwk253MXq77lpe5KFs-w-1; Tue, 26 Jan 2021 10:03:35 -0500
+X-MC-Unique: aIBwk253MXq77lpe5KFs-w-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5A69A9CDA3;
-	Tue, 26 Jan 2021 15:00:57 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E90515D9C2;
-	Tue, 26 Jan 2021 15:00:56 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 31680801AB4;
+	Tue, 26 Jan 2021 15:03:29 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 84CD65D75F;
+	Tue, 26 Jan 2021 15:03:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 56DF75002C;
-	Tue, 26 Jan 2021 15:00:56 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6CF91180954D;
+	Tue, 26 Jan 2021 15:03:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10QF0orl012255 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 26 Jan 2021 10:00:50 -0500
+	id 10QF3Iks012531 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 26 Jan 2021 10:03:18 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 98F4B94655; Tue, 26 Jan 2021 15:00:50 +0000 (UTC)
+	id B81FD110F75A; Tue, 26 Jan 2021 15:03:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 90AE5946BB
-	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 15:00:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B384510054D3
+	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 15:03:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 214F2805BD9
-	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 15:00:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BCD488008A5
+	for <dm-devel@redhat.com>; Tue, 26 Jan 2021 15:03:15 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-334-oFkQwMt8PACcdyX-FdiE8g-1; Tue, 26 Jan 2021 10:00:45 -0500
-X-MC-Unique: oFkQwMt8PACcdyX-FdiE8g-1
+	us-mta-266-k4CkpLCnNF6e-gUcRzn49A-1; Tue, 26 Jan 2021 10:03:10 -0500
+X-MC-Unique: k4CkpLCnNF6e-gUcRzn49A-1
 Received: from [2001:4bb8:191:e347:5918:ac86:61cb:8801] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
-	id 1l4Pmc-005mP7-SH; Tue, 26 Jan 2021 14:58:39 +0000
+	id 1l4PoW-005mZ0-Km; Tue, 26 Jan 2021 14:59:54 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>, Song Liu <song@kernel.org>
-Date: Tue, 26 Jan 2021 15:52:33 +0100
-Message-Id: <20210126145247.1964410-4-hch@lst.de>
+Date: Tue, 26 Jan 2021 15:52:34 +0100
+Message-Id: <20210126145247.1964410-5-hch@lst.de>
 In-Reply-To: <20210126145247.1964410-1-hch@lst.de>
 References: <20210126145247.1964410-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,7 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 Cc: Mike Snitzer <snitzer@redhat.com>, David Sterba <dsterba@suse.com>,
 	dm-devel@redhat.com, Naohiro Aota <naohiro.aota@wdc.com>,
@@ -75,8 +76,8 @@ Cc: Mike Snitzer <snitzer@redhat.com>, David Sterba <dsterba@suse.com>,
 	Philipp Reisner <philipp.reisner@linbit.com>,
 	linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
 	Lars Ellenberg <lars.ellenberg@linbit.com>, linux-btrfs@vger.kernel.org
-Subject: [dm-devel] [PATCH 03/17] blk-crypto: use bio_kmalloc in
-	blk_crypto_clone_bio
+Subject: [dm-devel] [PATCH 04/17] block: split bio_kmalloc from
+	bio_alloc_bioset
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,7 +91,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -98,26 +99,259 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use bio_kmalloc instead of open coding it.
+bio_kmalloc shares almost no logic with the bio_set based fast path
+in bio_alloc_bioset.  Split it into an entirely separate implementation.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- block/blk-crypto-fallback.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ block/bio.c         | 167 ++++++++++++++++++++++----------------------
+ include/linux/bio.h |   6 +-
+ 2 files changed, 86 insertions(+), 87 deletions(-)
 
-diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
-index 50c225398e4d60..e8327c50d7c9f4 100644
---- a/block/blk-crypto-fallback.c
-+++ b/block/blk-crypto-fallback.c
-@@ -164,7 +164,7 @@ static struct bio *blk_crypto_clone_bio(struct bio *bio_src)
- 	struct bio_vec bv;
+diff --git a/block/bio.c b/block/bio.c
+index dfd7740a32300a..d4375619348c52 100644
+--- a/block/bio.c
++++ b/block/bio.c
+@@ -396,123 +396,101 @@ static void punt_bios_to_rescuer(struct bio_set *bs)
+  * @nr_iovecs:	number of iovecs to pre-allocate
+  * @bs:		the bio_set to allocate from.
+  *
+- * Description:
+- *   If @bs is NULL, uses kmalloc() to allocate the bio; else the allocation is
+- *   backed by the @bs's mempool.
++ * Allocate a bio from the mempools in @bs.
+  *
+- *   When @bs is not NULL, if %__GFP_DIRECT_RECLAIM is set then bio_alloc will
+- *   always be able to allocate a bio. This is due to the mempool guarantees.
+- *   To make this work, callers must never allocate more than 1 bio at a time
+- *   from this pool. Callers that need to allocate more than 1 bio must always
+- *   submit the previously allocated bio for IO before attempting to allocate
+- *   a new one. Failure to do so can cause deadlocks under memory pressure.
++ * If %__GFP_DIRECT_RECLAIM is set then bio_alloc will always be able to
++ * allocate a bio.  This is due to the mempool guarantees.  To make this work,
++ * callers must never allocate more than 1 bio at a time from the general pool.
++ * Callers that need to allocate more than 1 bio must always submit the
++ * previously allocated bio for IO before attempting to allocate a new one.
++ * Failure to do so can cause deadlocks under memory pressure.
+  *
+- *   Note that when running under submit_bio_noacct() (i.e. any block
+- *   driver), bios are not submitted until after you return - see the code in
+- *   submit_bio_noacct() that converts recursion into iteration, to prevent
+- *   stack overflows.
++ * Note that when running under submit_bio_noacct() (i.e. any block driver),
++ * bios are not submitted until after you return - see the code in
++ * submit_bio_noacct() that converts recursion into iteration, to prevent
++ * stack overflows.
+  *
+- *   This would normally mean allocating multiple bios under
+- *   submit_bio_noacct() would be susceptible to deadlocks, but we have
+- *   deadlock avoidance code that resubmits any blocked bios from a rescuer
+- *   thread.
++ * This would normally mean allocating multiple bios under submit_bio_noacct()
++ * would be susceptible to deadlocks, but we have
++ * deadlock avoidance code that resubmits any blocked bios from a rescuer
++ * thread.
+  *
+- *   However, we do not guarantee forward progress for allocations from other
+- *   mempools. Doing multiple allocations from the same mempool under
+- *   submit_bio_noacct() should be avoided - instead, use bio_set's front_pad
+- *   for per bio allocations.
++ * However, we do not guarantee forward progress for allocations from other
++ * mempools. Doing multiple allocations from the same mempool under
++ * submit_bio_noacct() should be avoided - instead, use bio_set's front_pad
++ * for per bio allocations.
+  *
+- *   RETURNS:
+- *   Pointer to new bio on success, NULL on failure.
++ * Returns: Pointer to new bio on success, NULL on failure.
+  */
+ struct bio *bio_alloc_bioset(gfp_t gfp_mask, unsigned int nr_iovecs,
+ 			     struct bio_set *bs)
+ {
+ 	gfp_t saved_gfp = gfp_mask;
+-	unsigned front_pad;
+-	unsigned inline_vecs;
+-	struct bio_vec *bvl = NULL;
  	struct bio *bio;
+ 	void *p;
  
--	bio = bio_alloc_bioset(GFP_NOIO, bio_segments(bio_src), NULL);
-+	bio = bio_kmalloc(GFP_NOIO, bio_segments(bio_src));
- 	if (!bio)
+-	if (!bs) {
+-		if (nr_iovecs > UIO_MAXIOV)
+-			return NULL;
+-
+-		p = kmalloc(struct_size(bio, bi_inline_vecs, nr_iovecs), gfp_mask);
+-		front_pad = 0;
+-		inline_vecs = nr_iovecs;
+-	} else {
+-		/* should not use nobvec bioset for nr_iovecs > 0 */
+-		if (WARN_ON_ONCE(!mempool_initialized(&bs->bvec_pool) &&
+-				 nr_iovecs > 0))
+-			return NULL;
+-		/*
+-		 * submit_bio_noacct() converts recursion to iteration; this
+-		 * means if we're running beneath it, any bios we allocate and
+-		 * submit will not be submitted (and thus freed) until after we
+-		 * return.
+-		 *
+-		 * This exposes us to a potential deadlock if we allocate
+-		 * multiple bios from the same bio_set() while running
+-		 * underneath submit_bio_noacct(). If we were to allocate
+-		 * multiple bios (say a stacking block driver that was splitting
+-		 * bios), we would deadlock if we exhausted the mempool's
+-		 * reserve.
+-		 *
+-		 * We solve this, and guarantee forward progress, with a rescuer
+-		 * workqueue per bio_set. If we go to allocate and there are
+-		 * bios on current->bio_list, we first try the allocation
+-		 * without __GFP_DIRECT_RECLAIM; if that fails, we punt those
+-		 * bios we would be blocking to the rescuer workqueue before
+-		 * we retry with the original gfp_flags.
+-		 */
+-
+-		if (current->bio_list &&
+-		    (!bio_list_empty(&current->bio_list[0]) ||
+-		     !bio_list_empty(&current->bio_list[1])) &&
+-		    bs->rescue_workqueue)
+-			gfp_mask &= ~__GFP_DIRECT_RECLAIM;
++	/* should not use nobvec bioset for nr_iovecs > 0 */
++	if (WARN_ON_ONCE(!mempool_initialized(&bs->bvec_pool) && nr_iovecs > 0))
++		return NULL;
+ 
++	/*
++	 * submit_bio_noacct() converts recursion to iteration; this means if
++	 * we're running beneath it, any bios we allocate and submit will not be
++	 * submitted (and thus freed) until after we return.
++	 *
++	 * This exposes us to a potential deadlock if we allocate multiple bios
++	 * from the same bio_set() while running underneath submit_bio_noacct().
++	 * If we were to allocate multiple bios (say a stacking block driver
++	 * that was splitting bios), we would deadlock if we exhausted the
++	 * mempool's reserve.
++	 *
++	 * We solve this, and guarantee forward progress, with a rescuer
++	 * workqueue per bio_set. If we go to allocate and there are bios on
++	 * current->bio_list, we first try the allocation without
++	 * __GFP_DIRECT_RECLAIM; if that fails, we punt those bios we would be
++	 * blocking to the rescuer workqueue before we retry with the original
++	 * gfp_flags.
++	 */
++	if (current->bio_list &&
++	    (!bio_list_empty(&current->bio_list[0]) ||
++	     !bio_list_empty(&current->bio_list[1])) &&
++	    bs->rescue_workqueue)
++		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
++
++	p = mempool_alloc(&bs->bio_pool, gfp_mask);
++	if (!p && gfp_mask != saved_gfp) {
++		punt_bios_to_rescuer(bs);
++		gfp_mask = saved_gfp;
+ 		p = mempool_alloc(&bs->bio_pool, gfp_mask);
+-		if (!p && gfp_mask != saved_gfp) {
+-			punt_bios_to_rescuer(bs);
+-			gfp_mask = saved_gfp;
+-			p = mempool_alloc(&bs->bio_pool, gfp_mask);
+-		}
+-
+-		front_pad = bs->front_pad;
+-		inline_vecs = BIO_INLINE_VECS;
+ 	}
+-
+ 	if (unlikely(!p))
  		return NULL;
- 	bio->bi_bdev		= bio_src->bi_bdev;
+ 
+-	bio = p + front_pad;
+-	bio_init(bio, NULL, 0);
+-
+-	if (nr_iovecs > inline_vecs) {
++	bio = p + bs->front_pad;
++	if (nr_iovecs > BIO_INLINE_VECS) {
+ 		unsigned long idx = 0;
++		struct bio_vec *bvl = NULL;
+ 
+ 		bvl = bvec_alloc(gfp_mask, nr_iovecs, &idx, &bs->bvec_pool);
+ 		if (!bvl && gfp_mask != saved_gfp) {
+ 			punt_bios_to_rescuer(bs);
+ 			gfp_mask = saved_gfp;
+-			bvl = bvec_alloc(gfp_mask, nr_iovecs, &idx, &bs->bvec_pool);
++			bvl = bvec_alloc(gfp_mask, nr_iovecs, &idx,
++					 &bs->bvec_pool);
+ 		}
+ 
+ 		if (unlikely(!bvl))
+ 			goto err_free;
+ 
+ 		bio->bi_flags |= idx << BVEC_POOL_OFFSET;
+-		bio->bi_max_vecs = bvec_nr_vecs(idx);
++		bio_init(bio, bvl, bvec_nr_vecs(idx));
+ 	} else if (nr_iovecs) {
+-		bvl = bio->bi_inline_vecs;
+-		bio->bi_max_vecs = inline_vecs;
++		bio_init(bio, bio->bi_inline_vecs, BIO_INLINE_VECS);
++	} else {
++		bio_init(bio, NULL, 0);
+ 	}
+ 
+ 	bio->bi_pool = bs;
+-	bio->bi_io_vec = bvl;
+ 	return bio;
+ 
+ err_free:
+@@ -521,6 +499,31 @@ struct bio *bio_alloc_bioset(gfp_t gfp_mask, unsigned int nr_iovecs,
+ }
+ EXPORT_SYMBOL(bio_alloc_bioset);
+ 
++/**
++ * bio_kmalloc - kmalloc a bio for I/O
++ * @gfp_mask:   the GFP_* mask given to the slab allocator
++ * @nr_iovecs:	number of iovecs to pre-allocate
++ *
++ * Use kmalloc to allocate and initialize a bio.
++ *
++ * Returns: Pointer to new bio on success, NULL on failure.
++ */
++struct bio *bio_kmalloc(gfp_t gfp_mask, unsigned int nr_iovecs)
++{
++	struct bio *bio;
++
++	if (nr_iovecs > UIO_MAXIOV)
++		return NULL;
++
++	bio = kmalloc(struct_size(bio, bi_inline_vecs, nr_iovecs), gfp_mask);
++	if (unlikely(!bio))
++		return NULL;
++	bio_init(bio, nr_iovecs ? bio->bi_inline_vecs : NULL, nr_iovecs);
++	bio->bi_pool = NULL;
++	return bio;
++}
++EXPORT_SYMBOL(bio_kmalloc);
++
+ void zero_fill_bio_iter(struct bio *bio, struct bvec_iter start)
+ {
+ 	unsigned long flags;
+diff --git a/include/linux/bio.h b/include/linux/bio.h
+index 676870b2c88d80..c74857cf12528c 100644
+--- a/include/linux/bio.h
++++ b/include/linux/bio.h
+@@ -408,6 +408,7 @@ extern int biovec_init_pool(mempool_t *pool, int pool_entries);
+ extern int bioset_init_from_src(struct bio_set *bs, struct bio_set *src);
+ 
+ extern struct bio *bio_alloc_bioset(gfp_t, unsigned int, struct bio_set *);
++struct bio *bio_kmalloc(gfp_t gfp_mask, unsigned int nr_iovecs);
+ extern void bio_put(struct bio *);
+ 
+ extern void __bio_clone_fast(struct bio *, struct bio *);
+@@ -420,11 +421,6 @@ static inline struct bio *bio_alloc(gfp_t gfp_mask, unsigned int nr_iovecs)
+ 	return bio_alloc_bioset(gfp_mask, nr_iovecs, &fs_bio_set);
+ }
+ 
+-static inline struct bio *bio_kmalloc(gfp_t gfp_mask, unsigned int nr_iovecs)
+-{
+-	return bio_alloc_bioset(gfp_mask, nr_iovecs, NULL);
+-}
+-
+ extern blk_qc_t submit_bio(struct bio *);
+ 
+ extern void bio_endio(struct bio *);
 -- 
 2.29.2
 
