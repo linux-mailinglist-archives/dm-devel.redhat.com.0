@@ -1,64 +1,63 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 965EA3057B0
-	for <lists+dm-devel@lfdr.de>; Wed, 27 Jan 2021 11:03:03 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id C02D33057AA
+	for <lists+dm-devel@lfdr.de>; Wed, 27 Jan 2021 11:02:53 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-474-VqPm4joRPsa3s0hBwPHuOQ-1; Wed, 27 Jan 2021 05:02:46 -0500
-X-MC-Unique: VqPm4joRPsa3s0hBwPHuOQ-1
+ us-mta-542-imezuI1POHq9RhdiF_Fe9A-1; Wed, 27 Jan 2021 05:02:50 -0500
+X-MC-Unique: imezuI1POHq9RhdiF_Fe9A-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B38C7801AAF;
-	Wed, 27 Jan 2021 10:02:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DF37D8144EA;
+	Wed, 27 Jan 2021 10:02:43 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8C28A60938;
-	Wed, 27 Jan 2021 10:02:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9ADAD6EF55;
+	Wed, 27 Jan 2021 10:02:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 48B0E4EEEE;
-	Wed, 27 Jan 2021 10:02:41 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4B6DB5002C;
+	Wed, 27 Jan 2021 10:02:43 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10R7MLtF006966 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 27 Jan 2021 02:22:21 -0500
+	id 10R7N8Pg007013 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 27 Jan 2021 02:23:08 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7A4B12026DE4; Wed, 27 Jan 2021 07:22:21 +0000 (UTC)
+	id 28CEA2026D11; Wed, 27 Jan 2021 07:23:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 740052026D16
-	for <dm-devel@redhat.com>; Wed, 27 Jan 2021 07:22:18 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 23CCE2026D49
+	for <dm-devel@redhat.com>; Wed, 27 Jan 2021 07:23:05 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 857C8811E76
-	for <dm-devel@redhat.com>; Wed, 27 Jan 2021 07:22:18 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2876F858281
+	for <dm-devel@redhat.com>; Wed, 27 Jan 2021 07:23:05 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-258-1J9pyzs-PZ6IXCUVq2d1oQ-1;
-	Wed, 27 Jan 2021 02:22:16 -0500
-X-MC-Unique: 1J9pyzs-PZ6IXCUVq2d1oQ-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7210F2075A;
-	Wed, 27 Jan 2021 07:22:14 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id q8so1234704lfm.10;
-	Tue, 26 Jan 2021 23:22:14 -0800 (PST)
-X-Gm-Message-State: AOAM5332fD9RFi+z3akH+nmsLVjpodmX5dSRXIslYnejwQ/4Q8MwG+SC
-	XQaFRihFlmaSXpNKokl8Yf59MQefsbq/D0QwIhg=
-X-Google-Smtp-Source: ABdhPJxflUggj8S5jQsQ3WpKvrE0C44XGXqHsiBc4rX5F3+Z0c1NJpDcJfbjDkFKR5D14faCz9LusUBrixofxv3V23Y=
-X-Received: by 2002:a05:6512:5c6:: with SMTP id
-	o6mr4374679lfo.281.1611732132634; 
-	Tue, 26 Jan 2021 23:22:12 -0800 (PST)
+	by relay.mimecast.com with ESMTP id us-mta-520-R70NygayMAiwmcC7YxKXUw-1;
+	Wed, 27 Jan 2021 02:23:01 -0500
+X-MC-Unique: R70NygayMAiwmcC7YxKXUw-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3F62F20756;
+	Wed, 27 Jan 2021 07:22:59 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id y11so923401ljk.1;
+	Tue, 26 Jan 2021 23:22:59 -0800 (PST)
+X-Gm-Message-State: AOAM5326TBChlzoch5x4iRl//3LYiOiyNfQw8b8EUQLqAA6t+iKyIBqZ
+	EsGpaIGBJCR4R6uTJlanZ6AkaGRwmWADn6NJnwo=
+X-Google-Smtp-Source: ABdhPJwT4SgEWFQYI+aGplxcgngrqXZ09YVZXq+be6TcwdS2L0sd+F5PxgqsedykGzzK3GAh/e6zF7ilKInCLGcj5r0=
+X-Received: by 2002:a2e:b8d3:: with SMTP id s19mr5116366ljp.97.1611732177533; 
+	Tue, 26 Jan 2021 23:22:57 -0800 (PST)
 MIME-Version: 1.0
 References: <20210126145247.1964410-1-hch@lst.de>
-	<20210126145247.1964410-13-hch@lst.de>
-In-Reply-To: <20210126145247.1964410-13-hch@lst.de>
+	<20210126145247.1964410-14-hch@lst.de>
+In-Reply-To: <20210126145247.1964410-14-hch@lst.de>
 From: Song Liu <song@kernel.org>
-Date: Tue, 26 Jan 2021 23:22:01 -0800
-X-Gmail-Original-Message-ID: <CAPhsuW6sVtB-baGn46_o6NVynuxQfy9_FuhC2ZK0cKu5cQHWDg@mail.gmail.com>
-Message-ID: <CAPhsuW6sVtB-baGn46_o6NVynuxQfy9_FuhC2ZK0cKu5cQHWDg@mail.gmail.com>
+Date: Tue, 26 Jan 2021 23:22:46 -0800
+X-Gmail-Original-Message-ID: <CAPhsuW4AViTNjq1mp6zvbEJ8zKdK7__BfXEsvATTBWraK2u1Jg@mail.gmail.com>
+Message-ID: <CAPhsuW4AViTNjq1mp6zvbEJ8zKdK7__BfXEsvATTBWraK2u1Jg@mail.gmail.com>
 To: Christoph Hellwig <hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -87,7 +86,7 @@ Cc: Mike Snitzer <snitzer@redhat.com>, David Sterba <dsterba@suse.com>,
 	Linux-Fsdevel <linux-fsdevel@vger.kernel.org>,
 	Lars Ellenberg <lars.ellenberg@linbit.com>,
 	linux-nfs@vger.kernel.org, linux-btrfs@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH 12/17] md: simplify sync_page_io
+Subject: Re: [dm-devel] [PATCH 13/17] md: remove md_bio_alloc_sync
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -109,64 +108,47 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Jan 26, 2021 at 7:14 AM Christoph Hellwig <hch@lst.de> wrote:
+On Tue, Jan 26, 2021 at 7:17 AM Christoph Hellwig <hch@lst.de> wrote:
 >
-> Use an on-stack bio and biovec for the single page synchronous I/O.
+> md_bio_alloc_sync is never called with a NULL mddev, and ->sync_set is
+> initialized in md_run, so it always must be initialized as well.  Just
+> open code the remaining call to bio_alloc_bioset.
 >
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 
 Acked-by: Song Liu <song@kernel.org>
 
 > ---
->  drivers/md/md.c | 26 +++++++++++++-------------
->  1 file changed, 13 insertions(+), 13 deletions(-)
+>  drivers/md/md.c | 10 +---------
+>  1 file changed, 1 insertion(+), 9 deletions(-)
 >
 > diff --git a/drivers/md/md.c b/drivers/md/md.c
-> index e2b9dbb6e888f6..6a27f52007c871 100644
+> index 6a27f52007c871..399c81bddc1ae1 100644
 > --- a/drivers/md/md.c
 > +++ b/drivers/md/md.c
-> @@ -1021,29 +1021,29 @@ int md_super_wait(struct mddev *mddev)
->  int sync_page_io(struct md_rdev *rdev, sector_t sector, int size,
->                  struct page *page, int op, int op_flags, bool metadata_op)
->  {
-> -       struct bio *bio = md_bio_alloc_sync(rdev->mddev);
-> -       int ret;
-> +       struct bio bio;
-> +       struct bio_vec bvec;
-> +
-> +       bio_init(&bio, &bvec, 1);
+> @@ -340,14 +340,6 @@ static int start_readonly;
+>   */
+>  static bool create_on_open = true;
 >
->         if (metadata_op && rdev->meta_bdev)
-> -               bio_set_dev(bio, rdev->meta_bdev);
-> +               bio_set_dev(&bio, rdev->meta_bdev);
->         else
-> -               bio_set_dev(bio, rdev->bdev);
-> -       bio_set_op_attrs(bio, op, op_flags);
-> +               bio_set_dev(&bio, rdev->bdev);
-> +       bio.bi_opf = op | op_flags;
->         if (metadata_op)
-> -               bio->bi_iter.bi_sector = sector + rdev->sb_start;
-> +               bio.bi_iter.bi_sector = sector + rdev->sb_start;
->         else if (rdev->mddev->reshape_position != MaxSector &&
->                  (rdev->mddev->reshape_backwards ==
->                   (sector >= rdev->mddev->reshape_position)))
-> -               bio->bi_iter.bi_sector = sector + rdev->new_data_offset;
-> +               bio.bi_iter.bi_sector = sector + rdev->new_data_offset;
->         else
-> -               bio->bi_iter.bi_sector = sector + rdev->data_offset;
-> -       bio_add_page(bio, page, size, 0);
-> +               bio.bi_iter.bi_sector = sector + rdev->data_offset;
-> +       bio_add_page(&bio, page, size, 0);
+> -static struct bio *md_bio_alloc_sync(struct mddev *mddev)
+> -{
+> -       if (!mddev || !bioset_initialized(&mddev->sync_set))
+> -               return bio_alloc(GFP_NOIO, 1);
+> -
+> -       return bio_alloc_bioset(GFP_NOIO, 1, &mddev->sync_set);
+> -}
+> -
+>  /*
+>   * We have a system wide 'event count' that is incremented
+>   * on any 'interesting' event, and readers of /proc/mdstat
+> @@ -989,7 +981,7 @@ void md_super_write(struct mddev *mddev, struct md_rdev *rdev,
+>         if (test_bit(Faulty, &rdev->flags))
+>                 return;
 >
-> -       submit_bio_wait(bio);
-> +       submit_bio_wait(&bio);
+> -       bio = md_bio_alloc_sync(mddev);
+> +       bio = bio_alloc_bioset(GFP_NOIO, 1, &mddev->sync_set);
 >
-> -       ret = !bio->bi_status;
-> -       bio_put(bio);
-> -       return ret;
-> +       return !bio.bi_status;
->  }
->  EXPORT_SYMBOL_GPL(sync_page_io);
+>         atomic_inc(&rdev->nr_pending);
 >
 > --
 > 2.29.2
