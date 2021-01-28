@@ -2,71 +2,63 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 42199308763
-	for <lists+dm-devel@lfdr.de>; Fri, 29 Jan 2021 10:37:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C86E430876C
+	for <lists+dm-devel@lfdr.de>; Fri, 29 Jan 2021 10:38:20 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-530-lPB3P_7cNsW-C9n4zKEWcA-1; Fri, 29 Jan 2021 04:37:29 -0500
-X-MC-Unique: lPB3P_7cNsW-C9n4zKEWcA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-352--u40fOcTNNCGnWOMNiccAg-1; Fri, 29 Jan 2021 04:38:18 -0500
+X-MC-Unique: -u40fOcTNNCGnWOMNiccAg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B75488017FC;
-	Fri, 29 Jan 2021 09:37:21 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A3E5910054FF;
+	Fri, 29 Jan 2021 09:38:12 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 198809CA0;
-	Fri, 29 Jan 2021 09:37:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 592C271D5D;
+	Fri, 29 Jan 2021 09:38:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BE7421809C9F;
-	Fri, 29 Jan 2021 09:37:03 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D03321809CA0;
+	Fri, 29 Jan 2021 09:38:11 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10SALvh2026379 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 28 Jan 2021 05:21:57 -0500
+	id 10SBqINm004564 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 28 Jan 2021 06:52:19 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B7D2B101B560; Thu, 28 Jan 2021 10:21:57 +0000 (UTC)
+	id D8F97101F0AD; Thu, 28 Jan 2021 11:52:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B3BB1101F0A3
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 10:21:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D4FCA1020445
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 11:52:16 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 52D6E858281
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 10:21:54 +0000 (UTC)
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
-	[209.85.210.51]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-285-LZki4iDRMeGYbNZmasfDCg-1; Thu, 28 Jan 2021 05:21:50 -0500
-X-MC-Unique: LZki4iDRMeGYbNZmasfDCg-1
-Received: by mail-ot1-f51.google.com with SMTP id i20so4676794otl.7;
-	Thu, 28 Jan 2021 02:21:49 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=HDfQ7EgSz4He6IVrUzqy89nGy356H19n/4Ap6Knawyw=;
-	b=K3pQiqrppdagBIeDmhVOMeCc2Dfb07jFgDlUI6okog80VOuYGeSbb9mvmLub1gPv7T
-	OY96ih1DBa3IBn2mbKP6qV4pm/rArT5QKbtJFVh39mR02bxtRKZdP2p7mjTjO556wm6m
-	ltF+BeUoydzT/ai4uMj3loSZuEBLGe4ocDdLNAfKdpFZ+BMZaDMlLCAT0bznxs5HMqbj
-	SkvRmJNmJegDhRfxuKaHkrUiEaExqwxMwfd6sgduamv5ZCe5Mdxmd5pbIIdKZcDM9BCr
-	OckSNMfDjdb6mVLGPHvCI4MyaoqnI0T0RbIKFDJvJphtQ8q+ROws7GnSvGW6AFwlw1lC
-	dbFg==
-X-Gm-Message-State: AOAM531R20EOHeTJgaSYykOqqKQVrs0M4E8m7Zl3zjnlu2WiGodqjZSS
-	ECnbofplNhKX27Idh3LoFZJebGWY/r4I87SDUmM=
-X-Google-Smtp-Source: ABdhPJwJviHVEMHN6dwg9pHl9sFzPeOTWi/Tyw7MUMRzUkqGbWVHXybuLc31QSYFbmu849bxozre+7WWIBRJddZRpNc=
-X-Received: by 2002:a05:6830:2313:: with SMTP id
-	u19mr11117098ote.321.1611829309173; 
-	Thu, 28 Jan 2021 02:21:49 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 60CFF811E84
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 11:52:16 +0000 (UTC)
+Received: from out30-43.freemail.mail.aliyun.com
+	(out30-43.freemail.mail.aliyun.com [115.124.30.43]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-107-DlNvTvtFOqaGB40yBQYPAw-1;
+	Thu, 28 Jan 2021 06:52:10 -0500
+X-MC-Unique: DlNvTvtFOqaGB40yBQYPAw-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R361e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04420;
+	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=6; SR=0;
+	TI=SMTPD_---0UN8Gkqz_1611834725
+Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
+	fp:SMTPD_---0UN8Gkqz_1611834725) by smtp.aliyun-inc.com(127.0.0.1);
+	Thu, 28 Jan 2021 19:52:05 +0800
+To: Christoph Hellwig <hch@infradead.org>
+References: <20210125121340.70459-1-jefflexu@linux.alibaba.com>
+	<20210125121340.70459-4-jefflexu@linux.alibaba.com>
+	<20210128084016.GA1951639@infradead.org>
+From: JeffleXu <jefflexu@linux.alibaba.com>
+Message-ID: <7d5402f2-c4d7-9d9a-e637-54a2dd349b3f@linux.alibaba.com>
+Date: Thu, 28 Jan 2021 19:52:05 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+	Gecko/20100101 Thunderbird/78.6.1
 MIME-Version: 1.0
-References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
-	<20210128071133.60335-30-chaitanya.kulkarni@wdc.com>
-In-Reply-To: <20210128071133.60335-30-chaitanya.kulkarni@wdc.com>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Thu, 28 Jan 2021 11:21:36 +0100
-Message-ID: <CAJZ5v0h01e4LgV0c5FxLorcc6iFW2LVzC=hJcd7LNAJ6D0E8jg@mail.gmail.com>
-To: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
+In-Reply-To: <20210128084016.GA1951639@infradead.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -77,42 +69,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Fri, 29 Jan 2021 04:33:25 -0500
-Cc: shaggy@kernel.org, jfs-discussion@lists.sourceforge.net,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>,
-	Mike Snitzer <snitzer@redhat.com>, Takashi Iwai <tiwai@suse.de>,
-	djwong@kernel.org, linux-nvme <linux-nvme@lists.infradead.org>,
-	Philipp Reisner <philipp.reisner@linbit.com>,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	dm-devel@redhat.com, target-devel@vger.kernel.org,
-	Pavel Machek <pavel@ucw.cz>, Alex Shi <alex.shi@linux.alibaba.com>,
-	Christoph Hellwig <hch@lst.de>, Alasdair Kergon <agk@redhat.com>,
-	naohiro.aota@wdc.com, linux-nilfs@vger.kernel.org,
-	Sagi Grimberg <sagi@grimberg.me>,
-	"open list:TARGET SUBSYSTEM" <linux-scsi@vger.kernel.org>,
-	Mark Fasheh <mark@fasheh.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, osandov@fb.com,
-	Eric Biggers <ebiggers@kernel.org>,
-	xen-devel@lists.xenproject.org, ngupta@vflare.org,
-	Len Brown <len.brown@intel.com>, Linux PM <linux-pm@vger.kernel.org>,
-	Ming Lei <ming.lei@redhat.com>, linux-block@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>, linux-fscrypt@vger.kernel.org,
-	Al Viro <viro@zeniv.linux.org.uk>, drbd-dev@tron.linbit.com,
-	jaegeuk@kernel.org, Joel Becker <jlbec@evilplan.org>,
-	konishi.ryusuke@gmail.com, Bart Van Assche <bvanassche@acm.org>,
-	Jens Axboe <axboe@kernel.dk>, damien.lemoal@wdc.com,
-	Ted Ts'o <tytso@mit.edu>, Andrew Morton <akpm@linux-foundation.org>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	"Rafael J. Wysocki" <rjw@rjwysocki.net>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-xfs@vger.kernel.org, Minchan Kim <minchan@kernel.org>,
-	jefflexu@linux.alibaba.com, linux-fsdevel@vger.kernel.org,
-	Lars Ellenberg <lars.ellenberg@linbit.com>, jth@kernel.org,
-	asml.silence@gmail.com, ocfs2-devel@oss.oracle.com, roger.pau@citrix.com
-Subject: Re: [dm-devel] [RFC PATCH 29/34] power/swap: use bio_new in
-	hib_submit_io
+X-Mailman-Approved-At: Fri, 29 Jan 2021 04:33:26 -0500
+Cc: linux-block@vger.kernel.org, joseph.qi@linux.alibaba.com,
+	dm-devel@redhat.com, io-uring@vger.kernel.org, snitzer@redhat.com
+Subject: Re: [dm-devel] [PATCH v2 3/6] block: add iopoll method to support
+ bio-based IO polling
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -126,49 +87,40 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Jan 28, 2021 at 8:21 AM Chaitanya Kulkarni
-<chaitanya.kulkarni@wdc.com> wrote:
->
 
-Please explain in the changelog why making this change is a good idea.
 
-> Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
-> ---
->  kernel/power/swap.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
->
-> diff --git a/kernel/power/swap.c b/kernel/power/swap.c
-> index c73f2e295167..e92e36c053a6 100644
-> --- a/kernel/power/swap.c
-> +++ b/kernel/power/swap.c
-> @@ -271,13 +271,12 @@ static int hib_submit_io(int op, int op_flags, pgoff_t page_off, void *addr,
->                 struct hib_bio_batch *hb)
->  {
->         struct page *page = virt_to_page(addr);
-> +       sector_t sect = page_off * (PAGE_SIZE >> 9);
->         struct bio *bio;
->         int error = 0;
->
-> -       bio = bio_alloc(GFP_NOIO | __GFP_HIGH, 1);
-> -       bio->bi_iter.bi_sector = page_off * (PAGE_SIZE >> 9);
-> -       bio_set_dev(bio, hib_resume_bdev);
-> -       bio_set_op_attrs(bio, op, op_flags);
-> +       bio = bio_new(hib_resume_bdev, sect, op, op_flags, 1,
-> +                     GFP_NOIO | __GFP_HIGH);
->
->         if (bio_add_page(bio, page, PAGE_SIZE, 0) < PAGE_SIZE) {
->                 pr_err("Adding page to bio failed at %llu\n",
-> --
-> 2.22.1
->
+On 1/28/21 4:40 PM, Christoph Hellwig wrote:
+> On Mon, Jan 25, 2021 at 08:13:37PM +0800, Jeffle Xu wrote:
+>> +int blk_poll(struct request_queue *q, blk_qc_t cookie, bool spin)
+> 
+> Can you split the guts of this function into two separate helpers
+> for the mq vs non-mq case?  As is is is a little hard to read and
+> introduced extra branches in the fast path.
+> 
+
+I know your consideration, actually I had ever tried.
+
+I can extract some helper functions, but I'm doubted if the extra
+function call is acceptable.
+
+Besides, the iteration logic is generic and I'm afraid the branch or
+function call is unavoidable. Or if we maintain two separate function
+for mq and dm, the code duplication may be unavoidable.
+
+Anyway I'll give a try.
+
+-- 
+Thanks,
+Jeffle
 
 --
 dm-devel mailing list
