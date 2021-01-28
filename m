@@ -2,55 +2,56 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E1FEA30876D
-	for <lists+dm-devel@lfdr.de>; Fri, 29 Jan 2021 10:38:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 66F81308775
+	for <lists+dm-devel@lfdr.de>; Fri, 29 Jan 2021 10:39:29 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-78-kz3xk4K6ODW-clKd2_hTzA-1; Fri, 29 Jan 2021 04:38:22 -0500
-X-MC-Unique: kz3xk4K6ODW-clKd2_hTzA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-474-e4W33PFKN--F6MeWpJHLng-1; Fri, 29 Jan 2021 04:39:26 -0500
+X-MC-Unique: e4W33PFKN--F6MeWpJHLng-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B33A08017FC;
-	Fri, 29 Jan 2021 09:38:16 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E25171C99;
-	Fri, 29 Jan 2021 09:38:16 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DA335107ACE6;
+	Fri, 29 Jan 2021 09:39:19 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B3F7A1042A95;
+	Fri, 29 Jan 2021 09:39:19 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 117474EEF6;
-	Fri, 29 Jan 2021 09:38:16 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3A97818095C9;
+	Fri, 29 Jan 2021 09:39:19 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10SGINL6005876 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 28 Jan 2021 11:18:23 -0500
+	id 10SHHlNa014180 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 28 Jan 2021 12:17:47 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2C4842166B2B; Thu, 28 Jan 2021 16:18:23 +0000 (UTC)
+	id 132862026994; Thu, 28 Jan 2021 17:17:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 273BC2166B2A
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 16:18:20 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0C8892026FF8
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 17:17:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 78280800B3A
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 16:18:20 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-453-5mSykEfOOFqeV5NfM4GlZQ-1;
-	Thu, 28 Jan 2021 11:18:15 -0500
-X-MC-Unique: 5mSykEfOOFqeV5NfM4GlZQ-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 15C7D64DE5;
-	Thu, 28 Jan 2021 16:11:30 +0000 (UTC)
-Date: Thu, 28 Jan 2021 08:11:28 -0800
-From: Jaegeuk Kim <jaegeuk@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <YBLiMN7zm44VWaBI@google.com>
-References: <20210126145247.1964410-1-hch@lst.de>
-	<20210126145247.1964410-9-hch@lst.de>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C033480391A
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 17:17:44 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-538-YNkGlsroMAm9bKUaM7mnJg-1; Thu, 28 Jan 2021 12:17:42 -0500
+X-MC-Unique: YNkGlsroMAm9bKUaM7mnJg-1
+Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
+	Linux)) id 1l5ARp-008hlF-CH; Thu, 28 Jan 2021 16:47:23 +0000
+Date: Thu, 28 Jan 2021 16:47:09 +0000
+From: Matthew Wilcox <willy@infradead.org>
+To: Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>
+Message-ID: <20210128164709.GZ308988@casper.infradead.org>
+References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
+	<20210128071133.60335-3-chaitanya.kulkarni@wdc.com>
+	<BL0PR04MB6514C554B4AC96866BC1B16FE7BA9@BL0PR04MB6514.namprd04.prod.outlook.com>
+	<DM6PR04MB4972DA86892CF4531440064F86BA9@DM6PR04MB4972.namprd04.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <20210126145247.1964410-9-hch@lst.de>
+In-Reply-To: <DM6PR04MB4972DA86892CF4531440064F86BA9@DM6PR04MB4972.namprd04.prod.outlook.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -59,24 +60,58 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 29 Jan 2021 04:33:26 -0500
-Cc: Mike Snitzer <snitzer@redhat.com>, Song Liu <song@kernel.org>,
-	dm-devel@redhat.com, Naohiro Aota <naohiro.aota@wdc.com>,
-	linux-nilfs@vger.kernel.org, Chao Yu <chao@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
-	linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org,
-	David Sterba <dsterba@suse.com>, drbd-dev@tron.linbit.com,
-	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
-	Damien Le Moal <damien.lemoal@wdc.com>,
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
-	Philipp Reisner <philipp.reisner@linbit.com>,
-	linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
-	Lars Ellenberg <lars.ellenberg@linbit.com>,
-	linux-nfs@vger.kernel.org, linux-btrfs@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH 08/17] f2fs: remove FAULT_ALLOC_BIO
+Cc: "shaggy@kernel.org" <shaggy@kernel.org>,
+	"jfs-discussion@lists.sourceforge.net"
+	<jfs-discussion@lists.sourceforge.net>,
+	"sergey.senozhatsky.work@gmail.com" <sergey.senozhatsky.work@gmail.com>,
+	"snitzer@redhat.com" <snitzer@redhat.com>, "tiwai@suse.de" <tiwai@suse.de>,
+	"djwong@kernel.org" <djwong@kernel.org>,
+	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
+	"gustavoars@kernel.org" <gustavoars@kernel.org>,
+	"linux-mm@kvack.org" <linux-mm@kvack.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"target-devel@vger.kernel.org" <target-devel@vger.kernel.org>,
+	"pavel@ucw.cz" <pavel@ucw.cz>,
+	"alex.shi@linux.alibaba.com" <alex.shi@linux.alibaba.com>,
+	"osandov@fb.com" <osandov@fb.com>, "agk@redhat.com" <agk@redhat.com>,
+	Naohiro Aota <Naohiro.Aota@wdc.com>,
+	"linux-nilfs@vger.kernel.org" <linux-nilfs@vger.kernel.org>,
+	"sagi@grimberg.me" <sagi@grimberg.me>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	"konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
+	"roger.pau@citrix.com" <roger.pau@citrix.com>,
+	"ebiggers@kernel.org" <ebiggers@kernel.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"philipp.reisner@linbit.com" <philipp.reisner@linbit.com>,
+	"ngupta@vflare.org" <ngupta@vflare.org>,
+	"len.brown@intel.com" <len.brown@intel.com>,
+	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+	"ming.lei@redhat.com" <ming.lei@redhat.com>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"tj@kernel.org" <tj@kernel.org>,
+	"linux-fscrypt@vger.kernel.org" <linux-fscrypt@vger.kernel.org>,
+	"drbd-dev@lists.linbit.com" <drbd-dev@tron.linbit.com>,
+	"jaegeuk@kernel.org" <jaegeuk@kernel.org>,
+	"konishi.ryusuke@gmail.com" <konishi.ryusuke@gmail.com>,
+	"bvanassche@acm.org" <bvanassche@acm.org>,
+	"axboe@kernel.dk" <axboe@kernel.dk>,
+	Damien Le Moal <Damien.LeMoal@wdc.com>, "tytso@mit.edu" <tytso@mit.edu>,
+	"rjw@rjwysocki.net" <rjw@rjwysocki.net>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
+	"minchan@kernel.org" <minchan@kernel.org>,
+	"jefflexu@linux.alibaba.com" <jefflexu@linux.alibaba.com>,
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+	"lars.ellenberg@linbit.com" <lars.ellenberg@linbit.com>,
+	"jth@kernel.org" <jth@kernel.org>,
+	"asml.silence@gmail.com" <asml.silence@gmail.com>,
+	"ocfs2-devel@oss.oracle.com" <ocfs2-devel@oss.oracle.com>,
+	"viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>
+Subject: Re: [dm-devel] [Ocfs2-devel] [RFC PATCH 02/34] block: introduce and
+	use bio_new
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,7 +125,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -99,115 +134,115 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 01/26, Christoph Hellwig wrote:
-> Sleeping bio allocations do not fail, which means that injecting an error
-> into sleeping bio allocations is a little silly.
+
+FYI your email is completely unreadable to those not using html.
+I can't tell what you wrote and what Damien wrote.
+
+On Thu, Jan 28, 2021 at 08:33:10AM +0000, Chaitanya Kulkarni wrote:
+> On 1/27/21 11:21 PM, Damien Le Moal wrote:
 > 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-
-Already merged tho.
-
-Acked-by: Jaegeuk Kim <jaegeuk@kernel.org>
-
+> On 2021/01/28 16:12, Chaitanya Kulkarni wrote:
+> 
+> 
+> Introduce bio_new() helper and use it in blk-lib.c to allocate and
+> initialize various non-optional or semi-optional members of the bio
+> along with bio allocation done with bio_alloc(). Here we also calmp the
+> max_bvecs for bio with BIO_MAX_PAGES before we pass to bio_alloc().
+> 
+> Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com><mailto:chaitanya.kulkarni@wdc.com>
 > ---
->  Documentation/filesystems/f2fs.rst |  1 -
->  fs/f2fs/data.c                     | 29 ++++-------------------------
->  fs/f2fs/f2fs.h                     |  1 -
->  fs/f2fs/super.c                    |  1 -
->  4 files changed, 4 insertions(+), 28 deletions(-)
+>  block/blk-lib.c     |  6 +-----
+>  include/linux/bio.h | 25 +++++++++++++++++++++++++
+>  2 files changed, 26 insertions(+), 5 deletions(-)
 > 
-> diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesystems/f2fs.rst
-> index dae15c96e659e2..624f5f3ed93e86 100644
-> --- a/Documentation/filesystems/f2fs.rst
-> +++ b/Documentation/filesystems/f2fs.rst
-> @@ -179,7 +179,6 @@ fault_type=%d		 Support configuring fault injection type, should be
->  			 FAULT_KVMALLOC		  0x000000002
->  			 FAULT_PAGE_ALLOC	  0x000000004
->  			 FAULT_PAGE_GET		  0x000000008
-> -			 FAULT_ALLOC_BIO	  0x000000010
->  			 FAULT_ALLOC_NID	  0x000000020
->  			 FAULT_ORPHAN		  0x000000040
->  			 FAULT_BLOCK		  0x000000080
-> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-> index 0cf0c605992431..9fb6be65592b1f 100644
-> --- a/fs/f2fs/data.c
-> +++ b/fs/f2fs/data.c
-> @@ -50,28 +50,6 @@ void f2fs_destroy_bioset(void)
->  	bioset_exit(&f2fs_bioset);
->  }
->  
-> -static inline struct bio *__f2fs_bio_alloc(gfp_t gfp_mask,
-> -						unsigned int nr_iovecs)
-> -{
-> -	return bio_alloc_bioset(gfp_mask, nr_iovecs, &f2fs_bioset);
-> -}
-> -
-> -static struct bio *f2fs_bio_alloc(struct f2fs_sb_info *sbi, int npages,
-> -		bool noio)
-> -{
-> -	if (noio) {
-> -		/* No failure on bio allocation */
-> -		return __f2fs_bio_alloc(GFP_NOIO, npages);
-> -	}
-> -
-> -	if (time_to_inject(sbi, FAULT_ALLOC_BIO)) {
-> -		f2fs_show_injection_info(sbi, FAULT_ALLOC_BIO);
-> -		return NULL;
-> -	}
-> -
-> -	return __f2fs_bio_alloc(GFP_KERNEL, npages);
-> -}
-> -
->  static bool __is_cp_guaranteed(struct page *page)
+> diff --git a/block/blk-lib.c b/block/blk-lib.c
+> index fb486a0bdb58..ec29415f00dd 100644
+> --- a/block/blk-lib.c
+> +++ b/block/blk-lib.c
+> @@ -14,17 +14,13 @@ struct bio *blk_next_bio(struct bio *bio, struct block_device *bdev,
+>                         sector_t sect, unsigned op, unsigned opf,
+>                         unsigned int nr_pages, gfp_t gfp)
 >  {
->  	struct address_space *mapping = page->mapping;
-> @@ -433,7 +411,7 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
->  	struct f2fs_sb_info *sbi = fio->sbi;
->  	struct bio *bio;
->  
-> -	bio = f2fs_bio_alloc(sbi, npages, true);
-> +	bio = bio_alloc_bioset(GFP_NOIO, npages, &f2fs_bioset);
->  
->  	f2fs_target_device(sbi, fio->new_blkaddr, bio);
->  	if (is_read_io(fio->op)) {
-> @@ -1029,8 +1007,9 @@ static struct bio *f2fs_grab_read_bio(struct inode *inode, block_t blkaddr,
->  	struct bio_post_read_ctx *ctx;
->  	unsigned int post_read_steps = 0;
->  
-> -	bio = f2fs_bio_alloc(sbi, min_t(int, nr_pages, BIO_MAX_PAGES),
-> -								for_write);
-> +	bio = bio_alloc_bioset(for_write ? GFP_NOIO : GFP_KERNEL,
-> +			       min_t(int, nr_pages, BIO_MAX_PAGES),
-> +			       &f2fs_bioset);
->  	if (!bio)
->  		return ERR_PTR(-ENOMEM);
->  
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index 902bd3267c03e1..6c78365d80ceb5 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -43,7 +43,6 @@ enum {
->  	FAULT_KVMALLOC,
->  	FAULT_PAGE_ALLOC,
->  	FAULT_PAGE_GET,
-> -	FAULT_ALLOC_BIO,
->  	FAULT_ALLOC_NID,
->  	FAULT_ORPHAN,
->  	FAULT_BLOCK,
-> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-> index b4a07fe62d1a58..3a312642907e86 100644
-> --- a/fs/f2fs/super.c
-> +++ b/fs/f2fs/super.c
-> @@ -45,7 +45,6 @@ const char *f2fs_fault_name[FAULT_MAX] = {
->  	[FAULT_KVMALLOC]	= "kvmalloc",
->  	[FAULT_PAGE_ALLOC]	= "page alloc",
->  	[FAULT_PAGE_GET]	= "page get",
-> -	[FAULT_ALLOC_BIO]	= "alloc bio",
->  	[FAULT_ALLOC_NID]	= "alloc nid",
->  	[FAULT_ORPHAN]		= "orphan",
->  	[FAULT_BLOCK]		= "no more block",
-> -- 
-> 2.29.2
+> -       struct bio *new = bio_alloc(gfp, nr_pages);
+> +       struct bio *new = bio_new(bdev, sect, op, opf, gfp, nr_pages);
+> 
+>         if (bio) {
+>                 bio_chain(bio, new);
+>                 submit_bio(bio);
+>         }
+> 
+> -       new->bi_iter.bi_sector = sect;
+> -       bio_set_dev(new, bdev);
+> -       bio_set_op_attrs(new, op, opf);
+> -
+>         return new;
+>  }
+> 
+> diff --git a/include/linux/bio.h b/include/linux/bio.h
+> index c74857cf1252..2a09ba100546 100644
+> --- a/include/linux/bio.h
+> +++ b/include/linux/bio.h
+> @@ -826,5 +826,30 @@ static inline void bio_set_polled(struct bio *bio, struct kiocb *kiocb)
+>         if (!is_sync_kiocb(kiocb))
+>                 bio->bi_opf |= REQ_NOWAIT;
+>  }
+> +/**
+> + * bio_new -   allcate and initialize new bio
+> + * @bdev:      blockdev to issue discard for
+> + * @sector:    start sector
+> + * @op:                REQ_OP_XXX from enum req_opf
+> + * @op_flags:  REQ_XXX from enum req_flag_bits
+> + * @max_bvecs: maximum bvec to be allocated for this bio
+> + * @gfp_mask:  memory allocation flags (for bio_alloc)
+> + *
+> + * Description:
+> + *    Allocates, initializes common members, and returns a new bio.
+> + */
+> +static inline struct bio *bio_new(struct block_device *bdev, sector_t sector,
+> +                                 unsigned int op, unsigned int op_flags,
+> +                                 unsigned int max_bvecs, gfp_t gfp_mask)
+> +{
+> +       unsigned nr_bvec = clamp_t(unsigned int, max_bvecs, 0, BIO_MAX_PAGES);
+> +       struct bio *bio = bio_alloc(gfp_mask, nr_bvec);
+> 
+> 
+> I think that depending on the gfp_mask passed, bio can be NULL. So this should
+> be checked.
+> 
+> 
+> true, I'll add that check.
+> 
+> 
+> 
+> 
+> +
+> +       bio_set_dev(bio, bdev);
+> +       bio->bi_iter.bi_sector = sector;
+> +       bio_set_op_attrs(bio, op, op_flags);
+> 
+> 
+> This function is obsolete. Open code this.
+> 
+> 
+> true, will do.
+> 
+> 
+> 
+> 
+> +
+> +       return bio;
+> +}
+> 
+>  #endif /* __LINUX_BIO_H */
+> 
+> 
+> 
+> Thanks for the comments Damien.
+
+> _______________________________________________
+> Ocfs2-devel mailing list
+> Ocfs2-devel@oss.oracle.com
+> https://oss.oracle.com/mailman/listinfo/ocfs2-devel
 
 --
 dm-devel mailing list
