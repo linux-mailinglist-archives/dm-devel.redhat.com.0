@@ -2,69 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 345093071BD
+	by mail.lfdr.de (Postfix) with ESMTP id DF3843071C0
 	for <lists+dm-devel@lfdr.de>; Thu, 28 Jan 2021 09:40:03 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-401-fV67O1ryNoywYmOv9fBj1w-1; Thu, 28 Jan 2021 03:39:14 -0500
-X-MC-Unique: fV67O1ryNoywYmOv9fBj1w-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-507-FPDnDmR_Mh6LyVtxuIt5TQ-1; Thu, 28 Jan 2021 03:39:21 -0500
+X-MC-Unique: FPDnDmR_Mh6LyVtxuIt5TQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9544C9CC1B;
-	Thu, 28 Jan 2021 08:39:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 90E108042BA;
+	Thu, 28 Jan 2021 08:39:14 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 71B1B5D9F4;
-	Thu, 28 Jan 2021 08:39:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6CB3960C5F;
+	Thu, 28 Jan 2021 08:39:14 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 248371809CA1;
-	Thu, 28 Jan 2021 08:39:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 222AF1809CA2;
+	Thu, 28 Jan 2021 08:39:14 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10S7CqoI007416 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 28 Jan 2021 02:12:52 -0500
+	id 10S7D0hR007426 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 28 Jan 2021 02:13:00 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1CEBD2166B2A; Thu, 28 Jan 2021 07:12:52 +0000 (UTC)
+	id 2D2A9ED145; Thu, 28 Jan 2021 07:13:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 176332166B2B
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:12:49 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 28192ED154
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:12:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5A352800883
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:12:49 +0000 (UTC)
-Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A61241875040
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:12:57 +0000 (UTC)
+Received: from esa3.hgst.iphmx.com (esa3.hgst.iphmx.com [216.71.153.141])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-350-vhaEU4Y8Mkqk7_ii-_74Uw-1; Thu, 28 Jan 2021 02:12:46 -0500
-X-MC-Unique: vhaEU4Y8Mkqk7_ii-_74Uw-1
-IronPort-SDR: wDKMcJs1e8M3YAlIK+Rh6PU8vGQqw0KVRQyoQjFThHq0eJZDh1KZCVUv+Os/p6f+wF0+JFqdeh
-	fYjkEu1aTlaqJUQG3/VG0cB5aK+t15bDJwh4/GZKp6SnNKyXY6y2GK8BGWHDlCoHgxUSpP8GJ6
-	0c2efxhrUk6YiTXzsRVM9cswHAfQz1s3CMRFmGBJCOyvILE/a845QnpHRrtepdaqO6mPvWSqVD
-	ZNDwp7a6hHxnKlaeFgU7Quo0uQH9hEEvBCRQ09kFGk6SCELmxghrXKvu2S8pQaUbmgqLIdX2LR
-	vQ8=
-X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; d="scan'208";a="268892406"
-Received: from h199-255-45-15.hgst.com (HELO uls-op-cesaep02.wdc.com)
-	([199.255.45.15])
-	by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:12:45 +0800
-IronPort-SDR: G3TPb1zm5etH7+Qm9YB86t1nKSU2wJ0ywR7MaG25vt/vItFyxmIrF5V+3CHYC3criePjjZVAsK
-	lBLvFbDmACtXwvm0N5+KIzR/ICOfzNvjoGvBUJ3rZtQDDaC7/hs0ZhrWlYOMeNRLQcoKd6BZK0
-	JrUiGn0QSXmUm8x3ZZpyW2zWn09J+6XSnMMsZKChqsv1C5OJhAy4eiGmb++iksAl0C+mJLKZxL
-	jlG8tJxH2ARKAvTVSx/gbREQRslLjXuHA5dgZU5AmvkyobRaA3IxTN5/KIGxqo8PotffqANM41
-	QTTV15PwJDCGrDszsvjYNvbL
+	us-mta-419-c1TyedEpPei-lxMIZjZhJQ-1; Thu, 28 Jan 2021 02:12:55 -0500
+X-MC-Unique: c1TyedEpPei-lxMIZjZhJQ-1
+IronPort-SDR: SHx/hydKHBQPzvcsYqnOOppRD8vpowMDkLRjnn0ndoLQfa9nWzvTGCf87u3FFAoJJEmdBCcZef
+	FHmK9Yd0MMhA7pr7rlZpAv8C9pHpTDEds/khCpaLHEiIGaGEU4TuZR2LKqr+9X5X1OPugLbWhf
+	jZAC/EZBddL1R5m7+9mzETtlfHzRiqjmEKwKXDvk/bIbmotq/8QrZSJfmgNat7MkEBoMKCmFod
+	1rPniUSXEttU8O+4EoMup3qVefBIS/lzPZ2VhrRrRE/z8UxijyfG2WMqf2LMEeubPdza0s1TD1
+	yRY=
+X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; d="scan'208";a="162963187"
+Received: from h199-255-45-14.hgst.com (HELO uls-op-cesaep01.wdc.com)
+	([199.255.45.14])
+	by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:12:53 +0800
+IronPort-SDR: /2Br/toO5EAx2nDlHbr0+EOi+HFRG4Dtx5KMsgqRE2+Idev98JiBz1On+4G5DxbW4dLNHnARrA
+	MlXO5LlCob/XKC5b7a+vEesRB7tql7s5rTqsdavkw22plaLGyT5mGR7vLE95V+/716ubGXixKE
+	Jk9j8JB4SQa5/1Epy5Syz+5kpYbXWCO5BPPxT3VLZNV66RrMkWoLX4l9kFCLb8zXOtgymHNNue
+	pcnPF96bFk+zl1hONCojM6c7z26e1i9xBy7APOsqCiK/dOEHE+vRxoeB+yWYQZDPofYjM1g6qB
+	0DtaZ6IfrD0Reuzn+XLoaF2P
 Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
-	by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	27 Jan 2021 22:55:03 -0800
-IronPort-SDR: iX0HhBu+61xFa7EtRWB17G0RFoDdFxtABLHP5yHe733z1qMOeQszsqPYXIq64MFQkReY48/RWk
-	FOClHc2dhNxuRM1QyLpF0KtQrhnCpVvcpPgq0B9OecXrJpCL8UYdCuDWFTL9LdxFS6qWHXh51B
-	DNrP6xQEwjJPm/GL/W/Mv5XtvThzXYCRCRRzvICfBStun4/LN576oOtiFYHwzWMShhTX3BjqKf
-	c8icNJold/1bdh3xf4xqkQcFwP0TJ4M2AqZVo41MRst8Lsv9bfR6qeue7iMnlhLF3vJJuSRBwu
-	WXg=
+	by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	27 Jan 2021 22:57:13 -0800
+IronPort-SDR: PY5y9iQTPaVno0Uv+vDzXalBIBo52CYeNhdpn1c7TxoOle28qWYUG06GBXepBaS7SSBSs9yjco
+	7juMCiLNAFC5Fl7+86T3v8dT5wViZ/r3nWsFgtnjfanPUZXEs47a6Ez/SVmFCas+uBcEU4K0rz
+	829GMnmof7Vria8o+CPxuoND3CfaQPgb+QYuf0lvO7BAPoDvQAY10VoO7lep1Qta/l6nA5+vbg
+	ht+uppfjRckOmE5ekZUsc4vMGzhgqqwVxG/dC7eG99G+et4hw+q4h30FxFyz73HjopgItSw/2N
+	PHA=
 WDCIronportException: Internal
 Received: from vm.labspan.wdc.com (HELO vm.sc.wdc.com) ([10.6.137.102])
-	by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:12:45 -0800
+	by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:12:53 -0800
 From: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 To: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	dm-devel@redhat.com, linux-block@vger.kernel.org,
@@ -74,8 +75,8 @@ To: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	linux-fscrypt@vger.kernel.org, jfs-discussion@lists.sourceforge.net,
 	linux-nilfs@vger.kernel.org, ocfs2-devel@oss.oracle.com,
 	linux-pm@vger.kernel.org, linux-mm@kvack.org
-Date: Wed, 27 Jan 2021 23:11:06 -0800
-Message-Id: <20210128071133.60335-8-chaitanya.kulkarni@wdc.com>
+Date: Wed, 27 Jan 2021 23:11:07 -0800
+Message-Id: <20210128071133.60335-9-chaitanya.kulkarni@wdc.com>
 In-Reply-To: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
 References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
 MIME-Version: 1.0
@@ -87,9 +88,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Thu, 28 Jan 2021 03:38:54 -0500
+X-Mailman-Approved-At: Thu, 28 Jan 2021 03:38:55 -0500
 Cc: shaggy@kernel.org, sergey.senozhatsky.work@gmail.com, snitzer@redhat.com,
 	tiwai@suse.de, djwong@kernel.org, gustavoars@kernel.org,
 	joseph.qi@linux.alibaba.com, pavel@ucw.cz,
@@ -106,7 +107,8 @@ Cc: shaggy@kernel.org, sergey.senozhatsky.work@gmail.com, snitzer@redhat.com,
 	philipp.reisner@linbit.com, minchan@kernel.org, tj@kernel.org,
 	lars.ellenberg@linbit.com, jth@kernel.org,
 	asml.silence@gmail.com, jlbec@evilplan.org, roger.pau@citrix.com
-Subject: [dm-devel] [RFC PATCH 07/34] dm: use bio_new in dm-log-writes
+Subject: [dm-devel] [RFC PATCH 08/34] dm-zoned: use bio_new in
+	get_mblock_slow
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -120,7 +122,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -130,119 +132,35 @@ Content-Transfer-Encoding: 7bit
 
 Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 ---
- drivers/md/dm-log-writes.c | 30 ++++++++++--------------------
- 1 file changed, 10 insertions(+), 20 deletions(-)
+ drivers/md/dm-zoned-metadata.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/md/dm-log-writes.c b/drivers/md/dm-log-writes.c
-index e3d35c6c9f71..7ca9af407647 100644
---- a/drivers/md/dm-log-writes.c
-+++ b/drivers/md/dm-log-writes.c
-@@ -217,18 +217,15 @@ static int write_metadata(struct log_writes_c *lc, void *entry,
- 	void *ptr;
- 	size_t ret;
+diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
+index 039d17b28938..e6252f48a49c 100644
+--- a/drivers/md/dm-zoned-metadata.c
++++ b/drivers/md/dm-zoned-metadata.c
+@@ -550,7 +550,8 @@ static struct dmz_mblock *dmz_get_mblock_slow(struct dmz_metadata *zmd,
+ 	if (!mblk)
+ 		return ERR_PTR(-ENOMEM);
  
--	bio = bio_alloc(GFP_KERNEL, 1);
-+	bio = bio_new(lc->logdev->bdev, sector, REQ_OP_WRITE, 0, 1, GFP_KERNEL);
+-	bio = bio_alloc(GFP_NOIO, 1);
++	bio = bio_new(dev->bdev, dmz_blk2sect(block), REQ_OP_READ,
++		      REQ_META | REQ_PRIO, 1, GFP_NOIO);
  	if (!bio) {
- 		DMERR("Couldn't alloc log bio");
- 		goto error;
- 	}
- 	bio->bi_iter.bi_size = 0;
--	bio->bi_iter.bi_sector = sector;
--	bio_set_dev(bio, lc->logdev->bdev);
- 	bio->bi_end_io = (sector == WRITE_LOG_SUPER_SECTOR) ?
- 			  log_end_super : log_end_io;
- 	bio->bi_private = lc;
--	bio_set_op_attrs(bio, REQ_OP_WRITE, 0);
+ 		dmz_free_mblock(zmd, mblk);
+ 		return ERR_PTR(-ENOMEM);
+@@ -577,11 +578,8 @@ static struct dmz_mblock *dmz_get_mblock_slow(struct dmz_metadata *zmd,
+ 	spin_unlock(&zmd->mblk_lock);
  
- 	page = alloc_page(GFP_KERNEL);
- 	if (!page) {
-@@ -264,7 +261,7 @@ static int write_inline_data(struct log_writes_c *lc, void *entry,
- 			     size_t entrylen, void *data, size_t datalen,
- 			     sector_t sector)
- {
--	int num_pages, bio_pages, pg_datalen, pg_sectorlen, i;
-+	int num_pages, pg_datalen, pg_sectorlen, i;
- 	struct page *page;
- 	struct bio *bio;
- 	size_t ret;
-@@ -272,24 +269,21 @@ static int write_inline_data(struct log_writes_c *lc, void *entry,
+ 	/* Submit read BIO */
+-	bio->bi_iter.bi_sector = dmz_blk2sect(block);
+-	bio_set_dev(bio, dev->bdev);
+ 	bio->bi_private = mblk;
+ 	bio->bi_end_io = dmz_mblock_bio_end_io;
+-	bio_set_op_attrs(bio, REQ_OP_READ, REQ_META | REQ_PRIO);
+ 	bio_add_page(bio, mblk->page, DMZ_BLOCK_SIZE, 0);
+ 	submit_bio(bio);
  
- 	while (datalen) {
- 		num_pages = ALIGN(datalen, PAGE_SIZE) >> PAGE_SHIFT;
--		bio_pages = min(num_pages, BIO_MAX_PAGES);
- 
- 		atomic_inc(&lc->io_blocks);
- 
--		bio = bio_alloc(GFP_KERNEL, bio_pages);
-+		bio = bio_new(lc->logdev->bdev, sector, REQ_OP_WRITE, 0,
-+			      num_pages, GFP_KERNEL);
- 		if (!bio) {
- 			DMERR("Couldn't alloc inline data bio");
- 			goto error;
- 		}
- 
- 		bio->bi_iter.bi_size = 0;
--		bio->bi_iter.bi_sector = sector;
--		bio_set_dev(bio, lc->logdev->bdev);
- 		bio->bi_end_io = log_end_io;
- 		bio->bi_private = lc;
--		bio_set_op_attrs(bio, REQ_OP_WRITE, 0);
- 
--		for (i = 0; i < bio_pages; i++) {
-+		for (i = 0; i < bio->bi_max_vecs; i++) {
- 			pg_datalen = min_t(int, datalen, PAGE_SIZE);
- 			pg_sectorlen = ALIGN(pg_datalen, lc->sectorsize);
- 
-@@ -317,7 +311,7 @@ static int write_inline_data(struct log_writes_c *lc, void *entry,
- 		}
- 		submit_bio(bio);
- 
--		sector += bio_pages * PAGE_SECTORS;
-+		sector += bio->bi_max_vecs * PAGE_SECTORS;
- 	}
- 	return 0;
- error_bio:
-@@ -364,17 +358,15 @@ static int log_one_block(struct log_writes_c *lc,
- 		goto out;
- 
- 	atomic_inc(&lc->io_blocks);
--	bio = bio_alloc(GFP_KERNEL, min(block->vec_cnt, BIO_MAX_PAGES));
-+	bio = bio_new(lc->logdev->bdev, sector, REQ_OP_WRITE, 0,
-+			block->vec_cnt, GFP_KERNEL);
- 	if (!bio) {
- 		DMERR("Couldn't alloc log bio");
- 		goto error;
- 	}
- 	bio->bi_iter.bi_size = 0;
--	bio->bi_iter.bi_sector = sector;
--	bio_set_dev(bio, lc->logdev->bdev);
- 	bio->bi_end_io = log_end_io;
- 	bio->bi_private = lc;
--	bio_set_op_attrs(bio, REQ_OP_WRITE, 0);
- 
- 	for (i = 0; i < block->vec_cnt; i++) {
- 		/*
-@@ -386,17 +378,15 @@ static int log_one_block(struct log_writes_c *lc,
- 		if (ret != block->vecs[i].bv_len) {
- 			atomic_inc(&lc->io_blocks);
- 			submit_bio(bio);
--			bio = bio_alloc(GFP_KERNEL, min(block->vec_cnt - i, BIO_MAX_PAGES));
-+			bio = bio_new(lc->logdev->bdev, sector, REQ_OP_WRITE,
-+					0, block->vec_cnt - i, GFP_KERNEL);
- 			if (!bio) {
- 				DMERR("Couldn't alloc log bio");
- 				goto error;
- 			}
- 			bio->bi_iter.bi_size = 0;
--			bio->bi_iter.bi_sector = sector;
--			bio_set_dev(bio, lc->logdev->bdev);
- 			bio->bi_end_io = log_end_io;
- 			bio->bi_private = lc;
--			bio_set_op_attrs(bio, REQ_OP_WRITE, 0);
- 
- 			ret = bio_add_page(bio, block->vecs[i].bv_page,
- 					   block->vecs[i].bv_len, 0);
 -- 
 2.22.1
 
