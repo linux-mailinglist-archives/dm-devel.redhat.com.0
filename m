@@ -1,64 +1,83 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C64243071EC
-	for <lists+dm-devel@lfdr.de>; Thu, 28 Jan 2021 09:51:39 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id CF1203071A9
+	for <lists+dm-devel@lfdr.de>; Thu, 28 Jan 2021 09:39:18 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-103-xUDp3DYAMpGjAF686KZL1A-1; Thu, 28 Jan 2021 03:51:36 -0500
-X-MC-Unique: xUDp3DYAMpGjAF686KZL1A-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-398-OPzA7bjPOMqro8iNEiIxxA-1; Thu, 28 Jan 2021 03:39:14 -0500
+X-MC-Unique: OPzA7bjPOMqro8iNEiIxxA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B5E8859;
-	Thu, 28 Jan 2021 08:51:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8380B186E708;
+	Thu, 28 Jan 2021 08:39:08 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B67C47095B;
-	Thu, 28 Jan 2021 08:51:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5688B19D9D;
+	Thu, 28 Jan 2021 08:39:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1F8F41809C9F;
-	Thu, 28 Jan 2021 08:51:21 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0379E18095C7;
+	Thu, 28 Jan 2021 08:39:08 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10S36tdE019460 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 27 Jan 2021 22:06:55 -0500
+	id 10S7BjUY007320 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 28 Jan 2021 02:11:45 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 29C8A2166B2A; Thu, 28 Jan 2021 03:06:55 +0000 (UTC)
+	id 08996EC4AA; Thu, 28 Jan 2021 07:11:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 232052166B2B
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 03:06:50 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 01E46ED145
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:11:42 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 38501800883
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 03:06:50 +0000 (UTC)
-Received: from out30-56.freemail.mail.aliyun.com
-	(out30-56.freemail.mail.aliyun.com [115.124.30.56]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-423-dcI3h8H7MeipAnazjlob0Q-1;
-	Wed, 27 Jan 2021 22:06:47 -0500
-X-MC-Unique: dcI3h8H7MeipAnazjlob0Q-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R181e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04400;
-	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=6; SR=0;
-	TI=SMTPD_---0UN61yfy_1611803201
-Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0UN61yfy_1611803201) by smtp.aliyun-inc.com(127.0.0.1);
-	Thu, 28 Jan 2021 11:06:41 +0800
-To: Mike Snitzer <snitzer@redhat.com>, Jens Axboe <axboe@kernel.dk>
-References: <20210125121340.70459-1-jefflexu@linux.alibaba.com>
-	<20210127171941.GA11530@redhat.com>
-From: JeffleXu <jefflexu@linux.alibaba.com>
-Message-ID: <2ed9966f-b390-085a-1a51-5bf65038d533@linux.alibaba.com>
-Date: Thu, 28 Jan 2021 11:06:40 +0800
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
-	Gecko/20100101 Thunderbird/78.6.1
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EC5FF187504C
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:11:41 +0000 (UTC)
+Received: from esa2.hgst.iphmx.com (esa2.hgst.iphmx.com [68.232.143.124])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-142-cwDwRlI0Os2c2jngTuKtvg-1; Thu, 28 Jan 2021 02:11:39 -0500
+X-MC-Unique: cwDwRlI0Os2c2jngTuKtvg-1
+IronPort-SDR: CKZOTs4pU56vufwkbE/6Qq0pxzidiPefIdG155QC3pF/Fdi7NIDbqV72EXqQMSSHy5RbfqT04A
+	u3WAJVBrtvUG7MfTAFBcligJnCKc8dt9LndeVScOaJrs/Ton+IL92O9s6DzPb1UwU+J2Ft/yHH
+	wXljQAcrfdzqs3IsaGS/3GH47i5U7e2yYW2MqJVbmcGsF7wxCwvxmCZXATP4AmHwSPkAIQHgih
+	fh6u7DPyZlfoVJx4PslsbolZx5kIFglCK+0inbF6w6gB3EB906Aok5DJhI83WYvxxnYgQVgtfR
+	+Wg=
+X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; d="scan'208";a="262548837"
+Received: from h199-255-45-15.hgst.com (HELO uls-op-cesaep02.wdc.com)
+	([199.255.45.15])
+	by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:12:39 +0800
+IronPort-SDR: UTznEvHbsQGmjPo75icGMIYMsUAdeLV9TCVUdy1geThSk0vhjBGCQsB1j2zwecvTjUSwSiT0JH
+	cm8ofiTr2+jj4uZwEOcT7+OO3FetVJ7q5VkDhugHW8USN5R8XMVgEB+ShdOEDqIV6r6cz63cw1
+	+jEqJGdQmBoAvyv22jjjS2QmLob6Qu/G3D9I/fXP9T+lWkHpXYGW3o5er0ple0rcP8isVwdRcf
+	F/yp7JcafkQjtnhaV09TG4ZpWJaD5mvNvV2uA3CSDF+DaaQTFOvKHEJ1AjUnf6ZHhESJarJ2ZQ
+	U9B44jVFpxK1eRS3efOtkrcV
+Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
+	by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	27 Jan 2021 22:53:56 -0800
+IronPort-SDR: 61Jf/0E9AfrbFBR+VL+aX9SYCVB0aW8ut/7/jLtTqvhkleWzu7b9JjkuOaGgMYwgMXw5C5Sybl
+	VeNQs3LEjTqxDsR0ZyK8GA/cVYEZNMX2maaVF3ljBoeSQOO/ApbWgebfLMlSCkYd12pl+6neKj
+	zn8nHOcIOMnNA2IBKV67KMXVLkXTllokNu+jCcdgoa5YFwfQecWL2vYSP5hgldmlqCiXple2ew
+	fybG/wLzJMKvqPxvYQ59ATt+ZGQv1DjVDDtxXyNp0NJ+IswNbwLOu8d1uiq12NaSa1/W79MYTO
+	wq8=
+WDCIronportException: Internal
+Received: from vm.labspan.wdc.com (HELO vm.sc.wdc.com) ([10.6.137.102])
+	by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:11:38 -0800
+From: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
+To: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	dm-devel@redhat.com, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, drbd-dev@tron.linbit.com,
+	xen-devel@lists.xenproject.org, linux-nvme@lists.infradead.org,
+	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
+	linux-fscrypt@vger.kernel.org, jfs-discussion@lists.sourceforge.net,
+	linux-nilfs@vger.kernel.org, ocfs2-devel@oss.oracle.com,
+	linux-pm@vger.kernel.org, linux-mm@kvack.org
+Date: Wed, 27 Jan 2021 23:10:59 -0800
+Message-Id: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
 MIME-Version: 1.0
-In-Reply-To: <20210127171941.GA11530@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -67,13 +86,26 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 28 Jan 2021 03:38:54 -0500
-Cc: linux-block@vger.kernel.org, joseph.qi@linux.alibaba.com,
-	dm-devel@redhat.com, io-uring@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v2 0/6] dm: support IO polling for bio-based
-	dm device
+Cc: shaggy@kernel.org, sergey.senozhatsky.work@gmail.com, snitzer@redhat.com,
+	tiwai@suse.de, djwong@kernel.org, gustavoars@kernel.org,
+	joseph.qi@linux.alibaba.com, pavel@ucw.cz,
+	alex.shi@linux.alibaba.com, hch@lst.de, agk@redhat.com,
+	naohiro.aota@wdc.com, sagi@grimberg.me, mark@fasheh.com,
+	osandov@fb.com, ebiggers@kernel.org, ngupta@vflare.org,
+	len.brown@intel.com, chaitanya.kulkarni@wdc.com,
+	konrad.wilk@oracle.com, ming.lei@redhat.com,
+	viro@zeniv.linux.org.uk, jefflexu@linux.alibaba.com,
+	jaegeuk@kernel.org, konishi.ryusuke@gmail.com,
+	bvanassche@acm.org, axboe@kernel.dk, damien.lemoal@wdc.com,
+	tytso@mit.edu, akpm@linux-foundation.org,
+	martin.petersen@oracle.com, rjw@rjwysocki.net,
+	philipp.reisner@linbit.com, minchan@kernel.org, tj@kernel.org,
+	lars.ellenberg@linbit.com, jth@kernel.org,
+	asml.silence@gmail.com, jlbec@evilplan.org, roger.pau@citrix.com
+Subject: [dm-devel] [RFC PATCH 00/34] block: introduce bio_new()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,108 +119,98 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+Hi,
 
+This is a *compile only RFC* which adds a generic helper to initialize
+the various fields of the bio that is repeated all the places in
+file-systems, block layer, and drivers.
 
-On 1/28/21 1:19 AM, Mike Snitzer wrote:
-> On Mon, Jan 25 2021 at  7:13am -0500,
-> Jeffle Xu <jefflexu@linux.alibaba.com> wrote:
-> 
->> Since currently we have no simple but efficient way to implement the
->> bio-based IO polling in the split-bio tracking style, this patch set
->> turns to the original implementation mechanism that iterates and
->> polls all underlying hw queues in polling mode. One optimization is
->> introduced to mitigate the race of one hw queue among multiple polling
->> instances.
->>
->> I'm still open to the split bio tracking mechanism, if there's
->> reasonable way to implement it.
->>
->>
->> [Performance Test]
->> The performance is tested by fio (engine=io_uring) 4k randread on
->> dm-linear device. The dm-linear device is built upon nvme devices,
->> and every nvme device has one polling hw queue (nvme.poll_queues=1).
->>
->> Test Case		    | IOPS in IRQ mode | IOPS in polling mode | Diff
->> 			    | (hipri=0)	       | (hipri=1)	      |
->> --------------------------- | ---------------- | -------------------- | ----
->> 3 target nvme, num_jobs = 1 | 198k 	       | 276k		      | ~40%
->> 3 target nvme, num_jobs = 3 | 608k 	       | 705k		      | ~16%
->> 6 target nvme, num_jobs = 6 | 1197k 	       | 1347k		      | ~13%
->> 3 target nvme, num_jobs = 6 | 1285k 	       | 1293k		      | ~0%
->>
->> As the number of polling instances (num_jobs) increases, the
->> performance improvement decreases, though it's still positive
->> compared to the IRQ mode.
-> 
-> I think there is serious room for improvement for DM's implementation;
-> but the block changes for this are all we'd need for DM in the longrun
-> anyway (famous last words).
+The new helper allows callers to initialize non-optional members of bio
+such as bdev, sector, op, opflags, max_bvecs and gfp_mask by
+encapsulating new bio allocation with bio alloc with initialization
+at one place.
 
-Agreed.
+The objective of this RFC is to only start a discussion, this it not 
+completely tested at all.
 
+-ck                         
 
-> So on a block interface level I'm OK with
-> block patches 1-3.
-> 
-> I don't see why patch 5 is needed (said the same in reply to it; but I
-> just saw your reason below..).
-> 
-> Anyway, I can pick up DM patches 4 and 6 via linux-dm.git if Jens picks
-> up patches 1-3. Jens, what do you think?
+Chaitanya Kulkarni (34):
+  block: move common code into blk_next_bio()
+  block: introduce and use bio_new
+  drdb: use bio_new in drdb
+  drdb: use bio_new() in submit_one_flush
+  xen-blkback: use bio_new
+  zram: use bio_new
+  dm: use bio_new in dm-log-writes
+  dm-zoned: use bio_new in get_mblock_slow
+  dm-zoned: use bio_new in dmz_write_mblock
+  dm-zoned: use bio_new in dmz_rdwr_block
+  nvmet: use bio_new in nvmet_bdev_execute_rw
+  scsi: target/iblock: use bio_new
+  block: use bio_new in __blkdev_direct_IO
+  fs/buffer: use bio_new in submit_bh_wbc
+  fscrypt: use bio_new in fscrypt_zeroout_range
+  fs/direct-io: use bio_new in dio_bio_alloc
+  iomap: use bio_new in iomap_dio_zero
+  iomap: use bio_new in iomap_dio_bio_actor
+  fs/jfs/jfs_logmgr.c: use bio_new in lbmRead
+  fs/jfs/jfs_logmgr.c: use bio_new in lbmStartIO
+  fs/jfs/jfs_metapage.c: use bio_new in metapage_writepage
+  fs/jfs/jfs_metapage.c: use bio_new in metapage_readpage
+  fs/mpage.c: use bio_new mpage_alloc
+  fs/nilfs: use bio_new nilfs_alloc_seg_bio
+  ocfs/cluster: use bio_new in dm-log-writes
+  xfs: use bio_new in xfs_rw_bdev
+  xfs: use bio_new in xfs_buf_ioapply_map
+  zonefs: use bio_new
+  power/swap: use bio_new in hib_submit_io
+  hfsplus: use bio_new in hfsplus_submit_bio()
+  iomap: use bio_new in iomap_readpage_actor
+  mm: use bio_new in __swap_writepage
+  mm: use bio_new in swap_readpage
+  mm: add swap_bio_new common bio helper
 
-cc Jens.
-
-Also I will send a new version later, maybe some refactor on patch5 and
-some typo modifications.
-
-> 
->> [Optimization]
->> To mitigate the race when iterating all the underlying hw queues, one
->> flag is maintained on a per-hw-queue basis. This flag is used to
->> indicate whether this polling hw queue currently being polled on or
->> not. Every polling hw queue is exclusive to one polling instance, i.e.,
->> the polling instance will skip this polling hw queue if this hw queue
->> currently is being polled by another polling instance, and start
->> polling on the next hw queue.
->>
->> This per-hw-queue flag map is currently maintained in dm layer. In
->> the table load phase, a table describing all underlying polling hw
->> queues is built and stored in 'struct dm_table'. It is safe when
->> reloading the mapping table.
->>
->>
->> changes since v1:
->> - patch 1,2,4 is the same as v1 and have already been reviewed
->> - patch 3 is refactored a bit on the basis of suggestions from
->> Mike Snitzer.
->> - patch 5 is newly added and introduces one new queue flag
->> representing if the queue is capable of IO polling. This mainly
->> simplifies the logic in queue_poll_store().
-> 
-> Ah OK, don't see why we want to eat a queue flag for that though!
-> 
->> - patch 6 implements the core mechanism supporting IO polling.
->> The sanity check checking if the dm device supports IO polling is
->> also folded into this patch, and the queue flag will be cleared if
->> it doesn't support, in case of table reloading.
-> 
-> Thanks,
-> Mike
-> 
+ block/blk-lib.c                     | 34 ++++++++++-------------------
+ block/blk-zoned.c                   |  4 +---
+ block/blk.h                         |  5 +++--
+ drivers/block/drbd/drbd_receiver.c  | 12 +++++-----
+ drivers/block/xen-blkback/blkback.c | 20 +++++++++++------
+ drivers/block/zram/zram_drv.c       |  5 ++---
+ drivers/md/dm-log-writes.c          | 30 +++++++++----------------
+ drivers/md/dm-zoned-metadata.c      | 18 +++++----------
+ drivers/nvme/target/io-cmd-bdev.c   |  9 +++-----
+ drivers/target/target_core_iblock.c |  5 ++---
+ fs/block_dev.c                      |  6 ++---
+ fs/buffer.c                         | 16 ++++++--------
+ fs/crypto/bio.c                     |  5 ++---
+ fs/direct-io.c                      |  6 ++---
+ fs/hfsplus/wrapper.c                |  5 +----
+ fs/iomap/buffered-io.c              | 12 +++++-----
+ fs/iomap/direct-io.c                | 11 ++++------
+ fs/jfs/jfs_logmgr.c                 | 13 ++++-------
+ fs/jfs/jfs_metapage.c               | 15 +++++--------
+ fs/mpage.c                          | 18 +++++----------
+ fs/nilfs2/segbuf.c                  | 10 ++-------
+ fs/ocfs2/cluster/heartbeat.c        |  6 ++---
+ fs/xfs/xfs_bio_io.c                 |  7 ++----
+ fs/xfs/xfs_buf.c                    |  6 ++---
+ fs/zonefs/super.c                   |  6 ++---
+ include/linux/bio.h                 | 25 +++++++++++++++++++++
+ kernel/power/swap.c                 |  7 +++---
+ mm/page_io.c                        | 30 +++++++++++++------------
+ 28 files changed, 151 insertions(+), 195 deletions(-)
 
 -- 
-Thanks,
-Jeffle
+2.22.1
 
 --
 dm-devel mailing list
