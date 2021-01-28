@@ -1,164 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 36CE630876A
-	for <lists+dm-devel@lfdr.de>; Fri, 29 Jan 2021 10:38:03 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id E1FEA30876D
+	for <lists+dm-devel@lfdr.de>; Fri, 29 Jan 2021 10:38:26 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-428-v9H3cavINc6x9LX9dO_-Sg-1; Fri, 29 Jan 2021 04:37:30 -0500
-X-MC-Unique: v9H3cavINc6x9LX9dO_-Sg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-78-kz3xk4K6ODW-clKd2_hTzA-1; Fri, 29 Jan 2021 04:38:22 -0500
+X-MC-Unique: kz3xk4K6ODW-clKd2_hTzA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7A3839CC11;
-	Fri, 29 Jan 2021 09:37:24 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BCA9C6FEE2;
-	Fri, 29 Jan 2021 09:37:23 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B33A08017FC;
+	Fri, 29 Jan 2021 09:38:16 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E25171C99;
+	Fri, 29 Jan 2021 09:38:16 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 150AF1809CA1;
-	Fri, 29 Jan 2021 09:37:21 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 117474EEF6;
+	Fri, 29 Jan 2021 09:38:16 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10SDuMDs020283 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 28 Jan 2021 08:56:22 -0500
+	id 10SGINL6005876 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 28 Jan 2021 11:18:23 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 09B2E1020445; Thu, 28 Jan 2021 13:56:22 +0000 (UTC)
+	id 2C4842166B2B; Thu, 28 Jan 2021 16:18:23 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0477C1000DBC
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 13:56:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 273BC2166B2A
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 16:18:20 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2D278800B3B
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 13:56:19 +0000 (UTC)
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-553-Oq0xJ05fP1C6Lhb2_LCang-1; Thu, 28 Jan 2021 08:56:15 -0500
-X-MC-Unique: Oq0xJ05fP1C6Lhb2_LCang-1
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
-	by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	10SCYAiu192248; Thu, 28 Jan 2021 12:43:16 GMT
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
-	by userp2130.oracle.com with ESMTP id 368b7r3xs7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 28 Jan 2021 12:43:16 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
-	by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	10SCbobd047153; Thu, 28 Jan 2021 12:43:15 GMT
-Received: from nam11-co1-obe.outbound.protection.outlook.com
-	(mail-co1nam11lp2172.outbound.protection.outlook.com [104.47.56.172])
-	by aserp3030.oracle.com with ESMTP id 368wcqmysx-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 28 Jan 2021 12:43:15 +0000
-Received: from CH2PR10MB4118.namprd10.prod.outlook.com (2603:10b6:610:a4::8)
-	by CH2PR10MB3941.namprd10.prod.outlook.com (2603:10b6:610:4::19) with
-	Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.15;
-	Thu, 28 Jan 2021 12:43:11 +0000
-Received: from CH2PR10MB4118.namprd10.prod.outlook.com
-	([fe80::2cd3:dc36:f8d4:ea2a]) by
-	CH2PR10MB4118.namprd10.prod.outlook.com
-	([fe80::2cd3:dc36:f8d4:ea2a%8]) with mapi id 15.20.3784.019;
-	Thu, 28 Jan 2021 12:43:11 +0000
-To: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>, linux-xfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, dm-devel@redhat.com,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-	drbd-dev@tron.linbit.com, xen-devel@lists.xenproject.org,
-	linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org, linux-fscrypt@vger.kernel.org,
-	jfs-discussion@lists.sourceforge.net, linux-nilfs@vger.kernel.org,
-	ocfs2-devel@oss.oracle.com, linux-pm@vger.kernel.org, linux-mm@kvack.org
-References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
-	<20210128071133.60335-20-chaitanya.kulkarni@wdc.com>
-From: Dave Kleikamp <dave.kleikamp@oracle.com>
-Message-ID: <8d3f7e70-1c7a-567a-0e60-97bac846bf13@oracle.com>
-Date: Thu, 28 Jan 2021 06:43:03 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.6.1
-In-Reply-To: <20210128071133.60335-20-chaitanya.kulkarni@wdc.com>
-X-Originating-IP: [68.201.65.98]
-X-ClientProxiedBy: SN4PR0501CA0077.namprd05.prod.outlook.com
-	(2603:10b6:803:22::15) To CH2PR10MB4118.namprd10.prod.outlook.com
-	(2603:10b6:610:a4::8)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 78280800B3A
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 16:18:20 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-453-5mSykEfOOFqeV5NfM4GlZQ-1;
+	Thu, 28 Jan 2021 11:18:15 -0500
+X-MC-Unique: 5mSykEfOOFqeV5NfM4GlZQ-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 15C7D64DE5;
+	Thu, 28 Jan 2021 16:11:30 +0000 (UTC)
+Date: Thu, 28 Jan 2021 08:11:28 -0800
+From: Jaegeuk Kim <jaegeuk@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <YBLiMN7zm44VWaBI@google.com>
+References: <20210126145247.1964410-1-hch@lst.de>
+	<20210126145247.1964410-9-hch@lst.de>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.0.190] (68.201.65.98) by
-	SN4PR0501CA0077.namprd05.prod.outlook.com
-	(2603:10b6:803:22::15) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)
-	id 15.20.3825.8 via Frontend Transport;
-	Thu, 28 Jan 2021 12:43:07 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0e01d42d-3bc2-4bab-28da-08d8c38a4555
-X-MS-TrafficTypeDiagnostic: CH2PR10MB3941:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR10MB39411E0FD376FAA86E74219987BA9@CH2PR10MB3941.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:260
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0
-X-Microsoft-Antispam-Message-Info: pJ5ccHGdfMIuYnzx8aq0wBe7CGK5hELGkFwmW+UbSGKkOVpfgd4YBi0vrc+er51UtFKESCZAyt1Tp5H5X6cEG9b1EeQrBf4RSEyzl3baouUCAYXgXHVFR0/RrNoIj7y0HIIMRk7rAHMY0vw04eZ0KN1Rg0nSmRbIXxfIzHm/+llfg5vXr7mz+bpOE+7sfq/1lFfhHLxDCXXWejvvBjnCeOxXqgBDiOXdG5T5s0+D4oxdxJZFuttUOavuECY7bCePtreJrvjchJOPXhU1BoOiRU4gVcpEp8gkj+VeGWMkfFRlm0cCmZbfS3BfDuXDIT7v3vdL8Q9W39+CtghNyBZ4KaMGtxayQFhOQ6Po0F1ZVyaiiuZ85rlA4rjv24EJRBq6/z02CElTZrxJeLOHNl1EFko6t5wnFfQCXczxRrfrpdXumXasRKoJ/+16Gw0rrPZY85eRY7PEoxjxU7PLkD4+F17RBlIaAnKfg+aLMDxGkkoSN9BOBtMlkavxKTCf8ofiLHhjadTYZo2E3Uz0awpIg+XtnZwMJu+yQJg5YabAYiD3ogLMFP/9xSg9wyCqCxIWb2px3qKIgj4zJ8SqXI+ievvKAKlegmf0tVnNgoQvfibMDk1NTpx5Py49FzNeNngt
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:CH2PR10MB4118.namprd10.prod.outlook.com;
-	PTR:; CAT:NONE;
-	SFS:(346002)(396003)(136003)(39860400002)(366004)(376002)(7366002)(6486002)(36756003)(2616005)(66556008)(83380400001)(2906002)(921005)(16526019)(5660300002)(8676002)(66476007)(7406005)(478600001)(7416002)(86362001)(186003)(6666004)(316002)(16576012)(31696002)(66946007)(8936002)(53546011)(956004)(4326008)(26005)(31686004)(44832011)(45980500001)(43740500002);
-	DIR:OUT; SFP:1101
-X-MS-Exchange-AntiSpam-MessageData: =?utf-8?B?Vm4rTktBWm5uc09iM3FnVVBkdjNUVHBpdWs5Q0ZDTkk5R0E3ODRnYUZMMktU?=
-	=?utf-8?B?RG56Y1hFZjFxaXJGM1N2TnlIN0ZCOFJCa2FKYmpJMEZDTGJIcU81MkkvWUN5?=
-	=?utf-8?B?TFd0TUV5cERHM1RvKytObUVJd0NXSmpZa1NRZk5iRGhldTRMSlVvajhDTlhR?=
-	=?utf-8?B?T0txelh4S3RUTDRrN20rSjFIZzBwdk1OOFRtMHBOUTdjMUhHby9mcWVJWFBm?=
-	=?utf-8?B?bndkYzh1dWM1NVZXRk9pTEFmbG9Mcnl2N1h1YzhDVTVSdWdjczNKMFk1LzM5?=
-	=?utf-8?B?STBkVWthUEIzamRkOTlvS0xNUHdFNFhkbVRxQXEvKzdEODZhdmlMSDRjbU9T?=
-	=?utf-8?B?aENkbks2SEo1ZzNJanV3Z2pHVW1pUFF6eXdlRVkyTVBrRE42a2FjbWIwWkpl?=
-	=?utf-8?B?TDdURFBoVFVSMnh4U0VLcjFTTUJrM2JXbXBSY3J3T3pQb3E0eHFTSWdZcXNX?=
-	=?utf-8?B?cm9INjZLZG9QQ0dJR2JXZS9LNUtGeVZhTDlmTXV3SHVlczBrbldTWHFGdjhI?=
-	=?utf-8?B?YlFTR2pCalVGQWo0aTUxblpoR1h3RjZKd3J3R2FCZDlNc0RVSUdtUFMyODht?=
-	=?utf-8?B?Qi9pd1NrdlJoL243S2U1eUsyVEtJZ3FYckRmMFRmUllPcW1leFZnSnVEY2R3?=
-	=?utf-8?B?Z2hDdUx4R3FyRjJqVEZ2WkRBWWJOdy9iY3JsUXFtSzhBYmhOZlp1MEZmMW1J?=
-	=?utf-8?B?RU1udXJkREFRS0lFMUU0dlNRazZ4Vmw5UGlrTnExV3RKdzBodnZseFFKQTVz?=
-	=?utf-8?B?Uy9FdkhyUjJtVU85aklWcXkzd0g4a0FMYllNR01TUFl5dkQ3ZkpJdUJDMksx?=
-	=?utf-8?B?VjMvUWVUVnFpNzd0ZE1PZEtMaElncUlFYjYvNFBQZ3hVeXBrVDNVOXhORTA3?=
-	=?utf-8?B?azNUa1FVUXZzTXZxQWIxeXUvdjlvbHRrR3ZTbEpwRUZpOVc5ZUZvWWVjWGFM?=
-	=?utf-8?B?dGh5MTFxYVdobnA3dDZtckhsallCWHU1SXBwYkxXNHFNb2dLR3BMQ3BEWEFt?=
-	=?utf-8?B?K2tRNnZ0eU9EZHF3TmVycGZzY0RSWHJibHlOcnYvamJCZEZmSzk0cnN1NXRR?=
-	=?utf-8?B?RjBrd0I1eGVTSWlUb3RPbjNVUnhLMGxqeko1Vk41emRZMWxjRlZmNE5yRkxD?=
-	=?utf-8?B?Ri9ITS8vQ3c4dDVYbnlHbU8zU0RqS09wK0NXaFRaWnkxd3JDL2thTSttS1lv?=
-	=?utf-8?B?VnR3MlVIdjRlSy85QTdCS1FhekYvbnZyTjZlZTJtcU85NmtER3o5S0RDV3JL?=
-	=?utf-8?B?cTJiTEFPUlJDWksyeS81NzVueSt5QmdieUYwVHd2bGRZZzdUYlB4QzhLNUtQ?=
-	=?utf-8?B?Rjk0eGVMVGV0aFF4WS8zUG8xbGQ2NG9jUzZzbWNYTXBvRTZsUDVRSTV5ZXB6?=
-	=?utf-8?B?VTRKOTgvaTZIb0dDR2pPQzNnM3V6Z3kvMUd3azhpYnRoTFdhbEg0N2hlb21t?=
-	=?utf-8?Q?xgW5/je/?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e01d42d-3bc2-4bab-28da-08d8c38a4555
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR10MB4118.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2021 12:43:11.2780 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tFBedDYhghl7XP3cZN2/McX0JwxYw4Cu7FZ5NDxZqDAklfqhu0dMXnszrFIG3H4zPpJnTe1yGk1iM6Mt6c63XUXi/NVyG5gbxkRVEUnPYnc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR10MB3941
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9877
-	signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
-	mlxscore=0 suspectscore=0
-	phishscore=0 mlxlogscore=999 bulkscore=0 malwarescore=0 spamscore=0
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2009150000 definitions=main-2101280064
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9877
-	signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
-	spamscore=0 phishscore=0
-	adultscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0
-	bulkscore=0
-	priorityscore=1501 mlxscore=0 clxscore=1011 mlxlogscore=999
-	classifier=spam adjust=0 reason=mlx scancount=1
-	engine=8.12.0-2009150000 definitions=main-2101280064
+In-Reply-To: <20210126145247.1964410-9-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -167,26 +59,24 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 29 Jan 2021 04:33:26 -0500
-Cc: shaggy@kernel.org, sergey.senozhatsky.work@gmail.com, snitzer@redhat.com,
-	tiwai@suse.de, djwong@kernel.org, gustavoars@kernel.org,
-	joseph.qi@linux.alibaba.com, pavel@ucw.cz,
-	alex.shi@linux.alibaba.com, hch@lst.de, agk@redhat.com,
-	naohiro.aota@wdc.com, sagi@grimberg.me, mark@fasheh.com,
-	osandov@fb.com, ebiggers@kernel.org, ngupta@vflare.org,
-	len.brown@intel.com, konrad.wilk@oracle.com, ming.lei@redhat.com,
-	viro@zeniv.linux.org.uk, jefflexu@linux.alibaba.com,
-	jaegeuk@kernel.org, konishi.ryusuke@gmail.com,
-	bvanassche@acm.org, axboe@kernel.dk, damien.lemoal@wdc.com,
-	jth@kernel.org, tytso@mit.edu, akpm@linux-foundation.org,
-	martin.petersen@oracle.com, rjw@rjwysocki.net,
-	philipp.reisner@linbit.com, minchan@kernel.org, tj@kernel.org,
-	lars.ellenberg@linbit.com, roger.pau@citrix.com,
-	asml.silence@gmail.com, jlbec@evilplan.org
-Subject: Re: [dm-devel] [RFC PATCH 19/34] fs/jfs/jfs_logmgr.c: use bio_new
-	in lbmRead
+Cc: Mike Snitzer <snitzer@redhat.com>, Song Liu <song@kernel.org>,
+	dm-devel@redhat.com, Naohiro Aota <naohiro.aota@wdc.com>,
+	linux-nilfs@vger.kernel.org, Chao Yu <chao@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
+	linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org,
+	David Sterba <dsterba@suse.com>, drbd-dev@tron.linbit.com,
+	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+	Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+	Damien Le Moal <damien.lemoal@wdc.com>,
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+	Philipp Reisner <philipp.reisner@linbit.com>,
+	linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
+	Lars Ellenberg <lars.ellenberg@linbit.com>,
+	linux-nfs@vger.kernel.org, linux-btrfs@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH 08/17] f2fs: remove FAULT_ALLOC_BIO
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -200,51 +90,124 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-You probably don't need 4 patches to fs/jfs/. These can be combined into 
-a single patch.
+On 01/26, Christoph Hellwig wrote:
+> Sleeping bio allocations do not fail, which means that injecting an error
+> into sleeping bio allocations is a little silly.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-Dave
+Already merged tho.
 
-On 1/28/21 1:11 AM, Chaitanya Kulkarni wrote:
-> Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
+Acked-by: Jaegeuk Kim <jaegeuk@kernel.org>
+
 > ---
->   fs/jfs/jfs_logmgr.c | 7 ++-----
->   1 file changed, 2 insertions(+), 5 deletions(-)
+>  Documentation/filesystems/f2fs.rst |  1 -
+>  fs/f2fs/data.c                     | 29 ++++-------------------------
+>  fs/f2fs/f2fs.h                     |  1 -
+>  fs/f2fs/super.c                    |  1 -
+>  4 files changed, 4 insertions(+), 28 deletions(-)
 > 
-> diff --git a/fs/jfs/jfs_logmgr.c b/fs/jfs/jfs_logmgr.c
-> index 9330eff210e0..4481f3e33a3f 100644
-> --- a/fs/jfs/jfs_logmgr.c
-> +++ b/fs/jfs/jfs_logmgr.c
-> @@ -1979,17 +1979,14 @@ static int lbmRead(struct jfs_log * log, int pn, struct lbuf ** bpp)
->   
->   	bp->l_flag |= lbmREAD;
->   
-> -	bio = bio_alloc(GFP_NOFS, 1);
+> diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesystems/f2fs.rst
+> index dae15c96e659e2..624f5f3ed93e86 100644
+> --- a/Documentation/filesystems/f2fs.rst
+> +++ b/Documentation/filesystems/f2fs.rst
+> @@ -179,7 +179,6 @@ fault_type=%d		 Support configuring fault injection type, should be
+>  			 FAULT_KVMALLOC		  0x000000002
+>  			 FAULT_PAGE_ALLOC	  0x000000004
+>  			 FAULT_PAGE_GET		  0x000000008
+> -			 FAULT_ALLOC_BIO	  0x000000010
+>  			 FAULT_ALLOC_NID	  0x000000020
+>  			 FAULT_ORPHAN		  0x000000040
+>  			 FAULT_BLOCK		  0x000000080
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index 0cf0c605992431..9fb6be65592b1f 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -50,28 +50,6 @@ void f2fs_destroy_bioset(void)
+>  	bioset_exit(&f2fs_bioset);
+>  }
+>  
+> -static inline struct bio *__f2fs_bio_alloc(gfp_t gfp_mask,
+> -						unsigned int nr_iovecs)
+> -{
+> -	return bio_alloc_bioset(gfp_mask, nr_iovecs, &f2fs_bioset);
+> -}
 > -
-> -	bio->bi_iter.bi_sector = bp->l_blkno << (log->l2bsize - 9);
-> -	bio_set_dev(bio, log->bdev);
-> +	bio = bio_new(log->bdev, bp->l_blkno << (log->l2bsize - 9),
-> +			REQ_OP_READ, 0, 1, GFP_NOFS);
->   
->   	bio_add_page(bio, bp->l_page, LOGPSIZE, bp->l_offset);
->   	BUG_ON(bio->bi_iter.bi_size != LOGPSIZE);
->   
->   	bio->bi_end_io = lbmIODone;
->   	bio->bi_private = bp;
-> -	bio->bi_opf = REQ_OP_READ;
->   	/*check if journaling to disk has been disabled*/
->   	if (log->no_integrity) {
->   		bio->bi_iter.bi_size = 0;
-> 
+> -static struct bio *f2fs_bio_alloc(struct f2fs_sb_info *sbi, int npages,
+> -		bool noio)
+> -{
+> -	if (noio) {
+> -		/* No failure on bio allocation */
+> -		return __f2fs_bio_alloc(GFP_NOIO, npages);
+> -	}
+> -
+> -	if (time_to_inject(sbi, FAULT_ALLOC_BIO)) {
+> -		f2fs_show_injection_info(sbi, FAULT_ALLOC_BIO);
+> -		return NULL;
+> -	}
+> -
+> -	return __f2fs_bio_alloc(GFP_KERNEL, npages);
+> -}
+> -
+>  static bool __is_cp_guaranteed(struct page *page)
+>  {
+>  	struct address_space *mapping = page->mapping;
+> @@ -433,7 +411,7 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
+>  	struct f2fs_sb_info *sbi = fio->sbi;
+>  	struct bio *bio;
+>  
+> -	bio = f2fs_bio_alloc(sbi, npages, true);
+> +	bio = bio_alloc_bioset(GFP_NOIO, npages, &f2fs_bioset);
+>  
+>  	f2fs_target_device(sbi, fio->new_blkaddr, bio);
+>  	if (is_read_io(fio->op)) {
+> @@ -1029,8 +1007,9 @@ static struct bio *f2fs_grab_read_bio(struct inode *inode, block_t blkaddr,
+>  	struct bio_post_read_ctx *ctx;
+>  	unsigned int post_read_steps = 0;
+>  
+> -	bio = f2fs_bio_alloc(sbi, min_t(int, nr_pages, BIO_MAX_PAGES),
+> -								for_write);
+> +	bio = bio_alloc_bioset(for_write ? GFP_NOIO : GFP_KERNEL,
+> +			       min_t(int, nr_pages, BIO_MAX_PAGES),
+> +			       &f2fs_bioset);
+>  	if (!bio)
+>  		return ERR_PTR(-ENOMEM);
+>  
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index 902bd3267c03e1..6c78365d80ceb5 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -43,7 +43,6 @@ enum {
+>  	FAULT_KVMALLOC,
+>  	FAULT_PAGE_ALLOC,
+>  	FAULT_PAGE_GET,
+> -	FAULT_ALLOC_BIO,
+>  	FAULT_ALLOC_NID,
+>  	FAULT_ORPHAN,
+>  	FAULT_BLOCK,
+> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+> index b4a07fe62d1a58..3a312642907e86 100644
+> --- a/fs/f2fs/super.c
+> +++ b/fs/f2fs/super.c
+> @@ -45,7 +45,6 @@ const char *f2fs_fault_name[FAULT_MAX] = {
+>  	[FAULT_KVMALLOC]	= "kvmalloc",
+>  	[FAULT_PAGE_ALLOC]	= "page alloc",
+>  	[FAULT_PAGE_GET]	= "page get",
+> -	[FAULT_ALLOC_BIO]	= "alloc bio",
+>  	[FAULT_ALLOC_NID]	= "alloc nid",
+>  	[FAULT_ORPHAN]		= "orphan",
+>  	[FAULT_BLOCK]		= "no more block",
+> -- 
+> 2.29.2
 
 --
 dm-devel mailing list
