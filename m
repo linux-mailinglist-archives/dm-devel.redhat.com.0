@@ -1,65 +1,64 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id BD66D3071B0
-	for <lists+dm-devel@lfdr.de>; Thu, 28 Jan 2021 09:39:27 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id B049D3071F8
+	for <lists+dm-devel@lfdr.de>; Thu, 28 Jan 2021 09:52:05 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-22-jFVd2i0eOJClmpVGjKQ0og-1; Thu, 28 Jan 2021 03:39:24 -0500
-X-MC-Unique: jFVd2i0eOJClmpVGjKQ0og-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-395-UXlLWQCSNrqCpOwbCfgd0Q-1; Thu, 28 Jan 2021 03:52:01 -0500
+X-MC-Unique: UXlLWQCSNrqCpOwbCfgd0Q-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1F8B3100C690;
-	Thu, 28 Jan 2021 08:39:19 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EDD785D9F8;
-	Thu, 28 Jan 2021 08:39:18 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B08C1803624;
+	Thu, 28 Jan 2021 08:51:55 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82D3C100AE33;
+	Thu, 28 Jan 2021 08:51:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A16661809CA7;
-	Thu, 28 Jan 2021 08:39:18 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3BB755002E;
+	Thu, 28 Jan 2021 08:51:55 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10S7PL5x008400 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 28 Jan 2021 02:25:21 -0500
+	id 10S7SZ2h008806 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 28 Jan 2021 02:28:36 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E5A0C2166B2C; Thu, 28 Jan 2021 07:25:20 +0000 (UTC)
+	id B99652166B2B; Thu, 28 Jan 2021 07:28:35 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DDFAC2166B2A
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:25:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B1D0D2166B2A
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:28:33 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A4B65185A794
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:25:18 +0000 (UTC)
-Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8BD7C858284
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:28:33 +0000 (UTC)
+Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-177-vfl-YEqiPb2GHt35-QH7Uw-1; Thu, 28 Jan 2021 02:25:15 -0500
-X-MC-Unique: vfl-YEqiPb2GHt35-QH7Uw-1
-IronPort-SDR: 1XO4jceGpXsh5IubGHdLerxe4aeG9SxsSlvvinyZ7xz57Mp/Yn2xXzprrhv/lGRMw7sD89FT+6
-	0aDVxAiCPzDc65NGiWOiKo5gxtNSPZKz5mlSA/25VzwvVnfoogtEwKBkNuupemZT6VWxmBVgoz
-	1kutj7VUKXVePpFPNy7xf0zdg+eN3kJwPBnQ3H0UcYQsyPV+WI7edJnh+Tc18j4bolIOp7HUx9
-	V4l3St9H+gnv0HQImdqL8myuAw+VCjktcivp9mOSzOLzABQ8HsgpcL3yN2K451BrUxmzcCQRu1
-	NX8=
-X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; d="scan'208";a="158518130"
-Received: from mail-bn7nam10lp2105.outbound.protection.outlook.com (HELO
-	NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.105])
-	by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:25:10 +0800
+	us-mta-171-7i2YZOIbMKCJoExq936v_g-1; Thu, 28 Jan 2021 02:28:31 -0500
+X-MC-Unique: 7i2YZOIbMKCJoExq936v_g-1
+IronPort-SDR: 5meZAAXbPsZyMOd9RQOAURE7ue4N8I0GylPazNiN4F+IkU2Nf7CrEdUTmPOyFzJi7zfeggOiiu
+	Gt5Od7xhy+yHk7m31eLzfrafTPyIE2+841Tdhjt9RuKfy1UwsAhsaJEc7TrPpyeonTG5OoNRbW
+	jYwfp8qY1//btPd2uEMJY+wlNQ6hUZhFAaCgz+oVCXV8JG1R++3gaALgNG32rpHLVCAPpUvSm5
+	ZnyqhIjEF7MhfKsrin8SIf9C2tCW+9kugysfCU7OmxJSUh1jT50kH6wLdq3lVUWVW9JSAnaEIT
+	sQI=
+X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; d="scan'208";a="268893462"
+Received: from mail-sn1nam02lp2053.outbound.protection.outlook.com (HELO
+	NAM02-SN1-obe.outbound.protection.outlook.com) ([104.47.36.53])
+	by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:27:23 +0800
 Received: from BL0PR04MB6514.namprd04.prod.outlook.com (2603:10b6:208:1ca::23)
 	by BL0PR04MB4852.namprd04.prod.outlook.com (2603:10b6:208:59::33)
 	with Microsoft SMTP Server (version=TLS1_2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3784.15;
-	Thu, 28 Jan 2021 07:25:08 +0000
+	Thu, 28 Jan 2021 07:27:21 +0000
 Received: from BL0PR04MB6514.namprd04.prod.outlook.com
 	([fe80::b880:19d5:c7fe:329d]) by
 	BL0PR04MB6514.namprd04.prod.outlook.com
 	([fe80::b880:19d5:c7fe:329d%7]) with mapi id 15.20.3784.017;
-	Thu, 28 Jan 2021 07:25:08 +0000
+	Thu, 28 Jan 2021 07:27:21 +0000
 From: Damien Le Moal <Damien.LeMoal@wdc.com>
 To: Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>,
 	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
@@ -77,62 +76,63 @@ To: Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>,
 	<linux-nilfs@vger.kernel.org>, "ocfs2-devel@oss.oracle.com"
 	<ocfs2-devel@oss.oracle.com>, "linux-pm@vger.kernel.org"
 	<linux-pm@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>
-Thread-Topic: [RFC PATCH 28/34] zonefs: use bio_new
-Thread-Index: AQHW9UVkomvF2vpeIk+EkJoBWTZvag==
-Date: Thu, 28 Jan 2021 07:25:08 +0000
-Message-ID: <BL0PR04MB651467E7A7C6EA542A435DC6E7BA9@BL0PR04MB6514.namprd04.prod.outlook.com>
+Thread-Topic: [RFC PATCH 02/34] block: introduce and use bio_new
+Thread-Index: AQHW9UTnP+XqlvwCeEC+5iodtWSeNA==
+Date: Thu, 28 Jan 2021 07:27:21 +0000
+Message-ID: <BL0PR04MB6514DBA7EDB8EC87A1C20871E7BA9@BL0PR04MB6514.namprd04.prod.outlook.com>
 References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
-	<20210128071133.60335-29-chaitanya.kulkarni@wdc.com>
+	<20210128071133.60335-3-chaitanya.kulkarni@wdc.com>
+	<BL0PR04MB6514C554B4AC96866BC1B16FE7BA9@BL0PR04MB6514.namprd04.prod.outlook.com>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-originating-ip: [2400:2411:43c0:6000:47a:7b5a:7dfa:1b1e]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 571a2e12-0985-48c6-3f9d-08d8c35dd761
+x-ms-office365-filtering-correlation-id: 98283964-c91e-431c-9fb9-08d8c35e268c
 x-ms-traffictypediagnostic: BL0PR04MB4852:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BL0PR04MB48526F818C0FABCE58FE358FE7BA9@BL0PR04MB4852.namprd04.prod.outlook.com>
+x-microsoft-antispam-prvs: <BL0PR04MB485290861AB8AD7380809BB0E7BA9@BL0PR04MB4852.namprd04.prod.outlook.com>
 wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:3631
+x-ms-oob-tlc-oobclassifiers: OLM:8273
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: 32W9x/cXloQ/0z7DAt7qSsx7G7lrDFeZKKnz06uUAgqmQA0gT3PPCEyknGB3ASTcaW8hMZsSv7e4qBntNlXUHbZ8XUAGPoKPUEg8L3NUMI7uFcJfpKllkC7jh907tv13wKROCFhzy3qIjUrr1qvxVNJbHg4AnaAu7Hd0n9BSJd6ltHb+lx6Kt1Bn0OufCV7+r+cTwGKhQjCwuKOs+4ysKSQ8sW8+mt0qxyYFn2M/rNCmGKkhY8zImLX2a4W554RAzTEia6eb4MM87+6pBC8w1Q2HNfvRcd39MixEiA1EUbkbySsl2l7XWBYBO5mzIk9WQ9arSlUleijKB3OzhzhTK6LyklxSc45/PlQXclMCdkFEDXw4Ertp1VGxUdGU8cRWvDhZS9EfEEXCIfXImgIiA9tufLH1CjNO2bVvXzP6PLtxkgtk9qCm5MMg8XrWcy13k6zxpm3w4mC4P9lE98bhvznAFUhPPMQYCtcaqGBVD8wVrEEVpyd7b42fgd6EvLNMLYC9H3silifIWz/Rg5TpNU9zXgVikI9bgP+aoGCiEFisN+if7JaPfhP5VriRPmet
+x-microsoft-antispam-message-info: Hxj4fa4GkcBNNCunfMw7J9/b9iCM3fJznMuhOWkCQfvwJ0NrAIluFKg3+jXWfl1tLzPUJCh7B78dGsB53Gqk1Z2m7MWGTazT/q4pi5bAn+XOAilmmSdZvZ9sqjmQNXhEiTj4kt72t+S3/drX6amXX9FT+FK55adEN2vnuJcgUNqzT4TxQrX+LcNNGQZnWc1Tlo1+uTv04dXECuuh7Tu9LBWclBuE7jek77LbLzIUJdaPhgbGq6L/Pdx0JqnyYF+FEQPM8881yuui+kueEXVoqlzgBqK5vaKAqGJTqa0aBFevZqZNENtO6og/LDPr5d9E1UWTTP7/Da2oTdLL+35iaIOLalRmCHBRvUY6cEGhYxURyVSG+g4j64QtJxsEF71Nji99U+trtgurQXiLlnDTDGxf+MDnSLAb7nLKVPD/4Kml1pvdzPIUKukEtZD2GxrzabB/3418cwibWgs+12obfmiGrBfi16NV2BeC0p+Se0p+BmqHDY/WZr2ITJIpH7HBw28kQg7FWHu0BZbkFGLyZ1vhLckxE+yPI8cR0tXHr+nJtxvmCqxf3bBjfbGb7Q3/k4D1vq2cQ3zlnKpMfEgb0g==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
 	IPV:NLI; SFV:NSPM; H:BL0PR04MB6514.namprd04.prod.outlook.com;
 	PTR:; CAT:NONE;
-	SFS:(4636009)(396003)(346002)(39860400002)(366004)(136003)(376002)(186003)(66476007)(83380400001)(53546011)(5660300002)(66446008)(316002)(8676002)(71200400001)(66556008)(91956017)(86362001)(64756008)(6506007)(2906002)(66946007)(52536014)(7366002)(7406005)(9686003)(33656002)(110136005)(7416002)(55016002)(54906003)(4326008)(76116006)(7696005)(921005)(8936002)(478600001);
+	SFS:(4636009)(396003)(346002)(39860400002)(366004)(136003)(376002)(186003)(66476007)(83380400001)(53546011)(5660300002)(66446008)(316002)(8676002)(71200400001)(66556008)(91956017)(86362001)(64756008)(6506007)(2906002)(66946007)(52536014)(7366002)(7406005)(9686003)(33656002)(110136005)(7416002)(55016002)(54906003)(4326008)(76116006)(7696005)(921005)(8936002)(478600001)(21314003);
 	DIR:OUT; SFP:1102
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?KUYSxjXYfQyNkYu8LxobzslWgbRrh1Hl0zsXUUsbHOAiFNIp1CHkc7Nx0P0Z?=
-	=?us-ascii?Q?86/TnX/TPZp6t3X6c/g7GjztYvohIOlICO4H8k7mNeR7y+CZ3BtbwC7PEo6W?=
-	=?us-ascii?Q?HqJHIyObHou2BiSclkZegmCnVRenHuoXxGl5D73K00V1VymVtpakkO57xYsU?=
-	=?us-ascii?Q?Ck0cY+BcGGROkuC2MoyqtVOpp/iltPkRzE6GJ9wDOX1598WYiKIvr2y+YmQ+?=
-	=?us-ascii?Q?wQwbQRUTninVVh6zv6CkTTAfZTBHB090EUDht5aK+Fo6z/eRCqrS4IlOCGFq?=
-	=?us-ascii?Q?498LbIthUnE3rks5RvI2V2xbSQzfsFQhY5vova5SXPsbG/TiZr8HjDcdE2oW?=
-	=?us-ascii?Q?8BGJ9GFuH2UrnBhdHujwELLdv6L1T/WlR5cJq/tiDhld5tUhYHzFjjWvNE6c?=
-	=?us-ascii?Q?I+VXBTmaxLP14RoKqfP5otrWi3wLf4bycUl7pkHG2CaWA7+0Ez531fX8rOvT?=
-	=?us-ascii?Q?cwBmQi02GfJo21WpVkvrl8s38CKqH8j5qJewOxErbbHe0iDj02o7T820Cxzj?=
-	=?us-ascii?Q?xCnk763l4wH0f6+ovzE1ZlF3iE7LNGxHlBwqoKcf39VHXx7/AAy1GrT22ApX?=
-	=?us-ascii?Q?MgPXcNJ0iSVZtFkZFzM73MhFM1bOuiOO7NGIY/4aAWcEdzhZflqdsD+WsBkL?=
-	=?us-ascii?Q?yp43gtW33O9bJEtWIvPn6iuK2yQ3bsRg283jdRUh6QLEtjciruqLGthtvhIy?=
-	=?us-ascii?Q?s+Qcu4k/NE4d2HrVekBg/BxoUQUacAxI3FQJlsyVGEJY20k7Q9k0OMh9tvCp?=
-	=?us-ascii?Q?qtaZtRNzfpvdZXte5TfUlQMxq5WV2WBBQqcSz1ND4HWP/deex/dHdrNwRKlk?=
-	=?us-ascii?Q?djYJIdTki4xpkR5Xk97EgRFyZ8k35H0GsnLJuHCvt6gVnkwWsZ+ztFnhpOd/?=
-	=?us-ascii?Q?Y0xM6YlGj/6zQRgzmDTOlwzdb/zAxqF+vxvcQn6Fv/iysP57q5ld+v5t6054?=
-	=?us-ascii?Q?LtNzFHBIocUBaYhhkclP8GsmoPTepXiqTfUXqM+B+fDDX1DL9mTRkt9y9Qak?=
-	=?us-ascii?Q?Nh8TG/F+F4jszRp6q+6wcfEuAiihnLxXxfrviLvmh8gYVfagv93E5lxVVktd?=
-	=?us-ascii?Q?hXXp0Bqmg9I+K4jbZwyXDH49F3B4s9kYdbA1Xhg2QrjeOTNP7nU4t9UFW+4p?=
-	=?us-ascii?Q?Jw/JubtNhiONkVlxC0ibXm51hfwOkfGG6g=3D=3D?=
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?sgomRkWS3uJS/HM3uKXHylAhoSZM+lVQWdt2dHx9bjA8NQXvXFM6Dfv8MW1A?=
+	=?us-ascii?Q?iCsEXvQot8m+wWe1prFL3N6W4X/zd4E4zBQMqtLQEJA5H+WTWLCNwdvng6U5?=
+	=?us-ascii?Q?SkD6CC9MBeyZGtVMnjn2C+bStrwfe/6T4Mh4yY7H804uejWxG1MgZhnXTjqp?=
+	=?us-ascii?Q?f36HcMhJa8fqBRYTB616pNnmAuoeQyPrXZYwSIUFh1bkSg5h3DWdvFdnge8/?=
+	=?us-ascii?Q?O9MCM+eECuYQXcaVSUcc0tBlY9mVO1xLxaHa+pFR3r6GyIUZVhAFKPD8DMJf?=
+	=?us-ascii?Q?WqsPp+KkYw2miQ2VWu7CKnb5XE/WZZK8NjFYrO+UvBi0zDKD7ZerGy3ioMo0?=
+	=?us-ascii?Q?d5CGojo5bVlNDYR39iusEWUd7T18JfU4UoWDmqvKw9astFDt7GxuiNAHMcX0?=
+	=?us-ascii?Q?yyVIMk2hKHQYRROUDYWJXFKFYeCK5lmmjxBt04cM+t3AhLH2tTJ8jpap65/Y?=
+	=?us-ascii?Q?8A/ijV/T2IbajTQmqxd38MsAkL8lLy0sB7zTUHpkXikXfHmE6OhpRLxglctK?=
+	=?us-ascii?Q?/aViM41m44269sQxLJudPSQx/yzA7+nPRic11ihTWQ2xQYSelMI6oY07tQjC?=
+	=?us-ascii?Q?hVnAD1Qaet3As9B+ynly4BGIECf/ZcPbSzc+Oocke/rsdoUZIRCx9A5o9NPg?=
+	=?us-ascii?Q?7g0qYPFGa112F08uWlKr8jI4vxPqF3DcPOVvoayIcVqK9XZoqxF6lkGygG5v?=
+	=?us-ascii?Q?YJDU5PuEe/Bm7FrQH0EsVCPz9aYpSofnlInNuhSpB7hk8gf+GLuZQe8ZAkA7?=
+	=?us-ascii?Q?lLd1unSvvMeP5ssLoUJow6t03g2CrTllNyQmec0sH/jgAMA2cCCp8r8xmKu0?=
+	=?us-ascii?Q?Gg+Dly15s3nODQmsmpsV0f+GypiBJPNVpzMiB5Rnrtqy507XVwyx/YdLVrRR?=
+	=?us-ascii?Q?7DSFyDH/Gxm1k2D/VzvvIJvHY1LnFzctkrr2UgpR99aD9dEGB6hzTFgdaIQZ?=
+	=?us-ascii?Q?nCCmPvdeJum19k9qpYis5Ika8c3StyujyDXHLcdbNXrwFYeKpNzciRcoJEUu?=
+	=?us-ascii?Q?eP4u0Tzg0LWQzv92vuaJ8NPyfWg9Lh2zkr0bUa/54WZ0wuoaMHYXuXRE9cLO?=
+	=?us-ascii?Q?raOcqCp92WeqiaDleK2EmL+MyhJdBYKk0193myzV8+3E9alBggQTIB9lKXUE?=
+	=?us-ascii?Q?7KMBpTg7b29BlR2LscuWM6WzgIjSyYfNWQ=3D=3D?=
 MIME-Version: 1.0
 X-OriginatorOrg: wdc.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR04MB6514.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 571a2e12-0985-48c6-3f9d-08d8c35dd761
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jan 2021 07:25:08.3693 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98283964-c91e-431c-9fb9-08d8c35e268c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jan 2021 07:27:21.2324 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: p2LVRo+jq8H43Yomo5AbZnE8GRpz0qPYcTtqFQS+Wx0lj+olf9/bMCZK+x9/8XOA2sWiiRbuHCzb/zC8+GMypw==
+X-MS-Exchange-CrossTenant-userprincipalname: /2IrgMXm3pcAMmUWJ3iRNrQ3DcnbFiB1YBVtQXVgzQ2J9zyuh/I6YXHgjhJr8lFi69x2/0yQ3ft/PTFeop9ktQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR04MB4852
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -144,7 +144,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 10S7PL5x008400
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 10S7SZ2h008806
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 28 Jan 2021 03:38:54 -0500
 Cc: "shaggy@kernel.org" <shaggy@kernel.org>,
@@ -179,7 +179,7 @@ Cc: "shaggy@kernel.org" <shaggy@kernel.org>,
 	"roger.pau@citrix.com" <roger.pau@citrix.com>,
 	"asml.silence@gmail.com" <asml.silence@gmail.com>,
 	"jlbec@evilplan.org" <jlbec@evilplan.org>
-Subject: Re: [dm-devel] [RFC PATCH 28/34] zonefs: use bio_new
+Subject: Re: [dm-devel] [RFC PATCH 02/34] block: introduce and use bio_new
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -193,7 +193,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -202,45 +202,90 @@ Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 2021/01/28 16:15, Chaitanya Kulkarni wrote:
-> Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
-> ---
->  fs/zonefs/super.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
+On 2021/01/28 16:21, Damien Le Moal wrote:
+> On 2021/01/28 16:12, Chaitanya Kulkarni wrote:
+>> Introduce bio_new() helper and use it in blk-lib.c to allocate and
+>> initialize various non-optional or semi-optional members of the bio
+>> along with bio allocation done with bio_alloc(). Here we also calmp the
+>> max_bvecs for bio with BIO_MAX_PAGES before we pass to bio_alloc().
+>>
+>> Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
+>> ---
+>>  block/blk-lib.c     |  6 +-----
+>>  include/linux/bio.h | 25 +++++++++++++++++++++++++
+>>  2 files changed, 26 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/block/blk-lib.c b/block/blk-lib.c
+>> index fb486a0bdb58..ec29415f00dd 100644
+>> --- a/block/blk-lib.c
+>> +++ b/block/blk-lib.c
+>> @@ -14,17 +14,13 @@ struct bio *blk_next_bio(struct bio *bio, struct block_device *bdev,
+>>  			sector_t sect, unsigned op, unsigned opf,
+>>  			unsigned int nr_pages, gfp_t gfp)
+>>  {
+>> -	struct bio *new = bio_alloc(gfp, nr_pages);
+>> +	struct bio *new = bio_new(bdev, sect, op, opf, gfp, nr_pages);
+>>  
+>>  	if (bio) {
+>>  		bio_chain(bio, new);
+>>  		submit_bio(bio);
+>>  	}
+>>  
+>> -	new->bi_iter.bi_sector = sect;
+>> -	bio_set_dev(new, bdev);
+>> -	bio_set_op_attrs(new, op, opf);
+>> -
+>>  	return new;
+>>  }
+>>  
+>> diff --git a/include/linux/bio.h b/include/linux/bio.h
+>> index c74857cf1252..2a09ba100546 100644
+>> --- a/include/linux/bio.h
+>> +++ b/include/linux/bio.h
+>> @@ -826,5 +826,30 @@ static inline void bio_set_polled(struct bio *bio, struct kiocb *kiocb)
+>>  	if (!is_sync_kiocb(kiocb))
+>>  		bio->bi_opf |= REQ_NOWAIT;
+>>  }
+>> +/**
+>> + * bio_new -	allcate and initialize new bio
+>> + * @bdev:	blockdev to issue discard for
+>> + * @sector:	start sector
+>> + * @op:		REQ_OP_XXX from enum req_opf
+>> + * @op_flags:	REQ_XXX from enum req_flag_bits
+>> + * @max_bvecs:	maximum bvec to be allocated for this bio
+>> + * @gfp_mask:	memory allocation flags (for bio_alloc)
+>> + *
+>> + * Description:
+>> + *    Allocates, initializes common members, and returns a new bio.
+>> + */
+>> +static inline struct bio *bio_new(struct block_device *bdev, sector_t sector,
+>> +				  unsigned int op, unsigned int op_flags,
+>> +				  unsigned int max_bvecs, gfp_t gfp_mask)
+>> +{
+>> +	unsigned nr_bvec = clamp_t(unsigned int, max_bvecs, 0, BIO_MAX_PAGES);
+>> +	struct bio *bio = bio_alloc(gfp_mask, nr_bvec);
 > 
-> diff --git a/fs/zonefs/super.c b/fs/zonefs/super.c
-> index ab68e27bb322..620d67965a22 100644
-> --- a/fs/zonefs/super.c
-> +++ b/fs/zonefs/super.c
-> @@ -661,6 +661,7 @@ static const struct iomap_dio_ops zonefs_write_dio_ops = {
->  
->  static ssize_t zonefs_file_dio_append(struct kiocb *iocb, struct iov_iter *from)
->  {
-> +	unsigned int op = REQ_OP_ZONE_APPEND | REQ_SYNC | REQ_IDLE;
+> I think that depending on the gfp_mask passed, bio can be NULL. So this should
+> be checked.
+> 
+>> +
+>> +	bio_set_dev(bio, bdev);
+>> +	bio->bi_iter.bi_sector = sector;
+>> +	bio_set_op_attrs(bio, op, op_flags);
+> 
+> This function is obsolete. Open code this.
 
-I do not see the point of adding this variable since it is used only for the
-bio_new() call. Pass the op value directly.
+And that also mean that you could remove one argument to bio_new(): combine op
+and op_flags into "unsigned int opf"
 
->  	struct inode *inode = file_inode(iocb->ki_filp);
->  	struct zonefs_inode_info *zi = ZONEFS_I(inode);
->  	struct block_device *bdev = inode->i_sb->s_bdev;
-> @@ -678,15 +679,12 @@ static ssize_t zonefs_file_dio_append(struct kiocb *iocb, struct iov_iter *from)
->  	if (!nr_pages)
->  		return 0;
->  
-> -	bio = bio_alloc(GFP_NOFS, nr_pages);
-> +	bio = bio_new(bdev, zi->i_zsector, op, 0, GFP_NOFS, nr_pages);
->  	if (!bio)
->  		return -ENOMEM;
->  
-> -	bio_set_dev(bio, bdev);
-> -	bio->bi_iter.bi_sector = zi->i_zsector;
->  	bio->bi_write_hint = iocb->ki_hint;
->  	bio->bi_ioprio = iocb->ki_ioprio;
-> -	bio->bi_opf = REQ_OP_ZONE_APPEND | REQ_SYNC | REQ_IDLE;
->  	if (iocb->ki_flags & IOCB_DSYNC)
->  		bio->bi_opf |= REQ_FUA;
->  
+> 
+>> +
+>> +	return bio;
+>> +}
+>>  
+>>  #endif /* __LINUX_BIO_H */
+>>
+> 
 > 
 
 
