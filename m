@@ -1,70 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 002D63071ED
-	for <lists+dm-devel@lfdr.de>; Thu, 28 Jan 2021 09:51:39 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id C7BDF3071A7
+	for <lists+dm-devel@lfdr.de>; Thu, 28 Jan 2021 09:39:16 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-512-eyGGIy6tPEWEF-ObFR6aVg-1; Thu, 28 Jan 2021 03:51:36 -0500
-X-MC-Unique: eyGGIy6tPEWEF-ObFR6aVg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-327-rM3d2siIOLmZvsbYgIG2jA-1; Thu, 28 Jan 2021 03:39:13 -0500
+X-MC-Unique: rM3d2siIOLmZvsbYgIG2jA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6AF6F347B6;
-	Thu, 28 Jan 2021 08:51:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B09018066F5;
+	Thu, 28 Jan 2021 08:39:06 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C74A160C67;
-	Thu, 28 Jan 2021 08:51:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7655819D9D;
+	Thu, 28 Jan 2021 08:39:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 387054A7C6;
-	Thu, 28 Jan 2021 08:51:30 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8E93F4E58E;
+	Thu, 28 Jan 2021 08:39:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10S7BwKU007327 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 28 Jan 2021 02:11:58 -0500
+	id 10S7C5YD007338 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 28 Jan 2021 02:12:05 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id F0213115D343; Thu, 28 Jan 2021 07:11:57 +0000 (UTC)
+	id 19E9BEE388; Thu, 28 Jan 2021 07:12:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EBB82115D342
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:11:55 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 150A0ED145
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:12:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D2B43811E86
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:11:55 +0000 (UTC)
-Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E486C187504B
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:12:01 +0000 (UTC)
+Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-331-g0VHyfl6OE-VxmzFdKLRTQ-1; Thu, 28 Jan 2021 02:11:49 -0500
-X-MC-Unique: g0VHyfl6OE-VxmzFdKLRTQ-1
-IronPort-SDR: IDl9W2+finEtjdIwGaDxOfYahFzayOgJYnIIev5n3Ik99v0va+aIERWF76q80NTC0EcI6qxzzc
-	agvqNdMO/63FzhUeDPmodJFxr7ZZDcqr+mVmhfFG+Qi8R3Jnr40G1CHSXWy1VmHE3xDQJQlROT
-	olpYDWmdLAYWHdDnKVuCTUdKpMpDF3HRnGD7YdvHfygw76p9P8VkP1ED82YV80OEIp2LcC+r7n
-	CxsRameryHhKcWKuYDODXgAzQjKUsN76yRwFkXCssmkR28Y+6TBnXhM00rgDBJcZdtJ9rQOw9l
-	LVw=
-X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; d="scan'208";a="268892322"
-Received: from h199-255-45-15.hgst.com (HELO uls-op-cesaep02.wdc.com)
-	([199.255.45.15])
-	by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:11:47 +0800
-IronPort-SDR: /qEHc5KWx52MGSlK+Ke7ZglTNpjHU6saABTzH6iUogxe25PfZoW39lmuUgE6L/F4XEbwo6k5wU
-	QTL1bVqy2e1g3Xb0d61N7KqugoPf+nug51sivaOQIzrfm5qAsglRaj1wb1iLtm8a95lr9x73nX
-	Lm32de4W6L3cyBA29R2uZJ6qCUqhGM/DmNRhhjoyqFr8Li2s4QLNsSpeFvM+qH92UbhtgXIa/g
-	C7CsDFY7ecJ7KA5W/UuNnNyhYSPHUvNjS7r/FlNHxWEJqLZVjmrcDfmUF2xT1XD4cOfUKahk9y
-	A32hR78LD1jYTY+sH5LyC1tr
+	us-mta-487-FKkpG4sZPdmxa8peUSIpTg-1; Thu, 28 Jan 2021 02:11:59 -0500
+X-MC-Unique: FKkpG4sZPdmxa8peUSIpTg-1
+IronPort-SDR: MYJHWCj+SSspr8SqkbWUDcJ306pBXqGCbP5M4GzlBM1vqt6ai5/2FmkuKgcSRCgaLeL317F1ew
+	cUq4ujcKp5pMfK+HUJCfs9+mNl530RfUoRHuJlgAoeD74ByzxqSdse2+ObDVsdgFZzGCzkTz5Y
+	NnHMD22rgcHCpnGdmJMamF6kFy5bN9+Uy1eiaxpQGq5uZJ/MH/xx6PrlFH+TULi2AD6Qe5TZXb
+	Jjn1Om8hAaChI9JEASymlQJX+/Lh3597P9YLR0ZJ8jZlNDC81Qmy7yUdgNOqkpnjNoZKI8oorX
+	oec=
+X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; d="scan'208";a="158517213"
+Received: from uls-op-cesaip01.wdc.com (HELO uls-op-cesaep01.wdc.com)
+	([199.255.45.14])
+	by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:11:57 +0800
+IronPort-SDR: BodOQJwKcao36pvliegmxF/1VOQgPTsJW/LXw9C+qp8mdV/0/pyrax8PH69+fubPnhkSvVn99g
+	Vj81E9aVigMOFMlyDHF6A0/msd2sUKRlrNmNtNsmAVUn2XaIDj64xPXCTV90TLnWh1GAzPNP5p
+	hTlw9U1wBBF0N4zmJwdZ9bhJQyyKTPubXo3s1ABITorCb53LmgCVE0RtaKQOEXV4ix5SLuAJWo
+	NJHA3XoTmUiLgcROcfaqBHrQpltEkTn6t9TBohLH+R3DQb6Q3I+DAYFMpzM7CHsZIjWYXVYjPY
+	iaXt/x4vM0pZAW97V9CPrbiq
 Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
-	by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	27 Jan 2021 22:54:05 -0800
-IronPort-SDR: UO027L+w2LmrSv+r4jHc7V6MfhclxochZ4q/gKoOnHb/alTZT7F9/4KjZrNCZAKJPJHjEl8zjQ
-	btfDHq8ntGB6arYkxikoGObA79gqCi3nJZAFBbpTjKtHzOWqNheZit1SHeKrnOkOlZqda10wHA
-	lKzVa+peWlZiSXNoZnitf2s3YH424/Lf6Od0Q5TvGZLxtIxoLSsxIGie29rcLN/atLab1ULG9S
-	UmjXPLLRWItiporouoLkwAzUh8fELyClcBeyT3S1PWdOuFAmZ6ShYxhRystXSbBeBsPW0LixEL
-	geY=
+	by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	27 Jan 2021 22:56:17 -0800
+IronPort-SDR: HYKG8+pmcZ9KZ4KZ0ijEvKFdi7W0dgGDXHFsWIaWNxW3zaOZulAuYVmKBU97gor6eDg6ylP5Ni
+	6/ahnxe6yM79ewZwsqKvrfMjvqQiAhLVOYCtlxS8Bh1Gz/vhwXPlVRnl4SwtLQD680yYKL86EL
+	o3y724i0cbqHM9ChTIb0swq0MYuYoJx+iwqVjQ/XkVzNSKEtJ8uwRbdybmRUPVMHWHGtPAl98+
+	IjNd0sVxBZiY+I2eDgAQpiJ9r1dqmBNoZAqnfBCkqleNy/DSVZGKQaXDO89s0wR1FlZS/ZCSSd
+	5w0=
 WDCIronportException: Internal
 Received: from vm.labspan.wdc.com (HELO vm.sc.wdc.com) ([10.6.137.102])
-	by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:11:46 -0800
+	by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:11:57 -0800
 From: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 To: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	dm-devel@redhat.com, linux-block@vger.kernel.org,
@@ -74,8 +75,8 @@ To: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	linux-fscrypt@vger.kernel.org, jfs-discussion@lists.sourceforge.net,
 	linux-nilfs@vger.kernel.org, ocfs2-devel@oss.oracle.com,
 	linux-pm@vger.kernel.org, linux-mm@kvack.org
-Date: Wed, 27 Jan 2021 23:11:00 -0800
-Message-Id: <20210128071133.60335-2-chaitanya.kulkarni@wdc.com>
+Date: Wed, 27 Jan 2021 23:11:01 -0800
+Message-Id: <20210128071133.60335-3-chaitanya.kulkarni@wdc.com>
 In-Reply-To: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
 References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
 MIME-Version: 1.0
@@ -87,7 +88,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 28 Jan 2021 03:38:54 -0500
 Cc: shaggy@kernel.org, sergey.senozhatsky.work@gmail.com, snitzer@redhat.com,
@@ -106,8 +107,7 @@ Cc: shaggy@kernel.org, sergey.senozhatsky.work@gmail.com, snitzer@redhat.com,
 	philipp.reisner@linbit.com, minchan@kernel.org, tj@kernel.org,
 	lars.ellenberg@linbit.com, jth@kernel.org,
 	asml.silence@gmail.com, jlbec@evilplan.org, roger.pau@citrix.com
-Subject: [dm-devel] [RFC PATCH 01/34] block: move common code into
-	blk_next_bio()
+Subject: [dm-devel] [RFC PATCH 02/34] block: introduce and use bio_new
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -121,7 +121,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -129,169 +129,75 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-blk_next_bio() is the central function which allocates the bios for
-discard, write-same, write-zeroes and zone-mgmt. The initialization of
-various bio members is duplicated in disacrd, write-same, write-zeores.
-In this preparation patch we add bdev, sector, op, and opf arguments to
-the blk_next_bio() to reduce the duplication. 
-
-In the next patch we introduce bio_new(), this prepration patch allows
-us to call it inside blk_next_bio().
+Introduce bio_new() helper and use it in blk-lib.c to allocate and
+initialize various non-optional or semi-optional members of the bio
+along with bio allocation done with bio_alloc(). Here we also calmp the
+max_bvecs for bio with BIO_MAX_PAGES before we pass to bio_alloc().
 
 Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 ---
- block/blk-lib.c   | 36 +++++++++++++++---------------------
- block/blk-zoned.c |  4 +---
- block/blk.h       |  5 +++--
- 3 files changed, 19 insertions(+), 26 deletions(-)
+ block/blk-lib.c     |  6 +-----
+ include/linux/bio.h | 25 +++++++++++++++++++++++++
+ 2 files changed, 26 insertions(+), 5 deletions(-)
 
 diff --git a/block/blk-lib.c b/block/blk-lib.c
-index 752f9c722062..fb486a0bdb58 100644
+index fb486a0bdb58..ec29415f00dd 100644
 --- a/block/blk-lib.c
 +++ b/block/blk-lib.c
-@@ -10,7 +10,9 @@
- 
- #include "blk.h"
- 
--struct bio *blk_next_bio(struct bio *bio, unsigned int nr_pages, gfp_t gfp)
-+struct bio *blk_next_bio(struct bio *bio, struct block_device *bdev,
-+			sector_t sect, unsigned op, unsigned opf,
-+			unsigned int nr_pages, gfp_t gfp)
+@@ -14,17 +14,13 @@ struct bio *blk_next_bio(struct bio *bio, struct block_device *bdev,
+ 			sector_t sect, unsigned op, unsigned opf,
+ 			unsigned int nr_pages, gfp_t gfp)
  {
- 	struct bio *new = bio_alloc(gfp, nr_pages);
+-	struct bio *new = bio_alloc(gfp, nr_pages);
++	struct bio *new = bio_new(bdev, sect, op, opf, gfp, nr_pages);
  
-@@ -19,6 +21,10 @@ struct bio *blk_next_bio(struct bio *bio, unsigned int nr_pages, gfp_t gfp)
+ 	if (bio) {
+ 		bio_chain(bio, new);
  		submit_bio(bio);
  	}
  
-+	new->bi_iter.bi_sector = sect;
-+	bio_set_dev(new, bdev);
-+	bio_set_op_attrs(new, op, opf);
-+
+-	new->bi_iter.bi_sector = sect;
+-	bio_set_dev(new, bdev);
+-	bio_set_op_attrs(new, op, opf);
+-
  	return new;
  }
  
-@@ -94,11 +100,7 @@ int __blkdev_issue_discard(struct block_device *bdev, sector_t sector,
+diff --git a/include/linux/bio.h b/include/linux/bio.h
+index c74857cf1252..2a09ba100546 100644
+--- a/include/linux/bio.h
++++ b/include/linux/bio.h
+@@ -826,5 +826,30 @@ static inline void bio_set_polled(struct bio *bio, struct kiocb *kiocb)
+ 	if (!is_sync_kiocb(kiocb))
+ 		bio->bi_opf |= REQ_NOWAIT;
+ }
++/**
++ * bio_new -	allcate and initialize new bio
++ * @bdev:	blockdev to issue discard for
++ * @sector:	start sector
++ * @op:		REQ_OP_XXX from enum req_opf
++ * @op_flags:	REQ_XXX from enum req_flag_bits
++ * @max_bvecs:	maximum bvec to be allocated for this bio
++ * @gfp_mask:	memory allocation flags (for bio_alloc)
++ *
++ * Description:
++ *    Allocates, initializes common members, and returns a new bio.
++ */
++static inline struct bio *bio_new(struct block_device *bdev, sector_t sector,
++				  unsigned int op, unsigned int op_flags,
++				  unsigned int max_bvecs, gfp_t gfp_mask)
++{
++	unsigned nr_bvec = clamp_t(unsigned int, max_bvecs, 0, BIO_MAX_PAGES);
++	struct bio *bio = bio_alloc(gfp_mask, nr_bvec);
++
++	bio_set_dev(bio, bdev);
++	bio->bi_iter.bi_sector = sector;
++	bio_set_op_attrs(bio, op, op_flags);
++
++	return bio;
++}
  
- 		WARN_ON_ONCE((req_sects << 9) > UINT_MAX);
- 
--		bio = blk_next_bio(bio, 0, gfp_mask);
--		bio->bi_iter.bi_sector = sector;
--		bio_set_dev(bio, bdev);
--		bio_set_op_attrs(bio, op, 0);
--
-+		bio = blk_next_bio(bio, bdev, sector, op, 0, 0, gfp_mask);
- 		bio->bi_iter.bi_size = req_sects << 9;
- 		sector += req_sects;
- 		nr_sects -= req_sects;
-@@ -168,6 +170,7 @@ static int __blkdev_issue_write_same(struct block_device *bdev, sector_t sector,
- {
- 	struct request_queue *q = bdev_get_queue(bdev);
- 	unsigned int max_write_same_sectors;
-+	unsigned int op = REQ_OP_WRITE_SAME;
- 	struct bio *bio = *biop;
- 	sector_t bs_mask;
- 
-@@ -188,14 +191,11 @@ static int __blkdev_issue_write_same(struct block_device *bdev, sector_t sector,
- 	max_write_same_sectors = bio_allowed_max_sectors(q);
- 
- 	while (nr_sects) {
--		bio = blk_next_bio(bio, 1, gfp_mask);
--		bio->bi_iter.bi_sector = sector;
--		bio_set_dev(bio, bdev);
-+		bio = blk_next_bio(bio, bdev, sector, op, 0, 1, gfp_mask);
- 		bio->bi_vcnt = 1;
- 		bio->bi_io_vec->bv_page = page;
- 		bio->bi_io_vec->bv_offset = 0;
- 		bio->bi_io_vec->bv_len = bdev_logical_block_size(bdev);
--		bio_set_op_attrs(bio, REQ_OP_WRITE_SAME, 0);
- 
- 		if (nr_sects > max_write_same_sectors) {
- 			bio->bi_iter.bi_size = max_write_same_sectors << 9;
-@@ -249,7 +249,9 @@ static int __blkdev_issue_write_zeroes(struct block_device *bdev,
- {
- 	struct bio *bio = *biop;
- 	unsigned int max_write_zeroes_sectors;
-+	unsigned int op = REQ_OP_WRITE_ZEROES;
- 	struct request_queue *q = bdev_get_queue(bdev);
-+	unsigned int opf = flags & BLKDEV_ZERO_NOUNMAP ? REQ_NOUNMAP : 0;
- 
- 	if (!q)
- 		return -ENXIO;
-@@ -264,13 +266,7 @@ static int __blkdev_issue_write_zeroes(struct block_device *bdev,
- 		return -EOPNOTSUPP;
- 
- 	while (nr_sects) {
--		bio = blk_next_bio(bio, 0, gfp_mask);
--		bio->bi_iter.bi_sector = sector;
--		bio_set_dev(bio, bdev);
--		bio->bi_opf = REQ_OP_WRITE_ZEROES;
--		if (flags & BLKDEV_ZERO_NOUNMAP)
--			bio->bi_opf |= REQ_NOUNMAP;
--
-+		bio = blk_next_bio(bio, bdev, sector, op, opf, 0, gfp_mask);
- 		if (nr_sects > max_write_zeroes_sectors) {
- 			bio->bi_iter.bi_size = max_write_zeroes_sectors << 9;
- 			nr_sects -= max_write_zeroes_sectors;
-@@ -303,6 +299,7 @@ static int __blkdev_issue_zero_pages(struct block_device *bdev,
- 		sector_t sector, sector_t nr_sects, gfp_t gfp_mask,
- 		struct bio **biop)
- {
-+	unsigned int nr_pages = __blkdev_sectors_to_bio_pages(nr_sects);
- 	struct request_queue *q = bdev_get_queue(bdev);
- 	struct bio *bio = *biop;
- 	int bi_size = 0;
-@@ -315,11 +312,8 @@ static int __blkdev_issue_zero_pages(struct block_device *bdev,
- 		return -EPERM;
- 
- 	while (nr_sects != 0) {
--		bio = blk_next_bio(bio, __blkdev_sectors_to_bio_pages(nr_sects),
-+		bio = blk_next_bio(bio, bdev, sector, REQ_OP_WRITE, 0, nr_pages,
- 				   gfp_mask);
--		bio->bi_iter.bi_sector = sector;
--		bio_set_dev(bio, bdev);
--		bio_set_op_attrs(bio, REQ_OP_WRITE, 0);
- 
- 		while (nr_sects != 0) {
- 			sz = min((sector_t) PAGE_SIZE, nr_sects << 9);
-diff --git a/block/blk-zoned.c b/block/blk-zoned.c
-index 7a68b6e4300c..68e77628348d 100644
---- a/block/blk-zoned.c
-+++ b/block/blk-zoned.c
-@@ -231,8 +231,7 @@ int blkdev_zone_mgmt(struct block_device *bdev, enum req_opf op,
- 		return -EINVAL;
- 
- 	while (sector < end_sector) {
--		bio = blk_next_bio(bio, 0, gfp_mask);
--		bio_set_dev(bio, bdev);
-+		bio = blk_next_bio(bio, bdev, 0 , op, REQ_SYNC, 0, gfp_mask);
- 
- 		/*
- 		 * Special case for the zone reset operation that reset all
-@@ -244,7 +243,6 @@ int blkdev_zone_mgmt(struct block_device *bdev, enum req_opf op,
- 			break;
- 		}
- 
--		bio->bi_opf = op | REQ_SYNC;
- 		bio->bi_iter.bi_sector = sector;
- 		sector += zone_sectors;
- 
-diff --git a/block/blk.h b/block/blk.h
-index 0198335c5838..0a278bae5478 100644
---- a/block/blk.h
-+++ b/block/blk.h
-@@ -329,8 +329,9 @@ extern int blk_iolatency_init(struct request_queue *q);
- static inline int blk_iolatency_init(struct request_queue *q) { return 0; }
- #endif
- 
--struct bio *blk_next_bio(struct bio *bio, unsigned int nr_pages, gfp_t gfp);
--
-+struct bio *blk_next_bio(struct bio *bio, struct block_device *bdev,
-+			sector_t sect, unsigned op, unsigned opf,
-+			unsigned int nr_pages, gfp_t gfp);
- #ifdef CONFIG_BLK_DEV_ZONED
- void blk_queue_free_zone_bitmaps(struct request_queue *q);
- #else
+ #endif /* __LINUX_BIO_H */
 -- 
 2.22.1
 
