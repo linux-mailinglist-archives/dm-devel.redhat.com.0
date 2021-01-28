@@ -1,71 +1,70 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id DF3843071C0
-	for <lists+dm-devel@lfdr.de>; Thu, 28 Jan 2021 09:40:03 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 44BBA3071F0
+	for <lists+dm-devel@lfdr.de>; Thu, 28 Jan 2021 09:51:45 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-507-FPDnDmR_Mh6LyVtxuIt5TQ-1; Thu, 28 Jan 2021 03:39:21 -0500
-X-MC-Unique: FPDnDmR_Mh6LyVtxuIt5TQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-564-J6NWeh8lO-qoApc7QlcB1Q-1; Thu, 28 Jan 2021 03:51:42 -0500
+X-MC-Unique: J6NWeh8lO-qoApc7QlcB1Q-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 90E108042BA;
-	Thu, 28 Jan 2021 08:39:14 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6A853803628;
+	Thu, 28 Jan 2021 08:51:37 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6CB3960C5F;
-	Thu, 28 Jan 2021 08:39:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 461155D9EF;
+	Thu, 28 Jan 2021 08:51:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 222AF1809CA2;
-	Thu, 28 Jan 2021 08:39:14 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EA6C01809CA2;
+	Thu, 28 Jan 2021 08:51:36 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10S7D0hR007426 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 28 Jan 2021 02:13:00 -0500
+	id 10S7D6Ga007436 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 28 Jan 2021 02:13:07 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2D2A9ED145; Thu, 28 Jan 2021 07:13:00 +0000 (UTC)
+	id D67BEED154; Thu, 28 Jan 2021 07:13:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 28192ED154
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:12:57 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D1434ED145
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:13:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A61241875040
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:12:57 +0000 (UTC)
-Received: from esa3.hgst.iphmx.com (esa3.hgst.iphmx.com [216.71.153.141])
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BEE67811E76
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:13:06 +0000 (UTC)
+Received: from esa2.hgst.iphmx.com (esa2.hgst.iphmx.com [68.232.143.124])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-419-c1TyedEpPei-lxMIZjZhJQ-1; Thu, 28 Jan 2021 02:12:55 -0500
-X-MC-Unique: c1TyedEpPei-lxMIZjZhJQ-1
-IronPort-SDR: SHx/hydKHBQPzvcsYqnOOppRD8vpowMDkLRjnn0ndoLQfa9nWzvTGCf87u3FFAoJJEmdBCcZef
-	FHmK9Yd0MMhA7pr7rlZpAv8C9pHpTDEds/khCpaLHEiIGaGEU4TuZR2LKqr+9X5X1OPugLbWhf
-	jZAC/EZBddL1R5m7+9mzETtlfHzRiqjmEKwKXDvk/bIbmotq/8QrZSJfmgNat7MkEBoMKCmFod
-	1rPniUSXEttU8O+4EoMup3qVefBIS/lzPZ2VhrRrRE/z8UxijyfG2WMqf2LMEeubPdza0s1TD1
-	yRY=
-X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; d="scan'208";a="162963187"
-Received: from h199-255-45-14.hgst.com (HELO uls-op-cesaep01.wdc.com)
-	([199.255.45.14])
-	by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:12:53 +0800
-IronPort-SDR: /2Br/toO5EAx2nDlHbr0+EOi+HFRG4Dtx5KMsgqRE2+Idev98JiBz1On+4G5DxbW4dLNHnARrA
-	MlXO5LlCob/XKC5b7a+vEesRB7tql7s5rTqsdavkw22plaLGyT5mGR7vLE95V+/716ubGXixKE
-	Jk9j8JB4SQa5/1Epy5Syz+5kpYbXWCO5BPPxT3VLZNV66RrMkWoLX4l9kFCLb8zXOtgymHNNue
-	pcnPF96bFk+zl1hONCojM6c7z26e1i9xBy7APOsqCiK/dOEHE+vRxoeB+yWYQZDPofYjM1g6qB
-	0DtaZ6IfrD0Reuzn+XLoaF2P
+	us-mta-597-XlLqXGcOP2aiY-VQnsPh9w-1; Thu, 28 Jan 2021 02:13:04 -0500
+X-MC-Unique: XlLqXGcOP2aiY-VQnsPh9w-1
+IronPort-SDR: XPg55tVDlVooPvFLUQQomAtfFEhE4kO+jOVeUcJ7MiJSMornACAf/kWqc+ku5m558b5PMLjeNW
+	CvDgfl1XOKFoXCopBQi4UKY8wpnRV1OBJcVIp+f16u7kQ0IIJK01qHrdRRYK0zYHqu9yKBfFJT
+	xRR3WLzNDin4PtksPVn/O6Y8c0cKzXL2NALE+1CNgmWfW2m62SvCtofpSDSxTBi6haec+DaVGt
+	33Hp/ichMS2I9d3JQZ+C0VXMM9anO/fUkTwhLwVvn66ACfskEIuesQ7vBLfgMeww3NWMLYNodz
+	uSs=
+X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; d="scan'208";a="262548957"
+Received: from h199-255-45-15.hgst.com (HELO uls-op-cesaep02.wdc.com)
+	([199.255.45.15])
+	by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:14:47 +0800
+IronPort-SDR: bThZM7vC6gqlKXP9JV8nX9/iL2FsYO0b7vZgXKbya4B/49uiGpOOI74BtYDHLH9MpOuN29vzlT
+	/e+mrom0XsvORN5LxNe55LYexMsibcANSa/KJD5o2rLsAsWfEkS7aO1tRQYs2DS46Osgsrtpug
+	DqV4A6SupIVMQZZjY9IMzP1QCywBEJ90I0NNUfm/7FRXrkaFCNGO8J6oD3QDJvvx2ni2ttWR/k
+	873NDc5+BUcmocuYo/IaXe5+GWWPxnTozve57k+XGdDYiNHteR5egQIWTv/ukXsX5zCZQClYrG
+	zCRNmxXtBvpub8qVGBu4qMRU
 Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
-	by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	27 Jan 2021 22:57:13 -0800
-IronPort-SDR: PY5y9iQTPaVno0Uv+vDzXalBIBo52CYeNhdpn1c7TxoOle28qWYUG06GBXepBaS7SSBSs9yjco
-	7juMCiLNAFC5Fl7+86T3v8dT5wViZ/r3nWsFgtnjfanPUZXEs47a6Ez/SVmFCas+uBcEU4K0rz
-	829GMnmof7Vria8o+CPxuoND3CfaQPgb+QYuf0lvO7BAPoDvQAY10VoO7lep1Qta/l6nA5+vbg
-	ht+uppfjRckOmE5ekZUsc4vMGzhgqqwVxG/dC7eG99G+et4hw+q4h30FxFyz73HjopgItSw/2N
-	PHA=
+	by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	27 Jan 2021 22:55:20 -0800
+IronPort-SDR: m8MWhLly+Q/ggpFQoQazEvRAK79hMprrsJeibomNIX1/4xtKgak83IDhV3hY33IYYgETWfckla
+	12cflgJcZOLhtYF332W1ZeqMwkaZsc7uQahEN2f8ydynExvlY4KkvRqWC31LBbVv2+B3KXuSeg
+	s9mXwdZWg1TGYc2w+IbnJALYEzC776WPgdLPtLGdrMUnCNPoz5WeDSYQd/QZ1Y+MzxJurZd/eC
+	94O7CZ/ZfohxaTfsL58Np58+H9TOWMfDJbBI8BFZ4728SkC4ncTHu1ybMvyhjmP7gPrroYjKqQ
+	UWE=
 WDCIronportException: Internal
 Received: from vm.labspan.wdc.com (HELO vm.sc.wdc.com) ([10.6.137.102])
-	by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:12:53 -0800
+	by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:13:02 -0800
 From: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 To: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	dm-devel@redhat.com, linux-block@vger.kernel.org,
@@ -75,8 +74,8 @@ To: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	linux-fscrypt@vger.kernel.org, jfs-discussion@lists.sourceforge.net,
 	linux-nilfs@vger.kernel.org, ocfs2-devel@oss.oracle.com,
 	linux-pm@vger.kernel.org, linux-mm@kvack.org
-Date: Wed, 27 Jan 2021 23:11:07 -0800
-Message-Id: <20210128071133.60335-9-chaitanya.kulkarni@wdc.com>
+Date: Wed, 27 Jan 2021 23:11:08 -0800
+Message-Id: <20210128071133.60335-10-chaitanya.kulkarni@wdc.com>
 In-Reply-To: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
 References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
 MIME-Version: 1.0
@@ -107,8 +106,8 @@ Cc: shaggy@kernel.org, sergey.senozhatsky.work@gmail.com, snitzer@redhat.com,
 	philipp.reisner@linbit.com, minchan@kernel.org, tj@kernel.org,
 	lars.ellenberg@linbit.com, jth@kernel.org,
 	asml.silence@gmail.com, jlbec@evilplan.org, roger.pau@citrix.com
-Subject: [dm-devel] [RFC PATCH 08/34] dm-zoned: use bio_new in
-	get_mblock_slow
+Subject: [dm-devel] [RFC PATCH 09/34] dm-zoned: use bio_new in
+	dmz_write_mblock
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -122,7 +121,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -136,28 +135,28 @@ Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
  1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
-index 039d17b28938..e6252f48a49c 100644
+index e6252f48a49c..fa0ee732c6e9 100644
 --- a/drivers/md/dm-zoned-metadata.c
 +++ b/drivers/md/dm-zoned-metadata.c
-@@ -550,7 +550,8 @@ static struct dmz_mblock *dmz_get_mblock_slow(struct dmz_metadata *zmd,
- 	if (!mblk)
- 		return ERR_PTR(-ENOMEM);
+@@ -723,7 +723,8 @@ static int dmz_write_mblock(struct dmz_metadata *zmd, struct dmz_mblock *mblk,
+ 	if (dmz_bdev_is_dying(dev))
+ 		return -EIO;
  
 -	bio = bio_alloc(GFP_NOIO, 1);
-+	bio = bio_new(dev->bdev, dmz_blk2sect(block), REQ_OP_READ,
++	bio = bio_new(dev->bdev, dmz_blk2sect(block), REQ_OP_WRITE,
 +		      REQ_META | REQ_PRIO, 1, GFP_NOIO);
  	if (!bio) {
- 		dmz_free_mblock(zmd, mblk);
- 		return ERR_PTR(-ENOMEM);
-@@ -577,11 +578,8 @@ static struct dmz_mblock *dmz_get_mblock_slow(struct dmz_metadata *zmd,
- 	spin_unlock(&zmd->mblk_lock);
+ 		set_bit(DMZ_META_ERROR, &mblk->state);
+ 		return -ENOMEM;
+@@ -731,11 +732,8 @@ static int dmz_write_mblock(struct dmz_metadata *zmd, struct dmz_mblock *mblk,
  
- 	/* Submit read BIO */
+ 	set_bit(DMZ_META_WRITING, &mblk->state);
+ 
 -	bio->bi_iter.bi_sector = dmz_blk2sect(block);
 -	bio_set_dev(bio, dev->bdev);
  	bio->bi_private = mblk;
  	bio->bi_end_io = dmz_mblock_bio_end_io;
--	bio_set_op_attrs(bio, REQ_OP_READ, REQ_META | REQ_PRIO);
+-	bio_set_op_attrs(bio, REQ_OP_WRITE, REQ_META | REQ_PRIO);
  	bio_add_page(bio, mblk->page, DMZ_BLOCK_SIZE, 0);
  	submit_bio(bio);
  
