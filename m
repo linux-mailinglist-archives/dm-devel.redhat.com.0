@@ -1,71 +1,70 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C7BDF3071A7
-	for <lists+dm-devel@lfdr.de>; Thu, 28 Jan 2021 09:39:16 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 572C83071EE
+	for <lists+dm-devel@lfdr.de>; Thu, 28 Jan 2021 09:51:41 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-327-rM3d2siIOLmZvsbYgIG2jA-1; Thu, 28 Jan 2021 03:39:13 -0500
-X-MC-Unique: rM3d2siIOLmZvsbYgIG2jA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-546-xWOwrmLDNJWwfG7hzP7N1w-1; Thu, 28 Jan 2021 03:51:38 -0500
+X-MC-Unique: xWOwrmLDNJWwfG7hzP7N1w-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B09018066F5;
-	Thu, 28 Jan 2021 08:39:06 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7655819D9D;
-	Thu, 28 Jan 2021 08:39:06 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0BC651005513;
+	Thu, 28 Jan 2021 08:51:33 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D72E471C8D;
+	Thu, 28 Jan 2021 08:51:32 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8E93F4E58E;
-	Thu, 28 Jan 2021 08:39:02 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7C0E01809CA0;
+	Thu, 28 Jan 2021 08:51:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10S7C5YD007338 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 28 Jan 2021 02:12:05 -0500
+	id 10S7CEjc007353 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 28 Jan 2021 02:12:15 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 19E9BEE388; Thu, 28 Jan 2021 07:12:05 +0000 (UTC)
+	id CEE7F2026D76; Thu, 28 Jan 2021 07:12:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 150A0ED145
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:12:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C9C612026D11
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:12:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E486C187504B
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:12:01 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 32402858284
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:12:12 +0000 (UTC)
 Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-487-FKkpG4sZPdmxa8peUSIpTg-1; Thu, 28 Jan 2021 02:11:59 -0500
-X-MC-Unique: FKkpG4sZPdmxa8peUSIpTg-1
-IronPort-SDR: MYJHWCj+SSspr8SqkbWUDcJ306pBXqGCbP5M4GzlBM1vqt6ai5/2FmkuKgcSRCgaLeL317F1ew
-	cUq4ujcKp5pMfK+HUJCfs9+mNl530RfUoRHuJlgAoeD74ByzxqSdse2+ObDVsdgFZzGCzkTz5Y
-	NnHMD22rgcHCpnGdmJMamF6kFy5bN9+Uy1eiaxpQGq5uZJ/MH/xx6PrlFH+TULi2AD6Qe5TZXb
-	Jjn1Om8hAaChI9JEASymlQJX+/Lh3597P9YLR0ZJ8jZlNDC81Qmy7yUdgNOqkpnjNoZKI8oorX
-	oec=
-X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; d="scan'208";a="158517213"
+	us-mta-378-7zYe7TjVP-6Y_eDtsuegeA-1; Thu, 28 Jan 2021 02:12:07 -0500
+X-MC-Unique: 7zYe7TjVP-6Y_eDtsuegeA-1
+IronPort-SDR: 4W9Ir317lYLrCMZiehh661PHNf+zRMmP3dAikrtuTy1CBnRVBTh0VVNFfNDdLv2njSSQGWevCT
+	R1PGpRoPlbL09qzrxPzyOUVXkwSVGpjtrXxoii8RjCJxkZcGMmurmWjSiM46XElg7XKteAK5t7
+	umrpigSUy4tzlR9zZvO79EQKYIvHUtNOnAV/Q5YDzV84tB5V+rwQgpNo2RKM28yPPOFJ6x31S2
+	V9TzDu9DRP4Hnrd0KBThiNdB2wMnNEfJ1oYmj1SYOtbRHjJO6pap8MiwOfQpoYfvXQ/LiyIwxt
+	eK0=
+X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; d="scan'208";a="158517230"
 Received: from uls-op-cesaip01.wdc.com (HELO uls-op-cesaep01.wdc.com)
 	([199.255.45.14])
-	by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:11:57 +0800
-IronPort-SDR: BodOQJwKcao36pvliegmxF/1VOQgPTsJW/LXw9C+qp8mdV/0/pyrax8PH69+fubPnhkSvVn99g
-	Vj81E9aVigMOFMlyDHF6A0/msd2sUKRlrNmNtNsmAVUn2XaIDj64xPXCTV90TLnWh1GAzPNP5p
-	hTlw9U1wBBF0N4zmJwdZ9bhJQyyKTPubXo3s1ABITorCb53LmgCVE0RtaKQOEXV4ix5SLuAJWo
-	NJHA3XoTmUiLgcROcfaqBHrQpltEkTn6t9TBohLH+R3DQb6Q3I+DAYFMpzM7CHsZIjWYXVYjPY
-	iaXt/x4vM0pZAW97V9CPrbiq
+	by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:12:06 +0800
+IronPort-SDR: 9JoLirE/xd5rXDRROmpeIs96WA3Dyv5THCWo7xW5/8n7A2DPC5QYyTV8se4sDt6LW19EznH8/m
+	gWPX0IqGFJQJDezqarQZLHhjPxHbm4z6yzO6LBWBWj56LRxaR6qKv9Stk1U6SfHxhUa6b2uthH
+	B5eTXPNCNyaUdcSZl+guQ+gf+nVzjFMyxr/yHMHAuM/vxtfJcxEp6duXhDP9oLgUsOZdiUPAuZ
+	ogVn5w3XC/WzGE3s8QQpRAubkm3Lh5tiepKlKWkQuazU4Xl/kAPlsYdHhqGICnoTQhvgCujnTj
+	afpMSC5FssDAxqI7ZPfc2z4P
 Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
 	by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	27 Jan 2021 22:56:17 -0800
-IronPort-SDR: HYKG8+pmcZ9KZ4KZ0ijEvKFdi7W0dgGDXHFsWIaWNxW3zaOZulAuYVmKBU97gor6eDg6ylP5Ni
-	6/ahnxe6yM79ewZwsqKvrfMjvqQiAhLVOYCtlxS8Bh1Gz/vhwXPlVRnl4SwtLQD680yYKL86EL
-	o3y724i0cbqHM9ChTIb0swq0MYuYoJx+iwqVjQ/XkVzNSKEtJ8uwRbdybmRUPVMHWHGtPAl98+
-	IjNd0sVxBZiY+I2eDgAQpiJ9r1dqmBNoZAqnfBCkqleNy/DSVZGKQaXDO89s0wR1FlZS/ZCSSd
-	5w0=
+	27 Jan 2021 22:56:26 -0800
+IronPort-SDR: d5xTirF8Ys37shQjxL90xQdmAvrvSyaDd23k+ldZQk6g8Gmyh3lDvEoGm16xcyp5mSBaZTpxOa
+	PvC1PFp6twA2TpPlG+Ql+/AG65S9RMLgGFawcQCbg9J6k/x2AMPUiKYtsSCC84Z+EGYfmFKoID
+	N3xp6Srvi9c6y+EZp98pFBd59WcY1NGSO1F5aHMorlNIT26uZMyL8pegMXpgjACziNosRf/+TT
+	qFeHE9fwJbeXCBkPpJ7sXhYMSQdfV8ojzZIb3gXAYZT1zkKG2mcOAVOk/sf7gRxWJd9WgQISSA
+	lhk=
 WDCIronportException: Internal
 Received: from vm.labspan.wdc.com (HELO vm.sc.wdc.com) ([10.6.137.102])
-	by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:11:57 -0800
+	by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:12:06 -0800
 From: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 To: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	dm-devel@redhat.com, linux-block@vger.kernel.org,
@@ -75,8 +74,8 @@ To: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	linux-fscrypt@vger.kernel.org, jfs-discussion@lists.sourceforge.net,
 	linux-nilfs@vger.kernel.org, ocfs2-devel@oss.oracle.com,
 	linux-pm@vger.kernel.org, linux-mm@kvack.org
-Date: Wed, 27 Jan 2021 23:11:01 -0800
-Message-Id: <20210128071133.60335-3-chaitanya.kulkarni@wdc.com>
+Date: Wed, 27 Jan 2021 23:11:02 -0800
+Message-Id: <20210128071133.60335-4-chaitanya.kulkarni@wdc.com>
 In-Reply-To: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
 References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
 MIME-Version: 1.0
@@ -88,7 +87,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 28 Jan 2021 03:38:54 -0500
 Cc: shaggy@kernel.org, sergey.senozhatsky.work@gmail.com, snitzer@redhat.com,
@@ -107,7 +106,7 @@ Cc: shaggy@kernel.org, sergey.senozhatsky.work@gmail.com, snitzer@redhat.com,
 	philipp.reisner@linbit.com, minchan@kernel.org, tj@kernel.org,
 	lars.ellenberg@linbit.com, jth@kernel.org,
 	asml.silence@gmail.com, jlbec@evilplan.org, roger.pau@citrix.com
-Subject: [dm-devel] [RFC PATCH 02/34] block: introduce and use bio_new
+Subject: [dm-devel] [RFC PATCH 03/34] drdb: use bio_new in drdb
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -121,7 +120,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -129,75 +128,40 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Introduce bio_new() helper and use it in blk-lib.c to allocate and
-initialize various non-optional or semi-optional members of the bio
-along with bio allocation done with bio_alloc(). Here we also calmp the
-max_bvecs for bio with BIO_MAX_PAGES before we pass to bio_alloc().
-
 Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 ---
- block/blk-lib.c     |  6 +-----
- include/linux/bio.h | 25 +++++++++++++++++++++++++
- 2 files changed, 26 insertions(+), 5 deletions(-)
+ drivers/block/drbd/drbd_receiver.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/block/blk-lib.c b/block/blk-lib.c
-index fb486a0bdb58..ec29415f00dd 100644
---- a/block/blk-lib.c
-+++ b/block/blk-lib.c
-@@ -14,17 +14,13 @@ struct bio *blk_next_bio(struct bio *bio, struct block_device *bdev,
- 			sector_t sect, unsigned op, unsigned opf,
- 			unsigned int nr_pages, gfp_t gfp)
- {
--	struct bio *new = bio_alloc(gfp, nr_pages);
-+	struct bio *new = bio_new(bdev, sect, op, opf, gfp, nr_pages);
- 
- 	if (bio) {
- 		bio_chain(bio, new);
- 		submit_bio(bio);
+diff --git a/drivers/block/drbd/drbd_receiver.c b/drivers/block/drbd/drbd_receiver.c
+index 09c86ef3f0fd..e1cd3427b28b 100644
+--- a/drivers/block/drbd/drbd_receiver.c
++++ b/drivers/block/drbd/drbd_receiver.c
+@@ -1643,6 +1643,7 @@ int drbd_submit_peer_request(struct drbd_device *device,
+ 	struct bio *bio;
+ 	struct page *page = peer_req->pages;
+ 	sector_t sector = peer_req->i.sector;
++	struct block_device *bdev = device->ldev->backing_bdev;
+ 	unsigned data_size = peer_req->i.size;
+ 	unsigned n_bios = 0;
+ 	unsigned nr_pages = (data_size + PAGE_SIZE -1) >> PAGE_SHIFT;
+@@ -1687,15 +1688,12 @@ int drbd_submit_peer_request(struct drbd_device *device,
+ 	 * generated bio, but a bio allocated on behalf of the peer.
+ 	 */
+ next_bio:
+-	bio = bio_alloc(GFP_NOIO, nr_pages);
++	bio = bio_new(bdev, sector, op, op_flags, GFP_NOIO, nr_pages);
+ 	if (!bio) {
+ 		drbd_err(device, "submit_ee: Allocation of a bio failed (nr_pages=%u)\n", nr_pages);
+ 		goto fail;
  	}
+ 	/* > peer_req->i.sector, unless this is the first bio */
+-	bio->bi_iter.bi_sector = sector;
+-	bio_set_dev(bio, device->ldev->backing_bdev);
+-	bio_set_op_attrs(bio, op, op_flags);
+ 	bio->bi_private = peer_req;
+ 	bio->bi_end_io = drbd_peer_request_endio;
  
--	new->bi_iter.bi_sector = sect;
--	bio_set_dev(new, bdev);
--	bio_set_op_attrs(new, op, opf);
--
- 	return new;
- }
- 
-diff --git a/include/linux/bio.h b/include/linux/bio.h
-index c74857cf1252..2a09ba100546 100644
---- a/include/linux/bio.h
-+++ b/include/linux/bio.h
-@@ -826,5 +826,30 @@ static inline void bio_set_polled(struct bio *bio, struct kiocb *kiocb)
- 	if (!is_sync_kiocb(kiocb))
- 		bio->bi_opf |= REQ_NOWAIT;
- }
-+/**
-+ * bio_new -	allcate and initialize new bio
-+ * @bdev:	blockdev to issue discard for
-+ * @sector:	start sector
-+ * @op:		REQ_OP_XXX from enum req_opf
-+ * @op_flags:	REQ_XXX from enum req_flag_bits
-+ * @max_bvecs:	maximum bvec to be allocated for this bio
-+ * @gfp_mask:	memory allocation flags (for bio_alloc)
-+ *
-+ * Description:
-+ *    Allocates, initializes common members, and returns a new bio.
-+ */
-+static inline struct bio *bio_new(struct block_device *bdev, sector_t sector,
-+				  unsigned int op, unsigned int op_flags,
-+				  unsigned int max_bvecs, gfp_t gfp_mask)
-+{
-+	unsigned nr_bvec = clamp_t(unsigned int, max_bvecs, 0, BIO_MAX_PAGES);
-+	struct bio *bio = bio_alloc(gfp_mask, nr_bvec);
-+
-+	bio_set_dev(bio, bdev);
-+	bio->bi_iter.bi_sector = sector;
-+	bio_set_op_attrs(bio, op, op_flags);
-+
-+	return bio;
-+}
- 
- #endif /* __LINUX_BIO_H */
 -- 
 2.22.1
 
