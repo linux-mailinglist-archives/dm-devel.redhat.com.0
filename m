@@ -1,70 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 1EF533071AE
-	for <lists+dm-devel@lfdr.de>; Thu, 28 Jan 2021 09:39:26 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 74B733071B5
+	for <lists+dm-devel@lfdr.de>; Thu, 28 Jan 2021 09:39:34 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-552-iPlnkCETOiukuOptnKOGFA-1; Thu, 28 Jan 2021 03:39:23 -0500
-X-MC-Unique: iPlnkCETOiukuOptnKOGFA-1
+ us-mta-407-j8eoZWRUNNOvbo05VXuCsA-1; Thu, 28 Jan 2021 03:39:31 -0500
+X-MC-Unique: j8eoZWRUNNOvbo05VXuCsA-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7D71D107ACF5;
-	Thu, 28 Jan 2021 08:39:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D54FA81CB08;
+	Thu, 28 Jan 2021 08:39:24 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E88FF7444C;
-	Thu, 28 Jan 2021 08:39:16 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A5C7A71D61;
+	Thu, 28 Jan 2021 08:39:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9F6A91809CA7;
-	Thu, 28 Jan 2021 08:39:16 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5F8151809CAB;
+	Thu, 28 Jan 2021 08:39:24 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10S7FDZB007664 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 28 Jan 2021 02:15:13 -0500
+	id 10S7FFlP007669 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 28 Jan 2021 02:15:15 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8ABAC2166B2E; Thu, 28 Jan 2021 07:15:13 +0000 (UTC)
+	id 412242166B2A; Thu, 28 Jan 2021 07:15:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 83AD02166B2B
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:15:08 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3C0842166B2B
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:15:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BA458101A560
-	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:15:08 +0000 (UTC)
-Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 275EC805BD9
+	for <dm-devel@redhat.com>; Thu, 28 Jan 2021 07:15:15 +0000 (UTC)
+Received: from esa6.hgst.iphmx.com (esa6.hgst.iphmx.com [216.71.154.45])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-426-2iNNbL6JMqOlZ7d_tnelPw-1; Thu, 28 Jan 2021 02:15:04 -0500
-X-MC-Unique: 2iNNbL6JMqOlZ7d_tnelPw-1
-IronPort-SDR: Ig3M1JxRa8gf4MUenTw1YssI0nd+DXtYAsc7M3iGzJ8ZvxsK1xzhkojhlCb3ex6rOKhDDtNNNd
-	f55m1W7xK2ClGKsExy1BouGzjmz9y9tM2BW7hF/etXOu0arktkhXJ2nRt86KYTaJxMPCwD9xBC
-	/sWJLW0QxNFgrtHnTu/0hvyxKtHdgEPpoQ+y4efqOYpjaSiYiHDqywPrxf81/cRKbxqo1lihOe
-	wkzjqSEuW9jABtDTsWknqM+lJ/LpVYX4c0k544ihTF+0FE3Mb3ywhHQ/lUU5xMtS83lvlWRZx5
-	Kik=
-X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; d="scan'208";a="268892611"
-Received: from uls-op-cesaip01.wdc.com (HELO uls-op-cesaep01.wdc.com)
-	([199.255.45.14])
-	by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:15:02 +0800
-IronPort-SDR: 2uJdW7IYev372MVN5EDKrFbXI8UmLyPHg164vWAkBxj6HgGdJdLKr9xnwcSJmP4Xrjjql0a+yC
-	5WVITh89pcDYTSzMLJOK0jV4Z7gmzKgttq+dAcpl2ITAC09WKS5MsXomSfk3eh9lWaoNfkT0qW
-	ele+Nz5ZYyHxcVHGxGw2z03jZsE0h2VhEVj9kVTjs3ksEIJf+T/tPVXB+gLJE0gRjuoin2CrAj
-	A1yKXz3AMznJyzR6DqNkme/ZIztvNi6JiZTBzzHr2GDkINaeNkECVG0ZbXLu/22KxsvupjCs85
-	awol+zanKdp9vmwcdR2SNdTQ
+	us-mta-190-JMkqAcaLMUGXINvUmy0O-Q-1; Thu, 28 Jan 2021 02:15:10 -0500
+X-MC-Unique: JMkqAcaLMUGXINvUmy0O-Q-1
+IronPort-SDR: sjfKnRiB9t1NpPjAKroaJfFoZpBhngbCjvzu1dlaYuM5eey5i3kpkJH1UJTASX0E0SRRYEoktw
+	f7jvKqWEEzls4r08DEM2EEtonZCJM7gKbwk+lzsfiLp9vkbUdKt+rjZ9VqScPBImlSCK5E9xPy
+	NgWwAYVpJ5duer4fMw9yCdM7XZyWoSFp/riGaiEmlj07qQsGdkhupsLOOwOFnzwI7szeE/GPzY
+	D2xYCgy9DBhQy+2SZUbNBi/5Bc5vYZ8t7jqGS42t5N6Kzs1q9352rdNKaIGDJydFg89jQ/XJei
+	tus=
+X-IronPort-AV: E=Sophos;i="5.79,381,1602518400"; d="scan'208";a="159693985"
+Received: from h199-255-45-15.hgst.com (HELO uls-op-cesaep02.wdc.com)
+	([199.255.45.15])
+	by ob1.hgst.iphmx.com with ESMTP; 28 Jan 2021 15:15:08 +0800
+IronPort-SDR: UwL9KeoAVbAU0HlsMmcvdnfmW51s4g+9sTxIDz0MA3DTofnII3yHVsYDzkODWFOity/D/YMUT2
+	z/gWX4UcU41G9debnd6kh/fH84/iA9CALf0DpsuwtBK8trtjABEWKSwVP0/brpOM1K7d+6OcqL
+	wCxvAgRPVL/b6HGFDPYe5ZISwIflH12tZQHwYnm47pgab1ZtGy2pU34qxtY84XJM4ZQGuhsicc
+	0+hs/tla/+jIEAYxm5av+l19ZAG+PuAqW91hFRWUNXcHgzx6WMBN5Qf6qCKAdaGdFaIz9p+SpR
+	FohTgvMhqw62u8BFp1TkYmkO
 Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
-	by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	27 Jan 2021 22:59:22 -0800
-IronPort-SDR: RvbuIrKpOmmqZ+oQPbnvg4P9b6yDctCj11PDSHseFUe3NzGe7aNswGzNT7aYrNNymGc7RRLBwA
-	EyS5TC5ya2f1DBzchV289rrRJN4G30R6UcKQHWHLCT1EqyVYm8BdK2p8B74xj927ubYpSXJJYX
-	yqNCzY6cgWt8a45E/OUvNDiMBg+lmhS8FA2ZqgTfl/62S3ZiS0x0JS7q7oikS9hfGQV2kW1Mb+
-	vR4fnDhlmPbHKapqq2eTmDAeG1Ipck513pFwPBeDtMk5IkG3qgl83KvWp5povuzxSWxrnJjDon
-	5kw=
+	by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	27 Jan 2021 22:57:26 -0800
+IronPort-SDR: +1TgXZ9HjoaS+86zh+aLwx6S7ZpAYQ4FpPhwS5t1uQfka+31mML1LQsLKCwFYYGr030vY+BCmC
+	AGfrPosPVl95WjEssU5DCDJZAyR1khEX1jpqrqTT8P7u968xhLua2/lVUN5jQ7ABVZJAwAp2MY
+	3XKOPyoMsT52VNuagfol6rCenkg2OIsIErUkF58mfwGPLsAlDeR+kVK0eqUX532NsUF4ctVre4
+	Iqd0vyO+udw10x//vZBdiK4usAo9yvQxvOxxYG203IoYDBmyGC3oa9VGSQBs+2yVysQ7ZPCJPH
+	kDc=
 WDCIronportException: Internal
 Received: from vm.labspan.wdc.com (HELO vm.sc.wdc.com) ([10.6.137.102])
-	by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:15:02 -0800
+	by uls-op-cesaip02.wdc.com with ESMTP; 27 Jan 2021 23:15:08 -0800
 From: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 To: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	dm-devel@redhat.com, linux-block@vger.kernel.org,
@@ -74,8 +75,8 @@ To: linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	linux-fscrypt@vger.kernel.org, jfs-discussion@lists.sourceforge.net,
 	linux-nilfs@vger.kernel.org, ocfs2-devel@oss.oracle.com,
 	linux-pm@vger.kernel.org, linux-mm@kvack.org
-Date: Wed, 27 Jan 2021 23:11:23 -0800
-Message-Id: <20210128071133.60335-25-chaitanya.kulkarni@wdc.com>
+Date: Wed, 27 Jan 2021 23:11:24 -0800
+Message-Id: <20210128071133.60335-26-chaitanya.kulkarni@wdc.com>
 In-Reply-To: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
 References: <20210128071133.60335-1-chaitanya.kulkarni@wdc.com>
 MIME-Version: 1.0
@@ -106,8 +107,8 @@ Cc: shaggy@kernel.org, sergey.senozhatsky.work@gmail.com, snitzer@redhat.com,
 	philipp.reisner@linbit.com, minchan@kernel.org, tj@kernel.org,
 	lars.ellenberg@linbit.com, jth@kernel.org,
 	asml.silence@gmail.com, jlbec@evilplan.org, roger.pau@citrix.com
-Subject: [dm-devel] [RFC PATCH 24/34] fs/nilfs: use bio_new
-	nilfs_alloc_seg_bio
+Subject: [dm-devel] [RFC PATCH 25/34] ocfs/cluster: use bio_new in
+	dm-log-writes
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -131,31 +132,40 @@ Content-Transfer-Encoding: 7bit
 
 Signed-off-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 ---
- fs/nilfs2/segbuf.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
+ fs/ocfs2/cluster/heartbeat.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/fs/nilfs2/segbuf.c b/fs/nilfs2/segbuf.c
-index 1e75417bfe6e..df352cab7a93 100644
---- a/fs/nilfs2/segbuf.c
-+++ b/fs/nilfs2/segbuf.c
-@@ -383,15 +383,9 @@ static int nilfs_segbuf_submit_bio(struct nilfs_segment_buffer *segbuf,
- static struct bio *nilfs_alloc_seg_bio(struct the_nilfs *nilfs, sector_t start,
- 				       int nr_vecs)
- {
--	struct bio *bio;
-+	sector_t sect = start << (nilfs->ns_blocksize_bits - 9);
+diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+index 0179a73a3fa2..b34518036446 100644
+--- a/fs/ocfs2/cluster/heartbeat.c
++++ b/fs/ocfs2/cluster/heartbeat.c
+@@ -515,12 +515,13 @@ static struct bio *o2hb_setup_one_bio(struct o2hb_region *reg,
+ 	unsigned int cs = *current_slot;
+ 	struct bio *bio;
+ 	struct page *page;
++	sector_t sect = (reg->hr_start_block + cs) << (bits - 9);
  
--	bio = bio_alloc(GFP_NOIO, nr_vecs);
--	if (likely(bio)) {
--		bio_set_dev(bio, nilfs->ns_bdev);
--		bio->bi_iter.bi_sector =
--			start << (nilfs->ns_blocksize_bits - 9);
--	}
--	return bio;
-+	return bio_new(nilfs->ns_bdev, sect, 0, 0, nr_vecs, GFP_NOIO);
- }
+ 	/* Testing has shown this allocation to take long enough under
+ 	 * GFP_KERNEL that the local node can get fenced. It would be
+ 	 * nicest if we could pre-allocate these bios and avoid this
+ 	 * all together. */
+-	bio = bio_alloc(GFP_ATOMIC, 16);
++	bio = bio_new(reg->hr_bdev, sect, op, op_flags, 16, GFP_ATOMIC);
+ 	if (!bio) {
+ 		mlog(ML_ERROR, "Could not alloc slots BIO!\n");
+ 		bio = ERR_PTR(-ENOMEM);
+@@ -528,11 +529,8 @@ static struct bio *o2hb_setup_one_bio(struct o2hb_region *reg,
+ 	}
  
- static void nilfs_segbuf_prepare_write(struct nilfs_segment_buffer *segbuf,
+ 	/* Must put everything in 512 byte sectors for the bio... */
+-	bio->bi_iter.bi_sector = (reg->hr_start_block + cs) << (bits - 9);
+-	bio_set_dev(bio, reg->hr_bdev);
+ 	bio->bi_private = wc;
+ 	bio->bi_end_io = o2hb_bio_end_io;
+-	bio_set_op_attrs(bio, op, op_flags);
+ 
+ 	vec_start = (cs << bits) % PAGE_SIZE;
+ 	while(cs < max_slots) {
 -- 
 2.22.1
 
