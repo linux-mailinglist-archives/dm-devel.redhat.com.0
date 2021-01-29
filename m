@@ -1,59 +1,69 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id BD5D3308975
-	for <lists+dm-devel@lfdr.de>; Fri, 29 Jan 2021 15:12:38 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 1EF96308A01
+	for <lists+dm-devel@lfdr.de>; Fri, 29 Jan 2021 16:40:42 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-131-mGXB2o9nNUWLf28n3EtvkQ-1; Fri, 29 Jan 2021 09:12:35 -0500
-X-MC-Unique: mGXB2o9nNUWLf28n3EtvkQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-20-AeAptjP-OZiuW7c2XQXZGg-1; Fri, 29 Jan 2021 10:40:38 -0500
+X-MC-Unique: AeAptjP-OZiuW7c2XQXZGg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A47968030AE;
-	Fri, 29 Jan 2021 14:12:23 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 95A7AC73A2;
+	Fri, 29 Jan 2021 15:40:29 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ED8CC5D9F8;
-	Fri, 29 Jan 2021 14:12:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 09CB86267E;
+	Fri, 29 Jan 2021 15:40:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5B1A750039;
-	Fri, 29 Jan 2021 14:12:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 804095003B;
+	Fri, 29 Jan 2021 15:40:16 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10TEC7fK027252 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 29 Jan 2021 09:12:07 -0500
+	id 10TFe2Su004212 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 29 Jan 2021 10:40:02 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id F1661100BFEF; Fri, 29 Jan 2021 14:12:06 +0000 (UTC)
+	id 61F4FF3D1F; Fri, 29 Jan 2021 15:40:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ED2EE10CD919
-	for <dm-devel@redhat.com>; Fri, 29 Jan 2021 14:12:03 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5B7F1110EBF
+	for <dm-devel@redhat.com>; Fri, 29 Jan 2021 15:39:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5AC58800B3B
-	for <dm-devel@redhat.com>; Fri, 29 Jan 2021 14:12:03 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-268-ESIvrfLKO3OrCrPp6LxzUQ-1;
-	Fri, 29 Jan 2021 09:12:00 -0500
-X-MC-Unique: ESIvrfLKO3OrCrPp6LxzUQ-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 6EB55B16A;
-	Fri, 29 Jan 2021 14:11:59 +0000 (UTC)
-To: Alasdair G Kergon <agk@redhat.com>
-References: <41f1923b-8f45-ff49-e0d9-06bc5a4a6fad@suse.de>
-	<20210129135725.GA27059@agk.fab.redhat.com>
-From: Coly Li <colyli@suse.de>
-Message-ID: <17df7322-8796-b6f3-dc5e-140f29dedf1b@suse.de>
-Date: Fri, 29 Jan 2021 22:11:55 +0800
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:78.0)
-	Gecko/20100101 Thunderbird/78.6.1
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A33EB108C184
+	for <dm-devel@redhat.com>; Fri, 29 Jan 2021 15:39:59 +0000 (UTC)
+Received: from mx2.veeam.com (mx2.veeam.com [64.129.123.6]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-420-lHzmjbJCPkenxRH3-tfLdw-1;
+	Fri, 29 Jan 2021 10:39:56 -0500
+X-MC-Unique: lHzmjbJCPkenxRH3-tfLdw-1
+Received: from mail.veeam.com (prgmbx01.amust.local [172.24.0.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx2.veeam.com (Postfix) with ESMTPS id BA20F411C7;
+	Fri, 29 Jan 2021 10:39:51 -0500 (EST)
+Received: from veeam.com (172.24.14.5) by prgmbx01.amust.local (172.24.0.171)
+	with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.721.2;
+	Fri, 29 Jan 2021 16:39:49 +0100
+Date: Fri, 29 Jan 2021 18:39:42 +0300
+From: Sergei Shtepa <sergei.shtepa@veeam.com>
+To: Damien Le Moal <Damien.LeMoal@wdc.com>
+Message-ID: <20210129153942.GA32240@veeam.com>
+References: <1611853955-32167-1-git-send-email-sergei.shtepa@veeam.com>
+	<BL0PR04MB6514A510F37C59F52D87E2EDE7B99@BL0PR04MB6514.namprd04.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <20210129135725.GA27059@agk.fab.redhat.com>
+In-Reply-To: <BL0PR04MB6514A510F37C59F52D87E2EDE7B99@BL0PR04MB6514.namprd04.prod.outlook.com>
+X-Originating-IP: [172.24.14.5]
+X-ClientProxiedBy: prgmbx02.amust.local (172.24.0.172) To prgmbx01.amust.local
+	(172.24.0.171)
+X-EsetResult: clean, is OK
+X-EsetId: 37303A29C604D265677C6B
+X-Veeam-MMEX: True
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -62,12 +72,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 10TEC7fK027252
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] dm thin-volume hung as swap: bug or as-design ?
+Cc: "snitzer@redhat.com" <snitzer@redhat.com>,
+	Pavel Tide <Pavel.TIde@veeam.com>,
+	"ming.lei@redhat.com" <ming.lei@redhat.com>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"agk@redhat.com" <agk@redhat.com>
+Subject: Re: [dm-devel] [PATCH 0/2] block: blk_interposer v3
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,55 +94,79 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 1/29/21 9:57 PM, Alasdair G Kergon wrote:
-> On Fri, Jan 29, 2021 at 06:40:06PM +0800, Coly Li wrote:
->> Recently I receive a report that whole system hung and no response after
->> a while with I/O load. The special configuration is the dm thin-pool
->> volume is used as the swap partition of the system.
->> My questions are,
->> - Can a thin-pool volume be used as swap device?
+The 01/29/2021 03:18, Damien Le Moal wrote:
+> On 2021/01/29 2:23, Sergei Shtepa wrote:
+> > Hi all,
+> > 
+> > I`m ready to suggest the blk_interposer again.
+> > blk_interposer allows to intercept bio requests, remap bio to
+> > another devices or add new bios.
+> > 
+> > This version has support from device mapper.
+> > 
+> > For the dm-linear device creation command, the `noexcl` parameter
+> > has been added, which allows to open block devices without
+> > FMODE_EXCL mode. It allows to create dm-linear device on a block
+> > device with an already mounted file system.
+> > The new ioctl DM_DEV_REMAP allows to enable and disable bio
+> > interception.
+> > 
+> > Thus, it is possible to add the dm-device to the block layer stack
+> > without reconfiguring and rebooting.
 > 
-> Yes in principle, but it won't get much testing as it's not 
-> necessarily a particularly sensible configuration.
-> - You'd normally prefer fully-pre-allocated disk space for swap
->   and turn off the zeroing.
+> Please add the changelog here instead of adding it in each patch. And keep the
+> changelog for previous versions too (i.e. v1->v2 in this case) so that the
+> changes overall can be tracked.
 > 
-> Is there some use-case where it does make more sense?
+> The proper formatting for the title should be [PATCH v3 X/Y] instead of adding
+> v3 in the title itself. With git format-patch, you can use "-v 3" option to
+> format this for you, or --subject-prefix="PATCH v3" option.
+
+Thanks. I think I need to work with the style of my patches.
+
+> 
+> > 
+> > 
+> > Sergei Shtepa (2):
+> >   block: blk_interposer
+> >   [dm] blk_interposer for dm-linear
+> > 
+> >  block/bio.c                   |   2 +
+> >  block/blk-core.c              |  29 +++
+> >  block/blk-mq.c                |  13 ++
+> >  block/genhd.c                 |  82 ++++++++
+> >  drivers/md/dm-core.h          |  46 +++-
+> >  drivers/md/dm-ioctl.c         |  39 ++++
+> >  drivers/md/dm-linear.c        |  17 +-
+> >  drivers/md/dm-table.c         |  12 +-
+> >  drivers/md/dm.c               | 383 ++++++++++++++++++++++++++++++++--
+> >  drivers/md/dm.h               |   2 +-
+> >  include/linux/blk-mq.h        |   1 +
+> >  include/linux/blk_types.h     |   6 +-
+> >  include/linux/device-mapper.h |   7 +
+> >  include/linux/genhd.h         |  19 ++
+> >  include/uapi/linux/dm-ioctl.h |  15 +-
+> >  15 files changed, 643 insertions(+), 30 deletions(-)
+> > 
+> 
+> 
+> -- 
+> Damien Le Moal
+> Western Digital Research
 > 
 
-What I see is on a system there are dozens of partitions created on top
-of many thin-pool for each, including the swap partition. People just
-use thin-pool volumes in this way, and bug triggered.
-
-
->> - The above description is a bug, or an already know issue which should
->> be avoided ?
->  
-> Bug.
-> 
-
-Thanks for the confirmation. I tried to change all memory allocation
-into GFP_NOIO or with memalloc_noio_save(), the deadlock still exists.
-What I suspect yet is might be from the memory allocation from the
-kworkers, but this is only my guess and no evidence.
-
-If there is patch addressed this hung issue (thin-pool volume as swap),
-I'd like to help testing, because my local environment may 100%
-reproduce the problem in 5 minutes.
-
-Thanks.
-
-Coly Li
-
+-- 
+Sergei Shtepa
+Veeam Software developer.
 
 --
 dm-devel mailing list
