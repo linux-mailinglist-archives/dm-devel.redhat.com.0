@@ -2,68 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 1031630877C
-	for <lists+dm-devel@lfdr.de>; Fri, 29 Jan 2021 10:39:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 254B930876F
+	for <lists+dm-devel@lfdr.de>; Fri, 29 Jan 2021 10:38:36 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-268-gkpUUU-aPzCOSnMRO3VMGA-1; Fri, 29 Jan 2021 04:39:41 -0500
-X-MC-Unique: gkpUUU-aPzCOSnMRO3VMGA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-46-a2DtBd_CMFCPM0sUdlvdjw-1; Fri, 29 Jan 2021 04:38:32 -0500
+X-MC-Unique: a2DtBd_CMFCPM0sUdlvdjw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6CE01801AB0;
-	Fri, 29 Jan 2021 09:39:36 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 487DB60BFA;
-	Fri, 29 Jan 2021 09:39:36 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 596698030AC;
+	Fri, 29 Jan 2021 09:38:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 351B36268D;
+	Fri, 29 Jan 2021 09:38:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C818C1809CA5;
-	Fri, 29 Jan 2021 09:39:35 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D72695002C;
+	Fri, 29 Jan 2021 09:38:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10T6TQXY015850 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 29 Jan 2021 01:29:27 -0500
+	id 10T6TMOV015820 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 29 Jan 2021 01:29:22 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id DBEDC108491; Fri, 29 Jan 2021 06:29:26 +0000 (UTC)
+	id 89ECA10439BD; Fri, 29 Jan 2021 06:29:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D604C108494
-	for <dm-devel@redhat.com>; Fri, 29 Jan 2021 06:29:26 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8565010D179D
+	for <dm-devel@redhat.com>; Fri, 29 Jan 2021 06:29:22 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C35E8185A794
-	for <dm-devel@redhat.com>; Fri, 29 Jan 2021 06:29:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 48469800140
+	for <dm-devel@redhat.com>; Fri, 29 Jan 2021 06:29:22 +0000 (UTC)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
-	by relay.mimecast.com with ESMTP id us-mta-13-MHsPR10fMYezjjnoSFeL6Q-3; 
-	Fri, 29 Jan 2021 01:29:21 -0500
-X-MC-Unique: MHsPR10fMYezjjnoSFeL6Q-3
-X-IronPort-AV: E=Sophos;i="5.79,384,1602518400"; d="scan'208";a="103973624"
+	by relay.mimecast.com with ESMTP id us-mta-13-GmOwvZMcN3WEgiZ7EKmNiw-2; 
+	Fri, 29 Jan 2021 01:29:17 -0500
+X-MC-Unique: GmOwvZMcN3WEgiZ7EKmNiw-2
+X-IronPort-AV: E=Sophos;i="5.79,384,1602518400"; d="scan'208";a="103973625"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
 	by heian.cn.fujitsu.com with ESMTP; 29 Jan 2021 14:28:11 +0800
 Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
-	by cn.fujitsu.com (Postfix) with ESMTP id 78B854CE6019;
-	Fri, 29 Jan 2021 14:28:08 +0800 (CST)
+	by cn.fujitsu.com (Postfix) with ESMTP id E2EC44CE6782;
+	Fri, 29 Jan 2021 14:28:09 +0800 (CST)
 Received: from G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) by
 	G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP
-	Server (TLS) id 15.0.1497.2; Fri, 29 Jan 2021 14:28:08 +0800
+	Server (TLS) id 15.0.1497.2; Fri, 29 Jan 2021 14:28:10 +0800
 Received: from irides.mr.mr.mr (10.167.225.141) by
 	G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.209) with Microsoft SMTP
 	Server
-	id 15.0.1497.2 via Frontend Transport; Fri, 29 Jan 2021 14:28:08 +0800
+	id 15.0.1497.2 via Frontend Transport; Fri, 29 Jan 2021 14:28:09 +0800
 From: Shiyang Ruan <ruansy.fnst@cn.fujitsu.com>
 To: <linux-kernel@vger.kernel.org>, <linux-xfs@vger.kernel.org>,
 	<linux-nvdimm@lists.01.org>, <linux-mm@kvack.org>,
 	<linux-fsdevel@vger.kernel.org>, <dm-devel@redhat.com>
-Date: Fri, 29 Jan 2021 14:27:52 +0800
-Message-ID: <20210129062757.1594130-6-ruansy.fnst@cn.fujitsu.com>
+Date: Fri, 29 Jan 2021 14:27:53 +0800
+Message-ID: <20210129062757.1594130-7-ruansy.fnst@cn.fujitsu.com>
 In-Reply-To: <20210129062757.1594130-1-ruansy.fnst@cn.fujitsu.com>
 References: <20210129062757.1594130-1-ruansy.fnst@cn.fujitsu.com>
 MIME-Version: 1.0
-X-yoursite-MailScanner-ID: 78B854CE6019.ACD5C
+X-yoursite-MailScanner-ID: E2EC44CE6782.AF815
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: ruansy.fnst@cn.fujitsu.com
 X-Spam-Status: No
@@ -75,14 +74,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 29 Jan 2021 04:33:25 -0500
 Cc: qi.fuli@fujitsu.com, snitzer@redhat.com, darrick.wong@oracle.com,
 	rgoldwyn@suse.de, david@fromorbit.com, y-goto@fujitsu.com,
 	dan.j.williams@intel.com, hch@lst.de, agk@redhat.com
-Subject: [dm-devel] [PATCH RESEND v2 05/10] mm,
-	pmem: Implement ->memory_failure() in pmem driver
+Subject: [dm-devel] [PATCH RESEND v2 06/10] pmem: Implement
+	->corrupted_range() for pmem driver
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,7 +95,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,207 +103,87 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Call the ->memory_failure() which is implemented by pmem driver, in
-order to finally notify filesystem to handle the corrupted data.  The
-handler which collects and kills processes are moved into
-mf_dax_mapping_kill_procs(), which will be called by filesystem.
-
-Keep the old handler in order to roll back if driver/device/filesystem
-does not support ->memory_failure()/->corrupted_range().
+Obtain the superblock of a pmem disk, and call filesystem's
+->corrupted_range() to handle the corrupted data.
 
 Signed-off-by: Shiyang Ruan <ruansy.fnst@cn.fujitsu.com>
 ---
- drivers/nvdimm/pmem.c |  25 +++++++++++
- mm/memory-failure.c   | 102 +++++++++++++++++++++++++-----------------
- 2 files changed, 86 insertions(+), 41 deletions(-)
+ block/genhd.c         |  6 ++++++
+ drivers/nvdimm/pmem.c | 24 ++++++++++++++++++++++++
+ include/linux/genhd.h |  1 +
+ 3 files changed, 31 insertions(+)
 
-diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
-index 875076b0ea6c..c9e4fb38f94a 100644
---- a/drivers/nvdimm/pmem.c
-+++ b/drivers/nvdimm/pmem.c
-@@ -363,9 +363,34 @@ static void pmem_release_disk(void *__pmem)
- 	put_disk(pmem->disk);
+diff --git a/block/genhd.c b/block/genhd.c
+index 419548e92d82..fd7cf03b65a8 100644
+--- a/block/genhd.c
++++ b/block/genhd.c
+@@ -936,6 +936,12 @@ struct block_device *bdget_disk(struct gendisk *disk, int partno)
+ 	return bdev;
  }
  
-+static int pmem_pagemap_memory_failure(struct dev_pagemap *pgmap,
-+		unsigned long pfn, int flags)
++struct block_device *bdget_disk_sector(struct gendisk *disk, sector_t sector)
 +{
-+	struct pmem_device *pdev;
-+	struct gendisk *disk;
-+	loff_t disk_offset;
++	return disk_map_sector_rcu(disk, sector);
++}
++EXPORT_SYMBOL(bdget_disk_sector);
++
+ /*
+  * print a full list of all partitions - intended for places where the root
+  * filesystem can't be mounted and thus to give the victim some idea of what
+diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
+index c9e4fb38f94a..501959947d48 100644
+--- a/drivers/nvdimm/pmem.c
++++ b/drivers/nvdimm/pmem.c
+@@ -253,6 +253,29 @@ static int pmem_rw_page(struct block_device *bdev, sector_t sector,
+ 	return blk_status_to_errno(rc);
+ }
+ 
++static int pmem_corrupted_range(struct gendisk *disk, struct block_device *bdev,
++				loff_t disk_offset, size_t len, void *data)
++{
++	struct super_block *sb;
++	loff_t bdev_offset;
++	sector_t disk_sector = disk_offset >> SECTOR_SHIFT;
 +	int rc = 0;
-+	unsigned long size = page_size(pfn_to_page(pfn));
 +
-+	pdev = container_of(pgmap, struct pmem_device, pgmap);
-+	disk = pdev->disk;
-+	if (!disk)
-+		return -ENXIO;
++	bdev = bdget_disk_sector(disk, disk_sector);
++	if (!bdev)
++		return -ENODEV;
 +
-+	disk_offset = PFN_PHYS(pfn) - pdev->phys_addr - pdev->data_offset;
-+	if (disk->fops->corrupted_range) {
-+		rc = disk->fops->corrupted_range(disk, NULL, disk_offset, size, &flags);
-+		if (rc == -ENODEV)
-+			rc = -ENXIO;
-+	} else
-+		rc = -EOPNOTSUPP;
++	bdev_offset = (disk_sector - get_start_sect(bdev)) << SECTOR_SHIFT;
++	sb = get_super(bdev);
++	if (sb && sb->s_op->corrupted_range) {
++		rc = sb->s_op->corrupted_range(sb, bdev, bdev_offset, len, data);
++		drop_super(sb);
++	}
++
++	bdput(bdev);
 +	return rc;
 +}
 +
- static const struct dev_pagemap_ops fsdax_pagemap_ops = {
- 	.kill			= pmem_pagemap_kill,
- 	.cleanup		= pmem_pagemap_cleanup,
-+	.memory_failure		= pmem_pagemap_memory_failure,
+ /* see "strong" declaration in tools/testing/nvdimm/pmem-dax.c */
+ __weak long __pmem_direct_access(struct pmem_device *pmem, pgoff_t pgoff,
+ 		long nr_pages, void **kaddr, pfn_t *pfn)
+@@ -281,6 +304,7 @@ static const struct block_device_operations pmem_fops = {
+ 	.owner =		THIS_MODULE,
+ 	.submit_bio =		pmem_submit_bio,
+ 	.rw_page =		pmem_rw_page,
++	.corrupted_range =	pmem_corrupted_range,
  };
  
- static int pmem_attach_disk(struct device *dev,
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index 158fe0c8e602..670e29cd263e 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -1219,6 +1219,54 @@ static int try_to_split_thp_page(struct page *page, const char *msg)
- 	return 0;
- }
+ static int pmem_dax_zero_page_range(struct dax_device *dax_dev, pgoff_t pgoff,
+diff --git a/include/linux/genhd.h b/include/linux/genhd.h
+index 809aaa32d53c..4da480798955 100644
+--- a/include/linux/genhd.h
++++ b/include/linux/genhd.h
+@@ -248,6 +248,7 @@ static inline void add_disk_no_queue_reg(struct gendisk *disk)
  
-+int mf_generic_kill_procs(unsigned long long pfn, int flags)
-+{
-+	struct page *page = pfn_to_page(pfn);
-+	const bool unmap_success = true;
-+	unsigned long size = 0;
-+	struct to_kill *tk;
-+	LIST_HEAD(to_kill);
-+	loff_t start;
-+	dax_entry_t cookie;
-+
-+	/*
-+	 * Prevent the inode from being freed while we are interrogating
-+	 * the address_space, typically this would be handled by
-+	 * lock_page(), but dax pages do not use the page lock. This
-+	 * also prevents changes to the mapping of this pfn until
-+	 * poison signaling is complete.
-+	 */
-+	cookie = dax_lock_page(page);
-+	if (!cookie)
-+		return -EBUSY;
-+	/*
-+	 * Unlike System-RAM there is no possibility to swap in a
-+	 * different physical page at a given virtual address, so all
-+	 * userspace consumption of ZONE_DEVICE memory necessitates
-+	 * SIGBUS (i.e. MF_MUST_KILL)
-+	 */
-+	flags |= MF_ACTION_REQUIRED | MF_MUST_KILL;
-+	collect_procs(page, &to_kill, flags & MF_ACTION_REQUIRED);
-+
-+	list_for_each_entry(tk, &to_kill, nd)
-+		if (tk->size_shift)
-+			size = max(size, 1UL << tk->size_shift);
-+	if (size) {
-+		/*
-+		 * Unmap the largest mapping to avoid breaking up
-+		 * device-dax mappings which are constant size. The
-+		 * actual size of the mapping being torn down is
-+		 * communicated in siginfo, see kill_proc()
-+		 */
-+		start = (page->index << PAGE_SHIFT) & ~(size - 1);
-+		unmap_mapping_range(page->mapping, start, start + size, 0);
-+	}
-+	kill_procs(&to_kill, flags & MF_MUST_KILL, !unmap_success, pfn, flags);
-+
-+	dax_unlock_page(page, cookie);
-+	return 0;
-+}
-+
- int mf_dax_mapping_kill_procs(struct address_space *mapping, pgoff_t index, int flags)
- {
- 	const bool unmap_success = true;
-@@ -1343,13 +1391,7 @@ static int memory_failure_dev_pagemap(unsigned long pfn, int flags,
- 		struct dev_pagemap *pgmap)
- {
- 	struct page *page = pfn_to_page(pfn);
--	const bool unmap_success = true;
--	unsigned long size = 0;
--	struct to_kill *tk;
--	LIST_HEAD(to_kill);
- 	int rc = -EBUSY;
--	loff_t start;
--	dax_entry_t cookie;
+ extern void del_gendisk(struct gendisk *gp);
+ extern struct block_device *bdget_disk(struct gendisk *disk, int partno);
++extern struct block_device *bdget_disk_sector(struct gendisk *disk, sector_t sector);
  
- 	if (flags & MF_COUNT_INCREASED)
- 		/*
-@@ -1357,20 +1399,9 @@ static int memory_failure_dev_pagemap(unsigned long pfn, int flags,
- 		 */
- 		put_page(page);
+ extern void set_disk_ro(struct gendisk *disk, int flag);
  
--	/*
--	 * Prevent the inode from being freed while we are interrogating
--	 * the address_space, typically this would be handled by
--	 * lock_page(), but dax pages do not use the page lock. This
--	 * also prevents changes to the mapping of this pfn until
--	 * poison signaling is complete.
--	 */
--	cookie = dax_lock_page(page);
--	if (!cookie)
--		goto out;
--
- 	if (hwpoison_filter(page)) {
- 		rc = 0;
--		goto unlock;
-+		goto out;
- 	}
- 
- 	if (pgmap->type == MEMORY_DEVICE_PRIVATE) {
-@@ -1378,7 +1409,7 @@ static int memory_failure_dev_pagemap(unsigned long pfn, int flags,
- 		 * TODO: Handle HMM pages which may need coordination
- 		 * with device-side memory.
- 		 */
--		goto unlock;
-+		goto out;
- 	}
- 
- 	/*
-@@ -1388,32 +1419,21 @@ static int memory_failure_dev_pagemap(unsigned long pfn, int flags,
- 	SetPageHWPoison(page);
- 
- 	/*
--	 * Unlike System-RAM there is no possibility to swap in a
--	 * different physical page at a given virtual address, so all
--	 * userspace consumption of ZONE_DEVICE memory necessitates
--	 * SIGBUS (i.e. MF_MUST_KILL)
-+	 * Call driver's implementation to handle the memory failure,
-+	 * otherwise roll back to generic handler.
- 	 */
--	flags |= MF_ACTION_REQUIRED | MF_MUST_KILL;
--	collect_procs_file(page, page->mapping, page->index, &to_kill,
--			   flags & MF_ACTION_REQUIRED);
--
--	list_for_each_entry(tk, &to_kill, nd)
--		if (tk->size_shift)
--			size = max(size, 1UL << tk->size_shift);
--	if (size) {
-+	if (pgmap->ops->memory_failure) {
-+		rc = pgmap->ops->memory_failure(pgmap, pfn, flags);
- 		/*
--		 * Unmap the largest mapping to avoid breaking up
--		 * device-dax mappings which are constant size. The
--		 * actual size of the mapping being torn down is
--		 * communicated in siginfo, see kill_proc()
-+		 * Roll back to generic handler too if operation is not
-+		 * supported inside the driver/device/filesystem.
- 		 */
--		start = (page->index << PAGE_SHIFT) & ~(size - 1);
--		unmap_mapping_range(page->mapping, start, start + size, 0);
-+		if (rc != EOPNOTSUPP)
-+			goto out;
- 	}
--	kill_procs(&to_kill, flags & MF_MUST_KILL, !unmap_success, pfn, flags);
--	rc = 0;
--unlock:
--	dax_unlock_page(page, cookie);
-+
-+	rc = mf_generic_kill_procs(pfn, flags);
-+
- out:
- 	/* drop pgmap ref acquired in caller */
- 	put_dev_pagemap(pgmap);
 -- 
 2.30.0
 
