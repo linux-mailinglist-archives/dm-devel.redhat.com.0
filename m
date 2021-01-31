@@ -1,63 +1,83 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id CCFE5309DD6
-	for <lists+dm-devel@lfdr.de>; Sun, 31 Jan 2021 17:27:51 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1612110470;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=5NxKH9qYik9sQzUU1bw6ZzLWcjFynAR5pLndkmfd2nI=;
-	b=S1pKIRdt/GkBRJ8GmBMn0X9tJMibpuy/crxfnGr7qHl0MILhSf+bSiQBq9YDIa2vtVo10D
-	hRGe02+kkOUIKx/i09Ly65WEr0fNTZLpONmOGje0nj8KfROh4+P/huQrXhcqkD1kUQnx8y
-	jByXPlMG1Iuy9GR9pkFadsFViAxDz48=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 9EF6030A472
+	for <lists+dm-devel@lfdr.de>; Mon,  1 Feb 2021 10:38:12 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-526-Vc9Ed6hOMRmdR7FOGzJwxg-1; Sun, 31 Jan 2021 11:27:47 -0500
-X-MC-Unique: Vc9Ed6hOMRmdR7FOGzJwxg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-601-XB0vt4ksMlCFJLDSi_MTuQ-1; Mon, 01 Feb 2021 04:38:09 -0500
+X-MC-Unique: XB0vt4ksMlCFJLDSi_MTuQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 05A0510054FF;
-	Sun, 31 Jan 2021 16:27:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4BB0C10016F5;
-	Sun, 31 Jan 2021 16:27:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A3E05801817;
+	Mon,  1 Feb 2021 09:38:03 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9EE3670497;
+	Mon,  1 Feb 2021 09:38:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 53A2E180954D;
-	Sun, 31 Jan 2021 16:27:22 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 11D164A7C6;
+	Mon,  1 Feb 2021 09:37:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10VGR3l2025302 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 31 Jan 2021 11:27:03 -0500
+	id 10VI9lUM004647 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 31 Jan 2021 13:09:47 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B73CF60D43; Sun, 31 Jan 2021 16:27:03 +0000 (UTC)
+	id 549EF2026D13; Sun, 31 Jan 2021 18:09:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E3E1960CEF;
-	Sun, 31 Jan 2021 16:26:58 +0000 (UTC)
-Date: Sun, 31 Jan 2021 11:26:58 -0500
-From: Mike Snitzer <snitzer@redhat.com>
-To: JeffleXu <jefflexu@linux.alibaba.com>
-Message-ID: <20210131162657.GA3164@redhat.com>
-References: <20210125121340.70459-1-jefflexu@linux.alibaba.com>
-	<20210127171941.GA11530@redhat.com>
-	<2ed9966f-b390-085a-1a51-5bf65038d533@linux.alibaba.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 503762026D12
+	for <dm-devel@redhat.com>; Sun, 31 Jan 2021 18:09:45 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2471B1875040
+	for <dm-devel@redhat.com>; Sun, 31 Jan 2021 18:09:45 +0000 (UTC)
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
+	[209.85.208.182]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-564--pkYvSJRNpaZdvdYvaWIOg-1; Sun, 31 Jan 2021 13:09:42 -0500
+X-MC-Unique: -pkYvSJRNpaZdvdYvaWIOg-1
+Received: by mail-lj1-f182.google.com with SMTP id y14so4133535ljn.8
+	for <dm-devel@redhat.com>; Sun, 31 Jan 2021 10:09:42 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to
+	:content-transfer-encoding;
+	bh=hMQknbcWkNO20UF1cw6lE0C18O/rjPLmr23R6LbAT8o=;
+	b=nP2U352iQAuUUinWsWCgI2TySAS2tsEfn5mjTFkTN3SxZUP8esQ0BP8G+/vLG90+vd
+	LdKXWKYxyZD6prthpxIj9N27U8/ak3Y2+gWFIwwkf4szXvPiTIS3Iw0aprgr9Dji7c9x
+	cA8Kc9S4WvJIhgGmxQKZqdWpPrSOSeW8a6fbR352rkjtnlURml2K9pWq/HgiQr98PMSn
+	BN2CG0WK5t66Ups9LeMTDFmdR9meY6tYYMY54TijnrtC35/CARL+R/hOO7NtmC5Gk52o
+	jzzafFN9mICxf7tUwbliEIUXttGxoPQyZVAFSjCVmB7Il1J40rKV/J1xEka95pMD3/uC
+	c80g==
+X-Gm-Message-State: AOAM532FvtWmuz+lusOEpNKpUXnRvuUgrEjCGT+1fqS+IKueiFJvNEsk
+	Yo1G3/L+JbJL9uu6R1yf1Z89ULLsBR+NWbL1jXU/7CQJqFjijw==
+X-Google-Smtp-Source: ABdhPJxzoBcU1t85b0e5v9FUe3s+EEnErHTebGj1tE19rtEHqnVWzvYvQxgDPr/FZKDBg7XNaK208+xlFWvnSWKHTD8=
+X-Received: by 2002:a2e:b8c7:: with SMTP id s7mr7573934ljp.397.1612116581106; 
+	Sun, 31 Jan 2021 10:09:41 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <2ed9966f-b390-085a-1a51-5bf65038d533@linux.alibaba.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+From: Janusz Dziedzic <janusz.dziedzic@gmail.com>
+Date: Sun, 31 Jan 2021 19:09:27 +0100
+Message-ID: <CAFED-j=gJZSEghHkHp9d-PE1pAe0ghEvW-MOJZ=L+b2pO7qXtA@mail.gmail.com>
+To: dm-devel@redhat.com
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 10VI9lUM004647
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>, joseph.qi@linux.alibaba.com,
-	dm-devel@redhat.com, linux-block@vger.kernel.org, io-uring@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v2 0/6] dm: support IO polling for bio-based
-	dm device
+X-Mailman-Approved-At: Mon, 01 Feb 2021 04:37:41 -0500
+Subject: [dm-devel] kcryptd, copy/remove big file, unresponsive system (GUI)
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,98 +91,25 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Wed, Jan 27 2021 at 10:06pm -0500,
-JeffleXu <jefflexu@linux.alibaba.com> wrote:
-
-> 
-> 
-> On 1/28/21 1:19 AM, Mike Snitzer wrote:
-> > On Mon, Jan 25 2021 at  7:13am -0500,
-> > Jeffle Xu <jefflexu@linux.alibaba.com> wrote:
-> > 
-> >> Since currently we have no simple but efficient way to implement the
-> >> bio-based IO polling in the split-bio tracking style, this patch set
-> >> turns to the original implementation mechanism that iterates and
-> >> polls all underlying hw queues in polling mode. One optimization is
-> >> introduced to mitigate the race of one hw queue among multiple polling
-> >> instances.
-> >>
-> >> I'm still open to the split bio tracking mechanism, if there's
-> >> reasonable way to implement it.
-> >>
-> >>
-> >> [Performance Test]
-> >> The performance is tested by fio (engine=io_uring) 4k randread on
-> >> dm-linear device. The dm-linear device is built upon nvme devices,
-> >> and every nvme device has one polling hw queue (nvme.poll_queues=1).
-> >>
-> >> Test Case		    | IOPS in IRQ mode | IOPS in polling mode | Diff
-> >> 			    | (hipri=0)	       | (hipri=1)	      |
-> >> --------------------------- | ---------------- | -------------------- | ----
-> >> 3 target nvme, num_jobs = 1 | 198k 	       | 276k		      | ~40%
-> >> 3 target nvme, num_jobs = 3 | 608k 	       | 705k		      | ~16%
-> >> 6 target nvme, num_jobs = 6 | 1197k 	       | 1347k		      | ~13%
-> >> 3 target nvme, num_jobs = 6 | 1285k 	       | 1293k		      | ~0%
-> >>
-> >> As the number of polling instances (num_jobs) increases, the
-> >> performance improvement decreases, though it's still positive
-> >> compared to the IRQ mode.
-> > 
-> > I think there is serious room for improvement for DM's implementation;
-> > but the block changes for this are all we'd need for DM in the longrun
-> > anyway (famous last words).
-> 
-> Agreed.
-> 
-> 
-> > So on a block interface level I'm OK with
-> > block patches 1-3.
-> > 
-> > I don't see why patch 5 is needed (said the same in reply to it; but I
-> > just saw your reason below..).
-> > 
-> > Anyway, I can pick up DM patches 4 and 6 via linux-dm.git if Jens picks
-> > up patches 1-3. Jens, what do you think?
-> 
-> cc Jens.
-> 
-> Also I will send a new version later, maybe some refactor on patch5 and
-> some typo modifications.
-
-Thinking further, there is no benefit to Jens picking up the block core
-changes until the DM changes are ready.  While I think the refactoring
-to expose the blk_poll (in patch 3) that supports blk-mq and bio-based
-is reasonable -- Christoph correctly points out there is extra branching
-that blk-mq must tolerate as implemented.  So even that needs followup
-work as suggested here:
-https://www.redhat.com/archives/dm-devel/2021-January/msg00397.html
-
-Also, your followup about oversights in the the latest bio-based DM io
-polling implementation speaks to all of this needing more time:
-https://www.redhat.com/archives/dm-devel/2021-January/msg00436.html
-
-You advocating going back to what is effectively the first RFC patchset
-you proposed (with its underwhelming bio-based polling performance)
-isn't a strong indication these changes are ready, or that we even have
-a patch forward for how to make bio-based IO polling be worthwhile.
-
-So: I retract my question to Jens about whether he'd pick up the block
-core changes (while I think those are close, the corresponding DM
-changes aren't).
-
-Mike
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+SGVsbG8sCgpUZXN0ZWQgd2l0aCA1LjQvNS44LzUuMTEtcmM0IHdpdGggc2FtZSBwcm9ibGVtcyAt
+IGFsbCBjb3JlcyAxMDAlIGluIFdBLgoKUGxlYXNlIGNoZWNrIHRoaXM6Cmh0dHBzOi8vbGF1bmNo
+cGFkbGlicmFyaWFuLm5ldC81MjAxOTI0MTIvNS44X2tlcm5lbF8yMDIxLTAxLTI5JTIwMTMtNDQt
+MzUucG5nCgpudm1lMG4xIDI1OTowIDAgNDY1LDhHIDAgZGlzawrilJzilIBudm1lMG4xcDEgMjU5
+OjEgMCA1MTJNIDAgcGFydCAvYm9vdC9lZmkK4pSc4pSAbnZtZTBuMXAyIDI1OToyIDAgNzMyTSAw
+IHBhcnQgL2Jvb3QK4pSU4pSAbnZtZTBuMXAzIDI1OTozIDAgNDY0LDZHIDAgcGFydAogIOKUlOKU
+gG52bWUwbjFwM19jcnlwdCAyNTM6MCAwIDQ2NCw2RyAwIGNyeXB0CiAgICDilJzilIB1YnVudHUt
+LXZnLXJvb3QgMjUzOjEgMCA0NjMsNkcgMCBsdm0gLwogICAg4pSU4pSAdWJ1bnR1LS12Zy1zd2Fw
+XzEgMjUzOjIgMCA5ODBNIDAgbHZtIFtTV0FQXQoKQW55IGlkZWEgaG93IHRvIHR1bmUvd29ya2Fy
+b3VuZCB0aGlzPwpXaGVuIHJlbW92ZS9jb3B5IGJpZyBmaWxlICh+NEdCKSAtIG5vIG9wdGlvbiB0
+byB1c2UKZmlyZWZveC90ZWFtcy9zbGFjayAuLi4gZm9yIG1pbnV0ZShzKS4KCkJSCkphbnVzegoK
+Ci0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vd3d3
+LnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
 
