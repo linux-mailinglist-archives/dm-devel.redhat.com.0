@@ -1,76 +1,63 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id CDB24309B6E
-	for <lists+dm-devel@lfdr.de>; Sun, 31 Jan 2021 12:00:30 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id CCFE5309DD6
+	for <lists+dm-devel@lfdr.de>; Sun, 31 Jan 2021 17:27:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1612110470;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=5NxKH9qYik9sQzUU1bw6ZzLWcjFynAR5pLndkmfd2nI=;
+	b=S1pKIRdt/GkBRJ8GmBMn0X9tJMibpuy/crxfnGr7qHl0MILhSf+bSiQBq9YDIa2vtVo10D
+	hRGe02+kkOUIKx/i09Ly65WEr0fNTZLpONmOGje0nj8KfROh4+P/huQrXhcqkD1kUQnx8y
+	jByXPlMG1Iuy9GR9pkFadsFViAxDz48=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-593-kM5jFOGWP66cSwIcyvFslg-1; Sun, 31 Jan 2021 06:00:27 -0500
-X-MC-Unique: kM5jFOGWP66cSwIcyvFslg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-526-Vc9Ed6hOMRmdR7FOGzJwxg-1; Sun, 31 Jan 2021 11:27:47 -0500
+X-MC-Unique: Vc9Ed6hOMRmdR7FOGzJwxg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1CB35802B45;
-	Sun, 31 Jan 2021 11:00:22 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 05A0510054FF;
+	Sun, 31 Jan 2021 16:27:42 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7675236FA;
-	Sun, 31 Jan 2021 11:00:21 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4BB0C10016F5;
+	Sun, 31 Jan 2021 16:27:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3BA7F180954D;
-	Sun, 31 Jan 2021 11:00:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 53A2E180954D;
+	Sun, 31 Jan 2021 16:27:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 10VB0DlY020905 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 31 Jan 2021 06:00:13 -0500
+	id 10VGR3l2025302 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 31 Jan 2021 11:27:03 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3C42F2166B2A; Sun, 31 Jan 2021 11:00:13 +0000 (UTC)
+	id B73CF60D43; Sun, 31 Jan 2021 16:27:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3691C2166B27
-	for <dm-devel@redhat.com>; Sun, 31 Jan 2021 11:00:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C946D8007DF
-	for <dm-devel@redhat.com>; Sun, 31 Jan 2021 11:00:10 +0000 (UTC)
-Received: from szxga05-in.huawei.com (szxga05-in.huawei.com
-	[45.249.212.191]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-98--NQFPOTHMtqg-uJKjDFpkw-1; Sun, 31 Jan 2021 06:00:05 -0500
-X-MC-Unique: -NQFPOTHMtqg-uJKjDFpkw-1
-Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.59])
-	by szxga05-in.huawei.com (SkyGuard) with ESMTP id 4DT7Nd1GLtzjCyt;
-	Sun, 31 Jan 2021 18:58:41 +0800 (CST)
-Received: from [10.174.178.113] (10.174.178.113) by
-	DGGEMS412-HUB.china.huawei.com (10.3.19.212) with Microsoft SMTP Server
-	id 14.3.498.0; Sun, 31 Jan 2021 18:59:48 +0800
-From: lixiaokeng <lixiaokeng@huawei.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>, Martin Wilck
-	<mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, "dm-devel
-	mailing list" <dm-devel@redhat.com>
-References: <d6652b08-2d6c-ac46-9d73-b252bc26f41a@huawei.com>
-Message-ID: <0fd8e4d1-a91e-2246-e286-0ba5b7c19128@huawei.com>
-Date: Sun, 31 Jan 2021 18:59:48 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
+Received: from localhost (unknown [10.18.25.174])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E3E1960CEF;
+	Sun, 31 Jan 2021 16:26:58 +0000 (UTC)
+Date: Sun, 31 Jan 2021 11:26:58 -0500
+From: Mike Snitzer <snitzer@redhat.com>
+To: JeffleXu <jefflexu@linux.alibaba.com>
+Message-ID: <20210131162657.GA3164@redhat.com>
+References: <20210125121340.70459-1-jefflexu@linux.alibaba.com>
+	<20210127171941.GA11530@redhat.com>
+	<2ed9966f-b390-085a-1a51-5bf65038d533@linux.alibaba.com>
 MIME-Version: 1.0
-In-Reply-To: <d6652b08-2d6c-ac46-9d73-b252bc26f41a@huawei.com>
-X-Originating-IP: [10.174.178.113]
-X-CFilter-Loop: Reflected
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+In-Reply-To: <2ed9966f-b390-085a-1a51-5bf65038d533@linux.alibaba.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-Cc: linfeilong <linfeilong@huawei.com>
-Subject: Re: [dm-devel] libmultipath: fix NULL dereference in get_be64
+Cc: Jens Axboe <axboe@kernel.dk>, joseph.qi@linux.alibaba.com,
+	dm-devel@redhat.com, linux-block@vger.kernel.org, io-uring@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH v2 0/6] dm: support IO polling for bio-based
+	dm device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,20 +71,95 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-GB
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Martin,
-  The local disks will not be a multipath device. Is it?
+On Wed, Jan 27 2021 at 10:06pm -0500,
+JeffleXu <jefflexu@linux.alibaba.com> wrote:
 
-Regards,
-Lixiaokeng
+> 
+> 
+> On 1/28/21 1:19 AM, Mike Snitzer wrote:
+> > On Mon, Jan 25 2021 at  7:13am -0500,
+> > Jeffle Xu <jefflexu@linux.alibaba.com> wrote:
+> > 
+> >> Since currently we have no simple but efficient way to implement the
+> >> bio-based IO polling in the split-bio tracking style, this patch set
+> >> turns to the original implementation mechanism that iterates and
+> >> polls all underlying hw queues in polling mode. One optimization is
+> >> introduced to mitigate the race of one hw queue among multiple polling
+> >> instances.
+> >>
+> >> I'm still open to the split bio tracking mechanism, if there's
+> >> reasonable way to implement it.
+> >>
+> >>
+> >> [Performance Test]
+> >> The performance is tested by fio (engine=io_uring) 4k randread on
+> >> dm-linear device. The dm-linear device is built upon nvme devices,
+> >> and every nvme device has one polling hw queue (nvme.poll_queues=1).
+> >>
+> >> Test Case		    | IOPS in IRQ mode | IOPS in polling mode | Diff
+> >> 			    | (hipri=0)	       | (hipri=1)	      |
+> >> --------------------------- | ---------------- | -------------------- | ----
+> >> 3 target nvme, num_jobs = 1 | 198k 	       | 276k		      | ~40%
+> >> 3 target nvme, num_jobs = 3 | 608k 	       | 705k		      | ~16%
+> >> 6 target nvme, num_jobs = 6 | 1197k 	       | 1347k		      | ~13%
+> >> 3 target nvme, num_jobs = 6 | 1285k 	       | 1293k		      | ~0%
+> >>
+> >> As the number of polling instances (num_jobs) increases, the
+> >> performance improvement decreases, though it's still positive
+> >> compared to the IRQ mode.
+> > 
+> > I think there is serious room for improvement for DM's implementation;
+> > but the block changes for this are all we'd need for DM in the longrun
+> > anyway (famous last words).
+> 
+> Agreed.
+> 
+> 
+> > So on a block interface level I'm OK with
+> > block patches 1-3.
+> > 
+> > I don't see why patch 5 is needed (said the same in reply to it; but I
+> > just saw your reason below..).
+> > 
+> > Anyway, I can pick up DM patches 4 and 6 via linux-dm.git if Jens picks
+> > up patches 1-3. Jens, what do you think?
+> 
+> cc Jens.
+> 
+> Also I will send a new version later, maybe some refactor on patch5 and
+> some typo modifications.
+
+Thinking further, there is no benefit to Jens picking up the block core
+changes until the DM changes are ready.  While I think the refactoring
+to expose the blk_poll (in patch 3) that supports blk-mq and bio-based
+is reasonable -- Christoph correctly points out there is extra branching
+that blk-mq must tolerate as implemented.  So even that needs followup
+work as suggested here:
+https://www.redhat.com/archives/dm-devel/2021-January/msg00397.html
+
+Also, your followup about oversights in the the latest bio-based DM io
+polling implementation speaks to all of this needing more time:
+https://www.redhat.com/archives/dm-devel/2021-January/msg00436.html
+
+You advocating going back to what is effectively the first RFC patchset
+you proposed (with its underwhelming bio-based polling performance)
+isn't a strong indication these changes are ready, or that we even have
+a patch forward for how to make bio-based IO polling be worthwhile.
+
+So: I retract my question to Jens about whether he'd pick up the block
+core changes (while I think those are close, the corresponding DM
+changes aren't).
+
+Mike
 
 --
 dm-devel mailing list
