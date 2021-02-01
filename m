@@ -2,68 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D245830A111
-	for <lists+dm-devel@lfdr.de>; Mon,  1 Feb 2021 06:11:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4EDD230A10C
+	for <lists+dm-devel@lfdr.de>; Mon,  1 Feb 2021 06:11:13 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-29-BiZognikP0K42GRAMjAhvw-1; Mon, 01 Feb 2021 00:11:12 -0500
-X-MC-Unique: BiZognikP0K42GRAMjAhvw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-603-BxnUXjLGNqy3KPtJxzfmcQ-1; Mon, 01 Feb 2021 00:11:10 -0500
+X-MC-Unique: BxnUXjLGNqy3KPtJxzfmcQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5AEC21009446;
-	Mon,  1 Feb 2021 05:11:06 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DC19E1009474;
+	Mon,  1 Feb 2021 05:11:03 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 08DEE70490;
-	Mon,  1 Feb 2021 05:11:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B5F7510023AE;
+	Mon,  1 Feb 2021 05:11:03 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B8B3F1809CA5;
-	Mon,  1 Feb 2021 05:11:05 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 663121809CA0;
+	Mon,  1 Feb 2021 05:11:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1115AdWv015703 for <dm-devel@listman.util.phx.redhat.com>;
+	id 1115AdOh015712 for <dm-devel@listman.util.phx.redhat.com>;
 	Mon, 1 Feb 2021 00:10:39 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id ED4A62166B2E; Mon,  1 Feb 2021 05:10:38 +0000 (UTC)
+	id 7586810031E5; Mon,  1 Feb 2021 05:10:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E69F92166B2C
-	for <dm-devel@redhat.com>; Mon,  1 Feb 2021 05:10:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7171B100321E
+	for <dm-devel@redhat.com>; Mon,  1 Feb 2021 05:10:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 531CA858EEC
-	for <dm-devel@redhat.com>; Mon,  1 Feb 2021 05:10:34 +0000 (UTC)
-Received: from mail-qk1-f201.google.com (mail-qk1-f201.google.com
-	[209.85.222.201]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-183-WQdqKdtPNJuKGY_3oNZd9A-1; Mon, 01 Feb 2021 00:10:30 -0500
-X-MC-Unique: WQdqKdtPNJuKGY_3oNZd9A-1
-Received: by mail-qk1-f201.google.com with SMTP id m64so12397747qke.12
-	for <dm-devel@redhat.com>; Sun, 31 Jan 2021 21:10:30 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 19B91858285
+	for <dm-devel@redhat.com>; Mon,  1 Feb 2021 05:10:37 +0000 (UTC)
+Received: from mail-pf1-f201.google.com (mail-pf1-f201.google.com
+	[209.85.210.201]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-254-Fs2oJEE1Mk2aZdEyhp_NyA-1; Mon, 01 Feb 2021 00:10:33 -0500
+X-MC-Unique: Fs2oJEE1Mk2aZdEyhp_NyA-1
+Received: by mail-pf1-f201.google.com with SMTP id b81so9953257pfb.21
+	for <dm-devel@redhat.com>; Sun, 31 Jan 2021 21:10:33 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:sender:date:in-reply-to:message-id:mime-version
 	:references:subject:from:to:cc;
-	bh=OYJeK0hVnx58UggyO2F28C91EjwnMSUOQRtxvIVo72M=;
-	b=HeV2iQTC7Cdl8pNkOA+kLgNQHrADC2Hwj1rUoqJZQAJV0daShjxRJ/yUWS8I3Wtu6u
-	yby4B/yMwpaqqfbEB8YsnBuaMc9u6uKtGdNybU2KgtYcJZ52D/H8FEpcGVJPNrzI9VLC
-	hLNjj7TqIqyoE4d/AFHLPr9jnJopUQMpj4b9ftWa8eT0Xhv7w7WlWAmwLxJdAm8lFgti
-	eJO5xSlgWgPQ87zvR0m207eYQAboxH937+2idyM+McbOki0O2FZ4xWZHoXqRg1c4q5cK
-	Z7monxbw3kCOiw9P39Ic00rXFUDNzLnvtcaGofAz3ULQc135WGb8PThum51EX9dJXhlb
-	E+xw==
-X-Gm-Message-State: AOAM531Jjae0v5qDaMp+hwM21Z9uF/K68C7+e3+//Nzq0G72Ns+yTGKM
-	EugPt7AAa9EQ4yGlZ9hJ7dZZQEcKKlg=
-X-Google-Smtp-Source: ABdhPJzA4ai7ItUQd6ZhrYgFG/L5lCvckpTLSTAjIG3efXljDLlJWi4+i8Dybs8vpLbTmOxvCmAX9oNJGns=
+	bh=NtNlB9U7VtjwopCe74zxMMgND8EJvn8gcUKJfUwC+lg=;
+	b=SWZ8dwzX6ttrH6rWWQ1qCD0ojXC3OGMci94yNOHZWCekeTQ/wNTaWeZqbj3bXzEany
+	WOj/POkbjc5M7vnx1ErQuDxw5nSm+O19ohTT2BCKgx6Q/c5SH/mJMmde2m4ma9sJiqLa
+	U1SsMTO98uORxfBeQocu9qhfF9dUDMxuvAMz9BGmSomCUC3Hl5rg9H65r0lckkiJeD9k
+	G1E85+pOaAd+HK5asnusrXUy46texnyNpfJRAc55LXNkfdHMt/X5tNvdOjQN8Bc/UgAc
+	PyoCEdxHXo+gfvDVkiqw9u3ypUIjbwyQfsyG9UxEqyYMU1JGQdVg+iYxVtwZq7BLRS61
+	zYUw==
+X-Gm-Message-State: AOAM533o9s1NgBMomc9LrpAas9bCCW2fhFMDf3EBxXpQx93fZlcWnQAH
+	79uZg7lTKtpD7axduK+SSgqb4t6Yhj4=
+X-Google-Smtp-Source: ABdhPJzxvkME3ikBqhi+gORlLVg6bi/eVzgjmLoiU5TdzRO9PKQxntzZ51tfnubHSQ/3i4ouCx93UQbCWS0=
 X-Received: from satyaprateek.c.googlers.com
 	([fda3:e722:ac3:10:24:72f4:c0a8:1092])
-	(user=satyat job=sendgmr) by 2002:a05:6214:48f:: with SMTP id
-	ay15mr13728404qvb.58.1612156229581;
-	Sun, 31 Jan 2021 21:10:29 -0800 (PST)
-Date: Mon,  1 Feb 2021 05:10:15 +0000
+	(user=satyat job=sendgmr) by 2002:a17:902:ee4b:b029:de:9cd1:35c8 with
+	SMTP id
+	11-20020a170902ee4bb02900de9cd135c8mr10516445plo.18.1612156231563;
+	Sun, 31 Jan 2021 21:10:31 -0800 (PST)
+Date: Mon,  1 Feb 2021 05:10:16 +0000
 In-Reply-To: <20210201051019.1174983-1-satyat@google.com>
-Message-Id: <20210201051019.1174983-2-satyat@google.com>
+Message-Id: <20210201051019.1174983-3-satyat@google.com>
 Mime-Version: 1.0
 References: <20210201051019.1174983-1-satyat@google.com>
 From: Satya Tangirala <satyat@google.com>
@@ -79,13 +80,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Mimecast-Bulk-Signature: yes
 X-Mimecast-Spam-Signature: bulk
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 Cc: Jens Axboe <axboe@kernel.dk>, Satya Tangirala <satyat@google.com>,
 	Mike Snitzer <snitzer@redhat.com>, Alasdair Kergon <agk@redhat.com>,
 	Eric Biggers <ebiggers@google.com>
-Subject: [dm-devel] [PATCH v4 1/5] block: keyslot-manager: Introduce
-	passthrough keyslot manager
+Subject: [dm-devel] [PATCH v4 2/5] block: keyslot-manager: Introduce
+ functions for device mapper support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -99,7 +100,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -107,128 +108,172 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The device mapper may map over devices that have inline encryption
-capabilities, and to make use of those capabilities, the DM device must
-itself advertise those inline encryption capabilities. One way to do this
-would be to have the DM device set up a keyslot manager with a
-"sufficiently large" number of keyslots, but that would use a lot of
-memory. Also, the DM device itself has no "keyslots", and it doesn't make
-much sense to talk about "programming a key into a DM device's keyslot
-manager", so all that extra memory used to represent those keyslots is just
-wasted. All a DM device really needs to be able to do is advertise the
-crypto capabilities of the underlying devices in a coherent manner and
-expose a way to evict keys from the underlying devices.
+Introduce blk_ksm_update_capabilities() to update the capabilities of
+a keyslot manager (ksm) in-place. The pointer to a ksm in a device's
+request queue may not be easily replaced, because upper layers like
+the filesystem might access it (e.g. for programming keys/checking
+capabilities) at the same time the device wants to replace that
+request queue's ksm (and free the old ksm's memory). This function
+allows the device to update the capabilities of the ksm in its request
+queue directly. Devices can safely update the ksm this way without any
+synchronization with upper layers *only* if the updated (new) ksm
+continues to support all the crypto capabilities that the old ksm did
+(see description below for blk_ksm_is_superset() for why this is so).
 
-There are also devices with inline encryption hardware that do not
-have a limited number of keyslots. One can send a raw encryption key along
-with a bio to these devices (as opposed to typical inline encryption
-hardware that require users to first program a raw encryption key into a
-keyslot, and send the index of that keyslot along with the bio). These
-devices also only need the same things from the keyslot manager that DM
-devices need - a way to advertise crypto capabilities and potentially a way
-to expose a function to evict keys from hardware.
-
-So we introduce a "passthrough" keyslot manager that provides a way to
-represent a keyslot manager that doesn't have just a limited number of
-keyslots, and for which do not require keys to be programmed into keyslots.
-DM devices can set up a passthrough keyslot manager in their request
-queues, and advertise appropriate crypto capabilities based on those of the
-underlying devices. Blk-crypto does not attempt to program keys into any
-keyslots in the passthrough keyslot manager. Instead, if/when the bio is
-resubmitted to the underlying device, blk-crypto will try to program the
-key into the underlying device's keyslot manager.
+Also introduce blk_ksm_is_superset() which checks whether one ksm's
+capabilities are a (not necessarily strict) superset of another ksm's.
+The blk-crypto framework requires that crypto capabilities that were
+advertised when a bio was created continue to be supported by the
+device until that bio is ended - in practice this probably means that
+a device's advertised crypto capabilities can *never* "shrink" (since
+there's no synchronization between bio creation and when a device may
+want to change its advertised capabilities) - so a previously
+advertised crypto capability must always continue to be supported.
+This function can be used to check that a new ksm is a valid
+replacement for an old ksm.
 
 Signed-off-by: Satya Tangirala <satyat@google.com>
-Reviewed-by: Eric Biggers <ebiggers@google.com>
 ---
- block/keyslot-manager.c         | 39 +++++++++++++++++++++++++++++++++
- include/linux/keyslot-manager.h |  2 ++
- 2 files changed, 41 insertions(+)
+ block/keyslot-manager.c         | 107 ++++++++++++++++++++++++++++++++
+ include/linux/keyslot-manager.h |   9 +++
+ 2 files changed, 116 insertions(+)
 
 diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
-index 86f8195d8039..ac7ce83a76e8 100644
+index ac7ce83a76e8..9f9494b80148 100644
 --- a/block/keyslot-manager.c
 +++ b/block/keyslot-manager.c
-@@ -62,6 +62,11 @@ static inline void blk_ksm_hw_exit(struct blk_keyslot_manager *ksm)
- 		pm_runtime_put_sync(ksm->dev);
- }
- 
-+static inline bool blk_ksm_is_passthrough(struct blk_keyslot_manager *ksm)
-+{
-+	return ksm->num_slots == 0;
-+}
-+
- /**
-  * blk_ksm_init() - Initialize a keyslot manager
-  * @ksm: The keyslot_manager to initialize.
-@@ -205,6 +210,10 @@ blk_status_t blk_ksm_get_slot_for_key(struct blk_keyslot_manager *ksm,
- 	int err;
- 
- 	*slot_ptr = NULL;
-+
-+	if (blk_ksm_is_passthrough(ksm))
-+		return BLK_STS_OK;
-+
- 	down_read(&ksm->lock);
- 	slot = blk_ksm_find_and_grab_keyslot(ksm, key);
- 	up_read(&ksm->lock);
-@@ -325,6 +334,16 @@ int blk_ksm_evict_key(struct blk_keyslot_manager *ksm,
- 	struct blk_ksm_keyslot *slot;
- 	int err = 0;
- 
-+	if (blk_ksm_is_passthrough(ksm)) {
-+		if (ksm->ksm_ll_ops.keyslot_evict) {
-+			blk_ksm_hw_enter(ksm);
-+			err = ksm->ksm_ll_ops.keyslot_evict(ksm, key, -1);
-+			blk_ksm_hw_exit(ksm);
-+			return err;
-+		}
-+		return 0;
-+	}
-+
- 	blk_ksm_hw_enter(ksm);
- 	slot = blk_ksm_find_keyslot(ksm, key);
- 	if (!slot)
-@@ -360,6 +379,9 @@ void blk_ksm_reprogram_all_keys(struct blk_keyslot_manager *ksm)
- {
- 	unsigned int slot;
- 
-+	if (blk_ksm_is_passthrough(ksm))
-+		return;
-+
- 	/* This is for device initialization, so don't resume the device */
- 	down_write(&ksm->lock);
- 	for (slot = 0; slot < ksm->num_slots; slot++) {
-@@ -401,3 +423,20 @@ void blk_ksm_unregister(struct request_queue *q)
- {
+@@ -424,6 +424,113 @@ void blk_ksm_unregister(struct request_queue *q)
  	q->ksm = NULL;
  }
+ 
++/**
++ * blk_ksm_intersect_modes() - restrict supported modes by child device
++ * @parent: The keyslot manager for parent device
++ * @child: The keyslot manager for child device, or NULL
++ *
++ * Clear any crypto mode support bits in @parent that aren't set in @child.
++ * If @child is NULL, then all parent bits are cleared.
++ *
++ * Only use this when setting up the keyslot manager for a layered device,
++ * before it's been exposed yet.
++ */
++void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
++			     const struct blk_keyslot_manager *child)
++{
++	if (child) {
++		unsigned int i;
++
++		parent->max_dun_bytes_supported =
++			min(parent->max_dun_bytes_supported,
++			    child->max_dun_bytes_supported);
++		for (i = 0; i < ARRAY_SIZE(child->crypto_modes_supported);
++		     i++) {
++			parent->crypto_modes_supported[i] &=
++				child->crypto_modes_supported[i];
++		}
++	} else {
++		parent->max_dun_bytes_supported = 0;
++		memset(parent->crypto_modes_supported, 0,
++		       sizeof(parent->crypto_modes_supported));
++	}
++}
++EXPORT_SYMBOL_GPL(blk_ksm_intersect_modes);
 +
 +/**
-+ * blk_ksm_init_passthrough() - Init a passthrough keyslot manager
-+ * @ksm: The keyslot manager to init
++ * blk_ksm_is_superset() - Check if a KSM supports a superset of crypto modes
++ *			   and DUN bytes that another KSM supports. Here,
++ *			   "superset" refers to the mathematical meaning of the
++ *			   word - i.e. if two KSMs have the *same* capabilities,
++ *			   they *are* considered supersets of each other.
++ * @ksm_superset: The KSM that we want to verify is a superset
++ * @ksm_subset: The KSM that we want to verify is a subset
 + *
-+ * Initialize a passthrough keyslot manager.
-+ * Called by e.g. storage drivers to set up a keyslot manager in their
-+ * request_queue, when the storage driver wants to manage its keys by itself.
-+ * This is useful for inline encryption hardware that doesn't have the concept
-+ * of keyslots, and for layered devices.
++ * Return: True if @ksm_superset supports a superset of the crypto modes and DUN
++ *	   bytes that @ksm_subset supports.
 + */
-+void blk_ksm_init_passthrough(struct blk_keyslot_manager *ksm)
++bool blk_ksm_is_superset(struct blk_keyslot_manager *ksm_superset,
++			 struct blk_keyslot_manager *ksm_subset)
 +{
-+	memset(ksm, 0, sizeof(*ksm));
-+	init_rwsem(&ksm->lock);
++	int i;
++
++	if (!ksm_subset)
++		return true;
++
++	if (!ksm_superset)
++		return false;
++
++	for (i = 0; i < ARRAY_SIZE(ksm_superset->crypto_modes_supported); i++) {
++		if (ksm_subset->crypto_modes_supported[i] &
++		    (~ksm_superset->crypto_modes_supported[i])) {
++			return false;
++		}
++	}
++
++	if (ksm_subset->max_dun_bytes_supported >
++	    ksm_superset->max_dun_bytes_supported) {
++		return false;
++	}
++
++	return true;
 +}
-+EXPORT_SYMBOL_GPL(blk_ksm_init_passthrough);
++EXPORT_SYMBOL_GPL(blk_ksm_is_superset);
++
++/**
++ * blk_ksm_update_capabilities() - Update the restrictions of a KSM to those of
++ *				   another KSM
++ * @target_ksm: The KSM whose restrictions to update.
++ * @reference_ksm: The KSM to whose restrictions this function will update
++ *		   @target_ksm's restrictions to.
++ *
++ * Blk-crypto requires that crypto capabilities that were
++ * advertised when a bio was created continue to be supported by the
++ * device until that bio is ended. This is turn means that a device cannot
++ * shrink its advertised crypto capabilities without any explicit
++ * synchronization with upper layers. So if there's no such explicit
++ * synchronization, @reference_ksm must support all the crypto capabilities that
++ * @target_ksm does
++ * (i.e. we need blk_ksm_is_superset(@reference_ksm, @target_ksm) == true).
++ *
++ * Note also that as long as the crypto capabilities are being expanded, the
++ * order of updates becoming visible is not important because it's alright
++ * for blk-crypto to see stale values - they only cause blk-crypto to
++ * believe that a crypto capability isn't supported when it actually is (which
++ * might result in blk-crypto-fallback being used if available, or the bio being
++ * failed).
++ */
++void blk_ksm_update_capabilities(struct blk_keyslot_manager *target_ksm,
++				 struct blk_keyslot_manager *reference_ksm)
++{
++	memcpy(target_ksm->crypto_modes_supported,
++	       reference_ksm->crypto_modes_supported,
++	       sizeof(target_ksm->crypto_modes_supported));
++
++	target_ksm->max_dun_bytes_supported =
++				reference_ksm->max_dun_bytes_supported;
++}
++EXPORT_SYMBOL_GPL(blk_ksm_update_capabilities);
++
+ /**
+  * blk_ksm_init_passthrough() - Init a passthrough keyslot manager
+  * @ksm: The keyslot manager to init
 diff --git a/include/linux/keyslot-manager.h b/include/linux/keyslot-manager.h
-index 18f3f5346843..323e15dd6fa7 100644
+index 323e15dd6fa7..164568f52be7 100644
 --- a/include/linux/keyslot-manager.h
 +++ b/include/linux/keyslot-manager.h
-@@ -103,4 +103,6 @@ void blk_ksm_reprogram_all_keys(struct blk_keyslot_manager *ksm);
+@@ -103,6 +103,15 @@ void blk_ksm_reprogram_all_keys(struct blk_keyslot_manager *ksm);
  
  void blk_ksm_destroy(struct blk_keyslot_manager *ksm);
  
-+void blk_ksm_init_passthrough(struct blk_keyslot_manager *ksm);
++void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
++			     const struct blk_keyslot_manager *child);
++
+ void blk_ksm_init_passthrough(struct blk_keyslot_manager *ksm);
+ 
++bool blk_ksm_is_superset(struct blk_keyslot_manager *ksm_superset,
++			 struct blk_keyslot_manager *ksm_subset);
++
++void blk_ksm_update_capabilities(struct blk_keyslot_manager *target_ksm,
++				 struct blk_keyslot_manager *reference_ksm);
 +
  #endif /* __LINUX_KEYSLOT_MANAGER_H */
 -- 
