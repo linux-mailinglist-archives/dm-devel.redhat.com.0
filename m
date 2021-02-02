@@ -1,57 +1,54 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D37BB30CDED
-	for <lists+dm-devel@lfdr.de>; Tue,  2 Feb 2021 22:28:18 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 16CA130CE1B
+	for <lists+dm-devel@lfdr.de>; Tue,  2 Feb 2021 22:42:17 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-249-_5t5L8OEOMW84uWdI-gmMw-1; Tue, 02 Feb 2021 16:28:14 -0500
-X-MC-Unique: _5t5L8OEOMW84uWdI-gmMw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-240-JHfAfV1DNTmpm8Ls4P1b8w-1; Tue, 02 Feb 2021 16:42:13 -0500
+X-MC-Unique: JHfAfV1DNTmpm8Ls4P1b8w-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0EEE1108C28E;
-	Tue,  2 Feb 2021 21:28:06 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DF18060C6B;
-	Tue,  2 Feb 2021 21:28:05 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8637B15723;
+	Tue,  2 Feb 2021 21:42:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 63CB25C5FC;
+	Tue,  2 Feb 2021 21:42:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9085950039;
-	Tue,  2 Feb 2021 21:28:05 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 63C4818095CC;
+	Tue,  2 Feb 2021 21:42:04 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 112LRoqM015477 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 2 Feb 2021 16:27:50 -0500
+	id 112Lfupt016969 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 2 Feb 2021 16:41:56 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 635691018D5A; Tue,  2 Feb 2021 21:27:50 +0000 (UTC)
+	id 4058B2026D15; Tue,  2 Feb 2021 21:41:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5F79D106567B
-	for <dm-devel@redhat.com>; Tue,  2 Feb 2021 21:27:50 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 395C92026D5D
+	for <dm-devel@redhat.com>; Tue,  2 Feb 2021 21:41:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EC806187504F
-	for <dm-devel@redhat.com>; Tue,  2 Feb 2021 21:27:49 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C3857805B7A
+	for <dm-devel@redhat.com>; Tue,  2 Feb 2021 21:41:53 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-35-z2d46C3UNbyVV9ixLxmOBA-1;
-	Tue, 02 Feb 2021 16:27:43 -0500
-X-MC-Unique: z2d46C3UNbyVV9ixLxmOBA-1
+	relay.mimecast.com with ESMTP id us-mta-566-2v-MhxcgPxuxary0sf2yrQ-1;
+	Tue, 02 Feb 2021 16:41:50 -0500
+X-MC-Unique: 2v-MhxcgPxuxary0sf2yrQ-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 99A63B0D2;
-	Tue,  2 Feb 2021 21:27:41 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id B3528AC45;
+	Tue,  2 Feb 2021 21:41:48 +0000 (UTC)
 From: mwilck@suse.com
 To: Benjamin Marzinski <bmarzins@redhat.com>,
 	Christophe Varoqui <christophe.varoqui@opensvc.com>, lixiaokeng@huawei.com
-Date: Tue,  2 Feb 2021 22:27:29 +0100
-Message-Id: <20210202212729.18442-4-mwilck@suse.com>
-In-Reply-To: <20210202212729.18442-1-mwilck@suse.com>
-References: <20210202212729.18442-1-mwilck@suse.com>
+Date: Tue,  2 Feb 2021 22:41:28 +0100
+Message-Id: <20210202214131.19901-1-mwilck@suse.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -61,13 +58,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 112LRoqM015477
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 112Lfupt016969
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 3/3] multipath -w: allow removing blacklisted
-	paths
+Subject: [dm-devel] [PATCH 0/3] Minor multipath-tools patches
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +77,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,36 +87,19 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-multipath should allow removing WWIDs of paths even if they
-are blacklisted.
+Various minor changes that resulted from recent work on lixiaokeng's
+reports, collected here for review.
 
-Signed-off-by: Martin Wilck <mwilck@suse.com>
----
- libmultipath/configure.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Martin Wilck (3):
+  multipathd: avoid crash in uevent_cleanup()
+  multipathd: ev_add_path: fail if add_map_with_path() fails
+  libmultipath: check return value of udev_device_get_devnum()
 
-diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-index 3263bb0..598efe0 100644
---- a/libmultipath/configure.c
-+++ b/libmultipath/configure.c
-@@ -1441,7 +1441,7 @@ static int _get_refwwid(enum mpath_cmds cmd, const char *dev,
- 				return ret;
- 			}
- 		}
--		if (pp->udev && pp->uid_attribute &&
-+		if (flags & DI_BLACKLIST &&
- 		    filter_property(conf, pp->udev, 3, pp->uid_attribute) > 0)
- 			return PATHINFO_SKIPPED;
- 		refwwid = pp->wwid;
-@@ -1466,7 +1466,7 @@ static int _get_refwwid(enum mpath_cmds cmd, const char *dev,
- 				refwwid = dev;
- 		}
- 
--		if (refwwid && strlen(refwwid) &&
-+		if (flags & DI_BLACKLIST && refwwid && strlen(refwwid) &&
- 		    filter_wwid(conf->blist_wwid, conf->elist_wwid, refwwid,
- 				NULL) > 0)
- 			return PATHINFO_SKIPPED;
+ libmultipath/discovery.c | 3 +++
+ libmultipath/uevent.c    | 7 ++++---
+ multipathd/main.c        | 2 +-
+ 3 files changed, 8 insertions(+), 4 deletions(-)
+
 -- 
 2.29.2
 
