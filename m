@@ -1,68 +1,59 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D29E630B954
-	for <lists+dm-devel@lfdr.de>; Tue,  2 Feb 2021 09:14:43 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 92F3230BAF5
+	for <lists+dm-devel@lfdr.de>; Tue,  2 Feb 2021 10:30:09 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-518-udgxWGK7ODCwgscT_MXkqA-1; Tue, 02 Feb 2021 03:14:41 -0500
-X-MC-Unique: udgxWGK7ODCwgscT_MXkqA-1
+ us-mta-473-qECHUzJZM46X0XIct7I2vg-1; Tue, 02 Feb 2021 04:29:15 -0500
+X-MC-Unique: qECHUzJZM46X0XIct7I2vg-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CBF12800D53;
-	Tue,  2 Feb 2021 08:14:32 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EA57662681;
-	Tue,  2 Feb 2021 08:14:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E5D14106F715;
+	Tue,  2 Feb 2021 09:29:09 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA13D6A913;
+	Tue,  2 Feb 2021 09:29:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1E38150039;
-	Tue,  2 Feb 2021 08:14:24 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0D5FE180954D;
+	Tue,  2 Feb 2021 09:29:09 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1128ECZe019568 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 2 Feb 2021 03:14:12 -0500
+	id 1129SQqf029191 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 2 Feb 2021 04:28:26 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1F525A9A0F; Tue,  2 Feb 2021 08:14:12 +0000 (UTC)
+	id 5B4F61112845; Tue,  2 Feb 2021 09:28:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 19D28A9A0D
-	for <dm-devel@redhat.com>; Tue,  2 Feb 2021 08:14:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 57D231112843
+	for <dm-devel@redhat.com>; Tue,  2 Feb 2021 09:28:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A9C73802A5B
-	for <dm-devel@redhat.com>; Tue,  2 Feb 2021 08:14:09 +0000 (UTC)
-Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-233-k89tkck6PjyTsHQtovr0hQ-1; Tue, 02 Feb 2021 03:14:05 -0500
-X-MC-Unique: k89tkck6PjyTsHQtovr0hQ-1
-Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.60])
-	by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4DVHcR3KVVzjGhs;
-	Tue,  2 Feb 2021 16:12:55 +0800 (CST)
-Received: from [10.174.178.113] (10.174.178.113) by
-	DGGEMS414-HUB.china.huawei.com (10.3.19.214) with Microsoft SMTP Server
-	id 14.3.498.0; Tue, 2 Feb 2021 16:13:51 +0800
-To: Benjamin Marzinski <bmarzins@redhat.com>, Martin Wilck <mwilck@suse.com>
-References: <d6652b08-2d6c-ac46-9d73-b252bc26f41a@huawei.com>
-	<3992c887b6b9a00c4faad17c1d381d2afb4a2e86.camel@suse.com>
-	<b9824ac2-7c64-95e0-d352-1aed99eacb12@huawei.com>
-	<035279e085cb7e4f53b00755f491103b9c92ba67.camel@suse.com>
-	<b7c44c2a-d401-36de-0384-52bd11e812f8@huawei.com>
-	<299a237e5fd558b6f54a1934f4c8aed8aaf24f24.camel@suse.com>
-	<20210202052636.GP15006@octiron.msp.redhat.com>
-From: lixiaokeng <lixiaokeng@huawei.com>
-Message-ID: <2d471f7e-82c3-f85a-c170-7d4a3fc98d65@huawei.com>
-Date: Tue, 2 Feb 2021 16:13:51 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 001B5101A565
+	for <dm-devel@redhat.com>; Tue,  2 Feb 2021 09:28:24 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-237-at9ubK3UMPSSZf5VNHJ8kw-1;
+	Tue, 02 Feb 2021 04:28:22 -0500
+X-MC-Unique: at9ubK3UMPSSZf5VNHJ8kw-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 6DAF7B049;
+	Tue,  2 Feb 2021 09:28:20 +0000 (UTC)
+Message-ID: <1497035bbd096182ed72fa313f679d483f5c6630.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Benjamin Marzinski <bmarzins@redhat.com>
+Date: Tue, 02 Feb 2021 10:28:19 +0100
+In-Reply-To: <20210202022214.GL15006@octiron.msp.redhat.com>
+References: <20210128204544.18563-1-mwilck@suse.com>
+	<20210128204544.18563-2-mwilck@suse.com>
+	<20210202022214.GL15006@octiron.msp.redhat.com>
+User-Agent: Evolution 3.38.2
 MIME-Version: 1.0
-In-Reply-To: <20210202052636.GP15006@octiron.msp.redhat.com>
-X-Originating-IP: [10.174.178.113]
-X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -71,13 +62,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1128ECZe019568
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1129SQqf029191
 X-loop: dm-devel@redhat.com
-Cc: linfeilong <linfeilong@huawei.com>,
-	dm-devel mailing list <dm-devel@redhat.com>
-Subject: Re: [dm-devel] libmultipath: fix NULL dereference in get_be64
+Cc: dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH 1/3] libmultipath: use 3rd digit as
+ transport_id for expanders
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,51 +87,64 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-GB
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
-CgpPbiAyMDIxLzIvMiAxMzoyNiwgQmVuamFtaW4gTWFyemluc2tpIHdyb3RlOgo+IFNvLCBJIHRo
-aW5rIHRoZSBtYWluIGlzc3VlIGhlcmUgaXMgdGhhdCBmaWx0ZXJfcHJvcGVydHkgYXBwZWFycyB0
-byBiZQo+IGJyb2tlbi4gIEl0IG9ubHkgZmlsdGVycyBpZiB1aWRfYXR0cmlidXRlIGlzIHNldCwg
-YnV0IHRoYXQgd2lsbCBuZXZlciBiZQo+IHNldCB0aGUgZmlyc3QgdGltZSBpdCdzIGNhbGxlZCBp
-biBwYXRoaW5mby4gIFRoaXMgbWVhbnMgdGhhdCBpdCB3aWxsCj4gcGFzcyBpbiB0aGUgcGF0aGlu
-Zm8gY2FsbCBpbiBjbGlfYWRkX3BhdGgsIGFuZCB0aGUgcGF0aCB3aWxsIGdldCBzdG9yZWQKPiBp
-biB0aGUgcGF0aHZlYy4KPiAKCiAgWWVzISBUaGUgcGF0aGluZm8gcmV0dXJucyBQQVRISU5GT19P
-SyBpbiBzdG9yZV9wYXRoaW5mbyBidXQgcmV0dXJucwpQQVRISU5GT19TS0lQUEVEIGluIGFkb3B0
-X3BhdGhzLiBJJ20gc29ycnkgZm9yIG5vdCBtZW50aW9uaW5nIGl0IGluIHRoZQpwcmV2aW91cyBl
-LW1haWxzLiBJIGp1c3QgZm9jdXMgb24gd2hlcmUgcmV0dXJuIFBBVEhJTkZPX1NLSVBQRUQgaW4g
-c2Vjb25kCnBhdGhpbmZvLgoKR2RiIHNlY29uZCBwYXRoaW5mbyBpbiBhZG9wdF9wYXRoczoKKGdk
-YikKMjEwNgkJCWlmIChoaWRkZW4gJiYgIXN0cmNtcChoaWRkZW4sICIxIikpIHsKKGdkYikKMjEw
-MwkJCWNvbnN0IGNoYXIgKmhpZGRlbiA9CihnZGIpCjIxMDYJCQlpZiAoaGlkZGVuICYmICFzdHJj
-bXAoaGlkZGVuLCAiMSIpKSB7CihnZGIpCjIxMTAJCQlpZiAoaXNfY2xhaW1lZF9ieV9mb3JlaWdu
-KHBwLT51ZGV2KSB8fAooZ2RiKQoyMTExCQkJICAgIGZpbHRlcl9wcm9wZXJ0eShjb25mLCBwcC0+
-dWRldiwgNCwgcHAtPnVpZF9hdHRyaWJ1dGUpID4gMCkKKGdkYikKMjExMAkJCWlmIChpc19jbGFp
-bWVkX2J5X2ZvcmVpZ24ocHAtPnVkZXYpIHx8CihnZGIpCjIxNDYJCQkJcmV0dXJuIFBBVEhJTkZP
-X1NLSVBQRUQ7CihnZGIpCjIyNjAJfQogIEknbSBub3Qgc3VyZSBmaWx0ZXJfcHJvcGVydHkgbWFr
-ZXMgcGF0aGluZm8gcmV0dXJuIFBBVEhJTkZPX1NLSVBQRUQgZnJvbSBnZGIuCkJlbuKAmXMgYW5h
-bHlzaXMgcmVzb2x2ZXMgbXkgZG91YnRzLgoKPiBIb3dldmVyLCBpdCB3aWxsIGZhaWwgaW4gdGhl
-IHBhdGhpbmZvIGNhbGwgZnJvbSBhZG9wdF9wYXRocywgc28gdGhlIHBhdGgKPiB3b24ndCBiZSBh
-ZGRlZCB0byB0aGUgbXVsdGlwYXRoIGRldmljZS4gIFRoaXMgbWVhbnMgYWRvcHQgcGF0aHMgZG9l
-c24ndAo+IGFjdHVhbGx5IGFkb3B0IGFueSBwYXRocyBwb3RlbnRpYWxseSwgYnV0IHRoYXQgaW4g
-aXRzZWxmIGRvZXNuJ3QgY2F1c2UKPiBpdCB0byBmYWlsLiBUaGlzIGNoZWNrCj4gCj4gICAgICAg
-ICBpZiAoYWRvcHRfcGF0aHModmVjcy0+cGF0aHZlYywgbXBwKSB8fAo+ICAgICAgICAgICAgIGZp
-bmRfc2xvdCh2ZWNzLT5wYXRodmVjLCBwcCkgPT0gLTEpCj4gICAgICAgICAgICAgICAgIGdvdG8g
-b3V0Owo+IAo+IHBhc3Nlcywgc2luY2Ugd2Ugb25seSBjaGVjayBpZiB0aGUgcGF0aCBpcyBvbiB0
-aGUgcGF0aHZlYywgbm90IHBhcnQgb2YKPiB0aGUgbXVsdGlwYXRoIGRldmljZSwgYW5kIHNpbmNl
-IGZpbHRlcl9wcm9wZXJ0eSBsZXQgdGhlIHBhdGggcGFzdCB0aGUKPiBmaXJzdCB0aW1lLCBpdCBp
-cy4gU28gYWRkX21hcF93aXRoX3BhdGgoKSB3aWxsIGNyZWF0ZSBhIG11bHRpcGF0aAo+IGRldmlj
-ZSwgYnV0IHRoZSBwYXRoIHdvbid0IGJlIGFkZGVkIHRvIGl0LCBhbmQgcHAtPm1wcCA9PSBOVUxM
-Lgo+IAo+IFNvLCBhZGRfbWFwX3dpdGhfcGF0aCgpIHNob3VsZCBwcm9iYWJseSBjaGVjayB0aGF0
-IHdlIGFjdHVhbGx5IGNyZWF0ZWQgYQo+IG1hcCB0aGF0IGluY2x1ZGVkIHRoZSBwYXRoIHRoYXQg
-Z290IGFkZGVkLiBCdXQgbW9yZSBpbXBvcnRhbnRseSwKPiBmaWx0ZXJfcHJvcGVydHkgc2hvdWxk
-bid0IHJldHVybiBkaWZmZXJlbnQgcmVzdWx0cyB0aGUgd2hlbiBpdCdzIGNhbGxlZAo+IHRoZSBm
-aXJzdCB0aW1lLiAgVGhhdCB3b3VsZCBoYXZlIGF2b2lkIHRoZSBlbnRpcmUgc2l0dWF0aW9uLgoJ
-aWYgKGFkb3B0X3BhdGhzKHZlY3MtPnBhdGh2ZWMsIG1wcCkgfHwKCSAgICBmaW5kX3Nsb3QodmVj
-cy0+cGF0aHZlYywgcHApID09IC0xIHx8CgkgICAgIXBwLT5tcHApCgkJZ290byBvdXQ7CgpUaGlz
-IGlzIGJldHRlciB0aGFuIG15IGZpcnN0IHBhdGNoIHRvIGF2b2lkIHRoaXMgcHJvYmxlbS4gSG93
-ZXZlciwgaXQKaXMgYmV5b25kIG15IGFiaWxpdHkgdG8gc2xvdmUgdGhlIHByb2JsZW0gb2YgZmls
-dGVyX3Byb3BlcnR5IHJldHVybmluZwpkaWZmZXJlbnQgdmFsdWVzLgoKUmVnYXJkcywKTGl4aWFv
-a2VuZwoKCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRw
-czovL3d3dy5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWw=
+On Mon, 2021-02-01 at 20:22 -0600, Benjamin Marzinski wrote:
+> On Thu, Jan 28, 2021 at 09:45:42PM +0100, mwilck@suse.com=A0wrote:
+> > From: Martin Wilck <mwilck@suse.com>
+> >=20
+> > On SAS expanders, node id's have 3 digits. sysfs paths look like
+> > this:
+> >=20
+> > /sys/devices/pci0000:80/0000:80:02.0/0000:8b:00.0/0000:8c:09.0/0000
+> > :8f:00.0/host9/port-9:0/expander-9:0/port-9:0:13/expander-9:1/port-
+> > 9:1:12/expander-9:2/port-9:2:4/end_device-
+> > 9:2:4/target9:0:29/9:0:29:0/block/sdac
+> >=20
+> > In that case, we should use the last digit as transport id.
+> >=20
+> > Signed-off-by: Martin Wilck <mwilck@suse.com>
+> > ---
+> > =A0libmultipath/discovery.c | 11 +++++++++--
+> > =A01 file changed, 9 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
+> > index e818585..f3ce3f8 100644
+> > --- a/libmultipath/discovery.c
+> > +++ b/libmultipath/discovery.c
+> > @@ -358,9 +358,16 @@ sysfs_get_tgt_nodename(struct path *pp, char
+> > *node)
+> > =A0=A0=A0=A0=A0=A0=A0=A0if (value) {
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0tgtdev =3D udev_device_=
+get_parent(parent);
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0while (tgtdev) {
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0c=
+har c;
+> > +
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0tgtname =3D udev_device_get_sysname(tgtdev);
+> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0i=
+f (tgtname && sscanf(tgtname, "end_device-
+> > %d:%d",
+> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &host, &tgtid) =3D=3D 2)
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0i=
+f (!tgtname)
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0continue;
+>=20
+> won't this make and endless loop if tgtname =3D=3D NULL
+
+Ouch. Thanks for spotting this.
+
+Martin
+
+
+
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
