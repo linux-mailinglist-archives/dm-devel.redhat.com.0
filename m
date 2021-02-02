@@ -2,53 +2,53 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 5142E30CE1C
-	for <lists+dm-devel@lfdr.de>; Tue,  2 Feb 2021 22:42:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id AD48F30CE1D
+	for <lists+dm-devel@lfdr.de>; Tue,  2 Feb 2021 22:42:19 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-322-rpVGE5DJPZisE-xFc2aFbw-1; Tue, 02 Feb 2021 16:42:13 -0500
-X-MC-Unique: rpVGE5DJPZisE-xFc2aFbw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-234-wwrjFUTKOEWDiBNLKODPxQ-1; Tue, 02 Feb 2021 16:42:15 -0500
+X-MC-Unique: wwrjFUTKOEWDiBNLKODPxQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 66575803624;
-	Tue,  2 Feb 2021 21:42:07 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B1FBD803F43;
+	Tue,  2 Feb 2021 21:42:09 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1109E1F46E;
-	Tue,  2 Feb 2021 21:42:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 900405F705;
+	Tue,  2 Feb 2021 21:42:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4DC1B50039;
-	Tue,  2 Feb 2021 21:42:04 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 21D255003B;
+	Tue,  2 Feb 2021 21:42:09 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 112Lfvgk016981 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 2 Feb 2021 16:41:57 -0500
+	id 112LfxrY016993 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 2 Feb 2021 16:41:59 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B82E91020445; Tue,  2 Feb 2021 21:41:57 +0000 (UTC)
+	id E069F2166B2E; Tue,  2 Feb 2021 21:41:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B45DE1031F51
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DA9CC2166B2D
 	for <dm-devel@redhat.com>; Tue,  2 Feb 2021 21:41:55 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0AD44800969
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7FEF7811760
 	for <dm-devel@redhat.com>; Tue,  2 Feb 2021 21:41:55 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-598-lekjrO1_MGCnv6DtkMk82A-1;
-	Tue, 02 Feb 2021 16:41:50 -0500
-X-MC-Unique: lekjrO1_MGCnv6DtkMk82A-1
+	relay.mimecast.com with ESMTP id us-mta-453-vc0omfgGPumF0p2dwwazKQ-1;
+	Tue, 02 Feb 2021 16:41:51 -0500
+X-MC-Unique: vc0omfgGPumF0p2dwwazKQ-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 3E8F8AD57;
+	by mx2.suse.de (Postfix) with ESMTP id 7D5F1AD78;
 	Tue,  2 Feb 2021 21:41:49 +0000 (UTC)
 From: mwilck@suse.com
 To: Benjamin Marzinski <bmarzins@redhat.com>,
 	Christophe Varoqui <christophe.varoqui@opensvc.com>, lixiaokeng@huawei.com
-Date: Tue,  2 Feb 2021 22:41:30 +0100
-Message-Id: <20210202214131.19901-3-mwilck@suse.com>
+Date: Tue,  2 Feb 2021 22:41:31 +0100
+Message-Id: <20210202214131.19901-4-mwilck@suse.com>
 In-Reply-To: <20210202214131.19901-1-mwilck@suse.com>
 References: <20210202214131.19901-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -60,13 +60,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 112Lfvgk016981
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 112LfxrY016993
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 2/3] multipathd: ev_add_path: fail if
-	add_map_with_path() fails
+Subject: [dm-devel] [PATCH 3/3] libmultipath: check return value of
+	udev_device_get_devnum()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +80,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -90,28 +90,28 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-If start_waiter was set before and the "rescan" label was used,
-we may try to set up an empty/invalid map.
-Always fail if add_map_with_path() isn't successful.
+udev_device_get_devnum() may fail, in which case it returns
+makedev(0, 0).
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipathd/main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ libmultipath/discovery.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/multipathd/main.c b/multipathd/main.c
-index 43d7768..425492a 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -1028,7 +1028,7 @@ rescan:
- 			 */
- 			start_waiter = 1;
- 		}
--		if (!start_waiter)
-+		else
- 			goto fail; /* leave path added to pathvec */
+diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
+index 921025d..15cf641 100644
+--- a/libmultipath/discovery.c
++++ b/libmultipath/discovery.c
+@@ -1659,6 +1659,9 @@ common_sysfs_pathinfo (struct path * pp)
+ 		return PATHINFO_FAILED;
  	}
+ 	devt = udev_device_get_devnum(pp->udev);
++	if (major(devt) == 0 && minor(devt) == 0)
++		return PATHINFO_FAILED;
++
+ 	snprintf(pp->dev_t, BLK_DEV_SIZE, "%d:%d", major(devt), minor(devt));
  
+ 	condlog(4, "%s: dev_t = %s", pp->dev, pp->dev_t);
 -- 
 2.29.2
 
