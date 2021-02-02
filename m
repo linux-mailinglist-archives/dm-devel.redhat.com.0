@@ -2,76 +2,71 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 00BA230BADD
-	for <lists+dm-devel@lfdr.de>; Tue,  2 Feb 2021 10:25:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 17D3530B705
+	for <lists+dm-devel@lfdr.de>; Tue,  2 Feb 2021 06:27:13 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1612243633;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=VSgsU4NB09NU5KTMDBKI4XJkALTsqZZ+wELlBOTMPSk=;
+	b=aXV8NqbIsk7SqJRoIH0fYttWvogfnrOKFoKn0JrhHZK+E/Fj2qZl7SR1rVrnTBdGfER9cI
+	OABIp+piiIJVnkcWIKwaZoXNWDnd7FFkoBF1fIGeiWw+qClFJBwTCGyI+SangS/aaNcCAl
+	lPJlHvzkeoZQlYmykubG/ch+TGh+eVo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-398-CsrFFW_kOhyomIDCBLJFUQ-1; Tue, 02 Feb 2021 04:25:27 -0500
-X-MC-Unique: CsrFFW_kOhyomIDCBLJFUQ-1
+ us-mta-364-ocqy1FCsM62JXlVORgXIYQ-1; Tue, 02 Feb 2021 00:27:11 -0500
+X-MC-Unique: ocqy1FCsM62JXlVORgXIYQ-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EBFA08145E5;
-	Tue,  2 Feb 2021 09:25:20 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BE42B10013BD;
-	Tue,  2 Feb 2021 09:25:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D3DB8802B44;
+	Tue,  2 Feb 2021 05:27:05 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8261B100164C;
+	Tue,  2 Feb 2021 05:27:03 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 78497180954D;
-	Tue,  2 Feb 2021 09:25:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7D5C450038;
+	Tue,  2 Feb 2021 05:26:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1124ehCC031233 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 1 Feb 2021 23:40:43 -0500
+	id 1125Qgpg003346 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 2 Feb 2021 00:26:42 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3110230BB0; Tue,  2 Feb 2021 04:40:43 +0000 (UTC)
+	id A3EE65E1A8; Tue,  2 Feb 2021 05:26:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 29D75946D5
-	for <dm-devel@redhat.com>; Tue,  2 Feb 2021 04:40:40 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DBB501875040
-	for <dm-devel@redhat.com>; Tue,  2 Feb 2021 04:40:40 +0000 (UTC)
-Received: from out30-54.freemail.mail.aliyun.com
-	(out30-54.freemail.mail.aliyun.com [115.124.30.54]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-484-xWllYp9_Pv-aCEAKNKK23Q-1;
-	Mon, 01 Feb 2021 23:40:38 -0500
-X-MC-Unique: xWllYp9_Pv-aCEAKNKK23Q-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R101e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357;
-	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=6; SR=0;
-	TI=SMTPD_---0UNduCZv_1612240833
-Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0UNduCZv_1612240833) by smtp.aliyun-inc.com(127.0.0.1);
-	Tue, 02 Feb 2021 12:40:33 +0800
-From: JeffleXu <jefflexu@linux.alibaba.com>
-To: snitzer@redhat.com
-References: <20210202033528.76166-1-jefflexu@linux.alibaba.com>
-Message-ID: <1b547048-24de-b64a-3e99-2c659b5a57ee@linux.alibaba.com>
-Date: Tue, 2 Feb 2021 12:40:33 +0800
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
-	Gecko/20100101 Thunderbird/78.6.1
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 72AFC5C8AD;
+	Tue,  2 Feb 2021 05:26:39 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 1125Qbwc025991; 
+	Mon, 1 Feb 2021 23:26:38 -0600
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 1125Qbdh025990;
+	Mon, 1 Feb 2021 23:26:37 -0600
+Date: Mon, 1 Feb 2021 23:26:36 -0600
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Martin Wilck <mwilck@suse.com>
+Message-ID: <20210202052636.GP15006@octiron.msp.redhat.com>
+References: <d6652b08-2d6c-ac46-9d73-b252bc26f41a@huawei.com>
+	<3992c887b6b9a00c4faad17c1d381d2afb4a2e86.camel@suse.com>
+	<b9824ac2-7c64-95e0-d352-1aed99eacb12@huawei.com>
+	<035279e085cb7e4f53b00755f491103b9c92ba67.camel@suse.com>
+	<b7c44c2a-d401-36de-0384-52bd11e812f8@huawei.com>
+	<299a237e5fd558b6f54a1934f4c8aed8aaf24f24.camel@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20210202033528.76166-1-jefflexu@linux.alibaba.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+In-Reply-To: <299a237e5fd558b6f54a1934f4c8aed8aaf24f24.camel@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Tue, 02 Feb 2021 04:24:46 -0500
-Cc: joseph.qi@linux.alibaba.com, msb@chromium.org, dm-devel@redhat.com,
-	toshi.kani@hpe.com, mbroz@redhat.com
-Subject: Re: [dm-devel] [PATCH] dm: fix iterate_device sanity check
+Cc: lixiaokeng <lixiaokeng@huawei.com>,
+	dm-devel mailing list <dm-devel@redhat.com>,
+	linfeilong <linfeilong@huawei.com>
+Subject: Re: [dm-devel] libmultipath: fix NULL dereference in get_be64
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,266 +85,122 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-dm_table_supports_dax_write_cache() is remained untouched, since I'm not
-sure if the semantics requires that 'any underlying device' or 'all
-underlying devices' supporting dax_write_cache. At least it seems that
-'any underlying device' is sufficient from the current code.
+On Mon, Feb 01, 2021 at 04:12:34PM +0100, Martin Wilck wrote:
+> On Mon, 2021-02-01 at 22:50 +0800, lixiaokeng wrote:
+> >=20
+> > > >=20
+> > > > cli_add_path
+> > > > =A0=A0 ->ev_add_path
+> > > > =A0=A0=A0=A0=A0 ->add_map_with_path
+> > > > =A0=A0=A0=A0=A0=A0=A0=A0 ->adopt_paths
+> > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->pathinfo
+> > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->filter_property
+> > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->return PATHINFO_SKIPPE=
+D,
+> > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->pp->mpp is NULL and not be set
+> > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->return 0
+> > >=20
+> > > This returns 0, but add_map_with_path() has this code to check
+> > > whether
+> > > the path passed to it was actually added to the new map:
+> > >=20
+> > > =A0=A0=A0=A0=A0=A0=A0=A0if (adopt_paths(vecs->pathvec, mpp) ||
+> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 find_slot(vecs->pathvec, pp) =3D=3D=
+ -1)
+> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0goto out;=A0 -> retur=
+n NULL
+> > >=20
+> > > So ev_add_path() should have seen a NULL return from
+> > > add_map_with_path(), should not have set start_waiter, and failed.=A0
+> > >=20
+> >=20
+> > I'm sorry for a big mistake in my stack. As the code is optimized,
+> > pathinfo
+> > return PATHINFO_SKIPPED after finish filter_property when I use gdb.
+> > It
+> > happens acctualy in:
+> > 2141=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (pp-=
+>bus =3D=3D SYSFS_BUS_SCSI &&
+> > 2142=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0 pp->sg_id.proto_id =3D=3D SCSI_PROTOCOL_USB
+> > &&
+> > 2143=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0 !conf->allow_usb_devices) {
+> > 2144=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0condlog(3, "%s: skip USB device %s",
+> > pp->dev,
+> > 2145=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pp->tgt_node_name);
+> > 2146=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0return PATHINFO_SKIPPED;
+> > 2147=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
+> > 2148=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
+> >=20
+> > Stack:
+> > cli_add_path
+> > =A0=A0 ->ev_add_path
+> > =A0=A0=A0=A0=A0 ->add_map_with_path
+> > =A0=A0=A0=A0=A0=A0=A0=A0 ->adopt_paths
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->pathinfo
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->pp->bus =3D=3D SYSFS_BUS_S=
+CSI
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->return PATHINFO_SKIPPED,
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->pp->mpp is NULL and not be set
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->return 0
+> > =A0=A0=A0=A0=A0 ->mpath_pr_event_handle
+> > =A0=A0=A0=A0=A0=A0=A0=A0 ->get_be64 //pp->mpp is dereference
+> >=20
+> > If you think my patch is ok, I will resend it.
+>=20
+> The same argument I made above still holds. "pp" wouldn't have been
+> added to mpp, and add_map_with_path() would fail and return NULL.
+> Also, if pathinfo() returns PATHINFO_SKIPPED for this device,
+> how comes that cli_add_path() called ev_add_path() for it? It should
+> have returned "blacklisted" instead.
 
-On 2/2/21 11:35 AM, Jeffle Xu wrote:
-> According to the definition of dm_iterate_devices_fn:
->  * This function must iterate through each section of device used by the
->  * target until it encounters a non-zero return code, which it then returns.
->  * Returns zero if no callout returned non-zero.
-> 
-> For some target type (e.g., dm-stripe), one call of iterate_devices() may
-> iterate multiple underlying devices internally, in which case a non-zero
-> return code returned by iterate_devices_callout_fn will stop the iteration
-> in advance.
-> 
-> Thus if we want to ensure that _all_ underlying devices support some kind of
-> attribute, the iteration structure like dm_table_supports_nowait() should be
-> used, while the input iterate_devices_callout_fn should handle the 'not
-> support' semantics. On the opposite, the iteration structure like
-> dm_table_any_device_attribute() should be used if _any_ underlying device
-> supporting this attibute is sufficient. In this case, the input
-> iterate_devices_callout_fn should handle the 'support' semantics.
-> 
-> Fixes: 545ed20e6df6 ("dm: add infrastructure for DAX support")
-> Fixes: c3c4555edd10 ("dm table: clear add_random unless all devices have it set")
-> Fixes: 4693c9668fdc ("dm table: propagate non rotational flag")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
-> ---
->  drivers/md/dm-table.c | 84 ++++++++++++++++++++++---------------------
->  drivers/md/dm.c       |  2 +-
->  drivers/md/dm.h       |  2 +-
->  3 files changed, 46 insertions(+), 42 deletions(-)
-> 
-> diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-> index 4acf2342f7ad..53dcbf75eda9 100644
-> --- a/drivers/md/dm-table.c
-> +++ b/drivers/md/dm-table.c
-> @@ -820,24 +820,24 @@ void dm_table_set_type(struct dm_table *t, enum dm_queue_mode type)
->  EXPORT_SYMBOL_GPL(dm_table_set_type);
->  
->  /* validate the dax capability of the target device span */
-> -int device_supports_dax(struct dm_target *ti, struct dm_dev *dev,
-> +int device_not_dax_capable(struct dm_target *ti, struct dm_dev *dev,
->  			sector_t start, sector_t len, void *data)
->  {
->  	int blocksize = *(int *) data, id;
->  	bool rc;
->  
->  	id = dax_read_lock();
-> -	rc = dax_supported(dev->dax_dev, dev->bdev, blocksize, start, len);
-> +	rc = !dax_supported(dev->dax_dev, dev->bdev, blocksize, start, len);
->  	dax_read_unlock(id);
->  
->  	return rc;
->  }
->  
->  /* Check devices support synchronous DAX */
-> -static int device_dax_synchronous(struct dm_target *ti, struct dm_dev *dev,
-> +static int device_not_dax_synchronous_capable(struct dm_target *ti, struct dm_dev *dev,
->  				  sector_t start, sector_t len, void *data)
->  {
-> -	return dev->dax_dev && dax_synchronous(dev->dax_dev);
-> +	return !dev->dax_dev || !dax_synchronous(dev->dax_dev);
->  }
->  
->  bool dm_table_supports_dax(struct dm_table *t,
-> @@ -854,7 +854,7 @@ bool dm_table_supports_dax(struct dm_table *t,
->  			return false;
->  
->  		if (!ti->type->iterate_devices ||
-> -		    !ti->type->iterate_devices(ti, iterate_fn, blocksize))
-> +		    ti->type->iterate_devices(ti, iterate_fn, blocksize))
->  			return false;
->  	}
->  
-> @@ -925,7 +925,7 @@ static int dm_table_determine_type(struct dm_table *t)
->  verify_bio_based:
->  		/* We must use this table as bio-based */
->  		t->type = DM_TYPE_BIO_BASED;
-> -		if (dm_table_supports_dax(t, device_supports_dax, &page_size) ||
-> +		if (dm_table_supports_dax(t, device_not_dax_capable, &page_size) ||
->  		    (list_empty(devices) && live_md_type == DM_TYPE_DAX_BIO_BASED)) {
->  			t->type = DM_TYPE_DAX_BIO_BASED;
->  		}
-> @@ -1595,12 +1595,12 @@ static int dm_table_supports_dax_write_cache(struct dm_table *t)
->  	return false;
->  }
->  
-> -static int device_is_nonrot(struct dm_target *ti, struct dm_dev *dev,
-> +static int device_is_rot(struct dm_target *ti, struct dm_dev *dev,
->  			    sector_t start, sector_t len, void *data)
->  {
->  	struct request_queue *q = bdev_get_queue(dev->bdev);
->  
-> -	return q && blk_queue_nonrot(q);
-> +	return q && !blk_queue_nonrot(q);
->  }
->  
->  static int device_is_not_random(struct dm_target *ti, struct dm_dev *dev,
-> @@ -1611,8 +1611,8 @@ static int device_is_not_random(struct dm_target *ti, struct dm_dev *dev,
->  	return q && !blk_queue_add_random(q);
->  }
->  
-> -static bool dm_table_all_devices_attribute(struct dm_table *t,
-> -					   iterate_devices_callout_fn func)
-> +static bool dm_table_any_device_attribute(struct dm_table *t,
-> +					  iterate_devices_callout_fn func)
->  {
->  	struct dm_target *ti;
->  	unsigned i;
-> @@ -1620,12 +1620,12 @@ static bool dm_table_all_devices_attribute(struct dm_table *t,
->  	for (i = 0; i < dm_table_get_num_targets(t); i++) {
->  		ti = dm_table_get_target(t, i);
->  
-> -		if (!ti->type->iterate_devices ||
-> -		    !ti->type->iterate_devices(ti, func, NULL))
-> -			return false;
-> +		if (ti->type->iterate_devices &&
-> +		    ti->type->iterate_devices(ti, func, NULL))
-> +			return true;
->  	}
->  
-> -	return true;
-> +	return false;
->  }
->  
->  static int device_not_write_same_capable(struct dm_target *ti, struct dm_dev *dev,
-> @@ -1780,26 +1780,25 @@ static int device_requires_stable_pages(struct dm_target *ti,
->  }
->  
->  /*
-> - * If any underlying device requires stable pages, a table must require
-> - * them as well.  Only targets that support iterate_devices are considered:
-> - * don't want error, zero, etc to require stable pages.
-> + * type->iterate_devices() should be called when the sanity check needs to
-> + * iterate and check all underlying data devices. iterate_devices() will
-> + * iterate all underlying data devices until it encounters a non-zero return
-> + * code, returned by whether the input iterate_devices_callout_fn, or
-> + * iterate_devices() itself internally.
-> + *
-> + * For some target type (e.g., dm-stripe), one call of iterate_devices() may
-> + * iterate multiple underlying devices internally, in which case a non-zero
-> + * return code returned by iterate_devices_callout_fn will stop the iteration
-> + * in advance.
-> + *
-> + * Thus if we want to ensure that _all_ underlying devices support some kind of
-> + * attribute, the iteration structure like dm_table_supports_nowait() should be
-> + * used, while the input iterate_devices_callout_fn should handle the 'not
-> + * support' semantics. On the opposite, the iteration structure like
-> + * dm_table_any_device_attribute() should be used if _any_ underlying device
-> + * supporting this attibute is sufficient. In this case, the input
-> + * iterate_devices_callout_fn should handle the 'support' semantics.
->   */
-> -static bool dm_table_requires_stable_pages(struct dm_table *t)
-> -{
-> -	struct dm_target *ti;
-> -	unsigned i;
-> -
-> -	for (i = 0; i < dm_table_get_num_targets(t); i++) {
-> -		ti = dm_table_get_target(t, i);
-> -
-> -		if (ti->type->iterate_devices &&
-> -		    ti->type->iterate_devices(ti, device_requires_stable_pages, NULL))
-> -			return true;
-> -	}
-> -
-> -	return false;
-> -}
-> -
->  void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
->  			       struct queue_limits *limits)
->  {
-> @@ -1837,9 +1836,9 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
->  	}
->  	blk_queue_write_cache(q, wc, fua);
->  
-> -	if (dm_table_supports_dax(t, device_supports_dax, &page_size)) {
-> +	if (dm_table_supports_dax(t, device_not_dax_capable, &page_size)) {
->  		blk_queue_flag_set(QUEUE_FLAG_DAX, q);
-> -		if (dm_table_supports_dax(t, device_dax_synchronous, NULL))
-> +		if (dm_table_supports_dax(t, device_not_dax_synchronous_capable, NULL))
->  			set_dax_synchronous(t->md->dax_dev);
->  	}
->  	else
-> @@ -1849,10 +1848,10 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
->  		dax_write_cache(t->md->dax_dev, true);
->  
->  	/* Ensure that all underlying devices are non-rotational. */
-> -	if (dm_table_all_devices_attribute(t, device_is_nonrot))
-> -		blk_queue_flag_set(QUEUE_FLAG_NONROT, q);
-> -	else
-> +	if (dm_table_any_device_attribute(t, device_is_rot))
->  		blk_queue_flag_clear(QUEUE_FLAG_NONROT, q);
-> +	else
-> +		blk_queue_flag_set(QUEUE_FLAG_NONROT, q);
->  
->  	if (!dm_table_supports_write_same(t))
->  		q->limits.max_write_same_sectors = 0;
-> @@ -1864,8 +1863,11 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
->  	/*
->  	 * Some devices don't use blk_integrity but still want stable pages
->  	 * because they do their own checksumming.
-> +	 * If any underlying device requires stable pages, a table must require
-> +	 * them as well.  Only targets that support iterate_devices are considered:
-> +	 * don't want error, zero, etc to require stable pages.
->  	 */
-> -	if (dm_table_requires_stable_pages(t))
-> +	if (dm_table_any_device_attribute(t, device_requires_stable_pages))
->  		blk_queue_flag_set(QUEUE_FLAG_STABLE_WRITES, q);
->  	else
->  		blk_queue_flag_clear(QUEUE_FLAG_STABLE_WRITES, q);
-> @@ -1876,8 +1878,10 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
->  	 * Clear QUEUE_FLAG_ADD_RANDOM if any underlying device does not
->  	 * have it set.
->  	 */
-> -	if (blk_queue_add_random(q) && dm_table_all_devices_attribute(t, device_is_not_random))
-> +	if (dm_table_any_device_attribute(t, device_is_not_random))
->  		blk_queue_flag_clear(QUEUE_FLAG_ADD_RANDOM, q);
-> +	else
-> +		blk_queue_flag_set(QUEUE_FLAG_ADD_RANDOM, q);
->  
->  	/*
->  	 * For a zoned target, the number of zones should be updated for the
-> diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-> index 7bac564f3faa..8a3d73efb9dd 100644
-> --- a/drivers/md/dm.c
-> +++ b/drivers/md/dm.c
-> @@ -1128,7 +1128,7 @@ static bool dm_dax_supported(struct dax_device *dax_dev, struct block_device *bd
->  	if (!map)
->  		goto out;
->  
-> -	ret = dm_table_supports_dax(map, device_supports_dax, &blocksize);
-> +	ret = dm_table_supports_dax(map, device_not_dax_capable, &blocksize);
->  
->  out:
->  	dm_put_live_table(md, srcu_idx);
-> diff --git a/drivers/md/dm.h b/drivers/md/dm.h
-> index fffe1e289c53..b441ad772c18 100644
-> --- a/drivers/md/dm.h
-> +++ b/drivers/md/dm.h
-> @@ -73,7 +73,7 @@ void dm_table_free_md_mempools(struct dm_table *t);
->  struct dm_md_mempools *dm_table_get_md_mempools(struct dm_table *t);
->  bool dm_table_supports_dax(struct dm_table *t, iterate_devices_callout_fn fn,
->  			   int *blocksize);
-> -int device_supports_dax(struct dm_target *ti, struct dm_dev *dev,
-> +int device_not_dax_capable(struct dm_target *ti, struct dm_dev *dev,
->  			   sector_t start, sector_t len, void *data);
->  
->  void dm_lock_md_type(struct mapped_device *md);
-> 
+So, I think the main issue here is that filter_property appears to be
+broken.  It only filters if uid_attribute is set, but that will never be
+set the first time it's called in pathinfo.  This means that it will
+pass in the pathinfo call in cli_add_path, and the path will get stored
+in the pathvec.
 
--- 
-Thanks,
-Jeffle
+However, it will fail in the pathinfo call from adopt_paths, so the path
+won't be added to the multipath device.  This means adopt paths doesn't
+actually adopt any paths potentially, but that in itself doesn't cause
+it to fail. This check
+
+        if (adopt_paths(vecs->pathvec, mpp) ||
+            find_slot(vecs->pathvec, pp) =3D=3D -1)
+                goto out;
+
+passes, since we only check if the path is on the pathvec, not part of
+the multipath device, and since filter_property let the path past the
+first time, it is. So add_map_with_path() will create a multipath
+device, but the path won't be added to it, and pp->mpp =3D=3D NULL.
+
+So, add_map_with_path() should probably check that we actually created a
+map that included the path that got added. But more importantly,
+filter_property shouldn't return different results the when it's called
+the first time.  That would have avoid the entire situation.
+
+-Ben
+
+
+> Your patch would only be effective if it was possible that
+> add_map_with_path(vecs, pp, 1) returned an mpp !=3D NULL, and at the same
+> time pp->mpp was NULL; I still don't understand how that can come to
+> pass.
+>=20
+> Have you tried my patch?
+>=20
+> Regards,
+> Martin
+>=20
+>=20
 
 --
 dm-devel mailing list
