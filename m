@@ -1,63 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D8E8E30BC84
-	for <lists+dm-devel@lfdr.de>; Tue,  2 Feb 2021 12:04:58 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 4CECD30D6B0
+	for <lists+dm-devel@lfdr.de>; Wed,  3 Feb 2021 10:51:26 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-7-sxAW8sNGOW6TztrZEvT_Vw-1; Tue, 02 Feb 2021 06:04:54 -0500
-X-MC-Unique: sxAW8sNGOW6TztrZEvT_Vw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-196-XoI6iRZrP7-4nXlUf8gOwg-1; Wed, 03 Feb 2021 04:51:23 -0500
+X-MC-Unique: XoI6iRZrP7-4nXlUf8gOwg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F1FED1DDE5;
-	Tue,  2 Feb 2021 11:04:45 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 31DE25F9D0;
-	Tue,  2 Feb 2021 11:04:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2E8791966338;
+	Wed,  3 Feb 2021 09:51:18 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D2A4D100AE2C;
+	Wed,  3 Feb 2021 09:51:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7F9E55003A;
-	Tue,  2 Feb 2021 11:04:32 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B824018095CE;
+	Wed,  3 Feb 2021 09:51:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 112B4Kpm005286 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 2 Feb 2021 06:04:20 -0500
+	id 112CmKSi019993 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 2 Feb 2021 07:48:20 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4BB618578A; Tue,  2 Feb 2021 11:04:20 +0000 (UTC)
+	id 693232166B27; Tue,  2 Feb 2021 12:48:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4532333250
-	for <dm-devel@redhat.com>; Tue,  2 Feb 2021 11:04:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 640432166B2D
+	for <dm-devel@redhat.com>; Tue,  2 Feb 2021 12:48:18 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 09578101A561
-	for <dm-devel@redhat.com>; Tue,  2 Feb 2021 11:04:18 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-233-SEflkocfN3eSYN4l42fKHQ-1;
-	Tue, 02 Feb 2021 06:04:15 -0500
-X-MC-Unique: SEflkocfN3eSYN4l42fKHQ-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 3C62FAD87;
-	Tue,  2 Feb 2021 11:04:14 +0000 (UTC)
-Message-ID: <1d43e7d308df084efb506dad59dc2faa6577361a.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Benjamin Marzinski <bmarzins@redhat.com>
-Date: Tue, 02 Feb 2021 12:04:12 +0100
-In-Reply-To: <20210202052636.GP15006@octiron.msp.redhat.com>
-References: <d6652b08-2d6c-ac46-9d73-b252bc26f41a@huawei.com>
-	<3992c887b6b9a00c4faad17c1d381d2afb4a2e86.camel@suse.com>
-	<b9824ac2-7c64-95e0-d352-1aed99eacb12@huawei.com>
-	<035279e085cb7e4f53b00755f491103b9c92ba67.camel@suse.com>
-	<b7c44c2a-d401-36de-0384-52bd11e812f8@huawei.com>
-	<299a237e5fd558b6f54a1934f4c8aed8aaf24f24.camel@suse.com>
-	<20210202052636.GP15006@octiron.msp.redhat.com>
-User-Agent: Evolution 3.38.2
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1C2F1858F0F
+	for <dm-devel@redhat.com>; Tue,  2 Feb 2021 12:48:18 +0000 (UTC)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+	by relay.mimecast.com with ESMTP id us-mta-328-nukoSFXBPw2k2Tlu5anXzg-1;
+	Tue, 02 Feb 2021 07:48:13 -0500
+X-MC-Unique: nukoSFXBPw2k2Tlu5anXzg-1
+X-IronPort-AV: E=Sophos;i="5.79,394,1602518400"; d="scan'208";a="104103944"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+	by heian.cn.fujitsu.com with ESMTP; 02 Feb 2021 20:48:06 +0800
+Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
+	by cn.fujitsu.com (Postfix) with ESMTP id C3DA44CE6D68;
+	Tue,  2 Feb 2021 20:48:02 +0800 (CST)
+Received: from irides.mr (10.167.225.141) by G08CNEXMBPEKD05.g08.fujitsu.local
+	(10.167.33.204) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+	Tue, 2 Feb 2021 20:48:03 +0800
+To: "Darrick J. Wong" <djwong@kernel.org>
+References: <20210129062757.1594130-1-ruansy.fnst@cn.fujitsu.com>
+	<20210129062757.1594130-10-ruansy.fnst@cn.fujitsu.com>
+	<20210202024147.GI7193@magnolia>
+From: Ruan Shiyang <ruansy.fnst@cn.fujitsu.com>
+Message-ID: <d9c989bc-be7d-4771-4cd8-2e4653648b4d@cn.fujitsu.com>
+Date: Tue, 2 Feb 2021 20:48:01 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+	Thunderbird/78.7.0
 MIME-Version: 1.0
+In-Reply-To: <20210202024147.GI7193@magnolia>
+X-Originating-IP: [10.167.225.141]
+X-ClientProxiedBy: G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) To
+	G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204)
+X-yoursite-MailScanner-ID: C3DA44CE6D68.AE3BA
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: ruansy.fnst@cn.fujitsu.com
+X-Spam-Status: No
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -66,14 +76,18 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 112B4Kpm005286
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: lixiaokeng <lixiaokeng@huawei.com>,
-	dm-devel mailing list <dm-devel@redhat.com>,
-	linfeilong <linfeilong@huawei.com>
-Subject: Re: [dm-devel] libmultipath: fix NULL dereference in get_be64
+X-Mailman-Approved-At: Wed, 03 Feb 2021 04:50:36 -0500
+Cc: y-goto@fujitsu.com, qi.fuli@fujitsu.com, snitzer@redhat.com,
+	linux-nvdimm@lists.01.org, rgoldwyn@suse.de,
+	darrick.wong@oracle.com, david@fromorbit.com,
+	linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
+	linux-mm@kvack.org, dm-devel@redhat.com,
+	linux-fsdevel@vger.kernel.org, dan.j.williams@intel.com,
+	hch@lst.de, agk@redhat.com
+Subject: Re: [dm-devel] [PATCH RESEND v2 09/10] xfs: Implement
+ ->corrupted_range() for XFS
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,161 +101,157 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-On Mon, 2021-02-01 at 23:26 -0600, Benjamin Marzinski wrote:
-> On Mon, Feb 01, 2021 at 04:12:34PM +0100, Martin Wilck wrote:
-> > On Mon, 2021-02-01 at 22:50 +0800, lixiaokeng wrote:
-> > >=20
-> > > > >=20
-> > > > > cli_add_path
-> > > > > =A0=A0 ->ev_add_path
-> > > > > =A0=A0=A0=A0=A0 ->add_map_with_path
-> > > > > =A0=A0=A0=A0=A0=A0=A0=A0 ->adopt_paths
-> > > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->pathinfo
-> > > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->filter_property
-> > > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->return PATHINFO_SKIP=
-PED,
-> > > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->pp->mpp is NULL and not be se=
-t
-> > > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->return 0
-> > > >=20
-> > > > This returns 0, but add_map_with_path() has this code to check
-> > > > whether
-> > > > the path passed to it was actually added to the new map:
-> > > >=20
-> > > > =A0=A0=A0=A0=A0=A0=A0=A0if (adopt_paths(vecs->pathvec, mpp) ||
-> > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 find_slot(vecs->pathvec, pp) =3D=
-=3D -1)
-> > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0goto out;=A0 -> ret=
-urn NULL
-> > > >=20
-> > > > So ev_add_path() should have seen a NULL return from
-> > > > add_map_with_path(), should not have set start_waiter, and
-> > > > failed.=A0
-> > > >=20
-> > >=20
-> > > I'm sorry for a big mistake in my stack. As the code is
-> > > optimized,
-> > > pathinfo
-> > > return PATHINFO_SKIPPED after finish filter_property when I use
-> > > gdb.
-> > > It
-> > > happens acctualy in:
-> > > 2141=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (p=
-p->bus =3D=3D SYSFS_BUS_SCSI &&
-> > > 2142=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0 pp->sg_id.proto_id =3D=3D
-> > > SCSI_PROTOCOL_USB
-> > > &&
-> > > 2143=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0 !conf->allow_usb_devices) {
-> > > 2144=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0condlog(3, "%s: skip USB device
-> > > %s",
-> > > pp->dev,
-> > > 2145=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pp->tgt_node_name);
-> > > 2146=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0return PATHINFO_SKIPPED;
-> > > 2147=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
-> > > 2148=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
-> > >=20
-> > > Stack:
-> > > cli_add_path
-> > > =A0=A0 ->ev_add_path
-> > > =A0=A0=A0=A0=A0 ->add_map_with_path
-> > > =A0=A0=A0=A0=A0=A0=A0=A0 ->adopt_paths
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->pathinfo
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->pp->bus =3D=3D SYSFS_BUS=
-_SCSI
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->return PATHINFO_SKIPPED,
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->pp->mpp is NULL and not be set
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ->return 0
-> > > =A0=A0=A0=A0=A0 ->mpath_pr_event_handle
-> > > =A0=A0=A0=A0=A0=A0=A0=A0 ->get_be64 //pp->mpp is dereference
-> > >=20
-> > > If you think my patch is ok, I will resend it.
-> >=20
-> > The same argument I made above still holds. "pp" wouldn't have been
-> > added to mpp, and add_map_with_path() would fail and return NULL.
-> > Also, if pathinfo() returns PATHINFO_SKIPPED for this device,
-> > how comes that cli_add_path() called ev_add_path() for it? It
-> > should
-> > have returned "blacklisted" instead.
->=20
-> So, I think the main issue here is that filter_property appears to be
-> broken.=A0 It only filters if uid_attribute is set, but that will never
-> be
-> set the first time it's called in pathinfo.=A0 This means that it will
-> pass in the pathinfo call in cli_add_path, and the path will get
-> stored
-> in the pathvec.
-
-I'd not say filter_property() is broken; rather, its callers.=A0
-See below.
-
-> However, it will fail in the pathinfo call from adopt_paths, so the
-> path
-> won't be added to the multipath device.=A0 This means adopt paths
-> doesn't
-> actually adopt any paths potentially, but that in itself doesn't
-> cause
-> it to fail. This check
->=20
-> =A0=A0=A0=A0=A0=A0=A0 if (adopt_paths(vecs->pathvec, mpp) ||
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 find_slot(vecs->pathvec, pp) =3D=3D -1)
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 goto out;
->=20
-> passes, since we only check if the path is on the pathvec, not part
-> of
-> the multipath device, and since filter_property let the path past the
-> first time, it is. So add_map_with_path() will create a multipath
-> device, but the path won't be added to it, and pp->mpp =3D=3D NULL.
->=20
-> So, add_map_with_path() should probably check that we actually
-> created a
-> map that included the path that got added.=A0
-
-Exactly, this is a bug. Thanks for analyzing this. I'll send a patch
-asap.
-
-> But more importantly,
-> filter_property shouldn't return different results the when it's
-> called
-> the first time.=A0 That would have avoid the entire situation.
-
-I'm not sure about this. filter_property() returning different results
-depending on the initialization state of the path is irritating, sure.
-Yet it makes certain sense that once the information about a path
-object is more complete, the decision whether or not it should be
-blacklisted might change. The only way to avoid that is to provide the
-necessary information in the first place.
-
-IMO the only reasonable way to amend this is to call select_getuid()
-before filter_property(). I'll send a patch for that, too.
-Determination of getuid/uid_attribute isn't expensive; the only reason
-why we've been doing it "lazily" is legacy, AFAICS.
-
-Note: We bump into a deep design issue with multipath-tools here, the
-fact that path and multipath properties depend on each other in complex
-ways, but these dependencies are hidden deeply in the code and need to
-be explicitly memorized by us developers when we work on the code,
-which is error-prone. Unfortunately, I see no easy way out of this.
-
-Regards
-Martin
-
-
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+CgpPbiAyMDIxLzIvMiDkuIrljYgxMDo0MSwgRGFycmljayBKLiBXb25nIHdyb3RlOgo+IE9uIEZy
+aSwgSmFuIDI5LCAyMDIxIGF0IDAyOjI3OjU2UE0gKzA4MDAsIFNoaXlhbmcgUnVhbiB3cm90ZToK
+Pj4gVGhpcyBmdW5jdGlvbiBpcyB1c2VkIHRvIGhhbmRsZSBlcnJvcnMgd2hpY2ggbWF5IGNhdXNl
+IGRhdGEgbG9zdCBpbgo+PiBmaWxlc3lzdGVtLiAgU3VjaCBhcyBtZW1vcnkgZmFpbHVyZSBpbiBm
+c2RheCBtb2RlLgo+Pgo+PiBJbiBYRlMsIGl0IHJlcXVpcmVzICJybWFwYnQiIGZlYXR1cmUgaW4g
+b3JkZXIgdG8gcXVlcnkgZm9yIGZpbGVzIG9yCj4+IG1ldGFkYXRhIHdoaWNoIGFzc29jaWF0ZWQg
+dG8gdGhlIGNvcnJ1cHRlZCBkYXRhLiAgVGhlbiB3ZSBjb3VsZCBjYWxsIGZzCj4+IHJlY292ZXIg
+ZnVuY3Rpb25zIHRvIHRyeSB0byByZXBhaXIgdGhlIGNvcnJ1cHRlZCBkYXRhLihkaWQgbm90Cj4+
+IGltcGxlbWVudGVkIGluIHRoaXMgcGF0Y2hzZXQpCj4gCj4gSSB3b3VsZCBzdWdnZXN0Ogo+ICJJ
+ZiB0aGUgcm1hcCBmZWF0dXJlIG9mIFhGUyBlbmFibGVkLCB3ZSBjYW4gcXVlcnkgaXQgdG8gZmlu
+ZCBmaWxlcyBhbmQKPiBtZXRhZGF0YSB3aGljaCBhcmUgYXNzb2NpYXRlZCB3aXRoIHRoZSBjb3Jy
+dXB0IGRhdGEuICBGb3Igbm93IGFsbCB3ZSBkbwo+IGlzIGtpbGwgcHJvY2Vzc2VzIHdpdGggdGhh
+dCBmaWxlIG1hcHBlZCBpbnRvIHRoZWlyIGFkZHJlc3Mgc3BhY2VzLCBidXQKPiBmdXR1cmUgcGF0
+Y2hlcyBjb3VsZCBhY3R1YWxseSBkbyBzb21ldGhpbmcgYWJvdXQgY29ycnVwdCBtZXRhZGF0YS4i
+Cj4gCgpZZXMsIHRoaXMgaXMgYmV0dGVyLgoKPj4gQWZ0ZXIgdGhhdCwgdGhlIG1lbW9yeSBmYWls
+dXJlIGFsc28gbmVlZHMgdG8gbm90aWZ5IHRoZSBwcm9jZXNzZXMgd2hvCj4+IGFyZSB1c2luZyB0
+aG9zZSBmaWxlcy4KPj4KPj4gT25seSBzdXBwb3J0IGRhdGEgZGV2aWNlLiAgUmVhbHRpbWUgZGV2
+aWNlIGlzIG5vdCBzdXBwb3J0ZWQgZm9yIG5vdy4KPj4KPj4gU2lnbmVkLW9mZi1ieTogU2hpeWFu
+ZyBSdWFuIDxydWFuc3kuZm5zdEBjbi5mdWppdHN1LmNvbT4KPj4gLS0tCj4+ICAgZnMveGZzL3hm
+c19mc29wcy5jIHwgICA1ICsrKwo+PiAgIGZzL3hmcy94ZnNfbW91bnQuaCB8ICAgMSArCj4+ICAg
+ZnMveGZzL3hmc19zdXBlci5jIHwgMTA5ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKwo+PiAgIDMgZmlsZXMgY2hhbmdlZCwgMTE1IGluc2VydGlvbnMoKykKPj4K
+Pj4gZGlmZiAtLWdpdCBhL2ZzL3hmcy94ZnNfZnNvcHMuYyBiL2ZzL3hmcy94ZnNfZnNvcHMuYwo+
+PiBpbmRleCA5NTljZTkxYTM3NTUuLmYwMzkwMWE1YzY3MyAxMDA2NDQKPj4gLS0tIGEvZnMveGZz
+L3hmc19mc29wcy5jCj4+ICsrKyBiL2ZzL3hmcy94ZnNfZnNvcHMuYwo+PiBAQCAtNDk4LDYgKzQ5
+OCwxMSBAQCB4ZnNfZG9fZm9yY2Vfc2h1dGRvd24oCj4+ICAgIkNvcnJ1cHRpb24gb2YgaW4tbWVt
+b3J5IGRhdGEgZGV0ZWN0ZWQuICBTaHV0dGluZyBkb3duIGZpbGVzeXN0ZW0iKTsKPj4gICAJCWlm
+IChYRlNfRVJSTEVWRUxfSElHSCA8PSB4ZnNfZXJyb3JfbGV2ZWwpCj4+ICAgCQkJeGZzX3N0YWNr
+X3RyYWNlKCk7Cj4+ICsJfSBlbHNlIGlmIChmbGFncyAmIFNIVVRET1dOX0NPUlJVUFRfTUVUQSkg
+ewo+PiArCQl4ZnNfYWxlcnRfdGFnKG1wLCBYRlNfUFRBR19TSFVURE9XTl9DT1JSVVBULAo+PiAr
+IkNvcnJ1cHRpb24gb2Ygb24tZGlzayBtZXRhZGF0YSBkZXRlY3RlZC4gIFNodXR0aW5nIGRvd24g
+ZmlsZXN5c3RlbSIpOwo+PiArCQlpZiAoWEZTX0VSUkxFVkVMX0hJR0ggPD0geGZzX2Vycm9yX2xl
+dmVsKQo+PiArCQkJeGZzX3N0YWNrX3RyYWNlKCk7Cj4+ICAgCX0gZWxzZSBpZiAobG9nZXJyb3Ip
+IHsKPj4gICAJCXhmc19hbGVydF90YWcobXAsIFhGU19QVEFHX1NIVVRET1dOX0xPR0VSUk9SLAo+
+PiAgIAkJCSJMb2cgSS9PIEVycm9yIERldGVjdGVkLiBTaHV0dGluZyBkb3duIGZpbGVzeXN0ZW0i
+KTsKPj4gZGlmZiAtLWdpdCBhL2ZzL3hmcy94ZnNfbW91bnQuaCBiL2ZzL3hmcy94ZnNfbW91bnQu
+aAo+PiBpbmRleCBkZmE0MjliNzdlZTIuLjhmMGRmNjdmZmNjMSAxMDA2NDQKPj4gLS0tIGEvZnMv
+eGZzL3hmc19tb3VudC5oCj4+ICsrKyBiL2ZzL3hmcy94ZnNfbW91bnQuaAo+PiBAQCAtMjc0LDYg
+KzI3NCw3IEBAIHZvaWQgeGZzX2RvX2ZvcmNlX3NodXRkb3duKHN0cnVjdCB4ZnNfbW91bnQgKm1w
+LCBpbnQgZmxhZ3MsIGNoYXIgKmZuYW1lLAo+PiAgICNkZWZpbmUgU0hVVERPV05fTE9HX0lPX0VS
+Uk9SCTB4MDAwMgkvKiB3cml0ZSBhdHRlbXB0IHRvIHRoZSBsb2cgZmFpbGVkICovCj4+ICAgI2Rl
+ZmluZSBTSFVURE9XTl9GT1JDRV9VTU9VTlQJMHgwMDA0CS8qIHNodXRkb3duIGZyb20gYSBmb3Jj
+ZWQgdW5tb3VudCAqLwo+PiAgICNkZWZpbmUgU0hVVERPV05fQ09SUlVQVF9JTkNPUkUJMHgwMDA4
+CS8qIGNvcnJ1cHQgaW4tbWVtb3J5IGRhdGEgc3RydWN0dXJlcyAqLwo+PiArI2RlZmluZSBTSFVU
+RE9XTl9DT1JSVVBUX01FVEEJMHgwMDEwICAvKiBjb3JydXB0IG1ldGFkYXRhIG9uIGRldmljZSAq
+Lwo+PiAgIAo+PiAgIC8qCj4+ICAgICogRmxhZ3MgZm9yIHhmc19tb3VudGZzCj4+IGRpZmYgLS1n
+aXQgYS9mcy94ZnMveGZzX3N1cGVyLmMgYi9mcy94ZnMveGZzX3N1cGVyLmMKPj4gaW5kZXggODEz
+YmU4NzlhNWU1Li45MzA5M2ZlMGVlOGEgMTAwNjQ0Cj4+IC0tLSBhL2ZzL3hmcy94ZnNfc3VwZXIu
+Ywo+PiArKysgYi9mcy94ZnMveGZzX3N1cGVyLmMKPj4gQEAgLTM1LDYgKzM1LDExIEBACj4+ICAg
+I2luY2x1ZGUgInhmc19yZWZjb3VudF9pdGVtLmgiCj4+ICAgI2luY2x1ZGUgInhmc19ibWFwX2l0
+ZW0uaCIKPj4gICAjaW5jbHVkZSAieGZzX3JlZmxpbmsuaCIKPj4gKyNpbmNsdWRlICJ4ZnNfYWxs
+b2MuaCIKPj4gKyNpbmNsdWRlICJ4ZnNfcm1hcC5oIgo+PiArI2luY2x1ZGUgInhmc19ybWFwX2J0
+cmVlLmgiCj4+ICsjaW5jbHVkZSAieGZzX3J0YWxsb2MuaCIKPj4gKyNpbmNsdWRlICJ4ZnNfYml0
+LmgiCj4+ICAgCj4+ICAgI2luY2x1ZGUgPGxpbnV4L21hZ2ljLmg+Cj4+ICAgI2luY2x1ZGUgPGxp
+bnV4L2ZzX2NvbnRleHQuaD4KPj4gQEAgLTExMDUsNiArMTExMCwxMDkgQEAgeGZzX2ZzX2ZyZWVf
+Y2FjaGVkX29iamVjdHMoCj4+ICAgCXJldHVybiB4ZnNfcmVjbGFpbV9pbm9kZXNfbnIoWEZTX00o
+c2IpLCBzYy0+bnJfdG9fc2Nhbik7Cj4+ICAgfQo+PiAgIAo+PiArc3RhdGljIGludAo+PiAreGZz
+X2NvcnJ1cHRfaGVscGVyKAo+PiArCXN0cnVjdCB4ZnNfYnRyZWVfY3VyCQkqY3VyLAo+PiArCXN0
+cnVjdCB4ZnNfcm1hcF9pcmVjCQkqcmVjLAo+PiArCXZvaWQJCQkJKmRhdGEpCj4+ICt7Cj4+ICsJ
+c3RydWN0IHhmc19pbm9kZQkJKmlwOwo+PiArCXN0cnVjdCBhZGRyZXNzX3NwYWNlCQkqbWFwcGlu
+ZzsKPj4gKwlpbnQJCQkJcmMgPSAwOwo+PiArCWludAkJCQkqZmxhZ3MgPSBkYXRhOwo+PiArCj4+
+ICsJaWYgKFhGU19STUFQX05PTl9JTk9ERV9PV05FUihyZWMtPnJtX293bmVyKSB8fAo+PiArCSAg
+ICAocmVjLT5ybV9mbGFncyAmIChYRlNfUk1BUF9BVFRSX0ZPUksgfCBYRlNfUk1BUF9CTUJUX0JM
+T0NLKSkpIHsKPj4gKwkJLy8gVE9ETyBjaGVjayBhbmQgdHJ5IHRvIGZpeCBtZXRhZGF0YQo+PiAr
+CQlyYyA9IC1FRlNDT1JSVVBURUQ7Cj4gCj4gVGhlIHhmc19mb3JjZV9zaHV0ZG93bigpIGNhbGwg
+c2hvdWxkIGdvIGhlcmUsIHNpbmNlIFNIVVRET1dOX0NPUlJVUFRfTUVUQQo+IGlzIHNwZWNpZmlj
+IHRvIHRoaXMgY2FzZS4KCk9LLgo+IAo+IEkgZ3Vlc3Mgb25lIGNvdWxkIGFsc28gZGlnIHRocm91
+Z2ggdGhlIGJ1ZmZlciBjYWNoZSBhbmQgZGVsd3JpX3N1Ym1pdAo+IHRob3NlIGJ1ZmZlcnMgb3Ig
+c29tZXRoaW5nLgo+IAo+PiArCX0gZWxzZSB7Cj4+ICsJCS8qCj4+ICsJCSAqIEdldCBmaWxlcyB0
+aGF0IGluY29yZSwgZmlsdGVyIG91dCBvdGhlcnMgdGhhdCBhcmUgbm90IGluIHVzZS4KPj4gKwkJ
+ICovCj4+ICsJCXJjID0geGZzX2lnZXQoY3VyLT5iY19tcCwgY3VyLT5iY190cCwgcmVjLT5ybV9v
+d25lciwKPj4gKwkJCSAgICAgIFhGU19JR0VUX0lOQ09SRSwgMCwgJmlwKTsKPj4gKwkJaWYgKHJj
+IHx8ICFpcCkKPj4gKwkJCXJldHVybiByYzsKPj4gKwkJaWYgKCFWRlNfSShpcCktPmlfbWFwcGlu
+ZykKPj4gKwkJCWdvdG8gb3V0Owo+PiArCj4+ICsJCW1hcHBpbmcgPSBWRlNfSShpcCktPmlfbWFw
+cGluZzsKPj4gKwkJaWYgKElTX0RBWChWRlNfSShpcCkpKQo+PiArCQkJcmMgPSBtZl9kYXhfbWFw
+cGluZ19raWxsX3Byb2NzKG1hcHBpbmcsIHJlYy0+cm1fb2Zmc2V0LAo+PiArCQkJCQkJICAgICAg
+ICpmbGFncyk7Cj4+ICsJCWVsc2UKPj4gKwkJCW1hcHBpbmdfc2V0X2Vycm9yKG1hcHBpbmcsIC1F
+SU8pOwo+PiArCj4+ICsJCS8vIFRPRE8gdHJ5IHRvIGZpeCBkYXRhCj4gCj4gV2hhdCBjb3VsZCB3
+ZSBkbyB0byBmaXggdGhlIGRhdGE/ICBJZiB3ZSdyZSBub3QgaW4gU19EQVggbW9kZSBhbmQKPiB0
+aGVyZSdzIGFjdHVhbGx5IHBhZ2VjYWNoZSBtYXBwZWQgaW4sIGRvZXMgdGhhdCBpbXBseSB0aGF0
+IHdlIGNvdWxkCj4gbWFyayBpdCBkaXJ0eSBhbmQga2ljayBvZmYgZGlydHkgcGFnZWNhY2hlIHdy
+aXRlYmFjaz8KCkJ1dCBpbiB0aGlzIGNhc2UsIHRoZSBkYXggcGFnZSBpcyBhbHJlYWR5IGJyb2tl
+biwgaXQgc2VlbXMgdGhhdCBwYWdlIApjYWNoZSBzaG91bGQgbm90IGJlIHdyaXR0ZW4gYmFjayB0
+byB0aGUgb3JpZ2luIGRheCBwYWdlLiAgSSB0aGluayAKYW5vdGhlciBkYXggcGFnZSBuZWVkIHRv
+IGJlIGFsbG9jYXRlIGZvciB0aGUgd3JpdGViYWNrLgoKPiAKPj4gK291dDoKPj4gKwkJeGZzX2ly
+ZWxlKGlwKTsKPj4gKwl9Cj4+ICsKPj4gKwlyZXR1cm4gcmM7Cj4+ICt9Cj4+ICsKPj4gK3N0YXRp
+YyBpbnQKPj4gK3hmc19mc19jb3JydXB0ZWRfcmFuZ2UoCj4+ICsJc3RydWN0IHN1cGVyX2Jsb2Nr
+CSpzYiwKPj4gKwlzdHJ1Y3QgYmxvY2tfZGV2aWNlCSpiZGV2LAo+PiArCWxvZmZfdAkJCW9mZnNl
+dCwKPj4gKwlzaXplX3QJCQlsZW4sCj4+ICsJdm9pZAkJCSpkYXRhKQo+PiArewo+PiArCXN0cnVj
+dCB4ZnNfbW91bnQJKm1wID0gWEZTX00oc2IpOwo+PiArCXN0cnVjdCB4ZnNfdHJhbnMJKnRwID0g
+TlVMTDsKPj4gKwlzdHJ1Y3QgeGZzX2J0cmVlX2N1cgkqY3VyID0gTlVMTDsKPj4gKwlzdHJ1Y3Qg
+eGZzX3JtYXBfaXJlYwlybWFwX2xvdywgcm1hcF9oaWdoOwo+PiArCXN0cnVjdCB4ZnNfYnVmCQkq
+YWdmX2JwID0gTlVMTDsKPj4gKwl4ZnNfZnNibG9ja190CQlmc2JubyA9IFhGU19CX1RPX0ZTQiht
+cCwgb2Zmc2V0KTsKPj4gKwl4ZnNfZmlsYmxrc190CQliY250ID0gWEZTX0JfVE9fRlNCKG1wLCBs
+ZW4pOwo+PiArCXhmc19hZ251bWJlcl90CQlhZ25vID0gWEZTX0ZTQl9UT19BR05PKG1wLCBmc2Ju
+byk7Cj4+ICsJeGZzX2FnYmxvY2tfdAkJYWdibm8gPSBYRlNfRlNCX1RPX0FHQk5PKG1wLCBmc2Ju
+byk7Cj4+ICsJaW50CQkJZXJyb3IgPSAwOwo+PiArCj4+ICsJaWYgKG1wLT5tX3J0ZGV2X3Rhcmdw
+ICYmIG1wLT5tX3J0ZGV2X3RhcmdwLT5idF9iZGV2ID09IGJkZXYpIHsKPj4gKwkJeGZzX3dhcm4o
+bXAsICJjb3JydXB0ZWRfcmFuZ2Ugc3VwcG9ydCBub3QgYXZhaWxhYmxlIGZvciByZWFsdGltZSBk
+ZXZpY2UhIik7Cj4+ICsJCXJldHVybiAwOwo+PiArCX0KPj4gKwlpZiAobXAtPm1fbG9nZGV2X3Rh
+cmdwICYmIG1wLT5tX2xvZ2Rldl90YXJncC0+YnRfYmRldiA9PSBiZGV2ICYmCj4+ICsJICAgIG1w
+LT5tX2xvZ2Rldl90YXJncCAhPSBtcC0+bV9kZGV2X3RhcmdwKSB7Cj4+ICsJCXhmc19lcnIobXAs
+ICJvbmRpc2sgbG9nIGNvcnJ1cHQsIHNodXR0aW5nIGRvd24gZnMhIik7Cj4+ICsJCXhmc19mb3Jj
+ZV9zaHV0ZG93bihtcCwgU0hVVERPV05fQ09SUlVQVF9NRVRBKTsKPiAKPiBMb25nZXIgdGVybSBx
+dWVzdGlvbiBmb3IgdGhlIHJlc3Qgb2YgdGhlIHhmcyBjb21tdW5pdHk6IENhbiB3ZSBkbyBiZXR0
+ZXIKPiB0aGFuIHRoaXM/ICBJZiB0aGUgYWlsIGhhcyBjaGVja3BvaW50ZWQgcGFzdCB0aGlzIHBh
+cnQgb2YgdGhlIGxvZyB0aGVuCj4gd2UgY291bGQganVzdCB3cml0ZSB6ZXJvZXMgaW50byBkZWFk
+IGFyZWEsIHJpZ2h0Pwo+IAo+IEFsc28sIGlmIG9uZSBvZiB0aGUgbG9nIGJ1ZmZlcnMgcG9pbnRz
+IHRvIGEgZGVhZCBsb2cgYXJlYSBhbmQgaXNuJ3QgdGhlCj4gb25lIHRoYXQncyBjdXJyZW50bHkg
+YmVpbmcgd3JpdHRlbiBpbnRvLCBjYW4gd2UganVzdCBzdWJtaXRfYmlvIGl0IHRvCj4gcmV3cml0
+ZSB0aGUgbG9zdCBwYXJ0IG9mIHRoZSBsb2c/PwoKWWVzLCBXZSBzaG91bGQgYWxzbyBmaXggdGhl
+IGxvZyByYXRoZXIgdGhhbiBzaHV0ZG93biBpdCBkaXJlY3RseS4gIEkgCndpbGwgdGFrZSB0aGF0
+IGludG8gY29uc2lkZXJhdGlvbiBpbiBmdXR1cmUgcGF0Y2hlcy4KCj4gCj4+ICsJCXJldHVybiAw
+Owo+PiArCX0KPj4gKwo+PiArCWlmICgheGZzX3NiX3ZlcnNpb25faGFzcm1hcGJ0KCZtcC0+bV9z
+YikpIHsKPj4gKwkJeGZzX3dhcm4obXAsICJjb3JydXB0ZWRfcmFuZ2UgbmVlZHMgcm1hcGJ0IGVu
+YWJsZWQhIik7Cj4+ICsJCXJldHVybiAwOwo+PiArCX0KPj4gKwo+PiArCWVycm9yID0geGZzX3Ry
+YW5zX2FsbG9jX2VtcHR5KG1wLCAmdHApOwo+PiArCWlmIChlcnJvcikKPj4gKwkJcmV0dXJuIGVy
+cm9yOwo+PiArCj4+ICsJZXJyb3IgPSB4ZnNfYWxsb2NfcmVhZF9hZ2YobXAsIHRwLCBhZ25vLCAw
+LCAmYWdmX2JwKTsKPj4gKwlpZiAoZXJyb3IpCj4+ICsJCWdvdG8gb3V0X2NhbmNlbF90cDsKPj4g
+Kwo+PiArCWN1ciA9IHhmc19ybWFwYnRfaW5pdF9jdXJzb3IobXAsIHRwLCBhZ2ZfYnAsIGFnbm8p
+Owo+PiArCj4+ICsJLyogQ29uc3RydWN0IGEgcmFuZ2UgZm9yIHJtYXAgcXVlcnkgKi8KPj4gKwlt
+ZW1zZXQoJnJtYXBfbG93LCAwLCBzaXplb2Yocm1hcF9sb3cpKTsKPj4gKwltZW1zZXQoJnJtYXBf
+aGlnaCwgMHhGRiwgc2l6ZW9mKHJtYXBfaGlnaCkpOwo+PiArCXJtYXBfbG93LnJtX3N0YXJ0Ymxv
+Y2sgPSBybWFwX2hpZ2gucm1fc3RhcnRibG9jayA9IGFnYm5vOwo+PiArCXJtYXBfbG93LnJtX2Js
+b2NrY291bnQgPSBybWFwX2hpZ2gucm1fYmxvY2tjb3VudCA9IGJjbnQ7Cj4+ICsKPj4gKwllcnJv
+ciA9IHhmc19ybWFwX3F1ZXJ5X3JhbmdlKGN1ciwgJnJtYXBfbG93LCAmcm1hcF9oaWdoLCB4ZnNf
+Y29ycnVwdF9oZWxwZXIsIGRhdGEpOwo+IAo+IExvbmcgbGluZSBoZXJlLi4uCj4gCj4+ICsJaWYg
+KGVycm9yID09IC1FRlNDT1JSVVBURUQpCj4+ICsJCXhmc19mb3JjZV9zaHV0ZG93bihtcCwgU0hV
+VERPV05fQ09SUlVQVF9NRVRBKTsKPiAKPiBUaGlzIHNob3VsZCBnbyBpbiB4ZnNfY29ycnVwdF9o
+ZWxwZXIgYXMgSSBtZW50aW9uZWQgYWJvdmUuCgpPSy4KCgotLQpUaGFua3MsClJ1YW4gU2hpeWFu
+Zy4KPiAKPiAtLUQKPiAKPj4gKwo+PiArCXhmc19idHJlZV9kZWxfY3Vyc29yKGN1ciwgZXJyb3Ip
+Owo+PiArCXhmc190cmFuc19icmVsc2UodHAsIGFnZl9icCk7Cj4+ICtvdXRfY2FuY2VsX3RwOgo+
+PiArCXhmc190cmFuc19jYW5jZWwodHApOwo+PiArCXJldHVybiBlcnJvcjsKPj4gK30KPj4gKwo+
+PiAgIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc3VwZXJfb3BlcmF0aW9ucyB4ZnNfc3VwZXJfb3BlcmF0
+aW9ucyA9IHsKPj4gICAJLmFsbG9jX2lub2RlCQk9IHhmc19mc19hbGxvY19pbm9kZSwKPj4gICAJ
+LmRlc3Ryb3lfaW5vZGUJCT0geGZzX2ZzX2Rlc3Ryb3lfaW5vZGUsCj4+IEBAIC0xMTE4LDYgKzEy
+MjYsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHN1cGVyX29wZXJhdGlvbnMgeGZzX3N1cGVyX29w
+ZXJhdGlvbnMgPSB7Cj4+ICAgCS5zaG93X29wdGlvbnMJCT0geGZzX2ZzX3Nob3dfb3B0aW9ucywK
+Pj4gICAJLm5yX2NhY2hlZF9vYmplY3RzCT0geGZzX2ZzX25yX2NhY2hlZF9vYmplY3RzLAo+PiAg
+IAkuZnJlZV9jYWNoZWRfb2JqZWN0cwk9IHhmc19mc19mcmVlX2NhY2hlZF9vYmplY3RzLAo+PiAr
+CS5jb3JydXB0ZWRfcmFuZ2UJPSB4ZnNfZnNfY29ycnVwdGVkX3JhbmdlLAo+PiAgIH07Cj4+ICAg
+Cj4+ICAgc3RhdGljIGludAo+PiAtLSAKPj4gMi4zMC4wCj4+Cj4+Cj4+Cj4gCj4gCgoKLS0KZG0t
+ZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly93d3cucmVkaGF0
+LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
 
