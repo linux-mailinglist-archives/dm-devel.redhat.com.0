@@ -1,58 +1,84 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id DFA5630EF63
-	for <lists+dm-devel@lfdr.de>; Thu,  4 Feb 2021 10:16:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1612430163;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=8xDSOOJPEfBGhTFuwdNhxsltE22hoNMsws9EMfZmO20=;
-	b=Mn1nuzLWRbHFCcmTWpcAcbtSfKgq+qpbH/YUn0Lt4f75QfrZqf0avTd8j2SI67FLZHV/Nc
-	H7A47iy+kJGYfu2L3rHPocHdfTHKwYP9LJiVnqKHWeJJwNS+djMHLCvh/yqZvaKQWjSuc0
-	JaMn3+UaeRgC3jS5dwRJcgbrK9rOSkg=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 4431430EF5C
+	for <lists+dm-devel@lfdr.de>; Thu,  4 Feb 2021 10:15:11 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-562-6qt93NUYNGWSYVE5lMMLgA-1; Thu, 04 Feb 2021 04:15:04 -0500
-X-MC-Unique: 6qt93NUYNGWSYVE5lMMLgA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-562-5idsqqv0O0yFPbb32tVltg-1; Thu, 04 Feb 2021 04:15:04 -0500
+X-MC-Unique: 5idsqqv0O0yFPbb32tVltg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A3FB0192D787;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B09DD801964;
 	Thu,  4 Feb 2021 09:14:58 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 55B315B6AA;
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5566371C9C;
 	Thu,  4 Feb 2021 09:14:58 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 95B6B4EE76;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 95C3F18095CD;
 	Thu,  4 Feb 2021 09:14:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 113J5aCM001915 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 3 Feb 2021 14:05:36 -0500
+	id 113MgExF028625 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 3 Feb 2021 17:42:14 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 11904779F4; Wed,  3 Feb 2021 19:05:36 +0000 (UTC)
+	id 01B4FAE7A6; Wed,  3 Feb 2021 22:42:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from treble (ovpn-120-118.rdu2.redhat.com [10.10.120.118])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 61D86709A9;
-	Wed,  3 Feb 2021 19:05:21 +0000 (UTC)
-Date: Wed, 3 Feb 2021 13:05:18 -0600
-From: Josh Poimboeuf <jpoimboe@redhat.com>
-To: Ivan Babrou <ivan@cloudflare.com>
-Message-ID: <20210203190518.nlwghesq75enas6n@treble>
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F07C9F8965
+	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 22:42:09 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D388B858F13
+	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 22:42:09 +0000 (UTC)
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
+	[209.85.208.181]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-498-H2k9E1c5P_-p8C99dlAyAQ-1; Wed, 03 Feb 2021 17:42:05 -0500
+X-MC-Unique: H2k9E1c5P_-p8C99dlAyAQ-1
+Received: by mail-lj1-f181.google.com with SMTP id f19so1031708ljn.5
+	for <dm-devel@redhat.com>; Wed, 03 Feb 2021 14:42:05 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=FumwaWvzHZWVNE5DDIsNdn258CZK4DlZwzfhawRHFFU=;
+	b=QikB80bGAB7QLD612AqIXSoDlq//UTw7NaHdTdFsTBKZmeeHu6jVBqQIyWuDU5cdeV
+	h68c1F8YF3l+BEAa+yPn1OunXGXd+/XZJiYaXzOCvwL+evRK5Tpx9PFjAinxWHr92W5a
+	pfmFoi6n36PYNEAAWSWZM566ir9tA33mtNr3u2x4xW5EZHGTgFlUk7ZQGTutPkWt3StM
+	BNQz+JkMvapPXacIRg8e+lqbrJIpbqgjj1XYPBCVp/Vjmov+f45Fzm4Gykr3IHonlNTK
+	PABXSE4XeGZQUaeTETIB41//Bms24bsuLsIcz4b1GjwevOO2XvaxXxiYe636sha4EuuP
+	s1Sg==
+X-Gm-Message-State: AOAM531dTu2q/UtjtCKcsmzI4PfBA8Prog18/JWg8z+ezhTN9L7F4QEj
+	2n4nbWTxOG3dgYCDBtOJlwxsItQjKxdApfFtMBNp2w==
+X-Google-Smtp-Source: ABdhPJwKhpR8sbJ8ZrHXrXvTED9hh5AbNkWxJFB2AjnN5UiHsFQgc7BNpiMd7cHW6zHpZnnJ9JFHzJh6we9lf652od8=
+X-Received: by 2002:a2e:3a18:: with SMTP id h24mr2987085lja.170.1612392124007; 
+	Wed, 03 Feb 2021 14:42:04 -0800 (PST)
+MIME-Version: 1.0
 References: <CABWYdi3HjduhY-nQXzy2ezGbiMB1Vk9cnhW2pMypUa+P1OjtzQ@mail.gmail.com>
 	<CABWYdi27baYc3ShHcZExmmXVmxOQXo9sGO+iFhfZLq78k8iaAg@mail.gmail.com>
 	<YBrTaVVfWu2R0Hgw@hirez.programming.kicks-ass.net>
 	<CABWYdi2ephz57BA8bns3reMGjvs5m0hYp82+jBLZ6KD3Ba6zdQ@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CABWYdi2ephz57BA8bns3reMGjvs5m0hYp82+jBLZ6KD3Ba6zdQ@mail.gmail.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+	<20210203190518.nlwghesq75enas6n@treble>
+In-Reply-To: <20210203190518.nlwghesq75enas6n@treble>
+From: Ivan Babrou <ivan@cloudflare.com>
+Date: Wed, 3 Feb 2021 14:41:53 -0800
+Message-ID: <CABWYdi1ya41Ju9SsHMtRQaFQ=s8N23D3ADn6OV6iBwWM6H8=Zw@mail.gmail.com>
+To: Josh Poimboeuf <jpoimboe@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 04 Feb 2021 04:14:38 -0500
 Cc: Song Liu <songliubraving@fb.com>, Mike Snitzer <snitzer@redhat.com>,
@@ -80,7 +106,7 @@ Cc: Song Liu <songliubraving@fb.com>, Mike Snitzer <snitzer@redhat.com>,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	Andrew Morton <akpm@linux-foundation.org>, Martin KaFai Lau <kafai@fb.com>
 Subject: Re: [dm-devel] BUG: KASAN: stack-out-of-bounds in
- unwind_next_frame+0x1df5/0x2650
+	unwind_next_frame+0x1df5/0x2650
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,255 +120,67 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Feb 03, 2021 at 09:46:55AM -0800, Ivan Babrou wrote:
-> > Can you pretty please not line-wrap console output? It's unreadable.
-> 
-> GMail doesn't make it easy, I'll send a link to a pastebin next time.
-> Let me know if you'd like me to regenerate the decoded stack.
-> 
-> > > edfd9b7838ba5e47f19ad8466d0565aba5c59bf0 is the first bad commit
-> > > commit edfd9b7838ba5e47f19ad8466d0565aba5c59bf0
+On Wed, Feb 3, 2021 at 11:05 AM Josh Poimboeuf <jpoimboe@redhat.com> wrote:
+>
+> On Wed, Feb 03, 2021 at 09:46:55AM -0800, Ivan Babrou wrote:
+> > > Can you pretty please not line-wrap console output? It's unreadable.
 > >
-> > Not sure what tree you're on, but that's not the upstream commit.
-> 
-> I mentioned that it's a rebased core-static_call-2020-10-12 tag and
-> added a link to the upstream hash right below.
-> 
-> > > Author: Steven Rostedt (VMware) <rostedt@goodmis.org>
-> > > Date:   Tue Aug 18 15:57:52 2020 +0200
+> > GMail doesn't make it easy, I'll send a link to a pastebin next time.
+> > Let me know if you'd like me to regenerate the decoded stack.
+> >
+> > > > edfd9b7838ba5e47f19ad8466d0565aba5c59bf0 is the first bad commit
+> > > > commit edfd9b7838ba5e47f19ad8466d0565aba5c59bf0
 > > >
-> > >     tracepoint: Optimize using static_call()
+> > > Not sure what tree you're on, but that's not the upstream commit.
+> >
+> > I mentioned that it's a rebased core-static_call-2020-10-12 tag and
+> > added a link to the upstream hash right below.
+> >
+> > > > Author: Steven Rostedt (VMware) <rostedt@goodmis.org>
+> > > > Date:   Tue Aug 18 15:57:52 2020 +0200
+> > > >
+> > > >     tracepoint: Optimize using static_call()
+> > > >
 > > >
+> > > There's a known issue with that patch, can you try:
+> > >
+> > >   http://lkml.kernel.org/r/20210202220121.435051654@goodmis.org
 > >
-> > There's a known issue with that patch, can you try:
-> >
-> >   http://lkml.kernel.org/r/20210202220121.435051654@goodmis.org
-> 
-> I've tried it on top of core-static_call-2020-10-12 tag rebased on top
-> of v5.9 (to make it reproducible), and the patch did not help. Do I
-> need to apply the whole series or something else?
+> > I've tried it on top of core-static_call-2020-10-12 tag rebased on top
+> > of v5.9 (to make it reproducible), and the patch did not help. Do I
+> > need to apply the whole series or something else?
+>
+> Can you recreate with this patch, and add "unwind_debug" to the cmdline?
+> It will spit out a bunch of stack data.
 
-Can you recreate with this patch, and add "unwind_debug" to the cmdline?
-It will spit out a bunch of stack data.
+Here's the three I'm building:
 
+* https://github.com/bobrik/linux/tree/ivan/static-call-5.9
 
-From: Josh Poimboeuf <jpoimboe@redhat.com>
-Subject: [PATCH] Subject: [PATCH] x86/unwind: Add 'unwind_debug' cmdline
- option
+It contains:
 
-Sometimes the one-line ORC unwinder warnings aren't very helpful.  Take
-the existing frame pointer unwind_dump() and make it useful for all
-unwinders.
+* v5.9 tag as the base
+* static_call-2020-10-12 tag
+* dm-crypt patches to reproduce the issue with KASAN
+* x86/unwind: Add 'unwind_debug' cmdline option
+* tracepoint: Fix race between tracing and removing tracepoint
 
-I don't want to be too aggressive about enabling the dumps, so for now
-they're only enabled with the use of a new 'unwind_debug' cmdline
-option.  When enabled, it will dump the full contents of the stack when
-an error condition is encountered, or when dump_stack() is called.
+The very same issue can be reproduced on 5.10.11 with no patches,
+but I'm going with 5.9, since it boils down to static call changes.
 
-Signed-off-by: Josh Poimboeuf <jpoimboe@redhat.com>
----
- .../admin-guide/kernel-parameters.txt         |  6 +++
- arch/x86/include/asm/unwind.h                 |  3 ++
- arch/x86/kernel/dumpstack.c                   | 39 ++++++++++++++
- arch/x86/kernel/unwind_frame.c                | 51 +++----------------
- arch/x86/kernel/unwind_orc.c                  |  5 +-
- 5 files changed, 58 insertions(+), 46 deletions(-)
+Here's the decoded stack from the kernel with unwind debug enabled:
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 3d6604a949f8..d29689aa62a2 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -5521,6 +5521,12 @@
- 	unknown_nmi_panic
- 			[X86] Cause panic on unknown NMI.
- 
-+	unwind_debug	[X86-64]
-+			Enable unwinder debug output.  This can be
-+			useful for debugging certain unwinder error
-+			conditions, including corrupt stacks and
-+			bad/missing unwinder metadata.
-+
- 	usbcore.authorized_default=
- 			[USB] Default USB device authorization:
- 			(default -1 = authorized except for wireless USB,
-diff --git a/arch/x86/include/asm/unwind.h b/arch/x86/include/asm/unwind.h
-index 70fc159ebe69..5101d7ef7912 100644
---- a/arch/x86/include/asm/unwind.h
-+++ b/arch/x86/include/asm/unwind.h
-@@ -123,4 +123,7 @@ static inline bool task_on_another_cpu(struct task_struct *task)
- #endif
- }
- 
-+extern bool unwind_debug __ro_after_init;
-+void unwind_dump(struct unwind_state *state);
-+
- #endif /* _ASM_X86_UNWIND_H */
-diff --git a/arch/x86/kernel/dumpstack.c b/arch/x86/kernel/dumpstack.c
-index 299c20f0a38b..febfd5b7f62a 100644
---- a/arch/x86/kernel/dumpstack.c
-+++ b/arch/x86/kernel/dumpstack.c
-@@ -29,6 +29,42 @@ static int die_counter;
- 
- static struct pt_regs exec_summary_regs;
- 
-+bool unwind_debug __ro_after_init;
-+static int __init unwind_debug_cmdline(char *str)
-+{
-+	unwind_debug = true;
-+	return 0;
-+}
-+early_param("unwind_debug", unwind_debug_cmdline);
-+
-+void unwind_dump(struct unwind_state *state)
-+{
-+	unsigned long word, *sp;
-+	struct stack_info stack_info = {0};
-+	unsigned long visit_mask = 0;
-+
-+	printk_deferred("unwinder dump: stack type:%d next_sp:%p mask:0x%lx graph_idx:%d\n",
-+			state->stack_info.type, state->stack_info.next_sp,
-+			state->stack_mask, state->graph_idx);
-+
-+	sp = state->task == current ? __builtin_frame_address(0)
-+				    : (void *)state->task->thread.sp;
-+
-+	for (; sp; sp = PTR_ALIGN(stack_info.next_sp, sizeof(long))) {
-+		if (get_stack_info(sp, state->task, &stack_info, &visit_mask))
-+			break;
-+
-+		for (; sp < stack_info.end; sp++) {
-+
-+			word = READ_ONCE_NOCHECK(*sp);
-+
-+			printk_deferred("%0*lx: %0*lx (%pB)\n", BITS_PER_LONG/4,
-+					(unsigned long)sp, BITS_PER_LONG/4,
-+					word, (void *)word);
-+		}
-+	}
-+}
-+
- bool noinstr in_task_stack(unsigned long *stack, struct task_struct *task,
- 			   struct stack_info *info)
- {
-@@ -301,6 +337,9 @@ static void show_trace_log_lvl(struct task_struct *task, struct pt_regs *regs,
- 		if (stack_name)
- 			printk("%s </%s>\n", log_lvl, stack_name);
- 	}
-+
-+	if (unwind_debug)
-+		unwind_dump(&state);
- }
- 
- void show_stack(struct task_struct *task, unsigned long *sp,
-diff --git a/arch/x86/kernel/unwind_frame.c b/arch/x86/kernel/unwind_frame.c
-index d7c44b257f7f..6bcdf6ecad65 100644
---- a/arch/x86/kernel/unwind_frame.c
-+++ b/arch/x86/kernel/unwind_frame.c
-@@ -28,48 +28,6 @@ unsigned long *unwind_get_return_address_ptr(struct unwind_state *state)
- 	return state->regs ? &state->regs->ip : state->bp + 1;
- }
- 
--static void unwind_dump(struct unwind_state *state)
--{
--	static bool dumped_before = false;
--	bool prev_zero, zero = false;
--	unsigned long word, *sp;
--	struct stack_info stack_info = {0};
--	unsigned long visit_mask = 0;
--
--	if (dumped_before)
--		return;
--
--	dumped_before = true;
--
--	printk_deferred("unwind stack type:%d next_sp:%p mask:0x%lx graph_idx:%d\n",
--			state->stack_info.type, state->stack_info.next_sp,
--			state->stack_mask, state->graph_idx);
--
--	for (sp = PTR_ALIGN(state->orig_sp, sizeof(long)); sp;
--	     sp = PTR_ALIGN(stack_info.next_sp, sizeof(long))) {
--		if (get_stack_info(sp, state->task, &stack_info, &visit_mask))
--			break;
--
--		for (; sp < stack_info.end; sp++) {
--
--			word = READ_ONCE_NOCHECK(*sp);
--
--			prev_zero = zero;
--			zero = word == 0;
--
--			if (zero) {
--				if (!prev_zero)
--					printk_deferred("%p: %0*x ...\n",
--							sp, BITS_PER_LONG/4, 0);
--				continue;
--			}
--
--			printk_deferred("%p: %0*lx (%pB)\n",
--					sp, BITS_PER_LONG/4, word, (void *)word);
--		}
--	}
--}
--
- static bool in_entry_code(unsigned long ip)
- {
- 	char *addr = (char *)ip;
-@@ -244,7 +202,6 @@ static bool update_stack_state(struct unwind_state *state,
- 						  addr, addr_p);
- 	}
- 
--	/* Save the original stack pointer for unwind_dump(): */
- 	if (!state->orig_sp)
- 		state->orig_sp = frame;
- 
-@@ -346,13 +303,17 @@ bool unwind_next_frame(struct unwind_state *state)
- 			"WARNING: kernel stack regs at %p in %s:%d has bad 'bp' value %p\n",
- 			state->regs, state->task->comm,
- 			state->task->pid, next_bp);
--		unwind_dump(state);
-+
-+		if (unwind_debug)
-+			unwind_dump(state);
- 	} else {
- 		printk_deferred_once(KERN_WARNING
- 			"WARNING: kernel stack frame pointer at %p in %s:%d has bad value %p\n",
- 			state->bp, state->task->comm,
- 			state->task->pid, next_bp);
--		unwind_dump(state);
-+
-+		if (unwind_debug)
-+			unwind_dump(state);
- 	}
- the_end:
- 	state->stack_info.type = STACK_TYPE_UNKNOWN;
-diff --git a/arch/x86/kernel/unwind_orc.c b/arch/x86/kernel/unwind_orc.c
-index 73f800100066..38265eac41dd 100644
---- a/arch/x86/kernel/unwind_orc.c
-+++ b/arch/x86/kernel/unwind_orc.c
-@@ -13,8 +13,11 @@
- 
- #define orc_warn_current(args...)					\
- ({									\
--	if (state->task == current)					\
-+	if (state->task == current) {					\
- 		orc_warn(args);						\
-+		if (unwind_debug)					\
-+			unwind_dump(state);				\
-+	}								\
- })
- 
- extern int __start_orc_unwind_ip[];
--- 
-2.29.2
+* https://gist.github.com/bobrik/ed052ac0ae44c880f3170299ad4af56b
+
+See my first email for the exact commands that trigger this.
 
 --
 dm-devel mailing list
