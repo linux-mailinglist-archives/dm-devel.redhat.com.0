@@ -1,73 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 26E0230DEC9
-	for <lists+dm-devel@lfdr.de>; Wed,  3 Feb 2021 16:55:23 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 7C9F630DF4B
+	for <lists+dm-devel@lfdr.de>; Wed,  3 Feb 2021 17:11:35 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-587-QmwIk9KNPLqxjJRtj9W6uA-1; Wed, 03 Feb 2021 10:55:19 -0500
-X-MC-Unique: QmwIk9KNPLqxjJRtj9W6uA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-596-nnoxqOIdN8CNWAVYM5-ZMA-1; Wed, 03 Feb 2021 11:11:32 -0500
+X-MC-Unique: nnoxqOIdN8CNWAVYM5-ZMA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F3ED5CC621;
-	Wed,  3 Feb 2021 15:55:11 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CC43B70483;
-	Wed,  3 Feb 2021 15:55:11 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C90E3107ACF2;
+	Wed,  3 Feb 2021 16:11:26 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F0431E6;
+	Wed,  3 Feb 2021 16:11:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7430B58075;
-	Wed,  3 Feb 2021 15:55:11 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B761318095C9;
+	Wed,  3 Feb 2021 16:11:25 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 113Ft5Ud006771 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 3 Feb 2021 10:55:06 -0500
+	id 113GBLUp011701 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 3 Feb 2021 11:11:21 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B0EC9F7850; Wed,  3 Feb 2021 15:55:04 +0000 (UTC)
+	id A2BEADEE7F; Wed,  3 Feb 2021 16:11:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A98FCF7851
-	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 15:55:01 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9CB6F9E62
+	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 16:11:19 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2546E85A5A6
-	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 15:55:01 +0000 (UTC)
-Received: from mx2.veeam.com (mx2.veeam.com [64.129.123.6]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-354-X_VDwCs9OMaP8BA9hx_U7w-1;
-	Wed, 03 Feb 2021 10:54:57 -0500
-X-MC-Unique: X_VDwCs9OMaP8BA9hx_U7w-1
-Received: from mail.veeam.com (prgmbx01.amust.local [172.24.0.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mx2.veeam.com (Postfix) with ESMTPS id 3009441585;
-	Wed,  3 Feb 2021 10:54:53 -0500 (EST)
-Received: from prgdevlinuxpatch01.amust.local (172.24.14.5) by
-	prgmbx01.amust.local (172.24.0.171) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.2.721.2; Wed, 3 Feb 2021 16:54:28 +0100
-From: Sergei Shtepa <sergei.shtepa@veeam.com>
-To: <Damien.LeMoal@wdc.com>, <snitzer@redhat.com>, <hare@suse.de>,
-	<ming.lei@redhat.com>, <agk@redhat.com>, <corbet@lwn.net>,
-	<axboe@kernel.dk>, <jack@suse.cz>, <johannes.thumshirn@wdc.com>,
-	<gregkh@linuxfoundation.org>, <koct9i@gmail.com>, <steve@sk2.org>,
-	<dm-devel@redhat.com>, <linux-block@vger.kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Date: Wed, 3 Feb 2021 18:53:58 +0300
-Message-ID: <1612367638-3794-7-git-send-email-sergei.shtepa@veeam.com>
-In-Reply-To: <1612367638-3794-1-git-send-email-sergei.shtepa@veeam.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 32556811E88
+	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 16:11:19 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-244-GHyT84ByM9SEuamwPJKZ0A-1;
+	Wed, 03 Feb 2021 11:11:17 -0500
+X-MC-Unique: GHyT84ByM9SEuamwPJKZ0A-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7A85D64DDB;
+	Wed,  3 Feb 2021 16:01:00 +0000 (UTC)
+Date: Wed, 3 Feb 2021 17:00:58 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Sergei Shtepa <sergei.shtepa@veeam.com>
+Message-ID: <YBrIuipGnzmsyKxg@kroah.com>
 References: <1612367638-3794-1-git-send-email-sergei.shtepa@veeam.com>
+	<1612367638-3794-5-git-send-email-sergei.shtepa@veeam.com>
 MIME-Version: 1.0
-X-Originating-IP: [172.24.14.5]
-X-ClientProxiedBy: prgmbx02.amust.local (172.24.0.172) To prgmbx01.amust.local
-	(172.24.0.171)
-X-EsetResult: clean, is OK
-X-EsetId: 37303A29C604D265667062
-X-Veeam-MMEX: True
+In-Reply-To: <1612367638-3794-5-git-send-email-sergei.shtepa@veeam.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -78,9 +61,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: pavgel.tide@veeam.com, sergei.shtepa@veeam.com
-Subject: [dm-devel] [PATCH v4 6/6] docs: device-mapper: 'noexcl' option for
-	dm-linear
+Cc: axboe@kernel.dk, Damien.LeMoal@wdc.com, jack@suse.cz, snitzer@redhat.com,
+	corbet@lwn.net, johannes.thumshirn@wdc.com,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	ming.lei@redhat.com, linux-block@vger.kernel.org,
+	dm-devel@redhat.com, steve@sk2.org, koct9i@gmail.com,
+	agk@redhat.com, pavgel.tide@veeam.com
+Subject: Re: [dm-devel] [PATCH v4 4/6] dm: new ioctl DM_DEV_REMAP_CMD
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,68 +81,40 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-New 'noexcl' option allow to open underlying block-device
-without FMODE_EXCL flag.
+On Wed, Feb 03, 2021 at 06:53:56PM +0300, Sergei Shtepa wrote:
+> --- a/include/uapi/linux/dm-ioctl.h
+> +++ b/include/uapi/linux/dm-ioctl.h
+> @@ -214,6 +214,15 @@ struct dm_target_msg {
+>  	char message[0];
+>  };
+>  
+> +enum {
+> +	REMAP_START_CMD = 1,
+> +	REMAP_FINISH_CMD,
 
-Signed-off-by: Sergei Shtepa <sergei.shtepa@veeam.com>
----
- .../admin-guide/device-mapper/linear.rst      | 26 ++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
+Don't you need to say what REMAP_FINISH_CMD is explicitly?
 
-diff --git a/Documentation/admin-guide/device-mapper/linear.rst b/Documentation/admin-guide/device-mapper/linear.rst
-index 9d17fc6e64a9..f035cd7ad78c 100644
---- a/Documentation/admin-guide/device-mapper/linear.rst
-+++ b/Documentation/admin-guide/device-mapper/linear.rst
-@@ -6,12 +6,22 @@ Device-Mapper's "linear" target maps a linear range of the Device-Mapper
- device onto a linear range of another device.  This is the basic building
- block of logical volume managers.
- 
--Parameters: <dev path> <offset>
-+Parameters: <dev path> <offset> [<options>]
-     <dev path>:
--	Full pathname to the underlying block-device, or a
-+        Full pathname to the underlying block-device, or a
-         "major:minor" device-number.
-     <offset>:
--	Starting sector within the device.
-+        Starting sector within the device.
-+    <options>:
-+        Options allow to set the exclusivity mode. The exclusivity mode
-+        can be 'excl' and 'noexcl'. By default, then options is not set,
-+        the 'excl' mode is used. 'noexcl' mode allow to open device
-+        without FMODE_EXCL flag. This allow to create liner device with
-+        underlying block-device that are already used by the system. For
-+        example, the file system on this device is already mounted.
-+        The 'noexcl' option should be used when creating dm devices that
-+        will be used as acceptor when connecting the device mapper to an
-+        existing block device with the 'dmsetup remap' command.
- 
- 
- Example scripts
-@@ -61,3 +71,13 @@ Example scripts
-   }
- 
-   `echo \"$table\" | dmsetup create $name`;
-+
-+::
-+
-+  #!/bin/sh
-+  # Create linear device and remap all requests from the original device
-+  # to new linear.
-+  DEV=$1
-+
-+  echo "0 `blockdev --getsz $DEV` linear $DEV 0 noexcl" | dmsetup create dm-noexcl
-+  dmsetup remap start dm-noexcl $DEV
--- 
-2.20.1
+> +};
+> +
+> +struct dm_remap_param {
+> +	uint8_t cmd;
+> +	uint8_t params[0];
+
+These need to be __u8, "uint8_t" is not a valid type that crosses the
+user/kernel boundry.
+
+thanks,
+
+greg k-h
 
 --
 dm-devel mailing list
