@@ -1,54 +1,54 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B9C7930DEC4
-	for <lists+dm-devel@lfdr.de>; Wed,  3 Feb 2021 16:55:01 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 7DB3C30DEC6
+	for <lists+dm-devel@lfdr.de>; Wed,  3 Feb 2021 16:55:04 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-371-JlNUm2s4O-imBO3cNtXkqQ-1; Wed, 03 Feb 2021 10:54:57 -0500
-X-MC-Unique: JlNUm2s4O-imBO3cNtXkqQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-56-O1ljTSGrMiinLhnIU9xhdg-1; Wed, 03 Feb 2021 10:54:57 -0500
+X-MC-Unique: O1ljTSGrMiinLhnIU9xhdg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 209ED801964;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 85F4F100C663;
 	Wed,  3 Feb 2021 15:54:51 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7C88D5D6A8;
-	Wed,  3 Feb 2021 15:54:48 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 596D260C13;
+	Wed,  3 Feb 2021 15:54:51 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C869B18095CB;
-	Wed,  3 Feb 2021 15:54:39 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5DEEA57DFD;
+	Wed,  3 Feb 2021 15:54:50 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 113FsR0a005961 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 3 Feb 2021 10:54:27 -0500
+	id 113FsZNM005978 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 3 Feb 2021 10:54:35 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0E6A2200A39A; Wed,  3 Feb 2021 15:54:27 +0000 (UTC)
+	id EEDC22026D49; Wed,  3 Feb 2021 15:54:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0895620234A6
-	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 15:54:23 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EA382200A799
+	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 15:54:34 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 86A4F858EEB
-	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 15:54:23 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D748C1848829
+	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 15:54:34 +0000 (UTC)
 Received: from mx2.veeam.com (mx2.veeam.com [64.129.123.6]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-482-cHQoDRScPfWWcqAvuiWB5A-1;
-	Wed, 03 Feb 2021 10:54:19 -0500
-X-MC-Unique: cHQoDRScPfWWcqAvuiWB5A-1
+	relay.mimecast.com with ESMTP id us-mta-572-IsGer0OFOgS-jVcxqwViaw-1;
+	Wed, 03 Feb 2021 10:54:32 -0500
+X-MC-Unique: IsGer0OFOgS-jVcxqwViaw-1
 Received: from mail.veeam.com (prgmbx01.amust.local [172.24.0.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mx2.veeam.com (Postfix) with ESMTPS id 49B004146C;
-	Wed,  3 Feb 2021 10:54:15 -0500 (EST)
+	by mx2.veeam.com (Postfix) with ESMTPS id 1C8E341370;
+	Wed,  3 Feb 2021 10:54:28 -0500 (EST)
 Received: from prgdevlinuxpatch01.amust.local (172.24.14.5) by
 	prgmbx01.amust.local (172.24.0.171) with Microsoft SMTP Server
 	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.2.721.2; Wed, 3 Feb 2021 16:54:13 +0100
+	15.2.721.2; Wed, 3 Feb 2021 16:54:18 +0100
 From: Sergei Shtepa <sergei.shtepa@veeam.com>
 To: <Damien.LeMoal@wdc.com>, <snitzer@redhat.com>, <hare@suse.de>,
 	<ming.lei@redhat.com>, <agk@redhat.com>, <corbet@lwn.net>,
@@ -56,8 +56,10 @@ To: <Damien.LeMoal@wdc.com>, <snitzer@redhat.com>, <hare@suse.de>,
 	<gregkh@linuxfoundation.org>, <koct9i@gmail.com>, <steve@sk2.org>,
 	<dm-devel@redhat.com>, <linux-block@vger.kernel.org>,
 	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Date: Wed, 3 Feb 2021 18:53:52 +0300
-Message-ID: <1612367638-3794-1-git-send-email-sergei.shtepa@veeam.com>
+Date: Wed, 3 Feb 2021 18:53:53 +0300
+Message-ID: <1612367638-3794-2-git-send-email-sergei.shtepa@veeam.com>
+In-Reply-To: <1612367638-3794-1-git-send-email-sergei.shtepa@veeam.com>
+References: <1612367638-3794-1-git-send-email-sergei.shtepa@veeam.com>
 MIME-Version: 1.0
 X-Originating-IP: [172.24.14.5]
 X-ClientProxiedBy: prgmbx02.amust.local (172.24.0.172) To prgmbx01.amust.local
@@ -76,7 +78,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 Cc: pavgel.tide@veeam.com, sergei.shtepa@veeam.com
-Subject: [dm-devel] [PATCH v4 0/6] block-layer interposer
+Subject: [dm-devel] [PATCH v4 1/6] docs: device-mapper: add remap_and_filter
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,7 +92,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -98,115 +100,167 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi all.
+remap_and_filter - describes the new features that
+blk_interposer provides for device mapper.
 
-I'm ready to suggest the block-layer interposer (blk_interposer).
-blk_interposer allows to intercept bio requests, remap bio to another
-devices or add new bios.
-
-This patch series adds support blk_interposer for dm-linear.
-
-In the first patch, I suggest the remap_and_filter.rst file.
-Yes, Mike, it's probably too early for documentation, but maybe it will be
-interesting for someone. In the documentation I tried to explain
-the purpose of blk_interposer and what prospects it opens up.
-
-The second patch is dedicated to blk_interposer itself, which provides
-the ability to intercept bio.
-
-The third - adds the function blk_mq_is_queue_frozen(). It allows to
-assert a queue state.
-
-The fourth one adds support for blk_interposer from the device mapper.
-Added ioctl DM_DEV_REMAP_CMD.
-
-In the fifth - added the 'noexcl' option for dm-linear, which allows
-to open the underlying block-device without the FMODE_EXCL mode.
-This allows to create a dm device to which can redirect bio requests
-using DM_DEV_REMAP_CMD.
-
-Here I would like to discuss the implementation.
-I don't like to play with flags. Adding the non_exclusive flags creates
-an excessive complexity. An alternative solution is to explicitly specify
-the FMODE_EXCL mode for each dm-target. The problem is that in this case,
-we will have to change each dm-target. It doesn't look cool either.
-
-The latest patch changes linear.rst with the description of the 'noexcl'
-option that is added for dm-linear.
-
-A little history of changes:
-
-v4 - current patch set
-Mostly changes were made, due to Damien's comments:
- * on the design of the code;
- * by the patch set organization;
- * bug with passing a wrong parameter to dm_get_device();
- * description of the 'noexcl' parameter in the linear.rst.
-Also added remap_and_filter.rst.
-
-v3 - https://patchwork.kernel.org/project/linux-block/cover/1611853955-32167-1-git-send-email-sergei.shtepa@veeam.com/
-In this version, I already suggested blk_interposer to apply to dm-linear.
-Problems were solved:
- * Interception of bio requests from a specific device on the disk, not
-   from the entire disk. To do this, we added the dm_interposed_dev
-   structure and an interval tree to store these structures.
- * Implemented ioctl DM_DEV_REMAP_CMD. A patch with changes in the lvm2
-   project was sent to the team lvm-devel@redhat.com.
- * Added the 'noexcl' option for dm-linear, which allows you to open
-   the underlying block-device without FMODE_EXCL mode.
-
-v2 - https://patchwork.kernel.org/project/linux-block/cover/1607518911-30692-1-git-send-email-sergei.shtepa@veeam.com/
-I tried to suggest blk_interposer without using it in device mapper,
-but with the addition of a sample of its use. It was then that I learned
-about the maintainers' attitudes towards the samples directory :).
-
-v1 - https://lwn.net/ml/linux-block/20201119164924.74401-1-hare@suse.de/
-This Hannes's patch can be considered as a starting point, since this is
-where the interception mechanism and the term blk_interposer itself
-appeared. It became clear that blk_interposer can be useful for
-device mapper.
-
-before v1 - https://patchwork.kernel.org/project/linux-block/cover/1603271049-20681-1-git-send-email-sergei.shtepa@veeam.com/
-I tried to offer a rather cumbersome blk-filter and a monster-like
-blk-snap module for creating snapshots.
-
-Thank you to everyone who was able to take the time to review
-the previous versions.
-I hope that this time I achieved the required quality.
-
-Thanks,
-Sergei.
-
-Sergei Shtepa (6):
-  docs: device-mapper: add remap_and_filter
-  block: add blk_interposer
-  block: add blk_mq_is_queue_frozen()
-  dm: new ioctl DM_DEV_REMAP_CMD
-  dm: add 'noexcl' option for dm-linear
-  docs: device-mapper: 'noexcl' option for dm-linear
-
+Signed-off-by: Sergei Shtepa <sergei.shtepa@veeam.com>
+---
  .../admin-guide/device-mapper/index.rst       |   1 +
- .../admin-guide/device-mapper/linear.rst      |  26 +-
- .../device-mapper/remap_and_filter.rst        | 132 ++++++
- block/bio.c                                   |   2 +
- block/blk-core.c                              |  33 ++
- block/blk-mq.c                                |  13 +
- block/genhd.c                                 |  82 ++++
- drivers/md/dm-core.h                          |  20 +
- drivers/md/dm-ioctl.c                         |  39 ++
- drivers/md/dm-linear.c                        |  14 +-
- drivers/md/dm-table.c                         |  12 +-
- drivers/md/dm.c                               | 400 +++++++++++++++++-
- drivers/md/dm.h                               |   2 +-
- include/linux/blk-mq.h                        |   1 +
- include/linux/blk_types.h                     |   6 +-
- include/linux/device-mapper.h                 |   7 +
- include/linux/genhd.h                         |  18 +
- include/uapi/linux/dm-ioctl.h                 |  15 +-
- 18 files changed, 792 insertions(+), 31 deletions(-)
+ .../device-mapper/remap_and_filter.rst        | 132 ++++++++++++++++++
+ 2 files changed, 133 insertions(+)
  create mode 100644 Documentation/admin-guide/device-mapper/remap_and_filter.rst
 
---
+diff --git a/Documentation/admin-guide/device-mapper/index.rst b/Documentation/admin-guide/device-mapper/index.rst
+index 6cf8adc86fa8..e868d5bbec7e 100644
+--- a/Documentation/admin-guide/device-mapper/index.rst
++++ b/Documentation/admin-guide/device-mapper/index.rst
+@@ -27,6 +27,7 @@ Device Mapper
+     linear
+     log-writes
+     persistent-data
++    remap_and_filter
+     snapshot
+     statistics
+     striped
+diff --git a/Documentation/admin-guide/device-mapper/remap_and_filter.rst b/Documentation/admin-guide/device-mapper/remap_and_filter.rst
+new file mode 100644
+index 000000000000..616b67998305
+--- /dev/null
++++ b/Documentation/admin-guide/device-mapper/remap_and_filter.rst
+@@ -0,0 +1,132 @@
++=================
++DM remap & filter
++=================
++
++Introduction
++============
++
++Usually LVM should be used for new devices.
++The administrator have to create logical volumes for the system partition
++when installing the operating system. For a running system with
++partitioned disk space and mounted file systems, it is quite difficult to
++reconfigure to logical volumes. As a result, all the features that Device
++Mapper provides are not available for non-LVM systems.
++This problem is partially solved by the dm remap functionality, which
++uses the kernel's blk_interposer.
++
++blk_interposer
++==============
++
++Blk_interposer extends the capabilities of the DM, as it allows to
++intercept and redirect bio requests for block devices that are not
++dm device. At the same time, blk_interposer allows to attach and detach
++from devices "on the fly", without stopping the execution of user
++programs.
++
++Blk_interposer allows to do two tasks: remap and filter.
++Remap allows to redirect all requests from one block device to another.
++Filter allows to do additional processing of the request, but without
++redirection. An intercepted request can get to the block device to which
++it was addressed, without changes.
++
++Remap
++=====
++
++Consider the functionality of the remap. This will allow to connect
++any block device with a dm device "on the fly".
++Suppose we have a file system mounted on the block device /dev/sda1::
++
++  +-------------+
++  | file system |
++  +-------------+
++        ||
++        \/
++  +-------------+
++  | /dev/sda1   |
++  +-------------+
++
++Creating a new DM device that will be mapped on the same /dev/sda1::
++
++  +-------------+  +-----------+
++  | file system |  | dm-linear |
++  +-------------+  +-----------+
++           ||         ||
++           \/         \/
++         +---------------+
++         |   /dev/sda1   |
++         +---------------+
++
++Redirecting all bio requests for the /dev/sda1 device to the new dm
++device::
++
++  +-------------+
++  | file system |
++  +-------------+
++        ||
++        \/
++   +----------+    +-----------+
++   |  remap   | => | dm-linear |
++   +----------+    +-----------+
++                         ||
++                         \/
++                   +-----------+
++                   | /dev/sda1 |
++                   +-----------+
++
++To achieve this, you need to:
++
++Create new dm device with option 'noexcl'. It's allow to open
++underlying block-device without the FMODE_EXCL flag::
++
++  echo "0 `blockdev --getsz $1` linear $DEV 0 noexcl" | dmsetup create dm-noexcl
++
++Call remap command::
++
++  dmsetup remap start dm-noexcl $1
++
++Remap can be used to extend the functionality of dm-snap. This will allow
++to take snapshots from any block devices, not just logical volumes.
++
++Filter
++======
++
++Filter does not redirect the bio to another device. It does not create
++a clone of the bio request. After receiving the request, the filter can
++only add some processing, complete the bio request, or return the bio
++for further processing.
++
++Suppose we have a file system mounted on the block device /dev/sda1::
++
++  +-------------+
++  | file system |
++  +-------------+
++        ||
++        \/
++  +-------------+
++  | /dev/sda1   |
++  +-------------+
++
++Creating a new dm device that will implement filter::
++
++  +-------------+
++  | file system |
++  +-------------+
++        ||
++        \/
++    +--------+    +----------+
++    | filter | => | dm-delay |
++    +--------+    +----------+
++        ||
++        \/
++  +-------------+
++  | /dev/sda1   |
++  +-------------+
++
++Using filter we can change the behavior of debugging tools:
++ * dm-dust,
++ * dm-delay,
++ * dm-flakey,
++ * dm-verity.
++
++In the new version, they are will be able to change the behavior of any
++existing block device, without creating a new one.
+-- 
 2.20.1
 
 --
