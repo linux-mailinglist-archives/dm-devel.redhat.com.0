@@ -1,67 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B446C30ED92
-	for <lists+dm-devel@lfdr.de>; Thu,  4 Feb 2021 08:42:17 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 4835430EF5D
+	for <lists+dm-devel@lfdr.de>; Thu,  4 Feb 2021 10:15:11 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-514-fai7EatnM6e2JvBGp0_itQ-1; Thu, 04 Feb 2021 02:42:14 -0500
-X-MC-Unique: fai7EatnM6e2JvBGp0_itQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-359-y2sGMnL8MyWLf4CntXSfqA-1; Thu, 04 Feb 2021 04:15:06 -0500
+X-MC-Unique: y2sGMnL8MyWLf4CntXSfqA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F3B1A801962;
-	Thu,  4 Feb 2021 07:42:04 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9F0E5804023;
+	Thu,  4 Feb 2021 09:14:58 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9FF955C257;
-	Thu,  4 Feb 2021 07:42:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 525BB5D9C9;
+	Thu,  4 Feb 2021 09:14:58 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1640D18095CB;
-	Thu,  4 Feb 2021 07:41:53 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5253D18095CC;
+	Thu,  4 Feb 2021 09:14:50 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1147ff4Q005151 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 4 Feb 2021 02:41:41 -0500
+	id 113HlEOT026008 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 3 Feb 2021 12:47:14 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0F16A10EB293; Thu,  4 Feb 2021 07:41:41 +0000 (UTC)
+	id ECE01114B31E; Wed,  3 Feb 2021 17:47:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0966311558B6
-	for <dm-devel@redhat.com>; Thu,  4 Feb 2021 07:41:38 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E6F8A10FD2B5
+	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 17:47:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2E9B785A59D
-	for <dm-devel@redhat.com>; Thu,  4 Feb 2021 07:41:38 +0000 (UTC)
-Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-219-LmviXXGIMSSAcCN4PRu6SA-1; Thu, 04 Feb 2021 02:41:32 -0500
-X-MC-Unique: LmviXXGIMSSAcCN4PRu6SA-1
-Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.58])
-	by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4DWVp00wcvzjHb5;
-	Thu,  4 Feb 2021 15:40:24 +0800 (CST)
-Received: from [10.174.178.113] (10.174.178.113) by
-	DGGEMS410-HUB.china.huawei.com (10.3.19.210) with Microsoft SMTP Server
-	id 14.3.498.0; Thu, 4 Feb 2021 15:41:22 +0800
-To: Martin Wilck <mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, 
-	Christophe Varoqui <christophe.varoqui@opensvc.com>
-References: <20210202195744.2384-1-mwilck@suse.com>
-	<4c3bb639-b359-85a4-ea76-ba83347acd7c@huawei.com>
-	<85a30ad88a76e01600aa0879f727da09debf0c42.camel@suse.com>
-	<6bafec0c-91e9-37cd-4c68-18f4175be51c@huawei.com>
-	<82440fdb64a3722c4e3cba49ec6b94ebbf2db1ca.camel@suse.com>
-From: lixiaokeng <lixiaokeng@huawei.com>
-Message-ID: <9f76457a-5a15-b6ee-8f92-60e23be07e48@huawei.com>
-Date: Thu, 4 Feb 2021 15:41:22 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9FC05811E87
+	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 17:47:10 +0000 (UTC)
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+	[209.85.208.171]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-284-qfwY2OSMNCSgTdznfwLdsw-1; Wed, 03 Feb 2021 12:47:08 -0500
+X-MC-Unique: qfwY2OSMNCSgTdznfwLdsw-1
+Received: by mail-lj1-f171.google.com with SMTP id b20so85947ljo.1
+	for <dm-devel@redhat.com>; Wed, 03 Feb 2021 09:47:08 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=0Sd7lpuzzYzAe84omnrWYz0GYPR/9/jZDwcpOZKoCos=;
+	b=BVIH7qHY6zRjk0Nk552YTbcHgep+y8tqyd5Oln2gTziGANMEwpriV3txV+w6RYKmLF
+	usAsvc7FsQ2EwaQ8ybmiIZvyJt3RUFRPyCtyulpJdrZFUwVEp3mLSdtMDXTpBL2H3gqA
+	Ezzxz/nKJZH38xHeGU7LRvFMfPdRt0RZ5V8udw04nk9UYvdd9XcmfgZYT7gMrS97tFlO
+	ms2PRiWSjOO3GB9pYCwS/E/2wc05zK0vZtgXNsSJbUueaTnAzBGNkwYclHzHxzL3ZKIk
+	+Ej9zHaegwXLUu5QuRIo1chD/82DvOZGYxo7XC0b0tIlThPF8q+qSnG7nlVuRHYpHNMj
+	rv7g==
+X-Gm-Message-State: AOAM530FtF92xQiTnfrwmNhiZ9K+opvk/OP2Ts5j5dLe/hVEWIjuHViq
+	OZMeH2s8WaXDj1FKhXNDGMfzU1iGEdIU+YcXYtr1qw==
+X-Google-Smtp-Source: ABdhPJzdVb3Jed1F5NgGdDtfAd5oNibLzyOzFOWG4eVNHu9dYMCxEE44x+nn5372HQ8P/nr1dxBBfvSeiQCWg8NBeQU=
+X-Received: by 2002:a2e:9cc8:: with SMTP id g8mr2376414ljj.479.1612374426835; 
+	Wed, 03 Feb 2021 09:47:06 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <82440fdb64a3722c4e3cba49ec6b94ebbf2db1ca.camel@suse.com>
-X-Originating-IP: [10.174.178.113]
-X-CFilter-Loop: Reflected
+References: <CABWYdi3HjduhY-nQXzy2ezGbiMB1Vk9cnhW2pMypUa+P1OjtzQ@mail.gmail.com>
+	<CABWYdi27baYc3ShHcZExmmXVmxOQXo9sGO+iFhfZLq78k8iaAg@mail.gmail.com>
+	<YBrTaVVfWu2R0Hgw@hirez.programming.kicks-ass.net>
+In-Reply-To: <YBrTaVVfWu2R0Hgw@hirez.programming.kicks-ass.net>
+From: Ivan Babrou <ivan@cloudflare.com>
+Date: Wed, 3 Feb 2021 09:46:55 -0800
+Message-ID: <CABWYdi2ephz57BA8bns3reMGjvs5m0hYp82+jBLZ6KD3Ba6zdQ@mail.gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -72,9 +78,33 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH] libmultipath: check if adopt_path() really
- added current path
+X-Mailman-Approved-At: Thu, 04 Feb 2021 04:14:38 -0500
+Cc: Song Liu <songliubraving@fb.com>, Mike Snitzer <snitzer@redhat.com>,
+	Alexey Kardashevskiy <aik@ozlabs.ru>, Yonghong Song <yhs@fb.com>,
+	Ignat Korchagin <ignat@cloudflare.com>,
+	Alexei Starovoitov <ast@kernel.org>, linux-mm@kvack.org,
+	dm-devel@redhat.com, Alexander Potapenko <glider@google.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
+	Miroslav Benes <mbenes@suse.cz>, Jiri Slaby <jirislaby@kernel.org>,
+	Alasdair Kergon <agk@redhat.com>, Daniel Borkmann <daniel@iogearbox.net>,
+	kernel-team <kernel-team@cloudflare.com>,
+	Hailong liu <liu.hailong6@zte.com.cn>, x86@kernel.org,
+	John Fastabend <john.fastabend@gmail.com>,
+	kasan-dev@googlegroups.com, Ingo Molnar <mingo@redhat.com>,
+	Andrey Ryabinin <aryabinin@virtuozzo.com>,
+	Andrii Nakryiko <andriin@fb.com>, Robert Richter <rric@kernel.org>,
+	"Steven Rostedt \(VMware\)" <rostedt@goodmis.org>,
+	Borislav Petkov <bp@alien8.de>, Josh Poimboeuf <jpoimboe@redhat.com>,
+	KP Singh <kpsingh@chromium.org>,
+	Thomas Gleixner <tglx@linutronix.de>, bpf@vger.kernel.org,
+	Dmitry Vyukov <dvyukov@google.com>, Julien Thierry <jthierry@redhat.com>,
+	Linux Kernel Network Developers <netdev@vger.kernel.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Andrew Morton <akpm@linux-foundation.org>, Martin KaFai Lau <kafai@fb.com>
+Subject: Re: [dm-devel] BUG: KASAN: stack-out-of-bounds in
+	unwind_next_frame+0x1df5/0x2650
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -88,482 +118,43 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="------------91120BEF6E86C70311F17856"
-Content-Language: en-GB
-
---------------91120BEF6E86C70311F17856
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
-
-
-
-On 2021/2/3 21:14, Martin Wilck wrote:
-> On Wed, 2021-02-03 at 17:42 +0800, lixiaokeng wrote:
->>
->>
->> On 2021/2/3 16:14, Martin Wilck wrote:
->>> Is this also a Tested-by:?=20
->>> IOW, did it fix your issue?
->>
->> Yes, it solves the crash.But there is an other issue.
->>
->> multipath.conf
->> defaults {
->> =A0=A0=A0=A0=A0=A0=A0 find_multipaths no
->> }
->>
->> [root@localhost coredump]# multipathd add path sdb
->> fail
->> [root@localhost coredump]# multipath -ll
->> [root@localhost coredump]# multipathd add path sdb
->> ok
->> [root@localhost coredump]# multipath -ll
->> 0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-1 dm-3 QEMU,QEMU HARDDISK
->> size=3D1.0G features=3D'0' hwhandler=3D'0' wp=3Drw
->> `-+- policy=3D'service-time 0' prio=3D1 status=3Denabled
->> =A0 `- 2:0:0:1 sdb 8:16 active ready running
->>
->> I add local path twice. The first fails while the second
->> succeeds.
->=20
-> More details please. What exactly were you doing? Was this a regression
-> caused by my patch? Please provide multipathd -v3 logs.
-
-I did nothing just "multipathd add path sdb" twice.
-Here I do that again with multipath -v3. The attachment shows all
-messages.
-
-> Also, you're aware that "find_multipaths no" is discouraged?
-> It leads to inconsistent behavior between multipath and multipathd.
->=20
-There are some different things about local disks between 0.8.5 and 0.7.7.
-I just test that.
-
-Regards,
-Lixiaokeng
-
---------------91120BEF6E86C70311F17856
-Content-Type: text/plain; charset="UTF-8";
-	name="multipathd add path sdb twice.txt"
-Content-Disposition: attachment; filename="multipathd add path sdb twice.txt"
-Content-Transfer-Encoding: quoted-printable
-
-[root@localhost uppatch]# lsblk
-NAME             MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
-sda                8:0    0  140G  0 disk=20
-=E2=94=9C=E2=94=80sda1             8:1    0    1G  0 part /boot
-=E2=94=94=E2=94=80sda2             8:2    0  139G  0 part=20
-  =E2=94=9C=E2=94=80euleros-root 253:0    0   50G  0 lvm  /
-  =E2=94=9C=E2=94=80euleros-swap 253:1    0    4G  0 lvm  [SWAP]
-  =E2=94=94=E2=94=80euleros-home 253:2    0   85G  0 lvm  /home
-sdb                8:16   0   10G  0 disk=20
-sdc                8:32   0   10G  0 disk=20
-sdd                8:48   0   10G  0 disk=20
-sde                8:64   0   10G  0 disk=20
-sdf                8:80   0    1G  0 disk=20
-[root@localhost uppatch]# multipath -ll
-[root@localhost uppatch]# multipath -v3
-Feb 04 15:12:44 | set open fds limit to 1073741816/1073741816
-Feb 04 15:12:44 | loading /lib64/multipath/libchecktur.so checker
-Feb 04 15:12:44 | checker tur: message table size =3D 3
-Feb 04 15:12:44 | loading /lib64/multipath/libprioconst.so prioritizer
-Feb 04 15:12:44 | _init_foreign: foreign library "nvme" is not enabled
-Feb 04 15:12:44 | sda: size =3D 293601280
-Feb 04 15:12:44 | sda: vendor =3D QEMU
-Feb 04 15:12:44 | sda: product =3D QEMU HARDDISK
-Feb 04 15:12:44 | sda: rev =3D 2.5+
-Feb 04 15:12:44 | sda: h:b:t:l =3D 2:0:0:0
-Feb 04 15:12:44 | sda: tgt_node_name =3D=20
-Feb 04 15:12:44 | sda: 18275 cyl, 255 heads, 63 sectors/track, start at 0
-Feb 04 15:12:44 | sda: vpd_vendor_id =3D 0 "undef" (setting: multipath inte=
-rnal)
-Feb 04 15:12:44 | 2:0:0:0: attribute vpd_pg80 not found in sysfs
-Feb 04 15:12:44 | failed to read sysfs vpd pg80
-Feb 04 15:12:44 | sda: fail to get serial
-Feb 04 15:12:44 | sda: detect_checker =3D yes (setting: multipath internal)
-Feb 04 15:12:44 | sda: path_checker =3D tur (setting: multipath internal)
-Feb 04 15:12:44 | sda: checker timeout =3D 30 s (setting: kernel sysfs)
-Feb 04 15:12:44 | sda: tur state =3D up
-Feb 04 15:12:44 | sda: uid_attribute =3D ID_SERIAL (setting: multipath inte=
-rnal)
-Feb 04 15:12:44 | sda: uid =3D 0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-0 (udev)
-Feb 04 15:12:44 | sda: detect_prio =3D yes (setting: multipath internal)
-Feb 04 15:12:44 | sda: prio =3D const (setting: multipath internal)
-Feb 04 15:12:44 | sda: prio args =3D "" (setting: multipath internal)
-Feb 04 15:12:44 | sda: const prio =3D 1
-Feb 04 15:12:44 | sdf: size =3D 2097152
-Feb 04 15:12:44 | sdf: vendor =3D QEMU
-Feb 04 15:12:44 | sdf: product =3D QEMU HARDDISK
-Feb 04 15:12:44 | sdf: rev =3D 2.5+
-Feb 04 15:12:44 | sdf: h:b:t:l =3D 2:0:0:1
-Feb 04 15:12:44 | sdf: tgt_node_name =3D=20
-Feb 04 15:12:44 | sdf: 1011 cyl, 34 heads, 61 sectors/track, start at 0
-Feb 04 15:12:44 | sdf: vpd_vendor_id =3D 0 "undef" (setting: multipath inte=
-rnal)
-Feb 04 15:12:44 | 2:0:0:1: attribute vpd_pg80 not found in sysfs
-Feb 04 15:12:44 | failed to read sysfs vpd pg80
-Feb 04 15:12:44 | sdf: fail to get serial
-Feb 04 15:12:44 | sdf: detect_checker =3D yes (setting: multipath internal)
-Feb 04 15:12:44 | sdf: path_checker =3D tur (setting: multipath internal)
-Feb 04 15:12:44 | sdf: checker timeout =3D 30 s (setting: kernel sysfs)
-Feb 04 15:12:44 | sdf: tur state =3D up
-Feb 04 15:12:44 | sdf: uid_attribute =3D ID_SERIAL (setting: multipath inte=
-rnal)
-Feb 04 15:12:44 | sdf: uid =3D 0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-1 (udev)
-Feb 04 15:12:44 | sdf: detect_prio =3D yes (setting: multipath internal)
-Feb 04 15:12:44 | sdf: prio =3D const (setting: multipath internal)
-Feb 04 15:12:44 | sdf: prio args =3D "" (setting: multipath internal)
-Feb 04 15:12:44 | sdf: const prio =3D 1
-Feb 04 15:12:44 | sde: size =3D 20971520
-Feb 04 15:12:44 | sde: vendor =3D QEMU
-Feb 04 15:12:44 | sde: product =3D QEMU HARDDISK
-Feb 04 15:12:44 | sde: rev =3D 2.5+
-Feb 04 15:12:44 | sde: h:b:t:l =3D 2:0:0:2
-Feb 04 15:12:44 | sde: tgt_node_name =3D=20
-Feb 04 15:12:44 | sde: 10240 cyl, 64 heads, 32 sectors/track, start at 0
-Feb 04 15:12:44 | sde: vpd_vendor_id =3D 0 "undef" (setting: multipath inte=
-rnal)
-Feb 04 15:12:44 | 2:0:0:2: attribute vpd_pg80 not found in sysfs
-Feb 04 15:12:44 | failed to read sysfs vpd pg80
-Feb 04 15:12:44 | sde: fail to get serial
-Feb 04 15:12:44 | sde: detect_checker =3D yes (setting: multipath internal)
-Feb 04 15:12:44 | sde: path_checker =3D tur (setting: multipath internal)
-Feb 04 15:12:44 | sde: checker timeout =3D 30 s (setting: kernel sysfs)
-Feb 04 15:12:44 | sde: tur state =3D up
-Feb 04 15:12:44 | sde: uid_attribute =3D ID_SERIAL (setting: multipath inte=
-rnal)
-Feb 04 15:12:44 | sde: uid =3D 0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-2 (udev)
-Feb 04 15:12:44 | sde: detect_prio =3D yes (setting: multipath internal)
-Feb 04 15:12:44 | sde: prio =3D const (setting: multipath internal)
-Feb 04 15:12:44 | sde: prio args =3D "" (setting: multipath internal)
-Feb 04 15:12:44 | sde: const prio =3D 1
-Feb 04 15:12:44 | sdd: size =3D 20971520
-Feb 04 15:12:44 | sdd: vendor =3D QEMU
-Feb 04 15:12:44 | sdd: product =3D QEMU HARDDISK
-Feb 04 15:12:44 | sdd: rev =3D 2.5+
-Feb 04 15:12:44 | sdd: h:b:t:l =3D 2:0:0:3
-Feb 04 15:12:44 | sdd: tgt_node_name =3D=20
-Feb 04 15:12:44 | sdd: 10240 cyl, 64 heads, 32 sectors/track, start at 0
-Feb 04 15:12:44 | sdd: vpd_vendor_id =3D 0 "undef" (setting: multipath inte=
-rnal)
-Feb 04 15:12:44 | 2:0:0:3: attribute vpd_pg80 not found in sysfs
-Feb 04 15:12:44 | failed to read sysfs vpd pg80
-Feb 04 15:12:44 | sdd: fail to get serial
-Feb 04 15:12:44 | sdd: detect_checker =3D yes (setting: multipath internal)
-Feb 04 15:12:44 | sdd: path_checker =3D tur (setting: multipath internal)
-Feb 04 15:12:44 | sdd: checker timeout =3D 30 s (setting: kernel sysfs)
-Feb 04 15:12:44 | sdd: tur state =3D up
-Feb 04 15:12:44 | sdd: uid_attribute =3D ID_SERIAL (setting: multipath inte=
-rnal)
-Feb 04 15:12:44 | sdd: uid =3D 0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-3 (udev)
-Feb 04 15:12:44 | sdd: detect_prio =3D yes (setting: multipath internal)
-Feb 04 15:12:44 | sdd: prio =3D const (setting: multipath internal)
-Feb 04 15:12:44 | sdd: prio args =3D "" (setting: multipath internal)
-Feb 04 15:12:44 | sdd: const prio =3D 1
-Feb 04 15:12:44 | sdc: size =3D 20971520
-Feb 04 15:12:44 | sdc: vendor =3D QEMU
-Feb 04 15:12:44 | sdc: product =3D QEMU HARDDISK
-Feb 04 15:12:44 | sdc: rev =3D 2.5+
-Feb 04 15:12:44 | sdc: h:b:t:l =3D 2:0:0:4
-Feb 04 15:12:44 | sdc: tgt_node_name =3D=20
-Feb 04 15:12:44 | sdc: 10240 cyl, 64 heads, 32 sectors/track, start at 0
-Feb 04 15:12:44 | sdc: vpd_vendor_id =3D 0 "undef" (setting: multipath inte=
-rnal)
-Feb 04 15:12:44 | 2:0:0:4: attribute vpd_pg80 not found in sysfs
-Feb 04 15:12:44 | failed to read sysfs vpd pg80
-Feb 04 15:12:44 | sdc: fail to get serial
-Feb 04 15:12:44 | sdc: detect_checker =3D yes (setting: multipath internal)
-Feb 04 15:12:44 | sdc: path_checker =3D tur (setting: multipath internal)
-Feb 04 15:12:44 | sdc: checker timeout =3D 30 s (setting: kernel sysfs)
-Feb 04 15:12:44 | sdc: tur state =3D up
-Feb 04 15:12:44 | sdc: uid_attribute =3D ID_SERIAL (setting: multipath inte=
-rnal)
-Feb 04 15:12:44 | sdc: uid =3D 0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-4 (udev)
-Feb 04 15:12:44 | sdc: detect_prio =3D yes (setting: multipath internal)
-Feb 04 15:12:44 | sdc: prio =3D const (setting: multipath internal)
-Feb 04 15:12:44 | sdc: prio args =3D "" (setting: multipath internal)
-Feb 04 15:12:44 | sdc: const prio =3D 1
-Feb 04 15:12:44 | sdb: size =3D 20971520
-Feb 04 15:12:44 | sdb: vendor =3D QEMU
-Feb 04 15:12:44 | sdb: product =3D QEMU HARDDISK
-Feb 04 15:12:44 | sdb: rev =3D 2.5+
-Feb 04 15:12:44 | sdb: h:b:t:l =3D 2:0:0:5
-Feb 04 15:12:44 | sdb: tgt_node_name =3D=20
-Feb 04 15:12:44 | sdb: 10240 cyl, 64 heads, 32 sectors/track, start at 0
-Feb 04 15:12:44 | sdb: vpd_vendor_id =3D 0 "undef" (setting: multipath inte=
-rnal)
-Feb 04 15:12:44 | 2:0:0:5: attribute vpd_pg80 not found in sysfs
-Feb 04 15:12:44 | failed to read sysfs vpd pg80
-Feb 04 15:12:44 | sdb: fail to get serial
-Feb 04 15:12:44 | sdb: detect_checker =3D yes (setting: multipath internal)
-Feb 04 15:12:44 | sdb: path_checker =3D tur (setting: multipath internal)
-Feb 04 15:12:44 | sdb: checker timeout =3D 30 s (setting: kernel sysfs)
-Feb 04 15:12:44 | sdb: tur state =3D up
-Feb 04 15:12:44 | sdb: uid_attribute =3D ID_SERIAL (setting: multipath inte=
-rnal)
-Feb 04 15:12:44 | sdb: uid =3D 0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-5 (udev)
-Feb 04 15:12:44 | sdb: detect_prio =3D yes (setting: multipath internal)
-Feb 04 15:12:44 | sdb: prio =3D const (setting: multipath internal)
-Feb 04 15:12:44 | sdb: prio args =3D "" (setting: multipath internal)
-Feb 04 15:12:44 | sdb: const prio =3D 1
-Feb 04 15:12:44 | dm-0: device node name blacklisted
-Feb 04 15:12:44 | dm-1: device node name blacklisted
-Feb 04 15:12:44 | dm-2: device node name blacklisted
-=3D=3D=3D=3D=3D paths list =3D=3D=3D=3D=3D
-uuid                                  hcil    dev dev_t pri dm_st chk_st ve=
-nd/
-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-0 2:0:0:0 sda 8:0   1   undef undef  QE=
-MU,
-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-1 2:0:0:1 sdf 8:80  1   undef undef  QE=
-MU,
-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-2 2:0:0:2 sde 8:64  1   undef undef  QE=
-MU,
-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-3 2:0:0:3 sdd 8:48  1   undef undef  QE=
-MU,
-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-4 2:0:0:4 sdc 8:32  1   undef undef  QE=
-MU,
-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-5 2:0:0:5 sdb 8:16  1   undef undef  QE=
-MU,
-Feb 04 15:12:44 | libdevmapper version 1.02.170 (2020-03-24)
-Feb 04 15:12:44 | DM multipath kernel driver v1.13.0
-Feb 04 15:12:44 | sda: blacklisted, udev property missing
-Feb 04 15:12:44 | sda: orphan path, blacklisted
-Feb 04 15:12:44 | sdf: blacklisted, udev property missing
-Feb 04 15:12:44 | sdf: orphan path, blacklisted
-Feb 04 15:12:44 | sde: blacklisted, udev property missing
-Feb 04 15:12:44 | sde: orphan path, blacklisted
-Feb 04 15:12:44 | sdd: blacklisted, udev property missing
-Feb 04 15:12:44 | sdd: orphan path, blacklisted
-Feb 04 15:12:44 | sdc: blacklisted, udev property missing
-Feb 04 15:12:44 | sdc: orphan path, blacklisted
-Feb 04 15:12:44 | sdb: blacklisted, udev property missing
-Feb 04 15:12:44 | sdb: orphan path, blacklisted
-Feb 04 15:12:44 | unloading const prioritizer
-Feb 04 15:12:44 | unloading tur checker
-[root@localhost uppatch]# multipathd add path sdb
-fail
-[root@localhost uppatch]# multipathd add path sdb
-ok
-[root@localhost uppatch]# lsblk
-NAME                                    MAJ:MIN RM  SIZE RO TYPE  MOUNTPOIN=
-T
-sda                                       8:0    0  140G  0 disk =20
-=E2=94=9C=E2=94=80sda1                                    8:1    0    1G  0=
- part  /boot
-=E2=94=94=E2=94=80sda2                                    8:2    0  139G  0=
- part =20
-  =E2=94=9C=E2=94=80euleros-root                        253:0    0   50G  0=
- lvm   /
-  =E2=94=9C=E2=94=80euleros-swap                        253:1    0    4G  0=
- lvm   [SWAP]
-  =E2=94=94=E2=94=80euleros-home                        253:2    0   85G  0=
- lvm   /home
-sdb                                       8:16   0   10G  0 disk =20
-=E2=94=94=E2=94=800QEMU_QEMU_HARDDISK_drive-scsi0-0-0-5 253:3    0   10G  0=
- mpath=20
-sdc                                       8:32   0   10G  0 disk =20
-sdd                                       8:48   0   10G  0 disk =20
-sde                                       8:64   0   10G  0 disk =20
-sdf                                       8:80   0    1G  0 disk =20
-[root@localhost uppatch]# multipath -ll
-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-5 dm-3 QEMU,QEMU HARDDISK
-size=3D10G features=3D'0' hwhandler=3D'0' wp=3Drw
-`-+- policy=3D'service-time 0' prio=3D1 status=3Denabled
-  `- 2:0:0:5 sdb 8:16 active ready running
-[root@localhost uppatch]# multipath -v3
-Feb 04 15:13:18 | set open fds limit to 1073741816/1073741816
-Feb 04 15:13:18 | loading /lib64/multipath/libchecktur.so checker
-Feb 04 15:13:18 | checker tur: message table size =3D 3
-Feb 04 15:13:18 | loading /lib64/multipath/libprioconst.so prioritizer
-Feb 04 15:13:18 | _init_foreign: foreign library "nvme" is not enabled
-Feb 04 15:13:18 | sda: size =3D 293601280
-Feb 04 15:13:18 | sda: vendor =3D QEMU
-Feb 04 15:13:18 | sda: product =3D QEMU HARDDISK
-Feb 04 15:13:18 | sda: rev =3D 2.5+
-Feb 04 15:13:18 | sda: h:b:t:l =3D 2:0:0:0
-Feb 04 15:13:18 | sda: tgt_node_name =3D=20
-Feb 04 15:13:18 | sda: 18275 cyl, 255 heads, 63 sectors/track, start at 0
-Feb 04 15:13:18 | sda: vpd_vendor_id =3D 0 "undef" (setting: multipath inte=
-rnal)
-Feb 04 15:13:18 | 2:0:0:0: attribute vpd_pg80 not found in sysfs
-Feb 04 15:13:18 | failed to read sysfs vpd pg80
-Feb 04 15:13:18 | sda: fail to get serial
-Feb 04 15:13:18 | sda: detect_checker =3D yes (setting: multipath internal)
-Feb 04 15:13:18 | sda: path_checker =3D tur (setting: multipath internal)
-Feb 04 15:13:18 | sda: checker timeout =3D 30 s (setting: kernel sysfs)
-Feb 04 15:13:18 | sda: tur state =3D up
-Feb 04 15:13:18 | sda: uid_attribute =3D ID_SERIAL (setting: multipath inte=
-rnal)
-Feb 04 15:13:18 | sda: uid =3D 0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-0 (udev)
-Feb 04 15:13:18 | sda: detect_prio =3D yes (setting: multipath internal)
-Feb 04 15:13:18 | sda: prio =3D const (setting: multipath internal)
-Feb 04 15:13:18 | sda: prio args =3D "" (setting: multipath internal)
-Feb 04 15:13:18 | sda: const prio =3D 1
-Feb 04 15:13:18 | sdf: size =3D 2097152
-Feb 04 15:13:18 | sdf: vendor =3D QEMU
-Feb 04 15:13:18 | sdf: product =3D QEMU HARDDISK
-Feb 04 15:13:18 | sdf: rev =3D 2.5+
-Feb 04 15:13:18 | sdf: h:b:t:l =3D 2:0:0:1
-Feb 04 15:13:18 | sdf: tgt_node_name =3D=20
-Feb 04 15:13:18 | sdf: 1011 cyl, 34 heads, 61 sectors/track, start at 0
-Feb 04 15:13:18 | sdf: vpd_vendor_id =3D 0 "undef" (setting: multipath inte=
-rnal)
-Feb 04 15:13:18 | 2:0:0:1: attribute vpd_pg80 not found in sysfs
-Feb 04 15:13:18 | failed to read sysfs vpd pg80
-Feb 04 15:13:18 | sdf: fail to get serial
-Feb 04 15:13:18 | sdf: detect_checker =3D yes (setting: multipath internal)
-Feb 04 15:13:18 | sdf: path_checker =3D tur (setting: multipath internal)
-Feb 04 15:13:18 | sdf: checker timeout =3D 30 s (setting: kernel sysfs)
-Feb 04 15:13:18 | sdf: tur state =3D up
-Feb 04 15:13:18 | sdf: uid_attribute =3D ID_SERIAL (setting: multipath inte=
-rnal)
-Feb 04 15:13:18 | sdf: uid =3D 0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-1 (udev)
-Feb 04 15:13:18 | sdf: detect_prio =3D yes (setting: multipath internal)
-Feb 04 15:13:18 | sdf: prio =3D const (setting: multipath internal)
-Feb 04 15:13:18 | sdf: prio args =3D "" (setting: multipath internal)
-Feb 04 15:13:18 | sdf: const prio =3D 1
-Feb 04 15:13:18 | sde: size =3D 20971520
-Feb 04 15:13:18 | sde: vendor =3D QEMU
-Feb 04 15:13:18 | sde: product =3D QEMU HARDDISK
-Feb 04 15:13:18 | sde: rev =3D 2.5+
-Feb 04 15:13:18 | sde: h:b:t:l =3D 2:0:0:2
-Feb 04 15:13:18 | sde: tgt_node_name =3D=20
-Feb 04 15:13:18 | sde: 10240 cyl, 64 heads, 32 sectors/track, start at 0
-Feb 04 15:13:18 | sde: vpd_vendor_id =3D 0 "undef" (setting: multipath inte=
-rnal)
-Feb 04 15:13:18 | 2:0:0:2: attribute vpd_pg80 not found in sysfs
-Feb 04 15:13:18 | failed to read sysfs vpd pg80
-Feb 04 15:13:18 | sde: fail to get serial
-Feb 04 15:13:18 | sde: detect_checker =3D yes (setting: multipath internal)
-Feb 04 15:13:18 | sde: path_checker =3D tur (setting: multipath internal)
-Feb 04 15:13:18 | sde: checker timeout =3D 30 s (setting: kernel sysfs)
-Feb 04 15:13:18 | sde: tur state =3D up
-Feb 04 15:13:18 | sde: uid_attribute =3D ID_SERIAL (setting: multipath inte=
-rnal)
-Feb 04 15:13:18 | sde: uid =3D 0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-2 (udev)
-Feb 04 15:13:18 | sde: detect_prio =3D yes (setting: multipath internal)
-Feb 04 15:13:18 | sde: prio =3D const (setting: multipath internal)
-Feb 04 15:13:18 | sde: prio args =3D "" (setting: multipath internal)
-Feb 04 15:13:18 | sde: const prio =3D 1
-Feb 04 15:13:18 | sdd: size =3D 20971520
-Feb 04 15:13:18 | sdd: vendor =3D QEMU
-Feb 04 15:13:18 | sdd: product =3D QEMU HARDDISK
-Feb 04 15:13:18 | sdd: rev =3D 2.5+
-Feb 04 15:13:18 | sdd: h:b:t:l =3D 2:0:0:3
-Feb 04 15:13:18 | sdd: tgt_node_name =3D=20
-Feb 04 15:13:18 | sdd: 10240 cyl, 64 heads, 32 sectors/track, start at 0
-Feb 04 15:13:18 | sdd: vpd_vendor_id =3D 0 "undef" (setting: multipath inte=
-rnal)
-Feb 04 15:13:18 | 2:0:0:3: attribute vpd_pg80 not found in sysfs
-Feb 04 15:13:18 | failed to read sysfs vpd pg80
-Feb 04 15:13:18 | sdd: fail to get serial
-Feb 04 15:13:18 | sdd: detect_checker =3D yes (setting: multipath internal)
-Feb 04 15:13:18 | sdd: path_checker =3D tur (setting: multipath internal)
-Feb 04 15:13:18 | sdd: checker timeout =3D 30 s (setting: kernel sysfs)
-Feb 04 15:13:18 | sdd: tur state =3D up
-Feb 04 15:13:18 | sdd: uid_attribute =3D ID_SERIAL (setting: multipath inte=
-rnal)
-Feb 04 15:13:18 | sdd: uid =3D 0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-3 (udev)
-Feb 04 15:13:18 | sdd: detect_prio =3D yes (setting: multipath internal)
-Feb 04 15:13:18 | sdd: prio =3D const (setting: multipath internal)
-Feb 04 15:13:18 | sdd: prio args =3D "" (setting: multipath internal)
-Feb 04 15:13:18 | sdd: const prio =3D 1
-Feb 04 15:13:18 | sdc: size =3D 20971520
-Feb 04 15:13:18 | sdc: vendor =3D QEMU
-Feb 04 15:13:18 | sdc: product =3D QEMU HARDDISK
-Feb 04 15:13:18 | sdc: rev =3D 2.5+
-Feb 04 15:13:18 | sdc: h:b:t:l =3D 2:0:0:4
-Feb 04 15:13:18 | sdc: tgt_node_name =3D=20
-Feb 04 15:13:18 | sdc: 10240 cyl, 64 heads, 32 sectors/track, start at 0
-Feb 04 15:13:18 | sdc: vpd_vendor_id =3D 0 "undef" (setting: multipath inte=
-rnal)
-Feb 04 15:13:18 | 2:0:0:4: attribute vpd_pg80 not found in sysfs
-Feb 04 15:13:18 | failed to read sysfs vpd pg80
-Feb 04 15:13:18 | sdc: fail to get serial
-Feb 04 15:13:18 | sdc: detect_checker =3D yes (setting: multipath internal)
-Feb 04 15:13:18 | sdc: path_checker =3D tur (setting: multipath internal)
-Feb 04 15:13:18 | sdc: checker timeout =3D 30 s (setting: kernel sysfs)
-Feb 04 15:13:18 | sdc: tur state =3D up
-Feb 04 15:13:18 | sdc: uid_attribute =3D ID_SERIAL (setting: multipath inte=
-rnal)
-Feb 04 15:13:18 | sdc: uid =3D 0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-4 (udev)
-Feb 04 15:13:18 | sdc: detect_prio =3D yes (setting: multipath internal)
-Feb 04 15:13:18 | sdc: prio =3D const (setting: multipath internal)
-Feb 04 15:13:18 | sdc: prio args =3D "" (setting: multipath internal)
-Feb 04 15:13:18 | sdc: const prio =3D 1
-Feb 04 15:13:18 | sdb: size =3D 20971520
-Feb 04 15:13:18 | sdb: vendor =3D QEMU
-Feb 04 15:13:18 | sdb: product =3D QEMU HARDDISK
-Feb 04 15:13:18 | sdb: rev =3D 2.5+
-Feb 04 15:13:18 | sdb: h:b:t:l =3D 2:0:0:5
-Feb 04 15:13:18 | sdb: tgt_node_name =3D=20
-Feb 04 15:13:18 | sdb: 10240 cyl, 64 heads, 32 sectors/track, start at 0
-Feb 04 15:13:18 | sdb: vpd_vendor_id =3D 0 "undef" (setting: multipath inte=
-rnal)
-Feb 04 15:13:18 | 2:0:0:5: attribute vpd_pg80 not found in sysfs
-Feb 04 15:13:18 | failed to read sysfs vpd pg80
-Feb 04 15:13:18 | sdb: fail to get serial
-Feb 04 15:13:18 | sdb: detect_checker =3D yes (setting: multipath internal)
-Feb 04 15:13:18 | sdb: path_checker =3D tur (setting: multipath internal)
-Feb 04 15:13:18 | sdb: checker timeout =3D 30 s (setting: kernel sysfs)
-Feb 04 15:13:18 | sdb: tur state =3D up
-Feb 04 15:13:18 | sdb: uid_attribute =3D ID_SERIAL (setting: multipath inte=
-rnal)
-Feb 04 15:13:18 | sdb: uid =3D 0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-5 (udev)
-Feb 04 15:13:18 | sdb: detect_prio =3D yes (setting: multipath internal)
-Feb 04 15:13:18 | sdb: prio =3D const (setting: multipath internal)
-Feb 04 15:13:18 | sdb: prio args =3D "" (setting: multipath internal)
-Feb 04 15:13:18 | sdb: const prio =3D 1
-Feb 04 15:13:18 | dm-0: device node name blacklisted
-Feb 04 15:13:18 | dm-1: device node name blacklisted
-Feb 04 15:13:18 | dm-2: device node name blacklisted
-Feb 04 15:13:18 | dm-3: device node name blacklisted
-=3D=3D=3D=3D=3D paths list =3D=3D=3D=3D=3D
-uuid                                  hcil    dev dev_t pri dm_st chk_st ve=
-nd/
-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-0 2:0:0:0 sda 8:0   1   undef undef  QE=
-MU,
-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-1 2:0:0:1 sdf 8:80  1   undef undef  QE=
-MU,
-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-2 2:0:0:2 sde 8:64  1   undef undef  QE=
-MU,
-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-3 2:0:0:3 sdd 8:48  1   undef undef  QE=
-MU,
-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-4 2:0:0:4 sdc 8:32  1   undef undef  QE=
-MU,
-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-5 2:0:0:5 sdb 8:16  1   undef undef  QE=
-MU,
-Feb 04 15:13:18 | libdevmapper version 1.02.170 (2020-03-24)
-Feb 04 15:13:18 | DM multipath kernel driver v1.13.0
-Feb 04 15:13:18 | sda: blacklisted, udev property missing
-Feb 04 15:13:18 | sda: orphan path, blacklisted
-Feb 04 15:13:18 | sdf: blacklisted, udev property missing
-Feb 04 15:13:18 | sdf: orphan path, blacklisted
-Feb 04 15:13:18 | sde: blacklisted, udev property missing
-Feb 04 15:13:18 | sde: orphan path, blacklisted
-Feb 04 15:13:18 | sdd: blacklisted, udev property missing
-Feb 04 15:13:18 | sdd: orphan path, blacklisted
-Feb 04 15:13:18 | sdc: blacklisted, udev property missing
-Feb 04 15:13:18 | sdc: orphan path, blacklisted
-Feb 04 15:13:18 | sdb: blacklisted, udev property missing
-Feb 04 15:13:18 | sdb: orphan path, blacklisted
-Feb 04 15:13:18 | unloading const prioritizer
-Feb 04 15:13:18 | unloading tur checker
-[root@localhost uppatch]# 
---------------91120BEF6E86C70311F17856
 Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+> Can you pretty please not line-wrap console output? It's unreadable.
+
+GMail doesn't make it easy, I'll send a link to a pastebin next time.
+Let me know if you'd like me to regenerate the decoded stack.
+
+> > edfd9b7838ba5e47f19ad8466d0565aba5c59bf0 is the first bad commit
+> > commit edfd9b7838ba5e47f19ad8466d0565aba5c59bf0
+>
+> Not sure what tree you're on, but that's not the upstream commit.
+
+I mentioned that it's a rebased core-static_call-2020-10-12 tag and
+added a link to the upstream hash right below.
+
+> > Author: Steven Rostedt (VMware) <rostedt@goodmis.org>
+> > Date:   Tue Aug 18 15:57:52 2020 +0200
+> >
+> >     tracepoint: Optimize using static_call()
+> >
+>
+> There's a known issue with that patch, can you try:
+>
+>   http://lkml.kernel.org/r/20210202220121.435051654@goodmis.org
+
+I've tried it on top of core-static_call-2020-10-12 tag rebased on top
+of v5.9 (to make it reproducible), and the patch did not help. Do I
+need to apply the whole series or something else?
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://www.redhat.com/mailman/listinfo/dm-devel
---------------91120BEF6E86C70311F17856--
 
