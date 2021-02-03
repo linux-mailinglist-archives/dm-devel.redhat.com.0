@@ -1,101 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 203F130E07F
-	for <lists+dm-devel@lfdr.de>; Wed,  3 Feb 2021 18:08:20 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id E59F430E34D
+	for <lists+dm-devel@lfdr.de>; Wed,  3 Feb 2021 20:31:41 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1612380701;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=U+4mi27xrV9eo2EziflWVLuqse4Wj3L9zxWIRu96HE0=;
+	b=gd5Vl87LUJMR5ICm6wtd4SUeamdXbiq9/oGNTSj4ByvTDWJU98T/jz/JqKRByW6GTzfQkE
+	TmMb/VK+qNf+ex+LgnG0yWKALhp7+W1qSyqK9HJWfD112/buzFjq4RqRDiYKq11owS971W
+	tBW0JCw0EEG0hdL/LZkE7B1wOUgBKgA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-280-ZwCAJXF6PBK0tAI8tCyqaw-1; Wed, 03 Feb 2021 12:08:16 -0500
-X-MC-Unique: ZwCAJXF6PBK0tAI8tCyqaw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-367-feaTQUqhNQe6U-2CqwIVQA-1; Wed, 03 Feb 2021 14:31:38 -0500
+X-MC-Unique: feaTQUqhNQe6U-2CqwIVQA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 51B2D85EE61;
-	Wed,  3 Feb 2021 17:08:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2C19B192AB9E;
+	Wed,  3 Feb 2021 19:31:31 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C5D321971C;
-	Wed,  3 Feb 2021 17:08:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F2EE577BE9;
+	Wed,  3 Feb 2021 19:31:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9D76757DF9;
-	Wed,  3 Feb 2021 17:08:01 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 448F057DFA;
+	Wed,  3 Feb 2021 19:31:12 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 113H7nE5019806 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 3 Feb 2021 12:07:49 -0500
+	id 113JUxPc005438 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 3 Feb 2021 14:30:59 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EEA862026D11; Wed,  3 Feb 2021 17:07:48 +0000 (UTC)
+	id 19026722C6; Wed,  3 Feb 2021 19:30:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E8E082026D49
-	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 17:07:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 90A7E101A54E
-	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 17:07:46 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-240-sNunC3TSMFSB_Y7K8g5hmA-1; Wed, 03 Feb 2021 12:07:41 -0500
-X-MC-Unique: sNunC3TSMFSB_Y7K8g5hmA-1
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
-	helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
-	id 1l7LIa-00HCKb-H6; Wed, 03 Feb 2021 16:46:38 +0000
-Received: from hirez.programming.kicks-ass.net
-	(hirez.programming.kicks-ass.net [192.168.1.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(Client did not present a certificate)
-	by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id A8E0F301A66;
-	Wed,  3 Feb 2021 17:46:33 +0100 (CET)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 97C5520B4DFEB; Wed,  3 Feb 2021 17:46:33 +0100 (CET)
-Date: Wed, 3 Feb 2021 17:46:33 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Ivan Babrou <ivan@cloudflare.com>
-Message-ID: <YBrTaVVfWu2R0Hgw@hirez.programming.kicks-ass.net>
-References: <CABWYdi3HjduhY-nQXzy2ezGbiMB1Vk9cnhW2pMypUa+P1OjtzQ@mail.gmail.com>
-	<CABWYdi27baYc3ShHcZExmmXVmxOQXo9sGO+iFhfZLq78k8iaAg@mail.gmail.com>
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 317F450DE3;
+	Wed,  3 Feb 2021 19:30:55 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 113JUr6I021179; 
+	Wed, 3 Feb 2021 13:30:53 -0600
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 113JUqw3021178;
+	Wed, 3 Feb 2021 13:30:52 -0600
+Date: Wed, 3 Feb 2021 13:30:52 -0600
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: mwilck@suse.com
+Message-ID: <20210203193052.GA15006@octiron.msp.redhat.com>
+References: <20210202214131.19901-1-mwilck@suse.com>
+	<20210202214131.19901-3-mwilck@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <CABWYdi27baYc3ShHcZExmmXVmxOQXo9sGO+iFhfZLq78k8iaAg@mail.gmail.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+In-Reply-To: <20210202214131.19901-3-mwilck@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
-Cc: Song Liu <songliubraving@fb.com>, Mike Snitzer <snitzer@redhat.com>,
-	Yonghong Song <yhs@fb.com>, Ignat Korchagin <ignat@cloudflare.com>,
-	Alexei Starovoitov <ast@kernel.org>, linux-mm@kvack.org,
-	dm-devel@redhat.com, Alexander Potapenko <glider@google.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
-	Miroslav Benes <mbenes@suse.cz>, Jiri Slaby <jirislaby@kernel.org>,
-	Alasdair Kergon <agk@redhat.com>, Daniel Borkmann <daniel@iogearbox.net>,
-	kernel-team <kernel-team@cloudflare.com>,
-	Hailong liu <liu.hailong6@zte.com.cn>, x86@kernel.org,
-	John Fastabend <john.fastabend@gmail.com>,
-	kasan-dev@googlegroups.com, Ingo Molnar <mingo@redhat.com>,
-	Andrey Ryabinin <aryabinin@virtuozzo.com>,
-	Andrii Nakryiko <andriin@fb.com>, Robert Richter <rric@kernel.org>,
-	"Steven Rostedt \(VMware\)" <rostedt@goodmis.org>,
-	Borislav Petkov <bp@alien8.de>, Josh Poimboeuf <jpoimboe@redhat.com>,
-	KP Singh <kpsingh@chromium.org>,
-	Thomas Gleixner <tglx@linutronix.de>, bpf@vger.kernel.org,
-	Dmitry Vyukov <dvyukov@google.com>, Julien Thierry <jthierry@redhat.com>,
-	Linux Kernel Network Developers <netdev@vger.kernel.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Andrew Morton <akpm@linux-foundation.org>, Martin KaFai Lau <kafai@fb.com>
-Subject: Re: [dm-devel] BUG: KASAN: stack-out-of-bounds in
- unwind_next_frame+0x1df5/0x2650
+Cc: lixiaokeng@huawei.com, dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH 2/3] multipathd: ev_add_path: fail if
+ add_map_with_path() fails
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -109,7 +75,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -118,32 +84,40 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Feb 02, 2021 at 07:09:44PM -0800, Ivan Babrou wrote:
-> On Thu, Jan 28, 2021 at 7:35 PM Ivan Babrou <ivan@cloudflare.com> wrote:
-
-> > ==================================================================
-> > [  128.368523][    C0] BUG: KASAN: stack-out-of-bounds in
-> > unwind_next_frame (arch/x86/kernel/unwind_orc.c:371
-> > arch/x86/kernel/unwind_orc.c:544)
-> > [  128.369744][    C0] Read of size 8 at addr ffff88802fceede0 by task
-> > kworker/u2:2/591
-
-Can you pretty please not line-wrap console output? It's unreadable.
-
-> edfd9b7838ba5e47f19ad8466d0565aba5c59bf0 is the first bad commit
-> commit edfd9b7838ba5e47f19ad8466d0565aba5c59bf0
-
-Not sure what tree you're on, but that's not the upstream commit.
-
-> Author: Steven Rostedt (VMware) <rostedt@goodmis.org>
-> Date:   Tue Aug 18 15:57:52 2020 +0200
+On Tue, Feb 02, 2021 at 10:41:30PM +0100, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
 > 
->     tracepoint: Optimize using static_call()
+> If start_waiter was set before and the "rescan" label was used,
+> we may try to set up an empty/invalid map.
+> Always fail if add_map_with_path() isn't successful.
 > 
+> Signed-off-by: Martin Wilck <mwilck@suse.com>
 
-There's a known issue with that patch, can you try:
+This patch looks fine, but I don't think that there was any risk before.
+I don't see how you could loop back to rescan with mpp == NULL, which
+is what would need to happen before you could ever run this code.
+At any rate
 
-  http://lkml.kernel.org/r/20210202220121.435051654@goodmis.org
+Reviewed-by: Benjamin Marzinski <bmarzin@redhat.com>
+> ---
+>  multipathd/main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/multipathd/main.c b/multipathd/main.c
+> index 43d7768..425492a 100644
+> --- a/multipathd/main.c
+> +++ b/multipathd/main.c
+> @@ -1028,7 +1028,7 @@ rescan:
+>  			 */
+>  			start_waiter = 1;
+>  		}
+> -		if (!start_waiter)
+> +		else
+>  			goto fail; /* leave path added to pathvec */
+>  	}
+>  
+> -- 
+> 2.29.2
 
 --
 dm-devel mailing list
