@@ -2,70 +2,63 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id BB3B230D6B1
-	for <lists+dm-devel@lfdr.de>; Wed,  3 Feb 2021 10:51:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5CF6530D0D0
+	for <lists+dm-devel@lfdr.de>; Wed,  3 Feb 2021 02:34:25 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-359-Q3iT_IsWOYCCBgCV_xOMhQ-1; Wed, 03 Feb 2021 04:51:24 -0500
-X-MC-Unique: Q3iT_IsWOYCCBgCV_xOMhQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-159-PcSl1ZSqPw2KCD3qpHhxgw-1; Tue, 02 Feb 2021 20:34:22 -0500
+X-MC-Unique: PcSl1ZSqPw2KCD3qpHhxgw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 83940100F340;
-	Wed,  3 Feb 2021 09:51:18 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DD462800D55;
+	Wed,  3 Feb 2021 01:34:14 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5625D9D62;
-	Wed,  3 Feb 2021 09:51:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E5DEF5B4A7;
+	Wed,  3 Feb 2021 01:34:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1196C4EE4D;
-	Wed,  3 Feb 2021 09:51:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0FE644A7C6;
+	Wed,  3 Feb 2021 01:34:04 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1130XV4V006218 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 2 Feb 2021 19:33:31 -0500
+	id 1131XmVD014798 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 2 Feb 2021 20:33:49 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4F26711422DA; Wed,  3 Feb 2021 00:33:31 +0000 (UTC)
+	id B3F2BD74CF; Wed,  3 Feb 2021 01:33:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B25E11422D8
-	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 00:33:29 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AE66CAECAF
+	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 01:33:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1D82D8115B0
-	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 00:33:29 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
-	[209.85.218.54]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-525-PoCkIKssNuSs0RaElpzGHw-1; Tue, 02 Feb 2021 19:33:27 -0500
-X-MC-Unique: PoCkIKssNuSs0RaElpzGHw-1
-Received: by mail-ej1-f54.google.com with SMTP id w1so32818698ejf.11;
-	Tue, 02 Feb 2021 16:33:26 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc:content-transfer-encoding;
-	bh=Z+13UOGCC7I+iljuuHXBZA6fphrD3cnMtJ966bWAe3g=;
-	b=F1ZxcSrmUAWm1gdBW8fh8hBt9IDtsiyV1StVe2gZGp6AIdcQ8X8lYBo9Q16YzfipzW
-	IZkxf256+EDWXrUMlH8Z0H4CeiCuFosiO2A7qxFVcLJRWlGtPy/zgKXNq8AgmiMXQ/5V
-	JbomgqXUjvcTGx/TPcT0wI69gF5hjPuOTg+i+I8bxAxKoUhaNd2ozl5lc8fhFnlH8bKl
-	NufTRBGjOQXpCUQmf8QrB1QODaLMD18LT8Tq3C/mamXcSa+ePj7yXTGUyXOYVDNp4lhA
-	JDrWe4SbILyUGKQgcHfOO0nSTB+j5M66cUI7wPNwn/ynegLhUOsDzPoDQEaswsyDsg+y
-	EJIA==
-X-Gm-Message-State: AOAM532LOpZC6JgGnYifXFPTd09FxeF//Tz+eiKIEE5yMfn3QgW4r/wZ
-	IlADqPN6QycYh98/nx/w5xoT8OUXhx1jwACySCE=
-X-Google-Smtp-Source: ABdhPJzbDVdYiWc6xmBFTMIEEpr2atHpxPzwcj5CyseOV1v3Bm60OiC0TKbqos0bNluJExG0dUR+CAKHxhTcJEdwLWY=
-X-Received: by 2002:a17:906:3ad0:: with SMTP id
-	z16mr587105ejd.72.1612312405694; 
-	Tue, 02 Feb 2021 16:33:25 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 50A5E101A531
+	for <dm-devel@redhat.com>; Wed,  3 Feb 2021 01:33:46 +0000 (UTC)
+Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-487-gtE_tSswMJ6GdmLU8-IEBA-1; Tue, 02 Feb 2021 20:33:41 -0500
+X-MC-Unique: gtE_tSswMJ6GdmLU8-IEBA-1
+Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.60])
+	by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4DVkgm2h6Jz7fvJ;
+	Wed,  3 Feb 2021 09:32:20 +0800 (CST)
+Received: from [10.174.178.113] (10.174.178.113) by
+	DGGEMS409-HUB.china.huawei.com (10.3.19.209) with Microsoft SMTP Server
+	id 14.3.498.0; Wed, 3 Feb 2021 09:33:36 +0800
+To: <mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, "Christophe
+	Varoqui" <christophe.varoqui@opensvc.com>
+References: <20210202195744.2384-1-mwilck@suse.com>
+From: lixiaokeng <lixiaokeng@huawei.com>
+Message-ID: <4c3bb639-b359-85a4-ea76-ba83347acd7c@huawei.com>
+Date: Wed, 3 Feb 2021 09:33:35 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20210122084321.24012-1-a.fatoum@pengutronix.de>
-In-Reply-To: <20210122084321.24012-1-a.fatoum@pengutronix.de>
-From: Dmitry Baryshkov <dbaryshkov@gmail.com>
-Date: Wed, 3 Feb 2021 03:33:14 +0300
-Message-ID: <CALT56yMudd0jKx8TiWvSrsE-Y3efhnFwNYcgkDiExcZONNBt3A@mail.gmail.com>
-To: Ahmad Fatoum <a.fatoum@pengutronix.de>
+In-Reply-To: <20210202195744.2384-1-mwilck@suse.com>
+X-Originating-IP: [10.174.178.113]
+X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -74,16 +67,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1130XV4V006218
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Wed, 03 Feb 2021 04:50:36 -0500
-Cc: Mike Snitzer <snitzer@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
-	kernel list <linux-kernel@vger.kernel.org>, dm-devel@redhat.com,
-	kernel@pengutronix.de, Alasdair Kergon <agk@redhat.com>
-Subject: Re: [dm-devel] [PATCH 1/2] dm crypt: replaced #if defined with
-	IS_ENABLED
+Cc: dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH] libmultipath: check if adopt_path() really
+ added current path
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,25 +85,76 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Language: en-GB
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-0L/RgiwgMjIg0Y/QvdCyLiAyMDIxINCzLiDQsiAxMTo0MywgQWhtYWQgRmF0b3VtIDxhLmZhdG91
-bUBwZW5ndXRyb25peC5kZT46Cj4KPiBJU19FTkFCTEVEKENPTkZJR19FTkNSWVBURURfS0VZUykg
-aXMgdHJ1ZSB3aGV0aGVyIHRoZSBvcHRpb24gaXMgYnVpbHQtaW4KPiBvciBhIG1vZHVsZSwgc28g
-dXNlIGl0IGluc3RlYWQgb2YgI2lmIGRlZmluZWQgY2hlY2tpbmcgZm9yIGVhY2gKPiBzZXBhcmF0
-ZWx5Lgo+Cj4gVGhlIG90aGVyICNpZiB3YXMgdG8gYXZvaWQgYSBzdGF0aWMgZnVuY3Rpb24gZGVm
-aW5lZCwgYnV0IHVudXNlZAo+IHdhcm5pbmcuIEFzIHdlIG5vdyBhbHdheXMgYnVpbGQgdGhlIGNh
-bGxzaXRlIHdoZW4gdGhlIGZ1bmN0aW9uCj4gaXMgZGVmaW5lZCwgd2UgY2FuIHJlbW92ZSB0aGF0
-IGZpcnN0ICNpZiBndWFyZC4KPgo+IFN1Z2dlc3RlZC1ieTogQXJuZCBCZXJnbWFubiA8YXJuZEBh
-cm5kYi5kZT4KPiBTaWduZWQtb2ZmLWJ5OiBBaG1hZCBGYXRvdW0gPGEuZmF0b3VtQHBlbmd1dHJv
-bml4LmRlPgoKQWNrZWQtYnk6IERtaXRyeSBCYXJ5c2hrb3YgPGRtaXRyeS5iYXJ5c2hrb3ZAbGlu
-YXJvLm9yZz4KCgotLSAKV2l0aCBiZXN0IHdpc2hlcwpEbWl0cnkKCgotLQpkbS1kZXZlbCBtYWls
-aW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL3d3dy5yZWRoYXQuY29tL21haWxt
-YW4vbGlzdGluZm8vZG0tZGV2ZWw=
+
+
+On 2021/2/3 3:57, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
+> 
+> The description of 2d32d6f ("libmultipath: adopt_paths(): don't bail out on
+> single path failure") said "we need to check after successful call to
+> adopt_paths() if that specific path had been actually added, and fail in the
+> caller otherwise". But the commit failed to actually implement this check.
+> Instead, it just checked if the path was member of the pathvec, which will
+> almost always be the case.
+> 
+> Fix it by checking what actually needs to be checked, membership of the
+> path to be added in mpp->paths.
+> 
+> Fixes: 2d32d6f ("libmultipath: adopt_paths(): don't bail out on single path failure")
+> Signed-off-by: Martin Wilck <mwilck@suse.com>
+> ---
+> 
+> @lixiaokeng, I believe that this fixes the issue you mentioned in your
+> post "libmultipath: fix NULL dereference in get_be64".
+>Reviewed-by: Lixiaokeng <lixiaokeng@huawei.com>
+> ---
+>  libmultipath/structs_vec.c | 4 ++--
+>  multipathd/main.c          | 4 ++--
+>  2 files changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/libmultipath/structs_vec.c b/libmultipath/structs_vec.c
+> index f7f45f1..47b1d03 100644
+> --- a/libmultipath/structs_vec.c
+> +++ b/libmultipath/structs_vec.c
+> @@ -707,8 +707,8 @@ struct multipath *add_map_with_path(struct vectors *vecs, struct path *pp,
+>  		goto out;
+>  	mpp->size = pp->size;
+>  
+> -	if (adopt_paths(vecs->pathvec, mpp) ||
+> -	    find_slot(vecs->pathvec, pp) == -1)
+> +	if (adopt_paths(vecs->pathvec, mpp) || pp->mpp != mpp ||
+> +	    find_slot(mpp->paths, pp) == -1)
+>  		goto out;
+>  
+>  	if (add_vec) {
+> diff --git a/multipathd/main.c b/multipathd/main.c
+> index 134185f..425492a 100644
+> --- a/multipathd/main.c
+> +++ b/multipathd/main.c
+> @@ -1008,8 +1008,8 @@ rescan:
+>  	if (mpp) {
+>  		condlog(4,"%s: adopting all paths for path %s",
+>  			mpp->alias, pp->dev);
+> -		if (adopt_paths(vecs->pathvec, mpp) ||
+> -		    find_slot(vecs->pathvec, pp) == -1)
+> +		if (adopt_paths(vecs->pathvec, mpp) || pp->mpp != mpp ||
+> +		    find_slot(mpp->paths, pp) == -1)
+>  			goto fail; /* leave path added to pathvec */
+>  
+>  		verify_paths(mpp);
+> 
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://www.redhat.com/mailman/listinfo/dm-devel
 
