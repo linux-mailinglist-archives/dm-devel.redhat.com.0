@@ -1,68 +1,61 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 9224430EF5B
-	for <lists+dm-devel@lfdr.de>; Thu,  4 Feb 2021 10:15:10 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 0E4E930EF64
+	for <lists+dm-devel@lfdr.de>; Thu,  4 Feb 2021 10:16:06 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1612430109;
+	s=mimecast20190719; t=1612430166;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=T5BSntafLWA2o5mmbumiZ6q0ovodSV1NZsP4RA87KHg=;
-	b=b1MWW5GLA06CDFhxqDr3pZIRZGHE5+NRacPksJfEIXo6dQT7qcWRLyAsOHhvW+nBZ6dBsR
-	ziSEdlnpJ/AGZ+LblWfcznVRnHFLCFOfVnk1snT5z1Kl4I6mjVlJaKZ8SHsCm/Ea8kWYVm
-	mjimpdhDk42SYxQcdBMWVUR/qiBQtuc=
+	bh=vM7T1yanmVRqE1evQxgWUFFB5GckGctSGrjWu3Ld93Y=;
+	b=fPFJ+TgkR46eoCZwjfqxiz0hL/DeNmONyMbnrSd/RwZlOKWO1U6nkjDln6EcofzLdnC83w
+	nGJpUwGHVqzvomnYubqo5BGQUMU2iWk/awMMquWw5lHW0sClSIDCm6DpzKmiYEXm6plRIk
+	2oC4NE2beGScaRo0Jc/sTEwZx+irzMY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-170-KCj2iq1vOsaoEU1b_jMK_Q-1; Thu, 04 Feb 2021 04:15:07 -0500
-X-MC-Unique: KCj2iq1vOsaoEU1b_jMK_Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-209-aHNyiGE3ObaxknizuFVdcA-1; Thu, 04 Feb 2021 04:15:11 -0500
+X-MC-Unique: aHNyiGE3ObaxknizuFVdcA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B421B107ACE8;
-	Thu,  4 Feb 2021 09:15:00 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E9CB60C66;
-	Thu,  4 Feb 2021 09:15:00 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 25B1A192D78B;
+	Thu,  4 Feb 2021 09:15:05 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F10625D9C9;
+	Thu,  4 Feb 2021 09:15:04 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2C02418095CD;
-	Thu,  4 Feb 2021 09:15:00 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9C25B57DFD;
+	Thu,  4 Feb 2021 09:15:04 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1142bZ6x024991 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 3 Feb 2021 21:37:35 -0500
+	id 1143A1dA027892 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 3 Feb 2021 22:10:01 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id DC0F15B698; Thu,  4 Feb 2021 02:37:35 +0000 (UTC)
+	id 1B27D5D9C9; Thu,  4 Feb 2021 03:10:01 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from treble (ovpn-113-81.rdu2.redhat.com [10.10.113.81])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 383D85B695;
-	Thu,  4 Feb 2021 02:37:21 +0000 (UTC)
-Date: Wed, 3 Feb 2021 20:37:19 -0600
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D31EF5D9C0;
+	Thu,  4 Feb 2021 03:09:50 +0000 (UTC)
+Date: Wed, 3 Feb 2021 21:09:48 -0600
 From: Josh Poimboeuf <jpoimboe@redhat.com>
-To: Ivan Babrou <ivan@cloudflare.com>
-Message-ID: <20210204023719.sbwh7o7un7j2zgkd@treble>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20210204030948.dmsmwyw6fu5kzgey@treble>
 References: <CABWYdi3HjduhY-nQXzy2ezGbiMB1Vk9cnhW2pMypUa+P1OjtzQ@mail.gmail.com>
 	<CABWYdi27baYc3ShHcZExmmXVmxOQXo9sGO+iFhfZLq78k8iaAg@mail.gmail.com>
-	<YBrTaVVfWu2R0Hgw@hirez.programming.kicks-ass.net>
-	<CABWYdi2ephz57BA8bns3reMGjvs5m0hYp82+jBLZ6KD3Ba6zdQ@mail.gmail.com>
-	<20210203190518.nlwghesq75enas6n@treble>
-	<CABWYdi1ya41Ju9SsHMtRQaFQ=s8N23D3ADn6OV6iBwWM6H8=Zw@mail.gmail.com>
-	<20210203232735.nw73kugja56jp4ls@treble>
-	<CABWYdi1zd51Jb35taWeGC-dR9SChq-4ixvyKms3KOKgV0idfPg@mail.gmail.com>
-	<20210204001700.ry6dpqvavcswyvy7@treble>
-	<CABWYdi0p91Y+TDUu38eey-p2GtxL6f=VHicTxS629VCMmrNLpQ@mail.gmail.com>
+	<20210203214448.2703930e@oasis.local.home>
 MIME-Version: 1.0
-In-Reply-To: <CABWYdi0p91Y+TDUu38eey-p2GtxL6f=VHicTxS629VCMmrNLpQ@mail.gmail.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+In-Reply-To: <20210203214448.2703930e@oasis.local.home>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 04 Feb 2021 04:14:38 -0500
 Cc: Song Liu <songliubraving@fb.com>, Mike Snitzer <snitzer@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
+	"Peter Zijlstra \(Intel\)" <peterz@infradead.org>,
 	Ignat Korchagin <ignat@cloudflare.com>,
 	Alexei Starovoitov <ast@kernel.org>, linux-mm@kvack.org,
 	dm-devel@redhat.com, Alexander Potapenko <glider@google.com>,
@@ -73,18 +66,18 @@ Cc: Song Liu <songliubraving@fb.com>, Mike Snitzer <snitzer@redhat.com>,
 	kernel-team <kernel-team@cloudflare.com>,
 	Hailong liu <liu.hailong6@zte.com.cn>, x86@kernel.org,
 	John Fastabend <john.fastabend@gmail.com>,
-	kasan-dev@googlegroups.com, Alexey Kardashevskiy <aik@ozlabs.ru>,
-	Ingo Molnar <mingo@redhat.com>, Andrey Ryabinin <aryabinin@virtuozzo.com>,
-	Andrii Nakryiko <andriin@fb.com>, Robert Richter <rric@kernel.org>,
-	"Steven Rostedt \(VMware\)" <rostedt@goodmis.org>,
-	Borislav Petkov <bp@alien8.de>, Yonghong Song <yhs@fb.com>,
-	KP Singh <kpsingh@chromium.org>,
+	kasan-dev@googlegroups.com, Ingo Molnar <mingo@redhat.com>,
+	Andrey Ryabinin <aryabinin@virtuozzo.com>,
+	Andrii Nakryiko <andriin@fb.com>,
+	Robert Richter <rric@kernel.org>, Borislav Petkov <bp@alien8.de>,
+	Yonghong Song <yhs@fb.com>, KP Singh <kpsingh@chromium.org>,
 	Thomas Gleixner <tglx@linutronix.de>, bpf@vger.kernel.org,
 	Dmitry Vyukov <dvyukov@google.com>, Julien Thierry <jthierry@redhat.com>,
 	Linux Kernel Network Developers <netdev@vger.kernel.org>,
 	linux-kernel <linux-kernel@vger.kernel.org>,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Andrew Morton <akpm@linux-foundation.org>, Martin KaFai Lau <kafai@fb.com>
+	Andrew Morton <akpm@linux-foundation.org>,
+	Ivan Babrou <ivan@cloudflare.com>, Martin KaFai Lau <kafai@fb.com>
 Subject: Re: [dm-devel] BUG: KASAN: stack-out-of-bounds in
  unwind_next_frame+0x1df5/0x2650
 X-BeenThere: dm-devel@redhat.com
@@ -100,7 +93,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -109,23 +102,147 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Feb 03, 2021 at 04:52:42PM -0800, Ivan Babrou wrote:
-> We also have the following stack that doesn't touch any crypto:
+On Wed, Feb 03, 2021 at 09:44:48PM -0500, Steven Rostedt wrote:
+> > > [  128.441287][    C0] RIP: 0010:skcipher_walk_next
+> > > (crypto/skcipher.c:322 crypto/skcipher.c:384)
 > 
-> * https://gist.github.com/bobrik/40e2559add2f0b26ae39da30dc451f1e
+> Why do we have an RIP in skcipher_walk_next, if its the unwinder that
+> had a bug? Or are they related?
+> 
+> Or did skcipher_walk_next trigger something in KASAN which did a stack
+> walk via the unwinder, and that caused another issue?
 
-Can you also run this through decode_stacktrace.sh?
+It was interrupted by an IRQ, which then called kfree(), which then
+called kasan_save_stack(), which then called the unwinder, which then
+read "out-of-bounds" between stack frames.
 
-Both are useful (until I submit a fix for decode_stacktrace.sh).
+In this case it was because of some crypto code missing ORC annotations.
 
-> I cannot reproduce this one, and it took 2 days of uptime for it to
-> happen. Is there anything I can do to help diagnose it?
+> Looking at the unwinder code in question, we have:
+> 
+> static bool deref_stack_regs(struct unwind_state *state, unsigned long addr,
+>                              unsigned long *ip, unsigned long *sp)
+> {
+>         struct pt_regs *regs = (struct pt_regs *)addr;
+> 
+>         /* x86-32 support will be more complicated due to the &regs->sp hack */
+>         BUILD_BUG_ON(IS_ENABLED(CONFIG_X86_32));
+> 
+>         if (!stack_access_ok(state, addr, sizeof(struct pt_regs)))
+>                 return false;
+> 
+>         *ip = regs->ip;
+>         *sp = regs->sp; <- pointer to here
+>         return true;
+> }
+> 
+> and the caller of the above static function:
+> 
+>         case UNWIND_HINT_TYPE_REGS:
+>                 if (!deref_stack_regs(state, sp, &state->ip, &state->sp)) {
+>                         orc_warn_current("can't access registers at %pB\n",
+>                                          (void *)orig_ip);
+>                         goto err;
+>                 }
+> 
+> 
+> Could it possibly be that there's some magic canary on the stack that
+> causes KASAN to trigger if you read it?
 
-Can you run with the same unwind_debug patch+cmdline when you try to
-recreate this one?  In the meantime I'll look at the available data.
+Right, the unwinder isn't allowed to read between stack frames.
 
--- 
-Josh
+In fact, you read my mind, I was looking at the other warning in network
+code:
+
+  [160676.598929][    C4]  asm_common_interrupt+0x1e/0x40
+  [160676.608966][    C4] RIP: 0010:0xffffffffc17d814c
+  [160676.618812][    C4] Code: 8b 4c 24 40 4c 8b 44 24 48 48 8b 7c 24 70 48 8b 74 24 68 48 8b 54 24 60 48 8b 4c 24 58 48 8b 44 24 50 48 81 c4 a8 00 00 00 9d <c3> 20 27 af 8f ff ff ff ff 00 00 00 00 00 00 00 00 00 00 00 00 00
+  [160676.649371][    C4] RSP: 0018:ffff8893dfd4f620 EFLAGS: 00000282
+  [160676.661073][    C4] RAX: 0000000000000000 RBX: ffff8881be9c9c80 RCX: 0000000000000000
+  [160676.674788][    C4] RDX: dffffc0000000000 RSI: 000000000000000b RDI: ffff8881be9c9c80
+  [160676.688508][    C4] RBP: ffff8881be9c9ce0 R08: 0000000000000000 R09: ffff8881908c4c97
+  [160676.702249][    C4] R10: ffffed1032118992 R11: ffff88818a4ce68c R12: ffff8881be9c9eea
+  [160676.716000][    C4] R13: ffff8881be9c9c92 R14: ffff8880063ba5ac R15: ffff8880063ba5a8
+  [160676.729895][    C4]  ? tcp_set_state+0x5/0x620
+  [160676.740426][    C4]  ? tcp_fin+0xeb/0x5a0
+  [160676.750287][    C4]  ? tcp_data_queue+0x1e78/0x4ce0
+  [160676.761089][    C4]  ? tcp_urg+0x76/0xc50
+
+This line gives a big clue:
+
+  [160676.608966][    C4] RIP: 0010:0xffffffffc17d814c
+
+That address, without a function name, most likely means that it was
+running in some generated code (mostly likely BPF) when it got
+interrupted.
+
+Right now, the ORC unwinder tries to fall back to frame pointers when it
+encounters generated code:
+
+	orc = orc_find(state->signal ? state->ip : state->ip - 1);
+	if (!orc)
+		/*
+		 * As a fallback, try to assume this code uses a frame pointer.
+		 * This is useful for generated code, like BPF, which ORC
+		 * doesn't know about.  This is just a guess, so the rest of
+		 * the unwind is no longer considered reliable.
+		 */
+		orc = &orc_fp_entry;
+		state->error = true;
+	}
+
+Because the ORC unwinder is guessing from that point onward, it's
+possible for it to read the KASAN stack redzone, if the generated code
+hasn't set up frame pointers.  So the best fix may be for the unwinder
+to just always bypass KASAN when reading the stack.
+
+The unwinder has a mechanism for detecting and warning about
+out-of-bounds, and KASAN is short-circuiting that.
+
+This should hopefully get rid of *all* the KASAN unwinder warnings, both
+crypto and networking.
+
+diff --git a/arch/x86/kernel/unwind_orc.c b/arch/x86/kernel/unwind_orc.c
+index 040194d079b6..1f69a23a4715 100644
+--- a/arch/x86/kernel/unwind_orc.c
++++ b/arch/x86/kernel/unwind_orc.c
+@@ -376,8 +376,8 @@ static bool deref_stack_regs(struct unwind_state *state, unsigned long addr,
+ 	if (!stack_access_ok(state, addr, sizeof(struct pt_regs)))
+ 		return false;
+ 
+-	*ip = regs->ip;
+-	*sp = regs->sp;
++	*ip = READ_ONCE_NOCHECK(regs->ip);
++	*sp = READ_ONCE_NOCHECK(regs->sp);
+ 	return true;
+ }
+ 
+@@ -389,8 +389,8 @@ static bool deref_stack_iret_regs(struct unwind_state *state, unsigned long addr
+ 	if (!stack_access_ok(state, addr, IRET_FRAME_SIZE))
+ 		return false;
+ 
+-	*ip = regs->ip;
+-	*sp = regs->sp;
++	*ip = READ_ONCE_NOCHECK(regs->ip);
++	*sp = READ_ONCE_NOCHECK(regs->sp);
+ 	return true;
+ }
+ 
+@@ -411,12 +411,12 @@ static bool get_reg(struct unwind_state *state, unsigned int reg_off,
+ 		return false;
+ 
+ 	if (state->full_regs) {
+-		*val = ((unsigned long *)state->regs)[reg];
++		*val = READ_ONCE_NOCHECK(((unsigned long *)state->regs)[reg]);
+ 		return true;
+ 	}
+ 
+ 	if (state->prev_regs) {
+-		*val = ((unsigned long *)state->prev_regs)[reg];
++		*val = READ_ONCE_NOCHECK(((unsigned long *)state->prev_regs)[reg]);
+ 		return true;
+ 	}
+ 
 
 --
 dm-devel mailing list
