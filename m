@@ -1,348 +1,178 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B863531C3B3
-	for <lists+dm-devel@lfdr.de>; Mon, 15 Feb 2021 22:40:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1613425232;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=qnGrZlDy7PdxSOuZi9lZ5OjVtlTLgTtCaR63Vvha3SA=;
-	b=SWCLW5VepUIt1Qs64j4nZziIuh6Bg/JLJMzplH0Lc37MqOs7vwBQQHrXK59LMFgklsB1nG
-	8KdIhmgPEfSZPqOdLjMXPBNgGrscDNPfYnYsFBwWv7uo+PgCEm1UNRAES6YWoYcA4Hr8jd
-	V60nySzFqTkwVPFoCglu95B6z002Zx4=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 8A98531DC3A
+	for <lists+dm-devel@lfdr.de>; Wed, 17 Feb 2021 16:34:34 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-146-RAndqMAhO2CAbqoWSvAy-w-1; Mon, 15 Feb 2021 16:40:19 -0500
-X-MC-Unique: RAndqMAhO2CAbqoWSvAy-w-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-215-Yr6duC6pMWuUYDR1feHMXA-1; Wed, 17 Feb 2021 10:34:31 -0500
+X-MC-Unique: Yr6duC6pMWuUYDR1feHMXA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 36FAA835E21;
-	Mon, 15 Feb 2021 21:40:12 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 79777107ACED;
+	Wed, 17 Feb 2021 15:34:22 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 43D0C5B698;
-	Mon, 15 Feb 2021 21:40:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9E2AE1002391;
+	Wed, 17 Feb 2021 15:34:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E368457DFA;
-	Mon, 15 Feb 2021 21:39:56 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 27AFB57DF9;
+	Wed, 17 Feb 2021 15:34:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11FLdP8A003713 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 15 Feb 2021 16:39:25 -0500
+	id 114IfcnU004097 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 4 Feb 2021 13:41:38 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3009A2BFEC; Mon, 15 Feb 2021 21:39:25 +0000 (UTC)
+	id 7572F2166B35; Thu,  4 Feb 2021 18:41:38 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EA0D419CAB;
-	Mon, 15 Feb 2021 21:39:21 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 11FLdKV9024438; 
-	Mon, 15 Feb 2021 15:39:20 -0600
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 11FLdJEH024437;
-	Mon, 15 Feb 2021 15:39:19 -0600
-Date: Mon, 15 Feb 2021 15:39:19 -0600
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: mwilck@suse.com
-Message-ID: <20210215213919.GL15006@octiron.msp.redhat.com>
-References: <20210211234650.21890-1-mwilck@suse.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 659932166B2F
+	for <dm-devel@redhat.com>; Thu,  4 Feb 2021 18:41:34 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B1623100EDBD
+	for <dm-devel@redhat.com>; Thu,  4 Feb 2021 18:41:34 +0000 (UTC)
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
+	[209.85.208.175]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-231-b7GSiPwnMWGAIo6EBck6Tw-1; Thu, 04 Feb 2021 13:41:32 -0500
+X-MC-Unique: b7GSiPwnMWGAIo6EBck6Tw-1
+Received: by mail-lj1-f175.google.com with SMTP id t8so4622474ljk.10
+	for <dm-devel@redhat.com>; Thu, 04 Feb 2021 10:41:31 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=QilnL1GiLc35zL0JKgGqLLH0jCvxrl7AURnizvwxOrk=;
+	b=tbA5GPico3kbJdhcV5HemT9QRDrPg0ep/KkxBygZZGohxbw3HLLYzy6SpY/SMXm0ap
+	4bOM9iiO2jvh7X/6VMfLsyMTgeUpDIdGUa55iyKiQVYuLIIiJaOslyWmwqcmrtc4179r
+	wdvhRkPTJmGuohH8EQhv9mZOWKOUZfHMh7IKw6liN35nsceBJmf0nukFR/JvLtddQ8ao
+	M0+iG4WbKKAulvEkc9DxKT6jokwmXwgm8Pgr9xTh+yxNQW4cxpE/beWSYMa+cu/cBRjc
+	LQbMYT0p6IjCG22Rf5u0UaXeCr/X1lVgZHYYJfGuAlRzqjI8zQYQxtfp6HpS0uon04FD
+	TtSg==
+X-Gm-Message-State: AOAM532v1UTBdUq2DXqy7iibPkX/W49kCmVHNRtHaKhBN9oyI+8gQuiK
+	Bvx6ZJhkZhzg65ksnH5PVX12kvBQ7E1UesPZj+SUcw==
+X-Google-Smtp-Source: ABdhPJwJtrhYEdPaQdR6fHW3cU2NP6bOoOiL2TtDHuAX1Y9bu5c2RTiAw480hYJajzznm79yfeZHPAMVBc9ok0h1jMo=
+X-Received: by 2002:a2e:9b57:: with SMTP id o23mr427754ljj.314.1612464090601; 
+	Thu, 04 Feb 2021 10:41:30 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20210211234650.21890-1-mwilck@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+References: <CABWYdi3HjduhY-nQXzy2ezGbiMB1Vk9cnhW2pMypUa+P1OjtzQ@mail.gmail.com>
+	<CABWYdi27baYc3ShHcZExmmXVmxOQXo9sGO+iFhfZLq78k8iaAg@mail.gmail.com>
+	<20210203214448.2703930e@oasis.local.home>
+	<20210204030948.dmsmwyw6fu5kzgey@treble>
+In-Reply-To: <20210204030948.dmsmwyw6fu5kzgey@treble>
+From: Ivan Babrou <ivan@cloudflare.com>
+Date: Thu, 4 Feb 2021 10:41:18 -0800
+Message-ID: <CABWYdi15x=-2qenWSdX_ONSha_Pz7GFJrx8axN6CJS5cWxTTSg@mail.gmail.com>
+To: Josh Poimboeuf <jpoimboe@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Xose Vazquez Perez <xose.vazquez@gmail.com>
-Subject: Re: [dm-devel] [PATCH 1/4] multipath-tools tests: allow control of
- test verbosity
+X-Mailman-Approved-At: Wed, 17 Feb 2021 10:31:26 -0500
+Cc: Song Liu <songliubraving@fb.com>, Mike Snitzer <snitzer@redhat.com>,
+	Ignat Korchagin <ignat@cloudflare.com>,
+	Alexei Starovoitov <ast@kernel.org>, linux-mm@kvack.org,
+	dm-devel@redhat.com, Alexander Potapenko <glider@google.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Joel Fernandes \(Google\)" <joel@joelfernandes.org>,
+	Miroslav Benes <mbenes@suse.cz>, Jiri Slaby <jirislaby@kernel.org>,
+	Alasdair Kergon <agk@redhat.com>, Daniel Borkmann <daniel@iogearbox.net>,
+	kernel-team <kernel-team@cloudflare.com>,
+	Hailong liu <liu.hailong6@zte.com.cn>, x86@kernel.org,
+	John Fastabend <john.fastabend@gmail.com>,
+	kasan-dev@googlegroups.com, Ingo Molnar <mingo@redhat.com>,
+	Andrey Ryabinin <aryabinin@virtuozzo.com>,
+	Andrii Nakryiko <andriin@fb.com>, Robert Richter <rric@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Borislav Petkov <bp@alien8.de>, Yonghong Song <yhs@fb.com>,
+	KP Singh <kpsingh@chromium.org>,
+	Thomas Gleixner <tglx@linutronix.de>, bpf@vger.kernel.org,
+	Dmitry Vyukov <dvyukov@google.com>, Julien Thierry <jthierry@redhat.com>,
+	Linux Kernel Network Developers <netdev@vger.kernel.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Andrew Morton <akpm@linux-foundation.org>, Martin KaFai Lau <kafai@fb.com>
+Subject: Re: [dm-devel] BUG: KASAN: stack-out-of-bounds in
+	unwind_next_frame+0x1df5/0x2650
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
 List-Id: device-mapper development <dm-devel.redhat.com>
-List-Unsubscribe: <https://www.redhat.com/mailman/options/dm-devel>,
+List-Unsubscribe: <https://listman.redhat.com/mailman/options/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=unsubscribe>
-List-Archive: <https://www.redhat.com/archives/dm-devel>
+List-Archive: <https://listman.redhat.com/archives/dm-devel>
 List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
-List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
+List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Feb 12, 2021 at 12:46:47AM +0100, mwilck@suse.com wrote:
-> From: Martin Wilck <mwilck@suse.com>
-> 
-> Use common code to control verbosity during unit tests runs.
-> The environment variable MPATHTEST_VERBOSITY is honored by most
-> tests, except those that need to parse the log messages or have
-> other special needs.
-> 
-> Also, get rid of the now obsolete global variables logsink and
-> udev, as these are now defined in libmultipath.
-> 
+On Wed, Feb 3, 2021 at 7:10 PM Josh Poimboeuf <jpoimboe@redhat.com> wrote:
 
-Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
+> This line gives a big clue:
+>
+>   [160676.608966][    C4] RIP: 0010:0xffffffffc17d814c
+>
+> That address, without a function name, most likely means that it was
+> running in some generated code (mostly likely BPF) when it got
+> interrupted.
 
-For the set.
+We do have eBPF/XDP in our environment.
 
-> Signed-off-by: Martin Wilck <mwilck@suse.com>
-> ---
->  tests/README.md   |  5 +++++
->  tests/alias.c     |  2 +-
->  tests/blacklist.c |  2 +-
->  tests/devt.c      |  1 +
->  tests/directio.c  |  2 +-
->  tests/dmevents.c  |  1 +
->  tests/globals.c   | 27 +++++++++++++++++++++------
->  tests/hwtable.c   |  2 ++
->  tests/parser.c    |  1 +
->  tests/pgpolicy.c  |  1 +
->  tests/uevent.c    |  1 +
->  tests/unaligned.c |  1 +
->  tests/util.c      |  1 +
->  tests/valid.c     |  2 ++
->  tests/vpd.c       |  1 +
->  15 files changed, 41 insertions(+), 9 deletions(-)
-> 
-> diff --git a/tests/README.md b/tests/README.md
-> index 6e7ad40..47c0f0b 100644
-> --- a/tests/README.md
-> +++ b/tests/README.md
-> @@ -13,6 +13,11 @@ If valgrind detects a bad memory access or leak, the test will fail. The
->  output of the test run, including valgrind output, is stored as
->  `<testname>.vgr`.
->  
-> +## Controlling verbosity for unit tests
-> +
-> +Some test programs use the environment variable `MPATHTEST_VERBOSITY` to
-> +control the log level during test execution.
-> +
->  ## Notes on individual tests
->  
->  ### Tests that require root permissions
-> diff --git a/tests/alias.c b/tests/alias.c
-> index 5e0bfea..b363718 100644
-> --- a/tests/alias.c
-> +++ b/tests/alias.c
-> @@ -736,7 +736,7 @@ static int test_allocate_binding(void)
->  int main(void)
->  {
->  	int ret = 0;
-> -	libmp_verbosity = conf.verbosity;
-> +	init_test_verbosity(3);
->  
->  	ret += test_format_devname();
->  	ret += test_scan_devname();
-> diff --git a/tests/blacklist.c b/tests/blacklist.c
-> index 0b42e25..882aa3a 100644
-> --- a/tests/blacklist.c
-> +++ b/tests/blacklist.c
-> @@ -153,7 +153,7 @@ static int setup(void **state)
->  	    store_ble(blist_property_wwn_inv, "!ID_WWN", ORIGIN_CONFIG))
->  		return -1;
->  
-> -	libmp_verbosity = conf.verbosity = 4;
-> +	init_test_verbosity(4);
->  	return 0;
->  }
->  
-> diff --git a/tests/devt.c b/tests/devt.c
-> index fd4d74a..2b72851 100644
-> --- a/tests/devt.c
-> +++ b/tests/devt.c
-> @@ -187,6 +187,7 @@ int main(void)
->  {
->  	int ret = 0;
->  
-> +	init_test_verbosity(-1);
->  	ret += devt2devname_tests();
->  	return ret;
->  }
-> diff --git a/tests/directio.c b/tests/directio.c
-> index 9895409..9f7d388 100644
-> --- a/tests/directio.c
-> +++ b/tests/directio.c
-> @@ -770,7 +770,7 @@ int main(void)
->  {
->  	int ret = 0;
->  
-> -	conf.verbosity = 2;
-> +	init_test_verbosity(2);
->  	ret += test_directio();
->  	return ret;
->  }
-> diff --git a/tests/dmevents.c b/tests/dmevents.c
-> index 29eaa6d..204cf1d 100644
-> --- a/tests/dmevents.c
-> +++ b/tests/dmevents.c
-> @@ -925,6 +925,7 @@ int main(void)
->  {
->  	int ret = 0;
->  
-> +	init_test_verbosity(-1);
->  	ret += test_dmevents();
->  	return ret;
->  }
-> diff --git a/tests/globals.c b/tests/globals.c
-> index fc0c07a..36319ed 100644
-> --- a/tests/globals.c
-> +++ b/tests/globals.c
-> @@ -1,13 +1,12 @@
-> +#include <stdlib.h>
-> +#include <string.h>
-> +
-> +#include "defaults.h"
->  #include "structs.h"
->  #include "config.h"
->  #include "debug.h"
->  
-> -/* Required globals */
-> -struct udev *udev;
-> -int logsink = LOGSINK_STDERR_WITHOUT_TIME;
-> -struct config conf = {
-> -	.verbosity = 4,
-> -};
-> +struct config conf;
->  
->  struct config *get_multipath_config(void)
->  {
-> @@ -16,3 +15,19 @@ struct config *get_multipath_config(void)
->  
->  void put_multipath_config(void *arg)
->  {}
-> +
-> +static __attribute__((unused)) void init_test_verbosity(int test_verbosity)
-> +{
-> +	char *verb = getenv("MPATHTEST_VERBOSITY");
-> +
-> +	libmp_verbosity = test_verbosity >= 0 ? test_verbosity :
-> +		DEFAULT_VERBOSITY;
-> +	if (verb && *verb) {
-> +		char *c;
-> +		int vb;
-> +
-> +		vb = strtoul(verb, &c, 10);
-> +		if (!*c && vb >= 0 && vb <= 5)
-> +			libmp_verbosity = vb;
-> +	}
-> +}
-> diff --git a/tests/hwtable.c b/tests/hwtable.c
-> index 4dd0873..6f5766f 100644
-> --- a/tests/hwtable.c
-> +++ b/tests/hwtable.c
-> @@ -1778,6 +1778,8 @@ int main(void)
->  {
->  	int ret = 0;
->  
-> +	/* We can't use init_test_verbosity in this test */
-> +	libmp_verbosity = VERBOSITY;
->  	ret += test_hwtable();
->  	return ret;
->  }
-> diff --git a/tests/parser.c b/tests/parser.c
-> index 5772391..cf96d81 100644
-> --- a/tests/parser.c
-> +++ b/tests/parser.c
-> @@ -511,6 +511,7 @@ int main(void)
->  {
->  	int ret = 0;
->  
-> +	init_test_verbosity(-1);
->  	ret += test_config_parser();
->  	return ret;
->  }
-> diff --git a/tests/pgpolicy.c b/tests/pgpolicy.c
-> index 3f61b12..57ad338 100644
-> --- a/tests/pgpolicy.c
-> +++ b/tests/pgpolicy.c
-> @@ -1031,6 +1031,7 @@ int main(void)
->  {
->  	int ret = 0;
->  
-> +	init_test_verbosity(-1);
->  	ret += test_pgpolicies();
->  	return ret;
->  }
-> diff --git a/tests/uevent.c b/tests/uevent.c
-> index 9ffcd2d..648ff26 100644
-> --- a/tests/uevent.c
-> +++ b/tests/uevent.c
-> @@ -322,6 +322,7 @@ int main(void)
->  {
->  	int ret = 0;
->  
-> +	init_test_verbosity(-1);
->  	ret += test_uevent_get_XXX();
->  	return ret;
->  }
-> diff --git a/tests/unaligned.c b/tests/unaligned.c
-> index 7ece1de..e43b64d 100644
-> --- a/tests/unaligned.c
-> +++ b/tests/unaligned.c
-> @@ -91,6 +91,7 @@ int main(void)
->  {
->  	int ret = 0;
->  
-> +	init_test_verbosity(-1);
->  	ret += test_unaligned();
->  	return ret;
->  }
-> diff --git a/tests/util.c b/tests/util.c
-> index c3c49b6..9affb0e 100644
-> --- a/tests/util.c
-> +++ b/tests/util.c
-> @@ -946,6 +946,7 @@ int main(void)
->  {
->  	int ret = 0;
->  
-> +	init_test_verbosity(-1);
->  	ret += test_basenamecpy();
->  	ret += test_bitmasks();
->  	ret += test_strlcpy();
-> diff --git a/tests/valid.c b/tests/valid.c
-> index 8ec803e..e7393a1 100644
-> --- a/tests/valid.c
-> +++ b/tests/valid.c
-> @@ -554,6 +554,8 @@ int test_valid(void)
->  int main(void)
->  {
->  	int ret = 0;
-> +
-> +	init_test_verbosity(-1);
->  	ret += test_valid();
->  	return ret;
->  }
-> diff --git a/tests/vpd.c b/tests/vpd.c
-> index e2ec65e..8e730d3 100644
-> --- a/tests/vpd.c
-> +++ b/tests/vpd.c
-> @@ -799,6 +799,7 @@ int main(void)
->  {
->  	int ret = 0;
->  
-> +	init_test_verbosity(-1);
->  	ret += test_vpd();
->  	return ret;
->  }
-> -- 
-> 2.29.2
+> Right now, the ORC unwinder tries to fall back to frame pointers when it
+> encounters generated code:
+>
+>         orc = orc_find(state->signal ? state->ip : state->ip - 1);
+>         if (!orc)
+>                 /*
+>                  * As a fallback, try to assume this code uses a frame pointer.
+>                  * This is useful for generated code, like BPF, which ORC
+>                  * doesn't know about.  This is just a guess, so the rest of
+>                  * the unwind is no longer considered reliable.
+>                  */
+>                 orc = &orc_fp_entry;
+>                 state->error = true;
+>         }
+>
+> Because the ORC unwinder is guessing from that point onward, it's
+> possible for it to read the KASAN stack redzone, if the generated code
+> hasn't set up frame pointers.  So the best fix may be for the unwinder
+> to just always bypass KASAN when reading the stack.
+>
+> The unwinder has a mechanism for detecting and warning about
+> out-of-bounds, and KASAN is short-circuiting that.
+>
+> This should hopefully get rid of *all* the KASAN unwinder warnings, both
+> crypto and networking.
+
+It definitely worked on my dm-crypt case, and I've tried it without
+your previous AVX related patch. I will apply it to our tree and
+deploy to the staging KASAN environment to see how it fares with
+respect to networking stacks. Feel free to ping me if I don't get back
+to you with the results on Monday.
+
+Thanks for looking into this!
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
-https://www.redhat.com/mailman/listinfo/dm-devel
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
