@@ -2,60 +2,62 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 9D63B3109DC
-	for <lists+dm-devel@lfdr.de>; Fri,  5 Feb 2021 12:09:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E86463109DD
+	for <lists+dm-devel@lfdr.de>; Fri,  5 Feb 2021 12:09:53 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-520-2x4bWmdEMgOrifIx-suIRg-1; Fri, 05 Feb 2021 06:09:29 -0500
-X-MC-Unique: 2x4bWmdEMgOrifIx-suIRg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-472-RuARSc-hOKCEbbaLZkkVDw-1; Fri, 05 Feb 2021 06:09:50 -0500
+X-MC-Unique: RuARSc-hOKCEbbaLZkkVDw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EEF48107ACC7;
-	Fri,  5 Feb 2021 11:09:20 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C0B1919C47;
-	Fri,  5 Feb 2021 11:09:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CA634192AB80;
+	Fri,  5 Feb 2021 11:09:44 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A10495D9D2;
+	Fri,  5 Feb 2021 11:09:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2CA5F58074;
-	Fri,  5 Feb 2021 11:09:07 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0B38218095CC;
+	Fri,  5 Feb 2021 11:09:44 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 115B8oJB023261 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 5 Feb 2021 06:08:50 -0500
+	id 115B9UDY023316 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 5 Feb 2021 06:09:30 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id A7A8D2166B2F; Fri,  5 Feb 2021 11:08:50 +0000 (UTC)
+	id D929310CD6D5; Fri,  5 Feb 2021 11:09:29 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A267F2166B2D
-	for <dm-devel@redhat.com>; Fri,  5 Feb 2021 11:08:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CA40A10C7333
+	for <dm-devel@redhat.com>; Fri,  5 Feb 2021 11:09:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4BB0B800B2A
-	for <dm-devel@redhat.com>; Fri,  5 Feb 2021 11:08:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8F578101A56C
+	for <dm-devel@redhat.com>; Fri,  5 Feb 2021 11:09:27 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-301-ceM1R9fpPdeJUlHKv9ilmg-1;
-	Fri, 05 Feb 2021 06:08:44 -0500
-X-MC-Unique: ceM1R9fpPdeJUlHKv9ilmg-1
+	relay.mimecast.com with ESMTP id us-mta-389-ii2IeM6oOI-ksuV7-gEf-A-1;
+	Fri, 05 Feb 2021 06:09:23 -0500
+X-MC-Unique: ii2IeM6oOI-ksuV7-gEf-A-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 9DB65AD29;
-	Fri,  5 Feb 2021 11:08:42 +0000 (UTC)
-Message-ID: <cb16789171d381a97bbef78c968b9fdb0b29955e.camel@suse.com>
+	by mx2.suse.de (Postfix) with ESMTP id E5CCBACBA;
+	Fri,  5 Feb 2021 11:09:21 +0000 (UTC)
+Message-ID: <9a3dfe98f35ca17565150447dd33d9069eddc5d5.camel@suse.com>
 From: Martin Wilck <mwilck@suse.com>
 To: lixiaokeng <lixiaokeng@huawei.com>, Benjamin Marzinski
 	<bmarzins@redhat.com>, Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Fri, 05 Feb 2021 12:08:41 +0100
-In-Reply-To: <57ec651871345e3aae745ba3a75c5f1e59bc25ef.camel@suse.com>
+Date: Fri, 05 Feb 2021 12:09:21 +0100
+In-Reply-To: <cb16789171d381a97bbef78c968b9fdb0b29955e.camel@suse.com>
 References: <20210128210852.23207-1-mwilck@suse.com>
 	<c1dddccecfe0e12a2fe2dca66faad740a30acd53.camel@suse.com>
 	<99488b1b-2339-338d-e951-0b8f3e78449b@huawei.com>
 	<dcc6fb2a344ce75972242e2c78e2e485b58140da.camel@suse.com>
 	<45fe03c8-1cc0-4318-ae84-698959667a6b@huawei.com>
 	<57ec651871345e3aae745ba3a75c5f1e59bc25ef.camel@suse.com>
+	<cb16789171d381a97bbef78c968b9fdb0b29955e.camel@suse.com>
 User-Agent: Evolution 3.38.2
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -66,9 +68,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 115B8oJB023261
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com
 Subject: Re: [dm-devel] [PATCH] multipathd: avoid crash in uevent_cleanup()
@@ -85,55 +85,25 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2021-02-04 at 16:06 +0100, Martin Wilck wrote:
-> On Thu, 2021-02-04 at 09:40 +0800, lixiaokeng wrote:
-> >=20
-> >=20
-> > On 2021/2/3 21:57, Martin Wilck wrote:
-> > > > If exit() before all pthread_cancel in child of 0.7.7, there is
-> > > > no
-> > > > any crash.
-> > > What do you mean with "exit() before all pthread_cancel"? If this
-> > > happens on pthread_cancel(), and you don't call that function,
-> > > this
-> > > would actually be expected.
-> >=20
-> > When running_state is DAEMON_SHUTDOWN, break while then _exit(0).
-> > But
-> > is is not a great method.
->=20
-> I wonder if it would be possible to figure out the LWP numbers
-> (process
-> IDs) of the different threads before the crash occurs, and compare
-> this
-> to the gdb output
->=20
-> (gdb) info threads
-> =A0 Id=A0=A0 Target Id=A0=A0=A0=A0=A0=A0=A0=A0 Frame
-> * 1=A0=A0=A0 LWP 1997690=A0=A0=A0=A0=A0=A0 0x00007f59a0109647 in ?? ()
-> =A0 2=A0=A0=A0 LWP 1996840=A0=A0=A0=A0=A0=A0 0x00007f59a0531de7 in ?? ()
-> =A0 3=A0=A0=A0 LWP 1997692=A0=A0=A0=A0=A0=A0 0x00007f59a0109647 in ?? ()
-> =A0 4=A0=A0=A0 LWP 1996857=A0=A0=A0=A0=A0=A0 0x00007f59a020d169 in ?? ()
->=20
-> ... to identify which thread crashed, and if it's always the same
-> one.
+On Fri, 2021-02-05 at 12:08 +0100, Martin Wilck wrote:
+> On Thu, 2021-02-04 at 16:06 +0100, Martin Wilck wrote:
+> 
+> 
+> From the LWP numbers, thread 2 and 4 are probably TUR checkers
+> (temporary threads). thread 1 can't be easily identified. Could you 
+> provide the stack of thread 3? From that, we might be able to infer
+> which thread crashed, because multipathd always starts its threads in
+> the same sequence.
 
->From the LWP numbers, thread 2 and 4 are probably TUR checkers
-(temporary threads). thread 1 can't be easily identified. Could you=20
-provide the stack of thread 3? From that, we might be able to infer
-which thread crashed, because multipathd always starts its threads in
-the same sequence.
-
-Martin
-
+btw, do you have core dumps?
 
 
 --
