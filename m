@@ -2,58 +2,59 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id DF83731DC41
-	for <lists+dm-devel@lfdr.de>; Wed, 17 Feb 2021 16:35:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3215831DC45
+	for <lists+dm-devel@lfdr.de>; Wed, 17 Feb 2021 16:35:32 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-211-7SO_yBDaOTaASBhRns3o-w-1; Wed, 17 Feb 2021 10:35:08 -0500
-X-MC-Unique: 7SO_yBDaOTaASBhRns3o-w-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-93-_2-N6AVBMByJ58seFTJ34Q-1; Wed, 17 Feb 2021 10:35:28 -0500
+X-MC-Unique: _2-N6AVBMByJ58seFTJ34Q-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AF310107ACED;
-	Wed, 17 Feb 2021 15:35:01 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82AAB1964B;
-	Wed, 17 Feb 2021 15:35:01 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ED317100CCC8;
+	Wed, 17 Feb 2021 15:35:21 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C8E4F63746;
+	Wed, 17 Feb 2021 15:35:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 25F7A57DFA;
-	Wed, 17 Feb 2021 15:35:01 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 76E7818095CE;
+	Wed, 17 Feb 2021 15:35:21 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1161d2cD022735 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 5 Feb 2021 20:39:03 -0500
+	id 11623dvi025500 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 5 Feb 2021 21:03:41 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id DEA092026D11; Sat,  6 Feb 2021 01:39:02 +0000 (UTC)
+	id C520B1009A17; Sat,  6 Feb 2021 02:03:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D8C812026D48
-	for <dm-devel@redhat.com>; Sat,  6 Feb 2021 01:38:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C0CD61009A12
+	for <dm-devel@redhat.com>; Sat,  6 Feb 2021 02:03:36 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5F8EC800B29
-	for <dm-devel@redhat.com>; Sat,  6 Feb 2021 01:38:59 +0000 (UTC)
-Received: from out30-131.freemail.mail.aliyun.com
-	(out30-131.freemail.mail.aliyun.com [115.124.30.131]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-225-fwulijlPNTKxVj01sBMiwA-1;
-	Fri, 05 Feb 2021 20:38:54 -0500
-X-MC-Unique: fwulijlPNTKxVj01sBMiwA-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R911e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04357;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4F5C0101A53B
+	for <dm-devel@redhat.com>; Sat,  6 Feb 2021 02:03:36 +0000 (UTC)
+Received: from out30-54.freemail.mail.aliyun.com
+	(out30-54.freemail.mail.aliyun.com [115.124.30.54]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-368-5hbAt0CZOhe6vc4mURqZ-w-1;
+	Fri, 05 Feb 2021 21:03:31 -0500
+X-MC-Unique: 5hbAt0CZOhe6vc4mURqZ-w-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R351e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04400;
 	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=6; SR=0;
-	TI=SMTPD_---0UNzidTa_1612575528
+	TI=SMTPD_---0UNzb4K7_1612577006
 Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0UNzidTa_1612575528) by smtp.aliyun-inc.com(127.0.0.1);
-	Sat, 06 Feb 2021 09:38:48 +0800
+	fp:SMTPD_---0UNzb4K7_1612577006) by smtp.aliyun-inc.com(127.0.0.1);
+	Sat, 06 Feb 2021 10:03:26 +0800
 To: Mike Snitzer <snitzer@redhat.com>
 References: <20210202033528.76166-1-jefflexu@linux.alibaba.com>
 	<20210205183909.GA4722@redhat.com>
 From: JeffleXu <jefflexu@linux.alibaba.com>
-Message-ID: <8ec3ef1b-1818-bc0e-03f9-e7ec344a40c1@linux.alibaba.com>
-Date: Sat, 6 Feb 2021 09:38:48 +0800
+Message-ID: <59ca57e0-5a5f-33b6-24ed-90d615c40949@linux.alibaba.com>
+Date: Sat, 6 Feb 2021 10:03:25 +0800
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
 	Gecko/20100101 Thunderbird/78.7.0
 MIME-Version: 1.0
@@ -66,7 +67,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 17 Feb 2021 10:31:26 -0500
 Cc: joseph.qi@linux.alibaba.com, msb@chromium.org, dm-devel@redhat.com,
@@ -85,7 +86,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -130,12 +131,10 @@ On 2/6/21 2:39 AM, Mike Snitzer wrote:
 > I've staged it for 5.12, the stable fix will likely need manual fixups
 > depending on the stable tree... we'll just need to assist with
 > backport(s) as needed.
-> 
 
-Thanks.
-
-Actually, I have one v2 version patch, fixing more issues, and some
-explanation comment included. Maybe I should send the v2?
+I'm glad to help offer the stable backport. But I don't know which
+kernel version the stable kernel is still being maintained. Also which
+mailing list I should send to when I finished backporting?
 
 -- 
 Thanks,
