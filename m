@@ -1,69 +1,68 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 6D7D031DC76
-	for <lists+dm-devel@lfdr.de>; Wed, 17 Feb 2021 16:38:17 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 8C7F931DC75
+	for <lists+dm-devel@lfdr.de>; Wed, 17 Feb 2021 16:38:04 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-361-bQpVFIAVMLiCLy2E5oko6w-1; Wed, 17 Feb 2021 10:38:13 -0500
-X-MC-Unique: bQpVFIAVMLiCLy2E5oko6w-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-462-B9HgzBzkPKiE7crm5ZcpwQ-1; Wed, 17 Feb 2021 10:37:33 -0500
+X-MC-Unique: B9HgzBzkPKiE7crm5ZcpwQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ADA44107ACF2;
-	Wed, 17 Feb 2021 15:38:06 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 88F0960C62;
-	Wed, 17 Feb 2021 15:38:06 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 39239192D78D;
+	Wed, 17 Feb 2021 15:37:28 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 13DFD5C1A3;
+	Wed, 17 Feb 2021 15:37:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1308418095CB;
-	Wed, 17 Feb 2021 15:38:06 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 97A2358073;
+	Wed, 17 Feb 2021 15:37:27 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 118Atv4i011391 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 8 Feb 2021 05:55:57 -0500
+	id 118AtrOA011353 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 8 Feb 2021 05:55:53 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4A5081111A7E; Mon,  8 Feb 2021 10:55:57 +0000 (UTC)
+	id A27D42026D13; Mon,  8 Feb 2021 10:55:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 466041111A6A
-	for <dm-devel@redhat.com>; Mon,  8 Feb 2021 10:55:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9DA962026D46
+	for <dm-devel@redhat.com>; Mon,  8 Feb 2021 10:55:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BE024101A53A
-	for <dm-devel@redhat.com>; Mon,  8 Feb 2021 10:55:54 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8A9A3800969
+	for <dm-devel@redhat.com>; Mon,  8 Feb 2021 10:55:53 +0000 (UTC)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
-	by relay.mimecast.com with ESMTP id us-mta-185-rvDo6hmBNSSFYJuGKSiaiw-3;
-	Mon, 08 Feb 2021 05:55:50 -0500
-X-MC-Unique: rvDo6hmBNSSFYJuGKSiaiw-3
-X-IronPort-AV: E=Sophos;i="5.81,161,1610380800"; d="scan'208";a="104328077"
+	by relay.mimecast.com with ESMTP id us-mta-405-zf0FljkTP5SKSAh849WFLA-1;
+	Mon, 08 Feb 2021 05:55:51 -0500
+X-MC-Unique: zf0FljkTP5SKSAh849WFLA-1
+X-IronPort-AV: E=Sophos;i="5.81,161,1610380800"; d="scan'208";a="104328075"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
 	by heian.cn.fujitsu.com with ESMTP; 08 Feb 2021 18:55:47 +0800
 Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
-	by cn.fujitsu.com (Postfix) with ESMTP id 5CF2A4CE6F80;
-	Mon,  8 Feb 2021 18:55:42 +0800 (CST)
+	by cn.fujitsu.com (Postfix) with ESMTP id 9A5AC4CE6F85;
+	Mon,  8 Feb 2021 18:55:43 +0800 (CST)
 Received: from G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) by
 	G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP
-	Server (TLS) id 15.0.1497.2; Mon, 8 Feb 2021 18:55:44 +0800
+	Server (TLS) id 15.0.1497.2; Mon, 8 Feb 2021 18:55:45 +0800
 Received: from irides.mr.mr.mr (10.167.225.141) by
 	G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.209) with Microsoft SMTP
 	Server
-	id 15.0.1497.2 via Frontend Transport; Mon, 8 Feb 2021 18:55:44 +0800
+	id 15.0.1497.2 via Frontend Transport; Mon, 8 Feb 2021 18:55:45 +0800
 From: Shiyang Ruan <ruansy.fnst@cn.fujitsu.com>
 To: <linux-kernel@vger.kernel.org>, <linux-xfs@vger.kernel.org>,
 	<linux-nvdimm@lists.01.org>, <linux-mm@kvack.org>,
 	<linux-fsdevel@vger.kernel.org>, <dm-devel@redhat.com>
-Date: Mon, 8 Feb 2021 18:55:27 +0800
-Message-ID: <20210208105530.3072869-9-ruansy.fnst@cn.fujitsu.com>
+Date: Mon, 8 Feb 2021 18:55:28 +0800
+Message-ID: <20210208105530.3072869-10-ruansy.fnst@cn.fujitsu.com>
 In-Reply-To: <20210208105530.3072869-1-ruansy.fnst@cn.fujitsu.com>
 References: <20210208105530.3072869-1-ruansy.fnst@cn.fujitsu.com>
 MIME-Version: 1.0
-X-yoursite-MailScanner-ID: 5CF2A4CE6F80.AE3E8
+X-yoursite-MailScanner-ID: 9A5AC4CE6F85.ADF44
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: ruansy.fnst@cn.fujitsu.com
 X-Spam-Status: No
@@ -75,14 +74,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 17 Feb 2021 10:31:26 -0500
 Cc: qi.fuli@fujitsu.com, snitzer@redhat.com, darrick.wong@oracle.com,
 	rgoldwyn@suse.de, david@fromorbit.com, y-goto@fujitsu.com,
 	dan.j.williams@intel.com, hch@lst.de, agk@redhat.com
-Subject: [dm-devel] [PATCH v3 08/11] dm: Introduce ->rmap() to find bdev
-	offset
+Subject: [dm-devel] [PATCH v3 09/11] md: Implement ->corrupted_range()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,7 +94,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,88 +102,93 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Pmem device could be a target of mapped device.  In order to obtain
-superblock on the mapped device, we introduce this to translate offset
-from target device to md device.
-
-Currently, we implement it on linear target, which is easy to do the
-translation.  Other targets will be supported in the future.  However,
-some targets may not support it because of the non-linear mapping.
+With the support of ->rmap(), it is possible to obtain the superblock on
+a mapped device.
 
 Signed-off-by: Shiyang Ruan <ruansy.fnst@cn.fujitsu.com>
 ---
- drivers/md/dm-linear.c        | 20 ++++++++++++++++++++
- include/linux/device-mapper.h |  5 +++++
- 2 files changed, 25 insertions(+)
+ drivers/md/dm.c | 61 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 61 insertions(+)
 
-diff --git a/drivers/md/dm-linear.c b/drivers/md/dm-linear.c
-index 00774b5d7668..90fdb4700afd 100644
---- a/drivers/md/dm-linear.c
-+++ b/drivers/md/dm-linear.c
-@@ -5,6 +5,7 @@
-  */
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index 7bac564f3faa..31b0c340b695 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -507,6 +507,66 @@ static int dm_blk_report_zones(struct gendisk *disk, sector_t sector,
+ #define dm_blk_report_zones		NULL
+ #endif /* CONFIG_BLK_DEV_ZONED */
  
- #include "dm.h"
-+#include "dm-core.h"
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/blkdev.h>
-@@ -119,6 +120,24 @@ static void linear_status(struct dm_target *ti, status_type_t type,
- 	}
- }
- 
-+static int linear_rmap(struct dm_target *ti, sector_t offset,
-+		       rmap_callout_fn fn, void *data)
-+{
-+	struct linear_c *lc = (struct linear_c *) ti->private;
-+	struct mapped_device *md = ti->table->md;
++struct corrupted_hit_info {
 +	struct block_device *bdev;
-+	sector_t disk_sect = offset - dm_target_offset(ti, lc->start);
-+	int rc = -ENODEV;
++	sector_t offset;
++};
 +
-+	bdev = bdget_disk_sector(md->disk, offset);
-+	if (!bdev)
++static int dm_blk_corrupted_hit(struct dm_target *ti, struct dm_dev *dev,
++				sector_t start, sector_t count, void *data)
++{
++	struct corrupted_hit_info *bc = data;
++
++	return bc->bdev == (void *)dev->bdev &&
++			(start <= bc->offset && bc->offset < start + count);
++}
++
++struct corrupted_do_info {
++	size_t length;
++	void *data;
++};
++
++static int dm_blk_corrupted_do(struct dm_target *ti, struct block_device *bdev,
++			       sector_t disk_sect, void *data)
++{
++	struct corrupted_do_info *bc = data;
++	loff_t disk_off = to_bytes(disk_sect);
++	loff_t bdev_off = to_bytes(disk_sect - get_start_sect(bdev));
++
++	return bd_corrupted_range(bdev, disk_off, bdev_off, bc->length, bc->data);
++}
++
++static int dm_blk_corrupted_range(struct gendisk *disk,
++				  struct block_device *target_bdev,
++				  loff_t target_offset, size_t len, void *data)
++{
++	struct mapped_device *md = disk->private_data;
++	struct dm_table *map;
++	struct dm_target *ti;
++	sector_t target_sect = to_sector(target_offset);
++	struct corrupted_hit_info hi = {target_bdev, target_sect};
++	struct corrupted_do_info di = {len, data};
++	int srcu_idx, i, rc = -ENODEV;
++
++	map = dm_get_live_table(md, &srcu_idx);
++	if (!map)
 +		return rc;
 +
-+	rc = fn(ti, bdev, disk_sect, data);
-+	bdput(bdev);
++	for (i = 0; i < dm_table_get_num_targets(map); i++) {
++		ti = dm_table_get_target(map, i);
++		if (!(ti->type->iterate_devices && ti->type->rmap))
++			continue;
++		if (!ti->type->iterate_devices(ti, dm_blk_corrupted_hit, &hi))
++			continue;
++
++		rc = ti->type->rmap(ti, target_sect, dm_blk_corrupted_do, &di);
++		break;
++	}
++
++	dm_put_live_table(md, srcu_idx);
 +	return rc;
 +}
 +
- static int linear_prepare_ioctl(struct dm_target *ti, struct block_device **bdev)
+ static int dm_prepare_ioctl(struct mapped_device *md, int *srcu_idx,
+ 			    struct block_device **bdev)
  {
- 	struct linear_c *lc = (struct linear_c *) ti->private;
-@@ -238,6 +257,7 @@ static struct target_type linear_target = {
- 	.ctr    = linear_ctr,
- 	.dtr    = linear_dtr,
- 	.map    = linear_map,
-+	.rmap   = linear_rmap,
- 	.status = linear_status,
- 	.prepare_ioctl = linear_prepare_ioctl,
- 	.iterate_devices = linear_iterate_devices,
-diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
-index 61a66fb8ebb3..c5cd1009a08d 100644
---- a/include/linux/device-mapper.h
-+++ b/include/linux/device-mapper.h
-@@ -58,6 +58,10 @@ typedef void (*dm_dtr_fn) (struct dm_target *ti);
-  * = 2: The target wants to push back the io
-  */
- typedef int (*dm_map_fn) (struct dm_target *ti, struct bio *bio);
-+typedef int (*rmap_callout_fn) (struct dm_target *ti, struct block_device *bdev,
-+				sector_t sect, void *data);
-+typedef int (*dm_rmap_fn) (struct dm_target *ti, sector_t offset,
-+			   rmap_callout_fn fn, void *data);
- typedef int (*dm_clone_and_map_request_fn) (struct dm_target *ti,
- 					    struct request *rq,
- 					    union map_info *map_context,
-@@ -175,6 +179,7 @@ struct target_type {
- 	dm_ctr_fn ctr;
- 	dm_dtr_fn dtr;
- 	dm_map_fn map;
-+	dm_rmap_fn rmap;
- 	dm_clone_and_map_request_fn clone_and_map_rq;
- 	dm_release_clone_request_fn release_clone_rq;
- 	dm_endio_fn end_io;
+@@ -3062,6 +3122,7 @@ static const struct block_device_operations dm_blk_dops = {
+ 	.getgeo = dm_blk_getgeo,
+ 	.report_zones = dm_blk_report_zones,
+ 	.pr_ops = &dm_pr_ops,
++	.corrupted_range = dm_blk_corrupted_range,
+ 	.owner = THIS_MODULE
+ };
+ 
 -- 
 2.30.0
 
