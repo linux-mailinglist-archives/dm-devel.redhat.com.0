@@ -1,86 +1,68 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8B32C315199
-	for <lists+dm-devel@lfdr.de>; Tue,  9 Feb 2021 15:31:35 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 80E2A315340
+	for <lists+dm-devel@lfdr.de>; Tue,  9 Feb 2021 16:56:57 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1612886216;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=KXSL6lkTeOJ7Kwcs+mhAMAuFW+RwBlU1C/a7rDvq7qg=;
+	b=OoWLSBdNl0s5qTuhzEXg/1LpEb0DZp1dQ7bLLTQoGuh+Sy39evieYLOh5Ip4VM8bVaoWXg
+	7O3bKf+j01JJmC+l4MHhKQCkUy8Tshjgq+RhewPqBQSJ9iRrJc7bWoTGv6zbvdmmZHUt0+
+	Pxjy3vqIdYMuiVHxuDuADMBuf260W1o=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-250-5c4Up5jAMIqADwOL3VFKCg-1; Tue, 09 Feb 2021 09:31:31 -0500
-X-MC-Unique: 5c4Up5jAMIqADwOL3VFKCg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-517-ZbgS0jmtPSqGO-RvV7ufCw-1; Tue, 09 Feb 2021 10:56:53 -0500
+X-MC-Unique: ZbgS0jmtPSqGO-RvV7ufCw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2A11D192AB83;
-	Tue,  9 Feb 2021 14:31:24 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C4821427C5;
+	Tue,  9 Feb 2021 15:56:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F0D275D747;
-	Tue,  9 Feb 2021 14:31:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4786F5C674;
+	Tue,  9 Feb 2021 15:56:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A25FF58076;
-	Tue,  9 Feb 2021 14:31:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B06A04EE4D;
+	Tue,  9 Feb 2021 15:56:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 119EVKwd029118 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 9 Feb 2021 09:31:20 -0500
+	id 119FuOY8009870 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 9 Feb 2021 10:56:24 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 007912026D14; Tue,  9 Feb 2021 14:31:20 +0000 (UTC)
+	id AFC656E418; Tue,  9 Feb 2021 15:56:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EFEEF2026D36
-	for <dm-devel@redhat.com>; Tue,  9 Feb 2021 14:31:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DCF08856F68
-	for <dm-devel@redhat.com>; Tue,  9 Feb 2021 14:31:19 +0000 (UTC)
-Received: from mx2.veeam.com (mx2.veeam.com [64.129.123.6]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-493-Ii7l9LBpNEe2KIXzOrxcuQ-1;
-	Tue, 09 Feb 2021 09:31:17 -0500
-X-MC-Unique: Ii7l9LBpNEe2KIXzOrxcuQ-1
-Received: from mail.veeam.com (prgmbx01.amust.local [172.24.0.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mx2.veeam.com (Postfix) with ESMTPS id 6AF154141F;
-	Tue,  9 Feb 2021 09:31:14 -0500 (EST)
-Received: from prgdevlinuxpatch01.amust.local (172.24.14.5) by
-	prgmbx01.amust.local (172.24.0.171) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	15.2.721.2; Tue, 9 Feb 2021 15:30:53 +0100
-From: Sergei Shtepa <sergei.shtepa@veeam.com>
-To: <Damien.LeMoal@wdc.com>, <snitzer@redhat.com>, <hare@suse.de>,
-	<ming.lei@redhat.com>, <agk@redhat.com>, <corbet@lwn.net>,
-	<axboe@kernel.dk>, <jack@suse.cz>, <johannes.thumshirn@wdc.com>,
-	<gregkh@linuxfoundation.org>, <koct9i@gmail.com>, <steve@sk2.org>,
-	<dm-devel@redhat.com>, <linux-block@vger.kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Date: Tue, 9 Feb 2021 17:30:28 +0300
-Message-ID: <1612881028-7878-7-git-send-email-sergei.shtepa@veeam.com>
-In-Reply-To: <1612881028-7878-1-git-send-email-sergei.shtepa@veeam.com>
-References: <1612881028-7878-1-git-send-email-sergei.shtepa@veeam.com>
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9826060CD2;
+	Tue,  9 Feb 2021 15:56:21 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 119FuLZ0005945; Tue, 9 Feb 2021 10:56:21 -0500
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 119FuKEa005942; Tue, 9 Feb 2021 10:56:20 -0500
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Tue, 9 Feb 2021 10:56:20 -0500 (EST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Zdenek Kabelac <zkabelac@redhat.com>, David Teigland <teigland@redhat.com>,
+	Mike Snitzer <msnitzer@redhat.com>
+Message-ID: <alpine.LRH.2.02.2102091053450.5801@file01.intranet.prod.int.rdu2.redhat.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-X-Originating-IP: [172.24.14.5]
-X-ClientProxiedBy: prgmbx02.amust.local (172.24.0.172) To prgmbx01.amust.local
-	(172.24.0.171)
-X-EsetResult: clean, is OK
-X-EsetId: 37303A29C604D265617465
-X-Veeam-MMEX: True
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-Cc: pavel.tide@veeam.com, sergei.shtepa@veeam.com
-Subject: [dm-devel] [PATCH v5 6/6] docs: device-mapper: 'noexcl' option for
-	dm-linear
+Cc: dm-devel@redhat.com
+Subject: [dm-devel] [PATCH] dm-writecache: allow the underlying device to be
+	shrunk
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,7 +76,7 @@ List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -102,60 +84,76 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-New 'noexcl' option allow to open underlying block-device
-without FMODE_EXCL flag.
+Allow shrinking the underlying data device (dm-writecache must be
+suspended when the device is shrunk).
 
-Signed-off-by: Sergei Shtepa <sergei.shtepa@veeam.com>
+This patch modifies dm-writecache, so that it doesn't attempt to write any
+data beyond the end of the data device.
+
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Cc: stable@vger.kernel.org
+
 ---
- .../admin-guide/device-mapper/linear.rst      | 26 ++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
+ drivers/md/dm-writecache.c |   18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/Documentation/admin-guide/device-mapper/linear.rst b/Documentation/admin-guide/device-mapper/linear.rst
-index 9d17fc6e64a9..f035cd7ad78c 100644
---- a/Documentation/admin-guide/device-mapper/linear.rst
-+++ b/Documentation/admin-guide/device-mapper/linear.rst
-@@ -6,12 +6,22 @@ Device-Mapper's "linear" target maps a linear range of the Device-Mapper
- device onto a linear range of another device.  This is the basic building
- block of logical volume managers.
+Index: linux-2.6/drivers/md/dm-writecache.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-writecache.c	2021-02-05 20:30:35.000000000 +0100
++++ linux-2.6/drivers/md/dm-writecache.c	2021-02-09 16:50:36.000000000 +0100
+@@ -148,6 +148,7 @@ struct dm_writecache {
+ 	size_t metadata_sectors;
+ 	size_t n_blocks;
+ 	uint64_t seq_count;
++	uint64_t data_device_sectors;
+ 	void *block_start;
+ 	struct wc_entry *entries;
+ 	unsigned block_size;
+@@ -969,6 +970,8 @@ static void writecache_resume(struct dm_
  
--Parameters: <dev path> <offset>
-+Parameters: <dev path> <offset> [<options>]
-     <dev path>:
--	Full pathname to the underlying block-device, or a
-+        Full pathname to the underlying block-device, or a
-         "major:minor" device-number.
-     <offset>:
--	Starting sector within the device.
-+        Starting sector within the device.
-+    <options>:
-+        Options allow to set the exclusivity mode. The exclusivity mode
-+        can be 'excl' and 'noexcl'. By default, then options is not set,
-+        the 'excl' mode is used. 'noexcl' mode allow to open device
-+        without FMODE_EXCL flag. This allow to create liner device with
-+        underlying block-device that are already used by the system. For
-+        example, the file system on this device is already mounted.
-+        The 'noexcl' option should be used when creating dm devices that
-+        will be used as acceptor when connecting the device mapper to an
-+        existing block device with the 'dmsetup remap' command.
+ 	wc_lock(wc);
  
- 
- Example scripts
-@@ -61,3 +71,13 @@ Example scripts
-   }
- 
-   `echo \"$table\" | dmsetup create $name`;
++	wc->data_device_sectors = i_size_read(wc->dev->bdev->bd_inode) >> SECTOR_SHIFT;
 +
-+::
+ 	if (WC_MODE_PMEM(wc)) {
+ 		persistent_memory_invalidate_cache(wc->memory_map, wc->memory_map_size);
+ 	} else {
+@@ -1638,6 +1641,10 @@ static bool wc_add_block(struct writebac
+ 	void *address = memory_data(wc, e);
+ 
+ 	persistent_memory_flush_cache(address, block_size);
 +
-+  #!/bin/sh
-+  # Create linear device and remap all requests from the original device
-+  # to new linear.
-+  DEV=$1
++	if (unlikely(wb->bio.bi_iter.bi_sector + bio_sectors(&wb->bio) >= wc->data_device_sectors))
++		return true;
 +
-+  echo "0 `blockdev --getsz $DEV` linear $DEV 0 noexcl" | dmsetup create dm-noexcl
-+  dmsetup remap start dm-noexcl $DEV
--- 
-2.20.1
+ 	return bio_add_page(&wb->bio, persistent_memory_page(address),
+ 			    block_size, persistent_memory_page_offset(address)) != 0;
+ }
+@@ -1709,6 +1716,9 @@ static void __writecache_writeback_pmem(
+ 		if (writecache_has_error(wc)) {
+ 			bio->bi_status = BLK_STS_IOERR;
+ 			bio_endio(bio);
++		} else if (unlikely(!bio_sectors(bio))) {
++			bio->bi_status = BLK_STS_OK;
++			bio_endio(bio);
+ 		} else {
+ 			submit_bio(bio);
+ 		}
+@@ -1752,6 +1762,14 @@ static void __writecache_writeback_ssd(s
+ 			e = f;
+ 		}
+ 
++		if (unlikely(to.sector + to.count > wc->data_device_sectors)) {
++			if (to.sector >= wc->data_device_sectors) {
++				writecache_copy_endio(0, 0, c);
++				continue;
++			}
++			from.count = to.count = wc->data_device_sectors - to.sector;
++		}
++
+ 		dm_kcopyd_copy(wc->dm_kcopyd, &from, 1, &to, 0, writecache_copy_endio, c);
+ 
+ 		__writeback_throttle(wc, wbl);
 
 --
 dm-devel mailing list
