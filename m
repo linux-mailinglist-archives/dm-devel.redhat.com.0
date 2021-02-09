@@ -1,72 +1,66 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A53B031DC61
-	for <lists+dm-devel@lfdr.de>; Wed, 17 Feb 2021 16:37:16 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 6774A31DC7B
+	for <lists+dm-devel@lfdr.de>; Wed, 17 Feb 2021 16:38:39 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-187-mgEC0FB0Nr-PMXrKikeNNg-1; Wed, 17 Feb 2021 10:37:13 -0500
-X-MC-Unique: mgEC0FB0Nr-PMXrKikeNNg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-28-ZFn9pgWdOGCE2kEoDzQ8YQ-1; Wed, 17 Feb 2021 10:38:36 -0500
+X-MC-Unique: ZFn9pgWdOGCE2kEoDzQ8YQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 94E0D835E2F;
-	Wed, 17 Feb 2021 15:37:07 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5F79A5C3E4;
-	Wed, 17 Feb 2021 15:37:07 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9380479EC0;
+	Wed, 17 Feb 2021 15:38:29 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3DF865D74E;
+	Wed, 17 Feb 2021 15:38:29 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F245A58073;
-	Wed, 17 Feb 2021 15:37:06 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DAC6C1809C8F;
+	Wed, 17 Feb 2021 15:38:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 118Atq3E011348 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 8 Feb 2021 05:55:53 -0500
+	id 1196DpZZ003321 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 9 Feb 2021 01:13:51 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D6C622166B31; Mon,  8 Feb 2021 10:55:52 +0000 (UTC)
+	id 8C4CF6D9DB; Tue,  9 Feb 2021 06:13:51 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D0D152166B29
-	for <dm-devel@redhat.com>; Mon,  8 Feb 2021 10:55:52 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 85EB4906B4
+	for <dm-devel@redhat.com>; Tue,  9 Feb 2021 06:13:48 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BD8A6802355
-	for <dm-devel@redhat.com>; Mon,  8 Feb 2021 10:55:52 +0000 (UTC)
-Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
-	by relay.mimecast.com with ESMTP id us-mta-185-2_FhnsiqO5iokDWjNDCQPw-2;
-	Mon, 08 Feb 2021 05:55:48 -0500
-X-MC-Unique: 2_FhnsiqO5iokDWjNDCQPw-2
-X-IronPort-AV: E=Sophos;i="5.81,161,1610380800"; d="scan'208";a="104328074"
-Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
-	by heian.cn.fujitsu.com with ESMTP; 08 Feb 2021 18:55:47 +0800
-Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
-	by cn.fujitsu.com (Postfix) with ESMTP id 39E964CE6F87;
-	Mon,  8 Feb 2021 18:55:46 +0800 (CST)
-Received: from G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.200) by
-	G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204) with Microsoft SMTP
-	Server (TLS) id 15.0.1497.2; Mon, 8 Feb 2021 18:55:48 +0800
-Received: from irides.mr.mr.mr (10.167.225.141) by
-	G08CNEXCHPEKD04.g08.fujitsu.local (10.167.33.209) with Microsoft SMTP
-	Server
-	id 15.0.1497.2 via Frontend Transport; Mon, 8 Feb 2021 18:55:47 +0800
-From: Shiyang Ruan <ruansy.fnst@cn.fujitsu.com>
-To: <linux-kernel@vger.kernel.org>, <linux-xfs@vger.kernel.org>,
-	<linux-nvdimm@lists.01.org>, <linux-mm@kvack.org>,
-	<linux-fsdevel@vger.kernel.org>, <dm-devel@redhat.com>
-Date: Mon, 8 Feb 2021 18:55:30 +0800
-Message-ID: <20210208105530.3072869-12-ruansy.fnst@cn.fujitsu.com>
-In-Reply-To: <20210208105530.3072869-1-ruansy.fnst@cn.fujitsu.com>
-References: <20210208105530.3072869-1-ruansy.fnst@cn.fujitsu.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B7339101A54E
+	for <dm-devel@redhat.com>; Tue,  9 Feb 2021 06:13:48 +0000 (UTC)
+Received: from out30-45.freemail.mail.aliyun.com
+	(out30-45.freemail.mail.aliyun.com [115.124.30.45]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-323-F2IIfDcCOjK7j0Ztxna20w-1;
+	Tue, 09 Feb 2021 01:13:45 -0500
+X-MC-Unique: F2IIfDcCOjK7j0Ztxna20w-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R151e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1;
+	HT=alimailimapcm10staff010182156082;
+	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=9; SR=0;
+	TI=SMTPD_---0UOH.b00_1612851218
+Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
+	fp:SMTPD_---0UOH.b00_1612851218) by smtp.aliyun-inc.com(127.0.0.1);
+	Tue, 09 Feb 2021 14:13:38 +0800
+To: Ming Lei <ming.lei@redhat.com>
+References: <20210208085243.82367-1-jefflexu@linux.alibaba.com>
+	<20210208085243.82367-10-jefflexu@linux.alibaba.com>
+	<20210209031122.GA63798@T590>
+From: JeffleXu <jefflexu@linux.alibaba.com>
+Message-ID: <a499a33f-da2e-b5aa-5266-9e7c76a34b48@linux.alibaba.com>
+Date: Tue, 9 Feb 2021 14:13:38 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+	Gecko/20100101 Thunderbird/78.7.0
 MIME-Version: 1.0
-X-yoursite-MailScanner-ID: 39E964CE6F87.AE17F
-X-yoursite-MailScanner: Found to be clean
-X-yoursite-MailScanner-From: ruansy.fnst@cn.fujitsu.com
-X-Spam-Status: No
+In-Reply-To: <20210209031122.GA63798@T590>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -75,13 +69,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 17 Feb 2021 10:31:26 -0500
-Cc: qi.fuli@fujitsu.com, snitzer@redhat.com, darrick.wong@oracle.com,
-	rgoldwyn@suse.de, david@fromorbit.com, y-goto@fujitsu.com,
-	dan.j.williams@intel.com, hch@lst.de, agk@redhat.com
-Subject: [dm-devel] [PATCH v3 11/11] fs/dax: Remove useless functions
+Cc: axboe@kernel.dk, snitzer@redhat.com, caspar@linux.alibaba.com,
+	io-uring@vger.kernel.org, linux-block@vger.kernel.org,
+	joseph.qi@linux.alibaba.com, dm-devel@redhat.com, hch@lst.de
+Subject: Re: [dm-devel] [PATCH v3 09/11] dm: support IO polling for
+	bio-based dm device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,104 +90,91 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Since owner tarcking is triggerred by pmem device, these functions are
-useless.  So remove them.
 
-Signed-off-by: Shiyang Ruan <ruansy.fnst@cn.fujitsu.com>
----
- fs/dax.c | 46 ----------------------------------------------
- 1 file changed, 46 deletions(-)
 
-diff --git a/fs/dax.c b/fs/dax.c
-index c64c3a0e76a6..e20a5df03eec 100644
---- a/fs/dax.c
-+++ b/fs/dax.c
-@@ -323,48 +323,6 @@ static unsigned long dax_end_pfn(void *entry)
- 	for (pfn = dax_to_pfn(entry); \
- 			pfn < dax_end_pfn(entry); pfn++)
- 
--/*
-- * TODO: for reflink+dax we need a way to associate a single page with
-- * multiple address_space instances at different linear_page_index()
-- * offsets.
-- */
--static void dax_associate_entry(void *entry, struct address_space *mapping,
--		struct vm_area_struct *vma, unsigned long address)
--{
--	unsigned long size = dax_entry_size(entry), pfn, index;
--	int i = 0;
--
--	if (IS_ENABLED(CONFIG_FS_DAX_LIMITED))
--		return;
--
--	index = linear_page_index(vma, address & ~(size - 1));
--	for_each_mapped_pfn(entry, pfn) {
--		struct page *page = pfn_to_page(pfn);
--
--		WARN_ON_ONCE(page->mapping);
--		page->mapping = mapping;
--		page->index = index + i++;
--	}
--}
--
--static void dax_disassociate_entry(void *entry, struct address_space *mapping,
--		bool trunc)
--{
--	unsigned long pfn;
--
--	if (IS_ENABLED(CONFIG_FS_DAX_LIMITED))
--		return;
--
--	for_each_mapped_pfn(entry, pfn) {
--		struct page *page = pfn_to_page(pfn);
--
--		WARN_ON_ONCE(trunc && page_ref_count(page) > 1);
--		WARN_ON_ONCE(page->mapping && page->mapping != mapping);
--		page->mapping = NULL;
--		page->index = 0;
--	}
--}
--
- static struct page *dax_busy_page(void *entry)
- {
- 	unsigned long pfn;
-@@ -543,7 +501,6 @@ static void *grab_mapping_entry(struct xa_state *xas,
- 			xas_lock_irq(xas);
- 		}
- 
--		dax_disassociate_entry(entry, mapping, false);
- 		xas_store(xas, NULL);	/* undo the PMD join */
- 		dax_wake_entry(xas, entry, true);
- 		mapping->nrexceptional--;
-@@ -680,7 +637,6 @@ static int __dax_invalidate_entry(struct address_space *mapping,
- 	    (xas_get_mark(&xas, PAGECACHE_TAG_DIRTY) ||
- 	     xas_get_mark(&xas, PAGECACHE_TAG_TOWRITE)))
- 		goto out;
--	dax_disassociate_entry(entry, mapping, trunc);
- 	xas_store(&xas, NULL);
- 	mapping->nrexceptional--;
- 	ret = 1;
-@@ -774,8 +730,6 @@ static void *dax_insert_entry(struct xa_state *xas,
- 	if (dax_is_zero_entry(entry) || dax_is_empty_entry(entry)) {
- 		void *old;
- 
--		dax_disassociate_entry(entry, mapping, false);
--		dax_associate_entry(new_entry, mapping, vmf->vma, vmf->address);
- 		/*
- 		 * Only swap our new entry into the page cache if the current
- 		 * entry is a zero page or an empty entry.  If a normal PTE or
+On 2/9/21 11:11 AM, Ming Lei wrote:
+> On Mon, Feb 08, 2021 at 04:52:41PM +0800, Jeffle Xu wrote:
+>> DM will iterate and poll all polling hardware queues of all target mq
+>> devices when polling IO for dm device. To mitigate the race introduced
+>> by iterating all target hw queues, a per-hw-queue flag is maintained
+> 
+> What is the per-hw-queue flag?
+
+Sorry I forgot to update the commit message as the implementation
+changed. Actually this mechanism is implemented by patch 10 of this
+patch set.
+
+> 
+>> to indicate whether this polling hw queue currently being polled on or
+>> not. Every polling hw queue is exclusive to one polling instance, i.e.,
+>> the polling instance will skip this polling hw queue if this hw queue
+>> currently is being polled by another polling instance, and start
+>> polling on the next hw queue.
+> 
+> Not see such skip in dm_poll_one_dev() in which
+> queue_for_each_poll_hw_ctx() is called directly for polling all POLL
+> hctxs of the request queue, so can you explain it a bit more about this
+> skip mechanism?
+> 
+
+It is implemented as patch 10 of this patch set. When spin_trylock()
+fails, the polling instance will return immediately, instead of busy
+waiting.
+
+
+> Even though such skipping is implemented, not sure if good performance
+> can be reached because hctx poll may be done in ping-pong style
+> among several CPUs. But blk-mq hctx is supposed to have its cpu affinities.
+> 
+
+Yes, the mechanism of iterating all hw queues can make the competition
+worse.
+
+If every underlying data device has **only** one polling hw queue, then
+this ping-pong style polling still exist, even when we implement split
+bio tracking mechanism, i.e., acquiring the specific hw queue the bio
+enqueued into. Because multiple polling instance has to compete for the
+only polling hw queue.
+
+But if multiple polling hw queues per device are reserved for multiple
+polling instances, (e.g., every underlying data device has 3 polling hw
+queues when there are 3 polling instances), just as what we practice on
+mq polling, then the current implementation of iterating all hw queues
+will indeed works in a ping-pong style, while this issue shall not exist
+when accurate split bio tracking mechanism could be implemented.
+
+As for the performance, I cite the test results here, as summarized in
+the cover-letter
+(https://lore.kernel.org/io-uring/20210208085243.82367-1-jefflexu@linux.alibaba.com/)
+
+	    | IOPS (IRQ mode) | IOPS (iopoll=1 mode) | diff
+----------- | --------------- | -------------------- | ----
+without opt | 		 318k |		 	256k | ~-20%
+with opt    |		 314k |		 	354k | ~13%
+
+The 'opt' refers to the optimization of patch 10, i.e., the skipping
+mechanism. There are 3 polling instances (i.e., 3 CPUs) in this test case.
+
+
+Indeed the current implementation of iterating all hw queues is some
+sort of compromise, as I find it really difficult to implement the
+accurate split bio mechanism, and to achieve high performance at the
+same time. Thus I turn to optimizing the original implementation of
+iterating all hw queues, such as optimization of patch 10 and 11.
+
+
 -- 
-2.30.0
-
-
+Thanks,
+Jeffle
 
 --
 dm-devel mailing list
