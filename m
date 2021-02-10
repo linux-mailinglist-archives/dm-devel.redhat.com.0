@@ -2,55 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E4E68316814
-	for <lists+dm-devel@lfdr.de>; Wed, 10 Feb 2021 14:34:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4DECA31682D
+	for <lists+dm-devel@lfdr.de>; Wed, 10 Feb 2021 14:41:32 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-603-u-zpVArMPOicSf99LQmRDg-1; Wed, 10 Feb 2021 08:34:29 -0500
-X-MC-Unique: u-zpVArMPOicSf99LQmRDg-1
+ us-mta-107-TRtSvywqMIKLo3J9amBThg-1; Wed, 10 Feb 2021 08:41:29 -0500
+X-MC-Unique: TRtSvywqMIKLo3J9amBThg-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7DC8B8749AA;
-	Wed, 10 Feb 2021 13:34:22 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 78400839A02;
+	Wed, 10 Feb 2021 13:41:22 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CD3B860BE2;
-	Wed, 10 Feb 2021 13:34:20 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E16560C0F;
+	Wed, 10 Feb 2021 13:41:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DD1EC18095C9;
-	Wed, 10 Feb 2021 13:34:13 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 72EDE18095C7;
+	Wed, 10 Feb 2021 13:41:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11ADY3HE014288 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 10 Feb 2021 08:34:03 -0500
+	id 11ADf9uC014840 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 10 Feb 2021 08:41:09 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 127632026D49; Wed, 10 Feb 2021 13:34:03 +0000 (UTC)
+	id 1700011422DC; Wed, 10 Feb 2021 13:41:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0CB212026D46
-	for <dm-devel@redhat.com>; Wed, 10 Feb 2021 13:33:56 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1337711422DA
+	for <dm-devel@redhat.com>; Wed, 10 Feb 2021 13:41:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F2946185AD0A
-	for <dm-devel@redhat.com>; Wed, 10 Feb 2021 13:33:55 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AD94C80122F
+	for <dm-devel@redhat.com>; Wed, 10 Feb 2021 13:41:06 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-142-OW1d3BOWO7OavQW0oVqKjA-1;
-	Wed, 10 Feb 2021 08:33:51 -0500
-X-MC-Unique: OW1d3BOWO7OavQW0oVqKjA-1
+	relay.mimecast.com with ESMTP id us-mta-248-v1jb_g9fMwmShTnIf7u-0g-1;
+	Wed, 10 Feb 2021 08:41:04 -0500
+X-MC-Unique: v1jb_g9fMwmShTnIf7u-0g-1
 Received: by verein.lst.de (Postfix, from userid 2407)
-	id BABDE68B02; Wed, 10 Feb 2021 14:33:47 +0100 (CET)
-Date: Wed, 10 Feb 2021 14:33:47 +0100
+	id 97BF768B02; Wed, 10 Feb 2021 14:41:00 +0100 (CET)
+Date: Wed, 10 Feb 2021 14:41:00 +0100
 From: Christoph Hellwig <hch@lst.de>
 To: Shiyang Ruan <ruansy.fnst@cn.fujitsu.com>
-Message-ID: <20210210133347.GD30109@lst.de>
+Message-ID: <20210210134100.GE30109@lst.de>
 References: <20210208105530.3072869-1-ruansy.fnst@cn.fujitsu.com>
-	<20210208105530.3072869-6-ruansy.fnst@cn.fujitsu.com>
+	<20210208105530.3072869-7-ruansy.fnst@cn.fujitsu.com>
 MIME-Version: 1.0
-In-Reply-To: <20210208105530.3072869-6-ruansy.fnst@cn.fujitsu.com>
+In-Reply-To: <20210208105530.3072869-7-ruansy.fnst@cn.fujitsu.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -60,7 +59,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 Cc: y-goto@fujitsu.com, qi.fuli@fujitsu.com, snitzer@redhat.com,
 	linux-nvdimm@lists.01.org, rgoldwyn@suse.de,
@@ -69,8 +68,8 @@ Cc: y-goto@fujitsu.com, qi.fuli@fujitsu.com, snitzer@redhat.com,
 	linux-mm@kvack.org, dm-devel@redhat.com,
 	linux-fsdevel@vger.kernel.org, dan.j.williams@intel.com,
 	hch@lst.de, agk@redhat.com
-Subject: Re: [dm-devel] [PATCH v3 05/11] mm,
- fsdax: Refactor memory-failure handler for dax mapping
+Subject: Re: [dm-devel] [PATCH v3 06/11] mm,
+ pmem: Implement ->memory_failure() in pmem driver
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,39 +92,54 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-> +extern int mf_dax_mapping_kill_procs(struct address_space *mapping, pgoff_t index, int flags);
-
-No nee for the extern, please avoid the overly long line.
-
-> @@ -120,6 +121,13 @@ static int hwpoison_filter_dev(struct page *p)
->  	if (PageSlab(p))
->  		return -EINVAL;
->  
-> +	if (pfn_valid(page_to_pfn(p))) {
-> +		if (is_device_fsdax_page(p))
-> +			return 0;
-> +		else
-> +			return -EINVAL;
-> +	}
+> +static int pmem_pagemap_memory_failure(struct dev_pagemap *pgmap,
+> +		unsigned long pfn, int flags)
+> +{
+> +	struct pmem_device *pdev;
+> +	struct gendisk *disk;
+> +	loff_t disk_offset;
+> +	int rc = 0;
+> +	unsigned long size = page_size(pfn_to_page(pfn));
 > +
+> +	pdev = container_of(pgmap, struct pmem_device, pgmap);
+> +	disk = pdev->disk;
 
-This looks odd.  For one there is no need for an else after a return.
-But more importantly page_mapping() as called below pretty much assumes
-a valid PFN, so something is fishy in this function.
+Would be nice to initialize this at the time of declaration:
 
-> +	if (is_zone_device_page(p)) {
-> +		if (is_device_fsdax_page(p))
-> +			tk->addr = vma->vm_start +
-> +					((pgoff - vma->vm_pgoff) << PAGE_SHIFT);
+	struct pmem_device *pdev =
+		container_of(pgmap, struct pmem_device, pgmap);
+	struct gendisk *disk = pdev->disk
+	unsigned long size = page_size(pfn_to_page(pfn));
 
-The arithmetics here scream for a common helper, I suspect there might
-be other places that could use the same helper.
+> +	if (!disk)
+> +		return -ENXIO;
+> +
+> +	disk_offset = PFN_PHYS(pfn) - pdev->phys_addr - pdev->data_offset;
+> +	if (disk->fops->corrupted_range) {
+> +		rc = disk->fops->corrupted_range(disk, NULL, disk_offset,
+> +						 size, &flags);
+> +		if (rc == -ENODEV)
+> +			rc = -ENXIO;
+> +	} else
+> +		rc = -EOPNOTSUPP;
 
-> +int mf_dax_mapping_kill_procs(struct address_space *mapping, pgoff_t index, int flags)
+Why do we need the disk and fops check here? A pgmap registered by pmem.c
+should always have a disk with pmem_fops.  And more importantly this
+has no business going through the block layer.
 
-Overly long line.  Also the naming scheme with the mf_ seems rather
-unusual. Maybe dax_kill_mapping_procs?  Also please add a kerneldoc
-comment describing the function given that it exported.
+Instead the file system should deposit a callback when starting to use
+the dax_device using fs_dax_get_by_bdev / dax_get_by_host and a private
+data (the superblock), and we avoid all the lookup problems.
+
+> +int mf_generic_kill_procs(unsigned long long pfn, int flags)
+
+This function seems to be only used inside of memory-failure.c, so it
+could be marked static.  Also I'd name it dax_generic_memory_failure
+or something like that to match the naming of the ->memory_failure
+pgmap operation.
+
+Also maybe just splitting this out into a helper would be a nice prep
+patch.
 
 --
 dm-devel mailing list
