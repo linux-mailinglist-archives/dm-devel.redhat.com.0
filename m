@@ -1,83 +1,59 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4C900318D35
-	for <lists+dm-devel@lfdr.de>; Thu, 11 Feb 2021 15:23:23 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 028C3318D93
+	for <lists+dm-devel@lfdr.de>; Thu, 11 Feb 2021 15:45:57 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1613054757;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=hp724HGX7DrvcxYHySFumcQt9EHInT2jO0OCH6E67cA=;
+	b=ASoq40KjDRT/9PXCHyMXTxKDDRgtzMVi/CYsZF0n+eAIyapXSEK5/AG/9+9p7OXXjdFuVM
+	8cBhgIgw1c87Hh900koHowxNK2azpePu0cz5RH9SWMBZhu4P4nhaSCKbwfRw3JulrqQYSC
+	DEnPvk5XFjI3z/kFF+mcgvdgdeM8C6E=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-589-KME80rlJNC6fbL7oqRKg8g-1; Thu, 11 Feb 2021 09:23:19 -0500
-X-MC-Unique: KME80rlJNC6fbL7oqRKg8g-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-208-MwBPEj-FP9eda1s6Fec6BA-1; Thu, 11 Feb 2021 09:45:54 -0500
+X-MC-Unique: MwBPEj-FP9eda1s6Fec6BA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3ABBD104ED19;
-	Thu, 11 Feb 2021 14:23:12 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 56C43801965;
+	Thu, 11 Feb 2021 14:45:48 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1662C57;
-	Thu, 11 Feb 2021 14:23:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2DF626BF6B;
+	Thu, 11 Feb 2021 14:45:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 55D7618095CC;
-	Thu, 11 Feb 2021 14:23:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9CD4A18095CC;
+	Thu, 11 Feb 2021 14:45:42 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11BEN2m7008421 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 11 Feb 2021 09:23:02 -0500
+	id 11BEjah7010497 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 11 Feb 2021 09:45:36 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0F2112166B31; Thu, 11 Feb 2021 14:23:02 +0000 (UTC)
+	id 6F2A110016F6; Thu, 11 Feb 2021 14:45:36 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0912D2166B2E
-	for <dm-devel@redhat.com>; Thu, 11 Feb 2021 14:22:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 849C0858F18
-	for <dm-devel@redhat.com>; Thu, 11 Feb 2021 14:22:59 +0000 (UTC)
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
-	[209.85.221.46]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-425-v5Dq53BkPjGIj8-wTELH0g-1; Thu, 11 Feb 2021 09:22:57 -0500
-X-MC-Unique: v5Dq53BkPjGIj8-wTELH0g-1
-Received: by mail-wr1-f46.google.com with SMTP id 7so4397735wrz.0
-	for <dm-devel@redhat.com>; Thu, 11 Feb 2021 06:22:57 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id;
-	bh=/+FjXm5M90vS44To6kunQvddPMUijBc/z7y0WMHzOoI=;
-	b=ZbTBYnUbSb+n6F/llEt0HLkXuANDby4wK1A+Carn3aqsy3a/nLBSb4oVANhf1y8cEv
-	Rvhh/goLlgVQRNyQw7n48U+ESEE66Zntd3nxM0sZ46dBCk5gDTn/4EXTHWeR4t6JpHB9
-	VoBoOrRvZ1S0rRybonfzCXBRmHRqped+Oea/CnxAT/rco2PX3282P0+Wj2lXNYc6oDx3
-	Zaqyd9ZAM9QcWbTHrrX1EKfjtWhtDZ6Y8vFONdq5tHI12A7FPFY9h3yCdUvDoxTmLPm/
-	1JHQcjBhTwfwwSSpGxu7Og/BXIn11tzQeDx6U0MIc1W7xyrvzEc+9Cp4VdjW6nWjCGXG
-	monA==
-X-Gm-Message-State: AOAM531new1Ha6CKSlI1z/tWWxbYsAStZ8whT8a75S2p1H3R3G9pZG1c
-	1g6Jui3CXBHOyW+drq11MAne+w==
-X-Google-Smtp-Source: ABdhPJy5NpIXEP44aaSlASOzr0bKt6X7KUjOeohsBJAQ+waj1tSQHHDRbBAlCNAe2gc+KXe02NxsdA==
-X-Received: by 2002:a5d:4dd2:: with SMTP id f18mr6147071wru.115.1613053376495; 
-	Thu, 11 Feb 2021 06:22:56 -0800 (PST)
-Received: from snf-864.vm.snf.arr ([31.177.62.212])
-	by smtp.gmail.com with ESMTPSA id
-	c11sm5209909wrs.28.2021.02.11.06.22.55
-	(version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-	Thu, 11 Feb 2021 06:22:55 -0800 (PST)
-From: Nikos Tsironis <ntsironis@arrikto.com>
-To: snitzer@redhat.com, agk@redhat.com, dm-devel@redhat.com
-Date: Thu, 11 Feb 2021 16:22:43 +0200
-Message-Id: <20210211142243.31062-1-ntsironis@arrikto.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Received: from localhost (unknown [10.18.25.174])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 587A910016F8;
+	Thu, 11 Feb 2021 14:45:33 +0000 (UTC)
+Date: Thu, 11 Feb 2021 09:45:32 -0500
+From: Mike Snitzer <snitzer@redhat.com>
+To: Nikos Tsironis <ntsironis@arrikto.com>
+Message-ID: <20210211144532.GB13067@redhat.com>
+References: <20210211142243.31062-1-ntsironis@arrikto.com>
+MIME-Version: 1.0
+In-Reply-To: <20210211142243.31062-1-ntsironis@arrikto.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-Cc: ntsironis@arrikto.com
-Subject: [dm-devel] [PATCH v2] dm era: only resize metadata in preresume
+Cc: dm-devel@redhat.com, agk@redhat.com
+Subject: Re: [dm-devel] [PATCH v2] dm era: only resize metadata in preresume
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,90 +65,57 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://www.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Metadata resize shouldn't happen in the ctr. The ctr loads a temporary
-(inactive) table that will only become active upon resume. That is why
-resize should always be done in terms of resume. Otherwise a load (ctr)
-whose inactive table never becomes active will incorrectly resize the
-metadata.
+On Thu, Feb 11 2021 at  9:22am -0500,
+Nikos Tsironis <ntsironis@arrikto.com> wrote:
 
-Also, perform the resize directly in preresume, instead of using the
-worker to do it.
+> Metadata resize shouldn't happen in the ctr. The ctr loads a temporary
+> (inactive) table that will only become active upon resume. That is why
+> resize should always be done in terms of resume. Otherwise a load (ctr)
+> whose inactive table never becomes active will incorrectly resize the
+> metadata.
+> 
+> Also, perform the resize directly in preresume, instead of using the
+> worker to do it.
+> 
+> The worker might run other metadata operations, e.g., it could start
+> digestion, before resizing the metadata. These operations will end up
+> using the old size.
+> 
+> This could lead to errors, like:
+> 
+>   device-mapper: era: metadata_digest_transcribe_writeset: dm_array_set_value failed
+>   device-mapper: era: process_old_eras: digest step failed, stopping digestion
+> 
+> The reason of the above error is that the worker started the digestion
+> of the archived writeset using the old, larger size.
+> 
+> As a result, metadata_digest_transcribe_writeset tried to write beyond
+> the end of the era array.
+> 
+> Fixes: eec40579d84873 ("dm: add era target")
+> Cc: stable@vger.kernel.org # v3.15+
+> Signed-off-by: Nikos Tsironis <ntsironis@arrikto.com>
+> ---
+>  drivers/md/dm-era-target.c | 21 ++++++++++-----------
+>  1 file changed, 10 insertions(+), 11 deletions(-)
 
-The worker might run other metadata operations, e.g., it could start
-digestion, before resizing the metadata. These operations will end up
-using the old size.
+Thanks, I replaced the patch I created (that used a worker to resize
+from preresume) with this.
 
-This could lead to errors, like:
+Now staged for 5.12.
 
-  device-mapper: era: metadata_digest_transcribe_writeset: dm_array_set_value failed
-  device-mapper: era: process_old_eras: digest step failed, stopping digestion
-
-The reason of the above error is that the worker started the digestion
-of the archived writeset using the old, larger size.
-
-As a result, metadata_digest_transcribe_writeset tried to write beyond
-the end of the era array.
-
-Fixes: eec40579d84873 ("dm: add era target")
-Cc: stable@vger.kernel.org # v3.15+
-Signed-off-by: Nikos Tsironis <ntsironis@arrikto.com>
----
- drivers/md/dm-era-target.c | 21 ++++++++++-----------
- 1 file changed, 10 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/md/dm-era-target.c b/drivers/md/dm-era-target.c
-index d0e75fd31c1e..d9ac7372108c 100644
---- a/drivers/md/dm-era-target.c
-+++ b/drivers/md/dm-era-target.c
-@@ -1501,15 +1501,6 @@ static int era_ctr(struct dm_target *ti, unsigned argc, char **argv)
- 	}
- 	era->md = md;
- 
--	era->nr_blocks = calc_nr_blocks(era);
--
--	r = metadata_resize(era->md, &era->nr_blocks);
--	if (r) {
--		ti->error = "couldn't resize metadata";
--		era_destroy(era);
--		return -ENOMEM;
--	}
--
- 	era->wq = alloc_ordered_workqueue("dm-" DM_MSG_PREFIX, WQ_MEM_RECLAIM);
- 	if (!era->wq) {
- 		ti->error = "could not create workqueue for metadata object";
-@@ -1584,9 +1575,17 @@ static int era_preresume(struct dm_target *ti)
- 	dm_block_t new_size = calc_nr_blocks(era);
- 
- 	if (era->nr_blocks != new_size) {
--		r = in_worker1(era, metadata_resize, &new_size);
--		if (r)
-+		r = metadata_resize(era->md, &new_size);
-+		if (r) {
-+			DMERR("%s: metadata_resize failed", __func__);
- 			return r;
-+		}
-+
-+		r = metadata_commit(era->md);
-+		if (r) {
-+			DMERR("%s: metadata_commit failed", __func__);
-+			return r;
-+		}
- 
- 		era->nr_blocks = new_size;
- 	}
--- 
-2.11.0
+Mike
 
 --
 dm-devel mailing list
