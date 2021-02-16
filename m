@@ -1,61 +1,58 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id F2F0431DC80
-	for <lists+dm-devel@lfdr.de>; Wed, 17 Feb 2021 16:39:03 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id F1F8231DC7E
+	for <lists+dm-devel@lfdr.de>; Wed, 17 Feb 2021 16:39:01 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-520-r5vupDSpPfCHIHYMm4GvNg-1; Wed, 17 Feb 2021 10:38:36 -0500
-X-MC-Unique: r5vupDSpPfCHIHYMm4GvNg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-295-oWduDnU6Ph2W0wJwPEivVQ-1; Wed, 17 Feb 2021 10:38:58 -0500
+X-MC-Unique: oWduDnU6Ph2W0wJwPEivVQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3976C79ED3;
-	Wed, 17 Feb 2021 15:38:29 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0E78060C62;
-	Wed, 17 Feb 2021 15:38:29 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8E53E79EC5;
+	Wed, 17 Feb 2021 15:38:49 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B5BD648A2;
+	Wed, 17 Feb 2021 15:38:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B9B6E18095CB;
-	Wed, 17 Feb 2021 15:38:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DD35158076;
+	Wed, 17 Feb 2021 15:38:48 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11FBEo9P024493 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 15 Feb 2021 06:14:51 -0500
+	id 11GBkbEf028560 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 16 Feb 2021 06:46:37 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id C31394405C; Mon, 15 Feb 2021 11:14:50 +0000 (UTC)
+	id 0E7C620614DB; Tue, 16 Feb 2021 11:46:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BC9835F253
-	for <dm-devel@redhat.com>; Mon, 15 Feb 2021 11:14:44 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 096A520614D9
+	for <dm-devel@redhat.com>; Tue, 16 Feb 2021 11:46:34 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0ECA3857AB1
-	for <dm-devel@redhat.com>; Mon, 15 Feb 2021 11:14:44 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-156-KLZzO1mnOwK-V1Mzl-CqCA-1; Mon, 15 Feb 2021 06:14:40 -0500
-X-MC-Unique: KLZzO1mnOwK-V1Mzl-CqCA-1
-Received: from [192.168.0.6] (ip5f5aea71.dynamic.kabel-deutschland.de
-	[95.90.234.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested) (Authenticated sender: pmenzel)
-	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 788182064791F;
-	Mon, 15 Feb 2021 12:07:58 +0100 (CET)
-To: Guoqing Jiang <guoqing.jiang@cloud.ionos.com>, song@kernel.org
-References: <1613177399-22024-1-git-send-email-guoqing.jiang@cloud.ionos.com>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-Message-ID: <36a660ed-b995-839e-ac82-dc4ca25ccb8a@molgen.mpg.de>
-Date: Mon, 15 Feb 2021 12:07:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.7.1
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C9B82803FF9
+	for <dm-devel@redhat.com>; Tue, 16 Feb 2021 11:46:34 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-249-OjDyebdMOb-Pw_k9r1HZhg-1;
+	Tue, 16 Feb 2021 06:46:28 -0500
+X-MC-Unique: OjDyebdMOb-Pw_k9r1HZhg-1
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 5738667373; Tue, 16 Feb 2021 12:46:24 +0100 (CET)
+Date: Tue, 16 Feb 2021 12:46:24 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Mike Snitzer <snitzer@redhat.com>
+Message-ID: <20210216114624.GA1221@lst.de>
+References: <20201116145809.410558-1-hch@lst.de>
+	<20201116145809.410558-13-hch@lst.de>
+	<CAMM=eLfD0_Am3--X+PsKPTfc9qzejxpMNjYwEh=WtjSa-iSncg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <1613177399-22024-1-git-send-email-guoqing.jiang@cloud.ionos.com>
+In-Reply-To: <CAMM=eLfD0_Am3--X+PsKPTfc9qzejxpMNjYwEh=WtjSa-iSncg@mail.gmail.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -64,15 +61,29 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Mimecast-Bulk-Signature: yes
-X-Mimecast-Spam-Signature: bulk
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 17 Feb 2021 10:31:26 -0500
-Cc: snitzer@redhat.com, linux-raid@vger.kernel.org, dm-devel@redhat.com,
-	agk@redhat.com, Donald Buczek <buczek@molgen.mpg.de>, it+raid@molgen.mpg.de
-Subject: Re: [dm-devel] [PATCH V2] md: don't unregister sync_thread with
- reconfig_mutex held
+Cc: Justin Sanders <justin@coraid.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>, linux-nvme@lists.infradead.org,
+	Song Liu <song@kernel.org>,
+	device-mapper development <dm-devel@redhat.com>,
+	Christoph Hellwig <hch@lst.de>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	xen-devel@lists.xenproject.org, Ilya Dryomov <idryomov@gmail.com>,
+	Jack Wang <jinpu.wang@cloud.ionos.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Josef Bacik <josef@toxicpanda.com>, nbd@other.debian.org,
+	"linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>,
+	Stefan Hajnoczi <stefanha@redhat.com>, drbd-dev@tron.linbit.com,
+	ceph-devel@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	linux-block <linux-block@vger.kernel.org>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Minchan Kim <minchan@kernel.org>,
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Subject: Re: [dm-devel] [PATCH 12/78] dm: use set_capacity_and_notify
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,135 +97,55 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-[+cc Donald]
+On Fri, Feb 12, 2021 at 10:45:32AM -0500, Mike Snitzer wrote:
+> On Mon, Nov 16, 2020 at 10:05 AM Christoph Hellwig <hch@lst.de> wrote:
+> >
+> > Use set_capacity_and_notify to set the size of both the disk and block
+> > device.  This also gets the uevent notifications for the resize for free.
+> >
+> > Signed-off-by: Christoph Hellwig <hch@lst.de>
+> > Reviewed-by: Hannes Reinecke <hare@suse.de>
+> > ---
+> >  drivers/md/dm.c | 3 +--
+> >  1 file changed, 1 insertion(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+> > index c18fc25485186d..62ad44925e73ec 100644
+> > --- a/drivers/md/dm.c
+> > +++ b/drivers/md/dm.c
+> > @@ -1971,8 +1971,7 @@ static struct dm_table *__bind(struct mapped_device *md, struct dm_table *t,
+> >         if (size != dm_get_size(md))
+> >                 memset(&md->geometry, 0, sizeof(md->geometry));
+> >
+> > -       set_capacity(md->disk, size);
+> > -       bd_set_nr_sectors(md->bdev, size);
+> > +       set_capacity_and_notify(md->disk, size);
+> >
+> >         dm_table_event_callback(t, event_callback, md);
+> >
+> 
+> Not yet pinned down _why_ DM is calling set_capacity_and_notify() with
+> a size of 0 but, when running various DM regression tests, I'm seeing
+> a lot of noise like:
+> 
+> [  689.240037] dm-2: detected capacity change from 2097152 to 0
+> 
+> Is this pr_info really useful?  Should it be moved to below: if
+> (!capacity || !size) so that it only prints if a uevent is sent?
 
-Am 13.02.21 um 01:49 schrieb Guoqing Jiang:
-> Unregister sync_thread doesn't need to hold reconfig_mutex since it
-> doesn't reconfigure array.
-> 
-> And it could cause deadlock problem for raid5 as follows:
-> 
-> 1. process A tried to reap sync thread with reconfig_mutex held after echo
->     idle to sync_action.
-> 2. raid5 sync thread was blocked if there were too many active stripes.
-> 3. SB_CHANGE_PENDING was set (because of write IO comes from upper layer)
->     which causes the number of active stripes can't be decreased.
-> 4. SB_CHANGE_PENDING can't be cleared since md_check_recovery was not able
->     to hold reconfig_mutex.
-> 
-> More details in the link:
-> https://lore.kernel.org/linux-raid/5ed54ffc-ce82-bf66-4eff-390cb23bc1ac@molgen.mpg.de/T/#t
-> 
-> And add one parameter to md_reap_sync_thread since it could be called by
-> dm-raid which doesn't hold reconfig_mutex.
-> 
-> Reported-and-tested-by: Donald Buczek <buczek@molgen.mpg.de>
-> Signed-off-by: Guoqing Jiang <guoqing.jiang@cloud.ionos.com>
-> ---
-> V2:
-> 1. add one parameter to md_reap_sync_thread per Jack's suggestion.
-> 
->   drivers/md/dm-raid.c |  2 +-
->   drivers/md/md.c      | 14 +++++++++-----
->   drivers/md/md.h      |  2 +-
->   3 files changed, 11 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
-> index cab12b2..0c4cbba 100644
-> --- a/drivers/md/dm-raid.c
-> +++ b/drivers/md/dm-raid.c
-> @@ -3668,7 +3668,7 @@ static int raid_message(struct dm_target *ti, unsigned int argc, char **argv,
->   	if (!strcasecmp(argv[0], "idle") || !strcasecmp(argv[0], "frozen")) {
->   		if (mddev->sync_thread) {
->   			set_bit(MD_RECOVERY_INTR, &mddev->recovery);
-> -			md_reap_sync_thread(mddev);
-> +			md_reap_sync_thread(mddev, false);
->   		}
->   	} else if (decipher_sync_action(mddev, mddev->recovery) != st_idle)
->   		return -EBUSY;
-> diff --git a/drivers/md/md.c b/drivers/md/md.c
-> index ca40942..0c12b7f 100644
-> --- a/drivers/md/md.c
-> +++ b/drivers/md/md.c
-> @@ -4857,7 +4857,7 @@ action_store(struct mddev *mddev, const char *page, size_t len)
->   				flush_workqueue(md_misc_wq);
->   			if (mddev->sync_thread) {
->   				set_bit(MD_RECOVERY_INTR, &mddev->recovery);
-> -				md_reap_sync_thread(mddev);
-> +				md_reap_sync_thread(mddev, true);
->   			}
->   			mddev_unlock(mddev);
->   		}
-> @@ -6234,7 +6234,7 @@ static void __md_stop_writes(struct mddev *mddev)
->   		flush_workqueue(md_misc_wq);
->   	if (mddev->sync_thread) {
->   		set_bit(MD_RECOVERY_INTR, &mddev->recovery);
-> -		md_reap_sync_thread(mddev);
-> +		md_reap_sync_thread(mddev, true);
->   	}
->   
->   	del_timer_sync(&mddev->safemode_timer);
-> @@ -9256,7 +9256,7 @@ void md_check_recovery(struct mddev *mddev)
->   			 * ->spare_active and clear saved_raid_disk
->   			 */
->   			set_bit(MD_RECOVERY_INTR, &mddev->recovery);
-> -			md_reap_sync_thread(mddev);
-> +			md_reap_sync_thread(mddev, true);
->   			clear_bit(MD_RECOVERY_RECOVER, &mddev->recovery);
->   			clear_bit(MD_RECOVERY_NEEDED, &mddev->recovery);
->   			clear_bit(MD_SB_CHANGE_PENDING, &mddev->sb_flags);
-> @@ -9291,7 +9291,7 @@ void md_check_recovery(struct mddev *mddev)
->   			goto unlock;
->   		}
->   		if (mddev->sync_thread) {
-> -			md_reap_sync_thread(mddev);
-> +			md_reap_sync_thread(mddev, true);
->   			goto unlock;
->   		}
->   		/* Set RUNNING before clearing NEEDED to avoid
-> @@ -9364,14 +9364,18 @@ void md_check_recovery(struct mddev *mddev)
->   }
->   EXPORT_SYMBOL(md_check_recovery);
->   
-> -void md_reap_sync_thread(struct mddev *mddev)
-> +void md_reap_sync_thread(struct mddev *mddev, bool reconfig_mutex_held)
->   {
->   	struct md_rdev *rdev;
->   	sector_t old_dev_sectors = mddev->dev_sectors;
->   	bool is_reshaped = false;
->   
->   	/* resync has finished, collect result */
-> +	if (reconfig_mutex_held)
-> +		mddev_unlock(mddev);
->   	md_unregister_thread(&mddev->sync_thread);
-> +	if (reconfig_mutex_held)
-> +		mddev_lock_nointr(mddev);
->   	if (!test_bit(MD_RECOVERY_INTR, &mddev->recovery) &&
->   	    !test_bit(MD_RECOVERY_REQUESTED, &mddev->recovery) &&
->   	    mddev->degraded != mddev->raid_disks) {
-> diff --git a/drivers/md/md.h b/drivers/md/md.h
-> index 34070ab..7ae3d98 100644
-> --- a/drivers/md/md.h
-> +++ b/drivers/md/md.h
-> @@ -705,7 +705,7 @@ extern struct md_thread *md_register_thread(
->   extern void md_unregister_thread(struct md_thread **threadp);
->   extern void md_wakeup_thread(struct md_thread *thread);
->   extern void md_check_recovery(struct mddev *mddev);
-> -extern void md_reap_sync_thread(struct mddev *mddev);
-> +extern void md_reap_sync_thread(struct mddev *mddev, bool reconfig_mutex_held);
->   extern int mddev_init_writes_pending(struct mddev *mddev);
->   extern bool md_write_start(struct mddev *mddev, struct bio *bi);
->   extern void md_write_inc(struct mddev *mddev, struct bio *bi);
-> 
+In general I suspect such a size change might be interesting to users
+if it e.g. comes from a remote event.  So I'd be curious why this happens
+with DM, and if we can detect some higher level gendisk state to supress
+it if it is indeed spurious.
 
 --
 dm-devel mailing list
