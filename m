@@ -1,58 +1,58 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 9FA0332124E
-	for <lists+dm-devel@lfdr.de>; Mon, 22 Feb 2021 09:52:04 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id DDD9B321256
+	for <lists+dm-devel@lfdr.de>; Mon, 22 Feb 2021 09:52:51 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-533-6zsEN77MO6mg2IMQYdBVRw-1; Mon, 22 Feb 2021 03:51:48 -0500
-X-MC-Unique: 6zsEN77MO6mg2IMQYdBVRw-1
+ us-mta-58-4QZNPXZUNl6QKr-2gfGjDw-1; Mon, 22 Feb 2021 03:52:47 -0500
+X-MC-Unique: 4QZNPXZUNl6QKr-2gfGjDw-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5CEC8107ACE3;
-	Mon, 22 Feb 2021 08:51:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3AD18107ACE6;
+	Mon, 22 Feb 2021 08:52:41 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 35DCE722CA;
-	Mon, 22 Feb 2021 08:51:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 06F8472FB8;
+	Mon, 22 Feb 2021 08:52:41 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D61964EEF6;
-	Mon, 22 Feb 2021 08:51:41 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A1A7C57DFA;
+	Mon, 22 Feb 2021 08:52:40 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11KB6s47010467 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 20 Feb 2021 06:06:54 -0500
+	id 11KB6rFh010462 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 20 Feb 2021 06:06:53 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EFFAD21121A3; Sat, 20 Feb 2021 11:06:53 +0000 (UTC)
+	id 36F33200ACC4; Sat, 20 Feb 2021 11:06:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EAF35200ACC4
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 31680200BFD3
 	for <dm-devel@redhat.com>; Sat, 20 Feb 2021 11:06:53 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D2B861022F09
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1D40A8919BA
 	for <dm-devel@redhat.com>; Sat, 20 Feb 2021 11:06:53 +0000 (UTC)
-Received: from out30-44.freemail.mail.aliyun.com
-	(out30-44.freemail.mail.aliyun.com [115.124.30.44]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-89-7Q0E90YIPKKex4mdxjo5QA-1;
+Received: from out30-133.freemail.mail.aliyun.com
+	(out30-133.freemail.mail.aliyun.com [115.124.30.133]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-7-gsUVCL7UNUO4GGAsotE2bg-1;
 	Sat, 20 Feb 2021 06:06:48 -0500
-X-MC-Unique: 7Q0E90YIPKKex4mdxjo5QA-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R251e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04394;
+X-MC-Unique: gsUVCL7UNUO4GGAsotE2bg-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R161e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04395;
 	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=9; SR=0;
-	TI=SMTPD_---0UP1N.EP_1613819202
+	TI=SMTPD_---0UP1BfWE_1613819203
 Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0UP1N.EP_1613819202) by smtp.aliyun-inc.com(127.0.0.1);
-	Sat, 20 Feb 2021 19:06:43 +0800
+	fp:SMTPD_---0UP1BfWE_1613819203) by smtp.aliyun-inc.com(127.0.0.1);
+	Sat, 20 Feb 2021 19:06:44 +0800
 From: Jeffle Xu <jefflexu@linux.alibaba.com>
 To: snitzer@redhat.com, axboe@kernel.dk
-Date: Sat, 20 Feb 2021 19:06:30 +0800
-Message-Id: <20210220110637.50305-6-jefflexu@linux.alibaba.com>
+Date: Sat, 20 Feb 2021 19:06:31 +0800
+Message-Id: <20210220110637.50305-7-jefflexu@linux.alibaba.com>
 In-Reply-To: <20210220110637.50305-1-jefflexu@linux.alibaba.com>
 References: <20210220110637.50305-1-jefflexu@linux.alibaba.com>
 MIME-Version: 1.0
@@ -70,8 +70,8 @@ X-Mailman-Approved-At: Mon, 22 Feb 2021 03:49:50 -0500
 Cc: caspar@linux.alibaba.com, io-uring@vger.kernel.org,
 	linux-block@vger.kernel.org, joseph.qi@linux.alibaba.com,
 	dm-devel@redhat.com, ming.lei@redhat.com, hch@lst.de
-Subject: [dm-devel] [PATCH v4 05/12] blk-mq: extract one helper function
-	polling hw queue
+Subject: [dm-devel] [PATCH v4 06/12] blk-mq: add iterator for polling hw
+	queues
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,56 +93,32 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Extract the logic of polling one hw queue and related statistics
-handling out as the helper function.
+Add one helper function for iterating all hardware queues in polling
+mode.
 
 Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
 ---
- block/blk-mq.c         |  5 +----
- include/linux/blk-mq.h | 13 +++++++++++++
- 2 files changed, 14 insertions(+), 4 deletions(-)
+ include/linux/blk-mq.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index c18bc23834a0..b4de2b37b826 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -3850,11 +3850,8 @@ int blk_mq_poll(struct request_queue *q, blk_qc_t cookie, bool spin)
- 	do {
- 		int ret;
- 
--		hctx->poll_invoked++;
--
--		ret = q->mq_ops->poll(hctx);
-+		ret = blk_mq_poll_hctx(q, hctx);
- 		if (ret > 0) {
--			hctx->poll_success++;
- 			__set_current_state(TASK_RUNNING);
- 			return ret;
- 		}
 diff --git a/include/linux/blk-mq.h b/include/linux/blk-mq.h
-index adc789d5888e..cf1910c6d5ae 100644
+index cf1910c6d5ae..0c511555ec16 100644
 --- a/include/linux/blk-mq.h
 +++ b/include/linux/blk-mq.h
-@@ -606,6 +606,19 @@ static inline void blk_rq_bio_prep(struct request *rq, struct bio *bio,
- 		rq->rq_disk = bio->bi_disk;
- }
+@@ -574,6 +574,13 @@ static inline void *blk_mq_rq_to_pdu(struct request *rq)
+ 	for ((i) = 0; (i) < (q)->nr_hw_queues &&			\
+ 	     ({ hctx = (q)->queue_hw_ctx[i]; 1; }); (i)++)
  
-+static inline int blk_mq_poll_hctx(struct request_queue *q,
-+				   struct blk_mq_hw_ctx *hctx)
-+{
-+	int ret;
++#define queue_for_each_poll_hw_ctx(q, hctx, i)				\
++	for ((i) = 0; ((q)->tag_set->nr_maps > HCTX_TYPE_POLL) &&	\
++	     (i) < (q)->tag_set->map[HCTX_TYPE_POLL].nr_queues &&	\
++	     ({ int __idx = (q)->tag_set->map[HCTX_TYPE_POLL].queue_offset + (i); \
++	     hctx = (q)->queue_hw_ctx[__idx]; 1; }); \
++	     (i)++)
 +
-+	hctx->poll_invoked++;
-+	ret = q->mq_ops->poll(hctx);
-+	if (ret > 0)
-+		hctx->poll_success++;
-+
-+	return ret;
-+}
-+
- blk_qc_t blk_mq_submit_bio(struct bio *bio);
- int blk_mq_poll(struct request_queue *q, blk_qc_t cookie, bool spin);
- void blk_mq_hctx_set_fq_lock_class(struct blk_mq_hw_ctx *hctx,
+ #define hctx_for_each_ctx(hctx, ctx, i)					\
+ 	for ((i) = 0; (i) < (hctx)->nr_ctx &&				\
+ 	     ({ ctx = (hctx)->ctxs[(i)]; 1; }); (i)++)
 -- 
 2.27.0
 
