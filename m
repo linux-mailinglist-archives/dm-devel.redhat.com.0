@@ -1,57 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D43173206CD
-	for <lists+dm-devel@lfdr.de>; Sat, 20 Feb 2021 20:12:58 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id A6D98320EAA
+	for <lists+dm-devel@lfdr.de>; Mon, 22 Feb 2021 01:16:52 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-44-kCPM3d9sNKiYxXL5858KUA-1; Sat, 20 Feb 2021 14:12:55 -0500
-X-MC-Unique: kCPM3d9sNKiYxXL5858KUA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-134-vWwzaDrVPdGQPxvBD191GQ-1; Sun, 21 Feb 2021 19:16:49 -0500
+X-MC-Unique: vWwzaDrVPdGQPxvBD191GQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D665B8030B7;
-	Sat, 20 Feb 2021 19:12:48 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4E95A6064B;
-	Sat, 20 Feb 2021 19:12:45 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5B1B88030CC;
+	Mon, 22 Feb 2021 00:16:42 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0FFD560C04;
+	Mon, 22 Feb 2021 00:16:36 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C2FFD18095CB;
-	Sat, 20 Feb 2021 19:12:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C57124EE7F;
+	Mon, 22 Feb 2021 00:16:16 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11KJB9N2028046 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 20 Feb 2021 14:11:10 -0500
+	id 11M0Fvm2009796 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 21 Feb 2021 19:15:57 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9A0812026D13; Sat, 20 Feb 2021 19:11:09 +0000 (UTC)
+	id 3976B44004; Mon, 22 Feb 2021 00:15:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 949FE2026D48
-	for <dm-devel@redhat.com>; Sat, 20 Feb 2021 19:11:07 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 32BF63322A
+	for <dm-devel@redhat.com>; Mon, 22 Feb 2021 00:15:55 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 056F2186E120
-	for <dm-devel@redhat.com>; Sat, 20 Feb 2021 19:11:07 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-549-3vmkhMQzPNa4IrnUFZ6Bdg-1; Sat, 20 Feb 2021 14:11:03 -0500
-X-MC-Unique: 3vmkhMQzPNa4IrnUFZ6Bdg-1
-Received: from willy by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
-	Linux)) id 1lDXcL-004MAE-36; Sat, 20 Feb 2021 19:08:48 +0000
-Date: Sat, 20 Feb 2021 19:08:37 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: David Laight <David.Laight@aculab.com>
-Message-ID: <20210220190837.GE2858050@casper.infradead.org>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F35B39291A0
+	for <dm-devel@redhat.com>; Mon, 22 Feb 2021 00:15:54 +0000 (UTC)
+Received: from mail108.syd.optusnet.com.au (mail108.syd.optusnet.com.au
+	[211.29.132.59]) by relay.mimecast.com with ESMTP id
+	us-mta-212-124kmTP7M1e2isfKWryocw-1; Sun, 21 Feb 2021 19:15:50 -0500
+X-MC-Unique: 124kmTP7M1e2isfKWryocw-1
+Received: from dread.disaster.area (pa49-179-130-210.pa.nsw.optusnet.com.au
+	[49.179.130.210])
+	by mail108.syd.optusnet.com.au (Postfix) with ESMTPS id 7E7221ADB51;
+	Mon, 22 Feb 2021 10:52:49 +1100 (AEDT)
+Received: from dave by dread.disaster.area with local (Exim 4.92.3)
+	(envelope-from <david@fromorbit.com>)
+	id 1lDyWu-00Fq01-QV; Mon, 22 Feb 2021 10:52:48 +1100
+Date: Mon, 22 Feb 2021 10:52:48 +1100
+From: Dave Chinner <david@fromorbit.com>
+To: SelvaKumar S <selvakuma.s1@samsung.com>
+Message-ID: <20210221235248.GZ4626@dread.disaster.area>
 References: <CGME20210219124555epcas5p1334e7c4d64ada5dc4a2ca0feb48c1d44@epcas5p1.samsung.com>
 	<20210219124517.79359-1-selvakuma.s1@samsung.com>
-	<146c47907c2446d4a896830de400dd81@AcuMS.aculab.com>
 MIME-Version: 1.0
-In-Reply-To: <146c47907c2446d4a896830de400dd81@AcuMS.aculab.com>
+In-Reply-To: <20210219124517.79359-1-selvakuma.s1@samsung.com>
+X-Optus-CM-Score: 0
+X-Optus-CM-Analysis: v=2.3 cv=YKPhNiOx c=1 sm=1 tr=0 cx=a_idp_d
+	a=JD06eNgDs9tuHP7JIKoLzw==:117 a=JD06eNgDs9tuHP7JIKoLzw==:17
+	a=kj9zAlcOel0A:10 a=qa6Q16uM49sA:10 a=pNaSbsGRAAAA:8 a=7-415B0cAAAA:8
+	a=bdcsEvdjF_AAMq5uHxAA:9 a=CjuIK1q_8ugA:10 a=k8uaQqolKd8A:10
+	a=cz0TccRYsqG1oLvFGeGV:22 a=biEYGPWJfzWAr4FL6Ov7:22
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -60,25 +70,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: "axboe@kernel.dk" <axboe@kernel.dk>,
-	"damien.lemoal@wdc.com" <damien.lemoal@wdc.com>,
-	"kch@kernel.org" <kch@kernel.org>,
-	'SelvaKumar S' <selvakuma.s1@samsung.com>,
-	"sagi@grimberg.me" <sagi@grimberg.me>,
-	"snitzer@redhat.com" <snitzer@redhat.com>,
-	"selvajove@gmail.com" <selvajove@gmail.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
-	"nj.shetty@samsung.com" <nj.shetty@samsung.com>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"joshi.k@samsung.com" <joshi.k@samsung.com>,
-	"javier.gonz@samsung.com" <javier.gonz@samsung.com>,
-	"kbusch@kernel.org" <kbusch@kernel.org>,
-	"joshiiitr@gmail.com" <joshiiitr@gmail.com>, "hch@lst.de" <hch@lst.de>
+Cc: axboe@kernel.dk, damien.lemoal@wdc.com, kch@kernel.org, sagi@grimberg.me,
+	snitzer@redhat.com, selvajove@gmail.com,
+	linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+	nj.shetty@samsung.com, linux-block@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, dm-devel@redhat.com,
+	joshi.k@samsung.com, javier.gonz@samsung.com, kbusch@kernel.org,
+	joshiiitr@gmail.com, hch@lst.de
 Subject: Re: [dm-devel] [RFC PATCH v5 0/4] add simple copy support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -93,7 +93,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -102,35 +102,44 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sat, Feb 20, 2021 at 06:01:56PM +0000, David Laight wrote:
-> From: SelvaKumar S
-> > Sent: 19 February 2021 12:45
-> > 
-> > This patchset tries to add support for TP4065a ("Simple Copy Command"),
-> > v2020.05.04 ("Ratified")
-> > 
-> > The Specification can be found in following link.
-> > https://nvmexpress.org/wp-content/uploads/NVM-Express-1.4-Ratified-TPs-1.zip
-> > 
-> > Simple copy command is a copy offloading operation and is  used to copy
-> > multiple contiguous ranges (source_ranges) of LBA's to a single destination
-> > LBA within the device reducing traffic between host and device.
+On Fri, Feb 19, 2021 at 06:15:13PM +0530, SelvaKumar S wrote:
+> This patchset tries to add support for TP4065a ("Simple Copy Command"),
+> v2020.05.04 ("Ratified")
 > 
-> Sounds to me like the real reason is that the copy just ends up changing
-> some indirect block pointers rather than having to actually copy the data.
+> The Specification can be found in following link.
+> https://nvmexpress.org/wp-content/uploads/NVM-Express-1.4-Ratified-TPs-1.zip
+> 
+> Simple copy command is a copy offloading operation and is  used to copy
+> multiple contiguous ranges (source_ranges) of LBA's to a single destination
+> LBA within the device reducing traffic between host and device.
+> 
+> This implementation doesn't add native copy offload support for stacked
+> devices rather copy offload is done through emulation. Possible use
+> cases are F2FS gc and BTRFS relocation/balance.
 
-That would be incorrect, at least for firmware that I have knowledge of.
-There are checksums which involve the logical block address of the data,
-and you can't just rewrite the checksum on NAND, you have to write the
-entire block.
+It sounds like you are missing the most obvious use case for this:
+hooking up filesystem copy_file_range() implementations to allow
+userspace to offload user data copies to hardware....
 
-Now, firmware doesn't have to implement their checksum like this,
-but there are good reasons to do it this way (eg if the command gets
-corrupted in transfer and you read the wrong block, it will fail the
-checksum, preventing the drive from returning Somebody Else's Data).
+Another fs level feature that could use this for hardware
+acceleration fallocate(FALLOC_FL_UNSHARE).
 
-So let's take these people at their word.  It is to reduce traffic
-between drive and host.  And that is a good enough reason to do it.
+These are probably going to be far easier to hook up than filesystem
+GC algorithms, and there is also solid data integrity and stress
+testing checking infrastructure for these operations via fstests.
+
+> As SCSI XCOPY can take two different block devices and no of source range is
+> equal to 1, this interface can be extended in future to support SCSI XCOPY.
+
+That greatly complicates the implementation. do we even care at this
+point about cross-device XCOPY at this point?
+
+Cheers,
+
+Dave.
+-- 
+Dave Chinner
+david@fromorbit.com
 
 --
 dm-devel mailing list
