@@ -1,73 +1,79 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 5BE37322796
-	for <lists+dm-devel@lfdr.de>; Tue, 23 Feb 2021 10:14:55 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 6BB9D322920
+	for <lists+dm-devel@lfdr.de>; Tue, 23 Feb 2021 11:57:57 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-11-JIJgacCMMpaPtiCfSZGv_w-1; Tue, 23 Feb 2021 04:14:51 -0500
-X-MC-Unique: JIJgacCMMpaPtiCfSZGv_w-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-376-k6qepuVnP1CrlRds6tQLDw-1; Tue, 23 Feb 2021 05:57:54 -0500
+X-MC-Unique: k6qepuVnP1CrlRds6tQLDw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0907E9116E;
-	Tue, 23 Feb 2021 09:14:43 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A92910016F6;
-	Tue, 23 Feb 2021 09:14:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9D7BA801965;
+	Tue, 23 Feb 2021 10:57:47 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C19E96F998;
+	Tue, 23 Feb 2021 10:57:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4223618095CB;
-	Tue, 23 Feb 2021 09:14:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DEE844E58E;
+	Tue, 23 Feb 2021 10:57:31 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11N9EUMA022099 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 23 Feb 2021 04:14:30 -0500
+	id 11NAvHVO030842 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 23 Feb 2021 05:57:17 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 11D432026D13; Tue, 23 Feb 2021 09:14:30 +0000 (UTC)
+	id 543B720F4720; Tue, 23 Feb 2021 10:57:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0CBAC2026D36
-	for <dm-devel@redhat.com>; Tue, 23 Feb 2021 09:14:27 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4E16A2166B2F
+	for <dm-devel@redhat.com>; Tue, 23 Feb 2021 10:57:14 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C479E9291A9
-	for <dm-devel@redhat.com>; Tue, 23 Feb 2021 09:14:27 +0000 (UTC)
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
-	[209.85.218.41]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-251-J9dKwRURNiitms5W3jb3vA-1; Tue, 23 Feb 2021 04:14:23 -0500
-X-MC-Unique: J9dKwRURNiitms5W3jb3vA-1
-Received: by mail-ej1-f41.google.com with SMTP id r17so7067642ejy.13;
-	Tue, 23 Feb 2021 01:14:23 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 41D4B8919BE
+	for <dm-devel@redhat.com>; Tue, 23 Feb 2021 10:57:14 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+	[209.85.128.52]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-394-hXUAVpdVMGqoIBQ3l-3qRw-1; Tue, 23 Feb 2021 05:57:10 -0500
+X-MC-Unique: hXUAVpdVMGqoIBQ3l-3qRw-1
+Received: by mail-wm1-f52.google.com with SMTP id v21so1984436wml.4;
+	Tue, 23 Feb 2021 02:57:09 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=b5MtT/ZdRPwH3IHGkszx0Ejluf/ndHyk503G2Rm9ils=;
-	b=EJ9AT7SiKLkdH7MF3E9hNTYcoynZPlWkH3Iw+ZBFhn7kenMA9zdAzOTBwVQFnkDPIi
-	OyrkOM7lq772T8i3eYvvtAT5gD4J2XbRNpKAYs/wU7X3BNBzvy6vbkBs7tFM5TjPwi1+
-	C2JBmlqn2B1evKDQNxhanVlOpd/HrBZvwgBybgvK/GheYdNj6GncaXbyNDynDqki90ub
-	gSLVE52yHLAXS6QYLzMLHiHFn9mw5phV2GzqiRvW/2l0Noq5ounwYLa0pazgD3Tnu6pX
-	K7NNZmNF5f5RYk1qKpVI72Z5vPvOJDqv0dCrrDMb0MPHKHeHoGFKB+Y/gsgpcQAZfV5B
-	RwGg==
-X-Gm-Message-State: AOAM530duu0K7AudfW7uN2u3XN8PHWLt8BkzUrrUv0/U0+QbtsPAyItM
-	JK/PKjo7Bn2/RhXoOjIdkX0sDo0rzEgW5k6rSxc=
-X-Google-Smtp-Source: ABdhPJz4R4ZgmznPz2GNNWvnywZAr4uBgUpJfEA7xJHHLpa6gxqaLqhgwSOdWYHkRTdp4nIUPMj6SIo3LCG1a0yXTfY=
-X-Received: by 2002:a17:906:2a06:: with SMTP id
-	j6mr23964456eje.164.1614071662110; 
-	Tue, 23 Feb 2021 01:14:22 -0800 (PST)
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=7dfT24Rjl2LDEShwVl6cMR4l2r2detK+N21hnykk0TM=;
+	b=Y4V+Ovgi0dhJgDLXM/qD27NijFuvNkYEvpvEDluRaacOpH8rAZjn0FPh6GctoRiofo
+	BCfZMI80NQcULW4x3Yc8f7DnVCWmk7xgCjy8asiBqkOp6POIAuKO4Iv/t+A0UOt3Ol/a
+	oYdkUSfsgTqx3QszOD+HO3oZfd9rN85b6prAlBtICrFaLpvnhK91LPI2e1IrgvA4fjNf
+	jLjwytPlEFp5xjcOWb03Rsh1NMk939PAcMY/uxGNHHYZDrtNnSGjnPs9/8GwvtBJsUdm
+	4sD/cHERLtb9TzF/NJSMyETGTV3Q8EH6N9L8XvX5wSGCAMfST+aA24xb6QDc9/JSJjJH
+	HnQQ==
+X-Gm-Message-State: AOAM531XPlTiyPgGKMtbdic2sorsSRLLbayjSRV7WTgnnT/66S5WZgAI
+	wzqAOWV5t4+Jb+ssHYyqVsMp+U2YWLQ=
+X-Google-Smtp-Source: ABdhPJwG+0AAWnVRoknhGxHG8aE9T9BCXowl5pY2qhCWIWEOY9wemuAtNBY4xdgMm5E6pEmz5IdaTg==
+X-Received: by 2002:a05:600c:358d:: with SMTP id
+	p13mr10641443wmq.152.1614077828752; 
+	Tue, 23 Feb 2021 02:57:08 -0800 (PST)
+Received: from [192.168.2.27] (39.35.broadband4.iol.cz. [85.71.35.39])
+	by smtp.gmail.com with ESMTPSA id
+	e1sm32271682wrd.44.2021.02.23.02.57.07
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Tue, 23 Feb 2021 02:57:08 -0800 (PST)
+To: =?UTF-8?B?SsOpcsO0bWUgQ2FycmV0ZXJv?= <cJ-ko@zougloub.eu>
+References: <20210222220110.22ee6d0e@pouet.cJ>
+From: Milan Broz <gmazyland@gmail.com>
+Message-ID: <6576ebcf-f250-fbf5-063c-91bd7cb1e5e6@gmail.com>
+Date: Tue, 23 Feb 2021 11:57:07 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+	Thunderbird/78.7.1
 MIME-Version: 1.0
-References: <CGME20210219124555epcas5p1334e7c4d64ada5dc4a2ca0feb48c1d44@epcas5p1.samsung.com>
-	<20210219124517.79359-1-selvakuma.s1@samsung.com>
-	<20210221235248.GZ4626@dread.disaster.area>
-In-Reply-To: <20210221235248.GZ4626@dread.disaster.area>
-From: Selva Jove <selvajove@gmail.com>
-Date: Tue, 23 Feb 2021 14:44:08 +0530
-Message-ID: <CAHqX9vbG-cB0h25y4OhcdOEegn-_E=HwHJtkPFGaurEF9-KXPw@mail.gmail.com>
-To: Dave Chinner <david@fromorbit.com>
+In-Reply-To: <20210222220110.22ee6d0e@pouet.cJ>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -76,17 +82,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: axboe@kernel.dk, Damien Le Moal <damien.lemoal@wdc.com>, kch@kernel.org,
-	SelvaKumar S <selvakuma.s1@samsung.com>, sagi@grimberg.me,
-	snitzer@redhat.com, linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org, nj.shetty@samsung.com,
-	linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	dm-devel@redhat.com, joshi.k@samsung.com,
-	javier.gonz@samsung.com, Keith Busch <kbusch@kernel.org>,
-	joshiiitr@gmail.com, hch@lst.de
-Subject: Re: [dm-devel] [RFC PATCH v5 0/4] add simple copy support
+Cc: dm-devel@redhat.com, mpatocka@redhat.com, samitolvanen@google.com
+Subject: Re: [dm-devel] [PATCH] dm-verity: Fix FEC for RS roots non-aligned
+ to block size
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,30 +100,28 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Dave,
-
-copy_file_range() is work under progress.  FALLOC_FL_UNSHARE of fallocate()
-use case sounds interesting. I will try to address both of them in the
-next series.
-
-Adding SCSI_XCOPY() support is not in the scope of this patchset. However
-blkdev_issue_copy() interface is made generic so that it is possible to extend
-to cross device XCOPY in future.
-
-
-Thanks,
-Selva
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gMjMvMDIvMjAyMSAwNDowMCwgSsOpcsO0bWUgQ2FycmV0ZXJvIHdyb3RlOgo+IFRlc3RlZC1i
+eTogSsOpcsO0bWUgQ2FycmV0ZXJvIDxjSi1rb0B6b3VnbG91Yi5ldT4KPiAKPiAKPiBJIHNtb2tl
+LXRlc3RlZCBieSBmdXp6aW5nIGNvbnRpZ3VvdXMgcmFuZ2VzIG9mIHVzZXIgZGF0YSAobm90IGhh
+c2gKPiB0cmVlKSBhbmQgY29ycmVjdGlvbiB3b3JrcyB1cCB0byB0aGUgYW1vdW50IG9mIGFkZGVk
+IGNvcnJlY3Rpb24gKHNpbmNlCj4gZXJhc3VyZXMgYXJlIGlkZW50aWZpZWQgYnkgaGFzaGVzKS4K
+ClRoYW5rcyBmb3IgdGVzdGluZyEKCj4gU2luY2UgdGhlIGZpeCBsb29rcyBvYnZpb3VzLCB0aGlz
+IHNob3VsZCBwcm9iYWJseSBDQyB0byBzdGFibGU/CgpZZXMsIEkgZm9yZ290IHRvIGFkZCB0aGUg
+dGFnLCBJIHRoaW5rIHRoaXMgc2hvdWxkIGdvIHRvIGFsbCBzdGFibGUga2VybmVscy4KCihJdCBv
+bmx5IG5lZWRzIGRtX2J1ZmlvX3NldF9zZWN0b3Jfb2Zmc2V0KCkgdGhhdCB3YXMgYWRkZWQgbGF0
+ZXIgdGhhbiBGRUMsIElJUkMuKQoKTWlsYW4KCnAucy4KVGhlcmUgYXJlIGFsc28gYnVncyBpbiB1
+c2Vyc3BhY2UgdmVyaXR5c2V0dXAgaWYgRkVDIGhhcyBoYXNoIGFyZWEgaXMgc3RvcmVkCm9uIHRo
+ZSBzYW1lIGRldmljZSwgdGhlbiBjb2RlIG1pc2NhbGN1bGF0ZXMgcGFyaXR5IGJ5dGVzIHRoZW4u
+ClRoaXMgd2lsbCBiZSBmaXhlZCBzb29uIGluIG5leHQgc3RhYmxlIGNyeXB0c2V0dXAgcmVsZWFz
+ZS4KCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8v
+bGlzdG1hbi5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWw=
 
