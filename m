@@ -1,95 +1,61 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 92B363235AA
-	for <lists+dm-devel@lfdr.de>; Wed, 24 Feb 2021 03:27:09 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id B551232371E
+	for <lists+dm-devel@lfdr.de>; Wed, 24 Feb 2021 07:06:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1614146760;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=1F7inUD7aCJu1UKs7+qggW33t1bpcdev7abpFg/ljAw=;
+	b=dKqeoU06SHl4bz7gRabW4ol+3UuE/yWpIGrbQFmtlqQa8R8syNn2CK1tBL+TQXyPevAErU
+	nHsrn/lNUrSZEnuSNtbJwmN4cYBdUVleNtFpR1Gbjkmaqdo2oeMNooztfNWrCqxJqZhWPW
+	YWCmLqZ4UUYpVtCy/7cGJQf/knpzm9A=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-260-a1-MlvtVPOe_PeXLOhPGsA-1; Tue, 23 Feb 2021 21:27:05 -0500
-X-MC-Unique: a1-MlvtVPOe_PeXLOhPGsA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-485-WEv9u1x8MhuLsbxwrN-cAw-1; Wed, 24 Feb 2021 01:05:57 -0500
+X-MC-Unique: WEv9u1x8MhuLsbxwrN-cAw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 111B710066EF;
-	Wed, 24 Feb 2021 02:26:59 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BE24E50A8D;
-	Wed, 24 Feb 2021 02:26:57 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 68B8A801975;
+	Wed, 24 Feb 2021 06:05:50 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E1046061F;
+	Wed, 24 Feb 2021 06:05:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1F2914E58E;
-	Wed, 24 Feb 2021 02:26:51 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CB2C418095CB;
+	Wed, 24 Feb 2021 06:05:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11O2QeeC005851 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 23 Feb 2021 21:26:40 -0500
+	id 11O65JmQ025849 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 24 Feb 2021 01:05:19 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 58439200BFFC; Wed, 24 Feb 2021 02:26:40 +0000 (UTC)
+	id 8822E7095C; Wed, 24 Feb 2021 06:05:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 52D0A2126C9E
-	for <dm-devel@redhat.com>; Wed, 24 Feb 2021 02:26:38 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4EB4F1022F09
-	for <dm-devel@redhat.com>; Wed, 24 Feb 2021 02:26:38 +0000 (UTC)
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
-	[209.85.214.171]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-61-J7jcjs7jPCSxc9y9cxQGWQ-1; Tue, 23 Feb 2021 21:26:36 -0500
-X-MC-Unique: J7jcjs7jPCSxc9y9cxQGWQ-1
-Received: by mail-pl1-f171.google.com with SMTP id d11so250984plo.8
-	for <dm-devel@redhat.com>; Tue, 23 Feb 2021 18:26:36 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=Lw00I39tMMHoHHOPSgKttYErvt005RuGUQAb9q20a8A=;
-	b=Bz/3CqMOTu4XQ+6k2P6vMZXI4TEYIyhXpBJ1RN/Y8BGFUwrNG43GErbnxTvkVdrrA8
-	wEb5648566kIgiX1D7ga8Vjxd53sTwCsjX072NKba1j6fIWVi8YN9Nmxb8uALEzg+N7r
-	dgbZ7yOXtvoHE4qIV3Kw3FoqvfkuZ8wTUTqwfzRk5IOUa+Bd/2u6XuHcqpIalddPCtUN
-	MVKDiF6xaoV/pyKIYZHUhl43AZVoe562MgD0KiUjOHdkeAzxZBUWNj5kAXJou/OkLzUq
-	M8M+XHSIcZvMaM0/rCqb/abncnn187ou4AAtjSHfO/C+NDGWQFxHGm/z3IwRLFaeGdKt
-	+5/A==
-X-Gm-Message-State: AOAM530beVwc3QEbkFaTebQZmqoe/IxMEfld6cMfu6EydwOWmEGL85aw
-	e2XAqmPbroqR1/VRYGj32CnDN6weI/j4eQ==
-X-Google-Smtp-Source: ABdhPJyR3nz4/2Xe5wJThbH4JmwtF3FCVmv1vow0MEov3q6812/SA95OV/EDU86jIg7awO+mA89rHA==
-X-Received: by 2002:a17:902:ec83:b029:e3:ec1f:9dfe with SMTP id
-	x3-20020a170902ec83b02900e3ec1f9dfemr15422462plg.59.1614133595027;
-	Tue, 23 Feb 2021 18:26:35 -0800 (PST)
-Received: from [192.168.1.134] ([66.219.217.173])
-	by smtp.gmail.com with ESMTPSA id z11sm309175pgc.6.2021.02.23.18.26.34
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Tue, 23 Feb 2021 18:26:34 -0800 (PST)
-To: Mikulas Patocka <mpatocka@redhat.com>, Ming Lei <ming.lei@redhat.com>
-References: <alpine.LRH.2.02.2102221312070.5407@file01.intranet.prod.int.rdu2.redhat.com>
-	<YDSwyrLeiP/fKgZH@T590>
-	<alpine.LRH.2.02.2102231125170.27597@file01.intranet.prod.int.rdu2.redhat.com>
-From: Jens Axboe <axboe@kernel.dk>
-Message-ID: <20807c3a-5d44-4f90-4d73-c1cfab251b18@kernel.dk>
-Date: Tue, 23 Feb 2021 19:26:32 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <alpine.LRH.2.02.2102231125170.27597@file01.intranet.prod.int.rdu2.redhat.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B8426061F;
+	Wed, 24 Feb 2021 06:05:16 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 11O65Ed4019733; 
+	Wed, 24 Feb 2021 00:05:14 -0600
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 11O65D5K019732;
+	Wed, 24 Feb 2021 00:05:13 -0600
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>
+Date: Wed, 24 Feb 2021 00:05:13 -0600
+Message-Id: <1614146713-19694-1-git-send-email-bmarzins@redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-Cc: linux-block@vger.kernel.org, Mike Snitzer <msnitzer@redhat.com>,
-	Marian Csontos <mcsontos@redhat.com>, dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH v2] blk-settings: make sure that max_sectors
- is aligned on "logical_block_size" boundary
+Cc: device-mapper development <dm-devel@redhat.com>,
+	Martin Wilck <Martin.Wilck@suse.com>
+Subject: [dm-devel] [PATCH] kpartx: free loop device after listing partitions
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -101,21 +67,72 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Applied, thanks.
+If "kpartx -l" is run on a file that doesn't already have a loop device
+associated with it, it will create a loop device to run the command.
+Starting with da59d15c6 ("Fix loopback file with kpartx -av"), it will
+not free the loop device when exitting. This is because it checks if the
+the file it stat()ed is a regular file, before freeing the loop device.
+However, after da59d15c6, stat() is rerun on the loop device itself, so
+the check fails.  There is no need to check this, if loopcreated is
+true, then the file will be a kpartx created loop device, and should be
+freed.
 
+Also, keep kpartx from printing that the loop device has been removed
+at normal verbosity.
+
+Fixes: da59d15c6 ("Fix loopback file with kpartx -av")
+Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+---
+ kpartx/kpartx.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/kpartx/kpartx.c b/kpartx/kpartx.c
+index 6a7933fa..8ff116b8 100644
+--- a/kpartx/kpartx.c
++++ b/kpartx/kpartx.c
+@@ -424,7 +424,7 @@ main(int argc, char **argv){
+ 					fprintf(stderr, "can't del loop : %s\n",
+ 					       loopdev);
+ 				r = 1;
+-			} else
++			} else if (verbose)
+ 				fprintf(stderr, "loop deleted : %s\n", loopdev);
+ 		}
+ 		goto end;
+@@ -668,16 +668,17 @@ main(int argc, char **argv){
+ 		if (n > 0)
+ 			break;
+ 	}
+-	if (what == LIST && loopcreated && S_ISREG (buf.st_mode)) {
++	if (what == LIST && loopcreated) {
+ 		if (fd != -1)
+ 			close(fd);
+ 		if (del_loop(device)) {
+ 			if (verbose)
+-				printf("can't del loop : %s\n",
++				fprintf(stderr, "can't del loop : %s\n",
+ 					device);
+ 			exit(1);
+ 		}
+-		printf("loop deleted : %s\n", device);
++		if (verbose)
++			fprintf(stderr, "loop deleted : %s\n", device);
+ 	}
+ 
+ end:
 -- 
-Jens Axboe
+2.17.2
 
 --
 dm-devel mailing list
