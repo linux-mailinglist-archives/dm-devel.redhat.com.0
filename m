@@ -1,128 +1,64 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D73933248B4
-	for <lists+dm-devel@lfdr.de>; Thu, 25 Feb 2021 03:02:16 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 3CC29325F51
+	for <lists+dm-devel@lfdr.de>; Fri, 26 Feb 2021 09:43:19 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-74-V9CnMfARMHCNjctBKxnPmw-1; Wed, 24 Feb 2021 21:02:13 -0500
-X-MC-Unique: V9CnMfARMHCNjctBKxnPmw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-520-PN2XUX4yMCC-LgNGr2Jfpg-1; Fri, 26 Feb 2021 03:43:15 -0500
+X-MC-Unique: PN2XUX4yMCC-LgNGr2Jfpg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 55F9080196C;
-	Thu, 25 Feb 2021 02:02:06 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 420A56E51F;
-	Thu, 25 Feb 2021 02:02:04 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7147818B62A7;
+	Fri, 26 Feb 2021 08:43:10 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CC7CC189B4;
+	Fri, 26 Feb 2021 08:43:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 97D0B4EEEC;
-	Thu, 25 Feb 2021 02:01:56 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AF35A18095CB;
+	Fri, 26 Feb 2021 08:42:54 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 11P21b6W030094 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 24 Feb 2021 21:01:38 -0500
+	id 11Q8CZdj031353 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 26 Feb 2021 03:12:35 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id CEE4B20F4724; Thu, 25 Feb 2021 02:01:37 +0000 (UTC)
+	id 2CCEE2166B2D; Fri, 26 Feb 2021 08:12:35 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C81AA20F4722
-	for <dm-devel@redhat.com>; Thu, 25 Feb 2021 02:01:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 25D742166B27
+	for <dm-devel@redhat.com>; Fri, 26 Feb 2021 08:12:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 056859988E1
-	for <dm-devel@redhat.com>; Thu, 25 Feb 2021 02:01:35 +0000 (UTC)
-Received: from esa6.hgst.iphmx.com (esa6.hgst.iphmx.com [216.71.154.45])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-597-e6g4HjiyOGiQhbH2W9XQvA-1; Wed, 24 Feb 2021 21:01:30 -0500
-X-MC-Unique: e6g4HjiyOGiQhbH2W9XQvA-1
-IronPort-SDR: dKO7GnsPekgSoofHTpDkxvNtFgqIYGdlMf7rNmG2qdZuQVwmGBh78Zzwi0kbePO1TGJjYLePgK
-	9ZLoJELIdXtOLF7sKE+oFFTNbnhKYhm7XhunC47uH8FsRmgGTku+Hj2wFq+oG0i7I54c+dwnGV
-	TtGdbEu1Cbw5QjTg2WxXXUleBg9X82BrB1An8Uyq17pSIgowP6dSdmQhtoPLvge868Pvyycr0e
-	NEbNLQ1/dWV/92ogGEt+f9ae9Ob/gBQBvj8DSsuiNoqP1vSm3EcgvFJlc5w3W/jkqz7n0gJIdn
-	QgE=
-X-IronPort-AV: E=Sophos;i="5.81,203,1610380800"; d="scan'208";a="161914056"
-Received: from mail-dm6nam10lp2100.outbound.protection.outlook.com (HELO
-	NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.100])
-	by ob1.hgst.iphmx.com with ESMTP; 25 Feb 2021 10:01:26 +0800
-Received: from BYAPR04MB4965.namprd04.prod.outlook.com (2603:10b6:a03:4d::25)
-	by SJ0PR04MB7501.namprd04.prod.outlook.com (2603:10b6:a03:321::11)
-	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3890.19;
-	Thu, 25 Feb 2021 02:01:22 +0000
-Received: from BYAPR04MB4965.namprd04.prod.outlook.com
-	([fe80::1d83:38d9:143:4c9c]) by BYAPR04MB4965.namprd04.prod.outlook.com
-	([fe80::1d83:38d9:143:4c9c%5]) with mapi id 15.20.3868.033;
-	Thu, 25 Feb 2021 02:01:22 +0000
-From: Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>
-To: "hch@infradead.org" <hch@infradead.org>, Jens Axboe <axboe@kernel.dk>
-Thread-Topic: [RFC PATCH] blk-core: remove blk_put_request()
-Thread-Index: AQHXCV9JZjwro7cFh0S/a18Ze28sQg==
-Date: Thu, 25 Feb 2021 02:01:22 +0000
-Message-ID: <BYAPR04MB4965BC5C807658B3B433364A869E9@BYAPR04MB4965.namprd04.prod.outlook.com>
-References: <20210222211115.30416-1-chaitanya.kulkarni@wdc.com>
-	<YDY+ObNNiBMMuSEt@stefanha-x1.localdomain>
-	<f3141eb3-9938-a216-a9f8-cb193589a657@kernel.dk>
-	<20210224185521.GA2326119@infradead.org>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [199.255.45.62]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 56f64fd6-2cdc-4abd-c521-08d8d9314028
-x-ms-traffictypediagnostic: SJ0PR04MB7501:
-x-ld-processed: b61c8803-16f3-4c35-9b17-6f65f441df86,ExtAddr
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <SJ0PR04MB7501900745C1A3FA0C31A251869E9@SJ0PR04MB7501.namprd04.prod.outlook.com>
-wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:1775
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: 7a1exBGRqQktlYbDDZWv2RhRFbhqGiukSq1LW0aZf3mzSh5WjzQ0k37UaKivHB3QEqnT9Wur7CkpX+vSiETNDt3NSyq6uqQPXxQx8vT2+kX6HidYPZZfKA4AMREZqWNDIxHeHVbqqljrwyhaaVOTGcUqvm6sGgZTYfcIvBNAgRYX6Qn44w9HEnIwg1QfMxiNBDjbwkdEraaDj/sVin/H+pKFGLL8wleEXxddVYG8b+6z9pdN7UUteFeLXk+tkWsG/ul3IHa5DHsVW0SdIRIegIv222OApq7ejFai34kuWmA3S5msKWv3KWtz2xN4AqgBfZvymnHGA6AQ7CpY/Gy4jmTbcMAciS/TYQgk8K5r/oiW1hJ/p9luedxeRigmWLfTJYEpPG7JI7qypZQVqt+C2qQGKSKfobtOvNuQHOjwyKKuoAA/Oo6+93h4HC9vRQS9HEf1RBI/RYjmcpnpRfVdlL7kL5JENlMiv74DTZuiNJMt80b6wSjAmfq5SJCvL1Txb2FtVeghWLpxck6gbzK/4Q==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:BYAPR04MB4965.namprd04.prod.outlook.com;
-	PTR:; CAT:NONE;
-	SFS:(4636009)(396003)(366004)(136003)(346002)(39860400002)(376002)(478600001)(86362001)(2906002)(8936002)(6506007)(53546011)(8676002)(110136005)(316002)(4744005)(83380400001)(71200400001)(7696005)(54906003)(9686003)(7416002)(52536014)(64756008)(7406005)(66946007)(5660300002)(76116006)(91956017)(4326008)(33656002)(55016002)(186003)(26005)(66446008)(66476007)(66556008);
-	DIR:OUT; SFP:1102
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?gcZ7mh0KhEVI2AXURnV/bTrU9dnz9UR9APEeZ7x9qou92Rz7vl2RzC/fbjrY?=
-	=?us-ascii?Q?OTDF2iQDykaxfGyfv2YBcgXg5C83VQb5TvWkb1UpWurvb5exQF/WrZkHdNgu?=
-	=?us-ascii?Q?+0shO59m/wJVG5GwrC+hrItJ8wubPmOH09fcDsDtohjqU9fH47lNSpjjYrdN?=
-	=?us-ascii?Q?FXGW+KYvNxJMFc6Rq/KP+XYhNhlSNcRbjZzsluj3BD8rob60NvYNbr3eGTwf?=
-	=?us-ascii?Q?srbY5MA0yejRIIB4+tkZFYtegkiter+kEiMX8ctN308x41CmIUPbas0/AhxX?=
-	=?us-ascii?Q?70nq+AMoqQ1M162pw9nrSyPpQtR2suQmC5lLIkTc12rkX+BVlMS643myVAqs?=
-	=?us-ascii?Q?t4bHc59aLOIMw5surFL+VQiREZ7onYNixaRkkFcWDJ+4ONN6jF5VuxQlPN8k?=
-	=?us-ascii?Q?4b8hbjfp7e3lZhiwFhFMXF0qLkZGEeJGNRDxxkQ5JIHV5xOL+b3/ywtTQYKg?=
-	=?us-ascii?Q?9gclzxjcvgvZ6H7VXN5dZBtuCQPiPrDj/0Ov8iVJnyc7so1gTOTFeEHb3wMt?=
-	=?us-ascii?Q?6W+HumdT7ELVp50t6qkVhw8ASRl9D7gr7piv5srMD13jo9yyXYXUiI3iHA/m?=
-	=?us-ascii?Q?ajkQ3IO8GQGLa7qo81l3pcRGUGbMXvSprfZAy+3RTetqfUzmoHd3r01ojv9s?=
-	=?us-ascii?Q?KWKZAN2A5UUCEEJWn/S81y8GT2Q4JhOTa+MkZIsSzLpR8/Rohw5quJKCPnHV?=
-	=?us-ascii?Q?ERsYm5nvsKu5KtNB+5ZXSOsz3+j+N95k6tJik+dHf1pLRWYOi0AeM0XjGhT2?=
-	=?us-ascii?Q?iV+hoIUiS5hQ1aIvVm872bpstxU36RJwDQhtzotyph9Epb2J4NxISFIJh3wF?=
-	=?us-ascii?Q?2oSZMPnP2RocZtzP14OEgooDDhnfDYUmctmyVOWvJ1JQZfw7YFRdn/hXz06H?=
-	=?us-ascii?Q?7y2N6Hcn9E6MWZ4RC3+hGANhnkhJc9JbH38HgIMuPDM3ainXyCikgANltpdq?=
-	=?us-ascii?Q?fF5+XQlDpaHWquODZSZ0sE3yPLj+hIEFjDpTq5XSRNMt38j0lU8vCeT7CcEP?=
-	=?us-ascii?Q?q9SYFaLnd9g3Bvs5epKhxo05IyZ/qov3SOHEY6icvHvHvmdA4N4V3a9xy11a?=
-	=?us-ascii?Q?ljNVIQMG4g7clxi94FGSC/OeQwDdM9bUFZQeOJOHjI9x2KqDVMi3EhctPgEd?=
-	=?us-ascii?Q?5d5XMRvbtqXkdYEhT2PMPCMELwxdJIcCavnTWWGQIVkWqQZmAk6PVRVPyH0B?=
-	=?us-ascii?Q?QvxFBJd9mN87Glf6+F9JHBBE2P/xqyOEzVhZWzxrWoE2Z0TY4wLJf7b9kyiC?=
-	=?us-ascii?Q?2HTTYQWH6AtSm2cqj8Bzd558VP865DO3ZmNWMP3vRH52PXI0rGB20YyUMwSW?=
-	=?us-ascii?Q?p62Tq+6banbFmnFbD2A37jRhcvu8KVHVLrJuIqQV16aayQ=3D=3D?=
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 80816800B28
+	for <dm-devel@redhat.com>; Fri, 26 Feb 2021 08:12:32 +0000 (UTC)
+Received: from out30-44.freemail.mail.aliyun.com
+	(out30-44.freemail.mail.aliyun.com [115.124.30.44]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-19-FiWtwP-PNh2P_D1N85Dybw-1;
+	Fri, 26 Feb 2021 03:12:25 -0500
+X-MC-Unique: FiWtwP-PNh2P_D1N85Dybw-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R861e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04394;
+	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=9; SR=0;
+	TI=SMTPD_---0UPckvXq_1614327140
+Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
+	fp:SMTPD_---0UPckvXq_1614327140) by smtp.aliyun-inc.com(127.0.0.1);
+	Fri, 26 Feb 2021 16:12:20 +0800
+To: Mikulas Patocka <mpatocka@redhat.com>
+References: <20210208085243.82367-1-jefflexu@linux.alibaba.com>
+	<20210208085243.82367-12-jefflexu@linux.alibaba.com>
+	<alpine.LRH.2.02.2102191351200.10545@file01.intranet.prod.int.rdu2.redhat.com>
+From: JeffleXu <jefflexu@linux.alibaba.com>
+Message-ID: <af9223b9-8960-1ed4-799a-bcd56299c587@linux.alibaba.com>
+Date: Fri, 26 Feb 2021 16:12:20 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+	Gecko/20100101 Thunderbird/78.7.0
 MIME-Version: 1.0
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR04MB4965.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56f64fd6-2cdc-4abd-c521-08d8d9314028
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Feb 2021 02:01:22.4144 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: f4h07uujdgDMaaLd+E6bOJvg9EKRXI8nL3l5DC6R3D4oFAfvDFXOiwV8CiczABQqDfr6y0PDGXBQhUjggbo4Jw3CwrTBGIPr7xseE97cCEM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR04MB7501
+In-Reply-To: <alpine.LRH.2.02.2102191351200.10545@file01.intranet.prod.int.rdu2.redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -132,48 +68,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 11P21b6W030094
 X-loop: dm-devel@redhat.com
-Cc: "ulf.hansson@linaro.org" <ulf.hansson@linaro.org>,
-	"snitzer@redhat.com" <snitzer@redhat.com>,
-	"mst@redhat.com" <mst@redhat.com>,
-	"jasowang@redhat.com" <jasowang@redhat.com>,
-	"virtualization@lists.linux-foundation.org"
-	<virtualization@lists.linux-foundation.org>,
-	"bfields@fieldses.org" <bfields@fieldses.org>,
-	"linux-ide@vger.kernel.org" <linux-ide@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"target-devel@vger.kernel.org" <target-devel@vger.kernel.org>,
-	"alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
-	"agk@redhat.com" <agk@redhat.com>,
-	"beanhuo@micron.com" <beanhuo@micron.com>,
-	"stanley.chu@mediatek.com" <stanley.chu@mediatek.com>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	"cang@codeaurora.org" <cang@codeaurora.org>,
-	"tim@cyberelk.net" <tim@cyberelk.net>,
-	"dgilbert@interlog.com" <dgilbert@interlog.com>,
-	"vbadigan@codeaurora.org" <vbadigan@codeaurora.org>,
-	"richard.peng@oppo.com" <richard.peng@oppo.com>,
-	"jejb@linux.ibm.com" <jejb@linux.ibm.com>,
-	"guoqing.jiang@cloud.ionos.com" <guoqing.jiang@cloud.ionos.com>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	Avri Altman <Avri.Altman@wdc.com>, "bp@alien8.de" <bp@alien8.de>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	"jaegeuk@kernel.org" <jaegeuk@kernel.org>,
-	"Kai.Makisara@kolumbus.fi" <Kai.Makisara@kolumbus.fi>,
-	"linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
-	"martin.petersen@oracle.com" <martin.petersen@oracle.com>,
-	"baolin.wang@linaro.org" <baolin.wang@linaro.org>,
-	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"fujita.tomonori@lab.ntt.co.jp" <fujita.tomonori@lab.ntt.co.jp>,
-	"chuck.lever@oracle.com" <chuck.lever@oracle.com>,
-	"zliua@micron.com" <zliua@micron.com>,
-	"pbonzini@redhat.com" <pbonzini@redhat.com>,
-	"davem@davemloft.net" <davem@davemloft.net>,
-	"asutoshd@codeaurora.org" <asutoshd@codeaurora.org>
-Subject: Re: [dm-devel] [RFC PATCH] blk-core: remove blk_put_request()
+X-Mailman-Approved-At: Fri, 26 Feb 2021 03:42:42 -0500
+Cc: axboe@kernel.dk, snitzer@redhat.com, caspar@linux.alibaba.com, hch@lst.de,
+	linux-block@vger.kernel.org, joseph.qi@linux.alibaba.com,
+	dm-devel@redhat.com, io-uring@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH v3 11/11] dm: fastpath of bio-based polling
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -187,7 +87,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -196,29 +96,195 @@ Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 2/24/21 10:56, Christoph Hellwig wrote:
-> On Wed, Feb 24, 2021 at 09:48:21AM -0700, Jens Axboe wrote:
->> Would make sense to rename blk_get_request() to blk_mq_alloc_request()
->> and then we have API symmetry. The get/put don't make sense when there
->> are no references involved.
+
+
+On 2/20/21 3:38 AM, Mikulas Patocka wrote:
+> 
+> 
+> On Mon, 8 Feb 2021, Jeffle Xu wrote:
+> 
+>> Offer one fastpath of bio-based polling when bio submitted to dm device
+>> is not split.
 >>
->> But it's a lot of churn for very little reward, which is always kind
->> of annoying. Especially for the person that has to carry the patches.
-> Let's do the following:
->
->  - move the initialize_rq_fn call from blk_get_request into
->    blk_mq_alloc_request and make the former a trivial alias for the
->    latter
->  - migrate to the blk_mq_* versions on a per-driver/subsystem basis.
->    The scsi migration depends on the first item above, so it will have
->    to go with that or wait for the next merge window
->  - don't migrate the legacy ide driver, as it is about to be removed and
->    has a huge number of blk_get_request calls
->
+>> In this case, there will be only one bio submitted to only one polling
+>> hw queue of one underlying mq device, and thus we don't need to track
+>> all split bios or iterate through all polling hw queues. The pointer to
+>> the polling hw queue the bio submitted to is returned here as the
+>> returned cookie.
+> 
+> This doesn't seem safe - note that between submit_bio() and blk_poll(), no 
+> locks are held - so the device mapper device may be reconfigured 
+> arbitrarily. When you call blk_poll() with a pointer returned by 
+> submit_bio(), the pointer may point to a stale address.
+> 
 
-Okay, thanks for the feedback, will try and get something together.
+Thanks for the feedback. Indeed maybe it's not a good idea to directly
+return a 'struct blk_mq_hw_ctx *' pointer as the returned cookie.
+
+Currently I have no idea to fix it, orz... The
+blk_get_queue()/blk_put_queue() tricks may not work in this case.
+Because the returned cookie may not be used at all. Before calling
+blk_poll(), the polling routine may find that the corresponding IO has
+already completed, and thus won't call blk_poll(), in which case we have
+no place to put the refcount.
+
+But I really don't want to drop this optimization, since this
+optimization is quite intuitive when dm device maps to a lot of
+underlying devices. Though this optimization doesn't actually achieve
+reasonable performance gain in my test, maybe because there are at most
+seven nvme devices in my test machine.
+
+Any thoughts?
+
+Thanks,
+Jeffle
 
 
+> 
+>> In this case, the polling routine will call
+>> mq_ops->poll() directly with the hw queue converted from the input
+>> cookie.
+>>
+>> If the original bio submitted to dm device is split to multiple bios and
+>> thus submitted to multiple polling hw queues, the bio submission routine
+>> will return BLK_QC_T_BIO_MULTI, while the polling routine will fall
+>> back to iterating all hw queues (in polling mode) of all underlying mq
+>> devices.
+>>
+>> Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
+>> ---
+>>  block/blk-core.c          | 33 +++++++++++++++++++++++++++++++--
+>>  include/linux/blk_types.h |  8 ++++++++
+>>  include/linux/types.h     |  2 +-
+>>  3 files changed, 40 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/block/blk-core.c b/block/blk-core.c
+>> index 37aa513da5f2..cb24b33a4870 100644
+>> --- a/block/blk-core.c
+>> +++ b/block/blk-core.c
+>> @@ -956,11 +956,19 @@ static blk_qc_t __submit_bio(struct bio *bio)
+>>   * bio_list_on_stack[0] contains bios submitted by the current ->submit_bio.
+>>   * bio_list_on_stack[1] contains bios that were submitted before the current
+>>   *	->submit_bio_bio, but that haven't been processed yet.
+>> + *
+>> + * Return:
+>> + *   - BLK_QC_T_NONE, no need for IO polling.
+>> + *   - BLK_QC_T_BIO_MULTI, @bio gets split and enqueued into multi hw queues.
+>> + *   - Otherwise, @bio is not split, returning the pointer to the corresponding
+>> + *     hw queue that the bio enqueued into as the returned cookie.
+>>   */
+>>  static blk_qc_t __submit_bio_noacct(struct bio *bio)
+>>  {
+>>  	struct bio_list bio_list_on_stack[2];
+>>  	blk_qc_t ret = BLK_QC_T_NONE;
+>> +	struct request_queue *top_q = bio->bi_disk->queue;
+>> +	bool poll_on = test_bit(QUEUE_FLAG_POLL, &top_q->queue_flags);
+>>  
+>>  	BUG_ON(bio->bi_next);
+>>  
+>> @@ -968,6 +976,7 @@ static blk_qc_t __submit_bio_noacct(struct bio *bio)
+>>  	current->bio_list = bio_list_on_stack;
+>>  
+>>  	do {
+>> +		blk_qc_t cookie;
+>>  		struct request_queue *q = bio->bi_disk->queue;
+>>  		struct bio_list lower, same;
+>>  
+>> @@ -980,7 +989,20 @@ static blk_qc_t __submit_bio_noacct(struct bio *bio)
+>>  		bio_list_on_stack[1] = bio_list_on_stack[0];
+>>  		bio_list_init(&bio_list_on_stack[0]);
+>>  
+>> -		ret = __submit_bio(bio);
+>> +		cookie = __submit_bio(bio);
+>> +
+>> +		if (poll_on &&
+>> +		    blk_qc_t_bio_valid(ret) && blk_qc_t_valid(cookie)) {
+>> +			unsigned int queue_num = blk_qc_t_to_queue_num(cookie);
+>> +			struct blk_mq_hw_ctx *hctx = q->queue_hw_ctx[queue_num];
+>> +
+>> +			cookie = (blk_qc_t)hctx;
+>> +
+>> +			if (!blk_qc_t_valid(ret)) /* set initial value */
+>> +				ret = cookie;
+>> +			else if (ret != cookie)   /* bio got split */
+>> +				ret = BLK_QC_T_BIO_MULTI;
+>> +		}
+>>  
+>>  		/*
+>>  		 * Sort new bios into those for a lower level and those for the
+>> @@ -1003,6 +1025,7 @@ static blk_qc_t __submit_bio_noacct(struct bio *bio)
+>>  	} while ((bio = bio_list_pop(&bio_list_on_stack[0])));
+>>  
+>>  	current->bio_list = NULL;
+>> +
+>>  	return ret;
+>>  }
+>>  
+>> @@ -1142,7 +1165,13 @@ static int blk_bio_poll(struct request_queue *q, blk_qc_t cookie, bool spin)
+>>  	do {
+>>  		int ret;
+>>  
+>> -		ret = disk->fops->poll(q, cookie);
+>> +		if (blk_qc_t_bio_valid(cookie)) {
+>> +			struct blk_mq_hw_ctx *hctx = (struct blk_mq_hw_ctx *)cookie;
+>> +			struct request_queue *target_q = hctx->queue;
+>> +
+>> +			ret = blk_mq_poll_hctx(target_q, hctx);
+>> +		} else
+>> +			ret = disk->fops->poll(q, cookie);
+>>  		if (ret > 0) {
+>>  			__set_current_state(TASK_RUNNING);
+>>  			return ret;
+>> diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+>> index 2e05244fc16d..4173754532c0 100644
+>> --- a/include/linux/blk_types.h
+>> +++ b/include/linux/blk_types.h
+>> @@ -557,6 +557,14 @@ static inline bool blk_qc_t_is_internal(blk_qc_t cookie)
+>>  	return (cookie & BLK_QC_T_INTERNAL) != 0;
+>>  }
+>>  
+>> +/* Macros for blk_qc_t used for bio-based polling */
+>> +#define BLK_QC_T_BIO_MULTI	-2U
+>> +
+>> +static inline bool blk_qc_t_bio_valid(blk_qc_t cookie)
+>> +{
+>> +	return cookie != BLK_QC_T_BIO_MULTI;
+>> +}
+>> +
+>>  struct blk_rq_stat {
+>>  	u64 mean;
+>>  	u64 min;
+>> diff --git a/include/linux/types.h b/include/linux/types.h
+>> index da5ca7e1bea9..f6301014a459 100644
+>> --- a/include/linux/types.h
+>> +++ b/include/linux/types.h
+>> @@ -126,7 +126,7 @@ typedef u64 sector_t;
+>>  typedef u64 blkcnt_t;
+>>  
+>>  /* cookie used for IO polling */
+>> -typedef unsigned int blk_qc_t;
+>> +typedef uintptr_t blk_qc_t;
+>>  
+>>  /*
+>>   * The type of an index into the pagecache.
+>> -- 
+>> 2.27.0
+>>
+>> --
+>> dm-devel mailing list
+>> dm-devel@redhat.com
+>> https://listman.redhat.com/mailman/listinfo/dm-devel
+>>
+> 
+> --
+> dm-devel mailing list
+> dm-devel@redhat.com
+> https://listman.redhat.com/mailman/listinfo/dm-devel
+> 
+
+-- 
+Thanks,
+Jeffle
 
 --
 dm-devel mailing list
