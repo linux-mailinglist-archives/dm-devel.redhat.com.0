@@ -1,71 +1,66 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 361E032800F
-	for <lists+dm-devel@lfdr.de>; Mon,  1 Mar 2021 14:54:31 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id E7FF4328173
+	for <lists+dm-devel@lfdr.de>; Mon,  1 Mar 2021 15:55:02 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-506-LBn2qGJaM_6y9yZsfsFcZg-1; Mon, 01 Mar 2021 08:54:28 -0500
-X-MC-Unique: LBn2qGJaM_6y9yZsfsFcZg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-493-IJHbmjGqPlyz82GmsLmtuw-1; Mon, 01 Mar 2021 09:54:58 -0500
+X-MC-Unique: IJHbmjGqPlyz82GmsLmtuw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 17831C73A5;
-	Mon,  1 Mar 2021 13:54:22 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2D00D608BA;
-	Mon,  1 Mar 2021 13:54:18 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A0473801965;
+	Mon,  1 Mar 2021 14:54:49 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 45D4D10013C1;
+	Mon,  1 Mar 2021 14:54:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ADFC949;
-	Mon,  1 Mar 2021 13:54:07 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5EBFB18095CB;
+	Mon,  1 Mar 2021 14:54:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 121Drr2p007888 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 1 Mar 2021 08:53:55 -0500
+	id 121EsNwo016755 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 1 Mar 2021 09:54:24 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id C85282126C9E; Mon,  1 Mar 2021 13:53:53 +0000 (UTC)
+	id BA22B2026D48; Mon,  1 Mar 2021 14:54:23 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C295C200BD88
-	for <dm-devel@redhat.com>; Mon,  1 Mar 2021 13:53:50 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B3D3A202A429
+	for <dm-devel@redhat.com>; Mon,  1 Mar 2021 14:54:19 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AAC43100AFE2
-	for <dm-devel@redhat.com>; Mon,  1 Mar 2021 13:53:50 +0000 (UTC)
-Received: from sati.cines.fr (sati.cines.fr [193.48.169.59]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-340-G0E2IaKCOnyEd7tD1QnMhw-1;
-	Mon, 01 Mar 2021 08:53:47 -0500
-X-MC-Unique: G0E2IaKCOnyEd7tD1QnMhw-1
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by sati.cines.fr (Postfix) with ESMTP id 3E345262892D
-	for <dm-devel@redhat.com>; Mon,  1 Mar 2021 14:44:36 +0100 (CET)
-Received: from sati.cines.fr ([127.0.0.1])
-	by localhost (sati.cines.fr [127.0.0.1]) (amavisd-new, port 10032)
-	with ESMTP id yLm9YNUg-6fE for <dm-devel@redhat.com>;
-	Mon,  1 Mar 2021 14:44:36 +0100 (CET)
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by sati.cines.fr (Postfix) with ESMTP id EF44C262892E
-	for <dm-devel@redhat.com>; Mon,  1 Mar 2021 14:44:35 +0100 (CET)
-X-Virus-Scanned: amavisd-new at sati.cines.fr
-Received: from sati.cines.fr ([127.0.0.1])
-	by localhost (sati.cines.fr [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 11hfAPEmSEui for <dm-devel@redhat.com>;
-	Mon,  1 Mar 2021 14:44:35 +0100 (CET)
-Received: from daksha.cines.fr (daksha.cines.fr [193.48.169.58])
-	by sati.cines.fr (Postfix) with ESMTP id D5D1F262892D
-	for <dm-devel@redhat.com>; Mon,  1 Mar 2021 14:44:35 +0100 (CET)
-Date: Mon, 1 Mar 2021 14:44:35 +0100 (CET)
-From: bchatelain@cines.fr
-To: dm-devel@redhat.com
-Message-ID: <388321540.261431070.1614606275832.JavaMail.zimbra@cines.fr>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 56E61185A7BC
+	for <dm-devel@redhat.com>; Mon,  1 Mar 2021 14:54:19 +0000 (UTC)
+Received: from szxga06-in.huawei.com (szxga06-in.huawei.com [45.249.212.32])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-269-JLpgRAmaP1yHzh3Byrjyfg-1; Mon, 01 Mar 2021 09:54:01 -0500
+X-MC-Unique: JLpgRAmaP1yHzh3Byrjyfg-1
+Received: from DGGEMS411-HUB.china.huawei.com (unknown [172.30.72.60])
+	by szxga06-in.huawei.com (SkyGuard) with ESMTP id 4Dq3C01XxzzjSWZ;
+	Mon,  1 Mar 2021 22:52:28 +0800 (CST)
+Received: from [10.174.178.113] (10.174.178.113) by
+	DGGEMS411-HUB.china.huawei.com (10.3.19.211) with Microsoft SMTP Server
+	id 14.3.498.0; Mon, 1 Mar 2021 22:53:42 +0800
+To: Martin Wilck <mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, 
+	Christophe Varoqui <christophe.varoqui@opensvc.com>
+References: <20210128210852.23207-1-mwilck@suse.com>
+	<c1dddccecfe0e12a2fe2dca66faad740a30acd53.camel@suse.com>
+	<99488b1b-2339-338d-e951-0b8f3e78449b@huawei.com>
+	<dcc6fb2a344ce75972242e2c78e2e485b58140da.camel@suse.com>
+From: lixiaokeng <lixiaokeng@huawei.com>
+Message-ID: <655de0b3-9625-bf3c-85f8-d19832bd84d8@huawei.com>
+Date: Mon, 1 Mar 2021 22:53:31 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
 MIME-Version: 1.0
-X-Originating-IP: [192.168.52.3]
-Thread-Index: ELpa8qlr5moYF5PeIS70mtQlJRX3vw==
-Thread-Topic: multipath with SAS and FC.
+In-Reply-To: <dcc6fb2a344ce75972242e2c78e2e485b58140da.camel@suse.com>
+X-Originating-IP: [10.174.178.113]
+X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -74,11 +69,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 121Drr2p007888
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 121EsNwo016755
 X-loop: dm-devel@redhat.com
-Subject: [dm-devel] multipath with SAS and FC.
+Cc: linfeilong <linfeilong@huawei.com>, dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH] multipathd: avoid crash in uevent_cleanup()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,56 +88,88 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Language: en-GB
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
-SGVsbG8sCgpJIHRyeSB0byB1c2UgbXVsdGlwYXRoIHdpdGggU0FTIGRpc2ssIHRyYW5zcG9ydGVk
-IGJ5IEZpYmVyIENoYW5uZWwsIG9uCkRlbGwgQ29tcGVsbGVudC4KTXkgdm9sdW1lIGlzIGRldGVj
-dGVkIG9uIDJ4IFI0NDAgUG93ZXJFZGdlIGhvc3RlZCBieSBDZW50b3MgOCBhbmQKb3JjaGVzdHJh
-dGVkIGJ5IG9WaXJ0LgoKClByb2JsZW1hdGljIDoKCk9uIG15IHR3byBvdmlydCBub2RlIHdpdGgg
-dGhlIHNhbWUgY29uZmlndXJhdGlvbiBhbmQgaGFyZHdhcmUKc3BlY2lmaWNhdGlvbnMsCkkgZ2l2
-ZSB0aGlzIHNhbWUgYmVoYXZvciwgb25lIG9mIG15IHR3byBsaW5rLCBpcyBmbGFwcGluZyBBQ1RJ
-VkUgdG8gRkFJTEVECgpTb21ldGhpbmcgbGlrZSB0aGlzIDoKIyBtdWx0aXBhdGggLWxsCjM2MDAw
-ZDMxMDAzZDVjMjAwMDAwMDAwMDAwMDAwMDAxMCBkbS0zIENPTVBFTE5ULENvbXBlbGxlbnQgVm9s
-CnNpemU9MS41VCBmZWF0dXJlcz0nMSBxdWV1ZV9pZl9ub19wYXRoJyBod2hhbmRsZXI9JzEgYWx1
-YScgd3A9cncKYC0rLSBwb2xpY3k9J3NlcnZpY2UtdGltZSAwJyBwcmlvPTI1IHN0YXR1cz1hY3Rp
-dmUKwqDCoCB8LSAxOjA6MDoyIHNkYiA4OjE2IGFjdGl2ZSByZWFkeSBydW5uaW5nCsKgwqAgYC0g
-MTowOjE6MiBzZGMgODozMiBmYWlsZWQgcmVhZHkgcnVubmluZyDCoCAtLSBsb29waW5nIGZhaWxl
-ZC9yZWFkeQoKClNvbWUgaW50ZXJlc3Rpbmcgc3R1ZmYgOgoKIyBtdWx0aXBhdGhkIHNob3cgY29u
-ZmlnIDogRnVsbCBAIGh0dHBzOi8vcGFzdGViaW4uZnIvODU5NjUKCmJsYWNrbGlzdCB7CsK3wrfC
-twrCoMKgIMKgIGRldmljZSB7CsKgwqAgwqAgwqAgwqAgdmVuZG9yICJDT01QRUxOVCIKwqDCoCDC
-oCDCoCDCoCBwcm9kdWN0ICJDb21wZWxsZW50IFZvbCIKwqDCoCDCoCDCoCDCoCBwYXRoX2dyb3Vw
-aW5nX3BvbGljeSAibXVsdGlidXMiCsKgwqAgwqAgwqAgwqAgbm9fcGF0aF9yZXRyeSAicXVldWUi
-CsKgwqAgwqAgfQrCt8K3wrcKfQoKwqBMb2daIDogRnVsbCBAIGh0dHBzOi8vcGFzdGViaW4uZnIv
-ODU5NjgKRmViIDI1IDExOjQ4OjI0IGlzaWxkdXItYWRtIGtlcm5lbDogZGV2aWNlLW1hcHBlcjog
-bXVsdGlwYXRoOiAyNTM6MzogUmVpbnN0YXRpbmcgcGF0aCA4OjMyLgpGZWIgMjUgMTE6NDg6MjQg
-aXNpbGR1ci1hZG0ga2VybmVsOiBzZCAxOjA6MToyOiBhbHVhOiBwb3J0IGdyb3VwIGYwMWMgc3Rh
-dGUgUyBub24tcHJlZmVycmVkIHN1cHBvcnRzIHRvbHVTTkEKRmViIDI1IDExOjQ4OjI0IGlzaWxk
-dXItYWRtIGtlcm5lbDogZGV2aWNlLW1hcHBlcjogbXVsdGlwYXRoOiAyNTM6MzogRmFpbGluZyBw
-YXRoIDg6MzIuCkZlYiAyNSAxMTo0ODoyNSBpc2lsZHVyLWFkbSBtdWx0aXBhdGhkWzY1OTQ2MF06
-IHNkYzogbWFyayBhcyBmYWlsZWQKCgrCoCMgbHNzY3NpIC1sClswOjI6MDowXSDCoCDCoGRpc2sg
-wqAgwqBERUxMIMKgIMKgIFBFUkMgSDMzMCBBZHAgwqAgwqA0LjMwIMKgL2Rldi9zZGEKwqDCoCBz
-dGF0ZT1ydW5uaW5nIHF1ZXVlX2RlcHRoPTI1NiBzY3NpX2xldmVsPTYgdHlwZT0wIGRldmljZV9i
-bG9ja2VkPTAgdGltZW91dD05MApbMTowOjA6Ml0gwqAgwqBkaXNrIMKgIMKgQ09NUEVMTlQgQ29t
-cGVsbGVudCBWb2wgwqAgMDcwNCDCoC9kZXYvc2RiCsKgwqAgc3RhdGU9cnVubmluZyBxdWV1ZV9k
-ZXB0aD0yNTQgc2NzaV9sZXZlbD02IHR5cGU9MCBkZXZpY2VfYmxvY2tlZD0wIHRpbWVvdXQ9MzAK
-WzE6MDoxOjJdIMKgIMKgZGlzayDCoCDCoENPTVBFTE5UIENvbXBlbGxlbnQgVm9sIMKgIDA3MDQg
-wqAvZGV2L3NkYwrCoMKgIHN0YXRlPXJ1bm5pbmcgcXVldWVfZGVwdGg9MjU0IHNjc2lfbGV2ZWw9
-NiB0eXBlPTAgZGV2aWNlX2Jsb2NrZWQ9MCB0aW1lb3V0PTMwCgoKwqAjIGxzbW9kIHwgZ3JlcCBm
-YwpibngyZmMgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAxMTA1OTIgwqAwCmNuaWMgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgNjk2MzIgwqAxIGJueDJmYwpsaWJmY29lIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgNzc4MjQgwqAyIHFlZGYsYm54MmZjCmxpYmZjIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIDE0NzQ1NiDCoDMgcWVkZixibngyZmMsbGliZmNvZQpzY3NpX3RyYW5zcG9ydF9mYyDCoCDC
-oCDCoDY5NjMyIMKgMyBxZWRmLGxpYmZjLGJueDJmYwoKCsKgIyBsc21vZCB8IGdyZXAgc2FzCm1w
-dDNzYXMgwqAzMDMxMDQgNApyYWlkX2NsYXNzIMKgMTYzODQgMSBtcHQzc2FzCm1lZ2FyYWlkX3Nh
-cyDCoDE3MjAzMiAyCnNjc2lfdHJhbnNwb3J0X3NhcyDCoDQ1MDU2IDFtcHQzc2FzCgoKCkkndmUg
-bWFkZSBhIG1pc2NvbmZpZ3VyYXRpb24gPwpJcyBJdCBwb3NzaWJsZSB0byB1c2UgU0FTIG92ZXIg
-RkMgPwoKVGhhbmsgeW91LgoKClJlZ2FyZHMsCkJlbm9pdCBDaGF0ZWxhaW4uCgoKLS0KZG0tZGV2
-ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhh
-dC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
+
+
+On 2021/2/3 21:57, Martin Wilck wrote:
+> On Wed, 2021-02-03 at 18:48 +0800, lixiaokeng wrote:
+>>
+>>
+>> On 2021/2/3 4:52, Martin Wilck wrote:
+>>> did this fix your "crash on exit" issue?
+>>
+>> Unfortunately, the issue is not solved.
+>>
+>> There will be some different coredump stack.
+>>
+>> 0.8.5 (I'm not sure there are only two stacks in 0.8.5)
+>> First stack:
+>> Program terminated with signal SIGSEGV, Segmentation fault.
+>> #0=A0 0x00007f59a0109647 in ?? ()
+>> [Current thread is 1 (LWP 1997690)]
+>> (gdb) bt
+>> #0=A0 0x00007f59a0109647 in ?? ()
+>> #1=A0 0x0000000000000000 in ?? ()
+>> (gdb) info threads
+>> =A0 Id=A0=A0 Target Id=A0=A0=A0=A0=A0=A0=A0=A0 Frame
+>> * 1=A0=A0=A0 LWP 1997690=A0=A0=A0=A0=A0=A0 0x00007f59a0109647 in ?? ()
+>> =A0 2=A0=A0=A0 LWP 1996840=A0=A0=A0=A0=A0=A0 0x00007f59a0531de7 in ?? ()
+>> =A0 3=A0=A0=A0 LWP 1997692=A0=A0=A0=A0=A0=A0 0x00007f59a0109647 in ?? ()
+>> =A0 4=A0=A0=A0 LWP 1996857=A0=A0=A0=A0=A0=A0 0x00007f59a020d169 in ?? ()
+>>
+>> Second stack:
+>> #0=A0 0x0000ffffb6118f4c in aarch64_fallback_frame_state
+>> (context=3D0xffffb523f200, context=3D0xffffb523f200, fs=3D0xffffb523e700=
+)
+>> at ./md-unwind-support.h:74
+>> #1=A0 uw_frame_state_for (context=3Dcontext@entry=3D0xffffb523f200,=20
+>> fs=3Dfs@entry=3D0xffffb523e700) at ../../../libgcc/unwind-dw2.c:1257
+>> #2=A0 0x0000ffffb6119ef4 in _Unwind_ForcedUnwind_Phase2
+>> (exc=3Dexc@entry=3D0xffffb52403b0, context=3Dcontext@entry=3D0xffffb523f=
+200)
+>> at ../../../libgcc/unwind.inc:155
+>> #3=A0 0x0000ffffb611a284 in _Unwind_ForcedUnwind (exc=3D0xffffb52403b0,=
+=20
+>> stop=3Dstop@entry=3D0xffffb64846c0 <unwind_stop>,
+>> stop_argument=3D0xffffb523f630) at ../../../libgcc/unwind.inc:207
+>> #4=A0 0x0000ffffb6484860 in __GI___pthread_unwind (buf=3D<optimized out>=
+)
+>> at unwind.c:121
+>> #5=A0 0x0000ffffb6482d08 in __do_cancel () at pthreadP.h:304
+>> #6=A0 __GI___pthread_testcancel () at pthread_testcancel.c:26
+>> #7=A0 0x0000ffffb5c528e8 in ?? ()
+>>
+>=20
+
+Hi Martin:
+   Here I add condlog(2, "start funcname"), pthread_cleanup_push(func_print=
+, NULL)
+in every pthread_create func. When these two core happened, "exit tur_threa=
+d"
+are less than "start tur_thread". So the trouble may be in tur_thread.
+
+I will use
+=09int oldstate;
+=09pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &oldstate);
+ =09...
+=09pthread_setcancelstate(oldstate, NULL);
+=09pthread_testcancel();
+to test it.
+
+Regards,
+Lixiaokeng
+
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
