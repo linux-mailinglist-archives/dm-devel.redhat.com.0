@@ -1,60 +1,65 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8A0E432D58B
-	for <lists+dm-devel@lfdr.de>; Thu,  4 Mar 2021 15:42:22 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 5919C32D588
+	for <lists+dm-devel@lfdr.de>; Thu,  4 Mar 2021 15:42:19 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-60-rQbFj8PnMCedtaLwbzRvaA-1; Thu, 04 Mar 2021 09:42:18 -0500
-X-MC-Unique: rQbFj8PnMCedtaLwbzRvaA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-202-_t48bxKeNw2akHM9YzPvlw-1; Thu, 04 Mar 2021 09:42:16 -0500
+X-MC-Unique: _t48bxKeNw2akHM9YzPvlw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 03AA68B7CE6;
-	Thu,  4 Mar 2021 14:42:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CD1B08B7CFD;
+	Thu,  4 Mar 2021 14:42:08 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CBF2F6060F;
-	Thu,  4 Mar 2021 14:42:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 97FCB5005E;
+	Thu,  4 Mar 2021 14:42:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8413A4BB40;
-	Thu,  4 Mar 2021 14:42:09 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3BD924BB40;
+	Thu,  4 Mar 2021 14:42:08 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 123Bw9od003426 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 3 Mar 2021 06:58:09 -0500
+	id 1242w8Z2029230 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 3 Mar 2021 21:58:08 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 714321445347; Wed,  3 Mar 2021 11:58:09 +0000 (UTC)
+	id 57AB8202A438; Thu,  4 Mar 2021 02:58:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6C98C1445354
-	for <dm-devel@redhat.com>; Wed,  3 Mar 2021 11:58:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 52673202A422
+	for <dm-devel@redhat.com>; Thu,  4 Mar 2021 02:58:05 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5512087B2B3
-	for <dm-devel@redhat.com>; Wed,  3 Mar 2021 11:58:09 +0000 (UTC)
-Received: from out30-132.freemail.mail.aliyun.com
-	(out30-132.freemail.mail.aliyun.com [115.124.30.132]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-280-ZHXjtuKxMlCgiViJrQf8_Q-1;
-	Wed, 03 Mar 2021 06:58:05 -0500
-X-MC-Unique: ZHXjtuKxMlCgiViJrQf8_Q-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R621e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04394;
-	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=8; SR=0;
-	TI=SMTPD_---0UQGMHnb_1614772673
-Received: from localhost(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0UQGMHnb_1614772673) by smtp.aliyun-inc.com(127.0.0.1);
-	Wed, 03 Mar 2021 19:57:53 +0800
-From: Jeffle Xu <jefflexu@linux.alibaba.com>
-To: msnitzer@redhat.com, axboe@kernel.dk
-Date: Wed,  3 Mar 2021 19:57:40 +0800
-Message-Id: <20210303115740.127001-13-jefflexu@linux.alibaba.com>
-In-Reply-To: <20210303115740.127001-1-jefflexu@linux.alibaba.com>
-References: <20210303115740.127001-1-jefflexu@linux.alibaba.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9EFB78E4AA2
+	for <dm-devel@redhat.com>; Thu,  4 Mar 2021 02:58:05 +0000 (UTC)
+Received: from out30-133.freemail.mail.aliyun.com
+	(out30-133.freemail.mail.aliyun.com [115.124.30.133]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-391-fJMiDqlXOaapxU9_Rwxp-w-1;
+	Wed, 03 Mar 2021 21:58:00 -0500
+X-MC-Unique: fJMiDqlXOaapxU9_Rwxp-w-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R771e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04420;
+	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
+	TI=SMTPD_---0UQJ-nD5_1614826675
+Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
+	fp:SMTPD_---0UQJ-nD5_1614826675) by smtp.aliyun-inc.com(127.0.0.1);
+	Thu, 04 Mar 2021 10:57:56 +0800
+To: Mikulas Patocka <mpatocka@redhat.com>
+References: <20210302190555.201228400@debian-a64.vm>
+	<33fa121a-88a8-5c27-0a43-a7efc9b5b3e3@linux.alibaba.com>
+	<alpine.LRH.2.02.2103030505460.29593@file01.intranet.prod.int.rdu2.redhat.com>
+From: JeffleXu <jefflexu@linux.alibaba.com>
+Message-ID: <f9dd41f1-7a4c-5901-c099-dca08c4e6d65@linux.alibaba.com>
+Date: Thu, 4 Mar 2021 10:57:55 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+	Gecko/20100101 Thunderbird/78.7.0
 MIME-Version: 1.0
+In-Reply-To: <alpine.LRH.2.02.2103030505460.29593@file01.intranet.prod.int.rdu2.redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -63,14 +68,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 04 Mar 2021 09:41:43 -0500
-Cc: caspar@linux.alibaba.com, linux-block@vger.kernel.org,
-	joseph.qi@linux.alibaba.com, dm-devel@redhat.com,
-	mpatocka@redhat.com, io-uring@vger.kernel.org
-Subject: [dm-devel] [PATCH v5 12/12] dm: support IO polling for bio-based dm
-	device
+Cc: axboe@kernel.dk, Mike Snitzer <msnitzer@redhat.com>,
+	Heinz Mauelshagen <heinzm@redhat.com>, caspar@linux.alibaba.com,
+	hch@lst.de, linux-block@vger.kernel.org,
+	joseph.qi@linux.alibaba.com, dm-devel@redhat.com, io-uring@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH 4/4] dm: support I/O polling
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,177 +89,112 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-IO polling is enabled when all underlying target devices are capable
-of IO polling. The sanity check supports the stacked device model, in
-which one dm device may be build upon another dm device. In this case,
-the mapped device will check if the underlying dm target device
-supports IO polling.
 
-Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
----
- drivers/md/dm-table.c         | 26 ++++++++++++
- drivers/md/dm.c               | 74 +++++++++++++++++++++++++++++++++++
- include/linux/device-mapper.h |  1 +
- 3 files changed, 101 insertions(+)
 
-diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-index 95391f78b8d5..ed72349eb1db 100644
---- a/drivers/md/dm-table.c
-+++ b/drivers/md/dm-table.c
-@@ -1982,6 +1982,19 @@ static int device_requires_stable_pages(struct dm_target *ti,
- 	return blk_queue_stable_writes(q);
- }
- 
-+static int device_not_poll_capable(struct dm_target *ti, struct dm_dev *dev,
-+				   sector_t start, sector_t len, void *data)
-+{
-+	struct request_queue *q = bdev_get_queue(dev->bdev);
-+
-+	return !test_bit(QUEUE_FLAG_POLL, &q->queue_flags);
-+}
-+
-+int dm_table_supports_poll(struct dm_table *t)
-+{
-+	return !dm_table_any_dev_attr(t, device_not_poll_capable, NULL);
-+}
-+
- void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
- 			       struct queue_limits *limits)
- {
-@@ -2079,6 +2092,19 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
- 
- 	dm_update_keyslot_manager(q, t);
- 	blk_queue_update_readahead(q);
-+
-+	/*
-+	 * Check for request-based device is remained to
-+	 * dm_mq_init_request_queue()->blk_mq_init_allocated_queue().
-+	 * For bio-based device, only set QUEUE_FLAG_POLL when all underlying
-+	 * devices supporting polling.
-+	 */
-+	if (__table_type_bio_based(t->type)) {
-+		if (dm_table_supports_poll(t))
-+			blk_queue_flag_set(QUEUE_FLAG_POLL, q);
-+		else
-+			blk_queue_flag_clear(QUEUE_FLAG_POLL, q);
-+	}
- }
- 
- unsigned int dm_table_get_num_targets(struct dm_table *t)
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index f1b76203b3c7..3f3f47d66386 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -1714,6 +1714,78 @@ static blk_qc_t dm_submit_bio(struct bio *bio)
- 	return BLK_QC_T_NONE;
- }
- 
-+struct dm_poll_data {
-+	blk_qc_t cookie;
-+	int count;
-+};
-+
-+static int dm_poll_one_dev(struct dm_target *ti, struct dm_dev *dev,
-+			   sector_t start, sector_t len, void *data)
-+{
-+	struct dm_poll_data *pdata = data;
-+	struct request_queue *q = bdev_get_queue(dev->bdev);
-+
-+	if (queue_is_mq(q)) {
-+		struct blk_mq_hw_ctx *hctx;
-+		int i, cpu;
-+
-+		if (!percpu_ref_tryget(&q->q_usage_counter))
-+			return 0;
-+
-+		if (blk_qc_t_is_poll_cpu(pdata->cookie)) {
-+			cpu = blk_qc_t_to_cpu(pdata->cookie);
-+			hctx = blk_mq_get_hctx(q, cpu, REQ_HIPRI);
-+			pdata->count += blk_mq_poll_hctx(q, hctx);
-+		} else {
-+			queue_for_each_poll_hw_ctx(q, hctx, i)
-+				pdata->count += blk_mq_poll_hctx(q, hctx);
-+		}
-+
-+		percpu_ref_put(&q->q_usage_counter);
-+	} else {
-+		struct gendisk *disk = dev->bdev->bd_disk;
-+
-+		pdata->count += disk->fops->poll(q, pdata->cookie);
-+	}
-+
-+	return 0;
-+}
-+
-+static int dm_bio_poll(struct request_queue *q, blk_qc_t cookie)
-+{
-+	int i, srcu_idx;
-+	struct dm_table *t;
-+	struct dm_target *ti;
-+	struct mapped_device *md = queue_to_disk(q)->private_data;
-+	struct dm_poll_data pdata = {
-+		.cookie = cookie,
-+	};
-+
-+	t = dm_get_live_table(md, &srcu_idx);
-+
-+	for (i = 0; i < dm_table_get_num_targets(t); i++) {
-+		ti = dm_table_get_target(t, i);
-+		ti->type->iterate_devices(ti, dm_poll_one_dev, &pdata);
-+	}
-+
-+	dm_put_live_table(md, srcu_idx);
-+
-+	return pdata.count;
-+}
-+
-+static bool dm_bio_poll_capable(struct gendisk *disk)
-+{
-+	int ret, srcu_idx;
-+	struct mapped_device *md = disk->private_data;
-+	struct dm_table *t;
-+
-+	t = dm_get_live_table(md, &srcu_idx);
-+	ret = dm_table_supports_poll(t);
-+	dm_put_live_table(md, srcu_idx);
-+
-+	return ret;
-+}
-+
- /*-----------------------------------------------------------------
-  * An IDR is used to keep track of allocated minor numbers.
-  *---------------------------------------------------------------*/
-@@ -3126,6 +3198,8 @@ static const struct pr_ops dm_pr_ops = {
- };
- 
- static const struct block_device_operations dm_blk_dops = {
-+	.poll = dm_bio_poll,
-+	.poll_capable = dm_bio_poll_capable,
- 	.submit_bio = dm_submit_bio,
- 	.open = dm_blk_open,
- 	.release = dm_blk_close,
-diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
-index 7f4ac87c0b32..31bfd6f70013 100644
---- a/include/linux/device-mapper.h
-+++ b/include/linux/device-mapper.h
-@@ -538,6 +538,7 @@ unsigned int dm_table_get_num_targets(struct dm_table *t);
- fmode_t dm_table_get_mode(struct dm_table *t);
- struct mapped_device *dm_table_get_md(struct dm_table *t);
- const char *dm_table_device_name(struct dm_table *t);
-+int dm_table_supports_poll(struct dm_table *t);
- 
- /*
-  * Trigger an event.
+On 3/3/21 6:09 PM, Mikulas Patocka wrote:
+> 
+> 
+> On Wed, 3 Mar 2021, JeffleXu wrote:
+> 
+>>
+>>
+>> On 3/3/21 3:05 AM, Mikulas Patocka wrote:
+>>
+>>> Support I/O polling if submit_bio_noacct_mq_direct returned non-empty
+>>> cookie.
+>>>
+>>> Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+>>>
+>>> ---
+>>>  drivers/md/dm.c |    5 +++++
+>>>  1 file changed, 5 insertions(+)
+>>>
+>>> Index: linux-2.6/drivers/md/dm.c
+>>> ===================================================================
+>>> --- linux-2.6.orig/drivers/md/dm.c	2021-03-02 19:26:34.000000000 +0100
+>>> +++ linux-2.6/drivers/md/dm.c	2021-03-02 19:26:34.000000000 +0100
+>>> @@ -1682,6 +1682,11 @@ static void __split_and_process_bio(stru
+>>>  		}
+>>>  	}
+>>>  
+>>> +	if (ci.poll_cookie != BLK_QC_T_NONE) {
+>>> +		while (atomic_read(&ci.io->io_count) > 1 &&
+>>> +		       blk_poll(ci.poll_queue, ci.poll_cookie, true)) ;
+>>> +	}
+>>> +
+>>>  	/* drop the extra reference count */
+>>>  	dec_pending(ci.io, errno_to_blk_status(error));
+>>>  }
+>>
+>> It seems that the general idea of your design is to
+>> 1) submit *one* split bio
+>> 2) blk_poll(), waiting the previously submitted split bio complets
+> 
+> No, I submit all the bios and poll for the last one.
+> 
+>> and then submit next split bio, repeating the above process. I'm afraid
+>> the performance may be an issue here, since the batch every time
+>> blk_poll() reaps may decrease.
+> 
+> Could you benchmark it?
+> 
+
+I will once I finished some other issues.
+
+
+>> Besides, the submitting routine and polling routine is bound together
+>> here, i.e., polling is always synchronous.
+> 
+> __split_and_process_bio calls __split_and_process_non_flush in a loop
+
+I also noticed that you sent this patch.
+https://patchwork.kernel.org/project/dm-devel/patch/alpine.LRH.2.02.2103010457510.631@file01.intranet.prod.int.rdu2.redhat.com/
+
+I agree with you that this while() loop here is unnecessary. And thus
+there's no loop calling __split_and_process_non_flush() in
+__split_and_process_bio().
+
+
+> __split_and_process_non_flush records the poll cookie in ci.poll_cookie. 
+> When we processed all the bios, we poll for the last cookie here:
+> 
+>         if (ci.poll_cookie != BLK_QC_T_NONE) {
+>                 while (atomic_read(&ci.io->io_count) > 1 &&
+>                        blk_poll(ci.poll_queue, ci.poll_cookie, true)) ;
+>         }
+
+So what will happen if one bio submitted to dm device crosses the device
+boundary among several target devices (e.g., dm-stripe)? Please refer
+the following call graph.
+
+```
+submit_bio
+  __submit_bio_noacct
+    disk->fops->submit_bio(), calling into __split_and_process_bio(),
+call __split_and_process_non_flush() once, submitting the *first* split bio
+    disk->fops->submit_bio(), calling into __split_and_process_bio(),
+call __split_and_process_non_flush() once, submitting the *second* split bio
+    ...
+```
+
+
+So the loop is in __submit_bio_noacct(), rather than
+__split_and_process_bio(). Your design will send the first split bio,
+and then poll on this split bio, then send the next split bio, polling
+on this, go on and on...
+
 -- 
-2.27.0
+Thanks,
+Jeffle
 
 --
 dm-devel mailing list
