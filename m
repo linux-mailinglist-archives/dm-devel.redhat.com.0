@@ -1,74 +1,81 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 31DFF338F6F
-	for <lists+dm-devel@lfdr.de>; Fri, 12 Mar 2021 15:08:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1615558102;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=Ag3eqyJaMKRbRRORWZ6qB7e6SNQsWpg/HRnTZ319Akc=;
-	b=VIVyBzNp2O04gTAZ/aJv5y1G6bbIN7J+vRRi/zsmE8U5G12sR6McV7xrae8HOW6UAx/ht2
-	9IK8wNBXXbGr0YRiZjk6R/YOuzW1BnBkwEsfw0xWTYbvLkTwhmilU23kjE2RFRTisyBpiD
-	T9NremwErymGMlenabXJr43p1WUpQKc=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 2C363339305
+	for <lists+dm-devel@lfdr.de>; Fri, 12 Mar 2021 17:21:20 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-265-oMSXLj-HNh2TEwhnESf5-g-1; Fri, 12 Mar 2021 09:08:20 -0500
-X-MC-Unique: oMSXLj-HNh2TEwhnESf5-g-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-116-PaaBLg23P_m_ae18bF6JrQ-1; Fri, 12 Mar 2021 11:21:16 -0500
+X-MC-Unique: PaaBLg23P_m_ae18bF6JrQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7755E100D671;
-	Fri, 12 Mar 2021 14:08:12 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 195DC760CA;
+	Fri, 12 Mar 2021 16:21:11 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2715D610A8;
-	Fri, 12 Mar 2021 14:08:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E25D3100164A;
+	Fri, 12 Mar 2021 16:21:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 18CA4464F9;
-	Fri, 12 Mar 2021 14:07:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 70CA257DC4;
+	Fri, 12 Mar 2021 16:21:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12CE7bMp007139 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 12 Mar 2021 09:07:37 -0500
+	id 12CFjXMR017738 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 12 Mar 2021 10:45:33 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7347D99A5; Fri, 12 Mar 2021 14:07:37 +0000 (UTC)
+	id 454662026D6A; Fri, 12 Mar 2021 15:45:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 425BD19704;
-	Fri, 12 Mar 2021 14:07:31 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id 12CE7UXS015710; Fri, 12 Mar 2021 09:07:30 -0500
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id 12CE7U3c015706; Fri, 12 Mar 2021 09:07:30 -0500
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Fri, 12 Mar 2021 09:07:30 -0500 (EST)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Mike Snitzer <snitzer@redhat.com>
-In-Reply-To: <20210311200736.GA29043@redhat.com>
-Message-ID: <alpine.LRH.2.02.2103120857270.17950@file01.intranet.prod.int.rdu2.redhat.com>
-References: <alpine.LRH.2.02.2103111326050.28706@file01.intranet.prod.int.rdu2.redhat.com>
-	<20210311184116.GB28637@redhat.com>
-	<alpine.LRH.2.02.2103111438170.3860@file01.intranet.prod.int.rdu2.redhat.com>
-	<20210311200736.GA29043@redhat.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E82DE2026DE8
+	for <dm-devel@redhat.com>; Fri, 12 Mar 2021 15:45:23 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7C044800C5B
+	for <dm-devel@redhat.com>; Fri, 12 Mar 2021 15:45:23 +0000 (UTC)
+Received: from mx4.veeam.com (mx4.veeam.com [104.41.138.86]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-473-Ev4dMoLCPlqguKdbayj9zA-1;
+	Fri, 12 Mar 2021 10:45:16 -0500
+X-MC-Unique: Ev4dMoLCPlqguKdbayj9zA-1
+Received: from mail.veeam.com (prgmbx01.amust.local [172.24.0.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx4.veeam.com (Postfix) with ESMTPS id BB4E1114A84;
+	Fri, 12 Mar 2021 18:45:13 +0300 (MSK)
+Received: from prgdevlinuxpatch01.amust.local (172.24.14.5) by
+	prgmbx01.amust.local (172.24.0.171) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	15.2.721.2; Fri, 12 Mar 2021 16:45:12 +0100
+From: Sergei Shtepa <sergei.shtepa@veeam.com>
+To: Christoph Hellwig <hch@infradead.org>, Mike Snitzer <snitzer@redhat.com>, 
+	Alasdair Kergon <agk@redhat.com>, Hannes Reinecke <hare@suse.de>,
+	Jens Axboe <axboe@kernel.dk>, <dm-devel@redhat.com>,
+	<linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-api@vger.kernel.org>
+Date: Fri, 12 Mar 2021 18:44:52 +0300
+Message-ID: <1615563895-28565-1-git-send-email-sergei.shtepa@veeam.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Originating-IP: [172.24.14.5]
+X-ClientProxiedBy: prgmbx02.amust.local (172.24.0.172) To prgmbx01.amust.local
+	(172.24.0.171)
+X-EsetResult: clean, is OK
+X-EsetId: 37303A29D2A50B58627366
+X-Veeam-MMEX: True
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Alasdair Kergon <agk@redhat.com>,
-	Zdenek Kabelac <zkabelac@redhat.com>
-Subject: [dm-devel] [PATCH v3] dm-ioctl: return UUID in DM_LIST_DEVICES_CMD
-	result
+Cc: pavel.tide@veeam.com, sergei.shtepa@veeam.com
+Subject: [dm-devel] [PATCH v7 0/3] block device interposer
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,7 +89,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -90,161 +97,118 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+Hi all.
 
+I'm joyful to suggest the block device interposer (bdev_interposer) v7.
+bdev_interposer allows to redirect bio requests to other block devices.
 
-On Thu, 11 Mar 2021, Mike Snitzer wrote:
+In this series of patches I suggest a different implementation of the bio
+interception mechanism. Now the interposer is a different block device.
+Instead of an additional hook, the function fops->submit_bio() of
+the interposer device is used.
+This implementation greatly simplifies the application of this
+bdev_interposer in device-mapper. But there is one limitation - the size
+of the interposer device must be greater than or equal to the size of
+the original device.
 
-> On Thu, Mar 11 2021 at  2:43pm -0500,
-> Mikulas Patocka <mpatocka@redhat.com> wrote:
-> 
-> > 
-> > 
-> > On Thu, 11 Mar 2021, Mike Snitzer wrote:
-> > 
-> > > > Index: linux-2.6/include/uapi/linux/dm-ioctl.h
-> > > > ===================================================================
-> > > > --- linux-2.6.orig/include/uapi/linux/dm-ioctl.h	2021-03-09 12:20:23.000000000 +0100
-> > > > +++ linux-2.6/include/uapi/linux/dm-ioctl.h	2021-03-11 18:42:14.000000000 +0100
-> > > > @@ -193,8 +193,15 @@ struct dm_name_list {
-> > > >  	__u32 next;		/* offset to the next record from
-> > > >  				   the _start_ of this */
-> > > >  	char name[0];
-> > > > +
-> > > > +	/* uint32_t event_nr; */
-> > > > +	/* uint32_t flags; */
-> > > > +	/* char uuid[0]; */
-> > > >  };
-> > > 
-> > > If extra padding is being leveraged here (from the __u32 next), why not
-> > > at least explicitly add the members and then pad out the balance of that
-> > > __u32?  I'm not liking the usage of phantom struct members.. e.g.
-> > > the games played with accessing them.
-> > > 
-> > > Mike
-> > 
-> > What exactly do you mean?
-> > 
-> > Do you want to create another structure that holds event_nr, flags and 
-> > uuid? Or something else?
-> 
-> Just not liking the comments you added in lieu of explicit struct
-> members.
-> 
-> Can't you remove __u32 next; and replace with named members of
-> appropriate size? Adding explicit padding to end to get you to 32bit
-> offset?  I'd need to look closer at the way the code is written, but I
-> just feel like this patch makes the code even more fiddley.
-> 
-> But I can let it go if you don't see a way forward to make it better..
-> 
-> Mike
+The first patch adds the function blk_mq_is_queue_frozen(). It allows to
+check a queue state.
 
-Hi
+The second patch is dedicated to bdev_interposer itself, which provides
+the ability to redirect bio to the interposer device.
 
-Here I added a comment to "struct dm_name_list" that explains how to 
-access fields "event_nr", "flags" and "uuid". Hopefully it makes the 
-structure layout more understandable.
+The third one adds the DM_INTERPOSED_FLAG flag. When this flag is
+applied with the ioctl DM_TABLE_LOAD_CMD, the underlying devices are
+opened without the FMODE_EXCL flag and connected via bdev_interposer.
 
-Mikulas
+Changes in this patchset v7:
+  * the request interception mechanism. Now the interposer is
+    a block device that receives requests instead of the original device;
+  * code design fixes.
 
+History:
+v6 - https://patchwork.kernel.org/project/linux-block/cover/1614774618-22410-1-git-send-email-sergei.shtepa@veeam.com/
+  * designed for 5.12;
+  * thanks to the new design of the bio structure in v5.12, it is
+    possible to perform interception not for the entire disk, but
+    for each block device;
+  * instead of the new ioctl DM_DEV_REMAP_CMD and the 'noexcl' option,
+    the DM_INTERPOSED_FLAG flag for the ioctl DM_TABLE_LOAD_CMD is
+    applied.
 
-From: Mikulas Patocka <mpatocka@redhat.com>
+v5 - https://patchwork.kernel.org/project/linux-block/cover/1612881028-7878-1-git-send-email-sergei.shtepa@veeam.com/
+ * rebase for v5.11-rc7;
+ * patch set organization;
+ * fix defects in documentation;
+ * add some comments;
+ * change mutex names for better code readability;
+ * remove calling bd_unlink_disk_holder() for targets with non-exclusive
+   flag;
+ * change type for struct dm_remap_param from uint8_t to __u8.
 
-dm-ioctl: return UUID in DM_LIST_DEVICES_CMD result
+v4 - https://patchwork.kernel.org/project/linux-block/cover/1612367638-3794-1-git-send-email-sergei.shtepa@veeam.com/
+Mostly changes were made, due to Damien's comments:
+ * on the design of the code;
+ * by the patch set organization;
+ * bug with passing a wrong parameter to dm_get_device();
+ * description of the 'noexcl' parameter in the linear.rst.
+Also added remap_and_filter.rst.
 
-When LVM needs to find a device with a particular UUID it needs to ask for
-UUID for each device. This patch returns UUID directly in the list of
-devices, so that LVM doesn't have to query all the devices with an ioctl.
-The UUID is returned if the flag DM_UUID_FLAG is set in the parameters.
+v3 - https://patchwork.kernel.org/project/linux-block/cover/1611853955-32167-1-git-send-email-sergei.shtepa@veeam.com/
+In this version, I already suggested blk_interposer to apply to dm-linear.
+Problems were solved:
+ * Interception of bio requests from a specific device on the disk, not
+   from the entire disk. To do this, we added the dm_interposed_dev
+   structure and an interval tree to store these structures.
+ * Implemented ioctl DM_DEV_REMAP_CMD. A patch with changes in the lvm2
+   project was sent to the team lvm-devel@redhat.com.
+ * Added the 'noexcl' option for dm-linear, which allows you to open
+   the underlying block-device without FMODE_EXCL mode.
 
-Returning UUID is done in backward-compatible way. There's one unused
-32-bit word value after the event number. This patch sets the bit
-DM_NAME_LIST_FLAG_HAS_UUID if UUID is present and
-DM_NAME_LIST_FLAG_DOESNT_HAVE_UUID if it isn't (if none of these bits is
-set, then we have an old kernel that doesn't support returning UUIDs). The
-UUID is stored after this word. The 'next' value is updated to point after
-the UUID, so that old version of libdevmapper will skip the UUID without
-attempting to interpret it.
+v2 - https://patchwork.kernel.org/project/linux-block/cover/1607518911-30692-1-git-send-email-sergei.shtepa@veeam.com/
+I tried to suggest blk_interposer without using it in device mapper,
+but with the addition of a sample of its use. It was then that I learned
+about the maintainers' attitudes towards the samples directory :).
 
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+v1 - https://lwn.net/ml/linux-block/20201119164924.74401-1-hare@suse.de/
+This Hannes's patch can be considered as a starting point, since this is
+where the interception mechanism and the term blk_interposer itself
+appeared. It became clear that blk_interposer can be useful for
+device mapper.
 
----
- drivers/md/dm-ioctl.c         |   20 +++++++++++++++++---
- include/uapi/linux/dm-ioctl.h |   14 ++++++++++++++
- 2 files changed, 31 insertions(+), 3 deletions(-)
+before v1 - https://patchwork.kernel.org/project/linux-block/cover/1603271049-20681-1-git-send-email-sergei.shtepa@veeam.com/
+I tried to offer a rather cumbersome blk-filter and a monster-like
+blk-snap module for creating snapshots.
 
-Index: linux-2.6/drivers/md/dm-ioctl.c
-===================================================================
---- linux-2.6.orig/drivers/md/dm-ioctl.c	2021-03-09 21:04:07.000000000 +0100
-+++ linux-2.6/drivers/md/dm-ioctl.c	2021-03-12 15:02:42.000000000 +0100
-@@ -558,7 +558,9 @@ static int list_devices(struct file *fil
- 	for (n = rb_first(&name_rb_tree); n; n = rb_next(n)) {
- 		hc = container_of(n, struct hash_cell, name_node);
- 		needed += align_val(offsetof(struct dm_name_list, name) + strlen(hc->name) + 1);
--		needed += align_val(sizeof(uint32_t));
-+		needed += align_val(sizeof(uint32_t) * 2);
-+		if (param->flags & DM_UUID_FLAG && hc->uuid)
-+			needed += align_val(strlen(hc->uuid) + 1);
- 	}
- 
- 	/*
-@@ -577,6 +579,7 @@ static int list_devices(struct file *fil
- 	 * Now loop through filling out the names.
- 	 */
- 	for (n = rb_first(&name_rb_tree); n; n = rb_next(n)) {
-+		void *uuid_ptr;
- 		hc = container_of(n, struct hash_cell, name_node);
- 		if (old_nl)
- 			old_nl->next = (uint32_t) ((void *) nl -
-@@ -588,8 +591,19 @@ static int list_devices(struct file *fil
- 
- 		old_nl = nl;
- 		event_nr = align_ptr(nl->name + strlen(hc->name) + 1);
--		*event_nr = dm_get_event_nr(hc->md);
--		nl = align_ptr(event_nr + 1);
-+		event_nr[0] = dm_get_event_nr(hc->md);
-+		event_nr[1] = 0;
-+		uuid_ptr = align_ptr(event_nr + 2);
-+		if (param->flags & DM_UUID_FLAG) {
-+			if (hc->uuid) {
-+				event_nr[1] |= DM_NAME_LIST_FLAG_HAS_UUID;
-+				strcpy(uuid_ptr, hc->uuid);
-+				uuid_ptr = align_ptr(uuid_ptr + strlen(hc->uuid) + 1);
-+			} else {
-+				event_nr[1] |= DM_NAME_LIST_FLAG_DOESNT_HAVE_UUID;
-+			}
-+		}
-+		nl = uuid_ptr;
- 	}
- 	/*
- 	 * If mismatch happens, security may be compromised due to buffer
-Index: linux-2.6/include/uapi/linux/dm-ioctl.h
-===================================================================
---- linux-2.6.orig/include/uapi/linux/dm-ioctl.h	2021-03-09 12:20:23.000000000 +0100
-+++ linux-2.6/include/uapi/linux/dm-ioctl.h	2021-03-12 15:03:11.000000000 +0100
-@@ -193,8 +193,22 @@ struct dm_name_list {
- 	__u32 next;		/* offset to the next record from
- 				   the _start_ of this */
- 	char name[0];
-+
-+	/*
-+	   The following members can be accessed by taking a pointer that points
-+	   immediatelly after the terminating zero character in "name" and
-+	   aligning this pointer to next 8-byte boundary.
-+	   Uuid is present if the flag DM_NAME_LIST_FLAG_HAS_UUID is set.
-+
-+	   __u32 event_nr;
-+	   __u32 flags;
-+	   char uuid[0];
-+	*/
- };
- 
-+#define DM_NAME_LIST_FLAG_HAS_UUID		1
-+#define DM_NAME_LIST_FLAG_DOESNT_HAVE_UUID	2
-+
- /*
-  * Used to retrieve the target versions
-  */
+Thank you to everyone who was able to take the time to review
+the previous versions.
+I hope that this time I achieved the required quality.
+
+Thanks,
+Sergei.
+
+Sergei Shtepa (3):
+  block: add blk_mq_is_queue_frozen()
+  block: add bdev_interposer
+  dm: add DM_INTERPOSED_FLAG
+
+ block/bio.c                   |  2 ++
+ block/blk-core.c              | 57 ++++++++++++++++++++++++++++++++
+ block/blk-mq.c                | 13 ++++++++
+ block/genhd.c                 | 54 +++++++++++++++++++++++++++++++
+ drivers/md/dm-core.h          |  3 ++
+ drivers/md/dm-ioctl.c         | 13 ++++++++
+ drivers/md/dm-table.c         | 61 +++++++++++++++++++++++++++++------
+ drivers/md/dm.c               | 38 +++++++++++++++-------
+ include/linux/blk-mq.h        |  1 +
+ include/linux/blk_types.h     |  3 ++
+ include/linux/blkdev.h        |  9 ++++++
+ include/linux/device-mapper.h |  1 +
+ include/uapi/linux/dm-ioctl.h |  6 ++++
+ 13 files changed, 240 insertions(+), 21 deletions(-)
+
+-- 
+2.20.1
 
 --
 dm-devel mailing list
