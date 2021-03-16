@@ -2,61 +2,61 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2B19533DE58
-	for <lists+dm-devel@lfdr.de>; Tue, 16 Mar 2021 21:02:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5C63433DE57
+	for <lists+dm-devel@lfdr.de>; Tue, 16 Mar 2021 21:02:08 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-524-IQN36hJtMISXEepyIKwEOQ-1; Tue, 16 Mar 2021 16:02:07 -0400
-X-MC-Unique: IQN36hJtMISXEepyIKwEOQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-274-AQhHoaelNi2aFi4_fjZxNQ-1; Tue, 16 Mar 2021 16:02:05 -0400
+X-MC-Unique: AQhHoaelNi2aFi4_fjZxNQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 85EA781426D;
-	Tue, 16 Mar 2021 20:02:00 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 93318EC1A2;
+	Tue, 16 Mar 2021 20:01:59 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 39AB510023B0;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3990A2BFE7;
 	Tue, 16 Mar 2021 20:01:58 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A94BA85CC;
-	Tue, 16 Mar 2021 20:01:49 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AD8F0576B0;
+	Tue, 16 Mar 2021 20:01:48 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12G8qpi6005193 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 16 Mar 2021 04:52:51 -0400
+	id 12GBAES0020606 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 16 Mar 2021 07:10:15 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8FBC32026980; Tue, 16 Mar 2021 08:52:51 +0000 (UTC)
+	id E99A12026D11; Tue, 16 Mar 2021 11:10:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A0872026D48
-	for <dm-devel@redhat.com>; Tue, 16 Mar 2021 08:52:48 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E4AA52026D7F
+	for <dm-devel@redhat.com>; Tue, 16 Mar 2021 11:10:11 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0FD38101A531
-	for <dm-devel@redhat.com>; Tue, 16 Mar 2021 08:52:48 +0000 (UTC)
-Received: from out30-42.freemail.mail.aliyun.com
-	(out30-42.freemail.mail.aliyun.com [115.124.30.42]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-237-WPQGM5ckP-mjnPvkO509pA-1;
-	Tue, 16 Mar 2021 04:52:43 -0400
-X-MC-Unique: WPQGM5ckP-mjnPvkO509pA-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R141e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e01424;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 82D9C181B7A2
+	for <dm-devel@redhat.com>; Tue, 16 Mar 2021 11:01:04 +0000 (UTC)
+Received: from out30-57.freemail.mail.aliyun.com
+	(out30-57.freemail.mail.aliyun.com [115.124.30.57]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-520-rCaWaVAaPe2Qsc0nkiilBA-1;
+	Tue, 16 Mar 2021 07:01:01 -0400
+X-MC-Unique: rCaWaVAaPe2Qsc0nkiilBA-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426;
 	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=6; SR=0;
-	TI=SMTPD_---0US7yKRe_1615884757
+	TI=SMTPD_---0US9MIBa_1615892449
 Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0US7yKRe_1615884757) by smtp.aliyun-inc.com(127.0.0.1);
-	Tue, 16 Mar 2021 16:52:37 +0800
+	fp:SMTPD_---0US9MIBa_1615892449) by smtp.aliyun-inc.com(127.0.0.1);
+	Tue, 16 Mar 2021 19:00:49 +0800
 To: Ming Lei <ming.lei@redhat.com>
 References: <20210316031523.864506-1-ming.lei@redhat.com>
 	<20210316031523.864506-9-ming.lei@redhat.com>
 	<b4dce8c6-61dd-9524-0a55-41db63eb084d@linux.alibaba.com>
 	<YFBbjY+oDpjIHI3P@T590>
 From: JeffleXu <jefflexu@linux.alibaba.com>
-Message-ID: <3848e80d-e7ad-9372-c96f-d32bfb9f0ae5@linux.alibaba.com>
-Date: Tue, 16 Mar 2021 16:52:36 +0800
+Message-ID: <b2a33da7-84e6-14ba-c960-988bba448bf4@linux.alibaba.com>
+Date: Tue, 16 Mar 2021 19:00:49 +0800
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
 	Gecko/20100101 Thunderbird/78.7.0
 MIME-Version: 1.0
@@ -90,7 +90,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -194,57 +194,6 @@ On 3/16/21 3:17 PM, Ming Lei wrote:
 > 
 > Yeah, this patch starts with 64 queue depth, and we can increase it to
 > 128, which should cover most of cases.
-
-It seems that the queue depth of kfifo will affect the performance as I
-did a fast test.
-
-
-
-Test Result:
-
-BLK_BIO_POLL_SQ_SZ | iodepth | IOPS
------------------- | ------- | ----
-64                 | 128     | 301k (IRQ) -> 340k (iopoll)
-64                 | 16      | 304k (IRQ) -> 392k (iopoll)
-128                | 128     | 204k (IRQ) -> 317k (iopoll)
-256                | 128     | 241k (IRQ) -> 391k (iopoll)
-
-It seems that BLK_BIO_POLL_SQ_SZ need to be increased accordingly when
-iodepth is quite large. But I don't know why the performance in IRQ mode
-decreases when BLK_BIO_POLL_SQ_SZ is increased.
-
-
-
-
-
-Test Environment:
-nvme.poll_queues = 1,
-dmsetup create testdev --table '0 2097152 linear /dev/nvme0n1 0',
-
-```
-$cat fio.conf
-[global]
-name=iouring-sqpoll-iopoll-1
-ioengine=io_uring
-iodepth=128
-numjobs=1
-thread
-rw=randread
-direct=1
-#hipri=1
-bs=4k
-runtime=10
-time_based
-group_reporting
-randrepeat=0
-cpus_allowed=44
-
-[device]
-filename=/dev/mapper/testdev
-```
-
-
-
 > 
 >>
 >>
@@ -382,10 +331,53 @@ filename=/dev/mapper/testdev
 > keep calling blk_poll() by passing thread A's pid until this dm bio is
 > done, since the dm bio is submitted from thread A.
 > 
-> 
-> Thanks, 
-> Ming
-> 
+
+This will affect the multi-thread polling performance. I tested
+dm-stripe, in which every bio will be split and enqueued into all
+underlying devices, and thus amplify the interference between multiple
+threads.
+
+Test Result:
+IOPS: 332k (IRQ) -> 363k (iopoll), aka ~10% performance gain
+
+
+Test Environment:
+
+nvme.poll_queues = 3
+
+BLK_BIO_POLL_SQ_SZ = 128
+
+dmsetup create testdev --table "0 629145600 striped 3 8 /dev/nvme0n1 0
+/dev/nvme1n1 0 /dev/nvme4n1 0"
+
+
+```
+$cat fio.conf
+[global]
+name=iouring-sqpoll-iopoll-1
+ioengine=io_uring
+iodepth=128
+numjobs=1
+thread
+rw=randread
+direct=1
+hipri=1
+runtime=10
+time_based
+group_reporting
+randrepeat=0
+filename=/dev/mapper/testdev
+bs=12k
+
+[job-1]
+cpus_allowed=14
+
+[job-2]
+cpus_allowed=16
+
+[job-3]
+cpus_allowed=84
+```
 
 -- 
 Thanks,
