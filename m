@@ -1,54 +1,54 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 44BFA34019C
-	for <lists+dm-devel@lfdr.de>; Thu, 18 Mar 2021 10:15:11 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 0270634019E
+	for <lists+dm-devel@lfdr.de>; Thu, 18 Mar 2021 10:15:12 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-572-z-13AXNkMV6xtEe0rwvFcQ-1; Thu, 18 Mar 2021 05:15:06 -0400
-X-MC-Unique: z-13AXNkMV6xtEe0rwvFcQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-519-RQRsPAuIO766E5SS-rYBdQ-1; Thu, 18 Mar 2021 05:15:09 -0400
+X-MC-Unique: RQRsPAuIO766E5SS-rYBdQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7E5A981627;
-	Thu, 18 Mar 2021 09:15:01 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B2D25C1D1;
-	Thu, 18 Mar 2021 09:15:00 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D29951007B02;
+	Thu, 18 Mar 2021 09:15:02 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A524C5D9DE;
+	Thu, 18 Mar 2021 09:15:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DC3DD1809C83;
-	Thu, 18 Mar 2021 09:14:52 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4F5E54BB7C;
+	Thu, 18 Mar 2021 09:15:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12I9EfWM005118 for <dm-devel@listman.util.phx.redhat.com>;
+	id 12I9Efex005128 for <dm-devel@listman.util.phx.redhat.com>;
 	Thu, 18 Mar 2021 05:14:41 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1BE242024CD5; Thu, 18 Mar 2021 09:14:41 +0000 (UTC)
+	id 89FC2F5CE4; Thu, 18 Mar 2021 09:14:41 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 161F52024CD0
-	for <dm-devel@redhat.com>; Thu, 18 Mar 2021 09:14:38 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 844BFF640A
+	for <dm-devel@redhat.com>; Thu, 18 Mar 2021 09:14:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BA67D801E8D
-	for <dm-devel@redhat.com>; Thu, 18 Mar 2021 09:14:38 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 02189803C9F
+	for <dm-devel@redhat.com>; Thu, 18 Mar 2021 09:14:39 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-101-_4vvikauMGSQNaf6_sFuWw-1;
+	relay.mimecast.com with ESMTP id us-mta-97-um8-eARpNWOFvBMXFFhk6A-1;
 	Thu, 18 Mar 2021 05:14:34 -0400
-X-MC-Unique: _4vvikauMGSQNaf6_sFuWw-1
+X-MC-Unique: um8-eARpNWOFvBMXFFhk6A-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id A016EAD4A;
+	by mx2.suse.de (Postfix) with ESMTP id D50FBAD71;
 	Thu, 18 Mar 2021 09:14:32 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu, 18 Mar 2021 10:14:12 +0100
-Message-Id: <20210318091413.28027-2-mwilck@suse.com>
+Date: Thu, 18 Mar 2021 10:14:13 +0100
+Message-Id: <20210318091413.28027-3-mwilck@suse.com>
 In-Reply-To: <20210318091413.28027-1-mwilck@suse.com>
 References: <20210318091413.28027-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -60,13 +60,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 12I9EfWM005118
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 12I9Efex005128
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 2/3] 11-dm-mpath.rules: run "multipath -U"
-	with -v1
+Subject: [dm-devel] [PATCH v2 3/3] multipath-tools tests: check if
+	/sys/dev/block is non-empty
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +80,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -90,41 +90,60 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-In cases where some path devices are temporarily unavailable (e.g. failover),
-high amounts of error messages such as these are seen:
+Since f131e31 ("multipath-tools: devt test: avoid failure when run in
+containers"), we check the existence of /sys/dev/block before running
+the devt test. It turns out that on recent releases of podman (3.0.1),
+this check is insufficient, because /sys/dev/block exists now in
+containers, albeit empty. So we need to check for actual entries
+in the directory.
 
-Feb 27 08:02:03 ictm1608s02h1 multipath[1420]: get_udev_device: failed to look up 65:224 with type 1
-Feb 27 08:02:03 ictm1608s02h1 multipath[1420]: 3600a098000aada210000f1625de51ed9: discarding non-existing path 65:224
-
-This is because every invocation of "multipath -U" prints these messages
-at the default log level (-v2). In the case of "multipath -U", these
-messages aren't important, and in failover situations, "multipath -U" is
-run pretty often, spamming the log with many similar messages.
-
-Generally reducing the log level of these messages would be wrong,
-because they are important for multipathd's operation, to verify that
-multipathd does the right thing when discovering a discrepancy between the dm
-state and the devices present in the system. Therefore, just decrease the
-verbosity with which we invoke "multipath -U" in the udev rules.
-
-Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
+Fixes: f131e31 ("multipath-tools: devt test: avoid failure when run in containers")
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipath/11-dm-mpath.rules | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tests/devt.c | 22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
 
-diff --git a/multipath/11-dm-mpath.rules b/multipath/11-dm-mpath.rules
-index cd522e8..d191ae8 100644
---- a/multipath/11-dm-mpath.rules
-+++ b/multipath/11-dm-mpath.rules
-@@ -32,7 +32,7 @@ ACTION=="add", ENV{.MPATH_DEVICE_READY_OLD}=="1", GOTO="paths_ok"
+diff --git a/tests/devt.c b/tests/devt.c
+index 02f2e8f..d971302 100644
+--- a/tests/devt.c
++++ b/tests/devt.c
+@@ -13,7 +13,9 @@
+ #include <sys/sysmacros.h>
+ #include <fcntl.h>
+ #include <sys/stat.h>
++#include <sys/types.h>
+ #include <unistd.h>
++#include <dirent.h>
+ #include "util.h"
+ #include "debug.h"
  
- # Check the map state directly with multipath -U.
- # This doesn't attempt I/O on the device.
--PROGRAM=="$env{MPATH_SBIN_PATH}/multipath -U %k", GOTO="paths_ok"
-+PROGRAM=="$env{MPATH_SBIN_PATH}/multipath -U -v1 %k", GOTO="paths_ok"
- ENV{MPATH_DEVICE_READY}="0", GOTO="mpath_action"
- LABEL="paths_ok"
+@@ -21,12 +23,22 @@
+ 
+ static bool sys_dev_block_exists(void)
+ {
+-	int fd;
+-	bool rc;
++	DIR *dir;
++	bool rc = false;
+ 
+-	fd = open("/sys/dev/block", O_RDONLY|O_DIRECTORY);
+-	rc = (fd != -1);
+-	close(fd);
++	dir = opendir("/sys/dev/block");
++	if (dir != NULL) {
++		struct dirent *de;
++
++		while((de = readdir(dir)) != NULL) {
++			if (strcmp(de->d_name, ".") &&
++			    strcmp(de->d_name, "..")) {
++				rc = true;
++				break;
++			}
++		}
++	}
++	closedir(dir);
+ 	return rc;
+ }
  
 -- 
 2.30.1
