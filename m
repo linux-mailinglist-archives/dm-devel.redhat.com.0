@@ -2,50 +2,50 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8129E340AB3
-	for <lists+dm-devel@lfdr.de>; Thu, 18 Mar 2021 17:54:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 44B2A340AB8
+	for <lists+dm-devel@lfdr.de>; Thu, 18 Mar 2021 17:55:04 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1616086448;
+	s=mimecast20190719; t=1616086503;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=AAivrgbs8+NOQ08tQkaS6T1vORdaFOPPBYrGurAfoEo=;
-	b=iauF9bo3hSm4H0kXYic3IeS+GiRHnS1qcCW669wGqiNRcB1BsSWCO9FFOIvO62IwptIp3L
-	W/jJHw2qz++AVkJ5fohkeZJJMBWUyxvkfugsA+IIOCDcwKVxST0IYGn4CGVoEL6JEqaxJt
-	Bm16Rjl82FDqTnYgzmcY70BstxAvshk=
+	bh=2xpu5nczlM4aCvnuQvkZY9HDS4GgOXa4DqYwaWSzr38=;
+	b=VzVxeN9KHEPSRahgtrfIetRYXvwRX2d9voe1p038frZtxFk/7yWTG4Mgn37gbTQZrAPz8f
+	dL3D2uUodvjshjjK7ka9n8FmfE24mUQzMjAQWJSsZZqd67rBjIDo5nJGoqBGNoLXOyThu8
+	G+awCPEL3GU8MqHGoiH4wShmUUUK7OE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-40-K0zEMK9QPQWCKDwGwbhDvg-1; Thu, 18 Mar 2021 12:53:56 -0400
-X-MC-Unique: K0zEMK9QPQWCKDwGwbhDvg-1
+ us-mta-413-QXOPHuTDMoCr_z_9bVtkXw-1; Thu, 18 Mar 2021 12:53:59 -0400
+X-MC-Unique: QXOPHuTDMoCr_z_9bVtkXw-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ED6348018A3;
-	Thu, 18 Mar 2021 16:53:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 938B42BFE1;
-	Thu, 18 Mar 2021 16:53:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 26232100946E;
+	Thu, 18 Mar 2021 16:53:53 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E57E350FA2;
+	Thu, 18 Mar 2021 16:53:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 33AA31809C84;
-	Thu, 18 Mar 2021 16:53:50 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8B50B4BB7C;
+	Thu, 18 Mar 2021 16:53:52 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
 	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12IGnVD7030534 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 18 Mar 2021 12:49:31 -0400
+	id 12IGnZlT030552 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 18 Mar 2021 12:49:35 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7DCEC5D9CA; Thu, 18 Mar 2021 16:49:31 +0000 (UTC)
+	id 1AF195D9D0; Thu, 18 Mar 2021 16:49:35 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from localhost (ovpn-12-24.pek2.redhat.com [10.72.12.24])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 754FC5D9C6;
-	Thu, 18 Mar 2021 16:49:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 371DE5D9C6;
+	Thu, 18 Mar 2021 16:49:33 +0000 (UTC)
 From: Ming Lei <ming.lei@redhat.com>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Fri, 19 Mar 2021 00:48:20 +0800
-Message-Id: <20210318164827.1481133-7-ming.lei@redhat.com>
+Date: Fri, 19 Mar 2021 00:48:21 +0800
+Message-Id: <20210318164827.1481133-8-ming.lei@redhat.com>
 In-Reply-To: <20210318164827.1481133-1-ming.lei@redhat.com>
 References: <20210318164827.1481133-1-ming.lei@redhat.com>
 MIME-Version: 1.0
@@ -54,8 +54,8 @@ X-loop: dm-devel@redhat.com
 Cc: Mike Snitzer <snitzer@redhat.com>, Ming Lei <ming.lei@redhat.com>,
 	linux-block@vger.kernel.org, dm-devel@redhat.com,
 	Jeffle Xu <jefflexu@linux.alibaba.com>, Christoph Hellwig <hch@lst.de>
-Subject: [dm-devel] [RFC PATCH V2 06/13] block: add new field into 'struct
-	bvec_iter'
+Subject: [dm-devel] [RFC PATCH V2 07/13] block/mq: extract one helper
+	function polling hw queue
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -77,37 +77,54 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-There is a hole at the end of 'struct bvec_iter', so put a new field
-here and we can save cookie returned from submit_bio() here for
-supporting bio based polling.
+From: Jeffle Xu <jefflexu@linux.alibaba.com>
 
-This way can avoid to extend bio unnecessarily.
+Extract the logic of polling one hw queue and related statistics
+handling out as the helper function.
 
+Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
 Signed-off-by: Ming Lei <ming.lei@redhat.com>
 ---
- include/linux/bvec.h | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ block/blk-mq.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/bvec.h b/include/linux/bvec.h
-index ff832e698efb..61c0f55f7165 100644
---- a/include/linux/bvec.h
-+++ b/include/linux/bvec.h
-@@ -43,6 +43,15 @@ struct bvec_iter {
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index c832faa52ca0..03f59915fe2c 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -3852,6 +3852,19 @@ static bool blk_mq_poll_hybrid(struct request_queue *q,
+ 	return blk_mq_poll_hybrid_sleep(q, rq);
+ }
  
- 	unsigned int            bi_bvec_done;	/* number of bytes completed in
- 						   current bvec */
++static inline int blk_mq_poll_hctx(struct request_queue *q,
++				   struct blk_mq_hw_ctx *hctx)
++{
++	int ret;
 +
-+	/*
-+	 * There is a hole at the end of bvec_iter, define one filed to
-+	 * hold something which isn't relate with 'bvec_iter', so that we can
-+	 * avoid to extend bio. So far this new field is used for bio based
-+	 * pooling, we will store returning value of underlying queue's
-+	 * submit_bio() here.
-+	 */
-+	unsigned int		bi_private_data;
- };
++	hctx->poll_invoked++;
++	ret = q->mq_ops->poll(hctx);
++	if (ret > 0)
++		hctx->poll_success++;
++
++	return ret;
++}
++
+ static int blk_bio_poll(struct request_queue *q, blk_qc_t cookie, bool spin)
+ {
+ 	/*
+@@ -3908,11 +3921,8 @@ int blk_poll(struct request_queue *q, blk_qc_t cookie, bool spin)
+ 	do {
+ 		int ret;
  
- struct bvec_iter_all {
+-		hctx->poll_invoked++;
+-
+-		ret = q->mq_ops->poll(hctx);
++		ret = blk_mq_poll_hctx(q, hctx);
+ 		if (ret > 0) {
+-			hctx->poll_success++;
+ 			__set_current_state(TASK_RUNNING);
+ 			return ret;
+ 		}
 -- 
 2.29.2
 
