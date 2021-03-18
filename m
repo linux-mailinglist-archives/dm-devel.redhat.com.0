@@ -1,61 +1,63 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 93C64340A97
-	for <lists+dm-devel@lfdr.de>; Thu, 18 Mar 2021 17:50:15 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id F059B340BC5
+	for <lists+dm-devel@lfdr.de>; Thu, 18 Mar 2021 18:26:53 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1616086214;
+	s=mimecast20190719; t=1616088413;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=sp1Du772nyRSvA5JpD/a4dWd9SeUu3+IsQGqKmOBjmI=;
-	b=YnICUWMSrOuUJZJhapqlKICXgAG9yI0Fck1FLJDwmSNiyfEwgkEVELtr/z892TNQf1GfWT
-	bz/RBZGbRsSbGrknt+aHbuDlSfQp+8pmc+wKMakR2JjfXnYRsQ49BXsbp2lXwk/InhzZDv
-	l5w2+3IG5XlWkUJemxwY8iqK473ZrLU=
+	bh=NswECTwf2Am5O4mzub2Gi5EPMKDSbDHkl2uS99+mtdU=;
+	b=hAkmWpOLnG6wke+32vASWzapPC+OTUTibM7Maz8v/JiQfysVbFCRXR18CmPt29DnB86x/Q
+	yJfNj7LCAcbBmn65k5q1wcuAHDCiycMUykcbuOOJkuy616hMrK/26ywHe7z20CjFuZh8Fi
+	dcGkvXPNRU0JHY2qRMJ4CpK01p7C5HQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-512-my2ocIdJPfKv0n4SrQF9XA-1; Thu, 18 Mar 2021 12:50:12 -0400
-X-MC-Unique: my2ocIdJPfKv0n4SrQF9XA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-190-Eg80LlFUPt6-FBsKuOpXQA-1; Thu, 18 Mar 2021 13:26:50 -0400
+X-MC-Unique: Eg80LlFUPt6-FBsKuOpXQA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4BAC118C8C01;
-	Thu, 18 Mar 2021 16:50:06 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E9225610F1;
-	Thu, 18 Mar 2021 16:50:05 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1528C1017965;
+	Thu, 18 Mar 2021 17:26:45 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ECA825C1D1;
+	Thu, 18 Mar 2021 17:26:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 25E2F1800216;
-	Thu, 18 Mar 2021 16:50:05 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1048A4BB7C;
+	Thu, 18 Mar 2021 17:26:37 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12IGo1CK030728 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 18 Mar 2021 12:50:01 -0400
+	id 12IHQTxE009109 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 18 Mar 2021 13:26:29 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 77EF0610F3; Thu, 18 Mar 2021 16:50:01 +0000 (UTC)
+	id EABFB5D9CA; Thu, 18 Mar 2021 17:26:29 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (ovpn-12-24.pek2.redhat.com [10.72.12.24])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B9E61610F1;
-	Thu, 18 Mar 2021 16:50:00 +0000 (UTC)
-From: Ming Lei <ming.lei@redhat.com>
-To: Jens Axboe <axboe@kernel.dk>
-Date: Fri, 19 Mar 2021 00:48:27 +0800
-Message-Id: <20210318164827.1481133-14-ming.lei@redhat.com>
-In-Reply-To: <20210318164827.1481133-1-ming.lei@redhat.com>
+Received: from localhost (unknown [10.18.25.174])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6D1D65D9C6;
+	Thu, 18 Mar 2021 17:26:23 +0000 (UTC)
+Date: Thu, 18 Mar 2021 13:26:22 -0400
+From: Mike Snitzer <snitzer@redhat.com>
+To: Ming Lei <ming.lei@redhat.com>
+Message-ID: <20210318172622.GA3871@redhat.com>
 References: <20210318164827.1481133-1-ming.lei@redhat.com>
+	<20210318164827.1481133-10-ming.lei@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+In-Reply-To: <20210318164827.1481133-10-ming.lei@redhat.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
-Cc: Mike Snitzer <snitzer@redhat.com>, Ming Lei <ming.lei@redhat.com>,
-	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	Jeffle Xu <jefflexu@linux.alibaba.com>, Christoph Hellwig <hch@lst.de>
-Subject: [dm-devel] [RFC PATCH V2 13/13] blk-mq: limit hw queues to be
-	polled in each blk_poll()
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+	dm-devel@redhat.com, Jeffle Xu <jefflexu@linux.alibaba.com>,
+	Christoph Hellwig <hch@lst.de>
+Subject: Re: [dm-devel] [RFC PATCH V2 09/13] block: use per-task poll
+ context to implement bio based io poll
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -69,118 +71,232 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Limit at most 8 queues are polled in each blk_pull(), avoid to
-add extra latency when queue depth is high.
+On Thu, Mar 18 2021 at 12:48pm -0400,
+Ming Lei <ming.lei@redhat.com> wrote:
 
-Signed-off-by: Ming Lei <ming.lei@redhat.com>
----
- block/blk-mq.c | 66 +++++++++++++++++++++++++++++++++++---------------
- 1 file changed, 46 insertions(+), 20 deletions(-)
+> Currently bio based IO poll needs to poll all hw queue blindly, this way
+> is very inefficient, and the big reason is that we can't pass bio
+> submission result to io poll task.
+> 
+> In IO submission context, track associated underlying bios by per-task
+> submission queue and save 'cookie' poll data in bio->bi_iter.bi_private_data,
+> and return current->pid to caller of submit_bio() for any bio based
+> driver's IO, which is submitted from FS.
+> 
+> In IO poll context, the passed cookie tells us the PID of submission
+> context, and we can find the bio from that submission context. Moving
+> bio from submission queue to poll queue of the poll context, and keep
+> polling until these bios are ended. Remove bio from poll queue if the
+> bio is ended. Add BIO_DONE and BIO_END_BY_POLL for such purpose.
+> 
+> In previous version, kfifo is used to implement submission queue, and
+> Jeffle Xu found that kfifo can't scale well in case of high queue depth.
+> So far bio's size is close to 2 cacheline size, and it may not be
+> accepted to add new field into bio for solving the scalability issue by
+> tracking bios via linked list, switch to bio group list for tracking bio,
+> the idea is to reuse .bi_end_io for linking bios into a linked list for
+> all sharing same .bi_end_io(call it bio group), which is recovered before
+> really end bio, since BIO_END_BY_POLL is added for enhancing this point.
+> Usually .bi_end_bio is same for all bios in same layer, so it is enough to
+> provide very limited groups, such as 32 for fixing the scalability issue.
+> 
+> Usually submission shares context with io poll. The per-task poll context
+> is just like stack variable, and it is cheap to move data between the two
+> per-task queues.
+> 
+> Signed-off-by: Ming Lei <ming.lei@redhat.com>
+> ---
+>  block/bio.c               |   5 ++
+>  block/blk-core.c          | 149 +++++++++++++++++++++++++++++++-
+>  block/blk-mq.c            | 173 +++++++++++++++++++++++++++++++++++++-
+>  block/blk.h               |   9 ++
+>  include/linux/blk_types.h |  16 +++-
+>  5 files changed, 348 insertions(+), 4 deletions(-)
+> 
+> diff --git a/block/bio.c b/block/bio.c
+> index 26b7f721cda8..04c043dc60fc 100644
+> --- a/block/bio.c
+> +++ b/block/bio.c
+> @@ -1402,6 +1402,11 @@ static inline bool bio_remaining_done(struct bio *bio)
+>   **/
+>  void bio_endio(struct bio *bio)
+>  {
+> +	/* BIO_END_BY_POLL has to be set before calling submit_bio */
+> +	if (bio_flagged(bio, BIO_END_BY_POLL)) {
+> +		bio_set_flag(bio, BIO_DONE);
+> +		return;
+> +	}
+>  again:
+>  	if (!bio_remaining_done(bio))
+>  		return;
+> diff --git a/block/blk-core.c b/block/blk-core.c
+> index efc7a61a84b4..778d25a7e76c 100644
+> --- a/block/blk-core.c
+> +++ b/block/blk-core.c
+> @@ -805,6 +805,77 @@ static inline unsigned int bio_grp_list_size(unsigned int nr_grps)
+>  		sizeof(struct bio_grp_list_data);
+>  }
+>  
+> +static inline void *bio_grp_data(struct bio *bio)
+> +{
+> +	return bio->bi_poll;
+> +}
+> +
+> +/* add bio into bio group list, return true if it is added */
+> +static bool bio_grp_list_add(struct bio_grp_list *list, struct bio *bio)
+> +{
+> +	int i;
+> +	struct bio_grp_list_data *grp;
+> +
+> +	for (i = 0; i < list->nr_grps; i++) {
+> +		grp = &list->head[i];
+> +		if (grp->grp_data == bio_grp_data(bio)) {
+> +			__bio_grp_list_add(&grp->list, bio);
+> +			return true;
+> +		}
+> +	}
+> +
+> +	if (i == list->max_nr_grps)
+> +		return false;
+> +
+> +	/* create a new group */
+> +	grp = &list->head[i];
+> +	bio_list_init(&grp->list);
+> +	grp->grp_data = bio_grp_data(bio);
+> +	__bio_grp_list_add(&grp->list, bio);
+> +	list->nr_grps++;
+> +
+> +	return true;
+> +}
+> +
+> +static int bio_grp_list_find_grp(struct bio_grp_list *list, void *grp_data)
+> +{
+> +	int i;
+> +	struct bio_grp_list_data *grp;
+> +
+> +	for (i = 0; i < list->max_nr_grps; i++) {
+> +		grp = &list->head[i];
+> +		if (grp->grp_data == grp_data)
+> +			return i;
+> +	}
+> +	for (i = 0; i < list->max_nr_grps; i++) {
+> +		grp = &list->head[i];
+> +		if (bio_grp_list_grp_empty(grp))
+> +			return i;
+> +	}
+> +	return -1;
+> +}
+> +
+> +/* Move as many as possible groups from 'src' to 'dst' */
+> +void bio_grp_list_move(struct bio_grp_list *dst, struct bio_grp_list *src)
+> +{
+> +	int i, j, cnt = 0;
+> +	struct bio_grp_list_data *grp;
+> +
+> +	for (i = src->nr_grps - 1; i >= 0; i--) {
+> +		grp = &src->head[i];
+> +		j = bio_grp_list_find_grp(dst, grp->grp_data);
+> +		if (j < 0)
+> +			break;
+> +		if (bio_grp_list_grp_empty(&dst->head[j]))
+> +			dst->head[j].grp_data = grp->grp_data;
+> +		__bio_grp_list_merge(&dst->head[j].list, &grp->list);
+> +		bio_list_init(&grp->list);
+> +		cnt++;
+> +	}
+> +
+> +	src->nr_grps -= cnt;
+> +}
+> +
+>  static void bio_poll_ctx_init(struct blk_bio_poll_ctx *pc)
+>  {
+>  	pc->sq = (void *)pc + sizeof(*pc);
+> @@ -866,6 +937,46 @@ static inline void blk_bio_poll_preprocess(struct request_queue *q,
+>  		bio->bi_opf |= REQ_TAG;
+>  }
+>  
+> +static bool blk_bio_poll_prep_submit(struct io_context *ioc, struct bio *bio)
+> +{
+> +	struct blk_bio_poll_ctx *pc = ioc->data;
+> +	unsigned int queued;
+> +
+> +	/*
+> +	 * We rely on immutable .bi_end_io between blk-mq bio submission
+> +	 * and completion. However, bio crypt may update .bi_end_io during
+> +	 * submitting, so simply not support bio based polling for this
+> +	 * setting.
+> +	 */
+> +	if (likely(!bio_has_crypt_ctx(bio))) {
+> +		/* track this bio via bio group list */
+> +		spin_lock(&pc->sq_lock);
+> +		queued = bio_grp_list_add(pc->sq, bio);
+> +		spin_unlock(&pc->sq_lock);
+> +	} else {
+> +		queued = false;
+> +	}
+> +
+> +	/*
+> +	 * Now the bio is added per-task fifo, mark it as END_BY_POLL,
+> +	 * and the bio is always completed from the pair poll context.
+> +	 *
+> +	 * One invariant is that if bio isn't completed, blk_poll() will
+> +	 * be called by passing cookie returned from submitting this bio.
+> +	 */
+> +	if (!queued)
+> +		bio->bi_opf &= ~(REQ_HIPRI | REQ_TAG);
+> +	else
+> +		bio_set_flag(bio, BIO_END_BY_POLL);
+> +
+> +	return queued;
+> +}
+> +
+> +static void blk_bio_poll_post_submit(struct bio *bio, blk_qc_t cookie)
+> +{
+> +	bio->bi_iter.bi_private_data = cookie;
+> +}
+> +
+>  static noinline_for_stack bool submit_bio_checks(struct bio *bio)
+>  {
+>  	struct block_device *bdev = bio->bi_bdev;
+> @@ -1020,7 +1131,7 @@ static blk_qc_t __submit_bio(struct bio *bio)
+>   * bio_list_on_stack[1] contains bios that were submitted before the current
+>   *	->submit_bio_bio, but that haven't been processed yet.
+>   */
+> -static blk_qc_t __submit_bio_noacct(struct bio *bio)
+> +static blk_qc_t __submit_bio_noacct_int(struct bio *bio, struct io_context *ioc)
+>  {
+>  	struct bio_list bio_list_on_stack[2];
+>  	blk_qc_t ret = BLK_QC_T_NONE;
+> @@ -1043,7 +1154,16 @@ static blk_qc_t __submit_bio_noacct(struct bio *bio)
+>  		bio_list_on_stack[1] = bio_list_on_stack[0];
+>  		bio_list_init(&bio_list_on_stack[0]);
+>  
+> -		ret = __submit_bio(bio);
+> +		if (ioc && queue_is_mq(q) &&
+> +				(bio->bi_opf & (REQ_HIPRI | REQ_TAG))) {
+> +			bool queued = blk_bio_poll_prep_submit(ioc, bio);
+> +
+> +			ret = __submit_bio(bio);
+> +			if (queued)
+> +				blk_bio_poll_post_submit(bio, ret);
+> +		} else {
+> +			ret = __submit_bio(bio);
+> +		}
 
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index f26950a51f4a..9c94b7f0bf4b 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -3870,33 +3870,31 @@ static blk_qc_t bio_get_poll_cookie(struct bio *bio)
- 	return bio->bi_iter.bi_private_data;
- }
- 
--static int blk_mq_poll_io(struct bio *bio)
-+#define POLL_HCTX_MAX_CNT 8
-+
-+static bool blk_add_unique_hctx(struct blk_mq_hw_ctx **data, int *cnt,
-+		struct blk_mq_hw_ctx *hctx)
- {
--	struct request_queue *q = bio->bi_bdev->bd_disk->queue;
--	blk_qc_t cookie = bio_get_poll_cookie(bio);
--	int ret = 0;
-+	int i;
- 
--	if (!bio_flagged(bio, BIO_DONE) && blk_qc_t_valid(cookie)) {
--		struct blk_mq_hw_ctx *hctx =
--			q->queue_hw_ctx[blk_qc_t_to_queue_num(cookie)];
-+	for (i = 0; i < *cnt; i++) {
-+		if (data[i] == hctx)
-+			goto exit;
-+	}
- 
--		ret += blk_mq_poll_hctx(q, hctx);
-+	if (i < POLL_HCTX_MAX_CNT) {
-+		data[i] = hctx;
-+		(*cnt)++;
- 	}
--	return ret;
-+ exit:
-+	return *cnt == POLL_HCTX_MAX_CNT;
- }
- 
--static int blk_bio_poll_and_end_io(struct request_queue *q,
--		struct blk_bio_poll_ctx *poll_ctx)
-+static void blk_build_poll_queues(struct blk_bio_poll_ctx *poll_ctx,
-+		struct blk_mq_hw_ctx **data, int *cnt)
- {
--	int ret = 0;
- 	int i;
- 
--	/*
--	 * Poll hw queue first.
--	 *
--	 * TODO: limit max poll times and make sure to not poll same
--	 * hw queue one more time.
--	 */
- 	for (i = 0; i < poll_ctx->pq->max_nr_grps; i++) {
- 		struct bio_grp_list_data *grp = &poll_ctx->pq->head[i];
- 		struct bio *bio;
-@@ -3904,9 +3902,37 @@ static int blk_bio_poll_and_end_io(struct request_queue *q,
- 		if (bio_grp_list_grp_empty(grp))
- 			continue;
- 
--		for (bio = grp->list.head; bio; bio = bio->bi_poll)
--			ret += blk_mq_poll_io(bio);
-+		for (bio = grp->list.head; bio; bio = bio->bi_poll) {
-+			blk_qc_t  cookie;
-+			struct blk_mq_hw_ctx *hctx;
-+			struct request_queue *q;
-+
-+			if (bio_flagged(bio, BIO_DONE))
-+				continue;
-+			cookie = bio_get_poll_cookie(bio);
-+			if (!blk_qc_t_valid(cookie))
-+				continue;
-+
-+			q = bio->bi_bdev->bd_disk->queue;
-+			hctx = q->queue_hw_ctx[blk_qc_t_to_queue_num(cookie)];
-+			if (blk_add_unique_hctx(data, cnt, hctx))
-+				return;
-+		}
- 	}
-+}
-+
-+static int blk_bio_poll_and_end_io(struct request_queue *q,
-+		struct blk_bio_poll_ctx *poll_ctx)
-+{
-+	int ret = 0;
-+	int i;
-+	struct blk_mq_hw_ctx *hctx[POLL_HCTX_MAX_CNT];
-+	int cnt = 0;
-+
-+	blk_build_poll_queues(poll_ctx, hctx, &cnt);
-+
-+	for (i = 0; i < cnt; i++)
-+		ret += blk_mq_poll_hctx(hctx[i]->queue, hctx[i]);
- 
- 	/* reap bios */
- 	for (i = 0; i < poll_ctx->pq->max_nr_grps; i++) {
--- 
-2.29.2
+So you're only supporting bio-based polling if the bio-based device is
+stacked _directly_ ontop of blk-mq?  Severely limits the utility of
+bio-based IO polling support if such shallow stacking is required.
+
+Mike
 
 --
 dm-devel mailing list
