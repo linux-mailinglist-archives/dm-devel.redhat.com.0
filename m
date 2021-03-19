@@ -1,63 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id F0A703417BB
-	for <lists+dm-devel@lfdr.de>; Fri, 19 Mar 2021 09:50:43 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 120503417BD
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Mar 2021 09:50:48 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-490-qpZZIP6PPxq-qRqJzixa2Q-1; Fri, 19 Mar 2021 04:50:41 -0400
-X-MC-Unique: qpZZIP6PPxq-qRqJzixa2Q-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-216-JDoueEbIO9e-ofTs1DRoRA-1; Fri, 19 Mar 2021 04:50:46 -0400
+X-MC-Unique: JDoueEbIO9e-ofTs1DRoRA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 79E07881286;
-	Fri, 19 Mar 2021 08:50:35 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9FA32190B2A9;
+	Fri, 19 Mar 2021 08:50:40 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 553D15D9F2;
-	Fri, 19 Mar 2021 08:50:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A37C5D76F;
+	Fri, 19 Mar 2021 08:50:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 08297180B450;
-	Fri, 19 Mar 2021 08:50:35 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DD502180B452;
+	Fri, 19 Mar 2021 08:50:39 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12J7xLSS012639 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 19 Mar 2021 03:59:21 -0400
+	id 12J8Il2K015059 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 19 Mar 2021 04:18:48 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E6B1416794; Fri, 19 Mar 2021 07:59:20 +0000 (UTC)
+	id C0AF3115D7AB; Fri, 19 Mar 2021 08:18:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E1620FA750
-	for <dm-devel@redhat.com>; Fri, 19 Mar 2021 07:59:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BC0DD115D7A8
+	for <dm-devel@redhat.com>; Fri, 19 Mar 2021 08:18:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 587D080006E
-	for <dm-devel@redhat.com>; Fri, 19 Mar 2021 07:59:18 +0000 (UTC)
-Received: from out30-54.freemail.mail.aliyun.com
-	(out30-54.freemail.mail.aliyun.com [115.124.30.54]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-243-i825Ay1uP_WUoeCYePOoFg-1;
-	Fri, 19 Mar 2021 03:59:13 -0400
-X-MC-Unique: i825Ay1uP_WUoeCYePOoFg-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R101e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04394;
-	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=6; SR=0;
-	TI=SMTPD_---0USZNFva_1616140747
-Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0USZNFva_1616140747) by smtp.aliyun-inc.com(127.0.0.1);
-	Fri, 19 Mar 2021 15:59:07 +0800
-To: Ming Lei <ming.lei@redhat.com>, Jens Axboe <axboe@kernel.dk>
-References: <20210318164827.1481133-1-ming.lei@redhat.com>
-	<20210318164827.1481133-6-ming.lei@redhat.com>
-From: JeffleXu <jefflexu@linux.alibaba.com>
-Message-ID: <50e454b9-2027-cf38-0be7-a4ecfdd54027@linux.alibaba.com>
-Date: Fri, 19 Mar 2021 15:59:06 +0800
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
-	Gecko/20100101 Thunderbird/78.7.1
-MIME-Version: 1.0
-In-Reply-To: <20210318164827.1481133-6-ming.lei@redhat.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5BF18801E8D
+	for <dm-devel@redhat.com>; Fri, 19 Mar 2021 08:18:44 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21]) by
+	relay.mimecast.com with ESMTP id us-mta-261-d6b39lMQNa6uRskjr0Q0rA-1;
+	Fri, 19 Mar 2021 04:18:41 -0400
+X-MC-Unique: d6b39lMQNa6uRskjr0Q0rA-1
+Received: from localhost.localdomain (unknown [124.16.141.241])
+	by APP-01 (Coremail) with SMTP id qwCowABnqI2jXFRgdxUYAA--.9656S2;
+	Fri, 19 Mar 2021 16:11:16 +0800 (CST)
+From: Xu Wang <vulab@iscas.ac.cn>
+To: agk@redhat.com, snitzer@redhat.com, dm-devel@redhat.com
+Date: Fri, 19 Mar 2021 08:11:13 +0000
+Message-Id: <20210319081113.16916-1-vulab@iscas.ac.cn>
+X-CM-TRANSID: qwCowABnqI2jXFRgdxUYAA--.9656S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7JFy5XF18Xr1furykGrW7Jwb_yoW3AwcEgw
+	15ZF9Fqrn5Gr13uw15JF45Z3sYyFn5WF1IqFyIga9Iv348ua13AryUurn5Wr45u3y8CrZr
+	Ar1Uuw13Ar4xAjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbsAYjsxI4VWDJwAYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ec7CjxVAajcxG14v26r1j6r
+	4UMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0E
+	wIxGrwCY02Avz4vE14v_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+	14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+	IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWrZr1j6s0DMIIF0xvE
+	x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnU
+	UI43ZEXa7IU0rnY5UUUUU==
+X-Originating-IP: [124.16.141.241]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCgkFA1z4jcmc6QAAsQ
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -66,12 +74,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 19 Mar 2021 04:50:24 -0400
-Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
-	Christoph Hellwig <hch@lst.de>, Mike Snitzer <snitzer@redhat.com>
-Subject: Re: [dm-devel] [RFC PATCH V2 05/13] block: add req flag of REQ_TAG
+Cc: linux-kernel@vger.kernel.org
+Subject: [dm-devel] [PATCH] dm thin: remove needless request_queue NULL
+	pointer check
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,150 +91,41 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+Since commit ff9ea323816d ("block, bdi: an active gendisk always has a
+request_queue associated with it") the request_queue pointer returned
+from bdev_get_queue() shall never be NULL.
 
+Signed-off-by: Xu Wang <vulab@iscas.ac.cn>
+---
+ drivers/md/dm-thin.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On 3/19/21 12:48 AM, Ming Lei wrote:
-> Add one req flag REQ_TAG which will be used in the following patch for
-> supporting bio based IO polling.
-> 
-> Exactly this flag can help us to do:
-> 
-> 1) request flag is cloned in bio_fast_clone(), so if we mark one FS bio
-> as REQ_TAG, all bios cloned from this FS bio will be marked as REQ_TAG.
-> 
-> 2)create per-task io polling context if the bio based queue supports polling
-> and the submitted bio is HIPRI. This per-task io polling context will be
-> created during submit_bio() before marking this HIPRI bio as REQ_TAG. Then
-> we can avoid to create such io polling context if one cloned bio with REQ_TAG
-> is submitted from another kernel context.
-> 
-> 3) for supporting bio based io polling, we need to poll IOs from all
-> underlying queues of bio device/driver, this way help us to recognize which
-> IOs need to polled in bio based style, which will be implemented in next
-> patch.
-> 
-> Signed-off-by: Ming Lei <ming.lei@redhat.com>
-> ---
->  block/blk-core.c          | 29 +++++++++++++++++++++++++++--
->  include/linux/blk_types.h |  4 ++++
->  2 files changed, 31 insertions(+), 2 deletions(-)
-> 
-> diff --git a/block/blk-core.c b/block/blk-core.c
-> index 0b00c21cbefb..efc7a61a84b4 100644
-> --- a/block/blk-core.c
-> +++ b/block/blk-core.c
-> @@ -840,11 +840,30 @@ static inline bool blk_queue_support_bio_poll(struct request_queue *q)
->  static inline void blk_bio_poll_preprocess(struct request_queue *q,
->  		struct bio *bio)
->  {
-> +	bool mq;
-> +
->  	if (!(bio->bi_opf & REQ_HIPRI))
->  		return;
->  
-> -	if (!blk_queue_poll(q) || (!queue_is_mq(q) && !blk_get_bio_poll_ctx()))
-> +	/*
-> +	 * Can't support bio based IO poll without per-task poll queue
-> +	 *
-> +	 * Now we have created per-task io poll context, and mark this
-> +	 * bio as REQ_TAG, so: 1) if any cloned bio from this bio is
-> +	 * submitted from another kernel context, we won't create bio
-> +	 * poll context for it, so that bio will be completed by IRQ;
-> +	 * 2) If such bio is submitted from current context, we will
-> +	 * complete it via blk_poll(); 3) If driver knows that one
-> +	 * underlying bio allocated from driver is for FS bio, meantime
-> +	 * it is submitted in current context, driver can mark such bio
-> +	 * as REQ_TAG manually, so the bio can be completed via blk_poll
-> +	 * too.
-> +	 */
-
-Sorry I can't understand case 3, could you please further explain it? If
-'driver marks such bio as REQ_TAG manually', then per-task io poll
-context won't be created, and thus REQ_HIPRI will be cleared, in which
-case the bio will be completed by IRQ. How could it be completed by
-blk_poll()?
-
-
-> +	mq = queue_is_mq(q);
-> +	if (!blk_queue_poll(q) || (!mq && !blk_get_bio_poll_ctx()))
->  		bio->bi_opf &= ~REQ_HIPRI;
-
-
-
-
-If the use cases are mixed, saying one kernel context may submit IO with
-and without REQ_TAG at the meantime (though I don't know if this
-situation exists), then the above code may not work as we expect.
-
-For example, dm-XXX will return DM_MAPIO_SUBMITTED and actually submits
-the cloned bio (with REQ_TAG) with internal kernel threads. Besides,
-dm-XXX will also allocate bio (without REQ_TAG) of itself for metadata
-logging or something. When submitting bios (without REQ_TAG), per-task
-io poll context will be allocated. Later when submitting cloned bios
-(with REQ_TAG), the poll context already exists and thus REQ_HIPRI is
-kept for these bios and they are submitted to polling hw queues.
-
-
-> +	else if (!mq)
-> +		bio->bi_opf |= REQ_TAG;
->  }
->  
->  static noinline_for_stack bool submit_bio_checks(struct bio *bio)
-> @@ -893,9 +912,15 @@ static noinline_for_stack bool submit_bio_checks(struct bio *bio)
->  
->  	/*
->  	 * Created per-task io poll queue if we supports bio polling
-> -	 * and it is one HIPRI bio.
-> +	 * and it is one HIPRI bio, and this HIPRI bio has to be from
-> +	 * FS. If REQ_TAG isn't set for HIPRI bio, we think it originated
-> +	 * from FS.
-> +	 *
-> +	 * Driver may allocated bio by itself and REQ_TAG is set, but they
-> +	 * won't be marked as HIPRI.
->  	 */
->  	blk_create_io_context(q, blk_queue_support_bio_poll(q) &&
-> +			!(bio->bi_opf & REQ_TAG) &&
->  			(bio->bi_opf & REQ_HIPRI));
->  
->  	blk_bio_poll_preprocess(q, bio);
-> diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-> index db026b6ec15a..a1bcade4bcc3 100644
-> --- a/include/linux/blk_types.h
-> +++ b/include/linux/blk_types.h
-> @@ -394,6 +394,9 @@ enum req_flag_bits {
->  
->  	__REQ_HIPRI,
->  
-> +	/* for marking IOs originated from same FS bio in same context */
-> +	__REQ_TAG,
-> +
->  	/* for driver use */
->  	__REQ_DRV,
->  	__REQ_SWAP,		/* swapping request. */
-> @@ -418,6 +421,7 @@ enum req_flag_bits {
->  
->  #define REQ_NOUNMAP		(1ULL << __REQ_NOUNMAP)
->  #define REQ_HIPRI		(1ULL << __REQ_HIPRI)
-> +#define REQ_TAG			(1ULL << __REQ_TAG)
->  
->  #define REQ_DRV			(1ULL << __REQ_DRV)
->  #define REQ_SWAP		(1ULL << __REQ_SWAP)
-> 
-
+diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
+index fff4c50df74d..985baee3a678 100644
+--- a/drivers/md/dm-thin.c
++++ b/drivers/md/dm-thin.c
+@@ -2816,7 +2816,7 @@ static bool data_dev_supports_discard(struct pool_c *pt)
+ {
+ 	struct request_queue *q = bdev_get_queue(pt->data_dev->bdev);
+ 
+-	return q && blk_queue_discard(q);
++	return blk_queue_discard(q);
+ }
+ 
+ static bool is_factor(sector_t block_size, uint32_t n)
 -- 
-Thanks,
-Jeffle
+2.17.1
 
 --
 dm-devel mailing list
