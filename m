@@ -1,75 +1,75 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D6E7234124A
-	for <lists+dm-devel@lfdr.de>; Fri, 19 Mar 2021 02:50:16 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id F019A3417B5
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Mar 2021 09:50:39 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-504-0R9MTQHWNXOr12ttQlYYMA-1; Thu, 18 Mar 2021 21:50:13 -0400
-X-MC-Unique: 0R9MTQHWNXOr12ttQlYYMA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-185-4YizvsW-OO-wwCE4YlaQvg-1; Fri, 19 Mar 2021 04:50:36 -0400
+X-MC-Unique: 4YizvsW-OO-wwCE4YlaQvg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4B7F81009461;
-	Fri, 19 Mar 2021 01:50:06 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D4F6010027A5;
-	Fri, 19 Mar 2021 01:50:02 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5E73A87A83A;
+	Fri, 19 Mar 2021 08:50:30 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2EA391F43B;
+	Fri, 19 Mar 2021 08:50:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A2C6C1809C83;
-	Fri, 19 Mar 2021 01:49:54 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 539FE4A7C8;
+	Fri, 19 Mar 2021 08:50:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12J1ngwL009303 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 18 Mar 2021 21:49:43 -0400
+	id 12J1KFKJ005674 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 18 Mar 2021 21:20:16 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D1FAF2166BA3; Fri, 19 Mar 2021 01:49:42 +0000 (UTC)
+	id D28C2F97FC; Fri, 19 Mar 2021 01:20:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CC9AF2166B44
-	for <dm-devel@redhat.com>; Fri, 19 Mar 2021 01:49:39 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CD20EF97ED
+	for <dm-devel@redhat.com>; Fri, 19 Mar 2021 01:20:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AF004811E9B
-	for <dm-devel@redhat.com>; Fri, 19 Mar 2021 01:49:39 +0000 (UTC)
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com
-	[45.249.212.190]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-398-FEzXT51DN0uenb-FRdO_1A-1; Thu, 18 Mar 2021 21:49:37 -0400
-X-MC-Unique: FEzXT51DN0uenb-FRdO_1A-1
-Received: from DGGEMS404-HUB.china.huawei.com (unknown [172.30.72.58])
-	by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4F1mwX0KFZzmZSL;
-	Fri, 19 Mar 2021 09:47:08 +0800 (CST)
-Received: from [10.174.178.113] (10.174.178.113) by
-	DGGEMS404-HUB.china.huawei.com (10.3.19.204) with Microsoft SMTP Server
-	id 14.3.498.0; Fri, 19 Mar 2021 09:49:27 +0800
-To: Martin Wilck <mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, 
-	Christophe Varoqui <christophe.varoqui@opensvc.com>
-References: <20210128210852.23207-1-mwilck@suse.com>
-	<c1dddccecfe0e12a2fe2dca66faad740a30acd53.camel@suse.com>
-	<99488b1b-2339-338d-e951-0b8f3e78449b@huawei.com>
-	<dcc6fb2a344ce75972242e2c78e2e485b58140da.camel@suse.com>
-	<655de0b3-9625-bf3c-85f8-d19832bd84d8@huawei.com>
-	<79f18cdb19b41be24d082d5528ab2325e6552395.camel@suse.com>
-	<05c23ce9-4859-b0c3-3acb-c74f2c4510d6@huawei.com>
-	<41e79d67f568baf8de6b28e4924620240f0a2731.camel@suse.com>
-	<58a88880-8977-7439-86d6-898d8a2b4bed@huawei.com>
-	<0e3dbb9a0890cca8145fff576b79125c89601689.camel@suse.com>
-	<4e562d96acc1b52abc2f2e502872cb2871469465.camel@suse.com>
-	<580f3fc1-2035-21cb-3b63-28ff7c48b8af@huawei.com>
-	<4eed40b903d55714212bb629600aed452f980e62.camel@suse.com>
-From: lixiaokeng <lixiaokeng@huawei.com>
-Message-ID: <6306ea67-cd4a-a507-a206-629cf5dadf0a@huawei.com>
-Date: Fri, 19 Mar 2021 09:49:27 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 34C8F800B28
+	for <dm-devel@redhat.com>; Fri, 19 Mar 2021 01:20:12 +0000 (UTC)
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com
+	[209.85.222.176]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-489-Y3VNak13PimlD4sKvgy6Jw-1; Thu, 18 Mar 2021 21:20:10 -0400
+X-MC-Unique: Y3VNak13PimlD4sKvgy6Jw-1
+Received: by mail-qk1-f176.google.com with SMTP id q3so1343005qkq.12;
+	Thu, 18 Mar 2021 18:20:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=SIBN5wlVX/1brXbxsa+Wdlnk/Fd8ly3QriOlsLGIGjM=;
+	b=tObGAlJ8Iv8uJT9FUsGAtZdcZfBDHkOVb795Gz/+7V6WbKiqm8kqQ7evdilIkgdciO
+	mJO1EKNiBNP/dlUv+GCAzQ8PubTvmXnDdENESr1IK7IUqu+GM5C6F+C5K1t+76sz6Uje
+	wOjeY8QzkEMYwgsOZJU0qTaG2xns9R8q4JJUOS4IzRt+dJ/UBiL3jVJWeI/gTkQLBmj3
+	F9FsTXuYO8bisCRcEjvu496bD2Q8uGlWFevaLQo/TouRc9I7S6QeRJ/oS3Pk/3bLNCZd
+	59EoRbNyvCmxGGzGPQZqbqGphMBkXXC0s6zXEv3zma1S1MnUcirE7pEP3CDag04Jeb+P
+	HFvg==
+X-Gm-Message-State: AOAM5333gDTDLOMr1rjRc/h/aw2gXhTFfX+Lgrg8IsnXM1UEITQTqyWy
+	iQn2zRZo05fTxNJrp4joMYOH8Vug4qQsUAFn
+X-Google-Smtp-Source: ABdhPJw79TU4YGxOtS3j3yXSnLChWgzBvoPwx+LNAmLZavEFpVZ1Tca3+e4u/Z7A7IS9Ni8jxNtqcw==
+X-Received: by 2002:a05:620a:16b9:: with SMTP id
+	s25mr7120694qkj.500.1616116809150; 
+	Thu, 18 Mar 2021 18:20:09 -0700 (PDT)
+Received: from localhost.localdomain ([37.19.198.87])
+	by smtp.gmail.com with ESMTPSA id r8sm2763417qtu.49.2021.03.18.18.20.05
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Thu, 18 Mar 2021 18:20:08 -0700 (PDT)
+From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+To: agk@redhat.com, snitzer@redhat.com, dm-devel@redhat.com,
+	linux-kernel@vger.kernel.org
+Date: Fri, 19 Mar 2021 06:47:50 +0530
+Message-Id: <20210319011750.23468-1-unixbhaskar@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <4eed40b903d55714212bb629600aed452f980e62.camel@suse.com>
-X-Originating-IP: [10.174.178.113]
-X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -78,12 +78,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 12J1ngwL009303
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: linfeilong <linfeilong@huawei.com>, dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH] multipathd: avoid crash in uevent_cleanup()
+X-Mailman-Approved-At: Fri, 19 Mar 2021 04:50:24 -0400
+Cc: rdunlap@infradead.org, Bhaskar Chowdhury <unixbhaskar@gmail.com>
+Subject: [dm-devel] [PATCH] dm: ebs: Several typo fixes
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,36 +96,57 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-GB
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
 
+s/retrievd/retrieved/
+s/misalignement/misalignment/
+s/funtion/function/
 
-On 2021/3/18 0:59, Martin Wilck wrote:
-> Hello Lixiaokeng,
->=20
->=20
->> Hi Martin
->>
->> =A0 I'm sorry for missing this. 38ffd89 ("libmultipath: prevent
->> DSO unloading with astray checker threads") fixes my issue.
->=20
-> Thanks! Am I right assuming that you did _not_ use my prior patch
-> "multipathd: avoid crash in uevent_cleanup()" (which would mean that we
-> don't need it)? Please confirm that, too.
->=20
+Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+---
+ drivers/md/dm-ebs-target.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-The patch "multipathd: avoid crash in uevent_cleanup()" is _NOT_ used.
+diff --git a/drivers/md/dm-ebs-target.c b/drivers/md/dm-ebs-target.c
+index 55bcfb74f51f..71475a2410be 100644
+--- a/drivers/md/dm-ebs-target.c
++++ b/drivers/md/dm-ebs-target.c
+@@ -28,7 +28,7 @@ struct ebs_c {
+ 	spinlock_t lock;		/* Guard bios input list above. */
+ 	sector_t start;			/* <start> table line argument, see ebs_ctr below. */
+ 	unsigned int e_bs;		/* Emulated block size in sectors exposed to upper layer. */
+-	unsigned int u_bs;		/* Underlying block size in sectors retrievd from/set on lower layer device. */
++	unsigned int u_bs;		/* Underlying block size in sectors retrieved from/set on lower layer device. */
+ 	unsigned char block_shift;	/* bitshift sectors -> blocks used in dm-bufio API. */
+ 	bool u_bs_set:1;		/* Flag to indicate underlying block size is set on table line. */
+ };
+@@ -43,7 +43,7 @@ static inline sector_t __block_mod(sector_t sector, unsigned int bs)
+ 	return sector & (bs - 1);
+ }
 
-Regards,
-Lixiaokeng
+-/* Return number of blocks for a bio, accounting for misalignement of start and end sectors. */
++/* Return number of blocks for a bio, accounting for misalignment of start and end sectors. */
+ static inline unsigned int __nr_blocks(struct ebs_c *ec, struct bio *bio)
+ {
+ 	sector_t end_sector = __block_mod(bio->bi_iter.bi_sector, ec->u_bs) + bio_sectors(bio);
+@@ -171,7 +171,7 @@ static void __ebs_forget_bio(struct ebs_c *ec, struct bio *bio)
+ 	dm_bufio_forget_buffers(ec->bufio, __sector_to_block(ec, sector), blocks);
+ }
 
+-/* Worker funtion to process incoming bios. */
++/* Worker function to process incoming bios. */
+ static void __ebs_process_bios(struct work_struct *ws)
+ {
+ 	int r;
+--
+2.26.2
 
 --
 dm-devel mailing list
