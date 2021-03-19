@@ -2,75 +2,66 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 7E609343A59
+	by mail.lfdr.de (Postfix) with ESMTP id 845C8343A5A
 	for <lists+dm-devel@lfdr.de>; Mon, 22 Mar 2021 08:13:12 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-544-pR24FaHqMA6b5LoQUUnzKQ-1; Mon, 22 Mar 2021 03:13:08 -0400
-X-MC-Unique: pR24FaHqMA6b5LoQUUnzKQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-542-gFAtNeDiO9u44VhXJ0mxYg-1; Mon, 22 Mar 2021 03:13:08 -0400
+X-MC-Unique: gFAtNeDiO9u44VhXJ0mxYg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 94481814256;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 62800180FCAC;
 	Mon, 22 Mar 2021 07:13:03 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 628C560C0F;
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B34A51150;
 	Mon, 22 Mar 2021 07:13:03 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8BF784BB7C;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B5C441800216;
 	Mon, 22 Mar 2021 07:13:02 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12JJ5pV5029138 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 19 Mar 2021 15:05:51 -0400
+	id 12JN0iCS025870 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 19 Mar 2021 19:00:44 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A51082026D46; Fri, 19 Mar 2021 19:05:51 +0000 (UTC)
+	id 6837E10545BE; Fri, 19 Mar 2021 23:00:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6E14D2026D60
-	for <dm-devel@redhat.com>; Fri, 19 Mar 2021 19:05:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D2CEC800883
-	for <dm-devel@redhat.com>; Fri, 19 Mar 2021 19:05:43 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-69-fAGMV4d0NQqFK-WGhaIcCA-1; Fri, 19 Mar 2021 15:05:42 -0400
-X-MC-Unique: fAGMV4d0NQqFK-WGhaIcCA-1
-Received: from rdunlap (helo=localhost)
-	by bombadil.infradead.org with local-esmtp (Exim 4.94 #2 (Red Hat
-	Linux)) id 1lNJMe-001RDI-Bs; Fri, 19 Mar 2021 17:56:49 +0000
-Date: Fri, 19 Mar 2021 10:56:48 -0700 (PDT)
-From: Randy Dunlap <rdunlap@bombadil.infradead.org>
-To: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-In-Reply-To: <20210319011750.23468-1-unixbhaskar@gmail.com>
-Message-ID: <d639d14b-39cd-6a11-5536-4b8fcc9f3a7@bombadil.infradead.org>
-References: <20210319011750.23468-1-unixbhaskar@gmail.com>
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 63C7E1054E2E
+	for <dm-devel@redhat.com>; Fri, 19 Mar 2021 23:00:41 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 63DA51010365
+	for <dm-devel@redhat.com>; Fri, 19 Mar 2021 23:00:41 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-428-M0pdtPKTMpSN-t2afipSig-1;
+	Fri, 19 Mar 2021 19:00:35 -0400
+X-MC-Unique: M0pdtPKTMpSN-t2afipSig-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 4A4F06197E;
+	Fri, 19 Mar 2021 23:00:34 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id o10so12392608lfb.9;
+	Fri, 19 Mar 2021 16:00:34 -0700 (PDT)
+X-Gm-Message-State: AOAM531lHFIxycau+82bJfafUCGFqXmXcsgae9wNB/OA1T0ncL82BeEr
+	WpPdW4ESoq6HQ+33xKEISw8J1Mx+T2v1ATr21cs=
+X-Google-Smtp-Source: ABdhPJyuYpsBckXvuNGEwrJFRxOMsLjC17aINViOKRnv3rEyRl44Dyv9TvN5AqSbrH/x7YstV/yjnxFmW3yF2TJTtkM=
+X-Received: by 2002:a05:6512:3582:: with SMTP id
+	m2mr2121239lfr.10.1616194832629; 
+	Fri, 19 Mar 2021 16:00:32 -0700 (PDT)
 MIME-Version: 1.0
-X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-646709E3
-X-CRM114-CacheID: sfid-20210319_105648_424076_8AC441EE
-X-CRM114-Status: GOOD (  14.41  )
-X-Spam-Score: -0.0 (/)
-X-Spam-Report: Spam detection software,
-	running on the system "bombadil.infradead.org", 
-	has NOT identified this incoming email as spam.  The original
-	message has been attached to this so you can view it or label
-	similar future email.  If you have any questions, see
-	the administrator of that system for details.
-	Content preview:  On Fri, 19 Mar 2021,
-	Bhaskar Chowdhury wrote: > > s/retrievd/retrieved/
-	> s/misalignement/misalignment/ > s/funtion/function/ > >
-	Signed-off-by:
-	Bhaskar Chowdhury <unixbhaskar@gmail.com> Acked-by: Randy Dunlap
-	<rdunlap@infradead.org>
-	Content analysis details:   (-0.0 points, 5.0 required)
-	pts rule name              description
-	---- ----------------------
-	--------------------------------------------------
-	-0.0 NO_RELAYS Informational: message was not relayed via SMTP
+References: <1613177399-22024-1-git-send-email-guoqing.jiang@cloud.ionos.com>
+	<36a660ed-b995-839e-ac82-dc4ca25ccb8a@molgen.mpg.de>
+	<CAPhsuW5s6fk3kua=9Z9o3VPCcN1wdUqXybXm9cp4arJW5+oBvQ@mail.gmail.com>
+	<9f28f6e2-e46a-bfed-09d8-2fec941ea881@cloud.ionos.com>
+In-Reply-To: <9f28f6e2-e46a-bfed-09d8-2fec941ea881@cloud.ionos.com>
+From: Song Liu <song@kernel.org>
+Date: Fri, 19 Mar 2021 16:00:21 -0700
+X-Gmail-Original-Message-ID: <CAPhsuW4V8JCCKePj11rf3zo4MJTz6TpW6DDeNmcJBfRSoN+NDA@mail.gmail.com>
+Message-ID: <CAPhsuW4V8JCCKePj11rf3zo4MJTz6TpW6DDeNmcJBfRSoN+NDA@mail.gmail.com>
+To: Guoqing Jiang <guoqing.jiang@cloud.ionos.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -79,12 +70,17 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Mimecast-Bulk-Signature: yes
+X-Mimecast-Spam-Signature: bulk
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 22 Mar 2021 03:12:32 -0400
-Cc: dm-devel@redhat.com, snitzer@redhat.com, agk@redhat.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH] dm: ebs: Several typo fixes
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>, Mike Snitzer <snitzer@redhat.com>,
+	linux-raid <linux-raid@vger.kernel.org>, dm-devel@redhat.com,
+	it+raid@molgen.mpg.de, Donald Buczek <buczek@molgen.mpg.de>,
+	Alasdair Kergon <agk@redhat.com>
+Subject: Re: [dm-devel] [PATCH V2] md: don't unregister sync_thread with
+	reconfig_mutex held
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -98,66 +94,86 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
+On Wed, Feb 24, 2021 at 1:26 AM Guoqing Jiang
+<guoqing.jiang@cloud.ionos.com> wrote:
+>
+>
+>
+> On 2/24/21 10:09, Song Liu wrote:
+> > On Mon, Feb 15, 2021 at 3:08 AM Paul Menzel <pmenzel@molgen.mpg.de> wrote:
+> >>
+> >> [+cc Donald]
+> >>
+> >> Am 13.02.21 um 01:49 schrieb Guoqing Jiang:
+> >>> Unregister sync_thread doesn't need to hold reconfig_mutex since it
+> >>> doesn't reconfigure array.
+> >>>
+> >>> And it could cause deadlock problem for raid5 as follows:
+> >>>
+> >>> 1. process A tried to reap sync thread with reconfig_mutex held after echo
+> >>>      idle to sync_action.
+> >>> 2. raid5 sync thread was blocked if there were too many active stripes.
+> >>> 3. SB_CHANGE_PENDING was set (because of write IO comes from upper layer)
+> >>>      which causes the number of active stripes can't be decreased.
+> >>> 4. SB_CHANGE_PENDING can't be cleared since md_check_recovery was not able
+> >>>      to hold reconfig_mutex.
+> >>>
+> >>> More details in the link:
+> >>> https://lore.kernel.org/linux-raid/5ed54ffc-ce82-bf66-4eff-390cb23bc1ac@molgen.mpg.de/T/#t
+> >>>
+> >>> And add one parameter to md_reap_sync_thread since it could be called by
+> >>> dm-raid which doesn't hold reconfig_mutex.
+> >>>
+> >>> Reported-and-tested-by: Donald Buczek <buczek@molgen.mpg.de>
+> >>> Signed-off-by: Guoqing Jiang <guoqing.jiang@cloud.ionos.com>
+> >
+> > I don't really like this fix. But I haven't got a better (and not too
+> > complicated)
+> > alternative.
+> >
+> >>> ---
+> >>> V2:
+> >>> 1. add one parameter to md_reap_sync_thread per Jack's suggestion.
+> >>>
+> >>>    drivers/md/dm-raid.c |  2 +-
+> >>>    drivers/md/md.c      | 14 +++++++++-----
+> >>>    drivers/md/md.h      |  2 +-
+> >>>    3 files changed, 11 insertions(+), 7 deletions(-)
+> >>>
+> >>> diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
+> >>> index cab12b2..0c4cbba 100644
+> >>> --- a/drivers/md/dm-raid.c
+> >>> +++ b/drivers/md/dm-raid.c
+> >>> @@ -3668,7 +3668,7 @@ static int raid_message(struct dm_target *ti, unsigned int argc, char **argv,
+> >>>        if (!strcasecmp(argv[0], "idle") || !strcasecmp(argv[0], "frozen")) {
+> >>>                if (mddev->sync_thread) {
+> >>>                        set_bit(MD_RECOVERY_INTR, &mddev->recovery);
+> >>> -                     md_reap_sync_thread(mddev);
+> >>> +                     md_reap_sync_thread(mddev, false);
+> >
+> > I think we can add mddev_lock() and mddev_unlock() here and then we don't
+> > need the extra parameter?
+> >
+>
+> I thought it too, but I would prefer get the input from DM people first.
+>
+> @ Mike or Alasdair
 
+Hi Mike and Alasdair,
 
-On Fri, 19 Mar 2021, Bhaskar Chowdhury wrote:
+Could you please comment on this option: adding mddev_lock() and mddev_unlock()
+to raid_message() around md_reap_sync_thread()?
 
->
-> s/retrievd/retrieved/
-> s/misalignement/misalignment/
-> s/funtion/function/
->
-> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-
-> ---
-> drivers/md/dm-ebs-target.c | 6 +++---
-> 1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/md/dm-ebs-target.c b/drivers/md/dm-ebs-target.c
-> index 55bcfb74f51f..71475a2410be 100644
-> --- a/drivers/md/dm-ebs-target.c
-> +++ b/drivers/md/dm-ebs-target.c
-> @@ -28,7 +28,7 @@ struct ebs_c {
-> 	spinlock_t lock;		/* Guard bios input list above. */
-> 	sector_t start;			/* <start> table line argument, see ebs_ctr below. */
-> 	unsigned int e_bs;		/* Emulated block size in sectors exposed to upper layer. */
-> -	unsigned int u_bs;		/* Underlying block size in sectors retrievd from/set on lower layer device. */
-> +	unsigned int u_bs;		/* Underlying block size in sectors retrieved from/set on lower layer device. */
-> 	unsigned char block_shift;	/* bitshift sectors -> blocks used in dm-bufio API. */
-> 	bool u_bs_set:1;		/* Flag to indicate underlying block size is set on table line. */
-> };
-> @@ -43,7 +43,7 @@ static inline sector_t __block_mod(sector_t sector, unsigned int bs)
-> 	return sector & (bs - 1);
-> }
->
-> -/* Return number of blocks for a bio, accounting for misalignement of start and end sectors. */
-> +/* Return number of blocks for a bio, accounting for misalignment of start and end sectors. */
-> static inline unsigned int __nr_blocks(struct ebs_c *ec, struct bio *bio)
-> {
-> 	sector_t end_sector = __block_mod(bio->bi_iter.bi_sector, ec->u_bs) + bio_sectors(bio);
-> @@ -171,7 +171,7 @@ static void __ebs_forget_bio(struct ebs_c *ec, struct bio *bio)
-> 	dm_bufio_forget_buffers(ec->bufio, __sector_to_block(ec, sector), blocks);
-> }
->
-> -/* Worker funtion to process incoming bios. */
-> +/* Worker function to process incoming bios. */
-> static void __ebs_process_bios(struct work_struct *ws)
-> {
-> 	int r;
-> --
-> 2.26.2
->
->
+Thanks,
+Song
 
 --
 dm-devel mailing list
