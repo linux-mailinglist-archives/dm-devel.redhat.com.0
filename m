@@ -1,76 +1,66 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B86FA345DED
-	for <lists+dm-devel@lfdr.de>; Tue, 23 Mar 2021 13:19:13 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 4221F346224
+	for <lists+dm-devel@lfdr.de>; Tue, 23 Mar 2021 16:00:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1616511619;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=Vb+ZkKxOJ8DpvxZC55KJO0PIycAqAnlEueQqysdzg8M=;
+	b=GuJHUNPZpN8EFbC5wnhPVuJhcaxmCMGj7R/awtgs5mlw6djTvrj9g5g087ul8eud9le2LC
+	SVUhXy6+mi7ICko8ZZXPiYRkBsDAOAkjtBo/mIlOIRZ5vUFl0biGs5E6s+ON3PfqCi+/mJ
+	LPp2t0nC2TaN90CHtWd4xUGAcnbRCr4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-85-4sNmrq1-NaCraSetaNdkxQ-1; Tue, 23 Mar 2021 08:19:10 -0400
-X-MC-Unique: 4sNmrq1-NaCraSetaNdkxQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-354-UTN4li4EMamCRfcjs8CKjA-1; Tue, 23 Mar 2021 11:00:16 -0400
+X-MC-Unique: UTN4li4EMamCRfcjs8CKjA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 030C6814338;
-	Tue, 23 Mar 2021 12:19:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 88F0680006E;
+	Tue, 23 Mar 2021 15:00:10 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 21E785D9F0;
-	Tue, 23 Mar 2021 12:19:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AF6455D6AD;
+	Tue, 23 Mar 2021 15:00:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AA66B4BB7B;
-	Tue, 23 Mar 2021 12:18:56 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EBD814BB7C;
+	Tue, 23 Mar 2021 15:00:01 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12NCIlgM029402 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 23 Mar 2021 08:18:48 -0400
+	id 12NExnF5014051 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 23 Mar 2021 10:59:49 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A1B61110AF41; Tue, 23 Mar 2021 12:18:47 +0000 (UTC)
+	id 022FA60C5F; Tue, 23 Mar 2021 14:59:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9DD5F1134CCC
-	for <dm-devel@redhat.com>; Tue, 23 Mar 2021 12:18:45 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6DD5585A5BF
-	for <dm-devel@redhat.com>; Tue, 23 Mar 2021 12:18:45 +0000 (UTC)
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com
-	[45.249.212.190]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-526-FSHykQ-BPVuU6TAcOskQbg-1; Tue, 23 Mar 2021 08:18:43 -0400
-X-MC-Unique: FSHykQ-BPVuU6TAcOskQbg-1
-Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.60])
-	by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4F4Vj41YZ9z19Gdm;
-	Tue, 23 Mar 2021 20:16:40 +0800 (CST)
-Received: from [10.174.178.113] (10.174.178.113) by
-	DGGEMS412-HUB.china.huawei.com (10.3.19.212) with Microsoft SMTP Server
-	id 14.3.498.0; Tue, 23 Mar 2021 20:18:29 +0800
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>, Martin Wilck
-	<mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, "dm-devel
-	mailing list" <dm-devel@redhat.com>
-From: lixiaokeng <lixiaokeng@huawei.com>
-Message-ID: <32644d18-c98d-e239-f1b9-a6091fd34bea@huawei.com>
-Date: Tue, 23 Mar 2021 20:18:14 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9A8DD610A8;
+	Tue, 23 Mar 2021 14:59:45 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 12NExjWk002620; Tue, 23 Mar 2021 10:59:45 -0400
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 12NExjSQ002617; Tue, 23 Mar 2021 10:59:45 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Tue, 23 Mar 2021 10:59:45 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Milan Broz <mbroz@redhat.com>, Mike Snitzer <msnitzer@redhat.com>
+Message-ID: <alpine.LRH.2.02.2103231058220.2542@file01.intranet.prod.int.rdu2.redhat.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-X-Originating-IP: [10.174.178.113]
-X-CFilter-Loop: Reflected
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
-Cc: linfeilong <linfeilong@huawei.com>,
-	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
-Subject: [dm-devel] [PATCH] multipathd fix NULL dereference in check_path
+Cc: dm-devel@redhat.com
+Subject: [dm-devel] [PATCH] dm-integrity - add the "reset_recalculate" flag
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,47 +74,101 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-GB
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-When iscsi login/logout and multipath command are executed
-concurrently, there is a coredump.
+This patch adds a new flag "reset_recalculate" that will restart
+recalculating from the beginning of the device. It can be used if we want
+to change the hash function. Example:
 
-The reason is:
-check_path
-    ->update_multipath_strings
-        ->sync_paths
-            ->orphan_path    //pp->mpp is set to NULL
-        ->update_multipath_status
-            ->dm_get_status  //return DMP_NOT_FOUND
-    ->condlog //pp->mpp->alias, NULL dereference
+#!/bin/sh
+dmsetup remove_all
+rmmod brd
+set -e
+modprobe brd rd_size=1048576
+dmsetup create in --table '0 2000000 integrity /dev/ram0 0 16 J 2 internal_hash:sha256 recalculate'
+sleep 10
+dmsetup status
+dmsetup remove in
+dmsetup create in --table '0 2000000 integrity /dev/ram0 0 16 J 2 internal_hash:sha3-256 reset_recalculate'
 
-Here we don't dereference pp-> mpp if it is NULL.
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
-Signed-off-by: Lixiaokeng<lixiaokeng@huawei.com>
----
- multipathd/main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/multipathd/main.c b/multipathd/main.c
-index 28cb236..5ed2267 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -2010,7 +2010,7 @@ check_path (struct vectors * vecs, struct path * pp, int ticks)
- 		if (ret == DMP_NOT_FOUND) {
- 			/* multipath device missing. Likely removed */
- 			condlog(1, "%s: multipath device '%s' not found",
--				pp->dev, pp->mpp->alias);
-+				pp->dev, pp->mpp ? pp->mpp->alias : "");
- 			return 0;
- 		} else
- 			condlog(1, "%s: Couldn't synchronize with kernel state",
+Index: linux-2.6/drivers/md/dm-integrity.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-integrity.c
++++ linux-2.6/drivers/md/dm-integrity.c
+@@ -262,6 +262,7 @@ struct dm_integrity_c {
+ 	bool journal_uptodate;
+ 	bool just_formatted;
+ 	bool recalculate_flag;
++	bool reset_recalculate_flag;
+ 	bool discard;
+ 	bool fix_padding;
+ 	bool fix_hmac;
+@@ -3134,7 +3135,8 @@ static void dm_integrity_resume(struct d
+ 		rw_journal_sectors(ic, REQ_OP_READ, 0, 0,
+ 				   ic->n_bitmap_blocks * (BITMAP_BLOCK_SIZE >> SECTOR_SHIFT), NULL);
+ 		if (ic->mode == 'B') {
+-			if (ic->sb->log2_blocks_per_bitmap_bit == ic->log2_blocks_per_bitmap_bit) {
++			if (ic->sb->log2_blocks_per_bitmap_bit == ic->log2_blocks_per_bitmap_bit &&
++			    !ic->reset_recalculate_flag) {
+ 				block_bitmap_copy(ic, ic->recalc_bitmap, ic->journal);
+ 				block_bitmap_copy(ic, ic->may_write_bitmap, ic->journal);
+ 				if (!block_bitmap_op(ic, ic->journal, 0, ic->provided_data_sectors,
+@@ -3156,7 +3158,8 @@ static void dm_integrity_resume(struct d
+ 			}
+ 		} else {
+ 			if (!(ic->sb->log2_blocks_per_bitmap_bit == ic->log2_blocks_per_bitmap_bit &&
+-			      block_bitmap_op(ic, ic->journal, 0, ic->provided_data_sectors, BITMAP_OP_TEST_ALL_CLEAR))) {
++			      block_bitmap_op(ic, ic->journal, 0, ic->provided_data_sectors, BITMAP_OP_TEST_ALL_CLEAR)) ||
++			    ic->reset_recalculate_flag) {
+ 				ic->sb->flags |= cpu_to_le32(SB_FLAG_RECALCULATING);
+ 				ic->sb->recalc_sector = cpu_to_le64(0);
+ 			}
+@@ -3169,6 +3172,10 @@ static void dm_integrity_resume(struct d
+ 			dm_integrity_io_error(ic, "writing superblock", r);
+ 	} else {
+ 		replay_journal(ic);
++		if (ic->reset_recalculate_flag) {
++			ic->sb->flags |= cpu_to_le32(SB_FLAG_RECALCULATING);
++			ic->sb->recalc_sector = cpu_to_le64(0);
++		}
+ 		if (ic->mode == 'B') {
+ 			ic->sb->flags |= cpu_to_le32(SB_FLAG_DIRTY_BITMAP);
+ 			ic->sb->log2_blocks_per_bitmap_bit = ic->log2_blocks_per_bitmap_bit;
+@@ -3242,6 +3249,7 @@ static void dm_integrity_status(struct d
+ 		arg_count += !!ic->meta_dev;
+ 		arg_count += ic->sectors_per_block != 1;
+ 		arg_count += !!(ic->sb->flags & cpu_to_le32(SB_FLAG_RECALCULATING));
++		arg_count += ic->reset_recalculate_flag;
+ 		arg_count += ic->discard;
+ 		arg_count += ic->mode == 'J';
+ 		arg_count += ic->mode == 'J';
+@@ -3261,6 +3269,8 @@ static void dm_integrity_status(struct d
+ 			DMEMIT(" block_size:%u", ic->sectors_per_block << SECTOR_SHIFT);
+ 		if (ic->sb->flags & cpu_to_le32(SB_FLAG_RECALCULATING))
+ 			DMEMIT(" recalculate");
++		if (ic->reset_recalculate_flag)
++			DMEMIT(" reset_recalculate");
+ 		if (ic->discard)
+ 			DMEMIT(" allow_discards");
+ 		DMEMIT(" journal_sectors:%u", ic->initial_sectors - SB_SECTORS);
+@@ -4058,6 +4068,9 @@ static int dm_integrity_ctr(struct dm_ta
+ 				goto bad;
+ 		} else if (!strcmp(opt_string, "recalculate")) {
+ 			ic->recalculate_flag = true;
++		} else if (!strcmp(opt_string, "reset_recalculate")) {
++			ic->recalculate_flag = true;
++			ic->reset_recalculate_flag = true;
+ 		} else if (!strcmp(opt_string, "allow_discards")) {
+ 			ic->discard = true;
+ 		} else if (!strcmp(opt_string, "fix_padding")) {
 
 --
 dm-devel mailing list
