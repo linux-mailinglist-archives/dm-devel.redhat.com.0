@@ -1,59 +1,85 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 223FC347CBE
-	for <lists+dm-devel@lfdr.de>; Wed, 24 Mar 2021 16:33:48 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id AFACD347CDC
+	for <lists+dm-devel@lfdr.de>; Wed, 24 Mar 2021 16:44:03 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-355-ekGj9JoLN2GgLn4Ge_2jRg-1; Wed, 24 Mar 2021 11:33:43 -0400
-X-MC-Unique: ekGj9JoLN2GgLn4Ge_2jRg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-556-ma65druwMnefyCNgqxT0tA-1; Wed, 24 Mar 2021 11:43:50 -0400
+X-MC-Unique: ma65druwMnefyCNgqxT0tA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ADE63107B768;
-	Wed, 24 Mar 2021 15:33:36 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 66D3D80006E;
+	Wed, 24 Mar 2021 15:43:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A63612B3C2;
-	Wed, 24 Mar 2021 15:33:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E1FEC629DB;
+	Wed, 24 Mar 2021 15:43:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DFA861809C84;
-	Wed, 24 Mar 2021 15:33:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3376B1809C83;
+	Wed, 24 Mar 2021 15:43:42 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12OFXI6x029394 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 24 Mar 2021 11:33:18 -0400
+	id 12OFhWbf030448 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 24 Mar 2021 11:43:32 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9750C2026D6A; Wed, 24 Mar 2021 15:33:18 +0000 (UTC)
+	id BB20321CAC6D; Wed, 24 Mar 2021 15:43:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 928ED2026D60
-	for <dm-devel@redhat.com>; Wed, 24 Mar 2021 15:33:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4923D80D2B8
-	for <dm-devel@redhat.com>; Wed, 24 Mar 2021 15:33:15 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-333-_mFzrv8JMAiQ1gsEWEhDEw-1;
-	Wed, 24 Mar 2021 11:33:10 -0400
-X-MC-Unique: _mFzrv8JMAiQ1gsEWEhDEw-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 7C60BAD9F;
-	Wed, 24 Mar 2021 15:33:08 +0000 (UTC)
-To: Ming Lei <ming.lei@redhat.com>, Jens Axboe <axboe@kernel.dk>
-References: <20210324121927.362525-1-ming.lei@redhat.com>
-	<20210324121927.362525-7-ming.lei@redhat.com>
-From: Hannes Reinecke <hare@suse.de>
-Message-ID: <b433eb9e-3d70-8791-93c5-6084bb3a76ed@suse.de>
-Date: Wed, 24 Mar 2021 16:33:08 +0100
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B59AF21CAC6C
+	for <dm-devel@redhat.com>; Wed, 24 Mar 2021 15:43:29 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ABF0793673A
+	for <dm-devel@redhat.com>; Wed, 24 Mar 2021 15:43:29 +0000 (UTC)
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
+	[209.85.210.176]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-42-304a0cLJM8eSWHdYn-uS1g-1; Wed, 24 Mar 2021 11:43:23 -0400
+X-MC-Unique: 304a0cLJM8eSWHdYn-uS1g-1
+Received: by mail-pf1-f176.google.com with SMTP id q5so17606559pfh.10;
+	Wed, 24 Mar 2021 08:43:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=QggucVUwSzig6GMS5zGAfRIs6DTm/Z/TqSfdC+FdYj4=;
+	b=BKK1KPc4AvGbXbGPDpOtnu4JFYPBJT7Mz4NTcrwc8hvtbAq6pxX1pxIJJj1MDq5YwA
+	6bHIqsZTGwT7xn3TzLYrPER5GMbR7/oK7vEUAomaNxbbybWXXF4NLv2YBnBLmI5LBygI
+	pH4IuXKNUxj2JHOMaX695G9fzca+OBYZax1H61F8OdXwrMg1r/loSXV6MmzgW1yedSSd
+	h988nBGSDaYU2wDsHVhNGqVwHOleRMb/I5xuAG/RuRt18sYM4KC5wWg8FjGaPNP/QHe6
+	prvD0AWPfoLya1bWXYDj/PyiqBEwOzQUOBaYz6NxhBahL2tfFdwKyPlbBSDCdIJgTlnp
+	5S1g==
+X-Gm-Message-State: AOAM530GqBLHKFpq+XPNNs2q6n4OX+1s7Eo42gYGJ4pT0Ae+XKJLURad
+	495Q3DPkPwlCnfk8tr00Uen702Qly0g=
+X-Google-Smtp-Source: ABdhPJzY590vZ7RjrvvjVHPdylv4paVDI2xrLYyTvKklWkN770EUwLBBPU8PIiuD9xG2KyBtvIWaOQ==
+X-Received: by 2002:a63:4441:: with SMTP id t1mr3645875pgk.124.1616600601382; 
+	Wed, 24 Mar 2021 08:43:21 -0700 (PDT)
+Received: from ?IPv6:2601:647:4802:9070:3b29:de57:36aa:67b9?
+	([2601:647:4802:9070:3b29:de57:36aa:67b9])
+	by smtp.gmail.com with ESMTPSA id
+	y24sm2923614pfn.213.2021.03.24.08.43.20
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Wed, 24 Mar 2021 08:43:20 -0700 (PDT)
+To: Ming Lei <ming.lei@redhat.com>
+References: <20210318164827.1481133-1-ming.lei@redhat.com>
+	<20210318164827.1481133-10-ming.lei@redhat.com>
+	<522a2c87-e9f3-e62a-e09b-084821c698a0@grimberg.me>
+	<YFnYhBIiFhiyX8Wb@T590>
+	<713f2a27-4a2c-8723-3dfd-de6d68956eb2@grimberg.me>
+	<YFqDXeEsDNBfoWqW@T590>
+From: Sagi Grimberg <sagi@grimberg.me>
+Message-ID: <86cdc9a2-9640-9625-0741-e43f0ad40250@grimberg.me>
+Date: Wed, 24 Mar 2021 08:43:19 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.7.0
+	Thunderbird/78.7.1
 MIME-Version: 1.0
-In-Reply-To: <20210324121927.362525-7-ming.lei@redhat.com>
+In-Reply-To: <YFqDXeEsDNBfoWqW@T590>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -62,14 +88,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 12OFXI6x029394
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: linux-block@vger.kernel.org, Jeffle Xu <jefflexu@linux.alibaba.com>,
-	dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>
-Subject: Re: [dm-devel] [PATCH V3 06/13] block: add new field into 'struct
-	bvec_iter'
+Cc: Jens Axboe <axboe@kernel.dk>, Mike Snitzer <snitzer@redhat.com>,
+	linux-block@vger.kernel.org, dm-devel@redhat.com,
+	Jeffle Xu <jefflexu@linux.alibaba.com>, Christoph Hellwig <hch@lst.de>
+Subject: Re: [dm-devel] [RFC PATCH V2 09/13] block: use per-task poll
+ context to implement bio based io poll
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,29 +108,27 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-T24gMy8yNC8yMSAxOjE5IFBNLCBNaW5nIExlaSB3cm90ZToKPiBUaGVyZSBpcyBhIGhvbGUgYXQg
-dGhlIGVuZCBvZiAnc3RydWN0IGJ2ZWNfaXRlcicsIHNvIHB1dCBhIG5ldyBmaWVsZAo+IGhlcmUg
-YW5kIHdlIGNhbiBzYXZlIGNvb2tpZSByZXR1cm5lZCBmcm9tIHN1Ym1pdF9iaW8oKSBoZXJlIGZv
-cgo+IHN1cHBvcnRpbmcgYmlvIGJhc2VkIHBvbGxpbmcuCj4gCj4gVGhpcyB3YXkgY2FuIGF2b2lk
-IHRvIGV4dGVuZCBiaW8gdW5uZWNlc3NhcmlseS4KPiAKPiBNZWFudGltZSBhZGQgdHdvIGhlbHBl
-cnMgdG8gZ2V0L3NldCB0aGlzIGZpZWxkLgo+IAo+IFNpZ25lZC1vZmYtYnk6IE1pbmcgTGVpIDxt
-aW5nLmxlaUByZWRoYXQuY29tPgo+IC0tLQo+ICAgYmxvY2svYmxrLmggICAgICAgICAgfCAxMCAr
-KysrKysrKysrCj4gICBpbmNsdWRlL2xpbnV4L2J2ZWMuaCB8ICA4ICsrKysrKysrCj4gICAyIGZp
-bGVzIGNoYW5nZWQsIDE4IGluc2VydGlvbnMoKykKPiAKUmV2aWV3ZWQtYnk6IEhhbm5lcyBSZWlu
-ZWNrZSA8aGFyZUBzdXNlLmRlPgoKQ2hlZXJzLAoKSGFubmVzCi0tIApEci4gSGFubmVzIFJlaW5l
-Y2tlICAgICAgICAgICAgICAgIEtlcm5lbCBTdG9yYWdlIEFyY2hpdGVjdApoYXJlQHN1c2UuZGUg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICArNDkgOTExIDc0MDUzIDY4OApTVVNFIFNvZnR3
-YXJlIFNvbHV0aW9ucyBHbWJILCBNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJlcmcKSFJCIDM2
-ODA5IChBRyBOw7xybmJlcmcpLCBHZXNjaMOkZnRzZsO8aHJlcjogRmVsaXggSW1lbmTDtnJmZmVy
-CgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9s
-aXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
+
+>> Well, when it will failover, it will probably be directed to the poll
+>> queues. Maybe I'm missing something...
+> 
+> In this patchset, because it isn't submitted directly from FS, there
+> isn't one polling context associated with this bio, so its HIPRI flag
+> will be cleared, then fallback to irq mode.
+
+I think that's fine for failover I/O...
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
