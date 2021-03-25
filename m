@@ -2,67 +2,124 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id BD76634951C
-	for <lists+dm-devel@lfdr.de>; Thu, 25 Mar 2021 16:15:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1616685308;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=2SXu8YoILwvFsHD3zGYVNWKHRp2g0VCmcHtUU098vzo=;
-	b=AyfQAdNffEXuMci0U1n0o7ugj73lcE1itfDcemkp1wzWxq+lZasu4DzDFcLabzzUr6njk0
-	TupgThZN4npvXr63LAeRDdo6I83RcDoIW9QkXVJuv0GTIveZqMmnXl9eILsUpE1wP4+I/E
-	rVBwbGCnl903JTs3V6YWcbYLxnv58xE=
+	by mail.lfdr.de (Postfix) with ESMTP id A31C334CF7D
+	for <lists+dm-devel@lfdr.de>; Mon, 29 Mar 2021 13:56:12 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-540-66sN3R4QNCSjS-pmQzjJtg-1; Thu, 25 Mar 2021 11:15:06 -0400
-X-MC-Unique: 66sN3R4QNCSjS-pmQzjJtg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-378-0T7CuVX7PKC4IFoKTbYXZQ-1; Mon, 29 Mar 2021 07:56:08 -0400
+X-MC-Unique: 0T7CuVX7PKC4IFoKTbYXZQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1E4831015DBC;
-	Thu, 25 Mar 2021 15:14:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 580CE1018F70;
+	Mon, 29 Mar 2021 11:56:01 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C9EE75D741;
-	Thu, 25 Mar 2021 15:14:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1597D60843;
+	Mon, 29 Mar 2021 11:56:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2C1A11809C81;
-	Thu, 25 Mar 2021 15:14:30 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5ABAD1809C84;
+	Mon, 29 Mar 2021 11:55:55 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12PFEB8E022910 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 25 Mar 2021 11:14:11 -0400
+	id 12PG7jkQ029090 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 25 Mar 2021 12:07:45 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7E7A05C559; Thu, 25 Mar 2021 15:14:11 +0000 (UTC)
+	id 754722026D64; Thu, 25 Mar 2021 16:07:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3EA0D5C3DF;
-	Thu, 25 Mar 2021 15:14:08 +0000 (UTC)
-Date: Thu, 25 Mar 2021 11:14:07 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: Zhiqiang Liu <liuzhiqiang26@huawei.com>
-Message-ID: <20210325151407.GA17059@redhat.com>
-References: <c8f86351-3036-0945-90d2-2e020d68ccf2@huawei.com>
-	<20210322081155.GE1946905@infradead.org>
-	<20210322142207.GB30698@redhat.com>
-	<cd71d0fa-31d1-5cd8-74a1-8b124724b3b1@huawei.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6CAC02026D6B
+	for <dm-devel@redhat.com>; Thu, 25 Mar 2021 16:07:41 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED0F28015B9
+	for <dm-devel@redhat.com>; Thu, 25 Mar 2021 16:07:40 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+	[148.163.156.1]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-308-Zkk2S_9JM5OOol8kuSHFiQ-1; Thu, 25 Mar 2021 12:07:38 -0400
+X-MC-Unique: Zkk2S_9JM5OOol8kuSHFiQ-1
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+	12PG4h07133713
+	for <dm-devel@redhat.com>; Thu, 25 Mar 2021 12:07:37 -0400
+Received: from pps.reinject (localhost [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 37gpm5dv78-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT)
+	for <dm-devel@redhat.com>; Thu, 25 Mar 2021 12:07:37 -0400
+Received: from m0098393.ppops.net (m0098393.ppops.net [127.0.0.1])
+	by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 12PG50MA137450
+	for <dm-devel@redhat.com>; Thu, 25 Mar 2021 12:07:37 -0400
+Received: from ppma03fra.de.ibm.com (6b.4a.5195.ip4.static.sl-reverse.com
+	[149.81.74.107])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 37gpm5dv6c-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Thu, 25 Mar 2021 12:07:36 -0400
+Received: from pps.filterd (ppma03fra.de.ibm.com [127.0.0.1])
+	by ppma03fra.de.ibm.com (8.16.0.43/8.16.0.43) with SMTP id
+	12PG7Yn4031466; Thu, 25 Mar 2021 16:07:34 GMT
+Received: from b06cxnps4074.portsmouth.uk.ibm.com
+	(d06relay11.portsmouth.uk.ibm.com [9.149.109.196])
+	by ppma03fra.de.ibm.com with ESMTP id 37d9bptwkb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Thu, 25 Mar 2021 16:07:34 +0000
+Received: from d06av24.portsmouth.uk.ibm.com (d06av24.portsmouth.uk.ibm.com
+	[9.149.105.60])
+	by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+	ESMTP id 12PG7WkL30212444
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=OK); Thu, 25 Mar 2021 16:07:32 GMT
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 37F974203F;
+	Thu, 25 Mar 2021 16:07:32 +0000 (GMT)
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 244E842041;
+	Thu, 25 Mar 2021 16:07:32 +0000 (GMT)
+Received: from t480-pf1aa2c2.fritz.box (unknown [9.145.175.248])
+	by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+	Thu, 25 Mar 2021 16:07:32 +0000 (GMT)
+Received: from bblock by t480-pf1aa2c2.fritz.box with local (Exim 4.94)
+	(envelope-from <bblock@linux.ibm.com>)
+	id 1lPSWB-000Nzf-HB; Thu, 25 Mar 2021 17:07:31 +0100
+Date: Thu, 25 Mar 2021 17:07:31 +0100
+From: Benjamin Block <bblock@linux.ibm.com>
+To: Erwin van Londen <erwin@erwinvanlonden.net>
+Message-ID: <YFy1Q6nvJEcRzwyl@t480-pf1aa2c2.linux.ibm.com>
+References: <5b87a64d88a13eb8b4917a1cc0d35691f9fc8227.camel@erwinvanlonden.net>
+In-Reply-To: <5b87a64d88a13eb8b4917a1cc0d35691f9fc8227.camel@erwinvanlonden.net>
+X-TM-AS-GCONF: 00
+X-Proofpoint-UnRewURL: 0 URL was un-rewritten
 MIME-Version: 1.0
-In-Reply-To: <cd71d0fa-31d1-5cd8-74a1-8b124724b3b1@huawei.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+	definitions=2021-03-25_04:2021-03-24,
+	2021-03-25 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+	adultscore=0 clxscore=1011
+	impostorscore=0 lowpriorityscore=0 priorityscore=1501 mlxscore=0
+	phishscore=0 bulkscore=0 mlxlogscore=999 suspectscore=0 spamscore=0
+	malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2009150000 definitions=main-2103250114
+X-MIME-Autoconverted: from 8bit to quoted-printable by
+	mx0a-001b2d01.pphosted.com id 12PG4h07133713
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 12PG7jkQ029090
 X-loop: dm-devel@redhat.com
-Cc: lixiaokeng <lixiaokeng@huawei.com>, linfeilong <linfeilong@huawei.com>,
-	linux-scsi@vger.kernel.org,
-	"martin.petersen@oracle.com" <martin.petersen@oracle.com>,
-	"jejb@linux.ibm.com" <jejb@linux.ibm.com>, linux-kernel@vger.kernel.org,
-	Christoph Hellwig <hch@infradead.org>, dm-devel@redhat.com,
-	"wubo \(T\)" <wubo40@huawei.com>, agk@redhat.com
-Subject: Re: [dm-devel] md/dm-mpath: check whether all pgpaths have same
- uuid in multipath_ctr()
+X-Mailman-Approved-At: Mon, 29 Mar 2021 07:55:44 -0400
+Cc: Muneendra <muneendra.kumar@broadcom.com>, dm-devel@redhat.com
+Subject: Re: [dm-devel] dm-multipath - IO queue dispatch based on FPIN
+ Congestion/Latency notifications.
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -76,108 +133,59 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Mar 24 2021 at  9:21pm -0400,
-Zhiqiang Liu <liuzhiqiang26@huawei.com> wrote:
+On Tue, Mar 23, 2021 at 05:52:33PM +1000, Erwin van Londen wrote:
+> Hello All,
+>=20
+> Just wondering if there were any plans to incorporate FPIN
+> congestion/latency notifications in dm-multipath to disperse IO over
+> non-affected paths.
+>=20
 
-> 
-> 
-> On 2021/3/22 22:22, Mike Snitzer wrote:
-> > On Mon, Mar 22 2021 at  4:11am -0400,
-> > Christoph Hellwig <hch@infradead.org> wrote:
-> > 
-> >> On Sat, Mar 20, 2021 at 03:19:23PM +0800, Zhiqiang Liu wrote:
-> >>> From: Zhiqiang Liu <liuzhiqiang26@huawei.com>
-> >>>
-> >>> When we make IO stress test on multipath device, there will
-> >>> be a metadata err because of wrong path. In the test, we
-> >>> concurrent execute 'iscsi device login|logout' and
-> >>> 'multipath -r' command with IO stress on multipath device.
-> >>> In some case, systemd-udevd may have not time to process
-> >>> uevents of iscsi device logout|login, and then 'multipath -r'
-> >>> command triggers multipathd daemon calls ioctl to load table
-> >>> with incorrect old device info from systemd-udevd.
-> >>> Then, one iscsi path may be incorrectly attached to another
-> >>> multipath which has different uuid. Finally, the metadata err
-> >>> occurs when umounting filesystem to down write metadata on
-> >>> the iscsi device which is actually not owned by the multipath
-> >>> device.
-> >>>
-> >>> So we need to check whether all pgpaths of one multipath have
-> >>> the same uuid, if not, we should throw a error.
-> >>>
-> >>> Signed-off-by: Zhiqiang Liu <liuzhiqiang26@huawei.com>
-> >>> Signed-off-by: lixiaokeng <lixiaokeng@huawei.com>
-> >>> Signed-off-by: linfeilong <linfeilong@huawei.com>
-> >>> Signed-off-by: Wubo <wubo40@huawei.com>
-> >>> ---
-> >>>  drivers/md/dm-mpath.c   | 52 +++++++++++++++++++++++++++++++++++++++++
-> >>>  drivers/scsi/scsi_lib.c |  1 +
-> >>>  2 files changed, 53 insertions(+)
-> >>>
-> >>> diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
-> >>> index bced42f082b0..f0b995784b53 100644
-> >>> --- a/drivers/md/dm-mpath.c
-> >>> +++ b/drivers/md/dm-mpath.c
-> >>> @@ -24,6 +24,7 @@
-> >>>  #include <linux/workqueue.h>
-> >>>  #include <linux/delay.h>
-> >>>  #include <scsi/scsi_dh.h>
-> >>> +#include <linux/dm-ioctl.h>
-> >>>  #include <linux/atomic.h>
-> >>>  #include <linux/blk-mq.h>
-> >>>
-> >>> @@ -1169,6 +1170,45 @@ static int parse_features(struct dm_arg_set *as, struct multipath *m)
-> >>>  	return r;
-> >>>  }
-> >>>
-> >>> +#define SCSI_VPD_LUN_ID_PREFIX_LEN 4
-> >>> +#define MPATH_UUID_PREFIX_LEN 7
-> >>> +static int check_pg_uuid(struct priority_group *pg, char *md_uuid)
-> >>> +{
-> >>> +	char pgpath_uuid[DM_UUID_LEN] = {0};
-> >>> +	struct request_queue *q;
-> >>> +	struct pgpath *pgpath;
-> >>> +	struct scsi_device *sdev;
-> >>> +	ssize_t count;
-> >>> +	int r = 0;
-> >>> +
-> >>> +	list_for_each_entry(pgpath, &pg->pgpaths, list) {
-> >>> +		q = bdev_get_queue(pgpath->path.dev->bdev);
-> >>> +		sdev = scsi_device_from_queue(q);
-> >>
-> >> Common dm-multipath code should never poke into scsi internals.  This
-> >> is something for the device handler to check.  It probably also won't
-> >> work for all older devices.
-> > 
-> > Definitely.
-> > 
-> > But that aside, userspace (multipathd) _should_ be able to do extra
-> > validation, _before_ pushing down a new table to the kernel, rather than
-> > forcing the kernel to do it.
-> 
-> As your said, it is better to do extra validation in userspace (multipathd).
-> However, in some cases, the userspace cannot see the real-time present devices
-> info as Martin (committer of multipath-tools) said.
-> In addition, the kernel can see right device info in the table at any time,
-> so the uuid check in kernel can ensure one multipath is composed with paths mapped to
-> the same device.
-> 
-> Considering the severity of the wrong path in multipath, I think it worths more
-> checking.
+For whats worth, general support in Kernel for a new path state in
+answer to existing FPIN notifications was added earlier this year:
+https://lore.kernel.org/linux-scsi/1609969748-17684-1-git-send-email-muneen=
+dra.kumar@broadcom.com/T/
 
-As already said: this should be fixable in userspace.  Please work with
-multipath-tools developers to address this.
+But this only adds a new port-state and support of it for one particular
+driver (lpfc). Not aware of any other driver supporting this new state
+yet, but I might have missed it. Also, the port-state is not set in
+kernel, but has to be set by something external, unlike with RSCNs,
+where we set the state in the kernel.
 
-Mike
+What it does, once a path is set into 'Marginal' state, is to not retry
+commands on the same shaky path, once it already failed one time
+already.
+
+As far as dm-multipath is concerned, I asked that as well when this
+patch series was developed:
+https://lore.kernel.org/linux-scsi/20201002162633.GA8365@t480-pf1aa2c2/
+Hannes answered that in the thread:
+https://lore.kernel.org/linux-scsi/ca995d96-608b-39b9-8ded-4a6dd7598660@sus=
+e.de/
+
+Not sure what happened in between, didn't see anything on the mpath
+topic yet.
+
+
+--=20
+Best Regards, Benjamin Block  / Linux on IBM Z Kernel Development / IBM Sys=
+tems
+IBM Deutschland Research & Development GmbH    /    https://www.ibm.com/pri=
+vacy
+Vorsitz. AufsR.: Gregor Pillen         /        Gesch=E4ftsf=FChrung: Dirk =
+Wittkopp
+Sitz der Gesellschaft: B=F6blingen / Registergericht: AmtsG Stuttgart, HRB =
+243294
+
 
 --
 dm-devel mailing list
