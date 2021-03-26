@@ -1,55 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2B3D834AC92
-	for <lists+dm-devel@lfdr.de>; Fri, 26 Mar 2021 17:33:09 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 52A4734AC9E
+	for <lists+dm-devel@lfdr.de>; Fri, 26 Mar 2021 17:36:34 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-296-d5iJKlM7N92kL61H0GKXXA-1; Fri, 26 Mar 2021 12:33:06 -0400
-X-MC-Unique: d5iJKlM7N92kL61H0GKXXA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-576-gFpyyQJdN9m_ki2q6iTjZQ-1; Fri, 26 Mar 2021 12:36:31 -0400
+X-MC-Unique: gFpyyQJdN9m_ki2q6iTjZQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F2AED87A840;
-	Fri, 26 Mar 2021 16:32:59 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 26A4C5DAA5;
-	Fri, 26 Mar 2021 16:32:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 848768749BC;
+	Fri, 26 Mar 2021 16:36:25 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AFE45138E8;
+	Fri, 26 Mar 2021 16:36:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B96874A7C8;
-	Fri, 26 Mar 2021 16:32:46 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 11C4C1809C83;
+	Fri, 26 Mar 2021 16:36:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12QGWYmt000888 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 26 Mar 2021 12:32:34 -0400
+	id 12QGaHG2001431 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 26 Mar 2021 12:36:17 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8F9152157F23; Fri, 26 Mar 2021 16:32:34 +0000 (UTC)
+	id A82C52026D07; Fri, 26 Mar 2021 16:36:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A8852157F25
-	for <dm-devel@redhat.com>; Fri, 26 Mar 2021 16:32:32 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 30A40101A52C
-	for <dm-devel@redhat.com>; Fri, 26 Mar 2021 16:32:32 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A05B02026D48
+	for <dm-devel@redhat.com>; Fri, 26 Mar 2021 16:36:14 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CB07F805B3B
+	for <dm-devel@redhat.com>; Fri, 26 Mar 2021 16:36:14 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-526-C1EFXAccMg2b0XpDJ8yecA-1;
-	Fri, 26 Mar 2021 12:32:30 -0400
-X-MC-Unique: C1EFXAccMg2b0XpDJ8yecA-1
+	relay.mimecast.com with ESMTP id us-mta-377-gFrIBb5VNdS1LT5I5h4g5Q-1;
+	Fri, 26 Mar 2021 12:36:12 -0400
+X-MC-Unique: gFrIBb5VNdS1LT5I5h4g5Q-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 65FCDADE3;
-	Fri, 26 Mar 2021 16:32:28 +0000 (UTC)
-Message-ID: <e496b93f70bcef27c2ab9a97c1c6c7b33db7ba84.camel@suse.com>
+	by mx2.suse.de (Postfix) with ESMTP id 00AC2AD8D;
+	Fri, 26 Mar 2021 16:36:10 +0000 (UTC)
+Message-ID: <f8a43dd00248218c96bd2cc06fb31c5aa41223f1.camel@suse.com>
 From: Martin Wilck <mwilck@suse.com>
 To: Xose Vazquez Perez <xose.vazquez@gmail.com>
-Date: Fri, 26 Mar 2021 17:32:27 +0100
-In-Reply-To: <20210325230050.6732-1-xose.vazquez@gmail.com>
-References: <20210325230050.6732-1-xose.vazquez@gmail.com>
+Date: Fri, 26 Mar 2021 17:36:10 +0100
+In-Reply-To: <20210325223414.5185-1-xose.vazquez@gmail.com>
+References: <20210325223414.5185-1-xose.vazquez@gmail.com>
 User-Agent: Evolution 3.38.4
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -60,13 +60,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 12QGWYmt000888
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 12QGaHG2001431
 X-loop: dm-devel@redhat.com
-Cc: Zou Ming <zouming.zouming@huawei.com>, DM-DEVEL ML <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH] multipath-tools: add NVME/Huawei-XSG1 to
-	hwtable
+Cc: DM-DEVEL ML <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH 0/2] multipath-tools: add more ALUA info to
+	docs
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +80,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -88,48 +88,38 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="iso-8859-15"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2021-03-26 at 00:00 +0100, Xose Vazquez Perez wrote:
-> Info from:=20
-> https://download.huawei.com/edownload/e/download.do?actionFlag=3Ddownload=
-&nid=3DEDOC1100154490&partNo=3D6001&mid=3DSUPE_DOC&_t=3D1612885603000
+On Thu, 2021-03-25 at 23:34 +0100, Xose Vazquez Perez wrote:
+> Xose Vazquez Perez (2):
+> =A0 multipath-tools: add info about how to enable ALUA in Huawei
+> OceanStor arrays
+> =A0 multipath-tools: add more info about ALUA for CLARiiON arrays
 >=20
-> Cc: Zou Ming <zouming.zouming@huawei.com>
+> =A0README.alua | 5 ++++-
+> =A01 file changed, 4 insertions(+), 1 deletion(-)
+>=20
 > Cc: Martin Wilck <mwilck@suse.com>
 > Cc: Benjamin Marzinski <bmarzins@redhat.com>
 > Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
 > Cc: DM-DEVEL ML <dm-devel@redhat.com>
+> Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
+
+Reviewed-by: Martin Wilck <mwilck@suse.com>
+
 > ---
-> =A0libmultipath/hwtable.c | 9 +++++++++
-> =A01 file changed, 9 insertions(+)
->=20
-> diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c
-> index 58fa7387..7923abba 100644
-> --- a/libmultipath/hwtable.c
-> +++ b/libmultipath/hwtable.c
-> @@ -1084,6 +1084,15 @@ static struct hwentry default_hw[] =3D {
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.pgpolicy=A0=A0=A0=A0=A0 =
-=3D GROUP_BY_PRIO,
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.prio_name=A0=A0=A0=A0 =
-=3D PRIO_ALUA,
-> =A0=A0=A0=A0=A0=A0=A0=A0},
-> +=A0=A0=A0=A0=A0=A0=A0{
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0/* OceanStor NVMe */
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.vendor=A0=A0=A0=A0=A0=A0=
-=A0 =3D "NVME",
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.product=A0=A0=A0=A0=A0=A0 =
-=3D "Huawei-XSG1",
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.pgpolicy=A0=A0=A0=A0=A0 =
-=3D MULTIBUS,
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.checker_name=A0 =3D DIRECT=
-IO,
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.retain_hwhandler =3D RETAI=
-N_HWHANDLER_OFF,
+> BTW, some "new" generations of fully symmetrical Active-Active arrays
+> support ALUA
+> (by default ???), but in the multipath-tools hwtable they are defined
+> as "multibus":
+> - IBM DS8000, since ???
+> - IBM XIV, since Gen2 with microcode 10.2.1
+> - EMC SYMMETRIX, since VMAX 3 with HYPERMAX OS 5977.811.784
 
-This is a rather pointless setting, in particular if hardware_handler
-is not set, and even more so for NVMe. Even for SCSI, no recent kernel
-will allow changing the hwhandler.
+Almost every (SCSI) array I've seen lately supports ALUA (even though
+some seem to interpret the standard quite freely).
 
-Regards,
+In general, we rely on the vendors for these matters. But if you have
+reliable information, I support changing this to "group_by_prio".=20
+
 Martin
 
 
