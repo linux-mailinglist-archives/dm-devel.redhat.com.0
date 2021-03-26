@@ -1,54 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C0C4534B155
-	for <lists+dm-devel@lfdr.de>; Fri, 26 Mar 2021 22:30:35 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 4030F34B160
+	for <lists+dm-devel@lfdr.de>; Fri, 26 Mar 2021 22:31:15 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-116-ALMTZm70NheY7KqhRITABg-1; Fri, 26 Mar 2021 17:30:30 -0400
-X-MC-Unique: ALMTZm70NheY7KqhRITABg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-145-sRhwTZHjM26pkFhRHw30Ng-1; Fri, 26 Mar 2021 17:31:05 -0400
+X-MC-Unique: sRhwTZHjM26pkFhRHw30Ng-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9FCDD501EF;
-	Fri, 26 Mar 2021 21:30:25 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 391935D6DC;
-	Fri, 26 Mar 2021 21:30:25 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B8D8783DD24;
+	Fri, 26 Mar 2021 21:30:57 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82ECB19718;
+	Fri, 26 Mar 2021 21:30:57 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 358D11809C84;
-	Fri, 26 Mar 2021 21:30:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 30EFB4BB7C;
+	Fri, 26 Mar 2021 21:30:57 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12QLU7Jl001660 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 26 Mar 2021 17:30:07 -0400
+	id 12QLU93Z001679 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 26 Mar 2021 17:30:09 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8045C117C2FB; Fri, 26 Mar 2021 21:30:07 +0000 (UTC)
+	id 002142026D2D; Fri, 26 Mar 2021 21:30:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7C3921054820
-	for <dm-devel@redhat.com>; Fri, 26 Mar 2021 21:30:03 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 87F1A80122D
-	for <dm-devel@redhat.com>; Fri, 26 Mar 2021 21:30:03 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EEF972026D6A
+	for <dm-devel@redhat.com>; Fri, 26 Mar 2021 21:30:05 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 89C43185A7B4
+	for <dm-devel@redhat.com>; Fri, 26 Mar 2021 21:30:05 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-319-N4VE2qJnPDqkAdY1hjxBRA-1;
+	relay.mimecast.com with ESMTP id us-mta-486-Kbppyf2qMHS2rU0pLQsTkQ-1;
 	Fri, 26 Mar 2021 17:30:00 -0400
-X-MC-Unique: N4VE2qJnPDqkAdY1hjxBRA-1
+X-MC-Unique: Kbppyf2qMHS2rU0pLQsTkQ-1
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id BA9A1AD71;
-	Fri, 26 Mar 2021 21:29:58 +0000 (UTC)
+	by mx2.suse.de (Postfix) with ESMTP id 0C3A5AD8D;
+	Fri, 26 Mar 2021 21:29:59 +0000 (UTC)
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 26 Mar 2021 22:29:37 +0100
-Message-Id: <20210326212944.3136-1-mwilck@suse.com>
+Date: Fri, 26 Mar 2021 22:29:38 +0100
+Message-Id: <20210326212944.3136-2-mwilck@suse.com>
+In-Reply-To: <20210326212944.3136-1-mwilck@suse.com>
+References: <20210326212944.3136-1-mwilck@suse.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -58,13 +60,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 12QLU7Jl001660
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 12QLU93Z001679
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Xose Vazquez Perez <xose.vazquez@gmail.com>,
 	Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 0/7] multipath-tools: extended github CI
+Subject: [dm-devel] [PATCH 1/7] multipath-tools Makefiles: make pkg-config
+	configurable
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,7 +81,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -88,113 +91,54 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Hi Christophe, hi Ben,
+This is useful for building in a cross-compilation environment.
 
-I've spent most of this week trying to improve the multipath-tools
-CI workflows on github. I now have CI workflows for 7 different
-distributions covering ~6 years of development, and 5 different
-architectures, running routinely on Github. While I found only one
-minor bug in multipath-tools in this process, I hope this will help
-avoiding regressions on less frequently-tested distributions in the
-future. Please read the commit message of the patch "github workflows: 
-add containerized / multi-arch tests" for the details.
+Signed-off-by: Martin Wilck <mwilck@suse.com>
+---
+ Makefile.inc     | 6 ++++--
+ libdmmp/Makefile | 4 ++--
+ 2 files changed, 6 insertions(+), 4 deletions(-)
 
-You can see this in action on https://github.com/openSUSE/multipath-tools/actions.
-The patch set is included in the "tip" branch.
-
-What we need now is more unit tests; our code coverage is still
-pretty pathetic.
-
-LOC-wise, the bulk of this patch set are libdmmp man pages. These are
-almost 100% static. Including them in git allows us to get rid of perl
-as a build-time requirement, which will allow me (in the future) to
-reduce the size of the build container images significantly.
-
-Regards
-Martin
-
-Martin Wilck (7):
-  multipath-tools Makefiles: make pkg-config configurable
-  multipath-tools Makefiles: allow building test programs only
-  github workflows: add containerized / multi-arch tests
-  libdmmp: allow building without perl
-  multipath-tools Makefile: build before install
-  fixup "multipath-tools tests: check if /sys/dev/block is non-empty"
-  libmultipath: fix warning with clang 3.5
-
- .github/workflows/build-and-unittest.yaml     |  4 +-
- .github/workflows/foreign.yaml                | 65 +++++++++++++++++++
- .github/workflows/native.yaml                 | 31 +++++++++
- Makefile                                      |  9 ++-
- Makefile.inc                                  |  6 +-
- libdmmp/Makefile                              | 41 +++++-------
- libdmmp/docs/man/dmmp_context_free.3          | 15 +++++
- libdmmp/docs/man/dmmp_context_log_func_set.3  | 21 ++++++
- .../docs/man/dmmp_context_log_priority_get.3  | 23 +++++++
- .../docs/man/dmmp_context_log_priority_set.3  | 29 +++++++++
- libdmmp/docs/man/dmmp_context_new.3           | 19 ++++++
- libdmmp/docs/man/dmmp_context_timeout_get.3   | 15 +++++
- libdmmp/docs/man/dmmp_context_timeout_set.3   | 19 ++++++
- libdmmp/docs/man/dmmp_context_userdata_get.3  | 15 +++++
- libdmmp/docs/man/dmmp_context_userdata_set.3  | 18 +++++
- libdmmp/docs/man/dmmp_flush_mpath.3           | 36 ++++++++++
- libdmmp/docs/man/dmmp_last_error_msg.3        | 16 +++++
- libdmmp/docs/man/dmmp_log_priority_str.3      | 24 +++++++
- libdmmp/docs/man/dmmp_mpath_array_free.3      | 18 +++++
- libdmmp/docs/man/dmmp_mpath_array_get.3       | 36 ++++++++++
- libdmmp/docs/man/dmmp_mpath_kdev_name_get.3   | 17 +++++
- libdmmp/docs/man/dmmp_mpath_name_get.3        | 18 +++++
- libdmmp/docs/man/dmmp_mpath_wwid_get.3        | 13 ++++
- libdmmp/docs/man/dmmp_path_array_get.3        | 25 +++++++
- libdmmp/docs/man/dmmp_path_blk_name_get.3     | 17 +++++
- libdmmp/docs/man/dmmp_path_group_array_get.3  | 27 ++++++++
- libdmmp/docs/man/dmmp_path_group_id_get.3     | 18 +++++
- .../docs/man/dmmp_path_group_priority_get.3   | 16 +++++
- .../docs/man/dmmp_path_group_selector_get.3   | 16 +++++
- libdmmp/docs/man/dmmp_path_group_status_get.3 | 23 +++++++
- libdmmp/docs/man/dmmp_path_group_status_str.3 | 26 ++++++++
- libdmmp/docs/man/dmmp_path_status_get.3       | 54 +++++++++++++++
- libdmmp/docs/man/dmmp_path_status_str.3       | 34 ++++++++++
- libdmmp/docs/man/dmmp_reconfig.3              | 27 ++++++++
- libdmmp/docs/man/dmmp_strerror.3              | 33 ++++++++++
- libdmmp/docs/{ => man}/libdmmp.h.3            |  0
- libmultipath/io_err_stat.c                    |  2 +-
- tests/Makefile                                |  1 +
- tests/devt.c                                  |  2 +-
- 39 files changed, 797 insertions(+), 32 deletions(-)
- create mode 100644 .github/workflows/foreign.yaml
- create mode 100644 .github/workflows/native.yaml
- create mode 100644 libdmmp/docs/man/dmmp_context_free.3
- create mode 100644 libdmmp/docs/man/dmmp_context_log_func_set.3
- create mode 100644 libdmmp/docs/man/dmmp_context_log_priority_get.3
- create mode 100644 libdmmp/docs/man/dmmp_context_log_priority_set.3
- create mode 100644 libdmmp/docs/man/dmmp_context_new.3
- create mode 100644 libdmmp/docs/man/dmmp_context_timeout_get.3
- create mode 100644 libdmmp/docs/man/dmmp_context_timeout_set.3
- create mode 100644 libdmmp/docs/man/dmmp_context_userdata_get.3
- create mode 100644 libdmmp/docs/man/dmmp_context_userdata_set.3
- create mode 100644 libdmmp/docs/man/dmmp_flush_mpath.3
- create mode 100644 libdmmp/docs/man/dmmp_last_error_msg.3
- create mode 100644 libdmmp/docs/man/dmmp_log_priority_str.3
- create mode 100644 libdmmp/docs/man/dmmp_mpath_array_free.3
- create mode 100644 libdmmp/docs/man/dmmp_mpath_array_get.3
- create mode 100644 libdmmp/docs/man/dmmp_mpath_kdev_name_get.3
- create mode 100644 libdmmp/docs/man/dmmp_mpath_name_get.3
- create mode 100644 libdmmp/docs/man/dmmp_mpath_wwid_get.3
- create mode 100644 libdmmp/docs/man/dmmp_path_array_get.3
- create mode 100644 libdmmp/docs/man/dmmp_path_blk_name_get.3
- create mode 100644 libdmmp/docs/man/dmmp_path_group_array_get.3
- create mode 100644 libdmmp/docs/man/dmmp_path_group_id_get.3
- create mode 100644 libdmmp/docs/man/dmmp_path_group_priority_get.3
- create mode 100644 libdmmp/docs/man/dmmp_path_group_selector_get.3
- create mode 100644 libdmmp/docs/man/dmmp_path_group_status_get.3
- create mode 100644 libdmmp/docs/man/dmmp_path_group_status_str.3
- create mode 100644 libdmmp/docs/man/dmmp_path_status_get.3
- create mode 100644 libdmmp/docs/man/dmmp_path_status_str.3
- create mode 100644 libdmmp/docs/man/dmmp_reconfig.3
- create mode 100644 libdmmp/docs/man/dmmp_strerror.3
- rename libdmmp/docs/{ => man}/libdmmp.h.3 (100%)
-
+diff --git a/Makefile.inc b/Makefile.inc
+index 0542930..f1e2313 100644
+--- a/Makefile.inc
++++ b/Makefile.inc
+@@ -15,6 +15,8 @@
+ # Uncomment to disable dmevents polling support
+ # ENABLE_DMEVENTS_POLL = 0
+ 
++PKGCONFIG	?= pkg-config
++
+ ifeq ($(TOPDIR),)
+ 	TOPDIR	= ..
+ endif
+@@ -36,8 +38,8 @@ ifndef RUN
+ endif
+ 
+ ifndef SYSTEMD
+-	ifeq ($(shell pkg-config --modversion libsystemd >/dev/null 2>&1 && echo 1), 1)
+-		SYSTEMD = $(shell pkg-config --modversion libsystemd | awk '{print $$1}')
++	ifeq ($(shell $(PKGCONFIG) --modversion libsystemd >/dev/null 2>&1 && echo 1), 1)
++		SYSTEMD = $(shell $(PKGCONFIG) --modversion libsystemd | awk '{print $$1}')
+ 	else
+ 		ifeq ($(shell systemctl --version >/dev/null 2>&1 && echo 1), 1)
+ 			SYSTEMD = $(shell systemctl --version 2> /dev/null | \
+diff --git a/libdmmp/Makefile b/libdmmp/Makefile
+index 1dd3f34..4175c3f 100644
+--- a/libdmmp/Makefile
++++ b/libdmmp/Makefile
+@@ -16,9 +16,9 @@ HEADERS = libdmmp/libdmmp.h
+ OBJS = libdmmp.o libdmmp_mp.o libdmmp_pg.o libdmmp_path.o libdmmp_misc.o
+ 
+ CFLAGS += $(LIB_CFLAGS) -fvisibility=hidden -I$(libdmmpdir) -I$(mpathcmddir) \
+-	  $(shell pkg-config --cflags json-c)
++	  $(shell $(PKGCONFIG) --cflags json-c)
+ 
+-LIBDEPS += $(shell pkg-config --libs json-c) -L$(mpathcmddir) -lmpathcmd -lpthread
++LIBDEPS += $(shell $(PKGCONFIG) --libs json-c) -L$(mpathcmddir) -lmpathcmd -lpthread
+ 
+ all: $(LIBS) doc
+ 
 -- 
 2.30.1
 
