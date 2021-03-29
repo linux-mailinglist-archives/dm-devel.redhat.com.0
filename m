@@ -2,59 +2,60 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 7D9DE34D3C5
-	for <lists+dm-devel@lfdr.de>; Mon, 29 Mar 2021 17:27:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6BB4534D3C6
+	for <lists+dm-devel@lfdr.de>; Mon, 29 Mar 2021 17:28:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1617031675;
+	s=mimecast20190719; t=1617031679;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=gcir2JqV7zeBNF7kdnBI/uPbjTKJ5LqSlk1kbnd8rBg=;
-	b=PqP51XksR8nLrbksQ7W+AVGmE/dWUNf7mXGoUm7Vq43i2qkcD5qRJLmy7/W/BpXSqCpCgg
-	iOXvMx/wakUU7Pqbf/zALfb0HofTc/3OT//ilORqAl2A6CXw+RMUo99cI2b7bxhsr2r1Qn
-	bz8oaS8GcBnVeHX4pMCtWpxCk8CcwWE=
+	bh=mirgJqIbPFX+53RwTQq89Siuhfn9m76Zffmktu6KSuU=;
+	b=MqNd1Y1dOQIlPypRNutG7muEDozmLDkaPsbrF99ovUpl1fQcq8+jU6LH3nKeVoXHPHRY3g
+	ja9znBueOZ7RTSUFHozAdNGSLwxL0Ro76kh2Sssdgp85bTC0p11Of5yYuJcnhCE4L5OzSl
+	jJ78pOd1KCUKnjaCWjmOw/V0PjaB/zE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-163-8Qh_hIOMP-iJLABTjA-cGA-1; Mon, 29 Mar 2021 11:27:51 -0400
-X-MC-Unique: 8Qh_hIOMP-iJLABTjA-cGA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-457-EVJ0ZGdHOSezvnGiylwXCA-1; Mon, 29 Mar 2021 11:27:56 -0400
+X-MC-Unique: EVJ0ZGdHOSezvnGiylwXCA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A3759107B7C5;
-	Mon, 29 Mar 2021 15:27:44 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7C19A5D9F0;
-	Mon, 29 Mar 2021 15:27:44 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 226BB107B7C9;
+	Mon, 29 Mar 2021 15:27:49 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EB0BDBA6F;
+	Mon, 29 Mar 2021 15:27:48 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 08C911809C83;
-	Mon, 29 Mar 2021 15:27:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 89A364BB7C;
+	Mon, 29 Mar 2021 15:27:48 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12TFReu8019420 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 29 Mar 2021 11:27:40 -0400
+	id 12TFRigB019437 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 29 Mar 2021 11:27:44 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B58345D6A8; Mon, 29 Mar 2021 15:27:40 +0000 (UTC)
+	id 55FB218219; Mon, 29 Mar 2021 15:27:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from localhost (ovpn-12-50.pek2.redhat.com [10.72.12.50])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D1DE25D6A1;
-	Mon, 29 Mar 2021 15:27:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5ADCD5C5DF;
+	Mon, 29 Mar 2021 15:27:43 +0000 (UTC)
 From: Ming Lei <ming.lei@redhat.com>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 29 Mar 2021 23:26:14 +0800
-Message-Id: <20210329152622.173035-5-ming.lei@redhat.com>
+Date: Mon, 29 Mar 2021 23:26:15 +0800
+Message-Id: <20210329152622.173035-6-ming.lei@redhat.com>
 In-Reply-To: <20210329152622.173035-1-ming.lei@redhat.com>
 References: <20210329152622.173035-1-ming.lei@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
 Cc: Mike Snitzer <snitzer@redhat.com>, Ming Lei <ming.lei@redhat.com>,
 	linux-block@vger.kernel.org, dm-devel@redhat.com,
 	Jeffle Xu <jefflexu@linux.alibaba.com>
-Subject: [dm-devel] [PATCH V4 04/12] block: add req flag of REQ_POLL_CTX
+Subject: [dm-devel] [PATCH V4 05/12] block: add new field into 'struct
+	bvec_iter'
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -68,7 +69,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -76,105 +77,59 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Add one req flag REQ_POLL_CTX which will be used in the following patch for
-supporting bio based IO polling.
+There is a hole at the end of 'struct bvec_iter', so put a new field
+here and we can save cookie returned from submit_bio() here for
+supporting bio based polling.
 
-Exactly this flag can help us to do:
+This way can avoid to extend bio unnecessarily.
 
-1) request flag is cloned in bio_fast_clone(), so if we mark one FS bio
-as REQ_POLL_CTX, all bios cloned from this FS bio will be marked as
-REQ_POLL_CTX too.
+Meantime add two helpers to get/set this field.
 
-2) create per-task io polling context if the bio based queue supports
-polling and the submitted bio is HIPRI. Per-task io poll context will be
-created during submit_bio() before marking this HIPRI bio as REQ_POLL_CTX.
-Then we can avoid to create such io polling context if one cloned bio with
-REQ_POLL_CTX is submitted from another kernel context.
-
-3) for supporting bio based io polling, we need to poll IOs from all
-underlying queues of the bio device, this way help us to recognize which
-IO needs to polled in bio based style, which will be applied in
-following patch.
-
-Reviewed-by: Jeffle Xu <jefflexu@linux.alibaba.com>
+Reviewed-by: Hannes Reinecke <hare@suse.de>
 Signed-off-by: Ming Lei <ming.lei@redhat.com>
 ---
- block/blk-core.c          | 28 ++++++++++++++++++++++++++--
- include/linux/blk_types.h |  4 ++++
- 2 files changed, 30 insertions(+), 2 deletions(-)
+ block/blk.h          | 10 ++++++++++
+ include/linux/bvec.h |  8 ++++++++
+ 2 files changed, 18 insertions(+)
 
-diff --git a/block/blk-core.c b/block/blk-core.c
-index 8a21a8c010a6..a777ba4fe06f 100644
---- a/block/blk-core.c
-+++ b/block/blk-core.c
-@@ -840,11 +840,30 @@ static inline bool blk_queue_support_bio_poll(struct request_queue *q)
- static inline void blk_bio_poll_preprocess(struct request_queue *q,
- 		struct bio *bio)
- {
-+	bool mq;
-+
- 	if (!(bio->bi_opf & REQ_HIPRI))
- 		return;
- 
--	if (!blk_queue_poll(q) || (!queue_is_mq(q) && !blk_get_bio_poll_ctx()))
-+	/*
-+	 * Can't support bio based IO polling without per-task poll ctx
-+	 *
-+	 * We have created per-task io poll context, and mark this
-+	 * bio as REQ_POLL_CTX, so: 1) if any cloned bio from this bio is
-+	 * submitted from another kernel context, we won't create bio
-+	 * poll context for it, and that bio can be completed by IRQ;
-+	 * 2) If such bio is submitted from current context, we will
-+	 * complete it via blk_poll(); 3) If driver knows that one
-+	 * underlying bio allocated from driver is for FS bio, meantime
-+	 * it is submitted in current context, driver can mark such bio
-+	 * as REQ_HIPRI & REQ_POLL_CTX manually, so the bio can be completed
-+	 * via blk_poll too.
-+	 */
-+	mq = queue_is_mq(q);
-+	if (!blk_queue_poll(q) || (!mq && !blk_get_bio_poll_ctx()))
- 		bio->bi_opf &= ~REQ_HIPRI;
-+	else if (!mq)
-+		bio->bi_opf |= REQ_POLL_CTX;
+diff --git a/block/blk.h b/block/blk.h
+index 35901cee709d..c1d8456656df 100644
+--- a/block/blk.h
++++ b/block/blk.h
+@@ -395,4 +395,14 @@ static inline void blk_create_io_poll_context(struct request_queue *q)
+ 		bio_poll_ctx_alloc(ioc);
  }
  
- static noinline_for_stack bool submit_bio_checks(struct bio *bio)
-@@ -900,7 +919,12 @@ static noinline_for_stack bool submit_bio_checks(struct bio *bio)
- 	if (unlikely(!current->io_context))
- 		create_task_io_context(current, GFP_ATOMIC, q->node);
- 
--	if (blk_queue_support_bio_poll(q) && (bio->bi_opf & REQ_HIPRI))
-+	/*
-+	 * If REQ_POLL_CTX isn't set for this HIPRI bio, we think it
-+	 * originated from FS and allocate io polling context.
-+	 */
-+	if (blk_queue_support_bio_poll(q) && (bio->bi_opf & REQ_HIPRI) &&
-+			!(bio->bi_opf & REQ_POLL_CTX))
- 		blk_create_io_poll_context(q);
- 
- 	blk_bio_poll_preprocess(q, bio);
-diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-index db026b6ec15a..99160d588c2d 100644
---- a/include/linux/blk_types.h
-+++ b/include/linux/blk_types.h
-@@ -394,6 +394,9 @@ enum req_flag_bits {
- 
- 	__REQ_HIPRI,
- 
-+	/* for marking IOs originated from same FS bio in same context */
-+	__REQ_POLL_CTX,
++static inline unsigned int bio_get_private_data(struct bio *bio)
++{
++	return bio->bi_iter.bi_private_data;
++}
 +
- 	/* for driver use */
- 	__REQ_DRV,
- 	__REQ_SWAP,		/* swapping request. */
-@@ -418,6 +421,7 @@ enum req_flag_bits {
++static inline void bio_set_private_data(struct bio *bio, unsigned int data)
++{
++	bio->bi_iter.bi_private_data = data;
++}
++
+ #endif /* BLK_INTERNAL_H */
+diff --git a/include/linux/bvec.h b/include/linux/bvec.h
+index ff832e698efb..547ad7526960 100644
+--- a/include/linux/bvec.h
++++ b/include/linux/bvec.h
+@@ -43,6 +43,14 @@ struct bvec_iter {
  
- #define REQ_NOUNMAP		(1ULL << __REQ_NOUNMAP)
- #define REQ_HIPRI		(1ULL << __REQ_HIPRI)
-+#define REQ_POLL_CTX			(1ULL << __REQ_POLL_CTX)
+ 	unsigned int            bi_bvec_done;	/* number of bytes completed in
+ 						   current bvec */
++
++	/*
++	 * There is a hole at the end of bvec_iter, add one new field to hold
++	 * something which isn't related with 'bvec_iter', so that we can
++	 * avoid extending bio. So far this new field is used for bio based
++	 * polling, we will store returning value of submit_bio() here.
++	 */
++	unsigned int		bi_private_data;
+ };
  
- #define REQ_DRV			(1ULL << __REQ_DRV)
- #define REQ_SWAP		(1ULL << __REQ_SWAP)
+ struct bvec_iter_all {
 -- 
 2.29.2
 
