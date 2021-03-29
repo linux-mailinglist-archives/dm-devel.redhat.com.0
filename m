@@ -1,61 +1,91 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B7D1334D3D8
-	for <lists+dm-devel@lfdr.de>; Mon, 29 Mar 2021 17:28:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1617031703;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=2mIWI+FU3N9FFVq4ca2QlP09X/yoyqdw9Ma2Yih49Tw=;
-	b=jMfKGTQvk+p07rMqyS9pfSMn7gJAIOu1f3faqHhGmXIK4L1dGxTy5M0XHqG4lC//KNLmVT
-	YIujrCxDw1IZCqtC7WJJ2sx0Qd5BkzCDVGVwYEAEe24LoqSFEdOfr1FU0SnYrqhjJuTRzW
-	kSqkEurfpb5mMMZq/rlWRVhLDcTAznk=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 5F8DD34D437
+	for <lists+dm-devel@lfdr.de>; Mon, 29 Mar 2021 17:45:32 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-258-iPGflKJVO5qTyagu1ulvbA-1; Mon, 29 Mar 2021 11:28:20 -0400
-X-MC-Unique: iPGflKJVO5qTyagu1ulvbA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-564-tdjgOXrhPA-r3qM9NCYcBQ-1; Mon, 29 Mar 2021 11:45:29 -0400
+X-MC-Unique: tdjgOXrhPA-r3qM9NCYcBQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A371BA0C27;
-	Mon, 29 Mar 2021 15:28:14 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 69CFA501FC;
+	Mon, 29 Mar 2021 15:45:24 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7E01DBA6F;
-	Mon, 29 Mar 2021 15:28:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 15DA42DAD0;
+	Mon, 29 Mar 2021 15:45:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2BC294BB7C;
-	Mon, 29 Mar 2021 15:28:14 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C1CF24BB7C;
+	Mon, 29 Mar 2021 15:45:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12TFSAx3019597 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 29 Mar 2021 11:28:10 -0400
+	id 12TFj9Gb020901 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 29 Mar 2021 11:45:10 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6D82B17D7E; Mon, 29 Mar 2021 15:28:10 +0000 (UTC)
+	id BDACB43670; Mon, 29 Mar 2021 15:45:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (ovpn-12-50.pek2.redhat.com [10.72.12.50])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B181F5D9F0;
-	Mon, 29 Mar 2021 15:28:09 +0000 (UTC)
-From: Ming Lei <ming.lei@redhat.com>
-To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 29 Mar 2021 23:26:22 +0800
-Message-Id: <20210329152622.173035-13-ming.lei@redhat.com>
-In-Reply-To: <20210329152622.173035-1-ming.lei@redhat.com>
-References: <20210329152622.173035-1-ming.lei@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B7801170F4
+	for <dm-devel@redhat.com>; Mon, 29 Mar 2021 15:45:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8E355100E640
+	for <dm-devel@redhat.com>; Mon, 29 Mar 2021 15:45:02 +0000 (UTC)
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+	[209.85.221.46]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-552-NUuuAqTgPu6GYiDruMTHHw-1; Mon, 29 Mar 2021 11:44:59 -0400
+X-MC-Unique: NUuuAqTgPu6GYiDruMTHHw-1
+Received: by mail-wr1-f46.google.com with SMTP id e18so13344831wrt.6;
+	Mon, 29 Mar 2021 08:44:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+	:mime-version:in-reply-to:content-language:content-transfer-encoding;
+	bh=fJPbnd2X7Qj6wc9YMaxiYGAvJGoxphEDD7e/nWF13iU=;
+	b=esqNh8WxEpURRgHFgxgBZJdS6Dd6M+3zM6XLUHMnu3H96waxqK/Y0JLRWIaxQfBlbA
+	HRVLs+e1fB/AVoe5uRsXp1RqiSmgByeyhjmUVcpjePRJZDziDk1Kn12htgX1MD521OkF
+	iF2oYClhMvAHqwdX5MayqOZJek8qVZyhE21zdk4CJQgLloKVr9nJCVlUh/64T5ry1q8T
+	tnH2ZO/BsRzG0L4IDhpmXl6Nly/hfmCdDbBSKtM+FnnXVjJmBDT9SqFCwUrHSdJE6r+K
+	k4m8QDCRuVqxT0F9agXgUvTD50uy6mvwwgN0+WdopUMXi1UepNW/0OO5ijGPvzxTq8/6
+	ZinQ==
+X-Gm-Message-State: AOAM530gNBQ9Bajn+fi7M0U73oIydxmzPhrE+yjVKW3FQZwkLJpxZX3s
+	mtGlIW5S9Or6dC40RzP1pzELK6RXKg==
+X-Google-Smtp-Source: ABdhPJxeqSkVp36YmSo1G9pW7gnhxPZwovk0K9lVvJV4EM7i9dOh6m3VoqPWD4R1F2FMipGU41Qnhw==
+X-Received: by 2002:a5d:698e:: with SMTP id g14mr28554909wru.127.1617032697954;
+	Mon, 29 Mar 2021 08:44:57 -0700 (PDT)
+Received: from localhost ([84.39.178.196]) by smtp.gmail.com with ESMTPSA id
+	e8sm25094331wme.14.2021.03.29.08.44.56
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Mon, 29 Mar 2021 08:44:57 -0700 (PDT)
+To: mwilck@suse.com, Christophe Varoqui <christophe.varoqui@opensvc.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Helmut Grohne <helmutg@debian.org>
+References: <20210326212944.3136-1-mwilck@suse.com>
+	<20210326212944.3136-2-mwilck@suse.com>
+From: Xose Vazquez Perez <xose.vazquez@gmail.com>
+Message-ID: <a4b71ca9-2b8b-5515-b895-8f66d200cc8b@gmail.com>
+Date: Mon, 29 Mar 2021 17:44:55 +0200
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+In-Reply-To: <20210326212944.3136-2-mwilck@suse.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: Mike Snitzer <snitzer@redhat.com>, Ming Lei <ming.lei@redhat.com>,
-	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	Jeffle Xu <jefflexu@linux.alibaba.com>
-Subject: [dm-devel] [PATCH V4 12/12] dm: support IO polling for bio-based dm
-	device
+Cc: dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH 1/7] multipath-tools Makefiles: make
+ pkg-config configurable
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -69,126 +99,72 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-From: Jeffle Xu <jefflexu@linux.alibaba.com>
+On 3/26/21 10:29 PM, mwilck@suse.com wrote:
 
-IO polling is enabled when all underlying target devices are capable
-of IO polling. The sanity check supports the stacked device model, in
-which one dm device may be build upon another dm device. In this case,
-the mapped device will check if the underlying dm target device
-supports IO polling.
+> From: Martin Wilck <mwilck@suse.com>
+> 
+> This is useful for building in a cross-compilation environment.
 
-Reviewed-by: Mike Snitzer <snitzer@redhat.com>
-Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
-Signed-off-by: Ming Lei <ming.lei@redhat.com>
----
- drivers/md/dm-table.c         | 24 ++++++++++++++++++++++++
- drivers/md/dm.c               | 14 ++++++++++++++
- include/linux/device-mapper.h |  1 +
- 3 files changed, 39 insertions(+)
+Debian has a similar patch:
+https://salsa.debian.org/linux-blocks-team/multipath-tools/-/blob/master/debian/patches/0008-Bug-916521-FTCBFS-uses-the-wrong-pkg-config.patch
 
-diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-index 95391f78b8d5..a8f3575fb118 100644
---- a/drivers/md/dm-table.c
-+++ b/drivers/md/dm-table.c
-@@ -1509,6 +1509,12 @@ struct dm_target *dm_table_find_target(struct dm_table *t, sector_t sector)
- 	return &t->targets[(KEYS_PER_NODE * n) + k];
- }
- 
-+static int device_not_poll_capable(struct dm_target *ti, struct dm_dev *dev,
-+				   sector_t start, sector_t len, void *data)
-+{
-+	return !blk_queue_poll(bdev_get_queue(dev->bdev));
-+}
-+
- /*
-  * type->iterate_devices() should be called when the sanity check needs to
-  * iterate and check all underlying data devices. iterate_devices() will
-@@ -1559,6 +1565,11 @@ static int count_device(struct dm_target *ti, struct dm_dev *dev,
- 	return 0;
- }
- 
-+int dm_table_supports_poll(struct dm_table *t)
-+{
-+	return !dm_table_any_dev_attr(t, device_not_poll_capable, NULL);
-+}
-+
- /*
-  * Check whether a table has no data devices attached using each
-  * target's iterate_devices method.
-@@ -2079,6 +2090,19 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
- 
- 	dm_update_keyslot_manager(q, t);
- 	blk_queue_update_readahead(q);
-+
-+	/*
-+	 * Check for request-based device is remained to
-+	 * dm_mq_init_request_queue()->blk_mq_init_allocated_queue().
-+	 * For bio-based device, only set QUEUE_FLAG_POLL when all underlying
-+	 * devices supporting polling.
-+	 */
-+	if (__table_type_bio_based(t->type)) {
-+		if (dm_table_supports_poll(t))
-+			blk_queue_flag_set(QUEUE_FLAG_POLL, q);
-+		else
-+			blk_queue_flag_clear(QUEUE_FLAG_POLL, q);
-+	}
- }
- 
- unsigned int dm_table_get_num_targets(struct dm_table *t)
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 50b693d776d6..dacc988045c9 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -1720,6 +1720,19 @@ static blk_qc_t dm_submit_bio(struct bio *bio)
- 	return ret;
- }
- 
-+static bool dm_poll_capable(struct gendisk *disk)
-+{
-+	int ret, srcu_idx;
-+	struct mapped_device *md = disk->private_data;
-+	struct dm_table *t;
-+
-+	t = dm_get_live_table(md, &srcu_idx);
-+	ret = dm_table_supports_poll(t);
-+	dm_put_live_table(md, srcu_idx);
-+
-+	return ret;
-+}
-+
- /*-----------------------------------------------------------------
-  * An IDR is used to keep track of allocated minor numbers.
-  *---------------------------------------------------------------*/
-@@ -3132,6 +3145,7 @@ static const struct pr_ops dm_pr_ops = {
- };
- 
- static const struct block_device_operations dm_blk_dops = {
-+	.poll_capable = dm_poll_capable,
- 	.submit_bio = dm_submit_bio,
- 	.open = dm_blk_open,
- 	.release = dm_blk_close,
-diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
-index 7f4ac87c0b32..31bfd6f70013 100644
---- a/include/linux/device-mapper.h
-+++ b/include/linux/device-mapper.h
-@@ -538,6 +538,7 @@ unsigned int dm_table_get_num_targets(struct dm_table *t);
- fmode_t dm_table_get_mode(struct dm_table *t);
- struct mapped_device *dm_table_get_md(struct dm_table *t);
- const char *dm_table_device_name(struct dm_table *t);
-+int dm_table_supports_poll(struct dm_table *t);
- 
- /*
-  * Trigger an event.
--- 
-2.29.2
+
+> Signed-off-by: Martin Wilck <mwilck@suse.com>
+> ---
+>   Makefile.inc     | 6 ++++--
+>   libdmmp/Makefile | 4 ++--
+>   2 files changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Makefile.inc b/Makefile.inc
+> index 0542930..f1e2313 100644
+> --- a/Makefile.inc
+> +++ b/Makefile.inc
+> @@ -15,6 +15,8 @@
+>   # Uncomment to disable dmevents polling support
+>   # ENABLE_DMEVENTS_POLL = 0
+>   
+> +PKGCONFIG	?= pkg-config
+> +
+>   ifeq ($(TOPDIR),)
+>   	TOPDIR	= ..
+>   endif
+> @@ -36,8 +38,8 @@ ifndef RUN
+>   endif
+>   
+>   ifndef SYSTEMD
+> -	ifeq ($(shell pkg-config --modversion libsystemd >/dev/null 2>&1 && echo 1), 1)
+> -		SYSTEMD = $(shell pkg-config --modversion libsystemd | awk '{print $$1}')
+> +	ifeq ($(shell $(PKGCONFIG) --modversion libsystemd >/dev/null 2>&1 && echo 1), 1)
+> +		SYSTEMD = $(shell $(PKGCONFIG) --modversion libsystemd | awk '{print $$1}')
+>   	else
+>   		ifeq ($(shell systemctl --version >/dev/null 2>&1 && echo 1), 1)
+>   			SYSTEMD = $(shell systemctl --version 2> /dev/null | \
+> diff --git a/libdmmp/Makefile b/libdmmp/Makefile
+> index 1dd3f34..4175c3f 100644
+> --- a/libdmmp/Makefile
+> +++ b/libdmmp/Makefile
+> @@ -16,9 +16,9 @@ HEADERS = libdmmp/libdmmp.h
+>   OBJS = libdmmp.o libdmmp_mp.o libdmmp_pg.o libdmmp_path.o libdmmp_misc.o
+>   
+>   CFLAGS += $(LIB_CFLAGS) -fvisibility=hidden -I$(libdmmpdir) -I$(mpathcmddir) \
+> -	  $(shell pkg-config --cflags json-c)
+> +	  $(shell $(PKGCONFIG) --cflags json-c)
+>   
+> -LIBDEPS += $(shell pkg-config --libs json-c) -L$(mpathcmddir) -lmpathcmd -lpthread
+> +LIBDEPS += $(shell $(PKGCONFIG) --libs json-c) -L$(mpathcmddir) -lmpathcmd -lpthread
+>   
+>   all: $(LIBS) doc
+>   
+> 
 
 --
 dm-devel mailing list
