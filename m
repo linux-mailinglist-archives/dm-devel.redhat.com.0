@@ -2,81 +2,65 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 73EDB34E316
-	for <lists+dm-devel@lfdr.de>; Tue, 30 Mar 2021 10:23:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CAA0234E1CB
+	for <lists+dm-devel@lfdr.de>; Tue, 30 Mar 2021 09:12:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1617088347;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=Bd8mqldCMBMOb8q8QhUhTpMc+kyT7WO5SGbBUGGyjLY=;
+	b=eYZuLiwVhIbxudpkzcSTkA6JcgOUtfsnaeL+WI5SnJaGtI9UjJFj3XWXblb/0ElxKuitTV
+	GTWe8AsrazzvTFBfiyFu4fvBXqjCY/MgYv6aElsGbz5aYDfSSY+pVpZexA7+Td8W4tL7Aq
+	IeO7sciGkN+1jfXkvmAk1hNEzIBkBfs=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-283-djoR2KuaOQCeDLaw-LCj9Q-1; Tue, 30 Mar 2021 04:23:54 -0400
-X-MC-Unique: djoR2KuaOQCeDLaw-LCj9Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-521-5pBe0DW9MgOtTdQH-8kUnQ-1; Tue, 30 Mar 2021 03:12:25 -0400
+X-MC-Unique: 5pBe0DW9MgOtTdQH-8kUnQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9760F800D62;
-	Tue, 30 Mar 2021 08:23:48 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 715FC96551;
-	Tue, 30 Mar 2021 08:23:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 90079107ACCA;
+	Tue, 30 Mar 2021 07:12:18 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 08B976E708;
+	Tue, 30 Mar 2021 07:12:16 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 73E4C4BB7C;
-	Tue, 30 Mar 2021 08:23:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0C9931809C83;
+	Tue, 30 Mar 2021 07:12:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12U6p3Ix008884 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 30 Mar 2021 02:51:04 -0400
+	id 12U76Kro009750 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 30 Mar 2021 03:06:21 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id AAAF549C2B; Tue, 30 Mar 2021 06:51:03 +0000 (UTC)
+	id ECA363AC0; Tue, 30 Mar 2021 07:06:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A54BE47CD4
-	for <dm-devel@redhat.com>; Tue, 30 Mar 2021 06:51:00 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC6C5185A7B2
-	for <dm-devel@redhat.com>; Tue, 30 Mar 2021 06:51:00 +0000 (UTC)
-Received: from out30-54.freemail.mail.aliyun.com
-	(out30-54.freemail.mail.aliyun.com [115.124.30.54]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-376-DEAtM1quMCio2cp1drPOaA-1;
-	Tue, 30 Mar 2021 02:50:57 -0400
-X-MC-Unique: DEAtM1quMCio2cp1drPOaA-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R121e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1;
-	HT=alimailimapcm10staff010182156082;
-	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=6; SR=0;
-	TI=SMTPD_---0UTpnuEy_1617087051
-Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0UTpnuEy_1617087051) by smtp.aliyun-inc.com(127.0.0.1);
-	Tue, 30 Mar 2021 14:50:52 +0800
-To: Hannes Reinecke <hare@suse.de>, Ming Lei <ming.lei@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>
-References: <20210329152622.173035-1-ming.lei@redhat.com>
-	<20210329152622.173035-12-ming.lei@redhat.com>
-	<162f000f-7f86-8988-4a15-2c3bf70de1b7@suse.de>
-From: JeffleXu <jefflexu@linux.alibaba.com>
-Message-ID: <a213b9b1-992d-3deb-200d-c74eac500747@linux.alibaba.com>
-Date: Tue, 30 Mar 2021 14:50:51 +0800
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
-	Gecko/20100101 Thunderbird/78.7.1
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 828D6669F3;
+	Tue, 30 Mar 2021 07:06:17 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 12U76Gf4007610; 
+	Tue, 30 Mar 2021 02:06:16 -0500
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 12U76Fpw007609;
+	Tue, 30 Mar 2021 02:06:15 -0500
+Date: Tue, 30 Mar 2021 02:06:15 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: mwilck@suse.com
+Message-ID: <20210330070615.GQ15006@octiron.msp.redhat.com>
+References: <20210329203935.19691-1-mwilck@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <162f000f-7f86-8988-4a15-2c3bf70de1b7@suse.de>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+In-Reply-To: <20210329203935.19691-1-mwilck@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Tue, 30 Mar 2021 04:22:10 -0400
-Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
-	Mike Snitzer <snitzer@redhat.com>
-Subject: Re: [dm-devel] [PATCH V4 11/12] block: add poll_capable method to
- support bio-based IO polling
+Cc: dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH] multipathd: give up "add missing path" after
+ multiple failures
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,72 +74,97 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-CgpPbiAzLzMwLzIxIDI6MjYgUE0sIEhhbm5lcyBSZWluZWNrZSB3cm90ZToKPiBPbiAzLzI5LzIx
-IDU6MjYgUE0sIE1pbmcgTGVpIHdyb3RlOgo+PiBGcm9tOiBKZWZmbGUgWHUgPGplZmZsZXh1QGxp
-bnV4LmFsaWJhYmEuY29tPgo+Pgo+PiBUaGlzIG1ldGhvZCBjYW4gYmUgdXNlZCB0byBjaGVjayBp
-ZiBiaW8tYmFzZWQgZGV2aWNlIHN1cHBvcnRzIElPIHBvbGxpbmcKPj4gb3Igbm90LiBGb3IgbXEg
-ZGV2aWNlcywgY2hlY2tpbmcgZm9yIGh3IHF1ZXVlIGluIHBvbGxpbmcgbW9kZSBpcwo+PiBhZGVx
-dWF0ZSwgd2hpbGUgdGhlIHNhbml0eSBjaGVjayBzaGFsbCBiZSBpbXBsZW1lbnRhdGlvbiBzcGVj
-aWZpYyBmb3IKPj4gYmlvLWJhc2VkIGRldmljZXMuIEZvciBleGFtcGxlLCBkbSBkZXZpY2UgbmVl
-ZHMgdG8gY2hlY2sgaWYgYWxsCj4+IHVuZGVybHlpbmcgZGV2aWNlcyBhcmUgY2FwYWJsZSBvZiBJ
-TyBwb2xsaW5nLgo+Pgo+PiBUaG91Z2ggYmlvLWJhc2VkIGRldmljZSBtYXkgaGF2ZSBkb25lIHRo
-ZSBzYW5pdHkgY2hlY2sgZHVyaW5nIHRoZQo+PiBkZXZpY2UgaW5pdGlhbGl6YXRpb24gcGhhc2Us
-IGNhY2hlaW5nIHRoZSByZXN1bHQgb2YgdGhpcyBzYW5pdHkgY2hlY2sKPj4gKHN1Y2ggYXMgYnkg
-Y2FjaGVpbmcgaW4gdGhlIHF1ZXVlX2ZsYWdzKSBtYXkgbm90IHdvcmsuIEJlY2F1c2UgZm9yIGRt
-Cj4+IGRldmljZXMsIHVzZXJzIGNvdWxkIGNoYW5nZSB0aGUgc3RhdGUgb2YgdGhlIHVuZGVybHlp
-bmcgZGV2aWNlcyB0aHJvdWdoCj4+ICcvc3lzL2Jsb2NrLzxkZXY+L2lvX3BvbGwnLCBieXBhc3Np
-bmcgdGhlIGRtIGRldmljZSBhYm92ZS4gSW4gdGhpcyBjYXNlLAo+PiB0aGUgY2FjaGVkIHJlc3Vs
-dCBvZiB0aGUgdmVyeSBiZWdpbm5pbmcgc2FuaXR5IGNoZWNrIGNvdWxkIGJlCj4+IG91dC1vZi1k
-YXRlLiBUaHVzIHRoZSBzYW5pdHkgY2hlY2sgbmVlZHMgdG8gYmUgZG9uZSBldmVyeSB0aW1lICdp
-b19wb2xsJwo+PiBpcyB0byBiZSBtb2RpZmllZC4KPj4KPj4gU2lnbmVkLW9mZi1ieTogSmVmZmxl
-IFh1IDxqZWZmbGV4dUBsaW51eC5hbGliYWJhLmNvbT4KPj4gLS0tCj4+IMKgIGJsb2NrL2Jsay1z
-eXNmcy5jwqDCoMKgwqDCoCB8IDE0ICsrKysrKysrKysrLS0tCj4+IMKgIGluY2x1ZGUvbGludXgv
-YmxrZGV2LmggfMKgIDEgKwo+PiDCoCAyIGZpbGVzIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyks
-IDMgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9ibG9jay9ibGstc3lzZnMuYyBiL2Js
-b2NrL2Jsay1zeXNmcy5jCj4+IGluZGV4IGRiMzI2OGQ0MTI3NC4uYzhlN2U0YWY2NmNiIDEwMDY0
-NAo+PiAtLS0gYS9ibG9jay9ibGstc3lzZnMuYwo+PiArKysgYi9ibG9jay9ibGstc3lzZnMuYwo+
-PiBAQCAtNDI2LDkgKzQyNiwxNyBAQCBzdGF0aWMgc3NpemVfdCBxdWV1ZV9wb2xsX3N0b3JlKHN0
-cnVjdAo+PiByZXF1ZXN0X3F1ZXVlICpxLCBjb25zdCBjaGFyICpwYWdlLAo+PiDCoMKgwqDCoMKg
-IHVuc2lnbmVkIGxvbmcgcG9sbF9vbjsKPj4gwqDCoMKgwqDCoCBzc2l6ZV90IHJldDsKPj4gwqAg
-LcKgwqDCoCBpZiAoIXEtPnRhZ19zZXQgfHwgcS0+dGFnX3NldC0+bnJfbWFwcyA8PSBIQ1RYX1RZ
-UEVfUE9MTCB8fAo+PiAtwqDCoMKgwqDCoMKgwqAgIXEtPnRhZ19zZXQtPm1hcFtIQ1RYX1RZUEVf
-UE9MTF0ubnJfcXVldWVzKQo+PiAtwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FSU5WQUw7Cj4+ICvC
-oMKgwqAgaWYgKHF1ZXVlX2lzX21xKHEpKSB7Cj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAoIXEtPnRh
-Z19zZXQgfHwgcS0+dGFnX3NldC0+bnJfbWFwcyA8PSBIQ1RYX1RZUEVfUE9MTCB8fAo+PiArwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCAhcS0+dGFnX3NldC0+bWFwW0hDVFhfVFlQRV9QT0xMXS5ucl9x
-dWV1ZXMpCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRUlOVkFMOwo+PiArwqDC
-oMKgIH0gZWxzZSB7Cj4+ICvCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZ2VuZGlzayAqZGlzayA9IHF1
-ZXVlX3RvX2Rpc2socSk7Cj4+ICsKPj4gK8KgwqDCoMKgwqDCoMKgIGlmICghZGlzay0+Zm9wcy0+
-cG9sbF9jYXBhYmxlIHx8Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICFkaXNrLT5mb3BzLT5w
-b2xsX2NhcGFibGUoZGlzaykpCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRUlO
-VkFMOwo+PiArwqDCoMKgIH0KPj4gwqAgwqDCoMKgwqDCoCByZXQgPSBxdWV1ZV92YXJfc3RvcmUo
-JnBvbGxfb24sIHBhZ2UsIGNvdW50KTsKPj4gwqDCoMKgwqDCoCBpZiAocmV0IDwgMCkKPj4gZGlm
-ZiAtLWdpdCBhL2luY2x1ZGUvbGludXgvYmxrZGV2LmggYi9pbmNsdWRlL2xpbnV4L2Jsa2Rldi5o
-Cj4+IGluZGV4IGJmYWI3NGI0NWYxNS4uYTQ2Zjk3NWYyYTJmIDEwMDY0NAo+PiAtLS0gYS9pbmNs
-dWRlL2xpbnV4L2Jsa2Rldi5oCj4+ICsrKyBiL2luY2x1ZGUvbGludXgvYmxrZGV2LmgKPj4gQEAg
-LTE4ODEsNiArMTg4MSw3IEBAIHN0cnVjdCBibG9ja19kZXZpY2Vfb3BlcmF0aW9ucyB7Cj4+IMKg
-wqDCoMKgwqAgaW50ICgqcmVwb3J0X3pvbmVzKShzdHJ1Y3QgZ2VuZGlzayAqLCBzZWN0b3JfdCBz
-ZWN0b3IsCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGludCBucl96b25l
-cywgcmVwb3J0X3pvbmVzX2NiIGNiLCB2b2lkICpkYXRhKTsKPj4gwqDCoMKgwqDCoCBjaGFyICoo
-KmRldm5vZGUpKHN0cnVjdCBnZW5kaXNrICpkaXNrLCB1bW9kZV90ICptb2RlKTsKPj4gK8KgwqDC
-oCBib29sICgqcG9sbF9jYXBhYmxlKShzdHJ1Y3QgZ2VuZGlzayAqZGlzayk7Cj4+IMKgwqDCoMKg
-wqAgc3RydWN0IG1vZHVsZSAqb3duZXI7Cj4+IMKgwqDCoMKgwqAgY29uc3Qgc3RydWN0IHByX29w
-cyAqcHJfb3BzOwo+PiDCoCB9Owo+Pgo+IEkgcmVhbGx5IHdvbmRlciBob3cgdGhpcyB3b3VsZCB3
-b3JrIGZvciBudm1lIG11bHRpcGF0aDsgYnV0IEkgZ3Vlc3MgaXQKPiBkb2Vzbid0IGNoYW5nZSB0
-aGUgY3VycmVudCBzaXR1YXRpb24uCgpJIHdvbmRlciwgYXQgbGVhc3QsIG1kL2RtLCB3aGljaCBp
-cyBidWlsdCB1cG9uIG90aGVyIGRldmljZXMsIG9yCid2aXJ0dWFsIGRldmljZScgaW4gb3RoZXIg
-d29yZHMsIHNob3VsZCBiZSBkaXN0aW5ndWlzaGVkIGZyb20gb3RoZXIKJ29yaWdpbmFsJyBiaW8t
-YmFzZWQgZGV2aWNlIChlLmcuLCBudm1lIG11bHRpcGF0aCkgdGhlbi4gTWF5YmUgb25lIGV4dHJh
-CmZsYWcgb3Igc29tZXRoaW5nLgoKLS0gClRoYW5rcywKSmVmZmxlCgotLQpkbS1kZXZlbCBtYWls
-aW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9t
-YWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
+On Mon, Mar 29, 2021 at 10:39:35PM +0200, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
+> 
+> After b7aae60 ("multipathd: improve "add missing path" handling"),
+> a path that failed to initialize after multiple udev retriggers
+> would still be checked in check_path(). However, if a path is up,
+> has been checked more than once, the failback WWID methods have
+> been tried, and still there is no usable WWID, we may conclude
+> that something is fishy and we shouldn't keep trying.
+> 
+> Without this patch, totally WWID-less devices (seen e.g. on ESXi)
+> will cause a "add missing path" message in every checker iteration.
+> 
+> Fixes: b7aae60 ("multipathd: improve "add missing path" handling")
+> Signed-off-by: Martin Wilck <mwilck@suse.com>
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
+> ---
+>  libmultipath/discovery.c | 16 ++++++++++++++++
+>  multipathd/main.c        |  6 ++++--
+>  2 files changed, 20 insertions(+), 2 deletions(-)
+> 
+> diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
+> index f804414..ec99a7a 100644
+> --- a/libmultipath/discovery.c
+> +++ b/libmultipath/discovery.c
+> @@ -2370,6 +2370,22 @@ int pathinfo(struct path *pp, struct config *conf, int mask)
+>  			if (pp->initialized != INIT_FAILED) {
+>  				pp->initialized = INIT_MISSING_UDEV;
+>  				pp->tick = conf->retrigger_delay;
+> +			} else if (pp->retriggers >= conf->retrigger_tries &&
+> +				   (pp->state == PATH_UP || pp->state == PATH_GHOST)) {
+> +				/*
+> +				 * We have failed to read udev info for this path
+> +				 * repeatedly. We used the fallback in get_uid()
+> +				 * if there was any, and still got no WWID,
+> +				 * although the path is allegedly up.
+> +				 * It's likely that this path is not fit for
+> +				 * multipath use.
+> +				 */
+> +				char buf[16];
+> +
+> +				snprint_path(buf, sizeof(buf), "%T", pp, 0);
+> +				condlog(1, "%s: no WWID in state \"%s\", giving up",
+> +					pp->dev, buf);
+> +				return PATHINFO_SKIPPED;
+>  			}
+>  			return PATHINFO_OK;
+>  		}
+> diff --git a/multipathd/main.c b/multipathd/main.c
+> index 3579bad..102946b 100644
+> --- a/multipathd/main.c
+> +++ b/multipathd/main.c
+> @@ -2218,13 +2218,13 @@ check_path (struct vectors * vecs, struct path * pp, unsigned int ticks)
+>  				ev_add_path(pp, vecs, 1);
+>  				pp->tick = 1;
+>  			} else {
+> +				if (ret == PATHINFO_SKIPPED)
+> +					return -1;
+>  				/*
+>  				 * We failed multiple times to initialize this
+>  				 * path properly. Don't re-check too often.
+>  				 */
+>  				pp->checkint = max_checkint;
+> -				if (ret == PATHINFO_SKIPPED)
+> -					return -1;
+>  			}
+>  		}
+>  		return 0;
+> @@ -2504,6 +2504,8 @@ checkerloop (void *ap)
+>  		vector_foreach_slot (vecs->pathvec, pp, i) {
+>  			rc = check_path(vecs, pp, ticks);
+>  			if (rc < 0) {
+> +				condlog(1, "%s: check_path() failed, removing",
+> +					pp->dev);
+>  				vector_del_slot(vecs->pathvec, i);
+>  				free_path(pp);
+>  				i--;
+> -- 
+> 2.30.1
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
