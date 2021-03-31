@@ -1,63 +1,90 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2545035013E
-	for <lists+dm-devel@lfdr.de>; Wed, 31 Mar 2021 15:33:03 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
+	by mail.lfdr.de (Postfix) with ESMTP id A4FDA35013D
+	for <lists+dm-devel@lfdr.de>; Wed, 31 Mar 2021 15:33:02 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-77-1_8br4j7Mv-9ipSJB5UzPg-1; Wed, 31 Mar 2021 09:32:59 -0400
-X-MC-Unique: 1_8br4j7Mv-9ipSJB5UzPg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-558-eThKwO0FONiRGAhDubl9sQ-1; Wed, 31 Mar 2021 09:32:58 -0400
+X-MC-Unique: eThKwO0FONiRGAhDubl9sQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B660310CE7B8;
-	Wed, 31 Mar 2021 13:32:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 59FF5614F5;
-	Wed, 31 Mar 2021 13:32:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AD99A10CE7A8;
+	Wed, 31 Mar 2021 13:32:52 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 50FB110023BE;
+	Wed, 31 Mar 2021 13:32:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 41CB91809C83;
-	Wed, 31 Mar 2021 13:32:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A9D344BB7C;
+	Wed, 31 Mar 2021 13:32:51 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 12V7Q6Us025385 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 31 Mar 2021 03:26:06 -0400
+	id 12V8IGN7029308 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 31 Mar 2021 04:18:16 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 15EC482899; Wed, 31 Mar 2021 07:26:06 +0000 (UTC)
+	id 090E32166B2D; Wed, 31 Mar 2021 08:18:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0F92F176DC
-	for <dm-devel@redhat.com>; Wed, 31 Mar 2021 07:26:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 024F92166B44
+	for <dm-devel@redhat.com>; Wed, 31 Mar 2021 08:18:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5D3A180A1D5
-	for <dm-devel@redhat.com>; Wed, 31 Mar 2021 07:26:01 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-48-tm9LoT2lM3aOxQzeCkEQ5w-1;
-	Wed, 31 Mar 2021 03:25:59 -0400
-X-MC-Unique: tm9LoT2lM3aOxQzeCkEQ5w-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id AE43DAF42;
-	Wed, 31 Mar 2021 07:25:57 +0000 (UTC)
-To: Erwin van Londen <erwin@erwinvanlonden.net>,
-	Muneendra Kumar M <muneendra.kumar@broadcom.com>,
-	Benjamin Block <bblock@linux.ibm.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 333D9811E7A
+	for <dm-devel@redhat.com>; Wed, 31 Mar 2021 08:18:13 +0000 (UTC)
+Received: from gateway22.websitewelcome.com (gateway22.websitewelcome.com
+	[192.185.47.228]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-187-idYvZYg5Pc2xTyVfKb2udA-1; Wed, 31 Mar 2021 04:18:09 -0400
+X-MC-Unique: idYvZYg5Pc2xTyVfKb2udA-1
+Received: from cm14.websitewelcome.com (cm14.websitewelcome.com [100.42.49.7])
+	by gateway22.websitewelcome.com (Postfix) with ESMTP id 82C4A564C
+	for <dm-devel@redhat.com>; Wed, 31 Mar 2021 03:18:08 -0500 (CDT)
+Received: from just2098.justhost.com ([173.254.31.45]) by cmsmtp with SMTP
+	id RW3ElK5ptw11MRW3El5QFg; Wed, 31 Mar 2021 03:18:08 -0500
+X-Authority-Reason: nr=8
+Received: from 116-240-66-4.sta.dodo.net.au ([116.240.66.4]:41002
+	helo=[192.168.1.104])
+	by just2098.justhost.com with esmtpsa (TLS1.2) tls
+	TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
+	(envelope-from <erwin@erwinvanlonden.net>)
+	id 1lRW3D-001iPd-D8; Wed, 31 Mar 2021 02:18:07 -0600
+Message-ID: <06265a53d3a50353e285cb4b61120bd3cf2ccc7f.camel@erwinvanlonden.net>
+From: Erwin van Londen <erwin@erwinvanlonden.net>
+To: Hannes Reinecke <hare@suse.de>, Muneendra Kumar M
+	<muneendra.kumar@broadcom.com>, Benjamin Block <bblock@linux.ibm.com>
+In-Reply-To: <8966fcda-b1ca-5d50-398a-13195dab3c44@suse.de>
 References: <5b87a64d88a13eb8b4917a1cc0d35691f9fc8227.camel@erwinvanlonden.net>
 	<YFy1Q6nvJEcRzwyl@t480-pf1aa2c2.linux.ibm.com>
 	<b3025c4bf84fe357712fa0fe32bfa3e9@mail.gmail.com>
 	<2c6ff107ccf5f0589520ef124cd9ecc4cdcc355e.camel@erwinvanlonden.net>
-From: Hannes Reinecke <hare@suse.de>
-Message-ID: <8966fcda-b1ca-5d50-398a-13195dab3c44@suse.de>
-Date: Wed, 31 Mar 2021 09:25:57 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.8.0
+	<8966fcda-b1ca-5d50-398a-13195dab3c44@suse.de>
+Date: Wed, 31 Mar 2021 18:12:57 +1000
 MIME-Version: 1.0
-In-Reply-To: <2c6ff107ccf5f0589520ef124cd9ecc4cdcc355e.camel@erwinvanlonden.net>
+User-Agent: Evolution 3.38.4 (3.38.4-1.fc33)
+X-AntiAbuse: This header was added to track abuse,
+	please include it with any abuse report
+X-AntiAbuse: Primary Hostname - just2098.justhost.com
+X-AntiAbuse: Original Domain - redhat.com
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - erwinvanlonden.net
+X-BWhitelist: no
+X-Source-IP: 116.240.66.4
+X-Source-L: No
+X-Exim-ID: 1lRW3D-001iPd-D8
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 116-240-66-4.sta.dodo.net.au ([192.168.1.104])
+	[116.240.66.4]:41002
+X-Source-Auth: erwin@erwinvanlonden.net
+X-Email-Count: 3
+X-Source-Cap: aGl0YWNoaTE7aGl0YWNoaTE7anVzdDIwOTguanVzdGhvc3QuY29t
+X-Local-Domain: yes
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -66,12 +93,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 12V7Q6Us025385
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Wed, 31 Mar 2021 09:32:19 -0400
-Cc: dm-devel@redhat.com, Martin Wilck <Martin.Wilck@suse.com>
+X-Mailman-Approved-At: Wed, 31 Mar 2021 09:32:18 -0400
+Cc: dm-devel@redhat.com, Wilck <Martin.Wilck@suse.com>, Martin
 Subject: Re: [dm-devel] dm-multipath - IO queue dispatch based on FPIN
  Congestion/Latency notifications.
 X-BeenThere: dm-devel@redhat.com
@@ -87,71 +112,228 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1102831959996881165=="
 
-SGkgRXJ3aW4sCgpPbiAzLzMxLzIxIDI6MjIgQU0sIEVyd2luIHZhbiBMb25kZW4gd3JvdGU6Cj4g
-SGVsbG8gTXVuZWVuZHJhLCBiZW5qYW1pbiwKPiAKPiBUaGUgZnBpbiBvcHRpb25zIHRoYXQgYXJl
-IGRldmVsb3BlZCBkbyBoYXZlIGEgd2hvbGUgcGxldGhvcmEgb2Ygb3B0aW9ucwo+IGFuZCBkbyBu
-b3QgbWFpbmx5IHRyaWdnZXIgcGF0aHMgYmVpbmcgaW4gYSBtYXJnaW5hbCBzdGF0ZS4gVGggbXBp
-byBsYXllcgo+IGNvdWxkIHV0aWxpc2UgdGhlIHZhcmlvdXMgdHJpZ2dlcnMgbGlrZSBjb25nZXN0
-aW9uIGFuZCBsYXRlbmN5IGFuZCBub3QKPiBqdXN0IHVzZSBhIG1hcmdpbmFsIHN0YXRlIGFzIGEg
-ZGVjaXNpdmUgcG9pbnQuIElmIGEgcGF0aCBpcyBzb21ld2hhdAo+IGNvbmdlc3RlZCB0aGUgYW1v
-dW50IG9mIGlvJ3MgZGlzcGVyc2VkIG92ZXIgdGhlc2UgcGF0aHMgY291bGQganVzdCBiZQo+IHJl
-ZHVjZWQgYnkgYSBmbGV4aWJsZSBtYXJnaW4gZGVwZW5kaW5nIG9uIGhvdyBvZnRlbiBhbmQgd2hp
-Y2ggZnBpbnMgYXJlCj4gYWN0dWFsbHkgcmVjZWl2ZWQuIElmIGZvciBpbnN0YW5jZSBhbmQgZnBp
-biBpcyByZWNpZXZlZCB0aGF0IGFuIHVwc3RyZWFtCj4gcG9ydCBpcyB0aHJvd2luZyBwaHlzaWNh
-bCBlcnJvcnMgeW91IG1heSBleGNsdWRlIGlzIGVudGlyZWx5IGZyb20KPiBxdWV1ZWluZyBJTydz
-IHRvIGl0LiBJZiBpdCBpcyBhIGxhdGVuY3kgcmVsYXRlZCBwcm9ibGVtIHdoZXJlIGNyZWRpdAo+
-IHNob3J0YWdlcyBjb21lIGluIHBsYXkgeW91IG1heSBqdXN0IG5lZWQgdG8gcXVldWUgdmVyeSBz
-bWFsbCBJTydzIHRvIGl0Lgo+IFRoZSBzY3NpIENEQiB3aWxsIHRlbGwgdGhlIHNpemUgb2YgdGhl
-IElPLiBDb25nZXN0aW9uIG5vdGlmaWNhdGlvbnMgbWF5Cj4ganVzdCBiZSB1c2VkIGZvciBwb3Rl
-bnRpYWxseSBhZGRpbmcgYW4gYXJ0aWZpY2lhbMKgIGRlbGF5IHRvIHJlZHVjZSB0aGUKPiB3b3Jr
-bG9hZCBvbiB0aGVzZSBwYXRocyBhbmQgc2NoZWR1bGUgdGhlbSBvbiBhbm90aGVyLgo+IApBcyBj
-b3JyZWN0bHkgbm90ZWQsIEZQSU5zIGNvbWUgd2l0aCBhIHZhcmlldHkgb2Ygb3B0aW9ucy4KQW5k
-IEknbSBub3QgY2VydGFpbiB3ZSBjYW4gZXZlcnl0aGluZyBjb3JyZWN0bHk7IGEgZGVncmFkZWQg
-cGF0aCBpcwpzaW1wbGUsIGJ1dCBmb3IgY29uZ2VzdGlvbiB0aGVyZSBpcyBvbmx5IF9zb18gbXVj
-aCB3ZSBjYW4gZG8uClRoZSB0eXBpY2FsIGNhdXNlIGZvciBjb25nZXN0aW9uIGlzLCBzYXksIGEg
-MzJHIGhvc3QgcG9ydCB0YWxraW5nIHRvIGEKMTZHIChvciBldmVuIDhHKSB0YXJnZXQgcG9ydCBf
-YW5kXyBhIDMyRyB0YXJnZXQgcG9ydC4KClNvIHRoZSBob3N0IGNhbm5vdCAndHVuZSBkb3duJyBp
-dCdzIGxpbmsgdG8gOEc7IGRvaW5nIHNvIHdvdWxkIGltcGFjdApwZXJmb3JtYW5jZSBvbiB0aGUg
-MzJHIHRhcmdldCBwb3J0LgooQW5kIHdlIHdvdWxkIHN1ZmZlciByZXZlcnNlIGNvbmdlc3Rpb24g
-d2hlbmV2ZXIgdGhhdCB0YXJnZXQgcG9ydCBzZW5kcwpmcmFtZXMpLgoKQW5kIHRocm90dGxpbmcg
-dGhpbmdzIG9uIHRoZSBTQ1NJIGxheWVyIG9ubHkgaGVscHMgX3NvXyBtdWNoLCBhcyB0aGUKcmVh
-bCBjb25nZXN0aW9uIGlzIGR1ZSB0byB0aGUgc3BlZWQgd2l0aCB3aGljaCB0aGUgZnJhbWVzIGFy
-ZSBzZXF1ZW5jZWQKb250byB0aGUgd2lyZS4gV2hpY2ggaXMgbm90IHNvbWV0aGluZyB3ZSBmcm9t
-IHRoZSBPUyBjYW4gY29udHJvbC4KCj5Gcm9tIGFub3RoZXIgUE9WIHRoaXMgaXMgYXJndWFibHkg
-YSBmYWJyaWMgbWlzLWRlc2lnbjsgc28gaXQgX2NvdWxkXyBiZQphbGxldmlhdGVkIGJ5IHNlcGFy
-YXRpbmcgb3V0IHRoZSBwb3J0cyB3aXRoIGxvd2VyIHNwZWVkcyBpbnRvIGl0cyBvd24Kem9uZSAo
-b3IgZXZlbiBvbiBhIHNlcGFyYXRlIFNBTik7IHRoYXQgd291bGQgdHJpdmlhbGx5IG1ha2UgdGhl
-CmNvbmdlc3Rpb24gZ28gYXdheS4KCkJ1dCBmb3IgdGhhdCB0aGUgYWRtaW4gZmlyc3Qgc2hvdWxk
-IGJlIF9hbGVydGVkXywgYW5kIHRoaXMgcmVhbGx5IGlzIG15CnByaW1hcnkgZ29hbDogaGF2aW5n
-IEZQSU5zIHNob3dpbmcgdXAgaW4gdGhlIG1lc3NhZ2UgbG9nLCB0byBhbGVydCB0aGUKYWRtaW4g
-dGhhdCBoaXMgZmFicmljIGlzIG5vdCBwZXJmb3JtaW5nIHdlbGwuCgpBIHNlY29uZCBzdGVwIHdp
-bGwgYmUgdG8gbWFzc2FnaW5nIEZQSU5zIGludG8gRE0gbXVsdGlwYXRoLCBhbmQgaGF2ZSBpdApp
-bmZsdWVuY2luZyB0aGUgcGF0aCBwcmlvcml0eSBvciBwYXRoIHN0YXR1cy4gQnV0IHRoaXMgaXMg
-Y3VycmVudGx5CnVuZGVyIGRpc2N1c3Npb24gaG93IGl0IGNvdWxkIGJlIGludGVncmF0ZWQgYmVz
-dC4KCj4gTm90IHJlYWxseSBzdXJlIHdoYXQgdGhlIHBvc3NpYmlsaXRpZXMgYXJlIGZyb20gYSBE
-TS1NdWx0aXBhdGgKPiB2aWV3cG9pbnQsIGJ1dCBJIGZlZWwgaWYgdGhlIE9TIG9wdGlvbnMgYXJl
-IG5vdCBwcm9wZXJseSBhbGlnbmVkIHdpdGgKPiB3aGF0IHRoZSBGQyBwcm90b2NvbCBhbmQgSEJB
-IGRyaXZlcnMgYXJlIGFibGUgdG8gcHJvdmlkZSB3ZSBtYXkgbWlzcyBhCj4gZ29vZCBvcHBvcnR1
-bml0eSB0byBvcHRpbWl6ZSB0aGUgZGlzcGVyc2lvbiBvZiBJTydzIGFuZCBpbXByb3ZlIG92ZXJh
-bGwKPiBwZXJmb3JtYW5jZS7CoAo+IApMb29raW5nIGF0IHRoZSBzaXplIG9mIHRoZSBjb21tYW5k
-cyBpcyBvbmUgcG9zc2liaWxpdHksIGJ1dCBhdCB0aGlzIHRpbWUKdGhpcyBwcmVzdW1lcyB0b28g
-bXVjaCBvbiBob3cgd2UgX3RoaW5rXyBGUElOcyB3aWxsIGJlIGdlbmVyYXRlZC4KSSdkIHJhdGhl
-ciBkbyBzb21lIG1vcmUgdGVzdHMgdG8gZmlndXJlIG91dCB1bmRlciB3aGljaCBjaXJjdW1zdGFu
-Y2VzIHdlCmNhbiBleHBlY3Qgd2hpY2ggdHlwZSBvZiBGUElOcywgYW5kIHRoZW4gc3RhcnQgbG9v
-a2luZyBmb3Igd2F5cyBvbiBob3cKdG8gaW50ZWdyYXRlIHRoZW0uCgpDaGVlcnMsCgpIYW5uZXMK
-LS0gCkRyLiBIYW5uZXMgUmVpbmVja2UJCSAgICAgICAgICAgS2VybmVsIFN0b3JhZ2UgQXJjaGl0
-ZWN0CmhhcmVAc3VzZS5kZQkJCSAgICAgICAgICAgICAgICAgICs0OSA5MTEgNzQwNTMgNjg4ClNV
-U0UgU29mdHdhcmUgU29sdXRpb25zIEdlcm1hbnkgR21iSCwgTWF4ZmVsZHN0ci4gNSwgOTA0MDkg
-TsO8cm5iZXJnCkhSQiAzNjgwOSAoQUcgTsO8cm5iZXJnKSwgR0Y6IEZlbGl4IEltZW5kw7ZyZmZl
-cgoKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8v
-bGlzdG1hbi5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWw=
+--===============1102831959996881165==
+Content-Type: multipart/alternative; boundary="=-qB86vl340GF995lk/j3p"
+
+--=-qB86vl340GF995lk/j3p
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hello Hannes,
+
+Thanks for responding.
+
+On Wed, 2021-03-31 at 09:25 +0200, Hannes Reinecke wrote:
+> Hi Erwin,
+>=20
+> On 3/31/21 2:22 AM, Erwin van Londen wrote:
+> > Hello Muneendra, benjamin,
+> >=20
+> > The fpin options that are developed do have a whole plethora of
+> > options
+> > and do not mainly trigger paths being in a marginal state. Th mpio
+> > layer
+> > could utilise the various triggers like congestion and latency and
+> > not
+> > just use a marginal state as a decisive point. If a path is
+> > somewhat
+> > congested the amount of io's dispersed over these paths could just
+> > be
+> > reduced by a flexible margin depending on how often and which fpins
+> > are
+> > actually received. If for instance and fpin is recieved that an
+> > upstream
+> > port is throwing physical errors you may exclude is entirely from
+> > queueing IO's to it. If it is a latency related problem where
+> > credit
+> > shortages come in play you may just need to queue very small IO's
+> > to it.
+> > The scsi CDB will tell the size of the IO. Congestion notifications
+> > may
+> > just be used for potentially adding an artificial=C2=A0 delay to reduce
+> > the
+> > workload on these paths and schedule them on another.
+> >=20
+> As correctly noted, FPINs come with a variety of options.
+> And I'm not certain we can everything correctly; a degraded path is
+> simple, but for congestion there is only _so_ much we can do.
+> The typical cause for congestion is, say, a 32G host port talking to
+> a
+> 16G (or even 8G) target port _and_ a 32G target port.
+Congestion can also be caused by a change in workload characteristics
+where, for example, read and write workload start interfering. The
+funnel principle would not apply in that case.
+>=20
+> So the host cannot 'tune down' it's link to 8G; doing so would impact
+> performance on the 32G target port.
+> (And we would suffer reverse congestion whenever that target port
+> sends
+> frames).
+>=20
+> And throttling things on the SCSI layer only helps _so_ much, as the
+> real congestion is due to the speed with which the frames are
+> sequenced
+> onto the wire. Which is not something we from the OS can control.
+If you can interleave IOs with an artificial delay depending on the
+type and frequency these FPINS arrive you would be able to prevent
+latency buildup in the san.
+>=20
+> From another POV this is arguably a fabric mis-design; so it _could_
+> be
+> alleviated by separating out the ports with lower speeds into its own
+> zone (or even on a separate SAN); that would trivially make the
+> congestion go away.
+The entire FPIN concept was designed to be able to provide clients with
+the option to respond and react to changing behaviours in sans. A mis-
+design is often not really the case but ongoing changes and continuous
+provisioning is =C2=A0mainly contributing to the case.=C2=A0
+>=20
+> But for that the admin first should be _alerted_, and this really is
+> my
+> primary goal: having FPINs showing up in the message log, to alert
+> the
+> admin that his fabric is not performing well.
+I think the FC drivers are already having facilities to do that or they
+will have that shortly. dm-multipath is not really required to handle
+the notifications but would be useful if actions have been done based
+on fpins.=C2=A0
+>=20
+> A second step will be to massaging FPINs into DM multipath, and have
+> it
+> influencing the path priority or path status. But this is currently
+> under discussion how it could be integrated best.
+OK
+>=20
+> > Not really sure what the possibilities are from a DM-Multipath
+> > viewpoint, but I feel if the OS options are not properly aligned
+> > with
+> > what the FC protocol and HBA drivers are able to provide we may
+> > miss a
+> > good opportunity to optimize the dispersion of IO's and improve
+> > overall
+> > performance.=C2=A0
+> >=20
+> Looking at the size of the commands is one possibility, but at this
+> time
+> this presumes too much on how we _think_ FPINs will be generated.
+> I'd rather do some more tests to figure out under which circumstances
+> we
+> can expect which type of FPINs, and then start looking for ways on
+> how
+> to integrate them.
+The FC protocol only describes the framework and not the values that
+need to be adhered to. That depends on the end devices and their
+capabilities.=C2=A0
+>=20
+> Cheers,
+>=20
+> Hannes
+
+--=-qB86vl340GF995lk/j3p
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head></head><body><div>Hello Hannes,</div><div><br></div><div>Thanks=
+ for responding.</div><div><span></span></div><div><br></div><div>On Wed, 2=
+021-03-31 at 09:25 +0200, Hannes Reinecke wrote:</div><blockquote type=3D"c=
+ite" style=3D"margin:0 0 0 .8ex; border-left:2px #729fcf solid;padding-left=
+:1ex"><div>Hi Erwin,<br></div><div><br></div><div>On 3/31/21 2:22 AM, Erwin=
+ van Londen wrote:<br></div><blockquote type=3D"cite" style=3D"margin:0 0 0=
+ .8ex; border-left:2px #729fcf solid;padding-left:1ex"><div>Hello Muneendra=
+, benjamin,<br></div><div><br></div><div>The fpin options that are develope=
+d do have a whole plethora of options<br></div><div>and do not mainly trigg=
+er paths being in a marginal state. Th mpio layer<br></div><div>could utili=
+se the various triggers like congestion and latency and not<br></div><div>j=
+ust use a marginal state as a decisive point. If a path is somewhat<br></di=
+v><div>congested the amount of io's dispersed over these paths could just b=
+e<br></div><div>reduced by a flexible margin depending on how often and whi=
+ch fpins are<br></div><div>actually received. If for instance and fpin is r=
+ecieved that an upstream<br></div><div>port is throwing physical errors you=
+ may exclude is entirely from<br></div><div>queueing IO's to it. If it is a=
+ latency related problem where credit<br></div><div>shortages come in play =
+you may just need to queue very small IO's to it.<br></div><div>The scsi CD=
+B will tell the size of the IO. Congestion notifications may<br></div><div>=
+just be used for potentially adding an artificial&nbsp; delay to reduce the=
+<br></div><div>workload on these paths and schedule them on another.<br></d=
+iv><div><br></div></blockquote><div>As correctly noted, FPINs come with a v=
+ariety of options.<br></div><div>And I'm not certain we can everything corr=
+ectly; a degraded path is<br></div><div>simple, but for congestion there is=
+ only _so_ much we can do.<br></div><div>The typical cause for congestion i=
+s, say, a 32G host port talking to a<br></div><div>16G (or even 8G) target =
+port _and_ a 32G target port.</div></blockquote><div>Congestion can also be=
+ caused by a change in workload characteristics where, for example, read an=
+d write workload start interfering. The funnel principle would not apply in=
+ that case.</div><blockquote type=3D"cite" style=3D"margin:0 0 0 .8ex; bord=
+er-left:2px #729fcf solid;padding-left:1ex"><div><br></div><div>So the host=
+ cannot 'tune down' it's link to 8G; doing so would impact<br></div><div>pe=
+rformance on the 32G target port.<br></div><div>(And we would suffer revers=
+e congestion whenever that target port sends<br></div><div>frames).<br></di=
+v><div><br></div><div>And throttling things on the SCSI layer only helps _s=
+o_ much, as the<br></div><div>real congestion is due to the speed with whic=
+h the frames are sequenced<br></div><div>onto the wire. Which is not someth=
+ing we from the OS can control.<br></div></blockquote><div>If you can inter=
+leave IOs with an artificial delay depending on the type and frequency thes=
+e FPINS arrive you would be able to prevent latency buildup in the san.</di=
+v><blockquote type=3D"cite" style=3D"margin:0 0 0 .8ex; border-left:2px #72=
+9fcf solid;padding-left:1ex"><div><br></div><div>From another POV this is a=
+rguably a fabric mis-design; so it _could_ be<br></div><div>alleviated by s=
+eparating out the ports with lower speeds into its own<br></div><div>zone (=
+or even on a separate SAN); that would trivially make the<br></div><div>con=
+gestion go away.<br></div></blockquote><div>The entire FPIN concept was des=
+igned to be able to provide clients with the option to respond and react to=
+ changing behaviours in sans. A mis-design is often not really the case but=
+ ongoing changes and continuous provisioning is &nbsp;mainly contributing t=
+o the case.&nbsp;</div><blockquote type=3D"cite" style=3D"margin:0 0 0 .8ex=
+; border-left:2px #729fcf solid;padding-left:1ex"><div><br></div><div>But f=
+or that the admin first should be _alerted_, and this really is my<br></div=
+><div>primary goal: having FPINs showing up in the message log, to alert th=
+e<br></div><div>admin that his fabric is not performing well.<br></div></bl=
+ockquote><div>I think the FC drivers are already having facilities to do th=
+at or they will have that shortly. dm-multipath is not really required to h=
+andle the notifications but would be useful if actions have been done based=
+ on fpins.&nbsp;</div><blockquote type=3D"cite" style=3D"margin:0 0 0 .8ex;=
+ border-left:2px #729fcf solid;padding-left:1ex"><div><br></div><div>A seco=
+nd step will be to massaging FPINs into DM multipath, and have it<br></div>=
+<div>influencing the path priority or path status. But this is currently<br=
+></div><div>under discussion how it could be integrated best.<br></div></bl=
+ockquote><div>OK</div><blockquote type=3D"cite" style=3D"margin:0 0 0 .8ex;=
+ border-left:2px #729fcf solid;padding-left:1ex"><div><br></div><blockquote=
+ type=3D"cite" style=3D"margin:0 0 0 .8ex; border-left:2px #729fcf solid;pa=
+dding-left:1ex"><div>Not really sure what the possibilities are from a DM-M=
+ultipath<br></div><div>viewpoint, but I feel if the OS options are not prop=
+erly aligned with<br></div><div>what the FC protocol and HBA drivers are ab=
+le to provide we may miss a<br></div><div>good opportunity to optimize the =
+dispersion of IO's and improve overall<br></div><div>performance.&nbsp;<br>=
+</div><div><br></div></blockquote><div>Looking at the size of the commands =
+is one possibility, but at this time<br></div><div>this presumes too much o=
+n how we _think_ FPINs will be generated.<br></div><div>I'd rather do some =
+more tests to figure out under which circumstances we<br></div><div>can exp=
+ect which type of FPINs, and then start looking for ways on how<br></div><d=
+iv>to integrate them.<br></div></blockquote><div>The FC protocol only descr=
+ibes the framework and not the values that need to be adhered to. That depe=
+nds on the end devices and their capabilities.&nbsp;</div><blockquote type=
+=3D"cite" style=3D"margin:0 0 0 .8ex; border-left:2px #729fcf solid;padding=
+-left:1ex"><div><br></div><div>Cheers,<br></div><div><br></div><div>Hannes<=
+br></div></blockquote></body></html>
+
+--=-qB86vl340GF995lk/j3p--
+
+--===============1102831959996881165==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
+--===============1102831959996881165==--
 
