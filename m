@@ -2,59 +2,56 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8978935BBA5
-	for <lists+dm-devel@lfdr.de>; Mon, 12 Apr 2021 10:05:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B36EB35C137
+	for <lists+dm-devel@lfdr.de>; Mon, 12 Apr 2021 11:30:55 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-60-lQ0bsDaPNfOtgV25lDAM7w-1; Mon, 12 Apr 2021 04:05:50 -0400
-X-MC-Unique: lQ0bsDaPNfOtgV25lDAM7w-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-434-3fDqJaQXNhO75erDHXFfEA-1; Mon, 12 Apr 2021 05:30:52 -0400
+X-MC-Unique: 3fDqJaQXNhO75erDHXFfEA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 25506107ACCA;
-	Mon, 12 Apr 2021 08:05:43 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 77D945D730;
-	Mon, 12 Apr 2021 08:05:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0DF1181746F;
+	Mon, 12 Apr 2021 09:30:46 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 93378100238C;
+	Mon, 12 Apr 2021 09:30:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 37B4818095C9;
-	Mon, 12 Apr 2021 08:05:35 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1E31644A5A;
+	Mon, 12 Apr 2021 09:30:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13C85OIj017589 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 12 Apr 2021 04:05:25 -0400
+	id 13C9UKl3025429 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 12 Apr 2021 05:30:21 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id CCE322182DDE; Mon, 12 Apr 2021 08:05:24 +0000 (UTC)
+	id E40DB1111C63; Mon, 12 Apr 2021 09:30:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C72612182DD5
-	for <dm-devel@redhat.com>; Mon, 12 Apr 2021 08:05:21 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DD1C71111A57
+	for <dm-devel@redhat.com>; Mon, 12 Apr 2021 09:30:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 09DF385A5B5
-	for <dm-devel@redhat.com>; Mon, 12 Apr 2021 08:05:21 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-363-vlDkXugtOhyL8sqaoYviwg-1;
-	Mon, 12 Apr 2021 04:05:16 -0400
-X-MC-Unique: vlDkXugtOhyL8sqaoYviwg-1
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id D8A02AE27;
-	Mon, 12 Apr 2021 08:05:14 +0000 (UTC)
-Message-ID: <d285fe1145c70fbfa6310e30e9c43bdcecb04c70.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Benjamin Marzinski <bmarzins@redhat.com>, lixiaokeng
-	<lixiaokeng@huawei.com>
-Date: Mon, 12 Apr 2021 10:05:14 +0200
-In-Reply-To: <20210409145907.GB20773@octiron.msp.redhat.com>
-References: <bdc30cf9-dcc6-dedb-dead-2aa3db6e25b4@huawei.com>
-	<20210409145907.GB20773@octiron.msp.redhat.com>
-User-Agent: Evolution 3.38.4
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5D20D800140
+	for <dm-devel@redhat.com>; Mon, 12 Apr 2021 09:30:12 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-486-kkTJ1tUgNT-2d6y_fYqTmA-1; Mon, 12 Apr 2021 05:30:09 -0400
+X-MC-Unique: kkTJ1tUgNT-2d6y_fYqTmA-1
+Received: from hch by casper.infradead.org with local (Exim 4.94 #2 (Red Hat
+	Linux)) id 1lVstL-00461J-2d; Mon, 12 Apr 2021 09:30:02 +0000
+Date: Mon, 12 Apr 2021 10:29:59 +0100
+From: Christoph Hellwig <hch@infradead.org>
+To: Ming Lei <ming.lei@redhat.com>
+Message-ID: <20210412092959.GB972763@infradead.org>
+References: <20210401021927.343727-1-ming.lei@redhat.com>
+	<20210401021927.343727-7-ming.lei@redhat.com>
 MIME-Version: 1.0
+In-Reply-To: <20210401021927.343727-7-ming.lei@redhat.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -63,14 +60,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 13C85OIj017589
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: dm-devel, list <dm-devel@redhat.com>, linfeilong <linfeilong@huawei.com>,
-	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
-Subject: Re: [dm-devel] [PATCH] libmultipath: fix memory leak in
-	checker_cleanup_thread
+Cc: Jens Axboe <axboe@kernel.dk>, Mike Snitzer <snitzer@redhat.com>,
+	linux-block@vger.kernel.org, dm-devel@redhat.com,
+	Jeffle Xu <jefflexu@linux.alibaba.com>
+Subject: Re: [dm-devel] [PATCH V5 06/12] block/mq: extract one helper
+ function polling hw queue
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,58 +80,20 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Fri, 2021-04-09 at 09:59 -0500, Benjamin Marzinski wrote:
-> On Fri, Apr 09, 2021 at 03:15:05PM +0800, lixiaokeng wrote:
-> > If checker_cleanup_thread is called after cleanup_checkers,
-> > the checker_class will not be freed.
-> >=20
-> > Here, we use free_checker_class instead of checker_class_unref
-> > in checker_cleanup_thread.
-> >=20
-> > Signed-off-by: Lixiaokeng <lixiaokeng@huawei.com>
-> > ---
-> > =A0libmultipath/checkers.c | 2 +-
-> > =A01 file changed, 1 insertion(+), 1 deletion(-)
-> >=20
-> > diff --git a/libmultipath/checkers.c b/libmultipath/checkers.c
-> > index 2dd9915d..7cc80f0b 100644
-> > --- a/libmultipath/checkers.c
-> > +++ b/libmultipath/checkers.c
-> > @@ -368,7 +368,7 @@ static void checker_cleanup_thread(void *arg)
-> > =A0{
-> > =A0=A0=A0=A0=A0=A0=A0=A0struct checker_class *cls =3D arg;
-> >=20
-> > -=A0=A0=A0=A0=A0=A0=A0(void)checker_class_unref(cls);
-> > +=A0=A0=A0=A0=A0=A0=A0(void)free_checker_class(cls);
-> > =A0=A0=A0=A0=A0=A0=A0=A0rcu_unregister_thread();
-> > =A0}
-> >=20
-> > --=20
->=20
-> Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
->=20
+s/one/a/
 
-Nit: The cast to void is wrong, as free_checker_class() is a void
-function anyway. I'll take the freedom to remove it when I apply this
-to the "queue" branch.
+Otherwise looks good:
 
-Thanks,
-Martin
-
-Reviewed-by: Martin Wilck <mwilck@suse.com>
-
-
-
-
-
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
 --
 dm-devel mailing list
