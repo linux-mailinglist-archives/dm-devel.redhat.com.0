@@ -1,60 +1,60 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [63.128.21.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 088D73615E0
-	for <lists+dm-devel@lfdr.de>; Fri, 16 Apr 2021 01:12:19 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 039323615DF
+	for <lists+dm-devel@lfdr.de>; Fri, 16 Apr 2021 01:12:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1618528339;
+	s=mimecast20190719; t=1618528336;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=rZzKzyCgi21uC5qljCgxv5NbB6bxauL5zYA7wdHybRA=;
-	b=JunyGp/xRjUktefA8bi5q3DbLReigCdYoG9oX3VkCv2SFEZk0GmOuwDrPZgR6cTA96wfHv
-	3HwqyCLADFV9R82sOjPZyGz2iJOXANpP5egPKub2NFJsO2kBn/wjmyPMkUmN1vv4b6UswJ
-	0DDoE+BqnDIfk4Bn/7xkSUiQrSmMIvw=
+	bh=MUPL2ADP/vDd8fmxwKvnv7TpXVelOVwU3+Z5Th5SO3c=;
+	b=Khub2e6AwdEDan07ODRYyNzKEpI4VYGIfvSNqOkr0fgoNXTHmAm6zzd2e5McqvPx0eTBtk
+	l+AwPtII/k4GTd5pfVsFunwwzjlPg43qhHt2Fb5TL3Ho4AE4w6k41R3P8S0x0E+24x7M9L
+	IAEMW4ZwCtaWfvgSaLx2koJxCLe+8bE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-572-feIO60QqOkahUtMdMLenxQ-1; Thu, 15 Apr 2021 19:12:16 -0400
-X-MC-Unique: feIO60QqOkahUtMdMLenxQ-1
+ us-mta-417-fLO6lbobMIuewSDNg54Cwg-1; Thu, 15 Apr 2021 19:12:13 -0400
+X-MC-Unique: fLO6lbobMIuewSDNg54Cwg-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A063F801FCE;
-	Thu, 15 Apr 2021 23:12:09 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8332D60855;
-	Thu, 15 Apr 2021 23:12:09 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7E3778030CA;
+	Thu, 15 Apr 2021 23:12:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 12F4A694CD;
+	Thu, 15 Apr 2021 23:12:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 183821806D15;
-	Thu, 15 Apr 2021 23:12:09 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
-	[10.5.11.15])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E03ED44A5E;
+	Thu, 15 Apr 2021 23:12:01 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13FNBpih010810 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 15 Apr 2021 19:11:51 -0400
+	id 13FNBwgY010822 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 15 Apr 2021 19:11:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 201DD3AC0; Thu, 15 Apr 2021 23:11:51 +0000 (UTC)
+	id 50ADC19C93; Thu, 15 Apr 2021 23:11:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from localhost (thegoat.4a2m.lab.eng.bos.redhat.com [10.16.209.32])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 026C25D71F;
-	Thu, 15 Apr 2021 23:11:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C13DB50C0D;
+	Thu, 15 Apr 2021 23:11:51 +0000 (UTC)
 From: Mike Snitzer <snitzer@redhat.com>
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
-Date: Thu, 15 Apr 2021 19:11:25 -0400
-Message-Id: <20210415231126.8746-3-snitzer@redhat.com>
+Date: Thu, 15 Apr 2021 19:11:26 -0400
+Message-Id: <20210415231126.8746-4-snitzer@redhat.com>
 In-Reply-To: <20210415231126.8746-1-snitzer@redhat.com>
 References: <20210415231126.8746-1-snitzer@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
 Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
 	linux-nvme@lists.infradead.org
-Subject: [dm-devel] nvme: decouple basic ANA log page re-read support from
-	native multipathing
+Subject: [dm-devel] nvme: allow retry for requests with
+	REQ_FAILFAST_TRANSPORT set
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,16 +81,16 @@ Upstream Status: RHEL-only
 
 Signed-off-by: Mike Snitzer <snitzer@redhat.com>
 
-rhel-8.git commit b904f4b8e0f90613bf1b2b9d9ccad3c015741daf
+rhel-8.git commit 7dadadb072515f243868e6fe2f7e9c97fd3516c9
 Author: Mike Snitzer <snitzer@redhat.com>
-Date:   Tue Aug 25 21:52:47 2020 -0400
+Date:   Tue Aug 25 21:52:48 2020 -0400
 
-    [nvme] nvme: decouple basic ANA log page re-read support from native multipathing
+    [nvme] nvme: allow retry for requests with REQ_FAILFAST_TRANSPORT set
     
-    Message-id: <20200825215248.2291-10-snitzer@redhat.com>
-    Patchwork-id: 325179
+    Message-id: <20200825215248.2291-11-snitzer@redhat.com>
+    Patchwork-id: 325180
     Patchwork-instance: patchwork
-    O-Subject: [RHEL8.3 PATCH 09/10] nvme: decouple basic ANA log page re-read support from native multipathing
+    O-Subject: [RHEL8.3 PATCH 10/10] nvme: allow retry for requests with REQ_FAILFAST_TRANSPORT set
     Bugzilla: 1843515
     RH-Acked-by: David Milburn <dmilburn@redhat.com>
     RH-Acked-by: Gopal Tiwari <gtiwari@redhat.com>
@@ -99,113 +99,67 @@ Date:   Tue Aug 25 21:52:47 2020 -0400
     BZ: 1843515
     Upstream Status: RHEL-only
     
-    Whether or not ANA is present is a choice of the target implementation;
-    the host (and whether it supports multipathing) has _zero_ influence on
-    this.  If the target declares a path as 'inaccessible' the path _is_
-    inaccessible to the host.  As such, ANA support should be functional
-    even if native multipathing is not.
+    Based on patch that was proposed upstream but ultimately rejected, see:
+    https://www.spinics.net/lists/linux-block/msg57490.html
     
-    Introduce ability to always re-read ANA log page as required due to ANA
-    error and make current ANA state available via sysfs -- even if native
-    multipathing is disabled on the host (e.g. nvme_core.multipath=N).
+    I'd have made this change even if this wasn't already posted obviously,
+    but I figured I'd give proper attribution due to their public post with
+    the same code change.
     
-    This affords userspace access to the current ANA state independent of
-    which layer might be doing multipathing.  It also allows multipath-tools
-    to rely on the NVMe driver for ANA support while dm-multipath takes care
-    of multipathing.
+    Author: Chao Leng <lengchao@huawei.com>
+    Date:   Wed Aug 12 16:18:55 2020 +0800
     
-    And as always, if embedded NVMe users do not want any performance
-    overhead associated with ANA or native NVMe multipathing they can
-    disable CONFIG_NVME_MULTIPATH.
+        nvme: allow retry for requests with REQ_FAILFAST_TRANSPORT set
+    
+        REQ_FAILFAST_TRANSPORT may be designed for SCSI, because SCSI protocol
+        does not define the local retry mechanism. SCSI implements a fuzzy
+        local retry mechanism, so REQ_FAILFAST_TRANSPORT is needed to allow
+        higher-level multipathing software to perform failover/retry.
+    
+        NVMe is different with SCSI about this. It defines a local retry
+        mechanism and path error codes, so NVMe should retry local for non
+        path error.  If path related error, whether to retry and how to retry
+        is still determined by higher-level multipathing's failover.
+    
+        Unlike SCSI, NVMe shouldn't prevent retry if REQ_FAILFAST_TRANSPORT
+        because NVMe's local retry is needed -- as is NVMe specific logic to
+        categorize whether an error is path related.
+    
+        In this way, the mechanism of NVMe multipath or other multipath are
+        now equivalent.  The mechanism is: non path related error will be
+        retry local, path related error is handled by multipath.
+    
+        Signed-off-by: Chao Leng <lengchao@huawei.com>
+        [snitzer: edited header for grammar and to make clearer]
+        Signed-off-by: Mike Snitzer <snitzer@redhat.com>
     
     Signed-off-by: Mike Snitzer <snitzer@redhat.com>
     Signed-off-by: Frantisek Hrbata <fhrbata@redhat.com>
 
 ---
- drivers/nvme/host/core.c      |    2 ++
- drivers/nvme/host/multipath.c |   23 ++++++++++++++++++-----
- drivers/nvme/host/nvme.h      |    4 ++++
- 3 files changed, 24 insertions(+), 5 deletions(-)
+ drivers/nvme/host/core.c |    9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
 Index: linux-rhel9/drivers/nvme/host/core.c
 ===================================================================
 --- linux-rhel9.orig/drivers/nvme/host/core.c
 +++ linux-rhel9/drivers/nvme/host/core.c
-@@ -347,6 +347,8 @@ static inline void nvme_end_req_with_fai
- 	if (unlikely(nvme_status & NVME_SC_DNR))
- 		goto out;
+@@ -306,7 +306,14 @@ static inline enum nvme_disposition nvme
+ 	if (likely(nvme_req(req)->status == 0))
+ 		return COMPLETE;
  
-+	nvme_update_ana(req);
-+
- 	if (!blk_path_error(status)) {
- 		pr_debug("Request meant for failover but blk_status_t (errno=%d) was not retryable.\n",
- 			 blk_status_to_errno(status));
-Index: linux-rhel9/drivers/nvme/host/multipath.c
-===================================================================
---- linux-rhel9.orig/drivers/nvme/host/multipath.c
-+++ linux-rhel9/drivers/nvme/host/multipath.c
-@@ -65,10 +65,25 @@ void nvme_set_disk_name(char *disk_name,
- 	}
- }
- 
-+static inline void __nvme_update_ana(struct nvme_ns *ns)
-+{
-+	if (!ns->ctrl->ana_log_buf)
-+		return;
-+
-+	set_bit(NVME_NS_ANA_PENDING, &ns->flags);
-+	queue_work(nvme_wq, &ns->ctrl->ana_work);
-+}
-+
-+
-+void nvme_update_ana(struct request *req)
-+{
-+	if (nvme_is_ana_error(nvme_req(req)->status))
-+		__nvme_update_ana(req->q->queuedata);
-+}
-+
- void nvme_failover_req(struct request *req)
- {
- 	struct nvme_ns *ns = req->q->queuedata;
--	u16 status = nvme_req(req)->status & 0x7ff;
- 	unsigned long flags;
- 
- 	nvme_mpath_clear_current_path(ns);
-@@ -78,10 +93,8 @@ void nvme_failover_req(struct request *r
- 	 * ready to serve this namespace.  Kick of a re-read of the ANA
- 	 * information page, and just try any other available path for now.
- 	 */
--	if (nvme_is_ana_error(status) && ns->ctrl->ana_log_buf) {
--		set_bit(NVME_NS_ANA_PENDING, &ns->flags);
--		queue_work(nvme_wq, &ns->ctrl->ana_work);
--	}
-+	if (nvme_is_ana_error(nvme_req(req)->status))
-+		__nvme_update_ana(ns);
- 
- 	spin_lock_irqsave(&ns->head->requeue_lock, flags);
- 	blk_steal_bios(&ns->head->requeue_list, req);
-Index: linux-rhel9/drivers/nvme/host/nvme.h
-===================================================================
---- linux-rhel9.orig/drivers/nvme/host/nvme.h
-+++ linux-rhel9/drivers/nvme/host/nvme.h
-@@ -664,6 +664,7 @@ void nvme_mpath_start_freeze(struct nvme
- void nvme_set_disk_name(char *disk_name, struct nvme_ns *ns,
- 			struct nvme_ctrl *ctrl, int *flags);
- void nvme_failover_req(struct request *req);
-+void nvme_update_ana(struct request *req);
- void nvme_kick_requeue_lists(struct nvme_ctrl *ctrl);
- int nvme_mpath_alloc_disk(struct nvme_ctrl *ctrl,struct nvme_ns_head *head);
- void nvme_mpath_add_disk(struct nvme_ns *ns, struct nvme_id_ns *id);
-@@ -714,6 +715,9 @@ static inline void nvme_set_disk_name(ch
- static inline void nvme_failover_req(struct request *req)
- {
- }
-+static inline void nvme_update_ana(struct request *req)
-+{
-+}
- static inline void nvme_kick_requeue_lists(struct nvme_ctrl *ctrl)
- {
- }
+-	if (blk_noretry_request(req) ||
++	/*
++	 * REQ_FAILFAST_TRANSPORT is set by upper layer software that
++	 * handles multipathing. Unlike SCSI, NVMe's error handling was
++	 * specifically designed to handle local retry for non-path errors.
++	 * As such, allow NVMe's local retry mechanism to be used for
++	 * requests marked with REQ_FAILFAST_TRANSPORT.
++	 */
++	if ((req->cmd_flags & (REQ_FAILFAST_DEV | REQ_FAILFAST_DRIVER)) ||
+ 	    (nvme_req(req)->status & NVME_SC_DNR) ||
+ 	    nvme_req(req)->retries >= nvme_max_retries)
+ 		return COMPLETE;
 
 --
 dm-devel mailing list
