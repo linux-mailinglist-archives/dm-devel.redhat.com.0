@@ -1,70 +1,70 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 57C8B36180D
-	for <lists+dm-devel@lfdr.de>; Fri, 16 Apr 2021 05:06:47 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 01080361810
+	for <lists+dm-devel@lfdr.de>; Fri, 16 Apr 2021 05:08:03 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-8-FQK2JXoAN3CJBOD0ORCkDA-1; Thu, 15 Apr 2021 23:06:43 -0400
-X-MC-Unique: FQK2JXoAN3CJBOD0ORCkDA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-187-nyXuuINQOa2ToUNfCqwt0A-1; Thu, 15 Apr 2021 23:07:12 -0400
+X-MC-Unique: nyXuuINQOa2ToUNfCqwt0A-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B5C0C189829B;
-	Fri, 16 Apr 2021 03:06:38 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E204F1898296;
+	Fri, 16 Apr 2021 03:07:05 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8046B101E24F;
-	Fri, 16 Apr 2021 03:06:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C378E6A03D;
+	Fri, 16 Apr 2021 03:07:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4DFAC44A5F;
-	Fri, 16 Apr 2021 03:06:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7CE1844A5F;
+	Fri, 16 Apr 2021 03:07:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13G36WSB030635 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 15 Apr 2021 23:06:32 -0400
+	id 13G372eD030721 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 15 Apr 2021 23:07:02 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8B36221111CB; Fri, 16 Apr 2021 03:06:32 +0000 (UTC)
+	id E40E420CA24E; Fri, 16 Apr 2021 03:07:01 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 854D321111C6
-	for <dm-devel@redhat.com>; Fri, 16 Apr 2021 03:06:29 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DE70620AE85D
+	for <dm-devel@redhat.com>; Fri, 16 Apr 2021 03:06:54 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7EEB0805F47
-	for <dm-devel@redhat.com>; Fri, 16 Apr 2021 03:06:29 +0000 (UTC)
-Received: from esa6.hgst.iphmx.com (esa6.hgst.iphmx.com [216.71.154.45])
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C6520100DE78
+	for <dm-devel@redhat.com>; Fri, 16 Apr 2021 03:06:54 +0000 (UTC)
+Received: from esa2.hgst.iphmx.com (esa2.hgst.iphmx.com [68.232.143.124])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-15-N151JL9dNiySnksFQgJCvA-1; Thu, 15 Apr 2021 23:06:27 -0400
-X-MC-Unique: N151JL9dNiySnksFQgJCvA-1
-IronPort-SDR: ZlRxeiiiCdcDq/gwvo9/F6wjo0q56rcfr6v4PuDshpPyHqiLlES/GGCyYm9DPHIAy01r+SBoMI
-	qtBH79z7W3Tnt1Bg8FhAjWguXvMnhcXJv0GAiKkVX077wr/HCzRQ01uWKDPYmYJKg/i1katy6w
-	Ws9jn2Zymx4DFJkhBe5ARw1fu/LpxgboKsXsGx4gzaFIr/2F+1Cte+IZmKctunmiJcNGwgNcxo
-	rfnxMPGReW2DVgNLQl25m6NOMIrwuW+tAr8WU8NbfkoygGYS/d2SgbdEvWEgVx7GLh3SjD6GsE
-	0Wc=
-X-IronPort-AV: E=Sophos;i="5.82,226,1613404800"; d="scan'208";a="165604474"
-Received: from uls-op-cesaip01.wdc.com (HELO uls-op-cesaep01.wdc.com)
+	us-mta-335-cv9JnA6NPEKadt-dos_WmQ-1; Thu, 15 Apr 2021 23:06:52 -0400
+X-MC-Unique: cv9JnA6NPEKadt-dos_WmQ-1
+IronPort-SDR: oewOfnxa10OvJ2s8ES16JKHCX51b9Q/g0o0ALu//4HcT5lyfgeo220KEZ+dAPys3HlqpXi2OHu
+	k1TiaToJJENrONO6BemIPPc4XE2zIqQP7NreBnYZJLPBguiX9sN+EH8bQipxf0OZQ9PNge/FgI
+	MlfPHly+ynsn2ofTZPelBMQpSVA0eZ9V3yIveUHSRUtUuSsc47yxTmSHIoRgbIhYLBAKCPNjy3
+	ISS6ZnxqDZlRoWV4uzhu2yL4NDMKtSHwypwtFcoPe4uZ4lYGM0vzoM1QnbhwVxd+cFnahCsna0
+	wEM=
+X-IronPort-AV: E=Sophos;i="5.82,226,1613404800"; d="scan'208";a="269048687"
+Received: from h199-255-45-14.hgst.com (HELO uls-op-cesaep01.wdc.com)
 	([199.255.45.14])
-	by ob1.hgst.iphmx.com with ESMTP; 16 Apr 2021 11:06:08 +0800
-IronPort-SDR: QmInBP3u3HzQUsL1Vg2kP2uxJbqjbWR2elUKSKdtFDn/LjUv/6gpkU0Mr42+T8GqaSI5DnVS5S
-	B0GAY3qlgbPGxWGzj7JmbuOXAKWCHnMGuQYeGuF0WhVfUhulV+genZG5HoS7y873fz7wghsU9W
-	f2fGdhHqEl53WKLqxK8iynPYgBQHRj9lDesUkKNIX0RZzuXHY+WKqXRcuRaTnjmwtB+cxeiTOx
-	/sYT3UEx5AvUjDNlw1wAHoNvWkoJkQkJkeHwh8YMcW3d5eUzYNBFR4Nu9S5IouewboL5nb6wZ+
-	SzcZtxUOnqVcDx5xRB8L3DZS
+	by ob1.hgst.iphmx.com with ESMTP; 16 Apr 2021 11:06:30 +0800
+IronPort-SDR: XfE8Wqaj3vwgngI/epvO81whqLfQSIs+jsG/jYdgTqJEFf2cXKR/F+ZC47JtpGoKCwKRrgxyvC
+	qO/zr1t65xl4YezACI662bcQjZU/RRt8HtC6H24qo7jy70mSEcYwfp3Ev082s1bkoLVLFuZSs5
+	drtMP650ylAASwXhh1QHQvjts+zPuJOWImdsz+lAncdjLlkv5ba2o7cEanH8yRFhJR4Hsqr73l
+	BfC8PZ9va5f+FWTuLcn2mIHjvogkmiQzME7LmUFyx/MTqJIoNwOiboe8xFC8DfUlQDK8G8yeAJ
+	M4fXU5pWdUoAxijPvomrfZi3
 Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
 	by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	15 Apr 2021 19:46:32 -0700
-IronPort-SDR: XeFcQprEuAFYDJO6DpiQxcsC7N+LCT2SR+Mu5LEf4Xaflth/DDQwNi/0LW5UM7TnbJeuRqTSwF
-	A2caLaeVJPDIYpfpbqPdd+zoeTtgjcmwbGRtXPz+zFA/vSzLCL5oDZB1U1YXfv4rUoljrjQEml
-	/GhFt+gXWizqvsuzIuD6xmX3mwwUI6vOaANrC/xXYqaNcz/AyDVJCnaZPyBki04K2v/eRMhvDK
-	QTOVUkM8S+NS7fijSsafqxW0t+EdNdG09b4gvBZhddV08G/EQ+6pPc6oENmirSES3hRM8Xy5PG
-	Eqo=
+	15 Apr 2021 19:46:35 -0700
+IronPort-SDR: u5Gc1810z5GreDYJpvaZDBd+bkB81RNJhYok8IDgPhe6JYgYj4b/4/fYIpyX1cNfJVEHlvUAnA
+	MvOAeuVc8FBQZXEYMRwsr7AEl4o9EH4ZWc0IZfF4PcbzBOhhh0kx5kXMSJLHk9aqaOUbscvFQO
+	cnR+SMMtVcof5L8EjlIR/eC/8XN0d4vx2Lzk9Lhsnt21cd/URva91ybcVwFbQqbeHdz6R/7aav
+	OkHZyDzHZ5SnIdccJAHt+KUB7t7KMxH5k97pMJAwdRTYfFo0Amj59jJpiDg1hrSqHsfS+f5qTA
+	0pc=
 WDCIronportException: Internal
 Received: from washi.fujisawa.hgst.com ([10.149.53.254])
-	by uls-op-cesaip02.wdc.com with ESMTP; 15 Apr 2021 20:05:37 -0700
+	by uls-op-cesaip02.wdc.com with ESMTP; 15 Apr 2021 20:05:40 -0700
 From: Damien Le Moal <damien.lemoal@wdc.com>
 To: dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>,
 	linux-block@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
@@ -73,8 +73,8 @@ To: dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>,
 	"Martin K . Petersen" <martin.petersen@oracle.com>,
 	linux-fsdevel@vger.kernel.org, linux-btrfs@vger.kernel.org,
 	David Sterba <dsterba@suse.com>, Josef Bacik <josef@toxicpanda.com>
-Date: Fri, 16 Apr 2021 12:05:27 +0900
-Message-Id: <20210416030528.757513-4-damien.lemoal@wdc.com>
+Date: Fri, 16 Apr 2021 12:05:28 +0900
+Message-Id: <20210416030528.757513-5-damien.lemoal@wdc.com>
 In-Reply-To: <20210416030528.757513-1-damien.lemoal@wdc.com>
 References: <20210416030528.757513-1-damien.lemoal@wdc.com>
 MIME-Version: 1.0
@@ -86,13 +86,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: Shinichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
 	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
 	Naohiro Aota <naohiro.aota@wdc.com>
-Subject: [dm-devel] [PATCH 3/4] btrfs: zoned: fail mount if the device does
-	not support zone append
+Subject: [dm-devel] [PATCH 4/4] zonefs: fix synchronous write to sequential
+	zone files
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -106,7 +106,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -114,39 +114,84 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+Synchronous writes to sequential zone files cannot use zone append
+operations if the underlying zoned device queue limit
+max_zone_append_sectors is 0, indicating that the device does not
+support this operation. In this case, fall back to using regular write
+operations.
 
-For zoned btrfs, zone append is mandatory to write to a sequential write
-only zone, otherwise parallel writes to the same zone could result in
-unaligned write errors.
-
-If a zoned block device does not support zone append (e.g. a dm-crypt
-zoned device using a non-NULL IV cypher), fail to mount.
-
-Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 Signed-off-by: Damien Le Moal <damien.lemoal@wdc.com>
 ---
- fs/btrfs/zoned.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ fs/zonefs/super.c  | 16 ++++++++++++----
+ fs/zonefs/zonefs.h |  2 ++
+ 2 files changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
-index eeb3ebe11d7a..70b23a0d03b1 100644
---- a/fs/btrfs/zoned.c
-+++ b/fs/btrfs/zoned.c
-@@ -342,6 +342,13 @@ int btrfs_get_dev_zone_info(struct btrfs_device *device)
- 	if (!IS_ALIGNED(nr_sectors, zone_sectors))
- 		zone_info->nr_zones++;
+diff --git a/fs/zonefs/super.c b/fs/zonefs/super.c
+index 049e36c69ed7..b97566b9dff7 100644
+--- a/fs/zonefs/super.c
++++ b/fs/zonefs/super.c
+@@ -689,14 +689,15 @@ static ssize_t zonefs_file_dio_append(struct kiocb *iocb, struct iov_iter *from)
+ {
+ 	struct inode *inode = file_inode(iocb->ki_filp);
+ 	struct zonefs_inode_info *zi = ZONEFS_I(inode);
+-	struct block_device *bdev = inode->i_sb->s_bdev;
+-	unsigned int max;
++	struct super_block *sb = inode->i_sb;
++	struct zonefs_sb_info *sbi = ZONEFS_SB(sb);
++	struct block_device *bdev = sb->s_bdev;
++	sector_t max = sbi->s_max_zone_append_sectors;
+ 	struct bio *bio;
+ 	ssize_t size;
+ 	int nr_pages;
+ 	ssize_t ret;
  
-+	if (bdev_is_zoned(bdev) && zone_info->max_zone_append_size == 0) {
-+		btrfs_err(fs_info, "zoned: device %pg does not support zone append",
-+			  bdev);
-+		ret = -EINVAL;
-+		goto out;
-+	}
+-	max = queue_max_zone_append_sectors(bdev_get_queue(bdev));
+ 	max = ALIGN_DOWN(max << SECTOR_SHIFT, inode->i_sb->s_blocksize);
+ 	iov_iter_truncate(from, max);
+ 
+@@ -853,6 +854,8 @@ static ssize_t zonefs_file_dio_write(struct kiocb *iocb, struct iov_iter *from)
+ 
+ 	/* Enforce sequential writes (append only) in sequential zones */
+ 	if (zi->i_ztype == ZONEFS_ZTYPE_SEQ) {
++		struct zonefs_sb_info *sbi = ZONEFS_SB(sb);
 +
- 	zone_info->seq_zones = bitmap_zalloc(zone_info->nr_zones, GFP_KERNEL);
- 	if (!zone_info->seq_zones) {
- 		ret = -ENOMEM;
+ 		mutex_lock(&zi->i_truncate_mutex);
+ 		if (iocb->ki_pos != zi->i_wpoffset) {
+ 			mutex_unlock(&zi->i_truncate_mutex);
+@@ -860,7 +863,7 @@ static ssize_t zonefs_file_dio_write(struct kiocb *iocb, struct iov_iter *from)
+ 			goto inode_unlock;
+ 		}
+ 		mutex_unlock(&zi->i_truncate_mutex);
+-		append = sync;
++		append = sync && sbi->s_max_zone_append_sectors;
+ 	}
+ 
+ 	if (append)
+@@ -1683,6 +1686,11 @@ static int zonefs_fill_super(struct super_block *sb, void *data, int silent)
+ 		sbi->s_mount_opts &= ~ZONEFS_MNTOPT_EXPLICIT_OPEN;
+ 	}
+ 
++	sbi->s_max_zone_append_sectors =
++		queue_max_zone_append_sectors(bdev_get_queue(sb->s_bdev));
++	if (!sbi->s_max_zone_append_sectors)
++		zonefs_info(sb, "Zone append is not supported: falling back to using regular writes\n");
++
+ 	ret = zonefs_read_super(sb);
+ 	if (ret)
+ 		return ret;
+diff --git a/fs/zonefs/zonefs.h b/fs/zonefs/zonefs.h
+index 51141907097c..2b8c3b1a32ea 100644
+--- a/fs/zonefs/zonefs.h
++++ b/fs/zonefs/zonefs.h
+@@ -185,6 +185,8 @@ struct zonefs_sb_info {
+ 
+ 	unsigned int		s_max_open_zones;
+ 	atomic_t		s_open_zones;
++
++	sector_t		s_max_zone_append_sectors;
+ };
+ 
+ static inline struct zonefs_sb_info *ZONEFS_SB(struct super_block *sb)
 -- 
 2.30.2
 
