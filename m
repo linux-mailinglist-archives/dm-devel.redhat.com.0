@@ -1,85 +1,85 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E65A0362C10
-	for <lists+dm-devel@lfdr.de>; Sat, 17 Apr 2021 01:55:30 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 5FD9E362C0C
+	for <lists+dm-devel@lfdr.de>; Sat, 17 Apr 2021 01:54:14 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1618617330;
+	s=mimecast20190719; t=1618617253;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ujhYwXpnU+WXzZam0SORo2DRgzluClacimk7P5DEh5g=;
-	b=SFrdxLpagej1iKWgIkcm8w92S2gB6BX2PyrukhuQnoGARRkhhjgBcJggfl1c9xcSNVVeIC
-	PCzYmoNRtLVwzNsYhYTbt4xhfhabKSy4rp+XaPX8U3vIWKsN56dsRfKAih/2BtQ+2ybxwe
-	zbIxTU1iSCBz3oaQW9qU8C9i/AeEnak=
+	bh=66D/u0gBSrGAT9L1jxOhCQyDK5+fotQ1emZYKt/GVtg=;
+	b=B6/5a8rBeAgySfjZ4Dbi6UvwROBK+N/kiauUqszoW3FXt7t8DR71In3zJcWq0zOjhbLNMX
+	tWE8CI8B/+BclSI3CQ5dRUdruoj2BW2pKze0HlmlDTf17UggO/Lithf3Pr0uXZvJT9HYrD
+	vXtRHosHAmncKFZOlTKKShXi7Asi2Ac=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-392-JgJWXDAlOUSt2JzgKBuXHQ-1; Fri, 16 Apr 2021 19:55:27 -0400
-X-MC-Unique: JgJWXDAlOUSt2JzgKBuXHQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-543-3FzAWXtqNUaWjLz9xl9baA-1; Fri, 16 Apr 2021 19:53:59 -0400
+X-MC-Unique: 3FzAWXtqNUaWjLz9xl9baA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0F55B6D4EC;
-	Fri, 16 Apr 2021 23:55:23 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E0F245D9C0;
-	Fri, 16 Apr 2021 23:55:22 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 32F86107ACC7;
+	Fri, 16 Apr 2021 23:53:53 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1ED5560C0F;
+	Fri, 16 Apr 2021 23:53:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4CEF844A5B;
-	Fri, 16 Apr 2021 23:55:22 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CE4C61809C82;
+	Fri, 16 Apr 2021 23:53:46 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13GNreJK018879 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 16 Apr 2021 19:53:40 -0400
+	id 13GNrc8i018867 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 16 Apr 2021 19:53:38 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 724CB2138BCA; Fri, 16 Apr 2021 23:53:40 +0000 (UTC)
+	id 51E302021473; Fri, 16 Apr 2021 23:53:38 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6B27A2138BC6
-	for <dm-devel@redhat.com>; Fri, 16 Apr 2021 23:53:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4BB0B2021470
+	for <dm-devel@redhat.com>; Fri, 16 Apr 2021 23:53:38 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 886F7101A52C
-	for <dm-devel@redhat.com>; Fri, 16 Apr 2021 23:53:34 +0000 (UTC)
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com
-	[209.85.219.45]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-118-n_Lg1vW7OMi6wIT3ZE5w7A-1; Fri, 16 Apr 2021 19:53:32 -0400
-X-MC-Unique: n_Lg1vW7OMi6wIT3ZE5w7A-1
-Received: by mail-qv1-f45.google.com with SMTP id i9so14119134qvo.3;
-	Fri, 16 Apr 2021 16:53:32 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2BF0F805C1D
+	for <dm-devel@redhat.com>; Fri, 16 Apr 2021 23:53:38 +0000 (UTC)
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com
+	[209.85.160.175]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-312-F1AbFHB8MEOovKcYFYb9eA-1; Fri, 16 Apr 2021 19:53:34 -0400
+X-MC-Unique: F1AbFHB8MEOovKcYFYb9eA-1
+Received: by mail-qt1-f175.google.com with SMTP id y12so22083895qtx.11;
+	Fri, 16 Apr 2021 16:53:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
 	:in-reply-to:references;
-	bh=TPYpDSq8Mf6GV23A4rg39jSHse9EX5i3mfgaOsbHzoU=;
-	b=FuPS9kRXhelkrBZtb5w7+tLvn+hSf713bwMG4ck1MB++uOXN5UFToh6UZ+Wi0X2hLd
-	twmPfth0ohnWkxXcmj/xk7ZB+Qq4cDhyDkpCMcfM2wUsTPHUI4/z5KTJKMr12gEs71bp
-	x6z7AIw9vII+N+Z9be7qYLmN2klCZahqljbQ4he5+5Km//0E18yO/1p/oe+O1Zf7wkHY
-	KsieTqYKFplHfEt7apzkICQez+lMY86mhqrkewekOe+d8N6P0nBVExHJDvS9MsuYuH3K
-	S8oqUioWlPoHne6EucrG+tI4iMc+Kv8Mf+XpFQwARfupVidIXUucQgF/7bmvLgRTEgVJ
-	vhYw==
-X-Gm-Message-State: AOAM532LAdJdLppxbuuYBycTNsjWQa3/6TTZnYqhFNkT01RLCTPzKcfv
-	8w0tikad1R3vC7Z1R+oYSXw=
-X-Google-Smtp-Source: ABdhPJwbSaN8dqhGfKHuFj1wuJyFMhfU+pYxWICW3qhsOj3SwzeXkdQVt1y3wjQ6z92Mt6gOTZGp7w==
-X-Received: by 2002:a05:6214:1470:: with SMTP id
-	c16mr11115642qvy.60.1618617212158; 
-	Fri, 16 Apr 2021 16:53:32 -0700 (PDT)
+	bh=a1nvUyKb7Km0hekKdxHGyN60tpfHzRrsEqFGAZI+ni4=;
+	b=anvzRuoitYfE3MkQS/5n5hDI3RqVH2JXr005Xq/GmVlfPr4hq0npr6RF8nZr3dJa+z
+	NbiF2FUX/T2GvI1fgPq5lc9zc7PLnvdtbx8mL4Yfls/KD446hvbXe4k+BA1RDhz5a5NZ
+	I8WbM3kOwCf1cqU9yVxHi5PHZz55fedZIrOErGqVk87p5Hq0lDVJmSzxD6jTlVL0hMeL
+	4UmWxKHkTlbw0l/C3rickxzx4+w8ECz8nTAxszUh+Nva7x37A+tamQp50PXEyip2xto4
+	yaVV7sOY+6W3+LGqmaIryFLHGwn+vYeoMneD3/ehPqIt9DiE1Z8G/socFhGGf2rP0lrz
+	ooTg==
+X-Gm-Message-State: AOAM533yfjKW0NH4EtOroMIb0+bj/I09n4wtIT3v42Y7fhzuIaz/V+kV
+	9zUdyfp1cukRsYkrr0n0CDu7Fm+lZjPhpQ==
+X-Google-Smtp-Source: ABdhPJxYYCrNVTkBMHh7ujpabmWkrGvRS/5k9AOlVSsGCZug6eBYSy3tgv0ntn47DVL2D4MVf0kk9A==
+X-Received: by 2002:ac8:6b46:: with SMTP id x6mr1598672qts.150.1618617213544; 
+	Fri, 16 Apr 2021 16:53:33 -0700 (PDT)
 Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
 	[68.160.176.52]) by smtp.gmail.com with ESMTPSA id
-	o23sm5037866qtp.55.2021.04.16.16.53.31
+	a66sm1377452qkc.74.2021.04.16.16.53.32
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Fri, 16 Apr 2021 16:53:31 -0700 (PDT)
+	Fri, 16 Apr 2021 16:53:33 -0700 (PDT)
 From: Mike Snitzer <snitzer@redhat.com>
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
-Date: Fri, 16 Apr 2021 19:53:27 -0400
-Message-Id: <20210416235329.49234-2-snitzer@redhat.com>
+Date: Fri, 16 Apr 2021 19:53:28 -0400
+Message-Id: <20210416235329.49234-3-snitzer@redhat.com>
 In-Reply-To: <20210416235329.49234-1-snitzer@redhat.com>
 References: <20210416235329.49234-1-snitzer@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -94,8 +94,8 @@ X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
 	linux-nvme@lists.infradead.org
-Subject: [dm-devel] [PATCH v4 1/3] nvme: return BLK_STS_DO_NOT_RETRY if the
-	DNR bit is set
+Subject: [dm-devel] [PATCH v4 2/3] nvme: allow local retry and proper
+	failover for REQ_FAILFAST_TRANSPORT
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -110,7 +110,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -118,65 +118,85 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-If the DNR bit is set we should not retry the command.
+REQ_FAILFAST_TRANSPORT is set by upper layer software that handles
+multipathing. Unlike SCSI, NVMe's error handling was specifically
+designed to handle local retry for non-path errors. As such, allow
+NVMe's local retry mechanism to be used for requests marked with
+REQ_FAILFAST_TRANSPORT.
 
-We care about the retryable vs not retryable distinction at the block
-layer so propagate the equivalent of the DNR bit by introducing
-BLK_STS_DO_NOT_RETRY. Update blk_path_error() to _not_ retry if it
-is set.
+In this way, the mechanism of NVMe multipath or other multipath are
+now equivalent. The mechanism is: non path related error will be
+retried locally, path related error is handled by multipath.
 
-This change runs with the suggestion made here:
-https://lore.kernel.org/linux-nvme/20190813170144.GA10269@lst.de/
+Also, introduce FAILUP handling for REQ_FAILFAST_TRANSPORT. Update
+NVMe to allow failover of requests marked with either REQ_NVME_MPATH
+or REQ_FAILFAST_TRANSPORT. This allows such requests to be given a
+disposition of either FAILOVER or FAILUP respectively.
 
-Suggested-by: Christoph Hellwig <hch@lst.de>
+nvme_complete_rq() is updated to call nvme_failup_req() if
+nvme_decide_disposition() returns FAILUP. nvme_failup_req() ensures
+the request is completed with a retryable path error.
+
 Signed-off-by: Mike Snitzer <snitzer@redhat.com>
-Reviewed-by: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
-Reviewed-by: Hannes Reinecke <hare@suse.de>
 ---
- drivers/nvme/host/core.c  | 3 +++
- include/linux/blk_types.h | 8 ++++++++
- 2 files changed, 11 insertions(+)
+ drivers/nvme/host/core.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 0896e21642be..540d6fd8ffef 100644
+index 540d6fd8ffef..a12b10a1383c 100644
 --- a/drivers/nvme/host/core.c
 +++ b/drivers/nvme/host/core.c
-@@ -237,6 +237,9 @@ static void nvme_delete_ctrl_sync(struct nvme_ctrl *ctrl)
+@@ -299,6 +299,7 @@ enum nvme_disposition {
+ 	COMPLETE,
+ 	RETRY,
+ 	FAILOVER,
++	FAILUP,
+ };
  
- static blk_status_t nvme_error_status(u16 status)
- {
-+	if (unlikely(status & NVME_SC_DNR))
-+		return BLK_STS_DO_NOT_RETRY;
-+
- 	switch (status & 0x7ff) {
- 	case NVME_SC_SUCCESS:
- 		return BLK_STS_OK;
-diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-index db026b6ec15a..1ca724948c56 100644
---- a/include/linux/blk_types.h
-+++ b/include/linux/blk_types.h
-@@ -142,6 +142,13 @@ typedef u8 __bitwise blk_status_t;
-  */
- #define BLK_STS_ZONE_ACTIVE_RESOURCE	((__force blk_status_t)16)
+ static inline enum nvme_disposition nvme_decide_disposition(struct request *req)
+@@ -306,15 +307,16 @@ static inline enum nvme_disposition nvme_decide_disposition(struct request *req)
+ 	if (likely(nvme_req(req)->status == 0))
+ 		return COMPLETE;
  
-+/*
-+ * BLK_STS_DO_NOT_RETRY is returned from the driver in the completion path
-+ * if the device returns a status indicating that if the same command is
-+ * re-submitted it is expected to fail.
-+ */
-+#define BLK_STS_DO_NOT_RETRY	((__force blk_status_t)17)
+-	if (blk_noretry_request(req) ||
++	if ((req->cmd_flags & (REQ_FAILFAST_DEV | REQ_FAILFAST_DRIVER)) ||
+ 	    (nvme_req(req)->status & NVME_SC_DNR) ||
+ 	    nvme_req(req)->retries >= nvme_max_retries)
+ 		return COMPLETE;
+ 
+-	if (req->cmd_flags & REQ_NVME_MPATH) {
++	if (req->cmd_flags & (REQ_NVME_MPATH | REQ_FAILFAST_TRANSPORT)) {
+ 		if (nvme_is_path_error(nvme_req(req)->status) ||
+ 		    blk_queue_dying(req->q))
+-			return FAILOVER;
++			return (req->cmd_flags & REQ_NVME_MPATH) ?
++				FAILOVER : FAILUP;
+ 	} else {
+ 		if (blk_queue_dying(req->q))
+ 			return COMPLETE;
+@@ -336,6 +338,12 @@ static inline void nvme_end_req(struct request *req)
+ 	blk_mq_end_request(req, status);
+ }
+ 
++static inline void nvme_failup_req(struct request *req)
++{
++	nvme_req(req)->status = NVME_SC_HOST_PATH_ERROR;
++	nvme_end_req(req);
++}
 +
- /**
-  * blk_path_error - returns true if error may be path related
-  * @error: status the request was completed with
-@@ -157,6 +164,7 @@ typedef u8 __bitwise blk_status_t;
- static inline bool blk_path_error(blk_status_t error)
+ void nvme_complete_rq(struct request *req)
  {
- 	switch (error) {
-+	case BLK_STS_DO_NOT_RETRY:
- 	case BLK_STS_NOTSUPP:
- 	case BLK_STS_NOSPC:
- 	case BLK_STS_TARGET:
+ 	trace_nvme_complete_rq(req);
+@@ -354,6 +362,9 @@ void nvme_complete_rq(struct request *req)
+ 	case FAILOVER:
+ 		nvme_failover_req(req);
+ 		return;
++	case FAILUP:
++		nvme_failup_req(req);
++		return;
+ 	}
+ }
+ EXPORT_SYMBOL_GPL(nvme_complete_rq);
 -- 
 2.15.0
 
