@@ -2,81 +2,132 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 9305C362CEE
-	for <lists+dm-devel@lfdr.de>; Sat, 17 Apr 2021 04:34:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 25170362F54
+	for <lists+dm-devel@lfdr.de>; Sat, 17 Apr 2021 12:43:26 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-405-DW6M7QTSOgGIO2oihiUXCA-1; Fri, 16 Apr 2021 22:34:02 -0400
-X-MC-Unique: DW6M7QTSOgGIO2oihiUXCA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-597-MVNb6OkhMXef6U5GKMkUZg-1; Sat, 17 Apr 2021 06:43:22 -0400
+X-MC-Unique: MVNb6OkhMXef6U5GKMkUZg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 799FA18397A5;
-	Sat, 17 Apr 2021 02:33:56 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4158F26188;
-	Sat, 17 Apr 2021 02:33:56 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8F052801814;
+	Sat, 17 Apr 2021 10:43:15 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3245260C13;
+	Sat, 17 Apr 2021 10:43:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C701B44A5E;
-	Sat, 17 Apr 2021 02:33:55 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C0DB61806D15;
+	Sat, 17 Apr 2021 10:43:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13H2Xb09031297 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 16 Apr 2021 22:33:37 -0400
+	id 13HAdmbT001537 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 17 Apr 2021 06:39:48 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7B43A1054E49; Sat, 17 Apr 2021 02:33:37 +0000 (UTC)
+	id DDCDB2182DCD; Sat, 17 Apr 2021 10:39:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 763A61054E4A
-	for <dm-devel@redhat.com>; Sat, 17 Apr 2021 02:33:34 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D71862182DCE
+	for <dm-devel@redhat.com>; Sat, 17 Apr 2021 10:39:45 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DE3E2805F48
-	for <dm-devel@redhat.com>; Sat, 17 Apr 2021 02:33:34 +0000 (UTC)
-Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 612C1185A7A5
+	for <dm-devel@redhat.com>; Sat, 17 Apr 2021 10:39:45 +0000 (UTC)
+Received: from esa5.hgst.iphmx.com (esa5.hgst.iphmx.com [216.71.153.144])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-328-CWeY_4C-N6OjNDGhr8KkBw-2; Fri, 16 Apr 2021 22:33:32 -0400
-X-MC-Unique: CWeY_4C-N6OjNDGhr8KkBw-2
-IronPort-SDR: FosYsSUDzcxgMionuMboYd0pTiJfjrmVcVBBHOCiy4Xy1dbbCWdPAnmClUNd3w1fyjxSBOEx7g
-	uC5KUFfw2J62L8K313yFNvT0aXficie0TC4gyGxPUbHzEr3M15ciH4CfLfG/UENh5mTUUHHpvf
-	UdnplGsjo6BYkHahfUmU4nHK0KRCDMjEW+++W+l7+Q7eY5ITuLnwDPr/lTFghsJRkPnzP23q/3
-	6qhaW1k+TSi64knXMtUO2ZDbR5pV9X9pMs5k6xoaSgiTGnPjtHsI69iG4E6JETDqo8CLCa0flY
-	+Ic=
-X-IronPort-AV: E=Sophos;i="5.82,228,1613404800"; d="scan'208";a="164553506"
-Received: from h199-255-45-14.hgst.com (HELO uls-op-cesaep01.wdc.com)
-	([199.255.45.14])
-	by ob1.hgst.iphmx.com with ESMTP; 17 Apr 2021 10:33:32 +0800
-IronPort-SDR: aoKvPZmPGrxi7v0tbaVNo9jdZvAJI+T+B8dbwfAHs2RRLc7RJeSPZf6oF5fN7nLR7pdiJq6tcN
-	nBLtJarABcfuNyJJMAVtepQZUrJ98eocNoCUFXjA1jR9Rp+Dr6DxJxsDRCEDw20WSK45y8U4TG
-	Q9+LbbwEUFexqWXU2JLJqaJSU7tiApXahxLfylpKJed5bZApUrH7jOi/TcuqeZr+6NdFKpavoh
-	ka1T+k21xd5/YxeWqCki/brh0EbP4tEzaRXGaZj8jNeQt6Hs5zKWI6HeMptKuKL7jCJKmNOR7B
-	R4xQxiJX4Z8RGZJEvHQeJg3Z
-Received: from uls-op-cesaip01.wdc.com ([10.248.3.36])
-	by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	16 Apr 2021 19:14:20 -0700
-IronPort-SDR: ffwDuNJdgpDyZs+F+I7hb5tSfdWh7H3NQY/F8KVBqjx1K+WoPrmksYPHiqq3maw5NfYpqZctE9
-	gWv+C7z7BiidjMOBh+0BeZRwHA5xPSD1s6Kg3GUZiliiyyBB0i0Uv2nQz0774FLe8UiAoCUSqt
-	e+5ZqS22Z3zk1jmc+G8LVLkZJk8bruBBF+amRb69DmiJ5Lq6G3GvG7tTV6S+KC5sTAewBEgA84
-	hAnkDYwYNQCOL+1UEM6V12/EMZYtLQG3IrKQoLYYc5WTTO5MKtF+ZIu3Pf8XRj1vqGFTTgE1HH
-	LWc=
-WDCIronportException: Internal
-Received: from washi.fujisawa.hgst.com ([10.149.53.254])
-	by uls-op-cesaip01.wdc.com with ESMTP; 16 Apr 2021 19:33:31 -0700
-From: Damien Le Moal <damien.lemoal@wdc.com>
-To: dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>,
-	linux-block@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	linux-nvme@lists.infradead.org, Christoph Hellwig <hch@lst.de>,
-	linux-scsi@vger.kernel.org,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	linux-fsdevel@vger.kernel.org
-Date: Sat, 17 Apr 2021 11:33:23 +0900
-Message-Id: <20210417023323.852530-4-damien.lemoal@wdc.com>
-In-Reply-To: <20210417023323.852530-1-damien.lemoal@wdc.com>
+	us-mta-466-5ZaKg9FTNpuOxzF5gPRhhA-1; Sat, 17 Apr 2021 06:39:43 -0400
+X-MC-Unique: 5ZaKg9FTNpuOxzF5gPRhhA-1
+IronPort-SDR: wfWiJcAUiI5ekMHeGwTMIGtZE4gAELrZqcXrFvHrkgwrd4L8pigGdWpIaJxb3x3XlPewXJqBFA
+	Fg5cPNDkXNl4v2o5fTT5297XO2LePf4+Tt49Y1ojY/NOxWwuuLy8kAKFxmOVpok0I26zCGus4j
+	j5HnDtFIwH4A0nWPUtuBqqITfwZ5NHft/oTCs/UCQkbHsyKKoyMkbj6TCS9iCLhejrfOUvHwtw
+	GQcCUDgCYk4O1qoc8J9bo8r5Z/5nbQapaCMhvSV5A4T5CVmLb3pEN8asd27JOm2wmq3M14QG4H
+	eEo=
+X-IronPort-AV: E=Sophos;i="5.82,229,1613404800"; d="scan'208";a="165238389"
+Received: from mail-dm6nam11lp2170.outbound.protection.outlook.com (HELO
+	NAM11-DM6-obe.outbound.protection.outlook.com) ([104.47.57.170])
+	by ob1.hgst.iphmx.com with ESMTP; 17 Apr 2021 18:39:40 +0800
+Received: from PH0PR04MB7416.namprd04.prod.outlook.com (2603:10b6:510:12::17)
+	by PH0PR04MB7192.namprd04.prod.outlook.com (2603:10b6:510:1d::13)
+	with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4042.19;
+	Sat, 17 Apr 2021 10:39:38 +0000
+Received: from PH0PR04MB7416.namprd04.prod.outlook.com
+	([fe80::99a5:9eaa:4863:3ef3]) by
+	PH0PR04MB7416.namprd04.prod.outlook.com
+	([fe80::99a5:9eaa:4863:3ef3%4]) with mapi id 15.20.4042.021;
+	Sat, 17 Apr 2021 10:39:38 +0000
+From: Johannes Thumshirn <Johannes.Thumshirn@wdc.com>
+To: Damien Le Moal <Damien.LeMoal@wdc.com>, "dm-devel@redhat.com"
+	<dm-devel@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>, Jens Axboe
+	<axboe@kernel.dk>, "linux-nvme@lists.infradead.org"
+	<linux-nvme@lists.infradead.org>, Christoph Hellwig <hch@lst.de>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>, "Martin K .
+	Petersen" <martin.petersen@oracle.com>, "linux-fsdevel@vger.kernel.org"
+	<linux-fsdevel@vger.kernel.org>
+Thread-Topic: [PATCH v2 2/3] dm crypt: Fix zoned block device support
+Thread-Index: AQHXMzIRa8gn9aDid0SQEsDAmMromA==
+Date: Sat, 17 Apr 2021 10:39:37 +0000
+Message-ID: <PH0PR04MB7416A8D3A8A8BC87EF790B579B4B9@PH0PR04MB7416.namprd04.prod.outlook.com>
 References: <20210417023323.852530-1-damien.lemoal@wdc.com>
+	<20210417023323.852530-3-damien.lemoal@wdc.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2001:a62:15ab:1:4419:a77b:dc28:73ac]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 31aad4e9-b7ab-4ec6-480a-08d9018d1989
+x-ms-traffictypediagnostic: PH0PR04MB7192:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <PH0PR04MB7192B82EC4E8F818607E0E069B4B9@PH0PR04MB7192.namprd04.prod.outlook.com>
+wdcipoutbound: EOP-TRUE
+x-ms-oob-tlc-oobclassifiers: OLM:1728
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0
+x-microsoft-antispam-message-info: kS+RuRx4BjooxoHQSS+CLjWpUsv87N72gRBWeaC1M8ORapu8isHOFY9tGuRLz/LO9K7InojTlO920l6VL1SLlxJMd63Rqh5C3dwL4m3mqIXFJD94UurS/PJyzlszof7gOqrITWUHiKZ9cTzSe79YeR3cvar4nefyhb8augySbl2uqW3XqU3Yhd3Y6b5ZiQF7zCp9juUG81Q15P9TLssitlxww0quhAfRWIef08MmL7m4uj4694RrEno0rHfQF1ba6SuohAN86wUE11zfcswTvy9teuXA3rmUuHvySkWaC1BEsnEH8WUrtKmKG6JIlfXHkgHrcEFqPcrSFbJomabvEp4zwwUmmCHb/uHeo4B36yMPCU09IxNjVuyQiagG49MEEorjtpp0zmZ+htL5991hKMXVGmInYARBKA/vn9lqAiZ/e7W/GYepw3MZf3czPlNQQIczIwBDDIMPh2dh8cJU+vM6wC5kE5qsGIkAjN87DNUkHtdHLnGjhxPkli9rg5+TBKFHR0O1Fu2WO6rxNK/0skTqm576LCk2eQHYPyJDyu9MSQtdJ4rznrYkWPbHwR2HQH028BC70H9Wo+45U9B4oUC20w+/qN9cT7y0bCrU+K39E0D2FA2CRcgKbaGftmpiKVn6thqP+zfwXZtHK6CO+g==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:PH0PR04MB7416.namprd04.prod.outlook.com;
+	PTR:; CAT:NONE;
+	SFS:(4636009)(39860400002)(136003)(366004)(346002)(376002)(396003)(71200400001)(186003)(2906002)(122000001)(316002)(55016002)(86362001)(478600001)(4270600006)(110136005)(19618925003)(5660300002)(33656002)(52536014)(38100700002)(8676002)(66946007)(66556008)(558084003)(66476007)(66446008)(7696005)(76116006)(4326008)(921005)(91956017)(9686003)(6506007)(64756008)(8936002);
+	DIR:OUT; SFP:1102
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?uwFyg0DE7Ef4J5NDnJD0/2tNciDu1zqFowlGRXi/BwC95Vi4wPVCayAUfjDA?=
+	=?us-ascii?Q?jH4+pFXoQ45ar6Lp4265ermEgX52fZ/qEadcf+RqncAA6sUEceQ/MITFAkqv?=
+	=?us-ascii?Q?8Jfo034yRgY2Y02Q7yl38qvO85vPMfmn23PFHwyejOGcCS6Y6TX+qwY10bhF?=
+	=?us-ascii?Q?FCtyrgS09RIhenQ5b15IuvjvwM7gOHtp8SBFTzFIByfS87mgcoY6o1v3gmri?=
+	=?us-ascii?Q?u3Tjvv7wAfPa6t43vUIAZrfRpTiMv7o/urLKb9+/+lpXToyF5EyR3cukKhVa?=
+	=?us-ascii?Q?GWuE7ADF/QiAdM4+X6fzHHQsgm/mbEhXKJ22R9V0axWpYI+NrCRHvaFSQgsX?=
+	=?us-ascii?Q?/0x5WpJmmFA0+XKK7ThKiV+ZhZj0bkPtFjuBldD8plThSMroGoZ+WgmgnIfJ?=
+	=?us-ascii?Q?9j8Phdo9PrP2nt/8arhDQkEybyNeuPdNAwGRQ/pyrLos2sqwnJ2zFRgXxYrI?=
+	=?us-ascii?Q?CNwDOjLgVg5gt+u/0UCWFB56aWoCCFTfoAjk/hu0MlodjH/H91VuVF4fE+n6?=
+	=?us-ascii?Q?+PtXsC5I4s7IEd7TUhKTzJhmeEmwBhyo9Zdj8tWvoBfSM1lNs5v1RD5EH/xH?=
+	=?us-ascii?Q?ZOWD6bpk8TNvpskVM41yZluba+dqLZGXvDU+es8rhf6NS7wl2++6LP1DfBLR?=
+	=?us-ascii?Q?TolgtBX1r8qEDIPan7ARv1lp6Gdln4uQVvTTvRBYp1pknwzneYF+zarC3oU4?=
+	=?us-ascii?Q?79Un0zGKCojwXycLK7JV0RkR03KM2IRHLsklqudiHDqP2qi6KTFDlEK3yhi9?=
+	=?us-ascii?Q?h0m4uLZoI933acXFMOLqUZie3le2USVfmTI5RLqqVpM8MGSCdidSFOAfImsM?=
+	=?us-ascii?Q?zCT4CcVsw9lshgWsrB+D3LBhdflZJfCjoz+WyCe7rlKpo3YBjPF8jTJn4g1I?=
+	=?us-ascii?Q?XJKoNsi+hVGIj9tWrB66t/9NbagLYlaUsMNUffraSmUMojeGzZTb9VaTuqV9?=
+	=?us-ascii?Q?lvTdIXhQLYQ4qeckueR4gGZC3ThhWmY3g7N8kRrotByxowzhJzxySyk1FJAo?=
+	=?us-ascii?Q?vDKXv3CPGPeGQCkmr4Gn4anQQZRghhCdn4AOZsDFPE1cRCu3Xjxt9CwSgaNR?=
+	=?us-ascii?Q?fcqBfWIIzV/U6Jv3ZBkL93mQHzzV+dlEYI/eNL7+m3tCtVr3dW6Rrq2+xeSp?=
+	=?us-ascii?Q?iTaX7OTFZKYWr5aH7dRdpnAc+ZI7q9Q04JkGEA+mdBA0OjR0p/1v/h0kiIE/?=
+	=?us-ascii?Q?faPpYCMxaY+dhfAKdB25p1mWLnTqP8H8bWjRZUMW/Z/S3GyXARvVb7QWhx/v?=
+	=?us-ascii?Q?iAbLQix5MkkR8Qs+UncXQk9O0FYys5aVw8z1WhAt9Wiv9eDay1K4BFOSkO9T?=
+	=?us-ascii?Q?aygbCOmlkcsRWx48YJLMNu56janYFlFbGYmxtvLqqHtjlboW82h7aAkWCBuw?=
+	=?us-ascii?Q?ybjBxazxXlUZXPvfAltkN4z00DOs?=
 MIME-Version: 1.0
+X-OriginatorOrg: wdc.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR04MB7416.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31aad4e9-b7ab-4ec6-480a-08d9018d1989
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Apr 2021 10:39:37.9123 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: wZHY+K+S4DC9jLzj42Phy6ZWBExplPEzV74U/nwBgeSybmWC1Dl7HSE6cjiC+NTjXhR5Egv9hR9JbRpfxHffo1zePabfBzk2WqWyjwpTUeA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR04MB7192
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -85,12 +136,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 13HAdmbT001537
 X-loop: dm-devel@redhat.com
-Cc: Shinichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Subject: [dm-devel] [PATCH v2 3/3] zonefs: fix synchronous write to
-	sequential zone files
+Cc: Shinichiro Kawasaki <shinichiro.kawasaki@wdc.com>
+Subject: Re: [dm-devel] [PATCH v2 2/3] dm crypt: Fix zoned block device
+	support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -104,97 +156,19 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Synchronous writes to sequential zone files cannot use zone append
-operations if the underlying zoned device queue limit
-max_zone_append_sectors is 0, indicating that the device does not
-support this operation. In this case, fall back to using regular write
-operations.
-
-Fixes: 02ef12a663c7 ("zonefs: use REQ_OP_ZONE_APPEND for sync DIO")
-Cc: stable@vger.kernel.org
-Signed-off-by: Damien Le Moal <damien.lemoal@wdc.com>
+Looks good,
 Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
----
- fs/zonefs/super.c  | 16 ++++++++++++----
- fs/zonefs/zonefs.h |  2 ++
- 2 files changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/fs/zonefs/super.c b/fs/zonefs/super.c
-index 049e36c69ed7..b97566b9dff7 100644
---- a/fs/zonefs/super.c
-+++ b/fs/zonefs/super.c
-@@ -689,14 +689,15 @@ static ssize_t zonefs_file_dio_append(struct kiocb *iocb, struct iov_iter *from)
- {
- 	struct inode *inode = file_inode(iocb->ki_filp);
- 	struct zonefs_inode_info *zi = ZONEFS_I(inode);
--	struct block_device *bdev = inode->i_sb->s_bdev;
--	unsigned int max;
-+	struct super_block *sb = inode->i_sb;
-+	struct zonefs_sb_info *sbi = ZONEFS_SB(sb);
-+	struct block_device *bdev = sb->s_bdev;
-+	sector_t max = sbi->s_max_zone_append_sectors;
- 	struct bio *bio;
- 	ssize_t size;
- 	int nr_pages;
- 	ssize_t ret;
- 
--	max = queue_max_zone_append_sectors(bdev_get_queue(bdev));
- 	max = ALIGN_DOWN(max << SECTOR_SHIFT, inode->i_sb->s_blocksize);
- 	iov_iter_truncate(from, max);
- 
-@@ -853,6 +854,8 @@ static ssize_t zonefs_file_dio_write(struct kiocb *iocb, struct iov_iter *from)
- 
- 	/* Enforce sequential writes (append only) in sequential zones */
- 	if (zi->i_ztype == ZONEFS_ZTYPE_SEQ) {
-+		struct zonefs_sb_info *sbi = ZONEFS_SB(sb);
-+
- 		mutex_lock(&zi->i_truncate_mutex);
- 		if (iocb->ki_pos != zi->i_wpoffset) {
- 			mutex_unlock(&zi->i_truncate_mutex);
-@@ -860,7 +863,7 @@ static ssize_t zonefs_file_dio_write(struct kiocb *iocb, struct iov_iter *from)
- 			goto inode_unlock;
- 		}
- 		mutex_unlock(&zi->i_truncate_mutex);
--		append = sync;
-+		append = sync && sbi->s_max_zone_append_sectors;
- 	}
- 
- 	if (append)
-@@ -1683,6 +1686,11 @@ static int zonefs_fill_super(struct super_block *sb, void *data, int silent)
- 		sbi->s_mount_opts &= ~ZONEFS_MNTOPT_EXPLICIT_OPEN;
- 	}
- 
-+	sbi->s_max_zone_append_sectors =
-+		queue_max_zone_append_sectors(bdev_get_queue(sb->s_bdev));
-+	if (!sbi->s_max_zone_append_sectors)
-+		zonefs_info(sb, "Zone append is not supported: falling back to using regular writes\n");
-+
- 	ret = zonefs_read_super(sb);
- 	if (ret)
- 		return ret;
-diff --git a/fs/zonefs/zonefs.h b/fs/zonefs/zonefs.h
-index 51141907097c..2b8c3b1a32ea 100644
---- a/fs/zonefs/zonefs.h
-+++ b/fs/zonefs/zonefs.h
-@@ -185,6 +185,8 @@ struct zonefs_sb_info {
- 
- 	unsigned int		s_max_open_zones;
- 	atomic_t		s_open_zones;
-+
-+	sector_t		s_max_zone_append_sectors;
- };
- 
- static inline struct zonefs_sb_info *ZONEFS_SB(struct super_block *sb)
--- 
-2.30.2
+
 
 --
 dm-devel mailing list
