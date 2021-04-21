@@ -1,66 +1,70 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 981DB366644
-	for <lists+dm-devel@lfdr.de>; Wed, 21 Apr 2021 09:31:07 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 1415C367080
+	for <lists+dm-devel@lfdr.de>; Wed, 21 Apr 2021 18:47:13 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-507-B0ejbujaMXipKQFk3BvHZw-1; Wed, 21 Apr 2021 03:30:31 -0400
-X-MC-Unique: B0ejbujaMXipKQFk3BvHZw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-242-LAHmVBx4OaSXgBQq-lDTTw-1; Wed, 21 Apr 2021 12:46:40 -0400
+X-MC-Unique: LAHmVBx4OaSXgBQq-lDTTw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EE10E107ACC7;
-	Wed, 21 Apr 2021 07:30:23 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0E1D160240;
-	Wed, 21 Apr 2021 07:30:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 74AC883DE6D;
+	Wed, 21 Apr 2021 16:46:33 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B6E161000358;
+	Wed, 21 Apr 2021 16:46:32 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6B9141806D0F;
-	Wed, 21 Apr 2021 07:30:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5ED1444A5B;
+	Wed, 21 Apr 2021 16:46:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13K7MEXS029741 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 20 Apr 2021 03:22:15 -0400
+	id 13LGk703013303 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 21 Apr 2021 12:46:08 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D237C10085CE; Tue, 20 Apr 2021 07:22:14 +0000 (UTC)
+	id 05A205F274; Wed, 21 Apr 2021 16:46:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CDCA61134CD7
-	for <dm-devel@redhat.com>; Tue, 20 Apr 2021 07:22:12 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C54E2F66BB
+	for <dm-devel@redhat.com>; Wed, 21 Apr 2021 16:46:04 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5C2E2185A7B8
-	for <dm-devel@redhat.com>; Tue, 20 Apr 2021 07:22:12 +0000 (UTC)
-Received: from out30-132.freemail.mail.aliyun.com
-	(out30-132.freemail.mail.aliyun.com [115.124.30.132]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-471-7vwXrgNoNTGsZ7zhGztsBQ-1;
-	Tue, 20 Apr 2021 03:22:01 -0400
-X-MC-Unique: 7vwXrgNoNTGsZ7zhGztsBQ-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R101e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04400;
-	MF=jefflexu@linux.alibaba.com; NM=1; PH=DS; RN=10; SR=0;
-	TI=SMTPD_---0UWBJ92o_1618903315
-Received: from admindeMacBook-Pro-2.local(mailfrom:jefflexu@linux.alibaba.com
-	fp:SMTPD_---0UWBJ92o_1618903315) by smtp.aliyun-inc.com(127.0.0.1);
-	Tue, 20 Apr 2021 15:21:57 +0800
-To: Ming Lei <ming.lei@redhat.com>
-References: <20210415103310.1513841-1-ming.lei@redhat.com>
-	<20210415103310.1513841-3-ming.lei@redhat.com>
-	<b1db72f3-f0a1-72f2-be12-6fd50c29e231@linux.alibaba.com>
-	<YH2Kr8ZIn2fWKFyl@T590>
-From: JeffleXu <jefflexu@linux.alibaba.com>
-Message-ID: <42c79dce-ad99-4e59-6566-727fa08a66bc@linux.alibaba.com>
-Date: Tue, 20 Apr 2021 15:21:55 +0800
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
-	Gecko/20100101 Thunderbird/78.7.1
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 04F2480270A
+	for <dm-devel@redhat.com>; Wed, 21 Apr 2021 16:46:04 +0000 (UTC)
+Received: from mx2.veeam.com (mx2.veeam.com [64.129.123.6]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-194-h4QNxq_4NFKpSoLbEaQFnA-1;
+	Wed, 21 Apr 2021 12:45:59 -0400
+X-MC-Unique: h4QNxq_4NFKpSoLbEaQFnA-1
+Received: from mail.veeam.com (prgmbx01.amust.local [172.24.0.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx2.veeam.com (Postfix) with ESMTPS id 5EBE742406;
+	Wed, 21 Apr 2021 12:45:55 -0400 (EDT)
+Received: from prgdevlinuxpatch01.amust.local (172.24.14.5) by
+	prgmbx01.amust.local (172.24.0.171) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	15.2.858.5; Wed, 21 Apr 2021 18:45:53 +0200
+From: Sergei Shtepa <sergei.shtepa@veeam.com>
+To: Christoph Hellwig <hch@infradead.org>, Hannes Reinecke <hare@suse.de>,
+	Mike Snitzer <snitzer@redhat.com>, Alasdair Kergon <agk@redhat.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>, 
+	<dm-devel@redhat.com>, <linux-fsdevel@vger.kernel.org>,
+	<linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Date: Wed, 21 Apr 2021 19:45:41 +0300
+Message-ID: <1619023545-23431-1-git-send-email-sergei.shtepa@veeam.com>
 MIME-Version: 1.0
-In-Reply-To: <YH2Kr8ZIn2fWKFyl@T590>
+X-Originating-IP: [172.24.14.5]
+X-ClientProxiedBy: prgmbx02.amust.local (172.24.0.172) To prgmbx01.amust.local
+	(172.24.0.171)
+X-EsetResult: clean, is OK
+X-EsetId: 37303A29D2A50B59677566
+X-Veeam-MMEX: True
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -69,16 +73,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Wed, 21 Apr 2021 03:27:41 -0400
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
-	Bart Van Assche <bvanassche@acm.org>, Mike Snitzer <snitzer@redhat.com>,
-	linux-nvme@lists.infradead.org, linux-raid@vger.kernel.org,
-	Song Liu <song@kernel.org>, dm-devel@redhat.com,
-	Christoph Hellwig <hch@lst.de>
-Subject: Re: [dm-devel] [RFC PATCH 2/2] block: support to freeze bio based
- request queue
+Cc: pavel.tide@veeam.com, sergei.shtepa@veeam.com
+Subject: [dm-devel] [PATCH v9 0/4] block device interposer
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,95 +90,130 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+A new version of a block device interposer (blk_interposer).
 
+In this series of patches,  I have tried to take into account the comments
+made by Mike to the previous version.
 
-On 4/19/21 9:50 PM, Ming Lei wrote:
-> On Mon, Apr 19, 2021 at 08:05:46PM +0800, JeffleXu wrote:
->>
->>
->> On 4/15/21 6:33 PM, Ming Lei wrote:
->>> For bio based request queue, the queue usage refcnt is only grabbed
->>> during submission, which isn't consistent with request base queue.
->>>
->>> Queue freezing has been used widely, and turns out it is very useful
->>> to quiesce queue activity.
->>>
->>> Support to freeze bio based request queue by the following approach:
->>>
->>> 1) grab two queue usage refcount for blk-mq before submitting blk-mq
->>> bio, one is for bio, anther is for request;
->>
->>
->> Hi, I can't understand the sense of grabbing two refcounts on the
->> @q_usage_count of the underlying blk-mq device, while
->> @q_usage_count of the MD/DM device is kept untouched.
-> 
-> Follows the point:
-> 
-> 1) for blk-mq, we hold one refcount for bio and another for request, and
-> release one after ending bio or completing request.
+First of all, this applies to more detailed explanations of the commits.
+Indeed, the changes in blk-core.c and dm.c may seem complicated, but they
+are no more complicated than the rest of the code in these files.
 
-Blk-mq has already implemented queue freezing semantics, even without
-this 'grabbing two refcount'. So is this just for the code consisdency
-with the bio-based queue?
+Removed the [interpose] option for block devices opened by the DM target.
+Instead, the dm_get_device_ex() function is added, which allows to
+explicitly specify which devices can be used for the interposer and which
+can not.
 
+Additional testing has revealed a problem with suspending and resuming DM
+targets attached via blk_interposer. This has been fixed.
 
-> 
-> 2) for bio based queue, just holding one refcount for bio, and release it
-> after the bio is ended.
+History:
+v8 - https://patchwork.kernel.org/project/linux-block/cover/1617968884-15149-1-git-send-email-sergei.shtepa@veeam.com/
+  * The attaching and detaching to interposed device moved to
+    __dm_suspend() and __dm_resume() functions.
+  * Redesigned the submit_bio_noacct() function and added a lock for the
+    block device interposer.
+  * Adds [interpose] option to block device patch in dm table.
+  * Fix origin_map() then o->split_binary value is zero.
 
-OK.
+v7 - https://patchwork.kernel.org/project/linux-block/cover/1615563895-28565-1-git-send-email-sergei.shtepa@veeam.com/
+  * the request interception mechanism. Now the interposer is
+    a block device that receives requests instead of the original device;
+  * code design fixes.
 
-> 
-> As I mentioned to you, the current in-tree code only grabs the refcount
-> during submitting bio for bio base queue, and the refcount is released
-> after returning from submission, see __submit_bio().
+v6 - https://patchwork.kernel.org/project/linux-block/cover/1614774618-22410-1-git-send-email-sergei.shtepa@veeam.com/
+  * designed for 5.12;
+  * thanks to the new design of the bio structure in v5.12, it is
+    possible to perform interception not for the entire disk, but
+    for each block device;
+  * instead of the new ioctl DM_DEV_REMAP_CMD and the 'noexcl' option,
+    the DM_INTERPOSED_FLAG flag for the ioctl DM_TABLE_LOAD_CMD is
+    applied.
 
-Yes. I ignored that the refcount grabbed in the entry of bio submission
-has been returned back when the submission completes for bio-based queue.
+v5 - https://patchwork.kernel.org/project/linux-block/cover/1612881028-7878-1-git-send-email-sergei.shtepa@veeam.com/
+ * rebase for v5.11-rc7;
+ * patch set organization;
+ * fix defects in documentation;
+ * add some comments;
+ * change mutex names for better code readability;
+ * remove calling bd_unlink_disk_holder() for targets with non-exclusive
+   flag;
+ * change type for struct dm_remap_param from uint8_t to __u8.
 
-> 
->>
->> In the following calling stack
->>
->> ```
->> queue_poll_store
->> 	blk_mq_freeze_queue(q)
->> ```
->>
->> Is the input @q still the request queue of MD/DM device?
-> 
-> It can be either one after bio based io polling is supported,
-> queue/io_poll is exposed for both blk-mq and bio based queue.
-> 
-> However, I guess bio based polling doesn't need such strict bio queue
-> freezing, cause QUEUE_FLAG_POLL is only read in submission path, so
-> looks current freezing just during submission is enough.
+v4 - https://patchwork.kernel.org/project/linux-block/cover/1612367638-3794-1-git-send-email-sergei.shtepa@veeam.com/
+Mostly changes were made, due to Damien's comments:
+ * on the design of the code;
+ * by the patch set organization;
+ * bug with passing a wrong parameter to dm_get_device();
+ * description of the 'noexcl' parameter in the linear.rst.
+Also added remap_and_filter.rst.
 
-Not actually.
+v3 - https://patchwork.kernel.org/project/linux-block/cover/1611853955-32167-1-git-send-email-sergei.shtepa@veeam.com/
+In this version, I already suggested blk_interposer to apply to dm-linear.
+Problems were solved:
+ * Interception of bio requests from a specific device on the disk, not
+   from the entire disk. To do this, we added the dm_interposed_dev
+   structure and an interval tree to store these structures.
+ * Implemented ioctl DM_DEV_REMAP_CMD. A patch with changes in the lvm2
+   project was sent to the team lvm-devel@redhat.com.
+ * Added the 'noexcl' option for dm-linear, which allows you to open
+   the underlying block-device without FMODE_EXCL mode.
 
-blk_poll(struct request_queue *q, blk_qc_t cookie, bool spin)
- 	struct blk_mq_hw_ctx *hctx;
- 	long state;
+v2 - https://patchwork.kernel.org/project/linux-block/cover/1607518911-30692-1-git-send-email-sergei.shtepa@veeam.com/
+I tried to suggest blk_interposer without using it in device mapper,
+but with the addition of a sample of its use. It was then that I learned
+about the maintainers' attitudes towards the samples directory :).
 
--	if (!blk_qc_t_valid(cookie) || !blk_queue_poll(q))
-+	if (!blk_queue_poll(q) || (queue_is_mq(q) && !blk_qc_t_valid(cookie)))
+v1 - https://lwn.net/ml/linux-block/20201119164924.74401-1-hare@suse.de/
+This Hannes's patch can be considered as a starting point, since this is
+where the interception mechanism and the term blk_interposer itself
+appeared. It became clear that blk_interposer can be useful for
+device mapper.
 
-Here QUEUE_FLAG_POLL is still checked in blk_poll() for bio-based queue,
-at least in your latest patch for bio-based polling.
+before v1 - https://patchwork.kernel.org/project/linux-block/cover/1603271049-20681-1-git-send-email-sergei.shtepa@veeam.com/
+I tried to offer a rather cumbersome blk-filter and a monster-like
+blk-snap module for creating snapshots.
 
--- 
-Thanks,
-Jeffle
+Sergei Shtepa (4):
+  Adds blk_interposer
+  Applying the blk_interposer in the block device layer
+  Add blk_interposer in DM
+  Using dm_get_device_ex() instead of dm_get_device()
+
+ block/bio.c                   |   2 +
+ block/blk-core.c              | 194 ++++++++++++++-------------
+ block/genhd.c                 |  52 ++++++++
+ drivers/md/dm-cache-target.c  |   5 +-
+ drivers/md/dm-core.h          |   1 +
+ drivers/md/dm-delay.c         |   3 +-
+ drivers/md/dm-dust.c          |   3 +-
+ drivers/md/dm-era-target.c    |   4 +-
+ drivers/md/dm-flakey.c        |   3 +-
+ drivers/md/dm-ioctl.c         |  59 ++++++++-
+ drivers/md/dm-linear.c        |   3 +-
+ drivers/md/dm-log-writes.c    |   3 +-
+ drivers/md/dm-snap.c          |   3 +-
+ drivers/md/dm-table.c         |  21 ++-
+ drivers/md/dm-writecache.c    |   3 +-
+ drivers/md/dm.c               | 242 ++++++++++++++++++++++++++++++----
+ drivers/md/dm.h               |   8 +-
+ fs/block_dev.c                |   3 +
+ include/linux/blk_types.h     |   6 +
+ include/linux/blkdev.h        |  32 +++++
+ include/linux/device-mapper.h |  11 +-
+ include/uapi/linux/dm-ioctl.h |   6 +
+ 22 files changed, 530 insertions(+), 137 deletions(-)
+
+--
+2.20.1
 
 --
 dm-devel mailing list
