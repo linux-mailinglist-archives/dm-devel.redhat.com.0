@@ -2,60 +2,76 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 87DE236804C
-	for <lists+dm-devel@lfdr.de>; Thu, 22 Apr 2021 14:23:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1619094215;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=09OcZu5ZQL3J3D8keKeAdBZJuRk5gD6GT1C3KdJCrmg=;
-	b=GmkPgNBcfv6ZeVPjansxp6EVVjgnScWxRj80VpNpasCPyOyfAgKntaqhgBGZt8pjlWmYlg
-	FKvCtUxOnml17jbDMsMvSX+87SVRZfVeplqbkAvKDPcPYdb4LbSZarxgANK6xgjS2t8tW/
-	CcgCQ6Wf9SH/dd4efamtvRTekk7QMTs=
+	by mail.lfdr.de (Postfix) with ESMTP id 76AE9368158
+	for <lists+dm-devel@lfdr.de>; Thu, 22 Apr 2021 15:19:07 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-151-pVLSngbvNGiahe5KpN5LOg-1; Thu, 22 Apr 2021 08:23:23 -0400
-X-MC-Unique: pVLSngbvNGiahe5KpN5LOg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-467-oJlkxuh0OLqk3s4oWWMcIQ-1; Thu, 22 Apr 2021 09:15:32 -0400
+X-MC-Unique: oJlkxuh0OLqk3s4oWWMcIQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 266C6107ACF6;
-	Thu, 22 Apr 2021 12:23:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CE221C7405;
+	Thu, 22 Apr 2021 13:18:52 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 017F95C1D5;
-	Thu, 22 Apr 2021 12:23:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7FED52B399;
+	Thu, 22 Apr 2021 13:18:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6DDCE1806D1B;
-	Thu, 22 Apr 2021 12:23:16 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 03DD71806D0F;
+	Thu, 22 Apr 2021 13:18:42 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13MCNCRJ020995 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 22 Apr 2021 08:23:12 -0400
+	id 13MDIYsV025618 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 22 Apr 2021 09:18:34 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id CF04319726; Thu, 22 Apr 2021 12:23:12 +0000 (UTC)
+	id 0BEA0107132; Thu, 22 Apr 2021 13:18:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (ovpn-13-243.pek2.redhat.com [10.72.13.243])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id ED5CF19C71;
-	Thu, 22 Apr 2021 12:23:01 +0000 (UTC)
-From: Ming Lei <ming.lei@redhat.com>
-To: Jens Axboe <axboe@kernel.dk>
-Date: Thu, 22 Apr 2021 20:20:38 +0800
-Message-Id: <20210422122038.2192933-13-ming.lei@redhat.com>
-In-Reply-To: <20210422122038.2192933-1-ming.lei@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 07A809E7B
+	for <dm-devel@redhat.com>; Thu, 22 Apr 2021 13:18:31 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 19D58104F0A9
+	for <dm-devel@redhat.com>; Thu, 22 Apr 2021 13:18:31 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-375-65P42awLPYOOVOsak4lMqw-1;
+	Thu, 22 Apr 2021 09:18:26 -0400
+X-MC-Unique: 65P42awLPYOOVOsak4lMqw-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 1A754B133;
+	Thu, 22 Apr 2021 13:18:25 +0000 (UTC)
+To: Ming Lei <ming.lei@redhat.com>, Jens Axboe <axboe@kernel.dk>
 References: <20210422122038.2192933-1-ming.lei@redhat.com>
+	<20210422122038.2192933-3-ming.lei@redhat.com>
+From: Hannes Reinecke <hare@suse.de>
+Message-ID: <2ae12dc1-804f-59f9-6837-3508d6176804@suse.de>
+Date: Thu, 22 Apr 2021 15:18:24 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+	Thunderbird/78.8.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+In-Reply-To: <20210422122038.2192933-3-ming.lei@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 13MDIYsV025618
 X-loop: dm-devel@redhat.com
-Cc: Mike Snitzer <snitzer@redhat.com>, Ming Lei <ming.lei@redhat.com>,
-	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	Jeffle Xu <jefflexu@linux.alibaba.com>
-Subject: [dm-devel] [PATCH V6 12/12] dm: support IO polling for bio-based dm
-	device
+Cc: linux-block@vger.kernel.org, Jeffle Xu <jefflexu@linux.alibaba.com>,
+	dm-devel@redhat.com, Christoph Hellwig <hch@lst.de>,
+	Mike Snitzer <snitzer@redhat.com>
+Subject: Re: [dm-devel] [PATCH V6 02/12] block: define 'struct bvec_iter' as
+	packed
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -69,111 +85,38 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-From: Jeffle Xu <jefflexu@linux.alibaba.com>
-
-IO polling is enabled when all underlying target devices are capable
-of IO polling. The sanity check supports the stacked device model, in
-which one dm device may be build upon another dm device. In this case,
-the mapped device will check if the underlying dm target device
-supports IO polling.
-
-Reviewed-by: Hannes Reinecke <hare@suse.de>
-Reviewed-by: Mike Snitzer <snitzer@redhat.com>
-Signed-off-by: Jeffle Xu <jefflexu@linux.alibaba.com>
-Signed-off-by: Ming Lei <ming.lei@redhat.com>
----
- drivers/md/dm-table.c         | 24 ++++++++++++++++++++++++
- drivers/md/dm.c               |  2 ++
- include/linux/device-mapper.h |  1 +
- 3 files changed, 27 insertions(+)
-
-diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-index 95391f78b8d5..a8f3575fb118 100644
---- a/drivers/md/dm-table.c
-+++ b/drivers/md/dm-table.c
-@@ -1509,6 +1509,12 @@ struct dm_target *dm_table_find_target(struct dm_table *t, sector_t sector)
- 	return &t->targets[(KEYS_PER_NODE * n) + k];
- }
- 
-+static int device_not_poll_capable(struct dm_target *ti, struct dm_dev *dev,
-+				   sector_t start, sector_t len, void *data)
-+{
-+	return !blk_queue_poll(bdev_get_queue(dev->bdev));
-+}
-+
- /*
-  * type->iterate_devices() should be called when the sanity check needs to
-  * iterate and check all underlying data devices. iterate_devices() will
-@@ -1559,6 +1565,11 @@ static int count_device(struct dm_target *ti, struct dm_dev *dev,
- 	return 0;
- }
- 
-+int dm_table_supports_poll(struct dm_table *t)
-+{
-+	return !dm_table_any_dev_attr(t, device_not_poll_capable, NULL);
-+}
-+
- /*
-  * Check whether a table has no data devices attached using each
-  * target's iterate_devices method.
-@@ -2079,6 +2090,19 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
- 
- 	dm_update_keyslot_manager(q, t);
- 	blk_queue_update_readahead(q);
-+
-+	/*
-+	 * Check for request-based device is remained to
-+	 * dm_mq_init_request_queue()->blk_mq_init_allocated_queue().
-+	 * For bio-based device, only set QUEUE_FLAG_POLL when all underlying
-+	 * devices supporting polling.
-+	 */
-+	if (__table_type_bio_based(t->type)) {
-+		if (dm_table_supports_poll(t))
-+			blk_queue_flag_set(QUEUE_FLAG_POLL, q);
-+		else
-+			blk_queue_flag_clear(QUEUE_FLAG_POLL, q);
-+	}
- }
- 
- unsigned int dm_table_get_num_targets(struct dm_table *t)
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 50b693d776d6..1b160e4e6446 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -2175,6 +2175,8 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
- 		}
- 		break;
- 	case DM_TYPE_BIO_BASED:
-+		/* tell block layer we are capable of bio polling */
-+		md->disk->flags |= GENHD_FL_CAP_BIO_POLL;
- 	case DM_TYPE_DAX_BIO_BASED:
- 		break;
- 	case DM_TYPE_NONE:
-diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
-index 7f4ac87c0b32..31bfd6f70013 100644
---- a/include/linux/device-mapper.h
-+++ b/include/linux/device-mapper.h
-@@ -538,6 +538,7 @@ unsigned int dm_table_get_num_targets(struct dm_table *t);
- fmode_t dm_table_get_mode(struct dm_table *t);
- struct mapped_device *dm_table_get_md(struct dm_table *t);
- const char *dm_table_device_name(struct dm_table *t);
-+int dm_table_supports_poll(struct dm_table *t);
- 
- /*
-  * Trigger an event.
--- 
-2.29.2
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gNC8yMi8yMSAyOjIwIFBNLCBNaW5nIExlaSB3cm90ZToKPiAnc3RydWN0IGJ2ZWNfaXRlcicg
+aXMgZW1iZWRkZWQgaW50byAnc3RydWN0IGJpbycsIGRlZmluZSBpdCBhcyBwYWNrZWQKPiBzbyB0
+aGF0IHdlIGNhbiBnZXQgb25lIGV4dHJhIDRieXRlcyBmb3Igb3RoZXIgdXNlcyB3aXRob3V0IGV4
+cGFuZGluZwo+IGJpby4KPiAKPiAnc3RydWN0IGJ2ZWNfaXRlcicgaXMgb2Z0ZW4gYWxsb2NhdGVk
+IG9uIHN0YWNrLCBzbyBtYWtpbmcgaXQgcGFja2VkCj4gZG9lc24ndCBhZmZlY3QgcGVyZm9ybWFu
+Y2UuIEFsc28gSSBoYXZlIHJ1biBpb191cmluZyBvbiBib3RoCj4gbnZtZS9udWxsX2JsaywgYW5k
+IG5vdCBvYnNlcnZlIHBlcmZvcm1hbmNlIGVmZmVjdCBpbiB0aGlzIHdheS4KPiAKPiBTdWdnZXN0
+ZWQtYnk6IENocmlzdG9waCBIZWxsd2lnIDxoY2hAbHN0LmRlPgo+IFNpZ25lZC1vZmYtYnk6IE1p
+bmcgTGVpIDxtaW5nLmxlaUByZWRoYXQuY29tPgo+IC0tLQo+ICAgaW5jbHVkZS9saW51eC9idmVj
+LmggfCAyICstCj4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24o
+LSkKPiAKPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9saW51eC9idmVjLmggYi9pbmNsdWRlL2xpbnV4
+L2J2ZWMuaAo+IGluZGV4IGZmODMyZTY5OGVmYi4uYTBjNGY0MWRmYzgzIDEwMDY0NAo+IC0tLSBh
+L2luY2x1ZGUvbGludXgvYnZlYy5oCj4gKysrIGIvaW5jbHVkZS9saW51eC9idmVjLmgKPiBAQCAt
+NDMsNyArNDMsNyBAQCBzdHJ1Y3QgYnZlY19pdGVyIHsKPiAgIAo+ICAgCXVuc2lnbmVkIGludCAg
+ICAgICAgICAgIGJpX2J2ZWNfZG9uZTsJLyogbnVtYmVyIG9mIGJ5dGVzIGNvbXBsZXRlZCBpbgo+
+ICAgCQkJCQkJICAgY3VycmVudCBidmVjICovCj4gLX07Cj4gK30gX19wYWNrZWQ7Cj4gICAKPiAg
+IHN0cnVjdCBidmVjX2l0ZXJfYWxsIHsKPiAgIAlzdHJ1Y3QgYmlvX3ZlYwlidjsKPiAKUmV2aWV3
+ZWQtYnk6IEhhbm5lcyBSZWluZWNrZSA8aGFyZUBzdXNlLmRlPgoKQ2hlZXJzLAoKSGFubmVzCi0t
+IApEci4gSGFubmVzIFJlaW5lY2tlICAgICAgICAgICAgICAgIEtlcm5lbCBTdG9yYWdlIEFyY2hp
+dGVjdApoYXJlQHN1c2UuZGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICArNDkgOTExIDc0
+MDUzIDY4OApTVVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHbWJILCBNYXhmZWxkc3RyLiA1LCA5MDQw
+OSBOw7xybmJlcmcKSFJCIDM2ODA5IChBRyBOw7xybmJlcmcpLCBHZXNjaMOkZnRzZsO8aHJlcjog
+RmVsaXggSW1lbmTDtnJmZmVyCgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJl
+ZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1k
+ZXZlbA==
 
