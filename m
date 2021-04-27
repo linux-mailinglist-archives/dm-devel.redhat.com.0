@@ -2,53 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 88BF836CC12
-	for <lists+dm-devel@lfdr.de>; Tue, 27 Apr 2021 22:05:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 163FF36CC38
+	for <lists+dm-devel@lfdr.de>; Tue, 27 Apr 2021 22:15:29 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1619553907;
+	s=mimecast20190719; t=1619554529;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=4iGglZ2vuSW8pj0QdtehrptoOLwjXEfdVChc0do/z9E=;
-	b=gsniHwoh4Mh6jyQjTnRVmrNf3FkAHJGAjEZMMhz3f+GsVc5U0T2lgikV47X70NBeXnOMyp
-	K8BwFJMKdxoAqnM1mOakBPWIlSrL0EtxPyM6R+9PRqZn7wj3cjyIUgJ0/BiIqbRQCyrMoX
-	WMuctOSMa5VO7m7EdmX/w/xKSdnVcsk=
+	bh=j4xgauh98AFoKHSSiF+JESHDpA5C9Q/QHvHrEHMF07M=;
+	b=JjBI5/+67n7CQRtbiR63DJHtrDmeL65RvI7pltwYdiQhYpQ9MoIlUsDG5FO9T6klaS5deu
+	eaeJqyKNet9679ASMuRo3pPDXyqG2qRz7TsA9KxDFYdGRsCHwjjpuGOufzVdm11OeFKcZW
+	doQqqO/3epplATXdQhumOBuDkBo6nHI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-502-5DGpWY5WOH6z6zntTaAEVQ-1; Tue, 27 Apr 2021 16:05:04 -0400
-X-MC-Unique: 5DGpWY5WOH6z6zntTaAEVQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-258-o2SPxVlBPIucRTtJrnpOtw-1; Tue, 27 Apr 2021 16:15:26 -0400
+X-MC-Unique: o2SPxVlBPIucRTtJrnpOtw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 62F8A80DE1B;
-	Tue, 27 Apr 2021 20:04:58 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9026081840E;
+	Tue, 27 Apr 2021 20:15:18 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 547465C3F8;
-	Tue, 27 Apr 2021 20:04:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AAB0F6060F;
+	Tue, 27 Apr 2021 20:15:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 875C244A58;
-	Tue, 27 Apr 2021 20:04:40 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E883344A58;
+	Tue, 27 Apr 2021 20:15:13 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
 	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 13RK4PLM028012 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 27 Apr 2021 16:04:25 -0400
+	id 13RKF5AH029990 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 27 Apr 2021 16:15:05 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 25F215C260; Tue, 27 Apr 2021 20:04:25 +0000 (UTC)
+	id 24FDB5C260; Tue, 27 Apr 2021 20:15:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from ovpn-112-203.phx2.redhat.com (ovpn-112-203.phx2.redhat.com
 	[10.3.112.203])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 976175C3F8;
-	Tue, 27 Apr 2021 20:04:20 +0000 (UTC)
-Message-ID: <731ece1c29243937c52ecdb1a3823d4fccd17bd1.camel@redhat.com>
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5DED25C3F8;
+	Tue, 27 Apr 2021 20:15:00 +0000 (UTC)
+Message-ID: <65f66a5e03081dd3b470fa9aeff9a77dbc41743c.camel@redhat.com>
 From: "Ewan D. Milne" <emilne@redhat.com>
-To: Ulrich Windl <Ulrich.Windl@rz.uni-regensburg.de>, erwin@erwinvanlonden.net,
-	martin.petersen@oracle.com, martin.wilck@suse.com, hare@suse.de
-Date: Tue, 27 Apr 2021 16:04:19 -0400
-In-Reply-To: <6087ECF1020000A100040C7F@gwsmtp.uni-regensburg.de>
+To: Martin Wilck <martin.wilck@suse.com>,
+	"Ulrich.Windl@rz.uni-regensburg.de" <Ulrich.Windl@rz.uni-regensburg.de>,
+	"martin.petersen@oracle.com" <martin.petersen@oracle.com>
+Date: Tue, 27 Apr 2021 16:14:59 -0400
+In-Reply-To: <59dc346de26997a6b8e3ae3d86d84ada60b3d26b.camel@suse.com>
 References: <c524ce68d9a9582732db8350f8a1def461a1a847.camel@suse.com>
 	<yq135w4cam3.fsf@ca-mkp.ca.oracle.com>
 	<06489ea37311fe7bf73b27a41b5209ee4cca85fe.camel@suse.com>
@@ -58,19 +59,17 @@ References: <c524ce68d9a9582732db8350f8a1def461a1a847.camel@suse.com>
 	<e3184501cbf23ab0ae94d664725e72b693c64ba9.camel@suse.com>
 	<6086A0B2020000A100040BBE@gwsmtp.uni-regensburg.de>
 	<59dc346de26997a6b8e3ae3d86d84ada60b3d26b.camel@suse.com>
-	<b5f288fb43bc79e0206794a901aef5b1761813de.camel@erwinvanlonden.net>
-	<15e1a6a493f55051eab844bab2a107f783dc27ee.camel@suse.com>
-	<2a6903e4-ff2b-67d5-e772-6971db8448fb@suse.de>
-	<6087ECF1020000A100040C7F@gwsmtp.uni-regensburg.de>
 Mime-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
-Cc: hare@suse.com, "systemd-devel@lists.freedesktop.org"
-	<systemd-devel@lists.freedesktop.org>,
-	linux-scsi@vger.kernel.org, dm-devel@redhat.com,
-	dgilbert@interlog.com, jejb@linux.vnet.ibm.com, hch@lst.de
-Subject: Re: [dm-devel] Antw: [EXT] Re: RFC: one more time: SCSI device
- identification
+Cc: Hannes Reinecke <hare@suse.com>,
+	"jejb@linux.vnet.ibm.com" <jejb@linux.vnet.ibm.com>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"dgilbert@interlog.com" <dgilbert@interlog.com>,
+	"systemd-devel@lists.freedesktop.org"
+	<systemd-devel@lists.freedesktop.org>, "hch@lst.de" <hch@lst.de>
+Subject: Re: [dm-devel] RFC: one more time: SCSI device identification
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,79 +83,85 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gVHVlLCAyMDIxLTA0LTI3IGF0IDEyOjUyICswMjAwLCBVbHJpY2ggV2luZGwgd3JvdGU6Cj4g
-PiA+ID4gSGFubmVzIFJlaW5lY2tlIDxoYXJlQHN1c2UuZGU+IHNjaHJpZWIgYW0gMjcuMDQuMjAy
-MSB1bSAxMDoyMQo+ID4gPiA+IGluIE5hY2hyaWNodAo+IAo+IDwyYTY5MDNlNC1mZjJiLTY3ZDUt
-ZTc3Mi02OTcxZGI4NDQ4ZmJAc3VzZS5kZT46Cj4gPiBPbiA0LzI3LzIxIDEwOjEwIEFNLCBNYXJ0
-aW4gV2lsY2sgd3JvdGU6Cj4gPiA+IE9uIFR1ZSwgMjAyMeKAkTA04oCRMjcgYXQgMTM6NDggKzEw
-MDAsIEVyd2luIHZhbiBMb25kZW4gd3JvdGU6Cj4gPiA+ID4gPiAKPiA+ID4gPiA+IFdydCAxKSwg
-d2UgY2FuIG9ubHkgaG9wZSB0aGF0IGl0J3MgdGhlIGNhc2UuIEJ1dCAyKSBhbmQgMykKPiA+ID4g
-PiA+IG5lZWQgd29yaywKPiA+ID4gPiA+IGFmYWljcy4KPiA+ID4gPiA+IAo+ID4gPiA+IAo+ID4g
-PiA+IEluIG15IHZpZXcgdGhlIFdXSUQgc2hvdWxkIG5ldmVyIGNoYW5nZS4gCj4gPiA+IAo+ID4g
-PiBJbiBhbiBpZGVhbCB3b3JsZCwgcGVyaGFwcyBub3QuIEJ1dCBpbiB0aGUgZG3igJFtdWx0aXBh
-dGggcmVhbG0sIHdlCj4gPiA+IGtub3cKPiA+ID4gdGhhdCBXV0lEIGNoYW5nZXMgY2FuIGhhcHBl
-biB3aXRoIGNlcnRhaW4gc3RvcmFnZSBhcnJheXMuIFNlZSAKPiA+ID4gCmh0dHBzOi8vbGlzdG1h
-bi5yZWRoYXQuY29tL2FyY2hpdmVzL2Rt4oCRZGV2ZWwvMjAyMeKAkUZlYnJ1YXJ5L21zZzAwMTE2
-Lmh0bWwKPiA+ID4gIAo+ID4gPiBhbmQgZm9sbG934oCRdXBzLCBmb3IgZXhhbXBsZS4KPiA+ID4g
-Cj4gPiAKPiA+IEFuZCBpdCdzIGFjdHVhbGx5IHNvbWV0aGluZyB3aGljaCBtaWdodCBoYXBwZW4g
-cXVpdGUgZWFzaWx5Lgo+ID4gVGhlIHN0b3JhZ2UgYXJyYXkgY2FuIHVubWFwIGEgTFVOLCBkZWxl
-dGUgaXQsIGNyZWF0ZSBhIG5ldyBvbmUsIGFuZAo+ID4gbWFwCj4gPiB0aGF0IG9uZSBpbnRvIHRo
-ZSBzYW1lIExVTiBudW1iZXIgdGhhbiB0aGUgb2xkIG9uZS4KPiA+IElmIHdlIGRpZG4ndCBkbyBJ
-L08gZHVyaW5nIHRoYXQgaW50ZXJ2YWwgdXBvbiB0aGUgbmV4dCBJL08gd2Ugd2lsbAo+ID4gYmUK
-PiA+IGdldHRpbmcgdGhlIGRyZWFkZWQgJ1Bvd2Vy4oCRT24vUmVzZXQnIHNlbnNlIGNvZGUuCj4g
-PiBfQW5kIG5vdGhpbmcgZWxzZV8sIGR1ZSB0byB0aGUgYXJjYW5lIHJ1bGVzIGZvciBzZW5zZSBj
-b2RlCj4gPiBnZW5lcmF0aW9uIGluCj4gPiBTQU0uCj4gPiBCdXQgd2UgZW5kIHVwIHdpdGggYSBj
-b21wbGV0ZWx5IGRpZmZlcmVudCBkZXZpY2UuCj4gPiAKPiA+IFRoZSBvbmx5IHdheSBvdXQgb2Yg
-aXQgaXMgdG8gZG8gYSByZXNjYW4gZm9yIGV2ZXJ5IFBPUiBzZW5zZSBjb2RlLAo+ID4gYW5kCj4g
-PiBkaXNhYmxlIHRoZSBkZXZpY2UgZWcgdmlhIERJRF9OT19DT05ORUNUIHdoZW5ldmVyIHdlIGZp
-bmQgdGhhdCB0aGUKPiA+IGlkZW50aWZpY2F0aW9uIGhhcyBjaGFuZ2VkLiBXZSBhbHJlYWR5IGhh
-dmUgYSBjb3B5IG9mIHRoZSBvcmlnaW5hbAo+ID4gVlBECj4gPiBwYWdlIDB4ODMgYXQgaGFuZCwg
-c28gdGhhdCBzaG91bGQgYmUgcmVhc29uYWJseSBlYXN5Lgo+IAo+IEkgZG9uJ3Qga25vdyB0aGUg
-ZGVwdGggb2YgdGhlIFNDU0kgb3IgRkMgcHJvdG9jb2wsIGJ1dCBzdG9yYWdlCj4gc3lzdGVtcwo+
-IHR5cGljYWxseSBzaWduYWwgc3VjaCBldmVudHMsIG1heWJlIGVpdGhlciB2aWEgc29tZSB1bml0
-IGF0dGVudGlvbiBvcgo+IHNvbWUgRkMKPiBldmVudC4gT2xkZXIga2VybmVscyBsb2dnZWQgdGhh
-dCB0aGVyZSB3YXMgYSBjaGFuZ2UsIGJ1dCBhIG1hbnVhbAo+IFNDU0kgYnVzIHNjYW4KPiBpcyBu
-ZWVkZWQsIHdoaWxlIG5ld2VyIGtlcm5lbHMgZmluZCBuZXcgZGV2aWNlcyAiYXV0b21hZ2ljYWxs
-eSIgZm9yCj4gc29tZQo+IHByb2R1Y3RzLiBUaGUgSFAgRVZBIDYwMDAgc2VyaWVzIHdvcmVkIHRo
-YXQgd2F5LCBhIDNQQVIgU290b3JTZXJ2Cj4gODAwMCBzZXJpZXMKPiBhbHNvIHNlZW1zIHRvIHdv
-cmsgdGhhdCB3YXksIGJ1dCBub3QgUHVyZSBTdG9yYWdlIFg3MCBSMy4gRk9yIHRoZQo+IGxhdHRl
-ciB5b3UKPiBuZWVkIHNvbWV0aGluZyBsaWtlIGEgRkMgTElQIHRvIG1ha2UgdGhlIGtlcm5lbCBk
-ZXRlY3QgdGhlIG5ldwo+IGRldmljZXMgKExVTnMpLgo+IEknbSB1bnN1cmUgd2hlcmUgdGhlIHBy
-b2JsZW0gaXMsIGJ1dCBpbiBwcmluY2lwbGUgdGhlIGtlcm5lbCBjYW4gYmUKPiBub3RpZmllZC4u
-LgoKVGhlcmUgaGFzIHRvIGJlIHNvbWUgY29tbWFuZCBvbiB3aGljaCB0aGUgVW5pdCBBdHRlbnRp
-b24gc3RhdHVzCmNhbiBiZSByZXR1cm5lZC4gIChJbiBhIG11bHRpcGF0aCBjb25maWd1cmF0aW9u
-LCB0aGUgcGF0aCBjaGVja2VyCmNvbW1hbmRzIG1heSBkbyB0aGlzKS4gIEluIGFic2VuY2Ugb2Yg
-YSBjb21tYW5kLCB0aGVyZSBpcyBubwphc3luY2hyb25vdXMgbWVjaGFuaXNtIGluIFNDU0kgdG8g
-cmVwb3J0IHRoZSBzdGF0dXMuCgpPbiBGQyB0aGluZ3MgcmVsYXRlZCB0byBmaW5kaW5nIGEgcmVt
-b3RlIHBvcnQgd2lsbCB0cmlnZ2VyIGEgcmVzY2FuLgoKLUV3YW4KCj4gCj4gPiAKPiA+IEkgaGFk
-IGEgcmF0aGVyIGxlbmd0aHkgZGlzY3Vzc2lvbiB3aXRoIEZyZWQgS25pZ2h0IEAgTmV0QXBwIGFi
-b3V0Cj4gPiBQb3dlcuKAkU9uL1Jlc2V0IGhhbmRsaW5nLCB3aGF0IHdpdGggaGltIGNvbXBsYWlu
-aW5nIHRoYXQgd2UgZG9uJ3QKPiA+IGhhbmRsZQo+ID4gaXMgY29ycmVjdGx5LiBTbyB0aGlzIHJl
-YWxseSBpcyBzb21ldGhpbmcgd2Ugc2hvdWxkIGJlIGxvb2tpbmcKPiA+IGludG8sCj4gPiBldmVu
-IGluZGVwZW5kZW50bHkgb2YgbXVsdGlwYXRoaW5nLgo+ID4gCj4gPiBCdXQgYWN0dWFsbHkgSSBs
-aWtlIHRoZSBpZGVhIGZyb20gTWFydGluIFBldGVyc2VuIHRvIGV4cG9zZSB0aGUKPiA+IHBhcnNl
-ZAo+ID4gVlBEIGlkZW50aWZpZXJzIHRvIHN5c2ZzOyB0aGF0IHdvdWxkIGFsbG93IHVzIHRvIGRy
-b3Agc2dfaW5xCj4gPiBjb21wbGV0ZWx5Cj4gPiBmcm9tIHRoZSB1ZGV2IHJ1bGVzLgo+IAo+IFRh
-bGtpbmcgb2YgVlBEczogU29tZXdoZXJlIGluIHRoZSBsYXN0IDEyIHllYXJzICh3aXRoaW4gU0xF
-UyAxMSl0aGVyZQo+IHdhcyBhCj4ga2VybmVsIGNoYW5nZSByZWdhcmRpbmcgdHJhaWxpbmcgYmxh
-bmtzIGluIFZQRCBkYXRhLiBUaGF0IGNoYW5nZSBibGV3Cj4gdXAKPiBzZXZlcmFsIGNvbmZpZ3Vy
-YXRpb25zIGJlaW5nIHVuYWJsZSB0byByZS1yZWNvZ25pemUgdGhlIGRldmljZXMuIEluCj4gb25l
-IGNhc2UKPiB0aGUgc29mdHdhcmUgZXZlbiBoYWQgYm91bmQgYSBsaWNlbnNlIHRvIGEgc3BlY2lm
-aWMgZGV2aWNlIHdpdGgKPiBzZXJpYWwgbnVtYmVyLAo+IGFuZCB0aGF0IHNvZnR3YXJlIGZvdW5k
-ICJuZXciIGRldmljZXMgd2hpbGUgbWlzc2luZyB0aGUgIm9sZCIgb25lcy4uLgo+IAo+IFJlZ2Fy
-ZHMsCj4gVWxyaWNoCj4gCj4gPiAKPiA+IENoZWVycywKPiA+IAo+ID4gSGFubmVzCj4gPiDigJHi
-gJEgCj4gPiBEci4gSGFubmVzIFJlaW5lY2tlCQkgICAgICAgIEtlcm5lbCBTdG9yYWdlIEFyY2hp
-dGVjdAo+ID4gaGFyZUBzdXNlLmRlCQkJICAgICAgICAgICAgICAgKzQ5IDkxMSA3NDA1Mwo+ID4g
-Njg4Cj4gPiBTVVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHZXJtYW55IEdtYkgsIDkwNDA5IE7DvHJu
-YmVyZwo+ID4gR0Y6IEYuIEltZW5kw7ZyZmZlciwgSFJCIDM2ODA5IChBRyBOw7xybmJlcmcpCj4g
-Cj4gCj4gCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRw
-czovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
+On Mon, 2021-04-26 at 13:16 +0000, Martin Wilck wrote:
+> On Mon, 2021-04-26 at 13:14 +0200, Ulrich Windl wrote:
+> > > > 
+> > > 
+> > > While we're at it, I'd like to mention another issue: WWID
+> > > changes.
+> > > 
+> > > This is a big problem for multipathd. The gist is that the device
+> > > identification attributes in sysfs only change after rescanning
+> > > the
+> > > device. Thus if a user changes LUN assignments on a storage
+> > > system,
+> > > it can happen that a direct INQUIRY returns a different WWID as
+> > > in
+> > > sysfs, which is fatal. If we plan to rely more on sysfs for
+> > > device
+> > > identification in the future, the problem gets worse. 
+> > 
+> > I think many devices rely on the fact that they are identified by
+> > Vendor/model/serial_nr, because in most professional SAN storage
+> > systems you
+> > can pre-set the serial number to a custom value; so if you want a
+> > new
+> > disk
+> > (maybe a snapshot) to be compatible with the old one, just assign
+> > the
+> > same
+> > serial number. I guess that's the idea behind.
+> 
+> What you are saying sounds dangerous to me. If a snapshot has the
+> same
+> WWID as the device it's a snapshot of, it must not be exposed to any
+> host(s) at the same time with its origin, otherwise the host may
+> happily combine it with the origin into one multipath map, and data
+> corruption will almost certainly result. 
+> 
+> My argument is about how the host is supposed to deal with a WWID
+> change if it happens. Here, "WWID change" means that a given H:C:T:L
+> suddenly exposes different device designators than it used to, while
+> this device is in use by a host. Here, too, data corruption is
+> imminent, and can happen in a blink of an eye. To avoid this, several
+> things are needed:
+> 
+>  1) the host needs to get notified about the change (likely by an UA
+> of
+> some sort)
+>  2) the kernel needs to react to the notification immediately, e.g.
+> by
+> blocking IO to the device,
+
+There's no way to do that, in principle.  Because there could be
+other I/Os in flight.  You might (somehow) avoid retrying an I/O
+that got a UA until you figured out if something changed, but other
+I/Os can already have been sent to the target, or issued before you
+get to look at the status.
+
+-Ewan
+
+>  3) userspace tooling such as udev or multipathd need to figure out
+> how
+> to  how to deal with the situation cleanly, and eventually unblock
+> it.
+> 
+> Wrt 1), we can only hope that it's the case. But 2) and 3) need work,
+> afaics.
+> 
+> Martin
+> 
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
