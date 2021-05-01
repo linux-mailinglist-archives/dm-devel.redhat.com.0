@@ -1,65 +1,90 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id EA6A83707B2
-	for <lists+dm-devel@lfdr.de>; Sat,  1 May 2021 17:20:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1619882408;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=13Fin81BPGKEUVSFlAm4MkDW1SmgTMe+c3z4nMVRYVI=;
-	b=HKNherXxdl63DXsZipVUXzh9ajZMtKxwLPU4jW9nqmJz2aWlOtpLuihO8e4PHiOYFqrIE4
-	UQvXbrJD68WLynIgXpOBLwrcm1y11LZGWD0gB7VVG+XywW1GQ090iwnUu0vLz8f6b8frVl
-	X7+S2QmkrX4FuTiBeyjzNr9lBKNYDbo=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 9F70337086B
+	for <lists+dm-devel@lfdr.de>; Sat,  1 May 2021 20:39:33 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-138-NCJvh6XoPXyAnK_fjp5yCw-1; Sat, 01 May 2021 11:20:05 -0400
-X-MC-Unique: NCJvh6XoPXyAnK_fjp5yCw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-19-y2RiFv7eNYqc7dm2lROPaA-1; Sat, 01 May 2021 14:39:30 -0400
+X-MC-Unique: y2RiFv7eNYqc7dm2lROPaA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0A824801B14;
-	Sat,  1 May 2021 15:20:00 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 918E12B1D0;
-	Sat,  1 May 2021 15:19:56 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4A5E3501FE;
+	Sat,  1 May 2021 18:39:20 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4E2C55D9CC;
+	Sat,  1 May 2021 18:39:16 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E979D18095C4;
-	Sat,  1 May 2021 15:19:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 822CC55341;
+	Sat,  1 May 2021 18:39:08 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 141FJXKm004004 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 1 May 2021 11:19:33 -0400
+	id 141Icm6E017826 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 1 May 2021 14:38:48 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 280582B8BF; Sat,  1 May 2021 15:19:33 +0000 (UTC)
+	id 7701F205FA89; Sat,  1 May 2021 18:38:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.18.25.174])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2C7202B1D0;
-	Sat,  1 May 2021 15:19:29 +0000 (UTC)
-Date: Sat, 1 May 2021 11:19:28 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: Hannes Reinecke <hare@suse.de>
-Message-ID: <20210501151928.GA12518@redhat.com>
-References: <20210416235329.49234-1-snitzer@redhat.com>
-	<20210420093720.GA28874@lst.de> <20210420143852.GB14523@redhat.com>
-	<6a22337b0d15830d9117640bd227711ba8c8aef8.camel@redhat.com>
-	<f2df22ef-583e-1d80-6ea7-2edfe61b9b53@suse.de>
-MIME-Version: 1.0
-In-Reply-To: <f2df22ef-583e-1d80-6ea7-2edfe61b9b53@suse.de>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 72AC6205FA90
+	for <dm-devel@redhat.com>; Sat,  1 May 2021 18:38:45 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 308F8858F0D
+	for <dm-devel@redhat.com>; Sat,  1 May 2021 18:38:45 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-598-stfdgVa7M6SP9w2_ZBc-sA-1;
+	Sat, 01 May 2021 14:38:43 -0400
+X-MC-Unique: stfdgVa7M6SP9w2_ZBc-sA-1
+Received: by mail.kernel.org (Postfix) with ESMTPS id 931EC61481;
+	Sat,  1 May 2021 18:38:41 +0000 (UTC)
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+	[127.0.0.1])
+	by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id
+	7F49860A72; Sat,  1 May 2021 18:38:41 +0000 (UTC)
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20210430193237.GA7659@redhat.com>
+References: <20210430193237.GA7659@redhat.com>
+X-PR-Tracked-List-Id: device-mapper development <dm-devel.redhat.com>
+X-PR-Tracked-Message-Id: <20210430193237.GA7659@redhat.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git
+	tags/for-5.13/dm-changes
+X-PR-Tracked-Commit-Id: ca4a4e9a55beeb138bb06e3867f5e486da896d44
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 7af81cd0c4306482b49a3adce0fb2f8655f57d0f
+Message-Id: <161989432145.5572.1222837453215569840.pr-tracker-bot@kernel.org>
+Date: Sat, 01 May 2021 18:38:41 +0000
+To: Mike Snitzer <snitzer@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>, Laurence Oberman <loberman@redhat.com>,
-	linux-nvme@lists.infradead.org, linux-block@vger.kernel.org,
-	dm-devel@redhat.com, Christoph Hellwig <hch@lst.de>
-Subject: Re: [dm-devel] [PATCH v3 0/4] nvme: improve error handling and
- ana_state to work well with dm-multipath
+Cc: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+	Benjamin Block <bblock@linux.ibm.com>,
+	Bhaskar Chowdhury <unixbhaskar@gmail.com>, dm-devel@redhat.com,
+	Heinz Mauelshagen <heinzm@redhat.com>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Matthew Ruffell <matthew.ruffell@canonical.com>,
+	JeongHyeon Lee <jhs2.lee@samsung.com>,
+	Julia Lawall <julia.lawall@inria.fr>,
+	Joe Thornber <ejt@redhat.com>, linux-block@vger.kernel.org,
+	Matthew Wilcox <willy@infradead.org>, Tian Tao <tiantao6@hisilicon.com>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Alasdair G Kergon <agk@redhat.com>, Xu Wang <vulab@iscas.ac.cn>
+Subject: Re: [dm-devel] [git pull] device mapper changes for 5.13
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,109 +96,29 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sat, May 01 2021 at  7:58am -0400,
-Hannes Reinecke <hare@suse.de> wrote:
+The pull request you sent on Fri, 30 Apr 2021 15:32:38 -0400:
 
-> On 4/20/21 5:46 PM, Laurence Oberman wrote:
-> [ .. ]
-> >
-> >Let me add some reasons why as primarily a support person that this is
-> >important and try avoid another combative situation.
-> >
-> >Customers depend on managing device-mapper-multipath the way it is now
-> >even with the advent of nvme-over-F/C. Years of administration and
-> >management for multiple Enterprise O/S vendor customers (Suse/Red Hat,
-> >Oracle) all depend on managing multipath access in a transparent way.
-> >
-> >I respect everybody's point of view here but native does change log
-> >alerting and recovery and that is what will take time for customers to
-> >adopt.
-> >
-> >It is going to take time for Enterprise customers to transition so all
-> >we want is an option for them. At some point they will move to native
-> >but we always like to keep in step with upstream as much as possible.
-> >
-> >Of course we could live with RHEL-only for while but that defeats our
-> >intention to be as close to upstream as possible.
-> >
-> >If we could have this accepted upstream for now perhaps when customers
-> >are ready to move to native only we could phase this out.
-> >
-> >Any technical reason why this would not fly is of course important to
-> >consider but perhaps for now we have a parallel option until we dont.
-> >
-> Curiously, we (as in we as SLES developers) have found just the opposite.
-> NVMe is a new technology, and out of necessity there will not be any
-> existing installations where we have to be compatible with.
-> We have switched to native NVMe multipathing with SLE15, and decided
-> to educate customers that NVMe is a different concept than SCSI, and
-> one shouldn't try treat both the same way.
+> git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git tags/for-5.13/dm-changes
 
-As you well know: dm-multipath was first engineered to handle SCSI, and
-it was too tightly coupled at the start, but the scsi_dh interface
-provided sorely missing abstraction. With NVMe, dm-multipath was
-further enhanced to not do work only needed for SCSI.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/7af81cd0c4306482b49a3adce0fb2f8655f57d0f
 
-Seems SUSE has forgotten that dm-multipath has taken strides to properly
-abstract away SCSI specific details, at least this patchset forgot it
-(because proper layering/abstraction is too hard? that mantra is what
-gave native NVMe multipath life BTW):
-https://patchwork.kernel.org/project/dm-devel/list/?series=475271
+Thank you!
 
-Long story short, there is utility in dm-multipath being transport
-agnostic with specialized protocol specific bits properly abstracted.
-
-If you or others don't care about any of that anymore, that's fine! But
-it doesn't mean others don't. Thankfully both can exist perfectly fine,
-sadly that clearly isn't possible without absurd tribal fighting (at
-least in the context of NVMe).
-
-And to be clear Hannes: your quick review of this patchset couldn't have
-been less helpful or informed. Yet it enabled NVMe maintainers to ignore
-technical review (you gave them cover).
-
-The lack of proper technical review of this patchset was astonishing but
-hch's dysfunctional attack that took its place really _should_ concern
-others. Seems it doesn't, must be nice to not have a dog in the fight
-other than philosophical ideals that enable turning a blind eye.
-
-> This was helped by the
-> fact the SLE15 is a new release, so customers were accustomed to
-> having to change bits and pieces in their infrastructure to support
-> new releases.
-
-Sounds like you either have very few customers and/or they don't use
-layers that were engineered with dm-multipath being an integral layer
-in the IO stack. That's fine, but that doesn't prove anything other
-than your limited experience.
-
-> Overall it worked reasonably well; we sure found plenty of bugs, but
-> that was kind of expected, and for bad or worse nearly all of them
-> turned out to be upstream issues. Which was good for us (nothing
-> beats being able to blame things on upstream, if one is careful to
-> not linger too much on the fact that one is part of upstream); and
-> upstream these things will need to be fixed anyway.
-> So we had a bit of a mixed experience, but customers seemed to be
-> happy enough with this step.
-> 
-> Sorry about that :-)
-
-Nothing to be sorry about, good on you and the others at SUSE
-engineering for improving native NVMe multipathing. Red Hat supports it
-too, so your and others' efforts are appreciated there.
-
-Mike
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
 --
 dm-devel mailing list
