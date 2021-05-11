@@ -1,103 +1,61 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 755E237ACAD
-	for <lists+dm-devel@lfdr.de>; Tue, 11 May 2021 19:07:35 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 2B03A37B26C
+	for <lists+dm-devel@lfdr.de>; Wed, 12 May 2021 01:23:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1620752854;
+	s=mimecast20190719; t=1620775382;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=UXxxIHJ63u2AYzpXdPHXlQbr4kdee2MLetCkVoPv2eo=;
-	b=do0rK1prHPPap8prUvsJ6mrwmPs7IzVJ3mIXJ08AHvgMPAPbp+5lUSo8LJx2FdYJ5GY2x3
-	pRhnnYVtDCELipZe/URDwjvMi3LNu1oyo5GVs5dk7OP7RQkUoq+v7K8kL+9Ly6ba1HiCRQ
-	2OIBlOotitjcWL0KdebQYOU33sofwfU=
+	bh=TVT1M3o1AJH0AfvI/rdo0eE61XzXtuxXLLiRGMvU9dI=;
+	b=If8Xw6w3DijkLXLpmPxA8sib7iU9uS4gqWk2qka9kpdqJ1v/kORW/+LfGYRZBIBbZtV961
+	PZHPMT1lC8odQcTJfk+1rgaX0UG8nH0wliOGOtTfMbLRv5GH+UTXT93MhEr7g3ehLykoLL
+	2z/0UMSFfHhuLRI/4a1dYrT3GaRNC6M=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-374-PRsZbeGFP3S6DzLyqRnhmg-1; Tue, 11 May 2021 13:07:32 -0400
-X-MC-Unique: PRsZbeGFP3S6DzLyqRnhmg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-264-neOBDc43Nia8Z_iWL1duCw-1; Tue, 11 May 2021 19:22:44 -0400
+X-MC-Unique: neOBDc43Nia8Z_iWL1duCw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B89A61854E24;
-	Tue, 11 May 2021 17:07:23 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7BB5F1009610;
+	Tue, 11 May 2021 23:22:39 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AAF1B1037F2C;
-	Tue, 11 May 2021 17:07:20 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B7F2B6E512;
+	Tue, 11 May 2021 23:22:36 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9BD1718005B6;
-	Tue, 11 May 2021 17:07:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BF97E180B464;
+	Tue, 11 May 2021 23:22:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+	[10.5.11.12])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14BH71oi017512 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 11 May 2021 13:07:01 -0400
+	id 14BNMAeh013327 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 11 May 2021 19:22:10 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1A871201668C; Tue, 11 May 2021 17:07:01 +0000 (UTC)
+	id 79D892B196; Tue, 11 May 2021 23:22:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 16A87202BFA3
-	for <dm-devel@redhat.com>; Tue, 11 May 2021 17:06:58 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D1E78182BBC7
-	for <dm-devel@redhat.com>; Tue, 11 May 2021 17:06:58 +0000 (UTC)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
-	[209.85.128.70]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-220-zhxQzrFVMlWfY7dQJwvZ1w-1; Tue, 11 May 2021 13:06:56 -0400
-X-MC-Unique: zhxQzrFVMlWfY7dQJwvZ1w-1
-Received: by mail-wm1-f70.google.com with SMTP id
-	d199-20020a1c1dd00000b02901492c14476eso897717wmd.2
-	for <dm-devel@redhat.com>; Tue, 11 May 2021 10:06:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=Xv1bwZ4yKaP18uEl3wowujPp7XBxyILWzx9IYZd0YjI=;
-	b=fV59UvEnoVEeC1QGohVQrPCgmEGuq5Kx3gndiXsEdvz2PpEGHLpVrIbNgSqoRN7cwm
-	by6MDNHxVOVIjALetIM9iYJT5jKVz2iuyvcR7N4qChpfRu2psjC/tAWTtGWuQskwXAzq
-	l5Z/a3epryY9UVzUbqxahz3cJj4AJsW+ybs8ty+L9gVbGBX8zUHguOnrkmXveqrKFMpk
-	GoISKE8yoX9rfGYTw57Dj1TT142ndMiNTFj+f/vu+kvMs0QtVZEvu0lVkcyXXBA3MgKj
-	Xq+v27Z5gG5pUeRmzJYzMQcR6t5u1A4E9dTDoi5XhnYdPrbdjGgYxL7ibrAuH+nvdEKh
-	RZ6A==
-X-Gm-Message-State: AOAM533wBeh9inqsXc95a48Qsa9rMCsgzvY3kN0IJ/kpWgvBlFfyP/By
-	9efxlNfGbIzMsAnYTqlTcB1jjz7Ld1MXsnfYR9nFRBa/5rnNQsq2zmqk01uh4Fn8ZsMTEcgzWUB
-	P7vtIuXH6bJfT8zOTrBuvynVeDUIQEIjCNC7JpcyYpfyOhEU8pWFQHqA6i3EUsNQ=
-X-Received: by 2002:adf:d227:: with SMTP id k7mr40324860wrh.390.1620752815582; 
-	Tue, 11 May 2021 10:06:55 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxV8p8Nn4QU+x2tz9nFeKr6hmq9GXgLqfJ24uaoCqEn+DT0dn+HfSsOpB3mbl7RXer1zd2RwQ==
-X-Received: by 2002:adf:d227:: with SMTP id k7mr40324826wrh.390.1620752815302; 
-	Tue, 11 May 2021 10:06:55 -0700 (PDT)
-Received: from [192.168.2.27] (39.35.broadband4.iol.cz. [85.71.35.39])
-	by smtp.gmail.com with ESMTPSA id
-	h9sm24395609wmb.35.2021.05.11.10.06.53
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Tue, 11 May 2021 10:06:54 -0700 (PDT)
-To: Melvin Vermeeren <vermeeren@vermwa.re>,
-	Mikulas Patocka <mpatocka@redhat.com>
-References: <alpine.LRH.2.02.2104281658430.9959@file01.intranet.prod.int.rdu2.redhat.com>
-	<10258776.4TuPVb8Keo@verm-r4e>
-	<alpine.LRH.2.02.2105051642300.32187@file01.intranet.prod.int.rdu2.redhat.com>
-	<1647312.vWrHn5Hxal@verm-r4e>
-From: Milan Broz <mbroz@redhat.com>
-Message-ID: <26d4e0b9-329b-710e-3b93-82246d633ccb@redhat.com>
-Date: Tue, 11 May 2021 19:06:53 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.10.0
-MIME-Version: 1.0
-In-Reply-To: <1647312.vWrHn5Hxal@verm-r4e>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EBCBD60C04;
+	Tue, 11 May 2021 23:22:06 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 14BNM5nb024022; 
+	Tue, 11 May 2021 18:22:05 -0500
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 14BNM4wv024021;
+	Tue, 11 May 2021 18:22:04 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>
+Date: Tue, 11 May 2021 18:21:59 -0500
+Message-Id: <1620775324-23984-1-git-send-email-bmarzins@redhat.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 X-loop: dm-devel@redhat.com
-Cc: Mike Snitzer <msnitzer@redhat.com>, dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH v2] dm-integrity: if we have discard support,
- use it when recalculating
+Cc: device-mapper development <dm-devel@redhat.com>,
+	Martin Wilck <Martin.Wilck@suse.com>
+Subject: [dm-devel] [PATCH 0/5] Memory issues found by coverity
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -109,82 +67,36 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 05/05/2021 23:47, Melvin Vermeeren wrote:
-> Hi,
-> 
-> On Wednesday, 5 May 2021 22:45:09 CEST Mikulas Patocka wrote:
->> So, we can ask Milan to update the manpage.
-> 
-> Yes, that would be fine. However, "integrity recalculate" sounds like 
-> recalculating integrity. The newly implemented logic is more of a "integrity 
-> wipe" or "integrity reset".
-> 
-> What is problematic is that actual functionality from end user point of view 
-> is now completely different depending on if you use --allow-discards or not. 
-> Without discard you recalculate meta, with discard you reset/wipe meta.
-> 
->> It will receive integrity protection for the newly written data.
->>
->> If you create an integrity device and make a filesystem on it, the newly
->> written data matters. The old data that were on the filesystem before
->> formatting it don't care and don't need to be protected.
+This is collection of issues found by coverity. The first three patches
+deal with ev_remove_path() removing the path, but returning failure,
+causing a use-after-free error. The last two patches fix memory leaks.
 
-This is not true. Imagine blkid that tries to read various superblocks on disk
-and do decisions based on it (UUID links etc). These can be in "unused" sectors.
+Benjamin Marzinski (5):
+  multipathd: don't fail to remove path once the map is removed
+  multipathd: remove duplicate orphan_paths in flush_map
+  multipathd: make ev_remove_path return success on path removal
+  multipath: free vectors in configure
+  kpartx: Don't leak memory when getblock returns NULL
 
-In the normal situation dm-integrity stops the read, because checksum is wrong.
-Now it seems that it returns these random data. This is not integrity protection at all.
+ kpartx/kpartx.c            |  2 ++
+ libmultipath/structs_vec.c |  3 +--
+ multipath/main.c           |  7 ++++++-
+ multipathd/main.c          | 20 ++++++++++++--------
+ 4 files changed, 21 insertions(+), 11 deletions(-)
 
-Maybe I am missing something, but I would say this is a wrong behavior and it should
-be reverted. I think this should be not supported even with additional switch,
-to me is it really against the principle of sector-level integrity protection.
-
-Also, I added wiping to integritysetup because some tools (like mkfs) actually
-needef to read unitialized data before creating metadata - so without previous wipe it failed.
-(These are bugs in the tools, obviously: I plan to report these  unfortunately it never happened.
-Dunno if it is still the case.)
-
-Sorry for the late reply.
-
-Milan
-
-
-> 
-> One of the current possible use cases with --no-wipe --data-device is that you 
-> can use existing device holding data that has no integrity and add integrity 
-> to it with detached metadata device in combination with recalculate.
-> 
-> Then recalculation can be used in a fashion similar to trust-on-first-use for 
-> this specific disk without rewriting the data meaning also no temporary copy 
-> is needed. This feature is something I have used a few times as adding 
-> integrity in-place can be useful in certain situations especially when dealing 
-> with large amounts of data.
-> 
-> 
-> I am not against the new reset/wipe operation, it is certainly a useful thing 
-> to have. This style of initialising metadata would be especially useful with 
-> formatting devices supporting discard, as it could be used to avoid 
-> unnecessary writes on main data by initialising metadata only (and perhaps 
-> also issue discards to underlying device).
-> 
-> But I do think this should be a separate, new function in addition to existing 
-> recalculation feature, to me they both seem useful in different use cases.
-> 
-> Thoughts on this?
-> 
-> Thanks,
-> 
+-- 
+2.17.2
 
 --
 dm-devel mailing list
