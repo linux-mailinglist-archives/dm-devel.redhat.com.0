@@ -1,130 +1,137 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 110DE388889
-	for <lists+dm-devel@lfdr.de>; Wed, 19 May 2021 09:49:44 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 05BC4388976
+	for <lists+dm-devel@lfdr.de>; Wed, 19 May 2021 10:31:35 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-471-ovDoQ5IdMPCH9O7nTgouIw-1; Wed, 19 May 2021 03:49:41 -0400
-X-MC-Unique: ovDoQ5IdMPCH9O7nTgouIw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-462-8fdIvelXOsWeZax1PKql1A-1; Wed, 19 May 2021 04:31:32 -0400
+X-MC-Unique: 8fdIvelXOsWeZax1PKql1A-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 41527800FF0;
-	Wed, 19 May 2021 07:49:35 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CF25B60855;
-	Wed, 19 May 2021 07:49:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 365951883521;
+	Wed, 19 May 2021 08:31:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C50375C1CF;
+	Wed, 19 May 2021 08:31:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AF91255347;
-	Wed, 19 May 2021 07:49:29 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0A4011800FFC;
+	Wed, 19 May 2021 08:31:14 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14J7nKm7023539 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 19 May 2021 03:49:21 -0400
+	id 14J8Rn1A027531 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 19 May 2021 04:27:50 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 62194103403; Wed, 19 May 2021 07:49:20 +0000 (UTC)
+	id 4ABC3AECA5; Wed, 19 May 2021 08:27:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5BF02103401
-	for <dm-devel@redhat.com>; Wed, 19 May 2021 07:49:16 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B3CBB80D0E3
-	for <dm-devel@redhat.com>; Wed, 19 May 2021 07:49:16 +0000 (UTC)
-Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 44E2C9C05B
+	for <dm-devel@redhat.com>; Wed, 19 May 2021 08:27:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D329E80D0E0
+	for <dm-devel@redhat.com>; Wed, 19 May 2021 08:27:46 +0000 (UTC)
+Received: from esa2.hgst.iphmx.com (esa2.hgst.iphmx.com [68.232.143.124])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-16-YY-YftK6NB-f_r-TBb8xAw-1; Wed, 19 May 2021 03:49:12 -0400
-X-MC-Unique: YY-YftK6NB-f_r-TBb8xAw-1
-IronPort-SDR: U1V/dFF6sdnYgBnpsXIlnt5xr5HEOU0aMn7xR2i44W0nii6LiUCSE147rg73vkDi7eQIsB+gjd
-	M1hd97QUG7zJyc3CXLvHym+sCPO3hYhdAm4/cuvNmnljgILnqDcT6FzLYiatKvnWE2+DcCOH36
-	zxPNU6E6n6t/lZpoaGEApnAMhfg4LdhoPpcjeFKW+8b/OAQLCWwOo5Y519ComF0SeLQMKmoapY
-	1RXZEbXZODu0oucjtApae/AgWNMw+C4cUx8edlPqymCWm2+YDbKLDEil55+67F/JmCoECjMaFo
-	yJw=
-X-IronPort-AV: E=Sophos;i="5.82,312,1613404800"; d="scan'208";a="167979349"
-Received: from mail-bn8nam12lp2169.outbound.protection.outlook.com (HELO
-	NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.169])
-	by ob1.hgst.iphmx.com with ESMTP; 19 May 2021 15:49:11 +0800
-Received: from PH0PR04MB7416.namprd04.prod.outlook.com (2603:10b6:510:12::17)
-	by PH0PR04MB7142.namprd04.prod.outlook.com (2603:10b6:510:c::7) with
+	us-mta-431-lnAvqg-MNAaZjZQrHyl3oA-1; Wed, 19 May 2021 04:27:42 -0400
+X-MC-Unique: lnAvqg-MNAaZjZQrHyl3oA-1
+IronPort-SDR: Dc8lC+/vKeR3aHLF47efCviR+fMp6Te1+N69+/aLsh1/v00qHZF6nEVo5yb72Jn6xsDK7MCIxq
+	iI8+BqjETpsJGeM3ZYE9ikJRkJtqgV00FD3XJljJ4vJ3tgdFkZc5PKlbKPWhnQcMyHoc2POHJI
+	I+jG4y/e0nCIPtnQvA+eNFosc1iM2yPpitMKAkgy2lv6gCieuU08Pg5+FRIQBEmnScuJ9AC6Yu
+	qAQduNE9ibKLDfnAwBjB+XOD4S5wAh5Y/W3sxCzbdtq1/+w+QO/DM+xTQ1WbU+f9qkYShUnT06
+	/pE=
+X-IronPort-AV: E=Sophos;i="5.82,312,1613404800"; d="scan'208";a="272623090"
+Received: from mail-bn7nam10lp2100.outbound.protection.outlook.com (HELO
+	NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.100])
+	by ob1.hgst.iphmx.com with ESMTP; 19 May 2021 16:27:42 +0800
+Received: from DM6PR04MB7081.namprd04.prod.outlook.com (2603:10b6:5:244::21)
+	by DM6PR04MB7082.namprd04.prod.outlook.com (2603:10b6:5:24d::23) with
 	Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26;
-	Wed, 19 May 2021 07:49:10 +0000
-Received: from PH0PR04MB7416.namprd04.prod.outlook.com
-	([fe80::99a5:9eaa:4863:3ef3]) by
-	PH0PR04MB7416.namprd04.prod.outlook.com
-	([fe80::99a5:9eaa:4863:3ef3%4]) with mapi id 15.20.4129.033;
-	Wed, 19 May 2021 07:49:10 +0000
-From: Johannes Thumshirn <Johannes.Thumshirn@wdc.com>
-To: Damien Le Moal <Damien.LeMoal@wdc.com>, "dm-devel@redhat.com"
-	<dm-devel@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>, Jens Axboe
-	<axboe@kernel.dk>
-Thread-Topic: [PATCH 07/11] dm: Introduce dm_report_zones()
-Thread-Index: AQHXTFp3R26QKya2S0yqO6KcCDwllQ==
-Date: Wed, 19 May 2021 07:49:09 +0000
-Message-ID: <PH0PR04MB7416A5E5DE88C39F66FCD3689B2B9@PH0PR04MB7416.namprd04.prod.outlook.com>
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.25;
+	Wed, 19 May 2021 08:27:39 +0000
+Received: from DM6PR04MB7081.namprd04.prod.outlook.com
+	([fe80::64f9:51d2:1e04:f806]) by
+	DM6PR04MB7081.namprd04.prod.outlook.com
+	([fe80::64f9:51d2:1e04:f806%9]) with mapi id 15.20.4129.032;
+	Wed, 19 May 2021 08:27:39 +0000
+From: Damien Le Moal <Damien.LeMoal@wdc.com>
+To: Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>, Johannes Thumshirn
+	<Johannes.Thumshirn@wdc.com>
+Thread-Topic: [PATCH 02/11] block: introduce bio zone helpers
+Thread-Index: AQHXTFpxxhi/R314VUOlDqa3DvnpJQ==
+Date: Wed, 19 May 2021 08:27:39 +0000
+Message-ID: <DM6PR04MB70815F66C8611016CD579BC6E72B9@DM6PR04MB7081.namprd04.prod.outlook.com>
 References: <20210519025529.707897-1-damien.lemoal@wdc.com>
-	<20210519025529.707897-8-damien.lemoal@wdc.com>
+	<20210519025529.707897-3-damien.lemoal@wdc.com>
+	<PH0PR04MB7416EC127D2BB9639E82E1579B2B9@PH0PR04MB7416.namprd04.prod.outlook.com>
+	<65441A15-23E1-4C5B-A145-8C1EA9ECB251@wdc.com>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [2001:a62:152f:cc01:95b:718f:422f:1ec2]
+x-originating-ip: [2400:2411:43c0:6000:688d:8185:801b:83a0]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: b28d42bf-d97e-4f7a-65b9-08d91a9a9676
-x-ms-traffictypediagnostic: PH0PR04MB7142:
+x-ms-office365-filtering-correlation-id: 0308d761-a99d-4677-9483-08d91a9ff721
+x-ms-traffictypediagnostic: DM6PR04MB7082:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <PH0PR04MB7142961E3359957127DD67659B2B9@PH0PR04MB7142.namprd04.prod.outlook.com>
+x-microsoft-antispam-prvs: <DM6PR04MB7082653D08529B916BDA812DE72B9@DM6PR04MB7082.namprd04.prod.outlook.com>
 wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:1728
+x-ms-oob-tlc-oobclassifiers: OLM:8273
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: plvZ3txuHTUQjS1UVz/B8+bz3YM3qB8PzA0RDoYHUw0Fm75V7O5er7p395C3oQU4KiM7vv2vlowXn6QiWSkAq6mu8p4/4qoQwzIs3qJKX4ZoVXQftjZLttJ0oGKyIeENKMdda5UWMNoGh5IGIy7grrww/Py4K3fbMTl6jfufaFa4AZRxScjh6ac6bHLo+QBUZRUMY8Us/YlFfDJ6Pju/NxbiTo4u8tOhS3LGI5kk0BIKVSwRuWxnfHkpnVhLRlHHUtHRWbO69Z8FSCnadAftZo8S/TCwBtaDMu64UUa7RrKl+5vbwv6JlhfpDNZAj3qBlIiKmtBSqAdQXz7XcQDZ9dedwNx9MhxdSEBfCTqbahW2bEgfCj0Y9IHsTh1qz8FvoKJfuvaEHhyW4ctDRQnuVdyZ/wAdenb+o9el76xcw4r2V/FY/nPqF2f7haa5/pl3ujNhCK9XThpnhVPOBbBYZrwVW+rEbyCGVDNm/K5oCIriJk76CBNW8Bj5gYiws3tZaV9lZiAxkxz1hKhL6ZrUonxn87M1z0QBwhzOEY+9grOzX4uiHh0G6fshGNd6QgDdKaWeUJTR6uzEyPBrYC1oCwHWL4IrXEI4x2N1ZBLPFqA=
+x-microsoft-antispam-message-info: KInG5gBRN9gTjmgPdzznkrHxpO2BsAJFKxdQ/uvpe3ixt+9RM2wvsIR4geUnEhor1HLH99V4m8RDnhNeovMHAXsPPoXdXXLAY2g1x3ompPkYA/tmYS8O7ngXc32WJR5lbmf+VmynOCQSlbNz0N+rbF+nynngEhXigmFMTF2fGijUeErbrTTmszKZTt51NRpKe738B72MOZ5/fuUpB4I0LNYcwJgASCQSpYM60Qz0xryObrv05GCvaBrn5mSz3YqVjOmBdkEpFw7GdOpW4SVTRlo5qxhn5Vw2hSr4iDT57K5lKsC4OuRqqpJuXCkpJEE5Y7+DHhApCZUstK45SuUexdIPmVvrLsVe/fo3au/1o0oIwWDswOBNWMXug8nSNt7BAS2Wo0lqS5TOoqnN/N5AVz833eZO1OweQn9jNE7czAuEvkRjwKQPGDYpV0Y3LAvhjM8rxmLVAKmZOF6a9k3w00ipwGQxLQ71+Vad2W3739B4Gqfo5aEsgLuLB7T7yZFYdTSHBq4KERshusicnsNxnKHlw3Rgw7B9ZLRqTKQF4jSUp9+p4PEi77nkZbGX7fBCbZXPM6qmJoK+JU9FhMGZYJ6JZ5i2w2gi/DpEehMFlpU=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:PH0PR04MB7416.namprd04.prod.outlook.com;
+	IPV:NLI; SFV:NSPM; H:DM6PR04MB7081.namprd04.prod.outlook.com;
 	PTR:; CAT:NONE;
-	SFS:(4636009)(376002)(396003)(39850400004)(136003)(346002)(366004)(122000001)(8936002)(19618925003)(558084003)(52536014)(38100700002)(6506007)(110136005)(8676002)(86362001)(316002)(71200400001)(33656002)(478600001)(55016002)(7696005)(2906002)(9686003)(4270600006)(5660300002)(66476007)(66556008)(76116006)(186003)(66946007)(66446008)(64756008)(91956017);
+	SFS:(4636009)(376002)(39850400004)(346002)(136003)(366004)(396003)(122000001)(38100700002)(53546011)(83380400001)(86362001)(7696005)(186003)(4744005)(6506007)(33656002)(71200400001)(64756008)(9686003)(6636002)(2906002)(8936002)(55016002)(76116006)(4326008)(478600001)(91956017)(66946007)(66476007)(54906003)(110136005)(52536014)(316002)(5660300002)(66556008)(66446008)(8676002);
 	DIR:OUT; SFP:1102
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?zGSMPtd3ubFiVD/WZrnc5vKu0Ln5oVlTa2RZSCKExNPnQscPfXztRr3M6z1W?=
-	=?us-ascii?Q?ykfHP62rpyDSHQZGTx8algotT7/GzBtk7kaKNHHmcM+qRueFs/l2YPVOixES?=
-	=?us-ascii?Q?vTRY4Bnw8Op+mcqhrS2knv+3xlCq0ikRLkzLzXvFEchdN1O/PmZOMNJfrzfu?=
-	=?us-ascii?Q?USZCjuIg3tz+SmviJoO0bZ6bnJHVpu9/+2xzk5Vo4CmuSaciuWWYH4hZJjY4?=
-	=?us-ascii?Q?Yn5wa6M3rfmWnxWW58VNRltoIjbddEm7FLhXJwNrxpCLQgd/3wSyD7rlLisY?=
-	=?us-ascii?Q?Hk1fKe0cw4HuhaWIFJjwBLLTcxCeusgaBtyELMXeE8kxn7sMODDe0rm4Jq8R?=
-	=?us-ascii?Q?Eqle/uGrGjDJv/XyYjFjwYyTK8CJzjFEGVxktLZ1tpCcRagI0t0+lVt+QQXg?=
-	=?us-ascii?Q?npJcf2Pe4sSlx7V/QlGC52ocd+qPQunpfkGBw3FgzE+XsT1jK2vScmTX9TjM?=
-	=?us-ascii?Q?/9OI250cs9bZ61e70wVD33+MS1waUF4bU+V5mHszjzjlN//uiiySb/UaoAEk?=
-	=?us-ascii?Q?61bpPT/b7kANH5QlxuHyuxJwLrdJflQSNr+W0QeXa6V2ONA0x7Yon1VVgMKB?=
-	=?us-ascii?Q?r5hWty2agy9Tq63Yp4Rmea8AVKI2tUirxi+VnTMlkSZq5o0RzwNbDH0Kecnp?=
-	=?us-ascii?Q?G5ADXGOGjp6IHVu63+dKzYd2igkVMOlZiX3wC396ecc0KfV5gsQwK87yt2r0?=
-	=?us-ascii?Q?NjBYsCeW7uQw5IbGYH8UKRWU6RYUJDxLdTFs7cFeNqEgPBxM0XYKFbEPXexB?=
-	=?us-ascii?Q?6a5+Ot08woZ/O5t0M4hM4ztlXRLJ3VnL5TUvsaPK3ngS5bhhuZwJ6WYyUap1?=
-	=?us-ascii?Q?GrsiQz0E51sVoPcOYhdq0OVo1mGZgzZEXM8ebVELtdNAxU4FAXyCmh7ZbNs6?=
-	=?us-ascii?Q?dEPr1DkAzQPaUirFYO2LPjJNiu2upIYpZUJ9xhm2R+v8lqjk87UgtmZgh43p?=
-	=?us-ascii?Q?GKbTWyj7RbH7/3oBc33M6lcmZjPy+so1S6jbL/OQEcH58yLwgn9EAC09HLNA?=
-	=?us-ascii?Q?CNXmXk/LmwdR+x/8lhJEFWiC8r7YhGKuCiVucwEORnQW/adrLb+HyQPNLwAZ?=
-	=?us-ascii?Q?Wyh3xLHKyfIjkfOyChgcWxpdCTsYk0GhJkQT2MWhLfIfuSSS/fuehoOyKlCw?=
-	=?us-ascii?Q?D/t3PY5DwM2zYTOYUkF6Jj8YXCaD2MJBQTInXe/QABkcPceVRAZtdFkkQffE?=
-	=?us-ascii?Q?uull7sa2TcBp2VJ6HQWXow88OR/9n7HHXZ/D1UiX8NGw6+pESGgaTyO0VDfq?=
-	=?us-ascii?Q?nKYE3RdzVTRka89CURFs2sKJi4fnbhMt9V1PY2VRup2iQ1YZZ9j5rYhpvNLK?=
-	=?us-ascii?Q?bX5p6RylxmStfV8nf7PuoI+dlfpFV9Y00/WrEVNUZNcH5M4uT4KFmyY50016?=
-	=?us-ascii?Q?h6ps2O8WH58+1UNo98VFd1CKAeeO9a582C+C+er7L0Lc3KvKlQ=3D=3D?=
+x-ms-exchange-antispam-messagedata: =?utf-8?B?bzRLanhvbytyYUFkL0V1bWRrc0duRXJZaEhSdUQ0bytmRGFWU3VHL01QRGQ5?=
+	=?utf-8?B?MHFRVU5rMFZiVU9Rd0tnK0hmTUoySk9mTmgwVzhRelNCeGdNWTNNMjRmd0NI?=
+	=?utf-8?B?aUNCMlpFRmxBb2dMZmhoNkJMbU9FYnYveERPYWxrdzk0c21ic2V6Mk1Nekox?=
+	=?utf-8?B?NHNXK3lsN0ZVblZWVmpienNtdGxKRzUvaEJKOFVsVjlaem9uMHk0N2tLbUN5?=
+	=?utf-8?B?Y2gvTGowSjhZa1JvVEpCSFBaOEdCUjh4dnVMUC9Xbm9nc25WK1EzbFJDVFpT?=
+	=?utf-8?B?bThLamhXYVJpSGRrdVZVMTFNQXJ1SzR0YU8vYzdMM2tLdEdPNkpMcjlpOUtN?=
+	=?utf-8?B?anZWZVgwdXpKaG9QaXFzQTR0VDZRZzRITzk2V2kzMFczUzNkZDVuTEdjbm5p?=
+	=?utf-8?B?WklmYVZWYzArOXlka0Z0bWtKaXZjNHVZa01PcGE2MG4reVh4a1p5Z3R0bGNO?=
+	=?utf-8?B?WjlHaFc3SWJ3TVo5dThYWUc3VzdVUk9OcW1vYm1abysxcVFQYUJJOGozVGtC?=
+	=?utf-8?B?UU1KNWJnSE0xd1h5R0FYcmY4Sjd3T01jZGp6b1JzVmlxelp2SlVjWmlEVk1y?=
+	=?utf-8?B?S1NRTjBXWHB2SDg2UWF1YkVNN3I3Z2NQUzNUSkVXUnJpVE9VbFIyb1JvaEpl?=
+	=?utf-8?B?TnRQM29kT0ZQa2EvRXVsZVNBUHZLSXJMYUxRckgrMmtFN0ZUbFVRUFhqYlBH?=
+	=?utf-8?B?djllaUtzM0kzeXVRVXhIOTBLTkM1ajRBV0wrYWswbkU0UE05RGRwQ0hoZlk5?=
+	=?utf-8?B?Q01RQnpKU2FCWTRLTEVmN2dwdmlnTDdMRTNNRjd1WG5RbW1XcFZzamRQRU14?=
+	=?utf-8?B?b0VHblowMUdlWHovRzNwVTV3UWRCTjRtY0RaRlZvTmNZYm1meHlaMXlqREpk?=
+	=?utf-8?B?OEd1cEhWOFBTYTNtZDd0VHR3dzJydlBYMVZyQWVVNGloZEhOcmVVQUluNkc3?=
+	=?utf-8?B?Q0dtQUlJNVQyVVQrYk5ZQXU0TFFwMUxPc3Y0c2V1VlNnZzBYa1kxWlZqSUl0?=
+	=?utf-8?B?RU1ZdVJBanFlamxQQVJHT1JuQmJzY2twQzMyWGF5Z3JIa1RETVpTTmx6NzBD?=
+	=?utf-8?B?Q3Qyek9sM2dVaCtkODlpY09zS2gyQ09TSFE0MVk1Z2FBNXVxb3FZTVBKUE9u?=
+	=?utf-8?B?WDJoWUVRQVNjV0pjTGlyTHBZQ2NZZzdHbkNZZzBBT05zS0VDOE5Cb0ptTHp5?=
+	=?utf-8?B?NnJhMmFobGFKaU45by8zRjVCYkRSL1VKSjhlcEtGVm5jZ1dndFY3YTZuLzJF?=
+	=?utf-8?B?VVdaTFQxVitPYk1DQUFZUmx0Qm9NUnQvNitNekc5TTE0aSs4cjlFL0ZHcVlq?=
+	=?utf-8?B?dnNQTGZRMmNlUEhSZHZjNXdWR01mMSttRktVeUhpS1NuTUpPV2JSb21uTkhE?=
+	=?utf-8?B?RkhnMEE5M04yQWltekpkaDN1UmhyM0sxZ2FrdmU5aXJwcEtsR2R1Qmx5bDlC?=
+	=?utf-8?B?dytPQ1NCS2pOUmIzZkl4N0dqY0ZoRWtMczUyaUQzTzhuaTdvNFJOUi9ERUpk?=
+	=?utf-8?B?VkdLRlhKYnZVYmhSYjI3KzZEZTIxWWNVaWNKVEZrMXIyNkd4aUttckU2NnhB?=
+	=?utf-8?B?T0lOU09yOVRvQjZaRVRabzJId2VGOFFJdVNERDgxd1pBWUlhMmFDb1lza3Ar?=
+	=?utf-8?B?OFpjeGozTEpVc2ZCeXpzNDZ4cTBqeTJaamZpTWgyYlFuUVJueUFxRnB6bzlI?=
+	=?utf-8?B?NzFUcTRvbngzWWVzRCtsS2FwSUNRVUNlUUd4cXVHOXNCRmxiR1RFU0hPbHZ0?=
+	=?utf-8?B?QkdMWXdPSjgvY3pYekZlSGhzRzYzN29qNjd3NGtZOWk5MTVsWVFqcjk4NDVs?=
+	=?utf-8?B?dkUreG9JL1ZzZS9KTXc1MmZ6dGkxbWMvdnBQeFVTeFJGSjBXZk8rRks2SXU2?=
+	=?utf-8?B?TGtpVlRFempwUmZUcTM5T1pSUXB5UnM4Vm0yN21NQ0M2VkE9PQ==?=
 MIME-Version: 1.0
 X-OriginatorOrg: wdc.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR04MB7416.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b28d42bf-d97e-4f7a-65b9-08d91a9a9676
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2021 07:49:09.9510 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR04MB7081.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0308d761-a99d-4677-9483-08d91a9ff721
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2021 08:27:39.6323 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: adWBpLN89lq68FQscI6ARgZrQwb7Szfs+wWZtZOjzOdH+Wu3wKjUXvastZGs6JQtMrfAz/d8jmwudE61gqSI4FrNYNhbseCi/moJhiVuZDE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR04MB7142
+X-MS-Exchange-CrossTenant-userprincipalname: KMvCJc9xoE2cnsPLRqOyrF/CUKCgUMN8t8u/rEbh2M0F/hdZaz4iqq7eB/n3bT/fn5ZIk+L4gY0GfD8BRxgxbA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR04MB7082
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -134,10 +141,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 14J7nKm7023539
+X-MIME-Autoconverted: from base64 to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 14J8Rn1A027531
 X-loop: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 07/11] dm: Introduce dm_report_zones()
+Cc: "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	Jens Axboe <axboe@kernel.dk>, "dm-devel@redhat.com" <dm-devel@redhat.com>,
+	Mike Snitzer <snitzer@redhat.com>
+Subject: Re: [dm-devel] [PATCH 02/11] block: introduce bio zone helpers
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -151,21 +161,34 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-
-
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gMjAyMS8wNS8xOSAxNjo0MiwgQ2hhaXRhbnlhIEt1bGthcm5pIHdyb3RlOgo+PiBPbiBNYXkg
+MTksIDIwMjEsIGF0IDEyOjE3IEFNLCBKb2hhbm5lcyBUaHVtc2hpcm4gPEpvaGFubmVzLlRodW1z
+aGlybkB3ZGMuY29tPiB3cm90ZToKPj4KPj4g77u/T24gMTkvMDUvMjAyMSAwNDo1NiwgRGFtaWVu
+IExlIE1vYWwgd3JvdGU6Cj4+PiArc3RhdGljIGlubGluZSB1bnNpZ25lZCBpbnQgYmlvX3pvbmVf
+bm8oc3RydWN0IHJlcXVlc3RfcXVldWUgKnEsCj4+PiArICAgICAgICAgICAgICAgICAgICAgICBz
+dHJ1Y3QgYmlvICpiaW8pCj4+PiArewo+Pj4gKyAgICByZXR1cm4gYmxrX3F1ZXVlX3pvbmVfbm8o
+cSwgYmlvLT5iaV9pdGVyLmJpX3NlY3Rvcik7Cj4+PiArfQo+Pj4gKwo+Pj4gK3N0YXRpYyBpbmxp
+bmUgdW5zaWduZWQgaW50IGJpb196b25lX2lzX3NlcShzdHJ1Y3QgcmVxdWVzdF9xdWV1ZSAqcSwK
+Pj4+ICsgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBiaW8gKmJpbykKPj4+ICt7Cj4+PiAr
+ICAgIHJldHVybiBibGtfcXVldWVfem9uZV9pc19zZXEocSwgYmlvLT5iaV9pdGVyLmJpX3NlY3Rv
+cik7Cj4+PiArfQo+Pj4gKwo+Pgo+PiBDYW4ndCB3ZSBkZXJpdmUgdGhlIHF1ZXVlIGZyb20gdGhl
+IGJpbyB2aWEgYmlvLT5iaV9iZGV2LT5iZF9kaXNrLT5xdWV1ZQo+PiBvciB3b3VsZCB0aGlzIGJl
+IHRvbyBtdWNoIHBvaW50ZXIgY2hhc2luZyBmb3IgYSBzbWFsbCBoZWxwZXIgbGlrZSB0aGlzPwo+
+IAo+IFdlIGhhdmUgbWFkZSBzdWNoIGNvZGUgY2hhbmdlcyB0byBnZXQgcmlkIG9mIHNlcGFyYXRl
+IGFyZ3VtZW50IHEgYW5kIGRlcml2ZSBpdCBmcm9tIGJpbyBmb3IgYmxvY2sgdHJhY2UgY2xlYW51
+cC4gVW5sZXNzIHRoZXJlIGlzIGEgc3Ryb25nIHJlYXNvbiAoc3VjaCBhcyBxIGlzIG5vdCBhdmFp
+bGFibGUgaW4gdGhpcyBjYWxsIHdoaWNoIEkgaGF2ZSBub3QgbG9va2VkIGludG8pLCB3ZSBzaG91
+bGQgYXZvaWQgcGFzc2luZyBxIGFzIHNlcGFyYXRlIGFyZ3VtZW50LiAKCldpbGwgZml4IHRoYXQg
+aW4gdjIuCgotLSAKRGFtaWVuIExlIE1vYWwKV2VzdGVybiBEaWdpdGFsIFJlc2VhcmNoCgotLQpk
+bS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4u
+cmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
 
