@@ -2,128 +2,52 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8FAF838886A
-	for <lists+dm-devel@lfdr.de>; Wed, 19 May 2021 09:45:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 27B0B3888D4
+	for <lists+dm-devel@lfdr.de>; Wed, 19 May 2021 09:58:09 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-30-bP99tJe6PM2e4fcljXEdfw-1; Wed, 19 May 2021 03:44:57 -0400
-X-MC-Unique: bP99tJe6PM2e4fcljXEdfw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-460-KF3g6n8hO9aKFQVhkvCywQ-1; Wed, 19 May 2021 03:58:06 -0400
+X-MC-Unique: KF3g6n8hO9aKFQVhkvCywQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C7C5879EC0;
-	Wed, 19 May 2021 07:44:52 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9D6721037EA1;
-	Wed, 19 May 2021 07:44:52 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 15C968015F5;
+	Wed, 19 May 2021 07:58:01 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0652A5D74A;
+	Wed, 19 May 2021 07:58:00 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3E3C31800FFC;
-	Wed, 19 May 2021 07:44:52 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 347D655344;
+	Wed, 19 May 2021 07:57:54 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14J7cj0K022554 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 19 May 2021 03:38:45 -0400
+	id 14J7pcv5023851 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 19 May 2021 03:51:38 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 89A42FA746; Wed, 19 May 2021 07:38:45 +0000 (UTC)
+	id 35FD66E1AC; Wed, 19 May 2021 07:51:38 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82CB81032B8
-	for <dm-devel@redhat.com>; Wed, 19 May 2021 07:38:41 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CB59B101A531
-	for <dm-devel@redhat.com>; Wed, 19 May 2021 07:38:41 +0000 (UTC)
-Received: from esa6.hgst.iphmx.com (esa6.hgst.iphmx.com [216.71.154.45])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-245-aBAAm-XSMCaA4PfOoxpy9w-1; Wed, 19 May 2021 03:38:37 -0400
-X-MC-Unique: aBAAm-XSMCaA4PfOoxpy9w-1
-IronPort-SDR: Ci/vz2szrqUqETcbiIKJC8z40VSuN0KiiP/vPizigWkTBRnw5yv0tL7dco9BZIdsAevtpBfrYI
-	bXCeVMDOS+7OC7AVNvRhkXtpDYjJXqGhMDyknRl4dFZDLGu8TPh3FcTUJw3iPQed6HjA5O+dqt
-	cHGbhd++qBCx7bbg4AZvGRsJ0y9ymwW7wj8T0lnPJWuP8EFwKivvMOIu5LMPmO3xS5Ty+V4puh
-	5CScc8SAzaZsvgwsc/A+nzUvKWga7GBCiC5VBut/b3ErlWslHzIcNCefzP3ZdUoGUXqSV/88J8
-	8SI=
-X-IronPort-AV: E=Sophos;i="5.82,312,1613404800"; d="scan'208";a="169221457"
-Received: from mail-mw2nam08lp2172.outbound.protection.outlook.com (HELO
-	NAM04-MW2-obe.outbound.protection.outlook.com) ([104.47.73.172])
-	by ob1.hgst.iphmx.com with ESMTP; 19 May 2021 15:38:36 +0800
-Received: from PH0PR04MB7416.namprd04.prod.outlook.com (2603:10b6:510:12::17)
-	by PH0PR04MB7478.namprd04.prod.outlook.com (2603:10b6:510:4e::5) with
-	Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4129.26;
-	Wed, 19 May 2021 07:38:34 +0000
-Received: from PH0PR04MB7416.namprd04.prod.outlook.com
-	([fe80::99a5:9eaa:4863:3ef3]) by
-	PH0PR04MB7416.namprd04.prod.outlook.com
-	([fe80::99a5:9eaa:4863:3ef3%4]) with mapi id 15.20.4129.033;
-	Wed, 19 May 2021 07:38:34 +0000
-From: Johannes Thumshirn <Johannes.Thumshirn@wdc.com>
-To: Damien Le Moal <Damien.LeMoal@wdc.com>, "dm-devel@redhat.com"
-	<dm-devel@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>, Jens Axboe
-	<axboe@kernel.dk>
-Thread-Topic: [PATCH 06/11] dm: move zone related code to dm-zone.c
-Thread-Index: AQHXTFp2pvRcCsEC9EaH6f4I5txWSA==
-Date: Wed, 19 May 2021 07:38:34 +0000
-Message-ID: <PH0PR04MB74164B53E7862284237A47C39B2B9@PH0PR04MB7416.namprd04.prod.outlook.com>
-References: <20210519025529.707897-1-damien.lemoal@wdc.com>
-	<20210519025529.707897-7-damien.lemoal@wdc.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2001:a62:152f:cc01:95b:718f:422f:1ec2]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 3dc2661d-fa3f-4355-df8a-08d91a991bbb
-x-ms-traffictypediagnostic: PH0PR04MB7478:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <PH0PR04MB7478E756B6C235ADC9EC89489B2B9@PH0PR04MB7478.namprd04.prod.outlook.com>
-wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:1728
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: 1KGvrMkWmCwnSLcfQx1nFeLXdRqvvQjeG0JWJg+9gtIrFDFRLUTH91U2o3ZgpOmiKcbzqUZItsAzg+4ktr3kEeJiQjrrP+hT6h9ZaZKWcWf13/TrpbHolCaTMhp90B+6xE8oX2QTlMR8qHpkv6DrBjSWs3/rHEEdQOobuFUN8HmD3B5IqN0VXQ0vmn6ZZjqgn2ytDSeGyI9c+NO4X/T9gZPVTEU8W2eFwkyagsGYkoddWu6Hc1rUbch+9ArudzymcBf2S3UfdYPJdV1Ge+8Uvdo2400nfO++hXwerJGiOkvoaQmvtLam+/eVM41icQPZxAS1EfOO32/Vxqan46B9cwxFAg0H/tY0W8bbXHAGtaiSJ3vH0LjdmCO3p7NLZEU8GaDqhOrdQX7PyC6yDjseB1+mPWwqODNWTALJyS4ePMk7lHfQ93jMpKf1XAAyyAdB7tw67NnKG9KA9L0a5DRTWgU9IOtZ81ptfr+Dd8YHfpTk6qKDwETJdJOZ9K93timp3zAkSj+B1VPVcGYivRiMRnVclZh/wyNUbuMCD5wkjdyDsEkKExRvtkVUJwCgnyWWMnv8a6rnFtuGN6JesyAsUj6oye7BilKD1UOkqY2Wpa0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:PH0PR04MB7416.namprd04.prod.outlook.com;
-	PTR:; CAT:NONE;
-	SFS:(4636009)(136003)(39860400002)(376002)(396003)(346002)(366004)(9686003)(8936002)(8676002)(52536014)(55016002)(478600001)(5660300002)(64756008)(558084003)(33656002)(71200400001)(38100700002)(122000001)(66476007)(66556008)(66446008)(91956017)(76116006)(66946007)(186003)(6506007)(86362001)(7696005)(110136005)(316002)(2906002)(19618925003)(4270600006);
-	DIR:OUT; SFP:1102
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?1VEY/6nMxTtpX4NzquYpixov+uc5vawSquVPFKPkarY6u8nWq4XARxf+Loxq?=
-	=?us-ascii?Q?p1NUPzyGBgSRhxI9UDunm2/V3RUSuGg/lxV3jgeBd4pjSwSr42RQMZs/jGC5?=
-	=?us-ascii?Q?HZt3PvoUfzgmbodZbWKEUJL2kcGYE/RMxAjaFnLxPFpL+Wsdm+1ZD33bMGd8?=
-	=?us-ascii?Q?G7va/VqwLzwS2wwKFbStJ9cLV5uyZBMwL4puZEvqGnvOlhb8BjxSWEqd5IWL?=
-	=?us-ascii?Q?yKkMPS6GUMQ5I+Z1KF9g1otdpWc88rg9HHpcfbd30UF8zzprsYLGRs3aV+qf?=
-	=?us-ascii?Q?WnN4JLdHTFTkVEGGXahDzhnwv6W+oFbNNrBU+dUaW+3DqcBOCwB4aiKpSDW5?=
-	=?us-ascii?Q?YVfhpA5QvCsBVBTcX+uM5BxA+c69st7lfiCuSe08M71UykGRaWtC2ypV1fI8?=
-	=?us-ascii?Q?gZ2O+Q9rDpY5rGg+ObzgWdB8r6nBGK7E/1qtUD8sGHSUhoZXXm2Cr47LdKLV?=
-	=?us-ascii?Q?QKuVQd4HOWB6c1iMIev8pm8+BnxEgSMP1dBE7C14bWcfC+VL20779lXOOqo+?=
-	=?us-ascii?Q?eWtWxg0qmccOjY0IqUJPZDQiJba8075iIQAn15aYH4kVsafaNHulVnyu/eRW?=
-	=?us-ascii?Q?gzVo3WDYtTyXBRyqX7cFUqJdxTb4ZxC6AGgaVg1ceos18VCv20P8xVj/0xQR?=
-	=?us-ascii?Q?zdkFlKOMFlqZN8ikicV3X+fb5b8hHd2UwtitPaCK1cccqrUdZ9gvUr1laHLS?=
-	=?us-ascii?Q?ilosghIU9x2XPr/lxG2R0td8eYfNTzxPnCdYBg+DwkvAiSMVt4BimpKC4tAv?=
-	=?us-ascii?Q?gugBLeoIVYRbIkYhcwOSvRRkss6ZwH0A0gblD4Sp8gIhre+jkoMpjz38eKMg?=
-	=?us-ascii?Q?6zybJcYuNcnwbIjWjostqKQX9/EGZRwm0bdYSF8xoj8elVqQnq97Y1I7ys/C?=
-	=?us-ascii?Q?Hz+9fkPLirGmIXt6ntVoowWok8VST/gFx38RfDlg0Bh6kzCJpbP4fKV1rmYO?=
-	=?us-ascii?Q?vW9Jr5/F/kC8mWV1Ymu+WvEYeKg9PxUSFaYj3jA5lfPWlbsJjfcS4RZ+LCkq?=
-	=?us-ascii?Q?SIlkwdp85HNYdOj/wWqRK4G+l3q/NlwazjpAFTgHYfCxuR4+qekr+p42l28t?=
-	=?us-ascii?Q?mIG0MYpn/yvU+FWhDdqepJ7n1bt7uLFQvROONOn1hi+3thHDjmb8rGfILvgA?=
-	=?us-ascii?Q?aRmN/aMjgQebO1ON0fEQkdMVjxMOudhHi8WmnecMGutApL+6QV2pfLo+okma?=
-	=?us-ascii?Q?WC8lbZXIDVJJF06Nr0J19OyG2dYRixtIYJl5du5fZ8yxjH8T9pflMZx8o7FJ?=
-	=?us-ascii?Q?g86lU7MnzwUk/EqLZTRevG1eUNGqDtwpSYZeZ1UKvwvdntpGebAfaX9Ohnrm?=
-	=?us-ascii?Q?NbClASh3Uwd6FlDEFZMaDdywF4l4QSwNIhMlghIwPR7FA6PU0ePQH3fqU2Rn?=
-	=?us-ascii?Q?uT2W4Rfwu6M0Cea1vYVrFD3P6N2dH6dTvDi7oLkhfsoKGmP0kg=3D=3D?=
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 30AA99C056
+	for <dm-devel@redhat.com>; Wed, 19 May 2021 07:51:35 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7C4D8101A531
+	for <dm-devel@redhat.com>; Wed, 19 May 2021 07:51:35 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-424-oJ-5WKTuPpuV8qqtwpxf_w-1;
+	Wed, 19 May 2021 03:51:33 -0400
+X-MC-Unique: oJ-5WKTuPpuV8qqtwpxf_w-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id C3F5461353;
+	Wed, 19 May 2021 07:42:06 +0000 (UTC)
+From: Ard Biesheuvel <ardb@kernel.org>
+To: stable@vger.kernel.org
+Date: Wed, 19 May 2021 09:41:24 +0200
+Message-Id: <20210519074124.49890-1-ardb@kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR04MB7416.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3dc2661d-fa3f-4355-df8a-08d91a991bbb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2021 07:38:34.5290 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 3nNme4QfYheGXBTc8By8scaoxstlt//y4EFTHGiHYmJBJmAkj3M5iDEOFW9CrdPtbRTDnjtl3hGnKfRC0cRHJdlr2CEdcr+tZt0onLYeLuY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR04MB7478
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -134,9 +58,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 14J7cj0K022554
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 14J7pcv5023851
 X-loop: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 06/11] dm: move zone related code to dm-zone.c
+Cc: snitzer@redhat.com, dm-devel@redhat.com,
+	Mikulas Patocka <mpatocka@redhat.com>, agk@redhat.com,
+	Ard Biesheuvel <ardb@kernel.org>, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: [dm-devel] [PATCH stable] dm ioctl: fix out of bounds array access
+	when no devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -150,18 +78,52 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Looks good,
-Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+From: Mikulas Patocka <mpatocka@redhat.com>
 
+commit 4edbe1d7bcffcd6269f3b5eb63f710393ff2ec7a upstream.
+
+If there are not any dm devices, we need to zero the "dev" argument in
+the first structure dm_name_list. However, this can cause out of
+bounds write, because the "needed" variable is zero and len may be
+less than eight.
+
+Fix this bug by reporting DM_BUFFER_FULL_FLAG if the result buffer is
+too small to hold the "nl->dev" value.
+
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Mike Snitzer <snitzer@redhat.com>
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+---
+Please apply to 4.4.y and 4.9.y
+
+ drivers/md/dm-ioctl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+index 836a2808c0c7..eb2659a12310 100644
+--- a/drivers/md/dm-ioctl.c
++++ b/drivers/md/dm-ioctl.c
+@@ -524,7 +524,7 @@ static int list_devices(struct dm_ioctl *param, size_t param_size)
+ 	 * Grab our output buffer.
+ 	 */
+ 	nl = get_result_buffer(param, param_size, &len);
+-	if (len < needed) {
++	if (len < needed || len < sizeof(nl->dev)) {
+ 		param->flags |= DM_BUFFER_FULL_FLAG;
+ 		goto out;
+ 	}
+-- 
+2.20.1
 
 
 --
