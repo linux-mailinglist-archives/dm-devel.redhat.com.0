@@ -1,76 +1,76 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 243FB389C82
-	for <lists+dm-devel@lfdr.de>; Thu, 20 May 2021 06:23:18 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 019B7389C81
+	for <lists+dm-devel@lfdr.de>; Thu, 20 May 2021 06:23:17 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-151-8-PeBgpPPReaNsWSqlZMTQ-1; Thu, 20 May 2021 00:23:14 -0400
-X-MC-Unique: 8-PeBgpPPReaNsWSqlZMTQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-434-KfjcAIEVN6qnSySiMoWVLg-1; Thu, 20 May 2021 00:23:15 -0400
+X-MC-Unique: KfjcAIEVN6qnSySiMoWVLg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5151B180FD72;
-	Thu, 20 May 2021 04:23:03 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1C1F110027A5;
-	Thu, 20 May 2021 04:23:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8EA3B501F4;
+	Thu, 20 May 2021 04:23:10 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 71BEE1349A;
+	Thu, 20 May 2021 04:23:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CAE7F180102A;
-	Thu, 20 May 2021 04:23:02 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2F4923E6C7;
+	Thu, 20 May 2021 04:23:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14K4McHc005761 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 20 May 2021 00:22:39 -0400
+	id 14K4Mjqe005831 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 20 May 2021 00:22:45 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C36771054820; Thu, 20 May 2021 04:22:38 +0000 (UTC)
+	id 02B3F107299; Thu, 20 May 2021 04:22:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BC3FB105481E
-	for <dm-devel@redhat.com>; Thu, 20 May 2021 04:22:36 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F1DD6107693
+	for <dm-devel@redhat.com>; Thu, 20 May 2021 04:22:41 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5C332800B29
-	for <dm-devel@redhat.com>; Thu, 20 May 2021 04:22:36 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 47C931825064
+	for <dm-devel@redhat.com>; Thu, 20 May 2021 04:22:41 +0000 (UTC)
 Received: from esa6.hgst.iphmx.com (esa6.hgst.iphmx.com [216.71.154.45])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-595-uJn-wWkNMlaKycGo9BjKSw-2; Thu, 20 May 2021 00:22:33 -0400
-X-MC-Unique: uJn-wWkNMlaKycGo9BjKSw-2
-IronPort-SDR: e1dvbe9B8/hHAlUr7PlpW1FYyQXbawn4wENxGS69N4MWJ7Bt1eTR6QuLPib7wkyBlGmjBCkIOH
-	RrgriNt090HTHHEth+tDs/GRJb1FqoqVXaXwK5nQj2Pp5DmTlnD/qpRRft26yzse40oNPSYqoL
-	BOxjkKHeb2hoqL3XLUtAPKv0DK+KrkYNKFM3NIIaK+QtussfPeCPEG6DitKPBk9sm+ZkWvrvGg
-	xHUOd9l1I2aTooi0Sys//63OQu0FKLrJeVllrB6P4PJOoh8Xr3WrajbMVNnfgqpuMT8fr2Cv/t
-	hX0=
-X-IronPort-AV: E=Sophos;i="5.82,313,1613404800"; d="scan'208";a="169343190"
+	us-mta-452-0OdKPOyXN-OisCa2xePNvg-3; Thu, 20 May 2021 00:22:34 -0400
+X-MC-Unique: 0OdKPOyXN-OisCa2xePNvg-3
+IronPort-SDR: RNIGiyl/YITVd7X+P07gM0lCYhXFzWxJ+q3mBs7q1Wf/8KlqWnyErGhDGQpZQ6041UHDxUZm4Z
+	5qE2/R7/iBxtHJrVkagQp46HcK0TDZAdMwfXhkK8ulWry+ldYpEW66gzdjX/EuvSjLx3pMVEZF
+	I6mRVny1noNuQ4GiC+/9VfUOSbGDCgM6a1ezeJQT2tZowTeq/5JpSgly3LD872oH1F9th8U7DC
+	DPPUspIez3zhPflU+Ez4HZgAvWieH5fOotCJyTAXwoQU5QB0SCB6cnu7fr9tHGrjziucDq7LJ8
+	ZxQ=
+X-IronPort-AV: E=Sophos;i="5.82,313,1613404800"; d="scan'208";a="169343192"
 Received: from uls-op-cesaip02.wdc.com (HELO uls-op-cesaep02.wdc.com)
 	([199.255.45.15])
-	by ob1.hgst.iphmx.com with ESMTP; 20 May 2021 12:22:33 +0800
-IronPort-SDR: HnNqtUsX617/kB9ysNtU02TI9nQckxY+hIMRgZQGgGK5GfOH7t/u6T61jaaXflNV7j3IfSEsk/
-	R4yILuMTTlM9xshtaL5Vj5q6oZMcXdGon6UcDLtD+Hy5FyLD5MZbbaMcmSTARBR4o3uSXlZdYZ
-	QUkstZHY8wCUrVsDhwWJTzWLhqfLOCQWDVOzCedRSw1eIRmCaDe9qclsyq8ieRbF8/kHoj5AsB
-	AXKPxP5d7wgKSUWTiC/bgvgjPBZi6lOF4thK2PT3qmdWe/qZMmd82Rd2HIIqFPUFn/OSa2mtBJ
-	pfZWwfIXLgyGM4ufRVpoac8g
+	by ob1.hgst.iphmx.com with ESMTP; 20 May 2021 12:22:34 +0800
+IronPort-SDR: ZCF/L6opBQPl3iVWMzYlaGNyvg9+3mE/rQzNl05CmXv8VS12lrcOgi/D42FkDlY5pPIXQbdPAs
+	5QuLwPwucDCNPgAWfJlnuCzzE68c8dzFO14z4D0+HJ2uhRufanCSinzsm30xfwZqO8ybyfBMyA
+	uD0B03NdcGinMY6ag0gnIDX2Q+itZ3XRkOhCQ/Z3IZS/Arew/Kph4O7zHImqGWEEDea3YMi9qP
+	l7YXNylchQpClmwvu1AstK9nu1nZX7vyEITCUauxv+STMJ0E0LYDl1fkcU9vPCCR/q1+Uj3arY
+	bodDALVfIyR8UWWV5GHlXoxI
 Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
 	by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	19 May 2021 21:00:56 -0700
-IronPort-SDR: CAw9+Fo4qDxasNQN/GopsJamFgI79cMYrsl9EI8NqsZOkQIFLVSxw1Q0Lp3x2zQmy0lNX4pAQf
-	CMHbnNDHBmRvTOhtXDapU30f3hBZ7ZTtBtY2JcDwc7TnRQcaakwVAIqMhXiJ0lSfRhkdBNUjYG
-	M1j6HdMWWHZImOKE+m6Rr9GX8LM58CM8WveF466Sr6z4hdal4gyGZI/v34ldLN8HiECxj3XS62
-	C6pUWSCHUo2Xj3cA01K/OVEHvq8HqY1VVZ1kfaMofsowqbTfZmR3GXYE+TNvBgz0QhbG70nAKV
-	q4g=
+	19 May 2021 21:00:58 -0700
+IronPort-SDR: iMmTcvoJTNMSGxLdflsNlb0SPMpOaH43yQqsXpbohPjfRNCpHlofi/mjOrwqlECx8ajOvgT7K9
+	cEbfH3r3qOk2NkgY3djchM2QSKyxEVQpnpFlFXFmsOr2/6w9gCvjGwxs2LpGyGDtbqre2riAhM
+	HoNF0seytkMRnXc4Yr7EDkash/6hYoN9qv550pNm0I0SgA2Jxsrm52xpGDl0LAC2jX3qjT6dJv
+	+R8Eg4GP/AJEvKh3GNTpdF5iSK1ucH5Ihr1UNZRzQ4kecA64JmH3Gq4Di2xw2S8IgGBlfhHO98
+	7wg=
 WDCIronportException: Internal
 Received: from washi.fujisawa.hgst.com ([10.149.53.254])
-	by uls-op-cesaip02.wdc.com with ESMTP; 19 May 2021 21:22:32 -0700
+	by uls-op-cesaip02.wdc.com with ESMTP; 19 May 2021 21:22:33 -0700
 From: Damien Le Moal <damien.lemoal@wdc.com>
 To: dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>,
 	linux-block@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
-Date: Thu, 20 May 2021 13:22:20 +0900
-Message-Id: <20210520042228.974083-4-damien.lemoal@wdc.com>
+Date: Thu, 20 May 2021 13:22:21 +0900
+Message-Id: <20210520042228.974083-5-damien.lemoal@wdc.com>
 In-Reply-To: <20210520042228.974083-1-damien.lemoal@wdc.com>
 References: <20210520042228.974083-1-damien.lemoal@wdc.com>
 MIME-Version: 1.0
@@ -82,10 +82,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Subject: [dm-devel] [PATCH v2 03/11] block: introduce BIO_ZONE_WRITE_LOCKED
-	bio flag
+Subject: [dm-devel] [PATCH v2 04/11] dm: Fix dm_accept_partial_bio()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -99,7 +98,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -107,37 +106,50 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Introduce the BIO flag BIO_ZONE_WRITE_LOCKED to indicate that a BIO owns
-the write lock of the zone it is targeting. This is the counterpart of
-the struct request flag RQF_ZONE_WRITE_LOCKED.
+Fix dm_accept_partial_bio() to actually check that zone management
+commands are not passed as explained in the function documentation
+comment. Also, since a zone append operation cannot be split, add
+REQ_OP_ZONE_APPEND as a forbidden command.
 
-This new BIO flag is reserved for now for zone write locking control
-for device mapper targets exposing a zoned block device. Since in this
-case, the lock flag must not be propagated to the struct request that
-will be used to process the BIO, a BIO private flag is used rather than
-changing the RQF_ZONE_WRITE_LOCKED request flag into a common REQ_XXX
-flag that could be used for both BIO and request. This avoids conflicts
-down the stack with the block IO scheduler zone write locking
-(in mq-deadline).
+White lines are added around the group of BUG_ON() calls to make the
+code more legible.
 
 Signed-off-by: Damien Le Moal <damien.lemoal@wdc.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 ---
- include/linux/blk_types.h | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/md/dm.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-index db026b6ec15a..e5cf12f102a2 100644
---- a/include/linux/blk_types.h
-+++ b/include/linux/blk_types.h
-@@ -304,6 +304,7 @@ enum {
- 	BIO_CGROUP_ACCT,	/* has been accounted to a cgroup */
- 	BIO_TRACKED,		/* set if bio goes through the rq_qos path */
- 	BIO_REMAPPED,
-+	BIO_ZONE_WRITE_LOCKED,	/* Owns a zoned device zone write lock */
- 	BIO_FLAG_LAST
- };
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index ca2aedd8ee7d..a9211575bfed 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -1237,8 +1237,9 @@ static int dm_dax_zero_page_range(struct dax_device *dax_dev, pgoff_t pgoff,
  
+ /*
+  * A target may call dm_accept_partial_bio only from the map routine.  It is
+- * allowed for all bio types except REQ_PREFLUSH, REQ_OP_ZONE_RESET,
+- * REQ_OP_ZONE_OPEN, REQ_OP_ZONE_CLOSE and REQ_OP_ZONE_FINISH.
++ * allowed for all bio types except REQ_PREFLUSH, zone management operations
++ * (REQ_OP_ZONE_RESET, REQ_OP_ZONE_OPEN, REQ_OP_ZONE_CLOSE and
++ * REQ_OP_ZONE_FINISH) and zone append writes.
+  *
+  * dm_accept_partial_bio informs the dm that the target only wants to process
+  * additional n_sectors sectors of the bio and the rest of the data should be
+@@ -1268,9 +1269,13 @@ void dm_accept_partial_bio(struct bio *bio, unsigned n_sectors)
+ {
+ 	struct dm_target_io *tio = container_of(bio, struct dm_target_io, clone);
+ 	unsigned bi_size = bio->bi_iter.bi_size >> SECTOR_SHIFT;
++
+ 	BUG_ON(bio->bi_opf & REQ_PREFLUSH);
++	BUG_ON(op_is_zone_mgmt(bio_op(bio)));
++	BUG_ON(bio_op(bio) == REQ_OP_ZONE_APPEND);
+ 	BUG_ON(bi_size > *tio->len_ptr);
+ 	BUG_ON(n_sectors > bi_size);
++
+ 	*tio->len_ptr -= bi_size - n_sectors;
+ 	bio->bi_iter.bi_size = n_sectors << SECTOR_SHIFT;
+ }
 -- 
 2.31.1
 
