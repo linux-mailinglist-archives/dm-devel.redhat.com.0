@@ -2,83 +2,53 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 5040138B7C4
-	for <lists+dm-devel@lfdr.de>; Thu, 20 May 2021 21:46:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1621539989;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=2DQE1R1lIVggFnm1hCMHLlI0Sh4sfR34Nk88lmpH9eQ=;
-	b=Cj40VTKK1bShKJ2mGA1goXIxMgdhmOIfISJIOlM4TWOZVXabumIvBjvUBpBaM9+e9dWHdz
-	7sueFDH2k+qh2weR4lMQW/NSyVIQo6/paF+oTicnBAeNblp2enBjxjivwpQv/pKd33FHPY
-	lnQ6GN48zFvmSGCP2AvwtNEDGvg7Qsk=
+	by mail.lfdr.de (Postfix) with ESMTP id CA0C838B7DD
+	for <lists+dm-devel@lfdr.de>; Thu, 20 May 2021 21:53:07 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-563-Ef-QbSGxMtOPOr5wuuXD7w-1; Thu, 20 May 2021 15:46:27 -0400
-X-MC-Unique: Ef-QbSGxMtOPOr5wuuXD7w-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-53-5R6lR5VDPzW4C4UDq8GEvg-1; Thu, 20 May 2021 15:53:04 -0400
+X-MC-Unique: 5R6lR5VDPzW4C4UDq8GEvg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C2A841854E20;
-	Thu, 20 May 2021 19:46:15 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4CE901083E9C;
+	Thu, 20 May 2021 19:52:57 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 707635DDAD;
-	Thu, 20 May 2021 19:46:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9BE0B648A9;
+	Thu, 20 May 2021 19:52:53 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F2E8255353;
-	Thu, 20 May 2021 19:46:06 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C7F0455353;
+	Thu, 20 May 2021 19:52:48 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14KJjtqI013471 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 20 May 2021 15:45:55 -0400
+	id 14KJqeCF013993 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 20 May 2021 15:52:40 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 429BB20BDB3B; Thu, 20 May 2021 19:45:55 +0000 (UTC)
+	id 77D3920877A1; Thu, 20 May 2021 19:52:40 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3E3D820BDB37
-	for <dm-devel@redhat.com>; Thu, 20 May 2021 19:45:52 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 92C0180014A
-	for <dm-devel@redhat.com>; Thu, 20 May 2021 19:45:52 +0000 (UTC)
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com
-	[209.85.222.176]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-40-knJAuIhRPhSNdPT2MWXyug-1; Thu, 20 May 2021 15:45:48 -0400
-X-MC-Unique: knJAuIhRPhSNdPT2MWXyug-1
-Received: by mail-qk1-f176.google.com with SMTP id x8so17480333qkl.2;
-	Thu, 20 May 2021 12:45:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
-	:mime-version:content-disposition;
-	bh=HHJU3Q306ITmLSio1GcF/N7+OjoVriUxfio1f6Xoj4s=;
-	b=h2Dn3rZBYLvYzxBxmqOAO5nGbzdoZbwnYbjAcs7SHtvqJPqWNFV55QvjGEknqQpDG4
-	GFCqzR21G/20c9bDUt7Atbo2Vvu4ahavWebz2NHpBm1aiMwuEmKF/G41WrcOIgAKul/i
-	WA35za+f7j52RZlMsB8N4vOUVYOYlo1doZWTtw981d9ba/XgGtHO4u4ujuneqdTpUz3r
-	0+03Yf0yJ7vkTt/b+CiKB7A/XJ2752L96CtwSSdO4s0j8gKtqtUvfqrWhyLbg4ZPDtIA
-	pTNDEMzDTq2JY+OIHONJqrD9Goy7qOjdIXGFgt2Hlu9N95Ry65+G4jtoTIexAcYEFteq
-	3EpQ==
-X-Gm-Message-State: AOAM530bGKc5Wf1bXd0SOHrFsXXMVxkVB4aG814N/pqIiJX0c4xxO725
-	lIYpphDFZdt0sAoErvGDA54=
-X-Google-Smtp-Source: ABdhPJzmUfqcOPKc6TrGlLiQX15KKLZNOun7zl5sdHXRTtunYckGLbsgOQEV8MJehPCse+DHFLyRIg==
-X-Received: by 2002:ae9:c016:: with SMTP id u22mr7105608qkk.114.1621539947905; 
-	Thu, 20 May 2021 12:45:47 -0700 (PDT)
-Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
-	[68.160.176.52]) by smtp.gmail.com with ESMTPSA id
-	g64sm2809749qkf.41.2021.05.20.12.45.46
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 20 May 2021 12:45:47 -0700 (PDT)
-Date: Thu, 20 May 2021 15:45:46 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <YKa8aq2SgXzX7sva@redhat.com>
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 723D120534B6
+	for <dm-devel@redhat.com>; Thu, 20 May 2021 19:52:35 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B99AA80D0E0
+	for <dm-devel@redhat.com>; Thu, 20 May 2021 19:52:35 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-479-m-RYOr09OhOC9E_RYThM7A-1;
+	Thu, 20 May 2021 15:52:31 -0400
+X-MC-Unique: m-RYOr09OhOC9E_RYThM7A-1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.221.27])
+	by mx2.suse.de (Postfix) with ESMTP id 2DF6AAE46;
+	Thu, 20 May 2021 19:52:29 +0000 (UTC)
+From: mwilck@suse.com
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>
+Date: Thu, 20 May 2021 21:52:08 +0200
+Message-Id: <20210520195208.30542-1-mwilck@suse.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -89,10 +59,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 14KJqeCF013993
 X-loop: dm-devel@redhat.com
-Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
-	Mikulas Patocka <mpatocka@redhat.com>, Alasdair G Kergon <agk@redhat.com>
-Subject: [dm-devel] [git pull] device mapper fixes for 5.13-rc3
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>, dm-devel@redhat.com,
+	Martin Wilck <mwilck@suse.com>
+Subject: [dm-devel] [PATCH] libmultipath: fix build without
+	LIBDM_API_DEFERRED
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -106,50 +79,71 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Linus,
+From: Martin Wilck <mwilck@suse.com>
 
-The following changes since commit 6efb943b8616ec53a5e444193dccf1af9ad627b5:
+Build fails on distributions that don't support DM_DEFERRED_REMOVE
+(libdevmapper < 1.02.89). Fix it.
 
-  Linux 5.13-rc1 (2021-05-09 14:17:44 -0700)
+Resolves: https://github.com/opensvc/multipath-tools/issues/7
+Tested-by: Paul Menzel <pmenzel@molgen.mpg.de>
+---
+ libmultipath/devmapper.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-are available in the Git repository at:
+diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
+index 095cbc0..47a6d60 100644
+--- a/libmultipath/devmapper.c
++++ b/libmultipath/devmapper.c
+@@ -49,6 +49,9 @@ static int dm_conf_verbosity;
+ 
+ #ifdef LIBDM_API_DEFERRED
+ static int dm_cancel_remove_partmaps(const char * mapname);
++#define __DR_UNUSED__ /* empty */
++#else
++#define __DR_UNUSED__ __attribute__((unused))
+ #endif
+ 
+ static int do_foreach_partmaps(const char * mapname,
+@@ -384,7 +387,8 @@ libmp_dm_task_create(int task)
+ #define do_deferred(x) ((x) == DEFERRED_REMOVE_ON || (x) == DEFERRED_REMOVE_IN_PROGRESS)
+ 
+ static int
+-dm_simplecmd (int task, const char *name, int no_flush, int need_sync, uint16_t udev_flags, int deferred_remove) {
++dm_simplecmd (int task, const char *name, int no_flush, int need_sync,
++	      uint16_t udev_flags, int deferred_remove __DR_UNUSED__) {
+ 	int r = 0;
+ 	int udev_wait_flag = ((need_sync || udev_flags) &&
+ 			      (task == DM_DEVICE_RESUME ||
+@@ -1122,7 +1126,8 @@ dm_flush_map_nopaths(const char * mapname, int deferred_remove)
+ #else
+ 
+ int
+-dm_flush_map_nopaths(const char * mapname, int deferred_remove)
++dm_flush_map_nopaths(const char * mapname,
++		     int deferred_remove __attribute__((unused)))
+ {
+ 	return _dm_flush_map(mapname, 1, 0, 0, 0);
+ }
+@@ -1573,7 +1578,7 @@ dm_cancel_deferred_remove (struct multipath *mpp)
+ #else
+ 
+ int
+-dm_cancel_deferred_remove (struct multipath *mpp)
++dm_cancel_deferred_remove (struct multipath *mpp __attribute__((unused)))
+ {
+ 	return 0;
+ }
+-- 
+2.31.1
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git tags/for-5.13/dm-fixes
-
-for you to fetch changes up to bc8f3d4647a99468d7733039b6bc9234b6e91df4:
-
-  dm integrity: fix sparse warnings (2021-05-13 14:53:49 -0400)
-
-Please pull, thanks.
-Mike
-
-----------------------------------------------------------------
-- Fix a couple DM snapshot target crashes exposed by user-error.
-
-- Fix DM integrity target to not use discard optimization, introduced
-  during 5.13 merge, when recalulating.
-
-- Fix some sparse warnings in DM integrity target.
-
-----------------------------------------------------------------
-Mikulas Patocka (4):
-      dm snapshot: fix a crash when an origin has no snapshots
-      dm snapshot: fix crash with transient storage and zero chunk size
-      dm integrity: revert to not using discard filler when recalulating
-      dm integrity: fix sparse warnings
-
- drivers/md/dm-integrity.c | 81 +++++++++++++++++++++--------------------------
- drivers/md/dm-snap.c      |  6 ++--
- 2 files changed, 39 insertions(+), 48 deletions(-)
 
 --
 dm-devel mailing list
