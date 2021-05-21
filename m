@@ -1,49 +1,49 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E989C38BE94
-	for <lists+dm-devel@lfdr.de>; Fri, 21 May 2021 07:53:11 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 1683B38BE99
+	for <lists+dm-devel@lfdr.de>; Fri, 21 May 2021 07:53:13 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-257-fpDThUL6NPyfMaJ9T8AEKQ-1; Fri, 21 May 2021 01:53:08 -0400
-X-MC-Unique: fpDThUL6NPyfMaJ9T8AEKQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-136-y4v2Te5aNQ-mDkixqLqvDw-1; Fri, 21 May 2021 01:53:10 -0400
+X-MC-Unique: y4v2Te5aNQ-mDkixqLqvDw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EDC0E1883525;
-	Fri, 21 May 2021 05:53:02 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C71EC10016FF;
-	Fri, 21 May 2021 05:53:02 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C07E8102CB75;
+	Fri, 21 May 2021 05:53:05 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 97B8F9473;
+	Fri, 21 May 2021 05:53:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 80D0144A5D;
-	Fri, 21 May 2021 05:53:02 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 58AA11800BBE;
+	Fri, 21 May 2021 05:53:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14L5qxb8027311 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 21 May 2021 01:52:59 -0400
+	id 14L5r2IH027346 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 21 May 2021 01:53:02 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5438A1649D3; Fri, 21 May 2021 05:52:59 +0000 (UTC)
+	id 47E8F20951B8; Fri, 21 May 2021 05:53:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4CD951649D8
-	for <dm-devel@redhat.com>; Fri, 21 May 2021 05:52:52 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4318320951B7
+	for <dm-devel@redhat.com>; Fri, 21 May 2021 05:52:54 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AF4EF800B31
-	for <dm-devel@redhat.com>; Fri, 21 May 2021 05:52:52 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C0CD88564FD
+	for <dm-devel@redhat.com>; Fri, 21 May 2021 05:52:54 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-441-lEx9mSjDM0q2AD17MyoDwA-1; Fri, 21 May 2021 01:52:49 -0400
-X-MC-Unique: lEx9mSjDM0q2AD17MyoDwA-1
+	us-mta-36-6j82rG_hNTia8YqDDHaqeg-1; Fri, 21 May 2021 01:52:53 -0400
+X-MC-Unique: 6j82rG_hNTia8YqDDHaqeg-1
 Received: from [2001:4bb8:180:5add:4fd7:4137:d2f2:46e6] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
-	id 1ljy5K-00GqDg-T5; Fri, 21 May 2021 05:52:35 +0000
+	id 1ljy5P-00GqEo-26; Fri, 21 May 2021 05:52:39 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>, Geert Uytterhoeven <geert@linux-m68k.org>,
 	Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
@@ -61,8 +61,8 @@ To: Jens Axboe <axboe@kernel.dk>, Geert Uytterhoeven <geert@linux-m68k.org>,
 	Dave Jiang <dave.jiang@intel.com>, Heiko Carstens <hca@linux.ibm.com>, 
 	Vasily Gorbik <gor@linux.ibm.com>,
 	Christian Borntraeger <borntraeger@de.ibm.com>
-Date: Fri, 21 May 2021 07:51:13 +0200
-Message-Id: <20210521055116.1053587-24-hch@lst.de>
+Date: Fri, 21 May 2021 07:51:14 +0200
+Message-Id: <20210521055116.1053587-25-hch@lst.de>
 In-Reply-To: <20210521055116.1053587-1-hch@lst.de>
 References: <20210521055116.1053587-1-hch@lst.de>
 MIME-Version: 1.0
@@ -76,7 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Mimecast-Bulk-Signature: yes
+X-Mimecast-Spam-Signature: bulk
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: linux-xtensa@linux-xtensa.org, linux-m68k@vger.kernel.org,
 	linux-raid@vger.kernel.org, nvdimm@lists.linux.dev,
@@ -84,7 +86,7 @@ Cc: linux-xtensa@linux-xtensa.org, linux-m68k@vger.kernel.org,
 	linux-bcache@vger.kernel.org, linux-nvme@lists.infradead.org,
 	linux-block@vger.kernel.org, dm-devel@redhat.com,
 	drbd-dev@tron.linbit.com, linuxppc-dev@lists.ozlabs.org
-Subject: [dm-devel] [PATCH 23/26] dcssblk: convert to
+Subject: [dm-devel] [PATCH 24/26] xpram: convert to
 	blk_alloc_disk/blk_cleanup_disk
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -99,7 +101,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -107,93 +109,83 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Convert the dcssblk driver to use the blk_alloc_disk and blk_cleanup_disk
+Convert the xpram driver to use the blk_alloc_disk and blk_cleanup_disk
 helpers to simplify gendisk and request_queue allocation.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/s390/block/dcssblk.c | 26 ++++++++------------------
- 1 file changed, 8 insertions(+), 18 deletions(-)
+ drivers/s390/block/xpram.c | 26 +++++++++-----------------
+ 1 file changed, 9 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/s390/block/dcssblk.c b/drivers/s390/block/dcssblk.c
-index da33cb4cba28..7faa56399999 100644
---- a/drivers/s390/block/dcssblk.c
-+++ b/drivers/s390/block/dcssblk.c
-@@ -90,7 +90,6 @@ struct dcssblk_dev_info {
- 	int segment_type;
- 	unsigned char save_pending;
- 	unsigned char is_shared;
--	struct request_queue *dcssblk_queue;
- 	int num_of_segments;
- 	struct list_head seg_list;
- 	struct dax_device *dax_dev;
-@@ -429,9 +428,7 @@ dcssblk_shared_store(struct device *dev, struct device_attribute *attr, const ch
- 	kill_dax(dev_info->dax_dev);
- 	put_dax(dev_info->dax_dev);
- 	del_gendisk(dev_info->gd);
--	blk_cleanup_queue(dev_info->dcssblk_queue);
--	dev_info->gd->queue = NULL;
--	put_disk(dev_info->gd);
-+	blk_cleanup_disk(dev_info->gd);
- 	up_write(&dcssblk_devices_sem);
+diff --git a/drivers/s390/block/xpram.c b/drivers/s390/block/xpram.c
+index d1ed39162943..91ef710edfd2 100644
+--- a/drivers/s390/block/xpram.c
++++ b/drivers/s390/block/xpram.c
+@@ -56,7 +56,6 @@ typedef struct {
+ static xpram_device_t xpram_devices[XPRAM_MAX_DEVS];
+ static unsigned int xpram_sizes[XPRAM_MAX_DEVS];
+ static struct gendisk *xpram_disks[XPRAM_MAX_DEVS];
+-static struct request_queue *xpram_queues[XPRAM_MAX_DEVS];
+ static unsigned int xpram_pages;
+ static int xpram_devs;
  
- 	if (device_remove_file_self(dev, attr)) {
-@@ -644,18 +641,17 @@ dcssblk_add_store(struct device *dev, struct device_attribute *attr, const char
- 	dev_info->dev.release = dcssblk_release_segment;
- 	dev_info->dev.groups = dcssblk_dev_attr_groups;
- 	INIT_LIST_HEAD(&dev_info->lh);
--	dev_info->gd = alloc_disk(DCSSBLK_MINORS_PER_DISK);
-+	dev_info->gd = blk_alloc_disk(NUMA_NO_NODE);
- 	if (dev_info->gd == NULL) {
- 		rc = -ENOMEM;
- 		goto seg_list_del;
+@@ -341,17 +340,13 @@ static int __init xpram_setup_blkdev(void)
+ 	int i, rc = -ENOMEM;
+ 
+ 	for (i = 0; i < xpram_devs; i++) {
+-		xpram_disks[i] = alloc_disk(1);
++		xpram_disks[i] = blk_alloc_disk(NUMA_NO_NODE);
+ 		if (!xpram_disks[i])
+ 			goto out;
+-		xpram_queues[i] = blk_alloc_queue(NUMA_NO_NODE);
+-		if (!xpram_queues[i]) {
+-			put_disk(xpram_disks[i]);
+-			goto out;
+-		}
+-		blk_queue_flag_set(QUEUE_FLAG_NONROT, xpram_queues[i]);
+-		blk_queue_flag_clear(QUEUE_FLAG_ADD_RANDOM, xpram_queues[i]);
+-		blk_queue_logical_block_size(xpram_queues[i], 4096);
++		blk_queue_flag_set(QUEUE_FLAG_NONROT, xpram_disks[i]->queue);
++		blk_queue_flag_clear(QUEUE_FLAG_ADD_RANDOM,
++				xpram_disks[i]->queue);
++		blk_queue_logical_block_size(xpram_disks[i]->queue, 4096);
  	}
- 	dev_info->gd->major = dcssblk_major;
-+	dev_info->gd->minors = DCSSBLK_MINORS_PER_DISK;
- 	dev_info->gd->fops = &dcssblk_devops;
--	dev_info->dcssblk_queue = blk_alloc_queue(NUMA_NO_NODE);
--	dev_info->gd->queue = dev_info->dcssblk_queue;
- 	dev_info->gd->private_data = dev_info;
--	blk_queue_logical_block_size(dev_info->dcssblk_queue, 4096);
--	blk_queue_flag_set(QUEUE_FLAG_DAX, dev_info->dcssblk_queue);
-+	blk_queue_logical_block_size(dev_info->gd->queue, 4096);
-+	blk_queue_flag_set(QUEUE_FLAG_DAX, dev_info->gd->queue);
  
- 	seg_byte_size = (dev_info->end - dev_info->start + 1);
- 	set_capacity(dev_info->gd, seg_byte_size >> 9); // size in sectors
-@@ -719,9 +715,7 @@ dcssblk_add_store(struct device *dev, struct device_attribute *attr, const char
+ 	/*
+@@ -373,9 +368,9 @@ static int __init xpram_setup_blkdev(void)
+ 		offset += xpram_devices[i].size;
+ 		disk->major = XPRAM_MAJOR;
+ 		disk->first_minor = i;
++		disk->minors = 1;
+ 		disk->fops = &xpram_devops;
+ 		disk->private_data = &xpram_devices[i];
+-		disk->queue = xpram_queues[i];
+ 		sprintf(disk->disk_name, "slram%d", i);
+ 		set_capacity(disk, xpram_sizes[i] << 1);
+ 		add_disk(disk);
+@@ -383,10 +378,8 @@ static int __init xpram_setup_blkdev(void)
  
- put_dev:
- 	list_del(&dev_info->lh);
--	blk_cleanup_queue(dev_info->dcssblk_queue);
--	dev_info->gd->queue = NULL;
--	put_disk(dev_info->gd);
-+	blk_cleanup_disk(dev_info->gd);
- 	list_for_each_entry(seg_info, &dev_info->seg_list, lh) {
- 		segment_unload(seg_info->segment_name);
+ 	return 0;
+ out:
+-	while (i--) {
+-		blk_cleanup_queue(xpram_queues[i]);
+-		put_disk(xpram_disks[i]);
+-	}
++	while (i--)
++		blk_cleanup_disk(xpram_disks[i]);
+ 	return rc;
+ }
+ 
+@@ -434,8 +427,7 @@ static void __exit xpram_exit(void)
+ 	int i;
+ 	for (i = 0; i < xpram_devs; i++) {
+ 		del_gendisk(xpram_disks[i]);
+-		blk_cleanup_queue(xpram_queues[i]);
+-		put_disk(xpram_disks[i]);
++		blk_cleanup_disk(xpram_disks[i]);
  	}
-@@ -731,9 +725,7 @@ dcssblk_add_store(struct device *dev, struct device_attribute *attr, const char
- dev_list_del:
- 	list_del(&dev_info->lh);
- release_gd:
--	blk_cleanup_queue(dev_info->dcssblk_queue);
--	dev_info->gd->queue = NULL;
--	put_disk(dev_info->gd);
-+	blk_cleanup_disk(dev_info->gd);
- 	up_write(&dcssblk_devices_sem);
- seg_list_del:
- 	if (dev_info == NULL)
-@@ -801,9 +793,7 @@ dcssblk_remove_store(struct device *dev, struct device_attribute *attr, const ch
- 	kill_dax(dev_info->dax_dev);
- 	put_dax(dev_info->dax_dev);
- 	del_gendisk(dev_info->gd);
--	blk_cleanup_queue(dev_info->dcssblk_queue);
--	dev_info->gd->queue = NULL;
--	put_disk(dev_info->gd);
-+	blk_cleanup_disk(dev_info->gd);
- 
- 	/* unload all related segments */
- 	list_for_each_entry(entry, &dev_info->seg_list, lh)
+ 	unregister_blkdev(XPRAM_MAJOR, XPRAM_NAME);
+ 	platform_device_unregister(xpram_pdev);
 -- 
 2.30.2
 
