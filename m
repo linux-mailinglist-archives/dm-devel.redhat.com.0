@@ -2,48 +2,48 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0B1A538BEAC
-	for <lists+dm-devel@lfdr.de>; Fri, 21 May 2021 07:54:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6C20A38BF0E
+	for <lists+dm-devel@lfdr.de>; Fri, 21 May 2021 08:05:31 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-594-8eNkckFLNiGZh-KNfoRtrg-1; Fri, 21 May 2021 01:53:12 -0400
-X-MC-Unique: 8eNkckFLNiGZh-KNfoRtrg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-349-EiyDhxKhOQCRRNRv9nN5tA-1; Fri, 21 May 2021 02:05:28 -0400
+X-MC-Unique: EiyDhxKhOQCRRNRv9nN5tA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 38C93343AC;
-	Fri, 21 May 2021 05:53:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 270FC106BAAB;
+	Fri, 21 May 2021 06:05:22 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 19D8374AAA;
-	Fri, 21 May 2021 05:53:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F3A8610013C1;
+	Fri, 21 May 2021 06:05:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C821444A5E;
-	Fri, 21 May 2021 05:53:07 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AACD755355;
+	Fri, 21 May 2021 06:05:21 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14L5r43e027379 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 21 May 2021 01:53:04 -0400
+	id 14L65IdQ028765 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 21 May 2021 02:05:18 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 848D110031EF; Fri, 21 May 2021 05:53:04 +0000 (UTC)
+	id 01A74212AA8C; Fri, 21 May 2021 06:05:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8116C10A144D
-	for <dm-devel@redhat.com>; Fri, 21 May 2021 05:53:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F1A87212AA9E
+	for <dm-devel@redhat.com>; Fri, 21 May 2021 06:05:13 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A5DE78007AC
-	for <dm-devel@redhat.com>; Fri, 21 May 2021 05:53:02 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 481FD95F343
+	for <dm-devel@redhat.com>; Fri, 21 May 2021 06:05:13 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-384-h2zo1z62PhOlQ9j8cIa9QQ-1; Fri, 21 May 2021 01:53:00 -0400
-X-MC-Unique: h2zo1z62PhOlQ9j8cIa9QQ-1
+	us-mta-342-5riyVeZ7OGiyWu4HgLUA4Q-1; Fri, 21 May 2021 02:05:11 -0400
+X-MC-Unique: 5riyVeZ7OGiyWu4HgLUA4Q-1
 Received: from [2001:4bb8:180:5add:4fd7:4137:d2f2:46e6] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
-	id 1ljy5W-00GqHh-Vr; Fri, 21 May 2021 05:52:47 +0000
+	id 1ljy3s-00Gpw6-Eq; Fri, 21 May 2021 05:51:04 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>, Geert Uytterhoeven <geert@linux-m68k.org>,
 	Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
@@ -61,10 +61,8 @@ To: Jens Axboe <axboe@kernel.dk>, Geert Uytterhoeven <geert@linux-m68k.org>,
 	Dave Jiang <dave.jiang@intel.com>, Heiko Carstens <hca@linux.ibm.com>, 
 	Vasily Gorbik <gor@linux.ibm.com>,
 	Christian Borntraeger <borntraeger@de.ibm.com>
-Date: Fri, 21 May 2021 07:51:16 +0200
-Message-Id: <20210521055116.1053587-27-hch@lst.de>
-In-Reply-To: <20210521055116.1053587-1-hch@lst.de>
-References: <20210521055116.1053587-1-hch@lst.de>
+Date: Fri, 21 May 2021 07:50:35 +0200
+Message-Id: <20210521055102.1053529-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	bombadil.infradead.org. See http://www.infradead.org/rpr.html
@@ -76,15 +74,16 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 Cc: linux-xtensa@linux-xtensa.org, linux-m68k@vger.kernel.org,
 	linux-raid@vger.kernel.org, nvdimm@lists.linux.dev,
 	linux-s390@vger.kernel.org, linux-mmc@vger.kernel.org,
 	linux-bcache@vger.kernel.org, linux-nvme@lists.infradead.org,
-	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	drbd-dev@tron.linbit.com, linuxppc-dev@lists.ozlabs.org
-Subject: [dm-devel] [PATCH 26/26] block: unexport blk_alloc_queue
+	linux-block@vger.kernel.org, dm-devel@redhat.com, drbd-dev@tron.linbit.com,
+	"open list:PS3 PLATFORM SUPPORT" <linuxppc-dev@lists.ozlabs.org>
+Subject: [dm-devel] simplify gendisk and request_queue allocation for bio
+	based drivers
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -98,7 +97,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -106,53 +105,48 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-blk_alloc_queue is just an internal helper now, unexport it and remove
-it from the public header.
+Hi all,
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- block/blk-core.c       | 1 -
- block/blk.h            | 2 ++
- include/linux/blkdev.h | 1 -
- 3 files changed, 2 insertions(+), 2 deletions(-)
+this series is the first part of cleaning up lifetimes and allocation of
+the gendisk and request_queue structure.  It adds a new interface to
+allocate the disk and queue together for bio based drivers, and a helper
+for cleanup/free them when a driver is unloaded or a device is removed.
 
-diff --git a/block/blk-core.c b/block/blk-core.c
-index 689aac2625d2..3515a66022d7 100644
---- a/block/blk-core.c
-+++ b/block/blk-core.c
-@@ -599,7 +599,6 @@ struct request_queue *blk_alloc_queue(int node_id)
- 	kmem_cache_free(blk_requestq_cachep, q);
- 	return NULL;
- }
--EXPORT_SYMBOL(blk_alloc_queue);
- 
- /**
-  * blk_get_queue - increment the request_queue refcount
-diff --git a/block/blk.h b/block/blk.h
-index cba3a94aabfa..3440142f029b 100644
---- a/block/blk.h
-+++ b/block/blk.h
-@@ -359,4 +359,6 @@ int bio_add_hw_page(struct request_queue *q, struct bio *bio,
- 		struct page *page, unsigned int len, unsigned int offset,
- 		unsigned int max_sectors, bool *same_page);
- 
-+struct request_queue *blk_alloc_queue(int node_id);
-+
- #endif /* BLK_INTERNAL_H */
-diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index 2c28577b50f4..d66d0da72529 100644
---- a/include/linux/blkdev.h
-+++ b/include/linux/blkdev.h
-@@ -1213,7 +1213,6 @@ static inline int blk_rq_map_sg(struct request_queue *q, struct request *rq,
- extern void blk_dump_rq_flags(struct request *, char *);
- 
- bool __must_check blk_get_queue(struct request_queue *);
--struct request_queue *blk_alloc_queue(int node_id);
- extern void blk_put_queue(struct request_queue *);
- extern void blk_set_queue_dying(struct request_queue *);
- 
--- 
-2.30.2
+Together this removes the need to treat the gendisk and request_queue
+as separate entities for bio based drivers.
+
+Diffstat:
+ arch/m68k/emu/nfblock.c             |   20 +---
+ arch/xtensa/platforms/iss/simdisk.c |   29 +------
+ block/blk-core.c                    |    1 
+ block/blk.h                         |    6 -
+ block/genhd.c                       |  149 +++++++++++++++++++-----------------
+ block/partitions/core.c             |   19 ++--
+ drivers/block/brd.c                 |   94 +++++++---------------
+ drivers/block/drbd/drbd_main.c      |   23 +----
+ drivers/block/n64cart.c             |    8 -
+ drivers/block/null_blk/main.c       |   38 ++++-----
+ drivers/block/pktcdvd.c             |   11 --
+ drivers/block/ps3vram.c             |   31 +------
+ drivers/block/rsxx/dev.c            |   39 +++------
+ drivers/block/rsxx/rsxx_priv.h      |    1 
+ drivers/block/zram/zram_drv.c       |   19 ----
+ drivers/lightnvm/core.c             |   24 +----
+ drivers/md/bcache/super.c           |   15 ---
+ drivers/md/dm.c                     |   16 +--
+ drivers/md/md.c                     |   25 ++----
+ drivers/memstick/core/ms_block.c    |    1 
+ drivers/nvdimm/blk.c                |   27 +-----
+ drivers/nvdimm/btt.c                |   25 +-----
+ drivers/nvdimm/btt.h                |    2 
+ drivers/nvdimm/pmem.c               |   17 +---
+ drivers/nvme/host/core.c            |    1 
+ drivers/nvme/host/multipath.c       |   46 +++--------
+ drivers/s390/block/dcssblk.c        |   26 +-----
+ drivers/s390/block/xpram.c          |   26 ++----
+ include/linux/blkdev.h              |    1 
+ include/linux/genhd.h               |   23 +++++
+ 30 files changed, 297 insertions(+), 466 deletions(-)
 
 --
 dm-devel mailing list
