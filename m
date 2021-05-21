@@ -2,78 +2,77 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id DA6AC38E128
-	for <lists+dm-devel@lfdr.de>; Mon, 24 May 2021 08:47:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3C06338E129
+	for <lists+dm-devel@lfdr.de>; Mon, 24 May 2021 08:47:56 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-215-Tsx9K-14OjGhqxUs0vCGRA-1; Mon, 24 May 2021 02:47:52 -0400
-X-MC-Unique: Tsx9K-14OjGhqxUs0vCGRA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-467-SXRXkVduMEirwioYP5KTFw-1; Mon, 24 May 2021 02:47:53 -0400
+X-MC-Unique: SXRXkVduMEirwioYP5KTFw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7CB8A802B78;
-	Mon, 24 May 2021 06:47:44 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 71E3C80293F;
+	Mon, 24 May 2021 06:47:46 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5AB096312E;
-	Mon, 24 May 2021 06:47:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4DFAE5D9FC;
+	Mon, 24 May 2021 06:47:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 117695534D;
-	Mon, 24 May 2021 06:47:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DEEC555355;
+	Mon, 24 May 2021 06:47:45 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14LHH0bo023117 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 21 May 2021 13:17:00 -0400
+	id 14LHIHIr023210 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 21 May 2021 13:18:17 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 528551692BE; Fri, 21 May 2021 17:17:00 +0000 (UTC)
+	id 6393320951BD; Fri, 21 May 2021 17:18:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4AF3B16C2C6
-	for <dm-devel@redhat.com>; Fri, 21 May 2021 17:16:57 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5F63320951B0
+	for <dm-devel@redhat.com>; Fri, 21 May 2021 17:18:14 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2B48B182506A
-	for <dm-devel@redhat.com>; Fri, 21 May 2021 17:16:57 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E3C4780D0E0
+	for <dm-devel@redhat.com>; Fri, 21 May 2021 17:18:13 +0000 (UTC)
 Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
 	[209.85.214.181]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-396-avu8VYVRPVCpVo666IPC8w-1; Fri, 21 May 2021 13:16:50 -0400
-X-MC-Unique: avu8VYVRPVCpVo666IPC8w-1
-Received: by mail-pl1-f181.google.com with SMTP id s4so9769038plg.12;
-	Fri, 21 May 2021 10:16:50 -0700 (PDT)
+	us-mta-22-GzcVKkqnO6yf3f6GxwS3eg-1; Fri, 21 May 2021 13:18:11 -0400
+X-MC-Unique: GzcVKkqnO6yf3f6GxwS3eg-1
+Received: by mail-pl1-f181.google.com with SMTP id t21so11344639plo.2;
+	Fri, 21 May 2021 10:18:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
 	:mime-version:content-disposition:in-reply-to;
-	bh=/6CTfoP+3YhIDA2Sa2Vg3MwIl/4IQc5OvLMHtpk2uwk=;
-	b=fn3UZ0zwz7vXYqVp2ZAJ5GMxpSun6cWAvx1urg7r+77dkihdy4MD8rV2fBwI25y2J8
-	iJcpJG2v8zL/h7CU8hTL0pRZSVeehzje87It2GaxAOf6KHHmPgDfBPZJP7rPExt/8oke
-	NoK6y/yhRn7rqBL9jYJ8yhZJpnnXi25dlC/AwlgCfqjPFpa+PVYDZ9Yr3Rmz4T+twApW
-	tN4B7ut4vO3jkhR013CohlPKSfsCyxBA1reoaCiokUA7o0Z7pEIT9+OgHKXtRbKo7otj
-	B2NP5HYFPbMJnjV8hZevT0NyNi1cYnbU35MbW6TygLYTXI3L5akVWku5gT4+kzgawKgY
-	xRig==
-X-Gm-Message-State: AOAM533bzC9Cb69d93Caj1sIVQFXgW1BFGxUWdjtTf5Dyr9/Btyuc8Cp
-	yE/nkYMyNQwVMu/PZ/KjHgo=
-X-Google-Smtp-Source: ABdhPJxtynqdEQ1F/D+2PqiHL9NmQC5jqLXgWhG+E7yzr8uLp59ObRLAPQ67LxwzZAhslkMqhOa4cA==
-X-Received: by 2002:a17:90a:590d:: with SMTP id
-	k13mr12082927pji.68.1621617409049; 
-	Fri, 21 May 2021 10:16:49 -0700 (PDT)
+	bh=PKUzbY5iIGLiRwydllRSQJCscB+6IrSLbJrzulbqCPE=;
+	b=QCBLsSbWydXK05A+S+/dnrtsd8q6iGtp9DVn9UXABdp6GvooAPz1UtRnFHfN/f912T
+	uJhyupudWIuJUBvFe9tu7FSj4o35tObmPQYgwzYicLBOKKH+Pv8Ofv89BWVIef4om+Wk
+	yprH+62Y6cZxPF79whBjj0gy6H6oEopjZDa7yVF0xFN1Bter7eTjmo+xK6GVP9I4qOOb
+	mtOuwYwarRq5IRteeTYytwmUq+w9tnmHX9jMpDWs/I8Ua/mOESW+DgFPrD3cvAz41GVM
+	Q1W/PsMvvvtXU6kXzOP/cseKCnuBy+JM2KzE/z8sXdXcTUKD1ESbA9XOKqm7qD7WdgXZ
+	t19g==
+X-Gm-Message-State: AOAM533Zy3Qps2CzD6Gxn18sAbvYOCPUC/88Q9D8fw0WpFbScDhfi26H
+	4PZ22BZg/gGNil0J387kEBQ=
+X-Google-Smtp-Source: ABdhPJwK8NtIAa5B5/oxZS0IR7nB67qYtN97nOKjvFJRfkRjUCvWO1h3QwEBBuBpXaKTLAx6Ca3tYw==
+X-Received: by 2002:a17:903:30c4:b029:f0:ad43:4ca with SMTP id
+	s4-20020a17090330c4b02900f0ad4304camr12902892plc.70.1621617489433;
+	Fri, 21 May 2021 10:18:09 -0700 (PDT)
 Received: from 42.do-not-panic.com (42.do-not-panic.com. [157.230.128.187])
-	by smtp.gmail.com with ESMTPSA id
-	q24sm4964064pgb.19.2021.05.21.10.16.47
+	by smtp.gmail.com with ESMTPSA id f5sm9178273pjp.37.2021.05.21.10.18.07
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Fri, 21 May 2021 10:16:47 -0700 (PDT)
+	Fri, 21 May 2021 10:18:08 -0700 (PDT)
 Received: by 42.do-not-panic.com (Postfix, from userid 1000)
-	id 6461E423A3; Fri, 21 May 2021 17:16:46 +0000 (UTC)
-Date: Fri, 21 May 2021 17:16:46 +0000
+	id 29A6B423A3; Fri, 21 May 2021 17:18:07 +0000 (UTC)
+Date: Fri, 21 May 2021 17:18:07 +0000
 From: Luis Chamberlain <mcgrof@kernel.org>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20210521171646.GA25017@42.do-not-panic.com>
+Message-ID: <20210521171807.GA25090@42.do-not-panic.com>
 References: <20210521055116.1053587-1-hch@lst.de>
-	<20210521055116.1053587-2-hch@lst.de>
+	<20210521055116.1053587-3-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20210521055116.1053587-2-hch@lst.de>
+In-Reply-To: <20210521055116.1053587-3-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -82,7 +81,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 24 May 2021 02:47:09 -0400
 Cc: nvdimm@lists.linux.dev, Ulf Hansson <ulf.hansson@linaro.org>,
@@ -106,8 +105,8 @@ Cc: nvdimm@lists.linux.dev, Ulf Hansson <ulf.hansson@linaro.org>,
 	Philipp Reisner <philipp.reisner@linbit.com>,
 	Jim Paris <jim@jtan.com>, Minchan Kim <minchan@kernel.org>,
 	Lars Ellenberg <lars.ellenberg@linbit.com>, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [dm-devel] [PATCH 01/26] block: refactor device number setup in
- __device_add_disk
+Subject: Re: [dm-devel] [PATCH 02/26] block: move the DISK_MAX_PARTS sanity
+ check into __device_add_disk
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -121,7 +120,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -130,58 +129,12 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, May 21, 2021 at 07:50:51AM +0200, Christoph Hellwig wrote:
-> diff --git a/block/genhd.c b/block/genhd.c
-> index 39ca97b0edc6..2c00bc3261d9 100644
-> --- a/block/genhd.c
-> +++ b/block/genhd.c
-> @@ -335,52 +335,22 @@ static int blk_mangle_minor(int minor)
-
-<-- snip -->
-
-> -int blk_alloc_devt(struct block_device *bdev, dev_t *devt)
-> +int blk_alloc_ext_minor(void)
->  {
-> -	struct gendisk *disk = bdev->bd_disk;
->  	int idx;
->  
-> -	/* in consecutive minor range? */
-> -	if (bdev->bd_partno < disk->minors) {
-> -		*devt = MKDEV(disk->major, disk->first_minor + bdev->bd_partno);
-> -		return 0;
-> -	}
-> -
-
-It is not obviously clear to me, why this was part of add_disk()
-path, and ...
-
-> diff --git a/block/partitions/core.c b/block/partitions/core.c
-> index dc60ecf46fe6..504297bdc8bf 100644
-> --- a/block/partitions/core.c
-> +++ b/block/partitions/core.c
-> @@ -379,9 +380,15 @@ static struct block_device *add_partition(struct gendisk *disk, int partno,
->  	pdev->type = &part_type;
->  	pdev->parent = ddev;
->  
-> -	err = blk_alloc_devt(bdev, &devt);
-> -	if (err)
-> -		goto out_put;
-> +	/* in consecutive minor range? */
-> +	if (bdev->bd_partno < disk->minors) {
-> +		devt = MKDEV(disk->major, disk->first_minor + bdev->bd_partno);
-> +	} else {
-> +		err = blk_alloc_ext_minor();
-> +		if (err < 0)
-> +			goto out_put;
-> +		devt = MKDEV(BLOCK_EXT_MAJOR, err);
-> +	}
->  	pdev->devt = devt;
->  
->  	/* delay uevent until 'holders' subdir is created */
-
-... and why we only add this here now.
-
-Other than that, this looks like a super nice cleanup!
+On Fri, May 21, 2021 at 07:50:52AM +0200, Christoph Hellwig wrote:
+> Keep this together with the first place that actually looks at
+> ->minors and prepare for not passing a minors argument to
+> alloc_disk.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
 Reviewed-by: Luis Chamberlain <mcgrof@kernel.org>
 
