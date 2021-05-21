@@ -1,48 +1,49 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E166438BE76
-	for <lists+dm-devel@lfdr.de>; Fri, 21 May 2021 07:52:58 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id AA66638BE8C
+	for <lists+dm-devel@lfdr.de>; Fri, 21 May 2021 07:53:05 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-471-Cw_8fOp6OYilW98ZukUUCg-1; Fri, 21 May 2021 01:52:55 -0400
-X-MC-Unique: Cw_8fOp6OYilW98ZukUUCg-1
+ us-mta-300-Vo2lPb10NAW0b8mBybqUsQ-1; Fri, 21 May 2021 01:52:55 -0400
+X-MC-Unique: Vo2lPb10NAW0b8mBybqUsQ-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D7481800D62;
-	Fri, 21 May 2021 05:52:49 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AFCBD2ED76;
-	Fri, 21 May 2021 05:52:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7CCFD107ACF3;
+	Fri, 21 May 2021 05:52:51 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 52FEC17A99;
+	Fri, 21 May 2021 05:52:51 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 24AE844A5A;
-	Fri, 21 May 2021 05:52:44 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1B69C180B463;
+	Fri, 21 May 2021 05:52:51 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14L5qYbG027221 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 21 May 2021 01:52:35 -0400
+	id 14L5qkEY027265 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 21 May 2021 01:52:47 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4F93110031EF; Fri, 21 May 2021 05:52:34 +0000 (UTC)
+	id 2AA94107CCE4; Fri, 21 May 2021 05:52:46 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B223109EF8D
-	for <dm-devel@redhat.com>; Fri, 21 May 2021 05:52:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 26AD810031EF
+	for <dm-devel@redhat.com>; Fri, 21 May 2021 05:52:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B0120833959
-	for <dm-devel@redhat.com>; Fri, 21 May 2021 05:52:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0F73180D0E2
+	for <dm-devel@redhat.com>; Fri, 21 May 2021 05:52:46 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-264-oXUBhwYuOqmwdQJVW7WjaQ-1; Fri, 21 May 2021 01:52:29 -0400
-X-MC-Unique: oXUBhwYuOqmwdQJVW7WjaQ-1
+	us-mta-467-IPyY5gJDOKy-ZbSuDD1pNw-1; Fri, 21 May 2021 01:52:43 -0400
+X-MC-Unique: IPyY5gJDOKy-ZbSuDD1pNw-1
 Received: from [2001:4bb8:180:5add:4fd7:4137:d2f2:46e6] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
-	id 1ljy54-00Gq9J-Po; Fri, 21 May 2021 05:52:19 +0000
+	id 1ljy58-00GqAV-Tf; Fri, 21 May 2021 05:52:23 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>, Geert Uytterhoeven <geert@linux-m68k.org>,
 	Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
@@ -60,8 +61,8 @@ To: Jens Axboe <axboe@kernel.dk>, Geert Uytterhoeven <geert@linux-m68k.org>,
 	Dave Jiang <dave.jiang@intel.com>, Heiko Carstens <hca@linux.ibm.com>, 
 	Vasily Gorbik <gor@linux.ibm.com>,
 	Christian Borntraeger <borntraeger@de.ibm.com>
-Date: Fri, 21 May 2021 07:51:09 +0200
-Message-Id: <20210521055116.1053587-20-hch@lst.de>
+Date: Fri, 21 May 2021 07:51:10 +0200
+Message-Id: <20210521055116.1053587-21-hch@lst.de>
 In-Reply-To: <20210521055116.1053587-1-hch@lst.de>
 References: <20210521055116.1053587-1-hch@lst.de>
 MIME-Version: 1.0
@@ -83,7 +84,7 @@ Cc: linux-xtensa@linux-xtensa.org, linux-m68k@vger.kernel.org,
 	linux-bcache@vger.kernel.org, linux-nvme@lists.infradead.org,
 	linux-block@vger.kernel.org, dm-devel@redhat.com,
 	drbd-dev@tron.linbit.com, linuxppc-dev@lists.ozlabs.org
-Subject: [dm-devel] [PATCH 19/26] nfblock: convert to
+Subject: [dm-devel] [PATCH 20/26] simdisk: convert to
 	blk_alloc_disk/blk_cleanup_disk
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -106,73 +107,79 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Convert the nfblock driver to use the blk_alloc_disk and blk_cleanup_disk
+Convert the simdisk driver to use the blk_alloc_disk and blk_cleanup_disk
 helpers to simplify gendisk and request_queue allocation.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- arch/m68k/emu/nfblock.c | 20 +++++---------------
- 1 file changed, 5 insertions(+), 15 deletions(-)
+ arch/xtensa/platforms/iss/simdisk.c | 29 +++++++----------------------
+ 1 file changed, 7 insertions(+), 22 deletions(-)
 
-diff --git a/arch/m68k/emu/nfblock.c b/arch/m68k/emu/nfblock.c
-index ba808543161a..9a8394e96388 100644
---- a/arch/m68k/emu/nfblock.c
-+++ b/arch/m68k/emu/nfblock.c
-@@ -55,7 +55,6 @@ struct nfhd_device {
- 	int id;
- 	u32 blocks, bsize;
- 	int bshift;
+diff --git a/arch/xtensa/platforms/iss/simdisk.c b/arch/xtensa/platforms/iss/simdisk.c
+index fc09be7b1347..3cdfa00738e0 100644
+--- a/arch/xtensa/platforms/iss/simdisk.c
++++ b/arch/xtensa/platforms/iss/simdisk.c
+@@ -27,7 +27,6 @@
+ struct simdisk {
+ 	const char *filename;
+ 	spinlock_t lock;
 -	struct request_queue *queue;
- 	struct gendisk *disk;
- };
- 
-@@ -119,32 +118,24 @@ static int __init nfhd_init_one(int id, u32 blocks, u32 bsize)
- 	dev->bsize = bsize;
- 	dev->bshift = ffs(bsize) - 10;
+ 	struct gendisk *gd;
+ 	struct proc_dir_entry *procfile;
+ 	int users;
+@@ -266,21 +265,13 @@ static int __init simdisk_setup(struct simdisk *dev, int which,
+ 	spin_lock_init(&dev->lock);
+ 	dev->users = 0;
  
 -	dev->queue = blk_alloc_queue(NUMA_NO_NODE);
--	if (dev->queue == NULL)
--		goto free_dev;
+-	if (dev->queue == NULL) {
+-		pr_err("blk_alloc_queue failed\n");
+-		goto out_alloc_queue;
+-	}
 -
--	blk_queue_logical_block_size(dev->queue, bsize);
--
--	dev->disk = alloc_disk(16);
-+	dev->disk = blk_alloc_disk(NUMA_NO_NODE);
- 	if (!dev->disk)
--		goto free_queue;
-+		goto free_dev;
+-	dev->gd = alloc_disk(SIMDISK_MINORS);
+-	if (dev->gd == NULL) {
+-		pr_err("alloc_disk failed\n");
+-		goto out_alloc_disk;
+-	}
++	dev->gd = blk_alloc_disk(NUMA_NO_NODE);
++	if (!dev->gd)
++		return -ENOMEM;
+ 	dev->gd->major = simdisk_major;
+ 	dev->gd->first_minor = which;
++	dev->gd->minors = SIMDISK_MINORS;
+ 	dev->gd->fops = &simdisk_ops;
+-	dev->gd->queue = dev->queue;
+ 	dev->gd->private_data = dev;
+ 	snprintf(dev->gd->disk_name, 32, "simdisk%d", which);
+ 	set_capacity(dev->gd, 0);
+@@ -288,12 +279,6 @@ static int __init simdisk_setup(struct simdisk *dev, int which,
  
- 	dev->disk->major = major_num;
- 	dev->disk->first_minor = dev_id * 16;
-+	dev->disk->minors = 16;
- 	dev->disk->fops = &nfhd_ops;
- 	dev->disk->private_data = dev;
- 	sprintf(dev->disk->disk_name, "nfhd%u", dev_id);
- 	set_capacity(dev->disk, (sector_t)blocks * (bsize / 512));
--	dev->disk->queue = dev->queue;
--
-+	blk_queue_logical_block_size(dev->disk->queue, bsize);
- 	add_disk(dev->disk);
- 
- 	list_add_tail(&dev->list, &nfhd_list);
- 
+ 	dev->procfile = proc_create_data(tmp, 0644, procdir, &simdisk_proc_ops, dev);
  	return 0;
- 
--free_queue:
+-
+-out_alloc_disk:
 -	blk_cleanup_queue(dev->queue);
- free_dev:
- 	kfree(dev);
- out:
-@@ -186,8 +177,7 @@ static void __exit nfhd_exit(void)
- 	list_for_each_entry_safe(dev, next, &nfhd_list, list) {
- 		list_del(&dev->list);
- 		del_gendisk(dev->disk);
--		put_disk(dev->disk);
+-	dev->queue = NULL;
+-out_alloc_queue:
+-	return -ENOMEM;
+ }
+ 
+ static int __init simdisk_init(void)
+@@ -343,10 +328,10 @@ static void simdisk_teardown(struct simdisk *dev, int which,
+ 	char tmp[2] = { '0' + which, 0 };
+ 
+ 	simdisk_detach(dev);
+-	if (dev->gd)
++	if (dev->gd) {
+ 		del_gendisk(dev->gd);
+-	if (dev->queue)
 -		blk_cleanup_queue(dev->queue);
-+		blk_cleanup_disk(dev->disk);
- 		kfree(dev);
- 	}
- 	unregister_blkdev(major_num, "nfhd");
++		blk_cleanup_disk(dev->gd);
++	}
+ 	remove_proc_entry(tmp, procdir);
+ }
+ 
 -- 
 2.30.2
 
