@@ -1,48 +1,48 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 23B7438BE6C
-	for <lists+dm-devel@lfdr.de>; Fri, 21 May 2021 07:52:57 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id E166438BE76
+	for <lists+dm-devel@lfdr.de>; Fri, 21 May 2021 07:52:58 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-232-73a72TYSPRK5cFDAe7ITYA-1; Fri, 21 May 2021 01:52:54 -0400
-X-MC-Unique: 73a72TYSPRK5cFDAe7ITYA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-471-Cw_8fOp6OYilW98ZukUUCg-1; Fri, 21 May 2021 01:52:55 -0400
+X-MC-Unique: Cw_8fOp6OYilW98ZukUUCg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 982A0802941;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D7481800D62;
 	Fri, 21 May 2021 05:52:49 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F20915D9CC;
-	Fri, 21 May 2021 05:52:48 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AFCBD2ED76;
+	Fri, 21 May 2021 05:52:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 247FE1800BBE;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 24AE844A5A;
 	Fri, 21 May 2021 05:52:44 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14L5qZUd027227 for <dm-devel@listman.util.phx.redhat.com>;
+	id 14L5qYbG027221 for <dm-devel@listman.util.phx.redhat.com>;
 	Fri, 21 May 2021 01:52:35 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 38568107CCE4; Fri, 21 May 2021 05:52:35 +0000 (UTC)
+	id 4F93110031EF; Fri, 21 May 2021 05:52:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 341031084486
-	for <dm-devel@redhat.com>; Fri, 21 May 2021 05:52:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1BC6380D0E2
-	for <dm-devel@redhat.com>; Fri, 21 May 2021 05:52:35 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B223109EF8D
+	for <dm-devel@redhat.com>; Fri, 21 May 2021 05:52:31 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B0120833959
+	for <dm-devel@redhat.com>; Fri, 21 May 2021 05:52:31 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-105-nk58SSNhP_qBcTc2UoxGOA-1; Fri, 21 May 2021 01:52:29 -0400
-X-MC-Unique: nk58SSNhP_qBcTc2UoxGOA-1
+	us-mta-264-oXUBhwYuOqmwdQJVW7WjaQ-1; Fri, 21 May 2021 01:52:29 -0400
+X-MC-Unique: oXUBhwYuOqmwdQJVW7WjaQ-1
 Received: from [2001:4bb8:180:5add:4fd7:4137:d2f2:46e6] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
-	id 1ljy50-00Gq7o-Ng; Fri, 21 May 2021 05:52:15 +0000
+	id 1ljy54-00Gq9J-Po; Fri, 21 May 2021 05:52:19 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>, Geert Uytterhoeven <geert@linux-m68k.org>,
 	Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
@@ -60,8 +60,8 @@ To: Jens Axboe <axboe@kernel.dk>, Geert Uytterhoeven <geert@linux-m68k.org>,
 	Dave Jiang <dave.jiang@intel.com>, Heiko Carstens <hca@linux.ibm.com>, 
 	Vasily Gorbik <gor@linux.ibm.com>,
 	Christian Borntraeger <borntraeger@de.ibm.com>
-Date: Fri, 21 May 2021 07:51:08 +0200
-Message-Id: <20210521055116.1053587-19-hch@lst.de>
+Date: Fri, 21 May 2021 07:51:09 +0200
+Message-Id: <20210521055116.1053587-20-hch@lst.de>
 In-Reply-To: <20210521055116.1053587-1-hch@lst.de>
 References: <20210521055116.1053587-1-hch@lst.de>
 MIME-Version: 1.0
@@ -83,7 +83,7 @@ Cc: linux-xtensa@linux-xtensa.org, linux-m68k@vger.kernel.org,
 	linux-bcache@vger.kernel.org, linux-nvme@lists.infradead.org,
 	linux-block@vger.kernel.org, dm-devel@redhat.com,
 	drbd-dev@tron.linbit.com, linuxppc-dev@lists.ozlabs.org
-Subject: [dm-devel] [PATCH 18/26] nvme-multipath: convert to
+Subject: [dm-devel] [PATCH 19/26] nfblock: convert to
 	blk_alloc_disk/blk_cleanup_disk
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -98,7 +98,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -106,104 +106,73 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Convert the nvme-multipath driver to use the blk_alloc_disk and
-blk_cleanup_disk helpers to simplify gendisk and request_queue
-allocation.
+Convert the nfblock driver to use the blk_alloc_disk and blk_cleanup_disk
+helpers to simplify gendisk and request_queue allocation.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/nvdimm/pmem.c         |  1 -
- drivers/nvme/host/multipath.c | 45 ++++++++++-------------------------
- 2 files changed, 13 insertions(+), 33 deletions(-)
+ arch/m68k/emu/nfblock.c | 20 +++++---------------
+ 1 file changed, 5 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
-index 9fcd05084564..31f3c4bd6f72 100644
---- a/drivers/nvdimm/pmem.c
-+++ b/drivers/nvdimm/pmem.c
-@@ -472,7 +472,6 @@ static int pmem_attach_disk(struct device *dev,
- 		blk_queue_flag_set(QUEUE_FLAG_DAX, q);
+diff --git a/arch/m68k/emu/nfblock.c b/arch/m68k/emu/nfblock.c
+index ba808543161a..9a8394e96388 100644
+--- a/arch/m68k/emu/nfblock.c
++++ b/arch/m68k/emu/nfblock.c
+@@ -55,7 +55,6 @@ struct nfhd_device {
+ 	int id;
+ 	u32 blocks, bsize;
+ 	int bshift;
+-	struct request_queue *queue;
+ 	struct gendisk *disk;
+ };
  
- 	disk->fops		= &pmem_fops;
--	disk->queue		= q;
- 	disk->private_data	= pmem;
- 	nvdimm_namespace_disk_name(ndns, disk->disk_name);
- 	set_capacity(disk, (pmem->size - pmem->pfn_pad - pmem->data_offset)
-diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
-index a5d02f236cca..b5fbdb416022 100644
---- a/drivers/nvme/host/multipath.c
-+++ b/drivers/nvme/host/multipath.c
-@@ -427,7 +427,6 @@ static void nvme_requeue_work(struct work_struct *work)
+@@ -119,32 +118,24 @@ static int __init nfhd_init_one(int id, u32 blocks, u32 bsize)
+ 	dev->bsize = bsize;
+ 	dev->bshift = ffs(bsize) - 10;
  
- int nvme_mpath_alloc_disk(struct nvme_ctrl *ctrl, struct nvme_ns_head *head)
- {
--	struct request_queue *q;
- 	bool vwc = false;
- 
- 	mutex_init(&head->lock);
-@@ -443,33 +442,24 @@ int nvme_mpath_alloc_disk(struct nvme_ctrl *ctrl, struct nvme_ns_head *head)
- 	if (!(ctrl->subsys->cmic & NVME_CTRL_CMIC_MULTI_CTRL) || !multipath)
- 		return 0;
- 
--	q = blk_alloc_queue(ctrl->numa_node);
--	if (!q)
--		goto out;
--	blk_queue_flag_set(QUEUE_FLAG_NONROT, q);
--	/* set to a default value for 512 until disk is validated */
--	blk_queue_logical_block_size(q, 512);
--	blk_set_stacking_limits(&q->limits);
+-	dev->queue = blk_alloc_queue(NUMA_NO_NODE);
+-	if (dev->queue == NULL)
+-		goto free_dev;
 -
--	/* we need to propagate up the VMC settings */
--	if (ctrl->vwc & NVME_CTRL_VWC_PRESENT)
--		vwc = true;
--	blk_queue_write_cache(q, vwc, vwc);
+-	blk_queue_logical_block_size(dev->queue, bsize);
 -
--	head->disk = alloc_disk(0);
-+	head->disk = blk_alloc_disk(ctrl->numa_node);
- 	if (!head->disk)
--		goto out_cleanup_queue;
-+		return -ENOMEM;
- 	head->disk->fops = &nvme_ns_head_ops;
- 	head->disk->private_data = head;
--	head->disk->queue = q;
- 	sprintf(head->disk->disk_name, "nvme%dn%d",
- 			ctrl->subsys->instance, head->instance);
--	return 0;
+-	dev->disk = alloc_disk(16);
++	dev->disk = blk_alloc_disk(NUMA_NO_NODE);
+ 	if (!dev->disk)
+-		goto free_queue;
++		goto free_dev;
  
--out_cleanup_queue:
--	blk_cleanup_queue(q);
--out:
--	return -ENOMEM;
-+	blk_queue_flag_set(QUEUE_FLAG_NONROT, head->disk->queue);
-+	/* set to a default value of 512 until the disk is validated */
-+	blk_queue_logical_block_size(head->disk->queue, 512);
-+	blk_set_stacking_limits(&head->disk->queue->limits);
-+
-+	/* we need to propagate up the VMC settings */
-+	if (ctrl->vwc & NVME_CTRL_VWC_PRESENT)
-+		vwc = true;
-+	blk_queue_write_cache(head->disk->queue, vwc, vwc);
-+	return 0;
- }
+ 	dev->disk->major = major_num;
+ 	dev->disk->first_minor = dev_id * 16;
++	dev->disk->minors = 16;
+ 	dev->disk->fops = &nfhd_ops;
+ 	dev->disk->private_data = dev;
+ 	sprintf(dev->disk->disk_name, "nfhd%u", dev_id);
+ 	set_capacity(dev->disk, (sector_t)blocks * (bsize / 512));
+-	dev->disk->queue = dev->queue;
+-
++	blk_queue_logical_block_size(dev->disk->queue, bsize);
+ 	add_disk(dev->disk);
  
- static void nvme_mpath_set_live(struct nvme_ns *ns)
-@@ -768,16 +758,7 @@ void nvme_mpath_remove_disk(struct nvme_ns_head *head)
- 	/* make sure all pending bios are cleaned up */
- 	kblockd_schedule_work(&head->requeue_work);
- 	flush_work(&head->requeue_work);
--	blk_cleanup_queue(head->disk->queue);
--	if (!test_bit(NVME_NSHEAD_DISK_LIVE, &head->flags)) {
--		/*
--		 * if device_add_disk wasn't called, prevent
--		 * disk release to put a bogus reference on the
--		 * request queue
--		 */
--		head->disk->queue = NULL;
--	}
--	put_disk(head->disk);
-+	blk_cleanup_disk(head->disk);
- }
+ 	list_add_tail(&dev->list, &nfhd_list);
  
- void nvme_mpath_init_ctrl(struct nvme_ctrl *ctrl)
+ 	return 0;
+ 
+-free_queue:
+-	blk_cleanup_queue(dev->queue);
+ free_dev:
+ 	kfree(dev);
+ out:
+@@ -186,8 +177,7 @@ static void __exit nfhd_exit(void)
+ 	list_for_each_entry_safe(dev, next, &nfhd_list, list) {
+ 		list_del(&dev->list);
+ 		del_gendisk(dev->disk);
+-		put_disk(dev->disk);
+-		blk_cleanup_queue(dev->queue);
++		blk_cleanup_disk(dev->disk);
+ 		kfree(dev);
+ 	}
+ 	unregister_blkdev(major_num, "nfhd");
 -- 
 2.30.2
 
