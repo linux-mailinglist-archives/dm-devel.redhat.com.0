@@ -2,47 +2,48 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 3357738BF01
-	for <lists+dm-devel@lfdr.de>; Fri, 21 May 2021 08:04:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BF90D38BEFE
+	for <lists+dm-devel@lfdr.de>; Fri, 21 May 2021 08:04:09 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-588-IQ-ei3FjM_6XI4qM2foi3Q-1; Fri, 21 May 2021 02:04:23 -0400
-X-MC-Unique: IQ-ei3FjM_6XI4qM2foi3Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-230-2ENQukEoNSqvyHoUGPjTHw-1; Fri, 21 May 2021 02:04:03 -0400
+X-MC-Unique: 2ENQukEoNSqvyHoUGPjTHw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 11F17107ACCA;
-	Fri, 21 May 2021 06:04:19 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E27D260E3A;
-	Fri, 21 May 2021 06:04:18 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 46ADC107ACCA;
+	Fri, 21 May 2021 06:03:59 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CBD8D6E70C;
+	Fri, 21 May 2021 06:03:58 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B9A03180102A;
-	Fri, 21 May 2021 06:04:17 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0150844A5A;
+	Fri, 21 May 2021 06:03:52 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14L64EL6028273 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 21 May 2021 02:04:14 -0400
+	id 14L63i4R028142 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 21 May 2021 02:03:44 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 97AC1212AA8C; Fri, 21 May 2021 06:04:14 +0000 (UTC)
+	id 21258212AA9E; Fri, 21 May 2021 06:03:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 91F4E212AA9C
-	for <dm-devel@redhat.com>; Fri, 21 May 2021 06:04:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 79F728339A3
-	for <dm-devel@redhat.com>; Fri, 21 May 2021 06:04:11 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 19FEC212AAA3
+	for <dm-devel@redhat.com>; Fri, 21 May 2021 06:03:40 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DE1BA80D0E1
+	for <dm-devel@redhat.com>; Fri, 21 May 2021 06:03:40 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-401-L1sHYFUjMa2Sz66KImbl3A-1; Fri, 21 May 2021 02:04:09 -0400
-X-MC-Unique: L1sHYFUjMa2Sz66KImbl3A-1
+	us-mta-455-oSLNbHvIOoeaKxTzbieZMg-1; Fri, 21 May 2021 02:03:38 -0400
+X-MC-Unique: oSLNbHvIOoeaKxTzbieZMg-1
 Received: from [2001:4bb8:180:5add:4fd7:4137:d2f2:46e6] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
-	id 1ljy4T-00Gpyh-Dv; Fri, 21 May 2021 05:51:41 +0000
+	id 1ljy4W-00Gpz2-CI; Fri, 21 May 2021 05:51:44 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>, Geert Uytterhoeven <geert@linux-m68k.org>,
 	Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
@@ -60,8 +61,8 @@ To: Jens Axboe <axboe@kernel.dk>, Geert Uytterhoeven <geert@linux-m68k.org>,
 	Dave Jiang <dave.jiang@intel.com>, Heiko Carstens <hca@linux.ibm.com>, 
 	Vasily Gorbik <gor@linux.ibm.com>,
 	Christian Borntraeger <borntraeger@de.ibm.com>
-Date: Fri, 21 May 2021 07:50:57 +0200
-Message-Id: <20210521055116.1053587-8-hch@lst.de>
+Date: Fri, 21 May 2021 07:50:58 +0200
+Message-Id: <20210521055116.1053587-9-hch@lst.de>
 In-Reply-To: <20210521055116.1053587-1-hch@lst.de>
 References: <20210521055116.1053587-1-hch@lst.de>
 MIME-Version: 1.0
@@ -83,7 +84,7 @@ Cc: linux-xtensa@linux-xtensa.org, linux-m68k@vger.kernel.org,
 	linux-bcache@vger.kernel.org, linux-nvme@lists.infradead.org,
 	linux-block@vger.kernel.org, dm-devel@redhat.com,
 	drbd-dev@tron.linbit.com, linuxppc-dev@lists.ozlabs.org
-Subject: [dm-devel] [PATCH 07/26] drbd: convert to
+Subject: [dm-devel] [PATCH 08/26] pktcdvd: convert to
 	blk_alloc_disk/blk_cleanup_disk
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -98,7 +99,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -106,84 +107,59 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Convert the drbd driver to use the blk_alloc_disk and blk_cleanup_disk
+Convert the pktcdvd driver to use the blk_alloc_disk and blk_cleanup_disk
 helpers to simplify gendisk and request_queue allocation.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/block/drbd/drbd_main.c | 23 ++++++++---------------
- 1 file changed, 8 insertions(+), 15 deletions(-)
+ drivers/block/pktcdvd.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/block/drbd/drbd_main.c b/drivers/block/drbd/drbd_main.c
-index de463773b530..55234a558e98 100644
---- a/drivers/block/drbd/drbd_main.c
-+++ b/drivers/block/drbd/drbd_main.c
-@@ -2231,8 +2231,7 @@ void drbd_destroy_device(struct kref *kref)
- 	if (device->bitmap) /* should no longer be there. */
- 		drbd_bm_cleanup(device);
- 	__free_page(device->md_io.page);
--	put_disk(device->vdisk);
--	blk_cleanup_queue(device->rq_queue);
-+	blk_cleanup_disk(device->vdisk);
- 	kfree(device->rs_plan_s);
+diff --git a/drivers/block/pktcdvd.c b/drivers/block/pktcdvd.c
+index bd3556585122..f69b5c69c2a6 100644
+--- a/drivers/block/pktcdvd.c
++++ b/drivers/block/pktcdvd.c
+@@ -2711,19 +2711,17 @@ static int pkt_setup_dev(dev_t dev, dev_t* pkt_dev)
+ 	pd->write_congestion_off = write_congestion_off;
  
- 	/* not for_each_connection(connection, resource):
-@@ -2701,7 +2700,6 @@ enum drbd_ret_code drbd_create_device(struct drbd_config_context *adm_ctx, unsig
- 	struct drbd_device *device;
- 	struct drbd_peer_device *peer_device, *tmp_peer_device;
- 	struct gendisk *disk;
--	struct request_queue *q;
- 	int id;
- 	int vnr = adm_ctx->volume;
- 	enum drbd_ret_code err = ERR_NOMEM;
-@@ -2723,29 +2721,26 @@ enum drbd_ret_code drbd_create_device(struct drbd_config_context *adm_ctx, unsig
- 
- 	drbd_init_set_defaults(device);
- 
--	q = blk_alloc_queue(NUMA_NO_NODE);
--	if (!q)
--		goto out_no_q;
--	device->rq_queue = q;
--
+ 	ret = -ENOMEM;
 -	disk = alloc_disk(1);
 +	disk = blk_alloc_disk(NUMA_NO_NODE);
  	if (!disk)
- 		goto out_no_disk;
-+
- 	device->vdisk = disk;
-+	device->rq_queue = disk->queue;
- 
- 	set_disk_ro(disk, true);
- 
--	disk->queue = q;
- 	disk->major = DRBD_MAJOR;
- 	disk->first_minor = minor;
+ 		goto out_mem;
+ 	pd->disk = disk;
+ 	disk->major = pktdev_major;
+ 	disk->first_minor = idx;
 +	disk->minors = 1;
- 	disk->fops = &drbd_ops;
- 	sprintf(disk->disk_name, "drbd%d", minor);
- 	disk->private_data = device;
+ 	disk->fops = &pktcdvd_ops;
+ 	disk->flags = GENHD_FL_REMOVABLE;
+ 	strcpy(disk->disk_name, pd->name);
+ 	disk->private_data = pd;
+-	disk->queue = blk_alloc_queue(NUMA_NO_NODE);
+-	if (!disk->queue)
+-		goto out_mem2;
  
--	blk_queue_write_cache(q, true, true);
-+	blk_queue_write_cache(disk->queue, true, true);
- 	/* Setting the max_hw_sectors to an odd value of 8kibyte here
- 	   This triggers a max_bio_size message upon first attach or connect */
--	blk_queue_max_hw_sectors(q, DRBD_MAX_BIO_SIZE_SAFE >> 8);
-+	blk_queue_max_hw_sectors(disk->queue, DRBD_MAX_BIO_SIZE_SAFE >> 8);
+ 	pd->pkt_dev = MKDEV(pktdev_major, idx);
+ 	ret = pkt_new_dev(pd, dev);
+@@ -2746,7 +2744,7 @@ static int pkt_setup_dev(dev_t dev, dev_t* pkt_dev)
+ 	return 0;
  
- 	device->md_io.page = alloc_page(GFP_KERNEL);
- 	if (!device->md_io.page)
-@@ -2834,10 +2829,8 @@ enum drbd_ret_code drbd_create_device(struct drbd_config_context *adm_ctx, unsig
- out_no_bitmap:
- 	__free_page(device->md_io.page);
- out_no_io_page:
+ out_mem2:
 -	put_disk(disk);
 +	blk_cleanup_disk(disk);
- out_no_disk:
--	blk_cleanup_queue(q);
--out_no_q:
- 	kref_put(&resource->kref, drbd_destroy_resource);
- 	kfree(device);
- 	return err;
+ out_mem:
+ 	mempool_exit(&pd->rb_pool);
+ 	kfree(pd);
+@@ -2796,8 +2794,7 @@ static int pkt_remove_dev(dev_t pkt_dev)
+ 	pkt_dbg(1, pd, "writer unmapped\n");
+ 
+ 	del_gendisk(pd->disk);
+-	blk_cleanup_queue(pd->disk->queue);
+-	put_disk(pd->disk);
++	blk_cleanup_disk(pd->disk);
+ 
+ 	mempool_exit(&pd->rb_pool);
+ 	kfree(pd);
 -- 
 2.30.2
 
