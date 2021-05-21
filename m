@@ -1,78 +1,80 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 3C2ED38E12B
-	for <lists+dm-devel@lfdr.de>; Mon, 24 May 2021 08:48:04 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 069FF38E124
+	for <lists+dm-devel@lfdr.de>; Mon, 24 May 2021 08:47:48 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-47-jcyInL4VP5qhom77UXaR8Q-1; Mon, 24 May 2021 02:47:44 -0400
-X-MC-Unique: jcyInL4VP5qhom77UXaR8Q-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-412-gS1C-eyWON-ssrNh2LAXRg-1; Mon, 24 May 2021 02:47:44 -0400
+X-MC-Unique: gS1C-eyWON-ssrNh2LAXRg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EB3F81005D4E;
-	Mon, 24 May 2021 06:47:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 008B0802943;
+	Mon, 24 May 2021 06:47:40 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C075C10074E0;
-	Mon, 24 May 2021 06:47:37 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D764B6267F;
+	Mon, 24 May 2021 06:47:39 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7746555349;
-	Mon, 24 May 2021 06:47:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 924F45534A;
+	Mon, 24 May 2021 06:47:39 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14LHMnsA023569 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 21 May 2021 13:22:49 -0400
+	id 14LHSqdn023846 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 21 May 2021 13:28:52 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1D3542177A02; Fri, 21 May 2021 17:22:49 +0000 (UTC)
+	id 659F610AF41F; Fri, 21 May 2021 17:28:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 18BAE2172F1F
-	for <dm-devel@redhat.com>; Fri, 21 May 2021 17:22:45 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DAB9A85828E
-	for <dm-devel@redhat.com>; Fri, 21 May 2021 17:22:45 +0000 (UTC)
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
-	[209.85.210.169]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-463-GcEk9cSoMtelsps4tbZpCw-1; Fri, 21 May 2021 13:22:41 -0400
-X-MC-Unique: GcEk9cSoMtelsps4tbZpCw-1
-Received: by mail-pf1-f169.google.com with SMTP id f22so7026434pfn.0;
-	Fri, 21 May 2021 10:22:41 -0700 (PDT)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6016810BBCD5
+	for <dm-devel@redhat.com>; Fri, 21 May 2021 17:28:49 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 947198007AC
+	for <dm-devel@redhat.com>; Fri, 21 May 2021 17:28:49 +0000 (UTC)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+	[209.85.216.53]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-594-alz556vgN_KYC2l9r_lc1Q-1; Fri, 21 May 2021 13:28:45 -0400
+X-MC-Unique: alz556vgN_KYC2l9r_lc1Q-1
+Received: by mail-pj1-f53.google.com with SMTP id
+	n6-20020a17090ac686b029015d2f7aeea8so7713759pjt.1; 
+	Fri, 21 May 2021 10:28:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
 	:mime-version:content-disposition:in-reply-to;
-	bh=4xwt7H3ydSynAZjOEHISSkaEhx58URrfefqnsYajrYo=;
-	b=DmSoVEQZV2Ti1/y3rZS0TtDN0E3YP8q/zJyZXVDRFoi6Y/f/jDZ/rZcsYi1rwzHodq
-	hFMbXVX5mb3lh/X9Nd8FmWPHhUmSawn7m9BWN4pDUskq+Pcv51qeHvHZRo/yyMVVaqA+
-	Pe6U938CvVOfidLpAPTeRsrQ55ZwPPgpOOIAwhdze4mqcNW8ULJTBqywDvx2xXdRn3jb
-	RiGzxqJgF193XCN30/s8B4GYMdWwTqNuBOksMsPCiJFQ1Me3covBYPNkroWBqpS/g4NG
-	wuWZPeHOTN+m+ypCzNDSIEFOvHL1jrHBMd5aemszlsMiLk5DcZAGN6JTHEQ1APGwNE1i
-	5xAg==
-X-Gm-Message-State: AOAM5306xgfROVlM6jR+J8OKjNHoZFKGSHjw+aUA4w0h/fuhWDqHIfRT
-	i/j0nbWclZR+mFdFtnZAcCc=
-X-Google-Smtp-Source: ABdhPJwN/SKOVHqzTq8eMNvLlpfI5p0TUMMcGqBBBfFtPi25TxwCtdfeNJoGCkAE3FkaxK6OlRwjhQ==
-X-Received: by 2002:a63:bc19:: with SMTP id q25mr11009138pge.211.1621617760179;
-	Fri, 21 May 2021 10:22:40 -0700 (PDT)
+	bh=B30rffgHFLYBI6xwi77IEdIESyslCgwa8HluqL6arQs=;
+	b=T4PIRpY0UX7QSkcH6vHhl5+JUFOjyXZadHZRVX/zECaCJZgaWIyHAENXTZfZrQ24yd
+	YmT3d9zCLOMdVniD8flC2rU6C9F1XQaujQDP6jy5La8Mi06/fMOgPnVAA0SRbmxERK4q
+	NrEJSc/Kyn0IlKm4tQ0VNKeFkcQ4G6IH2bUo2ZXAaaKRDbgRJuRsuBHFGKG4os3uLdcI
+	1hZ1h2cTW2If+OMWSviYNwOZHuZiOsYQz3XIauJ4lrPymjncXyIcWIBqyDubMIMv5gLh
+	niMDmqq0VwxcUPUyODNSxjeagzA3IcNnNkHqDMllREo/WBVHtaEHLU6dFVgs77kjKMiN
+	hrPA==
+X-Gm-Message-State: AOAM533l7eJ3rcdSbonzOa8NHXfiLkITfIyRVJ6e4HyRZ3wBAV0G7l7V
+	j8RvxQbU2WWopDSayQfbm14=
+X-Google-Smtp-Source: ABdhPJyrNWjuuiPeUt5pQpc8nPl0WeqbdGuJLCj1G2mOrwbN4glaACuKyX0vSa0sudDl68ZR50luTQ==
+X-Received: by 2002:a17:902:e8c8:b029:ee:f249:e416 with SMTP id
+	v8-20020a170902e8c8b02900eef249e416mr13149158plg.3.1621618124047;
+	Fri, 21 May 2021 10:28:44 -0700 (PDT)
 Received: from 42.do-not-panic.com (42.do-not-panic.com. [157.230.128.187])
 	by smtp.gmail.com with ESMTPSA id
-	o10sm4951196pgv.28.2021.05.21.10.22.38
+	p19sm2008772pgi.59.2021.05.21.10.28.42
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Fri, 21 May 2021 10:22:38 -0700 (PDT)
+	Fri, 21 May 2021 10:28:42 -0700 (PDT)
 Received: by 42.do-not-panic.com (Postfix, from userid 1000)
-	id F13FE423A3; Fri, 21 May 2021 17:22:37 +0000 (UTC)
-Date: Fri, 21 May 2021 17:22:37 +0000
+	id 77877423A3; Fri, 21 May 2021 17:28:41 +0000 (UTC)
+Date: Fri, 21 May 2021 17:28:41 +0000
 From: Luis Chamberlain <mcgrof@kernel.org>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20210521172237.GA25156@42.do-not-panic.com>
+Message-ID: <20210521172841.GA25211@42.do-not-panic.com>
 References: <20210521055116.1053587-1-hch@lst.de>
-	<20210521055116.1053587-4-hch@lst.de>
+	<20210521055116.1053587-5-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20210521055116.1053587-4-hch@lst.de>
+In-Reply-To: <20210521055116.1053587-5-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -81,7 +83,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 24 May 2021 02:47:09 -0400
 Cc: nvdimm@lists.linux.dev, Ulf Hansson <ulf.hansson@linaro.org>,
@@ -105,8 +107,8 @@ Cc: nvdimm@lists.linux.dev, Ulf Hansson <ulf.hansson@linaro.org>,
 	Philipp Reisner <philipp.reisner@linbit.com>,
 	Jim Paris <jim@jtan.com>, Minchan Kim <minchan@kernel.org>,
 	Lars Ellenberg <lars.ellenberg@linbit.com>, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [dm-devel] [PATCH 03/26] block: automatically enable
- GENHD_FL_EXT_DEVT
+Subject: Re: [dm-devel] [PATCH 04/26] block: add a flag to make put_disk on
+ partially initalized disks safer
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -120,7 +122,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -129,11 +131,11 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, May 21, 2021 at 07:50:53AM +0200, Christoph Hellwig wrote:
-> Automatically set the GENHD_FL_EXT_DEVT flag for all disks allocated
-> without an explicit number of minors.  This is what all new block
-> drivers should do, so make sure it is the default without boilerplate
-> code.
+On Fri, May 21, 2021 at 07:50:54AM +0200, Christoph Hellwig wrote:
+> Add a flag to indicate that __device_add_disk did grab a queue reference
+> so that disk_release only drops it if we actually had it.  This sort
+> out one of the major pitfals with partially initialized gendisk that
+> a lot of drivers did get wrong or still do.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 
