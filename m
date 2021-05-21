@@ -1,49 +1,49 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 6C20A38BF0E
-	for <lists+dm-devel@lfdr.de>; Fri, 21 May 2021 08:05:31 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 8936138BF0B
+	for <lists+dm-devel@lfdr.de>; Fri, 21 May 2021 08:05:17 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-349-EiyDhxKhOQCRRNRv9nN5tA-1; Fri, 21 May 2021 02:05:28 -0400
-X-MC-Unique: EiyDhxKhOQCRRNRv9nN5tA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-74-c1I_5OXPM4OE5PfmyunRpg-1; Fri, 21 May 2021 02:05:12 -0400
+X-MC-Unique: c1I_5OXPM4OE5PfmyunRpg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 270FC106BAAB;
-	Fri, 21 May 2021 06:05:22 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F3A8610013C1;
-	Fri, 21 May 2021 06:05:21 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D0E7A8049D1;
+	Fri, 21 May 2021 06:05:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B04E96A037;
+	Fri, 21 May 2021 06:05:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AACD755355;
-	Fri, 21 May 2021 06:05:21 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 67B3D1801265;
+	Fri, 21 May 2021 06:05:07 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14L65IdQ028765 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 21 May 2021 02:05:18 -0400
+	id 14L651xS028579 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 21 May 2021 02:05:02 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 01A74212AA8C; Fri, 21 May 2021 06:05:18 +0000 (UTC)
+	id C3C4520951BC; Fri, 21 May 2021 06:05:01 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F1A87212AA9E
-	for <dm-devel@redhat.com>; Fri, 21 May 2021 06:05:13 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BF11920951BA
+	for <dm-devel@redhat.com>; Fri, 21 May 2021 06:04:59 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 481FD95F343
-	for <dm-devel@redhat.com>; Fri, 21 May 2021 06:05:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 378AD10334A1
+	for <dm-devel@redhat.com>; Fri, 21 May 2021 06:04:59 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-342-5riyVeZ7OGiyWu4HgLUA4Q-1; Fri, 21 May 2021 02:05:11 -0400
-X-MC-Unique: 5riyVeZ7OGiyWu4HgLUA4Q-1
+	us-mta-534-qvJWoLksNcW32cPEq_FyZw-1; Fri, 21 May 2021 02:04:55 -0400
+X-MC-Unique: qvJWoLksNcW32cPEq_FyZw-1
 Received: from [2001:4bb8:180:5add:4fd7:4137:d2f2:46e6] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
-	id 1ljy3s-00Gpw6-Eq; Fri, 21 May 2021 05:51:04 +0000
+	id 1ljy47-00Gpwf-GU; Fri, 21 May 2021 05:51:19 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>, Geert Uytterhoeven <geert@linux-m68k.org>,
 	Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
@@ -61,8 +61,8 @@ To: Jens Axboe <axboe@kernel.dk>, Geert Uytterhoeven <geert@linux-m68k.org>,
 	Dave Jiang <dave.jiang@intel.com>, Heiko Carstens <hca@linux.ibm.com>, 
 	Vasily Gorbik <gor@linux.ibm.com>,
 	Christian Borntraeger <borntraeger@de.ibm.com>
-Date: Fri, 21 May 2021 07:50:35 +0200
-Message-Id: <20210521055102.1053529-1-hch@lst.de>
+Date: Fri, 21 May 2021 07:50:50 +0200
+Message-Id: <20210521055116.1053587-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	bombadil.infradead.org. See http://www.infradead.org/rpr.html
@@ -74,14 +74,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: linux-xtensa@linux-xtensa.org, linux-m68k@vger.kernel.org,
 	linux-raid@vger.kernel.org, nvdimm@lists.linux.dev,
 	linux-s390@vger.kernel.org, linux-mmc@vger.kernel.org,
 	linux-bcache@vger.kernel.org, linux-nvme@lists.infradead.org,
-	linux-block@vger.kernel.org, dm-devel@redhat.com, drbd-dev@tron.linbit.com,
-	"open list:PS3 PLATFORM SUPPORT" <linuxppc-dev@lists.ozlabs.org>
+	linux-block@vger.kernel.org, dm-devel@redhat.com,
+	drbd-dev@tron.linbit.com, linuxppc-dev@lists.ozlabs.org
 Subject: [dm-devel] simplify gendisk and request_queue allocation for bio
 	based drivers
 X-BeenThere: dm-devel@redhat.com
@@ -97,7 +97,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
