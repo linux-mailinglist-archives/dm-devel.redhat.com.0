@@ -1,126 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 36238390BF8
-	for <lists+dm-devel@lfdr.de>; Wed, 26 May 2021 00:11:51 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 350F83915A1
+	for <lists+dm-devel@lfdr.de>; Wed, 26 May 2021 13:00:40 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-216-F2ihmJIPPUi7jxfW6c9heQ-1; Tue, 25 May 2021 18:11:48 -0400
-X-MC-Unique: F2ihmJIPPUi7jxfW6c9heQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-447-tZx3ERd8MFGY9o_vsiJb3Q-1; Wed, 26 May 2021 07:00:36 -0400
+X-MC-Unique: tZx3ERd8MFGY9o_vsiJb3Q-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DFB38801B12;
-	Tue, 25 May 2021 22:11:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A619E5D9CD;
-	Tue, 25 May 2021 22:11:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8FC96180FD76;
+	Wed, 26 May 2021 11:00:29 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 44B8878627;
+	Wed, 26 May 2021 11:00:29 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8BCD955348;
-	Tue, 25 May 2021 22:11:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ED87E1801264;
+	Wed, 26 May 2021 11:00:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14PMBOtU006467 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 25 May 2021 18:11:24 -0400
+	id 14PMgM4s009737 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 25 May 2021 18:42:22 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2A1E310F8E3A; Tue, 25 May 2021 22:11:24 +0000 (UTC)
+	id 5AFAD201356F; Tue, 25 May 2021 22:42:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 251631033C70
-	for <dm-devel@redhat.com>; Tue, 25 May 2021 22:11:21 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 23196202878D
+	for <dm-devel@redhat.com>; Tue, 25 May 2021 22:42:18 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3DB58101A55F
-	for <dm-devel@redhat.com>; Tue, 25 May 2021 22:11:21 +0000 (UTC)
-Received: from esa2.hgst.iphmx.com (esa2.hgst.iphmx.com [68.232.143.124])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-17-fO-SG1QHMEGEhy7_PhemiQ-1; Tue, 25 May 2021 18:11:12 -0400
-X-MC-Unique: fO-SG1QHMEGEhy7_PhemiQ-1
-IronPort-SDR: fXaxEMgMHGlalEbhlcF00jiuD6qLIOKo3A3sIjyZ3Bhsd+Q9th97NPidQ+rQLc7AchWFYqd1Fx
-	s6Nso0UnJUu+DkGMoq45Re5BGZPol1viHtzEIgYzSSRllAt3LPteZgeiN+Wpn1V56wVIEyCtDB
-	B3S5Lba4W4FZV7Vy6JH5kohasMAWI3ZmwG8HaXE56LbfABkjUWItyDMANxLlHr+nnopGytIeHC
-	h8IweDr/+KSuj690de3s0i/QnwaUg9ieoGvAfuhkeN1CBtgVTOt8ZWQbccks/6Kdpi4pGRUHB4
-	FQ8=
-X-IronPort-AV: E=Sophos;i="5.82,329,1613404800"; d="scan'208";a="273317354"
-Received: from mail-dm6nam11lp2177.outbound.protection.outlook.com (HELO
-	NAM11-DM6-obe.outbound.protection.outlook.com) ([104.47.57.177])
-	by ob1.hgst.iphmx.com with ESMTP; 26 May 2021 06:11:25 +0800
-Received: from CH2PR04MB7078.namprd04.prod.outlook.com (2603:10b6:610:98::9)
-	by CH2PR04MB6585.namprd04.prod.outlook.com (2603:10b6:610:65::8) with
-	Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.23;
-	Tue, 25 May 2021 22:11:09 +0000
-Received: from CH2PR04MB7078.namprd04.prod.outlook.com
-	([fe80::4506:831d:3073:8a57]) by
-	CH2PR04MB7078.namprd04.prod.outlook.com
-	([fe80::4506:831d:3073:8a57%9]) with mapi id 15.20.4150.027;
-	Tue, 25 May 2021 22:11:09 +0000
-From: Damien Le Moal <Damien.LeMoal@wdc.com>
-To: Mikulas Patocka <mpatocka@redhat.com>, Mike Snitzer <msnitzer@redhat.com>
-Thread-Topic: [dm-devel] [PATCH] dm-kcopyd: avoid useless atomic operations
-Thread-Index: AQHXUZ8ypEgajDahj0Koof5HFKVHeA==
-Date: Tue, 25 May 2021 22:11:09 +0000
-Message-ID: <CH2PR04MB70783B1B24BD10E2BE380D1FE7259@CH2PR04MB7078.namprd04.prod.outlook.com>
-References: <alpine.LRH.2.02.2105251548340.29706@file01.intranet.prod.int.rdu2.redhat.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2400:2411:43c0:6000:11c4:96fb:3c8e:5a63]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 002308f7-80c6-4262-e484-08d91fc9fffd
-x-ms-traffictypediagnostic: CH2PR04MB6585:
-x-microsoft-antispam-prvs: <CH2PR04MB6585BA4AE839FB8A4FA5A3C5E7259@CH2PR04MB6585.namprd04.prod.outlook.com>
-wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:5797
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: eB1sJh4EOcMkA2EyUMJQ8EbqOmttFXWILeVnbcKEsIpOM0Sw/YexbtUhdMj6OCFj6NgBGXM1zLquD+CBTlw3l9Lm0v+j870+xTka2fp24+bKV07v8G1RPh1KWhM3asDVReMNWA7UCzfEzwPjDNahCjcZafvQewGQEOE/UzzTgcQwmjHTFyIe626gxKx1ToMDs5qoL4bbP4fstdVUyRAxWnkCYoL/O6qO3P2bw10QA4MbnIAKZqRFGwtco7jmP/TMXP697IaIkLDg6eq2F0bU4fqpGS+GsQmxk9ynJwD/40ZumLFIh4qonzNUbzk6cQpzg7aslqrDVzvB6YyQIZfbz6bCMm6h2HK6x96XzlJwXHLjJ/WAF2978v1wTczO8myEpiuEiGz+4m+JvpgJ4qVIKq9TiEoGN92BDMWZ4ZNObUMSfWQ9eHeAyTl6oF4/xbwE4TutkD1HrddEMBIU3jEP8ZPAfysAQx9hS+wGBNG0NogjJOh1Vo3iu+raw57T2BPjKWHShIUgXwxbjogNNen9tM1BhdDp7QCMh+be1oLckBBEDt2zQW7UJMT6JyN5wPQd828EpmBgl4sefMbCmIDlSFSyeuvSXyDMudqs48KzglHAe5thCY8jf9yJwn3W+Z2iGgTjsgPi6Doyz4sxzRkenxM5/zidL1klZEm2gMwzwdsI1THbJVeOkQWa4phmb/5yPC/WQL35O/fyNee3Uve0WOqyz+UKK2A+4UML9j93Gf4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:CH2PR04MB7078.namprd04.prod.outlook.com;
-	PTR:; CAT:NONE;
-	SFS:(4636009)(366004)(396003)(346002)(376002)(39860400002)(136003)(110136005)(86362001)(478600001)(4326008)(5660300002)(450100002)(66446008)(66946007)(66556008)(76116006)(55016002)(64756008)(8936002)(2906002)(66476007)(91956017)(316002)(9686003)(71200400001)(38100700002)(122000001)(83380400001)(186003)(966005)(8676002)(6506007)(7696005)(33656002)(53546011)(52536014);
-	DIR:OUT; SFP:1102
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?rI+V0UXiCIktot9lkm8ovSvz58cIaCYUUx5r0zbral4n2Sko/rv0zHGLTkHK?=
-	=?us-ascii?Q?B3JJbkU2+wjsYxvP5KsnxkMTpLSTx3Jh+DIK8sc0BVZcbipD56terwXbU76S?=
-	=?us-ascii?Q?WNwa4F7cG33MNa06v1XkzZ0JiKr6wftygnZYYBhGYq368ZvC0WJsW5Bw7NuL?=
-	=?us-ascii?Q?940Mecb5nA7RldyBxrlamPXKsMPf1veZGveYU1/70asyjVexIJgtofOHxze6?=
-	=?us-ascii?Q?5F5GaKj+UUhOObKhvyx2711O5f9cuuFu2QbYwA3NlxdBfWx6gnIqWiIBrhSG?=
-	=?us-ascii?Q?8mB7gbbXkenH6awMcjB/DAKjwptTSvifHdv04Ssgc1cxh9VvWEoXsZhkNQc+?=
-	=?us-ascii?Q?bSHI6sYtS4lVR5/r+OcWZV/1YLzOs3cRPFvbzxmF3F9baddSnSrXNq2CC6B5?=
-	=?us-ascii?Q?spk9kgEFc0eWlBG9PFvkCmCGSIynAJPBYEGvNgjHUgRrZ+M2eRDe7AD9RCQ0?=
-	=?us-ascii?Q?Cx9/8hsf1sPYFewLVB4FtMvSDPtOHKbjAJKSzcs/i0j/gEk3jlrMoNISw6ZK?=
-	=?us-ascii?Q?+VmV866eDUVD+blc8WgvrS3KsQ6GUQbw0GXIyIX8BDUTwJyzHgr6Q6z5RVUV?=
-	=?us-ascii?Q?3T2lqcZhdyFIEA4OplOjztLGYuVeJiPqR+3TTsin38SikkLqJyODdK2m2gq3?=
-	=?us-ascii?Q?wqTp6UBQ88u8R8sKcphLgaAgoM3R3YIbrJF8BRKXJ/jEvR06ChbuJdPULBKZ?=
-	=?us-ascii?Q?7EoWjto0DlptAXVTws6dbLmzBUMi4pQjq4o7B+55YPe5zA2t55vZGIm9gLnx?=
-	=?us-ascii?Q?0yMjrFlhHwQ79XrnZmdGCLERf3oIqAAyoWX9tT1lR6o39tfxcPNusBSsETgI?=
-	=?us-ascii?Q?CVSt4h3v44X5dFLgGWAckwjGrayn47l8TTp+CoZGB+4Pv/VorDbqrLsjcS+S?=
-	=?us-ascii?Q?P+/pCyjIshEwRWcSy3rTEhVVuSHlcIwCUn3C+fXh87+m4moj9mVV+SSv1+nn?=
-	=?us-ascii?Q?4Jh0lQQ0bAYkmdjawW5CvuyLstYTJaq8dfS0tWbSlleGEuSV9hhkHuE8mZJW?=
-	=?us-ascii?Q?mtc6+IL1OSZFAqvWJPCOd/dNIDoUuIHfPUfy7LfMrBADwqITEeioWzm/Es7L?=
-	=?us-ascii?Q?3iXdI4EoUY522RLjm+8trCBXoJ10ZLZbb1k6JWvmKaLt7a96kjdujqDGIQHi?=
-	=?us-ascii?Q?3jTqBWOfNUHNEd3xB2xvfpBPnadPF+s4j9/LwaVxz1d52T+3B6KvbOPBNlUy?=
-	=?us-ascii?Q?Dxq/jeWzz3869bfNTm9Cw7krkOcHtRLmD8Ptozq1KjftN+EQjdiTK77h/sK2?=
-	=?us-ascii?Q?7EoLzvbylvQpHecHnx23qAlx9qvg5qErSla7x1BLvl0LiP2EimvgMeXaFf0d?=
-	=?us-ascii?Q?xLup3JPFkM5mTzKMmZh6v0EX3jp2NxNsEsxI40aCKU3wg/tHIvj6K4SVvih2?=
-	=?us-ascii?Q?ExS5WbMH6NnJ5UfQhBTjfHyhJI/PEGlFtalZsUVEC5WomVg/+A=3D=3D?=
-x-ms-exchange-transport-forked: True
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B203181B13F
+	for <dm-devel@redhat.com>; Tue, 25 May 2021 22:42:18 +0000 (UTC)
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com
+	[209.85.217.48]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-316-EdxpO208OESeo-acLQTlYg-1; Tue, 25 May 2021 18:42:14 -0400
+X-MC-Unique: EdxpO208OESeo-acLQTlYg-1
+Received: by mail-vs1-f48.google.com with SMTP id j12so11863160vsq.9
+	for <dm-devel@redhat.com>; Tue, 25 May 2021 15:42:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=Q2ntYm6uDO3tojaF9gfgprihNvjCO5hVlU6EmFGOmTo=;
+	b=LHUtwSuJAN+xW5n6phiHfD+xHNf5AohpUKVbHcyJJAgXMp+5xEiB58PuwFh4zrj+Wz
+	e4adkD9+stfBBuMHa7PuQvEPPfSAxblLZXrKtvMgcm+GqoNHt6DxfRvVL2lLMZBhKC4f
+	8z7EOES2ROOoKgTRmh0A/juPw4MdcsEtMA7xX65NAODt8Ge4vRmh0+/wBRX1e9PfQ1Ao
+	uHIUnOZKNsG1f5RSlFPdWwGq52FpJC0UXA9LXpDpCLenBZGbu0CwE3Ohusi3Je8FxTEP
+	2NRwPMT0aBKKnba3Je6/zr6F7wqeE9PiJVLyXIPFHu57+OfK3a1OdYOWj3vMX4hNLSUD
+	ohOQ==
+X-Gm-Message-State: AOAM5333+Qe8ST1x/3s8LAUBHdjzMh2naJkSH1GpdhvaMMggCCkY0z+B
+	l/acaZ9OGAw2vaetPDZxinvJxJaQw0HHYtMtXUjfWA==
+X-Google-Smtp-Source: ABdhPJwx/fwYmfo8P5+A7EuWXJoD8LuumWi86gXq03cq2Wld1BR6mX3B8HbBTdDiayCS1IrjwzR0gvQYH9nbZXbeRCI=
+X-Received: by 2002:a05:6102:7c1:: with SMTP id
+	y1mr29600317vsg.34.1621982533995; 
+	Tue, 25 May 2021 15:42:13 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR04MB7078.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 002308f7-80c6-4262-e484-08d91fc9fffd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 May 2021 22:11:09.2018 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: q6IcAFVzlAN1XkppBf1792hoW63V22ckdbk2IGpwjAn43jywuJWfvw0q1hZWCIEjwUQrZLxxAem6CRiOoflDGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR04MB6585
+References: <20210521055116.1053587-1-hch@lst.de>
+In-Reply-To: <20210521055116.1053587-1-hch@lst.de>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Wed, 26 May 2021 00:41:37 +0200
+Message-ID: <CAPDyKFpqdSYeA+Zg=9Ewi46CmSWNpXQbju6HQo7aviCcRzyAAg@mail.gmail.com>
+To: Christoph Hellwig <hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -129,12 +74,34 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 14PMBOtU006467
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH] dm-kcopyd: avoid useless atomic operations
+X-Mailman-Approved-At: Wed, 26 May 2021 06:59:53 -0400
+Cc: nvdimm@lists.linux.dev, linux-m68k@vger.kernel.org,
+	Mike Snitzer <snitzer@redhat.com>,
+	linux-nvme@lists.infradead.org, Song Liu <song@kernel.org>,
+	dm-devel@redhat.com, Joshua Morris <josh.h.morris@us.ibm.com>,
+	linux-s390@vger.kernel.org, Dave Jiang <dave.jiang@intel.com>,
+	Maxim Levitsky <maximlevitsky@gmail.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Christian Borntraeger <borntraeger@de.ibm.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Matias Bjorling <mb@lightnvm.io>, Nitin Gupta <ngupta@vflare.org>,
+	Vasily Gorbik <gor@linux.ibm.com>, linux-xtensa@linux-xtensa.org,
+	Alex Dubov <oakad@yahoo.com>, Heiko Carstens <hca@linux.ibm.com>,
+	Coly Li <colyli@suse.de>, linux-block <linux-block@vger.kernel.org>,
+	linux-bcache@vger.kernel.org, drbd-dev@tron.linbit.com,
+	Philip Kelleher <pjk1939@linux.ibm.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Jens Axboe <axboe@kernel.dk>, Chris Zankel <chris@zankel.net>,
+	linux-raid@vger.kernel.org, Max Filippov <jcmvbkbc@gmail.com>,
+	linux-mmc <linux-mmc@vger.kernel.org>,
+	Philipp Reisner <philipp.reisner@linbit.com>,
+	Jim Paris <jim@jtan.com>, Minchan Kim <minchan@kernel.org>,
+	Lars Ellenberg <lars.ellenberg@linbit.com>,
+	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
+Subject: Re: [dm-devel] simplify gendisk and request_queue allocation for
+	bio based drivers
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -148,94 +115,72 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 2021/05/26 4:50, Mikulas Patocka wrote:
-> The functions set_bit and clear_bit are atomic. We don't need atomicity
-> when making flags for dm-kcopyd. So, change them to direct manipulation of
-> the flags.
-> 
-> Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-> 
-> Index: linux-2.6/drivers/md/dm-kcopyd.c
-> ===================================================================
-> --- linux-2.6.orig/drivers/md/dm-kcopyd.c
-> +++ linux-2.6/drivers/md/dm-kcopyd.c
-> @@ -812,7 +812,7 @@ void dm_kcopyd_copy(struct dm_kcopyd_cli
->  	if (!test_bit(DM_KCOPYD_WRITE_SEQ, &job->flags)) {
->  		for (i = 0; i < job->num_dests; i++) {
->  			if (bdev_zoned_model(dests[i].bdev) == BLK_ZONED_HM) {
-> -				set_bit(DM_KCOPYD_WRITE_SEQ, &job->flags);
-> +				job->flags |= 1UL << DM_KCOPYD_WRITE_SEQ;
+On Fri, 21 May 2021 at 07:51, Christoph Hellwig <hch@lst.de> wrote:
+>
+> Hi all,
+>
+> this series is the first part of cleaning up lifetimes and allocation of
+> the gendisk and request_queue structure.  It adds a new interface to
+> allocate the disk and queue together for bio based drivers, and a helper
+> for cleanup/free them when a driver is unloaded or a device is removed.
 
-How about using the BIT() macro ?
+May I ask what else you have in the pipe for the next steps?
 
-job->flags |= BIT(DM_KCOPYD_WRITE_SEQ);
+The reason why I ask is that I am looking into some issues related to
+lifecycle problems of gendisk/mmc, typically triggered at SD/MMC card
+removal.
 
-But I know some do not like that macro :)
+>
+> Together this removes the need to treat the gendisk and request_queue
+> as separate entities for bio based drivers.
+>
+> Diffstat:
+>  arch/m68k/emu/nfblock.c             |   20 +---
+>  arch/xtensa/platforms/iss/simdisk.c |   29 +------
+>  block/blk-core.c                    |    1
+>  block/blk.h                         |    6 -
+>  block/genhd.c                       |  149 +++++++++++++++++++-----------------
+>  block/partitions/core.c             |   19 ++--
+>  drivers/block/brd.c                 |   94 +++++++---------------
+>  drivers/block/drbd/drbd_main.c      |   23 +----
+>  drivers/block/n64cart.c             |    8 -
+>  drivers/block/null_blk/main.c       |   38 ++++-----
+>  drivers/block/pktcdvd.c             |   11 --
+>  drivers/block/ps3vram.c             |   31 +------
+>  drivers/block/rsxx/dev.c            |   39 +++------
+>  drivers/block/rsxx/rsxx_priv.h      |    1
+>  drivers/block/zram/zram_drv.c       |   19 ----
+>  drivers/lightnvm/core.c             |   24 +----
+>  drivers/md/bcache/super.c           |   15 ---
+>  drivers/md/dm.c                     |   16 +--
+>  drivers/md/md.c                     |   25 ++----
+>  drivers/memstick/core/ms_block.c    |    1
+>  drivers/nvdimm/blk.c                |   27 +-----
+>  drivers/nvdimm/btt.c                |   25 +-----
+>  drivers/nvdimm/btt.h                |    2
+>  drivers/nvdimm/pmem.c               |   17 +---
+>  drivers/nvme/host/core.c            |    1
+>  drivers/nvme/host/multipath.c       |   46 +++--------
+>  drivers/s390/block/dcssblk.c        |   26 +-----
+>  drivers/s390/block/xpram.c          |   26 ++----
+>  include/linux/blkdev.h              |    1
+>  include/linux/genhd.h               |   23 +++++
+>  30 files changed, 297 insertions(+), 466 deletions(-)
 
+This looks like a nice cleanup to me.  Feel free to add, for the series:
 
->  				break;
->  			}
->  		}
-> @@ -823,7 +823,7 @@ void dm_kcopyd_copy(struct dm_kcopyd_cli
->  	 */
->  	if (test_bit(DM_KCOPYD_WRITE_SEQ, &job->flags) &&
->  	    test_bit(DM_KCOPYD_IGNORE_ERROR, &job->flags))
-> -		clear_bit(DM_KCOPYD_IGNORE_ERROR, &job->flags);
-> +		job->flags &= ~(1UL << DM_KCOPYD_IGNORE_ERROR);
->  
->  	if (from) {
->  		job->source = *from;
-> Index: linux-2.6/drivers/md/dm-raid1.c
-> ===================================================================
-> --- linux-2.6.orig/drivers/md/dm-raid1.c
-> +++ linux-2.6/drivers/md/dm-raid1.c
-> @@ -364,7 +364,7 @@ static void recover(struct mirror_set *m
->  
->  	/* hand to kcopyd */
->  	if (!errors_handled(ms))
-> -		set_bit(DM_KCOPYD_IGNORE_ERROR, &flags);
-> +		flags |= 1UL << DM_KCOPYD_IGNORE_ERROR;
->  
->  	dm_kcopyd_copy(ms->kcopyd_client, &from, ms->nr_mirrors - 1, to,
->  		       flags, recovery_complete, reg);
-> Index: linux-2.6/drivers/md/dm-zoned-reclaim.c
-> ===================================================================
-> --- linux-2.6.orig/drivers/md/dm-zoned-reclaim.c
-> +++ linux-2.6/drivers/md/dm-zoned-reclaim.c
-> @@ -134,7 +134,7 @@ static int dmz_reclaim_copy(struct dmz_r
->  	dst_zone_block = dmz_start_block(zmd, dst_zone);
->  
->  	if (dmz_is_seq(dst_zone))
-> -		set_bit(DM_KCOPYD_WRITE_SEQ, &flags);
-> +		flags |= 1UL << DM_KCOPYD_WRITE_SEQ;
->  
->  	while (block < end_block) {
->  		if (src_zone->dev->flags & DMZ_BDEV_DYING)
-> 
-> --
-> dm-devel mailing list
-> dm-devel@redhat.com
-> https://listman.redhat.com/mailman/listinfo/dm-devel
+Reviewed-by: Ulf Hansson <ulf.hansson@linaro.org>
 
-Either way, looks fine to me.
-
-Reviewed-by: Damien Le Moal <damien.lemoal@wdc.com>
-
-
--- 
-Damien Le Moal
-Western Digital Research
-
-
+Kind regards
+Uffe
 
 --
 dm-devel mailing list
