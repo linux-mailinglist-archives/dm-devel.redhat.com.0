@@ -2,66 +2,86 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 951D73909FF
-	for <lists+dm-devel@lfdr.de>; Tue, 25 May 2021 21:53:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1621972430;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=TW9SoPR/JWFwpGx39VeXyJULO3xdxm4ml1DkzsaeOFA=;
-	b=W3m75R2K/KC2HJxMYQ6q1tKKm3pgfuxM/WJk7yTYvoboIdb5MelZ0TDZK4OT8iX1RxXQ9p
-	p+ZGj0HjMIeqxnrKEJYcruoImd7R9GM7oDZC/MuP4/28S2msV71NDR8CydAtoHFTt2Xsc8
-	uVpMBJiXBeGtonKtWWIWI6ZYSRACG1U=
+	by mail.lfdr.de (Postfix) with ESMTP id E42E9390B5D
+	for <lists+dm-devel@lfdr.de>; Tue, 25 May 2021 23:25:51 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-496-28J1FJfdNdmahnSxPIK5Og-1; Tue, 25 May 2021 15:53:48 -0400
-X-MC-Unique: 28J1FJfdNdmahnSxPIK5Og-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-80-dzXdQ6P8MnyvVI53yVOQjA-1; Tue, 25 May 2021 17:25:48 -0400
+X-MC-Unique: dzXdQ6P8MnyvVI53yVOQjA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 71112800D55;
-	Tue, 25 May 2021 19:53:43 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A1BE5D9C0;
-	Tue, 25 May 2021 19:53:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 70EFA64165;
+	Tue, 25 May 2021 21:25:38 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 37533617E;
+	Tue, 25 May 2021 21:25:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2E01255345;
-	Tue, 25 May 2021 19:53:41 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D80031801262;
+	Tue, 25 May 2021 21:25:37 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14PJrbAD027022 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 25 May 2021 15:53:37 -0400
+	id 14PLPEDR003304 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 25 May 2021 17:25:15 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2E9485C1D0; Tue, 25 May 2021 19:53:37 +0000 (UTC)
+	id D5990FA746; Tue, 25 May 2021 21:25:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
-	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F4255C1A1;
-	Tue, 25 May 2021 19:53:33 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id 14PJrWuf031017; Tue, 25 May 2021 15:53:32 -0400
-Received: from localhost (mpatocka@localhost)
-	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id 14PJrWYs031013; Tue, 25 May 2021 15:53:32 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
-	owned process doing -bs
-Date: Tue, 25 May 2021 15:53:32 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Joe Thornber <thornber@redhat.com>, Mike Snitzer <msnitzer@redhat.com>,
-	Zdenek Kabelac <zkabelac@redhat.com>
-Message-ID: <alpine.LRH.2.02.2105251550110.29706@file01.intranet.prod.int.rdu2.redhat.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D057063F84
+	for <dm-devel@redhat.com>; Tue, 25 May 2021 21:25:11 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 12D2F80D0E2
+	for <dm-devel@redhat.com>; Tue, 25 May 2021 21:25:11 +0000 (UTC)
+Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-215-P03H6o0NNmOp20U06Q_BXQ-1; Tue, 25 May 2021 17:25:05 -0400
+X-MC-Unique: P03H6o0NNmOp20U06Q_BXQ-1
+IronPort-SDR: khG8wvF8pGrUAi8A4lmMX9pNTXToBhxrDIop225D7u1oxQjrvTTf2VpuYqBTOioOXJ4MchqwSw
+	35aNxlLueITu5hbUqoqLpV/26ef6Z5vSao6rKPdMHX8IydvX0QQ/rBrw1TKMmo31j0ORubmFua
+	n6VhGT4f6xID96JVSigcHgDv6T7pq7MsnXx57pPUMMctsoGxTZy4Lp16VxTAu+29Y116+Vs/pi
+	lmDbgZmmYk5RaatrBiTWmRVL3/TXyHZz2RJUoWkiRK8yTdsHpkdPOv2L6es0yb5bPEhnusUhBC
+	FTE=
+X-IronPort-AV: E=Sophos;i="5.82,329,1613404800"; d="scan'208";a="168717507"
+Received: from uls-op-cesaip02.wdc.com (HELO uls-op-cesaep02.wdc.com)
+	([199.255.45.15])
+	by ob1.hgst.iphmx.com with ESMTP; 26 May 2021 05:25:04 +0800
+IronPort-SDR: JczIu6MoXvg52xzSUQtLJDcLw3yjF+rGqtL/nQAoVNqNh7rtGF9OLQy/7JTyYTm4BKhy9HP2UE
+	yUmD8WLKkRlzZvMjWU1NtbRiBCZ0JaoAfx7hE1i0X3AssSNZ7y40nofEq6YGaMzNKA33UobMQK
+	nAizsoc78HHdT/OcL28JAbFrBGRUkoN28k0LfwMb5+MvvllcQEcfGIeu5YYBXg8KaBvOe/UYaq
+	rPOmV8Ws8v0WAc6aY3Ulyg03QSMRCQrkU1G21+kZJWo108rvUM6pKJvx56sPKZLXT8gUEam4eX
+	gi6OYklsq2oOLdNQLuRU5Teb
+Received: from uls-op-cesaip01.wdc.com ([10.248.3.36])
+	by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	25 May 2021 14:03:14 -0700
+IronPort-SDR: xWy5TXbJxL/WICIduGJeqXsWqGXSHJsOL1aq+twxCdZeMwkruoxv0K7xlBbzMzn8pAfV52XMmz
+	2PTC51bhtyyMP+rV9vnOL0QIR7lALawp9nTy6RIppSzxcMFLxFvJxoHbS0MertIL4DNEz/3/Gv
+	HN4I3h9XxYK8irIZeDUVxHCPBQNg7u8y2uTY8H3n3otPgJ6L8sBEa4hYqOjyn8uh/iAv34Hs5V
+	jr7IIejAa5l8iNt/pxgf1oLx/4hahgss/vWSKjI4Yd3HHRLgAiY6HfxLFgIy1ufpCL23P+NuEU
+	zn0=
+WDCIronportException: Internal
+Received: from washi.fujisawa.hgst.com ([10.149.53.254])
+	by uls-op-cesaip01.wdc.com with ESMTP; 25 May 2021 14:25:03 -0700
+From: Damien Le Moal <damien.lemoal@wdc.com>
+To: dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>,
+	linux-block@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
+Date: Wed, 26 May 2021 06:24:50 +0900
+Message-Id: <20210525212501.226888-1-damien.lemoal@wdc.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com
-Subject: [dm-devel] [PATCH] improve kcopyd latency
+Subject: [dm-devel] [PATCH v5 00/11] dm: Improve zoned block device support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,7 +95,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -83,104 +103,96 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi
+This series improve device mapper support for zoned block devices and
+of targets exposing a zoned device.
 
-I've made this patch that improves kcopyd latency. When we set the bit 
-DM_KCOPYD_EARLY_CALLBACK, the completion is called from the interrupt 
-context instead of process context.
+The first patch improve support for user requests to reset all zones of
+the target device. With the fix, such operation behave similarly to
+physical block devices implementation based on the single zone reset
+command with the ALL bit set.
 
-I'd like to ask if you can benchmark it and test if it improves 
-performance of dm-thin and dm-cache.
+The following 2 patches are preparatory block layer patches.
 
-Mikulas
+Patch 4 and 5 are 2 small fixes to DM core zoned block device support.
 
+Patch 6 reorganizes DM core code, moving conditionally defined zoned
+block device code into the new dm-zone.c file. This avoids sprinkly DM
+with zone related code defined under an #ifdef CONFIG_BLK_DEV_ZONED.
 
+Patch 7 improves DM zone report helper functions for target drivers.
 
-Index: linux-2.6/drivers/md/dm-cache-target.c
-===================================================================
---- linux-2.6.orig/drivers/md/dm-cache-target.c
-+++ linux-2.6/drivers/md/dm-cache-target.c
-@@ -1171,9 +1171,9 @@ static void copy(struct dm_cache_migrati
- 	c_region.count = cache->sectors_per_block;
- 
- 	if (promote)
--		dm_kcopyd_copy(cache->copier, &o_region, 1, &c_region, 0, copy_complete, &mg->k);
-+		dm_kcopyd_copy(cache->copier, &o_region, 1, &c_region, 1UL << DM_KCOPYD_EARLY_CALLBACK, copy_complete, &mg->k);
- 	else
--		dm_kcopyd_copy(cache->copier, &c_region, 1, &o_region, 0, copy_complete, &mg->k);
-+		dm_kcopyd_copy(cache->copier, &c_region, 1, &o_region, 1UL << DM_KCOPYD_EARLY_CALLBACK, copy_complete, &mg->k);
- }
- 
- static void bio_drop_shared_lock(struct cache *cache, struct bio *bio)
-Index: linux-2.6/drivers/md/dm-kcopyd.c
-===================================================================
---- linux-2.6.orig/drivers/md/dm-kcopyd.c
-+++ linux-2.6/drivers/md/dm-kcopyd.c
-@@ -512,6 +512,10 @@ static int run_complete_job(struct kcopy
- 	return 0;
- }
- 
-+static void null_completion(int read_err, unsigned long write_err, void *context)
-+{
-+}
-+
- static void complete_io(unsigned long error, void *context)
- {
- 	struct kcopyd_job *job = (struct kcopyd_job *) context;
-@@ -532,10 +536,13 @@ static void complete_io(unsigned long er
- 		}
- 	}
- 
--	if (op_is_write(job->rw))
-+	if (op_is_write(job->rw)) {
-+		if (test_bit(DM_KCOPYD_EARLY_CALLBACK, &job->flags)) {
-+			job->fn(job->read_err, job->write_err, job->context);
-+			job->fn = null_completion;
-+		}
- 		push(&kc->complete_jobs, job);
--
--	else {
-+	} else {
- 		job->rw = WRITE;
- 		push(&kc->io_jobs, job);
- 	}
-@@ -735,6 +742,7 @@ static void segment_complete(int read_er
- 			sub_job->dests[i].count = count;
- 		}
- 
-+		sub_job->flags &= ~(1UL << DM_KCOPYD_EARLY_CALLBACK);
- 		sub_job->fn = segment_complete;
- 		sub_job->context = sub_job;
- 		dispatch_job(sub_job);
-Index: linux-2.6/drivers/md/dm-thin.c
-===================================================================
---- linux-2.6.orig/drivers/md/dm-thin.c
-+++ linux-2.6/drivers/md/dm-thin.c
-@@ -1359,7 +1359,7 @@ static void schedule_copy(struct thin_c
- 		to.count = len;
- 
- 		dm_kcopyd_copy(pool->copier, &from, 1, &to,
--			       0, copy_complete, m);
-+			       1UL << DM_KCOPYD_EARLY_CALLBACK, copy_complete, m);
- 
- 		/*
- 		 * Do we need to zero a tail region?
-Index: linux-2.6/include/linux/dm-kcopyd.h
-===================================================================
---- linux-2.6.orig/include/linux/dm-kcopyd.h
-+++ linux-2.6/include/linux/dm-kcopyd.h
-@@ -19,8 +19,9 @@
- /* FIXME: make this configurable */
- #define DM_KCOPYD_MAX_REGIONS 8
- 
--#define DM_KCOPYD_IGNORE_ERROR 1
--#define DM_KCOPYD_WRITE_SEQ    2
-+#define DM_KCOPYD_IGNORE_ERROR		1
-+#define DM_KCOPYD_WRITE_SEQ		2
-+#define DM_KCOPYD_EARLY_CALLBACK	3
- 
- struct dm_kcopyd_throttle {
- 	unsigned throttle;
+Patch 8 fixes a potential problem with BIO requeue on zoned target.
+
+Finally, patch 9 to 11 implement zone append emulation using regular
+writes for target drivers that cannot natively support this BIO type.
+The only target currently needing this emulation is dm-crypt. With this
+change, a zoned dm-crypt device behaves exactly like a regular zoned
+block device, correctly executing user zone append BIOs.
+
+This series passes the following tests:
+1) zonefs tests on top of dm-crypt with a zoned nullblk device
+2) zonefs tests on top of dm-crypt+dm-linear with an SMR HDD
+3) btrfs fstests on top of dm-crypt with zoned nullblk devices.
+
+Comments are as always welcome.
+
+Changes from v4:
+* Remove useless extra space in variable initialization in patch 1
+* Shorten dm_accept_partial_bio() documentation comment in patch 4
+* Added reviewed-by tags
+
+Changes from v3:
+* Fixed missing variable initialization in
+  blkdev_zone_reset_all_emulated() in patch 1.
+* Rebased on rc3
+* Added reviewed-by tags
+
+Changes from v2:
+* Replace use of spinlock to protect the zone write pointer offset
+  array in patch 11 with READ_ONCE/WRITE_ONCE as suggested by Hannes.
+* Added reviewed-by tags
+
+Changes from v1:
+* Use Christoph proposed approach for patch 1 (split reset all
+  processing into different functions)
+* Changed helpers introduced in patch 2 to remove the request_queue
+  argument
+* Improve patch 3 commit message as suggested by Christoph (explaining
+  that the flag is a special case that cannot use a REQ_XXX flag)
+* Changed DMWARN() into DMDEBUG in patch 11 as suggested by Milan
+* Added reviewed-by tags
+
+Damien Le Moal (11):
+  block: improve handling of all zones reset operation
+  block: introduce bio zone helpers
+  block: introduce BIO_ZONE_WRITE_LOCKED bio flag
+  dm: Fix dm_accept_partial_bio()
+  dm: cleanup device_area_is_invalid()
+  dm: move zone related code to dm-zone.c
+  dm: Introduce dm_report_zones()
+  dm: Forbid requeue of writes to zones
+  dm: rearrange core declarations
+  dm: introduce zone append emulation
+  dm crypt: Fix zoned block device support
+
+ block/blk-zoned.c             | 119 +++++--
+ drivers/md/Makefile           |   4 +
+ drivers/md/dm-core.h          |  65 ++++
+ drivers/md/dm-crypt.c         |  31 +-
+ drivers/md/dm-flakey.c        |   7 +-
+ drivers/md/dm-linear.c        |   7 +-
+ drivers/md/dm-table.c         |  21 +-
+ drivers/md/dm-zone.c          | 654 ++++++++++++++++++++++++++++++++++
+ drivers/md/dm.c               | 201 +++--------
+ drivers/md/dm.h               |  30 +-
+ include/linux/blk_types.h     |   1 +
+ include/linux/blkdev.h        |  12 +
+ include/linux/device-mapper.h |   9 +-
+ 13 files changed, 954 insertions(+), 207 deletions(-)
+ create mode 100644 drivers/md/dm-zone.c
+
+-- 
+2.31.1
 
 --
 dm-devel mailing list
