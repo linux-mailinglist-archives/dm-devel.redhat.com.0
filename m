@@ -1,76 +1,78 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 25D6138F823
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id C6C5F38F824
 	for <lists+dm-devel@lfdr.de>; Tue, 25 May 2021 04:26:15 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-84-5qxNcyVxNWqTQCzY_atxnw-1; Mon, 24 May 2021 22:26:11 -0400
-X-MC-Unique: 5qxNcyVxNWqTQCzY_atxnw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-85-ZrxM_WHZMCmCR0p-WaofHA-1; Mon, 24 May 2021 22:26:12 -0400
+X-MC-Unique: ZrxM_WHZMCmCR0p-WaofHA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 51683801B18;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4C1F96D4EC;
 	Tue, 25 May 2021 02:26:06 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EE89E5D767;
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EFE0161094;
 	Tue, 25 May 2021 02:26:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 31A0A1801029;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 12C425535A;
 	Tue, 25 May 2021 02:25:59 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14P2Pkl7027646 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 24 May 2021 22:25:47 -0400
+	id 14P2Poc1027665 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 24 May 2021 22:25:50 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5D7A21009157; Tue, 25 May 2021 02:25:46 +0000 (UTC)
+	id 51372217E435; Tue, 25 May 2021 02:25:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5866D1111447
-	for <dm-devel@redhat.com>; Tue, 25 May 2021 02:25:43 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4CC56217E433
+	for <dm-devel@redhat.com>; Tue, 25 May 2021 02:25:47 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D97C783395B
-	for <dm-devel@redhat.com>; Tue, 25 May 2021 02:25:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1B453857AA4
+	for <dm-devel@redhat.com>; Tue, 25 May 2021 02:25:47 +0000 (UTC)
 Received: from esa2.hgst.iphmx.com (esa2.hgst.iphmx.com [68.232.143.124])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-507-bSxydBgPM2OLNCJA6T4PBA-1; Mon, 24 May 2021 22:25:41 -0400
-X-MC-Unique: bSxydBgPM2OLNCJA6T4PBA-1
-IronPort-SDR: MLvbOMyQylQAn2zpjJM7jC5bg/XhexmUt7xf0Qfeb7drfy5pleOuJY2RCx+Prhtnl2lRjx8cbW
-	m3+nviT1182aw0Y+9puo6cT/aAf9sxFiSrESB3s8DEB6Y1hoQObENO4s2E48TeGS6xwyghYLEB
-	EjnWYxZkd5VjYkdWBkAr5bvWgaPeBygYuj3ol7GSBTjcTbBw/aUBJjkA53F0uR8WfgSUFj66Nj
-	7wxbHySKvKc7Z9iw+vjBGP0Wv++s4oCEnQ0elA9iTERPI63SV1qGRWgyHtr9Az8KjWcCAdzT3e
-	iFQ=
-X-IronPort-AV: E=Sophos;i="5.82,327,1613404800"; d="scan'208";a="273213771"
+	us-mta-372-IzHISLl4PZuPzbKB2J2q2w-1; Mon, 24 May 2021 22:25:42 -0400
+X-MC-Unique: IzHISLl4PZuPzbKB2J2q2w-1
+IronPort-SDR: g1USgr+01MdqrSx7/yjmh7xYpEid4LSMF1vgofSMlPpmCKuEohtwyd+MlvTyPsTK0Y6vqbfcqm
+	yUsnAt01yewTXtbLPt31evI5f/f5ngYYUZNip+cZi3OXGOI2ObaeGIZJqoWm+Y01b5WGVSGxp0
+	sT5hphtQw+F0UkXYvyf9qfYEqpzuma5jTtHQCh3yaNgSxx69CZUTNIBGdKHQvlXNFsDyaLnfYa
+	r3JPZkxMpR3UxbtzSdae1ZRiIiVkGw9Iy9PpJAIKeB2+zQ1kQQPd19lK+FFbnGWsU5nzh3zho6
+	F/c=
+X-IronPort-AV: E=Sophos;i="5.82,327,1613404800"; d="scan'208";a="273213773"
 Received: from uls-op-cesaip02.wdc.com (HELO uls-op-cesaep02.wdc.com)
 	([199.255.45.15])
-	by ob1.hgst.iphmx.com with ESMTP; 25 May 2021 10:26:36 +0800
-IronPort-SDR: koK3ulI+7Qix/bgFH4RiFluzw+oEHukLRM7xMkCNThf8x7nBx0zFJ0ozSVDTiVLv456P3qti2M
-	LVVCII0ABVXOxLHaEY6KkW+1BOFFXg2MVMcdwUxLihnsCI+emaSnWIir1M73GLjkbv6IMTVaNV
-	TCybrgD8BLnIkNFOllaL+24JmEFhhUOKK+KjbpbR5xdGVQEWbVQifey7NWdRKxmYY+cQC+LzpC
-	nuxD2lbfqrR21DUuDHddXJ+zhifFrp7L3NLi/5iHRi7VQa1MMm7lWGtUKQMyc7IBhwvIdrP1D4
-	EiovWXl0GjzsPFF7q8Cg6v3o
+	by ob1.hgst.iphmx.com with ESMTP; 25 May 2021 10:26:38 +0800
+IronPort-SDR: qTNPzNRA+KpxzI+2WOWfh3gNsT51AO0BR9VwUTBYFTDSjp9PuagR9W4qgvb1EVdjgOvaCMQWi2
+	6rRE+MQ54AfALa4OwpiKMr+TpsRzfpsl3pcepD+LQ8GmeWGKoFBw131afqOybdBXaz+kxet66x
+	BjHgm1JcC0s6GOHXcyGdBn1AIupCIjq9SxmJ5HNNa+aDQmGRrTTTH/MyMZR/xlwQL5wVQFroNt
+	hrM04J9z1bk14SCC6HAWxbWEqCUFF1AzyBSB42Iw4ZUI94g7juTdxbAe+7cdCJiDqQVNwCDmaG
+	YWoRcnbt5QvJgLQCFxtYnSOm
 Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
 	by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	24 May 2021 19:03:54 -0700
-IronPort-SDR: WoCjn06vNnQAlnlv1p4iyV9s4DNGMjYjHUm1ASW0KfxEitteLFLdaj3FY5cBjAZa32G3McnkVK
-	Oi9FzceS1Y/i4iTUuH6YlZGHeVbr5zZ0nuU9vaVkCa3KZgDTVVp5GYDAH9/7wiV5TGynddjy10
-	u2Rm1QheboeiSrQc1lsFWNxLSzqUsD92scXDHdhUFbUiH79QBFEUY5Ov69CScLbtu/lWlusi81
-	meq8+InorQl7rk6/efvkAdDNbV/Zeo3s3V/wTV+S34bNavhcYttxUgvEVkmBMaA1zDvzVd4zTE
-	4X4=
+	24 May 2021 19:03:56 -0700
+IronPort-SDR: g0nzjXDYk9USvQNTYRlrx6tvADftuBjMMTNnHDjQ6FypnGlaq9hRyk3ahpDRSa4DnLCVoJbEhP
+	BUbxSz0o9eRDF92xz4xPNwT9LnoCNO7EKzoo8bW531qxQWK4VWYzqu4YjPDzx7EZVYIh6y4CRj
+	Zgnjbdkkj5zIHaWAl7Zr2fBNx0XplFDkFn7Ozdol8YyL00Ge8ITbM599aLKpUNFL7YPYTxnC0T
+	vep4vekioQEPuUj7ALbjfj/vyZ9At6ZpsZyg8dQwcThyQI8JkeASIax4YRz0dgd3vLDiGJfQh7
+	0Xk=
 WDCIronportException: Internal
 Received: from washi.fujisawa.hgst.com ([10.149.53.254])
-	by uls-op-cesaip02.wdc.com with ESMTP; 24 May 2021 19:25:39 -0700
+	by uls-op-cesaip02.wdc.com with ESMTP; 24 May 2021 19:25:40 -0700
 From: Damien Le Moal <damien.lemoal@wdc.com>
 To: dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>,
 	linux-block@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
-Date: Tue, 25 May 2021 11:25:28 +0900
-Message-Id: <20210525022539.119661-1-damien.lemoal@wdc.com>
+Date: Tue, 25 May 2021 11:25:29 +0900
+Message-Id: <20210525022539.119661-2-damien.lemoal@wdc.com>
+In-Reply-To: <20210525022539.119661-1-damien.lemoal@wdc.com>
+References: <20210525022539.119661-1-damien.lemoal@wdc.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -80,9 +82,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Subject: [dm-devel] [PATCH v4 00/11] dm: Improve zoned block device support
+Subject: [dm-devel] [PATCH v4 01/11] block: improve handling of all zones
+	reset operation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,7 +99,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,89 +107,205 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This series improve device mapper support for zoned block devices and
-of targets exposing a zoned device.
+SCSI, ZNS and null_blk zoned devices support resetting all zones using
+a single command (REQ_OP_ZONE_RESET_ALL), as indicated using the device
+request queue flag QUEUE_FLAG_ZONE_RESETALL. This flag is not set for
+device mapper targets creating zoned devices. In this case, a user
+request for resetting all zones of a device is processed in
+blkdev_zone_mgmt() by issuing a REQ_OP_ZONE_RESET operation for each
+zone of the device. This leads to different behaviors of the
+BLKRESETZONE ioctl() depending on the target device support for the
+reset all operation. E.g.
 
-The first patch improve support for user requests to reset all zones of
-the target device. With the fix, such operation behave similarly to
-physical block devices implementation based on the single zone reset
-command with the ALL bit set.
+blkzone reset /dev/sdX
 
-The following 2 patches are preparatory block layer patches.
+will reset all zones of a SCSI device using a single command that will
+ignore conventional, read-only or offline zones.
 
-Patch 4 and 5 are 2 small fixes to DM core zoned block device support.
+But a dm-linear device including conventional, read-only or offline
+zones cannot be reset in the same manner as some of the single zone
+reset operations issued by blkdev_zone_mgmt() will fail. E.g.:
 
-Patch 6 reorganizes DM core code, moving conditionally defined zoned
-block device code into the new dm-zone.c file. This avoids sprinkly DM
-with zone related code defined under an #ifdef CONFIG_BLK_DEV_ZONED.
+blkzone reset /dev/dm-Y
+blkzone: /dev/dm-0: BLKRESETZONE ioctl failed: Remote I/O error
 
-Patch 7 improves DM zone report helper functions for target drivers.
+To simplify applications and tools development, unify the behavior of
+the all-zone reset operation by modifying blkdev_zone_mgmt() to not
+issue a zone reset operation for conventional, read-only and offline
+zones, thus mimicking what an actual reset-all device command does on a
+device supporting REQ_OP_ZONE_RESET_ALL. This emulation is done using
+the new function blkdev_zone_reset_all_emulated(). The zones needing a
+reset are identified using a bitmap that is initialized using a zone
+report. Since empty zones do not need a reset, also ignore these zones.
+The function blkdev_zone_reset_all() is introduced for block devices
+natively supporting reset all operations. blkdev_zone_mgmt() is modified
+to call either function to execute an all zone reset request.
 
-Patch 8 fixes a potential problem with BIO requeue on zoned target.
+Signed-off-by: Damien Le Moal <damien.lemoal@wdc.com>
+[hch: split into multiple functions]
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ block/blk-zoned.c | 119 +++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 92 insertions(+), 27 deletions(-)
 
-Finally, patch 9 to 11 implement zone append emulation using regular
-writes for target drivers that cannot natively support this BIO type.
-The only target currently needing this emulation is dm-crypt. With this
-change, a zoned dm-crypt device behaves exactly like a regular zoned
-block device, correctly executing user zone append BIOs.
-
-This series passes the following tests:
-1) zonefs tests on top of dm-crypt with a zoned nullblk device
-2) zonefs tests on top of dm-crypt+dm-linear with an SMR HDD
-3) btrfs fstests on top of dm-crypt with zoned nullblk devices.
-
-Comments are as always welcome.
-
-Changes from v3:
-* Fixed missing variable initialization in
-  blkdev_zone_reset_all_emulated() in patch 1.
-* Rebased on rc3
-* Added reviewed-by tags
-
-Changes from v2:
-* Replace use of spinlock to protect the zone write pointer offset
-  array in patch 11 with READ_ONCE/WRITE_ONCE as suggested by Hannes.
-* Added reviewed-by tags
-
-Changes from v1:
-* Use Christoph proposed approach for patch 1 (split reset all
-  processing into different functions)
-* Changed helpers introduced in patch 2 to remove the request_queue
-  argument
-* Improve patch 3 commit message as suggested by Christoph (explaining
-  that the flag is a special case that cannot use a REQ_XXX flag)
-* Changed DMWARN() into DMDEBUG in patch 11 as suggested by Milan
-* Added reviewed-by tags
-
-Damien Le Moal (11):
-  block: improve handling of all zones reset operation
-  block: introduce bio zone helpers
-  block: introduce BIO_ZONE_WRITE_LOCKED bio flag
-  dm: Fix dm_accept_partial_bio()
-  dm: cleanup device_area_is_invalid()
-  dm: move zone related code to dm-zone.c
-  dm: Introduce dm_report_zones()
-  dm: Forbid requeue of writes to zones
-  dm: rearrange core declarations
-  dm: introduce zone append emulation
-  dm crypt: Fix zoned block device support
-
- block/blk-zoned.c             | 119 +++++--
- drivers/md/Makefile           |   4 +
- drivers/md/dm-core.h          |  65 ++++
- drivers/md/dm-crypt.c         |  31 +-
- drivers/md/dm-flakey.c        |   7 +-
- drivers/md/dm-linear.c        |   7 +-
- drivers/md/dm-table.c         |  21 +-
- drivers/md/dm-zone.c          | 654 ++++++++++++++++++++++++++++++++++
- drivers/md/dm.c               | 202 +++--------
- drivers/md/dm.h               |  30 +-
- include/linux/blk_types.h     |   1 +
- include/linux/blkdev.h        |  12 +
- include/linux/device-mapper.h |   9 +-
- 13 files changed, 955 insertions(+), 207 deletions(-)
- create mode 100644 drivers/md/dm-zone.c
-
+diff --git a/block/blk-zoned.c b/block/blk-zoned.c
+index 250cb76ee615..f47f688b6ea6 100644
+--- a/block/blk-zoned.c
++++ b/block/blk-zoned.c
+@@ -161,18 +161,89 @@ int blkdev_report_zones(struct block_device *bdev, sector_t sector,
+ }
+ EXPORT_SYMBOL_GPL(blkdev_report_zones);
+ 
+-static inline bool blkdev_allow_reset_all_zones(struct block_device *bdev,
+-						sector_t sector,
+-						sector_t nr_sectors)
++static inline unsigned long *blk_alloc_zone_bitmap(int node,
++						   unsigned int nr_zones)
+ {
+-	if (!blk_queue_zone_resetall(bdev_get_queue(bdev)))
+-		return false;
++	return kcalloc_node(BITS_TO_LONGS(nr_zones), sizeof(unsigned long),
++			    GFP_NOIO, node);
++}
+ 
++static int blk_zone_need_reset_cb(struct blk_zone *zone, unsigned int idx,
++				  void *data)
++{
+ 	/*
+-	 * REQ_OP_ZONE_RESET_ALL can be executed only if the number of sectors
+-	 * of the applicable zone range is the entire disk.
++	 * For an all-zones reset, ignore conventional, empty, read-only
++	 * and offline zones.
+ 	 */
+-	return !sector && nr_sectors == get_capacity(bdev->bd_disk);
++	switch (zone->cond) {
++	case BLK_ZONE_COND_NOT_WP:
++	case BLK_ZONE_COND_EMPTY:
++	case BLK_ZONE_COND_READONLY:
++	case BLK_ZONE_COND_OFFLINE:
++		return 0;
++	default:
++		set_bit(idx, (unsigned long *)data);
++		return 0;
++	}
++}
++
++static int blkdev_zone_reset_all_emulated(struct block_device *bdev,
++					  gfp_t gfp_mask)
++{
++	struct request_queue *q = bdev_get_queue(bdev);
++	sector_t capacity = get_capacity(bdev->bd_disk);
++	sector_t zone_sectors = blk_queue_zone_sectors(q);
++	unsigned long *need_reset;
++	struct bio *bio = NULL;
++	sector_t sector =  0;
++	int ret;
++
++	need_reset = blk_alloc_zone_bitmap(q->node, q->nr_zones);
++	if (!need_reset)
++		return -ENOMEM;
++
++	ret = bdev->bd_disk->fops->report_zones(bdev->bd_disk, 0,
++				q->nr_zones, blk_zone_need_reset_cb,
++				need_reset);
++	if (ret < 0)
++		goto out_free_need_reset;
++
++	ret = 0;
++	while (sector < capacity) {
++		if (!test_bit(blk_queue_zone_no(q, sector), need_reset)) {
++			sector += zone_sectors;
++			continue;
++		}
++
++		bio = blk_next_bio(bio, 0, gfp_mask);
++		bio_set_dev(bio, bdev);
++		bio->bi_opf = REQ_OP_ZONE_RESET | REQ_SYNC;
++		bio->bi_iter.bi_sector = sector;
++		sector += zone_sectors;
++
++		/* This may take a while, so be nice to others */
++		cond_resched();
++	}
++
++	if (bio) {
++		ret = submit_bio_wait(bio);
++		bio_put(bio);
++	}
++
++out_free_need_reset:
++	kfree(need_reset);
++	return ret;
++}
++
++static int blkdev_zone_reset_all(struct block_device *bdev, gfp_t gfp_mask)
++{
++	struct bio bio;
++
++	bio_init(&bio, NULL, 0);
++	bio_set_dev(&bio, bdev);
++	bio.bi_opf = REQ_OP_ZONE_RESET_ALL | REQ_SYNC;
++
++	return submit_bio_wait(&bio);
+ }
+ 
+ /**
+@@ -200,7 +271,7 @@ int blkdev_zone_mgmt(struct block_device *bdev, enum req_opf op,
+ 	sector_t capacity = get_capacity(bdev->bd_disk);
+ 	sector_t end_sector = sector + nr_sectors;
+ 	struct bio *bio = NULL;
+-	int ret;
++	int ret = 0;
+ 
+ 	if (!blk_queue_is_zoned(q))
+ 		return -EOPNOTSUPP;
+@@ -222,20 +293,21 @@ int blkdev_zone_mgmt(struct block_device *bdev, enum req_opf op,
+ 	if ((nr_sectors & (zone_sectors - 1)) && end_sector != capacity)
+ 		return -EINVAL;
+ 
++	/*
++	 * In the case of a zone reset operation over all zones,
++	 * REQ_OP_ZONE_RESET_ALL can be used with devices supporting this
++	 * command. For other devices, we emulate this command behavior by
++	 * identifying the zones needing a reset.
++	 */
++	if (op == REQ_OP_ZONE_RESET && sector == 0 && nr_sectors == capacity) {
++		if (!blk_queue_zone_resetall(q))
++			return blkdev_zone_reset_all_emulated(bdev, gfp_mask);
++		return blkdev_zone_reset_all(bdev, gfp_mask);
++	}
++
+ 	while (sector < end_sector) {
+ 		bio = blk_next_bio(bio, 0, gfp_mask);
+ 		bio_set_dev(bio, bdev);
+-
+-		/*
+-		 * Special case for the zone reset operation that reset all
+-		 * zones, this is useful for applications like mkfs.
+-		 */
+-		if (op == REQ_OP_ZONE_RESET &&
+-		    blkdev_allow_reset_all_zones(bdev, sector, nr_sectors)) {
+-			bio->bi_opf = REQ_OP_ZONE_RESET_ALL | REQ_SYNC;
+-			break;
+-		}
+-
+ 		bio->bi_opf = op | REQ_SYNC;
+ 		bio->bi_iter.bi_sector = sector;
+ 		sector += zone_sectors;
+@@ -396,13 +468,6 @@ int blkdev_zone_mgmt_ioctl(struct block_device *bdev, fmode_t mode,
+ 	return ret;
+ }
+ 
+-static inline unsigned long *blk_alloc_zone_bitmap(int node,
+-						   unsigned int nr_zones)
+-{
+-	return kcalloc_node(BITS_TO_LONGS(nr_zones), sizeof(unsigned long),
+-			    GFP_NOIO, node);
+-}
+-
+ void blk_queue_free_zone_bitmaps(struct request_queue *q)
+ {
+ 	kfree(q->conv_zones_bitmap);
 -- 
 2.31.1
 
