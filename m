@@ -1,66 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E58163909ED
-	for <lists+dm-devel@lfdr.de>; Tue, 25 May 2021 21:50:35 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 951D73909FF
+	for <lists+dm-devel@lfdr.de>; Tue, 25 May 2021 21:53:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1621972235;
+	s=mimecast20190719; t=1621972430;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=MCxkG+M0qEZfPBNprf7QOJ4LtsQ6KUibSJMLnz2mZvE=;
-	b=b6Lo66lq/KHL5jtBkgqUG+mj86kjyoMwWfOnFNT3OUYwePE39Khieagc/fuaL1qZDUSszn
-	4S2scrAneTyFR+GJdOOjR4EEIMEQXqeV6jRky+HgfncCx1xd6tYXm50RJL3V3w5/uryHVe
-	Osw2Ub1SrmCOK8CSuB2RvkQ2JNsEI2s=
+	bh=TW9SoPR/JWFwpGx39VeXyJULO3xdxm4ml1DkzsaeOFA=;
+	b=W3m75R2K/KC2HJxMYQ6q1tKKm3pgfuxM/WJk7yTYvoboIdb5MelZ0TDZK4OT8iX1RxXQ9p
+	p+ZGj0HjMIeqxnrKEJYcruoImd7R9GM7oDZC/MuP4/28S2msV71NDR8CydAtoHFTt2Xsc8
+	uVpMBJiXBeGtonKtWWIWI6ZYSRACG1U=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-359-NZv4QQYQM-ChC4Xku35ldQ-1; Tue, 25 May 2021 15:50:32 -0400
-X-MC-Unique: NZv4QQYQM-ChC4Xku35ldQ-1
+ us-mta-496-28J1FJfdNdmahnSxPIK5Og-1; Tue, 25 May 2021 15:53:48 -0400
+X-MC-Unique: 28J1FJfdNdmahnSxPIK5Og-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 82F1D10082E0;
-	Tue, 25 May 2021 19:50:23 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 965FB5D9C0;
-	Tue, 25 May 2021 19:50:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 71112800D55;
+	Tue, 25 May 2021 19:53:43 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A1BE5D9C0;
+	Tue, 25 May 2021 19:53:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DFB481801029;
-	Tue, 25 May 2021 19:50:11 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2E01255345;
+	Tue, 25 May 2021 19:53:41 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
 	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14PJnxX7026797 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 25 May 2021 15:49:59 -0400
+	id 14PJrbAD027022 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 25 May 2021 15:53:37 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B1A625C1B4; Tue, 25 May 2021 19:49:59 +0000 (UTC)
+	id 2E9485C1D0; Tue, 25 May 2021 19:53:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from file01.intranet.prod.int.rdu2.redhat.com
 	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 46AB95C1A1;
-	Tue, 25 May 2021 19:49:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F4255C1A1;
+	Tue, 25 May 2021 19:53:33 +0000 (UTC)
 Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
 	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
-	id 14PJnt8W030787; Tue, 25 May 2021 15:49:55 -0400
+	id 14PJrWuf031017; Tue, 25 May 2021 15:53:32 -0400
 Received: from localhost (mpatocka@localhost)
 	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
-	ESMTP id 14PJntcO030783; Tue, 25 May 2021 15:49:55 -0400
+	ESMTP id 14PJrWYs031013; Tue, 25 May 2021 15:53:32 -0400
 X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
 	owned process doing -bs
-Date: Tue, 25 May 2021 15:49:55 -0400 (EDT)
+Date: Tue, 25 May 2021 15:53:32 -0400 (EDT)
 From: Mikulas Patocka <mpatocka@redhat.com>
 X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Mike Snitzer <msnitzer@redhat.com>
-Message-ID: <alpine.LRH.2.02.2105251548340.29706@file01.intranet.prod.int.rdu2.redhat.com>
+To: Joe Thornber <thornber@redhat.com>, Mike Snitzer <msnitzer@redhat.com>,
+	Zdenek Kabelac <zkabelac@redhat.com>
+Message-ID: <alpine.LRH.2.02.2105251550110.29706@file01.intranet.prod.int.rdu2.redhat.com>
 User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com
-Subject: [dm-devel] [PATCH] dm-kcopyd: avoid useless atomic operations
+Subject: [dm-devel] [PATCH] improve kcopyd latency
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,60 +83,104 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The functions set_bit and clear_bit are atomic. We don't need atomicity
-when making flags for dm-kcopyd. So, change them to direct manipulation of
-the flags.
+Hi
 
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+I've made this patch that improves kcopyd latency. When we set the bit 
+DM_KCOPYD_EARLY_CALLBACK, the completion is called from the interrupt 
+context instead of process context.
 
+I'd like to ask if you can benchmark it and test if it improves 
+performance of dm-thin and dm-cache.
+
+Mikulas
+
+
+
+Index: linux-2.6/drivers/md/dm-cache-target.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-cache-target.c
++++ linux-2.6/drivers/md/dm-cache-target.c
+@@ -1171,9 +1171,9 @@ static void copy(struct dm_cache_migrati
+ 	c_region.count = cache->sectors_per_block;
+ 
+ 	if (promote)
+-		dm_kcopyd_copy(cache->copier, &o_region, 1, &c_region, 0, copy_complete, &mg->k);
++		dm_kcopyd_copy(cache->copier, &o_region, 1, &c_region, 1UL << DM_KCOPYD_EARLY_CALLBACK, copy_complete, &mg->k);
+ 	else
+-		dm_kcopyd_copy(cache->copier, &c_region, 1, &o_region, 0, copy_complete, &mg->k);
++		dm_kcopyd_copy(cache->copier, &c_region, 1, &o_region, 1UL << DM_KCOPYD_EARLY_CALLBACK, copy_complete, &mg->k);
+ }
+ 
+ static void bio_drop_shared_lock(struct cache *cache, struct bio *bio)
 Index: linux-2.6/drivers/md/dm-kcopyd.c
 ===================================================================
 --- linux-2.6.orig/drivers/md/dm-kcopyd.c
 +++ linux-2.6/drivers/md/dm-kcopyd.c
-@@ -812,7 +812,7 @@ void dm_kcopyd_copy(struct dm_kcopyd_cli
- 	if (!test_bit(DM_KCOPYD_WRITE_SEQ, &job->flags)) {
- 		for (i = 0; i < job->num_dests; i++) {
- 			if (bdev_zoned_model(dests[i].bdev) == BLK_ZONED_HM) {
--				set_bit(DM_KCOPYD_WRITE_SEQ, &job->flags);
-+				job->flags |= 1UL << DM_KCOPYD_WRITE_SEQ;
- 				break;
- 			}
+@@ -512,6 +512,10 @@ static int run_complete_job(struct kcopy
+ 	return 0;
+ }
+ 
++static void null_completion(int read_err, unsigned long write_err, void *context)
++{
++}
++
+ static void complete_io(unsigned long error, void *context)
+ {
+ 	struct kcopyd_job *job = (struct kcopyd_job *) context;
+@@ -532,10 +536,13 @@ static void complete_io(unsigned long er
  		}
-@@ -823,7 +823,7 @@ void dm_kcopyd_copy(struct dm_kcopyd_cli
- 	 */
- 	if (test_bit(DM_KCOPYD_WRITE_SEQ, &job->flags) &&
- 	    test_bit(DM_KCOPYD_IGNORE_ERROR, &job->flags))
--		clear_bit(DM_KCOPYD_IGNORE_ERROR, &job->flags);
-+		job->flags &= ~(1UL << DM_KCOPYD_IGNORE_ERROR);
+ 	}
  
- 	if (from) {
- 		job->source = *from;
-Index: linux-2.6/drivers/md/dm-raid1.c
+-	if (op_is_write(job->rw))
++	if (op_is_write(job->rw)) {
++		if (test_bit(DM_KCOPYD_EARLY_CALLBACK, &job->flags)) {
++			job->fn(job->read_err, job->write_err, job->context);
++			job->fn = null_completion;
++		}
+ 		push(&kc->complete_jobs, job);
+-
+-	else {
++	} else {
+ 		job->rw = WRITE;
+ 		push(&kc->io_jobs, job);
+ 	}
+@@ -735,6 +742,7 @@ static void segment_complete(int read_er
+ 			sub_job->dests[i].count = count;
+ 		}
+ 
++		sub_job->flags &= ~(1UL << DM_KCOPYD_EARLY_CALLBACK);
+ 		sub_job->fn = segment_complete;
+ 		sub_job->context = sub_job;
+ 		dispatch_job(sub_job);
+Index: linux-2.6/drivers/md/dm-thin.c
 ===================================================================
---- linux-2.6.orig/drivers/md/dm-raid1.c
-+++ linux-2.6/drivers/md/dm-raid1.c
-@@ -364,7 +364,7 @@ static void recover(struct mirror_set *m
+--- linux-2.6.orig/drivers/md/dm-thin.c
++++ linux-2.6/drivers/md/dm-thin.c
+@@ -1359,7 +1359,7 @@ static void schedule_copy(struct thin_c
+ 		to.count = len;
  
- 	/* hand to kcopyd */
- 	if (!errors_handled(ms))
--		set_bit(DM_KCOPYD_IGNORE_ERROR, &flags);
-+		flags |= 1UL << DM_KCOPYD_IGNORE_ERROR;
+ 		dm_kcopyd_copy(pool->copier, &from, 1, &to,
+-			       0, copy_complete, m);
++			       1UL << DM_KCOPYD_EARLY_CALLBACK, copy_complete, m);
  
- 	dm_kcopyd_copy(ms->kcopyd_client, &from, ms->nr_mirrors - 1, to,
- 		       flags, recovery_complete, reg);
-Index: linux-2.6/drivers/md/dm-zoned-reclaim.c
+ 		/*
+ 		 * Do we need to zero a tail region?
+Index: linux-2.6/include/linux/dm-kcopyd.h
 ===================================================================
---- linux-2.6.orig/drivers/md/dm-zoned-reclaim.c
-+++ linux-2.6/drivers/md/dm-zoned-reclaim.c
-@@ -134,7 +134,7 @@ static int dmz_reclaim_copy(struct dmz_r
- 	dst_zone_block = dmz_start_block(zmd, dst_zone);
+--- linux-2.6.orig/include/linux/dm-kcopyd.h
++++ linux-2.6/include/linux/dm-kcopyd.h
+@@ -19,8 +19,9 @@
+ /* FIXME: make this configurable */
+ #define DM_KCOPYD_MAX_REGIONS 8
  
- 	if (dmz_is_seq(dst_zone))
--		set_bit(DM_KCOPYD_WRITE_SEQ, &flags);
-+		flags |= 1UL << DM_KCOPYD_WRITE_SEQ;
+-#define DM_KCOPYD_IGNORE_ERROR 1
+-#define DM_KCOPYD_WRITE_SEQ    2
++#define DM_KCOPYD_IGNORE_ERROR		1
++#define DM_KCOPYD_WRITE_SEQ		2
++#define DM_KCOPYD_EARLY_CALLBACK	3
  
- 	while (block < end_block) {
- 		if (src_zone->dev->flags & DMZ_BDEV_DYING)
+ struct dm_kcopyd_throttle {
+ 	unsigned throttle;
 
 --
 dm-devel mailing list
