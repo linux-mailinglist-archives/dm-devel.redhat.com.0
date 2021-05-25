@@ -2,75 +2,75 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8777A390B60
-	for <lists+dm-devel@lfdr.de>; Tue, 25 May 2021 23:25:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9B236390B5B
+	for <lists+dm-devel@lfdr.de>; Tue, 25 May 2021 23:25:48 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-108-D8mK8TaoPwmgJXSOylXJXA-1; Tue, 25 May 2021 17:25:50 -0400
-X-MC-Unique: D8mK8TaoPwmgJXSOylXJXA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-374-w8nkM6MjOVGQ-IjOblvAmQ-1; Tue, 25 May 2021 17:25:45 -0400
+X-MC-Unique: w8nkM6MjOVGQ-IjOblvAmQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4D31664172;
-	Tue, 25 May 2021 21:25:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2DCF9687FF;
-	Tue, 25 May 2021 21:25:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 76993107ACF6;
+	Tue, 25 May 2021 21:25:40 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 52EE15C23E;
+	Tue, 25 May 2021 21:25:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DBCD155359;
-	Tue, 25 May 2021 21:25:41 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 06A861801264;
+	Tue, 25 May 2021 21:25:40 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14PLPKfs003365 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 25 May 2021 17:25:20 -0400
+	id 14PLPJMn003360 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 25 May 2021 17:25:19 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3433D103D232; Tue, 25 May 2021 21:25:20 +0000 (UTC)
+	id 7BFE3103D232; Tue, 25 May 2021 21:25:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2FF431025836
-	for <dm-devel@redhat.com>; Tue, 25 May 2021 21:25:20 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7776D1025836
+	for <dm-devel@redhat.com>; Tue, 25 May 2021 21:25:19 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B7A23101D228
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0537995F350
 	for <dm-devel@redhat.com>; Tue, 25 May 2021 21:25:19 +0000 (UTC)
 Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-140-3gLGwS5yPN-lfhjVe6UB5Q-5; Tue, 25 May 2021 17:25:14 -0400
-X-MC-Unique: 3gLGwS5yPN-lfhjVe6UB5Q-5
-IronPort-SDR: 7BQYwThK/9CBd2jsc58NWR8elgCJnYje/3/wsGZTyb9//UhysxX6ZSlSDoNW6TkKF8//OKsug4
-	wshcpEp5blBO6czhKewOmOq98QO7+Q2MD8L2AAjqXTVntuzgqxcZftsH1r+2DUMdx7dZ51eemO
-	mK0HadedTwNuPSJKotQmQg3EdhtcTffJE1P2tuItwrwm5s9TiOB2WeJlljyIbmtny8wOUxWO5p
-	2M4yDXVrK982bRDgyLJP+V/r+xcfZawb75UyuBRkDs51/izmuE0osJH3Dt53wUUwPX8qs24+Qi
-	0ag=
-X-IronPort-AV: E=Sophos;i="5.82,329,1613404800"; d="scan'208";a="168717536"
+	us-mta-215-MLy-C9kVNVu_iNtN7bhDjQ-5; Tue, 25 May 2021 17:25:15 -0400
+X-MC-Unique: MLy-C9kVNVu_iNtN7bhDjQ-5
+IronPort-SDR: kVrgXpDExKWO2IwFFZNF0GqVGrcwvihm9uYIeT9wog3/qDwXjp1rnEqYolXmHMby2hpmLuB7Nn
+	gLy3q8/jVmWDJvH9/0cXmTFV9ooAGGWih3dIi5q/f+/i3LbpqaRNbH/lUJFk6kB/Qxt7LXCCgl
+	xywbitTYfgZ8kEMZ6rUdMj5Gpf7fyZ8YE24LBrOkWKK+EAjDAwhiEcNETBNdi/ldXh+5Zv6dYA
+	+eLzhRT2FWikfwlw43Qpgd7KxpTFNLYC64ynyexpHIdGw9KUfWyM8Amm9KWDMPpXHzTjxj6Pv5
+	Agk=
+X-IronPort-AV: E=Sophos;i="5.82,329,1613404800"; d="scan'208";a="168717543"
 Received: from uls-op-cesaip02.wdc.com (HELO uls-op-cesaep02.wdc.com)
 	([199.255.45.15])
-	by ob1.hgst.iphmx.com with ESMTP; 26 May 2021 05:25:13 +0800
-IronPort-SDR: ouRJsQXyqS6Jh5Qq4YdtPWS44Ui1fEWnyU9mWAB4xz0grOXBJwvoBrrFa4YrTwZaHf01fKE9n6
-	sljcMdI0X0NLg/ofHXsoV2TvYUEpFsgCM1A+IZruH+ESG8lctBuTAKFPyGD98JJWzMuPHWQDED
-	iYD4qp7DYCk+FX8zpnTvZbYUjEkqaWJsAJrHhJyNLxR+P+uVgmQ5ywG25pEGW8+enTIxIMzSFo
-	aXlnUC9FKn6bZvfKWWPfOlgsF5+lHUAenhX+uH9ClAjcVeVCPZ34w2TpSr1/nRc0nDlQHKL91s
-	tFObNxnTMkTYaRhmSdFPxyaA
+	by ob1.hgst.iphmx.com with ESMTP; 26 May 2021 05:25:15 +0800
+IronPort-SDR: jgLTRpFlRiGtBdrg0xzwvmPxsXVQT07w8c7iAFHzvmgldHdK1dbwiGb6ZGdZveg8HwwGE5PuFl
+	jrAvpyeV5XO6I5nRp71pkdrGvIEC8fjobv1KBoU16lK7LifPGWRhj1bf347n+ckiQ6Lh3wjVm5
+	I/qtwl+pZQk+Z8wBmD8lSGzemNcsqUWBMwT5ABLfmIQpZuPYZKY23cnbU2nL/Kj+01Z3ns0YQh
+	Q9k8e1FlwurnSyfDyrSzBeZLFSb6VTkB5o0sDwo/lKRDBUXpU5XpeIH7Otf/G6EYfNIwr34VZf
+	wVVTstk2f/UvZITUGr+ECUkZ
 Received: from uls-op-cesaip01.wdc.com ([10.248.3.36])
 	by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	25 May 2021 14:03:24 -0700
-IronPort-SDR: FFF1c2FJ+cgQhwiu2tSFsJhXIDXOtA/SS6F6R1Iy5+bwYpMV7vaYEY7WPhSqBcsD8tMZkR9flM
-	99Ne8g2pnfyxWCGLrZkpx1PRwBUmLTH9oCqNOZUCCOw1WtLMkfbiij+gpskbG8opzpmObsaPXQ
-	A00LILqLiLlzH9QEHCjEOElt6aqVLCrglHOFMM9LI5kd9t180Ntk5oYtuQ0J/CyNO0QmkBk/MG
-	MS5+OopH4yZp3elwi2jYQnBYTwXU9a5vYn22BCOizO2XEH7REaNpp9UEbqwotRcYVQzqx8ZM1f
-	WjU=
+	25 May 2021 14:03:25 -0700
+IronPort-SDR: xEuFmaKQgjMwJH+B41lM58oV43m0MVuK4NhI2z06SszfC0Lf2a6om3NjXE2LgFLumNV7I5x9Pc
+	BZNUkf5C5s3Znc46xCyUH140EwnXtkLIv+zNItNDstCLg94ITt7pV7PgbIcMfbqc+K16mzxpgR
+	hBuZ05VbsVJ3LNVdOuXY4uBqPDN3JDADN58NL9VaOKu0KQHjwGPajQ8xRKlnsn14MZnucoJk3A
+	mVBqLniix6kaKbR1JstC0wEStQrpEbJzc4aHs+Yp/I7JWCkmJVGevbWuhavr8UxcT5zetSCOIe
+	WRc=
 WDCIronportException: Internal
 Received: from washi.fujisawa.hgst.com ([10.149.53.254])
-	by uls-op-cesaip01.wdc.com with ESMTP; 25 May 2021 14:25:13 -0700
+	by uls-op-cesaip01.wdc.com with ESMTP; 25 May 2021 14:25:14 -0700
 From: Damien Le Moal <damien.lemoal@wdc.com>
 To: dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>,
 	linux-block@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
-Date: Wed, 26 May 2021 06:24:58 +0900
-Message-Id: <20210525212501.226888-9-damien.lemoal@wdc.com>
+Date: Wed, 26 May 2021 06:24:59 +0900
+Message-Id: <20210525212501.226888-10-damien.lemoal@wdc.com>
 In-Reply-To: <20210525212501.226888-1-damien.lemoal@wdc.com>
 References: <20210525212501.226888-1-damien.lemoal@wdc.com>
 MIME-Version: 1.0
@@ -84,7 +84,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Subject: [dm-devel] [PATCH v5 08/11] dm: Forbid requeue of writes to zones
+Subject: [dm-devel] [PATCH v5 09/11] dm: rearrange core declarations
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -98,7 +98,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -106,113 +106,218 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-A target map method requesting the requeue of a bio with
-DM_MAPIO_REQUEUE or completing it with DM_ENDIO_REQUEUE can cause
-unaligned write errors if the bio is a write operation targeting a
-sequential zone. If a zoned target request such a requeue, warn about
-it and kill the IO.
-
-The function dm_is_zone_write() is introduced to detect write operations
-to zoned targets.
-
-This change does not affect the target drivers supporting zoned devices
-and exposing a zoned device, namely dm-crypt, dm-linear and dm-flakey as
-none of these targets ever request a requeue.
+Move the definitions of struct dm_target_io, struct dm_io and of the
+bits of the flags field of struct mapped_device from dm.c to dm-core.h
+to make them usable from dm-zone.c.
+For the same reason, declare dec_pending() in dm-core.h after renaming
+it to dm_io_dec_pending(). And for symmetry of the function names,
+introduce the inline helper dm_io_inc_pending() instead of directly
+using atomic_inc() calls.
 
 Signed-off-by: Damien Le Moal <damien.lemoal@wdc.com>
 Reviewed-by: Hannes Reinecke <hare@suse.de>
 Reviewed-by: Himanshu Madhani <himanshu.madhani@oracle.com>
 ---
- drivers/md/dm-zone.c | 17 +++++++++++++++++
- drivers/md/dm.c      | 18 +++++++++++++++---
- drivers/md/dm.h      |  5 +++++
- 3 files changed, 37 insertions(+), 3 deletions(-)
+ drivers/md/dm-core.h | 52 ++++++++++++++++++++++++++++++++++++++
+ drivers/md/dm.c      | 59 ++++++--------------------------------------
+ 2 files changed, 59 insertions(+), 52 deletions(-)
 
-diff --git a/drivers/md/dm-zone.c b/drivers/md/dm-zone.c
-index b42474043249..edc3bbb45637 100644
---- a/drivers/md/dm-zone.c
-+++ b/drivers/md/dm-zone.c
-@@ -104,6 +104,23 @@ int dm_report_zones(struct block_device *bdev, sector_t start, sector_t sector,
- }
- EXPORT_SYMBOL_GPL(dm_report_zones);
+diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
+index 5953ff2bd260..cfabc1c91f9f 100644
+--- a/drivers/md/dm-core.h
++++ b/drivers/md/dm-core.h
+@@ -116,6 +116,19 @@ struct mapped_device {
+ 	struct srcu_struct io_barrier;
+ };
  
-+bool dm_is_zone_write(struct mapped_device *md, struct bio *bio)
++/*
++ * Bits for the flags field of struct mapped_device.
++ */
++#define DMF_BLOCK_IO_FOR_SUSPEND 0
++#define DMF_SUSPENDED 1
++#define DMF_FROZEN 2
++#define DMF_FREEING 3
++#define DMF_DELETING 4
++#define DMF_NOFLUSH_SUSPENDING 5
++#define DMF_DEFERRED_REMOVE 6
++#define DMF_SUSPENDED_INTERNALLY 7
++#define DMF_POST_SUSPENDING 8
++
+ void disable_discard(struct mapped_device *md);
+ void disable_write_same(struct mapped_device *md);
+ void disable_write_zeroes(struct mapped_device *md);
+@@ -173,6 +186,45 @@ struct dm_table {
+ #endif
+ };
+ 
++/*
++ * One of these is allocated per clone bio.
++ */
++#define DM_TIO_MAGIC 7282014
++struct dm_target_io {
++	unsigned int magic;
++	struct dm_io *io;
++	struct dm_target *ti;
++	unsigned int target_bio_nr;
++	unsigned int *len_ptr;
++	bool inside_dm_io;
++	struct bio clone;
++};
++
++/*
++ * One of these is allocated per original bio.
++ * It contains the first clone used for that original.
++ */
++#define DM_IO_MAGIC 5191977
++struct dm_io {
++	unsigned int magic;
++	struct mapped_device *md;
++	blk_status_t status;
++	atomic_t io_count;
++	struct bio *orig_bio;
++	unsigned long start_time;
++	spinlock_t endio_lock;
++	struct dm_stats_aux stats_aux;
++	/* last member of dm_target_io is 'struct bio' */
++	struct dm_target_io tio;
++};
++
++static inline void dm_io_inc_pending(struct dm_io *io)
 +{
-+	struct request_queue *q = md->queue;
-+
-+	if (!blk_queue_is_zoned(q))
-+		return false;
-+
-+	switch (bio_op(bio)) {
-+	case REQ_OP_WRITE_ZEROES:
-+	case REQ_OP_WRITE_SAME:
-+	case REQ_OP_WRITE:
-+		return !op_is_flush(bio->bi_opf) && bio_sectors(bio);
-+	default:
-+		return false;
-+	}
++	atomic_inc(&io->io_count);
 +}
 +
- void dm_set_zones_restrictions(struct dm_table *t, struct request_queue *q)
++void dm_io_dec_pending(struct dm_io *io, blk_status_t error);
++
+ static inline struct completion *dm_get_completion_from_kobject(struct kobject *kobj)
  {
- 	if (!blk_queue_is_zoned(q))
+ 	return &container_of(kobj, struct dm_kobject_holder, kobj)->completion;
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index c49976cc4e44..ed8c5a8df2e5 100644
+index ed8c5a8df2e5..c200658d8bcb 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -846,11 +846,15 @@ static void dec_pending(struct dm_io *io, blk_status_t error)
- 			 * Target requested pushing back the I/O.
- 			 */
- 			spin_lock_irqsave(&md->deferred_lock, flags);
--			if (__noflush_suspending(md))
-+			if (__noflush_suspending(md) &&
-+			    !WARN_ON_ONCE(dm_is_zone_write(md, bio)))
- 				/* NOTE early return due to BLK_STS_DM_REQUEUE below */
- 				bio_list_add_head(&md->deferred, io->orig_bio);
- 			else
--				/* noflush suspend was interrupted. */
-+				/*
-+				 * noflush suspend was interrupted or this is
-+				 * a write to a zoned target.
-+				 */
- 				io->status = BLK_STS_IOERR;
- 			spin_unlock_irqrestore(&md->deferred_lock, flags);
- 		}
-@@ -947,7 +951,15 @@ static void clone_endio(struct bio *bio)
- 		int r = endio(tio->ti, bio, &error);
- 		switch (r) {
- 		case DM_ENDIO_REQUEUE:
--			error = BLK_STS_DM_REQUEUE;
-+			/*
-+			 * Requeuing writes to a sequential zone of a zoned
-+			 * target will break the sequential write pattern:
-+			 * fail such IO.
-+			 */
-+			if (WARN_ON_ONCE(dm_is_zone_write(md, bio)))
-+				error = BLK_STS_IOERR;
-+			else
-+				error = BLK_STS_DM_REQUEUE;
- 			fallthrough;
- 		case DM_ENDIO_DONE:
- 			break;
-diff --git a/drivers/md/dm.h b/drivers/md/dm.h
-index fdf1536a4b62..39c243258e24 100644
---- a/drivers/md/dm.h
-+++ b/drivers/md/dm.h
-@@ -107,8 +107,13 @@ void dm_set_zones_restrictions(struct dm_table *t, struct request_queue *q);
- #ifdef CONFIG_BLK_DEV_ZONED
- int dm_blk_report_zones(struct gendisk *disk, sector_t sector,
- 			unsigned int nr_zones, report_zones_cb cb, void *data);
-+bool dm_is_zone_write(struct mapped_device *md, struct bio *bio);
- #else
- #define dm_blk_report_zones	NULL
-+static inline bool dm_is_zone_write(struct mapped_device *md, struct bio *bio)
-+{
-+	return false;
-+}
- #endif
+@@ -74,38 +74,6 @@ struct clone_info {
+ 	unsigned sector_count;
+ };
  
- /*-----------------------------------------------------------------
+-/*
+- * One of these is allocated per clone bio.
+- */
+-#define DM_TIO_MAGIC 7282014
+-struct dm_target_io {
+-	unsigned magic;
+-	struct dm_io *io;
+-	struct dm_target *ti;
+-	unsigned target_bio_nr;
+-	unsigned *len_ptr;
+-	bool inside_dm_io;
+-	struct bio clone;
+-};
+-
+-/*
+- * One of these is allocated per original bio.
+- * It contains the first clone used for that original.
+- */
+-#define DM_IO_MAGIC 5191977
+-struct dm_io {
+-	unsigned magic;
+-	struct mapped_device *md;
+-	blk_status_t status;
+-	atomic_t io_count;
+-	struct bio *orig_bio;
+-	unsigned long start_time;
+-	spinlock_t endio_lock;
+-	struct dm_stats_aux stats_aux;
+-	/* last member of dm_target_io is 'struct bio' */
+-	struct dm_target_io tio;
+-};
+-
+ #define DM_TARGET_IO_BIO_OFFSET (offsetof(struct dm_target_io, clone))
+ #define DM_IO_BIO_OFFSET \
+ 	(offsetof(struct dm_target_io, clone) + offsetof(struct dm_io, tio))
+@@ -137,19 +105,6 @@ EXPORT_SYMBOL_GPL(dm_bio_get_target_bio_nr);
+ 
+ #define MINOR_ALLOCED ((void *)-1)
+ 
+-/*
+- * Bits for the md->flags field.
+- */
+-#define DMF_BLOCK_IO_FOR_SUSPEND 0
+-#define DMF_SUSPENDED 1
+-#define DMF_FROZEN 2
+-#define DMF_FREEING 3
+-#define DMF_DELETING 4
+-#define DMF_NOFLUSH_SUSPENDING 5
+-#define DMF_DEFERRED_REMOVE 6
+-#define DMF_SUSPENDED_INTERNALLY 7
+-#define DMF_POST_SUSPENDING 8
+-
+ #define DM_NUMA_NODE NUMA_NO_NODE
+ static int dm_numa_node = DM_NUMA_NODE;
+ 
+@@ -825,7 +780,7 @@ static int __noflush_suspending(struct mapped_device *md)
+  * Decrements the number of outstanding ios that a bio has been
+  * cloned into, completing the original io if necc.
+  */
+-static void dec_pending(struct dm_io *io, blk_status_t error)
++void dm_io_dec_pending(struct dm_io *io, blk_status_t error)
+ {
+ 	unsigned long flags;
+ 	blk_status_t io_error;
+@@ -978,7 +933,7 @@ static void clone_endio(struct bio *bio)
+ 	}
+ 
+ 	free_tio(tio);
+-	dec_pending(io, error);
++	dm_io_dec_pending(io, error);
+ }
+ 
+ /*
+@@ -1246,7 +1201,7 @@ static blk_qc_t __map_bio(struct dm_target_io *tio)
+ 	 * anything, the target has assumed ownership of
+ 	 * this io.
+ 	 */
+-	atomic_inc(&io->io_count);
++	dm_io_inc_pending(io);
+ 	sector = clone->bi_iter.bi_sector;
+ 
+ 	if (unlikely(swap_bios_limit(ti, clone))) {
+@@ -1272,7 +1227,7 @@ static blk_qc_t __map_bio(struct dm_target_io *tio)
+ 			up(&md->swap_bios_semaphore);
+ 		}
+ 		free_tio(tio);
+-		dec_pending(io, BLK_STS_IOERR);
++		dm_io_dec_pending(io, BLK_STS_IOERR);
+ 		break;
+ 	case DM_MAPIO_REQUEUE:
+ 		if (unlikely(swap_bios_limit(ti, clone))) {
+@@ -1280,7 +1235,7 @@ static blk_qc_t __map_bio(struct dm_target_io *tio)
+ 			up(&md->swap_bios_semaphore);
+ 		}
+ 		free_tio(tio);
+-		dec_pending(io, BLK_STS_DM_REQUEUE);
++		dm_io_dec_pending(io, BLK_STS_DM_REQUEUE);
+ 		break;
+ 	default:
+ 		DMWARN("unimplemented target map return value: %d", r);
+@@ -1569,7 +1524,7 @@ static blk_qc_t __split_and_process_bio(struct mapped_device *md,
+ 
+ 	if (bio->bi_opf & REQ_PREFLUSH) {
+ 		error = __send_empty_flush(&ci);
+-		/* dec_pending submits any data associated with flush */
++		/* dm_io_dec_pending submits any data associated with flush */
+ 	} else if (op_is_zone_mgmt(bio_op(bio))) {
+ 		ci.bio = bio;
+ 		ci.sector_count = 0;
+@@ -1610,7 +1565,7 @@ static blk_qc_t __split_and_process_bio(struct mapped_device *md,
+ 	}
+ 
+ 	/* drop the extra reference count */
+-	dec_pending(ci.io, errno_to_blk_status(error));
++	dm_io_dec_pending(ci.io, errno_to_blk_status(error));
+ 	return ret;
+ }
+ 
 -- 
 2.31.1
 
