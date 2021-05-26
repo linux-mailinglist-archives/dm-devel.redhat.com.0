@@ -2,108 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 9B64B3915A4
-	for <lists+dm-devel@lfdr.de>; Wed, 26 May 2021 13:00:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 29FA43919C4
+	for <lists+dm-devel@lfdr.de>; Wed, 26 May 2021 16:16:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1622038609;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=D89R7vyrwb7qOV94zoO9xG8+2lPW6PIDLxJtnRRlHfo=;
+	b=L3/lGUzaMcpyCr1EEMXLKzKHhBcSIir32SpRjZLIS/Y+L74DC0RK7yvauzYgw2KeomyLwz
+	UnVCXRXOTpgUN1TfNn581/EvF3nPaczZawc2d1piFiMsfyTpBzdPKKTvoNGSZXwcZAeOqU
+	ZSNVcYJPPCgM+Srx6htDuy7HX0xxoNk=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-135-4GJrMDvYNgqbyvwm1gvISw-1; Wed, 26 May 2021 07:00:38 -0400
-X-MC-Unique: 4GJrMDvYNgqbyvwm1gvISw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-323-ME-xAtudOAW2bj30Fl7QtQ-1; Wed, 26 May 2021 10:16:46 -0400
+X-MC-Unique: ME-xAtudOAW2bj30Fl7QtQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D8E24107ACFE;
-	Wed, 26 May 2021 11:00:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4DA9680364C;
+	Wed, 26 May 2021 14:16:33 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B35986E705;
-	Wed, 26 May 2021 11:00:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EC469E15D;
+	Wed, 26 May 2021 14:16:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 60CFF5535E;
-	Wed, 26 May 2021 11:00:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 78BAF55345;
+	Wed, 26 May 2021 14:16:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 14Q88Do5020634 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 26 May 2021 04:08:13 -0400
+	id 14QEG69O028056 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 26 May 2021 10:16:06 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6ED5F2028789; Wed, 26 May 2021 08:08:13 +0000 (UTC)
+	id B22F5E156; Wed, 26 May 2021 14:16:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 695DC202879C
-	for <dm-devel@redhat.com>; Wed, 26 May 2021 08:08:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B312B1857F2C
-	for <dm-devel@redhat.com>; Wed, 26 May 2021 08:08:10 +0000 (UTC)
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com
-	[209.85.222.41]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-273-JStifFabNyWKVca4abbHMg-1; Wed, 26 May 2021 04:08:08 -0400
-X-MC-Unique: JStifFabNyWKVca4abbHMg-1
-Received: by mail-ua1-f41.google.com with SMTP id x1so308045uau.1
-	for <dm-devel@redhat.com>; Wed, 26 May 2021 01:08:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=GrfL+UvsoUYJEVH3FOBXMPqeLzeAwHNpUWgDzMspWKw=;
-	b=UgC+L6ixuUmzqdckFFGcEw4kWhbUNBlUKXa2PLYk67MBACA+0ZXMm4adZ966cuf7EG
-	tFmyTeYZgBVL2kJOMuVqkOx21tQY4T9tuCcUzQKk1se5NTuhwWWRBFZy0Q4998kFIvUg
-	M4EbKKfggbg9vQr62/B5XB4z+oSWoYV26nR86Jewq8fjutHUIY+vIZAQQgOA/V1uHFFw
-	DQHLRPD5CNtsdCGr0WtxbbFSnisVmOvdV/xgFlupZ2zASLFEL3DfKbFb6Rih0XkgDTLT
-	DxJRX3V5i+4Q8g2LUwJSV5V8+TwtflLOTyOp1oG2WK6FopKn5yqiWyezCgv8fc9aS/TE
-	Nisw==
-X-Gm-Message-State: AOAM533ghO6exX7RUFuVFa9MfhBqTU+yLXUiO+E42vFGjqM5C/CSnXU5
-	pMNKWANuXbAFRZi4Kp9fUGRON9nr9pzGueeisMlu2w==
-X-Google-Smtp-Source: ABdhPJxEKZ+yyN+wbXXVH9CKQ94TxTUrIX6SVT7ztQ9Bwftr62IUqVIB3GNBh5QlN3mdzVdDkjsC7QK+8McmDny5XO0=
-X-Received: by 2002:ab0:3351:: with SMTP id h17mr31776765uap.15.1622016487939; 
-	Wed, 26 May 2021 01:08:07 -0700 (PDT)
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+	(file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C3FF019D9D;
+	Wed, 26 May 2021 14:16:01 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id 14QEG1NP026392; Wed, 26 May 2021 10:16:01 -0400
+Received: from localhost (mpatocka@localhost)
+	by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with
+	ESMTP id 14QEG1Fb026388; Wed, 26 May 2021 10:16:01 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+	owned process doing -bs
+Date: Wed, 26 May 2021 10:16:01 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Damien Le Moal <Damien.LeMoal@wdc.com>
+In-Reply-To: <CH2PR04MB70783B1B24BD10E2BE380D1FE7259@CH2PR04MB7078.namprd04.prod.outlook.com>
+Message-ID: <alpine.LRH.2.02.2105261013460.25928@file01.intranet.prod.int.rdu2.redhat.com>
+References: <alpine.LRH.2.02.2105251548340.29706@file01.intranet.prod.int.rdu2.redhat.com>
+	<CH2PR04MB70783B1B24BD10E2BE380D1FE7259@CH2PR04MB7078.namprd04.prod.outlook.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-References: <20210521055116.1053587-1-hch@lst.de>
-	<CAPDyKFpqdSYeA+Zg=9Ewi46CmSWNpXQbju6HQo7aviCcRzyAAg@mail.gmail.com>
-	<20210526044943.GA28551@lst.de>
-In-Reply-To: <20210526044943.GA28551@lst.de>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Wed, 26 May 2021 10:07:31 +0200
-Message-ID: <CAPDyKFpR0maO_Dj6bxWSLvh_jcGnrcZ=na42atXfNdkmMkmdig@mail.gmail.com>
-To: Christoph Hellwig <hch@lst.de>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Wed, 26 May 2021 06:59:53 -0400
-Cc: nvdimm@lists.linux.dev, linux-m68k@vger.kernel.org,
-	Mike Snitzer <snitzer@redhat.com>,
-	linux-nvme@lists.infradead.org, Song Liu <song@kernel.org>,
-	dm-devel@redhat.com, Joshua Morris <josh.h.morris@us.ibm.com>,
-	linux-s390@vger.kernel.org, Dave Jiang <dave.jiang@intel.com>,
-	Maxim Levitsky <maximlevitsky@gmail.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Matias Bjorling <mb@lightnvm.io>, Nitin Gupta <ngupta@vflare.org>,
-	Vasily Gorbik <gor@linux.ibm.com>, linux-xtensa@linux-xtensa.org,
-	Alex Dubov <oakad@yahoo.com>, Heiko Carstens <hca@linux.ibm.com>,
-	Coly Li <colyli@suse.de>, linux-block <linux-block@vger.kernel.org>,
-	linux-bcache@vger.kernel.org, drbd-dev@tron.linbit.com,
-	Philip Kelleher <pjk1939@linux.ibm.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Jens Axboe <axboe@kernel.dk>, Chris Zankel <chris@zankel.net>,
-	linux-raid@vger.kernel.org, Max Filippov <jcmvbkbc@gmail.com>,
-	linux-mmc <linux-mmc@vger.kernel.org>,
-	Philipp Reisner <philipp.reisner@linbit.com>,
-	Jim Paris <jim@jtan.com>, Minchan Kim <minchan@kernel.org>,
-	Lars Ellenberg <lars.ellenberg@linbit.com>,
-	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
-Subject: Re: [dm-devel] simplify gendisk and request_queue allocation for
-	bio based drivers
+Cc: Mike Snitzer <msnitzer@redhat.com>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>
+Subject: [dm-devel] [PATCH v2] dm-kcopyd: avoid useless atomic operations
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -117,7 +79,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -125,39 +87,150 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 26 May 2021 at 06:49, Christoph Hellwig <hch@lst.de> wrote:
->
-> On Wed, May 26, 2021 at 12:41:37AM +0200, Ulf Hansson wrote:
-> > On Fri, 21 May 2021 at 07:51, Christoph Hellwig <hch@lst.de> wrote:
-> > >
-> > > Hi all,
-> > >
-> > > this series is the first part of cleaning up lifetimes and allocation of
-> > > the gendisk and request_queue structure.  It adds a new interface to
-> > > allocate the disk and queue together for bio based drivers, and a helper
-> > > for cleanup/free them when a driver is unloaded or a device is removed.
-> >
-> > May I ask what else you have in the pipe for the next steps?
-> >
-> > The reason why I ask is that I am looking into some issues related to
-> > lifecycle problems of gendisk/mmc, typically triggered at SD/MMC card
-> > removal.
->
-> In the short run not much more than superficial cleanups.  Eventually
-> I want bio based drivers to not require a separate request_queue, leaving
-> that purely as a data structure for blk-mq based drivers.  But it will
-> take a while until we get there, so it should not block any fixes.
 
-Alright, thanks for clarifying.
 
->
-> For hot unplug handling it might be worth to take a look at nvme, as it
-> is tested a lot for that case.
+On Tue, 25 May 2021, Damien Le Moal wrote:
 
-Okay, thanks for the hint.
+> On 2021/05/26 4:50, Mikulas Patocka wrote:
+> > The functions set_bit and clear_bit are atomic. We don't need atomicity
+> > when making flags for dm-kcopyd. So, change them to direct manipulation of
+> > the flags.
+> > 
+> > Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+> > 
+> > Index: linux-2.6/drivers/md/dm-kcopyd.c
+> > ===================================================================
+> > --- linux-2.6.orig/drivers/md/dm-kcopyd.c
+> > +++ linux-2.6/drivers/md/dm-kcopyd.c
+> > @@ -812,7 +812,7 @@ void dm_kcopyd_copy(struct dm_kcopyd_cli
+> >  	if (!test_bit(DM_KCOPYD_WRITE_SEQ, &job->flags)) {
+> >  		for (i = 0; i < job->num_dests; i++) {
+> >  			if (bdev_zoned_model(dests[i].bdev) == BLK_ZONED_HM) {
+> > -				set_bit(DM_KCOPYD_WRITE_SEQ, &job->flags);
+> > +				job->flags |= 1UL << DM_KCOPYD_WRITE_SEQ;
+> 
+> How about using the BIT() macro ?
+> 
+> job->flags |= BIT(DM_KCOPYD_WRITE_SEQ);
+> 
+> But I know some do not like that macro :)
 
-Kind regards
-Uffe
+Yes - it is better to use it.
+I also changed flags from unsigned long to unsigned, to make the structure 
+smaller.
+
+
+From: Mikulas Patocka <mpatocka@redhat.com>
+
+dm-kcopyd: avoid useless atomic operations
+
+The functions set_bit and clear_bit are atomic. We don't need atomicity
+when making flags for dm-kcopyd. So, change them to direct manipulation of
+the flags.
+
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+
+Index: linux-2.6/drivers/md/dm-kcopyd.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-kcopyd.c
++++ linux-2.6/drivers/md/dm-kcopyd.c
+@@ -341,7 +341,7 @@ static void client_free_pages(struct dm_
+ struct kcopyd_job {
+ 	struct dm_kcopyd_client *kc;
+ 	struct list_head list;
+-	unsigned long flags;
++	unsigned flags;
+ 
+ 	/*
+ 	 * Error state of the job.
+@@ -418,7 +418,7 @@ static struct kcopyd_job *pop_io_job(str
+ 	 * constraint and sequential writes that are at the right position.
+ 	 */
+ 	list_for_each_entry(job, jobs, list) {
+-		if (job->rw == READ || !test_bit(DM_KCOPYD_WRITE_SEQ, &job->flags)) {
++		if (job->rw == READ || !(job->flags & BIT(DM_KCOPYD_WRITE_SEQ))) {
+ 			list_del(&job->list);
+ 			return job;
+ 		}
+@@ -529,7 +529,7 @@ static void complete_io(unsigned long er
+ 		else
+ 			job->read_err = 1;
+ 
+-		if (!test_bit(DM_KCOPYD_IGNORE_ERROR, &job->flags)) {
++		if (!(job->flags & BIT(DM_KCOPYD_IGNORE_ERROR))) {
+ 			push(&kc->complete_jobs, job);
+ 			wake(kc);
+ 			return;
+@@ -572,7 +572,7 @@ static int run_io_job(struct kcopyd_job
+ 	 * If we need to write sequentially and some reads or writes failed,
+ 	 * no point in continuing.
+ 	 */
+-	if (test_bit(DM_KCOPYD_WRITE_SEQ, &job->flags) &&
++	if (job->flags & BIT(DM_KCOPYD_WRITE_SEQ) &&
+ 	    job->master_job->write_err) {
+ 		job->write_err = job->master_job->write_err;
+ 		return -EIO;
+@@ -716,7 +716,7 @@ static void segment_complete(int read_er
+ 	 * Only dispatch more work if there hasn't been an error.
+ 	 */
+ 	if ((!job->read_err && !job->write_err) ||
+-	    test_bit(DM_KCOPYD_IGNORE_ERROR, &job->flags)) {
++	    job->flags & BIT(DM_KCOPYD_IGNORE_ERROR)) {
+ 		/* get the next chunk of work */
+ 		progress = job->progress;
+ 		count = job->source.count - progress;
+@@ -809,10 +809,10 @@ void dm_kcopyd_copy(struct dm_kcopyd_cli
+ 	 * we need to write sequentially. If one of the destination is a
+ 	 * host-aware device, then leave it to the caller to choose what to do.
+ 	 */
+-	if (!test_bit(DM_KCOPYD_WRITE_SEQ, &job->flags)) {
++	if (!(job->flags & BIT(DM_KCOPYD_WRITE_SEQ))) {
+ 		for (i = 0; i < job->num_dests; i++) {
+ 			if (bdev_zoned_model(dests[i].bdev) == BLK_ZONED_HM) {
+-				set_bit(DM_KCOPYD_WRITE_SEQ, &job->flags);
++				job->flags |= BIT(DM_KCOPYD_WRITE_SEQ);
+ 				break;
+ 			}
+ 		}
+@@ -821,9 +821,9 @@ void dm_kcopyd_copy(struct dm_kcopyd_cli
+ 	/*
+ 	 * If we need to write sequentially, errors cannot be ignored.
+ 	 */
+-	if (test_bit(DM_KCOPYD_WRITE_SEQ, &job->flags) &&
+-	    test_bit(DM_KCOPYD_IGNORE_ERROR, &job->flags))
+-		clear_bit(DM_KCOPYD_IGNORE_ERROR, &job->flags);
++	if (job->flags & BIT(DM_KCOPYD_WRITE_SEQ) &&
++	    job->flags & BIT(DM_KCOPYD_IGNORE_ERROR))
++		job->flags &= ~BIT(DM_KCOPYD_IGNORE_ERROR);
+ 
+ 	if (from) {
+ 		job->source = *from;
+Index: linux-2.6/drivers/md/dm-raid1.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-raid1.c
++++ linux-2.6/drivers/md/dm-raid1.c
+@@ -364,7 +364,7 @@ static void recover(struct mirror_set *m
+ 
+ 	/* hand to kcopyd */
+ 	if (!errors_handled(ms))
+-		set_bit(DM_KCOPYD_IGNORE_ERROR, &flags);
++		flags |= BIT(DM_KCOPYD_IGNORE_ERROR);
+ 
+ 	dm_kcopyd_copy(ms->kcopyd_client, &from, ms->nr_mirrors - 1, to,
+ 		       flags, recovery_complete, reg);
+Index: linux-2.6/drivers/md/dm-zoned-reclaim.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-zoned-reclaim.c
++++ linux-2.6/drivers/md/dm-zoned-reclaim.c
+@@ -134,7 +134,7 @@ static int dmz_reclaim_copy(struct dmz_r
+ 	dst_zone_block = dmz_start_block(zmd, dst_zone);
+ 
+ 	if (dmz_is_seq(dst_zone))
+-		set_bit(DM_KCOPYD_WRITE_SEQ, &flags);
++		flags |= BIT(DM_KCOPYD_WRITE_SEQ);
+ 
+ 	while (block < end_block) {
+ 		if (src_zone->dev->flags & DMZ_BDEV_DYING)
 
 --
 dm-devel mailing list
