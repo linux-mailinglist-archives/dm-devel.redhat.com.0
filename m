@@ -2,51 +2,52 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 3DCE6398257
-	for <lists+dm-devel@lfdr.de>; Wed,  2 Jun 2021 09:00:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A4DD33981DE
+	for <lists+dm-devel@lfdr.de>; Wed,  2 Jun 2021 08:55:46 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-563-nFcXx4_dPjqHV_Ws6ltbfQ-1; Wed, 02 Jun 2021 03:00:12 -0400
-X-MC-Unique: nFcXx4_dPjqHV_Ws6ltbfQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-521-B0fmxKGpOSKipa1Ndza7mA-1; Wed, 02 Jun 2021 02:55:43 -0400
+X-MC-Unique: B0fmxKGpOSKipa1Ndza7mA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 09AB2107ACE4;
-	Wed,  2 Jun 2021 07:00:06 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7889D1001281;
-	Wed,  2 Jun 2021 07:00:05 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 67AC7801B16;
+	Wed,  2 Jun 2021 06:55:36 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5093160C4A;
+	Wed,  2 Jun 2021 06:55:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 833CB44A59;
-	Wed,  2 Jun 2021 07:00:03 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D0E111801265;
+	Wed,  2 Jun 2021 06:55:27 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1526xwxE017860 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Jun 2021 02:59:58 -0400
+	id 1526tCme016702 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Jun 2021 02:55:13 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7CA8B21602A8; Wed,  2 Jun 2021 06:59:58 +0000 (UTC)
+	id EF717208744D; Wed,  2 Jun 2021 06:55:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7873321602A6
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:59:55 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EAE73208747A
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:55:08 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D7D2810504A2
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:59:55 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 235AB1825066
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:55:08 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-118-K2TU8d0ZMbefRAm2evLyfw-1; Wed, 02 Jun 2021 02:59:54 -0400
-X-MC-Unique: K2TU8d0ZMbefRAm2evLyfw-1
+	us-mta-61-NAVWI2nHPGSJyNnRRUxyzw-1; Wed, 02 Jun 2021 02:55:05 -0400
+X-MC-Unique: NAVWI2nHPGSJyNnRRUxyzw-1
 Received: from shol69.static.otenet.gr ([83.235.170.67] helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1loKlL-0025I2-Rr; Wed, 02 Jun 2021 06:54:00 +0000
+	id 1loKmA-0025cC-BJ; Wed, 02 Jun 2021 06:54:50 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed,  2 Jun 2021 09:53:17 +0300
-Message-Id: <20210602065345.355274-3-hch@lst.de>
+Date: Wed,  2 Jun 2021 09:53:27 +0300
+Message-Id: <20210602065345.355274-13-hch@lst.de>
 In-Reply-To: <20210602065345.355274-1-hch@lst.de>
 References: <20210602065345.355274-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,7 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 Cc: Justin Sanders <justin@coraid.com>, Vignesh Raghavendra <vigneshr@ti.com>,
 	Mike Snitzer <snitzer@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
@@ -82,8 +83,7 @@ Cc: Justin Sanders <justin@coraid.com>, Vignesh Raghavendra <vigneshr@ti.com>,
 	Geoff Levand <geoff@infradead.org>, linux-mmc@vger.kernel.org,
 	linux-mtd@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 02/30] blk-mq: improve the
-	blk_mq_init_allocated_queue interface
+Subject: [dm-devel] [PATCH 12/30] swim: use blk_mq_alloc_disk
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,7 +97,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -105,171 +105,78 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Don't return the passed in request_queue but a normal error code, and
-drop the elevator_init argument in favor of just calling elevator_init_mq
-directly from dm-rq.
+Use the blk_mq_alloc_disk API to simplify the gendisk and request_queue
+allocation.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- block/blk-mq.c           | 36 ++++++++++++++----------------------
- block/blk.h              |  1 -
- block/elevator.c         |  2 +-
- drivers/md/dm-rq.c       |  9 +++------
- include/linux/blk-mq.h   |  5 ++---
- include/linux/elevator.h |  1 +
- 6 files changed, 21 insertions(+), 33 deletions(-)
+ drivers/block/swim.c | 34 ++++++++++++++--------------------
+ 1 file changed, 14 insertions(+), 20 deletions(-)
 
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index eaacfa963a73..6112741e1ff9 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -3115,21 +3115,18 @@ void blk_mq_release(struct request_queue *q)
- struct request_queue *blk_mq_init_queue_data(struct blk_mq_tag_set *set,
- 		void *queuedata)
- {
--	struct request_queue *uninit_q, *q;
-+	struct request_queue *q;
-+	int ret;
+diff --git a/drivers/block/swim.c b/drivers/block/swim.c
+index 2917b21f48ff..7ccc8d2a41bc 100644
+--- a/drivers/block/swim.c
++++ b/drivers/block/swim.c
+@@ -800,23 +800,20 @@ static int swim_floppy_init(struct swim_priv *swd)
+ 	spin_lock_init(&swd->lock);
  
--	uninit_q = blk_alloc_queue(set->numa_node);
--	if (!uninit_q)
-+	q = blk_alloc_queue(set->numa_node);
-+	if (!q)
- 		return ERR_PTR(-ENOMEM);
--	uninit_q->queuedata = queuedata;
+ 	for (drive = 0; drive < swd->floppy_count; drive++) {
+-		struct request_queue *q;
 -
--	/*
--	 * Initialize the queue without an elevator. device_add_disk() will do
--	 * the initialization.
--	 */
--	q = blk_mq_init_allocated_queue(set, uninit_q, false);
--	if (IS_ERR(q))
--		blk_cleanup_queue(uninit_q);
--
-+	q->queuedata = queuedata;
-+	ret = blk_mq_init_allocated_queue(set, q);
-+	if (ret) {
-+		blk_cleanup_queue(q);
-+		return ERR_PTR(ret);
-+	}
- 	return q;
- }
- EXPORT_SYMBOL_GPL(blk_mq_init_queue_data);
-@@ -3273,9 +3270,8 @@ static void blk_mq_realloc_hw_ctxs(struct blk_mq_tag_set *set,
- 	mutex_unlock(&q->sysfs_lock);
- }
+-		swd->unit[drive].disk = alloc_disk(1);
+-		if (swd->unit[drive].disk == NULL) {
+-			err = -ENOMEM;
++		err = blk_mq_alloc_sq_tag_set(&swd->unit[drive].tag_set,
++				&swim_mq_ops, 2, BLK_MQ_F_SHOULD_MERGE);
++		if (err)
+ 			goto exit_put_disks;
+-		}
  
--struct request_queue *blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
--						  struct request_queue *q,
--						  bool elevator_init)
-+int blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
-+		struct request_queue *q)
- {
- 	/* mark the queue as mq asap */
- 	q->mq_ops = set->ops;
-@@ -3325,11 +3321,7 @@ struct request_queue *blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
- 	blk_mq_init_cpu_queues(q, set->nr_hw_queues);
- 	blk_mq_add_queue_tag_set(set, q);
- 	blk_mq_map_swqueue(q);
--
--	if (elevator_init)
--		elevator_init_mq(q);
--
--	return q;
-+	return 0;
+-		q = blk_mq_init_sq_queue(&swd->unit[drive].tag_set, &swim_mq_ops,
+-						2, BLK_MQ_F_SHOULD_MERGE);
+-		if (IS_ERR(q)) {
+-			err = PTR_ERR(q);
++		swd->unit[drive].disk =
++			blk_mq_alloc_disk(&swd->unit[drive].tag_set,
++					  &swd->unit[drive]);
++		if (IS_ERR(swd->unit[drive].disk)) {
++			blk_mq_free_tag_set(&swd->unit[drive].tag_set);
++			err = PTR_ERR(swd->unit[drive].disk);
+ 			goto exit_put_disks;
+ 		}
  
- err_hctxs:
- 	kfree(q->queue_hw_ctx);
-@@ -3340,7 +3332,7 @@ struct request_queue *blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
- 	q->poll_cb = NULL;
- err_exit:
- 	q->mq_ops = NULL;
--	return ERR_PTR(-ENOMEM);
-+	return -ENOMEM;
- }
- EXPORT_SYMBOL(blk_mq_init_allocated_queue);
- 
-diff --git a/block/blk.h b/block/blk.h
-index 3440142f029b..d3fa47af3607 100644
---- a/block/blk.h
-+++ b/block/blk.h
-@@ -192,7 +192,6 @@ void blk_account_io_done(struct request *req, u64 now);
- 
- void blk_insert_flush(struct request *rq);
- 
--void elevator_init_mq(struct request_queue *q);
- int elevator_switch_mq(struct request_queue *q,
- 			      struct elevator_type *new_e);
- void __elevator_exit(struct request_queue *, struct elevator_queue *);
-diff --git a/block/elevator.c b/block/elevator.c
-index 440699c28119..06e203426410 100644
---- a/block/elevator.c
-+++ b/block/elevator.c
-@@ -693,7 +693,7 @@ void elevator_init_mq(struct request_queue *q)
- 		elevator_put(e);
+-		swd->unit[drive].disk->queue = q;
+-		swd->unit[drive].disk->queue->queuedata = &swd->unit[drive];
+ 		swd->unit[drive].swd = swd;
  	}
+ 
+@@ -824,6 +821,7 @@ static int swim_floppy_init(struct swim_priv *swd)
+ 		swd->unit[drive].disk->flags = GENHD_FL_REMOVABLE;
+ 		swd->unit[drive].disk->major = FLOPPY_MAJOR;
+ 		swd->unit[drive].disk->first_minor = drive;
++		swd->unit[drive].disk->minors = 1;
+ 		sprintf(swd->unit[drive].disk->disk_name, "fd%d", drive);
+ 		swd->unit[drive].disk->fops = &floppy_fops;
+ 		swd->unit[drive].disk->events = DISK_EVENT_MEDIA_CHANGE;
+@@ -839,14 +837,10 @@ static int swim_floppy_init(struct swim_priv *swd)
+ 	do {
+ 		struct gendisk *disk = swd->unit[drive].disk;
+ 
+-		if (disk) {
+-			if (disk->queue) {
+-				blk_cleanup_queue(disk->queue);
+-				disk->queue = NULL;
+-			}
+-			blk_mq_free_tag_set(&swd->unit[drive].tag_set);
+-			put_disk(disk);
+-		}
++		if (!disk)
++			continue;
++		blk_cleanup_disk(disk);
++		blk_mq_free_tag_set(&swd->unit[drive].tag_set);
+ 	} while (drive--);
+ 	return err;
  }
--
-+EXPORT_SYMBOL_GPL(elevator_init_mq); /* only for dm-rq */
- 
- /*
-  * switch to new_e io scheduler. be careful not to introduce deadlocks -
-diff --git a/drivers/md/dm-rq.c b/drivers/md/dm-rq.c
-index 9c3bc3711b33..0dbd48cbdff9 100644
---- a/drivers/md/dm-rq.c
-+++ b/drivers/md/dm-rq.c
-@@ -530,7 +530,6 @@ static const struct blk_mq_ops dm_mq_ops = {
- 
- int dm_mq_init_request_queue(struct mapped_device *md, struct dm_table *t)
- {
--	struct request_queue *q;
- 	struct dm_target *immutable_tgt;
- 	int err;
- 
-@@ -557,12 +556,10 @@ int dm_mq_init_request_queue(struct mapped_device *md, struct dm_table *t)
- 	if (err)
- 		goto out_kfree_tag_set;
- 
--	q = blk_mq_init_allocated_queue(md->tag_set, md->queue, true);
--	if (IS_ERR(q)) {
--		err = PTR_ERR(q);
-+	err = blk_mq_init_allocated_queue(md->tag_set, md->queue);
-+	if (err)
- 		goto out_tag_set;
--	}
--
-+	elevator_init_mq(md->queue);
- 	return 0;
- 
- out_tag_set:
-diff --git a/include/linux/blk-mq.h b/include/linux/blk-mq.h
-index bb950fc669ef..73750b2838d2 100644
---- a/include/linux/blk-mq.h
-+++ b/include/linux/blk-mq.h
-@@ -429,9 +429,8 @@ enum {
- struct request_queue *blk_mq_init_queue(struct blk_mq_tag_set *);
- struct request_queue *blk_mq_init_queue_data(struct blk_mq_tag_set *set,
- 		void *queuedata);
--struct request_queue *blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
--						  struct request_queue *q,
--						  bool elevator_init);
-+int blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
-+		struct request_queue *q);
- struct request_queue *blk_mq_init_sq_queue(struct blk_mq_tag_set *set,
- 						const struct blk_mq_ops *ops,
- 						unsigned int queue_depth,
-diff --git a/include/linux/elevator.h b/include/linux/elevator.h
-index dcb2f9022c1d..783ecb3cb77a 100644
---- a/include/linux/elevator.h
-+++ b/include/linux/elevator.h
-@@ -120,6 +120,7 @@ extern void elv_merged_request(struct request_queue *, struct request *,
- extern bool elv_attempt_insert_merge(struct request_queue *, struct request *);
- extern struct request *elv_former_request(struct request_queue *, struct request *);
- extern struct request *elv_latter_request(struct request_queue *, struct request *);
-+void elevator_init_mq(struct request_queue *q);
- 
- /*
-  * io scheduler registration
 -- 
 2.30.2
 
