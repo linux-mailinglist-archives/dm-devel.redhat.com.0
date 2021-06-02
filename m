@@ -1,128 +1,57 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 1C357397CCD
-	for <lists+dm-devel@lfdr.de>; Wed,  2 Jun 2021 00:57:52 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 3DCE6398257
+	for <lists+dm-devel@lfdr.de>; Wed,  2 Jun 2021 09:00:15 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-516-YlGUkdo4NGCZO_JOlw3-oA-1; Tue, 01 Jun 2021 18:57:49 -0400
-X-MC-Unique: YlGUkdo4NGCZO_JOlw3-oA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-563-nFcXx4_dPjqHV_Ws6ltbfQ-1; Wed, 02 Jun 2021 03:00:12 -0400
+X-MC-Unique: nFcXx4_dPjqHV_Ws6ltbfQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4D740107ACC7;
-	Tue,  1 Jun 2021 22:57:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 09AB2107ACE4;
+	Wed,  2 Jun 2021 07:00:06 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 370726087C;
-	Tue,  1 Jun 2021 22:57:40 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7889D1001281;
+	Wed,  2 Jun 2021 07:00:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8771E44A5A;
-	Tue,  1 Jun 2021 22:57:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 833CB44A59;
+	Wed,  2 Jun 2021 07:00:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 151MvDsN008125 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 1 Jun 2021 18:57:14 -0400
+	id 1526xwxE017860 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Jun 2021 02:59:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 258BAAECAC; Tue,  1 Jun 2021 22:57:13 +0000 (UTC)
+	id 7CA8B21602A8; Wed,  2 Jun 2021 06:59:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F79BAEC95
-	for <dm-devel@redhat.com>; Tue,  1 Jun 2021 22:57:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7873321602A6
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:59:55 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D08C180D0E0
-	for <dm-devel@redhat.com>; Tue,  1 Jun 2021 22:57:10 +0000 (UTC)
-Received: from esa2.hgst.iphmx.com (esa2.hgst.iphmx.com [68.232.143.124])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-113-eN3BI5afOHevYH_lTG2GJg-1; Tue, 01 Jun 2021 18:57:06 -0400
-X-MC-Unique: eN3BI5afOHevYH_lTG2GJg-1
-IronPort-SDR: 3Sk7pd7BYa3+vlOYX2wdzww/CD3u5KnfiKsyOn56zYpP6pweDPYt1M1SFBQoTIvhROgoZtIIb0
-	8ZD3t/CZNCp1VMNuBboNBCZhPfdv0KIckxFOU+gOiV00NEZMhrBkV6qmrEKiC6xE/J2jO60O3E
-	6Y1tSIaMun3l/B9SFgC+jebiKWkhFNUpfSSoCKPt+tZoukvGL1GHXDjIV32NxTOPkWRj7SIouv
-	TXEYnG+w9WEW8lQpDfT1K/+IfNT5cb5v23xTrgjCW39NYaEMKDvYSxerzpuSCP3m1ygz/Q5JVV
-	AXQ=
-X-IronPort-AV: E=Sophos;i="5.83,241,1616428800"; d="scan'208";a="274211773"
-Received: from mail-bn8nam12lp2173.outbound.protection.outlook.com (HELO
-	NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.173])
-	by ob1.hgst.iphmx.com with ESMTP; 02 Jun 2021 06:57:12 +0800
-Received: from DM6PR04MB7081.namprd04.prod.outlook.com (2603:10b6:5:244::21)
-	by DM6PR04MB4826.namprd04.prod.outlook.com (2603:10b6:5:29::17) with
-	Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4173.24;
-	Tue, 1 Jun 2021 22:57:03 +0000
-Received: from DM6PR04MB7081.namprd04.prod.outlook.com
-	([fe80::64f9:51d2:1e04:f806]) by
-	DM6PR04MB7081.namprd04.prod.outlook.com
-	([fe80::64f9:51d2:1e04:f806%9]) with mapi id 15.20.4173.030;
-	Tue, 1 Jun 2021 22:57:03 +0000
-From: Damien Le Moal <Damien.LeMoal@wdc.com>
-To: "dm-devel@redhat.com" <dm-devel@redhat.com>, Mike Snitzer
-	<snitzer@redhat.com>, "linux-block@vger.kernel.org"
-	<linux-block@vger.kernel.org>, Jens Axboe <axboe@kernel.dk>
-Thread-Topic: [PATCH v5 00/11] dm: Improve zoned block device support
-Thread-Index: AQHXUaxyAuyK4c4Z+0yqEP2QqnaCJA==
-Date: Tue, 1 Jun 2021 22:57:03 +0000
-Message-ID: <DM6PR04MB708146E418BF65FC2F7847E3E73E9@DM6PR04MB7081.namprd04.prod.outlook.com>
-References: <20210525212501.226888-1-damien.lemoal@wdc.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2400:2411:43c0:6000:8d7b:9386:76d5:60d]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 3c0f75cd-f9b2-4b95-9587-08d92550925f
-x-ms-traffictypediagnostic: DM6PR04MB4826:
-x-microsoft-antispam-prvs: <DM6PR04MB48263B9C1729C5600F71F622E73E9@DM6PR04MB4826.namprd04.prod.outlook.com>
-wdcipoutbound: EOP-TRUE
-x-ms-oob-tlc-oobclassifiers: OLM:1060
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: Qh6mA7erlg7tVeBdR2B1LyLA5tUJGQb7RpUIHxiZRajK8zPvQK+4hAi5Ggu5cPy4ED+ynD9Cfc4Mp8b3j4tt0/iF2pyfbvonh1/NsNZz1E9E2oYLBWREvQ4R1WiyHzGeeN39BDaFhFVDkZd++fsHwFaCYh204F3cSKL4kZuVnb90JKviWt3FnMnjz3OW0pcLIauTzFH2vCp415EW6GpbSUPusDbMlS4Odpbe9NORKbyx7DbMWROPOgdKG6nNSnK05dd0PEpy++Twd69/bXtsZkTHX7kzcoppNop5jnv6zmwJ47XJ5qhkf4ZWFy0QiI9GpXe5PO+cYtztAgCzPjA9tSxRC5aWZzjLU8fvcq93d5H/JfI1bRHOznwNm/dskjjiWOF+0BX+ZIlyjj1DOnWAj2cD38rvzvyZ05K7lihGLxg54xPHg+tIPPzsBXM7u/usGLLpgcJ8ERPRM7LCNkPbpJR5b3EzEjAaUHFNcBwpAmwCFIRYkuJgIhgLOBSlSfRRXiBcU/RlCwCaHoF+WcGaugD1teyH2bhGmCPmkNAvHtnnUzjR5vrN76OgZgUqE5PTU+oq7XQN3XDZ6vsvbwr3B2v67eS7bhOenyTo7FGsnJE8MA2TmvLjUjFu6tLMKFRY8F05s9T8065MEus90Vv6/w==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:DM6PR04MB7081.namprd04.prod.outlook.com;
-	PTR:; CAT:NONE;
-	SFS:(4636009)(366004)(346002)(136003)(396003)(39860400002)(376002)(55016002)(8936002)(53546011)(8676002)(71200400001)(478600001)(66556008)(2906002)(64756008)(9686003)(76116006)(110136005)(66476007)(7696005)(122000001)(66446008)(5660300002)(38100700002)(33656002)(316002)(91956017)(86362001)(52536014)(83380400001)(66946007)(6506007)(186003)(21314003);
-	DIR:OUT; SFP:1102
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?s9gxgBUuxKbh6qpahKDOI87/KpEljevV+WbHeGpRV2ImI5nPUU/HAZkDXqsY?=
-	=?us-ascii?Q?ZoJTeVgzz1YnBHM3jlXbRGFwAAU1GMeICpDaf5c8ttJQer0UlM3Mqq9pAcdY?=
-	=?us-ascii?Q?/UWgEQ58X8Rz3yv1WlUbU8a951NKcTJq4UwOzIxbOBtIFaaFpkszA3kXRftm?=
-	=?us-ascii?Q?HSVHNcdwE4t4wuBHfHo1InN3ExP9BUFChxJIk0cljIclj7163xgpK8izKnva?=
-	=?us-ascii?Q?Y4th7ehWreTWfJ9RjiNErMm1HlAwT2ga5yCtqXOKP7M1Xokn7ADJAuWN6wJf?=
-	=?us-ascii?Q?zZfVXJ7ZZkrtGZ6r9KiPxOp1suMpFAMO/q2WFNcu/mDY6ST8ougpeY8+SoCd?=
-	=?us-ascii?Q?zSlhAQdxOvBUSddq+FkYJ4+x9Qfgms+F0rZhE2tT+lKHPRIEATiTzOPGZprL?=
-	=?us-ascii?Q?j4KMuGnuWScbpglCe8d2fmMtTFjhdYxW5ouDXNmFEaoQeoDocgxI03KGkgvo?=
-	=?us-ascii?Q?bLaRZjeMna9ge+CWYVFqguAg27+umr4+l/ithehPL2ADjWdOQdUETK90TFOF?=
-	=?us-ascii?Q?chqOWC1QTyOdxHJ6ny6Wzzgmq7XeajcHamc/9m8JG4ksBzwO06YvPWf010l5?=
-	=?us-ascii?Q?lV5VUHV/k06FyKGHlRoFFF6ZdADRLtK204L15NFG1gLZ/KoRhrQuYZOxMWBn?=
-	=?us-ascii?Q?rt4M7REV2S4sVAbZS4xOBxUftl5ZZnlxl+vH//3LxWXcC676pSVIc/NLgKS0?=
-	=?us-ascii?Q?wjktXFkRIya5NRXXeD4xEJy/Og0sM+5lmj+sF2r/Z2xRHoYXvwiiCxCj1BwP?=
-	=?us-ascii?Q?PGqi5HHZnO6H3J/reKfjoYENt0jfeZvAmMBsYnjS0JFV9a32sOtalLcKLIpM?=
-	=?us-ascii?Q?JlS8TrChVPO1E0KUzEUKD6uXLb4LTdpEvqR6wHGO87JH95Hb1ODiH5oGO/SN?=
-	=?us-ascii?Q?nlLFM3mE9SoBqKX0rKVICgLaCmVbKWgrvdJoyqqhc7D/jGFlmG5AfdJdEgIA?=
-	=?us-ascii?Q?oBZKdYyzlniZDurBBNoanMQVpIR+c3I21a6OJye73etuYFdtBQVyq/Qcgk5s?=
-	=?us-ascii?Q?KQWJ8V0qZyNuDlBnZlvGv57OiKuR1Vh9VP+SXuMy4SXLW1rh2R0dUQtoUEO7?=
-	=?us-ascii?Q?we3MVotwoyVwHXtTCB+cixTveqxGhPqm4M8OO9guudLWWYoqZ/qyXeUx4GsE?=
-	=?us-ascii?Q?dgRCYqloYOlX+5vXkNxyZw2QuVMxdBOO3QIwH+ZKZRUuTDgDx1nb0NxMSaT9?=
-	=?us-ascii?Q?FpJYY/T8sbY9ngsH9nKOZikbys9wfvjMAwPVTw4zhSYhrIVu/zALEW4jfFJY?=
-	=?us-ascii?Q?rHbsO6+inCXvEEOvKtsy3fNb47JARUuHB/7CukuIty/yIlqRuLnp7pIFSSaB?=
-	=?us-ascii?Q?9PaeXOfue2GEeEp4QGp+wOL04uRX5k3eKn4OPbJybdHACgHPjk4auy9S5utE?=
-	=?us-ascii?Q?xwWy32DiLj3gaG72z7lD1TWoo17k/CEHXYy33Y02RfI/2ZHPGw=3D=3D?=
-x-ms-exchange-transport-forked: True
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D7D2810504A2
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:59:55 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-118-K2TU8d0ZMbefRAm2evLyfw-1; Wed, 02 Jun 2021 02:59:54 -0400
+X-MC-Unique: K2TU8d0ZMbefRAm2evLyfw-1
+Received: from shol69.static.otenet.gr ([83.235.170.67] helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+	id 1loKlL-0025I2-Rr; Wed, 02 Jun 2021 06:54:00 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Jens Axboe <axboe@kernel.dk>
+Date: Wed,  2 Jun 2021 09:53:17 +0300
+Message-Id: <20210602065345.355274-3-hch@lst.de>
+In-Reply-To: <20210602065345.355274-1-hch@lst.de>
+References: <20210602065345.355274-1-hch@lst.de>
 MIME-Version: 1.0
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR04MB7081.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c0f75cd-f9b2-4b95-9587-08d92550925f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jun 2021 22:57:03.1690 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lxsFi+1eEhsR4hr8jSzOiCQOf6Q7HVs4MLul2PXLbyDQCTE7GuNKQsI8d4lDiNtGCjKiIuBXhFBorRi7GcHSag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR04MB4826
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -131,12 +60,30 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 151MvDsN008125
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH v5 00/11] dm: Improve zoned block device
-	support
+Cc: Justin Sanders <justin@coraid.com>, Vignesh Raghavendra <vigneshr@ti.com>,
+	Mike Snitzer <snitzer@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	virtualization@lists.linux-foundation.org, dm-devel@redhat.com,
+	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Jack Wang <jinpu.wang@ionos.com>, Tim Waugh <tim@cyberelk.net>,
+	linux-s390@vger.kernel.org, Alex Dubov <oakad@yahoo.com>,
+	Richard Weinberger <richard@nod.at>,
+	Christian Borntraeger <borntraeger@de.ibm.com>,
+	xen-devel@lists.xenproject.org, Ilya Dryomov <idryomov@gmail.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Heiko Carstens <hca@linux.ibm.com>, Josef Bacik <josef@toxicpanda.com>,
+	Denis Efremov <efremov@linux.com>, nbd@other.debian.org,
+	linux-block@vger.kernel.org, ceph-devel@vger.kernel.org,
+	Maxim Levitsky <maximlevitsky@gmail.com>,
+	Geoff Levand <geoff@infradead.org>, linux-mmc@vger.kernel.org,
+	linux-mtd@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [dm-devel] [PATCH 02/30] blk-mq: improve the
+	blk_mq_init_allocated_queue interface
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -150,116 +97,181 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 2021/05/26 6:25, Damien Le Moal wrote:
-> This series improve device mapper support for zoned block devices and
-> of targets exposing a zoned device.
+Don't return the passed in request_queue but a normal error code, and
+drop the elevator_init argument in favor of just calling elevator_init_mq
+directly from dm-rq.
 
-Mike, Jens,
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ block/blk-mq.c           | 36 ++++++++++++++----------------------
+ block/blk.h              |  1 -
+ block/elevator.c         |  2 +-
+ drivers/md/dm-rq.c       |  9 +++------
+ include/linux/blk-mq.h   |  5 ++---
+ include/linux/elevator.h |  1 +
+ 6 files changed, 21 insertions(+), 33 deletions(-)
 
-Any feedback regarding this series ?
-
-> 
-> The first patch improve support for user requests to reset all zones of
-> the target device. With the fix, such operation behave similarly to
-> physical block devices implementation based on the single zone reset
-> command with the ALL bit set.
-> 
-> The following 2 patches are preparatory block layer patches.
-> 
-> Patch 4 and 5 are 2 small fixes to DM core zoned block device support.
-> 
-> Patch 6 reorganizes DM core code, moving conditionally defined zoned
-> block device code into the new dm-zone.c file. This avoids sprinkly DM
-> with zone related code defined under an #ifdef CONFIG_BLK_DEV_ZONED.
-> 
-> Patch 7 improves DM zone report helper functions for target drivers.
-> 
-> Patch 8 fixes a potential problem with BIO requeue on zoned target.
-> 
-> Finally, patch 9 to 11 implement zone append emulation using regular
-> writes for target drivers that cannot natively support this BIO type.
-> The only target currently needing this emulation is dm-crypt. With this
-> change, a zoned dm-crypt device behaves exactly like a regular zoned
-> block device, correctly executing user zone append BIOs.
-> 
-> This series passes the following tests:
-> 1) zonefs tests on top of dm-crypt with a zoned nullblk device
-> 2) zonefs tests on top of dm-crypt+dm-linear with an SMR HDD
-> 3) btrfs fstests on top of dm-crypt with zoned nullblk devices.
-> 
-> Comments are as always welcome.
-> 
-> Changes from v4:
-> * Remove useless extra space in variable initialization in patch 1
-> * Shorten dm_accept_partial_bio() documentation comment in patch 4
-> * Added reviewed-by tags
-> 
-> Changes from v3:
-> * Fixed missing variable initialization in
->   blkdev_zone_reset_all_emulated() in patch 1.
-> * Rebased on rc3
-> * Added reviewed-by tags
-> 
-> Changes from v2:
-> * Replace use of spinlock to protect the zone write pointer offset
->   array in patch 11 with READ_ONCE/WRITE_ONCE as suggested by Hannes.
-> * Added reviewed-by tags
-> 
-> Changes from v1:
-> * Use Christoph proposed approach for patch 1 (split reset all
->   processing into different functions)
-> * Changed helpers introduced in patch 2 to remove the request_queue
->   argument
-> * Improve patch 3 commit message as suggested by Christoph (explaining
->   that the flag is a special case that cannot use a REQ_XXX flag)
-> * Changed DMWARN() into DMDEBUG in patch 11 as suggested by Milan
-> * Added reviewed-by tags
-> 
-> Damien Le Moal (11):
->   block: improve handling of all zones reset operation
->   block: introduce bio zone helpers
->   block: introduce BIO_ZONE_WRITE_LOCKED bio flag
->   dm: Fix dm_accept_partial_bio()
->   dm: cleanup device_area_is_invalid()
->   dm: move zone related code to dm-zone.c
->   dm: Introduce dm_report_zones()
->   dm: Forbid requeue of writes to zones
->   dm: rearrange core declarations
->   dm: introduce zone append emulation
->   dm crypt: Fix zoned block device support
-> 
->  block/blk-zoned.c             | 119 +++++--
->  drivers/md/Makefile           |   4 +
->  drivers/md/dm-core.h          |  65 ++++
->  drivers/md/dm-crypt.c         |  31 +-
->  drivers/md/dm-flakey.c        |   7 +-
->  drivers/md/dm-linear.c        |   7 +-
->  drivers/md/dm-table.c         |  21 +-
->  drivers/md/dm-zone.c          | 654 ++++++++++++++++++++++++++++++++++
->  drivers/md/dm.c               | 201 +++--------
->  drivers/md/dm.h               |  30 +-
->  include/linux/blk_types.h     |   1 +
->  include/linux/blkdev.h        |  12 +
->  include/linux/device-mapper.h |   9 +-
->  13 files changed, 954 insertions(+), 207 deletions(-)
->  create mode 100644 drivers/md/dm-zone.c
-> 
-
-
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index eaacfa963a73..6112741e1ff9 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -3115,21 +3115,18 @@ void blk_mq_release(struct request_queue *q)
+ struct request_queue *blk_mq_init_queue_data(struct blk_mq_tag_set *set,
+ 		void *queuedata)
+ {
+-	struct request_queue *uninit_q, *q;
++	struct request_queue *q;
++	int ret;
+ 
+-	uninit_q = blk_alloc_queue(set->numa_node);
+-	if (!uninit_q)
++	q = blk_alloc_queue(set->numa_node);
++	if (!q)
+ 		return ERR_PTR(-ENOMEM);
+-	uninit_q->queuedata = queuedata;
+-
+-	/*
+-	 * Initialize the queue without an elevator. device_add_disk() will do
+-	 * the initialization.
+-	 */
+-	q = blk_mq_init_allocated_queue(set, uninit_q, false);
+-	if (IS_ERR(q))
+-		blk_cleanup_queue(uninit_q);
+-
++	q->queuedata = queuedata;
++	ret = blk_mq_init_allocated_queue(set, q);
++	if (ret) {
++		blk_cleanup_queue(q);
++		return ERR_PTR(ret);
++	}
+ 	return q;
+ }
+ EXPORT_SYMBOL_GPL(blk_mq_init_queue_data);
+@@ -3273,9 +3270,8 @@ static void blk_mq_realloc_hw_ctxs(struct blk_mq_tag_set *set,
+ 	mutex_unlock(&q->sysfs_lock);
+ }
+ 
+-struct request_queue *blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
+-						  struct request_queue *q,
+-						  bool elevator_init)
++int blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
++		struct request_queue *q)
+ {
+ 	/* mark the queue as mq asap */
+ 	q->mq_ops = set->ops;
+@@ -3325,11 +3321,7 @@ struct request_queue *blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
+ 	blk_mq_init_cpu_queues(q, set->nr_hw_queues);
+ 	blk_mq_add_queue_tag_set(set, q);
+ 	blk_mq_map_swqueue(q);
+-
+-	if (elevator_init)
+-		elevator_init_mq(q);
+-
+-	return q;
++	return 0;
+ 
+ err_hctxs:
+ 	kfree(q->queue_hw_ctx);
+@@ -3340,7 +3332,7 @@ struct request_queue *blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
+ 	q->poll_cb = NULL;
+ err_exit:
+ 	q->mq_ops = NULL;
+-	return ERR_PTR(-ENOMEM);
++	return -ENOMEM;
+ }
+ EXPORT_SYMBOL(blk_mq_init_allocated_queue);
+ 
+diff --git a/block/blk.h b/block/blk.h
+index 3440142f029b..d3fa47af3607 100644
+--- a/block/blk.h
++++ b/block/blk.h
+@@ -192,7 +192,6 @@ void blk_account_io_done(struct request *req, u64 now);
+ 
+ void blk_insert_flush(struct request *rq);
+ 
+-void elevator_init_mq(struct request_queue *q);
+ int elevator_switch_mq(struct request_queue *q,
+ 			      struct elevator_type *new_e);
+ void __elevator_exit(struct request_queue *, struct elevator_queue *);
+diff --git a/block/elevator.c b/block/elevator.c
+index 440699c28119..06e203426410 100644
+--- a/block/elevator.c
++++ b/block/elevator.c
+@@ -693,7 +693,7 @@ void elevator_init_mq(struct request_queue *q)
+ 		elevator_put(e);
+ 	}
+ }
+-
++EXPORT_SYMBOL_GPL(elevator_init_mq); /* only for dm-rq */
+ 
+ /*
+  * switch to new_e io scheduler. be careful not to introduce deadlocks -
+diff --git a/drivers/md/dm-rq.c b/drivers/md/dm-rq.c
+index 9c3bc3711b33..0dbd48cbdff9 100644
+--- a/drivers/md/dm-rq.c
++++ b/drivers/md/dm-rq.c
+@@ -530,7 +530,6 @@ static const struct blk_mq_ops dm_mq_ops = {
+ 
+ int dm_mq_init_request_queue(struct mapped_device *md, struct dm_table *t)
+ {
+-	struct request_queue *q;
+ 	struct dm_target *immutable_tgt;
+ 	int err;
+ 
+@@ -557,12 +556,10 @@ int dm_mq_init_request_queue(struct mapped_device *md, struct dm_table *t)
+ 	if (err)
+ 		goto out_kfree_tag_set;
+ 
+-	q = blk_mq_init_allocated_queue(md->tag_set, md->queue, true);
+-	if (IS_ERR(q)) {
+-		err = PTR_ERR(q);
++	err = blk_mq_init_allocated_queue(md->tag_set, md->queue);
++	if (err)
+ 		goto out_tag_set;
+-	}
+-
++	elevator_init_mq(md->queue);
+ 	return 0;
+ 
+ out_tag_set:
+diff --git a/include/linux/blk-mq.h b/include/linux/blk-mq.h
+index bb950fc669ef..73750b2838d2 100644
+--- a/include/linux/blk-mq.h
++++ b/include/linux/blk-mq.h
+@@ -429,9 +429,8 @@ enum {
+ struct request_queue *blk_mq_init_queue(struct blk_mq_tag_set *);
+ struct request_queue *blk_mq_init_queue_data(struct blk_mq_tag_set *set,
+ 		void *queuedata);
+-struct request_queue *blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
+-						  struct request_queue *q,
+-						  bool elevator_init);
++int blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
++		struct request_queue *q);
+ struct request_queue *blk_mq_init_sq_queue(struct blk_mq_tag_set *set,
+ 						const struct blk_mq_ops *ops,
+ 						unsigned int queue_depth,
+diff --git a/include/linux/elevator.h b/include/linux/elevator.h
+index dcb2f9022c1d..783ecb3cb77a 100644
+--- a/include/linux/elevator.h
++++ b/include/linux/elevator.h
+@@ -120,6 +120,7 @@ extern void elv_merged_request(struct request_queue *, struct request *,
+ extern bool elv_attempt_insert_merge(struct request_queue *, struct request *);
+ extern struct request *elv_former_request(struct request_queue *, struct request *);
+ extern struct request *elv_latter_request(struct request_queue *, struct request *);
++void elevator_init_mq(struct request_queue *q);
+ 
+ /*
+  * io scheduler registration
 -- 
-Damien Le Moal
-Western Digital Research
-
-
+2.30.2
 
 --
 dm-devel mailing list
