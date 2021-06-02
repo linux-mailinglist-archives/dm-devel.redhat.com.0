@@ -2,52 +2,52 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2B1A83981E0
-	for <lists+dm-devel@lfdr.de>; Wed,  2 Jun 2021 08:55:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 729343981DB
+	for <lists+dm-devel@lfdr.de>; Wed,  2 Jun 2021 08:55:45 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-80-xOeVuxYeMOm3mSCNhiSuCA-1; Wed, 02 Jun 2021 02:55:45 -0400
-X-MC-Unique: xOeVuxYeMOm3mSCNhiSuCA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-508-IMZaBKKZOjm_LCV9bH4TyA-1; Wed, 02 Jun 2021 02:55:42 -0400
+X-MC-Unique: IMZaBKKZOjm_LCV9bH4TyA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EAF41801B1B;
-	Wed,  2 Jun 2021 06:55:40 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C8FDF60C0F;
-	Wed,  2 Jun 2021 06:55:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F2F6D501E6;
+	Wed,  2 Jun 2021 06:55:37 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C6CCBE460;
+	Wed,  2 Jun 2021 06:55:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8087F1804480;
-	Wed,  2 Jun 2021 06:55:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2AEC544A58;
+	Wed,  2 Jun 2021 06:55:37 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1526tLCu016737 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Jun 2021 02:55:21 -0400
+	id 1526tQeN016747 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Jun 2021 02:55:26 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id AFD1021623B1; Wed,  2 Jun 2021 06:55:21 +0000 (UTC)
+	id 22F04112CA36; Wed,  2 Jun 2021 06:55:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A8DE721C861B
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:55:17 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1DCE7103F26D
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:55:22 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4287A80D0E0
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:55:17 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D954184853D
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:55:22 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-254-ysUF56vAO1KgLJ8TNMyNhQ-1; Wed, 02 Jun 2021 02:55:15 -0400
-X-MC-Unique: ysUF56vAO1KgLJ8TNMyNhQ-1
+	us-mta-112-ZsYqRLXKMzGSH02iwCSmXQ-1; Wed, 02 Jun 2021 02:55:20 -0400
+X-MC-Unique: ZsYqRLXKMzGSH02iwCSmXQ-1
 Received: from shol69.static.otenet.gr ([83.235.170.67] helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1loKmM-0025j3-HR; Wed, 02 Jun 2021 06:55:03 +0000
+	id 1loKmR-0025lm-Ax; Wed, 02 Jun 2021 06:55:08 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed,  2 Jun 2021 09:53:30 +0300
-Message-Id: <20210602065345.355274-16-hch@lst.de>
+Date: Wed,  2 Jun 2021 09:53:31 +0300
+Message-Id: <20210602065345.355274-17-hch@lst.de>
 In-Reply-To: <20210602065345.355274-1-hch@lst.de>
 References: <20210602065345.355274-1-hch@lst.de>
 MIME-Version: 1.0
@@ -61,7 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 Cc: Justin Sanders <justin@coraid.com>, Vignesh Raghavendra <vigneshr@ti.com>,
 	Mike Snitzer <snitzer@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
@@ -83,7 +83,8 @@ Cc: Justin Sanders <justin@coraid.com>, Vignesh Raghavendra <vigneshr@ti.com>,
 	Geoff Levand <geoff@infradead.org>, linux-mmc@vger.kernel.org,
 	linux-mtd@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 15/30] blk-mq: remove blk_mq_init_sq_queue
+Subject: [dm-devel] [PATCH 16/30] aoe: use blk_mq_alloc_disk and
+	blk_cleanup_disk
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,7 +98,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -105,62 +106,122 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-All users are gone now.
+Use blk_mq_alloc_disk and blk_cleanup_disk to simplify the gendisk and
+request_queue allocation.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- block/blk-mq.c         | 22 ----------------------
- include/linux/blk-mq.h |  4 ----
- 2 files changed, 26 deletions(-)
+ drivers/block/aoe/aoeblk.c | 33 ++++++++++++---------------------
+ drivers/block/aoe/aoedev.c |  3 +--
+ 2 files changed, 13 insertions(+), 23 deletions(-)
 
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index 1e6036e6fd66..25e25177c2b1 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -3156,28 +3156,6 @@ struct gendisk *__blk_mq_alloc_disk(struct blk_mq_tag_set *set, void *queuedata)
- }
- EXPORT_SYMBOL(__blk_mq_alloc_disk);
+diff --git a/drivers/block/aoe/aoeblk.c b/drivers/block/aoe/aoeblk.c
+index c34e71b0c4a9..06b360f7123a 100644
+--- a/drivers/block/aoe/aoeblk.c
++++ b/drivers/block/aoe/aoeblk.c
+@@ -338,14 +338,13 @@ static const struct blk_mq_ops aoeblk_mq_ops = {
+ 	.queue_rq	= aoeblk_queue_rq,
+ };
  
--/*
-- * Helper for setting up a queue with mq ops, given queue depth, and
-- * the passed in mq ops flags.
-- */
--struct request_queue *blk_mq_init_sq_queue(struct blk_mq_tag_set *set,
--					   const struct blk_mq_ops *ops,
--					   unsigned int queue_depth,
--					   unsigned int set_flags)
--{
+-/* alloc_disk and add_disk can sleep */
++/* blk_mq_alloc_disk and add_disk can sleep */
+ void
+ aoeblk_gdalloc(void *vp)
+ {
+ 	struct aoedev *d = vp;
+ 	struct gendisk *gd;
+ 	mempool_t *mp;
 -	struct request_queue *q;
--	int ret;
--
--	ret = blk_mq_alloc_sq_tag_set(set, ops, queue_depth, set_flags);
--	if (ret)
--		return ERR_PTR(ret);
--	q = blk_mq_init_queue(set);
--	if (IS_ERR(q))
--		blk_mq_free_tag_set(set);
--	return q;
--}
--EXPORT_SYMBOL(blk_mq_init_sq_queue);
--
- static struct blk_mq_hw_ctx *blk_mq_alloc_and_init_hctx(
- 		struct blk_mq_tag_set *set, struct request_queue *q,
- 		int hctx_idx, int node)
-diff --git a/include/linux/blk-mq.h b/include/linux/blk-mq.h
-index f496c6c5b5d2..02a4aab0aeac 100644
---- a/include/linux/blk-mq.h
-+++ b/include/linux/blk-mq.h
-@@ -443,10 +443,6 @@ struct request_queue *blk_mq_init_queue_data(struct blk_mq_tag_set *set,
- 		void *queuedata);
- int blk_mq_init_allocated_queue(struct blk_mq_tag_set *set,
- 		struct request_queue *q);
--struct request_queue *blk_mq_init_sq_queue(struct blk_mq_tag_set *set,
--						const struct blk_mq_ops *ops,
--						unsigned int queue_depth,
--						unsigned int set_flags);
- void blk_mq_unregister_dev(struct device *, struct request_queue *);
+ 	struct blk_mq_tag_set *set;
+ 	ulong flags;
+ 	int late = 0;
+@@ -362,19 +361,12 @@ aoeblk_gdalloc(void *vp)
+ 	if (late)
+ 		return;
  
- int blk_mq_alloc_tag_set(struct blk_mq_tag_set *set);
+-	gd = alloc_disk(AOE_PARTITIONS);
+-	if (gd == NULL) {
+-		pr_err("aoe: cannot allocate disk structure for %ld.%d\n",
+-			d->aoemajor, d->aoeminor);
+-		goto err;
+-	}
+-
+ 	mp = mempool_create(MIN_BUFS, mempool_alloc_slab, mempool_free_slab,
+ 		buf_pool_cache);
+ 	if (mp == NULL) {
+ 		printk(KERN_ERR "aoe: cannot allocate bufpool for %ld.%d\n",
+ 			d->aoemajor, d->aoeminor);
+-		goto err_disk;
++		goto err;
+ 	}
+ 
+ 	set = &d->tag_set;
+@@ -391,12 +383,11 @@ aoeblk_gdalloc(void *vp)
+ 		goto err_mempool;
+ 	}
+ 
+-	q = blk_mq_init_queue(set);
+-	if (IS_ERR(q)) {
++	gd = blk_mq_alloc_disk(set, d);
++	if (IS_ERR(gd)) {
+ 		pr_err("aoe: cannot allocate block queue for %ld.%d\n",
+ 			d->aoemajor, d->aoeminor);
+-		blk_mq_free_tag_set(set);
+-		goto err_mempool;
++		goto err_tagset;
+ 	}
+ 
+ 	spin_lock_irqsave(&d->lock, flags);
+@@ -405,16 +396,16 @@ aoeblk_gdalloc(void *vp)
+ 	WARN_ON(d->flags & DEVFL_TKILL);
+ 	WARN_ON(d->gd);
+ 	WARN_ON(d->flags & DEVFL_UP);
+-	blk_queue_max_hw_sectors(q, BLK_DEF_MAX_SECTORS);
+-	blk_queue_io_opt(q, SZ_2M);
++	blk_queue_max_hw_sectors(gd->queue, BLK_DEF_MAX_SECTORS);
++	blk_queue_io_opt(gd->queue, SZ_2M);
+ 	d->bufpool = mp;
+-	d->blkq = gd->queue = q;
+-	q->queuedata = d;
++	d->blkq = gd->queue;
+ 	d->gd = gd;
+ 	if (aoe_maxsectors)
+-		blk_queue_max_hw_sectors(q, aoe_maxsectors);
++		blk_queue_max_hw_sectors(gd->queue, aoe_maxsectors);
+ 	gd->major = AOE_MAJOR;
+ 	gd->first_minor = d->sysminor;
++	gd->minors = AOE_PARTITIONS;
+ 	gd->fops = &aoe_bdops;
+ 	gd->private_data = d;
+ 	set_capacity(gd, d->ssize);
+@@ -435,10 +426,10 @@ aoeblk_gdalloc(void *vp)
+ 	spin_unlock_irqrestore(&d->lock, flags);
+ 	return;
+ 
++err_tagset:
++	blk_mq_free_tag_set(set);
+ err_mempool:
+ 	mempool_destroy(mp);
+-err_disk:
+-	put_disk(gd);
+ err:
+ 	spin_lock_irqsave(&d->lock, flags);
+ 	d->flags &= ~DEVFL_GD_NOW;
+diff --git a/drivers/block/aoe/aoedev.c b/drivers/block/aoe/aoedev.c
+index e2ea2356da06..c5753c6bfe80 100644
+--- a/drivers/block/aoe/aoedev.c
++++ b/drivers/block/aoe/aoedev.c
+@@ -277,9 +277,8 @@ freedev(struct aoedev *d)
+ 	if (d->gd) {
+ 		aoedisk_rm_debugfs(d);
+ 		del_gendisk(d->gd);
+-		put_disk(d->gd);
++		blk_cleanup_disk(d->gd);
+ 		blk_mq_free_tag_set(&d->tag_set);
+-		blk_cleanup_queue(d->blkq);
+ 	}
+ 	t = d->targets;
+ 	e = t + d->ntargets;
 -- 
 2.30.2
 
