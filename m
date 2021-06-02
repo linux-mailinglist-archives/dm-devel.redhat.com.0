@@ -2,52 +2,53 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 17FA73982A4
-	for <lists+dm-devel@lfdr.de>; Wed,  2 Jun 2021 09:07:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A6E9A3982C5
+	for <lists+dm-devel@lfdr.de>; Wed,  2 Jun 2021 09:15:12 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-563-j143961zNHeSa8upJPiFHg-1; Wed, 02 Jun 2021 03:07:00 -0400
-X-MC-Unique: j143961zNHeSa8upJPiFHg-1
+ us-mta-363--IzIiDTvOhye2s7xhE57xA-1; Wed, 02 Jun 2021 03:15:09 -0400
+X-MC-Unique: -IzIiDTvOhye2s7xhE57xA-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B51B48030A0;
-	Wed,  2 Jun 2021 07:06:52 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AC4FC8015F5;
+	Wed,  2 Jun 2021 07:15:03 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DC0325D9D3;
-	Wed,  2 Jun 2021 07:06:51 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 849FD5D9D5;
+	Wed,  2 Jun 2021 07:15:03 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 88FE944A59;
-	Wed,  2 Jun 2021 07:06:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0E5D344A5A;
+	Wed,  2 Jun 2021 07:15:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 15276bge018448 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Jun 2021 03:06:37 -0400
+	id 1527Evd5019196 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Jun 2021 03:14:57 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id F0A37BE5D1; Wed,  2 Jun 2021 07:06:36 +0000 (UTC)
+	id 5103E21623B6; Wed,  2 Jun 2021 07:14:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EB5A0B550D
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 07:06:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 33D5590DE38
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 07:06:34 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4C7C521623B4
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 07:14:54 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9E81A801E8D
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 07:14:54 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-14-VWKr2X3VOxi0X0pRR5Imvw-1; Wed, 02 Jun 2021 03:06:30 -0400
-X-MC-Unique: VWKr2X3VOxi0X0pRR5Imvw-1
+	us-mta-141-Ac47udS8NX2FCxwa7YJFpA-1; Wed, 02 Jun 2021 03:14:50 -0400
+X-MC-Unique: Ac47udS8NX2FCxwa7YJFpA-1
 Received: from shol69.static.otenet.gr ([83.235.170.67] helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1loKlB-0025F3-IY; Wed, 02 Jun 2021 06:53:50 +0000
+	id 1loKlG-0025Fb-J7; Wed, 02 Jun 2021 06:53:55 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed,  2 Jun 2021 09:53:15 +0300
-Message-Id: <20210602065345.355274-1-hch@lst.de>
+Date: Wed,  2 Jun 2021 09:53:16 +0300
+Message-Id: <20210602065345.355274-2-hch@lst.de>
+In-Reply-To: <20210602065345.355274-1-hch@lst.de>
+References: <20210602065345.355274-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	bombadil.infradead.org. See http://www.infradead.org/rpr.html
@@ -59,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: Justin Sanders <justin@coraid.com>, Vignesh Raghavendra <vigneshr@ti.com>,
 	Mike Snitzer <snitzer@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
@@ -81,8 +82,8 @@ Cc: Justin Sanders <justin@coraid.com>, Vignesh Raghavendra <vigneshr@ti.com>,
 	Geoff Levand <geoff@infradead.org>, linux-mmc@vger.kernel.org,
 	linux-mtd@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] simplify gendisk and request_queue allocation for blk-mq
-	based drivers
+Subject: [dm-devel] [PATCH 01/30] blk-mq: factor out a
+	blk_mq_alloc_sq_tag_set helper
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -104,49 +105,86 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi all,
+Factour out a helper to initialize a simple single hw queue tag_set from
+blk_mq_init_sq_queue.  This will allow to phase out blk_mq_init_sq_queue
+in favor of a more symmetric and general API.
 
-this series is the scond part of cleaning up lifetimes and allocation of
-the gendisk and request_queue structure.  It adds a new interface to
-allocate the disk and queue together for blk based drivers, and uses that
-in all drivers that do not have any caveats in their gendisk and
-request_queue lifetime rules.
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ block/blk-mq.c         | 32 ++++++++++++++++++--------------
+ include/linux/blk-mq.h |  3 +++
+ 2 files changed, 21 insertions(+), 14 deletions(-)
 
-Diffstat:
- block/blk-mq.c                      |   91 +++++++++++++++-------------------
- block/blk.h                         |    1 
- block/elevator.c                    |    2 
- drivers/block/amiflop.c             |   16 +-----
- drivers/block/aoe/aoeblk.c          |   33 ++++--------
- drivers/block/aoe/aoedev.c          |    3 -
- drivers/block/ataflop.c             |   16 +-----
- drivers/block/floppy.c              |   20 +------
- drivers/block/loop.c                |   19 ++-----
- drivers/block/nbd.c                 |   53 +++++++------------
- drivers/block/null_blk/main.c       |   11 +---
- drivers/block/paride/pcd.c          |   19 +++----
- drivers/block/paride/pd.c           |   30 ++++-------
- drivers/block/paride/pf.c           |   18 ++----
- drivers/block/ps3disk.c             |   36 +++++--------
- drivers/block/rbd.c                 |   52 ++++++-------------
- drivers/block/rnbd/rnbd-clt.c       |   35 +++----------
- drivers/block/sunvdc.c              |   47 ++++-------------
- drivers/block/swim.c                |   34 +++++-------
- drivers/block/swim3.c               |   33 +++++-------
- drivers/block/sx8.c                 |   23 ++------
- drivers/block/virtio_blk.c          |   26 ++-------
- drivers/block/xen-blkfront.c        |   96 ++++++++++++++----------------------
- drivers/block/z2ram.c               |   15 +----
- drivers/cdrom/gdrom.c               |   45 +++++++---------
- drivers/md/dm-rq.c                  |    9 +--
- drivers/memstick/core/ms_block.c    |   25 +++------
- drivers/memstick/core/mspro_block.c |   26 ++++-----
- drivers/mtd/mtd_blkdevs.c           |   48 ++++++++----------
- drivers/mtd/ubi/block.c             |   68 ++++++++++---------------
- drivers/s390/block/scm_blk.c        |   21 ++-----
- include/linux/blk-mq.h              |   24 ++++++---
- include/linux/elevator.h            |    1 
- 33 files changed, 386 insertions(+), 610 deletions(-)
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index f11d4018ce2e..eaacfa963a73 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -3152,24 +3152,12 @@ struct request_queue *blk_mq_init_sq_queue(struct blk_mq_tag_set *set,
+ 	struct request_queue *q;
+ 	int ret;
+ 
+-	memset(set, 0, sizeof(*set));
+-	set->ops = ops;
+-	set->nr_hw_queues = 1;
+-	set->nr_maps = 1;
+-	set->queue_depth = queue_depth;
+-	set->numa_node = NUMA_NO_NODE;
+-	set->flags = set_flags;
+-
+-	ret = blk_mq_alloc_tag_set(set);
++	ret = blk_mq_alloc_sq_tag_set(set, ops, queue_depth, set_flags);
+ 	if (ret)
+ 		return ERR_PTR(ret);
+-
+ 	q = blk_mq_init_queue(set);
+-	if (IS_ERR(q)) {
++	if (IS_ERR(q))
+ 		blk_mq_free_tag_set(set);
+-		return q;
+-	}
+-
+ 	return q;
+ }
+ EXPORT_SYMBOL(blk_mq_init_sq_queue);
+@@ -3589,6 +3577,22 @@ int blk_mq_alloc_tag_set(struct blk_mq_tag_set *set)
+ }
+ EXPORT_SYMBOL(blk_mq_alloc_tag_set);
+ 
++/* allocate and initialize a tagset for a simple single-queue device */
++int blk_mq_alloc_sq_tag_set(struct blk_mq_tag_set *set,
++		const struct blk_mq_ops *ops, unsigned int queue_depth,
++		unsigned int set_flags)
++{
++	memset(set, 0, sizeof(*set));
++	set->ops = ops;
++	set->nr_hw_queues = 1;
++	set->nr_maps = 1;
++	set->queue_depth = queue_depth;
++	set->numa_node = NUMA_NO_NODE;
++	set->flags = set_flags;
++	return blk_mq_alloc_tag_set(set);
++}
++EXPORT_SYMBOL_GPL(blk_mq_alloc_sq_tag_set);
++
+ void blk_mq_free_tag_set(struct blk_mq_tag_set *set)
+ {
+ 	int i, j;
+diff --git a/include/linux/blk-mq.h b/include/linux/blk-mq.h
+index 359486940fa0..bb950fc669ef 100644
+--- a/include/linux/blk-mq.h
++++ b/include/linux/blk-mq.h
+@@ -439,6 +439,9 @@ struct request_queue *blk_mq_init_sq_queue(struct blk_mq_tag_set *set,
+ void blk_mq_unregister_dev(struct device *, struct request_queue *);
+ 
+ int blk_mq_alloc_tag_set(struct blk_mq_tag_set *set);
++int blk_mq_alloc_sq_tag_set(struct blk_mq_tag_set *set,
++		const struct blk_mq_ops *ops, unsigned int queue_depth,
++		unsigned int set_flags);
+ void blk_mq_free_tag_set(struct blk_mq_tag_set *set);
+ 
+ void blk_mq_flush_plug_list(struct blk_plug *plug, bool from_schedule);
+-- 
+2.30.2
 
 --
 dm-devel mailing list
