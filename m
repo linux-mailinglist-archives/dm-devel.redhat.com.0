@@ -2,52 +2,52 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D35E73981E4
-	for <lists+dm-devel@lfdr.de>; Wed,  2 Jun 2021 08:55:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9C8E53981E3
+	for <lists+dm-devel@lfdr.de>; Wed,  2 Jun 2021 08:55:52 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-569-tbRrFzeNMaq3BjMreXJByg-1; Wed, 02 Jun 2021 02:55:46 -0400
-X-MC-Unique: tbRrFzeNMaq3BjMreXJByg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-405-694DVYxaOpyLE4MPs4UIWg-1; Wed, 02 Jun 2021 02:55:49 -0400
+X-MC-Unique: 694DVYxaOpyLE4MPs4UIWg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 365D0801B15;
-	Wed,  2 Jun 2021 06:55:40 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 05996E2D9;
-	Wed,  2 Jun 2021 06:55:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3B2348042A9;
+	Wed,  2 Jun 2021 06:55:42 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 171EA2A2C1;
+	Wed,  2 Jun 2021 06:55:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AAEEC1804480;
-	Wed,  2 Jun 2021 06:55:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C68C144A5C;
+	Wed,  2 Jun 2021 06:55:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1526tW2a016774 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Jun 2021 02:55:32 -0400
+	id 1526tbWA016786 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Jun 2021 02:55:37 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 65D5A208744F; Wed,  2 Jun 2021 06:55:32 +0000 (UTC)
+	id 7CF73112CA36; Wed,  2 Jun 2021 06:55:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 614A32084828
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:55:30 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 78E65112CA34
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:55:37 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 02625857D08
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:55:30 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 61933801E8D
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:55:37 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-287-oS4G53liPHip-TijJwe4vA-1; Wed, 02 Jun 2021 02:55:27 -0400
-X-MC-Unique: oS4G53liPHip-TijJwe4vA-1
+	us-mta-329-JKCa4q76OWeInIz1CFCPkQ-1; Wed, 02 Jun 2021 02:55:35 -0400
+X-MC-Unique: JKCa4q76OWeInIz1CFCPkQ-1
 Received: from shol69.static.otenet.gr ([83.235.170.67] helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1loKma-0025sw-BW; Wed, 02 Jun 2021 06:55:17 +0000
+	id 1loKme-0025w6-S0; Wed, 02 Jun 2021 06:55:21 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed,  2 Jun 2021 09:53:33 +0300
-Message-Id: <20210602065345.355274-19-hch@lst.de>
+Date: Wed,  2 Jun 2021 09:53:34 +0300
+Message-Id: <20210602065345.355274-20-hch@lst.de>
 In-Reply-To: <20210602065345.355274-1-hch@lst.de>
 References: <20210602065345.355274-1-hch@lst.de>
 MIME-Version: 1.0
@@ -61,7 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 Cc: Justin Sanders <justin@coraid.com>, Vignesh Raghavendra <vigneshr@ti.com>,
 	Mike Snitzer <snitzer@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
@@ -83,7 +83,7 @@ Cc: Justin Sanders <justin@coraid.com>, Vignesh Raghavendra <vigneshr@ti.com>,
 	Geoff Levand <geoff@infradead.org>, linux-mmc@vger.kernel.org,
 	linux-mtd@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 18/30] loop: use blk_mq_alloc_disk and
+Subject: [dm-devel] [PATCH 19/30] nbd: use blk_mq_alloc_disk and
 	blk_cleanup_disk
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -98,7 +98,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -111,70 +111,117 @@ request_queue allocation.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/block/loop.c | 19 ++++++-------------
- 1 file changed, 6 insertions(+), 13 deletions(-)
+ drivers/block/nbd.c | 53 ++++++++++++++++++---------------------------
+ 1 file changed, 21 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index 95c570f5923f..3f40e673a101 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -2117,12 +2117,12 @@ static int loop_add(struct loop_device **l, int i)
- 	if (err)
- 		goto out_free_idr;
+diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
+index 45d2c28c8fc8..614d82e7fae4 100644
+--- a/drivers/block/nbd.c
++++ b/drivers/block/nbd.c
+@@ -219,15 +219,11 @@ static const struct device_attribute pid_attr = {
+ static void nbd_dev_remove(struct nbd_device *nbd)
+ {
+ 	struct gendisk *disk = nbd->disk;
+-	struct request_queue *q;
  
--	lo->lo_queue = blk_mq_init_queue(&lo->tag_set);
--	if (IS_ERR(lo->lo_queue)) {
--		err = PTR_ERR(lo->lo_queue);
-+	disk = lo->lo_disk = blk_mq_alloc_disk(&lo->tag_set, lo);
+ 	if (disk) {
+-		q = disk->queue;
+ 		del_gendisk(disk);
+-		blk_cleanup_queue(q);
+ 		blk_mq_free_tag_set(&nbd->tag_set);
+-		disk->private_data = NULL;
+-		put_disk(disk);
++		blk_cleanup_disk(disk);
+ 	}
+ 
+ 	/*
+@@ -1646,15 +1642,24 @@ static int nbd_dev_add(int index)
+ {
+ 	struct nbd_device *nbd;
+ 	struct gendisk *disk;
+-	struct request_queue *q;
+ 	int err = -ENOMEM;
+ 
+ 	nbd = kzalloc(sizeof(struct nbd_device), GFP_KERNEL);
+ 	if (!nbd)
+ 		goto out;
+ 
+-	disk = alloc_disk(1 << part_shift);
+-	if (!disk)
++	nbd->tag_set.ops = &nbd_mq_ops;
++	nbd->tag_set.nr_hw_queues = 1;
++	nbd->tag_set.queue_depth = 128;
++	nbd->tag_set.numa_node = NUMA_NO_NODE;
++	nbd->tag_set.cmd_size = sizeof(struct nbd_cmd);
++	nbd->tag_set.flags = BLK_MQ_F_SHOULD_MERGE |
++		BLK_MQ_F_BLOCKING;
++	nbd->tag_set.driver_data = nbd;
++	nbd->destroy_complete = NULL;
++
++	err = blk_mq_alloc_tag_set(&nbd->tag_set);
++	if (err)
+ 		goto out_free_nbd;
+ 
+ 	if (index >= 0) {
+@@ -1668,30 +1673,15 @@ static int nbd_dev_add(int index)
+ 			index = err;
+ 	}
+ 	if (err < 0)
+-		goto out_free_disk;
+-
++		goto out_free_tags;
+ 	nbd->index = index;
+-	nbd->disk = disk;
+-	nbd->tag_set.ops = &nbd_mq_ops;
+-	nbd->tag_set.nr_hw_queues = 1;
+-	nbd->tag_set.queue_depth = 128;
+-	nbd->tag_set.numa_node = NUMA_NO_NODE;
+-	nbd->tag_set.cmd_size = sizeof(struct nbd_cmd);
+-	nbd->tag_set.flags = BLK_MQ_F_SHOULD_MERGE |
+-		BLK_MQ_F_BLOCKING;
+-	nbd->tag_set.driver_data = nbd;
+-	nbd->destroy_complete = NULL;
+ 
+-	err = blk_mq_alloc_tag_set(&nbd->tag_set);
+-	if (err)
++	disk = blk_mq_alloc_disk(&nbd->tag_set, NULL);
 +	if (IS_ERR(disk)) {
 +		err = PTR_ERR(disk);
- 		goto out_cleanup_tags;
- 	}
--	lo->lo_queue->queuedata = lo;
-+	lo->lo_queue = lo->lo_disk->queue;
- 
- 	blk_queue_max_hw_sectors(lo->lo_queue, BLK_DEF_MAX_SECTORS);
- 
-@@ -2134,11 +2134,6 @@ static int loop_add(struct loop_device **l, int i)
- 	 */
- 	blk_queue_flag_set(QUEUE_FLAG_NOMERGES, lo->lo_queue);
- 
--	err = -ENOMEM;
--	disk = lo->lo_disk = alloc_disk(1 << part_shift);
--	if (!disk)
--		goto out_free_queue;
+ 		goto out_free_idr;
 -
- 	/*
- 	 * Disable partition scanning by default. The in-kernel partition
- 	 * scanning can be requested individually per-device during its
-@@ -2166,6 +2161,7 @@ static int loop_add(struct loop_device **l, int i)
- 	spin_lock_init(&lo->lo_lock);
- 	disk->major		= LOOP_MAJOR;
- 	disk->first_minor	= i << part_shift;
-+	disk->minors		= 1 << part_shift;
- 	disk->fops		= &lo_fops;
- 	disk->private_data	= lo;
- 	disk->queue		= lo->lo_queue;
-@@ -2174,8 +2170,6 @@ static int loop_add(struct loop_device **l, int i)
- 	*l = lo;
- 	return lo->lo_number;
+-	q = blk_mq_init_queue(&nbd->tag_set);
+-	if (IS_ERR(q)) {
+-		err = PTR_ERR(q);
+-		goto out_free_tags;
+ 	}
+-	disk->queue = q;
++	nbd->disk = disk;
  
--out_free_queue:
--	blk_cleanup_queue(lo->lo_queue);
- out_cleanup_tags:
- 	blk_mq_free_tag_set(&lo->tag_set);
+ 	/*
+ 	 * Tell the block layer that we are not a rotational device
+@@ -1712,6 +1702,7 @@ static int nbd_dev_add(int index)
+ 	INIT_LIST_HEAD(&nbd->list);
+ 	disk->major = NBD_MAJOR;
+ 	disk->first_minor = index << part_shift;
++	disk->minors = 1 << part_shift;
+ 	disk->fops = &nbd_fops;
+ 	disk->private_data = nbd;
+ 	sprintf(disk->disk_name, "nbd%d", index);
+@@ -1719,12 +1710,10 @@ static int nbd_dev_add(int index)
+ 	nbd_total_devices++;
+ 	return index;
+ 
+-out_free_tags:
+-	blk_mq_free_tag_set(&nbd->tag_set);
  out_free_idr:
-@@ -2189,9 +2183,8 @@ static int loop_add(struct loop_device **l, int i)
- static void loop_remove(struct loop_device *lo)
- {
- 	del_gendisk(lo->lo_disk);
--	blk_cleanup_queue(lo->lo_queue);
- 	blk_mq_free_tag_set(&lo->tag_set);
--	put_disk(lo->lo_disk);
-+	blk_cleanup_disk(lo->lo_disk);
- 	mutex_destroy(&lo->lo_mutex);
- 	kfree(lo);
- }
+ 	idr_remove(&nbd_index_idr, index);
+-out_free_disk:
+-	put_disk(disk);
++out_free_tags:
++	blk_mq_free_tag_set(&nbd->tag_set);
+ out_free_nbd:
+ 	kfree(nbd);
+ out:
 -- 
 2.30.2
 
