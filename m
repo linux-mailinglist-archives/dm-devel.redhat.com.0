@@ -2,60 +2,60 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 86D91399AD9
-	for <lists+dm-devel@lfdr.de>; Thu,  3 Jun 2021 08:34:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9795E399AC0
+	for <lists+dm-devel@lfdr.de>; Thu,  3 Jun 2021 08:33:19 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-311-J_KdOJPENaCffz43u-HD-g-1; Thu, 03 Jun 2021 02:33:17 -0400
-X-MC-Unique: J_KdOJPENaCffz43u-HD-g-1
+ us-mta-518-8RWDrHKnORS2qQoZ0dx-pA-1; Thu, 03 Jun 2021 02:33:17 -0400
+X-MC-Unique: 8RWDrHKnORS2qQoZ0dx-pA-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7B183800D55;
-	Thu,  3 Jun 2021 06:33:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0C9D76DD34;
+	Thu,  3 Jun 2021 06:33:12 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D01D45D74B;
-	Thu,  3 Jun 2021 06:33:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CD9575D751;
+	Thu,  3 Jun 2021 06:33:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AFFE344A58;
-	Thu,  3 Jun 2021 06:33:01 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 72BB044A58;
+	Thu,  3 Jun 2021 06:33:11 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 152DoFN1030285 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Jun 2021 09:50:16 -0400
+	id 152DoQEq030301 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Jun 2021 09:50:27 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id BBDF0F97D7; Wed,  2 Jun 2021 13:50:15 +0000 (UTC)
+	id D3CDDF97E0; Wed,  2 Jun 2021 13:50:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B6C60F97CC
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 13:50:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CF429F97CC
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 13:50:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 10BC2805F45
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 13:50:12 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B7B1180D0E4
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 13:50:26 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-347-XPNZ_RbfPEu0k_sUc0gRHg-1; Wed, 02 Jun 2021 09:50:08 -0400
-X-MC-Unique: XPNZ_RbfPEu0k_sUc0gRHg-1
+	us-mta-597-XY3Y2uVuN3eX2l7dA6wBNg-1; Wed, 02 Jun 2021 09:50:24 -0400
+X-MC-Unique: XY3Y2uVuN3eX2l7dA6wBNg-1
 Received: from j217100.upc-j.chello.nl ([24.132.217.100]
 	helo=noisy.programming.kicks-ass.net)
 	by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
-	id 1loQxi-00B8o7-PT; Wed, 02 Jun 2021 13:31:16 +0000
+	id 1loQxh-00B8o4-IG; Wed, 02 Jun 2021 13:31:12 +0000
 Received: from hirez.programming.kicks-ass.net
 	(hirez.programming.kicks-ass.net [192.168.1.225])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(Client did not present a certificate)
-	by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 3E12D30036B;
+	by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 492F93004DE;
 	Wed,  2 Jun 2021 15:31:05 +0200 (CEST)
 Received: by hirez.programming.kicks-ass.net (Postfix, from userid 0)
-	id 9B82F2C14C596; Wed,  2 Jun 2021 15:31:04 +0200 (CEST)
-Message-ID: <20210602133040.398289363@infradead.org>
+	id 9ED912C189403; Wed,  2 Jun 2021 15:31:04 +0200 (CEST)
+Message-ID: <20210602133040.461908001@infradead.org>
 User-Agent: quilt/0.66
-Date: Wed, 02 Jun 2021 15:12:28 +0200
+Date: Wed, 02 Jun 2021 15:12:29 +0200
 From: Peter Zijlstra <peterz@infradead.org>
 To: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
 	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
@@ -111,7 +111,7 @@ Cc: Mark Rutland <mark.rutland@arm.com>, Pavel Machek <pavel@ucw.cz>,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	Andrew Morton <akpm@linux-foundation.org>, rcu@vger.kernel.org,
 	"David S. Miller" <davem@davemloft.net>
-Subject: [dm-devel] [PATCH 3/6] sched,perf,kvm: Fix preemption condition
+Subject: [dm-devel] [PATCH 4/6] sched: Add get_current_state()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -133,49 +133,70 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-When ran from the sched-out path (preempt_notifier or perf_event),
-p->state is irrelevant to determine preemption. You can get preempted
-with !task_is_running() just fine.
-
-The right indicator for preemption is if the task is still on the
-runqueue in the sched-out path.
+Remove yet another few p->state accesses.
 
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 ---
- kernel/events/core.c |    7 +++----
- virt/kvm/kvm_main.c  |    2 +-
- 2 files changed, 4 insertions(+), 5 deletions(-)
+ block/blk-mq.c        |    2 +-
+ include/linux/sched.h |    2 ++
+ kernel/freezer.c      |    2 +-
+ kernel/sched/core.c   |    6 +++---
+ 4 files changed, 7 insertions(+), 5 deletions(-)
 
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -8568,13 +8568,12 @@ static void perf_event_switch(struct tas
- 		},
- 	};
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -3891,7 +3891,7 @@ int blk_poll(struct request_queue *q, bl
  
--	if (!sched_in && task->state == TASK_RUNNING)
-+	if (!sched_in && current->on_rq) {
- 		switch_event.event_id.header.misc |=
- 				PERF_RECORD_MISC_SWITCH_OUT_PREEMPT;
-+	}
+ 	hctx->poll_considered++;
  
--	perf_iterate_sb(perf_event_switch_output,
--		       &switch_event,
--		       NULL);
-+	perf_iterate_sb(perf_event_switch_output, &switch_event, NULL);
- }
+-	state = current->state;
++	state = get_current_state();
+ 	do {
+ 		int ret;
  
- /*
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -4869,7 +4869,7 @@ static void kvm_sched_out(struct preempt
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -212,6 +212,8 @@ struct task_group;
+ 
+ #endif
+ 
++#define get_current_state()	READ_ONCE(current->state)
++
+ /* Task command name length: */
+ #define TASK_COMM_LEN			16
+ 
+--- a/kernel/freezer.c
++++ b/kernel/freezer.c
+@@ -58,7 +58,7 @@ bool __refrigerator(bool check_kthr_stop
+ 	/* Hmm, should we be allowed to suspend when there are realtime
+ 	   processes around? */
+ 	bool was_frozen = false;
+-	long save = current->state;
++	unsigned int save = get_current_state();
+ 
+ 	pr_debug("%s entered refrigerator\n", current->comm);
+ 
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -8273,15 +8273,15 @@ static inline int preempt_count_equals(i
+ 
+ void __might_sleep(const char *file, int line, int preempt_offset)
  {
- 	struct kvm_vcpu *vcpu = preempt_notifier_to_vcpu(pn);
++	unsigned int state = get_current_state();
+ 	/*
+ 	 * Blocking primitives will set (and therefore destroy) current->state,
+ 	 * since we will exit with TASK_RUNNING make sure we enter with it,
+ 	 * otherwise we will destroy state.
+ 	 */
+-	WARN_ONCE(current->state != TASK_RUNNING && current->task_state_change,
++	WARN_ONCE(state != TASK_RUNNING && current->task_state_change,
+ 			"do not call blocking ops when !TASK_RUNNING; "
+-			"state=%lx set at [<%p>] %pS\n",
+-			current->state,
++			"state=%x set at [<%p>] %pS\n", state,
+ 			(void *)current->task_state_change,
+ 			(void *)current->task_state_change);
  
--	if (current->state == TASK_RUNNING) {
-+	if (current->on_rq) {
- 		WRITE_ONCE(vcpu->preempted, true);
- 		WRITE_ONCE(vcpu->ready, true);
- 	}
 
 
 --
