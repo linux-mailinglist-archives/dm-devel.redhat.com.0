@@ -2,61 +2,60 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 6E676399ACA
-	for <lists+dm-devel@lfdr.de>; Thu,  3 Jun 2021 08:33:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 86D91399AD9
+	for <lists+dm-devel@lfdr.de>; Thu,  3 Jun 2021 08:34:12 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-458-_V5bnrjcMJivb8zn-MFy4A-1; Thu, 03 Jun 2021 02:33:29 -0400
-X-MC-Unique: _V5bnrjcMJivb8zn-MFy4A-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-311-J_KdOJPENaCffz43u-HD-g-1; Thu, 03 Jun 2021 02:33:17 -0400
+X-MC-Unique: J_KdOJPENaCffz43u-HD-g-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 384D1102CB77;
-	Thu,  3 Jun 2021 06:33:24 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1105218A64;
-	Thu,  3 Jun 2021 06:33:24 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7B183800D55;
+	Thu,  3 Jun 2021 06:33:10 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D01D45D74B;
+	Thu,  3 Jun 2021 06:33:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B53AA1813CA4;
-	Thu,  3 Jun 2021 06:33:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AFFE344A58;
+	Thu,  3 Jun 2021 06:33:01 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 152Ec5fH002781 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Jun 2021 10:38:05 -0400
+	id 152DoFN1030285 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Jun 2021 09:50:16 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 351A6208BDDA; Wed,  2 Jun 2021 14:38:05 +0000 (UTC)
+	id BBDF0F97D7; Wed,  2 Jun 2021 13:50:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 30927208C197
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 14:38:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A752D80D0E3
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 14:38:01 +0000 (UTC)
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B6C60F97CC
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 13:50:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 10BC2805F45
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 13:50:12 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-536-MnXuCvXKMe67hgvPNko9cA-1; Wed, 02 Jun 2021 10:37:59 -0400
-X-MC-Unique: MnXuCvXKMe67hgvPNko9cA-1
+	us-mta-347-XPNZ_RbfPEu0k_sUc0gRHg-1; Wed, 02 Jun 2021 09:50:08 -0400
+X-MC-Unique: XPNZ_RbfPEu0k_sUc0gRHg-1
 Received: from j217100.upc-j.chello.nl ([24.132.217.100]
 	helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1loQxc-002tou-3G; Wed, 02 Jun 2021 13:31:11 +0000
+	by casper.infradead.org with esmtpsa (Exim 4.94 #2 (Red Hat Linux))
+	id 1loQxi-00B8o7-PT; Wed, 02 Jun 2021 13:31:16 +0000
 Received: from hirez.programming.kicks-ass.net
 	(hirez.programming.kicks-ass.net [192.168.1.225])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(Client did not present a certificate)
-	by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id BB4B13002B1;
-	Wed,  2 Jun 2021 15:31:04 +0200 (CEST)
+	by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 3E12D30036B;
+	Wed,  2 Jun 2021 15:31:05 +0200 (CEST)
 Received: by hirez.programming.kicks-ass.net (Postfix, from userid 0)
-	id 989162C14C594; Wed,  2 Jun 2021 15:31:04 +0200 (CEST)
-Message-ID: <20210602133040.334970485@infradead.org>
+	id 9B82F2C14C596; Wed,  2 Jun 2021 15:31:04 +0200 (CEST)
+Message-ID: <20210602133040.398289363@infradead.org>
 User-Agent: quilt/0.66
-Date: Wed, 02 Jun 2021 15:12:27 +0200
+Date: Wed, 02 Jun 2021 15:12:28 +0200
 From: Peter Zijlstra <peterz@infradead.org>
 To: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
 	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
@@ -76,7 +75,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Mimecast-Spam-Signature: yes
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 03 Jun 2021 02:32:49 -0400
 Cc: Mark Rutland <mark.rutland@arm.com>, Pavel Machek <pavel@ucw.cz>,
@@ -112,7 +111,7 @@ Cc: Mark Rutland <mark.rutland@arm.com>, Pavel Machek <pavel@ucw.cz>,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	Andrew Morton <akpm@linux-foundation.org>, rcu@vger.kernel.org,
 	"David S. Miller" <davem@davemloft.net>
-Subject: [dm-devel] [PATCH 2/6] sched: Introduce task_is_running()
+Subject: [dm-devel] [PATCH 3/6] sched,perf,kvm: Fix preemption condition
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -126,7 +125,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -134,161 +133,49 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Replace a bunch of 'p->state == TASK_RUNNING' with a new helper:
-task_is_running(p).
+When ran from the sched-out path (preempt_notifier or perf_event),
+p->state is irrelevant to determine preemption. You can get preempted
+with !task_is_running() just fine.
+
+The right indicator for preemption is if the task is still on the
+runqueue in the sched-out path.
 
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 ---
- arch/x86/kernel/process.c |    4 ++--
- block/blk-mq.c            |    2 +-
- include/linux/sched.h     |    2 ++
- kernel/locking/lockdep.c  |    2 +-
- kernel/rcu/tree_plugin.h  |    2 +-
- kernel/sched/core.c       |    6 +++---
- kernel/sched/stats.h      |    2 +-
- kernel/signal.c           |    2 +-
- kernel/softirq.c          |    3 +--
- mm/compaction.c           |    2 +-
- 10 files changed, 14 insertions(+), 13 deletions(-)
+ kernel/events/core.c |    7 +++----
+ virt/kvm/kvm_main.c  |    2 +-
+ 2 files changed, 4 insertions(+), 5 deletions(-)
 
---- a/arch/x86/kernel/process.c
-+++ b/arch/x86/kernel/process.c
-@@ -931,7 +931,7 @@ unsigned long get_wchan(struct task_stru
- 	unsigned long start, bottom, top, sp, fp, ip, ret = 0;
- 	int count = 0;
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -8568,13 +8568,12 @@ static void perf_event_switch(struct tas
+ 		},
+ 	};
  
--	if (p == current || p->state == TASK_RUNNING)
-+	if (p == current || task_is_running(p))
- 		return 0;
+-	if (!sched_in && task->state == TASK_RUNNING)
++	if (!sched_in && current->on_rq) {
+ 		switch_event.event_id.header.misc |=
+ 				PERF_RECORD_MISC_SWITCH_OUT_PREEMPT;
++	}
  
- 	if (!try_get_task_stack(p))
-@@ -975,7 +975,7 @@ unsigned long get_wchan(struct task_stru
- 			goto out;
- 		}
- 		fp = READ_ONCE_NOCHECK(*(unsigned long *)fp);
--	} while (count++ < 16 && p->state != TASK_RUNNING);
-+	} while (count++ < 16 && !task_is_running(p));
- 
- out:
- 	put_task_stack(p);
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -3926,7 +3926,7 @@ int blk_poll(struct request_queue *q, bl
- 		if (signal_pending_state(state, current))
- 			__set_current_state(TASK_RUNNING);
- 
--		if (current->state == TASK_RUNNING)
-+		if (task_is_running(current))
- 			return 1;
- 		if (ret < 0 || !spin)
- 			break;
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -113,6 +113,8 @@ struct task_group;
- 					 __TASK_TRACED | EXIT_DEAD | EXIT_ZOMBIE | \
- 					 TASK_PARKED)
- 
-+#define task_is_running(task)		(READ_ONCE((task)->state) == TASK_RUNNING)
-+
- #define task_is_traced(task)		((task->state & __TASK_TRACED) != 0)
- 
- #define task_is_stopped(task)		((task->state & __TASK_STOPPED) != 0)
---- a/kernel/locking/lockdep.c
-+++ b/kernel/locking/lockdep.c
-@@ -760,7 +760,7 @@ static void lockdep_print_held_locks(str
- 	 * It's not reliable to print a task's held locks if it's not sleeping
- 	 * and it's not the current task.
- 	 */
--	if (p->state == TASK_RUNNING && p != current)
-+	if (p != current && task_is_running(p))
- 		return;
- 	for (i = 0; i < depth; i++) {
- 		printk(" #%d: ", i);
---- a/kernel/rcu/tree_plugin.h
-+++ b/kernel/rcu/tree_plugin.h
-@@ -2768,7 +2768,7 @@ EXPORT_SYMBOL_GPL(rcu_bind_current_to_no
- #ifdef CONFIG_SMP
- static char *show_rcu_should_be_on_cpu(struct task_struct *tsp)
- {
--	return tsp && tsp->state == TASK_RUNNING && !tsp->on_cpu ? "!" : "";
-+	return tsp && task_is_running(tsp) && !tsp->on_cpu ? "!" : "";
- }
- #else // #ifdef CONFIG_SMP
- static char *show_rcu_should_be_on_cpu(struct task_struct *tsp)
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -5989,7 +5989,7 @@ static inline void sched_submit_work(str
- {
- 	unsigned int task_flags;
- 
--	if (!tsk->state)
-+	if (task_is_running(tsk))
- 		return;
- 
- 	task_flags = tsk->flags;
-@@ -7964,7 +7964,7 @@ int __sched yield_to(struct task_struct
- 	if (curr->sched_class != p->sched_class)
- 		goto out_unlock;
- 
--	if (task_running(p_rq, p) || p->state)
-+	if (task_running(p_rq, p) || !task_is_running(p))
- 		goto out_unlock;
- 
- 	yielded = curr->sched_class->yield_to_task(rq, p);
-@@ -8167,7 +8167,7 @@ void sched_show_task(struct task_struct
- 
- 	pr_info("task:%-15.15s state:%c", p->comm, task_state_to_char(p));
- 
--	if (p->state == TASK_RUNNING)
-+	if (task_is_running(p))
- 		pr_cont("  running task    ");
- #ifdef CONFIG_DEBUG_STACK_USAGE
- 	free = stack_not_used(p);
---- a/kernel/sched/stats.h
-+++ b/kernel/sched/stats.h
-@@ -217,7 +217,7 @@ static inline void sched_info_depart(str
- 
- 	rq_sched_info_depart(rq, delta);
- 
--	if (t->state == TASK_RUNNING)
-+	if (task_is_running(t))
- 		sched_info_enqueue(rq, t);
- }
- 
---- a/kernel/signal.c
-+++ b/kernel/signal.c
-@@ -4719,7 +4719,7 @@ void kdb_send_sig(struct task_struct *t,
- 	}
- 	new_t = kdb_prev_t != t;
- 	kdb_prev_t = t;
--	if (t->state != TASK_RUNNING && new_t) {
-+	if (!task_is_running(t) && new_t) {
- 		spin_unlock(&t->sighand->siglock);
- 		kdb_printf("Process is not RUNNING, sending a signal from "
- 			   "kdb risks deadlock\n"
---- a/kernel/softirq.c
-+++ b/kernel/softirq.c
-@@ -92,8 +92,7 @@ static bool ksoftirqd_running(unsigned l
- 
- 	if (pending & SOFTIRQ_NOW_MASK)
- 		return false;
--	return tsk && (tsk->state == TASK_RUNNING) &&
--		!__kthread_should_park(tsk);
-+	return tsk && task_is_running(tsk) && !__kthread_should_park(tsk);
- }
- 
- #ifdef CONFIG_TRACE_IRQFLAGS
---- a/mm/compaction.c
-+++ b/mm/compaction.c
-@@ -1955,7 +1955,7 @@ static inline bool is_via_compact_memory
- 
- static bool kswapd_is_running(pg_data_t *pgdat)
- {
--	return pgdat->kswapd && (pgdat->kswapd->state == TASK_RUNNING);
-+	return pgdat->kswapd && task_is_running(pgdat->kswapd);
+-	perf_iterate_sb(perf_event_switch_output,
+-		       &switch_event,
+-		       NULL);
++	perf_iterate_sb(perf_event_switch_output, &switch_event, NULL);
  }
  
  /*
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -4869,7 +4869,7 @@ static void kvm_sched_out(struct preempt
+ {
+ 	struct kvm_vcpu *vcpu = preempt_notifier_to_vcpu(pn);
+ 
+-	if (current->state == TASK_RUNNING) {
++	if (current->on_rq) {
+ 		WRITE_ONCE(vcpu->preempted, true);
+ 		WRITE_ONCE(vcpu->ready, true);
+ 	}
 
 
 --
