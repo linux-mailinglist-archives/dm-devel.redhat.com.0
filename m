@@ -1,52 +1,53 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D50A1398248
-	for <lists+dm-devel@lfdr.de>; Wed,  2 Jun 2021 08:58:06 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 1F3C83981FE
+	for <lists+dm-devel@lfdr.de>; Wed,  2 Jun 2021 08:56:36 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-256-goBmNOOmNOmcJBMO6Ut-jQ-1; Wed, 02 Jun 2021 02:57:21 -0400
-X-MC-Unique: goBmNOOmNOmcJBMO6Ut-jQ-1
+ us-mta-483-KtFkB49iPZCKapE43LnCTg-1; Wed, 02 Jun 2021 02:56:33 -0400
+X-MC-Unique: KtFkB49iPZCKapE43LnCTg-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 43AD51858ED2;
-	Wed,  2 Jun 2021 06:57:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7AF9C501E1;
+	Wed,  2 Jun 2021 06:56:27 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 217BF60C0F;
-	Wed,  2 Jun 2021 06:57:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A02860C0F;
+	Wed,  2 Jun 2021 06:56:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B12CA44A59;
-	Wed,  2 Jun 2021 06:57:16 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CC3A544A59;
+	Wed,  2 Jun 2021 06:56:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1526vCP6017581 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Jun 2021 02:57:12 -0400
+	id 1526uMn1017285 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Jun 2021 02:56:22 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 88CB9F41D7; Wed,  2 Jun 2021 06:57:12 +0000 (UTC)
+	id AAAFE21623B6; Wed,  2 Jun 2021 06:56:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 83B05BDC59
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:57:08 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A6CB621623B2
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:56:17 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8B9D110334AA
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:57:08 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 66D5D18E0925
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 06:56:17 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-147-FfdL-BvfO5alLdjIX0453Q-1; Wed, 02 Jun 2021 02:56:08 -0400
-X-MC-Unique: FfdL-BvfO5alLdjIX0453Q-1
+	us-mta-168-WCe5z2dPNraq52O-7Dacfw-1; Wed, 02 Jun 2021 02:56:15 -0400
+X-MC-Unique: WCe5z2dPNraq52O-7Dacfw-1
 Received: from shol69.static.otenet.gr ([83.235.170.67] helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1loKnE-0026TF-Pp; Wed, 02 Jun 2021 06:55:57 +0000
+	id 1loKnJ-0026XD-03; Wed, 02 Jun 2021 06:56:01 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed,  2 Jun 2021 09:53:42 +0300
-Message-Id: <20210602065345.355274-28-hch@lst.de>
+Date: Wed,  2 Jun 2021 09:53:43 +0300
+Message-Id: <20210602065345.355274-29-hch@lst.de>
 In-Reply-To: <20210602065345.355274-1-hch@lst.de>
 References: <20210602065345.355274-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,7 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: Justin Sanders <justin@coraid.com>, Vignesh Raghavendra <vigneshr@ti.com>,
 	Mike Snitzer <snitzer@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
@@ -82,7 +83,7 @@ Cc: Justin Sanders <justin@coraid.com>, Vignesh Raghavendra <vigneshr@ti.com>,
 	Geoff Levand <geoff@infradead.org>, linux-mmc@vger.kernel.org,
 	linux-mtd@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [dm-devel] [PATCH 27/30] scm_blk: use blk_mq_alloc_disk and
+Subject: [dm-devel] [PATCH 28/30] amiflop: use blk_mq_alloc_disk and
 	blk_cleanup_disk
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -110,69 +111,46 @@ request_queue allocation.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/s390/block/scm_blk.c | 21 ++++++---------------
- 1 file changed, 6 insertions(+), 15 deletions(-)
+ drivers/block/amiflop.c | 16 ++++------------
+ 1 file changed, 4 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/s390/block/scm_blk.c b/drivers/s390/block/scm_blk.c
-index a4f6f2e62b1d..88cba6212ee2 100644
---- a/drivers/s390/block/scm_blk.c
-+++ b/drivers/s390/block/scm_blk.c
-@@ -462,12 +462,12 @@ int scm_blk_dev_setup(struct scm_blk_dev *bdev, struct scm_device *scmdev)
- 	if (ret)
- 		goto out;
- 
--	rq = blk_mq_init_queue(&bdev->tag_set);
--	if (IS_ERR(rq)) {
--		ret = PTR_ERR(rq);
-+	bdev->gendisk = blk_mq_alloc_disk(&bdev->tag_set, scmdev);
-+	if (IS_ERR(bdev->gendisk)) {
-+		ret = PTR_ERR(bdev->gendisk);
- 		goto out_tag;
- 	}
--	bdev->rq = rq;
-+	rq = bdev->rq = bdev->gendisk->queue;
- 	nr_max_blk = min(scmdev->nr_max_block,
- 			 (unsigned int) (PAGE_SIZE / sizeof(struct aidaw)));
- 
-@@ -477,17 +477,11 @@ int scm_blk_dev_setup(struct scm_blk_dev *bdev, struct scm_device *scmdev)
- 	blk_queue_flag_set(QUEUE_FLAG_NONROT, rq);
- 	blk_queue_flag_clear(QUEUE_FLAG_ADD_RANDOM, rq);
- 
--	bdev->gendisk = alloc_disk(SCM_NR_PARTS);
--	if (!bdev->gendisk) {
--		ret = -ENOMEM;
--		goto out_queue;
--	}
--	rq->queuedata = scmdev;
- 	bdev->gendisk->private_data = scmdev;
- 	bdev->gendisk->fops = &scm_blk_devops;
--	bdev->gendisk->queue = rq;
- 	bdev->gendisk->major = scm_major;
- 	bdev->gendisk->first_minor = devindex * SCM_NR_PARTS;
-+	bdev->gendisk->minors = SCM_NR_PARTS;
- 
- 	len = snprintf(bdev->gendisk->disk_name, DISK_NAME_LEN, "scm");
- 	if (devindex > 25) {
-@@ -504,8 +498,6 @@ int scm_blk_dev_setup(struct scm_blk_dev *bdev, struct scm_device *scmdev)
- 	device_add_disk(&scmdev->dev, bdev->gendisk, NULL);
- 	return 0;
- 
--out_queue:
--	blk_cleanup_queue(rq);
- out_tag:
- 	blk_mq_free_tag_set(&bdev->tag_set);
- out:
-@@ -516,9 +508,8 @@ int scm_blk_dev_setup(struct scm_blk_dev *bdev, struct scm_device *scmdev)
- void scm_blk_dev_cleanup(struct scm_blk_dev *bdev)
+diff --git a/drivers/block/amiflop.c b/drivers/block/amiflop.c
+index 9e2d0c6a3877..8b1714021498 100644
+--- a/drivers/block/amiflop.c
++++ b/drivers/block/amiflop.c
+@@ -1781,15 +1781,13 @@ static int fd_alloc_disk(int drive, int system)
  {
- 	del_gendisk(bdev->gendisk);
--	blk_cleanup_queue(bdev->gendisk->queue);
-+	blk_cleanup_disk(bdev->gendisk);
- 	blk_mq_free_tag_set(&bdev->tag_set);
--	put_disk(bdev->gendisk);
+ 	struct gendisk *disk;
+ 
+-	disk = alloc_disk(1);
+-	if (!disk)
+-		goto out;
+-	disk->queue = blk_mq_init_queue(&unit[drive].tag_set);
+-	if (IS_ERR(disk->queue))
+-		goto out_put_disk;
++	disk = blk_mq_alloc_disk(&unit[drive].tag_set, NULL);
++	if (IS_ERR(disk))
++		return PTR_ERR(disk);
+ 
+ 	disk->major = FLOPPY_MAJOR;
+ 	disk->first_minor = drive + system;
++	disk->minors = 1;
+ 	disk->fops = &floppy_fops;
+ 	disk->events = DISK_EVENT_MEDIA_CHANGE;
+ 	if (system)
+@@ -1802,12 +1800,6 @@ static int fd_alloc_disk(int drive, int system)
+ 	unit[drive].gendisk[system] = disk;
+ 	add_disk(disk);
+ 	return 0;
+-
+-out_put_disk:
+-	disk->queue = NULL;
+-	put_disk(disk);
+-out:
+-	return -ENOMEM;
  }
  
- void scm_blk_set_available(struct scm_blk_dev *bdev)
+ static int fd_alloc_drive(int drive)
 -- 
 2.30.2
 
