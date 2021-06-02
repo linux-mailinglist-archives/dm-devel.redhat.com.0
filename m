@@ -1,73 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C8981399AC8
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 5245C399AC7
 	for <lists+dm-devel@lfdr.de>; Thu,  3 Jun 2021 08:33:31 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-325-pxG4FPxONcCGffOHiVuo8w-1; Thu, 03 Jun 2021 02:33:25 -0400
-X-MC-Unique: pxG4FPxONcCGffOHiVuo8w-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-144-6_cApTC4N3ig2SsKdMR6XA-1; Thu, 03 Jun 2021 02:33:24 -0400
+X-MC-Unique: 6_cApTC4N3ig2SsKdMR6XA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 398C2802690;
-	Thu,  3 Jun 2021 06:33:12 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F2AE5163CB;
-	Thu,  3 Jun 2021 06:33:11 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 70E1680363F;
+	Thu,  3 Jun 2021 06:33:16 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 520CE60E3A;
+	Thu,  3 Jun 2021 06:33:16 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9CC4C1800FFC;
-	Thu,  3 Jun 2021 06:33:11 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D4A1C44A5E;
+	Thu,  3 Jun 2021 06:33:15 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 152E1crE031062 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Jun 2021 10:01:38 -0400
+	id 152E7Bk6031467 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Jun 2021 10:07:11 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 73B1F21D0DB1; Wed,  2 Jun 2021 14:01:38 +0000 (UTC)
+	id 854AB20ED80A; Wed,  2 Jun 2021 14:07:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6EEED200FA72
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 14:01:35 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 80E1020ED806
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 14:07:08 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CCBC180B926
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 14:01:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CEBEF182506A
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 14:07:08 +0000 (UTC)
 Received: from mail.efficios.com (mail.efficios.com [167.114.26.124]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-272-uxWdMnxGOuycG3t-My7u_w-1; Wed, 02 Jun 2021 10:01:31 -0400
-X-MC-Unique: uxWdMnxGOuycG3t-My7u_w-1
+	us-mta-244-CfvQnYcfP86HHgv6KYtzVQ-1; Wed, 02 Jun 2021 10:07:04 -0400
+X-MC-Unique: CfvQnYcfP86HHgv6KYtzVQ-1
 Received: from localhost (localhost [127.0.0.1])
-	by mail.efficios.com (Postfix) with ESMTP id 805643029EA;
-	Wed,  2 Jun 2021 10:01:30 -0400 (EDT)
+	by mail.efficios.com (Postfix) with ESMTP id 33F8E302B4C;
+	Wed,  2 Jun 2021 10:07:03 -0400 (EDT)
 Received: from mail.efficios.com ([127.0.0.1])
 	by localhost (mail03.efficios.com [127.0.0.1]) (amavisd-new, port 10032)
-	with ESMTP id 5aXZqKFUnM5u; Wed,  2 Jun 2021 10:01:29 -0400 (EDT)
+	with ESMTP id g1z0V_wT7FT6; Wed,  2 Jun 2021 10:06:58 -0400 (EDT)
 Received: from localhost (localhost [127.0.0.1])
-	by mail.efficios.com (Postfix) with ESMTP id 78F88302B31;
-	Wed,  2 Jun 2021 10:01:29 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.efficios.com 78F88302B31
+	by mail.efficios.com (Postfix) with ESMTP id 84F0C302AEF;
+	Wed,  2 Jun 2021 10:06:58 -0400 (EDT)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.efficios.com 84F0C302AEF
 X-Virus-Scanned: amavisd-new at efficios.com
 Received: from mail.efficios.com ([127.0.0.1])
 	by localhost (mail03.efficios.com [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 6Pg28DJCgmhR; Wed,  2 Jun 2021 10:01:29 -0400 (EDT)
+	with ESMTP id l6BO-UHNT1BK; Wed,  2 Jun 2021 10:06:58 -0400 (EDT)
 Received: from mail03.efficios.com (mail03.efficios.com [167.114.26.124])
-	by mail.efficios.com (Postfix) with ESMTP id 44D173029E9;
-	Wed,  2 Jun 2021 10:01:29 -0400 (EDT)
-Date: Wed, 2 Jun 2021 10:01:29 -0400 (EDT)
+	by mail.efficios.com (Postfix) with ESMTP id 548823029F3;
+	Wed,  2 Jun 2021 10:06:58 -0400 (EDT)
+Date: Wed, 2 Jun 2021 10:06:58 -0400 (EDT)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: Peter Zijlstra <peterz@infradead.org>
-Message-ID: <1731339790.5856.1622642489232.JavaMail.zimbra@efficios.com>
-In-Reply-To: <20210602133040.461908001@infradead.org>
+Message-ID: <896642516.5866.1622642818225.JavaMail.zimbra@efficios.com>
+In-Reply-To: <20210602133040.587042016@infradead.org>
 References: <20210602131225.336600299@infradead.org>
-	<20210602133040.461908001@infradead.org>
+	<20210602133040.587042016@infradead.org>
 MIME-Version: 1.0
 X-Originating-IP: [167.114.26.124]
-Thread-Topic: sched: Add get_current_state()
-Thread-Index: E1ntXBdpTHBBRaSFxkm2wa7EtTrnhg==
+Thread-Topic: sched: Change task_struct::state
+Thread-Index: DzXPoSkxk24gPNa4OEu5k5Jl7651YA==
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -120,7 +120,7 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Mark Rutland <mark.rutland@arm.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	rcu <rcu@vger.kernel.org>, bristot <bristot@redhat.com>,
 	"David S. Miller" <davem@davemloft.net>
-Subject: Re: [dm-devel] [PATCH 4/6] sched: Add get_current_state()
+Subject: Re: [dm-devel] [PATCH 6/6] sched: Change task_struct::state
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -134,7 +134,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -144,20 +144,62 @@ Content-Transfer-Encoding: 7bit
 
 ----- On Jun 2, 2021, at 9:12 AM, Peter Zijlstra peterz@infradead.org wrote:
 
-> Remove yet another few p->state accesses.
+> Change the type and name of task_struct::state. Drop the volatile and
+> shrink it to an 'unsigned int'. Rename it in order to find all uses
+> such that we can use READ_ONCE/WRITE_ONCE as appropriate.
+> 
+[...]
+> 
+> --- a/block/blk-mq.c
+> +++ b/block/blk-mq.c
+
+[...]
+> @@ -1559,7 +1560,8 @@ static int fill_psinfo(struct elf_prpsin
+> 	psinfo->pr_pgrp = task_pgrp_vnr(p);
+> 	psinfo->pr_sid = task_session_vnr(p);
+> 
+> -	i = p->state ? ffz(~p->state) + 1 : 0;
+> +	state = READ_ONCE(p->__state);
+> +	i = state ? ffz(~state) + 1 : 0;
+> 	psinfo->pr_state = i;
+> 	psinfo->pr_sname = (i > 5) ? '.' : "RSDTZW"[i];
+> 	psinfo->pr_zomb = psinfo->pr_sname == 'Z';
 
 [...]
 
-> 
 > --- a/include/linux/sched.h
 > +++ b/include/linux/sched.h
-> @@ -212,6 +212,8 @@ struct task_group;
+> @@ -113,13 +113,13 @@ struct task_group;
+> 					 __TASK_TRACED | EXIT_DEAD | EXIT_ZOMBIE | \
+> 					 TASK_PARKED)
 > 
-> #endif
+> -#define task_is_running(task)		(READ_ONCE((task)->state) == TASK_RUNNING)
+> +#define task_is_running(task)		(READ_ONCE((task)->__state) == TASK_RUNNING)
 > 
-> +#define get_current_state()	READ_ONCE(current->state)
+> -#define task_is_traced(task)		((task->state & __TASK_TRACED) != 0)
+> +#define task_is_traced(task)		((READ_ONCE(task->__state) & __TASK_TRACED) != 0)
+> 
+> -#define task_is_stopped(task)		((task->state & __TASK_STOPPED) != 0)
+> +#define task_is_stopped(task)		((READ_ONCE(task->__state) & __TASK_STOPPED) !=
+> 0)
+> 
+> -#define task_is_stopped_or_traced(task)	((task->state & (__TASK_STOPPED |
+> __TASK_TRACED)) != 0)
+> +#define task_is_stopped_or_traced(task)	((READ_ONCE(task->__state) &
+> (__TASK_STOPPED | __TASK_TRACED)) != 0)
+> 
+> #ifdef CONFIG_DEBUG_ATOMIC_SLEEP
+> 
+> @@ -134,14 +134,14 @@ struct task_group;
+> 	do {							\
+> 		WARN_ON_ONCE(is_special_task_state(state_value));\
+> 		current->task_state_change = _THIS_IP_;		\
+> -		current->state = (state_value);			\
+> +		WRITE_ONCE(current->__state, (state_value));	\
+> 	} while (0)
 
-Why use a macro rather than a static inline here ?
+Why not introduce set_task_state(p) and get_task_state(p) rather than sprinkle
+READ_ONCE() and WRITE_ONCE() all over the kernel ?
 
 Thanks,
 
