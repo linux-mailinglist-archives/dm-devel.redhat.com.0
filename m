@@ -1,55 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 754E0399AD6
-	for <lists+dm-devel@lfdr.de>; Thu,  3 Jun 2021 08:34:06 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 1ABF2399ADC
+	for <lists+dm-devel@lfdr.de>; Thu,  3 Jun 2021 08:34:16 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-270-ElE_soYdNgWX3RaTECjmTg-1; Thu, 03 Jun 2021 02:33:25 -0400
-X-MC-Unique: ElE_soYdNgWX3RaTECjmTg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-369-g5Hf0YLWNhiMeEvQ0R5h3A-1; Thu, 03 Jun 2021 02:33:34 -0400
+X-MC-Unique: g5Hf0YLWNhiMeEvQ0R5h3A-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 92D3880623D;
-	Thu,  3 Jun 2021 06:33:19 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1A88079ED6;
+	Thu,  3 Jun 2021 06:33:27 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A877C10190AA;
-	Thu,  3 Jun 2021 06:33:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DCD615C8AA;
+	Thu,  3 Jun 2021 06:33:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 51F5E44A5E;
-	Thu,  3 Jun 2021 06:33:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 95CD244A5F;
+	Thu,  3 Jun 2021 06:33:26 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 152EugZu005508 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Jun 2021 10:56:42 -0400
+	id 152Exq14005789 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Jun 2021 10:59:52 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 218671033C7F; Wed,  2 Jun 2021 14:56:42 +0000 (UTC)
+	id 05CFE2166B1E; Wed,  2 Jun 2021 14:59:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1C02F104085D
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 14:56:38 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 014E52166B1A
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 14:59:45 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C6A04857AA4
-	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 14:56:38 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DD7731825065
+	for <dm-devel@redhat.com>; Wed,  2 Jun 2021 14:59:44 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-307--NsJZB3lOQSlib3CkF4Cbg-1;
-	Wed, 02 Jun 2021 10:56:34 -0400
-X-MC-Unique: -NsJZB3lOQSlib3CkF4Cbg-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 0E82261207;
-	Wed,  2 Jun 2021 14:47:58 +0000 (UTC)
-Date: Wed, 2 Jun 2021 15:47:55 +0100
+	by relay.mimecast.com with ESMTP id us-mta-411-MhmSVC3kO3quIlW7Q_-Y5g-1;
+	Wed, 02 Jun 2021 10:59:39 -0400
+X-MC-Unique: MhmSVC3kO3quIlW7Q_-Y5g-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B95E7613B4;
+	Wed,  2 Jun 2021 14:59:27 +0000 (UTC)
+Date: Wed, 2 Jun 2021 15:59:21 +0100
 From: Will Deacon <will@kernel.org>
 To: Peter Zijlstra <peterz@infradead.org>
-Message-ID: <20210602144755.GA31179@willie-the-truck>
+Message-ID: <20210602145921.GB31179@willie-the-truck>
 References: <20210602131225.336600299@infradead.org>
-	<20210602133040.271625424@infradead.org>
+	<20210602133040.334970485@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <20210602133040.271625424@infradead.org>
+In-Reply-To: <20210602133040.334970485@infradead.org>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -59,7 +59,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 03 Jun 2021 02:32:49 -0400
 Cc: Juri Lelli <juri.lelli@redhat.com>, Mark Rutland <mark.rutland@arm.com>,
@@ -101,7 +101,7 @@ Cc: Juri Lelli <juri.lelli@redhat.com>, Mark Rutland <mark.rutland@arm.com>,
 	Andrew Morton <akpm@linux-foundation.org>, rcu@vger.kernel.org,
 	Daniel Bristot de Oliveira <bristot@redhat.com>,
 	"David S. Miller" <davem@davemloft.net>
-Subject: Re: [dm-devel] [PATCH 1/6] sched: Unbreak wakeups
+Subject: Re: [dm-devel] [PATCH 2/6] sched: Introduce task_is_running()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -115,7 +115,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -124,38 +124,37 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Jun 02, 2021 at 03:12:26PM +0200, Peter Zijlstra wrote:
-> Remove broken task->state references and let wake_up_process() DTRT.
-> 
-> The anti-pattern in these patches breaks the ordering of ->state vs
-> COND as described in the comment near set_current_state() and can lead
-> to missed wakeups:
-> 
-> 	(OoO load, observes RUNNING)<-.
-> 	for (;;) {                    |
-> 	  t->state = UNINTERRUPTIBLE; |
-> 	  smp_mb();          ,-----> ,' (OoO load, observed !COND)
->                              |       |
-> 	                     |       |	COND = 1;
-> 			     |	     `- if (t->state != RUNNING)
->                              |		  wake_up_process(t); // not done
-> 	  if (COND) ---------'
-> 	    break;
-> 	  schedule(); // forever waiting
-> 	}
-> 	t->state = TASK_RUNNING;
+On Wed, Jun 02, 2021 at 03:12:27PM +0200, Peter Zijlstra wrote:
+> Replace a bunch of 'p->state == TASK_RUNNING' with a new helper:
+> task_is_running(p).
 > 
 > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 > ---
->  drivers/net/ethernet/qualcomm/qca_spi.c |    6 ++----
->  drivers/usb/gadget/udc/max3420_udc.c    |   15 +++++----------
->  drivers/usb/host/max3421-hcd.c          |    3 +--
->  kernel/softirq.c                        |    2 +-
->  4 files changed, 9 insertions(+), 17 deletions(-)
+>  arch/x86/kernel/process.c |    4 ++--
+>  block/blk-mq.c            |    2 +-
+>  include/linux/sched.h     |    2 ++
+>  kernel/locking/lockdep.c  |    2 +-
+>  kernel/rcu/tree_plugin.h  |    2 +-
+>  kernel/sched/core.c       |    6 +++---
+>  kernel/sched/stats.h      |    2 +-
+>  kernel/signal.c           |    2 +-
+>  kernel/softirq.c          |    3 +--
+>  mm/compaction.c           |    2 +-
+>  10 files changed, 14 insertions(+), 13 deletions(-)
+> 
+> --- a/arch/x86/kernel/process.c
+> +++ b/arch/x86/kernel/process.c
+> @@ -931,7 +931,7 @@ unsigned long get_wchan(struct task_stru
+>  	unsigned long start, bottom, top, sp, fp, ip, ret = 0;
+>  	int count = 0;
+>  
+> -	if (p == current || p->state == TASK_RUNNING)
+> +	if (p == current || task_is_running(p))
 
-Acked-by: Will Deacon <will@kernel.org>
+Looks like this one in get_wchan() has been cargo-culted across most of
+arch/ so they'll need fixing up before you rename the struct member.
 
-I couldn't spot any others.
+There's also a weird one in tools/bpf/runqslower/runqslower.bpf.c (!)
 
 Will
 
