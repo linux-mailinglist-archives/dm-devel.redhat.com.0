@@ -2,70 +2,57 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 5989639B290
-	for <lists+dm-devel@lfdr.de>; Fri,  4 Jun 2021 08:27:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0666D39B292
+	for <lists+dm-devel@lfdr.de>; Fri,  4 Jun 2021 08:28:02 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-548-yOgvaYNNPjykRJwczZmDvA-1; Fri, 04 Jun 2021 02:27:54 -0400
-X-MC-Unique: yOgvaYNNPjykRJwczZmDvA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-578-dgO8wQQrNEiPh1NnG7M9Uw-1; Fri, 04 Jun 2021 02:27:58 -0400
+X-MC-Unique: dgO8wQQrNEiPh1NnG7M9Uw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6A48A6D4F2;
-	Fri,  4 Jun 2021 06:27:48 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4E91960BD8;
-	Fri,  4 Jun 2021 06:27:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1DA71800D55;
+	Fri,  4 Jun 2021 06:27:54 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA38B1002D71;
+	Fri,  4 Jun 2021 06:27:53 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5C9E51800FFC;
-	Fri,  4 Jun 2021 06:27:47 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6355D44A58;
+	Fri,  4 Jun 2021 06:27:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 153Fbjx2008606 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 3 Jun 2021 11:37:45 -0400
+	id 153MHLt7011736 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 3 Jun 2021 18:17:21 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 93EE62102C44; Thu,  3 Jun 2021 15:37:45 +0000 (UTC)
+	id 39EAE11E5B0; Thu,  3 Jun 2021 22:17:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F61F20FE6DC
-	for <dm-devel@redhat.com>; Thu,  3 Jun 2021 15:37:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 34FBD10FAA8
+	for <dm-devel@redhat.com>; Thu,  3 Jun 2021 22:17:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C246D90DE33
-	for <dm-devel@redhat.com>; Thu,  3 Jun 2021 15:37:42 +0000 (UTC)
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com
-	[209.85.222.41]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-186-f8OXfEjkPQW7qqFNXt7_WQ-1; Thu, 03 Jun 2021 11:37:23 -0400
-X-MC-Unique: f8OXfEjkPQW7qqFNXt7_WQ-1
-Received: by mail-ua1-f41.google.com with SMTP id w5so3524282uaq.9
-	for <dm-devel@redhat.com>; Thu, 03 Jun 2021 08:37:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=7DKVf+GiS9951bpd4cfEBh88PiRutTQ//wVEud26id8=;
-	b=jZvhi7kPcCjFmZRERNTPdy8UwpeRKkwGbdk3xgeaJtY98nGCJ+lIlPWmYyPRfNyOOo
-	tLPj/o8+xzKnCBcVliRVJ+Gc000Xi2B7gasWF/AnH8bu3xLxP8kPdlGonfV4EpCvxAOP
-	gO6SsVydDTjkyL4tQzXAxQMufWgDl3leCFMqnhvJMlH1RWu8VfJotPxa/28MgxQ8BDzg
-	zkVGr/AxmnnImreaEW50tnOJBt0fSyRxrScx7pxBZp8hFdkgYGj5vO9cFayApIx0jK8K
-	UG86PA4TKJOpe+fc58hLsvTbICoizHF+gBkquxAOSDccCTldeQyOsmL32jYfviO4MB+e
-	m2Ag==
-X-Gm-Message-State: AOAM533zCyemwBjR0nfd36JD+RufO90cCHjhLeFlBOJfz9WCZFkNUE7Z
-	nxsxsDn9eK1DI+lvGbVAoUzK96tE9vRqfr0mlr5qSg==
-X-Google-Smtp-Source: ABdhPJyc/MDglzj7ZqHuKLnfpO6vVPHNJJJjAhghObYaMjdvGQtxzeGy+jhwPjnJIpGZowWwyMtWi1MuD2fSyYUnfEo=
-X-Received: by 2002:ab0:7c5b:: with SMTP id d27mr407242uaw.15.1622734642855;
-	Thu, 03 Jun 2021 08:37:22 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D845085828E
+	for <dm-devel@redhat.com>; Thu,  3 Jun 2021 22:17:15 +0000 (UTC)
+Received: from youngberry.canonical.com (youngberry.canonical.com
+	[91.189.89.112]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-300-wHbVaGJdM4OoGA_bmyjzOw-1; Thu, 03 Jun 2021 18:17:11 -0400
+X-MC-Unique: wHbVaGJdM4OoGA_bmyjzOw-1
+Received: from 1.general.cking.uk.vpn ([10.172.193.212])
+	by youngberry.canonical.com with esmtpsa (TLS1.2) tls
+	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+	(envelope-from <colin.king@canonical.com>)
+	id 1loveH-0002Cx-Vv; Thu, 03 Jun 2021 22:17:10 +0000
+To: Damien Le Moal <damien.lemoal@wdc.com>
+From: Colin Ian King <colin.king@canonical.com>
+Message-ID: <7e7530a9-7939-2ad6-bfe1-d3aeeeed1f77@canonical.com>
+Date: Thu, 3 Jun 2021 23:17:09 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+	Thunderbird/78.8.1
 MIME-Version: 1.0
-References: <20210602065345.355274-1-hch@lst.de>
-	<20210602065345.355274-9-hch@lst.de>
-In-Reply-To: <20210602065345.355274-9-hch@lst.de>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Thu, 3 Jun 2021 17:36:45 +0200
-Message-ID: <CAPDyKFoh6HKx2rHHRXvw--Ou53TR2wLFGrKCDuetigxQ8QbvfQ@mail.gmail.com>
-To: Christoph Hellwig <hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -74,31 +61,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 04 Jun 2021 02:21:36 -0400
-Cc: Justin Sanders <justin@coraid.com>, Vignesh Raghavendra <vigneshr@ti.com>,
-	Mike Snitzer <snitzer@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	virtualization@lists.linux-foundation.org, dm-devel@redhat.com,
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Jack Wang <jinpu.wang@ionos.com>, Tim Waugh <tim@cyberelk.net>,
-	linux-s390@vger.kernel.org, Maxim Levitsky <maximlevitsky@gmail.com>,
-	Richard Weinberger <richard@nod.at>,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	xen-devel@lists.xenproject.org, Ilya Dryomov <idryomov@gmail.com>,
-	Vasily Gorbik <gor@linux.ibm.com>, Alex Dubov <oakad@yahoo.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Heiko Carstens <hca@linux.ibm.com>, Josef Bacik <josef@toxicpanda.com>,
-	Denis Efremov <efremov@linux.com>, nbd@other.debian.org,
-	linux-block <linux-block@vger.kernel.org>,
-	ceph-devel@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	Geoff Levand <geoff@infradead.org>, linux-mmc <linux-mmc@vger.kernel.org>,
-	linux-mtd@lists.infradead.org,
-	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [dm-devel] [PATCH 08/30] mspro: use blk_mq_alloc_disk
+Cc: dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>,
+	Alasdair Kergon <agk@redhat.com>, linux-kernel@vger.kernel.org
+Subject: Re: [dm-devel] dm: Forbid requeue of writes to zones
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -112,91 +80,87 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0
+X-Mimecast-Spam-Score: 1
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2 Jun 2021 at 08:54, Christoph Hellwig <hch@lst.de> wrote:
->
-> Use the blk_mq_alloc_disk API to simplify the gendisk and request_queue
-> allocation.
->
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
+Hi,
 
-Acked-by: Ulf Hansson <ulf.hansson@linaro.org>
+Static analysis with Coverity on Linux next has found and issue in
+drivers/md/dm.c with the following commit:
 
-Kind regards
-Uffe
+commit 2c243153d1d4be4e23735cd10984ac17c7a54531
+Author: Damien Le Moal <damien.lemoal@wdc.com>
+Date:   Wed May 26 06:24:58 2021 +0900
 
+    dm: Forbid requeue of writes to zones
 
-> ---
->  drivers/memstick/core/mspro_block.c | 26 +++++++++++---------------
->  1 file changed, 11 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/memstick/core/mspro_block.c b/drivers/memstick/core/mspro_block.c
-> index cf7fe0d58ee7..22778d0e24f5 100644
-> --- a/drivers/memstick/core/mspro_block.c
-> +++ b/drivers/memstick/core/mspro_block.c
-> @@ -1205,21 +1205,17 @@ static int mspro_block_init_disk(struct memstick_dev *card)
->         if (disk_id < 0)
->                 return disk_id;
->
-> -       msb->disk = alloc_disk(1 << MSPRO_BLOCK_PART_SHIFT);
-> -       if (!msb->disk) {
-> -               rc = -ENOMEM;
-> +       rc = blk_mq_alloc_sq_tag_set(&msb->tag_set, &mspro_mq_ops, 2,
-> +                                    BLK_MQ_F_SHOULD_MERGE);
-> +       if (rc)
->                 goto out_release_id;
-> -       }
->
-> -       msb->queue = blk_mq_init_sq_queue(&msb->tag_set, &mspro_mq_ops, 2,
-> -                                               BLK_MQ_F_SHOULD_MERGE);
-> -       if (IS_ERR(msb->queue)) {
-> -               rc = PTR_ERR(msb->queue);
-> -               msb->queue = NULL;
-> -               goto out_put_disk;
-> +       msb->disk = blk_mq_alloc_disk(&msb->tag_set, card);
-> +       if (IS_ERR(msb->disk)) {
-> +               rc = PTR_ERR(msb->disk);
-> +               goto out_free_tag_set;
->         }
-> -
-> -       msb->queue->queuedata = card;
-> +       msb->queue = msb->disk->queue;
->
->         blk_queue_max_hw_sectors(msb->queue, MSPRO_BLOCK_MAX_PAGES);
->         blk_queue_max_segments(msb->queue, MSPRO_BLOCK_MAX_SEGS);
-> @@ -1228,10 +1224,10 @@ static int mspro_block_init_disk(struct memstick_dev *card)
->
->         msb->disk->major = major;
->         msb->disk->first_minor = disk_id << MSPRO_BLOCK_PART_SHIFT;
-> +       msb->disk->minors = 1 << MSPRO_BLOCK_PART_SHIFT;
->         msb->disk->fops = &ms_block_bdops;
->         msb->usage_count = 1;
->         msb->disk->private_data = msb;
-> -       msb->disk->queue = msb->queue;
->
->         sprintf(msb->disk->disk_name, "mspblk%d", disk_id);
->
-> @@ -1247,8 +1243,8 @@ static int mspro_block_init_disk(struct memstick_dev *card)
->         msb->active = 1;
->         return 0;
->
-> -out_put_disk:
-> -       put_disk(msb->disk);
-> +out_free_tag_set:
-> +       blk_mq_free_tag_set(&msb->tag_set);
->  out_release_id:
->         mutex_lock(&mspro_block_disk_lock);
->         idr_remove(&mspro_block_disk_idr, disk_id);
-> --
-> 2.30.2
->
+The analysis is as follows:
+
+ 828 static void dec_pending(struct dm_io *io, blk_status_t error)
+ 829 {
+ 830        unsigned long flags;
+ 831        blk_status_t io_error;
+
+    1. var_decl: Declaring variable bio without initializer.
+
+ 832        struct bio *bio;
+ 833        struct mapped_device *md = io->md;
+ 834
+ 835        /* Push-back supersedes any I/O errors */
+
+    2. Condition !!error, taking true branch.
+
+ 836        if (unlikely(error)) {
+ 837                spin_lock_irqsave(&io->endio_lock, flags);
+
+    3. Condition io->status == 11 /* (blk_status_t)11 */, taking false
+branch.
+
+ 838                if (!(io->status == BLK_STS_DM_REQUEUE &&
+__noflush_suspending(md)))
+ 839                        io->status = error;
+ 840                spin_unlock_irqrestore(&io->endio_lock, flags);
+ 841        }
+ 842
+
+    4. Condition atomic_dec_and_test(&io->io_count), taking true branch.
+
+ 843        if (atomic_dec_and_test(&io->io_count)) {
+
+    5. Condition io->status == 11 /* (blk_status_t)11 */, taking true
+branch.
+
+ 844                if (io->status == BLK_STS_DM_REQUEUE) {
+ 845                        /*
+ 846                         * Target requested pushing back the I/O.
+ 847                         */
+ 848                        spin_lock_irqsave(&md->deferred_lock, flags);
+
+    6. Condition __noflush_suspending(md), taking true branch.
+
+ 849                        if (__noflush_suspending(md) &&
+
+Uninitialized pointer read
+    7. uninit_use_in_call: Using uninitialized value bio when calling
+dm_is_zone_write.
+
+ 850                            !WARN_ON_ONCE(dm_is_zone_write(md, bio)))
+ 851                                /* NOTE early return due to
+BLK_STS_DM_REQUEUE below */
+ 852                                bio_list_add_head(&md->deferred,
+io->orig_bio);
+
+The pointer bio is not initialized and yet is being used in the call to
+function dm_is_zone_write where pointer bio is being accessed. I'm not
+sure what the original intent was, but this looks incorrect.
+
+Colin
 
 --
 dm-devel mailing list
