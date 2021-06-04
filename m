@@ -1,72 +1,74 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 5E1D239B294
-	for <lists+dm-devel@lfdr.de>; Fri,  4 Jun 2021 08:28:05 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 178F139B295
+	for <lists+dm-devel@lfdr.de>; Fri,  4 Jun 2021 08:28:09 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-156-diHlPFebPTGr-m-Ogt2YSQ-1; Fri, 04 Jun 2021 02:28:02 -0400
-X-MC-Unique: diHlPFebPTGr-m-Ogt2YSQ-1
+ us-mta-543-Gb9mWqu6NMaNqcMKZYOJAg-1; Fri, 04 Jun 2021 02:28:06 -0400
+X-MC-Unique: Gb9mWqu6NMaNqcMKZYOJAg-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CDB81803620;
-	Fri,  4 Jun 2021 06:27:57 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DF1D2106BB34;
+	Fri,  4 Jun 2021 06:27:59 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A92025C239;
-	Fri,  4 Jun 2021 06:27:57 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BC8855C1A3;
+	Fri,  4 Jun 2021 06:27:59 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6497C18037ED;
-	Fri,  4 Jun 2021 06:27:57 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7368A1801265;
+	Fri,  4 Jun 2021 06:27:59 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1541KE7Z026803 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 3 Jun 2021 21:20:14 -0400
+	id 1541KMhj026832 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 3 Jun 2021 21:20:23 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0DABC21144D1; Fri,  4 Jun 2021 01:20:14 +0000 (UTC)
+	id CF24C20951A2; Fri,  4 Jun 2021 01:20:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0936321144C6
-	for <dm-devel@redhat.com>; Fri,  4 Jun 2021 01:20:14 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CAF6F20951A0
+	for <dm-devel@redhat.com>; Fri,  4 Jun 2021 01:20:20 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E5515101A531
-	for <dm-devel@redhat.com>; Fri,  4 Jun 2021 01:20:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 233BD800C00
+	for <dm-devel@redhat.com>; Fri,  4 Jun 2021 01:20:20 +0000 (UTC)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
-	by relay.mimecast.com with ESMTP id us-mta-89-7KVYDoBuM6y3H4RtKFoqTw-1; 
-	Thu, 03 Jun 2021 21:20:12 -0400
-X-MC-Unique: 7KVYDoBuM6y3H4RtKFoqTw-1
-IronPort-HdrOrdr: =?us-ascii?q?A9a23=3AJRAGG6qYgVw+29Uknxze6CEaV5pOeYIsimQD?=
-	=?us-ascii?q?101hICG9E/b5qynAppkmPHPP4gr5O0tApTnjAsa9qBrnnPYf3WB4B8bAYOCMgg?=
-	=?us-ascii?q?eVxe9Zg7ff/w=3D=3D?=
-X-IronPort-AV: E=Sophos;i="5.83,246,1616428800"; d="scan'208";a="109209807"
+	by relay.mimecast.com with ESMTP id us-mta-538-ldCO46VUOfKF0YDardIM1A-1;
+	Thu, 03 Jun 2021 21:20:18 -0400
+X-MC-Unique: ldCO46VUOfKF0YDardIM1A-1
+IronPort-HdrOrdr: =?us-ascii?q?A9a23=3ASN1Snq5yCRqqVPqEvgPXwCzXdLJyesId70hD?=
+	=?us-ascii?q?6qhwISY6TiX+rbHJoB17726MtN9/YhEdcLy7VJVoBEmskKKdgrNhWotKPjOW21?=
+	=?us-ascii?q?dARbsKheCJrgEIWReOktK1vp0AT0ERMrLN5CBB/KTHCReDYqsd6ejC4Ka1nv3f?=
+	=?us-ascii?q?0nsoaQlrbptr5wB/Bh3zKDwMeCB2QYo+CIGH5tdK4x6peXEsZMy9AXUfG8fZod?=
+	=?us-ascii?q?mjruOdXTc2Qw4g9BKVjS6lrJrzEx2j1B8YVD9VhZcOmFK16zDE2g=3D=3D?=
+X-IronPort-AV: E=Sophos;i="5.83,246,1616428800"; d="scan'208";a="109209814"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
-	by heian.cn.fujitsu.com with ESMTP; 04 Jun 2021 09:19:06 +0800
-Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
-	by cn.fujitsu.com (Postfix) with ESMTP id 77CCF4C369E0;
-	Fri,  4 Jun 2021 09:19:06 +0800 (CST)
+	by heian.cn.fujitsu.com with ESMTP; 04 Jun 2021 09:19:13 +0800
+Received: from G08CNEXMBPEKD06.g08.fujitsu.local (unknown [10.167.33.206])
+	by cn.fujitsu.com (Postfix) with ESMTP id DCB934C369E0;
+	Fri,  4 Jun 2021 09:19:12 +0800 (CST)
 Received: from G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) by
-	G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204) with Microsoft SMTP
-	Server (TLS) id 15.0.1497.2; Fri, 4 Jun 2021 09:18:55 +0800
+	G08CNEXMBPEKD06.g08.fujitsu.local (10.167.33.206) with Microsoft SMTP
+	Server (TLS) id 15.0.1497.2; Fri, 4 Jun 2021 09:19:09 +0800
 Received: from irides.mr.mr.mr (10.167.225.141) by
 	G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.209) with Microsoft SMTP
 	Server
-	id 15.0.1497.2 via Frontend Transport; Fri, 4 Jun 2021 09:18:55 +0800
+	id 15.0.1497.2 via Frontend Transport; Fri, 4 Jun 2021 09:19:07 +0800
 From: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 To: <linux-kernel@vger.kernel.org>, <linux-xfs@vger.kernel.org>,
 	<linux-nvdimm@lists.01.org>, <linux-mm@kvack.org>,
 	<linux-fsdevel@vger.kernel.org>, <dm-devel@redhat.com>
-Date: Fri, 4 Jun 2021 09:18:40 +0800
-Message-ID: <20210604011844.1756145-7-ruansy.fnst@fujitsu.com>
+Date: Fri, 4 Jun 2021 09:18:41 +0800
+Message-ID: <20210604011844.1756145-8-ruansy.fnst@fujitsu.com>
 In-Reply-To: <20210604011844.1756145-1-ruansy.fnst@fujitsu.com>
 References: <20210604011844.1756145-1-ruansy.fnst@fujitsu.com>
 MIME-Version: 1.0
-X-yoursite-MailScanner-ID: 77CCF4C369E0.A2269
+X-yoursite-MailScanner-ID: DCB934C369E0.A20ED
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: ruansy.fnst@fujitsu.com
 X-Spam-Status: No
@@ -78,12 +80,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 04 Jun 2021 02:21:36 -0400
 Cc: snitzer@redhat.com, darrick.wong@oracle.com, rgoldwyn@suse.de,
 	david@fromorbit.com, dan.j.williams@intel.com, hch@lst.de, agk@redhat.com
-Subject: [dm-devel] [PATCH v4 06/10] fs/dax: Implement dax_holder_operations
+Subject: [dm-devel] [PATCH v4 07/10] dm: Introduce ->rmap() to find bdev
+	offset
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -105,57 +108,88 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This is the case where the holder represents a filesystem.  The offset
-translation from disk to block device is needed before we calling
-->corrupted_range().
+Pmem device could be a target of mapped device.  In order to find out
+the global location on a mapped device, we introduce this to translate
+offset from target device to mapped device.
 
-When a specific filesystem is being mounted, we use dax_set_holder() to
-associate it with the dax_device.
+Currently, we implement it on linear target, which is easy to do the
+translation.  Other targets will be supported in the future.  However,
+some targets may not support it because of the non-linear mapping.
 
 Signed-off-by: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 ---
- fs/dax.c            | 16 ++++++++++++++++
- include/linux/dax.h |  2 ++
- 2 files changed, 18 insertions(+)
+ drivers/md/dm-linear.c        | 20 ++++++++++++++++++++
+ include/linux/device-mapper.h |  5 +++++
+ 2 files changed, 25 insertions(+)
 
-diff --git a/fs/dax.c b/fs/dax.c
-index 58faca85455a..1a7473f46df2 100644
---- a/fs/dax.c
-+++ b/fs/dax.c
-@@ -1762,3 +1762,19 @@ vm_fault_t dax_finish_sync_fault(struct vm_fault *vmf,
- 	return dax_insert_pfn_mkwrite(vmf, pfn, order);
- }
- EXPORT_SYMBOL_GPL(dax_finish_sync_fault);
-+
-+static int fs_dax_corrupted_range(struct dax_device *dax_dev,
-+		struct block_device *bdev, loff_t offset, size_t size,
-+		void *data)
-+{
-+	struct super_block *sb = dax_get_holder(dax_dev);
-+	loff_t bdev_off = offset - (get_start_sect(bdev) << SECTOR_SHIFT);
-+
-+	if (!sb->s_op->corrupted_range)
-+		return -EOPNOTSUPP;
-+	return sb->s_op->corrupted_range(sb, bdev, bdev_off, size, data);
-+}
-+
-+const struct dax_holder_operations fs_dax_holder_ops = {
-+	.corrupted_range = fs_dax_corrupted_range,
-+};
-\ No newline at end of file
-diff --git a/include/linux/dax.h b/include/linux/dax.h
-index 6e758daa5004..b35b3b8959a5 100644
---- a/include/linux/dax.h
-+++ b/include/linux/dax.h
-@@ -254,6 +254,8 @@ static inline bool dax_mapping(struct address_space *mapping)
- 	return mapping->host && IS_DAX(mapping->host);
+diff --git a/drivers/md/dm-linear.c b/drivers/md/dm-linear.c
+index 92db0f5e7f28..f9f9bc765ba7 100644
+--- a/drivers/md/dm-linear.c
++++ b/drivers/md/dm-linear.c
+@@ -5,6 +5,7 @@
+  */
+ 
+ #include "dm.h"
++#include "dm-core.h"
+ #include <linux/module.h>
+ #include <linux/init.h>
+ #include <linux/blkdev.h>
+@@ -119,6 +120,24 @@ static void linear_status(struct dm_target *ti, status_type_t type,
+ 	}
  }
  
-+extern const struct dax_holder_operations fs_dax_holder_ops;
++static int linear_rmap(struct dm_target *ti, sector_t offset,
++		       rmap_callout_fn fn, void *data)
++{
++	struct linear_c *lc = (struct linear_c *) ti->private;
++	struct mapped_device *md = ti->table->md;
++	struct block_device *bdev;
++	sector_t disk_sect = offset - dm_target_offset(ti, lc->start);
++	int rc = -ENODEV;
 +
- #ifdef CONFIG_DEV_DAX_HMEM_DEVICES
- void hmem_register_device(int target_nid, struct resource *r);
- #else
++	bdev = bdget_disk_sector(md->disk, offset);
++	if (!bdev)
++		return rc;
++
++	rc = fn(ti, bdev, disk_sect, data);
++	bdput(bdev);
++	return rc;
++}
++
+ static int linear_prepare_ioctl(struct dm_target *ti, struct block_device **bdev)
+ {
+ 	struct linear_c *lc = (struct linear_c *) ti->private;
+@@ -236,6 +255,7 @@ static struct target_type linear_target = {
+ 	.ctr    = linear_ctr,
+ 	.dtr    = linear_dtr,
+ 	.map    = linear_map,
++	.rmap   = linear_rmap,
+ 	.status = linear_status,
+ 	.prepare_ioctl = linear_prepare_ioctl,
+ 	.iterate_devices = linear_iterate_devices,
+diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
+index ff700fb6ce1d..89a893565407 100644
+--- a/include/linux/device-mapper.h
++++ b/include/linux/device-mapper.h
+@@ -58,6 +58,10 @@ typedef void (*dm_dtr_fn) (struct dm_target *ti);
+  * = 2: The target wants to push back the io
+  */
+ typedef int (*dm_map_fn) (struct dm_target *ti, struct bio *bio);
++typedef int (*rmap_callout_fn) (struct dm_target *ti, struct block_device *bdev,
++				sector_t sect, void *data);
++typedef int (*dm_rmap_fn) (struct dm_target *ti, sector_t offset,
++			   rmap_callout_fn fn, void *data);
+ typedef int (*dm_clone_and_map_request_fn) (struct dm_target *ti,
+ 					    struct request *rq,
+ 					    union map_info *map_context,
+@@ -184,6 +188,7 @@ struct target_type {
+ 	dm_ctr_fn ctr;
+ 	dm_dtr_fn dtr;
+ 	dm_map_fn map;
++	dm_rmap_fn rmap;
+ 	dm_clone_and_map_request_fn clone_and_map_rq;
+ 	dm_release_clone_request_fn release_clone_rq;
+ 	dm_endio_fn end_io;
 -- 
 2.31.1
 
