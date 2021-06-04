@@ -2,56 +2,88 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0666D39B292
-	for <lists+dm-devel@lfdr.de>; Fri,  4 Jun 2021 08:28:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 18C4D39B281
+	for <lists+dm-devel@lfdr.de>; Fri,  4 Jun 2021 08:25:33 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-578-dgO8wQQrNEiPh1NnG7M9Uw-1; Fri, 04 Jun 2021 02:27:58 -0400
-X-MC-Unique: dgO8wQQrNEiPh1NnG7M9Uw-1
+ us-mta-152-lrryY5ZuMrKU7FjQpEmorg-1; Fri, 04 Jun 2021 02:25:29 -0400
+X-MC-Unique: lrryY5ZuMrKU7FjQpEmorg-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1DA71800D55;
-	Fri,  4 Jun 2021 06:27:54 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA38B1002D71;
-	Fri,  4 Jun 2021 06:27:53 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 01901107ACE4;
+	Fri,  4 Jun 2021 06:25:24 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C8ED31002D71;
+	Fri,  4 Jun 2021 06:25:23 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6355D44A58;
-	Fri,  4 Jun 2021 06:27:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 729121800FFC;
+	Fri,  4 Jun 2021 06:25:23 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 153MHLt7011736 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 3 Jun 2021 18:17:21 -0400
+	id 1540mL0l025082 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 3 Jun 2021 20:48:21 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 39EAE11E5B0; Thu,  3 Jun 2021 22:17:21 +0000 (UTC)
+	id DB72B1175403; Fri,  4 Jun 2021 00:48:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 34FBD10FAA8
-	for <dm-devel@redhat.com>; Thu,  3 Jun 2021 22:17:15 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D681C1175402
+	for <dm-devel@redhat.com>; Fri,  4 Jun 2021 00:48:17 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D845085828E
-	for <dm-devel@redhat.com>; Thu,  3 Jun 2021 22:17:15 +0000 (UTC)
-Received: from youngberry.canonical.com (youngberry.canonical.com
-	[91.189.89.112]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-300-wHbVaGJdM4OoGA_bmyjzOw-1; Thu, 03 Jun 2021 18:17:11 -0400
-X-MC-Unique: wHbVaGJdM4OoGA_bmyjzOw-1
-Received: from 1.general.cking.uk.vpn ([10.172.193.212])
-	by youngberry.canonical.com with esmtpsa (TLS1.2) tls
-	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
-	(envelope-from <colin.king@canonical.com>)
-	id 1loveH-0002Cx-Vv; Thu, 03 Jun 2021 22:17:10 +0000
-To: Damien Le Moal <damien.lemoal@wdc.com>
-From: Colin Ian King <colin.king@canonical.com>
-Message-ID: <7e7530a9-7939-2ad6-bfe1-d3aeeeed1f77@canonical.com>
-Date: Thu, 3 Jun 2021 23:17:09 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.8.1
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 190CF101D220
+	for <dm-devel@redhat.com>; Fri,  4 Jun 2021 00:48:17 +0000 (UTC)
+Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-532-7Nk4XhuuPhOvAnhqLg1Tkg-1; Thu, 03 Jun 2021 20:48:13 -0400
+X-MC-Unique: 7Nk4XhuuPhOvAnhqLg1Tkg-1
+IronPort-SDR: PuM1gRionuN75v8OpjuCPeYhka8SHJ21wGXLggJKfNmRnfYDPnsllkTXv7NykIJmG9/pUlFRO8
+	/H0QalzFoxykwmLCbjW6z6sjdZU9fag5mCdUQm4oiIhPvmQSBU1kDk3D7/WS0WSuYIVf9H0sVF
+	5kwz8xAA2nLT8YHPekUTXpY1I/Q4rHK5NUInpw76hr9odlqMq0Jpttwu+WHY2yNLsIBYSeI1kL
+	n8an7umVuW84IDfL+xUptSA5YVmLyFmKyGFzaggeTjtAq4bqsrqa1yzREdwCwopjJA5QeepHLy
+	YcY=
+X-IronPort-AV: E=Sophos;i="5.83,246,1616428800"; d="scan'208";a="282065032"
+Received: from h199-255-45-15.hgst.com (HELO uls-op-cesaep02.wdc.com)
+	([199.255.45.15])
+	by ob1.hgst.iphmx.com with ESMTP; 04 Jun 2021 08:47:06 +0800
+IronPort-SDR: 8JkYOiN9C9GiWo+8oUF10RLrix4VzZubUtW1uS54iy1Tbv979dal1ThQrub92VnBS/l++262i9
+	sfEM7VRFIeTBhMPXDcgSe8Rk8pOO0sk8acNzuNb58isNOolF2HE90FLI5+O0V/HKCEPUKe0bPl
+	jVwzvROUGe3dyVI4nieew1mGCAmEPlVm9uFeslVqXzEYVB7WiealvVGwCY3EptRRSKz7lZHMBa
+	WFV1R65MJf62pe9KZ5cH2ZylW//os7jBtAUqR3Cjwjw2afgT/PDMJlzMWGlm4dzVa/HuGWMV8c
+	Cx6zWTGXu7nM0D+2eMb4idhQ
+Received: from uls-op-cesaip01.wdc.com ([10.248.3.36])
+	by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	03 Jun 2021 17:24:52 -0700
+IronPort-SDR: XyVEy4Q684E+VflC8ajmbbHy+6U5xywaewdtRiAaKQsrLQYB4UULUemDzcpL/U7L45GoKtUbMW
+	QJZpQIi/JB7Z/y6BopRf1tlpR7VFbTYChnfqgSBuqOXq2ng/oWGTDJ8JlQLh3tj/9jrZ3SfwAN
+	pnloigY1DXMkgkF4TeUbhVgaRFruh6tnKWiN+X7hVzg5hxHArRLV4lQsCNwQ5f8f6elMaX2NMe
+	5ceqvib1zm26Y5xlnnefg0R+HpOweSqMMiPSTwWu/jnpIEt+YXflxsHD4jfJeXTedA9uffWQ0M
+	zwE=
+WDCIronportException: Internal
+Received: from usg-ed-osssrv.wdc.com ([10.3.10.180])
+	by uls-op-cesaip01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	03 Jun 2021 17:47:07 -0700
+Received: from usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1])
+	by usg-ed-osssrv.wdc.com (Postfix) with ESMTP id 4Fx3xk0vWsz1RwqT
+	for <dm-devel@redhat.com>; Thu,  3 Jun 2021 17:47:06 -0700 (PDT)
+X-Virus-Scanned: amavisd-new at usg-ed-osssrv.wdc.com
+Received: from usg-ed-osssrv.wdc.com ([127.0.0.1])
+	by usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1])
+	(amavisd-new, port 10026)
+	with ESMTP id rqVuBZK8G_rx for <dm-devel@redhat.com>;
+	Thu,  3 Jun 2021 17:47:05 -0700 (PDT)
+Received: from washi.fujisawa.hgst.com (washi.fujisawa.hgst.com
+	[10.149.53.254])
+	by usg-ed-osssrv.wdc.com (Postfix) with ESMTPSA id 4Fx3xh688xz1RwqQ;
+	Thu,  3 Jun 2021 17:47:04 -0700 (PDT)
+From: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+To: dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>
+Date: Fri,  4 Jun 2021 09:47:03 +0900
+Message-Id: <20210604004703.408562-1-damien.lemoal@opensource.wdc.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -61,12 +93,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1540mL0l025082
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 04 Jun 2021 02:21:36 -0400
-Cc: dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>,
-	Alasdair Kergon <agk@redhat.com>, linux-kernel@vger.kernel.org
-Subject: Re: [dm-devel] dm: Forbid requeue of writes to zones
+Subject: [dm-devel] [PATCH] dm: fix uninitialized variable use
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,84 +115,55 @@ Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 1
+X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi,
+From: Damien Le Moal <damien.lemoal@wdc.com>
 
-Static analysis with Coverity on Linux next has found and issue in
-drivers/md/dm.c with the following commit:
+In dm_io_dec_pending(), make sure that the bio variable is initialized
+to io->orig_bio before using it.
 
-commit 2c243153d1d4be4e23735cd10984ac17c7a54531
-Author: Damien Le Moal <damien.lemoal@wdc.com>
-Date:   Wed May 26 06:24:58 2021 +0900
+Reported-by: kernel test robot <lkp@intel.com>
+Fixes: 3a1e343c53ae ("dm: Forbid requeue of writes to zones")
+Signed-off-by: Damien Le Moal <damien.lemoal@wdc.com>
+---
+ drivers/md/dm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-    dm: Forbid requeue of writes to zones
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index a89bb9bbe82d..e687d60212b6 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -796,6 +796,7 @@ void dm_io_dec_pending(struct dm_io *io, blk_status_t error)
+ 	}
+ 
+ 	if (atomic_dec_and_test(&io->io_count)) {
++		bio = io->orig_bio;
+ 		if (io->status == BLK_STS_DM_REQUEUE) {
+ 			/*
+ 			 * Target requested pushing back the I/O.
+@@ -804,7 +805,7 @@ void dm_io_dec_pending(struct dm_io *io, blk_status_t error)
+ 			if (__noflush_suspending(md) &&
+ 			    !WARN_ON_ONCE(dm_is_zone_write(md, bio)))
+ 				/* NOTE early return due to BLK_STS_DM_REQUEUE below */
+-				bio_list_add_head(&md->deferred, io->orig_bio);
++				bio_list_add_head(&md->deferred, bio);
+ 			else
+ 				/*
+ 				 * noflush suspend was interrupted or this is
+@@ -815,7 +816,6 @@ void dm_io_dec_pending(struct dm_io *io, blk_status_t error)
+ 		}
+ 
+ 		io_error = io->status;
+-		bio = io->orig_bio;
+ 		end_io_acct(io);
+ 		free_io(md, io);
+ 
+-- 
+2.31.1
 
-The analysis is as follows:
-
- 828 static void dec_pending(struct dm_io *io, blk_status_t error)
- 829 {
- 830        unsigned long flags;
- 831        blk_status_t io_error;
-
-    1. var_decl: Declaring variable bio without initializer.
-
- 832        struct bio *bio;
- 833        struct mapped_device *md = io->md;
- 834
- 835        /* Push-back supersedes any I/O errors */
-
-    2. Condition !!error, taking true branch.
-
- 836        if (unlikely(error)) {
- 837                spin_lock_irqsave(&io->endio_lock, flags);
-
-    3. Condition io->status == 11 /* (blk_status_t)11 */, taking false
-branch.
-
- 838                if (!(io->status == BLK_STS_DM_REQUEUE &&
-__noflush_suspending(md)))
- 839                        io->status = error;
- 840                spin_unlock_irqrestore(&io->endio_lock, flags);
- 841        }
- 842
-
-    4. Condition atomic_dec_and_test(&io->io_count), taking true branch.
-
- 843        if (atomic_dec_and_test(&io->io_count)) {
-
-    5. Condition io->status == 11 /* (blk_status_t)11 */, taking true
-branch.
-
- 844                if (io->status == BLK_STS_DM_REQUEUE) {
- 845                        /*
- 846                         * Target requested pushing back the I/O.
- 847                         */
- 848                        spin_lock_irqsave(&md->deferred_lock, flags);
-
-    6. Condition __noflush_suspending(md), taking true branch.
-
- 849                        if (__noflush_suspending(md) &&
-
-Uninitialized pointer read
-    7. uninit_use_in_call: Using uninitialized value bio when calling
-dm_is_zone_write.
-
- 850                            !WARN_ON_ONCE(dm_is_zone_write(md, bio)))
- 851                                /* NOTE early return due to
-BLK_STS_DM_REQUEUE below */
- 852                                bio_list_add_head(&md->deferred,
-io->orig_bio);
-
-The pointer bio is not initialized and yet is being used in the call to
-function dm_is_zone_write where pointer bio is being accessed. I'm not
-sure what the original intent was, but this looks incorrect.
-
-Colin
 
 --
 dm-devel mailing list
