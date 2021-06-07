@@ -2,57 +2,64 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id EC71539D533
-	for <lists+dm-devel@lfdr.de>; Mon,  7 Jun 2021 08:44:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BC96E39DDD2
+	for <lists+dm-devel@lfdr.de>; Mon,  7 Jun 2021 15:39:01 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-516-KnMoJqj6NNy-L-ed-l5bCQ-1; Mon, 07 Jun 2021 02:44:16 -0400
-X-MC-Unique: KnMoJqj6NNy-L-ed-l5bCQ-1
+ us-mta-166-aRo7h29EOMOHJFQNZhH5sQ-1; Mon, 07 Jun 2021 09:38:59 -0400
+X-MC-Unique: aRo7h29EOMOHJFQNZhH5sQ-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8013E101371B;
-	Mon,  7 Jun 2021 06:44:11 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1CE29818410;
+	Mon,  7 Jun 2021 13:38:52 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A6ABD5D736;
-	Mon,  7 Jun 2021 06:44:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 76F535D6D3;
+	Mon,  7 Jun 2021 13:38:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3B5A11800BB4;
-	Mon,  7 Jun 2021 06:44:01 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 01A181800BB8;
+	Mon,  7 Jun 2021 13:38:38 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 156Gc4g2014056 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 6 Jun 2021 12:38:05 -0400
+	id 157DboLb001346 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 7 Jun 2021 09:37:50 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5AC9B1112874; Sun,  6 Jun 2021 16:38:04 +0000 (UTC)
+	id 61D0621602B1; Mon,  7 Jun 2021 13:37:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 568191112877
-	for <dm-devel@redhat.com>; Sun,  6 Jun 2021 16:38:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5CCCA21602B5
+	for <dm-devel@redhat.com>; Mon,  7 Jun 2021 13:37:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 12DFA805F44
-	for <dm-devel@redhat.com>; Sun,  6 Jun 2021 16:38:02 +0000 (UTC)
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-226-h2DO2EfAOSWzmG6k_NlDuA-1; Sun, 06 Jun 2021 12:38:00 -0400
-X-MC-Unique: h2DO2EfAOSWzmG6k_NlDuA-1
-Received: from [2602:306:c5a2:a380:d04c:9a1:1990:7d22]
-	by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1lpvAk-0044Sh-0J; Sun, 06 Jun 2021 15:58:53 +0000
-To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
-References: <20210602065345.355274-1-hch@lst.de>
-	<20210602065345.355274-11-hch@lst.de>
-From: Geoff Levand <geoff@infradead.org>
-Message-ID: <c9d63809-a7cc-8907-6065-f14add05a5dc@infradead.org>
-Date: Sun, 6 Jun 2021 08:58:41 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.8.1
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 82C2685828E
+	for <dm-devel@redhat.com>; Mon,  7 Jun 2021 13:37:47 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-453-wCceMjrgMbeuBHJ34aBbnQ-1; Mon, 07 Jun 2021 09:37:43 -0400
+X-MC-Unique: wCceMjrgMbeuBHJ34aBbnQ-1
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128
+	bits)) (No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id D573421A9C;
+	Mon,  7 Jun 2021 13:37:41 +0000 (UTC)
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+	by imap.suse.de (Postfix) with ESMTP id A18EB118DD;
+	Mon,  7 Jun 2021 13:37:41 +0000 (UTC)
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+	id Cir4JSUhvmC8KAAALh3uQQ
+	(envelope-from <mwilck@suse.com>); Mon, 07 Jun 2021 13:37:41 +0000
+Message-ID: <92f37b0d2132cd38f81fff38e24ff05beb1f6024.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Xose Vazquez Perez <xose.vazquez@gmail.com>
+Date: Mon, 07 Jun 2021 15:37:41 +0200
+In-Reply-To: <20210604230145.9887-1-xose.vazquez@gmail.com>
+References: <20210604230145.9887-1-xose.vazquez@gmail.com>
+User-Agent: Evolution 3.40.1
 MIME-Version: 1.0
-In-Reply-To: <20210602065345.355274-11-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,30 +68,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 157DboLb001346
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Mon, 07 Jun 2021 02:43:50 -0400
-Cc: Justin Sanders <justin@coraid.com>, Vignesh Raghavendra <vigneshr@ti.com>,
-	Mike Snitzer <snitzer@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	virtualization@lists.linux-foundation.org, dm-devel@redhat.com,
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Jack Wang <jinpu.wang@ionos.com>, Tim Waugh <tim@cyberelk.net>,
-	linux-s390@vger.kernel.org, Alex Dubov <oakad@yahoo.com>,
-	Richard Weinberger <richard@nod.at>,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	xen-devel@lists.xenproject.org, Ilya Dryomov <idryomov@gmail.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Heiko Carstens <hca@linux.ibm.com>, Josef Bacik <josef@toxicpanda.com>,
-	Denis Efremov <efremov@linux.com>, nbd@other.debian.org,
-	linux-block@vger.kernel.org, ceph-devel@vger.kernel.org,
-	Maxim Levitsky <maximlevitsky@gmail.com>,
-	linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org,
-	linuxppc-dev@lists.ozlabs.org,
-	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Subject: Re: [dm-devel] [PATCH 10/30] ps3disk: use blk_mq_alloc_disk
+Cc: DM-DEVEL ML <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH v2] multipath-tools: add info about HPE
+ Alletra 6000 and 9000
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -103,22 +93,72 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Christoph,
+On Sa, 2021-06-05 at 01:01 +0200, Xose Vazquez Perez wrote:
+> Cc: Martin Wilck <mwilck@suse.com>
+> Cc: Benjamin Marzinski <bmarzins@redhat.com>
+> Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
+> Cc: DM-DEVEL ML <dm-devel@redhat.com>
+> Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
 
-On 6/1/21 11:53 PM, Christoph Hellwig wrote:
-> Use the blk_mq_alloc_disk API to simplify the gendisk and request_queue
-> allocation.
-> 
->  drivers/block/ps3disk.c | 36 ++++++++++++++----------------------
->  1 file changed, 14 insertions(+), 22 deletions(-)
+Reviewed-by: Martin Wilck <mwilck@suse.com>
 
-I tested your alloc_disk-part2 branch on PS3, and it seemed to be working OK.
+> ---
+> =A0README.alua=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 | 2 +-
+> =A0libmultipath/hwtable.c | 4 ++--
+> =A02 files changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/README.alua b/README.alua
+> index b15eb487..5d2b1c64 100644
+> --- a/README.alua
+> +++ b/README.alua
+> @@ -6,7 +6,7 @@ To enable ALUA, the following options should be
+> changed:
+> =A0- EMC CLARiiON/VNX:
+> =A0=A0=A0 "Failover Mode" should be changed to "4" or "Active-Active
+> mode(ALUA)-failover mode 4"
+> =A0
+> -- HPE 3PAR:
+> +- HPE 3PAR, Primera, and Alletra 9000:
+> =A0=A0=A0 "Host:" should be changed to "Generic-ALUA Persona 2 (UARepLun,
+> SESLun, ALUA)".
+> =A0
+> =A0- Promise VTrak/Vess:
+> diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c
+> index 58fa7387..e884d8c7 100644
+> --- a/libmultipath/hwtable.c
+> +++ b/libmultipath/hwtable.c
+> @@ -107,7 +107,7 @@ static struct hwentry default_hw[] =3D {
+> =A0=A0=A0=A0=A0=A0=A0=A0 * HPE
+> =A0=A0=A0=A0=A0=A0=A0=A0 */
+> =A0=A0=A0=A0=A0=A0=A0=A0{
+> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0/* 3PAR / Primera */
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0/* 3PAR / Primera / Alletra=
+ 9000 */
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.vendor=A0=A0=A0=A0=A0=A0=
+=A0 =3D "3PARdata",
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.product=A0=A0=A0=A0=A0=
+=A0 =3D "VV",
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.pgpolicy=A0=A0=A0=A0=A0 =
+=3D GROUP_BY_PRIO,
+> @@ -225,7 +225,7 @@ static struct hwentry default_hw[] =3D {
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.prio_name=A0=A0=A0=A0 =
+=3D PRIO_ALUA,
+> =A0=A0=A0=A0=A0=A0=A0=A0},
+> =A0=A0=A0=A0=A0=A0=A0=A0{
+> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0/* Nimble Storage */
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0/* Nimble Storage / HPE All=
+etra 6000 */
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.vendor=A0=A0=A0=A0=A0=A0=
+=A0 =3D "Nimble",
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.product=A0=A0=A0=A0=A0=
+=A0 =3D "Server",
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.hwhandler=A0=A0=A0=A0 =
+=3D "1 alua",
 
-Tested-by: Geoff Levand <geoff@infradead.org>
+
 
 --
 dm-devel mailing list
