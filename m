@@ -2,76 +2,66 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 86ABF39EEB7
+	by mail.lfdr.de (Postfix) with ESMTP id 961BB39EEB8
 	for <lists+dm-devel@lfdr.de>; Tue,  8 Jun 2021 08:29:21 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-296-8i8sK0jOPsKRAI7Ql4n5DQ-1; Tue, 08 Jun 2021 02:29:18 -0400
-X-MC-Unique: 8i8sK0jOPsKRAI7Ql4n5DQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-598-yLfrRodRNzCjUpAfFtZH8A-1; Tue, 08 Jun 2021 02:29:18 -0400
+X-MC-Unique: yLfrRodRNzCjUpAfFtZH8A-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DC20E107ACE4;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A650310074A7;
 	Tue,  8 Jun 2021 06:29:13 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0DB2B19CBF;
-	Tue,  8 Jun 2021 06:29:10 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 785F810023B0;
+	Tue,  8 Jun 2021 06:29:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C0A9644A59;
-	Tue,  8 Jun 2021 06:29:01 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 553161801268;
+	Tue,  8 Jun 2021 06:29:12 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 157AjCWl013940 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 7 Jun 2021 06:45:12 -0400
+	id 157BC2x6016363 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 7 Jun 2021 07:12:02 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 88210215744A; Mon,  7 Jun 2021 10:45:12 +0000 (UTC)
+	id A326F1111C7D; Mon,  7 Jun 2021 11:12:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 83CEC2157448
-	for <dm-devel@redhat.com>; Mon,  7 Jun 2021 10:45:09 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9EE8F1111C79
+	for <dm-devel@redhat.com>; Mon,  7 Jun 2021 11:12:00 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2865A857AA4
-	for <dm-devel@redhat.com>; Mon,  7 Jun 2021 10:45:09 +0000 (UTC)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
-	[209.85.221.43]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-245-mKvYbKZRM7OZspnpiY7idg-1; Mon, 07 Jun 2021 06:45:04 -0400
-X-MC-Unique: mKvYbKZRM7OZspnpiY7idg-1
-Received: by mail-wr1-f43.google.com with SMTP id a11so15158432wrt.13
-	for <dm-devel@redhat.com>; Mon, 07 Jun 2021 03:45:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-	:mime-version:content-disposition:in-reply-to;
-	bh=aqlB3nweefXMBd+1n3TfVg5Imk7mqG7GGko5Cn1Ypjk=;
-	b=HN860bGDdDBnmsrSkg0vAh29Dxw8IV0vHAcSdjlTe8eBQtiJcprtZjZFU6f3h4kS9G
-	c2Ka0DOs9Ed51G2COLiA02o9mcGFc6fGnupgC4ha9bTG1mDvpeDItmwcCfeWJMezDuz6
-	KA6kOP9YI5ivBCvTxeVBaLEOxbnof04V7e7lKb60BAxM8187I9Eb/QhrKpSAidy8OmoF
-	YFr9ueTjxcmUGBfSWE7+s0zwzwwAdLe8+2p6UKPLyJw19jd0w7skdm/6XdfA50KZh+1D
-	WbihDZT1TKCBHAvfE4fvGf0ZUkg4oqz2CLoL5FpjEK1W2ZpSuWIqF/blhVD9tlIedeye
-	aCdQ==
-X-Gm-Message-State: AOAM530jg2utxgSuoJhmULBsyhzXlFVOssptHuuOuL7Ee7obieXJBNa/
-	dDRo1lPa/pGhDbg0COcUzlOPHA==
-X-Google-Smtp-Source: ABdhPJwqNBSGH0k0cJir/i3kAe7gRK7bFBO/b5hmcAfd7Z+SvyV8tZwYe+ey/npaVItqY9949tYt3w==
-X-Received: by 2002:a05:6000:1563:: with SMTP id
-	3mr16068224wrz.59.1623062703694; 
-	Mon, 07 Jun 2021 03:45:03 -0700 (PDT)
-Received: from maple.lan (cpc141216-aztw34-2-0-cust174.18-1.cable.virginm.net.
-	[80.7.220.175]) by smtp.gmail.com with ESMTPSA id
-	p16sm16000678wrs.52.2021.06.07.03.45.01
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Mon, 07 Jun 2021 03:45:03 -0700 (PDT)
-Date: Mon, 7 Jun 2021 11:45:00 +0100
-From: Daniel Thompson <daniel.thompson@linaro.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Message-ID: <20210607104500.sopvslejuoxwzhrs@maple.lan>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07F5D805C1D
+	for <dm-devel@redhat.com>; Mon,  7 Jun 2021 11:12:00 +0000 (UTC)
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-431-OgrR-Ll5P9mT3UwaBp5RpQ-1; Mon, 07 Jun 2021 07:11:56 -0400
+X-MC-Unique: OgrR-Ll5P9mT3UwaBp5RpQ-1
+Received: from j217100.upc-j.chello.nl ([24.132.217.100]
+	helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+	id 1lqD9a-004Mvt-Aj; Mon, 07 Jun 2021 11:10:53 +0000
+Received: from hirez.programming.kicks-ass.net
+	(hirez.programming.kicks-ass.net [192.168.1.225])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(Client did not present a certificate)
+	by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 12A093002CA;
+	Mon,  7 Jun 2021 13:10:49 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+	id A8BB82CF3852B; Mon,  7 Jun 2021 13:10:49 +0200 (CEST)
+Date: Mon, 7 Jun 2021 13:10:49 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Daniel Thompson <daniel.thompson@linaro.org>
+Message-ID: <YL3+ucpG/LOcO35G@hirez.programming.kicks-ass.net>
 References: <20210602131225.336600299@infradead.org>
 	<20210602133040.587042016@infradead.org>
+	<20210607104500.sopvslejuoxwzhrs@maple.lan>
 MIME-Version: 1.0
-In-Reply-To: <20210602133040.587042016@infradead.org>
+In-Reply-To: <20210607104500.sopvslejuoxwzhrs@maple.lan>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -80,7 +70,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 08 Jun 2021 02:28:51 -0400
 Cc: Juri Lelli <juri.lelli@redhat.com>, Mark Rutland <mark.rutland@arm.com>,
@@ -136,7 +126,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -145,64 +135,59 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Jun 02, 2021 at 03:12:31PM +0200, Peter Zijlstra wrote:
-> Change the type and name of task_struct::state. Drop the volatile and
-> shrink it to an 'unsigned int'. Rename it in order to find all uses
-> such that we can use READ_ONCE/WRITE_ONCE as appropriate.
+On Mon, Jun 07, 2021 at 11:45:00AM +0100, Daniel Thompson wrote:
+> On Wed, Jun 02, 2021 at 03:12:31PM +0200, Peter Zijlstra wrote:
+> > Change the type and name of task_struct::state. Drop the volatile and
+> > shrink it to an 'unsigned int'. Rename it in order to find all uses
+> > such that we can use READ_ONCE/WRITE_ONCE as appropriate.
+> > 
+> > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+> > ---
+> >  ...
+> >  kernel/debug/kdb/kdb_support.c |   18 +++++++------
+> >  ...
+> > --- a/kernel/debug/kdb/kdb_support.c
+> > +++ b/kernel/debug/kdb/kdb_support.c
+> > @@ -609,23 +609,25 @@ unsigned long kdb_task_state_string(cons
+> >   */
+> >  char kdb_task_state_char (const struct task_struct *p)
+> >  {
+> > -	int cpu;
+> > -	char state;
+> > +	unsigned int p_state;
+> >  	unsigned long tmp;
+> > +	char state;
+> > +	int cpu;
+> >  
+> >  	if (!p ||
+> >  	    copy_from_kernel_nofault(&tmp, (char *)p, sizeof(unsigned long)))
+> >  		return 'E';
+> >  
+> >  	cpu = kdb_process_cpu(p);
+> > -	state = (p->state == 0) ? 'R' :
+> > -		(p->state < 0) ? 'U' :
+> > -		(p->state & TASK_UNINTERRUPTIBLE) ? 'D' :
+> > -		(p->state & TASK_STOPPED) ? 'T' :
+> > -		(p->state & TASK_TRACED) ? 'C' :
+> > +	p_state = READ_ONCE(p->__state);
+> > +	state = (p_state == 0) ? 'R' :
+> > +		(p_state < 0) ? 'U' :
 > 
-> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> ---
->  ...
->  kernel/debug/kdb/kdb_support.c |   18 +++++++------
->  ...
-> --- a/kernel/debug/kdb/kdb_support.c
-> +++ b/kernel/debug/kdb/kdb_support.c
-> @@ -609,23 +609,25 @@ unsigned long kdb_task_state_string(cons
->   */
->  char kdb_task_state_char (const struct task_struct *p)
->  {
-> -	int cpu;
-> -	char state;
-> +	unsigned int p_state;
->  	unsigned long tmp;
-> +	char state;
-> +	int cpu;
->  
->  	if (!p ||
->  	    copy_from_kernel_nofault(&tmp, (char *)p, sizeof(unsigned long)))
->  		return 'E';
->  
->  	cpu = kdb_process_cpu(p);
-> -	state = (p->state == 0) ? 'R' :
-> -		(p->state < 0) ? 'U' :
-> -		(p->state & TASK_UNINTERRUPTIBLE) ? 'D' :
-> -		(p->state & TASK_STOPPED) ? 'T' :
-> -		(p->state & TASK_TRACED) ? 'C' :
-> +	p_state = READ_ONCE(p->__state);
-> +	state = (p_state == 0) ? 'R' :
-> +		(p_state < 0) ? 'U' :
+> Looks like the U here stands for Unreachable since this patch makes it
+> more obvious that this clause is (and previously was) exactly that!
+> 
+> Dropping the U state would be good since I guess this will show up as a
+> "new" warning in some tools. However it was a preexisting problem so with
+> or without this cleaned up:
+> Acked-by: Daniel Thompson <daniel.thompson@linaro.org>
 
-Looks like the U here stands for Unreachable since this patch makes it
-more obvious that this clause is (and previously was) exactly that!
+Thanks!
 
-Dropping the U state would be good since I guess this will show up as a
-"new" warning in some tools. However it was a preexisting problem so with
-or without this cleaned up:
-Acked-by: Daniel Thompson <daniel.thompson@linaro.org>
+Note that there's a second instance of this exact code in
+arch/powerpc/xmon/xmon.c, with the same 'U' issue.
 
-
-Daniel.
-
-> +		(p_state & TASK_UNINTERRUPTIBLE) ? 'D' :
-> +		(p_state & TASK_STOPPED) ? 'T' :
-> +		(p_state & TASK_TRACED) ? 'C' :
->  		(p->exit_state & EXIT_ZOMBIE) ? 'Z' :
->  		(p->exit_state & EXIT_DEAD) ? 'E' :
-> -		(p->state & TASK_INTERRUPTIBLE) ? 'S' : '?';
-> +		(p_state & TASK_INTERRUPTIBLE) ? 'S' : '?';
->  	if (is_idle_task(p)) {
->  		/* Idle task.  Is it really idle, apart from the kdb
->  		 * interrupt? */
+I'll repost this soon, as it seems I've fixed all robot failout (fingers
+crossed).
 
 --
 dm-devel mailing list
