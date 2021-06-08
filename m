@@ -2,51 +2,52 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 43F2F39FCE3
-	for <lists+dm-devel@lfdr.de>; Tue,  8 Jun 2021 18:53:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4FE6F39FCD4
+	for <lists+dm-devel@lfdr.de>; Tue,  8 Jun 2021 18:50:30 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-145-9dVJXFeSOW6HfRaaTsN-hA-1; Tue, 08 Jun 2021 12:53:31 -0400
-X-MC-Unique: 9dVJXFeSOW6HfRaaTsN-hA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-353-qg1mrldhMlO-lx4bLocOPQ-1; Tue, 08 Jun 2021 12:50:26 -0400
+X-MC-Unique: qg1mrldhMlO-lx4bLocOPQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CEAB31013724;
-	Tue,  8 Jun 2021 16:53:25 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CF7A6802B4F;
+	Tue,  8 Jun 2021 16:50:19 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A2D47100164C;
-	Tue,  8 Jun 2021 16:53:25 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A10FC5D6A8;
+	Tue,  8 Jun 2021 16:50:19 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 616E944A5C;
-	Tue,  8 Jun 2021 16:53:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C8E3944A5A;
+	Tue,  8 Jun 2021 16:50:18 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 158GrMRS024478 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 8 Jun 2021 12:53:22 -0400
+	id 158GoCei024118 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 8 Jun 2021 12:50:12 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 664D7207AE94; Tue,  8 Jun 2021 16:53:22 +0000 (UTC)
+	id 20F7C200E64B; Tue,  8 Jun 2021 16:50:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 61FDB200B664
-	for <dm-devel@redhat.com>; Tue,  8 Jun 2021 16:53:20 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1CCF0200E491
+	for <dm-devel@redhat.com>; Tue,  8 Jun 2021 16:50:08 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2B05E18E0920
-	for <dm-devel@redhat.com>; Tue,  8 Jun 2021 16:53:20 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 53D36101D223
+	for <dm-devel@redhat.com>; Tue,  8 Jun 2021 16:50:08 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-428-Bl_0uNG5ObKlZnM6FmcP3Q-1; Tue, 08 Jun 2021 12:53:18 -0400
-X-MC-Unique: Bl_0uNG5ObKlZnM6FmcP3Q-1
+	us-mta-595-CUxIl7JQNoGMlYx8d3J4bg-1; Tue, 08 Jun 2021 12:50:06 -0400
+X-MC-Unique: CUxIl7JQNoGMlYx8d3J4bg-1
 Received: from [2001:4bb8:192:ff5f:74ed:7c4f:a5ee:8dcb] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1lqeF0-009Ra6-Pg; Tue, 08 Jun 2021 16:06:11 +0000
+	id 1lqeF4-009Rac-8Y; Tue, 08 Jun 2021 16:06:14 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Tue,  8 Jun 2021 18:05:48 +0200
-Message-Id: <20210608160603.1535935-2-hch@lst.de>
+Date: Tue,  8 Jun 2021 18:05:49 +0200
+Message-Id: <20210608160603.1535935-3-hch@lst.de>
 In-Reply-To: <20210608160603.1535935-1-hch@lst.de>
 References: <20210608160603.1535935-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,7 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
 	Mike Snitzer <snitzer@redhat.com>, Geoff Levand <geoff@infradead.org>,
@@ -69,7 +70,8 @@ Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
 	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
 	dm-devel@redhat.com, Ilya Dryomov <idryomov@gmail.com>,
 	Ira Weiny <ira.weiny@intel.com>, ceph-devel@vger.kernel.org
-Subject: [dm-devel] [PATCH 01/16] mm: use kmap_local_page in memzero_page
+Subject: [dm-devel] [PATCH 02/16] MIPS: don't include <linux/genhd.h> in
+	<asm/mach-rc32434/rb.h>
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,7 +85,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,29 +93,27 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-No need for kmap_atomic here.
+There is no need to include genhd.h from a random arch header, and not
+doing so prevents the possibility for nasty include loops.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- include/linux/highmem.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/mips/include/asm/mach-rc32434/rb.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/include/linux/highmem.h b/include/linux/highmem.h
-index 832b49b50c7b..0dc0451cf1d1 100644
---- a/include/linux/highmem.h
-+++ b/include/linux/highmem.h
-@@ -334,9 +334,9 @@ static inline void memcpy_to_page(struct page *page, size_t offset,
+diff --git a/arch/mips/include/asm/mach-rc32434/rb.h b/arch/mips/include/asm/mach-rc32434/rb.h
+index d502673a4f6c..34d179ca020b 100644
+--- a/arch/mips/include/asm/mach-rc32434/rb.h
++++ b/arch/mips/include/asm/mach-rc32434/rb.h
+@@ -7,8 +7,6 @@
+ #ifndef __ASM_RC32434_RB_H
+ #define __ASM_RC32434_RB_H
  
- static inline void memzero_page(struct page *page, size_t offset, size_t len)
- {
--	char *addr = kmap_atomic(page);
-+	char *addr = kmap_local_page(page);
- 	memset(addr + offset, 0, len);
--	kunmap_atomic(addr);
-+	kunmap_local(addr);
- }
- 
- #endif /* _LINUX_HIGHMEM_H */
+-#include <linux/genhd.h>
+-
+ #define REGBASE		0x18000000
+ #define IDT434_REG_BASE ((volatile void *) KSEG1ADDR(REGBASE))
+ #define UART0BASE	0x58000
 -- 
 2.30.2
 
