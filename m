@@ -1,79 +1,64 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 190223A4832
-	for <lists+dm-devel@lfdr.de>; Fri, 11 Jun 2021 19:56:17 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id A826F3A4A3C
+	for <lists+dm-devel@lfdr.de>; Fri, 11 Jun 2021 22:39:56 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-584-jQbSHacoN8mNRVnSEqKQ-g-1; Fri, 11 Jun 2021 13:56:14 -0400
-X-MC-Unique: jQbSHacoN8mNRVnSEqKQ-g-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-191-0iBI2YEyObeTzxOhtZBKKw-1; Fri, 11 Jun 2021 16:39:48 -0400
+X-MC-Unique: 0iBI2YEyObeTzxOhtZBKKw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D3DA3188C14D;
-	Fri, 11 Jun 2021 17:55:45 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 10E4219C59;
-	Fri, 11 Jun 2021 17:55:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 50E9C1850608;
+	Fri, 11 Jun 2021 20:39:42 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3240E60854;
+	Fri, 11 Jun 2021 20:39:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 41F4446F82;
-	Fri, 11 Jun 2021 17:55:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BE6D31809CAD;
+	Fri, 11 Jun 2021 20:39:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 15BHtIgF026112 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 11 Jun 2021 13:55:18 -0400
+	id 15BKdJoI007825 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 11 Jun 2021 16:39:19 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1C7C921122D9; Fri, 11 Jun 2021 17:55:18 +0000 (UTC)
+	id 8571516C8F2; Fri, 11 Jun 2021 20:39:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 17D992111616
-	for <dm-devel@redhat.com>; Fri, 11 Jun 2021 17:55:14 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8037816C8F0
+	for <dm-devel@redhat.com>; Fri, 11 Jun 2021 20:39:16 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2C9CA80122D
+	for <dm-devel@redhat.com>; Fri, 11 Jun 2021 20:39:16 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-450-KclwLcIANG6WZNYJnsz-0A-1; Fri, 11 Jun 2021 16:39:11 -0400
+X-MC-Unique: KclwLcIANG6WZNYJnsz-0A-1
+Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8ED5C80D0E2
-	for <dm-devel@redhat.com>; Fri, 11 Jun 2021 17:55:14 +0000 (UTC)
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
-	[209.85.214.174]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-499-KnXVq9saOBCW_obs0BIdzA-1; Fri, 11 Jun 2021 13:55:12 -0400
-X-MC-Unique: KnXVq9saOBCW_obs0BIdzA-1
-Received: by mail-pl1-f174.google.com with SMTP id v13so3208618ple.9
-	for <dm-devel@redhat.com>; Fri, 11 Jun 2021 10:55:11 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=FiCqgV8kjys+3xuqiyCwJtcf1Wj53LQ5ch2SqyLytgY=;
-	b=h6l5/rczFTgvJjaOSzH8cVEujRBZGBoUepeJ/Vnu9bRJ2P+dOHowex69iWiVTo8Ebf
-	PB3GGmnT4hBJMUgEsJdP31a0UAxKaQT1MnKIFgsV7c13KvYJWdKRTstgJ5CS59daOQho
-	kTFoY2C1u+fhOEaMrNI0AJXiCUPWItvMFJETyp1CYUdIq5VoTBqcCwPSBCF6AfXNmznf
-	sCgXTSA2pf8mOkWEuNXy7ge9/35TNkt6vs7BVsCRVyLkw5r6hgkbOJeTAL1XgpbayATz
-	VloRJ9zHosHHmedNDyM9X8zD6lPJ96r9omcHhYaPC8brZFm/JtYdNdpCFeGP5fHpLbZF
-	9Yvw==
-X-Gm-Message-State: AOAM532PaqagDv2y8tB0KNXXTkPMFA2zWFVTqo5hW86Yt1uUynHq1Q1X
-	WwUxQNVpWEp6CQ772pWsver4tw==
-X-Google-Smtp-Source: ABdhPJxMGSnZ9kJAsN6p7k0McSncvftPUJip5kVUuOxTF3REguFHe02Lgz4i9/8fJhn7M2nOfjp+aA==
-X-Received: by 2002:a17:90a:9481:: with SMTP id
-	s1mr5656508pjo.48.1623434110978; 
-	Fri, 11 Jun 2021 10:55:10 -0700 (PDT)
-Received: from [192.168.4.41] (cpe-72-132-29-68.dc.res.rr.com. [72.132.29.68])
-	by smtp.gmail.com with ESMTPSA id
-	x3sm6384950pgx.8.2021.06.11.10.55.07
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Fri, 11 Jun 2021 10:55:10 -0700 (PDT)
-To: Christoph Hellwig <hch@lst.de>
-References: <20210602065345.355274-1-hch@lst.de>
-From: Jens Axboe <axboe@kernel.dk>
-Message-ID: <fa9590e3-20eb-5215-d2f7-6489169c232c@kernel.dk>
-Date: Fri, 11 Jun 2021 11:55:09 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 9DB921FD6D;
+	Fri, 11 Jun 2021 20:39:09 +0000 (UTC)
+Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
+	by imap.suse.de (Postfix) with ESMTP id 494C1118DD;
+	Fri, 11 Jun 2021 20:39:09 +0000 (UTC)
+Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
+	id 7BwmEO3Jw2BGEgAALh3uQQ
+	(envelope-from <mwilck@suse.com>); Fri, 11 Jun 2021 20:39:09 +0000
+From: mwilck@suse.com
+To: Mike Snitzer <snitzer@redhat.com>, Alasdair G Kergon <agk@redhat.com>,
+	Bart Van Assche <Bart.VanAssche@sandisk.com>, dm-devel@redhat.com,
+	Hannes Reinecke <hare@suse.de>
+Date: Fri, 11 Jun 2021 22:25:07 +0200
+Message-Id: <20210611202509.5426-1-mwilck@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20210602065345.355274-1-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -82,30 +67,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 15BKdJoI007825
 X-loop: dm-devel@redhat.com
-Cc: Justin Sanders <justin@coraid.com>, Vignesh Raghavendra <vigneshr@ti.com>,
-	Mike Snitzer <snitzer@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	virtualization@lists.linux-foundation.org, dm-devel@redhat.com,
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Jack Wang <jinpu.wang@ionos.com>, Tim Waugh <tim@cyberelk.net>,
-	linux-s390@vger.kernel.org, Alex Dubov <oakad@yahoo.com>,
-	Richard Weinberger <richard@nod.at>,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	xen-devel@lists.xenproject.org, Ilya Dryomov <idryomov@gmail.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Heiko Carstens <hca@linux.ibm.com>, Josef Bacik <josef@toxicpanda.com>,
-	Denis Efremov <efremov@linux.com>, nbd@other.debian.org,
-	linux-block@vger.kernel.org, ceph-devel@vger.kernel.org,
-	Maxim Levitsky <maximlevitsky@gmail.com>,
-	Geoff Levand <geoff@infradead.org>, linux-mmc@vger.kernel.org,
-	linux-mtd@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
-	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Subject: Re: [dm-devel] simplify gendisk and request_queue allocation for
- blk-mq based drivers
+Cc: Daniel Wagner <dwagner@suse.de>, Martin Wilck <mwilck@suse.com>,
+	linux-block@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
+	Christoph Hellwig <hch@lst.de>
+Subject: [dm-devel] [PATCH v3 0/2] dm: dm_blk_ioctl(): implement failover
+	for SG_IO on dm-multipath
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -119,28 +89,60 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 6/2/21 12:53 AM, Christoph Hellwig wrote:
-> Hi all,
-> 
-> this series is the scond part of cleaning up lifetimes and allocation of
-> the gendisk and request_queue structure.  It adds a new interface to
-> allocate the disk and queue together for blk based drivers, and uses that
-> in all drivers that do not have any caveats in their gendisk and
-> request_queue lifetime rules.
+From: Martin Wilck <mwilck@suse.com>
 
-Applied, thanks.
+Hello Mike,
+
+here is v3 of my attempt to add retry logic to SG_IO on dm-multipath devices.
+Sorry that it took such a long time.
+
+Regards
+Martin
+
+Changes v2->v3:
+
+ - un-inlined scsi_result_to_blk_status again, and move the helper
+   __scsi_result_to_blk_status to block/scsi_ioctl.c instead
+   (Bart v. Assche)
+ - open-coded the status/msg/host/driver-byte -> result conversion
+   where the standard SCSI helpers aren't usable (Bart v. Assche)
+    
+Changes v1->v2:
+
+ - applied modifications from Mike Snitzer
+ - moved SG_IO dependent code to a separate file, no scsi includes in
+   dm.c any more
+ - made the new code depend on a configuration option 
+ - separated out scsi changes, made scsi_result_to_blk_status()
+   inline to avoid dependency of dm_mod from scsi_mod (Paolo Bonzini)
+
+Martin Wilck (2):
+  scsi: export __scsi_result_to_blk_status() in scsi_ioctl.c
+  dm: add CONFIG_DM_MULTIPATH_SG_IO - failover for SG_IO on dm-multipath
+
+ block/scsi_ioctl.c         |  52 ++++++++++++++-
+ drivers/md/Kconfig         |  11 ++++
+ drivers/md/Makefile        |   4 ++
+ drivers/md/dm-core.h       |   5 ++
+ drivers/md/dm-rq.h         |  11 ++++
+ drivers/md/dm-scsi_ioctl.c | 127 +++++++++++++++++++++++++++++++++++++
+ drivers/md/dm.c            |  20 +++++-
+ drivers/scsi/scsi_lib.c    |  29 +--------
+ include/linux/blkdev.h     |   3 +
+ 9 files changed, 229 insertions(+), 33 deletions(-)
+ create mode 100644 drivers/md/dm-scsi_ioctl.c
 
 -- 
-Jens Axboe
+2.31.1
+
 
 --
 dm-devel mailing list
