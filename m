@@ -2,65 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id CB41E3A4A39
-	for <lists+dm-devel@lfdr.de>; Fri, 11 Jun 2021 22:39:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A52883A5D77
+	for <lists+dm-devel@lfdr.de>; Mon, 14 Jun 2021 09:10:44 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-237-HjEFIsDFMkalezLjcnQ3PQ-1; Fri, 11 Jun 2021 16:39:46 -0400
-X-MC-Unique: HjEFIsDFMkalezLjcnQ3PQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-149-qKYd93g7PkS17-HiORE35A-1; Mon, 14 Jun 2021 03:10:41 -0400
+X-MC-Unique: qKYd93g7PkS17-HiORE35A-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CD3281850609;
-	Fri, 11 Jun 2021 20:39:40 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 06C9E10016F8;
-	Fri, 11 Jun 2021 20:39:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 07FA41850608;
+	Mon, 14 Jun 2021 07:10:34 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 47619189CE;
+	Mon, 14 Jun 2021 07:10:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 549A81809CAD;
-	Fri, 11 Jun 2021 20:39:30 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 97ECC46F81;
+	Mon, 14 Jun 2021 07:10:06 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 15BKdK9c007831 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 11 Jun 2021 16:39:20 -0400
+	id 15C47rhO014370 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 12 Jun 2021 00:07:53 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E3FA420877CE; Fri, 11 Jun 2021 20:39:19 +0000 (UTC)
+	id 007AE200B67C; Sat, 12 Jun 2021 04:07:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DFADA21115F4
-	for <dm-devel@redhat.com>; Fri, 11 Jun 2021 20:39:16 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EFFAA200B679
+	for <dm-devel@redhat.com>; Sat, 12 Jun 2021 04:07:49 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AFF8B1825067
-	for <dm-devel@redhat.com>; Fri, 11 Jun 2021 20:39:16 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) (Using
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 913BD811E9C
+	for <dm-devel@redhat.com>; Sat, 12 Jun 2021 04:07:49 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-278-DK_ynrR-NQyT-5R1lY2Dzg-1; Fri, 11 Jun 2021 16:39:12 -0400
-X-MC-Unique: DK_ynrR-NQyT-5R1lY2Dzg-1
-Received: from imap.suse.de (imap-alt.suse-dmz.suse.de [192.168.254.47])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128
-	bits)) (No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 7C2CA1FD7B;
-	Fri, 11 Jun 2021 20:39:10 +0000 (UTC)
-Received: from imap3-int (imap-alt.suse-dmz.suse.de [192.168.254.47])
-	by imap.suse.de (Postfix) with ESMTP id 1A1CE118DD;
-	Fri, 11 Jun 2021 20:39:10 +0000 (UTC)
-Received: from director2.suse.de ([192.168.254.72]) by imap3-int with ESMTPSA
-	id OLr5BO7Jw2BGEgAALh3uQQ
-	(envelope-from <mwilck@suse.com>); Fri, 11 Jun 2021 20:39:10 +0000
-From: mwilck@suse.com
-To: Mike Snitzer <snitzer@redhat.com>, Alasdair G Kergon <agk@redhat.com>,
-	Bart Van Assche <Bart.VanAssche@sandisk.com>, dm-devel@redhat.com,
-	Hannes Reinecke <hare@suse.de>
-Date: Fri, 11 Jun 2021 22:25:09 +0200
-Message-Id: <20210611202509.5426-3-mwilck@suse.com>
-In-Reply-To: <20210611202509.5426-1-mwilck@suse.com>
-References: <20210611202509.5426-1-mwilck@suse.com>
+	us-mta-506-dJElTNx9MQqQ7vAagoynzw-1; Sat, 12 Jun 2021 00:07:47 -0400
+X-MC-Unique: dJElTNx9MQqQ7vAagoynzw-1
+IronPort-SDR: c6v7k4aKKLNkBIvgkiNrZL122PC5yrwH41ev9jWD96CBrxjkJs5VoWgzaDvFtaTes0WDMP3wJP
+	OoPV5I7FW5Pw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10012"; a="192956372"
+X-IronPort-AV: E=Sophos;i="5.83,268,1616482800"; d="scan'208";a="192956372"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+	by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	11 Jun 2021 21:07:45 -0700
+IronPort-SDR: w9Z6J/r97mO9lFntwTdvcFJR/T8FN7zIqOB14ZTprURZotbf+h18t1ZDpiThnaK4JmnMY6+zNE
+	Gq1E7F9H+CgA==
+X-IronPort-AV: E=Sophos;i="5.83,268,1616482800"; d="scan'208";a="483489410"
+Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
+	by orsmga001-auth.jf.intel.com with
+	ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jun 2021 21:07:44 -0700
+Date: Fri, 11 Jun 2021 21:07:43 -0700
+From: Ira Weiny <ira.weiny@intel.com>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20210612040743.GG1600546@iweiny-DESK2.sc.intel.com>
+References: <20210608160603.1535935-1-hch@lst.de>
+	<20210608160603.1535935-10-hch@lst.de>
+	<20210609014822.GT3697498@iweiny-DESK2.sc.intel.com>
+	<20210611065338.GA31210@lst.de>
 MIME-Version: 1.0
+In-Reply-To: <20210611065338.GA31210@lst.de>
+User-Agent: Mutt/1.11.1 (2018-12-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -69,15 +73,22 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 15BKdK9c007831
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: Daniel Wagner <dwagner@suse.de>, Martin Wilck <mwilck@suse.com>,
-	linux-block@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
-	Christoph Hellwig <hch@lst.de>
-Subject: [dm-devel] [PATCH v3 2/2] dm: add CONFIG_DM_MULTIPATH_SG_IO -
-	failover for SG_IO on dm-multipath
+X-Mailman-Approved-At: Mon, 14 Jun 2021 03:09:48 -0400
+Cc: Jens Axboe <axboe@kernel.dk>, linux-arch@vger.kernel.org,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Mike Snitzer <snitzer@redhat.com>, linux-sh@vger.kernel.org,
+	Geoff Levand <geoff@infradead.org>,
+	Tero Kristo <t-kristo@ti.com>, linux-mmc@vger.kernel.org,
+	linux-mips@vger.kernel.org, Dongsheng Yang <dongsheng.yang@easystack.cn>,
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
+	dm-devel@redhat.com, Thomas Gleixner <tglx@linutronix.de>,
+	linux-csky@vger.kernel.org, linux-scsi@vger.kernel.org,
+	Ilya Dryomov <idryomov@gmail.com>, linuxppc-dev@lists.ozlabs.org,
+	ceph-devel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [dm-devel] [PATCH 09/16] ps3disk: use memcpy_{from,to}_bvec
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,351 +102,368 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Martin Wilck <mwilck@suse.com>
+On Fri, Jun 11, 2021 at 08:53:38AM +0200, Christoph Hellwig wrote:
+> On Tue, Jun 08, 2021 at 06:48:22PM -0700, Ira Weiny wrote:
+> > I'm still not 100% sure that these flushes are needed but the are not no-ops on
+> > every arch.  Would it be best to preserve them after the memcpy_to/from_bvec()?
+> > 
+> > Same thing in patch 11 and 14.
+> 
+> To me it seems kunmap_local should basically always call the equivalent
+> of flush_kernel_dcache_page.  parisc does this through
+> kunmap_flush_on_unmap, but none of the other architectures with VIVT
+> caches or other coherency issues does.
+> 
+> Does anyone have a history or other insights here?
 
-In virtual deployments, SCSI passthrough over dm-multipath devices is a
-common setup. The qemu "pr-helper" was specifically invented for it. I
-believe that this is the most important real-world scenario for sending
-SG_IO ioctls to device-mapper devices.
+I went digging into the current callers of flush_kernel_dcache_page() other
+than this one.  To see if adding kunmap_flush_on_unmap() to the other arch's
+would cause any problems.
 
-In this configuration, guests send SCSI IO to the hypervisor in the form of
-SG_IO ioctls issued by qemu. But on the device-mapper level, these SCSI
-ioctls aren't treated like regular IO. Until commit 2361ae595352 ("dm mpath:
-switch paths in dm_blk_ioctl() code path"), no path switching was done at
-all. Worse though, if an SG_IO call fails because of a path error,
-dm-multipath doesn't retry the IO on a another path; rather, the failure is
-passed back to the guest, and paths are not marked as faulty.  This is in
-stark contrast with regular block IO of guests on dm-multipath devices, and
-certainly comes as a surprise to users who switch to SCSI passthrough in
-qemu. In general, users of dm-multipath devices would probably expect failover
-to work at least in a basic way.
+In particular this call site stood out because it is not always called?!?!?!?
 
-This patch fixes this by taking a special code path for SG_IO on request-
-based device mapper targets if CONFIG_DM_MULTIPATH_SG_IO is set.  Rather then
-just choosing a single path, sending the IO to it, and failing to the caller
-if the IO on the path failed, it retries the same IO on another path for
-certain error codes, using blk_path_error() to determine if a retry would
-make sense for the given error code. Moreover, it sends a message to the
-multipath target to mark the path as failed.
+void sg_miter_stop(struct sg_mapping_iter *miter)
+{
+...
+                if ((miter->__flags & SG_MITER_TO_SG) &&
+                    !PageSlab(miter->page))
+                        flush_kernel_dcache_page(miter->page);
+...
+}
 
-One problem remains open: if all paths in a multipath map are failed,
-normal multipath IO may switch to queueing mode (depending on
-configuration). This isn't possible for SG_IO, as SG_IO requests can't
-easily be queued like regular block I/O. Thus in the "no path" case, the
-guest will still see an error.
+Looking at 
 
-Signed-off-by: Martin Wilck <mwilck@suse.com>
+3d77b50c5874 lib/scatterlist.c: don't flush_kernel_dcache_page on slab page[1]
+
+It seems the restrictions they are quoting for the page are completely out of
+date.  I don't see any current way for a VM_BUG_ON() to be triggered.  So is
+this code really necessary?
+
+More recently this was added:
+
+7e34e0bbc644 crypto: omap-crypto - fix userspace copied buffer access
+
+I'm CC'ing Tero and Herbert to see why they added the SLAB check.
+
+
+Then we have interesting comments like this...
+
+...
+                /* This can go away once MIPS implements
+		 * flush_kernel_dcache_page */
+		flush_dcache_page(miter->page);
+...
+
+
+And some users optimizing.
+
+...
+		/* discard mappings */
+		if (direction == DMA_FROM_DEVICE)
+			flush_kernel_dcache_page(sg_page(sg));  
+...
+
+The uses in fs/exec.c are the most straight forward and can simply rely on the
+kunmap() code to replace the call.
+
+In conclusion I don't see a lot of reason to not define kunmap_flush_on_unmap()
+on arm, csky, mips, nds32, and sh...  Then remove all the
+flush_kernel_dcache_page() call sites and the documentation...
+
+Something like [2] below...  Completely untested of course...
+
+Ira
+
+
+[1] commit 3d77b50c5874b7e923be946ba793644f82336b75
+Author: Ming Lei <ming.lei@canonical.com>
+Date:   Thu Oct 31 16:34:17 2013 -0700
+
+    lib/scatterlist.c: don't flush_kernel_dcache_page on slab page
+    
+    Commit b1adaf65ba03 ("[SCSI] block: add sg buffer copy helper
+    functions") introduces two sg buffer copy helpers, and calls
+    flush_kernel_dcache_page() on pages in SG list after these pages are
+    written to.
+    
+    Unfortunately, the commit may introduce a potential bug:
+    
+     - Before sending some SCSI commands, kmalloc() buffer may be passed to
+       block layper, so flush_kernel_dcache_page() can see a slab page
+       finally
+    
+     - According to cachetlb.txt, flush_kernel_dcache_page() is only called
+       on "a user page", which surely can't be a slab page.
+    
+     - ARCH's implementation of flush_kernel_dcache_page() may use page
+       mapping information to do optimization so page_mapping() will see the
+       slab page, then VM_BUG_ON() is triggered.
+    
+    Aaro Koskinen reported the bug on ARM/kirkwood when DEBUG_VM is enabled,
+    and this patch fixes the bug by adding test of '!PageSlab(miter->page)'
+    before calling flush_kernel_dcache_page().
+
+
+[2]
+
+
+>From 70b537c31d16c2a5e4e92c35895e8c59303bcbef Mon Sep 17 00:00:00 2001
+From: Ira Weiny <ira.weiny@intel.com>
+Date: Fri, 11 Jun 2021 18:24:27 -0700
+Subject: [PATCH] COMPLETELY UNTESTED: highmem: Remove direct calls to flush_kernel_dcache_page
+
+When to call flush_kernel_dcache_page() is confusing and inconsistent.  For
+architectures which may need to do something the core kmap code should be
+leveraged to handle this when direct kernel access is needed.
+
+Like parisc define kunmap_flush_on_unmap() to be called when pages are
+unmapped on arm, csky, mpis, nds32, and sh.
+
+Remove all direct calls to flush_kernel_dcache_page() and let the
+kunmap() code do this for the users.
+
+
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-csky@vger.kernel.org
+Cc: linux-mips@vger.kernel.org
+Cc: linux-sh@vger.kernel.org
+Cc: linux-crypto@vger.kernel.org
+Cc: linux-mmc@vger.kernel.org
+Cc: linux-scsi@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org
+Signed-off-by: Ira Weiny <ira.weiny@intel.com>
 ---
- block/scsi_ioctl.c         |   5 +-
- drivers/md/Kconfig         |  11 ++++
- drivers/md/Makefile        |   4 ++
- drivers/md/dm-core.h       |   5 ++
- drivers/md/dm-rq.h         |  11 ++++
- drivers/md/dm-scsi_ioctl.c | 127 +++++++++++++++++++++++++++++++++++++
- drivers/md/dm.c            |  20 +++++-
- include/linux/blkdev.h     |   2 +
- 8 files changed, 180 insertions(+), 5 deletions(-)
- create mode 100644 drivers/md/dm-scsi_ioctl.c
+ Documentation/core-api/cachetlb.rst  | 13 -------------
+ arch/arm/include/asm/cacheflush.h    |  6 ++++++
+ arch/csky/abiv1/inc/abi/cacheflush.h |  6 ++++++
+ arch/mips/include/asm/cacheflush.h   |  6 ++++++
+ arch/nds32/include/asm/cacheflush.h  |  6 ++++++
+ arch/sh/include/asm/cacheflush.h     |  6 ++++++
+ drivers/crypto/omap-crypto.c         |  3 ---
+ drivers/mmc/host/mmc_spi.c           |  3 ---
+ drivers/scsi/aacraid/aachba.c        |  1 -
+ fs/exec.c                            |  3 ---
+ include/linux/highmem.h              |  3 ---
+ lib/scatterlist.c                    |  4 ----
+ 12 files changed, 30 insertions(+), 30 deletions(-)
 
-diff --git a/block/scsi_ioctl.c b/block/scsi_ioctl.c
-index b39e0835600f..38771f4bcf18 100644
---- a/block/scsi_ioctl.c
-+++ b/block/scsi_ioctl.c
-@@ -279,8 +279,8 @@ static int blk_complete_sghdr_rq(struct request *rq, struct sg_io_hdr *hdr,
- 	return ret;
+diff --git a/Documentation/core-api/cachetlb.rst b/Documentation/core-api/cachetlb.rst
+index fe4290e26729..5c39de30e91f 100644
+--- a/Documentation/core-api/cachetlb.rst
++++ b/Documentation/core-api/cachetlb.rst
+@@ -351,19 +351,6 @@ maps this page at its virtual address.
+ 	architectures).  For incoherent architectures, it should flush
+ 	the cache of the page at vmaddr.
+ 
+-  ``void flush_kernel_dcache_page(struct page *page)``
+-
+-	When the kernel needs to modify a user page is has obtained
+-	with kmap, it calls this function after all modifications are
+-	complete (but before kunmapping it) to bring the underlying
+-	page up to date.  It is assumed here that the user has no
+-	incoherent cached copies (i.e. the original page was obtained
+-	from a mechanism like get_user_pages()).  The default
+-	implementation is a nop and should remain so on all coherent
+-	architectures.  On incoherent architectures, this should flush
+-	the kernel cache for page (using page_address(page)).
+-
+-
+   ``void flush_icache_range(unsigned long start, unsigned long end)``
+ 
+   	When the kernel stores into addresses that it will execute
+diff --git a/arch/arm/include/asm/cacheflush.h b/arch/arm/include/asm/cacheflush.h
+index 2e24e765e6d3..1b7cb0af707f 100644
+--- a/arch/arm/include/asm/cacheflush.h
++++ b/arch/arm/include/asm/cacheflush.h
+@@ -315,6 +315,12 @@ static inline void flush_anon_page(struct vm_area_struct *vma,
+ #define ARCH_HAS_FLUSH_KERNEL_DCACHE_PAGE
+ extern void flush_kernel_dcache_page(struct page *);
+ 
++#define ARCH_HAS_FLUSH_ON_KUNMAP
++static inline void kunmap_flush_on_unmap(void *addr)
++{
++	flush_kernel_dcache_page_addr(addr);
++}
++
+ #define flush_dcache_mmap_lock(mapping)		xa_lock_irq(&mapping->i_pages)
+ #define flush_dcache_mmap_unlock(mapping)	xa_unlock_irq(&mapping->i_pages)
+ 
+diff --git a/arch/csky/abiv1/inc/abi/cacheflush.h b/arch/csky/abiv1/inc/abi/cacheflush.h
+index 6cab7afae962..e1ff554850f8 100644
+--- a/arch/csky/abiv1/inc/abi/cacheflush.h
++++ b/arch/csky/abiv1/inc/abi/cacheflush.h
+@@ -17,6 +17,12 @@ extern void flush_dcache_page(struct page *);
+ #define ARCH_HAS_FLUSH_KERNEL_DCACHE_PAGE
+ extern void flush_kernel_dcache_page(struct page *);
+ 
++#define ARCH_HAS_FLUSH_ON_KUNMAP
++static inline void kunmap_flush_on_unmap(void *addr)
++{
++	flush_kernel_dcache_page_addr(addr);
++}
++
+ #define flush_dcache_mmap_lock(mapping)		xa_lock_irq(&mapping->i_pages)
+ #define flush_dcache_mmap_unlock(mapping)	xa_unlock_irq(&mapping->i_pages)
+ 
+diff --git a/arch/mips/include/asm/cacheflush.h b/arch/mips/include/asm/cacheflush.h
+index d687b40b9fbb..c3043b600008 100644
+--- a/arch/mips/include/asm/cacheflush.h
++++ b/arch/mips/include/asm/cacheflush.h
+@@ -132,6 +132,12 @@ static inline void flush_kernel_dcache_page(struct page *page)
+ 	flush_dcache_page(page);
  }
  
--static int sg_io(struct request_queue *q, struct gendisk *bd_disk,
--		struct sg_io_hdr *hdr, fmode_t mode)
-+int sg_io(struct request_queue *q, struct gendisk *bd_disk,
-+	  struct sg_io_hdr *hdr, fmode_t mode)
- {
- 	unsigned long start_time;
- 	ssize_t ret = 0;
-@@ -365,6 +365,7 @@ static int sg_io(struct request_queue *q, struct gendisk *bd_disk,
- 	blk_put_request(rq);
- 	return ret;
++#define ARCH_HAS_FLUSH_ON_KUNMAP
++static inline void kunmap_flush_on_unmap(void *addr)
++{
++	flush_kernel_dcache_page_addr(addr);
++}
++
+ /*
+  * For now flush_kernel_vmap_range and invalidate_kernel_vmap_range both do a
+  * cache writeback and invalidate operation.
+diff --git a/arch/nds32/include/asm/cacheflush.h b/arch/nds32/include/asm/cacheflush.h
+index 7d6824f7c0e8..bae980846e2a 100644
+--- a/arch/nds32/include/asm/cacheflush.h
++++ b/arch/nds32/include/asm/cacheflush.h
+@@ -43,6 +43,12 @@ void invalidate_kernel_vmap_range(void *addr, int size);
+ #define flush_dcache_mmap_lock(mapping)   xa_lock_irq(&(mapping)->i_pages)
+ #define flush_dcache_mmap_unlock(mapping) xa_unlock_irq(&(mapping)->i_pages)
+ 
++#define ARCH_HAS_FLUSH_ON_KUNMAP
++static inline void kunmap_flush_on_unmap(void *addr)
++{
++	flush_kernel_dcache_page_addr(addr);
++}
++
+ #else
+ void flush_icache_user_page(struct vm_area_struct *vma, struct page *page,
+ 	                     unsigned long addr, int len);
+diff --git a/arch/sh/include/asm/cacheflush.h b/arch/sh/include/asm/cacheflush.h
+index 4486a865ff62..2e23a8d71aa7 100644
+--- a/arch/sh/include/asm/cacheflush.h
++++ b/arch/sh/include/asm/cacheflush.h
+@@ -78,6 +78,12 @@ static inline void flush_kernel_dcache_page(struct page *page)
+ 	flush_dcache_page(page);
  }
-+EXPORT_SYMBOL_GPL(sg_io);
  
- /**
-  * sg_scsi_ioctl  --  handle deprecated SCSI_IOCTL_SEND_COMMAND ioctl
-diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-index f2014385d48b..f28f29e3bd11 100644
---- a/drivers/md/Kconfig
-+++ b/drivers/md/Kconfig
-@@ -473,6 +473,17 @@ config DM_MULTIPATH_IOA
- 
- 	  If unsure, say N.
- 
-+config DM_MULTIPATH_SG_IO
-+       bool "Retry SCSI generic I/O on multipath devices"
-+       depends on DM_MULTIPATH && BLK_SCSI_REQUEST
-+       help
-+	 With this option, SCSI generic (SG) requests issued on multipath
-+	 devices will behave similar to regular block I/O: upon failure,
-+	 they are repeated on a different path, and the erroring device
-+	 is marked as failed.
-+
-+	 If unsure, say N.
-+
- config DM_DELAY
- 	tristate "I/O delaying target"
- 	depends on BLK_DEV_DM
-diff --git a/drivers/md/Makefile b/drivers/md/Makefile
-index ef7ddc27685c..187ea469f64a 100644
---- a/drivers/md/Makefile
-+++ b/drivers/md/Makefile
-@@ -88,6 +88,10 @@ ifeq ($(CONFIG_DM_INIT),y)
- dm-mod-objs			+= dm-init.o
- endif
- 
-+ifeq ($(CONFIG_DM_MULTIPATH_SG_IO),y)
-+dm-mod-objs			+= dm-scsi_ioctl.o
-+endif
-+
- ifeq ($(CONFIG_DM_UEVENT),y)
- dm-mod-objs			+= dm-uevent.o
- endif
-diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
-index 5953ff2bd260..8bd8a8e3916e 100644
---- a/drivers/md/dm-core.h
-+++ b/drivers/md/dm-core.h
-@@ -189,4 +189,9 @@ extern atomic_t dm_global_event_nr;
- extern wait_queue_head_t dm_global_eventq;
- void dm_issue_global_event(void);
- 
-+int __dm_prepare_ioctl(struct mapped_device *md, int *srcu_idx,
-+		       struct block_device **bdev,
-+		       struct dm_target **target);
-+void dm_unprepare_ioctl(struct mapped_device *md, int srcu_idx);
-+
- #endif
-diff --git a/drivers/md/dm-rq.h b/drivers/md/dm-rq.h
-index 1eea0da641db..c6d2853e4d1d 100644
---- a/drivers/md/dm-rq.h
-+++ b/drivers/md/dm-rq.h
-@@ -44,4 +44,15 @@ ssize_t dm_attr_rq_based_seq_io_merge_deadline_show(struct mapped_device *md, ch
- ssize_t dm_attr_rq_based_seq_io_merge_deadline_store(struct mapped_device *md,
- 						     const char *buf, size_t count);
- 
-+#ifdef CONFIG_DM_MULTIPATH_SG_IO
-+int dm_sg_io_ioctl(struct block_device *bdev, fmode_t mode,
-+		   unsigned int cmd, unsigned long uarg);
-+#else
-+static inline int dm_sg_io_ioctl(struct block_device *bdev, fmode_t mode,
-+				 unsigned int cmd, unsigned long uarg)
++#define ARCH_HAS_FLUSH_ON_KUNMAP
++static inline void kunmap_flush_on_unmap(void *addr)
 +{
-+	return -ENOTTY;
++	flush_kernel_dcache_page_addr(addr);
 +}
-+#endif
 +
- #endif
-diff --git a/drivers/md/dm-scsi_ioctl.c b/drivers/md/dm-scsi_ioctl.c
-new file mode 100644
-index 000000000000..a696e2a6557e
---- /dev/null
-+++ b/drivers/md/dm-scsi_ioctl.c
-@@ -0,0 +1,127 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2021 Martin Wilck, SUSE LLC
-+ */
-+
-+#include "dm-core.h"
-+#include <linux/types.h>
-+#include <linux/errno.h>
-+#include <linux/kernel.h>
-+#include <linux/uaccess.h>
-+#include <linux/blk_types.h>
-+#include <linux/blkdev.h>
-+#include <linux/device-mapper.h>
-+#include <scsi/sg.h>
-+#include <scsi/scsi_cmnd.h>
-+
-+#define DM_MSG_PREFIX "sg_io"
-+
-+int dm_sg_io_ioctl(struct block_device *bdev, fmode_t mode,
-+		   unsigned int cmd, unsigned long uarg)
-+{
-+	struct mapped_device *md = bdev->bd_disk->private_data;
-+	struct sg_io_hdr hdr;
-+	void __user *arg = (void __user *)uarg;
-+	int rc, srcu_idx;
-+	char path_name[BDEVNAME_SIZE];
-+
-+	if (cmd != SG_IO)
-+		return -ENOTTY;
-+
-+	if (copy_from_user(&hdr, arg, sizeof(hdr)))
-+		return -EFAULT;
-+
-+	if (hdr.interface_id != 'S')
-+		return -EINVAL;
-+
-+	if (hdr.dxfer_len > (queue_max_hw_sectors(bdev->bd_disk->queue) << 9))
-+		return -EIO;
-+
-+	for (;;) {
-+		struct dm_target *tgt;
-+		struct sg_io_hdr rhdr;
-+
-+		rc = __dm_prepare_ioctl(md, &srcu_idx, &bdev, &tgt);
-+		if (rc < 0) {
-+			DMERR("%s: failed to get path: %d",
-+			      __func__, rc);
-+			goto out;
-+		}
-+
-+		rhdr = hdr;
-+
-+		rc = sg_io(bdev->bd_disk->queue, bdev->bd_disk, &rhdr, mode);
-+
-+		DMDEBUG("SG_IO via %s: rc = %d D%02xH%02xM%02xS%02x",
-+			bdevname(bdev, path_name), rc,
-+			rhdr.driver_status, rhdr.host_status,
-+			rhdr.msg_status, rhdr.status);
-+
-+		/*
-+		 * Errors resulting from invalid parameters shouldn't be retried
-+		 * on another path.
-+		 */
-+		switch (rc) {
-+		case -ENOIOCTLCMD:
-+		case -EFAULT:
-+		case -EINVAL:
-+		case -EPERM:
-+			goto out;
-+		default:
-+			break;
-+		}
-+
-+		if (rhdr.info & SG_INFO_CHECK) {
-+			int result;
-+			blk_status_t sts;
-+
-+			result = rhdr.status |
-+				(rhdr.msg_status << 8) |
-+				(rhdr.host_status << 16) |
-+				(rhdr.driver_status << 24);
-+
-+			sts = __scsi_result_to_blk_status(&result, result);
-+			rhdr.host_status = host_byte(result);
-+
-+			/* See if this is a target or path error. */
-+			if (sts == BLK_STS_OK)
-+				rc = 0;
-+			else if (blk_path_error(sts))
-+				rc = -EIO;
-+			else {
-+				rc = blk_status_to_errno(sts);
-+				goto out;
-+			}
-+		}
-+
-+		if (rc == 0) {
-+			/* success */
-+			if (copy_to_user(arg, &rhdr, sizeof(rhdr)))
-+				rc = -EFAULT;
-+			goto out;
-+		}
-+
-+		/* Failure - fail path by sending a message to the target */
-+		if (!tgt->type->message) {
-+			DMWARN("invalid target!");
-+			rc = -EIO;
-+			goto out;
-+		} else {
-+			char bdbuf[BDEVT_SIZE];
-+			char *argv[2] = { "fail_path", bdbuf };
-+
-+			scnprintf(bdbuf, sizeof(bdbuf), "%u:%u",
-+				  MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev));
-+
-+			DMDEBUG("sending \"%s %s\" to target", argv[0], argv[1]);
-+			rc = tgt->type->message(tgt, 2, argv, NULL, 0);
-+			if (rc < 0)
-+				goto out;
-+		}
-+
-+		dm_unprepare_ioctl(md, srcu_idx);
-+	}
-+out:
-+	dm_unprepare_ioctl(md, srcu_idx);
-+	return rc;
-+}
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index ca2aedd8ee7d..29b93fb3929e 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -522,8 +522,9 @@ static int dm_blk_report_zones(struct gendisk *disk, sector_t sector,
- #define dm_blk_report_zones		NULL
- #endif /* CONFIG_BLK_DEV_ZONED */
+ extern void copy_to_user_page(struct vm_area_struct *vma,
+ 	struct page *page, unsigned long vaddr, void *dst, const void *src,
+ 	unsigned long len);
+diff --git a/drivers/crypto/omap-crypto.c b/drivers/crypto/omap-crypto.c
+index 94b2dba90f0d..cbc5a4151c3c 100644
+--- a/drivers/crypto/omap-crypto.c
++++ b/drivers/crypto/omap-crypto.c
+@@ -183,9 +183,6 @@ static void omap_crypto_copy_data(struct scatterlist *src,
  
--static int dm_prepare_ioctl(struct mapped_device *md, int *srcu_idx,
--			    struct block_device **bdev)
-+int __dm_prepare_ioctl(struct mapped_device *md, int *srcu_idx,
-+		       struct block_device **bdev,
-+		       struct dm_target **target)
- {
- 	struct dm_target *tgt;
- 	struct dm_table *map;
-@@ -553,10 +554,19 @@ static int dm_prepare_ioctl(struct mapped_device *md, int *srcu_idx,
- 		goto retry;
+ 		memcpy(dstb, srcb, amt);
+ 
+-		if (!PageSlab(sg_page(dst)))
+-			flush_kernel_dcache_page(sg_page(dst));
+-
+ 		kunmap_atomic(srcb);
+ 		kunmap_atomic(dstb);
+ 
+diff --git a/drivers/mmc/host/mmc_spi.c b/drivers/mmc/host/mmc_spi.c
+index 9776a03a10f5..e1aafbc6a0a1 100644
+--- a/drivers/mmc/host/mmc_spi.c
++++ b/drivers/mmc/host/mmc_spi.c
+@@ -947,9 +947,6 @@ mmc_spi_data_do(struct mmc_spi_host *host, struct mmc_command *cmd,
+ 				break;
+ 		}
+ 
+-		/* discard mappings */
+-		if (direction == DMA_FROM_DEVICE)
+-			flush_kernel_dcache_page(sg_page(sg));
+ 		kunmap(sg_page(sg));
+ 		if (dma_dev)
+ 			dma_unmap_page(dma_dev, dma_addr, PAGE_SIZE, dir);
+diff --git a/drivers/scsi/aacraid/aachba.c b/drivers/scsi/aacraid/aachba.c
+index f1f62b5da8b7..8897d4ad78c6 100644
+--- a/drivers/scsi/aacraid/aachba.c
++++ b/drivers/scsi/aacraid/aachba.c
+@@ -25,7 +25,6 @@
+ #include <linux/completion.h>
+ #include <linux/blkdev.h>
+ #include <linux/uaccess.h>
+-#include <linux/highmem.h> /* For flush_kernel_dcache_page */
+ #include <linux/module.h>
+ 
+ #include <asm/unaligned.h>
+diff --git a/fs/exec.c b/fs/exec.c
+index 18594f11c31f..da9faa2da36b 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -577,7 +577,6 @@ static int copy_strings(int argc, struct user_arg_ptr argv,
+ 				}
+ 
+ 				if (kmapped_page) {
+-					flush_kernel_dcache_page(kmapped_page);
+ 					kunmap(kmapped_page);
+ 					put_arg_page(kmapped_page);
+ 				}
+@@ -595,7 +594,6 @@ static int copy_strings(int argc, struct user_arg_ptr argv,
+ 	ret = 0;
+ out:
+ 	if (kmapped_page) {
+-		flush_kernel_dcache_page(kmapped_page);
+ 		kunmap(kmapped_page);
+ 		put_arg_page(kmapped_page);
  	}
+@@ -637,7 +635,6 @@ int copy_string_kernel(const char *arg, struct linux_binprm *bprm)
+ 		kaddr = kmap_atomic(page);
+ 		flush_arg_page(bprm, pos & PAGE_MASK, page);
+ 		memcpy(kaddr + offset_in_page(pos), arg, bytes_to_copy);
+-		flush_kernel_dcache_page(page);
+ 		kunmap_atomic(kaddr);
+ 		put_arg_page(page);
+ 	}
+diff --git a/include/linux/highmem.h b/include/linux/highmem.h
+index 832b49b50c7b..7ef83bf52a6c 100644
+--- a/include/linux/highmem.h
++++ b/include/linux/highmem.h
+@@ -131,9 +131,6 @@ static inline void flush_anon_page(struct vm_area_struct *vma, struct page *page
+ #endif
  
-+	if (r >= 0 && target)
-+		*target = tgt;
-+
- 	return r;
- }
- 
--static void dm_unprepare_ioctl(struct mapped_device *md, int srcu_idx)
-+static int dm_prepare_ioctl(struct mapped_device *md, int *srcu_idx,
-+			    struct block_device **bdev)
-+{
-+	return __dm_prepare_ioctl(md, srcu_idx, bdev, NULL);
-+}
-+
-+void dm_unprepare_ioctl(struct mapped_device *md, int srcu_idx)
+ #ifndef ARCH_HAS_FLUSH_KERNEL_DCACHE_PAGE
+-static inline void flush_kernel_dcache_page(struct page *page)
+-{
+-}
+ static inline void flush_kernel_vmap_range(void *vaddr, int size)
  {
- 	dm_put_live_table(md, srcu_idx);
  }
-@@ -567,6 +577,10 @@ static int dm_blk_ioctl(struct block_device *bdev, fmode_t mode,
- 	struct mapped_device *md = bdev->bd_disk->private_data;
- 	int r, srcu_idx;
+diff --git a/lib/scatterlist.c b/lib/scatterlist.c
+index a59778946404..579b323a8042 100644
+--- a/lib/scatterlist.c
++++ b/lib/scatterlist.c
+@@ -887,10 +887,6 @@ void sg_miter_stop(struct sg_mapping_iter *miter)
+ 		miter->__offset += miter->consumed;
+ 		miter->__remaining -= miter->consumed;
  
-+	if ((dm_get_md_type(md) == DM_TYPE_REQUEST_BASED) &&
-+	    ((r = dm_sg_io_ioctl(bdev, mode, cmd, arg)) != -ENOTTY))
-+		return r;
-+
- 	r = dm_prepare_ioctl(md, &srcu_idx, &bdev);
- 	if (r < 0)
- 		goto out;
-diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index 48497a77428d..b8f1d603cc7a 100644
---- a/include/linux/blkdev.h
-+++ b/include/linux/blkdev.h
-@@ -923,6 +923,8 @@ extern int scsi_cmd_ioctl(struct request_queue *, struct gendisk *, fmode_t,
- 			  unsigned int, void __user *);
- extern int sg_scsi_ioctl(struct request_queue *, struct gendisk *, fmode_t,
- 			 struct scsi_ioctl_command __user *);
-+extern int sg_io(struct request_queue *, struct gendisk *,
-+		 struct sg_io_hdr *, fmode_t);
- extern int get_sg_io_hdr(struct sg_io_hdr *hdr, const void __user *argp);
- extern int put_sg_io_hdr(const struct sg_io_hdr *hdr, void __user *argp);
- 
+-		if ((miter->__flags & SG_MITER_TO_SG) &&
+-		    !PageSlab(miter->page))
+-			flush_kernel_dcache_page(miter->page);
+-
+ 		if (miter->__flags & SG_MITER_ATOMIC) {
+ 			WARN_ON_ONCE(preemptible());
+ 			kunmap_atomic(miter->addr);
 -- 
-2.31.1
-
+2.28.0.rc0.12.gb6a658bd00c9
 
 --
 dm-devel mailing list
