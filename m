@@ -2,70 +2,71 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0C1BA3A8DD2
-	for <lists+dm-devel@lfdr.de>; Wed, 16 Jun 2021 02:47:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1E39D3A8DD7
+	for <lists+dm-devel@lfdr.de>; Wed, 16 Jun 2021 02:49:33 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-550-8bQXxkFfO5WEnp-KoejCtQ-1; Tue, 15 Jun 2021 20:47:18 -0400
-X-MC-Unique: 8bQXxkFfO5WEnp-KoejCtQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-238-p0G5zVNyMRaav0DqyLnhGg-1; Tue, 15 Jun 2021 20:49:30 -0400
+X-MC-Unique: p0G5zVNyMRaav0DqyLnhGg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F049218D6A25;
-	Wed, 16 Jun 2021 00:47:10 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B17A718E41;
-	Wed, 16 Jun 2021 00:47:07 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3D4D21084F42;
+	Wed, 16 Jun 2021 00:49:23 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 81D4A60C0F;
+	Wed, 16 Jun 2021 00:49:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EA09C46F80;
-	Wed, 16 Jun 2021 00:46:54 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D6B451809CAD;
+	Wed, 16 Jun 2021 00:49:16 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 15G0ka5f000377 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 15 Jun 2021 20:46:36 -0400
+	id 15G0n8vM000564 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 15 Jun 2021 20:49:08 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4D26B2097D67; Wed, 16 Jun 2021 00:46:36 +0000 (UTC)
+	id F42161112846; Wed, 16 Jun 2021 00:49:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4886B20962F8
-	for <dm-devel@redhat.com>; Wed, 16 Jun 2021 00:46:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0571E811E9C
-	for <dm-devel@redhat.com>; Wed, 16 Jun 2021 00:46:34 +0000 (UTC)
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
-	[209.85.214.181]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-220-UV-A2JKQOBCBD49MxNOAig-1; Tue, 15 Jun 2021 20:46:31 -0400
-X-MC-Unique: UV-A2JKQOBCBD49MxNOAig-1
-Received: by mail-pl1-f181.google.com with SMTP id v13so226982ple.9
-	for <dm-devel@redhat.com>; Tue, 15 Jun 2021 17:46:31 -0700 (PDT)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EFA441112843
+	for <dm-devel@redhat.com>; Wed, 16 Jun 2021 00:49:05 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 368D718E0920
+	for <dm-devel@redhat.com>; Wed, 16 Jun 2021 00:49:05 +0000 (UTC)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+	[209.85.216.53]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-543-xPuPCBJzNIuTXzxEfaaF_g-1; Tue, 15 Jun 2021 20:49:01 -0400
+X-MC-Unique: xPuPCBJzNIuTXzxEfaaF_g-1
+Received: by mail-pj1-f53.google.com with SMTP id
+	m13-20020a17090b068db02901656cc93a75so2919386pjz.3
+	for <dm-devel@redhat.com>; Tue, 15 Jun 2021 17:49:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=1UGOQAS/gnlRXyh5KGqeT8Vh25LI5tpduRj0+a7sMPk=;
-	b=NX8tnivLYV7TTLRnLfVKRRoHSGzuCy8p0b7pDYWypljF8ELtNyC3IUVK8Rv90AOrSS
-	X5wTiTXItqKR1dc9GwbBGDBzvldSNFlVGWqWLOd3bcGKQF6p0VLEXhCx1mfDETqAI6ew
-	/JYp/lAVRwtrZ0uwipQTchAnlng7undY/77/asNYpumzqDc5YxnEdFlQoJWFwwYgaEow
-	704XNQ+h5VFpJ/ZZV+Bq+fPVnvtayO5vfy2jWWUJunNLZ5HznXMzHUW1zNMg20VjW61y
-	HjPh1LaJAwiNyUbEmlLdIY4++9FkpuuXB1kopNdZNCNAkft/q33kyLvZWgQQnuf3mq4b
-	EmJQ==
-X-Gm-Message-State: AOAM531SaG5Z/zKVT2iCOwWPNxG0WzmR+1xek3CTk6g2buWaiyrTzvsp
-	4orvyhaxCp29hh/nDoKBHNxWnN2jMztlHAERLYjE4A==
-X-Google-Smtp-Source: ABdhPJxnjJTq18+nazpJrwCbf8hmuZEuQ5kMFby00dnTlWpwUJ3rx4rFxrMADpX4C943d5rXD+aKPVKy1eqHRare17k=
-X-Received: by 2002:a17:90a:ea8c:: with SMTP id
-	h12mr7535174pjz.149.1623804390579; 
-	Tue, 15 Jun 2021 17:46:30 -0700 (PDT)
+	bh=N705IiD7n6FnNdMOVPwQtLkiV4KgkJ6X1/De6zQZWwI=;
+	b=BRP7YcJ45jsXQcBYnDjVkDT6a6Fi1m2rVFkZ9klZGPqr55K7MJqjIlwD2wFKcI5che
+	uofehhpnRXTcjJaQRp7K+zPfIirpwRN0kaWRRiLcogNS8OUv87qyd3xn+wb/tXksl8ci
+	y7knbVKvds6714k7ezJIlZzS+kI86bpilTkkLvNmDfnIg99CHEGC+1WtxzsTbCH5/HkW
+	XyFu0uIjM4so7LR+jJtBOlbhupzYaokhQYYxeXLaFCrpvU3WPNsJ9P3+kAj8ZuqURX8e
+	vEocRnxYrWGEQqcbRG2PhFni6uzNeWIvalZeYIQ5vdJZ6tPAM8Jrmfx/yEcrx7bV81q9
+	dHJw==
+X-Gm-Message-State: AOAM53167nuPaqreP86fJY7ox1Ur5cwGfmKnui5jey8WEUtU9GOOB/gu
+	CiDn1tkfPezN0I1UvQacVbLr4Rfd7DOOOPSxAixRDknqV5I=
+X-Google-Smtp-Source: ABdhPJyPFTJSM7pJ7JUKFEZ8HQ+iir1f0oux2sr4aUWcOno+cjQdFNUvLXFLljz8kRS7NiWvMxxI/6TF54PHQ215JUQ=
+X-Received: by 2002:a17:90a:8589:: with SMTP id
+	m9mr7683966pjn.168.1623804539893; 
+	Tue, 15 Jun 2021 17:48:59 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210604011844.1756145-1-ruansy.fnst@fujitsu.com>
-	<20210604011844.1756145-3-ruansy.fnst@fujitsu.com>
-In-Reply-To: <20210604011844.1756145-3-ruansy.fnst@fujitsu.com>
+	<20210604011844.1756145-4-ruansy.fnst@fujitsu.com>
+In-Reply-To: <20210604011844.1756145-4-ruansy.fnst@fujitsu.com>
 From: Dan Williams <dan.j.williams@intel.com>
-Date: Tue, 15 Jun 2021 17:46:19 -0700
-Message-ID: <CAPcyv4jA8FW6PMxaETETQxjnpn9aE2Nevq-R96BJr8QzixYRsQ@mail.gmail.com>
+Date: Tue, 15 Jun 2021 17:48:49 -0700
+Message-ID: <CAPcyv4h=bUCgFudKTrW09dzi8MWxg7cBC9m68zX1=HY24ftR-A@mail.gmail.com>
 To: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -75,17 +76,18 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: Mike Snitzer <snitzer@redhat.com>, linux-nvdimm <linux-nvdimm@lists.01.org>,
-	Goldwyn Rodrigues <rgoldwyn@suse.de>,
-	"Darrick J. Wong" <darrick.wong@oracle.com>, david <david@fromorbit.com>,
+Cc: Linux NVDIMM <nvdimm@lists.linux.dev>, Mike Snitzer <snitzer@redhat.com>,
+	"Darrick J. Wong" <darrick.wong@oracle.com>,
+	Goldwyn Rodrigues <rgoldwyn@suse.de>, david <david@fromorbit.com>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
 	linux-xfs <linux-xfs@vger.kernel.org>, Linux MM <linux-mm@kvack.org>,
 	device-mapper development <dm-devel@redhat.com>,
 	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
 	Christoph Hellwig <hch@lst.de>, Alasdair Kergon <agk@redhat.com>
-Subject: Re: [dm-devel] [PATCH v4 02/10] dax: Introduce holder for dax_device
+Subject: Re: [dm-devel] [PATCH v4 03/10] fs: Introduce ->corrupted_range()
+	for superblock
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -99,7 +101,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -107,129 +109,34 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+[ drop old linux-nvdimm@lists.01.org, add nvdimm@lists.linux.dev ]
+
 On Thu, Jun 3, 2021 at 6:19 PM Shiyang Ruan <ruansy.fnst@fujitsu.com> wrote:
 >
-> To easily track filesystem from a pmem device, we introduce a holder for
-> dax_device structure, and also its operation.  This holder is used to
-> remember who is using this dax_device:
->  - When it is the backend of a filesystem, the holder will be the
->    superblock of this filesystem.
->  - When this pmem device is one of the targets in a mapped device, the
->    holder will be this mapped device.  In this case, the mapped device
->    has its own dax_device and it will follow the first rule.  So that we
->    can finally track to the filesystem we needed.
->
-> The holder and holder_ops will be set when filesystem is being mounted,
-> or an target device is being activated.
+> Memory failure occurs in fsdax mode will finally be handled in
+> filesystem.  We introduce this interface to find out files or metadata
+> affected by the corrupted range, and try to recover the corrupted data
+> if possiable.
 >
 > Signed-off-by: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 > ---
->  drivers/dax/super.c | 38 ++++++++++++++++++++++++++++++++++++++
->  include/linux/dax.h | 10 ++++++++++
->  2 files changed, 48 insertions(+)
+>  include/linux/fs.h | 2 ++
+>  1 file changed, 2 insertions(+)
 >
-> diff --git a/drivers/dax/super.c b/drivers/dax/super.c
-> index 5fa6ae9dbc8b..d118e2a7dc70 100644
-> --- a/drivers/dax/super.c
-> +++ b/drivers/dax/super.c
-> @@ -222,8 +222,10 @@ struct dax_device {
->         struct cdev cdev;
->         const char *host;
->         void *private;
+> diff --git a/include/linux/fs.h b/include/linux/fs.h
+> index c3c88fdb9b2a..92af36c4225f 100644
+> --- a/include/linux/fs.h
+> +++ b/include/linux/fs.h
+> @@ -2176,6 +2176,8 @@ struct super_operations {
+>                                   struct shrink_control *);
+>         long (*free_cached_objects)(struct super_block *,
+>                                     struct shrink_control *);
+> +       int (*corrupted_range)(struct super_block *sb, struct block_device *bdev,
+> +                              loff_t offset, size_t len, void *data);
 
-@private is likely too generic of a name now, it would be better to
-call this @parent.
-
-> +       void *holder;
-
-This should probably be called holder_data, and this structure could
-use some kernel-doc to clarify what the fields mean.
-
->         unsigned long flags;
->         const struct dax_operations *ops;
-> +       const struct dax_holder_operations *holder_ops;
->  };
->
->  static ssize_t write_cache_show(struct device *dev,
-> @@ -373,6 +375,24 @@ int dax_zero_page_range(struct dax_device *dax_dev, pgoff_t pgoff,
->  }
->  EXPORT_SYMBOL_GPL(dax_zero_page_range);
->
-> +int dax_corrupted_range(struct dax_device *dax_dev, struct block_device *bdev,
-> +               loff_t offset, size_t size, void *data)
-
-Why is @bdev an argument to this routine?  The primary motivation for
-a 'struct dax_device' is to break the association with 'struct
-block_device'. The filesystem may know that the logical addresses
-associated with a given dax_dev alias with the logical addresses of a
-given bdev, but that knowledge need not leak into the API.
-
-> +{
-> +       int rc = -ENXIO;
-> +       if (!dax_dev)
-> +               return rc;
-> +
-> +       if (dax_dev->holder) {
-> +               rc = dax_dev->holder_ops->corrupted_range(dax_dev, bdev, offset,
-> +                                                         size, data);
-
-A bikeshed comment, but I do not like the name corrupted_range(),
-because "corrupted" implies a permanent state. The source of this
-notification is memory_failure() and that does not convey "permanent"
-vs "transient" it just reports "failure". So, to keep the naming
-consistent with the pgmap notification callback lets call this one
-"notify_failure".
-
-> +               if (rc == -ENODEV)
-> +                       rc = -ENXIO;
-> +       } else
-> +               rc = -EOPNOTSUPP;
-> +       return rc;
-> +}
-> +EXPORT_SYMBOL_GPL(dax_corrupted_range);
-
-dax_holder_notify_failure() makes it clearer that this is
-communicating a failure up the holder stack.
-
-> +
->  #ifdef CONFIG_ARCH_HAS_PMEM_API
->  void arch_wb_cache_pmem(void *addr, size_t size);
->  void dax_flush(struct dax_device *dax_dev, void *addr, size_t size)
-> @@ -624,6 +644,24 @@ void put_dax(struct dax_device *dax_dev)
->  }
->  EXPORT_SYMBOL_GPL(put_dax);
->
-> +void dax_set_holder(struct dax_device *dax_dev, void *holder,
-> +               const struct dax_holder_operations *ops)
-> +{
-> +       if (!dax_dev)
-> +               return;
-> +       dax_dev->holder = holder;
-> +       dax_dev->holder_ops = ops;
-
-I think there needs to be some synchronization here, perhaps a global
-dax_dev_rwsem that is taken for read in the notification path and
-write when adding a holder to the chain.
-
-I also wonder if this should be an event that triggers a dax_dev stack
-to re-report any failure notifications. For example the pmem driver
-may have recorded a list of bad blocks at the beginning of time.
-Likely the filesystem or other holder would like to get that
-pre-existing list of failures at first registration. Have you given
-thought about how the filesystem is told about pre-existing badblocks?
-
-> +}
-> +EXPORT_SYMBOL_GPL(dax_set_holder);
-> +
-> +void *dax_get_holder(struct dax_device *dax_dev)
-> +{
-> +       if (!dax_dev)
-> +               return NULL;
-> +       return dax_dev->holder;
-> +}
-> +EXPORT_SYMBOL_GPL(dax_get_holder);
-
-Where is this used?
+Why does the superblock need a new operation? Wouldn't whatever
+function is specified here just be specified to the dax_dev as the
+->notify_failure() holder callback?
 
 --
 dm-devel mailing list
