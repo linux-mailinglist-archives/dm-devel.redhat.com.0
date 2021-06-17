@@ -2,73 +2,65 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B59853AACF2
-	for <lists+dm-devel@lfdr.de>; Thu, 17 Jun 2021 09:05:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BED0D3AADFC
+	for <lists+dm-devel@lfdr.de>; Thu, 17 Jun 2021 09:49:52 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-530-UkP3DzbDOFqMezV9ZvBx_g-1; Thu, 17 Jun 2021 03:05:09 -0400
-X-MC-Unique: UkP3DzbDOFqMezV9ZvBx_g-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-246-HfKd7eiyPj-Lgp7UZ4B4bw-1; Thu, 17 Jun 2021 03:49:49 -0400
+X-MC-Unique: HfKd7eiyPj-Lgp7UZ4B4bw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 524A7802941;
-	Thu, 17 Jun 2021 07:05:02 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B76EF1084F52;
+	Thu, 17 Jun 2021 07:49:42 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 911DD19704;
-	Thu, 17 Jun 2021 07:04:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BDA0E5D9E2;
+	Thu, 17 Jun 2021 07:49:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6433646F81;
-	Thu, 17 Jun 2021 07:04:45 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 83BDE4A717;
+	Thu, 17 Jun 2021 07:49:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 15H74XbS031993 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 17 Jun 2021 03:04:34 -0400
+	id 15H7nMGc003273 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 17 Jun 2021 03:49:22 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 982C110F05B; Thu, 17 Jun 2021 07:04:33 +0000 (UTC)
+	id 23A0810CD2CA; Thu, 17 Jun 2021 07:49:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 93984113B46
-	for <dm-devel@redhat.com>; Thu, 17 Jun 2021 07:04:28 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8234F1857F1E
-	for <dm-devel@redhat.com>; Thu, 17 Jun 2021 07:04:28 +0000 (UTC)
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
-	[209.85.215.170]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-31-uOXKVuNiPnOnUpGx39dALA-1; Thu, 17 Jun 2021 03:04:26 -0400
-X-MC-Unique: uOXKVuNiPnOnUpGx39dALA-1
-Received: by mail-pg1-f170.google.com with SMTP id t9so4175275pgn.4
-	for <dm-devel@redhat.com>; Thu, 17 Jun 2021 00:04:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc:content-transfer-encoding;
-	bh=LDO+ysM0sZT13J4jvjx62XJsQjzELPOWU0d8eft8zqE=;
-	b=BM1GP+pSLT4woMtssXW3go6ICmDA5RDnk0ioYKofsogiSDYGZYfKF/oZri401tc2io
-	RGTtUDy7BnMiPTxck8MK9Akp2I1mPo21sRGXtCB03DbGQ99xKqQY3skSZ1XM57fbkp72
-	kGKIKNCI08zNTz37c/Ihidjj6OTpmaNY6Q0T/Mo4leeqiFOu2N0bs4yuOf7nth8m1k8u
-	z/GHzrHO0iXydAJzcrl6F3VDL/AdAr9RwsB0vyRURy6cbvFfuk3YSwfWO6++Gw2H6mxS
-	j711Nt7LNTPrLuO+mk6SuAQj/aeRzy59eBtW7l6GWMHfkZqacdFyqy/xcmx0HMRrCLaw
-	GB4Q==
-X-Gm-Message-State: AOAM533xuu5MHpHsLJ+4zQwG6CeuPxrtx//ecSUu2SHbDOo7vgu27bB1
-	i4g0CjRhrbo8CaUGiu4jT6hY+fzpZ49AT/+NW9S7qA==
-X-Google-Smtp-Source: ABdhPJytJXCfpu88GCMpLd2JmLVLvndI0iUm974A4Uf+gWPRlWE3qUqN/z2XXe284KMMKTo0F5nBS9HRMjP/H8ccbSA=
-X-Received: by 2002:a62:768c:0:b029:2ff:2002:d3d0 with SMTP id
-	r134-20020a62768c0000b02902ff2002d3d0mr324838pfc.70.1623913464979;
-	Thu, 17 Jun 2021 00:04:24 -0700 (PDT)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F0F110CD2C9
+	for <dm-devel@redhat.com>; Thu, 17 Jun 2021 07:49:19 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 61D348007B1
+	for <dm-devel@redhat.com>; Thu, 17 Jun 2021 07:49:19 +0000 (UTC)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com
+	[45.249.212.255]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-154-YjYYwSFDNZqr7OBaRDZpnQ-1; Thu, 17 Jun 2021 03:49:16 -0400
+X-MC-Unique: YjYYwSFDNZqr7OBaRDZpnQ-1
+Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.57])
+	by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4G5DC12xWbz1BN5R;
+	Thu, 17 Jun 2021 15:26:53 +0800 (CST)
+Received: from dggpeml500025.china.huawei.com (7.185.36.35) by
+	dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+	15.1.2176.2; Thu, 17 Jun 2021 15:31:55 +0800
+Received: from huawei.com (10.90.53.225) by dggpeml500025.china.huawei.com
+	(7.185.36.35) with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2;
+	Thu, 17 Jun 2021 15:31:55 +0800
+From: Hou Tao <houtao1@huawei.com>
+To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>, "Joe
+	Thornber" <ejt@redhat.com>, <dm-devel@redhat.com>
+Date: Thu, 17 Jun 2021 15:45:47 +0800
+Message-ID: <20210617074547.64255-1-houtao1@huawei.com>
 MIME-Version: 1.0
-References: <20210604011844.1756145-1-ruansy.fnst@fujitsu.com>
-	<20210604011844.1756145-4-ruansy.fnst@fujitsu.com>
-	<CAPcyv4h=bUCgFudKTrW09dzi8MWxg7cBC9m68zX1=HY24ftR-A@mail.gmail.com>
-	<OSBPR01MB29203DC17C538F7B1B1C9224F40E9@OSBPR01MB2920.jpnprd01.prod.outlook.com>
-In-Reply-To: <OSBPR01MB29203DC17C538F7B1B1C9224F40E9@OSBPR01MB2920.jpnprd01.prod.outlook.com>
-From: Dan Williams <dan.j.williams@intel.com>
-Date: Thu, 17 Jun 2021 00:04:14 -0700
-Message-ID: <CAPcyv4ihuErfVWHL0F1OExQashutJjBdaLn5X5oPm44OkQ+a_A@mail.gmail.com>
-To: "ruansy.fnst@fujitsu.com" <ruansy.fnst@fujitsu.com>
+X-Originating-IP: [10.90.53.225]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+	dggpeml500025.china.huawei.com (7.185.36.35)
+X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -77,20 +69,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 15H74XbS031993
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 15H7nMGc003273
 X-loop: dm-devel@redhat.com
-Cc: Linux NVDIMM <nvdimm@lists.linux.dev>, Mike Snitzer <snitzer@redhat.com>,
-	"Darrick J. Wong" <darrick.wong@oracle.com>,
-	Goldwyn Rodrigues <rgoldwyn@suse.de>, david <david@fromorbit.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-xfs <linux-xfs@vger.kernel.org>, Linux MM <linux-mm@kvack.org>,
-	device-mapper development <dm-devel@redhat.com>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	Christoph Hellwig <hch@lst.de>, Alasdair Kergon <agk@redhat.com>
-Subject: Re: [dm-devel] [PATCH v4 03/10] fs: Introduce ->corrupted_range()
-	for superblock
+Cc: zhangxiaoxu5@huawei.com, houtao1@huawei.com
+Subject: [dm-devel] [PATCH] dm btree remove: assign new_root only when
+	removal succeeds
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -104,7 +89,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -112,76 +97,58 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Jun 16, 2021 at 11:51 PM ruansy.fnst@fujitsu.com
-<ruansy.fnst@fujitsu.com> wrote:
->
-> > -----Original Message-----
-> > From: Dan Williams <dan.j.williams@intel.com>
-> > Subject: Re: [PATCH v4 03/10] fs: Introduce ->corrupted_range() for superblock
-> >
-> > [ drop old linux-nvdimm@lists.01.org, add nvdimm@lists.linux.dev ]
-> >
-> > On Thu, Jun 3, 2021 at 6:19 PM Shiyang Ruan <ruansy.fnst@fujitsu.com> wrote:
-> > >
-> > > Memory failure occurs in fsdax mode will finally be handled in
-> > > filesystem.  We introduce this interface to find out files or metadata
-> > > affected by the corrupted range, and try to recover the corrupted data
-> > > if possiable.
-> > >
-> > > Signed-off-by: Shiyang Ruan <ruansy.fnst@fujitsu.com>
-> > > ---
-> > >  include/linux/fs.h | 2 ++
-> > >  1 file changed, 2 insertions(+)
-> > >
-> > > diff --git a/include/linux/fs.h b/include/linux/fs.h index
-> > > c3c88fdb9b2a..92af36c4225f 100644
-> > > --- a/include/linux/fs.h
-> > > +++ b/include/linux/fs.h
-> > > @@ -2176,6 +2176,8 @@ struct super_operations {
-> > >                                   struct shrink_control *);
-> > >         long (*free_cached_objects)(struct super_block *,
-> > >                                     struct shrink_control *);
-> > > +       int (*corrupted_range)(struct super_block *sb, struct block_device
-> > *bdev,
-> > > +                              loff_t offset, size_t len, void *data);
-> >
-> > Why does the superblock need a new operation? Wouldn't whatever function is
-> > specified here just be specified to the dax_dev as the
-> > ->notify_failure() holder callback?
->
-> Because we need to find out which file is effected by the given poison page so that memory-failure code can do collect_procs() and kill_procs() jobs.  And it needs filesystem to use its rmap feature to search the file from a given offset.  So, we need this implemented by the specified filesystem and called by dax_device's holder.
->
-> This is the call trace I described in cover letter:
-> memory_failure()
->  * fsdax case
->  pgmap->ops->memory_failure()      => pmem_pgmap_memory_failure()
->   dax_device->holder_ops->corrupted_range() =>
->                                       - fs_dax_corrupted_range()
->                                       - md_dax_corrupted_range()
->    sb->s_ops->currupted_range()    => xfs_fs_corrupted_range()  <== **HERE**
->     xfs_rmap_query_range()
->      xfs_currupt_helper()
->       * corrupted on metadata
->           try to recover data, call xfs_force_shutdown()
->       * corrupted on file data
->           try to recover data, call mf_dax_kill_procs()
->  * normal case
->  mf_generic_kill_procs()
->
-> As you can see, this new added operation is an important for the whole progress.
+remove_raw() in dm_btree_remove() may fail due to IO read error
+(e.g. read the content of origin block fails during shadowing),
+and the value of shadow_spine::root is uninitialized, but
+the uninitialized value is still assign to new_root in the
+end of dm_btree_remove().
 
-I don't think you need either fs_dax_corrupted_range() nor
-sb->s_ops->corrupted_range(). In fact that fs_dax_corrupted_range()
-looks broken because the filesystem may not even be mounted on the
-device associated with the error. The holder_data and holder_op should
-be sufficient from communicating the stack of notifications:
+For dm-thin, the value of pmd->details_root or pmd->root will become
+an uninitialized value, so if trying to read details_info tree again
+out-of-bound memory may occur as showed below:
 
-pgmap->notify_memory_failure() => pmem_pgmap_notify_failure()
-pmem_dax_dev->holder_ops->notify_failure(pmem_dax_dev) =>
-md_dax_notify_failure()
-md_dax_dev->holder_ops->notify_failure() => xfs_notify_failure()
+  general protection fault, probably for non-canonical address 0x3fdcb14c8d7520
+  CPU: 4 PID: 515 Comm: dmsetup Not tainted 5.13.0-rc6
+  Hardware name: QEMU Standard PC
+  RIP: 0010:metadata_ll_load_ie+0x14/0x30
+  Call Trace:
+   sm_metadata_count_is_more_than_one+0xb9/0xe0
+   dm_tm_shadow_block+0x52/0x1c0
+   shadow_step+0x59/0xf0
+   remove_raw+0xb2/0x170
+   dm_btree_remove+0xf4/0x1c0
+   dm_pool_delete_thin_device+0xc3/0x140
+   pool_message+0x218/0x2b0
+   target_message+0x251/0x290
+   ctl_ioctl+0x1c4/0x4d0
+   dm_ctl_ioctl+0xe/0x20
+   __x64_sys_ioctl+0x7b/0xb0
+   do_syscall_64+0x40/0xb0
+   entry_SYSCALL_64_after_hwframe+0x44/0xae
 
-I.e. the entire chain just walks dax_dev holder ops.
+Fixing it by only assign new_root when removal succeeds
+
+Signed-off-by: Hou Tao <houtao1@huawei.com>
+---
+ drivers/md/persistent-data/dm-btree-remove.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/md/persistent-data/dm-btree-remove.c b/drivers/md/persistent-data/dm-btree-remove.c
+index eff04fa23dfa..9e4d1212f4c1 100644
+--- a/drivers/md/persistent-data/dm-btree-remove.c
++++ b/drivers/md/persistent-data/dm-btree-remove.c
+@@ -549,7 +549,8 @@ int dm_btree_remove(struct dm_btree_info *info, dm_block_t root,
+ 		delete_at(n, index);
+ 	}
+ 
+-	*new_root = shadow_root(&spine);
++	if (!r)
++		*new_root = shadow_root(&spine);
+ 	exit_shadow_spine(&spine);
+ 
+ 	return r;
+-- 
+2.29.2
 
 
 --
