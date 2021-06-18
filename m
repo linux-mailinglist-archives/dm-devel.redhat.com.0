@@ -2,67 +2,79 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id AEB643AC4BC
-	for <lists+dm-devel@lfdr.de>; Fri, 18 Jun 2021 09:14:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B515B3ACABB
+	for <lists+dm-devel@lfdr.de>; Fri, 18 Jun 2021 14:22:58 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-359-D-h7XPOnOQeZK3tDMkh2YA-1; Fri, 18 Jun 2021 03:13:34 -0400
-X-MC-Unique: D-h7XPOnOQeZK3tDMkh2YA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-344-D_JTppThMWOZhAz6RwmRcA-1; Fri, 18 Jun 2021 08:22:55 -0400
+X-MC-Unique: D_JTppThMWOZhAz6RwmRcA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7664E8030AE;
-	Fri, 18 Jun 2021 07:13:29 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E6738801B16;
+	Fri, 18 Jun 2021 12:22:48 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6B2CF687FE;
-	Fri, 18 Jun 2021 07:13:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0D34A60FC2;
+	Fri, 18 Jun 2021 12:22:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 25B9446F5F;
-	Fri, 18 Jun 2021 07:13:21 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9D8524A717;
+	Fri, 18 Jun 2021 12:22:34 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 15I326xd012912 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 17 Jun 2021 23:02:06 -0400
+	id 15ICMLCl029714 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 18 Jun 2021 08:22:21 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 72F26213235E; Fri, 18 Jun 2021 03:02:06 +0000 (UTC)
+	id 6861610130F1; Fri, 18 Jun 2021 12:22:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6E37C215ADD3
-	for <dm-devel@redhat.com>; Fri, 18 Jun 2021 03:02:02 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6417C10130F0
+	for <dm-devel@redhat.com>; Fri, 18 Jun 2021 12:22:17 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 51965805C1D
-	for <dm-devel@redhat.com>; Fri, 18 Jun 2021 03:02:02 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-204-2K2WIrwJMeueno106SIzUg-1; Thu, 17 Jun 2021 23:02:00 -0400
-X-MC-Unique: 2K2WIrwJMeueno106SIzUg-1
-IronPort-SDR: mgYjTXnGchBhoMNFIV/uCiBmG/jzSZBWfw0FJ/lcKOUvfowHztOmob/a/07XeEkVyXdHUDVRHD
-	BuLDyQ8SWeYw==
-X-IronPort-AV: E=McAfee;i="6200,9189,10018"; a="270334919"
-X-IronPort-AV: E=Sophos;i="5.83,281,1616482800"; d="scan'208";a="270334919"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
-	by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	17 Jun 2021 20:01:58 -0700
-IronPort-SDR: kDCIXbw7lwEjZFI+nFNOMy4qgHpPd6rsmqYlpb0ps01Z+DdBhWSAQ5G+mGTpSRcepgH2/cP20z
-	fFfj3eWUWROQ==
-X-IronPort-AV: E=Sophos;i="5.83,281,1616482800"; d="scan'208";a="451243562"
-Received: from iweiny-desk2.sc.intel.com (HELO localhost) ([10.3.52.147])
-	by orsmga008-auth.jf.intel.com with
-	ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jun 2021 20:01:58 -0700
-Date: Thu, 17 Jun 2021 20:01:57 -0700
-From: Ira Weiny <ira.weiny@intel.com>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20210618030157.GA1905674@iweiny-DESK2.sc.intel.com>
-References: <20210615132456.753241-1-hch@lst.de>
-	<20210615132456.753241-2-hch@lst.de>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 02CD9101A531
+	for <dm-devel@redhat.com>; Fri, 18 Jun 2021 12:22:17 +0000 (UTC)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+	[205.220.165.32]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-108-q0PEdFelPAqRgPTskJ0Ugw-1; Fri, 18 Jun 2021 08:22:14 -0400
+X-MC-Unique: q0PEdFelPAqRgPTskJ0Ugw-1
+Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+	15ICC7Ji030858; Fri, 18 Jun 2021 12:22:13 GMT
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+	by mx0b-00069f02.pphosted.com with ESMTP id 397jnqv53x-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 18 Jun 2021 12:22:13 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+	by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
+	15ICEw9r146864; Fri, 18 Jun 2021 12:22:12 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by userp3030.oracle.com with ESMTP id 396warbx5p-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 18 Jun 2021 12:22:12 +0000
+Received: from userp3030.oracle.com (userp3030.oracle.com [127.0.0.1])
+	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 15ICMBXM163826;
+	Fri, 18 Jun 2021 12:22:12 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+	by userp3030.oracle.com with ESMTP id 396warbx5e-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 18 Jun 2021 12:22:11 +0000
+Received: from abhmp0006.oracle.com (abhmp0006.oracle.com [141.146.116.12])
+	by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 15ICMBup027144;
+	Fri, 18 Jun 2021 12:22:11 GMT
+Received: from mwanda (/102.222.70.252)
+	by default (Oracle Beehive Gateway v4.0)
+	with ESMTP ; Fri, 18 Jun 2021 05:22:10 -0700
+Date: Fri, 18 Jun 2021 15:22:03 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: damien.lemoal@wdc.com
+Message-ID: <YMyP68Q7tNnn+ZpQ@mwanda>
 MIME-Version: 1.0
-In-Reply-To: <20210615132456.753241-2-hch@lst.de>
-User-Agent: Mutt/1.11.1 (2018-12-01)
+X-Proofpoint-GUID: vaCXTEjz1u_oTtBC0Tid8HHsaHLzdRS7
+X-Proofpoint-ORIG-GUID: vaCXTEjz1u_oTtBC0Tid8HHsaHLzdRS7
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -71,21 +83,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Fri, 18 Jun 2021 03:13:11 -0400
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Mike Snitzer <snitzer@redhat.com>, "David S. Miller" <davem@davemloft.net>,
-	Geoff Levand <geoff@infradead.org>, ceph-devel@vger.kernel.org,
-	linux-mips@vger.kernel.org, Dongsheng Yang <dongsheng.yang@easystack.cn>,
-	linux-kernel@vger.kernel.org,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	dm-devel@redhat.com, linux-arch@vger.kernel.org,
-	Thomas Gleixner <tglx@linutronix.de>,
-	linuxppc-dev@lists.ozlabs.org, Ilya Dryomov <idryomov@gmail.com>
-Subject: Re: [dm-devel] [PATCH 01/18] mm: add a kunmap_local_dirty helper
+Cc: dm-devel@redhat.com
+Subject: [dm-devel] [bug report] dm: introduce zone append emulation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -99,7 +100,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -108,76 +109,65 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 15, 2021 at 03:24:39PM +0200, Christoph Hellwig wrote:
-> Add a helper that calls flush_kernel_dcache_page before unmapping the
-> local mapping.  flush_kernel_dcache_page is required for all pages
-> potentially mapped into userspace that were written to using kmap*,
-> so having a helper that does the right thing can be very convenient.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  include/linux/highmem-internal.h | 7 +++++++
->  include/linux/highmem.h          | 4 ++++
->  2 files changed, 11 insertions(+)
-> 
-> diff --git a/include/linux/highmem-internal.h b/include/linux/highmem-internal.h
-> index 7902c7d8b55f..bd37706db147 100644
-> --- a/include/linux/highmem-internal.h
-> +++ b/include/linux/highmem-internal.h
-> @@ -224,4 +224,11 @@ do {								\
->  	__kunmap_local(__addr);					\
->  } while (0)
->  
-> +#define kunmap_local_dirty(__page, __addr)			\
+Hello Damien Le Moal,
 
-I think having to store the page and addr to return to kunmap_local_dirty() is
-going to be a pain in some code paths.  Not a show stopper but see below...
+The patch bb37d77239af: "dm: introduce zone append emulation" from
+May 26, 2021, leads to the following static checker warning:
 
-> +do {								\
-> +	if (!PageSlab(__page))					\
+	drivers/md/dm-zone.c:207 dm_zone_revalidate_cb()
+	error: kvmalloc() only makes sense with GFP_KERNEL
 
-Was there some clarification why the page can't be a Slab page?  Or is this
-just an optimization?
+drivers/md/dm-zone.c
+   179  static int dm_zone_revalidate_cb(struct blk_zone *zone, unsigned int idx,
+   180                                   void *data)
+   181  {
+   182          struct mapped_device *md = data;
+   183          struct request_queue *q = md->queue;
+   184  
+   185          switch (zone->type) {
+   186          case BLK_ZONE_TYPE_CONVENTIONAL:
+   187                  if (!q->conv_zones_bitmap) {
+   188                          q->conv_zones_bitmap =
+   189                                  kcalloc(BITS_TO_LONGS(q->nr_zones),
+   190                                          sizeof(unsigned long), GFP_NOIO);
+   191                          if (!q->conv_zones_bitmap)
+   192                                  return -ENOMEM;
+   193                  }
+   194                  set_bit(idx, q->conv_zones_bitmap);
+   195                  break;
+   196          case BLK_ZONE_TYPE_SEQWRITE_REQ:
+   197          case BLK_ZONE_TYPE_SEQWRITE_PREF:
+   198                  if (!q->seq_zones_wlock) {
+   199                          q->seq_zones_wlock =
+   200                                  kcalloc(BITS_TO_LONGS(q->nr_zones),
+   201                                          sizeof(unsigned long), GFP_NOIO);
+   202                          if (!q->seq_zones_wlock)
+   203                                  return -ENOMEM;
+   204                  }
+   205                  if (!md->zwp_offset) {
+   206                          md->zwp_offset =
+   207                                  kvcalloc(q->nr_zones, sizeof(unsigned int),
+   208                                           GFP_NOIO);
 
-> +		flush_kernel_dcache_page(__page);		\
+kvcalloc() does not respect the GFP_NOIO flag.
 
-Is this required on 32bit systems?  Why is kunmap_flush_on_unmap() not
-sufficient on 64bit systems?  The normal kunmap_local() path does that.
+   209                          if (!md->zwp_offset)
+   210                                  return -ENOMEM;
+   211                  }
+   212                  md->zwp_offset[idx] = dm_get_zone_wp_offset(zone);
+   213  
+   214                  break;
+   215          default:
+   216                  DMERR("Invalid zone type 0x%x at sectors %llu",
+   217                        (int)zone->type, zone->start);
+   218                  return -ENODEV;
+   219          }
+   220  
+   221          return 0;
+   222  }
 
-I'm sorry but I did not see a conclusion to my query on V1. Herbert implied the
-he just copied from the crypto code.[1]  I'm concerned that this _dirty() call
-is just going to confuse the users of kmap even more.  So why can't we get to
-the bottom of why flush_kernel_dcache_page() needs so much logic around it
-before complicating the general kernel users.
-
-I would like to see it go away if possible.
-
-Ira
-
-[1] https://lore.kernel.org/lkml/20210615050258.GA5208@gondor.apana.org.au/
-
-> +	kunmap_local(__addr);					\
-> +} while (0)
-> +
->  #endif
-> diff --git a/include/linux/highmem.h b/include/linux/highmem.h
-> index 832b49b50c7b..65f548db4f2d 100644
-> --- a/include/linux/highmem.h
-> +++ b/include/linux/highmem.h
-> @@ -93,6 +93,10 @@ static inline void kmap_flush_unused(void);
->   * On HIGHMEM enabled systems mapping a highmem page has the side effect of
->   * disabling migration in order to keep the virtual address stable across
->   * preemption. No caller of kmap_local_page() can rely on this side effect.
-> + *
-> + * If data is written to the returned kernel mapping, the callers needs to
-> + * unmap the mapping using kunmap_local_dirty(), else kunmap_local() should
-> + * be used.
->   */
->  static inline void *kmap_local_page(struct page *page);
->  
-> -- 
-> 2.30.2
-> 
+regards,
+dan carpenter
 
 --
 dm-devel mailing list
