@@ -1,75 +1,77 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B69903B5BC8
-	for <lists+dm-devel@lfdr.de>; Mon, 28 Jun 2021 11:54:03 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 75A923B5BB6
+	for <lists+dm-devel@lfdr.de>; Mon, 28 Jun 2021 11:53:04 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-260-EitrR3CXOFGAW3MxKkzaDw-1; Mon, 28 Jun 2021 05:53:05 -0400
-X-MC-Unique: EitrR3CXOFGAW3MxKkzaDw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-339-QnLqpLgEM1mipaMDQop3Qw-1; Mon, 28 Jun 2021 05:53:00 -0400
+X-MC-Unique: QnLqpLgEM1mipaMDQop3Qw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2E3A8100C666;
-	Mon, 28 Jun 2021 09:52:59 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F03935D6D1;
-	Mon, 28 Jun 2021 09:52:58 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AE02F36304;
+	Mon, 28 Jun 2021 09:52:52 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4F35548DD;
+	Mon, 28 Jun 2021 09:52:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ACB6F4EA3B;
-	Mon, 28 Jun 2021 09:52:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A7CFD1809CB2;
+	Mon, 28 Jun 2021 09:52:51 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 15S037iu027023 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 27 Jun 2021 20:03:07 -0400
+	id 15S03G6i027049 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 27 Jun 2021 20:03:16 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DE89B21623A2; Mon, 28 Jun 2021 00:03:06 +0000 (UTC)
+	id A09CA4367F; Mon, 28 Jun 2021 00:03:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DA10521623A1
-	for <dm-devel@redhat.com>; Mon, 28 Jun 2021 00:03:03 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9A5E84367C
+	for <dm-devel@redhat.com>; Mon, 28 Jun 2021 00:03:10 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0D3951064FAE
-	for <dm-devel@redhat.com>; Mon, 28 Jun 2021 00:03:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 56223802E5E
+	for <dm-devel@redhat.com>; Mon, 28 Jun 2021 00:03:10 +0000 (UTC)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
-	by relay.mimecast.com with ESMTP id us-mta-526-FkzXia1SOb2km3k0npHVtg-1;
-	Sun, 27 Jun 2021 20:03:00 -0400
-X-MC-Unique: FkzXia1SOb2km3k0npHVtg-1
-IronPort-HdrOrdr: =?us-ascii?q?A9a23=3AGQqGlqmcPjC+AJqqUeStSZ1TRGzpDfLI3DAb?=
-	=?us-ascii?q?v31ZSRFFG/Fxl6iV8sjzsiWE7gr5OUtQ4OxoV5PhfZqxz/JICMwqTNKftWrdyQ?=
-	=?us-ascii?q?yVxeNZnOjfKlTbckWUnINgPOVbAsxD4bbLbGSS4/yU3ODBKadD/DCYytHUuc7u?=
-	=?us-ascii?q?i2dqURpxa7xtqyNwCgOgGEVwQwVcbKBJb6a0145WoSa6Y3QLYoCeDnkBZeLKoN?=
-	=?us-ascii?q?rGj9bIehgDbiRXkjWmvHe57qLgCRiE0lM7WzNL+70r9m/IiEjYy8yYwomG9iM?=
-	=?us-ascii?q?=3D?=
-X-IronPort-AV: E=Sophos;i="5.83,304,1616428800"; d="scan'208";a="110256322"
+	by relay.mimecast.com with ESMTP id us-mta-445-vCEk0ZUUOkKU2VFUMHy4dw-1;
+	Sun, 27 Jun 2021 20:03:05 -0400
+X-MC-Unique: vCEk0ZUUOkKU2VFUMHy4dw-1
+IronPort-HdrOrdr: =?us-ascii?q?A9a23=3AWJU4YKyumXfXlyQA26UeKrPwyr1zdoMgy1kn?=
+	=?us-ascii?q?xilNoRw8SK2lfqeV7Y0mPH7P+U4ssR4b6LO90cW7Lk80sKQFhbX5Xo3SOjUO2l?=
+	=?us-ascii?q?HYTr2KhLGKq1aLdkHDH6xmpMBdmsNFaOEYY2IVsS+D2njcLz8/+qj6zImYwffZ?=
+	=?us-ascii?q?02x2TRxnL4Vp7wJCAA6dFUFsLTM2f6YRJd6N4NZdvTq8dTAyZsS/PHMMWO/OvJ?=
+	=?us-ascii?q?nlj5TjCCR2eiIP2U2fiy+y8r7mH1y91hcaaTlGxrAv6izkvmXCl96ej80=3D?=
+X-IronPort-AV: E=Sophos;i="5.83,304,1616428800"; d="scan'208";a="110256332"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
-	by heian.cn.fujitsu.com with ESMTP; 28 Jun 2021 08:02:57 +0800
+	by heian.cn.fujitsu.com with ESMTP; 28 Jun 2021 08:03:03 +0800
 Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
-	by cn.fujitsu.com (Postfix) with ESMTP id 3EC014D0BA67;
-	Mon, 28 Jun 2021 08:02:54 +0800 (CST)
-Received: from G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) by
+	by cn.fujitsu.com (Postfix) with ESMTP id 3E44C4D0BA6A;
+	Mon, 28 Jun 2021 08:03:01 +0800 (CST)
+Received: from G08CNEXJMPEKD02.g08.fujitsu.local (10.167.33.202) by
 	G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP
-	Server (TLS) id 15.0.1497.2; Mon, 28 Jun 2021 08:02:55 +0800
+	Server (TLS) id 15.0.1497.2; Mon, 28 Jun 2021 08:02:57 +0800
+Received: from G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.80) by
+	G08CNEXJMPEKD02.g08.fujitsu.local (10.167.33.202) with Microsoft SMTP
+	Server (TLS) id 15.0.1497.2; Mon, 28 Jun 2021 08:02:56 +0800
 Received: from irides.mr.mr.mr (10.167.225.141) by
 	G08CNEXCHPEKD07.g08.fujitsu.local (10.167.33.209) with Microsoft SMTP
 	Server
-	id 15.0.1497.2 via Frontend Transport; Mon, 28 Jun 2021 08:02:54 +0800
+	id 15.0.1497.2 via Frontend Transport; Mon, 28 Jun 2021 08:02:56 +0800
 From: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 To: <linux-kernel@vger.kernel.org>, <linux-xfs@vger.kernel.org>,
 	<nvdimm@lists.linux.dev>, <linux-mm@kvack.org>,
 	<linux-fsdevel@vger.kernel.org>, <dm-devel@redhat.com>
-Date: Mon, 28 Jun 2021 08:02:10 +0800
-Message-ID: <20210628000218.387833-2-ruansy.fnst@fujitsu.com>
+Date: Mon, 28 Jun 2021 08:02:11 +0800
+Message-ID: <20210628000218.387833-3-ruansy.fnst@fujitsu.com>
 In-Reply-To: <20210628000218.387833-1-ruansy.fnst@fujitsu.com>
 References: <20210628000218.387833-1-ruansy.fnst@fujitsu.com>
 MIME-Version: 1.0
-X-yoursite-MailScanner-ID: 3EC014D0BA67.A1167
+X-yoursite-MailScanner-ID: 3E44C4D0BA6A.A2802
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: ruansy.fnst@fujitsu.com
 X-Spam-Status: No
@@ -81,12 +83,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 28 Jun 2021 05:52:34 -0400
 Cc: snitzer@redhat.com, darrick.wong@oracle.com, rgoldwyn@suse.de,
 	david@fromorbit.com, dan.j.williams@intel.com, hch@lst.de, agk@redhat.com
-Subject: [dm-devel] [PATCH v5 1/9] pagemap: Introduce ->memory_failure()
+Subject: [dm-devel] [PATCH v5 2/9] dax: Introduce holder for dax_device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,7 +102,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -108,39 +110,154 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-When memory-failure occurs, we call this function which is implemented
-by each kind of devices.  For the fsdax case, pmem device driver
-implements it.  Pmem device driver will find out the filesystem in which
-the corrupted page located in.  And finally call filesystem handler to
-deal with this error.
+To easily track filesystem from a pmem device, we introduce a holder for
+dax_device structure, and also its operation.  This holder is used to
+remember who is using this dax_device:
+ - When it is the backend of a filesystem, the holder will be the
+   superblock of this filesystem.
+ - When this pmem device is one of the targets in a mapped device, the
+   holder will be this mapped device.  In this case, the mapped device
+   has its own dax_device and it will follow the first rule.  So that we
+   can finally track to the filesystem we needed.
 
-The filesystem will try to recover the corrupted data if necessary.
+The holder and holder_ops will be set when filesystem is being mounted,
+or an target device is being activated.
 
 Signed-off-by: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 ---
- include/linux/memremap.h | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/dax/super.c | 49 +++++++++++++++++++++++++++++++++++++++++++++
+ include/linux/dax.h | 17 ++++++++++++++++
+ 2 files changed, 66 insertions(+)
 
-diff --git a/include/linux/memremap.h b/include/linux/memremap.h
-index 45a79da89c5f..d96da47cc249 100644
---- a/include/linux/memremap.h
-+++ b/include/linux/memremap.h
-@@ -87,6 +87,15 @@ struct dev_pagemap_ops {
- 	 * the page back to a CPU accessible page.
- 	 */
- 	vm_fault_t (*migrate_to_ram)(struct vm_fault *vmf);
-+
-+	/*
-+	 * Handle the memory failure happens on a range of pfns.  Notify the
-+	 * processes who are using these pfns, and try to recover the data on
-+	 * them if necessary.  The flag is finally passed to the recover
-+	 * function through the whole notify routine.
-+	 */
-+	int (*memory_failure)(struct dev_pagemap *pgmap, unsigned long pfn,
-+			      unsigned long nr_pfns, int flags);
+diff --git a/drivers/dax/super.c b/drivers/dax/super.c
+index 5fa6ae9dbc8b..22f0aa3f2e13 100644
+--- a/drivers/dax/super.c
++++ b/drivers/dax/super.c
+@@ -222,8 +222,11 @@ struct dax_device {
+ 	struct cdev cdev;
+ 	const char *host;
+ 	void *private;
++	struct rw_semaphore holder_rwsem;
++	void *holder_data;
+ 	unsigned long flags;
+ 	const struct dax_operations *ops;
++	const struct dax_holder_operations *holder_ops;
  };
 
- #define PGMAP_ALTMAP_VALID	(1 << 0)
+ static ssize_t write_cache_show(struct device *dev,
+@@ -373,6 +376,24 @@ int dax_zero_page_range(struct dax_device *dax_dev, pgoff_t pgoff,
+ }
+ EXPORT_SYMBOL_GPL(dax_zero_page_range);
+
++int dax_holder_notify_failure(struct dax_device *dax_dev, loff_t offset,
++			      size_t size, void *data)
++{
++	int rc = -ENXIO;
++	if (!dax_dev)
++		return rc;
++
++	if (dax_dev->holder_data) {
++		rc = dax_dev->holder_ops->notify_failure(dax_dev, offset,
++							 size, data);
++		if (rc == -ENODEV)
++			rc = -ENXIO;
++	} else
++		rc = -EOPNOTSUPP;
++	return rc;
++}
++EXPORT_SYMBOL_GPL(dax_holder_notify_failure);
++
+ #ifdef CONFIG_ARCH_HAS_PMEM_API
+ void arch_wb_cache_pmem(void *addr, size_t size);
+ void dax_flush(struct dax_device *dax_dev, void *addr, size_t size)
+@@ -603,6 +624,7 @@ struct dax_device *alloc_dax(void *private, const char *__host,
+ 	dax_add_host(dax_dev, host);
+ 	dax_dev->ops = ops;
+ 	dax_dev->private = private;
++	init_rwsem(&dax_dev->holder_rwsem);
+ 	if (flags & DAXDEV_F_SYNC)
+ 		set_dax_synchronous(dax_dev);
+
+@@ -624,6 +646,33 @@ void put_dax(struct dax_device *dax_dev)
+ }
+ EXPORT_SYMBOL_GPL(put_dax);
+
++void dax_set_holder(struct dax_device *dax_dev, void *holder,
++		const struct dax_holder_operations *ops)
++{
++	if (!dax_dev)
++		return;
++	down_write(&dax_dev->holder_rwsem);
++	dax_dev->holder_data = holder;
++	dax_dev->holder_ops = ops;
++	up_write(&dax_dev->holder_rwsem);
++}
++EXPORT_SYMBOL_GPL(dax_set_holder);
++
++void *dax_get_holder(struct dax_device *dax_dev)
++{
++	void *holder_data;
++
++	if (!dax_dev)
++		return NULL;
++
++	down_read(&dax_dev->holder_rwsem);
++	holder_data = dax_dev->holder_data;
++	up_read(&dax_dev->holder_rwsem);
++
++	return holder_data;
++}
++EXPORT_SYMBOL_GPL(dax_get_holder);
++
+ /**
+  * dax_get_by_host() - temporary lookup mechanism for filesystem-dax
+  * @host: alternate name for the device registered by a dax driver
+diff --git a/include/linux/dax.h b/include/linux/dax.h
+index b52f084aa643..6f4b5c97ceb0 100644
+--- a/include/linux/dax.h
++++ b/include/linux/dax.h
+@@ -38,10 +38,17 @@ struct dax_operations {
+ 	int (*zero_page_range)(struct dax_device *, pgoff_t, size_t);
+ };
+
++struct dax_holder_operations {
++	int (*notify_failure)(struct dax_device *, loff_t, size_t, void *);
++};
++
+ extern struct attribute_group dax_attribute_group;
+
+ #if IS_ENABLED(CONFIG_DAX)
+ struct dax_device *dax_get_by_host(const char *host);
++void dax_set_holder(struct dax_device *dax_dev, void *holder,
++		const struct dax_holder_operations *ops);
++void *dax_get_holder(struct dax_device *dax_dev);
+ struct dax_device *alloc_dax(void *private, const char *host,
+ 		const struct dax_operations *ops, unsigned long flags);
+ void put_dax(struct dax_device *dax_dev);
+@@ -77,6 +84,14 @@ static inline struct dax_device *dax_get_by_host(const char *host)
+ {
+ 	return NULL;
+ }
++static inline void dax_set_holder(struct dax_device *dax_dev, void *holder,
++		const struct dax_holder_operations *ops)
++{
++}
++static inline void *dax_get_holder(struct dax_device *dax_dev)
++{
++	return NULL;
++}
+ static inline struct dax_device *alloc_dax(void *private, const char *host,
+ 		const struct dax_operations *ops, unsigned long flags)
+ {
+@@ -226,6 +241,8 @@ size_t dax_copy_to_iter(struct dax_device *dax_dev, pgoff_t pgoff, void *addr,
+ 		size_t bytes, struct iov_iter *i);
+ int dax_zero_page_range(struct dax_device *dax_dev, pgoff_t pgoff,
+ 			size_t nr_pages);
++int dax_holder_notify_failure(struct dax_device *dax_dev, loff_t offset,
++		size_t size, void *data);
+ void dax_flush(struct dax_device *dax_dev, void *addr, size_t size);
+
+ ssize_t dax_iomap_rw(struct kiocb *iocb, struct iov_iter *iter,
 --
 2.32.0
 
