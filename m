@@ -1,87 +1,58 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 7B3983B6E7D
-	for <lists+dm-devel@lfdr.de>; Tue, 29 Jun 2021 09:01:26 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 8355C3B7189
+	for <lists+dm-devel@lfdr.de>; Tue, 29 Jun 2021 13:48:28 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-180-FWKcXPgwO5iIX7OvBypT-A-1; Tue, 29 Jun 2021 03:01:19 -0400
-X-MC-Unique: FWKcXPgwO5iIX7OvBypT-A-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-423-LvWrRDtKO8Ky2BxpwPaRDA-1; Tue, 29 Jun 2021 07:48:25 -0400
+X-MC-Unique: LvWrRDtKO8Ky2BxpwPaRDA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1DEC2192CC42;
-	Tue, 29 Jun 2021 07:01:12 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 86CAE5D6AD;
-	Tue, 29 Jun 2021 07:01:05 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CA8B1824F96;
+	Tue, 29 Jun 2021 11:48:17 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5633C5DA60;
+	Tue, 29 Jun 2021 11:48:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AD0371809C99;
-	Tue, 29 Jun 2021 07:00:51 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 794A04EA2A;
+	Tue, 29 Jun 2021 11:48:01 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 15T70aUZ014967 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 29 Jun 2021 03:00:36 -0400
+	id 15TBlkPc006682 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 29 Jun 2021 07:47:46 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 42B63112D409; Tue, 29 Jun 2021 07:00:36 +0000 (UTC)
+	id 14F5221623B4; Tue, 29 Jun 2021 11:47:46 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3E13E112D403
-	for <dm-devel@redhat.com>; Tue, 29 Jun 2021 07:00:33 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 10F6E2138CF0
+	for <dm-devel@redhat.com>; Tue, 29 Jun 2021 11:47:43 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5871B8037A1
-	for <dm-devel@redhat.com>; Tue, 29 Jun 2021 07:00:33 +0000 (UTC)
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
-	[205.220.177.32]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-82-rE36OXY3OAuqSbZeQki9lQ-1; Tue, 29 Jun 2021 03:00:28 -0400
-X-MC-Unique: rE36OXY3OAuqSbZeQki9lQ-1
-Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
-	15T6qCkD017030; Tue, 29 Jun 2021 07:00:24 GMT
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
-	by mx0b-00069f02.pphosted.com with ESMTP id 39f7uu2nkk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 29 Jun 2021 07:00:24 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
-	by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id
-	15T6xoeU055836; Tue, 29 Jun 2021 07:00:23 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by aserp3020.oracle.com with ESMTP id 39dv251ms8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 29 Jun 2021 07:00:23 +0000
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [127.0.0.1])
-	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 15T70Mw2058603;
-	Tue, 29 Jun 2021 07:00:22 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
-	by aserp3020.oracle.com with ESMTP id 39dv251mrh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 29 Jun 2021 07:00:22 +0000
-Received: from abhmp0019.oracle.com (abhmp0019.oracle.com [141.146.116.25])
-	by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 15T70J6g020274;
-	Tue, 29 Jun 2021 07:00:19 GMT
-Received: from kadam (/102.222.70.252) by default (Oracle Beehive Gateway v4.0)
-	with ESMTP ; Tue, 29 Jun 2021 00:00:19 -0700
-Date: Tue, 29 Jun 2021 10:00:10 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: kbuild@lists.01.org, mwilck@suse.com, Mike Snitzer <snitzer@redhat.com>,
-	Alasdair G Kergon <agk@redhat.com>,
-	Bart Van Assche <Bart.VanAssche@sandisk.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	linux-scsi@vger.kernel.org, dm-devel@redhat.com,
-	Hannes Reinecke <hare@suse.de>
-Message-ID: <202106282356.dKNkiTUO-lkp@intel.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ECE739676EB
+	for <dm-devel@redhat.com>; Tue, 29 Jun 2021 11:47:42 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-211-EBt7eFnLMl2hwQ2EGChGAA-1; Tue, 29 Jun 2021 07:47:40 -0400
+X-MC-Unique: EBt7eFnLMl2hwQ2EGChGAA-1
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+	Hat Linux)) id 1lyCCI-0043Q8-DZ; Tue, 29 Jun 2021 11:46:40 +0000
+Date: Tue, 29 Jun 2021 12:46:34 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: "ruansy.fnst@fujitsu.com" <ruansy.fnst@fujitsu.com>
+Message-ID: <YNsIGid6CwtH/h1Z@casper.infradead.org>
+References: <20210628000218.387833-1-ruansy.fnst@fujitsu.com>
+	<20210628000218.387833-6-ruansy.fnst@fujitsu.com>
+	<YNm3VeeWuI0m4Vcx@casper.infradead.org>
+	<OSBPR01MB292012F7C264076E9AA645C3F4029@OSBPR01MB2920.jpnprd01.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <20210628095210.26249-3-mwilck@suse.com>
-Message-ID-Hash: IRD7CG4UZAG2EYZJ7F52EJJBUWZF7ZWB
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-ORIG-GUID: DqxcFkkAexUvoS_yb1Y_fZ6GTTM60I3y
-X-Proofpoint-GUID: DqxcFkkAexUvoS_yb1Y_fZ6GTTM60I3y
+In-Reply-To: <OSBPR01MB292012F7C264076E9AA645C3F4029@OSBPR01MB2920.jpnprd01.prod.outlook.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -90,12 +61,22 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: linux-block@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
-	kbuild-all@lists.01.org, lkp@intel.com, Daniel Wagner <dwagner@suse.de>
-Subject: [dm-devel] [kbuild] Re: [PATCH v4 2/3] scsi: scsi_ioctl: add
- sg_io_to_blk_status()
+Cc: "nvdimm@lists.linux.dev" <nvdimm@lists.linux.dev>,
+	"snitzer@redhat.com" <snitzer@redhat.com>,
+	"darrick.wong@oracle.com" <darrick.wong@oracle.com>,
+	"rgoldwyn@suse.de" <rgoldwyn@suse.de>,
+	"david@fromorbit.com" <david@fromorbit.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
+	"linux-mm@kvack.org" <linux-mm@kvack.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+	"dan.j.williams@intel.com" <dan.j.williams@intel.com>,
+	"hch@lst.de" <hch@lst.de>, "agk@redhat.com" <agk@redhat.com>
+Subject: Re: [dm-devel] [PATCH v5 5/9] mm: Introduce mf_dax_kill_procs() for
+	fsdax case
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -109,7 +90,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -118,61 +99,24 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi,
+On Tue, Jun 29, 2021 at 07:49:24AM +0000, ruansy.fnst@fujitsu.com wrote:
+> > But I think this is unnecessary; why not just pass the PFN into mf_dax_kill_procs?
+> 
+> Because the mf_dax_kill_procs() is called in filesystem recovery function, which is at the end of the RMAP routine.  And the PFN has been translated to disk offset in pmem driver in order to do RMAP search in filesystem.  So, if we have to pass it, every function in this routine needs to add an argument for this PFN.  I was hoping I can avoid passing PFN through the whole stack with the help of this dax_load_pfn().
 
-url:    https://github.com/0day-ci/linux/commits/mwilck-suse-com/scsi-dm-dm_blk_ioctl-implement-failover-for-SG_IO-on-dm-multipath/20210628-175410 
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/mkp/scsi.git  for-next
-config: xtensa-randconfig-s032-20210628 (attached as .config)
-compiler: xtensa-linux-gcc (GCC) 9.3.0
-reproduce:
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross  -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # apt-get install sparse
-        # sparse version: v0.6.3-341-g8af24329-dirty
-        # https://github.com/0day-ci/linux/commit/259453ca972ae531cfdca07cbf4d6bb09b8f8c9f 
-        git remote add linux-review https://github.com/0day-ci/linux 
-        git fetch --no-tags linux-review mwilck-suse-com/scsi-dm-dm_blk_ioctl-implement-failover-for-SG_IO-on-dm-multipath/20210628-175410
-        git checkout 259453ca972ae531cfdca07cbf4d6bb09b8f8c9f
-        # save the attached .config to linux build tree
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-9.3.0 make.cross C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__' O=build_dir ARCH=xtensa SHELL=/bin/bash
+OK, I think you need to create:
 
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
+struct memory_failure {
+	phys_addr_t start;
+	phys_addr_t end;
+	unsigned long flags;
+};
 
-sparse warnings: (new ones prefixed by >>)
->> block/scsi_ioctl.c:937:24: sparse: sparse: dubious: !x & y
+(a memory failure might not be an entire page, so working in pfns isn't
+the best approach)
 
-vim +937 block/scsi_ioctl.c
-
-259453ca972ae5 Martin Wilck 2021-06-28  932  blk_status_t sg_io_to_blk_status(struct sg_io_hdr *hdr)
-259453ca972ae5 Martin Wilck 2021-06-28  933  {
-259453ca972ae5 Martin Wilck 2021-06-28  934  	int result;
-259453ca972ae5 Martin Wilck 2021-06-28  935  	blk_status_t sts;
-259453ca972ae5 Martin Wilck 2021-06-28  936  
-259453ca972ae5 Martin Wilck 2021-06-28 @937  	if (!hdr->info & SG_INFO_CHECK)
-                                                    ^
-Should be if (!(hdr->info & SG_INFO_CHECK))
-
-259453ca972ae5 Martin Wilck 2021-06-28  938  		return BLK_STS_OK;
-259453ca972ae5 Martin Wilck 2021-06-28  939  
-259453ca972ae5 Martin Wilck 2021-06-28  940  	result = hdr->status |
-259453ca972ae5 Martin Wilck 2021-06-28  941  		(hdr->msg_status << 8) |
-259453ca972ae5 Martin Wilck 2021-06-28  942  		(hdr->host_status << 16) |
-259453ca972ae5 Martin Wilck 2021-06-28  943  		(hdr->driver_status << 24);
-259453ca972ae5 Martin Wilck 2021-06-28  944  
-259453ca972ae5 Martin Wilck 2021-06-28  945  	sts = __scsi_result_to_blk_status(&result, result);
-259453ca972ae5 Martin Wilck 2021-06-28  946  	hdr->host_status = host_byte(result);
-259453ca972ae5 Martin Wilck 2021-06-28  947  
-259453ca972ae5 Martin Wilck 2021-06-28  948  	return sts;
-259453ca972ae5 Martin Wilck 2021-06-28  949  }
-
----
-0-DAY CI Kernel Test Service, Intel Corporation
-https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org 
-
-_______________________________________________
-kbuild mailing list -- kbuild@lists.01.org
-To unsubscribe send an email to kbuild-leave@lists.01.org
+Then that can be passed to ->memory_failure() and then deeper to
+->notify_failure(), and finally into xfs_corrupt_helper().
 
 --
 dm-devel mailing list
