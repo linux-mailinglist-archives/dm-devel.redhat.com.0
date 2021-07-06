@@ -2,53 +2,52 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E119F3BCE6B
-	for <lists+dm-devel@lfdr.de>; Tue,  6 Jul 2021 13:25:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BFACC3BCF17
+	for <lists+dm-devel@lfdr.de>; Tue,  6 Jul 2021 13:27:29 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-172-KTG4sbrQMCiLNGeMSb3Jcg-1; Tue, 06 Jul 2021 07:25:55 -0400
-X-MC-Unique: KTG4sbrQMCiLNGeMSb3Jcg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-44-R1rf9_2QPSKBaKie-0PKQw-1; Tue, 06 Jul 2021 07:27:26 -0400
+X-MC-Unique: R1rf9_2QPSKBaKie-0PKQw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CF744101F000;
-	Tue,  6 Jul 2021 11:25:50 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 881EB5D9D5;
-	Tue,  6 Jul 2021 11:25:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 18DCF100CA8A;
+	Tue,  6 Jul 2021 11:27:21 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D593410023AB;
+	Tue,  6 Jul 2021 11:27:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7B9444EA2A;
-	Tue,  6 Jul 2021 11:25:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 311D71809C99;
+	Tue,  6 Jul 2021 11:27:18 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 166BPkWV026585 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 6 Jul 2021 07:25:46 -0400
+	id 166BRCWF026693 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 6 Jul 2021 07:27:12 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E00E41134CC7; Tue,  6 Jul 2021 11:25:45 +0000 (UTC)
+	id 478D66E1B4; Tue,  6 Jul 2021 11:27:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DBB711002941
-	for <dm-devel@redhat.com>; Tue,  6 Jul 2021 11:25:40 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C102B8726CA
-	for <dm-devel@redhat.com>; Tue,  6 Jul 2021 11:25:40 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 435866E1D6
+	for <dm-devel@redhat.com>; Tue,  6 Jul 2021 11:27:09 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 947CE805A30
+	for <dm-devel@redhat.com>; Tue,  6 Jul 2021 11:27:09 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-453-6NLpNxu4NwGKqCIuA7o0Ow-1;
-	Tue, 06 Jul 2021 07:25:38 -0400
-X-MC-Unique: 6NLpNxu4NwGKqCIuA7o0Ow-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8D29E61EA5;
-	Tue,  6 Jul 2021 11:25:36 +0000 (UTC)
+	by relay.mimecast.com with ESMTP id us-mta-23-dgAnL1RIMYOIGP25xgtqWQ-1; 
+	Tue, 06 Jul 2021 07:27:07 -0400
+X-MC-Unique: dgAnL1RIMYOIGP25xgtqWQ-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 56DFA61EFD;
+	Tue,  6 Jul 2021 11:27:05 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue,  6 Jul 2021 07:24:15 -0400
-Message-Id: <20210706112502.2064236-27-sashal@kernel.org>
-In-Reply-To: <20210706112502.2064236-1-sashal@kernel.org>
-References: <20210706112502.2064236-1-sashal@kernel.org>
+Date: Tue,  6 Jul 2021 07:26:04 -0400
+Message-Id: <20210706112638.2065023-21-sashal@kernel.org>
+In-Reply-To: <20210706112638.2065023-1-sashal@kernel.org>
+References: <20210706112638.2065023-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -60,11 +59,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: Sasha Levin <sashal@kernel.org>, Joe Thornber <ejt@redhat.com>,
 	dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>
-Subject: [dm-devel] [PATCH AUTOSEL 5.4 27/74] dm space maps: don't reset
+Subject: [dm-devel] [PATCH AUTOSEL 4.19 21/55] dm space maps: don't reset
 	space map allocation cursor when committing
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -79,7 +78,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
