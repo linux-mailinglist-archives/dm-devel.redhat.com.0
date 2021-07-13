@@ -1,54 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id EA78E3C67BD
-	for <lists+dm-devel@lfdr.de>; Tue, 13 Jul 2021 02:56:17 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 5CBC73C67B9
+	for <lists+dm-devel@lfdr.de>; Tue, 13 Jul 2021 02:56:13 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-594-xri_iCuTPl66F3Opqmgh8Q-1; Mon, 12 Jul 2021 20:56:15 -0400
-X-MC-Unique: xri_iCuTPl66F3Opqmgh8Q-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-425-yLvqi9tRN8K-6P4edWZTxA-1; Mon, 12 Jul 2021 20:56:10 -0400
+X-MC-Unique: yLvqi9tRN8K-6P4edWZTxA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C4BBF804301;
-	Tue, 13 Jul 2021 00:56:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 04F26804302;
+	Tue, 13 Jul 2021 00:56:05 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9C63C5C25D;
-	Tue, 13 Jul 2021 00:56:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CD9354536;
+	Tue, 13 Jul 2021 00:56:04 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 50EB94EA39;
-	Tue, 13 Jul 2021 00:56:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5B1C24EA39;
+	Tue, 13 Jul 2021 00:56:04 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16D0thoB025260 for <dm-devel@listman.util.phx.redhat.com>;
+	id 16D0thCc025286 for <dm-devel@listman.util.phx.redhat.com>;
 	Mon, 12 Jul 2021 20:55:43 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 085F1B5503; Tue, 13 Jul 2021 00:55:43 +0000 (UTC)
+	id 608062033972; Tue, 13 Jul 2021 00:55:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F4065C77CD
-	for <dm-devel@redhat.com>; Tue, 13 Jul 2021 00:55:41 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7A49E80D08E
-	for <dm-devel@redhat.com>; Tue, 13 Jul 2021 00:55:41 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5C1CD20341A2
+	for <dm-devel@redhat.com>; Tue, 13 Jul 2021 00:55:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D6BE389B848
+	for <dm-devel@redhat.com>; Tue, 13 Jul 2021 00:55:39 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-441-ZW2fDgo2N9q72UrbNiz6Bw-1;
-	Mon, 12 Jul 2021 20:55:39 -0400
-X-MC-Unique: ZW2fDgo2N9q72UrbNiz6Bw-1
+	relay.mimecast.com with ESMTP id us-mta-549-xunb3OhGNTa5neZ3Iv5Z2w-1;
+	Mon, 12 Jul 2021 20:55:38 -0400
+X-MC-Unique: xunb3OhGNTa5neZ3Iv5Z2w-1
 Received: from Lenovo-Legion-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
 	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id E9CCC20B83F8;
-	Mon, 12 Jul 2021 17:49:13 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E9CCC20B83F8
+	by linux.microsoft.com (Postfix) with ESMTPSA id 49B5720B83FC;
+	Mon, 12 Jul 2021 17:49:14 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 49B5720B83FC
 From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
 To: dm-devel@redhat.com, agk@redhat.com, snitzer@redhat.com
-Date: Mon, 12 Jul 2021 17:49:03 -0700
-Message-Id: <20210713004904.8808-7-tusharsu@linux.microsoft.com>
+Date: Mon, 12 Jul 2021 17:49:04 -0700
+Message-Id: <20210713004904.8808-8-tusharsu@linux.microsoft.com>
 In-Reply-To: <20210713004904.8808-1-tusharsu@linux.microsoft.com>
 References: <20210713004904.8808-1-tusharsu@linux.microsoft.com>
 MIME-Version: 1.0
@@ -60,14 +61,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 16D0thoB025260
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 16D0thCc025286
 X-loop: dm-devel@redhat.com
 Cc: tusharsu@linux.microsoft.com, nramas@linux.microsoft.com,
 	linux-integrity@vger.kernel.org, zohar@linux.ibm.com
-Subject: [dm-devel] [PATCH 6/7] dm: update target specific status functions
-	to measure data
+Subject: [dm-devel] [PATCH 7/7] dm: add documentation for IMA measurement
+	support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,814 +82,282 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-For device mapper targets to take advantage of IMA's measurement
-capabilities, the status functions for the individual targets need to be
-updated to handle the status_type_t case for value STATUSTYPE_IMA.
-
-Update status functions for the following target types, to log their
-respective attributes to be measured using IMA.
- 01. cache
- 02. crypt
- 03. integrity
- 04. linear
- 05. mirror
- 06. multipath
- 07. raid
- 08. snapshot
- 09. striped
- 10. verity 
-
-For rest of the targets, handle the STATUSTYPE_IMA case by setting the 
-measurement buffer to NULL.
-
-For IMA to measure the data on a given system, the IMA policy on the
-system needs to be updated to have the following line, and the system 
-needs to be restarted for the measurements to take effect.
-
-/etc/ima/ima-policy
- measure func=CRITICAL_DATA label=device-mapper template=ima-buf
-
-The measurements will be reflected in the IMA logs, which are located at:
-
-/sys/kernel/security/integrity/ima/ascii_runtime_measurements
-/sys/kernel/security/integrity/ima/binary_runtime_measurements
-
-These IMA logs can later be consumed by various attestation clients
-running on the system, and send them to external services for attesting
-the system.
-
-The DM target data measured by IMA subsystem can alternatively
-be queried from userspace by setting DM_IMA_MEASUREMENT_FLAG with
-DM_TABLE_STATUS_CMD.
-
-Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
----
- drivers/md/dm-cache-target.c               | 24 ++++++++++++
- drivers/md/dm-clone-target.c               |  7 ++++
- drivers/md/dm-crypt.c                      | 29 ++++++++++++++
- drivers/md/dm-delay.c                      |  4 ++
- drivers/md/dm-dust.c                       |  4 ++
- drivers/md/dm-ebs-target.c                 |  3 ++
- drivers/md/dm-era-target.c                 |  4 ++
- drivers/md/dm-flakey.c                     |  4 ++
- drivers/md/dm-integrity.c                  | 24 ++++++++++++
- drivers/md/dm-linear.c                     |  8 ++++
- drivers/md/dm-log-userspace-base.c         |  3 ++
- drivers/md/dm-log-writes.c                 |  4 ++
- drivers/md/dm-log.c                        | 10 +++++
- drivers/md/dm-mpath.c                      | 29 ++++++++++++++
- drivers/md/dm-ps-historical-service-time.c |  3 ++
- drivers/md/dm-ps-io-affinity.c             |  3 ++
- drivers/md/dm-ps-queue-length.c            |  3 ++
- drivers/md/dm-ps-round-robin.c             |  4 ++
- drivers/md/dm-ps-service-time.c            |  3 ++
- drivers/md/dm-raid.c                       | 39 +++++++++++++++++++
- drivers/md/dm-raid1.c                      | 18 +++++++++
- drivers/md/dm-snap-persistent.c            |  4 ++
- drivers/md/dm-snap-transient.c             |  4 ++
- drivers/md/dm-snap.c                       | 13 +++++++
- drivers/md/dm-stripe.c                     | 16 ++++++++
- drivers/md/dm-switch.c                     |  4 ++
- drivers/md/dm-thin.c                       |  8 ++++
- drivers/md/dm-unstripe.c                   |  4 ++
- drivers/md/dm-verity-target.c              | 45 ++++++++++++++++++++++
- drivers/md/dm-writecache.c                 |  3 ++
- drivers/md/dm-zoned-target.c               |  3 ++
- include/linux/device-mapper.h              |  4 ++
- 32 files changed, 338 insertions(+)
-
-diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
-index 6ab01ff25747..f1299e481d9d 100644
---- a/drivers/md/dm-cache-target.c
-+++ b/drivers/md/dm-cache-target.c
-@@ -3192,6 +3192,30 @@ static void cache_status(struct dm_target *ti, status_type_t type,
- 			DMEMIT(" %s", cache->ctr_args[i]);
- 		if (cache->nr_ctr_args)
- 			DMEMIT(" %s", cache->ctr_args[cache->nr_ctr_args - 1]);
-+		break;
-+
-+	case STATUSTYPE_IMA:
-+		DMEMIT_NAME_VERSION(ti->type);
-+
-+		if (get_cache_mode(cache) == CM_FAIL)
-+			DMEMIT("metadata_mode=fail,");
-+		else if (get_cache_mode(cache) == CM_READ_ONLY)
-+			DMEMIT("metadata_mode=ro,");
-+		else
-+			DMEMIT("metadata_mode=rw,");
-+
-+		format_dev_t(buf, cache->metadata_dev->bdev->bd_dev);
-+		DMEMIT("cache_metadata_device=%s,", buf);
-+		format_dev_t(buf, cache->cache_dev->bdev->bd_dev);
-+		DMEMIT("cache_device=%s,", buf);
-+		format_dev_t(buf, cache->origin_dev->bdev->bd_dev);
-+		DMEMIT("cache_origin_device=%s,", buf);
-+		DMEMIT("writethrough=%c,", writethrough_mode(cache) ? 'y' : 'n');
-+		DMEMIT("writeback=%c,", writeback_mode(cache) ? 'y' : 'n');
-+		DMEMIT("passthrough=%c,", passthrough_mode(cache) ? 'y' : 'n');
-+		DMEMIT("metadata2=%c,", cache->features.metadata_version == 2 ? 'y' : 'n');
-+		DMEMIT("no_discard_passdown=%c;", cache->features.discard_passdown ? 'n' : 'y');
-+		break;
- 	}
- 
- 	return;
-diff --git a/drivers/md/dm-clone-target.c b/drivers/md/dm-clone-target.c
-index a90bdf9b2ca6..506d4d70b8b9 100644
---- a/drivers/md/dm-clone-target.c
-+++ b/drivers/md/dm-clone-target.c
-@@ -1499,6 +1499,13 @@ static void clone_status(struct dm_target *ti, status_type_t type,
- 
- 		for (i = 0; i < clone->nr_ctr_args; i++)
- 			DMEMIT(" %s", clone->ctr_args[i]);
-+
-+		break;
-+
-+	case STATUSTYPE_IMA:
-+		*result = '\0';
-+
-+		break;
- 	}
- 
- 	return;
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index b0ab080f2567..b7b72f31a7c6 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -3473,6 +3473,35 @@ static void crypt_status(struct dm_target *ti, status_type_t type,
- 				DMEMIT(" iv_large_sectors");
- 		}
- 
-+		break;
-+
-+	case STATUSTYPE_IMA:
-+		DMEMIT_NAME_VERSION(ti->type);
-+
-+		DMEMIT("allow_discards=%c,", ti->num_discard_bios ? 'y' : 'n');
-+		DMEMIT("same_cpu=%c,", test_bit(DM_CRYPT_SAME_CPU, &cc->flags) ? 'y' : 'n');
-+		DMEMIT("submit_from_crypt_cpus=%c,", test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags) ?
-+		       'y' : 'n');
-+		DMEMIT("no_read_workqueue=%c,", test_bit(DM_CRYPT_NO_READ_WORKQUEUE, &cc->flags) ?
-+		       'y' : 'n');
-+		DMEMIT("no_write_workqueue=%c,", test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags) ?
-+		       'y' : 'n');
-+		DMEMIT("iv_large_sectors=%c", test_bit(CRYPT_IV_LARGE_SECTORS, &cc->cipher_flags) ?
-+		       'y' : 'n');
-+
-+		if (cc->on_disk_tag_size)
-+			DMEMIT(",integrity_tag_size=%u,cipher_auth=%s",
-+				cc->on_disk_tag_size, cc->cipher_auth);
-+		if (cc->sector_size != (1 << SECTOR_SHIFT))
-+			DMEMIT(",sector_size=%d", cc->sector_size);
-+		if (cc->cipher_string)
-+			DMEMIT(",cipher_string=%s", cc->cipher_string);
-+
-+		DMEMIT(",key_size=%u", cc->key_size);
-+		DMEMIT(",key_parts=%u", cc->key_parts);
-+		DMEMIT(",key_extra_size=%u", cc->key_extra_size);
-+		DMEMIT(",key_mac_size=%u;", cc->key_mac_size);
-+
- 		break;
- 	}
- }
-diff --git a/drivers/md/dm-delay.c b/drivers/md/dm-delay.c
-index 2628a832787b..59e51d285b0e 100644
---- a/drivers/md/dm-delay.c
-+++ b/drivers/md/dm-delay.c
-@@ -326,6 +326,10 @@ static void delay_status(struct dm_target *ti, status_type_t type,
- 			DMEMIT_DELAY_CLASS(&dc->flush);
- 		}
- 		break;
-+
-+	case STATUSTYPE_IMA:
-+		*result = '\0';
-+		break;
- 	}
- }
- 
-diff --git a/drivers/md/dm-dust.c b/drivers/md/dm-dust.c
-index cbe1058ee589..3163e2b1418e 100644
---- a/drivers/md/dm-dust.c
-+++ b/drivers/md/dm-dust.c
-@@ -527,6 +527,10 @@ static void dust_status(struct dm_target *ti, status_type_t type,
- 		DMEMIT("%s %llu %u", dd->dev->name,
- 		       (unsigned long long)dd->start, dd->blksz);
- 		break;
-+
-+	case STATUSTYPE_IMA:
-+		*result = '\0';
-+		break;
- 	}
- }
- 
-diff --git a/drivers/md/dm-ebs-target.c b/drivers/md/dm-ebs-target.c
-index 71475a2410be..ec8426611cc6 100644
---- a/drivers/md/dm-ebs-target.c
-+++ b/drivers/md/dm-ebs-target.c
-@@ -401,6 +401,9 @@ static void ebs_status(struct dm_target *ti, status_type_t type,
- 		snprintf(result, maxlen, ec->u_bs_set ? "%s %llu %u %u" : "%s %llu %u",
- 			 ec->dev->name, (unsigned long long) ec->start, ec->e_bs, ec->u_bs);
- 		break;
-+	case STATUSTYPE_IMA:
-+		*result = '\0';
-+		break;
- 	}
- }
- 
-diff --git a/drivers/md/dm-era-target.c b/drivers/md/dm-era-target.c
-index d9ac7372108c..08beb311e2e0 100644
---- a/drivers/md/dm-era-target.c
-+++ b/drivers/md/dm-era-target.c
-@@ -1640,6 +1640,10 @@ static void era_status(struct dm_target *ti, status_type_t type,
- 		format_dev_t(buf, era->origin_dev->bdev->bd_dev);
- 		DMEMIT("%s %u", buf, era->sectors_per_block);
- 		break;
-+
-+	case STATUSTYPE_IMA:
-+		*result = '\0';
-+		break;
- 	}
- 
- 	return;
-diff --git a/drivers/md/dm-flakey.c b/drivers/md/dm-flakey.c
-index b7fee9936f05..8720e1a4873b 100644
---- a/drivers/md/dm-flakey.c
-+++ b/drivers/md/dm-flakey.c
-@@ -440,6 +440,10 @@ static void flakey_status(struct dm_target *ti, status_type_t type,
- 			       fc->corrupt_bio_value, fc->corrupt_bio_flags);
- 
- 		break;
-+
-+	case STATUSTYPE_IMA:
-+		result[0] = '\0';
-+		break;
- 	}
- }
- 
-diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-index 20f2510db1f6..59f5618143fc 100644
---- a/drivers/md/dm-integrity.c
-+++ b/drivers/md/dm-integrity.c
-@@ -3306,6 +3306,30 @@ static void dm_integrity_status(struct dm_target *ti, status_type_t type,
- 		EMIT_ALG(journal_mac_alg, "journal_mac");
- 		break;
- 	}
-+	case STATUSTYPE_IMA:
-+		DMEMIT_NAME_VERSION(ti->type);
-+		DMEMIT("dev_name=%s,start=%llu,tag_size=%u,mode=%c",
-+			ic->dev->name, ic->start, ic->tag_size, ic->mode);
-+
-+		if (ic->meta_dev)
-+			DMEMIT(",meta_device=%s", ic->meta_dev->name);
-+		if (ic->sectors_per_block != 1)
-+			DMEMIT(",block_size=%u", ic->sectors_per_block << SECTOR_SHIFT);
-+
-+		DMEMIT(",recalculate=%c", (ic->sb->flags & cpu_to_le32(SB_FLAG_RECALCULATING)) ?
-+		       'y' : 'n');
-+		DMEMIT(",allow_discards=%c", ic->discard ? 'y' : 'n');
-+		DMEMIT(",fix_padding=%c",
-+		       ((ic->sb->flags & cpu_to_le32(SB_FLAG_FIXED_PADDING)) != 0) ? 'y' : 'n');
-+		DMEMIT(",fix_hmac=%c",
-+		       ((ic->sb->flags & cpu_to_le32(SB_FLAG_FIXED_HMAC)) != 0) ? 'y' : 'n');
-+		DMEMIT(",legacy_recalculate=%c", ic->legacy_recalculate ? 'y' : 'n');
-+
-+		DMEMIT(",journal_sectors=%u", ic->initial_sectors - SB_SECTORS);
-+		DMEMIT(",interleave_sectors=%u", 1U << ic->sb->log2_interleave_sectors);
-+		DMEMIT(",buffer_sectors=%u", 1U << ic->log2_buffer_sectors);
-+		DMEMIT(",mode=%c;", ic->mode);
-+		break;
- 	}
- }
- 
-diff --git a/drivers/md/dm-linear.c b/drivers/md/dm-linear.c
-index 92db0f5e7f28..3c35370f33e1 100644
---- a/drivers/md/dm-linear.c
-+++ b/drivers/md/dm-linear.c
-@@ -106,6 +106,7 @@ static void linear_status(struct dm_target *ti, status_type_t type,
- 			  unsigned status_flags, char *result, unsigned maxlen)
- {
- 	struct linear_c *lc = (struct linear_c *) ti->private;
-+	size_t sz = 0;
- 
- 	switch (type) {
- 	case STATUSTYPE_INFO:
-@@ -116,6 +117,13 @@ static void linear_status(struct dm_target *ti, status_type_t type,
- 		snprintf(result, maxlen, "%s %llu", lc->dev->name,
- 				(unsigned long long)lc->start);
- 		break;
-+
-+	case STATUSTYPE_IMA:
-+		DMEMIT_NAME_VERSION(ti->type);
-+
-+		DMEMIT("device_name=%s,start=%llu;", lc->dev->name,
-+		       (unsigned long long)lc->start);
-+		break;
- 	}
- }
- 
-diff --git a/drivers/md/dm-log-userspace-base.c b/drivers/md/dm-log-userspace-base.c
-index 52090bee17c2..9ab93ebea889 100644
---- a/drivers/md/dm-log-userspace-base.c
-+++ b/drivers/md/dm-log-userspace-base.c
-@@ -820,6 +820,9 @@ static int userspace_status(struct dm_dirty_log *log, status_type_t status_type,
- 			DMEMIT("integrated_flush ");
- 		DMEMIT("%s ", table_args);
- 		break;
-+	case STATUSTYPE_IMA:
-+		*result = '\0';
-+		break;
- 	}
- 	return (r) ? 0 : (int)sz;
- }
-diff --git a/drivers/md/dm-log-writes.c b/drivers/md/dm-log-writes.c
-index 57882654ffee..d93a4db23512 100644
---- a/drivers/md/dm-log-writes.c
-+++ b/drivers/md/dm-log-writes.c
-@@ -834,6 +834,10 @@ static void log_writes_status(struct dm_target *ti, status_type_t type,
- 	case STATUSTYPE_TABLE:
- 		DMEMIT("%s %s", lc->dev->name, lc->logdev->name);
- 		break;
-+
-+	case STATUSTYPE_IMA:
-+		*result = '\0';
-+		break;
- 	}
- }
- 
-diff --git a/drivers/md/dm-log.c b/drivers/md/dm-log.c
-index 33e71ea6cc14..1ecf75ef276a 100644
---- a/drivers/md/dm-log.c
-+++ b/drivers/md/dm-log.c
-@@ -793,6 +793,11 @@ static int core_status(struct dm_dirty_log *log, status_type_t status,
- 		DMEMIT("%s %u %u ", log->type->name,
- 		       lc->sync == DEFAULTSYNC ? 1 : 2, lc->region_size);
- 		DMEMIT_SYNC;
-+		break;
-+
-+	case STATUSTYPE_IMA:
-+		*result = '\0';
-+		break;
- 	}
- 
- 	return sz;
-@@ -817,6 +822,11 @@ static int disk_status(struct dm_dirty_log *log, status_type_t status,
- 		       lc->sync == DEFAULTSYNC ? 2 : 3, lc->log_dev->name,
- 		       lc->region_size);
- 		DMEMIT_SYNC;
-+		break;
-+
-+	case STATUSTYPE_IMA:
-+		*result = '\0';
-+		break;
- 	}
- 
- 	return sz;
-diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
-index bced42f082b0..408638395d9b 100644
---- a/drivers/md/dm-mpath.c
-+++ b/drivers/md/dm-mpath.c
-@@ -1904,6 +1904,35 @@ static void multipath_status(struct dm_target *ti, status_type_t type,
- 			}
- 		}
- 		break;
-+
-+	case STATUSTYPE_IMA:
-+		DMEMIT_NAME_VERSION(ti->type);
-+
-+		list_for_each_entry(pg, &m->priority_groups, list) {
-+			if (pg->bypassed)
-+				state = 'D';	/* Disabled */
-+			else if (pg == m->current_pg)
-+				state = 'A';	/* Currently Active */
-+			else
-+				state = 'E';	/* Enabled */
-+
-+			DMEMIT("state=%c", state);
-+
-+			list_for_each_entry(p, &pg->pgpaths, list) {
-+				DMEMIT(",path_name=%s,is_active=%c,fail_count=%u",
-+					p->path.dev->name,
-+					p->is_active ? 'A' : 'F',
-+					p->fail_count);
-+				if (pg->ps.type->status) {
-+					DMEMIT(",path_selector_status=");
-+					sz += pg->ps.type->status(&pg->ps,
-+					      &p->path, type, result + sz,
-+					      maxlen - sz);
-+				}
-+			}
-+			DMEMIT(";");
-+		}
-+		break;
- 	}
- 
- 	spin_unlock_irqrestore(&m->lock, flags);
-diff --git a/drivers/md/dm-ps-historical-service-time.c b/drivers/md/dm-ps-historical-service-time.c
-index 186f91e2752c..1856a1b125cc 100644
---- a/drivers/md/dm-ps-historical-service-time.c
-+++ b/drivers/md/dm-ps-historical-service-time.c
-@@ -255,6 +255,9 @@ static int hst_status(struct path_selector *ps, struct dm_path *path,
- 		case STATUSTYPE_TABLE:
- 			DMEMIT("0 ");
- 			break;
-+		case STATUSTYPE_IMA:
-+			*result = '\0';
-+			break;
- 		}
- 	}
- 
-diff --git a/drivers/md/dm-ps-io-affinity.c b/drivers/md/dm-ps-io-affinity.c
-index 077655cd4fae..8eaa7b726387 100644
---- a/drivers/md/dm-ps-io-affinity.c
-+++ b/drivers/md/dm-ps-io-affinity.c
-@@ -171,6 +171,9 @@ static int ioa_status(struct path_selector *ps, struct dm_path *path,
- 		pi = path->pscontext;
- 		DMEMIT("%*pb ", cpumask_pr_args(pi->cpumask));
- 		break;
-+	case STATUSTYPE_IMA:
-+		*result = '\0';
-+		break;
- 	}
- 
- 	return sz;
-diff --git a/drivers/md/dm-ps-queue-length.c b/drivers/md/dm-ps-queue-length.c
-index 5fd018d18418..cef70657bbbc 100644
---- a/drivers/md/dm-ps-queue-length.c
-+++ b/drivers/md/dm-ps-queue-length.c
-@@ -102,6 +102,9 @@ static int ql_status(struct path_selector *ps, struct dm_path *path,
- 		case STATUSTYPE_TABLE:
- 			DMEMIT("%u ", pi->repeat_count);
- 			break;
-+		case STATUSTYPE_IMA:
-+			*result = '\0';
-+			break;
- 		}
- 	}
- 
-diff --git a/drivers/md/dm-ps-round-robin.c b/drivers/md/dm-ps-round-robin.c
-index bdbb7e6e8212..27f44c5fa04e 100644
---- a/drivers/md/dm-ps-round-robin.c
-+++ b/drivers/md/dm-ps-round-robin.c
-@@ -100,6 +100,10 @@ static int rr_status(struct path_selector *ps, struct dm_path *path,
- 			pi = path->pscontext;
- 			DMEMIT("%u ", pi->repeat_count);
- 			break;
-+
-+		case STATUSTYPE_IMA:
-+			*result = '\0';
-+			break;
- 		}
- 	}
- 
-diff --git a/drivers/md/dm-ps-service-time.c b/drivers/md/dm-ps-service-time.c
-index 9cfda665e9eb..3ec9c33265c5 100644
---- a/drivers/md/dm-ps-service-time.c
-+++ b/drivers/md/dm-ps-service-time.c
-@@ -99,6 +99,9 @@ static int st_status(struct path_selector *ps, struct dm_path *path,
- 			DMEMIT("%u %u ", pi->repeat_count,
- 			       pi->relative_throughput);
- 			break;
-+		case STATUSTYPE_IMA:
-+			result[0] = '\0';
-+			break;
- 		}
- 	}
- 
-diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
-index bf4a467fc73a..71fffafe3afa 100644
---- a/drivers/md/dm-raid.c
-+++ b/drivers/md/dm-raid.c
-@@ -3671,6 +3671,45 @@ static void raid_status(struct dm_target *ti, status_type_t type,
- 		for (i = 0; i < rs->raid_disks; i++)
- 			DMEMIT(" %s %s", __get_dev_name(rs->dev[i].meta_dev),
- 					 __get_dev_name(rs->dev[i].data_dev));
-+		break;
-+
-+	case STATUSTYPE_IMA:
-+		rt = get_raid_type_by_ll(mddev->new_level, mddev->new_layout);
-+		if (!rt)
-+			return;
-+
-+		DMEMIT_NAME_VERSION(ti->type);
-+
-+		DMEMIT("raid_type=%s,raid_disks=%d,", rt->name, mddev->raid_disks);
-+
-+		/* Access most recent mddev properties for status output */
-+		smp_rmb();
-+		state = decipher_sync_action(mddev, recovery);
-+		DMEMIT("raid_state=%s", sync_str(state));
-+
-+		for (i = 0; i < rs->raid_disks; i++) {
-+			DMEMIT(",raid_device_%d_status=", i);
-+			DMEMIT(__raid_dev_status(rs, &rs->dev[i].rdev));
-+		}
-+
-+		if (rt_is_raid456(rt)) {
-+			DMEMIT(",journal_dev_mode=");
-+			switch (rs->journal_dev.mode) {
-+			case R5C_JOURNAL_MODE_WRITE_THROUGH:
-+				DMEMIT("%s",
-+				       _raid456_journal_mode[R5C_JOURNAL_MODE_WRITE_THROUGH].param);
-+				break;
-+			case R5C_JOURNAL_MODE_WRITE_BACK:
-+				DMEMIT("%s",
-+				       _raid456_journal_mode[R5C_JOURNAL_MODE_WRITE_BACK].param);
-+				break;
-+			default:
-+				DMEMIT("invalid");
-+				break;
-+			}
-+		}
-+		DMEMIT(";");
-+		break;
- 	}
- }
- 
-diff --git a/drivers/md/dm-raid1.c b/drivers/md/dm-raid1.c
-index b0a82f29a2e4..4d042c2abf88 100644
---- a/drivers/md/dm-raid1.c
-+++ b/drivers/md/dm-raid1.c
-@@ -1435,6 +1435,24 @@ static void mirror_status(struct dm_target *ti, status_type_t type,
- 		}
- 
- 		break;
-+
-+	case STATUSTYPE_IMA:
-+		DMEMIT_NAME_VERSION(ti->type);
-+
-+		DMEMIT("mirrors=%d,", ms->nr_mirrors);
-+		for (m = 0; m < ms->nr_mirrors; m++) {
-+			DMEMIT("mirror_device_%d=%s,", m, ms->mirror[m].dev->name);
-+			DMEMIT("mirror_device_%d_status=%c,",
-+			       m, device_status_char(&(ms->mirror[m])));
-+		}
-+
-+		DMEMIT("handle_errors=%c,", errors_handled(ms) ? 'y' : 'n');
-+		DMEMIT("keep_log=%c,", keep_log(ms) ? 'y' : 'n');
-+
-+		DMEMIT("log_type_status=");
-+		sz += log->type->status(log, type, result+sz, maxlen-sz);
-+		DMEMIT(";");
-+		break;
- 	}
- }
- 
-diff --git a/drivers/md/dm-snap-persistent.c b/drivers/md/dm-snap-persistent.c
-index 9ab4bf651ca9..3bb5cff5d6fc 100644
---- a/drivers/md/dm-snap-persistent.c
-+++ b/drivers/md/dm-snap-persistent.c
-@@ -908,6 +908,10 @@ static unsigned persistent_status(struct dm_exception_store *store,
- 	case STATUSTYPE_TABLE:
- 		DMEMIT(" %s %llu", store->userspace_supports_overflow ? "PO" : "P",
- 		       (unsigned long long)store->chunk_size);
-+		break;
-+	case STATUSTYPE_IMA:
-+		*result = '\0';
-+		break;
- 	}
- 
- 	return sz;
-diff --git a/drivers/md/dm-snap-transient.c b/drivers/md/dm-snap-transient.c
-index 4d50a12cf00c..0e0ae4c36b37 100644
---- a/drivers/md/dm-snap-transient.c
-+++ b/drivers/md/dm-snap-transient.c
-@@ -95,6 +95,10 @@ static unsigned transient_status(struct dm_exception_store *store,
- 		break;
- 	case STATUSTYPE_TABLE:
- 		DMEMIT(" N %llu", (unsigned long long)store->chunk_size);
-+		break;
-+	case STATUSTYPE_IMA:
-+		*result = '\0';
-+		break;
- 	}
- 
- 	return sz;
-diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
-index 751ec5ea1dbb..a407dbba0b5a 100644
---- a/drivers/md/dm-snap.c
-+++ b/drivers/md/dm-snap.c
-@@ -2390,6 +2390,16 @@ static void snapshot_status(struct dm_target *ti, status_type_t type,
- 				DMEMIT(" discard_passdown_origin");
- 		}
- 		break;
-+
-+	case STATUSTYPE_IMA:
-+		DMEMIT_NAME_VERSION(ti->type);
-+		DMEMIT("snap_origin_name=%s,", snap->origin->name);
-+		DMEMIT("snap_cow_name=%s,", snap->cow->name);
-+		DMEMIT("snap_valid=%c,", snap->valid ? 'y' : 'n');
-+		DMEMIT("snap_merge_failed=%c,", snap->merge_failed ? 'y' : 'n');
-+		DMEMIT("snapshot_overflowed=%c;", snap->snapshot_overflowed ? 'y' : 'n');
-+		break;
-+
- 	}
- }
- 
-@@ -2734,6 +2744,9 @@ static void origin_status(struct dm_target *ti, status_type_t type,
- 	case STATUSTYPE_TABLE:
- 		snprintf(result, maxlen, "%s", o->dev->name);
- 		break;
-+	case STATUSTYPE_IMA:
-+		result[0] = '\0';
-+		break;
- 	}
- }
- 
-diff --git a/drivers/md/dm-stripe.c b/drivers/md/dm-stripe.c
-index df359d33cda8..82f3593f6a0e 100644
---- a/drivers/md/dm-stripe.c
-+++ b/drivers/md/dm-stripe.c
-@@ -428,6 +428,22 @@ static void stripe_status(struct dm_target *ti, status_type_t type,
- 			DMEMIT(" %s %llu", sc->stripe[i].dev->name,
- 			    (unsigned long long)sc->stripe[i].physical_start);
- 		break;
-+
-+	case STATUSTYPE_IMA:
-+		DMEMIT_NAME_VERSION(ti->type);
-+
-+		DMEMIT("stripes=%d,chunk_size=%llu", sc->stripes,
-+		       (unsigned long long)sc->chunk_size);
-+
-+		for (i = 0; i < sc->stripes; i++) {
-+			DMEMIT(",stripe_%d_device_name=%s", i, sc->stripe[i].dev->name);
-+			DMEMIT(",stripe_%d_physical_start=%llu", i,
-+			       (unsigned long long)sc->stripe[i].physical_start);
-+			DMEMIT(",stripe_%d_status=%c", i,
-+			       atomic_read(&(sc->stripe[i].error_count)) ? 'D' : 'A');
-+		}
-+		DMEMIT(";");
-+		break;
- 	}
- }
- 
-diff --git a/drivers/md/dm-switch.c b/drivers/md/dm-switch.c
-index 262e2b0fd975..028a92ff6d57 100644
---- a/drivers/md/dm-switch.c
-+++ b/drivers/md/dm-switch.c
-@@ -504,6 +504,10 @@ static void switch_status(struct dm_target *ti, status_type_t type,
- 			DMEMIT(" %s %llu", sctx->path_list[path_nr].dmdev->name,
- 			       (unsigned long long)sctx->path_list[path_nr].start);
- 		break;
-+
-+	case STATUSTYPE_IMA:
-+		result[0] = '\0';
-+		break;
- 	}
- }
- 
-diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
-index 985baee3a678..4c67b77c23c1 100644
---- a/drivers/md/dm-thin.c
-+++ b/drivers/md/dm-thin.c
-@@ -4012,6 +4012,10 @@ static void pool_status(struct dm_target *ti, status_type_t type,
- 		       (unsigned long long)pt->low_water_blocks);
- 		emit_flags(&pt->requested_pf, result, sz, maxlen);
- 		break;
-+
-+	case STATUSTYPE_IMA:
-+		*result = '\0';
-+		break;
- 	}
- 	return;
- 
-@@ -4423,6 +4427,10 @@ static void thin_status(struct dm_target *ti, status_type_t type,
- 			if (tc->origin_dev)
- 				DMEMIT(" %s", format_dev_t(buf, tc->origin_dev->bdev->bd_dev));
- 			break;
-+
-+		case STATUSTYPE_IMA:
-+			*result = '\0';
-+			break;
- 		}
- 	}
- 
-diff --git a/drivers/md/dm-unstripe.c b/drivers/md/dm-unstripe.c
-index 7357c1bd5863..fdc8921e5c19 100644
---- a/drivers/md/dm-unstripe.c
-+++ b/drivers/md/dm-unstripe.c
-@@ -156,6 +156,10 @@ static void unstripe_status(struct dm_target *ti, status_type_t type,
- 		       uc->stripes, (unsigned long long)uc->chunk_size, uc->unstripe,
- 		       uc->dev->name, (unsigned long long)uc->physical_start);
- 		break;
-+
-+	case STATUSTYPE_IMA:
-+		*result = '\0';
-+		break;
- 	}
- }
- 
-diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index d3e76aefc1a6..0cae12944352 100644
---- a/drivers/md/dm-verity-target.c
-+++ b/drivers/md/dm-verity-target.c
-@@ -772,6 +772,51 @@ static void verity_status(struct dm_target *ti, status_type_t type,
- 			DMEMIT(" " DM_VERITY_ROOT_HASH_VERIFICATION_OPT_SIG_KEY
- 				" %s", v->signature_key_desc);
- 		break;
-+
-+	case STATUSTYPE_IMA:
-+		DMEMIT_NAME_VERSION(ti->type);
-+
-+		DMEMIT("hash_failed=%c,", v->hash_failed ? 'C' : 'V');
-+
-+		DMEMIT("verity_version=%u,", v->version);
-+		DMEMIT("data_device_name=%s,", v->data_dev->name);
-+		DMEMIT("hash_device_name=%s,", v->hash_dev->name);
-+		DMEMIT("verity_algorithm=%s,", v->alg_name);
-+
-+		DMEMIT("root_digest=");
-+		for (x = 0; x < v->digest_size; x++)
-+			DMEMIT("%02x", v->root_digest[x]);
-+		DMEMIT(",");
-+
-+		DMEMIT("salt=");
-+		if (!v->salt_size)
-+			DMEMIT("-");
-+		else
-+			for (x = 0; x < v->salt_size; x++)
-+				DMEMIT("%02x", v->salt[x]);
-+		DMEMIT(",");
-+
-+		DMEMIT("ignore_zero_blocks=%c,", v->zero_digest ? 'y' : 'n');
-+		DMEMIT("check_at_most_once=%c", v->validated_blocks ? 'y' : 'n');
-+
-+		if (v->mode != DM_VERITY_MODE_EIO) {
-+			DMEMIT(",verity_mode=");
-+			switch (v->mode) {
-+			case DM_VERITY_MODE_LOGGING:
-+				DMEMIT(DM_VERITY_OPT_LOGGING);
-+				break;
-+			case DM_VERITY_MODE_RESTART:
-+				DMEMIT(DM_VERITY_OPT_RESTART);
-+				break;
-+			case DM_VERITY_MODE_PANIC:
-+				DMEMIT(DM_VERITY_OPT_PANIC);
-+				break;
-+			default:
-+				DMEMIT("invalid");
-+			}
-+		}
-+		DMEMIT(";");
-+		break;
- 	}
- }
- 
-diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
-index aecc246ade26..a7516bd7cd04 100644
---- a/drivers/md/dm-writecache.c
-+++ b/drivers/md/dm-writecache.c
-@@ -2536,6 +2536,9 @@ static void writecache_status(struct dm_target *ti, status_type_t type,
- 		if (wc->writeback_fua_set)
- 			DMEMIT(" %sfua", wc->writeback_fua ? "" : "no");
- 		break;
-+	case STATUSTYPE_IMA:
-+		*result = '\0';
-+		break;
- 	}
- }
- 
-diff --git a/drivers/md/dm-zoned-target.c b/drivers/md/dm-zoned-target.c
-index 7e88df64d197..ae1bc48c0043 100644
---- a/drivers/md/dm-zoned-target.c
-+++ b/drivers/md/dm-zoned-target.c
-@@ -1119,6 +1119,9 @@ static void dmz_status(struct dm_target *ti, status_type_t type,
- 			DMEMIT(" %s", buf);
- 		}
- 		break;
-+	case STATUSTYPE_IMA:
-+		*result = '\0';
-+		break;
- 	}
- 	return;
- }
-diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
-index 738a7d023650..d4cd9ef94063 100644
---- a/include/linux/device-mapper.h
-+++ b/include/linux/device-mapper.h
-@@ -596,6 +596,10 @@ void dm_destroy_keyslot_manager(struct blk_keyslot_manager *ksm);
- #define DMEMIT(x...) sz += ((sz >= maxlen) ? \
- 			  0 : scnprintf(result + sz, maxlen - sz, x))
- 
-+#define DMEMIT_NAME_VERSION(y) \
-+		DMEMIT("target_type_name=%s,target_type_version=%u.%u.%u,", \
-+		       (y)->name, (y)->version[0], (y)->version[1], (y)->version[2])
-+
- /*
-  * Definitions of return values from target end_io function.
-  */
--- 
-2.25.1
-
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+VG8gaW50ZXJwcmV0IHZhcmlvdXMgRE0gdGFyZ2V0IG1lYXN1cmVtZW50IGRhdGEgaW4gSU1BIGxv
+Z3MsCmEgc2VwYXJhdGUgZG9jdW1lbnRhdGlvbiBwYWdlIGlzIG5lZWRlZCB1bmRlcgpEb2N1bWVu
+dGF0aW9uL2FkbWluLWd1aWRlL2RldmljZS1tYXBwZXIuCgpBZGQgZG9jdW1lbnRhdGlvbiB0byBo
+ZWxwIHN5c3RlbSBhZG1pbmlzdHJhdG9ycyBhbmQgYXR0ZXN0YXRpb24KY2xpZW50L3NlcnZlciBj
+b21wb25lbnQgb3duZXJzIHRvIGludGVycHJldCB0aGUgbWVhc3VyZW1lbnQKZGF0YSBnZW5lcmF0
+ZWQgYnkgdmFyaW91cyBETSB0YXJnZXRzLCBvbiB2YXJpb3VzIGRldmljZS90YWJsZSBzdGF0ZQpj
+aGFuZ2VzLgoKU2lnbmVkLW9mZi1ieTogVHVzaGFyIFN1Z2FuZGhpIDx0dXNoYXJzdUBsaW51eC5t
+aWNyb3NvZnQuY29tPgotLS0KIC4uLi9hZG1pbi1ndWlkZS9kZXZpY2UtbWFwcGVyL2RtLWltYS5y
+c3QgICAgICB8IDMwNiArKysrKysrKysrKysrKysrKysKIC4uLi9hZG1pbi1ndWlkZS9kZXZpY2Ut
+bWFwcGVyL2luZGV4LnJzdCAgICAgICB8ICAgMSArCiAyIGZpbGVzIGNoYW5nZWQsIDMwNyBpbnNl
+cnRpb25zKCspCiBjcmVhdGUgbW9kZSAxMDA2NDQgRG9jdW1lbnRhdGlvbi9hZG1pbi1ndWlkZS9k
+ZXZpY2UtbWFwcGVyL2RtLWltYS5yc3QKCmRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2FkbWlu
+LWd1aWRlL2RldmljZS1tYXBwZXIvZG0taW1hLnJzdCBiL0RvY3VtZW50YXRpb24vYWRtaW4tZ3Vp
+ZGUvZGV2aWNlLW1hcHBlci9kbS1pbWEucnN0Cm5ldyBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAw
+MDAwMDAwMDAwMC4uMWJlMmRhN2M2YjZiCi0tLSAvZGV2L251bGwKKysrIGIvRG9jdW1lbnRhdGlv
+bi9hZG1pbi1ndWlkZS9kZXZpY2UtbWFwcGVyL2RtLWltYS5yc3QKQEAgLTAsMCArMSwzMDYgQEAK
+Kz09PT09PQorZG0taW1hCis9PT09PT0KKworRm9yIGEgZ2l2ZW4gc3lzdGVtLCB2YXJpb3VzIGV4
+dGVybmFsIHNlcnZpY2VzL2luZnJhc3RydWN0dXJlIHRvb2xzCisoaW5jbHVkaW5nIHRoZSBhdHRl
+c3RhdGlvbiBzZXJ2aWNlKSBpbnRlcmFjdCB3aXRoIGl0IC0gYm90aCBkdXJpbmcgdGhlCitzZXR1
+cCBhbmQgZHVyaW5nIHJlc3Qgb2YgdGhlIHN5c3RlbSBydW4tdGltZS4gIFRoZXkgc2hhcmUgc2Vu
+c2l0aXZlIGRhdGEKK2FuZC9vciBleGVjdXRlIGNyaXRpY2FsIHdvcmtsb2FkIG9uIHRoYXQgc3lz
+dGVtLiAgVGhlIGV4dGVybmFsIHNlcnZpY2VzCittYXkgd2FudCB0byB2ZXJpZnkgdGhlIGN1cnJl
+bnQgcnVuLXRpbWUgc3RhdGUgb2YgdGhlIHJlbGV2YW50IGtlcm5lbAorc3Vic3lzdGVtcyBiZWZv
+cmUgZnVsbHkgdHJ1c3RpbmcgdGhlIHN5c3RlbSB3aXRoIGJ1c2luZXNzLWNyaXRpY2FsCitkYXRh
+L3dvcmtsb2FkLgorCitEZXZpY2UgbWFwcGVyIHBsYXlzIGEgY3JpdGljYWwgcm9sZSBvbiBhIGdp
+dmVuIHN5c3RlbSBieSBwcm92aWRpbmcKK3ZhcmlvdXMgaW1wb3J0YW50IGZ1bmN0aW9uYWxpdGll
+cyB0byB0aGUgYmxvY2sgZGV2aWNlcyB1c2luZyB2YXJpb3VzCit0YXJnZXQgdHlwZXMgbGlrZSBj
+cnlwdCwgdmVyaXR5LCBpbnRlZ3JpdHkgZXRjLiAgRWFjaCBvZiB0aGVzZSB0YXJnZXQKK3R5cGVz
+4oCZIGZ1bmN0aW9uYWxpdGllcyBjYW4gYmUgY29uZmlndXJlZCB3aXRoIHZhcmlvdXMgYXR0cmli
+dXRlcy4KK1RoZSBhdHRyaWJ1dGVzIGNob3NlbiB0byBjb25maWd1cmUgdGhlc2UgdGFyZ2V0IHR5
+cGVzIGNhbiBzaWduaWZpY2FudGx5CitpbXBhY3QgdGhlIHNlY3VyaXR5IHByb2ZpbGUgb2YgdGhl
+IGJsb2NrIGRldmljZSwgYW5kIGluLXR1cm4sIG9mIHRoZQorc3lzdGVtIGl0c2VsZi4gIEZvciBp
+bnN0YW5jZSwgdGhlIHR5cGUgb2YgZW5jcnlwdGlvbiBhbGdvcml0aG0gYW5kIHRoZQora2V5IHNp
+emUgZGV0ZXJtaW5lcyB0aGUgc3RyZW5ndGggb2YgZW5jcnlwdGlvbiBmb3IgYSBnaXZlbiBibG9j
+ayBkZXZpY2UuCisKK1RoZXJlZm9yZSwgdmVyaWZ5aW5nIHRoZSBjdXJyZW50IHN0YXRlIG9mIHZh
+cmlvdXMgYmxvY2sgZGV2aWNlcyBhcyB3ZWxsCithcyB0aGVpciB2YXJpb3VzIHRhcmdldCBhdHRy
+aWJ1dGVzIGlzIGNydWNpYWwgZm9yIGV4dGVybmFsIHNlcnZpY2VzIGJlZm9yZQorZnVsbHkgdHJ1
+c3RpbmcgdGhlIHN5c3RlbSB3aXRoIGJ1c2luZXNzLWNyaXRpY2FsIGRhdGEvd29ya2xvYWQuCisK
+K0lNQSBrZXJuZWwgc3Vic3lzdGVtIHByb3ZpZGVzIHRoZSBuZWNlc3NhcnkgZnVuY3Rpb25hbGl0
+eSBmb3IKK2RldmljZSBtYXBwZXIgdG8gbWVhc3VyZSB0aGUgc3RhdGUgYW5kIGNvbmZpZ3VyYXRp
+b24gb2YKK3ZhcmlvdXMgYmxvY2sgZGV2aWNlcyAtCisgIC0gQlkgZGV2aWNlIG1hcHBlciBpdHNl
+bGYsIGZyb20gd2l0aGluIHRoZSBrZXJuZWwsCisgIC0gaW4gYSB0YW1wZXIgcmVzaXN0YW50IHdh
+eSwKKyAgLSBhbmQgcmUtbWVhc3VyZWQgLSB0cmlnZ2VyZWQgb24gc3RhdGUvY29uZmlndXJhdGlv
+biBjaGFuZ2UuCisKK1NldHRpbmcgdGhlIElNQSBQb2xpY3k6Cis9PT09PT09PT09PT09PT09PT09
+PT09PQorRm9yIElNQSB0byBtZWFzdXJlIHRoZSBkYXRhIG9uIGEgZ2l2ZW4gc3lzdGVtLCB0aGUg
+SU1BIHBvbGljeSBvbiB0aGUKK3N5c3RlbSBuZWVkcyB0byBiZSB1cGRhdGVkIHRvIGhhdmUgZm9s
+bG93aW5nIGxpbmUsIGFuZCB0aGUgc3lzdGVtIG5lZWRzCit0byBiZSByZXN0YXJ0ZWQgZm9yIHRo
+ZSBtZWFzdXJlbWVudHMgdG8gdGFrZSBlZmZlY3QuCisKKy9ldGMvaW1hL2ltYS1wb2xpY3kKKyBt
+ZWFzdXJlIGZ1bmM9Q1JJVElDQUxfREFUQSBsYWJlbD1kZXZpY2UtbWFwcGVyIHRlbXBsYXRlPWlt
+YS1idWYKKworVGhlIG1lYXN1cmVtZW50cyB3aWxsIGJlIHJlZmxlY3RlZCBpbiB0aGUgSU1BIGxv
+Z3MsIHdoaWNoIGFyZSBsb2NhdGVkIGF0OgorCisvc3lzL2tlcm5lbC9zZWN1cml0eS9pbnRlZ3Jp
+dHkvaW1hL2FzY2lpX3J1bnRpbWVfbWVhc3VyZW1lbnRzCisvc3lzL2tlcm5lbC9zZWN1cml0eS9p
+bnRlZ3JpdHkvaW1hL2JpbmFyeV9ydW50aW1lX21lYXN1cmVtZW50cworCitUaGVuIElNQSBBU0NJ
+SSBtZWFzdXJlbWVudCBsb2cgaGFzIHRoZSBmb2xsb3dpbmcgZm9ybWF0OgorUENSIFRFTVBMQVRF
+X0RJR0VTVCBURU1QTEFURSBBTEc6RVZFTlRfRElHRVNUIEVWRU5UX05BTUUgRVZFTlRfREFUQQor
+CitQQ1IgOj0gUGxhdGZvcm0gQ29uZmlndXJhdGlvbiBSZWdpc3RlciwgaW4gd2hpY2ggdGhlIHZh
+bHVlcyBhcmUgcmVnaXN0ZXJlZC4KKyAgICAgICBUaGlzIGlzIGFwcGxpY2FibGUgaWYgVFBNIGNo
+aXAgaXMgaW4gdXNlLgorVEVNUExBVEVfRElHRVNUIDo9IFRlbXBsYXRlIGRpZ2VzdCBvZiB0aGUg
+SU1BIHJlY29yZC4KK1RFTVBMQVRFIDo9IFRlbXBsYXRlIHRoYXQgcmVnaXN0ZXJlZCB0aGUgaW50
+ZWdyaXR5IHZhbHVlIChlLmcuIGltYS1idWYpLgorQUxHOkVWRU5UX0RJR0VTVCA9IEFsZ29yaXRo
+bSB0byBjb21wdXRlIGV2ZW50IGRpZ2VzdCwgZm9sbG93ZWQgYnkgZGlnZXN0IG9mIGV2ZW50IGRh
+dGEKK0VWRU5UX05BTUUgOj0gRGVzY3JpcHRpb24gb2YgdGhlIGV2ZW50IChlLmcuICd0YWJsZV9s
+b2FkJykuCitFVkVOVF9EQVRBIDo9IFRoZSBldmVudCBkYXRhIHRvIGJlIG1lYXN1cmVkLgorCitU
+aGUgRE0gdGFyZ2V0IGRhdGEgbWVhc3VyZWQgYnkgSU1BIHN1YnN5c3RlbSBjYW4gYWx0ZXJuYXRp
+dmVseQorYmUgcXVlcmllZCBmcm9tIHVzZXJzcGFjZSBieSBzZXR0aW5nIERNX0lNQV9NRUFTVVJF
+TUVOVF9GTEFHIHdpdGgKK0RNX1RBQkxFX1NUQVRVU19DTUQuCisKK1N1cHBvcnRlZCBEZXZpY2Ug
+U3RhdGVzOgorPT09PT09PT09PT09PT09PT09PT09PT09CitGb2xsb3dpbmcgZGV2aWNlIHN0YXRl
+IGNoYW5nZXMgd2lsbCB0cmlnZ2VyIElNQSBtZWFzdXJlbWVudHMuCiswMS4gVGFibGUgbG9hZAor
+MDIuIERldmljZSByZXN1bWUKKzAzLiBEZXZpY2UgcmVtb3ZlCiswNC4gVGFibGUgY2xlYXIKKzA1
+LiBEZXZpY2UgcmVuYW1lCisKKzAxLiBUYWJsZSBsb2FkOgorLS0tLS0tLS0tLS0tLS0tCitXaGVu
+IGEgbmV3IHRhYmxlIGlzIGxvYWRlZCBpbiBhIGRldmljZSdzIGluYWN0aXZlIHRhYmxlIHNsb3Qs
+Cit0aGUgZGV2aWNlIGluZm9ybWF0aW9uIGFuZCB0YXJnZXQgc3BlY2lmaWMgZGV0YWlscyBmcm9t
+IHRoZQordGFyZ2V0cyBpbiB0aGUgdGFibGUgYXJlIG1lYXN1cmVkLgorCitGb3IgaW5zdGFuY2Us
+IGlmIGEgbGluZWFyIGRldmljZSBpcyBjcmVhdGVkIHdpdGggdGhlIGZvbGxvd2luZyB0YWJsZSBl
+bnRyaWVzLAorIyBkbXNldHVwIGNyZWF0ZSBsaW5lYXIxCiswIDIgbGluZWFyIC9kZXYvbG9vcDAg
+NTEyCisyIDIgbGluZWFyIC9kZXYvbG9vcDAgNTEyCis0IDIgbGluZWFyIC9kZXYvbG9vcDAgNTEy
+Cis2IDIgbGluZWFyIC9kZXYvbG9vcDAgNTEyCisKK1RoZW4gSU1BIEFTQ0lJIG1lYXN1cmVtZW50
+IGxvZyB3aWxsIGhhdmUgYW4gZW50cnkgd2l0aDoKK0VWRU5UX05BTUUgOj0gdGFibGVfbG9hZAor
+RVZFTlRfREFUQSA6PSBbZGV2aWNlX2RhdGFdO1t0YXJnZXRfZGF0YV9yb3dfMV07W3RhcmdldF9k
+YXRhX3Jvd18yXTsuLi5bdGFyZ2V0X2RhdGFfcm93X25dOworCitFLmcuCisoY29udmVydGVkIGZy
+b20gQVNDSUkgdG8gdGV4dCBmb3IgcmVhZGFiaWxpdHkpCisxMCBhOGM1ZmY3NTU1NjFjN2EyODE0
+NjM4OWQxNTE0YzMxODU5MmFmNDlhIGltYS1idWYgc2hhMjU2OjRkNzM0ODFlY2NlNWVhZGJhOGFi
+MDg0NjQwZDg1YmI5Y2E4OTlhZjRkMGExMjI5ODkyNTJhNzZlZmFkYzViNzIKK3RhYmxlX2xvYWQK
+K25hbWU9bGluZWFyMSx1dWlkPSxtYWpvcj0yNTMsbWlub3I9MCxtaW5vcl9jb3VudD0xLG51bV90
+YXJnZXRzPTQ7Cit0YXJnZXRfaW5kZXg9MCx0YXJnZXRfYmVnaW49MCx0YXJnZXRfbGVuPTIsdGFy
+Z2V0X3R5cGVfbmFtZT1saW5lYXIsdGFyZ2V0X3R5cGVfdmVyc2lvbj0xLjQuMCxkZXZpY2VfbmFt
+ZT03OjAsc3RhcnQ9NTEyOwordGFyZ2V0X2luZGV4PTEsdGFyZ2V0X2JlZ2luPTIsdGFyZ2V0X2xl
+bj0yLHRhcmdldF90eXBlX25hbWU9bGluZWFyLHRhcmdldF90eXBlX3ZlcnNpb249MS40LjAsZGV2
+aWNlX25hbWU9NzowLHN0YXJ0PTUxMjsKK3RhcmdldF9pbmRleD0yLHRhcmdldF9iZWdpbj00LHRh
+cmdldF9sZW49Mix0YXJnZXRfdHlwZV9uYW1lPWxpbmVhcix0YXJnZXRfdHlwZV92ZXJzaW9uPTEu
+NC4wLGRldmljZV9uYW1lPTc6MCxzdGFydD01MTI7Cit0YXJnZXRfaW5kZXg9Myx0YXJnZXRfYmVn
+aW49Nix0YXJnZXRfbGVuPTIsdGFyZ2V0X3R5cGVfbmFtZT1saW5lYXIsdGFyZ2V0X3R5cGVfdmVy
+c2lvbj0xLjQuMCxkZXZpY2VfbmFtZT03OjAsc3RhcnQ9NTEyOworCiswMi4gRGV2aWNlIHJlc3Vt
+ZToKKy0tLS0tLS0tLS0tLS0tLS0tLQorV2hlbiBhIHN1c3BlbmRlZCBkZXZpY2UgaXMgcmVzdW1l
+ZCwgdGhlIGRldmljZSBpbmZvcm1hdGlvbiBhbmQgYSBzaGEyNTYgaGFzaCBvZiB0aGUKK2RhdGEg
+ZnJvbSBwcmV2aW91cyBsb2FkIG9mIGFuIGFjdGl2ZSB0YWJsZSBhcmUgbWVhc3VyZWQuCisKK0Zv
+ciBpbnN0YW5jZSwgaWYgYSBsaW5lYXIgZGV2aWNlIGlzIHJlc3VtZWQgd2l0aCB0aGUgZm9sbG93
+aW5nIGNvbW1hbmQsCisjZG1zZXR1cCByZXN1bWUgbGluZWFyMQorCitUaGVuIElNQSBBU0NJSSBt
+ZWFzdXJlbWVudCBsb2cgd2lsbCBoYXZlIGFuIGVudHJ5IHdpdGg6CitFVkVOVF9OQU1FIDo9IGRl
+dmljZV9yZXN1bWUKK0VWRU5UX0RBVEEgOj0gW2RldmljZV9kYXRhXTthY3RpdmVfdGFibGVfaGFz
+aD0oc2hhMjU2aGFzaChbZGV2aWNlX2RhdGFdO1t0YXJnZXRfZGF0YV9yb3dfMV07Li4uW3Rhcmdl
+dF9kYXRhX3Jvd19uXSk7CisgICAgICAgICAgICAgIGN1cnJlbnRfZGV2aWNlX2NhcGFjaXR5PTxO
+PjsKKworRS5nLgorKGNvbnZlcnRlZCBmcm9tIEFTQ0lJIHRvIHRleHQgZm9yIHJlYWRhYmlsaXR5
+KQorMTAgNTZjMDBjYzA2MmZmYzI0Y2NkOWFjMmQ2N2QxOTRhZjMyODJiOTM0ZSBpbWEtYnVmIHNo
+YTI1NjplN2QxMmMwM2I5NThiNGUwZTUzZTczNjNhMDYzNzZiZTg4ZDk4YTFhYzE5MWZkYmQzYmFm
+NWU0Yjc3ZjMyOWI2CitkZXZpY2VfcmVzdW1lCituYW1lPWxpbmVhcjEsdXVpZD0sbWFqb3I9MjUz
+LG1pbm9yPTAsbWlub3JfY291bnQ9MSxudW1fdGFyZ2V0cz00OworYWN0aXZlX3RhYmxlX2hhc2g9
+NGQ3MzQ4MWVjY2U1ZWFkYmE4YWIwODQ2NDBkODViYjljYTg5OWFmNGQwYTEyMjk4OTI1MmE3NmVm
+YWRjNWI3MjtjdXJyZW50X2RldmljZV9jYXBhY2l0eT04OworCiswMy4gRGV2aWNlIHJlbW92ZToK
+Ky0tLS0tLS0tLS0tLS0tLS0tLQorV2hlbiBhIGRldmljZSBpcyByZW1vdmVkLCB0aGUgZGV2aWNl
+IGluZm9ybWF0aW9uIGFuZCBhIHNoYTI1NiBoYXNoIG9mIHRoZQorZGF0YSBmcm9tIGFuIGFjdGl2
+ZSBhbmQgaW5hY3RpdmUgdGFibGUgYXJlIG1lYXN1cmVkLgorCitGb3IgaW5zdGFuY2UsIGlmIGEg
+bGluZWFyIGRldmljZSBpcyByZW1vdmVkIHdpdGggdGhlIGZvbGxvd2luZyBjb21tYW5kLAorIyBk
+bXNldHVwIHJlbW92ZSBsaW5lYXIxCisKK1RoZW4gSU1BIEFTQ0lJIG1lYXN1cmVtZW50IGxvZyB3
+aWxsIGhhdmUgYW4gZW50cnkgd2l0aDoKK0VWRU5UX05BTUUgOj0gZGV2aWNlX3JlbW92ZQorRVZF
+TlRfREFUQSA6PSBbZGV2aWNlX2FjdGl2ZV9tZXRhZGF0YV07W2RldmljZV9pbmFjdGl2ZV9tZXRh
+ZGF0YV07CisgICAgICAgICAgICAgIFthY3RpdmVfdGFibGVfaGFzaD0oc2hhMjU2aGFzaChbZGV2
+aWNlX2FjdGl2ZV9tZXRhZGF0YV07W2FjdGl2ZV90YWJsZV9yb3dfMV07Li4uW2FjdGl2ZV90YWJs
+ZV9yb3dfbl0pLAorICAgICAgICAgICAgICBbaW5hY3RpdmVfdGFibGVfaGFzaD0oc2hhMjU2aGFz
+aChbZGV2aWNlX2luYWN0aXZlX21ldGFkYXRhXTtbaW5hY3RpdmVfdGFibGVfcm93XzFdOy4uLltp
+bmFjdGl2ZV90YWJsZV9yb3dfbl0pLAorICAgICAgICAgICAgICByZW1vdmVfYWxsPVt5fG5dO2N1
+cnJlbnRfZGV2aWNlX2NhcGFjaXR5PTxOPjsKKworRS5nCisoY29udmVydGVkIGZyb20gQVNDSUkg
+dG8gdGV4dCBmb3IgcmVhZGFiaWxpdHkpCisxMCA0OTk4MTJiNjIxYjcwNTA2MWM0NTE0ZDY0Mzg5
+NDQ4M2UxNmQyNjE5IGltYS1idWYgc2hhMjU2OmMzZjI2YjAyZjA5YmY1YjQ2NDkyNTU4OTQ1NGJk
+ZDRkMzU0MDc3Y2U0MzBmZDFlNzVjOWU5NmNlMjljZDFjYWQKK2RldmljZV9yZW1vdmUKK2Rldmlj
+ZV9hY3RpdmVfbWV0YWRhdGE9bmFtZT1saW5lYXIxLHV1aWQ9LG1ham9yPTI1MyxtaW5vcj0wLG1p
+bm9yX2NvdW50PTEsbnVtX3RhcmdldHM9NDsKK2RldmljZV9pbmFjdGl2ZV9tZXRhZGF0YT1uYW1l
+PWxpbmVhcjEsdXVpZD0sbWFqb3I9MjUzLG1pbm9yPTAsbWlub3JfY291bnQ9MSxudW1fdGFyZ2V0
+cz0yOworYWN0aXZlX3RhYmxlX2hhc2g9NGQ3MzQ4MWVjY2U1ZWFkYmE4YWIwODQ2NDBkODViYjlj
+YTg5OWFmNGQwYTEyMjk4OTI1MmE3NmVmYWRjNWI3MiwKK2luYWN0aXZlX3RhYmxlX2hhc2g9NTU5
+NmNjODU3YjBlODg3ZmQwYzVkNThkYzYzODI1MTMyODQ1OTZiMDdmMDlmZDM3ZWZhZTJkYTIyNGJk
+NTIxZCxyZW1vdmVfYWxsPW47CitjdXJyZW50X2RldmljZV9jYXBhY2l0eT04OworCisKKzA0LiBU
+YWJsZSBjbGVhcjoKKy0tLS0tLS0tLS0tLS0tLS0KK1doZW4gYW4gaW5hY3RpdmUgdGFibGUgaXMg
+Y2xlYXJlZCBmcm9tIHRoZSBkZXZpY2UsIHRoZSBkZXZpY2UgaW5mb3JtYXRpb24gYW5kIGEgc2hh
+MjU2IGhhc2ggb2YgdGhlCitkYXRhIGZyb20gYW4gaW5hY3RpdmUgdGFibGUgYXJlIG1lYXN1cmVk
+LgorCitGb3IgaW5zdGFuY2UsIGlmIGEgbGluZWFyIGRldmljZSdzIGluYWN0aXZlIHRhYmxlIGlz
+IGNsZWFyZWQgd2l0aCB0aGUgZm9sbG93aW5nIGNvbW1hbmQsCisKKyMgZG1zZXR1cCBjbGVhciBs
+aW5lYXIxCisKK1RoZW4gSU1BIEFTQ0lJIG1lYXN1cmVtZW50IGxvZyB3aWxsIGhhdmUgYW4gZW50
+cnkgd2l0aDoKK0VWRU5UX05BTUUgOj0gdGFibGVfY2xlYXIKK0VWRU5UX0RBVEEgOj0gW2Rldmlj
+ZV9kYXRhXTtpbmFjdGl2ZV90YWJsZV9oYXNoPShzaGEyNTZoYXNoKFtkZXZpY2VfZGF0YV07W2lu
+YWN0aXZlX3RhYmxlX3Jvd18xXTsuLi5baW5hY3RpdmVfdGFibGVfcm93X25dKTsKK2N1cnJlbnRf
+ZGV2aWNlX2NhcGFjaXR5PTxOPjsKKworRS5nLgorKGNvbnZlcnRlZCBmcm9tIEFTQ0lJIHRvIHRl
+eHQgZm9yIHJlYWRhYmlsaXR5KQorMTAgOWMxMWUyODRkNzkyODc1MzUyZDUxYzA5ZjY2NDNjOTY2
+NDk0ODRiZSBpbWEtYnVmIHNoYTI1Njo4NGIyMmIzNjRlYTRkODI2NGZhMzNjMzg2MzVjMThlZjQ0
+OGZhOTA3NzczMWZhN2U1Zjk2OWIxZGEyMDAzZWE0Cit0YWJsZV9jbGVhcgorbmFtZT1saW5lYXIx
+LHV1aWQ9LG1ham9yPTI1MyxtaW5vcj0wLG1pbm9yX2NvdW50PTEsbnVtX3RhcmdldHM9MjsKK2lu
+YWN0aXZlX3RhYmxlX2hhc2g9NTU5NmNjODU3YjBlODg3ZmQwYzVkNThkYzYzODI1MTMyODQ1OTZi
+MDdmMDlmZDM3ZWZhZTJkYTIyNGJkNTIxZDtjdXJyZW50X2RldmljZV9jYXBhY2l0eT0wOworCisK
+KzA1LiBEZXZpY2UgcmVuYW1lOgorLS0tLS0tLS0tLS0tLS0tLS0tCitXaGVuIGFuIGRldmljZSdz
+IE5BTUUgb3IgVVVJRCBpcyBjaGFuZ2VkLCB0aGUgZGV2aWNlIGluZm9ybWF0aW9uIGFuZCB0aGUg
+bmV3IE5BTUUgYW5kIFVVSUQKK2FyZSBtZWFzdXJlZC4KKworRm9yIGluc3RhbmNlLCBpZiBhIGxp
+bmVhciBkZXZpY2UncyBuYW1lIGlzIGNoYW5nZWQgd2l0aCB0aGUgZm9sbG93aW5nIGNvbW1hbmQs
+CisKKyNkbXNldHVwIHJlbmFtZSBsaW5lYXIxIGxpbmVhcj0yCitUaGVuIElNQSBBU0NJSSBtZWFz
+dXJlbWVudCBsb2cgd2lsbCBoYXZlIGFuIGVudHJ5IHdpdGg6CitFVkVOVF9OQU1FIDo9IGRldmlj
+ZV9yZW5hbWUKK0VWRU5UX0RBVEEgOj0gW2N1cnJlbnRfZGV2aWNlX2RhdGFdO25ld19uYW1lPTxu
+ZXdfbmFtZV92YWx1ZT47bmV3X3V1aWQ9PG5ld191dWlkX3ZhbHVlPjtjdXJyZW50X2RldmljZV9j
+YXBhY2l0eT08Tj47CisKK0UuZyAxOgorI2Rtc2V0dXAgcmVuYW1lIGxpbmVhcjEgLS1zZXR1dWlk
+IDEyMzQtNTY3OAorCitJTUEgTG9nIGVudHJ5OgorKGNvbnZlcnRlZCBmcm9tIEFTQ0lJIHRvIHRl
+eHQgZm9yIHJlYWRhYmlsaXR5KQorMTAgNzM4MGVmNGQxMzQ5ZmUxZWJkNzRhZmZhNTRlOWZjYzk2
+MGUzY2JmNSBpbWEtYnVmIHNoYTI1Njo5NzU5ZTM2YTE3YTk2N2VhNDNjMWJmMzQ1NTI3OTM5NWE0
+MGJkMDQwMTEwNWVjNWFkOGVkYjlhNTIwNTRlZmM3CitkZXZpY2VfcmVuYW1lCituYW1lPWxpbmVh
+cjEsdXVpZD0sbWFqb3I9MjUzLG1pbm9yPTAsbWlub3JfY291bnQ9MSxudW1fdGFyZ2V0cz0xO25l
+d19uYW1lPWxpbmVhcjEsbmV3X3V1aWQ9MTIzNC01Njc4O2N1cnJlbnRfZGV2aWNlX2NhcGFjaXR5
+PTI7CisKK0UuZyAyOgorIyBkbXNldHVwIHJlbmFtZSBsaW5lYXIxIGxpbmVhcj0yCisxMCAwOTJj
+ODI2NmZjMzZlNDRmNzRjNTlmMTIzZWNmZTE1MzEwZjI0OWY0IGltYS1idWYgc2hhMjU2OjRjZjhi
+ODVjODFmYTZmZWRhZWI2MDJiMDUwMTkxMjRkYmJiMDYwNWRjZTU4ZmNkZWVhNTY4ODdhOGEzODc0
+Y2QKK2RldmljZV9yZW5hbWUKK25hbWU9bGluZWFyMSx1dWlkPTEyMzQtNTY3OCxtYWpvcj0yNTMs
+bWlub3I9MCxtaW5vcl9jb3VudD0xLG51bV90YXJnZXRzPTE7bmV3X25hbWU9bGluZWFyXD0yLG5l
+d191dWlkPTEyMzQtNTY3ODtjdXJyZW50X2RldmljZV9jYXBhY2l0eT0yOworCisKK1N1cHBvcnRl
+ZCB0YXJnZXRzOgorPT09PT09PT09PT09PT09PT09CitGb2xsb3dpbmcgdGFyZ2V0cyBhcmUgc3Vw
+cG9ydGVkIHRvIG1lYXN1cmUgdGhlaXIgZGF0YSB1c2luZyBJTUEuCisKKzAxLiBjYWNoZQorMDIu
+IGNyeXB0CiswMy4gaW50ZWdyaXR5CiswNC4gbGluZWFyCiswNS4gbWlycm9yCiswNi4gbXVsdGlw
+YXRoCiswNy4gcmFpZAorMDguIHNuYXBzaG90CiswOS4gc3RyaXBlZAorMTAuIHZlcml0eQorCisw
+MS4gY2FjaGUKKy0tLS0tLS0tLQorPDxkb2N1bWVuYXRhdGlvbiBpbiBwcm9ncmVzcz4+CisKKzAy
+LiBjcnlwdAorLS0tLS0KK1doZW4gYSBjcnlwdCB0YXJnZXQgaXMgbG9hZGVkLCB0aGVuIElNQSBB
+U0NJSSBtZWFzdXJlbWVudCBsb2cgd2lsbCBoYXZlIGFuIGVudHJ5CitzaW1pbGFyIHRvIHRoZSBm
+b2xsb3dpbmcsIGRlcGljdGluZyB3aGF0IGNyeXB0IGF0dHJpYnV0ZXMgYXJlIG1lYXN1cmVkIGlu
+IEVWRU5UX0RBVEEuCisKKyhjb252ZXJ0ZWQgZnJvbSBBU0NJSSB0byB0ZXh0IGZvciByZWFkYWJp
+bGl0eSkKKzEwIGZlM2I4MGEzNWIxNTViZDI4MmRmNzc4ZTI2MjUwNjZjMDVmYzA2OGMgaW1hLWJ1
+ZiBzaGEyNTY6MmQ4NmNlOWQ2ZjE2YTRhOTc2MDczMThhYTEyM2FlODE2ZTBjZWFkZWZlZWE3OTAz
+YWJmN2Y3ODJmMmNiNzhhZAordGFibGVfbG9hZAorbmFtZT10ZXN0LWNyeXB0LHV1aWQ9LG1ham9y
+PTI1MyxtaW5vcj0wLG1pbm9yX2NvdW50PTEsbnVtX3RhcmdldHM9MTsKK3RhcmdldF9pbmRleD0w
+LHRhcmdldF9iZWdpbj0wLHRhcmdldF9sZW49MTk1MzEyNSx0YXJnZXRfdHlwZV9uYW1lPWNyeXB0
+LHRhcmdldF90eXBlX3ZlcnNpb249MS4yMy4wLAorYWxsb3dfZGlzY2FyZHM9eSxzYW1lX2NwdT1u
+LHN1Ym1pdF9mcm9tX2NyeXB0X2NwdXM9bixub19yZWFkX3dvcmtxdWV1ZT1uLG5vX3dyaXRlX3dv
+cmtxdWV1ZT1uLAoraXZfbGFyZ2Vfc2VjdG9ycz1uLGNpcGhlcl9zdHJpbmc9YWVzLXh0cy1wbGFp
+bjY0LGtleV9zaXplPTMyLGtleV9wYXJ0cz0xLGtleV9leHRyYV9zaXplPTAsa2V5X21hY19zaXpl
+PTA7CisKKzAzLiBpbnRlZ3JpdHkKKy0tLS0tLS0tLS0tLS0KKzw8ZG9jdW1lbmF0YXRpb24gaW4g
+cHJvZ3Jlc3M+PgorCisKKzA0LiBsaW5lYXIKKy0tLS0tLS0tLS0KK1doZW4gYSBsaW5lYXIgdGFy
+Z2V0IGlzIGxvYWRlZCwgdGhlbiBJTUEgQVNDSUkgbWVhc3VyZW1lbnQgbG9nIHdpbGwgaGF2ZSBh
+biBlbnRyeQorc2ltaWxhciB0byB0aGUgZm9sbG93aW5nLCBkZXBpY3Rpbmcgd2hhdCBsaW5lYXIg
+YXR0cmlidXRlcyBhcmUgbWVhc3VyZWQgaW4gRVZFTlRfREFUQS4KKworKGNvbnZlcnRlZCBmcm9t
+IEFTQ0lJIHRvIHRleHQgZm9yIHJlYWRhYmlsaXR5KQorMTAgYThjNWZmNzU1NTYxYzdhMjgxNDYz
+ODlkMTUxNGMzMTg1OTJhZjQ5YSBpbWEtYnVmIHNoYTI1Njo0ZDczNDgxZWNjZTVlYWRiYThhYjA4
+NDY0MGQ4NWJiOWNhODk5YWY0ZDBhMTIyOTg5MjUyYTc2ZWZhZGM1YjcyCit0YWJsZV9sb2FkCitu
+YW1lPWxpbmVhcjEsdXVpZD0sbWFqb3I9MjUzLG1pbm9yPTAsbWlub3JfY291bnQ9MSxudW1fdGFy
+Z2V0cz00OwordGFyZ2V0X2luZGV4PTAsdGFyZ2V0X2JlZ2luPTAsdGFyZ2V0X2xlbj0yLHRhcmdl
+dF90eXBlX25hbWU9bGluZWFyLHRhcmdldF90eXBlX3ZlcnNpb249MS40LjAsZGV2aWNlX25hbWU9
+NzowLHN0YXJ0PTUxMjsKK3RhcmdldF9pbmRleD0xLHRhcmdldF9iZWdpbj0yLHRhcmdldF9sZW49
+Mix0YXJnZXRfdHlwZV9uYW1lPWxpbmVhcix0YXJnZXRfdHlwZV92ZXJzaW9uPTEuNC4wLGRldmlj
+ZV9uYW1lPTc6MCxzdGFydD01MTI7Cit0YXJnZXRfaW5kZXg9Mix0YXJnZXRfYmVnaW49NCx0YXJn
+ZXRfbGVuPTIsdGFyZ2V0X3R5cGVfbmFtZT1saW5lYXIsdGFyZ2V0X3R5cGVfdmVyc2lvbj0xLjQu
+MCxkZXZpY2VfbmFtZT03OjAsc3RhcnQ9NTEyOwordGFyZ2V0X2luZGV4PTMsdGFyZ2V0X2JlZ2lu
+PTYsdGFyZ2V0X2xlbj0yLHRhcmdldF90eXBlX25hbWU9bGluZWFyLHRhcmdldF90eXBlX3ZlcnNp
+b249MS40LjAsZGV2aWNlX25hbWU9NzowLHN0YXJ0PTUxMjsKKworMDUuIG1pcnJvcgorLS0tLS0t
+LS0tLQorV2hlbiBhIG1pcnJvciB0YXJnZXQgaXMgbG9hZGVkLCB0aGVuIElNQSBBU0NJSSBtZWFz
+dXJlbWVudCBsb2cgd2lsbCBoYXZlIGFuIGVudHJ5CitzaW1pbGFyIHRvIHRoZSBmb2xsb3dpbmcs
+IGRlcGljdGluZyB3aGF0IG1pcnJvciBhdHRyaWJ1dGVzIGFyZSBtZWFzdXJlZCBpbiBFVkVOVF9E
+QVRBLgorCisoY29udmVydGVkIGZyb20gQVNDSUkgdG8gdGV4dCBmb3IgcmVhZGFiaWxpdHkpCisx
+MCA5MGZmOTExM2EwMGMzNjdkZjgyMzU5NWRjMzQ3NDI1Y2UzYmZjNTBhIGltYS1idWYgc2hhMjU2
+OjhkYTA2NzhlZDNiZjYxNjUzMzU3M2Q5ZTYxZTUzNDJmMmJkMTZjYjBiMzE0NWEwODI2MjY0MWE3
+NDM4MDZjMmUKK3RhYmxlX2xvYWQKK25hbWU9dGVzdC1taXJyb3IsdXVpZD0sbWFqb3I9MjUzLG1p
+bm9yPTQsbWlub3JfY291bnQ9MSxudW1fdGFyZ2V0cz0xOwordGFyZ2V0X2luZGV4PTAsdGFyZ2V0
+X2JlZ2luPTAsdGFyZ2V0X2xlbj0xOTUzMTI1LHRhcmdldF90eXBlX25hbWU9bWlycm9yLHRhcmdl
+dF90eXBlX3ZlcnNpb249MS4xNC4wLAorbWlycm9ycz0yLG1pcnJvcl9kZXZpY2VfMD0yNTM6Mixt
+aXJyb3JfZGV2aWNlXzBfc3RhdHVzPUEsbWlycm9yX2RldmljZV8xPTI1MzozLG1pcnJvcl9kZXZp
+Y2VfMV9zdGF0dXM9QSwKK2hhbmRsZV9lcnJvcnM9eSxrZWVwX2xvZz1uLGxvZ190eXBlX3N0YXR1
+cz07CisKKzA2LiBtdWx0aXBhdGgKKy0tLS0tLS0tLS0tLS0KKzw8ZG9jdW1lbmF0YXRpb24gaW4g
+cHJvZ3Jlc3M+PgorCiswNy4gcmFpZAorLS0tLS0tLS0KK1doZW4gYSByYWlkIHRhcmdldCBpcyBs
+b2FkZWQsIHRoZW4gSU1BIEFTQ0lJIG1lYXN1cmVtZW50IGxvZyB3aWxsIGhhdmUgYW4gZW50cnkK
+K3NpbWlsYXIgdG8gdGhlIGZvbGxvd2luZywgZGVwaWN0aW5nIHdoYXQgcmFpZCBhdHRyaWJ1dGVz
+IGFyZSBtZWFzdXJlZCBpbiBFVkVOVF9EQVRBLgorCisoY29udmVydGVkIGZyb20gQVNDSUkgdG8g
+dGV4dCBmb3IgcmVhZGFiaWxpdHkpCisxMCA3NmNiMzBkMGNkMGZlMDk5OTY2ZjIwZjVjODJlM2Ey
+YWMyOWIyMWEwIGltYS1idWYgc2hhMjU2OjUyMjUwZjIwYjI3Mzc2ZmNmYjM0OGJkZmExZTFjZjVh
+Y2ZkNjY0NmUwZjNhZDFhNzI5NTJjZmZkOWY4MTg3NTMKK3RhYmxlX2xvYWQKK25hbWU9dGVzdC1y
+YWlkMSx1dWlkPSxtYWpvcj0yNTMsbWlub3I9MixtaW5vcl9jb3VudD0xLG51bV90YXJnZXRzPTE7
+Cit0YXJnZXRfaW5kZXg9MCx0YXJnZXRfYmVnaW49MCx0YXJnZXRfbGVuPTE5NTMxMjUsdGFyZ2V0
+X3R5cGVfbmFtZT1yYWlkLHRhcmdldF90eXBlX3ZlcnNpb249MS4xNS4xLAorcmFpZF90eXBlPXJh
+aWQxLHJhaWRfZGlza3M9MixyYWlkX3N0YXRlPWlkbGUscmFpZF9kZXZpY2VfMF9zdGF0dXM9QSxy
+YWlkX2RldmljZV8xX3N0YXR1cz1BOworCiswOC4gc25hcHNob3QKKy0tLS0tLS0tLS0tLQorPDxk
+b2N1bWVuYXRhdGlvbiBpbiBwcm9ncmVzcz4+CisKKzA5LiBzdHJpcGVkCistLS0tLS0tLS0tCitX
+aGVuIGEgbGluZWFyIHRhcmdldCBpcyBsb2FkZWQsIHRoZW4gSU1BIEFTQ0lJIG1lYXN1cmVtZW50
+IGxvZyB3aWxsIGhhdmUgYW4gZW50cnkKK3NpbWlsYXIgdG8gdGhlIGZvbGxvd2luZywgZGVwaWN0
+aW5nIHdoYXQgbGluZWFyIGF0dHJpYnV0ZXMgYXJlIG1lYXN1cmVkIGluIEVWRU5UX0RBVEEuCisK
+Kyhjb252ZXJ0ZWQgZnJvbSBBU0NJSSB0byB0ZXh0IGZvciByZWFkYWJpbGl0eSkKKzEwIDdiZDk0
+ZmE4Zjc5OTE2OWI5ZjEyZDk3YjlkYmRjZTRkYzU1MDkyMzMgaW1hLWJ1ZiBzaGEyNTY6MGQxNDhl
+ZGE2OTg4N2Y3ODMzZjFhNjA0Mjc2N2I1NDM1OWNkMjNiNjRmYTk0MWI5ZTE4NTY4NzllZWUxZjc3
+OAordGFibGVfbG9hZAorbmFtZT10ZXN0LXJhaWQwLHV1aWQ9LG1ham9yPTI1MyxtaW5vcj04LG1p
+bm9yX2NvdW50PTEsbnVtX3RhcmdldHM9MTsKK3RhcmdldF9pbmRleD0wLHRhcmdldF9iZWdpbj0w
+LHRhcmdldF9sZW49NzgxMjA5Nix0YXJnZXRfdHlwZV9uYW1lPXN0cmlwZWQsdGFyZ2V0X3R5cGVf
+dmVyc2lvbj0xLjYuMCxzdHJpcGVzPTQsY2h1bmtfc2l6ZT0xMjgsCitzdHJpcGVfMF9kZXZpY2Vf
+bmFtZT0yNTM6MSxzdHJpcGVfMF9waHlzaWNhbF9zdGFydD0wLHN0cmlwZV8wX3N0YXR1cz1BLAor
+c3RyaXBlXzFfZGV2aWNlX25hbWU9MjUzOjMsc3RyaXBlXzFfcGh5c2ljYWxfc3RhcnQ9MCxzdHJp
+cGVfMV9zdGF0dXM9QSwKK3N0cmlwZV8yX2RldmljZV9uYW1lPTI1Mzo1LHN0cmlwZV8yX3BoeXNp
+Y2FsX3N0YXJ0PTAsc3RyaXBlXzJfc3RhdHVzPUEsCitzdHJpcGVfM19kZXZpY2VfbmFtZT0yNTM6
+NyxzdHJpcGVfM19waHlzaWNhbF9zdGFydD0wLHN0cmlwZV8zX3N0YXR1cz1BOworCisxMC4gdmVy
+aXR5CistLS0tLS0tLS0tCitXaGVuIGEgdmVyaXR5IHRhcmdldCBpcyBsb2FkZWQsIHRoZW4gSU1B
+IEFTQ0lJIG1lYXN1cmVtZW50IGxvZyB3aWxsIGhhdmUgYW4gZW50cnkKK3NpbWlsYXIgdG8gdGhl
+IGZvbGxvd2luZywgZGVwaWN0aW5nIHdoYXQgdmVyaXR5IGF0dHJpYnV0ZXMgYXJlIG1lYXN1cmVk
+IGluIEVWRU5UX0RBVEEuCisKKyhjb252ZXJ0ZWQgZnJvbSBBU0NJSSB0byB0ZXh0IGZvciByZWFk
+YWJpbGl0eSkKKzEwIGZjZWQ1ZjU3NWIxNDBmYzBlZmFjMzAyYzg4YTYzNTE3NGNkNjYzZGEgaW1h
+LWJ1ZiBzaGEyNTY6MDIxMzcwYzFjYzkzOTI5NDYwYjA2OTIyYzYwNjMzNGZiMWQ3ZWE1ZWNmMDRm
+MjM4NGYzMTU3YTQ0Njg5NDI4MwordGFibGVfbG9hZAorbmFtZT10ZXN0LXZlcml0eSx1dWlkPSxt
+YWpvcj0yNTMsbWlub3I9MixtaW5vcl9jb3VudD0xLG51bV90YXJnZXRzPTE7Cit0YXJnZXRfaW5k
+ZXg9MCx0YXJnZXRfYmVnaW49MCx0YXJnZXRfbGVuPTE5NTMxMjAsdGFyZ2V0X3R5cGVfbmFtZT12
+ZXJpdHksdGFyZ2V0X3R5cGVfdmVyc2lvbj0xLjguMCxoYXNoX2ZhaWxlZD1WLAordmVyaXR5X3Zl
+cnNpb249MSxkYXRhX2RldmljZV9uYW1lPTI1MzoxLGhhc2hfZGV2aWNlX25hbWU9MjUzOjAsdmVy
+aXR5X2FsZ29yaXRobT1zaGEyNTYsCityb290X2RpZ2VzdD0yOWNiODdlNjBjZTdiMTJiNDQzYmE2
+MDA4MjY2ZjNlNDFlOTNlNDAzZDdmMjk4ZjhlM2YzMTZiMjlmZjg5YzVlLAorc2FsdD1lNDhkYTYw
+OTA1NTIwNGU4OWFlNTNiNjU1Y2EyMjE2ZGQ5ODNjZjNjYjgyOWYzNGY2M2EyOTdkMTA2ZDUzZTJk
+LAoraWdub3JlX3plcm9fYmxvY2tzPW4sY2hlY2tfYXRfbW9zdF9vbmNlPW47CmRpZmYgLS1naXQg
+YS9Eb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL2RldmljZS1tYXBwZXIvaW5kZXgucnN0IGIvRG9j
+dW1lbnRhdGlvbi9hZG1pbi1ndWlkZS9kZXZpY2UtbWFwcGVyL2luZGV4LnJzdAppbmRleCA2Y2Y4
+YWRjODZmYTguLmNkZTUyY2MwOTY0NSAxMDA2NDQKLS0tIGEvRG9jdW1lbnRhdGlvbi9hZG1pbi1n
+dWlkZS9kZXZpY2UtbWFwcGVyL2luZGV4LnJzdAorKysgYi9Eb2N1bWVudGF0aW9uL2FkbWluLWd1
+aWRlL2RldmljZS1tYXBwZXIvaW5kZXgucnN0CkBAIC0xMyw2ICsxMyw3IEBAIERldmljZSBNYXBw
+ZXIKICAgICBkbS1kdXN0CiAgICAgZG0tZWJzCiAgICAgZG0tZmxha2V5CisgICAgZG0taW1hCiAg
+ICAgZG0taW5pdAogICAgIGRtLWludGVncml0eQogICAgIGRtLWlvCi0tIAoyLjI1LjEKCgotLQpk
+bS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4u
+cmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
 
