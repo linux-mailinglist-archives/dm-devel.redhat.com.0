@@ -2,156 +2,98 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 1598D3D0A0D
-	for <lists+dm-devel@lfdr.de>; Wed, 21 Jul 2021 09:54:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A39E53D12B2
+	for <lists+dm-devel@lfdr.de>; Wed, 21 Jul 2021 17:43:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1626882212;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=1nyHGsbmoUnUbqBtRnw4JhLQMgj54/BMv4+3UoqaJag=;
+	b=Qyhwjg304PDZhOHG5szHRJG3UmEsN/R4QQctJ/p5H4QSjXfyftv1GCJ7ByoE5kGduUAIx3
+	R36aWZhlC+3NDjRzcK3DWHLl11onijHu/7pT/tXKRt176/JexgjNST8BWRx47R9N8puXyZ
+	BkvbJ2RFGCC3TplfnJ++KGcXPBrNhac=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-231-nNn1gESqNOWO3_Xf5oEwIQ-1; Wed, 21 Jul 2021 03:54:47 -0400
-X-MC-Unique: nNn1gESqNOWO3_Xf5oEwIQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-177-vMG8NDAbOOm2scmoAI6xsA-1; Wed, 21 Jul 2021 11:43:31 -0400
+X-MC-Unique: vMG8NDAbOOm2scmoAI6xsA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D56BA362F8;
-	Wed, 21 Jul 2021 07:54:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D816F190B2A1;
+	Wed, 21 Jul 2021 15:43:20 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9526D19C79;
-	Wed, 21 Jul 2021 07:54:36 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 66DB010013D7;
+	Wed, 21 Jul 2021 15:43:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9CDEC4BB7C;
-	Wed, 21 Jul 2021 07:54:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6155B4BB7C;
+	Wed, 21 Jul 2021 15:42:54 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16KAbdbs018155 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 20 Jul 2021 06:37:39 -0400
+	id 16LFgdMl014888 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 21 Jul 2021 11:42:39 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2D71B2039D3C; Tue, 20 Jul 2021 10:37:39 +0000 (UTC)
+	id A20C11112C35; Wed, 21 Jul 2021 15:42:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 273572039D40
-	for <dm-devel@redhat.com>; Tue, 20 Jul 2021 10:37:36 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2EB8F80B735
-	for <dm-devel@redhat.com>; Tue, 20 Jul 2021 10:37:36 +0000 (UTC)
-Received: from esa2.fujitsucc.c3s2.iphmx.com (esa2.fujitsucc.c3s2.iphmx.com
-	[68.232.152.246]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-369-Ws-WCeJpM-eZno6wyFleAQ-1; Tue, 20 Jul 2021 06:37:34 -0400
-X-MC-Unique: Ws-WCeJpM-eZno6wyFleAQ-1
-X-IronPort-AV: E=McAfee;i="6200,9189,10050"; a="43431570"
-X-IronPort-AV: E=Sophos;i="5.84,254,1620658800"; d="scan'208";a="43431570"
-Received: from mail-ty1jpn01lp2051.outbound.protection.outlook.com (HELO
-	JPN01-TY1-obe.outbound.protection.outlook.com) ([104.47.93.51])
-	by ob1.fujitsucc.c3s2.iphmx.com with
-	ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Jul 2021 19:37:30 +0900
-Received: from OSBPR01MB2920.jpnprd01.prod.outlook.com (2603:1096:604:18::16)
-	by OSBPR01MB2277.jpnprd01.prod.outlook.com (2603:1096:603:25::23)
-	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4331.26;
-	Tue, 20 Jul 2021 10:37:26 +0000
-Received: from OSBPR01MB2920.jpnprd01.prod.outlook.com
-	([fe80::b88e:7015:e4a2:3d9a]) by
-	OSBPR01MB2920.jpnprd01.prod.outlook.com
-	([fe80::b88e:7015:e4a2:3d9a%7]) with mapi id 15.20.4331.034;
-	Tue, 20 Jul 2021 10:37:26 +0000
-From: "ruansy.fnst@fujitsu.com" <ruansy.fnst@fujitsu.com>
-To: Christoph Hellwig <hch@lst.de>
-Thread-Topic: [PATCH v5 2/9] dax: Introduce holder for dax_device
-Thread-Index: AQHXa7EcF510jwaUhkun35QO/tU+OqtKixAAgAFBEMA=
-Date: Tue, 20 Jul 2021 10:37:26 +0000
-Message-ID: <OSBPR01MB29200552738339C054E70A1FF4E29@OSBPR01MB2920.jpnprd01.prod.outlook.com>
-References: <20210628000218.387833-1-ruansy.fnst@fujitsu.com>
-	<20210628000218.387833-3-ruansy.fnst@fujitsu.com>
-	<20210719151744.GA22718@lst.de>
-In-Reply-To: <20210719151744.GA22718@lst.de>
-Accept-Language: en-US, zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 8804f12a-9c92-48e5-b2e1-08d94b6a5e24
-x-ms-traffictypediagnostic: OSBPR01MB2277:
-x-microsoft-antispam-prvs: <OSBPR01MB2277352EC589EDF174AE1928F4E29@OSBPR01MB2277.jpnprd01.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: PCyejWLTDZ7dOwJrNa7QyPi4BjvuD9h9EhIhlxL+6W0cmfmajXUUVyzsuu1H9RmWUqjfTT+A1cekx9TUSD/6n945nwL4GIKEdZBWz2UsqnhF3mnV+JBraYktKdQA2rq1y/jjwBoXRo5tda1cwqUBuIP9vuazLyDUBsr1ew3OGhxVkZ3dlj/taMoW2gC04WuG5x5DHbyuOXUs9HVSOLhFEl3BCpcDvDxlKqGBzhH6APY3lk2vVEPur8tFtr/cPJCIQkCPkWcNglscH3kVcqo02eKxF3Gp1JzyotpkgaOb4lTDs/w+w8xrrffGY6fdvehPMuH2WDH87m+uScvqAQP2vo5pFkefEJeEWvsMFhbJjTloeOYhkytaARsUteii71RU2oKWOY9TYYuvsciYJB0+8bcJVGCzt6/sd3LiV6fvnC9lZ4WfiSZAQlc1rm4WRmREhzHarOfp/Xbe3E3YJ7XTOT8fbwktSqTBQFITyDJarlODg4s7poyXKtNU0ToMb3UrPycA1vk4vXokhy/O1yMwKB15pu9hMyAS0Qnl8KCapPraZzCSuIUia8qAOk+B+1X2m77uEJqt+1NXVCcZhf3WpuYxJTiuyOlPQpYHyEoy4PmqDx/6ElzKeJc0Wj4CYhvH9SmG0R+3y5bHPSZdPYtiPqWWQ66TvWDzLu7hePLiXQW9Oz1U1bCUqYW8MqVheP5AeK/khmjy6MQa8kipgHze9A==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:OSBPR01MB2920.jpnprd01.prod.outlook.com;
-	PTR:; CAT:NONE;
-	SFS:(4636009)(376002)(396003)(366004)(346002)(39860400002)(136003)(71200400001)(76116006)(122000001)(478600001)(66556008)(55016002)(66476007)(66946007)(9686003)(64756008)(316002)(66446008)(54906003)(186003)(33656002)(38100700002)(83380400001)(8936002)(52536014)(85182001)(26005)(6916009)(4326008)(5660300002)(6506007)(2906002)(7696005)(8676002)(86362001)(7416002)(38070700004);
-	DIR:OUT; SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?gb2312?B?V0o4ODhhcGZsQzZpeER1bjM1NEFtRHEvb3ZRZDRSZUFHNGUrbnJlUzNJVGxD?=
-	=?gb2312?B?cEozOVoyMytRenRWZlZNRG5lRHFqZGNsRUtkelMwQmlvekZCby80MU0vK09C?=
-	=?gb2312?B?ZW9MVlcvOGNhczdRT0VzUnhzUHZQVEExU0NQTUdqVkt3b1B5dldTcGRBb1NE?=
-	=?gb2312?B?RW1EbGtuZWlMaW04NWFGL2dZb3ZXY25xdm1mcFJyNThWQTUxT2hHQk5PNXht?=
-	=?gb2312?B?c3RXeE5nbXdVZzRidlVmS1Iway9iWXNhcSt1Ti8zYUFLbGFhMTA5UHp2cGdl?=
-	=?gb2312?B?Qkpma3UzOGlSbXdPRVIrRnpXQXo3bXZrU1dxb2J4L3hrYkdiM2tVOXFpaE1N?=
-	=?gb2312?B?T0RFYUdvMWtrOUhRU3l1QWJBbC9lRVViL2JCVGdKOXlQdkYyV0RqOWw0L3dJ?=
-	=?gb2312?B?TGN4SG0wZTUvTEZxTWg3ZlVGaVVGQmVmc2ZZQW1lUG9RbHVmOWV1S3JCdnpD?=
-	=?gb2312?B?QktLM0MzV2RFYmZHcWdTTVZPbnVRNmpBSlVpU1IxRU5yNDJtNEs3Y012dHcr?=
-	=?gb2312?B?ZGQ5c1RZZ1R2dGo1NzZsQWx6c0lqOWcramVLcTRydE1GUFg4OU9KYzdNU2N3?=
-	=?gb2312?B?dDlrVGhKb3VKbUh4M0xsYklDVHhaLzF4UU1WSk1aT1FUZHc2MU5lQU1qZU9T?=
-	=?gb2312?B?Z1pTQkJ4ODFBQlJpdkJyWGhtcE05OE9kcjR2TkZyakNabzZvdnBjVDQ3K3p5?=
-	=?gb2312?B?cFMyWkdVWFFwUE1Dc0p6Q21OM1RpQUQyNTBSMTBNVHBmdXY3RVc0NlFYWDM2?=
-	=?gb2312?B?VXEraEpiY1pkdzJDbGNxUEFER096Yzlrcm1jU0JQVU5UcmFPV1dpdExUclNx?=
-	=?gb2312?B?ZGZDbGVNK2RaaklBeUl4SEx0UWRDYmtCdUxma2JtVE5TdER3S2kvTm5GMDB5?=
-	=?gb2312?B?MVpFajZ0V05vd1R0QVZFcGJBK2FLV2FXLzlhSkxOMnRYenAyVG9jbyt3QW4v?=
-	=?gb2312?B?VGtwbS93U1NHQUlkd2R5T3EwMGJPdXZxVEI3TlQwT2JCRHdrZHpWMnpvdWVV?=
-	=?gb2312?B?MFJsWmtUMi9nVzFmdHBPSmdxVDYyYkFCZkxrZTlhL3JkR28wS1NoajNpeHhi?=
-	=?gb2312?B?b1VOWUdGWFhhL2p1OWJCSjdKSUdTeDNsdUh3Q2s4VURnbm44VnVIQXllOHV2?=
-	=?gb2312?B?MXRVaUE4OVRXRFZWbitWUWxFc1hmU3M1ZzF1TFlqSExvOXA0bGpEK1l3WnZz?=
-	=?gb2312?B?RGF3bzQwSWl3VS9wd3dROXV6N1ZKT1dnMjl6N3NHU2U2d09xd3poWDZCWm5j?=
-	=?gb2312?B?Rm0zQUdxdWlreStJRWdTb1pFbWMwdVlBS09QQUNRRnRJK1lUQ1ZUZ05CZmhT?=
-	=?gb2312?B?NE5mQUVReXVjaHBURC9IQ2NRcUNPeW1IbHptZ1pXdVJzeU9QSDMwRCsrUmYr?=
-	=?gb2312?B?bmFNMEIxZk9jK0k1dXZMZkw0V0lWWDdCc3poeE8rNXJhbURPbS9tNkdYczVn?=
-	=?gb2312?B?UlU4TTVUdUk5L0NOK3h5TFZySnp2ejN2OW92MkhTQ1hBR1FOY1lnbWFHbVF4?=
-	=?gb2312?B?V3A1T3drc2EvUGxZczc0MjlyTEJyOTRJVkNkV282c1FPeVljakJmVkVWa09K?=
-	=?gb2312?B?T1VVeGNXdURacm5IQ3ZYVWczcjE5SHRPNFZXdWpSUmgzeTZESjBMOUxjNDVD?=
-	=?gb2312?B?SlBMU1NtbHdjbS9YaU90YnVNdVRoQnhHK21vNHU1STVGYm1adUUxUzd4Z1JC?=
-	=?gb2312?B?NHBEdXhnRmNMclkvU3J5RlZ2OW5CNTBaUnV4WjRTenlETWZVZ05XVmxFbW5N?=
-	=?gb2312?Q?mtOR7JMhG5o+KAjKzRYmyNpu3nuWKLCH97wi9KJ?=
-x-ms-exchange-transport-forked: True
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9E14B102FDFC
+	for <dm-devel@redhat.com>; Wed, 21 Jul 2021 15:42:36 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 43DE589C888
+	for <dm-devel@redhat.com>; Wed, 21 Jul 2021 15:42:36 +0000 (UTC)
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+	[209.85.160.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-527-oTINNpUENL220nhmqiuVBA-1; Wed, 21 Jul 2021 11:42:34 -0400
+X-MC-Unique: oTINNpUENL220nhmqiuVBA-1
+Received: by mail-qt1-f199.google.com with SMTP id
+	j16-20020ac855100000b029025bf786be09so1760781qtq.20
+	for <dm-devel@redhat.com>; Wed, 21 Jul 2021 08:42:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20161025;
+	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+	:mime-version:content-disposition:in-reply-to;
+	bh=mC3YFDA+fRrmMU6CPpALtx86xAvYF4K/VPk02lU+2Pc=;
+	b=R2CCNzoSZy/idtUQMvJZRw97Ay5p8yT1kt5csjm0lavkaMNQxVcDwagwbGpvzT5k+s
+	PDYi1yAYoITtr9Doq048FCfX8c7nHbIRQj66AaPAF4do1Pm3ThL4AeyPOXAh7ytNVz8q
+	deOYFSFQ+YwI06uFtR5XxwWj5YiposbzTyMFinScB0zEmMuXyVMI6Sccc+8Az45dLvN+
+	+4sDSb5nIQ54TOqMnhG+QUXX7QvsyBGb6oRzPK1l0XLNSsRLYStUxcYerGoHM9lmDhN7
+	gsKEBE18FOJDSyY+q7rCuVrdpHfgQ7AlT1Ae2vlPcPHL12RmrRId+tghQWG8kWhK3kSM
+	Wjiw==
+X-Gm-Message-State: AOAM533aTbQbDCKajna0g3ql6WGP6ntwG+k/MexB6YzHW5IljCT3E+WM
+	FcEzqDBIZvKCPt2YddnWqjY0+w/7pS7baeawszfB1Xj2XSTnemBb5Bczmue9PZTLdyr97+na3EV
+	L+dAjwIYVz+j8ow==
+X-Received: by 2002:ac8:1249:: with SMTP id g9mr18972680qtj.292.1626882154313; 
+	Wed, 21 Jul 2021 08:42:34 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyBCUbNIq4GM1ljypiPbKNvxp5VilwRNSZpBInXM1bHvIYhD/SAhXl5O1HT4obVg4YaJLewZQ==
+X-Received: by 2002:ac8:1249:: with SMTP id g9mr18972670qtj.292.1626882154100; 
+	Wed, 21 Jul 2021 08:42:34 -0700 (PDT)
+Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
+	[68.160.176.52]) by smtp.gmail.com with ESMTPSA id
+	d79sm6825042qke.45.2021.07.21.08.42.33
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Wed, 21 Jul 2021 08:42:33 -0700 (PDT)
+Date: Wed, 21 Jul 2021 11:42:32 -0400
+From: Mike Snitzer <snitzer@redhat.com>
+To: Mimi Zohar <zohar@linux.ibm.com>
+Message-ID: <YPhAaAyo8fKXzu5c@redhat.com>
+References: <20210713004904.8808-1-tusharsu@linux.microsoft.com>
+	<20210713004904.8808-2-tusharsu@linux.microsoft.com>
+	<713d22788b678c612c5b18edfb8cf849af61ace5.camel@linux.ibm.com>
 MIME-Version: 1.0
-X-OriginatorOrg: fujitsu.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OSBPR01MB2920.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8804f12a-9c92-48e5-b2e1-08d94b6a5e24
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jul 2021 10:37:26.7376 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bmGRijcGaSez1zdktXPjmb7POq6o2vZYcgmCvKNBY8fuf5e1Hosp4j0fvdq4a6FsbojHV3BKhKvkMo62sadLog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSBPR01MB2277
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-X-MIME-Autoconverted: from base64 to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 16KAbdbs018155
+In-Reply-To: <713d22788b678c612c5b18edfb8cf849af61ace5.camel@linux.ibm.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Wed, 21 Jul 2021 03:52:50 -0400
-Cc: "nvdimm@lists.linux.dev" <nvdimm@lists.linux.dev>,
-	"snitzer@redhat.com" <snitzer@redhat.com>,
-	"darrick.wong@oracle.com" <darrick.wong@oracle.com>,
-	"rgoldwyn@suse.de" <rgoldwyn@suse.de>,
-	"david@fromorbit.com" <david@fromorbit.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
-	"linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-	"dan.j.williams@intel.com" <dan.j.williams@intel.com>,
-	"agk@redhat.com" <agk@redhat.com>
-Subject: Re: [dm-devel] [PATCH v5 2/9] dax: Introduce holder for dax_device
+Cc: Tushar Sugandhi <tusharsu@linux.microsoft.com>, nramas@linux.microsoft.com,
+	dm-devel@redhat.com, linux-integrity@vger.kernel.org, agk@redhat.com
+Subject: Re: [dm-devel] [PATCH 1/7] dm: measure data on table load
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -165,82 +107,65 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: zh-CN
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-> -----Original Message-----
-> Subject: Re: [PATCH v5 2/9] dax: Introduce holder for dax_device
+On Tue, Jul 20 2021 at 10:12P -0400,
+Mimi Zohar <zohar@linux.ibm.com> wrote:
+
+> Hi Tushar, Mike, 
 > 
-> On Mon, Jun 28, 2021 at 08:02:11AM +0800, Shiyang Ruan wrote:
-> > +int dax_holder_notify_failure(struct dax_device *dax_dev, loff_t offset,
-> > +			      size_t size, void *data)
-> > +{
-> > +	int rc = -ENXIO;
-> > +	if (!dax_dev)
-> > +		return rc;
+> On Mon, 2021-07-12 at 17:48 -0700, Tushar Sugandhi wrote:
+> > +struct dm_ima_device_table_metadata {
+> > +       /*
+> > +        * Contains data specific to the device which is common across
+> > +        * all the targets in the table.e.g. name, uuid, major, minor etc.
+> > +        * The values are stored in comma separated list of key1=val1,key2=val2; pairs
+> > +        * delimited by a semicolon at the end of the list.
+> > +        */
+> > +       char *device_metadata;
+> > +       unsigned int device_metadata_len;
+> > +       unsigned int num_targets;
 > > +
-> > +	if (dax_dev->holder_data) {
-> > +		rc = dax_dev->holder_ops->notify_failure(dax_dev, offset,
-> > +							 size, data);
-> > +		if (rc == -ENODEV)
-> > +			rc = -ENXIO;
-> > +	} else
-> > +		rc = -EOPNOTSUPP;
+> > +       /*
+> > +        * Contains the sha256 hashs of the IMA measurements of the
+> > +        * target attributes key-value pairs from the active/inactive tables.
+> > +        */
 > 
-> The style looks a little odd.  Why not:
+> From past experience hard coding the hash algorithm is really not a
+> good idea.
 > 
-> 	if (!dax_dev)
-> 		return -ENXIO
-> 	if (!dax_dev->holder_data)
-> 		return -EOPNOTSUPP;
-> 	return dax_dev->holder_ops->notify_failure(dax_dev, offset, size, data);
+> Mimi
 > 
-> and let everyone deal with the same errno codes?
-OK.
-
-> 
-> Also why do we even need the dax_dev NULL check?
-
-Because this dax_dev is obtain by fs_dax_get_by_bdev() in XFS and dax_get_by_host() in MD.  According to their definition, NULL may be returned.  So I check the dax_dev here.
-
-> 
-> > +void dax_set_holder(struct dax_device *dax_dev, void *holder,
-> > +		const struct dax_holder_operations *ops) {
-> > +	if (!dax_dev)
-> > +		return;
-> 
-> I don't think we really need that check here.
-> 
-> > +void *dax_get_holder(struct dax_device *dax_dev) {
-> > +	void *holder_data;
+> > +       char *hash;
+> > +       unsigned int hash_len;
 > > +
-> > +	if (!dax_dev)
-> > +		return NULL;
-> 
-> Same here.
-> 
-> > +
-> > +	down_read(&dax_dev->holder_rwsem);
-> > +	holder_data = dax_dev->holder_data;
-> > +	up_read(&dax_dev->holder_rwsem);
-> > +
-> > +	return holder_data;
-> 
-> That lock won't protect anything.  I think we simply must have synchronization
-> to prevent unregistration while the ->notify_failure call is in progress.
+> > +};
 
-Yes, I misunderstood the purpose of the lock. I'll fix this.
+Hi Mimi,
 
+The dm-ima.c code is using SHASH_DESC_ON_STACK and then storing the
+more opaque result via 'hash' and 'hash_len'.
 
---
+So if/when the dm-ima.c hash algorithm were to change this detail
+won't change the dm_ima_device_table_metadata structure at all right?
+But even if changes were needed this is purely an implementation
+detail correct?  Why might users care which algorithm is used by
+dm-ima to generate the hashes?
+
+Assuming there is a valid reason for users to care about this, we can
+improve this aspect as follow-on work.. so I don't consider this a
+blocker for this patchset at this point.  Please clarify if you feel
+it should be a blocker.
+
 Thanks,
-Ruan.
+Mike
 
 --
 dm-devel mailing list
