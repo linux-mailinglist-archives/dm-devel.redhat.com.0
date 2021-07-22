@@ -2,56 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2D8F43D4C3F
-	for <lists+dm-devel@lfdr.de>; Sun, 25 Jul 2021 08:00:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4D5E13D5392
+	for <lists+dm-devel@lfdr.de>; Mon, 26 Jul 2021 09:08:45 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-125-gxKiU7h3Mo6NX7n8F6lM6A-1; Sun, 25 Jul 2021 02:00:09 -0400
-X-MC-Unique: gxKiU7h3Mo6NX7n8F6lM6A-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-203-dpERhulNPeSmUoXf_oa0aQ-1; Mon, 26 Jul 2021 03:08:42 -0400
+X-MC-Unique: dpERhulNPeSmUoXf_oa0aQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4DC54802922;
-	Sun, 25 Jul 2021 06:00:01 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 17EA317CFF;
-	Sun, 25 Jul 2021 06:00:01 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CA4EC190D348;
+	Mon, 26 Jul 2021 07:08:36 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A28D61ABD1;
+	Mon, 26 Jul 2021 07:08:36 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B9FAB180BAB3;
-	Sun, 25 Jul 2021 06:00:00 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5B56C4A7C9;
+	Mon, 26 Jul 2021 07:08:36 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16P5wOaa010582 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 25 Jul 2021 01:58:24 -0400
+	id 16M9btH8019488 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 22 Jul 2021 05:37:55 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DF4E06E1AE; Sun, 25 Jul 2021 05:58:23 +0000 (UTC)
+	id 3B7D3202877F; Thu, 22 Jul 2021 09:37:55 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DA4A96E1BE
-	for <dm-devel@redhat.com>; Sun, 25 Jul 2021 05:58:21 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5D19F1857F00
-	for <dm-devel@redhat.com>; Sun, 25 Jul 2021 05:58:21 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-311-z4GRttLiP-aNH1QgmdgcSA-1; Sun, 25 Jul 2021 01:58:18 -0400
-X-MC-Unique: z4GRttLiP-aNH1QgmdgcSA-1
-Received: from [2001:4bb8:184:87c5:a8b3:bdfd:fc9b:6250] (helo=localhost)
-	by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1m7X94-00Cpqe-4G; Sun, 25 Jul 2021 05:58:01 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Jens Axboe <axboe@kernel.dk>, Mike Snitzer <snitzer@redhat.com>
-Date: Sun, 25 Jul 2021 07:54:58 +0200
-Message-Id: <20210725055458.29008-9-hch@lst.de>
-In-Reply-To: <20210725055458.29008-1-hch@lst.de>
-References: <20210725055458.29008-1-hch@lst.de>
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 376492028782
+	for <dm-devel@redhat.com>; Thu, 22 Jul 2021 09:37:55 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 208541071CE2
+	for <dm-devel@redhat.com>; Thu, 22 Jul 2021 09:37:55 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+	[85.220.165.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-509-DuG83CMFNlOl0yksZifScw-1; Thu, 22 Jul 2021 05:37:53 -0400
+X-MC-Unique: DuG83CMFNlOl0yksZifScw-1
+Received: from dude.hi.pengutronix.de ([2001:67c:670:100:1d::7])
+	by metis.ext.pengutronix.de with esmtps
+	(TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+	(envelope-from <afa@pengutronix.de>)
+	id 1m6UqE-0001NK-VX; Thu, 22 Jul 2021 11:18:06 +0200
+Received: from afa by dude.hi.pengutronix.de with local (Exim 4.92)
+	(envelope-from <afa@pengutronix.de>)
+	id 1m6UqC-0001Ch-DB; Thu, 22 Jul 2021 11:18:04 +0200
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+To: David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+	Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
+	dm-devel@redhat.com, Song Liu <song@kernel.org>,
+	Richard Weinberger <richard@nod.at>
+Date: Thu, 22 Jul 2021 11:17:58 +0200
+Message-Id: <cover.b2fdd70b830d12853b12a12e32ceb0c8162c1346.1626945419.git-series.a.fatoum@pengutronix.de>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	casper.infradead.org. See http://www.infradead.org/rpr.html
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::7
+X-SA-Exim-Mail-From: afa@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+	SAEximRunCond expanded to false
+X-PTX-Original-Recipient: dm-devel@redhat.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -60,11 +71,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: linux-block@vger.kernel.org, dm-devel@redhat.com
-Subject: [dm-devel] [PATCH 8/8] block: remove support for delayed queue
-	registrations
+X-Mailman-Approved-At: Mon, 26 Jul 2021 03:08:04 -0400
+Cc: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org,
+	linux-security-module@vger.kernel.org, keyrings@vger.kernel.org,
+	linux-mtd@lists.infradead.org, kernel@pengutronix.de,
+	linux-integrity@vger.kernel.org
+Subject: [dm-devel] [RFC PATCH v1 0/4] keys: introduce key_extract_material
+	helper
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,7 +93,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -86,119 +101,58 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Now that device mapper has been changed to register the disk once
-it is fully ready all this code is unused.
+While keys of differing type have a common struct key definition, there is
+no common scheme to the payload and key material extraction differs.
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
+For kernel functionality that supports different key types,
+this means duplicated code for key material extraction and because key type
+is discriminated by a pointer to a global, users need to replicate
+reachability checks as well, so builtin code doesn't depend on a key
+type symbol offered by a module.
+
+Make this easier by adding a common helper with initial support for
+user, logon, encrypted and trusted keys.
+
+This series contains two example of its use: dm-crypt uses it to reduce
+boilerplate and ubifs authentication uses it to gain support for trusted
+and encrypted keys alongside the already supported logon keys.
+
+Looking forward to your feedback,
+Ahmad
+
 ---
- block/elevator.c      |  1 -
- block/genhd.c         | 29 +++++++----------------------
- include/linux/genhd.h |  6 ------
- 3 files changed, 7 insertions(+), 29 deletions(-)
+To: David Howells <dhowells@redhat.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+To: James Morris <jmorris@namei.org>
+To: "Serge E. Hallyn" <serge@hallyn.com>
+To: Alasdair Kergon <agk@redhat.com>
+To: Mike Snitzer <snitzer@redhat.com>
+To: dm-devel@redhat.com
+To: Song Liu <song@kernel.org>
+To: Richard Weinberger <richard@nod.at>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-raid@vger.kernel.org
+Cc: linux-integrity@vger.kernel.org
+Cc: keyrings@vger.kernel.org
+Cc: linux-mtd@lists.infradead.org
+Cc: linux-security-module@vger.kernel.org
 
-diff --git a/block/elevator.c b/block/elevator.c
-index 52ada14cfe45..706d5a64508d 100644
---- a/block/elevator.c
-+++ b/block/elevator.c
-@@ -702,7 +702,6 @@ void elevator_init_mq(struct request_queue *q)
- 		elevator_put(e);
- 	}
- }
--EXPORT_SYMBOL_GPL(elevator_init_mq); /* only for dm-rq */
- 
- /*
-  * switch to new_e io scheduler. be careful not to introduce deadlocks -
-diff --git a/block/genhd.c b/block/genhd.c
-index e3d93b868ec5..3cd9f165a5a7 100644
---- a/block/genhd.c
-+++ b/block/genhd.c
-@@ -457,20 +457,20 @@ static void register_disk(struct device *parent, struct gendisk *disk,
- }
- 
- /**
-- * __device_add_disk - add disk information to kernel list
-+ * device_add_disk - add disk information to kernel list
-  * @parent: parent device for the disk
-  * @disk: per-device partitioning information
-  * @groups: Additional per-device sysfs groups
-- * @register_queue: register the queue if set to true
-  *
-  * This function registers the partitioning information in @disk
-  * with the kernel.
-  *
-  * FIXME: error handling
-  */
--static void __device_add_disk(struct device *parent, struct gendisk *disk,
--			      const struct attribute_group **groups,
--			      bool register_queue)
-+
-+void device_add_disk(struct device *parent, struct gendisk *disk,
-+		     const struct attribute_group **groups)
-+
- {
- 	int ret;
- 
-@@ -480,8 +480,7 @@ static void __device_add_disk(struct device *parent, struct gendisk *disk,
- 	 * elevator if one is needed, that is, for devices requesting queue
- 	 * registration.
- 	 */
--	if (register_queue)
--		elevator_init_mq(disk->queue);
-+	elevator_init_mq(disk->queue);
- 
- 	/*
- 	 * If the driver provides an explicit major number it also must provide
-@@ -535,8 +534,7 @@ static void __device_add_disk(struct device *parent, struct gendisk *disk,
- 		bdev_add(disk->part0, dev->devt);
- 	}
- 	register_disk(parent, disk, groups);
--	if (register_queue)
--		blk_register_queue(disk);
-+	blk_register_queue(disk);
- 
- 	/*
- 	 * Take an extra ref on queue which will be put on disk_release()
-@@ -550,21 +548,8 @@ static void __device_add_disk(struct device *parent, struct gendisk *disk,
- 	disk_add_events(disk);
- 	blk_integrity_add(disk);
- }
--
--void device_add_disk(struct device *parent, struct gendisk *disk,
--		     const struct attribute_group **groups)
--
--{
--	__device_add_disk(parent, disk, groups, true);
--}
- EXPORT_SYMBOL(device_add_disk);
- 
--void device_add_disk_no_queue_reg(struct device *parent, struct gendisk *disk)
--{
--	__device_add_disk(parent, disk, NULL, false);
--}
--EXPORT_SYMBOL(device_add_disk_no_queue_reg);
--
- /**
-  * del_gendisk - remove the gendisk
-  * @disk: the struct gendisk to remove
-diff --git a/include/linux/genhd.h b/include/linux/genhd.h
-index dd95d53c75fa..fbc4bf269f63 100644
---- a/include/linux/genhd.h
-+++ b/include/linux/genhd.h
-@@ -218,12 +218,6 @@ static inline void add_disk(struct gendisk *disk)
- {
- 	device_add_disk(NULL, disk, NULL);
- }
--extern void device_add_disk_no_queue_reg(struct device *parent, struct gendisk *disk);
--static inline void add_disk_no_queue_reg(struct gendisk *disk)
--{
--	device_add_disk_no_queue_reg(NULL, disk);
--}
--
- extern void del_gendisk(struct gendisk *gp);
- 
- void set_disk_ro(struct gendisk *disk, bool read_only);
+Ahmad Fatoum (4):
+  keys: introduce key_extract_material helper
+  dm: crypt: use new key_extract_material helper
+  ubifs: auth: remove never hit key type error check
+  ubifs: auth: consult encrypted and trusted keys if no logon key was found
+
+ Documentation/filesystems/ubifs.rst |  2 +-
+ drivers/md/dm-crypt.c               | 65 ++++--------------------------
+ fs/ubifs/auth.c                     | 25 +++++-------
+ include/linux/key.h                 | 45 +++++++++++++++++++++-
+ security/keys/key.c                 | 40 ++++++++++++++++++-
+ 5 files changed, 107 insertions(+), 70 deletions(-)
+
+base-commit: 2734d6c1b1a089fb593ef6a23d4b70903526fe0c
 -- 
-2.30.2
+git-series 0.9.1
 
 --
 dm-devel mailing list
