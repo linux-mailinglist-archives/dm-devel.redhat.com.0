@@ -1,52 +1,53 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 6B8C63D4C39
-	for <lists+dm-devel@lfdr.de>; Sun, 25 Jul 2021 08:00:03 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 59B903D4C3B
+	for <lists+dm-devel@lfdr.de>; Sun, 25 Jul 2021 08:00:06 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-485-lp4zAn-tNzOwANNOyDgdFA-1; Sun, 25 Jul 2021 02:00:01 -0400
-X-MC-Unique: lp4zAn-tNzOwANNOyDgdFA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-562-M4g3Uk5lM_CPtr2Q8Vi8IA-1; Sun, 25 Jul 2021 02:00:03 -0400
+X-MC-Unique: M4g3Uk5lM_CPtr2Q8Vi8IA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 121771084F57;
-	Sun, 25 Jul 2021 05:59:55 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DF302100760B;
-	Sun, 25 Jul 2021 05:59:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8385980430B;
+	Sun, 25 Jul 2021 05:59:57 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CEA2169322;
+	Sun, 25 Jul 2021 05:59:56 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 31F8E180BAB1;
-	Sun, 25 Jul 2021 05:59:54 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7F3C74BB7C;
+	Sun, 25 Jul 2021 05:59:56 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16P5vFVX010452 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 25 Jul 2021 01:57:15 -0400
+	id 16P5vYUx010485 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 25 Jul 2021 01:57:34 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 605942166BB1; Sun, 25 Jul 2021 05:57:15 +0000 (UTC)
+	id 63766202E4B6; Sun, 25 Jul 2021 05:57:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A1422166BA4
-	for <dm-devel@redhat.com>; Sun, 25 Jul 2021 05:57:13 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ADECF80066D
-	for <dm-devel@redhat.com>; Sun, 25 Jul 2021 05:57:13 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5EB1F202E4B1
+	for <dm-devel@redhat.com>; Sun, 25 Jul 2021 05:57:31 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 072DC1857F00
+	for <dm-devel@redhat.com>; Sun, 25 Jul 2021 05:57:31 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-119-mHvJyF96Ps6PLumFjUCRdQ-1; Sun, 25 Jul 2021 01:57:11 -0400
-X-MC-Unique: mHvJyF96Ps6PLumFjUCRdQ-1
+	us-mta-593-EbjWD--gMw2kNs9zNr06JQ-1; Sun, 25 Jul 2021 01:57:26 -0400
+X-MC-Unique: EbjWD--gMw2kNs9zNr06JQ-1
 Received: from [2001:4bb8:184:87c5:a8b3:bdfd:fc9b:6250] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1m7X7x-00Cpk8-4e; Sun, 25 Jul 2021 05:56:48 +0000
+	id 1m7X8L-00CpmJ-8z; Sun, 25 Jul 2021 05:57:10 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>, Mike Snitzer <snitzer@redhat.com>
-Date: Sun, 25 Jul 2021 07:54:55 +0200
-Message-Id: <20210725055458.29008-6-hch@lst.de>
+Date: Sun, 25 Jul 2021 07:54:56 +0200
+Message-Id: <20210725055458.29008-7-hch@lst.de>
 In-Reply-To: <20210725055458.29008-1-hch@lst.de>
 References: <20210725055458.29008-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,10 +61,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 Cc: linux-block@vger.kernel.org, dm-devel@redhat.com
-Subject: [dm-devel] [PATCH 5/8] dm: cleanup cleanup_mapped_device
+Subject: [dm-devel] [PATCH 6/8] dm: move setting md->type into
+	dm_setup_md_queue
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -77,7 +79,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -85,32 +87,61 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-md->queue is not always set when md->disk is set, so simplify the
-conditionas a bit.
+Move setting md->type from both callers into dm_setup_md_queue.
+This ensures that md->type is only set to a valid value after the queue
+has been fully setup, something we'll rely on future changes.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/md/dm.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ drivers/md/dm-ioctl.c | 4 ----
+ drivers/md/dm.c       | 5 +++--
+ 2 files changed, 3 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+index 2209cbcd84db..2575074a2204 100644
+--- a/drivers/md/dm-ioctl.c
++++ b/drivers/md/dm-ioctl.c
+@@ -1436,9 +1436,6 @@ static int table_load(struct file *filp, struct dm_ioctl *param, size_t param_si
+ 	}
+ 
+ 	if (dm_get_md_type(md) == DM_TYPE_NONE) {
+-		/* Initial table load: acquire type of table. */
+-		dm_set_md_type(md, dm_table_get_type(t));
+-
+ 		/* setup md->queue to reflect md's type (may block) */
+ 		r = dm_setup_md_queue(md, t);
+ 		if (r) {
+@@ -2187,7 +2184,6 @@ int __init dm_early_create(struct dm_ioctl *dmi,
+ 	if (r)
+ 		goto err_destroy_table;
+ 
+-	md->type = dm_table_get_type(t);
+ 	/* setup md->queue to reflect md's type (may block) */
+ 	r = dm_setup_md_queue(md, t);
+ 	if (r) {
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 2c5f9e585211..7971ec8ce677 100644
+index 7971ec8ce677..f003bd5b93ce 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -1694,13 +1694,9 @@ static void cleanup_mapped_device(struct mapped_device *md)
- 		md->disk->private_data = NULL;
- 		spin_unlock(&_minor_lock);
- 		del_gendisk(md->disk);
--	}
--
--	if (md->queue)
- 		dm_queue_destroy_keyslot_manager(md->queue);
--
--	if (md->disk)
- 		blk_cleanup_disk(md->disk);
-+	}
+@@ -2052,9 +2052,9 @@ EXPORT_SYMBOL_GPL(dm_get_queue_limits);
+  */
+ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
+ {
+-	int r;
++	enum dm_queue_mode type = dm_table_get_type(t);
+ 	struct queue_limits limits;
+-	enum dm_queue_mode type = dm_get_md_type(md);
++	int r;
  
- 	cleanup_srcu_struct(&md->io_barrier);
+ 	switch (type) {
+ 	case DM_TYPE_REQUEST_BASED:
+@@ -2081,6 +2081,7 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
+ 	r = dm_table_set_restrictions(t, md->queue, &limits);
+ 	if (r)
+ 		return r;
++	md->type = type;
+ 
+ 	blk_register_queue(md->disk);
  
 -- 
 2.30.2
