@@ -2,61 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C45163D45C6
-	for <lists+dm-devel@lfdr.de>; Sat, 24 Jul 2021 09:26:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C4FBE3D4C3A
+	for <lists+dm-devel@lfdr.de>; Sun, 25 Jul 2021 08:00:03 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-308-uazCOM6BPZCtbAq-Ls5H4g-1; Sat, 24 Jul 2021 03:26:27 -0400
-X-MC-Unique: uazCOM6BPZCtbAq-Ls5H4g-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-558-uRMoilvwN1O6nbbzDDlH9g-1; Sun, 25 Jul 2021 02:00:00 -0400
+X-MC-Unique: uRMoilvwN1O6nbbzDDlH9g-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3E96F107ACF5;
-	Sat, 24 Jul 2021 07:26:20 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4AE6D6E6E9;
-	Sat, 24 Jul 2021 07:26:15 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 79CDE8010F4;
+	Sun, 25 Jul 2021 05:59:55 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D6F7217D4E;
+	Sun, 25 Jul 2021 05:59:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 257CB180B7A2;
-	Sat, 24 Jul 2021 07:26:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 351554A7C8;
+	Sun, 25 Jul 2021 05:59:54 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16O7Q3fI012538 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 24 Jul 2021 03:26:04 -0400
+	id 16P5v7NV010443 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 25 Jul 2021 01:57:08 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id CB81D2051B6C; Sat, 24 Jul 2021 07:26:03 +0000 (UTC)
+	id DDA3A202E4B2; Sun, 25 Jul 2021 05:57:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C6B182062C16
-	for <dm-devel@redhat.com>; Sat, 24 Jul 2021 07:26:00 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D94B9202E4B1
+	for <dm-devel@redhat.com>; Sun, 25 Jul 2021 05:57:05 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2CF161857F00
-	for <dm-devel@redhat.com>; Sat, 24 Jul 2021 07:26:00 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-86-rUHWjNVaNQmCOJ-jHQlrXA-1;
-	Sat, 24 Jul 2021 03:25:55 -0400
-X-MC-Unique: rUHWjNVaNQmCOJ-jHQlrXA-1
-Received: from [192.168.86.34] (c-71-197-163-6.hsd1.wa.comcast.net
-	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id A9EFB20B7178;
-	Sat, 24 Jul 2021 00:25:54 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com A9EFB20B7178
-To: Mimi Zohar <zohar@linux.ibm.com>, dm-devel@redhat.com, agk@redhat.com,
-	snitzer@redhat.com
-References: <20210713004904.8808-1-tusharsu@linux.microsoft.com>
-	<20210713004904.8808-8-tusharsu@linux.microsoft.com>
-	<205b5336d60aee6b3f33ad67b2d0250e104d6779.camel@linux.ibm.com>
-From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-Message-ID: <6b81b92f-7d7b-d198-5056-bab1bcbac522@linux.microsoft.com>
-Date: Sat, 24 Jul 2021 00:25:54 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.11.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6FD3280066D
+	for <dm-devel@redhat.com>; Sun, 25 Jul 2021 05:57:05 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-590-zhqHmtqTNAqPipO3Mv4Ieg-1; Sun, 25 Jul 2021 01:57:00 -0400
+X-MC-Unique: zhqHmtqTNAqPipO3Mv4Ieg-1
+Received: from [2001:4bb8:184:87c5:a8b3:bdfd:fc9b:6250] (helo=localhost)
+	by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+	id 1m7X6K-00Cpf1-20; Sun, 25 Jul 2021 05:55:06 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Jens Axboe <axboe@kernel.dk>, Mike Snitzer <snitzer@redhat.com>
+Date: Sun, 25 Jul 2021 07:54:50 +0200
+Message-Id: <20210725055458.29008-1-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <205b5336d60aee6b3f33ad67b2d0250e104d6779.camel@linux.ibm.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -65,11 +58,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: nramas@linux.microsoft.com, linux-integrity@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH 7/7] dm: add documentation for IMA
-	measurement support
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com
+Subject: [dm-devel] use regular gendisk registration in device mapper
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,83 +75,43 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-Hi Mimi,
+Hi all,
 
-On 7/20/21 7:33 PM, Mimi Zohar wrote:
-> Hi Tushar, Mike,
-> 
-> On Mon, 2021-07-12 at 17:49 -0700, Tushar Sugandhi wrote:
->> +Then IMA ASCII measurement log has the following format:
->> +PCR TEMPLATE_DIGEST TEMPLATE ALG:EVENT_DIGEST EVENT_NAME EVENT_DATA
->> +
->> +PCR := Platform Configuration Register, in which the values are registered.
->> +       This is applicable if TPM chip is in use.
->> +TEMPLATE_DIGEST := Template digest of the IMA record.
-> 
-> ^TEMPLATE_DATA_DIGEST
-> 
-Will do.
+The device mapper code currently has a somewhat odd gendisk registration
+scheme where it calls add_disk early, but uses a special flag to skip the
+"queue registration", which is a major part of add_disk.  This series
+improves the block layer holder tracking to work on an entirely
+unregistered disk and thus allows device mapper to use the normal scheme
+of calling add_disk when it is ready to accept I/O.
 
->> +TEMPLATE := Template that registered the integrity value (e.g. ima-buf).
-> 
-> ^TEMPLATE_NAME
->
-Will do.
+Note that this leads to a user visible change - the sysfs attributes on
+the disk and the dm directory hanging off it are not only visible once
+the initial table is loaded.  This did not make a different to my testing
+using dmsetup and the lvm2 tools.
 
-> The template data format consists of:
->> +ALG:EVENT_DIGEST = Algorithm to compute event digest, followed by digest of event data
->> +EVENT_NAME := Description of the event (e.g. 'table_load').
->> +EVENT_DATA := The event data to be measured.
-> 
-Thanks. I will add this to the dm-ima documentation.
-
-> Missing from the document is a way of validating the template data.
-> For example, in the original case of file measurements, the template
-> data contains the file hash, which can be recalculated or verified
-> against an allow list.
-> 
-> Other than re-calculating the template data digest based on the
-> template data, and verifying it against the template data digest in the
-> measurement list, would an attestation server be able to verify the
-> template data itself?
->
-Yes.
-In the context of device-mapper, EVENT_DATA for 'table_load' would
-contain the key-value pairs for various targets in the table
-(crypt, verity, integrity etc.) which the attestation servers
-should be able to verify against the allowed/expected
-key-value pairs specified in the attestation policy.
-
-To avoid bloating the IMA log with same data from table_load again,
-we only measure hash of the loaded table in the EVENT_DATA -
-when there is a state change for DM device.
-e.g. when EVENT_NAME is 'device_resume', 'table_clear',
-'device_remove' etc.
-
-Since the table clear-text is already present in the EVENT_DATA
-buffer for 'table_load', and is available to attestation servers,
-verifying the corresponding hash values in the
-EVENT_DATA in the subsequent DM events should be possible for
-the attestation servers.
-
-Please let us know if you need further info.
-
-Thanks,
-Tushar
-
-> thanks,
-> 
-> Mimi
-> 
+Diffstat:
+ block/Kconfig             |    4 +
+ block/Makefile            |    1 
+ block/elevator.c          |    1 
+ block/genhd.c             |   42 +++++------
+ block/holder.c            |  167 ++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/md/Kconfig        |    2 
+ drivers/md/bcache/Kconfig |    1 
+ drivers/md/dm-ioctl.c     |    4 -
+ drivers/md/dm-rq.c        |    1 
+ drivers/md/dm.c           |   32 +++-----
+ fs/block_dev.c            |  145 ---------------------------------------
+ include/linux/blk_types.h |    3 
+ include/linux/genhd.h     |   19 ++---
+ 13 files changed, 219 insertions(+), 203 deletions(-)
 
 --
 dm-devel mailing list
