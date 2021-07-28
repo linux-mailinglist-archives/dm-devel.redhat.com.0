@@ -1,63 +1,57 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8A4693D8605
-	for <lists+dm-devel@lfdr.de>; Wed, 28 Jul 2021 05:11:09 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 8DD623D884D
+	for <lists+dm-devel@lfdr.de>; Wed, 28 Jul 2021 08:54:47 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-203-FyqxnaafORKk2WzG6hziwg-1; Tue, 27 Jul 2021 23:11:07 -0400
-X-MC-Unique: FyqxnaafORKk2WzG6hziwg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-310-XmyT7wOPNI6qOG7SwNwL7w-1; Wed, 28 Jul 2021 02:54:44 -0400
+X-MC-Unique: XmyT7wOPNI6qOG7SwNwL7w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 87B861853027;
-	Wed, 28 Jul 2021 03:10:59 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CD18B800D55;
+	Wed, 28 Jul 2021 06:54:37 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4A19C60C0F;
-	Wed, 28 Jul 2021 03:10:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B2D35687D5;
+	Wed, 28 Jul 2021 06:54:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DBB3E4BB7C;
-	Wed, 28 Jul 2021 03:10:48 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 35BF34BB7C;
+	Wed, 28 Jul 2021 06:54:27 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16S3AcVo014732 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 27 Jul 2021 23:10:38 -0400
+	id 16S6sDr7003550 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 28 Jul 2021 02:54:14 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 37E34ED17B; Wed, 28 Jul 2021 03:10:38 +0000 (UTC)
+	id CDF632167807; Wed, 28 Jul 2021 06:54:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 32501ED146
-	for <dm-devel@redhat.com>; Wed, 28 Jul 2021 03:10:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C95FF21677FB
+	for <dm-devel@redhat.com>; Wed, 28 Jul 2021 06:54:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BA03789C7DB
-	for <dm-devel@redhat.com>; Wed, 28 Jul 2021 03:10:35 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-450-E0C0TBAXMQqsHAJQLvCkew-1;
-	Tue, 27 Jul 2021 23:10:31 -0400
-X-MC-Unique: E0C0TBAXMQqsHAJQLvCkew-1
-Received: from [192.168.86.34] (c-71-197-163-6.hsd1.wa.comcast.net
-	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id ACC712043B96;
-	Tue, 27 Jul 2021 20:10:29 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com ACC712043B96
-To: Thore Sommer <public@thson.de>, agk@redhat.com, dm-devel@redhat.com,
-	linux-integrity@vger.kernel.org, nramas@linux.microsoft.com,
-	snitzer@redhat.com, zohar@linux.ibm.com
-References: <c833339e-c4bf-6e78-5719-cd902fa8426f@linux.microsoft.com>
-	<20210727101802.779067-1-public@thson.de>
-	<20210727203337.GA81220@agk-cloud1.hosts.prod.upshift.rdu2.redhat.com>
-From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
-Message-ID: <a30c8208-f255-d0f0-0bfb-c037367e638c@linux.microsoft.com>
-Date: Tue, 27 Jul 2021 20:10:29 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.11.0
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7CDEE858286
+	for <dm-devel@redhat.com>; Wed, 28 Jul 2021 06:54:10 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-564-LcdFC1l9NNuO-ktAU207IQ-1;
+	Wed, 28 Jul 2021 02:54:06 -0400
+X-MC-Unique: LcdFC1l9NNuO-ktAU207IQ-1
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 683BD67357; Wed, 28 Jul 2021 08:54:03 +0200 (CEST)
+Date: Wed, 28 Jul 2021 08:54:03 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Mike Snitzer <snitzer@redhat.com>
+Message-ID: <20210728065403.GA4815@lst.de>
+References: <20210725055458.29008-1-hch@lst.de>
+	<20210725055458.29008-5-hch@lst.de> <YQAu7KKyKnCm+tlf@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20210727203337.GA81220@agk-cloud1.hosts.prod.upshift.rdu2.redhat.com>
+In-Reply-To: <YQAu7KKyKnCm+tlf@redhat.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -66,10 +60,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 0/7] device mapper target measurements using
- IMA
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+	dm-devel@redhat.com, Christoph Hellwig <hch@lst.de>
+Subject: Re: [dm-devel] [PATCH 4/8] block: support delayed holder
+	registration
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,35 +79,32 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-Hi Thore,
+On Tue, Jul 27, 2021 at 12:06:04PM -0400, Mike Snitzer wrote:
+> This header starts to shine some light on what is motivating this
+> series by touching on "all kinds of bad side effects" being fixed.
+> Any chance you could elaborate what you've noticed/found/hit?
 
-On 7/27/21 1:33 PM, Alasdair G Kergon wrote:
->> Creating a dm-verity device with mount then removing it and now if you create it
->> again no measurement is generated. Is that the expected behavior?
-> Each of the relevant dm ioctls should be logged separately each time.  If that's
-> not happening it might need fixing.
-> 
-Most likely this is because you haven't set CONFIG_IMA_DISABLE_HTABLE=y.
+The proble mis that it leaves the queue in a weird half state.  The
+normal states for a gendisk are:
 
-See "IMA: support for duplicate measurement records" [1] for details.
+ 1) allocated		(after *alloc_disk)
+ 2) registered		(after add_disk*)
+ 3) unregistered	(after del_gendisk)
 
-Please let us know if you still see this behavior after setting
-CONFIG_IMA_DISABLE_HTABLE=y.
-
-Thanks,
-Tushar
-
-[1] 
-https://github.com/torvalds/linux/commit/52c208397c246f0c31d031eb8c41f9c7e9fdec0e
+the delayed queue registration adds a weird half state where it is
+sort of registered, except for in sysfs and the elevator.  I have
+some pretty big changes between how the disk and queue interact
+that tripped over it, but even right now code has to be very careful
+in the takedown path to deal with the half-initialized disks.
 
 --
 dm-devel mailing list
