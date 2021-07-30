@@ -2,64 +2,87 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 26B783DAE7C
-	for <lists+dm-devel@lfdr.de>; Thu, 29 Jul 2021 23:47:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1627595246;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=Ms/jhByRUUvx4VsQ2UbH1uZDqScB/pmeR/yQ8MsxEzU=;
-	b=e9BhtHS8VyTx9KSbHxZGgJ4gSAh+VgIY0Y+VnDYO4WQpkUmvjHUAYVKiisDnYU/je5kcmd
-	GO/Xdo6a4o9RoLZRTdpn3RfsZ/6f1IXoWYNdyukMqBNq4WejW13tIo4NzLsk//4t2a4hMJ
-	MJw020xRImNXn+zx8UQ4f/gYXfRqul0=
+	by mail.lfdr.de (Postfix) with ESMTP id 9A22C3DB9BE
+	for <lists+dm-devel@lfdr.de>; Fri, 30 Jul 2021 15:55:07 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-217-DdfbZ2TUPyquToKR0CGuZw-1; Thu, 29 Jul 2021 17:47:24 -0400
-X-MC-Unique: DdfbZ2TUPyquToKR0CGuZw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-583-rEZfBY_9NlOv0hBUXnKxWw-1; Fri, 30 Jul 2021 09:55:04 -0400
+X-MC-Unique: rEZfBY_9NlOv0hBUXnKxWw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5EEDC190B2A0;
-	Thu, 29 Jul 2021 21:47:18 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 823B4100E425;
+	Fri, 30 Jul 2021 13:54:56 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6A0BA3AC1;
-	Thu, 29 Jul 2021 21:47:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 623E981F71;
+	Fri, 30 Jul 2021 13:54:56 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 41D31180BAB2;
-	Thu, 29 Jul 2021 21:47:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EAF8E180BAB3;
+	Fri, 30 Jul 2021 13:54:55 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16TLkFcZ030914 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 29 Jul 2021 17:46:15 -0400
+	id 16U8rAYg013550 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 30 Jul 2021 04:53:10 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C2C731A26A; Thu, 29 Jul 2021 21:46:15 +0000 (UTC)
+	id 7C91A1054E49; Fri, 30 Jul 2021 08:53:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AB1E64A66;
-	Thu, 29 Jul 2021 21:46:15 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 16TLkELC020038; 
-	Thu, 29 Jul 2021 16:46:14 -0500
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 16TLkDce020037;
-	Thu, 29 Jul 2021 16:46:13 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Thu, 29 Jul 2021 16:46:05 -0500
-Message-Id: <1627595165-19980-6-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1627595165-19980-1-git-send-email-bmarzins@redhat.com>
-References: <1627595165-19980-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+Received: from mimecast-mx02.redhat.com
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 77DB3105482F
+	for <dm-devel@redhat.com>; Fri, 30 Jul 2021 08:53:07 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A4D0C8CA964
+	for <dm-devel@redhat.com>; Fri, 30 Jul 2021 08:53:07 +0000 (UTC)
+Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
+	by relay.mimecast.com with ESMTP id us-mta-564-4Q-ZEP-hN4OQHhwO1hHkow-2;
+	Fri, 30 Jul 2021 04:53:03 -0400
+X-MC-Unique: 4Q-ZEP-hN4OQHhwO1hHkow-2
+IronPort-HdrOrdr: =?us-ascii?q?A9a23=3ANiX2cqnqx3FARrJ6zCopma8oMGzpDfIQ3DAb?=
+	=?us-ascii?q?v31ZSRFFG/Fw9vre+MjzsCWYtN9/Yh8dcK+7UpVoLUm8yXcX2/h1AV7BZniEhI?=
+	=?us-ascii?q?LAFugLgrcKqAeQeREWmNQ86Y5QN4B6CPDVSWNxlNvG5mCDeOoI8Z2q97+JiI7l?=
+	=?us-ascii?q?o0tQcQ=3D=3D?=
+X-IronPort-AV: E=Sophos;i="5.84,281,1620662400"; d="scan'208";a="112070560"
+Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
+	by heian.cn.fujitsu.com with ESMTP; 30 Jul 2021 16:52:52 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+	by cn.fujitsu.com (Postfix) with ESMTP id C2E894D0D49D;
+	Fri, 30 Jul 2021 16:52:48 +0800 (CST)
+Received: from G08CNEXCHPEKD09.g08.fujitsu.local (10.167.33.85) by
+	G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP
+	Server (TLS) id 15.0.1497.23; Fri, 30 Jul 2021 16:52:49 +0800
+Received: from irides.mr.mr.mr (10.167.225.141) by
+	G08CNEXCHPEKD09.g08.fujitsu.local (10.167.33.209) with Microsoft SMTP
+	Server
+	id 15.0.1497.23 via Frontend Transport; Fri, 30 Jul 2021 16:52:47 +0800
+From: Shiyang Ruan <ruansy.fnst@fujitsu.com>
+To: <linux-kernel@vger.kernel.org>, <linux-xfs@vger.kernel.org>,
+	<nvdimm@lists.linux.dev>, <linux-mm@kvack.org>,
+	<linux-fsdevel@vger.kernel.org>, <dm-devel@redhat.com>
+Date: Fri, 30 Jul 2021 16:52:36 +0800
+Message-ID: <20210730085245.3069812-1-ruansy.fnst@fujitsu.com>
+MIME-Version: 1.0
+X-yoursite-MailScanner-ID: C2E894D0D49D.A3ADA
+X-yoursite-MailScanner: Found to be clean
+X-yoursite-MailScanner-From: ruansy.fnst@fujitsu.com
+X-Spam-Status: No
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: device-mapper development <dm-devel@redhat.com>,
-	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH 5/5] libmultipath: deal with dynamic
-	PTHREAD_STACK_MIN
+X-Mailman-Approved-At: Fri, 30 Jul 2021 09:53:42 -0400
+Cc: snitzer@redhat.com, david@fromorbit.com, djwong@kernel.com,
+	dan.j.williams@intel.com, hch@lst.de, agk@redhat.com
+Subject: [dm-devel] [PATCH v6 0/9] fsdax: introduce fs query to support
+	reflink
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,10 +94,9 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -82,34 +104,93 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Starting in glibc-2.34 (commit 5d98a7da), PTHREAD_STACK_MIN is defined
-as sysconf(_SC_THREAD_STACK_MIN) if _GNU_SOURCE is defined. sysconf()
-returns a long and can, at least in theory, return -1.  This change
-causes compilation to fail in setup_thread_attr() due to a comparision
-with different signedness, since stacksize is a size_t.
+This patchset is aimed to support shared pages tracking for fsdax.
 
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
----
- libmultipath/util.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Change from V5:
+  - fix dax_load_pfn(), take locked,empty,zero dax entry into
+       consideration
+  - fix the usage of rwsem lock for dax_device's holder
+  - fix build error reported by kernelbot
+  - keep functionality of dax_{,dis}assocaite_entry() for filesystems
+       doesn't have rmapbt feature
+  - Rebased to v5.14-rc3
 
-diff --git a/libmultipath/util.c b/libmultipath/util.c
-index e2fafe85..ea858409 100644
---- a/libmultipath/util.c
-+++ b/libmultipath/util.c
-@@ -223,8 +223,8 @@ setup_thread_attr(pthread_attr_t *attr, size_t stacksize, int detached)
- 
- 	ret = pthread_attr_init(attr);
- 	assert(ret == 0);
--	if (stacksize < PTHREAD_STACK_MIN)
--		stacksize = PTHREAD_STACK_MIN;
-+	if (PTHREAD_STACK_MIN > 0 && stacksize < (size_t)PTHREAD_STACK_MIN)
-+		stacksize = (size_t)PTHREAD_STACK_MIN;
- 	ret = pthread_attr_setstacksize(attr, stacksize);
- 	assert(ret == 0);
- 	if (detached) {
+This patchset moves owner tracking from dax_assocaite_entry() to pmem
+device driver, by introducing an interface ->memory_failure() for struct
+pagemap.  This interface is called by memory_failure() in mm, and
+implemented by pmem device.
+
+Then call holder operations to find the filesystem which the corrupted
+data located in, and call filesystem handler to track files or metadata
+associated with this page.
+
+Finally we are able to try to fix the corrupted data in filesystem and
+do other necessary processing, such as killing processes who are using
+the files affected.
+
+The call trace is like this:
+memory_failure()
+|* fsdax case
+|------------
+|pgmap->ops->memory_failure()      => pmem_pgmap_memory_failure()
+| dax_holder_notify_failure()      =>
+|  dax_device->holder_ops->notify_failure() =>
+|                                     - xfs_dax_notify_failure()
+|                                     - md_dax_notify_failure()
+|  |* xfs_dax_notify_failure()
+|  |--------------------------
+|  |   xfs_rmap_query_range()
+|  |    xfs_currupt_helper()
+|  |    * corrupted on metadata
+|  |       try to recover data, call xfs_force_shutdown()
+|  |    * corrupted on file data
+|  |       try to recover data, call mf_dax_kill_procs()
+|  |* md_dax_notify_failure()
+|  |-------------------------
+|      md_targets->iterate_devices()
+|      md_targets->rmap()          => linear_rmap()
+|       dax_holder_notify_failure()
+|* normal case
+|-------------
+ mf_generic_kill_procs()
+
+The fsdax & reflink support for XFS is not contained in this patchset.
+
+(Rebased on v5.14-rc3)
+==
+
+Shiyang Ruan (9):
+  pagemap: Introduce ->memory_failure()
+  dax: Introduce holder for dax_device
+  mm: factor helpers for memory_failure_dev_pagemap
+  pmem,mm: Implement ->memory_failure in pmem driver
+  mm: Introduce mf_dax_kill_procs() for fsdax case
+  xfs: Implement ->corrupted_range() for XFS
+  dm: Introduce ->rmap() to find bdev offset
+  md: Implement dax_holder_operations
+  fsdax: add exception for reflinked files
+
+ block/genhd.c                 |  56 +++++++++++
+ drivers/dax/super.c           |  58 ++++++++++++
+ drivers/md/dm-linear.c        |  20 ++++
+ drivers/md/dm.c               | 126 ++++++++++++++++++++++++-
+ drivers/nvdimm/pmem.c         |  13 +++
+ fs/dax.c                      |  59 ++++++++----
+ fs/xfs/xfs_fsops.c            |   5 +
+ fs/xfs/xfs_mount.h            |   1 +
+ fs/xfs/xfs_super.c            | 135 +++++++++++++++++++++++++++
+ include/linux/dax.h           |  46 +++++++++
+ include/linux/device-mapper.h |   5 +
+ include/linux/genhd.h         |   1 +
+ include/linux/memremap.h      |   9 ++
+ include/linux/mm.h            |  10 ++
+ mm/memory-failure.c           | 169 +++++++++++++++++++++++-----------
+ 15 files changed, 641 insertions(+), 72 deletions(-)
+
 -- 
-2.17.2
+2.32.0
+
+
 
 --
 dm-devel mailing list
