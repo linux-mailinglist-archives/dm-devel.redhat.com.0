@@ -2,73 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 6343C3DB9C6
-	for <lists+dm-devel@lfdr.de>; Fri, 30 Jul 2021 15:55:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 53CA03DB9CC
+	for <lists+dm-devel@lfdr.de>; Fri, 30 Jul 2021 15:55:19 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-107-0epIKvZXM0KIRJRc3Lst9w-1; Fri, 30 Jul 2021 09:55:10 -0400
-X-MC-Unique: 0epIKvZXM0KIRJRc3Lst9w-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-567-uapY9t6aOryNH3mO1c8WzQ-1; Fri, 30 Jul 2021 09:55:16 -0400
+X-MC-Unique: uapY9t6aOryNH3mO1c8WzQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 67761875060;
-	Fri, 30 Jul 2021 13:55:00 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3FD245D9FC;
-	Fri, 30 Jul 2021 13:55:00 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A213D1006C85;
+	Fri, 30 Jul 2021 13:55:07 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7898C2C607;
+	Fri, 30 Jul 2021 13:55:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E5CF4180BAD2;
-	Fri, 30 Jul 2021 13:54:59 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0EF3A4A705;
+	Fri, 30 Jul 2021 13:55:07 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 16UA2KgS022156 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 30 Jul 2021 06:02:20 -0400
+	id 16UA2RIA022184 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 30 Jul 2021 06:02:27 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 26DFC2102B2C; Fri, 30 Jul 2021 10:02:20 +0000 (UTC)
+	id E60D32102B2F; Fri, 30 Jul 2021 10:02:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 221B72102B31
-	for <dm-devel@redhat.com>; Fri, 30 Jul 2021 10:02:20 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E1E032102B31
+	for <dm-devel@redhat.com>; Fri, 30 Jul 2021 10:02:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 069ED800159
-	for <dm-devel@redhat.com>; Fri, 30 Jul 2021 10:02:20 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C6DBC185A7A4
+	for <dm-devel@redhat.com>; Fri, 30 Jul 2021 10:02:26 +0000 (UTC)
 Received: from heian.cn.fujitsu.com (mail.cn.fujitsu.com [183.91.158.132])
-	by relay.mimecast.com with ESMTP id us-mta-408-8G5ixhTYMMmknuLoYlOstg-4;
-	Fri, 30 Jul 2021 06:02:17 -0400
-X-MC-Unique: 8G5ixhTYMMmknuLoYlOstg-4
-IronPort-HdrOrdr: =?us-ascii?q?A9a23=3AXfO8+qMg3s4AbcBcTiWjsMiBIKoaSvp037Eq?=
-	=?us-ascii?q?v3oedfUzSL3/qynOpoVj6faaslYssR0b9exofZPwJE80lqQFhrX5X43SPzUO0V?=
-	=?us-ascii?q?HAROoJgLcKgQeQfxEWndQ96U4PScdD4aXLfDpHZNjBkXSFOudl0N+a67qpmOub?=
-	=?us-ascii?q?639sSDthY6Zm4xwRMHfhLmRGABlBGYEiFIeRou5Opz+bc3wRacihQlYfWeyrna?=
-	=?us-ascii?q?ywqLvWJQ4BGwU86BSDyReh6LvBGRCe2RsEFxNjqI1SiVT4rw=3D=3D?=
-X-IronPort-AV: E=Sophos;i="5.84,281,1620662400"; d="scan'208";a="112074012"
+	by relay.mimecast.com with ESMTP id us-mta-108-3Y08217IPKyps-BGd521UQ-1;
+	Fri, 30 Jul 2021 06:02:21 -0400
+X-MC-Unique: 3Y08217IPKyps-BGd521UQ-1
+IronPort-HdrOrdr: =?us-ascii?q?A9a23=3A075swKH1jGovkDZbpLqE1MeALOsnbusQ8zAX?=
+	=?us-ascii?q?PiFKOHhom6mj+vxG88506faKslwssR0b+OxoW5PwJE80l6QFgrX5VI3KNGbbUQ?=
+	=?us-ascii?q?CTXeNfBOXZowHIKmnX8+5x8eNaebFiNduYNzNHpPe/zA6mM9tI+rW6zJw=3D?=
+X-IronPort-AV: E=Sophos;i="5.84,281,1620662400"; d="scan'208";a="112074019"
 Received: from unknown (HELO cn.fujitsu.com) ([10.167.33.5])
-	by heian.cn.fujitsu.com with ESMTP; 30 Jul 2021 18:02:13 +0800
-Received: from G08CNEXMBPEKD05.g08.fujitsu.local (unknown [10.167.33.204])
-	by cn.fujitsu.com (Postfix) with ESMTP id B99DC4D0D49E;
-	Fri, 30 Jul 2021 18:02:12 +0800 (CST)
+	by heian.cn.fujitsu.com with ESMTP; 30 Jul 2021 18:02:19 +0800
+Received: from G08CNEXMBPEKD04.g08.fujitsu.local (unknown [10.167.33.201])
+	by cn.fujitsu.com (Postfix) with ESMTP id CA90D4D0D4A1;
+	Fri, 30 Jul 2021 18:02:13 +0800 (CST)
 Received: from G08CNEXCHPEKD09.g08.fujitsu.local (10.167.33.85) by
-	G08CNEXMBPEKD05.g08.fujitsu.local (10.167.33.204) with Microsoft SMTP
+	G08CNEXMBPEKD04.g08.fujitsu.local (10.167.33.201) with Microsoft SMTP
 	Server (TLS) id 15.0.1497.23; Fri, 30 Jul 2021 18:02:14 +0800
 Received: from irides.mr.mr.mr (10.167.225.141) by
 	G08CNEXCHPEKD09.g08.fujitsu.local (10.167.33.209) with Microsoft SMTP
 	Server
-	id 15.0.1497.23 via Frontend Transport; Fri, 30 Jul 2021 18:02:11 +0800
+	id 15.0.1497.23 via Frontend Transport; Fri, 30 Jul 2021 18:02:12 +0800
 From: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 To: <linux-kernel@vger.kernel.org>, <linux-xfs@vger.kernel.org>,
 	<nvdimm@lists.linux.dev>, <linux-mm@kvack.org>,
 	<linux-fsdevel@vger.kernel.org>, <dm-devel@redhat.com>
-Date: Fri, 30 Jul 2021 18:01:54 +0800
-Message-ID: <20210730100158.3117319-6-ruansy.fnst@fujitsu.com>
+Date: Fri, 30 Jul 2021 18:01:55 +0800
+Message-ID: <20210730100158.3117319-7-ruansy.fnst@fujitsu.com>
 In-Reply-To: <20210730100158.3117319-1-ruansy.fnst@fujitsu.com>
 References: <20210730100158.3117319-1-ruansy.fnst@fujitsu.com>
 MIME-Version: 1.0
-X-yoursite-MailScanner-ID: B99DC4D0D49E.A5CE2
+X-yoursite-MailScanner-ID: CA90D4D0D4A1.A4774
 X-yoursite-MailScanner: Found to be clean
 X-yoursite-MailScanner-From: ruansy.fnst@fujitsu.com
 X-Spam-Status: No
@@ -85,8 +82,8 @@ X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 30 Jul 2021 09:53:42 -0400
 Cc: snitzer@redhat.com, djwong@kernel.org, david@fromorbit.com,
 	dan.j.williams@intel.com, hch@lst.de, agk@redhat.com
-Subject: [dm-devel] [PATCH RESEND v6 5/9] mm: Introduce mf_dax_kill_procs()
-	for fsdax case
+Subject: [dm-devel] [PATCH RESEND v6 6/9] xfs: Implement ->notify_failure()
+	for XFS
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,7 +97,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -108,297 +105,304 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This function is called at the end of RMAP routine, i.e. filesystem
-recovery function.  The difference between mf_generic_kill_procs() is,
-mf_dax_kill_procs() accepts file mapping and offset instead of struct
-page.  It is because that different file mappings and offsets may share
-the same page in fsdax mode.  So, it is called when filesystem RMAP
-results are found.
+This function is used to handle errors which may cause data lost in
+filesystem.  Such as memory failure in fsdax mode.
+
+If the rmap feature of XFS enabled, we can query it to find files and
+metadata which are associated with the corrupt data.  For now all we do
+is kill processes with that file mapped into their address spaces, but
+future patches could actually do something about corrupt metadata.
+
+After that, the memory failure needs to notify the processes who are
+using those files.
 
 Signed-off-by: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 ---
- fs/dax.c            | 45 ++++++++++++++++++++++++-------
- include/linux/dax.h | 16 ++++++++++++
- include/linux/mm.h  | 10 +++++++
- mm/memory-failure.c | 64 +++++++++++++++++++++++++++++++++------------
- 4 files changed, 109 insertions(+), 26 deletions(-)
+ drivers/dax/super.c |  12 ++++
+ fs/xfs/xfs_fsops.c  |   5 ++
+ fs/xfs/xfs_mount.h  |   1 +
+ fs/xfs/xfs_super.c  | 135 ++++++++++++++++++++++++++++++++++++++++++++
+ include/linux/dax.h |  13 +++++
+ 5 files changed, 166 insertions(+)
 
-diff --git a/fs/dax.c b/fs/dax.c
-index da41f9363568..dce6307a12eb 100644
---- a/fs/dax.c
-+++ b/fs/dax.c
-@@ -389,6 +389,41 @@ static struct page *dax_busy_page(void *entry)
+diff --git a/drivers/dax/super.c b/drivers/dax/super.c
+index 00c32dfa5665..63f7b63d078d 100644
+--- a/drivers/dax/super.c
++++ b/drivers/dax/super.c
+@@ -65,6 +65,18 @@ struct dax_device *fs_dax_get_by_bdev(struct block_device *bdev)
+ 	return dax_get_by_host(bdev->bd_disk->disk_name);
+ }
+ EXPORT_SYMBOL_GPL(fs_dax_get_by_bdev);
++
++void fs_dax_set_holder(struct dax_device *dax_dev, void *holder,
++		const struct dax_holder_operations *ops)
++{
++	dax_set_holder(dax_dev, holder, ops);
++}
++EXPORT_SYMBOL_GPL(fs_dax_set_holder);
++void *fs_dax_get_holder(struct dax_device *dax_dev)
++{
++	return dax_get_holder(dax_dev);
++}
++EXPORT_SYMBOL_GPL(fs_dax_get_holder);
+ #endif
+ 
+ bool __generic_fsdax_supported(struct dax_device *dax_dev,
+diff --git a/fs/xfs/xfs_fsops.c b/fs/xfs/xfs_fsops.c
+index 6ed29b158312..e96ddb5c28bc 100644
+--- a/fs/xfs/xfs_fsops.c
++++ b/fs/xfs/xfs_fsops.c
+@@ -549,6 +549,11 @@ xfs_do_force_shutdown(
+ 				flags, __return_address, fname, lnnum);
+ 		if (XFS_ERRLEVEL_HIGH <= xfs_error_level)
+ 			xfs_stack_trace();
++	} else if (flags & SHUTDOWN_CORRUPT_META) {
++		xfs_alert_tag(mp, XFS_PTAG_SHUTDOWN_CORRUPT,
++"Corruption of on-disk metadata detected.  Shutting down filesystem");
++		if (XFS_ERRLEVEL_HIGH <= xfs_error_level)
++			xfs_stack_trace();
+ 	} else if (logerror) {
+ 		xfs_alert_tag(mp, XFS_PTAG_SHUTDOWN_LOGERROR,
+ "Log I/O error (0x%x) detected at %pS (%s:%d). Shutting down filesystem",
+diff --git a/fs/xfs/xfs_mount.h b/fs/xfs/xfs_mount.h
+index c78b63fe779a..203eb62d16d0 100644
+--- a/fs/xfs/xfs_mount.h
++++ b/fs/xfs/xfs_mount.h
+@@ -277,6 +277,7 @@ void xfs_do_force_shutdown(struct xfs_mount *mp, int flags, char *fname,
+ #define SHUTDOWN_LOG_IO_ERROR	0x0002	/* write attempt to the log failed */
+ #define SHUTDOWN_FORCE_UMOUNT	0x0004	/* shutdown from a forced unmount */
+ #define SHUTDOWN_CORRUPT_INCORE	0x0008	/* corrupt in-memory data structures */
++#define SHUTDOWN_CORRUPT_META	0x0010  /* corrupt metadata on device */
+ 
+ /*
+  * Flags for xfs_mountfs
+diff --git a/fs/xfs/xfs_super.c b/fs/xfs/xfs_super.c
+index 2c9e26a44546..4a362e14318d 100644
+--- a/fs/xfs/xfs_super.c
++++ b/fs/xfs/xfs_super.c
+@@ -37,11 +37,19 @@
+ #include "xfs_reflink.h"
+ #include "xfs_pwork.h"
+ #include "xfs_ag.h"
++#include "xfs_alloc.h"
++#include "xfs_rmap.h"
++#include "xfs_rmap_btree.h"
++#include "xfs_rtalloc.h"
++#include "xfs_bit.h"
+ 
+ #include <linux/magic.h>
+ #include <linux/fs_context.h>
+ #include <linux/fs_parser.h>
++#include <linux/mm.h>
++#include <linux/dax.h>
+ 
++static const struct dax_holder_operations xfs_dax_holder_operations;
+ static const struct super_operations xfs_super_operations;
+ 
+ static struct kset *xfs_kset;		/* top-level xfs sysfs dir */
+@@ -352,6 +360,7 @@ xfs_close_devices(
+ 
+ 		xfs_free_buftarg(mp->m_logdev_targp);
+ 		xfs_blkdev_put(logdev);
++		fs_dax_set_holder(dax_logdev, NULL, NULL);
+ 		fs_put_dax(dax_logdev);
+ 	}
+ 	if (mp->m_rtdev_targp) {
+@@ -360,9 +369,11 @@ xfs_close_devices(
+ 
+ 		xfs_free_buftarg(mp->m_rtdev_targp);
+ 		xfs_blkdev_put(rtdev);
++		fs_dax_set_holder(dax_rtdev, NULL, NULL);
+ 		fs_put_dax(dax_rtdev);
+ 	}
+ 	xfs_free_buftarg(mp->m_ddev_targp);
++	fs_dax_set_holder(dax_ddev, NULL, NULL);
+ 	fs_put_dax(dax_ddev);
+ }
+ 
+@@ -386,6 +397,7 @@ xfs_open_devices(
+ 	struct block_device	*logdev = NULL, *rtdev = NULL;
+ 	int			error;
+ 
++	fs_dax_set_holder(dax_ddev, mp, &xfs_dax_holder_operations);
+ 	/*
+ 	 * Open real time and log devices - order is important.
+ 	 */
+@@ -394,6 +406,9 @@ xfs_open_devices(
+ 		if (error)
+ 			goto out;
+ 		dax_logdev = fs_dax_get_by_bdev(logdev);
++		if (dax_logdev != dax_ddev)
++			fs_dax_set_holder(dax_logdev, mp,
++				       &xfs_dax_holder_operations);
+ 	}
+ 
+ 	if (mp->m_rtname) {
+@@ -408,6 +423,7 @@ xfs_open_devices(
+ 			goto out_close_rtdev;
+ 		}
+ 		dax_rtdev = fs_dax_get_by_bdev(rtdev);
++		fs_dax_set_holder(dax_rtdev, mp, &xfs_dax_holder_operations);
+ 	}
+ 
+ 	/*
+@@ -1070,6 +1086,125 @@ xfs_fs_free_cached_objects(
+ 	return xfs_reclaim_inodes_nr(XFS_M(sb), sc->nr_to_scan);
+ }
+ 
++static int
++xfs_corrupt_helper(
++	struct xfs_btree_cur		*cur,
++	struct xfs_rmap_irec		*rec,
++	void				*data)
++{
++	struct xfs_inode		*ip;
++	struct address_space		*mapping;
++	int				error = 0, *flags = data, i;
++
++	if (XFS_RMAP_NON_INODE_OWNER(rec->rm_owner) ||
++	    (rec->rm_flags & (XFS_RMAP_ATTR_FORK | XFS_RMAP_BMBT_BLOCK))) {
++		// TODO check and try to fix metadata
++		xfs_force_shutdown(cur->bc_mp, SHUTDOWN_CORRUPT_META);
++		return -EFSCORRUPTED;
++	}
++
++	/* Get files that incore, filter out others that are not in use. */
++	error = xfs_iget(cur->bc_mp, cur->bc_tp, rec->rm_owner, XFS_IGET_INCORE,
++			 0, &ip);
++	if (error)
++		return error;
++
++	mapping = VFS_I(ip)->i_mapping;
++	if (IS_ENABLED(CONFIG_MEMORY_FAILURE)) {
++		for (i = 0; i < rec->rm_blockcount; i++) {
++			error = mf_dax_kill_procs(mapping, rec->rm_offset + i,
++						  *flags);
++			if (error)
++				break;
++		}
++	}
++	// TODO try to fix data
++	xfs_irele(ip);
++
++	return error;
++}
++
++static loff_t
++xfs_dax_bdev_offset(
++	struct xfs_mount *mp,
++	struct dax_device *dax_dev,
++	loff_t disk_offset)
++{
++	struct block_device *bdev;
++
++	if (mp->m_ddev_targp->bt_daxdev == dax_dev)
++		bdev = mp->m_ddev_targp->bt_bdev;
++	else if (mp->m_logdev_targp->bt_daxdev == dax_dev)
++		bdev = mp->m_logdev_targp->bt_bdev;
++	else
++		bdev = mp->m_rtdev_targp->bt_bdev;
++
++	return disk_offset - (get_start_sect(bdev) << SECTOR_SHIFT);
++}
++
++static int
++xfs_dax_notify_failure(
++	struct dax_device	*dax_dev,
++	loff_t			offset,
++	size_t			len,
++	void			*data)
++{
++	struct xfs_mount	*mp = fs_dax_get_holder(dax_dev);
++	struct xfs_trans	*tp = NULL;
++	struct xfs_btree_cur	*cur = NULL;
++	struct xfs_buf		*agf_bp = NULL;
++	struct xfs_rmap_irec	rmap_low, rmap_high;
++	loff_t 			bdev_offset = xfs_dax_bdev_offset(mp, dax_dev,
++								  offset);
++	xfs_fsblock_t		fsbno = XFS_B_TO_FSB(mp, bdev_offset);
++	xfs_filblks_t		bcnt = XFS_B_TO_FSB(mp, len);
++	xfs_agnumber_t		agno = XFS_FSB_TO_AGNO(mp, fsbno);
++	xfs_agblock_t		agbno = XFS_FSB_TO_AGBNO(mp, fsbno);
++	int			error = 0;
++
++	if (mp->m_logdev_targp && mp->m_logdev_targp->bt_daxdev == dax_dev &&
++	    mp->m_logdev_targp != mp->m_ddev_targp) {
++		xfs_err(mp, "ondisk log corrupt, shutting down fs!");
++		xfs_force_shutdown(mp, SHUTDOWN_CORRUPT_META);
++		return -EFSCORRUPTED;
++	}
++
++	if (!xfs_sb_version_hasrmapbt(&mp->m_sb)) {
++		xfs_warn(mp, "notify_failure() needs rmapbt enabled!");
++		return -EOPNOTSUPP;
++	}
++
++	error = xfs_trans_alloc_empty(mp, &tp);
++	if (error)
++		return error;
++
++	error = xfs_alloc_read_agf(mp, tp, agno, 0, &agf_bp);
++	if (error)
++		goto out_cancel_tp;
++
++	cur = xfs_rmapbt_init_cursor(mp, tp, agf_bp, agf_bp->b_pag);
++
++	/* Construct a range for rmap query */
++	memset(&rmap_low, 0, sizeof(rmap_low));
++	memset(&rmap_high, 0xFF, sizeof(rmap_high));
++	rmap_low.rm_startblock = rmap_high.rm_startblock = agbno;
++	rmap_low.rm_blockcount = rmap_high.rm_blockcount = bcnt;
++
++	error = xfs_rmap_query_range(cur, &rmap_low, &rmap_high,
++				     xfs_corrupt_helper, data);
++
++	xfs_btree_del_cursor(cur, error);
++	xfs_trans_brelse(tp, agf_bp);
++
++out_cancel_tp:
++	xfs_trans_cancel(tp);
++	return error;
++}
++
++static const struct dax_holder_operations xfs_dax_holder_operations = {
++	.notify_failure = xfs_dax_notify_failure,
++};
++
+ static const struct super_operations xfs_super_operations = {
+ 	.alloc_inode		= xfs_fs_alloc_inode,
+ 	.destroy_inode		= xfs_fs_destroy_inode,
+diff --git a/include/linux/dax.h b/include/linux/dax.h
+index 359e809516b8..c8a188b76031 100644
+--- a/include/linux/dax.h
++++ b/include/linux/dax.h
+@@ -160,6 +160,9 @@ static inline void fs_put_dax(struct dax_device *dax_dev)
+ }
+ 
+ struct dax_device *fs_dax_get_by_bdev(struct block_device *bdev);
++void fs_dax_set_holder(struct dax_device *dax_dev, void *holder,
++		const struct dax_holder_operations *ops);
++void *fs_dax_get_holder(struct dax_device *dax_dev);
+ int dax_writeback_mapping_range(struct address_space *mapping,
+ 		struct dax_device *dax_dev, struct writeback_control *wbc);
+ 
+@@ -191,6 +194,16 @@ static inline struct dax_device *fs_dax_get_by_bdev(struct block_device *bdev)
  	return NULL;
  }
  
-+/**
-+ * dax_load_pfn - Load pfn of the DAX entry corresponding to a page
-+ * @mapping:	The file whose entry we want to load
-+ * @index:	offset where the DAX entry located in
-+ *
-+ * Return:	pfn number of the DAX entry
-+ */
-+unsigned long dax_load_pfn(struct address_space *mapping, unsigned long index)
++static inline void fs_dax_set_holder(struct dax_device *dax_dev, void *holder,
++		const struct dax_holder_operations *ops)
 +{
-+	XA_STATE(xas, &mapping->i_pages, index);
-+	void *entry;
-+	unsigned long pfn;
-+
-+	rcu_read_lock();
-+	for (;;) {
-+		xas_lock_irq(&xas);
-+		entry = xas_load(&xas);
-+		if (dax_is_locked(entry)) {
-+			rcu_read_unlock();
-+			wait_entry_unlocked(&xas, entry);
-+			rcu_read_lock();
-+			continue;
-+		}
-+
-+		if (dax_is_zero_entry(entry) || dax_is_empty_entry(entry))
-+			pfn = 0;
-+		else
-+			pfn = dax_to_pfn(entry);
-+		xas_unlock_irq(&xas);
-+		break;
-+	}
-+	rcu_read_unlock();
-+	return pfn;
 +}
 +
- /*
-  * dax_lock_mapping_entry - Lock the DAX entry corresponding to a page
-  * @page: The page whose entry we want to lock
-@@ -790,16 +825,6 @@ static void *dax_insert_entry(struct xa_state *xas,
- 	return entry;
- }
- 
--static inline
--unsigned long pgoff_address(pgoff_t pgoff, struct vm_area_struct *vma)
--{
--	unsigned long address;
--
--	address = vma->vm_start + ((pgoff - vma->vm_pgoff) << PAGE_SHIFT);
--	VM_BUG_ON_VMA(address < vma->vm_start || address >= vma->vm_end, vma);
--	return address;
--}
--
- /* Walk all mappings of a given index of a file and writeprotect them */
- static void dax_entry_mkclean(struct address_space *mapping, pgoff_t index,
- 		unsigned long pfn)
-diff --git a/include/linux/dax.h b/include/linux/dax.h
-index 6f4b5c97ceb0..359e809516b8 100644
---- a/include/linux/dax.h
-+++ b/include/linux/dax.h
-@@ -165,6 +165,7 @@ int dax_writeback_mapping_range(struct address_space *mapping,
- 
- struct page *dax_layout_busy_page(struct address_space *mapping);
- struct page *dax_layout_busy_page_range(struct address_space *mapping, loff_t start, loff_t end);
-+unsigned long dax_load_pfn(struct address_space *mapping, unsigned long index);
- dax_entry_t dax_lock_page(struct page *page);
- void dax_unlock_page(struct page *page, dax_entry_t cookie);
- #else
-@@ -206,6 +207,12 @@ static inline int dax_writeback_mapping_range(struct address_space *mapping,
- 	return -EOPNOTSUPP;
- }
- 
-+static inline unsigned long dax_load_pfn(struct address_space *mapping,
-+		unsigned long index)
++static inline void *fs_dax_get_holder(struct dax_device *dax_dev)
 +{
-+	return 0;
++	return NULL;
 +}
 +
- static inline dax_entry_t dax_lock_page(struct page *page)
+ static inline struct page *dax_layout_busy_page(struct address_space *mapping)
  {
- 	if (IS_DAX(page->mapping->host))
-@@ -259,6 +266,15 @@ static inline bool dax_mapping(struct address_space *mapping)
- {
- 	return mapping->host && IS_DAX(mapping->host);
- }
-+static inline unsigned long pgoff_address(pgoff_t pgoff,
-+		struct vm_area_struct *vma)
-+{
-+	unsigned long address;
-+
-+	address = vma->vm_start + ((pgoff - vma->vm_pgoff) << PAGE_SHIFT);
-+	VM_BUG_ON_VMA(address < vma->vm_start || address >= vma->vm_end, vma);
-+	return address;
-+}
- 
- #ifdef CONFIG_DEV_DAX_HMEM_DEVICES
- void hmem_register_device(int target_nid, struct resource *r);
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 7ca22e6e694a..530aaf7a6eb2 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -1190,6 +1190,14 @@ static inline bool is_device_private_page(const struct page *page)
- 		page->pgmap->type == MEMORY_DEVICE_PRIVATE;
- }
- 
-+static inline bool is_device_fsdax_page(const struct page *page)
-+{
-+	return IS_ENABLED(CONFIG_DEV_PAGEMAP_OPS) &&
-+		IS_ENABLED(CONFIG_FS_DAX) &&
-+		is_zone_device_page(page) &&
-+		page->pgmap->type == MEMORY_DEVICE_FS_DAX;
-+}
-+
- static inline bool is_pci_p2pdma_page(const struct page *page)
- {
- 	return IS_ENABLED(CONFIG_DEV_PAGEMAP_OPS) &&
-@@ -3113,6 +3121,8 @@ enum mf_flags {
- 	MF_MUST_KILL = 1 << 2,
- 	MF_SOFT_OFFLINE = 1 << 3,
- };
-+extern int mf_dax_kill_procs(struct address_space *mapping, pgoff_t index,
-+			     int flags);
- extern int memory_failure(unsigned long pfn, int flags);
- extern void memory_failure_queue(unsigned long pfn, int flags);
- extern void memory_failure_queue_kick(int cpu);
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index ab3eda335acd..520664c405fc 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -134,6 +134,12 @@ static int hwpoison_filter_dev(struct page *p)
- 	if (PageSlab(p))
- 		return -EINVAL;
- 
-+	if (pfn_valid(page_to_pfn(p))) {
-+		if (is_device_fsdax_page(p))
-+			return 0;
-+	} else
-+		return -EINVAL;
-+
- 	mapping = page_mapping(p);
- 	if (mapping == NULL || mapping->host == NULL)
- 		return -EINVAL;
-@@ -304,10 +310,9 @@ void shake_page(struct page *p, int access)
- }
- EXPORT_SYMBOL_GPL(shake_page);
- 
--static unsigned long dev_pagemap_mapping_shift(struct page *page,
-+static unsigned long dev_pagemap_mapping_shift(unsigned long address,
- 		struct vm_area_struct *vma)
- {
--	unsigned long address = vma_address(page, vma);
- 	pgd_t *pgd;
- 	p4d_t *p4d;
- 	pud_t *pud;
-@@ -347,7 +352,7 @@ static unsigned long dev_pagemap_mapping_shift(struct page *page,
-  * Schedule a process for later kill.
-  * Uses GFP_ATOMIC allocations to avoid potential recursions in the VM.
-  */
--static void add_to_kill(struct task_struct *tsk, struct page *p,
-+static void add_to_kill(struct task_struct *tsk, struct page *p, pgoff_t pgoff,
- 		       struct vm_area_struct *vma,
- 		       struct list_head *to_kill)
- {
-@@ -360,9 +365,14 @@ static void add_to_kill(struct task_struct *tsk, struct page *p,
- 	}
- 
- 	tk->addr = page_address_in_vma(p, vma);
--	if (is_zone_device_page(p))
--		tk->size_shift = dev_pagemap_mapping_shift(p, vma);
--	else
-+	if (is_zone_device_page(p)) {
-+		/* Since page->mapping is no more used for fsdax, we should
-+		 * calculate the address in a fsdax way.
-+		 */
-+		if (is_device_fsdax_page(p))
-+			tk->addr = pgoff_address(pgoff, vma);
-+		tk->size_shift = dev_pagemap_mapping_shift(tk->addr, vma);
-+	} else
- 		tk->size_shift = page_shift(compound_head(p));
- 
- 	/*
-@@ -510,7 +520,7 @@ static void collect_procs_anon(struct page *page, struct list_head *to_kill,
- 			if (!page_mapped_in_vma(page, vma))
- 				continue;
- 			if (vma->vm_mm == t->mm)
--				add_to_kill(t, page, vma, to_kill);
-+				add_to_kill(t, page, 0, vma, to_kill);
- 		}
- 	}
- 	read_unlock(&tasklist_lock);
-@@ -520,24 +530,20 @@ static void collect_procs_anon(struct page *page, struct list_head *to_kill,
- /*
-  * Collect processes when the error hit a file mapped page.
-  */
--static void collect_procs_file(struct page *page, struct list_head *to_kill,
--				int force_early)
-+static void collect_procs_file(struct page *page, struct address_space *mapping,
-+		pgoff_t pgoff, struct list_head *to_kill, int force_early)
- {
- 	struct vm_area_struct *vma;
- 	struct task_struct *tsk;
--	struct address_space *mapping = page->mapping;
--	pgoff_t pgoff;
- 
- 	i_mmap_lock_read(mapping);
- 	read_lock(&tasklist_lock);
--	pgoff = page_to_pgoff(page);
- 	for_each_process(tsk) {
- 		struct task_struct *t = task_early_kill(tsk, force_early);
- 
- 		if (!t)
- 			continue;
--		vma_interval_tree_foreach(vma, &mapping->i_mmap, pgoff,
--				      pgoff) {
-+		vma_interval_tree_foreach(vma, &mapping->i_mmap, pgoff, pgoff) {
- 			/*
- 			 * Send early kill signal to tasks where a vma covers
- 			 * the page but the corrupted page is not necessarily
-@@ -546,7 +552,7 @@ static void collect_procs_file(struct page *page, struct list_head *to_kill,
- 			 * to be informed of all such data corruptions.
- 			 */
- 			if (vma->vm_mm == t->mm)
--				add_to_kill(t, page, vma, to_kill);
-+				add_to_kill(t, page, pgoff, vma, to_kill);
- 		}
- 	}
- 	read_unlock(&tasklist_lock);
-@@ -565,7 +571,8 @@ static void collect_procs(struct page *page, struct list_head *tokill,
- 	if (PageAnon(page))
- 		collect_procs_anon(page, tokill, force_early);
- 	else
--		collect_procs_file(page, tokill, force_early);
-+		collect_procs_file(page, page->mapping, page->index, tokill,
-+				   force_early);
- }
- 
- struct hwp_walk {
-@@ -1477,6 +1484,31 @@ static int mf_generic_kill_procs(unsigned long long pfn, int flags)
- 	return 0;
- }
- 
-+int mf_dax_kill_procs(struct address_space *mapping, pgoff_t index, int flags)
-+{
-+	LIST_HEAD(to_kill);
-+	/* load the pfn of the dax mapping file */
-+	unsigned long pfn = dax_load_pfn(mapping, index);
-+
-+	/* the failure pfn may not actually be mmapped, so no need to
-+	 * unmap and kill procs */
-+	if (!pfn)
-+		return 0;
-+
-+	/*
-+	 * Unlike System-RAM there is no possibility to swap in a
-+	 * different physical page at a given virtual address, so all
-+	 * userspace consumption of ZONE_DEVICE memory necessitates
-+	 * SIGBUS (i.e. MF_MUST_KILL)
-+	 */
-+	flags |= MF_ACTION_REQUIRED | MF_MUST_KILL;
-+	collect_procs_file(pfn_to_page(pfn), mapping, index, &to_kill, true);
-+
-+	unmap_and_kill(&to_kill, pfn, mapping, index, flags);
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(mf_dax_kill_procs);
-+
- static int memory_failure_hugetlb(unsigned long pfn, int flags)
- {
- 	struct page *p = pfn_to_page(pfn);
+ 	return NULL;
 -- 
 2.32.0
 
