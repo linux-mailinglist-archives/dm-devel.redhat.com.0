@@ -2,67 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 9052A3E408F
-	for <lists+dm-devel@lfdr.de>; Mon,  9 Aug 2021 08:53:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F2FB43E4085
+	for <lists+dm-devel@lfdr.de>; Mon,  9 Aug 2021 08:53:42 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-277-h1FFEE4AMxGfPgklb-nKqA-1; Mon, 09 Aug 2021 02:53:50 -0400
-X-MC-Unique: h1FFEE4AMxGfPgklb-nKqA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-409-83XXHpiiN8WXda8u6HnqAA-1; Mon, 09 Aug 2021 02:53:40 -0400
+X-MC-Unique: 83XXHpiiN8WXda8u6HnqAA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A93B387507D;
-	Mon,  9 Aug 2021 06:53:44 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C4F08107466A;
+	Mon,  9 Aug 2021 06:53:34 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 56875669F3;
-	Mon,  9 Aug 2021 06:53:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0DC0B295E5;
+	Mon,  9 Aug 2021 06:53:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0CDA7180140E;
-	Mon,  9 Aug 2021 06:53:44 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1FAD3180BAB3;
+	Mon,  9 Aug 2021 06:53:28 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 174Aa1Vu011484 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 4 Aug 2021 06:36:02 -0400
+	id 174Ef0ZS008356 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 4 Aug 2021 10:41:00 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id BEF83EE847; Wed,  4 Aug 2021 10:36:01 +0000 (UTC)
+	id 47A4DF8858; Wed,  4 Aug 2021 14:41:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B9A35DAF25
-	for <dm-devel@redhat.com>; Wed,  4 Aug 2021 10:35:58 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 42108F8087
+	for <dm-devel@redhat.com>; Wed,  4 Aug 2021 14:40:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B528D1857F02
-	for <dm-devel@redhat.com>; Wed,  4 Aug 2021 10:35:58 +0000 (UTC)
-Received: from www.kot-begemot.co.uk (ivanoab7.miniserver.com
-	[37.128.132.42]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-303-8XOboiD-PPSDI4oKULGjxw-1; Wed, 04 Aug 2021 06:35:56 -0400
-X-MC-Unique: 8XOboiD-PPSDI4oKULGjxw-1
-Received: from tun252.jain.kot-begemot.co.uk ([192.168.18.6]
-	helo=jain.kot-begemot.co.uk) by www.kot-begemot.co.uk with esmtps
-	(TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
-	(envelope-from <anton.ivanov@cambridgegreys.com>)
-	id 1mBDqd-0007cx-Mc; Wed, 04 Aug 2021 10:10:03 +0000
-Received: from jain.kot-begemot.co.uk ([192.168.3.3])
-	by jain.kot-begemot.co.uk with esmtp (Exim 4.92)
-	(envelope-from <anton.ivanov@cambridgegreys.com>)
-	id 1mBDqa-00016q-Pt; Wed, 04 Aug 2021 11:10:03 +0100
-To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B9E578D138C
+	for <dm-devel@redhat.com>; Wed,  4 Aug 2021 14:40:57 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-36-9xYgexR9P8WX7s0o-4M6lg-1; 
+	Wed, 04 Aug 2021 10:40:56 -0400
+X-MC-Unique: 9xYgexR9P8WX7s0o-4M6lg-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id AA66960F58;
+	Wed,  4 Aug 2021 14:33:14 +0000 (UTC)
+Date: Wed, 4 Aug 2021 07:33:12 -0700
+From: Keith Busch <kbusch@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20210804143312.GA2296276@dhcp-10-100-145-180.wdc.com>
 References: <20210804095634.460779-1-hch@lst.de>
-	<20210804095634.460779-12-hch@lst.de>
-From: Anton Ivanov <anton.ivanov@cambridgegreys.com>
-Message-ID: <0abadeca-d0fc-26ad-088e-2b137a029957@cambridgegreys.com>
-Date: Wed, 4 Aug 2021 11:10:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.12.0
+	<20210804095634.460779-16-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20210804095634.460779-12-hch@lst.de>
-X-Spam-Score: -1.0
-X-Spam-Score: -1.0
-X-Clacks-Overhead: GNU Terry Pratchett
+In-Reply-To: <20210804095634.460779-16-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -77,6 +64,7 @@ X-Mailman-Approved-At: Mon, 09 Aug 2021 02:53:04 -0400
 Cc: Jan Hoeppner <hoeppner@linux.ibm.com>, Mike Snitzer <snitzer@redhat.com>,
 	linux-nvme@lists.infradead.org, virtualization@lists.linux-foundation.org,
 	Song Liu <song@kernel.org>, dm-devel@redhat.com,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
 	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
 	Richard Weinberger <richard@nod.at>,
 	Ilya Dryomov <idryomov@gmail.com>, linux-um@lists.infradead.org,
@@ -84,11 +72,11 @@ Cc: Jan Hoeppner <hoeppner@linux.ibm.com>, Mike Snitzer <snitzer@redhat.com>,
 	linux-bcache@vger.kernel.org, Stefan Haberland <sth@linux.ibm.com>,
 	Stefan Hajnoczi <stefanha@redhat.com>,
 	Paolo Bonzini <pbonzini@redhat.com>, ceph-devel@vger.kernel.org,
-	linux-block@vger.kernel.org,
+	Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
 	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	Geoff Levand <geoff@infradead.org>,
 	Phillip Lougher <phillip@squashfs.org.uk>
-Subject: Re: [dm-devel] [PATCH 11/15] ubd: use bvec_virt
+Subject: Re: [dm-devel] [PATCH 15/15] nvme: use bvec_virt
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -102,46 +90,46 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-
-
-On 04/08/2021 10:56, Christoph Hellwig wrote:
+On Wed, Aug 04, 2021 at 11:56:34AM +0200, Christoph Hellwig wrote:
 > Use bvec_virt instead of open coding it.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > ---
->   arch/um/drivers/ubd_kern.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
+>  drivers/nvme/host/core.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
 > 
-> diff --git a/arch/um/drivers/ubd_kern.c b/arch/um/drivers/ubd_kern.c
-> index e497185dd393..cd9dc0556e91 100644
-> --- a/arch/um/drivers/ubd_kern.c
-> +++ b/arch/um/drivers/ubd_kern.c
-> @@ -1268,8 +1268,7 @@ static void ubd_map_req(struct ubd *dev, struct io_thread_req *io_req,
->   		rq_for_each_segment(bvec, req, iter) {
->   			BUG_ON(i >= io_req->desc_cnt);
->   
-> -			io_req->io_desc[i].buffer =
-> -				page_address(bvec.bv_page) + bvec.bv_offset;
-> +			io_req->io_desc[i].buffer = bvec_virt(&bvec);
->   			io_req->io_desc[i].length = bvec.bv_len;
->   			i++;
->   		}
-> 
-Acked-By: Anton Ivanov <anton.ivanov@cambridgegreys.com>
+> diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+> index dfd9dec0c1f6..02ce94b2906b 100644
+> --- a/drivers/nvme/host/core.c
+> +++ b/drivers/nvme/host/core.c
+> @@ -968,12 +968,11 @@ void nvme_cleanup_cmd(struct request *req)
+>  {
+>  	if (req->rq_flags & RQF_SPECIAL_PAYLOAD) {
+>  		struct nvme_ctrl *ctrl = nvme_req(req)->ctrl;
+> -		struct page *page = req->special_vec.bv_page;
+>  
+> -		if (page == ctrl->discard_page)
+> +		if (req->special_vec.bv_page == ctrl->discard_page)
+>  			clear_bit_unlock(0, &ctrl->discard_page_busy);
+>  		else
+> -			kfree(page_address(page) + req->special_vec.bv_offset);
+> +			kfree(bvec_virt(&req->special_vec));
+>  	}
+>  }
+>  EXPORT_SYMBOL_GPL(nvme_cleanup_cmd);
 
--- 
-Anton R. Ivanov
-Cambridgegreys Limited. Registered in England. Company Number 10273661
-https://www.cambridgegreys.com/
+Looks good.
+
+Reviewed-by: Keith Busch <kbusch@kernel.org>
 
 --
 dm-devel mailing list
