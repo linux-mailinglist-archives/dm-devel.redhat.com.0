@@ -1,53 +1,52 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 803B53DFEE8
-	for <lists+dm-devel@lfdr.de>; Wed,  4 Aug 2021 12:05:30 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 913D03DFEFF
+	for <lists+dm-devel@lfdr.de>; Wed,  4 Aug 2021 12:06:55 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-377-DV1NcgJFNXKbPbB7_mjirA-1; Wed, 04 Aug 2021 06:05:27 -0400
-X-MC-Unique: DV1NcgJFNXKbPbB7_mjirA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-470-nfI-Xy02MuOek0BYB0BnPA-1; Wed, 04 Aug 2021 06:06:53 -0400
+X-MC-Unique: nfI-Xy02MuOek0BYB0BnPA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 354D28799F9;
-	Wed,  4 Aug 2021 10:05:21 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1548818B42;
-	Wed,  4 Aug 2021 10:05:21 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0276F1006C81;
+	Wed,  4 Aug 2021 10:06:48 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7951619C46;
+	Wed,  4 Aug 2021 10:06:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 768A04A7C8;
-	Wed,  4 Aug 2021 10:05:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8CC7C181A3E9;
+	Wed,  4 Aug 2021 10:06:46 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 174A5GxV007707 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 4 Aug 2021 06:05:16 -0400
+	id 174A65IW007755 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 4 Aug 2021 06:06:06 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 9C5932077FD3; Wed,  4 Aug 2021 10:05:16 +0000 (UTC)
+	id BF4AEEB347; Wed,  4 Aug 2021 10:06:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 973902077FC7
-	for <dm-devel@redhat.com>; Wed,  4 Aug 2021 10:05:13 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA50CEB345
+	for <dm-devel@redhat.com>; Wed,  4 Aug 2021 10:06:03 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2DC0A848A7E
-	for <dm-devel@redhat.com>; Wed,  4 Aug 2021 10:05:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1062680B73C
+	for <dm-devel@redhat.com>; Wed,  4 Aug 2021 10:06:03 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-500-9cTuCe5-NDCWon1BHbxZFQ-1; Wed, 04 Aug 2021 06:05:05 -0400
-X-MC-Unique: 9cTuCe5-NDCWon1BHbxZFQ-1
+	us-mta-408-hrR9rlHuNE-mTS4p7TOCCg-1; Wed, 04 Aug 2021 06:05:58 -0400
+X-MC-Unique: hrR9rlHuNE-mTS4p7TOCCg-1
 Received: from [2a02:1205:5023:1f80:c068:bd3d:78b3:7d37] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1mBDkP-005fZa-K7; Wed, 04 Aug 2021 10:03:49 +0000
+	id 1mBDlD-005fg4-2r; Wed, 04 Aug 2021 10:04:34 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed,  4 Aug 2021 11:56:28 +0200
-Message-Id: <20210804095634.460779-10-hch@lst.de>
+Date: Wed,  4 Aug 2021 11:56:29 +0200
+Message-Id: <20210804095634.460779-11-hch@lst.de>
 In-Reply-To: <20210804095634.460779-1-hch@lst.de>
 References: <20210804095634.460779-1-hch@lst.de>
 MIME-Version: 1.0
@@ -61,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: Jan Hoeppner <hoeppner@linux.ibm.com>, Mike Snitzer <snitzer@redhat.com>,
 	linux-nvme@lists.infradead.org, virtualization@lists.linux-foundation.org,
@@ -78,7 +77,7 @@ Cc: Jan Hoeppner <hoeppner@linux.ibm.com>, Mike Snitzer <snitzer@redhat.com>,
 	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	Geoff Levand <geoff@infradead.org>,
 	Phillip Lougher <phillip@squashfs.org.uk>
-Subject: [dm-devel] [PATCH 09/15] bcache: use bvec_virt
+Subject: [dm-devel] [PATCH 10/15] sd: use bvec_virt
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,7 +91,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -100,28 +99,26 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use bvec_virt instead of open coding it.  Note that the existing code is
-fine despite ignoring bv_offset as the bio is known to contain exactly
-one page from the page allocator per bio_vec.
+Use bvec_virt instead of open coding it.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/md/bcache/btree.c | 2 +-
+ drivers/scsi/sd.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/md/bcache/btree.c b/drivers/md/bcache/btree.c
-index 183a58c89377..0595559de174 100644
---- a/drivers/md/bcache/btree.c
-+++ b/drivers/md/bcache/btree.c
-@@ -378,7 +378,7 @@ static void do_btree_node_write(struct btree *b)
- 		struct bvec_iter_all iter_all;
+diff --git a/drivers/scsi/sd.c b/drivers/scsi/sd.c
+index b8d55af763f9..5b5b8266e142 100644
+--- a/drivers/scsi/sd.c
++++ b/drivers/scsi/sd.c
+@@ -886,7 +886,7 @@ static blk_status_t sd_setup_unmap_cmnd(struct scsi_cmnd *cmd)
+ 	cmd->cmnd[0] = UNMAP;
+ 	cmd->cmnd[8] = 24;
  
- 		bio_for_each_segment_all(bv, b->bio, iter_all) {
--			memcpy(page_address(bv->bv_page), addr, PAGE_SIZE);
-+			memcpy(bvec_virt(bv), addr, PAGE_SIZE);
- 			addr += PAGE_SIZE;
- 		}
- 
+-	buf = page_address(rq->special_vec.bv_page);
++	buf = bvec_virt(&rq->special_vec);
+ 	put_unaligned_be16(6 + 16, &buf[0]);
+ 	put_unaligned_be16(16, &buf[2]);
+ 	put_unaligned_be64(lba, &buf[8]);
 -- 
 2.30.2
 
