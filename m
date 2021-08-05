@@ -1,81 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 82FE83E4086
-	for <lists+dm-devel@lfdr.de>; Mon,  9 Aug 2021 08:53:43 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 154233E4092
+	for <lists+dm-devel@lfdr.de>; Mon,  9 Aug 2021 08:54:10 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-269-uGqJs6djOpWDBtnA-Dw4qQ-1; Mon, 09 Aug 2021 02:53:40 -0400
-X-MC-Unique: uGqJs6djOpWDBtnA-Dw4qQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-409-prm31m3LMWGWl8dg7N4RvA-1; Mon, 09 Aug 2021 02:53:40 -0400
+X-MC-Unique: prm31m3LMWGWl8dg7N4RvA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6803C94EE2;
-	Mon,  9 Aug 2021 06:53:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 20DEF94EE4;
+	Mon,  9 Aug 2021 06:53:35 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 31AEB60C81;
-	Mon,  9 Aug 2021 06:53:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 033A46A05F;
+	Mon,  9 Aug 2021 06:53:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 78503180BAB1;
-	Mon,  9 Aug 2021 06:53:15 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CCC8A180BABF;
+	Mon,  9 Aug 2021 06:53:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1756JqxX028692 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 5 Aug 2021 02:19:52 -0400
+	id 175CB42g032188 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 5 Aug 2021 08:11:04 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 22DC5103799; Thu,  5 Aug 2021 06:19:52 +0000 (UTC)
+	id 409C121D0DAD; Thu,  5 Aug 2021 12:11:04 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D9A7103792
-	for <dm-devel@redhat.com>; Thu,  5 Aug 2021 06:19:49 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3BCBE21D0DAC
+	for <dm-devel@redhat.com>; Thu,  5 Aug 2021 12:11:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 917CD101A529
-	for <dm-devel@redhat.com>; Thu,  5 Aug 2021 06:19:49 +0000 (UTC)
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
-	[209.85.216.47]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-576-pU8rxAFePrGq0Y6j6Dg2Pw-1; Thu, 05 Aug 2021 02:19:47 -0400
-X-MC-Unique: pU8rxAFePrGq0Y6j6Dg2Pw-1
-Received: by mail-pj1-f47.google.com with SMTP id
-	dw2-20020a17090b0942b0290177cb475142so12547427pjb.2; 
-	Wed, 04 Aug 2021 23:19:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-	:user-agent:mime-version:in-reply-to:content-language
-	:content-transfer-encoding;
-	bh=Us8M4Gz10TOU+v1I5NsNfx0zgCQlwHS7fXqY8nkODX4=;
-	b=FjVQKCe0e+MAKxF3uVZZHcLGpI591MyLbisvhYxGo550rwRgMeAopd623p3HeQqnKs
-	ozHg4qGc7wX4XCg5GoGtm8wi6of1RQJztjOf1FnzU/gTNZdM13C+uQ6Ukc9hjOqrXnH2
-	3aosobZLjC2e+e97dHOMtTEvf7U+z1hzi+Gle0xAIyyUAZQb++Z2dy5j2uVGvbyWUlzE
-	tvffgSy4ToRYrUsGp0j60sDppE4CZY8nta0b6gxWlR+X7MY6ft34a2OMP1z4cubdtp8n
-	H1vBc3Jv5RB5p1VLlS82bFPtAHzKjHgRe2C8hmv2FtK1njrbMT8BElOY50Uza5KSyrVB
-	hF2g==
-X-Gm-Message-State: AOAM532osq2ei7GRwUsaEXPN22aacOaJ32bc+V/3WkKwYHSt7yGs2s3M
-	zsnrEfjxovv3hbQFDVUOiwc=
-X-Google-Smtp-Source: ABdhPJylCwEmCslg5aa1nc2EitMfnv0khm5CC20SSkcpOfTgA4if26raJjt9hmbh77ooLfOKEQ2BOg==
-X-Received: by 2002:a17:90a:fef:: with SMTP id
-	102mr13385008pjz.148.1628144385681; 
-	Wed, 04 Aug 2021 23:19:45 -0700 (PDT)
-Received: from [192.168.50.71] (ip70-175-137-120.oc.oc.cox.net.
-	[70.175.137.120]) by smtp.gmail.com with ESMTPSA id
-	l11sm5198375pfd.187.2021.08.04.23.19.43
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Wed, 04 Aug 2021 23:19:45 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 732B180B725
+	for <dm-devel@redhat.com>; Thu,  5 Aug 2021 12:11:00 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-272-QheF99C4P9igJRRBHIAxsg-1;
+	Thu, 05 Aug 2021 08:10:56 -0400
+X-MC-Unique: QheF99C4P9igJRRBHIAxsg-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3A71D61132;
+	Thu,  5 Aug 2021 12:01:14 +0000 (UTC)
+Message-ID: <440e1815a8b6f1605b6bce51af6eceadf8e742f7.camel@kernel.org>
+From: Jeff Layton <jlayton@kernel.org>
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
+Date: Thu, 05 Aug 2021 08:01:13 -0400
+In-Reply-To: <20210804095634.460779-8-hch@lst.de>
 References: <20210804095634.460779-1-hch@lst.de>
-	<20210804095634.460779-3-hch@lst.de>
-From: Chaitanya Kulkarni <ckulkarnilinux@gmail.com>
-Message-ID: <b1d05349-86d2-0334-436f-811600ee1578@gmail.com>
-Date: Wed, 4 Aug 2021 23:19:45 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
-	Thunderbird/78.12.0
+	<20210804095634.460779-8-hch@lst.de>
+User-Agent: Evolution 3.40.3 (3.40.3-1.fc34)
 MIME-Version: 1.0
-In-Reply-To: <20210804095634.460779-3-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -84,7 +59,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 09 Aug 2021 02:53:04 -0400
 Cc: Jan Hoeppner <hoeppner@linux.ibm.com>, Mike Snitzer <snitzer@redhat.com>,
@@ -92,18 +67,16 @@ Cc: Jan Hoeppner <hoeppner@linux.ibm.com>, Mike Snitzer <snitzer@redhat.com>,
 	Song Liu <song@kernel.org>, dm-devel@redhat.com,
 	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
 	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
-	Richard Weinberger <richard@nod.at>,
-	Ilya Dryomov <idryomov@gmail.com>, linux-um@lists.infradead.org,
-	Coly Li <colyli@suse.de>, linux-raid@vger.kernel.org,
-	linux-bcache@vger.kernel.org, Stefan Haberland <sth@linux.ibm.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
+	Richard Weinberger <richard@nod.at>, Dryomov <idryomov@gmail.com>, Stefan,
+	linux-um@lists.infradead.org, Coly Li <colyli@suse.de>,
+	linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org,
+	Stefan Haberland <sth@linux.ibm.com>, Hajnoczi <stefanha@redhat.com>,
 	Paolo Bonzini <pbonzini@redhat.com>, ceph-devel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	linux-block@vger.kernel.org, "Martin K.
+	Petersen" <martin.petersen@oracle.com>, Ilya,
 	Geoff Levand <geoff@infradead.org>,
 	Phillip Lougher <phillip@squashfs.org.uk>
-Subject: Re: [dm-devel] [PATCH 02/15] block: use bvec_virt in
- bio_integrity_{process, free}
+Subject: Re: [dm-devel] [PATCH 07/15] rbd: use bvec_virt
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -117,29 +90,40 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-
-
-On 8/4/2021 2:56 AM, Christoph Hellwig wrote:
-> Use the bvec_virt helper to clean up the bio integrity processing a
-> little bit.
+On Wed, 2021-08-04 at 11:56 +0200, Christoph Hellwig wrote:
+> Use bvec_virt instead of open coding it.
 > 
-> Signed-off-by: Christoph Hellwig<hch@lst.de>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  drivers/block/rbd.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/block/rbd.c b/drivers/block/rbd.c
+> index 6d596c2c2cd6..e65c9d706f6f 100644
+> --- a/drivers/block/rbd.c
+> +++ b/drivers/block/rbd.c
+> @@ -2986,8 +2986,7 @@ static bool is_zero_bvecs(struct bio_vec *bvecs, u32 bytes)
+>  	};
+>  
+>  	ceph_bvec_iter_advance_step(&it, bytes, ({
+> -		if (memchr_inv(page_address(bv.bv_page) + bv.bv_offset, 0,
+> -			       bv.bv_len))
+> +		if (memchr_inv(bvec_virt(&bv), 0, bv.bv_len))
+>  			return false;
+>  	}));
+>  	return true;
 
-Looks good.
+LGTM
 
-Reviewed-by: Chaitanya Kulkarni <kch@kernel.org>
-
--- 
--ck
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
 
 --
 dm-devel mailing list
