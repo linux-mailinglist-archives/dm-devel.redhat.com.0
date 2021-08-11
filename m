@@ -2,69 +2,65 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 1A0893E9493
-	for <lists+dm-devel@lfdr.de>; Wed, 11 Aug 2021 17:31:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EF3203E94C7
+	for <lists+dm-devel@lfdr.de>; Wed, 11 Aug 2021 17:42:45 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-437-TvGhvqwhNsqAX1rhUfJHvw-1; Wed, 11 Aug 2021 11:31:17 -0400
-X-MC-Unique: TvGhvqwhNsqAX1rhUfJHvw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-597-ZpPPYpE0O422YKxrCeWx6Q-1; Wed, 11 Aug 2021 11:42:42 -0400
+X-MC-Unique: ZpPPYpE0O422YKxrCeWx6Q-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EBB59801A92;
-	Wed, 11 Aug 2021 15:31:08 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 45D992854E;
-	Wed, 11 Aug 2021 15:31:07 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 20ADCC73A7;
+	Wed, 11 Aug 2021 15:42:33 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F358660BF1;
+	Wed, 11 Aug 2021 15:42:32 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DFD864A7C8;
-	Wed, 11 Aug 2021 15:30:57 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B360E181847A;
+	Wed, 11 Aug 2021 15:42:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17BFRF4H006820 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 11 Aug 2021 11:27:15 -0400
+	id 17BFgN0S010153 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 11 Aug 2021 11:42:23 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 57F431032A5; Wed, 11 Aug 2021 15:27:15 +0000 (UTC)
+	id 67592207ADC2; Wed, 11 Aug 2021 15:42:23 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 532331032A3
-	for <dm-devel@redhat.com>; Wed, 11 Aug 2021 15:27:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 62099207ADDA
+	for <dm-devel@redhat.com>; Wed, 11 Aug 2021 15:42:23 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A5CF9806604
-	for <dm-devel@redhat.com>; Wed, 11 Aug 2021 15:27:11 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 494A9866DFC
+	for <dm-devel@redhat.com>; Wed, 11 Aug 2021 15:42:23 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-484--ii6XnKBP8a8G4U6jS7bLw-1; Wed, 11 Aug 2021 11:27:07 -0400
-X-MC-Unique: -ii6XnKBP8a8G4U6jS7bLw-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	us-mta-59-Rzj35Gt_PfiPtBCDu9FwKw-1; Wed, 11 Aug 2021 11:42:04 -0400
+X-MC-Unique: Rzj35Gt_PfiPtBCDu9FwKw-1
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 5190C1FED9;
-	Wed, 11 Aug 2021 15:27:06 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B86AC1FEDA;
+	Wed, 11 Aug 2021 15:42:02 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1FCAF13C17;
-	Wed, 11 Aug 2021 15:27:06 +0000 (UTC)
+	by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 82C1713969;
+	Wed, 11 Aug 2021 15:42:02 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id 7eSKBUrsE2FHUQAAMHmgww
-	(envelope-from <mwilck@suse.com>); Wed, 11 Aug 2021 15:27:06 +0000
-Message-ID: <fb0961e9e14bdfc655561cc078069614fb7268a6.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed, 11 Aug 2021 17:27:05 +0200
-In-Reply-To: <20210728190343.GL3087@octiron.msp.redhat.com>
-References: <20210715105223.30463-1-mwilck@suse.com>
-	<20210715105223.30463-5-mwilck@suse.com>
-	<20210728190343.GL3087@octiron.msp.redhat.com>
-User-Agent: Evolution 3.40.3
+	by imap1.suse-dmz.suse.de with ESMTPSA id pVjnHcrvE2H/XQAAGKfGzw
+	(envelope-from <mwilck@suse.com>); Wed, 11 Aug 2021 15:42:02 +0000
+From: mwilck@suse.com
+To: Benjamin Marzinski <bmarzins@redhat.com>,
+	Christophe Varoqui <christophe.varoqui@opensvc.com>
+Date: Wed, 11 Aug 2021 17:41:41 +0200
+Message-Id: <20210811154150.24714-1-mwilck@suse.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -74,12 +70,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 17BFRF4H006820
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 17BFgN0S010153
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 4/9] libmultipath: use strbuf in dict.c
+Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Subject: [dm-devel] [PATCH v2 0/9] multipath-tools: use variable-size string
+	buffers
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,101 +90,116 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Mi, 2021-07-28 at 14:03 -0500, Benjamin Marzinski wrote:
-> On Thu, Jul 15, 2021 at 12:52:18PM +0200, mwilck@suse.com=A0wrote:
-> > From: Martin Wilck <mwilck@suse.com>
-> >=20
-> > Temporary solution for snprint_keyword(), as print.c hasn't been
-> > migrated yet.
->=20
-> Mostly good. I have some minor issues with this.
->=20
-> >=20
-> > Signed-off-by: Martin Wilck <mwilck@suse.com>
-> > ---
-> > =A0libmultipath/dict.c=A0=A0=A0 | 313 ++++++++++++++++++---------------=
-----
-> > ----
-> > =A0libmultipath/dict.h=A0=A0=A0 |=A0 19 +--
-> > =A0libmultipath/parser.c=A0 |=A0 47 ++++---
-> > =A0libmultipath/parser.h=A0 |=A0 15 +-
-> > =A0libmultipath/propsel.c | 147 +++++++++----------
-> > =A05 files changed, 253 insertions(+), 288 deletions(-)
-> >=20
-> > =A0
-> > @@ -419,21 +381,18 @@ declare_ovr_snprint(selector, print_str)
-> > =A0declare_mp_handler(selector, set_str)
-> > =A0declare_mp_snprint(selector, print_str)
-> > =A0
-> > -static int snprint_uid_attrs(struct config *conf, char *buff, int
-> > len,
-> > +static int snprint_uid_attrs(struct config *conf, struct strbuf
-> > *buff,
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0 const void *dummy)
-> > =A0{
-> > -=A0=A0=A0=A0=A0=A0=A0char *p =3D buff;
-> > -=A0=A0=A0=A0=A0=A0=A0int n, j;
-> > +=A0=A0=A0=A0=A0=A0=A0int j, ret;
-> > =A0=A0=A0=A0=A0=A0=A0=A0const char *att;
-> > =A0
-> > =A0=A0=A0=A0=A0=A0=A0=A0vector_foreach_slot(&conf->uid_attrs, att, j) {
-> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0n =3D snprintf(p, len, "%=
-s%s", j =3D=3D 0 ? "" : " ",
-> > att);
-> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (n >=3D len)
-> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0r=
-eturn (p - buff) + n;
-> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0p +=3D n;
-> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0len -=3D n;
-> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0ret =3D print_strbuf(buff=
-, "%s%s", j =3D=3D 0 ? "" : " ",
-> > att);
-> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (ret < 0)
-> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0r=
-eturn ret;
-> > =A0=A0=A0=A0=A0=A0=A0=A0}
->=20
-> On success, this should return the amount of data written, instead of
-> like the other snprint_* functions, not 0.
->=20
-> > -=A0=A0=A0=A0=A0=A0=A0return p - buff;
-> > +=A0=A0=A0=A0=A0=A0=A0return 0;
+From: Martin Wilck <mwilck@suse.com>
 
-Right, thanks!
+Current libmultipath contains a lot of code writing text to pre-allocated
+string buffers of fixed size while trying to avoid buffer overflows
+or truncation of the output string. This code is, at least in part,
+hard to verify and hard to read, as buffer sizes and positions need to
+be checked after every additon of text. It requires either allocating large
+buffers in advance, or risking to loose data, or re-allocating buffers
+and starting over again.
 
+This patch set changes this by switching almost entirely to text buffers
+that are dynamically allocated and grow automatically as text is added.
 
-> > +snprint_ble_simple (struct config *conf, struct strbuf *buff,
-> > const void *data)
-> > =A0{
-> > -=A0=A0=A0=A0=A0=A0=A0const struct blentry * ble =3D (const struct blen=
-try *)data;
-> > +=A0=A0=A0=A0=A0=A0=A0const struct blentry *ble =3D (const struct blent=
-ry *)data;
-> > =A0
-> > -=A0=A0=A0=A0=A0=A0=A0return snprintf(buff, len, "\"%s\"", ble->str);
->=20
-> We should probably quote the regexes when printing them, so either
-> append_strbuf_quoted() or, if you're worried about how that would
-> handle
-> interior quotes, print_strbud with "\"%s\"".
->=20
-> > +=A0=A0=A0=A0=A0=A0=A0return print_str(buff, ble->str);
+The first patch, which was the initial motivation of the set, doesn't
+need growing buffers, it just overcomes the PARAMS_SIZE limitation by
+copying data from libdm. However if the PARAMS_SIZE limitation was dropped
+when reading from the kernel, it made sense to drop it for constructing
+PARAMS, too. This motivated the implementation of the strbuf API (patch 2),
+and using it in assemble_map (patch 3). The API was then consequently used
+elswhere in libmultipath too, where strings are built up in pieces (patch 4,
+5, 8, 9). These additional changes are huge because of large number of
+affected "snprint_xyz" functions and respective function calls, but most
+of the changes are mechanical and follow always the same overall idea.
 
-print_str() already calls append_strbuf_quoted(). Am I overlooking
-something?
+Finally, patch 6 and 7 are cleanups which I found necessary while working
+on print.c.
 
-Thanks,
-Martin
+Regression testing: added a test suite for strbuf itself, made sure
+all tests cases (which involve quite a bit of printf_xyz() functions) still
+pass, and compared output of lots of interactive multipathd and multipath
+commands before and after the change.
 
+Note that "multipathd show config" / "multipath -t" will show some minor
+differences in the output, because the current code omits quotes for some
+output value fields. With this patch set, all string values are quoted.
+
+The patch set is available also on my "tip" branch:
+https://github.com/openSUSE/multipath-tools/tree/tip.
+
+Changes wrt v1 (thanks to Ben Marzinski for all):
+
+ - 1/9: added missing pointer dereference
+ - 2/9: fixed buffer size calculation, simplified code in __append_strbuf_str()
+ - 3/9: use STRBUF_ON_STACK() rather than hand-coded __attribute__
+        moved free() statement before goto in ev_add_path().
+ - 4/9: Fixed return value of snprint_uid_attrs()
+ - 5/9: Removed extra '-'
+
+Martin Wilck (9):
+  libmultipath: variable-size parameters in dm_get_map()
+  libmultipath: strbuf: simple api for growing string buffers
+  libmultipath: variable-size parameters in assemble_map()
+  libmultipath: use strbuf in dict.c
+  libmultipath: use strbuf in print.c
+  libmultipath: print.c: fail hard if keywords are not found
+  libmultipath: print.h: move macros to print.c
+  libmultipath: use strbuf in alias.c.
+  multipathd: use strbuf in cli.c
+
+ libmultipath/Makefile                    |    2 +-
+ libmultipath/alias.c                     |   84 +-
+ libmultipath/blacklist.c                 |   13 +-
+ libmultipath/configure.c                 |   18 +-
+ libmultipath/configure.h                 |    3 +-
+ libmultipath/devmapper.c                 |   44 +-
+ libmultipath/devmapper.h                 |    4 +-
+ libmultipath/dict.c                      |  314 ++--
+ libmultipath/dict.h                      |   19 +-
+ libmultipath/discovery.c                 |   13 +-
+ libmultipath/dmparser.c                  |   47 +-
+ libmultipath/dmparser.h                  |    2 +-
+ libmultipath/foreign.c                   |   78 +-
+ libmultipath/foreign.h                   |   13 +-
+ libmultipath/foreign/nvme.c              |  100 +-
+ libmultipath/generic.c                   |   26 +-
+ libmultipath/generic.h                   |   17 +-
+ libmultipath/libmultipath.version        |   21 +-
+ libmultipath/parser.c                    |   50 +-
+ libmultipath/parser.h                    |   17 +-
+ libmultipath/print.c                     | 1839 ++++++++++------------
+ libmultipath/print.h                     |  131 +-
+ libmultipath/prioritizers/weightedpath.c |   71 +-
+ libmultipath/propsel.c                   |  147 +-
+ libmultipath/strbuf.c                    |  207 +++
+ libmultipath/strbuf.h                    |  168 ++
+ libmultipath/structs.h                   |    1 -
+ libmultipath/structs_vec.c               |   11 +-
+ libmultipath/util.c                      |    5 +
+ libmultipath/util.h                      |    1 +
+ multipathd/cli.c                         |   94 +-
+ multipathd/cli_handlers.c                |  349 ++--
+ multipathd/main.c                        |   20 +-
+ tests/Makefile                           |    3 +-
+ tests/alias.c                            |   41 +-
+ tests/strbuf.c                           |  412 +++++
+ 36 files changed, 2313 insertions(+), 2072 deletions(-)
+ create mode 100644 libmultipath/strbuf.c
+ create mode 100644 libmultipath/strbuf.h
+ create mode 100644 tests/strbuf.c
+
+-- 
+2.32.0
 
 
 --
