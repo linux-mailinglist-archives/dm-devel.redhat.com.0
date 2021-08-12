@@ -2,70 +2,126 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 9C8043E9F65
-	for <lists+dm-devel@lfdr.de>; Thu, 12 Aug 2021 09:23:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 89B1B3EA2F4
+	for <lists+dm-devel@lfdr.de>; Thu, 12 Aug 2021 12:26:02 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-463-gRzwFrp3OgW4zs9DbLwguQ-1; Thu, 12 Aug 2021 03:23:39 -0400
-X-MC-Unique: gRzwFrp3OgW4zs9DbLwguQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-333-tBKYkppWOYWPJ_rfB-NnEg-1; Thu, 12 Aug 2021 06:25:59 -0400
+X-MC-Unique: tBKYkppWOYWPJ_rfB-NnEg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C2AB7824F83;
-	Thu, 12 Aug 2021 07:23:32 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1197B1008065;
+	Thu, 12 Aug 2021 10:25:53 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CAA7B5C3E0;
-	Thu, 12 Aug 2021 07:23:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B04315D9C6;
+	Thu, 12 Aug 2021 10:25:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D66744BB7C;
-	Thu, 12 Aug 2021 07:23:19 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 08A0B4BB7C;
+	Thu, 12 Aug 2021 10:25:50 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17C7JExn026397 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 12 Aug 2021 03:19:14 -0400
+	id 17CAN7g8012205 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 12 Aug 2021 06:23:07 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 89CE72015D0B; Thu, 12 Aug 2021 07:19:14 +0000 (UTC)
+	id 8F88C10FAA8; Thu, 12 Aug 2021 10:23:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 84067202868F
-	for <dm-devel@redhat.com>; Thu, 12 Aug 2021 07:19:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 84474113B54
+	for <dm-devel@redhat.com>; Thu, 12 Aug 2021 10:23:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2D6208CA94F
-	for <dm-devel@redhat.com>; Thu, 12 Aug 2021 07:19:11 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-452-t6RG-LEcNJ-f_bmuLTSPYw-1; Thu, 12 Aug 2021 03:19:07 -0400
-X-MC-Unique: t6RG-LEcNJ-f_bmuLTSPYw-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	key-exchange X25519 server-signature ECDSA (P-521) server-digest
-	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C9F56221CF;
-	Thu, 12 Aug 2021 07:19:05 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	key-exchange X25519 server-signature ECDSA (P-521) server-digest
-	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8F88F1345F;
-	Thu, 12 Aug 2021 07:19:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id LaPvIGnLFGG5GAAAMHmgww
-	(envelope-from <mwilck@suse.com>); Thu, 12 Aug 2021 07:19:05 +0000
-Message-ID: <4e5798a3cd0244e617dab4590d8698b73f9ae7e9.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Bart Van Assche <bvanassche@acm.org>, Benjamin Marzinski
-	<bmarzins@redhat.com>, Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Thu, 12 Aug 2021 09:19:04 +0200
-In-Reply-To: <942d3693-959a-556d-35b8-d2bf7c4e55e4@acm.org>
-References: <20210811154150.24714-1-mwilck@suse.com>
-	<20210811154150.24714-3-mwilck@suse.com>
-	<942d3693-959a-556d-35b8-d2bf7c4e55e4@acm.org>
-User-Agent: Evolution 3.40.3
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 763848D139B
+	for <dm-devel@redhat.com>; Thu, 12 Aug 2021 10:23:04 +0000 (UTC)
+Received: from de-smtp-delivery-102.mimecast.com
+	(de-smtp-delivery-102.mimecast.com [194.104.111.102]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-197-3YWEE4QZMkSZXE5Ol0dw1A-1;
+	Thu, 12 Aug 2021 06:23:02 -0400
+X-MC-Unique: 3YWEE4QZMkSZXE5Ol0dw1A-1
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+	(mail-db8eur05lp2111.outbound.protection.outlook.com [104.47.17.111])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	de-mta-12-mrrMvNqpMvSt405PysblFQ-1; Thu, 12 Aug 2021 12:23:00 +0200
+X-MC-Unique: mrrMvNqpMvSt405PysblFQ-1
+Received: from DB8PR04MB6555.eurprd04.prod.outlook.com (2603:10a6:10:103::20)
+	by DB7PR04MB5385.eurprd04.prod.outlook.com (2603:10a6:10:83::16) with
+	Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4415.17;
+	Thu, 12 Aug 2021 10:22:59 +0000
+Received: from DB8PR04MB6555.eurprd04.prod.outlook.com
+	([fe80::5158:3113:295b:d9c1]) by
+	DB8PR04MB6555.eurprd04.prod.outlook.com
+	([fe80::5158:3113:295b:d9c1%5]) with mapi id 15.20.4415.015;
+	Thu, 12 Aug 2021 10:22:59 +0000
+From: Martin Wilck <martin.wilck@suse.com>
+To: "bmarzins@redhat.com" <bmarzins@redhat.com>,
+	"christophe.varoqui@opensvc.com" <christophe.varoqui@opensvc.com>
+Thread-Topic: [PATCH 1/5] multipath.conf: fix typo in ghost_delay description
+Thread-Index: AQHXhMMsDvAs1PvYD0Wv983nOUxYvqtvvoQA
+Date: Thu, 12 Aug 2021 10:22:58 +0000
+Message-ID: <f9efd221d3d5e7eefd67bc3d4d9c7c949cf22b43.camel@suse.com>
+References: <1627595165-19980-1-git-send-email-bmarzins@redhat.com>
+	<1627595165-19980-2-git-send-email-bmarzins@redhat.com>
+In-Reply-To: <1627595165-19980-2-git-send-email-bmarzins@redhat.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.40.3
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 622a8043-8884-47f2-cc6e-08d95d7b2873
+x-ms-traffictypediagnostic: DB7PR04MB5385:
+x-microsoft-antispam-prvs: <DB7PR04MB53851ED35936C96D594A69C7FCF99@DB7PR04MB5385.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:626
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0
+x-microsoft-antispam-message-info: nSt08iFtxb3jEVC7Ad4z6mHGdX1pSg0tL1W4vO9TyM8w7THTtNHjZMyIuy1/v/vVPeQOdaMg8B/6/FhkuaW0adhswi0uhaAtxCgJt5GT+F2y8Gi2cKeMMg0o4YuiFXIJfO172ffDuEHfDkOKyMUDJp8tmvaePmfH3JOPMYjVWG9UBjVOHtAakFYuYqrBfSWJUWxAcuE/H1xfxRy499sklT+bFyZPuNV8psFE+38y9oW3+HLL1WXxwPqMr1xqpDnw4mBEnEMJ+X4w1gPVLHUQXOHrddQMetQe6Wi1s3Ocq7aRuU5wWO0xBkVWGkQS5m0dwCpxzQv4+FOYamidw/5eK3H6O/evzGgZz2EL+++z10A9GKw0Vq7giKGoL7gtxmGnY0d+wBKXRRaBWrgQjlp1j71+gn0dkmuWZf56En4G4m4Ci3dBmcgI2xWkLDe/qa3vwoLkObGx4sjZNe0EXfZg3KFkUksCrafJ/7pcGHM3RYguec8WyoObRpSqQG26bGZoAhIZV41HxDQCCUaQ5Z98NOjSpdH1vL+HVP0g8QZeE70LJpYGnCcQrGAAb+NSGo6Wll0yt54FadvmSUHcU/MjqcRplE7jtn2e/MtDhu39iVt5dO3jzVud5Ths586LH8GSqSmOb0++DBvUAGs7OvklFW+vjokv4EUiMQ1Zyxr3SKtxBHzWJ1/X3cjHiWkox9TgO7z8X7enS2szHfhlHpjp7A==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:DB8PR04MB6555.eurprd04.prod.outlook.com;
+	PTR:; CAT:NONE;
+	SFS:(366004)(71200400001)(66476007)(66556008)(66446008)(64756008)(66946007)(6486002)(91956017)(86362001)(44832011)(2906002)(38070700005)(5660300002)(36756003)(8936002)(76116006)(2616005)(8676002)(558084003)(6506007)(508600001)(26005)(38100700002)(122000001)(4326008)(6512007)(316002)(186003)(110136005);
+	DIR:OUT; SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-15?Q?Hm3o2dfKXMzURoRe5aKI+IFY00emtMoMSgWVuZ/bYDe1C73p5wCe0EroY?=
+	=?iso-8859-15?Q?5T7pGOGggl8Qeg22rhJmRvd/UNAGQeP0gvdJp0xZRCTgBbPCOq4DL4G5a?=
+	=?iso-8859-15?Q?fYpLIfxfhE72/qroGXlFGp4akIWPg1Faag1e5Pm2AqWxj+5leS4oDoAxO?=
+	=?iso-8859-15?Q?ehAja9H6SJ2b6mhJcLGZUXQd7tqH0qCFWLQjLzzMPiIb2nJLDbk8wCJG2?=
+	=?iso-8859-15?Q?RABNTK6ru0zB5+C3VLtTMGwusTupQP7DjZwZzrZzML8YTl3X3eL4UNrRJ?=
+	=?iso-8859-15?Q?IOqVCqyyg43BdyCsN1KFVyFSi80KYMkKb2zGbFvqEnfE546os/gO35peJ?=
+	=?iso-8859-15?Q?N2iy/F9ZvdhVkdTbG3SapoNXhFquG5XTtugwhJNXSBPug1DAVtJTTVVVo?=
+	=?iso-8859-15?Q?Mw6dKEr3mGG0JImqReYJGJSD+19xsXcfcD1y5xzs8pH9O0fNcprVK5HAP?=
+	=?iso-8859-15?Q?aJAxQBVnaEZ2C9aU8YwiEChKJEQ02/BHqBa6a2J+fbunjX/HiRooATRoh?=
+	=?iso-8859-15?Q?jiL3VUmxBTLkNiv4yqrLnWtnv6/FALGxKVgfMDJ5la/mCPZ4ghIjmvHSB?=
+	=?iso-8859-15?Q?pgQNuHCBn6HDu0Q/RO46mYj+B+PulFoRSqRpRPLslnGgM/n9AH3AC/5vs?=
+	=?iso-8859-15?Q?Nd/MO9nxgJg4VOlxsjMtcsTV5SiyXvVz0hy9jrNtLeSrzkkdwKnfTWfVf?=
+	=?iso-8859-15?Q?//iGi+XfCXjraODxw7y+/8gEdSwBiwzRI4T70z+K5Tu4jxXEmQ6SWemWl?=
+	=?iso-8859-15?Q?EerZWwbEUGWB7JLvRR5KZ08AFqiDcQfSzGwj3VoGl+sIrQBwGQFmQNCVa?=
+	=?iso-8859-15?Q?OyXQoQGrgsDvB+ombK/eaelMPqZzb5xWgkkUaMl8UDv8YptlGe7gaSd++?=
+	=?iso-8859-15?Q?H+e+4/b91LgEibOj+671/IgJdiwfXWJ5sgDBoc3CsrHsUjYJFUUsotSem?=
+	=?iso-8859-15?Q?qwu42k6uJquZtaPwgLW2AQ2V3sV3jm9kzwR5OKE6JI4/3gLQ/ufaSIetR?=
+	=?iso-8859-15?Q?VTbG3qfF6F6psBNTeA/fjRfXboLo/EuZ67zVvbf4+So+rS/74me292hwu?=
+	=?iso-8859-15?Q?WUh1KadVbWxsIuPjrmbQsvB2dILlbcbds0NfNLYY3Z19RV0YGp6Nvwk2Q?=
+	=?iso-8859-15?Q?EQ2qB+syyW4teGb9OafoTF5XwI6yQUjlAp3G0lUWKBrdz+ca+Ogp8ErCl?=
+	=?iso-8859-15?Q?NWj6FL+5zEha5TUPPO0fVe7EbCdLHNtjuwOB68vT8/8gBqNZskuCFkK0l?=
+	=?iso-8859-15?Q?euj4kfsRSflp5NDKETo9kLkJv9l6yvwlaJYq8g5IM+rGzwcuMUvKYOKQZ?=
+	=?iso-8859-15?Q?/L/ibtqp5aAD+c7hsixEx4pL0hMWTX3sL66mcUuMCpE6TnresgmDAgrZU?=
+	=?iso-8859-15?Q?+ywxMj2PYHnpuLWdxxUY5tOcdT1IwCU4Z?=
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6555.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 622a8043-8884-47f2-cc6e-08d95d7b2873
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Aug 2021 10:22:58.9844 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: TK+W9r4tFMNXwDaFWDgiG5J5azeYrgKjIZzsWEjJhVieK+hEUl5PVwLkoHVxHcbZKdsRg1EssKb/4l4LKGhtZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB5385
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -74,13 +130,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 17C7JExn026397
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 17CAN7g8012205
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH v2 2/9] libmultipath: strbuf: simple api for
- growing string buffers
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH 1/5] multipath.conf: fix typo in ghost_delay
+	description
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,32 +150,20 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+Content-ID: <4B91813218AD6A49BCEE3911973516E7@eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-Hello Bart,
+On Do, 2021-07-29 at 16:46 -0500, Benjamin Marzinski wrote:
+> Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 
-On Mi, 2021-08-11 at 09:08 -0700, Bart Van Assche wrote:
-> On 8/11/21 8:41 AM, mwilck@suse.com=A0wrote:
-> > Add an API for string buffers that grow in size as text is added.
-> > This API will be useful in several places of the multipath-tools
-> > code
-> > base. Add unit tests for these helpers, too.
->=20
-> Has it been considered to switch to C++ and use std::string and/or=20
-> std::ostringstream instead of implementing a string library in C?
->=20
-
-no, not at this time. It's an interesting long-term perspective, but
-for the time being, I think we can quite well stick with C.
-
-Regards,
-Martin
+Reviewed-by: Martin Wilck <mwilck@suse.com>
 
 
 
