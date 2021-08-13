@@ -2,54 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 7784C3EBDF6
-	for <lists+dm-devel@lfdr.de>; Fri, 13 Aug 2021 23:38:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6360A3EBDF8
+	for <lists+dm-devel@lfdr.de>; Fri, 13 Aug 2021 23:38:46 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-453-adQp8goXPm6BrGa4C3D3Eg-1; Fri, 13 Aug 2021 17:38:41 -0400
-X-MC-Unique: adQp8goXPm6BrGa4C3D3Eg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-285-dxqmacTPMy-GsEtBNL-9sw-1; Fri, 13 Aug 2021 17:38:43 -0400
+X-MC-Unique: dxqmacTPMy-GsEtBNL-9sw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 598DF185302E;
-	Fri, 13 Aug 2021 21:38:35 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0D3CE620DE;
-	Fri, 13 Aug 2021 21:38:35 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 174AD802929;
+	Fri, 13 Aug 2021 21:38:37 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ED0796A056;
+	Fri, 13 Aug 2021 21:38:36 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9D46B4A7CA;
-	Fri, 13 Aug 2021 21:38:34 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A2985181A0F2;
+	Fri, 13 Aug 2021 21:38:36 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17DLcIVI015512 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 13 Aug 2021 17:38:18 -0400
+	id 17DLcK7k015536 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 13 Aug 2021 17:38:20 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 635FC1054FCF; Fri, 13 Aug 2021 21:38:18 +0000 (UTC)
+	id EA114205B065; Fri, 13 Aug 2021 21:38:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5F75A1054FCB
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E497921623A9
 	for <dm-devel@redhat.com>; Fri, 13 Aug 2021 21:38:16 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 37B5996B060
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DBDEC802700
 	for <dm-devel@redhat.com>; Fri, 13 Aug 2021 21:38:16 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-593-At62PLKbPae2yWb_NI5mMw-1;
-	Fri, 13 Aug 2021 17:38:12 -0400
-X-MC-Unique: At62PLKbPae2yWb_NI5mMw-1
+	relay.mimecast.com with ESMTP id us-mta-303-L4iiGYQyPR-uxsn9hSOmuA-1;
+	Fri, 13 Aug 2021 17:38:13 -0400
+X-MC-Unique: L4iiGYQyPR-uxsn9hSOmuA-1
 Received: from Lenovo-Legion-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
 	[71.197.163.6])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 12AAD20C28AD;
+	by linux.microsoft.com (Postfix) with ESMTPSA id 6C91520C2935;
 	Fri, 13 Aug 2021 14:38:11 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 12AAD20C28AD
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6C91520C2935
 From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
 To: dm-devel@redhat.com, agk@redhat.com, snitzer@redhat.com
-Date: Fri, 13 Aug 2021 14:37:59 -0700
-Message-Id: <20210813213801.297051-5-tusharsu@linux.microsoft.com>
+Date: Fri, 13 Aug 2021 14:38:00 -0700
+Message-Id: <20210813213801.297051-6-tusharsu@linux.microsoft.com>
 In-Reply-To: <20210813213801.297051-1-tusharsu@linux.microsoft.com>
 References: <20210813213801.297051-1-tusharsu@linux.microsoft.com>
 MIME-Version: 1.0
@@ -61,15 +61,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 17DLcIVI015512
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 17DLcK7k015536
 X-loop: dm-devel@redhat.com
 Cc: sfr@canb.auug.org.au, zohar@linux.ibm.com, nramas@linux.microsoft.com,
 	public@thson.de, tusharsu@linux.microsoft.com,
 	linux-integrity@vger.kernel.org
-Subject: [dm-devel] [PATCH 4/6] dm ima: add a warning in dm_init if
-	duplicate ima events are not measured
+Subject: [dm-devel] [PATCH 5/6] dm ima: update dm target attributes for ima
+	measurements
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,7 +83,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,38 +91,113 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The end-users of DM devices/targets may remove and re-create the same
-device multiple times.  IMA does not measure such duplicate events if the
-configuration CONFIG_IMA_DISABLE_HTABLE is set to 'n'.
-To avoid confusion, the end-users need some indication on the client
-if that configuration option is disabled.
+Certain DM targets ('integrity', 'multipath', 'verity') need to update the
+way their attributes are recorded in the ima log, so that the attestation
+servers can interpret the data correctly and decide if the devices
+meet the attestation requirements.  For instance, the "mode=%c" attribute
+in the 'integrity' target is measured twice, the 'verity' target is
+missing the attribute "root_hash_sig_key_desc=%s", and the 'multipath'
+target needs to index the attributes properly.
 
-Add a one-time warning to dmesg during dm_init if
-CONFIG_IMA_DISABLE_HTABLE is set to 'n', to notify the end-users that
-duplicate events will not be measured in the ima log.
+Update 'integrity' target to remove the duplicate measurement of
+the attribute "mode=%c".  Add "root_hash_sig_key_desc=%s" attribute
+for the 'verity' target.  Index various attributes in 'multipath'
+target.  Also, add "nr_priority_groups=%u" attribute to 'multipath'
+target to record the number of priority groups.
 
 Signed-off-by: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+Suggested-by: Thore Sommer <public@thson.de>
 ---
- drivers/md/dm.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/md/dm-integrity.c     |  1 -
+ drivers/md/dm-mpath.c         | 26 ++++++++++++++++++--------
+ drivers/md/dm-verity-target.c |  2 ++
+ 3 files changed, 20 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 2e82757b4ab7..948cb0dc5fc4 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -265,6 +265,12 @@ static int __init dm_init(void)
+diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+index 40f8116c8e44..6e0b2f2f5911 100644
+--- a/drivers/md/dm-integrity.c
++++ b/drivers/md/dm-integrity.c
+@@ -3328,7 +3328,6 @@ static void dm_integrity_status(struct dm_target *ti, status_type_t type,
+ 		DMEMIT(",journal_sectors=%u", ic->initial_sectors - SB_SECTORS);
+ 		DMEMIT(",interleave_sectors=%u", 1U << ic->sb->log2_interleave_sectors);
+ 		DMEMIT(",buffer_sectors=%u", 1U << ic->log2_buffer_sectors);
+-		DMEMIT(",mode=%c", ic->mode);
+ 		DMEMIT(";");
+ 		break;
+ 	}
+diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
+index c3c514a9edbb..694aaca4eea2 100644
+--- a/drivers/md/dm-mpath.c
++++ b/drivers/md/dm-mpath.c
+@@ -1790,7 +1790,7 @@ static void multipath_resume(struct dm_target *ti)
+ static void multipath_status(struct dm_target *ti, status_type_t type,
+ 			     unsigned status_flags, char *result, unsigned maxlen)
+ {
+-	int sz = 0;
++	int sz = 0, pg_counter, pgpath_counter;
+ 	unsigned long flags;
+ 	struct multipath *m = ti->private;
+ 	struct priority_group *pg;
+@@ -1906,7 +1906,12 @@ static void multipath_status(struct dm_target *ti, status_type_t type,
+ 		break;
  
- 	int r, i;
- 
-+#if (IS_ENABLED(CONFIG_BLK_DEV_DM) && IS_ENABLED(CONFIG_IMA) \
-+	&& !IS_ENABLED(CONFIG_IMA_DISABLE_HTABLE))
-+	DMWARN("CONFIG_IMA_DISABLE_HTABLE is disabled."
-+	       " Duplicate IMA measurements will not be recorded in the IMA log.");
-+#endif
+ 	case STATUSTYPE_IMA:
++		sz = 0; /*reset the result pointer*/
 +
- 	for (i = 0; i < count; i++) {
- 		r = _inits[i]();
- 		if (r)
+ 		DMEMIT_TARGET_NAME_VERSION(ti->type);
++		DMEMIT(",nr_priority_groups=%u", m->nr_priority_groups);
++
++		pg_counter = 0;
+ 		list_for_each_entry(pg, &m->priority_groups, list) {
+ 			if (pg->bypassed)
+ 				state = 'D';	/* Disabled */
+@@ -1914,21 +1919,26 @@ static void multipath_status(struct dm_target *ti, status_type_t type,
+ 				state = 'A';	/* Currently Active */
+ 			else
+ 				state = 'E';	/* Enabled */
+-			DMEMIT(",pg_state=%c", state);
+-			DMEMIT(",nr_pgpaths=%u", pg->nr_pgpaths);
+-			DMEMIT(",path_selector_name=%s", pg->ps.type->name);
++			DMEMIT(",pg_state_%d=%c", pg_counter, state);
++			DMEMIT(",nr_pgpaths_%d=%u", pg_counter, pg->nr_pgpaths);
++			DMEMIT(",path_selector_name_%d=%s", pg_counter, pg->ps.type->name);
+ 
++			pgpath_counter = 0;
+ 			list_for_each_entry(p, &pg->pgpaths, list) {
+-				DMEMIT(",path_name=%s,is_active=%c,fail_count=%u",
+-				       p->path.dev->name, p->is_active ? 'A' : 'F',
+-				       p->fail_count);
++				DMEMIT(",path_name_%d_%d=%s,is_active_%d_%d=%c,fail_count_%d_%d=%u",
++				       pg_counter, pgpath_counter, p->path.dev->name,
++				       pg_counter, pgpath_counter, p->is_active ? 'A' : 'F',
++				       pg_counter, pgpath_counter, p->fail_count);
+ 				if (pg->ps.type->status) {
+-					DMEMIT(",path_selector_status=");
++					DMEMIT(",path_selector_status_%d_%d=",
++					       pg_counter, pgpath_counter);
+ 					sz += pg->ps.type->status(&pg->ps, &p->path,
+ 								  type, result + sz,
+ 								  maxlen - sz);
+ 				}
++				pgpath_counter++;
+ 			}
++			pg_counter++;
+ 		}
+ 		DMEMIT(";");
+ 		break;
+diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
+index bfefa100c265..22a5ac82446a 100644
+--- a/drivers/md/dm-verity-target.c
++++ b/drivers/md/dm-verity-target.c
+@@ -794,6 +794,8 @@ static void verity_status(struct dm_target *ti, status_type_t type,
+ 
+ 		DMEMIT(",ignore_zero_blocks=%c", v->zero_digest ? 'y' : 'n');
+ 		DMEMIT(",check_at_most_once=%c", v->validated_blocks ? 'y' : 'n');
++		if (v->signature_key_desc)
++			DMEMIT(",root_hash_sig_key_desc=%s", v->signature_key_desc);
+ 
+ 		if (v->mode != DM_VERITY_MODE_EIO) {
+ 			DMEMIT(",verity_mode=");
 -- 
 2.32.0
 
