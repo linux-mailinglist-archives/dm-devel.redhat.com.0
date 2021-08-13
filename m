@@ -2,75 +2,53 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 7C48A3EB081
-	for <lists+dm-devel@lfdr.de>; Fri, 13 Aug 2021 08:41:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3EA023EBDF3
+	for <lists+dm-devel@lfdr.de>; Fri, 13 Aug 2021 23:38:42 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-239-EC7gOotOMICw6UR1AV7-Sw-1; Fri, 13 Aug 2021 02:41:27 -0400
-X-MC-Unique: EC7gOotOMICw6UR1AV7-Sw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-547-A4NSgnVBPgivyLCaJmNPfQ-1; Fri, 13 Aug 2021 17:38:39 -0400
+X-MC-Unique: A4NSgnVBPgivyLCaJmNPfQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4DDAA185302C;
-	Fri, 13 Aug 2021 06:41:21 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 228CD2855A;
-	Fri, 13 Aug 2021 06:41:21 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8BBA8344B3;
+	Fri, 13 Aug 2021 21:38:33 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 065BA1B46C;
+	Fri, 13 Aug 2021 21:38:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D0A85181A0F9;
-	Fri, 13 Aug 2021 06:41:20 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 453194BB7C;
+	Fri, 13 Aug 2021 21:38:27 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17CJlnCV013876 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 12 Aug 2021 15:47:49 -0400
+	id 17DLcGo1015498 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 13 Aug 2021 17:38:17 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8CDFC11FC6B; Thu, 12 Aug 2021 19:47:49 +0000 (UTC)
+	id BF53C14E789; Fri, 13 Aug 2021 21:38:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 883C211F4CC
-	for <dm-devel@redhat.com>; Thu, 12 Aug 2021 19:47:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B6CF312160F
+	for <dm-devel@redhat.com>; Fri, 13 Aug 2021 21:38:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1A664802700
-	for <dm-devel@redhat.com>; Thu, 12 Aug 2021 19:47:46 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
-	[209.85.128.48]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-87-GF5MXV-wODe8sLGMyU7pfQ-1; Thu, 12 Aug 2021 15:47:44 -0400
-X-MC-Unique: GF5MXV-wODe8sLGMyU7pfQ-1
-Received: by mail-wm1-f48.google.com with SMTP id f10so2210171wml.2
-	for <dm-devel@redhat.com>; Thu, 12 Aug 2021 12:47:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:date:from:to:cc:subject:in-reply-to:message-id
-	:references:mime-version;
-	bh=4yVVGSubGIAUjMvYqinX3dOobTEZJ/iEvN/MAz4QKJE=;
-	b=J7ugW88OqTkyA1WCVs90sUvvIJKRJ3dOQKK4mwno7vA//9P8VqJ4hhTKKoFPzldZ97
-	cBNsvn/jh+EfiQ+IEkQ4plDv79dNtC0GyzS1bczIv4RKx0Jqd/0RFZ+koUX9Igi8VDrF
-	kiwue92wyEm/7sKsbIEyh4k2a28v7kvTtDoAQNcRe4liJX+pgbPvYGvykVERRP93V/Mv
-	OSukiZXKc/VqOkroWgWZ9ED4cP/rUTkilQu7ZD84eqqvBDHervUnsljvEMABvDgpqT18
-	SvQPc0fMjFW9rZaxMDmUjHSPCRxT+4UNmuiZJIC+zQ1YIXrQvDjSskOjLBAMxDMeu5+3
-	8rPg==
-X-Gm-Message-State: AOAM5305p231/mygMPvDr02E9dyoWhh6YsUao/A1R2ZhhM3fKmTjlKJo
-	zJ6V8yBws5VnJLTv/3s3s1iHZFy6LfXNsDRp
-X-Google-Smtp-Source: ABdhPJxNVjkpAjnzz5UjbfS4wJEc64a2YdkvYd2C7720q3Wixp8ZPHcyKINHebBS9SpwNcmn8cLfKg==
-X-Received: by 2002:a05:600c:4f0f:: with SMTP id
-	l15mr223608wmq.106.1628797662888; 
-	Thu, 12 Aug 2021 12:47:42 -0700 (PDT)
-Received: from tinkyx280 ([2a02:8108:8440:5da4:6c41:9e8b:2e76:271])
-	by smtp.gmail.com with ESMTPSA id k6sm3977149wrm.10.2021.08.12.12.47.42
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 12 Aug 2021 12:47:42 -0700 (PDT)
-Date: Thu, 12 Aug 2021 21:47:41 +0200 (CEST)
-From: Arne Welzel <arne.welzel@corelight.com>
-To: Mikulas Patocka <mpatocka@redhat.com>
-In-Reply-To: <alpine.LRH.2.02.2108101420250.26585@file01.intranet.prod.int.rdu2.redhat.com>
-Message-ID: <39101295-ed12-33c1-ce1-86a649f5582@corelight.com>
-References: <20210808134205.1981531-1-arne.welzel@corelight.com>
-	<alpine.LRH.2.02.2108101420250.26585@file01.intranet.prod.int.rdu2.redhat.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 42BD18D1384
+	for <dm-devel@redhat.com>; Fri, 13 Aug 2021 21:38:15 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
+	relay.mimecast.com with ESMTP id us-mta-566-KFvNFk3hPKqUPMipWtDeDQ-1;
+	Fri, 13 Aug 2021 17:38:11 -0400
+X-MC-Unique: KFvNFk3hPKqUPMipWtDeDQ-1
+Received: from Lenovo-Legion-Ubuntu.lan (c-71-197-163-6.hsd1.wa.comcast.net
+	[71.197.163.6])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 7F42720C13EE;
+	Fri, 13 Aug 2021 14:38:09 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7F42720C13EE
+From: Tushar Sugandhi <tusharsu@linux.microsoft.com>
+To: dm-devel@redhat.com, agk@redhat.com, snitzer@redhat.com
+Date: Fri, 13 Aug 2021 14:37:55 -0700
+Message-Id: <20210813213801.297051-1-tusharsu@linux.microsoft.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -81,12 +59,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 17DLcGo1015498
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Fri, 13 Aug 2021 02:36:56 -0400
-Cc: dm-crypt@saout.de, dm-devel@redhat.com, DJ Gregor <dj@corelight.com>,
-	agk@redhat.com, snitzer@redhat.com
-Subject: Re: [dm-devel] [PATCH] dm crypt: Avoid percpu_counter spinlock
- contention in crypt_page_alloc()
+Cc: sfr@canb.auug.org.au, zohar@linux.ibm.com, nramas@linux.microsoft.com,
+	public@thson.de, tusharsu@linux.microsoft.com,
+	linux-integrity@vger.kernel.org
+Subject: [dm-devel] [PATCH 0/6] updates to device mapper target measurement
+	using ima
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,7 +80,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -108,25 +88,65 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Mikulas,
 
-On Tue, 10 Aug 2021, Mikulas Patocka wrote:
+There were several improvements suggested for the original device mapper
+target measurement patch series [1].
 
-> Reviewed-by: Mikulas Patocka <mpatocka@redhat.com>
->
+Those improvement suggestions include: 
+ - Prefixing hashes for the DM tables being measured in ima log with the
+   hash algorithm.
+ - Adding version information for DM related events being measured in the
+   ima log.
+ - Prefixing DM related event names with "dm_".
+ - Including the verity target attribute - "root_hash_sig_key_desc"
+   in the ima measurement log.
 
-thank you for the review. After looking at the submitted patch again,
-seems more proper to use >= as the condition:
+This series incorporates the above suggestions.
 
-> > + if (unlikely(percpu_counter_read_positive(&cc->n_allocated_pages) > dm_crypt_pages_per_client) &&
-                                                                        ^^
-                                                                        >=
-Would it be okay if I resend the patch with this changed and add your
-Reviewed-by still? Would also fix some wording in the description and
-dedent the perf report output somewhat.
+This series also has the following fixes:
+ - Adding a one-time warning to dmesg during dm_init if
+   CONFIG_IMA_DISABLE_HTABLE is set to 'n'.
+ - Updating 'integrity' target to remove the duplicate measurement of
+   the attribute "mode=%c".
+ - Indexing various attributes in 'multipath' target, and adding
+   "nr_priority_groups=%u" attribute to the measurements.
+ - Fixing 'make htmldocs' warnings in dm-ima.rst.
+ - Adding missing documentation for the targets - 'cache', 'integrity',
+   'multipath', and 'snapshot' in dm-ima.rst.
+ - Updating dm-ima.rst documentation with the grammar for various DM
+   events and targets in Backus Naur form.
+ - Updating dm-ima.rst documentation to be consistent with the code
+   changes described above.
 
-Thanks,
-   Arne
+This series is based on top of the following git repo/branch/commit:
+ Repo: https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git
+ Branch: dm-5.15
+ Commit: commit 5a2a33884f0b ("dm crypt: Avoid percpu_counter spinlock contention in crypt_page_alloc()")
+
+
+[1] https://patchwork.kernel.org/project/dm-devel/cover/20210713004904.8808-1-tusharsu@linux.microsoft.com/
+
+Tushar Sugandhi (6):
+  dm ima: prefix dm table hashes in ima log with hash algorithm
+  dm ima: add version info to dm related events in ima log
+  dm ima: prefix ima event name related to device mapper with dm_
+  dm ima: add a warning in dm_init if duplicate ima events are not
+    measured
+  dm ima: update dm target attributes for ima measurements
+  dm ima: update dm documentation for ima measurement support
+
+ .../admin-guide/device-mapper/dm-ima.rst      | 827 +++++++++++++-----
+ drivers/md/dm-ima.c                           |  94 +-
+ drivers/md/dm-ima.h                           |  10 +
+ drivers/md/dm-integrity.c                     |   1 -
+ drivers/md/dm-mpath.c                         |  26 +-
+ drivers/md/dm-verity-target.c                 |   2 +
+ drivers/md/dm.c                               |   6 +
+ 7 files changed, 724 insertions(+), 242 deletions(-)
+
+-- 
+2.32.0
+
 
 --
 dm-devel mailing list
