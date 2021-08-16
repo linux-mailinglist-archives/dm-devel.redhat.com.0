@@ -2,81 +2,77 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 1AB9D3ED8DE
-	for <lists+dm-devel@lfdr.de>; Mon, 16 Aug 2021 16:24:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 112EB3EDBC3
+	for <lists+dm-devel@lfdr.de>; Mon, 16 Aug 2021 18:53:19 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-394-gldGqeD4NHqvEy5tZF3oPw-1; Mon, 16 Aug 2021 10:24:42 -0400
-X-MC-Unique: gldGqeD4NHqvEy5tZF3oPw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-228-FgoSjMZWPQeNyQyciP4CyQ-1; Mon, 16 Aug 2021 12:53:17 -0400
+X-MC-Unique: FgoSjMZWPQeNyQyciP4CyQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 870FE363A4;
-	Mon, 16 Aug 2021 14:24:34 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0DEB260861;
-	Mon, 16 Aug 2021 14:24:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A24601008060;
+	Mon, 16 Aug 2021 16:53:09 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5064661095;
+	Mon, 16 Aug 2021 16:53:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4D2311800B9B;
-	Mon, 16 Aug 2021 14:24:17 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 82E694BB7C;
+	Mon, 16 Aug 2021 16:52:56 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17GEHOLD013531 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 16 Aug 2021 10:17:24 -0400
+	id 17GGpLA0031171 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 16 Aug 2021 12:51:22 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8F44A20239F7; Mon, 16 Aug 2021 14:17:24 +0000 (UTC)
+	id C37D1202DD7E; Mon, 16 Aug 2021 16:51:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 89BB72029F90
-	for <dm-devel@redhat.com>; Mon, 16 Aug 2021 14:17:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BF1C8200C0ED
+	for <dm-devel@redhat.com>; Mon, 16 Aug 2021 16:51:19 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 500AF185A7A4
-	for <dm-devel@redhat.com>; Mon, 16 Aug 2021 14:17:09 +0000 (UTC)
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
-	[209.85.210.46]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-429-yEXocw6sPxqdC8Elooji0A-1; Mon, 16 Aug 2021 10:17:04 -0400
-X-MC-Unique: yEXocw6sPxqdC8Elooji0A-1
-Received: by mail-ot1-f46.google.com with SMTP id
-	h63-20020a9d14450000b02904ce97efee36so21092114oth.7; 
-	Mon, 16 Aug 2021 07:17:04 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1AA3F800159
+	for <dm-devel@redhat.com>; Mon, 16 Aug 2021 16:51:19 +0000 (UTC)
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
+	[209.85.167.175]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-425-_9RCTLxVOfuklt3jiFZP3A-1; Mon, 16 Aug 2021 12:51:16 -0400
+X-MC-Unique: _9RCTLxVOfuklt3jiFZP3A-1
+Received: by mail-oi1-f175.google.com with SMTP id u25so27596619oiv.5
+	for <dm-devel@redhat.com>; Mon, 16 Aug 2021 09:51:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
-	h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
-	:references:mime-version:content-disposition:in-reply-to;
-	bh=xqBgEkGNywTvhBrskowD08mnqrtLbd1U3IqXducmNiM=;
-	b=NC+JzVegfPrIEYcSJ5IeJRZg3LSow6kntzBBY7n3PnOfMyjXdQL9qiU3MuAOXOPMmT
-	YcnwArk3PT7Sjqa9SaxTdkqxL/7/8Ylk+fNur9hmdFLS5/ZPNMuNYnuImC7xufJxW+s5
-	LzI2cWohPLPtUpjzvyaFYfRm9Vqb4Cp23fv8dtqUMMLdRVDNpfcgvSGQuMJU8m4O4T/0
-	8/TErTyVHkZKXrRqxnxwm69sYE6wNh03hMFGy+yiFnW8J6imI8zgB5oHrhl+ByGDClKs
-	t0HbEhhpr3lfxb5Hq6tGY/3HLbCS/sj2pRst6abQyTfMpfB5UF6UHrZlXPBzpvNq1rjT
-	tvYw==
-X-Gm-Message-State: AOAM5310EkqdSrzu8dOtQKOpVr0nNkZEgNzcJ+kauUWJwJzAfDC8vtZq
-	t33OpiMO0YmQGgT+++F6ltM=
-X-Google-Smtp-Source: ABdhPJwk9RHSoGUJTOU9tmS9JZvmAHg37gvCbM3/T8FG2iyjhZiOE2JVE2I1qIxtU73Rp6CqWPD8tw==
-X-Received: by 2002:a05:6830:2695:: with SMTP id
-	l21mr13300180otu.138.1629123424016; 
-	Mon, 16 Aug 2021 07:17:04 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=lkHKKxx6E91blWpox1bXj/LIePIAFS6deUe/aal8ts0=;
+	b=juqoCqu+s9MPCKYv4afQ4nm07AVbYnzAJC7IfduR+7RQO0jfZzqzmOorz18cfuiSe1
+	bsuLOLkTMd7OuJ/Mf5/2TYmxGV3Z0/gCXny2W5B4/7pWg2pWVXtx6b8AbBpW87LcsLAd
+	BjJzs4yol1E4r9xvHfy9f78+zbku8DyMBCn2kCCYSTtVoYF68NB0tdntmdB7CR8xiKe2
+	d5NEO+jvHSFOLTf7dzCTiYY0PbCTS9BGvv+TWd3Ko/kor+Fb5Eg8SmBnCrFKMQVRjh/j
+	yZy1FVPP9TaThETitNqoYN8F1iLTwnIjhdOve9X7RvfQgmuQVH7UHuaoD7zTH/D/pNYg
+	/4Pw==
+X-Gm-Message-State: AOAM530Knq+4YuR5WAnuV46Ujr1mwgWkYu8LciubpXnoenWCmwnK7kNp
+	3UI9DG4x0HiucyM5jc97o6xOgA==
+X-Google-Smtp-Source: ABdhPJwPiJZucbHV+gTb5R7I/kfPLblHKKXb+EIub7hcvBOP41sFKxi/Q6epHu0YRXyVvO62JSl/PA==
+X-Received: by 2002:a54:4619:: with SMTP id p25mr42850oip.5.1629132675579;
+	Mon, 16 Aug 2021 09:51:15 -0700 (PDT)
+Received: from [192.168.1.30] ([207.135.234.126])
 	by smtp.gmail.com with ESMTPSA id
-	h6sm2219953otu.16.2021.08.16.07.17.03
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Mon, 16 Aug 2021 07:17:03 -0700 (PDT)
-Date: Mon, 16 Aug 2021 07:17:02 -0700
-From: Guenter Roeck <linux@roeck-us.net>
+	u18sm2018498ooi.40.2021.08.16.09.51.13
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Mon, 16 Aug 2021 09:51:15 -0700 (PDT)
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20210816141702.GA3449320@roeck-us.net>
-References: <20210804094147.459763-1-hch@lst.de>
-	<20210804094147.459763-5-hch@lst.de>
-	<20210814211309.GA616511@roeck-us.net>
-	<20210815070724.GA23276@lst.de>
-	<a8d66952-ee44-d3fa-d699-439415b9abfe@roeck-us.net>
-	<20210816072158.GA27147@lst.de>
+References: <20210804095634.460779-1-hch@lst.de>
+From: Jens Axboe <axboe@kernel.dk>
+Message-ID: <4e321dab-188d-ca0a-a98c-4a587e7b5f27@kernel.dk>
+Date: Mon, 16 Aug 2021 10:51:13 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <20210816072158.GA27147@lst.de>
+In-Reply-To: <20210804095634.460779-1-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -87,10 +83,22 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
-	dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>
-Subject: Re: [dm-devel] [PATCH 4/8] block: support delayed holder
-	registration
+Cc: Jan Hoeppner <hoeppner@linux.ibm.com>, Mike Snitzer <snitzer@redhat.com>,
+	linux-nvme@lists.infradead.org, virtualization@lists.linux-foundation.org,
+	Song Liu <song@kernel.org>, dm-devel@redhat.com,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+	Richard Weinberger <richard@nod.at>,
+	Ilya Dryomov <idryomov@gmail.com>, linux-um@lists.infradead.org,
+	Coly Li <colyli@suse.de>, linux-raid@vger.kernel.org,
+	linux-bcache@vger.kernel.org, Stefan Haberland <sth@linux.ibm.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>, ceph-devel@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Geoff Levand <geoff@infradead.org>,
+	Phillip Lougher <phillip@squashfs.org.uk>
+Subject: Re: [dm-devel] add a bvec_virt helper
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -104,34 +112,28 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 16, 2021 at 09:21:58AM +0200, Christoph Hellwig wrote:
-> On Sun, Aug 15, 2021 at 07:27:37AM -0700, Guenter Roeck wrote:
-> > [   14.467748][    T1]  Possible unsafe locking scenario:
-> > [   14.467748][    T1]
-> > [   14.467928][    T1]        CPU0                    CPU1
-> > [   14.468058][    T1]        ----                    ----
-> > [   14.468187][    T1]   lock(&disk->open_mutex);
-> > [   14.468317][    T1]                                lock(mtd_table_mutex);
-> > [   14.468493][    T1]                                lock(&disk->open_mutex);
-> > [   14.468671][    T1]   lock(mtd_table_mutex);
+On 8/4/21 3:56 AM, Christoph Hellwig wrote:
+> Hi Jens,
 > 
-> Oh, that ooks like a really old one, fixed by
-> b7abb0516822 ("mtd: fix lock hierarchy in deregister_mtd_blktrans")
-> in linux-next.
+> this series adds a bvec_virt helper to return the virtual address of the
+> data in bvec to replace the open coded calculation, and as a reminder
+> that generall bio/bvec data can be in high memory unless it is caller
+> controller or in an architecture specific driver where highmem is
+> impossible.
 
-I have seen the problem in next-20210813 and that patch is there,
-so that is somewhat unlikely.
+Applied, thanks.
 
-Guenter
+-- 
+Jens Axboe
 
 --
 dm-devel mailing list
