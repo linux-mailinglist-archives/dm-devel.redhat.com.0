@@ -2,74 +2,72 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id F24A43F450D
-	for <lists+dm-devel@lfdr.de>; Mon, 23 Aug 2021 08:40:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 779A53F450F
+	for <lists+dm-devel@lfdr.de>; Mon, 23 Aug 2021 08:40:36 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-511-mz42xovbPdiHB0lrardMlA-1; Mon, 23 Aug 2021 02:40:33 -0400
-X-MC-Unique: mz42xovbPdiHB0lrardMlA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-211-ObyzI7tiNcmF4_ZbPsSpAg-1; Mon, 23 Aug 2021 02:40:34 -0400
+X-MC-Unique: ObyzI7tiNcmF4_ZbPsSpAg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 08A9787D55A;
-	Mon, 23 Aug 2021 06:40:28 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B8CCC27187;
-	Mon, 23 Aug 2021 06:40:27 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F2937190A7AE;
+	Mon, 23 Aug 2021 06:40:25 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CEF305C261;
+	Mon, 23 Aug 2021 06:40:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4DE65181A1D3;
-	Mon, 23 Aug 2021 06:40:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 88FC04A700;
+	Mon, 23 Aug 2021 06:40:25 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17KAdl8J000929 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 20 Aug 2021 06:39:47 -0400
+	id 17KBBoN6002988 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 20 Aug 2021 07:11:50 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 343C910BFD7D; Fri, 20 Aug 2021 10:39:47 +0000 (UTC)
+	id 382F120B6640; Fri, 20 Aug 2021 11:11:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2FC8210BFD7E
-	for <dm-devel@redhat.com>; Fri, 20 Aug 2021 10:39:44 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 33C4A20B6637
+	for <dm-devel@redhat.com>; Fri, 20 Aug 2021 11:11:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 12026800883
-	for <dm-devel@redhat.com>; Fri, 20 Aug 2021 10:39:44 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
-	[209.85.128.48]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-347-YZIHmzT4PJWN-Sma6aaMGA-1; Fri, 20 Aug 2021 06:39:42 -0400
-X-MC-Unique: YZIHmzT4PJWN-Sma6aaMGA-1
-Received: by mail-wm1-f48.google.com with SMTP id
-	v20-20020a1cf714000000b002e71f4d2026so1107816wmh.1; 
-	Fri, 20 Aug 2021 03:39:41 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC0D58011AF
+	for <dm-devel@redhat.com>; Fri, 20 Aug 2021 11:11:46 +0000 (UTC)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+	[209.85.221.47]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-589-UNcef0NdNC2JZaTojpXMYQ-1; Fri, 20 Aug 2021 07:11:42 -0400
+X-MC-Unique: UNcef0NdNC2JZaTojpXMYQ-1
+Received: by mail-wr1-f47.google.com with SMTP id q11so13703426wrr.9;
+	Fri, 20 Aug 2021 04:11:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=2l4f87jQ5BCVnW/LtVQs/ujfdv1Edqo9vK1XTZNmj64=;
-	b=C3LtH4HBLBPv97DcuGGHaVxGJekUE31DDZTSfHV79ZZuLgVauJHAfAj8yufFhex9UI
-	XTDLt0iMoQnLkj2fCbPJ48WFnSD7EjV3RBYQubGzBhkVSQcGmCu/TD0CQNaas0FpUaLQ
-	o+8UfcMYuy18+pxv3IArYzw3VrcglY+0K3tO2S7eDkJesfkl279ldZUCR0txgum4M7Iz
-	jegLNRwSDlNP0dbUzDQqx9Arg63G9S/405ExyBx++LoaihYaQShfeNuwr3ivA9/GLoSY
-	btwhd8K+6XeAisFuZhG0uzxfsNFjEYBNNkwnLbtD0nK/JeeYC23Eze84Pd9Xti7UfeJr
-	5Fig==
-X-Gm-Message-State: AOAM533bfZGrJU8VpwhjXfmTCTFHQIYveTmSQWBxrLADce3SFRSCs7KF
-	L9kcxd6jH+9L3/GUviZbFuyfXTZoqvDvCZA/Ros=
-X-Google-Smtp-Source: ABdhPJwvvbvC7oT0EDMBScqPKbmq4ABDQwLkxNDJHv+ZwVgPws6KmaaRL0F7/tnmz8XSY+QaosFzbLsSI9/h7hXg+gc=
-X-Received: by 2002:a05:600c:1c08:: with SMTP id
-	j8mr3147766wms.138.1629455980524; 
-	Fri, 20 Aug 2021 03:39:40 -0700 (PDT)
+	bh=XTV41ORucx8ryF7oB1eYwysBWiCN8gKMFeTRn1Zj7AM=;
+	b=ce6c4qd/KSu2gOp2pP4LCa38DdxT4jZrQa7NnNPjDvYYA2oOQX4JfcwyxwkhWCvn8U
+	LE9v0WqZ/7yqxj1zGDyj8Mgr71ssCKfoCAM5zcOrSezPgmBekkEZpnhi3rcLnfI+Xc0z
+	9RsvyG2zjsexxgmutIDH7X7k7ep/moEHb+wZqvlq7Lw5zZrgznzWs94DnDAIvAg0m5YE
+	YbXL4g3ReF+7AUdmmARKoRMVGzBdGFNvYBYZsIC9bOGqmFQmGI0EI2pAJ63XFgwrhi+F
+	EXRauPCNAjzCotv8YsoCYtfAYD+pBNybPjwtr0MxdBLSOFi5cPip+AxHUTYe8iivXqGX
+	V5Vg==
+X-Gm-Message-State: AOAM533FHaoDANtMst9lB3o+hXF1Jck7VYFbzn+jT/2NM4rfqFFAMyj8
+	bJXBeOsw/gTKKXQ/+tUc9HK93g3CJz0xjh3DjDc=
+X-Google-Smtp-Source: ABdhPJyHLBn4cAqZhoblha8bwzOCJdvxUWt4EpC0AJmYcZ2sxKZSuvBjXl3YiZg/qrMlyWLl4b6/2Ts3GXLe812W024=
+X-Received: by 2002:a5d:6991:: with SMTP id g17mr9619476wru.253.1629457901314; 
+	Fri, 20 Aug 2021 04:11:41 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210817101423.12367-1-selvakuma.s1@samsung.com>
 	<CGME20210817101758epcas5p1ec353b3838d64654e69488229256d9eb@epcas5p1.samsung.com>
 	<20210817101423.12367-4-selvakuma.s1@samsung.com>
-	<ad3561b9-775d-dd4d-0d92-6343440b1f8f@acm.org>
-In-Reply-To: <ad3561b9-775d-dd4d-0d92-6343440b1f8f@acm.org>
+	<yq1sfz6loh9.fsf@ca-mkp.ca.oracle.com>
+In-Reply-To: <yq1sfz6loh9.fsf@ca-mkp.ca.oracle.com>
 From: Kanchan Joshi <joshiiitr@gmail.com>
-Date: Fri, 20 Aug 2021 16:09:14 +0530
-Message-ID: <CA+1E3rK2ULVajQRkNTZJdwKoqBeGvkfoVYNF=WyK6Net85YkhA@mail.gmail.com>
-To: Bart Van Assche <bvanassche@acm.org>
+Date: Fri, 20 Aug 2021 16:41:15 +0530
+Message-ID: <CA+1E3rKmS6LSPDb9C8S7Ap-b40TB9dfogC-PYm7ehLeBTn+Ukw@mail.gmail.com>
+To: "Martin K. Petersen" <martin.petersen@oracle.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -78,21 +76,18 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 23 Aug 2021 02:39:55 -0400
-Cc: Mike Snitzer <snitzer@redhat.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	djwong@kernel.org, linux-nvme@lists.infradead.org,
+Cc: snitzer@redhat.com, djwong@kernel.org, linux-nvme@lists.infradead.org,
 	dm-devel@redhat.com, Christoph Hellwig <hch@lst.de>,
-	agk@redhat.com, linux-scsi@vger.kernel.org,
+	agk@redhat.com, bvanassche@acm.org, linux-scsi@vger.kernel.org,
 	nitheshshetty@gmail.com, Matthew Wilcox <willy@infradead.org>,
 	Nitesh Shetty <nj.shetty@samsung.com>, kch@kernel.org,
 	SelvaKumar S <selvakuma.s1@samsung.com>,
 	Selva Jove <selvajove@gmail.com>, linux-block@vger.kernel.org,
 	mpatocka@redhat.com, Keith Busch <kbusch@kernel.org>,
 	Jens Axboe <axboe@kernel.dk>, Damien Le Moal <damien.lemoal@wdc.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	KANCHAN JOSHI <joshi.k@samsung.com>, linux-api@vger.kernel.org,
 	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
 	linux-fsdevel@vger.kernel.org, Javier Gonzalez <javier.gonz@samsung.com>,
@@ -112,7 +107,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -120,53 +115,39 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Bart, Mikulas
-
-On Tue, Aug 17, 2021 at 10:44 PM Bart Van Assche <bvanassche@acm.org> wrote:
+On Thu, Aug 19, 2021 at 12:05 AM Martin K. Petersen
+<martin.petersen@oracle.com> wrote:
 >
-> On 8/17/21 3:14 AM, SelvaKumar S wrote:
-> > Introduce REQ_OP_COPY, a no-merge copy offload operation. Create
-> > bio with control information as payload and submit to the device.
-> > Larger copy operation may be divided if necessary by looking at device
-> > limits. REQ_OP_COPY(19) is a write op and takes zone_write_lock when
-> > submitted to zoned device.
+>
 > > Native copy offload is not supported for stacked devices.
 >
-> Using a single operation for copy-offloading instead of separate
-> operations for reading and writing is fundamentally incompatible with
-> the device mapper. I think we need a copy-offloading implementation that
-> is compatible with the device mapper.
+> One of the main reasons that the historic attempts at supporting copy
+> offload did not get merged was that the ubiquitous deployment scenario,
+> stacked block devices, was not handled well.
 >
-
-While each read/write command is for a single contiguous range of
-device, with simple-copy we get to operate on multiple discontiguous
-ranges, with a single command.
-That seemed like a good opportunity to reduce control-plane traffic
-(compared to read/write operations) as well.
-
-With a separate read-and-write bio approach, each source-range will
-spawn at least one read, one write and eventually one SCC command. And
-it only gets worse as there could be many such discontiguous ranges (for
-GC use-case at least) coming from user-space in a single payload.
-Overall sequence will be
-- Receive a payload from user-space
-- Disassemble into many read-write pair bios at block-layer
-- Assemble those (somehow) in NVMe to reduce simple-copy commands
-- Send commands to device
-
-We thought payload could be a good way to reduce the
-disassembly/assembly work and traffic between block-layer to nvme.
-How do you see this tradeoff?  What seems necessary for device-mapper
-usecase, appears to be a cost when device-mapper isn't used.
-Especially for SCC (since copy is within single ns), device-mappers
-may not be too compelling anyway.
-
-Must device-mapper support be a requirement for the initial support atop SCC?
-Or do you think it will still be a progress if we finalize the
-user-space interface to cover all that is foreseeable.And for
-device-mapper compatible transport between block-layer and NVMe - we
-do it in the later stage when NVMe too comes up with better copy
-capabilities?
+> Pitfalls surrounding stacking has been brought up several times in
+> response to your series. It is critically important that both kernel
+> plumbing and user-facing interfaces are defined in a way that works for
+> the most common use cases. This includes copying between block devices
+> and handling block device stacking. Stacking being one of the most
+> fundamental operating principles of the Linux block layer!
+>
+> Proposing a brand new interface that out of the gate is incompatible
+> with both stacking and the copy offload capability widely implemented in
+> shipping hardware makes little sense. While NVMe currently only supports
+> copy operations inside a single namespace, it is surely only a matter of
+> time before that restriction is lifted.
+>
+> Changing existing interfaces is painful, especially when these are
+> exposed to userland. We obviously can't predict every field or feature
+> that may be needed in the future. But we should at the very least build
+> the infrastructure around what already exists. And that's where the
+> proposed design falls short...
+>
+Certainly, on user-space interface. We've got few cracks to be filled
+there, missing the future viability.
+But on stacking, can that be additive. Could you please take a look at
+the other response (comment from Bart) for the trade-offs.
 
 
 -- 
