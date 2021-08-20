@@ -2,74 +2,71 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 9907E3F4515
-	for <lists+dm-devel@lfdr.de>; Mon, 23 Aug 2021 08:40:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0A0A93F450C
+	for <lists+dm-devel@lfdr.de>; Mon, 23 Aug 2021 08:40:33 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-100-Xd6elKAFNierjXhcjsFU8w-1; Mon, 23 Aug 2021 02:40:36 -0400
-X-MC-Unique: Xd6elKAFNierjXhcjsFU8w-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-278-_6__QAJDMAal6sPUm9yqwg-1; Mon, 23 Aug 2021 02:40:30 -0400
+X-MC-Unique: _6__QAJDMAal6sPUm9yqwg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EC58B760E3;
-	Mon, 23 Aug 2021 06:40:27 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8CB1587D54F;
+	Mon, 23 Aug 2021 06:40:25 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B309D6A8FA;
-	Mon, 23 Aug 2021 06:40:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6AB525C261;
+	Mon, 23 Aug 2021 06:40:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4C577181A1CE;
-	Mon, 23 Aug 2021 06:40:27 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 003B5181A12D;
+	Mon, 23 Aug 2021 06:40:24 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17KMvCaK031245 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 20 Aug 2021 18:57:13 -0400
+	id 17KMxOEd031364 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 20 Aug 2021 18:59:24 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B799111E1CE; Fri, 20 Aug 2021 22:57:12 +0000 (UTC)
+	id 1BFD211E1CE; Fri, 20 Aug 2021 22:59:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B2340106246
-	for <dm-devel@redhat.com>; Fri, 20 Aug 2021 22:57:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0FF5111E1E0
+	for <dm-devel@redhat.com>; Fri, 20 Aug 2021 22:59:17 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 32648185A79C
-	for <dm-devel@redhat.com>; Fri, 20 Aug 2021 22:57:09 +0000 (UTC)
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
-	[209.85.216.52]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-462-8t5BLCRsORWI1efJO0OYsw-1; Fri, 20 Aug 2021 18:57:07 -0400
-X-MC-Unique: 8t5BLCRsORWI1efJO0OYsw-1
-Received: by mail-pj1-f52.google.com with SMTP id
-	mq2-20020a17090b3802b0290178911d298bso8324628pjb.1
-	for <dm-devel@redhat.com>; Fri, 20 Aug 2021 15:57:06 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4D7F38007BB
+	for <dm-devel@redhat.com>; Fri, 20 Aug 2021 22:59:17 +0000 (UTC)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+	[209.85.214.182]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-408-a4yTqOG7OL2Mrg1AtplEsA-1; Fri, 20 Aug 2021 18:59:14 -0400
+X-MC-Unique: a4yTqOG7OL2Mrg1AtplEsA-1
+Received: by mail-pl1-f182.google.com with SMTP id x1so4239289plg.10
+	for <dm-devel@redhat.com>; Fri, 20 Aug 2021 15:59:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20161025;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=G1Z8mu8s2sgn0mbpfu7ra3LWl3tk+2BaXWQ56zeT5Qo=;
-	b=FcDOMXrmPxBnl9zLTmCCkp2pvq83xeDKcW7/yh+sgAleFCE3kAYoTYBmryjkQD28Qf
-	3I5o09RO2gK2rq7bFdcz5rT1I6S+i8oNPZEQUCEUtBcjV5Fq2OlN1dU8od2JPYXG5hOB
-	2QPNbGYiwggdz/mULS2hvs2Twhbx2OlI0wmdZQEjjO13tujppzg50PvNzaq6XyyGu38/
-	UEoc0CAlgMehqBUTbQ9iAbLd98c7MdxJRn1a9jwkMxFlVTS3cTBebT7BdSt70a6Ww6pk
-	PTfcCQxplQ6O3zE6iJ9gdYh1yzRAJT1Dh4Ayr32z3VKhOm652vpCp2BEJgk5m8v+qrFL
-	2tUQ==
-X-Gm-Message-State: AOAM531gQUyjgiTXqoW9IapQLEoOMRKkqzmfwrBFvta0J2/5pI9GAAXr
-	gbRIoReA5IVOZInGoP6wGDsBG7fw0MCsFruYDQJteA==
-X-Google-Smtp-Source: ABdhPJxmXpLQCDOV4p/qDFeGVDmICU8dPEjZ+Gjrsjl1tuFZXHOKRbvy6d0ZC+yE1xwMVSAlTTyashdIzkFcEanj6Qo=
-X-Received: by 2002:a17:90b:18f:: with SMTP id
-	t15mr6777302pjs.168.1629500225798; 
-	Fri, 20 Aug 2021 15:57:05 -0700 (PDT)
+	bh=4J9u3EAGcrYRrFr9a28F3qghmkpi2i6oIZ8UbGMRg5Q=;
+	b=Z1ZDVXtgwPdSV8/znPAtZJ+AcYbqNLgpQMSyM3tmFMiz4i96kXyQZq3/5yh3CVgv0Q
+	uJyeVx4tIkQJqr6VsNtnnJFcA1gll2FzLJvrmR5FSsb/pSKcnWB3K0XMc2nolGEOxp5r
+	dEZCxQ2y1WA620BuNk8YEf4YU5y8X8GaoaHhp93rQAfSK/qE/jwN+MTpfqqusCf1ITxo
+	oyw8/6F/izvOWjltSjkDudDlUv+PAjGELoI9azkc5g6LVJtu9IpFd0mqVFqwG3p/la0g
+	zrKpOLyvURm9NNT0rw+5AB5RXbMtoV7Ay67m1hBx0Z7bquagsLhEEuYmz+Y8usWediEc
+	dByg==
+X-Gm-Message-State: AOAM530iCP8KGWR4DOJPCkWcXIGNtslAHz4ct7lrv5UHGUJrsgfluyXg
+	mbqd4Uqr4MxAK8+IJOIZx1EKKIRgH4aUrxdWEhfBrA==
+X-Google-Smtp-Source: ABdhPJzmm+ahkZHadNRsrgbZ7uYrM7d7oiVybo+IGZSGhl9C+B3H/3syn4zyd/DiLhslnXQ3Gq0ivqGhKs2WDDhbCAQ=
+X-Received: by 2002:a17:90a:708c:: with SMTP id
+	g12mr7031600pjk.13.1629500353664; 
+	Fri, 20 Aug 2021 15:59:13 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210730100158.3117319-1-ruansy.fnst@fujitsu.com>
 	<20210730100158.3117319-7-ruansy.fnst@fujitsu.com>
-	<ec5dd047-a420-8e17-d803-729e052b2377@oracle.com>
-In-Reply-To: <ec5dd047-a420-8e17-d803-729e052b2377@oracle.com>
+In-Reply-To: <20210730100158.3117319-7-ruansy.fnst@fujitsu.com>
 From: Dan Williams <dan.j.williams@intel.com>
-Date: Fri, 20 Aug 2021 15:56:54 -0700
-Message-ID: <CAPcyv4hitKKPByHkX-syRmc1rmF8B4sGRsGdUDsBAE5-yoBvXw@mail.gmail.com>
-To: Jane Chu <jane.chu@oracle.com>
+Date: Fri, 20 Aug 2021 15:59:02 -0700
+Message-ID: <CAPcyv4h8eUKYDz+KLzXeMTEKc03k=8juXtYjYj+XSVQ5ww=KyQ@mail.gmail.com>
+To: Shiyang Ruan <ruansy.fnst@fujitsu.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -78,13 +75,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Mimecast-Bulk-Signature: yes
+X-Mimecast-Spam-Signature: bulk
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 23 Aug 2021 02:39:55 -0400
 Cc: Linux NVDIMM <nvdimm@lists.linux.dev>, Mike Snitzer <snitzer@redhat.com>,
 	"Darrick J. Wong" <djwong@kernel.org>, david <david@fromorbit.com>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Shiyang Ruan <ruansy.fnst@fujitsu.com>,
 	linux-xfs <linux-xfs@vger.kernel.org>, Linux MM <linux-mm@kvack.org>,
 	device-mapper development <dm-devel@redhat.com>,
 	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
@@ -104,7 +102,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -112,28 +110,66 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 5, 2021 at 5:50 PM Jane Chu <jane.chu@oracle.com> wrote:
+On Fri, Jul 30, 2021 at 3:02 AM Shiyang Ruan <ruansy.fnst@fujitsu.com> wrote:
 >
+> This function is used to handle errors which may cause data lost in
+> filesystem.  Such as memory failure in fsdax mode.
 >
-> On 7/30/2021 3:01 AM, Shiyang Ruan wrote:
-> > +     mapping = VFS_I(ip)->i_mapping;
-> > +     if (IS_ENABLED(CONFIG_MEMORY_FAILURE)) {
-> > +             for (i = 0; i < rec->rm_blockcount; i++) {
-> > +                     error = mf_dax_kill_procs(mapping, rec->rm_offset + i,
-> > +                                               *flags);
-> > +                     if (error)
-> > +                             break;
-> > +             }
-> > +     }
+> If the rmap feature of XFS enabled, we can query it to find files and
+> metadata which are associated with the corrupt data.  For now all we do
+> is kill processes with that file mapped into their address spaces, but
+> future patches could actually do something about corrupt metadata.
 >
-> If a poison is injected to a PMD dax page, after consuming the poison,
-> how many SIGBUS signals are expected to be sent to the process?
+> After that, the memory failure needs to notify the processes who are
+> using those files.
+>
+> Signed-off-by: Shiyang Ruan <ruansy.fnst@fujitsu.com>
+> ---
+>  drivers/dax/super.c |  12 ++++
+>  fs/xfs/xfs_fsops.c  |   5 ++
+>  fs/xfs/xfs_mount.h  |   1 +
+>  fs/xfs/xfs_super.c  | 135 ++++++++++++++++++++++++++++++++++++++++++++
+>  include/linux/dax.h |  13 +++++
+>  5 files changed, 166 insertions(+)
+>
+> diff --git a/drivers/dax/super.c b/drivers/dax/super.c
+> index 00c32dfa5665..63f7b63d078d 100644
+> --- a/drivers/dax/super.c
+> +++ b/drivers/dax/super.c
+> @@ -65,6 +65,18 @@ struct dax_device *fs_dax_get_by_bdev(struct block_device *bdev)
+>         return dax_get_by_host(bdev->bd_disk->disk_name);
+>  }
+>  EXPORT_SYMBOL_GPL(fs_dax_get_by_bdev);
+> +
+> +void fs_dax_set_holder(struct dax_device *dax_dev, void *holder,
+> +               const struct dax_holder_operations *ops)
+> +{
+> +       dax_set_holder(dax_dev, holder, ops);
+> +}
+> +EXPORT_SYMBOL_GPL(fs_dax_set_holder);
 
-I think it should only get one. I.e. just like the the generic code
-does one shootdown per mapped page regardless of whether that page is
-4K, 2M, or 1G. Once the application is notified it should be able to
-query the filesystem to determine the full extent of the damage to
-files.
+Small style issue, I'd prefer a pair of functions:
+
+fs_dax_register_holder(struct dax_device *dax_dev, void *holder, const
+struct dax_holder_operations *ops)
+fs_dax_unregister_holder(struct dax_device *dax_dev)
+
+...rather than open coding unregister as a special set that passes
+NULL arguments.
+
+> +void *fs_dax_get_holder(struct dax_device *dax_dev)
+> +{
+> +       return dax_get_holder(dax_dev);
+
+Does dax_get_holder() have a lockdep_assert to check that the caller
+has at least a read_lock? Please add kernel-doc for this api to
+indicate the locking context expectations.
+
+The rest of this looks plausibly ok to me, but it would be up to xfs
+folks to comment on the details. I'm not entirely comfortable with
+these handlers assuming DAX, i.e. they should also one day be useful
+for page cache memory failure notifications, but that support can come
+later.
 
 --
 dm-devel mailing list
