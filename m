@@ -1,74 +1,69 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4DCD63F7E8A
-	for <lists+dm-devel@lfdr.de>; Thu, 26 Aug 2021 00:25:58 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTP id B92113F82EE
+	for <lists+dm-devel@lfdr.de>; Thu, 26 Aug 2021 09:15:32 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-478-DX4xBjPwMF6lxDUhXy1SiA-1; Wed, 25 Aug 2021 18:25:55 -0400
-X-MC-Unique: DX4xBjPwMF6lxDUhXy1SiA-1
+ us-mta-19-o49QcTpoO428DpEvdJUlcA-1; Thu, 26 Aug 2021 03:15:19 -0400
+X-MC-Unique: o49QcTpoO428DpEvdJUlcA-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BB9931082922;
-	Wed, 25 Aug 2021 22:25:47 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A277100EB3D;
-	Wed, 25 Aug 2021 22:25:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C1FB7801A92;
+	Thu, 26 Aug 2021 07:15:12 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7AB0C10023B0;
+	Thu, 26 Aug 2021 07:15:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 35E6E181A0F7;
-	Wed, 25 Aug 2021 22:25:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A020E4BB7C;
+	Thu, 26 Aug 2021 07:14:51 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17PMOVrf031315 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 25 Aug 2021 18:24:31 -0400
+	id 17Q6lKca014321 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 26 Aug 2021 02:47:20 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2379CFA74A; Wed, 25 Aug 2021 22:24:31 +0000 (UTC)
+	id EAB471007BAD; Thu, 26 Aug 2021 06:47:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E56DFA74D
-	for <dm-devel@redhat.com>; Wed, 25 Aug 2021 22:24:27 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E6B9310075E2
+	for <dm-devel@redhat.com>; Thu, 26 Aug 2021 06:47:17 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A1AC9188142B
-	for <dm-devel@redhat.com>; Wed, 25 Aug 2021 22:24:27 +0000 (UTC)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
-	[209.85.221.43]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-164-6-Vz_dyTOpKX_uEIhHSkww-1; Wed, 25 Aug 2021 18:24:23 -0400
-X-MC-Unique: 6-Vz_dyTOpKX_uEIhHSkww-1
-Received: by mail-wr1-f43.google.com with SMTP id d26so1788595wrc.0;
-	Wed, 25 Aug 2021 15:24:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=uuFrqEXs5GqGcqXprOBaRe4dDD39x24JGPw2qdVBEVg=;
-	b=AkthJNEZgFLmBUXq7Ss30GraJYaYkdEOrrJZawF7jfzrEPaVZ82pLlX6fEbAeG4aMs
-	wFxu3GTrly0TJFFX8LxSvjewHpkwxvd/M0xzdVD5uWax+yJjh6Q3ee3PfNaXQ84vkZfT
-	y1WvL8FP7knXwCFqMs19Ejx1FSOvlo8Euv1QVkOIc6tOdm9m43obJtEeJQfmuMKNrUgJ
-	LdAn1a6S45Cz9Gi5ak8qVCaCrjfkJrQR67G7esmAt7KyGGcnY43v8MemWiRbwsuUZM6j
-	/FBfRUztpt48vopmHN5kS+3zGb3bbi+eRQSJlzx+TXng38HQ6IqtFnimuBe6Ntbd/W3+
-	TnXA==
-X-Gm-Message-State: AOAM530o/ONCe/6lKSp7HOV/oswx33x/wXAQF7kL0q2+g5NoSfAkqlH/
-	Wou3z01AbM//MbaWUZkwRQ==
-X-Google-Smtp-Source: ABdhPJzrUMxXEGkxizzz54P7jBr+6wHFaIjimQmaI2UOBBtpdm58D3tkN4mx5m1uBIEbdnWhUFMDgg==
-X-Received: by 2002:adf:ce8d:: with SMTP id r13mr414648wrn.18.1629930261954;
-	Wed, 25 Aug 2021 15:24:21 -0700 (PDT)
-Received: from localhost (254.red-83-33-155.dynamicip.rima-tde.net.
-	[83.33.155.254])
-	by smtp.gmail.com with ESMTPSA id n1sm1106746wrp.49.2021.08.25.15.24.20
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Wed, 25 Aug 2021 15:24:21 -0700 (PDT)
-From: Xose Vazquez Perez <xose.vazquez@gmail.com>
-To: 
-Date: Thu, 26 Aug 2021 00:24:13 +0200
-Message-Id: <20210825222413.2822-1-xose.vazquez@gmail.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 421A4185A7A4
+	for <dm-devel@redhat.com>; Thu, 26 Aug 2021 06:47:17 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-282-tWksd2yKMZiZ7dv6TvTg1g-1; Thu, 26 Aug 2021 02:47:15 -0400
+X-MC-Unique: tWksd2yKMZiZ7dv6TvTg1g-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A81A020163;
+	Thu, 26 Aug 2021 06:47:13 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6E0FD12FC5;
+	Thu, 26 Aug 2021 06:47:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA id KeWRGPE4J2EoUQAAMHmgww
+	(envelope-from <mwilck@suse.com>); Thu, 26 Aug 2021 06:47:13 +0000
+Message-ID: <6123dd27bfaa10641c45d0477516e068bc7c8ecb.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Xose Vazquez Perez <xose.vazquez@gmail.com>
+Date: Thu, 26 Aug 2021 08:47:12 +0200
+In-Reply-To: <20210825222413.2822-1-xose.vazquez@gmail.com>
+References: <20210825222413.2822-1-xose.vazquez@gmail.com>
+User-Agent: Evolution 3.40.3
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -77,12 +72,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 17Q6lKca014321
 X-loop: dm-devel@redhat.com
-Cc: Xose Vazquez Perez <xose.vazquez@gmail.com>, Martin Wilck <mwilck@suse.com>,
-	DM-DEVEL ML <dm-devel@redhat.com>
-Subject: [dm-devel] [PATCH] multipath-tools: update no_path_retry value for
-	IBM/2145
+Cc: DM-DEVEL ML <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH] multipath-tools: update no_path_retry value
+	for IBM/2145
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -101,35 +97,69 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
-Based on current configs: https://www.ibm.com/docs/en/flashsystem-9x00/8.4.x?topic=system-settings-linux-hosts
+On Thu, 2021-08-26 at 00:24 +0200, Xose Vazquez Perez wrote:
+> Based on current configs:
+> https://www.ibm.com/docs/en/flashsystem-9x00/8.4.x?topic=3Dsystem-setting=
+s-linux-hosts
+>=20
+> Cc: Martin Wilck <mwilck@suse.com>
+> Cc: Benjamin Marzinski <bmarzins@redhat.com>
+> Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
+> Cc: DM-DEVEL ML <dm-devel@redhat.com>
+> Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
+> ---
+> =A0libmultipath/hwtable.c | 2 +-
+> =A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c
+> index 2a896440..58554cbb 100644
+> --- a/libmultipath/hwtable.c
+> +++ b/libmultipath/hwtable.c
+> @@ -662,7 +662,7 @@ static struct hwentry default_hw[] =3D {
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0/* Storwize family / SAN =
+Volume Controller / Flex
+> System V7000 / FlashSystem V840/V9000/9100 */
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.vendor=A0=A0=A0=A0=A0=A0=
+=A0 =3D "IBM",
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.product=A0=A0=A0=A0=A0=
+=A0 =3D "^2145",
+> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.no_path_retry =3D NO_PATH_=
+RETRY_QUEUE,
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.no_path_retry =3D 5,
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.pgpolicy=A0=A0=A0=A0=A0 =
+=3D GROUP_BY_PRIO,
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.pgfailback=A0=A0=A0 =3D =
+-FAILBACK_IMMEDIATE,
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0.prio_name=A0=A0=A0=A0 =
+=3D PRIO_ALUA,
 
-Cc: Martin Wilck <mwilck@suse.com>
-Cc: Benjamin Marzinski <bmarzins@redhat.com>
-Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Cc: DM-DEVEL ML <dm-devel@redhat.com>
-Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
----
- libmultipath/hwtable.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Ref: https://github.com/opensvc/multipath-tools/issues/6
 
-diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c
-index 2a896440..58554cbb 100644
---- a/libmultipath/hwtable.c
-+++ b/libmultipath/hwtable.c
-@@ -662,7 +662,7 @@ static struct hwentry default_hw[] = {
- 		/* Storwize family / SAN Volume Controller / Flex System V7000 / FlashSystem V840/V9000/9100 */
- 		.vendor        = "IBM",
- 		.product       = "^2145",
--		.no_path_retry = NO_PATH_RETRY_QUEUE,
-+		.no_path_retry = 5,
- 		.pgpolicy      = GROUP_BY_PRIO,
- 		.pgfailback    = -FAILBACK_IMMEDIATE,
- 		.prio_name     = PRIO_ALUA,
--- 
-2.32.0
+The question is on which basis IBM came up with this recommendation.
+5 (aka 25s) is a rather low value. Some users may encounter unpleasant
+surprises if we change the default this way, as it used to be infinite
+before.
+
+Using 5, the IBS 2145 would have the 2nd-lowest default in hwtable.c
+after Dell PowerStore (3). Symmetrix has 6; all other arrays default to
+10 or higher, many default to "queue".
+
+Observing that the above is the documentation for the *Flashsystem*
+9200,  I consider it likely that the value ".no_path_retry =3D 5" would
+apply to flash-based IBM storage products, but not to the older
+products such as the V7000, which unfortunately use the same device ID.
+
+It'd be helpful if someone from IBM could jump in here...
+
+Pondering the pros and cons, I vote for keeping the current defaults
+for now.
+
+Martin
+
+
 
 --
 dm-devel mailing list
