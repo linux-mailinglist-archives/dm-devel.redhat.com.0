@@ -1,56 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id F11423FBE38
-	for <lists+dm-devel@lfdr.de>; Mon, 30 Aug 2021 23:27:03 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 0CB703FBE56
+	for <lists+dm-devel@lfdr.de>; Mon, 30 Aug 2021 23:30:09 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-582-HAWuADc3ONW_9i379_SXTA-1; Mon, 30 Aug 2021 17:26:33 -0400
-X-MC-Unique: HAWuADc3ONW_9i379_SXTA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-282-cMECzGySPTSytk_9424LgQ-1; Mon, 30 Aug 2021 17:29:52 -0400
+X-MC-Unique: cMECzGySPTSytk_9424LgQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1C7F9C73A2;
-	Mon, 30 Aug 2021 21:26:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AC5EC802923;
+	Mon, 30 Aug 2021 21:29:46 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F12E52B0B2;
-	Mon, 30 Aug 2021 21:26:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 89CE36A900;
+	Mon, 30 Aug 2021 21:29:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A8F994A7C8;
-	Mon, 30 Aug 2021 21:26:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 991BA4BB7C;
+	Mon, 30 Aug 2021 21:29:45 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17ULQElN008653 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 30 Aug 2021 17:26:14 -0400
+	id 17ULQBcN008618 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 30 Aug 2021 17:26:11 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E6C6C6F9F9; Mon, 30 Aug 2021 21:26:13 +0000 (UTC)
+	id EA454112D18B; Mon, 30 Aug 2021 21:26:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E1F006E1CE
-	for <dm-devel@redhat.com>; Mon, 30 Aug 2021 21:26:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E66DB112D185
+	for <dm-devel@redhat.com>; Mon, 30 Aug 2021 21:26:10 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CA6DC811E76
-	for <dm-devel@redhat.com>; Mon, 30 Aug 2021 21:26:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 456F0811E76
+	for <dm-devel@redhat.com>; Mon, 30 Aug 2021 21:26:10 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-592-_KTbC2XBPPKfVlAkMUQHGQ-1; Mon, 30 Aug 2021 17:26:12 -0400
-X-MC-Unique: _KTbC2XBPPKfVlAkMUQHGQ-1
+	us-mta-551--lBxGx16MlKEhgWC6aY7mQ-1; Mon, 30 Aug 2021 17:26:06 -0400
+X-MC-Unique: -lBxGx16MlKEhgWC6aY7mQ-1
 Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
-	(Red Hat Linux)) id 1mKomk-000ciC-Ls; Mon, 30 Aug 2021 21:25:42 +0000
+	(Red Hat Linux)) id 1mKomk-000ciF-OG; Mon, 30 Aug 2021 21:25:42 +0000
 From: Luis Chamberlain <mcgrof@kernel.org>
 To: axboe@kernel.dk, martin.petersen@oracle.com, jejb@linux.ibm.com,
 	kbusch@kernel.org, sagi@grimberg.me, adrian.hunter@intel.com,
 	beanhuo@micron.com, ulf.hansson@linaro.org, avri.altman@wdc.com,
 	swboyd@chromium.org, agk@redhat.com, snitzer@redhat.com,
 	josef@toxicpanda.com
-Date: Mon, 30 Aug 2021 14:25:34 -0700
-Message-Id: <20210830212538.148729-5-mcgrof@kernel.org>
+Date: Mon, 30 Aug 2021 14:25:35 -0700
+Message-Id: <20210830212538.148729-6-mcgrof@kernel.org>
 In-Reply-To: <20210830212538.148729-1-mcgrof@kernel.org>
 References: <20210830212538.148729-1-mcgrof@kernel.org>
 MIME-Version: 1.0
@@ -62,15 +62,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 Cc: linux-block@vger.kernel.org, bvanassche@acm.org, linux-scsi@vger.kernel.org,
 	linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
 	linux-nvme@lists.infradead.org, ming.lei@redhat.com,
 	hch@infradead.org, dm-devel@redhat.com, nbd@other.debian.org,
-	Luis Chamberlain <mcgrof@kernel.org>
-Subject: [dm-devel] [PATCH v3 4/8] mmc/core/block: add error handling
-	support for add_disk()
+	Christoph Hellwig <hch@lst.de>, Luis Chamberlain <mcgrof@kernel.org>
+Subject: [dm-devel] [PATCH v3 5/8] md: add error handling support for
+	add_disk()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,7 +84,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -96,35 +96,40 @@ We never checked for errors on add_disk() as this function
 returned void. Now that this is fixed, use the shiny new
 error handling.
 
-The caller only cleanups the disk if we pass on an allocated md
-but on error we return return ERR_PTR(ret), and so we must do all
-the unwinding ourselves.
+We just do the unwinding of what was not done before, and are
+sure to unlock prior to bailing.
 
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
 ---
- drivers/mmc/core/block.c | 7 ++++++-
+ drivers/md/md.c | 7 ++++++-
  1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mmc/core/block.c b/drivers/mmc/core/block.c
-index 6a15fdf6e5f2..9b2856aa6231 100644
---- a/drivers/mmc/core/block.c
-+++ b/drivers/mmc/core/block.c
-@@ -2453,9 +2453,14 @@ static struct mmc_blk_data *mmc_blk_alloc_req(struct mmc_card *card,
- 	/* used in ->open, must be set before add_disk: */
- 	if (area_type == MMC_BLK_DATA_AREA_MAIN)
- 		dev_set_drvdata(&card->dev, md);
--	device_add_disk(md->parent, md->disk, mmc_disk_attr_groups);
-+	ret = device_add_disk(md->parent, md->disk, mmc_disk_attr_groups);
-+	if (ret)
-+		goto err_cleanup_queue;
- 	return md;
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index ae8fe54ea358..5c0d3536d7c7 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -5704,7 +5704,11 @@ static int md_alloc(dev_t dev, char *name)
+ 	 * through to md_open, so make sure it doesn't get too far
+ 	 */
+ 	mutex_lock(&mddev->open_mutex);
+-	add_disk(disk);
++	error = add_disk(disk);
++	if (error) {
++		blk_cleanup_disk(disk);
++		goto abort_unlock;
++	}
  
-+ err_cleanup_queue:
-+	blk_cleanup_queue(md->disk->queue);
-+	blk_mq_free_tag_set(&md->queue.tag_set);
-  err_kfree:
- 	kfree(md);
-  out:
+ 	error = kobject_add(&mddev->kobj, &disk_to_dev(disk)->kobj, "%s", "md");
+ 	if (error) {
+@@ -5718,6 +5722,7 @@ static int md_alloc(dev_t dev, char *name)
+ 	if (mddev->kobj.sd &&
+ 	    sysfs_create_group(&mddev->kobj, &md_bitmap_group))
+ 		pr_debug("pointless warning\n");
++ abort_unlock:
+ 	mutex_unlock(&mddev->open_mutex);
+  abort:
+ 	mutex_unlock(&disks_mutex);
 -- 
 2.30.2
 
