@@ -1,59 +1,57 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E8BA43FBDD4
-	for <lists+dm-devel@lfdr.de>; Mon, 30 Aug 2021 23:01:50 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 994DC3FBE57
+	for <lists+dm-devel@lfdr.de>; Mon, 30 Aug 2021 23:30:14 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-494-PEpaYKAIP9a3XwPX5mj_2Q-1; Mon, 30 Aug 2021 17:01:48 -0400
-X-MC-Unique: PEpaYKAIP9a3XwPX5mj_2Q-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-42-eN71MODyMnScJuK9suOE7g-1; Mon, 30 Aug 2021 17:30:00 -0400
+X-MC-Unique: eN71MODyMnScJuK9suOE7g-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6059B1008064;
-	Mon, 30 Aug 2021 21:01:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2E28C1853033;
+	Mon, 30 Aug 2021 21:29:54 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D07016A8EE;
-	Mon, 30 Aug 2021 21:01:40 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0CE825F707;
+	Mon, 30 Aug 2021 21:29:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 12FA3181A1CE;
-	Mon, 30 Aug 2021 21:01:35 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C3C93181A0F7;
+	Mon, 30 Aug 2021 21:29:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17UL1SvB006075 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 30 Aug 2021 17:01:28 -0400
+	id 17ULQE0P008674 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 30 Aug 2021 17:26:14 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 42B86217B436; Mon, 30 Aug 2021 21:01:28 +0000 (UTC)
+	id BD8322031A5B; Mon, 30 Aug 2021 21:26:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3D73D2168683
-	for <dm-devel@redhat.com>; Mon, 30 Aug 2021 21:01:25 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B9565201C0DE
+	for <dm-devel@redhat.com>; Mon, 30 Aug 2021 21:26:14 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4C9EB101A52C
-	for <dm-devel@redhat.com>; Mon, 30 Aug 2021 21:01:25 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A2CEA800883
+	for <dm-devel@redhat.com>; Mon, 30 Aug 2021 21:26:14 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-213--0AzDhyUPMKtZYc8rhAxFw-1; Mon, 30 Aug 2021 17:01:23 -0400
-X-MC-Unique: -0AzDhyUPMKtZYc8rhAxFw-1
+	us-mta-284-3kE9r-LsNYGRKB01nQ6ByA-1; Mon, 30 Aug 2021 17:26:10 -0400
+X-MC-Unique: 3kE9r-LsNYGRKB01nQ6ByA-1
 Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
-	(Red Hat Linux)) id 1mKoOo-000ZII-6j; Mon, 30 Aug 2021 21:00:58 +0000
-Date: Mon, 30 Aug 2021 14:00:58 -0700
+	(Red Hat Linux)) id 1mKomk-000ci4-DU; Mon, 30 Aug 2021 21:25:42 +0000
 From: Luis Chamberlain <mcgrof@kernel.org>
-To: Christoph Hellwig <hch@infradead.org>
-Message-ID: <YS1HCgP/XdWmMtFN@bombadil.infradead.org>
-References: <20210823202930.137278-1-mcgrof@kernel.org>
-	<20210823202930.137278-9-mcgrof@kernel.org>
-	<YSSP6ujNQttGN2sZ@infradead.org>
-	<YSk1EhUIr9OjIoVv@bombadil.infradead.org>
-	<YSnnXdKLvxEY8yay@infradead.org>
+To: axboe@kernel.dk, martin.petersen@oracle.com, jejb@linux.ibm.com,
+	kbusch@kernel.org, sagi@grimberg.me, adrian.hunter@intel.com,
+	beanhuo@micron.com, ulf.hansson@linaro.org, avri.altman@wdc.com,
+	swboyd@chromium.org, agk@redhat.com, snitzer@redhat.com,
+	josef@toxicpanda.com
+Date: Mon, 30 Aug 2021 14:25:30 -0700
+Message-Id: <20210830212538.148729-1-mcgrof@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <YSnnXdKLvxEY8yay@infradead.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -62,18 +60,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: ulf.hansson@linaro.org, snitzer@redhat.com, linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org, dm-devel@redhat.com,
-	agk@redhat.com, beanhuo@micron.com, ming.lei@redhat.com,
-	sagi@grimberg.me, linux-scsi@vger.kernel.org, jejb@linux.ibm.com,
-	josef@toxicpanda.com, nbd@other.debian.org,
-	linux-block@vger.kernel.org, avri.altman@wdc.com,
-	kbusch@kernel.org, swboyd@chromium.org, bvanassche@acm.org,
-	axboe@kernel.dk, martin.petersen@oracle.com,
-	linux-mmc@vger.kernel.org, adrian.hunter@intel.com
-Subject: Re: [dm-devel] [PATCH 08/10] dm: add add_disk() error handling
+Cc: linux-block@vger.kernel.org, bvanassche@acm.org, linux-scsi@vger.kernel.org,
+	linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-nvme@lists.infradead.org, ming.lei@redhat.com,
+	hch@infradead.org, dm-devel@redhat.com, nbd@other.debian.org,
+	Luis Chamberlain <mcgrof@kernel.org>
+Subject: [dm-devel] [PATCH v3 0/8] block: first batch of add_disk() error
+	handling conversions
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,33 +82,53 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sat, Aug 28, 2021 at 08:35:57AM +0100, Christoph Hellwig wrote:
-> On Fri, Aug 27, 2021 at 11:55:14AM -0700, Luis Chamberlain wrote:
-> > > I think the add_disk should just return r.  If you look at the
-> > > callers they eventualy end up in dm_table_destroy, which does
-> > > this cleanup.
-> > 
-> > I don't see it. What part of dm_table_destroy() does this?
-> 
-> Sorry, dm_destroy, not dm_table_destroy.  For dm_early_create it's
-> trivial as that calls both dm_table_destroy and dm_destroy in the error
-> path.  The normal table_load case is a separate ioctl, but if that
-> fails userspace needs to call the DM_DEV_REMOVE_CMD to cleanup
-> the state - similar to any other failure.
+Jens,
 
-I see, ok sure I'll document this on the commit log as its not so
-obvious.
+I think this first set is ready, but pending review of just two patches:
 
-  Luis
+  * mmc/core/block
+  * dm
+
+All other patches have a respective Reviewed-by tag. The above two
+patches were integrated back into the series once I understood
+Christoph's concerns, and adjusted the patch as such.
+
+This goes rebased onto your for-next as of today. If anyone wants to
+explore the pending full set this is up on my linux-next branch
+20210830-for-axboe-add-disk-error-handling-next [0].
+
+[0] https://git.kernel.org/pub/scm/linux/kernel/git/mcgrof/linux-next.git/log/?h=20210830-for-axboe-add-disk-error-handling-next
+
+Luis Chamberlain (8):
+  scsi/sd: add error handling support for add_disk()
+  scsi/sr: add error handling support for add_disk()
+  nvme: add error handling support for add_disk()
+  mmc/core/block: add error handling support for add_disk()
+  md: add error handling support for add_disk()
+  dm: add add_disk() error handling
+  loop: add error handling support for add_disk()
+  nbd: add error handling support for add_disk()
+
+ drivers/block/loop.c     | 9 ++++++++-
+ drivers/block/nbd.c      | 6 +++++-
+ drivers/md/dm.c          | 4 +++-
+ drivers/md/md.c          | 7 ++++++-
+ drivers/mmc/core/block.c | 7 ++++++-
+ drivers/nvme/host/core.c | 9 ++++++++-
+ drivers/scsi/sd.c        | 6 +++++-
+ drivers/scsi/sr.c        | 5 ++++-
+ 8 files changed, 45 insertions(+), 8 deletions(-)
+
+-- 
+2.30.2
 
 --
 dm-devel mailing list
