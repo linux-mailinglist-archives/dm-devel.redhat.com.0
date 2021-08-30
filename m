@@ -2,75 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 5B1993FBE54
-	for <lists+dm-devel@lfdr.de>; Mon, 30 Aug 2021 23:30:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D8E3B3FBE4B
+	for <lists+dm-devel@lfdr.de>; Mon, 30 Aug 2021 23:29:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1630358950;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=nRwYv/DPgq1mEwKXdrMF2RF8bj33pD+udPu425110xk=;
+	b=XD1P+j4yZUzXqj8ZPGLa3K+TwKOoH0Oc+KAp0qc4+Y3WJ/bmVRFciQNRRUUdjDoZ6A94LR
+	0CLWAlEw8CrfNqzABk1HSesaUvkGplCo8BZceQ65IQ9WkIeQucnEmZSXuP4LxlyMdZQY9p
+	1YEV0e1AV3M2BlCKr45607tiIFw7P7g=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-407-wJGvgA56Pci-yFpUFgeScQ-1; Mon, 30 Aug 2021 17:29:54 -0400
-X-MC-Unique: wJGvgA56Pci-yFpUFgeScQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-311-fDnD2bYzPtK_iQCpT93Q6w-1; Mon, 30 Aug 2021 17:28:27 -0400
+X-MC-Unique: fDnD2bYzPtK_iQCpT93Q6w-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8FAC81008065;
-	Mon, 30 Aug 2021 21:29:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 76ECE1008066;
+	Mon, 30 Aug 2021 21:28:21 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7031F6A8FF;
-	Mon, 30 Aug 2021 21:29:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 522BA10023AC;
+	Mon, 30 Aug 2021 21:28:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 054904A7C8;
-	Mon, 30 Aug 2021 21:29:48 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4AFD44A7C9;
+	Mon, 30 Aug 2021 21:28:20 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+	[10.5.11.13])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 17ULQAeM008613 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 30 Aug 2021 17:26:10 -0400
+	id 17ULSHLs008859 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 30 Aug 2021 17:28:17 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 57CFD2144B30; Mon, 30 Aug 2021 21:26:10 +0000 (UTC)
+	id 2F172226E2; Mon, 30 Aug 2021 21:28:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 03AF92144B3F
-	for <dm-devel@redhat.com>; Mon, 30 Aug 2021 21:26:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 15509800B28
-	for <dm-devel@redhat.com>; Mon, 30 Aug 2021 21:26:07 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-596-BcM_NmQqP9GXTFJva6PONg-1; Mon, 30 Aug 2021 17:26:05 -0400
-X-MC-Unique: BcM_NmQqP9GXTFJva6PONg-1
-Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
-	(Red Hat Linux)) id 1mKomk-000ciL-Uw; Mon, 30 Aug 2021 21:25:42 +0000
-From: Luis Chamberlain <mcgrof@kernel.org>
-To: axboe@kernel.dk, martin.petersen@oracle.com, jejb@linux.ibm.com,
-	kbusch@kernel.org, sagi@grimberg.me, adrian.hunter@intel.com,
-	beanhuo@micron.com, ulf.hansson@linaro.org, avri.altman@wdc.com,
-	swboyd@chromium.org, agk@redhat.com, snitzer@redhat.com,
-	josef@toxicpanda.com
-Date: Mon, 30 Aug 2021 14:25:38 -0700
-Message-Id: <20210830212538.148729-9-mcgrof@kernel.org>
-In-Reply-To: <20210830212538.148729-1-mcgrof@kernel.org>
-References: <20210830212538.148729-1-mcgrof@kernel.org>
+Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5CF5D60939;
+	Mon, 30 Aug 2021 21:28:13 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 17ULSBaa022803; 
+	Mon, 30 Aug 2021 16:28:11 -0500
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 17ULSBuJ022802;
+	Mon, 30 Aug 2021 16:28:11 -0500
+Date: Mon, 30 Aug 2021 16:28:10 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Martin Wilck <martin.wilck@suse.com>
+Message-ID: <20210830212810.GB3087@octiron.msp.redhat.com>
+References: <1627595165-19980-1-git-send-email-bmarzins@redhat.com>
+	<1627595165-19980-4-git-send-email-bmarzins@redhat.com>
+	<a6c0dff1b97512eb4150969894de22c3d2d0efc8.camel@suse.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+In-Reply-To: <a6c0dff1b97512eb4150969894de22c3d2d0efc8.camel@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-loop: dm-devel@redhat.com
-Cc: linux-block@vger.kernel.org, bvanassche@acm.org, linux-scsi@vger.kernel.org,
-	linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org, ming.lei@redhat.com,
-	hch@infradead.org, dm-devel@redhat.com, nbd@other.debian.org,
-	Christoph Hellwig <hch@lst.de>, Luis Chamberlain <mcgrof@kernel.org>
-Subject: [dm-devel] [PATCH v3 8/8] nbd: add error handling support for
-	add_disk()
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH 3/5] multipath: print warning if multipathd
+ is not running.
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,50 +76,62 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-We never checked for errors on add_disk() as this function
-returned void. Now that this is fixed, use the shiny new
-error handling.
+On Thu, Aug 12, 2021 at 10:23:09AM +0000, Martin Wilck wrote:
+> On Do, 2021-07-29 at 16:46 -0500, Benjamin Marzinski wrote:
+> > If multipath notices that multipath devices exist or were created,
+> > and
+> > multipathd is not running, it now prints a warning message, so users
+> > are
+> > notified of the issue.
+> > 
+> > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+> 
+> I'm not sure about this. Are there zero valid use cases for using
+> multipath without multipathd?
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
----
- drivers/block/nbd.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+There certainly are. That's why I tried to limit the warning to only
+cases where the user was creating, reloading, or listing devices and
+found/created some. In testing, sure, you might want multipathd
+disabled, but in general, if you have multipath devices, you want
+multipathd running.  If you have it temporarily disabled for some
+reason, I don't see much harm in having multipath remind you of that.
 
-diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-index 5170a630778d..741365295157 100644
---- a/drivers/block/nbd.c
-+++ b/drivers/block/nbd.c
-@@ -1757,7 +1757,9 @@ static struct nbd_device *nbd_dev_add(int index, unsigned int refs)
- 	disk->fops = &nbd_fops;
- 	disk->private_data = nbd;
- 	sprintf(disk->disk_name, "nbd%d", index);
--	add_disk(disk);
-+	err = add_disk(disk);
-+	if (err)
-+		goto out_err_disk;
+> On production systems, I agree,
+> multipathd should always be running. Personally wouldn't want to see
+> this warning every time I run "multipath" while multipathd is
+> (temporarily) disabled. Have you got user requests for this feature?
+
+Well, Support has requested this.  Apparently they have repeatedly seen
+cases where people don't have any multipath devices present, because
+multipathd is not running.  They run multipath, the devices appear, and
+they move on, unaware that multipathd isn't running for whatever
+reason.
  
- 	/*
- 	 * Now publish the device.
-@@ -1766,6 +1768,8 @@ static struct nbd_device *nbd_dev_add(int index, unsigned int refs)
- 	nbd_total_devices++;
- 	return nbd;
- 
-+out_err_disk:
-+	blk_cleanup_disk(disk);
- out_free_idr:
- 	mutex_lock(&nbd_index_mutex);
- 	idr_remove(&nbd_index_idr, index);
--- 
-2.30.2
+> In particular, I dislike the idea of putting this code into
+> libmultipath. I would love to get rid of the "is_daemon" logic some
+> day. If at all, the detection of the situation and the warning should
+> be implemented in multipath, IMO.
+
+Sure. I can rework this to keep the logic inside multipath,
+
+> The message should be prefixed with the word "Warning: " to make sure
+> the admin understands that he's supposed to take action.
+
+Makes sense.
+
+-Ben
+
+> Regards,
+> Martin
 
 --
 dm-devel mailing list
