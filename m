@@ -2,73 +2,68 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D9C0840165F
-	for <lists+dm-devel@lfdr.de>; Mon,  6 Sep 2021 08:20:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5B49E4017AA
+	for <lists+dm-devel@lfdr.de>; Mon,  6 Sep 2021 10:14:53 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-587-CxtlV0QSNXCgHjASaMpGQg-1; Mon, 06 Sep 2021 02:20:22 -0400
-X-MC-Unique: CxtlV0QSNXCgHjASaMpGQg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-261-YUS0NvxuN_CgxL0Bl6Y67w-1; Mon, 06 Sep 2021 04:14:50 -0400
+X-MC-Unique: YUS0NvxuN_CgxL0Bl6Y67w-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 175671006CAA;
-	Mon,  6 Sep 2021 06:20:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6E744107ACCA;
+	Mon,  6 Sep 2021 08:14:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E9CDD5D9DE;
-	Mon,  6 Sep 2021 06:20:16 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 257FC60BF4;
+	Mon,  6 Sep 2021 08:14:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5AAC144A5A;
-	Mon,  6 Sep 2021 06:20:16 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 742F94EEA1;
+	Mon,  6 Sep 2021 08:14:42 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1866KCoI027544 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 6 Sep 2021 02:20:13 -0400
+	id 183830uS028628 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 3 Sep 2021 04:03:01 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DB1821111A51; Mon,  6 Sep 2021 06:20:12 +0000 (UTC)
+	id 2BAD9101F0DD; Fri,  3 Sep 2021 08:03:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D3D041003348
-	for <dm-devel@redhat.com>; Mon,  6 Sep 2021 06:20:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3ED7C858F1C
-	for <dm-devel@redhat.com>; Mon,  6 Sep 2021 06:20:07 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-578-CwpSNP6mOTOKNVaIfV5KFA-1; Mon, 06 Sep 2021 02:20:03 -0400
-X-MC-Unique: CwpSNP6mOTOKNVaIfV5KFA-1
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	key-exchange X25519 server-signature ECDSA (P-521) server-digest
-	SHA512) (No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E9D1220081;
-	Mon,  6 Sep 2021 06:20:01 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	key-exchange X25519 server-signature ECDSA (P-521) server-digest
-	SHA512) (No client certificate requested)
-	by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 1A4BB13299;
-	Mon,  6 Sep 2021 06:20:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap1.suse-dmz.suse.de with ESMTPSA id u9eHAxGzNWHKTwAAGKfGzw
-	(envelope-from <hare@suse.de>); Mon, 06 Sep 2021 06:20:01 +0000
-To: Luis Chamberlain <mcgrof@kernel.org>, axboe@kernel.dk,
-	martin.petersen@oracle.com, jejb@linux.ibm.com, kbusch@kernel.org,
-	sagi@grimberg.me, adrian.hunter@intel.com, beanhuo@micron.com,
-	ulf.hansson@linaro.org, avri.altman@wdc.com, swboyd@chromium.org,
-	agk@redhat.com, snitzer@redhat.com, josef@toxicpanda.com
-References: <20210830212538.148729-1-mcgrof@kernel.org>
-	<20210830212538.148729-9-mcgrof@kernel.org>
-From: Hannes Reinecke <hare@suse.de>
-Message-ID: <bd2ed860-89c5-36d8-3bf6-29c677d70c40@suse.de>
-Date: Mon, 6 Sep 2021 08:20:05 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.12.0
-MIME-Version: 1.0
-In-Reply-To: <20210830212538.148729-9-mcgrof@kernel.org>
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 27B5B102F12C
+	for <dm-devel@redhat.com>; Fri,  3 Sep 2021 08:02:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6710D886483
+	for <dm-devel@redhat.com>; Fri,  3 Sep 2021 08:02:57 +0000 (UTC)
+Received: from zju.edu.cn (mail.zju.edu.cn [61.164.42.155]) by
+	relay.mimecast.com with ESMTP id us-mta-11-c1C5usBTP-eokAOOYgkImg-1;
+	Fri, 03 Sep 2021 04:02:52 -0400
+X-MC-Unique: c1C5usBTP-eokAOOYgkImg-1
+Received: from localhost.localdomain (unknown [10.192.113.18])
+	by mail-app2 (Coremail) with SMTP id by_KCgA3PTHz1DFhLp86BQ--.33165S4; 
+	Fri, 03 Sep 2021 15:55:36 +0800 (CST)
+From: Dinghao Liu <dinghao.liu@zju.edu.cn>
+To: dinghao.liu@zju.edu.cn, kjlu@umn.edu
+Date: Fri,  3 Sep 2021 15:55:30 +0800
+Message-Id: <20210903075531.20310-1-dinghao.liu@zju.edu.cn>
+X-CM-TRANSID: by_KCgA3PTHz1DFhLp86BQ--.33165S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxJrWDGF43ur1fWw1DXFy5Arb_yoW8Xr13p3
+	93K34ayr48J39IqFWUZw4kWFyFkasYgry3tFZrCayfZa1Y9r4xuryrGFWYqF1UJFWfJFy2
+	yF15AryUuFWjkaDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUk21xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
+	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
+	IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW0oVCq3wA2z4x0Y4vEx4A2
+	jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52
+	x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWU
+	GwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
+	8JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv
+	6cx26r4fKr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGw
+	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48J
+	MIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMI
+	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E
+	87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUoOJ5UUUUU
+X-CM-SenderInfo: qrrzjiaqtzq6lmxovvfxof0/1tbiAgkNBlZdtVkmqQASs6
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -78,16 +73,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1866KCoI027544
 X-loop: dm-devel@redhat.com
-Cc: linux-block@vger.kernel.org, bvanassche@acm.org, linux-scsi@vger.kernel.org,
-	linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org, ming.lei@redhat.com,
-	hch@infradead.org, dm-devel@redhat.com, nbd@other.debian.org,
-	Christoph Hellwig <hch@lst.de>
-Subject: Re: [dm-devel] [PATCH v3 8/8] nbd: add error handling support for
-	add_disk()
+X-Mailman-Approved-At: Mon, 06 Sep 2021 04:14:38 -0400
+Cc: Heinz Mauelshagen <heinzm@redhat.com>, dm-devel@redhat.com,
+	Mike Snitzer <snitzer@redhat.com>,
+	Alasdair Kergon <agk@redhat.com>, linux-kernel@vger.kernel.org
+Subject: [dm-devel] [PATCH] dm raid: add missed unlock in raid_ctr
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -99,29 +90,66 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gOC8zMC8yMSAxMToyNSBQTSwgTHVpcyBDaGFtYmVybGFpbiB3cm90ZToKPiBXZSBuZXZlciBj
-aGVja2VkIGZvciBlcnJvcnMgb24gYWRkX2Rpc2soKSBhcyB0aGlzIGZ1bmN0aW9uCj4gcmV0dXJu
-ZWQgdm9pZC4gTm93IHRoYXQgdGhpcyBpcyBmaXhlZCwgdXNlIHRoZSBzaGlueSBuZXcKPiBlcnJv
-ciBoYW5kbGluZy4KPiAKPiBSZXZpZXdlZC1ieTogQ2hyaXN0b3BoIEhlbGx3aWcgPGhjaEBsc3Qu
-ZGU+Cj4gU2lnbmVkLW9mZi1ieTogTHVpcyBDaGFtYmVybGFpbiA8bWNncm9mQGtlcm5lbC5vcmc+
-Cj4gLS0tCj4gICBkcml2ZXJzL2Jsb2NrL25iZC5jIHwgNiArKysrKy0KPiAgIDEgZmlsZSBjaGFu
-Z2VkLCA1IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPiAKUmV2aWV3ZWQtYnk6IEhhbm5l
-cyBSZWluZWNrZSA8aGFyZUBzdXNlLmRlPgoKQ2hlZXJzLAoKSGFubmVzCi0tIApEci4gSGFubmVz
-IFJlaW5lY2tlICAgICAgICAgICAgICAgIEtlcm5lbCBTdG9yYWdlIEFyY2hpdGVjdApoYXJlQHN1
-c2UuZGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICArNDkgOTExIDc0MDUzIDY4OApTVVNF
-IFNvZnR3YXJlIFNvbHV0aW9ucyBHbWJILCBNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJlcmcK
-SFJCIDM2ODA5IChBRyBOw7xybmJlcmcpLCBHZXNjaMOkZnRzZsO8aHJlcjogRmVsaXggSW1lbmTD
-tnJmZmVyCgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0
-cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
+mddev_unlock() is called on all paths after we call mddev_lock_nointr(),
+except for three error handling paths, which may cause a deadlock. This
+bug is suggested by a static analysis tool, please advise.
+
+Fixes: 9dbd1aa3a81c ("dm raid: add reshaping support to the target")
+Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
+---
+ drivers/md/dm-raid.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
+index d9ef52159a22..79f36a806082 100644
+--- a/drivers/md/dm-raid.c
++++ b/drivers/md/dm-raid.c
+@@ -3276,15 +3276,19 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	/* Try to adjust the raid4/5/6 stripe cache size to the stripe size */
+ 	if (rs_is_raid456(rs)) {
+ 		r = rs_set_raid456_stripe_cache(rs);
+-		if (r)
++		if (r) {
++			mddev_unlock(&rs->md);
+ 			goto bad_stripe_cache;
++		}
+ 	}
+ 
+ 	/* Now do an early reshape check */
+ 	if (test_bit(RT_FLAG_RESHAPE_RS, &rs->runtime_flags)) {
+ 		r = rs_check_reshape(rs);
+-		if (r)
++		if (r) {
++			mddev_unlock(&rs->md);
+ 			goto bad_check_reshape;
++		}
+ 
+ 		/* Restore new, ctr requested layout to perform check */
+ 		rs_config_restore(rs, &rs_layout);
+@@ -3293,6 +3297,7 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 			r = rs->md.pers->check_reshape(&rs->md);
+ 			if (r) {
+ 				ti->error = "Reshape check failed";
++				mddev_unlock(&rs->md);
+ 				goto bad_check_reshape;
+ 			}
+ 		}
+-- 
+2.17.1
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
