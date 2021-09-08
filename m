@@ -2,101 +2,71 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C2A864084D2
-	for <lists+dm-devel@lfdr.de>; Mon, 13 Sep 2021 08:40:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 55E3A4084DB
+	for <lists+dm-devel@lfdr.de>; Mon, 13 Sep 2021 08:41:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1631515264;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=bMc4dyYcdtx4n0Yp3E61/53+q/91+u8CLEjKxovDtcQ=;
+	b=GUzBb4WtEpQLTiF1UwzdbwB54vHNFT+RiV6QVTRHY4dCXeLitJ+8F7lMM6DreNWzCAgRPy
+	ui53tqNjvABOe+OWmNrNsUdxghLLw2DURMypwKMlSaSPjFMj0hrLPkOVmZ4Cz4LrQ3wJtD
+	cLtWIouAQghyOVFbrByUXdq1g/4wXhA=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-520-CWQA-B9CNeiql1c84K5fVQ-1; Mon, 13 Sep 2021 02:40:18 -0400
-X-MC-Unique: CWQA-B9CNeiql1c84K5fVQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-205-5rrk_uccM6qlvY6NuOfx4w-1; Mon, 13 Sep 2021 02:40:35 -0400
+X-MC-Unique: 5rrk_uccM6qlvY6NuOfx4w-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DB75B108468E;
-	Mon, 13 Sep 2021 06:40:12 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BCF3E1084683;
+	Mon, 13 Sep 2021 06:40:29 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B9B6B6A8F8;
-	Mon, 13 Sep 2021 06:40:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D5443102AE4A;
+	Mon, 13 Sep 2021 06:40:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 71F474EA2A;
-	Mon, 13 Sep 2021 06:40:12 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 74F5C4EA30;
+	Mon, 13 Sep 2021 06:40:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 188BS5Xb029198 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 8 Sep 2021 07:28:05 -0400
+	id 188DGc9E015596 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 8 Sep 2021 09:16:38 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6DDE3207EDD1; Wed,  8 Sep 2021 11:28:05 +0000 (UTC)
+	id 4912B6B551; Wed,  8 Sep 2021 13:16:38 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 69A2E207AD68
-	for <dm-devel@redhat.com>; Wed,  8 Sep 2021 11:28:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 81A198934F8
-	for <dm-devel@redhat.com>; Wed,  8 Sep 2021 11:28:02 +0000 (UTC)
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
-	[209.85.208.49]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-418-ox35LneHO0KVs641Pk8w-A-1; Wed, 08 Sep 2021 07:27:59 -0400
-X-MC-Unique: ox35LneHO0KVs641Pk8w-A-1
-Received: by mail-ed1-f49.google.com with SMTP id dm15so2385307edb.10;
-	Wed, 08 Sep 2021 04:27:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20161025;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=T8Mklz6VAwUy6oZgIvPmDqGWckAlnrdzULeYme94/4Q=;
-	b=JqR6d85fZTe8KfMuWeP/i5grXwHvIJXLWjCWwFVzXIx/LUQtnh1otzdOpj84jSvw9P
-	IGiaupo4tbktppPHsEf5gUA/Rs8nj0J74oY4KQKiVicolOEc77lxHb1EQXNOCT4JGNxE
-	UHzNBhRujijg3xGWdR+NRDtyLZQp0IYon+TEBuZM2lAPb5hQmQ9/SI1WsZJPJ3yeagW8
-	qUvESgYO4d2Emh8+UIEXDUPtw9CnBzbGgoDbZ3BMQRnOvpXpH2EMPb+YoIwhS2Xc1BPF
-	jQL00MDTnKGBypzZMsjMvzq044A0BZslzCut6Xt+AZXeCzYfz2I8LFLD+Nb2L8d4xGkq
-	/KcA==
-X-Gm-Message-State: AOAM533NGnvenkaqzvAsDngrVLjySyAPLaxgdQorQijPio8hptTy5Qje
-	27tF1fPlHAOWouvhmkRAnDwgN9sST2TBHzlBtCM=
-X-Google-Smtp-Source: ABdhPJwGfD+i+VdCkJZ7IUmEUFHZnxm9TsQnDXHp+8EbX5wzCKF44hHkvqZBfYGx8AevvBsZcCM3G11fKO55WACtnZo=
-X-Received: by 2002:a05:6402:4389:: with SMTP id
-	o9mr3325324edc.306.1631100477257; 
-	Wed, 08 Sep 2021 04:27:57 -0700 (PDT)
+Received: from madcap2.tricolour.ca (unknown [10.3.128.14])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CF74F6B550;
+	Wed,  8 Sep 2021 13:16:19 +0000 (UTC)
+Date: Wed, 8 Sep 2021 09:16:16 -0400
+From: Richard Guy Briggs <rgb@redhat.com>
+To: =?iso-8859-1?B?V2Vp3yw=?= Michael <michael.weiss@aisec.fraunhofer.de>,
+	sgrubb@redhat.com
+Message-ID: <20210908131616.GK490529@madcap2.tricolour.ca>
+References: <20210904095934.5033-1-michael.weiss@aisec.fraunhofer.de>
+	<20210908005942.GJ490529@madcap2.tricolour.ca>
+	<9ca855cb19097b6fa98f2b3419864fd8ddadf065.camel@aisec.fraunhofer.de>
 MIME-Version: 1.0
-References: <CAOuPNLhqSpaTm3u4kFsnuZ0PLDKuX8wsxuF=vUJ1TEG0EP+L1g@mail.gmail.com>
-	<alpine.LRH.2.02.2107200737510.19984@file01.intranet.prod.int.rdu2.redhat.com>
-	<CAOuPNLhh_LkLQ8mSA4eoUDLCLzHo5zHXsiQZXUB_-T_F1_v6-g@mail.gmail.com>
-	<alpine.LRH.2.02.2107211300520.10897@file01.intranet.prod.int.rdu2.redhat.com>
-	<CAOuPNLi-xz_4P+v45CHLx00ztbSwU3_maf4tuuyso5RHyeOytg@mail.gmail.com>
-	<CAOuPNLg0m-Q7Vhp4srbQrjXHsxVhOr-K2dvnNqzdR6Dr4kioqA@mail.gmail.com>
-	<20210830185541.715f6a39@windsurf>
-	<CAOuPNLhTidgLNWUbtUgdESYcKcE1C4SOdzKeQVhFGQvEoc0QEg@mail.gmail.com>
-	<20210830211224.76391708@windsurf>
-	<CAOuPNLgMd0AThhmSknbmKqp3_P8PFhBGr-jW0Mqjb6K6NchEMg@mail.gmail.com>
-	<CAOuPNLiW10-E6F_Ndte7U9NPBKa9Y_UuLhgdwAYTc0eYMk5Mqg@mail.gmail.com>
-In-Reply-To: <CAOuPNLiW10-E6F_Ndte7U9NPBKa9Y_UuLhgdwAYTc0eYMk5Mqg@mail.gmail.com>
-From: Pintu Agarwal <pintu.ping@gmail.com>
-Date: Wed, 8 Sep 2021 16:57:45 +0530
-Message-ID: <CAOuPNLj2Xmx52Gtzx5oEKif4Qz-Tz=vaxhRvHQG-5emO7ewRhg@mail.gmail.com>
-To: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Mimecast-Spam-Signature: yes
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+In-Reply-To: <9ca855cb19097b6fa98f2b3419864fd8ddadf065.camel@aisec.fraunhofer.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 13 Sep 2021 02:39:51 -0400
-Cc: Sami Tolvanen <samitolvanen@google.com>, snitzer@redhat.com,
-	Kernelnewbies <kernelnewbies@kernelnewbies.org>,
-	open list <linux-kernel@vger.kernel.org>, dm-devel@redhat.com,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	linux-mtd <linux-mtd@lists.infradead.org>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	Phillip Lougher <phillip@squashfs.org.uk>, agk@redhat.com
-Subject: Re: [dm-devel] Kernel 4.14: Using dm-verity with squashfs rootfs -
-	mounting issue
+Cc: "paul@paul-moore.com" <paul@paul-moore.com>,
+	"snitzer@redhat.com" <snitzer@redhat.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"eparis@redhat.com" <eparis@redhat.com>,
+	"linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>,
+	"song@kernel.org" <song@kernel.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"linux-audit@redhat.com" <linux-audit@redhat.com>,
+	"casey@schaufler-ca.com" <casey@schaufler-ca.com>,
+	"agk@redhat.com" <agk@redhat.com>
+Subject: Re: [dm-devel] [PATCH v4 0/3] dm: audit event logging
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -110,35 +80,274 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On 2021-09-08 08:26, Wei=DF, Michael wrote:
+> On Tue, 2021-09-07 at 20:59 -0400, Richard Guy Briggs wrote:
+> > On 2021-09-04 11:59, Michael Wei=DF wrote:
+> > > dm integrity and also stacked dm crypt devices track integrity
+> > > violations internally. Thus, integrity violations could be polled
+> > > from user space, e.g., by 'integritysetup status'.
+> > >=20
+> > > > From an auditing perspective, we only could see that there were
+> > > a number of integrity violations, but not when and where the
+> > > violation exactly was taking place. The current error log to
+> > > the kernel ring buffer, contains those information, time stamp and
+> > > sector on device. However, for auditing the audit subsystem provides
+> > > a separate logging mechanism which meets certain criteria for secure
+> > > audit logging.
+> > >=20
+> > > With this small series we make use of the kernel audit framework
+> > > and extend the dm driver to log audit events in case of such
+> > > integrity violations. Further, we also log construction and
+> > > destruction of the device mappings.
+> > >=20
+> > > We focus on dm-integrity and stacked dm-crypt devices for now.
+> > > However, the helper functions to log audit messages should be
+> > > applicable to dm-verity too.
+> > >=20
+> > > The first patch introduce generic audit wrapper functions.
+> > > The second patch makes use of the audit wrapper functions in the
+> > > dm-integrity.c.
+> > > The third patch uses the wrapper functions in dm-crypt.c.
+> > >=20
+> > > The audit logs look like this if executing the following simple test:
+> > >=20
+> > > # dd if=3D/dev/zero of=3Dtest.img bs=3D1M count=3D1024
+> > > # losetup -f test.img
+> > > # integritysetup -vD format --integrity sha256 -t 32 /dev/loop0
+> > > # integritysetup open -D /dev/loop0 --integrity sha256 integritytest
+> > > # integritysetup status integritytest
+> > > # integritysetup close integritytest
+> > > # integritysetup open -D /dev/loop0 --integrity sha256 integritytest
+> > > # integritysetup status integritytest
+> > > # dd if=3D/dev/urandom of=3D/dev/loop0 bs=3D512 count=3D1 seek=3D1000=
+00
+> > > # dd if=3D/dev/mapper/integritytest of=3D/dev/null
+> > >=20
+> > > -------------------------
+> > > audit.log from auditd
+> > >=20
+> > > type=3DUNKNOWN[1336] msg=3Daudit(1630425039.363:184): module=3Dintegr=
+ity op=3Dctr ppid=3D3807 pid=3D3819
+> > > auid=3D1000 uid=3D0 gid=3D0 euid=3D0 suid=3D0 fsuid=3D0 egid=3D0 sgid=
+=3D0 fsgid=3D0 tty=3Dpts2 ses=3D3
+> > > comm=3D"integritysetup" exe=3D"/sbin/integritysetup" subj=3D=3Dunconf=
+ined dev=3D254:3 error_msg=3D'success'
+> > > res=3D1
+> > > type=3DUNKNOWN[1336] msg=3Daudit(1630425039.471:185): module=3Dintegr=
+ity op=3Ddtr ppid=3D3807 pid=3D3819
+> > > auid=3D1000 uid=3D0 gid=3D0 euid=3D0 suid=3D0 fsuid=3D0 egid=3D0 sgid=
+=3D0 fsgid=3D0 tty=3Dpts2 ses=3D3
+> > > comm=3D"integritysetup" exe=3D"/sbin/integritysetup" subj=3D=3Dunconf=
+ined dev=3D254:3 error_msg=3D'success'
+> > > res=3D1
+> > > type=3DUNKNOWN[1336] msg=3Daudit(1630425039.611:186): module=3Dintegr=
+ity op=3Dctr ppid=3D3807 pid=3D3819
+> > > auid=3D1000 uid=3D0 gid=3D0 euid=3D0 suid=3D0 fsuid=3D0 egid=3D0 sgid=
+=3D0 fsgid=3D0 tty=3Dpts2 ses=3D3
+> > > comm=3D"integritysetup" exe=3D"/sbin/integritysetup" subj=3D=3Dunconf=
+ined dev=3D254:3 error_msg=3D'success'
+> > > res=3D1
+> > > type=3DUNKNOWN[1336] msg=3Daudit(1630425054.475:187): module=3Dintegr=
+ity op=3Ddtr ppid=3D3807 pid=3D3819
+> > > auid=3D1000 uid=3D0 gid=3D0 euid=3D0 suid=3D0 fsuid=3D0 egid=3D0 sgid=
+=3D0 fsgid=3D0 tty=3Dpts2 ses=3D3
+> > > comm=3D"integritysetup" exe=3D"/sbin/integritysetup" subj=3D=3Dunconf=
+ined dev=3D254:3 error_msg=3D'success'
+> > > res=3D1
+> > >=20
+> > > type=3DUNKNOWN[1336] msg=3Daudit(1630425073.171:191): module=3Dintegr=
+ity op=3Dctr ppid=3D3807 pid=3D3883
+> > > auid=3D1000 uid=3D0 gid=3D0 euid=3D0 suid=3D0 fsuid=3D0 egid=3D0 sgid=
+=3D0 fsgid=3D0 tty=3Dpts2 ses=3D3
+> > > comm=3D"integritysetup" exe=3D"/sbin/integritysetup" subj=3D=3Dunconf=
+ined dev=3D254:3 error_msg=3D'success'
+> > > res=3D1
+> > >=20
+> > > type=3DUNKNOWN[1336] msg=3Daudit(1630425087.239:192): module=3Dintegr=
+ity op=3Ddtr ppid=3D3807 pid=3D3902
+> > > auid=3D1000 uid=3D0 gid=3D0 euid=3D0 suid=3D0 fsuid=3D0 egid=3D0 sgid=
+=3D0 fsgid=3D0 tty=3Dpts2 ses=3D3
+> > > comm=3D"integritysetup" exe=3D"/sbin/integritysetup" subj=3D=3Dunconf=
+ined dev=3D254:3 error_msg=3D'success'
+> > > res=3D1
+> > >=20
+> > > type=3DUNKNOWN[1336] msg=3Daudit(1630425093.755:193): module=3Dintegr=
+ity op=3Dctr ppid=3D3807 pid=3D3906
+> > > auid=3D1000 uid=3D0 gid=3D0 euid=3D0 suid=3D0 fsuid=3D0 egid=3D0 sgid=
+=3D0 fsgid=3D0 tty=3Dpts2 ses=3D3
+> > > comm=3D"integritysetup" exe=3D"/sbin/integritysetup" subj=3D=3Dunconf=
+ined dev=3D254:3 error_msg=3D'success'
+> > > res=3D1
+> > >=20
+> > > type=3DUNKNOWN[1337] msg=3Daudit(1630425112.119:194): module=3Dintegr=
+ity op=3Dintegrity-checksum
+> > > dev=3D254:3 sector=3D77480 res=3D0
+> > > type=3DUNKNOWN[1337] msg=3Daudit(1630425112.119:195): module=3Dintegr=
+ity op=3Dintegrity-checksum
+> > > dev=3D254:3 sector=3D77480 res=3D0
+> > > type=3DUNKNOWN[1337] msg=3Daudit(1630425112.119:196): module=3Dintegr=
+ity op=3Dintegrity-checksum
+> > > dev=3D254:3 sector=3D77480 res=3D0
+> > > type=3DUNKNOWN[1337] msg=3Daudit(1630425112.119:197): module=3Dintegr=
+ity op=3Dintegrity-checksum
+> > > dev=3D254:3 sector=3D77480 res=3D0
+> > > type=3DUNKNOWN[1337] msg=3Daudit(1630425112.119:198): module=3Dintegr=
+ity op=3Dintegrity-checksum
+> > > dev=3D254:3 sector=3D77480 res=3D0
+> > > type=3DUNKNOWN[1337] msg=3Daudit(1630425112.119:199): module=3Dintegr=
+ity op=3Dintegrity-checksum
+> > > dev=3D254:3 sector=3D77480 res=3D0
+> > > type=3DUNKNOWN[1337] msg=3Daudit(1630425112.119:200): module=3Dintegr=
+ity op=3Dintegrity-checksum
+> > > dev=3D254:3 sector=3D77480 res=3D0
+> > > type=3DUNKNOWN[1337] msg=3Daudit(1630425112.119:201): module=3Dintegr=
+ity op=3Dintegrity-checksum
+> > > dev=3D254:3 sector=3D77480 res=3D0
+> > > type=3DUNKNOWN[1337] msg=3Daudit(1630425112.119:202): module=3Dintegr=
+ity op=3Dintegrity-checksum
+> > > dev=3D254:3 sector=3D77480 res=3D0
+> > > type=3DUNKNOWN[1337] msg=3Daudit(1630425112.119:203): module=3Dintegr=
+ity op=3Dintegrity-checksum
+> > > dev=3D254:3 sector=3D77480 res=3D0
+> >=20
+> > Are these isolated records, or are they accompanied by a type=3DSYSCALL
+> > record in your logs?
+>=20
+> You are right the dm_audit_log_{ctr,dtr} functions produce type=3DAUDIT_D=
+M_CTRL
+> accompanied by a
+> type=3DSYSCALL. This was a mistake by me. I grepped
+> the audit log with 'grep -e "133[6-7]"' during my
+> tests, thus I have
+> missed that. I will remove the audit_log_task_info() call in the
+> internal dm_audit_log_ti() function
+> for type=3DAUDIT_DM_CTRL.
 
-On Mon, 6 Sept 2021 at 21:58, Pintu Agarwal <pintu.ping@gmail.com> wrote:
+(To get the whole events, use "ausearch ... -m 1336,1337 ...".)
 
-> On Tue, 31 Aug 2021 at 18:49, Pintu Agarwal <pintu.ping@gmail.com> wrote:
->
-> > > No, but you can backport it easily. Back at
-> > > http://lists.infradead.org/pipermail/openwrt-devel/2019-November/025967.html
-> > > I provided backports of this feature to OpenWrt, for the 4.14 and 4.19
-> > > kernels.
+> dm_audit_log_target and dm_audit_log_bio are using type=3DAUDIT_DM_EVENT,
+> These are isolated events since they are not triggert in user context.=20
 
-Can you please let me know where to get the below patches for
-backporting to our kernel:
- create mode 100644
-target/linux/generic/backport-4.14/390-dm-add-support-to-directly-boot-to-a-mapped-device.patch
- create mode 100644
-target/linux/generic/backport-4.14/391-dm-init-fix-max-devices-targets-checks.patch
- create mode 100644
-target/linux/generic/backport-4.14/392-dm-ioctl-fix-hang-in-early-create-error-condition.patch
- create mode 100644
-target/linux/generic/backport-4.14/393-Documentation-dm-init-fix-multi-device-example.patch
+Ok, so it sounds like those events *should* have task_info in their
+record format since they are not accompanied by SYSCALL records that
+already contain that information.  So it appears that
+audit_log_task_info() should be moved from the type=3DAUDIT_DM_CTRL case
+to the type=3DAUDIT_DM_EVENT case.
+
+> > The reason I ask is that audit_log_task_info() is included in three of
+> > the calling methods (dm_audit_log_{target,ctr,dtr}) which use a
+> > combination of AUDIT_DM_CTRL/AUDIT_DM_EVENT type while the fourth
+> > (dm_audit_log_bio) also uses one of the types above but does not includ=
+e
+> > audit_log_task_info().  If all these records are accompanied by SYSCALL
+> > records, then the task info would be redundant (and might even conflict
+> > if there's a bug).  Another minor oddity is the double "=3D" for the su=
+bj
+> > field, which doesn't appear to be a bug in your code, but still puzzlin=
+g.
+>=20
+> In the test setup, I had Apparmor enabled and set as default security mod=
+ule.
+> This behavior occurs in any audit_log message.
+> Seems that this is coming from the label handling there. Having a quick l=
+ook
+> at the code there is that they use '=3D' in the label to provide a root v=
+iew as
+> part of their policy virtualization. The corresponding commit is sitting
+> there since 2017: "26b7899510ae243e392960704ebdba52d05fbb13"
+
+Interesting...  Thanks for tracking down that cause.  I don't know how
+much pain that will cause the userspace parsing tools.  I've added Steve
+Grubb to the Cc: to get his input, but this should not derail this patch
+set.
+
+This has parallels to this previously reported issue with ima/integrity:
+=09https://github.com/linux-audit/audit-kernel/issues/113
+
+> > Are those last 10 records expected to be identical other than event
+> > serial number?
+>=20
+> Yes, because the access to the corrupt sector is made 10 times.
+> This reflects exactly the same behavior without the audit logging, in the=
+=20
+> kernel debug log.
+
+Is there any other distinguishing information for that event other than
+audit log serial number that would be useful to add?  (It doesn't sound
+like it.)
+
+> > > v4 Changes:
+> > > - Added comments on intended use of wrapper functions in dm-audit.h
+> > > - dm_audit_log_bio(): Fixed missing '=3D' as spotted by Paul
+> > > - dm_audit_log_ti(): Handle wrong audit_type as suggested by Paul
+> > >=20
+> > > v3 Changes:
+> > > - Use of two audit event types AUDIT_DM_EVENT und AUDIT_DM_CTRL
+> > > - Additionaly use audit_log_task_info in case of AUDIT_DM_CTRL messag=
+es
+> > > - Provide consistent fields per message type as suggested by Paul
+> > > - Added sample events to commit message of [1/3] as suggested by Paul
+> > > - Rebased on v5.14
+> > >=20
+> > > v2 Changes:
+> > > - Fixed compile errors if CONFIG_DM_AUDIT is not set
+> > > - Fixed formatting and typos as suggested by Casey
+> > >=20
+> > > Michael Wei=DF (3):
+> > >   dm: introduce audit event module for device mapper
+> > >   dm integrity: log audit events for dm-integrity target
+> > >   dm crypt: log aead integrity violations to audit subsystem
+> > >=20
+> > >  drivers/md/Kconfig         | 10 +++++
+> > >  drivers/md/Makefile        |  4 ++
+> > >  drivers/md/dm-audit.c      | 84 ++++++++++++++++++++++++++++++++++++=
+++
+> > >  drivers/md/dm-audit.h      | 66 ++++++++++++++++++++++++++++++
+> > >  drivers/md/dm-crypt.c      | 22 ++++++++--
+> > >  drivers/md/dm-integrity.c  | 25 ++++++++++--
+> > >  include/uapi/linux/audit.h |  2 +
+> > >  7 files changed, 205 insertions(+), 8 deletions(-)
+> > >  create mode 100644 drivers/md/dm-audit.c
+> > >  create mode 100644 drivers/md/dm-audit.h
+> > >=20
+> > > --=20
+> > > 2.20.1
+> > >=20
+> > > --
+> > > Linux-audit mailing list
+> > > Linux-audit@redhat.com
+> > > https://listman.redhat.com/mailman/listinfo/linux-audit
+> >=20
+> > - RGB
+> >=20
+> > --
+> > Richard Guy Briggs <rgb@redhat.com>
+> > Sr. S/W Engineer, Kernel Security, Base Operating Systems
+> > Remote, Ottawa, Red Hat Canada
+> > IRC: rgb, SunRaycer
+> > Voice: +1.647.777.2635, Internal: (81) 32635
+> >=20
+>=20
+> Thanks,
+> Michael
+
+- RGB
+
+--
+Richard Guy Briggs <rgb@redhat.com>
+Sr. S/W Engineer, Kernel Security, Base Operating Systems
+Remote, Ottawa, Red Hat Canada
+IRC: rgb, SunRaycer
+Voice: +1.647.777.2635, Internal: (81) 32635
 
 --
 dm-devel mailing list
