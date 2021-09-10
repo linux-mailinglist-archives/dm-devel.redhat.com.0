@@ -1,65 +1,66 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 004B5406AD8
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id C5F05406AD5
 	for <lists+dm-devel@lfdr.de>; Fri, 10 Sep 2021 13:43:33 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-347-QKpbnP2lMMiObh9QQHZTnQ-1; Fri, 10 Sep 2021 07:43:31 -0400
-X-MC-Unique: QKpbnP2lMMiObh9QQHZTnQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-90-yY58FNQEP5-lI1uEIm3D4w-1; Fri, 10 Sep 2021 07:43:30 -0400
+X-MC-Unique: yY58FNQEP5-lI1uEIm3D4w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 48F6B84A5EB;
-	Fri, 10 Sep 2021 11:43:23 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0D91C36304;
+	Fri, 10 Sep 2021 11:43:19 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 29F371850C;
-	Fri, 10 Sep 2021 11:43:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E597B18FD2;
+	Fri, 10 Sep 2021 11:43:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DCA014EA39;
-	Fri, 10 Sep 2021 11:43:22 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A3E1D4EA29;
+	Fri, 10 Sep 2021 11:43:18 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18ABgxv2010183 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 10 Sep 2021 07:42:59 -0400
+	id 18ABgwbf010161 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 10 Sep 2021 07:42:58 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 014CA10AF42D; Fri, 10 Sep 2021 11:42:59 +0000 (UTC)
+	id 70E6720807F0; Fri, 10 Sep 2021 11:42:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F0C5910CB269
-	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:42:56 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E040F800B24
-	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:42:55 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6ACB020BC8F5
+	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:42:54 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 880A88934E0
+	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:42:54 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-125-WTfDauzJMwuyspxi8RNJ0A-1; Fri, 10 Sep 2021 07:42:52 -0400
-X-MC-Unique: WTfDauzJMwuyspxi8RNJ0A-1
+	us-mta-283-6raRnfzGPiSATbI7zC7fIg-1; Fri, 10 Sep 2021 07:42:52 -0400
+X-MC-Unique: 6raRnfzGPiSATbI7zC7fIg-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E514822432;
-	Fri, 10 Sep 2021 11:42:50 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 475D422433;
+	Fri, 10 Sep 2021 11:42:51 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9A4C813D34;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F11D513D34;
 	Fri, 10 Sep 2021 11:42:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id +CO7I7pEO2GPOAAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id 8O3eOLpEO2GPOAAAMHmgww
 	(envelope-from <mwilck@suse.com>); Fri, 10 Sep 2021 11:42:50 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 10 Sep 2021 13:40:48 +0200
-Message-Id: <20210910114120.13665-4-mwilck@suse.com>
+Date: Fri, 10 Sep 2021 13:40:49 +0200
+Message-Id: <20210910114120.13665-5-mwilck@suse.com>
 In-Reply-To: <20210910114120.13665-1-mwilck@suse.com>
 References: <20210910114120.13665-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -71,14 +72,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 18ABgxv2010183
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 18ABgwbf010161
 X-loop: dm-devel@redhat.com
 Cc: lixiaokeng@huawei.com, Chongyun Wu <wu.chongyun@h3c.com>,
 	dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 03/35] libmultipath: add optional wakeup
-	functionality to lock.c
+Subject: [dm-devel] [PATCH 04/35] libmultipath: print: add __snprint_config()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,7 +92,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -102,84 +102,93 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Have struct mutex_lock take an optional wakeup function.
-unlock() is renamed to __unlock() in order to prevent it from
-being called by mistake.
+exactly like snprint_config(), but takes a struct strbuf * as argument.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
  libmultipath/libmultipath.version |  5 +++++
- libmultipath/lock.c               | 12 +++++++++++-
- libmultipath/lock.h               |  6 +++++-
- 3 files changed, 21 insertions(+), 2 deletions(-)
+ libmultipath/print.c              | 34 +++++++++++++++++++++----------
+ libmultipath/print.h              |  2 ++
+ 3 files changed, 30 insertions(+), 11 deletions(-)
 
 diff --git a/libmultipath/libmultipath.version b/libmultipath/libmultipath.version
-index c98cf7f..2107c51 100644
+index 2107c51..b2feee2 100644
 --- a/libmultipath/libmultipath.version
 +++ b/libmultipath/libmultipath.version
-@@ -292,3 +292,8 @@ LIBMULTIPATH_9.1.0 {
+@@ -297,3 +297,8 @@ LIBMULTIPATH_9.2.0 {
  global:
- 	timespeccmp;
- } LIBMULTIPATH_9.0.0;
+ 	set_wakeup_fn;
+ } LIBMULTIPATH_9.1.0;
 +
-+LIBMULTIPATH_9.2.0 {
++LIBMULTIPATH_9.3.0 {
 +global:
-+	set_wakeup_fn;
-+} LIBMULTIPATH_9.1.0;
-diff --git a/libmultipath/lock.c b/libmultipath/lock.c
-index 72c70e3..93b48db 100644
---- a/libmultipath/lock.c
-+++ b/libmultipath/lock.c
-@@ -3,6 +3,16 @@
- void cleanup_lock (void * data)
- {
- 	struct mutex_lock *lock = data;
-+	wakeup_fn *fn = lock->wakeup;
++	__snprint_config;
++} LIBMULTIPATH_9.2.0;
+diff --git a/libmultipath/print.c b/libmultipath/print.c
+index 2fb9f4e..d2ef010 100644
+--- a/libmultipath/print.c
++++ b/libmultipath/print.c
+@@ -1756,24 +1756,36 @@ static int snprint_blacklist_except(const struct config *conf,
+ 	return get_strbuf_len(buff) - initial_len;
+ }
  
--	unlock(lock);
-+	__unlock(lock);
-+	if (fn)
-+		fn();
++int __snprint_config(const struct config *conf, struct strbuf *buff,
++		     const struct _vector *hwtable, const struct _vector *mpvec)
++{
++	int rc;
++
++	if ((rc = snprint_defaults(conf, buff)) < 0 ||
++	    (rc = snprint_blacklist(conf, buff)) < 0 ||
++	    (rc = snprint_blacklist_except(conf, buff)) < 0 ||
++	    (rc = snprint_hwtable(conf, buff,
++				  hwtable ? hwtable : conf->hwtable)) < 0 ||
++	    (rc = snprint_overrides(conf, buff, conf->overrides)) < 0)
++		return rc;
++
++	if (VECTOR_SIZE(conf->mptable) > 0 ||
++	    (mpvec != NULL && VECTOR_SIZE(mpvec) > 0))
++		if ((rc = snprint_mptable(conf, buff, mpvec)) < 0)
++			return rc;
++
++	return 0;
 +}
 +
-+void set_wakeup_fn(struct mutex_lock *lck, wakeup_fn *fn)
-+{
-+	lock(lck);
-+	lck->wakeup = fn;
-+	__unlock(lck);
- }
-diff --git a/libmultipath/lock.h b/libmultipath/lock.h
-index d99eedb..d7b779e 100644
---- a/libmultipath/lock.h
-+++ b/libmultipath/lock.h
-@@ -3,8 +3,11 @@
- 
- #include <pthread.h>
- 
-+typedef void (wakeup_fn)(void);
-+
- struct mutex_lock {
- 	pthread_mutex_t mutex;
-+	wakeup_fn *wakeup;
- };
- 
- static inline void lock(struct mutex_lock *a)
-@@ -22,7 +25,7 @@ static inline int timedlock(struct mutex_lock *a, struct timespec *tmo)
- 	return pthread_mutex_timedlock(&a->mutex, tmo);
- }
- 
--static inline void unlock(struct mutex_lock *a)
-+static inline void __unlock(struct mutex_lock *a)
+ char *snprint_config(const struct config *conf, int *len,
+ 		     const struct _vector *hwtable, const struct _vector *mpvec)
  {
- 	pthread_mutex_unlock(&a->mutex);
- }
-@@ -30,5 +33,6 @@ static inline void unlock(struct mutex_lock *a)
- #define lock_cleanup_pop(a) pthread_cleanup_pop(1)
+ 	STRBUF_ON_STACK(buff);
+ 	char *reply;
+-	int rc;
++	int rc = __snprint_config(conf, &buff, hwtable, mpvec);
  
- void cleanup_lock (void * data);
-+void set_wakeup_fn(struct mutex_lock *lock, wakeup_fn *fn);
+-	if ((rc = snprint_defaults(conf, &buff)) < 0 ||
+-	    (rc = snprint_blacklist(conf, &buff)) < 0 ||
+-	    (rc = snprint_blacklist_except(conf, &buff)) < 0 ||
+-	    (rc = snprint_hwtable(conf, &buff,
+-				  hwtable ? hwtable : conf->hwtable)) < 0 ||
+-	    (rc = snprint_overrides(conf, &buff, conf->overrides)) < 0)
++	if (rc < 0)
+ 		return NULL;
+-	if (VECTOR_SIZE(conf->mptable) > 0 ||
+-	    (mpvec != NULL && VECTOR_SIZE(mpvec) > 0))
+-		if ((rc = snprint_mptable(conf, &buff, mpvec)) < 0)
+-			return NULL;
  
- #endif /* _LOCK_H */
+ 	if (len)
+ 		*len = get_strbuf_len(&buff);
+diff --git a/libmultipath/print.h b/libmultipath/print.h
+index c6674a5..b149275 100644
+--- a/libmultipath/print.h
++++ b/libmultipath/print.h
+@@ -54,6 +54,8 @@ int _snprint_multipath_topology (const struct gen_multipath *, struct strbuf *,
+ #define snprint_multipath_topology(buf, mpp, v) \
+ 	_snprint_multipath_topology (dm_multipath_to_gen(mpp), buf, v)
+ int snprint_multipath_topology_json(struct strbuf *, const struct vectors *vecs);
++int __snprint_config(const struct config *conf, struct strbuf *buff,
++		     const struct _vector *hwtable, const struct _vector *mpvec);
+ char *snprint_config(const struct config *conf, int *len,
+ 		     const struct _vector *hwtable,
+ 		     const struct _vector *mpvec);
 -- 
 2.33.0
 
