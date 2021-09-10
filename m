@@ -2,64 +2,64 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 27487406AD2
-	for <lists+dm-devel@lfdr.de>; Fri, 10 Sep 2021 13:43:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3ABC4406AF3
+	for <lists+dm-devel@lfdr.de>; Fri, 10 Sep 2021 13:45:57 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-507-BL0oXj1HOB61UJG_Dtz1Qg-1; Fri, 10 Sep 2021 07:43:24 -0400
-X-MC-Unique: BL0oXj1HOB61UJG_Dtz1Qg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-583-_mGVf-xYNpm21bUfG2itEA-1; Fri, 10 Sep 2021 07:45:54 -0400
+X-MC-Unique: _mGVf-xYNpm21bUfG2itEA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8040C1006AAD;
-	Fri, 10 Sep 2021 11:43:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3B7EF102C7E7;
+	Fri, 10 Sep 2021 11:45:49 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5E9585453A;
-	Fri, 10 Sep 2021 11:43:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D7D6C18EC5;
+	Fri, 10 Sep 2021 11:45:48 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 10DF14E590;
-	Fri, 10 Sep 2021 11:43:17 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1959C4EA3B;
+	Fri, 10 Sep 2021 11:45:48 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18ABgxBP010202 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 10 Sep 2021 07:42:59 -0400
+	id 18ABhf57010691 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 10 Sep 2021 07:43:41 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 68DB610BC2B7; Fri, 10 Sep 2021 11:42:59 +0000 (UTC)
+	id 194EB20C180E; Fri, 10 Sep 2021 11:43:41 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6486210AF42D
-	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:42:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4BCC7100B8C3
-	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:42:59 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) (Using
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 14E61210C6D4
+	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:43:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B9EEE100B8C8
+	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:43:37 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-509-ZK0Bd9BmOYu3FsZWvxWvVA-1; Fri, 10 Sep 2021 07:42:55 -0400
-X-MC-Unique: ZK0Bd9BmOYu3FsZWvxWvVA-1
+	us-mta-492-zD6SqxqsPVObT09lrOPnhQ-1; Fri, 10 Sep 2021 07:42:55 -0400
+X-MC-Unique: zD6SqxqsPVObT09lrOPnhQ-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4CA8222437;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A805120062;
 	Fri, 10 Sep 2021 11:42:54 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0320D13D34;
-	Fri, 10 Sep 2021 11:42:53 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 59E7D13D34;
+	Fri, 10 Sep 2021 11:42:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id uDJTOr1EO2GPOAAAMHmgww
-	(envelope-from <mwilck@suse.com>); Fri, 10 Sep 2021 11:42:53 +0000
+	by imap2.suse-dmz.suse.de with ESMTPSA id OM/aE75EO2GPOAAAMHmgww
+	(envelope-from <mwilck@suse.com>); Fri, 10 Sep 2021 11:42:54 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 10 Sep 2021 13:40:57 +0200
-Message-Id: <20210910114120.13665-13-mwilck@suse.com>
+Date: Fri, 10 Sep 2021 13:40:58 +0200
+Message-Id: <20210910114120.13665-14-mwilck@suse.com>
 In-Reply-To: <20210910114120.13665-1-mwilck@suse.com>
 References: <20210910114120.13665-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -71,14 +71,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 18ABgxBP010202
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 18ABhf57010691
 X-loop: dm-devel@redhat.com
 Cc: lixiaokeng@huawei.com, Chongyun Wu <wu.chongyun@h3c.com>,
 	dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 12/35] multipathd: add and set cli_handlers in a
-	single step
+Subject: [dm-devel] [PATCH 13/35] multipathd: cli.c: use ESRCH for "command
+	not found"
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,7 +92,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -102,139 +102,45 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Modify set_handler_callback() such that a missing slot is created
-if no matching slot is found. This way, we can skip the initialization
-with NULL handlers on startup.
+EAGAIN is too generic, and doesn't fit semantically either.
+ESRCH in't used anywhere else in our code.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipathd/cli.c | 85 +++++++-----------------------------------------
- multipathd/cli.h |  6 ++--
- 2 files changed, 15 insertions(+), 76 deletions(-)
+ multipathd/cli.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/multipathd/cli.c b/multipathd/cli.c
-index 5213813..7020d2b 100644
+index 7020d2b..f8c1dbd 100644
 --- a/multipathd/cli.c
 +++ b/multipathd/cli.c
-@@ -100,26 +100,20 @@ find_handler (uint64_t fp)
- }
- 
- int
--set_handler_callback (uint64_t fp, cli_handler *fn)
-+__set_handler_callback (uint64_t fp, cli_handler *fn, bool locked)
- {
--	struct handler * h = find_handler(fp);
-+	struct handler *h = find_handler(fp);
- 
--	if (!h)
-+	if (!h) {
-+		add_handler(fp, fn);
-+		h = find_handler(fp);
-+	}
-+	if (!h) {
-+		condlog(0, "%s: failed to set handler for code %"PRIu64,
-+			__func__, fp);
- 		return 1;
--	h->fn = fn;
--	h->locked = 1;
--	return 0;
--}
--
--int
--set_unlocked_handler_callback (uint64_t fp, cli_handler *fn)
--{
--	struct handler * h = find_handler(fp);
--
--	if (!h)
--		return 1;
--	h->fn = fn;
--	h->locked = 0;
-+	}
-+	h->locked = locked;
- 	return 0;
- }
- 
-@@ -513,63 +507,6 @@ cli_init (void) {
- 	if (alloc_handlers())
- 		return 1;
- 
--	add_handler(LIST+PATHS, NULL);
--	add_handler(LIST+PATHS+FMT, NULL);
--	add_handler(LIST+PATHS+RAW+FMT, NULL);
--	add_handler(LIST+PATH, NULL);
--	add_handler(LIST+STATUS, NULL);
--	add_handler(LIST+DAEMON, NULL);
--	add_handler(LIST+MAPS, NULL);
--	add_handler(LIST+MAPS+STATUS, NULL);
--	add_handler(LIST+MAPS+STATS, NULL);
--	add_handler(LIST+MAPS+FMT, NULL);
--	add_handler(LIST+MAPS+RAW+FMT, NULL);
--	add_handler(LIST+MAPS+TOPOLOGY, NULL);
--	add_handler(LIST+MAPS+JSON, NULL);
--	add_handler(LIST+TOPOLOGY, NULL);
--	add_handler(LIST+MAP+TOPOLOGY, NULL);
--	add_handler(LIST+MAP+JSON, NULL);
--	add_handler(LIST+MAP+FMT, NULL);
--	add_handler(LIST+MAP+RAW+FMT, NULL);
--	add_handler(LIST+CONFIG, NULL);
--	add_handler(LIST+CONFIG+LOCAL, NULL);
--	add_handler(LIST+BLACKLIST, NULL);
--	add_handler(LIST+DEVICES, NULL);
--	add_handler(LIST+WILDCARDS, NULL);
--	add_handler(RESET+MAPS+STATS, NULL);
--	add_handler(RESET+MAP+STATS, NULL);
--	add_handler(ADD+PATH, NULL);
--	add_handler(DEL+PATH, NULL);
--	add_handler(ADD+MAP, NULL);
--	add_handler(DEL+MAP, NULL);
--	add_handler(DEL+MAPS, NULL);
--	add_handler(SWITCH+MAP+GROUP, NULL);
--	add_handler(RECONFIGURE, NULL);
--	add_handler(SUSPEND+MAP, NULL);
--	add_handler(RESUME+MAP, NULL);
--	add_handler(RESIZE+MAP, NULL);
--	add_handler(RESET+MAP, NULL);
--	add_handler(RELOAD+MAP, NULL);
--	add_handler(DISABLEQ+MAP, NULL);
--	add_handler(RESTOREQ+MAP, NULL);
--	add_handler(DISABLEQ+MAPS, NULL);
--	add_handler(RESTOREQ+MAPS, NULL);
--	add_handler(REINSTATE+PATH, NULL);
--	add_handler(FAIL+PATH, NULL);
--	add_handler(QUIT, NULL);
--	add_handler(SHUTDOWN, NULL);
--	add_handler(GETPRSTATUS+MAP, NULL);
--	add_handler(SETPRSTATUS+MAP, NULL);
--	add_handler(UNSETPRSTATUS+MAP, NULL);
--	add_handler(GETPRKEY+MAP, NULL);
--	add_handler(SETPRKEY+MAP+KEY, NULL);
--	add_handler(UNSETPRKEY+MAP, NULL);
--	add_handler(FORCEQ+DAEMON, NULL);
--	add_handler(RESTOREQ+DAEMON, NULL);
--	add_handler(SETMARGINAL+PATH, NULL);
--	add_handler(UNSETMARGINAL+PATH, NULL);
--	add_handler(UNSETMARGINAL+MAP, NULL);
--
- 	return 0;
- }
- 
-diff --git a/multipathd/cli.h b/multipathd/cli.h
-index 3dac1b4..dbb75be 100644
---- a/multipathd/cli.h
-+++ b/multipathd/cli.h
-@@ -134,8 +134,10 @@ struct handler {
- 
- int alloc_handlers (void);
- int add_handler (uint64_t fp, cli_handler *fn);
--int set_handler_callback (uint64_t fp, cli_handler *fn);
--int set_unlocked_handler_callback (uint64_t fp, cli_handler *fn);
-+int __set_handler_callback (uint64_t fp, cli_handler *fn, bool locked);
-+#define set_handler_callback(fp, fn) __set_handler_callback(fp, fn, true)
-+#define set_unlocked_handler_callback(fp, fn) __set_handler_callback(fp, fn, false)
-+
- int parse_cmd (char * cmd, char ** reply, int * len, void *, int);
- int load_keys (void);
- char * get_keyparam (vector v, uint64_t code);
+@@ -253,7 +253,7 @@ find_key (const char * str)
+  *
+  * returns:
+  * ENOMEM: not enough memory to allocate command
+- * EAGAIN: command not found
++ * ESRCH: command not found
+  * EINVAL: argument missing for command
+  */
+ static int
+@@ -288,7 +288,7 @@ get_cmdvec (char * cmd, vector *v)
+ 		}
+ 		kw = find_key(buff);
+ 		if (!kw) {
+-			r = EAGAIN;
++			r = ESRCH;
+ 			goto out;
+ 		}
+ 		cmdkw = alloc_key();
+@@ -378,7 +378,7 @@ do_genhelp(struct strbuf *reply, const char *cmd, int error) {
+ 	case ENOMEM:
+ 		rc = print_strbuf(reply, "%s: Not enough memory\n", cmd);
+ 		break;
+-	case EAGAIN:
++	case ESRCH:
+ 		rc = print_strbuf(reply, "%s: not found\n", cmd);
+ 		break;
+ 	case EINVAL:
 -- 
 2.33.0
 
