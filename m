@@ -2,71 +2,85 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0B9E84084D4
-	for <lists+dm-devel@lfdr.de>; Mon, 13 Sep 2021 08:40:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1631515222;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=2fNW4iBri5WqKXxlRaRHroTki+WJ5n6QYUq42MkWpcA=;
-	b=VBVgihRmuMv+5vbH45xRliPT6VZ/aU9gajOj95A4TXVB8ejvP24L+EnZsQuwHUogIjZmTI
-	V6krJ+8I2B6theVuyktzga90dDHoxxd4acVapkMi65C33wZ5fWPwN5hxSg8+3mnF34NvN/
-	zzQhvBmoIyucbxqqtzxYlXTKWn/5yN4=
+	by mail.lfdr.de (Postfix) with ESMTP id 1AA0C4084D0
+	for <lists+dm-devel@lfdr.de>; Mon, 13 Sep 2021 08:40:21 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-386-bNAIqllgOyKRWghtp_hUHw-1; Mon, 13 Sep 2021 02:40:20 -0400
-X-MC-Unique: bNAIqllgOyKRWghtp_hUHw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-68-SV232a4-N3Khk76WcDFX5Q-1; Mon, 13 Sep 2021 02:40:17 -0400
+X-MC-Unique: SV232a4-N3Khk76WcDFX5Q-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AB160108468A;
-	Mon, 13 Sep 2021 06:40:14 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8AC2B5F706;
-	Mon, 13 Sep 2021 06:40:14 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DDB55108469A;
+	Mon, 13 Sep 2021 06:40:11 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BC6D21001281;
+	Mon, 13 Sep 2021 06:40:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4D0761806D01;
-	Mon, 13 Sep 2021 06:40:14 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C86B14EA29;
+	Mon, 13 Sep 2021 06:40:01 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 188FdlXp007586 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 8 Sep 2021 11:39:47 -0400
+	id 18ABgxZg010182 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 10 Sep 2021 07:42:59 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8816B77F30; Wed,  8 Sep 2021 15:39:47 +0000 (UTC)
+	id 017A510BC29B; Fri, 10 Sep 2021 11:42:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from x2.localnet (unknown [10.22.8.236])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4456E77F29;
-	Wed,  8 Sep 2021 15:39:31 +0000 (UTC)
-From: Steve Grubb <sgrubb@redhat.com>
-To: =?ISO-8859-1?Q?Wei=DF=2C?= Michael <michael.weiss@aisec.fraunhofer.de>,
-	Richard Guy Briggs <rgb@redhat.com>
-Date: Wed, 08 Sep 2021 11:39:02 -0400
-Message-ID: <4344604.LvFx2qVVIh@x2>
-Organization: Red Hat
-In-Reply-To: <20210908131616.GK490529@madcap2.tricolour.ca>
-References: <20210904095934.5033-1-michael.weiss@aisec.fraunhofer.de>
-	<9ca855cb19097b6fa98f2b3419864fd8ddadf065.camel@aisec.fraunhofer.de>
-	<20210908131616.GK490529@madcap2.tricolour.ca>
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F0CBE117C2F0
+	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:42:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 021FC800C00
+	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:42:57 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-207-2VnZ6CftPOaGvd7L8maYLg-1; Fri, 10 Sep 2021 07:42:53 -0400
+X-MC-Unique: 2VnZ6CftPOaGvd7L8maYLg-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0B0D422434;
+	Fri, 10 Sep 2021 11:42:52 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B419613D34;
+	Fri, 10 Sep 2021 11:42:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA id qIi5KbtEO2GPOAAAMHmgww
+	(envelope-from <mwilck@suse.com>); Fri, 10 Sep 2021 11:42:51 +0000
+From: mwilck@suse.com
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>
+Date: Fri, 10 Sep 2021 13:40:51 +0200
+Message-Id: <20210910114120.13665-7-mwilck@suse.com>
+In-Reply-To: <20210910114120.13665-1-mwilck@suse.com>
+References: <20210910114120.13665-1-mwilck@suse.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 18ABgxZg010182
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 13 Sep 2021 02:39:51 -0400
-Cc: "paul@paul-moore.com" <paul@paul-moore.com>,
-	"snitzer@redhat.com" <snitzer@redhat.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"eparis@redhat.com" <eparis@redhat.com>,
-	"linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>,
-	"song@kernel.org" <song@kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"linux-audit@redhat.com" <linux-audit@redhat.com>,
-	"casey@schaufler-ca.com" <casey@schaufler-ca.com>,
-	"agk@redhat.com" <agk@redhat.com>
-Subject: Re: [dm-devel] [PATCH v4 0/3] dm: audit event logging
+Cc: lixiaokeng@huawei.com, Chongyun Wu <wu.chongyun@h3c.com>,
+	dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Subject: [dm-devel] [PATCH 06/35] multipathd: fix systemd notification when
+	stopping while reloading
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +94,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -88,33 +102,43 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wednesday, September 8, 2021 9:16:16 AM EDT Richard Guy Briggs wrote:
->  Another minor oddity is the double "=" for the subj
-> 
-> > > field, which doesn't appear to be a bug in your code, but still
-> > > puzzling.
-> > 
-> > In the test setup, I had Apparmor enabled and set as default security
-> > module. This behavior occurs in any audit_log message.
-> > Seems that this is coming from the label handling there. Having a quick
-> > look at the code there is that they use '=' in the label to provide a
-> > root view as part of their policy virtualization. The corresponding
-> > commit is sitting there since 2017:
-> > "26b7899510ae243e392960704ebdba52d05fbb13"
-> 
-> Interesting...  Thanks for tracking down that cause.  I don't know how
-> much pain that will cause the userspace parsing tools.  I've added Steve
-> Grubb to the Cc: to get his input, but this should not derail this patch
-> set.
+From: Martin Wilck <mwilck@suse.com>
 
-It likely breaks any parser. I would even say that it's a malformed event 
-that should be corrected. There's been a published a specification for audit 
-events  for at least 5 years. Latest copy is here:
+After sending "RELOADING=1" to systemd, a service must send
+"READY=1" before "STOPPING=1". Otherwise systemd will be confused
+and will not regard the service as stopped. Subsequent attempts
+to start multipathd via socket activation fail until systemd times
+out the reload operation.
 
-https://github.com/linux-audit/audit-documentation/wiki/SPEC-Writing-Good-Events
+The problem can be reproduced by running "multipathd shutdown"
+quickly after "multipathd reconfigure".
 
--Steve
+Signed-off-by: Martin Wilck <mwilck@suse.com>
+---
+ multipathd/main.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
+diff --git a/multipathd/main.c b/multipathd/main.c
+index 3aff241..67160b9 100644
+--- a/multipathd/main.c
++++ b/multipathd/main.c
+@@ -210,9 +210,12 @@ static void do_sd_notify(enum daemon_status old_state,
+ 	if (msg && !safe_sprintf(notify_msg, "STATUS=%s", msg))
+ 		sd_notify(0, notify_msg);
+ 
+-	if (new_state == DAEMON_SHUTDOWN)
++	if (new_state == DAEMON_SHUTDOWN) {
++		/* Tell systemd that we're not RELOADING any more */
++		if (old_state == DAEMON_CONFIGURE && startup_done)
++			sd_notify(0, "READY=1");
+ 		sd_notify(0, "STOPPING=1");
+-	else if (new_state == DAEMON_IDLE && old_state == DAEMON_CONFIGURE) {
++	} else if (new_state == DAEMON_IDLE && old_state == DAEMON_CONFIGURE) {
+ 		sd_notify(0, "READY=1");
+ 		startup_done = true;
+ 	} else if (new_state == DAEMON_CONFIGURE && startup_done)
+-- 
+2.33.0
 
 
 --
