@@ -2,64 +2,64 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id CCD7F406ADD
-	for <lists+dm-devel@lfdr.de>; Fri, 10 Sep 2021 13:43:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CFB3F406AD6
+	for <lists+dm-devel@lfdr.de>; Fri, 10 Sep 2021 13:43:33 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-194-DLtzOTvJNyyoGNdlqInqjQ-1; Fri, 10 Sep 2021 07:43:37 -0400
-X-MC-Unique: DLtzOTvJNyyoGNdlqInqjQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-202-5bessbudPPC1hf6aI23R2g-1; Fri, 10 Sep 2021 07:43:31 -0400
+X-MC-Unique: 5bessbudPPC1hf6aI23R2g-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D5C72802B9E;
-	Fri, 10 Sep 2021 11:43:30 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B6E525453A;
-	Fri, 10 Sep 2021 11:43:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CE4C11006AB0;
+	Fri, 10 Sep 2021 11:43:22 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AD6271009962;
+	Fri, 10 Sep 2021 11:43:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 75BCA181A1D1;
-	Fri, 10 Sep 2021 11:43:30 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5DA644EA39;
+	Fri, 10 Sep 2021 11:43:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18ABh29x010280 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 10 Sep 2021 07:43:02 -0400
+	id 18ABh1eu010238 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 10 Sep 2021 07:43:01 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 76DAF20807F0; Fri, 10 Sep 2021 11:43:02 +0000 (UTC)
+	id 421181FA840; Fri, 10 Sep 2021 11:43:01 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 71F7F2079761
-	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:43:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5B0F2800883
-	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:43:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3D6EA63536
+	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:43:01 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 25FF2800B24
+	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:43:01 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-164-wgvrt1bwM1iKutPuiZtrBQ-1; Fri, 10 Sep 2021 07:42:58 -0400
-X-MC-Unique: wgvrt1bwM1iKutPuiZtrBQ-1
+	us-mta-517-v_5g7LESOAa_NtMs4yo0kw-1; Fri, 10 Sep 2021 07:42:59 -0400
+X-MC-Unique: v_5g7LESOAa_NtMs4yo0kw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2782A2243A;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C34D022428;
 	Fri, 10 Sep 2021 11:42:57 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9373E13EC8;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 00BDB13D34;
 	Fri, 10 Sep 2021 11:42:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id eOnvIcBEO2GPOAAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id CLN5OcBEO2GPOAAAMHmgww
 	(envelope-from <mwilck@suse.com>); Fri, 10 Sep 2021 11:42:56 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 10 Sep 2021 13:41:04 +0200
-Message-Id: <20210910114120.13665-20-mwilck@suse.com>
+Date: Fri, 10 Sep 2021 13:41:05 +0200
+Message-Id: <20210910114120.13665-21-mwilck@suse.com>
 In-Reply-To: <20210910114120.13665-1-mwilck@suse.com>
 References: <20210910114120.13665-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -71,14 +71,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 18ABh29x010280
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 18ABh1eu010238
 X-loop: dm-devel@redhat.com
 Cc: lixiaokeng@huawei.com, Chongyun Wu <wu.chongyun@h3c.com>,
 	dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 19/35] multipathd: uxlsnr: data structure for
-	stateful client connection
+Subject: [dm-devel] [PATCH 20/35] multipathd: move uxsock_trigger() to
+	uxlsnr.c
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,7 +92,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -102,85 +102,156 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Currently the uxlsnr handles each client request (receive requset -
-handle request - respond) in a single loop iteration. This has
-severe disadvantages. In particular, the code may wait in poll()
-called from read_all(), or wait for the vecs lock, while other
-clients are ready to be serviced or signals to be handled.
+uxsock_trigger() really belongs into cli.c. I suppose that way back in
+the past there were strong reasons to call this function via a
+pointer. I don't think these reasons are valid any more. Moving
+the function to cli.c allows restructuring the code.
 
-This patch adds some fields to "struct client" which will be used
-by later patches to change this into a state machine that basically
-waits only in place, the ppoll() call in uxsock_listen().
-
-For now, we just introduce and initialize the fields.
+No functional changes.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipathd/uxlsnr.c | 27 +++++++++++++++++++++++++--
- 1 file changed, 25 insertions(+), 2 deletions(-)
+ multipathd/main.c   | 44 +-------------------------------------------
+ multipathd/uxlsnr.c | 44 ++++++++++++++++++++++++++++++++++++++++++--
+ multipathd/uxlsnr.h |  4 +---
+ 3 files changed, 44 insertions(+), 48 deletions(-)
 
+diff --git a/multipathd/main.c b/multipathd/main.c
+index c6357ef..ec4bcc3 100644
+--- a/multipathd/main.c
++++ b/multipathd/main.c
+@@ -1526,48 +1526,6 @@ map_discovery (struct vectors * vecs)
+ 	return 0;
+ }
+ 
+-int
+-uxsock_trigger (char * str, char ** reply, int * len, bool is_root,
+-		void * trigger_data)
+-{
+-	struct vectors * vecs;
+-	int r;
+-
+-	*reply = NULL;
+-	*len = 0;
+-	vecs = (struct vectors *)trigger_data;
+-
+-	if ((str != NULL) && (is_root == false) &&
+-	    (strncmp(str, "list", strlen("list")) != 0) &&
+-	    (strncmp(str, "show", strlen("show")) != 0)) {
+-		*reply = STRDUP("permission deny: need to be root");
+-		if (*reply)
+-			*len = strlen(*reply) + 1;
+-		return 1;
+-	}
+-
+-	r = parse_cmd(str, reply, len, vecs, uxsock_timeout / 1000);
+-
+-	if (r > 0) {
+-		if (r == ETIMEDOUT)
+-			*reply = STRDUP("timeout\n");
+-		else
+-			*reply = STRDUP("fail\n");
+-		if (*reply)
+-			*len = strlen(*reply) + 1;
+-		r = 1;
+-	}
+-	else if (!r && *len == 0) {
+-		*reply = STRDUP("ok\n");
+-		if (*reply)
+-			*len = strlen(*reply) + 1;
+-		r = 0;
+-	}
+-	/* else if (r < 0) leave *reply alone */
+-
+-	return r;
+-}
+-
+ int
+ uev_trigger (struct uevent * uev, void * trigger_data)
+ {
+@@ -1704,7 +1662,7 @@ uxlsnrloop (void * ap)
+ 	       == DAEMON_CONFIGURE)
+ 		handle_signals(false);
+ 
+-	uxsock_listen(&uxsock_trigger, ux_sock, ap);
++	uxsock_listen(ux_sock, ap);
+ 
+ out_sock:
+ 	pthread_cleanup_pop(1); /* uxsock_cleanup */
 diff --git a/multipathd/uxlsnr.c b/multipathd/uxlsnr.c
-index 98a9f71..e701a1c 100644
+index e701a1c..622aac1 100644
 --- a/multipathd/uxlsnr.c
 +++ b/multipathd/uxlsnr.c
-@@ -40,10 +40,30 @@
- #include "main.h"
- #include "cli.h"
- #include "uxlsnr.h"
-+#include "strbuf.h"
-+
-+/* state of client connection */
-+enum {
-+	CLT_RECV,
-+	CLT_PARSE,
-+	CLT_WAIT_LOCK,
-+	CLT_WORK,
-+	CLT_SEND,
-+};
- 
- struct client {
- 	struct list_head node;
-+	struct timespec expires;
-+	int state;
- 	int fd;
-+	vector cmdvec;
-+	/* NUL byte at end */
-+	char cmd[_MAX_CMD_LEN + 1];
-+	struct strbuf reply;
-+	struct handler *handler;
-+	size_t cmd_len, len;
-+	int error;
-+	bool is_root;
- };
- 
- /* Indices for array of poll fds */
-@@ -104,14 +124,14 @@ static void new_client(int ux_sock)
- 	if (fd == -1)
- 		return;
- 
--	c = (struct client *)MALLOC(sizeof(*c));
-+	c = calloc(1, sizeof(*c));
- 	if (!c) {
- 		close(fd);
- 		return;
- 	}
--	memset(c, 0, sizeof(*c));
- 	INIT_LIST_HEAD(&c->node);
- 	c->fd = fd;
-+	c->state = CLT_RECV;
- 
- 	/* put it in our linked list */
- 	pthread_mutex_lock(&client_lock);
-@@ -127,6 +147,9 @@ static void _dead_client(struct client *c)
- 	int fd = c->fd;
- 	list_del_init(&c->node);
- 	c->fd = -1;
-+	reset_strbuf(&c->reply);
-+	if (c->cmdvec)
-+		free_keys(c->cmdvec);
- 	FREE(c);
- 	close(fd);
+@@ -311,11 +311,51 @@ static void handle_inotify(int fd, struct watch_descriptors *wds)
+ 		condlog(1, "Multipath configuration updated.\nReload multipathd for changes to take effect");
  }
+ 
++static int uxsock_trigger(char *str, char **reply, int *len,
++			  bool is_root, void *trigger_data)
++{
++	struct vectors * vecs;
++	int r;
++
++	*reply = NULL;
++	*len = 0;
++	vecs = (struct vectors *)trigger_data;
++
++	if ((str != NULL) && (is_root == false) &&
++	    (strncmp(str, "list", strlen("list")) != 0) &&
++	    (strncmp(str, "show", strlen("show")) != 0)) {
++		*reply = STRDUP("permission deny: need to be root");
++		if (*reply)
++			*len = strlen(*reply) + 1;
++		return 1;
++	}
++
++	r = parse_cmd(str, reply, len, vecs, uxsock_timeout / 1000);
++
++	if (r > 0) {
++		if (r == ETIMEDOUT)
++			*reply = STRDUP("timeout\n");
++		else
++			*reply = STRDUP("fail\n");
++		if (*reply)
++			*len = strlen(*reply) + 1;
++		r = 1;
++	}
++	else if (!r && *len == 0) {
++		*reply = STRDUP("ok\n");
++		if (*reply)
++			*len = strlen(*reply) + 1;
++		r = 0;
++	}
++	/* else if (r < 0) leave *reply alone */
++
++	return r;
++}
++
+ /*
+  * entry point
+  */
+-void * uxsock_listen(uxsock_trigger_fn uxsock_trigger, long ux_sock,
+-		     void * trigger_data)
++void *uxsock_listen(long ux_sock, void *trigger_data)
+ {
+ 	int rlen;
+ 	char *inbuf;
+diff --git a/multipathd/uxlsnr.h b/multipathd/uxlsnr.h
+index 18f008d..60c3a2c 100644
+--- a/multipathd/uxlsnr.h
++++ b/multipathd/uxlsnr.h
+@@ -3,10 +3,8 @@
+ 
+ #include <stdbool.h>
+ 
+-typedef int (uxsock_trigger_fn)(char *, char **, int *, bool, void *);
+-
+ void uxsock_cleanup(void *arg);
+-void *uxsock_listen(uxsock_trigger_fn uxsock_trigger, long ux_sock,
++void *uxsock_listen(long ux_sock,
+ 		    void * trigger_data);
+ 
+ #endif
 -- 
 2.33.0
 
