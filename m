@@ -2,65 +2,64 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D595B406AD7
-	for <lists+dm-devel@lfdr.de>; Fri, 10 Sep 2021 13:43:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CCD7F406ADD
+	for <lists+dm-devel@lfdr.de>; Fri, 10 Sep 2021 13:43:39 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-520-HWo6UXZaPCaLdWAd72X1Zg-1; Fri, 10 Sep 2021 07:43:29 -0400
-X-MC-Unique: HWo6UXZaPCaLdWAd72X1Zg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-194-DLtzOTvJNyyoGNdlqInqjQ-1; Fri, 10 Sep 2021 07:43:37 -0400
+X-MC-Unique: DLtzOTvJNyyoGNdlqInqjQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 060CD802CB7;
-	Fri, 10 Sep 2021 11:43:21 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D5C72802B9E;
+	Fri, 10 Sep 2021 11:43:30 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D40581B46D;
-	Fri, 10 Sep 2021 11:43:20 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B6E525453A;
+	Fri, 10 Sep 2021 11:43:30 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 926FB1805986;
-	Fri, 10 Sep 2021 11:43:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 75BCA181A1D1;
+	Fri, 10 Sep 2021 11:43:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18ABh0nW010225 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 10 Sep 2021 07:43:00 -0400
+	id 18ABh29x010280 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 10 Sep 2021 07:43:02 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 400DC63536; Fri, 10 Sep 2021 11:43:00 +0000 (UTC)
+	id 76DAF20807F0; Fri, 10 Sep 2021 11:43:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B6481FA864
-	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:43:00 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 71F7F2079761
+	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:43:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 235B8100B8C2
-	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:43:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5B0F2800883
+	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:43:02 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-162-w0C43yZVPWWPvNY6yzVFug-1; Fri, 10 Sep 2021 07:42:57 -0400
-X-MC-Unique: w0C43yZVPWWPvNY6yzVFug-1
+	us-mta-164-wgvrt1bwM1iKutPuiZtrBQ-1; Fri, 10 Sep 2021 07:42:58 -0400
+X-MC-Unique: wgvrt1bwM1iKutPuiZtrBQ-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 9131A22434;
-	Fri, 10 Sep 2021 11:42:56 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 2782A2243A;
+	Fri, 10 Sep 2021 11:42:57 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3945013D34;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9373E13EC8;
 	Fri, 10 Sep 2021 11:42:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id MDYBDMBEO2GPOAAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id eOnvIcBEO2GPOAAAMHmgww
 	(envelope-from <mwilck@suse.com>); Fri, 10 Sep 2021 11:42:56 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 10 Sep 2021 13:41:03 +0200
-Message-Id: <20210910114120.13665-19-mwilck@suse.com>
+Date: Fri, 10 Sep 2021 13:41:04 +0200
+Message-Id: <20210910114120.13665-20-mwilck@suse.com>
 In-Reply-To: <20210910114120.13665-1-mwilck@suse.com>
 References: <20210910114120.13665-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -72,14 +71,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 18ABh0nW010225
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 18ABh29x010280
 X-loop: dm-devel@redhat.com
 Cc: lixiaokeng@huawei.com, Chongyun Wu <wu.chongyun@h3c.com>,
 	dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 18/35] multipathd: uxlsnr: avoid using fd -1 in
-	ppoll()
+Subject: [dm-devel] [PATCH 19/35] multipathd: uxlsnr: data structure for
+	stateful client connection
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,7 +92,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -103,35 +102,85 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Minor edit: if notifications are off, we set the poll fd to
--1 but still use the POLLIN mask. It looks nicer if to poll
-the correct fd, but reset the event mask to 0 if we're not
-actually interested in it.
+Currently the uxlsnr handles each client request (receive requset -
+handle request - respond) in a single loop iteration. This has
+severe disadvantages. In particular, the code may wait in poll()
+called from read_all(), or wait for the vecs lock, while other
+clients are ready to be serviced or signals to be handled.
+
+This patch adds some fields to "struct client" which will be used
+by later patches to change this into a state machine that basically
+waits only in place, the ppoll() call in uxsock_listen().
+
+For now, we just introduce and initialize the fields.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipathd/uxlsnr.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ multipathd/uxlsnr.c | 27 +++++++++++++++++++++++++--
+ 1 file changed, 25 insertions(+), 2 deletions(-)
 
 diff --git a/multipathd/uxlsnr.c b/multipathd/uxlsnr.c
-index 6506109..98a9f71 100644
+index 98a9f71..e701a1c 100644
 --- a/multipathd/uxlsnr.c
 +++ b/multipathd/uxlsnr.c
-@@ -357,11 +357,11 @@ void * uxsock_listen(uxsock_trigger_fn uxsock_trigger, long ux_sock,
- 		}
+@@ -40,10 +40,30 @@
+ #include "main.h"
+ #include "cli.h"
+ #include "uxlsnr.h"
++#include "strbuf.h"
++
++/* state of client connection */
++enum {
++	CLT_RECV,
++	CLT_PARSE,
++	CLT_WAIT_LOCK,
++	CLT_WORK,
++	CLT_SEND,
++};
  
- 		reset_watch(notify_fd, &wds, &sequence_nr);
-+		polls[POLLFD_NOTIFY].fd = notify_fd;
- 		if (notify_fd == -1 || (wds.conf_wd == -1 && wds.dir_wd == -1))
--			polls[POLLFD_NOTIFY].fd = -1;
-+			polls[POLLFD_NOTIFY].events = 0;
- 		else
--			polls[POLLFD_NOTIFY].fd = notify_fd;
--		polls[POLLFD_NOTIFY].events = POLLIN;
-+			polls[POLLFD_NOTIFY].events = POLLIN;
+ struct client {
+ 	struct list_head node;
++	struct timespec expires;
++	int state;
+ 	int fd;
++	vector cmdvec;
++	/* NUL byte at end */
++	char cmd[_MAX_CMD_LEN + 1];
++	struct strbuf reply;
++	struct handler *handler;
++	size_t cmd_len, len;
++	int error;
++	bool is_root;
+ };
  
- 		/* setup the clients */
- 		i = POLLFDS_BASE;
+ /* Indices for array of poll fds */
+@@ -104,14 +124,14 @@ static void new_client(int ux_sock)
+ 	if (fd == -1)
+ 		return;
+ 
+-	c = (struct client *)MALLOC(sizeof(*c));
++	c = calloc(1, sizeof(*c));
+ 	if (!c) {
+ 		close(fd);
+ 		return;
+ 	}
+-	memset(c, 0, sizeof(*c));
+ 	INIT_LIST_HEAD(&c->node);
+ 	c->fd = fd;
++	c->state = CLT_RECV;
+ 
+ 	/* put it in our linked list */
+ 	pthread_mutex_lock(&client_lock);
+@@ -127,6 +147,9 @@ static void _dead_client(struct client *c)
+ 	int fd = c->fd;
+ 	list_del_init(&c->node);
+ 	c->fd = -1;
++	reset_strbuf(&c->reply);
++	if (c->cmdvec)
++		free_keys(c->cmdvec);
+ 	FREE(c);
+ 	close(fd);
+ }
 -- 
 2.33.0
 
