@@ -1,66 +1,68 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id E03BF406AEC
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 8C018406AEB
 	for <lists+dm-devel@lfdr.de>; Fri, 10 Sep 2021 13:44:03 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-556-N4748W-mOW-YyWWxNPu8cg-1; Fri, 10 Sep 2021 07:43:23 -0400
-X-MC-Unique: N4748W-mOW-YyWWxNPu8cg-1
+ us-mta-440-kQXqmWa2OQ2_O7NGurk1GQ-1; Fri, 10 Sep 2021 07:43:34 -0400
+X-MC-Unique: kQXqmWa2OQ2_O7NGurk1GQ-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D237C18B3127;
-	Fri, 10 Sep 2021 11:43:17 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B3130188E4;
-	Fri, 10 Sep 2021 11:43:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5CCB8802C80;
+	Fri, 10 Sep 2021 11:43:28 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3CB6C5453A;
+	Fri, 10 Sep 2021 11:43:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6E1CA4EA30;
-	Fri, 10 Sep 2021 11:43:17 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F19781818480;
+	Fri, 10 Sep 2021 11:43:27 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18ABgwGC010160 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 10 Sep 2021 07:42:58 -0400
+	id 18ABh3ao010315 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 10 Sep 2021 07:43:03 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5D5421FA864; Fri, 10 Sep 2021 11:42:58 +0000 (UTC)
+	id 7B949210C6D4; Fri, 10 Sep 2021 11:43:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 511821FA848
-	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:42:55 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 753D5210FE34
+	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:42:53 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0FB91811E7A
-	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:42:55 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) (Using
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B685A8007B1
+	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:42:53 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-213-UcQW3yUCNva_NhHLtI-Z7g-1; Fri, 10 Sep 2021 07:42:51 -0400
-X-MC-Unique: UcQW3yUCNva_NhHLtI-Z7g-1
+	us-mta-353-OF9l7RTXOsaO-eu6JAAXRA-1; Fri, 10 Sep 2021 07:42:51 -0400
+X-MC-Unique: OF9l7RTXOsaO-eu6JAAXRA-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C723E20060;
-	Fri, 10 Sep 2021 11:42:49 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 2BDDC22428;
+	Fri, 10 Sep 2021 11:42:50 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7B6CA13D34;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D57D613D34;
 	Fri, 10 Sep 2021 11:42:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id 7sIFHLlEO2GPOAAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id yLEhMrlEO2GPOAAAMHmgww
 	(envelope-from <mwilck@suse.com>); Fri, 10 Sep 2021 11:42:49 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 10 Sep 2021 13:40:45 +0200
-Message-Id: <20210910114120.13665-1-mwilck@suse.com>
+Date: Fri, 10 Sep 2021 13:40:46 +0200
+Message-Id: <20210910114120.13665-2-mwilck@suse.com>
+In-Reply-To: <20210910114120.13665-1-mwilck@suse.com>
+References: <20210910114120.13665-1-mwilck@suse.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -70,13 +72,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 18ABgwGC010160
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 18ABh3ao010315
 X-loop: dm-devel@redhat.com
 Cc: lixiaokeng@huawei.com, Chongyun Wu <wu.chongyun@h3c.com>,
 	dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 00/35] multipathd: uxlsnr overhaul
+Subject: [dm-devel] [PATCH 01/35] libmultipath: add timespeccmp() utility
+	function
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,133 +103,59 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Hello Christophe, hello Ben,
+Add a small utility that will be used in later patches.
 
-The current multipathd unix listener code has various deficiencies.
+Signed-off-by: Martin Wilck <mwilck@suse.com>
+---
+ libmultipath/libmultipath.version |  5 +++++
+ libmultipath/time-util.c          | 12 ++++++++++++
+ libmultipath/time-util.h          |  1 +
+ 3 files changed, 18 insertions(+)
 
- - client disconnects aren't handled correctly,
- - the uxsock_timeout is applied for receiving, handling, and
-   responding to the client requests separately, rather than for
-   the entire operation,
- - timeouts are logged, but not acted upon, causing the timeout
-   to be noticed in the client rather than in the server.
- - clients may see a timeout while "reconfigure" is running,
- - unpriviledged (non-root) client connections don't work
-   correctly
- - most importantly, the code busy-loops, polls, or waits in
-   various places in called subroutines, which is a no-go in a
-   piece of code designed as an event handler and may lead
-   to spurious timeouts and delayed reaction e.g. to signals
-   or client requests.
-
-This patch set approaches all these issues. Fixing the last one,
-in particular, requires a major refactoring of the uxlsnr code.
-Overall, the reliability and latency of client request handling
-and signal handling by multipathd should be noticeably improved
-by this patch set.
-
-The biggest problem (waiting for the vecs lock in a client handler)
-can only be fixed by moving this wait into the handlers ppoll()
-loop (another possible fix would have been to handle all clients
-in separate threads, but that would have required even more
-complexity). The patch set achieves this by adding an eventfd-based
-notification mechanism to the vecs lock, which can be passed to
-ppoll() to wake up when the lock is freed.
-
-Furthermore, client requests can't be handled in a single poll
-iteration any more. Therefore the client connection becomes stateful,
-and is handled by a state machine using the states RECEIVE, PARSE,
-WAIT FOR LOCK, WORK, and SEND.
-
-The refactoring is done step by step for ease (hopefully) of
-review. 1/35-4/35 add utility code that will be used by the uxlsnr
-refactoring. 5/35-7/35 are some independent patches that
-aren't directly related to uxlnsr, but fix issues that I observed
-while working on this set. 14/35 too, but it deserves special mention
-becaiuse it introduces a new option and changes the default behavior
-of "multipathd reconfigure".
-
-8/35-13/35 are minor fixups in the client handling code. This code is
-strongly related to the uxlsnr, thus I thought I'd rather fix it
-before making the other changes. In 25/35, the cli-handlers are
-converted to use the strbuf API everywhere instead of separate "reply"
-and "len" arguments. 15/35-18/35 are minor fixes for the
-uxlsnr. 19/35-34/35 are the actual refactoring patches for the uxlsnr
-code. First I move some code around unchanged, then I add the
-state machine (handle_client()) and move the code into it piece
-by piece. 35/35 adds a fix for the client side (multipathd -k).
-
-CC'ing Lixiaokeng and Chongyun Wu, as they have test cases that use
-the client code heavily AFAIR. Testing by 3rd parties would be
-very welcome.
-
-Comments welcome, regards,
-Martin
-
-Martin Wilck (35):
-  libmultipath: add timespeccmp() utility function
-  libmultipath: add trylock() helper
-  libmultipath: add optional wakeup functionality to lock.c
-  libmultipath: print: add __snprint_config()
-  libmultipath: improve cleanup of uevent queues on exit
-  multipathd: fix systemd notification when stopping while reloading
-  multipathd: improve delayed reconfigure
-  multipathd: cli.h: formatting improvements
-  multipathd: cli_del_map: fix reply for delayed action
-  multipathd: add prototype for cli_handler functions
-  multipathd: make all cli_handlers static
-  multipathd: add and set cli_handlers in a single step
-  multipathd: cli.c: use ESRCH for "command not found"
-  multipathd: add "force_reconfigure" option
-  multipathd: uxlsnr: avoid stalled clients during reconfigure
-  multipathd: uxlsnr: handle client HUP
-  multipathd: uxlsnr: use symbolic values for pollfd indices
-  multipathd: uxlsnr: avoid using fd -1 in ppoll()
-  multipathd: uxlsnr: data structure for stateful client connection
-  multipathd: move uxsock_trigger() to uxlsnr.c
-  multipathd: move parse_cmd() to uxlsnr.c
-  multipathd: uxlsnr: remove check_timeout()
-  multipathd: uxlsnr: move client handling to separate function
-  multipathd: uxlsnr: use main poll loop for receiving
-  multipathd: use strbuf in cli_handler functions
-  multipathd: uxlsnr: check root on connection startup
-  multipathd: uxlsnr: pass struct client to uxsock_trigger() and
-    parse_cmd()
-  multipathd: uxlsnr: move handler execution to separate function
-  multipathd: uxlsnr: use parser to determine non-root commands
-  multipathd: uxlsnr: merge uxsock_trigger() into state machine
-  multipathd: uxlsnr: add idle notification
-  multipathd: uxlsnr: add timeout handling
-  multipathd: uxlsnr: use poll loop for sending, too
-  multipathd: uxlsnr: drop client_lock
-  multipathd: uxclt: allow client mode for non-root, too
-
- libmultipath/config.c             |   1 +
- libmultipath/config.h             |   1 +
- libmultipath/configure.c          |  19 +-
- libmultipath/defaults.h           |   1 +
- libmultipath/dict.c               |   4 +
- libmultipath/libmultipath.version |  15 +
- libmultipath/lock.c               |  12 +-
- libmultipath/lock.h               |  11 +-
- libmultipath/print.c              |  34 +-
- libmultipath/print.h              |   2 +
- libmultipath/time-util.c          |  12 +
- libmultipath/time-util.h          |   1 +
- libmultipath/uevent.c             |  49 ++-
- multipath/multipath.8             |   6 +-
- multipath/multipath.conf.5        |  17 +
- multipathd/cli.c                  | 172 ++-------
- multipathd/cli.h                  | 101 +++---
- multipathd/cli_handlers.c         | 553 ++++++++++++++---------------
- multipathd/cli_handlers.h         |  61 +---
- multipathd/main.c                 | 238 +++++--------
- multipathd/main.h                 |   3 +-
- multipathd/multipathd.8           |   6 +-
- multipathd/uxlsnr.c               | 566 +++++++++++++++++++++++-------
- multipathd/uxlsnr.h               |   4 +-
- 24 files changed, 1043 insertions(+), 846 deletions(-)
-
+diff --git a/libmultipath/libmultipath.version b/libmultipath/libmultipath.version
+index eb5b5b5..c98cf7f 100644
+--- a/libmultipath/libmultipath.version
++++ b/libmultipath/libmultipath.version
+@@ -287,3 +287,8 @@ global:
+ local:
+ 	*;
+ };
++
++LIBMULTIPATH_9.1.0 {
++global:
++	timespeccmp;
++} LIBMULTIPATH_9.0.0;
+diff --git a/libmultipath/time-util.c b/libmultipath/time-util.c
+index 55f366c..2919300 100644
+--- a/libmultipath/time-util.c
++++ b/libmultipath/time-util.c
+@@ -49,3 +49,15 @@ void timespecsub(const struct timespec *a, const struct timespec *b,
+ 	res->tv_nsec = a->tv_nsec - b->tv_nsec;
+ 	normalize_timespec(res);
+ }
++
++int timespeccmp(const struct timespec *a, const struct timespec *b)
++{
++	struct timespec tmp;
++
++	timespecsub(a, b, &tmp);
++	if (tmp.tv_sec > 0)
++		return 1;
++	if (tmp.tv_sec < 0)
++		return -1;
++	return tmp.tv_nsec > 0 ? 1 : (tmp.tv_nsec < 0 ? -1 : 0);
++}
+diff --git a/libmultipath/time-util.h b/libmultipath/time-util.h
+index b23d328..4a80ebd 100644
+--- a/libmultipath/time-util.h
++++ b/libmultipath/time-util.h
+@@ -10,5 +10,6 @@ void pthread_cond_init_mono(pthread_cond_t *cond);
+ void normalize_timespec(struct timespec *ts);
+ void timespecsub(const struct timespec *a, const struct timespec *b,
+ 		 struct timespec *res);
++int timespeccmp(const struct timespec *a, const struct timespec *b);
+ 
+ #endif /* _TIME_UTIL_H_ */
 -- 
 2.33.0
 
