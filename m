@@ -2,65 +2,64 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8C018406AEB
-	for <lists+dm-devel@lfdr.de>; Fri, 10 Sep 2021 13:44:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E5F8A406B06
+	for <lists+dm-devel@lfdr.de>; Fri, 10 Sep 2021 13:52:32 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-440-kQXqmWa2OQ2_O7NGurk1GQ-1; Fri, 10 Sep 2021 07:43:34 -0400
-X-MC-Unique: kQXqmWa2OQ2_O7NGurk1GQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-303-Y82QNA7JNvS84jSoLd4XXw-1; Fri, 10 Sep 2021 07:52:30 -0400
+X-MC-Unique: Y82QNA7JNvS84jSoLd4XXw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5CCB8802C80;
-	Fri, 10 Sep 2021 11:43:28 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3CB6C5453A;
-	Fri, 10 Sep 2021 11:43:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F039F1006AA8;
+	Fri, 10 Sep 2021 11:52:24 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6AB131972E;
+	Fri, 10 Sep 2021 11:52:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F19781818480;
-	Fri, 10 Sep 2021 11:43:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 905665002E;
+	Fri, 10 Sep 2021 11:52:19 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18ABh3ao010315 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 10 Sep 2021 07:43:03 -0400
+	id 18ABhgH9010720 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 10 Sep 2021 07:43:42 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7B949210C6D4; Fri, 10 Sep 2021 11:43:03 +0000 (UTC)
+	id 31FC710BFD62; Fri, 10 Sep 2021 11:43:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 753D5210FE34
-	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:42:53 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 29B8610BFD82
+	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:43:36 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B685A8007B1
-	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:42:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7281C1881211
+	for <dm-devel@redhat.com>; Fri, 10 Sep 2021 11:43:36 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-353-OF9l7RTXOsaO-eu6JAAXRA-1; Fri, 10 Sep 2021 07:42:51 -0400
-X-MC-Unique: OF9l7RTXOsaO-eu6JAAXRA-1
+	us-mta-514-J4-UCbIkObGN9IBC34VYsw-1; Fri, 10 Sep 2021 07:42:52 -0400
+X-MC-Unique: J4-UCbIkObGN9IBC34VYsw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2BDDC22428;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8C5F822430;
 	Fri, 10 Sep 2021 11:42:50 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D57D613D34;
-	Fri, 10 Sep 2021 11:42:49 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 39DBD13D34;
+	Fri, 10 Sep 2021 11:42:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id yLEhMrlEO2GPOAAAMHmgww
-	(envelope-from <mwilck@suse.com>); Fri, 10 Sep 2021 11:42:49 +0000
+	by imap2.suse-dmz.suse.de with ESMTPSA id aEv1C7pEO2GPOAAAMHmgww
+	(envelope-from <mwilck@suse.com>); Fri, 10 Sep 2021 11:42:50 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 10 Sep 2021 13:40:46 +0200
-Message-Id: <20210910114120.13665-2-mwilck@suse.com>
+Date: Fri, 10 Sep 2021 13:40:47 +0200
+Message-Id: <20210910114120.13665-3-mwilck@suse.com>
 In-Reply-To: <20210910114120.13665-1-mwilck@suse.com>
 References: <20210910114120.13665-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -72,14 +71,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 18ABh3ao010315
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 18ABhgH9010720
 X-loop: dm-devel@redhat.com
 Cc: lixiaokeng@huawei.com, Chongyun Wu <wu.chongyun@h3c.com>,
 	dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 01/35] libmultipath: add timespeccmp() utility
-	function
+Subject: [dm-devel] [PATCH 02/35] libmultipath: add trylock() helper
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,7 +91,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -103,59 +101,29 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Add a small utility that will be used in later patches.
+Add a small helper.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/libmultipath.version |  5 +++++
- libmultipath/time-util.c          | 12 ++++++++++++
- libmultipath/time-util.h          |  1 +
- 3 files changed, 18 insertions(+)
+ libmultipath/lock.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/libmultipath/libmultipath.version b/libmultipath/libmultipath.version
-index eb5b5b5..c98cf7f 100644
---- a/libmultipath/libmultipath.version
-+++ b/libmultipath/libmultipath.version
-@@ -287,3 +287,8 @@ global:
- local:
- 	*;
- };
-+
-+LIBMULTIPATH_9.1.0 {
-+global:
-+	timespeccmp;
-+} LIBMULTIPATH_9.0.0;
-diff --git a/libmultipath/time-util.c b/libmultipath/time-util.c
-index 55f366c..2919300 100644
---- a/libmultipath/time-util.c
-+++ b/libmultipath/time-util.c
-@@ -49,3 +49,15 @@ void timespecsub(const struct timespec *a, const struct timespec *b,
- 	res->tv_nsec = a->tv_nsec - b->tv_nsec;
- 	normalize_timespec(res);
+diff --git a/libmultipath/lock.h b/libmultipath/lock.h
+index a170efe..d99eedb 100644
+--- a/libmultipath/lock.h
++++ b/libmultipath/lock.h
+@@ -12,6 +12,11 @@ static inline void lock(struct mutex_lock *a)
+ 	pthread_mutex_lock(&a->mutex);
  }
-+
-+int timespeccmp(const struct timespec *a, const struct timespec *b)
-+{
-+	struct timespec tmp;
-+
-+	timespecsub(a, b, &tmp);
-+	if (tmp.tv_sec > 0)
-+		return 1;
-+	if (tmp.tv_sec < 0)
-+		return -1;
-+	return tmp.tv_nsec > 0 ? 1 : (tmp.tv_nsec < 0 ? -1 : 0);
-+}
-diff --git a/libmultipath/time-util.h b/libmultipath/time-util.h
-index b23d328..4a80ebd 100644
---- a/libmultipath/time-util.h
-+++ b/libmultipath/time-util.h
-@@ -10,5 +10,6 @@ void pthread_cond_init_mono(pthread_cond_t *cond);
- void normalize_timespec(struct timespec *ts);
- void timespecsub(const struct timespec *a, const struct timespec *b,
- 		 struct timespec *res);
-+int timespeccmp(const struct timespec *a, const struct timespec *b);
  
- #endif /* _TIME_UTIL_H_ */
++static inline int trylock(struct mutex_lock *a)
++{
++	return pthread_mutex_trylock(&a->mutex);
++}
++
+ static inline int timedlock(struct mutex_lock *a, struct timespec *tmo)
+ {
+ 	return pthread_mutex_timedlock(&a->mutex, tmo);
 -- 
 2.33.0
 
