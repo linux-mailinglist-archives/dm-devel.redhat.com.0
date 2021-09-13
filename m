@@ -1,51 +1,52 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 5F0834082A9
-	for <lists+dm-devel@lfdr.de>; Mon, 13 Sep 2021 03:42:15 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 1BDCA4082AC
+	for <lists+dm-devel@lfdr.de>; Mon, 13 Sep 2021 03:43:03 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-121-qaVxLLZGM86wf7QcEm5gog-1; Sun, 12 Sep 2021 21:42:12 -0400
-X-MC-Unique: qaVxLLZGM86wf7QcEm5gog-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-442-Cqr4Pcv2MaqfMsSqkASN6A-1; Sun, 12 Sep 2021 21:42:10 -0400
+X-MC-Unique: Cqr4Pcv2MaqfMsSqkASN6A-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 004E780292A;
-	Mon, 13 Sep 2021 01:42:07 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C68C41972E;
-	Mon, 13 Sep 2021 01:42:06 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9D95C343CF;
+	Mon, 13 Sep 2021 01:42:05 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CBEE21B472;
+	Mon, 13 Sep 2021 01:42:04 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 836851809C81;
-	Mon, 13 Sep 2021 01:42:06 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 520C04EA2A;
+	Mon, 13 Sep 2021 01:41:53 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18D1fe5V003386 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 12 Sep 2021 21:41:40 -0400
+	id 18D1fdW8003362 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 12 Sep 2021 21:41:39 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1D4191111425; Mon, 13 Sep 2021 01:41:40 +0000 (UTC)
+	id 3B2E82167D60; Mon, 13 Sep 2021 01:41:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 18DD51111420
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 348002167D6E
 	for <dm-devel@redhat.com>; Mon, 13 Sep 2021 01:41:36 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DB577185A7A4
-	for <dm-devel@redhat.com>; Mon, 13 Sep 2021 01:41:35 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 070FC8007B1
+	for <dm-devel@redhat.com>; Mon, 13 Sep 2021 01:41:36 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-549-1nd0KhL3O82tySRxJMc77Q-1;
+	by relay.mimecast.com with ESMTP id us-mta-551--2n_B0zgNl6yspYZS8tTHA-1;
 	Sun, 12 Sep 2021 21:41:34 -0400
-X-MC-Unique: 1nd0KhL3O82tySRxJMc77Q-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5DF5C61057;
+X-MC-Unique: -2n_B0zgNl6yspYZS8tTHA-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9A50D6108E;
 	Mon, 13 Sep 2021 01:35:27 +0000 (UTC)
 From: Eric Biggers <ebiggers@kernel.org>
 To: linux-block@vger.kernel.org
-Date: Sun, 12 Sep 2021 18:31:32 -0700
-Message-Id: <20210913013135.102404-3-ebiggers@kernel.org>
+Date: Sun, 12 Sep 2021 18:31:33 -0700
+Message-Id: <20210913013135.102404-4-ebiggers@kernel.org>
 In-Reply-To: <20210913013135.102404-1-ebiggers@kernel.org>
 References: <20210913013135.102404-1-ebiggers@kernel.org>
 MIME-Version: 1.0
@@ -57,12 +58,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: Satya Tangirala <satyaprateek2357@gmail.com>, dm-devel@redhat.com,
 	linux-mmc@vger.kernel.org, linux-scsi@vger.kernel.org
-Subject: [dm-devel] [PATCH 2/5] blk-crypto-fallback: consolidate static
-	variables
+Subject: [dm-devel] [PATCH 3/5] blk-crypto: rename keyslot-manager files to
+	blk-crypto-profile
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -76,7 +77,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -86,499 +87,153 @@ Content-Transfer-Encoding: 7bit
 
 From: Eric Biggers <ebiggers@google.com>
 
-blk-crypto-fallback.c has many static variables with inconsistent names,
-e.g. "blk_crypto_*", "crypto_*", and some unprefixed names.  This is
-confusing.  Consolidate them all into a struct named
-"blk_crypto_fallback" so that it's clear what they are.
+In preparation for renaming struct blk_keyslot_manager to struct
+blk_crypto_profile, rename the keyslot-manager.h and keyslot-manager.c
+source files.  Renaming these files separately before making a lot of
+changes to their contents makes it easier for git to understand that
+they were renamed.
 
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- block/blk-crypto-fallback.c | 251 +++++++++++++++++++-----------------
- 1 file changed, 136 insertions(+), 115 deletions(-)
+ block/Makefile                                            | 2 +-
+ block/blk-crypto-fallback.c                               | 2 +-
+ block/{keyslot-manager.c => blk-crypto-profile.c}         | 2 +-
+ block/blk-crypto.c                                        | 2 +-
+ drivers/md/dm-core.h                                      | 2 +-
+ drivers/md/dm.c                                           | 2 +-
+ drivers/mmc/host/cqhci-crypto.c                           | 2 +-
+ drivers/scsi/ufs/ufshcd.h                                 | 2 +-
+ include/linux/{keyslot-manager.h => blk-crypto-profile.h} | 0
+ include/linux/mmc/host.h                                  | 2 +-
+ 10 files changed, 9 insertions(+), 9 deletions(-)
+ rename block/{keyslot-manager.c => blk-crypto-profile.c} (99%)
+ rename include/linux/{keyslot-manager.h => blk-crypto-profile.h} (100%)
 
+diff --git a/block/Makefile b/block/Makefile
+index 41aa1ba69c900..c245e05b67453 100644
+--- a/block/Makefile
++++ b/block/Makefile
+@@ -36,6 +36,6 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
+ obj-$(CONFIG_BLK_DEBUG_FS_ZONED)+= blk-mq-debugfs-zoned.o
+ obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
+ obj-$(CONFIG_BLK_PM)		+= blk-pm.o
+-obj-$(CONFIG_BLK_INLINE_ENCRYPTION)	+= keyslot-manager.o blk-crypto.o
++obj-$(CONFIG_BLK_INLINE_ENCRYPTION)	+= blk-crypto.o blk-crypto-profile.o
+ obj-$(CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK)	+= blk-crypto-fallback.o
+ obj-$(CONFIG_BLOCK_HOLDER_DEPRECATED)	+= holder.o
 diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
-index 82b302597b474..a4a444c83fb3c 100644
+index a4a444c83fb3c..9ffbd169e2601 100644
 --- a/block/blk-crypto-fallback.c
 +++ b/block/blk-crypto-fallback.c
-@@ -21,20 +21,10 @@
+@@ -12,9 +12,9 @@
+ #include <crypto/skcipher.h>
+ #include <linux/blk-cgroup.h>
+ #include <linux/blk-crypto.h>
++#include <linux/blk-crypto-profile.h>
+ #include <linux/blkdev.h>
+ #include <linux/crypto.h>
+-#include <linux/keyslot-manager.h>
+ #include <linux/mempool.h>
+ #include <linux/module.h>
+ #include <linux/random.h>
+diff --git a/block/keyslot-manager.c b/block/blk-crypto-profile.c
+similarity index 99%
+rename from block/keyslot-manager.c
+rename to block/blk-crypto-profile.c
+index 2c4a55bea6ca1..a58daf93c9ba6 100644
+--- a/block/keyslot-manager.c
++++ b/block/blk-crypto-profile.c
+@@ -28,7 +28,7 @@
  
- #include "blk-crypto-internal.h"
+ #define pr_fmt(fmt) "blk-crypto: " fmt
  
--static unsigned int num_prealloc_bounce_pg = 32;
--module_param(num_prealloc_bounce_pg, uint, 0);
--MODULE_PARM_DESC(num_prealloc_bounce_pg,
--		 "Number of preallocated bounce pages for the blk-crypto crypto API fallback");
--
--static unsigned int blk_crypto_num_keyslots = 100;
--module_param_named(num_keyslots, blk_crypto_num_keyslots, uint, 0);
--MODULE_PARM_DESC(num_keyslots,
--		 "Number of keyslots for the blk-crypto crypto API fallback");
--
--static unsigned int num_prealloc_fallback_crypt_ctxs = 128;
--module_param(num_prealloc_fallback_crypt_ctxs, uint, 0);
--MODULE_PARM_DESC(num_prealloc_crypt_fallback_ctxs,
--		 "Number of preallocated bio fallback crypto contexts for blk-crypto to use during crypto API fallback");
-+struct blk_crypto_fallback_keyslot {
-+	enum blk_crypto_mode_num crypto_mode;
-+	struct crypto_skcipher *tfms[BLK_ENCRYPTION_MODE_MAX];
-+};
+-#include <linux/keyslot-manager.h>
++#include <linux/blk-crypto-profile.h>
+ #include <linux/device.h>
+ #include <linux/atomic.h>
+ #include <linux/mutex.h>
+diff --git a/block/blk-crypto.c b/block/blk-crypto.c
+index 103c2e2d50d67..9102803d36232 100644
+--- a/block/blk-crypto.c
++++ b/block/blk-crypto.c
+@@ -11,7 +11,7 @@
  
- struct bio_fallback_crypt_ctx {
- 	struct bio_crypt_ctx crypt_ctx;
-@@ -57,47 +47,80 @@ struct bio_fallback_crypt_ctx {
- 	};
- };
+ #include <linux/bio.h>
+ #include <linux/blkdev.h>
+-#include <linux/keyslot-manager.h>
++#include <linux/blk-crypto-profile.h>
+ #include <linux/module.h>
+ #include <linux/slab.h>
  
--static struct kmem_cache *bio_fallback_crypt_ctx_cache;
--static mempool_t *bio_fallback_crypt_ctx_pool;
-+/* All state for blk-crypto-fallback */
-+static struct blk_crypto_fallback {
-+	unsigned int num_prealloc_bounce_pg;
-+	unsigned int num_keyslots;
-+	unsigned int num_prealloc_crypt_ctxs;
+diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
+index 55dccdfbcb22e..841ed87999e79 100644
+--- a/drivers/md/dm-core.h
++++ b/drivers/md/dm-core.h
+@@ -13,7 +13,7 @@
+ #include <linux/ktime.h>
+ #include <linux/genhd.h>
+ #include <linux/blk-mq.h>
+-#include <linux/keyslot-manager.h>
++#include <linux/blk-crypto-profile.h>
  
--/*
-- * Allocating a crypto tfm during I/O can deadlock, so we have to preallocate
-- * all of a mode's tfms when that mode starts being used. Since each mode may
-- * need all the keyslots at some point, each mode needs its own tfm for each
-- * keyslot; thus, a keyslot may contain tfms for multiple modes.  However, to
-- * match the behavior of real inline encryption hardware (which only supports a
-- * single encryption context per keyslot), we only allow one tfm per keyslot to
-- * be used at a time - the rest of the unused tfms have their keys cleared.
-- */
--static DEFINE_MUTEX(tfms_init_lock);
--static bool tfms_inited[BLK_ENCRYPTION_MODE_MAX];
-+	bool initialized;
+ #include <trace/events/block.h>
  
--static struct blk_crypto_fallback_keyslot {
--	enum blk_crypto_mode_num crypto_mode;
--	struct crypto_skcipher *tfms[BLK_ENCRYPTION_MODE_MAX];
--} *blk_crypto_keyslots;
-+	/*
-+	 * This is the key we set when evicting a keyslot. This *should* be the
-+	 * all 0's key, but AES-XTS rejects that key, so we use some random
-+	 * bytes instead.
-+	 */
-+	u8 blank_key[BLK_CRYPTO_MAX_KEY_SIZE];
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index a011d09cb0fac..249223e20d3d0 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -29,7 +29,7 @@
+ #include <linux/refcount.h>
+ #include <linux/part_stat.h>
+ #include <linux/blk-crypto.h>
+-#include <linux/keyslot-manager.h>
++#include <linux/blk-crypto-profile.h>
  
--static struct blk_keyslot_manager blk_crypto_ksm;
--static struct workqueue_struct *blk_crypto_wq;
--static mempool_t *blk_crypto_bounce_page_pool;
--static struct bio_set crypto_bio_split;
-+	struct bio_set bio_split;
+ #define DM_MSG_PREFIX "core"
  
--/*
-- * This is the key we set when evicting a keyslot. This *should* be the all 0's
-- * key, but AES-XTS rejects that key, so we use some random bytes instead.
-- */
--static u8 blank_key[BLK_CRYPTO_MAX_KEY_SIZE];
-+	struct blk_keyslot_manager ksm;
-+
-+	struct workqueue_struct *decrypt_wq;
-+
-+	struct blk_crypto_fallback_keyslot *keyslots;
-+
-+	mempool_t *bounce_page_pool;
-+	struct kmem_cache *crypt_ctx_cache;
-+	mempool_t *crypt_ctx_pool;
-+
-+	/*
-+	 * Allocating a crypto tfm during I/O can deadlock, so we have to
-+	 * preallocate all of a mode's tfms when that mode starts being used.
-+	 * Since each mode may need all the keyslots at some point, each mode
-+	 * needs its own tfm for each keyslot; thus, a keyslot may contain tfms
-+	 * for multiple modes.  However, to match the behavior of real inline
-+	 * encryption hardware (which only supports a single encryption context
-+	 * per keyslot), we only allow one tfm per keyslot to be used at a time
-+	 * - the rest of the unused tfms have their keys cleared.
-+	 */
-+	struct mutex tfms_init_lock;
-+	bool tfms_inited[BLK_ENCRYPTION_MODE_MAX];
-+
-+} blk_crypto_fallback = {
-+	.num_prealloc_bounce_pg = 32,
-+	.num_keyslots = 100,
-+	.num_prealloc_crypt_ctxs = 128,
-+	.tfms_init_lock =
-+		__MUTEX_INITIALIZER(blk_crypto_fallback.tfms_init_lock),
-+};
-+
-+module_param_named(num_prealloc_bounce_pg,
-+		   blk_crypto_fallback.num_prealloc_bounce_pg, uint, 0);
-+MODULE_PARM_DESC(num_prealloc_bounce_pg,
-+		 "Number of preallocated bounce pages for the blk-crypto crypto API fallback");
-+
-+module_param_named(num_keyslots, blk_crypto_fallback.num_keyslots, uint, 0);
-+MODULE_PARM_DESC(num_keyslots,
-+		 "Number of keyslots for the blk-crypto crypto API fallback");
-+
-+module_param_named(num_prealloc_fallback_crypt_ctxs,
-+		   blk_crypto_fallback.num_prealloc_crypt_ctxs, uint, 0);
-+MODULE_PARM_DESC(num_prealloc_crypt_fallback_ctxs,
-+		 "Number of preallocated bio fallback crypto contexts for blk-crypto to use during crypto API fallback");
- 
- static void blk_crypto_fallback_evict_keyslot(unsigned int slot)
- {
--	struct blk_crypto_fallback_keyslot *slotp = &blk_crypto_keyslots[slot];
-+	struct blk_crypto_fallback *fallback = &blk_crypto_fallback;
-+	struct blk_crypto_fallback_keyslot *slotp = &fallback->keyslots[slot];
- 	enum blk_crypto_mode_num crypto_mode = slotp->crypto_mode;
- 	int err;
- 
- 	WARN_ON(slotp->crypto_mode == BLK_ENCRYPTION_MODE_INVALID);
- 
- 	/* Clear the key in the skcipher */
--	err = crypto_skcipher_setkey(slotp->tfms[crypto_mode], blank_key,
-+	err = crypto_skcipher_setkey(slotp->tfms[crypto_mode],
-+				     fallback->blank_key,
- 				     blk_crypto_modes[crypto_mode].keysize);
- 	WARN_ON(err);
- 	slotp->crypto_mode = BLK_ENCRYPTION_MODE_INVALID;
-@@ -107,7 +130,8 @@ static int blk_crypto_fallback_keyslot_program(struct blk_keyslot_manager *ksm,
- 					       const struct blk_crypto_key *key,
- 					       unsigned int slot)
- {
--	struct blk_crypto_fallback_keyslot *slotp = &blk_crypto_keyslots[slot];
-+	struct blk_crypto_fallback *fallback = &blk_crypto_fallback;
-+	struct blk_crypto_fallback_keyslot *slotp = &fallback->keyslots[slot];
- 	const enum blk_crypto_mode_num crypto_mode =
- 						key->crypto_cfg.crypto_mode;
- 	int err;
-@@ -134,16 +158,6 @@ static int blk_crypto_fallback_keyslot_evict(struct blk_keyslot_manager *ksm,
- 	return 0;
- }
- 
--/*
-- * The crypto API fallback KSM ops - only used for a bio when it specifies a
-- * blk_crypto_key that was not supported by the device's inline encryption
-- * hardware.
-- */
--static const struct blk_ksm_ll_ops blk_crypto_ksm_ll_ops = {
--	.keyslot_program	= blk_crypto_fallback_keyslot_program,
--	.keyslot_evict		= blk_crypto_fallback_keyslot_evict,
--};
--
- static void blk_crypto_fallback_encrypt_endio(struct bio *enc_bio)
- {
- 	struct bio *src_bio = enc_bio->bi_private;
-@@ -151,7 +165,7 @@ static void blk_crypto_fallback_encrypt_endio(struct bio *enc_bio)
- 
- 	for (i = 0; i < enc_bio->bi_vcnt; i++)
- 		mempool_free(enc_bio->bi_io_vec[i].bv_page,
--			     blk_crypto_bounce_page_pool);
-+			     blk_crypto_fallback.bounce_page_pool);
- 
- 	src_bio->bi_status = enc_bio->bi_status;
- 
-@@ -195,7 +209,7 @@ blk_crypto_fallback_alloc_cipher_req(struct blk_ksm_keyslot *slot,
- 	const struct blk_crypto_fallback_keyslot *slotp;
- 	int keyslot_idx = blk_ksm_get_slot_idx(slot);
- 
--	slotp = &blk_crypto_keyslots[keyslot_idx];
-+	slotp = &blk_crypto_fallback.keyslots[keyslot_idx];
- 	ciph_req = skcipher_request_alloc(slotp->tfms[slotp->crypto_mode],
- 					  GFP_NOIO);
- 	if (!ciph_req)
-@@ -227,7 +241,7 @@ static bool blk_crypto_fallback_split_bio_if_needed(struct bio **bio_ptr)
- 		struct bio *split_bio;
- 
- 		split_bio = bio_split(bio, num_sectors, GFP_NOIO,
--				      &crypto_bio_split);
-+				      &blk_crypto_fallback.bio_split);
- 		if (!split_bio) {
- 			bio->bi_status = BLK_STS_RESOURCE;
- 			return false;
-@@ -263,6 +277,7 @@ static void blk_crypto_dun_to_iv(const u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE],
+diff --git a/drivers/mmc/host/cqhci-crypto.c b/drivers/mmc/host/cqhci-crypto.c
+index 6419cfbb4ab78..628bbfaf83124 100644
+--- a/drivers/mmc/host/cqhci-crypto.c
++++ b/drivers/mmc/host/cqhci-crypto.c
+@@ -6,7 +6,7 @@
   */
- static bool blk_crypto_fallback_encrypt_bio(struct bio **bio_ptr)
- {
-+	struct blk_crypto_fallback *fallback = &blk_crypto_fallback;
- 	struct bio *src_bio, *enc_bio;
- 	struct bio_crypt_ctx *bc;
- 	struct blk_ksm_keyslot *slot;
-@@ -295,7 +310,7 @@ static bool blk_crypto_fallback_encrypt_bio(struct bio **bio_ptr)
- 	 * Use the crypto API fallback keyslot manager to get a crypto_skcipher
- 	 * for the algorithm and key specified for this bio.
- 	 */
--	blk_st = blk_ksm_get_slot_for_key(&blk_crypto_ksm, bc->bc_key, &slot);
-+	blk_st = blk_ksm_get_slot_for_key(&fallback->ksm, bc->bc_key, &slot);
- 	if (blk_st != BLK_STS_OK) {
- 		src_bio->bi_status = blk_st;
- 		goto out_put_enc_bio;
-@@ -319,7 +334,7 @@ static bool blk_crypto_fallback_encrypt_bio(struct bio **bio_ptr)
- 		struct bio_vec *enc_bvec = &enc_bio->bi_io_vec[i];
- 		struct page *plaintext_page = enc_bvec->bv_page;
- 		struct page *ciphertext_page =
--			mempool_alloc(blk_crypto_bounce_page_pool, GFP_NOIO);
-+			mempool_alloc(fallback->bounce_page_pool, GFP_NOIO);
  
- 		enc_bvec->bv_page = ciphertext_page;
+ #include <linux/blk-crypto.h>
+-#include <linux/keyslot-manager.h>
++#include <linux/blk-crypto-profile.h>
+ #include <linux/mmc/host.h>
  
-@@ -359,7 +374,7 @@ static bool blk_crypto_fallback_encrypt_bio(struct bio **bio_ptr)
- out_free_bounce_pages:
- 	while (i > 0)
- 		mempool_free(enc_bio->bi_io_vec[--i].bv_page,
--			     blk_crypto_bounce_page_pool);
-+			     fallback->bounce_page_pool);
- out_free_ciph_req:
- 	skcipher_request_free(ciph_req);
- out_release_keyslot:
-@@ -377,6 +392,7 @@ static bool blk_crypto_fallback_encrypt_bio(struct bio **bio_ptr)
-  */
- static void blk_crypto_fallback_decrypt_bio(struct work_struct *work)
- {
-+	struct blk_crypto_fallback *fallback = &blk_crypto_fallback;
- 	struct bio_fallback_crypt_ctx *f_ctx =
- 		container_of(work, struct bio_fallback_crypt_ctx, work);
- 	struct bio *bio = f_ctx->bio;
-@@ -397,7 +413,7 @@ static void blk_crypto_fallback_decrypt_bio(struct work_struct *work)
- 	 * Use the crypto API fallback keyslot manager to get a crypto_skcipher
- 	 * for the algorithm and key specified for this bio.
- 	 */
--	blk_st = blk_ksm_get_slot_for_key(&blk_crypto_ksm, bc->bc_key, &slot);
-+	blk_st = blk_ksm_get_slot_for_key(&fallback->ksm, bc->bc_key, &slot);
- 	if (blk_st != BLK_STS_OK) {
- 		bio->bi_status = blk_st;
- 		goto out_no_keyslot;
-@@ -437,7 +453,7 @@ static void blk_crypto_fallback_decrypt_bio(struct work_struct *work)
- 	skcipher_request_free(ciph_req);
- 	blk_ksm_put_slot(slot);
- out_no_keyslot:
--	mempool_free(f_ctx, bio_fallback_crypt_ctx_pool);
-+	mempool_free(f_ctx, fallback->crypt_ctx_pool);
- 	bio_endio(bio);
- }
+ #include "cqhci-crypto.h"
+diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
+index 52ea6f350b181..0f9cbe74642fe 100644
+--- a/drivers/scsi/ufs/ufshcd.h
++++ b/drivers/scsi/ufs/ufshcd.h
+@@ -32,7 +32,7 @@
+ #include <linux/regulator/consumer.h>
+ #include <linux/bitfield.h>
+ #include <linux/devfreq.h>
+-#include <linux/keyslot-manager.h>
++#include <linux/blk-crypto-profile.h>
+ #include "unipro.h"
  
-@@ -458,14 +474,14 @@ static void blk_crypto_fallback_decrypt_endio(struct bio *bio)
+ #include <asm/irq.h>
+diff --git a/include/linux/keyslot-manager.h b/include/linux/blk-crypto-profile.h
+similarity index 100%
+rename from include/linux/keyslot-manager.h
+rename to include/linux/blk-crypto-profile.h
+diff --git a/include/linux/mmc/host.h b/include/linux/mmc/host.h
+index 0c0c9a0fdf578..725b1de417673 100644
+--- a/include/linux/mmc/host.h
++++ b/include/linux/mmc/host.h
+@@ -15,7 +15,7 @@
+ #include <linux/mmc/card.h>
+ #include <linux/mmc/pm.h>
+ #include <linux/dma-direction.h>
+-#include <linux/keyslot-manager.h>
++#include <linux/blk-crypto-profile.h>
  
- 	/* If there was an IO error, don't queue for decrypt. */
- 	if (bio->bi_status) {
--		mempool_free(f_ctx, bio_fallback_crypt_ctx_pool);
-+		mempool_free(f_ctx, blk_crypto_fallback.crypt_ctx_pool);
- 		bio_endio(bio);
- 		return;
- 	}
- 
- 	INIT_WORK(&f_ctx->work, blk_crypto_fallback_decrypt_bio);
- 	f_ctx->bio = bio;
--	queue_work(blk_crypto_wq, &f_ctx->work);
-+	queue_work(blk_crypto_fallback.decrypt_wq, &f_ctx->work);
- }
- 
- /**
-@@ -490,17 +506,19 @@ static void blk_crypto_fallback_decrypt_endio(struct bio *bio)
-  */
- bool blk_crypto_fallback_bio_prep(struct bio **bio_ptr)
- {
-+	struct blk_crypto_fallback *fallback = &blk_crypto_fallback;
- 	struct bio *bio = *bio_ptr;
- 	struct bio_crypt_ctx *bc = bio->bi_crypt_context;
- 	struct bio_fallback_crypt_ctx *f_ctx;
- 
--	if (WARN_ON_ONCE(!tfms_inited[bc->bc_key->crypto_cfg.crypto_mode])) {
-+	if (WARN_ON_ONCE(!fallback->tfms_inited[
-+				bc->bc_key->crypto_cfg.crypto_mode])) {
- 		/* User didn't call blk_crypto_start_using_key() first */
- 		bio->bi_status = BLK_STS_IOERR;
- 		return false;
- 	}
- 
--	if (!blk_ksm_crypto_cfg_supported(&blk_crypto_ksm,
-+	if (!blk_ksm_crypto_cfg_supported(&fallback->ksm,
- 					  &bc->bc_key->crypto_cfg)) {
- 		bio->bi_status = BLK_STS_NOTSUPP;
- 		return false;
-@@ -513,7 +531,7 @@ bool blk_crypto_fallback_bio_prep(struct bio **bio_ptr)
- 	 * bio READ case: Set up a f_ctx in the bio's bi_private and set the
- 	 * bi_end_io appropriately to trigger decryption when the bio is ended.
- 	 */
--	f_ctx = mempool_alloc(bio_fallback_crypt_ctx_pool, GFP_NOIO);
-+	f_ctx = mempool_alloc(fallback->crypt_ctx_pool, GFP_NOIO);
- 	f_ctx->crypt_ctx = *bc;
- 	f_ctx->crypt_iter = bio->bi_iter;
- 	f_ctx->bi_private_orig = bio->bi_private;
-@@ -527,79 +545,82 @@ bool blk_crypto_fallback_bio_prep(struct bio **bio_ptr)
- 
- int blk_crypto_fallback_evict_key(const struct blk_crypto_key *key)
- {
--	return blk_ksm_evict_key(&blk_crypto_ksm, key);
-+	return blk_ksm_evict_key(&blk_crypto_fallback.ksm, key);
- }
- 
--static bool blk_crypto_fallback_inited;
- static int blk_crypto_fallback_init(void)
- {
-+	struct blk_crypto_fallback *fallback = &blk_crypto_fallback;
- 	int i;
- 	int err;
- 
--	if (blk_crypto_fallback_inited)
-+	if (fallback->initialized)
- 		return 0;
- 
--	prandom_bytes(blank_key, BLK_CRYPTO_MAX_KEY_SIZE);
-+	prandom_bytes(fallback->blank_key, BLK_CRYPTO_MAX_KEY_SIZE);
- 
--	err = bioset_init(&crypto_bio_split, 64, 0, 0);
-+	err = bioset_init(&fallback->bio_split, 64, 0, 0);
- 	if (err)
- 		goto out;
- 
--	err = blk_ksm_init(&blk_crypto_ksm, blk_crypto_num_keyslots);
-+	err = blk_ksm_init(&fallback->ksm, fallback->num_keyslots);
- 	if (err)
- 		goto fail_free_bioset;
- 	err = -ENOMEM;
- 
--	blk_crypto_ksm.ksm_ll_ops = blk_crypto_ksm_ll_ops;
--	blk_crypto_ksm.max_dun_bytes_supported = BLK_CRYPTO_MAX_IV_SIZE;
-+	fallback->ksm.ksm_ll_ops.keyslot_program =
-+		blk_crypto_fallback_keyslot_program;
-+	fallback->ksm.ksm_ll_ops.keyslot_evict =
-+		blk_crypto_fallback_keyslot_evict;
-+	fallback->ksm.max_dun_bytes_supported = BLK_CRYPTO_MAX_IV_SIZE;
- 
- 	/* All blk-crypto modes have a crypto API fallback. */
- 	for (i = 0; i < BLK_ENCRYPTION_MODE_MAX; i++)
--		blk_crypto_ksm.crypto_modes_supported[i] = 0xFFFFFFFF;
--	blk_crypto_ksm.crypto_modes_supported[BLK_ENCRYPTION_MODE_INVALID] = 0;
--
--	blk_crypto_wq = alloc_workqueue("blk_crypto_wq",
--					WQ_UNBOUND | WQ_HIGHPRI |
--					WQ_MEM_RECLAIM, num_online_cpus());
--	if (!blk_crypto_wq)
-+		fallback->ksm.crypto_modes_supported[i] = 0xFFFFFFFF;
-+	fallback->ksm.crypto_modes_supported[BLK_ENCRYPTION_MODE_INVALID] = 0;
-+
-+	fallback->decrypt_wq = alloc_workqueue("blk_crypto_fallback_wq",
-+					       WQ_UNBOUND | WQ_HIGHPRI |
-+					       WQ_MEM_RECLAIM,
-+					       num_online_cpus());
-+	if (!fallback->decrypt_wq)
- 		goto fail_free_ksm;
- 
--	blk_crypto_keyslots = kcalloc(blk_crypto_num_keyslots,
--				      sizeof(blk_crypto_keyslots[0]),
--				      GFP_KERNEL);
--	if (!blk_crypto_keyslots)
-+	fallback->keyslots = kcalloc(fallback->num_keyslots,
-+				     sizeof(fallback->keyslots[0]), GFP_KERNEL);
-+	if (!fallback->keyslots)
- 		goto fail_free_wq;
- 
--	blk_crypto_bounce_page_pool =
--		mempool_create_page_pool(num_prealloc_bounce_pg, 0);
--	if (!blk_crypto_bounce_page_pool)
-+	fallback->bounce_page_pool =
-+		mempool_create_page_pool(fallback->num_prealloc_bounce_pg, 0);
-+	if (!fallback->bounce_page_pool)
- 		goto fail_free_keyslots;
- 
--	bio_fallback_crypt_ctx_cache = KMEM_CACHE(bio_fallback_crypt_ctx, 0);
--	if (!bio_fallback_crypt_ctx_cache)
-+	fallback->crypt_ctx_cache = KMEM_CACHE(bio_fallback_crypt_ctx, 0);
-+	if (!fallback->crypt_ctx_cache)
- 		goto fail_free_bounce_page_pool;
- 
--	bio_fallback_crypt_ctx_pool =
--		mempool_create_slab_pool(num_prealloc_fallback_crypt_ctxs,
--					 bio_fallback_crypt_ctx_cache);
--	if (!bio_fallback_crypt_ctx_pool)
-+	fallback->crypt_ctx_pool =
-+		mempool_create_slab_pool(fallback->num_prealloc_crypt_ctxs,
-+					 fallback->crypt_ctx_cache);
-+	if (!fallback->crypt_ctx_pool)
- 		goto fail_free_crypt_ctx_cache;
- 
--	blk_crypto_fallback_inited = true;
-+	fallback->initialized = true;
- 
- 	return 0;
- fail_free_crypt_ctx_cache:
--	kmem_cache_destroy(bio_fallback_crypt_ctx_cache);
-+	kmem_cache_destroy(fallback->crypt_ctx_cache);
- fail_free_bounce_page_pool:
--	mempool_destroy(blk_crypto_bounce_page_pool);
-+	mempool_destroy(fallback->bounce_page_pool);
- fail_free_keyslots:
--	kfree(blk_crypto_keyslots);
-+	kfree(fallback->keyslots);
- fail_free_wq:
--	destroy_workqueue(blk_crypto_wq);
-+	destroy_workqueue(fallback->decrypt_wq);
- fail_free_ksm:
--	blk_ksm_destroy(&blk_crypto_ksm);
-+	blk_ksm_destroy(&fallback->ksm);
- fail_free_bioset:
--	bioset_exit(&crypto_bio_split);
-+	bioset_exit(&fallback->bio_split);
- out:
- 	return err;
- }
-@@ -610,29 +631,29 @@ static int blk_crypto_fallback_init(void)
-  */
- int blk_crypto_fallback_start_using_mode(enum blk_crypto_mode_num mode_num)
- {
-+	struct blk_crypto_fallback *fallback = &blk_crypto_fallback;
- 	const char *cipher_str = blk_crypto_modes[mode_num].cipher_str;
- 	struct blk_crypto_fallback_keyslot *slotp;
- 	unsigned int i;
- 	int err = 0;
- 
- 	/*
--	 * Fast path
--	 * Ensure that updates to blk_crypto_keyslots[i].tfms[mode_num]
--	 * for each i are visible before we try to access them.
-+	 * Fast path.  Ensure that updates to keyslots[i].tfms[mode_num] for
-+	 * each i are visible before we try to access them.
- 	 */
--	if (likely(smp_load_acquire(&tfms_inited[mode_num])))
-+	if (likely(smp_load_acquire(&fallback->tfms_inited[mode_num])))
- 		return 0;
- 
--	mutex_lock(&tfms_init_lock);
--	if (tfms_inited[mode_num])
-+	mutex_lock(&fallback->tfms_init_lock);
-+	if (fallback->tfms_inited[mode_num])
- 		goto out;
- 
- 	err = blk_crypto_fallback_init();
- 	if (err)
- 		goto out;
- 
--	for (i = 0; i < blk_crypto_num_keyslots; i++) {
--		slotp = &blk_crypto_keyslots[i];
-+	for (i = 0; i < fallback->num_keyslots; i++) {
-+		slotp = &fallback->keyslots[i];
- 		slotp->tfms[mode_num] = crypto_alloc_skcipher(cipher_str, 0, 0);
- 		if (IS_ERR(slotp->tfms[mode_num])) {
- 			err = PTR_ERR(slotp->tfms[mode_num]);
-@@ -650,19 +671,19 @@ int blk_crypto_fallback_start_using_mode(enum blk_crypto_mode_num mode_num)
- 	}
- 
- 	/*
--	 * Ensure that updates to blk_crypto_keyslots[i].tfms[mode_num]
--	 * for each i are visible before we set tfms_inited[mode_num].
-+	 * Ensure that updates to keyslots[i].tfms[mode_num] for each i are
-+	 * visible before we set tfms_inited[mode_num].
- 	 */
--	smp_store_release(&tfms_inited[mode_num], true);
-+	smp_store_release(&fallback->tfms_inited[mode_num], true);
- 	goto out;
- 
- out_free_tfms:
--	for (i = 0; i < blk_crypto_num_keyslots; i++) {
--		slotp = &blk_crypto_keyslots[i];
-+	for (i = 0; i < fallback->num_keyslots; i++) {
-+		slotp = &fallback->keyslots[i];
- 		crypto_free_skcipher(slotp->tfms[mode_num]);
- 		slotp->tfms[mode_num] = NULL;
- 	}
- out:
--	mutex_unlock(&tfms_init_lock);
-+	mutex_unlock(&fallback->tfms_init_lock);
- 	return err;
- }
+ struct mmc_ios {
+ 	unsigned int	clock;			/* clock rate */
 -- 
 2.33.0
 
