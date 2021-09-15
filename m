@@ -2,70 +2,55 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id B3CC240C465
-	for <lists+dm-devel@lfdr.de>; Wed, 15 Sep 2021 13:29:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DEDC040CBE7
+	for <lists+dm-devel@lfdr.de>; Wed, 15 Sep 2021 19:47:20 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-204-JRElmquVNMqvgMcBodLV8A-1; Wed, 15 Sep 2021 07:29:53 -0400
-X-MC-Unique: JRElmquVNMqvgMcBodLV8A-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-58-3xawomsNMgyZUQa9Y6fZgQ-1; Wed, 15 Sep 2021 13:47:17 -0400
+X-MC-Unique: 3xawomsNMgyZUQa9Y6fZgQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 11F5E835DE0;
-	Wed, 15 Sep 2021 11:29:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4F9D05074B;
+	Wed, 15 Sep 2021 17:47:07 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 07C5F10023AE;
-	Wed, 15 Sep 2021 11:29:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CDBE86A257;
+	Wed, 15 Sep 2021 17:47:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AC6184EA2A;
-	Wed, 15 Sep 2021 11:29:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 80E1B4EA2A;
+	Wed, 15 Sep 2021 17:46:54 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18FBNbZm031294 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 15 Sep 2021 07:23:37 -0400
+	id 18FHfBo7009795 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 15 Sep 2021 13:41:11 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3B452D93A3; Wed, 15 Sep 2021 11:23:37 +0000 (UTC)
+	id 0CC56207ADDA; Wed, 15 Sep 2021 17:41:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 36172D93DF
-	for <dm-devel@redhat.com>; Wed, 15 Sep 2021 11:23:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A39D28934E0
-	for <dm-devel@redhat.com>; Wed, 15 Sep 2021 11:23:34 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-447-SBIuac7-PsO-0zRrtCD6hQ-1; Wed, 15 Sep 2021 07:23:33 -0400
-X-MC-Unique: SBIuac7-PsO-0zRrtCD6hQ-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	key-exchange X25519 server-signature ECDSA (P-521) server-digest
-	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id CDA202208D;
-	Wed, 15 Sep 2021 11:23:31 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	key-exchange X25519 server-signature ECDSA (P-521) server-digest
-	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 82F9513C37;
-	Wed, 15 Sep 2021 11:23:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id U8T3HbPXQWGJFwAAMHmgww
-	(envelope-from <mwilck@suse.com>); Wed, 15 Sep 2021 11:23:31 +0000
-Message-ID: <c51a32db71113b3cc8797a2e4b69a89327147f5b.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: lixiaokeng <lixiaokeng@huawei.com>, Christophe Varoqui
-	<christophe.varoqui@opensvc.com>, Benjamin Marzinski <bmarzins@redhat.com>,
-	dm-devel mailing list <dm-devel@redhat.com>
-Date: Wed, 15 Sep 2021 13:23:30 +0200
-In-Reply-To: <c0ee4284-c2af-e7d4-29c0-fc800a8d2c94@huawei.com>
-References: <c0ee4284-c2af-e7d4-29c0-fc800a8d2c94@huawei.com>
-User-Agent: Evolution 3.40.4
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 087E4207AD11
+	for <dm-devel@redhat.com>; Wed, 15 Sep 2021 17:41:07 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B2BED18A01AC
+	for <dm-devel@redhat.com>; Wed, 15 Sep 2021 17:41:07 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-255-u55uzWvsNQ27fMSBYlTzrQ-1;
+	Wed, 15 Sep 2021 13:41:06 -0400
+X-MC-Unique: u55uzWvsNQ27fMSBYlTzrQ-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 977B36103C;
+	Wed, 15 Sep 2021 17:41:04 +0000 (UTC)
+Date: Wed, 15 Sep 2021 10:40:53 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Christoph Hellwig <hch@infradead.org>
+Message-ID: <YUIwJQT9CnIoT7WO@sol.localdomain>
+References: <20210913013135.102404-1-ebiggers@kernel.org>
+	<20210913013135.102404-4-ebiggers@kernel.org>
+	<YUGkfDmGa3WKz8cD@infradead.org>
 MIME-Version: 1.0
+In-Reply-To: <YUGkfDmGa3WKz8cD@infradead.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -74,12 +59,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: linfeilong <linfeilong@huawei.com>,
-	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
-Subject: Re: [dm-devel] [PATCH v2] multipathd: fix missing persistent
- reseravtion for active path
+Cc: linux-block@vger.kernel.org, Satya Tangirala <satyaprateek2357@gmail.com>,
+	dm-devel@redhat.com, linux-mmc@vger.kernel.org, linux-scsi@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH 3/5] blk-crypto: rename keyslot-manager files
+ to blk-crypto-profile
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,32 +78,27 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, 2021-09-13 at 10:43 +0800, lixiaokeng wrote:
-> There are two paths(sucu as sda and adb) for one LUN. The two
-> paths log in, but before the two uevents have been processed
-> (for example there are many uevent), users use multipathd add
-> path /dev/sda to cause mpatha and use mpathpersist -o -I to
-> register prkey for mpatha. The add map uevent is after add path
-> uevent, the the uevent(add sdb) will delay and missing persistent
-> reseravtion check.
+On Wed, Sep 15, 2021 at 08:45:00AM +0100, Christoph Hellwig wrote:
+> Looks good:
 > 
-> Here, we add persistent reseravtion check in update_map() which
-> is called ev_add_map().
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
 > 
-> Signed-off-by: Lixiaokeng <lixiaokeng@huawei.com>
+> It would be nice to keep the blk-crypto* includes together, though.
 
-As dicussed previously:
+I don't see any case in which they aren't together.  Unless you're talking about
+blk-crypto-internal.h, which is a directory-local header so it doesn't get
+grouped with the <linux/*.h> headers.
 
-Reviewed-by: Martin Wilck <mwilck@suse.com>
-
+- Eric
 
 --
 dm-devel mailing list
