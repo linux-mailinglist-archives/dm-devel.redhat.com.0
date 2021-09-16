@@ -2,57 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id C3CC540D40F
-	for <lists+dm-devel@lfdr.de>; Thu, 16 Sep 2021 09:48:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2E8C540D436
+	for <lists+dm-devel@lfdr.de>; Thu, 16 Sep 2021 10:03:38 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-187-8-tEcjRONgSJU0othYwfJA-1; Thu, 16 Sep 2021 03:48:53 -0400
-X-MC-Unique: 8-tEcjRONgSJU0othYwfJA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-231-4s1IZ21rMyKVcJ-_GffSuA-1; Thu, 16 Sep 2021 04:03:32 -0400
+X-MC-Unique: 4s1IZ21rMyKVcJ-_GffSuA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5B9BE101D608;
-	Thu, 16 Sep 2021 07:48:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 861D810247B1;
+	Thu, 16 Sep 2021 08:03:24 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 73985196F2;
-	Thu, 16 Sep 2021 07:48:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 90B8460E1C;
+	Thu, 16 Sep 2021 08:03:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 776DD4EA2A;
-	Thu, 16 Sep 2021 07:48:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8D3A24E58F;
+	Thu, 16 Sep 2021 08:03:14 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18G7iBEW019482 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 16 Sep 2021 03:44:12 -0400
+	id 18G833wv020612 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 16 Sep 2021 04:03:04 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 57142FA731; Thu, 16 Sep 2021 07:44:11 +0000 (UTC)
+	id B323C1011011; Thu, 16 Sep 2021 08:03:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 51206FA73C
-	for <dm-devel@redhat.com>; Thu, 16 Sep 2021 07:44:03 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6B165811E84
-	for <dm-devel@redhat.com>; Thu, 16 Sep 2021 07:44:03 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-582-mK8b9wlUMB2irs00nKj5qg-1; Thu, 16 Sep 2021 03:44:01 -0400
-X-MC-Unique: mK8b9wlUMB2irs00nKj5qg-1
-Received: from hch by casper.infradead.org with local (Exim 4.94.2 #2 (Red Hat
-	Linux)) id 1mQm2T-00GQXX-84; Thu, 16 Sep 2021 07:42:46 +0000
-Date: Thu, 16 Sep 2021 08:42:33 +0100
-From: Christoph Hellwig <hch@infradead.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Message-ID: <YUL1afofaCblwRg5@infradead.org>
-References: <20210913013135.102404-1-ebiggers@kernel.org>
-	<20210913013135.102404-4-ebiggers@kernel.org>
-	<YUGkfDmGa3WKz8cD@infradead.org> <YUIwJQT9CnIoT7WO@sol.localdomain>
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AF21B101100D
+	for <dm-devel@redhat.com>; Thu, 16 Sep 2021 08:02:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AA1ED8007B1
+	for <dm-devel@redhat.com>; Thu, 16 Sep 2021 08:02:59 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-293-Y0hGftMNOBaAo2OCVEB2XQ-1; Thu, 16 Sep 2021 04:02:56 -0400
+X-MC-Unique: Y0hGftMNOBaAo2OCVEB2XQ-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B69D31FEAD;
+	Thu, 16 Sep 2021 08:02:54 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6D41A13A23;
+	Thu, 16 Sep 2021 08:02:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA id 1penFy76QmHIJgAAMHmgww
+	(envelope-from <mwilck@suse.com>); Thu, 16 Sep 2021 08:02:54 +0000
+Message-ID: <cc9c5ac40373b2f44fc5ac94e39341ee844ff5cf.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Benjamin Marzinski <bmarzins@redhat.com>
+Date: Thu, 16 Sep 2021 10:02:53 +0200
+In-Reply-To: <20210916033237.GP3087@octiron.msp.redhat.com>
+References: <20210910114120.13665-1-mwilck@suse.com>
+	<20210910114120.13665-31-mwilck@suse.com>
+	<20210916033237.GP3087@octiron.msp.redhat.com>
+User-Agent: Evolution 3.40.4
 MIME-Version: 1.0
-In-Reply-To: <YUIwJQT9CnIoT7WO@sol.localdomain>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,13 +73,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 18G833wv020612
 X-loop: dm-devel@redhat.com
-Cc: Satya Tangirala <satyaprateek2357@gmail.com>, linux-block@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-mmc@vger.kernel.org,
-	Christoph Hellwig <hch@infradead.org>, dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 3/5] blk-crypto: rename keyslot-manager files
- to blk-crypto-profile
+Cc: lixiaokeng@huawei.com, dm-devel@redhat.com,
+	Chongyun Wu <wu.chongyun@h3c.com>
+Subject: Re: [dm-devel] [PATCH 30/35] multipathd: uxlsnr: merge
+ uxsock_trigger() into state machine
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,23 +94,67 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 15, 2021 at 10:40:53AM -0700, Eric Biggers wrote:
-> > It would be nice to keep the blk-crypto* includes together, though.
-> 
-> I don't see any case in which they aren't together.  Unless you're talking about
-> blk-crypto-internal.h, which is a directory-local header so it doesn't get
-> grouped with the <linux/*.h> headers.
+On Wed, 2021-09-15 at 22:32 -0500, Benjamin Marzinski wrote:
+> On Fri, Sep 10, 2021 at 01:41:15PM +0200, mwilck@suse.com=A0wrote:
+> > From: Martin Wilck <mwilck@suse.com>
+> >=20
+> > This patch sets up the bulk of the state machine. The idea is to
+> > fall through the case labels as long as possible (when steps
+> > succeed)
+> > and return to the caller if either an error occurs, or it becomes
+> > necessary to wait for some pollable condition.
+> >=20
+> > While doing this, switch to negative error codes for the functions
+> > in uxlsnr.c (e.g. parse_cmd()). Positive return codes are reserved
+> > for the cli_handler functions themselves. This way we can clearly
+> > distinguish the error source, and avoid confusion and misleading
+> > error messages. No cli_handler returns negative values.
+> >=20
+> > Note: with this patch applied, clients may hang and time out if
+> > the handler fails to acquire the vecs lock. This will be fixed in
+> > the
+> > follow-up patch "multipathd: uxlsnr: add idle notification".
+> >=20
+> > Signed-off-by: Martin Wilck <mwilck@suse.com>
+> > ---
+> > =A0multipathd/uxlsnr.c | 145 ++++++++++++++++++++++++----------------
+> > ----
+> > =A01 file changed, 80 insertions(+), 65 deletions(-)
+> >=20
+> >=20
 
-You're right.   I skimmed over the patch too quickly.
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0set_client_state(c, CLT_W=
+AIT_LOCK);
+>=20
+> I don't have strong feelings about this, but this state machine
+> doesn't
+> want to always fall through. sometimes, like if you get -EPERM, you
+> want
+> to swith from CLT_PARSE to CLT_SEND.=A0 If instead of fallthroughs, you
+> just put the switch statement in a loop, and simply returned when you
+> wanted to break out to uxsock_listen, you could jump from any state
+> to
+> any other state, and wouldn't need to have code to skip the actions
+> of
+> some states, to enable the follow throughs. Just a thought.
+
+Good point. I'll give it a shot and see how it plays out. The end
+result will probably be better readable.
+
+I'll also work on your other points.
+
+Regards
+Martin
+
+
 
 --
 dm-devel mailing list
