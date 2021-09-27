@@ -1,74 +1,65 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 2294B417DC5
-	for <lists+dm-devel@lfdr.de>; Sat, 25 Sep 2021 00:28:21 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id A5FF5418EB2
+	for <lists+dm-devel@lfdr.de>; Mon, 27 Sep 2021 07:36:59 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-146-9bUMv_QFN8SeggtU4FOCKQ-1; Fri, 24 Sep 2021 18:28:13 -0400
-X-MC-Unique: 9bUMv_QFN8SeggtU4FOCKQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-231-HCv487iGOlC6EMLerggXFw-1; Mon, 27 Sep 2021 01:36:56 -0400
+X-MC-Unique: HCv487iGOlC6EMLerggXFw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 26B5F1084681;
-	Fri, 24 Sep 2021 22:28:06 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9005218B5E;
-	Fri, 24 Sep 2021 22:28:02 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 780871006AA3;
+	Mon, 27 Sep 2021 05:36:50 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 11B3360C4A;
+	Mon, 27 Sep 2021 05:36:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2BA8C4EA29;
-	Fri, 24 Sep 2021 22:27:53 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A3B6D180598A;
+	Mon, 27 Sep 2021 05:36:28 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18OMRihN032226 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 24 Sep 2021 18:27:44 -0400
+	id 18R22WrJ020527 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 26 Sep 2021 22:02:32 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id AEBBE1FA85D; Fri, 24 Sep 2021 22:27:44 +0000 (UTC)
+	id 0A03A568E3; Mon, 27 Sep 2021 02:02:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A96DE1FA85C
-	for <dm-devel@redhat.com>; Fri, 24 Sep 2021 22:27:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D62DC106655A
-	for <dm-devel@redhat.com>; Fri, 24 Sep 2021 22:27:41 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
-	[209.85.221.54]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-187-aEFsoHdUN4eA81_dM88UYw-1; Fri, 24 Sep 2021 18:27:40 -0400
-X-MC-Unique: aEFsoHdUN4eA81_dM88UYw-1
-Received: by mail-wr1-f54.google.com with SMTP id r23so6298588wra.6;
-	Fri, 24 Sep 2021 15:27:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=y3yCP7sm2xesMQ9NAwXD/7f/5NIX4BKCPaOmHhBqmtI=;
-	b=Dof4xYp0YPu7pcgSpVItWx3izplunMDz7SQjP5R89ldP1htH/856HNAXO7zmCipexD
-	nngvDUDtat86quIfxILo/Ej1UhuMtwoFnUS+FnsKZ1Ib82/LvKCd/UqqHB59xzEQHJoZ
-	g6m8M0H42Ttvq4vmD5wud1l9hFZtf5JkeBO8pm0BSSS20Ygx+bpqh0CBrxN7v+J94gaS
-	LkMDMQqz1t9hThgOjnUZobEyZ30Pm6PCLGEuTvP/Ui+i7O7/lP83UaoiNqCc788cdykH
-	czfAO6FfNF80cwgzEcFK9bnZaqrHdUTWHac9TKY7p6l2a0XSeotOGdPlYpjpiUGQxjrb
-	j/Ow==
-X-Gm-Message-State: AOAM5339CEVltpwCed3YQQYf5fop/c1AnuJaWrRF0D74EUs+XtSCP2D7
-	lq75rKcJrTwZ6FOOhYy6LeJZOZLEZQ==
-X-Google-Smtp-Source: ABdhPJzxamfqr/jUHhsRosEX06+nNWwX7qrhaSvpxmcSL11BbLH1MQTbGn4V6y6T+HR7mBLq3XJgWQ==
-X-Received: by 2002:a5d:6846:: with SMTP id o6mr14388642wrw.327.1632522458576; 
-	Fri, 24 Sep 2021 15:27:38 -0700 (PDT)
-Received: from localhost (7.red-79-159-142.dynamicip.rima-tde.net.
-	[79.159.142.7]) by smtp.gmail.com with ESMTPSA id
-	a202sm14009408wmd.15.2021.09.24.15.27.37
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Fri, 24 Sep 2021 15:27:38 -0700 (PDT)
-From: Xose Vazquez Perez <xose.vazquez@gmail.com>
-To: 
-Date: Sat, 25 Sep 2021 00:27:36 +0200
-Message-Id: <20210924222736.22853-1-xose.vazquez@gmail.com>
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 04EC4568DD
+	for <dm-devel@redhat.com>; Mon, 27 Sep 2021 02:02:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E1588185A79C
+	for <dm-devel@redhat.com>; Mon, 27 Sep 2021 02:02:31 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com
+	[45.249.212.187]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-48-ilZPvgJ0Ooi5fGmgbU4i_A-1; Sun, 26 Sep 2021 22:02:29 -0400
+X-MC-Unique: ilZPvgJ0Ooi5fGmgbU4i_A-1
+Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.53])
+	by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4HHlf00vzNzbmbx;
+	Mon, 27 Sep 2021 09:38:32 +0800 (CST)
+Received: from dggpeml500006.china.huawei.com (7.185.36.76) by
+	dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+	15.1.2308.8; Mon, 27 Sep 2021 09:42:47 +0800
+Received: from huawei.com (10.169.63.14) by dggpeml500006.china.huawei.com
+	(7.185.36.76) with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8;
+	Mon, 27 Sep 2021 09:42:46 +0800
+From: chengjike <chengjike.cheng@huawei.com>
+To: <dm-devel@redhat.com>, <christophe.varoqui@opensvc.com>
+Date: Mon, 27 Sep 2021 09:42:46 +0800
+Message-ID: <20210927014246.3835-1-chengjike.cheng@huawei.com>
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
+X-Originating-IP: [10.169.63.14]
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+	dggpeml500006.china.huawei.com (7.185.36.76)
+X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -78,11 +69,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 18R22WrJ020527
 X-loop: dm-devel@redhat.com
-Cc: Xose Vazquez Perez <xose.vazquez@gmail.com>, Martin Wilck <mwilck@suse.com>,
-	DM-DEVEL ML <dm-devel@redhat.com>
-Subject: [dm-devel] [PATCH] multipath-tools: make IBM/XIV config work with
-	alua and multibus
+X-Mailman-Approved-At: Mon, 27 Sep 2021 01:35:40 -0400
+Cc: sunao.sun@huawei.com, jiangtao62@huawei.com, chengjike.cheng@huawei.com
+Subject: [dm-devel] [PATCH]multipath-tools: fix "multipath -ll" bug for
+	Native NVME Multipath devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,7 +89,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,39 +97,102 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-And add recommended pgfailback value.
+After "Native NVME Multipath" is configured,
+the content displayed is incorrect when you run "multipath -ll" command.
+Each NVME devices have the same path name. For example:
 
-ALUA is supported since XIV_Gen2 and microcode 10.2.1
-(All ports across all controllers in single Target Port Group)
+[root@localhost home]# multipath -ll
+eui.710032e8fb22a86c24a52c1000000db8 [nvme]:nvme1n1 NVMe,Huawei-XSG1,1000001
+size=10485760 features='n/a' hwhandler='ANA' wp=rw
+|-+- policy='n/a' prio=50 status=optimized
+| `- 1:4:1   nvme1c4n1 0:0 n/a   optimized live
+`-+- policy='n/a' prio=50 status=optimized
+  `- 1:9:1   nvme1c9n1 0:0 n/a   optimized live
+eui.710032e8fb22a86b24a52c7c00000db7 [nvme]:nvme1n2 NVMe,Huawei-XSG1,1000001
+size=10485760 features='n/a' hwhandler='ANA' wp=rw
+|-+- policy='n/a' prio=50 status=optimized
+| `- 1:4:1   nvme1c4n1 0:0 n/a   optimized live
+`-+- policy='n/a' prio=50 status=optimized
+  `- 1:9:1   nvme1c9n1 0:0 n/a   optimized live
+[root@localhost home]#
 
-https://www.ibm.com/support/pages/ibm-flashsystem%C2%AE-a9000-and-a9000r-hyperswap-solution-deployment-linux%C2%AE-ibm-z-systems%C2%AE
-https://www.google.com/search?q=%222810XIV%22+%22path_grouping_policy%22+site%3Aibm.com
+The logical paths of "nvme1n1" and "nvme1n2" are both "nvme1c4n1" and "nvme1c9n1".
+So when filtering logical paths, use "nvme_ns_head->instance" for matching.
 
-Cc: Martin Wilck <mwilck@suse.com>
-Cc: Benjamin Marzinski <bmarzins@redhat.com>
-Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Cc: DM-DEVEL ML <dm-devel@redhat.com>
-Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
+Signed-off-by: chengjike <chengjike.cheng@huawei.com>
 ---
- libmultipath/hwtable.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ libmultipath/foreign/nvme.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
-diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c
-index 0caac0da..72f81c60 100644
---- a/libmultipath/hwtable.c
-+++ b/libmultipath/hwtable.c
-@@ -712,7 +712,8 @@ static struct hwentry default_hw[] = {
- 		.vendor        = "(XIV|IBM)",
- 		.product       = "(NEXTRA|2810XIV)",
- 		.no_path_retry = NO_PATH_RETRY_QUEUE,
--		.pgpolicy      = MULTIBUS,
-+		.pgpolicy      = GROUP_BY_PRIO,
-+		.pgfailback    = 15,
- 	},
- 	{
- 		/* TMS RamSan / FlashSystem 710/720/810/820/840/900 */
+diff --git a/libmultipath/foreign/nvme.c b/libmultipath/foreign/nvme.c
+index d40c0869..38580880 100644
+--- a/libmultipath/foreign/nvme.c
++++ b/libmultipath/foreign/nvme.c
+@@ -530,14 +530,18 @@ static int _dirent_controller(const struct dirent *di)
+ 
+ /* Find the block device for a given nvme controller */
+ struct udev_device *get_ctrl_blkdev(const struct context *ctx,
+-				    struct udev_device *ctrl)
++				    struct udev_device *ctrl, const char *ctrl_name)
+ {
++	int ctrl_num, ns_num; 
+ 	struct udev_list_entry *item;
+ 	struct udev_device *blkdev = NULL;
+ 	struct udev_enumerate *enm = udev_enumerate_new(ctx->udev);
+ 	const char *devtype;
+ 
+-	if (enm == NULL)
++	if (enm == NULL || ctrl_name == NULL)
++		return NULL;
++
++	if (sscanf(ctrl_name, "nvme%dn%d", &ctrl_num, &ns_num) != 2)
+ 		return NULL;
+ 
+ 	pthread_cleanup_push(_udev_enumerate_unref, enm);
+@@ -555,6 +559,8 @@ struct udev_device *get_ctrl_blkdev(const struct context *ctx,
+ 	     item != NULL;
+ 	     item = udev_list_entry_get_next(item)) {
+ 		struct udev_device *tmp;
++		const char *name = NULL ;
++		int m, n, l;
+ 
+ 		tmp = udev_device_new_from_syspath(ctx->udev,
+ 					   udev_list_entry_get_name(item));
+@@ -562,11 +568,19 @@ struct udev_device *get_ctrl_blkdev(const struct context *ctx,
+ 			continue;
+ 
+ 		devtype = udev_device_get_devtype(tmp);
+-		if (devtype && !strcmp(devtype, "disk")) {
++		if (devtype == NULL || strcmp(devtype, "disk")) {
++			udev_device_unref(tmp);
++			continue;
++		}
++
++		name = udev_device_get_sysname(tmp);
++		if (name != NULL && 
++			sscanf(name, "nvme%dc%dn%d", &m, &n, &l) == 3 &&
++			l == ns_num) {
+ 			blkdev = tmp;
+ 			break;
+-		} else
+-			udev_device_unref(tmp);
++		}
++		udev_device_unref(tmp);
+ 	}
+ 
+ 	if (blkdev == NULL)
+@@ -679,7 +693,7 @@ static void _find_controllers(struct context *ctx, struct nvme_map *map)
+ 		}
+ 
+ 		pthread_cleanup_push(_udev_device_unref, ctrl);
+-		udev = get_ctrl_blkdev(ctx, ctrl);
++		udev = get_ctrl_blkdev(ctx, ctrl, udev_device_get_sysname(map->udev));
+ 		/*
+ 		 * We give up the reference to the nvme device here and get
+ 		 * it back from the child below.
 -- 
-2.32.0
+2.21.0.windows.1
+
 
 --
 dm-devel mailing list
