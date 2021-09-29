@@ -1,66 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 0CDDA41C00C
-	for <lists+dm-devel@lfdr.de>; Wed, 29 Sep 2021 09:43:20 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id E01A741C012
+	for <lists+dm-devel@lfdr.de>; Wed, 29 Sep 2021 09:44:34 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-408-MVGKycokOKK_VPNjKL_Peg-1; Wed, 29 Sep 2021 03:43:18 -0400
-X-MC-Unique: MVGKycokOKK_VPNjKL_Peg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-521-tTe155vyPH-MFtPynwtp3Q-1; Wed, 29 Sep 2021 03:44:32 -0400
+X-MC-Unique: tTe155vyPH-MFtPynwtp3Q-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7F7131808310;
-	Wed, 29 Sep 2021 07:43:11 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9D92260583;
-	Wed, 29 Sep 2021 07:43:09 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8095E8145E6;
+	Wed, 29 Sep 2021 07:44:26 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AD02560CA0;
+	Wed, 29 Sep 2021 07:44:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 400E61800B9C;
-	Wed, 29 Sep 2021 07:43:01 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D48AE4E58F;
+	Wed, 29 Sep 2021 07:44:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 18T7goXC025565 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 29 Sep 2021 03:42:50 -0400
+	id 18T7iCXe025679 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 29 Sep 2021 03:44:12 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B4614201E75D; Wed, 29 Sep 2021 07:42:50 +0000 (UTC)
+	id 6E0FB63796; Wed, 29 Sep 2021 07:44:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ADA2F201AC51
-	for <dm-devel@redhat.com>; Wed, 29 Sep 2021 07:42:47 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CF7E81066680
-	for <dm-devel@redhat.com>; Wed, 29 Sep 2021 07:42:47 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 674431D0AF
+	for <dm-devel@redhat.com>; Wed, 29 Sep 2021 07:44:03 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0B6661857F17
+	for <dm-devel@redhat.com>; Wed, 29 Sep 2021 07:44:03 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-515-V1WisBr9OZOktQv0nEXlOw-1; Wed, 29 Sep 2021 03:42:46 -0400
-X-MC-Unique: V1WisBr9OZOktQv0nEXlOw-1
+	us-mta-237-27pQQp86MOS4iM3rWZeV4Q-1; Wed, 29 Sep 2021 03:43:59 -0400
+X-MC-Unique: 27pQQp86MOS4iM3rWZeV4Q-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id AAC072250D;
-	Wed, 29 Sep 2021 07:42:44 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 02DDC22510;
+	Wed, 29 Sep 2021 07:43:58 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6B19713A81;
-	Wed, 29 Sep 2021 07:42:44 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B58E613A81;
+	Wed, 29 Sep 2021 07:43:57 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id 1oYsGPQYVGE4dQAAMHmgww
-	(envelope-from <mwilck@suse.com>); Wed, 29 Sep 2021 07:42:44 +0000
-Message-ID: <8dab26c5e7a27b3da6fecd75871b1a534c702626.camel@suse.com>
+	by imap2.suse-dmz.suse.de with ESMTPSA id IeLuKT0ZVGHgdQAAMHmgww
+	(envelope-from <mwilck@suse.com>); Wed, 29 Sep 2021 07:43:57 +0000
+Message-ID: <d1e3fd7c448c5ca50b256990fbb4cac2019f1382.camel@suse.com>
 From: Martin Wilck <mwilck@suse.com>
 To: Xose Vazquez Perez <xose.vazquez@gmail.com>
-Date: Wed, 29 Sep 2021 09:42:43 +0200
-In-Reply-To: <20210928201556.24100-1-xose.vazquez@gmail.com>
-References: <20210928201556.24100-1-xose.vazquez@gmail.com>
+Date: Wed, 29 Sep 2021 09:43:57 +0200
+In-Reply-To: <20210928203917.25237-1-xose.vazquez@gmail.com>
+References: <20210928203917.25237-1-xose.vazquez@gmail.com>
 User-Agent: Evolution 3.40.4
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -71,11 +72,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: Sean McGinnis <sean_mcginnis@dell.com>, DM-DEVEL ML <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH] multipath-tools: make "COMPELNT/Compellent
- Vol" config work with alua and multibus
+Cc: DM-DEVEL ML <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH] multipath-tools: remove Compellent maintainer
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,7 +89,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -97,11 +97,9 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, 2021-09-28 at 22:15 +0200, Xose Vazquez Perez wrote:
-> ALUA is needed by SAS arrays, pag#124:
-> https://downloads.dell.com/manuals/all-products/esuprt_solutions_int/esuprt_solutions_int_solutions_resources/general-solution-resources_white-papers2_en-us.pdf
+On Tue, 2021-09-28 at 22:39 +0200, Xose Vazquez Perez wrote:
+> e-mail was bounced: 550 5.1.1 User Unknown
 > 
-> Cc: Sean McGinnis <sean_mcginnis@dell.com>
 > Cc: Martin Wilck <mwilck@suse.com>
 > Cc: Benjamin Marzinski <bmarzins@redhat.com>
 > Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
@@ -109,6 +107,9 @@ On Tue, 2021-09-28 at 22:15 +0200, Xose Vazquez Perez wrote:
 > Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
 
 Reviewed-by: Martin Wilck <mwilck@suse.com>
+
+(Do we want to maintain this information in our hwtable in the long
+run?)
 
 
 --
