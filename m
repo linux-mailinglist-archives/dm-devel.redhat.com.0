@@ -1,68 +1,105 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 92F89422F2F
-	for <lists+dm-devel@lfdr.de>; Tue,  5 Oct 2021 19:27:01 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id D8A76423E82
+	for <lists+dm-devel@lfdr.de>; Wed,  6 Oct 2021 15:18:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1633526314;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=gAWqEMIq8B6bx/AE8D3dtS+E827RMM2TSNFLnDdHFpM=;
+	b=dR/sgaXuAqjEG4jMx6Pn+ig0r/9kfdSo7AqXpfjAFzQyYpYzhYa+GneM89Xq5fYysXqMjw
+	/Cn6sR0bYh7DprxsO4AB2pH8fxHA5wLwnTTtzTLdNMU75Xl4yf4kRN5dAB7BXxkNJn3l4F
+	CxrzjZpzN1sAB5tWFXxNy0/lzw/nguQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-199-n6-uBvv7NwanO4Fd1qlizw-1; Tue, 05 Oct 2021 13:26:59 -0400
-X-MC-Unique: n6-uBvv7NwanO4Fd1qlizw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-586-Gvpd11VxMQCWAw86DGbWtw-1; Wed, 06 Oct 2021 09:18:31 -0400
+X-MC-Unique: Gvpd11VxMQCWAw86DGbWtw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 732AD1927800;
-	Tue,  5 Oct 2021 17:26:51 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DA34A19D9F;
-	Tue,  5 Oct 2021 17:26:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1B29FBBEEF;
+	Wed,  6 Oct 2021 13:18:24 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A4C45D9D5;
+	Wed,  6 Oct 2021 13:18:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E251B4E58F;
-	Tue,  5 Oct 2021 17:26:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B18501809C81;
+	Wed,  6 Oct 2021 13:18:08 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 195HQR8V027697 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 5 Oct 2021 13:26:27 -0400
+	id 196DHsBj014164 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 6 Oct 2021 09:17:54 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 81D4B2028107; Tue,  5 Oct 2021 17:26:27 +0000 (UTC)
+	id 299A32157F3D; Wed,  6 Oct 2021 13:17:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 794212026D65
-	for <dm-devel@redhat.com>; Tue,  5 Oct 2021 17:26:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 23D252157F3B
+	for <dm-devel@redhat.com>; Wed,  6 Oct 2021 13:17:54 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E78CA811E76
-	for <dm-devel@redhat.com>; Tue,  5 Oct 2021 17:26:21 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
-	by relay.mimecast.com with ESMTP id us-mta-495-Pvu39tnjNieT1NLRgA-Bvw-1;
-	Tue, 05 Oct 2021 13:26:19 -0400
-X-MC-Unique: Pvu39tnjNieT1NLRgA-Bvw-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 7EE6A61350;
-	Tue,  5 Oct 2021 17:26:18 +0000 (UTC)
-Date: Tue, 5 Oct 2021 10:26:17 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: linux-block@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
-Message-ID: <YVyKuXgDjNgNdSHS@gmail.com>
-References: <20210929163600.52141-1-ebiggers@kernel.org>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0A32F811E76
+	for <dm-devel@redhat.com>; Wed,  6 Oct 2021 13:17:54 +0000 (UTC)
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+	[209.85.219.72]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-1-InbcGAvKMS21Q38DpME9cA-1; Wed, 06 Oct 2021 09:17:52 -0400
+X-MC-Unique: InbcGAvKMS21Q38DpME9cA-1
+Received: by mail-qv1-f72.google.com with SMTP id
+	4-20020a05621420a400b003831d93e2b5so655184qvd.12
+	for <dm-devel@redhat.com>; Wed, 06 Oct 2021 06:17:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+	:mime-version:content-disposition:in-reply-to;
+	bh=+zbCfVnHe3hEOXNTzkBOuBqFXs5HnnXgmi37Lbo5cf0=;
+	b=gQrQdd4gPFOk+dosaXeLoj9dxefFUbxrbEJw/m0iNEWbr02E6GkMPfzCn7exWP2et/
+	CtiTUPsUwKH4jy3HlkYiGuWuOEV+WGT6hbG85LIXLvHSDRSmD8DtwU+tlPRNbgQ8y7oI
+	LSlNSoY82QRQUS3z+Z00zh2SYJY54hElp5tbGvRQokl32LXNcSmd3Y3oeXaNUyYNp/7z
+	YK6ZfFCG/gnBm4YIlxOah5hEFYgwEaF4cKEcomMtaJ1YXdiWU2eI50j7LkAfFFBozjp+
+	/AY0NtTAe6flsQIoJutkG108MCHQNYqt/vWxepHV+sPZaXVlcDJH/+fVGCBBTRHMw6gs
+	yM9A==
+X-Gm-Message-State: AOAM531mz5cJALdiJq/7xysUujkg9SSbY+Jr00Eg4rb/F06XJvNAbJbH
+	TeMikaw8SMUbMdjCWw6ujBcwmv589cbMjU6Tb1sdZA5lj7VCwlyW0wp8QikT7SUK/7wfPgwDwly
+	7scHGFIF4r19u7Q==
+X-Received: by 2002:a05:622a:180f:: with SMTP id
+	t15mr25944901qtc.314.1633526271473; 
+	Wed, 06 Oct 2021 06:17:51 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxJ/dfz8opFCb2v5qUfLE0aMcIttTRFyUR16Rj5nDfAcBalXCGeyEeOx/El3NjgM1QYp0hnaw==
+X-Received: by 2002:a05:622a:180f:: with SMTP id
+	t15mr25944862qtc.314.1633526271274; 
+	Wed, 06 Oct 2021 06:17:51 -0700 (PDT)
+Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
+	[68.160.176.52]) by smtp.gmail.com with ESMTPSA id
+	r17sm12574405qtx.17.2021.10.06.06.17.50
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Wed, 06 Oct 2021 06:17:50 -0700 (PDT)
+Date: Wed, 6 Oct 2021 09:17:50 -0400
+From: Mike Snitzer <snitzer@redhat.com>
+To: axboe@kernel.dk, martin.petersen@oracle.com, jejb@linux.ibm.com,
+	sagi@grimberg.me, adrian.hunter@intel.com, beanhuo@micron.com,
+	ulf.hansson@linaro.org, avri.altman@wdc.com, swboyd@chromium.org,
+	agk@redhat.com, josef@toxicpanda.com
+Message-ID: <YV2h/iA79JhMJt07@redhat.com>
+References: <20210927215958.1062466-1-mcgrof@kernel.org>
+	<20210927215958.1062466-5-mcgrof@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20210929163600.52141-1-ebiggers@kernel.org>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+In-Reply-To: <20210927215958.1062466-5-mcgrof@kernel.org>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: Satya Tangirala <satyaprateek2357@gmail.com>, dm-devel@redhat.com,
-	linux-mmc@vger.kernel.org, linux-scsi@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH v4 0/4] blk-crypto cleanups
+Cc: linux-block@vger.kernel.org, bvanassche@acm.org, linux-scsi@vger.kernel.org,
+	linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-nvme@lists.infradead.org, ming.lei@redhat.com,
+	hch@infradead.org, dm-devel@redhat.com, nbd@other.debian.org
+Subject: Re: [dm-devel] [PATCH v4 4/6] dm: add add_disk() error handling
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -76,7 +113,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -85,25 +122,24 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 29, 2021 at 09:35:56AM -0700, Eric Biggers wrote:
-> This series renames struct blk_keyslot_manager to struct
-> blk_crypto_profile, as it is misnamed; it doesn't always manage
-> keyslots.  It's much more logical to think of it as the
-> "blk-crypto profile" of a device, similar to blk_integrity_profile.
-> 
-> This series also improves the inline-encryption.rst documentation file,
-> and cleans up blk-crypto-fallback a bit.
-> 
-> This series applies to block/for-next.
-> 
-> Changed v3 => v4:
->   - Rebased onto block/for-next to resolve a conflict due to
->     'struct request' being moved.
-> 
+On Mon, Sep 27 2021 at  5:59P -0400,
+Luis Chamberlain <mcgrof@kernel.org> wrote:
 
-Ping?
+> We never checked for errors on add_disk() as this function
+> returned void. Now that this is fixed, use the shiny new
+> error handling.
+> 
+> There are two calls to dm_setup_md_queue() which can fail then,
+> one on dm_early_create() and we can easily see that the error path
+> there calls dm_destroy in the error path. The other use case is on
+> the ioctl table_load case. If that fails userspace needs to call
+> the DM_DEV_REMOVE_CMD to cleanup the state - similar to any other
+> failure.
+> 
+> Reviewed-by: Hannes Reinecke <hare@suse.de>
+> Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
 
-- Eric
+Reviewed-by: Mike Snitzer <snitzer@redhat.com>
 
 --
 dm-devel mailing list
