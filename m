@@ -1,57 +1,80 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 4178142A9DB
-	for <lists+dm-devel@lfdr.de>; Tue, 12 Oct 2021 18:45:18 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id CE5CF42A9F3
+	for <lists+dm-devel@lfdr.de>; Tue, 12 Oct 2021 18:50:38 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-563-FjaXUK5xMNqaUxEawR7yfg-1; Tue, 12 Oct 2021 12:45:12 -0400
-X-MC-Unique: FjaXUK5xMNqaUxEawR7yfg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-526-MD_-SrZuMZaWLlnX27XLcQ-1; Tue, 12 Oct 2021 12:50:36 -0400
+X-MC-Unique: MD_-SrZuMZaWLlnX27XLcQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E756F10A8E05;
-	Tue, 12 Oct 2021 16:45:06 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BF8CB7094A;
-	Tue, 12 Oct 2021 16:45:06 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3D603101AFAA;
+	Tue, 12 Oct 2021 16:50:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B2CE1002EE2;
+	Tue, 12 Oct 2021 16:50:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 90EE51809C81;
-	Tue, 12 Oct 2021 16:45:04 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.2])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3C96B4EA2A;
+	Tue, 12 Oct 2021 16:50:24 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19CGj0WC025921 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 12 Oct 2021 12:45:00 -0400
+	id 19CGoJG1026843 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 12 Oct 2021 12:50:19 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id EC6AF404727A; Tue, 12 Oct 2021 16:44:59 +0000 (UTC)
+	id 54A9F40CFD10; Tue, 12 Oct 2021 16:50:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E87954047272
-	for <dm-devel@redhat.com>; Tue, 12 Oct 2021 16:44:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4F34B40CFD05
+	for <dm-devel@redhat.com>; Tue, 12 Oct 2021 16:50:19 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CFD388007B1
-	for <dm-devel@redhat.com>; Tue, 12 Oct 2021 16:44:59 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-572-G1Jjr72oOMGQMWTSObpyzg-1; Tue, 12 Oct 2021 12:44:58 -0400
-X-MC-Unique: G1Jjr72oOMGQMWTSObpyzg-1
-Received: from [2001:4bb8:199:73c5:f5ed:58c2:719f:d965] (helo=localhost)
-	by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1maKri-006f89-6Y; Tue, 12 Oct 2021 16:43:27 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Jens Axboe <axboe@kernel.dk>
-Date: Tue, 12 Oct 2021 18:36:13 +0200
-Message-Id: <20211012163613.994933-6-hch@lst.de>
-In-Reply-To: <20211012163613.994933-1-hch@lst.de>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 36535800C00
+	for <dm-devel@redhat.com>; Tue, 12 Oct 2021 16:50:19 +0000 (UTC)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+	[209.85.215.176]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-36-xHMXLRkPPA65Yw_aPuOD-w-1; Tue, 12 Oct 2021 12:50:15 -0400
+X-MC-Unique: xHMXLRkPPA65Yw_aPuOD-w-1
+Received: by mail-pg1-f176.google.com with SMTP id m21so14397561pgu.13;
+	Tue, 12 Oct 2021 09:50:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=pyFv6DRp7mj/TLzrQIpVommdcoXtzdvra+rup/vPgR4=;
+	b=oyvUYaKmw3ob7f+KkEWzFs16qZelYyNsY3Tr8mMFyj0OGBwHV7aUKazOPNU77tlowX
+	gOllRLTBUnC2/OQPPTRqRZAFL/PEOhxRRG00Mc/i007soiSIuadK2w3stxcpdQ7BJry4
+	7fKSPyJ+C4XdbhBVT06B2Jt/xh4BOQ8HoA44OcFBaxNhJC/dpaCnhWzr0riQdspWIA5b
+	2ZZSW2b37lUxNbvu/USerhCky2T1vCo+fLGYNiZ5AWQCLt4CRhP8s+m+1Ld9s+XpsXmT
+	pKhsmEPnS7BcyAD6w2FfEfQ0B2jcqLrMl9kwiGYgNIFJ+3NEDy7pz+L+Z+XTWu8QGRKg
+	DfZA==
+X-Gm-Message-State: AOAM530ft5VsJJ8NS61DyQ+DkQBHuYbWqY8vamdaURWg4u9aIKOG2mZP
+	KZyWSbHjopP0ekhrhi1QXTfzqGZO5z4=
+X-Google-Smtp-Source: ABdhPJwTpBGjULlYiKlbOfc5N6o7DtsijNW+l2r5Ip5ZBV/isIjOmuv6AyEfJPmCNZ7NpziTdyvuTA==
+X-Received: by 2002:a05:6a00:26dd:b0:44d:2531:9f46 with SMTP id
+	p29-20020a056a0026dd00b0044d25319f46mr10473312pfw.46.1634057413516;
+	Tue, 12 Oct 2021 09:50:13 -0700 (PDT)
+Received: from bvanassche-linux.mtv.corp.google.com
+	([2620:15c:211:201:8c1a:acb2:4eff:5d13])
+	by smtp.gmail.com with ESMTPSA id k22sm3734836pji.2.2021.10.12.09.50.12
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Tue, 12 Oct 2021 09:50:12 -0700 (PDT)
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
 References: <20211012163613.994933-1-hch@lst.de>
+	<20211012163613.994933-2-hch@lst.de>
+From: Bart Van Assche <bvanassche@acm.org>
+Message-ID: <d5273d1f-dbf1-8921-b03d-0f61d08dbfdc@acm.org>
+Date: Tue, 12 Oct 2021 09:50:11 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+	Thunderbird/78.14.0
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	casper.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20211012163613.994933-2-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -60,12 +83,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
 Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
 	Mike Snitzer <snitzer@redhat.com>
-Subject: [dm-devel] [PATCH 5/5] block: pass the start sector to
-	get_max_io_size
+Subject: Re: [dm-devel] [PATCH 1/5] block: factor out a chunk_size_left
+	helper
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,50 +102,34 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-Pass the start sector instead of the whole bio.
+On 10/12/21 9:36 AM, Christoph Hellwig wrote:
+> +/*
+> + * Return how much of the chunk sectors is left to be used for an I/O at the
+> + * given offset.
+> + */
+> +static inline unsigned int chunk_size_left(sector_t offset,
+> +		unsigned int chunk_sectors)
+> +{
+> +	if (unlikely(!is_power_of_2(chunk_sectors)))
+> +		return chunk_sectors - sector_div(offset, chunk_sectors);
+> +	return chunk_sectors - (offset & (chunk_sectors - 1));
+> +}
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- block/blk-merge.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+No "blk_" prefix for the function name? I think most other functions 
+declared or defined in this header file have such a prefix.
 
-diff --git a/block/blk-merge.c b/block/blk-merge.c
-index 15b2aef1507e5..b397972b526a0 100644
---- a/block/blk-merge.c
-+++ b/block/blk-merge.c
-@@ -174,12 +174,10 @@ static struct bio *blk_bio_write_same_split(struct request_queue *q,
-  * requests that are submitted to a block device if the start of a bio is not
-  * aligned to a physical block boundary.
-  */
--static inline unsigned get_max_io_size(struct request_queue *q,
--				       struct bio *bio)
-+static inline unsigned get_max_io_size(struct request_queue *q, sector_t sector)
- {
- 	unsigned pbs = queue_physical_block_size(q) >> SECTOR_SHIFT;
- 	unsigned lbs = queue_logical_block_size(q) >> SECTOR_SHIFT;
--	sector_t sector = bio->bi_iter.bi_sector;
- 	unsigned start_offset = sector & (pbs - 1);
- 	unsigned sectors = q->limits.max_sectors;
- 	unsigned max_sectors;
-@@ -287,7 +285,7 @@ static struct bio *blk_bio_segment_split(struct request_queue *q,
- 	struct bio_vec bv, bvprv, *bvprvp = NULL;
- 	struct bvec_iter iter;
- 	unsigned nsegs = 0, sectors = 0;
--	const unsigned max_sectors = get_max_io_size(q, bio);
-+	const unsigned max_sectors = get_max_io_size(q, bio->bi_iter.bi_sector);
- 	const unsigned max_segs = queue_max_segments(q);
- 
- 	bio_for_each_bvec(bv, bio, iter) {
--- 
-2.30.2
+Thanks,
+
+Bart.
 
 --
 dm-devel mailing list
