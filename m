@@ -1,58 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D77A7429D9A
-	for <lists+dm-devel@lfdr.de>; Tue, 12 Oct 2021 08:21:41 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 396F442A9ED
+	for <lists+dm-devel@lfdr.de>; Tue, 12 Oct 2021 18:49:05 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-498-YnEJf6mFPI6sZEgmdGXSkA-1; Tue, 12 Oct 2021 02:21:39 -0400
-X-MC-Unique: YnEJf6mFPI6sZEgmdGXSkA-1
+ us-mta-47-o-PQAXDFN3uNMOHkflWlOw-1; Tue, 12 Oct 2021 12:49:02 -0400
+X-MC-Unique: o-PQAXDFN3uNMOHkflWlOw-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 31F788042EF;
-	Tue, 12 Oct 2021 06:21:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BC6A610A8E00;
+	Tue, 12 Oct 2021 16:48:54 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E67D60853;
-	Tue, 12 Oct 2021 06:21:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B0847086C;
+	Tue, 12 Oct 2021 16:48:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BC35A1803B30;
-	Tue, 12 Oct 2021 06:21:12 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 32BAB1809C81;
+	Tue, 12 Oct 2021 16:48:47 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19C6KwAn011158 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 12 Oct 2021 02:20:59 -0400
+	id 19CGmd68026630 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 12 Oct 2021 12:48:40 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id AE9552026D60; Tue, 12 Oct 2021 06:20:58 +0000 (UTC)
+	id D1C2040CFD10; Tue, 12 Oct 2021 16:48:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AA07A2026D46
-	for <dm-devel@redhat.com>; Tue, 12 Oct 2021 06:20:56 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CD49940CFD05
+	for <dm-devel@redhat.com>; Tue, 12 Oct 2021 16:48:39 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ECD9D811E7F
-	for <dm-devel@redhat.com>; Tue, 12 Oct 2021 06:20:55 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-532-7MYAUIiAMzK691jhlZJ4gQ-1;
-	Tue, 12 Oct 2021 02:20:51 -0400
-X-MC-Unique: 7MYAUIiAMzK691jhlZJ4gQ-1
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 6C0EF68B05; Tue, 12 Oct 2021 08:20:49 +0200 (CEST)
-Date: Tue, 12 Oct 2021 08:20:49 +0200
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B94691097B07
+	for <dm-devel@redhat.com>; Tue, 12 Oct 2021 16:48:39 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-384-FpOgtN1yMYCTnmtuw2YVag-1; Tue, 12 Oct 2021 12:48:38 -0400
+X-MC-Unique: FpOgtN1yMYCTnmtuw2YVag-1
+Received: from [2001:4bb8:199:73c5:f5ed:58c2:719f:d965] (helo=localhost)
+	by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+	id 1maKlB-006egY-Kn; Tue, 12 Oct 2021 16:36:30 +0000
 From: Christoph Hellwig <hch@lst.de>
-To: Mikulas Patocka <mpatocka@redhat.com>
-Message-ID: <20211012062049.GB17407@lst.de>
-References: <alpine.LRH.2.02.2109231539520.27863@file01.intranet.prod.int.rdu2.redhat.com>
-	<20210924155822.GA10064@lst.de>
-	<alpine.LRH.2.02.2110040851130.30719@file01.intranet.prod.int.rdu2.redhat.com>
+To: Jens Axboe <axboe@kernel.dk>
+Date: Tue, 12 Oct 2021 18:36:08 +0200
+Message-Id: <20211012163613.994933-1-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <alpine.LRH.2.02.2110040851130.30719@file01.intranet.prod.int.rdu2.redhat.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	casper.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,13 +59,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>, Ming Lei <ming.lei@redhat.com>,
-	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	Zdenek Kabelac <zkabelac@redhat.com>, Christoph Hellwig <hch@lst.de>
-Subject: Re: [dm-devel] [PATCH] loop: don't print warnings if the underlying
- filesystem doesn't support discard
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
+	Mike Snitzer <snitzer@redhat.com>
+Subject: [dm-devel] simplify I/O size calculation helpers
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,22 +82,18 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 04, 2021 at 09:01:33AM -0400, Mikulas Patocka wrote:
-> Do you want this patch?
+Hi Jens,
 
-Yes, this looks like what I want.  Minor nitpicks below:
+this series calculates various I/O size calculations.
 
-> +	.fallocate_flags = BLKDEV_FALLOC_FL_SUPPORTED,
-
-I'd probably call this fallocate_supported_flags.
-
-> +	.fallocate_flags = FALLOC_FL_KEEP_SIZE | FALLOC_FL_PUNCH_HOLE | FALLOC_FL_ZERO_RANGE,
-
-Please avoid over 80 lines for a plain list of flags.
+Diffstat:
+ block/blk-merge.c      |   33 ++++++++++++++++++---------------
+ drivers/md/dm.c        |   18 ++++++------------
+ include/linux/blkdev.h |   27 ++++++++-------------------
+ 3 files changed, 32 insertions(+), 46 deletions(-)
 
 --
 dm-devel mailing list
