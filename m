@@ -1,57 +1,58 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 05E5D42C9D2
-	for <lists+dm-devel@lfdr.de>; Wed, 13 Oct 2021 21:17:43 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id F1BD742C9CC
+	for <lists+dm-devel@lfdr.de>; Wed, 13 Oct 2021 21:17:25 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-366-WMocilZiMky6sBPHBjZmrQ-1; Wed, 13 Oct 2021 15:17:37 -0400
-X-MC-Unique: WMocilZiMky6sBPHBjZmrQ-1
+ us-mta-395-gUaX7KGcOqeEUpl0rZwUow-1; Wed, 13 Oct 2021 15:17:21 -0400
+X-MC-Unique: gUaX7KGcOqeEUpl0rZwUow-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B89EEDF8A4;
-	Wed, 13 Oct 2021 19:17:29 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F38B60C5F;
-	Wed, 13 Oct 2021 19:17:29 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 77EB110144F8;
+	Wed, 13 Oct 2021 19:17:14 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 528D160CC3;
+	Wed, 13 Oct 2021 19:17:14 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7FE224EA2F;
-	Wed, 13 Oct 2021 19:17:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 86ABC181A1CF;
+	Wed, 13 Oct 2021 19:17:13 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19DJD3Ii018762 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 13 Oct 2021 15:13:03 -0400
+	id 19DJD0M1018673 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 13 Oct 2021 15:13:00 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8F1921000DB6; Wed, 13 Oct 2021 19:13:03 +0000 (UTC)
+	id AB9F340CFD11; Wed, 13 Oct 2021 19:13:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A4071002122
-	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 19:12:58 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A6FA740CFD12
+	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 19:13:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6E9461857F0E
-	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 19:12:58 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8B687811E78
+	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 19:13:00 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-502-MuEjK_X2O6-yIiwUOfMl1A-1;
+	relay.mimecast.com with ESMTP id us-mta-457-P1GZpdRrPS6D6cp1pcWeIw-1;
 	Wed, 13 Oct 2021 15:12:56 -0400
-X-MC-Unique: MuEjK_X2O6-yIiwUOfMl1A-1
+X-MC-Unique: P1GZpdRrPS6D6cp1pcWeIw-1
 Received: from
 	linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net
 	(linux.microsoft.com [13.77.154.182])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 0DF7520B9D03;
+	by linux.microsoft.com (Postfix) with ESMTPSA id 24F5220B9D04;
 	Wed, 13 Oct 2021 12:06:40 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0DF7520B9D03
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 24F5220B9D04
 From: deven.desai@linux.microsoft.com
 To: corbet@lwn.net, axboe@kernel.dk, agk@redhat.com, snitzer@redhat.com,
 	ebiggers@kernel.org, tytso@mit.edu, paul@paul-moore.com,
 	eparis@redhat.com, jmorris@namei.org, serge@hallyn.com
-Date: Wed, 13 Oct 2021 12:06:27 -0700
-Message-Id: <1634151995-16266-9-git-send-email-deven.desai@linux.microsoft.com>
+Date: Wed, 13 Oct 2021 12:06:28 -0700
+Message-Id: <1634151995-16266-10-git-send-email-deven.desai@linux.microsoft.com>
 In-Reply-To: <1634151995-16266-1-git-send-email-deven.desai@linux.microsoft.com>
 References: <1634151995-16266-1-git-send-email-deven.desai@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -62,13 +63,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
 Cc: linux-security-module@vger.kernel.org, linux-doc@vger.kernel.org,
 	jannh@google.com, linux-fscrypt@vger.kernel.org,
 	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
 	dm-devel@redhat.com, linux-audit@redhat.com
-Subject: [dm-devel] [RFC PATCH v7 08/16] ipe: add permissive toggle
+Subject: [dm-devel] [RFC PATCH v7 09/16] ipe: introduce 'boot_verified' as a
+	trust provider
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,287 +95,356 @@ Content-Transfer-Encoding: 7bit
 
 From: Deven Bowers <deven.desai@linux.microsoft.com>
 
-IPE, like SELinux, supports a permissive mode. This mode allows policy
-authors to test and evaluate IPE policy without it effecting their
-programs.
+IPE is designed to provide system level trust guarantees, this usually
+implies that trust starts from bootup with a hardware root of trust,
+which validates the bootloader. After this, the bootloader verifies the
+kernel and the initramfs.
+
+As there's no currently supported integrity method for initramfs, and
+it's typically already verified by the bootloader, introduce a property
+that causes the first superblock to have an execution to be "pinned",
+which is typically initramfs.
 
 Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
 ---
 
 Relevant changes since v6:
-  * Refactor series to:
-      1. Support a context structure, enabling easier testing
-      2. Make parser code cleaner
-  * Split up patch 02/12 into four parts:
-      1. context creation [01/16]
-      2. audit [07/16]
-      3. evaluation loop [03/16]
-      4. access control hooks [05/16]
-      5. permissive mode [08/16]
+  * Reword and refactor patch 04/12 to [09/16]
 
 ---
- security/ipe/audit.c | 40 +++++++++++++++++++++++
- security/ipe/audit.h |  5 +++
- security/ipe/ctx.c   |  6 ++++
- security/ipe/ctx.h   |  1 +
- security/ipe/eval.c  |  6 ++++
- security/ipe/fs.c    | 78 ++++++++++++++++++++++++++++++++++++++++++++
- 6 files changed, 136 insertions(+)
+ security/ipe/Kconfig                 |  2 +
+ security/ipe/Makefile                |  1 +
+ security/ipe/eval.c                  | 71 ++++++++++++++++++++++++++++
+ security/ipe/eval.h                  |  5 ++
+ security/ipe/hooks.c                 | 14 ++++++
+ security/ipe/hooks.h                 |  2 +
+ security/ipe/ipe.c                   |  1 +
+ security/ipe/modules.c               | 25 ++++++++++
+ security/ipe/modules/Kconfig         | 20 ++++++++
+ security/ipe/modules/Makefile        |  8 ++++
+ security/ipe/modules/boot_verified.c | 24 ++++++++++
+ security/ipe/modules/ipe_module.h    |  2 +
+ 12 files changed, 175 insertions(+)
+ create mode 100644 security/ipe/modules/Kconfig
+ create mode 100644 security/ipe/modules/Makefile
+ create mode 100644 security/ipe/modules/boot_verified.c
 
-diff --git a/security/ipe/audit.c b/security/ipe/audit.c
-index 5f6c0a52b0cb..82bf94b83fe1 100644
---- a/security/ipe/audit.c
-+++ b/security/ipe/audit.c
-@@ -262,3 +262,43 @@ void ipe_audit_policy_load(const struct ipe_policy *const p)
+diff --git a/security/ipe/Kconfig b/security/ipe/Kconfig
+index ef556b66e674..fcf82a8152ec 100644
+--- a/security/ipe/Kconfig
++++ b/security/ipe/Kconfig
+@@ -68,4 +68,6 @@ config IPE_AUDIT_HASH_ALG
+ 	default "sha384" if IPE_AUDIT_HASH_SHA384
+ 	default "sha512" if IPE_AUDIT_HASH_SHA512
  
- 	audit_log_end(ab);
- }
++source "security/ipe/modules/Kconfig"
 +
-+/**
-+ * ipe_audit_enforce: Audit a change in IPE's enforcement state
-+ * @ctx: Supplies a pointer to the contexts whose state changed.
-+ */
-+void ipe_audit_enforce(const struct ipe_context *const ctx)
-+{
-+	struct audit_buffer *ab;
-+	bool enforcing = false;
-+
-+	ab = audit_log_start(audit_context(), GFP_KERNEL, AUDIT_TRUST_STATUS);
-+	if (!ab)
-+		return;
-+
-+	rcu_read_lock();
-+	enforcing = READ_ONCE(ctx->enforce);
-+	rcu_read_unlock();
-+
-+	audit_log_format(ab, "IPE enforce=%d", enforcing);
-+
-+	audit_log_end(ab);
-+}
-+
-+/**
-+ * emit_enforcement: Emit the enforcement state of IPE started with.
-+ *
-+ * Return:
-+ * 0 - Always
-+ */
-+static int emit_enforcement(void)
-+{
-+	struct ipe_context *ctx = NULL;
-+
-+	ctx = ipe_current_ctx();
-+	ipe_audit_enforce(ctx);
-+	ipe_put_ctx(ctx);
-+	return 0;
-+}
-+
-+late_initcall(emit_enforcement);
-diff --git a/security/ipe/audit.h b/security/ipe/audit.h
-index 6b6880f6e8e7..a9d16323a3c8 100644
---- a/security/ipe/audit.h
-+++ b/security/ipe/audit.h
-@@ -16,6 +16,7 @@ void ipe_audit_match(const struct ipe_eval_ctx *const ctx,
- 		     bool enforce);
- void ipe_audit_policy_load(const struct ipe_policy *const p);
- void ipe_audit_policy_activation(const struct ipe_policy *const p);
-+void ipe_audit_enforce(const struct ipe_context *const ctx);
- #else
- static inline void ipe_audit_match(const struct ipe_eval_ctx *const ctx,
- 				   enum ipe_match match_type,
-@@ -31,6 +32,10 @@ static inline void ipe_audit_policy_load(const struct ipe_policy *const p)
- static inline void ipe_audit_policy_activation(const struct ipe_policy *const p)
- {
- }
-+
-+static inline void ipe_audit_enforce(const struct ipe_context *const ctx)
-+{
-+}
- #endif /* CONFIG_AUDIT */
- 
- #endif /* IPE_AUDIT_H */
-diff --git a/security/ipe/ctx.c b/security/ipe/ctx.c
-index 77475aedbfe9..fc9b8e467bc9 100644
---- a/security/ipe/ctx.c
-+++ b/security/ipe/ctx.c
-@@ -16,6 +16,7 @@
- #include <linux/moduleparam.h>
- 
- static bool success_audit;
-+static bool enforce = true;
- 
- /**
-  * ver_to_u64: convert an internal ipe_policy_version to a u64
-@@ -151,6 +152,7 @@ static struct ipe_context *create_ctx(void)
- 	INIT_LIST_HEAD(&ctx->policies);
- 	refcount_set(&ctx->refcount, 1);
- 	spin_lock_init(&ctx->lock);
-+	WRITE_ONCE(ctx->enforce, true);
- 
- 	return ctx;
- 
-@@ -337,6 +339,7 @@ int __init ipe_init_ctx(void)
- 
- 	spin_lock(&lns->lock);
- 	WRITE_ONCE(lns->success_audit, success_audit);
-+	WRITE_ONCE(lns->enforce, enforce);
- 	spin_unlock(&lns->lock);
- 
- 	rcu_assign_pointer(*ipe_tsk_ctx(current), lns);
-@@ -355,3 +358,6 @@ int __init ipe_init_ctx(void)
- 
- module_param(success_audit, bool, 0400);
- MODULE_PARM_DESC(success_audit, "Start IPE with success auditing enabled");
-+
-+module_param(enforce, bool, 0400);
-+MODULE_PARM_DESC(enforce, "Start IPE in enforce or permissive mode");
-diff --git a/security/ipe/ctx.h b/security/ipe/ctx.h
-index 31aea2fb9e49..d7bf9fc6426a 100644
---- a/security/ipe/ctx.h
-+++ b/security/ipe/ctx.h
-@@ -14,6 +14,7 @@
- 
- struct ipe_context {
- 	struct ipe_policy __rcu *active_policy;
-+	bool __rcu enforce;
- 
- 	bool __rcu success_audit;
- 
+ endif
+diff --git a/security/ipe/Makefile b/security/ipe/Makefile
+index 6d9ac818e8c6..1e7b2d7fcd9e 100644
+--- a/security/ipe/Makefile
++++ b/security/ipe/Makefile
+@@ -13,6 +13,7 @@ obj-$(CONFIG_SECURITY_IPE) += \
+ 	fs.o \
+ 	hooks.o \
+ 	ipe.o \
++	modules/ \
+ 	modules.o \
+ 	parsers/ \
+ 	parsers.o \
 diff --git a/security/ipe/eval.c b/security/ipe/eval.c
-index dcb62179e4bf..e520ce521c05 100644
+index e520ce521c05..361efccebad4 100644
 --- a/security/ipe/eval.c
 +++ b/security/ipe/eval.c
-@@ -86,6 +86,10 @@ static int evaluate(const struct ipe_eval_ctx *const ctx)
- 	if (!pol)
- 		goto out;
+@@ -11,10 +11,62 @@
+ #include "modules/ipe_module.h"
+ #include "audit.h"
  
-+	rcu_read_lock();
-+	enforcing = READ_ONCE(ctx->ci_ctx->enforce);
-+	rcu_read_unlock();
++#include <linux/fs.h>
++#include <linux/types.h>
+ #include <linux/slab.h>
+ #include <linux/file.h>
+ #include <linux/sched.h>
+ #include <linux/rcupdate.h>
++#include <linux/spinlock.h>
 +
- 	rules = &pol->parsed->rules[ctx->op];
- 
- 	list_for_each_entry(rule, &rules->rules, next) {
-@@ -114,6 +118,8 @@ static int evaluate(const struct ipe_eval_ctx *const ctx)
- 	if (action == ipe_action_deny)
- 		rc = -EACCES;
- 
-+	if (!enforcing)
-+		rc = 0;
- out:
- 	ipe_put_policy(pol);
- 	return rc;
-diff --git a/security/ipe/fs.c b/security/ipe/fs.c
-index c202c0753755..e6b36291e62f 100644
---- a/security/ipe/fs.c
-+++ b/security/ipe/fs.c
-@@ -13,8 +13,73 @@
- static struct dentry *np __ro_after_init;
- static struct dentry *root __ro_after_init;
- static struct dentry *config __ro_after_init;
-+static struct dentry *enforce __ro_after_init;
- static struct dentry *success_audit __ro_after_init;
- 
++static struct super_block *pinned_sb;
++static DEFINE_SPINLOCK(pin_lock);
++
++#define FILE_SUPERBLOCK(f) ((f)->f_path.mnt->mnt_sb)
++
 +/**
-+ * setenforce: Write handler for the securityfs node, "ipe/enforce"
-+ * @f: Supplies a file structure representing the securityfs node.
-+ * @data: Supplies a buffer passed to the write syscall
-+ * @len: Supplies the length of @data
-+ * @offset: unused.
-+ *
-+ * Return:
-+ * >0 - Success, Length of buffer written
-+ * <0 - Error
++ * pin_sb: pin the underlying superblock of @f, marking it as trusted
++ * @f: Supplies a file structure to source the super_block from.
 + */
-+static ssize_t setenforce(struct file *f, const char __user *data,
-+			  size_t len, loff_t *offset)
++static void pin_sb(const struct file *f)
 +{
-+	int rc = 0;
-+	bool value;
-+	struct ipe_context *ctx;
++	if (!f)
++		return;
 +
-+	if (!file_ns_capable(f, &init_user_ns, CAP_MAC_ADMIN))
-+		return -EPERM;
++	spin_lock(&pin_lock);
 +
-+	rc = kstrtobool_from_user(data, len, &value);
-+	if (rc)
-+		return rc;
++	if (pinned_sb)
++		goto out;
 +
-+	ctx = ipe_current_ctx();
++	pinned_sb = FILE_SUPERBLOCK(f);
 +
-+	spin_lock(&ctx->lock);
-+	WRITE_ONCE(ctx->enforce, value);
-+	spin_unlock(&ctx->lock);
-+	synchronize_rcu();
-+
-+	ipe_audit_enforce(ctx);
-+	ipe_put_ctx(ctx);
-+	return len;
++out:
++	spin_unlock(&pin_lock);
 +}
 +
 +/**
-+ * getenforce: Read handler for the securityfs node, "ipe/enforce"
-+ * @f: Supplies a file structure representing the securityfs node.
-+ * @data: Supplies a buffer passed to the read syscall
-+ * @len: Supplies the length of @data
-+ * @offset: unused.
++ * from_pinned: determine whether @f is source from the pinned super_block.
++ * @f: Supplies a file structure to check against the pinned super_block.
 + *
 + * Return:
-+ * >0 - Success, Length of buffer written
-+ * <0 - Error
++ * true - @f is sourced from the pinned super_block
++ * false - @f is not sourced from the pinned super_block
 + */
-+static ssize_t getenforce(struct file *f, char __user *data,
-+			  size_t len, loff_t *offset)
++static bool from_pinned(const struct file *f)
 +{
-+	const char *result;
-+	struct ipe_context *ctx;
++	bool rv;
 +
-+	ctx = ipe_current_ctx();
++	if (!f)
++		return false;
 +
-+	rcu_read_lock();
-+	result = ((READ_ONCE(ctx->enforce)) ? "1" : "0");
-+	rcu_read_unlock();
++	spin_lock(&pin_lock);
 +
-+	ipe_put_ctx(ctx);
-+	return simple_read_from_buffer(data, len, offset, result, 2);
++	rv = !IS_ERR_OR_NULL(pinned_sb) && pinned_sb == FILE_SUPERBLOCK(f);
++
++	spin_unlock(&pin_lock);
++
++	return rv;
 +}
-+
+ 
  /**
-  * setaudit: Write handler for the securityfs node, "ipe/success_audit"
-  * @f: Supplies a file structure representing the securityfs node.
-@@ -185,6 +250,11 @@ static const struct file_operations np_fops = {
- 	.write = new_policy,
+  * build_ctx: Build an evaluation context.
+@@ -42,6 +94,7 @@ static struct ipe_eval_ctx *build_ctx(const struct file *file,
+ 	ctx->op = op;
+ 	ctx->hook = hook;
+ 	ctx->ci_ctx = ipe_current_ctx();
++	ctx->from_init_sb = from_pinned(file);
+ 
+ 	return ctx;
+ }
+@@ -145,6 +198,9 @@ int ipe_process_event(const struct file *file, enum ipe_operation op,
+ 	int rc = 0;
+ 	struct ipe_eval_ctx *ctx = NULL;
+ 
++	if (op == ipe_operation_exec)
++		pin_sb(file);
++
+ 	ctx = build_ctx(file, op, hook);
+ 	if (IS_ERR(ctx))
+ 		return PTR_ERR(ctx);
+@@ -154,3 +210,18 @@ int ipe_process_event(const struct file *file, enum ipe_operation op,
+ 	free_ctx(ctx);
+ 	return rc;
+ }
++
++/**
++ * ipe_invalidate_pinned_sb: if @mnt_sb is the pinned superblock, ensure
++ *			     nothing can match it again.
++ * @mnt_sb: super_block to check against the pinned super_block
++ */
++void ipe_invalidate_pinned_sb(const struct super_block *mnt_sb)
++{
++	spin_lock(&pin_lock);
++
++	if (!IS_ERR_OR_NULL(pinned_sb) && mnt_sb == pinned_sb)
++		pinned_sb = ERR_PTR(-EIO);
++
++	spin_unlock(&pin_lock);
++}
+diff --git a/security/ipe/eval.h b/security/ipe/eval.h
+index 8c08eed5af2b..42fb7fdf2599 100644
+--- a/security/ipe/eval.h
++++ b/security/ipe/eval.h
+@@ -7,6 +7,7 @@
+ #define IPE_EVAL_H
+ 
+ #include <linux/file.h>
++#include <linux/types.h>
+ 
+ #include "ctx.h"
+ #include "hooks.h"
+@@ -18,6 +19,8 @@ struct ipe_eval_ctx {
+ 
+ 	const struct file *file;
+ 	struct ipe_context *ci_ctx;
++
++	bool from_init_sb;
  };
  
-+static const struct file_operations enforce_fops = {
-+	.write = setenforce,
-+	.read = getenforce,
-+};
-+
- static const struct file_operations audit_fops = {
- 	.write = setaudit,
- 	.read = getaudit,
-@@ -230,6 +300,13 @@ static int __init ipe_init_securityfs(void)
- 		goto err;
- 	}
+ enum ipe_match {
+@@ -30,4 +33,6 @@ enum ipe_match {
+ int ipe_process_event(const struct file *file, enum ipe_operation op,
+ 		      enum ipe_hook hook);
  
-+	enforce = securityfs_create_file("enforce", 0600, root, NULL,
-+					 &enforce_fops);
-+	if (IS_ERR(enforce)) {
-+		rc = PTR_ERR(enforce);
-+		goto err;
-+	}
++void ipe_invalidate_pinned_sb(const struct super_block *mnt_sb);
 +
- 	ctx->policy_root = securityfs_create_dir("policies", root);
- 	if (IS_ERR(ctx->policy_root)) {
- 		rc = PTR_ERR(ctx->policy_root);
-@@ -241,6 +318,7 @@ static int __init ipe_init_securityfs(void)
- 	securityfs_remove(np);
- 	securityfs_remove(root);
- 	securityfs_remove(config);
-+	securityfs_remove(enforce);
- 	securityfs_remove(success_audit);
- 	securityfs_remove(ctx->policy_root);
- 	return rc;
+ #endif /* IPE_EVAL_H */
+diff --git a/security/ipe/hooks.c b/security/ipe/hooks.c
+index 216242408a80..2d4a4f0eead0 100644
+--- a/security/ipe/hooks.c
++++ b/security/ipe/hooks.c
+@@ -205,3 +205,17 @@ int ipe_on_kernel_load_data(enum kernel_load_data_id id, bool contents)
+ 
+ 	return ipe_process_event(NULL, op, ipe_hook_kernel_load);
+ }
++
++/**
++ * ipe_bdev_free_security: free nested structures within IPE's LSM blob
++ *			   in super_blocks
++ * @mnt_sb: Supplies a pointer to a super_block that contains the structure
++ *	    to free.
++ *
++ * IPE does not have any structures with mnt_sb, but uses this hook to
++ * invalidate a pinned super_block.
++ */
++void ipe_sb_free_security(struct super_block *mnt_sb)
++{
++	ipe_invalidate_pinned_sb(mnt_sb);
++}
+diff --git a/security/ipe/hooks.h b/security/ipe/hooks.h
+index c99a0b7f45f7..e7f107ab5620 100644
+--- a/security/ipe/hooks.h
++++ b/security/ipe/hooks.h
+@@ -38,4 +38,6 @@ int ipe_on_kernel_read(struct file *file, enum kernel_read_file_id id,
+ 
+ int ipe_on_kernel_load_data(enum kernel_load_data_id id, bool contents);
+ 
++void ipe_sb_free_security(struct super_block *mnt_sb);
++
+ #endif /* IPE_HOOKS_H */
+diff --git a/security/ipe/ipe.c b/security/ipe/ipe.c
+index 3f9d43783293..1382d50078ec 100644
+--- a/security/ipe/ipe.c
++++ b/security/ipe/ipe.c
+@@ -30,6 +30,7 @@ static struct security_hook_list ipe_hooks[] __lsm_ro_after_init = {
+ 	LSM_HOOK_INIT(file_mprotect, ipe_on_mprotect),
+ 	LSM_HOOK_INIT(kernel_read_file, ipe_on_kernel_read),
+ 	LSM_HOOK_INIT(kernel_load_data, ipe_on_kernel_load_data),
++	LSM_HOOK_INIT(sb_free_security, ipe_sb_free_security),
+ };
+ 
+ /**
+diff --git a/security/ipe/modules.c b/security/ipe/modules.c
+index fb100c14cce5..3aa9a38fdc0d 100644
+--- a/security/ipe/modules.c
++++ b/security/ipe/modules.c
+@@ -107,3 +107,28 @@ int ipe_register_module(struct ipe_module *m)
+ 
+ 	return 0;
+ }
++
++/**
++ * ipe_bool_parse: parse a boolean in IPE's policy and associate
++ *		   it as @value in IPE's policy.
++ * @valstr: Supplies the string parsed from the policy
++ * @value: Supplies a pointer to be populated with the result.
++ *
++ * Modules can use this function for simple true/false values
++ * instead of defining their own.
++ *
++ * Return:
++ * 0 - OK
++ * !0 - Error
++ */
++int ipe_bool_parse(const char *valstr, void **value)
++{
++	if (!strcmp(valstr, "TRUE"))
++		*value = (void *)true;
++	else if (!strcmp(valstr, "FALSE"))
++		*value = (void *)false;
++	else
++		return -EBADMSG;
++
++	return 0;
++}
+diff --git a/security/ipe/modules/Kconfig b/security/ipe/modules/Kconfig
+new file mode 100644
+index 000000000000..fad96ba534e2
+--- /dev/null
++++ b/security/ipe/modules/Kconfig
+@@ -0,0 +1,20 @@
++
++menu "IPE Trust Providers"
++
++config IPE_PROP_BOOT_VERIFIED
++	bool "Enable trust for initramfs"
++	depends on SECURITY_IPE
++	default N
++	help
++	  This option enables the property 'boot_verified' in IPE policy.
++	  This property 'pins' the initial superblock when something
++	  is evaluated as an execution. This property will evaluate
++	  to true when the file being evaluated originates from this
++	  superblock.
++
++	  This property is useful to authorize a signed initramfs.
++
++	  If unsure, answer N.
++
++
++endmenu
+diff --git a/security/ipe/modules/Makefile b/security/ipe/modules/Makefile
+new file mode 100644
+index 000000000000..e0045ec65434
+--- /dev/null
++++ b/security/ipe/modules/Makefile
+@@ -0,0 +1,8 @@
++# SPDX-License-Identifier: GPL-2.0
++#
++# Copyright (C) Microsoft Corporation. All rights reserved.
++#
++# Makefile for building the IPE module as part of the kernel tree.
++#
++
++obj-$(CONFIG_IPE_PROP_BOOT_VERIFIED) += boot_verified.o
+diff --git a/security/ipe/modules/boot_verified.c b/security/ipe/modules/boot_verified.c
+new file mode 100644
+index 000000000000..3ab944a485c6
+--- /dev/null
++++ b/security/ipe/modules/boot_verified.c
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) Microsoft Corporation. All rights reserved.
++ */
++
++#include "ipe_module.h"
++
++#include <linux/fs.h>
++#include <linux/types.h>
++
++static bool bv_eval(const struct ipe_eval_ctx *ctx, const void *val)
++{
++	bool expect = (bool)val;
++
++	return expect == ctx->from_init_sb;
++}
++
++IPE_MODULE(bv) = {
++	.name = "boot_verified",
++	.version = 1,
++	.parse = ipe_bool_parse,
++	.free = NULL,
++	.eval = bv_eval,
++};
+diff --git a/security/ipe/modules/ipe_module.h b/security/ipe/modules/ipe_module.h
+index 6855815d72da..08835627bd72 100644
+--- a/security/ipe/modules/ipe_module.h
++++ b/security/ipe/modules/ipe_module.h
+@@ -9,6 +9,8 @@
+ #include <linux/audit.h>
+ #include "../eval.h"
+ 
++int ipe_bool_parse(const char *valstr, void **value);
++
+ /**
+  * ipe_module: definition of an extensible module for IPE properties.
+  *	       These structures are used to implement 'key=value' pairs
 -- 
 2.33.0
 
