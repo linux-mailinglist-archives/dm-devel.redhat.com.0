@@ -1,59 +1,60 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id BAA6842C9D1
-	for <lists+dm-devel@lfdr.de>; Wed, 13 Oct 2021 21:17:37 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 6788B42C9CD
+	for <lists+dm-devel@lfdr.de>; Wed, 13 Oct 2021 21:17:26 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-469-FsR0SEWgOHa0-IiyOc9WNg-1; Wed, 13 Oct 2021 15:17:34 -0400
-X-MC-Unique: FsR0SEWgOHa0-IiyOc9WNg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-394-mCSmN5hBMCOcnhoV8xeD6A-1; Wed, 13 Oct 2021 15:17:22 -0400
+X-MC-Unique: mCSmN5hBMCOcnhoV8xeD6A-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DC016801FCE;
-	Wed, 13 Oct 2021 19:17:26 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5D22CDF8A0;
+	Wed, 13 Oct 2021 19:17:13 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B988760C5F;
-	Wed, 13 Oct 2021 19:17:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B5C964188;
+	Wed, 13 Oct 2021 19:17:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1CF514EA2F;
-	Wed, 13 Oct 2021 19:17:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0A3D64EA38;
+	Wed, 13 Oct 2021 19:17:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19DJD2YZ018747 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 13 Oct 2021 15:13:03 -0400
+	id 19DJD6XV018829 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 13 Oct 2021 15:13:06 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C9C542166B25; Wed, 13 Oct 2021 19:13:02 +0000 (UTC)
+	id 29B416B5BF; Wed, 13 Oct 2021 19:13:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BF34D2166B2F
-	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 19:12:58 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A217080120D
-	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 19:12:58 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2261D6B5B8
+	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 19:13:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 98DE8802E5E
+	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 19:13:00 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
-	relay.mimecast.com with ESMTP id us-mta-278-ubmlCy5OOvOtlYgXxnriAw-1;
-	Wed, 13 Oct 2021 15:12:54 -0400
-X-MC-Unique: ubmlCy5OOvOtlYgXxnriAw-1
+	relay.mimecast.com with ESMTP id us-mta-547-UCvsE51aNuagaLSNFHbfbQ-1;
+	Wed, 13 Oct 2021 15:12:56 -0400
+X-MC-Unique: UCvsE51aNuagaLSNFHbfbQ-1
 Received: from
 	linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net
 	(linux.microsoft.com [13.77.154.182])
-	by linux.microsoft.com (Postfix) with ESMTPSA id AF6F620B9D0B;
+	by linux.microsoft.com (Postfix) with ESMTPSA id C6F4820B9D0C;
 	Wed, 13 Oct 2021 12:06:40 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com AF6F620B9D0B
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C6F4820B9D0C
 From: deven.desai@linux.microsoft.com
 To: corbet@lwn.net, axboe@kernel.dk, agk@redhat.com, snitzer@redhat.com,
 	ebiggers@kernel.org, tytso@mit.edu, paul@paul-moore.com,
 	eparis@redhat.com, jmorris@namei.org, serge@hallyn.com
-Date: Wed, 13 Oct 2021 12:06:34 -0700
-Message-Id: <1634151995-16266-16-git-send-email-deven.desai@linux.microsoft.com>
+Date: Wed, 13 Oct 2021 12:06:35 -0700
+Message-Id: <1634151995-16266-17-git-send-email-deven.desai@linux.microsoft.com>
 In-Reply-To: <1634151995-16266-1-git-send-email-deven.desai@linux.microsoft.com>
 References: <1634151995-16266-1-git-send-email-deven.desai@linux.microsoft.com>
+MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -62,13 +63,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 19DJD6XV018829
 X-loop: dm-devel@redhat.com
 Cc: linux-security-module@vger.kernel.org, linux-doc@vger.kernel.org,
 	jannh@google.com, linux-fscrypt@vger.kernel.org,
 	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
 	dm-devel@redhat.com, linux-audit@redhat.com
-Subject: [dm-devel] [RFC PATCH v7 15/16] ipe: kunit tests
+Subject: [dm-devel] [RFC PATCH v7 16/16] documentation: add ipe documentation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,1137 +83,728 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-From: Deven Bowers <deven.desai@linux.microsoft.com>
-
-Add various happy/unhappy unit tests for both IPE's parser
-and evaluation loop, testing the core of IPE. The missing
-test gap remains the interface with userspace.
-
-Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
----
-
-Relevant changes since v6:
-  * Add Kunit tests (Introduced)
-
----
- security/ipe/Kconfig               |  17 +
- security/ipe/Makefile              |   3 +
- security/ipe/ctx_test.c            | 732 +++++++++++++++++++++++++++++
- security/ipe/eval.c                |   4 +
- security/ipe/policy_parser_tests.c | 299 ++++++++++++
- 5 files changed, 1055 insertions(+)
- create mode 100644 security/ipe/ctx_test.c
- create mode 100644 security/ipe/policy_parser_tests.c
-
-diff --git a/security/ipe/Kconfig b/security/ipe/Kconfig
-index 39df680b67a2..e1ec8740392c 100644
---- a/security/ipe/Kconfig
-+++ b/security/ipe/Kconfig
-@@ -80,4 +80,21 @@ config IPE_AUDIT_HASH_ALG
- 
- source "security/ipe/modules/Kconfig"
- 
-+config SECURITY_IPE_KUNIT_TEST
-+	bool "Build KUnit tests for IPE" if !KUNIT_ALL_TESTS
-+	depends on KUNIT=y
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This builds the IPE KUnit tests.
-+
-+	  KUnit tests run during boot and output the results to the debug log
-+	  in TAP format (https://testanything.org/). Only useful for kernel devs
-+	  running KUnit test harness and are not for inclusion into a
-+	  production build.
-+
-+	  For more information on KUnit and unit tests in general please refer
-+	  to the KUnit documentation in Documentation/dev-tools/kunit/.
-+
-+	  If unsure, say N.
-+
- endif
-diff --git a/security/ipe/Makefile b/security/ipe/Makefile
-index 89fec670f954..f11a9ac24f2e 100644
---- a/security/ipe/Makefile
-+++ b/security/ipe/Makefile
-@@ -33,4 +33,7 @@ obj-$(CONFIG_SECURITY_IPE) += \
- 
- obj-$(CONFIG_AUDIT) += audit.o
- 
-+obj-$(CONFIG_SECURITY_IPE_KUNIT_TEST) += \
-+	policy_parser_tests.o \
-+
- clean-files := boot-policy.c \
-diff --git a/security/ipe/ctx_test.c b/security/ipe/ctx_test.c
-new file mode 100644
-index 000000000000..163cc8aa8861
---- /dev/null
-+++ b/security/ipe/ctx_test.c
-@@ -0,0 +1,732 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) Microsoft Corporation. All rights reserved.
-+ */
-+#include <kunit/test.h>
-+#include <linux/workqueue.h>
-+#include <linux/types.h>
-+#include <linux/list.h>
-+#include "ctx.h"
-+#include "policy.h"
-+#include "hooks.h"
-+
-+struct eval_case {
-+	const char *const desc;
-+	const char *const policy;
-+	int		  errno;
-+
-+	const struct file *fake_file;
-+	const struct ipe_bdev *bdev_sec;
-+	const struct ipe_inode *inode_sec;
-+	bool initsb;
-+};
-+
-+static const u8 fake_digest[] = { 0xDE, 0xAD, 0xBE, 0xEF };
-+
-+static const struct ipe_bdev fake_bdev_no_data = {};
-+static const struct ipe_bdev fake_bdev_no_sig = {
-+	.hash = fake_digest,
-+	.hashlen = ARRAY_SIZE(fake_digest),
-+};
-+
-+static const struct ipe_bdev fake_bdev_signed = {
-+	.sigdata = fake_digest,
-+	.siglen = ARRAY_SIZE(fake_digest),
-+	.hash = fake_digest,
-+	.hashlen = ARRAY_SIZE(fake_digest),
-+};
-+
-+static const struct ipe_inode fake_ino_no_data = {};
-+
-+static const struct ipe_inode fake_ino_no_sig = {
-+	.hash = fake_digest,
-+	.hashlen = ARRAY_SIZE(fake_digest),
-+};
-+
-+static const struct ipe_inode fake_ino_signed = {
-+	.sigdata = fake_digest,
-+	.siglen = ARRAY_SIZE(fake_digest),
-+	.hash = fake_digest,
-+	.hashlen = ARRAY_SIZE(fake_digest),
-+};
-+
-+static struct inode fake_inode = {
-+	.i_flags = S_VERITY
-+};
-+
-+static const struct file fake_verity = {
-+	.f_inode = &fake_inode,
-+};
-+
-+static const struct eval_case cases[] = {
-+	{
-+		"boot_verified_trust_no_source",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"op=EXECUTE boot_verified=TRUE action=ALLOW\n"
-+		"op=KERNEL_READ boot_verified=TRUE action=ALLOW\n",
-+		-EACCES, NULL, NULL, NULL, false
-+	},
-+	{
-+		"boot_verified_distrust",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"op=EXECUTE boot_verified=FALSE action=ALLOW\n"
-+		"op=KERNEL_READ boot_verified=FALSE action=ALLOW\n",
-+		0, NULL, NULL, NULL, false
-+	},
-+	{
-+		"boot_verified_trust",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"op=EXECUTE boot_verified=TRUE action=ALLOW\n"
-+		"op=KERNEL_READ boot_verified=TRUE action=ALLOW\n",
-+		0, NULL, NULL, NULL, true
-+	},
-+	{
-+		"boot_verified_trust",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"op=EXECUTE boot_verified=FALSE action=ALLOW\n"
-+		"op=KERNEL_READ boot_verified=FALSE action=ALLOW\n",
-+		-EACCES, NULL, NULL, NULL, true
-+	},
-+	{
-+		"dmverity_signature_trust_no_bdev",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"op=EXECUTE dmverity_signature=FALSE action=ALLOW\n"
-+		"op=KERNEL_READ dmverity_signature=FALSE action=ALLOW\n",
-+		0, NULL, NULL, NULL, true
-+	},
-+	{
-+		"dmverity_signature_distrust_no_bdev",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"op=EXECUTE dmverity_signature=TRUE action=ALLOW\n"
-+		"op=KERNEL_READ dmverity_signature=TRUE action=ALLOW\n",
-+		-EACCES, NULL, NULL, NULL, false
-+	},
-+	{
-+		"dmverity_signature_distrust_sigdata",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"op=EXECUTE dmverity_signature=FALSE action=ALLOW\n"
-+		"op=KERNEL_READ dmverity_signature=FALSE action=ALLOW\n",
-+		-EACCES, NULL, &fake_bdev_signed, &fake_ino_no_data, false
-+	},
-+	{
-+		"dmverity_signature_trust_sigdata",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"op=EXECUTE dmverity_signature=TRUE action=ALLOW\n"
-+		"op=KERNEL_READ dmverity_signature=TRUE action=ALLOW\n",
-+		0, NULL, &fake_bdev_signed, &fake_ino_no_data, true
-+	},
-+	{
-+		"dmverity_roothash_trust_no_bdev",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"op=EXECUTE dmverity_roothash=DEADBEEF action=ALLOW\n"
-+		"op=KERNEL_READ dmverity_roothash=DEADBEEF action=ALLOW\n",
-+		-EACCES, NULL, NULL, NULL, true
-+	},
-+	{
-+		"dmverity_roothash_distrust_no_bdev",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"op=EXECUTE dmverity_roothash=deadbeef action=DENY\n"
-+		"op=KERNEL_READ dmverity_roothash=deadbeef action=DENY\n",
-+		0, NULL, NULL, NULL, false
-+	},
-+	{
-+		"dmverity_roothash_trust_hash",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"op=EXECUTE dmverity_roothash=DEADBEEF action=ALLOW\n"
-+		"op=KERNEL_READ dmverity_roothash=DEADBEEF action=ALLOW\n",
-+		0, NULL, &fake_bdev_no_sig, &fake_ino_no_data, false
-+	},
-+	{
-+		"dmverity_roothash_distrust_hash",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"op=EXECUTE dmverity_roothash=DEADBEEF action=DENY\n"
-+		"op=KERNEL_READ dmverity_roothash=DEADBEEF action=DENY\n",
-+		-EACCES, NULL, &fake_bdev_no_sig, &fake_ino_no_data, false
-+	},
-+	{
-+		"dmverity_signature_revoke_hash",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"op=EXECUTE dmverity_roothash=DEADBEEF action=DENY\n"
-+		"op=EXECUTE dmverity_signature=TRUE action=ALLOW\n"
-+		"op=KERNEL_READ dmverity_roothash=DEADBEEF action=DENY\n"
-+		"op=KERNEL_READ dmverity_signature=TRUE action=ALLOW\n",
-+		-EACCES, NULL, &fake_bdev_signed, &fake_ino_no_data, false
-+	},
-+	{
-+		"fsverity_signature_trust_sigdata",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"op=EXECUTE fsverity_signature=TRUE action=ALLOW\n"
-+		"op=KERNEL_READ fsverity_signature=TRUE action=ALLOW\n",
-+		0, &fake_verity, &fake_bdev_no_data, &fake_ino_signed, false
-+	},
-+	{
-+		"fsverity_signature_distrust_sigdata",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"op=EXECUTE fsverity_signature=TRUE action=DENY\n"
-+		"op=KERNEL_READ fsverity_signature=TRUE action=DENY\n",
-+		-EACCES, &fake_verity, &fake_bdev_no_data, &fake_ino_signed, false
-+	},
-+	{
-+		"fsverity_signature_trust_no_sigdata",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"op=EXECUTE fsverity_signature=FALSE action=ALLOW\n"
-+		"op=KERNEL_READ fsverity_signature=FALSE action=ALLOW\n",
-+		0, &fake_verity, &fake_bdev_signed, &fake_ino_no_sig, true
-+	},
-+	{
-+		"fsverity_signature_distrust_no_sigdata",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"op=EXECUTE fsverity_signature=FALSE action=DENY\n"
-+		"op=KERNEL_READ fsverity_signature=FALSE action=DENY\n",
-+		-EACCES, &fake_verity, &fake_bdev_signed, &fake_ino_no_sig, true
-+	},
-+	{
-+		"fsverity_digest_trust_hash",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"op=EXECUTE fsverity_digest=DEADBEEF action=ALLOW\n"
-+		"op=KERNEL_READ fsverity_digest=DEADBEEF action=ALLOW\n",
-+		0, &fake_verity, &fake_bdev_signed, &fake_ino_no_sig, true
-+	},
-+	{
-+		"fsverity_digest_revoke_hash",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"op=EXECUTE fsverity_digest=DEADBEEF action=DENY\n"
-+		"op=EXECUTE fsverity_signature=TRUE action=ALLOW\n"
-+		"op=KERNEL_READ fsverity_digest=DEADBEEF action=DENY\n"
-+		"op=KERNEL_READ fsverity_signature=TRUE action=ALLOW\n",
-+		-EACCES, &fake_verity, &fake_bdev_signed, &fake_ino_signed, true
-+	},
-+	{
-+		"dmverity_signature_revoke_fsverity_digest",
-+		"policy_name='Test' policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"op=EXECUTE fsverity_digest=DEADBEEF action=DENY\n"
-+		"op=EXECUTE dmverity_signature=TRUE action=ALLOW\n"
-+		"op=KERNEL_READ fsverity_digest=DEADBEEF action=DENY\n"
-+		"op=KERNEL_READ dmverity_signature=TRUE action=ALLOW\n",
-+		-EACCES, &fake_verity, &fake_bdev_signed, &fake_ino_signed, false
-+	},
-+};
-+
-+static void case_to_desc(const struct eval_case *c, char *desc)
-+{
-+	strncpy(desc, c->desc, KUNIT_PARAM_DESC_SIZE);
-+}
-+
-+KUNIT_ARRAY_PARAM(ipe_eval, cases, case_to_desc);
-+
-+/**
-+ * fake_free_ctx: Fake function to deallocate a context structure.
-+ */
-+static void fake_free_ctx(struct ipe_context *ctx)
-+{
-+	struct ipe_policy *p = NULL;
-+
-+	list_for_each_entry(p, &ctx->policies, next)
-+		ipe_put_policy(p);
-+
-+	kfree(ctx);
-+}
-+
-+/**
-+ * create_fake_ctx: Build a fake ipe_context for use
-+ *		    in a test.
-+ * Return:
-+ * !IS_ERR - OK
-+ */
-+static struct ipe_context *create_fake_ctx(void)
-+{
-+	struct ipe_context *ctx = NULL;
-+
-+	ctx = kzalloc(sizeof(*ctx), GFP_KERNEL);
-+	if (!ctx)
-+		return ERR_PTR(-ENOMEM);
-+
-+	INIT_LIST_HEAD(&ctx->policies);
-+	refcount_set(&ctx->refcount, 1);
-+	spin_lock_init(&ctx->lock);
-+	WRITE_ONCE(ctx->enforce, true);
-+
-+	return ctx;
-+}
-+
-+/**
-+ * ipe_ctx_eval_test: Parse a policy, and run a mock through the
-+ *		      evaluation loop to check the functional result.
-+ * @test: Supplies a pointer to a kunit structure.
-+ *
-+ * This is called by the kunit harness.
-+ */
-+static void ipe_ctx_eval_test(struct kunit *test)
-+{
-+	int rc = 0;
-+	enum ipe_operation i = ipe_operation_exec;
-+	struct ipe_policy *pol = NULL;
-+	struct ipe_context *ctx = NULL;
-+	struct ipe_eval_ctx eval = { 0 };
-+	const struct eval_case *t = test->param_value;
-+
-+	ctx = create_fake_ctx();
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
-+
-+	pol = ipe_new_policy(t->policy, strlen(t->policy), NULL, 0);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, pol);
-+
-+	ipe_add_policy(ctx, pol);
-+	KUNIT_ASSERT_EQ(test, 0, ipe_set_active_pol(pol));
-+	KUNIT_EXPECT_EQ(test, refcount_read(&pol->refcount), 2);
-+	KUNIT_EXPECT_PTR_EQ(test, pol->policyfs, NULL);
-+	KUNIT_EXPECT_PTR_EQ(test, pol->pkcs7, NULL);
-+
-+	eval.hook = ipe_hook_max;
-+	eval.ipe_bdev = t->bdev_sec;
-+	eval.ipe_inode = t->inode_sec;
-+	eval.from_init_sb = t->initsb;
-+	eval.ci_ctx = ctx;
-+	eval.file = t->fake_file;
-+
-+	for (i = ipe_operation_exec; i < ipe_operation_max; ++i) {
-+		eval.op = i;
-+		rc = evaluate(&eval);
-+		KUNIT_EXPECT_EQ(test, rc, t->errno);
-+	}
-+
-+	fake_free_ctx(ctx);
-+	ipe_put_policy(pol);
-+}
-+
-+/**
-+ * ipe_ctx_eval_permissive_test: Parse a policy, and run a mock through the
-+ *				 evaluation loop to with permissive on,
-+ *				 checking the functional result.
-+ * @test: Supplies a pointer to a kunit structure.
-+ *
-+ * This is called by the kunit harness.
-+ */
-+static void ipe_ctx_eval_permissive_test(struct kunit *test)
-+{
-+	int rc = 0;
-+	enum ipe_operation i = ipe_operation_exec;
-+	struct ipe_policy *pol = NULL;
-+	struct ipe_context *ctx = NULL;
-+	struct ipe_eval_ctx eval = { 0 };
-+	const struct eval_case *t = test->param_value;
-+
-+	ctx = create_fake_ctx();
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
-+	WRITE_ONCE(ctx->enforce, false);
-+
-+	pol = ipe_new_policy(t->policy, strlen(t->policy), NULL, 0);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, pol);
-+
-+	ipe_add_policy(ctx, pol);
-+	KUNIT_ASSERT_EQ(test, 0, ipe_set_active_pol(pol));
-+	KUNIT_EXPECT_EQ(test, refcount_read(&pol->refcount), 2);
-+	KUNIT_EXPECT_PTR_EQ(test, pol->policyfs, NULL);
-+	KUNIT_EXPECT_PTR_EQ(test, pol->pkcs7, NULL);
-+
-+	eval.hook = ipe_hook_max;
-+	eval.ipe_bdev = t->bdev_sec;
-+	eval.ipe_inode = t->inode_sec;
-+	eval.from_init_sb = t->initsb;
-+	eval.ci_ctx = ctx;
-+	eval.file = t->fake_file;
-+
-+	for (i = ipe_operation_exec; i < ipe_operation_max; ++i) {
-+		eval.op = i;
-+		rc = evaluate(&eval);
-+		KUNIT_EXPECT_EQ(test, rc, 0);
-+	}
-+
-+	fake_free_ctx(ctx);
-+	ipe_put_policy(pol);
-+}
-+
-+/**
-+ * ipe_ctx_default_eval_test: Ensure an operation-level default
-+ *			      is taken over a global-level default.
-+ * @test: Supplies a pointer to a kunit structure.
-+ *
-+ * This is called by the kunit harness.
-+ */
-+static void ipe_ctx_default_eval_test(struct kunit *test)
-+{
-+	int rc = 0;
-+	struct ipe_policy *pol = NULL;
-+	struct ipe_context *ctx = NULL;
-+	struct ipe_eval_ctx eval = { 0 };
-+	const char *const policy =
-+		"policy_name=Test policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n"
-+		"DEFAULT op=EXECUTE action=ALLOW";
-+
-+	ctx = create_fake_ctx();
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
-+
-+	pol = ipe_new_policy(policy, strlen(policy), NULL, 0);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, pol);
-+	KUNIT_EXPECT_EQ(test, pol->parsed->global_default, ipe_action_deny);
-+	KUNIT_EXPECT_EQ(test, pol->parsed->rules[ipe_operation_exec].default_action,
-+			ipe_action_allow);
-+
-+	ipe_add_policy(ctx, pol);
-+	KUNIT_ASSERT_EQ(test, 0, ipe_set_active_pol(pol));
-+	KUNIT_EXPECT_EQ(test, refcount_read(&pol->refcount), 2);
-+	KUNIT_EXPECT_PTR_EQ(test, pol->policyfs, NULL);
-+	KUNIT_EXPECT_PTR_EQ(test, pol->pkcs7, NULL);
-+
-+	eval.hook = ipe_hook_max;
-+	eval.ipe_bdev = NULL;
-+	eval.ipe_inode = NULL;
-+	eval.from_init_sb = NULL;
-+	eval.ci_ctx = ctx;
-+	eval.file = NULL;
-+	eval.op = ipe_operation_exec;
-+
-+	rc = evaluate(&eval);
-+	KUNIT_EXPECT_EQ(test, rc, 0);
-+
-+	eval.op = ipe_operation_kexec_image;
-+	rc = evaluate(&eval);
-+	KUNIT_EXPECT_EQ(test, rc, -EACCES);
-+
-+	fake_free_ctx(ctx);
-+	ipe_put_policy(pol);
-+}
-+
-+/**
-+ * ipe_ctx_replace_policy - Associate a policy with a context, then replace it.
-+ * @test: Supplies a pointer to a kunit structure.
-+ *
-+ * This is called by the kunit harness.
-+ */
-+static void ipe_ctx_replace_policy(struct kunit *test)
-+{
-+	struct ipe_policy *p1 = NULL;
-+	struct ipe_policy *p2 = NULL;
-+	struct ipe_policy *pp = NULL;
-+	struct ipe_context *ctx = NULL;
-+	const char *const policy1 = "policy_name=t policy_version=0.0.0\n"
-+				    "DEFAULT action=ALLOW";
-+	const char *const policy2 = "policy_name=t policy_version=0.0.1\n"
-+				    "DEFAULT action=DENY\n";
-+
-+	ctx = create_fake_ctx();
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
-+
-+	p1 = ipe_new_policy(policy1, strlen(policy1), NULL, 0);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p1);
-+	p2 = ipe_new_policy(policy2, strlen(policy2), NULL, 0);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p2);
-+
-+	ipe_add_policy(ctx, p1);
-+	KUNIT_EXPECT_TRUE(test, list_is_singular(&ctx->policies));
-+
-+	pp = list_first_entry(&ctx->policies, struct ipe_policy, next);
-+	KUNIT_EXPECT_PTR_EQ(test, pp, p1);
-+
-+	ipe_replace_policy(p1, p2);
-+	KUNIT_EXPECT_TRUE(test, list_is_singular(&ctx->policies));
-+	pp = list_first_entry(&ctx->policies, struct ipe_policy, next);
-+	KUNIT_EXPECT_PTR_EQ(test, pp, p2);
-+
-+	fake_free_ctx(ctx);
-+	ipe_put_policy(p1);
-+	ipe_put_policy(p2);
-+}
-+
-+/**
-+ * ipe_ctx_replace_policy - Associate a policy with a context, mark the policy active,
-+ *			    then replace it.
-+ * @test: Supplies a pointer to a kunit structure.
-+ *
-+ * This is called by the kunit harness.
-+ */
-+static void ipe_ctx_replace_active_policy(struct kunit *test)
-+{
-+	struct ipe_policy *p1 = NULL;
-+	struct ipe_policy *p2 = NULL;
-+	struct ipe_policy *pp = NULL;
-+	struct ipe_context *ctx = NULL;
-+	const char *const policy1 = "policy_name=t policy_version=0.0.0\n"
-+				    "DEFAULT action=ALLOW";
-+	const char *const policy2 = "policy_name=t policy_version=0.0.1\n"
-+				    "DEFAULT action=DENY\n";
-+
-+	ctx = create_fake_ctx();
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
-+
-+	p1 = ipe_new_policy(policy1, strlen(policy1), NULL, 0);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p1);
-+	p2 = ipe_new_policy(policy2, strlen(policy2), NULL, 0);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p2);
-+
-+	ipe_add_policy(ctx, p1);
-+	KUNIT_ASSERT_EQ(test, 0, ipe_set_active_pol(p1));
-+
-+	rcu_read_lock();
-+	pp = ipe_get_policy_rcu(ctx->active_policy);
-+	rcu_read_unlock();
-+	KUNIT_EXPECT_PTR_EQ(test, pp, p1);
-+	ipe_put_policy(pp);
-+
-+	ipe_replace_policy(p1, p2);
-+
-+	rcu_read_lock();
-+	pp = ipe_get_policy_rcu(ctx->active_policy);
-+	rcu_read_unlock();
-+	KUNIT_EXPECT_PTR_EQ(test, pp, p2);
-+	ipe_put_policy(pp);
-+
-+	fake_free_ctx(ctx);
-+	ipe_put_policy(p1);
-+	ipe_put_policy(p2);
-+}
-+
-+/**
-+ * ipe_ctx_update_policy - Associate a policy with a context, then update it.
-+ * @test: Supplies a pointer to a kunit structure.
-+ *
-+ * This is called by the kunit harness. This function differs from replace above,
-+ * as it performs additional error checking.
-+ */
-+static void ipe_ctx_update_policy(struct kunit *test)
-+{
-+	struct ipe_policy *p1 = NULL;
-+	struct ipe_policy *p2 = NULL;
-+	struct ipe_policy *pp = NULL;
-+	struct ipe_context *ctx = NULL;
-+	const char *const policy1 = "policy_name=t policy_version=0.0.0\n"
-+				    "DEFAULT action=ALLOW";
-+	const char *const policy2 = "policy_name=t policy_version=0.0.1\n"
-+				    "DEFAULT action=DENY\n";
-+
-+	ctx = create_fake_ctx();
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
-+
-+	p1 = ipe_new_policy(policy1, strlen(policy1), NULL, 0);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p1);
-+
-+	ipe_add_policy(ctx, p1);
-+	ipe_set_active_pol(p1);
-+
-+	rcu_read_lock();
-+	pp = ipe_get_policy_rcu(ctx->active_policy);
-+	rcu_read_unlock();
-+	KUNIT_EXPECT_PTR_EQ(test, pp, p1);
-+	ipe_put_policy(pp);
-+
-+	p2 = ipe_update_policy(p1, policy2, strlen(policy2), NULL, 0);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p2);
-+
-+	rcu_read_lock();
-+	pp = ipe_get_policy_rcu(ctx->active_policy);
-+	rcu_read_unlock();
-+	KUNIT_EXPECT_PTR_EQ(test, pp, p2);
-+	ipe_put_policy(pp);
-+
-+	fake_free_ctx(ctx);
-+	ipe_put_policy(p1);
-+	ipe_put_policy(p2);
-+}
-+
-+/**
-+ * ipe_ctx_update_wrong_policy - Associate a policy with a context, then
-+ *				 attempt update it with the wrong policy.
-+ * @test: Supplies a pointer to a kunit structure.
-+ *
-+ * This is called by the kunit harness.
-+ */
-+static void ipe_ctx_update_wrong_policy(struct kunit *test)
-+{
-+	struct ipe_policy *p1 = NULL;
-+	struct ipe_policy *p2 = NULL;
-+	struct ipe_policy *pp = NULL;
-+	struct ipe_context *ctx = NULL;
-+	const char *const policy1 = "policy_name=t policy_version=0.0.0\n"
-+				    "DEFAULT action=ALLOW";
-+	const char *const policy2 = "policy_name=t2 policy_version=0.0.0\n"
-+				    "DEFAULT action=DENY\n";
-+
-+	ctx = create_fake_ctx();
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
-+
-+	p1 = ipe_new_policy(policy1, strlen(policy1), NULL, 0);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p1);
-+
-+	ipe_add_policy(ctx, p1);
-+	ipe_set_active_pol(p1);
-+
-+	rcu_read_lock();
-+	pp = ipe_get_policy_rcu(ctx->active_policy);
-+	rcu_read_unlock();
-+	KUNIT_EXPECT_PTR_EQ(test, pp, p1);
-+	ipe_put_policy(pp);
-+
-+	p2 = ipe_update_policy(p1, policy2, strlen(policy2), NULL, 0);
-+	KUNIT_EXPECT_EQ(test, PTR_ERR(p2), -EINVAL);
-+
-+	rcu_read_lock();
-+	pp = ipe_get_policy_rcu(ctx->active_policy);
-+	rcu_read_unlock();
-+	KUNIT_EXPECT_PTR_EQ(test, pp, p1);
-+	ipe_put_policy(pp);
-+
-+	fake_free_ctx(ctx);
-+	ipe_put_policy(p1);
-+	ipe_put_policy(p2);
-+}
-+
-+/**
-+ * ipe_ctx_update_wrong_policy - Associate a policy with a context, mark it active,
-+ *				 then attempt update it with a stale policy.
-+ * @test: Supplies a pointer to a kunit structure.
-+ *
-+ * This is called by the kunit harness.
-+ */
-+static void ipe_ctx_update_rollback_policy(struct kunit *test)
-+{
-+	struct ipe_policy *p1 = NULL;
-+	struct ipe_policy *p2 = NULL;
-+	struct ipe_policy *pp = NULL;
-+	struct ipe_context *ctx = NULL;
-+	const char *const policy1 = "policy_name=t policy_version=0.0.1\n"
-+				    "DEFAULT action=ALLOW";
-+	const char *const policy2 = "policy_name=t policy_version=0.0.0\n"
-+				    "DEFAULT action=DENY\n";
-+
-+	ctx = create_fake_ctx();
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
-+
-+	p1 = ipe_new_policy(policy1, strlen(policy1), NULL, 0);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p1);
-+
-+	ipe_add_policy(ctx, p1);
-+	KUNIT_ASSERT_EQ(test, 0, ipe_set_active_pol(p1));
-+
-+	rcu_read_lock();
-+	pp = ipe_get_policy_rcu(ctx->active_policy);
-+	rcu_read_unlock();
-+	KUNIT_EXPECT_PTR_EQ(test, pp, p1);
-+	ipe_put_policy(pp);
-+
-+	p2 = ipe_update_policy(p1, policy2, strlen(policy2), NULL, 0);
-+	KUNIT_EXPECT_EQ(test, PTR_ERR(p2), -EINVAL);
-+
-+	rcu_read_lock();
-+	pp = ipe_get_policy_rcu(ctx->active_policy);
-+	rcu_read_unlock();
-+	KUNIT_EXPECT_PTR_EQ(test, pp, p1);
-+	ipe_put_policy(pp);
-+
-+	fake_free_ctx(ctx);
-+	ipe_put_policy(p1);
-+	ipe_put_policy(p2);
-+}
-+
-+/**
-+ * ipe_ctx_rollback - Associate two policies with a context, then
-+ *		      attempt rollback the active policy.
-+ * @test: Supplies a pointer to a kunit structure.
-+ *
-+ * This is called by the kunit harness.
-+ */
-+static void ipe_ctx_rollback(struct kunit *test)
-+{
-+	struct ipe_policy *p1 = NULL;
-+	struct ipe_policy *p2 = NULL;
-+	struct ipe_context *ctx = NULL;
-+	const char *const policy1 = "policy_name=t policy_version=0.0.1\n"
-+				    "DEFAULT action=ALLOW";
-+	const char *const policy2 = "policy_name=t2 policy_version=0.0.0\n"
-+				    "DEFAULT action=DENY\n";
-+
-+	ctx = create_fake_ctx();
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
-+
-+	p1 = ipe_new_policy(policy1, strlen(policy1), NULL, 0);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p1);
-+	ipe_add_policy(ctx, p1);
-+	KUNIT_ASSERT_EQ(test, 0, ipe_set_active_pol(p1));
-+
-+	p2 = ipe_new_policy(policy2, strlen(policy2), NULL, 0);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p2);
-+	ipe_add_policy(ctx, p2);
-+	KUNIT_ASSERT_EQ(test, -EINVAL, ipe_set_active_pol(p2));
-+
-+	fake_free_ctx(ctx);
-+	ipe_put_policy(p1);
-+	ipe_put_policy(p2);
-+}
-+
-+/**
-+ * ipe_ctx_update_rollback_inactive - Associate a policy with a context, then
-+ *				      attempt update it with a stale policy.
-+ * @test: Supplies a pointer to a kunit structure.
-+ *
-+ * This is called by the kunit harness.
-+ */
-+static void ipe_ctx_update_rollback_inactive(struct kunit *test)
-+{
-+	struct ipe_policy *p1 = NULL;
-+	struct ipe_policy *p2 = NULL;
-+	struct ipe_context *ctx = NULL;
-+	const char *const policy1 = "policy_name=t policy_version=0.0.1\n"
-+				    "DEFAULT action=ALLOW";
-+	const char *const policy2 = "policy_name=t policy_version=0.0.0\n"
-+				    "DEFAULT action=DENY\n";
-+
-+	ctx = create_fake_ctx();
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
-+
-+	p1 = ipe_new_policy(policy1, strlen(policy1), NULL, 0);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p1);
-+
-+	ipe_add_policy(ctx, p1);
-+
-+	p2 = ipe_update_policy(p1, policy2, strlen(policy2), NULL, 0);
-+	KUNIT_EXPECT_NOT_ERR_OR_NULL(test, p2);
-+
-+	fake_free_ctx(ctx);
-+	ipe_put_policy(p1);
-+	ipe_put_policy(p2);
-+}
-+
-+static struct kunit_case ipe_ctx_test_cases[] = {
-+	KUNIT_CASE_PARAM(ipe_ctx_eval_test, ipe_eval_gen_params),
-+	KUNIT_CASE_PARAM(ipe_ctx_eval_permissive_test, ipe_eval_gen_params),
-+	KUNIT_CASE(ipe_ctx_default_eval_test),
-+	KUNIT_CASE(ipe_ctx_replace_active_policy),
-+	KUNIT_CASE(ipe_ctx_replace_policy),
-+	KUNIT_CASE(ipe_ctx_update_policy),
-+	KUNIT_CASE(ipe_ctx_update_wrong_policy),
-+	KUNIT_CASE(ipe_ctx_update_rollback_policy),
-+	KUNIT_CASE(ipe_ctx_update_rollback_inactive),
-+	KUNIT_CASE(ipe_ctx_rollback),
-+};
-+
-+static struct kunit_suite ipe_ctx_test_suite = {
-+	.name = "ipe-context",
-+	.test_cases = ipe_ctx_test_cases,
-+};
-+
-+kunit_test_suite(ipe_ctx_test_suite);
-diff --git a/security/ipe/eval.c b/security/ipe/eval.c
-index 8f8b91c714c2..9a45548118c8 100644
---- a/security/ipe/eval.c
-+++ b/security/ipe/eval.c
-@@ -231,3 +231,7 @@ void ipe_invalidate_pinned_sb(const struct super_block *mnt_sb)
- 
- 	spin_unlock(&pin_lock);
- }
-+
-+#ifdef CONFIG_SECURITY_IPE_KUNIT_TEST
-+#include "ctx_test.c"
-+#endif /* CONFIG_SECURITY_IPE_KUNIT_TEST */
-diff --git a/security/ipe/policy_parser_tests.c b/security/ipe/policy_parser_tests.c
-new file mode 100644
-index 000000000000..9bc97f0e0a1c
---- /dev/null
-+++ b/security/ipe/policy_parser_tests.c
-@@ -0,0 +1,299 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) Microsoft Corporation. All rights reserved.
-+ */
-+
-+#include <linux/slab.h>
-+#include <linux/types.h>
-+#include <linux/list.h>
-+#include <kunit/test.h>
-+#include "policy.h"
-+
-+struct policy_case {
-+	const char *const policy;
-+	int	   errno;
-+	const char *const desc;
-+};
-+
-+static const struct policy_case policy_cases[] = {
-+	{
-+		"policy_name=\"allowall\" policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW",
-+		0,
-+		"basic",
-+	},
-+	{
-+		"policy_name='trailing comment' policy_version=152.0.0 #This is comment\n"
-+		"DEFAULT action=ALLOW",
-+		0,
-+		"trailing comment",
-+	},
-+	{
-+		"policy_name=allowallnewline policy_version=0.2.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"\n",
-+		0,
-+		"trailing newline",
-+	},
-+	{
-+		"policy_name=\"carriage return\tline feed\" policy_version=0.0.1\n"
-+		"DEFAULT action=ALLOW\n"
-+		"\r\n",
-+		0,
-+		"clrf newline",
-+	},
-+	{
-+		"policy_name='whitespace' policy_version=0.0.0\n"
-+		"DEFAULT\taction=ALLOW\n"
-+		"     \t     DEFAULT \t    op=EXECUTE      action=DENY\n"
-+		"op=EXECUTE boot_verified=TRUE action=ALLOW\n"
-+		"# this is a\tcomment\t\t\t\t\n"
-+		"DEFAULT \t op=KERNEL_READ\t\t\t  action=DENY\r\n"
-+		"op=KERNEL_READ boot_verified=TRUE action=ALLOW\n",
-+		0,
-+		"various whitespaces and nested default",
-+	},
-+	{
-+		"policy_name='boot verified' policy_version=-1236.0.0\n"
-+		"DEFAULT\taction=ALLOW\n",
-+		-EINVAL,
-+		"negative version",
-+	},
-+	{
-+		"policy_name=\"# this is not a comment\" policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW",
-+		0,
-+		"quoted '#'",
-+	},
-+	{
-+		"policy_name=$@!*&^%%\\:;{}() policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW",
-+		0,
-+		"special characters",
-+	},
-+	{
-+		"policy_name=test policy_version=999999.0.0\n"
-+		"DEFAULT action=ALLOW",
-+		-ERANGE,
-+		"overflow version",
-+	},
-+	{
-+		"policy_name=test policy_version=255.0\n"
-+		"DEFAULT action=ALLOW",
-+		-EBADMSG,
-+		"incomplete version",
-+	},
-+	{
-+		"policy_name=test policy_version=111.0.0.0\n"
-+		"DEFAULT action=ALLOW",
-+		-EBADMSG,
-+		"extra version",
-+	},
-+	{
-+		"",
-+		-EBADMSG,
-+		"0-length policy",
-+	},
-+	{
-+		"policy_name=\"test\"\0policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW",
-+		-EBADMSG,
-+		"random null in header",
-+	},
-+	{
-+		"policy_name=\"test\" policy_version=0.0.0\n"
-+		"\0DEFAULT action=ALLOW",
-+		-EBADMSG,
-+		"incomplete policy from NULL",
-+	},
-+	{
-+		"policy_name=\"test\" policy_version=0.0.0\n"
-+		"DEFAULT action=DENY\n\0"
-+		"op=EXECUTE dmverity_signature=TRUE action=ALLOW\n",
-+		0,
-+		"NULL truncates policy",
-+	},
-+	{
-+		"policy_name=\"test\" policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"op=EXECUTE dmverity_signature=abc action=ALLOW",
-+		-EBADMSG,
-+		"invalid property type",
-+	},
-+	{
-+		"DEFAULT action=ALLOW",
-+		-EBADMSG,
-+		"missing policy header",
-+	},
-+	{
-+		"policy_name=\"test\" policy_version=0.0.0\n",
-+		-EBADMSG,
-+		"missing default definition",
-+	},
-+	{
-+		"policy_name=\"test\" policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"op=KERNEL_READ dmverity_signature=TRUE action=ALLOW",
-+		0,
-+		"aliased operation",
-+	},
-+	{
-+		"policy_name=\"test\" policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"dmverity_signature=TRUE op=EXECUTE action=ALLOW",
-+		-EINVAL,
-+		"invalid rule ordering"
-+	},
-+	{
-+		"policy_name=\"test\" policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"action=ALLOW op=EXECUTE dmverity_signature=TRUE",
-+		-EINVAL,
-+		"invalid rule ordering (2)",
-+	},
-+	{
-+		"policy_name=\"test\" policy_version=0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"op=EXECUTE dmverity_signature=TRUE action=ALLOW",
-+		-EBADMSG,
-+		"invalid version",
-+	},
-+	{
-+		"policy_name=\"test\" policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"op=UNKNOWN dmverity_signature=TRUE action=ALLOW",
-+		-ENOENT,
-+		"unknown operation",
-+	},
-+	{
-+		"policy_name=\"asdv\"policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n",
-+		-EBADMSG,
-+		"missing space after quote",
-+	},
-+	{
-+		"policy_name=\"test\xFF\xEF\" policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"op=EXECUTE dmverity_signature=TRUE action=ALLOW",
-+		0,
-+		"expanded ascii",
-+	},
-+	{
-+		"policy_name=\"test\xFF\xEF\" policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"op=EXECUTE dmverity_roothash=\"GOOD DOG\" action=ALLOW",
-+		-EINVAL,
-+		"invalid property value (2)",
-+	},
-+	{
-+		"policy_name='test' policy_version=0.0.0\n"
-+		"policy_name='test' policy_version=0.1.0\n"
-+		"DEFAULT action=ALLOW",
-+		-EBADMSG,
-+		"double header"
-+	},
-+	{
-+		"policy_name='test' policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"DEFAULT action=ALLOW\n",
-+		-EBADMSG,
-+		"double default"
-+	},
-+	{
-+		"policy_name='test' policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"DEFAULT op=EXECUTE action=DENY\n"
-+		"DEFAULT op=EXECUTE action=ALLOW\n",
-+		-EBADMSG,
-+		"double operation default"
-+	},
-+	{
-+		"policy_name='test' policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"DEFAULT op=EXECUTE action=DEN\n",
-+		-EINVAL,
-+		"invalid allow value"
-+	},
-+	{
-+		"policy_name='test' policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"DEFAULT op=EXECUTE action\n",
-+		-EINVAL,
-+		"invalid allow value (2)"
-+	},
-+	{
-+		"policy_name='test' policy_version=0.0.0\n"
-+		"DEFAULT action=ALLOW\n"
-+		"UNKNOWN value=true\n",
-+		-EINVAL,
-+		"unrecognized statement"
-+	}
-+};
-+
-+static void pol_to_desc(const struct policy_case *c, char *desc)
-+{
-+	strncpy(desc, c->desc, KUNIT_PARAM_DESC_SIZE);
-+}
-+
-+KUNIT_ARRAY_PARAM(ipe_policies, policy_cases, pol_to_desc);
-+
-+/**
-+ * ipe_parser_unsigned_test: Throw policies at the parser and check the result.
-+ * @test: Supplies a pointer to a kunit structure.
-+ *
-+ * This is called by the kunit harness. This test does not check the correctness
-+ * of the policy, but ensures that errors are handled correctly. Functional
-+ * validation of correctly-parsed policies are done in the evaluation unit tests.
-+ */
-+static void ipe_parser_unsigned_test(struct kunit *test)
-+{
-+	const struct policy_case *p = test->param_value;
-+	struct ipe_policy *pol = ipe_new_policy(p->policy, strlen(p->policy), NULL, 0);
-+
-+	if (p->errno) {
-+		KUNIT_EXPECT_EQ(test, PTR_ERR(pol), p->errno);
-+		return;
-+	}
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, pol);
-+	KUNIT_EXPECT_EQ(test, 1, refcount_read(&pol->refcount));
-+	KUNIT_EXPECT_PTR_EQ(test, NULL, pol->ctx);
-+	KUNIT_EXPECT_NOT_ERR_OR_NULL(test, pol->parsed);
-+	KUNIT_EXPECT_PTR_EQ(test, NULL, pol->policyfs);
-+	KUNIT_EXPECT_STREQ(test, pol->text, p->policy);
-+	KUNIT_EXPECT_PTR_EQ(test, NULL, pol->pkcs7);
-+	KUNIT_EXPECT_EQ(test, 0, pol->pkcs7len);
-+	KUNIT_EXPECT_TRUE(test, list_empty(&pol->next));
-+
-+	ipe_put_policy(pol);
-+}
-+
-+/**
-+ * ipe_parser_widestring_test: Ensure a wide string policy causes a failure.
-+ * @test: Supplies a pointer to a kunit structure.
-+ *
-+ * This is called by the kunit harness.
-+ */
-+static void ipe_parser_widestring_test(struct kunit *test)
-+{
-+	struct ipe_policy *pol = NULL;
-+	const unsigned short policy[] = L"policy_name=Test policy_version=0.0.0\n"
-+					L"DEFAULT action=ALLOW";
-+
-+	pol = ipe_new_policy((const char *)policy, (ARRAY_SIZE(policy) - 1) * 2, NULL, 0);
-+	KUNIT_EXPECT_TRUE(test, IS_ERR_OR_NULL(pol));
-+
-+	ipe_put_policy(pol);
-+}
-+
-+static struct kunit_case ipe_parser_test_cases[] = {
-+	KUNIT_CASE_PARAM(ipe_parser_unsigned_test, ipe_policies_gen_params),
-+	KUNIT_CASE(ipe_parser_widestring_test),
-+};
-+
-+static struct kunit_suite ipe_parser_test_suite = {
-+	.name = "ipe-parser",
-+	.test_cases = ipe_parser_test_cases,
-+};
-+
-+kunit_test_suite(ipe_parser_test_suite);
--- 
-2.33.0
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+RnJvbTogRGV2ZW4gQm93ZXJzIDxkZXZlbi5kZXNhaUBsaW51eC5taWNyb3NvZnQuY29tPgoKQWRk
+IElQRSdzIGFkbWluIGFuZCBkZXZlbG9wZXIgZG9jdW1lbnRhdGlvbiB0byB0aGUga2VybmVsIHRy
+ZWUuCgpDby1kZXZlbG9wZWQtYnk6IEZhbiBXdSA8d3VmYW5AbGludXgubWljcm9zb2Z0LmNvbT4K
+U2lnbmVkLW9mZi1ieTogRmFuIFd1IDx3dWZhbkBsaW51eC5taWNyb3NvZnQuY29tPgpTaWduZWQt
+b2ZmLWJ5OiBEZXZlbiBCb3dlcnMgPGRldmVuLmRlc2FpQGxpbnV4Lm1pY3Jvc29mdC5jb20+Ci0t
+LQoKUmVsZXZhbnQgY2hhbmdlcyBzaW5jZSB2NjoKICAqIEFkZCBhZGRpdGlvbmFsIGRldmVsb3Bl
+ci1sZXZlbCBkb2N1bWVudGF0aW9uCiAgKiBVcGRhdGUgYWRtaW4tZ3VpZGUgZG9jcyB0byByZWZs
+ZWN0IGNoYW5nZXMuCiAgKiBEcm9wIEFja2VkLWJ5IGR1ZSB0byBzaWduaWZpY2FudCBjaGFuZ2Vz
+CgotLS0KIERvY3VtZW50YXRpb24vYWRtaW4tZ3VpZGUvTFNNL2luZGV4LnJzdCAgICAgICB8ICAg
+MSArCiBEb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL0xTTS9pcGUucnN0ICAgICAgICAgfCA1ODcg
+KysrKysrKysrKysrKysrKysrCiAuLi4vYWRtaW4tZ3VpZGUva2VybmVsLXBhcmFtZXRlcnMudHh0
+ICAgICAgICAgfCAgMTIgKwogRG9jdW1lbnRhdGlvbi9zZWN1cml0eS9pbmRleC5yc3QgICAgICAg
+ICAgICAgIHwgICAxICsKIERvY3VtZW50YXRpb24vc2VjdXJpdHkvaXBlLnJzdCAgICAgICAgICAg
+ICAgICB8IDMzOSArKysrKysrKysrCiBNQUlOVEFJTkVSUyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgfCAgIDIgKwogNiBmaWxlcyBjaGFuZ2VkLCA5NDIgaW5zZXJ0aW9ucygrKQog
+Y3JlYXRlIG1vZGUgMTAwNjQ0IERvY3VtZW50YXRpb24vYWRtaW4tZ3VpZGUvTFNNL2lwZS5yc3QK
+IGNyZWF0ZSBtb2RlIDEwMDY0NCBEb2N1bWVudGF0aW9uL3NlY3VyaXR5L2lwZS5yc3QKCmRpZmYg
+LS1naXQgYS9Eb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL0xTTS9pbmRleC5yc3QgYi9Eb2N1bWVu
+dGF0aW9uL2FkbWluLWd1aWRlL0xTTS9pbmRleC5yc3QKaW5kZXggYTZiYTk1ZmJhYTlmLi5jZTYz
+YmU2ZDY0YWQgMTAwNjQ0Ci0tLSBhL0RvY3VtZW50YXRpb24vYWRtaW4tZ3VpZGUvTFNNL2luZGV4
+LnJzdAorKysgYi9Eb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL0xTTS9pbmRleC5yc3QKQEAgLTQ3
+LDMgKzQ3LDQgQEAgc3ViZGlyZWN0b3JpZXMuCiAgICB0b21veW8KICAgIFlhbWEKICAgIFNhZmVT
+ZXRJRAorICAgaXBlCmRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL0xTTS9p
+cGUucnN0IGIvRG9jdW1lbnRhdGlvbi9hZG1pbi1ndWlkZS9MU00vaXBlLnJzdApuZXcgZmlsZSBt
+b2RlIDEwMDY0NAppbmRleCAwMDAwMDAwMDAwMDAuLjU2YTlmYTJmZTU5YgotLS0gL2Rldi9udWxs
+CisrKyBiL0RvY3VtZW50YXRpb24vYWRtaW4tZ3VpZGUvTFNNL2lwZS5yc3QKQEAgLTAsMCArMSw1
+ODcgQEAKKy4uIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wCisKK0ludGVncml0eSBQ
+b2xpY3kgRW5mb3JjZW1lbnQgKElQRSkKKz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT0KKworLi4gTk9URTo6CisKKyAgIFRoaXMgaXMgdGhlIGRvY3VtZW50YXRpb24gZm9yIGFkbWlu
+cywgc3lzdGVtIGJ1aWxkZXJzLCBvciBpbmRpdmlkdWFscworICAgYXR0ZW1wdGluZyB0byB1c2Ug
+SVBFLCB3aXRob3V0IHVuZGVyc3RhbmRpbmcgYWxsIG9mIGl0cyBpbnRlcm5hbCBzeXN0ZW1zLgor
+ICAgSWYgeW91J3JlIGxvb2tpbmcgZm9yIGRvY3VtZW50YXRpb24gdG8gZXh0ZW5kIElQRSwgdW5k
+ZXJzdGFuZCB0aGUgZGVzaWduCisgICBkZWNpc2lvbnMgYmVoaW5kIElQRSwgb3IgYXJlIGp1c3Qg
+Y3VyaW91cyBhYm91dCB0aGUgaW50ZXJuYWxzLCBwbGVhc2UKKyAgIHNlZSA6cmVmOmBEb2N1bWVu
+dGF0aW9uL3NlY3VyaXR5L2lwZS5yc3RgCisKK092ZXJ2aWV3CistLS0tLS0tLQorCitJUEUgaXMg
+YSBMaW51eCBTZWN1cml0eSBNb2R1bGUgd2hpY2ggaW1wb3NlcyBhIGNvbXBsaW1lbnRhcnkgbW9k
+ZWwKK29mIG1hbmRhdG9yeSBhY2Nlc3MgY29udHJvbCB0byBvdGhlciBMU01zLiBXaGVyZWFzIHRo
+ZSBleGlzdGluZyBMU01zCitpbXBvc2UgYWNjZXNzIGNvbnRyb2wgYmFzZWQgb24gbGFiZWxzIG9y
+IHBhdGhzLCBJUEUgaW1wb3NlcyBhY2Nlc3MKK2NvbnRyb2wgYmFzZWQgb24gdGhlIHRydXN0IG9m
+IHRoZSByZXNvdXJjZS4gU2ltcGx5IHB1dCwgSVBFCitvciByZXN0cmljdHMgYWNjZXNzIHRvIGEg
+cmVzb3VyY2UgYmFzZWQgb24gdGhlIHRydXN0IG9mIHNhaWQgcmVzb3VyY2UuCisKK1RydXN0IHJl
+cXVpcmVtZW50cyBhcmUgZXN0YWJsaXNoZWQgdmlhIElQRSdzIHBvbGljeSwgc291cmNpbmcgbXVs
+dGlwbGUKK2RpZmZlcmVudCBpbXBsZW1lbnRhdGlvbnMgd2l0aGluIHRoZSBrZXJuZWwgdG8gYnVp
+bGQgYSBjb2hlc2l2ZSB0cnVzdAorbW9kZWwsIGJhc2VkIG9uIGhvdyB0aGUgc3lzdGVtIHdhcyBi
+dWlsdC4KKworVHJ1c3QgdnMgSW50ZWdyaXR5CistLS0tLS0tLS0tLS0tLS0tLS0KKworVHJ1c3Qs
+IHdpdGggcmVzcGVjdCB0byBjb21wdXRpbmcsIGlzIGEgY29uY2VwdCB0aGF0IGRlc2lnbmF0ZXMg
+YSBzZXQKK29mIGVudGl0aWVzIHdobyB3aWxsIGVuZG9yc2UgYSBzZXQgb2YgcmVzb3VyY2VzIGFz
+IG5vbi1tYWxpY2lvdXMuCitUcmFkaXRpb25hbGx5LCB0aGlzIGlzIGRvbmUgdmlhIHNpZ25hdHVy
+ZXMsIHdoaWNoIGlzIHRoZSBhY3Qgb2YgZW5kb3JzaW5nCithIHJlc291cmNlLiBJbnRlZ3JpdHks
+IG9uIHRoZSBvdGhlciBoYW5kLCBpcyB0aGUgY29uY2VwdCBvZiBlbnN1cmluZyB0aGF0IGEKK3Jl
+c291cmNlIGhhcyBub3QgYmVlbiBtb2RpZmllZCBzaW5jZSBhIHBvaW50IG9mIHRpbWUuIFRoaXMg
+aXMgdHlwaWNhbGx5IGRvbmUKK3Rocm91Z2ggY3J5cHRvZ3JhcGh5IG9yIHNpZ25hdHVyZXMuCisK
+K1RydXN0IGFuZCBpbnRlZ3JpdHkgYXJlIHZlcnkgY2xvc2VseSB0aWVkIHRvZ2V0aGVyIGNvbmNl
+cHRzLCBhcyBpbnRlZ3JpdHkKK2lzIHRoZSB3YXkgeW91IGNhbiBwcm92ZSB0cnVzdCBmb3IgYSBy
+ZXNvdXJjZTsgb3RoZXJ3aXNlIGl0IGNvdWxkIGhhdmUKK2JlZW4gbW9kaWZpZWQgYnkgYW4gZW50
+aXR5IHdobyBpcyB1bnRydXN0ZWQuCisKK0lQRSBwcm92aWRlcyBhIHdheSBmb3IgYSB1c2VyIHRv
+IGV4cHJlc3MgdHJ1c3Qgb2YgcmVzb3VyY2VzLCBieSB1c2luZworcHJlLWV4aXN0aW5nIHN5c3Rl
+bXMgd2hpY2ggcHJvdmlkZSB0aGUgaW50ZWdyaXR5IGhhbGYgb2YgdGhlIGVxdWF0aW9uLgorCitV
+c2UgQ2FzZXMKKy0tLS0tLS0tLQorCitJUEUgd29ya3MgYmVzdCBpbiBmaXhlZC1mdW5jdGlvbiBk
+ZXZpY2VzOiBEZXZpY2VzIGluIHdoaWNoIHRoZWlyIHB1cnBvc2UKK2lzIGNsZWFybHkgZGVmaW5l
+ZCBhbmQgbm90IHN1cHBvc2VkIHRvIGJlIGNoYW5nZWQgKGUuZy4gbmV0d29yayBmaXJld2FsbAor
+ZGV2aWNlIGluIGEgZGF0YSBjZW50ZXIsIGFuIElvVCBkZXZpY2UsIGV0Y2V0ZXJhKSwgd2hlcmUg
+YWxsIHNvZnR3YXJlIGFuZAorY29uZmlndXJhdGlvbiBpcyBidWlsdCBhbmQgcHJvdmlzaW9uZWQg
+YnkgdGhlIHN5c3RlbSBvd25lci4KKworSVBFIGlzIGEgbG9uZy13YXkgb2ZmIGZvciB1c2UgaW4g
+Z2VuZXJhbC1wdXJwb3NlIGNvbXB1dGluZzoKK3RoZSBMaW51eCBjb21tdW5pdHkgYXMgYSB3aG9s
+ZSB0ZW5kcyB0byBmb2xsb3cgYSBkZWNlbnRyYWxpemVkIHRydXN0Cittb2RlbCwga25vd24gYXMg
+dGhlIFdlYiBvZiBUcnVzdCwgd2hpY2ggSVBFIGhhcyBubyBzdXBwb3J0IGZvciBhcyBvZiB5ZXQu
+CitJbnN0ZWFkLCBJUEUgc3VwcG9ydHMgdGhlIFBLSSBUcnVzdCBNb2RlbCwgd2hpY2ggZ2VuZXJh
+bGx5IGRlc2lnbmF0ZXMgYQorc2V0IG9mIGVudGl0aWVzIHRoYXQgcHJvdmlkZSBhIG1lYXN1cmUg
+YWJzb2x1dGUgdHJ1c3QuCisKK0FkZGl0aW9uYWxseSwgd2hpbGUgbW9zdCBwYWNrYWdlcyBhcmUg
+c2lnbmVkIHRvZGF5LCB0aGUgZmlsZXMgaW5zaWRlCit0aGUgcGFja2FnZXMgKGZvciBpbnN0YW5j
+ZSwgdGhlIGV4ZWN1dGFibGVzKSwgdGVuZCB0byBiZSB1bnNpZ25lZC4gVGhpcworbWFrZXMgaXQg
+ZGlmZmljdWx0IHRvIHV0aWxpemUgSVBFIGluIHN5c3RlbXMgd2hlcmUgYSBwYWNrYWdlIG1hbmFn
+ZXIgaXMKK2V4cGVjdGVkIHRvIGJlIGZ1bmN0aW9uYWwsIHdpdGhvdXQgbWFqb3IgY2hhbmdlcyB0
+byB0aGUgcGFja2FnZSBtYW5hZ2VyCithbmQgZWNvc3lzdGVtIGJlaGluZCBpdC4KKworRm9yIHRo
+ZSBoaWdoZXN0IGxldmVsIG9mIHNlY3VyaXR5LCBwbGF0Zm9ybSBmaXJtd2FyZSBzaG91bGQgdmVy
+aWZ5IHRoZQordGhlIGtlcm5lbCBhbmQgb3B0aW9uYWxseSB0aGUgcm9vdCBmaWxlc3lzdGVtIChm
+b3IgZXhhbXBsZSwgdmlhIFUtQm9vdAordmVyaWZpZWQgYm9vdCkuIFRoaXMgZm9ybXMgYSBjaGFp
+biBvZiB0cnVzdCBmcm9tIHRoZSBoYXJkd2FyZSwgZW5zdXJpbmcKK3RoYXQgZXZlcnkgc3RhZ2Ug
+b2YgdGhlIHN5c3RlbSBpcyB0cnVzdGVkLgorCitLbm93biBHYXBzCistLS0tLS0tLS0tCisKK0lQ
+RSBjYW5ub3QgdmVyaWZ5IHRoZSBpbnRlZ3JpdHkgb2YgYW5vbnltb3VzIGV4ZWN1dGFibGUgbWVt
+b3J5LCBzdWNoIGFzCit0aGUgdHJhbXBvbGluZXMgY3JlYXRlZCBieSBnY2MgY2xvc3VyZXMgYW5k
+IGxpYmZmaSAoPDMuNC4yKSwgb3IgSklUJ2QgY29kZS4KK1VuZm9ydHVuYXRlbHksIGFzIHRoaXMg
+aXMgZHluYW1pY2FsbHkgZ2VuZXJhdGVkIGNvZGUsIHRoZXJlIGlzIG5vIHdheQorZm9yIElQRSB0
+byBlbnN1cmUgdGhlIGludGVncml0eSBvZiB0aGlzIGNvZGUgdG8gZm9ybSBhIHRydXN0IGJhc2lz
+LiBJbiBhbGwKK2Nhc2VzLCB0aGUgcmV0dXJuIHJlc3VsdCBmb3IgdGhlc2Ugb3BlcmF0aW9ucyB3
+aWxsIGJlIHdoYXRldmVyIHRoZSBhZG1pbgorY29uZmlndXJlcyB0aGUgREVGQVVMVCBhY3Rpb24g
+Zm9yICJFWEVDVVRFIi4KKworSVBFIGNhbm5vdCB2ZXJpZnkgdGhlIGludGVncml0eSBvZiBpbnRl
+cnByZXRlZCBsYW5ndWFnZXMnIHByb2dyYW1zIHdoZW4KK3RoZXNlIHNjcmlwdHMgaW52b2tlZCB2
+aWEgYGA8aW50ZXJwcmV0ZXI+IDxmaWxlPmBgLiBUaGlzIGlzIGJlY2F1c2UgdGhlCit3YXkgaW50
+ZXJwcmV0ZXJzIGV4ZWN1dGUgdGhlc2UgZmlsZXMsIHRoZSBzY3JpcHRzIHRoZW1zZWx2ZXMgYXJl
+IG5vdAorZXZhbHVhdGVkIGFzIGV4ZWN1dGFibGUgY29kZSB0aHJvdWdoIG9uZSBvZiBJUEUncyBo
+b29rcy4gSW50ZXJwcmV0ZXJzCitjYW4gYmUgZW5saWdodGVuZWQgdG8gdGhlIHVzYWdlIG9mIElQ
+RSBieSB0cnlpbmcgdG8gbW1hcCBhIGZpbGUgaW50bworZXhlY3V0YWJsZSBtZW1vcnkgKCtYKSwg
+YWZ0ZXIgb3BlbmluZyB0aGUgZmlsZSBhbmQgcmVzcG9uZGluZyB0byB0aGUKK2Vycm9yIGNvZGUg
+YXBwcm9wcmlhdGVseS4gVGhpcyBhbHNvIGFwcGxpZXMgdG8gaW5jbHVkZWQgZmlsZXMsIG9yIGhp
+Z2gKK3ZhbHVlIGZpbGVzLCBzdWNoIGFzIGNvbmZpZ3VyYXRpb24gZmlsZXMgb2YgY3JpdGljYWwg
+c3lzdGVtIGNvbXBvbmVudHMgWyNdXy4KKworLi4gWyNdIE1pY2thw6tsIFNhbGHDvG4ncyBgdHJ1
+c3RlZF9mb3IgcGF0Y2hzZXQgPGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDIxMTAwODEw
+NDg0MC4xNzMzMzg1LTEtbWljQGRpZ2lrb2QubmV0Lz5gXworICAgY2FuIGJlIHVzZWQgdG8gbGV2
+ZXJhZ2UgdGhpcy4KKworVGhyZWF0IE1vZGVsCistLS0tLS0tLS0tLS0KKworVGhlIHRocmVhdCB0
+eXBlIGFkZHJlc3NlZCBieSBJUEUgaXMgdGFtcGVyaW5nIG9mIGV4ZWN1dGFibGUgdXNlci1sYW5k
+Citjb2RlIGJleW9uZCB0aGUgaW5pdGlhbGx5IGJvb3RlZCBrZXJuZWwsIGFuZCB0aGUgaW5pdGlh
+bCB2ZXJpZmljYXRpb24gb2YKK2tlcm5lbCBtb2R1bGVzIHRoYXQgYXJlIGxvYWRlZCBpbiB1c2Vy
+bGFuZCB0aHJvdWdoIGBgbW9kcHJvYmVgYCBvcgorYGBpbnNtb2RgYC4KKworVGFtcGVyaW5nIHZp
+b2xhdGVzIGludGVncml0eSwgYW5kIGJlaW5nIHVuYWJsZSB0byB2ZXJpZnkgdGhlIGludGVncml0
+eSwKK3Jlc3VsdHMgaW4gYSBsYWNrIG9mIHRydXN0LiBJUEUncyByb2xlIGluIG1pdGlnYXRpbmcg
+dGhpcyB0aHJlYXQgaXMgdG8KK3ZlcmlmeSB0aGUgaW50ZWdyaXR5IChhbmQgYXV0aGVudGljaXR5
+KSBvZiBhbGwgZXhlY3V0YWJsZSBjb2RlIGFuZCB0bworZGVueSB0aGVpciB1c2UgaWYgdGhleSBj
+YW5ub3QgYmUgdHJ1c3RlZCAoYXMgaW50ZWdyaXR5IHZlcmlmaWNhdGlvbiBmYWlscykuCitJUEUg
+Z2VuZXJhdGVzIGF1ZGl0IGxvZ3Mgd2hpY2ggbWF5IGJlIHV0aWxpemVkIHRvIGRldGVjdCBmYWls
+dXJlcyByZXN1bHRpbmcKK2Zyb20gZmFpbHVyZSB0byBwYXNzIHBvbGljeS4KKworVGFtcGVyaW5n
+IHRocmVhdCBzY2VuYXJpb3MgaW5jbHVkZSBtb2RpZmljYXRpb24gb3IgcmVwbGFjZW1lbnQgb2YK
+K2V4ZWN1dGFibGUgY29kZSBieSBhIHJhbmdlIG9mIGFjdG9ycyBpbmNsdWRpbmc6CisKKy0gIEFj
+dG9ycyB3aXRoIHBoeXNpY2FsIGFjY2VzcyB0byB0aGUgaGFyZHdhcmUKKy0gIEFjdG9ycyB3aXRo
+IGxvY2FsIG5ldHdvcmsgYWNjZXNzIHRvIHRoZSBzeXN0ZW0KKy0gIEFjdG9ycyB3aXRoIGFjY2Vz
+cyB0byB0aGUgZGVwbG95bWVudCBzeXN0ZW0KKy0gIENvbXByb21pc2VkIGludGVybmFsIHN5c3Rl
+bXMgdW5kZXIgZXh0ZXJuYWwgY29udHJvbAorLSAgTWFsaWNpb3VzIGVuZCB1c2VycyBvZiB0aGUg
+c3lzdGVtCistICBDb21wcm9taXNlZCBlbmQgdXNlcnMgb2YgdGhlIHN5c3RlbQorLSAgUmVtb3Rl
+IChleHRlcm5hbCkgY29tcHJvbWlzZSBvZiB0aGUgc3lzdGVtCisKK0lQRSBkb2VzIG5vdCBtaXRp
+Z2F0ZSB0aHJlYXRzIGFyaXNpbmcgZnJvbSBtYWxpY2lvdXMgYXV0aG9yaXplZAorZGV2ZWxvcGVy
+cywgb3IgY29tcHJvbWlzZWQgZGV2ZWxvcGVyIHRvb2xzIHVzZWQgYnkgYXV0aG9yaXplZAorZGV2
+ZWxvcGVycy4gQWRkaXRpb25hbGx5LCBJUEUgZHJhd3MgaGFyZCBzZWN1cml0eSBib3VuZGFyeSBi
+ZXR3ZWVuIHVzZXIKK21vZGUgYW5kIGtlcm5lbCBtb2RlLiBBcyBhIHJlc3VsdCwgSVBFIGRvZXMg
+bm90IHByb3ZpZGUgYW55IHByb3RlY3Rpb25zCithZ2FpbnN0IGEga2VybmVsIGxldmVsIGV4cGxv
+aXQsIGFuZCBhIGtlcm5lbC1sZXZlbCBleHBsb2l0IGNhbiBkaXNhYmxlCitvciB0YW1wZXIgd2l0
+aCBJUEUncyBwcm90ZWN0aW9ucy4KKworUG9saWN5CistLS0tLS0KKworSVBFIHBvbGljeSBpcyBh
+IHBsYWluLXRleHQgWyNdXyBwb2xpY3kgY29tcG9zZWQgb2YgbXVsdGlwbGUgc3RhdGVtZW50cwor
+b3ZlciBzZXZlcmFsIGxpbmVzLiBUaGVyZSBpcyBvbmUgcmVxdWlyZWQgbGluZSwgYXQgdGhlIHRv
+cCBvZiB0aGUKK3BvbGljeSwgaW5kaWNhdGluZyB0aGUgcG9saWN5IG5hbWUsIGFuZCB0aGUgcG9s
+aWN5IHZlcnNpb24sIGZvcgoraW5zdGFuY2U6OgorCisgICBwb2xpY3lfbmFtZT0iRXggUG9saWN5
+IiBwb2xpY3lfdmVyc2lvbj0wLjAuMAorCitUaGUgcG9saWN5IG5hbWUgaXMgYSB1bmlxdWUga2V5
+IGlkZW50aWZ5aW5nIHRoaXMgcG9saWN5IGluIGEgaHVtYW4KK3JlYWRhYmxlIG5hbWUuIFRoaXMg
+aXMgdXNlZCB0byBjcmVhdGUgbm9kZXMgdW5kZXIgc2VjdXJpdHlmcyBhcyB3ZWxsIGFzCit1bmlx
+dWVseSBpZGVudGlmeSBwb2xpY2llcyB0byBkZXBsb3kgbmV3IHBvbGljaWVzIHZzIHVwZGF0ZSBl
+eGlzdGluZworcG9saWNpZXMuCisKK1RoZSBwb2xpY3kgdmVyc2lvbiBpbmRpY2F0ZXMgdGhlIGN1
+cnJlbnQgdmVyc2lvbiBvZiB0aGUgcG9saWN5IChOT1QgdGhlCitwb2xpY3kgc3ludGF4IHZlcnNp
+b24pLiBUaGlzIGlzIHVzZWQgdG8gcHJldmVudCByb2xsYmFjayBvZiBwb2xpY3kgdG8KK3BvdGVu
+dGlhbGx5IGluc2VjdXJlIHByZXZpb3VzIHZlcnNpb25zIG9mIHRoZSBwb2xpY3kuCisKK1RoZSBu
+ZXh0IHBvcnRpb24gb2YgSVBFIHBvbGljeSwgYXJlIHJ1bGVzLiBSdWxlcyBhcmUgZm9ybWVkIGJ5
+IGtleT12YWx1ZQorcGFpcnMsIGtub3duIGFzIHByb3BlcnRpZXMuIElQRSBydWxlcyByZXF1aXJl
+IHR3byBwcm9wZXJ0aWVzOiAiYWN0aW9uIiwKK3doaWNoIGRldGVybWluZXMgd2hhdCBJUEUgZG9l
+cyB3aGVuIGl0IGVuY291bnRlcnMgYSBtYXRjaCBhZ2FpbnN0IHRoZQorcnVsZSwgYW5kICJvcCIs
+IHdoaWNoIGRldGVybWluZXMgd2hlbiB0aGF0IHJ1bGUgc2hvdWxkIGJlIGV2YWx1YXRlZC4KK1Ro
+ZSBvcmRlcmluZyBpcyBzaWduaWZpY2FudCwgYSBydWxlIG11c3Qgc3RhcnQgd2l0aCAib3AiLCBh
+bmQgZW5kIHdpdGgKKyJhY3Rpb24iLiBUaHVzLCBhIG1pbmltYWwgcnVsZSBpczo6CisKKyAgIG9w
+PUVYRUNVVEUgYWN0aW9uPUFMTE9XCisKK1RoaXMgZXhhbXBsZSB3aWxsIGFsbG93IGFueSBleGVj
+dXRpb24uIEFkZGl0aW9uYWwgcHJvcGVydGllcyBhcmUgdXNlZCB0bworcmVzdHJpY3QgYXR0cmli
+dXRlcyBhYm91dCB0aGUgZmlsZXMgYmVpbmcgZXZhbHVhdGVkLiBUaGVzZSBwcm9wZXJ0aWVzCith
+cmUgaW50ZW5kZWQgdG8gYmUgZGVzY3JpcHRpb25zIG9mIHN5c3RlbXMgd2l0aGluIHRoZSBrZXJu
+ZWwsIHRoYXQgY2FuCitwcm92aWRlIGEgbWVhc3VyZSBvZiBpbnRlZ3JpdHkgdmVyaWZpY2F0aW9u
+LCBzdWNoIHRoYXQgSVBFIGNhbiBkZXRlcm1pbmUKK3RoZSB0cnVzdCBvZiB0aGUgcmVzb3VyY2Ug
+YmFzZWQgb24gdGhlICJ2YWx1ZSIgaGFsZiBvZiB0aGUgcHJvcGVydHkuCisKK1J1bGVzIGFyZSBl
+dmFsdWF0ZWQgdG9wLXRvLWJvdHRvbS4gQXMgYSByZXN1bHQsIGFueSByZXZvY2F0aW9uIHJ1bGVz
+LAorb3IgZGVuaWVzIHNob3VsZCBiZSBwbGFjZWQgZWFybHkgaW4gdGhlIGZpbGUgdG8gZW5zdXJl
+IHRoYXQgdGhlc2UgcnVsZXMKK2FyZSBldmFsdWF0ZWQgYmVmb3JlIGFzIHJ1bGUgd2l0aCAiYWN0
+aW9uPUFMTE9XIiBpcyBoaXQuCisKK0lQRSBwb2xpY3kgaXMgZGVzaWduZWQgdG8gYmUgb25seSBm
+b3J3YXJkIGNvbXBhdGlibGUuIFVzZXJzcGFjZSBjYW4gcmVhZAord2hhdCB0aGUgcGFyc2VyJ3Mg
+Y3VycmVudCBjb25maWd1cmF0aW9uIChzdXBwb3J0ZWQgc3RhdGVtZW50cywgcHJvcGVydGllcywK
+K2V0Y2V0ZXJhKSB2aWEgcmVhZGluZyB0aGUgc2VjdXJpdHlmcyBlbnRyeSwgJ2lwZS9jb25maWcn
+CisKK0lQRSBwb2xpY3kgc3VwcG9ydHMgY29tbWVudHMuIFRoZSBjaGFyYWN0ZXIgJyMnIHdpbGwg
+ZnVuY3Rpb24gYXMgYQorY29tbWVudCwgaWdub3JpbmcgYWxsIGNoYXJhY3RlcnMgdG8gdGhlIHJp
+Z2h0IG9mICcjJyB1bnRpbCB0aGUgbmV3bGluZS4KKworVGhlIGRlZmF1bHQgYmVoYXZpb3Igb2Yg
+SVBFIGV2YWx1YXRpb25zIGNhbiBhbHNvIGJlIGV4cHJlc3NlZCBpbiBwb2xpY3ksCit0aHJvdWdo
+IHRoZSBgYERFRkFVTFRgYCBzdGF0ZW1lbnQuIFRoaXMgY2FuIGJlIGRvbmUgYXQgYSBnbG9iYWwg
+bGV2ZWwsCitvciBhIHBlci1vcGVyYXRpb24gbGV2ZWw6OgorCisgICAjIEdsb2JhbAorICAgREVG
+QVVMVCBhY3Rpb249QUxMT1cKKworICAgIyBPcGVyYXRpb24gU3BlY2lmaWMKKyAgIERFRkFVTFQg
+b3A9RVhFQ1VURSBhY3Rpb249QUxMT1cKKworQSBkZWZhdWx0IG11c3QgYmUgc2V0IGZvciBhbGwg
+a25vd24gb3BlcmF0aW9ucyBpbiBJUEUuIElmIHlvdSB3YW50IHRvCitwcmVzZXJ2ZSBvbGRlciBw
+b2xpY2llcyBiZWluZyBjb21wYXRpYmxlIHdpdGggbmV3ZXIga2VybmVscyB0aGF0IGNhbiBpbnRy
+b2R1Y2UKK25ldyBvcGVyYXRpb25zLCBwbGVhc2Ugc2V0IGEgZ2xvYmFsIGRlZmF1bHQgb2YgJ0FM
+TE9XJywgYW5kIG92ZXJyaWRlIHRoZQorZGVmYXVsdHMgb24gYSBwZXItb3BlcmF0aW9uIGJhc2lz
+LgorCitXaXRoIGNvbmZpZ3VyYWJsZSBwb2xpY3ktYmFzZWQgTFNNcywgdGhlcmUncyBzZXZlcmFs
+IGlzc3VlcyB3aXRoCitlbmZvcmNpbmcgdGhlIGNvbmZpZ3VyYWJsZSBwb2xpY2llcyBhdCBzdGFy
+dHVwLCBhcm91bmQgcmVhZGluZyBhbmQKK3BhcnNpbmcgdGhlIHBvbGljeToKKworMS4gVGhlIGtl
+cm5lbCAqc2hvdWxkKiBub3QgcmVhZCBmaWxlcyBmcm9tIHVzZXJsYW5kLCBzbyBkaXJlY3RseSBy
+ZWFkaW5nCisgICB0aGUgcG9saWN5IGZpbGUgaXMgcHJvaGliaXRlZC4KKzIuIFRoZSBrZXJuZWwg
+Y29tbWFuZCBsaW5lIGhhcyBhIGNoYXJhY3RlciBsaW1pdCwgYW5kIG9uZSBrZXJuZWwgbW9kdWxl
+CisgICBzaG91bGQgbm90IHJlc2VydmUgdGhlIGVudGlyZSBjaGFyYWN0ZXIgbGltaXQgZm9yIGl0
+cyBvd24KKyAgIGNvbmZpZ3VyYXRpb24uCiszLiBUaGVyZSBhcmUgdmFyaW91cyBib290IGxvYWRl
+cnMgaW4gdGhlIGtlcm5lbCBlY29zeXN0ZW0sIHNvIGhhbmRpbmcKKyAgIG9mZiBhIG1lbW9yeSBi
+bG9jayB3b3VsZCBiZSBjb3N0bHkgdG8gbWFpbnRhaW4uCisKK0FzIGEgcmVzdWx0LCBJUEUgaGFz
+IGFkZHJlc3NlZCB0aGlzIHByb2JsZW0gdGhyb3VnaCBhIGNvbmNlcHQgb2YgYSAiYm9vdAorcG9s
+aWN5Ii4gQSBib290IHBvbGljeSBpcyBhIG1pbmltYWwgcG9saWN5LCBjb21waWxlZCBpbnRvIHRo
+ZSBrZXJuZWwuCitUaGlzIHBvbGljeSBpcyBpbnRlbmRlZCB0byBnZXQgdGhlIHN5c3RlbSB0byBh
+IHN0YXRlIHdoZXJlIHVzZXJsYW5kIGlzCitzZXR1cCBhbmQgcmVhZHkgdG8gcmVjZWl2ZSBjb21t
+YW5kcywgYXQgd2hpY2ggcG9pbnQgYSBtb3JlIGNvbXBsZXgKK3BvbGljeSAoInVzZXIgcG9saWNp
+ZXMiKSBjYW4gYmUgZGVwbG95ZWQgdmlhIHNlY3VyaXR5ZnMuIFRoZSBib290IHBvbGljeQorY2Fu
+IGJlIHNwZWNpZmllZCB2aWEgdGhlIEtjb25maWcsIGBgU0VDVVJJVFlfSVBFX0JPT1RfUE9MSUNZ
+YGAsIHdoaWNoCithY2NlcHRzIGEgcGF0aCB0byBhIHBsYWluLXRleHQgdmVyc2lvbiBvZiB0aGUg
+SVBFIHBvbGljeSB0byBhcHBseS4gVGhpcworcG9saWN5IHdpbGwgYmUgY29tcGlsZWQgaW50byB0
+aGUga2VybmVsLiBJZiBub3Qgc3BlY2lmaWVkLCBJUEUgd2lsbCBiZQorZGlzYWJsZWQgdW50aWwg
+YSBwb2xpY3kgaXMgZGVwbG95ZWQgYW5kIGFjdGl2YXRlZCB0aHJvdWdoIHNlY3VyaXR5ZnMuCisK
+Ky4uIFsjXSBQbGVhc2Ugc2VlIHRoZSA6cmVmOmBEb2N1bWVudGF0aW9uL3NlY3VyaXR5L2lwZS5y
+c3RgIGZvciBtb3JlIG9uIHRoaXMKKyAgIHRvcGljLgorCitEZXBsb3lpbmcgUG9saWNpZXMKK35+
+fn5+fn5+fn5+fn5+fn5+fgorCitVc2VyIHBvbGljaWVzIGFzIGV4cGxhaW5lZCBhYm92ZSwgYXJl
+IHBvbGljaWVzIHRoYXQgYXJlIGRlcGxveWVkIGZyb20KK3VzZXJsYW5kLCB0aHJvdWdoIHNlY3Vy
+aXR5ZnMuIFRoZXNlIHBvbGljaWVzIGFyZSBzaWduZWQgdG8gZW5mb3JjZSBzb21lCitsZXZlbCBv
+ZiBhdXRob3JpemF0aW9uIG9mIHRoZSBwb2xpY2llcyAocHJvaGliaXRpbmcgYW4gYXR0YWNrZXIg
+ZnJvbQorZ2FpbmluZyByb290LCBhbmQgZGVwbG95aW5nIGFuICJhbGxvdyBhbGwiIHBvbGljeSks
+IHRocm91Z2ggdGhlIFBLQ1MjNworZW52ZWxvcGVkIGRhdGEgZm9ybWF0LiBUaGVzZSBwb2xpY2ll
+cyBtdXN0IGJlIHNpZ25lZCBieSBhIGNlcnRpZmljYXRlCit0aGF0IGNoYWlucyB0byB0aGUgYGBT
+WVNURU1fVFJVU1RFRF9LRVlSSU5HYGAuIFRocm91Z2ggb3BlbnNzbCwgdGhlCitzaWduaW5nIGNh
+biBiZSBkb25lIHZpYTo6CisKKyAgIG9wZW5zc2wgc21pbWUgLXNpZ24gLWluICIkTVlfUE9MSUNZ
+IiAtc2lnbmVyICIkTVlfQ0VSVElGSUNBVEUiIFwKKyAgICAgLWlua2V5ICIkTVlfUFJJVkFURV9L
+RVkiIC1iaW5hcnkgLW91dGZvcm0gZGVyIC1ub2F0dHIgLW5vZGV0YWNoIFwKKyAgICAgLW91dCAi
+JE1ZX1BPTElDWS5wN3MiCisKK0RlcGxveWluZyB0aGUgcG9saWNpZXMgaXMgZG9uZSB0aHJvdWdo
+IHNlY3VyaXR5ZnMsIHRocm91Z2ggdGhlCitgYG5ld19wb2xpY3lgYCBub2RlLiBUbyBkZXBsb3kg
+YSBwb2xpY3ksIHNpbXBseSBjYXQgdGhlIGZpbGUgaW50byB0aGUKK3NlY3VyaXR5ZnMgbm9kZTo6
+CisKKyAgIGNhdCAiJE1ZX1BPTElDWS5wN3MiID4gL3N5cy9rZXJuZWwvc2VjdXJpdHkvaXBlL25l
+d19wb2xpY3kKKworVXBvbiBzdWNjZXNzLCB0aGlzIHdpbGwgY3JlYXRlIG9uZSBzdWJkaXJlY3Rv
+cnkgdW5kZXIKK2BgL3N5cy9rZXJuZWwvc2VjdXJpdHkvaXBlL3BvbGljaWVzL2BgLiBUaGUgc3Vi
+ZGlyZWN0b3J5IHdpbGwgYmUgdGhlCitgYHBvbGljeV9uYW1lYGAgZmllbGQgb2YgdGhlIHBvbGlj
+eSBkZXBsb3llZCwgc28gZm9yIHRoZSBleGFtcGxlIGFib3ZlLAordGhlIGRpcmVjdG9yeSB3aWxs
+IGJlIGBgL3N5cy9rZXJuZWwvc2VjdXJpdHkvaXBlL3BvbGljaWVzL0V4XCBQb2xpY3lgYC4KK1dp
+dGhpbiB0aGlzIGRpcmVjdG9yeSwgdGhlcmUgd2lsbCBiZSBmaXZlIGZpbGVzOiBgYHBrY3M3YGAs
+IGBgcG9saWN5YGAsCitgYGFjdGl2ZWBgLCBgYHVwZGF0ZWBgLCBhbmQgYGBkZWxldGVgYC4KKwor
+VGhlIGBgcGtjczdgYCBmaWxlIGlzIHJ3LCByZWFkaW5nIHdpbGwgcHJvdmlkZSB0aGUgcmF3IFBL
+Q1MjNyBkYXRhIHRoYXQKK3dhcyBwcm92aWRlZCB0byB0aGUga2VybmVsLCByZXByZXNlbnRpbmcg
+dGhlIHBvbGljeS4gV3JpdGluZywgd2lsbAorZGVwbG95IGFuIGluLXBsYWNlIHBvbGljeSB1cGRh
+dGUgLSBpZiB0aGlzIHBvbGljeSBpcyB0aGUgY3VycmVudGx5CitydW5uaW5nIHBvbGljeSwgdGhl
+IG5ldyB1cGRhdGVkIHBvbGljeSB3aWxsIHJlcGxhY2UgaXQgaW1tZWRpYXRlbHkgdXBvbgorc3Vj
+Y2Vzcy4gSWYgdGhlIHBvbGljeSBiZWluZyByZWFkIGlzIHRoZSBib290IHBvbGljeSwgd2hlbiBy
+ZWFkLCB0aGlzCit3aWxsIHJldHVybiBFTk9FTlQuCisKK1RoZSBgYHBvbGljeWBgIGZpbGUgaXMg
+cmVhZCBvbmx5LiBSZWFkaW5nIHdpbGwgcHJvdmlkZSB0aGUgUEtDUyM3IGlubmVyCitjb250ZW50
+IG9mIHRoZSBwb2xpY3ksIHdoaWNoIHdpbGwgYmUgdGhlIHBsYWluIHRleHQgcG9saWN5LgorCitU
+aGUgYGBhY3RpdmVgYCBmaWxlIGlzIHVzZWQgdG8gc2V0IGEgcG9saWN5IGFzIHRoZSBjdXJyZW50
+bHkgYWN0aXZlIHBvbGljeS4KK1RoaXMgZmlsZSBpcyBydywgYW5kIGFjY2VwdHMgYSB2YWx1ZSBv
+ZiBgYCIxImBgIHRvIHNldCB0aGUgcG9saWN5IGFzIGFjdGl2ZS4KK1NpbmNlIG9ubHkgYSBzaW5n
+bGUgcG9saWN5IGNhbiBiZSBhY3RpdmUgYXQgb25lIHRpbWUsIGFsbCBvdGhlciBwb2xpY2llcwor
+d2lsbCBiZSBtYXJrZWQgaW5hY3RpdmUuIFRoZSBwb2xpY3kgYmVpbmcgbWFya2VkIGFjdGl2ZSBt
+dXN0IGhhdmUgYSBwb2xpY3kKK3ZlcnNpb24gZ3JlYXRlciBvciBlcXVhbCB0byB0aGUgY3VycmVu
+dGx5LXJ1bm5pbmcgdmVyc2lvbi4KKworVGhlIGBgdXBkYXRlYGAgZmlsZSBpcyB1c2VkIHRvIHVw
+ZGF0ZSBhIHBvbGljeSB0aGF0IGlzIGFscmVhZHkgcHJlc2VudCBpbgordGhlIGtlcm5lbC4gVGhp
+cyBmaWxlIGlzIHdyaXRlLW9ubHkgYW5kIGFjY2VwdHMgYSBQS0NTIzcgc2lnbmVkIHBvbGljeS4K
+K09uZSBjaGVjayB3aWxsIGJlIHBlcmZvcm1lZCBvbiB0aGlzIHBvbGljeTogdGhlIHBvbGljeV9u
+YW1lcyBtdXN0IG1hdGNoCit3aXRoIHRoZSB1cGRhdGVkIHZlcnNpb24gYW5kIHRoZSBleGlzdGlu
+ZyB2ZXJzaW9uLiBJZiB0aGUgcG9saWN5IGJlaW5nCit1cGRhdGVkIGlzIHRoZSBhY3RpdmUgcG9s
+aWN5LCB0aGUgdXBkYXRlZCBwb2xpY3kgbXVzdCBoYXZlIGEgcG9saWN5IHZlcnNpb24KK2dyZWF0
+ZXIgb3IgZXF1YWwgdG8gdGhlIGN1cnJlbnRseS1ydW5uaW5nIHZlcnNpb24uCisKK1RoZSBgYGRl
+bGV0ZWBgIGZpbGUgaXMgdXNlZCB0byByZW1vdmUgYSBwb2xpY3kgdGhhdCBpcyBubyBsb25nZXIg
+bmVlZGVkLgorVGhpcyBmaWxlIGlzIHdyaXRlLW9ubHkgYW5kIGFjY2VwdHMgYSB2YWx1ZSBvZiBg
+YCIxImBgIHRvIGRlbGV0ZSB0aGUgcG9saWN5LgorT24gZGVsZXRpb24sIHRoZSBzZWN1cml0eWZz
+IG5vZGUgcmVwcmVzZW50aW5nIHRoZSBwb2xpY3kgd2lsbCBiZSByZW1vdmVkLgorVGhlIHBvbGlj
+eSB0aGF0IGlzIGN1cnJlbnRseSBhY3RpdmUsIGNhbm5vdCBiZSBkZWxldGVkLgorCitTaW1pbGFy
+bHksIHRoZSB3cml0ZXMgdG8gYm90aCBgYHVwZGF0ZWBgIGFuZCBgYG5ld19wb2xpY3lgYCBhYm92
+ZSB3aWxsCityZXN1bHQgaW4gYW4gZXJyb3IgdXBvbiBzeW50YWN0aWNhbGx5IGludmFsaWQgb3Ig
+dW50cnVzdGVkIHBvbGljaWVzLgorSXQgd2lsbCBhbHNvIGVycm9yIGlmIGEgcG9saWN5IGFscmVh
+ZHkgZXhpc3RzIHdpdGggdGhlIHNhbWUgYGBwb2xpY3lfbmFtZWBgLAoraW4gdGhlIGNhc2Ugb2Yg
+YGBuZXdfcG9saWN5YGAuCisKK0RlcGxveWluZyB0aGVzZSBwb2xpY2llcyB3aWxsICpub3QqIGNh
+dXNlIElQRSB0byBzdGFydCBlbmZvcmNpbmcgdGhpcworcG9saWN5LiBPbmNlIGRlcGxveW1lbnQg
+aXMgc3VjY2Vzc2Z1bCwgYSBwb2xpY3kgY2FuIGJlIG1hcmtlZCBhcyBhY3RpdmUsCit2aWEgYGAv
+c3lzL2tlcm5lbC9zZWN1cml0eS9pcGUvJHBvbGljeV9uYW1lL2FjdGl2ZWBgLiBJUEUgd2lsbCBl
+bmZvcmNlCit3aGF0ZXZlciBwb2xpY3kgaXMgbWFya2VkIGFzIGFjdGl2ZS4gRm9yIG91ciBleGFt
+cGxlLCB3ZSBjYW4gYWN0aXZhdGUKK3RoZSBgYEV4IFBvbGljeWBgIHZpYTo6CisKKyAgIGVjaG8g
+IjEiID4gIi9zeXMva2VybmVsL3NlY3VyaXR5L2lwZS9FeCBQb2xpY3kvYWN0aXZlIgorCitBdCB3
+aGljaCBwb2ludCwgYGBFeCBQb2xpY3lgYCB3aWxsIG5vdyBiZSB0aGUgZW5mb3JjZWQgcG9saWN5
+IG9uIHRoZQorc3lzdGVtLgorCitJUEUgYWxzbyBwcm92aWRlcyBhIHdheSB0byBkZWxldGUgcG9s
+aWNpZXMuIFRoaXMgY2FuIGJlIGRvbmUgdmlhIHRoZQorYGBkZWxldGVgYCBzZWN1cml0eWZzIG5v
+ZGUsIGBgL3N5cy9rZXJuZWwvc2VjdXJpdHkvaXBlLyRwb2xpY3lfbmFtZS9kZWxldGVgYC4KK1dy
+aXRpbmcgYGAxYGAgdG8gdGhhdCBmaWxlIHdpbGwgZGVsZXRlIHRoYXQgbm9kZTo6CisKKyAgIGVj
+aG8gIjEiID4gIi9zeXMva2VybmVsL3NlY3VyaXR5L2lwZS8kcG9saWN5X25hbWUvZGVsZXRlIgor
+CitUaGVyZSBpcyBvbmx5IG9uZSByZXF1aXJlbWVudCB0byBkZWxldGUgYSBwb2xpY3k6CisKKzEu
+IFRoZSBwb2xpY3kgYmVpbmcgZGVsZXRlZCBtdXN0IG5vdCBiZSB0aGUgYWN0aXZlIHBvbGljeS4K
+KworLi4gTk9URTo6CisKKyAgIElmIGEgdHJhZGl0aW9uYWwgTUFDIHN5c3RlbSBpcyBlbmFibGVk
+IChTRUxpbnV4LCBhcHBhcm1vciwgc21hY2spLCBhbGwKKyAgIHdyaXRlcyB0byBpcGUncyBzZWN1
+cml0eWZzIG5vZGVzIHJlcXVpcmUgYGBDQVBfTUFDX0FETUlOYGAuCisKK01vZGVzCit+fn5+fgor
+CitJUEUgc3VwcG9ydHMgdHdvIG1vZGVzIG9mIG9wZXJhdGlvbjogcGVybWlzc2l2ZSAoc2ltaWxh
+ciB0byBTRUxpbnV4J3MKK3Blcm1pc3NpdmUgbW9kZSkgYW5kIGVuZm9yY2UuIFBlcm1pc3NpdmUg
+bW9kZSBwZXJmb3JtcyB0aGUgc2FtZSBjaGVja3MKK2FzIGVuZm9yY2UgbW9kZSwgYW5kIGxvZ3Mg
+cG9saWN5IHZpb2xhdGlvbnMsIGJ1dCB3aWxsIG5vdCBlbmZvcmNlIHRoZQorcG9saWN5LiBUaGlz
+IGFsbG93cyB1c2VycyB0byB0ZXN0IHBvbGljaWVzIGJlZm9yZSBlbmZvcmNpbmcgdGhlbS4KKwor
+VGhlIGRlZmF1bHQgbW9kZSBpcyBlbmZvcmNlLCBhbmQgY2FuIGJlIGNoYW5nZWQgdmlhIHRoZSBr
+ZXJuZWwgY29tbWFuZAorbGluZSBwYXJhbWV0ZXIgYGBpcGUuZW5mb3JjZT0oMHwxKWBgLCBvciB0
+aGUgc2VjdXJpdHlmcyBub2RlCitgYC9zeXMva2VybmVsL3NlY3VyaXR5L2lwZS9lbmZvcmNlYGAu
+CisKKy4uIE5PVEU6OgorCisgICBJZiBhIHRyYWRpdGlvbmFsIE1BQyBzeXN0ZW0gaXMgZW5hYmxl
+ZCAoU0VMaW51eCwgYXBwYXJtb3IsIHNtYWNrLCBldGNldGVyYSksCisgICBhbGwgd3JpdGVzIHRv
+IGlwZSdzIHNlY3VyaXR5ZnMgbm9kZXMgcmVxdWlyZSBgYENBUF9NQUNfQURNSU5gYC4KKworQXVk
+aXQgRXZlbnRzCit+fn5+fn5+fn5+fn4KKworU3VjY2VzcyBBdWRpdGluZworXl5eXl5eXl5eXl5e
+Xl5eXgorCitJUEUgc3VwcG9ydHMgc3VjY2VzcyBhdWRpdGluZy4gV2hlbiBlbmFibGVkLCBhbGwg
+ZXZlbnRzIHRoYXQgcGFzcyBJUEUKK3BvbGljeSBhbmQgYXJlIG5vdCBibG9ja2VkIHdpbGwgZW1p
+dCBhbiBhdWRpdCBldmVudC4gVGhpcyBpcyBkaXNhYmxlZCBieQorZGVmYXVsdCwgYW5kIGNhbiBi
+ZSBlbmFibGVkIHZpYSB0aGUga2VybmVsIGNvbW1hbmQgbGluZQorYGBpcGUuc3VjY2Vzc19hdWRp
+dD0oMHwxKWBgIG9yIHRoZSBzZWN1cml0eWZzIG5vZGUsCitgYC9zeXMva2VybmVsL3NlY3VyaXR5
+L2lwZS9zdWNjZXNzX2F1ZGl0YGAuCisKK1RoaXMgaXMgdmVyeSBub2lzeSwgYXMgSVBFIHdpbGwg
+Y2hlY2sgZXZlcnkgdXNlci1tb2RlIGJpbmFyeSBvbiB0aGUKK3N5c3RlbSwgYnV0IGlzIHVzZWZ1
+bCBmb3IgZGVidWdnaW5nIHBvbGljaWVzLgorCisuLiBOT1RFOjoKKworICAgSWYgYSB0cmFkaXRp
+b25hbCBNQUMgc3lzdGVtIGlzIGVuYWJsZWQgKFNFTGludXgsIGFwcGFybW9yLCBzbWFjaywgZXRj
+ZXRlcmEpLAorICAgYWxsIHdyaXRlcyB0byBpcGUncyBzZWN1cml0eWZzIG5vZGVzIHJlcXVpcmUg
+YGBDQVBfTUFDX0FETUlOYGAuCisKK1Byb3BlcnRpZXMKKy0tLS0tLS0tLS0tLS0tCisKK0FzIGV4
+cGxhaW5lZCBhYm92ZSwgSVBFIHByb3BlcnRpZXMgYXJlIGBga2V5PXZhbHVlYGAgcGFpcnMgZXhw
+cmVzc2VkIGluCitJUEUgcG9saWN5LiBUd28gcHJvcGVydGllcyBhcmUgYnVpbHQtaW50byB0aGUg
+cG9saWN5IHBhcnNlcjogJ29wJyBhbmQKKydhY3Rpb24nLiBUaGUgb3RoZXIgcHJvcGVydGllcyBh
+cmUgZGV0ZXJtaW5zdGljIGF0dHJpYnV0ZXMgdG8gZXhwcmVzcworYWNyb3NzIGZpbGVzLiBDdXJy
+ZW50bHkgdGhvc2UgcHJvcGVydGllcyBhcmU6ICdib290X3ZlcmlmaWVkJywKKydkbXZlcml0eV9z
+aWduYXR1cmUnLCAnZG12ZXJpdHlfcm9vdGhhc2gnLCAnZnN2ZXJpdHlfc2lnbmF0dXJlJywKKydm
+c3Zlcml0eV9kaWdlc3QnLiBBIGRlc2NyaXB0aW9uIG9mIGFsbCBwcm9wZXJ0aWVzIHN1cHBvcnRl
+ZCBieSBJUEUKK2FyZSBsaXN0ZWQgYmVsb3c6CisKK29wCit+fgorCitJbmRpY2F0ZXMgdGhlIG9w
+ZXJhdGlvbiBmb3IgYSBydWxlIHRvIGFwcGx5IHRvLiBNdXN0IGJlIGluIGV2ZXJ5IHJ1bGUsCith
+cyB0aGUgZmlyc3QgdG9rZW4uIElQRSBzdXBwb3J0cyB0aGUgZm9sbG93aW5nIG9wZXJhdGlvbnM6
+CisKK1ZlcnNpb24gMQorXl5eXl5eXl5eCisKK2BgRVhFQ1VURWBgCisKKyAgIFBlcnRhaW5zIHRv
+IGFueSBmaWxlIGF0dGVtcHRpbmcgdG8gYmUgZXhlY3V0ZWQsIG9yIGxvYWRlZCBhcyBhbgorICAg
+ZXhlY3V0YWJsZS4KKworYGBGSVJNV0FSRWBgOgorCisgICBQZXJ0YWlucyB0byBmaXJtd2FyZSBi
+ZWluZyBsb2FkZWQgdmlhIHRoZSBmaXJtd2FyZV9jbGFzcyBpbnRlcmZhY2UuCisgICBUaGlzIGNv
+dmVycyBib3RoIHRoZSBwcmVhbGxvY2F0ZWQgYnVmZmVyIGFuZCB0aGUgZmlybXdhcmUgZmlsZQor
+ICAgaXRzZWxmLgorCitgYEtNT0RVTEVgYDoKKworICAgUGVydGFpbnMgdG8gbG9hZGluZyBrZXJu
+ZWwgbW9kdWxlcyB2aWEgYGBtb2Rwcm9iZWBgIG9yIGBgaW5zbW9kYGAuCisKK2BgS0VYRUNfSU1B
+R0VgYDoKKworICAgUGVydGFpbnMgdG8ga2VybmVsIGltYWdlcyBsb2FkaW5nIHZpYSBgYGtleGVj
+YGAuCisKK2BgS0VYRUNfSU5JVFJBTUZTYGAKKworICAgUGVydGFpbnMgdG8gaW5pdHJkIGltYWdl
+cyBsb2FkaW5nIHZpYSBgYGtleGVjIC0taW5pdHJkYGAuCisKK2BgUE9MSUNZYGA6CisKKyAgIENv
+bnRyb2xzIGxvYWRpbmcgSU1BIHBvbGljaWVzIHRocm91Z2ggdGhlCisgICBgYC9zeXMva2VybmVs
+L3NlY3VyaXR5L2ltYS9wb2xpY3lgYCBzZWN1cml0eWZzIGVudHJ5LgorCitgYFg1MDlfQ0VSVGBg
+OgorCisgICBDb250cm9scyBsb2FkaW5nIElNQSBjZXJ0aWZpY2F0ZXMgdGhyb3VnaCB0aGUgS2Nv
+bmZpZ3MsCisgICBgYENPTkZJR19JTUFfWDUwOV9QQVRIYGAgYW5kIGBgQ09ORklHX0VWTV9YNTA5
+X1BBVEhgYC4KKworYGBLRVJORUxfUkVBRGBgOgorCisgICBTaG9ydCBoYW5kIGZvciBhbGwgb2Yg
+dGhlIGZvbGxvd2luZzogYGBGSVJNV0FSRWBgLCBgYEtNT0RVTEVgYCwKKyAgIGBgS0VYRUNfSU1B
+R0VgYCwgYGBLRVhFQ19JTklUUkFNRlNgYCwgYGBQT0xJQ1lgYCwgYW5kIGBgWDUwOV9DRVJUYGAu
+CisKK2FjdGlvbgorfn5+fn5+CisKK1ZlcnNpb24gMQorXl5eXl5eXl5eCisKK0RldGVybWluZXMg
+d2hhdCBJUEUgc2hvdWxkIGRvIHdoZW4gYSBydWxlIG1hdGNoZXMuIE11c3QgYmUgaW4gZXZlcnkK
+K3J1bGUsIGFzIHRoZSBmaW5hbCBjbGF1c2UuIENhbiBiZSBvbmUgb2Y6CisKK2BgQUxMT1dgYDoK
+KworICAgSWYgdGhlIHJ1bGUgbWF0Y2hlcywgZXhwbGljaXRseSBhbGxvdyBhY2Nlc3MgdG8gdGhl
+IHJlc291cmNlIHRvIHByb2NlZWQKKyAgIHdpdGhvdXQgZXhlY3V0aW5nIGFueSBtb3JlIHJ1bGVz
+LgorCitgYERFTllgYDoKKworICAgSWYgdGhlIHJ1bGUgbWF0Y2hlcywgZXhwbGljaXRseSBwcm9o
+aWJpdCBhY2Nlc3MgdG8gdGhlIHJlc291cmNlIHRvCisgICBwcm9jZWVkIHdpdGhvdXQgZXhlY3V0
+aW5nIGFueSBtb3JlIHJ1bGVzLgorCitib290X3ZlcmlmaWVkCit+fn5+fn5+fn5+fn5+CisKK1Zl
+cnNpb24gMQorXl5eXl5eXl5eCisKK1RoaXMgcHJvcGVydHkgY2FuIGJlIHV0aWxpemVkIGZvciBh
+dXRob3JpemF0aW9uIG9mIHRoZSBmaXJzdCBzdXBlci1ibG9jawordGhhdCBleGVjdXRlcyBhIGZp
+bGUuIFRoaXMgaXMgYWxtb3N0IGFsd2F5cyBpbml0LiBUeXBpY2FsbHkgdGhpcyBpcyB1c2VkCitm
+b3Igc3lzdGVtcyB3aXRoIGFuIGluaXRyYW1mcyBvciBvdGhlciBpbml0aWFsIGRpc2ssIHdoZXJl
+IHRoaXMgaXMgdW5tb3VudGVkCitiZWZvcmUgdGhlIHN5c3RlbSBiZWNvbWVzIGF2YWlsYWJsZSwg
+YW5kIGlzIG5vdCBjb3ZlcmVkIGJ5IGFueSBvdGhlciBwcm9wZXJ0eS4KK1RoaXMgcHJvcGVydHkg
+aXMgY29udHJvbGxlZCBieSB0aGUgS2NvbmZpZywgYGBDT05GSUdfSVBFX1BST1BfQk9PVF9WRVJJ
+RklFRGBgLgorVGhlIGZvcm1hdCBvZiB0aGlzIHByb3BlcnR5IGlzOjoKKworICAgICAgIGJvb3Rf
+dmVyaWZpZWQ9KFRSVUV8RkFMU0UpCisKKworLi4gV0FSTklORzo6CisKKyAgVGhpcyBwcm9wZXJ0
+eSB3aWxsIHRydXN0IGFueSBkaXNrIHdoZXJlIHRoZSBmaXJzdCBleGVjdXRpb24gZXZhbHVhdGlv
+bgorICBvY2N1cnMuIElmIHlvdSBkbyAqTk9UKiBoYXZlIGEgc3RhcnR1cCBkaXNrIHRoYXQgaXMg
+dW5wYWNrZWQgYW5kIHVubW91bnRlZAorICAobGlrZSBpbml0cmFtZnMpLCB0aGVuIGl0IHdpbGwg
+YXV0b21hdGljYWxseSB0cnVzdCB0aGUgcm9vdCBmaWxlc3lzdGVtIGFuZAorICBwb3RlbnRpYWxs
+eSBvdmVyYXV0aG9yaXplIHRoZSBlbnRpcmUgZGlzay4KKworZG12ZXJpdHlfcm9vdGhhc2gKK35+
+fn5+fn5+fn5+fn5+fn5+CisKK1ZlcnNpb24gMQorXl5eXl5eXl5eCisKK1RoaXMgcHJvcGVydHkg
+Y2FuIGJlIHV0aWxpemVkIGZvciBhdXRob3JpemF0aW9uIG9yIHJldm9jYXRpb24gb2YKK3NwZWNp
+ZmljIGRtLXZlcml0eSB2b2x1bWVzLCBpZGVudGlmaWVkIHZpYSByb290IGhhc2guIEl0IGhhcyBh
+CitkZXBlbmRlbmN5IG9uIHRoZSBETV9WRVJJVFkgbW9kdWxlLiBUaGlzIHByb3BlcnR5IGlzIGNv
+bnRyb2xsZWQgYnkgdGhlCitLY29uZmlnIGBgQ09ORklHX0lQRV9QUk9QX0RNX1ZFUklUWV9ST09U
+SEFTSGBgLiBUaGUgZm9ybWF0IG9mIHRoaXMgcHJvcGVydHkKK2lzOjoKKworICAgZG12ZXJpdHlf
+cm9vdGhhc2g9SGFzaEhleERpZ2VzdAorCitkbXZlcml0eV9zaWduYXR1cmUKK35+fn5+fn5+fn5+
+fn5+fn5+fgorCitWZXJzaW9uIDEKK15eXl5eXl5eXgorCitUaGlzIHByb3BlcnR5IGNhbiBiZSB1
+dGlsaXplZCBmb3IgYXV0aG9yaXphdGlvbiBvZiBhbGwgZG0tdmVyaXR5IHZvbHVtZXMKK3RoYXQg
+aGF2ZSBhIHNpZ25lZCByb290aGFzaCB0aGF0IGNoYWlucyB0byBhIGtleXJpbmcgc3BlY2lmaWVk
+IGJ5IGRtLXZlcml0eSdzCitjb25maWd1cmF0aW9uLCBlaXRoZXIgdGhlIHN5c3RlbSB0cnVzdGVk
+IGtleXJpbmcsIG9yIHRoZSBzZWNvbmRhcnkga2V5cmluZy4KK0l0IGhhcyBhbiBhZGRpdGlvbmFs
+IGRlcGVuZGVuY3kgb24gdGhlIGBgRE1fVkVSSVRZX1ZFUklGWV9ST09USEFTSF9TSUdgYAorS2Nv
+bmZpZy4gVGhpcyBwcm9wZXJ0eSBpcyBjb250cm9sbGVkIGJ5IHRoZSBLY29uZmlnCitgYENPTkZJ
+R19JUEVfUFJPUF9ETV9WRVJJVFlfU0lHTkFUVVJFYGAuIFRoZSBmb3JtYXQgb2YgdGhpcyBwcm9w
+ZXJ0eSBpczo6CisKKyAgIGRtdmVyaXR5X3NpZ25hdHVyZT0oVFJVRXxGQUxTRSkKKworZnN2ZXJp
+dHlfZGlnZXN0Cit+fn5+fn5+fn5+fn5+fn4KKworVmVyc2lvbiAxCiteXl5eXl5eXl4KK1RoaXMg
+cHJvcGVydHkgY2FuIGJlIHV0aWxpemVkIGZvciBhdXRob3JpemF0aW9uIG9yIHJldm9jYXRpb24g
+b2YKK3NwZWNpZmljIGZzdmVyaXR5IGVuYWJsZWQgZmlsZSwgaWRlbnRpZmllZCB2aWEgaXRzIGZz
+dmVyaXR5IGRpZ2VzdCwKK3doaWNoIGlzIHRoZSBoYXNoIG9mIGEgc3RydWN0IGNvbnRhaW5zIHRo
+ZSBmaWxlJ3Mgcm9vdGhhc2ggYW5kIGhhc2hpbmcKK3BhcmFtZXRlcnMuIEl0IGhhcyBhIGRlcGVu
+ZGVuY3kgb24gdGhlIEZTX1ZFUklUWSBtb2R1bGUuCitUaGlzIHByb3BlcnR5IGlzIGNvbnRyb2xs
+ZWQgYnkgdGhlIEtjb25maWcKK2BgQ09ORklHX0lQRV9QUk9QX0ZTX1ZFUklUWV9ESUdFU1RgYC4g
+VGhlIGZvcm1hdCBvZiB0aGlzIHByb3BlcnR5IGlzOjoKKworICAgZnN2ZXJpdHlfZGlnZXN0PUhh
+c2hIZXhEaWdlc3QKKworZnN2ZXJpdHlfc2lnbmF0dXJlCit+fn5+fn5+fn5+fn5+fn5+fn4KKwor
+VmVyc2lvbiAxCiteXl5eXl5eXl4KKworVGhpcyBwcm9wZXJ0eSBjYW4gYmUgdXRpbGl6ZWQgZm9y
+IGF1dGhvcml6YXRpb24gb2YgYWxsIGZzdmVyaXR5IGVuYWJsZWQKK2ZpbGVzIHRoYXQgaXMgdmVy
+aWZpZWQgYnkgZnN2ZXJpdHkuIFRoZSBrZXlyaW5nIHRoYXQgaXMgdmVyaWZpZXMgYWdhaW5zdAor
+aXMgc3ViamVjdCB0byBmc3Zlcml0eSdzIGNvbmZpZ3VyYXRpb24sIHdoaWNoIGlzIHR5cGljYWxs
+eSB0aGUgZnN2ZXJpdHkKK2tleXJpbmcuIEl0IGhhcyBhIGRlcGVuZGVuY3kgb24gdGhlIGBgQ09O
+RklHX0ZTX1ZFUklUWV9CVUlMVElOX1NJR05BVFVSRVNgYAorS2NvbmZpZy4gVGhpcyBwcm9wZXJ0
+eSBpcyBjb250cm9sbGVkIGJ5IHRoZSBLY29uZmlnCitgYENPTkZJR19JUEVfUFJPUF9GU19WRVJJ
+VFlfU0lHTkFUVVJFYGAuIFRoZSBmb3JtYXQgb2YgdGhpcyBwcm9wZXJ0eSBpczo6CisKKyAgIGZz
+dmVyaXR5X3NpZ25hdHVyZT0oVFJVRXxGQUxTRSkKKworUG9saWN5IEV4YW1wbGVzCistLS0tLS0t
+LS0tLS0tLS0KKworQWxsb3cgYWxsCit+fn5+fn5+fn4KKworOjoKKworICAgcG9saWN5X25hbWU9
+IkFsbG93IEFsbCIgcG9saWN5X3ZlcnNpb249MC4wLjAKKyAgIERFRkFVTFQgYWN0aW9uPUFMTE9X
+CisKK0FsbG93IG9ubHkgaW5pdGlhbCBzdXBlcmJsb2NrCit+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
+fn5+fn5+fgorCis6OgorCisgICBwb2xpY3lfbmFtZT0iQWxsb3cgQWxsIEluaXRpYWwgU0IiIHBv
+bGljeV92ZXJzaW9uPTAuMC4wCisgICBERUZBVUxUIGFjdGlvbj1ERU5ZCisKKyAgIG9wPUVYRUNV
+VEUgYm9vdF92ZXJpZmllZD1UUlVFIGFjdGlvbj1BTExPVworCitBbGxvdyBhbnkgc2lnbmVkIGRt
+LXZlcml0eSB2b2x1bWUgYW5kIHRoZSBpbml0aWFsIHN1cGVyYmxvY2sKK35+fn5+fn5+fn5+fn5+
+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fgorCis6OgorCisg
+ICBwb2xpY3lfbmFtZT0iQWxsb3dTaWduZWRBbmRJbml0aWFsIiBwb2xpY3lfdmVyc2lvbj0wLjAu
+MAorICAgREVGQVVMVCBhY3Rpb249REVOWQorCisgICBvcD1FWEVDVVRFIGJvb3RfdmVyaWZpZWQ9
+VFJVRSBhY3Rpb249QUxMT1cKKyAgIG9wPUVYRUNVVEUgZG12ZXJpdHlfc2lnbmF0dXJlPVRSVUUg
+YWN0aW9uPUFMTE9XCisKK1Byb2hpYml0IGV4ZWN1dGlvbiBmcm9tIGEgc3BlY2lmaWMgZG0tdmVy
+aXR5IHZvbHVtZQorfn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
+fn5+fn5+CisKKzo6CisKKyAgIHBvbGljeV9uYW1lPSJBbGxvd1NpZ25lZEFuZEluaXRpYWwiIHBv
+bGljeV92ZXJzaW9uPTAuMC4wCisgICBERUZBVUxUIGFjdGlvbj1ERU5ZCisKKyAgIG9wPUVYRUNV
+VEUgZG12ZXJpdHlfcm9vdGhhc2g9NDAxZmNlYzU5NDQ4MjNhZTEyZjYyNzI2ZTgxODQ0MDdhNWZh
+OTU5OTc4M2YwMzBkZWMxNDY5MzggYWN0aW9uPURFTlkKKyAgIG9wPUVYRUNVVEUgYm9vdF92ZXJp
+ZmllZD1UUlVFIGFjdGlvbj1BTExPVworICAgb3A9RVhFQ1VURSBkbXZlcml0eV9zaWduYXR1cmU9
+VFJVRSBhY3Rpb249QUxMT1cKKworQWxsb3cgb25seSBhIHNwZWNpZmljIGRtLXZlcml0eSB2b2x1
+bWUKK35+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+CisKKzo6CisKKyAgIHBv
+bGljeV9uYW1lPSJBbGxvd1NpZ25lZEFuZEluaXRpYWwiIHBvbGljeV92ZXJzaW9uPTAuMC4wCisg
+ICBERUZBVUxUIGFjdGlvbj1ERU5ZCisKKyAgIG9wPUVYRUNVVEUgZG12ZXJpdHlfcm9vdGhhc2g9
+NDAxZmNlYzU5NDQ4MjNhZTEyZjYyNzI2ZTgxODQ0MDdhNWZhOTU5OTc4M2YwMzBkZWMxNDY5Mzgg
+YWN0aW9uPUFMTE9XCisKK0FsbG93IGFueSBzaWduZWQgZnMtdmVyaXR5IGZpbGUKK35+fn5+fn5+
+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fgorCis6
+OgorCisgICBwb2xpY3lfbmFtZT0iQWxsb3dTaWduZWRGU1Zlcml0eSIgcG9saWN5X3ZlcnNpb249
+MC4wLjAKKyAgIERFRkFVTFQgYWN0aW9uPURFTlkKKworICAgb3A9RVhFQ1VURSBmc3Zlcml0eV9z
+aWduYXR1cmU9VFJVRSBhY3Rpb249QUxMT1cKKworUHJvaGliaXQgZXhlY3V0aW9uIG9mIGEgc3Bl
+Y2lmaWMgZnMtdmVyaXR5IGZpbGUKK35+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
+fn5+fn5+fn5+fn5+fn5+fgorCis6OgorCisgICBwb2xpY3lfbmFtZT0iUHJvaGliaXRTcGVjaWZp
+Y0ZTVkYiIHBvbGljeV92ZXJzaW9uPTAuMC4wCisgICBERUZBVUxUIGFjdGlvbj1ERU5ZCisKKyAg
+IG9wPUVYRUNVVEUgZnN2ZXJpdHlfZGlnZXN0PWZkODhmMmI4ODI0ZTE5N2Y4NTBiZjRjNTEwOWJl
+YTVjZjBlZTM4MTA0ZjcxMDg0M2JiNzJkYTc5NmJhNWFmOWUgYWN0aW9uPURFTlkKKyAgIG9wPUVY
+RUNVVEUgYm9vdF92ZXJpZmllZD1UUlVFIGFjdGlvbj1BTExPVworICAgb3A9RVhFQ1VURSBkbXZl
+cml0eV9zaWduYXR1cmU9VFJVRSBhY3Rpb249QUxMT1cKKworQWRkaXRpb25hbCBJbmZvcm1hdGlv
+bgorLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQorCistIGBHaXRodWIgUmVwb3NpdG9yeSA8aHR0cHM6
+Ly9naXRodWIuY29tL21pY3Jvc29mdC9pcGU+YF8KKy0gYERlc2lnbiBEb2N1bWVudGF0aW9uIDwv
+c2VjdXJpdHkvaXBlPmBfCisKK0ZBUQorLS0tCisKKzpROiBXaGF0J3MgdGhlIGRpZmZlcmVuY2Ug
+YmV0d2VlbiBvdGhlciBMU01zIHdoaWNoIHByb3ZpZGUgdHJ1c3QtYmFzZWQKKyAgIGFjY2VzcyBj
+b250cm9sLCBmb3IgaW5zdGFuY2UsIElNQT8KKworOkE6IElNQSBpcyBhIGZhbnRhc3RpYyBvcHRp
+b24gd2hlbiBuZWVkaW5nIG1lYXN1cmVtZW50IGluIGFkZGl0aW9uIHRvIHRoZQorICAgdHJ1c3Qt
+YmFzZWQgYWNjZXNzIG1vZGVsLiBBbGwgb2YgSU1BIGlzIGNlbnRlcmVkIGFyb3VuZCB0aGVpciBt
+ZWFzdXJlbWVudAorICAgaGFzaGVzLCBzbyB5b3Ugc2F2ZSB0aW1lIHdoZW4gZG9pbmcgYm90aCBh
+Y3Rpb25zLiBJUEUsIG9uIHRoZSBvdGhlciBoYW5kLAorICAgaXMgYSBoaWdobHkgcGVyZm9ybWFu
+dCBzeXN0ZW0gdGhhdCBkb2VzIG5vdCByZWx5IChhbmQgZXhwbGljaXRseSBwcm9oaWJpdHMpLAor
+ICAgZ2VuZXJhdGluZyBpdHMgb3duIGludGVncml0eSBtZWNoYW5pc21zIC0gc2VwYXJhdGluZyBt
+ZWFzdXJlbWVudCBhbmQgYWNjZXNzCisgICBjb250cm9sLiBTaW1wbHkgcHV0LCBJUEUgcHJvdmlk
+ZXMgb25seSB0aGUgZW5mb3JjZW1lbnQgb2YgdHJ1c3QsIHdoaWxlIG90aGVyCisgICBzdWJzeXN0
+ZW1zIHByb3ZpZGUgdGhlIGludGVncml0eSBndWFyYW50ZWUgdGhhdCBJUEUgbmVlZHMgdG8gZGV0
+ZXJtaW5lIHRoZQorICAgdHJ1c3Qgb2YgYSByZXNvdXJjZS4gSU1BIHByb3ZpZGVzIGJvdGggdGhl
+IGludGVncml0eSBndWFyYW50ZWUsIGFuZCB0aGUKKyAgIGVuZm9yY2VtZW50IG9mIHRydXN0Lgpk
+aWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9hZG1pbi1ndWlkZS9rZXJuZWwtcGFyYW1ldGVycy50
+eHQgYi9Eb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL2tlcm5lbC1wYXJhbWV0ZXJzLnR4dAppbmRl
+eCA0M2RjMzVmZTViYzAuLjg1ZGQ2NTRlNjQyZiAxMDA2NDQKLS0tIGEvRG9jdW1lbnRhdGlvbi9h
+ZG1pbi1ndWlkZS9rZXJuZWwtcGFyYW1ldGVycy50eHQKKysrIGIvRG9jdW1lbnRhdGlvbi9hZG1p
+bi1ndWlkZS9rZXJuZWwtcGFyYW1ldGVycy50eHQKQEAgLTIwOTYsNiArMjA5NiwxOCBAQAogCWlw
+Y21uaV9leHRlbmQJW0tOTF0gRXh0ZW5kIHRoZSBtYXhpbXVtIG51bWJlciBvZiB1bmlxdWUgU3lz
+dGVtIFYKIAkJCUlQQyBpZGVudGlmaWVycyBmcm9tIDMyLDc2OCB0byAxNiw3NzcsMjE2LgogCisJ
+aXBlLmVuZm9yY2U9CVtJUEVdCisJCQlGb3JtYXQ6IDxib29sPgorCQkJRGV0ZXJtaW5lIHdoZXRo
+ZXIgSVBFIHN0YXJ0cyBpbiBwZXJtaXNzaXZlICgwKSBvcgorCQkJZW5mb3JjZSAoMSkgbW9kZS4g
+VGhlIGRlZmF1bHQgaXMgZW5mb3JjZS4KKworCWlwZS5zdWNjZXNzX2F1ZGl0PQorCQkJW0lQRV0K
+KwkJCUZvcm1hdDogPGJvb2w+CisJCQlTdGFydCBJUEUgd2l0aCBzdWNjZXNzIGF1ZGl0aW5nIGVu
+YWJsZWQsIGVtaXR0aW5nCisJCQlhbiBhdWRpdCBldmVudCB3aGVuIGEgYmluYXJ5IGlzIGFsbG93
+ZWQuIFRoZSBkZWZhdWx0CisJCQlpcyAwLgorCiAJaXJxYWZmaW5pdHk9CVtTTVBdIFNldCB0aGUg
+ZGVmYXVsdCBpcnEgYWZmaW5pdHkgbWFzawogCQkJVGhlIGFyZ3VtZW50IGlzIGEgY3B1IGxpc3Qs
+IGFzIGRlc2NyaWJlZCBhYm92ZS4KIApkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9zZWN1cml0
+eS9pbmRleC5yc3QgYi9Eb2N1bWVudGF0aW9uL3NlY3VyaXR5L2luZGV4LnJzdAppbmRleCAxNjMz
+NWRlMDRlOGMuLmMwNjUzMGI1MDUxNCAxMDA2NDQKLS0tIGEvRG9jdW1lbnRhdGlvbi9zZWN1cml0
+eS9pbmRleC5yc3QKKysrIGIvRG9jdW1lbnRhdGlvbi9zZWN1cml0eS9pbmRleC5yc3QKQEAgLTE3
+LDMgKzE3LDQgQEAgU2VjdXJpdHkgRG9jdW1lbnRhdGlvbgogICAgdHBtL2luZGV4CiAgICBkaWdz
+aWcKICAgIGxhbmRsb2NrCisgICBpcGUKZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vc2VjdXJp
+dHkvaXBlLnJzdCBiL0RvY3VtZW50YXRpb24vc2VjdXJpdHkvaXBlLnJzdApuZXcgZmlsZSBtb2Rl
+IDEwMDY0NAppbmRleCAwMDAwMDAwMDAwMDAuLmU2OTFlMDhlMDMwMwotLS0gL2Rldi9udWxsCisr
+KyBiL0RvY3VtZW50YXRpb24vc2VjdXJpdHkvaXBlLnJzdApAQCAtMCwwICsxLDMzOSBAQAorLi4g
+U1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAKKworSW50ZWdyaXR5IFBvbGljeSBFbmZv
+cmNlbWVudCAoSVBFKSAtIERlc2lnbiBEb2N1bWVudHMKKz09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CisKKy4uIE5PVEU6OgorCisgICBUaGlzIGlz
+IHRoZSBkb2N1bWVudGF0aW9uIGZvciBrZXJuZWwgZGV2ZWxvcGVycyBhbmQgb3RoZXIgaW5kaXZp
+ZHVhbHMKKyAgIHdobyB3YW50IHRvIHVuZGVyc3RhbmQgdGhlIHJlYXNvbiBiZWhpbmQgd2h5IElQ
+RSBpcyBkZXNpZ25lZCB0aGUgd2F5IGl0CisgICBpcywgYXMgd2VsbCBhcyBhIHRvdXIgb2YgdGhl
+IGltcGxlbWVudGF0aW9uLiBJZiB5b3UncmUgbG9va2luZyBmb3IKKyAgIGRvY3VtZW50YXRpb24g
+b24gdGhlIHVzYWdlIG9mIElQRSwgcGxlYXNlIHNlZQorICAgOnJlZjpgRG9jdW1lbnRhdGlvbi9h
+ZG1pbi1ndWlkZS9MU00vaXBlLnJzdGAKKworUm9sZSBhbmQgU2NvcGUKKy0tLS0tLS0tLS0tLS0t
+CisKK0lQRSBvcmlnaW5hbGx5IHN0YXJ0ZWQgd2l0aCBhIHNpbXBsZSBnb2FsOiBjcmVhdGUgYSBz
+eXN0ZW0gdGhhdCBjYW4KK2Vuc3VyZSB0aGF0IG9ubHkgdHJ1c3RlZCB1c2VybW9kZSBiaW5hcmll
+cyBhcmUgYWxsb3dlZCB0byBiZSBleGVjdXRlZC4KKworRHVyaW5nIHRoZSBkZXNpZ24gcGhhc2Ug
+aXQgd2FzIGFwcGFyZW50IHRoYXQgdGhlcmUgYXJlIG11bHRpcGxlIHN5c3RlbXMKK3dpdGhpbiB0
+aGUgTGludXgga2VybmVsIHRoYXQgY2FuIHByb3ZpZGUgc29tZSBsZXZlbCBvZiBpbnRlZ3JpdHkK
+K3ZlcmlmaWNhdGlvbiwgYW5kIGJ5IGFzc29jaWF0aW9uLCB0cnVzdCBmb3IgaXRzIGNvbnRlbnQ6
+CisKKyAgMS4gRE0tVmVyaXR5CisgIDIuIEZTLVZlcml0eQorICAzLiBJTUEgKyBFVk0KKworSG93
+ZXZlciwgb2YgdGhvc2Ugc3lzdGVtcyBvbmx5IHRoZSB0aGlyZCBvcHRpb24gaGFzIHRoZSBhYmls
+aXR5IHRvIGVuZm9yY2UKK3RydXN0IHJlcXVpcmVtZW50cyBvbiB0aGUgd2hvbGUgc3lzdGVtLiBJ
+dHMgYXJjaGl0ZWN0dXJlLCBob3dldmVyIGlzIGNlbnRlcmVkCithcm91bmQgaXRzIG93biBmb3Jt
+IG9mIHZlcmlmaWNhdGlvbnMsIGFuZCBhIG11bHRpdHVkZSBvZiBhY3Rpb25zIHN1cnJvdW5kaW5n
+Cit0aG9zZSB2ZXJpZmljYXRpb25zIHdpdGggdmFyaW91cyBwdXJwb3NlcywgdGhlIG1vc3QgcHJv
+bWluZW50IGJlaW5nIG1lYXN1cmVtZW50CithbmQgdmVyaWZpY2F0aW9uIChhcHByYWlzYWwpLiBU
+aGlzIG1ha2VzIGl0IHVuc3VpdGFibGUgZnJvbSBhIGxheWVyaW5nIGFuZAorYXJjaGl0ZWN0dXJh
+bCBwdXJwb3NlLCBhcyBJUEUncyBnb2FsIGlzIGxpbWl0ZWQgdG8gZW5zdXJlIGp1c3QgdHJ1c3Rl
+ZCB1c2VybW9kZQorYmluYXJpZXMgYXJlIGV4ZWN1dGVkLCB3aXRoIHRoZSBpbnRlbnRpb25hbCBn
+b2FsIG9mIHN1cHBvcnRpbmcgbXVsdGlwbGUgbWV0aG9kcworZnJvbSBhIGhpZ2hlciBzdWJzeXN0
+ZW0gbGF5ZXIgKGkuZS4gZnMsIGJsb2NrLCBvciBzdXBlcl9ibG9jaykuCisKK1RoZSB0d28gb3Ro
+ZXIgb3B0aW9ucywgZG0tdmVyaXR5IGFuZCBmcy12ZXJpdHkgYXJlIG1pc3NpbmcgYSBjcnVjaWFs
+IGNvbXBvbmVudAordG8gYWNjb21wbGlzaCB0aGUgZ29hbCBvZiBJUEU6IGEgcG9saWN5IHRvIGlu
+ZGljYXRlIHRoZSByZXF1aXJlbWVudHMgb2YKK2Fuc3dlcmluZyB0aGUgcXVlc3Rpb24gIldoYXQg
+aXMgVHJ1c3RlZD8iIGFuZCBhIHN5c3RlbS13aWRlIGxldmVsIG9mIGVuZm9yY2luZwordGhvc2Ug
+cmVxdWlyZW1lbnRzLgorCitUaGVyZWZvcmUsIElQRSB3YXMgZGVzaWduZWQgYXJvdW5kOgorCisg
+IDEuIEVhc3kgY29uZmlndXJhdGlvbiBvZiB0cnVzdCBtZWNoYW5pc21zCisgIDIuIEVhc2Ugb2Yg
+aW50ZWdyYXRpb24gd2l0aCBvdGhlciBsYXllcnMKKyAgMy4gRWFzZSBvZiB1c2UgZm9yIHBsYXRm
+b3JtIGFkbWluaXN0cmF0b3JzLgorCitEZXNpZ24gRGVjaXNpb25zCistLS0tLS0tLS0tLS0tLS0t
+CisKK1BvbGljeQorfn5+fn5+CisKK1BsYWluIFRleHQKK15eXl5eXl5eXl4KKworVW5saWtlIG90
+aGVyIExTTXMsIElQRSdzIHBvbGljeSBpcyBwbGFpbi10ZXh0LiBUaGlzIGludHJvZHVjZXMgc2xp
+Z2h0bHkgbGFyZ2VyCitwb2xpY3kgZmlsZXMgdGhhbiBvdGhlciBMU01zLCBidXQgc29sdmVzIHR3
+byBtYWpvciBwcm9ibGVtcyB0aGF0IG9jY3VycyB3aXRoCitvdGhlciB0cnVzdC1iYXNlZCBhY2Nl
+c3MgY29udHJvbCBzeXN0ZW1zLgorCitUaGUgZmlyc3QgaXNzdWUgaXMgb25lIG9mIGNvZGUgbWFp
+bnRlbmFuY2UgYW5kIGR1cGxpY2F0aW9uLiBUbyBhdXRob3IgcG9saWNpZXMsCit0aGUgcG9saWN5
+IGhhcyB0byBiZSBzb21lIGZvcm0gb2Ygc3RyaW5nIHJlcHJlc2VudGF0aW9uIChiZSBpdCBzdHJ1
+Y3R1cmVkLAordGhyb3VnaCBYTWwsIEpTT04sIFlBTUwsIGV0Y2V0ZXJhKSwgdG8gYWxsb3cgdGhl
+IHBvbGljeSBhdXRob3IgdG8gdW5kZXJzdGFuZAord2hhdCBpcyBiZWluZyB3cml0dGVuLiBJbiBh
+IGh5cG90aGV0aWNhbCBiaW5hcnkgcG9saWN5IGRlc2lnbiwgdGhhdCBhIHNlcmlhbGl6ZXIKK211
+c3QgYmUgd3JpdHRlbiB0byB3cml0ZSBzYWlkIGJpbmFyeSBmb3JtLCBmb3IgYSAqbWFqb3JpdHkq
+IG9mIGh1bWFucyB0byBiZQorYWJsZSB0byB1dGlsaXplIGl0IHByb3Blcmx5LgorCitBZGRpdGlv
+bmFsbHksIGEgZGVzZXJpYWxpemVyIHdpbGwgZXZlbnR1YWxseSBiZSBuZWVkZWQgdG8gdHJhbnNm
+b3JtIHRoZSBiaW5hcnkKK2JhY2sgaW50byB0ZXh0IHdpdGggYXMgbXVjaCBpbmZvcm1hdGlvbiBw
+cmVzZXJ2ZWQuIFdpdGhvdXQgYSBkZXNlcmlhbGl6ZXIsIGEKK3VzZXIgb2YgdGhpcyBhY2Nlc3Mg
+Y29udHJvbCBzeXN0ZW0gd2lsbCBoYXZlIHRvIGtlZXAgYSBsb29rdXAgdGFibGUgb2YgZWl0aGVy
+CithIGNoZWNrc3VtLCBvciB0aGUgZmlsZSBpdHNlbGYgdG8gdHJ5IHRvIHVuZGVyc3RhbmQgd2hh
+dCBwb2xpY2llcyBoYXZlIGJlZW4KK2RlcGxveWVkIG9uIHRoaXMgc3lzdGVtIGFuZCB3aGF0IHBv
+bGljaWVzIGhhdmUgbm90LiBGb3IgYSBzaW5nbGUgdXNlciwgdGhpcworbWF5IGJlIGFscmlnaHQs
+IGFzIG9sZCBwb2xpY2llcyBjYW4gYmUgZGlzY2FyZGVkIGFsbW9zdCBpbW1lZGlhdGVseSBhZnRl
+cgordGhlIHVwZGF0ZSB0YWtlcyBob2xkLgorCitGb3IgdXNlcnMgdGhhdCBtYW5hZ2UgZmxlZXRz
+IGluIHRoZSB0aG91c2FuZHMsIGlmIG5vdCBodW5kcmVkcyBvZiB0aG91c2FuZHMsCit0aGlzIHF1
+aWNrbHkgYmVjb21lcyBhbiBpc3N1ZSwgYXMgc3RhbGUgcG9saWNpZXMgZnJvbSB5ZWFycyBhZ28g
+bWF5IGJlIHByZXNlbnQsCitxdWlja2x5IHJlc3VsdGluZyBpbiB0aGUgbmVlZCB0byByZWNvdmVy
+IHRoZSBwb2xpY3kgb3IgZnVuZCBleHRlbnNpdmUKK2luZnJhc3RydWN0dXJlIHRvIHRyYWNrIHdo
+YXQgZWFjaCBwb2xpY3kgY29udGFpbnMuCisKK1NlY29uZGx5LCBhIHNlcmlhbGl6ZXIgaXMgc3Rp
+bGwgbmVlZGVkIHdpdGggYSBwbGFpbi10ZXh0IHBvbGljeSAoYXMgdGhlIHBsYWluCit0ZXh0IHBv
+bGljeSBzdGlsbCBoYXMgdG8gYmUgc2VyaWFsaXplZCB0byBhIGRhdGEgc3RydWN0dXJlIGluIHRo
+ZSBrZXJuZWwpLCBzbworbm90IG11Y2ggaXMgc2F2ZWQuCisKK1RoZSBzZWNvbmQgaXNzdWUgaXMg
+b25lIG9mIHRyYW5zcGFyZW5jeS4gQXMgSVBFIGNvbnRyb2xzIGFjY2VzcyBiYXNlZCBvbiB0cnVz
+dCwKK2l0J3MgcG9saWN5IG11c3QgYWxzbyBiZSB0cnVzdGVkIHRvIGJlIGNoYW5nZWQuIFRoaXMg
+aXMgZG9uZSB0aHJvdWdoIHNpZ25hdHVyZXMsCitjaGFpbmluZyB0byB0aGUgU1lTVEVNX1RSVVNU
+RURfS0VZUklORy4gVGhlIGNvbmZpZGVuY2Ugb2Ygc2lnbmluZyBhIHBsYWluLXRleHQKK3BvbGlj
+eSBpbiB3aGljaCB5b3UgY2FuIHNlZSBldmVyeSBhc3BlY3Qgb2Ygd2hhdCBpcyBiZWluZyBzaWdu
+ZWQgaXMgYSBzdGVwIGhpZ2hlcgordGhhbiBzaWduaW5nIGFuIG9wYXF1ZSBiaW5hcnkgYmxvYi4K
+KworQm9vdCBQb2xpY3kKK35+fn5+fn5+fn5+CisKK0FkZGl0aW9uYWxseSwgSVBFIHNob3VsZG4n
+dCBoYXZlIGFueSBvYnZpb3VzIGdhcHMgaW4gaXRzIGVuZm9yY2VtZW50IHN0b3J5LgorVGhhdCBt
+ZWFucywgYSBwb2xpY3kgdGhhdCBjb25maWd1cmVzIHRydXN0IHJlcXVpcmVtZW50cywgaWYgc3Bl
+Y2lmaWVkLCBtdXN0CitiZSBlbmZvcmNlZCBhcyBzb29uIGFzIHRoZSBrZXJuZWwgc3RhcnRzIHVw
+LiBUaGF0IGNhbiBiZSBhY2NvbXBsaXNoZWQgb25lCitvZiB0aHJlZSB3YXlzOgorCisgIDEuIFRo
+ZSBwb2xpY3kgZmlsZShzKSBsaXZlIG9uIGRpc2sgYW5kIHRoZSBrZXJuZWwgbG9hZHMgdGhlIHBv
+bGljeSBwcmlvcgorICAgICB0byBhbiBjb2RlIHBhdGggdGhhdCB3b3VsZCByZXN1bHQgaW4gYW4g
+ZW5mb3JjZW1lbnQgZGVjaXNpb24uCisgIDIuIFRoZSBwb2xpY3kgZmlsZShzKSBhcmUgcGFzc2Vk
+IGJ5IHRoZSBib290bG9hZGVyIHRvIHRoZSBrZXJuZWwsIHdobworICAgICBwYXJzZXMgdGhlIHBv
+bGljeS4KKyAgMy4gVGhlcmUgaXMgYSBwb2xpY3kgZmlsZSB0aGF0IGlzIGNvbXBpbGVkIGludG8g
+dGhlIGtlcm5lbCB0aGF0IGlzCisgICAgIHBhcnNlZCBhbmQgZW5mb3JjZWQgb24gaW5pdGlhbGl6
+YXRpb24uCisKK1RoZSBmaXJzdCBvcHRpb24gaGFzIHByb2JsZW1zOiB0aGUga2VybmVsIHJlYWRp
+bmcgZmlsZXMgZnJvbSB1c2Vyc3BhY2UKK2lzIHR5cGljYWxseSBkaXNjb3VyYWdlZCBhbmQgdmVy
+eSB1bmNvbW1vbiBpbiB0aGUga2VybmVsLgorCitUaGUgc2Vjb25kIG9wdGlvbiBhbHNvIGhhcyBw
+cm9ibGVtczogTGludXggc3VwcG9ydHMgYSB2YXJpZXR5IG9mIGJvb3Rsb2FkZXJzCithY3Jvc3Mg
+aXRzIGVudGlyZSBlY29zeXN0ZW0gLSBldmVyeSBib290bG9hZGVyIHdvdWxkIGhhdmUgdG8gc3Vw
+cG9ydCB0aGlzCituZXcgbWV0aG9kb2xvZ3kgb3IgdGhlcmUgbXVzdCBiZSBhbiBpbmRlcGVuZGVu
+dCBzb3VyY2UuIEFkZGl0aW9uYWxseSwgaXQKK3dvdWxkIGxpa2VseSByZXN1bHQgaW4gbW9yZSBk
+cmFzdGljIGNoYW5nZXMgdG8gdGhlIGtlcm5lbCBzdGFydHVwIHRoYW4KK25lY2Vzc2FyeS4KKwor
+VGhlIHRoaXJkIG9wdGlvbiBpcyB0aGUgYmVzdCBidXQgaXQncyBpbXBvcnRhbnQgdG8gYmUgYXdh
+cmUgdGhhdCB0aGUgcG9saWN5Cit3aWxsIHRha2UgZGlzayBzcGFjZSBhZ2FpbnN0IHRoZSBrZXJu
+ZWwgaXQncyBjb21waWxlZCBpbi4gSXQncyBpbXBvcnRhbnQgdG8KK2tlZXAgdGhpcyBwb2xpY3kg
+Z2VuZXJhbGl6ZWQgZW5vdWdoIHRoYXQgdXNlcnNwYWNlIGNhbiBsb2FkIGEgbmV3LCBtb3JlCitj
+b21wbGljYXRlZCBwb2xpY3ksIGJ1dCByZXN0cmljdGl2ZSBlbm91Z2ggdGhhdCBpdCB3aWxsIG5v
+dCBvdmVyYXV0aG9yaXplCithbmQgY2F1c2Ugc2VjdXJpdHkgaXNzdWVzLgorCitUaGUgaW5pdHJh
+bWZzLCBwcm92aWRlcyBhIHdheSB0aGF0IHRoaXMgYm9vdHVwIHBhdGggY2FuIGJlIGVzdGFibGlz
+aGVkLiBUaGUKK2tlcm5lbCBzdGFydHMgd2l0aCBhIG1pbmltYWwgcG9saWN5LCB0aGF0IGp1c3Qg
+dHJ1c3RzIHRoZSBpbml0cmFtZnMuIEluc2lkZQordGhlIGluaXRyYW1mcywgd2hlbiB0aGUgcmVh
+bCByb290ZnMgaXMgbW91bnRlZCwgYnV0IG5vdCB5ZXQgdHJhbnNmZXJyZWQgdG8sCitpdCBkZXBs
+b3lzIGFuZCBhY3RpdmF0ZXMgYSBwb2xpY3kgdGhhdCB0cnVzdHMgdGhlIG5ldyByb290IGZpbGVz
+eXN0ZW0ocykuCitUaGlzIHByZXZlbnRzIG92ZXJhdXRob3JpemF0aW9uIGF0IGFueSBzdGVwLCBh
+bmQga2VlcHMgdGhlIGtlcm5lbCBwb2xpY3kKK3RvIGEgbWluaW1hbCBzaXplLgorCitTdGFydHVw
+CiteXl5eXl5eCisKK05vdCBldmVyeSBzeXN0ZW0sIGhvd2V2ZXIgc3RhcnRzIHdpdGggYW4gaW5p
+dHJhbWZzLCBzbyB0aGUgc3RhcnR1cCBwb2xpY3kKK2NvbXBpbGVkIGludG8gdGhlIGtlcm5lbCB3
+aWxsIG5lZWQgc29tZSBmbGV4aWJpbGl0eSB0byBleHByZXNzIGhvdyB0cnVzdAoraXMgZXN0YWJs
+aXNoZWQgZm9yIHRoZSBuZXh0IHBoYXNlIG9mIHRoZSBib290dXAuIFRvIHRoaXMgZW5kLCBpZiB3
+ZSBqdXN0CittYWtlIHRoZSBjb21waWxlZC1pbiBwb2xpY3kgYSBmdWxsIElQRSBwb2xpY3ksIGl0
+IGFsbG93cyBzeXN0ZW0gYnVpbGRlcnMKK3RvIGV4cHJlc3MgdGhlIGZpcnN0IHN0YWdlIGJvb3R1
+cCByZXF1aXJlbWVudHMgYXBwcm9wcmlhdGVseS4KKworVXBkYXRhYmxlLCBSZWJvb3RsZXNzIFBv
+bGljeQorfn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fgorCitBcyB0aW1lIGdvZXMgb24sIHRy
+dXN0IHJlcXVpcmVtZW50cyBhcmUgY2hhbmdlZCAodnVsbmVyYWJpbGl0aWVzIGFyZSBmb3VuZCBp
+bgorcHJldmlvdXNseSB0cnVzdGVkIGFwcGxjYXRpb25zLCBrZXlzIHJvbGwsIGV0Y2V0ZXJhKS4g
+VXBkYXRpbmcgYSBrZXJuZWwgdG8KK2NoYW5nZSB0aGUgdHJ1c3QgcmVxdWlyZW1lbnRzIGlzIG5v
+dCBhbHdheXMgYSBzdWl0YWJsZSBvcHRpb24sIGFzIHVwZGF0ZXMKK2FyZSBub3QgYWx3YXlzIHJp
+c2stZnJlZSBhbmQgd2l0aG91dCBjb25zZXF1ZW5jZS4gVGhpcyBtZWFucyBJUEUgcmVxdWlyZXMK
+K2EgcG9saWN5IHRoYXQgY2FuIGJlIGNvbXBsZXRlbHkgdXBkYXRlZCBmcm9tIGEgc291cmNlIGV4
+dGVybmFsIHRvIHRoZSBrZXJuZWwuCisKK0FkZGl0aW9uYWxseSwgc2luY2UgdGhlIGtlcm5lbCBp
+cyByZWxhdGl2ZWx5IHN0YXRlbGVzcyBiZXR3ZWVuIGludm9jYXRpb25zLAorYW5kIHdlJ3ZlIGVz
+dGFibGlzaGVkIHRoYXQgcmVhZGluZyBwb2xpY3kgZmlsZXMgb2ZmIHRoZSBkaXNrIGZyb20ga2Vy
+bmVsCitzcGFjZSBpcyBhICpiYWQgaWRlYSosIHRoZW4gdGhlIHBvbGljeSB1cGRhdGVzIGhhdmUg
+dG8gYmUgZG9uZSByZWJvb3RsZXNzbHkuCisKK1RvIGFsbG93IGFuIHVwZGF0ZSBmcm9tIGFuIGV4
+dGVybmFsIHNvdXJjZSwgaXQgY291bGQgYmUgcG90ZW50aWFsbHkgbWFsaWNpb3VzLAorc28gdGhp
+cyBwb2xpY3kgbmVlZHMgdG8gaGF2ZSBhIHdheSB0byBiZSBpZGVudGlmaWVkIGFzIHRydXN0ZWQu
+IFRoaXMgd2lsbCBiZQorZG9uZSB2aWEgYSBzaWduYXR1cmUsIGNoYWluZWQgdG8gYSB0cnVzdCBz
+b3VyY2UgaW4gdGhlIGtlcm5lbC4gQXJiaXRyYXJpbHksCit0aGlzIHdpbGwgYmUgdGhlIGBgU1lT
+VEVNX1RSVVNURURfS0VZUklOR2BgLCBhIGtleXJpbmcgdGhhdCBpcyBpbml0aWFsbHkKK3BvcHVs
+YXRlZCBhdCBrZXJuZWwgY29tcGlsZS10aW1lLCBhcyB0aGlzIG1hdGNoZXMgdGhlIGV4cGVjdGF0
+aW9uIHRoYXQgdGhlCithdXRob3Igb2YgdGhlIGNvbXBpbGVkLWluIHBvbGljeSBkZXNjcmliZWQg
+YWJvdmUgaXMgdGhlIHNhbWUgZW50aXR5IHRoYXQgY2FuCitkZXBsb3kgcG9saWN5IHVwZGF0ZXMu
+CisKK0FudGktUm9sbGJhY2sgLyBBbnRpLVJlcGxheQorfn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
+fn5+CisKK092ZXIgdGltZSwgdnVsbmVyYWJpbGl0aWVzIGFyZSBmb3VuZCBhbmQgdHJ1c3RlZCBy
+ZXNvdXJjZXMgbWF5IG5vdCBiZQordHJ1c3RlZCBhbnltb3JlLiBJUEUncyBwb2xpY3kgaGFzIG5v
+IGV4Y2VwdGlvbiB0byB0aGlzLiBUaGVyZSBjYW4gYmUKK2luc3RhbmNlcyB3aGVyZSBhIG1pc3Rh
+a2VuIHBvbGljeSBhdXRob3IgZGVwbG95cyBhbiBpbnNlY3VyZSBwb2xpY3ksCitiZWZvcmUgY29y
+cmVjdGluZyBpdCB3aXRoIGEgc2VjdXJlIHBvbGljeS4KKworQXNzdW1pbmcgdGhhdCBhcyBzb29u
+IGFzIHRoZSBpbnNlY3VyZSBwb2xpY3kgd2FzIHNpZ25lZCwgYW4gYXR0YWNrZXIKK2NhbiBhY3F1
+aXJlIHRoZSBpbnNlY3VyZSBwb2xpY3ksIElQRSBuZWVkcyBhIHdheSB0byBwcmV2ZW50IHJvbGxi
+YWNrCitmcm9tIHRoZSBzZWN1cmUgcG9saWN5IHVwZGF0ZSwgdG8gdGhlIGluc2VjdXJlIHBvbGlj
+eSB1cGRhdGUuCisKK0luaXRpYWxseSwgSVBFJ3MgcG9saWN5IGNhbiBoYXZlIGEgcG9saWN5X3Zl
+cnNpb24gdGhhdCBzdGF0ZXMgdGhlCittaW5pbXVtIHJlcXVpcmVkIHZlcnNpb24gYWNyb3NzIGFs
+bCBwb2xpY2llcyB0aGF0IGNhbiBiZSBhY3RpdmUgb24KK3RoZSBzeXN0ZW0uIFRoaXMgd2lsbCBw
+cmV2ZW50IHJvbGxiYWNrIHdoaWxlIHRoZSBzeXN0ZW0gaXMgbGl2ZS4KKworLi4gV0FSTklORzo6
+CisKKyAgSG93ZXZlciwgc2luY2UgdGhlIGtlcm5lbCBpcyBzdGF0ZWxlc3MgYWNyb3NzIGJvb3Rz
+LCB0aGlzIHBvbGljeQorICB2ZXJzaW9uIHdpbGwgYmUgcmVzZXQgdG8gMC4wLjAgb24gdGhlIG5l
+eHQgYm9vdC4gU3lzdGVtIGJ1aWxkZXJzCisgIG5lZWQgdG8gYmUgYXdhcmUgb2YgdGhpcywgYW5k
+IGVuc3VyZSB0aGUgbmV3IHNlY3VyZSBwb2xpY2llcyBhcmUKKyAgZGVwbG95ZWQgQVNBUCBhZnRl
+ciBhIGJvb3QgdG8gZW5zdXJlIHRoYXQgdGhlIHdpbmRvdyBvZgorICBvcHBvcnR1bml0eSBpcyBt
+aW5pbWFsIGZvciBhbiBhdHRhY2tlciB0byBkZXBsb3kgdGhlIGluc2VjdXJlIHBvbGljeVsjXV8u
+CisKK0ltcGxlbWVudGF0aW9uCistLS0tLS0tLS0tLS0tLQorCitDb250ZXh0Cit+fn5+fn5+CisK
+K0FuIGBgaXBlX2NvbnRleHRgYCBzdHJ1Y3R1cmUgcmVwcmVzZW50IGEgY29udGV4dCBpbiB3aGlj
+aCBJUEUgY2FuIGJlIGVuZm9yY2VkLgorSXQgY29udGFpbnMgYWxsIHRoZSB0eXBpY2FsIHZhbHVl
+cyB0aGF0IG9uZSB3b3VsZCBleHBlY3QgYXJlIGdsb2JhbDoKKworICAxLiBFbmZvcmNlL1Blcm1p
+c3NpdmUgU3RhdGUKKyAgMi4gQWN0aXZlIFBvbGljeQorICAzLiBMaXN0IG9mIFBvbGljaWVzCisg
+IDQuIFN1Y2Nlc3MgQXVkaXRpbmcgU3RhdGUKKworQSBjb250ZXh0IGlzIGNyZWF0ZWQgYXQgYm9v
+dCB0aW1lIGFuZCBhdHRhY2hlZCB0byB0aGUgYGB0YXNrX3N0cnVjdGBgIGFzIGEKK3NlY3VyaXR5
+IGJsb2IuIEFsbCBuZXcgYGB0YXNrX3N0cnVjdGBgIHdpbGwgaW5oZXJpdCB0aGUgb3JpZ2luYWwg
+YGBpcGVfY29udGV4dGBgCit0aGF0IHRoZSBzeXN0ZW0gYm9vdHMgd2l0aC4gVGhpcyBzdHJ1Y3R1
+cmUgaXMgcmVmZXJlbmNlIGNvdW50ZWQuCisKK0luaXRpYWxseSwgYSBzeXN0ZW0gd2lsbCBvbmx5
+IGV2ZXIgaGF2ZSBvbmUgY29udGV4dDsgZm9yIGBgaW5pdGBgLCBhbmQgc2luY2UKK2FsbCB1c2Vy
+c3BhY2UgcHJvY2Vzc2VzIGFyZSBkZXNjZW5kZW50cyBvZiBgYGluaXRgYCwgYWxsIG9mIHVzZXJt
+b2RlIHdpbGwgaGF2ZQordGhpcyBleGVjdXRpb24gY29udGV4dC4KKworVGhpcyBhcmNoaXRlY3R1
+cmUgaGFzIHNvbWUgYWR2YW50YWdlcyAtIG5hbWVseSwgaXQgYWxsb3dzIGZvciBhIG5hdHVyYWwK
+K2V4dGVuc2lvbiBmb3IgSVBFIHRvIGNyZWF0ZSBuZXcgY29udGV4dHMgLSBzdWNoIGFzIGFwcGx5
+aW5nIGEgZGlmZmVyZW50Citwb2xpY3kgZm9yIHRydXN0IGZvciBhIHByaXZsZWRnZWQgY29udGFp
+bmVyIGZyb20gdGhhdCBvZiBpdHMgaG9zdC4KKworQW5vbnltb3VzIE1lbW9yeQorfn5+fn5+fn5+
+fn5+fn5+fgorCitBbm9ueW1vdXMgbWVtb3J5IGlzbid0IHRyZWF0ZWQgYW55IGRpZmZlcmVudGx5
+IHRoYW4gYW55IG90aGVyIGFjY2VzcyBpbiBJUEUuCitXaGVuIGFub255bW91cyBtZW1vcnkgaXMg
+bWFwcGVkIHdpdGggYGArWGBgLCBpdCBzdGlsbCBjb21lcyBpbnRvIHRoZSBgYGZpbGVfbW1hcGBg
+Citob29rLCBidXQgd2l0aCBhIGBgTlVMTGBgIGZpbGUgb2JqZWN0LiBUaGlzIGlzIHN1Ym1pdHRl
+ZCB0byB0aGUgZXZhbHVhdGlvbiwgbGlrZQorYW55IG90aGVyIGZpbGUsIGhvd2V2ZXIsIGFsbCB0
+cnVzdCBtZWNoYW5pc21zIHdpbGwgcmV0dXJuIGZhbHNlIGFzIHRoZXJlIGlzCitub3RoaW5nIHRv
+IGV2YWx1YXRlLiBUaGlzIG1lYW5zIGFub255bW91cyBtZW1vcnkgZXhlY3V0aW9uIGlzIHN1Ympl
+Y3QgdG8KK3doYXRldmVyIHRoZSBgYERFRkFVTFRgYCBpcyBmb3IgYGBFWEVDVVRFYGAuCisKKy4u
+IFdBUk5JTkc6OgorCisgIFRoaXMgYWxzbyBvY2N1cnMgd2l0aCB0aGUgYGBrZXJuZWxfbG9hZF9k
+YXRhYGAgaG9vaywgd2hpY2ggaXMgdXNlZCBieSBzaWduZWQKKyAgYW5kIGNvbXByZXNzZWQga2Vy
+bmVsIG1vZHVsZXMuIFVzaW5nIHRoaXMgd2l0aCBJUEUgd2lsbCByZXN1bHQgaW4gdGhlCisgIGBg
+REVGQVVMVGBgIGZvciBgYEtNT0RVTEVgYCBiZWluZyB0YWtlbi4KKworUG9saWN5IFBhcnNlcgor
+fn5+fn5+fn5+fn5+fgorCitUaGUgcG9saWN5IHBhcnNlciBpcyB0aGUgc3RhcGxlIG9mIElQRSdz
+IGZ1bmN0aW9uYWxpdHksIHByb3ZpZGluZyBhCittb2R1bGFyIHdheSB0byBpbnRyb2R1Y2UgbmV3
+IGludGVncmF0aW9ucy4gQXMgc3VjaCwgaXQncyBmdW5jdGlvbmFsaXR5CitpcyBkaXZpZGVkIGlu
+dG8gNCBwYXNzZXMuIFRoaXMgZ2l2ZXMgdGhlIGJlbmVmaXQgb2YgY2xlYXJseSBkZWZpbmVkIHBy
+ZQorYW5kIHBvc3QtY29uZGl0aW9uIHN0YXRlcyBhZnRlciBlYWNoIHBhc3MsIGdpdmluZyBkZWJ1
+Z2dpbmcgYmVuZWZpdHMKK3doZW4gc29tZXRoaW5nIGdvZXMgd3JvbmcuCisKK0luIHBhc3MxLCB0
+aGUgcG9saWN5IGlzIHRyYW5zZm9ybWVkIGludG8gYSAyRCwgamFnZ2VkLCBhcnJheSBvZiB0b2tl
+bnMsCit3aGVyZSBhIHRva2VuIGlzIGRlZmluZWQgYXMgYSAia2V5PXZhbHVlIiBwYWlyLCBvciBh
+IHNpbmd1bGFyIHRva2VuLAorZm9yIGV4YW1wbGUsICJERUZBVUxUIi4gUXVvdGVkIHZhbHVlcyBh
+cmUgcGFyc2VkIGFzIGEgc2luZ2xlIHZhbHVlLXBhaXIsCit3aGljaCBpcyB3aHkgYGA8bGludXgv
+cGFyc2VyLmg+YGAgcGFyc2VyIGlzIGluc3VmZmljaWVudCAtIGl0IGRvZXMgbm90Cit1bmRlcnN0
+YW5kIHF1b3RlZCB2YWx1ZXMuCisKK0luIHBhc3MyLCB0aGUgamFnZ2VkIGFycmF5IHByb2R1Y2Vk
+IGluIHBhc3MxIGlzIHBhcnRpYWxseSBpbmdlc3RlZCwKK2NyZWF0aW5nIGEgcGFydGlhbGx5IHBv
+cHVsYXRlZCBwb2xpY3ksIHdoZXJlIG5vIHJ1bGVzIGhhdmUgYmVlbiBwYXJzZWQKK3lldCwgYnV0
+IG1ldGFkYXRhIGFuZCByZWZlcmVuY2VzIGFyZSBjcmVhdGVkIHRoYXQgY2FuIGJlIG5vdyB1c2Vk
+IGluCitwYXNzMy4KKworRXhhbXBsZXMgb2YgcGFyc2luZyB0aGF0IHdvdWxkIGJlIGRvbmUgaW4g
+cGFzczI6OgorCisgIHBvbGljeV9uYW1lPSJteS1wb2xpY3kiIHBvbGljeV92ZXJzaW9uPTAuMC4w
+CisgIERFRkFVTFQgYWN0aW9uPURFTlkKKworQXMgdGhlc2UgbGluZXMgYXJlIG5vdCBydWxlcyBp
+biBvZiB0aGVtc2VsdmVzLCBidXQgZWZmZWN0IHRoZSBwb2xpY3kKK2l0c2VsZi4KKworSW4gcGFz
+czMsIHRoZSByZW1haW5pbmcgbGluZXMgaW4gdGhlIGphZ2dlZCBhcnJheSBwcm9kdWNlZCBpbiBw
+YXNzMSBhbmQKK3BhcnRpYWxseS1jb25zdW1lZCBpbiBwYXNzMiBpcyBjb25zdW1lZCBjb21wbGV0
+ZWx5LCBwYXJzaW5nIGFsbCB0aGUKK3J1bGVzIGluIElQRSBwb2xpY3kuIFRoaXMgY2FuIGxldmVy
+YWdlIHRoZSBkYXRhIHVzZWQgaW4gcGFzczIuCitFeGFtcGxlIGxpbmVzIHBhcnNlZCBpbiBwYXNz
+Mzo6CisKKyAgb3A9RVhFQ1VURSBkbXZlcml0eV9zaWduYXR1cmU9VFJVRSBhY3Rpb249REVOWQor
+CitBIHJ1bGUgaXMgc3RyaWN0bHkgZGVmaW5lZCBhcyBzdGFydHMgd2l0aCB0aGUgb3AgdG9rZW4g
+YW5kIGVuZHMgd2l0aAordGhlIGFjdGlvbiB0b2tlbi4KKworQWZ0ZXIgdGhpcyBwYXNzLCBhIHBv
+bGljeSBpcyBkZWVtZWQgZnVsbHkgY29uc3RydWN0ZWQgYnV0IG5vdCB5ZXQgdmFsaWQsCithcyB0
+aGVyZSBjb3VsZCBiZSBtaXNzaW5nIGVsZW1lbnRzIChzdWNoIGFzIGEgcmVxdWlyZWQgREVGQVVM
+VCBmb3IgYWxsCithY3Rpb25zLCBtaXNzaW5nIGEgcG9saWN5X25hbWUpLCBldGMuCisKK0FkZGl0
+aW9uYWxseSwgYXMgSVBFIHBvbGljeSBzdXBwb3J0cyBvcGVyYXRpb24gYWxpYXNlcyAoYW4gb3Bl
+cmF0aW9uCit0aGF0IG1hcHMgdG8gdHdvIG9yIG1vcmUgb3RoZXIgb3BlcmF0aW9ucyksIHN1cHBv
+cnQgaXMgYWRkZWQgaGVyZS4KKworVGhlIHB1cnBvc2UgaW4gdGhlIGRpdmlzaW9uIG9mIHBhc3My
+IGFuZCBwYXNzMyBpcyB0byBhbGxvdyBmb3IKK2RlY2xhcmF0aW9ucyBpbiBJUEUncyBzeW50YXgu
+IEZvciBleGFtcGxlLCBpbiB0aGUgZnV0dXJlLCBpZiB3ZSB3ZXJlCit0byBpbnRyb2R1Y2UgdGhp
+cyBzeW50YXg6OgorCisgIENFUlRJRklDQVRFPUZha2VDZXJ0IHRodW1icHJpbnQ9REVBREJFRUYg
+Q049IkNvbnRvc28iCisKK0FuZCB1c2UgaXQgbGlrZSBzbzo6CisKKyAgb3A9RVhFQ1VURSBkbXZl
+cml0eV9zaWduYXR1cmU9RmFrZUNlcnQgYWN0aW9uPUFMTE9XCisKK1RoZSBgYENFUlRJRklDQVRF
+YGAgbGluZXMgY2FuIGJlIGdyb3VwZWQgdG9nZXRoZXIgYXQgYW55IHBsYWNlIGluIHRoZSBwb2xp
+Y3kuCisKK0FmdGVyIHBhc3MzLCBhbiBJUEUgcG9saWN5IGNhbiBzdGlsbCBiZSB0ZWNobmljYWxs
+eSBpbnZhbGlkIGZvciB1c2UsIGFzCithIHBvbGljeSBjYW4gYmUgbGFja2luZyByZXF1aXJlZCBl
+bGVtZW50cyB0byBlbGltaW5hdGVkIHRoZSBwb3NzaWJpbGl0eQorb2YgdW5kZWZpbmVkIG9yIHVu
+a25vd24gYmVoYXZpb3IuCisKK0EgY29uY3JldGUgZXhhbXBsZSBpcyB3aGVuIGEgcG9saWN5IGRv
+ZXMgbm90IGRlZmluZSBhIGRlZmF1bHQgYWN0aW9uIGZvcgorYWxsIHBvc3NpYmlsaXRpZXM6Ogor
+CisgIERFRkFVTFQgb3A9RVhFQ1VURSBhY3Rpb249QUxMT1cKKworQXQgdGhpcyBwb2ludCwgd2hp
+bGUgYSB0ZWNobmljYWxseSBzeW50YWN0aWNhbGx5IGFuZCBzZW1hbnRpY2FsbHkgdmFsaWQKK3Bv
+bGljeSwgaXQgZG9lcyBub3QgY29udGFpbiBlbm91Z2ggaW5mb3JtYXRpb24gdG8gZGV0ZXJtaW5l
+IHdoYXQgc2hvdWxkCitiZSBkb25lIGZvciBhbiBvcGVyYXRpb24gb3RoZXIgdGhhbiAiRVhFQ1VU
+RSIuIEFzIElQRSdzIGRlc2lnbgorZXhwbGljaXRseSBwcm9oaWJpdHMgdGhlIGltcGxpY2l0IHNl
+dHRpbmcgb2YgYSBERUZBVUxULCBpdCBpcyBpbXBvcnRhbnQKK2ZvciBjYXNlcyBsaWtlIHRoZXNl
+IGFyZSBwcmV2ZW50ZWQgZnJvbSBvY2N1cnJpbmcuCisKK1RvIHJlc29sdmUgYWxsIHRoZXNlIGNh
+c2VzLCBhIGZpbmFsIGNoZWNrIG9uIHRoZSBwb2xpY3kgaXMgZG9uZSB0byBlbnN1cmUKK2l0IHZh
+bGlkIGZvciB1c2UuCisKK0luIGFsbCBjYXNlcywgdGhlIHBhcnNlciBpcyB0aGUgbnVtYmVyIG9u
+ZSBib3R0bGVuZWNrIHdoZW4gaXQgY29tZXMgdG8KK0lQRSdzIHBlcmZvcm1hbmNlLCBidXQgaGFz
+IHRoZSBiZW5lZml0IG9mIGhhcHBlbmluZyByYXJlbHksIGFuZCBhcyBhCitkaXJlY3QgY29uc2Vx
+dWVuY2Ugb2YgdXNlci1pbnB1dC4KKworTW9kdWxlIHZzIFBhcnNlcgorfn5+fn5+fn5+fn5+fn5+
+fgorCitBICJtb2R1bGUiLCAidHJ1c3QgcHJvdmlkZXIiLCBvciAicHJvcGVydHkiIGFzIGRlZmlu
+ZWQgaW4gSVBFJ3MgY29kZSBhbmQKK2NvbW1pdHMgaXMgYW4gaW50ZWdyYXRpb24gd2l0aCBhbiBl
+eHRlcm5hbCBzdWJzeXN0ZW0gdGhhdCBwcm92aWRlcyBhIHdheQordG8gaWRlbnRpZnkgYSByZXNv
+dXJjZSBhcyB0cnVzdGVkLiBJdCdzIHRoZSBjb2RlIHRoYXQgcG93ZXJzIHRoZSBrZXk9dmFsdWUK
+K3BhaXJzIGluIGJldHdlZW4gdGhlIGBgb3BgYCB0b2tlbiBhbmQgdGhlIGBgYWN0aW9uYGAgdG9r
+ZW4uIFRoZXNlIGFyZSBjYWxsZWQKK2luIHBhc3MzIHdoZW4gcGFyc2luZyBhIHBvbGljeSAodmlh
+IHRoZSBgYHBhcnNlYGAgbWV0aG9kKSwgYW5kIGR1cmluZworZXZhbHVhdGlvbiB3aGVuIGV2YWx1
+YXRpbmcgYSBhY2Nlc3MgYXR0ZW1wdCAodmlhIHRoZSBgYGV2YWxgYCBtZXRob2QpLiBUaGVzZQor
+ZGlzY3JldGUgbW9kdWxlcyBhcmUgc2luZ2xlIGZpbGVzIGluIGBgc2VjdXJpdHkvaXBlL21vZHVs
+ZXNgYCBhbmQgYXJlCit2ZXJzaW9uZWQgaW5kZXBlbmRlbnRseS4gVGhlIGRvY3VtZW50YXRpb24g
+aW4gdGhlIGFkbWluIGd1aWRlIGFuZCBiZSB1c2VkCit0byBjcm9zcyByZWZlcmVuY2Ugd2hhdCB2
+ZXJzaW9uIHN1cHBvcnRzIHdoYXQgc3ludGF4LgorCitBICJwYXJzZXIiLCBvbiB0aGUgb3RoZXIg
+aGFuZCBpcyBhIGRpc2NyZXRlIHVuaXQgb2YgY29kZSB0aGF0IGlzICpvbmx5KgordXNlZCB3aGVu
+IHBhcnNpbmcgYSBwb2xpY3kgaW4gcGFzczIuIFRoZSBpbnRlbnRpb24gaXMgdG8gbWFrZSBpdCBl
+YXN5Cit0byBpbnRyb2R1Y2Ugc3RhdGVtZW50cywgbGlrZSB0aGUgYGBERUZBVUxUYGAgc3RhdGVt
+ZW50OjoKKworICBERUZBVUxUIG9wPUVYRUNVVEUgYWN0aW9uPUFMTE9XCisgIERFRkFVTFQgYWN0
+aW9uPUFMTE9XCisKK29yLCB0aGUgcG9saWN5IGhlYWRlcjo6CisKKyAgcG9saWN5X25hbWU9Ik15
+UG9saWN5IiBwb2xpY3lfdmVyc2lvbj0wLjAuMAorCitUaGVzZSBpbmRpdmlkdWFsIGZyYWdtZW50
+cyBvZiBjb2RlLCBhcyBzdWNoLCBnYWluIGFjY2VzcyB0byBtYW5pcHVsYXRpbmcKK0lQRSdzIHBv
+bGljeSBzdHJ1Y3R1cmUgZGlyZWN0bHksIGFzIG9wcG9zZWQgdG8gdGhlIG9wYXF1ZSBgYHZvaWQg
+KmBgIHRoYXQKK21vZHVsZXMgZ2V0LgorCisuLiBbI10gVGhpcyBpcyBzb21ldGhpbmcgd2UncmUg
+aW50ZXJlc3RlZCBpbiBzb2x2aW5nLCB1c2luZyBzb21lCisgICAgICAgcGVyc2lzdGVudCBzdG9y
+YWdlCisKK1Rlc3RzCit+fn5+fgorCitJUEUgaW5pdGlhbGx5IGhhcyBLVW5pdCBUZXN0cywgdGVz
+dGluZyBwcmltYXJpbHkgdGhlIHBhcnNlciBhbmQgdGhlIGNvbnRleHQKK3N0cnVjdHVyZXMuIEEg
+bWFqb3JpdHkgb2YgdGhlc2UgYXJlIHRhYmxlLWJhc2VkIHRlc3RpbmcsIHBsZWFzZSBjb250cmli
+dXRlCit0byB0aGVtLCBlc3BlY2lhbGx5IHdoZW4gYWRkaW5nIG5ldyBwcm9wZXJ0aWVzLgpkaWZm
+IC0tZ2l0IGEvTUFJTlRBSU5FUlMgYi9NQUlOVEFJTkVSUwppbmRleCBhODRjYTc4MTE5OWIuLjkw
+OWRiNWJhNmY4NyAxMDA2NDQKLS0tIGEvTUFJTlRBSU5FUlMKKysrIGIvTUFJTlRBSU5FUlMKQEAg
+LTkyODMsNiArOTI4Myw4IEBAIElOVEVHUklUWSBQT0xJQ1kgRU5GT1JDRU1FTlQgKElQRSkKIE06
+CURldmVuIEJvd2VycyA8ZGV2ZW4uZGVzYWlAbGludXgubWljcm9zb2Z0LmNvbT4KIE06CUZhbiBX
+dSA8d3VmYW5AbGludXgubWljcm9zb2Z0LmNvbT4KIFM6CVN1cHBvcnRlZAorRjoJRG9jdW1lbnRh
+dGlvbi9hZG1pbi1ndWlkZS9MU00vaXBlLnJzdAorRjoJRG9jdW1lbnRhdGlvbi9zZWN1cml0eS9p
+cGUucnN0CiBGOglzY3JpcHRzL2lwZS8KIEY6CXNlY3VyaXR5L2lwZS8KIAotLSAKMi4zMy4wCgoK
+LS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0
+bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
 
