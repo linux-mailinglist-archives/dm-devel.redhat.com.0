@@ -1,78 +1,77 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8FA2942B6AA
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTP id AC32742B6AB
 	for <lists+dm-devel@lfdr.de>; Wed, 13 Oct 2021 08:14:43 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-46-dGovjfhxNSicbLM78YIWSw-1; Wed, 13 Oct 2021 02:14:40 -0400
-X-MC-Unique: dGovjfhxNSicbLM78YIWSw-1
+ us-mta-17-j2LomiD-MMeLM-fpoW-ExA-1; Wed, 13 Oct 2021 02:14:41 -0400
+X-MC-Unique: j2LomiD-MMeLM-fpoW-ExA-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E57BA91285;
-	Wed, 13 Oct 2021 06:14:33 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9E7D42B060;
-	Wed, 13 Oct 2021 06:14:32 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9F796802588;
+	Wed, 13 Oct 2021 06:14:35 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 811774180;
+	Wed, 13 Oct 2021 06:14:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 18FCD4E58E;
-	Wed, 13 Oct 2021 06:14:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8638A1803B30;
+	Wed, 13 Oct 2021 06:14:34 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19D69ifa027793 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 13 Oct 2021 02:09:44 -0400
+	id 19D6AHg6027850 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 13 Oct 2021 02:10:17 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B7BF91111451; Wed, 13 Oct 2021 06:09:44 +0000 (UTC)
+	id 386974EA7A; Wed, 13 Oct 2021 06:10:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B3BDE111144E
-	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 06:09:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 329F7568FA
+	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 06:10:14 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E9B7F185A79C
-	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 06:09:41 +0000 (UTC)
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
-	[209.85.214.181]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-516-Eiv2Tkq3N66B-VhP1psslw-1; Wed, 13 Oct 2021 02:09:40 -0400
-X-MC-Unique: Eiv2Tkq3N66B-VhP1psslw-1
-Received: by mail-pl1-f181.google.com with SMTP id c4so1080838pls.6
-	for <dm-devel@redhat.com>; Tue, 12 Oct 2021 23:09:40 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6FFB680158D
+	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 06:10:14 +0000 (UTC)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+	[209.85.214.177]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-504-wM6R1XBvNciSqjDHpjllKg-1; Wed, 13 Oct 2021 02:10:12 -0400
+X-MC-Unique: wM6R1XBvNciSqjDHpjllKg-1
+Received: by mail-pl1-f177.google.com with SMTP id 21so1058014plo.13
+	for <dm-devel@redhat.com>; Tue, 12 Oct 2021 23:10:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
 	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
 	:mime-version:content-disposition:in-reply-to;
-	bh=z0+/l2JzZcIMvRxuVnPDxpTt0N87/VTetFSC9UipIbo=;
-	b=YWp1loRNE2+K+dw3SucavTJBijXVe0d0tVWc5vlp85zlMAtr6u8p4IUJR4ssVrGYD6
-	r5NHcaqZacblZqfsJFnEDozS0dx5jNAz9I421QsuF9KbrfkbnZlTj/T9+LrYHJfx2KQI
-	spzSCRXFkkBmuNgvO09V1f49ujJknqu2EcnHQv9tkz2/I2YQgVVc/KrMATFkyV0OdxjH
-	xdk9KIn4+3I0fpbWzEdDbOAHdf1jQfRnpCqiFRm/UV07pQtnlul2HIpUFIqGcKQTUHGR
-	pzWzX6BaDMuPkhGPzSNk3eDo96DbzYc+WtmnccKiLy+7EgwFiQlyCCSkoKiHTPuzkKMq
-	Rg+Q==
-X-Gm-Message-State: AOAM5330/Mnzp0iPxSuCJEKtkQOIfoFSxmMRkmyPWUy+wCudkBccviG4
-	dTv1ultUv62TnGk0Kmmt/THKMQ==
-X-Google-Smtp-Source: ABdhPJx1Mq3qptD5w3g2Y6okZL9tWnjLnFrTXEu5gKzk6Wq6AX2hVHSkDjnl1IkjZGDzNZT+Poo5bw==
-X-Received: by 2002:a17:902:b593:b0:12d:7aa5:de2d with SMTP id
-	a19-20020a170902b59300b0012d7aa5de2dmr34892215pls.31.1634105379132;
-	Tue, 12 Oct 2021 23:09:39 -0700 (PDT)
+	bh=HKDYpp4YSVsNULamooLUjhsr3ltG6/c66elTMRrkKgQ=;
+	b=GdyCBV+ak8ee2uCU/JaHJtRqED2jZJvxOFHSzd3abSlSr61saZlGAYpGRJpATYl7kb
+	7my4a2nanXbxNK0+BOINJQiLqahFlCeJ0j3CjGQB9GY2FaXLNbLwzPOkWQLjom/JUQ5G
+	ABFOBBzasqNjpWzvfkI86/mpe9YUquDl5++lzgu0ofGXFabTOaBAhEkiWrERH8nqQXva
+	PJ4a2DZSG94miETY1jQLc4k6wtHJR4QYIra14lUjX5RJWCXXSc59UiCfDG+gm0ECLh67
+	E1QMvqSU8sB7GWdYs2yvgeNtqYsNIyPJs1vIrPMQHXeXAuExYa9s15qhNzphncxdt1Pe
+	ErQQ==
+X-Gm-Message-State: AOAM531bUNvWFnf1mqgka0PuqPtz7NGLdIsV4gVla2EwjxoSRgc5bHDZ
+	a8ibh8SarP6VwhR81Xz3Mi7Z/g==
+X-Google-Smtp-Source: ABdhPJyI6aPzBzGRPPEaJuKfUq0XfZkLrckDtvce+rfY8Gu3TkNHDTrcv1RgahLv6GETviOJpuuK3w==
+X-Received: by 2002:a17:902:f691:b0:13f:2034:7613 with SMTP id
+	l17-20020a170902f69100b0013f20347613mr24197069plg.81.1634105411698;
+	Tue, 12 Oct 2021 23:10:11 -0700 (PDT)
 Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
 	by smtp.gmail.com with ESMTPSA id
-	nn14sm5323477pjb.27.2021.10.12.23.09.38
+	z24sm5259621pfr.141.2021.10.12.23.10.11
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Tue, 12 Oct 2021 23:09:38 -0700 (PDT)
-Date: Tue, 12 Oct 2021 23:09:38 -0700
+	Tue, 12 Oct 2021 23:10:11 -0700 (PDT)
+Date: Tue, 12 Oct 2021 23:10:10 -0700
 From: Kees Cook <keescook@chromium.org>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <202110122309.FB5CB2DE3@keescook>
+Message-ID: <202110122310.36F4C08@keescook>
 References: <20211013051042.1065752-1-hch@lst.de>
-	<20211013051042.1065752-3-hch@lst.de>
+	<20211013051042.1065752-4-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20211013051042.1065752-3-hch@lst.de>
+In-Reply-To: <20211013051042.1065752-4-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -81,7 +80,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
 	Mike Snitzer <snitzer@redhat.com>, linux-nvme@lists.infradead.org,
@@ -102,7 +101,7 @@ Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
 	linux-fsdevel@vger.kernel.org,
 	Phillip Lougher <phillip@squashfs.org.uk>, ntfs3@lists.linux.dev,
 	linux-btrfs@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH 02/29] drbd: use bdev_nr_sectors instead of
+Subject: Re: [dm-devel] [PATCH 03/29] dm: use bdev_nr_sectors instead of
 	open coding it
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -126,7 +125,7 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 13, 2021 at 07:10:15AM +0200, Christoph Hellwig wrote:
+On Wed, Oct 13, 2021 at 07:10:16AM +0200, Christoph Hellwig wrote:
 > Use the proper helper to read the block device size.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
