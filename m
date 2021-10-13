@@ -2,60 +2,60 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id D789E42BDCF
-	for <lists+dm-devel@lfdr.de>; Wed, 13 Oct 2021 12:50:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2698342BDD0
+	for <lists+dm-devel@lfdr.de>; Wed, 13 Oct 2021 12:50:04 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-589-VejhwC6oOF-tQA5klBN-Kg-1; Wed, 13 Oct 2021 06:49:51 -0400
-X-MC-Unique: VejhwC6oOF-tQA5klBN-Kg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-184-hfW-zcHuO3OZ7PAgB3G5TA-1; Wed, 13 Oct 2021 06:49:51 -0400
+X-MC-Unique: hfW-zcHuO3OZ7PAgB3G5TA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9A2B2104ECFE;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 79E839126B;
 	Wed, 13 Oct 2021 10:49:46 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 75B5110013D7;
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A43F62A41;
 	Wed, 13 Oct 2021 10:49:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CB7D9180598A;
-	Wed, 13 Oct 2021 10:49:45 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D56681800FDD;
+	Wed, 13 Oct 2021 10:49:44 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19DAngdW021428 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 13 Oct 2021 06:49:42 -0400
+	id 19DAnWFj021411 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 13 Oct 2021 06:49:32 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id B22E92180129; Wed, 13 Oct 2021 10:49:42 +0000 (UTC)
+	id 45FB640CFD11; Wed, 13 Oct 2021 10:49:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AAC72218012F
-	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 10:49:31 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4116E40CFD10
+	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 10:49:32 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D233310665A4
-	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 10:49:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 26DC5811E7A
+	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 10:49:32 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-499-68_EnnmzM4mbALknA4uSBQ-1; Wed, 13 Oct 2021 06:49:30 -0400
-X-MC-Unique: 68_EnnmzM4mbALknA4uSBQ-1
+	us-mta-257-FsKxcwkePaCC5wPH-M4XSA-1; Wed, 13 Oct 2021 06:49:30 -0400
+X-MC-Unique: FsKxcwkePaCC5wPH-M4XSA-1
 Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
-	by smtp-out2.suse.de (Postfix) with ESMTP id F3C7D201DC;
-	Wed, 13 Oct 2021 10:42:08 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTP id 93ED8201DF;
+	Wed, 13 Oct 2021 10:42:27 +0000 (UTC)
 Received: from quack2.suse.cz (unknown [10.100.224.230])
-	by relay2.suse.de (Postfix) with ESMTP id 1EA1AA3B85;
-	Wed, 13 Oct 2021 10:42:08 +0000 (UTC)
+	by relay2.suse.de (Postfix) with ESMTP id 7BD8CA3B89;
+	Wed, 13 Oct 2021 10:42:27 +0000 (UTC)
 Received: by quack2.suse.cz (Postfix, from userid 1000)
-	id EAB6D1E11B6; Wed, 13 Oct 2021 12:42:07 +0200 (CEST)
-Date: Wed, 13 Oct 2021 12:42:07 +0200
+	id 5DCC91E11B6; Wed, 13 Oct 2021 12:42:27 +0200 (CEST)
+Date: Wed, 13 Oct 2021 12:42:27 +0200
 From: Jan Kara <jack@suse.cz>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20211013104207.GD19200@quack2.suse.cz>
+Message-ID: <20211013104227.GE19200@quack2.suse.cz>
 References: <20211013051042.1065752-1-hch@lst.de>
-	<20211013051042.1065752-10-hch@lst.de>
+	<20211013051042.1065752-9-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20211013051042.1065752-10-hch@lst.de>
+In-Reply-To: <20211013051042.1065752-9-hch@lst.de>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -65,7 +65,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
 Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
 	Mike Snitzer <snitzer@redhat.com>, linux-nvme@lists.infradead.org,
@@ -87,7 +87,8 @@ Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
 	linux-fsdevel@vger.kernel.org,
 	Phillip Lougher <phillip@squashfs.org.uk>, ntfs3@lists.linux.dev,
 	linux-btrfs@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH 09/29] fs: simplify init_page_buffers
+Subject: Re: [dm-devel] [PATCH 08/29] fs: use bdev_nr_sectors instead of
+ open coding it in blkdev_max_block
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -101,7 +102,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -110,8 +111,8 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed 13-10-21 07:10:22, Christoph Hellwig wrote:
-> No need to convert from bdev to inode and back.
+On Wed 13-10-21 07:10:21, Christoph Hellwig wrote:
+> Use the proper helper to read the block device size.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 
