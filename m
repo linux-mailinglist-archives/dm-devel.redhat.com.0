@@ -1,53 +1,54 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id A9EAA42B5A6
-	for <lists+dm-devel@lfdr.de>; Wed, 13 Oct 2021 07:38:26 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 17E7A42B5E8
+	for <lists+dm-devel@lfdr.de>; Wed, 13 Oct 2021 07:44:46 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-536-Zafnm5uAMQmAEXw1SWN15g-1; Wed, 13 Oct 2021 01:38:22 -0400
-X-MC-Unique: Zafnm5uAMQmAEXw1SWN15g-1
+ us-mta-435-ScDEvGFpOISYDqoPLSJgBA-1; Wed, 13 Oct 2021 01:44:41 -0400
+X-MC-Unique: ScDEvGFpOISYDqoPLSJgBA-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CB00080158D;
-	Wed, 13 Oct 2021 05:38:16 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 403AC5D9C6;
-	Wed, 13 Oct 2021 05:38:16 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 356309126F;
+	Wed, 13 Oct 2021 05:44:36 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 888335D9D5;
+	Wed, 13 Oct 2021 05:44:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AF7941803B30;
-	Wed, 13 Oct 2021 05:38:13 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DD7CB4EA2F;
+	Wed, 13 Oct 2021 05:44:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19D5c9SG024758 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 13 Oct 2021 01:38:09 -0400
+	id 19D5dsj9024822 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 13 Oct 2021 01:39:54 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6FF131110AA7; Wed, 13 Oct 2021 05:38:09 +0000 (UTC)
+	id 40E4940CFD10; Wed, 13 Oct 2021 05:39:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 69F1C1110AA3
-	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 05:38:06 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AA0D6800C00
-	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 05:38:06 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3BDCA40CFD04
+	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 05:39:54 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 23478811E81
+	for <dm-devel@redhat.com>; Wed, 13 Oct 2021 05:39:54 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-521-04usvMiAMSWzxF4YXHvqVw-1; Wed, 13 Oct 2021 01:38:05 -0400
-X-MC-Unique: 04usvMiAMSWzxF4YXHvqVw-1
+	us-mta-389-Uh7lLC7LPEyqTQiBR2Qdbw-1; Wed, 13 Oct 2021 01:39:52 -0400
+X-MC-Unique: Uh7lLC7LPEyqTQiBR2Qdbw-1
 Received: from 089144212063.atnat0021.highway.a1.net ([89.144.212.63]
 	helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1maWtU-0077im-2k; Wed, 13 Oct 2021 05:33:50 +0000
+	id 1maWui-0077oT-Pz; Wed, 13 Oct 2021 05:35:26 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed, 13 Oct 2021 07:10:33 +0200
-Message-Id: <20211013051042.1065752-21-hch@lst.de>
+Date: Wed, 13 Oct 2021 07:10:34 +0200
+Message-Id: <20211013051042.1065752-22-hch@lst.de>
 In-Reply-To: <20211013051042.1065752-1-hch@lst.de>
 References: <20211013051042.1065752-1-hch@lst.de>
 MIME-Version: 1.0
@@ -62,7 +63,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Mimecast-Spam-Signature: yes
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
 Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
 	Mike Snitzer <snitzer@redhat.com>, linux-nvme@lists.infradead.org,
@@ -84,7 +85,7 @@ Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
 	linux-fsdevel@vger.kernel.org,
 	Phillip Lougher <phillip@squashfs.org.uk>, ntfs3@lists.linux.dev,
 	linux-btrfs@vger.kernel.org
-Subject: [dm-devel] [PATCH 20/29] pstore/blk: use bdev_nr_sectors instead of
+Subject: [dm-devel] [PATCH 21/29] reiserfs: use bdev_nr_sectors instead of
 	open coding it
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -107,28 +108,28 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use the proper helper to read the block device size.
+Use the proper helper to read the block device size and remove two
+cargo culted checks that can't be false.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- fs/pstore/blk.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/reiserfs/super.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/fs/pstore/blk.c b/fs/pstore/blk.c
-index 04ce58c939a0b..f43009cb2ec82 100644
---- a/fs/pstore/blk.c
-+++ b/fs/pstore/blk.c
-@@ -223,8 +223,8 @@ static int __register_pstore_blk(struct pstore_device_info *dev,
- 		goto err_fput;
- 	}
- 
--	inode = I_BDEV(psblk_file->f_mapping->host)->bd_inode;
--	dev->zone.total_size = i_size_read(inode);
-+	inode = psblk_file->f_mapping->host;
-+	dev->zone.total_size = bdev_nr_sectors(I_BDEV(inode)) << SECTOR_SHIFT;
- 
- 	ret = __register_pstore_device(dev);
- 	if (ret)
+diff --git a/fs/reiserfs/super.c b/fs/reiserfs/super.c
+index 58481f8d63d5b..6c9681e2809f0 100644
+--- a/fs/reiserfs/super.c
++++ b/fs/reiserfs/super.c
+@@ -1986,8 +1986,7 @@ static int reiserfs_fill_super(struct super_block *s, void *data, int silent)
+ 	 * smaller than the filesystem. If the check fails then abort and
+ 	 * scream, because bad stuff will happen otherwise.
+ 	 */
+-	if (s->s_bdev && s->s_bdev->bd_inode
+-	    && i_size_read(s->s_bdev->bd_inode) <
++	if ((bdev_nr_sectors(s->s_bdev) << SECTOR_SHIFT) <
+ 	    sb_block_count(rs) * sb_blocksize(rs)) {
+ 		SWARN(silent, s, "", "Filesystem cannot be "
+ 		      "mounted because it is bigger than the device");
 -- 
 2.30.2
 
