@@ -2,56 +2,76 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 76B5042F4DA
-	for <lists+dm-devel@lfdr.de>; Fri, 15 Oct 2021 16:09:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8096042F734
+	for <lists+dm-devel@lfdr.de>; Fri, 15 Oct 2021 17:46:31 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-593-7fnTEjBNNRigpMwlbauo7A-1; Fri, 15 Oct 2021 10:09:43 -0400
-X-MC-Unique: 7fnTEjBNNRigpMwlbauo7A-1
+ us-mta-477-8nmPX52vNwi-qeYOzskN6w-1; Fri, 15 Oct 2021 11:46:28 -0400
+X-MC-Unique: 8nmPX52vNwi-qeYOzskN6w-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5B9EB57226;
-	Fri, 15 Oct 2021 14:09:38 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F08525F4E7;
-	Fri, 15 Oct 2021 14:09:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F33211006AA9;
+	Fri, 15 Oct 2021 15:46:20 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5EF5C5F4E7;
+	Fri, 15 Oct 2021 15:46:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 06BF24EA2A;
-	Fri, 15 Oct 2021 14:09:37 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D08F1180598A;
+	Fri, 15 Oct 2021 15:46:04 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19FE8XLQ027988 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 15 Oct 2021 10:08:33 -0400
+	id 19FFjsnl005168 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 15 Oct 2021 11:45:54 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 67E0240CFD11; Fri, 15 Oct 2021 14:08:33 +0000 (UTC)
+	id 9FC8140CFD11; Fri, 15 Oct 2021 15:45:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6339240CFD0D
-	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 14:08:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4B6E9800B26
-	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 14:08:33 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-516-dQDwUk1QNH-3MEBjdJyK0w-1; Fri, 15 Oct 2021 10:08:29 -0400
-X-MC-Unique: dQDwUk1QNH-3MEBjdJyK0w-1
-Received: from [2001:4bb8:199:73c5:ddfe:9587:819b:83b0] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1mbNFH-007DOn-Bg; Fri, 15 Oct 2021 13:27:35 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Jens Axboe <axboe@kernel.dk>
-Date: Fri, 15 Oct 2021 15:26:32 +0200
-Message-Id: <20211015132643.1621913-20-hch@lst.de>
-In-Reply-To: <20211015132643.1621913-1-hch@lst.de>
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9ACF840CFD0D
+	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 15:45:54 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8217218A01A5
+	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 15:45:54 +0000 (UTC)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+	[209.85.216.47]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-375-MhB8gi6LMxqFVID8Ptemqg-1; Fri, 15 Oct 2021 11:45:52 -0400
+X-MC-Unique: MhB8gi6LMxqFVID8Ptemqg-1
+Received: by mail-pj1-f47.google.com with SMTP id gn3so1937260pjb.0
+	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 08:45:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+	:mime-version:content-disposition:in-reply-to;
+	bh=XFM5WavD2dlHj0k2cmbjEUH7DswNvraUTvaUeecsFLI=;
+	b=V5bujrzXPzUIp8N4+hmGYfebFIC5j2vHhC1byzkSnIAATqB+0r/2X2BzYxuI0PRwfz
+	CP9umtfsU8oWNR5NC49vN/nkpBbV+CHyxR+HhENmoOxBiX/SatIuOCHE+VM+yUefCwEK
+	B6n44WpOYqE9p0aYB+2kH5wyPNSsxZD2vMMtTaIumtLn9h/G+9Sikv3ADeecHTXI4+oF
+	xHMKh+aZ0CtS7ONB1XcNAX/O0HIuWV1Fudoz7lyat1dmiRDw7gZC9v0SgRzpOCgrfg5p
+	kaU+pPV455FHt/phJBViylW6utYSk4YOkWNIYFSboy2FCAChRRtGTMxe0I4sZoKKUkVv
+	Qq0g==
+X-Gm-Message-State: AOAM533OSPr93avq1d56D6CJgsqLxdJjf1yfTmZBjQM0Wn8m5ZH4/8i6
+	xWj2SsbXk6ANJeIKIn2jMFiOSce094LiFg==
+X-Google-Smtp-Source: ABdhPJwzQs+V6r1hPLOTwtZOgiRq0ZYBjWTuzen8H9dNT74QaE01sJDiES/7Q1kbrrYk+yq2JOau2g==
+X-Received: by 2002:a17:90a:86:: with SMTP id
+	a6mr28243106pja.190.1634312751709; 
+	Fri, 15 Oct 2021 08:45:51 -0700 (PDT)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+	by smtp.gmail.com with ESMTPSA id
+	g17sm5328859pfu.22.2021.10.15.08.45.51
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Fri, 15 Oct 2021 08:45:51 -0700 (PDT)
+Date: Fri, 15 Oct 2021 08:45:50 -0700
+From: Kees Cook <keescook@chromium.org>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <202110150845.29BA04E647@keescook>
 References: <20211015132643.1621913-1-hch@lst.de>
+	<20211015132643.1621913-2-hch@lst.de>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20211015132643.1621913-2-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -69,20 +89,19 @@ Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
 	target-devel@vger.kernel.org, reiserfs-devel@vger.kernel.org,
 	drbd-dev@lists.linbit.com, linux-nilfs@vger.kernel.org,
 	linux-scsi@vger.kernel.org, OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>,
-	linux-ext4@vger.kernel.org, Kees Cook <keescook@chromium.org>,
-	Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
-	linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org,
-	David Sterba <dsterba@suse.com>,
+	linux-ext4@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
+	Coly Li <colyli@suse.de>, linux-raid@vger.kernel.org,
+	linux-bcache@vger.kernel.org, David Sterba <dsterba@suse.com>,
 	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
 	Anton Altaparmakov <anton@tuxera.com>,
-	linux-block@vger.kernel.org, linux-nfs@vger.kernel.org,
-	Theodore Ts'o <tytso@mit.edu>,
+	Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+	linux-nfs@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
 	linux-ntfs-dev@lists.sourceforge.net, Jan Kara <jack@suse.com>,
 	linux-fsdevel@vger.kernel.org,
 	Phillip Lougher <phillip@squashfs.org.uk>, ntfs3@lists.linux.dev,
 	linux-btrfs@vger.kernel.org
-Subject: [dm-devel] [PATCH 19/30] nilfs2: use bdev_nr_bytes instead of open
-	coding it
+Subject: Re: [dm-devel] [PATCH 01/30] block: move the SECTOR_SIZE related
+ definitions to blk_types.h
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -101,59 +120,22 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use the proper helper to read the block device size.
+On Fri, Oct 15, 2021 at 03:26:14PM +0200, Christoph Hellwig wrote:
+> Ensure these are always available for inlines in the various block layer
+> headers.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- fs/nilfs2/ioctl.c     | 2 +-
- fs/nilfs2/super.c     | 2 +-
- fs/nilfs2/the_nilfs.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+Awesome, yes. Thanks!
 
-diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
-index 640ac8fe891e6..1d0583cfd9701 100644
---- a/fs/nilfs2/ioctl.c
-+++ b/fs/nilfs2/ioctl.c
-@@ -1107,7 +1107,7 @@ static int nilfs_ioctl_set_alloc_range(struct inode *inode, void __user *argp)
- 		goto out;
- 
- 	ret = -ERANGE;
--	if (range[1] > i_size_read(inode->i_sb->s_bdev->bd_inode))
-+	if (range[1] > bdev_nr_bytes(inode->i_sb->s_bdev))
- 		goto out;
- 
- 	segbytes = nilfs->ns_blocks_per_segment * nilfs->ns_blocksize;
-diff --git a/fs/nilfs2/super.c b/fs/nilfs2/super.c
-index f6b2d280aab5a..3134c0e42fd46 100644
---- a/fs/nilfs2/super.c
-+++ b/fs/nilfs2/super.c
-@@ -403,7 +403,7 @@ int nilfs_resize_fs(struct super_block *sb, __u64 newsize)
- 	int ret;
- 
- 	ret = -ERANGE;
--	devsize = i_size_read(sb->s_bdev->bd_inode);
-+	devsize = bdev_nr_bytes(sb->s_bdev);
- 	if (newsize > devsize)
- 		goto out;
- 
-diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
-index c8bfc01da5d71..1bfcb5d3ea480 100644
---- a/fs/nilfs2/the_nilfs.c
-+++ b/fs/nilfs2/the_nilfs.c
-@@ -489,7 +489,7 @@ static int nilfs_load_super_block(struct the_nilfs *nilfs,
- {
- 	struct nilfs_super_block **sbp = nilfs->ns_sbp;
- 	struct buffer_head **sbh = nilfs->ns_sbh;
--	u64 sb2off = NILFS_SB2_OFFSET_BYTES(nilfs->ns_bdev->bd_inode->i_size);
-+	u64 sb2off = NILFS_SB2_OFFSET_BYTES(bdev_nr_bytes(nilfs->ns_bdev));
- 	int valid[2], swp = 0;
- 
- 	sbp[0] = nilfs_read_super_block(sb, NILFS_SB_OFFSET_BYTES, blocksize,
+Reviewed-by: Kees Cook <keescook@chromium.org>
+
 -- 
-2.30.2
+Kees Cook
 
 --
 dm-devel mailing list
