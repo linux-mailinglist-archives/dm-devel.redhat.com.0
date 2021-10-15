@@ -1,52 +1,52 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 6F2BB42F52B
-	for <lists+dm-devel@lfdr.de>; Fri, 15 Oct 2021 16:23:40 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTP id BBBED42F4F4
+	for <lists+dm-devel@lfdr.de>; Fri, 15 Oct 2021 16:14:16 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-101-dbgxG6KCNe-thRWZmLVxyg-1; Fri, 15 Oct 2021 10:23:36 -0400
-X-MC-Unique: dbgxG6KCNe-thRWZmLVxyg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-485-f2zZhm8RMOKVdGDBuFi9tw-1; Fri, 15 Oct 2021 10:14:14 -0400
+X-MC-Unique: f2zZhm8RMOKVdGDBuFi9tw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C5A081808311;
-	Fri, 15 Oct 2021 14:23:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C77B9100724A;
+	Fri, 15 Oct 2021 14:14:08 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A4C6160C0F;
-	Fri, 15 Oct 2021 14:23:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 388816C079;
+	Fri, 15 Oct 2021 14:14:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A78FF1806D01;
-	Fri, 15 Oct 2021 14:23:29 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 08DAB1809C81;
+	Fri, 15 Oct 2021 14:14:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19FEInPK028906 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 15 Oct 2021 10:18:49 -0400
+	id 19FEDuus028388 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 15 Oct 2021 10:13:56 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id F0F9710075E1; Fri, 15 Oct 2021 14:18:48 +0000 (UTC)
+	id 91B6D2166B2F; Fri, 15 Oct 2021 14:13:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ED12C10075DA
-	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 14:18:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8C8332166B25
+	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 14:13:52 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8B373800C45
-	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 14:18:45 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C345080158D
+	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 14:13:52 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-192-aDL8SUGuO8i1QNAxkhEVzw-1; Fri, 15 Oct 2021 10:18:43 -0400
-X-MC-Unique: aDL8SUGuO8i1QNAxkhEVzw-1
+	us-mta-390-NW8cYFY6Ovex49-0mMdK0w-1; Fri, 15 Oct 2021 10:13:48 -0400
+X-MC-Unique: NW8cYFY6Ovex49-0mMdK0w-1
 Received: from [2001:4bb8:199:73c5:ddfe:9587:819b:83b0] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1mbNEj-007CmW-Eb; Fri, 15 Oct 2021 13:27:01 +0000
+	id 1mbNEm-007CoV-4E; Fri, 15 Oct 2021 13:27:04 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Fri, 15 Oct 2021 15:26:19 +0200
-Message-Id: <20211015132643.1621913-7-hch@lst.de>
+Date: Fri, 15 Oct 2021 15:26:20 +0200
+Message-Id: <20211015132643.1621913-8-hch@lst.de>
 In-Reply-To: <20211015132643.1621913-1-hch@lst.de>
 References: <20211015132643.1621913-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
 	Mike Snitzer <snitzer@redhat.com>, linux-nvme@lists.infradead.org,
@@ -69,7 +69,8 @@ Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
 	target-devel@vger.kernel.org, reiserfs-devel@vger.kernel.org,
 	drbd-dev@lists.linbit.com, linux-nilfs@vger.kernel.org,
 	linux-scsi@vger.kernel.org, OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>,
-	linux-ext4@vger.kernel.org, Kees Cook <keescook@chromium.org>,
+	linux-ext4@vger.kernel.org, Chaitanya Kulkarni <kch@nvidia.com>,
+	Kees Cook <keescook@chromium.org>,
 	Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
 	linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org,
 	David Sterba <dsterba@suse.com>,
@@ -81,7 +82,7 @@ Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
 	linux-fsdevel@vger.kernel.org,
 	Phillip Lougher <phillip@squashfs.org.uk>, ntfs3@lists.linux.dev,
 	linux-btrfs@vger.kernel.org
-Subject: [dm-devel] [PATCH 06/30] md: use bdev_nr_sectors instead of open
+Subject: [dm-devel] [PATCH 07/30] nvmet: use bdev_nr_bytes instead of open
 	coding it
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -96,7 +97,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -107,105 +108,33 @@ Content-Transfer-Encoding: 7bit
 Use the proper helper to read the block device size.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Kees Cook <keescook@chromium.org>
-Acked-by: Song Liu <song@kernel.org>
+Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
 ---
- drivers/md/md.c | 26 +++++++++++---------------
- 1 file changed, 11 insertions(+), 15 deletions(-)
+ drivers/nvme/target/io-cmd-bdev.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index ec09083ff0eff..0c75ba047ef60 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -890,8 +890,7 @@ static struct md_personality *find_pers(int level, char *clevel)
- /* return the offset of the super block in 512byte sectors */
- static inline sector_t calc_dev_sboffset(struct md_rdev *rdev)
+diff --git a/drivers/nvme/target/io-cmd-bdev.c b/drivers/nvme/target/io-cmd-bdev.c
+index 6139e1de50a66..70ca9dfc1771a 100644
+--- a/drivers/nvme/target/io-cmd-bdev.c
++++ b/drivers/nvme/target/io-cmd-bdev.c
+@@ -87,7 +87,7 @@ int nvmet_bdev_ns_enable(struct nvmet_ns *ns)
+ 		ns->bdev = NULL;
+ 		return ret;
+ 	}
+-	ns->size = i_size_read(ns->bdev->bd_inode);
++	ns->size = bdev_nr_bytes(ns->bdev);
+ 	ns->blksize_shift = blksize_bits(bdev_logical_block_size(ns->bdev));
+ 
+ 	ns->pi_type = 0;
+@@ -108,7 +108,7 @@ int nvmet_bdev_ns_enable(struct nvmet_ns *ns)
+ 
+ void nvmet_bdev_ns_revalidate(struct nvmet_ns *ns)
  {
--	sector_t num_sectors = i_size_read(rdev->bdev->bd_inode) / 512;
--	return MD_NEW_SIZE_SECTORS(num_sectors);
-+	return MD_NEW_SIZE_SECTORS(bdev_nr_sectors(rdev->bdev));
+-	ns->size = i_size_read(ns->bdev->bd_inode);
++	ns->size = bdev_nr_bytes(ns->bdev);
  }
  
- static int alloc_disk_sb(struct md_rdev *rdev)
-@@ -1633,8 +1632,7 @@ static int super_1_load(struct md_rdev *rdev, struct md_rdev *refdev, int minor_
- 	 */
- 	switch(minor_version) {
- 	case 0:
--		sb_start = i_size_read(rdev->bdev->bd_inode) >> 9;
--		sb_start -= 8*2;
-+		sb_start = bdev_nr_sectors(rdev->bdev) - 8 * 2;
- 		sb_start &= ~(sector_t)(4*2-1);
- 		break;
- 	case 1:
-@@ -1789,10 +1787,9 @@ static int super_1_load(struct md_rdev *rdev, struct md_rdev *refdev, int minor_
- 		else
- 			ret = 0;
- 	}
--	if (minor_version) {
--		sectors = (i_size_read(rdev->bdev->bd_inode) >> 9);
--		sectors -= rdev->data_offset;
--	} else
-+	if (minor_version)
-+		sectors = bdev_nr_sectors(rdev->bdev) - rdev->data_offset;
-+	else
- 		sectors = rdev->sb_start;
- 	if (sectors < le64_to_cpu(sb->data_size))
- 		return -EINVAL;
-@@ -2170,8 +2167,7 @@ super_1_rdev_size_change(struct md_rdev *rdev, sector_t num_sectors)
- 		return 0; /* too confusing */
- 	if (rdev->sb_start < rdev->data_offset) {
- 		/* minor versions 1 and 2; superblock before data */
--		max_sectors = i_size_read(rdev->bdev->bd_inode) >> 9;
--		max_sectors -= rdev->data_offset;
-+		max_sectors = bdev_nr_sectors(rdev->bdev) - rdev->data_offset;
- 		if (!num_sectors || num_sectors > max_sectors)
- 			num_sectors = max_sectors;
- 	} else if (rdev->mddev->bitmap_info.offset) {
-@@ -2180,7 +2176,7 @@ super_1_rdev_size_change(struct md_rdev *rdev, sector_t num_sectors)
- 	} else {
- 		/* minor version 0; superblock after data */
- 		sector_t sb_start, bm_space;
--		sector_t dev_size = i_size_read(rdev->bdev->bd_inode) >> 9;
-+		sector_t dev_size = bdev_nr_sectors(rdev->bdev);
- 
- 		/* 8K is for superblock */
- 		sb_start = dev_size - 8*2;
-@@ -3384,7 +3380,7 @@ rdev_size_store(struct md_rdev *rdev, const char *buf, size_t len)
- 			if (!sectors)
- 				return -EBUSY;
- 		} else if (!sectors)
--			sectors = (i_size_read(rdev->bdev->bd_inode) >> 9) -
-+			sectors = bdev_nr_sectors(rdev->bdev) -
- 				rdev->data_offset;
- 		if (!my_mddev->pers->resize)
- 			/* Cannot change size for RAID0 or Linear etc */
-@@ -3711,7 +3707,7 @@ static struct md_rdev *md_import_device(dev_t newdev, int super_format, int supe
- 
- 	kobject_init(&rdev->kobj, &rdev_ktype);
- 
--	size = i_size_read(rdev->bdev->bd_inode) >> BLOCK_SIZE_BITS;
-+	size = bdev_nr_bytes(rdev->bdev) >> BLOCK_SIZE_BITS;
- 	if (!size) {
- 		pr_warn("md: %s has zero or unknown size, marking faulty!\n",
- 			bdevname(rdev->bdev,b));
-@@ -6882,7 +6878,7 @@ int md_add_new_disk(struct mddev *mddev, struct mdu_disk_info_s *info)
- 
- 		if (!mddev->persistent) {
- 			pr_debug("md: nonpersistent superblock ...\n");
--			rdev->sb_start = i_size_read(rdev->bdev->bd_inode) / 512;
-+			rdev->sb_start = bdev_nr_sectors(rdev->bdev);
- 		} else
- 			rdev->sb_start = calc_dev_sboffset(rdev);
- 		rdev->sectors = rdev->sb_start;
-@@ -6969,7 +6965,7 @@ static int hot_add_disk(struct mddev *mddev, dev_t dev)
- 	if (mddev->persistent)
- 		rdev->sb_start = calc_dev_sboffset(rdev);
- 	else
--		rdev->sb_start = i_size_read(rdev->bdev->bd_inode) / 512;
-+		rdev->sb_start = bdev_nr_sectors(rdev->bdev);
- 
- 	rdev->sectors = rdev->sb_start;
- 
+ u16 blk_to_nvme_status(struct nvmet_req *req, blk_status_t blk_sts)
 -- 
 2.30.2
 
