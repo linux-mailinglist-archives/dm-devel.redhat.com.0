@@ -2,47 +2,47 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8CCAD42FEC6
-	for <lists+dm-devel@lfdr.de>; Sat, 16 Oct 2021 01:31:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A11E842FED7
+	for <lists+dm-devel@lfdr.de>; Sat, 16 Oct 2021 01:31:23 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-464-U2Sc7hQ9PaaArdWJWK0A9A-1; Fri, 15 Oct 2021 19:31:16 -0400
-X-MC-Unique: U2Sc7hQ9PaaArdWJWK0A9A-1
+ us-mta-130-ysh1uM7aMga8ZDkZL_7YUA-1; Fri, 15 Oct 2021 19:31:18 -0400
+X-MC-Unique: ysh1uM7aMga8ZDkZL_7YUA-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 516D4800FF5;
-	Fri, 15 Oct 2021 23:31:10 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 05F406FEED;
-	Fri, 15 Oct 2021 23:31:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 91D9F180831C;
+	Fri, 15 Oct 2021 23:31:12 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 75C885BAE6;
+	Fri, 15 Oct 2021 23:31:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A69184EA29;
-	Fri, 15 Oct 2021 23:30:56 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 608381806D03;
+	Fri, 15 Oct 2021 23:31:11 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19FNUgTs015294 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 15 Oct 2021 19:30:42 -0400
+	id 19FNV2wn015412 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 15 Oct 2021 19:31:02 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4A3EFD0B3F; Fri, 15 Oct 2021 23:30:42 +0000 (UTC)
+	id 45834D1BB2; Fri, 15 Oct 2021 23:31:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 44755D018A
-	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 23:30:39 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3EB12D016B
+	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 23:30:59 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 74DC71857F02
-	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 23:30:39 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 51175811E7F
+	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 23:30:59 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-329-iKRKzG62MQ6nd-blRnWadg-1; Fri, 15 Oct 2021 19:30:37 -0400
-X-MC-Unique: iKRKzG62MQ6nd-blRnWadg-1
+	us-mta-289-Wpmf7igEOCeKgRTYLbhnBg-1; Fri, 15 Oct 2021 19:30:57 -0400
+X-MC-Unique: Wpmf7igEOCeKgRTYLbhnBg-1
 Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
-	(Red Hat Linux)) id 1mbWej-0095v5-Ct; Fri, 15 Oct 2021 23:30:29 +0000
+	(Red Hat Linux)) id 1mbWej-0095v7-E9; Fri, 15 Oct 2021 23:30:29 +0000
 From: Luis Chamberlain <mcgrof@kernel.org>
 To: axboe@kernel.dk, jejb@linux.ibm.com, martin.petersen@oracle.com,
 	agk@redhat.com, snitzer@redhat.com, colyli@suse.de,
@@ -54,8 +54,8 @@ To: axboe@kernel.dk, jejb@linux.ibm.com, martin.petersen@oracle.com,
 	chris.obbard@collabora.com, thehajime@gmail.com,
 	zhuyifei1999@gmail.com, haris.iqbal@ionos.com, jinpu.wang@ionos.com,
 	miquel.raynal@bootlin.com, vigneshr@ti.com, linux-mtd@lists.infradead.org
-Date: Fri, 15 Oct 2021 16:30:26 -0700
-Message-Id: <20211015233028.2167651-8-mcgrof@kernel.org>
+Date: Fri, 15 Oct 2021 16:30:27 -0700
+Message-Id: <20211015233028.2167651-9-mcgrof@kernel.org>
 In-Reply-To: <20211015233028.2167651-1-mcgrof@kernel.org>
 References: <20211015233028.2167651-1-mcgrof@kernel.org>
 MIME-Version: 1.0
@@ -74,8 +74,8 @@ Cc: linux-m68k@vger.kernel.org, linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
 	dm-devel@redhat.com, Luis Chamberlain <mcgrof@kernel.org>,
 	xen-devel@lists.xenproject.org
-Subject: [dm-devel] [PATCH 7/9] um/drivers/ubd_kern: add error handling
-	support for add_disk()
+Subject: [dm-devel] [PATCH 8/9] rnbd: add error handling support for
+	add_disk()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -101,56 +101,51 @@ We never checked for errors on add_disk() as this function
 returned void. Now that this is fixed, use the shiny new
 error handling.
 
-ubd_disk_register() never returned an error, so just fix
-that now and let the caller handle the error condition.
-
-Reviewed-by: Gabriel Krisman Bertazi <krisman@collabora.com>
+Acked-by: Jack Wang <jinpu.wang@ionos.com>
 Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
 ---
- arch/um/drivers/ubd_kern.c | 13 +++++++++----
+ drivers/block/rnbd/rnbd-clt.c | 13 +++++++++----
  1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/arch/um/drivers/ubd_kern.c b/arch/um/drivers/ubd_kern.c
-index fefd343412c7..69d2d0049a61 100644
---- a/arch/um/drivers/ubd_kern.c
-+++ b/arch/um/drivers/ubd_kern.c
-@@ -855,8 +855,8 @@ static const struct attribute_group *ubd_attr_groups[] = {
- 	NULL,
- };
- 
--static void ubd_disk_register(int major, u64 size, int unit,
--			      struct gendisk *disk)
-+static int ubd_disk_register(int major, u64 size, int unit,
-+			     struct gendisk *disk)
- {
- 	disk->major = major;
- 	disk->first_minor = unit << UBD_SHIFT;
-@@ -873,7 +873,7 @@ static void ubd_disk_register(int major, u64 size, int unit,
- 
- 	disk->private_data = &ubd_devs[unit];
- 	disk->queue = ubd_devs[unit].queue;
--	device_add_disk(&ubd_devs[unit].pdev.dev, disk, ubd_attr_groups);
-+	return device_add_disk(&ubd_devs[unit].pdev.dev, disk, ubd_attr_groups);
+diff --git a/drivers/block/rnbd/rnbd-clt.c b/drivers/block/rnbd/rnbd-clt.c
+index 5864c9b46cb9..3b78dc55a9a2 100644
+--- a/drivers/block/rnbd/rnbd-clt.c
++++ b/drivers/block/rnbd/rnbd-clt.c
+@@ -1384,8 +1384,10 @@ static void setup_request_queue(struct rnbd_clt_dev *dev)
+ 	blk_queue_write_cache(dev->queue, dev->wc, dev->fua);
  }
  
- #define ROUND_BLOCK(n) ((n + (SECTOR_SIZE - 1)) & (-SECTOR_SIZE))
-@@ -920,10 +920,15 @@ static int ubd_add(int n, char **error_out)
- 	blk_queue_write_cache(ubd_dev->queue, true, false);
- 	blk_queue_max_segments(ubd_dev->queue, MAX_SG);
- 	blk_queue_segment_boundary(ubd_dev->queue, PAGE_SIZE - 1);
--	ubd_disk_register(UBD_MAJOR, ubd_dev->size, n, disk);
-+	err = ubd_disk_register(UBD_MAJOR, ubd_dev->size, n, disk);
-+	if (err)
-+		goto out_cleanup_disk;
+-static void rnbd_clt_setup_gen_disk(struct rnbd_clt_dev *dev, int idx)
++static int rnbd_clt_setup_gen_disk(struct rnbd_clt_dev *dev, int idx)
+ {
++	int err;
 +
- 	ubd_gendisk[n] = disk;
- 	return 0;
+ 	dev->gd->major		= rnbd_client_major;
+ 	dev->gd->first_minor	= idx << RNBD_PART_BITS;
+ 	dev->gd->minors		= 1 << RNBD_PART_BITS;
+@@ -1410,7 +1412,11 @@ static void rnbd_clt_setup_gen_disk(struct rnbd_clt_dev *dev, int idx)
  
-+out_cleanup_disk:
-+	blk_cleanup_disk(disk);
- out_cleanup_tags:
- 	blk_mq_free_tag_set(&ubd_dev->tag_set);
- out:
+ 	if (!dev->rotational)
+ 		blk_queue_flag_set(QUEUE_FLAG_NONROT, dev->queue);
+-	add_disk(dev->gd);
++	err = add_disk(dev->gd);
++	if (err)
++		blk_cleanup_disk(dev->gd);
++
++	return err;
+ }
+ 
+ static int rnbd_client_setup_device(struct rnbd_clt_dev *dev)
+@@ -1426,8 +1432,7 @@ static int rnbd_client_setup_device(struct rnbd_clt_dev *dev)
+ 	rnbd_init_mq_hw_queues(dev);
+ 
+ 	setup_request_queue(dev);
+-	rnbd_clt_setup_gen_disk(dev, idx);
+-	return 0;
++	return rnbd_clt_setup_gen_disk(dev, idx);
+ }
+ 
+ static struct rnbd_clt_dev *init_dev(struct rnbd_clt_session *sess,
 -- 
 2.30.2
 
