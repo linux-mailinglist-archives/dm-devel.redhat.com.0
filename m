@@ -2,58 +2,84 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 862DC430FFA
-	for <lists+dm-devel@lfdr.de>; Mon, 18 Oct 2021 07:54:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7B444431171
+	for <lists+dm-devel@lfdr.de>; Mon, 18 Oct 2021 09:35:16 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-321-EzPE67cZOyelK-u6QOInTg-1; Mon, 18 Oct 2021 01:54:46 -0400
-X-MC-Unique: EzPE67cZOyelK-u6QOInTg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-233-OLEipm6tPjK7EBlLjUCiwQ-1; Mon, 18 Oct 2021 03:35:11 -0400
+X-MC-Unique: OLEipm6tPjK7EBlLjUCiwQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DE4321006AA5;
-	Mon, 18 Oct 2021 05:54:39 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3AA49101E592;
-	Mon, 18 Oct 2021 05:54:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CA866801B00;
+	Mon, 18 Oct 2021 07:35:05 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82B5219736;
+	Mon, 18 Oct 2021 07:35:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C1875180BAD2;
-	Mon, 18 Oct 2021 05:54:22 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.1])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 92F894E9F5;
+	Mon, 18 Oct 2021 07:35:04 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19I5sCIA007324 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 18 Oct 2021 01:54:12 -0400
+	id 19FE7LSP027528 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 15 Oct 2021 10:07:22 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3092640CFD11; Mon, 18 Oct 2021 05:54:12 +0000 (UTC)
+	id 6709310073D1; Fri, 15 Oct 2021 14:07:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2BF1440CFD0B
-	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 05:54:12 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 61BE31007276
+	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 14:07:18 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 13196800B28
-	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 05:54:12 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-370-uh3n6bnqMj2mY-FXtQu1Bg-1; Mon, 18 Oct 2021 01:54:10 -0400
-X-MC-Unique: uh3n6bnqMj2mY-FXtQu1Bg-1
-Received: from 089144211028.atnat0020.highway.a1.net ([89.144.211.28]
-	helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1mcKSr-00E3VA-5M; Mon, 18 Oct 2021 04:41:33 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: 
-Date: Mon, 18 Oct 2021 06:40:54 +0200
-Message-Id: <20211018044054.1779424-12-hch@lst.de>
-In-Reply-To: <20211018044054.1779424-1-hch@lst.de>
-References: <20211018044054.1779424-1-hch@lst.de>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6E772811E76
+	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 14:07:18 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) (Using
+	TLS) by relay.mimecast.com with ESMTP id
+	us-mta-156-nK8Sdr-YPXizsjddXFNbXg-1; Fri, 15 Oct 2021 10:07:16 -0400
+X-MC-Unique: nK8Sdr-YPXizsjddXFNbXg-1
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+	by smtp-out2.suse.de (Postfix) with ESMTP id 288511FD4E;
+	Fri, 15 Oct 2021 13:53:13 +0000 (UTC)
+Received: from ds.suse.cz (ds.suse.cz [10.100.12.205])
+	by relay2.suse.de (Postfix) with ESMTP id 05659A3B8D;
+	Fri, 15 Oct 2021 13:53:13 +0000 (UTC)
+Received: by ds.suse.cz (Postfix, from userid 10065)
+	id BDFEEDA7A3; Fri, 15 Oct 2021 15:52:47 +0200 (CEST)
+Date: Fri, 15 Oct 2021 15:52:47 +0200
+From: David Sterba <dsterba@suse.cz>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20211015135247.GD30611@suse.cz>
+Mail-Followup-To: dsterba@suse.cz, Christoph Hellwig <hch@lst.de>,
+	Jens Axboe <axboe@kernel.dk>, Coly Li <colyli@suse.de>,
+	Mike Snitzer <snitzer@redhat.com>, Song Liu <song@kernel.org>,
+	David Sterba <dsterba@suse.com>, Josef Bacik <josef@toxicpanda.com>,
+	Theodore Ts'o <tytso@mit.edu>,
+	OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>,
+	Dave Kleikamp <shaggy@kernel.org>,
+	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+	Anton Altaparmakov <anton@tuxera.com>,
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Kees Cook <keescook@chromium.org>,
+	Phillip Lougher <phillip@squashfs.org.uk>, Jan Kara <jack@suse.com>,
+	linux-block@vger.kernel.org, dm-devel@redhat.com,
+	drbd-dev@lists.linbit.com, linux-bcache@vger.kernel.org,
+	linux-raid@vger.kernel.org, linux-nvme@lists.infradead.org,
+	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	linux-ext4@vger.kernel.org, jfs-discussion@lists.sourceforge.net,
+	linux-nfs@vger.kernel.org, linux-nilfs@vger.kernel.org,
+	linux-ntfs-dev@lists.sourceforge.net, ntfs3@lists.linux.dev,
+	reiserfs-devel@vger.kernel.org, Anand Jain <anand.jain@oracle.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>
+References: <20211015132643.1621913-1-hch@lst.de>
+	<20211015132643.1621913-13-hch@lst.de>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20211015132643.1621913-13-hch@lst.de>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -62,18 +88,36 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
-	linux-s390@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	virtualization@lists.linux-foundation.org,
-	linux-xfs@vger.kernel.org, dm-devel@redhat.com,
-	linux-fsdevel@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
-	linux-ext4@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>
-Subject: [dm-devel] [PATCH 11/11] dax: move bdev_dax_pgoff to fs/dax.c
+X-Mailman-Approved-At: Mon, 18 Oct 2021 03:34:40 -0400
+Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
+	Mike Snitzer <snitzer@redhat.com>, linux-nvme@lists.infradead.org,
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Song Liu <song@kernel.org>, dm-devel@redhat.com,
+	target-devel@vger.kernel.org, reiserfs-devel@vger.kernel.org,
+	drbd-dev@lists.linbit.com, linux-nilfs@vger.kernel.org,
+	linux-scsi@vger.kernel.org, OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>,
+	linux-ext4@vger.kernel.org, Chaitanya Kulkarni <kch@nvidia.com>,
+	Kees Cook <keescook@chromium.org>,
+	Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
+	linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org,
+	David Sterba <dsterba@suse.com>,
+	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+	Anton Altaparmakov <anton@tuxera.com>,
+	Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+	linux-nfs@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
+	linux-ntfs-dev@lists.sourceforge.net,
+	Anand Jain <anand.jain@oracle.com>, Jan Kara <jack@suse.com>,
+	linux-fsdevel@vger.kernel.org,
+	Phillip Lougher <phillip@squashfs.org.uk>, ntfs3@lists.linux.dev,
+	linux-btrfs@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH 12/30] btrfs: use bdev_nr_bytes instead of
+	open coding it
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
+Reply-To: dsterba@suse.cz
 List-Id: device-mapper development <dm-devel.redhat.com>
 List-Unsubscribe: <https://listman.redhat.com/mailman/options/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=unsubscribe>
@@ -84,89 +128,23 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-No functional changet, but this will allow for a tighter integration
-with the iomap code, including possible passing the partition offset
-in the iomap in the future.  For now it mostly avoids growing more
-callers outside of fs/dax.c.
+On Fri, Oct 15, 2021 at 03:26:25PM +0200, Christoph Hellwig wrote:
+> Use the proper helper to read the block device size.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> Reviewed-by: Anand Jain <anand.jain@oracle.com>
+> Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- drivers/dax/super.c | 14 --------------
- fs/dax.c            | 13 +++++++++++++
- include/linux/dax.h |  1 -
- 3 files changed, 13 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/dax/super.c b/drivers/dax/super.c
-index 803942586d1b6..c0910687fbcb2 100644
---- a/drivers/dax/super.c
-+++ b/drivers/dax/super.c
-@@ -67,20 +67,6 @@ void dax_remove_host(struct gendisk *disk)
- }
- EXPORT_SYMBOL_GPL(dax_remove_host);
- 
--int bdev_dax_pgoff(struct block_device *bdev, sector_t sector, size_t size,
--		pgoff_t *pgoff)
--{
--	sector_t start_sect = bdev ? get_start_sect(bdev) : 0;
--	phys_addr_t phys_off = (start_sect + sector) * 512;
--
--	if (pgoff)
--		*pgoff = PHYS_PFN(phys_off);
--	if (phys_off % PAGE_SIZE || size % PAGE_SIZE)
--		return -EINVAL;
--	return 0;
--}
--EXPORT_SYMBOL(bdev_dax_pgoff);
--
- /**
-  * dax_get_by_host() - temporary lookup mechanism for filesystem-dax
-  * @bdev: block device to find a dax_device for
-diff --git a/fs/dax.c b/fs/dax.c
-index 4e3e5a283a916..eb715363fd667 100644
---- a/fs/dax.c
-+++ b/fs/dax.c
-@@ -709,6 +709,19 @@ int dax_invalidate_mapping_entry_sync(struct address_space *mapping,
- 	return __dax_invalidate_entry(mapping, index, false);
- }
- 
-+static int bdev_dax_pgoff(struct block_device *bdev, sector_t sector, size_t size,
-+		pgoff_t *pgoff)
-+{
-+	sector_t start_sect = bdev ? get_start_sect(bdev) : 0;
-+	phys_addr_t phys_off = (start_sect + sector) * 512;
-+
-+	if (pgoff)
-+		*pgoff = PHYS_PFN(phys_off);
-+	if (phys_off % PAGE_SIZE || size % PAGE_SIZE)
-+		return -EINVAL;
-+	return 0;
-+}
-+
- static int copy_cow_page_dax(struct block_device *bdev, struct dax_device *dax_dev,
- 			     sector_t sector, struct page *to, unsigned long vaddr)
- {
-diff --git a/include/linux/dax.h b/include/linux/dax.h
-index 439c3c70e347b..324363b798ecd 100644
---- a/include/linux/dax.h
-+++ b/include/linux/dax.h
-@@ -107,7 +107,6 @@ static inline bool daxdev_mapping_supported(struct vm_area_struct *vma,
- #endif
- 
- struct writeback_control;
--int bdev_dax_pgoff(struct block_device *, sector_t, size_t, pgoff_t *pgoff);
- #if IS_ENABLED(CONFIG_FS_DAX)
- int dax_add_host(struct dax_device *dax_dev, struct gendisk *disk);
- void dax_remove_host(struct gendisk *disk);
--- 
-2.30.2
+Acked-by: David Sterba <dsterba@suse.com>
 
 --
 dm-devel mailing list
