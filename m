@@ -1,48 +1,47 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 32B5E42FEE4
-	for <lists+dm-devel@lfdr.de>; Sat, 16 Oct 2021 01:31:31 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 8F5CD42FECD
+	for <lists+dm-devel@lfdr.de>; Sat, 16 Oct 2021 01:31:20 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-109-G9P5P6JaPkOp1oRZMlNBaA-1; Fri, 15 Oct 2021 19:31:26 -0400
-X-MC-Unique: G9P5P6JaPkOp1oRZMlNBaA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-542-4OXxeXBcMKia5A45Gevihw-1; Fri, 15 Oct 2021 19:31:18 -0400
+X-MC-Unique: 4OXxeXBcMKia5A45Gevihw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5BCFF36262;
-	Fri, 15 Oct 2021 23:31:21 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 99BA210A8E03;
+	Fri, 15 Oct 2021 23:31:12 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A6A660BD8;
-	Fri, 15 Oct 2021 23:31:21 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 745C91973B;
+	Fri, 15 Oct 2021 23:31:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6CCC24EA30;
-	Fri, 15 Oct 2021 23:31:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 863764EA29;
+	Fri, 15 Oct 2021 23:31:11 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19FNUlqn015336 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 15 Oct 2021 19:30:47 -0400
+	id 19FNUhgx015317 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 15 Oct 2021 19:30:43 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id ED04811558B7; Fri, 15 Oct 2021 23:30:46 +0000 (UTC)
+	id A1FF92026D46; Fri, 15 Oct 2021 23:30:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E80B711558B6
-	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 23:30:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0F656811E7F
-	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 23:30:42 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9C67D2026D48
+	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 23:30:40 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CC16E802A67
+	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 23:30:40 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-386-l0piw_ehPyid1QmbKaesFQ-1; Fri, 15 Oct 2021 19:30:40 -0400
-X-MC-Unique: l0piw_ehPyid1QmbKaesFQ-1
+	us-mta-201-fDkejuHHPxeVo13Rs7mQIA-1; Fri, 15 Oct 2021 19:30:39 -0400
+X-MC-Unique: fDkejuHHPxeVo13Rs7mQIA-1
 Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
-	(Red Hat Linux)) id 1mbWej-0095ux-8E; Fri, 15 Oct 2021 23:30:29 +0000
+	(Red Hat Linux)) id 1mbWej-0095uz-9F; Fri, 15 Oct 2021 23:30:29 +0000
 From: Luis Chamberlain <mcgrof@kernel.org>
 To: axboe@kernel.dk, jejb@linux.ibm.com, martin.petersen@oracle.com,
 	agk@redhat.com, snitzer@redhat.com, colyli@suse.de,
@@ -54,8 +53,8 @@ To: axboe@kernel.dk, jejb@linux.ibm.com, martin.petersen@oracle.com,
 	chris.obbard@collabora.com, thehajime@gmail.com,
 	zhuyifei1999@gmail.com, haris.iqbal@ionos.com, jinpu.wang@ionos.com,
 	miquel.raynal@bootlin.com, vigneshr@ti.com, linux-mtd@lists.infradead.org
-Date: Fri, 15 Oct 2021 16:30:22 -0700
-Message-Id: <20211015233028.2167651-4-mcgrof@kernel.org>
+Date: Fri, 15 Oct 2021 16:30:23 -0700
+Message-Id: <20211015233028.2167651-5-mcgrof@kernel.org>
 In-Reply-To: <20211015233028.2167651-1-mcgrof@kernel.org>
 References: <20211015233028.2167651-1-mcgrof@kernel.org>
 MIME-Version: 1.0
@@ -67,14 +66,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 Cc: linux-m68k@vger.kernel.org, linux-scsi@vger.kernel.org,
 	linux-um@lists.infradead.org, linux-bcache@vger.kernel.org,
 	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
 	dm-devel@redhat.com, Luis Chamberlain <mcgrof@kernel.org>,
 	xen-devel@lists.xenproject.org
-Subject: [dm-devel] [PATCH 3/9] dm: add add_disk() error handling
+Subject: [dm-devel] [PATCH 4/9] bcache: add error handling support for
+	add_disk()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -88,7 +88,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -100,34 +100,69 @@ We never checked for errors on add_disk() as this function
 returned void. Now that this is fixed, use the shiny new
 error handling.
 
-There are two calls to dm_setup_md_queue() which can fail then,
-one on dm_early_create() and we can easily see that the error path
-there calls dm_destroy in the error path. The other use case is on
-the ioctl table_load case. If that fails userspace needs to call
-the DM_DEV_REMOVE_CMD to cleanup the state - similar to any other
-failure.
+This driver doesn't do any unwinding with blk_cleanup_disk()
+even on errors after add_disk() and so we follow that
+tradition.
 
-Reviewed-by: Hannes Reinecke <hare@suse.de>
+Acked-by: Coly Li <colyli@suse.de>
 Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
 ---
- drivers/md/dm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/md/bcache/super.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 245fa4153306..6d3265ed37c0 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -2086,7 +2086,9 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
- 	if (r)
- 		return r;
+diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
+index f2874c77ff79..f0c32cdd6594 100644
+--- a/drivers/md/bcache/super.c
++++ b/drivers/md/bcache/super.c
+@@ -1082,7 +1082,9 @@ int bch_cached_dev_run(struct cached_dev *dc)
+ 		closure_sync(&cl);
+ 	}
  
--	add_disk(md->disk);
-+	r = add_disk(md->disk);
-+	if (r)
-+		return r;
+-	add_disk(d->disk);
++	ret = add_disk(d->disk);
++	if (ret)
++		goto out;
+ 	bd_link_disk_holder(dc->bdev, dc->disk.disk);
+ 	/*
+ 	 * won't show up in the uevent file, use udevadm monitor -e instead
+@@ -1534,10 +1536,11 @@ static void flash_dev_flush(struct closure *cl)
  
- 	r = dm_sysfs_init(md);
- 	if (r) {
+ static int flash_dev_run(struct cache_set *c, struct uuid_entry *u)
+ {
++	int err = -ENOMEM;
+ 	struct bcache_device *d = kzalloc(sizeof(struct bcache_device),
+ 					  GFP_KERNEL);
+ 	if (!d)
+-		return -ENOMEM;
++		goto err_ret;
+ 
+ 	closure_init(&d->cl, NULL);
+ 	set_closure_fn(&d->cl, flash_dev_flush, system_wq);
+@@ -1551,9 +1554,12 @@ static int flash_dev_run(struct cache_set *c, struct uuid_entry *u)
+ 	bcache_device_attach(d, c, u - c->uuids);
+ 	bch_sectors_dirty_init(d);
+ 	bch_flash_dev_request_init(d);
+-	add_disk(d->disk);
++	err = add_disk(d->disk);
++	if (err)
++		goto err;
+ 
+-	if (kobject_add(&d->kobj, &disk_to_dev(d->disk)->kobj, "bcache"))
++	err = kobject_add(&d->kobj, &disk_to_dev(d->disk)->kobj, "bcache");
++	if (err)
+ 		goto err;
+ 
+ 	bcache_device_link(d, c, "volume");
+@@ -1567,7 +1573,8 @@ static int flash_dev_run(struct cache_set *c, struct uuid_entry *u)
+ 	return 0;
+ err:
+ 	kobject_put(&d->kobj);
+-	return -ENOMEM;
++err_ret:
++	return err;
+ }
+ 
+ static int flash_devs_run(struct cache_set *c)
 -- 
 2.30.2
 
