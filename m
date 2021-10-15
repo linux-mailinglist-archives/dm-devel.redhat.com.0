@@ -1,67 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 192E443116D
-	for <lists+dm-devel@lfdr.de>; Mon, 18 Oct 2021 09:35:10 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 212D5431175
+	for <lists+dm-devel@lfdr.de>; Mon, 18 Oct 2021 09:35:23 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-493-xzvF77nwNRuqB7ZDWLvGFQ-1; Mon, 18 Oct 2021 03:35:07 -0400
-X-MC-Unique: xzvF77nwNRuqB7ZDWLvGFQ-1
+ us-mta-244-4H_TOiSSMs6eTsQhn8Ko0A-1; Mon, 18 Oct 2021 03:35:17 -0400
+X-MC-Unique: 4H_TOiSSMs6eTsQhn8Ko0A-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1B33919057A4;
-	Mon, 18 Oct 2021 07:35:02 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DB20919057A0;
+	Mon, 18 Oct 2021 07:35:11 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 35D3F60C17;
-	Mon, 18 Oct 2021 07:35:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F1D860C17;
+	Mon, 18 Oct 2021 07:35:11 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 40C4A4A703;
-	Mon, 18 Oct 2021 07:34:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.2])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ABC864EA2F;
+	Mon, 18 Oct 2021 07:35:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19FEaeRq030733 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 15 Oct 2021 10:36:40 -0400
+	id 19FEcSNG030886 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 15 Oct 2021 10:38:28 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 38ECE404727A; Fri, 15 Oct 2021 14:36:40 +0000 (UTC)
+	id 4A2872166B2F; Fri, 15 Oct 2021 14:38:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 348E04047272
-	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 14:36:40 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 43CEC2166B3F
+	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 14:38:16 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1D8F5106655B
-	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 14:36:40 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C44ED8001EA
+	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 14:38:16 +0000 (UTC)
 Received: from mgw-01.mpynet.fi (mgw-01.mpynet.fi [82.197.21.90]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-444-pcuAC0GNPyOgQF4lPiKxGg-1; Fri, 15 Oct 2021 10:36:37 -0400
-X-MC-Unique: pcuAC0GNPyOgQF4lPiKxGg-1
+	us-mta-144-6qkHtr1QMXqEP0TBw4xEZA-1; Fri, 15 Oct 2021 10:38:12 -0400
+X-MC-Unique: 6qkHtr1QMXqEP0TBw4xEZA-1
 Received: from pps.filterd (mgw-01.mpynet.fi [127.0.0.1])
-	by mgw-01.mpynet.fi (8.16.0.43/8.16.0.43) with SMTP id 19FEWINE065735; 
-	Fri, 15 Oct 2021 17:35:41 +0300
+	by mgw-01.mpynet.fi (8.16.0.43/8.16.0.43) with SMTP id 19FEWINI065735; 
+	Fri, 15 Oct 2021 17:37:43 +0300
 Received: from ex13.tuxera.com (ex13.tuxera.com [178.16.184.72])
-	by mgw-01.mpynet.fi with ESMTP id 3bqa6fr1mk-1
+	by mgw-01.mpynet.fi with ESMTP id 3bqa6fr1nj-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
-	Fri, 15 Oct 2021 17:35:41 +0300
+	Fri, 15 Oct 2021 17:37:42 +0300
 Received: from tuxera-exch.ad.tuxera.com (10.20.48.11) by
 	tuxera-exch.ad.tuxera.com (10.20.48.11) with Microsoft SMTP Server
-	(TLS) id 15.0.1497.23; Fri, 15 Oct 2021 17:35:40 +0300
+	(TLS) id 15.0.1497.23; Fri, 15 Oct 2021 17:37:42 +0300
 Received: from tuxera-exch.ad.tuxera.com ([fe80::552a:f9f0:68c3:d789]) by
 	tuxera-exch.ad.tuxera.com ([fe80::552a:f9f0:68c3:d789%12]) with mapi id
-	15.00.1497.023; Fri, 15 Oct 2021 17:35:40 +0300
+	15.00.1497.023; Fri, 15 Oct 2021 17:37:42 +0300
 From: Anton Altaparmakov <anton@tuxera.com>
 To: Christoph Hellwig <hch@lst.de>
-Thread-Topic: [PATCH 28/30] ntfs: use sb_bdev_nr_blocks
-Thread-Index: AQHXwch+sOYTA5n1EU2k5d07nGAE/6vT7f2A
-Date: Fri, 15 Oct 2021 14:35:40 +0000
-Message-ID: <7644804B-2081-4A1E-A40D-9A5C7BF72E2E@tuxera.com>
+Thread-Topic: [PATCH 02/30] block: add a bdev_nr_bytes helper
+Thread-Index: AQHXwchZP9onky8YCUWD+iMtrLLvTavT7o+A
+Date: Fri, 15 Oct 2021 14:37:41 +0000
+Message-ID: <7C4AC4BD-B62D-41B3-AAF7-46125D1A1146@tuxera.com>
 References: <20211015132643.1621913-1-hch@lst.de>
-	<20211015132643.1621913-29-hch@lst.de>
-In-Reply-To: <20211015132643.1621913-29-hch@lst.de>
+	<20211015132643.1621913-3-hch@lst.de>
+In-Reply-To: <20211015132643.1621913-3-hch@lst.de>
 Accept-Language: en-GB, en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
@@ -69,13 +69,13 @@ x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-exchange-transport-fromentityheader: Hosted
 x-originating-ip: [109.154.241.177]
 MIME-Version: 1.0
-X-Proofpoint-ORIG-GUID: 4ZKrI-UQqOuYdNTfa7YqNKQX-GuzVYXg
-X-Proofpoint-GUID: 4ZKrI-UQqOuYdNTfa7YqNKQX-GuzVYXg
+X-Proofpoint-ORIG-GUID: H-3YelUF38QeF4AeejuL002U0EzCkK0i
+X-Proofpoint-GUID: H-3YelUF38QeF4AeejuL002U0EzCkK0i
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.425, 18.0.790
 	definitions=2021-10-15_04:2021-10-14,
 	2021-10-15 signatures=0
 X-Proofpoint-Spam-Details: rule=mpy_notspam policy=mpy score=0 phishscore=0
-	mlxlogscore=999
+	mlxlogscore=984
 	bulkscore=0 malwarescore=0 mlxscore=0 spamscore=0 adultscore=0
 	suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
 	engine=8.12.0-2109230001 definitions=main-2110150089
@@ -87,9 +87,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 19FEaeRq030733
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 19FEcSNG030886
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 18 Oct 2021 03:34:40 -0400
 Cc: Dave Kleikamp <shaggy@kernel.org>, "jfs-discussion@lists.sourceforge.net"
@@ -118,7 +118,7 @@ Cc: Dave Kleikamp <shaggy@kernel.org>, "jfs-discussion@lists.sourceforge.net"
 	Phillip Lougher <phillip@squashfs.org.uk>,
 	"ntfs3@lists.linux.dev" <ntfs3@lists.linux.dev>,
 	"linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>
-Subject: Re: [dm-devel] [PATCH 28/30] ntfs: use sb_bdev_nr_blocks
+Subject: Re: [dm-devel] [PATCH 02/30] block: add a bdev_nr_bytes helper
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -138,73 +138,51 @@ Authentication-Results: relay.mimecast.com;
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-ID: <3668CC17B52D274985AE4DAF6C11620E@ex13.tuxera.com>
+Content-ID: <CA141EBD26CA2142955225C1A7459553@ex13.tuxera.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 Hi Christoph,
 
-Looks good, thank you.
+> On 15 Oct 2021, at 14:26, Christoph Hellwig <hch@lst.de> wrote:
+> 
+> Add a helpe to query the size of a block device in bytes.  This
+> will be used to remove open coded access to ->bd_inode.
+
+Matthew already pointed out the return type for bdev_nr_bytes() but also your commit message has a typo: "Add a helpe" -> "Add a helper".
 
 Best regards,
 
 	Anton
 
-> On 15 Oct 2021, at 14:26, Christoph Hellwig <hch@lst.de> wrote:
-> 
-> Use the sb_bdev_nr_blocks helper instead of open coding it and clean up
-> ntfs_fill_super a bit by moving an assignment a little earlier that has
-> no negative side effects.
-> 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
-> Reviewed-by: Kees Cook <keescook@chromium.org>
-
-Acked-by: Anton Altaparmakov <anton@tuxera.com>
-
 > ---
-> fs/ntfs/super.c | 8 +++-----
-> 1 file changed, 3 insertions(+), 5 deletions(-)
+> include/linux/genhd.h | 7 ++++++-
+> 1 file changed, 6 insertions(+), 1 deletion(-)
 > 
-> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-> index 0d7e948cb29c9..5ae8de09b271b 100644
-> --- a/fs/ntfs/super.c
-> +++ b/fs/ntfs/super.c
-> @@ -2772,13 +2772,12 @@ static int ntfs_fill_super(struct super_block *sb, void *opt, const int silent)
-> 	ntfs_debug("Set device block size to %i bytes (block size bits %i).",
-> 			blocksize, sb->s_blocksize_bits);
-> 	/* Determine the size of the device in units of block_size bytes. */
-> -	if (!i_size_read(sb->s_bdev->bd_inode)) {
-> +	vol->nr_blocks = sb_bdev_nr_blocks(sb);
-> +	if (!vol->nr_blocks) {
-> 		if (!silent)
-> 			ntfs_error(sb, "Unable to determine device size.");
-> 		goto err_out_now;
-> 	}
-> -	vol->nr_blocks = i_size_read(sb->s_bdev->bd_inode) >>
-> -			sb->s_blocksize_bits;
-> 	/* Read the boot sector and return unlocked buffer head to it. */
-> 	if (!(bh = read_ntfs_boot_sector(sb, silent))) {
-> 		if (!silent)
-> @@ -2816,8 +2815,7 @@ static int ntfs_fill_super(struct super_block *sb, void *opt, const int silent)
-> 			goto err_out_now;
-> 		}
-> 		BUG_ON(blocksize != sb->s_blocksize);
-> -		vol->nr_blocks = i_size_read(sb->s_bdev->bd_inode) >>
-> -				sb->s_blocksize_bits;
-> +		vol->nr_blocks = sb_bdev_nr_blocks(sb);
-> 		ntfs_debug("Changed device block size to %i bytes (block size "
-> 				"bits %i) to match volume sector size.",
-> 				blocksize, sb->s_blocksize_bits);
+> diff --git a/include/linux/genhd.h b/include/linux/genhd.h
+> index 082a3e5fd8fa1..f67db3c5a04b3 100644
+> --- a/include/linux/genhd.h
+> +++ b/include/linux/genhd.h
+> @@ -235,9 +235,14 @@ static inline sector_t get_start_sect(struct block_device *bdev)
+> 	return bdev->bd_start_sect;
+> }
+> 
+> +static inline sector_t bdev_nr_bytes(struct block_device *bdev)
+> +{
+> +	return i_size_read(bdev->bd_inode);
+> +}
+> +
+> static inline sector_t bdev_nr_sectors(struct block_device *bdev)
+> {
+> -	return i_size_read(bdev->bd_inode) >> 9;
+> +	return bdev_nr_bytes(bdev) >> SECTOR_SHIFT;
+> }
+> 
+> static inline sector_t get_capacity(struct gendisk *disk)
 > -- 
 > 2.30.2
 > 
-
-
-
--- 
-Anton Altaparmakov <anton at tuxera.com> (replace at with @)
-Lead in File System Development, Tuxera Inc., http://www.tuxera.com/
-Linux NTFS maintainer
 
 
 --
