@@ -1,97 +1,78 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTP id 8C3F642FD1E
-	for <lists+dm-devel@lfdr.de>; Fri, 15 Oct 2021 22:55:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1634331301;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=80XYFPMh3WbLR6AnCjWIyreUNIhdqfcI6RjOHsm4cAU=;
-	b=GeXPqEvUUV/vsr0/DoGkmUafhQYHL9Y0zCPdokxgbMld6ON2aaM/wg2tu9Wd1nBpag9ZFi
-	KR4+2PUO1uMYEYL/TiALdQK277UQHrBDHioatNkzhEhEgwslmmG4E8tPhBUSwT2HvPvB1T
-	70zmA8QZfzQ+g+NRLjK0G0k/wlANTls=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTP id 1146742FEEB
+	for <lists+dm-devel@lfdr.de>; Sat, 16 Oct 2021 01:32:07 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-495-Cpf-sVbROM2P9swBXTKJiQ-1; Fri, 15 Oct 2021 16:54:59 -0400
-X-MC-Unique: Cpf-sVbROM2P9swBXTKJiQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-464-ebkpORfiO1-UeICIKPvaLQ-1; Fri, 15 Oct 2021 19:31:16 -0400
+X-MC-Unique: ebkpORfiO1-UeICIKPvaLQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E20F21006AAA;
-	Fri, 15 Oct 2021 20:54:52 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D8D158042C3;
+	Fri, 15 Oct 2021 23:31:10 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 379365F4EE;
-	Fri, 15 Oct 2021 20:54:49 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A8A07B8552;
+	Fri, 15 Oct 2021 23:31:09 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 97DB54A703;
-	Fri, 15 Oct 2021 20:54:36 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.1])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9D10E4E9F5;
+	Fri, 15 Oct 2021 23:30:56 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19FKowwv000909 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 15 Oct 2021 16:50:58 -0400
+	id 19FNUh9Y015316 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 15 Oct 2021 19:30:43 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E952B40CFD11; Fri, 15 Oct 2021 20:50:57 +0000 (UTC)
+	id A091A2026D5D; Fri, 15 Oct 2021 23:30:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E49EE40CFD0D
-	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 20:50:57 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9C3752026D46
+	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 23:30:42 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CB2298007B1
-	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 20:50:57 +0000 (UTC)
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
-	[209.85.160.197]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-264-yKoi9sAKM0qxIF3VX5SwHQ-1; Fri, 15 Oct 2021 16:50:56 -0400
-X-MC-Unique: yKoi9sAKM0qxIF3VX5SwHQ-1
-Received: by mail-qt1-f197.google.com with SMTP id
-	q2-20020a05622a030200b002a7adb98bbfso2107681qtw.14
-	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 13:50:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
-	:content-disposition;
-	bh=Y+K55f8Q7QWzfWU0hxK25q9E+I8hW/Nq+N/9r8pMH98=;
-	b=HbM4UnN9wnJ8xy3IvnStcltsnbfpHuQ7wldD6eyw0vc0nTFPwY+ufz9yl2g+oa6ijd
-	eYTSD2sxwoKxohlDkqBaLRLpYF9xM81xzO+yDq+We2f3Asyu+oFWsupEwEVSurvlRJu6
-	thdk9wqzdDzpSGMuQlZpUtI8sFQs6ZGBeB5GZ6ca+PlUJ2iwgRKzP0iRYs/piufEHnfP
-	b8OuQzwRlFHJG7hKpD0us9vr8xVwd3sVRDJUq8D8fSaeSMGDbg6/KuaQSfUqryfhVvH6
-	UHLUvgPVvnBEOCwa8rlc+JxS0UN8yOWnHReDR9xOzmKwadINIJ+JcjuL93TpMEda115x
-	OrjA==
-X-Gm-Message-State: AOAM533NSM6JeJw/CmwBkTndiAl06JCI6hHOfeBhlKo1Lscev1qiFRnW
-	pG6x/Fs9OPaOlHr4vba0iWGEFNsKyRKxpmiq3SYgZW8HjY28hlI80sCJ6JCWhgQ76a8ZrQBQZc0
-	tsEkQEEXjQro9lw==
-X-Received: by 2002:a37:bec4:: with SMTP id
-	o187mr11966128qkf.383.1634331055938; 
-	Fri, 15 Oct 2021 13:50:55 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwJdkD9RTr5OEPVNgYJkkIUrpO2zmJv8r1bXuHIYIFeuCPnq4PDQ0OKIgZ7UZewuuu8PQjGcA==
-X-Received: by 2002:a37:bec4:: with SMTP id
-	o187mr11966116qkf.383.1634331055746; 
-	Fri, 15 Oct 2021 13:50:55 -0700 (PDT)
-Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
-	[68.160.176.52]) by smtp.gmail.com with ESMTPSA id
-	m14sm3111893qtq.74.2021.10.15.13.50.55
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Fri, 15 Oct 2021 13:50:55 -0700 (PDT)
-Date: Fri, 15 Oct 2021 16:50:54 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <YWnprivVeSQHkRxN@redhat.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 529F9100E659
+	for <dm-devel@redhat.com>; Fri, 15 Oct 2021 23:30:42 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-559-e0Fn8vHLMVSlFVTF_Yh0Pg-1; Fri, 15 Oct 2021 19:30:38 -0400
+X-MC-Unique: e0Fn8vHLMVSlFVTF_Yh0Pg-1
+Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
+	(Red Hat Linux)) id 1mbWej-0095ur-55; Fri, 15 Oct 2021 23:30:29 +0000
+From: Luis Chamberlain <mcgrof@kernel.org>
+To: axboe@kernel.dk, jejb@linux.ibm.com, martin.petersen@oracle.com,
+	agk@redhat.com, snitzer@redhat.com, colyli@suse.de,
+	kent.overstreet@gmail.com, boris.ostrovsky@oracle.com, jgross@suse.com, 
+	sstabellini@kernel.org, roger.pau@citrix.com, geert@linux-m68k.org,
+	ulf.hansson@linaro.org, tj@kernel.org, hare@suse.de, jdike@addtoit.com, 
+	richard@nod.at, anton.ivanov@cambridgegreys.com,
+	johannes.berg@intel.com, krisman@collabora.com,
+	chris.obbard@collabora.com, thehajime@gmail.com,
+	zhuyifei1999@gmail.com, haris.iqbal@ionos.com, jinpu.wang@ionos.com,
+	miquel.raynal@bootlin.com, vigneshr@ti.com, linux-mtd@lists.infradead.org
+Date: Fri, 15 Oct 2021 16:30:19 -0700
+Message-Id: <20211015233028.2167651-1-mcgrof@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: Colin Ian King <colin.king@canonical.com>, linux-block@vger.kernel.org,
-	dm-devel@redhat.com, Jiazi Li <jqqlijiazi@gmail.com>,
-	Akilesh Kailash <akailash@google.com>, Ming Lei <ming.lei@redhat.com>,
-	Alasdair G Kergon <agk@redhat.com>
-Subject: [dm-devel] [git pull] device mapper fixes for 5.15-rc6
+Cc: linux-m68k@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org, linux-bcache@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
+	dm-devel@redhat.com, Luis Chamberlain <mcgrof@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: [dm-devel] [PATCH 0/9] block: reviewed add_disk() error handling set
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -105,60 +86,61 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Linus,
+Jens,
 
-The following changes since commit 64570fbc14f8d7cb3fe3995f20e26bc25ce4b2cc:
+I had last split up patches into 7 groups, but at this point now
+most changes are merged except a few more drivers. Instead of creating
+a new patch set for each of the 7 groups I'm creating 3 new groups of
+patches now:
 
-  Linux 5.15-rc5 (2021-10-10 17:01:59 -0700)
+  * This set, for which we already have an Acked-by or Reviewed-by tag,
+    it would be nice to get clarification of driver maintainers want
+    these to go through you or if a the maintainers want to pick these
+    changes up themselves.
 
-are available in the Git repository at:
+  * A second set will deal with patches which have no reviews done for
+    them yet 
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git tags/for-5.15/dm-fixes
+  * The last set deals with the __register_blkdev() change and the
+    __must_check change which ensures we don't let in new drivers
+    which don't deal with error handling.
 
-for you to fetch changes up to d208b89401e073de986dc891037c5a668f5d5d95:
+If you're a maintainer of any of the below patches and wish for them to
+go through Jens' tree directly now would be a good time to say so or
+you can just pick the patch up yourself.
 
-  dm: fix mempool NULL pointer race when completing IO (2021-10-12 13:54:10 -0400)
+Luis Chamberlain (9):
+  scsi/sd: add error handling support for add_disk()
+  scsi/sr: add error handling support for add_disk()
+  dm: add add_disk() error handling
+  bcache: add error handling support for add_disk()
+  xen-blkfront: add error handling support for add_disk()
+  m68k/emu/nfblock: add error handling support for add_disk()
+  um/drivers/ubd_kern: add error handling support for add_disk()
+  rnbd: add error handling support for add_disk()
+  mtd: add add_disk() error handling
 
-Please pull, thanks.
-Mike
+ arch/m68k/emu/nfblock.c       |  9 +++++++--
+ arch/um/drivers/ubd_kern.c    | 13 +++++++++----
+ drivers/block/rnbd/rnbd-clt.c | 13 +++++++++----
+ drivers/block/xen-blkfront.c  |  8 +++++++-
+ drivers/md/bcache/super.c     | 17 ++++++++++++-----
+ drivers/md/dm.c               |  4 +++-
+ drivers/mtd/mtd_blkdevs.c     |  6 +++++-
+ drivers/scsi/sd.c             |  8 +++++++-
+ drivers/scsi/sr.c             |  7 ++++++-
+ 9 files changed, 65 insertions(+), 20 deletions(-)
 
-----------------------------------------------------------------
-- Fix DM verity target to skip redundant processing on I/O errors.
-
-- Fix request-based DM so that it doesn't queue request to blk-mq
-  when DM device is suspended.
-
-- Fix DM core mempool NULL pointer race when completing IO.
-
-- Make DM clone target's 'descs' array static.
-
-----------------------------------------------------------------
-Akilesh Kailash (1):
-      dm verity: skip redundant verity_handle_err() on I/O errors
-
-Colin Ian King (1):
-      dm clone: make array 'descs' static
-
-Jiazi Li (1):
-      dm: fix mempool NULL pointer race when completing IO
-
-Ming Lei (1):
-      dm rq: don't queue request to blk-mq during DM suspend
-
- drivers/md/dm-clone-target.c  |  2 +-
- drivers/md/dm-rq.c            |  8 ++++++++
- drivers/md/dm-verity-target.c | 15 ++++++++++++---
- drivers/md/dm.c               | 17 ++++++++++-------
- 4 files changed, 31 insertions(+), 11 deletions(-)
+-- 
+2.30.2
 
 --
 dm-devel mailing list
