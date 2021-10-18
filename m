@@ -1,68 +1,53 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2AA9432721
-	for <lists+dm-devel@lfdr.de>; Mon, 18 Oct 2021 21:10:06 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id E64B8432605
+	for <lists+dm-devel@lfdr.de>; Mon, 18 Oct 2021 20:07:02 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-81-Xtl9eyo9Puu-9V8GbZKrgw-1; Mon, 18 Oct 2021 15:10:03 -0400
-X-MC-Unique: Xtl9eyo9Puu-9V8GbZKrgw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-302-ApCXuXMoMrebAptG_YTuWQ-1; Mon, 18 Oct 2021 14:06:58 -0400
+X-MC-Unique: ApCXuXMoMrebAptG_YTuWQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A020C18125C1;
-	Mon, 18 Oct 2021 19:09:56 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5DAD91006AB1;
+	Mon, 18 Oct 2021 18:06:52 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4726F5BB06;
-	Mon, 18 Oct 2021 19:09:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3E0C69323;
+	Mon, 18 Oct 2021 18:06:51 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E0AE64A703;
-	Mon, 18 Oct 2021 19:09:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.2])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A80614E58E;
+	Mon, 18 Oct 2021 18:06:45 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19ICV16K013787 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 18 Oct 2021 08:31:02 -0400
+	id 19II6ei6016404 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 18 Oct 2021 14:06:40 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7E00840C1257; Mon, 18 Oct 2021 12:31:01 +0000 (UTC)
+	id 9176D10D18DE; Mon, 18 Oct 2021 18:06:40 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A071400F3C5
-	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 12:31:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 882E910D18D7
+	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 18:06:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 60FCB18A6585
-	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 12:31:01 +0000 (UTC)
-Received: from out4436.biz.mail.alibaba.com (out4436.biz.mail.alibaba.com
-	[47.88.44.36]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-324-5vmfMtWGPiK2GvHXdT78oA-1; Mon, 18 Oct 2021 08:30:59 -0400
-X-MC-Unique: 5vmfMtWGPiK2GvHXdT78oA-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R791e4; CH=green; DM=||false|;
-	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426;
-	MF=hsiangkao@linux.alibaba.com; NM=1; PH=DS; RN=12; SR=0;
-	TI=SMTPD_---0Usi8-QT_1634559919
-Received: from B-P7TQMD6M-0146.local(mailfrom:hsiangkao@linux.alibaba.com
-	fp:SMTPD_---0Usi8-QT_1634559919) by smtp.aliyun-inc.com(127.0.0.1);
-	Mon, 18 Oct 2021 20:25:21 +0800
-Date: Mon, 18 Oct 2021 20:25:19 +0800
-From: Gao Xiang <hsiangkao@linux.alibaba.com>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <YW1nrxmaw5CfFXBb@B-P7TQMD6M-0146.local>
-Mail-Followup-To: Christoph Hellwig <hch@lst.de>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Mike Snitzer <snitzer@redhat.com>, Ira Weiny <ira.weiny@intel.com>,
-	dm-devel@redhat.com, linux-xfs@vger.kernel.org,
-	nvdimm@lists.linux.dev, linux-s390@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	linux-ext4@vger.kernel.org,
-	virtualization@lists.linux-foundation.org
-References: <20211018044054.1779424-1-hch@lst.de>
-	<20211018044054.1779424-8-hch@lst.de>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B35EB821990
+	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 18:06:37 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-38-nZzOuLJaMvSG7o53mUvFIA-1; 
+	Mon, 18 Oct 2021 14:06:34 -0400
+X-MC-Unique: nZzOuLJaMvSG7o53mUvFIA-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D437C60F24;
+	Mon, 18 Oct 2021 18:06:32 +0000 (UTC)
+From: Eric Biggers <ebiggers@kernel.org>
+To: linux-block@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
+Date: Mon, 18 Oct 2021 11:04:49 -0700
+Message-Id: <20211018180453.40441-1-ebiggers@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20211018044054.1779424-8-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -71,16 +56,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Mon, 18 Oct 2021 15:09:28 -0400
-Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
-	linux-s390@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	virtualization@lists.linux-foundation.org,
-	linux-xfs@vger.kernel.org, dm-devel@redhat.com,
-	linux-fsdevel@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
-	linux-ext4@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>
-Subject: Re: [dm-devel] [PATCH 07/11] dax: remove dax_capable
+Cc: Satya Tangirala <satyaprateek2357@gmail.com>, dm-devel@redhat.com,
+	linux-mmc@vger.kernel.org, linux-scsi@vger.kernel.org
+Subject: [dm-devel] [PATCH v6 0/4] blk-crypto cleanups
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,34 +74,86 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 18, 2021 at 06:40:50AM +0200, Christoph Hellwig wrote:
-> Just open code the block size and dax_dev == NULL checks in the callers.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  drivers/dax/super.c          | 36 ------------------------------------
->  drivers/md/dm-table.c        | 22 +++++++++++-----------
->  drivers/md/dm.c              | 21 ---------------------
->  drivers/md/dm.h              |  4 ----
->  drivers/nvdimm/pmem.c        |  1 -
->  drivers/s390/block/dcssblk.c |  1 -
->  fs/erofs/super.c             | 11 +++++++----
+This series renames struct blk_keyslot_manager to struct
+blk_crypto_profile, as it is misnamed; it doesn't always manage
+keyslots.  It's much more logical to think of it as the
+"blk-crypto profile" of a device, similar to blk_integrity_profile.
 
-For erofs part,
+This series also improves the inline-encryption.rst documentation file,
+and cleans up blk-crypto-fallback a bit.
 
-Reviewed-by: Gao Xiang <hsiangkao@linux.alibaba.com>
+This series applies to block/for-next.
 
-Thanks,
-Gao Xiang
+Changed v5 => v6:
+  - Rebased onto block/for-next yet again
+  - Added more Reviewed-by tags
+
+Changed v4 => v5:
+  - Rebased onto block/for-next again
+  - Added Reviewed-by tags
+
+Changed v3 => v4:
+  - Rebased onto block/for-next to resolve a conflict due to
+    'struct request' being moved.
+
+Changed v2 => v3:
+  - Made some minor tweaks to patches 3 and 4, mostly comments and
+    documentation.
+  - Clarified a commit message to mention no change in behavior.
+  - Added a Reviewed-by tag.
+
+Changed v1 => v2:
+  - Fixed a build error in blk-integrity.c.
+  - Removed a mention of "ksm" from a comment.
+  - Dropped the patch "blk-crypto-fallback: consolidate static variables".
+  - Added Acked-by and Reviewed-by tags.
+
+Eric Biggers (4):
+  blk-crypto-fallback: properly prefix function and struct names
+  blk-crypto: rename keyslot-manager files to blk-crypto-profile
+  blk-crypto: rename blk_keyslot_manager to blk_crypto_profile
+  blk-crypto: update inline encryption documentation
+
+ Documentation/block/inline-encryption.rst | 451 +++++++++--------
+ block/Makefile                            |   2 +-
+ block/blk-crypto-fallback.c               | 118 ++---
+ block/blk-crypto-profile.c                | 565 +++++++++++++++++++++
+ block/blk-crypto.c                        |  29 +-
+ block/blk-integrity.c                     |   4 +-
+ block/keyslot-manager.c                   | 579 ----------------------
+ drivers/md/dm-core.h                      |   4 +-
+ drivers/md/dm-table.c                     | 168 +++----
+ drivers/md/dm.c                           |  10 +-
+ drivers/mmc/core/crypto.c                 |  11 +-
+ drivers/mmc/host/cqhci-crypto.c           |  33 +-
+ drivers/scsi/ufs/ufshcd-crypto.c          |  32 +-
+ drivers/scsi/ufs/ufshcd-crypto.h          |   9 +-
+ drivers/scsi/ufs/ufshcd.c                 |   2 +-
+ drivers/scsi/ufs/ufshcd.h                 |   6 +-
+ include/linux/blk-crypto-profile.h        | 166 +++++++
+ include/linux/blk-mq.h                    |   2 +-
+ include/linux/blkdev.h                    |  16 +-
+ include/linux/device-mapper.h             |   4 +-
+ include/linux/keyslot-manager.h           | 120 -----
+ include/linux/mmc/host.h                  |   4 +-
+ 22 files changed, 1204 insertions(+), 1131 deletions(-)
+ create mode 100644 block/blk-crypto-profile.c
+ delete mode 100644 block/keyslot-manager.c
+ create mode 100644 include/linux/blk-crypto-profile.h
+ delete mode 100644 include/linux/keyslot-manager.h
+
+
+base-commit: df300910c93e1a0e4ad9fe7a984c569dc118000c
+-- 
+2.33.1
 
 --
 dm-devel mailing list
