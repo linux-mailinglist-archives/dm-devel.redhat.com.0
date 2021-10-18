@@ -1,58 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B436B4314E3
-	for <lists+dm-devel@lfdr.de>; Mon, 18 Oct 2021 12:13:25 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 15288432442
+	for <lists+dm-devel@lfdr.de>; Mon, 18 Oct 2021 18:53:34 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-570-4-hDPhdEMja3TlLbU9mOxA-1; Mon, 18 Oct 2021 06:13:21 -0400
-X-MC-Unique: 4-hDPhdEMja3TlLbU9mOxA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-55-eI2ZNGfGMr-bK4L3GfBFRQ-1; Mon, 18 Oct 2021 12:53:32 -0400
+X-MC-Unique: eI2ZNGfGMr-bK4L3GfBFRQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F13F08797E6;
-	Mon, 18 Oct 2021 10:13:15 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D2D0810A8E01;
+	Mon, 18 Oct 2021 16:53:24 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CDB4D60FFD;
-	Mon, 18 Oct 2021 10:13:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 92A594180;
+	Mon, 18 Oct 2021 16:53:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 09BA31832DF3;
-	Mon, 18 Oct 2021 10:13:15 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1E17B1806D03;
+	Mon, 18 Oct 2021 16:53:09 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19IAD9Zo000381 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 18 Oct 2021 06:13:09 -0400
+	id 19IGq6ib007954 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 18 Oct 2021 12:52:07 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0D43640D1B9E; Mon, 18 Oct 2021 10:13:09 +0000 (UTC)
+	id C5A9C40C1257; Mon, 18 Oct 2021 16:52:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 093EA40D1B9D
-	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 10:13:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E5CE618A01A0
-	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 10:13:08 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-524-qSDW4avAO5W5XRtvm1KZ9g-1; Mon, 18 Oct 2021 06:13:07 -0400
-X-MC-Unique: qSDW4avAO5W5XRtvm1KZ9g-1
-Received: from [2001:4bb8:199:73c5:c70:4a89:bc61:2] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1mcPdV-00Ev58-I3; Mon, 18 Oct 2021 10:12:53 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 18 Oct 2021 12:11:30 +0200
-Message-Id: <20211018101130.1838532-31-hch@lst.de>
-In-Reply-To: <20211018101130.1838532-1-hch@lst.de>
-References: <20211018101130.1838532-1-hch@lst.de>
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C1FB2400F3E3
+	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 16:52:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A90EF811E91
+	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 16:52:06 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-29-9QEu5Jy1NX-Y6twPmdE3tQ-1; 
+	Mon, 18 Oct 2021 12:52:05 -0400
+X-MC-Unique: 9QEu5Jy1NX-Y6twPmdE3tQ-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1030561002;
+	Mon, 18 Oct 2021 16:43:52 +0000 (UTC)
+Date: Mon, 18 Oct 2021 09:43:51 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20211018164351.GT24307@magnolia>
+References: <20211018044054.1779424-1-hch@lst.de>
+	<20211018044054.1779424-7-hch@lst.de>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20211018044054.1779424-7-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -63,27 +60,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: dm-devel@redhat.com
-Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
-	Jan Kara <jack@suse.cz>, Mike Snitzer <snitzer@redhat.com>,
-	linux-nvme@lists.infradead.org,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	Song Liu <song@kernel.org>, dm-devel@redhat.com,
-	target-devel@vger.kernel.org, reiserfs-devel@vger.kernel.org,
-	drbd-dev@lists.linbit.com, linux-nilfs@vger.kernel.org,
-	linux-scsi@vger.kernel.org, OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>,
-	linux-ext4@vger.kernel.org, Kees Cook <keescook@chromium.org>,
-	Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
-	linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org,
-	David Sterba <dsterba@suse.com>,
-	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	Anton Altaparmakov <anton@tuxera.com>,
-	linux-block@vger.kernel.org, linux-nfs@vger.kernel.org,
-	Theodore Ts'o <tytso@mit.edu>,
-	linux-ntfs-dev@lists.sourceforge.net, Jan Kara <jack@suse.com>,
-	linux-fsdevel@vger.kernel.org,
-	Phillip Lougher <phillip@squashfs.org.uk>, ntfs3@lists.linux.dev,
-	linux-btrfs@vger.kernel.org
-Subject: [dm-devel] [PATCH 30/30] udf: use sb_bdev_nr_blocks
+Cc: , nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
+	linux-s390@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	virtualization@lists.linux-foundation.org,
+	linux-xfs@vger.kernel.org, dm-devel@redhat.com,
+	linux-fsdevel@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+	linux-ext4@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>
+Subject: Re: [dm-devel] [PATCH 06/11] xfs: factor out a xfs_setup_dax helper
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -97,83 +80,109 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use the sb_bdev_nr_blocks helper instead of open coding it.
+On Mon, Oct 18, 2021 at 06:40:49AM +0200, Christoph Hellwig wrote:
+> Factor out another DAX setup helper to simplify future changes.  Also
+> move the experimental warning after the checks to not clutter the log
+> too much if the setup failed.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  fs/xfs/xfs_super.c | 47 +++++++++++++++++++++++++++-------------------
+>  1 file changed, 28 insertions(+), 19 deletions(-)
+> 
+> diff --git a/fs/xfs/xfs_super.c b/fs/xfs/xfs_super.c
+> index c4e0cd1c1c8ca..d07020a8eb9e3 100644
+> --- a/fs/xfs/xfs_super.c
+> +++ b/fs/xfs/xfs_super.c
+> @@ -339,6 +339,32 @@ xfs_buftarg_is_dax(
+>  			bdev_nr_sectors(bt->bt_bdev));
+>  }
+>  
+> +static int
+> +xfs_setup_dax(
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Kees Cook <keescook@chromium.org>
-Reviewed-by: Jan Kara <jack@suse.cz>
----
- fs/udf/lowlevel.c | 5 ++---
- fs/udf/super.c    | 9 +++------
- 2 files changed, 5 insertions(+), 9 deletions(-)
+/me wonders if this should be named xfs_setup_dax_always, since this
+doesn't handle the dax=inode mode?
 
-diff --git a/fs/udf/lowlevel.c b/fs/udf/lowlevel.c
-index f1094cdcd6cde..46d6971721975 100644
---- a/fs/udf/lowlevel.c
-+++ b/fs/udf/lowlevel.c
-@@ -47,8 +47,7 @@ unsigned int udf_get_last_session(struct super_block *sb)
- 
- unsigned long udf_get_last_block(struct super_block *sb)
- {
--	struct block_device *bdev = sb->s_bdev;
--	struct cdrom_device_info *cdi = disk_to_cdi(bdev->bd_disk);
-+	struct cdrom_device_info *cdi = disk_to_cdi(sb->s_bdev->bd_disk);
- 	unsigned long lblock = 0;
- 
- 	/*
-@@ -56,7 +55,7 @@ unsigned long udf_get_last_block(struct super_block *sb)
- 	 * Try using the device size...
- 	 */
- 	if (!cdi || cdrom_get_last_written(cdi, &lblock) || lblock == 0)
--		lblock = i_size_read(bdev->bd_inode) >> sb->s_blocksize_bits;
-+		lblock = sb_bdev_nr_blocks(sb);
- 
- 	if (lblock)
- 		return lblock - 1;
-diff --git a/fs/udf/super.c b/fs/udf/super.c
-index b2d7c57d06881..34247fba6df91 100644
---- a/fs/udf/super.c
-+++ b/fs/udf/super.c
-@@ -1175,8 +1175,7 @@ static int udf_load_vat(struct super_block *sb, int p_index, int type1_index)
- 	struct udf_inode_info *vati;
- 	uint32_t pos;
- 	struct virtualAllocationTable20 *vat20;
--	sector_t blocks = i_size_read(sb->s_bdev->bd_inode) >>
--			  sb->s_blocksize_bits;
-+	sector_t blocks = sb_bdev_nr_blocks(sb);
- 
- 	udf_find_vat_block(sb, p_index, type1_index, sbi->s_last_block);
- 	if (!sbi->s_vat_inode &&
-@@ -1838,8 +1837,7 @@ static int udf_check_anchor_block(struct super_block *sb, sector_t block,
- 	int ret;
- 
- 	if (UDF_QUERY_FLAG(sb, UDF_FLAG_VARCONV) &&
--	    udf_fixed_to_variable(block) >=
--	    i_size_read(sb->s_bdev->bd_inode) >> sb->s_blocksize_bits)
-+	    udf_fixed_to_variable(block) >= sb_bdev_nr_blocks(sb))
- 		return -EAGAIN;
- 
- 	bh = udf_read_tagged(sb, block, block, &ident);
-@@ -1901,8 +1899,7 @@ static int udf_scan_anchors(struct super_block *sb, sector_t *lastblock,
- 		last[last_count++] = *lastblock - 152;
- 
- 	for (i = 0; i < last_count; i++) {
--		if (last[i] >= i_size_read(sb->s_bdev->bd_inode) >>
--				sb->s_blocksize_bits)
-+		if (last[i] >= sb_bdev_nr_blocks(sb))
- 			continue;
- 		ret = udf_check_anchor_block(sb, last[i], fileset);
- 		if (ret != -EAGAIN) {
--- 
-2.30.2
+The only reason I bring that up is that Eric reminded me a while ago
+that we don't actually print any kind of EXPERIMENTAL warning for the
+auto-detection behavior.
+
+That said, I never liked looking at the nested backwards logic of the
+old code, so:
+
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+
+--D
+
+> +	struct xfs_mount	*mp)
+> +{
+> +	struct super_block	*sb = mp->m_super;
+> +
+> +	if (!xfs_buftarg_is_dax(sb, mp->m_ddev_targp) &&
+> +	   (!mp->m_rtdev_targp || !xfs_buftarg_is_dax(sb, mp->m_rtdev_targp))) {
+> +		xfs_alert(mp,
+> +			"DAX unsupported by block device. Turning off DAX.");
+> +		goto disable_dax;
+> +	}
+> +
+> +	if (xfs_has_reflink(mp)) {
+> +		xfs_alert(mp, "DAX and reflink cannot be used together!");
+> +		return -EINVAL;
+> +	}
+> +
+> +	xfs_warn(mp, "DAX enabled. Warning: EXPERIMENTAL, use at your own risk");
+> +	return 0;
+> +
+> +disable_dax:
+> +	xfs_mount_set_dax_mode(mp, XFS_DAX_NEVER);
+> +	return 0;
+> +}
+> +
+>  STATIC int
+>  xfs_blkdev_get(
+>  	xfs_mount_t		*mp,
+> @@ -1592,26 +1618,9 @@ xfs_fs_fill_super(
+>  		sb->s_flags |= SB_I_VERSION;
+>  
+>  	if (xfs_has_dax_always(mp)) {
+> -		bool rtdev_is_dax = false, datadev_is_dax;
+> -
+> -		xfs_warn(mp,
+> -		"DAX enabled. Warning: EXPERIMENTAL, use at your own risk");
+> -
+> -		datadev_is_dax = xfs_buftarg_is_dax(sb, mp->m_ddev_targp);
+> -		if (mp->m_rtdev_targp)
+> -			rtdev_is_dax = xfs_buftarg_is_dax(sb,
+> -						mp->m_rtdev_targp);
+> -		if (!rtdev_is_dax && !datadev_is_dax) {
+> -			xfs_alert(mp,
+> -			"DAX unsupported by block device. Turning off DAX.");
+> -			xfs_mount_set_dax_mode(mp, XFS_DAX_NEVER);
+> -		}
+> -		if (xfs_has_reflink(mp)) {
+> -			xfs_alert(mp,
+> -		"DAX and reflink cannot be used together!");
+> -			error = -EINVAL;
+> +		error = xfs_setup_dax(mp);
+> +		if (error)
+>  			goto out_filestream_unmount;
+> -		}
+>  	}
+>  
+>  	if (xfs_has_discard(mp)) {
+> -- 
+> 2.30.2
+> 
 
 --
 dm-devel mailing list
