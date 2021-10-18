@@ -2,52 +2,52 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98CC5431488
-	for <lists+dm-devel@lfdr.de>; Mon, 18 Oct 2021 12:12:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7E02431493
+	for <lists+dm-devel@lfdr.de>; Mon, 18 Oct 2021 12:12:57 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-495-QKTrslEnO7WTOTN8mopJiA-1; Mon, 18 Oct 2021 06:12:50 -0400
-X-MC-Unique: QKTrslEnO7WTOTN8mopJiA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-601-o4XHi8SaP3eVdZkkMeJFGg-1; Mon, 18 Oct 2021 06:12:53 -0400
+X-MC-Unique: o4XHi8SaP3eVdZkkMeJFGg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 873771023F4F;
-	Mon, 18 Oct 2021 10:12:44 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 62EFD71775;
-	Mon, 18 Oct 2021 10:12:44 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 950921023F4D;
+	Mon, 18 Oct 2021 10:12:47 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 725185DF35;
+	Mon, 18 Oct 2021 10:12:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E66564EA41;
-	Mon, 18 Oct 2021 10:12:42 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7B9AD1832DDB;
+	Mon, 18 Oct 2021 10:12:46 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19IACc0M032529 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 18 Oct 2021 06:12:39 -0400
+	id 19IACgDK032557 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 18 Oct 2021 06:12:42 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id DD19A40D1B9E; Mon, 18 Oct 2021 10:12:38 +0000 (UTC)
+	id 8633F400F3E3; Mon, 18 Oct 2021 10:12:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D941A40D1B9D
-	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 10:12:38 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82497400F3C5
+	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 10:12:42 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C1CD81066558
-	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 10:12:38 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6AF911884983
+	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 10:12:42 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-170-EocPMO8TNZiItIpC_6n3tA-1; Mon, 18 Oct 2021 06:12:37 -0400
-X-MC-Unique: EocPMO8TNZiItIpC_6n3tA-1
+	us-mta-219--onhfyjPPlaLOClpRcR_HQ-1; Mon, 18 Oct 2021 06:12:40 -0400
+X-MC-Unique: -onhfyjPPlaLOClpRcR_HQ-1
 Received: from [2001:4bb8:199:73c5:c70:4a89:bc61:2] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1mcPd2-00EuYY-1w; Mon, 18 Oct 2021 10:12:24 +0000
+	id 1mcPd4-00Eubv-MF; Mon, 18 Oct 2021 10:12:27 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 18 Oct 2021 12:11:19 +0200
-Message-Id: <20211018101130.1838532-20-hch@lst.de>
+Date: Mon, 18 Oct 2021 12:11:20 +0200
+Message-Id: <20211018101130.1838532-21-hch@lst.de>
 In-Reply-To: <20211018101130.1838532-1-hch@lst.de>
 References: <20211018101130.1838532-1-hch@lst.de>
 MIME-Version: 1.0
@@ -82,7 +82,7 @@ Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
 	linux-fsdevel@vger.kernel.org,
 	Phillip Lougher <phillip@squashfs.org.uk>, ntfs3@lists.linux.dev,
 	linux-btrfs@vger.kernel.org
-Subject: [dm-devel] [PATCH 19/30] nilfs2: use bdev_nr_bytes instead of open
+Subject: [dm-devel] [PATCH 20/30] ntfs3: use bdev_nr_bytes instead of open
 	coding it
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -97,7 +97,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -108,53 +108,31 @@ Content-Transfer-Encoding: 7bit
 Use the proper helper to read the block device size.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Kees Cook <keescook@chromium.org>
-Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
 ---
- fs/nilfs2/ioctl.c     | 2 +-
- fs/nilfs2/super.c     | 2 +-
- fs/nilfs2/the_nilfs.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ fs/ntfs3/super.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
-index 640ac8fe891e6..1d0583cfd9701 100644
---- a/fs/nilfs2/ioctl.c
-+++ b/fs/nilfs2/ioctl.c
-@@ -1107,7 +1107,7 @@ static int nilfs_ioctl_set_alloc_range(struct inode *inode, void __user *argp)
+diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
+index 55bbc9200a10e..7ed2cb5e8b1d9 100644
+--- a/fs/ntfs3/super.c
++++ b/fs/ntfs3/super.c
+@@ -918,7 +918,6 @@ static int ntfs_fill_super(struct super_block *sb, void *data, int silent)
+ 	int err;
+ 	struct ntfs_sb_info *sbi;
+ 	struct block_device *bdev = sb->s_bdev;
+-	struct inode *bd_inode = bdev->bd_inode;
+ 	struct request_queue *rq = bdev_get_queue(bdev);
+ 	struct inode *inode = NULL;
+ 	struct ntfs_inode *ni;
+@@ -967,7 +966,7 @@ static int ntfs_fill_super(struct super_block *sb, void *data, int silent)
+ 
+ 	/* Parse boot. */
+ 	err = ntfs_init_from_boot(sb, rq ? queue_logical_block_size(rq) : 512,
+-				  bd_inode->i_size);
++				  bdev_nr_bytes(bdev));
+ 	if (err)
  		goto out;
  
- 	ret = -ERANGE;
--	if (range[1] > i_size_read(inode->i_sb->s_bdev->bd_inode))
-+	if (range[1] > bdev_nr_bytes(inode->i_sb->s_bdev))
- 		goto out;
- 
- 	segbytes = nilfs->ns_blocks_per_segment * nilfs->ns_blocksize;
-diff --git a/fs/nilfs2/super.c b/fs/nilfs2/super.c
-index f6b2d280aab5a..3134c0e42fd46 100644
---- a/fs/nilfs2/super.c
-+++ b/fs/nilfs2/super.c
-@@ -403,7 +403,7 @@ int nilfs_resize_fs(struct super_block *sb, __u64 newsize)
- 	int ret;
- 
- 	ret = -ERANGE;
--	devsize = i_size_read(sb->s_bdev->bd_inode);
-+	devsize = bdev_nr_bytes(sb->s_bdev);
- 	if (newsize > devsize)
- 		goto out;
- 
-diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
-index c8bfc01da5d71..1bfcb5d3ea480 100644
---- a/fs/nilfs2/the_nilfs.c
-+++ b/fs/nilfs2/the_nilfs.c
-@@ -489,7 +489,7 @@ static int nilfs_load_super_block(struct the_nilfs *nilfs,
- {
- 	struct nilfs_super_block **sbp = nilfs->ns_sbp;
- 	struct buffer_head **sbh = nilfs->ns_sbh;
--	u64 sb2off = NILFS_SB2_OFFSET_BYTES(nilfs->ns_bdev->bd_inode->i_size);
-+	u64 sb2off = NILFS_SB2_OFFSET_BYTES(bdev_nr_bytes(nilfs->ns_bdev));
- 	int valid[2], swp = 0;
- 
- 	sbp[0] = nilfs_read_super_block(sb, NILFS_SB_OFFSET_BYTES, blocksize,
 -- 
 2.30.2
 
