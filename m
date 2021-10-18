@@ -2,52 +2,51 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D77843145E
-	for <lists+dm-devel@lfdr.de>; Mon, 18 Oct 2021 12:12:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2025F431460
+	for <lists+dm-devel@lfdr.de>; Mon, 18 Oct 2021 12:12:37 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-244-m8D-JdhUM9-F3yc0cOHutA-1; Mon, 18 Oct 2021 06:12:28 -0400
-X-MC-Unique: m8D-JdhUM9-F3yc0cOHutA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-530-zyQFCMk-OtaPXh8I-5dqEQ-1; Mon, 18 Oct 2021 06:12:32 -0400
+X-MC-Unique: zyQFCMk-OtaPXh8I-5dqEQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 77C69100C620;
-	Mon, 18 Oct 2021 10:12:22 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 56F3E1980E;
-	Mon, 18 Oct 2021 10:12:22 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5A4C0100C61A;
+	Mon, 18 Oct 2021 10:12:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3970D70951;
+	Mon, 18 Oct 2021 10:12:27 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 54E26181A1D1;
-	Mon, 18 Oct 2021 10:12:21 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5D0D64EA3A;
+	Mon, 18 Oct 2021 10:12:26 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19IAC7EA032350 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 18 Oct 2021 06:12:07 -0400
+	id 19IACKdx032406 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 18 Oct 2021 06:12:20 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A48DD400F3E3; Mon, 18 Oct 2021 10:12:07 +0000 (UTC)
+	id 7DF5140D1B9E; Mon, 18 Oct 2021 10:12:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9FC3740D2969
-	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 10:12:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 888AE100B8E5
-	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 10:12:07 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A4CD40D1B9D
+	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 10:12:20 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 61609800883
+	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 10:12:20 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-318-vj2v2vthN9CzvjoAyPP1JQ-1; Mon, 18 Oct 2021 06:12:05 -0400
-X-MC-Unique: vj2v2vthN9CzvjoAyPP1JQ-1
+	us-mta-209-0qTNmGvIPcun3o0WEi-gnw-1; Mon, 18 Oct 2021 06:12:18 -0400
+X-MC-Unique: 0qTNmGvIPcun3o0WEi-gnw-1
 Received: from [2001:4bb8:199:73c5:c70:4a89:bc61:2] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1mcPcg-00EuDu-HQ; Mon, 18 Oct 2021 10:12:02 +0000
+	id 1mcPcj-00EuH9-BJ; Mon, 18 Oct 2021 10:12:05 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 18 Oct 2021 12:11:11 +0200
-Message-Id: <20211018101130.1838532-12-hch@lst.de>
+Date: Mon, 18 Oct 2021 12:11:12 +0200
+Message-Id: <20211018101130.1838532-13-hch@lst.de>
 In-Reply-To: <20211018101130.1838532-1-hch@lst.de>
 References: <20211018101130.1838532-1-hch@lst.de>
 MIME-Version: 1.0
@@ -78,12 +77,12 @@ Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
 	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
 	Anton Altaparmakov <anton@tuxera.com>,
 	linux-block@vger.kernel.org, linux-nfs@vger.kernel.org,
-	Theodore Ts'o <tytso@mit.edu>,
-	linux-ntfs-dev@lists.sourceforge.net, Jan Kara <jack@suse.com>,
+	Theodore Ts'o <tytso@mit.edu>, linux-ntfs-dev@lists.sourceforge.net,
+	Anand Jain <anand.jain@oracle.com>, Jan Kara <jack@suse.com>,
 	linux-fsdevel@vger.kernel.org,
 	Phillip Lougher <phillip@squashfs.org.uk>, ntfs3@lists.linux.dev,
 	linux-btrfs@vger.kernel.org
-Subject: [dm-devel] [PATCH 11/30] affs: use bdev_nr_sectors instead of open
+Subject: [dm-devel] [PATCH 12/30] btrfs: use bdev_nr_bytes instead of open
 	coding it
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -98,7 +97,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -110,24 +109,98 @@ Use the proper helper to read the block device size.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Kees Cook <keescook@chromium.org>
+Reviewed-by: Anand Jain <anand.jain@oracle.com>
 Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
+Acked-by: David Sterba <dsterba@suse.com>
 ---
- fs/affs/super.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/btrfs/dev-replace.c | 3 +--
+ fs/btrfs/disk-io.c     | 2 +-
+ fs/btrfs/ioctl.c       | 4 ++--
+ fs/btrfs/volumes.c     | 8 ++++----
+ 4 files changed, 8 insertions(+), 9 deletions(-)
 
-diff --git a/fs/affs/super.c b/fs/affs/super.c
-index c6c2a513ec92d..c609005a9eaaa 100644
---- a/fs/affs/super.c
-+++ b/fs/affs/super.c
-@@ -389,7 +389,7 @@ static int affs_fill_super(struct super_block *sb, void *data, int silent)
- 	 * blocks, we will have to change it.
- 	 */
+diff --git a/fs/btrfs/dev-replace.c b/fs/btrfs/dev-replace.c
+index d029be40ea6f0..fbb8b4457a721 100644
+--- a/fs/btrfs/dev-replace.c
++++ b/fs/btrfs/dev-replace.c
+@@ -283,8 +283,7 @@ static int btrfs_init_dev_replace_tgtdev(struct btrfs_fs_info *fs_info,
+ 	}
  
--	size = i_size_read(sb->s_bdev->bd_inode) >> 9;
-+	size = bdev_nr_sectors(sb->s_bdev);
- 	pr_debug("initial blocksize=%d, #blocks=%d\n", 512, size);
  
- 	affs_set_blocksize(sb, PAGE_SIZE);
+-	if (i_size_read(bdev->bd_inode) <
+-	    btrfs_device_get_total_bytes(srcdev)) {
++	if (bdev_nr_bytes(bdev) < btrfs_device_get_total_bytes(srcdev)) {
+ 		btrfs_err(fs_info,
+ 			  "target device is smaller than source device!");
+ 		ret = -EINVAL;
+diff --git a/fs/btrfs/disk-io.c b/fs/btrfs/disk-io.c
+index 355ea88d5c5f7..29e7598584c4c 100644
+--- a/fs/btrfs/disk-io.c
++++ b/fs/btrfs/disk-io.c
+@@ -3740,7 +3740,7 @@ struct btrfs_super_block *btrfs_read_dev_one_super(struct block_device *bdev,
+ 	else if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	if (bytenr + BTRFS_SUPER_INFO_SIZE >= i_size_read(bdev->bd_inode))
++	if (bytenr + BTRFS_SUPER_INFO_SIZE >= bdev_nr_bytes(bdev))
+ 		return ERR_PTR(-EINVAL);
+ 
+ 	page = read_cache_page_gfp(mapping, bytenr >> PAGE_SHIFT, GFP_NOFS);
+diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+index cc61813213d83..36ff713da1b12 100644
+--- a/fs/btrfs/ioctl.c
++++ b/fs/btrfs/ioctl.c
+@@ -1730,7 +1730,7 @@ static noinline int btrfs_ioctl_resize(struct file *file,
+ 	}
+ 
+ 	if (!strcmp(sizestr, "max"))
+-		new_size = device->bdev->bd_inode->i_size;
++		new_size = bdev_nr_bytes(device->bdev);
+ 	else {
+ 		if (sizestr[0] == '-') {
+ 			mod = -1;
+@@ -1771,7 +1771,7 @@ static noinline int btrfs_ioctl_resize(struct file *file,
+ 		ret = -EINVAL;
+ 		goto out_finish;
+ 	}
+-	if (new_size > device->bdev->bd_inode->i_size) {
++	if (new_size > bdev_nr_bytes(device->bdev)) {
+ 		ret = -EFBIG;
+ 		goto out_finish;
+ 	}
+diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
+index 2ec3b8ac8fa35..676c7c4e6e59d 100644
+--- a/fs/btrfs/volumes.c
++++ b/fs/btrfs/volumes.c
+@@ -1286,7 +1286,7 @@ static struct btrfs_super_block *btrfs_read_disk_super(struct block_device *bdev
+ 	pgoff_t index;
+ 
+ 	/* make sure our super fits in the device */
+-	if (bytenr + PAGE_SIZE >= i_size_read(bdev->bd_inode))
++	if (bytenr + PAGE_SIZE >= bdev_nr_bytes(bdev))
+ 		return ERR_PTR(-EINVAL);
+ 
+ 	/* make sure our super fits in the page */
+@@ -2610,8 +2610,8 @@ int btrfs_init_new_device(struct btrfs_fs_info *fs_info, const char *device_path
+ 	device->io_width = fs_info->sectorsize;
+ 	device->io_align = fs_info->sectorsize;
+ 	device->sector_size = fs_info->sectorsize;
+-	device->total_bytes = round_down(i_size_read(bdev->bd_inode),
+-					 fs_info->sectorsize);
++	device->total_bytes =
++		round_down(bdev_nr_bytes(bdev), fs_info->sectorsize);
+ 	device->disk_total_bytes = device->total_bytes;
+ 	device->commit_total_bytes = device->total_bytes;
+ 	set_bit(BTRFS_DEV_STATE_IN_FS_METADATA, &device->dev_state);
+@@ -7236,7 +7236,7 @@ static int read_one_dev(struct extent_buffer *leaf,
+ 
+ 	fill_device_from_item(leaf, dev_item, device);
+ 	if (device->bdev) {
+-		u64 max_total_bytes = i_size_read(device->bdev->bd_inode);
++		u64 max_total_bytes = bdev_nr_bytes(device->bdev);
+ 
+ 		if (device->total_bytes > max_total_bytes) {
+ 			btrfs_err(fs_info,
 -- 
 2.30.2
 
