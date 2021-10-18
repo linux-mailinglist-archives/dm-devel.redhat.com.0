@@ -2,51 +2,52 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95B524314BE
-	for <lists+dm-devel@lfdr.de>; Mon, 18 Oct 2021 12:13:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B436B4314E3
+	for <lists+dm-devel@lfdr.de>; Mon, 18 Oct 2021 12:13:25 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-436-99BxinDzPFaZ3tyt8gQEvQ-1; Mon, 18 Oct 2021 06:13:07 -0400
-X-MC-Unique: 99BxinDzPFaZ3tyt8gQEvQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-570-4-hDPhdEMja3TlLbU9mOxA-1; Mon, 18 Oct 2021 06:13:21 -0400
+X-MC-Unique: 4-hDPhdEMja3TlLbU9mOxA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 497AF1926DA0;
-	Mon, 18 Oct 2021 10:13:02 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B8C469CBE;
-	Mon, 18 Oct 2021 10:13:02 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F13F08797E6;
+	Mon, 18 Oct 2021 10:13:15 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CDB4D60FFD;
+	Mon, 18 Oct 2021 10:13:15 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A6DBE4EA3D;
-	Mon, 18 Oct 2021 10:13:00 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 09BA31832DF3;
+	Mon, 18 Oct 2021 10:13:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19IACv56032732 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 18 Oct 2021 06:12:58 -0400
+	id 19IAD9Zo000381 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 18 Oct 2021 06:13:09 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D6FFBD7E19; Mon, 18 Oct 2021 10:12:57 +0000 (UTC)
+	id 0D43640D1B9E; Mon, 18 Oct 2021 10:13:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D017FD9292
-	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 10:12:57 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 093EA40D1B9D
+	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 10:13:09 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B8A928011A5
-	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 10:12:57 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E5CE618A01A0
+	for <dm-devel@redhat.com>; Mon, 18 Oct 2021 10:13:08 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-374-3ljicrUHM5qbwWdDMM2T_Q-1; Mon, 18 Oct 2021 06:12:54 -0400
-X-MC-Unique: 3ljicrUHM5qbwWdDMM2T_Q-1
+	us-mta-524-qSDW4avAO5W5XRtvm1KZ9g-1; Mon, 18 Oct 2021 06:13:07 -0400
+X-MC-Unique: qSDW4avAO5W5XRtvm1KZ9g-1
 Received: from [2001:4bb8:199:73c5:c70:4a89:bc61:2] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1mcPdS-00Ev2p-Si; Mon, 18 Oct 2021 10:12:51 +0000
+	id 1mcPdV-00Ev58-I3; Mon, 18 Oct 2021 10:12:53 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 18 Oct 2021 12:11:29 +0200
-Message-Id: <20211018101130.1838532-30-hch@lst.de>
+Date: Mon, 18 Oct 2021 12:11:30 +0200
+Message-Id: <20211018101130.1838532-31-hch@lst.de>
 In-Reply-To: <20211018101130.1838532-1-hch@lst.de>
 References: <20211018101130.1838532-1-hch@lst.de>
 MIME-Version: 1.0
@@ -60,7 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: dm-devel@redhat.com
 Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
 	Jan Kara <jack@suse.cz>, Mike Snitzer <snitzer@redhat.com>,
@@ -82,7 +83,7 @@ Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
 	linux-fsdevel@vger.kernel.org,
 	Phillip Lougher <phillip@squashfs.org.uk>, ntfs3@lists.linux.dev,
 	linux-btrfs@vger.kernel.org
-Subject: [dm-devel] [PATCH 29/30] reiserfs: use sb_bdev_nr_blocks
+Subject: [dm-devel] [PATCH 30/30] udf: use sb_bdev_nr_blocks
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,7 +97,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -110,24 +111,67 @@ Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Kees Cook <keescook@chromium.org>
 Reviewed-by: Jan Kara <jack@suse.cz>
 ---
- fs/reiserfs/super.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ fs/udf/lowlevel.c | 5 ++---
+ fs/udf/super.c    | 9 +++------
+ 2 files changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/fs/reiserfs/super.c b/fs/reiserfs/super.c
-index 8647a00434ea4..076f9ab943060 100644
---- a/fs/reiserfs/super.c
-+++ b/fs/reiserfs/super.c
-@@ -1199,9 +1199,7 @@ static int reiserfs_parse_options(struct super_block *s,
+diff --git a/fs/udf/lowlevel.c b/fs/udf/lowlevel.c
+index f1094cdcd6cde..46d6971721975 100644
+--- a/fs/udf/lowlevel.c
++++ b/fs/udf/lowlevel.c
+@@ -47,8 +47,7 @@ unsigned int udf_get_last_session(struct super_block *sb)
  
- 			if (!strcmp(arg, "auto")) {
- 				/* From JFS code, to auto-get the size. */
--				*blocks =
--				    i_size_read(s->s_bdev->bd_inode) >> s->
--				    s_blocksize_bits;
-+				*blocks = sb_bdev_nr_blocks(s);
- 			} else {
- 				*blocks = simple_strtoul(arg, &p, 0);
- 				if (*p != '\0') {
+ unsigned long udf_get_last_block(struct super_block *sb)
+ {
+-	struct block_device *bdev = sb->s_bdev;
+-	struct cdrom_device_info *cdi = disk_to_cdi(bdev->bd_disk);
++	struct cdrom_device_info *cdi = disk_to_cdi(sb->s_bdev->bd_disk);
+ 	unsigned long lblock = 0;
+ 
+ 	/*
+@@ -56,7 +55,7 @@ unsigned long udf_get_last_block(struct super_block *sb)
+ 	 * Try using the device size...
+ 	 */
+ 	if (!cdi || cdrom_get_last_written(cdi, &lblock) || lblock == 0)
+-		lblock = i_size_read(bdev->bd_inode) >> sb->s_blocksize_bits;
++		lblock = sb_bdev_nr_blocks(sb);
+ 
+ 	if (lblock)
+ 		return lblock - 1;
+diff --git a/fs/udf/super.c b/fs/udf/super.c
+index b2d7c57d06881..34247fba6df91 100644
+--- a/fs/udf/super.c
++++ b/fs/udf/super.c
+@@ -1175,8 +1175,7 @@ static int udf_load_vat(struct super_block *sb, int p_index, int type1_index)
+ 	struct udf_inode_info *vati;
+ 	uint32_t pos;
+ 	struct virtualAllocationTable20 *vat20;
+-	sector_t blocks = i_size_read(sb->s_bdev->bd_inode) >>
+-			  sb->s_blocksize_bits;
++	sector_t blocks = sb_bdev_nr_blocks(sb);
+ 
+ 	udf_find_vat_block(sb, p_index, type1_index, sbi->s_last_block);
+ 	if (!sbi->s_vat_inode &&
+@@ -1838,8 +1837,7 @@ static int udf_check_anchor_block(struct super_block *sb, sector_t block,
+ 	int ret;
+ 
+ 	if (UDF_QUERY_FLAG(sb, UDF_FLAG_VARCONV) &&
+-	    udf_fixed_to_variable(block) >=
+-	    i_size_read(sb->s_bdev->bd_inode) >> sb->s_blocksize_bits)
++	    udf_fixed_to_variable(block) >= sb_bdev_nr_blocks(sb))
+ 		return -EAGAIN;
+ 
+ 	bh = udf_read_tagged(sb, block, block, &ident);
+@@ -1901,8 +1899,7 @@ static int udf_scan_anchors(struct super_block *sb, sector_t *lastblock,
+ 		last[last_count++] = *lastblock - 152;
+ 
+ 	for (i = 0; i < last_count; i++) {
+-		if (last[i] >= i_size_read(sb->s_bdev->bd_inode) >>
+-				sb->s_blocksize_bits)
++		if (last[i] >= sb_bdev_nr_blocks(sb))
+ 			continue;
+ 		ret = udf_check_anchor_block(sb, last[i], fileset);
+ 		if (ret != -EAGAIN) {
 -- 
 2.30.2
 
