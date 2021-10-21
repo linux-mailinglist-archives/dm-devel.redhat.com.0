@@ -1,56 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADDE2436040
-	for <lists+dm-devel@lfdr.de>; Thu, 21 Oct 2021 13:29:21 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D13B436065
+	for <lists+dm-devel@lfdr.de>; Thu, 21 Oct 2021 13:38:46 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-280-pS6JF3IlM2idjHPErvfMDQ-1; Thu, 21 Oct 2021 07:29:19 -0400
-X-MC-Unique: pS6JF3IlM2idjHPErvfMDQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-573-ztoTvz_HOtm_KMyG1MGuCw-1; Thu, 21 Oct 2021 07:38:41 -0400
+X-MC-Unique: ztoTvz_HOtm_KMyG1MGuCw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EBD9F100CCC1;
-	Thu, 21 Oct 2021 11:29:13 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AACD9100CCC8;
+	Thu, 21 Oct 2021 11:38:35 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6FEE169203;
-	Thu, 21 Oct 2021 11:29:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EF5D55DEFB;
+	Thu, 21 Oct 2021 11:38:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 208204E590;
-	Thu, 21 Oct 2021 11:29:09 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.2])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 36C994E58F;
+	Thu, 21 Oct 2021 11:38:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19LBT3gb011818 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 21 Oct 2021 07:29:03 -0400
+	id 19LBVIR2011969 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 21 Oct 2021 07:31:18 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id F3A4440C1257; Thu, 21 Oct 2021 11:29:02 +0000 (UTC)
+	id 67D4240CFD11; Thu, 21 Oct 2021 11:31:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EFBA8400F3E3
-	for <dm-devel@redhat.com>; Thu, 21 Oct 2021 11:29:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 630D140CFD08
+	for <dm-devel@redhat.com>; Thu, 21 Oct 2021 11:31:18 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D6FB08022F4
-	for <dm-devel@redhat.com>; Thu, 21 Oct 2021 11:29:02 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4DF998022F4
+	for <dm-devel@redhat.com>; Thu, 21 Oct 2021 11:31:18 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-598-Mern50lPPNKvYnyMdlB2gA-1; Thu, 21 Oct 2021 07:28:59 -0400
-X-MC-Unique: Mern50lPPNKvYnyMdlB2gA-1
+	us-mta-517-SU5m9b47OSCpzJ76O-RB0g-1; Thu, 21 Oct 2021 07:31:14 -0400
+X-MC-Unique: SU5m9b47OSCpzJ76O-RB0g-1
 Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
-	Hat Linux)) id 1mdWFe-007Lv7-EG; Thu, 21 Oct 2021 11:28:50 +0000
-Date: Thu, 21 Oct 2021 04:28:50 -0700
+	Hat Linux)) id 1mdWHs-007MQC-E3; Thu, 21 Oct 2021 11:31:08 +0000
+Date: Thu, 21 Oct 2021 04:31:08 -0700
 From: Christoph Hellwig <hch@infradead.org>
 To: Jane Chu <jane.chu@oracle.com>
-Message-ID: <YXFO8uCgIDoIqTgC@infradead.org>
+Message-ID: <YXFPfEGjoUaajjL4@infradead.org>
 References: <20211021001059.438843-1-jane.chu@oracle.com>
-	<20211021001059.438843-6-jane.chu@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <20211021001059.438843-6-jane.chu@oracle.com>
+In-Reply-To: <20211021001059.438843-1-jane.chu@oracle.com>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -61,7 +60,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
 Cc: nvdimm@lists.linux.dev, dave.jiang@intel.com, snitzer@redhat.com,
 	djwong@kernel.org, david@fromorbit.com,
@@ -70,8 +69,8 @@ Cc: nvdimm@lists.linux.dev, dave.jiang@intel.com, snitzer@redhat.com,
 	vishal.l.verma@intel.com, linux-fsdevel@vger.kernel.org,
 	dan.j.williams@intel.com, ira.weiny@intel.com,
 	linux-xfs@vger.kernel.org, agk@redhat.com
-Subject: Re: [dm-devel] [PATCH 5/6] dax,
- pmem: Add data recovery feature to pmem_copy_to/from_iter()
+Subject: Re: [dm-devel] [PATCH 0/6] dax poison recovery with
+ RWF_RECOVERY_DATA flag
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,7 +84,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -94,23 +93,9 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-> +	if (flags & DAXDEV_F_RECOVERY) {
-> +		lead_off = (unsigned long)addr & ~PAGE_MASK;
-> +		len = PFN_PHYS(PFN_UP(lead_off + bytes));
-> +		if (is_bad_pmem(&pmem->bb, PFN_PHYS(pgoff) / 512, len)) {
-> +			if (lead_off || !(PAGE_ALIGNED(bytes))) {
-> +				dev_warn(dev, "Found poison, but addr(%p) and/or bytes(%#lx) not page aligned\n",
-> +					addr, bytes);
-> +				return (size_t) -EIO;
-> +			}
-> +			pmem_off = PFN_PHYS(pgoff) + pmem->data_offset;
-> +			if (pmem_clear_poison(pmem, pmem_off, bytes) !=
-> +					BLK_STS_OK)
-> +				return (size_t) -EIO;
-> +		}
-
-Shouldn't this just go down in a separe ->clear_poison operation
-to make the whole thing a little easier to follow?
+Looking over the series I have serious doubts that overloading the
+slow path clear poison operation over the fast path read/write
+path is such a great idea.
 
 --
 dm-devel mailing list
