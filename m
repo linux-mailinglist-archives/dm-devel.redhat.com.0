@@ -1,87 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0516F4364F7
-	for <lists+dm-devel@lfdr.de>; Thu, 21 Oct 2021 17:02:07 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DB71436845
+	for <lists+dm-devel@lfdr.de>; Thu, 21 Oct 2021 18:47:24 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-455-XZLt5Wk5OLOWNxtmfKwl7w-1; Thu, 21 Oct 2021 11:02:03 -0400
-X-MC-Unique: XZLt5Wk5OLOWNxtmfKwl7w-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-204-ud0sDWOPPCSA7M1j609LDA-1; Thu, 21 Oct 2021 12:47:21 -0400
+X-MC-Unique: ud0sDWOPPCSA7M1j609LDA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9479B1B2C9BA;
-	Thu, 21 Oct 2021 15:01:26 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AF6D61006AA2;
+	Thu, 21 Oct 2021 16:47:13 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3F7DE60CA0;
-	Thu, 21 Oct 2021 15:01:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 69CDA69CBE;
+	Thu, 21 Oct 2021 16:47:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4ECDA4A703;
-	Thu, 21 Oct 2021 15:01:24 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 983E14A703;
+	Thu, 21 Oct 2021 16:46:55 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19LF1HYp031690 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 21 Oct 2021 11:01:17 -0400
+	id 19LGkhEK009698 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 21 Oct 2021 12:46:43 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id A979A2026D64; Thu, 21 Oct 2021 15:01:17 +0000 (UTC)
+	id 898C340CFD11; Thu, 21 Oct 2021 16:46:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A3E6C2026D46
-	for <dm-devel@redhat.com>; Thu, 21 Oct 2021 15:01:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8496740CFD08
+	for <dm-devel@redhat.com>; Thu, 21 Oct 2021 16:46:43 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 08DBC899ED5
-	for <dm-devel@redhat.com>; Thu, 21 Oct 2021 15:01:12 +0000 (UTC)
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
-	[209.85.167.177]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-8-k-3oAb3aNlqUR2Ri96Ao8w-1; Thu, 21 Oct 2021 11:01:10 -0400
-X-MC-Unique: k-3oAb3aNlqUR2Ri96Ao8w-1
-Received: by mail-oi1-f177.google.com with SMTP id r6so1219897oiw.2
-	for <dm-devel@redhat.com>; Thu, 21 Oct 2021 08:01:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:from:to:cc:in-reply-to:references:subject
-	:message-id:date:mime-version:content-transfer-encoding;
-	bh=6jnVZbBkLbnw6pFZpxUldRg4FuFfEZElhVVQao3Uy20=;
-	b=gqLg78TwoibCGRKPKjnrmkSunlONWkL2BfvwTZqzsF7gCzk42PYLnWX1qL0CEzilYR
-	vDNbGPWPZAjsta543ghMXYNwmW8b/wTkZx41r2kXad5IdmcAvpB+5s7y8soAhXSldZB7
-	WUM9M+b97Ui+T38sPfTkNhy1Y+w4Wu3JofmWwD6wJoKddGMKu8MHSDvKkZewVM6Uezsy
-	6J/TUGlIqAI540aq2ZulDq4qKVelCb3Yf0GXk687IFNq1LPsJimFtKHM4w94XR1L++iB
-	s9esQFIgaBBbh+t6Eoq0zQ+FVl6ZgwBJy0mjpPsYWIWG6J7lhRlusNj7y/wk10HEK6vP
-	KXeg==
-X-Gm-Message-State: AOAM530EA0n2vGzo3R9Nw9xM8Ine3dNWT4gHec+rvZjmo9T9EHswzo5R
-	9sKS1meHzq5M+GYLwecoY1Fq4Q==
-X-Google-Smtp-Source: ABdhPJxcqYzZpw8hjWvx8wtyMAFaG+Ip962yojdp/B4kEz2Pn9lx52Qn4eX8lgw7zW26Sgpyf8s+nQ==
-X-Received: by 2002:a05:6808:3c9:: with SMTP id
-	o9mr4905862oie.20.1634828468846; 
-	Thu, 21 Oct 2021 08:01:08 -0700 (PDT)
-Received: from [127.0.1.1] ([2600:380:783a:c43c:af64:c142:4db7:63ac])
-	by smtp.gmail.com with ESMTPSA id
-	w18sm1173833ott.29.2021.10.21.08.01.06
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 21 Oct 2021 08:01:08 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: thehajime@gmail.com, zhuyifei1999@gmail.com, haris.iqbal@ionos.com,
-	johannes.berg@intel.com, roger.pau@citrix.com,
-	miquel.raynal@bootlin.com, jdike@addtoit.com,
-	anton.ivanov@cambridgegreys.com, geert@linux-m68k.org,
-	krisman@collabora.com, vigneshr@ti.com, richard@nod.at, hare@suse.de,
-	jinpu.wang@ionos.com, jgross@suse.com, sstabellini@kernel.org,
-	ulf.hansson@linaro.org, agk@redhat.com, linux-mtd@lists.infradead.org, 
-	Luis Chamberlain <mcgrof@kernel.org>, tj@kernel.org, colyli@suse.de,
-	jejb@linux.ibm.com, chris.obbard@collabora.com, snitzer@redhat.com,
-	boris.ostrovsky@oracle.com, kent.overstreet@gmail.com,
-	martin.petersen@oracle.com
-In-Reply-To: <20211015233028.2167651-1-mcgrof@kernel.org>
-References: <20211015233028.2167651-1-mcgrof@kernel.org>
-Message-Id: <163482846658.50565.12530170761457767964.b4-ty@kernel.dk>
-Date: Thu, 21 Oct 2021 09:01:06 -0600
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6FFF7811E80
+	for <dm-devel@redhat.com>; Thu, 21 Oct 2021 16:46:43 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-314-VMS7gUXbNL6IKRlrJVjwng-1;
+	Thu, 21 Oct 2021 12:46:41 -0400
+X-MC-Unique: VMS7gUXbNL6IKRlrJVjwng-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 67F4F61881;
+	Thu, 21 Oct 2021 16:46:40 +0000 (UTC)
+Date: Thu, 21 Oct 2021 09:46:38 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Jens Axboe <axboe@kernel.dk>
+Message-ID: <YXGZbvTQBgtaPojY@gmail.com>
+References: <20211018180453.40441-1-ebiggers@kernel.org>
+	<YW24UuB8dLWwl9ni@sol.localdomain>
 MIME-Version: 1.0
+In-Reply-To: <YW24UuB8dLWwl9ni@sol.localdomain>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -90,14 +58,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
-Cc: linux-m68k@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org, linux-bcache@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
-	dm-devel@redhat.com, xen-devel@lists.xenproject.org
-Subject: Re: [dm-devel] (subset) [PATCH 0/9] block: reviewed add_disk()
-	error handling set
+Cc: linux-block@vger.kernel.org, Satya Tangirala <satyaprateek2357@gmail.com>,
+	dm-devel@redhat.com, linux-mmc@vger.kernel.org, linux-scsi@vger.kernel.org
+Subject: Re: [dm-devel] [PATCH v6 0/4] blk-crypto cleanups
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -111,45 +76,38 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, 15 Oct 2021 16:30:19 -0700, Luis Chamberlain wrote:
-> Jens,
+On Mon, Oct 18, 2021 at 11:09:22AM -0700, Eric Biggers wrote:
+> On Mon, Oct 18, 2021 at 11:04:49AM -0700, Eric Biggers wrote:
+> > 
+> > This series applies to block/for-next.
+> > 
+> > Changed v5 => v6:
+> >   - Rebased onto block/for-next yet again
+> >   - Added more Reviewed-by tags
+> > 
+> > Changed v4 => v5:
+> >   - Rebased onto block/for-next again
+> >   - Added Reviewed-by tags
+> > 
+> > Changed v3 => v4:
+> >   - Rebased onto block/for-next to resolve a conflict due to
+> >     'struct request' being moved.
 > 
-> I had last split up patches into 7 groups, but at this point now
-> most changes are merged except a few more drivers. Instead of creating
-> a new patch set for each of the 7 groups I'm creating 3 new groups of
-> patches now:
+> Jens, I keep having to rebase this patchset.  Is there anything else you're
+> waiting for before applying it for 5.16?  Thanks!
 > 
-> [...]
+> - Eric
 
-Applied, thanks!
-
-[3/9] dm: add add_disk() error handling
-      commit: e7089f65dd51afeda5eb760506b5950d95f9ec29
-[4/9] bcache: add error handling support for add_disk()
-      commit: 2961c3bbcaec0ed7fb7b9a465b3796f37f2294e5
-[5/9] xen-blkfront: add error handling support for add_disk()
-      commit: 293a7c528803321479593d42d0898bb5a9769db1
-[6/9] m68k/emu/nfblock: add error handling support for add_disk()
-      commit: 21fd880d3da7564bab68979417cab7408e4f9642
-[7/9] um/drivers/ubd_kern: add error handling support for add_disk()
-      commit: 66638f163a2b5c5b462ca38525129b14a20117eb
-[8/9] rnbd: add error handling support for add_disk()
-      commit: 2e9e31bea01997450397d64da43b6675e0adb9e3
-[9/9] mtd: add add_disk() error handling
-      commit: 83b863f4a3f0de4ece7802d9121fed0c3e64145f
-
-Best regards,
--- 
-Jens Axboe
-
+Ping?
 
 --
 dm-devel mailing list
