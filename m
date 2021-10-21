@@ -2,59 +2,66 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 934DF437168
-	for <lists+dm-devel@lfdr.de>; Fri, 22 Oct 2021 07:40:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78A1D4371BE
+	for <lists+dm-devel@lfdr.de>; Fri, 22 Oct 2021 08:26:04 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-287-MzY8f87TM_W2D5IpWsfNzg-1; Fri, 22 Oct 2021 01:39:15 -0400
-X-MC-Unique: MzY8f87TM_W2D5IpWsfNzg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-396-76zXY2vfOcSY8kce4_4KaA-1; Fri, 22 Oct 2021 02:25:59 -0400
+X-MC-Unique: 76zXY2vfOcSY8kce4_4KaA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 08EB680982E;
-	Fri, 22 Oct 2021 05:39:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 41E7E1835AC2;
+	Fri, 22 Oct 2021 06:25:54 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AF61D60862;
-	Fri, 22 Oct 2021 05:39:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AC3F362A41;
+	Fri, 22 Oct 2021 06:25:53 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 76D684A703;
-	Fri, 22 Oct 2021 05:39:07 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C94104E58E;
+	Fri, 22 Oct 2021 06:25:45 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19M5cHvg009054 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 22 Oct 2021 01:38:18 -0400
+	id 19L8tGcQ031305 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 21 Oct 2021 04:55:16 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id E192021568BB; Fri, 22 Oct 2021 05:38:17 +0000 (UTC)
+	id 3C1EE400F3E5; Thu, 21 Oct 2021 08:55:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DC08521568B9
-	for <dm-devel@redhat.com>; Fri, 22 Oct 2021 05:38:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3FAA11875069
-	for <dm-devel@redhat.com>; Fri, 22 Oct 2021 05:38:12 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-359-gTlNVYuIMJ2i47GicVbzGA-1; Fri, 22 Oct 2021 01:38:08 -0400
-X-MC-Unique: gTlNVYuIMJ2i47GicVbzGA-1
-Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
-	Hat Linux)) id 1mdnFg-009lbb-Bd; Fri, 22 Oct 2021 05:38:00 +0000
-Date: Thu, 21 Oct 2021 22:38:00 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Message-ID: <YXJOOFqK6dGsP+bI@infradead.org>
-References: <20211021001059.438843-1-jane.chu@oracle.com>
-	<YXFPfEGjoUaajjL4@infradead.org>
-	<e89a2b17-3f03-a43e-e0b9-5d2693c3b089@oracle.com>
-	<20211022015817.GY24307@magnolia>
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3883C40D1B9F
+	for <dm-devel@redhat.com>; Thu, 21 Oct 2021 08:55:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4102B866DF9
+	for <dm-devel@redhat.com>; Thu, 21 Oct 2021 08:55:15 +0000 (UTC)
+Received: from baidu.com (mx24.baidu.com [111.206.215.185]) by
+	relay.mimecast.com with ESMTP id us-mta-485-jFdv7KCXOymdBHGE1S7sDg-1;
+	Thu, 21 Oct 2021 04:55:11 -0400
+X-MC-Unique: jFdv7KCXOymdBHGE1S7sDg-1
+Received: from BJHW-Mail-Ex12.internal.baidu.com (unknown [10.127.64.35])
+	by Forcepoint Email with ESMTPS id 7B66FF519D69360D465D;
+	Thu, 21 Oct 2021 16:39:04 +0800 (CST)
+Received: from BJHW-MAIL-EX27.internal.baidu.com (10.127.64.42) by
+	BJHW-Mail-Ex12.internal.baidu.com (10.127.64.35) with Microsoft SMTP
+	Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+	15.1.2308.14; Thu, 21 Oct 2021 16:39:04 +0800
+Received: from LAPTOP-UKSR4ENP.internal.baidu.com (172.31.63.8) by
+	BJHW-MAIL-EX27.internal.baidu.com (10.127.64.42) with Microsoft SMTP
+	Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+	15.1.2308.14; Thu, 21 Oct 2021 16:39:03 +0800
+From: Cai Huoqing <caihuoqing@baidu.com>
+To: <caihuoqing@baidu.com>
+Date: Thu, 21 Oct 2021 16:39:01 +0800
+Message-ID: <20211021083902.1918-1-caihuoqing@baidu.com>
 MIME-Version: 1.0
-In-Reply-To: <20211022015817.GY24307@magnolia>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-Originating-IP: [172.31.63.8]
+X-ClientProxiedBy: BJHW-MAIL-EX04.internal.baidu.com (10.127.64.14) To
+	BJHW-MAIL-EX27.internal.baidu.com (10.127.64.42)
+X-Baidu-BdMsfe-DateCheck: 1_BJHW-Mail-Ex12_2021-10-21 16:39:04:526
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -63,26 +70,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: dm-devel@redhat.com
-Cc: Jane Chu <jane.chu@oracle.com>,
-	"nvdimm@lists.linux.dev" <nvdimm@lists.linux.dev>,
-	"dave.jiang@intel.com" <dave.jiang@intel.com>,
-	"snitzer@redhat.com" <snitzer@redhat.com>,
-	"vishal.l.verma@intel.com" <vishal.l.verma@intel.com>,
-	"david@fromorbit.com" <david@fromorbit.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"willy@infradead.org" <willy@infradead.org>,
-	Christoph Hellwig <hch@infradead.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"vgoyal@redhat.com" <vgoyal@redhat.com>,
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-	"dan.j.williams@intel.com" <dan.j.williams@intel.com>,
-	"ira.weiny@intel.com" <ira.weiny@intel.com>,
-	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
-	"agk@redhat.com" <agk@redhat.com>
-Subject: Re: [dm-devel] [PATCH 0/6] dax poison recovery with
- RWF_RECOVERY_DATA flag
+X-Mailman-Approved-At: Fri, 22 Oct 2021 02:25:38 -0400
+Cc: dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>,
+	Alasdair Kergon <agk@redhat.com>, linux-kernel@vger.kernel.org
+Subject: [dm-devel] [PATCH] dm crypt: Make use of the helper macro
+	kthread_run()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,40 +90,44 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 21, 2021 at 06:58:17PM -0700, Darrick J. Wong wrote:
-> On Fri, Oct 22, 2021 at 01:37:28AM +0000, Jane Chu wrote:
-> > On 10/21/2021 4:31 AM, Christoph Hellwig wrote:
-> > > Looking over the series I have serious doubts that overloading the
-> > > slow path clear poison operation over the fast path read/write
-> > > path is such a great idea.
-> 
-> Why would data recovery after a media error ever be considered a
-> fast/hot path?
+Repalce kthread_create/wake_up_process() with kthread_run()
+to simplify the code.
 
-Not sure what you're replying to (the text is from me, the mail you are
-repling to is fom Jane), but my point is that the read/write
-got path should not be overloaded with data recovery.
+Signed-off-by: Cai Huoqing <caihuoqing@baidu.com>
+---
+ drivers/md/dm-crypt.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-> A normal read/write to a fsdax file would not pass the
-> flag, which skips the poison checking with whatever MCE consequences
-> that has, right?
-
-Exactly!
-
-> pwritev2(..., RWF_RECOVER_DATA) should be infrequent enough that
-> carefully stepping around dax_direct_access only has to be faster than
-> restoring from backup, I hope?
-
-Yes.  And thus be kept as separate as possible.
+diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
+index 1ee3da2bfd0b..d4ae31558826 100644
+--- a/drivers/md/dm-crypt.c
++++ b/drivers/md/dm-crypt.c
+@@ -3363,14 +3363,13 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	spin_lock_init(&cc->write_thread_lock);
+ 	cc->write_tree = RB_ROOT;
+ 
+-	cc->write_thread = kthread_create(dmcrypt_write, cc, "dmcrypt_write/%s", devname);
++	cc->write_thread = kthread_run(dmcrypt_write, cc, "dmcrypt_write/%s", devname);
+ 	if (IS_ERR(cc->write_thread)) {
+ 		ret = PTR_ERR(cc->write_thread);
+ 		cc->write_thread = NULL;
+ 		ti->error = "Couldn't spawn write thread";
+ 		goto bad;
+ 	}
+-	wake_up_process(cc->write_thread);
+ 
+ 	ti->num_flush_bios = 1;
+ 	ti->limit_swap_bios = true;
+-- 
+2.25.1
 
 --
 dm-devel mailing list
