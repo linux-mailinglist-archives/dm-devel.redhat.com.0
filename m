@@ -1,57 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEF26437170
-	for <lists+dm-devel@lfdr.de>; Fri, 22 Oct 2021 07:57:59 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 89242437163
+	for <lists+dm-devel@lfdr.de>; Fri, 22 Oct 2021 07:37:43 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-248-xLMBjEPmNSK6TdFOtwVXBA-1; Fri, 22 Oct 2021 01:57:54 -0400
-X-MC-Unique: xLMBjEPmNSK6TdFOtwVXBA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-385-muveoeWIPrSKkrWdCZNK1w-1; Fri, 22 Oct 2021 01:37:40 -0400
+X-MC-Unique: muveoeWIPrSKkrWdCZNK1w-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 27C08104ECE6;
-	Fri, 22 Oct 2021 05:57:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 923581808318;
+	Fri, 22 Oct 2021 05:37:31 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9D61E60C7F;
-	Fri, 22 Oct 2021 05:57:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E15781002D6A;
+	Fri, 22 Oct 2021 05:37:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3229D1800B9E;
-	Fri, 22 Oct 2021 05:57:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 66C921800B9E;
+	Fri, 22 Oct 2021 05:37:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19M5vQdm011601 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 22 Oct 2021 01:57:27 -0400
+	id 19M5akKx008897 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 22 Oct 2021 01:36:48 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id C74D5D0192; Fri, 22 Oct 2021 05:57:26 +0000 (UTC)
+	id E20044010FEC; Fri, 22 Oct 2021 05:36:46 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C1C4FD016B
-	for <dm-devel@redhat.com>; Fri, 22 Oct 2021 05:57:23 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 723AB1875069
-	for <dm-devel@redhat.com>; Fri, 22 Oct 2021 05:57:23 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DCD6040CFD07
+	for <dm-devel@redhat.com>; Fri, 22 Oct 2021 05:36:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C3D341066558
+	for <dm-devel@redhat.com>; Fri, 22 Oct 2021 05:36:46 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-583-lvp6uqN8OsqeawLnbf6DIQ-1; Fri, 22 Oct 2021 01:57:20 -0400
-X-MC-Unique: lvp6uqN8OsqeawLnbf6DIQ-1
+	us-mta-526-787bD4fWNamgbjXEpDNXWA-1; Fri, 22 Oct 2021 01:36:44 -0400
+X-MC-Unique: 787bD4fWNamgbjXEpDNXWA-1
 Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
-	Hat Linux)) id 1mdnBN-009lTo-6z; Fri, 22 Oct 2021 05:33:33 +0000
-Date: Thu, 21 Oct 2021 22:33:33 -0700
+	Hat Linux)) id 1mdnEI-009lYf-Qe; Fri, 22 Oct 2021 05:36:34 +0000
+Date: Thu, 21 Oct 2021 22:36:34 -0700
 From: Christoph Hellwig <hch@infradead.org>
 To: Jane Chu <jane.chu@oracle.com>
-Message-ID: <YXJNLTmcPaShrLoT@infradead.org>
+Message-ID: <YXJN4s1HC/Y+KKg1@infradead.org>
 References: <20211021001059.438843-1-jane.chu@oracle.com>
-	<20211021001059.438843-5-jane.chu@oracle.com>
-	<YXFOlKWUuwFUJxUZ@infradead.org>
-	<325baeaf-54f6-dea0-ed2b-6be5a2ec47db@oracle.com>
+	<YXFPfEGjoUaajjL4@infradead.org>
+	<e89a2b17-3f03-a43e-e0b9-5d2693c3b089@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <325baeaf-54f6-dea0-ed2b-6be5a2ec47db@oracle.com>
+In-Reply-To: <e89a2b17-3f03-a43e-e0b9-5d2693c3b089@oracle.com>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -62,7 +61,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
 Cc: "nvdimm@lists.linux.dev" <nvdimm@lists.linux.dev>,
 	"dave.jiang@intel.com" <dave.jiang@intel.com>,
@@ -80,8 +79,8 @@ Cc: "nvdimm@lists.linux.dev" <nvdimm@lists.linux.dev>,
 	"ira.weiny@intel.com" <ira.weiny@intel.com>,
 	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
 	"agk@redhat.com" <agk@redhat.com>
-Subject: Re: [dm-devel] [PATCH 4/6] dm, dax,
- pmem: prepare dax_copy_to/from_iter() APIs with DAXDEV_F_RECOVERY
+Subject: Re: [dm-devel] [PATCH 0/6] dax poison recovery with
+ RWF_RECOVERY_DATA flag
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,7 +94,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,36 +103,28 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 22, 2021 at 12:49:15AM +0000, Jane Chu wrote:
-> I've looked through your "futher decouple DAX from block devices" series 
-> and likes the use of xarray in place of the host hash list.
-> Which upstream version is the series based upon?
-> If it's based on your development repo, I'd be happy to take a clone
-> and rebase my patches on yours if you provide a link. Please let me
-> know the best way to cooperate.
+On Fri, Oct 22, 2021 at 01:37:28AM +0000, Jane Chu wrote:
+> On 10/21/2021 4:31 AM, Christoph Hellwig wrote:
+> > Looking over the series I have serious doubts that overloading the
+> > slow path clear poison operation over the fast path read/write
+> > path is such a great idea.
+> > 
+> 
+> Understood, sounds like a concern on principle. But it seems to me
+> that the task of recovery overlaps with the normal write operation
+> on the write part. Without overloading some write operation for
+> 'recovery', I guess we'll need to come up with a new userland
+> command coupled with a new dax API ->clear_poison and propagate the
+> new API support to each dm targets that support dax which, again,
+> is an idea that sounds too bulky if I recall Dan's earlier rejection
+> correctly.
 
-It is based on linux-next from when it was posted.  A git tree is here:
-
-http://git.infradead.org/users/hch/misc.git/shortlog/refs/heads/dax-block-cleanup
-
-> That said, I'm unclear at what you're trying to suggest with respect
-> to the 'DAXDEV_F_RECOVERY' flag.  The flag came from upper dax-fs
-> call stack to the dm target layer, and the dm targets are equipped
-> with handling pmem driver specific task, so it appears that the flag 
-> would need to be passed down to the native pmem layer, right?
-> Am I totally missing your point?
-
-We'll need to pass it through (assuming we want to keep supporting
-dm, see the recent discussion with Dan).
-
-FYI, here is a sketch where I'd like to move to, but this isn't properly
-tested yet:
-
-http://git.infradead.org/users/hch/misc.git/shortlog/refs/heads/dax-devirtualize
-
-To support something like DAXDEV_F_RECOVERYwe'd need a separate
-dax_operations methods.  Which to me suggest it probably should be
-a different operation (fallocate / ioctl / etc) as Darrick did earlier.
+When I wrote the above I mostly thought about the in-kernel API, that
+is use a separate method.  But reading your mail and thinking about
+this a bit more I'm actually less and less sure that overloading
+pwritev2 and preadv2 with this at the syscall level makes sense either.
+read/write are our I/O fast path.  We really should not overload the
+core of the VFS with error recovery for a broken hardware interface.
 
 --
 dm-devel mailing list
