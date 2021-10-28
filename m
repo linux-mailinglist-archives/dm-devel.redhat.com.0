@@ -1,73 +1,60 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3ABE43D8E3
-	for <lists+dm-devel@lfdr.de>; Thu, 28 Oct 2021 03:47:29 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C8A6143D9FD
+	for <lists+dm-devel@lfdr.de>; Thu, 28 Oct 2021 05:50:12 +0200 (CEST)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-128-r5rCwiXUNrumIohDgISDuw-1; Wed, 27 Oct 2021 21:47:25 -0400
-X-MC-Unique: r5rCwiXUNrumIohDgISDuw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-599-34cXJuXcMnekpPKbqAoDFA-1; Wed, 27 Oct 2021 23:49:38 -0400
+X-MC-Unique: 34cXJuXcMnekpPKbqAoDFA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9B53E8066F5;
-	Thu, 28 Oct 2021 01:47:18 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5C70D50751;
+	Thu, 28 Oct 2021 03:49:30 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 99DC7380;
-	Thu, 28 Oct 2021 01:47:16 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D788260BF1;
+	Thu, 28 Oct 2021 03:49:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 760041800FDD;
-	Thu, 28 Oct 2021 01:47:12 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.1])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 58CF11800B9E;
+	Thu, 28 Oct 2021 03:49:13 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 19S1iJu1029085 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 27 Oct 2021 21:44:19 -0400
+	id 19S3n1KC006134 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 27 Oct 2021 23:49:01 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7F20240CFD11; Thu, 28 Oct 2021 01:44:19 +0000 (UTC)
+	id 6E5932026D5D; Thu, 28 Oct 2021 03:49:01 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 799DF40CFD0C
-	for <dm-devel@redhat.com>; Thu, 28 Oct 2021 01:44:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6946E2026D46
+	for <dm-devel@redhat.com>; Thu, 28 Oct 2021 03:48:58 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6043180015A
-	for <dm-devel@redhat.com>; Thu, 28 Oct 2021 01:44:19 +0000 (UTC)
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
-	[209.85.216.42]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-532-AKuS159xOgalQd58KM0tPg-1; Wed, 27 Oct 2021 21:44:17 -0400
-X-MC-Unique: AKuS159xOgalQd58KM0tPg-1
-Received: by mail-pj1-f42.google.com with SMTP id
-	x1-20020a17090a530100b001a1efa4ebe6so4390267pjh.0
-	for <dm-devel@redhat.com>; Wed, 27 Oct 2021 18:44:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=X1wiwLbjvMr0fUU/Ik7bpLL2xq562nKRBks78M/tbQ0=;
-	b=wa6YQpdKD+KqGe/VUthnFmDF/LTvOLM3gLark1DkFW78aAHM6DrXQTE8s4B7VCUsLA
-	c/6SyqQqiSX9ZSQeZMWeSt0/vOP7mywRlkwNmaTgekJmzyyvRhJ9uakXgv/rsFEKpp4D
-	dwalqmRCadm/wClvPjaGEV9Ij7J1SzRHFnnDGwiWke3gheHpWWlN0wDwnsgmGnhoEVNq
-	aLPkUqvM7rCXUYR5tFT4bkLPKww8OQdbMtZis7o83/C97sqLx6krxlgZFWDCw15jiRhQ
-	eidBliwsD4NinNk7nCeOwNiJ7lXeLkLPjlUGzqF/4mUuYERazJi/lbYyKSwYTp59AuDj
-	sBgg==
-X-Gm-Message-State: AOAM533Reerz15Oc/2+TFNbuT7EBOi0RtWbmoUn3IgJn4ZelEXQ9Eo1n
-	9EMNePZYAvlQsTUl90RrENgBRRwb91qx38QGhAw8Sw==
-X-Google-Smtp-Source: ABdhPJyk8c8xZHfkX0RONmluScnz61A4HGhWerdM4JYgASaD4FzedQ2nCFUwr5W/5xCzT57VlrSOf0tWDKABqHHbWT8=
-X-Received: by 2002:a17:902:8a97:b0:13e:6e77:af59 with SMTP id
-	p23-20020a1709028a9700b0013e6e77af59mr1240292plo.4.1635385456643;
-	Wed, 27 Oct 2021 18:44:16 -0700 (PDT)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7B3181066558
+	for <dm-devel@redhat.com>; Thu, 28 Oct 2021 03:48:58 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) (Using TLS)
+	by relay.mimecast.com with ESMTP id us-mta-540-ynsNGpKdPICIczSoNE2DPw-1;
+	Wed, 27 Oct 2021 23:48:54 -0400
+X-MC-Unique: ynsNGpKdPICIczSoNE2DPw-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 2F52960F22;
+	Thu, 28 Oct 2021 03:48:51 +0000 (UTC)
+Date: Wed, 27 Oct 2021 20:48:23 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Deven Bowers <deven.desai@linux.microsoft.com>
+Message-ID: <YXodhzYto5BRxqYO@sol.localdomain>
+References: <1634151995-16266-1-git-send-email-deven.desai@linux.microsoft.com>
+	<1634151995-16266-13-git-send-email-deven.desai@linux.microsoft.com>
+	<YWcyYBuNppjrVOe2@gmail.com>
+	<9089bdb0-b28a-9fa0-c510-00fa275af621@linux.microsoft.com>
+	<YWngaVdvMyWBlITZ@gmail.com>
+	<f027e3fa-2f70-0cdb-ac7b-255cee68edbb@linux.microsoft.com>
 MIME-Version: 1.0
-References: <20211018044054.1779424-1-hch@lst.de>
-	<20211018044054.1779424-12-hch@lst.de>
-In-Reply-To: <20211018044054.1779424-12-hch@lst.de>
-From: Dan Williams <dan.j.williams@intel.com>
-Date: Wed, 27 Oct 2021 18:44:04 -0700
-Message-ID: <CAPcyv4ht6fZOdx4YN9FRCnmD2Wy4zzG7nJPQSdSPAgvZNHxoFw@mail.gmail.com>
-To: Christoph Hellwig <hch@lst.de>
+In-Reply-To: <f027e3fa-2f70-0cdb-ac7b-255cee68edbb@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -76,16 +63,17 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: Linux NVDIMM <nvdimm@lists.linux.dev>, Mike Snitzer <snitzer@redhat.com>,
-	linux-s390 <linux-s390@vger.kernel.org>, linux-erofs@lists.ozlabs.org,
-	virtualization@lists.linux-foundation.org,
-	linux-xfs <linux-xfs@vger.kernel.org>,
-	device-mapper development <dm-devel@redhat.com>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	linux-ext4 <linux-ext4@vger.kernel.org>, Ira Weiny <ira.weiny@intel.com>
-Subject: Re: [dm-devel] [PATCH 11/11] dax: move bdev_dax_pgoff to fs/dax.c
+Cc: axboe@kernel.dk, linux-security-module@vger.kernel.org, tytso@mit.edu,
+	paul@paul-moore.com, snitzer@redhat.com, corbet@lwn.net,
+	jannh@google.com, linux-doc@vger.kernel.org, jmorris@namei.org,
+	eparis@redhat.com, linux-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org, dm-devel@redhat.com,
+	linux-audit@redhat.com, linux-fscrypt@vger.kernel.org,
+	agk@redhat.com, serge@hallyn.com
+Subject: Re: [dm-devel] [RFC PATCH v7 12/16] fsverity|security: add security
+ hooks to fsverity digest and signature
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -99,108 +87,87 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Sun, Oct 17, 2021 at 9:41 PM Christoph Hellwig <hch@lst.de> wrote:
->
-> No functional changet, but this will allow for a tighter integration
-
-s/changet/changes/
-
-> with the iomap code, including possible passing the partition offset
-
-s/possible/possibly/
-
-> in the iomap in the future.  For now it mostly avoids growing more
-
-s/now/now,/
-
-...all of the above fixed up locally.
-
-Other than that, it looks good to me.
-
-> callers outside of fs/dax.c.
->
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  drivers/dax/super.c | 14 --------------
->  fs/dax.c            | 13 +++++++++++++
->  include/linux/dax.h |  1 -
->  3 files changed, 13 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/dax/super.c b/drivers/dax/super.c
-> index 803942586d1b6..c0910687fbcb2 100644
-> --- a/drivers/dax/super.c
-> +++ b/drivers/dax/super.c
-> @@ -67,20 +67,6 @@ void dax_remove_host(struct gendisk *disk)
->  }
->  EXPORT_SYMBOL_GPL(dax_remove_host);
->
-> -int bdev_dax_pgoff(struct block_device *bdev, sector_t sector, size_t size,
-> -               pgoff_t *pgoff)
-> -{
-> -       sector_t start_sect = bdev ? get_start_sect(bdev) : 0;
-> -       phys_addr_t phys_off = (start_sect + sector) * 512;
-> -
-> -       if (pgoff)
-> -               *pgoff = PHYS_PFN(phys_off);
-> -       if (phys_off % PAGE_SIZE || size % PAGE_SIZE)
-> -               return -EINVAL;
-> -       return 0;
-> -}
-> -EXPORT_SYMBOL(bdev_dax_pgoff);
-> -
->  /**
->   * dax_get_by_host() - temporary lookup mechanism for filesystem-dax
->   * @bdev: block device to find a dax_device for
-> diff --git a/fs/dax.c b/fs/dax.c
-> index 4e3e5a283a916..eb715363fd667 100644
-> --- a/fs/dax.c
-> +++ b/fs/dax.c
-> @@ -709,6 +709,19 @@ int dax_invalidate_mapping_entry_sync(struct address_space *mapping,
->         return __dax_invalidate_entry(mapping, index, false);
->  }
->
-> +static int bdev_dax_pgoff(struct block_device *bdev, sector_t sector, size_t size,
-> +               pgoff_t *pgoff)
-> +{
-> +       sector_t start_sect = bdev ? get_start_sect(bdev) : 0;
-> +       phys_addr_t phys_off = (start_sect + sector) * 512;
-> +
-> +       if (pgoff)
-> +               *pgoff = PHYS_PFN(phys_off);
-> +       if (phys_off % PAGE_SIZE || size % PAGE_SIZE)
-> +               return -EINVAL;
-> +       return 0;
-> +}
-> +
->  static int copy_cow_page_dax(struct block_device *bdev, struct dax_device *dax_dev,
->                              sector_t sector, struct page *to, unsigned long vaddr)
->  {
-> diff --git a/include/linux/dax.h b/include/linux/dax.h
-> index 439c3c70e347b..324363b798ecd 100644
-> --- a/include/linux/dax.h
-> +++ b/include/linux/dax.h
-> @@ -107,7 +107,6 @@ static inline bool daxdev_mapping_supported(struct vm_area_struct *vma,
->  #endif
->
->  struct writeback_control;
-> -int bdev_dax_pgoff(struct block_device *, sector_t, size_t, pgoff_t *pgoff);
->  #if IS_ENABLED(CONFIG_FS_DAX)
->  int dax_add_host(struct dax_device *dax_dev, struct gendisk *disk);
->  void dax_remove_host(struct gendisk *disk);
-> --
-> 2.30.2
->
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gVHVlLCBPY3QgMjYsIDIwMjEgYXQgMTI6MDM6NTNQTSAtMDcwMCwgRGV2ZW4gQm93ZXJzIHdy
+b3RlOgo+ID4gPiBUaGUgcHJvcG9zZWQgTFNNIChJUEUpIG9mIHRoaXMgc2VyaWVzIHdpbGwgYmUg
+dGhlIG9ubHkgb25lIHRvIG5lZWQKPiA+ID4gdGhpcyBpbmZvcm1hdGlvbiBhdCB0aGXCoCBtb21l
+bnQuIElQReKAmXMgZ29hbCBpcyB0byBoYXZlIHByb3ZpZGUKPiA+ID4gdHJ1c3QtYmFzZWQgYWNj
+ZXNzIGNvbnRyb2wuIFRydXN0IGFuZCBJbnRlZ3JpdHkgYXJlIHRpZWQgdG9nZXRoZXIsCj4gPiA+
+IGFzIHlvdSBjYW5ub3QgcHJvdmUgdHJ1c3Qgd2l0aG91dCBwcm92aW5nIGludGVncml0eS4KPiA+
+IEkgdGhpbmsgeW91IG1lYW4gYXV0aGVudGljaXR5LCBub3QgaW50ZWdyaXR5Pwo+IEnigJl2ZSBo
+ZWFyZCBhIGxvdCBvZiBwZW9wbGUgdXNlIHRoZXNlIHRlcm1zIGluIG92ZXJsb2FkZWQgd2F5cy4K
+PiAKPiBJZiB3ZeKAmXJlIHdvcmtpbmcgd2l0aCB0aGUgZGVmaW5pdGlvbiBvZiBhdXRoZW50aWNp
+dHkgYmVpbmcKPiDigJx0aGUgcHJvcGVydHkgdGhhdCBhIHJlc291cmNlIHdhcyBfYWN0dWFsbHlf
+IHNlbnQvY3JlYXRlZCBieSBhCj4gcGFydHnigJ0sIGFuZCBpbnRlZ3JpdHkgYmVpbmcg4oCcdGhl
+IHByb3BlcnR5IHRoYXQgYSByZXNvdXJjZSB3YXMgbm90Cj4gbW9kaWZpZWQgZnJvbSBhIHBvaW50
+IG9mIHRpbWXigJ0sIHRoZW4geWVzLiBUaG91Z2ggdGhlIHN0YXRlbWVudCBpc27igJl0Cj4gZmFs
+c2UsIHRob3VnaCwgYmVjYXVzZSB5b3XigJlkIG5lZWQgdG8gcHJvdmUgaW50ZWdyaXR5IGluIHRo
+ZSBwcm9jZXNzIG9mCj4gcHJvdmluZyBhdXRoZW50aWNpdHkuCj4gCj4gSWYgbm90LCBjb3VsZCB5
+b3UgY2xhcmlmeSB3aGF0IHlvdSBtZWFuIGJ5IGF1dGhlbnRpY2l0eSBhbmQgaW50ZWdyaXR5LAo+
+IHNvIHRoYXQgd2UgY2FuIHVzZSBjb25zaXN0ZW50IGRlZmluaXRpb25zPwoKSW4gY3J5cHRvZ3Jh
+cGh5LCBpbnRlZ3JpdHkgbm9ybWFsbHkgbWVhbnMga25vd2luZyB3aGV0aGVyIGRhdGEgaGFzIGJl
+ZW4Kbm9uLW1hbGljaW91c2x5IGNoYW5nZWQsIHdoaWxlIGF1dGhlbnRpY2l0eSBtZWFucyBrbm93
+aW5nIHdoZXRoZXIgZGF0YSBpcyBmcm9tIGEKcGFydGljdWxhciBzb3VyY2UsIHdoaWNoIGltcGxp
+ZXMga25vd2luZyB3aGV0aGVyIGl0IGhhcyBiZWVuIGNoYW5nZWQgYXQgYWxsCih3aGV0aGVyIG1h
+bGljaW91c2x5IG9yIG5vdCkuICBDb25zaWRlciB0aGF0IHRoZXJlIGFyZSAiTWVzc2FnZSBBdXRo
+ZW50aWNhdGlvbgpDb2RlcyIgKE1BQ3MpIGFuZCAiQXV0aGVudGljYXRlZCBFbmNyeXB0aW9uIiwg
+bm90ICJNZXNzYWdlIEludGVncml0eSBDb2RlcyIgYW5kCiJJbnRhY3QgRW5jcnlwdGlvbiIuCgpV
+bmZvcnR1bmF0ZWx5IGxvdHMgb2YgcGVvcGxlIGRvIG92ZXJsb2FkICJpbnRlZ3JpdHkiIHRvIG1l
+YW4gYXV0aGVudGljaXR5LCBzbwp5b3UncmUgbm90IGFsb25lLiAgQnV0IGl0J3MgY29uZnVzaW5n
+LCBzbyBpZiB5b3UncmUgZ29pbmcgdG8gZG8gdGhhdCB0aGVuIHBsZWFzZQptYWtlIHN1cmUgdG8g
+Y2xlYXJseSBleHBsYWluIHdoYXQgeW91IG1lYW4uCgo+ID4gQWxzbyBob3cgZG9lcyB0aGlzIGRp
+ZmZlciBmcm9tIElNQT8gIEkga25vdyB0aGF0IElNQSBkb2Vzbid0IHN1cHBvcnQgZnMtdmVyaXR5
+Cj4gPiBmaWxlIGhhc2hlcywgYnV0IHRoYXQgY291bGQgYmUgY2hhbmdlZC4gIFdoeSBub3QgZXh0
+ZW5kIElNQSB0byBjb3ZlciB5b3VyIHVzZQo+ID4gY2FzZShzKT8KPiBXZSBsb29rZWQgYXQgZXh0
+ZW5kaW5nIElNQSB0byBjb3ZlciBvdXIgcmVxdWlyZW1lbnRzIGV4dGVuc2l2ZWx5IHRoZSBwYXN0
+Cj4geWVhcgo+IGJhc2VkIG9uIGZlZWRiYWNrIHRoZSBsYXN0IHRpbWUgSSBwb3N0ZWQgdGhlc2Ug
+cGF0Y2hlcy4gV2UgaW1wbGVtZW50ZWQgYQo+IHByb3RvdHlwZSB0aGF0IGhhZCBoYWxmIG9mIG91
+ciByZXF1aXJlbWVudHMsIGJ1dCBmb3VuZCBpdCByZXN1bHRlZCBpbiBhCj4gbGFyZ2UgY2hhbmdl
+IGxpc3QgdGhhdCB3b3VsZCByZXN1bHQgaW4gYSBsYXJnZSBhbW91bnQgb2YgcGFpbiBpbiByZXNw
+ZWN0Cj4gdG8gbWFpbnRlbmFuY2UsIGluIGFkZGl0aW9uIHRvIG90aGVyIG1vcmUgYXJjaGl0ZWN0
+dXJhbCBjb25jZXJucyBhYm91dCB0aGUKPiBpbXBsZW1lbnRhdGlvbi4gV2Ugd2VyZW7igJl0IGNv
+bnZpbmNlZCBpdCB3YXMgdGhlIGNvcnJlY3QgZGlyZWN0aW9uLCBmb3Igb3VyCj4gbmVlZHMuCj4g
+Cj4gVGhlcmUgd2FzIGEgcHJlc2VudGF0aW9uIGRvbmUgYXQgTFNTIDIwMjEgYXJvdW5kIHRoaXMg
+cHJvdG90eXBlIGRvbmUgYnkgbXkKPiBjb2xsZWFndWUsIEZhbiwgd2hvIGF1dGhvcmVkIHRoaXMg
+cGF0Y2ggYW5kIGltcGxlbWVudGVkIHRoZSBhZm9yZW1lbnRpb25lZAo+IHByb3RvdHlwZS4KPiAK
+PiBJbiBnZW5lcmFsLCBJTUEgcHJvdmlkZXMgYSB3aG9sZSBzdWl0ZSBvZiBhbWF6aW5nIGZ1bmN0
+aW9uYWxpdHkgd2hlbiBpdAo+IGNvbWVzIHRvIGV2ZXJ5dGhpbmcgaW50ZWdyaXR5LCBhcyB0aGUg
+ZnMtdmVyaXR5IGRvY3VtZW50YXRpb24gc3RhdGVzCj4gaXRzZWxmOgo+IAo+ICAgIElNQSBzcGVj
+aWZpZXMgYSBzeXN0ZW0td2lkZSBwb2xpY3kgdGhhdCBzcGVjaWZpZXMgd2hpY2gKPiAgICBmaWxl
+cyBhcmUgaGFzaGVkIGFuZCB3aGF0IHRvIGRvIHdpdGggdGhvc2UgaGFzaGVzLCBzdWNoCj4gICAg
+YXMgbG9nIHRoZW0sIGF1dGhlbnRpY2F0ZSB0aGVtLCBvciBhZGQgdGhlbSB0byBhCj4gICAgbWVh
+c3VyZW1lbnQgbGlzdC4KPiAKPiBJbnN0ZWFkLCBJUEUgcHJvdmlkZXMgYSBmaW5lLXR1bmVkIHdh
+eSB0byBfb25seV8gZW5mb3JjZSBhbiBhY2Nlc3MgY29udHJvbAo+IHBvbGljeSB0byB0aGVzZSBm
+aWxlcyBiYXNlZCBvbiB0aGUgZGVmaW5lZCB0cnVzdCByZXF1aXJlbWVudHMgaW4gdGhlIHBvbGlj
+eSwKPiB1bmRlciB2YXJpb3VzIGNvbnRleHRzLCAoeW91IG1pZ2h0IGhhdmUgZGlmZmVyZW50IHJl
+cXVpcmVtZW50cyBmb3Igd2hhdAo+IGV4ZWN1dGVzIGluIGEgZ2VuZXJhbCBwdXJwb3NlLCB2ZXJz
+dXMgbG9hZGFibGUga2VybmVsIG1vZHVsZXMsIGZvciBleGFtcGxlKS4KPiBJdCB3aWxsIG5ldmVy
+IHByb3ZpZGUgYm90aGVyIHRvIGxvZywgbWVhc3VyZSwgb3IgcmV2YWxpZGF0ZSB0aGVzZSBoYXNo
+ZXMKPiBiZWNhdXNlCj4gdGhhdOKAmXMgbm90IGl0cyBwdXJwb3NlLiBUaGlzIGlzIHdoeSBpdCBi
+ZWxvbmdzIGF0IHRoZSBMU00gbGF5ZXIgaW5zdGVhZCBvZgo+IHRoZQo+IGludGVncml0eSBzdWJz
+eXN0ZW0gbGF5ZXIsIGFzIGl0IGlzIHByb3ZpZGluZyBhY2Nlc3MgY29udHJvbCBiYXNlZCBvbiBh
+Cj4gcG9saWN5LAo+IHZlcnN1cyBwcm92aWRpbmcgZGVlcCBpbnRlZ3JhdGlvbnMgd2l0aCB0aGUg
+YWN0dWFsIGludGVncml0eSBjbGFpbS4KPiAKPiBJUEUgaXMgdHJ5aW5nIHRvIGJlIGFnbm9zdGlj
+IHRvIGhvdyBwcmVjaXNlbHkg4oCcdHJ1c3TigJ0gaXMgcHJvdmlkZWQsIGFzCj4gb3Bwb3NlZCB0
+byBiZSBkZWVwbHkgaW50ZWdyYXRlZCBpbnRvIHRoZSBtZWNoYW5pc20gdGhhdCBwcm92aWRlcwo+
+IOKAnHRydXN04oCdLgoKSU1BIGRvZXNuJ3QgcmVxdWlyZSBsb2dnaW5nIG9yICJtZWFzdXJpbmci
+IGhhc2hlcywgdGhvdWdoLiAgVGhvc2UgYXJlIGp1c3Qgc29tZQpvZiBpdHMgc3VwcG9ydGVkIGZl
+YXR1cmVzLiAgQW5kIEkgdGhvdWdodCB0aGUgSU1BIGRldmVsb3BlcnMgd2VyZSBwbGFubmluZyB0
+bwphZGQgc3VwcG9ydCBmb3IgZnMtdmVyaXR5IGhhc2hlcywgYW5kIHRoYXQgaXQgd291bGRuJ3Qg
+cmVxdWlyZSBhbiBlbnRpcmVseSBuZXcKYXJjaGl0ZWN0dXJlIHRvIGRvIHNvLgoKQW55d2F5LCB3
+aGlsZSBpdCBkb2VzIHNvdW5kIHRvIG1lIGxpa2UgeW91J3JlIGR1cGxpY2F0aW5nIElNQSwgSSBk
+b24ndCByZWFsbHkKaGF2ZSBhIGhvcnNlIGluIHRoaXMgcmFjZSwgYW5kIEkgZGVmZXIgdG8gdGhl
+IElNQSBkZXZlbG9wZXJzIG9uIHRoaXMuICBJIHRydXN0CnRoYXQgeW91J3ZlIGJlZW4gZW5nYWdp
+bmcgd2l0aCB0aGVtPyAgVGhpcyBwYXRjaHNldCBpc24ndCBldmVuIENjJ2VkIHRvCmxpbnV4LWlu
+dGVncml0eSwgc28gaXQncyB1bmNsZWFyIHRoYXQncyBiZWVuIGhhcHBlbmluZy4KCi0gRXJpYwoK
+LS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0
+bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
 
