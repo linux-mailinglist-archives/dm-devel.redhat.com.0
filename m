@@ -1,62 +1,60 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C5BD44466E
-	for <lists+dm-devel@lfdr.de>; Wed,  3 Nov 2021 17:59:10 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id EAED044485A
+	for <lists+dm-devel@lfdr.de>; Wed,  3 Nov 2021 19:36:31 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-448-mnCL7oJIPku5zaUcyn_7Hg-1; Wed, 03 Nov 2021 12:59:05 -0400
-X-MC-Unique: mnCL7oJIPku5zaUcyn_7Hg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-71-ReVFQxFSMXi16CutkoUAag-1; Wed, 03 Nov 2021 14:36:29 -0400
+X-MC-Unique: ReVFQxFSMXi16CutkoUAag-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 64C4CA40C1;
-	Wed,  3 Nov 2021 16:59:00 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 121B967852;
-	Wed,  3 Nov 2021 16:59:00 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0EB0AA7209;
+	Wed,  3 Nov 2021 18:35:45 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 19B075FC25;
+	Wed,  3 Nov 2021 18:35:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8A6DD1803B30;
-	Wed,  3 Nov 2021 16:58:57 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.1])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0D3E05846C;
+	Wed,  3 Nov 2021 18:35:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1A3GwcNP020932 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 3 Nov 2021 12:58:39 -0400
+	id 1A3IXQ3S005349 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 3 Nov 2021 14:33:26 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7E07340CFD07; Wed,  3 Nov 2021 16:58:38 +0000 (UTC)
+	id 1EDC2400F3C6; Wed,  3 Nov 2021 18:33:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 78D044010FE5
-	for <dm-devel@redhat.com>; Wed,  3 Nov 2021 16:58:38 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 58BFC1078463
-	for <dm-devel@redhat.com>; Wed,  3 Nov 2021 16:58:38 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B2A6401A993
+	for <dm-devel@redhat.com>; Wed,  3 Nov 2021 18:33:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 029EE800055
+	for <dm-devel@redhat.com>; Wed,  3 Nov 2021 18:33:26 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-347-Yetc7JZ0OaOArke95keuaA-1; Wed, 03 Nov 2021 12:58:36 -0400
-X-MC-Unique: Yetc7JZ0OaOArke95keuaA-1
+	us-mta-228-jEIkLTilMQKE7Q3r9pie1A-1; Wed, 03 Nov 2021 14:33:24 -0400
+X-MC-Unique: jEIkLTilMQKE7Q3r9pie1A-1
 Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
-	Hat Linux)) id 1miJam-005shC-K2; Wed, 03 Nov 2021 16:58:28 +0000
-Date: Wed, 3 Nov 2021 09:58:28 -0700
+	Hat Linux)) id 1miJVt-005rED-HI; Wed, 03 Nov 2021 16:53:25 +0000
+Date: Wed, 3 Nov 2021 09:53:25 -0700
 From: Christoph Hellwig <hch@infradead.org>
 To: Dan Williams <dan.j.williams@intel.com>
-Message-ID: <YYK/tGfpG0CnVIO4@infradead.org>
+Message-ID: <YYK+hfmB05URYO75@infradead.org>
 References: <20211021001059.438843-1-jane.chu@oracle.com>
 	<YXFPfEGjoUaajjL4@infradead.org>
 	<e89a2b17-3f03-a43e-e0b9-5d2693c3b089@oracle.com>
 	<YXJN4s1HC/Y+KKg1@infradead.org>
 	<2102a2e6-c543-2557-28a2-8b0bdc470855@oracle.com>
 	<YXj2lwrxRxHdr4hb@infradead.org>
-	<20211028002451.GB2237511@magnolia>
-	<YYDYUCCiEPXhZEw0@infradead.org>
-	<CAPcyv4j8snuGpy=z6BAXogQkP5HmTbqzd6e22qyERoNBvFKROw@mail.gmail.com>
+	<CAPcyv4hK18DetEf9+NcDqM5y07Vp-=nhysHJ3JSnKbS-ET2ppw@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CAPcyv4j8snuGpy=z6BAXogQkP5HmTbqzd6e22qyERoNBvFKROw@mail.gmail.com>
+In-Reply-To: <CAPcyv4hK18DetEf9+NcDqM5y07Vp-=nhysHJ3JSnKbS-ET2ppw@mail.gmail.com>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -67,20 +65,20 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: dm-devel@redhat.com
 Cc: Jane Chu <jane.chu@oracle.com>,
 	"nvdimm@lists.linux.dev" <nvdimm@lists.linux.dev>,
 	"dave.jiang@intel.com" <dave.jiang@intel.com>,
 	"snitzer@redhat.com" <snitzer@redhat.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
+	"vishal.l.verma@intel.com" <vishal.l.verma@intel.com>,
 	"david@fromorbit.com" <david@fromorbit.com>,
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
 	"willy@infradead.org" <willy@infradead.org>,
 	Christoph Hellwig <hch@infradead.org>,
 	"dm-devel@redhat.com" <dm-devel@redhat.com>,
 	"vgoyal@redhat.com" <vgoyal@redhat.com>,
-	"vishal.l.verma@intel.com" <vishal.l.verma@intel.com>,
+	"djwong@kernel.org" <djwong@kernel.org>,
 	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
 	"ira.weiny@intel.com" <ira.weiny@intel.com>,
 	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
@@ -100,7 +98,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -109,49 +107,32 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 02, 2021 at 12:57:10PM -0700, Dan Williams wrote:
-> This goes back to one of the original DAX concerns of wanting a kernel
-> library for coordinating PMEM mmap I/O vs leaving userspace to wrap
-> PMEM semantics on top of a DAX mapping. The problem is that mmap-I/O
-> has this error-handling-API issue whether it is a DAX mapping or not.
+On Tue, Nov 02, 2021 at 09:03:55AM -0700, Dan Williams wrote:
+> > why devices are built to handle them.  It is just the Intel-style
+> > pmem interface to handle them which is completely broken.
+> 
+> No, any media can report checksum / parity errors. NVME also seems to
+> do a poor job with multi-bit ECC errors consumed from DRAM. There is
+> nothing "pmem" or "Intel" specific here.
 
-Semantics of writes through shared mmaps are a nightmare.  Agreed,
-including agreeing that this is neither new nor pmem specific.  But
-it also has absolutely nothing to do with the new RWF_ flag.
+If you do get data corruption from NVMe (which yes can happen despite
+the typical very good UBER rate) you just write over it again.  You
+don't need to magically whack the underlying device.  Same for hard
+drives.
 
-> CONFIG_ARCH_SUPPORTS_MEMORY_FAILURE implies that processes will
-> receive SIGBUS + BUS_MCEERR_A{R,O} when memory failure is signalled
-> and then rely on readv(2)/writev(2) to recover. Do you see a readily
-> available way to improve upon that model without CPU instruction
-> changes? Even with CPU instructions changes, do you think it could
-> improve much upon the model of interrupting the process when a load
-> instruction aborts?
+> > Well, my point is doing recovery from bit errors is by definition not
+> > the fast path.  Which is why I'd rather keep it away from the pmem
+> > read/write fast path, which also happens to be the (much more important)
+> > non-pmem read/write path.
+> 
+> I would expect this interface to be useful outside of pmem as a
+> "failfast" or "try harder to recover" flag for reading over media
+> errors.
 
-The "only" think we need is something like the exception table we
-use in the kernel for the uaccess helpers (and the new _nofault
-kernel access helper).  But I suspect refitting that into userspace
-environments is probably non-trivial.
-
-> I do agree with you that DAX needs to separate itself from block, but
-> I don't think it follows that DAX also needs to separate itself from
-> readv/writev for when a kernel slow-path needs to get involved because
-> mmap I/O (just CPU instructions) does not have the proper semantics.
-> Even if you got one of the ARCH_SUPPORTS_MEMORY_FAILURE to implement
-> those semantics in new / augmented CPU instructions you will likely
-> not get all of them to move and certainly not in any near term
-> timeframe, so the kernel path will be around indefinitely.
-
-I think you misunderstood me.  I don't think pmem needs to be
-decoupled from the read/write path.  But I'm very skeptical of adding
-a new flag to the common read/write path for the special workaround
-that a plain old write will not actually clear errors unlike every
-other store interfac.
-
-> Meanwhile, I think RWF_RECOVER_DATA is generically useful for other
-> storage besides PMEM and helps storage-drivers do better than large
-> blast radius "I/O error" completions with no other recourse.
-
-How?
+Maybe we need to sit down and define useful semantics then?  The problem
+on the write side isn't really that the behavior with the flag is
+undefined, it is more that writes without the flag have horrible
+semantics if they don't just clear the error.
 
 --
 dm-devel mailing list
