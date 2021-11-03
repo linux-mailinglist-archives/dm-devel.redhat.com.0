@@ -1,62 +1,59 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAED044485A
-	for <lists+dm-devel@lfdr.de>; Wed,  3 Nov 2021 19:36:31 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F2764447ED
+	for <lists+dm-devel@lfdr.de>; Wed,  3 Nov 2021 19:08:34 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-71-ReVFQxFSMXi16CutkoUAag-1; Wed, 03 Nov 2021 14:36:29 -0400
-X-MC-Unique: ReVFQxFSMXi16CutkoUAag-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-408-tZUcK0NPMV2phii-xVY59g-1; Wed, 03 Nov 2021 14:08:30 -0400
+X-MC-Unique: tZUcK0NPMV2phii-xVY59g-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0EB0AA7209;
-	Wed,  3 Nov 2021 18:35:45 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 19B075FC25;
-	Wed,  3 Nov 2021 18:35:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4BDC28066EF;
+	Wed,  3 Nov 2021 18:08:24 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B5395F4ED;
+	Wed,  3 Nov 2021 18:08:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0D3E05846C;
-	Wed,  3 Nov 2021 18:35:35 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.2])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 100431809C84;
+	Wed,  3 Nov 2021 18:08:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1A3IXQ3S005349 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 3 Nov 2021 14:33:26 -0400
+	id 1A3I7t1x027151 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 3 Nov 2021 14:07:56 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1EDC2400F3C6; Wed,  3 Nov 2021 18:33:26 +0000 (UTC)
+	id CBB474010FE5; Wed,  3 Nov 2021 18:07:55 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B2A6401A993
-	for <dm-devel@redhat.com>; Wed,  3 Nov 2021 18:33:26 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C61DC40CFD07
+	for <dm-devel@redhat.com>; Wed,  3 Nov 2021 18:07:55 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 029EE800055
-	for <dm-devel@redhat.com>; Wed,  3 Nov 2021 18:33:26 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-228-jEIkLTilMQKE7Q3r9pie1A-1; Wed, 03 Nov 2021 14:33:24 -0400
-X-MC-Unique: jEIkLTilMQKE7Q3r9pie1A-1
-Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
-	Hat Linux)) id 1miJVt-005rED-HI; Wed, 03 Nov 2021 16:53:25 +0000
-Date: Wed, 3 Nov 2021 09:53:25 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Dan Williams <dan.j.williams@intel.com>
-Message-ID: <YYK+hfmB05URYO75@infradead.org>
-References: <20211021001059.438843-1-jane.chu@oracle.com>
-	<YXFPfEGjoUaajjL4@infradead.org>
-	<e89a2b17-3f03-a43e-e0b9-5d2693c3b089@oracle.com>
-	<YXJN4s1HC/Y+KKg1@infradead.org>
-	<2102a2e6-c543-2557-28a2-8b0bdc470855@oracle.com>
-	<YXj2lwrxRxHdr4hb@infradead.org>
-	<CAPcyv4hK18DetEf9+NcDqM5y07Vp-=nhysHJ3JSnKbS-ET2ppw@mail.gmail.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B18E0800B26
+	for <dm-devel@redhat.com>; Wed,  3 Nov 2021 18:07:55 +0000 (UTC)
+Received: from sandeen.net (sandeen.net [63.231.237.45]) by
+	relay.mimecast.com with ESMTP id us-mta-452-2jsANpYdP5qDg0W2sEdFnA-1;
+	Wed, 03 Nov 2021 14:07:54 -0400
+X-MC-Unique: 2jsANpYdP5qDg0W2sEdFnA-1
+Received: from [10.0.0.146] (liberator.sandeen.net [10.0.0.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by sandeen.net (Postfix) with ESMTPSA id 2B0BF14627D;
+	Wed,  3 Nov 2021 12:57:54 -0500 (CDT)
+Message-ID: <21ff4333-e567-2819-3ae0-6a2e83ec7ce6@sandeen.net>
+Date: Wed, 3 Nov 2021 12:59:31 -0500
 MIME-Version: 1.0
-In-Reply-To: <CAPcyv4hK18DetEf9+NcDqM5y07Vp-=nhysHJ3JSnKbS-ET2ppw@mail.gmail.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	bombadil.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+	Gecko/20100101 Thunderbird/91.2.1
+To: Christoph Hellwig <hch@lst.de>
+References: <20211018044054.1779424-1-hch@lst.de>
+From: Eric Sandeen <sandeen@sandeen.net>
+In-Reply-To: <20211018044054.1779424-1-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -65,26 +62,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
-Cc: Jane Chu <jane.chu@oracle.com>,
-	"nvdimm@lists.linux.dev" <nvdimm@lists.linux.dev>,
-	"dave.jiang@intel.com" <dave.jiang@intel.com>,
-	"snitzer@redhat.com" <snitzer@redhat.com>,
-	"vishal.l.verma@intel.com" <vishal.l.verma@intel.com>,
-	"david@fromorbit.com" <david@fromorbit.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"willy@infradead.org" <willy@infradead.org>,
-	Christoph Hellwig <hch@infradead.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"vgoyal@redhat.com" <vgoyal@redhat.com>,
-	"djwong@kernel.org" <djwong@kernel.org>,
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-	"ira.weiny@intel.com" <ira.weiny@intel.com>,
-	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
-	"agk@redhat.com" <agk@redhat.com>
-Subject: Re: [dm-devel] [PATCH 0/6] dax poison recovery with
- RWF_RECOVERY_DATA flag
+Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
+	linux-s390@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	virtualization@lists.linux-foundation.org,
+	linux-xfs@vger.kernel.org, dm-devel@redhat.com,
+	linux-fsdevel@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+	linux-ext4@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>
+Subject: Re: [dm-devel] futher decouple DAX from block devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -98,41 +84,28 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On Tue, Nov 02, 2021 at 09:03:55AM -0700, Dan Williams wrote:
-> > why devices are built to handle them.  It is just the Intel-style
-> > pmem interface to handle them which is completely broken.
+On 10/17/21 11:40 PM, Christoph Hellwig wrote:
+> Hi Dan,
 > 
-> No, any media can report checksum / parity errors. NVME also seems to
-> do a poor job with multi-bit ECC errors consumed from DRAM. There is
-> nothing "pmem" or "Intel" specific here.
+> this series cleans up and simplifies the association between DAX and block
+> devices in preparation of allowing to mount file systems directly on DAX
+> devices without a detour through block devices.
 
-If you do get data corruption from NVMe (which yes can happen despite
-the typical very good UBER rate) you just write over it again.  You
-don't need to magically whack the underlying device.  Same for hard
-drives.
+Christoph, can I ask what the end game looks like, here? If dax is completely
+decoupled from block devices, are there user-visible changes? If I want to
+run fs-dax on a pmem device - what do I point mkfs at, if not a block device?
 
-> > Well, my point is doing recovery from bit errors is by definition not
-> > the fast path.  Which is why I'd rather keep it away from the pmem
-> > read/write fast path, which also happens to be the (much more important)
-> > non-pmem read/write path.
-> 
-> I would expect this interface to be useful outside of pmem as a
-> "failfast" or "try harder to recover" flag for reading over media
-> errors.
-
-Maybe we need to sit down and define useful semantics then?  The problem
-on the write side isn't really that the behavior with the flag is
-undefined, it is more that writes without the flag have horrible
-semantics if they don't just clear the error.
+Thanks,
+-Eric
 
 --
 dm-devel mailing list
