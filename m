@@ -1,57 +1,66 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C441A445894
-	for <lists+dm-devel@lfdr.de>; Thu,  4 Nov 2021 18:36:25 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9774F4458ED
+	for <lists+dm-devel@lfdr.de>; Thu,  4 Nov 2021 18:48:43 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-175-8WtBTi1HM3WuOqNUY8JDUQ-1; Thu, 04 Nov 2021 13:36:23 -0400
-X-MC-Unique: 8WtBTi1HM3WuOqNUY8JDUQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-148-W9Dv0XLTMYi5F7B_bU0zyg-1; Thu, 04 Nov 2021 13:48:41 -0400
+X-MC-Unique: W9Dv0XLTMYi5F7B_bU0zyg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7F68AA40D8;
-	Thu,  4 Nov 2021 17:36:17 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 195511B2C986;
+	Thu,  4 Nov 2021 17:48:35 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A903560C13;
-	Thu,  4 Nov 2021 17:36:16 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A0FAF19C79;
+	Thu,  4 Nov 2021 17:48:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 99E4D1806D03;
-	Thu,  4 Nov 2021 17:36:13 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AFCF81806D03;
+	Thu,  4 Nov 2021 17:48:32 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1A4Ha9VV005864 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 4 Nov 2021 13:36:09 -0400
+	id 1A4Hhh26006500 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 4 Nov 2021 13:43:44 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 215D42026D69; Thu,  4 Nov 2021 17:36:09 +0000 (UTC)
+	id 81D312026D46; Thu,  4 Nov 2021 17:43:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1BD562026D67
-	for <dm-devel@redhat.com>; Thu,  4 Nov 2021 17:36:06 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1401F811E76
-	for <dm-devel@redhat.com>; Thu,  4 Nov 2021 17:36:06 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-273-wzuMaOWRPr2Nynony8JOhg-1;
-	Thu, 04 Nov 2021 13:36:02 -0400
-X-MC-Unique: wzuMaOWRPr2Nynony8JOhg-1
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id ACAA76732D; Thu,  4 Nov 2021 18:35:59 +0100 (CET)
-Date: Thu, 4 Nov 2021 18:35:59 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Message-ID: <20211104173559.GB31740@lst.de>
-References: <20211018044054.1779424-1-hch@lst.de>
-	<21ff4333-e567-2819-3ae0-6a2e83ec7ce6@sandeen.net>
-	<20211104081740.GA23111@lst.de> <20211104173417.GJ2237511@magnolia>
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 79B9B2026D67
+	for <dm-devel@redhat.com>; Thu,  4 Nov 2021 17:43:40 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9AFA7899EC2
+	for <dm-devel@redhat.com>; Thu,  4 Nov 2021 17:43:40 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-510-WkIgtd11NHeEnOdWgkAWgg-1; Thu, 04 Nov 2021 13:43:36 -0400
+X-MC-Unique: WkIgtd11NHeEnOdWgkAWgg-1
+Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
+	Hat Linux)) id 1migln-009hiW-DT; Thu, 04 Nov 2021 17:43:23 +0000
+Date: Thu, 4 Nov 2021 10:43:23 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Dan Williams <dan.j.williams@intel.com>
+Message-ID: <YYQbu6dOCVB7yS02@infradead.org>
+References: <YXJN4s1HC/Y+KKg1@infradead.org>
+	<2102a2e6-c543-2557-28a2-8b0bdc470855@oracle.com>
+	<YXj2lwrxRxHdr4hb@infradead.org>
+	<20211028002451.GB2237511@magnolia>
+	<YYDYUCCiEPXhZEw0@infradead.org>
+	<CAPcyv4j8snuGpy=z6BAXogQkP5HmTbqzd6e22qyERoNBvFKROw@mail.gmail.com>
+	<YYK/tGfpG0CnVIO4@infradead.org>
+	<CAPcyv4it2_PVaM8z216AXm6+h93frg79WM-ziS9To59UtEQJTA@mail.gmail.com>
+	<YYOaOBKgFQYzT/s/@infradead.org>
+	<CAPcyv4jKHH7H+PmcsGDxsWA5CS_U3USHM8cT1MhoLk72fa9z8Q@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20211104173417.GJ2237511@magnolia>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+In-Reply-To: <CAPcyv4jKHH7H+PmcsGDxsWA5CS_U3USHM8cT1MhoLk72fa9z8Q@mail.gmail.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -62,15 +71,24 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
-	linux-s390@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	Eric Sandeen <sandeen@sandeen.net>,
-	virtualization@lists.linux-foundation.org,
-	linux-xfs@vger.kernel.org, dm-devel@redhat.com,
-	linux-fsdevel@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
-	linux-ext4@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>,
-	Christoph Hellwig <hch@lst.de>
-Subject: Re: [dm-devel] futher decouple DAX from block devices
+Cc: Jane Chu <jane.chu@oracle.com>,
+	"nvdimm@lists.linux.dev" <nvdimm@lists.linux.dev>,
+	"dave.jiang@intel.com" <dave.jiang@intel.com>,
+	"snitzer@redhat.com" <snitzer@redhat.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	"david@fromorbit.com" <david@fromorbit.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"willy@infradead.org" <willy@infradead.org>,
+	Christoph Hellwig <hch@infradead.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"vgoyal@redhat.com" <vgoyal@redhat.com>,
+	"vishal.l.verma@intel.com" <vishal.l.verma@intel.com>,
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+	"ira.weiny@intel.com" <ira.weiny@intel.com>,
+	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
+	"agk@redhat.com" <agk@redhat.com>
+Subject: Re: [dm-devel] [PATCH 0/6] dax poison recovery with
+ RWF_RECOVERY_DATA flag
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,7 +102,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -93,18 +111,48 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 04, 2021 at 10:34:17AM -0700, Darrick J. Wong wrote:
-> /me wonders, are block devices going away?  Will mkfs.xfs have to learn
-> how to talk to certain chardevs?  I guess jffs2 and others already do
-> that kind of thing... but I suppose I can wait for the real draft to
-> show up to ramble further. ;)
+On Thu, Nov 04, 2021 at 09:24:15AM -0700, Dan Williams wrote:
+> No, the big difference with every other modern storage device is
+> access to byte-addressable storage. Storage devices get to "cheat"
+> with guaranteed minimum 512-byte accesses. So you can arrange for
+> writes to always be large enough to scrub the ECC bits along with the
+> data. For PMEM and byte-granularity DAX accesses the "sector size" is
+> a cacheline and it needed a new CPU instruction before software could
+> atomically update data + ECC. Otherwise, with sub-cacheline accesses,
+> a RMW cycle can't always be avoided. Such a cycle pulls poison from
+> the device on the read and pushes it back out to the media on the
+> cacheline writeback.
 
-Right now I've mostly been looking into the kernel side.  An no, I
-do not expect /dev/pmem* to go away as you'll still need it for a
-not DAX aware file system and/or application (such as mkfs initially).
+Indeed.  The fake byte addressability is indeed the problem, and the
+fix is to not do that, at least on the second attempt.
 
-But yes, just pointing mkfs to the chardev should be doable with very
-little work.  We can point it to a regular file after all.
+> I don't understand what overprovisioning has to do with better error
+> management? No other storage device has seen fit to be as transparent
+> with communicating the error list and offering ways to proactively
+> scrub it. Dave and Darrick rightly saw this and said "hey, the FS
+> could do a much better job for the user if it knew about this error
+> list". So I don't get what this argument about spare blocks has to do
+> with what XFS wants? I.e. an rmap facility to communicate files that
+> have been clobbered by cosmic rays and other calamities.
+
+Well, the answer for other interfaces (at least at the gold plated
+cost option) is so strong internal CRCs that user visible bits clobbered
+by cosmic rays don't realisticly happen.  But it is a problem with the
+cheaper ones, and at least SCSI and NVMe offer the error list through
+the Get LBA status command (and I bet ATA too, but I haven't looked into
+that).  Oddly enough there has never been much interested from the
+fs community for those.
+
+> > So far out of the low instrusiveness options Janes' previous series
+> > to automatically retry after calling a clear_poison operation seems
+> > like the best idea so far.  We just need to also think about what
+> > we want to do for direct users of ->direct_access that do not use
+> > the mcsafe iov_iter helpers.
+> 
+> Those exist? Even dm-writecache uses copy_mc_to_kernel().
+
+I'm sorry, I have completely missed that it has been added.  And it's
+been in for a whole year..
 
 --
 dm-devel mailing list
