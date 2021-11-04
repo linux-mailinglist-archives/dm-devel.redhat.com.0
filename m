@@ -1,57 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0831445879
-	for <lists+dm-devel@lfdr.de>; Thu,  4 Nov 2021 18:34:52 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C441A445894
+	for <lists+dm-devel@lfdr.de>; Thu,  4 Nov 2021 18:36:25 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-376-pjanItiSOiqjf1it2RY6WA-1; Thu, 04 Nov 2021 13:34:50 -0400
-X-MC-Unique: pjanItiSOiqjf1it2RY6WA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-175-8WtBTi1HM3WuOqNUY8JDUQ-1; Thu, 04 Nov 2021 13:36:23 -0400
+X-MC-Unique: 8WtBTi1HM3WuOqNUY8JDUQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5681410A8E01;
-	Thu,  4 Nov 2021 17:34:44 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2FB545F4F5;
-	Thu,  4 Nov 2021 17:34:44 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7F68AA40D8;
+	Thu,  4 Nov 2021 17:36:17 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A903560C13;
+	Thu,  4 Nov 2021 17:36:16 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 527F54EA30;
-	Thu,  4 Nov 2021 17:34:42 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.1])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 99E4D1806D03;
+	Thu,  4 Nov 2021 17:36:13 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1A4HYclo005514 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 4 Nov 2021 13:34:38 -0400
+	id 1A4Ha9VV005864 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 4 Nov 2021 13:36:09 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2073840CFD10; Thu,  4 Nov 2021 17:34:38 +0000 (UTC)
+	id 215D42026D69; Thu,  4 Nov 2021 17:36:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B5FB40CFD0A
-	for <dm-devel@redhat.com>; Thu,  4 Nov 2021 17:34:37 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C31C91064FB7
-	for <dm-devel@redhat.com>; Thu,  4 Nov 2021 17:34:37 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1BD562026D67
+	for <dm-devel@redhat.com>; Thu,  4 Nov 2021 17:36:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1401F811E76
+	for <dm-devel@redhat.com>; Thu,  4 Nov 2021 17:36:06 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-216-UhYsJHn6MF24tTUzjzbdVg-1;
-	Thu, 04 Nov 2021 13:34:36 -0400
-X-MC-Unique: UhYsJHn6MF24tTUzjzbdVg-1
+	relay.mimecast.com with ESMTP id us-mta-273-wzuMaOWRPr2Nynony8JOhg-1;
+	Thu, 04 Nov 2021 13:36:02 -0400
+X-MC-Unique: wzuMaOWRPr2Nynony8JOhg-1
 Received: by verein.lst.de (Postfix, from userid 2407)
-	id 64F956732D; Thu,  4 Nov 2021 18:34:31 +0100 (CET)
-Date: Thu, 4 Nov 2021 18:34:31 +0100
+	id ACAA76732D; Thu,  4 Nov 2021 18:35:59 +0100 (CET)
+Date: Thu, 4 Nov 2021 18:35:59 +0100
 From: Christoph Hellwig <hch@lst.de>
 To: "Darrick J. Wong" <djwong@kernel.org>
-Message-ID: <20211104173431.GA31740@lst.de>
-References: <20211104064634.4481-1-chaitanyak@nvidia.com>
-	<20211104071439.GA21927@lst.de>
-	<661bcadd-a030-4a72-81ae-ef15080f0241@nvidia.com>
-	<20211104173235.GI2237511@magnolia>
+Message-ID: <20211104173559.GB31740@lst.de>
+References: <20211018044054.1779424-1-hch@lst.de>
+	<21ff4333-e567-2819-3ae0-6a2e83ec7ce6@sandeen.net>
+	<20211104081740.GA23111@lst.de> <20211104173417.GJ2237511@magnolia>
 MIME-Version: 1.0
-In-Reply-To: <20211104173235.GI2237511@magnolia>
+In-Reply-To: <20211104173417.GJ2237511@magnolia>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -61,45 +60,17 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: "snitzer@redhat.com" <snitzer@redhat.com>,
-	"ebiggers@google.com" <ebiggers@google.com>,
-	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
-	"song@kernel.org" <song@kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"target-devel@vger.kernel.org" <target-devel@vger.kernel.org>,
-	"adilger.kernel@dilger.ca" <adilger.kernel@dilger.ca>,
-	Christoph Hellwig <hch@lst.de>, "agk@redhat.com" <agk@redhat.com>,
-	"javier@javigon.com" <javier@javigon.com>,
-	"bvanassche@acm.org" <bvanassche@acm.org>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	"dongli.zhang@oracle.com" <dongli.zhang@oracle.com>,
-	"willy@infradead.org" <willy@infradead.org>,
-	"osandov@fb.com" <osandov@fb.com>,
-	"danil.kipnis@cloud.ionos.com" <danil.kipnis@cloud.ionos.com>,
-	"idryomov@gmail.com" <idryomov@gmail.com>,
-	"jinpu.wang@cloud.ionos.com" <jinpu.wang@cloud.ionos.com>,
-	Chaitanya Kulkarni <chaitanyak@nvidia.com>,
-	"jejb@linux.ibm.com" <jejb@linux.ibm.com>,
-	"josef@toxicpanda.com" <josef@toxicpanda.com>,
-	"ming.lei@redhat.com" <ming.lei@redhat.com>,
-	"linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>,
-	"dsterba@suse.com" <dsterba@suse.com>,
-	"viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>,
-	"kbusch@kernel.org" <kbusch@kernel.org>,
-	"sagi@grimberg.me" <sagi@grimberg.me>, "axboe@kernel.dk" <axboe@kernel.dk>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"tytso@mit.edu" <tytso@mit.edu>,
-	"martin.petersen@oracle.com" <martin.petersen@oracle.com>,
-	"clm@fb.com" <clm@fb.com>,
-	"johannes.thumshirn@wdc.com" <johannes.thumshirn@wdc.com>,
-	"jlayton@kernel.org" <jlayton@kernel.org>,
-	"linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
-	"jefflexu@linux.alibaba.com" <jefflexu@linux.alibaba.com>,
-	"jack@suse.com" <jack@suse.com>,
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>
-Subject: Re: [dm-devel] [RFC PATCH 0/8] block: add support for REQ_OP_VERIFY
+Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
+	linux-s390@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	Eric Sandeen <sandeen@sandeen.net>,
+	virtualization@lists.linux-foundation.org,
+	linux-xfs@vger.kernel.org, dm-devel@redhat.com,
+	linux-fsdevel@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+	linux-ext4@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>,
+	Christoph Hellwig <hch@lst.de>
+Subject: Re: [dm-devel] futher decouple DAX from block devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -113,7 +84,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -122,16 +93,18 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 04, 2021 at 10:32:35AM -0700, Darrick J. Wong wrote:
-> I also wonder if it would be useful (since we're already having a
-> discussion elsewhere about data integrity syscalls for pmem) to be able
-> to call this sort of thing against files?  In which case we'd want
-> another preadv2 flag or something, and then plumb all that through the
-> vfs/iomap as needed?
+On Thu, Nov 04, 2021 at 10:34:17AM -0700, Darrick J. Wong wrote:
+> /me wonders, are block devices going away?  Will mkfs.xfs have to learn
+> how to talk to certain chardevs?  I guess jffs2 and others already do
+> that kind of thing... but I suppose I can wait for the real draft to
+> show up to ramble further. ;)
 
-IFF we do this (can't answer if there is a need) we should not
-overload read with it.  It is an operation that does not return
-data but just a status, so let's not get into that mess.
+Right now I've mostly been looking into the kernel side.  An no, I
+do not expect /dev/pmem* to go away as you'll still need it for a
+not DAX aware file system and/or application (such as mkfs initially).
+
+But yes, just pointing mkfs to the chardev should be doable with very
+little work.  We can point it to a regular file after all.
 
 --
 dm-devel mailing list
