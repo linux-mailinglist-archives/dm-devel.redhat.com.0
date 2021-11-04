@@ -1,94 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05F924463F8
-	for <lists+dm-devel@lfdr.de>; Fri,  5 Nov 2021 14:18:28 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EB344463F0
+	for <lists+dm-devel@lfdr.de>; Fri,  5 Nov 2021 14:16:01 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-291-QYI6CMmsOPuz8dw7FkTBjw-1; Fri, 05 Nov 2021 09:18:24 -0400
-X-MC-Unique: QYI6CMmsOPuz8dw7FkTBjw-1
+ us-mta-604-XFYeXNJDOXm-rhJzI6ZrWA-1; Fri, 05 Nov 2021 09:15:58 -0400
+X-MC-Unique: XFYeXNJDOXm-rhJzI6ZrWA-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 87DB887504C;
-	Fri,  5 Nov 2021 13:18:18 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 374A41868417;
+	Fri,  5 Nov 2021 13:15:42 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6426B5B826;
-	Fri,  5 Nov 2021 13:18:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AB3C96A222;
+	Fri,  5 Nov 2021 13:15:39 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 606944EA2F;
-	Fri,  5 Nov 2021 13:18:17 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 692794EA2A;
+	Fri,  5 Nov 2021 13:15:31 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1A4CYJt5004325 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 4 Nov 2021 08:34:19 -0400
+	id 1A4FMf44020806 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 4 Nov 2021 11:22:41 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id AA1692166B26; Thu,  4 Nov 2021 12:34:19 +0000 (UTC)
+	id 7811D21568A4; Thu,  4 Nov 2021 15:22:41 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A3F632166B25
-	for <dm-devel@redhat.com>; Thu,  4 Nov 2021 12:34:16 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6C26221568A1
+	for <dm-devel@redhat.com>; Thu,  4 Nov 2021 15:22:34 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1D87F811E99
+	for <dm-devel@redhat.com>; Thu,  4 Nov 2021 15:22:34 +0000 (UTC)
+Received: from mail-1.ca.inter.net (mail-1.ca.inter.net [208.85.220.69]) by
+	relay.mimecast.com with ESMTP id us-mta-269-BE3Pb5BNMuK7s9m8aaTLNQ-1;
+	Thu, 04 Nov 2021 11:22:30 -0400
+X-MC-Unique: BE3Pb5BNMuK7s9m8aaTLNQ-1
+Received: from mp-mx11.ca.inter.net (mp-mx11.ca.inter.net [208.85.217.19])
+	by mail-1.ca.inter.net (Postfix) with ESMTP id 61BD72EA1BD;
+	Thu,  4 Nov 2021 11:16:45 -0400 (EDT)
+Received: from mail-1.ca.inter.net ([208.85.220.69])
+	by mp-mx11.ca.inter.net (mp-mx11.ca.inter.net [208.85.217.19])
+	(amavisd-new, port 10024)
+	with ESMTP id eveuZKOwWI_I; Thu,  4 Nov 2021 11:16:44 -0400 (EDT)
+Received: from [192.168.48.23] (host-45-58-208-241.dyn.295.ca [45.58.208.241])
+	(using TLSv1 with cipher AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9F3E8899EC3
-	for <dm-devel@redhat.com>; Thu,  4 Nov 2021 12:34:16 +0000 (UTC)
-Received: from esa3.hgst.iphmx.com (esa3.hgst.iphmx.com [216.71.153.141])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-364-wgvqclfePgqRtbD340bNkA-2; Thu, 04 Nov 2021 08:34:15 -0400
-X-MC-Unique: wgvqclfePgqRtbD340bNkA-2
-X-IronPort-AV: E=Sophos;i="5.87,208,1631548800"; d="scan'208";a="189493701"
-Received: from h199-255-45-14.hgst.com (HELO uls-op-cesaep01.wdc.com)
-	([199.255.45.14])
-	by ob1.hgst.iphmx.com with ESMTP; 04 Nov 2021 20:33:08 +0800
-IronPort-SDR: dmhnRkl9ubN5OtKbX0+5iWlM17PCgbmqjbdG7uKdPCkpR0o8NxylqHF8pPMhc7upjr2Sf/U3g/
-	w3RnYIrlVag2ZK37JzqkW8Vko0LjVrCmW+B++tonJ870ugIkJYM4O81fC8r6EGoZ88NLWjU7wI
-	ZsJ66djn40YtG8wIqW77Nj0NwOPk4yjrtnRcwXK9ZxwK+PWjNK+67wkKC6GMXa3+8RWjcJVaJ8
-	TEn8yPTvss1BQoc+iOtTZIBO4sdThs1RvkeM6GXpY3ATob+mSydx+2CeRsnqFwv369dtXg7nPT
-	FnUp4tFsdTFufHTKomJhxJg/
-Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
-	by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	04 Nov 2021 05:08:27 -0700
-IronPort-SDR: K3a7oRnmuf1tN3WAHYy2WqsdLU261ZpacoeEOS0+n/tpLxI5DBowlABX1bVjEWiC52iYJJK+Nk
-	ujLOdFlbDnBSbBo51u8EprmGjcXWRiAdN6H9CN+DNxNFP0Nhq/GYVdM8e7fQw7dv8bRHT00VaC
-	La6Jtcg+bsaSYNR+p6CtoFPTHXWjZHO3+Olvvw3VQg0/NmSsIKiSJiyV0uB3lqYITePDuRFuJG
-	0YLc3tv/mJwa4hu3S2GG6+ZRmRB/hlD3sAkkBitQ00Z8wydIoMeWgvjQRelCY531RMlzYZ0AIs
-	MuE=
-WDCIronportException: Internal
-Received: from usg-ed-osssrv.wdc.com ([10.3.10.180])
-	by uls-op-cesaip02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	04 Nov 2021 05:33:09 -0700
-Received: from usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1])
-	by usg-ed-osssrv.wdc.com (Postfix) with ESMTP id 4HlNMm72vhz1RtVx
-	for <dm-devel@redhat.com>; Thu,  4 Nov 2021 05:33:08 -0700 (PDT)
-X-Virus-Scanned: amavisd-new at usg-ed-osssrv.wdc.com
-Received: from usg-ed-osssrv.wdc.com ([127.0.0.1])
-	by usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1])
-	(amavisd-new, port 10026)
-	with ESMTP id trtzx6nmejvD for <dm-devel@redhat.com>;
-	Thu,  4 Nov 2021 05:33:07 -0700 (PDT)
-Received: from [10.225.54.48] (unknown [10.225.54.48])
-	by usg-ed-osssrv.wdc.com (Postfix) with ESMTPSA id 4HlNMd5TBrz1RtVl;
-	Thu,  4 Nov 2021 05:33:01 -0700 (PDT)
-Message-ID: <bd36ee58-8273-cd0a-295e-0c66b0142bcd@opensource.wdc.com>
-Date: Thu, 4 Nov 2021 21:33:00 +0900
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
-	Gecko/20100101 Thunderbird/91.2.1
+	(Authenticated sender: dgilbert@interlog.com)
+	by mail-1.ca.inter.net (Postfix) with ESMTPSA id 78D192EA1A2;
+	Thu,  4 Nov 2021 11:16:42 -0400 (EDT)
 To: Chaitanya Kulkarni <chaitanyak@nvidia.com>, linux-block@vger.kernel.org,
 	linux-raid@vger.kernel.org, linux-nvme@lists.infradead.org,
 	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org, linux-xfs@vger.kernel.org,
 	dm-devel@redhat.com
 References: <20211104064634.4481-1-chaitanyak@nvidia.com>
-	<20211104064634.4481-3-chaitanyak@nvidia.com>
-From: Damien Le Moal <damien.lemoal@opensource.wdc.com>
-Organization: Western Digital
-In-Reply-To: <20211104064634.4481-3-chaitanyak@nvidia.com>
+From: Douglas Gilbert <dgilbert@interlog.com>
+Message-ID: <7f734d14-c107-daa3-aaa8-0eda3c592add@interlog.com>
+Date: Thu, 4 Nov 2021 11:16:41 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+	Thunderbird/78.13.0
+MIME-Version: 1.0
+In-Reply-To: <20211104064634.4481-1-chaitanyak@nvidia.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -112,10 +89,11 @@ Cc: snitzer@redhat.com, ebiggers@google.com, djwong@kernel.org, clm@fb.com,
 	martin.petersen@oracle.com, song@kernel.org,
 	johannes.thumshirn@wdc.com, jlayton@kernel.org,
 	kbusch@kernel.org, jack@suse.com
-Subject: Re: [dm-devel] [RFC PATCH 2/8] scsi: add REQ_OP_VERIFY support
+Subject: Re: [dm-devel] [RFC PATCH 0/8] block: add support for REQ_OP_VERIFY
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
+Reply-To: dgilbert@interlog.com
 List-Id: device-mapper development <dm-devel.redhat.com>
 List-Unsubscribe: <https://listman.redhat.com/mailman/options/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=unsubscribe>
@@ -131,170 +109,154 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
+Content-Language: en-CA
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On 2021/11/04 15:46, Chaitanya Kulkarni wrote:
+On 2021-11-04 2:46 a.m., Chaitanya Kulkarni wrote:
 > From: Chaitanya Kulkarni <kch@nvidia.com>
 > 
-> Signed-off-by: Chaitanya Kulkarni <kch@nvidia.com>
-> ---
->  drivers/scsi/sd.c | 52 +++++++++++++++++++++++++++++++++++++++++++++++
->  drivers/scsi/sd.h |  1 +
->  2 files changed, 53 insertions(+)
+> Hi,
 > 
-> diff --git a/drivers/scsi/sd.c b/drivers/scsi/sd.c
-> index a3d2d4bc4a3d..7f2c4eb98cf8 100644
-> --- a/drivers/scsi/sd.c
-> +++ b/drivers/scsi/sd.c
-> @@ -106,6 +106,7 @@ MODULE_ALIAS_SCSI_DEVICE(TYPE_ZBC);
->  
->  static void sd_config_discard(struct scsi_disk *, unsigned int);
->  static void sd_config_write_same(struct scsi_disk *);
-> +static void sd_config_verify(struct scsi_disk *sdkp);
->  static int  sd_revalidate_disk(struct gendisk *);
->  static void sd_unlock_native_capacity(struct gendisk *disk);
->  static int  sd_probe(struct device *);
-> @@ -995,6 +996,41 @@ static blk_status_t sd_setup_write_zeroes_cmnd(struct scsi_cmnd *cmd)
->  	return sd_setup_write_same10_cmnd(cmd, false);
->  }
->  
-> +static void sd_config_verify(struct scsi_disk *sdkp)
-> +{
-> +	struct request_queue *q = sdkp->disk->queue;
-> +
-> +	/* XXX: use same pattern as sd_config_write_same(). */
-> +	blk_queue_max_verify_sectors(q, UINT_MAX >> 9);
-
-VERIFY 10, 12, 16 and 32 commands are optional and may not be implemented by a
-device. So setting this unconditionally is wrong.
-At the very least you must have an "if (sdkp->verify_16)" here, and call
-"blk_queue_max_verify_sectors(q, 0);" if the device does not support verify.
-
-> +}
-> +
-> +static blk_status_t sd_setup_verify_cmnd(struct scsi_cmnd *cmd)
-> +{
-> +       struct request *rq = cmd->request;
-> +       struct scsi_device *sdp = cmd->device;
-> +       struct scsi_disk *sdkp = scsi_disk(rq->rq_disk);
-> +       u64 lba = sectors_to_logical(sdp, blk_rq_pos(rq));
-> +       u32 nr_blocks = sectors_to_logical(sdp, blk_rq_sectors(rq));
-> +
-> +       if (!sdkp->verify_16)
-> +	       return BLK_STS_NOTSUPP;
-
-I think this should be "return BLK_STS_TARGET;"
-
-> +
-> +       cmd->cmd_len = 16;
-> +       cmd->cmnd[0] = VERIFY_16;
-
-And what if the device supports VERIFY 10 or 12 but not VERIFY 16 ?
-
-> +       /* skip veprotect / dpo / bytchk */
-> +       cmd->cmnd[1] = 0;
-> +       put_unaligned_be64(lba, &cmd->cmnd[2]);
-> +       put_unaligned_be32(nr_blocks, &cmd->cmnd[10]);
-> +       cmd->cmnd[14] = 0;
-> +       cmd->cmnd[15] = 0;
-> +
-> +       cmd->allowed = SD_MAX_RETRIES;
-> +       cmd->sc_data_direction = DMA_NONE;
-> +       cmd->transfersize = 0;
-> +
-> +       return BLK_STS_OK;
-> +}
-> +
->  static void sd_config_write_same(struct scsi_disk *sdkp)
->  {
->  	struct request_queue *q = sdkp->disk->queue;
-> @@ -1345,6 +1381,8 @@ static blk_status_t sd_init_command(struct scsi_cmnd *cmd)
->  		}
->  	case REQ_OP_WRITE_ZEROES:
->  		return sd_setup_write_zeroes_cmnd(cmd);
-> +	case REQ_OP_VERIFY:
-> +		return sd_setup_verify_cmnd(cmd);
->  	case REQ_OP_WRITE_SAME:
->  		return sd_setup_write_same_cmnd(cmd);
->  	case REQ_OP_FLUSH:
-> @@ -2029,6 +2067,7 @@ static int sd_done(struct scsi_cmnd *SCpnt)
->  	switch (req_op(req)) {
->  	case REQ_OP_DISCARD:
->  	case REQ_OP_WRITE_ZEROES:
-> +	case REQ_OP_VERIFY:
->  	case REQ_OP_WRITE_SAME:
->  	case REQ_OP_ZONE_RESET:
->  	case REQ_OP_ZONE_RESET_ALL:
-> @@ -3096,6 +3135,17 @@ static void sd_read_write_same(struct scsi_disk *sdkp, unsigned char *buffer)
->  		sdkp->ws10 = 1;
->  }
->  
-> +static void sd_read_verify(struct scsi_disk *sdkp, unsigned char *buffer)
-> +{
-> +       struct scsi_device *sdev = sdkp->device;
-> +
-> +       sd_printk(KERN_INFO, sdkp, "VERIFY16 check.\n");
-
-Remove this message please.
-
-> +       if (scsi_report_opcode(sdev, buffer, SD_BUF_SIZE, VERIFY_16) == 1) {
-> +	       sd_printk(KERN_INFO, sdkp, " VERIFY16 in ON .\n");
-
-And this one too.
-
-> +               sdkp->verify_16 = 1;
-
-Why not checking for VERIFY 10 and 12 if VERIFY 16 is not supported ?
-Also, why don't you call "blk_queue_max_verify_sectors(q, UINT_MAX >> 9);" here
-instead of adding the not so useful sd_config_verify() helper ?
-
-> +       }
-> +}
-> +
->  static void sd_read_security(struct scsi_disk *sdkp, unsigned char *buffer)
->  {
->  	struct scsi_device *sdev = sdkp->device;
-> @@ -3224,6 +3274,7 @@ static int sd_revalidate_disk(struct gendisk *disk)
->  		sd_read_cache_type(sdkp, buffer);
->  		sd_read_app_tag_own(sdkp, buffer);
->  		sd_read_write_same(sdkp, buffer);
-> +		sd_read_verify(sdkp, buffer);
->  		sd_read_security(sdkp, buffer);
->  	}
->  
-> @@ -3265,6 +3316,7 @@ static int sd_revalidate_disk(struct gendisk *disk)
->  
->  	set_capacity_and_notify(disk, logical_to_sectors(sdp, sdkp->capacity));
->  	sd_config_write_same(sdkp);
-> +	sd_config_verify(sdkp);
->  	kfree(buffer);
->  
->  	/*
-> diff --git a/drivers/scsi/sd.h b/drivers/scsi/sd.h
-> index b59136c4125b..94a86bf6dac4 100644
-> --- a/drivers/scsi/sd.h
-> +++ b/drivers/scsi/sd.h
-> @@ -120,6 +120,7 @@ struct scsi_disk {
->  	unsigned	lbpvpd : 1;
->  	unsigned	ws10 : 1;
->  	unsigned	ws16 : 1;
-> +	unsigned        verify_16 : 1;
-
-See right above this line how write same supports the 10 and 16 variants. I
-think you need the same here. And very likely, you also need the 32 version in
-case the device has DIF/DIX (type 2 protection).
-
->  	unsigned	rc_basis: 2;
->  	unsigned	zoned: 2;
->  	unsigned	urswrz : 1;
+> One of the responsibilities of the Operating System, along with managing
+> resources, is to provide a unified interface to the user by creating
+> hardware abstractions. In the Linux Kernel storage stack that
+> abstraction is created by implementing the generic request operations
+> such as REQ_OP_READ/REQ_OP_WRITE or REQ_OP_DISCARD/REQ_OP_WRITE_ZEROES,
+> etc that are mapped to the specific low-level hardware protocol commands
+> e.g. SCSI or NVMe.
 > 
+> With that in mind, this RFC patch-series implements a new block layer
+> operation to offload the data verification on to the controller if
+> supported or emulate the operation if not. The main advantage is to free
+> up the CPU and reduce the host link traffic since, for some devices,
+> their internal bandwidth is higher than the host link and offloading this
+> operation can improve the performance of the proactive error detection
+> applications such as file system level scrubbing.
+> 
+> * Background *
+> -----------------------------------------------------------------------
+> 
+> NVMe Specification provides a controller level Verify command [1] which
+> is similar to the ATA Verify [2] command where the controller is
+> responsible for data verification without transferring the data to the
+> host. (Offloading LBAs verification). This is designed to proactively
+> discover any data corruption issues when the device is free so that
+> applications can protect sensitive data and take corrective action
+> instead of waiting for failure to occur.
+> 
+> The NVMe Verify command is added in order to provide low level media
+> scrubbing and possibly moving the data to the right place in case it has
+> correctable media degradation. Also, this provides a way to enhance
+> file-system level scrubbing/checksum verification and optinally offload
+> this task, which is CPU intensive, to the kernel (when emulated), over
+> the fabric, and to the controller (when supported).
+> 
+> This is useful when the controller's internal bandwidth is higher than
+> the host's bandwith showing a sharp increase in the performance due to
+> _no host traffic or host CPU involvement_.
+> 
+> * Implementation *
+> -----------------------------------------------------------------------
+> 
+> Right now there is no generic interface which can be used by the
+> in-kernel components such as file-system or userspace application
+> (except passthru commands or some combination of write/read/compare) to
+> issue verify command with the central block layer API. This can lead to
+> each userspace applications having protocol specific IOCTL which
+> defeates the purpose of having the OS provide a H/W abstraction.
+> 
+> This patch series introduces a new block layer payloadless request
+> operation REQ_OP_VERIFY that allows in-kernel components & userspace
+> applications to verify the range of the LBAs by offloading checksum
+> scrubbing/verification to the controller that is directly attached to
+> the host. For direct attached devices this leads to decrease in the host
+> DMA traffic and CPU usage and for the fabrics attached device over the
+> network that leads to a decrease in the network traffic and CPU usage
+> for both host & target.
+> 
+> * Scope *
+> -----------------------------------------------------------------------
+> 
+> Please note this only covers the operating system level overhead.
+> Analyzing controller verify command performance for common protocols
+> (SCSI/NVMe) is out of scope for REQ_OP_VERIFY.
+> 
+> * Micro Benchmarks *
+> -----------------------------------------------------------------------
+> 
+> When verifing 500GB of data on NVMeOF with nvme-loop and null_blk as a
+> target backend block device results show almost a 80% performance
+> increase :-
+> 
+> With Verify resulting in REQ_OP_VERIFY to null_blk :-
+> 
+> real	2m3.773s
+> user	0m0.000s
+> sys	0m59.553s
+> 
+> With Emulation resulting in REQ_OP_READ null_blk :-
+> 
+> real	12m18.964s
+> user	0m0.002s
+> sys	1m15.666s
+> 
+> 
+> A detailed test log is included at the end of the cover letter.
+> Each of the following was tested:
+> 
+> 1. Direct Attached REQ_OP_VERIFY.
+> 2. Fabrics Attached REQ_OP_VERIFY.
+> 3. Multi-device (md) REQ_OP_VERIFY.
+> 
+> * The complete picture *
+> -----------------------------------------------------------------------
+> 
+>    For the completeness the whole kernel stack support is divided into
+>    two phases :-
+>   
+>    Phase I :-
+>   
+>     Add and stabilize the support for the Block layer & low level drivers
+>     such as SCSI, NVMe, MD, and NVMeOF, implement necessary emulations in
+>     the block layer if needed and provide block level tools such as
+>     _blkverify_. Also, add appropriate testcases for code-coverage.
+> 
+>    Phase II :-
+>   
+>     Add and stabilize the support for upper layer kernel components such
+>     as file-systems and provide userspace tools such _fsverify_ to route
+>     the request from file systems to block layer to Low level device
+>     drivers.
+> 
+> 
+> Please note that the interfaces for blk-lib.c REQ_OP_VERIFY emulation
+> will change in future I put together for the scope of RFC.
+> 
+> Any comments are welcome.
+
+Hi,
+You may also want to consider higher level support for the NVME COMPARE
+and SCSI VERIFY(BYTCHK=1) commands. Since PCIe and SAS transports are
+full duplex, replacing two READs (plus a memcmp in host memory) with
+one READ and one COMPARE may be a win on a bandwidth constrained
+system. It is a safe to assume the data-in transfers on a storage transport
+exceed (probably by a significant margin) the data-out transfers. An
+offloaded COMPARE switches one of those data-in transfers to a data-out
+transfer, so it should improve the bandwidth utilization.
+
+I did some brief benchmarking on a NVME SSD's COMPARE command (its optional)
+and the results were underwhelming. OTOH using my own dd variants (which
+can do compare instead of copy) and a scsi_debug target (i.e. RAM) I have
+seen compare times of > 15 GBps while a copy rarely exceeds 9 GBps.
 
 
--- 
-Damien Le Moal
-Western Digital Research
+BTW The SCSI VERIFY(BYTCHK=3) command compares one block sent from
+the host with a sequence of logical blocks on the media. So, for example,
+it would be a quick way of checking that a sequence of blocks contained
+zero-ed data.
+
+Doug Gilbert
 
 --
 dm-devel mailing list
