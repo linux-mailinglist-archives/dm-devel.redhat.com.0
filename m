@@ -2,132 +2,150 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A902446B2B
-	for <lists+dm-devel@lfdr.de>; Sat,  6 Nov 2021 00:20:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55FC3446FB7
+	for <lists+dm-devel@lfdr.de>; Sat,  6 Nov 2021 19:07:07 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-297-XqxJD0gyMD2UE1vqjwW81w-1; Fri, 05 Nov 2021 19:20:31 -0400
-X-MC-Unique: XqxJD0gyMD2UE1vqjwW81w-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-373-yCQmLytaOLCm5GMmjrrShQ-1; Sat, 06 Nov 2021 14:07:04 -0400
+X-MC-Unique: yCQmLytaOLCm5GMmjrrShQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4F085100F942;
-	Fri,  5 Nov 2021 23:20:24 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BE63987D542;
+	Sat,  6 Nov 2021 18:06:58 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1505B100164A;
-	Fri,  5 Nov 2021 23:20:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B43867846;
+	Sat,  6 Nov 2021 18:06:58 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 84DEA4A703;
-	Fri,  5 Nov 2021 23:20:17 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 81DC94E58F;
+	Sat,  6 Nov 2021 18:06:57 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1A5NK9H2003104 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 5 Nov 2021 19:20:10 -0400
+	id 1A6I6rGT012566 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 6 Nov 2021 14:06:53 -0400
 Received: by smtp.corp.redhat.com (Postfix)
-	id D8D2051DC; Fri,  5 Nov 2021 23:20:09 +0000 (UTC)
+	id 28DE8404727D; Sat,  6 Nov 2021 18:06:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D202851E1
-	for <dm-devel@redhat.com>; Fri,  5 Nov 2021 23:20:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F0C94047272
+	for <dm-devel@redhat.com>; Sat,  6 Nov 2021 18:06:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1237F811E78
-	for <dm-devel@redhat.com>; Fri,  5 Nov 2021 23:20:07 +0000 (UTC)
-Received: from de-smtp-delivery-102.mimecast.com
-	(de-smtp-delivery-102.mimecast.com [194.104.111.102]) (Using TLS) by
-	relay.mimecast.com with ESMTP id us-mta-494-1G11YNO-MzSXDYw1bIpX2Q-1;
-	Fri, 05 Nov 2021 19:20:05 -0400
-X-MC-Unique: 1G11YNO-MzSXDYw1bIpX2Q-1
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
-	(mail-he1eur04lp2054.outbound.protection.outlook.com [104.47.13.54])
-	(Using TLS) by relay.mimecast.com with ESMTP id
-	de-mta-16-abRNvgyVP2e1osMSuhGmJA-1; Sat, 06 Nov 2021 00:20:03 +0100
-X-MC-Unique: abRNvgyVP2e1osMSuhGmJA-1
-Received: from DB8PR04MB6555.eurprd04.prod.outlook.com (2603:10a6:10:103::20)
-	by DB3PR0402MB3897.eurprd04.prod.outlook.com (2603:10a6:8:12::11)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED4C6106656C
+	for <dm-devel@redhat.com>; Sat,  6 Nov 2021 18:06:52 +0000 (UTC)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+	[205.220.165.32]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-381-GobBZrVWMgeV5LiYw5-vZQ-1; Fri, 05 Nov 2021 21:17:37 -0400
+X-MC-Unique: GobBZrVWMgeV5LiYw5-vZQ-1
+Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id
+	1A5MiPKv007620; Sat, 6 Nov 2021 01:17:02 GMT
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+	by mx0b-00069f02.pphosted.com with ESMTP id 3c4t7hwtkt-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sat, 06 Nov 2021 01:17:02 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+	by aserp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 1A615qcr064740;
+	Sat, 6 Nov 2021 01:17:01 GMT
+Received: from nam12-bn8-obe.outbound.protection.outlook.com
+	(mail-bn8nam12lp2173.outbound.protection.outlook.com [104.47.55.173])
+	by aserp3030.oracle.com with ESMTP id 3c5fra86a5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sat, 06 Nov 2021 01:17:00 +0000
+Received: from SJ0PR10MB4429.namprd10.prod.outlook.com (2603:10b6:a03:2d1::14)
+	by SJ0PR10MB5890.namprd10.prod.outlook.com (2603:10b6:a03:3ef::12)
 	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.18;
-	Fri, 5 Nov 2021 23:20:01 +0000
-Received: from DB8PR04MB6555.eurprd04.prod.outlook.com
-	([fe80::d0d9:a949:8409:bbc7]) by
-	DB8PR04MB6555.eurprd04.prod.outlook.com
-	([fe80::d0d9:a949:8409:bbc7%3]) with mapi id 15.20.4669.013;
-	Fri, 5 Nov 2021 23:20:01 +0000
-From: Martin Wilck <martin.wilck@suse.com>
-To: "bmarzins@redhat.com" <bmarzins@redhat.com>
-Thread-Topic: [PATCH 5/7] multipathd: fully initialize paths added by
-	update_pathvec_from_dm
-Thread-Index: AQHXxebeV4GFGv0wyUqQuLf4uivcTKv0BbIAgADVtYCAALbYAIAAGUOA
-Date: Fri, 5 Nov 2021 23:20:01 +0000
-Message-ID: <c137193a6dbc7ea9ce25d06766874012de2f8ed0.camel@suse.com>
-References: <1634757322-6015-1-git-send-email-bmarzins@redhat.com>
-	<1634757322-6015-6-git-send-email-bmarzins@redhat.com>
-	<2a319ae1e5eba66db17ab6372c95ac81f75a92e2.camel@suse.com>
-	<33b4e4f8942ab340b4fba39e91c3d10e9c6aa402.camel@suse.com>
-	<20211105214936.GO19591@octiron.msp.redhat.com>
-In-Reply-To: <20211105214936.GO19591@octiron.msp.redhat.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.42.0
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 929d98d4-e961-4575-77a7-08d9a0b2caea
-x-ms-traffictypediagnostic: DB3PR0402MB3897:
-x-microsoft-antispam-prvs: <DB3PR0402MB38972946C051F92AF6D38011FC8E9@DB3PR0402MB3897.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: ilHFs8Rzc1mQR/72iLBpC0N2gib7gPevIWDER+EU1FEwR6AuKLGc11VwTy48vMuUmux3tX63ysKQMWadmGOl6Uk+b7v/24JcrTBnZ6Gw4lfFEs0bdWOSmBFVnXS31r9ZKt9bsHBrATWYkUFr0qfb0jzdlSEhiDbUpMDJDcCEX9BJD+SwENzvWxbnQ6RUrcZ4NL0G+70CXf1lLB6nNXz3m/aQeU6NS3mmskJ4L4BwqdJrCwCGZC55B0s0HJtqvoVaK59rKJ/PG2/32kIOciNNvPudtZ2+4sQoJSKgXV/1QmNYc8D0a9X9f2Nhv0T3fkEGVLUtI4NlivtgRsZjJIT4Bx6ztTMDFf+4SzKFyth1RsnRXq+EAa/cIkyfq68os9kD3KXMzg2iYwgXyANRy+pRpqJ6JU/Gu+KH761npzmYvEnuA/DrELoC7mucrtLsHx6k3Efs2GB9zfcry0zlOEDqetaanms6BGQo43oGa3jz2UtXZS34VrIeRAANSni9d8P7hJ5uEeJcIRNP1TtNgxNvOpQQD6AoQ3D5QjLY8M2u8eyIBlkX6xStdNxMcP1wjnt1w7V/gLaJ3eUPa32hbu3rGWrYZKD8D9ZWDsT2wTDJXrGzM2g/fco8OxGMtjeuU7N8f4tgK1e2UVTL4Caea5X8IxpANf6Dbrk1LGPWqz2MaJXTdXyjKj2vuWMlzKHXfihNXiXdPv+HuHMrT6A4Iq1Gtg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:DB8PR04MB6555.eurprd04.prod.outlook.com;
-	PTR:; CAT:NONE;
-	SFS:(366004)(2616005)(76116006)(91956017)(186003)(8676002)(6506007)(71200400001)(316002)(6916009)(38070700005)(38100700002)(122000001)(4326008)(54906003)(508600001)(5660300002)(8936002)(4001150100001)(44832011)(86362001)(66946007)(66446008)(66476007)(64756008)(2906002)(66556008)(6486002)(6512007)(26005)(83380400001)(36756003);
-	DIR:OUT; SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-15?Q?MOjGjpXMRgiUq0UlX6Mp/REWbSYKXC1bJXlSdmwjU2rsdvRgExmC21kh7?=
-	=?iso-8859-15?Q?UUlpDyUhtV54k2lC0NRAFMHE1i2lEWlQQdXObeUUkkJqeNIYPwxR9/x5E?=
-	=?iso-8859-15?Q?3bBNeerMFGjAsN3kkrgnRQoVj+FOB45DQg2lSKz0lRLPy2ftqOjIJul6U?=
-	=?iso-8859-15?Q?fvwEI/6S4zV01Gq7+2jJO130yZi2XJRFqak8hylOLqADHrjot/BPjjYGv?=
-	=?iso-8859-15?Q?GRRPLU6mDOh8BKGfe6ptKnZoCIoa5aNkyXhuJYTLuHIS5mxE+cge6txmp?=
-	=?iso-8859-15?Q?VIzJC9ALn2GyCo2yoj+58ye94p9fu32xWcl3J095zWqEaNAnPtO/bHD4j?=
-	=?iso-8859-15?Q?/oToN2crUrkXM/Bztvu20RJesHfLpmql+6WhJVmIUYVK4uglDjUabFYBF?=
-	=?iso-8859-15?Q?B5fkeVkjAyk3nMlVSVxvkiKB1BbwKKyN0QhAJQBpPaCZ8jVZy6ixQXqQF?=
-	=?iso-8859-15?Q?OUmh/J6mMtvgjnw4j/cLupSPo79jjHIsYOJOAhdgbsG0XgQIiTMMGiPMz?=
-	=?iso-8859-15?Q?6Sbf5sPzAeokDwEpAnFsboiWiNHI0TpyR5C/ZoYJz4unSW9kYZod4wPb/?=
-	=?iso-8859-15?Q?QKnklKdMUMn+4MlAlWpCW3R23IhvdAHBp1fL2ApTNwegKJFzkepktAFMM?=
-	=?iso-8859-15?Q?6Q+2xaqLTZFgM7XTga2ZBY7Xi2QEX6gO2Tw+cUwo7TWrg223UidSzYGlr?=
-	=?iso-8859-15?Q?st8rtTH4KDFFr2218ChpvbGx8ynmqOX5PjMOUVS1GvUMyu+fI/UVjuFc/?=
-	=?iso-8859-15?Q?eFVEvLyFwNxMyOOh1ya9IYgKXf6zq7/guhT4ClGvjqw/T+mtXJ+ljcEyb?=
-	=?iso-8859-15?Q?FaQh72+nndRC8zsv22YCPUeRkFmAGyHLxijzJDXBqqCctt9JfHAH3qhWW?=
-	=?iso-8859-15?Q?wNkVldWOm8wiR6P+jYMC5I+mqdDgmmDmPfg2U7XyunLFmxRXp1jxE7RCK?=
-	=?iso-8859-15?Q?qlYV4/wZ68Gsjeh219T0KK5kwS5aiwQwaJIr1Y/ludxeqxbzECeyyIzVz?=
-	=?iso-8859-15?Q?OuH66/9cSMrjDIb5SFXMswbtZ3OrmD/YYAZEJkuqedIEwL7uF7sIpmMl9?=
-	=?iso-8859-15?Q?X8hNhIFEkX+y2k8aASJqxIoMKiSoJRVJpuWXFjxYb812hxNz4U+oL61KH?=
-	=?iso-8859-15?Q?hI7PDftInK9SLE5vaKnisbJRUA4ZEN+aL+GotOw/Lkbv6j9MUtzQFOng2?=
-	=?iso-8859-15?Q?DL/eDwl1GTCfBMWyHMJ+hd6ErJTWP3G0EzBUCWyeovvHj/Wprac8une4a?=
-	=?iso-8859-15?Q?yUMi54LTIYQ4WJE9TqVZ91r/dTY1xsN2c6msXpTGd6F6vtQBG5yx9SVIR?=
-	=?iso-8859-15?Q?C/yk/rKUMpMghTsgYbu/NrR8S1xb2FC+Nj6mtr3lf1hul4AyJs1ppf9Xl?=
-	=?iso-8859-15?Q?qmfch0s23uIa1fJn65hbUlriBDBJ/YHET4gbKubpkUd3/z2vVLFlzcadP?=
-	=?iso-8859-15?Q?qpgShkM5sJgrRgd4N9GhCJzjWMxfAkS8Wt+TV4k9fJu387XZdETIQti/Q?=
-	=?iso-8859-15?Q?DyVuAZOQ2zLWMaTGe1cbEioyosCC4Nv/BM8u66UY8cPK3aWZRVtNL/yIF?=
-	=?iso-8859-15?Q?b9EGeTRJ5YEzmulHXr+00A/j8xPqtaeNyJ3OMOJQP+WcZz4DBtOuSgKgG?=
-	=?iso-8859-15?Q?sEkSIh1v25SKlU7J6Np/3Rtj1rdsioKYl9YjPBGpITL+woSYeSeCI8CCn?=
-	=?iso-8859-15?Q?rNL+RxguyIfhMqjjVjE/CleemYmqFXBHqPqN7kTqpH/v6to=3D?=
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.13;
+	Sat, 6 Nov 2021 01:16:57 +0000
+Received: from SJ0PR10MB4429.namprd10.prod.outlook.com
+	([fe80::418c:dfe4:f3ee:feaa]) by
+	SJ0PR10MB4429.namprd10.prod.outlook.com
+	([fe80::418c:dfe4:f3ee:feaa%6]) with mapi id 15.20.4669.013;
+	Sat, 6 Nov 2021 01:16:57 +0000
+From: Jane Chu <jane.chu@oracle.com>
+To: david@fromorbit.com, djwong@kernel.org, dan.j.williams@intel.com,
+	hch@infradead.org, vishal.l.verma@intel.com, dave.jiang@intel.com,
+	agk@redhat.com, snitzer@redhat.com, dm-devel@redhat.com,
+	ira.weiny@intel.com, willy@infradead.org, vgoyal@redhat.com,
+	linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org
+Date: Fri,  5 Nov 2021 19:16:36 -0600
+Message-Id: <20211106011638.2613039-1-jane.chu@oracle.com>
+X-ClientProxiedBy: SJ0PR03CA0357.namprd03.prod.outlook.com
+	(2603:10b6:a03:39c::32) To SJ0PR10MB4429.namprd10.prod.outlook.com
+	(2603:10b6:a03:2d1::14)
 MIME-Version: 1.0
-X-OriginatorOrg: suse.com
+Received: from brm-x62-16.us.oracle.com (2606:b400:8004:44::1c) by
+	SJ0PR03CA0357.namprd03.prod.outlook.com (2603:10b6:a03:39c::32)
+	with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11
+	via Frontend Transport; Sat, 6 Nov 2021 01:16:56 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0e472e7d-d0d5-4b79-c217-08d9a0c32099
+X-MS-TrafficTypeDiagnostic: SJ0PR10MB5890:
+X-Microsoft-Antispam-PRVS: <SJ0PR10MB5890E337003C5BA51796D6ADF38F9@SJ0PR10MB5890.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0
+X-Microsoft-Antispam-Message-Info: IylPGcI1JhvnDtNX8MH++yHXpr28a84cIApx/8kkzUNwFa1EOWZ7UZ3x5oNbJxfl8Y9ud52gFWKzDdbmv4W1RvIr+t+Or7GwVleayEYy84HjvVM4ZIAk+EcEh79rwyQwdc6rahkOEsAV0N3lYaeSFkg2oG+eaij5oyuXFoWnp/okmCEmcg1yHEJXKiRxAueD7DF7Xpg4ay4sVFa276cTHzW4e0LopL0bKiHr1nB1eZvfUXDX1H56J2YInI+1Fc2pPidqmz/vAHCQa4MgocFZhtfXNQnZ5MVWDblNnFJK4jT9BXBIX2OY8M4g6e1Lf43K8/pFCWuHSGFPoSwUD52wt0vUb6oIeXBolwwtV2pb8hP1qXe65d9cWP9vHk64WhJ1KVVJU75uDARBrdLqefO3rW/h7h8+jZiUoOtApaUQQkdzIArOsvkpESlO7V1r8+moU05FSlQ3D5kht4fjLsmVexDobZGhFZIlbZWQUL4KaDr1LtWihELhACGB2rsiwj23bG4Q3gOAn5o2VMQZLX8tknsO8TKWg7zdQ+3jxMtDgac5ZKJAeBqD3x+vc9QY/5ldROgvJ5gJnQ5J1302QngvECbGVcTzGdY5YNfCRKPi7ztFYDSNCOA1iV9uUuMpCcLXopX1H7N8IzQcZ5MRJPbO5L72+PBTLAFzZhsPbEb5USHDNYai41Jgzti2Z80IedfXB9roxKu1XXWVosh2CM21NsXhNCZr01Y/Rc25lAvAmb3R/ptqhvXN3+7eI2wb9h1zdD8oA4H4otnN64azIRjkVB+JNsxXdJqPGx2j0fqIdeg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:SJ0PR10MB4429.namprd10.prod.outlook.com;
+	PTR:; CAT:NONE;
+	SFS:(366004)(921005)(36756003)(8676002)(316002)(86362001)(66476007)(66946007)(508600001)(2906002)(44832011)(6486002)(83380400001)(2616005)(5660300002)(186003)(52116002)(7416002)(7696005)(1076003)(6666004)(966005)(38100700002)(8936002)(66556008);
+	DIR:OUT; SFP:1101
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?5GoRDRRJw4dpzi+1Xyl6SzVjqXI9ML3IIdzK17ZKIDNsLQjRa/l0uAbPiuYX?=
+	=?us-ascii?Q?mMOyUtCx2X0rKDovyX+r4qskFK2goLb+Y8c9RfHzUPiFOFI7PAevclk8vGUH?=
+	=?us-ascii?Q?8SqBgO2iinX9rTmw8SJP/ZcQkfFUVctZ5rHo4gYV+CGYeBz3KK6/OuB5389T?=
+	=?us-ascii?Q?nUKXRFYEGwJKppNJvmnEKwgfH+aqtKfzhqacnk5z+sWYPsCMFMK7N5WTrV2N?=
+	=?us-ascii?Q?uUlcHNhbJTnS2bM5HgerUZtP5M4qAegWfQ7ZaogNk6rL42ruVNpKaWJWKIg4?=
+	=?us-ascii?Q?lkCReM7cftjeWoLI7EH0JQSOHSHZlrsRz65zhmPKmaA62eV19XJOYxC1bCC3?=
+	=?us-ascii?Q?heRcmdIQ6FbP8GeTrpeufkoWiTB93l1tVk9BYVEYl0ERIOkFp4SsDswwcYdN?=
+	=?us-ascii?Q?n/tPn60uKX08ByEGcpG2bWRzViwGuH1MNY3xY0AuwWz9vkWjPjYehN2n9zMc?=
+	=?us-ascii?Q?2Y6NT7Ekn1abmjdBsMLNqp0dhmBxUEf1HYXfRJXrqoBEB5XHs3trZ8gXCslX?=
+	=?us-ascii?Q?Ck0dbQrMRR9LOiuBs+WME2VHLMjTbQaXg/FHkTXKIqnnYQ6FCk+OS5NiTKHQ?=
+	=?us-ascii?Q?Q62vfO3HLCBoBbe+3j/TZM9aIPWyJszQMBbDGsyZex097rtb7xcPNze6pKd9?=
+	=?us-ascii?Q?jJzsrXrrpVgIREaBCQT1zuJn3yyaq8jWsHnD6GtQTkDFmGulpe07F20V2dtO?=
+	=?us-ascii?Q?hAGQzRayHIRb0J3LifgWbj65ZOjdtLYI5xOkPhHwTxX0kk6ONV14zxUcxW6h?=
+	=?us-ascii?Q?dkb6Qney0DZnWSIpH1hopO8ea4POn94uIeeHUS5l7DLYNCmsqXKa+SqNWkuJ?=
+	=?us-ascii?Q?xcMiPW0biETc7e3+dCyDzU9+fvqOJe02+0Ocw/JBkfEnKgoKRqw2MaPeRTV1?=
+	=?us-ascii?Q?+OzMRAbNeU5Lkak0gbBJiGUkKx8dztL34k8E38+sVWTvAVqhWrHDiTVGkppS?=
+	=?us-ascii?Q?1Ksll+QSYytw7oJDLeM3YHahvyIuFJKKpfwD8D0t6gCRh0svrjcd0RhPVPEF?=
+	=?us-ascii?Q?8T4AW0DxyWcbpvT+2Ftjtsr19H1bVR3m451IBiEQ6g01u+t/dP5sPeAOHgdn?=
+	=?us-ascii?Q?IS+8pUQhbIHj/wpnGRWTECOkSrHpsEqJJ5Umm9LFuIzQa+rftf6/dZ6Fh6ue?=
+	=?us-ascii?Q?tRbhrI8ojyHO81y7iuTxLEAPPZFQOv05jsOVSwSDvLfnZ64ByCI0EMnewRnT?=
+	=?us-ascii?Q?0HybeiS7+LPUB30iGBm43iYnhQqfNepfjWSP7ftqs2YUjTxglGfPNC73W6ts?=
+	=?us-ascii?Q?WJtMj8rXcxqvegnQ3eIhk5oUrKviFpZVSQLe4taKaxVMUqyP3PAHaAk4xaX5?=
+	=?us-ascii?Q?6x5eRqS06U/9dShq6qbBQu+5KaCBlw6RiZUPtic4VC97ABSVw5P4TPO1MYKt?=
+	=?us-ascii?Q?UCrkJJO136az1illUGlJGxmwArWq+xObB5IeK0XIelN/hhjVH6uvyKh4krsa?=
+	=?us-ascii?Q?zkskARTiWzW808VcUtE3NSRY5+YFEV3FwrKnH64TPixE9WAR5A+tzxFriZHa?=
+	=?us-ascii?Q?4a94Km5X2mjEDL0A0plpp9udqErvJVpBEZpZ5bqEFRmJVq/ib2lPMHxR75y3?=
+	=?us-ascii?Q?Zqi9lEYLyzkkfzLEKSP4DFPC6BAYcunGUrKfXBLrMbsnfkSSA0Hq5WV8sDGu?=
+	=?us-ascii?Q?tHNdxdJ6UIx0+/QVbpQGM3qST8fGijdrgucs6G9pQt1s?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e472e7d-d0d5-4b79-c217-08d9a0c32099
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB4429.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6555.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 929d98d4-e961-4575-77a7-08d9a0b2caea
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2021 23:20:01.8142 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: g+jfvi+WanBJo47H0O6vMHJ7Z5okpCZ/FgFCL+UsdUkgTD8vS+kj/G0MjOBJLDq467IfVRQMi8I8XlWVMgUFcA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR0402MB3897
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2021 01:16:57.7342 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zOnoP67j+UOVcGwWKVjVkVXmiALZy5zKemVk4hnRPh+dddKBjsVRcTb8z4kSTm7FFBreC2Z8aj4D5xq4iIobgQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB5890
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10159
+	signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+	mlxscore=0
+	suspectscore=0 bulkscore=0 spamscore=0 phishscore=0 malwarescore=0
+	adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2110150000 definitions=main-2111060005
+X-Proofpoint-GUID: CPkNVKGBaWMZvCf0yu8jj_ZI2Mh2uXD8
+X-Proofpoint-ORIG-GUID: CPkNVKGBaWMZvCf0yu8jj_ZI2Mh2uXD8
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -136,13 +154,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1A5NK9H2003104
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH 5/7] multipathd: fully initialize paths added
- by update_pathvec_from_dm
+Subject: [dm-devel] [PATCH v2 0/2] Dax poison recovery
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -156,174 +170,76 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-ID: <590D564C803F0040A01034472E69FD0C@eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Fri, 2021-11-05 at 16:49 -0500, Benjamin Marzinski wrote:
-> On Fri, Nov 05, 2021 at 10:55:11AM +0000, Martin Wilck wrote:
-> > Hi Ben,
-> >=20
-> > On Thu, 2021-11-04 at 23:10 +0100, Martin Wilck wrote:
-> > > On Wed, 2021-10-20 at 14:15 -0500, Benjamin Marzinski wrote:
-> > > > ...
-> > >=20
-> > > >=20
-> > > > Multipath now has a new state to deal with these devices,
-> > > > INIT_PARTIAL.
-> > > > Devices in this state are treated mostly like INIT_OK devices,
-> > > > but
-> > > > when "multipathd add path" is called or an add/change uevent
-> > > > happens
-> > > > on these devices, multipathd will finish initializing them, and
-> > > > remove
-> > > > them if necessary.
-> > > >=20
-> > > > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
-> > >=20
-> > > Nice. Somehow in my mind the issue always look much more complex.
-> > > I like this, but I want to give it some testing before I finally
-> > > ack
-> > > it.
-> >=20
-> > I noted that running "multipathd add path $path" for a path in
-> > INIT_PARTIAL state changes this paths's init state to INIT_OK, even
-> > if
-> > the udev still has no information about it (*).
->=20
-> Ah. Didn't think about that.
-> =A0
-> > The reason is that pp->wwid is set, and thus pathinfo() won't even
-> > try
-> > to retrieve the WWID, although for INIT_PARTIAL paths the origin of
-> > the
-> > WWID is not 100% trustworthy (being just copied from pp->mpp-
-> > > wwid).=A0pathinfo() will return PATHINFO_OK without having retrieved
-> > > the
-> > WWID.=A0
-> >=20
-> > I suppose we could apply a similar logic as in uev_update_path()
-> > here,
-> > clearing pp->wwid before calling pathinfo().=A0If udev was still
-> > unaware
-> > of the path, this would mean a transition from INIT_PARTIAL to
-> > INIT_MISSING_UDEV. OTOH, we'd now need to be prepared to have to
-> > remove
-> > the path from the map if the WWID doesn't match after the call to
-> > pathinfo(). This means we'd basically need to reimplement the
-> > "changed
-> > WWID" logic from uev_update_path(), and thus we'd need to unify both
-> > code paths.
-> >=20
-> > In general, the difference between INIT_MISSING_UDEV and INIT_PARTIAL
-> > is subtle.=A0Correct me if I'm wrong, but INIT_PARTIAL means "udev has
-> > no
-> > information about this device" and INIT_MISSING_UDEV currently means
-> > "we weren't able to figure out a WWID for the path" (meaning that
-> > INIT_MISSING_UDEV is a misnomer - when fallback are allowed,
-> > INIT_MISSING_UDEV is actually independent of the device's state in
-> > the
-> > udev db. We should rename this to INIT_MISSING_WWID, perhaps).
->=20
-> Yeah. makes sense.
->=20
-> > The
-> > semantics of the two states are very different though:
-> > INIT_MISSING_UDEV will trigger an attempt to regenerate an uevent,
-> > whereas INIT_PARTIAL will just stick passively. IMO it'd make sense
-> > to
-> > trigger an uevent in the INIT_PARTIAL case, too, albeit perhaps not
-> > immediately (after the default uevent timeout - 180s?).=20
->=20
-> Sure. We do want to wait long enough to be fairly sure that udev isn't
-> just being a little bit slow.
->=20
-> This would also handle the case where multipathd simply wasn't
-> tracking the path for some reason. If the device doesn't exist in the
-> udev database at all, do with send an "add" event instead of a "change"
-> event?
+Up till now, the method commonly used for data recovery from
+dax media error has been a combination of hole-punch followed
+by a pwrite(2). The downside of this method is that it causes
+fragmentation of the pmem backend, which brings a host of
+very challenging issues.
 
-I don't think it matters. If no database file exists, udev can still
-deliver some information:
+This patch is an attempt to provide an alternative way for
+dax users to perform data recovery from pmem media error without
+fragmenting the pmem backend.
 
-# udevadm info /dev/sde
-P: /devices/pci0000:00/0000:00:01.0/0000:01:00.7/host3/rport-3:0-
-0/target3:0:0/3:0:0:4/block/sde
-N: sde
-L: 0
-E: DEVPATH=3D/devices/pci0000:00/0000:00:01.0/0000:01:00.7/host3/rport-
-3:0-0/target3:0:0/3:0:0:4/block/sde
-E: DEVNAME=3D/dev/sde
-E: DEVTYPE=3Ddisk
-E: MAJOR=3D8
-E: MINOR=3D64
-E: SUBSYSTEM=3Dblock
+Dax media error may be manifested to user process via SIGBUS
+with .si_code BUS_MCEERR_AR when a load instruction consumes
+a poison in the media, or SIGBUS with .si_code BUS_ADRERR when
+a page fault handler fails to resolve due to existing poison
+record, or IO error returned from a block read or write.
 
-(note USEC_INITIALIZED is not in the set)
+With the patch in place, the way for user process to recover
+the data can be just a pwrite(2) to a page aligned range without
+the need to punch-a-hole. In case of BUS_MCEERR_AR, the range
+is incidated by the signal payload: .si_addr and .si_addr_lsb.
+In case of BUS_ADRERR, the range is the user mapping page size
+starting from .si_addr. If the clue of media error come from
+block IO error, the range is a stretch of the block IO range
+to page aligned range.
 
-If I run "udevadm trigger -c change /dev/sde" in this situation, I'll
-get the full info, as if I had run "add" before (some rules may differ
-between "add" and "change", but that's quite unusual).
+Changes from v1:
+- instead of giving user the say to start dax data recovery,
+  let dax-filesystem decide when to enter data recovery mode.
+  Hence 99% of the non-dax usage of pwrite and its variants
+  aren't aware of dax specific recovering.
+- Instead of exporting dax_clear_error() API that does one thing,
+  combine dax {poison-clearing, error-record-update, writing-good-data}
+  in one tight operation to better protect data integrity.
+- some semantics and format fixes
 
->=20
-> > Also, we currently don't track the udev state of=A0devices cleanly.
-> > We
-> > set INIT_MISSING_UDEV if we can't obtain uid_attribute, which
-> > doesn't
-> > necessarily mean that udev is unaware of the device. I believe we
-> > should e.g. check the USEC_INITIALIZED property - it is non-NULL if
-> > and
-> > only if the device is present in the udev db. If uid_attribute
-> > isn't
-> > set regardless, we could conclude that the udev rules just don't
-> > set
-> > it. It might make sense to retrigger *one* uevent in that case, but
-> > no
-> > more.
->=20
-> IIRC, the initial reason why INIT_MISSING_UDEV was added was because
-> sometimes udev workers timed out, causing them to not run all the
-> rules.
-> Do you know offhand if USEC_INITIALIZED is set in this case? If we
-> could
-> differentiate between the following states:
+v1: 
+https://lore.kernel.org/lkml/20211029223233.GB449541@dread.disaster.area/T/
+  
+Jane Chu (2):
+  dax: Introduce normal and recovery dax operation modes
+  dax,pmem: Implement pmem based dax data recovery
 
-udevd sets this property very early, when it first receives an uevent.
-But libudev calls won't return it until the database file is written,
-which happens last, after all rules and RUN statements have been
-processed, _in the worker_. Thus if the worker is killed, the file
-won't be written.
+ drivers/dax/super.c             | 15 +++---
+ drivers/md/dm-linear.c          | 14 +++---
+ drivers/md/dm-log-writes.c      | 19 +++++---
+ drivers/md/dm-stripe.c          | 14 +++---
+ drivers/md/dm-target.c          |  2 +-
+ drivers/md/dm-writecache.c      |  8 +--
+ drivers/md/dm.c                 | 16 +++---
+ drivers/nvdimm/pmem.c           | 86 +++++++++++++++++++++++++++++----
+ drivers/nvdimm/pmem.h           |  2 +-
+ drivers/s390/block/dcssblk.c    | 13 +++--
+ fs/dax.c                        | 32 +++++++++---
+ fs/fuse/dax.c                   |  4 +-
+ fs/fuse/virtio_fs.c             | 12 +++--
+ include/linux/dax.h             | 18 ++++---
+ include/linux/device-mapper.h   |  5 +-
+ tools/testing/nvdimm/pmem-dax.c |  2 +-
+ 16 files changed, 187 insertions(+), 75 deletions(-)
 
-
-0. the device doesn't exist in sysfs=20
-
-> 1: udev hasn't gotten an event for a device
-
-I don't think we can detect this without listening for kernel uevents.
-And even if we listen to them, we could have missed some. udevd doesn't
-have an API for it, either, AFAIK.
-
-> 2: udev got an event but timed out or failed while processing it
-
-This would be the USEC_INITIALIZED case, IMO
-
-> 3: udev successfully processed the event for the device, but
-> multipath
-> =A0=A0 isn't seeing the attributes it was expecting.
->=20
-> We could react more sensibly.
-
-Yes.
-
-Regards
-Martin
-
+-- 
+2.18.4
 
 --
 dm-devel mailing list
