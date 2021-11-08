@@ -1,96 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E200F446F76
-	for <lists+dm-devel@lfdr.de>; Sat,  6 Nov 2021 18:51:00 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 406094499E2
+	for <lists+dm-devel@lfdr.de>; Mon,  8 Nov 2021 17:31:11 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1636389070;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=QKaaZtMtRGMmoAKeHHOZUCDuFTfsrT7JVRQ7xEXpvXA=;
+	b=aOkzPFqQyR+uSfiGX/CmfmeWcrV1i8w9Puc74H+3rISKRcPKhQ+ll/CUgJhYRwLN4YVhcW
+	p8T0OlCWURsjxoB0T/vTHY/jbY+ZKfsl9onTtfUmSYH8qz7z5d+TALxxL7s/hWWeOnWY1o
+	1Z+YhvQkCNZOHVe63Q+Azx2hvOFhVtM=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-295-bDQdQQE3O5uIYnTCSzZlgA-1; Sat, 06 Nov 2021 13:50:56 -0400
-X-MC-Unique: bDQdQQE3O5uIYnTCSzZlgA-1
+ us-mta-202-MvT2MyU7PYqE97L_QZgtZw-1; Mon, 08 Nov 2021 11:31:08 -0500
+X-MC-Unique: MvT2MyU7PYqE97L_QZgtZw-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9733E79EE4;
-	Sat,  6 Nov 2021 17:50:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CD2F910151FB;
+	Mon,  8 Nov 2021 16:31:00 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E4F09794A0;
-	Sat,  6 Nov 2021 17:50:40 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C68096788F;
+	Mon,  8 Nov 2021 16:30:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9A0294E58E;
-	Sat,  6 Nov 2021 17:50:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.1])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 098A94E9F5;
+	Mon,  8 Nov 2021 16:30:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1A6Ho72u009997 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 6 Nov 2021 13:50:07 -0400
+	id 1A8GUBDX003864 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 8 Nov 2021 11:30:11 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3BCE340CFD15; Sat,  6 Nov 2021 17:50:07 +0000 (UTC)
+	id 92B831042AAF; Mon,  8 Nov 2021 16:30:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 35FD440CFD13
-	for <dm-devel@redhat.com>; Sat,  6 Nov 2021 17:50:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1828280A0B0
-	for <dm-devel@redhat.com>; Sat,  6 Nov 2021 17:50:07 +0000 (UTC)
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
-	[209.85.215.171]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-478-QmMGeAj4Mci8XKeHOUf4pw-1; Sat, 06 Nov 2021 12:48:51 -0400
-X-MC-Unique: QmMGeAj4Mci8XKeHOUf4pw-1
-Received: by mail-pg1-f171.google.com with SMTP id b4so11058891pgh.10
-	for <dm-devel@redhat.com>; Sat, 06 Nov 2021 09:48:51 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=R7qTqnjZeJ3PhO4zL+B/3Z9KG2zg/h5ziZjbMP4gMkc=;
-	b=Vvr1ZJzacljRauU+wgNPT/dtqp1qiRRG2QaLW1fz+2t+zKXF+nfIzj3fybbvqXhFGP
-	zcTmGTR61WZYFG98VTFKAFD62Ne9V2vtbXyfm0w2c6yY92hhuaX+dXRvsM5zD5mL8mtA
-	KHIRIqCIqniH0o4nNp1yhS27nmKhMV+JIx5N5PrZ7Dvvfw3VRdJ/XrEFz4uUt/4qCotW
-	Hpebl+ojQ3Hfkw1WqU+A3qy4OQKVPwVFNVgPtxL7V0FcU2/wg9U9aQz1sqp8d5KXwV13
-	trcbwOWXxsXOMObRJB69eQ+7VaRyGC4AsNkhxaiA0/9IiR9QbR8UjVa4ri5SsqqttVWD
-	3OJg==
-X-Gm-Message-State: AOAM532lPBiaTXFDx1fcnt4DDJ7I55mjDJIzj4/tK/yO/v9v4J5Pe47w
-	ILUYVlX4ePQtdbJvSQNorrNk/8GosEQaNW/QIBD9NrBl4vUIgA==
-X-Google-Smtp-Source: ABdhPJyVpGL/kpcfeEI/Nr3Xb6EdgK+j4sqLk0GA+BS/3MEn/0dlIKOmQEAYFjGMwnlaOHtt1UpglHaxqyrYLk6KLj8=
-X-Received: by 2002:a63:6bc2:: with SMTP id
-	g185mr50160127pgc.356.1636217330382; 
-	Sat, 06 Nov 2021 09:48:50 -0700 (PDT)
+Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 67B71100239F;
+	Mon,  8 Nov 2021 16:29:58 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 1A8GTuPN030540; 
+	Mon, 8 Nov 2021 10:29:56 -0600
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 1A8GTti1030539;
+	Mon, 8 Nov 2021 10:29:55 -0600
+Date: Mon, 8 Nov 2021 10:29:55 -0600
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Martin Wilck <martin.wilck@suse.com>
+Message-ID: <20211108162955.GR19591@octiron.msp.redhat.com>
+References: <1634757322-6015-1-git-send-email-bmarzins@redhat.com>
+	<1634757322-6015-6-git-send-email-bmarzins@redhat.com>
+	<2a319ae1e5eba66db17ab6372c95ac81f75a92e2.camel@suse.com>
+	<33b4e4f8942ab340b4fba39e91c3d10e9c6aa402.camel@suse.com>
+	<20211105214936.GO19591@octiron.msp.redhat.com>
+	<c137193a6dbc7ea9ce25d06766874012de2f8ed0.camel@suse.com>
 MIME-Version: 1.0
-References: <20211106011638.2613039-1-jane.chu@oracle.com>
-	<20211106011638.2613039-2-jane.chu@oracle.com>
-In-Reply-To: <20211106011638.2613039-2-jane.chu@oracle.com>
-From: Dan Williams <dan.j.williams@intel.com>
-Date: Sat, 6 Nov 2021 09:48:40 -0700
-Message-ID: <CAPcyv4jcgFxgoXFhWL9+BReY8vFtgjb_=Lfai-adFpdzc4-35Q@mail.gmail.com>
-To: Jane Chu <jane.chu@oracle.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+In-Reply-To: <c137193a6dbc7ea9ce25d06766874012de2f8ed0.camel@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-Cc: Linux NVDIMM <nvdimm@lists.linux.dev>, Dave Jiang <dave.jiang@intel.com>,
-	Mike Snitzer <snitzer@redhat.com>, "Darrick J. Wong" <djwong@kernel.org>,
-	david <david@fromorbit.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Christoph Hellwig <hch@infradead.org>,
-	device-mapper development <dm-devel@redhat.com>,
-	Vivek Goyal <vgoyal@redhat.com>, Vishal L Verma <vishal.l.verma@intel.com>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>, "Weiny,
-	Ira" <ira.weiny@intel.com>, linux-xfs <linux-xfs@vger.kernel.org>,
-	Alasdair Kergon <agk@redhat.com>
-Subject: Re: [dm-devel] [PATCH v2 1/2] dax: Introduce normal and recovery
-	dax operation modes
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH 5/7] multipathd: fully initialize paths added
+ by update_pathvec_from_dm
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -109,100 +84,191 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 5, 2021 at 6:17 PM Jane Chu <jane.chu@oracle.com> wrote:
+On Fri, Nov 05, 2021 at 11:20:01PM +0000, Martin Wilck wrote:
+> On Fri, 2021-11-05 at 16:49 -0500, Benjamin Marzinski wrote:
+> > On Fri, Nov 05, 2021 at 10:55:11AM +0000, Martin Wilck wrote:
+> > > Hi Ben,
+> > >=20
+> > > On Thu, 2021-11-04 at 23:10 +0100, Martin Wilck wrote:
+> > > > On Wed, 2021-10-20 at 14:15 -0500, Benjamin Marzinski wrote:
+> > > > > ...
+> > > >=20
+> > > > >=20
+> > > > > Multipath now has a new state to deal with these devices,
+> > > > > INIT_PARTIAL.
+> > > > > Devices in this state are treated mostly like INIT_OK devices,
+> > > > > but
+> > > > > when "multipathd add path" is called or an add/change uevent
+> > > > > happens
+> > > > > on these devices, multipathd will finish initializing them, and
+> > > > > remove
+> > > > > them if necessary.
+> > > > >=20
+> > > > > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+> > > >=20
+> > > > Nice. Somehow in my mind the issue always look much more complex.
+> > > > I like this, but I want to give it some testing before I finally
+> > > > ack
+> > > > it.
+> > >=20
+> > > I noted that running "multipathd add path $path" for a path in
+> > > INIT_PARTIAL state changes this paths's init state to INIT_OK, even
+> > > if
+> > > the udev still has no information about it (*).
+> >=20
+> > Ah. Didn't think about that.
+> > =A0
+> > > The reason is that pp->wwid is set, and thus pathinfo() won't even
+> > > try
+> > > to retrieve the WWID, although for INIT_PARTIAL paths the origin of
+> > > the
+> > > WWID is not 100% trustworthy (being just copied from pp->mpp-
+> > > > wwid).=A0pathinfo() will return PATHINFO_OK without having retrieve=
+d
+> > > > the
+> > > WWID.=A0
+> > >=20
+> > > I suppose we could apply a similar logic as in uev_update_path()
+> > > here,
+> > > clearing pp->wwid before calling pathinfo().=A0If udev was still
+> > > unaware
+> > > of the path, this would mean a transition from INIT_PARTIAL to
+> > > INIT_MISSING_UDEV. OTOH, we'd now need to be prepared to have to
+> > > remove
+> > > the path from the map if the WWID doesn't match after the call to
+> > > pathinfo(). This means we'd basically need to reimplement the
+> > > "changed
+> > > WWID" logic from uev_update_path(), and thus we'd need to unify both
+> > > code paths.
+> > >=20
+> > > In general, the difference between INIT_MISSING_UDEV and INIT_PARTIAL
+> > > is subtle.=A0Correct me if I'm wrong, but INIT_PARTIAL means "udev ha=
+s
+> > > no
+> > > information about this device" and INIT_MISSING_UDEV currently means
+> > > "we weren't able to figure out a WWID for the path" (meaning that
+> > > INIT_MISSING_UDEV is a misnomer - when fallback are allowed,
+> > > INIT_MISSING_UDEV is actually independent of the device's state in
+> > > the
+> > > udev db. We should rename this to INIT_MISSING_WWID, perhaps).
+> >=20
+> > Yeah. makes sense.
+> >=20
+> > > The
+> > > semantics of the two states are very different though:
+> > > INIT_MISSING_UDEV will trigger an attempt to regenerate an uevent,
+> > > whereas INIT_PARTIAL will just stick passively. IMO it'd make sense
+> > > to
+> > > trigger an uevent in the INIT_PARTIAL case, too, albeit perhaps not
+> > > immediately (after the default uevent timeout - 180s?).=20
+> >=20
+> > Sure. We do want to wait long enough to be fairly sure that udev isn't
+> > just being a little bit slow.
+> >=20
+> > This would also handle the case where multipathd simply wasn't
+> > tracking the path for some reason. If the device doesn't exist in the
+> > udev database at all, do with send an "add" event instead of a "change"
+> > event?
+>=20
+> I don't think it matters. If no database file exists, udev can still
+> deliver some information:
+>=20
+> # udevadm info /dev/sde
+> P: /devices/pci0000:00/0000:00:01.0/0000:01:00.7/host3/rport-3:0-
+> 0/target3:0:0/3:0:0:4/block/sde
+> N: sde
+> L: 0
+> E: DEVPATH=3D/devices/pci0000:00/0000:00:01.0/0000:01:00.7/host3/rport-
+> 3:0-0/target3:0:0/3:0:0:4/block/sde
+> E: DEVNAME=3D/dev/sde
+> E: DEVTYPE=3Ddisk
+> E: MAJOR=3D8
+> E: MINOR=3D64
+> E: SUBSYSTEM=3Dblock
+>=20
+> (note USEC_INITIALIZED is not in the set)
+>=20
+> If I run "udevadm trigger -c change /dev/sde" in this situation, I'll
+> get the full info, as if I had run "add" before (some rules may differ
+> between "add" and "change", but that's quite unusual).
 >
-> Introduce DAX_OP_NORMAL and DAX_OP_RECOVERY operation modes to
-> {dax_direct_access, dax_copy_from_iter, dax_copy_to_iter}.
-> DAX_OP_NORMAL is the default or the existing mode, and
-> DAX_OP_RECOVERY is a new mode for data recovery purpose.
->
-> When dax-FS suspects dax media error might be encountered
-> on a read or write, it can enact the recovery mode read or write
-> by setting DAX_OP_RECOVERY in the aforementioned APIs. A read
-> in recovery mode attempts to fetch as much data as possible
-> until the first poisoned page is encountered. A write in recovery
-> mode attempts to clear poison(s) in a page-aligned range and
-> then write the user provided data over.
->
-> DAX_OP_NORMAL should be used for all non-recovery code path.
->
-> Signed-off-by: Jane Chu <jane.chu@oracle.com>
-[..]
-> diff --git a/include/linux/dax.h b/include/linux/dax.h
-> index 324363b798ec..931586df2905 100644
-> --- a/include/linux/dax.h
-> +++ b/include/linux/dax.h
-> @@ -9,6 +9,10 @@
->  /* Flag for synchronous flush */
->  #define DAXDEV_F_SYNC (1UL << 0)
->
-> +/* dax operation mode dynamically set by caller */
-> +#define        DAX_OP_NORMAL           0
 
-Perhaps this should be called DAX_OP_FAILFAST?
+udev rules may not change much, but, for instance, multipathd reacts
+differently to add and change events.  So there may be other consumers
+of uevents that care about the difference between add and change events.
+=20
+> >=20
+> > > Also, we currently don't track the udev state of=A0devices cleanly.
+> > > We
+> > > set INIT_MISSING_UDEV if we can't obtain uid_attribute, which
+> > > doesn't
+> > > necessarily mean that udev is unaware of the device. I believe we
+> > > should e.g. check the USEC_INITIALIZED property - it is non-NULL if
+> > > and
+> > > only if the device is present in the udev db. If uid_attribute
+> > > isn't
+> > > set regardless, we could conclude that the udev rules just don't
+> > > set
+> > > it. It might make sense to retrigger *one* uevent in that case, but
+> > > no
+> > > more.
+> >=20
+> > IIRC, the initial reason why INIT_MISSING_UDEV was added was because
+> > sometimes udev workers timed out, causing them to not run all the
+> > rules.
+> > Do you know offhand if USEC_INITIALIZED is set in this case? If we
+> > could
+> > differentiate between the following states:
+>=20
+> udevd sets this property very early, when it first receives an uevent.
+> But libudev calls won't return it until the database file is written,
+> which happens last, after all rules and RUN statements have been
+> processed, _in the worker_. Thus if the worker is killed, the file
+> won't be written.
+>=20
+>=20
+> 0. the device doesn't exist in sysfs=20
 
-> +#define        DAX_OP_RECOVERY         1
-> +
->  typedef unsigned long dax_entry_t;
->
->  struct dax_device;
-> @@ -22,8 +26,8 @@ struct dax_operations {
->          * logical-page-offset into an absolute physical pfn. Return the
->          * number of pages available for DAX at that pfn.
->          */
-> -       long (*direct_access)(struct dax_device *, pgoff_t, long,
-> -                       void **, pfn_t *);
-> +       long (*direct_access)(struct dax_device *, pgoff_t, long, int,
+We simply delete devices that don't exist in sysfs, right? If we get a
+non-remove uevent for a device, but it doesn't exist in sysfs, then I
+would assume that a remove uevent will be shortly incomming.
+=20
+> > 1: udev hasn't gotten an event for a device
+>=20
+> I don't think we can detect this without listening for kernel uevents.
+> And even if we listen to them, we could have missed some. udevd doesn't
+> have an API for it, either, AFAIK.
 
-Would be nice if that 'int' was an enum, but I'm not sure a new
-parameter is needed at all, see below...
+Isn't this the most common INIT_PARTIAL case, where we are waiting for
+the coldplug uevent? If there is no database file when we are processing
+the device, we are in this state. Correct?=20
 
-> +                               void **, pfn_t *);
->         /*
->          * Validate whether this device is usable as an fsdax backing
->          * device.
-> @@ -32,10 +36,10 @@ struct dax_operations {
->                         sector_t, sector_t);
->         /* copy_from_iter: required operation for fs-dax direct-i/o */
->         size_t (*copy_from_iter)(struct dax_device *, pgoff_t, void *, size_t,
-> -                       struct iov_iter *);
-> +                       struct iov_iter *, int);
+> > 2: udev got an event but timed out or failed while processing it
+>=20
+> This would be the USEC_INITIALIZED case, IMO
 
-I'm not sure the flag is needed here as the "void *" could carry a
-flag in the pointer to indicate that is a recovery kaddr.
+If udev has, in the past, successfully processed an event for a device,
+but fails while processing a later uevent, it doesn't keep th data from
+the previous event. So it could lose the uid_attribute. But the
+database file should still exist. Correct?
 
->         /* copy_to_iter: required operation for fs-dax direct-i/o */
->         size_t (*copy_to_iter)(struct dax_device *, pgoff_t, void *, size_t,
-> -                       struct iov_iter *);
-> +                       struct iov_iter *, int);
 
-Same comment here.
+-Ben
 
->         /* zero_page_range: required operation. Zero page range   */
->         int (*zero_page_range)(struct dax_device *, pgoff_t, size_t);
->  };
-> @@ -186,11 +190,11 @@ static inline void dax_read_unlock(int id)
->  bool dax_alive(struct dax_device *dax_dev);
->  void *dax_get_private(struct dax_device *dax_dev);
->  long dax_direct_access(struct dax_device *dax_dev, pgoff_t pgoff, long nr_pages,
-> -               void **kaddr, pfn_t *pfn);
-> +               int mode, void **kaddr, pfn_t *pfn);
-
-How about dax_direct_access() calling convention stays the same, but
-the kaddr is optionally updated to carry a flag in the lower unused
-bits. So:
-
-void **kaddr = NULL; /* caller only cares about the pfn */
-
-void *failfast = NULL;
-void **kaddr = &failfast; /* caller wants -EIO not recovery */
-
-void *recovery = (void *) DAX_OP_RECOVERY;
-void **kaddr = &recovery; /* caller wants to carefully access page(s)
-containing poison */
+> > 3: udev successfully processed the event for the device, but
+> > multipath
+> > =A0=A0 isn't seeing the attributes it was expecting.
+> >=20
+> > We could react more sensibly.
+>=20
+> Yes.
+>=20
+> Regards
+> Martin
 
 --
 dm-devel mailing list
