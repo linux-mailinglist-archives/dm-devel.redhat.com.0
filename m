@@ -2,51 +2,51 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCD5344A9EE
-	for <lists+dm-devel@lfdr.de>; Tue,  9 Nov 2021 10:01:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A855344A9F6
+	for <lists+dm-devel@lfdr.de>; Tue,  9 Nov 2021 10:01:55 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-566-Fuw6OKQ2PESo5QORR3cHnA-1; Tue, 09 Nov 2021 04:01:42 -0500
-X-MC-Unique: Fuw6OKQ2PESo5QORR3cHnA-1
+ us-mta-532-4RE0ZdcTM72q7b2TVkLgKA-1; Tue, 09 Nov 2021 04:01:53 -0500
+X-MC-Unique: 4RE0ZdcTM72q7b2TVkLgKA-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9AEB9100D0D9;
-	Tue,  9 Nov 2021 09:01:35 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6E619ADFA;
-	Tue,  9 Nov 2021 09:01:35 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 41608BAF8F;
+	Tue,  9 Nov 2021 09:01:47 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1BDA95E278;
+	Tue,  9 Nov 2021 09:01:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 09998181A1D1;
-	Tue,  9 Nov 2021 09:01:33 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1F16B4EA30;
+	Tue,  9 Nov 2021 09:01:46 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1A98xg6e017478 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 9 Nov 2021 03:59:42 -0500
+	id 1A9902EI017631 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 9 Nov 2021 04:00:02 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id AFA1E1121318; Tue,  9 Nov 2021 08:59:42 +0000 (UTC)
+	id 23F4D1121319; Tue,  9 Nov 2021 09:00:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AB8C61121314
-	for <dm-devel@redhat.com>; Tue,  9 Nov 2021 08:59:39 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E7A01121318
+	for <dm-devel@redhat.com>; Tue,  9 Nov 2021 08:59:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A603B85A5A8
-	for <dm-devel@redhat.com>; Tue,  9 Nov 2021 08:59:39 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DF2C41066560
+	for <dm-devel@redhat.com>; Tue,  9 Nov 2021 08:59:58 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-261-LKBf1gndOluWWgexD3zOxQ-1; Tue, 09 Nov 2021 03:59:38 -0500
-X-MC-Unique: LKBf1gndOluWWgexD3zOxQ-1
+	us-mta-277-w3kNR60EMROV_M7ZQPu5xA-1; Tue, 09 Nov 2021 03:59:56 -0500
+X-MC-Unique: w3kNR60EMROV_M7ZQPu5xA-1
 Received: from [2001:4bb8:19a:7ee7:fb46:2fe1:8652:d9d4] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1mkMZe-000s6P-H3; Tue, 09 Nov 2021 08:33:47 +0000
+	id 1mkMZf-000s6w-UD; Tue, 09 Nov 2021 08:33:49 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Dan Williams <dan.j.williams@intel.com>
-Date: Tue,  9 Nov 2021 09:32:59 +0100
-Message-Id: <20211109083309.584081-20-hch@lst.de>
+Date: Tue,  9 Nov 2021 09:33:00 +0100
+Message-Id: <20211109083309.584081-21-hch@lst.de>
 In-Reply-To: <20211109083309.584081-1-hch@lst.de>
 References: <20211109083309.584081-1-hch@lst.de>
 MIME-Version: 1.0
@@ -68,8 +68,8 @@ Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
 	linux-xfs@vger.kernel.org, dm-devel@redhat.com,
 	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
 	Ira Weiny <ira.weiny@intel.com>
-Subject: [dm-devel] [PATCH 19/29] ext2: cleanup the dax handling in
-	ext2_fill_super
+Subject: [dm-devel] [PATCH 20/29] ext4: cleanup the dax handling in
+	ext4_fill_super
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,62 +96,54 @@ the need for the dax_dev local variable.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- fs/ext2/super.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ fs/ext4/super.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/fs/ext2/super.c b/fs/ext2/super.c
-index a964066a80aa7..7e23482862e69 100644
---- a/fs/ext2/super.c
-+++ b/fs/ext2/super.c
-@@ -802,7 +802,6 @@ static unsigned long descriptor_loc(struct super_block *sb,
+diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+index eb4df43abd76e..b60401bb1c310 100644
+--- a/fs/ext4/super.c
++++ b/fs/ext4/super.c
+@@ -3879,7 +3879,6 @@ static void ext4_setup_csum_trigger(struct super_block *sb,
  
- static int ext2_fill_super(struct super_block *sb, void *data, int silent)
+ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  {
 -	struct dax_device *dax_dev = fs_dax_get_by_bdev(sb->s_bdev);
- 	struct buffer_head * bh;
- 	struct ext2_sb_info * sbi;
- 	struct ext2_super_block * es;
-@@ -822,17 +821,17 @@ static int ext2_fill_super(struct super_block *sb, void *data, int silent)
+ 	char *orig_data = kstrdup(data, GFP_KERNEL);
+ 	struct buffer_head *bh, **group_desc;
+ 	struct ext4_super_block *es = NULL;
+@@ -3910,12 +3909,12 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+ 	if ((data && !orig_data) || !sbi)
+ 		goto out_free_base;
  
- 	sbi = kzalloc(sizeof(*sbi), GFP_KERNEL);
- 	if (!sbi)
--		goto failed;
-+		return -ENOMEM;
- 
+-	sbi->s_daxdev = dax_dev;
  	sbi->s_blockgroup_lock =
  		kzalloc(sizeof(struct blockgroup_lock), GFP_KERNEL);
- 	if (!sbi->s_blockgroup_lock) {
- 		kfree(sbi);
--		goto failed;
-+		return -ENOMEM;
- 	}
- 	sb->s_fs_info = sbi;
- 	sbi->s_sb_block = sb_block;
--	sbi->s_daxdev = dax_dev;
+ 	if (!sbi->s_blockgroup_lock)
+ 		goto out_free_base;
+ 
 +	sbi->s_daxdev = fs_dax_get_by_bdev(sb->s_bdev);
+ 	sb->s_fs_info = sbi;
+ 	sbi->s_sb = sb;
+ 	sbi->s_inode_readahead_blks = EXT4_DEF_INODE_READAHEAD_BLKS;
+@@ -4300,7 +4299,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+ 		goto failed_mount;
+ 	}
  
- 	spin_lock_init(&sbi->s_lock);
- 	ret = -EINVAL;
-@@ -946,7 +945,7 @@ static int ext2_fill_super(struct super_block *sb, void *data, int silent)
- 	blocksize = BLOCK_SIZE << le32_to_cpu(sbi->s_es->s_log_block_size);
- 
- 	if (test_opt(sb, DAX)) {
--		if (!dax_dev) {
-+		if (!sbi->s_daxdev) {
- 			ext2_msg(sb, KERN_ERR,
- 				"DAX unsupported by block device. Turning off DAX.");
- 			clear_opt(sbi->s_mount_opt, DAX);
-@@ -1201,11 +1200,10 @@ static int ext2_fill_super(struct super_block *sb, void *data, int silent)
- failed_mount:
- 	brelse(bh);
- failed_sbi:
-+	fs_put_dax(sbi->s_daxdev);
+-	if (dax_dev) {
++	if (sbi->s_daxdev) {
+ 		if (blocksize == PAGE_SIZE)
+ 			set_bit(EXT4_FLAGS_BDEV_IS_DAX, &sbi->s_ext4_flags);
+ 		else
+@@ -5096,10 +5095,10 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+ out_fail:
  	sb->s_fs_info = NULL;
  	kfree(sbi->s_blockgroup_lock);
++	fs_put_dax(sbi->s_daxdev );
+ out_free_base:
  	kfree(sbi);
--failed:
+ 	kfree(orig_data);
 -	fs_put_dax(dax_dev);
- 	return ret;
+ 	return err ? err : ret;
  }
  
 -- 
